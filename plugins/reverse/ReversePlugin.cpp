@@ -31,6 +31,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
@@ -224,7 +225,7 @@ void Kwave::ReversePlugin::run(QStringList params)
     if (!length || tracks.isEmpty())
 	return;
 
-    if ((params.count() != 1) || (params.first() != "noundo")) {
+    if ((params.count() != 1) || (params.first() != _("noundo"))) {
 	// undo is enabled, create a undo guard
 	undo_guard = QSharedPointer<Kwave::UndoTransactionGuard>(
 	    new Kwave::UndoTransactionGuard(*this, i18n("Reverse")));

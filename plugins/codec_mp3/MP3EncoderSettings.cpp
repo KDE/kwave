@@ -18,10 +18,13 @@
 #include "config.h"
 
 #include <QtCore/QDir>
+#include <QtCore/QLatin1Char>
 
 #include <kconfiggroup.h>
 #include <kglobal.h>
 #include <ksharedconfig.h>
+
+#include "libkwave/String.h"
 
 #include "MP3EncoderSettings.h"
 
@@ -53,14 +56,15 @@
  */
 static QString sanitized(const QString &in)
 {
-    QString out = "";
+    QString out = _("");
     QString str = in.simplified();
 
     for (int i = 0; i < str.length(); i++) {
 	QCharRef c = str[i];
 	if ( c.isLetterOrNumber() || c.isSpace() ||
-	     (c == '-') || (c == '%') || (c == '=') || (c == '.') ||
-	     (c == '[') || (c == ']') ||
+	     (c == QLatin1Char('-')) || (c == QLatin1Char('%')) ||
+	     (c == QLatin1Char('=')) || (c == QLatin1Char('.')) ||
+	     (c == QLatin1Char('[')) || (c == QLatin1Char(']')) ||
 	     (c == QDir::separator()) )
 	{
 	    out += c;

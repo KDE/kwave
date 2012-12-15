@@ -24,6 +24,9 @@
 #include <QtGui/QSpinBox>
 
 #include <klocale.h>
+
+#include "libkwave/String.h"
+
 #include "libgui/InvertableSpinBox.h"
 
 #include "PitchShiftDialog.h"
@@ -151,8 +154,8 @@ void Kwave::PitchShiftDialog::updateSpeed(double speed)
 	    if (static_cast<int>(m_speed) >= 1) {
 		// greater or equal to one -> multiply
 		int new_value = static_cast<int>(speed);
-		sbSpeed->setPrefix("x ");
-		sbSpeed->setSuffix("");
+		sbSpeed->setPrefix(_("x "));
+		sbSpeed->setSuffix(_(""));
 		sbSpeed->setInverse(false);
 
 		new_spinbox_value = new_value;
@@ -161,8 +164,8 @@ void Kwave::PitchShiftDialog::updateSpeed(double speed)
 		// less than one -> divide
 		int new_value = static_cast<int>(-1.0 / speed);
 
-		sbSpeed->setPrefix("1/");
-		sbSpeed->setSuffix("");
+		sbSpeed->setPrefix(_("1/"));
+		sbSpeed->setSuffix(_(""));
 		sbSpeed->setInverse(true);
 
 		new_spinbox_value = -1*new_value;
@@ -176,8 +179,8 @@ void Kwave::PitchShiftDialog::updateSpeed(double speed)
 	    // factor 1.0 means 100%
 	    new_spinbox_value = static_cast<int>(rint(speed * 100.0));
 	    new_slider_value = new_spinbox_value;
-	    sbSpeed->setPrefix("");
-	    sbSpeed->setSuffix("%");
+	    sbSpeed->setPrefix(_(""));
+	    sbSpeed->setSuffix(_("%"));
 	    sbSpeed->setInverse(false);
 	    break;
 	}

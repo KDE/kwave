@@ -20,8 +20,11 @@
 #include <klocale.h>
 
 #include "libkwave/Parser.h"
+#include "libkwave/String.h"
+
 #include "libgui/CurveWidget.h"
 #include "libgui/ScaleWidget.h"
+
 #include "AmplifyFreeDialog.h"
 
 //***************************************************************************
@@ -55,12 +58,12 @@ QString Kwave::AmplifyFreeDialog::getCommand()
     Q_ASSERT(curveWidget);
     Kwave::Parser p(curveWidget->getCommand());
 
-    cmd = "amplifyfree(";
+    cmd = _("amplifyfree(");
     if (p.hasParams()) cmd += p.nextParam();
     while (!p.isDone()) {
-	cmd += QString(",") + p.nextParam();
+	cmd += _(",") + p.nextParam();
     }
-    cmd += ")";
+    cmd += _(")");
 
     return cmd;
 }
@@ -69,14 +72,14 @@ QString Kwave::AmplifyFreeDialog::getCommand()
 void Kwave::AmplifyFreeDialog::setParams(QStringList &params)
 {
     QStringList::Iterator it;
-    QString cmd = "curve(";
+    QString cmd = _("curve(");
 
     it = params.begin();
     if (it != params.end()) cmd += *(it++);
 
     for (; it != params.end(); ++it)
-	cmd += "," + *it;
-    cmd += ")";
+	cmd += _(",") + *it;
+    cmd += _(")");
 
     if (curveWidget) curveWidget->setCurve(cmd);
 }

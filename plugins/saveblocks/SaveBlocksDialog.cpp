@@ -24,6 +24,8 @@
 #include <kfiledialog.h>
 #include <kurlcombobox.h>
 
+#include "libkwave/String.h"
+
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksWidget.h"
 
@@ -66,7 +68,7 @@ Kwave::SaveBlocksDialog::~SaveBlocksDialog()
 QString Kwave::SaveBlocksDialog::pattern()
 {
     Q_ASSERT(m_widget);
-    return (m_widget) ? m_widget->pattern() : "";
+    return (m_widget) ? m_widget->pattern() : _("");
 }
 
 //***************************************************************************
@@ -99,7 +101,7 @@ void Kwave::SaveBlocksDialog::emitUpdate()
     QFileInfo file(filename);
     if (!file.suffix().length()) {
 	// append the currently selected extension if it's missing
-	QString extension = selectedExtension().section(" ", 0, 0);
+	QString extension = selectedExtension().section(_(" "), 0, 0);
 	filename += extension.remove(0, 1);
     }
     emit sigSelectionChanged(filename, pattern(),

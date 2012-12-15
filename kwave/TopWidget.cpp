@@ -33,6 +33,7 @@
 #include <QtCore/QMap>
 #include <QtGui/QPixmap>
 #include <QtGui/QSizePolicy>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QStringList>
 #include <QtCore/QTextStream>
 
@@ -62,6 +63,7 @@
 #include "libkwave/Parser.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/FileDialog.h"
@@ -76,19 +78,19 @@
 /**
  * useful macro for command parsing
  */
-#define CASE_COMMAND(x) } else if (parser.command() == x) {
+#define CASE_COMMAND(x) } else if (parser.command() == _(x)) {
 
 /** toolbar name: file operations */
-#define TOOLBAR_FILE        "MainWidget File"
+#define TOOLBAR_FILE        _("MainWidget File")
 
 /** toolbar name: edit operations */
-#define TOOLBAR_EDIT        "MainWidget Edit"
+#define TOOLBAR_EDIT        _("MainWidget Edit")
 
 /** toolbar name: record and playback */
-#define TOOLBAR_RECORD_PLAY "MainWidget Record/Playback"
+#define TOOLBAR_RECORD_PLAY _("MainWidget Record/Playback")
 
 /** toolbar name: zoom controls */
-#define TOOLBAR_ZOOM        "MainWidget Zoom"
+#define TOOLBAR_ZOOM        _("MainWidget Zoom")
 
 /** role value for entries in the zoom combo box, "predefined" flag (bool) */
 #define ZOOM_DATA_PREDEFINED (Qt::UserRole + 0)
@@ -164,7 +166,7 @@ bool Kwave::TopWidget::init()
 	    this, SLOT(clipboardChanged(bool)));
 
     // load the menu from file
-    QFile menufile(KStandardDirs::locate("data", "kwave/menus.config"));
+    QFile menufile(KStandardDirs::locate("data", _("kwave/menus.config")));
     menufile.open(QIODevice::ReadOnly);
     QTextStream stream(&menufile);
     Q_ASSERT(!stream.atEnd());
@@ -206,17 +208,17 @@ bool Kwave::TopWidget::init()
     // --- file open and save ---
 
     toolbar_file->addAction(
-	icon_loader.loadIcon("document-new", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("document-new"), KIconLoader::Toolbar),
 	i18n("Create a new empty file"),
 	this, SLOT(toolbarFileNew()));
 
     toolbar_file->addAction(
-	icon_loader.loadIcon("document-open", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("document-open"), KIconLoader::Toolbar),
 	i18n("Open an existing file"),
 	this, SLOT(toolbarFileOpen()));
 
     toolbar_file->addAction(
-	icon_loader.loadIcon("document-save", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("document-save"), KIconLoader::Toolbar),
 	i18n("Save the current file"),
 	this, SLOT(toolbarFileSave()));
 
@@ -227,27 +229,27 @@ bool Kwave::TopWidget::init()
     if (!toolbar_edit) return false;
 
     m_action_undo = toolbar_edit->addAction(
-	icon_loader.loadIcon("edit-undo", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-undo"), KIconLoader::Toolbar),
 	i18n("Undo"),
 	this, SLOT(toolbarEditUndo()));
 
     m_action_redo = toolbar_edit->addAction(
-	icon_loader.loadIcon("edit-redo", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-redo"), KIconLoader::Toolbar),
 	i18n("Redo"),
 	this, SLOT(toolbarEditRedo()));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon("edit-cut", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-cut"), KIconLoader::Toolbar),
 	i18n("Cut"),
 	this, SLOT(toolbarEditCut()));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon("edit-copy", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-copy"), KIconLoader::Toolbar),
 	i18n("Copy"),
 	this, SLOT(toolbarEditCopy()));
 
     QAction *btPaste = toolbar_edit->addAction(
-	icon_loader.loadIcon("edit-paste", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-paste"), KIconLoader::Toolbar),
 	i18n("Insert"),
 	this, SLOT(toolbarEditPaste()));
     btPaste->setEnabled(!Kwave::ClipBoard::instance().isEmpty());
@@ -255,12 +257,14 @@ bool Kwave::TopWidget::init()
             btPaste, SLOT(setEnabled(bool)));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon("draw-eraser", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("draw-eraser"),
+	                     KIconLoader::Toolbar),
 	i18n("Mute selection"),
 	this, SLOT(toolbarEditErase()));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon("edit-delete", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-delete"),
+	                     KIconLoader::Toolbar),
 	i18n("Delete selection"),
 	this, SLOT(toolbarEditDelete()));
 
@@ -295,27 +299,32 @@ bool Kwave::TopWidget::init()
     if (!toolbar_zoom) return false;
 
     m_action_zoomselection = toolbar_zoom->addAction(
-	icon_loader.loadIcon("kwave_viewmag", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_viewmag"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Zoom to selection"),
 	m_main_widget, SLOT(zoomSelection()));
 
     m_action_zoomin = toolbar_zoom->addAction(
-	icon_loader.loadIcon("kwave_zoom_in", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_zoom_in"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Zoom in"),
 	m_main_widget, SLOT(zoomIn()));
 
     m_action_zoomout = toolbar_zoom->addAction(
-	icon_loader.loadIcon("kwave_zoom_out", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_zoom_out"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Zoom out"),
 	m_main_widget, SLOT(zoomOut()));
 
     m_action_zoomnormal = toolbar_zoom->addAction(
-	icon_loader.loadIcon("kwave_zoom_original", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_zoom_original"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Zoom to 100%"),
 	m_main_widget, SLOT(zoomNormal()));
 
     m_action_zoomall = toolbar_zoom->addAction(
-	icon_loader.loadIcon("kwave_viewmagfit", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_viewmagfit"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Zoom to all"),
 	m_main_widget, SLOT(zoomAll()));
 
@@ -402,8 +411,8 @@ bool Kwave::TopWidget::init()
     resize(w, h);
 
     metaDataChanged(Kwave::MetaData());
-    setUndoRedoInfo(0,0);
-    selectionChanged(0,0);
+    setUndoRedoInfo(QString(), QString());
+    selectionChanged(0, 0);
     updateMenu();
     updateToolbar();
     updateRecentFiles();
@@ -434,7 +443,7 @@ bool Kwave::TopWidget::init()
     // workaround for KDE4: detect first startup and set all toolbars
     // to "only symbols" mode
     KConfigGroup cfg = KGlobal::config()->group("MainWindow");
-    QString magic = "2";
+    QString magic = _("2");
     if (cfg.readEntry("toolbars") != magic) {
 	qDebug("toolbar layout changed => resetting toolbars to defaults");
 
@@ -479,7 +488,8 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 
 //    qDebug("TopWidget::executeCommand(%s)", command.toLocal8Bit().data());
     if (!command.length()) return 0; // empty line -> nothing to do
-    if (command.trimmed().startsWith("#")) return 0; // only a comment
+    if (command.trimmed().startsWith(_("#")))
+	return 0; // only a comment
 
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
 
@@ -489,7 +499,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     if (parse_list.hasMultipleCommands()) {
 	QStringList macro = parse_list.commandList();
 	foreach (const QString &it, macro) {
-	    result = executeCommand("nomacro:" + it);
+	    result = executeCommand(_("nomacro:") + it);
 	    Q_ASSERT(!result);
 	    if (result) {
 		qWarning("macro execution of '%s' failed: %d",
@@ -505,33 +515,34 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     }
 
     // check if the macro recorder has to be disabled for this command
-    if (command.startsWith("nomacro:")) {
+    if (command.startsWith(_("nomacro:"))) {
 	use_recorder = false;
-	command = command.mid(QString("nomacro:").length());
+	command = command.mid(QString(_("nomacro:")).length());
     }
 
     // parse one single command
     Kwave::Parser parser(command);
 
     // exclude menu commands from the recorder
-    if (parser.command() == "menu") use_recorder = false;
+    if (parser.command() == _("menu")) use_recorder = false;
 
     // only record plugin:execute, not plugin without parameters
-    if (parser.command() == "plugin") use_recorder = false;
+    if (parser.command() == _("plugin")) use_recorder = false;
 
     // playback commands are always possible
-    if ( (parser.command() == "playback") && (m_toolbar_record_playback) )
+    if ( (parser.command() == _("playback")) &&
+	 (m_toolbar_record_playback) )
     {
 	return m_toolbar_record_playback->executeCommand(parser.firstParam());
     }
 
     // let through all commands that handle zoom/view or playback like fwd/rew
     bool allow_always =
-	parser.command().startsWith("view:") ||
-	parser.command().startsWith("playback:") ||
-	parser.command().startsWith("select_track:") ||
-	(parser.command() == "close") ||
-	(parser.command() == "quit")
+	parser.command().startsWith(_("view:")) ||
+	parser.command().startsWith(_("playback:")) ||
+	parser.command().startsWith(_("select_track:")) ||
+	(parser.command() == _("close")) ||
+	(parser.command() == _("quit"))
 	;
 
     // all others only if no plugin is currently running
@@ -553,7 +564,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	return 0;
     CASE_COMMAND("about_kde")
 	// Help / About KDE
-	KHelpMenu *dlg = new KHelpMenu(this, "Kwave");
+	KHelpMenu *dlg = new KHelpMenu(this, _("Kwave"));
 	if (dlg) dlg->aboutKDE();
     CASE_COMMAND("plugin")
 	QString name = parser.firstParam();
@@ -574,8 +585,8 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 		params.count());
 	Q_ASSERT(plugin_manager);
 	if (plugin_manager)
-	    result = plugin_manager->executePlugin(name,
-		params.count() ? &params : 0);
+	    result = plugin_manager->executePlugin(
+		name, params.count() ? &params : 0);
     CASE_COMMAND("plugin:execute")
 	QStringList params;
 	int cnt = parser.count();
@@ -584,9 +595,8 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	    params.append(parser.nextParam());
 	}
 	Q_ASSERT(plugin_manager);
-	result = (plugin_manager) ?
-	          plugin_manager->executePlugin(name, &params) :
-	          -ENOMEM;
+	result = (plugin_manager) ? plugin_manager->executePlugin(
+	    name, &params) : -ENOMEM;
     CASE_COMMAND("plugin:setup")
 	QString name(parser.firstParam());
 	Q_ASSERT(plugin_manager);
@@ -686,14 +696,14 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 
     while (!stream.atEnd() && !result) {
 	QString line = stream.readLine().simplified();
-	if (line.startsWith("#")) continue; // skip comments
+	if (line.startsWith(_("#"))) continue; // skip comments
 	if (!line.length()) continue;       // skip empty lines
 
 	// remove stuff after the "#'" (comments)
-	if (line.contains('#')) {
+	if (line.contains(QLatin1Char('#'))) {
 	}
 
-	if (line.endsWith(':')) {
+	if (line.endsWith(QLatin1Char(':'))) {
 	    // this line seems to be a "label"
 	    line = line.left(line.length() - 1).simplified();
 	    if (!labels.contains(line)) {
@@ -707,9 +717,9 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	Kwave::Parser parser(line);
 
 	// the "goto" command
-	if (line.split(' ').at(0) == "goto") {
+	if (line.split(QLatin1Char(' ')).at(0) == _("goto")) {
 	    qDebug(">>> detected 'goto'");
-	    QString label = line.split(' ').at(1).simplified();
+	    QString label = line.split(QLatin1Char(' ')).at(1).simplified();
 	    if (labels.contains(label)) {
 		qDebug(">>> goto '%s' @ offset %u", label.toLocal8Bit().data(),
 		       static_cast<unsigned int>(labels[label]));
@@ -725,7 +735,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	if (m_context.pluginManager()) m_context.pluginManager()->sync();
 
 	// the "msgbox" command (useful for debugging)
-	if (parser.command() == "msgbox") {
+	if (parser.command() == _("msgbox")) {
 	    QApplication::restoreOverrideCursor();
 	    result = (Kwave::MessageBox::questionYesNo(this,
 		parser.firstParam()) == KMessageBox::Yes) ? 0 : 1;
@@ -734,8 +744,8 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	}
 
 	// prevent this command from being re-added to the macro recorder
-	if (!line.startsWith("nomacro:", Qt::CaseInsensitive))
-	    line = "nomacro:" + line;
+	if (!line.startsWith(_("nomacro:"), Qt::CaseInsensitive))
+	    line.prepend(_("nomacro:"));
 
 	// emit the command
 	result = executeCommand(line);
@@ -745,7 +755,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	if (m_context.pluginManager()) m_context.pluginManager()->sync();
 
 	// special handling of the "quit" command
-	if (parser.command() == "quit") {
+	if (parser.command() == _("quit")) {
 	    break;
 	}
     }
@@ -823,7 +833,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     // detect whether it is a macro (batch) file
     QFileInfo file(url.fileName());
     QString suffix = file.suffix();
-    if (suffix == "kwave") {
+    if (suffix == _("kwave")) {
 	return loadBatch(url);
     }
 
@@ -838,7 +848,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	updateCaption();
 
 	// enable revert after successful load
-	m_menu_manager->setItemEnabled("ID_FILE_REVERT", true);
+	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
     } else {
 	qWarning("TopWidget::loadFile() failed: result=%d", res);
 	QString reason;
@@ -856,7 +866,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 			       url.prettyUrl());
 		break;
 	    default:
-		reason = "";
+		reason = _("");
 	}
 
 	// show an error message box if the reason was known
@@ -885,7 +895,8 @@ int Kwave::TopWidget::openRecent(const QString &str)
 int Kwave::TopWidget::openFile()
 {
     QString filter = Kwave::CodecManager::decodingFilter();
-    Kwave::FileDialog dlg("kfiledialog:///kwave_open_dir", filter, this, true);
+    Kwave::FileDialog dlg(_("kfiledialog:///kwave_open_dir"),
+                          filter, this, true);
     dlg.setMode(static_cast<KFile::Modes>(KFile::File | KFile::ExistingOnly));
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Open"));
@@ -918,7 +929,8 @@ int Kwave::TopWidget::saveFile()
     updateMenu();
 
     // enable "revert" after successful "save"
-    if (!res) m_menu_manager->setItemEnabled("ID_FILE_REVERT", true);
+    if (!res)
+	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
 
     return res;
 }
@@ -946,7 +958,7 @@ int Kwave::TopWidget::saveFileAs(bool selection)
 	if (encoder) {
 	    QStringList extensions = encoder->extensions(mime_type);
 	    if (!extensions.isEmpty()) {
-		QString ext = extensions.first().split(" ").first();
+		QString ext = extensions.first().split(_(" ")).first();
 		if (ext.length()) {
 		    extension = ext;
 		    QString filename = current_url.fileName();
@@ -958,7 +970,7 @@ int Kwave::TopWidget::saveFileAs(bool selection)
     }
 
     QString filter = Kwave::CodecManager::encodingFilter();
-    Kwave::FileDialog dlg("kfiledialog:///kwave_save_as",
+    Kwave::FileDialog dlg(_("kfiledialog:///kwave_save_as"),
         filter, this, true, current_url.prettyUrl(), extension);
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save As"));
@@ -973,7 +985,7 @@ int Kwave::TopWidget::saveFileAs(bool selection)
     // add the correct extension if necessary
     if (!path.suffix().length()) {
 	QString ext = dlg.selectedExtension();
-	QStringList extensions = ext.split(" ");
+	QStringList extensions = ext.split(_(" "));
 	ext = extensions.first();
 	name += ext.mid(1);
 	path = name;
@@ -1021,7 +1033,7 @@ int Kwave::TopWidget::saveFileAs(bool selection)
 	// mimetype
 	Q_ASSERT(m_context.pluginManager());
 	res = (m_context.pluginManager()) ?
-	    m_context.pluginManager()->setupPlugin("fileinfo") : -1;
+	    m_context.pluginManager()->setupPlugin(_("fileinfo")) : -1;
 
 	// restore the mime type and the filename
 	info = Kwave::FileInfo(signal_manager->metaData());
@@ -1039,7 +1051,7 @@ int Kwave::TopWidget::saveFileAs(bool selection)
     if (!res && !selection) {
 	// enable "revert" after successful "save as"
 	// of the whole file (not only selection)
-	m_menu_manager->setItemEnabled("ID_FILE_REVERT", true);
+	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
     }
 
     return res;
@@ -1207,37 +1219,37 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
     if (length) {
 	ms = (rate) ? (static_cast<double>(length) /
 	    static_cast<double>(rate) * 1E3) : 0;
-	txt = " " + i18nc(
+	txt = _(" ") + i18nc(
 	    "Length, as in total duration of loaded song",
 	    "Length: %1 (%2 samples)",
 	    Kwave::ms2string(ms), Kwave::dottedNumber(length)
-	) + " ";
-    } else txt = "";
+	) + _(" ");
+    } else txt = _("");
     m_lbl_status_size->setText(txt);
 
     // sample rate and resolution
     if (bits) {
-	QString khz = "%0.3f";
+	QString khz = _("%0.3f");
 	khz = khz.sprintf("%0.3f", static_cast<double>(rate) * 1E-3);
-	txt = " " + i18n("Mode: %1 kHz @ %2 Bit", khz, bits) + " ";
-    } else txt = "";
+	txt = _(" ") + i18n("Mode: %1 kHz @ %2 Bit", khz, bits) +  _(" ");
+    } else txt = _("");
     m_lbl_status_mode->setText(txt);
 
     // update the list of deletable tracks
-    m_menu_manager->clearNumberedMenu("ID_EDIT_TRACK_DELETE");
+    m_menu_manager->clearNumberedMenu(_("ID_EDIT_TRACK_DELETE"));
     QString buf;
     for (unsigned int i = 0; i < tracks; i++) {
-	m_menu_manager->addNumberedMenuEntry("ID_EDIT_TRACK_DELETE",
-	                                     buf.setNum(i));
+	m_menu_manager->addNumberedMenuEntry(
+	    _("ID_EDIT_TRACK_DELETE"), buf.setNum(i));
     }
 
     // enable/disable all items that depend on having a signal
     bool have_signal = (tracks != 0);
-    m_menu_manager->setItemEnabled("@SIGNAL", have_signal);
+    m_menu_manager->setItemEnabled(_("@SIGNAL"), have_signal);
 
     // revert is not possible if no signal at all is present
     if (!have_signal) {
-	m_menu_manager->setItemEnabled("ID_FILE_REVERT", false);
+	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), false);
     }
 
     // remove selection/position display on file close
@@ -1270,7 +1282,7 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 
 	sample_index_t last = offset + ((length) ? length-1 : 0);
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
-	QString txt = " ";
+	QString txt = _(" ");
 	if (sample_mode) {
 	    txt += i18nc(
 	        "%1=first sample, %2=last sample, %3=number of samples, "\
@@ -1294,9 +1306,9 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	    );
 	}
 
-	m_lbl_status_cursor->setText("");
+	m_lbl_status_cursor->setText(_(""));
 	statusBar()->showMessage(txt, 4000);
-	m_menu_manager->setItemEnabled("@SELECTION", true);
+	m_menu_manager->setItemEnabled(_("@SELECTION"), true);
     } else {
 	// show cursor position
 	// Position: 02:00
@@ -1304,7 +1316,7 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
 	if (sample_mode || !signal_manager->tracks()) {
-	    m_lbl_status_cursor->setText("");
+	    m_lbl_status_cursor->setText(_(""));
 	} else {
 	    double ms_first = static_cast<double>(offset) * 1E3 / rate;
 	    QString txt = i18n("Position: %1",
@@ -1312,7 +1324,7 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	    m_lbl_status_cursor->setText(txt);
 	}
 
-	m_menu_manager->setItemEnabled("@SELECTION", false);
+	m_menu_manager->setItemEnabled(_("@SELECTION"), false);
     }
 }
 
@@ -1373,18 +1385,18 @@ void Kwave::TopWidget::setUndoRedoInfo(const QString &undo,
     if (!m_menu_manager) return;
 
     // set new enable and text of the undo menu entry
-    m_menu_manager->setItemEnabled("ID_EDIT_UNDO", undo_enabled);
+    m_menu_manager->setItemEnabled(_("ID_EDIT_UNDO"), undo_enabled);
     txt = (undo_enabled) ?
 	i18nc("menu entry for undo if undo enabled",  "U&ndo (%1)", undo) :
 	i18nc("menu entry for undo if undo disabled", "U&ndo");
-    m_menu_manager->setItemText("ID_EDIT_UNDO", txt);
+    m_menu_manager->setItemText(_("ID_EDIT_UNDO"), txt);
 
     // set new enable and text of the undo menu entry
-    m_menu_manager->setItemEnabled("ID_EDIT_REDO", redo_enabled);
+    m_menu_manager->setItemEnabled(_("ID_EDIT_REDO"), redo_enabled);
     txt = (redo_enabled) ?
 	i18nc("menu entry for redo if redo enabled",  "R&edo (%1)", redo) :
 	i18nc("menu entry for redo if redo disabled", "R&edo");
-    m_menu_manager->setItemText("ID_EDIT_REDO", txt);
+    m_menu_manager->setItemText(_("ID_EDIT_REDO"), txt);
 }
 
 //***************************************************************************
@@ -1412,7 +1424,7 @@ void Kwave::TopWidget::mouseChanged(Kwave::MouseMark::Mode mode)
 void Kwave::TopWidget::clipboardChanged(bool data_available)
 {
     if (!m_menu_manager) return;
-    m_menu_manager->setItemEnabled("@CLIPBOARD", data_available);
+    m_menu_manager->setItemEnabled(_("@CLIPBOARD"), data_available);
 }
 
 //***************************************************************************
@@ -1421,12 +1433,13 @@ void Kwave::TopWidget::updateRecentFiles()
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
-    m_menu_manager->clearNumberedMenu("ID_FILE_OPEN_RECENT");
+    m_menu_manager->clearNumberedMenu(_("ID_FILE_OPEN_RECENT"));
 
     QStringList recent_files = m_context.application().recentFiles();
     QStringList::Iterator it;
     for (it = recent_files.begin(); it != recent_files.end(); ++it) {
-	m_menu_manager->addNumberedMenuEntry("ID_FILE_OPEN_RECENT", *it);
+	m_menu_manager->addNumberedMenuEntry(
+	    _("ID_FILE_OPEN_RECENT"), *it);
     }
 }
 
@@ -1441,12 +1454,12 @@ void Kwave::TopWidget::updateMenu()
 
     // enable/disable all items that depend on having a file
     bool have_file = (signalName().length() != 0);
-    m_menu_manager->setItemEnabled("@NOT_CLOSED", have_file);
+    m_menu_manager->setItemEnabled(_("@NOT_CLOSED"), have_file);
 
     // enable/disable all items that depend on having a label
     Kwave::LabelList labels(signal_manager->metaData());
     bool have_labels = (!labels.isEmpty());
-    m_menu_manager->setItemEnabled("@LABELS", have_labels);
+    m_menu_manager->setItemEnabled(_("@LABELS"), have_labels);
 
     // enable/disable all items that depend on having something in the
     // clipboard

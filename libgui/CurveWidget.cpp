@@ -43,6 +43,7 @@
 
 #include "libkwave/Interpolation.h"
 #include "libkwave/Curve.h"
+#include "libkwave/String.h"
 
 #include "CurveWidget.h"
 
@@ -56,16 +57,16 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
     KIconLoader icon_loader;
 
     // set the default curve
-    m_curve.fromCommand("curve(linear,0,0,1,1)");
+    m_curve.fromCommand(_("curve(linear,0,0,1,1)"));
 
     QPalette pal = palette();
     pal.setColor(QPalette::Window, Qt::black);
     setPalette(pal);
 
     // create the pixmaps for the selected and non-selected knob
-    m_knob = icon_loader.loadIcon("knob.xpm", KIconLoader::Small);
-    m_selected_knob =
-	icon_loader.loadIcon("selectedknob.xpm", KIconLoader::Small);
+    m_knob = icon_loader.loadIcon(_("knob.xpm"), KIconLoader::Small);
+    m_selected_knob = icon_loader.loadIcon(_("selectedknob.xpm"),
+                                           KIconLoader::Small);
 
     // set up the context menu for the right mouse button
     m_menu = new QMenu(this);
@@ -106,12 +107,12 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
             this, SLOT(loadPreset(QAction *)));
 
     m_menu->addAction(
-	icon_loader.loadIcon("document-export", KIconLoader::Small),
+	icon_loader.loadIcon(_("document-export"), KIconLoader::Small),
 	i18n("Save Preset"),
 	this, SLOT(savePreset()));
 
     del->addAction(
-	icon_loader.loadIcon("edit-delete", KIconLoader::Small),
+	icon_loader.loadIcon(_("edit-delete"), KIconLoader::Small),
 	i18n("Currently Selected Point"),
 	this, SLOT(deleteLast()),
 	QKeySequence::Delete);
@@ -175,15 +176,16 @@ void Kwave::CurveWidget::selectInterpolationType(QAction *action)
 void Kwave::CurveWidget::savePreset()
 {
     KStandardDirs stddirs;
-    stddirs.addResourceType("curves", 0, QString("presets") +
-	QDir::separator() + QString("curves"));
+    stddirs.addResourceType("curves", 0, _("presets") +
+	QDir::separator() + _("curves"));
 
-    QDir presetDir = stddirs.saveLocation("curves", 0, true);
+    QDir presetDir = stddirs.saveLocation("curves", QString(), true);
     QString name = KFileDialog::getSaveFileName(
-		       presetDir.path(), "*.curve", this);
+		       presetDir.path(), _("*.curve"), this);
 
     // append the extension if not given
-    if (!name.endsWith(".curve")) name.append(".curve");
+    if (!name.endsWith(_(".curve")))
+	name.append(_(".curve"));
 
     QFile out(name);
     out.open(QIODevice::WriteOnly);
@@ -198,11 +200,11 @@ void Kwave::CurveWidget::savePreset()
 void Kwave::CurveWidget::loadPresetList()
 {
     KStandardDirs stddirs;
-    stddirs.addResourceType("curves", 0, QString("presets") +
-	QDir::separator() + QString("curves"));
+    stddirs.addResourceType("curves", 0, _("presets") +
+	QDir::separator() + _("curves"));
 
     QStringList files = stddirs.findAllResources("curves",
-	    "*.curve", KStandardDirs::NoDuplicates);
+	    _("*.curve"), KStandardDirs::NoDuplicates);
     files.sort();
 
     m_preset_menu->clear();
@@ -226,12 +228,12 @@ void Kwave::CurveWidget::loadPreset(QAction *action)
     m_last    = Kwave::Curve::NoPoint;
 
     KStandardDirs stddirs;
-    stddirs.addResourceType("curves", 0, QString("presets") +
-	QDir::separator() + QString("curves"));
+    stddirs.addResourceType("curves", 0, _("presets") +
+	QDir::separator() + _("curves"));
 
     // get the path of the file
     QString filename = action->text();
-    QString path = stddirs.findResource("curves", filename + ".curve");
+    QString path = stddirs.findResource("curves", filename + _(".curve"));
 
     // load the file
     QFile file(path);

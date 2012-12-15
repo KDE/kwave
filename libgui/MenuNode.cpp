@@ -18,12 +18,15 @@
 #include "config.h"
 #include <stdio.h>
 
+#include <QtCore/QLatin1Char>
 #include <QtGui/QPixmap>
 
 #include <kapplication.h>
 #include <kiconloader.h>
 
 #include "libkwave/Parser.h"
+#include "libkwave/String.h"
+
 #include "MenuNode.h"
 #include "MenuGroup.h"
 #include "MenuRoot.h"
@@ -254,7 +257,7 @@ void Kwave::MenuNode::insertNode(const QString &name,
     // at start of the parsing process ?
     if (!n.length()) {
 	// split off the first token, separated by a slash
-	pos = p.indexOf('/');
+	pos = p.indexOf(QLatin1Char('/'));
 	if (pos < 0) pos = p.length();
     }
     n = position.left(pos);
@@ -264,7 +267,7 @@ void Kwave::MenuNode::insertNode(const QString &name,
 	return;
     }
 
-    if ((!p.length()) || (p[0] == '#')) {
+    if ((!p.length()) || (p[0] == QLatin1Char('#'))) {
 	// end of the tree
 	Kwave::MenuNode *sub = findChild(n);
 	if (sub) {
@@ -274,14 +277,14 @@ void Kwave::MenuNode::insertNode(const QString &name,
 
 	    if (uid.length()) sub->setUID(uid);
 
-	    if (p[0] == '#') sub->specialCommand(p);
+	    if (p[0] == QLatin1Char('#')) sub->specialCommand(p);
 	    return;
 	} else {
 	    // insert a new leaf
 	    Kwave::MenuNode *leaf = insertLeaf(n, command, shortcut, uid);
 	    if (!leaf) return;
 
-	    if (p[0] == '#') leaf->specialCommand(p);
+	    if (p[0] == QLatin1Char('#')) leaf->specialCommand(p);
 	    return;
 	}
     } else {
@@ -289,11 +292,11 @@ void Kwave::MenuNode::insertNode(const QString &name,
 	Kwave::MenuNode *sub = findChild(n);
 	if (!sub) {
 	    sub = insertBranch(n, command, shortcut, uid);
-	} else if ( !sub->isBranch() && (p[0] != '#')) {
+	} else if ( !sub->isBranch() && (p[0] != QLatin1Char('#'))) {
 	    // remove the "leaf" and insert a branch with
 	    // the same properties
 	    sub = leafToBranch(sub);
-	} else if ( (p[0] == '#') || (p[0] == 0) ) {
+	} else if ( (p[0] == QLatin1Char('#')) || (p[0] == 0) ) {
 	    // branch already exists and we are at the end of parsing
 	    // -> maybe we want to set new properties
 	    if (shortcut) sub->setShortcut(shortcut);
@@ -301,7 +304,7 @@ void Kwave::MenuNode::insertNode(const QString &name,
 	}
 
 	if (sub) {
-	    sub->insertNode(0, p, command, shortcut, uid);
+	    sub->insertNode(QString(), p, command, shortcut, uid);
 	} else {
 	    qDebug("MenuNode::insertNode: branch failed!");
 	}
@@ -399,7 +402,7 @@ void Kwave::MenuNode::leaveGroup(const QString &group)
 bool Kwave::MenuNode::specialCommand(const QString &command)
 {
 
-    if (command.startsWith("#icon(")) {
+    if (command.startsWith(_("#icon("))) {
 	// --- give the item an icon ---
 	Kwave::Parser parser(command);
 	const QString &filename = parser.firstParam();
@@ -421,7 +424,7 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	return true;
     }
 
-    if (command.startsWith("#listmenu")) {
+    if (command.startsWith(_("#listmenu"))) {
 	// insert an empty submenu for the list items
 	Kwave::MenuNode *parent = parentNode();
 	if (parent) parent->leafToBranch(this);
@@ -429,7 +432,7 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	return true;
     }
 
-    if (command.startsWith("#group(")) {
+    if (command.startsWith(_("#group("))) {
 	Kwave::Parser parser(command);
 
 	QString group = parser.firstParam();
@@ -440,13 +443,13 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	return true;
     }
 
-    if (command.startsWith("#disable")) {
+    if (command.startsWith(_("#disable"))) {
 	// disable the node
 	setEnabled(false);
 	return true;
     }
 
-    if (command.startsWith("#enable")) {
+    if (command.startsWith(_("#enable"))) {
 	// disable the node
 	setEnabled(true);
 	return true;

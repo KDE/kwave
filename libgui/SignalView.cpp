@@ -37,6 +37,7 @@
 #include "libkwave/FileDrag.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
@@ -407,7 +408,8 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 	    if (description.length()) {
 		QString hms = Kwave::ms2hms(samples2ms(position));
 		QString txt =
-		    QString("%1\n%2\n%3").arg(description).arg(position).arg(hms);
+		    QString(_("%1\n%2\n%3")).arg(description
+			).arg(position).arg(hms);
 
 		showPosition(txt, position, mouse_pos);
 	    }
@@ -717,11 +719,11 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
 	    if (Kwave::CodecManager::canDecode(mimetype)) {
 		if (first) {
 		    // first dropped URL -> open in this window
-		    emit sigCommand("open(" + filename + ")");
+		    emit sigCommand(_("open(") + filename + _(")"));
 		    first = false;
 		} else {
 		    // all others -> open a new window
-		    emit sigCommand("newwindow(" + filename + ")");
+		    emit sigCommand(_("newwindow(") + filename + _(")"));
 		}
 	    }
 	}

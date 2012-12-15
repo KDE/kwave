@@ -33,6 +33,7 @@
 #include <kfiledialog.h>
 
 #include "libkwave/MemoryManager.h"
+#include "libkwave/String.h"
 
 #include "MemoryDialog.h"
 
@@ -142,7 +143,7 @@ void Kwave::MemoryDialog::searchSwapDir()
 //***************************************************************************
 void Kwave::MemoryDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp("memory-setup");
+    KToolInvocation::invokeHelp(_("memory-setup"));
 }
 
 //***************************************************************************

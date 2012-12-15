@@ -30,6 +30,7 @@
 #include <kurl.h>
 
 #include "libkwave/Sample.h"
+#include "libkwave/String.h"
 
 #include "libgui/MouseMark.h"
 
@@ -177,37 +178,59 @@ namespace Kwave
 	/** updates all elements in the toolbar */
 	void updateToolbar();
 
-	void toolbarRecord()    { executeCommand("plugin(record)"); }
+	void toolbarRecord() {
+	    executeCommand(_("plugin(record)"));
+	}
 
 	/** toolbar: "file/new" */
-	void toolbarFileNew()    { executeCommand("plugin(newsignal)"); }
+	void toolbarFileNew() {
+	    executeCommand(_("plugin(newsignal)"));
+	}
 
 	/** toolbar: "file/open" */
-	void toolbarFileOpen()   { executeCommand("open () "); }
+	void toolbarFileOpen() {
+	    executeCommand(_("open () "));
+	}
 
 	/** toolbar: "file/save" */
-	void toolbarFileSave()   { executeCommand("save () "); }
+	void toolbarFileSave() {
+	    executeCommand(_("save () "));
+	}
 
 	/** toolbar: "edit/undo" */
-	void toolbarEditUndo()   { executeCommand("undo () "); }
+	void toolbarEditUndo() {
+	    executeCommand(_("undo () "));
+	}
 
 	/** toolbar: "edit/redo" */
-	void toolbarEditRedo()   { executeCommand("redo () "); }
+	void toolbarEditRedo() {
+	    executeCommand(_("redo () "));
+	}
 
 	/** toolbar: "edit/cut" */
-	void toolbarEditCut()    { executeCommand("cut () "); }
+	void toolbarEditCut() {
+	    executeCommand(_("cut () "));
+	}
 
 	/** toolbar: "edit/copy" */
-	void toolbarEditCopy()   { executeCommand("copy () "); }
+	void toolbarEditCopy() {
+	    executeCommand(_("copy () "));
+	}
 
 	/** toolbar: "edit/paste" */
-	void toolbarEditPaste()  { executeCommand("paste () "); }
+	void toolbarEditPaste() {
+	    executeCommand(_("paste () "));
+	}
 
 	/** toolbar: "edit/erase" */
-	void toolbarEditErase()  { executeCommand("plugin(zero)"); }
+	void toolbarEditErase() {
+	    executeCommand(_("plugin(zero)"));
+	}
 
 	/** toolbar: "edit/delete" */
-	void toolbarEditDelete() { executeCommand("delete () "); }
+	void toolbarEditDelete() {
+	    executeCommand(_("delete () "));
+	}
 
 	/** called if the signal now or no longer is modified */
 	void modifiedChanged(bool);

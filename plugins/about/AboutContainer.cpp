@@ -29,6 +29,8 @@
 #include <klocale.h>
 #include <ktoolinvocation.h>
 
+#include "libkwave/String.h"
+
 #include "AboutContainer.h"
 
 //***************************************************************************
@@ -165,11 +167,11 @@ Kwave::AboutContributor::AboutContributor(QWidget *_parent,
 
     // set email
     if (!_email.isEmpty())
-	m_text[1]->setText(QString("<a href=\"mailto:%1\">%1</a>").arg(_email));
+	m_text[1]->setText(_("<a href=\"mailto:%1\">%1</a>").arg(_email));
 
     // set url
     if (!_url.isEmpty())
-	m_text[2]->setText(QString("<a href=\"%1\">%1</a>").arg(_url));
+	m_text[2]->setText(_("<a href=\"%1\">%1</a>").arg(_url));
 
     // set work
     m_text[3]->setText(_work);

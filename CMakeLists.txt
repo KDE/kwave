@@ -124,8 +124,6 @@ ELSE (WITH_OPTIMIZED_MEMCPY)
     MESSAGE(STATUS "Platform specific memcpy is disabled")
 ENDIF (WITH_OPTIMIZED_MEMCPY)
 
-ADD_DEFINITIONS(-DHAVE_CONFIG_H)
-
 #############################################################################
 ### cmake includes                                                        ###
 
@@ -142,6 +140,10 @@ SET(CMAKE_VERBOSE_MAKEFILE OFF)
 
 #############################################################################
 ### toplevel compiler flags                                               ###
+
+ADD_DEFINITIONS(-DHAVE_CONFIG_H)
+ADD_DEFINITIONS(-DQT_NO_CAST_TO_ASCII)
+ADD_DEFINITIONS(-DQT_NO_CAST_FROM_ASCII)
 
 CHECK_C_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" C_HAVE_PIC)
 CHECK_CXX_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" CXX_HAVE_PIC)

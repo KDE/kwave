@@ -27,6 +27,7 @@
 
 #include <QtCore/QDate>
 #include <QtCore/QDateTime>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QTime>
 
 #include "libkwave/CompressionType.h"
@@ -35,6 +36,7 @@
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 
@@ -83,7 +85,7 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
 		i18n("The file has an invalid checksum.\n"
 		    "Do you still want to continue?"),
 		    QString(), QString(), QString(),
-		    "accept_mp3_invalid_checksum")
+		    _("accept_mp3_invalid_checksum"))
 			!= KMessageBox::Continue) return false;
 	}
     }
@@ -219,8 +221,8 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		QString s = parseId3Frame2String(frame);
 		int cd  = 0;
 		int cds = 0;
-		if (s.contains('/')) {
-		    int i = s.indexOf('/');
+		if (s.contains(QLatin1Char('/'))) {
+		    int i = s.indexOf(QLatin1Char('/'));
 		    cd = s.left(i).toInt();
 		    cds = s.mid(i + 1).toInt();
 		} else {
@@ -235,8 +237,8 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		QString s = parseId3Frame2String(frame);
 		int track  = 0;
 		int tracks = 0;
-		if (s.contains('/')) {
-		    int i = s.indexOf('/');
+		if (s.contains(QLatin1Char('/'))) {
+		    int i = s.indexOf(QLatin1Char('/'));
 		    track = s.left(i).toInt();
 		    tracks = s.mid(i + 1).toInt();
 		} else {
@@ -256,13 +258,13 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		// optionally prepend language
 		char *lang = ID3_GetString(frame, ID3FN_LANGUAGE);
 		if (lang) {
-		    s = "[" + QString(lang) + "] " + s;
+		    s = _("[") + _(lang) + _("] ") + s;
 		    ID3_FreeString(lang);
 		}
 
 		// append to already existing tag, seperated by a slash
 		if (info.contains(property))
-		    s = info.get(property).toString() + QString(" / ") + s;
+		    s = info.get(property).toString() + _(" / ") + s;
 		info.set(property, QVariant(s));
 		break;
 	    }
@@ -324,7 +326,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		    switch (id)
 		    {
 			case ID3FID_TIME:
-			    creation_time = QTime::fromString("hhmm");
+			    creation_time = QTime::fromString(_("hhmm"));
 			    break;
 			default:
 			    break;
@@ -337,7 +339,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		// append to already existing tag, seperated by a slash
 		QString s = parseId3Frame2String(frame);
 		if (info.contains(property))
-		    s = info.get(property).toString() + QString(" / ") + s;
+		    s = info.get(property).toString() + _(" / ") + s;
 		info.set(property, QVariant(s));
 		break;
 	    }
@@ -367,14 +369,16 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
     if (creation_date.isValid() && creation_time.isValid()) {
 	// full date + time
 	QDateTime dt(creation_date, creation_time);
-	info.set(Kwave::INF_CREATION_DATE, dt.toString("yyyy-MM-ddTHH:mm:ss"));
+	info.set(Kwave::INF_CREATION_DATE, dt.toString(
+	    _("yyyy-MM-ddTHH:mm:ss")));
     } else if (creation_date.isValid()) {
 	// date without time
-	info.set(Kwave::INF_CREATION_DATE, creation_date.toString("yyyy-MM-dd"));
+	info.set(Kwave::INF_CREATION_DATE, creation_date.toString(
+	    _("yyyy-MM-dd")));
     } else if (year > 0) {
 	// only year
 	creation_date = QDate(year, 1, 1);
-	info.set(Kwave::INF_CREATION_DATE, creation_date.toString("yyyy"));
+	info.set(Kwave::INF_CREATION_DATE, creation_date.toString(_("yyyy")));
     }
 
     metaData().replace(info);
@@ -388,7 +392,7 @@ QString Kwave::MP3Decoder::parseId3Frame2String(const ID3_Frame *frame)
     QString s;
     char *text = ID3_GetString(frame, ID3FN_TEXT);
     if (text && strlen(text)) {
-	s = QString(text);
+	s = _(text);
 	ID3_FreeString(text);
     }
     return s;
@@ -445,7 +449,7 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
     /* accept the source */
     m_source = &src;
     Kwave::FileInfo info(metaData());
-    info.set(Kwave::INF_MIMETYPE, "audio/mpeg");
+    info.set(Kwave::INF_MIMETYPE, _("audio/mpeg"));
     metaData().replace(info);
 
     // allocate a transfer buffer with 128 kB
@@ -536,11 +540,11 @@ enum mad_flow Kwave::MP3Decoder::handleError(void */*data*/,
     if (!m_failures) {
 	m_failures = 1;
 	result = Kwave::MessageBox::warningContinueCancel(m_parent_widget,
-	         error + "\n" + i18n("Do you still want to continue?"));
+	         error + _("\n") + i18n("Do you still want to continue?"));
 	if (result != KMessageBox::Continue) return MAD_FLOW_BREAK;
     } else if (m_failures == 1) {
 	result = Kwave::MessageBox::warningYesNo(m_parent_widget,
-	    error + "\n" +
+	    error + _("\n") +
 	    i18n("Do you want to continue and ignore all following errors?"));
         m_failures++;
 	if (result != KMessageBox::Yes) return MAD_FLOW_BREAK;

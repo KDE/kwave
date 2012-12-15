@@ -18,8 +18,12 @@
 #include "config.h"
 #include <math.h>
 
+#include <QtCore/QString>
+
 #include <klocale.h>
+
 #include "libkwave/Functions.h"
+#include "libkwave/String.h"
 
 //***************************************************************************
 double rect(double param)
@@ -87,25 +91,13 @@ double zero(double)
 //***************************************************************************
 void Kwave::Functions::FunctionTypesMap::fill()
 {
-    append(0, &sin,    "sinus",            "Sinus");
-    append(1, &rect,   "rectangular",      "Rectangular");
-    append(2, &saw,    "sawtooth",         "Sawtooth");
-    append(3, &sawinv, "inverse_sawtooth", "Inverse Sawtooth");
-    append(4, &tri,    "triangular",       "Triangular");
-    append(5, &sin2,   "square_sinus",     "Square Sinus");
-    append(6, &sin3,   "cubic_sinus",      "Cubic Sinus");
-
-#undef NO_NEED_TO_COMPILE_THIS
-#ifdef NO_NEED_TO_COMPILE_THIS
-    i18n("Sinus");
-    i18n("Rectangular");
-    i18n("Sawtooth");
-    i18n("Inverse Sawtooth");
-    i18n("Triangular");
-    i18n("Square Sinus");
-    i18n("Cubic Sinus");
-    i18n("Zero");
-#endif
+    append(0, &sin,    _("sinus"),            _(I18N_NOOP("Sinus")));
+    append(1, &rect,   _("rectangular"),      _(I18N_NOOP("Rectangular")));
+    append(2, &saw,    _("sawtooth"),         _(I18N_NOOP("Sawtooth")));
+    append(3, &sawinv, _("inverse_sawtooth"), _(I18N_NOOP("Inverse Sawtooth")));
+    append(4, &tri,    _("triangular"),       _(I18N_NOOP("Triangular")));
+    append(5, &sin2,   _("square_sinus"),     _(I18N_NOOP("Square Sinus")));
+    append(6, &sin3,   _("cubic_sinus"),      _(I18N_NOOP("Cubic Sinus")));
 }
 
 //***************************************************************************
@@ -122,7 +114,7 @@ Kwave::Functions::~Functions()
 QString Kwave::Functions::name(unsigned int index)
 {
     Q_ASSERT(index < m_functions_map.count());
-    if (index >= m_functions_map.count()) return "Zero";
+    if (index >= m_functions_map.count()) return _("Zero");
     return m_functions_map.name(index);
 }
 

@@ -30,6 +30,7 @@
 #include <kstatusbar.h>
 
 #include "libkwave/WindowFunction.h"
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/FileDialog.h"
@@ -113,12 +114,12 @@ Kwave::SonagramWindow::SonagramWindow(const QString &name)
 //    file->addAction(i18n("&Import from Bitmap..."), this, SLOT(load()));
 
     file->addAction(
-	icon_loader.loadIcon("document-export", KIconLoader::Small),
+	icon_loader.loadIcon(_("document-export"), KIconLoader::Small),
 	i18n("&Export to Bitmap..."),
 	this, SLOT(save())
     );
     file->addAction(
-	icon_loader.loadIcon("dialog-close", KIconLoader::Small),
+	icon_loader.loadIcon(_("dialog-close"), KIconLoader::Small),
 	i18n("&Close"),
 	this, SLOT(close()),
 	QKeySequence::Close
@@ -142,13 +143,13 @@ Kwave::SonagramWindow::SonagramWindow(const QString &name)
     palette.setBrush(m_view->backgroundRole(), QBrush(background));
     m_view->setPalette(palette);
 
-    m_xscale = new Kwave::ScaleWidget(mainwidget, 0, 100, "ms");
+    m_xscale = new Kwave::ScaleWidget(mainwidget, 0, 100, i18n("ms"));
     Q_ASSERT(m_xscale);
     if (!m_xscale) return;
     m_xscale->setFixedHeight(m_xscale->sizeHint().height());
     top_layout->addWidget(m_xscale, 1, 1);
 
-    m_yscale = new Kwave::ScaleWidget(mainwidget, 0, 100, "Hz");
+    m_yscale = new Kwave::ScaleWidget(mainwidget, 0, 100, i18n("Hz"));
     Q_ASSERT(m_yscale);
     if (!m_yscale) return ;
     m_yscale->setFixedWidth(m_yscale->sizeHint().width());
@@ -200,8 +201,8 @@ void Kwave::SonagramWindow::save()
 {
     if (m_image.isNull()) return;
 
-    Kwave::FileDialog dlg("kfiledialog:///kwave_sonagram", QString(),
-        this, true, QString(), "*.bmp");
+    Kwave::FileDialog dlg(_("kfiledialog:///kwave_sonagram"), QString(),
+        this, true, QString(), _("*.bmp"));
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save Sonagram"));
     if (dlg.exec() != QDialog::Accepted) return;

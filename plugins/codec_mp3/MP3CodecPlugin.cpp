@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include "libkwave/CodecManager.h"
+#include "libkwave/String.h"
 
 #include "MP3CodecPlugin.h"
 #include "MP3Decoder.h"
@@ -51,7 +52,7 @@ void Kwave::MP3CodecPlugin::load(QStringList &/* params */)
     Q_ASSERT(m_encoder);
     if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
 
-    emitCommand(QString("menu (plugin:setup(codec_mp3), &Options/%1)").arg(
+    emitCommand(_("menu (plugin:setup(codec_mp3), &Options/%1)").arg(
 	i18n("MP3 Encoder Setup")));
 }
 

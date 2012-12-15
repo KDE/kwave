@@ -26,6 +26,7 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDate>
 #include <QtCore/QDateTime>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QList>
 #include <QtCore/QMap>
 
@@ -42,6 +43,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "ID3_QIODeviceWriter.h"
@@ -128,7 +130,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		// if "number of CDs is available: append with "/"
 		int cds = info.get(Kwave::INF_CDS).toInt();
 		if (cds > 0)
-		    str_val += QString("/%1").arg(cds);
+		    str_val += _("/%1").arg(cds);
 
 		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
 		break;
@@ -138,7 +140,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		// if "number of tracks is available: append with "/"
 		int tracks = info.get(Kwave::INF_TRACKS).toInt();
 		if (tracks > 0)
-		    str_val += QString("/%1").arg(tracks);
+		    str_val += _("/%1").arg(tracks);
 
 		field->SetEncoding(ID3TE_UTF16);
 		field->Set(static_cast<const unicode_t *>(str_val.utf16()));
@@ -151,7 +153,8 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	    {
 		// detect language at the start "[xxx] "
 		QString lang;
-		if (str_val.startsWith('[') && (str_val.at(4) == ']')) {
+		if (str_val.startsWith(QLatin1Char('[')) &&
+		    (str_val.at(4) == QLatin1Char(']'))) {
 		    lang     = str_val.mid(1,3);
 		    str_val  = str_val.mid(5);
 		    frame->GetField(ID3FN_DESCRIPTION)->Set("");
@@ -211,7 +214,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 			             static_cast<int>(id));
 			    break;
 			}
-			s = QString("%1").arg(year, 4, 10, QChar('0'));
+			s = _("%1").arg(year, 4, 10, QLatin1Char('0'));
 		    }
 		}
 
@@ -253,7 +256,8 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 
 #define OPTION_P(__field__, __value__) \
     if (settings.__field__.length()) \
-	m_params.append(QString(settings.__field__.arg(__value__)).split(' '))
+	m_params.append( \
+	    QString(settings.__field__.arg(__value__)).split(QLatin1Char(' ')))
 
 /***************************************************************************/
 bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
@@ -287,7 +291,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 		 "stereo. This file will be mixed down to stereo when "
 		 "saving."),
 	    QString(), QString(), QString(),
-	    "accept_down_mix_on_export") != KMessageBox::Continue)
+	    _("accept_down_mix_on_export")) != KMessageBox::Continue)
 	{
 	    return false;
 	}
@@ -320,16 +324,17 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     // next higher supported rate
     if (settings.m_format.m_sample_rate.length()) {
 	QString str = settings.m_format.m_sample_rate;
-	if (str.contains("[%khz]")) {
-	    str = str.replace("[%khz]", "%1").arg(rate / 1000.0, 1, 'f', 2);
-	    m_params.append(str.split(' '));
+	if (str.contains(_("[%khz]"))) {
+	    str = str.replace(_("[%khz]"),
+		_("%1")).arg(rate / 1000.0, 1, 'f', 2);
+	    m_params.append(str.split(QLatin1Char(' ')));
 	} else {
-	    m_params.append(str.arg(rate).split(' '));
+	    m_params.append(str.arg(rate).split(QLatin1Char(' ')));
 	}
     }
 
     // bits per sample, supported by Kwave are: 8 / 16 / 24 / 32
-    if (!settings.m_format.m_bits_per_sample.contains('%')) {
+    if (!settings.m_format.m_bits_per_sample.contains(QLatin1Char('%'))) {
 	// bits/sample are not selectable => use default=16bit
 	bits = 16;
 	OPTION(m_format.m_bits_per_sample);
@@ -399,14 +404,13 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     OPTION(m_flags.m_protect);          // CRC protection
     OPTION(m_flags.m_append);           // optional paramters at the end
 
-    m_params.append("-"); // infile  = stdin
-    m_params.append("-"); // outfile = stdout
+    m_params.append(_("-")); // infile  = stdin
+    m_params.append(_("-")); // outfile = stdout
 
     m_program = settings.m_path;
 
     qDebug("MP3Encoder::encode(): %s %s",
-	m_program.toLocal8Bit().data(),
-	m_params.join(" ").toLocal8Bit().data()
+	   DBG(m_program), DBG(m_params.join(_(" ")))
     );
 
     m_process.setReadChannel(QProcess::StandardOutput);

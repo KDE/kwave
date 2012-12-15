@@ -23,6 +23,8 @@
 #include <kapplication.h>
 #include <kconfig.h>
 
+#include "libkwave/String.h"
+
 #include "libgui/SelectTimeWidget.h"
 #include "libgui/LabelPropertiesWidget.h"
 
@@ -92,7 +94,7 @@ sample_index_t Kwave::LabelPropertiesWidget::labelPosition()
 QString Kwave::LabelPropertiesWidget::labelName()
 {
     Q_ASSERT(edDescription);
-    return (edDescription) ? edDescription->text() : "";
+    return (edDescription) ? edDescription->text() : _("");
 }
 
 //***************************************************************************

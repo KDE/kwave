@@ -31,6 +31,7 @@ extern "C" {
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleFormat.h"
 #include "libkwave/Writer.h"
 #include "libkwave/VirtualAudioFile.h"
 
@@ -135,8 +136,8 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     unsigned int tracks = afGetVirtualChannels(fh, AF_DEFAULT_TRACK);
     unsigned int bits = 0;
     unsigned int rate = 0;
-    int sample_format;
-    afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &sample_format,
+    int af_sample_format;
+    afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &af_sample_format,
 	reinterpret_cast<int *>(&bits));
 
     // get sample rate, with fallback to 8kHz
@@ -149,23 +150,11 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 	rate = 8000;
     }
 
-    QString sample_format_name;
-    switch (sample_format) {
-	case AF_SAMPFMT_TWOSCOMP:
-	    sample_format_name = "Linear Two's Complement";
-	    break;
-	case AF_SAMPFMT_UNSIGNED:
-	    sample_format_name = "Unsigned Integer";
-	    break;
-	case AF_SAMPFMT_FLOAT:
-	    sample_format_name = "32-bit IEEE Floating-Point";
-	    break;
-	case AF_SAMPFMT_DOUBLE:
-	    sample_format_name = "64-bit IEEE Double-Precision Floating-Point";
-	    break;
-	default:
-	    sample_format_name = "(unknown)";
-    }
+    Kwave::SampleFormat fmt;
+    Kwave::SampleFormat::Map sf;
+    fmt.fromInt(af_sample_format);
+    QString sample_format_name = sf.description(fmt, true);
+
     if (static_cast<signed int>(bits) < 0) bits = 0;
 
     int compression = afGetCompression(fh, AF_DEFAULT_TRACK); // just for debug
@@ -175,6 +164,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     info.setBits(bits);
     info.setTracks(tracks);
     info.setLength(length);
+    info.set(INF_SAMPLE_FORMAT, af_sample_format);
     metaData().replace(info);
     qDebug("-------------------------");
     qDebug("info:");
@@ -184,7 +174,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("bits/sample = %d", info.bits());
     qDebug("length      = %lu samples",
 	   static_cast<unsigned long int>(info.length()));
-    qDebug("format      = %d (%s)", sample_format,
+    qDebug("format      = %d (%s)", af_sample_format,
                                     sample_format_name.toLocal8Bit().data());
     qDebug("-------------------------");
 

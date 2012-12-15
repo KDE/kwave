@@ -47,6 +47,7 @@
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/Track.h"
 
 // #include "libgui/ShortcutWrapper.h"
@@ -209,7 +210,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     // undo
     QAction *action;
     action = context_menu->addAction(
-	icon_loader.loadIcon("edit-undo", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-undo"), KIconLoader::Toolbar),
 	i18n("&Undo"), this, SLOT(contextMenuEditUndo()),
 	Qt::CTRL + Qt::Key_Z);
     Q_ASSERT(action);
@@ -219,7 +220,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // redo
     action = context_menu->addAction(
-	icon_loader.loadIcon("edit-redo", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-redo"), KIconLoader::Toolbar),
 	i18n("&Redo"), this, SLOT(contextMenuEditRedo()),
 	Qt::CTRL + Qt::Key_Y);
     Q_ASSERT(action);
@@ -230,15 +231,15 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // cut/copy/paste
     QAction *action_cut = context_menu->addAction(
-	icon_loader.loadIcon("edit-cut", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-cut"), KIconLoader::Toolbar),
 	i18n("Cu&t"), this, SLOT(contextMenuEditCut()),
 	Qt::CTRL + Qt::Key_X);
     QAction *action_copy = context_menu->addAction(
-	icon_loader.loadIcon("edit-copy", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-copy"), KIconLoader::Toolbar),
 	i18n("&Copy"), this, SLOT(contextMenuEditCopy()),
 	Qt::CTRL + Qt::Key_C);
     QAction *action_paste = context_menu->addAction(
-	icon_loader.loadIcon("edit-paste", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-paste"), KIconLoader::Toolbar),
 	i18n("&Paste"), this, SLOT(contextMenuEditPaste()),
 	Qt::CTRL + Qt::Key_V);
     context_menu->addSeparator();
@@ -261,7 +262,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // Selection / &Save
     QAction *action_select_save = submenu_select->addAction(
-	icon_loader.loadIcon("document-save", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("document-save"), KIconLoader::Toolbar),
 	i18n("&Save..."), this, SLOT(contextMenuSaveSelection()));
     Q_ASSERT(action_select_save);
     if (!action_select_save) return;

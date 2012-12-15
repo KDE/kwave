@@ -26,6 +26,7 @@
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 
 #include "GotoPluginBase.h"
 #include "GotoDialog.h"
@@ -66,10 +67,10 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
 	*list << QString::number(dialog->mode());
 	*list << QString::number(dialog->pos());
 
-	emitCommand("plugin:execute(" + command() + "," +
-	    QString::number(dialog->mode()) + "," +
-	    QString::number(dialog->pos()) +
-	    ")"
+	emitCommand(_("plugin:execute(") + command() +
+	    _(",") +  QString::number(dialog->mode()) +
+	    _(",") +  QString::number(dialog->pos()) +
+	    _(")")
 	);
     } else {
 	// user pressed "Cancel"
@@ -93,7 +94,7 @@ int Kwave::GotoPluginBase::start(QStringList &params)
 	m_mode, m_position, signalRate(), signalLength());
 
     // change the selection through the signal manager
-    QString cmd = "nomacro:" + command() + "(%1)";
+    QString cmd = _("nomacro:") + command() + _("(%1)");
     emitCommand(cmd.arg(offset));
 
     return result;

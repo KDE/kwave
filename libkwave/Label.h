@@ -26,6 +26,7 @@
 
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"
+#include "libkwave/String.h"
 
 namespace Kwave
 {
@@ -55,7 +56,7 @@ namespace Kwave
 	virtual ~Label();
 
 	/** returns the identifier of the "type" of this meta data object */
-	static QString metaDataType() { return I18N_NOOP("Label"); };
+	static QString metaDataType() { return _("Label"); }
 
 	/**
 	 * Set a new position of the label

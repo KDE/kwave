@@ -25,6 +25,7 @@
 #include <klocale.h>
 
 #include "libkwave/Parser.h"
+#include "libkwave/String.h"
 
 #include "MenuNode.h"
 #include "MenuGroup.h"
@@ -92,12 +93,12 @@ void Kwave::MenuItem::actionSelected()
 bool Kwave::MenuItem::specialCommand(const QString &command)
 {
 
-    if (command.startsWith("#checkable")) {
+    if (command.startsWith(_("#checkable"))) {
 	// checking/selecting of the item (non-exclusive)
 	setCheckable(true);
     }
 
-    if (command.startsWith("#exclusive(")) {
+    if (command.startsWith(_("#exclusive("))) {
 	Kwave::Parser parser(command);
 
 	// join to a list of groups

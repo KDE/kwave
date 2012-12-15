@@ -25,6 +25,8 @@
 #include <kfile.h>
 #include <kurl.h>
 
+#include "libkwave/String.h"
+
 #include "CodecBase.h"
 
 /***************************************************************************/
@@ -41,30 +43,30 @@ Kwave::CodecBase::~CodecBase()
 }
 
 /***************************************************************************/
-void Kwave::CodecBase::addMimeType(const QString &name,
+void Kwave::CodecBase::addMimeType(const char *name,
                                    const QString &description,
-                                   const QString &patterns)
+                                   const char *patterns)
 {
     // check for duplicates
-    if (supports(name)) return;
+    if (supports(_(name))) return;
 
     Kwave::CodecBase::MimeType type;
-    KMimeType::Ptr t = KMimeType::mimeType(name);
+    KMimeType::Ptr t = KMimeType::mimeType(_(name));
 
     if (!t || (t && t->isDefault())) {
 // 	qWarning("mime type '%s' not registered, using built-in!",
 // 	         name.toLocal8Bit().data());
-	type.name        = name;
+	type.name        = _(name);
 	type.description = description;
-	type.patterns    = patterns.split("; ", QString::SkipEmptyParts);
+	type.patterns    = _(patterns).split(_("; "), QString::SkipEmptyParts);
     } else {
 	type.description = t->comment();
 	type.patterns    = t->patterns();
 
-	if (t->name() != name) {
+	if (t->name() != _(name)) {
 	    // type has been translated (maybe un-alias'ed)
 	    // manually add the original name
-	    type.name    = name;
+	    type.name    = _(name);
 	    m_supported_mime_types.append(type);
 	}
 
@@ -130,7 +132,7 @@ QString Kwave::CodecBase::whatContains(const KUrl &url)
     QFileInfo file(url.fileName());
     QString suffix = file.suffix();
     if (!suffix.length()) return KMimeType::defaultMimeType();
-    suffix = "*."+suffix;
+    suffix = _("*.") + suffix;
 
     // try to find in the list of supported mime types
     QListIterator<Kwave::CodecBase::MimeType> it(m_supported_mime_types);

@@ -420,6 +420,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/StandardBitrates.h			GPL2+
 	libkwave/StreamWriter.cpp			GPL2+
 	libkwave/StreamWriter.h				GPL2+
+	libkwave/String.h				GPL2+
 	libkwave/Stripe.cpp				GPL2+
 	libkwave/Stripe.h				GPL2+
 	libkwave/SwapFile.cpp				GPL2+

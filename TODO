@@ -1,9 +1,13 @@
 
+o bugfix: handling of "#edit#" device name in record dialog (e.g. OSS)
+
 o try to replace Qt classes which have KDE equivalent
 
-o no null pointer checks around "delete"
+o check toAscii(), toLatin1(), toLocal8Bit().data(x) -> _(x)
 
-o use K_GLOBAL_STATIC
+o include files from libkwave/libgui only with directory prefix
+
+o no null pointer checks around "delete"
 
 o compile with -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_ASCII
 

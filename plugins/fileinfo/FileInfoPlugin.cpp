@@ -21,6 +21,7 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 
 #include "FileInfoDialog.h"
 #include "FileInfoPlugin.h"
@@ -82,7 +83,7 @@ void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
 		 "you only want to set the rate information in order "
 		 "to repair a damaged file? Note: changing only the sample "
 		 "rate can cause \"mickey mouse\" effects."),
-	    0,
+	    QString(),
 	    i18n("&Convert"),
 	    i18n("&Set Rate"));
 	if (res == KMessageBox::Yes) {
@@ -97,8 +98,7 @@ void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
 
 	    // NOTE: this command could be executed asynchronously, thus
 	    //       we cannot change the sample rate afterwards
-	    emitCommand(QString(
-		"plugin:execute(samplerate,%1,all)").arg(new_rate)
+	    emitCommand(_("plugin:execute(samplerate,%1,all)").arg(new_rate)
 	    );
 
 	    return;

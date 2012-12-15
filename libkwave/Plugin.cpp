@@ -38,6 +38,7 @@
 #include "libkwave/PluginManager.h"
 #include "libkwave/PluginWorkerThread.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 
 #ifdef DEBUG
 #include <execinfo.h> // for backtrace()
@@ -215,8 +216,7 @@ int Kwave::Plugin::stop()
 	qWarning("Kwave::Plugin::stop(): plugin '%s' called stop() from "\
 	         "within it's own worker thread (from run() ?). "\
 	         "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
-	         name().toLocal8Bit().data(),
-		 author().toLocal8Bit().data());
+	         DBG(name()), DBG(author()));
 
 #ifdef DEBUG
 	qDebug("pthread_self()=%p, tid=%p",
@@ -375,7 +375,7 @@ void Kwave::Plugin::run_wrapper(QStringList params)
     // evaluate the elapsed time
     double seconds = static_cast<double>(t.elapsed()) * 1E-3;
     qDebug("plugin %s done, running for %0.03g seconds",
-	name().toLocal8Bit().data(), seconds);
+	QString(name()).toLocal8Bit().data(), seconds);
 
     // emit the "done" signal
     emit sigDone(this);

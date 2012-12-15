@@ -27,6 +27,7 @@
 
 #include "libkwave/ByteOrder.h"
 #include "libkwave/SampleFormat.h"
+#include "libkwave/String.h"
 
 namespace Kwave
 {
@@ -63,10 +64,10 @@ namespace Kwave
 	virtual QStringList supportedDevices() {
 	    QStringList empty;
 	    return empty;
-	};
+	}
 
 	/** return a string suitable for a "File Open..." dialog */
-	virtual QString fileFilter() { return ""; };
+	virtual QString fileFilter() { return _(""); }
 
 	/**
 	 * Detect the minimum and maximum number of tracks.

@@ -16,13 +16,17 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <QtCore/QString>
+
+#include "libkwave/String.h"
+
 #include "WavFormatMap.h"
 
 //***************************************************************************
 Kwave::WavFormatMap::WavFormatMap()
 {
-#define FMT(x,y) insert(WAVE_FORMAT_##x,y);
+#define FMT(x,y) insert(WAVE_FORMAT_##x,_(y));
     FMT(UNKNOWN             ," Unknown; Microsoft Corporation ");
     FMT(PCM                 ," Microsoft PCM format ");
     FMT(MS_ADPCM            ," Microsoft ADPCM ");

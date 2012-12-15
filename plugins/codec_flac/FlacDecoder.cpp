@@ -26,6 +26,7 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/String.h"
 #include "libkwave/Writer.h"
 
 #include "FlacCodecPlugin.h"
@@ -284,13 +285,13 @@ bool Kwave::FlacDecoder::open(QWidget *widget, QIODevice &src)
     if (state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
 	Kwave::MessageBox::error(widget, i18n(
 	   "Error while parsing the FLAC metadata. (%s)"),
-	   state.as_cstring());
+	   _(state.as_cstring()));
 	return false;
     }
 
     // set some more standard properties
     Kwave::FileInfo info(metaData());
-    info.set(Kwave::INF_MIMETYPE, DEFAULT_MIME_TYPE);
+    info.set(Kwave::INF_MIMETYPE, _(DEFAULT_MIME_TYPE));
     info.set(Kwave::INF_COMPRESSION, Kwave::CompressionType::FLAC);
     metaData().replace(info);
 

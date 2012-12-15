@@ -37,6 +37,7 @@
 #include <ktoolinvocation.h>
 
 #include "libkwave/Plugin.h"
+#include "libkwave/String.h"
 #include "libkwave/WindowFunction.h"
 #include "libkwave/Utils.h"
 
@@ -199,7 +200,7 @@ Kwave::SonagramDialog::~SonagramDialog ()
 //***************************************************************************
 void Kwave::SonagramDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp("sonagram");
+    KToolInvocation::invokeHelp(_("sonagram"));
 }
 
 //***************************************************************************

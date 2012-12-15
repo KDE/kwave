@@ -34,6 +34,7 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
@@ -73,9 +74,10 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     bool enable_selection_only = selected_something && !selected_all;
 
     Kwave::SaveBlocksDialog *dialog = new Kwave::SaveBlocksDialog(
-	":<kwave_save_blocks>", Kwave::CodecManager::encodingFilter(),
+	_(":<kwave_save_blocks>"),
+	Kwave::CodecManager::encodingFilter(),
 	parentWidget(), true,
-	url.prettyUrl(), "*.wav",
+	url.prettyUrl(), _("*.wav"),
 	m_pattern,
 	m_numbering_mode,
 	m_selection_only,
@@ -103,10 +105,10 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	// user has pressed "OK"
 	QString pattern, name;
 
-	name = QByteArray(
-	    dialog->selectedUrl().prettyUrl().toUtf8()).toBase64();
-	pattern = QByteArray(
-	    dialog->pattern().toUtf8()).toBase64();
+	name = QLatin1String(QByteArray(
+	    dialog->selectedUrl().prettyUrl().toUtf8()).toBase64());
+	pattern = QLatin1String(QByteArray(
+	    dialog->pattern().toUtf8()).toBase64());
 	int mode = static_cast<int>(dialog->numberingMode());
 	bool selection_only = (enable_selection_only) ?
 	    dialog->selectionOnly() : m_selection_only;
@@ -116,12 +118,10 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	*list << QString::number(mode);
 	*list << QString::number(selection_only);
 
-	emitCommand("plugin:execute(saveblocks,"+
-	    name+","+
-	    pattern+","+
-	    QString::number(mode)+","+
-	    QString::number(selection_only)+
-	    ")"
+	emitCommand(_("plugin:execute(saveblocks,") +
+	    name + _(",") + pattern + _(",") +
+	    QString::number(mode) + _(",") +
+	    QString::number(selection_only) + _(")")
 	);
     } else {
 	// user pressed "Cancel"
@@ -180,14 +180,15 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 
     // check for filenames that might be overwritten
     const int max_overwrite_list_length = 7;
-    QDir dir(path, "*");
+    QDir dir(path, _("*"));
     QStringList files;
     files = dir.entryList();
     QStringList overwritten;
     for (unsigned int i = first; i < first+count; i++) {
 	QString name = createFileName(base, ext, m_pattern, i, count,
 	                              first + count - 1);
-	QRegExp rx("^(" + QRegExp::escape(name) + ")$", Qt::CaseInsensitive);
+	QRegExp rx(_("^(") + QRegExp::escape(name) + _(")$"),
+	           Qt::CaseInsensitive);
 	QStringList matches = files.filter(rx);
 	if (matches.count() > 0) {
 	    overwritten += name;
@@ -198,24 +199,24 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     if (overwritten.count()) {
 	// ask the user for confirmation if he really wants to overwrite...
 
-	QString list = "<br><br>";
+	QString list = _("<br><br>");
 	int cnt = 0;
 	for (QStringList::Iterator it = overwritten.begin();
 	     it != overwritten.end() && (cnt <= max_overwrite_list_length);
 	     ++it, ++cnt)
 	{
 	    list += (*it);
-	    list += "<br>";
+	    list += _("<br>");
 	}
 	if (overwritten.count() > max_overwrite_list_length)
 	    list += i18n("...");
-	list += "<br>";
+	list += _("<br>");
 
 	if (Kwave::MessageBox::warningYesNo(parentWidget(),
-	    "<html>" +
+	    _("<html>") +
 	    i18n("This would overwrite the following file(s): %1" \
 	    "Do you really want to continue?",
-	    list) + "</html>") != KMessageBox::Yes)
+	    list) + _("</html>")) != KMessageBox::Yes)
 	{
 	    return -1;
 	}
@@ -357,44 +358,44 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     QString nr;
 
     // format the "index" parameter
-    QRegExp rx_nr("(\\\\\\[%\\d*nr\\\\\\])", Qt::CaseInsensitive);
+    QRegExp rx_nr(_("(\\\\\\[%\\d*nr\\\\\\])"), Qt::CaseInsensitive);
     while (rx_nr.indexIn(p) >= 0) {
 	QString format = rx_nr.cap(1);
-	format = format.mid(2, format.length() - 6) + "u";
+	format = format.mid(2, format.length() - 6) + _("u");
 	p.replace(rx_nr, nr.sprintf(format.toAscii(), index));
     }
 
     // format the "count" parameter
-    QRegExp rx_count("(\\\\\\[%\\d*count\\\\\\])", Qt::CaseInsensitive);
+    QRegExp rx_count(_("(\\\\\\[%\\d*count\\\\\\])"), Qt::CaseInsensitive);
     while (rx_count.indexIn(p) >= 0) {
 	if (count >= 0) {
 	    QString format = rx_count.cap(1);
-	    format = format.mid(2, format.length() - 9) + "u";
+	    format = format.mid(2, format.length() - 9) + _("u");
 	    p.replace(rx_count, nr.sprintf(format.toAscii(), count));
 	} else {
-	    p.replace(rx_count, "(\\d+)");
+	    p.replace(rx_count, _("(\\d+)"));
 	}
     }
 
     // format the "total" parameter
-    QRegExp rx_total("(\\\\\\[%\\d*total\\\\\\])", Qt::CaseInsensitive);
+    QRegExp rx_total(_("(\\\\\\[%\\d*total\\\\\\])"), Qt::CaseInsensitive);
     while (rx_total.indexIn(p) >= 0) {
 	if (total >= 0) {
 	    QString format = rx_total.cap(1);
-	    format = format.mid(2, format.length() - 9) + "u";
+	    format = format.mid(2, format.length() - 9) + _("u");
 	    p.replace(rx_total, nr.sprintf(format.toAscii(), total));
 	} else {
-	    p.replace(rx_total, "(\\d+)");
+	    p.replace(rx_total, _("(\\d+)"));
 	}
     }
 
     // format the "filename" parameter
-    QRegExp rx_filename("\\\\\\[%filename\\\\\\]", Qt::CaseInsensitive);
+    QRegExp rx_filename(_("\\\\\\[%filename\\\\\\]"), Qt::CaseInsensitive);
     if (rx_filename.indexIn(p) >= 0) {
 	p.replace(rx_filename, QRegExp::escape(base));
     }
 
-    if (ext.length()) p += "." + ext;
+    if (ext.length()) p += _(".") + ext;
     return p;
 }
 
@@ -409,12 +410,13 @@ unsigned int Kwave::SaveBlocksPlugin::firstIndex(const QString &path,
 	    first = 1;
 	    break;
 	case CONTINUE: {
-	    QDir dir(path, "*");
+	    QDir dir(path, _("*"));
 	    QStringList files;
 	    files = dir.entryList();
 	    for (unsigned int i = first; i < first+count; i++) {
 		QString name = createFileName(base, ext, pattern, i, -1, -1);
-		QRegExp rx("^(" + name + ")$", Qt::CaseInsensitive);
+		QRegExp rx(_("^(") + name + _(")$"),
+		           Qt::CaseInsensitive);
 		QStringList matches = files.filter(rx);
 		if (matches.count() > 0) first = i + 1;
 	    }
@@ -441,20 +443,20 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
     // \[%[0-9]?count\]   -> \d+
     // \[%[0-9]?total\]   -> \d+
     // \[%filename\]      -> base
-    QRegExp rx_nr("\\\\\\[%\\d*nr\\\\\\]", Qt::CaseInsensitive);
-    QRegExp rx_count("\\\\\\[%\\d*count\\\\\\]", Qt::CaseInsensitive);
-    QRegExp rx_total("\\\\\\[%\\d*total\\\\\\]", Qt::CaseInsensitive);
-    QRegExp rx_filename("\\\\\\[%filename\\\\\\]", Qt::CaseInsensitive);
+    QRegExp rx_nr(_("\\\\\\[%\\d*nr\\\\\\]"), Qt::CaseInsensitive);
+    QRegExp rx_count(_("\\\\\\[%\\d*count\\\\\\]"), Qt::CaseInsensitive);
+    QRegExp rx_total(_("\\\\\\[%\\d*total\\\\\\]"), Qt::CaseInsensitive);
+    QRegExp rx_filename(_("\\\\\\[%filename\\\\\\]"), Qt::CaseInsensitive);
 
     QString p = QRegExp::escape(pattern);
     int idx_nr = rx_nr.indexIn(p);
     int idx_count = rx_count.indexIn(p);
     int idx_total = rx_total.indexIn(p);
     int idx_filename = rx_filename.indexIn(p);
-    p.replace(rx_nr, "(\\d+)");
-    p.replace(rx_count, "(\\d+)");
-    p.replace(rx_total, "(\\d+)");
-    p.replace(rx_filename, "(.+)");
+    p.replace(rx_nr, _("(\\d+)"));
+    p.replace(rx_count, _("(\\d+)"));
+    p.replace(rx_total, _("(\\d+)"));
+    p.replace(rx_filename, _("(.+)"));
 
     int max = 0;
     for (int i=0; i < pattern.length(); i++) {
@@ -468,7 +470,7 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
 	if (idx_filename > max) idx_filename--;
     }
 
-    if (ext.length()) p += "." + ext;
+    if (ext.length()) p += _(".") + ext;
     QRegExp rx_current(p, Qt::CaseInsensitive);
     if (rx_current.indexIn(name) >= 0) {
 	// filename already produced by this pattern
@@ -502,9 +504,9 @@ QString Kwave::SaveBlocksPlugin::firstFileName(const QString &filename,
 //***************************************************************************
 static QString unescape(const QString &s)
 {
-    QRegExp rx_single("\\\\(?!\\\\)");
+    QRegExp rx_single(_("\\\\(?!\\\\)"));
     QString str = s;
-    str.replace(rx_single, "");
+    str.replace(rx_single, _(""));
     return str;
 }
 

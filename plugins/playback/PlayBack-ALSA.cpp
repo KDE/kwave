@@ -39,6 +39,7 @@
 #include <math.h>
 #include <errno.h>
 
+#include <QtCore/QLatin1Char>
 #include <QtCore/QString>
 #include <QtCore/QtGlobal>
 
@@ -48,16 +49,17 @@
 #include "libkwave/memcpy.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
+#include "libkwave/String.h"
 
 #include "PlayBack-ALSA.h"
 
 QMap<QString, QString> Kwave::PlayBackALSA::m_device_list;
 
 /** gui name of the default device */
-#define DEFAULT_DEVICE (i18n("Default device") + QString("|sound_note"))
+#define DEFAULT_DEVICE (i18n("Default device") + _("|sound_note"))
 
 /** gui name of the null device */
-#define NULL_DEVICE (i18n("Null device") + QString("|sound_note"))
+#define NULL_DEVICE (i18n("Null device") + _("|sound_note"))
 
 //***************************************************************************
 
@@ -300,8 +302,8 @@ QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
 // 	    (snd_pcm_format_physical_width(*fmt)+7) >> 3,
 // 	    endian_of(*fmt) == CpuEndian ? "CPU" :
 // 	    (endian_of(*fmt) == LittleEndian ? "LE " : "BE "),
-// 	    sf.name(sf.findFromData(sample_format_of(
-// 		*fmt))).local8Bit().data());
+// 	    sf.description(sf.findFromData(sample_format_of(
+// 		*fmt), true)).local8Bit().data());
 
 	supported_formats.append(i);
     }
@@ -341,7 +343,7 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
-    if (alsa_device.endsWith(",")) return -ENODEV;
+    if (alsa_device.endsWith(_(","))) return -ENODEV;
 
     Q_ASSERT(rate);
     Q_ASSERT(channels);
@@ -577,7 +579,7 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
 		break;
 	    default:
 		reason = i18n("Opening the device '%1' failed: %2",
-	            device.section('|',0,0),
+	            device.section(QLatin1Char('|'), 0, 0),
 		    QString::fromLocal8Bit(snd_strerror(err)));
 	}
 	return reason;
@@ -588,7 +590,7 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
     Q_ASSERT(m_bytes_per_sample);
     unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
     Q_ASSERT(chunk_bytes);
-    if (!chunk_bytes) return 0;
+    if (!chunk_bytes) return QString();
     unsigned int n = static_cast<unsigned int>(ceil(
 	static_cast<float>(1 << m_bufbase) /
 	static_cast<float>(chunk_bytes)));
@@ -600,7 +602,7 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
 //     qDebug("PlayBackALSA::open: OK, buffer resized to %u bytes",
 //            m_buffer_size);
 
-    return 0;
+    return QString();
 }
 
 //***************************************************************************
@@ -751,7 +753,7 @@ void Kwave::PlayBackALSA::scanDevices()
     qDebug("**** List of PLAYBACK Hardware Devices ****");
     while (card >= 0) {
 	QString name;
-	name = "hw:%1";
+	name = _("hw:%1");
 	name = name.arg(card);
 	if ((err = snd_ctl_open(&handle, name.toLocal8Bit().data(), 0)) < 0) {
 	    qWarning("control open (%i): %s", card, snd_strerror(err));
@@ -791,11 +793,11 @@ void Kwave::PlayBackALSA::scanDevices()
 
 	    // add the device to the list
 	    QString hw_device;
-	    hw_device = "plughw:%1,%2";
+	    hw_device = _("plughw:%1,%2");
 	    hw_device = hw_device.arg(card).arg(dev);
 
-	    QString card_name   = snd_ctl_card_info_get_name(info);
-	    QString device_name = snd_pcm_info_get_name(pcminfo);
+	    QString card_name   = _(snd_ctl_card_info_get_name(info));
+	    QString device_name = _(snd_pcm_info_get_name(pcminfo));
 
  	    qDebug("  Subdevices: %i/%i\n",
 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
@@ -806,16 +808,16 @@ void Kwave::PlayBackALSA::scanDevices()
 			qWarning("ctrl digital audio playback info (%i): %s",
 			         card, snd_strerror(err));
 		    } else {
-			QString hwdev = hw_device + QString(",%1").arg(idx);
+			QString hwdev = hw_device + _(",%1").arg(idx);
 			QString subdevice_name =
-			    snd_pcm_info_get_subdevice_name(pcminfo);
+			    _(snd_pcm_info_get_subdevice_name(pcminfo));
 			QString name = QString(
 			    i18n("Card %1: ", card) + card_name +
-			    "|sound_card||" +
+			    _("|sound_card||") +
 			    i18n("Device %1: ", dev) + device_name +
-			    "|sound_device||" +
+			    _("|sound_device||") +
 			    i18n("Subdevice %1: ", idx) + subdevice_name +
-			    "|sound_subdevice"
+			    _("|sound_subdevice")
 			);
 			qDebug("# '%s' -> '%s'",
 			    hwdev.toLocal8Bit().data(),
@@ -827,9 +829,9 @@ void Kwave::PlayBackALSA::scanDevices()
 		// no sub-devices
 		QString name = QString(
 		    i18n("Card %1: ", card) +
-		         card_name + "|sound_card||" +
+		         card_name + _("|sound_card||") +
 		    i18n("Device %1: ", dev) +
-		          device_name + "|sound_subdevice"
+		          device_name + _("|sound_subdevice")
 		);
 		qDebug("# '%s' -> '%s'", hw_device.toLocal8Bit().data(),
 		    name.toLocal8Bit().data());
@@ -847,11 +849,12 @@ next_card:
     // per default: offer the dmix plugin and the default device
     // if slave devices exist
     if (!m_device_list.isEmpty()) {
-        m_device_list.insert(i18n("DMIX plugin")+QString("|sound_note"),
-                             "plug:dmix");
-        m_device_list.insert(DEFAULT_DEVICE, "default");
+        m_device_list.insert(i18n("DMIX plugin") +
+                             _("|sound_note"),
+                             _("plug:dmix"));
+        m_device_list.insert(DEFAULT_DEVICE, _("default"));
     } else {
-        m_device_list.insert(NULL_DEVICE, "null");
+        m_device_list.insert(NULL_DEVICE, _("null"));
     }
 
 }
@@ -874,7 +877,7 @@ QString Kwave::PlayBackALSA::alsaDeviceName(const QString &name)
 
 	qWarning("PlayBackALSA::alsaDeviceName('%s') - NOT FOUND",
 	    name.toLocal8Bit().data());
-	return "";
+	return _("");
     }
     return m_device_list[name];
 }
@@ -893,7 +896,7 @@ QStringList Kwave::PlayBackALSA::supportedDevices()
     if (list.contains(DEFAULT_DEVICE))
 	list.move(list.indexOf(DEFAULT_DEVICE), 0);
 
-    if (!list.isEmpty()) list.append("#TREE#");
+    if (!list.isEmpty()) list.append(_("#TREE#"));
 
     return list;
 }
@@ -901,7 +904,7 @@ QStringList Kwave::PlayBackALSA::supportedDevices()
 //***************************************************************************
 QString Kwave::PlayBackALSA::fileFilter()
 {
-    return "";
+    return _("");
 }
 
 //***************************************************************************
@@ -918,7 +921,7 @@ snd_pcm_t *Kwave::PlayBackALSA::openDevice(const QString &device)
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
-    if (alsa_device.endsWith(",")) return 0;
+    if (alsa_device.endsWith(_(","))) return 0;
 
     if (!pcm) {
 	// open the device in case it's not already open

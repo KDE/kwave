@@ -22,6 +22,7 @@
 
 #include "libkwave/memcpy.h"
 #include "libkwave/SampleEncoderLinear.h"
+#include "libkwave/String.h"
 
 #include "PlayBack-Phonon.h"
 
@@ -159,8 +160,7 @@ QString Kwave::PlayBackPhonon::open(const QString &device, double rate,
 	}
     }
     if (!dev.isValid()) {
-	return i18n("Opening the device '%1' failed.",
-	    device.toLocal8Bit().data());
+	return i18n("Opening the device '%1' failed.", device);
     }
 
     // set the output device name
@@ -197,7 +197,7 @@ QString Kwave::PlayBackPhonon::open(const QString &device, double rate,
     m_media_object.play();
     setStreamSize(44);
 
-    return 0;
+    return QString();
 }
 
 //***************************************************************************
@@ -299,7 +299,7 @@ QStringList Kwave::PlayBackPhonon::supportedDevices()
 //***************************************************************************
 QString Kwave::PlayBackPhonon::fileFilter()
 {
-    return "";
+    return _("");
 }
 
 //***************************************************************************

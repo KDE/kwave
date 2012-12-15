@@ -17,11 +17,16 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <QtCore/QLatin1Char>
+#include <QtCore/QString>
+
 #include "libkwave/Parser.h"
+#include "libkwave/String.h"
 
 //***************************************************************************
 Kwave::Parser::Parser (const QString &init)
-    :m_command(""), m_param(), m_current(0), m_commands()
+    :m_command(_("")), m_param(), m_current(0), m_commands()
 {
     QString line = init.trimmed();
     unsigned int level = 0;
@@ -31,17 +36,17 @@ Kwave::Parser::Parser (const QString &init)
     line = m_commands.first();
 
     // --- parse the command ---
-    pos = line.indexOf('(');
+    pos = line.indexOf(QLatin1Char('('));
     if (pos >= 0) {
 	// command present
 	m_command = line.left(pos).simplified();
 	line.remove(0, pos+1);
     } else {
-	m_command = "";
+	m_command = _("");
     }
 
     // --- parse the list of parameters ---
-    QString param = "";
+    QString param = _("");
     while (line.length()) {
 	QChar c = line[0];
 	line.remove(0,1);
@@ -50,7 +55,7 @@ Kwave::Parser::Parser (const QString &init)
 	    case ',':
 		if (!level) {
 		    m_param.append(param.trimmed());
-		    param = "";
+		    param = _("");
 	        } else param += c;
 	        break;
 
@@ -61,7 +66,8 @@ Kwave::Parser::Parser (const QString &init)
 	    case ')':
 		if (!level) {
 		    m_param.append(param.trimmed());
-		    line = ""; // break, belongs to command, end of line
+		    // break, belongs to command, end of line
+		    line = _("");
 		}
 		level--;
 		param += c;
@@ -88,7 +94,7 @@ QStringList Kwave::Parser::splitCommands(QString &line)
 {
     // split a line into commands
     unsigned int level = 0;
-    QString cmd = "";
+    QString cmd = _("");
     QStringList commands;
 
     while (line.length()) {
@@ -99,7 +105,7 @@ QStringList Kwave::Parser::splitCommands(QString &line)
 		if (!level) {
 		    // next command in the list
 		    commands.append(cmd.trimmed());
-		    cmd = "";
+		    cmd = _("");
 	        } else cmd += c;
 	        break;
 	    case '(':
@@ -132,7 +138,7 @@ const QString &Kwave::Parser::firstParam()
 //***************************************************************************
 const QString &Kwave::Parser::nextParam()
 {
-    static const QString empty("");
+    static const QString empty = _("");
     if (m_current >= count()) return empty;
     return m_param[m_current++];
 }
@@ -149,8 +155,8 @@ bool Kwave::Parser::toBool()
     const QString &p = nextParam();
 
     // first test for "true" and "false"
-    if (p.toLower() == "true") return true;
-    if (p.toLower() == "false") return false;
+    if (p.toLower() == _("true")) return true;
+    if (p.toLower() == _("false")) return false;
 
     // maybe numeric ?
     bool ok;

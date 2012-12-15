@@ -75,9 +75,9 @@ namespace Kwave
 	 * @param patterns list of file patterns, passed as a single string,
 	 *                 separated by "; "
 	 */
-	virtual void addMimeType(const QString &name,
+	virtual void addMimeType(const char *name,
 	                         const QString &description,
-	                         const QString &patterns);
+	                         const char *patterns);
 
 	/**
 	 * Adds a new compression type to the internal list of supported

@@ -17,6 +17,7 @@
 #include "config.h"
 
 #include <QtCore/QDateTime>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QTextStream>
 
 #include <klocale.h>
@@ -25,6 +26,7 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/String.h"
 #include "libkwave/Writer.h"
 
 #include "AsciiCodecPlugin.h"
@@ -78,7 +80,8 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
 	qDebug("META %5u %s", linenr++, line.toLocal8Bit().data());
 	if (!line.length())
 	    continue; // skip empty line
-	if (line.startsWith("#") && !line.startsWith(META_PREFIX))
+	if (line.startsWith(QLatin1Char('#')) &&
+	    !line.startsWith(META_PREFIX))
 	    continue; // skip comment lines
 
 	if (!line.startsWith(META_PREFIX)) {

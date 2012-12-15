@@ -29,22 +29,22 @@ namespace Kwave
 	/** Stupid default constructor (sometimes needed but should not) */
 	Triple()
 	    :m_first(),
-	    m_second(),
-	    m_third()
+	     m_second(),
+	     m_third()
 	{}
 
 	/** Constructor with initialization data */
 	Triple(const T1 &first, const T2 &second, const T3 &third)
 	    :m_first(first),
-	    m_second(second),
-	    m_third(third)
+	     m_second(second),
+	     m_third(third)
 	{}
 
 	/** Copy constructor */
 	Triple(const Triple &copy)
 	    :m_first(copy.first()),
-	    m_second(copy.second()),
-	    m_third(copy.third())
+	     m_second(copy.second()),
+	     m_third(copy.third())
 	{}
 
 	/** Destructor */

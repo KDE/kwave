@@ -20,6 +20,7 @@
 #include <klocale.h>
 
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/undo/UndoModifyMetaDataAction.h"
 
 //***************************************************************************
@@ -39,7 +40,7 @@ QString Kwave::UndoModifyMetaDataAction::description()
 {
     // sanity check: list should not be empty
     Q_ASSERT(!m_saved_data.isEmpty());
-    if (m_saved_data.isEmpty()) return "";
+    if (m_saved_data.isEmpty()) return _("");
 
     QString name;
     const Kwave::MetaData &m = m_saved_data.values().first();
@@ -140,25 +141,20 @@ void Kwave::UndoModifyMetaDataAction::dump(const QString &indent)
 {
    foreach (const Kwave::MetaData &m, m_saved_data) {
 	qDebug("%sundo modify meta data object '%s'",
-	    indent.toLocal8Bit().data(),
-	    m.id().toLocal8Bit().data()
-	);
+	       DBG(indent), DBG(m.id()));
 
 	// dump all properties of the object
 	foreach (const QString &key, m.keys()) {
 	    QVariant v = m[key];
-	    QString value = "";
+	    QString value;
 	    if (v.type() == QVariant::List) {
 		foreach (const QVariant &v1, v.toList())
-		    value += "'" + v1.toString() + "' ";
+		    value += _("'") + v1.toString() + _("' ");
 	    } else {
 		value = v.toString();
 	    }
 	    qDebug("%s    '%s' = '%s",
-		indent.toLocal8Bit().data(),
-		key.toLocal8Bit().data(),
-		value.toLocal8Bit().data()
-	    );
+	           DBG(indent), DBG(key), DBG(value));
 	}
     }
 }

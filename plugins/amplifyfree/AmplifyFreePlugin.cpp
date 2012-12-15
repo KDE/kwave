@@ -26,6 +26,7 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/String.h"
 #include "libkwave/modules/CurveStreamAdapter.h"
 #include "libkwave/modules/Mul.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
@@ -38,7 +39,7 @@ KWAVE_PLUGIN(Kwave::AmplifyFreePlugin, "amplifyfree", "2.1",
 
 //***************************************************************************
 Kwave::AmplifyFreePlugin::AmplifyFreePlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context), m_action_name(""), m_params(), m_curve()
+    :Kwave::Plugin(context), m_action_name(), m_params(), m_curve()
 {
 }
 
@@ -53,7 +54,7 @@ int Kwave::AmplifyFreePlugin::interpreteParameters(QStringList &params)
     // store last parameters
     m_params = params;
 
-    m_action_name = "";
+    m_action_name = _("");
     if (params.count() < 2) return -1;
     if (params.count() & 1) return -1; // no. of params must be even
 
@@ -61,13 +62,12 @@ int Kwave::AmplifyFreePlugin::interpreteParameters(QStringList &params)
     if (params[0].length()) m_action_name = params[0];
 
     // convert string list into command again...
-    QString cmd;
-    cmd = "curve(";
+    QString cmd = _("curve(");
     for (int i = 1; i < params.count(); ++i) {
 	cmd += params[i];
-	if ((i + 1) < params.count()) cmd += ",";
+	if ((i + 1) < params.count()) cmd += _(",");
     }
-    cmd += ")";
+    cmd += _(")");
 
     // and initialize our curve with it
     m_curve.fromCommand(cmd);
@@ -98,7 +98,7 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
     Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
-	*list << "amplify free";
+	*list << _("amplify free");
 	QString cmd = dialog->getCommand();
 	Kwave::Parser p(cmd);
 	while (!p.isDone()) *list << p.nextParam();

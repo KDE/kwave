@@ -34,6 +34,8 @@
 #include <kurllabel.h>
 #include <kstandarddirs.h>
 
+#include "libkwave/String.h"
+
 #include "AboutDialog.h"
 #include "AboutContainer.h"
 #include "LogoWidget.h"
@@ -61,9 +63,9 @@ Kwave::AboutDialog::AboutDialog(
     /* display version information in the header */
     QString kde_version = QString::fromLatin1(KDE_VERSION_STRING);
     QString kwave_version = about_data->programName()+
-        " " + about_data->version() + " ";
-    QString header_text = "<h2>"+kwave_version+
-        i18n("(built for KDE %1)", kde_version)+"</h2>";
+        _(" ") + about_data->version() + _(" ");
+    QString header_text = _("<h2>") + kwave_version +
+        i18n("(built for KDE %1)", kde_version) + _("</h2>");
     header->setText(header_text);
 
     /* the frame containing the developer information */
@@ -120,9 +122,9 @@ Kwave::AboutDialog::AboutDialog(
     pluginsinfoframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* set the url of the kwave homepage */
-    kwave_url_label->setText("<a href=\"" +
-	about_data->homepage() + "\">" +
-	about_data->homepage() + "</a>");
+    kwave_url_label->setText(_("<a href=\"") +
+	about_data->homepage() + _("\">") +
+	about_data->homepage() + _("</a>"));
     kwave_url_label->setOpenExternalLinks(true);
     kwave_url_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 
@@ -130,7 +132,7 @@ Kwave::AboutDialog::AboutDialog(
     Kwave::AboutContainer *trans = new Kwave::AboutContainer(this);
     QList<KAboutPerson> translators = about_data->translators();
     if ((translators.count() == 1) &&
-        (translators.first().name() == "NAME OF TRANSLATORS")) {
+        (translators.first().name() == _("NAME OF TRANSLATORS"))) {
 	tabwidget->removeTab(4);
     } else {
 	foreach (KAboutPerson translator, translators) {

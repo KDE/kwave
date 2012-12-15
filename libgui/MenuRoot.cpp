@@ -20,6 +20,8 @@
 #include <klocale.h>
 #include <kmenubar.h>
 
+#include "libkwave/String.h"
+
 #include "MenuItem.h"
 #include "MenuSub.h"
 #include "MenuRoot.h"
@@ -30,7 +32,8 @@ QList<Kwave::MenuNode *> Kwave::MenuRoot::m_garbage;
 
 //***************************************************************************
 Kwave::MenuRoot::MenuRoot(KMenuBar &bar)
-    :Kwave::MenuNode(0, "(root)", 0, 0, 0), m_menu_bar(bar), m_group_list()
+    :Kwave::MenuNode(0, _("(root)"), QString(), 0, QString()),
+     m_menu_bar(bar), m_group_list()
 {
 }
 
@@ -122,7 +125,7 @@ bool Kwave::MenuRoot::specialCommand(const QString &command)
     Q_ASSERT(command.length());
     if (!command.length()) return false;
 
-    if (command == "#separator") {
+    if (command == _("#separator")) {
 	m_menu_bar.addSeparator();
 	return true;
     }

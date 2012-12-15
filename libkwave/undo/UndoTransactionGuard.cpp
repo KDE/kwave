@@ -25,6 +25,7 @@
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 //***************************************************************************
@@ -41,7 +42,7 @@ Kwave::UndoTransactionGuard::UndoTransactionGuard(Kwave::Plugin &plugin,
     :m_manager(plugin.manager().signalManager())
 {
     QString description = (name.length()) ?
-	name : i18n(plugin.name().toLocal8Bit());
+	name : i18n(__(plugin.name()));
     m_manager.startUndoTransaction(description);
 }
 

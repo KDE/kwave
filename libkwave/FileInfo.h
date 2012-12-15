@@ -125,7 +125,9 @@ namespace Kwave
 	virtual ~FileInfo();
 
 	/** returns the identifier of the "type" of this meta data object */
-	static QString metaDataType() { return "FILE INFO"; };
+	static QString metaDataType() {
+	    return QString::fromAscii("FILE INFO");
+	}
 
 	/** returns the number of samples */
 	sample_index_t length() const;

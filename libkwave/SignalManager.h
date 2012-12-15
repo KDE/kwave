@@ -582,7 +582,7 @@ namespace Kwave
 	 * @param name the name of the transaction. Will be ignored if there
 	 *        already is an active transaction (optional)
 	 */
-	void startUndoTransaction(const QString &name = 0);
+	void startUndoTransaction(const QString &name = QString());
 
 	/**
 	 * Removes all undo and redo transactions.

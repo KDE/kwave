@@ -35,6 +35,8 @@
 #include <knuminput.h>
 #include <ktoolinvocation.h>
 
+#include "libkwave/String.h"
+
 #include "NewSignalDialog.h"
 
 //***************************************************************************
@@ -306,7 +308,7 @@ void Kwave::NewSignalDialog::tracksChanged(int)
 	    lblTracksVerbose->setText(i18n("(Quadro)"));
 	    break;
 	default:
-	    lblTracksVerbose->setText("");
+	    lblTracksVerbose->setText(_(""));
 	    break;
     }
     checkTimeAndLengthInfo(0);
@@ -321,11 +323,11 @@ void Kwave::NewSignalDialog::updateFileSize()
     mbytes /= 1024.0; // to kilobytes
     mbytes /= 1024.0; // to megabytes
 
-    QString str_bytes = "";
+    QString str_bytes;
     if (mbytes >= 10.0) {
-	str_bytes.sprintf("%0.1f",mbytes);
+	str_bytes.sprintf("%0.1f", mbytes);
     } else {
-	str_bytes.sprintf("%0.3f",mbytes);
+	str_bytes.sprintf("%0.3f", mbytes);
     }
 
     lblFileSize->setText(i18n("(Resulting file size: %1 MB)", str_bytes));
@@ -371,7 +373,7 @@ void Kwave::NewSignalDialog::setHMS(const double &samples)
 //***************************************************************************
 void Kwave::NewSignalDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp("memory-setup");
+    KToolInvocation::invokeHelp(_("memory-setup"));
 }
 
 //***************************************************************************

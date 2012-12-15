@@ -34,6 +34,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/PluginManager.h"
 
 #include "TopWidget.h"
@@ -102,13 +103,13 @@ bool Kwave::App::isOK()
 bool Kwave::App::executeCommand(const QString &command)
 {
     Kwave::Parser parser(command);
-    if (parser.command() == "newwindow") {
+    if (parser.command() == _("newwindow")) {
 	if (parser.hasParams()) {
 	    newWindow(KUrl(parser.params().at(0)));
 	} else {
 	    newWindow(KUrl(QString()));
 	}
-    } else if (parser.command() == "help") {
+    } else if (parser.command() == _("help")) {
 	KToolInvocation::invokeHelp();
     } else {
 	return false;

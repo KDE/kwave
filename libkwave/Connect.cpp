@@ -18,7 +18,6 @@
 #include "config.h"
 
 #include <QtCore/QObject>
-#include <QtCore/QString>
 
 #include "libkwave/Connect.h"
 #include "libkwave/SampleSink.h"
@@ -29,36 +28,32 @@ namespace Kwave {
 
     //***********************************************************************
     static bool _connect_one_by_one(
-	Kwave::StreamObject &src, const QString &output, unsigned int src_idx,
-	Kwave::StreamObject &dst, const QString &input,  unsigned int dst_idx)
+	Kwave::StreamObject &src, const char *output, unsigned int src_idx,
+	Kwave::StreamObject &dst, const char *input,  unsigned int dst_idx)
     {
 	Kwave::StreamObject *s = src.port(output, src_idx);
 	Kwave::StreamObject *d = dst.port(input,  dst_idx);
 	Q_ASSERT(s);
 	Q_ASSERT(d);
-	if (!s || !d) return false;
+	Q_ASSERT(input);
+	Q_ASSERT(output);
+	if (!s || !d || !input || !output) return false;
 
-	QObject::connect(
-	    s, output.toAscii(),
-	    d, input.toAscii(),
-	    Qt::DirectConnection);
+	QObject::connect(s, output, d, input, Qt::DirectConnection);
 
 	return true;
     }
 
     //***********************************************************************
-    bool connect(Kwave::StreamObject &source, const QString &output,
-	         Kwave::StreamObject &sink,   const QString &input)
+    bool connect(Kwave::StreamObject &source, const char *output,
+	         Kwave::StreamObject &sink,   const char *input)
     {
 	unsigned int src_tracks = source.tracksOfPort(output);
 	unsigned int dst_tracks = sink.tracksOfPort(input);
 
-	if (!src_tracks || !dst_tracks)
-	    return false;
-
-	Q_ASSERT(output.length());
-	Q_ASSERT(input.length());
-	if (!output.length() || !input.length())
+	Q_ASSERT(output);
+	Q_ASSERT(input);
+	if (!src_tracks || !dst_tracks || !output || !input)
 	    return false;
 
 	if ((src_tracks == 1) && (dst_tracks > 1)) {

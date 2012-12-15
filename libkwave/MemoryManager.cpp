@@ -23,6 +23,7 @@
 
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QString>
 
@@ -37,6 +38,7 @@
 
 #include "libkwave/memcpy.h"
 #include "libkwave/MemoryManager.h"
+#include "libkwave/String.h"
 
 #include "SwapFile.h"
 
@@ -52,7 +54,7 @@ Kwave::Handle Kwave::MemoryManager::m_last_handle = 0;
 //***************************************************************************
 Kwave::MemoryManager::MemoryManager()
     :m_physical_allocated(0), m_physical_limit(0), m_virtual_allocated(0),
-     m_virtual_limit(0), m_swap_dir("/tmp"), m_undo_limit(0),
+     m_virtual_limit(0), m_swap_dir(_("/tmp")), m_undo_limit(0),
      m_physical(), m_unmapped_swap(), m_mapped_swap(),
      m_cached_swap(), m_lock()
 {
@@ -327,9 +329,9 @@ QString Kwave::MemoryManager::nextSwapFileName(Kwave::Handle handle)
     QString filename;
 
     // these 6 'X' chars are needed for mkstemp !
-    filename = "kwave-swapfile-%1-XXXXXX";
+    filename = _("kwave-swapfile-%1-XXXXXX");
     filename = filename.arg(static_cast<unsigned int>(handle),
-                            10, 10, QChar('0'));
+                            10, 10, QLatin1Char('0'));
 
     file.setFile(m_swap_dir, filename);
     return file.absoluteFilePath();

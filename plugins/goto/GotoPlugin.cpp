@@ -21,6 +21,8 @@
 #include <klocale.h>
 
 #include "libkwave/Plugin.h"
+#include "libkwave/String.h"
+
 #include "GotoPlugin.h"
 
 KWAVE_PLUGIN(Kwave::GotoPlugin, "goto", "2.1",
@@ -40,7 +42,7 @@ Kwave::GotoPlugin::~GotoPlugin()
 //***************************************************************************
 QString Kwave::GotoPlugin::command() const
 {
-    return "goto";
+    return _("goto");
 }
 
 //***************************************************************************

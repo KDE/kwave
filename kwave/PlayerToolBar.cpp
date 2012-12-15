@@ -38,10 +38,11 @@
 
 /** shortcut for coupling the "enable" of a menu item to a toolbar action */
 #define UPDATE_MENU(__action__,__entry__) \
-    m_menu_manager.setItemEnabled(__entry__, m_action_##__action__->isEnabled())
+    m_menu_manager.setItemEnabled(_(__entry__), \
+                                  m_action_##__action__->isEnabled())
 
 /** useful macro for command parsing */
-#define CASE_COMMAND(x) } else if (command == x) {
+#define CASE_COMMAND(x) } else if (command == _(x)) {
 
 //***************************************************************************
 Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
@@ -71,47 +72,56 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
     const int max_s = KIconLoader::SizeEnormous;
 
     m_action_prev = addAction(
-	icon_loader.loadIcon("kwave_player_start", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_player_start"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Previous"),
 	this, SLOT(toolbarRewindPrev()));
 
     m_action_rewind = addAction(
-	icon_loader.loadIcon("kwave_player_rew", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_player_rew"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Rewind"),
 	this, SLOT(toolbarRewind()));
 
     m_action_record = addAction(
-	icon_loader.loadIcon("kwave_player_record", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_player_record"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Record"),
 	this, SLOT(toolbarRecord()));
 
     m_action_play = addAction(
-	icon_loader.loadIcon("kwave_player_play", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_player_play"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Start playback"),
 	&m_playback, SLOT(playbackStart()));
 
     m_action_loop = addAction(
-	icon_loader.loadIcon("kwave_player_loop", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_player_loop"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Start playback and loop"),
 	&m_playback, SLOT(playbackLoop()));
 
     m_action_pause = addAction(
-	icon_loader.loadIcon("kwave_player_pause", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_player_pause"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Pause playback"),
 	this, SLOT(pausePressed()));
 
     m_action_stop = addAction(
-	icon_loader.loadIcon("kwave_player_stop", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_player_stop"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Stop playback or loop"),
 	&m_playback, SLOT(playbackStop()));
 
     m_action_forward = addAction(
-	icon_loader.loadIcon("kwave_player_fwd", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_player_fwd"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Forward"),
 	this, SLOT(toolbarForward()));
 
     m_action_next = addAction(
-	icon_loader.loadIcon("kwave_player_end", KIconLoader::Toolbar, max_s),
+	icon_loader.loadIcon(_("kwave_player_end"),
+	                     KIconLoader::Toolbar, max_s),
 	i18n("Next"),
 	this, SLOT(toolbarForwardNext()));
 
@@ -160,7 +170,7 @@ void Kwave::PlayerToolBar::toolbarRewindPrev()
 	if (prev < first) prev = first;
 	m_playback.seekTo(prev);
     } else {
-	emit sigCommand("view:scroll_prev_label()");
+	emit sigCommand(_("view:scroll_prev_label()"));
     }
 }
 
@@ -191,7 +201,7 @@ void Kwave::PlayerToolBar::toolbarRewind()
 
 	m_playback.seekTo(pos);
     } else {
-	emit sigCommand("view:scroll_left()");
+	emit sigCommand(_("view:scroll_left()"));
     }
 }
 
@@ -200,7 +210,7 @@ void Kwave::PlayerToolBar::toolbarRecord()
 {
     if (!m_action_record || !m_action_record->isEnabled()) return;
 
-    emit sigCommand("plugin(record)");
+    emit sigCommand(_("plugin(record)"));
 }
 
 //***************************************************************************
@@ -249,7 +259,8 @@ void Kwave::PlayerToolBar::blinkPause()
     if (!m_action_pause) return;
 
     m_action_pause->setIcon(icon_loader.loadIcon(
-	(paused && m_blink_on) ? "kwave_player_pause_2" : "kwave_player_pause",
+	_((paused && m_blink_on) ?
+	    "kwave_player_pause_2" : "kwave_player_pause"),
 	KIconLoader::Toolbar, max_s)
     );
 
@@ -283,7 +294,7 @@ void Kwave::PlayerToolBar::toolbarForward()
 
 	m_playback.seekTo(pos);
     } else {
-	emit sigCommand("view:scroll_right()");
+	emit sigCommand(_("view:scroll_right()"));
     }
 }
 
@@ -300,7 +311,7 @@ void Kwave::PlayerToolBar::toolbarForwardNext()
 	    next = m_playback.startPos(); // wrap around to start
 	m_playback.seekTo(next);
     } else {
-	emit sigCommand("view:scroll_next_label()");
+	emit sigCommand(_("view:scroll_next_label()"));
     }
 }
 
@@ -342,30 +353,30 @@ void Kwave::PlayerToolBar::updateState()
 	UPDATE_MENU(next,   "ID_PLAYBACK_NEXT");
 
 	// scroll controls per menu
-	m_menu_manager.setItemEnabled("ID_SCROLL_START", false);
-	m_menu_manager.setItemEnabled("ID_SCROLL_END",   false);
-	m_menu_manager.setItemEnabled("ID_SCROLL_PREV",  false);
-	m_menu_manager.setItemEnabled("ID_SCROLL_NEXT",  false);
-	m_menu_manager.setItemEnabled("ID_SCROLL_RIGHT", false);
-	m_menu_manager.setItemEnabled("ID_SCROLL_LEFT",  false);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_START"), false);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_END"),   false);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_PREV"),  false);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_NEXT"),  false);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_RIGHT"), false);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_LEFT"),  false);
     } else {
 	// seek buttons in normal mode
 	m_action_prev->setEnabled(    have_signal && !at_start);
 	m_action_rewind->setEnabled(  have_signal && !at_start);
 	m_action_forward->setEnabled( have_signal && !at_end);
 	m_action_next->setEnabled(    have_signal && !at_end);
-	m_menu_manager.setItemEnabled("ID_PLAYBACK_PREV",    false);
-	m_menu_manager.setItemEnabled("ID_PLAYBACK_REWIND",  false);
-	m_menu_manager.setItemEnabled("ID_PLAYBACK_FORWARD", false);
-	m_menu_manager.setItemEnabled("ID_PLAYBACK_NEXT",    false);
+	m_menu_manager.setItemEnabled(_("ID_PLAYBACK_PREV"),    false);
+	m_menu_manager.setItemEnabled(_("ID_PLAYBACK_REWIND"),  false);
+	m_menu_manager.setItemEnabled(_("ID_PLAYBACK_FORWARD"), false);
+	m_menu_manager.setItemEnabled(_("ID_PLAYBACK_NEXT"),    false);
 
 	// scroll controls per menu
-	m_menu_manager.setItemEnabled("ID_SCROLL_START", !at_start);
-	m_menu_manager.setItemEnabled("ID_SCROLL_END",   !at_end);
-	m_menu_manager.setItemEnabled("ID_SCROLL_PREV",  !at_start);
-	m_menu_manager.setItemEnabled("ID_SCROLL_NEXT",  !at_end);
-	m_menu_manager.setItemEnabled("ID_SCROLL_RIGHT", !at_end);
-	m_menu_manager.setItemEnabled("ID_SCROLL_LEFT",  !at_start);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_START"), !at_start);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_END"),   !at_end);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_PREV"),  !at_start);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_NEXT"),  !at_end);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_RIGHT"), !at_end);
+	m_menu_manager.setItemEnabled(_("ID_SCROLL_LEFT"),  !at_start);
     }
 
     /* --- standard record/playback controls --- */
@@ -378,8 +389,8 @@ void Kwave::PlayerToolBar::updateState()
     UPDATE_MENU(play,   "ID_PLAYBACK_START");
     UPDATE_MENU(loop,   "ID_PLAYBACK_LOOP");
     UPDATE_MENU(stop,   "ID_PLAYBACK_STOP");
-    m_menu_manager.setItemEnabled("ID_PLAYBACK_PAUSE",    playing);
-    m_menu_manager.setItemEnabled("ID_PLAYBACK_CONTINUE", paused);
+    m_menu_manager.setItemEnabled(_("ID_PLAYBACK_PAUSE"),    playing);
+    m_menu_manager.setItemEnabled(_("ID_PLAYBACK_CONTINUE"), paused);
 
     /* handling of blink timer */
     if (m_pause_timer && !paused) {

@@ -35,6 +35,7 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/Signal.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Writer.h"
@@ -62,7 +63,8 @@ bool Kwave::MimeData::encode(QWidget *widget,
 	                     const Kwave::MetaDataList &meta_data)
 {
     // use our default encoder
-    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(WAVE_FORMAT_PCM);
+    Kwave::Encoder *encoder =
+	Kwave::CodecManager::encoder(_(WAVE_FORMAT_PCM));
     Q_ASSERT(encoder);
     if (!encoder) return false;
 
@@ -97,7 +99,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
     delete encoder;
 
     // set the mime data into this mime data container
-    setData(WAVE_FORMAT_PCM, m_data);
+    setData(_(WAVE_FORMAT_PCM), m_data);
 
     // remove hourglass
     QApplication::restoreOverrideCursor();

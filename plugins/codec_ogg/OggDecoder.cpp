@@ -20,6 +20,7 @@
 #include <math.h>
 
 #include <QtCore/QDate>
+#include <QtCore/QLatin1Char>
 
 #include <klocale.h>
 #include <kmimetype.h>
@@ -30,6 +31,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/StandardBitrates.h"
+#include "libkwave/String.h"
 #include "libkwave/Writer.h"
 
 #include "OggCodecPlugin.h"
@@ -67,7 +69,7 @@ void Kwave::OggDecoder::parseTag(Kwave::FileInfo &info, const char *tag,
     QString value;
     for (int i=0; i < count; ++i) {
 	char *text = vorbis_comment_query(&m_vc, const_cast<char *>(tag), i);
-	if (i) value += "; ";
+	if (i) value += _("; ");
 	value += QString::fromUtf8(text);
     }
 
@@ -232,9 +234,9 @@ bool Kwave::OggDecoder::open(QWidget *widget, QIODevice &src)
     info.setRate(m_vi.rate);
     info.setBits(SAMPLE_BITS); // use Kwave's internal resolution
     info.setTracks(m_vi.channels);
-    info.set(Kwave::INF_MIMETYPE, DEFAULT_MIME_TYPE);
+    info.set(Kwave::INF_MIMETYPE, _(DEFAULT_MIME_TYPE));
     info.set(Kwave::INF_COMPRESSION, Kwave::CompressionType::OGG_VORBIS);
-    info.set(Kwave::INF_SOURCE, QString(m_vc.vendor));
+    info.set(Kwave::INF_SOURCE, _(m_vc.vendor));
     if (m_vi.bitrate_nominal > 0)
 	info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(
 	static_cast<int>(m_vi.bitrate_nominal)));
@@ -248,8 +250,8 @@ bool Kwave::OggDecoder::open(QWidget *widget, QIODevice &src)
     // the first comment sometimes is used for the software version
     {
 	char **ptr = m_vc.user_comments;
-	QString s = *ptr;
-	if (s.length() && !s.contains('=')) {
+	QString s = _(*ptr);
+	if (s.length() && !s.contains(QLatin1Char('='))) {
 	    info.set(Kwave::INF_SOFTWARE, s);
 	    qDebug("Bitstream is %d channel, %ldHz", m_vi.channels, m_vi.rate);
 	    qDebug("Encoded by: %s\n\n", m_vc.vendor);

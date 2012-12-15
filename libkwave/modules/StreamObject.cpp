@@ -38,7 +38,7 @@ Kwave::StreamObject::~StreamObject()
 }
 
 //***************************************************************************
-void Kwave::StreamObject::setAttribute(const QString &attribute,
+void Kwave::StreamObject::setAttribute(const char *attribute,
                                        const QVariant &value)
 {
     QMutexLocker lock(&m_lock_set_attribute);
@@ -49,7 +49,7 @@ void Kwave::StreamObject::setAttribute(const QString &attribute,
 
 	// temporary establish a signal->slot connection
 	QObject::connect(this, SIGNAL(attributeChanged(const QVariant)),
-                         obj, attribute.toAscii(),
+                         obj, attribute,
                          Qt::DirectConnection);
 
 	// emit the new value through our own signal
@@ -57,7 +57,7 @@ void Kwave::StreamObject::setAttribute(const QString &attribute,
 
 	// remove the temporary signal->slot connection
 	QObject::disconnect(this, SIGNAL(attributeChanged(const QVariant)),
-                            obj, attribute.toAscii());
+                            obj, attribute);
     }
 }
 

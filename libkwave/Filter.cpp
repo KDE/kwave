@@ -18,11 +18,13 @@
 #include "config.h"
 
 #include <QtCore/QFile>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 
-#include "Filter.h"
-#include "Parser.h"
+#include "libkwave/Filter.h"
+#include "libkwave/Parser.h"
+#include "libkwave/String.h"
 
 //***************************************************************************
 Kwave::Filter::Filter(const QString &command)
@@ -31,7 +33,7 @@ Kwave::Filter::Filter(const QString &command)
     Kwave::Parser parse(command);
 
     m_rate = parse.toInt();
-    m_fir = (parse.nextParam().toLower() == "fir");
+    m_fir = (parse.nextParam().toLower() == _("fir"));
     resize(parse.toInt());
 
     for (unsigned int i = 0; i < count(); i++) {
@@ -57,16 +59,16 @@ QString Kwave::Filter::command()
 {
     QString s;
 
-    s = "filter (";
+    s = _("filter (");
     s += QString::number(m_rate);
-    s += ',';
-    s += (m_fir ? "fir" : "iir");
-    s += ',' + QString::number(count());
+    s += QLatin1Char(',');
+    s += _((m_fir) ? "fir" : "iir");
+    s += QLatin1Char(',') + QString::number(count());
 
     for (unsigned int i = 0; i < count(); i++) {
-	s += ',';
+	s += QLatin1Char(',');
 	s += QString::number(m_delay[i]);
-	s += ',';
+	s += QLatin1Char(',');
 	s += QString::number(m_coeff[i]);
     }
     return s;
@@ -137,9 +139,8 @@ void Kwave::Filter::save(const QString &filename)
     Q_ASSERT(name.length());
     if (!name.length()) return;
 
-    if (name.lastIndexOf(".filter") != static_cast<int>(name.length()-7)){
-	name.append(".filter");
-    }
+    if (name.lastIndexOf(_(".filter")) != static_cast<int>(name.length() - 7))
+	name.append(_(".filter"));
 
     QFile file(name);
     file.open(QIODevice::WriteOnly);
@@ -171,10 +172,11 @@ void Kwave::Filter::load(const QString &filename)
 	linenr++;
 
 	if (line.isEmpty() || line.isNull()) continue;
-	if ((line[0] == '#') || (line[0] == '/')) continue;
+	if ((line[0] == QLatin1Char('#')) || (line[0] == QLatin1Char('/')))
+	    continue;
 	break;
     }
-    m_fir = line.startsWith("FIR ");
+    m_fir = line.startsWith(_("FIR "));
     qDebug("Filter::load(): fir = %d", m_fir);
 
     // order
@@ -190,9 +192,10 @@ void Kwave::Filter::load(const QString &filename)
 	linenr++;
 
 	if (line.isEmpty() || line.isNull()) continue;
-	if ((line[0] == '#') || (line[0] == '/')) continue;
+	if ((line[0] == QLatin1Char('#')) || (line[0] == QLatin1Char('/')))
+	    continue;
 
-	int spacepos = line.indexOf(' ');
+	int spacepos = line.indexOf(QLatin1Char(' '));
 	ok = true;
 	if (ok) m_delay[i] = line.left(spacepos).toUInt(&ok);
 	line.remove(0, spacepos);

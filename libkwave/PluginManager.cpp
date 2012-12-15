@@ -23,6 +23,7 @@
 #include <unistd.h>
 
 #include <QtGui/QApplication>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QMutableListIterator>
 
 #include <kglobal.h>
@@ -144,7 +145,8 @@ Kwave::PluginManager::~PluginManager()
     while (!m_loaded_plugins.isEmpty()) {
 	KwavePluginPointer p = m_loaded_plugins.takeLast();
 	Q_ASSERT(p);
-	qWarning("RELEASING LOADED PLUGIN '%s'", p->name().toLocal8Bit().data());
+	qWarning("RELEASING LOADED PLUGIN '%s'",
+	          QString(p->name()).toLocal8Bit().data());
 	if (p) p->release();
 	this->sync();
     }
@@ -174,7 +176,7 @@ void Kwave::PluginManager::loadAllPlugins()
 	} else {
 	    // loading failed => remove it from the list
 	    qWarning("PluginManager::loadAllPlugins(): removing '%s' "\
-	            "from list", name.toLocal8Bit().data());
+	            "from list", QString(name).toLocal8Bit().data());
 	    m_found_plugins.remove(name);
 	}
     }
@@ -212,7 +214,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 	if (p && p->isPersistent() && (p->name() == name)) {
 	    qDebug("PluginManager::loadPlugin('%s')"\
 	           "-> returning pointer to persistent",
-	           name.toLocal8Bit().data());
+	           QString(name).toLocal8Bit().data());
 	    p->use();
 	    return p;
 	}
@@ -225,7 +227,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 	    Q_ASSERT(p->isPersistent());
 	    qDebug("PluginManager::loadPlugin('%s')"\
 	           "-> returning pointer to unique+persistent",
-	           name.toLocal8Bit().data());
+	           QString(name).toLocal8Bit().data());
 	    p->use();
 	    return p;
 	}
@@ -286,7 +288,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 	qWarning("PluginManager::loadPlugin('%s'): "\
 		"plugin does not contain a loader, "\
 		"maybe it is damaged or the wrong version?",
-		name.toLocal8Bit().data());
+		QString(name).toLocal8Bit().data());
 	dlclose(handle);
 	return 0;
     }
@@ -295,8 +297,8 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 	*this,
 	handle,
 	name,
-	version,
-	author
+	_(version),
+	_(author)
     );
 
     // call the loader function to create an instance
@@ -304,7 +306,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
     Q_ASSERT(plugin);
     if (!plugin) {
 	qWarning("PluginManager::loadPlugin('%s'): out of memory",
-	         name.toLocal8Bit().data());
+	         QString(name).toLocal8Bit().data());
 	dlclose(handle);
 	return 0;
     }
@@ -390,12 +392,12 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 	    // function directly, as it should be possible
 	    // to record all function calls in the
 	    // macro recorder
-	    command = "plugin:execute(";
+	    command = _("plugin:execute(");
 	    command += name;
 	    foreach (const QString &p, *params)
-		command += ", " + p;
+		command += _(", ") + p;
 	    delete params;
-	    command += ")";
+	    command += _(")");
 //	    qDebug("PluginManager: command='%s'",command.data());
 	}
     }
@@ -489,11 +491,11 @@ int Kwave::PluginManager::setupPlugin(const QString &name)
 }
 
 //***************************************************************************
-QStringList Kwave::PluginManager::loadPluginDefaults(const QString &name,
-                                                     const QString &version)
+QStringList Kwave::PluginManager::loadPluginDefaults(
+    const QString &name, const QString &version)
 {
     QString def_version;
-    QString section("plugin ");
+    QString section = _("plugin ");
     QStringList list;
     section += name;
 
@@ -510,12 +512,13 @@ QStringList Kwave::PluginManager::loadPluginDefaults(const QString &name,
     if (!(def_version == version)) {
 	qDebug("PluginManager::loadPluginDefaults: "\
 	    "plugin '%s': defaults for version '%s' not loaded, found "\
-	    "old ones of version '%s'.", name.toLocal8Bit().data(),
-	    version.toLocal8Bit().data(), def_version.toLocal8Bit().data());
+	    "old ones of version '%s'.", QString(name).toLocal8Bit().data(),
+	    QString(version).toLocal8Bit().data(),
+	    def_version.toLocal8Bit().data());
 	return list;
     }
 
-    list = cfg.readEntry("defaults").split(',');
+    list = cfg.readEntry("defaults").split(QLatin1Char(','));
     return list;
 }
 
@@ -524,7 +527,7 @@ void Kwave::PluginManager::savePluginDefaults(const QString &name,
                                               const QString &version,
                                               QStringList &params)
 {
-    QString section("plugin ");
+    QString section = _("plugin ");
     section += name;
 
     Q_ASSERT(KGlobal::config());
@@ -581,7 +584,7 @@ Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
     QString device_name;
 
     // locate the corresponding playback device factory (plugin)
-    device_name = (name) ? QString(*name) : QString("");
+    device_name = (name) ? QString(*name) : _("");
     Kwave::PlayBackDevice *device = 0;
     Kwave::PlaybackDeviceFactory *factory = 0;
     foreach (Kwave::PlaybackDeviceFactory *f, m_playback_factories) {
@@ -754,11 +757,11 @@ void Kwave::PluginManager::findPlugins()
 
     KStandardDirs dirs;
     QStringList files = dirs.findAllResources("module",
-	    "plugins/kwave/*", KStandardDirs::NoDuplicates);
+	    _("plugins/kwave/*"), KStandardDirs::NoDuplicates);
 
     /* fallback: search also in the old location (useful for developers) */
     files += dirs.findAllResources("data",
-	    "kwave/plugins/*", KStandardDirs::NoDuplicates);
+	    _("kwave/plugins/*"), KStandardDirs::NoDuplicates);
 
     foreach (QString file, files) {
 	void *handle = dlopen(file.toLocal8Bit(), RTLD_NOW);
@@ -776,7 +779,7 @@ void Kwave::PluginManager::findPlugins()
 	    if (!name || !version || !author || !description) continue;
 	    if (!*name || !*version || !*author || !*description) continue;
 
-	    emit sigProgress(i18n("Loading plugin %1...", *name));
+	    emit sigProgress(i18n("Loading plugin %1...", _(*name)));
 	    QApplication::processEvents();
 
 	    PluginInfo info;
@@ -785,10 +788,9 @@ void Kwave::PluginManager::findPlugins()
 	    info.m_description = i18n(*description);
 	    info.m_version     = QString::fromUtf8(*version);
 
-	    m_found_plugins.insert(*name, info);
+	    m_found_plugins.insert(_(*name), info);
 
-	    qDebug("%16s %5s written by %s",
-		*name, *version, *author);
+	    qDebug("%16s %5s written by %s", *name, *version, *author);
 
 	    dlclose (handle);
 	} else {

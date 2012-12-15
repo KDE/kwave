@@ -21,7 +21,6 @@
 #include "config.h"
 
 #include <QtGui/QMenu>
-#include <QtCore/QString>
 #include <QtGui/QWidget>
 
 #include <kdemacros.h>
@@ -32,6 +31,7 @@ class QAction;
 class QMouseEvent;
 class QPaintEvent;
 class QPixmap;
+class QString;
 
 namespace Kwave
 {

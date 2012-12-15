@@ -17,26 +17,20 @@
 
 #include "config.h"
 
-#include <QtCore/QLatin1String>
+#include <QtCore/QByteArray>
 #include <QtCore/QMetaObject>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QObject>
 #include <QtCore/QtGlobal>
 #include <QtCore/QVarLengthArray>
 
+#include <kdemacros.h>
+
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/Sample.h"
 #include "libkwave/modules/ChannelMixer.h"
 #include "libkwave/modules/Indexer.h"
 #include "libkwave/modules/StreamObject.h"
-
-#ifndef unlikely
-#define unlikely(x) (__builtin_expect((x),0))
-#endif
-
-#ifndef likely
-#define likely(x) (__builtin_expect((x),1))
-#endif
 
 //***************************************************************************
 Kwave::ChannelMixer::ChannelMixer(unsigned int inputs, unsigned int outputs)
@@ -116,13 +110,13 @@ Kwave::ChannelMixer::~ChannelMixer()
 }
 
 //***************************************************************************
-static QByteArray _sig(const QString &sig)
+static inline QByteArray _sig(const char *sig)
 {
-    return QMetaObject::normalizedSignature(sig.toLatin1());
+    return QMetaObject::normalizedSignature(sig);
 }
 
 //***************************************************************************
-unsigned int Kwave::ChannelMixer::tracksOfPort(const QString &port) const
+unsigned int Kwave::ChannelMixer::tracksOfPort(const char *port) const
 {
     QMutexLocker _lock(const_cast<QMutex *>(&m_lock));
 
@@ -141,7 +135,7 @@ unsigned int Kwave::ChannelMixer::tracksOfPort(const QString &port) const
 }
 
 //***************************************************************************
-Kwave::StreamObject *Kwave::ChannelMixer::port(const QString &port,
+Kwave::StreamObject *Kwave::ChannelMixer::port(const char *port,
                                                unsigned int track)
 {
     QMutexLocker _lock(&m_lock);
@@ -248,7 +242,7 @@ void Kwave::ChannelMixer::mix()
 
 	// emit the output
 	Kwave::SampleBuffer *out_buf = m_output_buffer[y];
-	if (unlikely(out_buf->data().size() > min_len))
+	if (KDE_ISUNLIKELY(out_buf->data().size() > min_len))
 	    out_buf->data().resize(min_len);
 	out_buf->done();
     }

@@ -35,6 +35,7 @@
 #include "libkwave/FileProgress.h"
 #include "libkwave/Utils.h"  // for ms2string
 #include "libkwave/MessageBox.h"
+#include "libkwave/String.h"
 
 //***************************************************************************
 Kwave::FileProgress::FileProgress(QWidget *parent,
@@ -84,14 +85,14 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
 
     // label with "source"
     if (!addInfoLabel(info_layout, i18n("Source: "), 0, 0)) return;
-    text = "?";
+    text = _("?");
     m_lbl_url = addInfoLabel(info_layout, text, 0, 1);
     if (!m_lbl_url) return;
 
     // label with "length"
     if (!addInfoLabel(info_layout, i18n("Length: "), 1, 0)) return;
 
-    m_lbl_length = addInfoLabel(info_layout, "", 1, 1);
+    m_lbl_length = addInfoLabel(info_layout, _(""), 1, 1);
     if (!m_lbl_length) return;
     setLength(quint64(samples) * quint64(tracks));
 
@@ -139,9 +140,9 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
     top_layout->addLayout(status_layout);
 
     // create the statistic labels
-    m_stat_transfer = addInfoLabel(status_layout, "-", 1, 0);
+    m_stat_transfer = addInfoLabel(status_layout, _("-"), 1, 0);
     if (!m_stat_transfer) return;
-    m_stat_bytes = addInfoLabel(status_layout, "-", 1, 2);
+    m_stat_bytes = addInfoLabel(status_layout, _("-"), 1, 2);
     if (!m_stat_bytes) return;
 
     // some dummy update to get maximum size
@@ -221,7 +222,7 @@ void Kwave::FileProgress::fitUrlLabel()
 	url = m_url.toString();
 	int len = url.length();
 	if (len <= todel) break;
-	url = url.left((len-todel)/2) + "..." +
+	url = url.left((len-todel)/2) + _("...") +
 	    url.right((len-todel)/2 + 4);
 	m_lbl_url->setText(url);
 	todel++;

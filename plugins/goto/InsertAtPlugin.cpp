@@ -20,6 +20,8 @@
 #include <klocale.h>
 
 #include "libkwave/Plugin.h"
+#include "libkwave/String.h"
+
 #include "InsertAtPlugin.h"
 
 KWAVE_PLUGIN(Kwave::InsertAtPlugin, "insert_at", "2.1",
@@ -39,7 +41,7 @@ Kwave::InsertAtPlugin::~InsertAtPlugin()
 //***************************************************************************
 QString Kwave::InsertAtPlugin::command() const
 {
-    return "insert_at";
+    return _("insert_at");
 }
 
 //***************************************************************************

@@ -50,8 +50,8 @@ namespace Kwave
      *         \li a source or sink's track is NULL (missing)
      *         \li input or output name is zero-length
      */
-    bool connect(Kwave::StreamObject &source, const QString &output,
-                 Kwave::StreamObject &sink,   const QString &input)
+    bool connect(Kwave::StreamObject &source, const char *output,
+                 Kwave::StreamObject &sink,   const char *input)
                  KDE_EXPORT;
 }
 

@@ -282,7 +282,8 @@ void Kwave::MetaDataList::remove(const Kwave::MetaDataList &list)
 }
 
 //***************************************************************************
-void Kwave::MetaDataList::cropByRange(sample_index_t first, sample_index_t last)
+void Kwave::MetaDataList::cropByRange(sample_index_t first,
+                                      sample_index_t last)
 {
 
     MutableIterator it(*this);

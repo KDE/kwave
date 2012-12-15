@@ -16,8 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <klocale.h>
-#include "GenreType.h"
+
+#include "libkwave/GenreType.h"
+#include "libkwave/String.h"
 
 //***************************************************************************
 QMap<int, const char *> Kwave::GenreType::m_map;
@@ -33,7 +36,7 @@ QString Kwave::GenreType::name(int id, bool localized)
     fill();
 
     if (m_map.contains(id))
-	return QString((localized) ? i18n(m_map[id]) : m_map[id]);
+	return (localized) ? i18n(m_map[id]) : _(m_map[id]);
     else
 	return QString::number(id);
 }
@@ -46,7 +49,7 @@ int Kwave::GenreType::fromID3(const QString &tag)
     QString s = tag;
 
     // remove brackets (optional)
-    if (s.startsWith("(") && s.endsWith(")"))
+    if (s.startsWith(_("(")) && s.endsWith(_(")")))
 	s = s.mid(1, tag.length()-2);
 
     bool ok = false;
@@ -62,7 +65,7 @@ int Kwave::GenreType::id(const QString &name)
     fill();
     QMap<int, const char *>::Iterator it;
     for (it = m_map.begin(); it != m_map.end(); ++it) {
-	if (QString(it.value()).compare(name, Qt::CaseInsensitive) == 0)
+	if (!_(it.value()).compare(name, Qt::CaseInsensitive))
 	    return it.key();
 	if (i18n(it.value()).compare(name, Qt::CaseInsensitive) == 0)
 	    return it.key();
@@ -89,7 +92,7 @@ void Kwave::GenreType::fill()
     if (m_map.count()) return;
     {
 	static const char *map[] = {
-	    // The following genres is defined in ID3v1
+	    // The following genres are defined in ID3v1
 	    I18N_NOOP("Blues"),
 	    I18N_NOOP("Classic Rock"),
 	    I18N_NOOP("Country"),

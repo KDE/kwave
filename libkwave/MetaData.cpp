@@ -22,16 +22,17 @@
 #include <QtCore/QMutexLocker>
 #include <QtCore/QUuid>
 
-#include "MetaData.h"
+#include "libkwave/MetaData.h"
+#include "libkwave/String.h"
 
 //***************************************************************************
 // initializers of the standard property names
-const QString Kwave::MetaData::STDPROP_TYPE("STDPROP_TYPE");
-const QString Kwave::MetaData::STDPROP_TRACKS("STDPROP_TRACKS");
-const QString Kwave::MetaData::STDPROP_START("STDPROP_START");
-const QString Kwave::MetaData::STDPROP_END("STDPROP_END");
-const QString Kwave::MetaData::STDPROP_POS("STDPROP_POS");
-const QString Kwave::MetaData::STDPROP_DESCRIPTION("STDPROP_DESCRIPTION");
+const QString Kwave::MetaData::STDPROP_TYPE(       _("STDPROP_TYPE"));
+const QString Kwave::MetaData::STDPROP_TRACKS(     _("STDPROP_TRACKS"));
+const QString Kwave::MetaData::STDPROP_START(      _("STDPROP_START"));
+const QString Kwave::MetaData::STDPROP_END(        _("STDPROP_END"));
+const QString Kwave::MetaData::STDPROP_POS(        _("STDPROP_POS"));
+const QString Kwave::MetaData::STDPROP_DESCRIPTION(_("STDPROP_DESCRIPTION"));
 
 //***************************************************************************
 Kwave::MetaData::MetaData()
@@ -88,8 +89,7 @@ void Kwave::MetaData::setScope(Kwave::MetaData::Scope scope)
 }
 
 //***************************************************************************
-void Kwave::MetaData::setProperty(const QString &p,
-                                  const QVariant &value)
+void Kwave::MetaData::setProperty(const QString &p, const QVariant &value)
 {
     if (m_data) {
 	if (value.isValid())
@@ -242,12 +242,12 @@ void Kwave::MetaData::dump() const
     QString scope_list;
     const Scope s = scope();
     if (s == All)
-	scope_list = "all";
+	scope_list = _("all");
     else {
-	if (s & Signal)   scope_list += " signal";
-	if (s & Track)    scope_list += " track";
-	if (s & Range)    scope_list += " range";
-	if (s & Position) scope_list += " position";
+	if (s & Signal)   scope_list += _(" signal");
+	if (s & Track)    scope_list += _(" track");
+	if (s & Range)    scope_list += _(" range");
+	if (s & Position) scope_list += _(" position");
     }
     qDebug("    scope =%s", scope_list.toLocal8Bit().data());
     const QStringList props = keys();
@@ -257,15 +257,12 @@ void Kwave::MetaData::dump() const
 	QString value;
 	if (!v_vals.isEmpty()) {
 	    foreach (QVariant v, v_vals)
-		value += "{'" + v.toString() + "'} ";
+		value += _("{") + v.toString() + _("'} ");
 	} else {
-	    value += "'" + prop.toString() + "'";
+	    value += _("'") + prop.toString() + _("'");
 	}
 
-	qDebug("    '%s' = %s",
-	    p.toLocal8Bit().data(),
-	    value.toLocal8Bit().data()
-	);
+	qDebug("    '%s' = %s", DBG(p), DBG(value));
     }
 }
 
@@ -311,11 +308,11 @@ QString Kwave::MetaData::MetaDataPriv::newUid()
     QString uid;
 
     uid += QString::number(++m_id_counter, 16);
-    uid += "-";
+    uid += _("-");
     uid += QDateTime::currentDateTime().toString(Qt::ISODate);
-    uid += "-";
+    uid += _("-");
     uid += qApp->sessionKey();
-    uid += "-";
+    uid += _("-");
     uid += QUuid::createUuid().toString();
 
     return uid;

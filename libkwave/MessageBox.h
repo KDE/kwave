@@ -83,7 +83,7 @@ namespace Kwave
 
     private:
 
-	/** Default constructor, does nothing */
+	/** Default constructor (not implemented) */
 	MessageBox();
 
 	/**

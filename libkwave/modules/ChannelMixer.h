@@ -68,14 +68,14 @@ namespace Kwave
 	     * @return number of tracks of a input or output, default is
 	     *         the same as tracks()
 	     */
-	    virtual unsigned int tracksOfPort(const QString &port) const;
+	    virtual unsigned int tracksOfPort(const char *port) const;
 
 	    /**
 	     * Returns an indexed port, identified by name
 	     * @param port name of the port (name of signal or slot)
 	     * @param track index of the track
 	     */
-	    virtual Kwave::StreamObject *port(const QString &port,
+	    virtual Kwave::StreamObject *port(const char *port,
 	                                      unsigned int track);
 
 	    /** does nothing, work is done automatically in mix() */

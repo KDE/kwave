@@ -28,6 +28,8 @@
 #include <klocale.h>
 #include <kcmdlineargs.h>
 
+#include "libkwave/String.h"
+
 #include "App.h"
 #include "Splash.h"
 
@@ -148,17 +150,17 @@ int main( int argc, char **argv )
     );
     addDataStrings(about);
 
+    /* process all interesting commandline parameters */
+    KCmdLineArgs::init(argc, argv, &about);
+    KCmdLineArgs::addCmdLineOptions(options);
+    Kwave::App::addCmdLineOptions();
+
     /* show some version info */
     printf("\nThis is %s v%s (compiled for KDE %s)\n",
 	about.productName().toAscii().data(),
 	about.version().toAscii().data(),
 	KDE_VERSION_STRING
     );
-
-    /* process all interesting commandline parameters */
-    KCmdLineArgs::init(argc, argv, &about);
-    KCmdLineArgs::addCmdLineOptions(options);
-    Kwave::App::addCmdLineOptions();
 
      /* check for an optimized version of memcpy() */
 #ifdef HAVE_OPTIMIZED_MEMCPY
@@ -172,7 +174,7 @@ int main( int argc, char **argv )
     }
 
     Kwave::App app;
-    Kwave::Splash splash("pics/kwave-splash.png");
+    Kwave::Splash splash(_("pics/kwave-splash.png"));
     splash.show();
 
     return app.exec();

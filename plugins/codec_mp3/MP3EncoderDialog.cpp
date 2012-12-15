@@ -24,6 +24,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QLatin1Char>
 #include <QtGui/QLineEdit>
 #include <QtGui/QApplication>
 #include <QtCore/QProcess>
@@ -35,6 +36,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/ReaderMode.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 
 #include "libgui/FileDialog.h"
 
@@ -57,149 +59,149 @@
 const Kwave::MP3EncoderSettings g_predefined_settings[] =
 {
     {
-	"LAME",                        // name
-	"lame" EXE_SUFFIX,             // path
+	_("LAME"),                        // name
+	_("lame" EXE_SUFFIX),             // path
 	{
-	    "-r",                      // raw format
+	    _("-r"),                      // raw format
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	    "--big-endian",            // byte order
+	    _("--big-endian"),            // byte order
 #else
-	    "--little-endian",         // byte order
+	    _("--little-endian"),         // byte order
 #endif
-	    "--signed"                 // signed
+	    _("--signed")                 // signed
 	},
 	{
-	    "-s %1",                   // sample rate
-	    "--bitwidth %1",           // bits per sample
+	    _("-s %1"),                   // sample rate
+	    _("--bitwidth %1"),           // bits per sample
 	    {
-		"-mm",                 // mono
-		"-mj"                  // stereo
+		_("-mm"),                 // mono
+		_("-mj")                  // stereo
 	    }
 	},
 	{
 	    {
-		"--abr %1",            // average bitrate
-		"-b %1",               // minimum bitrate
-		"-B %1"                // maximum bitrate
+		_("--abr %1"),            // average bitrate
+		_("-b %1"),               // minimum bitrate
+		_("-B %1")                // maximum bitrate
 	    }
 	},
 	{
 	    {
-		"-en",                 // no emphasis
-		"-e5",                 // 50/15ms
-		"-ec"                  // CCIT J17
+		_("-en"),                 // no emphasis
+		_("-e5"),                 // 50/15ms
+		_("-ec")                  // CCIT J17
 	    },
-	    "-q 2",                    // noise shaping
-	    "--strictly-enforce-ISO"   // compatibility
+	    _("-q 2"),                    // noise shaping
+	    _("--strictly-enforce-ISO")   // compatibility
 	},
 	{
-	    "-c",                      // copyrighted
-	    "-o",                      // original
-	    "-p",                      // protect
-	    "",                        // prepended
-	    "--silent"                 // appended
+	    _("-c"),                      // copyrighted
+	    _("-o"),                      // original
+	    _("-p"),                      // protect
+	    _(""),                        // prepended
+	    _("--silent")                 // appended
 	},
 	{
-	    "--longhelp",              // encoder help
-	    "--version"                // encoder version
+	    _("--longhelp"),              // encoder help
+	    _("--version")                // encoder version
 	}
     },
     /***********************************************************************/
     {
-	"TwoLAME",                     // name
-	"twolame" EXE_SUFFIX,          // path
+	_("TwoLAME"),                     // name
+	_("twolame" EXE_SUFFIX),          // path
 	{
-	    "--raw-input",             // raw format
+	    _("--raw-input"),             // raw format
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	    "--byte-swap",             // byte order
+	    _("--byte-swap"),             // byte order
 #else
-	    "",                        // byte order
+	    _(""),                        // byte order
 #endif
-	    ""                         // signed
+	    _("")                         // signed
 	},
 	{
-	    "--samplerate=%1",         // sample rate
-	    "--samplesize=16",         // bits per sample (supports only 16)
+	    _("--samplerate=%1"),         // sample rate
+	    _("--samplesize=16"),         // bits per sample (supports only 16)
 	    {
-		"--channels=1 --mode=mono",  // mono
-		"--channels=2 --mode=joint"  // stereo
+		_("--channels=1 --mode=mono"),  // mono
+		_("--channels=2 --mode=joint")  // stereo
 	    }
 	},
 	{
 	    {
-		"--bitrate=%1",        // average bitrate
-		"",                    // minimum bitrate
-		"--max-bitrate=%1"     // maximum bitrate
+		_("--bitrate=%1"),        // average bitrate
+		_(""),                    // minimum bitrate
+		_("--max-bitrate=%1")     // maximum bitrate
 	    }
 	},
 	{
 	    {
-		"--deemphasis=n",      // no emphasis
-		"--deemphasis=5",      // 50/15ms
-		"--deemphasis=c"       // CCIT J17
+		_("--deemphasis=n"),      // no emphasis
+		_("--deemphasis=5"),      // 50/15ms
+		_("--deemphasis=c")       // CCIT J17
 	    },
-	    "",                        // noise shaping
-	    ""                         // compatibility
+	    _(""),                        // noise shaping
+	    _("")                         // compatibility
 	},
 	{
-	    "--copyright",             // copyrighted
-	    "--original",              // original
-	    "--protect",               // protect
-	    "",                        // prepended
-	    "--quiet"                  // appended
+	    _("--copyright"),             // copyrighted
+	    _("--original"),              // original
+	    _("--protect"),               // protect
+	    _(""),                        // prepended
+	    _("--quiet")                  // appended
 	},
 	{
-	    "--help",                  // encoder help
-	    "--help"                   // encoder version
+	    _("--help"),                  // encoder help
+	    _("--help")                   // encoder version
 	}
     },
     /***********************************************************************/
     {
-	"tooLAME",                     // name
-	"toolame" EXE_SUFFIX,          // path
+	_("tooLAME"),                     // name
+	_("toolame" EXE_SUFFIX),          // path
 	{
-	    "",                        // raw format
+	    _(""),                        // raw format
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	    "-x",                      // byte order
+	    _("-x"),                      // byte order
 #else
-	    "",                        // byte order
+	    _(""),                        // byte order
 #endif
-	    ""                         // signed
+	    _("")                         // signed
 	},
 	{
-	    "-s [%khz]",               // sample rate
-	    "",                        // bits per sample (supports only 16)
+	    _("-s [%khz]"),               // sample rate
+	    _(""),                        // bits per sample (supports only 16)
 	    {
-		"-mm",                 // mono
-		"-mj"                  // stereo
+		_("-mm"),                 // mono
+		_("-mj")                  // stereo
 	    }
 	},
 	{
 	    {
-		"-b %1",               // average bitrate
-		"",                    // minimum bitrate
-		""                     // maximum bitrate
+		_("-b %1"),               // average bitrate
+		_(""),                    // minimum bitrate
+		_("")                     // maximum bitrate
 	    }
 	},
 	{
 	    {
-		"-dn",                 // no emphasis
-		"-d5",                 // 50/15ms
-		"-dc"                  // CCIT J17
+		_("-dn"),                 // no emphasis
+		_("-d5"),                 // 50/15ms
+		_("-dc")                  // CCIT J17
 	    },
-	    "",                        // noise shaping
-	    ""                         // compatibility
+	    _(""),                        // noise shaping
+	    _("")                         // compatibility
 	},
 	{
-	    "-c",                      // copyrighted
-	    "-o",                      // original
-	    "-e",                      // protect
-	    "",                        // prepended
-	    "-t 0"                     // appended
+	    _("-c"),                      // copyrighted
+	    _("-o"),                      // original
+	    _("-e"),                      // protect
+	    _(""),                        // prepended
+	    _("-t 0")                     // appended
 	},
 	{
-	    "-help",                   // encoder help
-	    "-version"                 // encoder version
+	    _("-help"),                   // encoder help
+	    _("-version")                 // encoder version
 	}
     }
 };
@@ -394,7 +396,7 @@ void Kwave::MP3EncoderDialog::save()
     if (index < static_cast<int>(ELEMENTS_OF(g_predefined_settings))) {
 	m_settings.m_name = g_predefined_settings[index].m_name;
     } else {
-	m_settings.m_name = "*";
+	m_settings.m_name = _("*");
     }
 
     // fetch all settings from the dialog content
@@ -550,16 +552,16 @@ void Kwave::MP3EncoderDialog::locatePath()
 /***************************************************************************/
 void Kwave::MP3EncoderDialog::browseFile()
 {
-    QString mask = QString("*");
+    QString mask = _("*");
 #ifdef EXECUTABLE_SUFFIX
     mask += QString(EXECUTABLE_SUFFIX);
 #endif
-    Kwave::FileDialog dlg("kfiledialog:///kwave_mp3_encoder", "", this,
-	true, "file:/" + edPath->text().simplified(), mask);
+    Kwave::FileDialog dlg(_("kfiledialog:///kwave_mp3_encoder"),
+	_(""), this, true, _("file:/") + edPath->text().simplified(), mask);
     dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Select MP3 Encoder"));
-    dlg.setUrl(KUrl("file:/usr/bin/"));
+    dlg.setUrl(KUrl(_("file:/usr/bin/")));
     if (dlg.exec() != QDialog::Accepted) return;
 
     edPath->setText(dlg.selectedFile());
@@ -658,7 +660,7 @@ QString Kwave::MP3EncoderDialog::encoderVersion(const QString &path,
 {
     QString text = callWithParam(path, param);
 
-    QStringList lines = text.split('\n');
+    QStringList lines = text.split(QLatin1Char('\n'));
 
     // take the first non-zero line
     while (lines.count() && !lines.first().simplified().length())
@@ -678,7 +680,7 @@ QString Kwave::MP3EncoderDialog::searchPath(const QString &program)
     const QLatin1Char separator = QLatin1Char(':');
 #endif
     QStringList path =
-	QString(qgetenv("PATH")).split(separator, QString::SkipEmptyParts);
+	_(qgetenv("PATH")).split(separator, QString::SkipEmptyParts);
 
     QFileInfo f(program);
     QString d = f.path();

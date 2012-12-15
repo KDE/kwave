@@ -26,6 +26,8 @@
 #include <QtGui/QPainter>
 #include <QtGui/QPaintEvent>
 
+#include "libkwave/String.h"
+
 #include "ScaleWidget.h"
 
 #define FONTSIZE 6
@@ -33,7 +35,7 @@
 //***************************************************************************
 Kwave::ScaleWidget::ScaleWidget(QWidget *parent)
     :QWidget(parent), m_low(0), m_high(100), m_logmode(false),
-     m_unittext("%")
+     m_unittext(_("%"))
 {
 }
 
@@ -134,26 +136,26 @@ void Kwave::ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
     for (a = 0; a < decades; a++) {
 	// big line, for each decade
 	x = static_cast<int>((w-1) * a / decades);
-	p.drawLine (dir*x, dir*1, dir*x, dir*(h2-2));
+	p.drawLine (dir * x, dir * 1, dir * x, dir * (h2 - 2));
 
-	w1 = static_cast<int>((w-1) * (a+1) / decades) - x + 1;
+	w1 = static_cast<int>((w - 1) * (a + 1) / decades) - x + 1;
 	if (small_lines) {
 	    // small lines, within the decade
-	    for (int i=1; i < base; i++) {
+	    for (int i = 1; i < base; i++) {
 		int x1 = x + static_cast<int>(static_cast<double>(w1) *
-		    log(i)/log(base));
-		p.drawLine (dir*x1, dir*1, dir*x1, dir*((h2/2)-2));
+		    log(i) / log(base));
+		p.drawLine (dir * x1, dir * 1, dir * x1, dir * ((h2 / 2) - 2));
 	    }
 	}
     }
 
     // print the text
     for (a = 0; a < decades; a++) {
-	QString buf = "%1 %2";
-	int value = static_cast<int>(pow(base, dec_lo+a));
+	QString buf = _("%1 %2");
+	int value = static_cast<int>(pow(base, dec_lo + a));
 	buf = buf.arg(value).arg(m_unittext);
-	x = ((w-1) * a)/decades;
-	paintText(p, dir*(x+4), dir*(h-FONTSIZE-4), inverse, buf);
+	x = ((w - 1) * a) / decades;
+	paintText(p, dir * (x + 4), dir * (h - FONTSIZE - 4), inverse, buf);
     }
 }
 
@@ -163,8 +165,8 @@ void Kwave::ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
     int dir = (inverse) ? -1 : +1;
 
     p.setPen(palette().dark().color());
-    p.drawLine(0, dir*(h-1), dir*w, dir*(h-1));
-    p.drawLine(dir*(w-1), 0, dir*(w-1), dir*(h - 1));
+    p.drawLine(0, dir * (h - 1), dir * w, dir * (h - 1));
+    p.drawLine(dir * (w - 1), 0, dir * (w - 1), dir * (h - 1));
 
     p.setPen(palette().text().color());
 
@@ -178,7 +180,7 @@ void Kwave::ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
 	for (ofs = 0; ofs < w - 1; ofs += t) {
 	    for (a = 0; a < 4; a++) {
 		x = static_cast<int>(ofs + (t * a / 4));
-		p.drawLine (dir*x, dir*1, dir*x, dir*(h2-2));
+		p.drawLine (dir * x, dir * 1, dir * x, dir * (h2 - 2));
 	    }
 	}
 	h2 >>= 1;
@@ -187,11 +189,11 @@ void Kwave::ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
 
     // print the text
     for (a = 0; a < 4; a++) {
-	QString buf = "%1 %2";
-	int value = m_low + (((m_high - m_low)* (inverse ? (4-a) : a))/4);
+	QString buf = _("%1 %2");
+	int value = m_low + (((m_high - m_low)* (inverse ? (4 - a) : a)) / 4);
 	buf = buf.arg(value).arg(m_unittext);
-	x = ((w-1) * a)/4;
-	paintText(p, dir*(x+4), dir*(h-FONTSIZE-4), inverse, buf);
+	x = ((w - 1) * a) / 4;
+	paintText(p, dir * (x + 4), dir * (h - FONTSIZE - 4), inverse, buf);
     }
 
 }
@@ -227,13 +229,13 @@ void Kwave::ScaleWidget::paintEvent(QPaintEvent *)
 //***************************************************************************
 QSize Kwave::ScaleWidget::sizeHint() const
 {
-    return QSize(4*FONTSIZE, 4*FONTSIZE);
+    return QSize(4 * FONTSIZE, 4 * FONTSIZE);
 }
 
 //***************************************************************************
 QSize Kwave::ScaleWidget::minimumSize() const
 {
-    return QSize(5*2*FONTSIZE, 5*2*FONTSIZE);
+    return QSize(5 * 2 * FONTSIZE, 5 * 2 * FONTSIZE);
 }
 
 //***************************************************************************

@@ -47,7 +47,7 @@ namespace Kwave
 
 	Kwave::PluginManager &m_plugin_manager;
 
-	void *m_handle;
+	void   *m_handle;
 	QString m_name;
 	QString m_version;
 	QString m_author;

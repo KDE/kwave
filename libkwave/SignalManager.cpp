@@ -51,6 +51,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/Signal.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/Track.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
@@ -66,7 +67,7 @@
 #include "libkwave/undo/UndoSelection.h"
 #include "libkwave/undo/UndoTransaction.h"
 
-#define CASE_COMMAND(x) } else if (parser.command() == x) {
+#define CASE_COMMAND(x) } else if (parser.command() == _(x)) {
 
 //***************************************************************************
 Kwave::SignalManager::SignalManager(QWidget *parent)
@@ -339,7 +340,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 		    file_info.name(it.key()).toLocal8Bit().data());
 		all_supported = false;
 		lost_properties += i18n("%1", file_info.name(it.key()))
-		    + "\n";
+		    + _("\n");
 	    }
 	}
 	if (!all_supported) {
@@ -353,7 +354,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 		QString(),
 		QString(),
 		QString(),
-		"accept_lose_attributes_on_export"
+		_("accept_lose_attributes_on_export")
 		) != KMessageBox::Continue)
 	    {
 		delete encoder;
@@ -381,7 +382,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 	    // add our Kwave Software tag
 	    const KAboutData *about_data =
 		KGlobal::mainComponent().aboutData();
-	    QString software = about_data->programName() + "-" +
+	    QString software = about_data->programName() + _("-") +
 	                       about_data->version() +
 	                       i18n(" for KDE ") +
 			       i18n(KDE_VERSION_STRING);
@@ -569,7 +570,7 @@ QString Kwave::SignalManager::signalName()
     if (!isClosed()) return QString(NEW_FILENAME);
 
     // otherwise: closed, nothing loaded
-    return "";
+    return _("");
 }
 
 //***************************************************************************
@@ -1314,15 +1315,18 @@ bool Kwave::SignalManager::continueWithoutUndo()
     if (m_undo_transaction->isEmpty()) return true;
 
     if (Kwave::MessageBox::warningContinueCancel(m_parent_widget,
-	"<html>"+i18n("Not enough memory for saving undo information.") +
-	"<br><br><b>"+
+	_("<html>") +
+	i18n("Not enough memory for saving undo information.") +
+	_("<br><br><b>") +
 	i18n("Do you want to continue without the possibility to undo?") +
-	"</b><br><br><i>" +
+	_("</b><br><br><i>") +
 	i18n("<b>Hint</b>: you can configure the amount of memory<br>"
 	     "available for undo under '%1'/'%2'.").arg(
-	     i18n("&Options").replace(QRegExp("&(.)"), "<u>\\1</u>")).arg(
-	     i18n("&Memory").replace(QRegExp("&(.)"), "<u>\\1</u>") +
-	"</i></html>")) == KMessageBox::Continue)
+	     i18n("&Options").replace(QRegExp(_("&(.)")),
+	     _("<u>\\1</u>"))).arg(
+	     i18n("&Memory").replace(QRegExp(_("&(.)")),
+	     _("<u>\\1</u>")) +
+	_("</i></html>"))) == KMessageBox::Continue)
     {
 	// the signal was modified, it will stay in this state, it is
 	// not possible to change to "non-modified" state through undo
@@ -1458,8 +1462,8 @@ void Kwave::SignalManager::freeUndoMemory(unsigned int needed)
 //***************************************************************************
 void Kwave::SignalManager::emitUndoRedoInfo()
 {
-    QString undo_name = 0;
-    QString redo_name = 0;
+    QString undo_name = QString();
+    QString redo_name = QString();
 
     if (m_undo_enabled) {
 	Kwave::UndoTransaction *transaction;

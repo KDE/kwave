@@ -29,6 +29,7 @@
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/Track.h"
 
 #include "LabelItem.h"
@@ -79,8 +80,8 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 	}
 
 	// add a bitmap for off (0 and on (1)
-	msw->addPixmap("light_off.xpm");
-	msw->addPixmap("light_on.xpm");
+	msw->addPixmap(_("light_off.xpm"));
+	msw->addPixmap(_("light_on.xpm"));
 
 	// connect widget <-> track
 	connect(
@@ -213,7 +214,7 @@ void Kwave::TrackView::handleContextMenu(const QPoint &pos, QMenu *menu)
 
     // add label
     QAction *action_label_new = submenu_label->addAction(
-	icon_loader.loadIcon("list-add", KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("list-add"), KIconLoader::Toolbar),
 	i18n("&New"), this, SLOT(contextMenuLabelNew()));
     Q_ASSERT(action_label_new);
     if (!action_label_new) return;
@@ -225,7 +226,7 @@ void Kwave::TrackView::handleContextMenu(const QPoint &pos, QMenu *menu)
 //***************************************************************************
 void Kwave::TrackView::contextMenuLabelNew()
 {
-    emit sigCommand(QString("add_label(%1)").arg(m_mouse_click_position));
+    emit sigCommand(_("add_label(%1)").arg(m_mouse_click_position));
 }
 
 //***************************************************************************

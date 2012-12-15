@@ -24,6 +24,7 @@
 
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/String.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
@@ -71,12 +72,12 @@ QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
 	*list << QString::number(dialog->start());
 	*list << QString::number(dialog->range());
 
-	emitCommand("plugin:execute(selectrange,"+
-	    QString::number(dialog->startMode())+","+
-	    QString::number(dialog->rangeMode())+","+
-	    QString::number(dialog->start())+","+
+	emitCommand(_("plugin:execute(selectrange,") +
+	    QString::number(dialog->startMode()) + _(",") +
+	    QString::number(dialog->rangeMode()) + _(",") +
+	    QString::number(dialog->start()) + _(",") +
 	    QString::number(dialog->range())+
-	    ")"
+	    _(")")
 	);
     } else {
 	// user pressed "Cancel"

@@ -15,28 +15,35 @@ VorbisCommentMap.cpp  -  map for translating properties to vorbis comments
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
+#include "libkwave/String.h"
+
 #include "VorbisCommentMap.h"
+
+/** wrapper for 'insert', to handle QLatin1String conversion */
+#define _INS(p,d) insert(_(p), d)
 
 //***************************************************************************
 Kwave::VorbisCommentMap::VorbisCommentMap()
 {
-    insert("DATE",         Kwave::INF_CREATION_DATE ); // creation date (iso)
-    insert("TITLE",        Kwave::INF_NAME          ); // name
-    insert("VERSION",      Kwave::INF_VERSION       ); // version of the song
-    insert("ALBUM",        Kwave::INF_ALBUM         ); // name of the album
-    insert("TRACKNUMBER",  Kwave::INF_TRACK         ); // index of the track
-    insert("ARTIST",       Kwave::INF_AUTHOR        ); // author's name
-    insert("PERFORMER",    Kwave::INF_PERFORMER     ); // performer
-    insert("COPYRIGHT",    Kwave::INF_COPYRIGHT     ); // copyright
-    insert("LICENSE",      Kwave::INF_LICENSE       ); // name of the license
-    insert("ORGANIZATION", Kwave::INF_ORGANIZATION  ); // producing organization
-    insert("DESCRIPTION",  Kwave::INF_SUBJECT       ); // subject
-    insert("GENRE",        Kwave::INF_GENRE         ); // genre
-    insert("LOCATION",     Kwave::INF_SOURCE        ); // source
-    insert("CONTACT",      Kwave::INF_CONTACT       ); // contact address(es)
-    insert("ISRC",         Kwave::INF_ISRC          ); // ISRC code
-    insert("ENCODER",      Kwave::INF_SOFTWARE      ); // software
-    insert("VBR_QUALITY",  Kwave::INF_VBR_QUALITY   ); // VBR quality
+    _INS("DATE",         Kwave::INF_CREATION_DATE ); // creation date (iso)
+    _INS("TITLE",        Kwave::INF_NAME          ); // name
+    _INS("VERSION",      Kwave::INF_VERSION       ); // version of the song
+    _INS("ALBUM",        Kwave::INF_ALBUM         ); // name of the album
+    _INS("TRACKNUMBER",  Kwave::INF_TRACK         ); // index of the track
+    _INS("ARTIST",       Kwave::INF_AUTHOR        ); // author's name
+    _INS("PERFORMER",    Kwave::INF_PERFORMER     ); // performer
+    _INS("COPYRIGHT",    Kwave::INF_COPYRIGHT     ); // copyright
+    _INS("LICENSE",      Kwave::INF_LICENSE       ); // name of the license
+    _INS("ORGANIZATION", Kwave::INF_ORGANIZATION  ); // producing organization
+    _INS("DESCRIPTION",  Kwave::INF_SUBJECT       ); // subject
+    _INS("GENRE",        Kwave::INF_GENRE         ); // genre
+    _INS("LOCATION",     Kwave::INF_SOURCE        ); // source
+    _INS("CONTACT",      Kwave::INF_CONTACT       ); // contact address(es)
+    _INS("ISRC",         Kwave::INF_ISRC          ); // ISRC code
+    _INS("ENCODER",      Kwave::INF_SOFTWARE      ); // software
+    _INS("VBR_QUALITY",  Kwave::INF_VBR_QUALITY   ); // VBR quality
 }
 
 //***************************************************************************
@@ -47,7 +54,7 @@ QString Kwave::VorbisCommentMap::findProperty(
     for (it=begin(); it != end(); ++it) {
         if (it.value() == property) return it.key();
     }
-    return 0;
+    return QString();
 }
 
 //***************************************************************************

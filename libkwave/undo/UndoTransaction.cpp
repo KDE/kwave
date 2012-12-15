@@ -19,6 +19,7 @@
 
 #include <QtCore/QListIterator>
 
+#include "libkwave/String.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoTransaction.h"
 
@@ -67,7 +68,7 @@ QString Kwave::UndoTransaction::description()
     // if description exists, return it
     if (m_description.length()) return m_description;
 
-    QString str("");
+    QString str;
     QListIterator<UndoAction *> it(*this);
     while (it.hasNext()) {
 	UndoAction *undo = it.next();
@@ -75,10 +76,10 @@ QString Kwave::UndoTransaction::description()
 	QString d = undo->description();
 
 	// skip duplicates
-	if (str.contains(", "+d) || (str == d)) continue;
+	if (str.contains(_(", ") + d) || (str == d)) continue;
 
 	// append others
-	if (str.length()) str += ", ";
+	if (str.length()) str += _(", ");
 	str += d;
     }
     return str;
@@ -116,7 +117,7 @@ void Kwave::UndoTransaction::dump(const QString &indent)
 	UndoAction *action = it.previous();
 	Q_ASSERT(action);
 	if (!action) continue;
-	action->dump("    ");
+	action->dump(_("    "));
     }
 }
 

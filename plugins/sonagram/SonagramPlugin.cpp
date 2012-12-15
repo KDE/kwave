@@ -131,7 +131,7 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
     param = params[0];
     m_fft_points = param.toUInt(&ok);
     if (!ok) return -EINVAL;
-    if (m_fft_points > 32767) m_fft_points=32767;
+    if (m_fft_points > 32767) m_fft_points = 32767;
 
     param = params[1];
     m_window_type = Kwave::WindowFunction::findFromName(param);

@@ -38,6 +38,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
+#include "libkwave/String.h"
 
 #include "FlacCodecPlugin.h"
 #include "FlacEncoder.h"
@@ -116,7 +117,7 @@ void Kwave::FlacEncoder::VorbisCommentContainer::add(const QString &tag,
     if (!m_vc) return;
 
     QString s;
-    s = tag+"="+value;
+    s = tag + _("=") + value;
 
     // make a plain C string out of it, containing UTF-8
     QByteArray val = s.toUtf8();

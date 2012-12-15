@@ -21,6 +21,7 @@
 #include <stdlib.h>
 
 #include <QtCore/QIODevice>
+#include <QtCore/QLatin1String>
 #include <QtCore/QList>
 #include <QtCore/QMutableListIterator>
 #include <QtCore/QString>
@@ -29,6 +30,8 @@
 #include <klocale.h>
 
 #include "libkwave/byteswap.h"
+#include "libkwave/String.h"
+
 #include "RIFFChunk.h"
 #include "RIFFParser.h"
 
@@ -73,15 +76,15 @@ bool Kwave::RIFFParser::isValidName(const char *name)
 Kwave::RIFFChunk::ChunkType Kwave::RIFFParser::guessType(const QByteArray &name)
 {
     if (!isValidName(name)) return Kwave::RIFFChunk::Garbage;
-    return (m_main_chunk_names.contains(name)) ?
+    return (m_main_chunk_names.contains(QLatin1String(name))) ?
 	Kwave::RIFFChunk::Main : Kwave::RIFFChunk::Sub;
 }
 
 //***************************************************************************
 bool Kwave::RIFFParser::isKnownName(const QByteArray &name)
 {
-    if (m_main_chunk_names.contains(name)) return true;
-    if (m_sub_chunk_names.contains(name)) return true;
+    if (m_main_chunk_names.contains(QLatin1String(name))) return true;
+    if (m_sub_chunk_names.contains(QLatin1String(name))) return true;
     return false;
 }
 
@@ -89,12 +92,12 @@ bool Kwave::RIFFParser::isKnownName(const QByteArray &name)
 void Kwave::RIFFParser::detectEndianness()
 {
     // first try the easy way, works if file is sane
-    QString sane_name = read4ByteString(0);
-    if (sane_name == "RIFF") {
+    QString sane_name = QLatin1String(read4ByteString(0));
+    if (sane_name == _("RIFF")) {
 	m_endianness = LittleEndian;
 	return;
     }
-    if (sane_name == "RIFX") {
+    if (sane_name == _("RIFX")) {
 	m_endianness = BigEndian;
 	return;
     }
@@ -531,7 +534,8 @@ Kwave::RIFFChunk *Kwave::RIFFParser::chunkAt(quint32 offset)
 //***************************************************************************
 Kwave::RIFFChunk *Kwave::RIFFParser::findMissingChunk(const QByteArray &name)
 {
-    emit action(i18n("Searching for missing chunk '%1'...", name.data()));
+    emit action(i18n("Searching for missing chunk '%1'...",
+                QLatin1String(name)));
     emit progress(0);
 
     bool found_something = false;

@@ -25,6 +25,7 @@
 
 #include <QtGui/QCursor>
 #include <QtCore/QFile>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QMutex>
 #include <QtCore/QMutexLocker>
 #include <QtGui/QProgressDialog>
@@ -47,6 +48,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 
 #include "libkwave/modules/CurveStreamAdapter.h"
 #include "libkwave/modules/Delay.h"
@@ -80,7 +82,7 @@ Kwave::PlayBackPlugin::PlayBackPlugin(const Kwave::PluginContext &context)
 #ifdef HAVE_ALSA_SUPPORT
     // set builtin defaults to ALSA
     m_playback_params.method = Kwave::PLAYBACK_ALSA;
-    m_playback_params.device = "default";
+    m_playback_params.device = _("default");
 #endif /* HAVE_ALSA_SUPPORT */
 
     connect(this, SIGNAL(sigPlaybackDone()),
@@ -234,8 +236,7 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
 	    param = param.setNum(m_playback_params.bufbase);
 	    result->append(param);
 
-	    qDebug("playback >>> '%s", QString(result->join("','") +
-		"'").toLocal8Bit().data());
+	    qDebug("playback >>> '%s", DBG(result->join(_("','")) + _("'")));
 	}
     }
 
@@ -324,18 +325,18 @@ void Kwave::PlayBackPlugin::setMethod(Kwave::playback_method_t method)
 	// for the next time this method gets selected
 	// change in method -> save the current device and use
 	// the previous one
-	QString device = "";
-	QString section = "plugin "+name();
+	QString device = _("");
+	QString section = _("plugin ") + name();
 	KConfigGroup cfg = KGlobal::config()->group(section);
 	if (m_dialog) {
 
 	    // save the current device
-	    cfg.writeEntry(QString("last_device_%1").arg(
+	    cfg.writeEntry(QString(_("last_device_%1")).arg(
 		static_cast<int>(m_playback_params.method)),
 		m_dialog->params().device);
 	    qDebug(">>> %d -> '%s'",
 	           static_cast<int>(m_playback_params.method),
-	           m_dialog->params().device.toLocal8Bit().data());
+	           DBG(m_dialog->params().device));
 	    cfg.sync();
 	}
 
@@ -344,10 +345,9 @@ void Kwave::PlayBackPlugin::setMethod(Kwave::playback_method_t method)
 
 	if (m_dialog) {
 	    // restore the previous one
-	    device = cfg.readEntry(QString("last_device_%1").arg(
-		static_cast<int>(method)));
-	    qDebug("<<< %d -> '%s'", static_cast<int>(method),
-		device.toLocal8Bit().data());
+	    device = cfg.readEntry(
+		_("last_device_%1").arg(static_cast<int>(method)));
+	    qDebug("<<< %d -> '%s'", static_cast<int>(method), DBG(device));
 	    last_device_name = device;
 	    m_playback_params.device = device;
 	    m_dialog->setSupportedDevices(QList<QString>());
@@ -396,9 +396,9 @@ void Kwave::PlayBackPlugin::setDevice(const QString &device)
     QString dev = device;
     if (m_device) {
 	QStringList supported = m_device->supportedDevices();
-	supported.removeAll("#EDIT#");
-	supported.removeAll("#SELECT#");
-	supported.removeAll("#TREE#");
+	supported.removeAll(_("#EDIT#"));
+	supported.removeAll(_("#SELECT#"));
+	supported.removeAll(_("#TREE#"));
 	if (!supported.isEmpty() && !supported.contains(device)) {
 	    // use the first entry as default
 	    dev = supported.first();
@@ -457,7 +457,7 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::openDevice(
     Q_ASSERT(device);
     if (!device) {
 	qWarning("PlayBackPlugin::openDevice(): "\
-		"creating device failed.");
+	         "creating device failed.");
 	return 0;
     }
 
@@ -471,7 +471,7 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::openDevice(
     );
     if (result.length()) {
 	qWarning("PlayBackPlugin::openDevice(): "\
-	        "opening the device failed.");
+	         "opening the device failed.");
 
 	// delete the device if it did not open
 	delete device;
@@ -480,7 +480,7 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::openDevice(
 	// show an error message box
 	Kwave::MessageBox::error(parentWidget(), result,
 	    i18n("Unable to open '%1'",
-	    params.device.section('|',0,0)));
+	    params.device.section(QLatin1Char('|'), 0, 0)));
     }
 
     return device;
@@ -840,11 +840,11 @@ void Kwave::PlayBackPlugin::testPlayBack()
 	    progress->setAutoClose(true);
 	    progress->setValue(1);
 	    progress->setLabelText(
-		"<html><p><br>" +
+		_("<html><p><br>") +
 		i18n("You should now hear a %1 Hz test tone.<br><br>"\
 		     "(If you hear clicks or dropouts, please increase<br>"\
 		     "the buffer size and try again)", static_cast<int>(freq)) +
-		"</p></html>"
+		_("</p></html>")
 	    );
 	    progress->show();
 	    QApplication::processEvents();

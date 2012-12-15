@@ -20,28 +20,25 @@
 #include <QtCore/QString>
 #include <klocale.h>
 
+#include "libkwave/String.h"
+
 #include "RecordTypesMap.h"
 
 //***************************************************************************
 void Kwave::RecordTypesMap::fill()
 {
     unsigned int index = 0;
-    QString name = "";
 
 #ifdef HAVE_ALSA_SUPPORT
-    name = "ALSA (Advanced Linux Sound Architecture)";
-    append(index++, Kwave::RECORD_ALSA, "alsa", name);
-#if 0
-    i18n("ALSA (Advanced Linux Sound Architecture)");
-#endif
+    append(index++, Kwave::RECORD_ALSA,
+        _("alsa"),
+        _(I18N_NOOP("ALSA (Advanced Linux Sound Architecture)")));
 #endif /* HAVE_ALSA_SUPPORT */
 
 #ifdef HAVE_OSS_SUPPORT
-    name = "OSS (Open Sound System)";
-    append(index++, Kwave::RECORD_OSS, "oss", name);
-#if 0
-    i18n("OSS (Open Sound System)");
-#endif
+    append(index++, Kwave::RECORD_OSS,
+        _("oss"),
+        _(I18N_NOOP("OSS (Open Sound System)")));
 #endif /* HAVE_OSS_SUPPORT */
 
    Q_ASSERT(index);

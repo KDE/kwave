@@ -16,6 +16,7 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
@@ -31,7 +32,7 @@ KWAVE_PLUGIN(Kwave::DebugPlugin, "debug", "2.1",
 
 /** helper for generating menu entries */
 #define MENU_ENTRY(cmd,txt) \
-    emitCommand(entry.arg(cmd).arg(i18n(txt)));
+    emitCommand(entry.arg(_(cmd)).arg(i18n(txt)));
 
 //***************************************************************************
 Kwave::DebugPlugin::DebugPlugin(const Kwave::PluginContext &context)
@@ -49,7 +50,7 @@ void Kwave::DebugPlugin::load(QStringList &params)
 {
     Q_UNUSED(params);
 
-    QString entry = "menu (plugin:execute(debug,%1),&Calculate/Debug/%2)";
+    QString entry = _("menu (plugin:execute(debug,%1),&Calculate/Debug/%2)");
 
     MENU_ENTRY("min_max",           "MinMax Pattern");
     MENU_ENTRY("sawtooth",          "Generate Sawtooth Pattern");
@@ -60,7 +61,7 @@ void Kwave::DebugPlugin::load(QStringList &params)
 //     MENU_ENTRY("stripe_borders",    "Show Stripe Borders");
 //     MENU_ENTRY("labels_at_stripes", "Generate Labels at Stripe borders");
 
-    emitCommand("menu (dump_metadata(), &Help/Dump &Meta Data)");
+    emitCommand(_("menu (dump_metadata(), &Help/Dump &Meta Data)"));
 }
 
 //***************************************************************************
@@ -83,12 +84,12 @@ void Kwave::DebugPlugin::run(QStringList params)
     Q_ASSERT(m_buffer.size() == BUFFER_SIZE);
 
     bool make_new_track = (
-	(command == "stripe_index") ||
-	(command == "offset_in_stripe") ||
-	(command == "stripe_borders")
+	(command == _("stripe_index")) ||
+	(command == _("offset_in_stripe")) ||
+	(command == _("stripe_borders"))
     );
 
-    if (command == "min_max") {
+    if (command == _("min_max")) {
 	// toggle between minimum and maximum possible sample value
 	for (unsigned int i = 0; i < BUFFER_SIZE; i++)
 	    m_buffer[i] = (i & 1) ? SAMPLE_MIN : SAMPLE_MAX;
@@ -133,7 +134,7 @@ void Kwave::DebugPlugin::run(QStringList params)
 	if (rest < m_buffer.size()) m_buffer.resize(rest);
 
 	// sawtooth pattern from min to max
-	if (command == "sawtooth") {
+	if (command == _("sawtooth")) {
 	    unsigned int shift = SAMPLE_BITS -
 		Kwave::FileInfo(signalManager().metaData()).bits();
 	    for (unsigned int i = 0; i < m_buffer.size(); i++) {

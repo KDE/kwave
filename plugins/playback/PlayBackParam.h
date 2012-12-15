@@ -53,7 +53,7 @@ namespace Kwave
 	/** Default constructor */
 	PlayBackParam()
 	    :rate(44100), channels(2), bits_per_sample(16),
-	    device(""), bufbase(10),
+	    device(), bufbase(10),
 	    method(Kwave::PLAYBACK_NONE)
 	{
 	}

@@ -19,6 +19,7 @@
 #include <math.h>
 #include <klocale.h>
 
+#include "libkwave/String.h"
 #include "libkwave/WindowFunction.h"
 
 //***************************************************************************
@@ -27,21 +28,15 @@
 void Kwave::WindowFunction::InitializedTypesMap::fill()
 {
     append(WINDOW_FUNC_NONE,       WINDOW_FUNC_NONE,
-           "none", "None");
+           _("none"),       _(I18N_NOOP("None")));
     append(WINDOW_FUNC_HAMMING,    WINDOW_FUNC_HAMMING,
-        "hamming", "Hamming");
+           _("hamming"),    _(I18N_NOOP("Hamming")));
     append(WINDOW_FUNC_HANNING,    WINDOW_FUNC_HANNING,
-        "hanning",  "Hanning");
+           _("hanning"),    _(I18N_NOOP("Hanning")));
     append(WINDOW_FUNC_BLACKMAN,   WINDOW_FUNC_BLACKMAN,
-        "blackman",  "Blackman");
+           _("blackman"),   _(I18N_NOOP("Blackman")));
     append(WINDOW_FUNC_TRIANGULAR, WINDOW_FUNC_TRIANGULAR,
-        "triangular", "Triangular");
-
-    (void)I18N_NOOP("None");
-    (void)I18N_NOOP("Hamming");
-    (void)I18N_NOOP("Hanning");
-    (void)I18N_NOOP("Blackman");
-    (void)I18N_NOOP("Triangular");
+           _("triangular"), _(I18N_NOOP("Triangular")));
 }
 
 //***************************************************************************

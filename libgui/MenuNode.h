@@ -39,7 +39,6 @@ namespace Kwave
     /**
      * Base class for the MenuRoot, MenuEntry, SubMenu and
      * the ToplevelMenu class.
-     * @author Thomas Eschenbacher
      */
     class MenuNode: public QObject
     {

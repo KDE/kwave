@@ -49,7 +49,7 @@ namespace Kwave {
 	 *        localized string. [optional]
 	 */
 	UndoTransactionGuard(Kwave::SignalManager &manager,
-	                     const QString &name = 0);
+	                     const QString &name = QString());
 
 	/**
 	 * Constructor for use from a plugin. Also determines the name of the
@@ -60,7 +60,8 @@ namespace Kwave {
 	 *        localized string. [optional] If you pass null or omit this
 	 *        parameter, the name of the plugin will be used instead.
 	 */
-	UndoTransactionGuard(Kwave::Plugin &plugin, const QString &name = 0);
+	UndoTransactionGuard(Kwave::Plugin &plugin,
+	                     const QString &name = QString());
 
 	/** Destructor. */
 	virtual ~UndoTransactionGuard();

@@ -26,12 +26,6 @@
 #include "libkwave/MessageBox.h"
 
 //***************************************************************************
-Kwave::MessageBox::MessageBox()
-    :QObject(), m_retval(-1)
-{
-}
-
-//***************************************************************************
 Kwave::MessageBox::MessageBox(KMessageBox::DialogType mode, QWidget *parent,
     QString message, QString caption,
     const QString &button1, const QString &button2,

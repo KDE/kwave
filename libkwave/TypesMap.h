@@ -27,6 +27,8 @@
 #include <QtCore/QStringList>
 
 #include <klocale.h>
+
+#include "libkwave/String.h"
 #include "libkwave/Triple.h"
 
 namespace Kwave
@@ -122,15 +124,15 @@ namespace Kwave
 	    const QString &description, bool localized) const
 	{
 	    IDX it = IDX(0);
-	    QString dcr = (localized) ? i18n(description.toAscii()) : description;
+	    QString dcr = (localized) ? i18n(description.toUtf8()) : description;
 	    unsigned int cnt = count();
 	    while (cnt--) {
 		if (localized) {
 		    if (m_list[it].third() == description)
 			return it;
 		} else {
-		    if (i18n(m_list[it].third().toAscii()) ==
-			i18n(description.toAscii()))
+		    if (i18n(m_list[it].third().toUtf8()) ==
+			i18n(description.toUtf8()))
 			return it;
 		}
 		++it;

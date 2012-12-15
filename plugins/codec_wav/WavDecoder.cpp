@@ -37,6 +37,7 @@
 #include "libkwave/MetaDataList.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/String.h"
 #include "libkwave/VirtualAudioFile.h"
 #include "libkwave/Writer.h"
 
@@ -70,31 +71,31 @@ Kwave::WavDecoder::WavDecoder()
     REGISTER_COMPRESSION_TYPES;
 
     // native WAVE chunk names
-    m_known_chunks.append("cue "); /* Markers */
-    m_known_chunks.append("data"); /* Sound Data */
-    m_known_chunks.append("fact"); /* Fact (length in samples) */
-    m_known_chunks.append("fmt "); /* Format */
-    m_known_chunks.append("inst"); /* Instrument */
-    m_known_chunks.append("labl"); /* label */
-    m_known_chunks.append("ltxt"); /* labeled text */
-    m_known_chunks.append("note"); /* note chunk */
-    m_known_chunks.append("plst"); /* Play List */
-    m_known_chunks.append("smpl"); /* Sampler */
+    m_known_chunks.append(_("cue ")); /* Markers */
+    m_known_chunks.append(_("data")); /* Sound Data */
+    m_known_chunks.append(_("fact")); /* Fact (length in samples) */
+    m_known_chunks.append(_("fmt ")); /* Format */
+    m_known_chunks.append(_("inst")); /* Instrument */
+    m_known_chunks.append(_("labl")); /* label */
+    m_known_chunks.append(_("ltxt")); /* labeled text */
+    m_known_chunks.append(_("note")); /* note chunk */
+    m_known_chunks.append(_("plst")); /* Play List */
+    m_known_chunks.append(_("smpl")); /* Sampler */
 
     // add all sub-chunks of the LIST chunk (properties)
     foreach (QByteArray name, m_property_map.chunks())
-	m_known_chunks.append( name );
+	m_known_chunks.append(QLatin1String(name));
 
     // some chunks known from AIFF format
-    m_known_chunks.append("FVER");
-    m_known_chunks.append("COMM");
-    m_known_chunks.append("wave");
-    m_known_chunks.append("SSND");
+    m_known_chunks.append(_("FVER"));
+    m_known_chunks.append(_("COMM"));
+    m_known_chunks.append(_("wave"));
+    m_known_chunks.append(_("SSND"));
 
     // chunks of .lbm image files, IFF format
-    m_known_chunks.append("BMHD");
-    m_known_chunks.append("CMAP");
-    m_known_chunks.append("BODY");
+    m_known_chunks.append(_("BMHD"));
+    m_known_chunks.append(_("CMAP"));
+    m_known_chunks.append(_("BODY"));
 }
 
 //***************************************************************************
@@ -128,11 +129,11 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     QStringList main_chunks;
-    main_chunks.append("RIFF"); /* RIFF, little-endian */
-    main_chunks.append("RIFX"); /* RIFF, big-endian */
-    main_chunks.append("FORM"); /* used in AIFF, big-endian or IFF/.lbm */
-    main_chunks.append("LIST"); /* additional information */
-    main_chunks.append("adtl"); /* Associated Data */
+    main_chunks.append(_("RIFF")); /* RIFF, little-endian */
+    main_chunks.append(_("RIFX")); /* RIFF, big-endian */
+    main_chunks.append(_("FORM")); /* used in AIFF, BE or IFF/.lbm */
+    main_chunks.append(_("LIST")); /* additional information */
+    main_chunks.append(_("adtl")); /* Associated Data */
 
     Kwave::RIFFParser parser(src, main_chunks, m_known_chunks);
 
@@ -346,7 +347,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 	switch (m_src_adapter->lastError()) {
 	    case AF_BAD_NOT_IMPLEMENTED:
 	        reason = i18n("Format or function is not implemented") +
-		         "\n("+format_name+")";
+		         _("\n(") + format_name + _(")");
 	        break;
 	    case AF_BAD_MALLOC:
 	        reason = i18n("Out of memory");
@@ -356,7 +357,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 	        break;
 	    case AF_BAD_CODEC_TYPE:
 	        reason = i18n("Invalid codec type") +
-		         "\n("+format_name+")";
+		         _("\n(") + format_name + _(")");
 	        break;
 	    case AF_BAD_OPEN:
 	        reason = i18n("Opening the file failed");

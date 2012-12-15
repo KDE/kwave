@@ -27,6 +27,7 @@
 #include "klocalizedstring.h"
 
 #include "libkwave/Label.h"
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/LabelItem.h"
@@ -75,7 +76,7 @@ QString Kwave::LabelItem::toolTip(sample_index_t ofs)
 		"Label #%1", m_index);
 
     QString hms  = Kwave::ms2hms(m_ms);
-    QString text = QString("%1\n%2\n%3").arg(description).arg(m_pos).arg(hms);
+    QString text = _("%1\n%2\n%3").arg(description).arg(m_pos).arg(hms);
 
     return text;
 }
@@ -108,13 +109,13 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
 	}
 
 	QAction *action_label_delete = label_menu->addAction(
-	    icon_loader.loadIcon("list-remove", KIconLoader::Toolbar),
+	    icon_loader.loadIcon(_("list-remove"), KIconLoader::Toolbar),
 	    i18n("&Delete"), this, SLOT(contextMenuLabelDelete()));
 	Q_ASSERT(action_label_delete);
 	if (!action_label_delete) return;
 
 	QAction *action_label_properties = label_menu->addAction(
-	    icon_loader.loadIcon("configure", KIconLoader::Toolbar),
+	    icon_loader.loadIcon(_("configure"), KIconLoader::Toolbar),
 	    i18n("&Properties..."), this, SLOT(contextMenuLabelProperties()));
 	Q_ASSERT(action_label_properties);
 	if (!action_label_properties) return;
@@ -125,13 +126,13 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
 //***************************************************************************
 void Kwave::LabelItem::contextMenuLabelDelete()
 {
-    emit sigCommand(QString("delete_label(%1)").arg(m_index));
+    emit sigCommand(_("delete_label(%1)").arg(m_index));
 }
 
 //***************************************************************************
 void Kwave::LabelItem::contextMenuLabelProperties()
 {
-    emit sigCommand(QString("nomacro:edit_label(%1)").arg(m_index));
+    emit sigCommand(_("nomacro:edit_label(%1)").arg(m_index));
 }
 
 //***************************************************************************

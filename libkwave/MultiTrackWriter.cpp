@@ -85,7 +85,7 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
                                    sample_index_t left,
                                    sample_index_t right)
 {
-    Kwave::UndoTransactionGuard guard(signal_manager, 0);
+    Kwave::UndoTransactionGuard guard(signal_manager, QString());
 
     unsigned int index = 0;
     foreach (unsigned int track, track_list) {

@@ -17,6 +17,9 @@
 
 #include "config.h"
 #include <errno.h>
+
+#include "libkwave/String.h"
+
 #include "RecordParams.h"
 
 //***************************************************************************
@@ -30,7 +33,7 @@ Kwave::RecordParams::RecordParams()
     agc_enabled(false),            agc_decay(50),
     fade_in_enabled(false),        fade_in_time(5),
     fade_out_enabled(false),       fade_out_time(5),
-    device_name("plug:dsnoop"),
+    device_name(_("plug:dsnoop")),
     tracks(2),
     sample_rate(44100.0),
     compression(0),

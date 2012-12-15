@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "SampleFormat.h"
+#include "String.h"
 
 //***************************************************************************
 Kwave::SampleFormat::Map::Map()
@@ -32,14 +33,14 @@ Kwave::SampleFormat::Map::~Map()
 //***************************************************************************
 void Kwave::SampleFormat::Map::fill()
 {
-    append(0, Kwave::SampleFormat::Signed,
-           i18n("Linear Two's Complement"), 0);
-    append(1, Kwave::SampleFormat::Unsigned,
-           i18n("Unsigned Integer"), 0);
-    append(2, Kwave::SampleFormat::Float,
-           i18n("32-bit IEEE Floating-Point"), 0);
-    append(3, Kwave::SampleFormat::Double,
-           i18n("64-bit IEEE Double Precision Floating-Point"), 0);
+    append(0, Kwave::SampleFormat::Signed,   _("SIGNED"),
+              _(I18N_NOOP("Linear Two's Complement")));
+    append(1, Kwave::SampleFormat::Unsigned, _("UNSIGNED"),
+              _(I18N_NOOP("Unsigned Integer")));
+    append(2, Kwave::SampleFormat::Float,    _("FLOAT"),
+              _(I18N_NOOP("32-bit IEEE Floating-Point")));
+    append(3, Kwave::SampleFormat::Double,   _("DOUBLE"),
+              _(I18N_NOOP("64-bit IEEE Double Precision Floating-Point")));
 }
 
 //***************************************************************************

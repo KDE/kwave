@@ -29,6 +29,7 @@
 #include "libkwave/Label.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 
 #include "OverViewWidget.h"
 
@@ -164,10 +165,10 @@ void Kwave::OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
 
     if (e->modifiers() == Qt::NoModifier) {
 	// double click without shift => zoom in
-	emit sigCommand("view:zoom_in()");
+	emit sigCommand(_("view:zoom_in()"));
     } else if (e->modifiers() == Qt::ShiftModifier) {
 	// double click with shift => zoom out
-	emit sigCommand("view:zoom_out()");
+	emit sigCommand(_("view:zoom_out()"));
     }
 
     e->accept();

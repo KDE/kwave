@@ -21,6 +21,8 @@
 
 #include <klocale.h>
 
+#include "libkwave/String.h"
+
 #include "MenuItem.h"
 #include "MenuSub.h"
 
@@ -127,11 +129,11 @@ bool Kwave::MenuSub::specialCommand(const QString &command)
     Q_ASSERT(command.length());
     if (!command.length()) return false;
 
-    if (command.startsWith("#exclusive")) {
+    if (command.startsWith(_("#exclusive"))) {
 	return true;
-    } else if (command.startsWith("#number")) {
+    } else if (command.startsWith(_("#number"))) {
 	return true;
-    } else if (command.startsWith("#separator")) {
+    } else if (command.startsWith(_("#separator"))) {
 	if (m_menu) m_menu->addSeparator();
 	return true;
     }

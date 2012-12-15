@@ -16,14 +16,16 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <float.h> // for FLT_MAX, DBL_MIN, DBL_MAX
 #include <math.h>
 
 #include <QtCore/QtAlgorithms>
 
-#include "Parser.h"
-#include "Interpolation.h"
-#include "Curve.h"
+#include "libkwave/Curve.h"
+#include "libkwave/Interpolation.h"
+#include "libkwave/Parser.h"
+#include "libkwave/String.h"
 
 //***************************************************************************
 
@@ -69,14 +71,14 @@ void Kwave::Curve::fromCommand(const QString &command)
 //***************************************************************************
 QString Kwave::Curve::getCommand()
 {
-    QString cmd = "curve(";
+    QString cmd = _("curve(");
     cmd += m_interpolation.name(m_interpolation.type());
 
     foreach (Point p, *this) {
-	QString par = ",%1,%2";
+	QString par = _(",%1,%2");
 	cmd += par.arg(p.x()).arg(p.y());
     }
-    cmd += ")";
+    cmd += _(")");
     return cmd;
 }
 

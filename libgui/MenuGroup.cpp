@@ -28,7 +28,7 @@
 
 //*****************************************************************************
 Kwave::MenuGroup::MenuGroup(Kwave::MenuNode *parent, const QString &name)
-    :Kwave::MenuNode(parent, name, 0, 0, name)
+    :Kwave::MenuNode(parent, name, QString(), QString(), name)
 {
     if (parent) parent->registerChild(this);
 }

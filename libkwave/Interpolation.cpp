@@ -16,46 +16,35 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include "klocale.h"
 
-#include "Curve.h"
-#include "Interpolation.h"
+#include "libkwave/Curve.h"
+#include "libkwave/Interpolation.h"
+#include "libkwave/String.h"
 
 //***************************************************************************
 //***************************************************************************
+
+#define _ADD(i,n,s,d) append(i,n,_(s), _(d))
+
 void Kwave::Interpolation::InterpolationMap::fill()
 {
-    append(INTPOL_LINEAR,      0, "linear",      "linear");
-    append(INTPOL_SPLINE,      1, "spline",      "spline");
-    append(INTPOL_NPOLYNOMIAL, 2, "n-polynom",   "polynom, nth degree");
-    append(INTPOL_POLYNOMIAL3, 3, "3-polynom",   "polynom, 3rd degree");
-    append(INTPOL_POLYNOMIAL5, 4, "5-polynom",   "polynom, 5th degree");
-    append(INTPOL_POLYNOMIAL7, 5, "5-polynom",   "polynom, 7th degree");
-    append(INTPOL_SAH,         6, "sample_hold", "sample and hold");
-
-#undef NEVER_COMPILE_THIS
-#ifdef NEVER_COMPILE_THIS
-#error "this could produce problems in plugins and/or libs when \
-        loaded before the main application is up."
-    i18n("Linear");
-    i18n("Spline");
-    i18n("N-Polynom");
-    i18n("3-Polynom");
-    i18n("5-Polynom");
-    i18n("7-Polynom");
-    i18n("Polynom, N-th Degree");
-    i18n("Polynom, 3rd Degree");
-    i18n("Polynom, 5th Degree");
-    i18n("Polynom, 7th Degree");
-    i18n("Sample and Hold");
-#endif
+    _ADD(INTPOL_LINEAR,      0, "linear",     I18N_NOOP("Linear"));
+    _ADD(INTPOL_SPLINE,      1, "spline",     I18N_NOOP("Spline"));
+    _ADD(INTPOL_NPOLYNOMIAL, 2, "n-polynom",  I18N_NOOP("Polynom, nth Degree"));
+    _ADD(INTPOL_POLYNOMIAL3, 3, "3-polynom",  I18N_NOOP("Polynom, 3rd Degree"));
+    _ADD(INTPOL_POLYNOMIAL5, 4, "5-polynom",  I18N_NOOP("Polynom, 5th Degree"));
+    _ADD(INTPOL_POLYNOMIAL7, 5, "5-polynom",  I18N_NOOP("Polynom, 7th Degree"));
+    _ADD(INTPOL_SAH,         6, "sample_hold",I18N_NOOP("Sample and Hold"));
 }
 
 //***************************************************************************
 //***************************************************************************
 
 // static initializer
-Kwave::Interpolation::InterpolationMap Kwave::Interpolation::m_interpolation_map;
+Kwave::Interpolation::InterpolationMap
+    Kwave::Interpolation::m_interpolation_map;
 
 //***************************************************************************
 Kwave::Interpolation::Interpolation(interpolation_t type)
@@ -74,7 +63,7 @@ QStringList Kwave::Interpolation::descriptions(bool localized)
     QStringList list;
     unsigned int count = m_interpolation_map.count();
     unsigned int i;
-    for (i=0; i < count; i++) {
+    for (i = 0; i < count; i++) {
 	interpolation_t index = m_interpolation_map.findFromData(i);
 	list.append(m_interpolation_map.description(index, localized));
     }

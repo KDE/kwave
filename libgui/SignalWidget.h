@@ -39,6 +39,7 @@
 
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 
 #include "libgui/SignalView.h"
 
@@ -166,36 +167,38 @@ namespace Kwave
 	void slotTrackDeleted(unsigned int index);
 
 	/** context menu: "edit/undo" */
-	void contextMenuEditUndo()   { forwardCommand("undo()"); }
+	void contextMenuEditUndo() { forwardCommand(_("undo()")); }
 
 	/** context menu: "edit/redo" */
-	void contextMenuEditRedo()   { forwardCommand("redo()"); }
+	void contextMenuEditRedo() { forwardCommand(_("redo()")); }
 
 	/** context menu: "edit/cut" */
-	void contextMenuEditCut()    { forwardCommand("cut()"); }
+	void contextMenuEditCut()  { forwardCommand(_("cut()"));  }
 
 	/** context menu: "edit/copy" */
-	void contextMenuEditCopy()   { forwardCommand("copy()"); }
+	void contextMenuEditCopy() { forwardCommand(_("copy()")); }
 
 	/** context menu: "edit/paste" */
-	void contextMenuEditPaste()  { forwardCommand("paste()"); }
+	void contextMenuEditPaste() {forwardCommand(_("paste()")); }
 
 	/** context menu: "save selection" */
-	void contextMenuSaveSelection()  { forwardCommand("saveselect()"); }
+	void contextMenuSaveSelection() {
+	    forwardCommand(_("saveselect()"));
+	}
 
 	/** context menu: "expand to labels" */
-	void contextMenuSelectionExpandToLabels()  {
-	    forwardCommand("expandtolabel()");
+	void contextMenuSelectionExpandToLabels() {
+	    forwardCommand(_("expandtolabel()"));
 	}
 
 	/** context menu: "select next labels" */
 	void contextMenuSelectionNextLabels()  {
-	    forwardCommand("selectnextlabels()");
+	    forwardCommand(_("selectnextlabels()"));
 	}
 
 	/** context menu: "select previous labels" */
 	void contextMenuSelectionPrevLabels()  {
-	    forwardCommand("selectprevlabels()");
+	    forwardCommand(_("selectprevlabels()"));
 	}
 
     signals:

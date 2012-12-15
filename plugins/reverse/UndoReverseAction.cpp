@@ -22,6 +22,7 @@
 
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 
 #include "UndoReverseAction.h"
 
@@ -68,7 +69,7 @@ Kwave::UndoAction *Kwave::UndoReverseAction::undo(Kwave::SignalManager &manager,
 {
     Q_UNUSED(manager);
     m_plugin_manager.enqueueCommand(
-	"nomacro:plugin:execute(reverse,noundo)"
+	_("nomacro:plugin:execute(reverse,noundo)")
     );
     return (with_redo) ? this : 0;
 }

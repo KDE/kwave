@@ -210,8 +210,8 @@ void Kwave::VolumeDialog::updateDisplay(double value)
 	    if (static_cast<int>(rint(m_factor)) >= 1) {
 		// greater or equal to one -> multiply
 		int new_value = static_cast<int>(rint(value));
-		spinbox->setPrefix("x ");
-		spinbox->setSuffix("");
+		spinbox->setPrefix(_("x "));
+		spinbox->setSuffix(_(""));
 		spinbox->setInverse(false);
 
 		new_spinbox_value = new_value;
@@ -220,8 +220,8 @@ void Kwave::VolumeDialog::updateDisplay(double value)
 		// less than one -> divide
 		int new_value = static_cast<int>(rint(-1.0 / value));
 
-		spinbox->setPrefix("1/");
-		spinbox->setSuffix("");
+		spinbox->setPrefix(_("1/"));
+		spinbox->setSuffix(_(""));
 		spinbox->setInverse(true);
 
 		new_spinbox_value = -1*new_value;
@@ -236,8 +236,8 @@ void Kwave::VolumeDialog::updateDisplay(double value)
 	    // factor 1.0 means 100%
 	    new_spinbox_value = static_cast<int>(rint(value * 100.0));
 	    new_slider_value = new_spinbox_value;
-	    spinbox->setPrefix("");
-	    spinbox->setSuffix("%");
+	    spinbox->setPrefix(_(""));
+	    spinbox->setSuffix(_("%"));
 	    spinbox->setInverse(false);
 	    break;
 	}
@@ -246,12 +246,12 @@ void Kwave::VolumeDialog::updateDisplay(double value)
 	    new_slider_value = static_cast<int>(rint(20.0 * log10(value)));
 	    new_spinbox_value = new_slider_value;
 	    if (new_spinbox_value >= 0) {
-		spinbox->setPrefix(new_spinbox_value ? "+" : "+/- ");
+		spinbox->setPrefix(new_spinbox_value ? _("+") : _("+/- "));
 	    } else {
 		// negative value
-		spinbox->setPrefix("");
+		spinbox->setPrefix(_(""));
 	    }
-	    spinbox->setSuffix(" dB");
+	    spinbox->setSuffix(_(" ") + i18n("dB"));
 	    spinbox->setInverse(false);
 	    break;
 	}

@@ -24,6 +24,7 @@
 #include <QtGui/QTreeWidget>
 #include <QtGui/QTreeWidgetItem>
 #include <QtGui/QSlider>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QStringList>
 
 #include <kcombobox.h>
@@ -36,6 +37,7 @@
 #include <ktoolinvocation.h>
 
 #include "libkwave/Plugin.h"
+#include "libkwave/String.h"
 
 #include "libgui/FileDialog.h"
 
@@ -46,7 +48,8 @@
 Kwave::PlayBackDialog::PlayBackDialog(Kwave::Plugin &p,
                                       const Kwave::PlayBackParam &params)
     :QDialog(p.parentWidget()), PlayBackDlg(),
-    m_playback_params(params), m_file_filter(""), m_devices_list_map(),
+    m_playback_params(params), m_file_filter(_("")),
+    m_devices_list_map(),
     m_enable_setDevice(true)
 {
     setupUi(this);
@@ -156,15 +159,15 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
     cbDevice->clear();
     listDevices->clear();
 
-    if (devices.contains("#EDIT#")) {
-	devices.removeAll("#EDIT#");
+    if (devices.contains(_("#EDIT#"))) {
+	devices.removeAll(_("#EDIT#"));
 	cbDevice->setEditable(true);
     } else {
 	cbDevice->setEditable(false);
     }
 
-    if (devices.contains("#SELECT#")) {
-	devices.removeAll("#SELECT#");
+    if (devices.contains(_("#SELECT#"))) {
+	devices.removeAll(_("#SELECT#"));
 	btSelectDevice->setEnabled(true);
 	btSelectDevice->show();
     } else {
@@ -172,9 +175,9 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 	btSelectDevice->hide();
     }
 
-    if (devices.contains("#TREE#")) {
+    if (devices.contains(_("#TREE#"))) {
 	// treeview mode
-	devices.removeAll("#TREE#");
+	devices.removeAll((_("#TREE#")));
 	listDevices->setEnabled(true);
 	cbDevice->setEnabled(false);
 	cbDevice->hide();
@@ -184,13 +187,13 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 	foreach (QString dev_id, devices) {
 	    QTreeWidgetItem *parent = 0;
 
-	    QStringList list = dev_id.split("||", QString::KeepEmptyParts);
+	    QStringList list = dev_id.split(_("||"), QString::KeepEmptyParts);
 	    foreach (QString token, list) {
 		QTreeWidgetItem *item = 0;
 
 		// split the icon name from the token
 		QString icon_name;
-		int pos = token.indexOf('|');
+		int pos = token.indexOf(QLatin1Char('|'));
 		if (pos > 0) {
 		    icon_name = token.mid(pos+1);
 		    token     = token.left(pos);
@@ -199,7 +202,7 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 		// find the first item with the same text
 		// and the same root
 		if (parent) {
-		    for (int i=0; i < parent->childCount(); i++) {
+		    for (int i = 0; i < parent->childCount(); i++) {
 			QTreeWidgetItem *node = parent->child(i);
 			if (node && node->text(0) == token) {
 			    item = node;
@@ -315,7 +318,7 @@ void Kwave::PlayBackDialog::setDevice(const QString &device)
     if (!cbDevice || !listDevices) return;
 
     if (!m_enable_setDevice) return;
-//     qDebug("PlayBackDialog::setDevice(%s)", device.toLocal8Bit().data());
+//     qDebug("PlayBackDialog::setDevice(%s)", DBG(device));
 
     if (listDevices->isEnabled()) {
 	// treeview mode
@@ -467,7 +470,7 @@ void Kwave::PlayBackDialog::setChannels(int channels)
 	case 1: txt = i18n("(mono)");   break;
 	case 2: txt = i18n("(stereo)"); break;
 	case 4: txt = i18n("(quadro)"); break;
-	default: txt = "";
+	default: txt = _("");
     }
     lblChannels->setText(txt);
 }
@@ -490,15 +493,16 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
 {
     QString filter = m_file_filter;
 
-    Kwave::FileDialog dlg("kfiledialog:///kwave_playback_device", filter, this,
-	true, "file:/dev");
+    Kwave::FileDialog dlg(
+	_("kfiledialog:///kwave_playback_device"), filter, this,
+	true, _("file:/dev"));
     dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Select Playback Device"));
-    if (m_playback_params.device[0] != '[')
-        dlg.setUrl(KUrl("file:"+m_playback_params.device));
+    if (!m_playback_params.device.startsWith(_("#")))
+        dlg.setUrl(KUrl(_("file:") + m_playback_params.device));
     else
-        dlg.setUrl(KUrl("file:/dev/*"));
+        dlg.setUrl(KUrl(_("file:/dev/*")));
     if (dlg.exec() != QDialog::Accepted) return;
 
     QString new_device = dlg.selectedFile();
@@ -510,7 +514,7 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
 //***************************************************************************
 void Kwave::PlayBackDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp("playback");
+    KToolInvocation::invokeHelp(_("playback"));
 }
 
 //***************************************************************************

@@ -52,6 +52,7 @@
 #include "libkwave/FileInfo.h"
 #include "libkwave/GenreType.h"
 #include "libkwave/SampleFormat.h"
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "BitrateWidget.h"
@@ -70,14 +71,16 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
     setupUi(this);
 
     QString mimetype = QVariant(m_info.get(Kwave::INF_MIMETYPE)).toString();
-    if (!mimetype.length()) mimetype = "audio/x-wav"; // default mimetype
+    if (!mimetype.length())
+	mimetype = _("audio/x-wav"); // default mimetype
 
-    m_is_mpeg = ((mimetype == "audio/x-mpga") ||
-        (mimetype == "audio/x-mp2") || (mimetype == "audio/x-mp3") ||
-        (mimetype == "audio/mpeg"));
-    m_is_ogg = ((mimetype == "audio/x-ogg") ||
-                (mimetype == "application/x-ogg") ||
-                (mimetype == "application/ogg"));
+    m_is_mpeg = ((mimetype == _("audio/x-mpga")) ||
+        (mimetype == _("audio/x-mp2")) ||
+        (mimetype == _("audio/x-mp3")) ||
+        (mimetype == _("audio/mpeg")));
+    m_is_ogg = ((mimetype == _("audio/x-ogg")) ||
+                (mimetype == _("application/x-ogg")) ||
+                (mimetype == _("application/ogg")));
 
     qDebug("mimetype = %s",mimetype.toLocal8Bit().data());
 
@@ -113,15 +116,15 @@ void Kwave::FileInfoDialog::describeWidget(QWidget *widget,
 {
     if (!widget) return;
     widget->setToolTip(description);
-    widget->setWhatsThis("<b>"+name+"</b><br>"+description);
+    widget->setWhatsThis(_("<b>") + name + _("</b><br>") + description);
 }
 
 //***************************************************************************
 void Kwave::FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
                                      Kwave::FileProperty property)
 {
-    if (label) label->setText(i18n(m_info.name(property).toAscii()) + ":");
-    if (widget) describeWidget(widget, i18n(m_info.name(property).toAscii()),
+    if (label) label->setText(i18n(__(m_info.name(property))) + _(":"));
+    if (widget) describeWidget(widget, i18n(__(m_info.name(property))),
                                m_info.description(property));
 }
 
@@ -232,12 +235,14 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     }
 
     /* sample format */
-    Kwave::SampleFormat::Map sf;
     initInfo(lblSampleFormat, cbSampleFormat, Kwave::INF_SAMPLE_FORMAT);
-    cbSampleFormat->insertItems(-1, sf.allNames());
-    Kwave::SampleFormat format;
-    format.fromInt(QVariant(m_info.get(Kwave::INF_SAMPLE_FORMAT)).toInt());
-    cbSampleFormat->setCurrentIndex(sf.findFromData(format));
+    cbSampleFormat->clear();
+    Kwave::SampleFormat::Map sf;
+    foreach (int k, sf.allKeys())
+	cbSampleFormat->addItem(sf.description(k, true), sf.data(k));
+
+    int format = QVariant(m_info.get(Kwave::INF_SAMPLE_FORMAT)).toInt();
+    cbSampleFormat->setCurrentIndex(cbSampleFormat->findData(format));
 }
 
 //***************************************************************************
@@ -491,12 +496,12 @@ void Kwave::FileInfoDialog::setupMiscellaneousTab()
 
     /* list of keywords */
     lblKeywords->setText(i18n(m_info.name(Kwave::INF_KEYWORDS).toAscii()));
-    lstKeywords->setWhatsThis("<b>" +
+    lstKeywords->setWhatsThis(_("<b>") +
 	i18n(m_info.name(Kwave::INF_KEYWORDS).toAscii()) +
-	"</b><br>"+m_info.description(Kwave::INF_KEYWORDS));
+	_("</b><br>") + m_info.description(Kwave::INF_KEYWORDS));
     if (m_info.contains(Kwave::INF_KEYWORDS)) {
 	QString keywords = QVariant(m_info.get(Kwave::INF_KEYWORDS)).toString();
-	lstKeywords->setKeywords(keywords.split(";"));
+	lstKeywords->setKeywords(keywords.split(_(";")));
     }
     connect(lstKeywords, SIGNAL(autoGenerate()),
             this, SLOT(autoGenerateKeywords()));
@@ -534,7 +539,7 @@ void Kwave::FileInfoDialog::tracksChanged(int tracks)
 	    lblChannelsVerbose->setText(i18n("(Quadro)"));
 	    break;
 	default:
-	    lblChannelsVerbose->setText("");
+	    lblChannelsVerbose->setText(_(""));
 	    break;
     }
 }
@@ -575,8 +580,8 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
     // add supported compressions to the combo box
     cbCompression->clear();
     foreach (int compression, supported_compressions) {
-	cbCompression->addItem(
-	    compressions.name(compressions.findFromData(compression)),
+	cbCompression->addItem(compressions.description(
+		compressions.findFromData(compression), true),
 	    compression);
     }
 
@@ -715,25 +720,26 @@ void Kwave::FileInfoDialog::autoGenerateKeywords()
     // copyright, license, source, source form, album,
     // product, archival, contact, software, technican, engineer,
     // commissioned, ISRC
-    list += edName->text().split(" ");
-    list += edSubject->text().split(" ");
-    list += edVersion->text().split(" ");
+    const QString space = _(" ");
+    list += edName->text().split(space);
+    list += edSubject->text().split(space);
+    list += edVersion->text().split(space);
     list += cbGenre->currentText();
-    list += edAuthor->text().split(" ");
-    list += edOrganization->text().split(" ");
-    list += edCopyright->text().split(" ");
-    list += edLicense->text().split(" ");
-    list += edSource->text().split(" ");
-    list += edSourceForm->text().split(" ");
-    list += edAlbum->text().split(" ");
-    list += edProduct->text().split(" ");
-    list += edArchival->text().split(" ");
-    list += edContact->text().split(" ");
-    list += edSoftware->text().split(" ");
-    list += edTechnican->text().split(" ");
-    list += edEngineer->text().split(" ");
-    list += edCommissioned->text().split(" ");
-    list += edISRC->text().split(" ");
+    list += edAuthor->text().split(space);
+    list += edOrganization->text().split(space);
+    list += edCopyright->text().split(space);
+    list += edLicense->text().split(space);
+    list += edSource->text().split(space);
+    list += edSourceForm->text().split(space);
+    list += edAlbum->text().split(space);
+    list += edProduct->text().split(space);
+    list += edArchival->text().split(space);
+    list += edContact->text().split(space);
+    list += edSoftware->text().split(space);
+    list += edTechnican->text().split(space);
+    list += edEngineer->text().split(space);
+    list += edCommissioned->text().split(space);
+    list += edISRC->text().split(space);
 
     // filter out all useless stuff
     QMutableStringListIterator it(list);
@@ -845,17 +851,14 @@ void Kwave::FileInfoDialog::accept()
 
     /* sample format */
     Kwave::SampleFormat::Map sample_formats;
-    Kwave::SampleFormat sample_format =
-	sample_formats.data(cbSampleFormat->currentIndex());
-    if (m_info.contains(Kwave::INF_SAMPLE_FORMAT) ||
-        (sample_format != sample_formats.data(0)))
-    {
-	m_info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(sample_format.toInt()));
-    }
+    int sample_format =
+	cbSampleFormat->itemData(cbSampleFormat->currentIndex()).toInt();
+    m_info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(sample_format));
 
     /* compression */
     Kwave::CompressionType compressions;
-    int compression = compressions.data(cbCompression->currentIndex());
+    int compression =
+	cbCompression->itemData(cbCompression->currentIndex()).toInt();
     m_info.set(Kwave::INF_COMPRESSION, (compression != AF_COMPRESSION_NONE) ?
         QVariant(compression) : QVariant());
 
@@ -944,7 +947,8 @@ void Kwave::FileInfoDialog::accept()
 //  acceptEdit(Kwave::INF_ISRC,        edISRC->text()); <- READ-ONLY
 
     // list of keywords
-    acceptEdit(Kwave::INF_KEYWORDS,    lstKeywords->keywords().join("; "));
+    acceptEdit(Kwave::INF_KEYWORDS,
+	lstKeywords->keywords().join(_("; ")));
 
     qDebug("FileInfoDialog::accept() --2--");
     m_info.dump();
@@ -955,7 +959,7 @@ void Kwave::FileInfoDialog::accept()
 //***************************************************************************
 void Kwave::FileInfoDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp("fileinfo");
+    KToolInvocation::invokeHelp(_("fileinfo"));
 }
 
 //***************************************************************************

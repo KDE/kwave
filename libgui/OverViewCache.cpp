@@ -26,6 +26,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/Track.h"
 
 #include "OverViewCache.h"
@@ -555,12 +556,12 @@ QImage Kwave::OverViewCache::getOverView(int width, int height,
 //***************************************************************************
 void Kwave::OverViewCache::dumpTracks()
 {
-    QString list = "OverViewCache - selected:";
+    QString list = _("OverViewCache - selected:");
     foreach (unsigned int track, m_src_tracks)
-	list += " " + list.number(track);
-    list += " --- deleted:";
+	list += _(" ") + list.number(track);
+    list += _(" --- deleted:");
     foreach (unsigned int track, m_src_deleted)
-	list += " " + list.number(track);
+	list += _(" ") + list.number(track);
     qDebug("%s", list.toLocal8Bit().data());
 }
 

@@ -333,7 +333,7 @@ namespace Kwave
 	 * @return list of strings
 	 */
 	QStringList loadPluginDefaults(const QString &name,
-				    const QString &version);
+	                               const QString &version);
 
 	/**
 	 * Saves a plugin's default parameters to the user's configuration
@@ -344,8 +344,9 @@ namespace Kwave
 	 * @param version the version number of the plugin
 	 * @param params a list of configuration strings
 	 */
-	void savePluginDefaults(const QString &name, const QString &version,
-				QStringList &params);
+	void savePluginDefaults(const QString &name,
+	                        const QString &version,
+	                        QStringList &params);
 
 	/** connects all signals of and for a plugin */
 	void connectPlugin(Kwave::Plugin *plugin);

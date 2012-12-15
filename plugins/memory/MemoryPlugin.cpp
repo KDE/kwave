@@ -22,8 +22,9 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
-#include "libkwave/Plugin.h"
 #include "libkwave/MemoryManager.h"
+#include "libkwave/Plugin.h"
+#include "libkwave/String.h"
 
 #include "MemoryPlugin.h"
 #include "MemoryDialog.h"
@@ -35,7 +36,7 @@ KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.1",
 Kwave::MemoryPlugin::MemoryPlugin(const Kwave::PluginContext &c)
     :Kwave::Plugin(c), m_physical_limited(true), m_physical_limit(256),
      m_virtual_enabled(true), m_virtual_limited(false), m_virtual_limit(512),
-     m_virtual_directory("/var/tmp"), m_undo_limit(256)
+     m_virtual_directory(_("/var/tmp")), m_undo_limit(256)
 {
 }
 

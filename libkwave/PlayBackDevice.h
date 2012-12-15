@@ -25,6 +25,7 @@
 #include <QtCore/QStringList>
 
 #include "libkwave/Sample.h"
+#include "libkwave/String.h"
 
 namespace Kwave
 {
@@ -85,7 +86,7 @@ namespace Kwave
 	}
 
 	/** return a string suitable for a "File Open..." dialog */
-	virtual QString fileFilter() { return ""; }
+	virtual QString fileFilter() { return _(""); }
 
 	/**
 	 * returns a list of supported bits per sample resolutions

@@ -22,9 +22,9 @@
 #include <QtCore/QList>
 #include <QtCore/QMap>
 #include <QtCore/QMutex>
-#include <QtCore/QString>
 #include <QtCore/QSharedData>
 #include <QtCore/QSharedDataPointer>
+#include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
 

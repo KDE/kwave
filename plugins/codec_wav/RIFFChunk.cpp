@@ -20,6 +20,8 @@
 #include <QtCore/QList>
 #include <QtCore/QString>
 
+#include "libkwave/String.h"
+
 #include "RIFFChunk.h"
 
 //***************************************************************************
@@ -199,13 +201,13 @@ void Kwave::RIFFChunk::fixSize()
 void Kwave::RIFFChunk::dumpStructure()
 {
     // translate the type into a user-readable string
-    QString t = "?";
+    QString t = _("?");
     switch (m_type) {
-        case Root:    t = "ROOT";    break;
-        case Main:    t = "MAIN";    break;
-        case Sub:     t = "SUB";     break;
-        case Garbage: t = "GARBAGE"; break;
-        case Empty:   t = "EMPTY";   break;
+        case Root:    t = _("ROOT");    break;
+        case Main:    t = _("MAIN");    break;
+        case Sub:     t = _("SUB");     break;
+        case Garbage: t = _("GARBAGE"); break;
+        case Empty:   t = _("EMPTY");   break;
     }
 
     // dump this chunk

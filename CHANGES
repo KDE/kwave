@@ -11,6 +11,7 @@
  * renamed source files with "Kwave" in the name
  * added subsystem prefix to inclusion of Qt header files
  * using bit types from qt (e.g. u_int32_t => quint32)
+ * compile with DQT_NO_CAST_TO_ASCII and QT_NO_CAST_FROM_ASCII
 
 0.8.9  [2012-11-06]
 

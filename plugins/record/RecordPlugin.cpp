@@ -42,6 +42,7 @@
 #include "libkwave/SampleFIFO.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/Writer.h"
 
 #include "RecordDevice.h"
@@ -241,13 +242,13 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 	bool searching = false;
 
 	// use the previous device
-	QString device = "";
-	QString section = "plugin "+name();
+	QString device = _("");
+	QString section = _("plugin ") + name();
 	KConfigGroup cfg = KGlobal::config()->group(section);
 
 	// restore the previous device
 	device = cfg.readEntry(
-	    QString("last_device_%1").arg(static_cast<int>(method)));
+	    _("last_device_%1").arg(static_cast<int>(method)));
 // 	    qDebug("<<< %d -> '%s'", static_cast<int>(method), device.data());
 	m_device_name = device;
 
@@ -346,9 +347,9 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 
     // remember the device selection, just for the GUI
     // for the next change in the method
-    QString section = "plugin "+name();
+    QString section = _("plugin ") + name();
     KConfigGroup cfg = KGlobal::config()->group(section);
-    cfg.writeEntry(QString("last_device_%1").arg(
+    cfg.writeEntry(_("last_device_%1").arg(
 	static_cast<int>(m_method)), m_device_name);
 // 	qDebug(">>> %d -> '%s'", static_cast<int>(m_method),
 // 	    m_device_name.data());
@@ -365,10 +366,11 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 	if (m_device_name.length()) {
 	    // build a short device name for showing to the user
 	    QString short_device_name = m_device_name;
-	    if (m_device_name.contains("|")) {
+	    if (m_device_name.contains(_("|"))) {
 		// tree syntax: extract card + device
-		short_device_name = m_device_name.section("|", 0, 0) +
-		    ", " + m_device_name.section("|", 3, 3);
+		short_device_name = m_device_name.section(
+		    _("|"), 0, 0) + _(", ") +
+		    m_device_name.section(_("|"), 3, 3);
 	    }
 
 	    // show an error message box
@@ -560,8 +562,10 @@ void Kwave::RecordPlugin::changeCompression(int new_compression)
 	}
 
 	if (compression != new_compression) {
-	    const QString c1(types.name(types.findFromData(new_compression)));
-	    const QString c2(types.name(types.findFromData(compression)));
+	    const QString c1(types.description(
+		types.findFromData(new_compression), true));
+	    const QString c2(types.description(
+		types.findFromData(compression), true));
 	    notice(i18n("Compression '%1' not supported, using '%2'",
                         c1, c2));
 	}
@@ -576,9 +580,10 @@ void Kwave::RecordPlugin::changeCompression(int new_compression)
 
 	if (compression != m_device->compression()) {
 	    Kwave::CompressionType types;
-	    const QString c1(types.name(types.findFromData(compression)));
-	    const QString c2(types.name(types.findFromData(
-	                 m_device->compression())));
+	    const QString c1(types.description(
+		types.findFromData(compression), true));
+	    const QString c2(types.description(
+		types.findFromData(m_device->compression()), true));
 	    notice(i18n("Compression '%1' failed, using '%2'.", c1 ,c2));
 	}
     }
@@ -668,8 +673,8 @@ void Kwave::RecordPlugin::changeSampleFormat(Kwave::SampleFormat new_format)
 	}
 
 	Kwave::SampleFormat::Map sf;
-	const QString s1 = sf.name(sf.findFromData(new_format));
-	const QString s2 = sf.name(sf.findFromData(format));
+	const QString s1 = sf.description(sf.findFromData(new_format), true);
+	const QString s2 = sf.description(sf.findFromData(format), true);
 	if (!(new_format == -1) && !(new_format == format)) {
 	    notice(i18n("Sample format '%1' is not supported, "\
 		        "using '%2'", s1, s2));
@@ -684,8 +689,8 @@ void Kwave::RecordPlugin::changeSampleFormat(Kwave::SampleFormat new_format)
 	format = m_device->sampleFormat();
 
 	Kwave::SampleFormat::Map sf;
-	const QString s1 = sf.name(sf.findFromData(new_format));
-	const QString s2 = sf.name(sf.findFromData(format));
+	const QString s1 = sf.description(sf.findFromData(new_format), true);
+	const QString s2 = sf.description(sf.findFromData(format), true);
 	if (format > 0) notice(
 	    i18n("Sample format '%1' failed, using '%2'", s1, s2));
     }
@@ -763,7 +768,7 @@ void Kwave::RecordPlugin::resetRecording(bool &accepted)
 {
     InhibitRecordGuard _lock(*this);
 
-    emitCommand("nomacro:close()");
+    emitCommand(_("nomacro:close()"));
     accepted = manager().signalManager().isEmpty();
     if (!accepted) return;
 
@@ -890,13 +895,13 @@ void Kwave::RecordPlugin::startRecording()
 	{
 	    // create a new and empty signal
 
-	    emitCommand(QString("newsignal(%1,%2,%3,%4)").arg(
+	    emitCommand(QString(_("newsignal(%1,%2,%3,%4)")).arg(
 		samples).arg(rate).arg(bits).arg(tracks));
 	    Kwave::SignalManager &mgr = signalManager();
 	    if ((mgr.rate() != rate) || (mgr.bits() != bits) ||
 	        (mgr.tracks() != tracks))
 	    {
-		emitCommand("close");
+		emitCommand(_("close"));
 		return;
 	    }
 
@@ -922,7 +927,7 @@ void Kwave::RecordPlugin::startRecording()
 	fileInfo.setRate(rate);
 	fileInfo.setBits(bits);
 	fileInfo.setTracks(tracks);
-	fileInfo.set(Kwave::INF_MIMETYPE, "audio/vnd.wave");
+	fileInfo.set(Kwave::INF_MIMETYPE, _("audio/vnd.wave"));
 	fileInfo.set(Kwave::INF_SAMPLE_FORMAT,
 	    m_dialog->params().sample_format.toInt());
 	fileInfo.set(Kwave::INF_COMPRESSION, m_dialog->params().compression);
@@ -930,7 +935,7 @@ void Kwave::RecordPlugin::startRecording()
 	// add our Kwave Software tag
 	const KAboutData *about_data =
 	    KGlobal::mainComponent().aboutData();
-	QString software = about_data->programName() + "-" +
+	QString software = about_data->programName() + _("-") +
 			    about_data->version() +
 			    i18n(" for KDE ") +
 			    i18n(KDE_VERSION_STRING);

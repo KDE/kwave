@@ -17,13 +17,14 @@
 
 #include "config.h"
 
+#include <QtCore/QLatin1Char>
 #include <QtCore/QMimeData>
 #include <QtCore/QRegExp>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
-#include <plugins/codec_wav/WavFileFormat.h>
+#include "libkwave/String.h"
 
 //***************************************************************************
 /* static initializers */
@@ -148,22 +149,24 @@ QString Kwave::CodecManager::encodingFilter()
 	QListIterator<Kwave::CodecBase::MimeType> ti(types);
 	while (ti.hasNext()) {
 	    Kwave::CodecBase::MimeType type = ti.next();
-	    QString extensions = type.patterns.join(" ");
+	    QString extensions = type.patterns.join(_(" "));
 
 	    // skip if extensions are already known/present
-	    if (list.join("\n").contains(extensions)) continue;
+	    if (list.join(_("\n")).contains(extensions))
+		continue;
 
 	    // otherwise append to the list
 	    QString entry = extensions;
-	    QString comment = type.description.replace(QRegExp("/"), ",");
-	    entry += "|" + comment;
-	    list.append(entry + " (" + extensions + ")");
+	    QString comment = type.description.replace(
+		QRegExp(_("/")), _(","));
+	    entry += _("|") + comment;
+	    list.append(entry + _(" (") + extensions + _(")"));
 	}
     }
     list.sort();
-    QString str_list = list.join("\n");
-    Q_ASSERT(!str_list.contains('/'));
-    if (str_list.contains('/')) {
+    QString str_list = list.join(_("\n"));
+    Q_ASSERT(!str_list.contains(QLatin1Char('/')));
+    if (str_list.contains(QLatin1Char('/'))) {
 	qWarning("CodecManager::encodingFilter() -> '%s'",
 	         str_list.toLocal8Bit().data());
     }
@@ -183,32 +186,35 @@ QString Kwave::CodecManager::decodingFilter()
 	QListIterator<Kwave::CodecBase::MimeType> ti(types);
 	while (ti.hasNext()) {
 	    Kwave::CodecBase::MimeType type = ti.next();
-	    QString extensions = type.patterns.join(" ");
+	    QString extensions = type.patterns.join(_(" "));
 
 	    // skip if extensions are already known/present
-	    if (list.join("\n").contains(extensions)) continue;
+	    if (list.join(_("\n")).contains(extensions)) continue;
 
 	    // otherwise append to the list
 	    all_extensions += type.patterns;
 	    QString entry = extensions;
-	    QString comment = type.description.replace(QRegExp("/"), ",");
-	    entry += "|" + comment;
-	    list.append(entry + " (" + extensions + ")");
+	    QString comment =
+		type.description.replace(QRegExp(_("/")), _(","));
+	    entry += _("|") + comment;
+	    list.append(entry +
+		_(" (") + extensions + _(")"));
 	}
     }
 
     // builtin type for macro files
-    all_extensions += "*.kwave";
-    list.append("*.kwave|" + i18n("Kwave Macro Files") + " (*.kwave)");
+    all_extensions += _("*.kwave");
+    list.append(_("*.kwave|") + i18n("Kwave Macro Files") + _(" (*.kwave)"));
 
     // special entries for "all" and "all supported"
     list.sort();
-    list.prepend("*|" + i18n("All Files"));
-    list.prepend(all_extensions.join(" ") + "|" + i18n("All Supported Files"));
+    list.prepend(_("*|") + i18n("All Files"));
+    list.prepend(all_extensions.join(_(" ")) + _("|") +
+                 i18n("All Supported Files"));
 
-    QString str_list = list.join("\n");
-    Q_ASSERT(!str_list.contains('/'));
-    if (str_list.contains('/')) {
+    QString str_list = list.join(_("\n"));
+    Q_ASSERT(!str_list.contains(QLatin1Char('/')));
+    if (str_list.contains(QLatin1Char('/'))) {
 	qWarning("CodecManager::decodingFilter() -> '%s'",
 	         str_list.toLocal8Bit().data());
     }

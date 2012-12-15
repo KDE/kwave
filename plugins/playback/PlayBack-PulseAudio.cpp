@@ -28,6 +28,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QCursor>
 #include <QtCore/QFileInfo>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QLocale>
 #include <QtCore/QString>
 #include <QtCore/QtGlobal>
@@ -38,6 +39,7 @@
 #include "libkwave/FileInfo.h"
 #include "libkwave/memcpy.h"
 #include "libkwave/SampleEncoderLinear.h"
+#include "libkwave/String.h"
 
 #include "PlayBack-PulseAudio.h"
 
@@ -414,7 +416,7 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
     if (!m_device_list.contains(device)) {
 	return i18n(
 	    "The PulseAudio device '%1' is unknown or no longer connected",
-	    device.section('|',0,0).toLocal8Bit().data());
+	    device.section(QLatin1Char('|'), 0, 0));
     }
     QString pa_device = m_device_list[device].m_name;
 
@@ -474,10 +476,10 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
     if (!m_pa_stream) {
 	pa_threaded_mainloop_unlock(m_pa_mainloop);
 	return i18n("Failed to create a PulseAudio stream (%1).",
-	             pa_strerror(pa_context_errno(m_pa_context)));
+	            _(pa_strerror(pa_context_errno(m_pa_context))));
     }
     qDebug("PlayBackPulseAudio::open(...) - stream created as %p",
-	   static_cast<void *>(m_pa_stream));
+           static_cast<void *>(m_pa_stream));
 
     // register callbacks for changes in stream state and write events
     pa_stream_set_state_callback(m_pa_stream, pa_stream_state_cb, this);
@@ -516,10 +518,10 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
 	pa_stream_unref(m_pa_stream);
 	m_pa_stream = 0;
 	return i18n("Failed to open a PulseAudio stream for playback (%1).",
-	             pa_strerror(pa_context_errno(m_pa_context)));
+	            _(pa_strerror(pa_context_errno(m_pa_context))));
     }
 
-    return 0;
+    return QString();
 }
 
 //***************************************************************************
@@ -715,11 +717,11 @@ void Kwave::PlayBackPulseAudio::scanDevices()
     s.rate     = 0;
     s.channels = 0;
     i.m_name        = QString();
-    i.m_description = "(server default)";
+    i.m_description = _("(server default)");
     i.m_driver      = QString();
     i.m_card        = -1;
     i.m_sample_spec = s;
-    list[i18n("(Use server default)") + "|sound_note"] = i;
+    list[i18n("(Use server default)") + _("|sound_note")] = i;
 
     foreach (QString sink, m_device_list.keys()) {
 	QString name        = m_device_list[sink].m_name;
@@ -737,22 +739,23 @@ void Kwave::PlayBackPulseAudio::scanDevices()
 		break;
 	    }
 	}
-	if (!unique) description += " [" + name + "]";
+	if (!unique) description += _(" [") + name + _("]");
 
 	// mangle the driver name, e.g.
 	// "module-alsa-sink.c" -> "alsa sink"
 	QFileInfo f(driver);
 	driver = f.baseName();
-	driver.replace("-", " ");
-	driver.replace("_", " ");
-	if (driver.toLower().startsWith("module ")) driver.remove(0, 7);
-	description.prepend(driver + "|sound_card||");
+	driver.replace(_("-"), _(" "));
+	driver.replace(_("_"), _(" "));
+	if (driver.toLower().startsWith(_("module ")))
+	    driver.remove(0, 7);
+	description.prepend(driver + _("|sound_card||"));
 
 	// add the leaf node
 	if (m_device_list[sink].m_card != PA_INVALID_INDEX)
-	    description.append(QString("|sound_device"));
+	    description.append(_("|sound_device"));
 	else
-	    description.append(QString("|sound_note"));
+	    description.append(_("|sound_note"));
 
 // 	qDebug("supported device: '%s'", description.toLocal8Bit().data());
 	list.insert(description, m_device_list[sink]);
@@ -774,7 +777,7 @@ QStringList Kwave::PlayBackPulseAudio::supportedDevices()
     if (!m_pa_mainloop || !m_pa_context) return list;
 
     list = m_device_list.keys();
-    if (!list.isEmpty()) list.prepend("#TREE#");
+    if (!list.isEmpty()) list.prepend(_("#TREE#"));
 
     return list;
 }
@@ -782,7 +785,7 @@ QStringList Kwave::PlayBackPulseAudio::supportedDevices()
 //***************************************************************************
 QString Kwave::PlayBackPulseAudio::fileFilter()
 {
-    return "";
+    return _("");
 }
 
 //***************************************************************************

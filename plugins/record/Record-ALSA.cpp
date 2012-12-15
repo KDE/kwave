@@ -24,6 +24,7 @@
 #include <QtCore/QtGlobal>
 
 #include "libkwave/CompressionType.h"
+#include "libkwave/String.h"
 
 #include "Record-ALSA.h"
 
@@ -31,7 +32,7 @@
 QMap<QString, QString> Kwave::RecordALSA::m_device_list;
 
 /** gui name of the default device */
-#define DEFAULT_DEVICE (i18n("DSNOOP plugin")+QString("|sound_note"))
+#define DEFAULT_DEVICE (i18n("DSNOOP plugin") + _("|sound_note"))
 
 /** helper macro: returns the number of elements in an array */
 #define ELEMENTS_OF(__array__) (sizeof(__array__) / sizeof(__array__[0]))
@@ -260,10 +261,10 @@ void Kwave::RecordALSA::detectSupportedFormats()
 // 	    (snd_pcm_format_physical_width(*fmt)+7) >> 3,
 // 	    endian_of(*fmt) == CpuEndian ? "CPU" :
 // 	    (endian_of(*fmt) == LittleEndian ? "LE " : "BE "),
-// 	    sf.name(sf.findFromData(sample_format_of(
-// 		*fmt))).toLocal8Bit().data(),
-// 	    t.name(t.findFromData(compression_of(
-// 		*fmt))).toLocal8Bit().data());
+// 	    sf.description(sf.findFromData(sample_format_of(
+// 		*fmt), true)).toLocal8Bit().data(),
+// 	    t.description(t.findFromData(compression_of(
+// 		*fmt), true)).toLocal8Bit().data());
 
 	m_supported_formats.append(i);
     }
@@ -290,7 +291,7 @@ int Kwave::RecordALSA::open(const QString &device)
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
-    if (alsa_device.endsWith(",")) return -ENOENT;
+    if (alsa_device.endsWith(_(","))) return -ENOENT;
 
     // open the device in case it's not already open
     m_open_result = snd_pcm_open(&m_handle, alsa_device.toLocal8Bit().data(),
@@ -366,9 +367,11 @@ int Kwave::RecordALSA::initialize()
 
 	qWarning("RecordkALSA::setFormat(): no matching format for "\
 	         "compression '%s', %d bits/sample, format '%s'",
-	         sf.name(sf.findFromData(m_sample_format)).toLocal8Bit().data(),
+	         sf.description(sf.findFromData(m_sample_format),
+	                                        true).toLocal8Bit().data(),
 	         m_bits_per_sample,
-	         t.name(t.findFromData(m_compression)).toLocal8Bit().data());
+	         QString(t.name(
+		     t.findFromData(m_compression))).toLocal8Bit().data());
 
 	snd_output_close(output);
 	return -EINVAL;
@@ -957,7 +960,7 @@ QStringList Kwave::RecordALSA::supportedDevices()
     if (list.contains(DEFAULT_DEVICE))
 	list.move(list.indexOf(DEFAULT_DEVICE), 0);
 
-    list.append("#TREE#");
+    list.append(_("#TREE#"));
     return list;
 }
 
@@ -984,7 +987,7 @@ void Kwave::RecordALSA::scanDevices()
 //     qDebug("**** List of RECORD Hardware Devices ****");
     while (card >= 0) {
 	QString name;
-	name = "hw:%1";
+	name = _("hw:%1");
 	name = name.arg(card);
 	if ((err = snd_ctl_open(&handle, name.toLocal8Bit().data(), 0)) < 0) {
 	    qWarning("control open (%i): %s", card, snd_strerror(err));
@@ -1024,11 +1027,11 @@ void Kwave::RecordALSA::scanDevices()
 
 	    // add the device to the list
 	    QString hw_device;
-	    hw_device = "hw:%1,%2";
+	    hw_device = _("hw:%1,%2");
 	    hw_device = hw_device.arg(card).arg(dev);
 
-	    QString card_name   = snd_ctl_card_info_get_name(info);
-	    QString device_name = snd_pcm_info_get_name(pcminfo);
+	    QString card_name   = _(snd_ctl_card_info_get_name(info));
+	    QString device_name = _(snd_pcm_info_get_name(pcminfo));
 
 //  	    qDebug("  Subdevices: %i/%i\n",
 // 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
@@ -1039,17 +1042,16 @@ void Kwave::RecordALSA::scanDevices()
 			qWarning("ctrl digital audio playback info (%i): %s",
 			         card, snd_strerror(err));
 		    } else {
-			QString hwdev = hw_device + QString(",%1").arg(idx);
-			QString subdevice_name =
-			    snd_pcm_info_get_subdevice_name(pcminfo);
-			QString name = QString(
+			QString hwdev = hw_device + _(",%1").arg(idx);
+			QString subdevice_name = _(
+			    snd_pcm_info_get_subdevice_name(pcminfo));
+			QString name =
 			    i18n("Card %1: ", card_name) +
-			    "|sound_card||" +
+			    _("|sound_card||") +
 			    i18n("Device %1: ", device_name) +
-			    "|sound_device||" +
+			    _("|sound_device||") +
 			    i18n("Subdevice %1: ", subdevice_name) +
-			    "|sound_subdevice"
-			)/*.arg(card).arg(dev).arg(idx)*/;
+			    _("|sound_subdevice");
 			qDebug("# '%s' -> '%s'", hwdev.toLocal8Bit().data(),
 			       name.toLocal8Bit().data());
 			m_device_list.insert(name, hwdev);
@@ -1058,8 +1060,10 @@ void Kwave::RecordALSA::scanDevices()
 	    } else {
 		// no sub-devices
 		QString name = QString(
-		    i18n("Card %1: ", card_name) + "|sound_card||" +
-		    i18n("Device %1: ", device_name) + "|sound_subdevice"
+		    i18n("Card %1: ", card_name) +
+		    _("|sound_card||") +
+		    i18n("Device %1: ", device_name) +
+		    _("|sound_subdevice")
 		)/*.arg(card).arg(dev)*/;
 // 		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
 		m_device_list.insert(name, hw_device);
@@ -1077,7 +1081,7 @@ next_card:
 
     // per default: offer the dsnoop plugin if any slave devices exist
     if (!m_device_list.isEmpty()) {
-	m_device_list.insert(DEFAULT_DEVICE, "plug:dsnoop");
+	m_device_list.insert(DEFAULT_DEVICE, _("plug:dsnoop"));
     }
 
     snd_ctl_card_info_free(info);
@@ -1108,7 +1112,7 @@ QString Kwave::RecordALSA::alsaDeviceName(const QString &name)
 
 	qWarning("RecordALSA::alsaDeviceName('%s') - NOT FOUND",
 	         name.toLocal8Bit().data());
-	return "";
+	return _("");
     }
     return m_device_list[name];
 }

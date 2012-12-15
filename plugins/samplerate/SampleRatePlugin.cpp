@@ -75,7 +75,7 @@ int Kwave::SampleRatePlugin::interpreteParameters(QStringList &params)
 
     // check whether we should change the whole signal (optional)
     if (params.count() == 2) {
-	if (params[1] != "all")
+	if (params[1] != _("all"))
 	    return -EINVAL;
 	m_whole_signal = true;
     }
@@ -200,7 +200,8 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 	    Kwave::MetaData &m = (ratio > 1) ?
 		it.previous().value() : it.next().value();
 
-	    QStringList properties = Kwave::MetaData::positionBoundPropertyNames();
+	    QStringList properties =
+	        Kwave::MetaData::positionBoundPropertyNames();
 	    foreach (const QString &property, properties) {
 		if (!m.hasProperty(property))
 		    continue;

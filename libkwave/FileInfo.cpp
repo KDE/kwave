@@ -20,6 +20,7 @@
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MetaDataList.h"
+#include "libkwave/String.h"
 
 /** FileInfo flag: for internal usage only, do not show to the user */
 #define FP_INTERNAL     0x0001
@@ -31,7 +32,7 @@
 #define FP_NO_LOAD_SAVE 0x0004
 
 /** prefix of all property names */
-#define FILE_INFO_PROPERTY_PREFIX "FILE_INFO: "
+#define FILE_INFO_PROPERTY_PREFIX _("FILE_INFO: ")
 
 /***************************************************************************/
 void Kwave::FileInfo::PropertyTypesMap::fill()
@@ -40,203 +41,211 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
            QString(), QString());
 
     append(Kwave::INF_ALBUM, 0,
-        I18N_NOOP("Album"),
-        i18n("Name of the album if the source is an album\n"
-             "that consist of more medias."));
+        _(I18N_NOOP("Album")),
+        _(I18N_NOOP("Name of the album if the source is an album\n"
+             "that consist of more medias.")));
     append(Kwave::INF_ANNOTATION, 0,
-        I18N_NOOP("Annotation"),
-        i18n("Provides general comments about the file or the subject of\n"
+        _(I18N_NOOP("Annotation")),
+        _(I18N_NOOP(
+             "Provides general comments about the file or the subject of\n"
              "the file. If the comment is several sentences long, end\n"
              "each sentence with a period. Do not include newline\n"
-             "characters!"));
+             "characters!")));
     append(Kwave::INF_ARCHIVAL, 0,
-        I18N_NOOP("Archival location"),
-        i18n("Indicates where the subject of the file is archived."));
+        _(I18N_NOOP("Archival location")),
+        _(I18N_NOOP("Indicates where the subject of the file is archived.")));
     append(Kwave::INF_AUTHOR, 0,
-        I18N_NOOP("Author"),
-        i18n("Identifies the name of the author of the original\n"
+        _(I18N_NOOP("Author")),
+        _(I18N_NOOP("Identifies the name of the author of the original\n"
              "subject of the file."
-             "\nExample: 'van Beethoven, Ludwig'"));
+             "\nExample: 'van Beethoven, Ludwig'")));
     append(Kwave::INF_BITRATE_LOWER, FP_NO_LOAD_SAVE,
-        I18N_NOOP("Lower Bitrate"),
-        i18n("Specifies the lower limit in a VBR bitstream."));
+        _(I18N_NOOP("Lower Bitrate")),
+        _(I18N_NOOP("Specifies the lower limit in a VBR bitstream.")));
     append(Kwave::INF_BITRATE_NOMINAL, FP_NO_LOAD_SAVE,
-        I18N_NOOP("Bitrate"),
-        i18n("Nominal bitrate of the audio stream in bits per second"));
+        _(I18N_NOOP("Bitrate")),
+        _(I18N_NOOP(
+             "Nominal bitrate of the audio stream in bits per second")));
     append(Kwave::INF_BITRATE_UPPER, FP_NO_LOAD_SAVE,
-        I18N_NOOP("Upper Bitrate"),
-        i18n("Specifies the upper limit in a VBR bitstream."));
+        _(I18N_NOOP("Upper Bitrate")),
+        _(I18N_NOOP("Specifies the upper limit in a VBR bitstream.")));
     append(Kwave::INF_BITS_PER_SAMPLE, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Bits per Sample"),
-        i18n("Specifies the number of bits per sample."));
+        _(I18N_NOOP("Bits per Sample")),
+        _(I18N_NOOP("Specifies the number of bits per sample.")));
     append(Kwave::INF_CD, 0,
-        I18N_NOOP("CD"),
-        i18n("Number of the CD, if the source is\nan album of more CDROMs"));
+        _(I18N_NOOP("CD")),
+        _(I18N_NOOP(
+             "Number of the CD, if the source is an album of more CDROMs")));
     append(Kwave::INF_CDS, 0,
-        I18N_NOOP("CDS"),
-        i18n("Number of CDs, if the source is\nan album of more CDROMs"));
+        _(I18N_NOOP("CDS")),
+        _(I18N_NOOP(
+             "Number of CDs, if the source is an album of more CDROMs")));
     append(Kwave::INF_COMMISSIONED, 0,
-        I18N_NOOP("Commisioned"),
-        i18n("Lists the name of the person or organization\n"
-             "that commissioned the subject of the file."));
+        _(I18N_NOOP("Commisioned")),
+        _(I18N_NOOP("Lists the name of the person or organization\n"
+             "that commissioned the subject of the file.")));
     append(Kwave::INF_COMMENTS, 0,
-        I18N_NOOP("Comments"),
-        i18n("Provides general comments about the file or the subject of\n"
+        _(I18N_NOOP("Comments")),
+        _(I18N_NOOP(
+             "Provides general comments about the file or the subject of\n"
              "the file. If the comment is several sentences long, end\n"
              "each sentence with a period. Do not include newline\n"
-             "characters!"));
+             "characters!")));
     append(Kwave::INF_COMPRESSION, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Compression"),
-        i18n("Sets a mode for compressing the audio\n"
-             "data to reduce disk space."));
+        _(I18N_NOOP("Compression")),
+        _(I18N_NOOP("Sets a mode for compressing the audio\n"
+             "data to reduce disk space.")));
     append(Kwave::INF_CONTACT, 0,
-        I18N_NOOP("Contact"),
-        i18n("Contact information for the creators or distributors of\n"
+        _(I18N_NOOP("Contact")),
+        _(I18N_NOOP("Contact information for the creators or distributors of\n"
              "the track. This could be a URL, an email address, the\n"
-             "physical address of the producing label."));
+             "physical address of the producing label.")));
     append(Kwave::INF_COPYRIGHT, 0,
-        I18N_NOOP("Copyright"),
-        i18n("Records the copyright information for the file. If there are\n"
-             "multiple copyrights, separate them by a semicolon followed\n"
+        _(I18N_NOOP("Copyright")),
+        _(I18N_NOOP("Records the copyright information for the file. "
+	     "If there are\n"
+	     "multiple copyrights, separate them by a semicolon followed\n"
              "by a space.\n"
-             "Example: 'Copyright Linux community 2002'"));
+             "Example: 'Copyright Linux community 2002'")));
     append(Kwave::INF_COPYRIGHTED, 0,
-        I18N_NOOP("Copyrighted"),
-        i18n("Indicates whether the file is protected by copyright or not."));
+        _(I18N_NOOP("Copyrighted")),
+        _(I18N_NOOP("Indicates whether the file is protected by "
+                  "copyright or not.")));
     append(Kwave::INF_CREATION_DATE, 0,
-        I18N_NOOP("Date"),
-        i18n("Specifies the date the subject of the file was created.\n"
-             "Example: '2001-12-24'"));
+        _(I18N_NOOP("Date")),
+        _(I18N_NOOP("Specifies the date the subject of the file was created.\n"
+             "Example: '2001-12-24'")));
     append(Kwave::INF_ENGINEER, 0,
-        I18N_NOOP("Engineer"),
-        i18n("Shows the name of the engineer who worked on the file.\n"
+        _(I18N_NOOP("Engineer")),
+        _(I18N_NOOP("Shows the name of the engineer who worked on the file.\n"
              "If there are multiple engineers, separate the names by\n"
-             "a semicolon and a blank."));
+             "a semicolon and a blank.")));
     append(Kwave::INF_FILENAME, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Filename"),
-        i18n("Name of the opened file"));
+        _(I18N_NOOP("Filename")),
+        _(I18N_NOOP("Name of the opened file")));
     append(Kwave::INF_FILESIZE, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("File Size"),
-        i18n("Size of the file in bytes"));
+        _(I18N_NOOP("File Size")),
+        _(I18N_NOOP("Size of the file in bytes")));
     append(Kwave::INF_GENRE, 0,
-        I18N_NOOP("Genre"),
-        i18n("Describes the genre or style of the original work.\n"
-             "Examples: 'classic', 'pop'"));
+        _(I18N_NOOP("Genre")),
+        _(I18N_NOOP("Describes the genre or style of the original work.\n"
+             "Examples: 'classic', 'pop'")));
     append(Kwave::INF_ISRC, FP_READONLY,
-        I18N_NOOP("ISRC"),
-        i18n("ISRC number for the track; see the ISRC intro page\n"
+        _(I18N_NOOP("ISRC")),
+        _(I18N_NOOP("ISRC number for the track; see the ISRC intro page\n"
              "for more information on ISRC numbers.\n"
-             "http://www.ifpi.org/site-content/online/isrc_intro.html"));
+             "http://www.ifpi.org/site-content/online/isrc_intro.html")));
     append(Kwave::INF_KEYWORDS, 0,
-        I18N_NOOP("Keywords"),
-        i18n("Provides a list of keywords that refer to the\n"
-             "file or subject of the file."));
+        _(I18N_NOOP("Keywords")),
+        _(I18N_NOOP("Provides a list of keywords that refer to the\n"
+             "file or subject of the file.")));
     append(Kwave::INF_LABELS, FP_INTERNAL,
-        I18N_NOOP("Labels"),
-        i18n("The list of labels/markers."));
+        _(I18N_NOOP("Labels")),
+        _(I18N_NOOP("The list of labels/markers.")));
     append(Kwave::INF_LENGTH, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Length"),
-        i18n("Length of the file in samples."));
+        _(I18N_NOOP("Length")),
+        _(I18N_NOOP("Length of the file in samples.")));
     append(Kwave::INF_LICENSE, 0,
-        I18N_NOOP("License"),
-        i18n("License information, e.g., 'All Rights Reserved',\n"
+        _(I18N_NOOP("License")),
+        _(I18N_NOOP("License information, e.g., 'All Rights Reserved',\n"
              "'Any Use Permitted', an URL to a license or the\n"
              "EFF Open Audio License ('distributed under the\n"
              "terms of the Open Audio License.\n"
              "See http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
-             "for details'), etc."));
+             "for details')), etc.")));
     append(Kwave::INF_MEDIUM, 0,
-        I18N_NOOP("Medium"),
-        i18n("Describes the original subject of the file,\n"
+        _(I18N_NOOP("Medium")),
+        _(I18N_NOOP("Describes the original subject of the file,\n"
              "where it was first recorded.\n"
-             "Example: 'orchester'"));
+             "Example: 'orchester'")));
     append(Kwave::INF_MIMETYPE, FP_READONLY | FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Mime Type"),
-        i18n("Mime type of the file format"));
+        _(I18N_NOOP("Mime Type")),
+        _(I18N_NOOP("Mime type of the file format")));
     append(Kwave::INF_MPEG_EMPHASIS, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Emphasis"),
-        i18n("Audio emphasis mode"));
+        _(I18N_NOOP("Emphasis")),
+        _(I18N_NOOP("Audio emphasis mode")));
     append(Kwave::INF_MPEG_LAYER, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Layer"),
-        i18n("MPEG Layer, I, II or III"));
+        _(I18N_NOOP("Layer")),
+        _(I18N_NOOP("MPEG Layer, I, II or III")));
     append(Kwave::INF_MPEG_MODEEXT, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Mode Extension"),
-        i18n("MPEG Mode Extension (only if Joint Stereo)"));
+        _(I18N_NOOP("Mode Extension")),
+        _(I18N_NOOP("MPEG Mode Extension (only if Joint Stereo)")));
     append(Kwave::INF_MPEG_VERSION, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Version"),
-        i18n("MPEG Version, 1, 2 or 2.5"));
+        _(I18N_NOOP("Version")),
+        _(I18N_NOOP("MPEG Version, 1, 2 or 2.5")));
     append(Kwave::INF_NAME, 0,
-        I18N_NOOP("Name"),
-        i18n("Stores the title of the subject of the file.\n"
-             "Example: \"Symphony No.6, Op.68 'Pastoral'\""));
+        _(I18N_NOOP("Name")),
+        _(I18N_NOOP("Stores the title of the subject of the file.\n"
+             "Example: \"Symphony No.6, Op.68 'Pastoral'\"")));
     append(Kwave::INF_ORGANIZATION, 0,
-        I18N_NOOP("Organization"),
-        i18n("Name of the organization producing the track\n"
-             "(i.e. the 'record label')"));
+        _(I18N_NOOP("Organization")),
+        _(I18N_NOOP("Name of the organization producing the track\n"
+             "(i.e. the 'record label')")));
     append(Kwave::INF_ORIGINAL, FP_NO_LOAD_SAVE,
-        I18N_NOOP("Original"),
-        i18n("Indicates whether the file is an original or a copy"));
+        _(I18N_NOOP("Original")),
+        _(I18N_NOOP("Indicates whether the file is an original or a copy")));
     append(Kwave::INF_PERFORMER, 0,
-        I18N_NOOP("Performer"),
-        i18n("The artist(s) who performed the work. In classical\n"
+        _(I18N_NOOP("Performer")),
+        _(I18N_NOOP("The artist(s) who performed the work. In classical\n"
              "music this would be the conductor, orchestra, soloists.\n"
-             "In an audio book it would be the actor who did the reading."));
+             "In an audio book it would be the actor who did the reading.")));
     append(Kwave::INF_PRIVATE, 0,
-        I18N_NOOP("Private"),
-        i18n("Indicates whether the subject is private"));
+        _(I18N_NOOP("Private")),
+        _(I18N_NOOP("Indicates whether the subject is private")));
     append(Kwave::INF_PRODUCT, 0,
-        I18N_NOOP("Product"),
-        i18n("Specifies the name or the title the\n"
+        _(I18N_NOOP("Product")),
+        _(I18N_NOOP("Specifies the name or the title the\n"
              "file was originally intended for.\n"
-             "Example: 'Linux audio collection'"));
+             "Example: 'Linux audio collection'")));
     append(Kwave::INF_SAMPLE_FORMAT, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Sample Format"),
-        i18n("Format used for storing the digitized audio samples.\n"
-             "Example: '32-bit IEEE floating-point'"));
+        _(I18N_NOOP("Sample Format")),
+        _(I18N_NOOP("Format used for storing the digitized audio samples.\n"
+             "Example: '32-bit IEEE floating-point'")));
     append(Kwave::INF_SAMPLE_RATE, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Sample Rate"),
-        i18n("Number of samples per second\n"));
+        _(I18N_NOOP("Sample Rate")),
+        _(I18N_NOOP("Number of samples per second\n")));
     append(Kwave::INF_SOFTWARE, 0,
-        I18N_NOOP("Software"),
-        i18n("Identifies the name of the software package\n"
+        _(I18N_NOOP("Software")),
+        _(I18N_NOOP("Identifies the name of the software package\n"
              "used to create the file.\n"
-             "Example: 'Kwave v0.6.4-1'"));
+             "Example: 'Kwave v0.6.4-1'")));
     append(Kwave::INF_SOURCE, 0,
-        I18N_NOOP("Source"),
-        i18n("Identifies the name of the person or organization\n"
+        _(I18N_NOOP("Source")),
+        _(I18N_NOOP("Identifies the name of the person or organization\n"
              "who supplied the original subject of the file.\n"
-             "Example: 'Chaotic Sound Research'"));
+             "Example: 'Chaotic Sound Research'")));
     append(Kwave::INF_SOURCE_FORM, 0,
-        I18N_NOOP("Source form"),
-        i18n("Identifies the original form of\n"
+        _(I18N_NOOP("Source form")),
+        _(I18N_NOOP("Identifies the original form of\n"
              "the material that was digitized.\n"
              "Examples: 'Record/Vinyl/90RPM', 'Audio DAT', "
-             "'tape/CrO2/60min'"));
+             "'tape/CrO2/60min'")));
     append(Kwave::INF_SUBJECT, 0,
-        I18N_NOOP("Subject"),
-        i18n("Describes the subject of the file.\n"
-             "Example: 'Bird voices at early morning'"));
+        _(I18N_NOOP("Subject")),
+        _(I18N_NOOP("Describes the subject of the file.\n"
+             "Example: 'Bird voices at early morning'")));
     append(Kwave::INF_TECHNICAN, 0,
-        I18N_NOOP("Technican"),
-        i18n("Identifies the technican who digitized the subject file.\n"
-             "Example: 'Torvalds, Linus'"));
+        _(I18N_NOOP("Technican")),
+        _(I18N_NOOP(
+             "Identifies the technican who digitized the subject file.\n"
+             "Example: 'Torvalds, Linus'")));
     append(Kwave::INF_TRACK, 0,
-        I18N_NOOP("Track"),
-        i18n("Track of the CD if the source was a CDROM."));
+        _(I18N_NOOP("Track")),
+        _(I18N_NOOP("Track of the CD if the source was a CDROM.")));
     append(Kwave::INF_TRACKS, 0,
-        I18N_NOOP("Tracks"),
-        i18n("Number of tracks of the CD if the source was a CDROM."));
+        _(I18N_NOOP("Tracks")),
+        _(I18N_NOOP("Number of tracks of the CD if the source was a CDROM.")));
     append(Kwave::INF_CHANNELS, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Channels"),
-        i18n("Specifies the number of channels of the signal."));
+        _(I18N_NOOP("Channels")),
+        _(I18N_NOOP("Specifies the number of channels of the signal.")));
     append(Kwave::INF_VBR_QUALITY, FP_INTERNAL | FP_NO_LOAD_SAVE,
-        I18N_NOOP("Base Quality"),
-        i18n("Base quality of the compression in VBR mode"));
+        _(I18N_NOOP("Base Quality")),
+        _(I18N_NOOP("Base quality of the compression in VBR mode")));
     append(Kwave::INF_VERSION, 0,
-        I18N_NOOP("Version"),
-        i18n("May be used to differentiate multiple versions\n"
+        _(I18N_NOOP("Version")),
+        _(I18N_NOOP("May be used to differentiate multiple versions\n"
              "of the same track title in a single collection.\n"
-             "(e.g. remix info)"));
+             "(e.g. remix info)")));
 
     // please do not simply extend here, sort in alphabetically instead...
 
@@ -270,7 +279,8 @@ Kwave::FileInfo::FileInfo(const Kwave::MetaDataList &meta_data_list)
 
     foreach (const Kwave::MetaData &meta_data, meta_data_list) {
 	foreach (Kwave::FileProperty key, m_property_map.allKeys()) {
-	    QString name = FILE_INFO_PROPERTY_PREFIX + m_property_map.name(key);
+	    QString name = FILE_INFO_PROPERTY_PREFIX +
+		m_property_map.name(key);
 	    if (meta_data.hasProperty(name)) {
 		// take over each supported property
 		QVariant value = meta_data[name];
@@ -409,7 +419,7 @@ void Kwave::FileInfo::setTracks(unsigned int tracks)
 void Kwave::FileInfo::dump() const
 {
     qDebug("--- dump of file info ---");
-    qDebug("    id = #%s", id().toLocal8Bit().data());
+    qDebug("    id = #%s", DBG(id()));
     qDebug("default properties:");
     qDebug("   length = %lu samples", static_cast<unsigned long int>(length()));
     qDebug("   rate   = %0.1f Hz", rate());

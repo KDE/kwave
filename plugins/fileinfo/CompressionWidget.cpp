@@ -30,6 +30,8 @@
 #include <knuminput.h>
 
 #include "libkwave/StandardBitrates.h"
+#include "libkwave/String.h"
+
 #include "BitrateWidget.h"
 #include "CompressionWidget.h"
 
@@ -89,7 +91,7 @@ void Kwave::CompressionWidget::describeWidget(QWidget *widget,
 {
     if (!widget) return;
     widget->setToolTip(description);
-    widget->setWhatsThis("<b>"+name+"</b><br>"+description);
+    widget->setWhatsThis(_("<b>") + name + _("</b><br>") + description);
 }
 
 //***************************************************************************
@@ -98,7 +100,7 @@ void Kwave::CompressionWidget::initInfo(QLabel *label, QWidget *widget,
                                         Kwave::FileInfo &info)
 {
     Q_ASSERT(widget);
-    if (label) label->setText(i18n(info.name(property).toAscii()) + ":");
+    if (label) label->setText(i18n(info.name(property).toAscii()) + _(":"));
     describeWidget(widget, i18n(info.name(property).toAscii()),
                    info.description(property));
 }

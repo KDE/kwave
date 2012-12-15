@@ -24,6 +24,7 @@
 
 #include <QtCore/QDate>
 #include <QtCore/QDateTime>
+#include <QtCore/QLatin1Char>
 #include <QtCore/QString>
 #include <QtCore/QThread>
 
@@ -31,7 +32,8 @@
 #include <kglobal.h>
 #include <klocale.h>
 
-#include "Utils.h"
+#include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 //***************************************************************************
 void Kwave::yield()
@@ -43,12 +45,11 @@ void Kwave::yield()
 //***************************************************************************
 QString Kwave::zoom2string(double percent)
 {
-    QString result = "";
+    QString result;
 
     if (percent < 1.0) {
 	int digits = static_cast<int>(ceil(1.0 - log10(percent)));
-	QString format;
-	format = "%0."+format.setNum(digits)+"f %%";
+	QString format = _("%0.") + format.setNum(digits) + _("f %%");
 	result = format.sprintf(format.toUtf8(), percent);
     } else if (percent < 10.0) {
 	result = result.sprintf("%0.1f %%", percent);
@@ -64,35 +65,32 @@ QString Kwave::zoom2string(double percent)
 //***************************************************************************
 QString Kwave::ms2string(double ms, int precision)
 {
-    char buf[128];
-    int bufsize = 128;
+    QString result;
 
     if (ms < 1.0) {
-	char format[128];
 	// limit precision, use 0.0 for exact zero
 	int digits = (ms != 0.0) ? static_cast<int>(ceil(1.0 - log10(ms))) : 1;
 	if ( (digits < 0) || (digits > precision)) digits = precision;
 
-	snprintf(format, sizeof(format), "%%0.%df ms", digits);
-	snprintf(buf, bufsize, format, ms);
+	result = _("%1 ms").arg(ms, 0, 'f', digits);
     } else if (ms < 1000.0) {
-	snprintf(buf, bufsize, "%0.1f ms", ms);
+	result = _("%1 ms").arg(ms, 0, 'f', 1);
     } else {
 	int s = static_cast<int>(round(ms / 1000.0));
 	int m = static_cast<int>(floor(s / 60.0));
 
 	if (m < 1) {
-	    char format[128];
 	    int digits = static_cast<int>(
-		ceil(static_cast<double>(precision+1) - log10(ms)));
-	    snprintf(format, sizeof(format), "%%0.%df s", digits);
-	    snprintf(buf, bufsize, format, ms / 1000.0);
+		ceil(static_cast<double>(precision + 1) - log10(ms)));
+	    result = _("%1 s").arg(
+		static_cast<double>(ms) / 1000.0, 0, 'f', digits);
 	} else {
-	    snprintf(buf, bufsize, "%02d:%02d min", m, s % 60);
+	    result = _("%1:%2 min").arg(
+		m,      2, 10, QLatin1Char('0')).arg(
+		s % 60, 2, 10, QLatin1Char('0'));
 	}
     }
 
-    QString result(buf);
     return result;
 }
 
@@ -122,7 +120,7 @@ QString Kwave::ms2hms(double ms)
 QString Kwave::dottedNumber(unsigned int number)
 {
     const QString num = QString::number(number);
-    QString dotted = "";
+    QString dotted;
     const QString dot = KGlobal::locale()->thousandsSeparator();
     const int len = num.length();
     for (int i=len-1; i >= 0; i--) {
@@ -149,12 +147,12 @@ QString Kwave::string2date(const QString &str)
     QDateTime dt;
 
     // try ID3 full date/time
-    dt = QDateTime::fromString(str, "yyyy-MM-ddThh:mm:ss");
+    dt = QDateTime::fromString(str, _("yyyy-MM-ddThh:mm:ss"));
     if (dt.isValid())
 	return str; // already in complete date/time format
 
     // type ID3 date without time
-    dt = QDateTime::fromString(str, "yyyy-MM-dd");
+    dt = QDateTime::fromString(str, _("yyyy-MM-dd"));
     if (dt.isValid())
 	return str; // already a valid date
 
@@ -167,12 +165,12 @@ QString Kwave::string2date(const QString &str)
 
 	if (dt.isValid()) {
 	    // full timestamp, including time
-	    s = dt.toString("yyyy-MM-ddThh:mm:ss");
+	    s = dt.toString(_("yyyy-MM-ddThh:mm:ss"));
 	}
 	if (!s.length()) {
 	    // date only, without time
 	    dt = QDateTime(QDate::fromString(str), QTime(0,0));
-	    s = dt.toString("yyyy-MM-dd");
+	    s = dt.toString(_("yyyy-MM-dd"));
 	}
 
 	if (s.length()) {

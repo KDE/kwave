@@ -27,6 +27,8 @@
 #include <kconfig.h>
 #include <kfilefiltercombo.h>
 
+#include "libkwave/String.h"
+
 #include "FileDialog.h"
 
 //***************************************************************************
@@ -38,15 +40,15 @@ Kwave::FileDialog::FileDialog(const QString &startDir,
 {
     setModal(modal);
 
-    QString special_prefix = "kfiledialog:///";
+    QString special_prefix = _("kfiledialog:///");
     if (startDir.startsWith(special_prefix))
     {
 	// configuration key given -> load initial settings
 	QString section = startDir;
 	section = section.remove(0, special_prefix.length());
-	if (section.contains("/"))
-	    section = section.left(section.indexOf("/"));
-	section.prepend("KwaveFileDialog-");
+	if (section.contains(_("/")))
+	    section = section.left(section.indexOf(_("/")));
+	section.prepend(_("KwaveFileDialog-"));
 	loadConfig(section);
     }
 
@@ -59,12 +61,13 @@ Kwave::FileDialog::FileDialog(const QString &startDir,
     // put the last extension to the top of the list
     // and thus make it selected
     if (m_last_ext.length() && filter.length()) {
-	QStringList filter_list = filter.split("\n");
+	QStringList filter_list = filter.split(_("\n"));
 	QString best;
 	foreach (QString f, filter_list) {
-	    if (f.contains("|")) f = f.left(f.indexOf("|"));
+	    if (f.contains(_("|")))
+		f = f.left(f.indexOf(_("|")));
 	    if (!f.length()) continue;
-	    QStringList extensions = f.split(" ");
+	    QStringList extensions = f.split(_(" "));
 	    if (extensions.contains(m_last_ext)) {
 		if (best.isNull() || (f.length() <= best.length()))
 		    best = f;
@@ -73,7 +76,7 @@ Kwave::FileDialog::FileDialog(const QString &startDir,
 	if (best.length()) {
 	    filter_list.removeAll(best);
 	    filter_list.prepend(best);
-	    QString new_filter = filter_list.join("\n");
+	    QString new_filter = filter_list.join(_("\n"));
 	    setFilter(new_filter);
 	}
     }
@@ -119,13 +122,13 @@ void Kwave::FileDialog::saveConfig()
     QString extension = file.suffix();
     if (extension.length()) {
 	// simple case: file extension
-	m_last_ext = "*."+extension;
+	m_last_ext = _("*.") + extension;
     } else {
 	// tricky case: filename mask
 	QString filename = selectedUrl().fileName();
 	QString filter = filterWidget()->currentFilter();
-	m_last_ext = "";
-	foreach (QString mask, filter.split(" ")) {
+	m_last_ext = _("");
+	foreach (QString mask, filter.split(_(" "))) {
 	    QRegExp regex(mask, Qt::CaseSensitive, QRegExp::Wildcard);
 	    if (regex.indexIn(filename) >= 0) {
 		m_last_ext = mask;
@@ -145,7 +148,7 @@ void Kwave::FileDialog::saveConfig()
 //***************************************************************************
 QString Kwave::FileDialog::selectedExtension()
 {
-    QStringList ext_list = currentFilter().split("; ");
+    QStringList ext_list = currentFilter().split(_("; "));
     return *(ext_list.begin());
 }
 

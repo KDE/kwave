@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <QtCore/QLatin1Char>
 #include <QtGui/QPushButton>
 #include <QtGui/QCheckBox>
 #include <QtGui/QGroupBox>
@@ -42,6 +43,7 @@
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/SampleFormat.h"
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/FileDialog.h"
@@ -115,8 +117,8 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     /* set the icons of the record control buttons */
     KIconLoader icon_loader;
-    btNew->setIcon(   KIcon(icon_loader.loadIcon(
-	              "document-new", KIconLoader::Toolbar)));
+    btNew->setIcon(   KIcon(icon_loader.loadIcon(_("document-new"),
+	              KIconLoader::Toolbar)));
     btStop->setIcon(  KIcon(QPixmap(xpm_stop)));
     btPause->setIcon( KIcon(QPixmap(xpm_pause)));
     btRecord->setIcon(KIcon(QPixmap(xpm_krec_record)));
@@ -277,19 +279,19 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     m_state_icon_widget->setFixedSize(16, 16);
     lbl_state->addWidget(m_state_icon_widget);
 
-    lbl_state->insertItem(" ", ID_STATE, 100);
+    lbl_state->insertItem(_(" "), ID_STATE, 100);
     lbl_state->setItemAlignment(ID_STATE,
                                 Qt::AlignLeft | Qt::AlignVCenter);
-    lbl_state->insertItem(" ", ID_TIME);
+    lbl_state->insertItem(_(" "), ID_TIME);
     lbl_state->setItemAlignment(ID_TIME,
                                 Qt::AlignLeft | Qt::AlignVCenter);
-    lbl_state->insertItem(" ", ID_SAMPLE_RATE);
+    lbl_state->insertItem(_(" "), ID_SAMPLE_RATE);
     lbl_state->setItemAlignment(ID_SAMPLE_RATE,
                                 Qt::AlignRight | Qt::AlignVCenter);
-    lbl_state->insertItem(" ", ID_BITS_PER_SAMPLE);
+    lbl_state->insertItem(_(" "), ID_BITS_PER_SAMPLE);
     lbl_state->setItemAlignment(ID_BITS_PER_SAMPLE,
                                 Qt::AlignRight | Qt::AlignVCenter);
-    lbl_state->insertItem(" ", ID_TRACKS);
+    lbl_state->insertItem(_(" "), ID_TRACKS);
     lbl_state->setItemAlignment(ID_TRACKS,
                                 Qt::AlignRight | Qt::AlignVCenter);
 
@@ -362,15 +364,15 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
     cbDevice->clear();
     listDevices->clear();
 
-    if (devices.contains("#EDIT#")) {
-	devices.removeAll("#EDIT#");
+    if (devices.contains(_("#EDIT#"))) {
+	devices.removeAll(_("#EDIT#"));
 	cbDevice->setEditable(true);
     } else {
 	cbDevice->setEditable(false);
     }
 
-    if (devices.contains("#SELECT#")) {
-	devices.removeAll("#SELECT#");
+    if (devices.contains(_("#SELECT#"))) {
+	devices.removeAll(_("#SELECT#"));
 	btSourceSelect->setEnabled(true);
 	btSourceSelect->show();
     } else {
@@ -378,9 +380,9 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 	btSourceSelect->hide();
     }
 
-    if (devices.contains("#TREE#")) {
+    if (devices.contains(_("#TREE#"))) {
 	// treeview mode
-	devices.removeAll("#TREE#");
+	devices.removeAll(_("#TREE#"));
 	listDevices->setEnabled(true);
 	cbDevice->setEnabled(false);
 	cbDevice->hide();
@@ -390,13 +392,13 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 	foreach (QString dev_id, devices) {
 	    QTreeWidgetItem *parent = 0;
 
-	    QStringList list = dev_id.split("||", QString::KeepEmptyParts);
+	    QStringList list = dev_id.split(_("||"), QString::KeepEmptyParts);
 	    foreach (QString token, list) {
 		QTreeWidgetItem *item = 0;
 
 		// split the icon name from the token
 		QString icon_name;
-		int pos = token.indexOf('|');
+		int pos = token.indexOf(QLatin1Char('|'));
 		if (pos > 0) {
 		    icon_name = token.mid(pos+1);
 		    token     = token.left(pos);
@@ -405,7 +407,7 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 		// find the first item with the same text
 		// and the same root
 		if (parent) {
-		    for (int i=0; i < parent->childCount(); i++) {
+		    for (int i = 0; i < parent->childCount(); i++) {
 			QTreeWidgetItem *node = parent->child(i);
 			if (node && node->text(0) == token) {
 			    item = node;
@@ -594,19 +596,19 @@ void Kwave::RecordDialog::selectRecordDevice()
     if (!m_enable_setDevice) return;
 
     QString filter;
-    filter += QString("dsp*|") + i18n("OSS record device (dsp*)");
-    filter += QString("\nadsp*|") + i18n("ALSA record device (adsp*)");
-    filter += QString("\n*|") + i18n("Any device (*)");
+    filter += _("dsp*|")    + i18n("OSS record device (dsp*)");
+    filter += _("\nadsp*|") + i18n("ALSA record device (adsp*)");
+    filter += _("\n*|")     + i18n("Any device (*)");
 
-    Kwave::FileDialog dlg("kfiledialog:///kwave_record_device", filter, this,
-	true, "file:/dev");
+    Kwave::FileDialog dlg(_("kfiledialog:///kwave_record_device"),
+	filter, this, true, _("file:/dev"));
     dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Select Record Device"));
-    if (m_params.device_name[0] != '[')
-        dlg.setUrl(KUrl("file:"+m_params.device_name));
+    if (!m_params.device_name.startsWith(_("#")))
+        dlg.setUrl(KUrl(_("file:") + m_params.device_name));
     else
-        dlg.setUrl(KUrl("file:/dev/*"));
+        dlg.setUrl(KUrl(_("file:/dev/*")));
     if (dlg.exec() != QDialog::Accepted) return;
 
     // selected new device
@@ -633,7 +635,7 @@ QString Kwave::RecordDialog::rate2string(double rate) const
     s.remove(tsep);
 
     // remove trailing zeroes
-    while (s.endsWith("0")) s.remove(s.length()-1, 1);
+    while (s.endsWith(_("0"))) s.remove(s.length()-1, 1);
 
     // remove decimal point if necessary
     if (s.endsWith(dot)) s.remove(s.length()-1, 1);
@@ -704,14 +706,14 @@ void Kwave::RecordDialog::setTracks(unsigned int tracks)
 	    tracks_str = i18n("Quadro");
 	    break;
 	default:
-	    tracks_str = "";
+	    tracks_str = _("");
     }
 
     if (tracks_str.length()) {
-	lblTracksVerbose->setText("("+tracks_str+")");
+	lblTracksVerbose->setText(_("(") + tracks_str + _(")"));
 	lbl_state->changeItem(tracks_str, ID_TRACKS);
     } else {
-	lblTracksVerbose->setText("");
+	lblTracksVerbose->setText(_(""));
 	lbl_state->changeItem(i18n("%1 tracks", tracks), ID_TRACKS);
     }
 
@@ -792,11 +794,11 @@ void Kwave::RecordDialog::setSupportedCompressions(const QList<int> &comps)
 
     if (comps.isEmpty()) {
 	// no compressions -> add "none" manually
-	cbFormatCompression->addItem(types.name(0));
+	cbFormatCompression->addItem(types.description(0, true));
     } else {
 	foreach (int c, comps) {
 	    int index = types.findFromData(c);
-	    cbFormatCompression->addItem(types.name(index));
+	    cbFormatCompression->addItem(types.description(index, true), c);
 	}
     }
 
@@ -821,14 +823,14 @@ void Kwave::RecordDialog::setCompression(int compression)
 
     Kwave::CompressionType types;
     int index = types.findFromData(compression);
-    cbFormatCompression->setCurrentItem(types.name(index), true);
+    cbFormatCompression->setCurrentItem(types.description(index, true), true);
 }
 
 //***************************************************************************
 void Kwave::RecordDialog::compressionChanged(const QString &name)
 {
     Kwave::CompressionType types;
-    int index = types.findFromName(name);
+    int index = types.findFromDescription(name, true);
     int compression = types.data(index);
     if (compression == m_params.compression) return;
 
@@ -918,7 +920,7 @@ void Kwave::RecordDialog::setSupportedSampleFormats(
 
     foreach (Kwave::SampleFormat format, formats) {
 	int index = types.findFromData(format);
-	cbFormatSampleFormat->addItem(types.name(index));
+	cbFormatSampleFormat->addItem(types.description(index, true));
     }
 
     bool have_choice = (cbFormatSampleFormat->count() > 1);
@@ -942,15 +944,15 @@ void Kwave::RecordDialog::setSampleFormat(Kwave::SampleFormat sample_format)
 
     Kwave::SampleFormat::Map types;
     int index = types.findFromData(sample_format);
-    cbFormatSampleFormat->setCurrentItem(
-        (sample_format != -1) ? types.name(index) : "", true);
+    cbFormatSampleFormat->setCurrentItem((sample_format != -1) ?
+	types.description(index, true) : QString(), true);
 }
 
 //***************************************************************************
 void Kwave::RecordDialog::sampleFormatChanged(const QString &name)
 {
     Kwave::SampleFormat::Map types;
-    int index = types.findFromName(name);
+    int index = types.findFromDescription(name, true);
     Kwave::SampleFormat format = types.data(index);
     if (format == m_params.sample_format) return;
 
@@ -966,7 +968,7 @@ void Kwave::RecordDialog::setState(Kwave::RecordState state)
     bool enable_record = false;
     bool enable_settings = false;
     bool enable_trigger = false;
-    QString state_text = "";
+    QString state_text = _("");
     QVector<QPixmap> pixmaps;
     unsigned int animation_time = 500;
 
@@ -982,7 +984,7 @@ void Kwave::RecordDialog::setState(Kwave::RecordState state)
 	    enable_trigger  = true;
 	    pixmaps.push_back(QPixmap(stop_hand_xpm));
 	    pixmaps.push_back(QPixmap(ledred_xpm));
-	    lbl_state->changeItem("", ID_TIME);
+	    lbl_state->changeItem(_(""), ID_TIME);
 	    break;
 	case Kwave::REC_EMPTY:
 	    state_text = i18n("(empty)");
@@ -993,7 +995,7 @@ void Kwave::RecordDialog::setState(Kwave::RecordState state)
 	    enable_settings = true;
 	    enable_trigger  = true;
 	    pixmaps.push_back(QPixmap(ledgreen_xpm));
-	    lbl_state->changeItem("", ID_TIME);
+	    lbl_state->changeItem(_(""), ID_TIME);
 	    break;
 	case Kwave::REC_BUFFERING:
 	    state_text = i18n("Buffering...");
@@ -1136,10 +1138,10 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
 	case Kwave::REC_EMPTY:
 	case Kwave::REC_BUFFERING:
 	case Kwave::REC_PRERECORDING:
-	    txt = "";
+	    txt = _("");
 	    break;
 	case Kwave::REC_WAITING_FOR_TRIGGER: {
-	    txt = "";
+	    txt = _("");
 	    QString state_text;
 	    QDateTime now     = QDateTime::currentDateTime();
 	    QDateTime t_start = m_params.start_time;
@@ -1155,12 +1157,12 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
 		int d = h / 24;
 		h %= 24;
 
-		QString days    =
-		    (d) ? i18np("one day ",    "%1 days ",    d) : "";
-		QString hours   =
-		    (h) ? i18np("one hour ",   "%1 hours ",   h) : "";
-		QString minutes =
-		    (m) ? i18np("one minute ", "%1 minutes ", m) : "";
+		QString days    = (d) ?
+		    i18np("one day ",    "%1 days ",    d) : _("");
+		QString hours   = (h) ?
+		    i18np("one hour ",   "%1 hours ",   h) : _("");
+		QString minutes = (m) ?
+		    i18np("one minute ", "%1 minutes ", m) : _("");
 		QString seconds =
 		    (d | h | m) ?
 		    i18np("and %1 second", "and %1 seconds", s) :
@@ -1186,10 +1188,11 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
 		double ms = (rate) ?
 		    ((static_cast<double>(m_samples_recorded) / rate) * 1E3)
 		    : 0;
-		txt = " " + i18n("Length: %1", Kwave::ms2string(ms)) +
-		    " " + i18n("(%1 samples)",
+		txt = _(" ") +
+		    i18n("Length: %1", Kwave::ms2string(ms)) +
+		    _(" ") + i18n("(%1 samples)",
 		    Kwave::dottedNumber(m_samples_recorded));
-	    } else txt = "";
+	    } else txt = _("");
 	    break;
 	}
     }
@@ -1336,7 +1339,7 @@ void Kwave::RecordDialog::updateRecordButton()
 //***************************************************************************
 void Kwave::RecordDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp("recording");
+    KToolInvocation::invokeHelp(_("recording"));
 }
 
 //***************************************************************************

@@ -20,6 +20,8 @@
 
 #include <QtCore/QStringList>
 
+#include "libkwave/String.h"
+
 #include "NewSignalPlugin.h"
 #include "NewSignalDialog.h"
 
@@ -95,13 +97,13 @@ QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
 	*list << QString::number(dialog->rate());
 	*list << QString::number(dialog->bitsPerSample());
 	*list << QString::number(dialog->tracks());
-	*list << (dialog->byTime() ? "1" : "0");
+	*list << _(dialog->byTime() ? "1" : "0");
 
-	emitCommand("newsignal("+
-	    QString::number(dialog->samples())+","+
-	    QString::number(dialog->rate())+","+
-	    QString::number(dialog->bitsPerSample())+","+
-	    QString::number(dialog->tracks())+")"
+	emitCommand(_("newsignal(") +
+	    QString::number(dialog->samples()) + _(",") +
+	    QString::number(dialog->rate()) + _(",") +
+	    QString::number(dialog->bitsPerSample()) + _(",") +
+	    QString::number(dialog->tracks()) + _(")")
 	);
     } else {
 	// user pressed "Cancel"

@@ -63,7 +63,7 @@ namespace Kwave
 }
 
 /** prefix used for encoding metadata / properties */
-#define META_PREFIX "## "
+#define META_PREFIX _("## ")
 
 #endif /* _ASCII_CODEC_PLUGIN_H_ */
 

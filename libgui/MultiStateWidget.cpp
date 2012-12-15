@@ -24,6 +24,8 @@
 
 #include <kstandarddirs.h>
 
+#include "libkwave/String.h"
+
 #include "MultiStateWidget.h"
 
 //***************************************************************************
@@ -49,7 +51,7 @@ void Kwave::MultiStateWidget::setID(int id)
 void Kwave::MultiStateWidget::addPixmap(const QString &filename)
 {
     QString file = KStandardDirs::locate(
-	"data", QString("kwave/pics/") + filename);
+	"data", _("kwave/pics/") + filename);
     QPixmap newpix(file);
     m_pixmaps.append(newpix);
 }

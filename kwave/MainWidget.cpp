@@ -41,6 +41,7 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/Parser.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/LabelPropertiesWidget.h"
@@ -52,7 +53,7 @@
 /**
  * useful macro for command parsing
  */
-#define CASE_COMMAND(x) } else if (parser.command() == x) {
+#define CASE_COMMAND(x) } else if (parser.command() == _(x)) {
 
 /**
  * Limits the zoom to a minimum number of samples visible in one
@@ -261,11 +262,11 @@ void Kwave::MainWidget::dropEvent(QDropEvent *event)
 	    if (Kwave::CodecManager::canDecode(mimetype)) {
 		if (first) {
 		    // first dropped URL -> open in this window
-		    emit sigCommand("open(" + filename + ")");
+		    emit sigCommand(_("open(") + filename + _(")"));
 		    first = false;
 		} else {
 		    // all others -> open a new window
-		    emit sigCommand("newwindow(" + filename + ")");
+		    emit sigCommand(_("newwindow(") + filename + _(")"));
 		}
 	    }
 	}
@@ -292,26 +293,26 @@ void Kwave::MainWidget::wheelEvent(QWheelEvent *event)
 	case Qt::NoModifier: {
 	    // no modifier + <WheelUp/Down> => scroll left/right
 	    if (event->delta() > 0)
-		executeCommand("view:scroll_left()");
+		executeCommand(_("view:scroll_left()"));
 	    else if (event->delta() < 0)
-		executeCommand("view:scroll_right()");
+		executeCommand(_("view:scroll_right()"));
 	    event->accept();
 	    break;
 	}
 	case Qt::ShiftModifier:
 	    // <Shift> + <WheelUp/Down> => page up/down
 	    if (event->delta() > 0)
-		executeCommand("view:scroll_prev()");
+		executeCommand(_("view:scroll_prev()"));
 	    else if (event->delta() < 0)
-		executeCommand("view:scroll_next()");
+		executeCommand(_("view:scroll_next()"));
 	    event->accept();
 	    break;
 	case Qt::ControlModifier:
 	    // <Ctrl> + <WheelUp/Down> => zoom in/out
 	    if (event->delta() > 0)
-		executeCommand("view:zoom_in()");
+		executeCommand(_("view:zoom_in()"));
 	    else if (event->delta() < 0)
-		executeCommand("view:zoom_out()");
+		executeCommand(_("view:zoom_out()"));
 	    event->accept();
 	    break;
 	default:

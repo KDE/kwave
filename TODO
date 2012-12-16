@@ -3,16 +3,14 @@ o bugfix: handling of "#edit#" device name in record dialog (e.g. OSS)
 
 o try to replace Qt classes which have KDE equivalent
 
-o check toAscii(), toLatin1(), toLocal8Bit().data(x) -> _(x)
-
 o include files from libkwave/libgui only with directory prefix
 
 o no null pointer checks around "delete"
 
-o compile with -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_ASCII
-
 o find a replacement for libkwave/byteswap.h
   -> see qFromBigEndian/qFromLittleEndian/qToLittleEndian...
+
+o libkwave/ByteOrder.h -> namespace
 
 o TODO in MP3 plugin (ID3FID_MEDIATYPE)
 

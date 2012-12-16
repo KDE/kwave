@@ -74,7 +74,8 @@
 
 //***************************************************************************
 Kwave::RecordOSS::RecordOSS()
-    :Kwave::RecordDevice(), m_fd(-1), m_oss_version(-1)
+    :Kwave::RecordDevice(),
+     m_fd(-1), m_rate(0), m_tracks(0), m_oss_version(-1)
 {
 }
 
@@ -301,43 +302,45 @@ QString Kwave::RecordOSS::fileFilter()
 int Kwave::RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
 {
     Q_ASSERT(m_fd >= 0);
-    int t;
+    unsigned int t;
     int err;
 
+    // preset
+    min = 0;
+    max = 0;
+
     // find the smalles number of tracks, limit to MAX_CHANNELS
-    for (t=1; t < MAX_CHANNELS; t++) {
+    for (t = 1; t < MAX_CHANNELS; t++) {
 	int real_tracks = t;
 	err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
-	Q_ASSERT(real_tracks == t);
-	if (err >= 0) {
+	if ((err >= 0) && (static_cast<unsigned int>(real_tracks) == t)) {
 	    min = real_tracks;
 	    break;
 	}
     }
     if (t >= MAX_CHANNELS) {
 	// no minimum track number found :-o
-	qWarning("no minimum track number found, err=%d",err);
+	qWarning("no minimum track number found, err=%d", err);
 	min = 0;
 	max = 0;
 	return err;
     }
 
     // find the highest number of tracks, start from MAX_CHANNELS downwards
-    for (t=MAX_CHANNELS; t >= static_cast<int>(min); t--) {
+    max = min;
+    for (t = MAX_CHANNELS; t >= min; t--) {
 	int real_tracks = t;
 	err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
-	Q_ASSERT(real_tracks == t);
-	if (err >= 0) {
+	if ((err >= 0) && (static_cast<unsigned int>(real_tracks) == t)) {
 	    max = real_tracks;
 	    break;
 	}
     }
-    max = t;
     m_tracks = max;
 
-    qDebug("RecordOSS::detectTracks, min=%u, max=%u",min,max);
+    qDebug("RecordOSS::detectTracks, min=%u, max=%u", min, max);
 
-    return 0;
+    return (max > 0) ? 0 : -1;
 }
 
 //***************************************************************************
@@ -414,8 +417,8 @@ QList<double> Kwave::RecordOSS::detectSampleRates()
 	int rate = known_rates[i];
 	int err = ioctl(m_fd, SNDCTL_DSP_SPEED, &rate);
 	if (err < 0) {
-	    qDebug("RecordOSS::detectSampleRates(): "\
-	           "sample rate %d Hz not supported", known_rates[i]);
+// 	    qDebug("RecordOSS::detectSampleRates(): "
+// 	           "sample rate %d Hz not supported", known_rates[i]);
 	    continue;
 	}
 

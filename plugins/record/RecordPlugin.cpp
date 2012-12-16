@@ -334,7 +334,14 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 	// use the first entry as default
 	dev = supported.first();
 	qDebug("RecordPlugin::setDevice(%s) -> fallback to '%s'",
-	    DBG(device), DBG(dev));
+	       DBG(device), DBG(dev));
+    }
+
+    // if there was no valid device name, fall back to default device
+    if (dev.startsWith(_("#"))) {
+	dev = _("/dev/dsp");
+	qDebug("RecordPlugin::setDevice(%s) -> no valid device, using '%s'",
+	       DBG(device), DBG(dev));
     }
 
     // open and initialize the device
@@ -350,13 +357,12 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
     KConfigGroup cfg = KGlobal::config()->group(section);
     cfg.writeEntry(_("last_device_%1").arg(
 	static_cast<int>(m_method)), m_device_name);
-// 	qDebug(">>> %d -> '%s'", static_cast<int>(m_method),
-// 	    m_device_name.data());
+//     qDebug(">>> %d -> '%s'", static_cast<int>(m_method), DBG(m_device_name));
     cfg.sync();
 
     if (result < 0) {
-	qWarning("RecordPlugin::openDevice('%s'): "\
-	         "opening the device failed. error=%d", DBG(dev), result);
+	qWarning("RecordPlugin::setDevice('%s'): "
+	         "opening the device failed. error=%d", DBG(device), result);
 
 	m_controller.setInitialized(false);
 	m_dialog->showDevicePage();
@@ -397,11 +403,18 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 		reason, i18n("Unable to open the recording device"));
 	}
 
-	m_device_name = QString::null;
+	m_device_name = QString();
 	changeTracks(0);
     } else {
-	m_controller.setInitialized(true);
 	changeTracks(m_dialog->params().tracks);
+    }
+
+    if (paramsValid()) {
+	m_controller.setInitialized(true);
+    } else {
+	qDebug("RecordPlugin::setDevice('%s') failed, "
+	        "returning to 'UNINITIALIZED'", DBG(device));
+	m_controller.setInitialized(false);
     }
 
 }
@@ -417,7 +430,7 @@ void Kwave::RecordPlugin::changeTracks(unsigned int new_tracks)
 
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
-	m_dialog->setSupportedTracks(0,0);
+	m_dialog->setSupportedTracks(0, 0);
 	m_dialog->setTracks(0);
 	changeSampleRate(0);
 	return;
@@ -427,11 +440,14 @@ void Kwave::RecordPlugin::changeTracks(unsigned int new_tracks)
     unsigned int min = 0;
     unsigned int max = 0;
     m_device->detectTracks(min, max);
+
     unsigned int channels = new_tracks;
     if ((channels < min) || (channels > max)) {
 	// clip to the supported number of tracks
 	if (channels < min) channels = min;
 	if (channels > max) channels = max;
+	qDebug("RecordPlugin::changeTracks(%u) -> clipped to %u",
+	       new_tracks, channels);
 
 	if ((new_tracks && channels) && (new_tracks != channels)) {
 	    QString s1;
@@ -454,13 +470,25 @@ void Kwave::RecordPlugin::changeTracks(unsigned int new_tracks)
 	    notice(i18n("%1 is not supported, using %2", s1, s2));
 	}
     }
+    Q_ASSERT(channels >= min);
+    Q_ASSERT(channels <= max);
     m_dialog->setSupportedTracks(min, max);
 
     // try to activate the new number of tracks
     int err = m_device->setTracks(channels);
     if (err < 0) {
 	// revert to the current device setting if failed
-	channels = m_device->tracks();
+	int t = m_device->tracks();
+	if (t > 0) {
+	    // current device state seems to be valid
+	    channels = t;
+	    if (channels < min) channels = min;
+	    if (channels > max) channels = max;
+	} else {
+	    // current device state is invalid
+	    channels = 0;
+	}
+
 	if (new_tracks && (channels > 0)) notice(
 	    i18n("Recording with %1 channels(s) failed, "\
 		 "using %2 channels(s)", new_tracks, channels));
@@ -478,7 +506,7 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-//     qDebug("RecordPlugin::changeSampleRate(%u)", (unsigned int)new_rate);
+//     qDebug("RecordPlugin::changeSampleRate(%u)", static_cast<int>(new_rate));
 
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
@@ -490,7 +518,7 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
     // check the supported sample rates
     QList<double> supported_rates = m_device->detectSampleRates();
     double rate = new_rate;
-    if (!supported_rates.contains(rate) && !supported_rates.isEmpty()) {
+    if (!supported_rates.isEmpty() && !supported_rates.contains(rate)) {
 	// find the nearest sample rate
 	double nearest = supported_rates.last();
 	foreach (double r, supported_rates) {
@@ -514,6 +542,7 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
     if (err < 0) {
 	// revert to the current device setting if failed
 	rate = m_device->sampleRate();
+	if (rate < 0) rate = 0;
 
 	const QString sr1(m_dialog->rate2string(new_rate));
 	const QString sr2(m_dialog->rate2string(rate));
@@ -535,7 +564,7 @@ void Kwave::RecordPlugin::changeCompression(int new_compression)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-//     qDebug("RecordPlugin::changeCompression(%d)", (int)new_compression);
+//     qDebug("RecordPlugin::changeCompression(%d)", new_compression);
 
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
@@ -598,7 +627,7 @@ void Kwave::RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-//     qDebug("RecordPlugin::changeBitsPerSample(%d)", (int)new_bits);
+//     qDebug("RecordPlugin::changeBitsPerSample(%d)", new_bits);
 
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
@@ -631,8 +660,9 @@ void Kwave::RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     if (err < 0) {
 	// revert to the current device setting if failed
 	bits = m_device->bitsPerSample();
+	if (bits < 0) bits = 0;
 	if ((new_bits> 0) && (bits > 0)) notice(
-	    i18n("%1 bits per sample failed, "\
+	    i18n("%1 bits per sample failed, "
 		 "using %2 bits per sample",
 		 static_cast<int>(new_bits), bits));
     }
@@ -649,7 +679,7 @@ void Kwave::RecordPlugin::changeSampleFormat(Kwave::SampleFormat new_format)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-//     qDebug("RecordPlugin::changeSampleFormat(%d)", (int)new_format);
+    qDebug("RecordPlugin::changeSampleFormat(%d)", static_cast<int>(new_format));
 
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
@@ -753,10 +783,20 @@ void Kwave::RecordPlugin::leaveInhibit()
 bool Kwave::RecordPlugin::paramsValid()
 {
     if (!m_thread || !m_device || !m_dialog) return false;
-    if (m_device_name.isNull()) return false;
 
+    // check for a valid/usable record device
+    if (m_device_name.isNull()) return false;
+    if ( (m_device->sampleFormat() != Kwave::SampleFormat::Unsigned) &&
+         (m_device->sampleFormat() != Kwave::SampleFormat::Signed) )
+	return false;
+    if (m_device->bitsPerSample() < 1) return false;
+    if (m_device->endianness() == UnknownEndian) return false;
+
+    // check for valid parameters in the dialog
     const Kwave::RecordParams &params = m_dialog->params();
     if (params.tracks < 1) return false;
+    if ( (params.sample_format != Kwave::SampleFormat::Unsigned) &&
+         (params.sample_format != Kwave::SampleFormat::Signed) ) return false;
 
     return true;
 }
@@ -802,7 +842,7 @@ void Kwave::RecordPlugin::setupRecordThread()
     switch (params.compression) {
 	case AF_COMPRESSION_NONE:
 	    switch (params.sample_format) {
-		case Kwave::SampleFormat::Unsigned:
+		case Kwave::SampleFormat::Unsigned: /* FALLTHROUGH */
 		case Kwave::SampleFormat::Signed:
 		    // decoder for all linear formats
 		    m_decoder = new Kwave::SampleDecoderLinear(
@@ -817,10 +857,6 @@ void Kwave::RecordPlugin::setupRecordThread()
 		    );
 	    }
 	    break;
-	case AF_COMPRESSION_G711_ALAW:
-	case AF_COMPRESSION_G711_ULAW:
-	case Kwave::CompressionType::MPEG_LAYER_II:
-	case AF_COMPRESSION_MS_ADPCM:
 	default:
 	    notice(
 		i18n("The current compression type is not supported!")

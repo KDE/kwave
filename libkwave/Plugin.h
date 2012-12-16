@@ -356,7 +356,6 @@ namespace Kwave
 	/**
 	 * context of the plugin, includes references to some objects of
 	 * the main program.
-	 * @deprecated, should be eliminated soon!
 	 */
 	Kwave::PluginContext m_context;
 

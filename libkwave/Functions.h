@@ -30,9 +30,6 @@ namespace Kwave
      * @class Functions
      * Holds a list of simple periodic arithmetic functions. All functions are
      * normed to work within the interval [0...2 Pi]
-     *
-     * @bug the list of names contains only i18n names
-     * @todo needs a map with internal names and i18n names, like in Interpolation
      */
     class Functions
     {

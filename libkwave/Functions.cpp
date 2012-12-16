@@ -26,7 +26,7 @@
 #include "libkwave/String.h"
 
 //***************************************************************************
-double rect(double param)
+static double rect(double param)
 {
     double div = param / (2 * M_PI);
     param = param - (floor(div) * (2 * M_PI));
@@ -35,21 +35,21 @@ double rect(double param)
 }
 
 //***************************************************************************
-double sin2(double param)
+static double sin2(double param)
 {
     double y = sin(param);
     return y*y;
 }
 
 //***************************************************************************
-double sin3(double param)
+static double sin3(double param)
 {
     double y = sin(param);
     return y*y*y;
 }
 
 //***************************************************************************
-double saw(double param)
+static double saw(double param)
 {
     double div = param / (2 * M_PI);
     param -= (floor(div) * (2 * M_PI));
@@ -59,7 +59,7 @@ double saw(double param)
 }
 
 //***************************************************************************
-double sawinv(double param)
+static double sawinv(double param)
 {
     double div = param / (2 * M_PI);
     param -= (floor(div) * (2 * M_PI));
@@ -80,7 +80,7 @@ double tri(double param)
 }
 
 //***************************************************************************
-double zero(double)
+static double zero(double)
 {
     return 0.0;
 }

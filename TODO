@@ -1,6 +1,4 @@
 
-o auto-detect whether "rsvg" or "convert" can be used and really works (test)
-
 o find a replacement for libkwave/byteswap.h
   -> see qFromBigEndian/qFromLittleEndian/qToLittleEndian...
 

@@ -13,6 +13,9 @@
  * using bit types from qt (e.g. u_int32_t => quint32)
  * compile with DQT_NO_CAST_TO_ASCII and QT_NO_CAST_FROM_ASCII
  * bugfix: recording via OSS did not handle invalid devices properly
+ * improved auto detect of svg-to-png conversion,
+   added support for "rsvg-convert"
+ * removed dependency to ImageMagick if "rsvg" is available
 
 0.8.9  [2012-11-06]
 

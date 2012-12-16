@@ -90,13 +90,13 @@ void encode_linear(const sample_t *src, quint8 *dst, unsigned int count)
 //***************************************************************************
 #define MAKE_ENCODER(bits)                             \
 if (sample_format != Kwave::SampleFormat::Unsigned) {  \
-    if (endianness != BigEndian) {                     \
+    if (endianness != Kwave::BigEndian) {              \
 	m_encoder = encode_linear<bits, true, true>;   \
     } else {                                           \
 	m_encoder = encode_linear<bits, true, false>;  \
     }                                                  \
 } else {                                               \
-    if (endianness != BigEndian) {                     \
+    if (endianness != Kwave::BigEndian) {              \
 	m_encoder = encode_linear<bits, false, true>;  \
     } else {                                           \
 	m_encoder = encode_linear<bits, false, false>; \
@@ -107,7 +107,7 @@ if (sample_format != Kwave::SampleFormat::Unsigned) {  \
 Kwave::SampleEncoderLinear::SampleEncoderLinear(
     Kwave::SampleFormat sample_format,
     unsigned int bits_per_sample,
-    byte_order_t endianness
+    Kwave::byte_order_t endianness
 )
     :SampleEncoder(),
     m_bytes_per_sample((bits_per_sample + 7) >> 3),
@@ -120,22 +120,23 @@ Kwave::SampleEncoderLinear::SampleEncoderLinear(
         (sample_format != Kwave::SampleFormat::Unsigned)) return;
 
     // allow unknown endianness only with 8 bits
-    Q_ASSERT((endianness != UnknownEndian) || (m_bytes_per_sample == 1));
-    if ((endianness == UnknownEndian) && (m_bytes_per_sample != 1)) return;
+    Q_ASSERT((endianness != Kwave::UnknownEndian) || (m_bytes_per_sample == 1));
+    if ( (endianness == Kwave::UnknownEndian) &&
+         (m_bytes_per_sample != 1) ) return;
 
     // map cpu endianness to little or big
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-    if (endianness == CpuEndian) endianness = BigEndian;
+    if (endianness == Kwave::CpuEndian) endianness = Kwave::BigEndian;
 #else
-    if (endianness == CpuEndian) endianness = LittleEndian;
+    if (endianness == Kwave::CpuEndian) endianness = Kwave::LittleEndian;
 #endif
 
-    qDebug("SampleEncoderLinear::SampleEncoderLinear(fmt=%s, "\
+    qDebug("SampleEncoderLinear::SampleEncoderLinear(fmt=%s, "
            "%u bit [%u bytes], endian=%s)",
            (sample_format == Kwave::SampleFormat::Signed) ?
             "signed" : "unsigned",
            bits_per_sample, m_bytes_per_sample,
-           (endianness == BigEndian) ? "BE" : "LE");
+           (endianness == Kwave::BigEndian) ? "BE" : "LE");
 
     switch (bits_per_sample) {
 	case 8:

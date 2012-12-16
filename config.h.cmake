@@ -39,9 +39,6 @@
 /* support libsamplerate */
 #cmakedefine HAVE_SAMPLERATE_SUPPORT
 
-/* Define to 1 if you have the <byteswap.h> header file. */
-#cmakedefine HAVE_BYTESWAP_H
-
 /* resource limits for the memory manager */
 #cmakedefine HAVE_GETRLIMIT
 

@@ -154,7 +154,7 @@ namespace Kwave
 	virtual Kwave::SampleFormat sampleFormat();
 
 	/** Returns the current endianness (big/little/cpu) */
-	virtual byte_order_t endianness();
+	virtual Kwave::byte_order_t endianness();
 
     private:
 

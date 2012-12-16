@@ -14,8 +14,9 @@
  * compile with DQT_NO_CAST_TO_ASCII and QT_NO_CAST_FROM_ASCII
  * bugfix: recording via OSS did not handle invalid devices properly
  * improved auto detect of svg-to-png conversion,
-   added support for "rsvg-convert"
+   added support for "rsvg-convert" (SF bug #38)
  * removed dependency to ImageMagick if "rsvg" is available
+ * replaced libkwave/byteswap.h with generic Qt functions
 
 0.8.9  [2012-11-06]
 

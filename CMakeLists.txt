@@ -223,7 +223,6 @@ MESSAGE(STATUS "Using ${CMAKE_INSTALL_RPATH} as install RPATH")
 ### checks for needed header files                                        ###
 
 CHECK_INCLUDE_FILES(sys/times.h HAVE_SYS_TIMES_H)
-CHECK_INCLUDE_FILES(byteswap.h HAVE_BYTESWAP_H)
 CHECK_INCLUDE_FILES(signal.h HAVE_SIGNAL_H)
 CHECK_INCLUDE_FILES(unistd.h HAVE_UNISTD_H)
 CHECK_INCLUDE_FILES(sys/types.h HAVE_SYS_TYPES_H)

@@ -221,26 +221,26 @@ QString Kwave::PlayBackOSS::open(const QString &device, double rate,
     switch (m_bits) {
 	case 8:
 	    m_encoder = new Kwave::SampleEncoderLinear(
-		Kwave::SampleFormat::Unsigned, 8, LittleEndian);
+		Kwave::SampleFormat::Unsigned, 8, Kwave::LittleEndian);
 	    break;
 	case 24:
 	    if (m_oss_version >= 0x040000) {
 		m_encoder = new Kwave::SampleEncoderLinear(
-		Kwave::SampleFormat::Signed, 24, LittleEndian);
+		Kwave::SampleFormat::Signed, 24, Kwave::LittleEndian);
 		break;
 	    } // else:
 	    /* FALLTHROUGH */
 	case 32:
 	    if (m_oss_version >= 0x040000) {
 		m_encoder = new Kwave::SampleEncoderLinear(
-		    Kwave::SampleFormat::Signed, 32, LittleEndian);
+		    Kwave::SampleFormat::Signed, 32, Kwave::LittleEndian);
 		break;
 	    }
 	    // else:
 	    /* FALLTHROUGH */
 	default:
 	    m_encoder = new Kwave::SampleEncoderLinear(
-		Kwave::SampleFormat::Signed, 16, LittleEndian);
+		Kwave::SampleFormat::Signed, 16, Kwave::LittleEndian);
 	    break;
     }
 

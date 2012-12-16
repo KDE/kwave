@@ -26,19 +26,20 @@
 #include <QtCore/QMutableListIterator>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QtEndian>
 #include <QtCore/QtGlobal>
+
 #include <klocale.h>
 
-#include "libkwave/byteswap.h"
 #include "libkwave/String.h"
 
 #include "RIFFChunk.h"
 #include "RIFFParser.h"
 
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-#define SYSTEM_ENDIANNES BigEndian
+#define SYSTEM_ENDIANNES Kwave::BigEndian
 #else
-#define SYSTEM_ENDIANNES LittleEndian
+#define SYSTEM_ENDIANNES Kwave::LittleEndian
 #endif
 
 //***************************************************************************
@@ -47,7 +48,7 @@ Kwave::RIFFParser::RIFFParser(QIODevice &device,
                               const QStringList &known_subchunks)
     :m_dev(device), m_root(0, "", "", device.size(), 0, device.size()),
      m_main_chunk_names(main_chunks), m_sub_chunk_names(known_subchunks),
-     m_endianness(Unknown), m_cancel(false)
+     m_endianness(Kwave::UnknownEndian), m_cancel(false)
 {
     m_root.setType(Kwave::RIFFChunk::Root);
 }
@@ -98,7 +99,7 @@ void Kwave::RIFFParser::detectEndianness()
 	return;
     }
     if (sane_name == _("RIFX")) {
-	m_endianness = BigEndian;
+	m_endianness = Kwave::BigEndian;
 	return;
     }
 
@@ -125,7 +126,7 @@ void Kwave::RIFFParser::detectEndianness()
     // if RIFX found and RIFF not found -> big endian
     if (rifx_offsets.count() && !riff_offsets.count()) {
 	qDebug("detected big endian format");
-	m_endianness = BigEndian;
+	m_endianness = Kwave::BigEndian;
 	emit progress(100);
 	return;
     }
@@ -161,13 +162,9 @@ void Kwave::RIFFParser::detectEndianness()
 	    // read length, assuming little endian
 	    quint32 len = 0;
 	    m_dev.read(reinterpret_cast<char *>(&len), 4);
-#if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	    double dist_le = fabs(half - bswap_32(len));
-	    double dist_be = fabs(half - len);
-#else
-	    double dist_le = fabs(half - len);
-	    double dist_be = fabs(half - bswap_32(len));
-#endif
+	    double dist_le = fabs(half - qFromLittleEndian<quint32>(len));
+	    double dist_be = fabs(half - qFromBigEndian<quint32>(len));
+
 	    // evaluate distance to average length
 	    if (dist_be > dist_le) ++le_matches;
 	    if (dist_le > dist_be) ++be_matches;
@@ -180,14 +177,14 @@ void Kwave::RIFFParser::detectEndianness()
 
     if (le_matches > be_matches) {
 	qDebug("assuming little endian");
-	m_endianness = LittleEndian;
+	m_endianness = Kwave::LittleEndian;
     } else if (be_matches > le_matches) {
 	qDebug("assuming big endian");
-	m_endianness = BigEndian;
+	m_endianness = Kwave::BigEndian;
     } else {
 	// give up :-(
 	qDebug("unable to determine endianness");
-	m_endianness = Unknown;
+	m_endianness = Kwave::UnknownEndian;
     }
 
     emit progress(100);
@@ -212,7 +209,7 @@ bool Kwave::RIFFParser::parse()
     detectEndianness();
 
     // not detectable -> no chance of finding anything useful -> give up!
-    if (m_endianness == Unknown) {
+    if (m_endianness == Kwave::UnknownEndian) {
 	qWarning("unable to detect endianness -> giving up!");
 	return false;
     }

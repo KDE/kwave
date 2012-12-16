@@ -25,6 +25,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 
+#include "libkwave/ByteOrder.h"
+
 #include "RIFFChunk.h"
 
 class QIODevice;
@@ -37,9 +39,6 @@ namespace Kwave
     {
 	Q_OBJECT
     public:
-
-	/** endianness of the RIFF's chunk format */
-	typedef enum { Unknown, LittleEndian, BigEndian } Endianness;
 
 	/**
 	 * Constructor.
@@ -266,7 +265,7 @@ namespace Kwave
 	QStringList m_sub_chunk_names;
 
 	/** endianness of the RIFF file, auto-detected */
-	Endianness m_endianness;
+	Kwave::byte_order_t m_endianness;
 
 	/** can be set to true in order to cancel a running operation */
 	bool m_cancel;

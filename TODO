@@ -1,7 +1,4 @@
 
-o find a replacement for libkwave/byteswap.h
-  -> see qFromBigEndian/qFromLittleEndian/qToLittleEndian...
-
 o libkwave/ByteOrder.h -> namespace
 
 o try to replace Qt classes which have KDE equivalent

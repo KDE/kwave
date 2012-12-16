@@ -37,7 +37,7 @@ namespace Kwave
 	 */
 	SampleDecoderLinear(Kwave::SampleFormat sample_format,
 	                    unsigned int bits_per_sample,
-	                    byte_order_t endianness);
+	                    Kwave::byte_order_t endianness);
 
 	/** Destructor */
 	virtual ~SampleDecoderLinear();

@@ -161,7 +161,7 @@ namespace Kwave
 	virtual Kwave::SampleFormat sampleFormat() = 0;
 
 	/** Returns the current endianness (big/little) */
-	virtual byte_order_t endianness() = 0;
+	virtual Kwave::byte_order_t endianness() = 0;
 
     };
 }

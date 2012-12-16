@@ -166,13 +166,13 @@ static Kwave::SampleFormat sample_format_of(snd_pcm_format_t fmt)
 
 //***************************************************************************
 /** find out the endianness of an ALSA format */
-static byte_order_t endian_of(snd_pcm_format_t fmt)
+static Kwave::byte_order_t endian_of(snd_pcm_format_t fmt)
 {
     if (snd_pcm_format_little_endian(fmt) == 1)
-	return LittleEndian;
+	return Kwave::LittleEndian;
     if (snd_pcm_format_big_endian(fmt) == 1)
-	return BigEndian;
-    return CpuEndian;
+	return Kwave::BigEndian;
+    return Kwave::CpuEndian;
 }
 
 //***************************************************************************
@@ -259,8 +259,8 @@ void Kwave::RecordALSA::detectSupportedFormats()
 // 	    *fmt,
 // 	    snd_pcm_format_width(*fmt),
 // 	    (snd_pcm_format_physical_width(*fmt)+7) >> 3,
-// 	    endian_of(*fmt) == CpuEndian ? "CPU" :
-// 	    (endian_of(*fmt) == LittleEndian ? "LE " : "BE "),
+// 	    endian_of(*fmt) == Kwave::CpuEndian ? "CPU" :
+// 	    (endian_of(*fmt) == Kwave::LittleEndian ? "LE " : "BE "),
 // 	    DBG(sf.description(sf.findFromData(sample_format_of(
 // 	    DBG(t.description(t.findFromData(compression_of(
 // 		*fmt), true))));
@@ -939,10 +939,11 @@ Kwave::SampleFormat Kwave::RecordALSA::sampleFormat()
 }
 
 //***************************************************************************
-byte_order_t Kwave::RecordALSA::endianness()
+Kwave::byte_order_t Kwave::RecordALSA::endianness()
 {
     int index = mode2format(m_compression, m_bits_per_sample, m_sample_format);
-    return (index >= 0) ? endian_of(_known_formats[index]) : UnknownEndian;
+    return (index >= 0) ?
+	endian_of(_known_formats[index]) : Kwave::UnknownEndian;
 }
 
 //***************************************************************************

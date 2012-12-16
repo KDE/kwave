@@ -25,9 +25,9 @@
 #include <kglobal.h>
 
 #include <QtCore/QByteArray>
+#include <QtCore/QtEndian>
 #include <QtCore/QtGlobal>
 
-#include "libkwave/byteswap.h"
 #include "libkwave/CompressionType.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/LabelList.h"
@@ -40,15 +40,6 @@
 
 #include "WavEncoder.h"
 #include "WavFileFormat.h"
-
-// some byteswapping helper macros
-#if Q_BYTE_ORDER == Q_BIG_ENDIAN
-#define CPU_TO_LE32(x) (bswap_32(x))
-#define LE32_TO_CPU(x) (bswap_32(x))
-#else
-#define CPU_TO_LE32(x) (x)
-#define LE32_TO_CPU(x) (x)
-#endif
 
 /***************************************************************************/
 Kwave::WavEncoder::WavEncoder()
@@ -104,7 +95,7 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
     quint32 data_size;
     dst.seek(40);
     dst.read(reinterpret_cast<char *>(&data_size), 4);
-    data_size = LE32_TO_CPU(data_size);
+    data_size = qFromLittleEndian<quint32>(data_size);
     if (data_size == length * frame_size) {
 // 	qDebug("(data size written by libaudiofile is correct)");
 	return;
@@ -115,13 +106,13 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
 
     // write the fixed size of the "data" chunk
     dst.seek(40);
-    data_size = CPU_TO_LE32(correct_size);
+    data_size = qToLittleEndian<quint32>(correct_size);
     dst.write(reinterpret_cast<char *>(&data_size), 4);
 
     // also fix the "RIFF" size
     dst.seek(4);
     quint32 riff_size = dst.size() - 4 - 4;
-    riff_size = CPU_TO_LE32(riff_size);
+    riff_size = qToLittleEndian<quint32>(riff_size);
     dst.write(reinterpret_cast<char *>(&riff_size), 4);
 
 }
@@ -156,7 +147,8 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 	info_size += 4 + 4 + 4; // add the size of LIST(INFO)
 	dst.seek(4);
 	dst.read(reinterpret_cast<char *>(&size), 4);
-	size = CPU_TO_LE32(LE32_TO_CPU(size) + info_size);
+	size = qToLittleEndian<quint32>(
+	    qFromLittleEndian<quint32>(size) + info_size);
 	dst.seek(4);
 	dst.write(reinterpret_cast<char *>(&size), 4);
 
@@ -164,7 +156,7 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 	dst.seek(dst.size());
 	if (dst.pos() & 1) dst.write("\000", 1); // padding
 	dst.write("LIST", 4);
-	size = CPU_TO_LE32(info_size - 8);
+	size = qToLittleEndian<quint32>(info_size - 8);
 	dst.write(reinterpret_cast<char *>(&size), 4);
 	dst.write("INFO", 4);
 
@@ -177,7 +169,7 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 	    dst.write(name.data(), 4); // chunk name
 	    quint32 size = value.length(); // length of the chunk
 	    if (size & 0x01) size++;
-	    size = CPU_TO_LE32(size);
+	    size = qToLittleEndian<quint32>(size);
 	    dst.write(reinterpret_cast<char *>(&size), 4);
 	    dst.write(value.data(), value.length());
 	    if (value.length() & 0x01) {
@@ -226,7 +218,8 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
 
     dst.seek(4);
     dst.read(reinterpret_cast<char *>(&size), 4);
-    size = CPU_TO_LE32(LE32_TO_CPU(size) + additional_size);
+    size = qToLittleEndian<quint32>(
+	qFromLittleEndian<quint32>(size) + additional_size);
     dst.seek(4);
     dst.write(reinterpret_cast<char *>(&size), 4);
 
@@ -236,11 +229,11 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
 
     // add the 'cue ' list
     dst.write("cue ", 4);
-    size = CPU_TO_LE32(size_of_cue_list);
+    size = qToLittleEndian<quint32>(size_of_cue_list);
     dst.write(reinterpret_cast<char *>(&size), 4);
 
     // number of entries
-    size = CPU_TO_LE32(labels_count);
+    size = qToLittleEndian<quint32>(labels_count);
     dst.write(reinterpret_cast<char *>(&size), 4);
 
     index = 0;
@@ -256,14 +249,14 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
 	 *     quint32 dwSampleOffset; <- label.pos()
 	 * } cue_list_entry_t;
 	 */
-	data = CPU_TO_LE32(index);
+	data = qToLittleEndian<quint32>(index);
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwIdentifier
 	data = 0;
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwPosition
 	dst.write("data", 4);        // fccChunk
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwChunkStart
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwBlockStart
-	data = CPU_TO_LE32(label.pos());
+	data = qToLittleEndian<quint32>(label.pos());
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwSampleOffset
 	index++;
     }
@@ -271,7 +264,7 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
     // add the LIST(adtl) chunk
     if (size_of_labels) {
 	dst.write("LIST", 4);
-	size = CPU_TO_LE32(size_of_labels);
+	size = qToLittleEndian<quint32>(size_of_labels);
 	dst.write(reinterpret_cast<char *>(&size), 4);
 	dst.write("adtl", 4);
 	index = 0;
@@ -289,11 +282,11 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
 	     */
 	    if (name.size()) {
 		dst.write("labl", 4);                // dwChunkID
-		data = CPU_TO_LE32(name.size() + 4);
+		data = qToLittleEndian<quint32>(name.size() + 4);
 
 		// dwChunkSize
 		dst.write(reinterpret_cast<char *>(&data), 4);
-		data = CPU_TO_LE32(index);
+		data = qToLittleEndian<quint32>(index);
 
 		// dwIdentifier
 		dst.write(reinterpret_cast<char *>(&data), 4);
@@ -483,7 +476,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
 		// the following cast is only necessary if
 		// sample_t is not equal to a 32bit int
-		register __uint32_t act = static_cast<__uint32_t>(sample);
+		register quint32 act = static_cast<quint32>(sample);
 		act *= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
 		*p = act;
 		p++;

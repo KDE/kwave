@@ -307,7 +307,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/ApplicationContext.cpp			GPL2+
 	libkwave/ApplicationContext.h			GPL2+
 	libkwave/ByteOrder.h				GPL2+
-	libkwave/byteswap.h				GPL2+
 	libkwave/ClipBoard.cpp				GPL2+
 	libkwave/ClipBoard.h				GPL2+
 	libkwave/CMakeLists.txt				GPL2+

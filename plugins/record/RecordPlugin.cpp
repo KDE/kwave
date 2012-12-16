@@ -790,7 +790,7 @@ bool Kwave::RecordPlugin::paramsValid()
          (m_device->sampleFormat() != Kwave::SampleFormat::Signed) )
 	return false;
     if (m_device->bitsPerSample() < 1) return false;
-    if (m_device->endianness() == UnknownEndian) return false;
+    if (m_device->endianness() == Kwave::UnknownEndian) return false;
 
     // check for valid parameters in the dialog
     const Kwave::RecordParams &params = m_dialog->params();

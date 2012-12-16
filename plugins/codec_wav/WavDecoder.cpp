@@ -20,15 +20,15 @@
 
 #include <audiofile.h>
 
-#include <QtGui/QApplication>
-#include <QtCore/QList>
-#include <QtGui/QProgressDialog>
+#include <QtCore/QtEndian>
 #include <QtCore/QtGlobal>
+#include <QtCore/QList>
+#include <QtGui/QApplication>
+#include <QtGui/QProgressDialog>
 
 #include <klocale.h>
 #include <kmimetype.h>
 
-#include "libkwave/byteswap.h"
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
@@ -50,15 +50,6 @@
 #include "WavDecoder.h"
 #include "WavFileFormat.h"
 #include "WavFormatMap.h"
-
-// some byteswapping helper macros
-#if Q_BYTE_ORDER == Q_BIG_ENDIAN
-#define CPU_TO_LE32(x) (bswap_32(x))
-#define LE32_TO_CPU(x) (bswap_32(x))
-#else
-#define CPU_TO_LE32(x) (x)
-#define LE32_TO_CPU(x) (x)
-#endif
 
 #define CHECK(cond) Q_ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
@@ -292,14 +283,13 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // get the header
     src.read(reinterpret_cast<char *>(&header), sizeof(Kwave::wav_fmt_header_t));
-#if Q_BYTE_ORDER == Q_BIG_ENDIAN
-    header.min.format      = bswap_16(header.min.format);
-    header.min.channels    = bswap_16(header.min.channels);
-    header.min.samplerate  = bswap_32(header.min.samplerate);
-    header.min.bytespersec = bswap_32(header.min.bytespersec);
-    header.min.blockalign  = bswap_16(header.min.blockalign);
-    header.min.bitwidth    = bswap_16(header.min.bitwidth);
-#endif
+    header.min.format      = qFromLittleEndian<quint16>(header.min.format);
+    header.min.channels    = qFromLittleEndian<quint16>(header.min.channels);
+    header.min.samplerate  = qFromLittleEndian<quint32>(header.min.samplerate);
+    header.min.bytespersec = qFromLittleEndian<quint32>(header.min.bytespersec);
+    header.min.blockalign  = qFromLittleEndian<quint16>(header.min.blockalign);
+    header.min.bitwidth    = qFromLittleEndian<quint16>(header.min.bitwidth);
+
     unsigned int tracks = header.min.channels;
     rate = header.min.samplerate;
     bits = header.min.bitwidth;
@@ -430,7 +420,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 
 	src.seek(cue_chunk->dataStart());
 	src.read(reinterpret_cast<char *>(&count), 4);
-	count = LE32_TO_CPU(count);
+	count = qFromLittleEndian<quint32>(count);
 // 	unsigned int length = cue_chunk->dataLength();
 // 	qDebug("cue list found: %u entries, %u bytes (should be: %u)",
 // 	    count, length, count * (6 * 4) + 4);
@@ -451,7 +441,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 
 	    /* dwIdentifier */
 	    src.read(reinterpret_cast<char *>(&data), 4);
-	    index = LE32_TO_CPU(data);
+	    index = qFromLittleEndian<quint32>(data);
 
 	    /* dwPosition (ignored) */
 	    src.read(reinterpret_cast<char *>(&data), 4);
@@ -482,7 +472,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 	    }
 
 	    src.read(reinterpret_cast<char *>(&data), 4); /* dwSampleOffset */
-	    position = LE32_TO_CPU(data);
+	    position = qFromLittleEndian<quint32>(data);
 
 	    // as we now have index and position, find out the name
 	    QByteArray name = "";
@@ -508,7 +498,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 		    data = 0;
 		    src.seek(labl_chunk->dataStart());
 		    src.read(reinterpret_cast<char *>(&data), 4); /* dwIdentifier */
-		    labl_index = LE32_TO_CPU(data);
+		    labl_index = qFromLittleEndian<quint32>(data);
 		    if (labl_index == index) {
 			found = true;
 			break; /* found it! */

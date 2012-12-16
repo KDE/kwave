@@ -818,23 +818,23 @@ Kwave::SampleFormat Kwave::RecordOSS::sampleFormat()
 }
 
 //***************************************************************************
-byte_order_t Kwave::RecordOSS::endianness()
+Kwave::byte_order_t Kwave::RecordOSS::endianness()
 {
     Q_ASSERT(m_fd >= 0);
     int mask = AFMT_QUERY;
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
-    if (err < 0) return UnknownEndian;
+    if (err < 0) return Kwave::UnknownEndian;
 
     if (mask & (AFMT_U16_LE | AFMT_S16_LE | AFMT_S24_LE | AFMT_S32_LE))
-	return LittleEndian;
+	return Kwave::LittleEndian;
 
     if (mask & (AFMT_U16_BE | AFMT_S16_BE | AFMT_S24_BE | AFMT_S32_BE))
-	return BigEndian;
+	return Kwave::BigEndian;
 
     if (mask & (AFMT_S8 | AFMT_U8))
-	return CpuEndian;
+	return Kwave::CpuEndian;
 
-    return UnknownEndian;
+    return Kwave::UnknownEndian;
 }
 
 #endif /* HAVE_OSS_SUPPORT */

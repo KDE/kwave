@@ -150,13 +150,13 @@ static Kwave::SampleFormat sample_format_of(snd_pcm_format_t fmt)
 
 //***************************************************************************
 /** find out the endianness of an ALSA format */
-static byte_order_t endian_of(snd_pcm_format_t fmt)
+static Kwave::byte_order_t endian_of(snd_pcm_format_t fmt)
 {
     if (snd_pcm_format_little_endian(fmt) == 1)
-	return LittleEndian;
+	return Kwave::LittleEndian;
     if (snd_pcm_format_big_endian(fmt) == 1)
-	return BigEndian;
-    return CpuEndian;
+	return Kwave::BigEndian;
+    return Kwave::CpuEndian;
 }
 
 //***************************************************************************
@@ -300,8 +300,8 @@ QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
 // 	    *fmt,
 // 	    snd_pcm_format_width(*fmt),
 // 	    (snd_pcm_format_physical_width(*fmt)+7) >> 3,
-// 	    endian_of(*fmt) == CpuEndian ? "CPU" :
-// 	    (endian_of(*fmt) == LittleEndian ? "LE " : "BE "),
+// 	    endian_of(*fmt) == Kwave::CpuEndian ? "CPU" :
+// 	    (endian_of(*fmt) == Kwave::LittleEndian ? "LE " : "BE "),
 // 	    sf.description(sf.findFromData(sample_format_of(
 // 		*fmt), true)).local8Bit().data());
 

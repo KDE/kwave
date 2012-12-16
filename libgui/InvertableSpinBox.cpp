@@ -20,7 +20,7 @@
 #include <QtCore/QObject>
 #include <QtGui/QWidget>
 
-#include "InvertableSpinBox.h"
+#include "libgui/InvertableSpinBox.h"
 
 //***************************************************************************
 Kwave::InvertableSpinBox::InvertableSpinBox(QWidget *parent)

@@ -31,7 +31,7 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 
-#include "OverViewWidget.h"
+#include "libgui/OverViewWidget.h"
 
 /**
  * interval for limiting the number of repaints per second [ms]

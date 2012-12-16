@@ -30,7 +30,7 @@
 
 #include <kdemacros.h>
 
-#include "Interpolation.h"
+#include "libkwave/Interpolation.h"
 
 namespace Kwave
 {

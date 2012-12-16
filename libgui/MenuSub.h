@@ -25,7 +25,7 @@
 #include <QtGui/QMenu>
 #include <QtCore/QString>
 
-#include "MenuNode.h"
+#include "libgui/MenuNode.h"
 
 namespace Kwave
 {

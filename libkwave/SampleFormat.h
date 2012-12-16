@@ -24,7 +24,7 @@
 
 #include <audiofile.h>
 
-#include "TypesMap.h"
+#include "libkwave/TypesMap.h"
 
 namespace Kwave
 {

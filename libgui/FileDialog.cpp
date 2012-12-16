@@ -29,7 +29,7 @@
 
 #include "libkwave/String.h"
 
-#include "FileDialog.h"
+#include "libgui/FileDialog.h"
 
 //***************************************************************************
 Kwave::FileDialog::FileDialog(const QString &startDir,

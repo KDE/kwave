@@ -23,9 +23,8 @@
 #include <QtCore/QtGlobal>
 
 #include "libkwave/Sample.h"
+#include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
-
-#include "SampleEncoderLinear.h"
 
 //***************************************************************************
 void encode_NULL(const sample_t *src, quint8 *dst, unsigned int count)

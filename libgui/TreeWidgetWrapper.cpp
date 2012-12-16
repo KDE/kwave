@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "TreeWidgetWrapper.h"
+#include "libgui/TreeWidgetWrapper.h"
 
 //***************************************************************************
 Kwave::TreeWidgetWrapper::TreeWidgetWrapper(QWidget *widget)

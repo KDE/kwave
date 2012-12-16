@@ -22,7 +22,7 @@
 
 #include <QtCore/QList>
 
-#include "MenuNode.h"
+#include "libgui/MenuNode.h"
 
 class KMenuBar;
 

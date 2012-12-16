@@ -22,9 +22,9 @@
 
 #include "libkwave/String.h"
 
-#include "MenuItem.h"
-#include "MenuSub.h"
-#include "MenuRoot.h"
+#include "libgui/MenuItem.h"
+#include "libgui/MenuSub.h"
+#include "libgui/MenuRoot.h"
 
 //***************************************************************************
 /** garbage collector for menu nodes */

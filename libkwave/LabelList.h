@@ -24,7 +24,7 @@
 
 #include <kdemacros.h>
 
-#include "Label.h"
+#include "libkwave/Label.h"
 
 namespace Kwave
 {

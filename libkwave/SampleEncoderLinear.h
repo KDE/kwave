@@ -23,9 +23,8 @@
 #include <kdemacros.h>
 
 #include "libkwave/ByteOrder.h"
+#include "libkwave/SampleEncoder.h"
 #include "libkwave/SampleFormat.h"
-
-#include "SampleEncoder.h"
 
 namespace Kwave
 {

@@ -30,10 +30,10 @@
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
-#include "MenuNode.h"
-#include "MenuRoot.h"
-#include "MenuGroup.h"
-#include "MenuManager.h"
+#include "libgui/MenuNode.h"
+#include "libgui/MenuRoot.h"
+#include "libgui/MenuGroup.h"
+#include "libgui/MenuManager.h"
 
 //***************************************************************************
 /** static map with standard keys */

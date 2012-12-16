@@ -26,7 +26,7 @@
 
 #include "libkwave/String.h"
 
-#include "MultiStateWidget.h"
+#include "libgui/MultiStateWidget.h"
 
 //***************************************************************************
 Kwave::MultiStateWidget::MultiStateWidget(QWidget *parent, int id)

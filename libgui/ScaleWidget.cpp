@@ -28,7 +28,7 @@
 
 #include "libkwave/String.h"
 
-#include "ScaleWidget.h"
+#include "libgui/ScaleWidget.h"
 
 #define FONTSIZE 6
 

@@ -24,7 +24,7 @@
 
 #include <kdemacros.h>
 
-#include "TypesMap.h"
+#include "libkwave/TypesMap.h"
 
 namespace Kwave
 {

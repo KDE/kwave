@@ -27,9 +27,9 @@
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
-#include "MenuNode.h"
-#include "MenuGroup.h"
-#include "MenuItem.h"
+#include "libgui/MenuNode.h"
+#include "libgui/MenuGroup.h"
+#include "libgui/MenuItem.h"
 
 //*****************************************************************************
 Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,

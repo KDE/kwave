@@ -1,20 +1,19 @@
 
-o bugfix: handling of "#edit#" device name in record dialog (e.g. OSS)
-
-o try to replace Qt classes which have KDE equivalent
-
-o include files from libkwave/libgui only with directory prefix
-
-o no null pointer checks around "delete"
+o auto-detect whether "rsvg" or "convert" can be used and really works (test)
 
 o find a replacement for libkwave/byteswap.h
   -> see qFromBigEndian/qFromLittleEndian/qToLittleEndian...
 
 o libkwave/ByteOrder.h -> namespace
 
+o try to replace Qt classes which have KDE equivalent
+
+o no null pointer checks around "delete"
+
 o TODO in MP3 plugin (ID3FID_MEDIATYPE)
 
 o support for OPUS codec (.opus, using Ogg as container)
+  => this will be the main feature for v0.8.10
 
 o support for "raw" import/export
 

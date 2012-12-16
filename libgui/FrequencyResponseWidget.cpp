@@ -25,7 +25,7 @@
 #include <QtGui/QPixmap>
 
 #include "libkwave/TransmissionFunction.h"
-#include "FrequencyResponseWidget.h"
+#include "libgui/FrequencyResponseWidget.h"
 
 //***************************************************************************
 Kwave::FrequencyResponseWidget::FrequencyResponseWidget(QWidget *widget)

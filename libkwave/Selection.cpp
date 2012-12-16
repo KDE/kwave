@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "Selection.h"
+#include "libkwave/Selection.h"
 
 //***************************************************************************
 Kwave::Selection::Selection(sample_index_t offset, sample_index_t length)

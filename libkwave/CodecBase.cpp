@@ -25,9 +25,8 @@
 #include <kfile.h>
 #include <kurl.h>
 
+#include "libkwave/CodecBase.h"
 #include "libkwave/String.h"
-
-#include "CodecBase.h"
 
 /***************************************************************************/
 Kwave::CodecBase::CodecBase()

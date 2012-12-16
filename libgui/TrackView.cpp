@@ -32,10 +32,10 @@
 #include "libkwave/String.h"
 #include "libkwave/Track.h"
 
-#include "LabelItem.h"
-#include "MultiStateWidget.h"
-#include "TrackView.h"
-#include "ViewItem.h"
+#include "libgui/LabelItem.h"
+#include "libgui/MultiStateWidget.h"
+#include "libgui/TrackView.h"
+#include "libgui/ViewItem.h"
 
 /** minimum height of the view in pixel */
 #define MINIMUM_HEIGHT 100

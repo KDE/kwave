@@ -27,7 +27,7 @@
 #include <klocale.h>
 #include <knuminput.h>
 
-#include "SelectTimeWidget.h"
+#include "libgui/SelectTimeWidget.h"
 
 //***************************************************************************
 Kwave::SelectTimeWidget::SelectTimeWidget(QWidget *widget)

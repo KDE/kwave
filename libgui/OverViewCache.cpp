@@ -29,7 +29,7 @@
 #include "libkwave/String.h"
 #include "libkwave/Track.h"
 
-#include "OverViewCache.h"
+#include "libgui/OverViewCache.h"
 
 #define CACHE_SIZE 8192           /**< number of cache entries */
 

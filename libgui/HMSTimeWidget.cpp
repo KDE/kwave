@@ -20,7 +20,7 @@
 #include <limits.h>
 #include <knuminput.h>
 
-#include "HMSTimeWidget.h"
+#include "libgui/HMSTimeWidget.h"
 
 //***************************************************************************
 Kwave::HMSTimeWidget::HMSTimeWidget(QWidget *parent)

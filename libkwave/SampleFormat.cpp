@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "SampleFormat.h"
-#include "String.h"
+#include "libkwave/SampleFormat.h"
+#include "libkwave/String.h"
 
 //***************************************************************************
 Kwave::SampleFormat::Map::Map()

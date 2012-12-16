@@ -39,8 +39,7 @@
 #include "libkwave/memcpy.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"
-
-#include "SwapFile.h"
+#include "libkwave/SwapFile.h"
 
 /** number of elements in the m_cached_swap list */
 #define CACHE_SIZE 16

@@ -23,8 +23,8 @@
 
 #include "libkwave/String.h"
 
-#include "MenuItem.h"
-#include "MenuSub.h"
+#include "libgui/MenuItem.h"
+#include "libgui/MenuSub.h"
 
 //***************************************************************************
 Kwave::MenuSub::MenuSub(Kwave::MenuNode *parent,

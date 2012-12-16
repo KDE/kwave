@@ -27,10 +27,10 @@
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
-#include "MenuNode.h"
-#include "MenuGroup.h"
-#include "MenuRoot.h"
-#include "MenuSub.h"
+#include "libgui/MenuNode.h"
+#include "libgui/MenuGroup.h"
+#include "libgui/MenuRoot.h"
+#include "libgui/MenuSub.h"
 
 //*****************************************************************************
 Kwave::MenuNode::MenuNode(Kwave::MenuNode *parent,

@@ -27,14 +27,13 @@
 
 #include <klocale.h>
 
+#include "libkwave/Curve.h"
+#include "libkwave/Filter.h"
+#include "libkwave/Interpolation.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/Signal.h"
 #include "libkwave/Track.h"
 #include "libkwave/WindowFunction.h"
-
-#include "Signal.h"
-#include "Interpolation.h"
-#include "Curve.h"
-#include "Filter.h"
 
 //***************************************************************************
 Kwave::Signal::Signal()

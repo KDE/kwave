@@ -23,8 +23,8 @@
 
 #include <kapplication.h>
 
-#include "MenuNode.h"
-#include "MenuGroup.h"
+#include "libgui/MenuNode.h"
+#include "libgui/MenuGroup.h"
 
 //*****************************************************************************
 Kwave::MenuGroup::MenuGroup(Kwave::MenuNode *parent, const QString &name)

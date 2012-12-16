@@ -19,8 +19,8 @@
 
 #include <stdlib.h>
 
-#include "memcpy.h"
-#include "SampleArray.h"
+#include "libkwave/memcpy.h"
+#include "libkwave/SampleArray.h"
 
 //***************************************************************************
 Kwave::SampleArray::SampleArray()

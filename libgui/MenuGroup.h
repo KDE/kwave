@@ -19,7 +19,7 @@
 #define _MENU_GROUP_H_
 
 #include "config.h"
-#include "MenuNode.h"
+#include "libgui/MenuNode.h"
 
 namespace Kwave
 {

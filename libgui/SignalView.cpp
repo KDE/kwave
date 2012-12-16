@@ -42,8 +42,7 @@
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/MouseMark.h"
-
-#include "SignalView.h"
+#include "libgui/SignalView.h"
 
 /** number of milliseconds until the position widget disappears */
 #define POSITION_WIDGET_TIME 5000

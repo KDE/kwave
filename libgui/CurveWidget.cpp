@@ -45,7 +45,7 @@
 #include "libkwave/Curve.h"
 #include "libkwave/String.h"
 
-#include "CurveWidget.h"
+#include "libgui/CurveWidget.h"
 
 //***************************************************************************
 Kwave::CurveWidget::CurveWidget(QWidget *parent)

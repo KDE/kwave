@@ -1,6 +1,4 @@
 
-o libkwave/ByteOrder.h -> namespace
-
 o try to replace Qt classes which have KDE equivalent
 
 o no null pointer checks around "delete"
@@ -15,8 +13,6 @@ o support for "raw" import/export
 o move label with mouse (drag&drop)
 
 o simplify loading/unloading of plugins
-
-o license change to GPL v3 ?
 
 o new import/export plugin using ffmpeg/libavcodec
 
@@ -148,6 +144,8 @@ o switch to use float as sample_t (requires much work...)
 o about plugin: auto-scroll for contents
 
 o re-run cmake automatically when VERSION file has changed
+
+o license change to GPL v3 ?
 
 o support for visualization plugins (svn rev 2498) => DROPPED
   - new functions

@@ -84,7 +84,7 @@ namespace Kwave
 	/**
 	 * Updates the enabled/disabled state of the seek buttons after
 	 * changes of the currently visible view range
-	 * @param index of the first visible sample
+	 * @param offset index of the first visible sample
 	 * @param visible number of visible samples
 	 * @param total length of the whole signal
 	 */

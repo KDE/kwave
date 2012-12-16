@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtCore/QLatin1String>
 #include <QtCore/QString>
 
 /*
@@ -29,23 +30,26 @@
  * of QLatin1String(...) conversions, we use a small conversion
  * function in that case, which does not blow up the code so much...
  */
-#ifdef QT_NO_CAST_FROM_ASCII
-    #include <QtCore/QLatin1String>
-    static inline QString _(const char *s) { return QLatin1String(s); }
-#else
-    static inline QString _(const char *s) { return QString(s); }
-#endif
+
+/**
+ * Convert a latin1 or ASCII string into a QString
+ * (in case of QT_NO_CAST_FROM_ASCII)
+ *
+ * @param s a const ASCII or Latin1 string
+ * @return a QString
+ */
+static inline QString _(const char *s) { return QLatin1String(s); }
 
 /**
  * helper for converting QString to const char *, useful for debug output
- * @param s a QString
+ * @param __s__ a QString
  * @return a const char * in UTF8 representation
  */
 #define __(__s__) ((__s__).toUtf8().data())
 
 /**
  * helper for converting QString to const char *, useful for debug output
- * @param s a QString
+ * @param __s__ a QString
  * @return a const char * in local 8 bit representation
  */
 #define DBG(__s__) ((__s__).toLocal8Bit().data())

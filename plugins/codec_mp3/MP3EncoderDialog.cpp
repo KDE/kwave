@@ -642,10 +642,9 @@ QString Kwave::MP3EncoderDialog::callWithParam(const QString &path,
     // set hourglass cursor
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-    KProcess process;
-    process.setOutputChannelMode(KProcess::MergedChannels);
-    process.setProgram(path, params);
-    process.start();
+    QProcess process;
+    process.setProcessChannelMode(QProcess::MergedChannels);
+    process.start(path, params);
     process.waitForStarted();
     if (process.state() != QProcess::NotRunning) process.waitForFinished();
 

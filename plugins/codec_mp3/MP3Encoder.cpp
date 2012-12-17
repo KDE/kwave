@@ -415,8 +415,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
     m_process.setReadChannel(QProcess::StandardOutput);
 
-    m_process.setProgram(m_program, m_params);
-    m_process.start();
+    m_process.start(m_program, m_params);
     QString stdError;
     if (!m_process.waitForStarted()) {
 	qWarning("cannot start program '%s'", DBG(m_program));

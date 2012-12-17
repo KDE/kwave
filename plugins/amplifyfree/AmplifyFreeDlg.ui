@@ -1,8 +1,9 @@
-<ui version="4.0" >
- <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de></author>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de&gt;</author>
  <class>AmplifyFreeDlg</class>
- <widget class="QDialog" name="AmplifyFreeDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="AmplifyFreeDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -10,33 +11,33 @@
     <height>320</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Amplify Free</string>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>6</number>
    </property>
-   <property name="margin" >
+   <property name="margin">
     <number>11</number>
    </property>
    <item>
-    <layout class="QGridLayout" >
-     <property name="margin" >
+    <layout class="QGridLayout">
+     <property name="margin">
       <number>0</number>
      </property>
-     <property name="spacing" >
+     <property name="spacing">
       <number>0</number>
      </property>
-     <item row="1" column="1" >
-      <widget class="Kwave::ScaleWidget" native="1" name="xScale" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+     <item row="1" column="1">
+      <widget class="Kwave::ScaleWidget" name="xScale" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize" >
+       <property name="minimumSize">
         <size>
          <width>150</width>
          <height>30</height>
@@ -44,15 +45,15 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0" >
-      <widget class="Kwave::ScaleWidget" native="1" name="yScale" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Expanding" hsizetype="Fixed" >
+     <item row="0" column="0">
+      <widget class="Kwave::ScaleWidget" name="yScale" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize" >
+       <property name="minimumSize">
         <size>
          <width>30</width>
          <height>100</height>
@@ -60,15 +61,15 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="Kwave::CurveWidget" native="1" name="curveWidget" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+     <item row="0" column="1">
+      <widget class="Kwave::CurveWidget" name="curveWidget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize" >
+       <property name="minimumSize">
         <size>
          <width>150</width>
          <height>100</height>
@@ -79,48 +80,48 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="Line1" >
-     <property name="minimumSize" >
+    <widget class="Line" name="Line1">
+     <property name="minimumSize">
       <size>
        <width>0</width>
        <height>20</height>
       </size>
      </property>
-     <property name="frameShape" >
+     <property name="frameShape">
       <enum>QFrame::HLine</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Sunken</enum>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="btHelp" >
-       <property name="enabled" >
+      <widget class="KPushButton" name="btHelp">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;Help</string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="Spacer1" >
-       <property name="orientation" >
+      <spacer name="Spacer1">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>0</width>
          <height>0</height>
@@ -129,18 +130,18 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btOK" >
-       <property name="text" >
+      <widget class="KPushButton" name="btOK">
+       <property name="text">
         <string>&amp;OK</string>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btCancel" >
-       <property name="text" >
+      <widget class="KPushButton" name="btCancel">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
       </widget>
@@ -149,23 +150,28 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
+ <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
   <customwidget>
    <class>Kwave::CurveWidget</class>
    <extends>QWidget</extends>
-   <header location="global" >libgui/CurveWidget.h</header>
+   <header location="global">libgui/CurveWidget.h</header>
   </customwidget>
   <customwidget>
    <class>Kwave::ScaleWidget</class>
    <extends>QWidget</extends>
-   <header location="global" >libgui/ScaleWidget.h</header>
+   <header location="global">libgui/ScaleWidget.h</header>
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="global" >klocale.h</include>
-  <include location="local" >libgui/CurveWidget.h</include>
-  <include location="local" >libgui/ScaleWidget.h</include>
+  <include location="global">klocale.h</include>
+  <include location="local">libgui/CurveWidget.h</include>
+  <include location="local">libgui/ScaleWidget.h</include>
  </includes>
  <resources/>
  <connections>
@@ -175,11 +181,11 @@
    <receiver>AmplifyFreeDlg</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -191,11 +197,11 @@
    <receiver>AmplifyFreeDlg</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>

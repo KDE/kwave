@@ -20,15 +20,18 @@
 #include <QtGui/QAbstractButton>
 #include <QtCore/QBuffer>
 #include <QtGui/QCursor>
-#include <QtGui/QDialogButtonBox>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QLatin1Char>
-#include <QtGui/QLineEdit>
 #include <QtGui/QApplication>
 #include <QtCore/QProcess>
 #include <QtCore/QtGlobal>
+
+#include <kcombobox.h>
+#include <kdialogbuttonbox.h>
+#include <klineedit.h>
+#include <kprocess.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
@@ -211,32 +214,32 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 /**
  * load a text field with the content of the current settings
  * @param __field__ member within m_settings
- * @param __control__ the QLineEdit to fill with the value
+ * @param __control__ the KLineEdit to fill with the value
  */
 #define LOAD(__field__, __control__) __control__->setText(m_settings.__field__)
 
 /**
- * take the content of a QLineEdit and save it back into m_settings
+ * take the content of a KLineEdit and save it back into m_settings
  * @param __field__ member within m_settings
- * @param __control__ the QLineEdit to fill with the value
+ * @param __control__ the KLineEdit to fill with the value
  */
 #define SAVE(__field__, __control__) \
     m_settings.__field__ = QString(__control__->text()).simplified()
 
 /**
- * connect the editingFinished() signal of a QLineEdit to our slot
+ * connect the editingFinished() signal of a KLineEdit to our slot
  * switchToUserDefined()
- * @param __control__ the QLineEdit to handle
+ * @param __control__ the KLineEdit to handle
  */
 #define CONNECT(__control__) \
     connect(__control__, SIGNAL(editingFinished()), \
     this, SLOT(switchToUserDefined()))
 
 /**
- * check if the content of a QLineEdit matches the corresponding member
+ * check if the content of a KLineEdit matches the corresponding member
  * of some "settings" record
  * @param __field__ member within m_settings
- * @param __control__ the QLineEdit to compare against
+ * @param __control__ the KLineEdit to compare against
  * @return the bool variable "match" is updated (logical AND)
  */
 #define CHECK(__field__, __control__) match &= \
@@ -639,9 +642,10 @@ QString Kwave::MP3EncoderDialog::callWithParam(const QString &path,
     // set hourglass cursor
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-    QProcess process;
-    process.setProcessChannelMode(QProcess::MergedChannels);
-    process.start(path, params);
+    KProcess process;
+    process.setOutputChannelMode(KProcess::MergedChannels);
+    process.setProgram(path, params);
+    process.start();
     process.waitForStarted();
     if (process.state() != QProcess::NotRunning) process.waitForFinished();
 

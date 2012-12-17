@@ -18,7 +18,6 @@
 #include "config.h"
 
 #include <QtCore/QLatin1Char>
-#include <QtGui/QPushButton>
 #include <QtGui/QCheckBox>
 #include <QtGui/QGroupBox>
 #include <QtGui/QLabel>
@@ -26,10 +25,8 @@
 #include <QtGui/QPixmap>
 #include <QtGui/QProgressBar>
 #include <QtGui/QSlider>
-#include <QtGui/QTabWidget>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QTreeWidgetItem>
-#include <QtGui/QStatusBar>
 
 #include <kcombobox.h>
 #include <kglobal.h>
@@ -39,6 +36,7 @@
 #include <kpushbutton.h>
 #include <knuminput.h>
 #include <kstatusbar.h>
+#include <ktabwidget.h>
 #include <ktoolinvocation.h>
 
 #include "libkwave/CompressionType.h"

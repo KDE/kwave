@@ -24,7 +24,8 @@
 
 #include <QtCore/QList>
 #include <QtCore/QMutex>
-#include <QtCore/QProcess>
+
+#include <kprocess.h>
 
 #include "libkwave/Encoder.h"
 
@@ -95,7 +96,7 @@ namespace Kwave
 	QIODevice *m_dst;
 
 	/** the external process with the encoder */
-	QProcess m_process;
+	KProcess m_process;
 
 	/** path to the external program */
 	QString m_program;

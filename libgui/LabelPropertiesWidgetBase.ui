@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>LabelPropertiesWidgetBase</class>
- <widget class="QDialog" name="LabelPropertiesWidgetBase" >
-  <property name="geometry" >
+ <widget class="QDialog" name="LabelPropertiesWidgetBase">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,101 +10,92 @@
     <height>253</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Label Properties...</string>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>10</number>
    </property>
-   <property name="leftMargin" >
-    <number>10</number>
-   </property>
-   <property name="topMargin" >
-    <number>10</number>
-   </property>
-   <property name="rightMargin" >
-    <number>10</number>
-   </property>
-   <property name="bottomMargin" >
+   <property name="margin">
     <number>10</number>
    </property>
    <item>
-    <layout class="QGridLayout" >
-     <item row="1" column="1" >
-      <widget class="Kwave::SelectTimeWidget" native="1" name="time" >
-       <property name="minimumSize" >
+    <layout class="QGridLayout">
+     <item row="1" column="1">
+      <widget class="Kwave::SelectTimeWidget" name="time" native="true">
+       <property name="minimumSize">
         <size>
          <width>0</width>
          <height>100</height>
         </size>
        </property>
-       <property name="focusPolicy" >
+       <property name="focusPolicy">
         <enum>Qt::TabFocus</enum>
        </property>
-       <property name="whatsThis" >
-        <string>&lt;b>label position:&lt;/b>&lt;br>
+       <property name="whatsThis">
+        <string>&lt;b&gt;label position:&lt;/b&gt;&lt;br&gt;
 Here you can set the position of the label, either by time, by percentage of the whole file or by an absolute sample position. However, internally Kwave always uses the position in samples.</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0" >
-      <widget class="QLabel" name="textLabel1_2" >
-       <property name="text" >
+     <item row="2" column="0">
+      <widget class="QLabel" name="textLabel1_2">
+       <property name="text">
         <string>Description:</string>
        </property>
-       <property name="wordWrap" >
+       <property name="wordWrap">
         <bool>false</bool>
        </property>
       </widget>
      </item>
-     <item row="2" column="1" >
-      <widget class="QLineEdit" name="edDescription" >
-       <property name="toolTip" >
+     <item row="2" column="1">
+      <widget class="KLineEdit" name="edDescription">
+       <property name="toolTip">
         <string>some description of the label (optional)</string>
        </property>
-       <property name="whatsThis" >
-        <string>&lt;b>label description:&lt;/b>&lt;br>
+       <property name="whatsThis">
+        <string>&lt;b&gt;label description:&lt;/b&gt;&lt;br&gt;
 Here you can enter some short text to describe the label.</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" >
-      <widget class="QLabel" name="textLabel1" >
-       <property name="text" >
+     <item row="1" column="0">
+      <widget class="QLabel" name="textLabel1">
+       <property name="text">
         <string>Position:</string>
        </property>
-       <property name="wordWrap" >
+       <property name="wordWrap">
         <bool>false</bool>
        </property>
       </widget>
      </item>
-     <item row="0" column="0" >
-      <widget class="QLabel" name="textLabel1_2_2" >
-       <property name="text" >
+     <item row="0" column="0">
+      <widget class="QLabel" name="textLabel1_2_2">
+       <property name="text">
         <string>Index:</string>
        </property>
-       <property name="wordWrap" >
+       <property name="wordWrap">
         <bool>false</bool>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="QLineEdit" name="lblIndex" >
-       <property name="enabled" >
+     <item row="0" column="1">
+      <widget class="KLineEdit" name="lblIndex">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="toolTip" >
+       <property name="toolTip">
         <string>index of the label</string>
        </property>
-       <property name="whatsThis" >
-        <string>&lt;b>label index&lt;/b>&lt;br>
+       <property name="whatsThis">
+        <string>&lt;b&gt;label index&lt;/b&gt;&lt;br&gt;
 This is just a numeric index of the label, starting with zero, sorted by position. Lower index means 'left', higher index means 'right'. You cannot change the index itself, but change the label's position.</string>
        </property>
       </widget>
@@ -111,39 +103,39 @@ This is just a numeric index of the label, starting with zero, sorted by positio
     </layout>
    </item>
    <item>
-    <widget class="QFrame" name="frame5" >
-     <property name="frameShape" >
+    <widget class="QFrame" name="frame5">
+     <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="QPushButton" name="btHelp" >
-       <property name="enabled" >
+      <widget class="KPushButton" name="btHelp">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;Help</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+H</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>91</width>
          <height>21</height>
@@ -152,24 +144,24 @@ This is just a numeric index of the label, starting with zero, sorted by positio
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btOK" >
-       <property name="text" >
+      <widget class="KPushButton" name="btOK">
+       <property name="text">
         <string>O&amp;K</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+K</string>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btCancel" >
-       <property name="text" >
+      <widget class="KPushButton" name="btCancel">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+C</string>
        </property>
       </widget>
@@ -178,12 +170,23 @@ This is just a numeric index of the label, starting with zero, sorted by positio
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="10" margin="10" />
+ <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
   <customwidget>
    <class>Kwave::SelectTimeWidget</class>
    <extends>QWidget</extends>
    <header>libgui/SelectTimeWidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -195,7 +198,7 @@ This is just a numeric index of the label, starting with zero, sorted by positio
   <tabstop>time</tabstop>
  </tabstops>
  <includes>
-  <include location="local" >libgui/SelectTimeWidget.h</include>
+  <include location="local">libgui/SelectTimeWidget.h</include>
  </includes>
  <resources/>
  <connections>
@@ -205,11 +208,11 @@ This is just a numeric index of the label, starting with zero, sorted by positio
    <receiver>LabelPropertiesWidgetBase</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -221,11 +224,11 @@ This is just a numeric index of the label, starting with zero, sorted by positio
    <receiver>LabelPropertiesWidgetBase</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>

@@ -26,6 +26,7 @@
 #include "ui_FileInfoDlg.h"
 
 class KConfigGroup;
+class KLineEdit;
 
 namespace Kwave
 {
@@ -103,7 +104,7 @@ namespace Kwave
 	 * Same as initInfo, but works only for text edit controls and sets
 	 * the current text
 	 */
-	void initInfoText(QLabel *label, QLineEdit *edit,
+	void initInfoText(QLabel *label, KLineEdit *edit,
 	                  Kwave::FileProperty property);
 
     private:

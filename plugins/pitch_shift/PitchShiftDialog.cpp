@@ -18,12 +18,12 @@
 #include "config.h"
 #include "math.h"
 
-#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
 
 #include <klocale.h>
+#include <kpushbutton.h>
 
 #include "libkwave/String.h"
 

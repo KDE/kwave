@@ -18,10 +18,9 @@
 #include "config.h"
 #include "math.h"
 
-#include <QtGui/QLineEdit>
-
 #include <kapplication.h>
 #include <kconfig.h>
+#include <klineedit.h>
 
 #include "libkwave/String.h"
 

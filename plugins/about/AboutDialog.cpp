@@ -22,7 +22,6 @@
 #include <QtCore/QListIterator>
 #include <QtGui/QHBoxLayout>
 #include <QtCore/QString>
-#include <QtGui/QTextEdit>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QTreeWidgetItem>
 #include <QtGui/QVBoxLayout>
@@ -33,6 +32,7 @@
 #include <klocale.h>
 #include <kurllabel.h>
 #include <kstandarddirs.h>
+#include <ktextedit.h>
 
 #include "libkwave/String.h"
 

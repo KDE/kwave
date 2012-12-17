@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>752</width>
+    <width>757</width>
     <height>600</height>
    </rect>
   </property>
@@ -45,7 +45,7 @@
        <number>10</number>
       </property>
       <item>
-       <widget class="QTabWidget" name="tabRecord">
+       <widget class="KTabWidget" name="tabRecord">
         <property name="currentIndex">
          <number>0</number>
         </property>
@@ -1061,7 +1061,7 @@ recording. Depending on the compilation options you can select one of the follow
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="btSourceSelect">
+                <widget class="KPushButton" name="btSourceSelect">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -1323,7 +1323,7 @@ recording. Depending on the compilation options you can select one of the follow
       <item>
        <layout class="QHBoxLayout">
         <item>
-         <widget class="QPushButton" name="btHelp">
+         <widget class="KPushButton" name="btHelp">
           <property name="text">
            <string>&amp;Help</string>
           </property>
@@ -1349,7 +1349,7 @@ recording. Depending on the compilation options you can select one of the follow
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="btClose">
+         <widget class="KPushButton" name="btClose">
           <property name="text">
            <string>&amp;Close</string>
           </property>
@@ -1402,9 +1402,9 @@ recording. Depending on the compilation options you can select one of the follow
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KPushButton</class>
@@ -1412,9 +1412,15 @@ recording. Depending on the compilation options you can select one of the follow
    <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ktabwidget.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>KDateTimeWidget</class>

@@ -1,101 +1,93 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>PitchShiftDlg</class>
- <widget class="QDialog" name="PitchShiftDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="PitchShiftDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>564</width>
-    <height>226</height>
+    <width>605</width>
+    <height>240</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Pitch Shift</string>
   </property>
-  <property name="sizeGripEnabled" >
+  <property name="sizeGripEnabled">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" >
-   <property name="leftMargin" >
+  <layout class="QGridLayout">
+   <property name="margin">
     <number>10</number>
    </property>
-   <property name="topMargin" >
-    <number>10</number>
-   </property>
-   <property name="rightMargin" >
-    <number>10</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>10</number>
-   </property>
-   <item row="3" column="0" colspan="3" >
-    <widget class="Line" name="Line1" >
-     <property name="minimumSize" >
+   <item row="3" column="0" colspan="3">
+    <widget class="Line" name="Line1">
+     <property name="minimumSize">
       <size>
        <width>0</width>
        <height>20</height>
       </size>
      </property>
-     <property name="frameShape" >
+     <property name="frameShape">
       <enum>QFrame::HLine</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Sunken</enum>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="3" >
-    <layout class="QHBoxLayout" >
+   <item row="4" column="0" colspan="3">
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="QPushButton" name="btHelp" >
-       <property name="enabled" >
+      <widget class="KPushButton" name="btHelp">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;Help</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>F1</string>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btListen" >
-       <property name="toolTip" >
+      <widget class="KPushButton" name="btListen">
+       <property name="toolTip">
         <string>start/stop pre-listening</string>
        </property>
-       <property name="whatsThis" >
+       <property name="whatsThis">
         <string>Start or stop the pre-listening of the current settings. If pre-listening is enabled, you will nearly immediately hear any change in the selected parameters.</string>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;Listen</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+L</string>
        </property>
-       <property name="checkable" >
+       <property name="checkable">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::MinimumExpanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>60</width>
          <height>20</height>
@@ -104,180 +96,180 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btOK" >
-       <property name="text" >
+      <widget class="KPushButton" name="btOK">
+       <property name="text">
         <string>&amp;OK</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string/>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btCancel" >
-       <property name="text" >
+      <widget class="KPushButton" name="btCancel">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string/>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="2" column="0" >
-    <widget class="QLabel" name="textLabel1" >
-     <property name="text" >
+   <item row="2" column="0">
+    <widget class="QLabel" name="textLabel1">
+     <property name="text">
       <string>Frequency:</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>false</bool>
      </property>
     </widget>
    </item>
-   <item row="2" column="2" >
-    <widget class="QSlider" name="slFrequency" >
-     <property name="toolTip" >
+   <item row="2" column="2">
+    <widget class="QSlider" name="slFrequency">
+     <property name="toolTip">
       <string>chopper frequency</string>
      </property>
-     <property name="whatsThis" >
-      <string>&lt;b>chopper frequency&lt;/b>&lt;br>This setting determines how small the pieces of audio data are before they get processed by the pitch shift. If your audio data sounds interrupted, you might get better result with higher values.</string>
+     <property name="whatsThis">
+      <string>&lt;b&gt;chopper frequency&lt;/b&gt;&lt;br&gt;This setting determines how small the pieces of audio data are before they get processed by the pitch shift. If your audio data sounds interrupted, you might get better result with higher values.</string>
      </property>
-     <property name="minimum" >
+     <property name="minimum">
       <number>2</number>
      </property>
-     <property name="maximum" >
+     <property name="maximum">
       <number>10</number>
      </property>
-     <property name="pageStep" >
+     <property name="pageStep">
       <number>1</number>
      </property>
-     <property name="value" >
+     <property name="value">
       <number>5</number>
      </property>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="tickInterval" >
+     <property name="tickInterval">
       <number>1</number>
      </property>
     </widget>
    </item>
-   <item row="1" column="0" >
-    <widget class="QLabel" name="textLabel2" >
-     <property name="text" >
+   <item row="1" column="0">
+    <widget class="QLabel" name="textLabel2">
+     <property name="text">
       <string>Speed:</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>false</bool>
      </property>
     </widget>
    </item>
-   <item row="2" column="1" >
-    <widget class="QSpinBox" name="sbFrequency" >
-     <property name="toolTip" >
+   <item row="2" column="1">
+    <widget class="QSpinBox" name="sbFrequency">
+     <property name="toolTip">
       <string>chopper frequency</string>
      </property>
-     <property name="whatsThis" >
-      <string>&lt;b>chopper frequency&lt;/b>&lt;br>This setting determines how small the pieces of audio data are before they get processed by the pitch shift. If your audio data sounds interrupted, you might get better result with higher values.</string>
+     <property name="whatsThis">
+      <string>&lt;b&gt;chopper frequency&lt;/b&gt;&lt;br&gt;This setting determines how small the pieces of audio data are before they get processed by the pitch shift. If your audio data sounds interrupted, you might get better result with higher values.</string>
      </property>
-     <property name="suffix" >
+     <property name="suffix">
       <string> Hz</string>
      </property>
-     <property name="minimum" >
+     <property name="minimum">
       <number>2</number>
      </property>
-     <property name="maximum" >
+     <property name="maximum">
       <number>10</number>
      </property>
-     <property name="value" >
+     <property name="value">
       <number>5</number>
      </property>
     </widget>
    </item>
-   <item row="1" column="2" >
-    <widget class="QSlider" name="slSpeed" >
-     <property name="minimumSize" >
+   <item row="1" column="2">
+    <widget class="QSlider" name="slSpeed">
+     <property name="minimumSize">
       <size>
        <width>400</width>
        <height>0</height>
       </size>
      </property>
-     <property name="toolTip" >
+     <property name="toolTip">
       <string>Speed</string>
      </property>
-     <property name="minimum" >
+     <property name="minimum">
       <number>1</number>
      </property>
-     <property name="maximum" >
+     <property name="maximum">
       <number>400</number>
      </property>
-     <property name="value" >
+     <property name="value">
       <number>100</number>
      </property>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="tickInterval" >
+     <property name="tickInterval">
       <number>50</number>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
-    <widget class="Kwave::InvertableSpinBox" native="1" name="sbSpeed" >
-     <property name="toolTip" >
+   <item row="1" column="1">
+    <widget class="Kwave::InvertableSpinBox" name="sbSpeed" native="true">
+     <property name="toolTip">
       <string>Speed</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="0" colspan="3" >
-    <widget class="QGroupBox" name="buttonGroup3" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
+   <item row="0" column="0" colspan="3">
+    <widget class="QGroupBox" name="buttonGroup3">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>Mode</string>
      </property>
-     <layout class="QVBoxLayout" >
+     <layout class="QVBoxLayout">
       <item>
-       <widget class="QRadioButton" name="rbPercentage" >
-        <property name="toolTip" >
+       <widget class="QRadioButton" name="rbPercentage">
+        <property name="toolTip">
          <string>change speed by percentage</string>
         </property>
-        <property name="whatsThis" >
+        <property name="whatsThis">
          <string>Sets the speed to a relative percentage of the original speed.
-For example: "50 %", "75%" or "125%"</string>
+For example: &quot;50 %&quot;, &quot;75%&quot; or &quot;125%&quot;</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>by Percentage</string>
         </property>
-        <property name="checked" >
+        <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="rbFactor" >
-        <property name="toolTip" >
+       <widget class="QRadioButton" name="rbFactor">
+        <property name="toolTip">
          <string>change speed by a factor</string>
         </property>
-        <property name="whatsThis" >
+        <property name="whatsThis">
          <string>Increments or decrements the speed by a factor.
-For example: "x1", "x2", "/ 4"</string>
+For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>by Factor</string>
         </property>
        </widget>
@@ -287,8 +279,13 @@ For example: "x1", "x2", "/ 4"</string>
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="10" margin="10" />
+ <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
   <customwidget>
    <class>Kwave::InvertableSpinBox</class>
    <extends>QWidget</extends>
@@ -306,8 +303,8 @@ For example: "x1", "x2", "/ 4"</string>
   <tabstop>rbPercentage</tabstop>
  </tabstops>
  <includes>
-  <include location="global" >klocale.h</include>
-  <include location="local" >libgui/InvertableSpinBox.h</include>
+  <include location="global">klocale.h</include>
+  <include location="local">libgui/InvertableSpinBox.h</include>
  </includes>
  <resources/>
  <connections>
@@ -317,11 +314,11 @@ For example: "x1", "x2", "/ 4"</string>
    <receiver>PitchShiftDlg</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -333,11 +330,11 @@ For example: "x1", "x2", "/ 4"</string>
    <receiver>PitchShiftDlg</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -349,11 +346,11 @@ For example: "x1", "x2", "/ 4"</string>
    <receiver>slFrequency</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -365,11 +362,11 @@ For example: "x1", "x2", "/ 4"</string>
    <receiver>sbFrequency</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>

@@ -17,6 +17,9 @@
    added support for "rsvg-convert" (SF bug #38)
  * removed dependency to ImageMagick if "rsvg" is available
  * replaced libkwave/byteswap.h with generic Qt functions
+ * replaced some Qt classes with their KDE equivalent:
+   KLineEdit, KComboBox, KDialogButtonBox, KProcess, KPushButton,
+   KTabWidget, KTextEdit
 
 0.8.9  [2012-11-06]
 

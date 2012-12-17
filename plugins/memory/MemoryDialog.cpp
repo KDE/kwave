@@ -21,16 +21,16 @@
 
 #include <QtGui/QCheckBox>
 #include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
 #include <QtCore/QObject>
-#include <QtGui/QPushButton>
 #include <QtGui/QSlider>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtGui/QSpinBox>
 
-#include <ktoolinvocation.h>
 #include <kfiledialog.h>
+#include <klineedit.h>
+#include <kpushbutton.h>
+#include <ktoolinvocation.h>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"

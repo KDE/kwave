@@ -17,10 +17,10 @@
 
 #include "config.h"
 
-#include <QtGui/QComboBox>
 #include <QtCore/QString>
 
 #include <kabstractfilewidget.h>
+#include <kcombobox.h>
 #include <kfiledialog.h>
 #include <kurlcombobox.h>
 

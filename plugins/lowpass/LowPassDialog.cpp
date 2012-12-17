@@ -20,13 +20,13 @@
 
 #include <QtCore/QObject>
 #include <QtGui/QPainter>
-#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QWidget>
 
-#include <knuminput.h>
 #include <klocale.h>
+#include <knuminput.h>
+#include <kpushbutton.h>
 
 #include "libgui/ScaleWidget.h"
 #include "libgui/FrequencyResponseWidget.h"

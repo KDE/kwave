@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>513</width>
-    <height>546</height>
+    <height>570</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,7 +34,7 @@
        <number>10</number>
       </property>
       <item row="0" column="2">
-       <widget class="QComboBox" name="cbSampleRate">
+       <widget class="KComboBox" name="cbSampleRate">
         <property name="whatsThis">
          <string>&lt;b&gt;Sample rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
         </property>
@@ -749,7 +749,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="btHelp">
+      <widget class="KPushButton" name="btHelp">
        <property name="text">
         <string>&amp;Help</string>
        </property>
@@ -775,7 +775,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btOK">
+      <widget class="KPushButton" name="btOK">
        <property name="text">
         <string>O&amp;K</string>
        </property>
@@ -785,7 +785,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btCancel">
+      <widget class="KPushButton" name="btCancel">
        <property name="text">
         <string>&amp;Cancel</string>
        </property>
@@ -797,6 +797,16 @@
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
   <customwidget>
    <class>KIntNumInput</class>
    <extends>QWidget</extends>

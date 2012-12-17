@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>458</width>
-    <height>375</height>
+    <width>460</width>
+    <height>393</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -136,7 +136,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="edDirectory">
+       <widget class="KLineEdit" name="edDirectory">
         <property name="toolTip">
          <string>Directory for storing swap files</string>
         </property>
@@ -146,7 +146,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QPushButton" name="btSearch">
+       <widget class="KPushButton" name="btSearch">
         <property name="toolTip">
          <string>Browse for a directory to hold page files</string>
         </property>
@@ -317,7 +317,7 @@ If you do not set a limit, the size of the physically installed memory in your c
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="btHelp">
+      <widget class="KPushButton" name="btHelp">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -349,7 +349,7 @@ If you do not set a limit, the size of the physically installed memory in your c
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btOK">
+      <widget class="KPushButton" name="btOK">
        <property name="text">
         <string>&amp;OK</string>
        </property>
@@ -359,7 +359,7 @@ If you do not set a limit, the size of the physically installed memory in your c
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btCancel">
+      <widget class="KPushButton" name="btCancel">
        <property name="text">
         <string>&amp;Cancel</string>
        </property>
@@ -370,6 +370,18 @@ If you do not set a limit, the size of the physically installed memory in your c
   </layout>
  </widget>
  <layoutdefault spacing="10" margin="10"/>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>chkLimitPhysical</tabstop>
   <tabstop>slPhysical</tabstop>

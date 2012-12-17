@@ -19,20 +19,16 @@
 
 #include <QtCore/QtGlobal>
 #include <QtGui/QCheckBox>
-#include <QtGui/QComboBox>
 #include <QtCore/QDateTime>
 #include <QtGui/QDialog>
 #include <QtCore/QFileInfo>
 #include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
 #include <QtGui/QListWidget>
-#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtGui/QTabWidget>
 #include <QtGui/QToolTip>
 #include <QtCore/QVector>
 #include <QtGui/QWhatsThis>
@@ -41,9 +37,13 @@
 #include <kconfig.h>
 #include <kcombobox.h>
 #include <kdatewidget.h>
+#include <klineedit.h>
+#include <klistwidget.h>
 #include <klocale.h>
 #include <kmimetype.h>
 #include <knuminput.h>
+#include <kpushbutton.h>
+#include <ktabwidget.h>
 #include <ktoolinvocation.h>
 
 #include "libkwave/CodecManager.h"
@@ -129,7 +129,7 @@ void Kwave::FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
 }
 
 //***************************************************************************
-void Kwave::FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
+void Kwave::FileInfoDialog::initInfoText(QLabel *label, KLineEdit *edit,
                                          Kwave::FileProperty property)
 {
     initInfo(label, edit, property);

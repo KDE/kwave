@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>527</width>
+    <width>575</width>
     <height>152</height>
    </rect>
   </property>
@@ -53,7 +53,7 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QComboBox" name="cbNumbering">
+    <widget class="KComboBox" name="cbNumbering">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
        <horstretch>0</horstretch>
@@ -85,7 +85,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QLineEdit" name="txtExample">
+    <widget class="KLineEdit" name="txtExample">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -120,7 +120,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QComboBox" name="cbPattern">
+    <widget class="KComboBox" name="cbPattern">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
        <horstretch>0</horstretch>
@@ -157,6 +157,18 @@
   </layout>
  </widget>
  <layoutdefault spacing="10" margin="10"/>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>cbPattern</tabstop>
   <tabstop>txtExample</tabstop>

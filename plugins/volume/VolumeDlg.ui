@@ -252,7 +252,7 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
       </layout>
      </item>
      <item>
-      <widget class="Kwave::InvertableSpinBox" name="spinbox">
+      <widget class="Kwave::InvertableSpinBox" name="spinbox" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -335,7 +335,7 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btOK">
+      <widget class="KPushButton" name="btOK">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -351,7 +351,7 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btCancel">
+      <widget class="KPushButton" name="btCancel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -369,8 +369,13 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
    <class>Kwave::InvertableSpinBox</class>
-   <extends>QSpinBox</extends>
+   <extends>QWidget</extends>
    <header>libgui/InvertableSpinBox.h</header>
   </customwidget>
   <customwidget>

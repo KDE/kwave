@@ -1,38 +1,39 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>BandPassDlg</class>
- <widget class="QDialog" name="BandPassDlg" >
-  <property name="geometry" >
+ <widget class="QDialog" name="BandPassDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>460</width>
-    <height>376</height>
+    <height>380</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Band Pass</string>
   </property>
-  <property name="sizeGripEnabled" >
+  <property name="sizeGripEnabled">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" >
-   <item row="0" column="0" colspan="2" >
-    <layout class="QGridLayout" >
-     <property name="margin" >
+  <layout class="QGridLayout">
+   <item row="0" column="0" colspan="2">
+    <layout class="QGridLayout">
+     <property name="margin">
       <number>0</number>
      </property>
-     <property name="spacing" >
+     <property name="spacing">
       <number>0</number>
      </property>
-     <item row="0" column="0" >
-      <widget class="Kwave::ScaleWidget" native="1" name="scale_db" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="MinimumExpanding" hsizetype="Minimum" >
+     <item row="0" column="0">
+      <widget class="Kwave::ScaleWidget" name="scale_db" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize" >
+       <property name="minimumSize">
         <size>
          <width>30</width>
          <height>0</height>
@@ -40,9 +41,9 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="Kwave::FrequencyResponseWidget" native="1" name="freq_response" >
-       <property name="minimumSize" >
+     <item row="0" column="1">
+      <widget class="Kwave::FrequencyResponseWidget" name="freq_response" native="true">
+       <property name="minimumSize">
         <size>
          <width>400</width>
          <height>200</height>
@@ -50,15 +51,15 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1" >
-      <widget class="Kwave::ScaleWidget" native="1" name="scale_freq" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
+     <item row="1" column="1">
+      <widget class="Kwave::ScaleWidget" name="scale_freq" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize" >
+       <property name="minimumSize">
         <size>
          <width>0</width>
          <height>30</height>
@@ -68,123 +69,123 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0" >
-    <widget class="KIntSpinBox" native="1" name="spinbox" >
-     <property name="suffix" stdset="0" >
+   <item row="1" column="0">
+    <widget class="KIntSpinBox" name="spinbox">
+     <property name="suffix">
       <string> Hz</string>
      </property>
-     <property name="maxValue" stdset="0" >
-      <number>99999</number>
+     <property name="value">
+      <number>99</number>
      </property>
-     <property name="value" stdset="0" >
+     <property name="maxValue" stdset="0">
       <number>99999</number>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
-    <widget class="QSlider" name="slider" >
-     <property name="maximum" >
+   <item row="1" column="1">
+    <widget class="QSlider" name="slider">
+     <property name="maximum">
       <number>44100</number>
      </property>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="tickInterval" >
+     <property name="tickInterval">
       <number>1000</number>
      </property>
     </widget>
    </item>
-   <item row="2" column="1" >
-    <widget class="QSlider" name="slider_2" >
-     <property name="minimum" >
+   <item row="2" column="1">
+    <widget class="QSlider" name="slider_2">
+     <property name="minimum">
       <number>1</number>
      </property>
-     <property name="maximum" >
+     <property name="maximum">
       <number>1400</number>
      </property>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="tickInterval" >
+     <property name="tickInterval">
       <number>100</number>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" >
-    <widget class="KIntSpinBox" native="1" name="spinbox_2" >
-     <property name="suffix" stdset="0" >
+   <item row="2" column="0">
+    <widget class="KIntSpinBox" name="spinbox_2">
+     <property name="suffix">
       <string/>
      </property>
-     <property name="maxValue" stdset="0" >
-      <number>99999</number>
+     <property name="value">
+      <number>99</number>
      </property>
-     <property name="value" stdset="0" >
+     <property name="maxValue" stdset="0">
       <number>99999</number>
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2" >
-    <widget class="QFrame" name="frame3" >
-     <property name="minimumSize" >
+   <item row="3" column="0" colspan="2">
+    <widget class="QFrame" name="frame3">
+     <property name="minimumSize">
       <size>
        <width>0</width>
        <height>20</height>
       </size>
      </property>
-     <property name="frameShape" >
+     <property name="frameShape">
       <enum>QFrame::HLine</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Sunken</enum>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="2" >
-    <layout class="QHBoxLayout" >
+   <item row="4" column="0" colspan="2">
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="QPushButton" name="buttonHelp" >
-       <property name="enabled" >
+      <widget class="KPushButton" name="buttonHelp">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;Help</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>F1</string>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btListen" >
-       <property name="toolTip" >
+      <widget class="KPushButton" name="btListen">
+       <property name="toolTip">
         <string>start/stop pre-listening</string>
        </property>
-       <property name="whatsThis" >
+       <property name="whatsThis">
         <string>Start or stop the pre-listening of the current settings. If pre-listening is enabled, you will nearly immediately hear any change in the selected parameters.</string>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;Listen</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+L</string>
        </property>
-       <property name="checkable" >
+       <property name="checkable">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="Horizontal Spacing2" >
-       <property name="orientation" >
+      <spacer name="Horizontal Spacing2">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>143</width>
          <height>20</height>
@@ -193,30 +194,30 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonOk" >
-       <property name="text" >
+      <widget class="KPushButton" name="buttonOk">
+       <property name="text">
         <string>&amp;OK</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string/>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonCancel" >
-       <property name="text" >
+      <widget class="KPushButton" name="buttonCancel">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string/>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
       </widget>
@@ -225,22 +226,27 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
+ <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
   <customwidget>
    <class>Kwave::ScaleWidget</class>
    <extends>QWidget</extends>
-   <header location="global" >libgui/ScaleWidget.h</header>
+   <header location="global">libgui/ScaleWidget.h</header>
   </customwidget>
   <customwidget>
    <class>Kwave::FrequencyResponseWidget</class>
    <extends>QWidget</extends>
    <header>libgui/FrequencyResponseWidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -250,10 +256,10 @@
   <tabstop>buttonCancel</tabstop>
  </tabstops>
  <includes>
-  <include location="global" >klocale.h</include>
-  <include location="local" >libgui/ScaleWidget.h</include>
-  <include location="local" >libgui/FrequencyResponseWidget.h</include>
-  <include location="local" >knuminput.h</include>
+  <include location="global">klocale.h</include>
+  <include location="local">libgui/ScaleWidget.h</include>
+  <include location="local">libgui/FrequencyResponseWidget.h</include>
+  <include location="local">knuminput.h</include>
  </includes>
  <resources/>
  <connections>
@@ -263,11 +269,11 @@
    <receiver>BandPassDlg</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -279,11 +285,11 @@
    <receiver>BandPassDlg</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -295,11 +301,11 @@
    <receiver>slider</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -311,11 +317,11 @@
    <receiver>spinbox</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -327,11 +333,11 @@
    <receiver>spinbox_2</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -343,11 +349,11 @@
    <receiver>slider_2</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>

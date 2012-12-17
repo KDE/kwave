@@ -20,12 +20,12 @@
 
 #include <QtCore/QObject>
 #include <QtGui/QPainter>
-#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QWidget>
 
 #include <knuminput.h>
+#include <kpushbutton.h>
 
 #include <klocale.h>
 #include "libgui/ScaleWidget.h"

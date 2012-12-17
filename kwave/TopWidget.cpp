@@ -25,7 +25,6 @@
 #include <stdlib.h>
 
 #include <QtGui/QCloseEvent>
-#include <QtGui/QComboBox>
 #include <QtGui/QDesktopWidget>
 #include <QtCore/QFile>
 #include <QtGui/QFrame>

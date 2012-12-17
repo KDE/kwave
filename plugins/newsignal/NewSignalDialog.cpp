@@ -21,18 +21,18 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtGui/QComboBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
 #include <QtCore/QString>
 #include <QtCore/QTimer>
 
+#include <kcombobox.h>
 #include <klocale.h>
 #include <knuminput.h>
+#include <kpushbutton.h>
 #include <ktoolinvocation.h>
 
 #include "libkwave/String.h"

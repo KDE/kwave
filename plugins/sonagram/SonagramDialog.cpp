@@ -23,10 +23,8 @@
 
 #include <QtGui/QButtonGroup>
 #include <QtGui/QCheckBox>
-#include <QtGui/QComboBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtCore/QString>
@@ -34,6 +32,7 @@
 
 #include <kcombobox.h>
 #include <klocale.h>
+#include <kpushbutton.h>
 #include <ktoolinvocation.h>
 
 #include "libkwave/Plugin.h"

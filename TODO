@@ -1,5 +1,5 @@
 
-o try to replace Qt classes which have KDE equivalent
+o use klocale for formating numbers/dates/times
 
 o no null pointer checks around "delete"
 

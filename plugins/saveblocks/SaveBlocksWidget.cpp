@@ -18,8 +18,9 @@
 #include "config.h"
 
 #include <QtGui/QCheckBox>
-#include <QtGui/QComboBox>
-#include <QtGui/QLineEdit>
+
+#include <kcombobox.h>
+#include <klineedit.h>
 
 #include "libkwave/String.h"
 

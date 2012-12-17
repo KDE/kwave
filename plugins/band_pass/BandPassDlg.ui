@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
+    <width>555</width>
     <height>380</height>
    </rect>
   </property>
@@ -143,18 +143,12 @@
    <item row="4" column="0" colspan="2">
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KPushButton" name="buttonHelp">
+      <widget class="KDialogButtonBox" name="buttonBox_2">
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text">
-        <string>&amp;Help</string>
-       </property>
-       <property name="shortcut">
-        <string>F1</string>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>
@@ -194,31 +188,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="buttonOk">
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="shortcut">
-        <string/>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="buttonCancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-       <property name="shortcut">
-        <string/>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
+      <widget class="KDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -228,6 +200,11 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
+  <customwidget>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
+  </customwidget>
   <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
@@ -250,10 +227,13 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>spinbox</tabstop>
   <tabstop>slider</tabstop>
-  <tabstop>buttonHelp</tabstop>
-  <tabstop>buttonOk</tabstop>
-  <tabstop>buttonCancel</tabstop>
+  <tabstop>spinbox_2</tabstop>
+  <tabstop>slider_2</tabstop>
+  <tabstop>buttonBox_2</tabstop>
+  <tabstop>btListen</tabstop>
+  <tabstop>buttonBox</tabstop>
  </tabstops>
  <includes>
   <include location="global">klocale.h</include>
@@ -264,50 +244,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonOk</sender>
-   <signal>clicked()</signal>
-   <receiver>BandPassDlg</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>BandPassDlg</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>spinbox</sender>
    <signal>valueChanged(int)</signal>
    <receiver>slider</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>29</x>
+     <y>268</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>112</x>
+     <y>267</y>
     </hint>
    </hints>
   </connection>
@@ -318,12 +266,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>112</x>
+     <y>267</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>29</x>
+     <y>268</y>
     </hint>
    </hints>
   </connection>
@@ -334,12 +282,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>112</x>
+     <y>299</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>29</x>
+     <y>300</y>
     </hint>
    </hints>
   </connection>
@@ -350,12 +298,44 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>29</x>
+     <y>300</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>112</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>BandPassDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>285</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>209</x>
+     <y>375</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>BandPassDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>397</x>
+     <y>357</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>394</x>
+     <y>377</y>
     </hint>
    </hints>
   </connection>

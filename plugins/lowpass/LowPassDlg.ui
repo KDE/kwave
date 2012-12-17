@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>452</width>
-    <height>368</height>
+    <width>464</width>
+    <height>359</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -136,18 +136,12 @@ frequencies will be cut off.</string>
    <item row="3" column="0" colspan="2">
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KPushButton" name="buttonHelp">
+      <widget class="KDialogButtonBox" name="buttonBox_2">
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text">
-        <string>&amp;Help</string>
-       </property>
-       <property name="shortcut">
-        <string>F1</string>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>
@@ -187,31 +181,9 @@ frequencies will be cut off.</string>
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="buttonOk">
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="shortcut">
-        <string/>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="buttonCancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-       <property name="shortcut">
-        <string/>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
+      <widget class="KDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -221,6 +193,11 @@ frequencies will be cut off.</string>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
+  <customwidget>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
+  </customwidget>
   <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
@@ -243,12 +220,11 @@ frequencies will be cut off.</string>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>slider</tabstop>
-  <tabstop>buttonHelp</tabstop>
-  <tabstop>btListen</tabstop>
-  <tabstop>buttonOk</tabstop>
-  <tabstop>buttonCancel</tabstop>
   <tabstop>spinbox</tabstop>
+  <tabstop>slider</tabstop>
+  <tabstop>buttonBox_2</tabstop>
+  <tabstop>btListen</tabstop>
+  <tabstop>buttonBox</tabstop>
  </tabstops>
  <includes>
   <include location="global">klocale.h</include>
@@ -259,50 +235,18 @@ frequencies will be cut off.</string>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonOk</sender>
-   <signal>clicked()</signal>
-   <receiver>LowPassDlg</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>LowPassDlg</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>spinbox</sender>
    <signal>valueChanged(int)</signal>
    <receiver>slider</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>30</x>
+     <y>281</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>116</x>
+     <y>280</y>
     </hint>
    </hints>
   </connection>
@@ -313,12 +257,44 @@ frequencies will be cut off.</string>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>116</x>
+     <y>280</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>30</x>
+     <y>281</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>LowPassDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>332</x>
+     <y>341</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>371</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>LowPassDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>288</x>
+     <y>340</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>363</y>
     </hint>
    </hints>
   </connection>

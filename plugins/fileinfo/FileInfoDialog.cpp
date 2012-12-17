@@ -88,7 +88,7 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
             this, SLOT(compressionChanged()));
     connect(cbMpegLayer, SIGNAL(currentIndexChanged(int)),
             this, SLOT(mpegLayerChanged()));
-    connect(btHelp, SIGNAL(clicked()),
+    connect(btHelp->button(QDialogButtonBox::Help), SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
 
     // open config for reading default settings

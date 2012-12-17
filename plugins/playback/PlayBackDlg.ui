@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>680</width>
-    <height>566</height>
+    <width>641</width>
+    <height>568</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -421,24 +421,9 @@ playback. Depending on the compilation options you can select one of the followi
    <item>
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KPushButton" name="btHelp">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>60</width>
-         <height>20</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>&amp;Help</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+H</string>
+      <widget class="KDialogButtonBox" name="btHelp">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>
@@ -503,65 +488,9 @@ playback. Depending on the compilation options you can select one of the followi
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="btOK">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>60</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+O</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btCancel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>60</width>
-         <height>20</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+C</string>
+      <widget class="KDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -572,19 +501,24 @@ playback. Depending on the compilation options you can select one of the followi
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
   </customwidget>
   <customwidget>
    <class>Kwave::TreeWidgetWrapper</class>
@@ -594,8 +528,6 @@ playback. Depending on the compilation options you can select one of the followi
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>btOK</tabstop>
-  <tabstop>btCancel</tabstop>
   <tabstop>cbMethod</tabstop>
   <tabstop>cbDevice</tabstop>
   <tabstop>btSelectDevice</tabstop>
@@ -603,7 +535,6 @@ playback. Depending on the compilation options you can select one of the followi
   <tabstop>cbBitsPerSample</tabstop>
   <tabstop>sbChannels</tabstop>
   <tabstop>slBufferSize</tabstop>
-  <tabstop>btHelp</tabstop>
   <tabstop>btTest</tabstop>
  </tabstops>
  <includes>
@@ -613,34 +544,34 @@ playback. Depending on the compilation options you can select one of the followi
  <resources/>
  <connections>
   <connection>
-   <sender>btCancel</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
    <receiver>PlayBackDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>579</x>
+     <y>539</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>601</x>
+     <y>562</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>btOK</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
    <receiver>PlayBackDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>502</x>
+     <y>539</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>482</x>
+     <y>562</y>
     </hint>
    </hints>
   </connection>

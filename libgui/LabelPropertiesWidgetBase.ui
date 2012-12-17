@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>368</width>
-    <height>253</height>
+    <width>422</width>
+    <height>250</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -115,15 +115,12 @@ This is just a numeric index of the label, starting with zero, sorted by positio
    <item>
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KPushButton" name="btHelp">
+      <widget class="KDialogButtonBox" name="dialogButtonBox_2">
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text">
-        <string>&amp;Help</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+H</string>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>
@@ -144,25 +141,9 @@ This is just a numeric index of the label, starting with zero, sorted by positio
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="btOK">
-       <property name="text">
-        <string>O&amp;K</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+K</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btCancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+C</string>
+      <widget class="KDialogButtonBox" name="dialogButtonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -173,14 +154,14 @@ This is just a numeric index of the label, starting with zero, sorted by positio
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>Kwave::SelectTimeWidget</class>
@@ -191,9 +172,8 @@ This is just a numeric index of the label, starting with zero, sorted by positio
  </customwidgets>
  <tabstops>
   <tabstop>edDescription</tabstop>
-  <tabstop>btHelp</tabstop>
-  <tabstop>btOK</tabstop>
-  <tabstop>btCancel</tabstop>
+  <tabstop>dialogButtonBox_2</tabstop>
+  <tabstop>dialogButtonBox</tabstop>
   <tabstop>lblIndex</tabstop>
   <tabstop>time</tabstop>
  </tabstops>
@@ -203,34 +183,34 @@ This is just a numeric index of the label, starting with zero, sorted by positio
  <resources/>
  <connections>
   <connection>
-   <sender>btOK</sender>
-   <signal>clicked()</signal>
+   <sender>dialogButtonBox</sender>
+   <signal>accepted()</signal>
    <receiver>LabelPropertiesWidgetBase</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>313</x>
+     <y>227</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>417</x>
+     <y>249</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>btCancel</sender>
-   <signal>clicked()</signal>
+   <sender>dialogButtonBox</sender>
+   <signal>rejected()</signal>
    <receiver>LabelPropertiesWidgetBase</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>239</x>
+     <y>227</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>158</x>
+     <y>243</y>
     </hint>
    </hints>
   </connection>

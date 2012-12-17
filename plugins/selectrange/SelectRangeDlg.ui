@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>297</width>
-    <height>276</height>
+    <width>340</width>
+    <height>272</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,12 +46,12 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="KPushButton" name="btHelp">
+      <widget class="KDialogButtonBox" name="btHelp">
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text">
-        <string>&amp;Help</string>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>
@@ -72,19 +72,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="btOK">
-       <property name="text">
-        <string>O&amp;K</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btCancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
+      <widget class="KDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -111,9 +101,9 @@
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
   </customwidget>
   <customwidget>
    <class>Kwave::SelectTimeWidget</class>
@@ -122,11 +112,6 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <tabstops>
-  <tabstop>btOK</tabstop>
-  <tabstop>btCancel</tabstop>
-  <tabstop>btHelp</tabstop>
- </tabstops>
  <includes>
   <include location="global">klocale.h</include>
   <include location="global">knuminput.h</include>
@@ -136,34 +121,34 @@
  <resources/>
  <connections>
   <connection>
-   <sender>btCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>SelectRangeDlg</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btOK</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
    <receiver>SelectRangeDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>152</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>134</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>SelectRangeDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>303</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>293</x>
+     <y>266</y>
     </hint>
    </hints>
   </connection>

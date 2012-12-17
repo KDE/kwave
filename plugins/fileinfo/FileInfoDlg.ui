@@ -2069,15 +2069,9 @@
    <item>
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KPushButton" name="btHelp">
-       <property name="text">
-        <string>&amp;Help</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+H</string>
-       </property>
-       <property name="autoDefault">
-        <bool>false</bool>
+      <widget class="KDialogButtonBox" name="btHelp">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>
@@ -2098,22 +2092,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="btOK">
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+O</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btCancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
+      <widget class="KDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -2123,6 +2104,11 @@
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
+  <customwidget>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
+  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
@@ -2167,8 +2153,6 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>btOK</tabstop>
-  <tabstop>btCancel</tabstop>
   <tabstop>InfoTab</tabstop>
   <tabstop>edFileName</tabstop>
   <tabstop>edFileSize</tabstop>
@@ -2213,7 +2197,6 @@
   <tabstop>edArchival</tabstop>
   <tabstop>edContact</tabstop>
   <tabstop>edCommissioned</tabstop>
-  <tabstop>btHelp</tabstop>
  </tabstops>
  <includes>
   <include location="global">klocale.h</include>
@@ -2228,34 +2211,34 @@
  <resources/>
  <connections>
   <connection>
-   <sender>btOK</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
    <receiver>FileInfoDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>599</x>
+     <y>466</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>546</x>
+     <y>485</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>btCancel</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
    <receiver>FileInfoDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>686</x>
+     <y>469</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>354</x>
+     <y>469</y>
     </hint>
    </hints>
   </connection>

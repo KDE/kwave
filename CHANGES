@@ -20,6 +20,7 @@
  * replaced some Qt classes with their KDE equivalent:
    KLineEdit, KComboBox, KDialogButtonBox, KProcess, KPushButton,
    KTabWidget, KTextEdit
+ * using KDE standard buttons in dialogs
 
 0.8.9  [2012-11-06]
 

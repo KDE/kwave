@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>432</width>
-    <height>320</height>
+    <width>324</width>
+    <height>218</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -104,12 +104,12 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="KPushButton" name="btHelp">
+      <widget class="KDialogButtonBox" name="buttonBox">
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text">
-        <string>&amp;Help</string>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>
@@ -130,19 +130,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="btOK">
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btCancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
+      <widget class="KDialogButtonBox" name="buttonBox_2">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -153,9 +143,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
   </customwidget>
   <customwidget>
    <class>Kwave::CurveWidget</class>
@@ -176,34 +166,34 @@
  <resources/>
  <connections>
   <connection>
-   <sender>btOK</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox_2</sender>
+   <signal>accepted()</signal>
    <receiver>AmplifyFreeDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>259</x>
+     <y>290</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>205</x>
+     <y>314</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>btCancel</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox_2</sender>
+   <signal>rejected()</signal>
    <receiver>AmplifyFreeDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>327</x>
+     <y>296</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>341</x>
+     <y>312</y>
     </hint>
    </hints>
   </connection>

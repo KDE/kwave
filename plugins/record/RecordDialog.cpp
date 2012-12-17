@@ -266,7 +266,7 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
             this, SLOT(updateBufferProgressBar()));
 
     // help button
-    connect(btHelp, SIGNAL(clicked()),
+    connect(buttonBox->button(QDialogButtonBox::Help), SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
 
     // status bar

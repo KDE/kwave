@@ -1323,38 +1323,9 @@ recording. Depending on the compilation options you can select one of the follow
       <item>
        <layout class="QHBoxLayout">
         <item>
-         <widget class="KPushButton" name="btHelp">
-          <property name="text">
-           <string>&amp;Help</string>
-          </property>
-          <property name="shortcut">
-           <string>Alt+H</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::MinimumExpanding</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>546</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="KPushButton" name="btClose">
-          <property name="text">
-           <string>&amp;Close</string>
-          </property>
-          <property name="shortcut">
-           <string>Alt+C</string>
+         <widget class="KDialogButtonBox" name="buttonBox">
+          <property name="standardButtons">
+           <set>QDialogButtonBox::Close|QDialogButtonBox::Help</set>
           </property>
          </widget>
         </item>
@@ -1401,6 +1372,11 @@ recording. Depending on the compilation options you can select one of the follow
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
+  <customwidget>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
+  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
@@ -1452,8 +1428,6 @@ recording. Depending on the compilation options you can select one of the follow
  </customwidgets>
  <tabstops>
   <tabstop>btRecord</tabstop>
-  <tabstop>btHelp</tabstop>
-  <tabstop>btClose</tabstop>
   <tabstop>tabRecord</tabstop>
   <tabstop>chkRecordPre</tabstop>
   <tabstop>sbRecordPre</tabstop>
@@ -1505,22 +1479,6 @@ recording. Depending on the compilation options you can select one of the follow
  <resources/>
  <connections>
   <connection>
-   <sender>btClose</sender>
-   <signal>clicked()</signal>
-   <receiver>RecordDlg</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>689</x>
-     <y>523</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>chkRecordPre</sender>
    <signal>toggled(bool)</signal>
    <receiver>sbRecordPre</receiver>
@@ -1531,8 +1489,8 @@ recording. Depending on the compilation options you can select one of the follow
      <y>85</y>
     </hint>
     <hint type="destinationlabel">
-     <x>179</x>
-     <y>85</y>
+     <x>296</x>
+     <y>103</y>
     </hint>
    </hints>
   </connection>
@@ -1559,8 +1517,8 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>179</x>
-     <y>85</y>
+     <x>296</x>
+     <y>103</y>
     </hint>
     <hint type="destinationlabel">
      <x>512</x>
@@ -1579,8 +1537,8 @@ recording. Depending on the compilation options you can select one of the follow
      <y>89</y>
     </hint>
     <hint type="destinationlabel">
-     <x>179</x>
-     <y>85</y>
+     <x>296</x>
+     <y>103</y>
     </hint>
    </hints>
   </connection>
@@ -1591,12 +1549,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>199</y>
+     <x>66</x>
+     <y>225</y>
     </hint>
     <hint type="destinationlabel">
-     <x>179</x>
-     <y>199</y>
+     <x>296</x>
+     <y>225</y>
     </hint>
    </hints>
   </connection>
@@ -1607,12 +1565,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>199</y>
+     <x>66</x>
+     <y>225</y>
     </hint>
     <hint type="destinationlabel">
-     <x>512</x>
-     <y>203</y>
+     <x>723</x>
+     <y>220</y>
     </hint>
    </hints>
   </connection>
@@ -1623,12 +1581,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>179</x>
-     <y>199</y>
+     <x>296</x>
+     <y>225</y>
     </hint>
     <hint type="destinationlabel">
-     <x>512</x>
-     <y>203</y>
+     <x>723</x>
+     <y>220</y>
     </hint>
    </hints>
   </connection>
@@ -1639,12 +1597,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>512</x>
-     <y>203</y>
+     <x>723</x>
+     <y>220</y>
     </hint>
     <hint type="destinationlabel">
-     <x>179</x>
-     <y>199</y>
+     <x>296</x>
+     <y>225</y>
     </hint>
    </hints>
   </connection>
@@ -1655,12 +1613,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>112</y>
+     <x>55</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>126</x>
-     <y>112</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1671,12 +1629,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>112</y>
+     <x>55</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>223</x>
-     <y>116</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1687,12 +1645,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>169</y>
+     <x>55</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>126</x>
-     <y>169</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1703,12 +1661,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>126</x>
-     <y>112</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>223</x>
-     <y>116</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1719,12 +1677,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>223</x>
-     <y>116</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>126</x>
-     <y>112</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1735,12 +1693,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>126</x>
-     <y>169</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>223</x>
-     <y>173</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1751,12 +1709,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>223</x>
-     <y>173</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>126</x>
-     <y>169</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1767,12 +1725,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>169</y>
+     <x>55</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>223</x>
-     <y>173</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1783,12 +1741,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>288</y>
+     <x>55</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
-     <x>136</x>
-     <y>288</y>
+     <x>120</x>
+     <y>88</y>
     </hint>
    </hints>
   </connection>
@@ -1799,12 +1757,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>345</y>
+     <x>55</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
-     <x>136</x>
-     <y>345</y>
+     <x>120</x>
+     <y>88</y>
     </hint>
    </hints>
   </connection>
@@ -1819,8 +1777,8 @@ recording. Depending on the compilation options you can select one of the follow
      <y>115</y>
     </hint>
     <hint type="destinationlabel">
-     <x>179</x>
-     <y>115</y>
+     <x>296</x>
+     <y>135</y>
     </hint>
    </hints>
   </connection>
@@ -1831,12 +1789,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>181</x>
-     <y>358</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>272</x>
-     <y>362</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1847,12 +1805,12 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>272</x>
-     <y>362</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>181</x>
-     <y>358</y>
+     <x>120</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1863,12 +1821,44 @@ recording. Depending on the compilation options you can select one of the follow
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>98</x>
-     <y>148</y>
+     <x>121</x>
+     <y>192</y>
     </hint>
     <hint type="destinationlabel">
-     <x>192</x>
-     <y>148</y>
+     <x>379</x>
+     <y>193</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>RecordDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>660</x>
+     <y>529</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>617</x>
+     <y>563</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>RecordDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>519</x>
+     <y>527</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>442</x>
+     <y>562</y>
     </hint>
    </hints>
   </connection>

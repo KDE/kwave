@@ -59,7 +59,7 @@ Kwave::MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
             this, SLOT(virtualMemoryEnabled(bool)));
     connect(btSearch, SIGNAL(clicked()),
             this, SLOT(searchSwapDir()));
-    connect(btHelp, SIGNAL(clicked()),
+    connect(buttonBox->button(QDialogButtonBox::Help), SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
 
     // initialize all controls

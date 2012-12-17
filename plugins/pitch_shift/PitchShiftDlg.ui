@@ -45,18 +45,12 @@
    <item row="4" column="0" colspan="3">
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KPushButton" name="btHelp">
+      <widget class="KDialogButtonBox" name="btHelp">
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text">
-        <string>&amp;Help</string>
-       </property>
-       <property name="shortcut">
-        <string>F1</string>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>
@@ -96,31 +90,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="btOK">
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="shortcut">
-        <string/>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btCancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-       <property name="shortcut">
-        <string/>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
+      <widget class="KDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -282,6 +254,11 @@ For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
@@ -296,10 +273,7 @@ For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
   <tabstop>slSpeed</tabstop>
   <tabstop>sbFrequency</tabstop>
   <tabstop>slFrequency</tabstop>
-  <tabstop>btHelp</tabstop>
   <tabstop>btListen</tabstop>
-  <tabstop>btOK</tabstop>
-  <tabstop>btCancel</tabstop>
   <tabstop>rbPercentage</tabstop>
  </tabstops>
  <includes>
@@ -309,50 +283,18 @@ For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
  <resources/>
  <connections>
   <connection>
-   <sender>btOK</sender>
-   <signal>clicked()</signal>
-   <receiver>PitchShiftDlg</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>PitchShiftDlg</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>sbFrequency</sender>
    <signal>valueChanged(int)</signal>
    <receiver>slFrequency</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>132</x>
+     <y>159</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>215</x>
+     <y>158</y>
     </hint>
    </hints>
   </connection>
@@ -363,12 +305,44 @@ For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
+     <x>215</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
+     <x>132</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>PitchShiftDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>503</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>516</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>PitchShiftDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>421</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>366</x>
+     <y>236</y>
     </hint>
    </hints>
   </connection>

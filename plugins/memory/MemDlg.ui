@@ -317,51 +317,9 @@ If you do not set a limit, the size of the physically installed memory in your c
       <number>0</number>
      </property>
      <item>
-      <widget class="KPushButton" name="btHelp">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>&amp;Help</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+H</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::MinimumExpanding</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btOK">
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btCancel">
-       <property name="text">
-        <string>&amp;Cancel</string>
+      <widget class="KDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -371,6 +329,11 @@ If you do not set a limit, the size of the physically installed memory in your c
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
+  <customwidget>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
+  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
@@ -394,9 +357,6 @@ If you do not set a limit, the size of the physically installed memory in your c
   <tabstop>btSearch</tabstop>
   <tabstop>slUndo</tabstop>
   <tabstop>sbUndo</tabstop>
-  <tabstop>btHelp</tabstop>
-  <tabstop>btOK</tabstop>
-  <tabstop>btCancel</tabstop>
  </tabstops>
  <includes>
   <include location="global">klocale.h</include>
@@ -404,46 +364,14 @@ If you do not set a limit, the size of the physically installed memory in your c
  <resources/>
  <connections>
   <connection>
-   <sender>btOK</sender>
-   <signal>clicked()</signal>
-   <receiver>MemDlg</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>308</x>
-     <y>347</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>MemDlg</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>393</x>
-     <y>347</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>slVirtual</sender>
    <signal>valueChanged(int)</signal>
    <receiver>sbVirtual</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>164</y>
+     <x>245</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>374</x>
@@ -462,8 +390,8 @@ If you do not set a limit, the size of the physically installed memory in your c
      <y>164</y>
     </hint>
     <hint type="destinationlabel">
-     <x>120</x>
-     <y>164</y>
+     <x>245</x>
+     <y>178</y>
     </hint>
    </hints>
   </connection>
@@ -494,8 +422,8 @@ If you do not set a limit, the size of the physically installed memory in your c
      <y>57</y>
     </hint>
     <hint type="destinationlabel">
-     <x>116</x>
-     <y>55</y>
+     <x>241</x>
+     <y>61</y>
     </hint>
    </hints>
   </connection>
@@ -510,8 +438,8 @@ If you do not set a limit, the size of the physically installed memory in your c
      <y>164</y>
     </hint>
     <hint type="destinationlabel">
-     <x>120</x>
-     <y>164</y>
+     <x>245</x>
+     <y>178</y>
     </hint>
    </hints>
   </connection>
@@ -538,8 +466,8 @@ If you do not set a limit, the size of the physically installed memory in your c
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>116</x>
-     <y>55</y>
+     <x>241</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
      <x>374</x>
@@ -558,8 +486,8 @@ If you do not set a limit, the size of the physically installed memory in your c
      <y>57</y>
     </hint>
     <hint type="destinationlabel">
-     <x>116</x>
-     <y>55</y>
+     <x>241</x>
+     <y>61</y>
     </hint>
    </hints>
   </connection>
@@ -570,12 +498,12 @@ If you do not set a limit, the size of the physically installed memory in your c
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>285</x>
-     <y>268</y>
+     <x>324</x>
+     <y>296</y>
     </hint>
     <hint type="destinationlabel">
-     <x>371</x>
-     <y>268</y>
+     <x>437</x>
+     <y>301</y>
     </hint>
    </hints>
   </connection>
@@ -586,12 +514,44 @@ If you do not set a limit, the size of the physically installed memory in your c
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>416</x>
-     <y>268</y>
+     <x>437</x>
+     <y>301</y>
     </hint>
     <hint type="destinationlabel">
-     <x>145</x>
-     <y>269</y>
+     <x>246</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>MemDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>366</x>
+     <y>367</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>MemDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>288</x>
+     <y>364</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>246</x>
+     <y>389</y>
     </hint>
    </hints>
   </connection>

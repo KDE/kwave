@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>292</width>
-    <height>310</height>
+    <width>343</width>
+    <height>321</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -335,31 +335,9 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="btOK">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="btCancel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>&amp;Cancel</string>
+      <widget class="KDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -369,9 +347,9 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
   </customwidget>
   <customwidget>
    <class>Kwave::InvertableSpinBox</class>
@@ -390,8 +368,6 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
   <tabstop>rbLogarithmic</tabstop>
   <tabstop>slider</tabstop>
   <tabstop>spinbox</tabstop>
-  <tabstop>btOK</tabstop>
-  <tabstop>btCancel</tabstop>
  </tabstops>
  <includes>
   <include location="global">klocale.h</include>
@@ -400,34 +376,34 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
  <resources/>
  <connections>
   <connection>
-   <sender>btOK</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
    <receiver>VolumeDlg</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>159</x>
-     <y>259</y>
+     <x>115</x>
+     <y>290</y>
     </hint>
     <hint type="destinationlabel">
-     <x>87</x>
-     <y>270</y>
+     <x>35</x>
+     <y>303</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>btCancel</sender>
-   <signal>clicked(bool)</signal>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
    <receiver>VolumeDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>243</x>
-     <y>264</y>
+     <x>197</x>
+     <y>284</y>
     </hint>
     <hint type="destinationlabel">
-     <x>234</x>
-     <y>286</y>
+     <x>221</x>
+     <y>306</y>
     </hint>
    </hints>
   </connection>

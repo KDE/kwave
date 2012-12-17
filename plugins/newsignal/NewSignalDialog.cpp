@@ -82,7 +82,7 @@ Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
             this, SLOT(samplesChanged(int)));
 
     // help button
-    connect(btHelp, SIGNAL(clicked()),
+    connect(buttonBox->button(QDialogButtonBox::Help), SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
 
     // pre-initialize the size
@@ -256,7 +256,7 @@ void Kwave::NewSignalDialog::timeChanged(int)
     edSamples->setValue(samples);
     slideLength->setValue(static_cast<int>(100.0 * samples / max_samples));
     updateFileSize();
-    btOK->setEnabled(samples > 0.0);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0.0);
 
     m_recursive = false;
 }
@@ -283,7 +283,7 @@ void Kwave::NewSignalDialog::samplesChanged(int)
     setHMS(samples);
     slideLength->setValue(static_cast<int>(100.0 * samples / max_samples));
     updateFileSize();
-    btOK->setEnabled(samples > 0.0);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0.0);
 
     m_recursive = false;
 }
@@ -349,7 +349,7 @@ void Kwave::NewSignalDialog::setLengthPercentage(int percent)
     edSamples->setValue(samples);
     setHMS(samples);
     updateFileSize();
-    btOK->setEnabled(samples > 0.0);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0.0);
 
     m_recursive = false;
 }

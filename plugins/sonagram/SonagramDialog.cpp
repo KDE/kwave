@@ -88,9 +88,10 @@ Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     setPoints(1 << (bits-1));
     setBoxPoints(0);
 
-    connect(btOK,        SIGNAL(clicked()),         SLOT(accept()));
-    connect(btCancel,    SIGNAL(clicked()),         SLOT(reject()));
-    connect(btHelp,      SIGNAL(clicked()),         SLOT(invokeHelp()));
+    connect(
+	buttonBox->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+	this,                                      SLOT(invokeHelp())
+    );
     connect(pointslider, SIGNAL(valueChanged(int)), SLOT(setPoints(int)));
     connect(pointbox,    SIGNAL(activated(int)),    SLOT(setBoxPoints(int)));
 }

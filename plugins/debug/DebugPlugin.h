@@ -40,10 +40,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	DebugPlugin(const Kwave::PluginContext &c);
+	DebugPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~DebugPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/** @see Kwave::Plugin::load() */
 	virtual void load(QStringList &params);

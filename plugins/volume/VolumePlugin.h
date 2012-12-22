@@ -35,10 +35,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	VolumePlugin(const Kwave::PluginContext &context);
+	VolumePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~VolumePlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	 * Shows a dialog for selecting a volume.

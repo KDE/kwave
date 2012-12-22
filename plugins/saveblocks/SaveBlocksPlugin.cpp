@@ -43,8 +43,9 @@ KWAVE_PLUGIN(Kwave::SaveBlocksPlugin, "saveblocks", "2.3",
              I18N_NOOP("Save Blocks"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::SaveBlocksPlugin::SaveBlocksPlugin(const Kwave::PluginContext &c)
-    :Kwave::Plugin(c), m_url(), m_pattern(), m_numbering_mode(CONTINUE),
+Kwave::SaveBlocksPlugin::SaveBlocksPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager),
+     m_url(), m_pattern(), m_numbering_mode(CONTINUE),
      m_selection_only(true)
 {
 }

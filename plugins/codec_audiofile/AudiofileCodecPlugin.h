@@ -31,10 +31,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	AudiofileCodecPlugin(const Kwave::PluginContext &c);
+	AudiofileCodecPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~AudiofileCodecPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	 * Gets called when the plugin is first loaded.

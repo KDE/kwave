@@ -45,10 +45,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	PlayBackPlugin(const Kwave::PluginContext &c);
+	PlayBackPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~PlayBackPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	 * Gets called when the plugin is first loaded and connects itself

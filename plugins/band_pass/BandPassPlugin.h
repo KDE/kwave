@@ -40,10 +40,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	BandPassPlugin(const Kwave::PluginContext &context);
+	BandPassPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~BandPassPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/** Creates the setup dialog and connects it's signals */
 	virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);

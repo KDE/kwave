@@ -27,8 +27,9 @@ KWAVE_PLUGIN(Kwave::AudiofileCodecPlugin, "codec_audiofile", "2.3",
              I18N_NOOP("Audiofile Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-Kwave::AudiofileCodecPlugin::AudiofileCodecPlugin(const Kwave::PluginContext &c)
-    :Kwave::Plugin(c), m_decoder(0)
+Kwave::AudiofileCodecPlugin::AudiofileCodecPlugin(
+    Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_decoder(0)
 {
 }
 

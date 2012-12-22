@@ -29,8 +29,8 @@ KWAVE_PLUGIN(Kwave::FlacCodecPlugin, "codec_flac", "2.3",
              I18N_NOOP("FLAC Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-Kwave::FlacCodecPlugin::FlacCodecPlugin(const Kwave::PluginContext &c)
-    :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
+Kwave::FlacCodecPlugin::FlacCodecPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_decoder(0), m_encoder(0)
 {
 }
 

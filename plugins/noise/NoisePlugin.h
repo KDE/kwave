@@ -33,10 +33,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	NoisePlugin(const Kwave::PluginContext &c);
+	NoisePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~NoisePlugin() {}
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/** Fills the selected area with noise */
 	virtual void run(QStringList);

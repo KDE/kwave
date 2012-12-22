@@ -29,8 +29,8 @@ KWAVE_PLUGIN(Kwave::GotoPlugin, "goto", "2.3",
              I18N_NOOP("Goto Position"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::GotoPlugin::GotoPlugin(const Kwave::PluginContext &c)
-    :Kwave::GotoPluginBase(c)
+Kwave::GotoPlugin::GotoPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::GotoPluginBase(plugin_manager)
 {
 }
 

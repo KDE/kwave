@@ -40,8 +40,8 @@ KWAVE_PLUGIN(Kwave::VolumePlugin, "volume", "2.3",
              I18N_NOOP("Volume"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::VolumePlugin::VolumePlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context), m_params(), m_factor(1.0), m_mode(0)
+Kwave::VolumePlugin::VolumePlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_params(), m_factor(1.0), m_mode(0)
 {
 }
 

@@ -29,8 +29,8 @@ KWAVE_PLUGIN(Kwave::MP3CodecPlugin, "codec_mp3", "2.3",
              I18N_NOOP("MP3 Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-Kwave::MP3CodecPlugin::MP3CodecPlugin(const Kwave::PluginContext &c)
-    :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
+Kwave::MP3CodecPlugin::MP3CodecPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_decoder(0), m_encoder(0)
 {
 }
 

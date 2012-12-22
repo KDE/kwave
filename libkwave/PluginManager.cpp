@@ -38,7 +38,6 @@
 #include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PlaybackDeviceFactory.h"
-#include "libkwave/PluginContext.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
@@ -48,37 +47,6 @@
 #include "libkwave/PluginManager.h"
 
 //***************************************************************************
-//***************************************************************************
-Kwave::PluginManager::PluginDeleter::PluginDeleter(Kwave::Plugin *plugin,
-                                                   void *handle)
-  :QObject(), m_plugin(plugin), m_handle(handle)
-{
-    Q_ASSERT(m_plugin);
-}
-
-//***************************************************************************
-Kwave::PluginManager::PluginDeleter::~PluginDeleter()
-{
-    // check: this must be called from the GUI thread only!
-    Q_ASSERT(this->thread() == QThread::currentThread());
-    Q_ASSERT(this->thread() == qApp->thread());
-
-    Q_ASSERT(m_plugin);
-    if (!m_plugin) return;
-
-    // delete the plugin, this should also remove everything it has allocated
-//     qDebug("PluginDeleter: deleting '%s'", DBG(m_plugin->name()));
-    delete m_plugin;
-
-    // empty the event queues before unmap, in case the destructors
-    // queued something
-    qApp->processEvents();
-    qApp->flush();
-}
-
-//***************************************************************************
-//***************************************************************************
-
 // static initializers
 
 QMap<QString, Kwave::PluginManager::PluginModule>
@@ -209,16 +177,8 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 //     qDebug("loadPlugin(%s) [module use count=%d]",
 //         DBG(name), info.m_use_count);
 
-    Kwave::PluginContext plugin_context(
-	*this,
-	info.m_handle,
-	info.m_name,
-	info.m_version,
-	info.m_author
-    );
-
     // call the loader function to create an instance
-    Kwave::Plugin *plugin = info.m_loader(&plugin_context);
+    Kwave::Plugin *plugin = info.m_loader(*this);
     Q_ASSERT(plugin);
     if (!plugin) {
 	qWarning("PluginManager::loadPlugin('%s'): out of memory", DBG(name));
@@ -234,7 +194,7 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
 
     // get the last settings and call the "load" function
     // now the plugin is present and loaded
-    QStringList last_params = loadPluginDefaults(name, plugin->version());
+    QStringList last_params = loadPluginDefaults(name);
     plugin->load(last_params);
 
     return plugin;
@@ -275,7 +235,7 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 	}
     } else {
 	// load previous parameters from config
-	QStringList last_params = loadPluginDefaults(name, plugin->version());
+	QStringList last_params = loadPluginDefaults(name);
 
 	// call the plugin's setup function
 	params = plugin->setup(last_params);
@@ -286,7 +246,7 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 	    // emit a new command.
 
 	    // store parameters for the next time
-	    savePluginDefaults(name, plugin->version(), *params);
+	    savePluginDefaults(name, *params);
 
 	    // We DO NOT call the plugin's "execute"
 	    // function directly, as it should be possible
@@ -368,14 +328,14 @@ int Kwave::PluginManager::setupPlugin(const QString &name)
     if (!plugin) return -ENOMEM;
 
     // now the plugin is present and loaded
-    QStringList last_params = loadPluginDefaults(name, plugin->version());
+    QStringList last_params = loadPluginDefaults(name);
 
     // call the plugin's setup function
     QStringList *params = plugin->setup(last_params);
     if (params) {
 	// we have a non-zero parameter list, so
 	// the setup function has not been aborted.
-	savePluginDefaults(name, plugin->version(), *params);
+	savePluginDefaults(name, *params);
 	delete params;
     } else {
 	plugin->release();
@@ -387,13 +347,17 @@ int Kwave::PluginManager::setupPlugin(const QString &name)
 }
 
 //***************************************************************************
-QStringList Kwave::PluginManager::loadPluginDefaults(
-    const QString &name, const QString &version)
+QStringList Kwave::PluginManager::loadPluginDefaults(const QString &name)
 {
     QString def_version;
     QString section = _("plugin ");
     QStringList list;
     section += name;
+
+    // get the plugin version
+    if (!m_plugin_modules.contains(name)) return list;
+    const PluginModule &info = m_plugin_modules[name];
+    QString version = info.m_version;
 
     Q_ASSERT(KGlobal::config());
     if (!KGlobal::config()) return list;
@@ -419,9 +383,14 @@ QStringList Kwave::PluginManager::loadPluginDefaults(
 
 //***************************************************************************
 void Kwave::PluginManager::savePluginDefaults(const QString &name,
-                                              const QString &version,
                                               QStringList &params)
 {
+
+    // get the plugin version
+    if (!m_plugin_modules.contains(name)) return;
+    const PluginModule &info = m_plugin_modules[name];
+    QString version = info.m_version;
+
     QString section = _("plugin ");
     section += name;
 
@@ -550,13 +519,7 @@ void Kwave::PluginManager::pluginClosed(Kwave::Plugin *p)
         m_plugin_instances.removeAll(p);
 
     // schedule the deferred delete/unload of the plugin
-    void *handle = p->handle();
-    Q_ASSERT(handle);
-    PluginDeleter *delete_later = new PluginDeleter(p, handle);
-    Q_ASSERT(delete_later);
-    if (delete_later) delete_later->deleteLater();
-
-//    qDebug("PluginManager::pluginClosed(): done");
+    p->deleteLater();
 }
 
 //***************************************************************************

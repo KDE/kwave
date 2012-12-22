@@ -220,7 +220,8 @@ namespace Kwave
 	 * Signature of a loader function, must be provided by a plugin
 	 * to create an instance of a class derived from Kwave::Plugin
 	 */
-	typedef Kwave::Plugin *(plugin_ldr_func_t)(const Kwave::PluginContext *);
+	typedef Kwave::Plugin *(plugin_ldr_func_t)(
+	    Kwave::PluginManager &plugin_manager);
 
 	/** structure with information about a plugin */
 	typedef struct  {
@@ -311,24 +312,6 @@ namespace Kwave
     private:
 
 	/**
-	 * Helper class for deferred deleting and unloading a plugin
-	 * @internal
-	 */
-	class PluginDeleter: public QObject
-	{
-	public:
-	    /** Constructor, stores data for later removal */
-	    PluginDeleter(Kwave::Plugin *plugin, void *handle);
-
-	    /** Destructor, deletes and unloads the plugin */
-	    virtual ~PluginDeleter();
-
-	private:
-	    KwavePluginPointer m_plugin; /**< Plugin to be deleted */
-	    void *m_handle;              /**< Handle of the shared object */
-	};
-
-	/**
 	 * Uses the dynamic linker to load a plugin into memory.
 	 * @param name the name of the plugin (filename)
 	 * @return pointer to the loaded plugin or zero if the
@@ -343,11 +326,9 @@ namespace Kwave
 	 * the plugin does not match the version number in the config file,
 	 * the return value will also be 0.
 	 * @param name the name of the plugin
-	 * @param version the version number of the plugin
 	 * @return list of strings
 	 */
-	QStringList loadPluginDefaults(const QString &name,
-	                               const QString &version);
+	QStringList loadPluginDefaults(const QString &name);
 
 	/**
 	 * Saves a plugin's default parameters to the user's configuration
@@ -355,11 +336,9 @@ namespace Kwave
 	 * before saving the new settings in order to wipe out invalid
 	 * entries and settings that belong to an older version.
 	 * @param name the name of the plugin
-	 * @param version the version number of the plugin
 	 * @param params a list of configuration strings
 	 */
 	void savePluginDefaults(const QString &name,
-	                        const QString &version,
 	                        QStringList &params);
 
 	/** connects all signals of and for a plugin */

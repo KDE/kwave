@@ -32,10 +32,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	AsciiCodecPlugin(const Kwave::PluginContext &c);
+	AsciiCodecPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~AsciiCodecPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	 * Gets called when the plugin is first loaded.

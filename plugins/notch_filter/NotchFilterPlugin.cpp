@@ -33,8 +33,8 @@ KWAVE_PLUGIN(Kwave::NotchFilterPlugin, "notch_filter", "2.3",
              I18N_NOOP("Notch Filter"), "Dave Flogeras");
 
 //***************************************************************************
-Kwave::NotchFilterPlugin::NotchFilterPlugin(const Kwave::PluginContext &context)
-    :Kwave::FilterPlugin(context),
+Kwave::NotchFilterPlugin::NotchFilterPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::FilterPlugin(plugin_manager),
      m_frequency(3500.0), m_last_freq(100), m_bw(100), m_last_bw(200)
 {
 }

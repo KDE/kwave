@@ -41,10 +41,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	ReversePlugin(const Kwave::PluginContext &c);
+	ReversePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~ReversePlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/** reverses the selection */
 	virtual void run(QStringList);

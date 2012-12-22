@@ -38,8 +38,8 @@ KWAVE_PLUGIN(Kwave::AmplifyFreePlugin, "amplifyfree", "2.3",
              I18N_NOOP("Amplify Free"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::AmplifyFreePlugin::AmplifyFreePlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context), m_action_name(), m_params(), m_curve()
+Kwave::AmplifyFreePlugin::AmplifyFreePlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_action_name(), m_params(), m_curve()
 {
 }
 

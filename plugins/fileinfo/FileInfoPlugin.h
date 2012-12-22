@@ -30,10 +30,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	FileInfoPlugin(const Kwave::PluginContext &context);
+	FileInfoPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** virtual Destructor */
 	virtual ~FileInfoPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	* Shows a dialog for editing file properties.

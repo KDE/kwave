@@ -43,10 +43,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	LowPassPlugin(const Kwave::PluginContext &context);
+	LowPassPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~LowPassPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/** Creates the setup dialog and connects it's signals */
 	virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);

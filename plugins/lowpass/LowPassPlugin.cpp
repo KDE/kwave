@@ -33,8 +33,8 @@ KWAVE_PLUGIN(Kwave::LowPassPlugin, "lowpass", "2.3",
              I18N_NOOP("Low Pass Filter"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::LowPassPlugin::LowPassPlugin(const Kwave::PluginContext &context)
-    :Kwave::FilterPlugin(context),
+Kwave::LowPassPlugin::LowPassPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::FilterPlugin(plugin_manager),
      m_frequency(3500.0), m_last_freq(100)
 {
 }

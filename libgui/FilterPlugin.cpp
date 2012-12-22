@@ -36,9 +36,9 @@
 #include "libgui/FilterPlugin.h"
 
 //***************************************************************************
-Kwave::FilterPlugin::FilterPlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context), m_params(),
-     m_listen(false), m_pause(false), m_sink(0)
+Kwave::FilterPlugin::FilterPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager),
+     m_params(), m_listen(false), m_pause(false), m_sink(0)
 {
 }
 

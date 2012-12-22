@@ -40,10 +40,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	MemoryPlugin(const Kwave::PluginContext &c);
+	MemoryPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~MemoryPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	 * Gets called when the plugin is first loaded.

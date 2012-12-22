@@ -30,8 +30,8 @@
 
 #include <kdemacros.h>
 
-#include "libkwave/PluginContext.h"
 #include "libkwave/Sample.h"
+#include "libkwave/String.h"
 
 class QStringList;
 class QProgressDialog;
@@ -39,15 +39,20 @@ class QProgressDialog;
 #define KWAVE_PLUGIN(__class__,__name__,__version__,                          \
                      __description__,__author__)                              \
                                                                               \
-    extern "C" Kwave::Plugin *load(const Kwave::PluginContext *c) KDE_EXPORT; \
+    extern "C" Kwave::Plugin *load(                                           \
+                     Kwave::PluginManager &plugin_manager) KDE_EXPORT;        \
     extern "C" const char    *name                         KDE_EXPORT;        \
     extern "C" const char    *version                      KDE_EXPORT;        \
     extern "C" const char    *description                  KDE_EXPORT;        \
     extern "C" const char    *author                       KDE_EXPORT;        \
                                                                               \
-    extern "C" Kwave::Plugin *load(const Kwave::PluginContext *c) {           \
-	__class__ *np = (c) ? new __class__(*c) : 0;                          \
-	return np;                                                            \
+    extern "C" Kwave::Plugin *load(Kwave::PluginManager &plugin_manager) {    \
+	return new __class__(plugin_manager);                                 \
+    }                                                                         \
+                                                                              \
+    QString __class__::name() const                                           \
+    {                                                                         \
+	return _(__name__);                                                   \
     }                                                                         \
                                                                               \
     const char *name        = __name__;                                       \
@@ -79,8 +84,9 @@ namespace Kwave
 
 	/**
 	 * Constructor
+	 * @param plugin_manager reference to our plugin manager
 	 */
-	Plugin(const Kwave::PluginContext &c);
+	Plugin(Kwave::PluginManager &plugin_manager);
 
 	/**
 	 * Destructor.
@@ -88,13 +94,7 @@ namespace Kwave
 	virtual ~Plugin();
 
 	/** Returns the name of the plugin. */
-	const QString &name();
-
-	/** Returns the version string of the plugin. */
-	const QString &version();
-
-	/** Returns the author of the plugin. */
-	const QString &author();
+	virtual QString name() const = 0;
 
 	/**
 	 * Returns a text for the progress dialog if enabled.
@@ -251,12 +251,6 @@ namespace Kwave
 	 */
 	int execute(QStringList &params);
 
-	/**
-	 * Returns the handle to the dynamically loaded shared object.
-	 * For internal usage only!
-	 */
-	void *handle();
-
 	/** emits a sigCommand() */
 	void emitCommand(const QString &command);
 
@@ -336,11 +330,8 @@ namespace Kwave
 
     private:
 
-	/**
-	 * context of the plugin, includes references to some objects of
-	 * the main program.
-	 */
-	Kwave::PluginContext m_context;
+	/** reference to the plugin manager */
+	Kwave::PluginManager &m_plugin_manager;
 
 	/**
 	 * Thread that executes the run() member function.

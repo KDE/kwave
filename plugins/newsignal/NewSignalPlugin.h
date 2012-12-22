@@ -32,10 +32,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	NewSignalPlugin(const Kwave::PluginContext &context);
+	NewSignalPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** virtual Destructor */
 	virtual ~NewSignalPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	 * Shows a dialog for creating a new signal and emits sigCommand if

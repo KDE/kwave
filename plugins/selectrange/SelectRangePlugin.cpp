@@ -35,9 +35,12 @@ KWAVE_PLUGIN(Kwave::SelectRangePlugin, "selectrange", "2.3",
              I18N_NOOP("Select Range"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::SelectRangePlugin::SelectRangePlugin(const Kwave::PluginContext &c)
-    :Kwave::Plugin(c), m_start_mode(Kwave::SelectTimeWidget::bySamples),
-     m_range_mode(Kwave::SelectTimeWidget::bySamples), m_range(0)
+Kwave::SelectRangePlugin::SelectRangePlugin(
+    Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager),
+     m_start_mode(Kwave::SelectTimeWidget::bySamples),
+     m_range_mode(Kwave::SelectTimeWidget::bySamples),
+     m_range(0)
 {
 }
 

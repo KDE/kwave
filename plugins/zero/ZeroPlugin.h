@@ -41,10 +41,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	ZeroPlugin(const Kwave::PluginContext &c);
+	ZeroPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~ZeroPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/** Fills the selected area with zeroes */
 	virtual void run(QStringList);

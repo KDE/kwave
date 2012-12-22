@@ -36,10 +36,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	FlacCodecPlugin(const Kwave::PluginContext &c);
+	FlacCodecPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~FlacCodecPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	 * Gets called when the plugin is first loaded.

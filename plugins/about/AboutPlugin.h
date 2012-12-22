@@ -32,11 +32,18 @@ namespace Kwave
 
     public:
 
-	/** Constructor */
-	AboutPlugin(const Kwave::PluginContext &c);
+	/**
+	 * Constructor
+	 * @param plugin_manager reference to our plugin manager
+	 * @param name the name of the plugin
+	 */
+	AboutPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~AboutPlugin() {};
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	* shows the about dialog,

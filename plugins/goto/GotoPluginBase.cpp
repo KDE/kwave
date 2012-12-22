@@ -32,8 +32,9 @@
 #include "GotoDialog.h"
 
 //***************************************************************************
-Kwave::GotoPluginBase::GotoPluginBase(const Kwave::PluginContext &c)
-    :Kwave::Plugin(c), m_mode(Kwave::SelectTimeWidget::bySamples), m_position(0)
+Kwave::GotoPluginBase::GotoPluginBase(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager),
+     m_mode(Kwave::SelectTimeWidget::bySamples), m_position(0)
 {
 }
 

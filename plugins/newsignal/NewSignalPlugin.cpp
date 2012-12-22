@@ -29,8 +29,8 @@ KWAVE_PLUGIN(Kwave::NewSignalPlugin, "newsignal", "2.3",
              I18N_NOOP("New Signal"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::NewSignalPlugin::NewSignalPlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context), m_samples(2646000), m_rate(44100),
+Kwave::NewSignalPlugin::NewSignalPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_samples(2646000), m_rate(44100),
     m_bits(16), m_tracks(2), m_bytime(true)
 {
 }

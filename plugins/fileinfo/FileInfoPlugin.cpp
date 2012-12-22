@@ -30,8 +30,8 @@ KWAVE_PLUGIN(Kwave::FileInfoPlugin, "fileinfo", "2.3",
              I18N_NOOP("File Info"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::FileInfoPlugin::FileInfoPlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context)
+Kwave::FileInfoPlugin::FileInfoPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager)
 {
 }
 

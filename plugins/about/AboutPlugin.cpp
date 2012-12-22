@@ -28,8 +28,8 @@ KWAVE_PLUGIN(Kwave::AboutPlugin, "about", "2.3",
              I18N_NOOP("About Kwave"), "Ralf Waspe & Gilles Caulier");
 
 //***************************************************************************
-Kwave::AboutPlugin::AboutPlugin(const Kwave::PluginContext &c)
-    :Kwave::Plugin(c)
+Kwave::AboutPlugin::AboutPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager)
 {
 }
 

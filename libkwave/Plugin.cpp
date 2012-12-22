@@ -34,7 +34,6 @@
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/Sample.h"
-#include "libkwave/PluginContext.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/PluginWorkerThread.h"
 #include "libkwave/SignalManager.h"
@@ -67,8 +66,8 @@
  */
 
 //***************************************************************************
-Kwave::Plugin::Plugin(const Kwave::PluginContext &c)
-    :m_context(c),
+Kwave::Plugin::Plugin(Kwave::PluginManager &plugin_manager)
+    :m_plugin_manager(plugin_manager),
      m_thread(0),
      m_thread_lock(),
      m_progress_enabled(true),
@@ -113,24 +112,6 @@ Kwave::Plugin::~Plugin()
 
     // finally get rid of the confirm/cancel proxy and the progress dialog
     closeProgressDialog(this);
-}
-
-//***************************************************************************
-const QString &Kwave::Plugin::name()
-{
-    return m_context.m_name;
-}
-
-//***************************************************************************
-const QString &Kwave::Plugin::version()
-{
-    return m_context.m_version;
-}
-
-//***************************************************************************
-const QString &Kwave::Plugin::author()
-{
-    return m_context.m_author;
 }
 
 //***************************************************************************
@@ -218,10 +199,10 @@ int Kwave::Plugin::stop()
 
     if (m_thread && m_thread->isRunning() &&
 	(QThread::currentThread() == m_thread)) {
-	qWarning("Kwave::Plugin::stop(): plugin '%s' called stop() from "\
-	         "within it's own worker thread (from run() ?). "\
-	         "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
-	         DBG(name()), DBG(author()));
+	qWarning("Kwave::Plugin::stop(): plugin '%s' called stop() from "
+	         "within it's own worker thread (from run() ?). "
+	         "This would produce a deadlock, PLEASE FIX THIS !",
+	         DBG(name()));
 
 #ifdef DEBUG
 	qDebug("pthread_self()=%p, tid=%p",
@@ -435,7 +416,7 @@ void Kwave::Plugin::release()
 //***************************************************************************
 Kwave::PluginManager &Kwave::Plugin::manager()
 {
-    return m_context.m_plugin_manager;
+    return m_plugin_manager;
 }
 
 //***************************************************************************
@@ -502,12 +483,6 @@ sample_index_t Kwave::Plugin::selection(QList<unsigned int> *tracks,
 void Kwave::Plugin::selectRange(sample_index_t offset, sample_index_t length)
 {
     manager().selectRange(offset, length);
-}
-
-//***************************************************************************
-void *Kwave::Plugin::handle()
-{
-    return m_context.m_handle;
 }
 
 //***************************************************************************

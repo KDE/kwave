@@ -39,7 +39,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	GotoPluginBase(const Kwave::PluginContext &context);
+	GotoPluginBase(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~GotoPluginBase();

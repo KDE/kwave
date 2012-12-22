@@ -43,10 +43,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	NormalizePlugin(const Kwave::PluginContext &c);
+	NormalizePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~NormalizePlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/** normalizes the volume */
 	virtual void run(QStringList);

@@ -34,10 +34,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	InsertAtPlugin(const Kwave::PluginContext &context);
+	InsertAtPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~InsertAtPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
     protected:
 

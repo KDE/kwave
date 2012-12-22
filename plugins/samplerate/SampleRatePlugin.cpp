@@ -44,8 +44,8 @@ KWAVE_PLUGIN(Kwave::SampleRatePlugin, "samplerate", "2.3",
              I18N_NOOP("Sample Rate Conversion"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::SampleRatePlugin::SampleRatePlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context), m_params(), m_new_rate(0.0),
+Kwave::SampleRatePlugin::SampleRatePlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_params(), m_new_rate(0.0),
      m_whole_signal(false)
 {
 }

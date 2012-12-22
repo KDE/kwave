@@ -28,8 +28,8 @@ KWAVE_PLUGIN(Kwave::OggCodecPlugin, "codec_ogg", "2.3",
              I18N_NOOP("Ogg Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
-Kwave::OggCodecPlugin::OggCodecPlugin(const Kwave::PluginContext &c)
-    :Kwave::Plugin(c), m_decoder(0), m_encoder(0)
+Kwave::OggCodecPlugin::OggCodecPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_decoder(0), m_encoder(0)
 {
 }
 

@@ -162,8 +162,8 @@ void Kwave::GetMaxPowerJob::run()
 //***************************************************************************
 //***************************************************************************
 
-Kwave::NormalizePlugin::NormalizePlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context)
+Kwave::NormalizePlugin::NormalizePlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager)
 {
 }
 

@@ -35,8 +35,8 @@ KWAVE_PLUGIN(Kwave::DebugPlugin, "debug", "2.3",
     emitCommand(entry.arg(_(cmd)).arg(i18n(txt)));
 
 //***************************************************************************
-Kwave::DebugPlugin::DebugPlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context), m_buffer()
+Kwave::DebugPlugin::DebugPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_buffer()
 {
 }
 

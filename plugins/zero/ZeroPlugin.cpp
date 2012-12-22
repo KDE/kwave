@@ -37,8 +37,8 @@ KWAVE_PLUGIN(Kwave::ZeroPlugin, "zero", "2.3",
 #define ZERO_COUNT (64 * 1024)
 
 //***************************************************************************
-Kwave::ZeroPlugin::ZeroPlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context), m_zeroes()
+Kwave::ZeroPlugin::ZeroPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_zeroes()
 {
 }
 

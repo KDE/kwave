@@ -53,10 +53,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	RecordPlugin(const Kwave::PluginContext &c);
+	RecordPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~RecordPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/** @see Kwave::Plugin::setup() */
 	virtual QStringList *setup(QStringList &previous_params);

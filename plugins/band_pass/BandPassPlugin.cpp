@@ -32,8 +32,8 @@ KWAVE_PLUGIN(Kwave::BandPassPlugin, "band_pass", "2.3",
              I18N_NOOP("Band Pass Filter"), "Dave Flogeras");
 
 //***************************************************************************
-Kwave::BandPassPlugin::BandPassPlugin(const Kwave::PluginContext &context)
-    :Kwave::FilterPlugin(context),
+Kwave::BandPassPlugin::BandPassPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::FilterPlugin(plugin_manager),
      m_frequency(3500.0), m_last_freq(100),m_bw(100),m_last_bw(200)
 {
 }

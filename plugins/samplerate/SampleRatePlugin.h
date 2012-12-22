@@ -40,10 +40,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	SampleRatePlugin(const Kwave::PluginContext &c);
+	SampleRatePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~SampleRatePlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/** changes the sample rate */
 	virtual void run(QStringList);

@@ -72,8 +72,8 @@ namespace Kwave {
 }
 
 //***************************************************************************
-Kwave::SonagramPlugin::SonagramPlugin(const Kwave::PluginContext &c)
-    :Kwave::Plugin(c), m_sonagram_window(0), m_selected_channels(),
+Kwave::SonagramPlugin::SonagramPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_sonagram_window(0), m_selected_channels(),
      m_first_sample(0), m_last_sample(0), m_stripes(0), m_fft_points(0),
      m_window_type(Kwave::WINDOW_FUNC_NONE), m_color(true),
      m_track_changes(true), m_follow_selection(false), m_image(),

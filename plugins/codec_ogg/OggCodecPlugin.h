@@ -34,10 +34,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	OggCodecPlugin(const Kwave::PluginContext &c);
+	OggCodecPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~OggCodecPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	 * Gets called when the plugin is first loaded.

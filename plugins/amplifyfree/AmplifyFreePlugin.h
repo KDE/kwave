@@ -37,10 +37,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	AmplifyFreePlugin(const Kwave::PluginContext &context);
+	AmplifyFreePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~AmplifyFreePlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	 * Shows a dialog for editing the amplification curve and emits a command

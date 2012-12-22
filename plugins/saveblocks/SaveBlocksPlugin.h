@@ -38,10 +38,13 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	SaveBlocksPlugin(const Kwave::PluginContext &context);
+	SaveBlocksPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~SaveBlocksPlugin();
+
+	/** Returns the name of the plugin. */
+	virtual QString name() const;
 
 	/**
 	 * Shows a file saving dialog and emits a command for saving the blocks

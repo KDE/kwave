@@ -202,8 +202,8 @@ void Kwave::ReverseJob::run()
 
 //***************************************************************************
 //***************************************************************************
-Kwave::ReversePlugin::ReversePlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context)
+Kwave::ReversePlugin::ReversePlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager)
 {
 }
 

@@ -70,8 +70,8 @@ KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.3",
 #define SCREEN_REFRESHES_PER_SECOND 10
 
 //***************************************************************************
-Kwave::PlayBackPlugin::PlayBackPlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context), m_dialog(0),
+Kwave::PlayBackPlugin::PlayBackPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager), m_dialog(0),
     m_device(0), m_lock_device(), m_playback_params(),
     m_playback_controller(manager().playbackController()),
     m_old_first(0),

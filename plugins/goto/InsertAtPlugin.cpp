@@ -28,8 +28,8 @@ KWAVE_PLUGIN(Kwave::InsertAtPlugin, "insert_at", "2.3",
              I18N_NOOP("Insert At"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::InsertAtPlugin::InsertAtPlugin(const Kwave::PluginContext &c)
-    :Kwave::GotoPluginBase(c)
+Kwave::InsertAtPlugin::InsertAtPlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::GotoPluginBase(plugin_manager)
 {
 }
 

@@ -34,8 +34,8 @@ KWAVE_PLUGIN(Kwave::NoisePlugin, "noise", "2.3",
              I18N_NOOP("Noise Generator"), "Thomas Eschenbacher");
 
 //***************************************************************************
-Kwave::NoisePlugin::NoisePlugin(const Kwave::PluginContext &context)
-    :Kwave::Plugin(context)
+Kwave::NoisePlugin::NoisePlugin(Kwave::PluginManager &plugin_manager)
+    :Kwave::Plugin(plugin_manager)
 {
 }
 

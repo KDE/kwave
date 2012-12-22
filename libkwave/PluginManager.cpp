@@ -374,6 +374,11 @@ QStringList Kwave::PluginManager::loadPluginDefaults(const QString &name)
 	    "plugin '%s': defaults for version '%s' not loaded, found "
 	    "old ones of version '%s'.",
 	    DBG(name), DBG(version), DBG(def_version));
+
+	// delete the old settings
+	cfg.deleteEntry("version");
+	cfg.deleteEntry("defaults");
+
 	return list;
     }
 

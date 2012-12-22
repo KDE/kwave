@@ -22,6 +22,7 @@
  * using KDE standard buttons in dialogs
  * simplified plugin loading mechanism, do load/unload only at start/end of
    the program
+ * delete plugin settings of old versions when detected
 
 0.8.9  [2012-11-06]
 

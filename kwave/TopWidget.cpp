@@ -102,8 +102,8 @@
 
 //***************************************************************************
 //***************************************************************************
-Kwave::TopWidget::TopWidget(Kwave::ApplicationContext &context)
-    :KMainWindow(), m_context(context),
+Kwave::TopWidget::TopWidget(Kwave::App &app)
+    :KMainWindow(), m_context(app),
      m_main_widget(0), m_toolbar_record_playback(0), m_zoomselect(0),
      m_menu_manager(0), m_action_undo(0), m_action_redo(0),
      m_action_zoomselection(0), m_action_zoomin(0), m_action_zoomout(0),
@@ -147,6 +147,9 @@ Kwave::TopWidget::TopWidget(Kwave::ApplicationContext &context)
 //***************************************************************************
 bool Kwave::TopWidget::init()
 {
+    if (!m_context.init(this))
+	return false;
+
     KIconLoader icon_loader;
     const int max_s = KIconLoader::SizeEnormous;
 
@@ -475,6 +478,8 @@ Kwave::TopWidget::~TopWidget()
     m_menu_manager = 0;
 
     m_context.application().closeWindow(this);
+
+    m_context.close();
 }
 
 //***************************************************************************
@@ -1199,7 +1204,6 @@ void Kwave::TopWidget::setZoomInfo(double zoom)
 void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 {
     Q_ASSERT(statusBar());
-    Q_ASSERT(m_menu_manager);
     if (!statusBar() || !m_menu_manager) return;
     double ms;
     QString txt;
@@ -1376,7 +1380,6 @@ void Kwave::TopWidget::setUndoRedoInfo(const QString &undo,
 	m_action_redo->setEnabled(redo_enabled);
     }
 
-    Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
     // set new enable and text of the undo menu entry

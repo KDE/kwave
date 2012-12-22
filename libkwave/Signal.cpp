@@ -20,7 +20,6 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <dlfcn.h>
 
 #include <QtCore/QReadLocker>
 #include <QtCore/QWriteLocker>

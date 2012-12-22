@@ -55,22 +55,28 @@ namespace Kwave
 
 	/**
 	 * initializes the instance
+	 * @param top_widget pointer to the toplevel widget
 	 * @return true if successful
 	 * @note implementation is in kwave/ApplicationContext.cpp
 	 */
-	bool init();
+	bool init(Kwave::TopWidget *top_widget);
+
+	/**
+	 * shuts down the instance
+	 */
+	void close();
 
 	/** returns a reference to the global Kwave application */
-	Kwave::App      &application();
+	Kwave::App      &application() const;
 
 	/** returns a pointer to the instance's toplevel window */
-	Kwave::TopWidget     *topWidget();
+	Kwave::TopWidget     *topWidget() const;
 
 	/** returns a pointer to the instance's signal manager */
-	Kwave::SignalManager *signalManager();
+	Kwave::SignalManager *signalManager() const;
 
 	/** returns a pointer to the instance's plugin manager */
-	PluginManager *pluginManager();
+	PluginManager *pluginManager() const;
 
     private:
 

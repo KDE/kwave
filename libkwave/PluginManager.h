@@ -34,6 +34,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/ViewManager.h"
 
+class QLibrary;
 class QString;
 class QStringList;
 class QWidget;
@@ -231,7 +232,7 @@ namespace Kwave
 	    QString            m_version;     /**< plugin API version   */
 	    plugin_ldr_func_t *m_loader;      /**< loader function      */
 
-	    void              *m_handle;      /**< handle from dlopen() */
+	    QLibrary          *m_module;      /**< shared object        */
 	    int                m_use_count;   /**< usage counter        */
 	} PluginModule;
 

@@ -23,6 +23,8 @@
  * simplified plugin loading mechanism, do load/unload only at start/end of
    the program
  * delete plugin settings of old versions when detected
+ * using QLibrary instead of functions from libdl
+ * bugfix: shutdown sequence was incomplete
 
 0.8.9  [2012-11-06]
 

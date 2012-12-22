@@ -20,7 +20,6 @@
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
-#include <dlfcn.h>
 
 #include <QtGui/QProgressDialog>
 #include <QtCore/QThread>

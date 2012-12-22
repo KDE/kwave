@@ -135,7 +135,6 @@ void Kwave::MenuManager::executeCommand(const QString &command)
 {
 
     Q_ASSERT(command.length());
-    Q_ASSERT(m_menu_root);
     if (!m_menu_root) return; // makes no sense if no menu root
 
     Kwave::Parser parser(command);
@@ -192,7 +191,6 @@ void Kwave::MenuManager::executeCommand(const QString &command)
 //***************************************************************************
 void Kwave::MenuManager::clearNumberedMenu(const QString &uid)
 {
-    Q_ASSERT(m_menu_root);
     Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->clear();
 }
@@ -219,8 +217,6 @@ void Kwave::MenuManager::addNumberedMenuEntry(const QString &uid,
 //***************************************************************************
 void Kwave::MenuManager::selectItem(const QString &group, const QString &uid)
 {
-    Q_ASSERT(m_menu_root);
-
     if (!group.length()) {
 	qWarning("MenuManager::selectItem('','%s'): no group!?", DBG(uid));
 	return ;
@@ -251,7 +247,6 @@ void Kwave::MenuManager::selectItem(const QString &group, const QString &uid)
 //***************************************************************************
 void Kwave::MenuManager::setItemChecked(const QString &uid, bool check)
 {
-    Q_ASSERT(m_menu_root);
     Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setChecked(check);
 }
@@ -259,7 +254,6 @@ void Kwave::MenuManager::setItemChecked(const QString &uid, bool check)
 //***************************************************************************
 void Kwave::MenuManager::setItemText(const QString &uid, const QString &text)
 {
-    Q_ASSERT(m_menu_root);
     Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setText(text);
 }
@@ -267,8 +261,9 @@ void Kwave::MenuManager::setItemText(const QString &uid, const QString &text)
 //***************************************************************************
 void Kwave::MenuManager::setItemEnabled(const QString &uid, bool enable)
 {
-    Q_ASSERT(m_menu_root);
-    Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
+    if (!m_menu_root) return;
+
+    Kwave::MenuNode *node = m_menu_root->findUID(uid);
     if (node) node->setEnabled(enable);
     else qWarning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",
 		  DBG(uid), enable);
@@ -277,8 +272,8 @@ void Kwave::MenuManager::setItemEnabled(const QString &uid, bool enable)
 //***************************************************************************
 Kwave::MenuManager::~MenuManager()
 {
-    Q_ASSERT(m_menu_root);
-    if (m_menu_root) delete m_menu_root;
+    delete m_menu_root;
+    m_menu_root = 0;
 }
 
 //***************************************************************************

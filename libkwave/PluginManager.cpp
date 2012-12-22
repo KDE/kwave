@@ -17,13 +17,12 @@
 
 #include "config.h"
 
-#include <dlfcn.h>
 #include <errno.h>
-#include <pthread.h>
 #include <unistd.h>
 
 #include <QtGui/QApplication>
 #include <QtCore/QLatin1Char>
+#include <QtCore/QLibrary>
 #include <QtCore/QMutableListIterator>
 
 #include <kglobal.h>
@@ -88,15 +87,6 @@ Kwave::PluginManager::~PluginManager()
     qApp->processEvents();
     qApp->flush();
 
-    Q_ASSERT(m_plugin_instances.isEmpty());
-    if (!m_plugin_instances.isEmpty()) {
-	qWarning("WARNING: %d plugin instances are still loaded:",
-	         m_plugin_instances.count());
-	foreach (Kwave::Plugin *p, m_plugin_instances) {
-	    qDebug("       => '%s'", DBG(p->name()));
-	}
-    }
-
     // release all loaded modules
     foreach (QString name, m_plugin_modules.keys()) {
 	PluginModule &p = m_plugin_modules[name];
@@ -105,15 +95,20 @@ Kwave::PluginManager::~PluginManager()
 // 	qDebug("PluginManager: releasing module '%s' [refcnt=%d]",
 // 	       DBG(name), p.m_use_count);
 	if (p.m_use_count == 0) {
-	    // now the handle of the shared object can be cleared too
-	    void *handle = p.m_handle;
+	    // remove the module from the list
 	    m_plugin_modules.remove(name);
-	    dlclose(handle);
+
+	    // now the handle of the shared object can be released too
+	    QLibrary *module = p.m_module;
+	    p.m_module = 0;
+	    if (module) {
+		module->unload();
+		delete module;
+	    }
 	} else {
 	    // still in use
 	}
     }
-
 }
 
 //***************************************************************************
@@ -635,23 +630,28 @@ void Kwave::PluginManager::searchPluginModules()
 	    _("kwave/plugins/*"), KStandardDirs::NoDuplicates);
 
     foreach (const QString &file, files) {
-	void *handle = dlopen(file.toLocal8Bit(), RTLD_NOW);
-	if (!handle) {
-	    qWarning("error in '%s':\n\t %s", DBG(file), dlerror());
+	QLibrary *module = new QLibrary(file);
+	if (!module) continue;
+
+	module->setLoadHints(QLibrary::ResolveAllSymbolsHint);
+	if (!module->load()) {
+	    qWarning("error in '%s':\n\t %s",
+	             DBG(file), DBG(module->errorString()));
+	    delete module;
 	    continue;
 	}
 
 	// get all required symbols from the plugin
 	const char **p_name    =
-	    static_cast<const char **>(dlsym(handle, sym_name));
+	    static_cast<const char **>(module->resolve(sym_name));
 	const char **p_version =
-	    static_cast<const char **>(dlsym(handle, sym_version));
+	    static_cast<const char **>(module->resolve(sym_version));
 	const char **p_description =
-	    static_cast<const char **>(dlsym(handle, sym_description));
+	    static_cast<const char **>(module->resolve(sym_description));
 	const char **p_author  =
-	    static_cast<const char **>(dlsym(handle, sym_author));
+	    static_cast<const char **>(module->resolve(sym_author));
 
-	void *p = dlsym(handle, sym_loader);
+	void *p = module->resolve(sym_loader);
 	plugin_ldr_func_t *p_loader = 0;
 	memcpy(&p_loader, &p, sizeof(p));
 
@@ -662,7 +662,7 @@ void Kwave::PluginManager::searchPluginModules()
 	    !*p_description || !*p_loader)
 	{
 	    qWarning("WARNING: plugin %s is broken", DBG(file));
-	    dlclose(handle);
+	    delete module;
 	    continue;
 	}
 
@@ -676,7 +676,7 @@ void Kwave::PluginManager::searchPluginModules()
 	info.m_version     = QString::fromUtf8(*p_version);
 	info.m_loader      = p_loader;
 
-	info.m_handle      = handle;
+	info.m_module      = module;
 	info.m_use_count   = 1;
 
 	m_plugin_modules.insert(info.m_name, info);

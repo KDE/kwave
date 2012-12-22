@@ -24,27 +24,27 @@
 #include "kwave/TopWidget.h"
 
 //***************************************************************************
-Kwave::App &Kwave::ApplicationContext::application()
+Kwave::App &Kwave::ApplicationContext::application() const
 {
     return m_application;
 }
 
 //***************************************************************************
-Kwave::TopWidget *Kwave::ApplicationContext::topWidget()
+Kwave::TopWidget *Kwave::ApplicationContext::topWidget() const
 {
     Q_ASSERT(m_top_widget);
     return m_top_widget;
 }
 
 //***************************************************************************
-Kwave::SignalManager *Kwave::ApplicationContext::signalManager()
+Kwave::SignalManager *Kwave::ApplicationContext::signalManager() const
 {
     Q_ASSERT(m_signal_manager);
     return m_signal_manager;
 }
 
 //***************************************************************************
-Kwave::PluginManager *Kwave::ApplicationContext::pluginManager()
+Kwave::PluginManager *Kwave::ApplicationContext::pluginManager() const
 {
     Q_ASSERT(m_plugin_manager);
     return m_plugin_manager;

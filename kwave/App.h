@@ -136,8 +136,8 @@ namespace Kwave
 	 */
 	QStringList m_recent_files;
 
-	/** list of application contexts */
-	QList<Kwave::ApplicationContext *> m_contexts;
+	/** list of toplevel widgets */
+	QList<Kwave::TopWidget *> m_top_widgets;
 
     };
 }

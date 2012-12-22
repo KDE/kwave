@@ -33,15 +33,14 @@ Kwave::ApplicationContext::ApplicationContext(Kwave::App &app)
 //***************************************************************************
 Kwave::ApplicationContext::~ApplicationContext()
 {
-    if (m_top_widget)     delete m_top_widget;
-    if (m_signal_manager) delete m_signal_manager;
-    if (m_plugin_manager) delete m_plugin_manager;
+    m_signal_manager = 0;
+    m_plugin_manager = 0;
 }
 
 //***************************************************************************
-bool Kwave::ApplicationContext::init()
+bool Kwave::ApplicationContext::init(Kwave::TopWidget *top_widget)
 {
-    m_top_widget = new Kwave::TopWidget(*this);
+    m_top_widget = top_widget;
     Q_ASSERT(m_top_widget);
     if (!m_top_widget) return false;
 
@@ -53,8 +52,21 @@ bool Kwave::ApplicationContext::init()
     Q_ASSERT(m_plugin_manager);
     if (!m_plugin_manager) return false;
 
-    return m_top_widget->init();
+    return true;
 }
+
+//***************************************************************************
+void Kwave::ApplicationContext::close()
+{
+    if (m_signal_manager) delete m_signal_manager;
+    m_signal_manager = 0;
+
+    if (m_plugin_manager) delete m_plugin_manager;
+    m_plugin_manager = 0;
+
+    m_top_widget = 0;
+}
+
 
 //***************************************************************************
 //***************************************************************************

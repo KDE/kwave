@@ -45,7 +45,7 @@
 Kwave::App::App()
    :KUniqueApplication(),
     m_recent_files(),
-    m_contexts()
+    m_top_widgets()
 {
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
     qRegisterMetaType<Kwave::LabelList>("Kwave::LabelList");
@@ -96,7 +96,7 @@ int Kwave::App::newInstance()
 //***************************************************************************
 bool Kwave::App::isOK()
 {
-    return (!m_contexts.isEmpty());
+    return (!m_top_widgets.isEmpty());
 }
 
 //***************************************************************************
@@ -144,27 +144,27 @@ bool Kwave::App::newWindow(const KUrl &url)
 {
     Kwave::Splash::showMessage(i18n("Opening main window..."));
 
-    Kwave::ApplicationContext *context = new Kwave::ApplicationContext(*this);
-    if (!context) return false;
-    if (!context->init()) {
-	delete context;
+    Kwave::TopWidget *new_top_widget = new Kwave::TopWidget(*this);
+    if (!new_top_widget->init()) {
+	// init failed
+	qWarning("ERROR: initialization of TopWidget failed");
+	delete new_top_widget;
 	return false;
     }
 
-    Kwave::TopWidget *new_top_widget = context->topWidget();
-    if (m_contexts.isEmpty()) {
+    if (m_top_widgets.isEmpty()) {
 	// the first widget is the main widget !
 	setTopWidget(new_top_widget); // sets geometry and other properties
 	setTopWidget(0);              // that's enough, dont quit on close !
     } else {
 	// create a new widget with the same geometry as
 	// the last created one
-	const QRect &geom = m_contexts.last()->topWidget()->geometry();
+	const QRect &geom = m_top_widgets.last()->geometry();
 	// calling setGeometry(geom) would overlap :-(
 	new_top_widget->resize(geom.width(), geom.height());
     }
 
-    m_contexts.append(context);
+    m_top_widgets.append(new_top_widget);
     new_top_widget->show();
 
     // inform the widget about changes in the list of recent files
@@ -189,17 +189,12 @@ bool Kwave::App::closeWindow(Kwave::TopWidget *todel)
     // save the configuration, including the list of recent files
     saveConfig();
 
-    // remove the application context and schedule it for deletion
-    foreach (Kwave::ApplicationContext *context, m_contexts) {
-	if (context->topWidget() == todel) {
-	    m_contexts.removeAll(context);
-	    context->deleteLater();
-	    break;
-	}
-    }
+    // remove the toplevel widget from our list
+    if (m_top_widgets.contains(todel))
+	m_top_widgets.removeAll(todel);
 
     // if list is empty -> no more windows there -> exit application
-    return (m_contexts.isEmpty());
+    return (m_top_widgets.isEmpty());
 }
 
 //***************************************************************************
@@ -249,15 +244,7 @@ void Kwave::App::readConfig()
 Kwave::App::~App()
 {
     saveConfig();
-
-    while (!m_contexts.isEmpty()) {
-	Kwave::ApplicationContext *todel = m_contexts.takeLast();
-	if (todel) delete todel;
-    }
     m_recent_files.clear();
-
-    // process all queued cleanup handlers (deferred delete)
-    processEvents();
 }
 
 //***************************************************************************

@@ -29,6 +29,7 @@
 #include <kmainwindow.h>
 #include <kurl.h>
 
+#include "libkwave/ApplicationContext.h"
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"
 
@@ -68,9 +69,9 @@ namespace Kwave
 	/**
 	 * Constructor. Creates a new toplevel widget including menu bar,
 	 * buttons, working are an s on.
-	 * @param context reference to the context of this instance
+	 * @param app reference to the Kwave application instance
 	 */
-	TopWidget(Kwave::ApplicationContext &context);
+	TopWidget(Kwave::App &app);
 
 	/**
 	 * Does some initialization at startup of the instance
@@ -325,8 +326,8 @@ namespace Kwave
 
     private:
 
-	/** reference to the application context of this instance */
-	Kwave::ApplicationContext &m_context;
+	/** application context of this instance */
+	Kwave::ApplicationContext m_context;
 
 	/**
 	 * the main widget with all views and controls (except menu and

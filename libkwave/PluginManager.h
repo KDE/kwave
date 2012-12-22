@@ -43,6 +43,7 @@ namespace Kwave
     class PlaybackController;
     class PlaybackDeviceFactory;
     class Plugin;
+    class PluginContext;
     class SampleSink;
     class SignalManager;
     class Writer;
@@ -201,7 +202,7 @@ namespace Kwave
 	 * plugin names and file names. First it collects a list of
 	 * filenames and then filters it to sort out invalid entries.
 	 */
-	void findPlugins();
+	void searchPluginModules();
 
 	/**
 	 * Registers a PlaybackDeviceFactory
@@ -215,16 +216,29 @@ namespace Kwave
 	void unregisterPlaybackDeviceFactory(
 	    Kwave::PlaybackDeviceFactory *factory);
 
+	/**
+	 * Signature of a loader function, must be provided by a plugin
+	 * to create an instance of a class derived from Kwave::Plugin
+	 */
+	typedef Kwave::Plugin *(plugin_ldr_func_t)(const Kwave::PluginContext *);
+
 	/** structure with information about a plugin */
 	typedef struct  {
-	    QString m_filename;    /**< name of the file           */
-	    QString m_author;      /**< name of the author         */
-	    QString m_description; /**< verbose name / description */
-	    QString m_version;     /**< plugin API version         */
-	} PluginInfo;
+	    QString            m_name;        /**< name of the plugin   */
+	    QString            m_author;      /**< name of the author   */
+	    QString            m_description; /**< short description    */
+	    QString            m_version;     /**< plugin API version   */
+	    plugin_ldr_func_t *m_loader;      /**< loader function      */
 
-	/** returns a list with info of all known plugins */
-	const QList<PluginInfo> pluginInfoList() const;
+	    void              *m_handle;      /**< handle from dlopen() */
+	    int                m_use_count;   /**< usage counter        */
+	} PluginModule;
+
+	/**
+	 * returns a list with info of all known plugins
+	 * @todo rename to pluginModuleList
+	 */
+	const QList<PluginModule> pluginInfoList() const;
 
     signals:
 
@@ -360,13 +374,10 @@ namespace Kwave
 	 * map with plugin information: key = short name of the plugin,
 	 * data = plugin info (description, author, version etc...)
 	 */
-	static QMap<QString, PluginInfo> m_found_plugins;
+	static QMap<QString, PluginModule> m_plugin_modules;
 
-	/** list of own loaded plugins */
-	PluginList m_loaded_plugins;
-
-	/** global list of loaded unique plugins */
-	static PluginList m_unique_plugins;
+	/** list of all plugins that were loaded by this instance */
+	PluginList m_plugin_instances;
 
 	/** list of currently running plugins */
 	PluginList m_running_plugins;

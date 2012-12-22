@@ -52,10 +52,24 @@ void Kwave::CodecManager::registerEncoder(Kwave::Encoder &encoder)
 }
 
 //***************************************************************************
+void Kwave::CodecManager::unregisterEncoder(Kwave::Encoder *encoder)
+{
+    if (!m_encoders.contains(encoder)) return; /* unknown */
+    m_encoders.removeAll(encoder);
+}
+
+//***************************************************************************
 void Kwave::CodecManager::registerDecoder(Kwave::Decoder &decoder)
 {
     if (m_decoders.contains(&decoder)) return; /* already known */
     m_decoders.append(&decoder);
+}
+
+//***************************************************************************
+void Kwave::CodecManager::unregisterDecoder(Kwave::Decoder *decoder)
+{
+    if (!m_decoders.contains(decoder)) return; /* unknown */
+    m_decoders.removeAll(decoder);
 }
 
 //***************************************************************************

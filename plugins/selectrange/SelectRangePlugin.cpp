@@ -31,7 +31,7 @@
 #include "SelectRangePlugin.h"
 #include "SelectRangeDialog.h"
 
-KWAVE_PLUGIN(Kwave::SelectRangePlugin, "selectrange", "2.1",
+KWAVE_PLUGIN(Kwave::SelectRangePlugin, "selectrange", "2.3",
              I18N_NOOP("Select Range"), "Thomas Eschenbacher");
 
 //***************************************************************************

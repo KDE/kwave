@@ -32,7 +32,7 @@ class KUrl;
 namespace Kwave
 {
 
-    class MemoryManager;
+    class ApplicationContext;
     class TopWidget;
 
     /**
@@ -136,8 +136,8 @@ namespace Kwave
 	 */
 	QStringList m_recent_files;
 
-	/** list of toplevel widgets */
-	QList<Kwave::TopWidget *> m_topwidget_list;
+	/** list of application contexts */
+	QList<Kwave::ApplicationContext *> m_contexts;
 
     };
 }

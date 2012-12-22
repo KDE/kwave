@@ -18,9 +18,10 @@
  * removed dependency to ImageMagick if "rsvg" is available
  * replaced libkwave/byteswap.h with generic Qt functions
  * replaced some Qt classes with their KDE equivalent:
-   KLineEdit, KComboBox, KDialogButtonBox, KProcess, KPushButton,
-   KTabWidget, KTextEdit
+   KLineEdit, KComboBox, KDialogButtonBox, KPushButton, KTabWidget, KTextEdit
  * using KDE standard buttons in dialogs
+ * simplified plugin loading mechanism, do load/unload only at start/end of
+   the program
 
 0.8.9  [2012-11-06]
 

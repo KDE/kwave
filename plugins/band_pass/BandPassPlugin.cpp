@@ -28,7 +28,7 @@
 #include "BandPassPlugin.h"
 #include "BandPassDialog.h"
 
-KWAVE_PLUGIN(Kwave::BandPassPlugin, "band_pass", "2.1",
+KWAVE_PLUGIN(Kwave::BandPassPlugin, "band_pass", "2.3",
              I18N_NOOP("Band Pass Filter"), "Dave Flogeras");
 
 //***************************************************************************

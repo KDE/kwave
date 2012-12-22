@@ -63,7 +63,7 @@
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
 
-KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.2",
+KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.3",
              I18N_NOOP("Playback"), "Thomas Eschenbacher");
 
 /** Sets the number of screen refreshes per second when in playback mode */

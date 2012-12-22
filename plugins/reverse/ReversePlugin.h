@@ -49,12 +49,6 @@ namespace Kwave
 	/** reverses the selection */
 	virtual void run(QStringList);
 
-	/**
-	 * this plugin must be persistent so that the undo class that it
-	 * contains survives after the plugin has finished running.
-	 */
-	virtual bool isPersistent() { return true; }
-
     private slots:
 
 	/**

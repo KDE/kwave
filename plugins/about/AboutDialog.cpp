@@ -42,8 +42,8 @@
 
 //***************************************************************************
 static bool pluginInfoDescriptionLessThan(
-    const Kwave::PluginManager::PluginInfo &info1,
-    const Kwave::PluginManager::PluginInfo &info2)
+    const Kwave::PluginManager::PluginModule &info1,
+    const Kwave::PluginManager::PluginModule &info2)
 {
     return info1.m_description.toLower() < info2.m_description.toLower();
 }
@@ -51,7 +51,7 @@ static bool pluginInfoDescriptionLessThan(
 //***************************************************************************
 Kwave::AboutDialog::AboutDialog(
     QWidget *parent,
-    const QList<Kwave::PluginManager::PluginInfo> &plugin_info
+    const QList<Kwave::PluginManager::PluginModule> &plugin_info
 )
     :QDialog(parent), Ui::AboutDialogBase()
 {
@@ -105,9 +105,9 @@ Kwave::AboutDialog::AboutDialog(
 
     QList<QTreeWidgetItem *> plugins;
 
-    QList<Kwave::PluginManager::PluginInfo> list = plugin_info;
+    QList<Kwave::PluginManager::PluginModule> list = plugin_info;
     qSort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
-    foreach (const Kwave::PluginManager::PluginInfo &info, list) {
+    foreach (const Kwave::PluginManager::PluginModule &info, list) {
 	QStringList item;
 	item << info.m_description << info.m_version << info.m_author;
 	plugins.append(new QTreeWidgetItem(

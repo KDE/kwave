@@ -37,15 +37,14 @@ namespace Kwave
 	virtual ~AudiofileCodecPlugin();
 
 	/**
-	 * This plugin needs to be unique!
-	 * @see Kwave::Plugin::isUnique()
-	 */
-	virtual bool isUnique() { return true; };
-
-	/**
 	 * Gets called when the plugin is first loaded.
 	 */
 	virtual void load(QStringList &/* params */);
+
+	/**
+	 * Gets called before the plugin is unloaded.
+	 */
+	virtual void unload();
 
     private:
 

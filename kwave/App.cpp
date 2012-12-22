@@ -45,7 +45,7 @@
 Kwave::App::App()
    :KUniqueApplication(),
     m_recent_files(),
-    m_topwidget_list()
+    m_contexts()
 {
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
     qRegisterMetaType<Kwave::LabelList>("Kwave::LabelList");
@@ -96,7 +96,7 @@ int Kwave::App::newInstance()
 //***************************************************************************
 bool Kwave::App::isOK()
 {
-    return (!m_topwidget_list.isEmpty());
+    return (!m_contexts.isEmpty());
 }
 
 //***************************************************************************
@@ -152,19 +152,19 @@ bool Kwave::App::newWindow(const KUrl &url)
     }
 
     Kwave::TopWidget *new_top_widget = context->topWidget();
-    if (m_topwidget_list.isEmpty()) {
+    if (m_contexts.isEmpty()) {
 	// the first widget is the main widget !
 	setTopWidget(new_top_widget); // sets geometry and other properties
 	setTopWidget(0);              // that's enough, dont quit on close !
     } else {
 	// create a new widget with the same geometry as
 	// the last created one
-	const QRect &geom = m_topwidget_list.last()->geometry();
+	const QRect &geom = m_contexts.last()->topWidget()->geometry();
 	// calling setGeometry(geom) would overlap :-(
 	new_top_widget->resize(geom.width(), geom.height());
     }
 
-    m_topwidget_list.append(new_top_widget);
+    m_contexts.append(context);
     new_top_widget->show();
 
     // inform the widget about changes in the list of recent files
@@ -189,10 +189,17 @@ bool Kwave::App::closeWindow(Kwave::TopWidget *todel)
     // save the configuration, including the list of recent files
     saveConfig();
 
-    if (todel) m_topwidget_list.removeAll(todel);
+    // remove the application context and schedule it for deletion
+    foreach (Kwave::ApplicationContext *context, m_contexts) {
+	if (context->topWidget() == todel) {
+	    m_contexts.removeAll(context);
+	    context->deleteLater();
+	    break;
+	}
+    }
 
     // if list is empty -> no more windows there -> exit application
-    return (m_topwidget_list.isEmpty());
+    return (m_contexts.isEmpty());
 }
 
 //***************************************************************************
@@ -243,11 +250,14 @@ Kwave::App::~App()
 {
     saveConfig();
 
-    while (!m_topwidget_list.isEmpty()) {
-	Kwave::TopWidget *todel = m_topwidget_list.takeLast();
+    while (!m_contexts.isEmpty()) {
+	Kwave::ApplicationContext *todel = m_contexts.takeLast();
 	if (todel) delete todel;
     }
     m_recent_files.clear();
+
+    // process all queued cleanup handlers (deferred delete)
+    processEvents();
 }
 
 //***************************************************************************

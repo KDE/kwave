@@ -28,7 +28,7 @@
 #include "PitchShiftPlugin.h"
 #include "PitchShiftDialog.h"
 
-KWAVE_PLUGIN(Kwave::PitchShiftPlugin, "pitch_shift", "2.1",
+KWAVE_PLUGIN(Kwave::PitchShiftPlugin, "pitch_shift", "2.3",
              I18N_NOOP("Pitch Shift"), "Thomas Eschenbacher");
 
 //***************************************************************************

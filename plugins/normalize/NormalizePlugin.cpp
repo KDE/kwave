@@ -51,7 +51,7 @@
 /** target volume level [dB] */
 #define TARGET_LEVEL -12
 
-KWAVE_PLUGIN(Kwave::NormalizePlugin, "normalize", "2.1",
+KWAVE_PLUGIN(Kwave::NormalizePlugin, "normalize", "2.3",
              I18N_NOOP("Normalizer"), "Thomas Eschenbacher");
 
 //***************************************************************************

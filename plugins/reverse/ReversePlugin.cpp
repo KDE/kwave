@@ -41,7 +41,7 @@
 #include "ReversePlugin.h"
 #include "UndoReverseAction.h"
 
-KWAVE_PLUGIN(Kwave::ReversePlugin, "reverse", "2.1",
+KWAVE_PLUGIN(Kwave::ReversePlugin, "reverse", "2.3",
              I18N_NOOP("Reverse"), "Thomas Eschenbacher");
 
 //***************************************************************************

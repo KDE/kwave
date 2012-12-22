@@ -139,6 +139,11 @@ void Kwave::Plugin::load(QStringList &)
 }
 
 //***************************************************************************
+void Kwave::Plugin::unload()
+{
+}
+
+//***************************************************************************
 QStringList *Kwave::Plugin::setup(QStringList &)
 {
     QStringList *result = new QStringList();

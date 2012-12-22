@@ -45,15 +45,6 @@ namespace Kwave
 	/** Destructor */
 	virtual ~DebugPlugin();
 
-	/**
-	* This plugin needs to be persistent!
-	* @see Kwave::Plugin::isPersistent()
-	*/
-	virtual bool isPersistent() { return true; };
-
-	/** @see Kwave::Plugin::isUnique() */
-	virtual bool isUnique() { return false; };
-
 	/** @see Kwave::Plugin::load() */
 	virtual void load(QStringList &params);
 

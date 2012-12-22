@@ -39,7 +39,7 @@
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
 
-KWAVE_PLUGIN(Kwave::SaveBlocksPlugin, "saveblocks", "2.1",
+KWAVE_PLUGIN(Kwave::SaveBlocksPlugin, "saveblocks", "2.3",
              I18N_NOOP("Save Blocks"), "Thomas Eschenbacher");
 
 //***************************************************************************

@@ -48,7 +48,7 @@ namespace Kwave
 	* @param plugin_info list of plugin info structures (unsorted)
 	*/
 	AboutDialog(QWidget *parent,
-	    const QList<Kwave::PluginManager::PluginInfo> &plugin_info);
+	    const QList<Kwave::PluginManager::PluginModule> &plugin_info);
 
 	/** Destructor */
 	virtual ~AboutDialog();

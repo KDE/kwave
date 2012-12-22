@@ -25,7 +25,7 @@
 
 //***************************************************************************
 Kwave::ApplicationContext::ApplicationContext(Kwave::App &app)
-    :m_application(app), m_top_widget(0), m_signal_manager(0),
+    :QObject(), m_application(app), m_top_widget(0), m_signal_manager(0),
      m_plugin_manager(0)
 {
 }

@@ -97,29 +97,6 @@ namespace Kwave
 	const QString &author();
 
 	/**
-	 * Returns true if the plugin is "unique". A unique plugin will be
-	 * loaded once and removed only when the program closes. It is also
-	 * implicitely unique to the current main window.
-	 * The default is "non-unique", so if you want your
-	 * plugin to become unique, you have to overwrite this function
-	 * with a version that returns true.
-	 * @see isPersistent
-	 */
-	virtual bool isUnique() { return false; }
-
-	/**
-	 * Returns true if the plugin is "persistent". A persistent plugin will
-	 * be loaded/used once with the current main window instance and closes
-	 * when it's main window instance closes (and it is not unique).
-	 * The default is to reflect the state of isUnique(), as all unique
-	 * plugins are implicitely persistent, so if you want your
-	 * plugin to become persistent, you have to overwrite this function
-	 * with a version that returns true.
-	 * @see isUnique
-	 */
-	virtual bool isPersistent() { return isUnique(); }
-
-	/**
 	 * Returns a text for the progress dialog if enabled.
 	 * (already be localized)
 	 */
@@ -149,6 +126,12 @@ namespace Kwave
 	 * The default implementation does nothing.
 	 */
 	virtual void load(QStringList &params);
+
+	/**
+	 * Called before the plugin gets unloaded. Can be used by a plugin
+	 * to do some cleanup tasks before it gets unloaded from memory.
+	 */
+	virtual void unload();
 
 	/**
 	 * Sets up all necessary parameters for executing the plugin. Could

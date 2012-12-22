@@ -29,7 +29,7 @@
 #include "LowPassPlugin.h"
 #include "LowPassDialog.h"
 
-KWAVE_PLUGIN(Kwave::LowPassPlugin, "lowpass", "2.1",
+KWAVE_PLUGIN(Kwave::LowPassPlugin, "lowpass", "2.3",
              I18N_NOOP("Low Pass Filter"), "Thomas Eschenbacher");
 
 //***************************************************************************

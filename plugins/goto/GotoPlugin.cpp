@@ -25,7 +25,7 @@
 
 #include "GotoPlugin.h"
 
-KWAVE_PLUGIN(Kwave::GotoPlugin, "goto", "2.1",
+KWAVE_PLUGIN(Kwave::GotoPlugin, "goto", "2.3",
              I18N_NOOP("Goto Position"), "Thomas Eschenbacher");
 
 //***************************************************************************

@@ -25,7 +25,7 @@
 #include "AsciiEncoder.h"
 #include "AsciiDecoder.h"
 
-KWAVE_PLUGIN(Kwave::AsciiCodecPlugin, "codec_ascii", "2.1",
+KWAVE_PLUGIN(Kwave::AsciiCodecPlugin, "codec_ascii", "2.3",
              I18N_NOOP("ASCII Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
@@ -44,6 +44,8 @@ Kwave::AsciiCodecPlugin::~AsciiCodecPlugin()
 /***************************************************************************/
 void Kwave::AsciiCodecPlugin::load(QStringList &/* params */)
 {
+    use();
+
     if (!m_encoder) m_encoder = new Kwave::AsciiEncoder();
     Q_ASSERT(m_encoder);
     if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
@@ -51,6 +53,20 @@ void Kwave::AsciiCodecPlugin::load(QStringList &/* params */)
     if (!m_decoder) m_decoder = new Kwave::AsciiDecoder();
     Q_ASSERT(m_decoder);
     if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
+}
+
+/***************************************************************************/
+void Kwave::AsciiCodecPlugin::unload()
+{
+    Kwave::CodecManager::unregisterDecoder(m_decoder);
+    delete m_decoder;
+    m_decoder = 0;
+
+    Kwave::CodecManager::unregisterEncoder(m_encoder);
+    delete m_encoder;
+    m_encoder = 0;
+
+    release();
 }
 
 /***************************************************************************/

@@ -34,7 +34,7 @@
 #include "AmplifyFreePlugin.h"
 #include "AmplifyFreeDialog.h"
 
-KWAVE_PLUGIN(Kwave::AmplifyFreePlugin, "amplifyfree", "2.1",
+KWAVE_PLUGIN(Kwave::AmplifyFreePlugin, "amplifyfree", "2.3",
              I18N_NOOP("Amplify Free"), "Thomas Eschenbacher");
 
 //***************************************************************************

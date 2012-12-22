@@ -25,7 +25,7 @@
 #include "NewSignalPlugin.h"
 #include "NewSignalDialog.h"
 
-KWAVE_PLUGIN(Kwave::NewSignalPlugin, "newsignal", "2.1",
+KWAVE_PLUGIN(Kwave::NewSignalPlugin, "newsignal", "2.3",
              I18N_NOOP("New Signal"), "Thomas Eschenbacher");
 
 //***************************************************************************

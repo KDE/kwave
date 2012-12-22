@@ -53,7 +53,7 @@
 #include "Record-ALSA.h"
 #include "Record-OSS.h"
 
-KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.2",
+KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.3",
              I18N_NOOP("Record"), "Thomas Eschenbacher");
 
 //***************************************************************************

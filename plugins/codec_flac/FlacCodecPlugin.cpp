@@ -25,7 +25,7 @@
 #include "FlacEncoder.h"
 #include "FlacDecoder.h"
 
-KWAVE_PLUGIN(Kwave::FlacCodecPlugin, "codec_flac", "2.1",
+KWAVE_PLUGIN(Kwave::FlacCodecPlugin, "codec_flac", "2.3",
              I18N_NOOP("FLAC Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
@@ -44,6 +44,8 @@ Kwave::FlacCodecPlugin::~FlacCodecPlugin()
 /***************************************************************************/
 void Kwave::FlacCodecPlugin::load(QStringList &/* params */)
 {
+    use();
+
     if (!m_encoder) m_encoder = new Kwave::FlacEncoder();
     Q_ASSERT(m_encoder);
     if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
@@ -51,6 +53,21 @@ void Kwave::FlacCodecPlugin::load(QStringList &/* params */)
     if (!m_decoder) m_decoder = new Kwave::FlacDecoder();
     Q_ASSERT(m_decoder);
     if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
+}
+
+
+/***************************************************************************/
+void Kwave::FlacCodecPlugin::unload()
+{
+    Kwave::CodecManager::unregisterDecoder(m_decoder);
+    delete m_decoder;
+    m_decoder = 0;
+
+    Kwave::CodecManager::unregisterEncoder(m_encoder);
+    delete m_encoder;
+    m_encoder = 0;
+
+    release();
 }
 
 /***************************************************************************/

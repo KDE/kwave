@@ -29,7 +29,7 @@
 #include "NotchFilterPlugin.h"
 #include "NotchFilterDialog.h"
 
-KWAVE_PLUGIN(Kwave::NotchFilterPlugin, "notch_filter", "2.1",
+KWAVE_PLUGIN(Kwave::NotchFilterPlugin, "notch_filter", "2.3",
              I18N_NOOP("Notch Filter"), "Dave Flogeras");
 
 //***************************************************************************

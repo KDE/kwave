@@ -56,11 +56,23 @@ namespace Kwave
 	static void registerEncoder(Kwave::Encoder &encoder);
 
 	/**
+	 * Un-registers an encoder previously registered with registerEncoder.
+	 * @param encoder a KwaveEncoder
+	 */
+	static void unregisterEncoder(Kwave::Encoder *encoder);
+
+	/**
 	 * Registers a new decoder.
 	 * @param decoder a KwaveDecoder that will be used as template for
 	 *                creating new decoder instances (used as factory)
 	 */
 	static void registerDecoder(Kwave::Decoder &decoder);
+
+	/**
+	 * Un-registers an decoder previously registered with registerDecoder.
+	 * @param decoder a KwaveDecoder
+	 */
+	static void unregisterDecoder(Kwave::Decoder *decoder);
 
 	/**
 	 * Returns true if a decoder for the given mime type is known.

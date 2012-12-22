@@ -59,14 +59,6 @@ namespace Kwave
 	/** @see Kwave::Plugin::setup() */
 	virtual QStringList *setup(QStringList &previous_params);
 
-	/**
-	 * This plugin needs to be persistent!
-	 * @see Kwave::Plugin::isPersistent()
-	 */
-	virtual bool isPersistent() { return true; }
-
-	virtual bool isUnique() { return false; }
-
 	/** this plugin can be interrupted at any time */
 	virtual bool canClose() { return true; }
 

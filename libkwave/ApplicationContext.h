@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtCore/QObject>
 #include <QtCore/QPointer>
 
 #include <kdemacros.h>
@@ -35,7 +36,7 @@ namespace Kwave
     class SignalManager;
     class TopWidget;
 
-    class KDE_EXPORT ApplicationContext
+    class KDE_EXPORT ApplicationContext: public QObject
     {
     public:
 	/**
@@ -50,7 +51,7 @@ namespace Kwave
 	 * Destructor
 	 * @note implementation is in kwave/ApplicationContext.cpp
 	 */
-	~ApplicationContext();
+	virtual ~ApplicationContext();
 
 	/**
 	 * initializes the instance

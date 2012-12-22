@@ -40,7 +40,7 @@
 
 #include "SampleRatePlugin.h"
 
-KWAVE_PLUGIN(Kwave::SampleRatePlugin, "samplerate", "2.1",
+KWAVE_PLUGIN(Kwave::SampleRatePlugin, "samplerate", "2.3",
              I18N_NOOP("Sample Rate Conversion"), "Thomas Eschenbacher");
 
 //***************************************************************************

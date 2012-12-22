@@ -29,7 +29,7 @@
 #include "MemoryPlugin.h"
 #include "MemoryDialog.h"
 
-KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.1",
+KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.3",
              I18N_NOOP("Memory Settings"), "Thomas Eschenbacher");
 
 //***************************************************************************

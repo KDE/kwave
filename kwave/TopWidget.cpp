@@ -395,9 +395,6 @@ bool Kwave::TopWidget::init()
     connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
             this,           SLOT(showInSplashSreen(const QString &)));
 
-    showInSplashSreen(i18n("Scanning plugins..."));
-    plugin_manager->findPlugins();
-
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget);
 
@@ -415,6 +412,9 @@ bool Kwave::TopWidget::init()
     updateMenu();
     updateToolbar();
     updateRecentFiles();
+
+    showInSplashSreen(i18n("Scanning plugins..."));
+    plugin_manager->searchPluginModules();
 
     // now we are initialized, load all plugins now
     showInSplashSreen(i18n("Loading plugins..."));
@@ -465,7 +465,6 @@ bool Kwave::TopWidget::init()
 //***************************************************************************
 Kwave::TopWidget::~TopWidget()
 {
-
     // close the current file (no matter what the user wants)
     closeFile();
 

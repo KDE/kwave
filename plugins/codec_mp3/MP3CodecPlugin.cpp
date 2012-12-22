@@ -25,7 +25,7 @@
 #include "MP3Encoder.h"
 #include "MP3EncoderDialog.h"
 
-KWAVE_PLUGIN(Kwave::MP3CodecPlugin, "codec_mp3", "2.1",
+KWAVE_PLUGIN(Kwave::MP3CodecPlugin, "codec_mp3", "2.3",
              I18N_NOOP("MP3 Codec"), "Thomas Eschenbacher");
 
 /***************************************************************************/
@@ -44,6 +44,8 @@ Kwave::MP3CodecPlugin::~MP3CodecPlugin()
 /***************************************************************************/
 void Kwave::MP3CodecPlugin::load(QStringList &/* params */)
 {
+    use();
+
     if (!m_decoder) m_decoder = new Kwave::MP3Decoder();
     Q_ASSERT(m_decoder);
     if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
@@ -54,6 +56,20 @@ void Kwave::MP3CodecPlugin::load(QStringList &/* params */)
 
     emitCommand(_("menu (plugin:setup(codec_mp3), &Options/%1)").arg(
 	i18n("MP3 Encoder Setup")));
+}
+
+/***************************************************************************/
+void Kwave::MP3CodecPlugin::unload()
+{
+    Kwave::CodecManager::unregisterDecoder(m_decoder);
+    delete m_decoder;
+    m_decoder = 0;
+
+    Kwave::CodecManager::unregisterEncoder(m_encoder);
+    delete m_encoder;
+    m_encoder = 0;
+
+    release();
 }
 
 //***************************************************************************

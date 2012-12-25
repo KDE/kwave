@@ -1,6 +1,4 @@
 
-o bug: phonon playback: test hangs (UNIX pipe output)
-
 o use klocale for formating numbers/dates/times
 
 o no null pointer checks around "delete"

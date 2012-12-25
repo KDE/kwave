@@ -32,6 +32,7 @@
 #include <QtCore/QLocale>
 #include <QtCore/QString>
 #include <QtCore/QtGlobal>
+#include <QtCore/QTime>
 
 #include <klocale.h>
 #include <kuser.h>
@@ -234,7 +235,7 @@ void Kwave::PlayBackPulseAudio::notifyLatency(pa_stream *stream)
 
 //     qDebug("PlayBackPulseAudio::notifyLatency(stream=%p)",
 // 	   static_cast<void *>(stream));
-//     pa_threaded_mainloop_signal(m_pa_mainloop, 0);
+    pa_threaded_mainloop_signal(m_pa_mainloop, 0);
 }
 
 //***************************************************************************
@@ -597,6 +598,11 @@ int Kwave::PlayBackPulseAudio::flush()
 //     qWarning("PlayBackPulseAudio::flush(): using buffer %p (%u bytes)",
 // 	     m_buffer, m_buffer_size);
 
+    // calculate a reasonable time for the timeout (16 buffers)
+    unsigned int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
+    unsigned int ms = (samples_per_buffer * 1000) / m_info.rate();
+    unsigned int timeout = (ms + 1) * 16;
+
     pa_threaded_mainloop_lock(m_pa_mainloop);
 
     // write out the buffer allocated before in "write"
@@ -604,6 +610,8 @@ int Kwave::PlayBackPulseAudio::flush()
     while (m_buffer_used) {
 	size_t len;
 
+	QTime t;
+	t.start();
         while (!(len = pa_stream_writable_size(m_pa_stream))) {
 	    if (!PA_CONTEXT_IS_GOOD(pa_context_get_state(m_pa_context)) ||
 		!PA_STREAM_IS_GOOD(pa_stream_get_state(m_pa_stream))) {
@@ -611,7 +619,13 @@ int Kwave::PlayBackPulseAudio::flush()
 		result = -1;
 		break;
 	    }
-            pa_threaded_mainloop_wait(m_pa_mainloop);
+	    if (t.elapsed() >= timeout) {
+		qWarning("PlayBackPulseAudio::flush(): timed out after %u ms",
+		         timeout);
+		result = -1;
+		break;
+	    }
+	    pa_threaded_mainloop_wait(m_pa_mainloop);
         }
         if (result < 0) break;
 
@@ -664,11 +678,22 @@ int Kwave::PlayBackPulseAudio::close()
 	if (!op) qWarning("pa_stream_drain() failed: '%s'", pa_strerror(
 	    pa_context_errno(m_pa_context)));
 
+	// calculate a reasonable time for the timeout (16 buffers)
+	unsigned int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
+	unsigned int ms = (samples_per_buffer * 1000) / m_info.rate();
+	unsigned int timeout = (ms + 1) * 16;
+
 	qDebug("PlayBackPulseAudio::flush(): waiting for drain to finish...");
+	QTime t;
 	while (op && (pa_operation_get_state(op) != PA_OPERATION_DONE)) {
 	    if (!PA_CONTEXT_IS_GOOD(pa_context_get_state(m_pa_context)) ||
 		!PA_STREAM_IS_GOOD(pa_stream_get_state(m_pa_stream))) {
 		qWarning("PlayBackPulseAudio::close(): bad stream state");
+		break;
+	    }
+	    if (t.elapsed() >= timeout) {
+		qWarning("PlayBackPulseAudio::flush(): timed out after %u ms",
+		         timeout);
 		break;
 	    }
 	    pa_threaded_mainloop_wait(m_pa_mainloop);

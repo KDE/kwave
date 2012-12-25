@@ -117,20 +117,6 @@ QString Kwave::ms2hms(double ms)
 }
 
 //***************************************************************************
-QString Kwave::dottedNumber(unsigned int number)
-{
-    const QString num = QString::number(number);
-    QString dotted;
-    const QString dot = KGlobal::locale()->thousandsSeparator();
-    const int len = num.length();
-    for (int i=len-1; i >= 0; i--) {
-	if ((i != len-1) && !((len-i-1) % 3)) dotted = dot + dotted;
-	dotted = num.at(i) + dotted;
-    }
-    return dotted;
-}
-
-//***************************************************************************
 QString Kwave::string2date(const QString &str)
 {
     const Qt::DateFormat formats[] = {

@@ -69,14 +69,6 @@ namespace Kwave
     QString KDE_EXPORT ms2hms(double ms);
 
     /**
-     * Converts the given number into a string with the current locale's
-     * separator between the thousands.
-     * @param number the unsigned number to be converted
-     * @return QString with the number
-     */
-    QString KDE_EXPORT dottedNumber(unsigned int number);
-
-    /**
      * Tries to convert a string into a QDate
      * @param s string to convert
      * @return a ISO 8601 timestamp: "yyyy-MM-ddTHH:mm:ss"

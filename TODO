@@ -1,14 +1,10 @@
 
-o use klocale for formating numbers/dates/times
-
-o no null pointer checks around "delete"
-
-o TODO in MP3 plugin (ID3FID_MEDIATYPE)
-
 o support for OPUS codec (.opus, using Ogg as container)
   => this will be the main feature for v0.8.10
 
 o support for "raw" import/export
+
+o TODO in MP3 plugin (ID3FID_MEDIATYPE)
 
 o move label with mouse (drag&drop)
 
@@ -144,6 +140,8 @@ o switch to use float as sample_t (requires much work...)
 o about plugin: auto-scroll for contents
 
 o re-run cmake automatically when VERSION file has changed
+
+o no null pointer checks around "delete"
 
 o license change to GPL v3 ?
 

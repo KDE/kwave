@@ -1221,7 +1221,8 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 	txt = _(" ") + i18nc(
 	    "Length, as in total duration of loaded song",
 	    "Length: %1 (%2 samples)",
-	    Kwave::ms2string(ms), Kwave::dottedNumber(length)
+	    Kwave::ms2string(ms),
+	    KGlobal::locale()->formatLong(length)
 	) + _(" ");
     } else txt = _("");
     m_lbl_status_size->setText(txt);
@@ -1287,9 +1288,9 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	        "%1=first sample, %2=last sample, %3=number of samples, "\
 	        "example: 'Selected: 2000...3000 (1000 samples)'",
 	        "Selected: %1...%2 (%3 samples)",
-	        Kwave::dottedNumber(offset),
-	        Kwave::dottedNumber(last),
-	        Kwave::dottedNumber(length)
+	        KGlobal::locale()->formatLong(offset),
+	        KGlobal::locale()->formatLong(last),
+	        KGlobal::locale()->formatLong(length)
 	    );
 	} else {
 	    double ms_first = static_cast<double>(offset)   * 1E3 / rate;
@@ -1342,7 +1343,7 @@ void Kwave::TopWidget::updatePlaybackPos(sample_index_t offset)
 	txt = i18n("Playback: %1", Kwave::ms2string(ms));
     } else {
 	txt = i18n("Playback: %1 samples",
-	            Kwave::dottedNumber(offset));
+	            KGlobal::locale()->formatLong(offset));
     }
     statusBar()->showMessage(txt, 2000);
 

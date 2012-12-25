@@ -37,6 +37,7 @@
 #include <kconfig.h>
 #include <kcombobox.h>
 #include <kdatewidget.h>
+#include <kglobal.h>
 #include <klineedit.h>
 #include <klistwidget.h>
 #include <klocale.h>
@@ -149,7 +150,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     initInfo(lblFileSize, edFileSize, Kwave::INF_FILESIZE);
     if (m_info.contains(Kwave::INF_FILESIZE)) {
 	unsigned int size = QVariant(m_info.get(Kwave::INF_FILESIZE)).toUInt();
-	QString dotted = Kwave::dottedNumber(size);
+	QString dotted = KGlobal::locale()->formatLong(size);
 	if (size < 10*1024) {
 	    edFileSize->setText(i18n("%1 bytes", dotted));
 	} else if (size < 10*1024*1024) {
@@ -228,10 +229,10 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 	double ms = static_cast<double>(samples) * 1E3 / rate;
 	txtLength->setText(i18n("%1 (%2 samples)",
 	    Kwave::ms2string(ms),
-	    Kwave::dottedNumber(samples)));
+	    KGlobal::locale()->formatLong(samples)));
     } else {
 	txtLength->setText(i18n("%1 samples",
-	    Kwave::dottedNumber(samples)));
+	    KGlobal::locale()->formatLong(samples)));
     }
 
     /* sample format */

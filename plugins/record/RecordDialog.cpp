@@ -1189,7 +1189,7 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
 		txt = _(" ") +
 		    i18n("Length: %1", Kwave::ms2string(ms)) +
 		    _(" ") + i18n("(%1 samples)",
-		    Kwave::dottedNumber(m_samples_recorded));
+		    KGlobal::locale()->formatLong(m_samples_recorded));
 	    } else txt = _("");
 	    break;
 	}

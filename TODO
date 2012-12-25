@@ -1,6 +1,4 @@
 
-o bug: modify label (middle) - undo -> label list broken
-
 o bug: phonon playback: test hangs (UNIX pipe output)
 
 o use klocale for formating numbers/dates/times

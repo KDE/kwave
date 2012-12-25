@@ -108,7 +108,7 @@ Kwave::UndoAction *Kwave::UndoModifyMetaDataAction::undo(
     // store data for redo
     if (with_redo) {
 	Kwave::MetaDataList old_data;
-	Kwave::MetaDataList current_data = manager.metaData();
+	const Kwave::MetaDataList &current_data = manager.metaData();
 
 	foreach (const Kwave::MetaData &meta, m_saved_data) {
 	    if (current_data.contains(meta)) {
@@ -123,7 +123,7 @@ Kwave::UndoAction *Kwave::UndoModifyMetaDataAction::undo(
 	}
 
 	// restore the saved meta data
-	manager.metaData().replace(m_saved_data);
+	manager.metaData().merge(m_saved_data);
 
 	// take the previous values as new undo data
 	m_saved_data = old_data;
@@ -131,7 +131,7 @@ Kwave::UndoAction *Kwave::UndoModifyMetaDataAction::undo(
 	return this;
     } else {
 	// restore the saved meta data
-	manager.metaData().replace(m_saved_data);
+	manager.metaData().merge(m_saved_data);
 	return 0;
     }
 }

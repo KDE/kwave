@@ -27,6 +27,7 @@
  * bugfix: shutdown sequence was incomplete
  * bugfix: keyboard shortcut for first menu entry did not work
  * bugfix: ambiguous keyboard shortscut for "File/New Window"
+ * bugfix: undo of "modify label" caused loss of other labels
 
 0.8.9  [2012-11-06]
 

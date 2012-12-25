@@ -184,6 +184,25 @@ void Kwave::MenuManager::executeCommand(const QString &command)
     param = parser.nextParam();
     if (param.length()) id = param;
 
+#ifdef DEBUG
+//     qDebug("MenuManager: insertNode('', '%s', '%s', %s, '%s')",
+// 	   DBG(pos), DBG(com), DBG(shortcut.toString()), DBG(id));
+    if (!shortcut.isEmpty()) {
+	static QMap<QString, QString> used_shortcuts;
+
+	QString sc = shortcut.toString();
+	QString m  = pos.left(pos.indexOf(_("/#")));
+
+	if (used_shortcuts.contains(sc) && (used_shortcuts[sc] != m)) {
+	    qWarning("MenuManager: insertNode('%s')", DBG(m));
+	    qWarning("    shortcut %s already in use for '%s'",
+		     DBG(sc), DBG(used_shortcuts[sc]));
+	} else {
+	    used_shortcuts[sc] = m;
+	}
+    }
+#endif /* DEBUG */
+
     // --- insert the new node into the menu structure ---
     m_menu_root->insertNode(QString(), pos, com, shortcut, id);
 }

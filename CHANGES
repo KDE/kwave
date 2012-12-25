@@ -25,6 +25,8 @@
  * delete plugin settings of old versions when detected
  * using QLibrary instead of functions from libdl
  * bugfix: shutdown sequence was incomplete
+ * bugfix: keyboard shortcut for first menu entry did not work
+ * bugfix: ambiguous keyboard shortscut for "File/New Window"
 
 0.8.9  [2012-11-06]
 

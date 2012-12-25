@@ -5,8 +5,6 @@ o bug: phonon playback: test hangs (UNIX pipe output)
 
 o use klocale for formating numbers/dates/times
 
-o ambiguous key assignment for Ctrl-N: File/New <-> File/New Window
-
 o no null pointer checks around "delete"
 
 o TODO in MP3 plugin (ID3FID_MEDIATYPE)

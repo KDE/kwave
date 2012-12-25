@@ -48,7 +48,7 @@ SET(RSVG_AVAILABLE NO)
 IF (RSVG_EXECUTABLE)
     # try to convert one icon, to see if "rsvg" really works
     EXECUTE_PROCESS(
-	COMMAND ${RSVG_EXECUTABLE} -w 32 -h 32 -f png ${_test_icon} -o "CMakeTmp/${_png_file}"
+	COMMAND ${RSVG_EXECUTABLE} -w 32 -h 32 -f png ${_test_icon} -o "${_png_file}"
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 	RESULT_VARIABLE RSVG_CONVERT_RESULT
 	OUTPUT_VARIABLE _stdout
@@ -79,7 +79,7 @@ IF (NOT RSVG_AVAILABLE)
 
 	# try to convert one icon, to see if "convert" has proper svg support
 	EXECUTE_PROCESS(
-	    COMMAND ${CONVERT_EXECUTABLE} -resize 32x32 ${_test_icon} "CMakeTmp/${_png_file}"
+	    COMMAND ${CONVERT_EXECUTABLE} -resize 32x32 ${_test_icon} "${_png_file}"
 	    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 	    RESULT_VARIABLE SVG_CONVERT_RESULT
 	    OUTPUT_VARIABLE _stdout
@@ -109,6 +109,9 @@ IF (NOT RSVG_AVAILABLE)
         ")
     ENDIF (NOT CONVERT_AVAILABLE)
 ENDIF (NOT RSVG_AVAILABLE)
+
+# clean up the temporary png file after conversion test
+FILE(REMOVE "${CMAKE_BINARY_DIR}/${_png_file}")
 
 #############################################################################
 ### help_en.docbook -> help_en.pot                                        ###

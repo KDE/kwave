@@ -434,6 +434,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Utils.cpp				GPL2+
 	libkwave/VirtualAudioFile.cpp			GPL2+
 	libkwave/VirtualAudioFile.h			GPL2+
+	libkwave/VorbisCommentMap.cpp			GPL2+
+	libkwave/VorbisCommentMap.h			GPL2+
 	libkwave/WindowFunction.cpp			GPL2+
 	libkwave/WindowFunction.h			GPL2+
 	libkwave/Writer.cpp				GPL2+
@@ -532,8 +534,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/codec_flac/FlacDecoder.h		GPL2+
 	plugins/codec_flac/FlacEncoder.cpp		GPL2+
 	plugins/codec_flac/FlacEncoder.h		GPL2+
-	plugins/codec_flac/VorbisCommentMap.cpp		GPL2+
-	plugins/codec_flac/VorbisCommentMap.h		GPL2+
 
 	plugins/codec_ogg/CMakeLists.txt		GPL2+
 	plugins/codec_ogg/OggCodecPlugin.cpp		GPL2+
@@ -542,6 +542,12 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/codec_ogg/OggDecoder.h			GPL2+
 	plugins/codec_ogg/OggEncoder.cpp		GPL2+
 	plugins/codec_ogg/OggEncoder.h			GPL2+
+	plugins/codec_ogg/OggSubDecoder.h		GPL2+
+	plugins/codec_ogg/OpusDecoder.cpp		GPL2+
+	plugins/codec_ogg/OpusDecoder.h			GPL2+
+	plugins/codec_ogg/OpusHeader.h			GPL2+
+	plugins/codec_ogg/VorbisDecoder.cpp		GPL2+
+	plugins/codec_ogg/VorbisDecoder.h		GPL2+
 
 	plugins/codec_wav/CMakeLists.txt		GPL2+
 	plugins/codec_wav/RecoveryBuffer.cpp		GPL2+

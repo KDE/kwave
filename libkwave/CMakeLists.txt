@@ -83,6 +83,7 @@ SET(libkwave_LIB_SRCS
     TrackWriter.cpp
     Utils.cpp
     VirtualAudioFile.cpp
+    VorbisCommentMap.cpp
     Writer.cpp
     WindowFunction.cpp
 

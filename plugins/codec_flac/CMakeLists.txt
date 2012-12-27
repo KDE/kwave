@@ -163,7 +163,6 @@ IF (WITH_FLAC)
         FlacCodecPlugin.cpp
         FlacDecoder.cpp
         FlacEncoder.cpp
-        VorbisCommentMap.cpp
     )
 
     SET(plugin_codec_flac_LIBS FLAC++ FLAC ${FLAC_NEEDS_OGG} )

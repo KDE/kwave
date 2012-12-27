@@ -172,7 +172,7 @@ void Kwave::FlacDecoder::parseVorbisComments(
     }
 
     // parse all vorbis comments into Kwave file properties
-    for (unsigned int i=0; i < vorbis_comments.get_num_comments(); i++) {
+    for (unsigned int i = 0; i < vorbis_comments.get_num_comments(); i++) {
 	FLAC::Metadata::VorbisComment::Entry comment =
 	    vorbis_comments.get_comment(i);
 	Q_ASSERT(comment.is_valid());

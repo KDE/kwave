@@ -2,6 +2,11 @@
 o support for OPUS codec (.opus, using Ogg as container)
   => this will be the main feature for v0.8.10
 
+o support vorbis comment "ENCODED_BY"
+
+o support for Vorbis Chapter Extension <=> map to Kwave labels
+  see http://wiki.xiph.org/VorbisComment
+
 o support for "raw" import/export
 
 o TODO in MP3 plugin (ID3FID_MEDIATYPE)

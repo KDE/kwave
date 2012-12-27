@@ -32,8 +32,7 @@
 
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
-
-#include "VorbisCommentMap.h"
+#include "libkwave/VorbisCommentMap.h"
 
 class QWidget;
 class QIODevice;

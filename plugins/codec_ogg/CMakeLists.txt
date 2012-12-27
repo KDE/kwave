@@ -15,44 +15,90 @@
 ##                                                                          #
 #############################################################################
 
-OPTION(WITH_OGG "enable support for ogg files [default=on]" ON)
+OPTION(WITH_OGG_VORBIS "enable support for ogg vorbis files [default=on]" ON)
+OPTION(WITH_OGG_OPUS   "enable support for ogg opus files [default=on]" ON)
+
+IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
+    SET(WITH_OGG ON)
+ENDIF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
+
 IF (WITH_OGG)
+
+#############################################################################
+### check for Ogg/Opus headers and library                                ###
+
+    IF (WITH_OGG_OPUS)
+# 	CHECK_INCLUDE_FILES("opus/opus.h;opus/opus_multistream.h" HAVE_OPUS_HEADERS)
+# 	IF (HAVE_OPUS_HEADERS)
+# 	    SET(CMAKE_REQUIRED_LIBRARIES "opus")
+# 	    SET(HAVE_VORBIS TRUE)
+# 	ENDIF (HAVE_OPUS_HEADERS)
+
+	PKG_CHECK_MODULES(OPUS REQUIRED opus>=1.0.0)
+	IF (NOT OPUS_FOUND)
+	    MESSAGE(FATAL_ERROR "Opus codec not found")
+	ENDIF(NOT OPUS_FOUND)
+
+	MESSAGE(STATUS "Found Opus codec version ${OPUS_VERSION}")
+# 	MESSAGE(STATUS "Found Opus codec library in ${OPUS_LIBDIR}")
+# 	MESSAGE(STATUS "Found Opus codec headers in ${OPUS_INCLUDEDIR}")
+
+	SET(HAVE_OGG_OPUS  ON CACHE BOOL "enable Opus codec")
+	SET(OGG_OPUS_LBS "opus")
+	SET(OGG_OPUS_SRCS
+	    OpusDecoder.cpp
+	)
+    ENDIF (WITH_OGG_OPUS)
 
 #############################################################################
 ### check for Ogg/Vorbis headers and library                              ###
 
-    SET(OggVorbis_FIND_QUIETLY TRUE)
-    INCLUDE(FindOggVorbis)
+    IF (WITH_OGG_VORBIS)
+	SET(OggVorbis_FIND_QUIETLY TRUE)
+	INCLUDE(FindOggVorbis)
 
-    CHECK_INCLUDE_FILES("vorbis/codec.h;vorbis/vorbisenc.h" HAVE_OGG_VORBIS_HEADERS)
-    IF (HAVE_OGG_VORBIS_HEADERS)
-        SET(CMAKE_REQUIRED_LIBRARIES "vorbisenc;vorbis;ogg")
-        IF (OGGVORBIS_VERSION GREATER 1)
-            SET(HAVE_OGG_VORBIS TRUE)
-        ENDIF (OGGVORBIS_VERSION GREATER 1)
-    ENDIF (HAVE_OGG_VORBIS_HEADERS)
+	CHECK_INCLUDE_FILES("vorbis/codec.h;vorbis/vorbisenc.h" HAVE_OGG_VORBIS_HEADERS)
+	IF (HAVE_OGG_VORBIS_HEADERS)
+	    SET(CMAKE_REQUIRED_LIBRARIES "vorbisenc;vorbis;ogg")
+	    IF (OGGVORBIS_VERSION GREATER 1)
+		SET(HAVE_OGG_VORBIS TRUE)
+	    ENDIF (OGGVORBIS_VERSION GREATER 1)
+	ENDIF (HAVE_OGG_VORBIS_HEADERS)
 
-    IF (HAVE_OGG_VORBIS)
-        MESSAGE(STATUS "Found Ogg/Vorbis library v2.x or newer")
-    ELSE (HAVE_OGG_VORBIS)
-        MESSAGE(FATAL_ERROR "
+	IF (HAVE_OGG_VORBIS)
+	    MESSAGE(STATUS "Found Ogg/Vorbis library v2.x or newer")
+	ELSE (HAVE_OGG_VORBIS)
+	    MESSAGE(FATAL_ERROR "
 
-        your system lacks support for at least libvorbis-devel!
-        please visit "http://vorbis.com" for obtainig a current version
-        of libogg and libvorbis plus the -devel packages if your
-        distribution does not include them.
+	    your system lacks support for at least libvorbis-devel!
+	    please visit "http://vorbis.com" for obtainig a current version
+	    of libogg and libvorbis plus the -devel packages if your
+	    distribution does not include them.
+	    ")
+	ENDIF (HAVE_OGG_VORBIS)
 
-        ")
-    ENDIF (HAVE_OGG_VORBIS)
+	SET(HAVE_OGG_VORBIS ON CACHE BOOL "enable Vorbis codec")
+	SET(OGG_VORBIS_LIBS vorbisenc vorbis)
+	SET(OGG_VORBIS_SRCS
+	    VorbisDecoder.cpp
+	)
+    ENDIF (WITH_OGG_VORBIS)
+
+    #############################################################################
+    ### common part                                                           ###
 
     SET(plugin_codec_ogg_LIB_SRCS
         OggCodecPlugin.cpp
         OggDecoder.cpp
         OggEncoder.cpp
+        ${OGG_OPUS_SRCS}
+        ${OGG_VORBIS_SRCS}
     )
 
     SET(plugin_codec_ogg_LIBS
-        vorbisenc vorbis ogg
+        ${OGG_OPUS_LIBS}
+        ${OGG_VORBIS_LIBS}
+        ogg
     )
 
     KWAVE_PLUGIN(codec_ogg)

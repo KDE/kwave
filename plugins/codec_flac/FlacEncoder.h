@@ -29,8 +29,7 @@
 #include <vorbis/vorbisenc.h>
 
 #include "libkwave/Encoder.h"
-
-#include "VorbisCommentMap.h"
+#include "libkwave/VorbisCommentMap.h"
 
 class QIODevice;
 class QWidget;

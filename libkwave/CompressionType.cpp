@@ -59,6 +59,7 @@ void Kwave::CompressionType::fill()
     append(i++, MPEG_LAYER_II,             _(0), i18n("MPEG Layer II"));
     append(i++, MPEG_LAYER_III,            _(0), i18n("MPEG Layer III"));
 
+    append(i++, OGG_OPUS,                  _(0), i18n("Ogg Opus"));
     append(i++, OGG_VORBIS,                _(0), i18n("Ogg Vorbis"));
 
     append(i++, FLAC,                      _(0), i18n("FLAC"));

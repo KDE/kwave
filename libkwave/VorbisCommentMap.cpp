@@ -18,8 +18,7 @@ VorbisCommentMap.cpp  -  map for translating properties to vorbis comments
 #include "config.h"
 
 #include "libkwave/String.h"
-
-#include "VorbisCommentMap.h"
+#include "libkwave/VorbisCommentMap.h"
 
 /** wrapper for 'insert', to handle QLatin1String conversion */
 #define _INS(p,d) insert(_(p), d)
@@ -51,7 +50,7 @@ QString Kwave::VorbisCommentMap::findProperty(
     const Kwave::FileProperty property)
 {
     QMap<QString, Kwave::FileProperty>::Iterator it;
-    for (it=begin(); it != end(); ++it) {
+    for (it = begin(); it != end(); ++it) {
         if (it.value() == property) return it.key();
     }
     return QString();

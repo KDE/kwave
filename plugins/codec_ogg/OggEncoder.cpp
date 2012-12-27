@@ -73,8 +73,17 @@ static const struct {
 Kwave::OggEncoder::OggEncoder()
     :Kwave::Encoder()
 {
-    REGISTER_MIME_TYPES;
-    REGISTER_COMPRESSION_TYPES;
+    REGISTER_COMMON_MIME_TYPES;
+
+#ifdef HAVE_OGG_OPUS
+    REGISTER_OGG_OPUS_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPE_OGG_OPUS;
+#endif /* HAVE_OGG_OPUS */
+
+#ifdef HAVE_OGG_VORBIS
+    REGISTER_OGG_VORBIS_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPE_OGG_VORBIS;
+#endif /* HAVE_OGG_VORBIS */
 }
 
 /***************************************************************************/

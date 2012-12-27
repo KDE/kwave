@@ -20,13 +20,15 @@
 
 #include "config.h"
 
-#include <vorbis/codec.h>
+#include <ogg/ogg.h>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
 namespace Kwave
 {
+    class OggSubDecoder;
+
     class OggDecoder: public Kwave::Decoder
     {
     public:
@@ -65,26 +67,17 @@ namespace Kwave
     protected:
 
 	/**
-	 * Searches for a vorbis comment and renders it into Kwave's FileInfo.
-	 * If more than one occurance is found, they are concatenated as a
-	 * semicolon separated list.
-	 * @param info the file info object to add the tag value
-	 * @param tag name of the field to search for
-	 * @param property specifies the FileProperty for storing the result
-	 */
-	void parseTag(Kwave::FileInfo &info, const char *tag,
-	              Kwave::FileProperty property);
-
-	/**
 	 * Try to parse header frames.
 	 * @param widget a QWidget for displaying error messages
 	 * @return -1 for error (return false)
-	 *         0 for break (no error)
-	 *         1 if ready to continue
+	 *          1 if ready to continue
 	 */
 	int parseHeader(QWidget *widget);
 
     private:
+
+	/** sub decoder, can be Vorbis, Opus, Speex or whatever... */
+	Kwave::OggSubDecoder *m_sub_decoder;
 
 	/** source of the audio data */
 	QIODevice *m_source;
@@ -100,21 +93,6 @@ namespace Kwave
 
 	/** one raw packet of data for decode */
 	ogg_packet m_op;
-
-	/** struct that stores all the static vorbis bitstream settings */
-	vorbis_info m_vi;
-
-	/** struct that stores all the bitstream user comments */
-	vorbis_comment m_vc;
-
-	/** central working state for the packet->PCM decoder */
-	vorbis_dsp_state m_vd;
-
-	/** local working space for packet->PCM decode */
-	vorbis_block m_vb;
-
-	/** buffer for reading from the QIODevice */
-	char *m_buffer;
 
     };
 }

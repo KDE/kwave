@@ -599,9 +599,9 @@ int Kwave::PlayBackPulseAudio::flush()
 // 	     m_buffer, m_buffer_size);
 
     // calculate a reasonable time for the timeout (16 buffers)
-    unsigned int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
-    unsigned int ms = (samples_per_buffer * 1000) / m_info.rate();
-    unsigned int timeout = (ms + 1) * 16;
+    int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
+    int ms = (samples_per_buffer * 1000) / m_info.rate();
+    int timeout = (ms + 1) * 16;
 
     pa_threaded_mainloop_lock(m_pa_mainloop);
 
@@ -679,9 +679,9 @@ int Kwave::PlayBackPulseAudio::close()
 	    pa_context_errno(m_pa_context)));
 
 	// calculate a reasonable time for the timeout (16 buffers)
-	unsigned int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
-	unsigned int ms = (samples_per_buffer * 1000) / m_info.rate();
-	unsigned int timeout = (ms + 1) * 16;
+	int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
+	int ms = (samples_per_buffer * 1000) / m_info.rate();
+	int timeout = (ms + 1) * 16;
 
 	qDebug("PlayBackPulseAudio::flush(): waiting for drain to finish...");
 	QTime t;

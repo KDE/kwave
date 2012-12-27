@@ -72,6 +72,12 @@
 /* used for unlinking swap files */
 #cmakedefine HAVE_UNLINK
 
+/* support Vorbis in Ogg */
+#cmakedefine HAVE_OGG_VORBIS
+
+/* support Opus in Ogg */
+#cmakedefine HAVE_OGG_OPUS
+
 /* Name of package */
 #cmakedefine PACKAGE "@PACKAGE@"
 

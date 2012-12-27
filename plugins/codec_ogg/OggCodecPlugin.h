@@ -61,22 +61,33 @@ namespace Kwave
     };
 }
 
-#define REGISTER_MIME_TYPES { \
-    /* original from Ogg Vorbis documentation: */ \
-    addMimeType("audio/x-ogg",       i18n("Ogg Vorbis audio"), "*.ogg; *.OGG"); \
-    /* included in KDE: */ \
-    addMimeType("application/x-ogg", i18n("Ogg Vorbis audio"), "*.ogg; *.OGG"); \
-    /* RFC3534: */ \
-    addMimeType("application/ogg", i18n("Ogg Vorbis audio"), "*.ogg; *.OGG"); \
-    /* fond in KDE 4: */ \
-    addMimeType("audio/x-vorbis+ogg", i18n("Ogg Vorbis audio"), "*.ogg; *.OGG"); \
-}
+#define REGISTER_OGG_OPUS_MIME_TYPES                                           \
+    /* Ogg audio, as per RFC5334 */                                            \
+    addMimeType("audio/ogg",         i18n("Ogg Opus audio"),   "*.opus");      \
+    addMimeType("application/ogg",   i18n("Ogg Opus audio"),   "*.opus");      \
+    /* Ogg audio, as per RFC4288 and RFC4855 */                                \
+    addMimeType("audio/opus",        i18n("Ogg Opus audio"),   "*.opus");      \
 
-#define REGISTER_COMPRESSION_TYPES { \
-    addCompression(Kwave::CompressionType::OGG_VORBIS);   \
-}
+#define REGISTER_OGG_VORBIS_MIME_TYPES                                         \
+    /* original from Ogg Vorbis documentation: */                              \
+    addMimeType("audio/x-ogg",       i18n("Ogg Vorbis audio"), "*.ogg");       \
+    /* included in KDE: */                                                     \
+    addMimeType("application/x-ogg", i18n("Ogg Vorbis audio"), "*.ogg");       \
+    /* found in KDE 4: */                                                      \
+    addMimeType("audio/x-vorbis+ogg",i18n("Ogg Vorbis audio"), "*.ogg");
 
-#define DEFAULT_MIME_TYPE "application/ogg"
+#define REGISTER_COMMON_MIME_TYPES                                             \
+    /* Ogg audio, as per RFC5334 */                                            \
+    addMimeType("audio/ogg",         i18n("Ogg audio"),        "*.ogg; *.oga");\
+    addMimeType("application/ogg",   i18n("Ogg audio"),        "*.ogx");
+
+#define REGISTER_COMPRESSION_TYPE_OGG_OPUS \
+    addCompression(Kwave::CompressionType::OGG_OPUS);
+
+#define REGISTER_COMPRESSION_TYPE_OGG_VORBIS \
+    addCompression(Kwave::CompressionType::OGG_VORBIS);
+
+#define DEFAULT_MIME_TYPE "audio/ogg"
 
 #endif /* _OGG_CODEC_PLUGIN_H_ */
 

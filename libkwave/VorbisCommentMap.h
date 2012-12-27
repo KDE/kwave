@@ -1,8 +1,8 @@
-/***************************************************************************
-      CompressionType.h  -  Map for all known compression types
+/*************************************************************************
+VorbisCommentMap.h  -  map for translating properties to vorbis comments
                              -------------------
-    begin                : Mon Jul 29 2002
-    copyright            : (C) 2002 by Thomas Eschenbacher
+    begin                : Sun May 23 2004
+    copyright            : (C) 2004 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -15,46 +15,41 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _COMPRESSION_TYPE_H_
-#define _COMPRESSION_TYPE_H_
+#ifndef _VORBIS_COMMENT_MAP_H_
+#define _VORBIS_COMMENT_MAP_H_
 
 #include "config.h"
 
-#include <audiofile.h>
+#include <QtCore/QMap>
+#include <QtCore/QString>
 
 #include <kdemacros.h>
 
-#include "libkwave/TypesMap.h"
+#include "libkwave/FileInfo.h"
 
 namespace Kwave
 {
-    class KDE_EXPORT CompressionType: public Kwave::TypesMap<int, int>
+    class KDE_EXPORT VorbisCommentMap :public QMap<QString, Kwave::FileProperty>
     {
     public:
-
-	/** extended compression types, not from libaudiofile */
-	enum {
-	    MPEG_LAYER_I = 600,
-	    MPEG_LAYER_II,
-	    MPEG_LAYER_III,
-	    OGG_VORBIS,
-	    OGG_OPUS,
-	    FLAC
-	};
-
-	/** Constructor */
-	explicit CompressionType();
+	/** Default constructor, with initializing */
+	VorbisCommentMap();
 
 	/** Destructor */
-	virtual ~CompressionType();
+	virtual ~VorbisCommentMap() {};
 
-	/** fills the list */
-	virtual void fill();
+	/**
+	 * Returns the vorbis comment name of a property or an empty string
+	 * if nothing found (reverse lookup).
+	 */
+	QString findProperty(const Kwave::FileProperty property);
+
+	/** Returns true if the map contains a given property */
+	bool containsProperty(const Kwave::FileProperty property);
 
     };
 }
-
-#endif /* _COMPRESSION_TYPE_H_ */
+#endif /* _VORBIS_COMMENT_MAP_H_ */
 
 //***************************************************************************
 //***************************************************************************

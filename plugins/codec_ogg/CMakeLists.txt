@@ -44,7 +44,7 @@ IF (WITH_OGG)
 # 	MESSAGE(STATUS "Found Opus codec headers in ${OPUS_INCLUDEDIR}")
 
 	SET(HAVE_OGG_OPUS  ON CACHE BOOL "enable Opus codec")
-	SET(OGG_OPUS_LBS "opus")
+	SET(OGG_OPUS_LIBS "opus")
 	SET(OGG_OPUS_SRCS
 	    OpusDecoder.cpp
 	)

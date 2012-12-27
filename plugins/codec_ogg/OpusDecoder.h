@@ -139,6 +139,10 @@ namespace Kwave
 
 	/** map for translating Opus comments to Kwave FileInfo */
 	Kwave::VorbisCommentMap m_comments_map;
+
+	/** buffer for decoded raw audio data */
+	float *m_buffer;
+
     };
 }
 

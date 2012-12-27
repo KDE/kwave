@@ -17,7 +17,10 @@
 
 #include "config.h"
 
+#include <math.h>
 #include <stdlib.h>
+
+#include <opus/opus_defines.h>
 
 #include <QtCore/QDate>
 #include <QtCore/qendian.h>
@@ -35,8 +38,28 @@
 
 #include "OpusDecoder.h"
 
-/** bitrate to be used when no bitrate has been decoded */
-#define DEFAULT_BITRATE 128000
+/** maximum frame size in samples, 120ms at 48000 */
+#define MAX_FRAME_SIZE (960 * 6)
+
+//***************************************************************************
+/**
+ * round up to the next supported sample rate
+ * @param arbitrary sample rate
+ * @return next supported rate
+ */
+static int _opus_next_sample_rate(int rate)
+{
+    if (rate < 8000)
+	return 8000;
+    else if (rate <= 12000)
+	return 12000;
+    else if (rate <= 16000)
+	return 16000;
+    else if (rate <= 24000)
+	return 24000;
+    else
+	return 48000;
+}
 
 //***************************************************************************
 Kwave::OpusDecoder::OpusDecoder(QIODevice *source,
@@ -46,7 +69,7 @@ Kwave::OpusDecoder::OpusDecoder(QIODevice *source,
                                     ogg_packet& op)
     :m_source(source), m_stream_start_pos(0), m_samples_written(0),
      m_oy(oy), m_os(os), m_og(og), m_op(op),
-     m_comments_map()
+     m_comments_map(), m_buffer(0)
 {
 }
 
@@ -236,6 +259,7 @@ int Kwave::OpusDecoder::parseOpusHead(QWidget *widget, Kwave::FileInfo &info)
 
 	// sample rate
 	m_opus_header.sample_rate = qFromLittleEndian<quint32>(h->sample_rate);
+	m_opus_header.sample_rate = _opus_next_sample_rate(m_opus_header.sample_rate); // ###
 
 	// gain
 	m_opus_header.gain = qFromLittleEndian<quint16>(h->gain);
@@ -316,6 +340,44 @@ int Kwave::OpusDecoder::parseOpusHead(QWidget *widget, Kwave::FileInfo &info)
     return 1;
 }
 
+//***************************************************************************
+static QString _opus_error(int err)
+{
+    QString msg;
+
+    switch (err)
+    {
+	/** No error @hideinitializer*/
+	case OPUS_OK:
+	    msg =QString();
+	    break;
+	case OPUS_BAD_ARG:
+	    msg = i18n("One or more invalid/out of range arguments.");
+	    break;
+	case OPUS_BUFFER_TOO_SMALL:
+	    msg = i18n("The mode struct passed is invalid.");
+	    break;
+	case OPUS_INTERNAL_ERROR:
+	    msg = i18n("An internal error was detected.");
+	    break;
+	case OPUS_INVALID_PACKET:
+	    msg = i18n("The compressed data passed is corrupted.");
+	    break;
+	case OPUS_UNIMPLEMENTED:
+	    msg = i18n("Invalid/unsupported request number.");
+	    break;
+	case OPUS_INVALID_STATE:
+	    msg = i18n("A decoder structure is invalid or already freed.");
+	    break;
+	case OPUS_ALLOC_FAIL:
+	    msg = i18n("Memory allocation has failed.");
+	    break;
+	default:
+	    msg = i18n("Decoder error: %1", _(opus_strerror(err)));
+	    break;
+    }
+    return msg;
+}
 
 //***************************************************************************
 int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
@@ -329,6 +391,46 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     if (parseOpusTags(widget, info) < 1)
 	return -1;
 
+    // allocate memory for the output data
+    if (m_buffer) free(m_buffer);
+    m_buffer = static_cast<float *>(
+	malloc(sizeof(float) * MAX_FRAME_SIZE * m_opus_header.channels));
+    if (!m_buffer) {
+	Kwave::MessageBox::error(widget, i18n("Out of memory"));
+	return -1;
+    }
+
+    int err = OPUS_BAD_ARG;
+    qDebug("sample rate = %d", m_opus_header.sample_rate);
+    m_opus_decoder = opus_multistream_decoder_create(
+        _opus_next_sample_rate(m_opus_header.sample_rate),
+        m_opus_header.channels,
+        m_opus_header.streams,
+        m_opus_header.coupled,
+        m_opus_header.map,
+        &err
+    );
+
+    if ((err != OPUS_OK) || !m_opus_decoder) {
+	info.dump();
+	Kwave::MessageBox::error(widget, _opus_error(err),
+	     i18n("Opus decoder failed"));
+	return -1;
+    }
+
+#ifdef OPUS_SET_GAIN
+    if (m_opus_header.gain) {
+	err = opus_multistream_decoder_ctl(
+	    m_opus_decoder, OPUS_SET_GAIN(m_opus_header.gain)
+	);
+	if (err == OPUS_OK) {
+	    qDebug("    OpusDecoder: gain adjusted to %d Q8dB",
+	           m_opus_header.gain);
+	    m_opus_header.gain = 0;
+	}
+    }
+#endif /* OPUS_SET_GAIN */
+
     m_stream_start_pos = m_source->pos();
     return 1;
 }
@@ -336,7 +438,38 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 //***************************************************************************
 int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 {
-    // TODO
+    if (!m_opus_decoder || !m_buffer)
+	return -1;
+
+    // decode the audio data into a buffer with float values
+    int ret = opus_multistream_decode_float(
+	m_opus_decoder,
+	static_cast<unsigned char *>(m_op.packet),
+	m_op.bytes, m_buffer, MAX_FRAME_SIZE, 0
+    );
+    if (ret <= 0) {
+	qWarning("OpusDecoder::decode() failed: '%s'", DBG(_opus_error(ret)));
+	return -1;
+    }
+
+    // manually apply the gain if necessary
+    if (m_opus_header.gain) {
+	const float g = pow(10., m_opus_header.gain / (20.0 * 256.0));
+	for (int i = 0; i < (ret * m_opus_header.channels); i++)
+	    m_buffer[i] *= g;
+    }
+
+    const unsigned int tracks = m_opus_header.channels;
+    float *p = m_buffer;
+    for (int frame = 0; frame < ret; frame++) {
+	for (unsigned int t = 0; t < tracks; t++) {
+	    // scale, use some primitive noise shaping
+	    sample_t s = static_cast<sample_t>(
+		*(p++) * static_cast<float>(SAMPLE_MAX) + drand48() - 0.5f);
+	    *(dst[t]) << s;
+	}
+    }
+
     m_samples_written = dst.last();
     return 0;
 }
@@ -344,14 +477,19 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 //***************************************************************************
 void Kwave::OpusDecoder::reset()
 {
-    // TODO
+    if (m_opus_decoder)
+	opus_multistream_decoder_destroy(m_opus_decoder);
+    m_opus_decoder = 0;
+
+    if (m_buffer)
+	free(m_buffer);
+    m_buffer = 0;
 }
 
 //***************************************************************************
 void Kwave::OpusDecoder::close(Kwave::FileInfo &info)
 {
     Q_UNUSED(info);
-    // TODO
 }
 
 

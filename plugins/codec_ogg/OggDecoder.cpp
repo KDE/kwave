@@ -191,7 +191,6 @@ bool Kwave::OggDecoder::open(QWidget *widget, QIODevice &src)
     return true;
 }
 
-
 //***************************************************************************
 bool Kwave::OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 {

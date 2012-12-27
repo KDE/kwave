@@ -59,6 +59,11 @@ namespace Kwave
 	 */
 	virtual void load(QStringList &params);
 
+	/**
+	 * Gets called before the plugin is unloaded.
+	 */
+	virtual void unload();
+
 	/** @see Kwave::Plugin::setup() */
 	virtual QStringList *setup(QStringList &previous_params);
 

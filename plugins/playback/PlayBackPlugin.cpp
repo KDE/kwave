@@ -162,6 +162,8 @@ int Kwave::PlayBackPlugin::interpreteParameters(QStringList &params)
 //***************************************************************************
 void Kwave::PlayBackPlugin::load(QStringList &params)
 {
+    use(); // stay loaded
+
     interpreteParameters(params);
 
     connect(&m_playback_controller, SIGNAL(sigDeviceStartPlayback()),
@@ -170,6 +172,12 @@ void Kwave::PlayBackPlugin::load(QStringList &params)
             this, SLOT(stopDevicePlayBack()));
     connect(&m_playback_controller, SIGNAL(sigDeviceSeekTo(sample_index_t)),
 	    this, SLOT(seekTo(sample_index_t)));
+}
+
+/***************************************************************************/
+void Kwave::PlayBackPlugin::unload()
+{
+    release();
 }
 
 //***************************************************************************

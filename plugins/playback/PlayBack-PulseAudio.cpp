@@ -682,9 +682,11 @@ int Kwave::PlayBackPulseAudio::close()
 	int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
 	int ms = (samples_per_buffer * 1000) / m_info.rate();
 	int timeout = (ms + 1) * 16;
+	if (timeout < 1000) timeout = 1000;
 
 	qDebug("PlayBackPulseAudio::flush(): waiting for drain to finish...");
 	QTime t;
+	t.start();
 	while (op && (pa_operation_get_state(op) != PA_OPERATION_DONE)) {
 	    if (!PA_CONTEXT_IS_GOOD(pa_context_get_state(m_pa_context)) ||
 		!PA_STREAM_IS_GOOD(pa_stream_get_state(m_pa_stream))) {

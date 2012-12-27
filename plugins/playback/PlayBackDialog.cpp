@@ -92,7 +92,7 @@ Kwave::PlayBackDialog::PlayBackDialog(Kwave::Plugin &p,
 
     connect(btTest, SIGNAL(clicked()),
             SIGNAL(sigTestPlayback()));
-    connect(buttonBox->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+    connect(btHelp->button(QDialogButtonBox::Help), SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
 
     // remove the header of the tree view

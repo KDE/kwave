@@ -1,8 +1,8 @@
 /*************************************************************************
-   AsciiCodecPlugin.cpp  -  import/export of ASCII data
+        CodecPlugin.cpp  -  base class for codec plugins
                              -------------------
-    begin                : Sun Nov 28 2006
-    copyright            : (C) 2006 by Thomas Eschenbacher
+    begin                : Fri Dec 28 2012
+    copyright            : (C) 2012 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -17,44 +17,62 @@
 
 #include "config.h"
 
-#include <klocale.h>
-
 #include "libkwave/CodecManager.h"
-
-#include "AsciiCodecPlugin.h"
-#include "AsciiEncoder.h"
-#include "AsciiDecoder.h"
-
-KWAVE_PLUGIN(Kwave::AsciiCodecPlugin, "codec_ascii", "2.3",
-             I18N_NOOP("ASCII Codec"), "Thomas Eschenbacher");
-
-// static instance of the codec container
-Kwave::CodecPlugin::Codec Kwave::AsciiCodecPlugin::m_codec = {0, 0, 0};
+#include "libkwave/CodecPlugin.h"
+#include "libkwave/Decoder.h"
+#include "libkwave/Encoder.h"
 
 /***************************************************************************/
-Kwave::AsciiCodecPlugin::AsciiCodecPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::CodecPlugin(plugin_manager, m_codec)
+Kwave::CodecPlugin::CodecPlugin(PluginManager &plugin_manager, Codec &codec)
+    :Kwave::Plugin(plugin_manager), m_codec(codec)
 {
 }
 
 /***************************************************************************/
-Kwave::AsciiCodecPlugin::~AsciiCodecPlugin()
+Kwave::CodecPlugin::~CodecPlugin()
 {
 }
 
 /***************************************************************************/
-Kwave::Decoder *Kwave::AsciiCodecPlugin::createDecoder()
+void Kwave::CodecPlugin::load(QStringList &/* params */)
 {
-    return new Kwave::AsciiDecoder();
+    use();
+
+    m_codec.m_use_count++;
+    if (m_codec.m_use_count == 1)
+    {
+	m_codec.m_encoder = createEncoder();
+	if (m_codec.m_encoder)
+	    Kwave::CodecManager::registerEncoder(*m_codec.m_encoder);
+
+	m_codec.m_decoder = createDecoder();
+	if (m_codec.m_decoder)
+	    Kwave::CodecManager::registerDecoder(*m_codec.m_decoder);
+    }
 }
 
 /***************************************************************************/
-Kwave::Encoder *Kwave::AsciiCodecPlugin::createEncoder()
+void Kwave::CodecPlugin::unload()
 {
-    return new Kwave::AsciiEncoder();
+    m_codec.m_use_count--;
+
+    if (m_codec.m_use_count < 1)
+    {
+	if (m_codec.m_decoder) {
+	    Kwave::CodecManager::unregisterDecoder(m_codec.m_decoder);
+	    delete m_codec.m_decoder;
+	    m_codec.m_decoder = 0;
+	}
+
+	if (m_codec.m_encoder) {
+	    Kwave::CodecManager::unregisterEncoder(m_codec.m_encoder);
+	    delete m_codec.m_encoder;
+	    m_codec.m_encoder = 0;
+	}
+    }
+
+    release();
 }
 
-/***************************************************************************/
-#include "AsciiCodecPlugin.moc"
 /***************************************************************************/
 /***************************************************************************/

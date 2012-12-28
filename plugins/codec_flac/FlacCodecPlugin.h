@@ -20,17 +20,15 @@
 
 #include "config.h"
 
+#include "libkwave/CodecPlugin.h"
 #include "libkwave/CompressionType.h"
-#include "libkwave/Plugin.h"
 
 class QStringList;
 
 namespace Kwave
 {
-    class Decoder;
-    class Encoder;
 
-    class FlacCodecPlugin: public Kwave::Plugin
+    class FlacCodecPlugin: public Kwave::CodecPlugin
     {
 	Q_OBJECT
     public:
@@ -44,22 +42,15 @@ namespace Kwave
 	/** Returns the name of the plugin. */
 	virtual QString name() const;
 
-	/**
-	 * Gets called when the plugin is first loaded.
-	 */
-	virtual void load(QStringList &/* params */);
+	/** Creates a new decoder instance */
+	virtual Kwave::Decoder *createDecoder();
 
-	/**
-	 * Gets called before the plugin is unloaded.
-	 */
-	virtual void unload();
+	/** Creates a new encoder instance */
+	virtual Kwave::Encoder *createEncoder();
 
     private:
-	/** decoder used as factory */
-	Kwave::Decoder *m_decoder;
-
-	/** encoder used as factory */
-	Kwave::Encoder *m_encoder;
+	/** static codec container */
+	static CodecPlugin::Codec m_codec;
     };
 }
 

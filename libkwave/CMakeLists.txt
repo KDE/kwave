@@ -33,6 +33,7 @@ SET(libkwave_LIB_SRCS
     ClipBoard.cpp
     CodecBase.cpp
     CodecManager.cpp
+    CodecPlugin.cpp
     CompressionType.cpp
     ConfirmCancelProxy.cpp
     Connect.cpp

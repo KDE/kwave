@@ -26,45 +26,30 @@
 KWAVE_PLUGIN(Kwave::WavCodecPlugin, "codec_wav", "2.3",
              I18N_NOOP("WAV Codec"), "Thomas Eschenbacher");
 
+// static instance of the codec container
+Kwave::CodecPlugin::Codec Kwave::WavCodecPlugin::m_codec = {0, 0, 0};
+
 /***************************************************************************/
 Kwave::WavCodecPlugin::WavCodecPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_decoder(0), m_encoder(0)
+    :Kwave::CodecPlugin(plugin_manager, m_codec)
 {
 }
 
 /***************************************************************************/
 Kwave::WavCodecPlugin::~WavCodecPlugin()
 {
-    m_encoder = 0;
-    m_decoder = 0;
 }
 
 /***************************************************************************/
-void Kwave::WavCodecPlugin::load(QStringList &/* params */)
+Kwave::Decoder *Kwave::WavCodecPlugin::createDecoder()
 {
-    use();
-
-    if (!m_encoder) m_encoder = new Kwave::WavEncoder();
-    Q_ASSERT(m_encoder);
-    if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
-
-    if (!m_decoder) m_decoder = new Kwave::WavDecoder();
-    Q_ASSERT(m_decoder);
-    if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
+    return new Kwave::WavDecoder();
 }
 
 /***************************************************************************/
-void Kwave::WavCodecPlugin::unload()
+Kwave::Encoder *Kwave::WavCodecPlugin::createEncoder()
 {
-    Kwave::CodecManager::unregisterDecoder(m_decoder);
-    delete m_decoder;
-    m_decoder = 0;
-
-    Kwave::CodecManager::unregisterEncoder(m_encoder);
-    delete m_encoder;
-    m_encoder = 0;
-
-    release();
+    return new Kwave::WavEncoder();
 }
 
 //***************************************************************************

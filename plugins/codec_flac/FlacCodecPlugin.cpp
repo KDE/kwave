@@ -28,46 +28,30 @@
 KWAVE_PLUGIN(Kwave::FlacCodecPlugin, "codec_flac", "2.3",
              I18N_NOOP("FLAC Codec"), "Thomas Eschenbacher");
 
+// static instance of the codec container
+Kwave::CodecPlugin::Codec Kwave::FlacCodecPlugin::m_codec = {0, 0, 0};
+
 /***************************************************************************/
 Kwave::FlacCodecPlugin::FlacCodecPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_decoder(0), m_encoder(0)
+    :Kwave::CodecPlugin(plugin_manager, m_codec)
 {
 }
 
 /***************************************************************************/
 Kwave::FlacCodecPlugin::~FlacCodecPlugin()
 {
-    m_encoder = 0;
-    m_decoder = 0;
 }
 
 /***************************************************************************/
-void Kwave::FlacCodecPlugin::load(QStringList &/* params */)
+Kwave::Decoder *Kwave::FlacCodecPlugin::createDecoder()
 {
-    use();
-
-    if (!m_encoder) m_encoder = new Kwave::FlacEncoder();
-    Q_ASSERT(m_encoder);
-    if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
-
-    if (!m_decoder) m_decoder = new Kwave::FlacDecoder();
-    Q_ASSERT(m_decoder);
-    if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
+    return new Kwave::FlacDecoder();
 }
 
-
 /***************************************************************************/
-void Kwave::FlacCodecPlugin::unload()
+Kwave::Encoder *Kwave::FlacCodecPlugin::createEncoder()
 {
-    Kwave::CodecManager::unregisterDecoder(m_decoder);
-    delete m_decoder;
-    m_decoder = 0;
-
-    Kwave::CodecManager::unregisterEncoder(m_encoder);
-    delete m_encoder;
-    m_encoder = 0;
-
-    release();
+    return new Kwave::FlacEncoder();
 }
 
 /***************************************************************************/

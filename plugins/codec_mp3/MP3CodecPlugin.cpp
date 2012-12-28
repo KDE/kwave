@@ -28,48 +28,18 @@
 KWAVE_PLUGIN(Kwave::MP3CodecPlugin, "codec_mp3", "2.3",
              I18N_NOOP("MP3 Codec"), "Thomas Eschenbacher");
 
+// static instance of the codec container
+Kwave::CodecPlugin::Codec Kwave::MP3CodecPlugin::m_codec = {0, 0, 0};
+
 /***************************************************************************/
 Kwave::MP3CodecPlugin::MP3CodecPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_decoder(0), m_encoder(0)
+    :Kwave::CodecPlugin(plugin_manager, m_codec)
 {
 }
 
 /***************************************************************************/
 Kwave::MP3CodecPlugin::~MP3CodecPlugin()
 {
-    m_encoder = 0;
-    m_decoder = 0;
-}
-
-/***************************************************************************/
-void Kwave::MP3CodecPlugin::load(QStringList &/* params */)
-{
-    use();
-
-    if (!m_decoder) m_decoder = new Kwave::MP3Decoder();
-    Q_ASSERT(m_decoder);
-    if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
-
-    if (!m_encoder) m_encoder = new Kwave::MP3Encoder();
-    Q_ASSERT(m_encoder);
-    if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
-
-    emitCommand(_("menu (plugin:setup(codec_mp3), &Options/%1)").arg(
-	i18n("MP3 Encoder Setup")));
-}
-
-/***************************************************************************/
-void Kwave::MP3CodecPlugin::unload()
-{
-    Kwave::CodecManager::unregisterDecoder(m_decoder);
-    delete m_decoder;
-    m_decoder = 0;
-
-    Kwave::CodecManager::unregisterEncoder(m_encoder);
-    delete m_encoder;
-    m_encoder = 0;
-
-    release();
 }
 
 //***************************************************************************
@@ -96,6 +66,18 @@ QStringList *Kwave::MP3CodecPlugin::setup(QStringList &previous_params)
     if (dialog) delete dialog;
     return list;
 
+}
+
+/***************************************************************************/
+Kwave::Decoder *Kwave::MP3CodecPlugin::createDecoder()
+{
+    return new Kwave::MP3Decoder();
+}
+
+/***************************************************************************/
+Kwave::Encoder *Kwave::MP3CodecPlugin::createEncoder()
+{
+    return new Kwave::MP3Encoder();
 }
 
 //***************************************************************************

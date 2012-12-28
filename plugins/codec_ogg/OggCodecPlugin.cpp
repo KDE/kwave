@@ -1,5 +1,5 @@
 /*************************************************************************
-     OggCodecPlugin.cpp  -  import/export of Ogg/Vorbis data
+     OggCodecPlugin.cpp  -  import/export of audio in an Ogg container
                              -------------------
     begin                : Tue Sep 10 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
@@ -27,9 +27,12 @@
 KWAVE_PLUGIN(Kwave::OggCodecPlugin, "codec_ogg", "2.3",
              I18N_NOOP("Ogg Codec"), "Thomas Eschenbacher");
 
+// static instance of the codec container
+Kwave::CodecPlugin::Codec Kwave::OggCodecPlugin::m_codec = {0, 0, 0};
+
 /***************************************************************************/
 Kwave::OggCodecPlugin::OggCodecPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_decoder(0), m_encoder(0)
+    :Kwave::CodecPlugin(plugin_manager, m_codec)
 {
 }
 
@@ -39,31 +42,15 @@ Kwave::OggCodecPlugin::~OggCodecPlugin()
 }
 
 /***************************************************************************/
-void Kwave::OggCodecPlugin::load(QStringList &/* params */)
+Kwave::Decoder *Kwave::OggCodecPlugin::createDecoder()
 {
-    use();
-
-    if (!m_encoder) m_encoder = new Kwave::OggEncoder();
-    Q_ASSERT(m_encoder);
-    if (m_encoder) Kwave::CodecManager::registerEncoder(*m_encoder);
-
-    if (!m_decoder) m_decoder = new Kwave::OggDecoder();
-    Q_ASSERT(m_decoder);
-    if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
+    return new Kwave::OggDecoder();
 }
 
 /***************************************************************************/
-void Kwave::OggCodecPlugin::unload()
+Kwave::Encoder *Kwave::OggCodecPlugin::createEncoder()
 {
-    Kwave::CodecManager::unregisterDecoder(m_decoder);
-    delete m_decoder;
-    m_decoder = 0;
-
-    Kwave::CodecManager::unregisterEncoder(m_encoder);
-    delete m_encoder;
-    m_encoder = 0;
-
-    release();
+    return new Kwave::OggEncoder();
 }
 
 //***************************************************************************

@@ -19,14 +19,13 @@
 #define _WAV_CODEC_PLUGIN_H_
 
 #include "config.h"
-#include "libkwave/Plugin.h"
+
+#include "libkwave/CodecPlugin.h"
 
 namespace Kwave
 {
-    class Encoder;
-    class Decoder;
 
-    class WavCodecPlugin: public Kwave::Plugin
+    class WavCodecPlugin: public Kwave::CodecPlugin
     {
 	Q_OBJECT
     public:
@@ -40,22 +39,15 @@ namespace Kwave
 	/** Returns the name of the plugin. */
 	virtual QString name() const;
 
-	/**
-	 * Gets called when the plugin is first loaded.
-	 */
-	virtual void load(QStringList &/* params */);
+	/** Creates a new decoder instance */
+	virtual Kwave::Decoder *createDecoder();
 
-	/**
-	 * Gets called before the plugin is unloaded.
-	 */
-	virtual void unload();
+	/** Creates a new encoder instance */
+	virtual Kwave::Encoder *createEncoder();
 
     private:
-	/** decoder used as factory */
-	Kwave::Decoder *m_decoder;
-
-	/** encoder used as factory */
-	Kwave::Encoder *m_encoder;
+	/** static codec container */
+	static CodecPlugin::Codec m_codec;
     };
 }
 

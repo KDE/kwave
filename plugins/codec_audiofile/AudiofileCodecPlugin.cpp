@@ -26,10 +26,14 @@
 KWAVE_PLUGIN(Kwave::AudiofileCodecPlugin, "codec_audiofile", "2.3",
              I18N_NOOP("Audiofile Codec"), "Thomas Eschenbacher");
 
+// static instance of the codec container
+Kwave::CodecPlugin::Codec Kwave::AudiofileCodecPlugin::m_codec = {0, 0, 0};
+
 /***************************************************************************/
 Kwave::AudiofileCodecPlugin::AudiofileCodecPlugin(
-    Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_decoder(0)
+    Kwave::PluginManager &plugin_manager
+)
+    :Kwave::CodecPlugin(plugin_manager, m_codec)
 {
 }
 
@@ -39,23 +43,15 @@ Kwave::AudiofileCodecPlugin::~AudiofileCodecPlugin()
 }
 
 /***************************************************************************/
-void Kwave::AudiofileCodecPlugin::load(QStringList &/* params */)
+Kwave::Decoder *Kwave::AudiofileCodecPlugin::createDecoder()
 {
-    use();
-
-    if (!m_decoder) m_decoder = new Kwave::AudiofileDecoder();
-    Q_ASSERT(m_decoder);
-    if (m_decoder) Kwave::CodecManager::registerDecoder(*m_decoder);
+    return new Kwave::AudiofileDecoder();
 }
 
 /***************************************************************************/
-void Kwave::AudiofileCodecPlugin::unload()
+Kwave::Encoder *Kwave::AudiofileCodecPlugin::createEncoder()
 {
-    Kwave::CodecManager::unregisterDecoder(m_decoder);
-    delete m_decoder;
-    m_decoder = 0;
-
-    release();
+    return 0; /* not implemented */
 }
 
 /***************************************************************************/

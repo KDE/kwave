@@ -19,16 +19,14 @@
 #define _MP3_CODEC_PLUGIN_H_
 
 #include "config.h"
+
+#include "libkwave/CodecPlugin.h"
 #include "libkwave/CompressionType.h"
-#include "libkwave/Plugin.h"
 
 namespace Kwave
 {
 
-    class Decoder;
-    class Encoder;
-
-    class MP3CodecPlugin: public Kwave::Plugin
+    class MP3CodecPlugin: public Kwave::CodecPlugin
     {
 	Q_OBJECT
     public:
@@ -43,16 +41,6 @@ namespace Kwave
 	virtual QString name() const;
 
 	/**
-	 * Gets called when the plugin is first loaded.
-	 */
-	virtual void load(QStringList &/* params */);
-
-	/**
-	 * Gets called before the plugin is unloaded.
-	 */
-	virtual void unload();
-
-	/**
 	 * Shows a dialog to set up the plugin, configure all paths,
 	 * presets and other parameters...
 	 * @param previous_params the parameters of a previous call
@@ -61,13 +49,15 @@ namespace Kwave
 	 */
 	virtual QStringList *setup(QStringList &previous_params);
 
+	/** Creates a new decoder instance */
+	virtual Kwave::Decoder *createDecoder();
+
+	/** Creates a new encoder instance */
+	virtual Kwave::Encoder *createEncoder();
+
     private:
-
-	/** decoder used as factory */
-	Kwave::Decoder *m_decoder;
-
-	/** encoder used as factory */
-	Kwave::Encoder *m_encoder;
+	/** static codec container */
+	static CodecPlugin::Codec m_codec;
     };
 
 }

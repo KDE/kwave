@@ -30,6 +30,7 @@
  * bugfix: undo of "modify label" caused loss of other labels
  * bugfix: use timeout for phonon playback, to avoid hang on unusable devices
  * using klocale for formating numbers of samples
+ * added common base class for all codec plugins
 
 0.8.9  [2012-11-06]
 

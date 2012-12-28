@@ -37,6 +37,9 @@ class QWidget;
 
 namespace Kwave
 {
+    class MultiWriter;
+    class StreamObject;
+
     class OpusDecoder: public Kwave::OggSubDecoder
     {
     public:
@@ -49,11 +52,11 @@ namespace Kwave
 	 * @param og one Ogg bitstream page, Opus packets are inside
 	 * @param op one raw packet of data for decode
 	 */
-	explicit OpusDecoder(QIODevice *source,
-                             ogg_sync_state &oy,
-	                     ogg_stream_state &os,
-	                     ogg_page &og,
-	                     ogg_packet &op);
+	OpusDecoder(QIODevice *source,
+                    ogg_sync_state &oy,
+	            ogg_stream_state &os,
+	            ogg_page &og,
+	            ogg_packet &op);
 
 	/** destructor */
 	virtual ~OpusDecoder() {}
@@ -143,6 +146,19 @@ namespace Kwave
 	/** buffer for decoded raw audio data */
 	float *m_buffer;
 
+#ifdef HAVE_SAMPLERATE_SUPPORT
+	/** adapter for connecting the sample rate converter (when needed) */
+	Kwave::MultiWriter *m_adapter;
+
+	/** sample rate converter (when needed) */
+	Kwave::StreamObject *m_rate_converter;
+
+	/**
+	 * if true, the output of the rate converter has been connected
+	 * to the decoder's sink
+	 */
+	bool m_converter_connected;
+#endif /* HAVE_SAMPLERATE_SUPPORT */
     };
 }
 

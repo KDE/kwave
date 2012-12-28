@@ -113,10 +113,12 @@ void Kwave::PlayBackPulseAudio::pa_stream_success_cb(pa_stream *s,
 void Kwave::PlayBackPulseAudio::pa_stream_latency_cb(pa_stream *p,
                                                      void *userdata)
 {
-    Kwave::PlayBackPulseAudio *playback_plugin =
-	reinterpret_cast<Kwave::PlayBackPulseAudio *>(userdata);
-    Q_ASSERT(playback_plugin);
-    if (playback_plugin) playback_plugin->notifyLatency(p);
+    Q_UNUSED(p);
+    Q_UNUSED(userdata);
+//     Kwave::PlayBackPulseAudio *playback_plugin =
+// 	reinterpret_cast<Kwave::PlayBackPulseAudio *>(userdata);
+//     Q_ASSERT(playback_plugin);
+//     if (playback_plugin) playback_plugin->notifyLatency(p);
 }
 
 //***************************************************************************

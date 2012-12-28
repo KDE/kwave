@@ -30,11 +30,15 @@
 #include <klocale.h>
 
 #include "libkwave/CompressionType.h"
+#include "libkwave/Connect.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MultiStreamWriter.h"
+#include "libkwave/MultiTrackSource.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/StandardBitrates.h"
+#include "libkwave/modules/RateConverter.h"
 
 #include "OpusDecoder.h"
 
@@ -44,7 +48,7 @@
 //***************************************************************************
 /**
  * round up to the next supported sample rate
- * @param arbitrary sample rate
+ * @param rate arbitrary sample rate
  * @return next supported rate
  */
 static int _opus_next_sample_rate(int rate)
@@ -63,13 +67,16 @@ static int _opus_next_sample_rate(int rate)
 
 //***************************************************************************
 Kwave::OpusDecoder::OpusDecoder(QIODevice *source,
-                                    ogg_sync_state &oy,
-                                    ogg_stream_state &os,
-                                    ogg_page& og,
-                                    ogg_packet& op)
+                                ogg_sync_state &oy,
+                                ogg_stream_state &os,
+                                ogg_page &og,
+                                ogg_packet &op)
     :m_source(source), m_stream_start_pos(0), m_samples_written(0),
      m_oy(oy), m_os(os), m_og(og), m_op(op),
      m_comments_map(), m_buffer(0)
+#ifdef HAVE_SAMPLERATE_SUPPORT
+    ,m_adapter(0), m_rate_converter(0), m_converter_connected(false)
+#endif /* HAVE_SAMPLERATE_SUPPORT */
 {
 }
 
@@ -259,7 +266,21 @@ int Kwave::OpusDecoder::parseOpusHead(QWidget *widget, Kwave::FileInfo &info)
 
 	// sample rate
 	m_opus_header.sample_rate = qFromLittleEndian<quint32>(h->sample_rate);
-	m_opus_header.sample_rate = _opus_next_sample_rate(m_opus_header.sample_rate); // ###
+
+	// for debugging rate conversion issues:
+// 	m_opus_header.sample_rate =
+// 	    _opus_next_sample_rate(m_opus_header.sample_rate);
+
+#ifndef HAVE_SAMPLERATE_SUPPORT
+	int rate_orig = m_opus_header.sample_rate;
+	int rate_supp = _opus_next_sample_rate(rate_orig);
+	if (rate_orig != rate_supp) {
+	    qWarning("    OpusDecoder::parseHeader(): sample rate %d is not "
+	             "supported but rate conversion is disabled "
+	             "-> setting to %d", rate_orig, rate_supp);
+	    m_opus_header.sample_rate = rate_supp;
+	}
+#endif /* HAVE_SAMPLERATE_SUPPORT */
 
 	// gain
 	m_opus_header.gain = qFromLittleEndian<quint16>(h->gain);
@@ -401,7 +422,7 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     }
 
     int err = OPUS_BAD_ARG;
-    qDebug("sample rate = %d", m_opus_header.sample_rate);
+    qDebug("    sample rate = %d", m_opus_header.sample_rate);
     m_opus_decoder = opus_multistream_decoder_create(
         _opus_next_sample_rate(m_opus_header.sample_rate),
         m_opus_header.channels,
@@ -431,7 +452,61 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     }
 #endif /* OPUS_SET_GAIN */
 
+    const unsigned int tracks = m_opus_header.channels;
+    int rate_orig = m_opus_header.sample_rate;
+    int rate_supp = _opus_next_sample_rate(rate_orig);
+
+    // handle sample rate conversion
+    if (rate_orig != rate_supp) {
+	bool ok = false;
+
+#ifdef HAVE_SAMPLERATE_SUPPORT
+	qDebug("    OpusDecoder::open(): converting sample rate: %d -> %d",
+	       rate_supp, rate_orig);
+
+	ok = true;
+	m_adapter = new Kwave::MultiStreamWriter(tracks);
+	Q_ASSERT(m_adapter);
+	if (!m_adapter) ok = false;
+
+	if (ok) {
+	    m_rate_converter =
+		new Kwave::MultiTrackSource<Kwave::RateConverter, true>(tracks);
+	    Q_ASSERT(m_rate_converter);
+	    if (!m_rate_converter) ok = false;
+	}
+
+	if (ok) {
+	    double rate_from = static_cast<double>(rate_supp);
+	    double rate_to   = static_cast<double>(rate_orig);
+	    m_rate_converter->setAttribute(
+		SLOT(setRatio(const QVariant)),
+		QVariant(rate_to / rate_from)
+	    );
+	}
+
+	if (ok) {
+	    ok = Kwave::connect(
+		*m_adapter,        SIGNAL(output(Kwave::SampleArray)),
+		*m_rate_converter, SLOT(input(Kwave::SampleArray))
+	    );
+	}
+
+	if (!ok) {
+	    qWarning("OpusDecoder::open(): creating rate converter failed!");
+	}
+#endif /* HAVE_SAMPLERATE_SUPPORT */
+
+	if (!ok) {
+	    qDebug("OpusDecoder::open(): sample rate %d is not "
+		   "supported but rate conversion is not available "
+		   "-> setting to %d", rate_orig, rate_supp);
+	    m_opus_header.sample_rate = rate_supp;
+	}
+    }
+
     m_stream_start_pos = m_source->pos();
+    m_samples_written  = 0;
     return 1;
 }
 
@@ -442,35 +517,62 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 	return -1;
 
     // decode the audio data into a buffer with float values
-    int ret = opus_multistream_decode_float(
+    int length = opus_multistream_decode_float(
 	m_opus_decoder,
 	static_cast<unsigned char *>(m_op.packet),
 	m_op.bytes, m_buffer, MAX_FRAME_SIZE, 0
     );
-    if (ret <= 0) {
-	qWarning("OpusDecoder::decode() failed: '%s'", DBG(_opus_error(ret)));
+    if (length <= 0) {
+	qWarning("OpusDecoder::decode() failed: '%s'",
+	         DBG(_opus_error(length)));
 	return -1;
     }
 
     // manually apply the gain if necessary
     if (m_opus_header.gain) {
 	const float g = pow(10.0, m_opus_header.gain / (20.0 * 256.0));
-	for (int i = 0; i < (ret * m_opus_header.channels); i++)
+	for (int i = 0; i < (length * m_opus_header.channels); i++)
 	    m_buffer[i] *= g;
     }
 
+    Kwave::MultiWriter *sink = &dst;
     const unsigned int tracks = m_opus_header.channels;
+
+#ifdef HAVE_SAMPLERATE_SUPPORT
+    if (m_adapter && m_rate_converter) {
+	if (!m_converter_connected) {
+	    bool ok = Kwave::connect(
+		*m_rate_converter, SIGNAL(output(Kwave::SampleArray)),
+		dst,               SLOT(input(Kwave::SampleArray)));
+	    if (!ok) {
+		qWarning("OpusDecoder::decode() connecting converter failed");
+		return -1;
+	    }
+
+	    qDebug("    opusDecoder::decode(): rate converter connected");
+	    m_converter_connected = true;
+	}
+	sink = m_adapter;
+    }
+#endif /* HAVE_SAMPLERATE_SUPPORT */
+
+    // convert the buffer from float to sample_t, blockwise...
     float *p = m_buffer;
-    for (int frame = 0; frame < ret; frame++) {
-	for (unsigned int t = 0; t < tracks; t++) {
+    Kwave::SampleArray samples(length);
+    for (unsigned int t = 0; t < tracks; t++) {
+	float    *in  = p + t;
+	sample_t *out = samples.data();
+	for (int frame = 0; frame < length; frame++) {
 	    // scale, use some primitive noise shaping
 	    sample_t s = static_cast<sample_t>(
-		*(p++) * static_cast<float>(SAMPLE_MAX) + drand48() - 0.5f);
+		(*in) * static_cast<float>(SAMPLE_MAX) + drand48() - 0.5f);
 	    if (s > SAMPLE_MAX) s = SAMPLE_MAX;
 	    if (s < SAMPLE_MIN) s = SAMPLE_MIN;
 
-	    *(dst[t]) << s;
+	    *(out++) = s;
+	    in += tracks;
 	}
+	*((*sink)[t]) << samples;
     }
 
     m_samples_written = dst.last();
@@ -487,12 +589,26 @@ void Kwave::OpusDecoder::reset()
     if (m_buffer)
 	free(m_buffer);
     m_buffer = 0;
+
+#ifdef HAVE_SAMPLERATE_SUPPORT
+    if (m_adapter) {
+	m_adapter->flush();
+	delete m_adapter;
+	m_adapter = 0;
+    }
+
+    delete m_rate_converter;
+    m_rate_converter = 0;
+
+    m_converter_connected = false;
+#endif /* HAVE_SAMPLERATE_SUPPORT */
 }
 
 //***************************************************************************
 void Kwave::OpusDecoder::close(Kwave::FileInfo &info)
 {
     Q_UNUSED(info);
+    reset();
 }
 
 

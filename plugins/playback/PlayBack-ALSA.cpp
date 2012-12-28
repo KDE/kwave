@@ -345,9 +345,6 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     // if the device name ends with "," -> invalid name
     if (alsa_device.endsWith(_(","))) return -ENODEV;
 
-    Q_ASSERT(rate);
-    Q_ASSERT(channels);
-    Q_ASSERT(bits);
     if (!rate) return -EINVAL;
     if (!channels) return -EINVAL;
     if (!bits) return -EINVAL;

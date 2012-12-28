@@ -35,7 +35,6 @@ namespace Kwave
 	/**
 	 * Constructor
 	 * @param plugin_manager reference to our plugin manager
-	 * @param name the name of the plugin
 	 */
 	AboutPlugin(Kwave::PluginManager &plugin_manager);
 

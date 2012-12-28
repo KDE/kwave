@@ -1268,6 +1268,8 @@ PREDEFINED             = \
     HAVE_PULSEAUDIO_SUPPORT \
     HAVE_PHONON_SUPPORT \
     HAVE_OSS_SUPPORT \
+    HAVE_OGG_OPUS \
+    HAVE_OGG_VORBIS
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.

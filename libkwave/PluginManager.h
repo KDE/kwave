@@ -313,12 +313,12 @@ namespace Kwave
     private:
 
 	/**
-	 * Uses the dynamic linker to load a plugin into memory.
+	 * Creates an instance of a plugin.
 	 * @param name the name of the plugin (filename)
 	 * @return pointer to the loaded plugin or zero if the
 	 *         plugin was not found or invalid
 	 */
-	Kwave::Plugin *loadPlugin(const QString &name);
+	Kwave::Plugin *createPluginInstance(const QString &name);
 
 	/**
 	 * loads a plugin's default parameters from the user's
@@ -371,6 +371,8 @@ namespace Kwave
 	/** interface for registering a SignalView */
 	ViewManager *m_view_manager;
 
+	/** list of playback device factories */
+	QList<Kwave::PlaybackDeviceFactory *> m_playback_factories;
     };
 }
 

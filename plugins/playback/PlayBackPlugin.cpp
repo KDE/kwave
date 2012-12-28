@@ -84,21 +84,6 @@ Kwave::PlayBackPlugin::PlayBackPlugin(Kwave::PluginManager &plugin_manager)
     m_playback_params.method = Kwave::PLAYBACK_ALSA;
     m_playback_params.device = _("default");
 #endif /* HAVE_ALSA_SUPPORT */
-
-    connect(this, SIGNAL(sigPlaybackDone()),
-            &m_playback_controller, SLOT(playbackDone()));
-    connect(this, SIGNAL(sigPlaybackPos(sample_index_t)),
-            &m_playback_controller, SLOT(updatePlaybackPos(sample_index_t)),
-	    Qt::BlockingQueuedConnection);
-    connect(this, SIGNAL(sigPlaybackDone()),
-            this, SLOT(closeDevice()),
-            Qt::QueuedConnection);
-
-    connect(&signalManager(), SIGNAL(sigTrackSelectionChanged(bool)),
-	    this,             SLOT(trackSelectionChanged()));
-
-    // register as a factory for playback devices
-    manager().registerPlaybackDeviceFactory(this);
 }
 
 //***************************************************************************
@@ -107,9 +92,6 @@ Kwave::PlayBackPlugin::~PlayBackPlugin()
     // make sure the dialog is gone
     if (m_dialog) delete m_dialog;
     m_dialog = 0;
-
-    // unregister from the list playback factories
-    manager().unregisterPlaybackDeviceFactory(this);
 
     // close the device now if it accidentally is still open
     QMutexLocker lock_for_delete(&m_lock_device);
@@ -166,17 +148,35 @@ void Kwave::PlayBackPlugin::load(QStringList &params)
 
     interpreteParameters(params);
 
+    connect(this, SIGNAL(sigPlaybackDone()),
+            &m_playback_controller, SLOT(playbackDone()));
+    connect(this, SIGNAL(sigPlaybackPos(sample_index_t)),
+            &m_playback_controller, SLOT(updatePlaybackPos(sample_index_t)),
+	    Qt::BlockingQueuedConnection);
+    connect(this, SIGNAL(sigPlaybackDone()),
+            this, SLOT(closeDevice()),
+            Qt::QueuedConnection);
+
+    connect(&signalManager(), SIGNAL(sigTrackSelectionChanged(bool)),
+	    this,             SLOT(trackSelectionChanged()));
+
     connect(&m_playback_controller, SIGNAL(sigDeviceStartPlayback()),
             this, SLOT(startDevicePlayBack()));
     connect(&m_playback_controller, SIGNAL(sigDeviceStopPlayback()),
             this, SLOT(stopDevicePlayBack()));
     connect(&m_playback_controller, SIGNAL(sigDeviceSeekTo(sample_index_t)),
 	    this, SLOT(seekTo(sample_index_t)));
+
+    // register as a factory for playback devices
+    manager().registerPlaybackDeviceFactory(this);
 }
 
 /***************************************************************************/
 void Kwave::PlayBackPlugin::unload()
 {
+    // unregister from the list playback factories
+    manager().unregisterPlaybackDeviceFactory(this);
+
     release();
 }
 

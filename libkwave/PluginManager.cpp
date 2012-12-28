@@ -51,8 +51,6 @@
 QMap<QString, Kwave::PluginManager::PluginModule>
     Kwave::PluginManager::m_plugin_modules;
 
-static QList<Kwave::PlaybackDeviceFactory *> m_playback_factories;
-
 //***************************************************************************
 Kwave::PluginManager::PluginManager(QWidget *parent,
                                     Kwave::SignalManager &signal_manager)
@@ -60,7 +58,8 @@ Kwave::PluginManager::PluginManager(QWidget *parent,
      m_running_plugins(),
      m_parent_widget(parent),
      m_signal_manager(signal_manager),
-     m_view_manager(0)
+     m_view_manager(0),
+     m_playback_factories()
 {
 }
 
@@ -116,12 +115,18 @@ void Kwave::PluginManager::loadAllPlugins()
 {
     // Try to load all plugins. This has to be called only once per
     // instance of the main window!
-    // NOTE: this also implicitely makes it resident if it is unique
+    // NOTE: this also gives each plugin the chance to stay in memory
+    //       if necessary (e.g. for codecs)
     foreach (QString name, m_plugin_modules.keys()) {
-	KwavePluginPointer plugin = loadPlugin(name);
+	KwavePluginPointer plugin = createPluginInstance(name);
 	if (plugin) {
 // 	    qDebug("PluginManager::loadAllPlugins(): plugin '%s'",
 // 		   DBG(plugin->name()));
+
+	    // get the last settings and call the "load" function
+	    // now the plugin is present and loaded
+	    QStringList last_params = loadPluginDefaults(name);
+	    plugin->load(last_params);
 
 	    // reduce use count again, we loaded the plugin only to give
 	    // it a chance to register some service if necessary (e.g. a
@@ -154,7 +159,7 @@ void Kwave::PluginManager::stopAllPlugins()
 }
 
 //***************************************************************************
-Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
+Kwave::Plugin *Kwave::PluginManager::createPluginInstance(const QString &name)
 {
     // check: this must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
@@ -187,11 +192,6 @@ Kwave::Plugin *Kwave::PluginManager::loadPlugin(const QString &name)
     // connect all necessary signals/slots
     connectPlugin(plugin);
 
-    // get the last settings and call the "load" function
-    // now the plugin is present and loaded
-    QStringList last_params = loadPluginDefaults(name);
-    plugin->load(last_params);
-
     return plugin;
 }
 
@@ -210,7 +210,7 @@ int Kwave::PluginManager::executePlugin(const QString &name,
     sync();
 
     // load the new plugin
-    KwavePluginPointer plugin = loadPlugin(name);
+    KwavePluginPointer plugin = createPluginInstance(name);
     if (!plugin) return -ENOMEM;
 
     if (params) {
@@ -257,8 +257,7 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 	}
     }
 
-    // now the plugin is no longer needed here, so delete it
-    // if it has not already been detached
+    // now the plugin is no longer needed here, release it
     if (plugin) plugin->release();
 
     // emit a command, let the toplevel window (and macro recorder) get
@@ -319,7 +318,7 @@ void Kwave::PluginManager::sync()
 int Kwave::PluginManager::setupPlugin(const QString &name)
 {
     // load the plugin
-    Kwave::Plugin* plugin = loadPlugin(name);
+    Kwave::Plugin* plugin = createPluginInstance(name);
     if (!plugin) return -ENOMEM;
 
     // now the plugin is present and loaded

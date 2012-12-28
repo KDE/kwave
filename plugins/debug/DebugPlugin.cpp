@@ -32,7 +32,7 @@ KWAVE_PLUGIN(Kwave::DebugPlugin, "debug", "2.3",
 
 /** helper for generating menu entries */
 #define MENU_ENTRY(cmd,txt) \
-    emitCommand(entry.arg(_(cmd)).arg(i18n(txt)));
+    emitCommand(entry.arg(_(cmd)).arg(txt));
 
 //***************************************************************************
 Kwave::DebugPlugin::DebugPlugin(Kwave::PluginManager &plugin_manager)
@@ -52,16 +52,18 @@ void Kwave::DebugPlugin::load(QStringList &params)
 
     QString entry = _("menu (plugin:execute(debug,%1),&Calculate/Debug/%2)");
 
-    MENU_ENTRY("min_max",           "MinMax Pattern");
-    MENU_ENTRY("sawtooth",          "Generate Sawtooth Pattern");
-//     MENU_ENTRY("sawtooth",          "Verify Sawtooth Pattern");
-//     MENU_ENTRY("stripe_index",      "Stripe Index");
-//     MENU_ENTRY("hull_curve",        "Hull Curve");
-//     MENU_ENTRY("offset_in_stripe",  "Offset in Stripe");
-//     MENU_ENTRY("stripe_borders",    "Show Stripe Borders");
-//     MENU_ENTRY("labels_at_stripes", "Generate Labels at Stripe borders");
+    MENU_ENTRY("min_max",           _(I18N_NOOP("MinMax Pattern")));
+    MENU_ENTRY("sawtooth",          _(I18N_NOOP("Generate Sawtooth Pattern")));
+//     MENU_ENTRY("sawtooth",          _(I18N_NOOP("Verify Sawtooth Pattern")));
+//     MENU_ENTRY("stripe_index",      _(I18N_NOOP("Stripe Index")));
+//     MENU_ENTRY("hull_curve",        _(I18N_NOOP("Hull Curve")));
+//     MENU_ENTRY("offset_in_stripe",  _(I18N_NOOP("Offset in Stripe")));
+//     MENU_ENTRY("stripe_borders",    _(I18N_NOOP("Show Stripe Borders")));
+//     MENU_ENTRY("labels_at_stripes", _(I18N_NOOP("Labels at Stripe borders")));
 
-    emitCommand(_("menu (dump_metadata(), &Help/Dump &Meta Data)"));
+    emitCommand(_("menu (dump_metadata(), ") +
+                _(I18N_NOOP("&Help")) + _("/") +
+                _(I18N_NOOP("Dump &Meta Data)")));
 }
 
 //***************************************************************************

@@ -454,7 +454,7 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 
     // manually apply the gain if necessary
     if (m_opus_header.gain) {
-	const float g = pow(10., m_opus_header.gain / (20.0 * 256.0));
+	const float g = pow(10.0, m_opus_header.gain / (20.0 * 256.0));
 	for (int i = 0; i < (ret * m_opus_header.channels); i++)
 	    m_buffer[i] *= g;
     }
@@ -466,6 +466,9 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 	    // scale, use some primitive noise shaping
 	    sample_t s = static_cast<sample_t>(
 		*(p++) * static_cast<float>(SAMPLE_MAX) + drand48() - 0.5f);
+	    if (s > SAMPLE_MAX) s = SAMPLE_MAX;
+	    if (s < SAMPLE_MIN) s = SAMPLE_MIN;
+
 	    *(dst[t]) << s;
 	}
     }

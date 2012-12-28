@@ -27,7 +27,7 @@ Kwave::RateConverter::RateConverter()
      m_converter_in(), m_converter_out()
 {
     int error = 0;
-    m_converter = src_new(SRC_SINC_BEST_QUALITY, 1, &error);
+    m_converter = src_new(SRC_SINC_MEDIUM_QUALITY, 1, &error);
     Q_ASSERT(m_converter);
     if (!m_converter) qWarning("creating converter failed: '%s",
 	src_strerror(error));
@@ -93,8 +93,8 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
 
     // let the converter run...
     int error = src_process(m_converter, &src);
-    Q_ASSERT(!error);
     if (error) qWarning("SRC error: '%s'", src_strerror(error));
+    Q_ASSERT(!error);
 
     // convert the result back from floats to sample_t
     unsigned int gen = src.output_frames_gen;

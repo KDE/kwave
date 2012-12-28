@@ -31,6 +31,8 @@
  * bugfix: use timeout for phonon playback, to avoid hang on unusable devices
  * using klocale for formating numbers of samples
  * added common base class for all codec plugins
+ * reduced quality level of sample rate converter from "best" to "medium",
+   to improve speed
 
 0.8.9  [2012-11-06]
 

@@ -52,6 +52,8 @@ void Kwave::DebugPlugin::load(QStringList &params)
 
     QString entry = _("menu (plugin:execute(debug,%1),&Calculate/Debug/%2)");
 
+    MENU_ENTRY("dc_50",             _(I18N_NOOP("Generate 50% DC Level")));
+    MENU_ENTRY("dc_100",            _(I18N_NOOP("Generate 100% DC Level")));
     MENU_ENTRY("min_max",           _(I18N_NOOP("MinMax Pattern")));
     MENU_ENTRY("sawtooth",          _(I18N_NOOP("Generate Sawtooth Pattern")));
 //     MENU_ENTRY("sawtooth",          _(I18N_NOOP("Verify Sawtooth Pattern")));
@@ -143,6 +145,16 @@ void Kwave::DebugPlugin::run(QStringList params)
 		m_buffer[i] = v;
 		v += (1 << shift);
 		if (v > SAMPLE_MAX) v = 0;
+	    }
+	} else if (command == _("dc_50")) {
+	    const sample_t s = float2sample(0.5);
+	    for (unsigned int i = 0; i < m_buffer.size(); i++) {
+		m_buffer[i] = s;
+	    }
+	} else if (command == _("dc_100")) {
+	    const sample_t s = SAMPLE_MAX;
+	    for (unsigned int i = 0; i < m_buffer.size(); i++) {
+		m_buffer[i] = s;
 	    }
 	}
 

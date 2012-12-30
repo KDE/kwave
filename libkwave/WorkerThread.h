@@ -1,5 +1,5 @@
 /***************************************************************************
-    libkwave/PluginWorkerThread.h  -  worker thread for Kwave plugins
+    libkwave/WorkerThread.h  -  worker thread for Kwave
                              -------------------
     begin                : Sun Apr 06 2008
     copyright            : (C) 2008 by Thomas Eschenbacher
@@ -15,33 +15,33 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLUGIN_WORKER_THREAD_H_
-#define _PLUGIN_WORKER_THREAD_H_
+#ifndef _WORKER_THREAD_H_
+#define _WORKER_THREAD_H_
 
 #include "config.h"
 #include <pthread.h>
 
 #include <QtCore/QMutex>
 #include <QtCore/QObject>
-#include <QtCore/QStringList>
 #include <QtCore/QThread>
+#include <QtCore/QVariant>
 
 #include <kdemacros.h>
 
 namespace Kwave
 {
-    class Plugin;
+    class Runnable;
 
-    class KDE_EXPORT PluginWorkerThread : public QThread
+    class KDE_EXPORT WorkerThread : public QThread
     {
 	Q_OBJECT
     public:
 
 	/** Constructor */
-	PluginWorkerThread(Kwave::Plugin *plugin, QStringList params);
+	explicit WorkerThread(Kwave::Runnable *runnable, QVariant params);
 
 	/** Destructor, calls stop() if the thread is still running. */
-	virtual ~PluginWorkerThread();
+	virtual ~WorkerThread();
 
 	/** Starts the thread's execution. */
 	virtual void start();
@@ -56,8 +56,8 @@ namespace Kwave
 	virtual int stop(unsigned int timeout = 10000);
 
 	/**
-	 * A wrapper for the run() function, calls the run(...) function
-	 * of m_plugin with the parameters stored in m_params.
+	 * A wrapper for the run() function, calls the run_wrapper(...)
+	 * of m_runnable with the parameters passed in the constructor.
 	 */
 	virtual void run();
 
@@ -70,11 +70,11 @@ namespace Kwave
 
     private:
 
-	/** pointer to the Kwave plugin that has a run() function */
-	Kwave::Plugin *m_plugin;
+	/** pointer to the object that has a run() function */
+	Kwave::Runnable *m_runnable;
 
-	/** parameter list passed to the m_plugin's run() function */
-	QStringList m_params;
+	/** parameter pointer passed to the run() function */
+	QVariant m_params;
 
 	/** Mutex to control access to the thread itself */
 	QMutex m_lock;
@@ -99,7 +99,7 @@ namespace Kwave
 
 }
 
-#endif /* _PLUGIN_WORKER_THREAD_H_ */
+#endif /* _WORKER_THREAD_H_ */
 
 //***************************************************************************
 //***************************************************************************

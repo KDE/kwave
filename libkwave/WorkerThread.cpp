@@ -1,5 +1,5 @@
 /***************************************************************************
-    libkwave/PluginWorkerThread.cpp  -  worker thread for Kwave plugins
+    libkwave/WorkerThread.cpp  -  worker thread for Kwave
                              -------------------
     begin                : Sun Apr 06 2008
     copyright            : (C) 2008 by Thomas Eschenbacher
@@ -30,8 +30,8 @@
 #include <error.h>   // for strerror()
 #endif
 
-#include "libkwave/Plugin.h"
-#include "libkwave/PluginWorkerThread.h"
+#include "libkwave/Runnable.h"
+#include "libkwave/WorkerThread.h"
 
 //***************************************************************************
 extern "C" void _dummy_SIGHUP_handler(int)
@@ -40,10 +40,10 @@ extern "C" void _dummy_SIGHUP_handler(int)
 }
 
 //***************************************************************************
-Kwave::PluginWorkerThread::PluginWorkerThread(Kwave::Plugin *plugin,
-                                              QStringList params)
-    :QThread(plugin),
-     m_plugin(plugin),
+Kwave::WorkerThread::WorkerThread(Kwave::Runnable *runnable,
+                                              QVariant params)
+    :QThread(0),
+     m_runnable(runnable),
      m_params(params),
      m_lock(), m_lock_sighup(),
      m_should_stop(false),
@@ -54,19 +54,19 @@ Kwave::PluginWorkerThread::PluginWorkerThread(Kwave::Plugin *plugin,
 }
 
 //***************************************************************************
-Kwave::PluginWorkerThread::~PluginWorkerThread()
+Kwave::WorkerThread::~WorkerThread()
 {
     if (isRunning()) {
-	qDebug("PluginWorkerThread::~PluginWorkerThread(): waiting for normal shutdown");
+	qDebug("WorkerThread::~WorkerThread(): waiting for normal shutdown");
 	wait(2000);
-	qDebug("PluginWorkerThread::~PluginWorkerThread(): stopping");
+	qDebug("WorkerThread::~WorkerThread(): stopping");
 	stop(2000);
     }
     Q_ASSERT(!isRunning());
 }
 
 //***************************************************************************
-void Kwave::PluginWorkerThread::start()
+void Kwave::WorkerThread::start()
 {
     QMutexLocker lock(&m_lock);
 
@@ -77,7 +77,7 @@ void Kwave::PluginWorkerThread::start()
 }
 
 //***************************************************************************
-int Kwave::PluginWorkerThread::stop(unsigned int timeout)
+int Kwave::WorkerThread::stop(unsigned int timeout)
 {
     QMutexLocker lock(&m_lock);
     if (!isRunning()) return 0; // already down
@@ -101,7 +101,7 @@ int Kwave::PluginWorkerThread::stop(unsigned int timeout)
     if (!isRunning()) return 0;
 
     // try to interrupt by INT signal
-    qWarning("PluginWorkerThread::stop(): sending SIGHUP");
+    qWarning("WorkerThread::stop(): sending SIGHUP");
     for (unsigned int i=0; i < 8; i++) {
 	{
 	    QMutexLocker _lock(&m_lock_sighup);
@@ -116,7 +116,7 @@ int Kwave::PluginWorkerThread::stop(unsigned int timeout)
 
 #ifdef DEBUG_FIND_DEADLOCKS
     if (running()) {
-	qDebug("PluginWorkerThread::stop(): pthread_self()=%08X",
+	qDebug("WorkerThread::stop(): pthread_self()=%08X",
 	       (unsigned int)pthread_self());
 	void *buf[256];
 	size_t n = backtrace(buf, 256);
@@ -124,19 +124,19 @@ int Kwave::PluginWorkerThread::stop(unsigned int timeout)
     }
 #endif
 
-    qDebug("PluginWorkerThread::stop(): canceling thread");
+    qDebug("WorkerThread::stop(): canceling thread");
     terminate();
 
     return -1;
 }
 
 //***************************************************************************
-void Kwave::PluginWorkerThread::run()
+void Kwave::WorkerThread::run()
 {
     sighandler_t old_handler;
 
-    Q_ASSERT(m_plugin);
-    if (!m_plugin) return;
+    Q_ASSERT(m_runnable);
+    if (!m_runnable) return;
 
     /* install a SIGHUP handler and allow sending SIGHUP */
     {
@@ -149,8 +149,8 @@ void Kwave::PluginWorkerThread::run()
 	old_handler = signal(SIGHUP, _dummy_SIGHUP_handler);
     }
 
-    /* call the plugin's run(...) function */
-    m_plugin->run_wrapper(m_params);
+    /* call the run(...) function */
+    m_runnable->run_wrapper(m_params);
 
     /* uninstall the SIGHUP handler and forbid sending SIGHUP */
     {
@@ -165,12 +165,12 @@ void Kwave::PluginWorkerThread::run()
 }
 
 //***************************************************************************
-bool Kwave::PluginWorkerThread::shouldStop()
+bool Kwave::WorkerThread::shouldStop()
 {
     return (m_should_stop);
 }
 
 //***************************************************************************
-#include "PluginWorkerThread.moc"
+#include "WorkerThread.moc"
 //***************************************************************************
 //***************************************************************************

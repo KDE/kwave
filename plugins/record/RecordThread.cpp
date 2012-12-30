@@ -22,12 +22,14 @@
 #include <strings.h> // for bzero
 #include <signal.h>
 
+#include <QtCore/QVariant>
+
 #include "RecordDevice.h"
 #include "RecordThread.h"
 
 //***************************************************************************
 Kwave::RecordThread::RecordThread()
-    :Kwave::PluginWorkerThread(0, QStringList()), m_device(0),
+    :Kwave::WorkerThread(0, QVariant()), m_device(0),
     m_empty_queue(), m_buffer_count(0), m_buffer_size(0)
 {
 }

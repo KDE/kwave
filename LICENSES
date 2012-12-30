@@ -388,12 +388,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/PluginManager.cpp			GPL2+
 	libkwave/PluginManager.h			GPL2+
 	libkwave/PluginSetupDialog.h			GPL2+
-	libkwave/PluginWorkerThread.h			GPL2+
-	libkwave/PluginWorkerThread.cpp			GPL2+
 	libkwave/ppcasm_string.h			GPL2+ / Paul Mackerras
 	libkwave/ppcasm_string.S			GPL2+ / Paul Mackerras
 	libkwave/ppc_asm.tmpl				GPL2+ / Paul Mackerras
 	libkwave/ReaderMode.h				GPL2+
+	libkwave/Runnable.h				GPL2+
 	libkwave/Sample.h				GPL2+
 	libkwave/SampleArray.cpp			GPL2+
 	libkwave/SampleArray.h				GPL2+
@@ -440,6 +439,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/VorbisCommentMap.h			GPL2+
 	libkwave/WindowFunction.cpp			GPL2+
 	libkwave/WindowFunction.h			GPL2+
+	libkwave/WorkerThread.h				GPL2+
+	libkwave/WorkerThread.cpp			GPL2+
 	libkwave/Writer.cpp				GPL2+
 	libkwave/Writer.h				GPL2+
 

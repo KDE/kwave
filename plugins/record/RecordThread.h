@@ -23,14 +23,14 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QQueue>
 
-#include "libkwave/PluginWorkerThread.h"
+#include "libkwave/WorkerThread.h"
 
 namespace Kwave
 {
 
     class RecordDevice;
 
-    class RecordThread: public Kwave::PluginWorkerThread
+    class RecordThread: public Kwave::WorkerThread
     {
 	Q_OBJECT
     public:

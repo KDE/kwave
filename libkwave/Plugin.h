@@ -30,11 +30,13 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Runnable.h"
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"
 
-class QStringList;
 class QProgressDialog;
+class QStringList;
+class QVariant;
 
 #define KWAVE_PLUGIN(__class__,__name__,__version__,                          \
                      __description__,__author__)                              \
@@ -64,11 +66,11 @@ namespace Kwave
 {
 
     class ConfirmCancelProxy;
-    class PluginWorkerThread;
     class PluginManager;
     class SampleReader;
     class SignalManager;
     class TopWidget;
+    class WorkerThread;
 
     /**
      * Generic class that should be used for all types of Kwave plugins.
@@ -76,7 +78,7 @@ namespace Kwave
      * all necessary functions to access the functionality of the main
      * Kwave program.
      */
-    class KDE_EXPORT Plugin: public QObject
+    class KDE_EXPORT Plugin: public QObject, public Kwave::Runnable
     {
 	Q_OBJECT
 
@@ -323,10 +325,10 @@ namespace Kwave
 
     protected:
 
-	friend class Kwave::PluginWorkerThread;
+	friend class Kwave::WorkerThread;
 
 	/** Wrapper for run() that contains a call to release() */
-	void run_wrapper(QStringList params);
+	virtual void run_wrapper(const QVariant &params);
 
     private:
 
@@ -336,7 +338,7 @@ namespace Kwave
 	/**
 	 * Thread that executes the run() member function.
 	 */
-	Kwave::PluginWorkerThread *m_thread;
+	Kwave::WorkerThread *m_thread;
 
 	/** Mutex for control over the thread */
 	QMutex m_thread_lock;

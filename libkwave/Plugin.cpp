@@ -34,9 +34,9 @@
 #include "libkwave/Plugin.h"
 #include "libkwave/Sample.h"
 #include "libkwave/PluginManager.h"
-#include "libkwave/PluginWorkerThread.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/WorkerThread.h"
 
 #ifdef DEBUG
 #include <execinfo.h> // for backtrace()
@@ -313,7 +313,7 @@ int Kwave::Plugin::execute(QStringList &params)
     QMutexLocker lock(&m_thread_lock);
     m_stop = false;
 
-    m_thread = new Kwave::PluginWorkerThread(this, params);
+    m_thread = new Kwave::WorkerThread(this, QVariant(params));
     Q_ASSERT(m_thread);
     if (!m_thread) return -ENOMEM;
 
@@ -345,7 +345,7 @@ void Kwave::Plugin::run(QStringList)
 }
 
 //***************************************************************************
-void Kwave::Plugin::run_wrapper(QStringList params)
+void Kwave::Plugin::run_wrapper(const QVariant &params)
 {
     // signal that we are running
     emit sigRunning(this);
@@ -355,7 +355,7 @@ void Kwave::Plugin::run_wrapper(QStringList params)
     t.start();
 
     // call the plugin's run function in this worker thread context
-    run(params);
+    run(params.toStringList());
 
     // evaluate the elapsed time
     double seconds = static_cast<double>(t.elapsed()) * 1E-3;

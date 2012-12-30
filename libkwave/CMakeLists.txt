@@ -65,7 +65,6 @@ SET(libkwave_LIB_SRCS
     PlaybackSink.cpp
     Plugin.cpp
     PluginManager.cpp
-    PluginWorkerThread.cpp
     SampleArray.cpp
     SampleSink.cpp
     SampleSource.cpp
@@ -86,6 +85,7 @@ SET(libkwave_LIB_SRCS
     VirtualAudioFile.cpp
     VorbisCommentMap.cpp
     Writer.cpp
+    WorkerThread.cpp
     WindowFunction.cpp
 
     modules/ChannelMixer.cpp

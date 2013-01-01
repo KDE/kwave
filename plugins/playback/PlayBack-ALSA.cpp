@@ -746,7 +746,7 @@ void Kwave::PlayBackALSA::scanDevices()
 	return;
     }
 
-    qDebug("**** List of PLAYBACK Hardware Devices ****");
+//     qDebug("**** List of PLAYBACK Hardware Devices ****");
     while (card >= 0) {
 	QString name;
 	name = _("hw:%1");
@@ -779,13 +779,13 @@ void Kwave::PlayBackALSA::scanDevices()
 	    }
 	    count = snd_pcm_info_get_subdevices_count(pcminfo);
 
-	    qDebug("card %i: %s [%s], device %i: %s [%s]",
-		card,
-		snd_ctl_card_info_get_id(info),
-		snd_ctl_card_info_get_name(info),
-		dev,
-		snd_pcm_info_get_id(pcminfo),
-		snd_pcm_info_get_name(pcminfo));
+// 	    qDebug("card %i: %s [%s], device %i: %s [%s]",
+// 		card,
+// 		snd_ctl_card_info_get_id(info),
+// 		snd_ctl_card_info_get_name(info),
+// 		dev,
+// 		snd_pcm_info_get_id(pcminfo),
+// 		snd_pcm_info_get_name(pcminfo));
 
 	    // add the device to the list
 	    QString hw_device;
@@ -795,8 +795,8 @@ void Kwave::PlayBackALSA::scanDevices()
 	    QString card_name   = _(snd_ctl_card_info_get_name(info));
 	    QString device_name = _(snd_pcm_info_get_name(pcminfo));
 
- 	    qDebug("  Subdevices: %i/%i\n",
-		snd_pcm_info_get_subdevices_avail(pcminfo), count);
+//  	    qDebug("  Subdevices: %i/%i\n",
+// 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
 	    if (count > 1) {
 		for (idx = 0; idx < static_cast<int>(count); idx++) {
 		    snd_pcm_info_set_subdevice(pcminfo, idx);
@@ -827,7 +827,7 @@ void Kwave::PlayBackALSA::scanDevices()
 		    i18n("Device %1: ", dev) +
 		          device_name + _("|sound_subdevice")
 		);
-		qDebug("# '%s' -> '%s'", DBG(hw_device), DBG(name));
+// 		qDebug("# '%s' -> '%s'", DBG(hw_device), DBG(name));
 		m_device_list.insert(name, hw_device);
 	    }
 	}

@@ -276,22 +276,39 @@ int Kwave::PlayBackPhonon::close()
 QStringList Kwave::PlayBackPhonon::supportedDevices()
 {
     QStringList list;
+    bool retry;
+    unsigned int retry_count = 3; // we try three times
 
-    // get the list of available audio output devices from Phonon
-    QList<Phonon::AudioOutputDevice> devices =
-	Phonon::BackendCapabilities::availableAudioOutputDevices();
+    do {
+	retry = false;
+	list.clear();
 
-    // get and use the device name(s) from the object description(s)
-    foreach(Phonon::AudioOutputDevice device, devices) {
-// 	qDebug("name='%s'", DBG(device.name()));
-	list << device.name();
+	// get the list of available audio output devices from Phonon
+	QList<Phonon::AudioOutputDevice> devices =
+	    Phonon::BackendCapabilities::availableAudioOutputDevices();
 
-	// for debugging: list all properties
-// 	foreach (const char *property, device.propertyNames()) {
-// 	    qDebug("    '%s' = '%s'", property,
-// 		DBG(device.property(property).toString()));
-// 	}
-    }
+	// get and use the device name(s) from the object description(s)
+	foreach(const Phonon::AudioOutputDevice &device, devices) {
+	    QString name = device.name();
+
+// 	    // for debugging: list all properties
+// 	    qDebug("name='%s'", DBG(name));
+// 	    foreach (const char *property, device.propertyNames()) {
+// 		qDebug("    '%s' = '%s'", property,
+// 		    DBG(device.property(property).toString()));
+// 	    }
+
+	    // device names not yet available ?
+	    if (!name.length()) {
+		qWarning("PlayBackPhonon::supportedDevices() "
+		         "=> BUG in Phonon: no device name?");
+		retry = true;
+		break;
+	    }
+	    list << name;
+
+	}
+    } while (retry && retry_count--);
 
     return list;
 }
@@ -305,11 +322,10 @@ QString Kwave::PlayBackPhonon::fileFilter()
 //***************************************************************************
 QList<unsigned int> Kwave::PlayBackPhonon::supportedBits(const QString &device)
 {
-    qDebug("%s", __FUNCTION__);
     Q_UNUSED(device);
 
     QList<unsigned int> list;
-    list << 8;
+    list <<  8;
     list << 16;
 
     return list;

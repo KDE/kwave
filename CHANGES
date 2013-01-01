@@ -34,6 +34,8 @@
  * reduced quality level of sample rate converter from "best" to "medium",
    to improve speed
  * refactored playback handling (controller vs. plugin)
+ * workaround for bug in Phonon: no device names available in first call to
+   Phonon::BackendCapabilities::availableAudioOutputDevices()
 
 0.8.9  [2012-11-06]
 

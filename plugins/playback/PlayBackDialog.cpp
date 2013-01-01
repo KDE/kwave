@@ -247,7 +247,9 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
     // device controls...
     m_enable_setDevice = false;
 
-    KIconLoader icon_loader;
+//     qDebug("PlayBackDialog::setSupportedDevices():");
+//     foreach (const QString &d, devices)
+// 	qDebug("    '%s'", DBG(d));
 
     cbDevice->clearEditText();
     cbDevice->clear();
@@ -271,6 +273,8 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 
     if (devices.contains(_("#TREE#"))) {
 	// treeview mode
+	KIconLoader icon_loader;
+
 	devices.removeAll((_("#TREE#")));
 	listDevices->setEnabled(true);
 	cbDevice->setEnabled(false);
@@ -412,7 +416,10 @@ void Kwave::PlayBackDialog::setDevice(const QString &device)
     if (!cbDevice || !listDevices) return;
 
     if (!m_enable_setDevice) return;
-//     qDebug("PlayBackDialog::setDevice(%s)", DBG(device));
+
+    qDebug("PlayBackDialog::setDevice(): '%s' -> '%s'",
+       DBG(m_playback_params.device.split(_("|")).at(0)),
+       DBG(device.split(_("|")).at(0)));
 
     if (listDevices->isEnabled()) {
 	// treeview mode
@@ -437,42 +444,34 @@ void Kwave::PlayBackDialog::setDevice(const QString &device)
 	}
     }
 
-    if (m_playback_params.device != device) {
-	qDebug("PlayBackDialog::setDevice(): '%s' -> '%s'",
-	       DBG(m_playback_params.device.split(_("|")).at(0)),
-	       DBG(device.split(_("|")).at(0)));
-
-	m_playback_params.device = device;
-
-	// select the default device if new one is not supported
-	QString dev = device;
-	if (m_device) {
-	    QStringList supported = m_device->supportedDevices();
-	    supported.removeAll(_("#EDIT#"));
-	    supported.removeAll(_("#SELECT#"));
-	    supported.removeAll(_("#TREE#"));
-	    if (!supported.isEmpty() && !supported.contains(device)) {
-		// use the first entry as default
-		dev = supported.first();
-		qDebug("PlayBackPlugin::setDevice(%s) -> fallback to '%s'",
-		    DBG(device.split(_("|")).at(0)),
-		    DBG(dev.split(_("|")).at(0)));
-	    }
+    // select the default device if new one is not supported
+    QString dev = device;
+    if (m_device) {
+	QStringList supported = m_device->supportedDevices();
+	supported.removeAll(_("#EDIT#"));
+	supported.removeAll(_("#SELECT#"));
+	supported.removeAll(_("#TREE#"));
+	if (!supported.isEmpty() && !supported.contains(device)) {
+	    // use the first entry as default
+	    dev = supported.first();
+	    qDebug("PlayBackPlugin::setDevice(%s) -> fallback to '%s'",
+		DBG(device.split(_("|")).at(0)),
+		DBG(dev.split(_("|")).at(0)));
 	}
-
-	// re-set the device in the dialog if it was modified
-	setDevice(dev);
-	m_playback_params.device = dev;
-
-	QList<unsigned int> supported_bits;
-	if (m_device) supported_bits = m_device->supportedBits(dev);
-	setSupportedBits(supported_bits);
-
-	unsigned int min = 0;
-	unsigned int max = 0;
-	if (m_device) m_device->detectChannels(dev, min, max);
-	setSupportedChannels(min, max);
     }
+
+    // take over the device, please note that this one might differ from
+    // the device we got as parameter, maybe it is a fallback
+    m_playback_params.device = dev;
+
+    QList<unsigned int> supported_bits;
+    if (m_device) supported_bits = m_device->supportedBits(dev);
+    setSupportedBits(supported_bits);
+
+    unsigned int min = 0;
+    unsigned int max = 0;
+    if (m_device) m_device->detectChannels(dev, min, max);
+    setSupportedChannels(min, max);
 }
 
 //***************************************************************************
@@ -545,7 +544,8 @@ void Kwave::PlayBackDialog::setBitsPerSample(unsigned int bits)
     Q_ASSERT(cbBitsPerSample);
     if (!cbBitsPerSample) return;
 
-//     qDebug("PlayBackDialog::setBitsPerSample(%u)", bits);
+    qDebug("PlayBackDialog::setBitsPerSample(): %u -> %u",
+           m_playback_params.bits_per_sample, bits);
 
     QString txt;
     txt.setNum(bits);
@@ -579,9 +579,6 @@ void Kwave::PlayBackDialog::setChannels(int channels)
     Q_ASSERT(sbChannels);
     if (!sbChannels) return;
 
-//     qDebug("PlayBackDialog::setChannels(%d)", channels);
-    m_playback_params.channels = channels;
-
     if ((sbChannels->value() != channels) &&
         (sbChannels->minimum() != sbChannels->maximum()) &&
 	(sbChannels->maximum() > 0))
@@ -589,7 +586,10 @@ void Kwave::PlayBackDialog::setChannels(int channels)
 	sbChannels->setValue(channels);
 	channels = sbChannels->value();
     }
-//     qDebug("PlayBackDialog::setChannels --> %d", channels);
+
+    qDebug("PlayBackDialog::setChannels(): %d -> %d",
+           m_playback_params.channels, channels);
+    m_playback_params.channels = channels;
 
     QString txt;
     switch (channels) {

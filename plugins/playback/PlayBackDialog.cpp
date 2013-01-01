@@ -27,7 +27,9 @@
 #include <QtCore/QLatin1Char>
 #include <QtCore/QStringList>
 
+#include <kapplication.h>
 #include <kcombobox.h>
+#include <kconfig.h>
 #include <kfiledialog.h>
 #include <kiconloader.h>
 #include <kicontheme.h>
@@ -36,6 +38,9 @@
 #include <kpushbutton.h>
 #include <ktoolinvocation.h>
 
+#include "libkwave/PlaybackController.h"
+#include "libkwave/PlayBackDevice.h"
+#include "libkwave/PlayBackTypesMap.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"
 
@@ -45,23 +50,26 @@
 #include "PlayBackPlugin.h"
 
 //***************************************************************************
-Kwave::PlayBackDialog::PlayBackDialog(Kwave::Plugin &p,
-                                      const Kwave::PlayBackParam &params)
+Kwave::PlayBackDialog::PlayBackDialog(
+    Kwave::Plugin &p,
+    Kwave::PlaybackController &playback_controller,
+    const Kwave::PlayBackParam &params
+)
     :QDialog(p.parentWidget()), PlayBackDlg(),
-    m_playback_params(params), m_file_filter(_("")),
-    m_devices_list_map(),
-    m_enable_setDevice(true)
+     m_playback_controller(playback_controller),
+     m_device(0), m_playback_params(params), m_file_filter(_("")),
+     m_devices_list_map(),
+     m_enable_setDevice(true)
 {
     setupUi(this);
     setModal(true);
 
-    // button for "test settings"
-    // (not implemented yet)
-
     // fill the combo box with playback methods
     unsigned int index=0;
-    for (index=0; index < m_methods_map.count(); index++) {
-	cbMethod->addItem(m_methods_map.description(index, true));
+    for (index = 0; index < m_methods_map.count(); index++) {
+	cbMethod->addItem(
+	    m_methods_map.description(index, true),
+	    static_cast<int>(m_methods_map.data(index)) );
     }
     cbMethod->setEnabled(cbMethod->count() > 1);
 
@@ -121,24 +129,110 @@ Kwave::PlayBackDialog::~PlayBackDialog()
 //***************************************************************************
 void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
 {
+    Kwave::playback_method_t old_method = m_playback_params.method;
+
     m_playback_params.method = method;
-    cbMethod->setCurrentIndex(m_methods_map.findFromData(
-        m_playback_params.method));
+
+    // update the selection in the combo box if necessary
+    int index = cbMethod->findData(static_cast<int>(method));
+    if (cbMethod->currentIndex() != index) {
+	cbMethod->setCurrentIndex(index);
+	return; // we will get called again, through "methodSelected(...)"
+    }
+
+    qDebug("PlayBackDialog::setMethod('%s' [%d])",
+           DBG(m_methods_map.name(m_methods_map.findFromData(method))),
+	   static_cast<int>(method) );
+
+    // set hourglass cursor
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+    // change the playback method (class PlayBackDevice)
+    if (m_device) delete m_device;
+    m_device = 0;
+
+    // remember the device selection, just for the GUI
+    // for the next time this method gets selected
+    // change in method -> save the current device and use
+    // the previous one
+    QString device = _("");
+    QString section = _("plugin playback");
+    KConfigGroup cfg = KGlobal::config()->group(section);
+
+    // save the current device
+    cfg.writeEntry(
+	QString(_("last_device_%1")).arg(static_cast<int>(old_method)),
+	m_playback_params.device);
+    qDebug("SAVE:    '%s' (%d) -> '%s'",
+	    DBG(m_methods_map.name(m_methods_map.findFromData(old_method))),
+	    static_cast<int>(old_method),
+	    DBG(m_playback_params.device.split(_("|")).at(0)));
+    cfg.sync();
+
+    // NOTE: the "method" may get modified here if not supported!
+    m_playback_controller.checkMethod(method);
+    if (method != m_playback_params.method) {
+	// method has been modified to some fallback -> start through
+	qDebug("    method has changed: %d -> %d",
+	       static_cast<int>(m_playback_params.method),
+	       static_cast<int>(method));
+	setMethod(method); // -> recursion
+	return;
+    }
+
+    // if we found no playback method
+    if (method == Kwave::PLAYBACK_INVALID) {
+	qWarning("found no valid playback method");
+    }
+
+    // create a new playback device (will fail if method is unsupported)
+    m_device = m_playback_controller.createDevice(method);
+    if (!m_device) {
+	// oops, something has failed :-(
+	setSupportedDevices(QStringList());
+	setDevice(QString());
+	return;
+    }
+
+    // restore the previous settings of the new method
+    device = cfg.readEntry(
+	_("last_device_%1").arg(static_cast<int>(method)));
+    qDebug("RESTORE: '%s' (%d) -> '%s'",
+	    DBG(m_methods_map.name(m_methods_map.findFromData(method))),
+	    static_cast<int>(method),
+	   DBG(device.split(_("|")).at(0)));
+
+    m_playback_params.device = device;
+
+    // set list of supported devices
+    setSupportedDevices(m_device->supportedDevices());
+
+    // set current device, no matter if supported or not,
+    // the dialog will take care of this.
+    setDevice(m_playback_params.device);
+
+    // check the filter for the "select..." dialog. If it is
+    // empty, the "select" dialog will be disabled
+    setFileFilter(m_device->fileFilter());
+
+    // remove hourglass
+    QApplication::restoreOverrideCursor();
 }
 
 //***************************************************************************
 void Kwave::PlayBackDialog::methodSelected(int index)
 {
-    Kwave::playback_method_t method = m_methods_map.data(index);
-    Q_ASSERT(method > Kwave::PLAYBACK_NONE);
-    Q_ASSERT(method < Kwave::PLAYBACK_INVALID);
+    Kwave::playback_method_t method = static_cast<Kwave::playback_method_t>(
+	cbMethod->itemData(index).toInt());
+
+    qDebug("PlayBackDialog::methodSelected(%d) -> %s [%d]", index,
+	DBG(m_methods_map.name(m_methods_map.findFromData(method))),
+	static_cast<int>(method) );
+
     if (method <= Kwave::PLAYBACK_NONE) return;
     if (method >= Kwave::PLAYBACK_INVALID) return;
 
-    if (method != m_playback_params.method) {
-	setMethod(method);
-	emit sigMethodChanged(method);
-    }
+    setMethod(method);
 }
 
 //***************************************************************************
@@ -344,8 +438,40 @@ void Kwave::PlayBackDialog::setDevice(const QString &device)
     }
 
     if (m_playback_params.device != device) {
+	qDebug("PlayBackDialog::setDevice(): '%s' -> '%s'",
+	       DBG(m_playback_params.device.split(_("|")).at(0)),
+	       DBG(device.split(_("|")).at(0)));
+
 	m_playback_params.device = device;
-	emit sigDeviceChanged(device);
+
+	// select the default device if new one is not supported
+	QString dev = device;
+	if (m_device) {
+	    QStringList supported = m_device->supportedDevices();
+	    supported.removeAll(_("#EDIT#"));
+	    supported.removeAll(_("#SELECT#"));
+	    supported.removeAll(_("#TREE#"));
+	    if (!supported.isEmpty() && !supported.contains(device)) {
+		// use the first entry as default
+		dev = supported.first();
+		qDebug("PlayBackPlugin::setDevice(%s) -> fallback to '%s'",
+		    DBG(device.split(_("|")).at(0)),
+		    DBG(dev.split(_("|")).at(0)));
+	    }
+	}
+
+	// re-set the device in the dialog if it was modified
+	setDevice(dev);
+	m_playback_params.device = dev;
+
+	QList<unsigned int> supported_bits;
+	if (m_device) supported_bits = m_device->supportedBits(dev);
+	setSupportedBits(supported_bits);
+
+	unsigned int min = 0;
+	unsigned int max = 0;
+	if (m_device) m_device->detectChannels(dev, min, max);
+	setSupportedChannels(min, max);
     }
 }
 

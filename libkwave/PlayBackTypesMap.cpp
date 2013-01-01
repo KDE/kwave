@@ -21,9 +21,8 @@
 
 #include <klocale.h>
 
+#include "libkwave/PlayBackTypesMap.h"
 #include "libkwave/String.h"
-
-#include "PlayBackTypesMap.h"
 
 //***************************************************************************
 void Kwave::PlayBackTypesMap::fill()

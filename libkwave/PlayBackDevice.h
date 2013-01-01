@@ -29,6 +29,8 @@
 
 namespace Kwave
 {
+    class SampleArray;
+
     /**
      * Abstract base class for all kinds of playback devices.
      * It provides only a minimum of necessary functions, like

@@ -58,8 +58,7 @@ Kwave::PluginManager::PluginManager(QWidget *parent,
      m_running_plugins(),
      m_parent_widget(parent),
      m_signal_manager(signal_manager),
-     m_view_manager(0),
-     m_playback_factories()
+     m_view_manager(0)
 {
 }
 
@@ -94,12 +93,14 @@ Kwave::PluginManager::~PluginManager()
 // 	qDebug("PluginManager: releasing module '%s' [refcnt=%d]",
 // 	       DBG(name), p.m_use_count);
 	if (p.m_use_count == 0) {
+	    // take out the pointer to the loadable module
+	    QLibrary *module = p.m_module;
+	    p.m_module = 0;
+
 	    // remove the module from the list
 	    m_plugin_modules.remove(name);
 
 	    // now the handle of the shared object can be released too
-	    QLibrary *module = p.m_module;
-	    p.m_module = 0;
 	    if (module) {
 		module->unload();
 		delete module;
@@ -442,25 +443,13 @@ void Kwave::PluginManager::selectRange(sample_index_t offset,
 
 //***************************************************************************
 Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
-    unsigned int tracks, const QString *name)
+    unsigned int tracks,
+    const Kwave::PlayBackParam *playback_params
+)
 {
-    QString device_name;
-
-    // locate the corresponding playback device factory (plugin)
-    device_name = (name) ? QString(*name) : _("");
-    Kwave::PlayBackDevice *device = 0;
-    Kwave::PlaybackDeviceFactory *factory = 0;
-    foreach (Kwave::PlaybackDeviceFactory *f, m_playback_factories) {
-	Q_ASSERT(f);
-	if (f && f->supportsDevice(device_name)) {
-	    factory = f;
-	    break;
-	}
-    }
-    if (!factory) return 0;
-
-    // open the playback device with it's default parameters
-    device = factory->openDevice(device_name, tracks);
+    Kwave::PlayBackDevice *device =
+	m_signal_manager.playbackController().openDevice(
+	    tracks, playback_params);
     if (!device) return 0;
 
     // create the multi track playback sink
@@ -691,20 +680,6 @@ const QList<Kwave::PluginManager::PluginModule>
     Kwave::PluginManager::pluginInfoList() const
 {
     return m_plugin_modules.values();
-}
-
-//***************************************************************************
-void Kwave::PluginManager::registerPlaybackDeviceFactory(
-    Kwave::PlaybackDeviceFactory *factory)
-{
-    m_playback_factories.append(factory);
-}
-
-//***************************************************************************
-void Kwave::PluginManager::unregisterPlaybackDeviceFactory(
-    Kwave::PlaybackDeviceFactory *factory)
-{
-    m_playback_factories.removeAll(factory);
 }
 
 //***************************************************************************

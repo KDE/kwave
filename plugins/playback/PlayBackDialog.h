@@ -23,10 +23,11 @@
 #include <QtCore/QString>
 #include <QtCore/QMap>
 
+#include "libkwave/PlayBackParam.h"
+#include "libkwave/PlayBackTypesMap.h"
+
 #include "libgui/TreeWidgetWrapper.h"
 
-#include "PlayBackParam.h"
-#include "PlayBackTypesMap.h"
 #include "ui_PlayBackDlg.h"
 
 class QTreeWidgetItem;
@@ -34,6 +35,8 @@ class QTreeWidgetItem;
 namespace Kwave
 {
 
+    class PlaybackController;
+    class PlayBackDevice;
     class Plugin;
 
     class PlayBackDialog : public QDialog,
@@ -43,7 +46,9 @@ namespace Kwave
 
     public:
 	/** Constructor */
-	PlayBackDialog(Kwave::Plugin &p, const Kwave::PlayBackParam &params);
+	PlayBackDialog(Kwave::Plugin &p,
+	               Kwave::PlaybackController &playback_controller,
+	               const Kwave::PlayBackParam &params);
 
 	/** Destructor */
 	virtual ~PlayBackDialog();
@@ -81,9 +86,6 @@ namespace Kwave
 
 	/** emits changes in the currently selected playback method */
 	void sigMethodChanged(Kwave::playback_method_t method);
-
-	/** emits changes in the currently selected device name */
-	void sigDeviceChanged(const QString &device);
 
 	/** emitted when the user clicked on the "Test..." button */
 	void sigTestPlayback();
@@ -137,6 +139,12 @@ namespace Kwave
 	void invokeHelp();
 
     private:
+
+	/** reference to the playback controller */
+	Kwave::PlaybackController &m_playback_controller;
+
+	/** The playback device used for configuring and testing playback */
+	Kwave::PlayBackDevice *m_device;
 
 	/** all parameters needed for playback */
 	Kwave::PlayBackParam m_playback_params;

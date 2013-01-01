@@ -58,11 +58,11 @@ bool Kwave::ApplicationContext::init(Kwave::TopWidget *top_widget)
 //***************************************************************************
 void Kwave::ApplicationContext::close()
 {
-    if (m_signal_manager) delete m_signal_manager;
-    m_signal_manager = 0;
-
     if (m_plugin_manager) delete m_plugin_manager;
     m_plugin_manager = 0;
+
+    if (m_signal_manager) delete m_signal_manager;
+    m_signal_manager = 0;
 
     m_top_widget = 0;
 }

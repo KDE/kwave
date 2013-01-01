@@ -471,10 +471,13 @@ Kwave::TopWidget::~TopWidget()
     // close the current file (no matter what the user wants)
     closeFile();
 
-    if (m_main_widget) delete m_main_widget;
+    delete m_toolbar_record_playback;
+    m_toolbar_record_playback = 0;
+
+    delete m_main_widget;
     m_main_widget = 0;
 
-    if (m_menu_manager) delete m_menu_manager;
+    delete m_menu_manager;
     m_menu_manager = 0;
 
     m_context.application().closeWindow(this);

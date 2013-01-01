@@ -18,51 +18,35 @@
 #ifndef _PLAYBACK_DEVICE_FACTORY_H_
 #define _PLAYBACK_DEVICE_FACTORY_H_
 
-class QString;
+#include <QtCore/QList>
+
+#include "libkwave/PlayBackParam.h"
 
 namespace Kwave
 {
 
     class PlayBackDevice;
-    class PlayBackParam;
 
     class PlaybackDeviceFactory
     {
     public:
-	/** virtual destructor, just to satisfy gcc */
-	virtual ~PlaybackDeviceFactory()
-	{
-	}
+	/** virtual destructor */
+	virtual ~PlaybackDeviceFactory() { }
 
 	/**
-	* Opens and initializes the playback device. If the initialization
-	* worked, it returns a valid pointer. On any errors m_device
-	* will be 0. If a device was open before, it will be closed.
-	* @param name the name of the logical playback device or the name
-	*             of the lowlevel device. If null or zero-length, the
-	*             default device will be used.
-	* @param tracks number of tracks,
-	*               if negative use the setting of playback_params
-	* @param playback_params points to a structure with playback
-	*                        parameters. If null, the default parameters
-	*                        of the current signal will be used
-	* @return a pointer to an opened PlayBackDevice or null if something
-	*         failed
-	* @see PlayBackDevice
-	*/
-	virtual Kwave::PlayBackDevice *openDevice(const QString &name,
-	    int tracks = -1,
-	    const Kwave::PlayBackParam *playback_params = 0) = 0;
+	 * Create a playback device matching the given playback method.
+	 * @param method a playback_method_t (aRts, ALSA, OSS...)
+	 * @return a new PlayBackDevice or 0 if failed
+	 */
+	virtual Kwave::PlayBackDevice *createDevice(
+	    Kwave::playback_method_t method) = 0;
 
 	/**
-	* Returns true if the given device name is supported
-	* and can be used for openDevice.
-	* @param name the name of a playback device
-	* @return true if supported
-	* @see openDevice
-	*/
-	virtual bool supportsDevice(const QString &name) = 0;
-
+	 * Returns a list of supported playback methods.
+	 * @return list of all supported playback methods, should not contain
+	 *         "any" or "invalid"
+	 */
+	virtual QList<Kwave::playback_method_t> supportedMethods() = 0;
 
     };
 }

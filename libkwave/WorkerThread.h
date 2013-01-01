@@ -62,10 +62,16 @@ namespace Kwave
 	virtual void run();
 
 	/**
-	* Returns true if the thread should stop. Should be polled
-	* by the thread's run() function to wait for a termination
-	* signal.
-	*/
+	 * Sets an internal flag that signals the worker thread to cancel,
+	 * so that the next call to "shouldStop()" returns true.
+	 */
+	virtual void cancel();
+
+	/**
+	 * Returns true if the thread should stop. Should be polled
+	 * by the thread's run() function to wait for a termination
+	 * signal.
+	 */
 	bool shouldStop();
 
     private:

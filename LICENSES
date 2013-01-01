@@ -381,8 +381,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/PlaybackController.h			GPL2+
 	libkwave/PlaybackDeviceFactory.h		GPL2+
 	libkwave/PlayBackDevice.h			GPL2+
+	libkwave/PlayBackParam.h			GPL2+
 	libkwave/PlaybackSink.cpp			GPL2+
 	libkwave/PlaybackSink.h				GPL2+
+	libkwave/PlayBackTypesMap.cpp			GPL2+
+	libkwave/PlayBackTypesMap.h			GPL2+
 	libkwave/Plugin.cpp				GPL2+
 	libkwave/Plugin.h				GPL2+
 	libkwave/PluginManager.cpp			GPL2+
@@ -697,11 +700,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/playback/PlayBack-Phonon.h		GPL2+
 	plugins/playback/PlayBack-PulseAudio.cpp	GPL2+
 	plugins/playback/PlayBack-PulseAudio.h		GPL2+
-	plugins/playback/PlayBackParam.h		GPL2+
 	plugins/playback/PlayBackPlugin.cpp		GPL2+
 	plugins/playback/PlayBackPlugin.h		GPL2+
-	plugins/playback/PlayBackTypesMap.cpp		GPL2+
-	plugins/playback/PlayBackTypesMap.h		GPL2+
 
 	plugins/record/CMakeLists.txt			GPL2+
 	plugins/record/krec_record.xpm			LGPL2 (crystal project) [converted from mix_record.png]

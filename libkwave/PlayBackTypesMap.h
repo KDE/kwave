@@ -18,12 +18,15 @@
 #define _PLAY_BACK_TYPES_MAP_H_
 
 #include "config.h"
+
+#include <kdemacros.h>
+
+#include "libkwave/PlayBackParam.h"
 #include "libkwave/TypesMap.h"
-#include "PlayBackParam.h"
 
 namespace Kwave
 {
-    class PlayBackTypesMap
+    class KDE_EXPORT PlayBackTypesMap
 	:public Kwave::TypesMap<unsigned int, Kwave::playback_method_t>
     {
     public:

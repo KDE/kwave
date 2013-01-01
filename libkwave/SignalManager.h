@@ -540,10 +540,11 @@ namespace Kwave
 
     protected:
 
-	friend class Kwave::MultiTrackWriter;
+	friend class MultiTrackWriter;
+	friend class PlaybackController;
 	friend class PluginManager;
 	friend class MainWidget;
-	friend class Kwave::UndoTransactionGuard;
+	friend class UndoTransactionGuard;
 
 	/**
 	 * Tries to free memory for a new undo action and stores all needed

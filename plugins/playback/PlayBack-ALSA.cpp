@@ -339,7 +339,7 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     QString alsa_device = alsaDeviceName(device);
     qDebug("PlayBackALSA::openDevice() - opening ALSA device '%s', "
            "%dHz %d channels, %u bit",
-           DBG(alsa_device), rate, channels, bits);
+           DBG(alsa_device.split(_("|")).at(0)), rate, channels, bits);
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name

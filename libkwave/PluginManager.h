@@ -43,6 +43,7 @@ namespace Kwave
 {
     class PlaybackController;
     class PlaybackDeviceFactory;
+    class PlayBackParam;
     class Plugin;
     class PluginContext;
     class SampleSink;
@@ -153,12 +154,15 @@ namespace Kwave
 	/**
 	 * Opens a Kwave::MultiTrackSink for playback purposes.
 	 * @param tracks number of tracks
-	 * @param name of the device, optional. If not given, the default
-	 *        playback device is used
+	 * @param playback_params points to a class that holds all playback
+	 *                        parameters. If null, the default parameters
+	 *                        of the current signal will be used
 	 * @return a multitrack sink that receives the playback stream
 	 */
-	Kwave::SampleSink *openMultiTrackPlayback(unsigned int tracks,
-	    const QString *name = 0);
+	Kwave::SampleSink *openMultiTrackPlayback(
+	    unsigned int tracks,
+	    const Kwave::PlayBackParam *playback_params = 0
+	);
 
 	/**
 	 * Returns a reference to the current playback controller. This is
@@ -204,18 +208,6 @@ namespace Kwave
 	 * filenames and then filters it to sort out invalid entries.
 	 */
 	void searchPluginModules();
-
-	/**
-	 * Registers a PlaybackDeviceFactory
-	 */
-	void registerPlaybackDeviceFactory(
-	    Kwave::PlaybackDeviceFactory *factory);
-
-	/**
-	 * Unregisters a PlaybackDeviceFactory
-	 */
-	void unregisterPlaybackDeviceFactory(
-	    Kwave::PlaybackDeviceFactory *factory);
 
 	/**
 	 * Signature of a loader function, must be provided by a plugin
@@ -370,9 +362,6 @@ namespace Kwave
 
 	/** interface for registering a SignalView */
 	ViewManager *m_view_manager;
-
-	/** list of playback device factories */
-	QList<Kwave::PlaybackDeviceFactory *> m_playback_factories;
     };
 }
 

@@ -63,6 +63,7 @@ SET(libkwave_LIB_SRCS
     Parser.cpp
     PlaybackController.cpp
     PlaybackSink.cpp
+    PlayBackTypesMap.cpp
     Plugin.cpp
     PluginManager.cpp
     SampleArray.cpp

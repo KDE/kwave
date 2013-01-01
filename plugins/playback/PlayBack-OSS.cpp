@@ -112,7 +112,8 @@ QString Kwave::PlayBackOSS::open(const QString &device, double rate,
                           unsigned int bufbase)
 {
     qDebug("PlayBackOSS::open(device=%s,rate=%0.1f,channels=%u,"
-	   "bits=%u, bufbase=%u)", DBG(device), rate, channels, bits, bufbase);
+	   "bits=%u, bufbase=%u)", DBG(device.split(_("|")).at(0)),
+	   rate, channels, bits, bufbase);
 
     m_device_name = device;
     m_rate        = rate;

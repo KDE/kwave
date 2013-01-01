@@ -165,6 +165,13 @@ void Kwave::WorkerThread::run()
 }
 
 //***************************************************************************
+void Kwave::WorkerThread::cancel()
+{
+    m_should_stop = true;
+}
+
+
+//***************************************************************************
 bool Kwave::WorkerThread::shouldStop()
 {
     return (m_should_stop);

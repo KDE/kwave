@@ -33,6 +33,7 @@
  * added common base class for all codec plugins
  * reduced quality level of sample rate converter from "best" to "medium",
    to improve speed
+ * refactored playback handling (controller vs. plugin)
 
 0.8.9  [2012-11-06]
 

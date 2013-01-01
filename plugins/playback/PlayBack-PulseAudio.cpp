@@ -404,7 +404,8 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
 	    m_info.get(__info__).toString().toUtf8().data())
 
     qDebug("PlayBackPulseAudio::open(device=%s,rate=%0.1f,channels=%u,"\
-	"bits=%u, bufbase=%u)", DBG(device), rate, channels,
+	"bits=%u, bufbase=%u)",
+	DBG(device.split(_("|")).at(0)), rate, channels,
 	bits, bufbase);
 
     // close the previous device

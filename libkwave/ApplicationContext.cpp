@@ -46,7 +46,6 @@ Kwave::SignalManager *Kwave::ApplicationContext::signalManager() const
 //***************************************************************************
 Kwave::PluginManager *Kwave::ApplicationContext::pluginManager() const
 {
-    Q_ASSERT(m_plugin_manager);
     return m_plugin_manager;
 }
 

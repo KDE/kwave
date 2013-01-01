@@ -82,7 +82,7 @@ Kwave::SignalManager::SignalManager(QWidget *parent)
     m_last_selection(0,0),
     m_last_track_selection(),
     m_last_length(0),
-    m_playback_controller(),
+    m_playback_controller(*this),
     m_undo_enabled(false),
     m_undo_buffer(),
     m_redo_buffer(),
@@ -842,6 +842,10 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	if (track >= tracks()) return -EINVAL;
 	Kwave::UndoTransactionGuard undo(*this, i18n("Toggle Track Selection"));
 	selectTrack(track, !(trackSelected(track)));
+
+    // playback control
+    CASE_COMMAND("playback_start")
+	m_playback_controller.playbackStart();
 
     CASE_COMMAND("fileinfo")
 	QString property = parser.firstParam();

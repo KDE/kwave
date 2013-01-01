@@ -131,12 +131,12 @@ Kwave::SampleEncoderLinear::SampleEncoderLinear(
     if (endianness == Kwave::CpuEndian) endianness = Kwave::LittleEndian;
 #endif
 
-    qDebug("SampleEncoderLinear::SampleEncoderLinear(fmt=%s, "
-           "%u bit [%u bytes], endian=%s)",
-           (sample_format == Kwave::SampleFormat::Signed) ?
-            "signed" : "unsigned",
-           bits_per_sample, m_bytes_per_sample,
-           (endianness == Kwave::BigEndian) ? "BE" : "LE");
+//     qDebug("SampleEncoderLinear::SampleEncoderLinear(fmt=%s, "
+//            "%u bit [%u bytes], endian=%s)",
+//            (sample_format == Kwave::SampleFormat::Signed) ?
+//             "signed" : "unsigned",
+//            bits_per_sample, m_bytes_per_sample,
+//            (endianness == Kwave::BigEndian) ? "BE" : "LE");
 
     switch (bits_per_sample) {
 	case 8:

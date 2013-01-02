@@ -36,6 +36,7 @@
  * refactored playback handling (controller vs. plugin)
  * workaround for bug in Phonon: no device names available in first call to
    Phonon::BackendCapabilities::availableAudioOutputDevices()
+ * moved playback test into worker thread, for better GUI responsiveness
 
 0.8.9  [2012-11-06]
 

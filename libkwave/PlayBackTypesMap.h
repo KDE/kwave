@@ -38,7 +38,7 @@ namespace Kwave
 	}
 
 	/** Destructor */
-	virtual ~PlayBackTypesMap() {};
+	virtual ~PlayBackTypesMap() {}
 
 	/** fill function for the map */
 	virtual void fill();

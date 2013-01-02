@@ -19,6 +19,7 @@
 #define _PLAY_BACK_PARAM_H_
 
 #include <QtCore/QString>
+#include <kdemacros.h>
 
 namespace Kwave
 {
@@ -47,7 +48,7 @@ namespace Kwave
      * A class that contains all necessary parameters for
      * setting up (initializing) a playback device.
      */
-    class PlayBackParam
+    class KDE_EXPORT PlayBackParam
     {
     public:
 	/** Default constructor */

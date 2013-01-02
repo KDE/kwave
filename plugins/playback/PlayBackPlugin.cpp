@@ -17,20 +17,22 @@
 
 #include "config.h"
 
+#include <errno.h>
 #include <math.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
+#include <unistd.h>
 
 #include <QtGui/QCursor>
+#include <QtGui/QApplication>
 #include <QtCore/QFile>
 #include <QtCore/QLatin1Char>
 #include <QtCore/QMutex>
 #include <QtCore/QMutexLocker>
 #include <QtGui/QProgressDialog>
 #include <QtCore/QString>
-#include <QtCore/QDateTime>
+#include <QtCore/QTimer>
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -49,6 +51,7 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "libkwave/modules/CurveStreamAdapter.h"
 #include "libkwave/modules/Delay.h"
@@ -66,10 +69,15 @@
 KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.3",
              I18N_NOOP("Playback"), "Thomas Eschenbacher");
 
+/** test frequency [Hz] */
+#define PLAYBACK_TEST_FREQUENCY 440.0
+
 //***************************************************************************
 Kwave::PlayBackPlugin::PlayBackPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_dialog(0),
-    m_playback_controller(manager().playbackController())
+    :Kwave::Plugin(plugin_manager),
+     m_dialog(0),
+     m_playback_controller(plugin_manager.playbackController()),
+     m_playback_sink(0)
 {
 }
 
@@ -79,6 +87,8 @@ Kwave::PlayBackPlugin::~PlayBackPlugin()
     // make sure the dialog is gone
     if (m_dialog) delete m_dialog;
     m_dialog = 0;
+
+    Q_ASSERT(!m_playback_sink);
 }
 
 //***************************************************************************
@@ -157,7 +167,10 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
     if (m_dialog) delete m_dialog;
 
     m_dialog = new Kwave::PlayBackDialog(
-	*this, m_playback_controller, playback_params);
+	*this,
+	manager().playbackController(),
+	playback_params
+    );
     Q_ASSERT(m_dialog);
     if (!m_dialog) return 0;
 
@@ -276,12 +289,103 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::createDevice(
 }
 
 //***************************************************************************
-void Kwave::PlayBackPlugin::testPlayBack()
+void Kwave::PlayBackPlugin::run(QStringList)
 {
     const float t_sweep        =   1.0; /* seconds per speaker */
-    const double freq          = 440.0; /* test frequency [Hz] */
     const unsigned int periods =     3; /* number of periods to play */
 
+    qDebug("PlayBackPlugin::run()");
+
+    Q_ASSERT(m_dialog);
+    Q_ASSERT(m_playback_sink);
+    if (!m_dialog || !m_playback_sink) return;
+    Kwave::PlayBackParam playback_params = m_dialog->params();
+
+    unsigned int channels = playback_params.channels;
+    double rate           = playback_params.rate;
+    Q_ASSERT(channels);
+    Q_ASSERT(rate > 1.0);
+    if (!channels || (rate <= 1.0)) return;
+
+    // settings are valid -> take them
+
+    float t_period = t_sweep * channels;
+    unsigned int curve_length = static_cast<unsigned int>(t_period * rate);
+
+    // create all objects
+    Kwave::Curve curve;
+    curve.insert(0.0, 0.0);
+    if (channels < 2) {
+	// mono
+	curve.insert(0.5, 1.0);
+    } else {
+	// all above
+	curve.insert(0.5 / static_cast<float>(channels), 1.0);
+	curve.insert(1.0 / static_cast<float>(channels), 0.0);
+    }
+    curve.insert(1.0, 0.0);
+
+    Kwave::CurveStreamAdapter curve_adapter(curve, curve_length);
+
+    Kwave::MultiTrackSource<Kwave::Delay, true> delay(channels);
+    for (unsigned int i = 0; i < channels; i++) {
+	Q_ASSERT(delay[i]);
+	if (!delay[i]) break;
+	delay[i]->setAttribute(SLOT(setDelay(const QVariant)),
+	    QVariant(i * t_sweep * rate));
+    }
+
+    Kwave::Osc osc;
+    osc.setAttribute(SLOT(setFrequency(const QVariant)),
+                     QVariant(rate / PLAYBACK_TEST_FREQUENCY));
+
+    Kwave::MultiTrackSource<Kwave::Mul, true> mul(channels);
+
+    // connect everything together...
+    //
+    // curve -> delay --.
+    //                  |
+    //                  v
+    //                 mul -> sink
+    //                  ^
+    //                  |
+    //            osc --'
+
+    Kwave::connect(
+	curve_adapter,    SIGNAL(output(Kwave::SampleArray)),
+	delay,            SLOT(input(Kwave::SampleArray)));
+    Kwave::connect(
+	delay,            SIGNAL(output(Kwave::SampleArray)),
+	mul,              SLOT(input_a(Kwave::SampleArray)));
+    Kwave::connect(
+	osc,              SIGNAL(output(Kwave::SampleArray)),
+	mul,              SLOT(input_b(Kwave::SampleArray)));
+    Kwave::connect(
+	mul,              SIGNAL(output(Kwave::SampleArray)),
+	*m_playback_sink, SLOT(input(Kwave::SampleArray)));
+
+    // show a progress dialog
+
+    // transport the samples
+    sample_index_t samples_max     = periods * t_period * rate;
+    sample_index_t samples_written = 0;
+    while (!shouldStop() && (samples_written <= samples_max)) {
+	osc.goOn();
+	curve_adapter.goOn();
+	delay.goOn();
+	mul.goOn();
+
+	samples_written += osc.blockSize();
+
+	int percent = (samples_written * 100) / samples_max;
+	emit sigTestProgress(percent);
+    }
+
+}
+
+//***************************************************************************
+void Kwave::PlayBackPlugin::testPlayBack()
+{
     qDebug("PlayBackPlugin::testPlayBack()");
 
     Q_ASSERT(m_dialog);
@@ -295,76 +399,24 @@ void Kwave::PlayBackPlugin::testPlayBack()
 	return;
     }
 
-    unsigned int tracks = playback_params.channels;
-    double rate         = playback_params.rate;
-    Q_ASSERT(tracks);
+    unsigned int channels = playback_params.channels;
+    double rate           = playback_params.rate;
+    Q_ASSERT(channels);
     Q_ASSERT(rate > 1.0);
-    if (!tracks || (rate <= 1.0)) return;
+    if (!channels || (rate <= 1.0)) return;
 
     // settings are valid -> take them
 
     // create the multi track playback sink
-    Kwave::SampleSink *sink = manager().openMultiTrackPlayback(
-	tracks,
+    // NOTE: this must be done in main thread context!
+    Q_ASSERT(!m_playback_sink);
+    if (m_playback_sink) return;
+    m_playback_sink = manager().openMultiTrackPlayback(
+	channels,
 	&playback_params
     );
-    if (!sink) return;
-    sink->setInteractive(true);
-
-    float t_period = t_sweep * tracks;
-    unsigned int curve_length = static_cast<unsigned int>(t_period * rate);
-
-    // create all objects
-    Kwave::Curve curve;
-    curve.insert(0.0, 0.0);
-    if (tracks < 2) {
-	// mono
-	curve.insert(0.5, 1.0);
-    } else {
-	// all above
-	curve.insert(0.5 / static_cast<float>(tracks), 1.0);
-	curve.insert(1.0 / static_cast<float>(tracks), 0.0);
-    }
-    curve.insert(1.0, 0.0);
-
-    Kwave::CurveStreamAdapter curve_adapter(curve, curve_length);
-
-    Kwave::MultiTrackSource<Kwave::Delay, true> delay(tracks);
-    for (unsigned int i = 0; i < tracks; i++) {
-	Q_ASSERT(delay[i]);
-	if (!delay[i]) break;
-	delay[i]->setAttribute(SLOT(setDelay(const QVariant)),
-	    QVariant(i * t_sweep * rate));
-    }
-
-    Kwave::Osc osc;
-    osc.setAttribute(SLOT(setFrequency(const QVariant)),
-                     QVariant(rate / freq));
-
-    Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks);
-
-    // connect everything together...
-    //
-    // curve -> delay --.
-    //                  |
-    //                  v
-    //                 mul -> sink
-    //                  ^
-    //                  |
-    //            osc --'
-
-    Kwave::connect(
-	curve_adapter, SIGNAL(output(Kwave::SampleArray)),
-	delay,         SLOT(input(Kwave::SampleArray)));
-    Kwave::connect(
-	delay,         SIGNAL(output(Kwave::SampleArray)),
-	mul,           SLOT(input_a(Kwave::SampleArray)));
-    Kwave::connect(
-	osc,           SIGNAL(output(Kwave::SampleArray)),
-	mul,           SLOT(input_b(Kwave::SampleArray)));
-    Kwave::connect(
-	mul,           SIGNAL(output(Kwave::SampleArray)),
-	*sink,         SLOT(input(Kwave::SampleArray)));
+    if (!m_playback_sink) return;
+    m_playback_sink->setInteractive(true);
 
     // show a progress dialog
     QProgressDialog *progress = 0;
@@ -374,41 +426,56 @@ void Kwave::PlayBackPlugin::testPlayBack()
 	progress->setWindowTitle(i18n("Playback Test"));
 	progress->setModal(true);
 	progress->setMinimumDuration(0);
+	progress->setMinimum(0);
 	progress->setMaximum(100);
-	progress->setAutoClose(true);
-	progress->setValue(1);
+	progress->setAutoClose(false);
+	progress->setValue(0);
 	progress->setLabelText(
 	    _("<html><p><br>") +
 	    i18n("You should now hear a %1 Hz test tone.<br><br>"
 		    "(If you hear clicks or dropouts, please increase<br>"
-		    "the buffer size and try again)", static_cast<int>(freq)) +
+		    "the buffer size and try again)",
+		    static_cast<int>(PLAYBACK_TEST_FREQUENCY)) +
 	    _("</p></html>")
 	);
-	progress->show();
-	QApplication::processEvents();
+	connect(progress, SIGNAL(canceled()), this, SLOT(cancel()),
+		Qt::QueuedConnection);
+	connect(this, SIGNAL(sigDone(Kwave::Plugin *)), progress, SLOT(close()),
+		Qt::QueuedConnection);
+	connect(this, SIGNAL(sigTestProgress(int)), progress, SLOT(setValue(int)),
+		Qt::QueuedConnection);
+
+	QStringList params;
+	execute(params);
+	progress->exec();
+	cancel();
     }
 
-    // transport the samples
-    QTime time;
-    time.start();
-    int t_max = periods * static_cast<int>(t_period) * 1000;
-    while ((time.elapsed() < t_max) /*&& (!sink.done())*/) {
+    // set hourglass cursor, waiting for shutdown could take some time...
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-	osc.goOn();
-	curve_adapter.goOn();
-	delay.goOn();
-	mul.goOn();
-
-	if (progress) {
-	    progress->setValue((100 * time.elapsed()) / t_max);
-	    QApplication::processEvents();
-	    if (progress->wasCanceled()) break;
-	}
+    // wait through manual polling here, no timeout
+    qDebug("waiting...");
+    while (isRunning()) {
+	cancel();
+	sleep(1);
+	qDebug(".");
     }
-    sink->setInteractive(false);
+    qDebug("done.");
 
-    if (progress) delete progress;
-    delete sink;
+    // close the playback sink again (here in main thread context)
+    m_playback_sink->setInteractive(false);
+    delete m_playback_sink;
+    m_playback_sink = 0;
+
+    // free the progress dialog
+    delete progress;
+
+    // stop the worker thread through the Runnable API
+    stop();
+
+    // remove hourglass
+    QApplication::restoreOverrideCursor();
 }
 
 //***************************************************************************

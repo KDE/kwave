@@ -57,7 +57,10 @@ Kwave::PlayBackDialog::PlayBackDialog(
 )
     :QDialog(p.parentWidget()), PlayBackDlg(),
      m_playback_controller(playback_controller),
-     m_device(0), m_playback_params(params), m_file_filter(_("")),
+     m_device(0),
+     m_playback_params(params),
+     m_methods_map(),
+     m_file_filter(_("")),
      m_devices_list_map(),
      m_enable_setDevice(true)
 {

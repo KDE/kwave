@@ -33,6 +33,7 @@ Kwave::ApplicationContext::ApplicationContext(Kwave::App &app)
 //***************************************************************************
 Kwave::ApplicationContext::~ApplicationContext()
 {
+    m_top_widget     = 0;
     m_signal_manager = 0;
     m_plugin_manager = 0;
 }
@@ -66,7 +67,6 @@ void Kwave::ApplicationContext::close()
 
     m_top_widget = 0;
 }
-
 
 //***************************************************************************
 //***************************************************************************

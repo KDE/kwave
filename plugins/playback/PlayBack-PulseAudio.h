@@ -159,14 +159,6 @@ namespace Kwave
 	                                 void *userdata);
 
 	/**
-	 * called from pulse audio to inform aboutlatency update
-	 *
-	 * @param p pulse audio stream
-	 * @param userdata user data, pointer to a PlayBackPulseAudio object
-	 */
-	static void pa_stream_latency_cb(pa_stream *p, void *userdata);
-
-	/**
 	 * Callback for pulse audio context state changes
 	 *
 	 * @param c pulse server context
@@ -205,13 +197,6 @@ namespace Kwave
 	 * @param success (unused)
 	 */
 	void notifySuccess(pa_stream *stream, int success);
-
-	/**
-	 * Callback after successful latency updates.
-	 *
-	 * @param stream pulse audio stream
-	 */
-	void notifyLatency(pa_stream *stream);
 
 	/**
 	 * Try to connect to the PulseAudio server and create a valid context

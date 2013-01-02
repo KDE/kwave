@@ -36,6 +36,7 @@ namespace Kwave
     class PlayBackDevice;
     class PlayBackDialog;
     class PluginContext;
+    class SampleSink;
 
     class PlayBackPlugin :public Kwave::Plugin,
                           public Kwave::PlaybackDeviceFactory
@@ -65,6 +66,14 @@ namespace Kwave
 
 	/** @see Kwave::Plugin::setup() */
 	virtual QStringList *setup(QStringList &previous_params);
+
+	/** Starts a playback test sequence */
+	virtual void run(QStringList);
+
+    signals:
+
+	/** emits the progress of the playback test, from thread context */
+	void sigTestProgress(int percent);
 
     public slots:
 
@@ -105,6 +114,8 @@ namespace Kwave
 	/** reference to the playback controller */
 	Kwave::PlaybackController &m_playback_controller;
 
+	/** sample sink, for playback test */
+	Kwave::SampleSink *m_playback_sink;
     };
 }
 

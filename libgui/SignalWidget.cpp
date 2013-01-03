@@ -19,7 +19,6 @@
 #include <errno.h>
 #include <math.h>
 #include <stdlib.h>
-#include <sys/time.h>
 
 #include <QtGui/QBitmap>
 #include <QtGui/QContextMenuEvent>

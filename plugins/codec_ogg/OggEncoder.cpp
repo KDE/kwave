@@ -19,10 +19,10 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include <QtCore/QByteArray>
 #include <QtCore/QList>
+#include <QtCore/QTime>
 
 #include <klocale.h>
 #include <kmimetype.h>
@@ -278,7 +278,7 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
     // pick a random serial number; that way we can more likely build
     // chained streams just by concatenation
-    srand(time(NULL));
+    srand(QTime::currentTime().msec());
     ogg_stream_init(&os, rand());
 
     // Vorbis streams begin with three headers; the initial header (with

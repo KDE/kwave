@@ -17,6 +17,9 @@
 
 #include "config.h"
 
+#include <math.h>
+#include <stdlib.h>
+
 #include <QtCore/QList>
 #include <QtCore/QTextCodec>
 #include <QtCore/QVariant>
@@ -25,9 +28,7 @@
 #include <kmimetype.h>
 #include <kapplication.h>
 #include <kglobal.h>
-#include <math.h>
-#include <stdlib.h>
-#include <time.h>
+
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"

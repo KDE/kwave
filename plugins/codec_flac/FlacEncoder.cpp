@@ -19,7 +19,6 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include <QtCore/QByteArray>
 #include <QtCore/QList>

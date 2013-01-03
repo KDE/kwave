@@ -18,7 +18,6 @@
 #include "config.h"
 
 #include <signal.h>
-#include <sys/time.h>
 #include <stdio.h>
 
 #include <QtCore/QtGlobal> // for qWarning()

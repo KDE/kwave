@@ -229,8 +229,8 @@ CHECK_INCLUDE_FILES(sys/types.h HAVE_SYS_TYPES_H)
 CHECK_INCLUDE_FILES(stdint.h HAVE_STDINT_H)
 CHECK_INCLUDE_FILES(stddef.h HAVE_STDDEF_H)
 
-SET(_inc errno.h float.h limits.h sched.h stddef.h stdint.h stdio.h
-         stdlib.h string.h limits.h sys/time.h sys/types.h time.h pthread.h)
+SET(_inc errno.h float.h limits.h math.h sched.h signal.h stddef.h
+         stdint.h stdio.h stdlib.h string.h sys/types.h unistd.h pthread.h)
 CHECK_INCLUDE_FILES("${_inc}" REQUIRED_STD_HEADERS)
 IF (NOT REQUIRED_STD_HEADERS)
     MESSAGE(FATAL_ERROR "

@@ -39,6 +39,7 @@
  * moved playback test into worker thread, for better GUI responsiveness
  * Phonon playback: changed to own mainloop with timeout support to avoid
    application hang on broken audio devices
+ * bugfix: data loss in sample rate converter when processing streams
 
 0.8.9  [2012-11-06]
 

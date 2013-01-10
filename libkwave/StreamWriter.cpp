@@ -42,8 +42,7 @@ Kwave::StreamWriter::~StreamWriter()
 bool Kwave::StreamWriter::write(const Kwave::SampleArray &buffer,
                                 unsigned int &count)
 {
-    // abort on zero length input
-    if (buffer.isEmpty() || !count) return false;
+    // NOTE: even zero length input has to be passed, needed for flushing!
 
     if (count < buffer.size()) {
 	// have to work with a resized copy - slow :-(

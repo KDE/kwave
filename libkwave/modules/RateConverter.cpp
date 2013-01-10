@@ -76,19 +76,24 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
 	(*f_in++) = sample2float(*(s_in++));
 
     // prepare the output buffer (estimated size, rounded up)
+    // worst case would be factor 2, which means that there was a 100%
+    // leftover remaining from the previous pass
+    // just for safety we limit the extra output space to some
+    // (hopefully) reasonable range between 4096 and 16384
     const unsigned int out_len =
-	ceil(static_cast<double>(in_len) * m_ratio) + 1;
-    m_converter_out.resize(out_len);
+	ceil(static_cast<double>(in_len) * m_ratio);
+    const unsigned int extra = qBound<unsigned int>(4096, out_len, 16384);
+    m_converter_out.resize(out_len + extra);
 
     // set up the sample rate converter input
     SRC_DATA src;
     src.data_in           = m_converter_in.data();
     src.data_out          = m_converter_out.data();
     src.input_frames      = in_len;
-    src.output_frames     = out_len;
+    src.output_frames     = out_len + extra;
     src.input_frames_used = 0;
     src.output_frames_gen = 0;
-    src.end_of_input      = (data.isEmpty() ? 1 : 0);
+    src.end_of_input      = (in_len == 0) ? 1 : 0;
     src.src_ratio         = m_ratio;
 
     // let the converter run...

@@ -291,7 +291,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 		 "stereo. This file will be mixed down to stereo when "
 		 "saving."),
 	    QString(), QString(), QString(),
-	    _("accept_down_mix_on_export")) != KMessageBox::Continue)
+	    _("mp3_accept_down_mix_on_export")) != KMessageBox::Continue)
 	{
 	    return false;
 	}

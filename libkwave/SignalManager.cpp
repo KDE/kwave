@@ -199,7 +199,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	    info.length(), info.rate(), info.bits(), info.tracks());
 	Q_ASSERT(dialog);
 
-	if (use_src_size) {
+	if (dialog && use_src_size) {
 	    // use source size for progress / stream mode
 	    QObject::connect(decoder, SIGNAL(sourceProcessed(quint64)),
 	                     dialog,  SLOT(setBytePosition(quint64)));

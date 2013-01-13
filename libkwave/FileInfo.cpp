@@ -62,6 +62,9 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
     append(Kwave::INF_BITRATE_LOWER, FP_NO_LOAD_SAVE,
         _(I18N_NOOP("Lower Bitrate")),
         _(I18N_NOOP("Specifies the lower limit in a VBR bitstream.")));
+    append(Kwave::INF_BITRATE_MODE, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        _(I18N_NOOP("Bitrate Mode")),
+        _(I18N_NOOP("Bitrate Mode (ABR, VBR, CBR, etc...)")));
     append(Kwave::INF_BITRATE_NOMINAL, FP_NO_LOAD_SAVE,
         _(I18N_NOOP("Bitrate")),
         _(I18N_NOOP(
@@ -177,6 +180,10 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
         _(I18N_NOOP("Name")),
         _(I18N_NOOP("Stores the title of the subject of the file.\n"
              "Example: \"Symphony No.6, Op.68 'Pastoral'\"")));
+    append(Kwave::INF_OPUS_FRAME_LEN, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        _(I18N_NOOP("Opus Frame Length")),
+        _(I18N_NOOP("Opus Frame Length in ms (supported values are "
+                    "2.5, 5, 10, 20, 40, or 60 ms)")));
     append(Kwave::INF_ORGANIZATION, 0,
         _(I18N_NOOP("Organization")),
         _(I18N_NOOP("Name of the organization producing the track\n"

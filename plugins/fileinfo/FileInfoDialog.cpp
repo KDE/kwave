@@ -951,7 +951,7 @@ void Kwave::FileInfoDialog::accept()
     acceptEdit(Kwave::INF_KEYWORDS,
 	lstKeywords->keywords().join(_("; ")));
 
-    qDebug("FileInfoDialog::accept() --2--");
+    qDebug("FileInfoDialog::accept() [done]");
     m_info.dump();
 
     QDialog::accept();

@@ -43,13 +43,14 @@ namespace Kwave
     * FileInfo.cpp
     */
     typedef enum {
-	INF_UNKNOWN = 0,         /**< dummy for unknown/unsupported property */
+	INF_UNKNOWN = -1,        /**< dummy for unknown/unsupported property */
 	// please sort in new items alphabetically...
 	INF_ALBUM = 0,           /**< name of the album */
 	INF_ANNOTATION,          /**< annotation/comment */
 	INF_ARCHIVAL,            /**< archival location */
 	INF_AUTHOR,              /**< name of the author/artist */
 	INF_BITRATE_LOWER,       /**< lower bitrate limit */
+	INF_BITRATE_MODE,        /**< bitrate mode (ABR, VBR, CBR, etc...) */
 	INF_BITRATE_NOMINAL,     /**< nominal bitrate */
 	INF_BITRATE_UPPER,       /**< upper bitrate limit */
 	INF_BITS_PER_SAMPLE,     /**< number of bits per sample */
@@ -79,6 +80,7 @@ namespace Kwave
 	INF_MPEG_MODEEXT,        /**< MPEG mode extension */
 	INF_MPEG_VERSION,        /**< MPEG version */
 	INF_NAME,                /**< name of the song or whatever */
+	INF_OPUS_FRAME_LEN,      /**< Opus codec: frame length in ms */
 	INF_ORGANIZATION,        /**< organization/label */
 	INF_ORIGINAL,            /**< true=original, false=copy */
 	INF_PERFORMER,           /**< name ot the performer */

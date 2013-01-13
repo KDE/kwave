@@ -24,7 +24,7 @@
 #include <QtGui/QPainter>
 #include <QtGui/QPixmap>
 #include <QtCore/QString>
-#include <QtCore/QTimer>
+#include <QtCore/QThread>
 
 #include <kapplication.h>
 #include <kaboutdata.h>
@@ -40,7 +40,8 @@ QPointer<Kwave::Splash> Kwave::Splash::m_splash = 0;
 //***************************************************************************
 Kwave::Splash::Splash(const QString &PNGImageFileName)
     :QFrame(0, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
-     m_pixmap(KStandardDirs::locate("appdata", PNGImageFileName))
+     m_pixmap(KStandardDirs::locate("appdata", PNGImageFileName)),
+     m_timer()
 {
     m_splash = this;
 
@@ -94,12 +95,18 @@ Kwave::Splash::Splash(const QString &PNGImageFileName)
     move(QApplication::desktop()->screenGeometry().center() - rect.center());
 
     // auto-close in 4 seconds...
-    QTimer::singleShot(4000, this, SLOT(done()));
+    connect(&m_timer, SIGNAL(timeout()),
+            this, SLOT(done()), Qt::QueuedConnection);
+    m_timer.setSingleShot(true);
+    m_timer.start(4000);
 }
 
 //***************************************************************************
 void Kwave::Splash::done()
 {
+    // check: start() must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
     m_splash = 0;
     close();
 }

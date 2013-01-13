@@ -23,6 +23,7 @@
 #include <QtGui/QPixmap>
 #include <QtCore/QPointer>
 #include <QtCore/QString>
+#include <QtCore/QTimer>
 
 class QMouseEvent;
 class QPaintEvent;
@@ -69,6 +70,8 @@ namespace Kwave
 	/** static instance */
 	static QPointer<Kwave::Splash> m_splash;
 
+	/** timer, for auto-close */
+	QTimer m_timer;
     };
 }
 

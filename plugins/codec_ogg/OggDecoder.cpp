@@ -214,7 +214,7 @@ bool Kwave::OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 		        ));
 		} else {
 		    // can safely ignore errors at this point
-		    ogg_stream_pagein(&m_os,&m_og);
+		    ogg_stream_pagein(&m_os, &m_og);
 		    while (1) {
 			result = ogg_stream_packetout(&m_os, &m_op);
 

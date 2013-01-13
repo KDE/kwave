@@ -2,18 +2,28 @@
 o support for OPUS codec (.opus, using Ogg as container)
   => this will be the main feature for v0.8.10
 
+o support vorbis comments REPLAYGAIN_*, ENCODED_BY
+
 o support vorbis comment "ENCODED_BY"
 
 o support for Vorbis Chapter Extension <=> map to Kwave labels
   see http://wiki.xiph.org/VorbisComment
+
+o make sample rate conversion (libsamplerate) mandantory
+
+o FLAC in Ogg container
+
+o SPEEX in Ogg container
+
+o noise plugin: mix instead of overwrite (with adjustable level [dB])
+
+o use noise shaping globally in sample2float()
 
 o support for "raw" import/export
 
 o TODO in MP3 plugin (ID3FID_MEDIATYPE)
 
 o move label with mouse (drag&drop)
-
-o simplify loading/unloading of plugins
 
 o new import/export plugin using ffmpeg/libavcodec
 

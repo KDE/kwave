@@ -46,7 +46,9 @@ IF (WITH_OGG)
 	SET(HAVE_OGG_OPUS  ON CACHE BOOL "enable Opus codec")
 	SET(OGG_OPUS_LIBS "opus")
 	SET(OGG_OPUS_SRCS
+	    OpusCommon.cpp
 	    OpusDecoder.cpp
+	    OpusEncoder.cpp
 	)
     ENDIF (WITH_OGG_OPUS)
 
@@ -81,6 +83,7 @@ IF (WITH_OGG)
 	SET(OGG_VORBIS_LIBS vorbisenc vorbis)
 	SET(OGG_VORBIS_SRCS
 	    VorbisDecoder.cpp
+	    VorbisEncoder.cpp
 	)
     ENDIF (WITH_OGG_VORBIS)
 

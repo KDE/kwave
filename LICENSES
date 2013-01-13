@@ -306,6 +306,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	libkwave/ApplicationContext.cpp			GPL2+
 	libkwave/ApplicationContext.h			GPL2+
+	libkwave/BitrateMode.h				GPL2+
 	libkwave/ByteOrder.h				GPL2+
 	libkwave/ClipBoard.cpp				GPL2+
 	libkwave/ClipBoard.h				GPL2+
@@ -549,11 +550,18 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/codec_ogg/OggEncoder.cpp		GPL2+
 	plugins/codec_ogg/OggEncoder.h			GPL2+
 	plugins/codec_ogg/OggSubDecoder.h		GPL2+
+	plugins/codec_ogg/OggSubEncoder.h		GPL2+
+	plugins/codec_ogg/OpusCommon.cpp		GPL2+
+	plugins/codec_ogg/OpusCommon.h			GPL2+
 	plugins/codec_ogg/OpusDecoder.cpp		GPL2+
 	plugins/codec_ogg/OpusDecoder.h			GPL2+
+	plugins/codec_ogg/OpusEncoder.cpp		GPL2+
+	plugins/codec_ogg/OpusEncoder.h			GPL2+
 	plugins/codec_ogg/OpusHeader.h			GPL2+
 	plugins/codec_ogg/VorbisDecoder.cpp		GPL2+
 	plugins/codec_ogg/VorbisDecoder.h		GPL2+
+	plugins/codec_ogg/VorbisEncoder.cpp		GPL2+
+	plugins/codec_ogg/VorbisEncoder.h		GPL2+
 
 	plugins/codec_wav/CMakeLists.txt		GPL2+
 	plugins/codec_wav/RecoveryBuffer.cpp		GPL2+

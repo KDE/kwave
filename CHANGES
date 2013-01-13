@@ -40,6 +40,7 @@
  * Phonon playback: changed to own mainloop with timeout support to avoid
    application hang on broken audio devices
  * bugfix: data loss in sample rate converter when processing streams
+ * vorbis encoder: call to deprecated API (now use OV_ECTL_RATEMANAGE2_SET)
 
 0.8.9  [2012-11-06]
 

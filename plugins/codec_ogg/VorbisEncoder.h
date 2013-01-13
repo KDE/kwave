@@ -1,0 +1,125 @@
+/*************************************************************************
+    VorbisEncoder.h  -  sub encoder base class for Vorbis in an Ogg container
+                             -------------------
+    begin                : Thu Jan 03 2013
+    copyright            : (C) 2013 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#ifndef _VORBIS_ENCODER_H_
+#define _VORBIS_ENCODER_H_
+
+#include "config.h"
+
+#include <vorbis/vorbisenc.h>
+
+#include "libkwave/FileInfo.h"
+#include "libkwave/VorbisCommentMap.h"
+
+#include "OggSubEncoder.h"
+
+class QIODevice;
+class QWidget;
+
+namespace Kwave
+{
+
+    class FileInfo;
+    class MultiTrackReader;
+
+    class VorbisEncoder: public Kwave::OggSubEncoder
+    {
+    public:
+
+	/**
+	 * Constructor
+	 * @param os reference to the ogg stream state
+	 * @param og reference to the ogg page
+	 * @param op reference to the ogg packet
+	 */
+	VorbisEncoder(ogg_stream_state &os,
+	              ogg_page         &og,
+	              ogg_packet       &op);
+
+	/** Destructor */
+	virtual ~VorbisEncoder();
+
+	/**
+	 * parse the header of the stream and initialize the decoder
+	 * @param widget a QWidget to be used as parent for error messages
+	 * @param info reference to a FileInfo to fill
+	 * @return true if succeeded, false if failed
+	 */
+	virtual bool open(QWidget *widget,
+	                  const Kwave::FileInfo &info);
+
+	/**
+	 * write the header information
+	 * @param dst a QIODevice that receives the raw data
+	 * @return true if succeeded, false if failed
+	 */
+	virtual bool writeHeader(QIODevice &dst);
+
+	/**
+	 * encode received ogg data
+	 * @param src MultiTrackReader used as source of the audio data
+	 * @param dst a QIODevice that receives the raw data
+	 * @return true if succeeded, false if failed
+	 */
+	virtual bool encode(Kwave::MultiTrackReader &src,
+	                    QIODevice &dst);
+
+	/**
+	 * finished the encoding, clean up
+	 */
+	virtual void close();
+
+    private:
+
+	/** Encodes all file properties into a vorbis comment */
+	void encodeProperties(const Kwave::FileInfo &info);
+
+    private:
+
+	/** map for translating Vorbis comments to Kwave FileInfo */
+	Kwave::VorbisCommentMap m_comments_map;
+
+	/** file info, set in open(...) */
+	Kwave::FileInfo m_info;
+
+	/** take physical pages, weld into a logical stream of packets */
+	ogg_stream_state &m_os;
+
+	/** one Ogg bitstream page.  Vorbis packets are inside */
+	ogg_page         &m_og;
+
+	/** one raw packet of data for decode */
+	ogg_packet       &m_op;
+
+	/** struct that stores all the static vorbis bitstream settings */
+	vorbis_info      m_vi;
+
+	/** struct that stores all the user comments */
+	vorbis_comment   m_vc;
+
+	/** central working state for the packet->PCM decoder */
+	vorbis_dsp_state m_vd;
+
+	/** local working space for packet->PCM decode */
+	vorbis_block     m_vb;
+    };
+}
+
+#endif /* _VORBIS_ENCODER_H_ */
+
+//***************************************************************************
+//***************************************************************************

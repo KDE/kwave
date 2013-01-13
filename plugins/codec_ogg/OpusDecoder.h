@@ -159,6 +159,42 @@ namespace Kwave
 	 */
 	bool m_converter_connected;
 #endif /* HAVE_SAMPLERATE_SUPPORT */
+
+	/** total number of packets */
+	unsigned int m_packet_count;
+
+	/**
+	 * total number of raw samples, at the input of the decoder,
+	 * before rate conversion
+	 */
+	quint64 m_samples_raw;
+
+	/** total number of bytes, without overhead */
+	quint64 m_bytes_count;
+
+	/** minimum detected length of a packet [samples] */
+	int m_packet_len_min;
+
+	/** maximum detected length of a packet [samples] */
+	int m_packet_len_max;
+
+	/** minimum detected size of a packet [bytes] */
+	int m_packet_size_min;
+
+	/** maximum detected size of a packet [bytes] */
+	int m_packet_size_max;
+
+	/** first detected granule pos (minimum) */
+	qint64 m_granule_first;
+
+	/** last detected granule pos (maximum) */
+	qint64 m_granule_last;
+
+	/** number of samples missing at the start (in first granule) */
+	qint64 m_granule_offset;
+
+	/** number of samples to skip at start */
+	int m_preskip;
     };
 }
 

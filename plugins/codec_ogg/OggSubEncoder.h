@@ -1,8 +1,8 @@
 /*************************************************************************
-    OggSubDecoder.h  -  sub decoder base class for audio in an Ogg container
+    OggSubEncoder.h  -  sub encoder base class for audio in an Ogg container
                              -------------------
-    begin                : Wed Dec 26 2012
-    copyright            : (C) 2012 by Thomas Eschenbacher
+    begin                : Thu Jan 03 2013
+    copyright            : (C) 2013 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -15,11 +15,12 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _OGG_SUB_DECODER_H_
-#define _OGG_SUB_DECODER_H_
+#ifndef _OGG_SUB_ENCODER_H_
+#define _OGG_SUB_ENCODER_H_
 
 #include "config.h"
 
+class QIODevice;
 class QWidget;
 
 namespace Kwave
@@ -27,40 +28,45 @@ namespace Kwave
     class FileInfo;
     class MultiWriter;
 
-    class OggSubDecoder
+    class OggSubEncoder
     {
     public:
 	/** Destructor */
-	virtual ~OggSubDecoder() {}
+	virtual ~OggSubEncoder() {}
 
 	/**
 	 * parse the header of the stream and initialize the decoder
 	 * @param widget a QWidget to be used as parent for error messages
 	 * @param info reference to a FileInfo to fill
-	 * @return -1 if failed or +1 if succeeded
+	 * @return true if succeeded, false if failed
 	 */
-	virtual int open(QWidget *widget, Kwave::FileInfo &info) = 0;
+	virtual bool open(QWidget *widget, const Kwave::FileInfo &info) = 0;
 
 	/**
-	 * decode received ogg data
-	 * @param dst a MultiWriter to be used as sink
-	 * @return -1 if failed or >= 0 if succeeded
+	 * write the header information
+	 * @param dst a QIODevice that receives the raw data
+	 * @return true if succeeded, false if failed
 	 */
-	virtual int decode(Kwave::MultiWriter &dst) = 0;
+	virtual bool writeHeader(QIODevice &dst) = 0;
 
-	/** reset the stream info */
-	virtual void reset() = 0;
+	/**
+	 * encode received ogg data
+	 * @param src MultiTrackReader used as source of the audio data
+	 * @param dst a QIODevice that receives the raw data
+	 * @return true if succeeded, false if failed
+	 */
+	virtual bool encode(Kwave::MultiTrackReader &src,
+	                    QIODevice &dst) = 0;
 
 	/**
 	 * finish the decoding, last chance to fix up some file info
-	 * @param info reference to a FileInfo to fill
 	 */
-	virtual void close(Kwave::FileInfo &info) = 0;
+	virtual void close() = 0;
 
     };
 }
 
-#endif /* _OGG_SUB_DECODER_H_ */
+#endif /* _OGG_SUB_ENCODER_H_ */
 
 //***************************************************************************
 //***************************************************************************

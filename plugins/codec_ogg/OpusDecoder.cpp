@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <limits>
 #include <math.h>
 #include <stdlib.h>
 
@@ -29,6 +30,7 @@
 
 #include <klocale.h>
 
+#include "libkwave/BitrateMode.h"
 #include "libkwave/CompressionType.h"
 #include "libkwave/Connect.h"
 #include "libkwave/MessageBox.h"
@@ -38,32 +40,14 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/StandardBitrates.h"
+#include "libkwave/Writer.h"
 #include "libkwave/modules/RateConverter.h"
 
+#include "OpusCommon.h"
 #include "OpusDecoder.h"
 
 /** maximum frame size in samples, 120ms at 48000 */
 #define MAX_FRAME_SIZE (960 * 6)
-
-//***************************************************************************
-/**
- * round up to the next supported sample rate
- * @param rate arbitrary sample rate
- * @return next supported rate
- */
-static int _opus_next_sample_rate(int rate)
-{
-    if (rate < 8000)
-	return 8000;
-    else if (rate <= 12000)
-	return 12000;
-    else if (rate <= 16000)
-	return 16000;
-    else if (rate <= 24000)
-	return 24000;
-    else
-	return 48000;
-}
 
 //***************************************************************************
 Kwave::OpusDecoder::OpusDecoder(QIODevice *source,
@@ -75,8 +59,13 @@ Kwave::OpusDecoder::OpusDecoder(QIODevice *source,
      m_oy(oy), m_os(os), m_og(og), m_op(op),
      m_comments_map(), m_buffer(0)
 #ifdef HAVE_SAMPLERATE_SUPPORT
-    ,m_adapter(0), m_rate_converter(0), m_converter_connected(false)
+    ,m_adapter(0), m_rate_converter(0), m_converter_connected(false),
 #endif /* HAVE_SAMPLERATE_SUPPORT */
+     m_packet_count(0), m_samples_raw(0), m_bytes_count(0),
+     m_packet_len_min(0), m_packet_len_max(0),
+     m_packet_size_min(0), m_packet_size_max(0),
+     m_granule_first(0), m_granule_last(0), m_granule_offset(0),
+     m_preskip(0)
 {
 }
 
@@ -361,44 +350,6 @@ int Kwave::OpusDecoder::parseOpusHead(QWidget *widget, Kwave::FileInfo &info)
     return 1;
 }
 
-//***************************************************************************
-static QString _opus_error(int err)
-{
-    QString msg;
-
-    switch (err)
-    {
-	/** No error @hideinitializer*/
-	case OPUS_OK:
-	    msg =QString();
-	    break;
-	case OPUS_BAD_ARG:
-	    msg = i18n("One or more invalid/out of range arguments.");
-	    break;
-	case OPUS_BUFFER_TOO_SMALL:
-	    msg = i18n("The mode struct passed is invalid.");
-	    break;
-	case OPUS_INTERNAL_ERROR:
-	    msg = i18n("An internal error was detected.");
-	    break;
-	case OPUS_INVALID_PACKET:
-	    msg = i18n("The compressed data passed is corrupted.");
-	    break;
-	case OPUS_UNIMPLEMENTED:
-	    msg = i18n("Invalid/unsupported request number.");
-	    break;
-	case OPUS_INVALID_STATE:
-	    msg = i18n("A decoder structure is invalid or already freed.");
-	    break;
-	case OPUS_ALLOC_FAIL:
-	    msg = i18n("Memory allocation has failed.");
-	    break;
-	default:
-	    msg = i18n("Decoder error: %1", _(opus_strerror(err)));
-	    break;
-    }
-    return msg;
-}
 
 //***************************************************************************
 int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
@@ -424,7 +375,7 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     int err = OPUS_BAD_ARG;
     qDebug("    sample rate = %d", m_opus_header.sample_rate);
     m_opus_decoder = opus_multistream_decoder_create(
-        _opus_next_sample_rate(m_opus_header.sample_rate),
+        Kwave::opus_next_sample_rate(m_opus_header.sample_rate),
         m_opus_header.channels,
         m_opus_header.streams,
         m_opus_header.coupled,
@@ -434,7 +385,7 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 
     if ((err != OPUS_OK) || !m_opus_decoder) {
 	info.dump();
-	Kwave::MessageBox::error(widget, _opus_error(err),
+	Kwave::MessageBox::error(widget, Kwave::opus_error(err),
 	     i18n("Opus decoder failed"));
 	return -1;
     }
@@ -454,7 +405,7 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 
     const unsigned int tracks = m_opus_header.channels;
     int rate_orig = m_opus_header.sample_rate;
-    int rate_supp = _opus_next_sample_rate(rate_orig);
+    int rate_supp = Kwave::opus_next_sample_rate(rate_orig);
 
     // handle sample rate conversion
     if (rate_orig != rate_supp) {
@@ -507,6 +458,20 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 
     m_stream_start_pos = m_source->pos();
     m_samples_written  = 0;
+    m_packet_count     = 0;
+    m_samples_raw      = 0;
+    m_bytes_count      = 0;
+
+    m_packet_len_min  = std::numeric_limits<int>::max();
+    m_packet_len_max  = 0;
+    m_packet_size_min = std::numeric_limits<int>::max();
+    m_packet_size_max = 0;
+
+    m_preskip         = m_opus_header.preskip;
+    m_granule_first   = std::numeric_limits<qint64>::max();
+    m_granule_last    = 0;
+    m_granule_offset  = 0;
+
     return 1;
 }
 
@@ -516,6 +481,41 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     if (!m_opus_decoder || !m_buffer)
 	return -1;
 
+    // get some statistical data, for bitrate mode detection
+    m_packet_count++;
+
+    int frames = opus_packet_get_nb_frames(m_op.packet, m_op.bytes);
+    if(frames < 1 || frames > 48) {
+	qWarning("WARNING: Invalid packet TOC in packet #%u",
+	         static_cast<unsigned int>(m_op.packetno));
+    }
+    int spf = opus_packet_get_samples_per_frame(m_op.packet, 48000);
+    int spp = frames * spf;
+    if (spp < 120 || spp > 5760 || (spp % 120) != 0) {
+	qWarning("WARNING: Invalid packet TOC in packet #%u",
+	         static_cast<unsigned int>(m_op.packetno));
+    }
+
+    if (spp < m_packet_len_min) m_packet_len_min = spp;
+    if (spp > m_packet_len_max) m_packet_len_max = spp;
+    if (m_op.bytes < m_packet_size_min) m_packet_size_min = m_op.bytes;
+    if (m_op.bytes > m_packet_size_max) m_packet_size_max = m_op.bytes;
+
+    // total count of samples and bytes
+    m_samples_raw += spp;
+    m_bytes_count += m_op.bytes;
+
+    // granule pos handling
+    const qint64 gp = static_cast<qint64>(ogg_page_granulepos(&m_og));
+    if (gp >= 0) {
+	if (gp < m_granule_first) m_granule_first = gp;
+	if (gp > m_granule_last)  m_granule_last  = gp;
+	if (m_granule_first == m_granule_last) {
+	    // calculate how many samples might be missing at the start
+	    m_granule_offset = m_granule_first - m_samples_raw;
+	}
+    }
+
     // decode the audio data into a buffer with float values
     int length = opus_multistream_decode_float(
 	m_opus_decoder,
@@ -524,7 +524,7 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     );
     if (length <= 0) {
 	qWarning("OpusDecoder::decode() failed: '%s'",
-	         DBG(_opus_error(length)));
+	         DBG(Kwave::opus_error(length)));
 	return -1;
     }
 
@@ -556,8 +556,30 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     }
 #endif /* HAVE_SAMPLERATE_SUPPORT */
 
-    // convert the buffer from float to sample_t, blockwise...
+    // handle preskip
     float *p = m_buffer;
+    if (m_preskip) {
+	if (m_preskip >= length) {
+	    m_preskip -= length;
+	    return 0; // skip the complete buffer
+	}
+	// shrink buffer by preskip samples
+	length    -= m_preskip;
+	p         += m_preskip * tracks;
+	m_preskip  = 0;
+    }
+
+    // check trailing data at the end (after the granule)
+    const sample_index_t last = (m_granule_last - m_granule_offset) -
+	m_opus_header.preskip;
+
+    if ((m_samples_written + length) > last) {
+	int diff = (m_samples_written + length) - last;
+	if (diff > length) return 0;
+	length -= diff;
+    }
+
+    // convert the buffer from float to sample_t, blockwise...
     Kwave::SampleArray samples(length);
     for (unsigned int t = 0; t < tracks; t++) {
 	float    *in  = p + t;
@@ -575,7 +597,11 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 	*((*sink)[t]) << samples;
     }
 
-    m_samples_written = dst.last();
+    // flush the buffer of the sample rate converter, to avoid missing
+    // samples due to the limitations of libsamplerate
+    if (m_adapter) m_adapter->flush();
+
+    m_samples_written += length;
     return 0;
 }
 
@@ -608,9 +634,42 @@ void Kwave::OpusDecoder::reset()
 void Kwave::OpusDecoder::close(Kwave::FileInfo &info)
 {
     Q_UNUSED(info);
+
+    qDebug("    OpusDecoder: packet count=%u", m_packet_count);
+    qDebug("    OpusDecoder: packet length: %d...%d samples",
+	   m_packet_len_min, m_packet_len_max);
+    qDebug("    OpusDecoder: packet size: %d...%d bytes",
+	   m_packet_size_min, m_packet_size_max);
+
+    if ( (m_packet_len_min == m_packet_len_max) &&
+         (m_packet_size_min == m_packet_size_max) )
+    {
+	// detected hard CBR mode
+	info.set(INF_BITRATE_MODE, Kwave::BITRATE_MODE_CBR_HARD);
+	qDebug("    OpusDecoder: hard CBR mode");
+    } else {
+	// otherwise default to VBR mode
+	info.set(INF_BITRATE_MODE, Kwave::BITRATE_MODE_VBR);
+	qDebug("    OpusDecoder: VBR mode");
+    }
+
+    // determine the avarage frame length in ms
+    qreal avg_ms = (static_cast<qreal>(m_samples_raw) /
+                    static_cast<qreal>(m_packet_count)) / 48.0;
+    qDebug("    OpusDecoder: average frame length: %0.1f ms", avg_ms);
+    info.set(INF_OPUS_FRAME_LEN, QVariant(avg_ms));
+
+    // calculate the bitrate == n_bits / n_seconds
+    // n_bits = n_bytes * 8
+    // n_seconds = n_samples / sample_rate
+    // => bitrate = (n_bytes * 8) / (n_samples / sample_rate)
+    const double sr = Kwave::opus_next_sample_rate(m_opus_header.sample_rate);
+    int bitrate = ((m_bytes_count * 8) * sr) / m_samples_written;
+    qDebug("    OpusDecoder: average bitrate: %d bits/sec", bitrate);
+    info.set(INF_BITRATE_NOMINAL, QVariant(bitrate));
+
     reset();
 }
-
 
 //***************************************************************************
 //***************************************************************************

@@ -20,16 +20,17 @@
 
 #include "config.h"
 
-#include <vorbis/vorbisenc.h>
-
 #include <QtCore/QList>
 
 #include "libkwave/Encoder.h"
+#include "libkwave/VorbisCommentMap.h"
 
 class QWidget;
 
 namespace Kwave
 {
+    class OggSubEncoder;
+
     class OggEncoder: public Kwave::Encoder
     {
     public:
@@ -51,7 +52,8 @@ namespace Kwave
 	 * @param meta_data meta data of the file to save
 	 * @return true if succeeded, false on errors
 	 */
-	virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
+	virtual bool encode(QWidget *widget,
+	                    Kwave::MultiTrackReader &src,
 	                    QIODevice &dst,
 	                    const Kwave::MetaDataList &meta_data);
 
@@ -60,9 +62,11 @@ namespace Kwave
 
     private:
 
-	/** Encodes all file properties into a vorbis comment */
-	void encodeProperties(const Kwave::FileInfo &info, vorbis_comment *vc);
+	/** sub encoder, can be Vorbis, Opus, Speex or whatever... */
+	Kwave::OggSubEncoder *m_sub_encoder;
 
+	/** map for translating Opus comments to Kwave FileInfo */
+	Kwave::VorbisCommentMap m_comments_map;
     };
 }
 

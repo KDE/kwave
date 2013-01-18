@@ -27,7 +27,7 @@
 namespace Kwave
 {
 
-    template <class SINK>
+    template <class SINK, const bool INITIALIZE>
     class MultiTrackSink: public Kwave::SampleSink,
                           private QVector<SINK *>
     {
@@ -41,8 +41,11 @@ namespace Kwave
 	    :Kwave::SampleSink(parent),
 	    QVector<SINK *>(tracks)
 	{
-	    QVector<SINK *>::fill(static_cast<SINK *>(0));
-	    Q_ASSERT(QVector<SINK *>::size() == static_cast<int>(tracks));
+	    Q_ASSERT(INITIALIZE || (tracks == 0));
+	    if (tracks) {
+		QVector<SINK *>::fill(static_cast<SINK *>(0));
+		Q_ASSERT(QVector<SINK *>::size() == static_cast<int>(tracks));
+	    }
 	}
 
 	/** Destructor */
@@ -105,6 +108,33 @@ namespace Kwave
 	    QVector<SINK *>::clear();
 	}
     };
+
+    /**
+     * Specialized version that internally initializes all objects
+     * by generating them through their default constructor.
+     */
+    template <class SINK>
+    class MultiTrackSink<SINK, true>
+	:public Kwave::MultiTrackSink<SINK, false>
+    {
+    public:
+	/**
+	 * Constructor
+	 *
+	 * @param tracks number of tracks
+	 * @param parent a parent object, passed to QObject (optional)
+	 */
+	MultiTrackSink(unsigned int tracks, QObject *parent = 0)
+	    :Kwave::MultiTrackSink<SINK, false>(0, parent)
+	{
+	    for (unsigned int i = 0; i < tracks; i++)
+		this->insert(i, new SINK());
+	}
+
+	/** Destructor */
+	virtual ~MultiTrackSink() { }
+    };
+
 }
 
 #endif /* __MULTI_TRACK_SINK_H_ */

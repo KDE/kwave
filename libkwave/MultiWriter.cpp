@@ -22,7 +22,7 @@
 
 //***************************************************************************
 Kwave::MultiWriter::MultiWriter()
-    :Kwave::MultiTrackSink<Kwave::Writer>(0,0), m_canceled(false)
+    :Kwave::MultiTrackSink<Kwave::Writer, false>(0,0), m_canceled(false)
 {
 }
 
@@ -42,7 +42,7 @@ bool Kwave::MultiWriter::insert(unsigned int track, Kwave::Writer *writer)
 	    Qt::DirectConnection
 	);
     }
-    return Kwave::MultiTrackSink<Kwave::Writer>::insert(track, writer);
+    return Kwave::MultiTrackSink<Kwave::Writer, false>::insert(track, writer);
 }
 
 //***************************************************************************
@@ -95,7 +95,7 @@ sample_index_t Kwave::MultiWriter::last() const
 //***************************************************************************
 void Kwave::MultiWriter::clear()
 {
-    Kwave::MultiTrackSink<Kwave::Writer>::clear();
+    Kwave::MultiTrackSink<Kwave::Writer, false>::clear();
 }
 
 //***************************************************************************

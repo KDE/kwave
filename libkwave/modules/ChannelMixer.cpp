@@ -244,7 +244,7 @@ void Kwave::ChannelMixer::mix()
 	Kwave::SampleBuffer *out_buf = m_output_buffer[y];
 	if (KDE_ISUNLIKELY(out_buf->data().size() > min_len))
 	    out_buf->data().resize(min_len);
-	out_buf->done();
+	out_buf->finished();
     }
 
 }

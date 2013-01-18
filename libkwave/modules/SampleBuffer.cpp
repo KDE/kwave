@@ -20,8 +20,8 @@
 #include "libkwave/modules/SampleBuffer.h"
 
 //***************************************************************************
-Kwave::SampleBuffer::SampleBuffer()
-    :Kwave::StreamObject(), m_data()
+Kwave::SampleBuffer::SampleBuffer(QObject *parent)
+    :Kwave::SampleSink(parent), m_data(), m_offset(0)
 {
 }
 
@@ -43,7 +43,38 @@ Kwave::SampleArray &Kwave::SampleBuffer::data()
 }
 
 //***************************************************************************
-void Kwave::SampleBuffer::done()
+const Kwave::SampleArray &Kwave::SampleBuffer::data() const
+{
+    return m_data;
+}
+
+//***************************************************************************
+unsigned int Kwave::SampleBuffer::available() const
+{
+    unsigned int size = m_data.size();
+    return (size > m_offset) ? (size - m_offset) : 0;
+}
+
+//***************************************************************************
+const sample_t *Kwave::SampleBuffer::get(unsigned int len)
+{
+    const unsigned int size = m_data.size();
+    if (m_offset > size) return 0; // already reached EOF
+
+    // limit read length to the size of the buffer
+    if (len > size) len = size;
+
+    // get a pointer to the raw data
+    const sample_t *raw = m_data.data() + m_offset;
+
+    // advance the offset
+    m_offset += len;
+
+    return raw;
+}
+
+//***************************************************************************
+void Kwave::SampleBuffer::finished()
 {
     emit output(m_data);
 }
@@ -51,7 +82,8 @@ void Kwave::SampleBuffer::done()
 //***************************************************************************
 void Kwave::SampleBuffer::input(Kwave::SampleArray data)
 {
-    m_data = data;
+    m_data   = data;
+    m_offset = 0;
 }
 
 //***************************************************************************

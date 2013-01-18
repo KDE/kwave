@@ -19,7 +19,10 @@
 #define _SAMPLE_SINK_H_
 
 #include "config.h"
+
 #include <QtCore/QObject>
+
+#include <kdemacros.h>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/modules/StreamObject.h"
@@ -27,13 +30,12 @@
 namespace Kwave
 {
 
-    class SampleSink: public Kwave::StreamObject
+    class KDE_EXPORT SampleSink: public Kwave::StreamObject
     {
         Q_OBJECT
     public:
         /**
          * Constructor
-         *
          * @param parent a parent object, passed to QObject (optional)
          */
         SampleSink(QObject *parent = 0);

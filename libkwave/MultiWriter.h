@@ -36,7 +36,8 @@ namespace Kwave
      * A MultiWriter encapsulates a set of <c>Writer</c>s for
      * easier use of multi-track signals.
      */
-    class KDE_EXPORT MultiWriter: public Kwave::MultiTrackSink<Kwave::Writer>
+    class KDE_EXPORT MultiWriter
+	:public Kwave::MultiTrackSink<Kwave::Writer, false>
     {
 	Q_OBJECT
     public:

@@ -284,7 +284,7 @@ Kwave::SampleReader &Kwave::SampleReader::operator >> (
 void Kwave::SampleReader::goOn()
 {
     Kwave::SampleArray buffer(blockSize());
-    read(buffer, 0, blockSize());
+    (*this) >> buffer;
     emit output(buffer);
 }
 

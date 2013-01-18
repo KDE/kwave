@@ -23,19 +23,22 @@
 #include <QtCore/QObject>
 
 #include "libkwave/SampleArray.h"
-#include "libkwave/modules/StreamObject.h"
+#include "libkwave/SampleSink.h"
 
 //***************************************************************************
 namespace Kwave
 {
 
-    class KDE_EXPORT SampleBuffer: public Kwave::StreamObject
+    class KDE_EXPORT SampleBuffer: public Kwave::SampleSink
     {
 	Q_OBJECT
     public:
 
-	/** Constructor */
-	SampleBuffer();
+        /**
+         * Constructor
+         * @param parent a parent object, passed to QObject (optional)
+         */
+	SampleBuffer(QObject *parent = 0);
 
 	/** Destructor */
 	virtual ~SampleBuffer();
@@ -46,8 +49,22 @@ namespace Kwave
 	/** returns a reference to the sample data */
 	virtual Kwave::SampleArray &data();
 
+	/** returns a const reference to the sample data */
+	virtual const Kwave::SampleArray &data() const;
+
+	/** returns the number of samples that can be fetched with get() */
+	virtual unsigned int available() const;
+
+	/**
+	 * returns a pointer to the raw data and advances the internal
+	 * offset afterwards
+	 * @param length maximum number of samples to get
+	 * @return pointer to the raw data in the buffer
+	 */
+	virtual const sample_t *get(unsigned int len);
+
 	/** emit the sample data stored in m_data */
-	virtual void done();
+	virtual void finished();
 
     public slots:
 
@@ -64,6 +81,8 @@ namespace Kwave
 	/** array with sample data */
 	Kwave::SampleArray m_data;
 
+	/** offset within the data, for reading */
+	unsigned int m_offset;
     };
 
 }

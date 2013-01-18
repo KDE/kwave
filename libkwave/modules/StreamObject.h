@@ -80,6 +80,7 @@ namespace Kwave
 	 * Returns an indexed port, identified by name
 	 * @param port name of the port (name of signal or slot)
 	 * @param track index of the track
+	 * @return the corresponding stream object
 	 */
 	virtual Kwave::StreamObject *port(const char *port, unsigned int track)
 	{

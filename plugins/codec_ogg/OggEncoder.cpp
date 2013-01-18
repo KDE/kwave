@@ -129,7 +129,7 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	return false;
     }
 
-    if (!m_sub_encoder->open(widget, info))
+    if (!m_sub_encoder->open(widget, info, src))
 	return false;
 
     // open the output device

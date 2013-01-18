@@ -70,9 +70,12 @@ void Kwave::VorbisEncoder::encodeProperties(const Kwave::FileInfo &info)
 }
 
 /***************************************************************************/
-bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info)
+bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
+                                Kwave::MultiTrackReader &src)
 {
     int ret = -1;
+
+    Q_UNUSED(src);
 
     // get info: tracks, sample rate, bitrate(s)
     m_info = info;

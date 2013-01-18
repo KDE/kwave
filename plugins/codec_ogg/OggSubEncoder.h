@@ -38,9 +38,11 @@ namespace Kwave
 	 * parse the header of the stream and initialize the decoder
 	 * @param widget a QWidget to be used as parent for error messages
 	 * @param info reference to a FileInfo to fill
+	 * @param src MultiTrackReader used as source of the audio data
 	 * @return true if succeeded, false if failed
 	 */
-	virtual bool open(QWidget *widget, const Kwave::FileInfo &info) = 0;
+	virtual bool open(QWidget *widget, const Kwave::FileInfo &info,
+	                  Kwave::MultiTrackReader &src) = 0;
 
 	/**
 	 * write the header information

@@ -25,7 +25,9 @@
 #include <opus/opus_multistream.h>
 
 #include "libkwave/FileInfo.h"
+#include "libkwave/MultiTrackSink.h"
 #include "libkwave/VorbisCommentMap.h"
+#include "libkwave/modules/SampleBuffer.h"
 
 #include "OggSubEncoder.h"
 #include "OpusHeader.h"
@@ -62,10 +64,13 @@ namespace Kwave
 	 * parse the header of the stream and initialize the decoder
 	 * @param widget a QWidget to be used as parent for error messages
 	 * @param info reference to a FileInfo to fill
+	 * @param src MultiTrackReader used as source of the audio data
+	 * @param src MultiTrackReader used as source of the audio data
 	 * @return true if succeeded, false if failed
 	 */
 	virtual bool open(QWidget *widget,
-	                  const Kwave::FileInfo &info);
+	                  const Kwave::FileInfo &info,
+	                  Kwave::MultiTrackReader &src);
 
 	/**
 	 * write the header information
@@ -205,6 +210,9 @@ namespace Kwave
 	/** frame size in samples */
 	unsigned int m_frame_size;
 
+	/** number of samples to pad at the end to compensate preskip */
+	unsigned int m_extra_out;
+
 	/** Opus header, including channel map */
 	Kwave::opus_header_t m_opus_header;
 
@@ -220,6 +228,15 @@ namespace Kwave
 	/** input buffer of the encoder */
 	float *m_encoder_input;
 
+	/**
+	 * end of the queue that possibly consists of a channel mixer (in
+	 * case of downmixing), a rate converter (if needed) and a buffer
+	 * (if one of the two objects mentioned before is present).
+	 */
+	Kwave::StreamObject *m_last_queue_element;
+
+	/** multi track buffer, for blockwise reading from the source device */
+	Kwave::MultiTrackSink<Kwave::SampleBuffer, true> *m_buffer;
     };
 }
 

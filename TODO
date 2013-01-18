@@ -6,6 +6,11 @@ o support vorbis comments REPLAYGAIN_*, ENCODED_BY
 
 o support vorbis comment "ENCODED_BY"
 
+o proper channel mixing for well-known track numbers and file formats
+  (e.g. wav or vorbis)
+
+o toolbar button for "SaveAs" and for "Close"
+
 o support for Vorbis Chapter Extension <=> map to Kwave labels
   see http://wiki.xiph.org/VorbisComment
 

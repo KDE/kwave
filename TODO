@@ -1,12 +1,7 @@
 
-o support for OPUS codec (.opus, using Ogg as container)
-  => this will be the main feature for v0.8.10
+o support vorbis comments REPLAYGAIN_* and R128_TRACK_GAIN
 
-o support vorbis comments REPLAYGAIN_*, ENCODED_BY
-
-o support vorbis comment "ENCODED_BY"
-
-o proper channel mixing for well-known track numbers and file formats
+o proper channel mixing matrix for well-known track numbers and file formats
   (e.g. wav or vorbis)
 
 o toolbar button for "SaveAs" and for "Close"
@@ -20,7 +15,7 @@ o FLAC in Ogg container
 
 o SPEEX in Ogg container
 
-o noise plugin: mix instead of overwrite (with adjustable level [dB])
+o noise plugin: add noise (mix) instead of overwrite (with adjustable level [dB])
 
 o use noise shaping globally in sample2float()
 

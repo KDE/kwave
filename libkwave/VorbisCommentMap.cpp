@@ -42,6 +42,7 @@ Kwave::VorbisCommentMap::VorbisCommentMap()
     _INS("CONTACT",      Kwave::INF_CONTACT       ); // contact address(es)
     _INS("ISRC",         Kwave::INF_ISRC          ); // ISRC code
     _INS("ENCODER",      Kwave::INF_SOFTWARE      ); // software
+    _INS("ENCODED_BY",   Kwave::INF_ENGINEER      ); // name of the encoder
     _INS("VBR_QUALITY",  Kwave::INF_VBR_QUALITY   ); // VBR quality
 }
 

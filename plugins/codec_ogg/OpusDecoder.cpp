@@ -158,12 +158,12 @@ int Kwave::OpusDecoder::parseOpusTags(QWidget *widget, Kwave::FileInfo &info)
 		         "(len=%u, max=%lu)", len, length);
 		len = length;
 	    }
-	    QString software =
+	    QString encoder =
 		QString::fromUtf8(reinterpret_cast<const char *>(c), len);
 	    c      += len;
 	    length -= len;
-	    qDebug("    Encoded with '%s'", DBG(software));
-	    info.set(Kwave::INF_SOFTWARE, software);
+	    qDebug("    Encoded with '%s'", DBG(encoder));
+	    /* info.set(Kwave::INF_SOFTWARE, software); */
 
 	    if (length < 4) {
 		qWarning("OpusDecoder::parseHeader(): tag is too short (%lu)",

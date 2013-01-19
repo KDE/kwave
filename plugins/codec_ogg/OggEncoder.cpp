@@ -103,19 +103,19 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     const int compression = info.contains(Kwave::INF_COMPRESSION) ?
         info.get(Kwave::INF_COMPRESSION).toInt() : AF_COMPRESSION_NONE;
 
-// #ifdef HAVE_OGG_OPUS
-//     if (compression == CompressionType::OGG_OPUS) {
-// 	qDebug("    OggEncoder: using Opus codec");
+#ifdef HAVE_OGG_OPUS
+    if (compression == CompressionType::OGG_OPUS) {
+	qDebug("    OggEncoder: using Opus codec");
 	m_sub_encoder =
 	    new Kwave::OpusEncoder(os, og, op);
-//     }
-// #endif /* HAVE_OGG_OPUS */
-// #ifdef HAVE_OGG_VORBIS
-//     if (compression == CompressionType::OGG_VORBIS) {
-// 	qDebug("    OggEncoder: using Vorbis codec");
-// 	m_sub_encoder = new Kwave::VorbisEncoder(os, og, op);
-//     }
-// #endif /* HAVE_OGG_VORBIS */
+    }
+#endif /* HAVE_OGG_OPUS */
+#ifdef HAVE_OGG_VORBIS
+    if (compression == CompressionType::OGG_VORBIS) {
+	qDebug("    OggEncoder: using Vorbis codec");
+	m_sub_encoder = new Kwave::VorbisEncoder(os, og, op);
+    }
+#endif /* HAVE_OGG_VORBIS */
 
     if (!m_sub_encoder) {
 	Kwave::CompressionType map;

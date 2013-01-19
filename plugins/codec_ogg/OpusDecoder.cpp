@@ -82,7 +82,34 @@ void Kwave::OpusDecoder::parseComment(Kwave::FileInfo &info,
 
     // split into tag and value
     QString tag = comment.left(pos).toUpper();
-    QString val = comment.mid(pos + 1);
+    QString val = comment.mid(pos + 1).trimmed();
+
+    // special handling for gain
+    if ((tag == _("REPLAY_TRACK_GAIN")) || (tag == _("REPLAY_ALBUM_GAIN"))) {
+	// gain in dB:
+	// remove "dB" from the end
+	val = val.left(val.indexOf(_("dB"), 0, Qt::CaseInsensitive)).trimmed();
+
+	// convert to a integer Q8 dB value
+	bool ok = false;
+	int q8gain = static_cast<int>(rint(val.toDouble(&ok) * 256.0));
+	if (ok && q8gain) {
+	    m_opus_header.gain += q8gain;
+	    qDebug("    OpusDecoder: %s %+0.1g dB", DBG(tag),
+	           static_cast<double>(q8gain) / 256.0);
+	    return;
+	}
+    } else if ((tag == _("R128_TRACK_GAIN")) || (tag == _("R128_ALBUM_GAIN"))) {
+	// R128_... already is a 7.8 integer value
+	bool ok = false;
+	int q8gain = rint(val.toInt(&ok));
+	if (ok && q8gain) {
+	    m_opus_header.gain += q8gain;
+	    qDebug("    OpusDecoder: %s %+0.1g dB", DBG(tag),
+	           static_cast<double>(q8gain) / 256.0);
+	    return;
+	}
+    }
 
     // check for unknown properties
     if (!m_comments_map.contains(tag)) {

@@ -1,6 +1,4 @@
 
-o support vorbis comments REPLAYGAIN_* and R128_TRACK_GAIN
-
 o proper channel mixing matrix for well-known track numbers and file formats
   (e.g. wav or vorbis)
 

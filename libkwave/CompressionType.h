@@ -22,18 +22,20 @@
 
 #include <audiofile.h>
 
-#include <kdemacros.h>
-
-#include "libkwave/TypesMap.h"
+#include "libkwave/Compression.h"
 
 namespace Kwave
 {
-    class KDE_EXPORT CompressionType: public Kwave::TypesMap<int, int>
-    {
-    public:
 
+    namespace CompressionType
+    {
 	/** extended compression types, not from libaudiofile */
 	enum {
+	    NONE         = 0,
+	    G711_ULAW    = AF_COMPRESSION_G711_ULAW,
+	    G711_ALAW    = AF_COMPRESSION_G711_ALAW,
+	    MS_ADPCM     = AF_COMPRESSION_MS_ADPCM,
+	    GSM          = AF_COMPRESSION_GSM,
 	    MPEG_LAYER_I = 600,
 	    MPEG_LAYER_II,
 	    MPEG_LAYER_III,
@@ -41,17 +43,7 @@ namespace Kwave
 	    OGG_OPUS,
 	    FLAC
 	};
-
-	/** Constructor */
-	explicit CompressionType();
-
-	/** Destructor */
-	virtual ~CompressionType();
-
-	/** fills the list */
-	virtual void fill();
-
-    };
+    }
 }
 
 #endif /* _COMPRESSION_TYPE_H_ */

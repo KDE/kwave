@@ -575,12 +575,13 @@ void Kwave::RecordPlugin::changeCompression(int new_compression)
     }
 
     // check the supported compressions
-    Kwave::CompressionType types;
     QList<int> supported_comps = m_device->detectCompressions();
     int compression = new_compression;
-    if (!supported_comps.contains(compression) && (compression != 0)) {
+    if (!supported_comps.contains(compression) &&
+	(compression != Kwave::CompressionType::NONE))
+    {
 	// try to disable the compression (type 0)
-	compression = 0;
+	compression = Kwave::CompressionType::NONE;
 	if (!supported_comps.isEmpty() &&
 	    !supported_comps.contains(compression))
 	{
@@ -590,12 +591,9 @@ void Kwave::RecordPlugin::changeCompression(int new_compression)
 	}
 
 	if (compression != new_compression) {
-	    const QString c1(types.description(
-		types.findFromData(new_compression), true));
-	    const QString c2(types.description(
-		types.findFromData(compression), true));
-	    notice(i18n("Compression '%1' not supported, using '%2'",
-                        c1, c2));
+	    const QString c1(Kwave::Compression(new_compression).name());
+	    const QString c2(Kwave::Compression(compression).name());
+	    notice(i18n("Compression '%1' not supported, using '%2'", c1, c2));
 	}
     }
     m_dialog->setSupportedCompressions(supported_comps);
@@ -604,16 +602,12 @@ void Kwave::RecordPlugin::changeCompression(int new_compression)
     int err = m_device->setCompression(compression);
     if (err < 0) {
 	// revert to the current device setting if failed
-	compression = m_device->compression();
-
 	if (compression != m_device->compression()) {
-	    Kwave::CompressionType types;
-	    const QString c1(types.description(
-		types.findFromData(compression), true));
-	    const QString c2(types.description(
-		types.findFromData(m_device->compression()), true));
+	    const QString c1(Kwave::Compression(compression).name());
+	    const QString c2(Kwave::Compression(m_device->compression()).name());
 	    notice(i18n("Compression '%1' failed, using '%2'.", c1 ,c2));
 	}
+	compression = m_device->compression();
     }
     m_dialog->setCompression(compression);
 
@@ -841,7 +835,7 @@ void Kwave::RecordPlugin::setupRecordThread()
 
     // create a decoder for the current sample format
     switch (params.compression) {
-	case AF_COMPRESSION_NONE:
+	case Kwave::CompressionType::NONE:
 	    switch (params.sample_format) {
 		case Kwave::SampleFormat::Unsigned: /* FALLTHROUGH */
 		case Kwave::SampleFormat::Signed:

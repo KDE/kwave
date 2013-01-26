@@ -75,14 +75,6 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
     if (!mimetype.length())
 	mimetype = _("audio/x-wav"); // default mimetype
 
-    m_is_mpeg = ((mimetype == _("audio/x-mpga")) ||
-        (mimetype == _("audio/x-mp2")) ||
-        (mimetype == _("audio/x-mp3")) ||
-        (mimetype == _("audio/mpeg")));
-    m_is_ogg = ((mimetype == _("audio/x-ogg")) ||
-                (mimetype == _("application/x-ogg")) ||
-                (mimetype == _("application/ogg")));
-
     qDebug("mimetype = %s", DBG(mimetype));
 
     connect(cbCompression, SIGNAL(currentIndexChanged(int)),
@@ -102,7 +94,6 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
     setupSourceTab();
     setupAuthorCopyrightTab();
     setupMiscellaneousTab();
-
 }
 
 //***************************************************************************
@@ -165,24 +156,6 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     }
 
     /* file format (from mime type) */
-
-/** @todo using description instead of bare mime type would
-          be fine, but doesn't work yet. Currently it gives
-          only "Unknown" :-(
-*/
-//    QString mimetype = QVariant(m_info.get(Kwave::INF_MIMETYPE)).toString();
-//    lblFileFormat->setText(i18n("File format:");
-//    describeWidget(edFileFormat, lblFileFormat->text().left(
-//        lblFileFormat->text().length()-1),
-//        i18n("Format of the file from which the\n"
-//             "audio data was loaded from"));
-//    qDebug("mimetype='%s'",mimetype.local8Bit().data()); // ###
-//    KMimeType::Ptr mime = KMimeType::mimeType(mimetype);
-//    QString format =
-//       (mime != KMimeType::mimeType(KMimeType::defaultMimeType())) ?
-//        mime->comment() : mimetype;
-//    qDebug("comment='%s'",mime->comment().local8Bit().data()); // ###
-//    edFileFormat->setText(format);
 
     // use mimetype instead
     initInfoText(lblFileFormat,   edFileFormat,   Kwave::INF_MIMETYPE);
@@ -267,23 +240,6 @@ void Kwave::FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
         Kwave::CompressionWidget::VBR_MODE :
         Kwave::CompressionWidget::ABR_MODE);
 
-    // enable/disable ABR/VBR controls, depending on mime type
-    bool lower = m_info.contains(Kwave::INF_BITRATE_LOWER);
-    bool upper = m_info.contains(Kwave::INF_BITRATE_UPPER);
-    if (m_is_mpeg) {
-	// MPEG file
-	compressionWidget->enableABR(true, lower, upper);
-	compressionWidget->enableVBR(false);
-    } else if (m_is_ogg) {
-	// Ogg/Vorbis file
-	compressionWidget->enableABR(true, lower, upper);
-	compressionWidget->enableVBR(true);
-    } else {
-	// other...
-	compressionWidget->enableABR(false, false, false);
-	compressionWidget->enableVBR(false);
-    }
-
     // ABR bitrate settings
     int abr_bitrate = m_info.contains(Kwave::INF_BITRATE_NOMINAL) ?
                   QVariant(m_info.get(Kwave::INF_BITRATE_NOMINAL)).toInt() :
@@ -316,7 +272,7 @@ void Kwave::FileInfoDialog::setupCompressionTab(KConfigGroup &cfg)
 void Kwave::FileInfoDialog::setupMpegTab()
 {
     // the whole tab is only enabled in mpeg mode
-    InfoTab->setTabEnabled(2, m_is_mpeg);
+    InfoTab->setTabEnabled(2, isMpeg());
 
     /* MPEG layer */
     initInfo(lblMpegLayer,   cbMpegLayer,    Kwave::INF_MPEG_LAYER);
@@ -550,7 +506,6 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
 {
     cbCompression->blockSignals(true);
 
-    Kwave::CompressionType compressions;
     QList<int> supported_compressions;
     QString mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
 
@@ -561,7 +516,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
 	if (encoder) supported_compressions = encoder->compressionTypes();
     } else {
 	// no mime type -> allow all mimetypes suitable for encoding
-	supported_compressions.append(AF_COMPRESSION_NONE);
+	supported_compressions.append(Kwave::CompressionType::NONE);
 
 	QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
 	foreach (QString m, mime_types) {
@@ -576,14 +531,13 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
 
     // if nothing is supported, then use only "none"
     if (supported_compressions.isEmpty())
-	supported_compressions.append(AF_COMPRESSION_NONE);
+	supported_compressions.append(Kwave::CompressionType::NONE);
 
     // add supported compressions to the combo box
     cbCompression->clear();
-    foreach (int compression, supported_compressions) {
-	cbCompression->addItem(compressions.description(
-		compressions.findFromData(compression), true),
-	    compression);
+    foreach (int c, supported_compressions) {
+	Kwave::Compression compression(c);
+	cbCompression->addItem(compression.name(), compression.toInt());
     }
 
     cbCompression->blockSignals(false);
@@ -607,7 +561,6 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
 void Kwave::FileInfoDialog::compressionChanged()
 {
     if (!cbCompression || !edFileFormat) return;
-
 
     int compression = cbCompression->itemData(
 	cbCompression->currentIndex()).toInt();
@@ -633,66 +586,56 @@ void Kwave::FileInfoDialog::compressionChanged()
     int mpeg_layer = -1;
     switch (compression)
     {
-	case Kwave::CompressionType::MPEG_LAYER_I:
-	    mpeg_layer = 1;
-	    m_is_mpeg = true;
-	    m_is_ogg  = false;
-	    break;
-	case Kwave::CompressionType::MPEG_LAYER_II:
-	    mpeg_layer = 2;
-	    m_is_mpeg = true;
-	    m_is_ogg  = false;
-	    break;
-	case Kwave::CompressionType::MPEG_LAYER_III:
-	    mpeg_layer = 3;
-	    m_is_mpeg = true;
-	    m_is_ogg  = false;
-	    break;
-	case Kwave::CompressionType::OGG_VORBIS:
-	    m_is_mpeg = false;
-	    m_is_ogg  = true;
-	    break;
-	case Kwave::CompressionType::FLAC:
-	case AF_COMPRESSION_NONE: /* FALLTHROUGH */
-	default:
-	    m_is_mpeg = false;
-	    m_is_ogg  = false;
-	    break;
+	case Kwave::CompressionType::MPEG_LAYER_I:   mpeg_layer = 1; break;
+	case Kwave::CompressionType::MPEG_LAYER_II:  mpeg_layer = 2; break;
+	case Kwave::CompressionType::MPEG_LAYER_III: mpeg_layer = 3; break;
+	default:                                                     break;
     }
 
-    InfoTab->setTabEnabled(2, m_is_mpeg);
-    if (m_is_mpeg || m_is_ogg) cbSampleFormat->setEnabled(false);
-
+    InfoTab->setTabEnabled(2, isMpeg());
     if ((mpeg_layer > 0) && (cbMpegLayer->currentIndex() != (mpeg_layer - 1)))
 	cbMpegLayer->setCurrentIndex(mpeg_layer - 1);
 
     // enable/disable ABR/VBR controls, depending on mime type
-    bool lower = compressionWidget->lowestEnabled();
-    bool upper = compressionWidget->highestEnabled();
-    if (m_is_mpeg) {
-	// MPEG file
-	compressionWidget->enableABR(true, lower, upper);
-	compressionWidget->enableVBR(false);
-	compressionWidget->setMode(Kwave::CompressionWidget::ABR_MODE);
-    } else if (m_is_ogg) {
-	// Ogg/Vorbis file
-	compressionWidget->enableABR(true, lower, upper);
-	compressionWidget->enableVBR(true);
-    } else {
-	// other...
-	compressionWidget->enableABR(false, lower, upper);
-	compressionWidget->enableVBR(false);
-    }
+    const Kwave::Compression comp(compression);
+    const bool lower = compressionWidget->lowestEnabled();
+    const bool upper = compressionWidget->highestEnabled();
+    const bool abr = comp.hasABR();
+    const bool vbr = comp.hasVBR();
+    compressionWidget->enableABR(abr, lower, upper);
+    compressionWidget->enableVBR(vbr);
+    cbSampleFormat->setEnabled(!comp.sampleFormats().isEmpty());
 
+    if (abr && !vbr)
+	compressionWidget->setMode(Kwave::CompressionWidget::ABR_MODE);
+    else if (!abr && vbr)
+	compressionWidget->setMode(Kwave::CompressionWidget::VBR_MODE);
+
+}
+
+//***************************************************************************
+bool Kwave::FileInfoDialog::isMpeg() const
+{
+    int compression = cbCompression->itemData(
+	cbCompression->currentIndex()).toInt();
+    switch (compression)
+    {
+	case Kwave::CompressionType::MPEG_LAYER_I:
+	case Kwave::CompressionType::MPEG_LAYER_II:
+	case Kwave::CompressionType::MPEG_LAYER_III:
+	    return true;
+	default:
+	    return false;
+    }
 }
 
 //***************************************************************************
 void Kwave::FileInfoDialog::mpegLayerChanged()
 {
-    if (!cbMpegLayer || !m_is_mpeg) return;
+    if (!cbMpegLayer || !isMpeg()) return;
 
     int layer = cbMpegLayer->currentIndex() + 1;
-    int compression = AF_COMPRESSION_NONE;
+    int compression = Kwave::CompressionType::NONE;
     switch (layer) {
 	case 1:
 	    compression = Kwave::CompressionType::MPEG_LAYER_I;
@@ -705,7 +648,7 @@ void Kwave::FileInfoDialog::mpegLayerChanged()
 	    break;
     }
 
-    if (compression != AF_COMPRESSION_NONE) {
+    if (compression != Kwave::CompressionType::NONE) {
 	int index = cbCompression->findData(compression);
 	if (index >= 0) cbCompression->setCurrentIndex(index);
     }
@@ -857,20 +800,21 @@ void Kwave::FileInfoDialog::accept()
     m_info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(sample_format));
 
     /* compression */
-    Kwave::CompressionType compressions;
     int compression =
 	cbCompression->itemData(cbCompression->currentIndex()).toInt();
-    m_info.set(Kwave::INF_COMPRESSION, (compression != AF_COMPRESSION_NONE) ?
+    m_info.set(Kwave::INF_COMPRESSION,
+	(compression != Kwave::CompressionType::NONE) ?
         QVariant(compression) : QVariant());
 
     /* MPEG layer */
-    if (m_is_mpeg) {
+    if (isMpeg()) {
 	int layer = cbMpegLayer->currentIndex() + 1;
 	m_info.set(Kwave::INF_MPEG_LAYER, layer);
     }
 
     /* bitrate in Ogg/Vorbis or MPEG mode */
-    if (m_is_ogg || m_is_mpeg) {
+    const Kwave::Compression comp(compression);
+    if (comp.hasABR() || comp.hasVBR()) {
         Kwave::CompressionWidget::Mode mode = compressionWidget->mode();
         QVariant del;
 

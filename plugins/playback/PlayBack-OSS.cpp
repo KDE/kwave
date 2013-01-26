@@ -419,39 +419,39 @@ void Kwave::PlayBackOSS::format2mode(int format, int &compression,
 {
     switch (format) {
 	case AFMT_MU_LAW:
-	    compression   = AF_COMPRESSION_G711_ULAW;
+	    compression   = Kwave::CompressionType::G711_ULAW;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_A_LAW:
-	    compression   = AF_COMPRESSION_G711_ALAW;
+	    compression   = Kwave::CompressionType::G711_ALAW;
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_IMA_ADPCM:
-	    compression   = AF_COMPRESSION_MS_ADPCM;
+	    compression   = Kwave::CompressionType::MS_ADPCM;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_U8:
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 8;
 	    break;
 	case AFMT_S16_LE:
 	case AFMT_S16_BE:
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_S8:
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 8;
 	    break;
 	case AFMT_U16_LE:
 	case AFMT_U16_BE:
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
@@ -471,7 +471,7 @@ void Kwave::PlayBackOSS::format2mode(int format, int &compression,
 	case AFMT_S24_LE:
 	case AFMT_S24_BE:
 	    if (m_oss_version >= 0x040000) {
-		compression   = AF_COMPRESSION_NONE;
+		compression   = Kwave::CompressionType::NONE;
 		sample_format = Kwave::SampleFormat::Signed;
 		bits          = 24;
 		break;
@@ -479,7 +479,7 @@ void Kwave::PlayBackOSS::format2mode(int format, int &compression,
 	case AFMT_S32_LE:
 	case AFMT_S32_BE:
 	    if (m_oss_version >= 0x040000) {
-		compression   = AF_COMPRESSION_NONE;
+		compression   = Kwave::CompressionType::NONE;
 		sample_format = Kwave::SampleFormat::Signed;
 		bits          = 32;
 		break;
@@ -553,7 +553,7 @@ QList<unsigned int> Kwave::PlayBackOSS::supportedBits(const QString &device)
     if (err < 0) return bits;
 
     // mask out all modes that do not match the current compression
-    const int compression = AF_COMPRESSION_NONE;
+    const int compression = Kwave::CompressionType::NONE;
     for (unsigned int bit=0; bit < (sizeof(mask) << 3); bit++) {
 	if (!mask & (1 << bit)) continue;
 

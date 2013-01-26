@@ -88,7 +88,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
     // fix the length information in the new file info
     // and change to uncompressed mode
     Kwave::FileInfo info(meta_data);
-    info.set(Kwave::INF_COMPRESSION, QVariant(AF_COMPRESSION_NONE));
+    info.set(Kwave::INF_COMPRESSION, QVariant(Kwave::CompressionType::NONE));
     info.setLength(last - first + 1);
     info.setTracks(src.tracks());
     new_meta_data.replace(info);

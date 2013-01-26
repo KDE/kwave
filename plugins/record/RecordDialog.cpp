@@ -234,8 +234,8 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(sbFormatTracks, SIGNAL(valueChanged(int)),
             this, SLOT(tracksChanged(int)));
 
-    connect(cbFormatCompression, SIGNAL(activated(const QString &)),
-            this, SLOT(compressionChanged(const QString&)));
+    connect(cbFormatCompression, SIGNAL(activated(int)),
+            this, SLOT(compressionChanged(int)));
 
     connect(sbFormatResolution, SIGNAL(valueChanged(int)),
             this, SLOT(bitsPerSampleChanged(int)));
@@ -788,15 +788,15 @@ void Kwave::RecordDialog::setSupportedCompressions(const QList<int> &comps)
     if (!cbFormatCompression) return;
 
     cbFormatCompression->clear();
-    Kwave::CompressionType types;
 
     if (comps.isEmpty()) {
 	// no compressions -> add "none" manually
-	cbFormatCompression->addItem(types.description(0, true));
+	const Kwave::Compression comp(Kwave::CompressionType::NONE);
+	cbFormatCompression->addItem(comp.name());
     } else {
 	foreach (int c, comps) {
-	    int index = types.findFromData(c);
-	    cbFormatCompression->addItem(types.description(index, true), c);
+	    const Kwave::Compression comp(c);
+	    cbFormatCompression->addItem(comp.name(), comp.toInt());
 	}
     }
 
@@ -819,20 +819,16 @@ void Kwave::RecordDialog::setCompression(int compression)
 	m_params.compression = compression;
     }
 
-    Kwave::CompressionType types;
-    int index = types.findFromData(compression);
-    cbFormatCompression->setCurrentItem(types.description(index, true), true);
+    const Kwave::Compression comp(compression);
+    cbFormatCompression->setCurrentItem(comp.name(), true);
 }
 
 //***************************************************************************
-void Kwave::RecordDialog::compressionChanged(const QString &name)
+void Kwave::RecordDialog::compressionChanged(int index)
 {
-    Kwave::CompressionType types;
-    int index = types.findFromDescription(name, true);
-    int compression = types.data(index);
-    if (compression == m_params.compression) return;
-
-    emit sigCompressionChanged(compression);
+    int compression = cbFormatCompression->itemData(index).toInt();
+    if (compression != m_params.compression)
+	emit sigCompressionChanged(compression);
 }
 
 //***************************************************************************

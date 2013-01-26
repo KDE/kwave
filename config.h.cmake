@@ -72,6 +72,12 @@
 /* used for unlinking swap files */
 #cmakedefine HAVE_UNLINK
 
+/* support FLAC */
+#cmakedefine HAVE_FLAC
+
+/* support MP3 */
+#cmakedefine HAVE_MP3
+
 /* support Vorbis in Ogg */
 #cmakedefine HAVE_OGG_VORBIS
 

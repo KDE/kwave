@@ -159,6 +159,7 @@ IF (WITH_FLAC)
         MESSAGE(FATAL_ERROR "Found no supported FLAC API")
     ENDIF (NOT FLAC_API_FOUND)
 
+    SET(HAVE_FLAC  ON CACHE BOOL "enable FLAC codec")
     SET(plugin_codec_flac_LIB_SRCS
         FlacCodecPlugin.cpp
         FlacDecoder.cpp

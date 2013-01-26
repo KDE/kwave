@@ -101,7 +101,7 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     // determine which codec (sub encoder) to use,
     // by examining the compression type
     const int compression = info.contains(Kwave::INF_COMPRESSION) ?
-        info.get(Kwave::INF_COMPRESSION).toInt() : AF_COMPRESSION_NONE;
+        info.get(Kwave::INF_COMPRESSION).toInt() : Kwave::CompressionType::NONE;
 
 #ifdef HAVE_OGG_OPUS
     if (compression == CompressionType::OGG_OPUS) {
@@ -118,13 +118,12 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 #endif /* HAVE_OGG_VORBIS */
 
     if (!m_sub_encoder) {
-	Kwave::CompressionType map;
 	qDebug("    OggEncoder: compression='%d'", compression);
 	Kwave::MessageBox::error(widget, i18nc(
 	    "error in Ogg encoder, no support for a compression type "
 	    "(e.g. opus, vorbis etc)",
 	    "Error: No Codec for '%1' available",
-	    map.description(map.findFromData(compression), true)
+	    Kwave::Compression(compression).name()
 	));
 	return false;
     }

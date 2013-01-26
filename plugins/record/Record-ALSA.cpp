@@ -180,19 +180,19 @@ static int compression_of(snd_pcm_format_t fmt)
 {
     switch (fmt) {
 	case SND_PCM_FORMAT_MU_LAW:
-	    return AF_COMPRESSION_G711_ULAW;
+	    return Kwave::CompressionType::G711_ULAW;
 	case SND_PCM_FORMAT_A_LAW:
-	    return AF_COMPRESSION_G711_ALAW;
+	    return Kwave::CompressionType::G711_ALAW;
 	case SND_PCM_FORMAT_IMA_ADPCM:
-	    return AF_COMPRESSION_MS_ADPCM;
+	    return Kwave::CompressionType::MS_ADPCM;
 	case SND_PCM_FORMAT_MPEG:
 	    return Kwave::CompressionType::MPEG_LAYER_I;
 	case SND_PCM_FORMAT_GSM:
-	    return AF_COMPRESSION_GSM;
+	    return Kwave::CompressionType::GSM;
 	default:
-	    return AF_COMPRESSION_NONE;
+	    return Kwave::CompressionType::NONE;
     }
-    return AF_COMPRESSION_NONE;
+    return Kwave::CompressionType::NONE;
 }
 
 //***************************************************************************
@@ -361,14 +361,13 @@ int Kwave::RecordALSA::initialize()
                                    m_sample_format);
     Q_ASSERT(format_index >= 0);
     if (format_index < 0) {
-	Kwave::CompressionType t;
 	Kwave::SampleFormat::Map sf;
 
 	qWarning("RecordkALSA::setFormat(): no matching format for "\
 	         "compression '%s', %d bits/sample, format '%s'",
 	         DBG(sf.description(sf.findFromData(m_sample_format), true)),
 	         m_bits_per_sample,
-	         DBG(t.name(t.findFromData(m_compression))));
+	         DBG(Kwave::Compression(m_compression).name()));
 
 	snd_output_close(output);
 	return -EINVAL;

@@ -23,6 +23,8 @@ o TODO in MP3 plugin (ID3FID_MEDIATYPE)
 
 o move label with mouse (drag&drop)
 
+o replace AF_SAMPFMT_xxx
+
 o new import/export plugin using ffmpeg/libavcodec
 
 o more intelligent clipping of position widget

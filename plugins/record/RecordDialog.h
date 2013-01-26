@@ -233,7 +233,7 @@ namespace Kwave
 	void sampleRateChanged(const QString &rate);
 
 	/** called when a new compression type has been set */
-	void compressionChanged(const QString &name);
+	void compressionChanged(int index);
 
 	/** called when the resolution in bits per sample has changed */
 	void bitsPerSampleChanged(int bits);

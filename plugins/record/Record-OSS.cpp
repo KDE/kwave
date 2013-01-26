@@ -466,39 +466,39 @@ void Kwave::RecordOSS::format2mode(int format, int &compression, int &bits,
 
     switch (format) {
 	case AFMT_MU_LAW:
-	    compression   = AF_COMPRESSION_G711_ULAW;
+	    compression   = Kwave::CompressionType::G711_ULAW;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_A_LAW:
-	    compression   = AF_COMPRESSION_G711_ALAW;
+	    compression   = Kwave::CompressionType::G711_ALAW;
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_IMA_ADPCM:
-	    compression   = AF_COMPRESSION_MS_ADPCM;
+	    compression   = Kwave::CompressionType::MS_ADPCM;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_U8:
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 8;
 	    break;
 	case AFMT_S16_LE:
 	case AFMT_S16_BE:
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_S8:
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 8;
 	    break;
 	case AFMT_U16_LE:
 	case AFMT_U16_BE:
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
@@ -510,20 +510,20 @@ void Kwave::RecordOSS::format2mode(int format, int &compression, int &bits,
 	    break;
 #if 0
 	case AFMT_AC3: /* Dolby Digital AC3 */
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Unknown;
 	    bits          = 16;
 	    break;
 #endif
 	case AFMT_S24_LE:
 	case AFMT_S24_BE:
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 24;
 	    break;
 	case AFMT_S32_LE:
 	case AFMT_S32_BE:
-	    compression   = AF_COMPRESSION_NONE;
+	    compression   = Kwave::CompressionType::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 32;
 	    break;
@@ -540,9 +540,9 @@ int Kwave::RecordOSS::mode2format(int compression, int bits,
                                   Kwave::SampleFormat sample_format)
 {
     // first level: compression
-    if (compression == AF_COMPRESSION_G711_ULAW) return AFMT_MU_LAW;
-    if (compression == AF_COMPRESSION_G711_ALAW) return AFMT_A_LAW;
-    if (compression == AF_COMPRESSION_MS_ADPCM)  return AFMT_IMA_ADPCM;
+    if (compression == Kwave::CompressionType::G711_ULAW) return AFMT_MU_LAW;
+    if (compression == Kwave::CompressionType::G711_ALAW) return AFMT_A_LAW;
+    if (compression == Kwave::CompressionType::MS_ADPCM)  return AFMT_IMA_ADPCM;
     if (compression == static_cast<int>(Kwave::CompressionType::MPEG_LAYER_II))
 	return AFMT_MPEG;
 
@@ -618,13 +618,13 @@ QList<int> Kwave::RecordOSS::detectCompressions()
 
     if (mask & AFMT_MPEG)
         compressions += static_cast<int>(Kwave::CompressionType::MPEG_LAYER_II);
-    if (mask & AFMT_A_LAW)     compressions += AF_COMPRESSION_G711_ALAW;
-    if (mask & AFMT_MU_LAW)    compressions += AF_COMPRESSION_G711_ULAW;
-    if (mask & AFMT_IMA_ADPCM) compressions += AF_COMPRESSION_MS_ADPCM;
-    if (mask & (AFMT_U16_LE | AFMT_U16_BE | AFMT_S16_LE | AFMT_S16_BE | \
-                AFMT_S24_LE | AFMT_S24_BE | AFMT_S32_LE | AFMT_S32_BE | \
+    if (mask & AFMT_A_LAW)   compressions += Kwave::CompressionType::G711_ALAW;
+    if (mask & AFMT_MU_LAW)  compressions += Kwave::CompressionType::G711_ULAW;
+    if (mask & AFMT_IMA_ADPCM) compressions += Kwave::CompressionType::MS_ADPCM;
+    if (mask & (AFMT_U16_LE | AFMT_U16_BE | AFMT_S16_LE | AFMT_S16_BE |
+                AFMT_S24_LE | AFMT_S24_BE | AFMT_S32_LE | AFMT_S32_BE |
                 AFMT_S8 | AFMT_U8))
-        compressions += AF_COMPRESSION_NONE;
+        compressions += Kwave::CompressionType::NONE;
 
     return compressions;
 }
@@ -660,7 +660,7 @@ int Kwave::RecordOSS::compression()
     Q_ASSERT(m_fd >= 0);
     int mask = AFMT_QUERY;
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
-    if (err < 0) return AF_COMPRESSION_NONE;
+    if (err < 0) return Kwave::CompressionType::NONE;
 
     int c, b;
     Kwave::SampleFormat s;

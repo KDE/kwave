@@ -121,6 +121,9 @@ namespace Kwave
 	/** initialize the "Compression" tab */
 	void setupCompressionTab(KConfigGroup &cfg);
 
+	/** returns true if the current compression is MPEG I/II/III */
+	bool isMpeg() const;
+
 	/** initialize the "MPEG" tab */
 	void setupMpegTab();
 
@@ -141,12 +144,6 @@ namespace Kwave
 
 	/** FileInfo to be edited */
 	Kwave::FileInfo m_info;
-
-	/** if true, we have an MPEG file */
-	bool m_is_mpeg;
-
-	/** if true, we have an Ogg/Vorbis file */
-	bool m_is_ogg;
 
     };
 }

@@ -36,6 +36,7 @@
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"
 #include "libkwave/FileDrag.h"
+#include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
@@ -697,10 +698,20 @@ double Kwave::MainWidget::fullZoom() const
 
     sample_index_t length = signal_manager->length();
     if (!length) {
-        // no length: streaming mode -> start with a default
-        // zoom, use five minutes (just guessed)
-        length = static_cast<sample_index_t>(ceil(DEFAULT_DISPLAY_TIME *
-	    signal_manager->rate()));
+	// no length: streaming mode -> try to use "estimated length"
+	// and add some extra, 10% should be ok
+	Kwave::FileInfo info(signal_manager->metaData());
+	if (info.contains(Kwave::INF_ESTIMATED_LENGTH)) {
+	    // estimated length in samples
+	    length = info.get(Kwave::INF_ESTIMATED_LENGTH).toULongLong();
+	    length += length / 10;
+	}
+	if (!length) {
+	    // fallback: start with some default zoom,
+	    // use five minutes (just guessed)
+	    length = static_cast<sample_index_t>(ceil(DEFAULT_DISPLAY_TIME *
+		signal_manager->rate()));
+	}
     }
 
     // example: width = 100 [pixels] and length = 3 [samples]

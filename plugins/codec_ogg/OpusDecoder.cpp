@@ -483,6 +483,18 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	}
     }
 
+    // estimate the length of the file from file size, bitrate, channels
+    if (!m_source->isSequential()) {
+	qint64 file_size       = m_source->size();
+	qreal bitrate          = 196000; // just guessed
+	qreal rate             = rate_orig;
+	qreal seconds          = file_size / (bitrate / 8);
+	sample_index_t samples = seconds * rate;
+
+	qDebug("    OpusDecoder: estimated length: %llu samples", samples);
+	info.set(Kwave::INF_ESTIMATED_LENGTH, samples);
+    }
+
     m_stream_start_pos = m_source->pos();
     m_samples_written  = 0;
     m_packet_count     = 0;
@@ -576,8 +588,6 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 		qWarning("OpusDecoder::decode() connecting converter failed");
 		return -1;
 	    }
-
-	    qDebug("    opusDecoder::decode(): rate converter connected");
 	    m_converter_connected = true;
 	}
 	sink = m_adapter;

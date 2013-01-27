@@ -65,6 +65,7 @@ namespace Kwave
 	INF_COPYRIGHTED,         /**< "copyright" flag */
 	INF_CREATION_DATE,       /**< creation date */
 	INF_ENGINEER,            /**< engineer */
+	INF_ESTIMATED_LENGTH,    /**< estimated length in samples */
 	INF_FILENAME,            /**< name of the file */
 	INF_FILESIZE,            /**< size of the file in bytes */
 	INF_GENRE,               /**< genre */

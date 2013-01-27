@@ -123,6 +123,9 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
         _(I18N_NOOP("Shows the name of the engineer who worked on the file.\n"
              "If there are multiple engineers, separate the names by\n"
              "a semicolon and a blank.")));
+    append(Kwave::INF_ESTIMATED_LENGTH, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        _(I18N_NOOP("Estimated Length")),
+        _(I18N_NOOP("Estimated length of the file in samples")));
     append(Kwave::INF_FILENAME, FP_INTERNAL | FP_NO_LOAD_SAVE,
         _(I18N_NOOP("Filename")),
         _(I18N_NOOP("Name of the opened file")));

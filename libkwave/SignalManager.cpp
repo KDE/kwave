@@ -243,7 +243,11 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	QFileInfo fi(src);
 	info.set(Kwave::INF_FILENAME, fi.absoluteFilePath());
 	info.set(Kwave::INF_FILESIZE, static_cast<unsigned int>(src.size()));
-	info.set(Kwave::INF_MIMETYPE, mimetype);
+	if (!info.contains(Kwave::INF_MIMETYPE))
+	    info.set(Kwave::INF_MIMETYPE, mimetype);
+
+	// remove the estimated length again, it is no longer needed
+	info.set(Kwave::INF_ESTIMATED_LENGTH, QVariant());
 
 	// take over the decoded and updated file info
 	m_meta_data.replace(info);

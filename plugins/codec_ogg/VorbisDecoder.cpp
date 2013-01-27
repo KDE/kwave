@@ -204,6 +204,22 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     parseTag(info, "ENCODER",      Kwave::INF_SOFTWARE);
     parseTag(info, "VBR_QUALITY",  Kwave::INF_VBR_QUALITY);
 
+    // estimate a length
+    // estimate the length of the file from file size, bitrate, channels
+    if (!m_source->isSequential()) {
+	int br = -1;
+	if ((br < 0) && (m_vi.bitrate_nominal > 0)) br = m_vi.bitrate_nominal;
+	if ((br < 0) && (m_vi.bitrate_upper   > 0)) br = m_vi.bitrate_upper;
+	if ((br < 0) && (m_vi.bitrate_lower   > 0)) br = m_vi.bitrate_lower;
+	qint64 file_size       = m_source->size();
+	qreal rate             = m_vi.rate;
+	qreal seconds          = file_size / (br / 8);
+	sample_index_t samples = seconds * rate;
+
+	qDebug("    estimated length: %llu samples", samples);
+	info.set(Kwave::INF_ESTIMATED_LENGTH, samples);
+    }
+
     m_stream_start_pos = m_source->pos();
 
     return 1;

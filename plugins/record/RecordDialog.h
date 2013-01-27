@@ -239,7 +239,7 @@ namespace Kwave
 	void bitsPerSampleChanged(int bits);
 
 	/** called when a new sample format has been selected */
-	void sampleFormatChanged(const QString &name);
+	void sampleFormatChanged(int index);
 
 	/** sets a new state of the dialog, enable/disable controls etc... */
 	void setState(Kwave::RecordState state);

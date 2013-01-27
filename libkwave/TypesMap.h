@@ -88,11 +88,8 @@ namespace Kwave
 	 */
 	IDX findFromData(const DATA &data) const
 	{
-	    IDX it = IDX(0);
-	    unsigned int cnt = count();
-	    while (cnt--) {
+	    foreach (const IDX &it, m_list.keys()) {
 		if (m_list[it].first() == data) return it;
-		++it;
 	    }
 	    return IDX(0);
 	}
@@ -103,51 +100,23 @@ namespace Kwave
 	 */
 	IDX findFromName(const QString &name) const
 	{
-	    IDX it = IDX(0);
-	    unsigned int cnt = count();
-	    while (cnt--) {
+	    foreach (const IDX &it, m_list.keys()) {
 		if (m_list[it].second() == name) return it;
-		++it;
-	    }
-	    return IDX(0);
-	}
-
-	/**
-	 * Try to find the type from an optionally localized description.
-	 * If the name is not found, the return value is the default
-	 * value of the type (casted from 0).
-	 * @param description the description to be searched for
-	 * @param localized if true, the localized description will be
-	 *        searched
-	 */
-	IDX findFromDescription(
-	    const QString &description, bool localized) const
-	{
-	    IDX it = IDX(0);
-	    QString dcr = (localized) ? i18n(__(description)) : description;
-	    unsigned int cnt = count();
-	    while (cnt--) {
-		if (localized) {
-		    if (m_list[it].third() == description)
-			return it;
-		} else {
-		    if (i18n(__(m_list[it].third())) == i18n(__(description)))
-			return it;
-		}
-		++it;
 	    }
 	    return IDX(0);
 	}
 
 	/** Returns the data item of a type. */
-	const DATA &data(IDX type) const
+	DATA data(IDX type) const
 	{
+	    Q_ASSERT(m_list.contains(type));
 	    return m_list[type].first();
 	}
 
 	/** Returns the name of a type. */
-	const QString name(IDX type) const
+	QString name(IDX type) const
 	{
+	    Q_ASSERT(m_list.contains(type));
 	    return m_list[type].second();
 	}
 
@@ -158,6 +127,7 @@ namespace Kwave
 	 */
 	QString description(IDX type, bool localized) const
 	{
+	    Q_ASSERT(m_list.contains(type));
 	    QString s(m_list[type].third());
 	    return (localized) ? i18n(s.toAscii()) : s;
 	}
@@ -167,12 +137,9 @@ namespace Kwave
 	 */
 	QStringList allNames() const
 	{
-	    IDX it = IDX(0);
-	    unsigned int cnt = count();
 	    QStringList names;
-	    while (cnt--) {
+	    foreach (const IDX &it, m_list.keys()) {
 		names.append(m_list[it].second());
-		++it;
 	    }
 	    return names;
 	}
@@ -180,17 +147,9 @@ namespace Kwave
 	/**
 	 * Returns a list with all keys
 	 */
-	QList<IDX> allKeys() const
+	QList<IDX> keys() const
 	{
-	    IDX it = IDX(0);
-	    unsigned int cnt = count();
-	    QList<IDX> keys;
-	    while (cnt--) {
-		IDX key = it;
-		keys.append(key);
-		++it;
-	    }
-	    return keys;
+	    return m_list.keys();
 	}
 
     private:

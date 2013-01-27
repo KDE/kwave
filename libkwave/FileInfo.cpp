@@ -261,7 +261,7 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
 /***************************************************************************/
 QList<Kwave::FileProperty> Kwave::FileInfo::PropertyTypesMap::all() const
 {
-    return allKeys();
+    return keys();
 }
 
 /***************************************************************************/
@@ -285,7 +285,7 @@ Kwave::FileInfo::FileInfo(const Kwave::MetaDataList &meta_data_list)
     setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
 
     foreach (const Kwave::MetaData &meta_data, meta_data_list) {
-	foreach (Kwave::FileProperty key, m_property_map.allKeys()) {
+	foreach (Kwave::FileProperty key, m_property_map.keys()) {
 	    QString name = FILE_INFO_PROPERTY_PREFIX +
 		m_property_map.name(key);
 	    if (meta_data.hasProperty(name)) {
@@ -305,7 +305,7 @@ Kwave::FileInfo::~FileInfo()
 /***************************************************************************/
 bool Kwave::FileInfo::contains(Kwave::FileProperty key) const
 {
-    if (!m_property_map.allKeys().contains(key))
+    if (!m_property_map.keys().contains(key))
 	return false;
     QString name = FILE_INFO_PROPERTY_PREFIX + m_property_map.name(key);
     return hasProperty(name);
@@ -314,7 +314,7 @@ bool Kwave::FileInfo::contains(Kwave::FileProperty key) const
 /***************************************************************************/
 void Kwave::FileInfo::set(Kwave::FileProperty key, const QVariant &value)
 {
-    if (!m_property_map.allKeys().contains(key))
+    if (!m_property_map.keys().contains(key))
 	return;
     QString name = FILE_INFO_PROPERTY_PREFIX + m_property_map.name(key);
     setProperty(name, value);
@@ -323,7 +323,7 @@ void Kwave::FileInfo::set(Kwave::FileProperty key, const QVariant &value)
 /***************************************************************************/
 QVariant Kwave::FileInfo::get(Kwave::FileProperty key) const
 {
-    if (!m_property_map.allKeys().contains(key))
+    if (!m_property_map.keys().contains(key))
 	return QVariant();
     QString name = FILE_INFO_PROPERTY_PREFIX + m_property_map.name(key);
 
@@ -355,7 +355,7 @@ QList<Kwave::FileProperty> Kwave::FileInfo::allKnownProperties() const
 const QMap<Kwave::FileProperty, QVariant> Kwave::FileInfo::properties() const
 {
     QMap<Kwave::FileProperty, QVariant> map;
-    foreach (Kwave::FileProperty key, m_property_map.allKeys()) {
+    foreach (Kwave::FileProperty key, m_property_map.keys()) {
 	if (!contains(key)) continue;
 	map[key] = get(key);
     }
@@ -441,7 +441,7 @@ void Kwave::FileInfo::dump() const
 
     qDebug("other properties:");
     QMap<Kwave::FileProperty, QVariant>::Iterator it;
-    foreach (Kwave::FileProperty key, m_property_map.allKeys()) {
+    foreach (Kwave::FileProperty key, m_property_map.keys()) {
 	if (!contains(key)) continue;
 	QVariant val = get(key);
 	QString name = m_property_map.name(key);

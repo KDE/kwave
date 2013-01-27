@@ -554,6 +554,7 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 	         DBG(Kwave::opus_error(length)));
 	return -1;
     }
+    Q_ASSERT(length <= MAX_FRAME_SIZE);
 
     // manually apply the gain if necessary
     if (m_opus_header.gain) {

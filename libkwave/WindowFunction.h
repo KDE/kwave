@@ -83,19 +83,6 @@ namespace Kwave
 	}
 
 	/**
-	 * Returns the window function id through it's description. If
-	 * the name is unknown the return value will be "WINDOW_FUNC_NONE"
-	 * @param description the (localized) description to be searched
-	 * @param localized if true, the search will look for the localized
-	 *        description instead of the non-localized.
-	 */
-	static window_function_t findFromDescription(const QString &description,
-	    bool localized)
-	{
-	    return m_types_map.findFromDescription(description, localized);
-	}
-
-	/**
 	 * Returns the numeric index of a window function [0...count-1].
 	 * @param type the type of the window function
 	 */

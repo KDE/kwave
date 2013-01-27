@@ -240,8 +240,8 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(sbFormatResolution, SIGNAL(valueChanged(int)),
             this, SLOT(bitsPerSampleChanged(int)));
 
-    connect(cbFormatSampleFormat, SIGNAL(activated(const QString &)),
-            this, SLOT(sampleFormatChanged(const QString &)));
+    connect(cbFormatSampleFormat, SIGNAL(activated(int)),
+            this, SLOT(sampleFormatChanged(int)));
 
     // connect the buttons to the record controller
     connect(btNew, SIGNAL(clicked()),
@@ -911,10 +911,12 @@ void Kwave::RecordDialog::setSupportedSampleFormats(
 
     cbFormatSampleFormat->clear();
     Kwave::SampleFormat::Map types;
-
     foreach (Kwave::SampleFormat format, formats) {
 	int index = types.findFromData(format);
-	cbFormatSampleFormat->addItem(types.description(index, true));
+	cbFormatSampleFormat->addItem(
+	    types.description(index, true),
+	    format.toInt()
+	);
     }
 
     bool have_choice = (cbFormatSampleFormat->count() > 1);
@@ -936,18 +938,19 @@ void Kwave::RecordDialog::setSampleFormat(Kwave::SampleFormat sample_format)
 	m_params.sample_format = sample_format;
     }
 
-    Kwave::SampleFormat::Map types;
-    int index = types.findFromData(sample_format);
-    cbFormatSampleFormat->setCurrentItem((sample_format != -1) ?
-	types.description(index, true) : QString(), true);
+    int cb_index = cbFormatSampleFormat->findData(sample_format.toInt());
+    cbFormatSampleFormat->setCurrentIndex(cb_index);
 }
 
 //***************************************************************************
-void Kwave::RecordDialog::sampleFormatChanged(const QString &name)
+void Kwave::RecordDialog::sampleFormatChanged(int index)
 {
-    Kwave::SampleFormat::Map types;
-    int index = types.findFromDescription(name, true);
-    Kwave::SampleFormat format = types.data(index);
+    Q_ASSERT(cbFormatSampleFormat);
+    if (!cbFormatSampleFormat) return;
+
+    Kwave::SampleFormat format;
+    format.fromInt(cbFormatSampleFormat->itemData(index).toInt());
+
     if (format == m_params.sample_format) return;
 
     emit sigSampleFormatChanged(format);

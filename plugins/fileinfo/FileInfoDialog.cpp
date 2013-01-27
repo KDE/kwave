@@ -213,8 +213,12 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     initInfo(lblSampleFormat, cbSampleFormat, Kwave::INF_SAMPLE_FORMAT);
     cbSampleFormat->clear();
     Kwave::SampleFormat::Map sf;
-    foreach (int k, sf.allKeys())
-	cbSampleFormat->addItem(sf.description(k, true), sf.data(k));
+    foreach (int k, sf.keys()) {
+	cbSampleFormat->addItem(
+	    sf.description(k, true),
+	    QVariant(Kwave::SampleFormat(sf.data(k)).toInt())
+	);
+    }
 
     int format = QVariant(m_info.get(Kwave::INF_SAMPLE_FORMAT)).toInt();
     if (format == 0)

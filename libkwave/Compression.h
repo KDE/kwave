@@ -74,12 +74,14 @@ namespace Kwave
 	 *
 	 * @param value numeric integer value
 	 * @param name descriptive name of the compression, non-localized
+	 * @param mime_type preferred mime types (optional)
 	 * @param sample_formats list of supported sample formats
 	 * @param has_abr whether average bitrate mode is supported
 	 * @param has_vbr whether variable bitrate mode is supported
 	 */
 	explicit Compression(int value,
 	                     const QString &name,
+	                     const QString &mime_type,
 	                     const QList<Kwave::SampleFormat> &sample_formats,
 	                     bool has_abr,
 	                     bool has_vbr);
@@ -92,6 +94,11 @@ namespace Kwave
 	 * @return localized name
 	 */
 	QString name() const;
+
+	/**
+	 * Returns the preferred mime type or an empty string
+	 */
+	QString preferredMimeType() const;
 
 	/**
 	 * Returns a list of supported sample formats
@@ -143,6 +150,9 @@ namespace Kwave
 
 	    /** non-localized descriptive name */
 	    QString m_name;
+
+	    /** preferred mime type (optional) */
+	    QString m_mime_type;
 
 	    /** list of supported sample formats */
 	    QList<Kwave::SampleFormat> m_sample_formats;

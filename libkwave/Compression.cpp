@@ -52,6 +52,7 @@ Kwave::Compression::Compression(const Kwave::Compression &other)
 Kwave::Compression::Compression(
     int value,
     const QString &name,
+    const QString &mime_type,
     const QList<Kwave::SampleFormat> &sample_formats,
     bool has_abr,
     bool has_vbr
@@ -66,6 +67,7 @@ Kwave::Compression::Compression(
 
     m_data->m_as_int         = value;
     m_data->m_name           = name;
+    m_data->m_mime_type      = mime_type;
     m_data->m_sample_formats = sample_formats;
     m_data->m_has_abr        = has_abr;
     m_data->m_has_vbr        = has_vbr;
@@ -80,6 +82,12 @@ Kwave::Compression::~Compression()
 QString Kwave::Compression::name() const
 {
     return (m_data) ? i18n(__(m_data->m_name)) : QString();
+}
+
+//***************************************************************************
+QString Kwave::Compression::preferredMimeType() const
+{
+    return (m_data) ? m_data->m_mime_type : QString();
 }
 
 //***************************************************************************
@@ -125,6 +133,7 @@ void Kwave::Compression::fillMap()
     m_map.insert(Kwave::Compression::NONE, Kwave::Compression(
 	Kwave::Compression::NONE,
 	_(I18N_NOOP("No Compression")),
+	QString(),
 	sfmt_all, false, false));
 
     /* types supported by OSS+ALSA record plugin and WAV codec */
@@ -132,18 +141,22 @@ void Kwave::Compression::fillMap()
     m_map.insert(Kwave::Compression::G711_ULAW, Kwave::Compression(
 	Kwave::Compression::G711_ULAW,
 	_(I18N_NOOP("CCITT G.711 u-law")),
+	QString(),
 	sfmt_int, false, false));
     m_map.insert(Kwave::Compression::G711_ALAW, Kwave::Compression(
 	Kwave::Compression::G711_ALAW,
 	_(I18N_NOOP("CCITT G.711 A-law")),
+	QString(),
 	sfmt_int, false, false));
     m_map.insert(Kwave::Compression::MS_ADPCM, Kwave::Compression(
 	Kwave::Compression::MS_ADPCM,
 	_(I18N_NOOP("MS ADPCM")),
+	QString(),
 	sfmt_int, false, false));
     m_map.insert(Kwave::Compression::GSM, Kwave::Compression(
 	Kwave::Compression::GSM,
 	_(I18N_NOOP("GSM")),
+	QString(),
 	sfmt_int, false, false));
 
     /* compression types from libaudiofile (for display only, not supported) */
@@ -168,7 +181,8 @@ void Kwave::Compression::fillMap()
 	int id = af_list[index].compression;
 	if (m_map.contains(id)) continue;
 	QString name = QString::fromAscii(af_list[index].name);
-	m_map.insert(id, Kwave::Compression(id, name, sfmt_all, false, false));
+	m_map.insert(id, Kwave::Compression(
+	    id, name, QString(), sfmt_all, false, false));
     }
 
     /* MPEG layer I/II/III */
@@ -176,14 +190,17 @@ void Kwave::Compression::fillMap()
     m_map.insert(Kwave::Compression::MPEG_LAYER_I, Kwave::Compression(
 	Kwave::Compression::MPEG_LAYER_I,
 	_(I18N_NOOP("MPEG Layer I")),
+	_("audio/x-mp3"),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::MPEG_LAYER_II, Kwave::Compression(
 	Kwave::Compression::MPEG_LAYER_II,
 	_(I18N_NOOP("MPEG Layer II")),
+	_("audio/x-mp3"),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::MPEG_LAYER_III, Kwave::Compression(
 	Kwave::Compression::MPEG_LAYER_III,
 	_(I18N_NOOP("MPEG Layer III")),
+	_("audio/x-mp3"),
 	sfmt_none, true, false));
 #endif /* HAVE_MP3 */
 
@@ -192,6 +209,7 @@ void Kwave::Compression::fillMap()
     m_map.insert(Kwave::Compression::FLAC, Kwave::Compression(
 	Kwave::Compression::FLAC,
 	_(I18N_NOOP("FLAC")),
+	_("audio/x-flac"),
 	sfmt_none, false, false));
 #endif /* HAVE_FLAC */
 
@@ -200,6 +218,7 @@ void Kwave::Compression::fillMap()
     m_map.insert(Kwave::Compression::OGG_VORBIS, Kwave::Compression(
 	Kwave::Compression::OGG_VORBIS,
 	_(I18N_NOOP("Ogg Vorbis")),
+	_("audio/x-vorbis+ogg"),
 	sfmt_none, true, true));
 #endif /* HAVE_OGG_VORBIS */
 
@@ -208,6 +227,7 @@ void Kwave::Compression::fillMap()
     m_map.insert(Kwave::Compression::OGG_OPUS, Kwave::Compression(
 	Kwave::Compression::OGG_OPUS,
 	_(I18N_NOOP("Ogg Opus")),
+	_("audio/opus"),
 	sfmt_none, true, false));
 #endif /* HAVE_OGG_OPUS */
 

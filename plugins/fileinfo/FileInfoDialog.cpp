@@ -71,12 +71,6 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
 {
     setupUi(this);
 
-    QString mimetype = QVariant(m_info.get(Kwave::INF_MIMETYPE)).toString();
-    if (!mimetype.length())
-	mimetype = _("audio/x-wav"); // default mimetype
-
-    qDebug("mimetype = %s", DBG(mimetype));
-
     connect(cbCompression, SIGNAL(currentIndexChanged(int)),
             this, SLOT(compressionChanged()));
     connect(cbMpegLayer, SIGNAL(currentIndexChanged(int)),
@@ -136,6 +130,13 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     QFileInfo fi(QVariant(m_info.get(Kwave::INF_FILENAME)).toString());
     edFileName->setText(fi.fileName());
     edFileName->setEnabled(fi.fileName().length() != 0);
+
+    /* mime type */
+    QString mimetype = QVariant(m_info.get(Kwave::INF_MIMETYPE)).toString();
+    if (!mimetype.length())
+	mimetype = _("audio/x-wav"); // default mimetype
+
+    qDebug("mimetype = %s", DBG(mimetype));
 
     /* file size in bytes */
     initInfo(lblFileSize, edFileSize, Kwave::INF_FILESIZE);
@@ -567,20 +568,32 @@ void Kwave::FileInfoDialog::compressionChanged()
 
     int compression = cbCompression->itemData(
 	cbCompression->currentIndex()).toInt();
+    const Kwave::Compression comp(compression);
+    const QString preferred_mime_type = comp.preferredMimeType();
 
     // selected compression -> mime type (edit field)
-    QString file_mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
-    if (!file_mime_type.length()) {
+
+    if (preferred_mime_type.length()) {
+	// if a compression implies a specific mime type -> select it
+	edFileFormat->setText(preferred_mime_type);
+    } else {
 	// if mime type is given by file info -> keep it
-	// otherwise select one by evaluating the compression
-	QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
-	foreach (const QString &mime_type, mime_types) {
-	    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
-	    if (!encoder) continue;
-	    QList<int> comps = encoder->compressionTypes();
-	    if (comps.contains(compression)) {
-		edFileFormat->setText(mime_type);
-		break;
+	// otherwise select one by evaluating the compression <-> encoder
+	QString file_mime_type = m_info.get(Kwave::INF_MIMETYPE).toString();
+	if (!file_mime_type.length()) {
+	    // determine mime type from a matching encoder.
+	    // This should work for compression types that are supported by
+	    // only one single encoder which also supports only one single
+	    // mime type
+	    QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
+	    foreach (const QString &mime_type, mime_types) {
+		Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mime_type);
+		if (!encoder) continue;
+		QList<int> comps = encoder->compressionTypes();
+		if (comps.contains(compression)) {
+		    edFileFormat->setText(mime_type);
+		    break;
+		}
 	    }
 	}
     }
@@ -600,7 +613,6 @@ void Kwave::FileInfoDialog::compressionChanged()
 	cbMpegLayer->setCurrentIndex(mpeg_layer - 1);
 
     // enable/disable ABR/VBR controls, depending on mime type
-    const Kwave::Compression comp(compression);
     const bool lower = compressionWidget->lowestEnabled();
     const bool upper = compressionWidget->highestEnabled();
     const bool abr = comp.hasABR();

@@ -26,7 +26,7 @@
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/Connect.h"
 #include "libkwave/MimeData.h"
 #include "libkwave/MultiStreamWriter.h"
@@ -88,7 +88,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
     // fix the length information in the new file info
     // and change to uncompressed mode
     Kwave::FileInfo info(meta_data);
-    info.set(Kwave::INF_COMPRESSION, QVariant(Kwave::CompressionType::NONE));
+    info.set(Kwave::INF_COMPRESSION, QVariant(Kwave::Compression::NONE));
     info.setLength(last - first + 1);
     info.setTracks(src.tracks());
     new_meta_data.replace(info);

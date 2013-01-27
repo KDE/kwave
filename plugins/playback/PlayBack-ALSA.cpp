@@ -45,7 +45,7 @@
 
 #include <klocale.h>
 
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/memcpy.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
@@ -293,7 +293,7 @@ QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
 	}
 	if (!fmt) continue;
 
-// 	Kwave::CompressionType t;
+// 	Kwave::Compression t;
 // 	Kwave::SampleFormat::Map sf;
 // 	qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s'",
 // 	    i,

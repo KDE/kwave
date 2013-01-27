@@ -31,7 +31,7 @@
 #include <klocale.h>
 
 #include "libkwave/BitrateMode.h"
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/Connect.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiStreamWriter.h"
@@ -372,7 +372,7 @@ int Kwave::OpusDecoder::parseOpusHead(QWidget *widget, Kwave::FileInfo &info)
     // get the standard properties
     info.setTracks(m_opus_header.channels);
     info.setRate(m_opus_header.sample_rate);
-    info.set(Kwave::INF_COMPRESSION, Kwave::CompressionType::OGG_OPUS);
+    info.set(Kwave::INF_COMPRESSION, Kwave::Compression::OGG_OPUS);
 
     return 1;
 }

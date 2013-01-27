@@ -23,7 +23,7 @@
 
 #include <QtCore/QtGlobal>
 
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/String.h"
 
 #include "Record-ALSA.h"
@@ -180,19 +180,19 @@ static int compression_of(snd_pcm_format_t fmt)
 {
     switch (fmt) {
 	case SND_PCM_FORMAT_MU_LAW:
-	    return Kwave::CompressionType::G711_ULAW;
+	    return Kwave::Compression::G711_ULAW;
 	case SND_PCM_FORMAT_A_LAW:
-	    return Kwave::CompressionType::G711_ALAW;
+	    return Kwave::Compression::G711_ALAW;
 	case SND_PCM_FORMAT_IMA_ADPCM:
-	    return Kwave::CompressionType::MS_ADPCM;
+	    return Kwave::Compression::MS_ADPCM;
 	case SND_PCM_FORMAT_MPEG:
-	    return Kwave::CompressionType::MPEG_LAYER_I;
+	    return Kwave::Compression::MPEG_LAYER_I;
 	case SND_PCM_FORMAT_GSM:
-	    return Kwave::CompressionType::GSM;
+	    return Kwave::Compression::GSM;
 	default:
-	    return Kwave::CompressionType::NONE;
+	    return Kwave::Compression::NONE;
     }
-    return Kwave::CompressionType::NONE;
+    return Kwave::Compression::NONE;
 }
 
 //***************************************************************************
@@ -252,7 +252,7 @@ void Kwave::RecordALSA::detectSupportedFormats()
 	}
 	if (!fmt) continue;
 
-// 	Kwave::CompressionType t;
+// 	Kwave::Compression t;
 // 	Kwave::SampleFormat::Map sf;
 // 	qDebug("#%2u, %2d, %2u bit [%u byte], %s, '%s', '%s'",
 // 	    i,
@@ -829,7 +829,7 @@ QList<int> Kwave::RecordALSA::detectCompressions()
 	// do not produce duplicates
 	if (list.contains(compression)) continue;
 
-// 	Kwave::CompressionType t;
+// 	Kwave::Compression t;
 // 	qDebug("found compression %d '%s'", compression,
 // 	       DBG(t.name(t.findFromData(compression))));
 	list.append(compression);

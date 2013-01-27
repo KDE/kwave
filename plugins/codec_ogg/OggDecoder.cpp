@@ -26,7 +26,7 @@
 #include <klocale.h>
 #include <kmimetype.h>
 
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"

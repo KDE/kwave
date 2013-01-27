@@ -21,7 +21,7 @@
 #include "config.h"
 
 #include "libkwave/CodecPlugin.h"
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 
 class QStringList;
 
@@ -60,7 +60,7 @@ namespace Kwave
 }
 
 #define REGISTER_COMPRESSION_TYPES { \
-    addCompression(Kwave::CompressionType::FLAC);   \
+    addCompression(Kwave::Compression::FLAC);   \
 }
 
 #define DEFAULT_MIME_TYPE "audio/x-flac"

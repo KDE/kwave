@@ -94,7 +94,7 @@ namespace Kwave
 	/**
 	 * sets a new compression type
 	 * @param compression type of the compression, numeric
-	 * @see CompressionType
+	 * @see Kwave::Compression
 	 */
 	void setCompression(int compression);
 

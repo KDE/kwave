@@ -20,7 +20,6 @@
 #include <stdlib.h>
 
 #include "libkwave/Compression.h"
-#include "libkwave/CompressionType.h"
 
 /* static instance */
 QMap<int, Kwave::Compression> Kwave::Compression::m_map;
@@ -123,27 +122,27 @@ void Kwave::Compression::fillMap()
 
     /* no compression */
 
-    m_map.insert(Kwave::CompressionType::NONE, Kwave::Compression(
-	Kwave::CompressionType::NONE,
+    m_map.insert(Kwave::Compression::NONE, Kwave::Compression(
+	Kwave::Compression::NONE,
 	_(I18N_NOOP("No Compression")),
 	sfmt_all, false, false));
 
     /* types supported by OSS+ALSA record plugin and WAV codec */
 
-    m_map.insert(Kwave::CompressionType::G711_ULAW, Kwave::Compression(
-	Kwave::CompressionType::G711_ULAW,
+    m_map.insert(Kwave::Compression::G711_ULAW, Kwave::Compression(
+	Kwave::Compression::G711_ULAW,
 	_(I18N_NOOP("CCITT G.711 u-law")),
 	sfmt_int, false, false));
-    m_map.insert(Kwave::CompressionType::G711_ALAW, Kwave::Compression(
-	Kwave::CompressionType::G711_ALAW,
+    m_map.insert(Kwave::Compression::G711_ALAW, Kwave::Compression(
+	Kwave::Compression::G711_ALAW,
 	_(I18N_NOOP("CCITT G.711 A-law")),
 	sfmt_int, false, false));
-    m_map.insert(Kwave::CompressionType::MS_ADPCM, Kwave::Compression(
-	Kwave::CompressionType::MS_ADPCM,
+    m_map.insert(Kwave::Compression::MS_ADPCM, Kwave::Compression(
+	Kwave::Compression::MS_ADPCM,
 	_(I18N_NOOP("MS ADPCM")),
 	sfmt_int, false, false));
-    m_map.insert(Kwave::CompressionType::GSM, Kwave::Compression(
-	Kwave::CompressionType::GSM,
+    m_map.insert(Kwave::Compression::GSM, Kwave::Compression(
+	Kwave::Compression::GSM,
 	_(I18N_NOOP("GSM")),
 	sfmt_int, false, false));
 
@@ -174,40 +173,40 @@ void Kwave::Compression::fillMap()
 
     /* MPEG layer I/II/III */
 #ifdef HAVE_MP3
-    m_map.insert(Kwave::CompressionType::MPEG_LAYER_I, Kwave::Compression(
-	Kwave::CompressionType::MPEG_LAYER_I,
+    m_map.insert(Kwave::Compression::MPEG_LAYER_I, Kwave::Compression(
+	Kwave::Compression::MPEG_LAYER_I,
 	_(I18N_NOOP("MPEG Layer I")),
 	sfmt_none, true, false));
-    m_map.insert(Kwave::CompressionType::MPEG_LAYER_II, Kwave::Compression(
-	Kwave::CompressionType::MPEG_LAYER_II,
+    m_map.insert(Kwave::Compression::MPEG_LAYER_II, Kwave::Compression(
+	Kwave::Compression::MPEG_LAYER_II,
 	_(I18N_NOOP("MPEG Layer II")),
 	sfmt_none, true, false));
-    m_map.insert(Kwave::CompressionType::MPEG_LAYER_III, Kwave::Compression(
-	Kwave::CompressionType::MPEG_LAYER_III,
+    m_map.insert(Kwave::Compression::MPEG_LAYER_III, Kwave::Compression(
+	Kwave::Compression::MPEG_LAYER_III,
 	_(I18N_NOOP("MPEG Layer III")),
 	sfmt_none, true, false));
 #endif /* HAVE_MP3 */
 
     /* FLAC */
 #ifdef HAVE_FLAC
-    m_map.insert(Kwave::CompressionType::FLAC, Kwave::Compression(
-	Kwave::CompressionType::FLAC,
+    m_map.insert(Kwave::Compression::FLAC, Kwave::Compression(
+	Kwave::Compression::FLAC,
 	_(I18N_NOOP("FLAC")),
 	sfmt_none, false, false));
 #endif /* HAVE_FLAC */
 
     /* Ogg Vorbis */
 #ifdef HAVE_OGG_VORBIS
-    m_map.insert(Kwave::CompressionType::OGG_VORBIS, Kwave::Compression(
-	Kwave::CompressionType::OGG_VORBIS,
+    m_map.insert(Kwave::Compression::OGG_VORBIS, Kwave::Compression(
+	Kwave::Compression::OGG_VORBIS,
 	_(I18N_NOOP("Ogg Vorbis")),
 	sfmt_none, true, true));
 #endif /* HAVE_OGG_VORBIS */
 
     /* Ogg Opus */
 #ifdef HAVE_OGG_OPUS
-    m_map.insert(Kwave::CompressionType::OGG_OPUS, Kwave::Compression(
-	Kwave::CompressionType::OGG_OPUS,
+    m_map.insert(Kwave::Compression::OGG_OPUS, Kwave::Compression(
+	Kwave::Compression::OGG_OPUS,
 	_(I18N_NOOP("Ogg Opus")),
 	sfmt_none, true, false));
 #endif /* HAVE_OGG_OPUS */

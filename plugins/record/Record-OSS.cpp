@@ -32,7 +32,7 @@
 #include <QtCore/QLatin1Char>
 #include <QtCore/QtGlobal>
 
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
 
@@ -466,64 +466,64 @@ void Kwave::RecordOSS::format2mode(int format, int &compression, int &bits,
 
     switch (format) {
 	case AFMT_MU_LAW:
-	    compression   = Kwave::CompressionType::G711_ULAW;
+	    compression   = Kwave::Compression::G711_ULAW;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_A_LAW:
-	    compression   = Kwave::CompressionType::G711_ALAW;
+	    compression   = Kwave::Compression::G711_ALAW;
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_IMA_ADPCM:
-	    compression   = Kwave::CompressionType::MS_ADPCM;
+	    compression   = Kwave::Compression::MS_ADPCM;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_U8:
-	    compression   = Kwave::CompressionType::NONE;
+	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 8;
 	    break;
 	case AFMT_S16_LE:
 	case AFMT_S16_BE:
-	    compression   = Kwave::CompressionType::NONE;
+	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 	case AFMT_S8:
-	    compression   = Kwave::CompressionType::NONE;
+	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 8;
 	    break;
 	case AFMT_U16_LE:
 	case AFMT_U16_BE:
-	    compression   = Kwave::CompressionType::NONE;
+	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_MPEG:
 	    compression   = static_cast<int>(
-	                    Kwave::CompressionType::MPEG_LAYER_II);
+	                    Kwave::Compression::MPEG_LAYER_II);
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
 #if 0
 	case AFMT_AC3: /* Dolby Digital AC3 */
-	    compression   = Kwave::CompressionType::NONE;
+	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Unknown;
 	    bits          = 16;
 	    break;
 #endif
 	case AFMT_S24_LE:
 	case AFMT_S24_BE:
-	    compression   = Kwave::CompressionType::NONE;
+	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 24;
 	    break;
 	case AFMT_S32_LE:
 	case AFMT_S32_BE:
-	    compression   = Kwave::CompressionType::NONE;
+	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 32;
 	    break;
@@ -540,10 +540,10 @@ int Kwave::RecordOSS::mode2format(int compression, int bits,
                                   Kwave::SampleFormat sample_format)
 {
     // first level: compression
-    if (compression == Kwave::CompressionType::G711_ULAW) return AFMT_MU_LAW;
-    if (compression == Kwave::CompressionType::G711_ALAW) return AFMT_A_LAW;
-    if (compression == Kwave::CompressionType::MS_ADPCM)  return AFMT_IMA_ADPCM;
-    if (compression == static_cast<int>(Kwave::CompressionType::MPEG_LAYER_II))
+    if (compression == Kwave::Compression::G711_ULAW) return AFMT_MU_LAW;
+    if (compression == Kwave::Compression::G711_ALAW) return AFMT_A_LAW;
+    if (compression == Kwave::Compression::MS_ADPCM)  return AFMT_IMA_ADPCM;
+    if (compression == static_cast<int>(Kwave::Compression::MPEG_LAYER_II))
 	return AFMT_MPEG;
 
     // non-compressed: switch by sample format
@@ -617,14 +617,14 @@ QList<int> Kwave::RecordOSS::detectCompressions()
     if (err < 0) return compressions;
 
     if (mask & AFMT_MPEG)
-        compressions += static_cast<int>(Kwave::CompressionType::MPEG_LAYER_II);
-    if (mask & AFMT_A_LAW)   compressions += Kwave::CompressionType::G711_ALAW;
-    if (mask & AFMT_MU_LAW)  compressions += Kwave::CompressionType::G711_ULAW;
-    if (mask & AFMT_IMA_ADPCM) compressions += Kwave::CompressionType::MS_ADPCM;
+        compressions += static_cast<int>(Kwave::Compression::MPEG_LAYER_II);
+    if (mask & AFMT_A_LAW)   compressions += Kwave::Compression::G711_ALAW;
+    if (mask & AFMT_MU_LAW)  compressions += Kwave::Compression::G711_ULAW;
+    if (mask & AFMT_IMA_ADPCM) compressions += Kwave::Compression::MS_ADPCM;
     if (mask & (AFMT_U16_LE | AFMT_U16_BE | AFMT_S16_LE | AFMT_S16_BE |
                 AFMT_S24_LE | AFMT_S24_BE | AFMT_S32_LE | AFMT_S32_BE |
                 AFMT_S8 | AFMT_U8))
-        compressions += Kwave::CompressionType::NONE;
+        compressions += Kwave::Compression::NONE;
 
     return compressions;
 }
@@ -660,7 +660,7 @@ int Kwave::RecordOSS::compression()
     Q_ASSERT(m_fd >= 0);
     int mask = AFMT_QUERY;
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
-    if (err < 0) return Kwave::CompressionType::NONE;
+    if (err < 0) return Kwave::Compression::NONE;
 
     int c, b;
     Kwave::SampleFormat s;

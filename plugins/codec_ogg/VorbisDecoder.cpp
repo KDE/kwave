@@ -28,7 +28,7 @@
 
 #include <klocale.h>
 
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
@@ -149,7 +149,7 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     // get the standard properties
     info.setTracks(m_vi.channels);
     info.setRate(m_vi.rate);
-    info.set(Kwave::INF_COMPRESSION, Kwave::CompressionType::OGG_VORBIS);
+    info.set(Kwave::INF_COMPRESSION, Kwave::Compression::OGG_VORBIS);
     info.set(Kwave::INF_SOURCE, _(m_vc.vendor));
     if (m_vi.bitrate_nominal > 0)
 	info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(

@@ -39,7 +39,7 @@
 #include <ktabwidget.h>
 #include <ktoolinvocation.h>
 
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -791,7 +791,7 @@ void Kwave::RecordDialog::setSupportedCompressions(const QList<int> &comps)
 
     if (comps.isEmpty()) {
 	// no compressions -> add "none" manually
-	const Kwave::Compression comp(Kwave::CompressionType::NONE);
+	const Kwave::Compression comp(Kwave::Compression::NONE);
 	cbFormatCompression->addItem(comp.name());
     } else {
 	foreach (int c, comps) {

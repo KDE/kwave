@@ -30,7 +30,7 @@
 #include <QtCore/QLatin1Char>
 #include <QtCore/QTime>
 
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/GenreType.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
@@ -94,17 +94,17 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
     switch (header.layer) {
 	case MPEGLAYER_I:
 	    info.set(Kwave::INF_COMPRESSION,
-	             QVariant(Kwave::CompressionType::MPEG_LAYER_I));
+	             QVariant(Kwave::Compression::MPEG_LAYER_I));
 	    info.set(Kwave::INF_MPEG_LAYER, QVariant(1));
 	    break;
 	case MPEGLAYER_II:
 	    info.set(Kwave::INF_COMPRESSION,
-	             QVariant(Kwave::CompressionType::MPEG_LAYER_II));
+	             QVariant(Kwave::Compression::MPEG_LAYER_II));
 	    info.set(Kwave::INF_MPEG_LAYER, QVariant(2));
 	    break;
 	case MPEGLAYER_III:
 	    info.set(Kwave::INF_COMPRESSION,
-	             QVariant(Kwave::CompressionType::MPEG_LAYER_III));
+	             QVariant(Kwave::Compression::MPEG_LAYER_III));
 	    info.set(Kwave::INF_MPEG_LAYER, QVariant(3));
 	    break;
 	default:

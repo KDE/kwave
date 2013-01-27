@@ -21,7 +21,7 @@
 #include "config.h"
 
 #include "libkwave/CodecPlugin.h"
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 
 namespace Kwave
 {
@@ -77,9 +77,9 @@ namespace Kwave
 }
 
 #define REGISTER_COMPRESSION_TYPES {     \
-    addCompression(Kwave::CompressionType::MPEG_LAYER_I);   \
-    addCompression(Kwave::CompressionType::MPEG_LAYER_II);  \
-    addCompression(Kwave::CompressionType::MPEG_LAYER_III); \
+    addCompression(Kwave::Compression::MPEG_LAYER_I);   \
+    addCompression(Kwave::Compression::MPEG_LAYER_II);  \
+    addCompression(Kwave::Compression::MPEG_LAYER_III); \
 }
 
 #endif /* _MP3_CODEC_PLUGIN_H_ */

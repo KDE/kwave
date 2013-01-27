@@ -119,7 +119,7 @@ namespace Kwave
 	 * Try to set a new compression type.
 	 * @param new_compression the identifier of the new compression
 	 * @return zero on success, negative error code if failed
-	 * @see class CompressionType
+	 * @see class Compression
 	 */
 	virtual int setCompression(int new_compression);
 
@@ -184,7 +184,7 @@ namespace Kwave
 	/**
 	 * create a ALSA device format (enum) from parameters.
 	 * @param compression the compression type
-	 * @see CompressionType
+	 * @see Compression
 	 * @param bits the number of bits per sample, related
 	 *        to the decoded stream
 	 * @param sample_format the sample format, as defined in

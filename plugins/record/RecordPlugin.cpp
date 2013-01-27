@@ -33,7 +33,7 @@
 #include <kconfig.h>
 #include <kglobal.h>
 
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/InsertMode.h"
 #include "libkwave/MessageBox.h"
@@ -578,10 +578,10 @@ void Kwave::RecordPlugin::changeCompression(int new_compression)
     QList<int> supported_comps = m_device->detectCompressions();
     int compression = new_compression;
     if (!supported_comps.contains(compression) &&
-	(compression != Kwave::CompressionType::NONE))
+	(compression != Kwave::Compression::NONE))
     {
 	// try to disable the compression (type 0)
-	compression = Kwave::CompressionType::NONE;
+	compression = Kwave::Compression::NONE;
 	if (!supported_comps.isEmpty() &&
 	    !supported_comps.contains(compression))
 	{
@@ -835,7 +835,7 @@ void Kwave::RecordPlugin::setupRecordThread()
 
     // create a decoder for the current sample format
     switch (params.compression) {
-	case Kwave::CompressionType::NONE:
+	case Kwave::Compression::NONE:
 	    switch (params.sample_format) {
 		case Kwave::SampleFormat::Unsigned: /* FALLTHROUGH */
 		case Kwave::SampleFormat::Signed:

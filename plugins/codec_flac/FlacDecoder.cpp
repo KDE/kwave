@@ -22,7 +22,7 @@
 #include <klocale.h>
 #include <kmimetype.h>
 
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
@@ -292,7 +292,7 @@ bool Kwave::FlacDecoder::open(QWidget *widget, QIODevice &src)
     // set some more standard properties
     Kwave::FileInfo info(metaData());
     info.set(Kwave::INF_MIMETYPE, _(DEFAULT_MIME_TYPE));
-    info.set(Kwave::INF_COMPRESSION, Kwave::CompressionType::FLAC);
+    info.set(Kwave::INF_COMPRESSION, Kwave::Compression::FLAC);
     metaData().replace(info);
 
     return true;

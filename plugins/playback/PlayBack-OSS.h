@@ -100,7 +100,7 @@ namespace Kwave
 	 *
 	 * @param format the device specific format
 	 * @param compression receives a compression type
-	 * @see CompressionType
+	 * @see Compression
 	 * @param bits receives the number of bits per sample, related
 	 *        to the decoded stream
 	 * @param sample_format receives the sample format, as defined in

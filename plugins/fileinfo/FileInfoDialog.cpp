@@ -48,7 +48,7 @@
 #include <ktoolinvocation.h>
 
 #include "libkwave/CodecManager.h"
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/Encoder.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/GenreType.h"
@@ -216,6 +216,9 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 	cbSampleFormat->addItem(sf.description(k, true), sf.data(k));
 
     int format = QVariant(m_info.get(Kwave::INF_SAMPLE_FORMAT)).toInt();
+    if (format == 0)
+	format = Kwave::SampleFormat::Signed; // default = signed int
+
     cbSampleFormat->setCurrentIndex(cbSampleFormat->findData(format));
 }
 
@@ -516,7 +519,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
 	if (encoder) supported_compressions = encoder->compressionTypes();
     } else {
 	// no mime type -> allow all mimetypes suitable for encoding
-	supported_compressions.append(Kwave::CompressionType::NONE);
+	supported_compressions.append(Kwave::Compression::NONE);
 
 	QStringList mime_types = Kwave::CodecManager::encodingMimeTypes();
 	foreach (QString m, mime_types) {
@@ -531,7 +534,7 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
 
     // if nothing is supported, then use only "none"
     if (supported_compressions.isEmpty())
-	supported_compressions.append(Kwave::CompressionType::NONE);
+	supported_compressions.append(Kwave::Compression::NONE);
 
     // add supported compressions to the combo box
     cbCompression->clear();
@@ -586,10 +589,10 @@ void Kwave::FileInfoDialog::compressionChanged()
     int mpeg_layer = -1;
     switch (compression)
     {
-	case Kwave::CompressionType::MPEG_LAYER_I:   mpeg_layer = 1; break;
-	case Kwave::CompressionType::MPEG_LAYER_II:  mpeg_layer = 2; break;
-	case Kwave::CompressionType::MPEG_LAYER_III: mpeg_layer = 3; break;
-	default:                                                     break;
+	case Kwave::Compression::MPEG_LAYER_I:   mpeg_layer = 1; break;
+	case Kwave::Compression::MPEG_LAYER_II:  mpeg_layer = 2; break;
+	case Kwave::Compression::MPEG_LAYER_III: mpeg_layer = 3; break;
+	default:                                                 break;
     }
 
     InfoTab->setTabEnabled(2, isMpeg());
@@ -620,9 +623,9 @@ bool Kwave::FileInfoDialog::isMpeg() const
 	cbCompression->currentIndex()).toInt();
     switch (compression)
     {
-	case Kwave::CompressionType::MPEG_LAYER_I:
-	case Kwave::CompressionType::MPEG_LAYER_II:
-	case Kwave::CompressionType::MPEG_LAYER_III:
+	case Kwave::Compression::MPEG_LAYER_I:
+	case Kwave::Compression::MPEG_LAYER_II:
+	case Kwave::Compression::MPEG_LAYER_III:
 	    return true;
 	default:
 	    return false;
@@ -635,20 +638,20 @@ void Kwave::FileInfoDialog::mpegLayerChanged()
     if (!cbMpegLayer || !isMpeg()) return;
 
     int layer = cbMpegLayer->currentIndex() + 1;
-    int compression = Kwave::CompressionType::NONE;
+    int compression = Kwave::Compression::NONE;
     switch (layer) {
 	case 1:
-	    compression = Kwave::CompressionType::MPEG_LAYER_I;
+	    compression = Kwave::Compression::MPEG_LAYER_I;
 	    break;
 	case 2:
-	    compression = Kwave::CompressionType::MPEG_LAYER_II;
+	    compression = Kwave::Compression::MPEG_LAYER_II;
 	    break;
 	case 3:
-	    compression = Kwave::CompressionType::MPEG_LAYER_III;
+	    compression = Kwave::Compression::MPEG_LAYER_III;
 	    break;
     }
 
-    if (compression != Kwave::CompressionType::NONE) {
+    if (compression != Kwave::Compression::NONE) {
 	int index = cbCompression->findData(compression);
 	if (index >= 0) cbCompression->setCurrentIndex(index);
     }
@@ -803,7 +806,7 @@ void Kwave::FileInfoDialog::accept()
     int compression =
 	cbCompression->itemData(cbCompression->currentIndex()).toInt();
     m_info.set(Kwave::INF_COMPRESSION,
-	(compression != Kwave::CompressionType::NONE) ?
+	(compression != Kwave::Compression::NONE) ?
         QVariant(compression) : QVariant());
 
     /* MPEG layer */

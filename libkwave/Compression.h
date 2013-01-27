@@ -36,6 +36,21 @@ namespace Kwave
     {
     public:
 
+	/** supported compression types */
+	enum {
+	    NONE         = 0,
+	    G711_ULAW    = AF_COMPRESSION_G711_ULAW,
+	    G711_ALAW    = AF_COMPRESSION_G711_ALAW,
+	    MS_ADPCM     = AF_COMPRESSION_MS_ADPCM,
+	    GSM          = AF_COMPRESSION_GSM,
+	    MPEG_LAYER_I = 600,
+	    MPEG_LAYER_II,
+	    MPEG_LAYER_III,
+	    OGG_VORBIS,
+	    OGG_OPUS,
+	    FLAC
+	};
+
 	/**
 	 * default constructor
 	 */

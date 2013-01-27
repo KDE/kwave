@@ -117,7 +117,7 @@ namespace Kwave
 	 * Try to set a new compression type.
 	 * @param new_compression the identifier of the new compression
 	 * @return zero on success, negative error code if failed
-	 * @see class CompressionType
+	 * @see class Kwave::Compression
 	 */
 	virtual int setCompression(int new_compression) = 0;
 

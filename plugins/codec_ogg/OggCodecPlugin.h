@@ -21,7 +21,7 @@
 #include "config.h"
 
 #include "libkwave/CodecPlugin.h"
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 
 namespace Kwave
 {
@@ -74,10 +74,10 @@ namespace Kwave
     addMimeType("application/ogg",   i18n("Ogg audio"),        "*.ogx");
 
 #define REGISTER_COMPRESSION_TYPE_OGG_OPUS \
-    addCompression(Kwave::CompressionType::OGG_OPUS);
+    addCompression(Kwave::Compression::OGG_OPUS);
 
 #define REGISTER_COMPRESSION_TYPE_OGG_VORBIS \
-    addCompression(Kwave::CompressionType::OGG_VORBIS);
+    addCompression(Kwave::Compression::OGG_VORBIS);
 
 #define DEFAULT_MIME_TYPE "audio/ogg"
 

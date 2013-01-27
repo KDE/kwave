@@ -28,7 +28,7 @@
 #include <QtCore/QtEndian>
 #include <QtCore/QtGlobal>
 
-#include "libkwave/CompressionType.h"
+#include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
@@ -75,8 +75,8 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
     quint32 correct_size = length * frame_size;
     const int compression = info.contains(Kwave::INF_COMPRESSION) ?
                       info.get(Kwave::INF_COMPRESSION).toInt() :
-	    Kwave::CompressionType::NONE;
-    if (compression != Kwave::CompressionType::NONE) {
+	    Kwave::Compression::NONE;
+    if (compression != Kwave::Compression::NONE) {
 	qWarning("WARNING: libaudiofile might have produced a broken header!");
 	return;
     }
@@ -319,7 +319,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
                         AF_SAMPFMT_TWOSCOMP;
     int compression = info.contains(Kwave::INF_COMPRESSION) ?
                       info.get(Kwave::INF_COMPRESSION).toInt() :
-                      Kwave::CompressionType::NONE;
+                      Kwave::Compression::NONE;
 
     // use default bit resolution if missing
     Q_ASSERT(bits);
@@ -331,9 +331,9 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     if (src.tracks() != tracks) return false;
 
     // check if the chosen compression mode is supported for saving
-    if ((compression != Kwave::CompressionType::NONE) &&
-        (compression != Kwave::CompressionType::G711_ULAW) &&
-        (compression != Kwave::CompressionType::G711_ALAW))
+    if ((compression != Kwave::Compression::NONE) &&
+        (compression != Kwave::Compression::G711_ULAW) &&
+        (compression != Kwave::Compression::G711_ALAW))
     {
 	qWarning("compression mode %d not supported!", compression);
 	int what_now = Kwave::MessageBox::warningYesNoCancel(widget,
@@ -346,13 +346,13 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	switch (what_now) {
 	    case (KMessageBox::Yes):
 		info.set(Kwave::INF_COMPRESSION,
-			 Kwave::CompressionType::G711_ULAW);
-		compression = Kwave::CompressionType::G711_ULAW;
+			 Kwave::Compression::G711_ULAW);
+		compression = Kwave::Compression::G711_ULAW;
 		break;
 	    case (KMessageBox::No):
 		info.set(Kwave::INF_COMPRESSION,
-			 Kwave::CompressionType::NONE);
-		compression = Kwave::CompressionType::NONE;
+			 Kwave::Compression::NONE);
+		compression = Kwave::Compression::NONE;
 		break;
 	    default:
 		return false; // bye bye, save later...
@@ -361,8 +361,8 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
     // check for unsupported compression/bits/sample format combinations
     // G.711 and MSADPCM support only 16 bit signed as input format!
-    if ((compression == Kwave::CompressionType::G711_ULAW) ||
-        (compression == Kwave::CompressionType::G711_ALAW))
+    if ((compression == Kwave::Compression::G711_ULAW) ||
+        (compression == Kwave::Compression::G711_ALAW))
     {
 	if ((sample_format != AF_SAMPFMT_TWOSCOMP) ||
 	    (bits          != 16))

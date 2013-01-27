@@ -40,11 +40,8 @@ QPointer<Kwave::Splash> Kwave::Splash::m_splash = 0;
 //***************************************************************************
 Kwave::Splash::Splash(const QString &PNGImageFileName)
     :QFrame(0, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
-     m_pixmap(KStandardDirs::locate("appdata", PNGImageFileName)),
-     m_timer()
+     m_pixmap(KStandardDirs::locate("appdata", PNGImageFileName))
 {
-    m_splash = this;
-
     const int w = m_pixmap.width();
     const int h = m_pixmap.height();
     setFixedSize(w, h);
@@ -94,11 +91,7 @@ Kwave::Splash::Splash(const QString &PNGImageFileName)
     resize(rect.size());
     move(QApplication::desktop()->screenGeometry().center() - rect.center());
 
-    // auto-close in 4 seconds...
-    connect(&m_timer, SIGNAL(timeout()),
-            this, SLOT(done()), Qt::QueuedConnection);
-    m_timer.setSingleShot(true);
-    m_timer.start(4000);
+    m_splash = this;
 }
 
 //***************************************************************************
@@ -108,7 +101,7 @@ void Kwave::Splash::done()
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
     m_splash = 0;
-    close();
+    hide();
 }
 
 //***************************************************************************
@@ -129,6 +122,13 @@ void Kwave::Splash::showMessage(const QString &message)
 //***************************************************************************
 void Kwave::Splash::paintEvent(QPaintEvent *)
 {
+    // special handling: a null message tells us to hide
+    if (!m_message.length()) {
+	m_splash = 0;
+	hide();
+	return;
+    }
+
     QRect rect(this->rect());
     const int border = 5;
     rect.setRect(
@@ -147,7 +147,7 @@ void Kwave::Splash::paintEvent(QPaintEvent *)
 //***************************************************************************
 void Kwave::Splash::mousePressEvent(QMouseEvent *)
 {
-    hide();
+    done();
 }
 
 //***************************************************************************

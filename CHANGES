@@ -5,6 +5,8 @@
  * reverted changes in sample writer due to problems in debug mode (commits
     ee54660d4380d264b7346a904eff9dd8d8d00a93 and
     6fba04db879ea7ae1fdf79141dd93d47f9c1d403)
+ * bugfix: unwanted termination if splash screen closed while the first
+   toplevel widget still was starting up
  * moved code into namespace "Kwave"
  * cleanup: remove support for outdated FLAC API versions below 1.1.3
  * removed unused code: libkwave/FileFormat.*

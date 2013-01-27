@@ -177,7 +177,12 @@ int main( int argc, char **argv )
     Kwave::Splash splash(_("pics/kwave-splash.png"));
     splash.show();
 
-    return app.exec();
+    int retval = app.exec();
+
+    splash.done();
+    splash.close();
+
+    return retval;
 }
 
 //***************************************************************************

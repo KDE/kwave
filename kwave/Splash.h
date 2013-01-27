@@ -54,9 +54,7 @@ namespace Kwave
 	/** hides the splash screen on mouse click */
 	virtual void mousePressEvent(QMouseEvent *);
 
-    private slots:
-
-	/** called when the splashscreen timer elapsed */
+	/** should be called when the splashscreen is no longer needed */
 	void done();
 
     private:
@@ -69,9 +67,6 @@ namespace Kwave
 
 	/** static instance */
 	static QPointer<Kwave::Splash> m_splash;
-
-	/** timer, for auto-close */
-	QTimer m_timer;
     };
 }
 

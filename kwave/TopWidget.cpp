@@ -462,6 +462,8 @@ bool Kwave::TopWidget::init()
     m_zoomselect->clearFocus();
     setFocus();
 
+    // special handling: a null string tells the splash screen to hide
+    showInSplashSreen(QString());
     return true;
 }
 

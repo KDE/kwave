@@ -88,13 +88,20 @@ void Kwave::Mul::multiply()
     }
 
     // check sizes of the buffers
-    Q_ASSERT(m_a_is_const || (m_a.size() == count));
-    Q_ASSERT(m_b_is_const || (m_b.size() == count));
-    //     Q_ASSERT(m_buffer_x.size() == count);
-    if ((!m_a_is_const && (m_a.size() != count)) ||
-	(!m_b_is_const && (m_b.size() != count)) ||
-	(m_buffer_x.size() != count))
-	return;
+    if (!m_a_is_const && (count > m_a.size()))
+	count = m_a.size();
+    if (!m_b_is_const && (count > m_b.size()))
+	count = m_b.size();
+
+    // special handling for zero length input
+    if (!count) {
+	emit output(Kwave::SampleArray()); // emit zero length output
+	return;                            // and bail out
+    }
+
+//     if (!m_a_is_const && !m_b_is_const && (m_a.size() != m_b.size()))
+// 	qWarning("Kwave::Mul: block sizes differ: %u x %u -> shrinked to %u",
+// 	    m_a.size(), m_b.size(), count);
 
     if (m_buffer_x.size() != count)
 	m_buffer_x.resize(count);

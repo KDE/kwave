@@ -21,7 +21,7 @@
 
 //***************************************************************************
 Kwave::SampleBuffer::SampleBuffer(QObject *parent)
-    :Kwave::SampleSink(parent), m_data(), m_offset(0)
+    :Kwave::SampleSink(parent), m_data(), m_offset(0), m_buffered(0)
 {
 }
 
@@ -74,16 +74,45 @@ const sample_t *Kwave::SampleBuffer::get(unsigned int len)
 }
 
 //***************************************************************************
+void Kwave::SampleBuffer::put(sample_t sample)
+{
+    const unsigned int block_size = Kwave::StreamObject::blockSize();
+
+    if (m_buffered >= block_size) finished();
+
+    // initial fill of the buffer?
+    if (m_data.size() < block_size) m_data.resize(block_size);
+
+    m_data[m_buffered++] = sample;
+    if (m_buffered >= block_size) finished();
+}
+
+
+//***************************************************************************
 void Kwave::SampleBuffer::finished()
 {
+    if (m_buffered && (m_data.size() != m_buffered))
+	m_data.resize(m_buffered);
     emit output(m_data);
+
+    m_buffered = 0;
+    m_data.resize(Kwave::StreamObject::blockSize());
 }
 
 //***************************************************************************
 void Kwave::SampleBuffer::input(Kwave::SampleArray data)
 {
-    m_data   = data;
-    m_offset = 0;
+    // if we have buffered data, flush that first
+    if (m_buffered) {
+	m_data.resize(m_buffered);
+	m_buffered = 0;
+	emit output(m_data);
+    }
+
+    // take over the input array directly
+    m_data     = data;
+    m_offset   = 0;
+    m_buffered = data.size();
 }
 
 //***************************************************************************

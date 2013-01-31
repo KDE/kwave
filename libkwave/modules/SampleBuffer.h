@@ -63,6 +63,14 @@ namespace Kwave
 	 */
 	virtual const sample_t *get(unsigned int len);
 
+	/**
+	 * Appends one samples to the buffer. If the buffer is full afterwards,
+	 * the buffer will be emitted.
+	 *
+	 * @param sample a single sample
+	 */
+	void put(sample_t sample);
+
 	/** emit the sample data stored in m_data */
 	virtual void finished();
 
@@ -83,6 +91,9 @@ namespace Kwave
 
 	/** offset within the data, for reading */
 	unsigned int m_offset;
+
+	/** number of samples buffered, e.g. through put() */
+	unsigned int m_buffered;
     };
 
 }

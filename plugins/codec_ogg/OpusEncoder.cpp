@@ -54,6 +54,7 @@
 
 #include <opus/opus_defines.h>
 
+#include <QtGui/QApplication>
 #include <QtCore/QBuffer>
 #include <QtCore/QByteArray>
 #include <QtCore/qendian.h>
@@ -99,7 +100,7 @@ Kwave::OpusEncoder::OpusEncoder(ogg_stream_state &os,
      m_coding_rate(0), m_encoder_channels(0), m_channel_mixer(0),
      m_rate_converter(0), m_frame_size(0), m_extra_out(0), m_opus_header(),
      m_max_frame_bytes(0), m_packet_buffer(0), m_encoder(0),
-     m_last_queue_element(0)
+     m_last_queue_element(0), m_buffer(0)
 {
     memset(&m_opus_header, 0x00, sizeof(m_opus_header));
     memset(&m_opus_header.map, 0xFF, sizeof(m_opus_header.map));
@@ -749,6 +750,9 @@ bool Kwave::OpusEncoder::writeOggPage(QIODevice &dst)
 	          static_cast<unsigned int>(m_og.body_len));
 	return false; // write error ?
     }
+
+    // update the progress bar
+    QApplication::processEvents();
 
     return true;
 }

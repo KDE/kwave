@@ -26,8 +26,10 @@
 #include <opus/opus_multistream.h>
 
 #include "libkwave/FileInfo.h"
+#include "libkwave/MultiTrackSink.h"
 #include "libkwave/Sample.h"
 #include "libkwave/VorbisCommentMap.h"
+#include "libkwave/modules/SampleBuffer.h"
 
 #include "OggSubDecoder.h"
 #include "OpusHeader.h"
@@ -144,11 +146,12 @@ namespace Kwave
 	Kwave::VorbisCommentMap m_comments_map;
 
 	/** buffer for decoded raw audio data */
-	float *m_buffer;
+	float *m_raw_buffer;
+
+	/** multi track buffer, for blockwise writing to the destination */
+	Kwave::MultiTrackSink<Kwave::SampleBuffer, true> *m_buffer;
 
 #ifdef HAVE_SAMPLERATE_SUPPORT
-	/** adapter for connecting the sample rate converter (when needed) */
-	Kwave::MultiWriter *m_adapter;
 
 	/** sample rate converter (when needed) */
 	Kwave::StreamObject *m_rate_converter;
@@ -158,6 +161,7 @@ namespace Kwave
 	 * to the decoder's sink
 	 */
 	bool m_converter_connected;
+
 #endif /* HAVE_SAMPLERATE_SUPPORT */
 
 	/** total number of packets */

@@ -195,7 +195,6 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	// if the sample rates do not match, then we need a rate converter
 	Kwave::StreamObject *rate_converter = 0;
 	if (ok && (src_rate != dst_rate)) {
-#ifdef HAVE_SAMPLERATE_SUPPORT
 	    // create a sample rate converter
 	    qDebug("Kwave::MimeData::decode(...) -> rate conversion: "\
 	           "%0.1f -> %0.1f", src_rate, dst_rate);
@@ -208,10 +207,6 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	                                     QVariant(dst_rate / src_rate));
 	    else
 		ok = false;
-#else
-	    ok = false;
-	    #warning sample rate conversion is disabled
-#endif
 	}
 	Q_ASSERT(ok);
 

@@ -19,10 +19,6 @@
 
 #############################################################################
 
-IF (WITH_SAMPLERATE)
-    SET(libkwave_LIB_SRCS_samplerate modules/RateConverter.cpp)
-ENDIF (WITH_SAMPLERATE)
-
 IF (WITH_OPTIMIZED_MEMCPY)
     SET(libkwave_LIB_SRCS_memcpy cputest.c memcpy.c ppcasm_string.S)
     SET_SOURCE_FILES_PROPERTIES(ppcasm_string.S PROPERTIES LANGUAGE C)
@@ -95,6 +91,7 @@ SET(libkwave_LIB_SRCS
     modules/Delay.cpp
     modules/Mul.cpp
     modules/Osc.cpp
+    modules/RateConverter.cpp
     modules/SampleBuffer.cpp
     modules/StreamObject.cpp
 

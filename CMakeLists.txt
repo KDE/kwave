@@ -42,7 +42,6 @@ SET(KWAVE_LINGUAS
 # OPTION(WITH_OPTIMIZED_MEMCPY "enable optimized memcpy [default=on]" ON)
 # OPTION(WITH_PHONON     "enable playback via Phonon [default=off]" OFF)
 # OPTION(WITH_PULSEAUDIO "enable playback/recording via PulseAudio [default=on]" ON)
-# OPTION(WITH_SAMPLERATE "enable support for libsamplerate [default=on]" ON)
 
 #############################################################################
 ### toplevel build targets:                                               ###

@@ -37,7 +37,7 @@
 #cmakedefine HAVE_PHONON_SUPPORT
 
 /* support libsamplerate */
-#cmakedefine HAVE_SAMPLERATE_SUPPORT
+#cmakedefine HAVE_LIBSAMPLERATE
 
 /* resource limits for the memory manager */
 #cmakedefine HAVE_GETRLIMIT

@@ -2,12 +2,12 @@
 o proper channel mixing matrix for well-known track numbers and file formats
   (e.g. wav or vorbis)
 
+o support for other (faster) sample rate converters
+
 o toolbar button for "SaveAs" and for "Close"
 
 o support for Vorbis Chapter Extension <=> map to Kwave labels
   see http://wiki.xiph.org/VorbisComment
-
-o make sample rate conversion (libsamplerate) mandantory
 
 o FLAC in Ogg container
 

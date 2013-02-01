@@ -241,7 +241,6 @@ bool Kwave::OpusEncoder::setupCodingRate(QWidget *widget,
 	return true; // no conversion needed :-)
     }
 
-#ifdef HAVE_SAMPLERATE_SUPPORT
     double rate_from = static_cast<double>(rate_orig);
     double rate_to   = static_cast<double>(rate_supp);
     double ratio     = rate_to / rate_from;
@@ -292,20 +291,6 @@ bool Kwave::OpusEncoder::setupCodingRate(QWidget *widget,
     m_last_queue_element = m_rate_converter;
 
     return true;
-
-#else /* HAVE_SAMPLERATE_SUPPORT */
-
-    Kwave::MessageBox::sorry(
-	widget,
-	i18nc("%1=requested sample rate",
-	      "Sample rate %1 samples/sec is not supported and "
-	      "rate conversion is not available.",
-	       rate_supp, lowest, highest),
-	QString()
-    );
-    return false;
-
-#endif /* HAVE_SAMPLERATE_SUPPORT */
 }
 
 /***************************************************************************/

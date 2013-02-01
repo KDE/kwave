@@ -58,11 +58,9 @@ Kwave::OpusDecoder::OpusDecoder(QIODevice *source,
                                 ogg_packet &op)
     :m_source(source), m_stream_start_pos(0), m_samples_written(0),
      m_oy(oy), m_os(os), m_og(og), m_op(op),
-     m_comments_map(), m_raw_buffer(0), m_buffer(0)
-#ifdef HAVE_SAMPLERATE_SUPPORT
-    ,m_rate_converter(0),
+     m_comments_map(), m_raw_buffer(0), m_buffer(0),
+     m_rate_converter(0),
      m_converter_connected(false),
-#endif /* HAVE_SAMPLERATE_SUPPORT */
      m_packet_count(0), m_samples_raw(0), m_bytes_count(0),
      m_packet_len_min(0), m_packet_len_max(0),
      m_packet_size_min(0), m_packet_size_max(0),
@@ -289,17 +287,6 @@ int Kwave::OpusDecoder::parseOpusHead(QWidget *widget, Kwave::FileInfo &info)
 // 	m_opus_header.sample_rate =
 // 	    _opus_next_sample_rate(m_opus_header.sample_rate);
 
-#ifndef HAVE_SAMPLERATE_SUPPORT
-	int rate_orig = m_opus_header.sample_rate;
-	int rate_supp = _opus_next_sample_rate(rate_orig);
-	if (rate_orig != rate_supp) {
-	    qWarning("    OpusDecoder::parseHeader(): sample rate %d is not "
-	             "supported but rate conversion is disabled "
-	             "-> setting to %d", rate_orig, rate_supp);
-	    m_opus_header.sample_rate = rate_supp;
-	}
-#endif /* HAVE_SAMPLERATE_SUPPORT */
-
 	// gain
 	m_opus_header.gain = qFromLittleEndian<quint16>(h->gain);
 
@@ -445,7 +432,6 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     if (rate_orig != rate_supp) {
 	bool ok = false;
 
-#ifdef HAVE_SAMPLERATE_SUPPORT
 	qDebug("    OpusDecoder::open(): converting sample rate: %d -> %d",
 	       rate_supp, rate_orig);
 	ok = true;
@@ -472,7 +458,6 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	if (!ok) {
 	    qWarning("OpusDecoder::open(): creating rate converter failed!");
 	}
-#endif /* HAVE_SAMPLERATE_SUPPORT */
 
 	if (!ok) {
 	    qDebug("OpusDecoder::open(): sample rate %d is not "
@@ -577,7 +562,6 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     const unsigned int tracks = m_opus_header.channels;
 
     bool ok = true;
-#ifdef HAVE_SAMPLERATE_SUPPORT
     if (m_rate_converter) {
 	if (!m_converter_connected) {
 	    ok = Kwave::connect(
@@ -585,10 +569,7 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 		dst,               SLOT(input(Kwave::SampleArray)));
 	    m_converter_connected = true;
 	}
-    }
-    else
-#endif /* HAVE_SAMPLERATE_SUPPORT */
-    {
+    } else {
 	ok = Kwave::connect(
 	    *m_buffer, SIGNAL(output(Kwave::SampleArray)),
 	    dst,       SLOT(input(Kwave::SampleArray))
@@ -677,12 +658,10 @@ void Kwave::OpusDecoder::close(Kwave::FileInfo &info)
     if (m_buffer) delete m_buffer;
     m_buffer = 0;
 
-#ifdef HAVE_SAMPLERATE_SUPPORT
     delete m_rate_converter;
     m_rate_converter = 0;
 
     m_converter_connected = false;
-#endif /* HAVE_SAMPLERATE_SUPPORT */
 
     qDebug("    OpusDecoder: packet count=%u", m_packet_count);
     qDebug("    OpusDecoder: packet length: %d...%d samples",

@@ -151,8 +151,6 @@ namespace Kwave
 	/** multi track buffer, for blockwise writing to the destination */
 	Kwave::MultiTrackSink<Kwave::SampleBuffer, true> *m_buffer;
 
-#ifdef HAVE_SAMPLERATE_SUPPORT
-
 	/** sample rate converter (when needed) */
 	Kwave::StreamObject *m_rate_converter;
 
@@ -161,8 +159,6 @@ namespace Kwave
 	 * to the decoder's sink
 	 */
 	bool m_converter_connected;
-
-#endif /* HAVE_SAMPLERATE_SUPPORT */
 
 	/** total number of packets */
 	unsigned int m_packet_count;

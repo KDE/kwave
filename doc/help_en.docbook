@@ -518,12 +518,6 @@
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>
-		<listitem><para>
-		    <literal>WITH_SAMPLERATE</literal>
-		    enable sample rate conversion
-		    [<literal>on</literal>/<literal>off</literal>,
-		    default=<literal>on</literal>]
-		</para></listitem>
 	    </itemizedlist>
 	</para>
 

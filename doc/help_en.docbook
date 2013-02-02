@@ -484,8 +484,14 @@
 		    covered by the MP3 software patents!
 		</para></listitem>
 		<listitem><para>
-		    <literal>WITH_OGG</literal>
-		    enable support for ogg files
+		    <literal>WITH_OGG_OPUS</literal>
+		    enable support for Ogg/Opus files
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_OGG_VORBIS</literal>
+		    enable support for Ogg/Vorbis files
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>

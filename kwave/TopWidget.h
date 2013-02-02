@@ -198,6 +198,16 @@ namespace Kwave
 	    executeCommand(_("save () "));
 	}
 
+	/** toolbar: "file/save" */
+	void toolbarFileSaveAs() {
+	    executeCommand(_("saveas () "));
+	}
+
+	/** toolbar: "file/save" */
+	void toolbarFileClose() {
+	    executeCommand(_("close () "));
+	}
+
 	/** toolbar: "edit/undo" */
 	void toolbarEditUndo() {
 	    executeCommand(_("undo () "));
@@ -343,6 +353,15 @@ namespace Kwave
 
 	/** menu manager for this window */
 	Kwave::MenuManager *m_menu_manager;
+
+	/** action of the "file save" toolbar button */
+	QAction *m_action_save;
+
+	/** action of the "file save as..." toolbar button */
+	QAction *m_action_save_as;
+
+	/** action of the "file close" toolbar button */
+	QAction *m_action_close;
 
 	/** action of the "edit undo" toolbar button */
 	QAction *m_action_undo;

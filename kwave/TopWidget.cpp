@@ -105,7 +105,8 @@
 Kwave::TopWidget::TopWidget(Kwave::App &app)
     :KMainWindow(), m_context(app),
      m_main_widget(0), m_toolbar_record_playback(0), m_zoomselect(0),
-     m_menu_manager(0), m_action_undo(0), m_action_redo(0),
+     m_menu_manager(0), m_action_save(0), m_action_save_as(0),
+     m_action_close(0), m_action_undo(0), m_action_redo(0),
      m_action_zoomselection(0), m_action_zoomin(0), m_action_zoomout(0),
      m_action_zoomnormal(0), m_action_zoomall(0), m_action_zoomselect(0),
      m_lbl_status_size(0), m_lbl_status_mode(0), m_lbl_status_cursor(0)
@@ -219,10 +220,20 @@ bool Kwave::TopWidget::init()
 	i18n("Open an existing file"),
 	this, SLOT(toolbarFileOpen()));
 
-    toolbar_file->addAction(
+    m_action_save = toolbar_file->addAction(
 	icon_loader.loadIcon(_("document-save"), KIconLoader::Toolbar),
 	i18n("Save the current file"),
 	this, SLOT(toolbarFileSave()));
+
+    m_action_save_as = toolbar_file->addAction(
+	icon_loader.loadIcon(_("document-save-as"), KIconLoader::Toolbar),
+	i18n("Save the current file under a different name or file format..."),
+	this, SLOT(toolbarFileSaveAs()));
+
+    m_action_close = toolbar_file->addAction(
+	icon_loader.loadIcon(_("document-close"), KIconLoader::Toolbar),
+	i18n("Close the current file"),
+	this, SLOT(toolbarFileClose()));
 
     // --- edit, cut&paste ---
 
@@ -445,7 +456,7 @@ bool Kwave::TopWidget::init()
     // workaround for KDE4: detect first startup and set all toolbars
     // to "only symbols" mode
     KConfigGroup cfg = KGlobal::config()->group("MainWindow");
-    QString magic = _("2");
+    QString magic = _("3");
     if (cfg.readEntry("toolbars") != magic) {
 	qDebug("toolbar layout changed => resetting toolbars to defaults");
 
@@ -1489,13 +1500,13 @@ void Kwave::TopWidget::resetToolbarToDefaults()
     }
 
     // re-order the tool bars:
-    // ---------------------------
-    // file  |  edit  |  zoom  |
-    // ---------------------------
-    // record/play  |
-    // ---------------------------
-    insertToolBar(toolbar_record_play, toolbar_zoom);
-    insertToolBar(toolbar_zoom,        toolbar_edit);
+    // -----------------------
+    // file  |  edit  |
+    // -----------------------
+    // record/play  | zoom
+    // -----------------------
+    insertToolBar(toolbar_zoom,        toolbar_record_play);
+    insertToolBar(toolbar_record_play, toolbar_edit);
     insertToolBar(toolbar_edit,        toolbar_file);
 
     // move record/playback into a seperate line, below file/edit
@@ -1519,6 +1530,13 @@ void Kwave::TopWidget::updateToolbar()
     if (!signal_manager) return;
 
     bool have_signal = signal_manager->tracks();
+
+    if (m_action_save)
+	m_action_save->setEnabled(have_signal);
+    if (m_action_save_as)
+	m_action_save_as->setEnabled(have_signal);
+    if (m_action_close)
+	m_action_close->setEnabled(have_signal);
 
     if (m_action_zoomselection)
 	m_action_zoomselection->setEnabled(have_signal);

@@ -21,6 +21,10 @@
 #include "config.h"
 
 #include <QtCore/QObject>
+#include <QtCore/QSemaphore>
+
+#include <threadweaver/Job.h>
+#include <threadweaver/ThreadWeaver.h>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSink.h"
@@ -79,10 +83,57 @@ namespace Kwave
 	/** slot for taking input data, stores it into m_data */
 	virtual void input(Kwave::SampleArray data);
 
+    protected:
+
+	friend class BufferJob;
+
+	/**
+	 * Emit data from this object, used from a buffer thread
+	 * @param data a sample array to emit
+	 */
+	void emitData(Kwave::SampleArray data);
+
+    private:
+
+	/** enqueue some data */
+	void enqueue(Kwave::SampleArray data);
+
     signals:
 
 	/** emits the data received via input() */
 	void output(Kwave::SampleArray data);
+
+    private:
+
+	class BufferJob: public ThreadWeaver::Job
+	{
+	public:
+	    /** Constructor */
+	    BufferJob(Kwave::SampleBuffer *buffer);
+
+	    /** Destructor */
+	    virtual ~BufferJob();
+
+	    /** enqueue some data */
+	    void enqueue(Kwave::SampleArray data);
+
+	    /**
+	    * overloaded 'run' function that runns goOn() in the context
+	    * of the worker thread.
+	    */
+	    virtual void run();
+
+	private:
+
+	    /** reference to the Kwave::SampleBuffer */
+	    Kwave::SampleBuffer *m_buffer;
+
+	    /** sample data to emit */
+	    Kwave::SampleArray m_data;
+
+	    /** semaphore for limiting queue depth to 1 */
+	    QSemaphore m_sema;
+	};
 
     private:
 
@@ -94,6 +145,12 @@ namespace Kwave
 
 	/** number of samples buffered, e.g. through put() */
 	unsigned int m_buffered;
+
+	/** thread weaver, for processing multi track jobs in parallel */
+	ThreadWeaver::Weaver m_weaver;
+
+	/** job for emitting the output in a seperate thread */
+	BufferJob m_job;
     };
 
 }

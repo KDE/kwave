@@ -17,17 +17,57 @@
 
 #include "config.h"
 
+#include <threadweaver/DebuggingAids.h>
+
+#include "libkwave/Utils.h"
 #include "libkwave/modules/SampleBuffer.h"
 
 //***************************************************************************
+Kwave::SampleBuffer::BufferJob::BufferJob(Kwave::SampleBuffer *buffer)
+    :ThreadWeaver::Job(), m_buffer(buffer), m_data(), m_sema(1)
+{
+}
+
+//***************************************************************************
+Kwave::SampleBuffer::BufferJob::~BufferJob()
+{
+    m_sema.acquire();
+
+    int i = 0;
+    while (!isFinished()) {
+	qDebug("buffer job %p waiting... #%u", static_cast<void *>(this), i++);
+	Kwave::yield();
+    }
+    Q_ASSERT(isFinished());
+}
+
+//***************************************************************************
+void Kwave::SampleBuffer::BufferJob::enqueue(Kwave::SampleArray data)
+{
+    m_sema.acquire();
+    m_data = data;
+}
+
+//***************************************************************************
+void Kwave::SampleBuffer::BufferJob::run()
+{
+    if (!m_buffer) return;
+    m_buffer->emitData(m_data);
+    m_sema.release();
+}
+
+//***************************************************************************
+//***************************************************************************
 Kwave::SampleBuffer::SampleBuffer(QObject *parent)
-    :Kwave::SampleSink(parent), m_data(), m_offset(0), m_buffered(0)
+    :Kwave::SampleSink(parent),
+     m_data(), m_offset(0), m_buffered(0), m_weaver(), m_job(this)
 {
 }
 
 //***************************************************************************
 Kwave::SampleBuffer::~SampleBuffer()
 {
+    m_weaver.finish();
 }
 
 //***************************************************************************
@@ -93,7 +133,7 @@ void Kwave::SampleBuffer::finished()
 {
     if (m_buffered && (m_data.size() != m_buffered))
 	m_data.resize(m_buffered);
-    emit output(m_data);
+    enqueue(m_data);
 
     m_buffered = 0;
     m_data.resize(Kwave::StreamObject::blockSize());
@@ -106,13 +146,28 @@ void Kwave::SampleBuffer::input(Kwave::SampleArray data)
     if (m_buffered) {
 	m_data.resize(m_buffered);
 	m_buffered = 0;
-	emit output(m_data);
+	enqueue(m_data);
     }
 
     // take over the input array directly
     m_data     = data;
     m_offset   = 0;
     m_buffered = data.size();
+}
+
+//***************************************************************************
+void Kwave::SampleBuffer::enqueue(Kwave::SampleArray data)
+{
+    m_job.enqueue(data);
+    m_weaver.suspend();
+    m_weaver.enqueue(&m_job);
+    m_weaver.resume();
+}
+
+//***************************************************************************
+void Kwave::SampleBuffer::emitData(Kwave::SampleArray data)
+{
+    emit output(data);
 }
 
 //***************************************************************************

@@ -555,7 +555,7 @@ QList<unsigned int> Kwave::PlayBackOSS::supportedBits(const QString &device)
     // mask out all modes that do not match the current compression
     const int compression = Kwave::Compression::NONE;
     for (unsigned int bit=0; bit < (sizeof(mask) << 3); bit++) {
-	if (!mask & (1 << bit)) continue;
+	if (!(mask & (1 << bit))) continue;
 
 	// format is supported, split into compression, bits, sample format
 	int c, b;

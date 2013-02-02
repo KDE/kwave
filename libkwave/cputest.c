@@ -44,7 +44,7 @@
 #include <stdlib.h>
 #include "cputest.h"
 
-int mm_support(void);
+unsigned int mm_support(void);
 
 #if defined(ARCH_X86) || defined(ARCH_X86_64)
 
@@ -59,7 +59,7 @@ int mm_support(void);
          : "0" (index));
 
 /* Function to test if multimedia instructions are supported...  */
-int mm_support(void)
+unsigned int mm_support(void)
 {
     int rval;
 
@@ -191,7 +191,7 @@ int mm_support(void)
 
 #else
 
-int mm_support(void)
+unsigned int mm_support(void)
 {
     return 0;
 }
@@ -201,7 +201,7 @@ int mm_support(void)
 #ifdef __TEST__
 int main ( void )
 {
-  int mm_flags;
+  unsigned int mm_flags;
   mm_flags = mm_support();
   printf("mm_support = 0x%08u\n",mm_flags);
   return 0;

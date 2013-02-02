@@ -57,7 +57,7 @@ Kwave::OpusDecoder::OpusDecoder(QIODevice *source,
                                 ogg_page &og,
                                 ogg_packet &op)
     :m_source(source), m_stream_start_pos(0), m_samples_written(0),
-     m_oy(oy), m_os(os), m_og(og), m_op(op),
+     m_oy(oy), m_os(os), m_og(og), m_op(op), m_opus_decoder(0),
      m_comments_map(), m_raw_buffer(0), m_buffer(0),
      m_rate_converter(0),
      m_converter_connected(false),
@@ -430,11 +430,10 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 
     // handle sample rate conversion
     if (rate_orig != rate_supp) {
-	bool ok = false;
+	bool ok = true;
 
 	qDebug("    OpusDecoder::open(): converting sample rate: %d -> %d",
 	       rate_supp, rate_orig);
-	ok = true;
 
 	m_rate_converter =
 	    new Kwave::MultiTrackSource<Kwave::RateConverter, true>(tracks);
@@ -604,7 +603,6 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     }
 
     // convert the buffer from float to sample_t, blockwise...
-    Kwave::SampleArray samples(length);
     for (unsigned int t = 0; t < tracks; t++) {
 	Kwave::SampleBuffer *buffer = m_buffer->at(t);
 	float    *in  = p + t;

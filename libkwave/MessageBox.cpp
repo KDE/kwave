@@ -210,7 +210,7 @@ void Kwave::MessageBox::show()
 	    break;
 	default:
 	    qWarning("unsupported messagebox mode");
-	    Q_ASSERT(m_mode != m_mode);
+	    Q_ASSERT(0);
     }
 
     m_semaphore.release();

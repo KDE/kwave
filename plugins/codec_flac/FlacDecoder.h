@@ -137,9 +137,6 @@ namespace Kwave
 	/** destination of the audio data */
 	Kwave::MultiWriter *m_dest;
 
-	/** buffer for reading from the QIODevice */
-	char *m_buffer;
-
 	/** map for translating vorbis comments to FileInfo properties */
 	Kwave::VorbisCommentMap m_vorbis_comment_map;
 

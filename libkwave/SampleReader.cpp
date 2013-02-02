@@ -88,7 +88,6 @@ void Kwave::SampleReader::fillBuffer()
     Q_ASSERT(len == rest);
     m_buffer_used  += len;
     m_src_position += len;
-    rest           -= len;
 
     // inform others that we proceeded
     if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {

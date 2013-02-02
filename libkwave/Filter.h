@@ -65,10 +65,10 @@ namespace Kwave
 	unsigned int resize(unsigned int newnum);
 
 	/** Returns true if the filter is a FIR one, or false else */
-	inline bool isFIR() { return m_fir; }
+	inline bool isFIR() const { return m_fir; }
 
 	/** Returns the sample rate in samples/second */
-	inline int rate() {	return m_rate; }
+	inline int rate() const { return m_rate; }
 
 	/**
 	 * Returns the number of coefficients and

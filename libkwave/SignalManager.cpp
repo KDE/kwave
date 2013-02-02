@@ -887,14 +887,14 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 //***************************************************************************
 void Kwave::SignalManager::appendTrack()
 {
-    Kwave::UndoTransactionGuard u(*this, i18n("Append Track"));
+    Kwave::UndoTransactionGuard undo(*this, i18n("Append Track"));
     insertTrack(tracks());
 }
 
 //***************************************************************************
 void Kwave::SignalManager::insertTrack(unsigned int index)
 {
-    Kwave::UndoTransactionGuard u(*this, i18n("Insert Track"));
+    Kwave::UndoTransactionGuard undo(*this, i18n("Insert Track"));
 
     const unsigned int count = tracks();
     Q_ASSERT(index <= count);
@@ -935,7 +935,7 @@ void Kwave::SignalManager::insertTrack(unsigned int index)
 //***************************************************************************
 void Kwave::SignalManager::deleteTrack(unsigned int index)
 {
-    Kwave::UndoTransactionGuard u(*this, i18n("Delete Track"));
+    Kwave::UndoTransactionGuard undo(*this, i18n("Delete Track"));
 
     const unsigned int count = tracks();
     Q_ASSERT(index <= count);

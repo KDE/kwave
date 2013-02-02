@@ -683,7 +683,7 @@ QList<unsigned int> Kwave::RecordOSS::supportedBits()
     // mask out all modes that do not match the current compression
     const int compression = this->compression();
     for (unsigned int bit=0; bit < (sizeof(mask) << 3); bit++) {
-	if (!mask & (1 << bit)) continue;
+	if (!(mask & (1 << bit))) continue;
 
 	// format is supported, split into compression, bits, sample format
 	int c, b;
@@ -760,8 +760,8 @@ QList<Kwave::SampleFormat> Kwave::RecordOSS::detectSampleFormats()
     // and bits per sample
     const int compression     = this->compression();
     const int bits_per_sample = this->bitsPerSample();
-    for (unsigned int bit=0; bit < (sizeof(mask) << 3); bit++) {
-	if (!mask & (1 << bit)) continue;
+    for (unsigned int bit = 0; bit < (sizeof(mask) << 3); bit++) {
+	if (!(mask & (1 << bit))) continue;
 
 	// format is supported, split into compression, bits, sample format
 	int c, b;

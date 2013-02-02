@@ -350,7 +350,7 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 		    }
 		}
 
-		if (icon_name.length()) {
+		if (item && icon_name.length()) {
 		    QIcon icon = icon_loader.loadIcon(
 			icon_name, KIconLoader::User);
 		    item->setIcon(0, icon);

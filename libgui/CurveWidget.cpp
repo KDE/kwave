@@ -314,7 +314,7 @@ Kwave::Curve::Point Kwave::CurveWidget::findPoint(int sx, int sy)
 {
     Q_ASSERT(m_width > 1);
     Q_ASSERT(m_height > 1);
-    if ((m_width <= 1) || (m_width <= 1)) return Kwave::Curve::NoPoint;
+    if ((m_width <= 1) || (m_height <= 1)) return Kwave::Curve::NoPoint;
 
     return m_curve.findPoint((static_cast<double>(sx)) / (m_width-1),
 	(static_cast<double>(m_height) - sy) / (m_height-1));
@@ -326,7 +326,7 @@ void Kwave::CurveWidget::mousePressEvent(QMouseEvent *e)
     Q_ASSERT(e);
     Q_ASSERT(m_width > 1);
     Q_ASSERT(m_height > 1);
-    if (!e || (m_width <= 1) || (m_width <= 1)) return;
+    if (!e || (m_width <= 1) || (m_height <= 1)) return;
 
     if (e->buttons() == Qt::RightButton) {
 	// right mouse button -> context menu
@@ -362,7 +362,7 @@ void Kwave::CurveWidget::mouseMoveEvent(QMouseEvent *e )
     Q_ASSERT(e);
     Q_ASSERT(m_width > 1);
     Q_ASSERT(m_height > 1);
-    if (!e || (m_width <= 1) || (m_width <= 1)) return;
+    if (!e || (m_width <= 1) || (m_height <= 1)) return;
 
     int x = e->pos().x();
     int y = e->pos().y();

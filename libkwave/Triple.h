@@ -59,7 +59,7 @@ namespace Kwave
 	}
 
 	/** compare operator */
-	inline bool operator==(const Triple<T1,T2,T3> &t2) {
+	inline bool operator==(const Triple<T1,T2,T3> &t2) const {
 	    return (
 		( m_first  == t2.first()  ) &&
 		( m_second == t2.second() ) &&

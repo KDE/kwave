@@ -146,7 +146,6 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     QString filename = m_url.prettyUrl();
     QFileInfo file(filename);
     QString path = file.absolutePath();
-    QString name = file.fileName();
     QString ext  = file.suffix();
     QString base = findBase(filename, m_pattern);
 
@@ -433,7 +432,6 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
                                           const QString &pattern)
 {
     QFileInfo file(filename);
-    QString path = file.absolutePath();
     QString name = file.fileName();
     QString base = file.completeBaseName();
     QString ext  = file.suffix();
@@ -488,7 +486,6 @@ QString Kwave::SaveBlocksPlugin::firstFileName(const QString &filename,
 {
     QFileInfo file(filename);
     QString path = file.absolutePath();
-    QString name = file.fileName();
     QString ext  = file.suffix();
     QString base = findBase(filename, pattern);
 

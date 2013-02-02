@@ -99,7 +99,7 @@ Kwave::OpusEncoder::OpusEncoder()
      m_coding_rate(0), m_encoder_channels(0), m_channel_mixer(0),
      m_rate_converter(0), m_frame_size(0), m_extra_out(0), m_opus_header(),
      m_max_frame_bytes(0), m_packet_buffer(0), m_encoder(0),
-     m_last_queue_element(0), m_buffer(0)
+     m_encoder_input(0), m_last_queue_element(0), m_buffer(0)
 {
 
     memset(&m_opus_header, 0x00, sizeof(m_opus_header));

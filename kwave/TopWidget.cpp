@@ -825,7 +825,7 @@ bool Kwave::TopWidget::closeFile()
 	plugin_manager->signalClosed();
     }
 
-    signal_manager->close();
+    if (signal_manager) signal_manager->close();
 
     updateCaption();
     if (m_zoomselect) m_zoomselect->clearEditText();
@@ -1053,8 +1053,8 @@ int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
 	// set the new mimetype
 	Kwave::FileInfo info(signal_manager->metaData());
 	info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
-	// save the old filename and set the new one
-	QString old_filename = info.get(Kwave::INF_FILENAME).toString();
+
+	// set the new filename
 	info.set(Kwave::INF_FILENAME, url.prettyUrl());
 	signal_manager->setFileInfo(info, false);
 

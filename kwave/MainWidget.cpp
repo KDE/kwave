@@ -518,7 +518,6 @@ void Kwave::MainWidget::resizeViewPort()
 	// hide the vertical scrollbar
 	if (vertical_scrollbar_visible) {
 	    m_vertical_scrollbar->setShown(false);
-	    vertical_scrollbar_visible = false;
 	    w += b;
 	    m_signal_widget.move(0, 0);
 	    // qDebug("MainWidget::resizeViewPort(): hiding scrollbar");
@@ -535,7 +534,6 @@ void Kwave::MainWidget::resizeViewPort()
 	    m_vertical_scrollbar->setFixedWidth(b);
 	    m_vertical_scrollbar->setValue(0);
 	    m_vertical_scrollbar->setShown(true);
-	    vertical_scrollbar_visible = true;
 	    w -= b;
 	    // qDebug("MainWidget::resizeViewPort(): showing scrollbar");
 	}
@@ -664,7 +662,7 @@ sample_index_t Kwave::MainWidget::ms2samples(double ms)
 //***************************************************************************
 sample_index_t Kwave::MainWidget::pixels2samples(unsigned int pixels) const
 {
-    if ((pixels <= 0) || (m_zoom <= 0.0)) return 0;
+    if ((pixels == 0) || (m_zoom <= 0.0)) return 0;
 
     return static_cast<sample_index_t>(static_cast<double>(pixels) * m_zoom);
 }

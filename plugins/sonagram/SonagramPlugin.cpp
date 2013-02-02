@@ -141,13 +141,13 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
     m_color = (param.toUInt(&ok) != 0);
     if (!ok) return -EINVAL;
 
-    param = params[3];
+//     param = params[3];
     m_track_changes = false; // (param.toUInt(&ok) != 0);
-    if (!ok) return -EINVAL;
+//     if (!ok) return -EINVAL;
 
-    param = params[4];
+//     param = params[4];
     m_follow_selection = false; // (param.toUInt(&ok) != 0);
-    if (!ok) return -EINVAL;
+//     if (!ok) return -EINVAL;
 
     return 0;
 }

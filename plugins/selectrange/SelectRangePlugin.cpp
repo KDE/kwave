@@ -40,7 +40,7 @@ Kwave::SelectRangePlugin::SelectRangePlugin(
     :Kwave::Plugin(plugin_manager),
      m_start_mode(Kwave::SelectTimeWidget::bySamples),
      m_range_mode(Kwave::SelectTimeWidget::bySamples),
-     m_range(0)
+     m_start(0), m_range(0)
 {
 }
 

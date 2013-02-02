@@ -83,8 +83,7 @@ namespace Kwave
 
 	/** return a string list with supported device names */
 	virtual QStringList supportedDevices() {
-	    QStringList empty;
-	    return empty;
+	    return QStringList();
 	}
 
 	/** return a string suitable for a "File Open..." dialog */

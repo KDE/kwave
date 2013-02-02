@@ -23,6 +23,8 @@
 
 #include "config.h"
 
+#include <string.h>
+
 #include <QtCore/QtGlobal>
 
 namespace Kwave
@@ -42,6 +44,15 @@ namespace Kwave
 	{
 	    m_data = new T[m_rows * m_cols];
 	    Q_ASSERT(m_data);
+	}
+
+	/** copy constructor */
+	Matrix(const Matrix &other)
+	    :m_rows(other.m_rows), m_cols(other.m_cols), m_data(0)
+	{
+	    m_data = new T[m_rows * m_cols];
+	    Q_ASSERT(m_data);
+	    memcpy(m_data, other.m_data, m_rows * m_cols * sizeof(T));
 	}
 
 	/** destructor */

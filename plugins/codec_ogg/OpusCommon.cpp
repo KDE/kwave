@@ -70,7 +70,7 @@ QString Kwave::opus_error(int err)
 	    msg = i18n("A decoder structure is invalid or already freed.");
 	    break;
 	case OPUS_ALLOC_FAIL:
-	    msg = i18n("Memory allocation has failed.");
+	    msg = i18n("Out of memory");
 	    break;
 	default:
 	    msg = i18n("Decoder error: %1", _(opus_strerror(err)));

@@ -65,7 +65,7 @@ void Kwave::DebugPlugin::load(QStringList &params)
 
     emitCommand(_("menu (dump_metadata(), ") +
                 _(I18N_NOOP("&Help")) + _("/") +
-                _(I18N_NOOP("Dump &Meta Data)")));
+                _(I18N_NOOP("Dump &Meta Data")));
 }
 
 //***************************************************************************

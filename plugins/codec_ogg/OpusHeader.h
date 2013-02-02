@@ -37,7 +37,7 @@ namespace Kwave
 	quint8 streams;          /**< number of streams                */
 	quint8 coupled;          /**< number of couplings              */
 	quint8 map[255];         /**< stream to channel map            */
-    } opus_header_t KDE_PACKED;
+    } KDE_PACKED opus_header_t;
 }
 
 #endif /* _OPUS_HEADER_H_ */

@@ -4,8 +4,6 @@ o proper channel mixing matrix for well-known track numbers and file formats
 
 o support for other (faster) sample rate converters
 
-o toolbar button for "SaveAs" and for "Close"
-
 o support for Vorbis Chapter Extension <=> map to Kwave labels
   see http://wiki.xiph.org/VorbisComment
 
@@ -24,8 +22,6 @@ o support for "raw" import/export
 o TODO in MP3 plugin (ID3FID_MEDIATYPE)
 
 o move label with mouse (drag&drop)
-
-o replace AF_SAMPFMT_xxx
 
 o new import/export plugin using ffmpeg/libavcodec
 
@@ -66,7 +62,7 @@ o re-activate the "label" menu
 
 o use some xml file for the menu instead of a macro
 
-o support for Spex codec: http://www.speex.org/
+o support for Speex codec: http://www.speex.org/
 
 o ALSA record/playback: also detect devices configured in the .asoundrc,
   and not only hardware devices
@@ -115,7 +111,7 @@ o document how to do an optimized build, for example:
   -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_TRANSLATION" \
   CXXFLAGS=${CFLAGS} cmake ...
 
-o speed up MP3 import by blockwise operation
+o speed up MP3 import by blockwise operation -> use Kwave::SampleBuffer
 
 o import/export of labels as meta info in codecs other than wav
 
@@ -167,7 +163,7 @@ o support for visualization plugins (svn rev 2498) => DROPPED
     * allow drag&drop to reorder signal views
     * resizing of signal views per size grip
     * allow plugins to add and remove own signal views
-  - enhanced functions (maybe next release)
+  - enhanced functions (maybe never...)
     * store order and settings of signal views in embedded metadata
     * store order and settings of signal views in a separate file
     * provide global database for colors (for signal, labels, etc.)

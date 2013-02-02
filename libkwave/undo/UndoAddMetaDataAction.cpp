@@ -91,9 +91,13 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
 
     for (;;) {
 	QString name;
-	const Kwave::MetaData &m = meta_data.values().first();
-	if (m.hasProperty(Kwave::MetaData::STDPROP_TYPE))
-	    name = m[Kwave::MetaData::STDPROP_TYPE].toString();
+	QList<Kwave::MetaData> values = meta_data.values();
+	Q_ASSERT(!values.isEmpty());
+	if (!values.isEmpty()) {
+	    const Kwave::MetaData &m = values.first();
+	    if (m.hasProperty(Kwave::MetaData::STDPROP_TYPE))
+		name = m[Kwave::MetaData::STDPROP_TYPE].toString();
+	}
 
 	// if the meta data list contains only one object: try to find
 	// out the object's name

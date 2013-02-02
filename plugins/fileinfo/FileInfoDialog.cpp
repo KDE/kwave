@@ -670,9 +670,9 @@ void Kwave::FileInfoDialog::compressionChanged()
 	cbMpegLayer->setCurrentIndex(mpeg_layer - 1);
 
     // enable/disable ABR/VBR controls, depending on mime type
-    const bool lower = compressionWidget->lowestEnabled();
-    const bool upper = compressionWidget->highestEnabled();
     const bool abr = comp.hasABR();
+    const bool lower = abr && m_info.contains(Kwave::INF_BITRATE_LOWER);
+    const bool upper = abr && m_info.contains(Kwave::INF_BITRATE_UPPER);
     const bool vbr = comp.hasVBR();
     compressionWidget->enableABR(abr, lower, upper);
     compressionWidget->enableVBR(vbr);

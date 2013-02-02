@@ -861,7 +861,10 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	bool found = false;
 	foreach (Kwave::FileProperty p, info.allKnownProperties()) {
 	    if (info.name(p) == property) {
-		info.set(p, QVariant(value));
+		if (value.length())
+		    info.set(p, QVariant(value)); // add/modify
+		else
+		    info.set(p, QVariant());      // delete
 		found = true;
 		break;
 	    }

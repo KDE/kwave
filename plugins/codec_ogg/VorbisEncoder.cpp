@@ -86,6 +86,13 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     const unsigned int tracks = info.tracks();
     const long int sample_rate = static_cast<const long int>(info.rate());
 
+    if (tracks > 2) {
+	Kwave::MessageBox::sorry(widget,
+	    i18n("This codec supports only mono or stereo files, "
+	         "%1 channels are not supported.", tracks));
+	return false;
+    }
+
     // ABR bitrates
     int bitrate_nominal = info.contains(Kwave::INF_BITRATE_NOMINAL) ?
         QVariant(info.get(Kwave::INF_BITRATE_NOMINAL)).toInt() : -1;

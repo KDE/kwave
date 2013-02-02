@@ -9,6 +9,8 @@ o toolbar button for "SaveAs" and for "Close"
 o support for Vorbis Chapter Extension <=> map to Kwave labels
   see http://wiki.xiph.org/VorbisComment
 
+o Ogg/Vorbis: support > 2 channels or downmixing
+
 o FLAC in Ogg container
 
 o SPEEX in Ogg container

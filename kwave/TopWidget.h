@@ -304,11 +304,13 @@ namespace Kwave
 
 	/**
 	 * Opens a dialog for saving the current .wav file.
+	 * @param filename the name of the new file
+	 *                 or empty string to open the File/SaveAs dialog
 	 * @param selection if set to true, only the current selection
 	 *        will be saved
 	 * @return zero if succeeded, non-zero if failed
 	 */
-	int saveFileAs(bool selection = false);
+	int saveFileAs(const QString &filename, bool selection = false);
 
 	/**
 	 * Opens a file contained in the list of recent files.

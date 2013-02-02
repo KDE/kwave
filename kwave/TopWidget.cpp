@@ -641,15 +641,16 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("save")
 	result = saveFile();
     CASE_COMMAND("close")
-	result = closeFile();
+	result = closeFile() ? 0 : 1;
     CASE_COMMAND("revert")
 	result = revert();
-    CASE_COMMAND("saveas")
-	result = saveFileAs(false);
+    CASE_COMMAND("saveas") {
+	result = saveFileAs(parser.nextParam(), false);
+    }
     CASE_COMMAND("loadbatch")
 	result = loadBatch(parser.nextParam());
     CASE_COMMAND("saveselect")
-	result = saveFileAs(true);
+	result = saveFileAs(QString(), true);
     CASE_COMMAND("quit")
 	result = (close()) ? 0 : -1;
     CASE_COMMAND("reset_toolbars")
@@ -766,7 +767,8 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 
 	// emit the command
 	result = executeCommand(line);
-// 	qDebug(">>> '%s' - result=%d", DBG(line), result);
+	if (result)
+	    qDebug(">>> '%s' - result=%d", DBG(line), result);
 
 	// synchronize after the command
 	if (m_context.pluginManager()) m_context.pluginManager()->sync();
@@ -939,8 +941,8 @@ int Kwave::TopWidget::saveFile()
 
 	// if saving in current format is not possible (no encoder),
 	// then try to "save/as" instead...
-	if (res == -EINVAL) res = saveFileAs(false);
-    } else res = saveFileAs(false);
+	if (res == -EINVAL) res = saveFileAs(QString(), false);
+    } else res = saveFileAs(QString(), false);
 
     updateCaption();
     updateMenu();
@@ -953,7 +955,7 @@ int Kwave::TopWidget::saveFile()
 }
 
 //***************************************************************************
-int Kwave::TopWidget::saveFileAs(bool selection)
+int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     int res = 0;
@@ -961,57 +963,68 @@ int Kwave::TopWidget::saveFileAs(bool selection)
     Q_ASSERT(signal_manager);
     if (!m_main_widget || !signal_manager) return -EINVAL;
 
-    KUrl current_url;
-    current_url = signalName();
+    QString name = filename;
+    KUrl url;
 
-    QString what  = Kwave::CodecManager::whatContains(current_url);
-    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
-    QString extension; // = "*.wav";
-    if (!encoder) {
-	// no extension selected yet, use mime type from file info
-	QString mime_type = Kwave::FileInfo(
-	    signal_manager->metaData()).get(Kwave::INF_MIMETYPE).toString();
-	encoder = Kwave::CodecManager::encoder(mime_type);
-	if (encoder) {
-	    QStringList extensions = encoder->extensions(mime_type);
-	    if (!extensions.isEmpty()) {
-		QString ext = extensions.first().split(_(" ")).first();
-		if (ext.length()) {
-		    extension = ext;
-		    QString filename = current_url.fileName();
-		    filename += extension.mid(1); // remove the "*"
-		    current_url.setFileName(filename);
+    if (name.length()) {
+	/* name given -> take it */
+	url = KUrl(name);
+    } else {
+	/*
+	 * no name given -> show the File/SaveAs dialog...
+	 */
+	KUrl current_url;
+	current_url = signalName();
+
+	QString what  = Kwave::CodecManager::whatContains(current_url);
+	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
+	QString extension; // = "*.wav";
+	if (!encoder) {
+	    // no extension selected yet, use mime type from file info
+	    QString mime_type = Kwave::FileInfo(
+		signal_manager->metaData()).get(Kwave::INF_MIMETYPE).toString();
+	    encoder = Kwave::CodecManager::encoder(mime_type);
+	    if (encoder) {
+		QStringList extensions = encoder->extensions(mime_type);
+		if (!extensions.isEmpty()) {
+		    QString ext = extensions.first().split(_(" ")).first();
+		    if (ext.length()) {
+			extension = ext;
+			QString filename = current_url.fileName();
+			filename += extension.mid(1); // remove the "*"
+			current_url.setFileName(filename);
+		    }
 		}
 	    }
 	}
-    }
 
-    QString filter = Kwave::CodecManager::encodingFilter();
-    Kwave::FileDialog dlg(_("kfiledialog:///kwave_save_as"),
-        filter, this, true, current_url.prettyUrl(), extension);
-    dlg.setOperationMode(KFileDialog::Saving);
-    dlg.setCaption(i18n("Save As"));
-    if (dlg.exec() != QDialog::Accepted) return -1;
+	QString filter = Kwave::CodecManager::encodingFilter();
+	Kwave::FileDialog dlg(_("kfiledialog:///kwave_save_as"),
+	    filter, this, true, current_url.prettyUrl(), extension);
+	dlg.setOperationMode(KFileDialog::Saving);
+	dlg.setCaption(i18n("Save As"));
+	if (dlg.exec() != QDialog::Accepted) return -1;
 
-    KUrl url = dlg.selectedUrl();
-    if (url.isEmpty()) return 0;
+	url = dlg.selectedUrl();
+	if (url.isEmpty()) return 0;
 
-    QString name = url.path();
-    QFileInfo path(name);
+	QString name = url.path();
+	QFileInfo path(name);
 
-    // add the correct extension if necessary
-    if (!path.suffix().length()) {
-	QString ext = dlg.selectedExtension();
-	QStringList extensions = ext.split(_(" "));
-	ext = extensions.first();
-	name += ext.mid(1);
-	path = name;
-	url.setPath(name);
+	// add the correct extension if necessary
+	if (!path.suffix().length()) {
+	    QString ext = dlg.selectedExtension();
+	    QStringList extensions = ext.split(_(" "));
+	    ext = extensions.first();
+	    name += ext.mid(1);
+	    path = name;
+	    url.setPath(name);
+	}
     }
 
     // check if the file exists and ask before overwriting it
     // if it is not the old filename
-    if ((name != signalName()) && (path.exists())) {
+    if ((name != signalName()) && (QFileInfo(name).exists())) {
 	if (Kwave::MessageBox::warningYesNo(this,
 	    i18n("The file '%1' already exists.\n"
 	         "Do you really want to overwrite it?", name)) !=

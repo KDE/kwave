@@ -127,7 +127,7 @@ namespace Kwave
 	 */
 	QString description(IDX type, bool localized) const
 	{
-	    Q_ASSERT(m_list.contains(type));
+	    if (!m_list.contains(type)) return QString();
 	    QString s(m_list[type].third());
 	    return (localized) ? i18n(s.toAscii()) : s;
 	}

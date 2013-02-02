@@ -160,7 +160,8 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 	    int comp = QVariant(m_info.get(Kwave::INF_COMPRESSION)).toInt();
 	    if (!comps.contains(comp)) {
 		Kwave::Compression comp_old(comp);
-		Kwave::Compression comp_new(comps.last());
+		Kwave::Compression comp_new = (!comps.isEmpty()) ?
+		    comps.last() : Kwave::Compression::NONE;
 		qDebug("compression '%s' not supported: switch to '%s'",
 		    DBG(comp_old.name()), DBG(comp_new.name()));
 		comp = comp_new.toInt();
@@ -179,7 +180,8 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 		}
 	    }
 	    if (!found || (comp_found != comp)) {
-		int cn = (comp_found == -1) ? comps.last() : comp_found;
+		int cn = ((comp_found == -1) && !comps.isEmpty()) ?
+		    comps.last() : comp_found;
 		Kwave::Compression comp_old(comp);
 		Kwave::Compression comp_new(cn);
 		qDebug("mime type/compression mismatch: "

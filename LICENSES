@@ -555,7 +555,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/codec_ogg/OpusCommon.h			GPL2+
 	plugins/codec_ogg/OpusDecoder.cpp		GPL2+
 	plugins/codec_ogg/OpusDecoder.h			GPL2+
-	plugins/codec_ogg/OpusEncoder.cpp		GPL2+
+	plugins/codec_ogg/OpusEncoder.cpp		GPL2+ => see source
 	plugins/codec_ogg/OpusEncoder.h			GPL2+
 	plugins/codec_ogg/OpusHeader.h			GPL2+
 	plugins/codec_ogg/VorbisDecoder.cpp		GPL2+

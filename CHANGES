@@ -1,4 +1,4 @@
-0.8.10 [2013-xx-xx]
+0.8.10 [2013-02-09]
 
  * file name cleanup: removed "Kwave" prefix
  * bugfix: added range checks for track selection commands

@@ -4,8 +4,8 @@
   <!ENTITY kappname "&kwave;">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.8.9">
-  <!ENTITY version_tag "0_8_9">
+  <!ENTITY version "0.8.10">
+  <!ENTITY version_tag "0_8_10">
   <!ENTITY version_year "2012">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
@@ -63,7 +63,7 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2012-11-06</date>
+    <date>2013-02-09</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
@@ -336,10 +336,6 @@
             <listitem><para>
                 libsamplerate-0.1.3 or higher (sample rate conversion)
             </para></listitem>
-	    <listitem><para>
-		about 64 MB memory for starting &kwave; (but this may
-		vary depending on your platform and configuration)
-	    </para></listitem>
 	</itemizedlist>
     </para>
 
@@ -358,8 +354,8 @@
 		<ulink url="&url_cmake;">cmake</ulink>-2.4.6 or newer
 	    </para></listitem>
 	    <listitem><para>
-		A C/C++ compiler. GCC-3.4 works fine, some older and any
-		newer version (like gcc-4.1 and newer) work too.
+		A recent C/C++ compiler. GCC-4.x works fine, some older and any
+		newer version (like gcc-4.8 and newer) may work too.
 	    </para></listitem>
 	    <listitem><para>
 		The glibc2 (libc-6) development environment. On SuSE systems

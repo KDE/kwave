@@ -62,7 +62,7 @@ namespace Kwave
 	/**
 	 * returns a pointer to the raw data and advances the internal
 	 * offset afterwards
-	 * @param length maximum number of samples to get
+	 * @param len maximum number of samples to get
 	 * @return pointer to the raw data in the buffer
 	 */
 	virtual const sample_t *get(unsigned int len);

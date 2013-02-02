@@ -99,7 +99,7 @@ namespace Kwave
 	 * set up the downmixing mode
 	 * @param widget a QWidget to be used as parent for error messages
 	 * @param tracks number of tracks
-	 * @param bitrats in bits/sec or -1 for "auto"
+	 * @param bitrate in bits/sec or -1 for "auto"
 	 * @return true if succeeded or false if failed/canceled
 	 */
 	bool setupDownMix(QWidget *widget, unsigned int tracks, int bitrate);

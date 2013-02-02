@@ -109,6 +109,8 @@ void Kwave::BandPass::setfilter_2polebp(double freq, double R)
 //***************************************************************************
 void Kwave::BandPass::input(Kwave::SampleArray data)
 {
+    if (m_buffer.size() != data.size()) m_buffer.resize(data.size());
+
     setfilter_2polebp(m_frequency, m_bandwidth);
 
     Q_ASSERT(data.size() == m_buffer.size());

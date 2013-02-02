@@ -72,13 +72,14 @@ void Kwave::PitchShiftFilter::initFilter()
 //***************************************************************************
 void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 {
-    Q_ASSERT(data.size() == m_buffer.size());
+    Q_ASSERT(static_cast<int>(data.size()) <= m_dbuffer.size());
+    if (m_buffer.size() != data.size()) m_buffer.resize(data.size());
 
     float pi2 = 2*M_PI;
     float lfo, b1value, b2value;
     float lfoposinc = m_frequency;
 
-    for (unsigned int pos=0; pos < m_buffer.size(); pos++) {
+    for (unsigned int pos = 0; pos < m_buffer.size(); pos++) {
 	/*
 	 * fill delay buffer with the input signal
 	 */

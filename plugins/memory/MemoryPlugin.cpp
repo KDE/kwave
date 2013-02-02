@@ -32,12 +32,25 @@
 KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.3",
              I18N_NOOP("Memory Settings"), "Thomas Eschenbacher");
 
+/** default memory limit for physical memory [MB] */
+#define DEFAULT_PHYSICAL_LIMIT 1024
+
+/** default memory limit for swap space [MB] */
+#define DEFAULT_VIRTUAL_LIMIT 2048
+
+/** default memory limit for undo memory [MB] */
+#define DEFAULT_UNDO_LIMIT 512
+
 //***************************************************************************
 Kwave::MemoryPlugin::MemoryPlugin(Kwave::PluginManager &plugin_manager)
     :Kwave::Plugin(plugin_manager),
-     m_physical_limited(true), m_physical_limit(256),
-     m_virtual_enabled(true), m_virtual_limited(false), m_virtual_limit(512),
-     m_virtual_directory(_("/var/tmp")), m_undo_limit(256)
+     m_physical_limited(true),
+     m_physical_limit(DEFAULT_PHYSICAL_LIMIT),
+     m_virtual_enabled(true),
+     m_virtual_limited(false),
+     m_virtual_limit(DEFAULT_VIRTUAL_LIMIT),
+     m_virtual_directory(_("/var/tmp")),
+     m_undo_limit(DEFAULT_UNDO_LIMIT)
 {
 }
 

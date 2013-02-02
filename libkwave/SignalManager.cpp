@@ -270,6 +270,9 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	delete decoder;
     }
 
+    // flush the envent queue, to avoid delayed modifications of the signal
+    qApp->sendPostedEvents();
+
     // remember the last length and selection
     m_last_length = length();
     rememberCurrentSelection();

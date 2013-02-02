@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <QtGui/QAbstractButton>
+#include <QtGui/QPushButton>
 #include <QtCore/QBuffer>
 #include <QtGui/QCursor>
 #include <QtCore/QDir>
@@ -328,6 +329,9 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
 
     CONNECT(edEncoderHelp);
     CONNECT(edVersionInfo);
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 /***************************************************************************/

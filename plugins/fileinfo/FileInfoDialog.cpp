@@ -24,6 +24,7 @@
 #include <QtCore/QFileInfo>
 #include <QtGui/QLabel>
 #include <QtGui/QListWidget>
+#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
@@ -88,6 +89,9 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
     setupSourceTab();
     setupAuthorCopyrightTab();
     setupMiscellaneousTab();
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

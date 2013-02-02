@@ -21,6 +21,7 @@
 
 #include <QtGui/QCheckBox>
 #include <QtGui/QLabel>
+#include <QtGui/QPushButton>
 #include <QtCore/QObject>
 #include <QtGui/QSlider>
 #include <QtCore/QString>
@@ -81,6 +82,9 @@ Kwave::MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
     // set fixed size
     setFixedWidth(sizeHint().width());
     setFixedHeight(sizeHint().height());
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

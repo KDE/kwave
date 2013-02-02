@@ -18,6 +18,7 @@
 #include "config.h"
 #include <math.h>
 
+#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 
@@ -50,6 +51,9 @@ Kwave::SelectRangeDialog::SelectRangeDialog(QWidget *widget,
 
     setMinimumSize(sizeHint());
     setFixedSize(sizeHint());
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

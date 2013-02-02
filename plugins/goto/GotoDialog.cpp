@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <QtGui/QPushButton>
+
 #include "GotoDialog.h"
 
 //***************************************************************************
@@ -34,6 +36,9 @@ Kwave::GotoDialog::GotoDialog(QWidget *widget, Mode mode, sample_index_t pos,
 
     setMinimumSize(sizeHint());
     setFixedSize(sizeHint());
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

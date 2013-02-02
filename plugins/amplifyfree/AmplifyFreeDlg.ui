@@ -104,7 +104,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="KDialogButtonBox" name="buttonBox_Help">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -130,7 +130,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox_2">
+      <widget class="KDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -166,7 +166,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox_2</sender>
+   <sender>buttonBox</sender>
    <signal>accepted()</signal>
    <receiver>AmplifyFreeDlg</receiver>
    <slot>accept()</slot>
@@ -182,7 +182,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox_2</sender>
+   <sender>buttonBox</sender>
    <signal>rejected()</signal>
    <receiver>AmplifyFreeDlg</receiver>
    <slot>reject()</slot>

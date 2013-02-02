@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <QtGui/QPushButton>
+
 #include <kdatepicker.h>
 
 #include "SelectDateDialog.h"
@@ -27,6 +29,9 @@ Kwave::SelectDateDialog::SelectDateDialog(QWidget *parent, QDate &date)
 {
     setupUi(this);
     datePicker->setDate(date);
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

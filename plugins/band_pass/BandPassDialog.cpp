@@ -19,6 +19,7 @@
 #include "math.h"
 
 #include <QtGui/QPainter>
+#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QWidget>
@@ -97,6 +98,9 @@ Kwave::BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
     if (height() < h) resize(width(), h);
     int w = (height() * 5) / 3;
     if (width() < w) resize(w, height());
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

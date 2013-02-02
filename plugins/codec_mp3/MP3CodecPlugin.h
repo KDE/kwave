@@ -40,6 +40,9 @@ namespace Kwave
 	/** Returns the name of the plugin. */
 	virtual QString name() const;
 
+	/** @see Kwave::Plugin::load() */
+	virtual void load(QStringList &params);
+
 	/**
 	 * Shows a dialog to set up the plugin, configure all paths,
 	 * presets and other parameters...

@@ -296,6 +296,9 @@ and scroll capability.</string>
        <property name="standardButtons">
         <set>QDialogButtonBox::Close</set>
        </property>
+       <property name="centerButtons">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>

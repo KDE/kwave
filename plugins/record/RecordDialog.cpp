@@ -304,6 +304,8 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     tabRecord->setCurrentIndex(0);
     if (page) delete page;
 
+    // set the focus onto the "Record" button
+    btRecord->setFocus();
 }
 
 //***************************************************************************

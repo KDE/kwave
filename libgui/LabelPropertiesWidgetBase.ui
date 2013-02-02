@@ -141,7 +141,7 @@ This is just a numeric index of the label, starting with zero, sorted by positio
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="dialogButtonBox">
+      <widget class="KDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -173,7 +173,7 @@ This is just a numeric index of the label, starting with zero, sorted by positio
  <tabstops>
   <tabstop>edDescription</tabstop>
   <tabstop>dialogButtonBox_2</tabstop>
-  <tabstop>dialogButtonBox</tabstop>
+  <tabstop>buttonBox</tabstop>
   <tabstop>lblIndex</tabstop>
   <tabstop>time</tabstop>
  </tabstops>
@@ -183,7 +183,7 @@ This is just a numeric index of the label, starting with zero, sorted by positio
  <resources/>
  <connections>
   <connection>
-   <sender>dialogButtonBox</sender>
+   <sender>buttonBox</sender>
    <signal>accepted()</signal>
    <receiver>LabelPropertiesWidgetBase</receiver>
    <slot>accept()</slot>
@@ -199,7 +199,7 @@ This is just a numeric index of the label, starting with zero, sorted by positio
    </hints>
   </connection>
   <connection>
-   <sender>dialogButtonBox</sender>
+   <sender>buttonBox</sender>
    <signal>rejected()</signal>
    <receiver>LabelPropertiesWidgetBase</receiver>
    <slot>reject()</slot>

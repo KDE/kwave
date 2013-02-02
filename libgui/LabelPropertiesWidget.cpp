@@ -18,6 +18,8 @@
 #include "config.h"
 #include "math.h"
 
+#include <QtGui/QPushButton>
+
 #include <kapplication.h>
 #include <kconfig.h>
 #include <klineedit.h>
@@ -39,6 +41,9 @@ Kwave::LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent)
     Q_ASSERT(time);
     if (time) time->setTitle(QString());
     setFixedSize(sizeHint());
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

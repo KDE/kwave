@@ -164,6 +164,9 @@ Kwave::AboutDialog::AboutDialog(
     /* the frame containing the license */
     licenseframe->setReadOnly(true);
     licenseframe->setText(about_data->license());
+
+    // set the focus onto the "OK" button
+    buttonBox->setFocus();
 }
 
 //***************************************************************************

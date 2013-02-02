@@ -42,6 +42,14 @@ Kwave::MP3CodecPlugin::~MP3CodecPlugin()
 {
 }
 
+/***************************************************************************/
+void Kwave::MP3CodecPlugin::load(QStringList &params)
+{
+    emitCommand(_("menu (plugin:setup(codec_mp3), &Options/%1)").arg(
+        i18n("MP3 Encoder Setup")));
+    Kwave::CodecPlugin::load(params);
+}
+
 //***************************************************************************
 QStringList *Kwave::MP3CodecPlugin::setup(QStringList &previous_params)
 {

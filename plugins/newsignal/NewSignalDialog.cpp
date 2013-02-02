@@ -23,6 +23,7 @@
 
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
+#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
@@ -118,6 +119,9 @@ Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
     // that dialog is big enough, limit it to it's optimal size
     setFixedHeight(sizeHint().height());
     setFixedWidth(sizeHint().width());
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

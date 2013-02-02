@@ -20,6 +20,7 @@
 
 #include <QtGui/QColor>
 #include <QtGui/QPainter>
+#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
@@ -74,6 +75,9 @@ Kwave::VolumeDialog::VolumeDialog(QWidget *parent,
     // set default: +3dB
     setMode(m_mode);
     updateDisplay(+1.412538);
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

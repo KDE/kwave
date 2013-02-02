@@ -25,6 +25,7 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
+#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtCore/QString>
@@ -94,6 +95,9 @@ Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     );
     connect(pointslider, SIGNAL(valueChanged(int)), SLOT(setPoints(int)));
     connect(pointbox,    SIGNAL(activated(int)),    SLOT(setBoxPoints(int)));
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

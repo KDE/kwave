@@ -21,6 +21,7 @@
 
 #include <QtGui/QIcon>
 #include <QtGui/QLabel>
+#include <QtGui/QPushButton>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QTreeWidgetItem>
 #include <QtGui/QSlider>
@@ -122,6 +123,9 @@ Kwave::PlayBackDialog::PlayBackDialog(
 
     // buffer size is independend
     setBufferSize(params.bufbase);
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

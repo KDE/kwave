@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <QtGui/QPushButton>
+
 #include <klocale.h>
 
 #include "libkwave/Parser.h"
@@ -44,6 +46,8 @@ Kwave::AmplifyFreeDialog::AmplifyFreeDialog(QWidget *parent)
     yScale->setLogMode(false);
     yScale->setUnit(i18n("%"));
 
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

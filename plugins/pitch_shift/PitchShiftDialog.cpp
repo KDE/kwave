@@ -18,6 +18,7 @@
 #include "config.h"
 #include "math.h"
 
+#include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
@@ -74,6 +75,9 @@ Kwave::PitchShiftDialog::PitchShiftDialog(QWidget *parent)
     setFixedHeight(sizeHint().height());
     int w = (height() * 3) / 5;
     if (width() < w) resize(w, height());
+
+    // set the focus onto the "OK" button
+    buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 //***************************************************************************

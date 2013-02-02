@@ -20,17 +20,13 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <ogg/ogg.h>
-
-#include <QtCore/QByteArray>
 #include <QtCore/QList>
-#include <QtCore/QTime>
+#include <QtCore/QSharedPointer>
 
 #include <klocale.h>
 #include <kmimetype.h>
 #include <kapplication.h>
 #include <kglobal.h>
-#include <kaboutdata.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
@@ -47,10 +43,8 @@
 
 /***************************************************************************/
 Kwave::OggEncoder::OggEncoder()
-    :Kwave::Encoder(), m_sub_encoder(0), m_comments_map()
+    :Kwave::Encoder(), m_comments_map()
 {
-    REGISTER_COMMON_MIME_TYPES;
-
 #ifdef HAVE_OGG_OPUS
     REGISTER_OGG_OPUS_MIME_TYPES;
     REGISTER_COMPRESSION_TYPE_OGG_OPUS;
@@ -65,8 +59,6 @@ Kwave::OggEncoder::OggEncoder()
 /***************************************************************************/
 Kwave::OggEncoder::~OggEncoder()
 {
-    delete m_sub_encoder;
-    m_sub_encoder = 0;
 }
 
 /***************************************************************************/
@@ -87,16 +79,7 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
                                const Kwave::MetaDataList &meta_data)
 {
     const Kwave::FileInfo info(meta_data);
-
-    ogg_stream_state os; // take physical pages, weld into a logical stream of packets
-    ogg_page         og; // one Ogg bitstream page.  Vorbis packets are inside
-    ogg_packet       op; // one raw packet of data for decode
-
-    // get rid of the previous sub decoder
-    if (m_sub_encoder) {
-	delete m_sub_encoder;
-	m_sub_encoder = 0;
-    }
+    QSharedPointer<Kwave::OggSubEncoder> sub_encoder;
 
     // determine which codec (sub encoder) to use,
     // by examining the compression type
@@ -106,18 +89,19 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 #ifdef HAVE_OGG_OPUS
     if (compression == Compression::OGG_OPUS) {
 	qDebug("    OggEncoder: using Opus codec");
-	m_sub_encoder =
-	    new Kwave::OpusEncoder(os, og, op);
+	sub_encoder =
+	    QSharedPointer<Kwave::OpusEncoder>(new Kwave::OpusEncoder());
     }
 #endif /* HAVE_OGG_OPUS */
 #ifdef HAVE_OGG_VORBIS
     if (compression == Compression::OGG_VORBIS) {
 	qDebug("    OggEncoder: using Vorbis codec");
-	m_sub_encoder = new Kwave::VorbisEncoder(os, og, op);
+	sub_encoder =
+	    QSharedPointer<Kwave::VorbisEncoder>(new Kwave::VorbisEncoder());
     }
 #endif /* HAVE_OGG_VORBIS */
 
-    if (!m_sub_encoder) {
+    if (!sub_encoder) {
 	qDebug("    OggEncoder: compression='%d'", compression);
 	Kwave::MessageBox::error(widget, i18nc(
 	    "error in Ogg encoder, no support for a compression type "
@@ -128,7 +112,7 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	return false;
     }
 
-    if (!m_sub_encoder->open(widget, info, src))
+    if (!sub_encoder->open(widget, info, src))
 	return false;
 
     // open the output device
@@ -138,24 +122,16 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	return false;
     }
 
-    // set up our packet->stream encoder
-    // pick a random serial number; that way we can more likely build
-    // chained streams just by concatenation
-    srand(QTime::currentTime().msec());
-    ogg_stream_init(&os, rand());
-
-    if (!m_sub_encoder->writeHeader(dst))
+    if (!sub_encoder->writeHeader(dst))
 	return false;
 
-    if (!m_sub_encoder->encode(src, dst))
+    if (!sub_encoder->encode(src, dst))
 	return false;
 
     // clean up and exit.
-    m_sub_encoder->close();
+    sub_encoder->close();
 
-    // delete the sub encoder, it's not needed any more
-    delete m_sub_encoder;
-    m_sub_encoder = 0;
+    // the sub encoder will be deleted automatically (QSharedPointer)
 
     return true;
 }

@@ -68,11 +68,6 @@ namespace Kwave
     /* found in KDE 4: */                                                      \
     addMimeType("audio/x-vorbis+ogg",i18n("Ogg Vorbis audio"), "*.ogg");
 
-#define REGISTER_COMMON_MIME_TYPES                                             \
-    /* Ogg audio, as per RFC5334 */                                            \
-    addMimeType("audio/ogg",         i18n("Ogg audio"),        "*.oga");       \
-    addMimeType("application/ogg",   i18n("Ogg audio"),        "*.ogx");
-
 #define REGISTER_COMPRESSION_TYPE_OGG_OPUS \
     addCompression(Kwave::Compression::OGG_OPUS);
 

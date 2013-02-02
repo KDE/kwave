@@ -61,6 +61,7 @@
 #include <QtCore/QList>
 #include <QtCore/QtGlobal>
 #include <QtCore/QString>
+#include <QtCore/QTime>
 
 #include <klocale.h>
 
@@ -92,16 +93,15 @@
 #define DEFAULT_COMPLEXITY 10
 
 /***************************************************************************/
-Kwave::OpusEncoder::OpusEncoder(ogg_stream_state &os,
-                                ogg_page         &og,
-                                ogg_packet       &op)
-    :m_comments_map(), m_info(), m_os(os), m_og(og), m_op(op),
+Kwave::OpusEncoder::OpusEncoder()
+    :m_comments_map(), m_info(),
      m_downmix(DOWNMIX_AUTO), m_bitrate(0),
      m_coding_rate(0), m_encoder_channels(0), m_channel_mixer(0),
      m_rate_converter(0), m_frame_size(0), m_extra_out(0), m_opus_header(),
      m_max_frame_bytes(0), m_packet_buffer(0), m_encoder(0),
      m_last_queue_element(0), m_buffer(0)
 {
+
     memset(&m_opus_header, 0x00, sizeof(m_opus_header));
     memset(&m_opus_header.map, 0xFF, sizeof(m_opus_header.map));
 }
@@ -585,6 +585,13 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
 
     /* Extra samples that need to be read to compensate for the pre-skip */
     m_extra_out = lookahead;
+
+
+    // set up our packet->stream encoder
+    // pick a random serial number; that way we can more likely build
+    // chained streams just by concatenation
+    srand(QTime::currentTime().msec());
+    ogg_stream_init(&m_os, rand());
 
     return true;
 }

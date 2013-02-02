@@ -44,8 +44,6 @@
 Kwave::OggDecoder::OggDecoder()
     :Kwave::Decoder(), m_sub_decoder(0), m_source(0)
 {
-    REGISTER_COMMON_MIME_TYPES;
-
 #ifdef HAVE_OGG_OPUS
     REGISTER_OGG_OPUS_MIME_TYPES;
     REGISTER_COMPRESSION_TYPE_OGG_OPUS;
@@ -55,6 +53,11 @@ Kwave::OggDecoder::OggDecoder()
     REGISTER_OGG_VORBIS_MIME_TYPES;
     REGISTER_COMPRESSION_TYPE_OGG_VORBIS;
 #endif /* HAVE_OGG_VORBIS */
+
+    /* Ogg audio, as per RFC5334 */
+    addMimeType("audio/ogg",         i18n("Ogg audio"),        "*.oga");
+    addMimeType("application/ogg",   i18n("Ogg audio"),        "*.ogx");
+
 }
 
 //***************************************************************************

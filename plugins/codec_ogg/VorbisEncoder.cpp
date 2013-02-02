@@ -17,9 +17,11 @@
 
 #include "config.h"
 
+#include <math.h>
 #include <string.h>
 
 #include <QtCore/QtGlobal>
+#include <QtCore/QTime>
 
 #include <klocale.h>
 
@@ -37,11 +39,13 @@
 #define DEFAULT_BITRATE 64000
 
 /***************************************************************************/
-Kwave::VorbisEncoder::VorbisEncoder(ogg_stream_state &os,
-                                    ogg_page         &og,
-                                    ogg_packet       &op)
-    :m_comments_map(), m_info(), m_os(os), m_og(og), m_op(op)
+Kwave::VorbisEncoder::VorbisEncoder()
+    :m_comments_map(), m_info()
 {
+    memset(&m_os, 0x00, sizeof(m_os));
+    memset(&m_og, 0x00, sizeof(m_og));
+    memset(&m_op, 0x00, sizeof(m_op));
+
     memset(&m_vb, 0x00, sizeof(m_vb));
     memset(&m_vc, 0x00, sizeof(m_vc));
     memset(&m_vd, 0x00, sizeof(m_vd));
@@ -172,6 +176,13 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     // set up the analysis state and auxiliary encoding storage
     vorbis_analysis_init(&m_vd, &m_vi);
     vorbis_block_init(&m_vd, &m_vb);
+
+
+    // set up our packet->stream encoder
+    // pick a random serial number; that way we can more likely build
+    // chained streams just by concatenation
+    srand(QTime::currentTime().msec());
+    ogg_stream_init(&m_os, rand());
 
     return true;
 }

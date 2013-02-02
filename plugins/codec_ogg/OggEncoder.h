@@ -62,9 +62,6 @@ namespace Kwave
 
     private:
 
-	/** sub encoder, can be Vorbis, Opus, Speex or whatever... */
-	Kwave::OggSubEncoder *m_sub_encoder;
-
 	/** map for translating Opus comments to Kwave FileInfo */
 	Kwave::VorbisCommentMap m_comments_map;
     };

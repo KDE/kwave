@@ -49,13 +49,8 @@ namespace Kwave
 
 	/**
 	 * Constructor
-	 * @param os reference to the ogg stream state
-	 * @param og reference to the ogg page
-	 * @param op reference to the ogg packet
 	 */
-	OpusEncoder(ogg_stream_state &os,
-	            ogg_page         &og,
-	            ogg_packet       &op);
+	OpusEncoder();
 
 	/** Destructor */
 	virtual ~OpusEncoder();
@@ -174,13 +169,13 @@ namespace Kwave
 	Kwave::FileInfo m_info;
 
 	/** take physical pages, weld into a logical stream of packets */
-	ogg_stream_state &m_os;
+	ogg_stream_state m_os;
 
 	/** one Ogg bitstream page.  Opus packets are inside */
-	ogg_page         &m_og;
+	ogg_page         m_og;
 
 	/** one raw packet of data for decode */
-	ogg_packet       &m_op;
+	ogg_packet       m_op;
 
 	/**
 	 * downmix mode: off, automatic, mono or stereo

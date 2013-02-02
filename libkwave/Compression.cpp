@@ -218,7 +218,7 @@ void Kwave::Compression::fillMap()
     m_map.insert(Kwave::Compression::OGG_VORBIS, Kwave::Compression(
 	Kwave::Compression::OGG_VORBIS,
 	_(I18N_NOOP("Ogg Vorbis")),
-	_("audio/x-vorbis+ogg"),
+	_("audio/ogg"),
 	sfmt_none, true, true));
 #endif /* HAVE_OGG_VORBIS */
 

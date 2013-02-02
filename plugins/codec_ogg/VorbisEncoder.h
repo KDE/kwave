@@ -42,13 +42,8 @@ namespace Kwave
 
 	/**
 	 * Constructor
-	 * @param os reference to the ogg stream state
-	 * @param og reference to the ogg page
-	 * @param op reference to the ogg packet
 	 */
-	VorbisEncoder(ogg_stream_state &os,
-	              ogg_page         &og,
-	              ogg_packet       &op);
+	VorbisEncoder();
 
 	/** Destructor */
 	virtual ~VorbisEncoder();
@@ -99,13 +94,13 @@ namespace Kwave
 	Kwave::FileInfo m_info;
 
 	/** take physical pages, weld into a logical stream of packets */
-	ogg_stream_state &m_os;
+	ogg_stream_state m_os;
 
 	/** one Ogg bitstream page.  Vorbis packets are inside */
-	ogg_page         &m_og;
+	ogg_page         m_og;
 
 	/** one raw packet of data for decode */
-	ogg_packet       &m_op;
+	ogg_packet       m_op;
 
 	/** struct that stores all the static vorbis bitstream settings */
 	vorbis_info      m_vi;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-02 17:53+0100\n"
+"POT-Creation-Date: 2013-02-03 09:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: kwave/MainWidget.cpp:889 libkwave/SignalManager.cpp:1824
+#: kwave/MainWidget.cpp:887 libkwave/SignalManager.cpp:1824
 msgid "Add Label"
 msgstr ""
 
-#: kwave/MainWidget.cpp:1007
+#: kwave/MainWidget.cpp:1005
 msgid ""
 "There already is a label at the position you have chosen.\n"
 "Do you want to replace it?"
 msgstr ""
 
-#: kwave/MainWidget.cpp:1034
+#: kwave/MainWidget.cpp:1032
 msgid "Modify Label"
 msgstr ""
 
@@ -652,13 +652,13 @@ msgstr ""
 msgid "To Previous Labels"
 msgstr ""
 
-#: libkwave/undo/UndoAddMetaDataAction.cpp:103
+#: libkwave/undo/UndoAddMetaDataAction.cpp:107
 #, kde-format
 msgctxt "name of the undo action for inserting a meta data object"
 msgid "Insert %1"
 msgstr ""
 
-#: libkwave/undo/UndoAddMetaDataAction.cpp:123
+#: libkwave/undo/UndoAddMetaDataAction.cpp:127
 #, kde-format
 msgctxt ""
 "name of the undo action for inserting multiple meta data objects of the same "
@@ -666,7 +666,7 @@ msgctxt ""
 msgid "Insert %1 %2 objects"
 msgstr ""
 
-#: libkwave/undo/UndoAddMetaDataAction.cpp:129
+#: libkwave/undo/UndoAddMetaDataAction.cpp:133
 msgid "Insert Meta Data"
 msgstr ""
 
@@ -788,8 +788,8 @@ msgctxt "%1=Progress in percentage, %2=path to file"
 msgid "(%1%) %2"
 msgstr ""
 
-#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:263
-#: plugins/record/RecordDialog.cpp:579 plugins/record/ui_RecordDlg.h:1058
+#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:267
+#: plugins/record/RecordDialog.cpp:581 plugins/record/ui_RecordDlg.h:1058
 #, kde-format
 msgid "%1 samples"
 msgstr ""
@@ -2173,16 +2173,16 @@ msgstr ""
 msgid "Plugins found: %1"
 msgstr ""
 
-#: plugins/about/AboutPlugin.cpp:28 plugins/about/ui_AboutDialogBase.h:281
+#: plugins/about/AboutPlugin.cpp:28 plugins/about/ui_AboutDialogBase.h:282
 msgid "About Kwave"
 msgstr ""
 
-#: plugins/amplifyfree/AmplifyFreeDialog.cpp:40
+#: plugins/amplifyfree/AmplifyFreeDialog.cpp:42
 #: plugins/sonagram/SonagramWindow.cpp:146
 msgid "ms"
 msgstr ""
 
-#: plugins/amplifyfree/AmplifyFreeDialog.cpp:45
+#: plugins/amplifyfree/AmplifyFreeDialog.cpp:47
 #: plugins/record/ui_RecordDlg.h:986
 msgid "%"
 msgstr ""
@@ -2193,31 +2193,31 @@ msgstr ""
 msgid "Amplify Free"
 msgstr ""
 
-#: plugins/band_pass/BandPassDialog.cpp:56
-#: plugins/lowpass/LowPassDialog.cpp:55
-#: plugins/notch_filter/NotchFilterDialog.cpp:59
+#: plugins/band_pass/BandPassDialog.cpp:57
+#: plugins/lowpass/LowPassDialog.cpp:56
+#: plugins/notch_filter/NotchFilterDialog.cpp:60
 #: plugins/sonagram/SonagramWindow.cpp:152
 msgid "Hz"
 msgstr ""
 
-#: plugins/band_pass/BandPassDialog.cpp:61
-#: plugins/lowpass/LowPassDialog.cpp:60
-#: plugins/notch_filter/NotchFilterDialog.cpp:64
-#: plugins/volume/VolumeDialog.cpp:254
+#: plugins/band_pass/BandPassDialog.cpp:62
+#: plugins/lowpass/LowPassDialog.cpp:61
+#: plugins/notch_filter/NotchFilterDialog.cpp:65
+#: plugins/volume/VolumeDialog.cpp:258
 msgid "dB"
-msgstr ""
-
-#: plugins/band_pass/BandPassDialog.cpp:184
-#: plugins/lowpass/LowPassDialog.cpp:160
-#: plugins/notch_filter/NotchFilterDialog.cpp:188
-#: plugins/pitch_shift/PitchShiftDialog.cpp:317
-msgid "&Stop"
 msgstr ""
 
 #: plugins/band_pass/BandPassDialog.cpp:188
 #: plugins/lowpass/LowPassDialog.cpp:164
 #: plugins/notch_filter/NotchFilterDialog.cpp:192
 #: plugins/pitch_shift/PitchShiftDialog.cpp:321
+msgid "&Stop"
+msgstr ""
+
+#: plugins/band_pass/BandPassDialog.cpp:192
+#: plugins/lowpass/LowPassDialog.cpp:168
+#: plugins/notch_filter/NotchFilterDialog.cpp:196
+#: plugins/pitch_shift/PitchShiftDialog.cpp:325
 #: plugins/band_pass/ui_BandPassDlg.h:198 plugins/lowpass/ui_LowPassDlg.h:191
 #: plugins/notch_filter/ui_NotchFilterDlg.h:224
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:207
@@ -2478,108 +2478,108 @@ msgstr ""
 msgid "&Set Rate"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:202
+#: plugins/fileinfo/FileInfoDialog.cpp:206
 #, kde-format
 msgid "%1 bytes"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:204
+#: plugins/fileinfo/FileInfoDialog.cpp:208
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:207
+#: plugins/fileinfo/FileInfoDialog.cpp:211
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:220
+#: plugins/fileinfo/FileInfoDialog.cpp:224
 #: plugins/newsignal/ui_NewSigDlg.h:475 plugins/record/ui_RecordDlg.h:1011
 msgid "Sample rate:"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:223
+#: plugins/fileinfo/FileInfoDialog.cpp:227
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
 "any sample rate on your own."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:229
+#: plugins/fileinfo/FileInfoDialog.cpp:233
 #: plugins/newsignal/ui_NewSigDlg.h:478 plugins/record/ui_RecordDlg.h:1028
 msgid "Resolution:"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:232
+#: plugins/fileinfo/FileInfoDialog.cpp:236
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:237
+#: plugins/fileinfo/FileInfoDialog.cpp:241
 #: plugins/newsignal/ui_NewSigDlg.h:477 plugins/record/ui_RecordDlg.h:1012
 msgid "Tracks:"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:240
+#: plugins/fileinfo/FileInfoDialog.cpp:244
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:250
+#: plugins/fileinfo/FileInfoDialog.cpp:254
 msgid "Length:"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:253
+#: plugins/fileinfo/FileInfoDialog.cpp:257
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:259
+#: plugins/fileinfo/FileInfoDialog.cpp:263
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:372
+#: plugins/fileinfo/FileInfoDialog.cpp:376
 msgid "Bands 0 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:373
+#: plugins/fileinfo/FileInfoDialog.cpp:377
 msgid "Bands 8 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:374
+#: plugins/fileinfo/FileInfoDialog.cpp:378
 msgid "Bands 12 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:375
+#: plugins/fileinfo/FileInfoDialog.cpp:379
 msgid "Bands 16 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:401
-#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:405
+#: plugins/fileinfo/FileInfoDialog.cpp:411
 msgid "Yes"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:401
-#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:405
+#: plugins/fileinfo/FileInfoDialog.cpp:411
 msgid "No"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:553
-#: plugins/newsignal/NewSignalDialog.cpp:302
+#: plugins/fileinfo/FileInfoDialog.cpp:557
+#: plugins/newsignal/NewSignalDialog.cpp:306
 msgid "(Mono)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:556
-#: plugins/newsignal/NewSignalDialog.cpp:305
+#: plugins/fileinfo/FileInfoDialog.cpp:560
+#: plugins/newsignal/NewSignalDialog.cpp:309
 msgid "(Stereo)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:559
-#: plugins/newsignal/NewSignalDialog.cpp:308
+#: plugins/fileinfo/FileInfoDialog.cpp:563
+#: plugins/newsignal/NewSignalDialog.cpp:312
 msgid "(Quadro)"
 msgstr ""
 
@@ -2616,7 +2616,7 @@ msgstr ""
 msgid "New Signal"
 msgstr ""
 
-#: plugins/newsignal/NewSignalDialog.cpp:333
+#: plugins/newsignal/NewSignalDialog.cpp:337
 #, kde-format
 msgid "(Resulting file size: %1 MB)"
 msgstr ""
@@ -2743,34 +2743,34 @@ msgid "ALSA playback device (adsp*)"
 msgstr ""
 
 #: plugins/playback/PlayBack-OSS.cpp:410 plugins/record/Record-OSS.cpp:296
-#: plugins/record/RecordDialog.cpp:599
+#: plugins/record/RecordDialog.cpp:601
 msgid "Any device (*)"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:500
+#: plugins/playback/PlayBackDialog.cpp:504
 #, kde-format
 msgid "%1 Bytes"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:502
+#: plugins/playback/PlayBackDialog.cpp:506
 #, kde-format
 msgid "%1 kB"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:599
+#: plugins/playback/PlayBackDialog.cpp:603
 msgid "(mono)"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:600
+#: plugins/playback/PlayBackDialog.cpp:604
 #: plugins/playback/ui_PlayBackDlg.h:402
 msgid "(stereo)"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:601
+#: plugins/playback/PlayBackDialog.cpp:605
 msgid "(quadro)"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:630
+#: plugins/playback/PlayBackDialog.cpp:634
 msgid "Select Playback Device"
 msgstr ""
 
@@ -2847,127 +2847,127 @@ msgstr ""
 msgid "ALSA recording device (adsp*)"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:597
+#: plugins/record/RecordDialog.cpp:599
 msgid "OSS record device (dsp*)"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:598
+#: plugins/record/RecordDialog.cpp:600
 msgid "ALSA record device (adsp*)"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:605
+#: plugins/record/RecordDialog.cpp:607
 msgid "Select Record Device"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:698 plugins/record/RecordPlugin.cpp:456
+#: plugins/record/RecordDialog.cpp:700 plugins/record/RecordPlugin.cpp:456
 #: plugins/record/RecordPlugin.cpp:464
 msgid "Mono"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:701 plugins/record/RecordPlugin.cpp:457
+#: plugins/record/RecordDialog.cpp:703 plugins/record/RecordPlugin.cpp:457
 #: plugins/record/RecordPlugin.cpp:465
 msgid "Stereo"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:704 plugins/record/RecordPlugin.cpp:458
+#: plugins/record/RecordDialog.cpp:706 plugins/record/RecordPlugin.cpp:458
 #: plugins/record/RecordPlugin.cpp:466
 msgid "Quadro"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:715
+#: plugins/record/RecordDialog.cpp:717
 #, kde-format
 msgid "%1 tracks"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:770
+#: plugins/record/RecordDialog.cpp:772
 #, kde-format
 msgid "%1 Hz"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:864
+#: plugins/record/RecordDialog.cpp:866
 #, kde-format
 msgid "%1 bit"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:975
+#: plugins/record/RecordDialog.cpp:977
 msgid "Please check the source device settings..."
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:987
+#: plugins/record/RecordDialog.cpp:989
 msgid "(empty)"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:998
+#: plugins/record/RecordDialog.cpp:1000
 msgid "Buffering..."
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:1009
+#: plugins/record/RecordDialog.cpp:1011
 msgid "Prerecording..."
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:1020 plugins/record/RecordDialog.cpp:1174
+#: plugins/record/RecordDialog.cpp:1022 plugins/record/RecordDialog.cpp:1176
 msgid "Waiting for trigger..."
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:1031
+#: plugins/record/RecordDialog.cpp:1033
 msgid "Recording..."
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:1049
+#: plugins/record/RecordDialog.cpp:1051
 msgid "Paused"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:1060
+#: plugins/record/RecordDialog.cpp:1062
 msgid "Done"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:1158
+#: plugins/record/RecordDialog.cpp:1160
 #, kde-format
 msgid "one day "
 msgid_plural "%1 days "
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/record/RecordDialog.cpp:1160
+#: plugins/record/RecordDialog.cpp:1162
 #, kde-format
 msgid "one hour "
 msgid_plural "%1 hours "
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/record/RecordDialog.cpp:1162
+#: plugins/record/RecordDialog.cpp:1164
 #, kde-format
 msgid "one minute "
 msgid_plural "%1 minutes "
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/record/RecordDialog.cpp:1165
+#: plugins/record/RecordDialog.cpp:1167
 #, kde-format
 msgid "and %1 second"
 msgid_plural "and %1 seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/record/RecordDialog.cpp:1166
+#: plugins/record/RecordDialog.cpp:1168
 #, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/record/RecordDialog.cpp:1170
+#: plugins/record/RecordDialog.cpp:1172
 #, kde-format
 msgctxt "%1=days; %2=hours; %3=minutes; %4=seconds"
 msgid "Waiting for start in %1%2%3%4..."
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:1189
+#: plugins/record/RecordDialog.cpp:1191
 #, kde-format
 msgid "Length: %1"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:1190
+#: plugins/record/RecordDialog.cpp:1192
 #, kde-format
 msgid "(%1 samples)"
 msgstr ""
@@ -3091,17 +3091,17 @@ msgstr ""
 msgid "Save Blocks"
 msgstr ""
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:213
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:212
 msgid "..."
 msgstr ""
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:218
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:217
 #, kde-format
 msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDialog.cpp:41
+#: plugins/selectrange/SelectRangeDialog.cpp:42
 msgid "Start"
 msgstr ""
 
@@ -3111,12 +3111,12 @@ msgstr ""
 msgid "Select Range"
 msgstr ""
 
-#: plugins/sonagram/SonagramDialog.cpp:145
+#: plugins/sonagram/SonagramDialog.cpp:149
 #, kde-format
 msgid "(resulting window size: %1)"
 msgstr ""
 
-#: plugins/sonagram/SonagramDialog.cpp:148
+#: plugins/sonagram/SonagramDialog.cpp:152
 #, kde-format
 msgid "Size of bitmap: %1x%2"
 msgstr ""
@@ -3205,19 +3205,23 @@ msgstr ""
 msgid "MP3 Codec"
 msgstr ""
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:66 plugins/codec_mp3/MP3CodecPlugin.h:71
+#: plugins/codec_mp3/MP3CodecPlugin.cpp:49
+msgid "MP3 Encoder Setup"
+msgstr ""
+
+#: plugins/codec_mp3/MP3CodecPlugin.h:69 plugins/codec_mp3/MP3CodecPlugin.h:74
 msgid "MPEG layer III audio"
 msgstr ""
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:69
+#: plugins/codec_mp3/MP3CodecPlugin.h:72
 msgid "MPEG audio"
 msgstr ""
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:70 plugins/codec_mp3/MP3CodecPlugin.h:76
+#: plugins/codec_mp3/MP3CodecPlugin.h:73 plugins/codec_mp3/MP3CodecPlugin.h:79
 msgid "MPEG layer II audio"
 msgstr ""
 
-#: plugins/codec_mp3/MP3CodecPlugin.h:74
+#: plugins/codec_mp3/MP3CodecPlugin.h:77
 msgid "MPEG layer I audio"
 msgstr ""
 
@@ -3273,15 +3277,15 @@ msgstr ""
 msgid "Do you want to continue and ignore all following errors?"
 msgstr ""
 
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:51
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:52
 msgid "(user defined)"
 msgstr ""
 
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:566
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:570
 msgid "Select MP3 Encoder"
 msgstr ""
 
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:620
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:624
 msgid "Congratulation, the test was successful!"
 msgstr ""
 
@@ -3472,66 +3476,6 @@ msgstr ""
 msgid "Decoder error: %1"
 msgstr ""
 
-#: libgui/ui_SelectTimeWidgetBase.h:287
-msgid "frmLength"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:290
-msgid "select by number of samples"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:292
-msgid "&Samples"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:294
-msgid "select by time"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:296
-msgid "&Time"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:298
-msgid "select by percentage of the signal's length"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:300
-msgid "&Percent"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:301 plugins/newsignal/ui_NewSigDlg.h:498
-msgid "Minutes"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:302
-msgid "Milliseconds"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:303 plugins/newsignal/ui_NewSigDlg.h:497
-msgid "Seconds"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:304 plugins/newsignal/ui_NewSigDlg.h:499
-msgid "Hours"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:305 plugins/newsignal/ui_NewSigDlg.h:506
-msgid "0%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:306 plugins/newsignal/ui_NewSigDlg.h:507
-msgid "50%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:307 plugins/newsignal/ui_NewSigDlg.h:508
-msgid "100%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:309
-msgid "sets the selection by the percentage of the whole signal"
-msgstr ""
-
 #: libgui/ui_HMSTimeWidgetBase.h:78
 msgid "HMSTimeWidgetBase"
 msgstr ""
@@ -3593,6 +3537,66 @@ msgid ""
 "This is just a numeric index of the label, starting with zero, sorted by "
 "position. Lower index means 'left', higher index means 'right'. You cannot "
 "change the index itself, but change the label's position."
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:287
+msgid "frmLength"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:290
+msgid "select by number of samples"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:292
+msgid "&Samples"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:294
+msgid "select by time"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:296
+msgid "&Time"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:298
+msgid "select by percentage of the signal's length"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:300
+msgid "&Percent"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:301 plugins/newsignal/ui_NewSigDlg.h:498
+msgid "Minutes"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:302
+msgid "Milliseconds"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:303 plugins/newsignal/ui_NewSigDlg.h:497
+msgid "Seconds"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:304 plugins/newsignal/ui_NewSigDlg.h:499
+msgid "Hours"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:305 plugins/newsignal/ui_NewSigDlg.h:506
+msgid "0%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:306 plugins/newsignal/ui_NewSigDlg.h:507
+msgid "50%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:307 plugins/newsignal/ui_NewSigDlg.h:508
+msgid "100%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:309
+msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:10
@@ -4039,11 +4043,11 @@ msgstr ""
 msgid "Zoom to Whole Signal"
 msgstr ""
 
-#: plugins/about/ui_AboutDialogBase.h:282
+#: plugins/about/ui_AboutDialogBase.h:283
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr ""
 
-#: plugins/about/ui_AboutDialogBase.h:283
+#: plugins/about/ui_AboutDialogBase.h:284
 msgid ""
 "<h2>Kwave is a sound editor designed for the KDE Desktop Environment. </"
 "h2><br>\n"
@@ -4058,27 +4062,27 @@ msgid ""
 "and scroll capability."
 msgstr ""
 
-#: plugins/about/ui_AboutDialogBase.h:293
+#: plugins/about/ui_AboutDialogBase.h:294
 msgid "About"
 msgstr ""
 
-#: plugins/about/ui_AboutDialogBase.h:294
+#: plugins/about/ui_AboutDialogBase.h:295
 msgid "Authors"
 msgstr ""
 
-#: plugins/about/ui_AboutDialogBase.h:295
+#: plugins/about/ui_AboutDialogBase.h:296
 msgid "Thanks To"
 msgstr ""
 
-#: plugins/about/ui_AboutDialogBase.h:297
+#: plugins/about/ui_AboutDialogBase.h:298
 msgid "Plugins info"
 msgstr ""
 
-#: plugins/about/ui_AboutDialogBase.h:298
+#: plugins/about/ui_AboutDialogBase.h:299
 msgid "Translation"
 msgstr ""
 
-#: plugins/about/ui_AboutDialogBase.h:299
+#: plugins/about/ui_AboutDialogBase.h:300
 msgid "License agreement"
 msgstr ""
 

@@ -2,20 +2,20 @@
 # Copyright (C) 2009 Pavel Fric
 # This file is distributed under the same license as the Kwave package.
 #
-# Pavel Fric <pavelfric@seznam.cz>, 2009, 2010, 2011, 2012.
+# Pavel Fric <pavelfric@seznam.cz>, 2009, 2010, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-03 09:21+0100\n"
-"PO-Revision-Date: 2012-10-31 13:46+0100\n"
+"PO-Revision-Date: 2013-02-03 20:50+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:214
@@ -953,7 +953,6 @@ msgstr ""
 "slov."
 
 #: plugins/fileinfo/ui_CompressionWidgetBase.h:197
-#, fuzzy
 msgid ""
 "<b>Average Bitrate Mode</b><br>\n"
 "Bitrate is set to an average value,\n"
@@ -1381,7 +1380,7 @@ msgstr "?:"
 
 #: plugins/codec_ogg/OpusCommon.cpp:70
 msgid "A decoder structure is invalid or already freed."
-msgstr ""
+msgstr "Struktura dekodéru je neplatná, nebo je již volná."
 
 #: kwave/main.cpp:144
 msgid "A sound editor for KDE"
@@ -1571,7 +1570,7 @@ msgstr "Při ukládání souboru se vyskytla chyba."
 
 #: plugins/codec_ogg/OpusCommon.cpp:61
 msgid "An internal error was detected."
-msgstr ""
+msgstr "Byla zjištěna vnitřní chyba."
 
 #: plugins/normalize/NormalizePlugin.cpp:198
 msgid "Analyzing volume level..."
@@ -1755,16 +1754,15 @@ msgstr "Datový tok"
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
-msgstr ""
+msgstr "Datový tok %1 kB/s je mimo rozsah, omezeno na %2 kB/s"
 
 #: libkwave/FileInfo.cpp:66
-#, fuzzy
 msgid "Bitrate Mode"
-msgstr "Režim průměrného datového toku"
+msgstr "Režim datového toku"
 
 #: libkwave/FileInfo.cpp:67
 msgid "Bitrate Mode (ABR, VBR, CBR, etc...)"
-msgstr ""
+msgstr "Režim datového toku (PrůmDT, PDT, SDT, atd.)"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:769
 msgid "Bitrate:"
@@ -1839,11 +1837,11 @@ msgstr "CCIT J17"
 
 #: libkwave/Compression.cpp:148
 msgid "CCITT G.711 A-law"
-msgstr ""
+msgstr "CCITT G.711 A-law"
 
 #: libkwave/Compression.cpp:143
 msgid "CCITT G.711 u-law"
-msgstr ""
+msgstr "CCITT G.711 u-law"
 
 #: libkwave/FileInfo.cpp:79
 msgid "CD"
@@ -1931,9 +1929,8 @@ msgid "Clip&board"
 msgstr "Sch&ránka"
 
 #: kwave/TopWidget.cpp:235
-#, fuzzy
 msgid "Close the current file"
-msgstr "Uložit nynější soubor"
+msgstr "Zavřít nynější soubor"
 
 #: libkwave/GenreType.cpp:210
 msgid "Club"
@@ -2143,7 +2140,7 @@ msgstr "Funkce pro ladění"
 #: plugins/codec_ogg/OpusCommon.cpp:76
 #, kde-format
 msgid "Decoder error: %1"
-msgstr ""
+msgstr "Chyba dekodéru: %1"
 
 #: plugins/playback/PlayBack-ALSA.cpp:59
 msgid "Default device"
@@ -2318,9 +2315,8 @@ msgid "Duet"
 msgstr "Duet"
 
 #: plugins/debug/DebugPlugin.cpp:68
-#, fuzzy
 msgid "Dump &Meta Data"
-msgstr "Smazat metadata"
+msgstr "Vypsat &popisná data"
 
 #: kwave/menus_config_i18n.cpp:44
 msgid "E&xecute"
@@ -2363,13 +2359,12 @@ msgid "Encoding Mode:"
 msgstr "Režim kódování:"
 
 #: plugins/codec_ogg/OpusDecoder.cpp:150
-#, fuzzy
 msgid "End of file before finding Opus Comment headers."
-msgstr "Ukončení souboru, dokud nebudou nalezeny všechny hlavičky Vorbis."
+msgstr "Ukončení souboru před nalezením hlaviček poznámek Opus."
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:134
 msgid "End of file before finding all Vorbis headers."
-msgstr "Ukončení souboru, dokud nebudou nalezeny všechny hlavičky Vorbis."
+msgstr "Ukončení souboru před nalezením všech hlaviček Vorbis."
 
 #: libkwave/FileInfo.cpp:122
 msgid "Engineer"
@@ -2399,7 +2394,7 @@ msgstr "Chyba při provádění rozboru FLAC metadat. (%s)"
 
 #: plugins/codec_ogg/OggDecoder.cpp:155
 msgid "Error: Codec not supported"
-msgstr ""
+msgstr "Chyba: Kodek nepodporován"
 
 #: plugins/codec_ogg/OggEncoder.cpp:109
 #, kde-format
@@ -2407,16 +2402,15 @@ msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
 "etc)"
 msgid "Error: No Codec for '%1' available"
-msgstr ""
+msgstr "Chyba: Pro '%1' není dostupný žádný kodek"
 
 #: libkwave/FileInfo.cpp:127
 msgid "Estimated Length"
-msgstr ""
+msgstr "Odhadovaná délka"
 
 #: libkwave/FileInfo.cpp:128
-#, fuzzy
 msgid "Estimated length of the file in samples"
-msgstr "Velikost souboru ve vzorcích."
+msgstr "Odhadovaná délka souboru ve vzorcích"
 
 #: libkwave/GenreType.cpp:144
 msgid "Ethnic"
@@ -2681,16 +2675,15 @@ msgstr "Gangsta (druh rapu s texty o životě na ulici,...)"
 
 #: plugins/debug/DebugPlugin.cpp:56
 msgid "Generate 100% DC Level"
-msgstr ""
+msgstr "Vytvořit 100% úroveň DC"
 
 #: plugins/debug/DebugPlugin.cpp:55
 msgid "Generate 50% DC Level"
-msgstr ""
+msgstr "Vytvořit 100% úroveň DC"
 
 #: plugins/debug/DebugPlugin.cpp:58
-#, fuzzy
 msgid "Generate Sawtooth Pattern"
-msgstr "Obrátit pilovitý časový průběh signálu"
+msgstr "Vytvořit pilovitý časový průběh signálu"
 
 #: libkwave/FileInfo.cpp:136
 msgid "Genre"
@@ -2879,7 +2872,6 @@ msgstr ""
 "hlasitost vstupního signálu překročí zvolenou úroveň."
 
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:243
-#, fuzzy
 msgid ""
 "Increments or decrements the speed by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
@@ -2888,7 +2880,6 @@ msgstr ""
 "Například: \"x1\", \"x2\", \"/ 4\""
 
 #: plugins/volume/ui_VolumeDlg.h:245
-#, fuzzy
 msgid ""
 "Increments or decrements the volume by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
@@ -2897,13 +2888,12 @@ msgstr ""
 "Například:  \"x1\", \"x2\", \"/ 4\""
 
 #: plugins/volume/ui_VolumeDlg.h:261
-#, fuzzy
 msgid ""
 "Increments or decrements the volume in logarithmic scale (decibel).\n"
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 msgstr ""
 "Zvýší nebo sníží hlasitost v závislosti na logaritmické řadě (decibely). \n"
-"Například:  \"x1\", \"x2\", \"/ 4\""
+"Například:  \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 
 #: libgui/ui_LabelPropertiesWidgetBase.h:165
 msgid "Index:"
@@ -3037,7 +3027,7 @@ msgstr "Neplatný vzorkovací formát"
 
 #: plugins/codec_ogg/OpusCommon.cpp:67
 msgid "Invalid/unsupported request number."
-msgstr ""
+msgstr "Neplatné/Nepodporované číslo požadavku."
 
 #: libkwave/Functions.cpp:97
 msgid "Inverse Sawtooth"
@@ -3195,7 +3185,6 @@ msgid "License agreement"
 msgstr "Povolení"
 
 #: libkwave/FileInfo.cpp:156
-#, fuzzy
 msgid ""
 "License information, e.g., 'All Rights Reserved',\n"
 "'Any Use Permitted', an URL to a license or the\n"
@@ -3450,9 +3439,8 @@ msgid "Mime type of the file format"
 msgstr "Mime typ souborového formátu"
 
 #: plugins/debug/DebugPlugin.cpp:57
-#, fuzzy
 msgid "MinMax Pattern"
-msgstr "Vzor pro název souboru: "
+msgstr "MinMax vzor"
 
 #: plugins/newsignal/ui_NewSigDlg.h:500
 msgid "Minimum"
@@ -3653,11 +3641,8 @@ msgid "Null device"
 msgstr "Nulové zařízení"
 
 #: libkwave/FileInfo.cpp:85
-#, fuzzy
 msgid "Number of CDs, if the source is an album of more CDROMs"
-msgstr ""
-"Počet CD, když zdrojem je \n"
-"album vytvořené z více CD"
+msgstr "Počet CD, když zdrojem je album vytvořené z více CD"
 
 #: plugins/sonagram/ui_SonagramDlg.h:266
 msgid "Number of FFT points:"
@@ -3672,11 +3657,8 @@ msgid "Number of samples per second\n"
 msgstr "Počet vzorků za sekundu\n"
 
 #: libkwave/FileInfo.cpp:81
-#, fuzzy
 msgid "Number of the CD, if the source is an album of more CDROMs"
-msgstr ""
-"Počet CD, když zdrojem je \n"
-"album vytvořené z více CDROM"
+msgstr "Počet CD, když zdrojem je album vytvořené z více CDROM"
 
 #: libkwave/FileInfo.cpp:247
 msgid "Number of tracks of the CD if the source was a CDROM."
@@ -3712,13 +3694,12 @@ msgstr "Kodek Ogg"
 
 #: libkwave/Compression.cpp:229
 msgid "Ogg Opus"
-msgstr ""
+msgstr "Ogg Opus"
 
 #: plugins/codec_ogg/OggCodecPlugin.h:57 plugins/codec_ogg/OggCodecPlugin.h:58
 #: plugins/codec_ogg/OggCodecPlugin.h:60
-#, fuzzy
 msgid "Ogg Opus audio"
-msgstr "Zvuk Ogg Vorbis určený pro přenos zvuku mléčné dráhy"
+msgstr "Zvuk Ogg Opus"
 
 #: libkwave/Compression.cpp:220
 msgid "Ogg Vorbis"
@@ -3730,9 +3711,8 @@ msgid "Ogg Vorbis audio"
 msgstr "Zvuk Ogg Vorbis určený pro přenos zvuku mléčné dráhy"
 
 #: plugins/codec_ogg/OggDecoder.cpp:58 plugins/codec_ogg/OggDecoder.cpp:59
-#, fuzzy
 msgid "Ogg audio"
-msgstr "Zvuk Ogg Vorbis určený pro přenos zvuku mléčné dráhy"
+msgstr "Zvuk Ogg"
 
 #: plugins/codec_ogg/OggDecoder.cpp:91
 msgid "Ogg bitstream has zero-length."
@@ -3756,7 +3736,7 @@ msgstr ""
 
 #: plugins/codec_ogg/OpusCommon.cpp:55
 msgid "One or more invalid/out of range arguments."
-msgstr ""
+msgstr "Jeden nebo více neplatných argumentů nebo argumentů mimo rozsah."
 
 #: kwave/TopWidget.cpp:921
 msgid "Open"
@@ -3802,32 +3782,33 @@ msgid "Opera"
 msgstr "Opera"
 
 #: libkwave/FileInfo.cpp:187
-#, fuzzy
 msgid "Opus Frame Length"
-msgstr "Délka pevného kmitočtu... (\"frm\")"
+msgstr "Délka snímku Opus"
 
 #: libkwave/FileInfo.cpp:188
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
 msgstr ""
+"Délka snímku Opus v ms (podporovanými hodnotami jsou 2.5, 5, 10, 20, 40, nebo "
+"60 ms)"
 
 #: plugins/codec_ogg/OpusDecoder.cpp:405
 msgid "Opus decoder failed"
-msgstr ""
+msgstr "Dekodér pro Opus selhal"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:396 plugins/codec_ogg/OpusEncoder.cpp:415
 msgid "Opus encoder failed"
-msgstr ""
+msgstr "Kodér pro Opus selhal"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:473
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
-msgstr ""
+msgstr "Kodér pro Opus selhal při nastavování omezení SDT: '%1'"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:463
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
-msgstr ""
+msgstr "Kodér pro Opus selhal při nastavování omezení PDT: '%1'"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:576
 #, kde-format
@@ -3837,7 +3818,7 @@ msgstr ""
 #: plugins/codec_ogg/OpusEncoder.cpp:451
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
-msgstr ""
+msgstr "Kodér pro Opus selhal při nastavování datového toku: '%1'"
 
 #: libkwave/FileInfo.cpp:191
 msgid "Organization"
@@ -4007,9 +3988,8 @@ msgid "Polynom, 7th Degree"
 msgstr "Mnohočlen sedmého stupně"
 
 #: libkwave/Interpolation.cpp:35
-#, fuzzy
 msgid "Polynom, nth Degree"
-msgstr "Mnohočlen pátého stupně"
+msgstr "Mnohočlen n-tého stupně"
 
 #: libkwave/GenreType.cpp:109
 msgid "Pop"
@@ -4404,6 +4384,8 @@ msgid ""
 "Sample rate %1 samples/sec is out of range,\n"
 "supported are %2 ... %3 samples/sec."
 msgstr ""
+"Vzorkovací kmitočet %1 vzorků/s je mimo rozsah,\n"
+"podporováno je %2 ... %3 vzorků/s."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:224
 #: plugins/newsignal/ui_NewSigDlg.h:475 plugins/record/ui_RecordDlg.h:1011
@@ -4453,7 +4435,7 @@ msgstr "Uložit nynější soubor"
 
 #: kwave/TopWidget.cpp:230
 msgid "Save the current file under a different name or file format..."
-msgstr ""
+msgstr "Uložit nynější soubor pod jiným názvem nebo v jiném formátu..."
 
 #: libkwave/SignalManager.cpp:351
 #, kde-format
@@ -4627,7 +4609,6 @@ msgstr ""
 "velikosti"
 
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:235
-#, fuzzy
 msgid ""
 "Sets the speed to a relative percentage of the original speed.\n"
 "For example: \"50 %\", \"75%\" or \"125%\""
@@ -4636,7 +4617,6 @@ msgstr ""
 "Například: \"50 %\", \"75%\" nebo \"125%\""
 
 #: plugins/volume/ui_VolumeDlg.h:253
-#, fuzzy
 msgid ""
 "Sets the volume to a relative percentage of the original level.\n"
 "For example: \"50 %\", \"75%\" or \"125%\""
@@ -4673,7 +4653,7 @@ msgstr "Ukázat skladby"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:716
 msgid "Sign:"
-msgstr ""
+msgstr "Znaménko:"
 
 #: libkwave/SignalManager.cpp:315
 msgid "Signal is empty, nothing to save."
@@ -4921,12 +4901,16 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to mono."
 msgstr ""
+"Okolní datový tok by byl méně než 32 kB/s na kanál, tento soubor by se měl "
+"spojit na mono."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:140
 msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to stereo."
 msgstr ""
+"Okolní datový tok by byl méně než 32 kB/s na kanál, tento soubor by se měl "
+"spojit na stereo."
 
 #: kwave/main.cpp:77
 msgid "Sven-Steffen Arndt"
@@ -5016,9 +5000,8 @@ msgstr ""
 "U audio-knihy by to byl účinkující, který předčítal."
 
 #: plugins/codec_ogg/OpusCommon.cpp:64
-#, fuzzy
 msgid "The compressed data passed is corrupted."
-msgstr "Nynější druh komprese není podporován."
+msgstr "Komprimovaná data jsou poškozena."
 
 #: plugins/record/RecordPlugin.cpp:857
 msgid "The current compression type is not supported!"
@@ -5154,15 +5137,16 @@ msgid "This Ogg bitstream does not contain any Vorbis audio data."
 msgstr "Tento datový proud Ogg neobsahuje zvuková data Vorbis."
 
 #: plugins/codec_ogg/OpusDecoder.cpp:357
-#, fuzzy
 msgid "This Ogg bitstream does not contain valid Opus audio data."
-msgstr "Tento datový proud Ogg neobsahuje zvuková data Vorbis."
+msgstr "Tento datový proud Ogg neobsahuje platná zvuková data Opus."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:91
 #, kde-format
 msgid ""
 "This codec supports only mono or stereo files, %1 channels are not supported."
 msgstr ""
+"Tento kodek podporuje jen soubory mon nebo stereo, %1 kanály nejsou "
+"podporovány."
 
 #: kwave/TopWidget.cpp:812
 msgid ""

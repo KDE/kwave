@@ -4,20 +4,20 @@
 #
 # Pavel Fric <pavelfric@seznam.cz>, 2009.
 # Pavel Fric <pavelfric@seznam.cz>, 2009, 2012.
-# Pavel Fric <pavelfric@seznam.cz>, 2009, 2011.
+# Pavel Fric <pavelfric@seznam.cz>, 2009, 2011, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2013-02-02 16:18+0000\n"
-"PO-Revision-Date: 2012-10-31 13:52+0100\n"
+"PO-Revision-Date: 2013-02-03 20:53+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Tag: title
@@ -63,7 +63,7 @@ msgstr "Thomas Eschenbacher"
 #: help_en.docbook:66
 #, no-c-format
 msgid "2013-02-09"
-msgstr ""
+msgstr "2013-02-09"
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -596,13 +596,14 @@ msgstr "<ulink url=\"&url_cmake;\">cmake</ulink>-2.4.6 nebo novější"
 
 #. Tag: para
 #: help_en.docbook:356
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "A recent C/C++ compiler. GCC-4.x works fine, some older and any newer "
 "version (like gcc-4.8 and newer) may work too."
 msgstr ""
-"C/C++ kompilátor. GCC-3.4 pracuje dobře, některé starší a některé novější "
-"verze (jako gcc-4.1 a novější) pracují rovněž."
+"Nedávný překladač C/C++. GCC-4.x pracuje dobře, některé starší a některé "
+"novější "
+"verze (jako gcc-4.8 a novější) pracují rovněž."
 
 #. Tag: para
 #: help_en.docbook:360
@@ -826,23 +827,25 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:480
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<literal>WITH_OGG_OPUS</literal> enable support for Ogg/Opus files "
 "[<literal>on</literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
-"<literal>WITH_OGG</literal> povolit podporu souborů ogg [<literal>on: "
+"<literal>WITH_OGG_OPUS</literal> povolit podporu souborů Ogg/Opus [<literal>"
+"on: "
 "zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
 "výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
 #: help_en.docbook:486
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<literal>WITH_OGG_VORBIS</literal> enable support for Ogg/Vorbis files "
 "[<literal>on</literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
-"<literal>WITH_OGG</literal> povolit podporu souborů ogg [<literal>on: "
+"<literal>WITH_OGG_VORBIS</literal> povolit podporu souborů Ogg/Vorbis [<"
+"literal>on: "
 "zapnuto</literal>/<literal>off: vypnuto</literal>, default=: "
 "výchozí=<literal>on: zapnuto</literal>]"
 

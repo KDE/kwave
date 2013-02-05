@@ -46,7 +46,7 @@ Kwave::RIFFChunk::~RIFFChunk()
 //***************************************************************************
 // #define CHECK(x) Q_ASSERT(!(x)); if (x) return false;
 #define CHECK(x) if (x) return false;
-bool Kwave::RIFFChunk::isSane()
+bool Kwave::RIFFChunk::isSane() const
 {
     CHECK(m_type == Empty);
     CHECK(m_type == Garbage);
@@ -68,13 +68,13 @@ bool Kwave::RIFFChunk::isSane()
 	return false;
     }
 
-    foreach (Kwave::RIFFChunk *chunk, subChunks())
+    foreach (const Kwave::RIFFChunk *chunk, subChunks())
         if (chunk && !chunk->isSane()) return false;
     return true;
 }
 
 //***************************************************************************
-quint32 Kwave::RIFFChunk::physEnd()
+quint32 Kwave::RIFFChunk::physEnd() const
 {
     quint32 end = m_phys_offset + m_phys_length;
     if (m_phys_length) --end;
@@ -83,7 +83,7 @@ quint32 Kwave::RIFFChunk::physEnd()
 }
 
 //***************************************************************************
-const QByteArray Kwave::RIFFChunk::path()
+const QByteArray Kwave::RIFFChunk::path() const
 {
     QByteArray p = "";
 
@@ -95,7 +95,7 @@ const QByteArray Kwave::RIFFChunk::path()
 	QListIterator<Kwave::RIFFChunk *> it(m_parent->subChunks());
 	unsigned int before = 0;
 	unsigned int after  = 0;
-	Kwave::RIFFChunk *chunk = 0;
+	const Kwave::RIFFChunk *chunk = 0;
 	while (it.hasNext()) {
             chunk = it.next();
             if (!chunk) continue;
@@ -125,13 +125,13 @@ const QByteArray Kwave::RIFFChunk::path()
 }
 
 //***************************************************************************
-quint32 Kwave::RIFFChunk::dataStart()
+quint32 Kwave::RIFFChunk::dataStart() const
 {
     return m_phys_offset + ((m_type == Main) ? 12 : 8);
 }
 
 //***************************************************************************
-quint32 Kwave::RIFFChunk::dataLength()
+quint32 Kwave::RIFFChunk::dataLength() const
 {
     return m_chunk_length - ((m_type == Main) ? 4 : 0);
 }

@@ -348,11 +348,10 @@ unsigned int Kwave::Stripe::resize(unsigned int length, bool initialize)
     m_data.detach();
     if (!m_data) return 0; // OOM when detaching
 
-    unsigned int old_length = 0;
     {
 	QMutexLocker lock(&m_lock);
 
-	old_length = m_data->m_length;
+	unsigned int old_length = m_data->m_length;
 	if (m_data->m_length == length) return old_length; // nothing to do
 
 // 	qDebug("Stripe::resize() from %d to %d samples", old_length, length);
@@ -393,7 +392,6 @@ unsigned int Kwave::Stripe::append(const Kwave::SampleArray &samples,
 	unsigned int offset,
 	unsigned int count)
 {
-    unsigned int old_length;
     unsigned int appended = 0;
 
     if (!count || !m_data) return 0; // nothing to do
@@ -408,7 +406,7 @@ unsigned int Kwave::Stripe::append(const Kwave::SampleArray &samples,
 
 // 	qDebug("Stripe::append: adding %d samples", count);
 
-	old_length = m_data->m_length;
+	unsigned int old_length = m_data->m_length;
 	unsigned int new_length = old_length + count;
 	Q_ASSERT(!m_data->mapCount());
 	if (resizeStorage(new_length) != new_length)

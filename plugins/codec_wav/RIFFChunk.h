@@ -78,31 +78,31 @@ namespace Kwave
 	 * Returns true if the file chunk no structural errors and
 	 * no garbage or empty chunks.
 	 */
-	bool isSane();
+	bool isSane() const;
 
 	/**
 	 * Returns the type of the chunk.
 	 * @see ChunkType
 	 */
-	inline ChunkType type() { return m_type; };
+	inline ChunkType type() const { return m_type; }
 
 	/** Sets the type of the chunk */
-	inline void setType(ChunkType type) { m_type = type;};
+	inline void setType(ChunkType type) { m_type = type; }
 
 	/** Returns the 4-character name of the chunk */
-	inline const QByteArray &name() { return m_name; };
+	inline const QByteArray &name() const { return m_name; }
 
 	/**
 	 * Returns the chunk's format string.
 	 * @note Only valid for main chunk
 	 */
-	inline const QByteArray &format() { return m_format; };
+	inline const QByteArray &format() const { return m_format; }
 
 	/** Sets the format to a new value, without any error checking */
-	inline void setFormat(const QByteArray &format) { m_format = format; };
+	inline void setFormat(const QByteArray &format) { m_format = format; }
 
 	/** Returns the pointer to the parent node */
-	inline Kwave::RIFFChunk *parent() { return m_parent; };
+	inline Kwave::RIFFChunk *parent() const { return m_parent; }
 
 	/**
 	 * Returns the full path of this node. If the node is a "Main" chunk
@@ -110,19 +110,19 @@ namespace Kwave
 	 * a ":". If the chunk name is not unique within it's parents the
 	 * zero based index is appended within round brackets.
 	 */
-	const QByteArray path();
+	const QByteArray path() const;
 
 	/** Returns the offset where the chunk's data starts. */
-	quint32 dataStart();
+	quint32 dataStart() const;
 
 	/** Returns the physical length of the chunk's data */
-	quint32 dataLength();
+	quint32 dataLength() const;
 
 	/**
 	 * Returns the length of the chunk in bytes, like stated in the
 	 * head of the chunk. Includes the format when it's a main chunk.
 	 */
-	inline quint32 length() { return m_chunk_length; };
+	inline quint32 length() const { return m_chunk_length; }
 
 	/**
 	 * Sets the data and physical length of the chunk both to a
@@ -134,23 +134,30 @@ namespace Kwave
 	 * Returns the offset in the source (file) where the
 	 * chunk (name) starts.
 	 */
-	inline quint32 physStart() { return m_phys_offset; };
+	inline quint32 physStart() const { return m_phys_offset; }
 
 	/**
 	 * Returns the offset in the source (file) where the chunk ends.
 	 */
-	quint32 physEnd();
+	quint32 physEnd() const;
 
 	/**
 	 * Returns the length of the chunk in the file. For some dubious
 	 * reason this seems always to be rounded up for even numbers!
 	 */
-	inline quint32 physLength() { return m_phys_length; };
+	inline quint32 physLength() const { return m_phys_length; }
 
 	/**
-	 * Returns a reference to the list of sub-chunks.
+	 * Returns a reference to the list of sub-chunks (mutable).
 	 */
-	inline Kwave::RIFFChunkList &subChunks() { return m_sub_chunks; };
+	inline Kwave::RIFFChunkList &subChunks() { return m_sub_chunks; }
+
+	/**
+	 * Returns a reference to the list of sub-chunks (const).
+	 */
+	inline const Kwave::RIFFChunkList &subChunks() const {
+	    return m_sub_chunks;
+	}
 
 	/**
 	 * Returns true if the given chunk is a parent of us.

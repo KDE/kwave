@@ -243,12 +243,11 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 	bool searching = false;
 
 	// use the previous device
-	QString device = _("");
 	QString section = _("plugin ") + name();
 	KConfigGroup cfg = KGlobal::config()->group(section);
 
 	// restore the previous device
-	device = cfg.readEntry(
+	QString device = cfg.readEntry(
 	    _("last_device_%1").arg(static_cast<int>(method)));
 // 	    qDebug("<<< %d -> '%s'", static_cast<int>(method), device.data());
 	m_device_name = device;

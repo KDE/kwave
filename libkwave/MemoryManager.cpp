@@ -139,7 +139,7 @@ unsigned int Kwave::MemoryManager::totalPhysical()
 
 #ifdef HAVE_SYSINFO
     // get the physically installed memory
-    quint64 installed_physical = total;
+    quint64 installed_physical;
     struct sysinfo info;
 
     sysinfo(&info);

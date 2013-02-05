@@ -614,9 +614,9 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
 	// underrun -> start again
 	qWarning("RecordALSA::read(), underrun");
 	r = snd_pcm_prepare(m_handle);
-	r = snd_pcm_start(m_handle);
+	if (r >= 0) r = snd_pcm_start(m_handle);
 	if (r < 0) {
-	    qWarning("RecordALSA::read(), "\
+	    qWarning("RecordALSA::read(), "
 		     "resume after underrun failed: %s",
 		     snd_strerror(r));
 	    return r;
@@ -629,7 +629,7 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
 	while ((r = snd_pcm_resume(m_handle)) == -EAGAIN)
 	    return -EAGAIN; /* wait until suspend flag is released */
 	if (r < 0) {
-	    qWarning("RecordALSA::read(), resume failed, "\
+	    qWarning("RecordALSA::read(), resume failed, "
 		    "restarting stream.");
 	    if ((r = snd_pcm_prepare(m_handle)) < 0) {
 		qWarning("RecordALSA::read(), resume error: %s",

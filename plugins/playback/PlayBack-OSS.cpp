@@ -169,11 +169,6 @@ QString Kwave::PlayBackOSS::open(const QString &device, double rate,
     ioctl(m_handle, OSS_GETVERSION, &m_oss_version);
 #endif
 
-    // query OSS driver version for debugging purposes
-    m_oss_version = -1;
-#ifdef OSS_GETVERSION
-    ioctl(m_handle, OSS_GETVERSION, &m_oss_version);
-#endif
     int format;
     switch (m_bits) {
 	case  8: format = AFMT_U8;     break;
@@ -415,7 +410,7 @@ QString Kwave::PlayBackOSS::fileFilter()
 //***************************************************************************
 void Kwave::PlayBackOSS::format2mode(int format, int &compression,
                                      int &bits,
-                                     Kwave::SampleFormat &sample_format)
+                                     Kwave::SampleFormat &sample_format) const
 {
     switch (format) {
 	case AFMT_MU_LAW:

@@ -15,7 +15,7 @@ ProjectRootRelative=./
 
 [CMake][CMake Build Directory 0]
 Build Directory Path=file:///var/tmp/kwave-build
-Build Type=DebugFull
+Build Type=Release
 CMake Binary=file:///usr/bin/cmake
 Install Directory=file:///usr/local
 

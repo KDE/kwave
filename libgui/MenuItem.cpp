@@ -65,9 +65,9 @@ void Kwave::MenuItem::actionTriggered(bool checked)
 //*****************************************************************************
 void Kwave::MenuItem::actionSelected()
 {
-    Kwave::MenuGroup *group = 0;
-
     if (isCheckable()) {
+	Kwave::MenuGroup *group = 0;
+
 	if (m_exclusive_group.length()) {
 	    Kwave::MenuNode *root = getRootNode();
 	    if (root) {

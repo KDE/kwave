@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-03 09:21+0100\n"
+"POT-Creation-Date: 2013-02-05 20:24+0100\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -44,7 +44,7 @@ msgstr " Mo"
 msgid " dB"
 msgstr " dB"
 
-#: libkwave/SignalManager.cpp:389 plugins/record/RecordPlugin.cpp:969
+#: libkwave/SignalManager.cpp:389 plugins/record/RecordPlugin.cpp:968
 msgid " for KDE "
 msgstr " pour KDE "
 
@@ -147,14 +147,14 @@ msgstr "%1 octets"
 msgid "%1 Hz"
 msgstr "%1 Hz"
 
-#: plugins/record/RecordPlugin.cpp:553
+#: plugins/record/RecordPlugin.cpp:552
 #, fuzzy, kde-format
 msgid "%1 Hz failed, using %2 Hz"
 msgstr ""
 "La fréquence de %1Hz a échoué.\n"
 "La fréquence de %2 Hz sera utilisée à la place."
 
-#: plugins/record/RecordPlugin.cpp:536
+#: plugins/record/RecordPlugin.cpp:535
 #, fuzzy, kde-format
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr ""
@@ -181,19 +181,19 @@ msgstr "%1 échantillons par seconde"
 msgid "%1 bit"
 msgstr "%1 octets"
 
-#: plugins/playback/PlayBack-OSS.cpp:189
+#: plugins/playback/PlayBack-OSS.cpp:184
 #, kde-format
 msgid "%1 bits per sample are not supported"
 msgstr "%1 bits par échantillon n'est pas supportée"
 
-#: plugins/record/RecordPlugin.cpp:660
+#: plugins/record/RecordPlugin.cpp:659
 #, kde-format
 msgid "%1 bits per sample failed, using %2 bits per sample"
 msgstr ""
 "La résolution de %1 bits par échantillon a échoué.\n"
 "La résolution de %2 bits par échantillon sera utilisée à la place."
 
-#: plugins/record/RecordPlugin.cpp:647
+#: plugins/record/RecordPlugin.cpp:646
 #, kde-format
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr ""
@@ -205,12 +205,12 @@ msgstr ""
 msgid "%1 bytes"
 msgstr "%1 octets"
 
-#: plugins/record/RecordPlugin.cpp:460 plugins/record/RecordPlugin.cpp:468
+#: plugins/record/RecordPlugin.cpp:459 plugins/record/RecordPlugin.cpp:467
 #, kde-format
 msgid "%1 channels"
 msgstr "%1 pistes"
 
-#: plugins/playback/PlayBack-OSS.cpp:195
+#: plugins/playback/PlayBack-OSS.cpp:190
 #, fuzzy, kde-format
 msgid "%1 channels playback is not supported"
 msgstr "La lecture en stéréo n'est pas disponible"
@@ -220,7 +220,7 @@ msgstr "La lecture en stéréo n'est pas disponible"
 msgid "%1 dB"
 msgstr "%1 dB"
 
-#: plugins/record/RecordPlugin.cpp:471
+#: plugins/record/RecordPlugin.cpp:470
 #, kde-format
 msgid "%1 is not supported, using %2"
 msgstr ""
@@ -1399,7 +1399,7 @@ msgstr "AGC :"
 msgid "ALSA (Advanced Linux Sound Architecture)"
 msgstr "ALSA (Advanced Linux Sound Architecture)"
 
-#: plugins/playback/PlayBack-OSS.cpp:407
+#: plugins/playback/PlayBack-OSS.cpp:402
 msgid "ALSA playback device (adsp*)"
 msgstr "Périphérique de lecture ALSA (adsp*)"
 
@@ -1583,7 +1583,7 @@ msgstr ""
 msgid "Annotation"
 msgstr "Annotation"
 
-#: plugins/playback/PlayBack-OSS.cpp:410 plugins/record/Record-OSS.cpp:296
+#: plugins/playback/PlayBack-OSS.cpp:405 plugins/record/Record-OSS.cpp:296
 #: plugins/record/RecordDialog.cpp:601
 msgid "Any device (*)"
 msgstr "Tous les périphériques (*)"
@@ -1833,7 +1833,7 @@ msgstr ""
 msgid "Buffer count:"
 msgstr "Mémoire tampon :"
 
-#: plugins/record/RecordPlugin.cpp:997
+#: plugins/record/RecordPlugin.cpp:996
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
@@ -1999,14 +1999,14 @@ msgstr "Format audio compressé Interchange"
 msgid "Compression"
 msgstr "Compression "
 
-#: plugins/record/RecordPlugin.cpp:608
+#: plugins/record/RecordPlugin.cpp:607
 #, fuzzy, kde-format
 msgid "Compression '%1' failed, using '%2'."
 msgstr ""
 "Le format de compression « %1 » a échoué.\n"
 "Le format « %2 » sera utilisé à la place."
 
-#: plugins/record/RecordPlugin.cpp:596
+#: plugins/record/RecordPlugin.cpp:595
 #, fuzzy, kde-format
 msgid "Compression '%1' not supported, using '%2'"
 msgstr ""
@@ -3182,7 +3182,7 @@ msgstr ""
 msgid "Kwave homepage and German online help"
 msgstr "Site internet de Kwave et documentation en Allemand."
 
-#: plugins/record/RecordPlugin.cpp:389
+#: plugins/record/RecordPlugin.cpp:388
 #, kde-format
 msgid ""
 "Kwave was unable to open the device '%1'.\n"
@@ -3635,8 +3635,8 @@ msgstr ""
 msgid "Modify Samples"
 msgstr "modifier les échantillons"
 
-#: plugins/record/RecordDialog.cpp:700 plugins/record/RecordPlugin.cpp:456
-#: plugins/record/RecordPlugin.cpp:464
+#: plugins/record/RecordDialog.cpp:700 plugins/record/RecordPlugin.cpp:455
+#: plugins/record/RecordPlugin.cpp:463
 msgid "Mono"
 msgstr "Mono"
 
@@ -3827,7 +3827,7 @@ msgstr "numérotation :"
 msgid "OSS (Open Sound System)"
 msgstr "OSS (Open Sound System)"
 
-#: plugins/playback/PlayBack-OSS.cpp:404
+#: plugins/playback/PlayBack-OSS.cpp:399
 msgid "OSS playback device (dsp*)"
 msgstr "Périphérique de lecture OSS (dsp*)"
 
@@ -4011,11 +4011,11 @@ msgstr "Autre"
 
 #: kwave/TopWidget.cpp:876 plugins/codec_audiofile/AudiofileDecoder.cpp:107
 #: plugins/codec_flac/FlacEncoder.cpp:245 plugins/codec_wav/WavEncoder.cpp:418
-#: plugins/codec_wav/WavDecoder.cpp:343 plugins/playback/PlayBack-OSS.cpp:249
+#: plugins/codec_wav/WavDecoder.cpp:343 plugins/playback/PlayBack-OSS.cpp:244
 #: plugins/playback/PlayBack-Phonon.cpp:149
 #: plugins/playback/PlayBack-Phonon.cpp:180
-#: plugins/record/RecordPlugin.cpp:864 plugins/record/RecordPlugin.cpp:880
-#: plugins/record/RecordPlugin.cpp:947 plugins/codec_mp3/MP3Decoder.cpp:505
+#: plugins/record/RecordPlugin.cpp:863 plugins/record/RecordPlugin.cpp:879
+#: plugins/record/RecordPlugin.cpp:946 plugins/codec_mp3/MP3Decoder.cpp:505
 #: plugins/codec_ogg/OpusDecoder.cpp:387 plugins/codec_ogg/OpusEncoder.cpp:373
 #: plugins/codec_ogg/OpusEncoder.cpp:426 plugins/codec_ogg/OpusCommon.cpp:73
 msgid "Out of memory"
@@ -4110,7 +4110,7 @@ msgstr "périphérique de lecture :"
 msgid "Playback method:"
 msgstr "Méthode de lecture :"
 
-#: plugins/playback/PlayBack-OSS.cpp:202
+#: plugins/playback/PlayBack-OSS.cpp:197
 #, fuzzy, kde-format
 msgid "Playback rate %1 Hz is not supported"
 msgstr "la lecture à une fréquence de %1 Hz n'est pas disponible"
@@ -4298,8 +4298,8 @@ msgstr "Punk"
 msgid "Punk Rock"
 msgstr "Punk Rock"
 
-#: plugins/record/RecordDialog.cpp:706 plugins/record/RecordPlugin.cpp:458
-#: plugins/record/RecordPlugin.cpp:466
+#: plugins/record/RecordDialog.cpp:706 plugins/record/RecordPlugin.cpp:457
+#: plugins/record/RecordPlugin.cpp:465
 msgid "Quadro"
 msgstr "Quadro"
 
@@ -4366,7 +4366,7 @@ msgstr "Accès en lecture interdite"
 msgid "Reading configuration..."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:1004
+#: plugins/record/RecordPlugin.cpp:1003
 #, fuzzy, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr ""
@@ -4416,7 +4416,7 @@ msgstr "périphérique d'enregistrement"
 msgid "Recording method:"
 msgstr "Mode d'enregistrement :"
 
-#: plugins/record/RecordPlugin.cpp:494
+#: plugins/record/RecordPlugin.cpp:493
 #, fuzzy, kde-format
 msgid "Recording with %1 channels(s) failed, using %2 channels(s)"
 msgstr ""
@@ -4570,14 +4570,14 @@ msgstr "Période d'échantillonnage : "
 msgid "Sample and Hold"
 msgstr "échantillonné et bloqué"
 
-#: plugins/record/RecordPlugin.cpp:718
+#: plugins/record/RecordPlugin.cpp:717
 #, fuzzy, kde-format
 msgid "Sample format '%1' failed, using '%2'"
 msgstr ""
 "le format d'échantillonage «%1» a échoué. Le format «%2» sera utilisé à la "
 "place"
 
-#: plugins/record/RecordPlugin.cpp:702
+#: plugins/record/RecordPlugin.cpp:701
 #, fuzzy, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
 msgstr ""
@@ -5110,8 +5110,8 @@ msgstr ""
 msgid "Stefan Westerfeld"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:703 plugins/record/RecordPlugin.cpp:457
-#: plugins/record/RecordPlugin.cpp:465
+#: plugins/record/RecordDialog.cpp:703 plugins/record/RecordPlugin.cpp:456
+#: plugins/record/RecordPlugin.cpp:464
 msgid "Stereo"
 msgstr "Stéréo"
 
@@ -5255,11 +5255,11 @@ msgstr ""
 msgid "The compressed data passed is corrupted."
 msgstr "Désolé, le type de fichier n'est pas géré !"
 
-#: plugins/record/RecordPlugin.cpp:857
+#: plugins/record/RecordPlugin.cpp:856
 msgid "The current compression type is not supported!"
 msgstr "Désolé, le type de fichier n'est pas géré !"
 
-#: plugins/record/RecordPlugin.cpp:851
+#: plugins/record/RecordPlugin.cpp:850
 msgid "The current sample format is not supported!"
 msgstr "Désolé, le format courant pour les échantillons n'est pas géré !"
 
@@ -5268,7 +5268,7 @@ msgstr "Désolé, le format courant pour les échantillons n'est pas géré !"
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr "Impossible d'ouvrir le périphérique « %1 » correctement."
 
-#: plugins/record/RecordPlugin.cpp:396
+#: plugins/record/RecordPlugin.cpp:395
 #, kde-format
 msgid ""
 "The device '%1' seems to be occupied by another application.\n"
@@ -5375,7 +5375,7 @@ msgstr ""
 msgid "The plugin '%1' is unknown or invalid."
 msgstr "Avertissement : le module externe « %1 » est inconnu ou non valable !"
 
-#: plugins/record/RecordPlugin.cpp:1001
+#: plugins/record/RecordPlugin.cpp:1000
 #, fuzzy
 msgid "The recording device seems to be busy."
 msgstr "Le périphérique d'enregistrement est occupé !"
@@ -5571,7 +5571,7 @@ msgstr "Impossible d'ouvrir le fichier pour l'enregistrer !"
 msgid "Unable to open the file for saving."
 msgstr "Impossible d'ouvrir le fichier pour l'enregistrer !"
 
-#: plugins/record/RecordPlugin.cpp:404
+#: plugins/record/RecordPlugin.cpp:403
 #, fuzzy
 msgid "Unable to open the recording device"
 msgstr "impossible d'ouvrir le périphérique d'enregistrement"
@@ -5607,7 +5607,7 @@ msgstr "Erreur inconnue « 0x%X ». Le fichier est il endommagé ?"
 msgid "Unsigned Integer"
 msgstr "Entier non signé"
 
-#: plugins/playback/PlayBack-OSS.cpp:212
+#: plugins/playback/PlayBack-OSS.cpp:207
 #, fuzzy, kde-format
 msgid "Unusable buffer size: %1"
 msgstr "Taille de mémoire tampon inutilisable : %1"

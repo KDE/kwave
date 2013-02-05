@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-03 09:22+0100\n"
+"POT-Creation-Date: 2013-02-05 20:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -219,11 +219,11 @@ msgstr ""
 
 #: kwave/TopWidget.cpp:876 plugins/codec_audiofile/AudiofileDecoder.cpp:107
 #: plugins/codec_flac/FlacEncoder.cpp:245 plugins/codec_wav/WavEncoder.cpp:418
-#: plugins/codec_wav/WavDecoder.cpp:343 plugins/playback/PlayBack-OSS.cpp:249
+#: plugins/codec_wav/WavDecoder.cpp:343 plugins/playback/PlayBack-OSS.cpp:244
 #: plugins/playback/PlayBack-Phonon.cpp:149
 #: plugins/playback/PlayBack-Phonon.cpp:180
-#: plugins/record/RecordPlugin.cpp:864 plugins/record/RecordPlugin.cpp:880
-#: plugins/record/RecordPlugin.cpp:947 plugins/codec_mp3/MP3Decoder.cpp:505
+#: plugins/record/RecordPlugin.cpp:863 plugins/record/RecordPlugin.cpp:879
+#: plugins/record/RecordPlugin.cpp:946 plugins/codec_mp3/MP3Decoder.cpp:505
 #: plugins/codec_ogg/OpusDecoder.cpp:387 plugins/codec_ogg/OpusEncoder.cpp:373
 #: plugins/codec_ogg/OpusEncoder.cpp:426 plugins/codec_ogg/OpusCommon.cpp:73
 msgid "Out of memory"
@@ -1434,7 +1434,7 @@ msgid ""
 "Do you still want to continue?"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:389 plugins/record/RecordPlugin.cpp:969
+#: libkwave/SignalManager.cpp:389 plugins/record/RecordPlugin.cpp:968
 msgid " for KDE "
 msgstr ""
 
@@ -2714,35 +2714,35 @@ msgstr ""
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:189
+#: plugins/playback/PlayBack-OSS.cpp:184
 #, kde-format
 msgid "%1 bits per sample are not supported"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:195
+#: plugins/playback/PlayBack-OSS.cpp:190
 #, kde-format
 msgid "%1 channels playback is not supported"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:202
+#: plugins/playback/PlayBack-OSS.cpp:197
 #, kde-format
 msgid "Playback rate %1 Hz is not supported"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:212
+#: plugins/playback/PlayBack-OSS.cpp:207
 #, kde-format
 msgid "Unusable buffer size: %1"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:404
+#: plugins/playback/PlayBack-OSS.cpp:399
 msgid "OSS playback device (dsp*)"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:407
+#: plugins/playback/PlayBack-OSS.cpp:402
 msgid "ALSA playback device (adsp*)"
 msgstr ""
 
-#: plugins/playback/PlayBack-OSS.cpp:410 plugins/record/Record-OSS.cpp:296
+#: plugins/playback/PlayBack-OSS.cpp:405 plugins/record/Record-OSS.cpp:296
 #: plugins/record/RecordDialog.cpp:601
 msgid "Any device (*)"
 msgstr ""
@@ -2859,18 +2859,18 @@ msgstr ""
 msgid "Select Record Device"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:700 plugins/record/RecordPlugin.cpp:456
-#: plugins/record/RecordPlugin.cpp:464
+#: plugins/record/RecordDialog.cpp:700 plugins/record/RecordPlugin.cpp:455
+#: plugins/record/RecordPlugin.cpp:463
 msgid "Mono"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:703 plugins/record/RecordPlugin.cpp:457
-#: plugins/record/RecordPlugin.cpp:465
+#: plugins/record/RecordDialog.cpp:703 plugins/record/RecordPlugin.cpp:456
+#: plugins/record/RecordPlugin.cpp:464
 msgid "Stereo"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:706 plugins/record/RecordPlugin.cpp:458
-#: plugins/record/RecordPlugin.cpp:466
+#: plugins/record/RecordDialog.cpp:706 plugins/record/RecordPlugin.cpp:457
+#: plugins/record/RecordPlugin.cpp:465
 msgid "Quadro"
 msgstr ""
 
@@ -2972,7 +2972,7 @@ msgstr ""
 msgid "(%1 samples)"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:389
+#: plugins/record/RecordPlugin.cpp:388
 #, kde-format
 msgid ""
 "Kwave was unable to open the device '%1'.\n"
@@ -2980,90 +2980,90 @@ msgid ""
 "hardware is not connected."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:396
+#: plugins/record/RecordPlugin.cpp:395
 #, kde-format
 msgid ""
 "The device '%1' seems to be occupied by another application.\n"
 "Please try again later."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:404
+#: plugins/record/RecordPlugin.cpp:403
 msgid "Unable to open the recording device"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:460 plugins/record/RecordPlugin.cpp:468
+#: plugins/record/RecordPlugin.cpp:459 plugins/record/RecordPlugin.cpp:467
 #, kde-format
 msgid "%1 channels"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:471
+#: plugins/record/RecordPlugin.cpp:470
 #, kde-format
 msgid "%1 is not supported, using %2"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:494
+#: plugins/record/RecordPlugin.cpp:493
 #, kde-format
 msgid "Recording with %1 channels(s) failed, using %2 channels(s)"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:536
+#: plugins/record/RecordPlugin.cpp:535
 #, kde-format
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:553
+#: plugins/record/RecordPlugin.cpp:552
 #, kde-format
 msgid "%1 Hz failed, using %2 Hz"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:596
+#: plugins/record/RecordPlugin.cpp:595
 #, kde-format
 msgid "Compression '%1' not supported, using '%2'"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:608
+#: plugins/record/RecordPlugin.cpp:607
 #, kde-format
 msgid "Compression '%1' failed, using '%2'."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:647
+#: plugins/record/RecordPlugin.cpp:646
 #, kde-format
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:660
+#: plugins/record/RecordPlugin.cpp:659
 #, kde-format
 msgid "%1 bits per sample failed, using %2 bits per sample"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:702
+#: plugins/record/RecordPlugin.cpp:701
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:718
+#: plugins/record/RecordPlugin.cpp:717
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:851
+#: plugins/record/RecordPlugin.cpp:850
 msgid "The current sample format is not supported!"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:857
+#: plugins/record/RecordPlugin.cpp:856
 msgid "The current compression type is not supported!"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:997
+#: plugins/record/RecordPlugin.cpp:996
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:1001
+#: plugins/record/RecordPlugin.cpp:1000
 msgid "The recording device seems to be busy."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:1004
+#: plugins/record/RecordPlugin.cpp:1003
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr ""
@@ -3225,6 +3225,33 @@ msgstr ""
 msgid "MPEG layer I audio"
 msgstr ""
 
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:52
+msgid "(user defined)"
+msgstr ""
+
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:570
+msgid "Select MP3 Encoder"
+msgstr ""
+
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:624
+msgid "Congratulation, the test was successful!"
+msgstr ""
+
+#: plugins/codec_mp3/MP3Encoder.cpp:290
+msgid ""
+"The file format you have chosen supports only mono or stereo. This file will "
+"be mixed down to stereo when saving."
+msgstr ""
+
+#: plugins/codec_mp3/MP3Encoder.cpp:548
+#, kde-format
+msgctxt "%1=name of the external program, %2=stderr of the program"
+msgid ""
+"An error occurred while calling the external encoder '%1':\n"
+"\n"
+"%2"
+msgstr ""
+
 #: plugins/codec_mp3/MP3Decoder.cpp:85
 msgid ""
 "The file has an invalid checksum.\n"
@@ -3275,33 +3302,6 @@ msgstr ""
 
 #: plugins/codec_mp3/MP3Decoder.cpp:547
 msgid "Do you want to continue and ignore all following errors?"
-msgstr ""
-
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:52
-msgid "(user defined)"
-msgstr ""
-
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:570
-msgid "Select MP3 Encoder"
-msgstr ""
-
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:624
-msgid "Congratulation, the test was successful!"
-msgstr ""
-
-#: plugins/codec_mp3/MP3Encoder.cpp:290
-msgid ""
-"The file format you have chosen supports only mono or stereo. This file will "
-"be mixed down to stereo when saving."
-msgstr ""
-
-#: plugins/codec_mp3/MP3Encoder.cpp:548
-#, kde-format
-msgctxt "%1=name of the external program, %2=stderr of the program"
-msgid ""
-"An error occurred while calling the external encoder '%1':\n"
-"\n"
-"%2"
 msgstr ""
 
 #: plugins/codec_ogg/OggCodecPlugin.cpp:28

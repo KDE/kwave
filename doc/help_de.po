@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2013-02-02 16:18+0000\n"
+"POT-Creation-Date: 2013-02-05 19:09+0000\n"
 "PO-Revision-Date: 2013-02-02 17:52+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -604,9 +604,8 @@ msgid ""
 "version (like gcc-4.8 and newer) may work too."
 msgstr ""
 "Einen aktuellen C/C++ Compiler. GCC-4.x sollte funktionieren, einige ältere "
-"und jede "
-"neuere Versionen (beispielsweise gcc-4.8 und neuer) sollten ebenfalls "
-"funktionieren."
+"und jede neuere Versionen (beispielsweise gcc-4.8 und neuer) sollten "
+"ebenfalls funktionieren."
 
 #. Tag: para
 #: help_en.docbook:360
@@ -834,8 +833,9 @@ msgid ""
 "<literal>WITH_OGG_OPUS</literal> enable support for Ogg/Opus files "
 "[<literal>on</literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
-"<literal>WITH_OGG_OPUS</literal> aktiviere Unterstützung für Ogg/Opus-Dateien "
-"[<literal>on</literal>/<literal>off</literal>, Vorgabe=<literal>on</literal>]"
+"<literal>WITH_OGG_OPUS</literal> aktiviere Unterstützung für Ogg/Opus-"
+"Dateien [<literal>on</literal>/<literal>off</literal>, Vorgabe=<literal>on</"
+"literal>]"
 
 #. Tag: para
 #: help_en.docbook:486
@@ -844,9 +844,9 @@ msgid ""
 "<literal>WITH_OGG_VORBIS</literal> enable support for Ogg/Vorbis files "
 "[<literal>on</literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
-"<literal>WITH_OGG_VORBIS</literal> aktiviere Unterstützung für "
-"Ogg/Vorbis-Dateien "
-"[<literal>on</literal>/<literal>off</literal>, Vorgabe=<literal>on</literal>]"
+"<literal>WITH_OGG_VORBIS</literal> aktiviere Unterstützung für Ogg/Vorbis-"
+"Dateien [<literal>on</literal>/<literal>off</literal>, Vorgabe=<literal>on</"
+"literal>]"
 
 #. Tag: para
 #: help_en.docbook:492

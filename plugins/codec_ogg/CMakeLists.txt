@@ -15,9 +15,10 @@
 ##                                                                          #
 #############################################################################
 
-OPTION(WITH_OGG_VORBIS "enable support for ogg vorbis files [default=on]" ON)
-OPTION(WITH_OGG_OPUS   "enable support for ogg opus files [default=on]" ON)
+OPTION(WITH_OGG_VORBIS "enable support for Ogg/Vorbis files [default=on]" ON)
+OPTION(WITH_OGG_OPUS   "enable support for Ogg/Opus files [default=on]" ON)
 
+SET(WITH_OGG OFF)
 IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
     SET(WITH_OGG ON)
 ENDIF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
@@ -28,12 +29,6 @@ IF (WITH_OGG)
 ### check for Ogg/Opus headers and library                                ###
 
     IF (WITH_OGG_OPUS)
-# 	CHECK_INCLUDE_FILES("opus/opus.h;opus/opus_multistream.h" HAVE_OPUS_HEADERS)
-# 	IF (HAVE_OPUS_HEADERS)
-# 	    SET(CMAKE_REQUIRED_LIBRARIES "opus")
-# 	    SET(HAVE_VORBIS TRUE)
-# 	ENDIF (HAVE_OPUS_HEADERS)
-
 	PKG_CHECK_MODULES(OPUS REQUIRED opus>=1.0.0)
 	IF (NOT OPUS_FOUND)
 	    MESSAGE(FATAL_ERROR "Opus codec not found")

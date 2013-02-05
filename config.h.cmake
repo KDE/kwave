@@ -48,9 +48,6 @@
 /* sysinfo structure has the "mem_unit" field? */
 #cmakedefine HAVE_SYSINFO_MEMUNIT
 
-/* used for creating swap files */
-#cmakedefine HAVE_MKSTEMP
-
 /* used for page size in context of swap files */
 #cmakedefine HAVE_GETPAGESIZE
 

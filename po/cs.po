@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-03 09:21+0100\n"
+"POT-Creation-Date: 2013-02-05 20:24+0100\n"
 "PO-Revision-Date: 2013-02-03 20:50+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -43,7 +43,7 @@ msgstr " MB"
 msgid " dB"
 msgstr " dB"
 
-#: libkwave/SignalManager.cpp:389 plugins/record/RecordPlugin.cpp:969
+#: libkwave/SignalManager.cpp:389 plugins/record/RecordPlugin.cpp:968
 msgid " for KDE "
 msgstr " pro KDE"
 
@@ -146,12 +146,12 @@ msgstr "%1 Bajtů"
 msgid "%1 Hz"
 msgstr "%1 Hz"
 
-#: plugins/record/RecordPlugin.cpp:553
+#: plugins/record/RecordPlugin.cpp:552
 #, kde-format
 msgid "%1 Hz failed, using %2 Hz"
 msgstr "%1 Hz selhalo. Používá se %2 Hz"
 
-#: plugins/record/RecordPlugin.cpp:536
+#: plugins/record/RecordPlugin.cpp:535
 #, kde-format
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr "%1 Hz není podporováno. Používá se %2 Hz"
@@ -176,17 +176,17 @@ msgstr "%1 vzorků za sekundu"
 msgid "%1 bit"
 msgstr "%1 bitů"
 
-#: plugins/playback/PlayBack-OSS.cpp:189
+#: plugins/playback/PlayBack-OSS.cpp:184
 #, kde-format
 msgid "%1 bits per sample are not supported"
 msgstr "%1 bitů na vzorek není podporováno"
 
-#: plugins/record/RecordPlugin.cpp:660
+#: plugins/record/RecordPlugin.cpp:659
 #, kde-format
 msgid "%1 bits per sample failed, using %2 bits per sample"
 msgstr "%1 bitů na vzorek selhalo. Používá se %2 bitů na vzorek"
 
-#: plugins/record/RecordPlugin.cpp:647
+#: plugins/record/RecordPlugin.cpp:646
 #, kde-format
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr "%1 bitů na vzorek není podporováno. Používá se %2 bitů na vzorek"
@@ -196,12 +196,12 @@ msgstr "%1 bitů na vzorek není podporováno. Používá se %2 bitů na vzorek"
 msgid "%1 bytes"
 msgstr "%1 bajtů"
 
-#: plugins/record/RecordPlugin.cpp:460 plugins/record/RecordPlugin.cpp:468
+#: plugins/record/RecordPlugin.cpp:459 plugins/record/RecordPlugin.cpp:467
 #, kde-format
 msgid "%1 channels"
 msgstr "%1 kanály"
 
-#: plugins/playback/PlayBack-OSS.cpp:195
+#: plugins/playback/PlayBack-OSS.cpp:190
 #, kde-format
 msgid "%1 channels playback is not supported"
 msgstr "%1 kanálové přehrávání není podporováno"
@@ -211,7 +211,7 @@ msgstr "%1 kanálové přehrávání není podporováno"
 msgid "%1 dB"
 msgstr "%1 dB"
 
-#: plugins/record/RecordPlugin.cpp:471
+#: plugins/record/RecordPlugin.cpp:470
 #, kde-format
 msgid "%1 is not supported, using %2"
 msgstr "%1 není podporováno. Používá se %2"
@@ -1402,7 +1402,7 @@ msgstr "AGC:"
 msgid "ALSA (Advanced Linux Sound Architecture)"
 msgstr "ALSA (Advanced Linux Sound Architecture)"
 
-#: plugins/playback/PlayBack-OSS.cpp:407
+#: plugins/playback/PlayBack-OSS.cpp:402
 msgid "ALSA playback device (adsp*)"
 msgstr "ALSA zařízení umožňující přehrávání (adsp*)"
 
@@ -1580,7 +1580,7 @@ msgstr "Provádí se rozbor úrovně hlasitosti..."
 msgid "Annotation"
 msgstr "Poznámka"
 
-#: plugins/playback/PlayBack-OSS.cpp:410 plugins/record/Record-OSS.cpp:296
+#: plugins/playback/PlayBack-OSS.cpp:405 plugins/record/Record-OSS.cpp:296
 #: plugins/record/RecordDialog.cpp:601
 msgid "Any device (*)"
 msgstr "Jakékoli zařízení (*)"
@@ -1804,7 +1804,7 @@ msgstr "Procházet kvůli adresáři za účelem uchování stránkovacích soub
 msgid "Buffer count:"
 msgstr "Množství vyrovnávací paměti:"
 
-#: plugins/record/RecordPlugin.cpp:997
+#: plugins/record/RecordPlugin.cpp:996
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
@@ -1960,12 +1960,12 @@ msgstr "Komprimovaný zvukový výměnný formát"
 msgid "Compression"
 msgstr "Stlačení"
 
-#: plugins/record/RecordPlugin.cpp:608
+#: plugins/record/RecordPlugin.cpp:607
 #, kde-format
 msgid "Compression '%1' failed, using '%2'."
 msgstr "Komprese '%1' selhala. Používá se '%2'."
 
-#: plugins/record/RecordPlugin.cpp:596
+#: plugins/record/RecordPlugin.cpp:595
 #, kde-format
 msgid "Compression '%1' not supported, using '%2'"
 msgstr "Komprese '%1' není podporována. Používá se '%2'."
@@ -3069,7 +3069,7 @@ msgstr "Kwave makro soubory"
 msgid "Kwave homepage and German online help"
 msgstr "Domovská stránka Kwave a německá nápověda po internetu"
 
-#: plugins/record/RecordPlugin.cpp:389
+#: plugins/record/RecordPlugin.cpp:388
 #, kde-format
 msgid ""
 "Kwave was unable to open the device '%1'.\n"
@@ -3498,8 +3498,8 @@ msgstr "Upravit metadata"
 msgid "Modify Samples"
 msgstr "Upravit vzorky"
 
-#: plugins/record/RecordDialog.cpp:700 plugins/record/RecordPlugin.cpp:456
-#: plugins/record/RecordPlugin.cpp:464
+#: plugins/record/RecordDialog.cpp:700 plugins/record/RecordPlugin.cpp:455
+#: plugins/record/RecordPlugin.cpp:463
 msgid "Mono"
 msgstr "Monofonní"
 
@@ -3672,7 +3672,7 @@ msgstr "Číslování:"
 msgid "OSS (Open Sound System)"
 msgstr "OSS (Open Sound System - Otevřený zvukový systém)"
 
-#: plugins/playback/PlayBack-OSS.cpp:404
+#: plugins/playback/PlayBack-OSS.cpp:399
 msgid "OSS playback device (dsp*)"
 msgstr "Přehrávací zařízení OSS (dsp*)"
 
@@ -3789,8 +3789,8 @@ msgstr "Délka snímku Opus"
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
 msgstr ""
-"Délka snímku Opus v ms (podporovanými hodnotami jsou 2.5, 5, 10, 20, 40, nebo "
-"60 ms)"
+"Délka snímku Opus v ms (podporovanými hodnotami jsou 2.5, 5, 10, 20, 40, "
+"nebo 60 ms)"
 
 #: plugins/codec_ogg/OpusDecoder.cpp:405
 msgid "Opus decoder failed"
@@ -3842,11 +3842,11 @@ msgstr "Jiné"
 
 #: kwave/TopWidget.cpp:876 plugins/codec_audiofile/AudiofileDecoder.cpp:107
 #: plugins/codec_flac/FlacEncoder.cpp:245 plugins/codec_wav/WavEncoder.cpp:418
-#: plugins/codec_wav/WavDecoder.cpp:343 plugins/playback/PlayBack-OSS.cpp:249
+#: plugins/codec_wav/WavDecoder.cpp:343 plugins/playback/PlayBack-OSS.cpp:244
 #: plugins/playback/PlayBack-Phonon.cpp:149
 #: plugins/playback/PlayBack-Phonon.cpp:180
-#: plugins/record/RecordPlugin.cpp:864 plugins/record/RecordPlugin.cpp:880
-#: plugins/record/RecordPlugin.cpp:947 plugins/codec_mp3/MP3Decoder.cpp:505
+#: plugins/record/RecordPlugin.cpp:863 plugins/record/RecordPlugin.cpp:879
+#: plugins/record/RecordPlugin.cpp:946 plugins/codec_mp3/MP3Decoder.cpp:505
 #: plugins/codec_ogg/OpusDecoder.cpp:387 plugins/codec_ogg/OpusEncoder.cpp:373
 #: plugins/codec_ogg/OpusEncoder.cpp:426 plugins/codec_ogg/OpusCommon.cpp:73
 msgid "Out of memory"
@@ -3935,7 +3935,7 @@ msgstr "Přehrávací zařízení"
 msgid "Playback method:"
 msgstr "Postup přehrávání:"
 
-#: plugins/playback/PlayBack-OSS.cpp:202
+#: plugins/playback/PlayBack-OSS.cpp:197
 #, kde-format
 msgid "Playback rate %1 Hz is not supported"
 msgstr "Kmitočet přehrávání %1 Hz není podporován"
@@ -4112,8 +4112,8 @@ msgstr "Punk"
 msgid "Punk Rock"
 msgstr "Punk rock"
 
-#: plugins/record/RecordDialog.cpp:706 plugins/record/RecordPlugin.cpp:458
-#: plugins/record/RecordPlugin.cpp:466
+#: plugins/record/RecordDialog.cpp:706 plugins/record/RecordPlugin.cpp:457
+#: plugins/record/RecordPlugin.cpp:465
 msgid "Quadro"
 msgstr "Quadro"
 
@@ -4179,7 +4179,7 @@ msgstr "Přístup ke čtení selhal"
 msgid "Reading configuration..."
 msgstr "Nastavení čtení..."
 
-#: plugins/record/RecordPlugin.cpp:1004
+#: plugins/record/RecordPlugin.cpp:1003
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr "Čtení z nahrávacího zařízení selhalo. Chyba číslo = %1 (%2)"
@@ -4221,7 +4221,7 @@ msgstr "Nahrávací zařízení"
 msgid "Recording method:"
 msgstr "Postup nahrávání:"
 
-#: plugins/record/RecordPlugin.cpp:494
+#: plugins/record/RecordPlugin.cpp:493
 #, kde-format
 msgid "Recording with %1 channels(s) failed, using %2 channels(s)"
 msgstr "Nahrávání %1  stop(y) selhalo. Používá se  %2 stop(a)"
@@ -4363,12 +4363,12 @@ msgstr "Vzorkovací kmitočet:"
 msgid "Sample and Hold"
 msgstr "Ukazovat vzorky a držet"
 
-#: plugins/record/RecordPlugin.cpp:718
+#: plugins/record/RecordPlugin.cpp:717
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
 msgstr "Vzorkovací formát '%1' selhal. Používá se '%2'"
 
-#: plugins/record/RecordPlugin.cpp:702
+#: plugins/record/RecordPlugin.cpp:701
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
 msgstr "Vzorkovací formát '%1' není podporován. Používá se '%2'"
@@ -4862,8 +4862,8 @@ msgstr "Spuštění hotovo"
 msgid "Stefan Westerfeld"
 msgstr "Stefan Westerfeld"
 
-#: plugins/record/RecordDialog.cpp:703 plugins/record/RecordPlugin.cpp:457
-#: plugins/record/RecordPlugin.cpp:465
+#: plugins/record/RecordDialog.cpp:703 plugins/record/RecordPlugin.cpp:456
+#: plugins/record/RecordPlugin.cpp:464
 msgid "Stereo"
 msgstr "Stereofonní zvuk"
 
@@ -5003,11 +5003,11 @@ msgstr ""
 msgid "The compressed data passed is corrupted."
 msgstr "Komprimovaná data jsou poškozena."
 
-#: plugins/record/RecordPlugin.cpp:857
+#: plugins/record/RecordPlugin.cpp:856
 msgid "The current compression type is not supported!"
 msgstr "Nynější druh komprese není podporován."
 
-#: plugins/record/RecordPlugin.cpp:851
+#: plugins/record/RecordPlugin.cpp:850
 msgid "The current sample format is not supported!"
 msgstr "Nynější vzorkovací formát není podporován."
 
@@ -5016,7 +5016,7 @@ msgstr "Nynější vzorkovací formát není podporován."
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr "Zařízení '%1' nelze otevřít v odpovídajícím režimu."
 
-#: plugins/record/RecordPlugin.cpp:396
+#: plugins/record/RecordPlugin.cpp:395
 #, kde-format
 msgid ""
 "The device '%1' seems to be occupied by another application.\n"
@@ -5120,7 +5120,7 @@ msgstr ""
 msgid "The plugin '%1' is unknown or invalid."
 msgstr "Přídavný modul '%1' není znám nebo je neplatný."
 
-#: plugins/record/RecordPlugin.cpp:1001
+#: plugins/record/RecordPlugin.cpp:1000
 msgid "The recording device seems to be busy."
 msgstr "Zdá se, že nahrávací zařízení je zaneprázdněno."
 
@@ -5303,7 +5303,7 @@ msgstr "Neschopen otevřít soubor pro ukládání!"
 msgid "Unable to open the file for saving."
 msgstr "Nelze otevřít soubor pro uložení."
 
-#: plugins/record/RecordPlugin.cpp:404
+#: plugins/record/RecordPlugin.cpp:403
 msgid "Unable to open the recording device"
 msgstr "Nelze otevřít nahrávací zařízení"
 
@@ -5335,7 +5335,7 @@ msgstr "Neznámá chyba 0x%X. Že by byl poškozen soubor?"
 msgid "Unsigned Integer"
 msgstr "Celé číslo bez znaménka"
 
-#: plugins/playback/PlayBack-OSS.cpp:212
+#: plugins/playback/PlayBack-OSS.cpp:207
 #, kde-format
 msgid "Unusable buffer size: %1"
 msgstr "Nepoužitelná velikost vyrovnávací paměti: %1"

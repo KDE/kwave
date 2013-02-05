@@ -240,7 +240,6 @@ ENDIF (NOT REQUIRED_STD_HEADERS)
 #############################################################################
 ### checks for some functions                                             ###
 
-CHECK_FUNCTION_EXISTS(mkstemp HAVE_MKSTEMP)
 CHECK_FUNCTION_EXISTS(unlink HAVE_UNLINK)
 
 INCLUDE(KwaveSysinfo)

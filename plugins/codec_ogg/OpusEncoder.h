@@ -19,6 +19,7 @@
 #define _OPUS_ENCODER_H_
 
 #include "config.h"
+#ifdef HAVE_OGG_OPUS
 
 #include <ogg/ogg.h>
 #include <opus/opus.h>
@@ -234,6 +235,8 @@ namespace Kwave
 	Kwave::MultiTrackSink<Kwave::SampleBuffer, true> *m_buffer;
     };
 }
+
+#endif /* HAVE_OGG_OPUS */
 
 #endif /* _OPUS_ENCODER_H_ */
 

@@ -75,6 +75,9 @@
 /* support MP3 */
 #cmakedefine HAVE_MP3
 
+/* does libogg have the function ogg_stream_flush_fill ? (>= v1.3.0) */
+#cmakedefine HAVE_OGG_STREAM_FLUSH_FILL
+
 /* support Vorbis in Ogg */
 #cmakedefine HAVE_OGG_VORBIS
 

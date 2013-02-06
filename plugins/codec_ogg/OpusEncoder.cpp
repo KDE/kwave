@@ -871,11 +871,11 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
 	while (( ((size_segments <= 255) &&
 		(last_segments + size_segments > 255)) ||
 		(enc_granulepos - last_granulepos > max_ogg_delay)) &&
-#ifdef OLD_LIBOGG
-		ogg_stream_flush(&m_os, &m_og))
-#else
+#ifdef HAVE_OGG_STREAM_FLUSH_FILL
 		ogg_stream_flush_fill(&m_os, &m_og, 255 * 255))
-#endif
+#else /* HAVE_OGG_STREAM_FLUSH_FILL */
+		ogg_stream_flush(&m_os, &m_og))
+#endif /* HAVE_OGG_STREAM_FLUSH_FILL */
 	{
 	    if (ogg_page_packets(&m_og) != 0)
 		last_granulepos = ogg_page_granulepos(&m_og);
@@ -924,16 +924,16 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
         while ((m_op.e_o_s || (enc_granulepos +
 	        ((m_frame_size * 48000) / m_coding_rate ) -
 	         last_granulepos > max_ogg_delay) || (last_segments >= 255)) ?
-#ifdef OLD_LIBOGG
+#ifdef HAVE_OGG_STREAM_FLUSH_FILL
+                ogg_stream_flush_fill(&m_os, &m_og, 255 * 255) :
+                ogg_stream_pageout_fill(&m_os, &m_og, 255 * 255))
+#else /* HAVE_OGG_STREAM_FLUSH_FILL */
                 /*Libogg > 1.2.2 allows us to achieve lower overhead by
                   producing larger pages. For 20ms frames this is only relevant
                   above ~32kbit/sec.*/
                 ogg_stream_flush(&m_os, &m_og) :
                 ogg_stream_pageout(&m_os, &m_og))
-#else
-                ogg_stream_flush_fill(&m_os, &m_og, 255 * 255) :
-                ogg_stream_pageout_fill(&m_os, &m_og, 255 * 255))
-#endif
+#endif /* HAVE_OGG_STREAM_FLUSH_FILL */
 	{
             if (ogg_page_packets(&m_og) != 0)
                 last_granulepos = ogg_page_granulepos(&m_og);

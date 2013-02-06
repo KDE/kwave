@@ -38,6 +38,8 @@ IF (WITH_OGG)
 # 	MESSAGE(STATUS "Found Opus codec library in ${OPUS_LIBDIR}")
 # 	MESSAGE(STATUS "Found Opus codec headers in ${OPUS_INCLUDEDIR}")
 
+	CHECK_LIBRARY_EXISTS(ogg ogg_stream_flush_fill "" HAVE_OGG_STREAM_FLUSH_FILL)
+
 	SET(HAVE_OGG_OPUS  ON CACHE BOOL "enable Opus codec")
 	SET(OGG_OPUS_LIBS "opus")
 	SET(OGG_OPUS_SRCS

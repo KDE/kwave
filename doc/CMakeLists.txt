@@ -34,7 +34,7 @@ FIND_REQUIRED_PROGRAM(CHECKXML_EXECUTABLE checkXML)
 #############################################################################
 ### how to convert from svg to png                                        ###
 
-FIND_PROGRAM(RSVG_EXECUTABLE NAMES rsvg rsvg-convert)
+FIND_PROGRAM(RSVG_EXECUTABLE NAMES rsvg-convert rsvg)
 IF (RSVG_EXECUTABLE)
     GET_FILENAME_COMPONENT(_basename ${RSVG_EXECUTABLE} NAME_WE)
     MESSAGE(STATUS "Found ${_basename}: ${RSVG_EXECUTABLE}")

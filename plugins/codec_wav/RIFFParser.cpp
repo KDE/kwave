@@ -351,7 +351,7 @@ bool Kwave::RIFFParser::parse(Kwave::RIFFChunk *parent,
 	if (length >= 8) {
 	    // length information present
 	    m_dev.read(reinterpret_cast<char *>(&len), 4);
-	    if (m_endianness != SYSTEM_ENDIANNES) len = bswap_32(len);
+	    if (m_endianness != SYSTEM_ENDIANNES) len = qbswap<quint32>(len);
 	}
 	if (len == 0) {
 	    // valid name but no length information -> badly truncated

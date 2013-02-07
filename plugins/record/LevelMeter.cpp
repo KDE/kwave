@@ -298,7 +298,7 @@ void Kwave::LevelMeter::drawScale(QPainter &p)
 	do {
 	    txt = i18n("%1 dB", db);
 	    x = static_cast<int>(static_cast<double>(w) *
-		pow10(static_cast<double>(db) / 20.0));
+		pow(10.0, static_cast<double>(db) / 20.0));
 	    db -= 3; // one step left == -3dB
 	} while ((x > right) && (x >= tw));
 	if (x < tw) break;

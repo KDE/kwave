@@ -302,7 +302,7 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
     // (supported values are 2.5, 5, 10, 20, 40, or 60 ms)
     qreal ms_per_frame = 20.0; // default is 20ms
     if (m_info.contains(INF_OPUS_FRAME_LEN)) {
-	qreal len = m_info.get(INF_OPUS_FRAME_LEN).toReal();
+	double len = m_info.get(INF_OPUS_FRAME_LEN).toDouble();
 	if (len >= 60)
 	    ms_per_frame = 60.0;
 	else if (len >= 40)

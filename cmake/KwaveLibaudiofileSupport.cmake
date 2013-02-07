@@ -25,12 +25,6 @@ IF (NOT LIBAUDIOFILE_FOUND)
 ENDIF(NOT LIBAUDIOFILE_FOUND)
 
 #############################################################################
-### checks for some data types                                            ###
-
-CHECK_TYPE_SIZE("size_t" SIZEOF_SIZE_T)
-CHECK_TYPE_SIZE("long" SIZEOF_LONG)
-
-#############################################################################
 ### check if the system has audiofile.h                                   ###
 
 FIND_PATH(HAVE_AUDIOFILE_H audiofile.h)

@@ -36,6 +36,7 @@
 #include "libkwave/Drag.h"
 #include "libkwave/FileDrag.h"
 #include "libkwave/MultiTrackReader.h"
+#include "libkwave/Parser.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -718,11 +719,15 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
 	    if (Kwave::CodecManager::canDecode(mimetype)) {
 		if (first) {
 		    // first dropped URL -> open in this window
-		    emit sigCommand(_("open(") + filename + _(")"));
+		    emit sigCommand(_("open(") +
+		                    Kwave::Parser::escape(filename) +
+		                    _(")"));
 		    first = false;
 		} else {
 		    // all others -> open a new window
-		    emit sigCommand(_("newwindow(") + filename + _(")"));
+		    emit sigCommand(_("newwindow(") +
+		                    Kwave::Parser::escape(filename) +
+		                    _(")"));
 		}
 	    }
 	}

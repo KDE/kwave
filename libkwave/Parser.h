@@ -124,6 +124,23 @@ namespace Kwave
 	 */
 	double toDouble();
 
+	/**
+	 * Escapes all characters that might be critical when parsing
+	 *
+	 * @param text a unicode text to escape
+	 * @return text with certain characters escaped
+	 */
+	static QString escape(const QString &text);
+
+	/**
+	 * Un-escapes all characters in a string previously escaped with
+	 * escape()
+	 *
+	 * @param text a unicode text to un-escape
+	 * @return the original text without escaped characters
+	 */
+	static QString unescape(const QString &text);
+
     protected:
 
 	/** Splits a line into a list of commands */

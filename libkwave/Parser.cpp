@@ -28,8 +28,9 @@
 Kwave::Parser::Parser (const QString &init)
     :m_command(_("")), m_param(), m_current(0), m_commands()
 {
-    QString line = init.trimmed();
+    QString line       = init.trimmed();
     unsigned int level = 0;
+    bool escaped       = false;
     int pos;
 
     m_commands = splitCommands(line);
@@ -42,20 +43,34 @@ Kwave::Parser::Parser (const QString &init)
 	m_command = line.left(pos).simplified();
 	line.remove(0, pos+1);
     } else {
-	m_command = _("");
+	m_command.clear();
     }
 
     // --- parse the list of parameters ---
-    QString param = _("");
+    QString param;
     while (line.length()) {
 	QChar c = line[0];
 	line.remove(0,1);
 
+	// the next character is escaped
+	if (!escaped && (c.toAscii() == '\\')) {
+	    escaped = true;
+	    param += c;
+	    continue;
+	}
+
+	// escaped character
+	if (escaped) {
+	    escaped = false;
+	    param += c;
+	    continue;
+	}
+
 	switch (c.toAscii()) {
 	    case ',':
 		if (!level) {
-		    m_param.append(param.trimmed());
-		    param = _("");
+		    m_param.append(unescape(param.trimmed()));
+		    param.clear();
 	        } else param += c;
 	        break;
 
@@ -65,9 +80,9 @@ Kwave::Parser::Parser (const QString &init)
 		break;
 	    case ')':
 		if (!level) {
-		    m_param.append(param.trimmed());
+		    m_param.append(unescape(param.trimmed()));
 		    // break, belongs to command, end of line
-		    line = _("");
+		    line.clear();
 		}
 		level--;
 		param += c;
@@ -95,10 +110,26 @@ QStringList Kwave::Parser::splitCommands(QString &line)
     unsigned int level = 0;
     QString cmd = _("");
     QStringList commands;
+    bool escaped = false;
 
     while (line.length()) {
 	QChar c = line[0];
 	line.remove(0,1);
+
+	// the next character is escaped
+	if (!escaped && (c.toAscii() == '\\')) {
+	    escaped = true;
+	    cmd += c;
+	    continue;
+	}
+
+	// escaped character
+	if (escaped) {
+	    escaped = false;
+	    cmd += c;
+	    continue;
+	}
+
 	switch (c.toAscii()) {
 	    case ';':
 		if (!level) {
@@ -209,6 +240,46 @@ double Kwave::Parser::toDouble()
     }
 
     return value;
+}
+
+//***************************************************************************
+QString Kwave::Parser::escape(const QString &text)
+{
+    static const QString special = _(":;<=>?[\\]^`");
+    QString escaped;
+
+    for (QString::ConstIterator it = text.begin(); it != text.end(); ++it) {
+	const QChar c(*it);
+
+	if ((c.toAscii() < '.') || (c.toAscii() > 'z') || special.contains(c))
+	    escaped += _("\\");
+
+	escaped += c;
+    }
+
+    return escaped;
+}
+
+//***************************************************************************
+QString Kwave::Parser::unescape(const QString &text)
+{
+    QString unescaped;
+
+    bool esc = false;
+    for (QString::ConstIterator it = text.begin(); it != text.end(); ++it) {
+	const QChar c(*it);
+
+	if (!esc && (c.toAscii() == '\\')) {
+	    // this is the leading escape character -> skip it
+	    esc = true;
+	    continue;
+	}
+
+	esc = false;
+	unescaped += c;
+    }
+
+    return unescaped;
 }
 
 //***************************************************************************

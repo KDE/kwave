@@ -1,3 +1,8 @@
+0.8.11 [2013-xx-xx]
+
+ * bugfix: file names were not properly escaped in context of file/open,
+   file/openrecent and drag&drop
+
 0.8.10 [2013-02-09]
 
  * file name cleanup: removed "Kwave" prefix

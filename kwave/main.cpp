@@ -170,7 +170,7 @@ int main( int argc, char **argv )
 
     if (!KUniqueApplication::start()) {
 	qWarning("Kwave is already running!");
-	exit(0);
+	return 0;
     }
 
     Kwave::App app;

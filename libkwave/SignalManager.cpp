@@ -370,7 +370,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 
 	Kwave::MultiTrackReader src(Kwave::SinglePassForward, *this,
 	    (selection) ? selectedTracks() : allTracks(),
-	    ofs, ofs+len-1);
+	    ofs, ofs + len - 1);
 
 	// update the file information
 	file_info.setLength(len);
@@ -450,17 +450,20 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 	    res = -1;
 	}
 
-	qApp->flush();
 	delete encoder;
+	encoder = 0;
+
 	if (dialog) {
+	    qApp->processEvents();
 	    if (dialog->isCanceled()) {
 		// user really pressed cancel !
 		Kwave::MessageBox::error(m_parent_widget,
-		    i18n("The file has been truncated and "\
-		         "might be corrupted."));
+		    i18n("The file has been truncated and "
+		          "might be corrupted."));
+		res = -EINTR;
 	    }
-	    dialog->deleteLater();
-	    qApp->flush();
+	    delete dialog;
+	    dialog = 0;
 	}
     } else {
 	Kwave::MessageBox::error(m_parent_widget,

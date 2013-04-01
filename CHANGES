@@ -2,6 +2,8 @@
 
  * bugfix: file names were not properly escaped in context of file/open,
    file/openrecent and drag&drop
+ * bugfix: saveblocks() did not abort properly when pressing cancel
+ * unclean shutdown of the file progress dialog when saving
 
 0.8.10 [2013-02-09]
 

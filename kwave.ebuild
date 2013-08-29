@@ -41,7 +41,7 @@ RDEPEND="
 	)
 "
 DEPEND="${RDEPEND}
-	$(add_kdebase_dep kdesdk-misc extras)
+	$(add_kdebase_dep poxml extras)
 	|| ( media-gfx/imagemagick[png,svg] media-gfx/graphicsmagick[imagemagick,png,svg] )
 "
 

@@ -2530,10 +2530,10 @@
 <prompt>% </prompt><command>cd <parameter>doc</parameter></command>
 <prompt>% </prompt><command>touch <parameter><replaceable>help_fr.po</replaceable></parameter></command>
 </screen>
-		Then change your build directory (e.g. somewhere in <filename>/tmp</filename>),
+		Then change to your build directory (e.g. somewhere in <filename>/tmp</filename>),
 		prepare for building and then generate the <filename>.pot</filename> template (you
 		can safely ignore the error messages that come out at this stage).
-		This themplate has to be copied to the <filename>.po</filename> file in the source
+		This template has to be copied to the <filename>.po</filename> file in the source
 		directory of the online help.
 		Example:
 <screen>

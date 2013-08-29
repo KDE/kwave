@@ -160,6 +160,43 @@ static Kwave::byte_order_t endian_of(snd_pcm_format_t fmt)
 }
 
 //***************************************************************************
+/**
+ * Wrapper for avoiding use of the ALSA alloca based functions which do not
+ * work well with -fstack-protector of newer GCC versions, and also avoids
+ * potential memory leaks when using pure ALSA malloc/free based functions.
+ */
+template <class T, int (allocator)(T**), void (deleter)(T*)>
+	class AlsaMallocWrapper
+{
+public:
+    /** constructor, creates an object using the allocator function */
+    AlsaMallocWrapper()
+	:m_data(0)
+    {
+	allocator(&m_data);
+    }
+
+    /** destructor, frees the object using the deleter function */
+    virtual ~AlsaMallocWrapper()
+    {
+	if (m_data) deleter(m_data);
+	m_data = 0;
+    }
+
+    /** conversion operator, returns the ALSA object */
+    inline operator T *&() { return m_data; }
+
+private:
+    T *m_data; /**< allocated ALSA object */
+};
+
+//***************************************************************************
+
+/** wrapper for AlsaMallocWrapper */
+#define ALSA_MALLOC_WRAPPER(__t__) \
+    AlsaMallocWrapper<__t__##_t, __t__##_malloc, __t__##_free>
+
+//***************************************************************************
 Kwave::PlayBackALSA::PlayBackALSA()
     :Kwave::PlayBackDevice(),
     m_device_name(),
@@ -258,9 +295,8 @@ QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
     QList<int> supported_formats;
 
     int err;
-    snd_pcm_hw_params_t *p;
+    ALSA_MALLOC_WRAPPER(snd_pcm_hw_params) p;
 
-    snd_pcm_hw_params_alloca(&p);
     if (!p) return supported_formats;
 
     snd_pcm_t *pcm = openDevice(device);
@@ -319,8 +355,8 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 {
     int err;
     snd_output_t *output = NULL;
-    snd_pcm_hw_params_t *hw_params = 0;
-    snd_pcm_sw_params_t *sw_params = 0;
+    ALSA_MALLOC_WRAPPER(snd_pcm_hw_params) hw_params;
+    ALSA_MALLOC_WRAPPER(snd_pcm_sw_params) sw_params;
     snd_pcm_uframes_t buffer_size;
     unsigned period_time = 0; // period time in us
     unsigned buffer_time = 0; // ring buffer length in us
@@ -378,7 +414,6 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 	return err;
     }
 #else
-    snd_pcm_hw_params_alloca(&hw_params);
     if ((err = snd_pcm_hw_params_any(m_handle, hw_params)) < 0) {
 	qWarning("Cannot initialize hardware parameters: %s",
 	         snd_strerror(err));
@@ -475,7 +510,6 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     }
 
     /* set software parameters */
-    snd_pcm_sw_params_alloca(&sw_params);
     err = snd_pcm_sw_params_current(m_handle, sw_params);
     if (err < 0) {
 	qWarning("Unable to determine current software parameters: %s",
@@ -733,10 +767,8 @@ void Kwave::PlayBackALSA::scanDevices()
     snd_ctl_t *handle;
     int card, err, dev;
     int idx;
-    snd_ctl_card_info_t *info;
-    snd_pcm_info_t *pcminfo;
-    snd_ctl_card_info_alloca(&info);
-    snd_pcm_info_alloca(&pcminfo);
+    ALSA_MALLOC_WRAPPER(snd_ctl_card_info) info;
+    ALSA_MALLOC_WRAPPER(snd_pcm_info) pcminfo;
 
     m_device_list.clear();
 
@@ -960,9 +992,8 @@ int Kwave::PlayBackALSA::detectChannels(const QString &device,
                                         unsigned int &min, unsigned int &max)
 {
     min = max = 0;
-    snd_pcm_hw_params_t *p;
+    ALSA_MALLOC_WRAPPER(snd_pcm_hw_params) p;
 
-    snd_pcm_hw_params_alloca(&p);
     if (!p) return -1;
 
     snd_pcm_t *pcm = openDevice(device);

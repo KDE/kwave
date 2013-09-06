@@ -24,6 +24,7 @@ SET(KWAVE_LINGUAS
     cs:čeština
     de:Deutsch
     en:English
+    es:Español
     fr:Francais
     # <- add new languages here...
 )

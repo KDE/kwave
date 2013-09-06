@@ -5,7 +5,7 @@
 EAPI=5
 
 KDE_HANDBOOK="optional"
-KDE_LINGUAS="cs de en_GB fr"
+KDE_LINGUAS="cs de en_GB es fr"
 inherit kde4-base
 
 DESCRIPTION="A sound editor for KDE that can edit many types of audio files"

@@ -110,6 +110,10 @@ void addDataStrings(KAboutData &aboutdata)
                      ki18n("Author of the 'audiofile' library"),
                      "mpruett@sgi.com",
                      "http://www.68k.org/~michael/audiofile/");
+    aboutdata.addCredit(ki18n("Carlos R."),
+                     ki18n("Spanish translation"),
+                     "pureacetone@gmail.com",
+                     0);
     aboutdata.addCredit(ki18n("Erik de Castro Lopo"),
                      ki18n("Author of the 'sndfile' library"),
                      "erikd@zip.com.au",

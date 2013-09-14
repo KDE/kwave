@@ -36,12 +36,15 @@ Major Contributors
 Aurelien Jarno <aurel32@debian.org>
 	* debian packager
 
+Carlos R <pureacetone@gmail.com>
+	* spanish translation
+
 David Flogeras <d.flogeras@unb.ca>
 	* notch filter plugin
 	* band pass plugin
 
 Gilles Caulier <caulier.gilles@free.fr>
-	* french translations
+	* french translation
 	* splashscreen
 	* tests and minor bugfixes
 

@@ -1,5 +1,6 @@
 0.8.11 [2013-xx-xx]
 
+ * added spanish translation, provided by Carlos R. <pureacetone@gmail.com>
  * bugfix: file names were not properly escaped in context of file/open,
    file/openrecent and drag&drop
  * bugfix: saveblocks() did not abort properly when pressing cancel

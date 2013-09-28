@@ -66,10 +66,6 @@ namespace Kwave
 
 	/** amplification factor */
 	float m_factor;
-
-	/** mode for amplification selection */
-	int m_mode;
-
     };
 }
 

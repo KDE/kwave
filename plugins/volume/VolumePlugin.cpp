@@ -41,7 +41,7 @@ KWAVE_PLUGIN(Kwave::VolumePlugin, "volume", "2.3",
 
 //***************************************************************************
 Kwave::VolumePlugin::VolumePlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_params(), m_factor(1.0), m_mode(0)
+    :Kwave::Plugin(plugin_manager), m_params(), m_factor(1.0)
 {
 }
 
@@ -65,9 +65,9 @@ int Kwave::VolumePlugin::interpreteParameters(QStringList &params)
     if (!ok) return -EINVAL;
 
     param = params[1];
-    m_mode = param.toUInt(&ok);
+    unsigned int mode = param.toUInt(&ok);
     Q_ASSERT(ok);
-    if (!ok || (m_mode > 2)) return -EINVAL;
+    if (!ok || (mode > 2)) return -EINVAL;
 
     // all parameters accepted
     m_params = params;

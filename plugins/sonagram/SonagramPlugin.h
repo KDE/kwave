@@ -63,6 +63,7 @@ namespace Kwave
 	/**
 	 * Runns once until all stripes of the sonagram are
 	 * calculated.
+	 * @param params list of strings with parameters
 	 * @see Kwave::Plugin::run()
 	 */
 	virtual void run(QStringList params);

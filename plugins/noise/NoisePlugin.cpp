@@ -40,10 +40,12 @@ Kwave::NoisePlugin::NoisePlugin(Kwave::PluginManager &plugin_manager)
 }
 
 //***************************************************************************
-void Kwave::NoisePlugin::run(QStringList)
+void Kwave::NoisePlugin::run(QStringList params)
 {
     sample_index_t first, last;
     QList<unsigned int> tracks;
+
+    Q_UNUSED(params);
 
     Kwave::UndoTransactionGuard undo_guard(*this, i18n("Noise"));
 

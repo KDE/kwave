@@ -67,8 +67,11 @@ namespace Kwave
 	/** @see Kwave::Plugin::setup() */
 	virtual QStringList *setup(QStringList &previous_params);
 
-	/** Starts a playback test sequence */
-	virtual void run(QStringList);
+	/**
+	 * Starts a playback test sequence
+	 * @param params list of strings with parameters (unused)
+	 */
+	virtual void run(QStringList params);
 
     signals:
 

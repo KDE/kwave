@@ -214,37 +214,37 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 
 /**
  * load a text field with the content of the current settings
- * @param __field__ member within m_settings
- * @param __control__ the KLineEdit to fill with the value
+ * @param field member within m_settings
+ * @param control the KLineEdit to fill with the value
  */
-#define LOAD(__field__, __control__) __control__->setText(m_settings.__field__)
+#define LOAD(field, control) control->setText(m_settings.field)
 
 /**
  * take the content of a KLineEdit and save it back into m_settings
- * @param __field__ member within m_settings
- * @param __control__ the KLineEdit to fill with the value
+ * @param field member within m_settings
+ * @param control the KLineEdit to fill with the value
  */
-#define SAVE(__field__, __control__) \
-    m_settings.__field__ = QString(__control__->text()).simplified()
+#define SAVE(field, control) \
+    m_settings.field = QString(control->text()).simplified()
 
 /**
  * connect the editingFinished() signal of a KLineEdit to our slot
  * switchToUserDefined()
- * @param __control__ the KLineEdit to handle
+ * @param control the KLineEdit to handle
  */
-#define CONNECT(__control__) \
-    connect(__control__, SIGNAL(editingFinished()), \
+#define CONNECT(control) \
+    connect(control, SIGNAL(editingFinished()), \
     this, SLOT(switchToUserDefined()))
 
 /**
  * check if the content of a KLineEdit matches the corresponding member
  * of some "settings" record
- * @param __field__ member within m_settings
- * @param __control__ the KLineEdit to compare against
+ * @param field member within m_settings
+ * @param control the KLineEdit to compare against
  * @return the bool variable "match" is updated (logical AND)
  */
-#define CHECK(__field__, __control__) match &= \
-    (settings.__field__ == QString(__control__->text()).simplified())
+#define CHECK(field, control) match &= \
+    (settings.field == QString(control->text()).simplified())
 
 #define ELEMENTS_OF(x) (sizeof(x) / sizeof(x[0]))
 

@@ -289,12 +289,14 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::createDevice(
 }
 
 //***************************************************************************
-void Kwave::PlayBackPlugin::run(QStringList)
+void Kwave::PlayBackPlugin::run(QStringList params)
 {
     const float t_sweep        =   1.0; /* seconds per speaker */
     const unsigned int periods =     3; /* number of periods to play */
 
     qDebug("PlayBackPlugin::run()");
+
+    Q_UNUSED(params);
 
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_playback_sink);

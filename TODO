@@ -1,4 +1,10 @@
 
+o noise plugin: add noise (mix) instead of overwrite (with adjustable level [dB])
+
+o pause button: change tooltip to "continue" if paused
+
+o detect song titles / metadata by using musicbrainz
+
 o proper channel mixing matrix for well-known track numbers and file formats
   (e.g. wav or vorbis)
 
@@ -12,8 +18,6 @@ o Ogg/Vorbis: support > 2 channels or downmixing
 o FLAC in Ogg container
 
 o SPEEX in Ogg container
-
-o noise plugin: add noise (mix) instead of overwrite (with adjustable level [dB])
 
 o use noise shaping globally in sample2float()
 

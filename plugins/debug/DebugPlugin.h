@@ -51,7 +51,10 @@ namespace Kwave
 	/** @see Kwave::Plugin::load() */
 	virtual void load(QStringList &params);
 
-	/** performs the special function */
+	/**
+	 * performs the special function
+	 * @param params list of strings with parameters
+	 */
 	virtual void run(QStringList);
 
     private:

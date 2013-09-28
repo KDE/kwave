@@ -52,8 +52,11 @@ namespace Kwave
 	 */
 	virtual QStringList *setup(QStringList &previous_params);
 
-	/** Does the fade operation */
-	virtual void run(QStringList);
+	/**
+	 * Does the fade operation
+	 * @param params list of strings with parameters
+	 */
+	virtual void run(QStringList params);
 
 	/**
 	 * @see Kwave::Plugin::start(),

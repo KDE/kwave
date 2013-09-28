@@ -226,9 +226,11 @@ int Kwave::SonagramPlugin::start(QStringList &params)
 }
 
 //***************************************************************************
-void Kwave::SonagramPlugin::run(QStringList /* params */)
+void Kwave::SonagramPlugin::run(QStringList params)
 {
 //    qDebug("SonagramPlugin::run()");
+
+    Q_UNUSED(params);
 
     if (m_fft_points < 4)
 	return;

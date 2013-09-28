@@ -51,8 +51,11 @@ namespace Kwave
 	/** Returns the name of the plugin. */
 	virtual QString name() const;
 
-	/** normalizes the volume */
-	virtual void run(QStringList);
+	/**
+	 * normalizes the volume
+	 * @param params list of strings with parameters
+	 */
+	virtual void run(QStringList params);
 
     private:
 

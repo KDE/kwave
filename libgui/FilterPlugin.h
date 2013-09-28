@@ -69,8 +69,11 @@ namespace Kwave
 	 */
 	virtual QStringList *setup(QStringList &previous_params);
 
-	/** Does the filter operation and/or pre-listen */
-	virtual void run(QStringList);
+	/**
+	 * Does the filter operation and/or pre-listen
+	 * @param params list of strings with parameters
+	 */
+	virtual void run(QStringList params);
 
 	/**
 	 * Returns true if the parameters have changed during pre-listen.

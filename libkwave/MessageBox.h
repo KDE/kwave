@@ -114,7 +114,7 @@ namespace Kwave
 	 * a blocking signal, depending on whether the current context
 	 * is the GUI thread or not.
 	 *
-	 * @param mode @see KMessageBox::DialogType
+	 * @param mode type of the message box @see KMessageBox::DialogType
 	 * @param parent the parent widget
 	 * @param message the text of the message box
 	 * @param caption the window title (optional)

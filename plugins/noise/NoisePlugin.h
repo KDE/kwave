@@ -41,8 +41,11 @@ namespace Kwave
 	/** Returns the name of the plugin. */
 	virtual QString name() const;
 
-	/** Fills the selected area with noise */
-	virtual void run(QStringList);
+	/**
+	 * Fills the selected area with noise
+	 * @param params list of strings with parameters
+	 */
+	virtual void run(QStringList params);
 
     };
 }

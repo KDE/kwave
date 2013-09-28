@@ -49,8 +49,11 @@ namespace Kwave
 	/** Returns the name of the plugin. */
 	virtual QString name() const;
 
-	/** reverses the selection */
-	virtual void run(QStringList);
+	/**
+	 * reverses the selection
+	 * @param params list of strings with parameters
+	 */
+	virtual void run(QStringList params);
 
     private slots:
 

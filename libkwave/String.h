@@ -42,17 +42,17 @@ static inline QString _(const char *s) { return QLatin1String(s); }
 
 /**
  * helper for converting QString to const char *, useful for debug output
- * @param __s__ a QString
+ * @param qs a QString
  * @return a const char * in UTF8 representation
  */
-#define __(__s__) ((__s__).toUtf8().data())
+#define __(qs) ((qs).toUtf8().data())
 
 /**
  * helper for converting QString to const char *, useful for debug output
- * @param __s__ a QString
+ * @param qs a QString
  * @return a const char * in local 8 bit representation
  */
-#define DBG(__s__) ((__s__).toLocal8Bit().data())
+#define DBG(qs) ((qs).toLocal8Bit().data())
 
 #endif /* _KWAVE_STRING_H_ */
 

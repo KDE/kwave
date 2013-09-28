@@ -48,12 +48,19 @@ namespace Kwave
 	/** Returns the name of the plugin. */
 	virtual QString name() const;
 
-	/** changes the sample rate */
-	virtual void run(QStringList);
+	/**
+	 * changes the sample rate
+	 * @param params list of strings with parameters
+	 */
+	virtual void run(QStringList params);
 
     protected:
 
-	/** reads values from the parameter list */
+	/**
+	 * reads values from the parameter list
+	 * @param params list of strings with parameters
+	 * @return 0 if succeeded or negative error code if failed
+	 */
 	int interpreteParameters(QStringList &params);
 
     private:

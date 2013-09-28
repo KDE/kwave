@@ -33,19 +33,19 @@
 
 /**
  * load from config file
- * @param __field__ receives the value
- * @param __key__ identifier in the config section
+ * @param field receives the value
+ * @param key identifier in the config section
  */
-#define LOAD(__field__, __key__) __field__ = \
-    cfg.readEntry(__key__, __field__)
+#define LOAD(field, key) field = \
+    cfg.readEntry(key, field)
 
 /**
  * save to config file
- * @param __field__ value to save
- * @param __key__ identifier in the config section
+ * @param field value to save
+ * @param key identifier in the config section
  */
-#define SAVE(__field__, __key__) \
-    cfg.writeEntry(__key__, sanitized(__field__))
+#define SAVE(field, key) \
+    cfg.writeEntry(key, sanitized(field))
 
 /***************************************************************************/
 /**

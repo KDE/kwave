@@ -49,8 +49,11 @@ namespace Kwave
 	 */
 	virtual QStringList *setup(QStringList &previous_params);
 
-	/** Does the amplification operation */
-	virtual void run(QStringList);
+	/**
+	 * Does the amplification operation
+	 * @param params list of strings with parameters
+	 */
+	virtual void run(QStringList params);
 
     protected:
 

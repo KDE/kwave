@@ -34,11 +34,12 @@ namespace Kwave
      * (sorted, preferred first)
      */
     typedef enum {
-	RECORD_NONE = 0, /**< none selected */
-	RECORD_JACK,     /**< Jack sound daemon */
-	RECORD_ALSA,     /**< ALSA native */
-	RECORD_OSS,      /**< OSS native or ALSA OSS emulation */
-	RECORD_INVALID   /**< (keep this the last entry, EOL delimiter) */
+	RECORD_NONE = 0,   /**< none selected */
+	RECORD_JACK,       /**< Jack sound daemon */
+	RECORD_ALSA,       /**< ALSA native */
+	RECORD_OSS,        /**< OSS native or ALSA OSS emulation */
+	RECORD_PULSEAUDIO, /**< PulseAudio sound daemon */
+	RECORD_INVALID     /**< (keep this the last entry, EOL delimiter) */
     } record_method_t;
 
     /** post-increment operator for the record method */

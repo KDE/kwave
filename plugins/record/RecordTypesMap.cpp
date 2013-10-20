@@ -41,6 +41,12 @@ void Kwave::RecordTypesMap::fill()
         _(I18N_NOOP("OSS (Open Sound System)")));
 #endif /* HAVE_OSS_SUPPORT */
 
+#ifdef HAVE_PULSEAUDIO_SUPPORT
+    append(index++, Kwave::RECORD_PULSEAUDIO,
+        _("pulseaudio"),
+        _(I18N_NOOP("Pulse Audio")));
+#endif /* HAVE_PULSEAUDIO_SUPPORT */
+
    Q_ASSERT(index);
    if (!index) qWarning("no playback method defined!");
 }

@@ -624,48 +624,29 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
 	int err = initialize(length);
 	if (err < 0) return err;
     }
+    m_mainloop_lock.lock();;
 
     char *data = buffer.data() + offset;
-    kDebug() << " data " << static_cast<void *>(data);
-    kDebug() << " buffer " << &buffer;
-
-
     size_t freeBytes = length - offset;
     if(pa_stream_readable_size(m_pa_stream) > freeBytes) {
 	int additional_size = pa_stream_readable_size(m_pa_stream) - freeBytes;
 	buffer.resize(length + additional_size);
 	length = buffer.size();
-	kDebug() << "New buffer size: " << length;
     }
 
-    int readBytes = 0;
+    size_t readLength = 0;
     if(pa_stream_readable_size(m_pa_stream) > 0) {
-	size_t readLength = 0;
-	m_mainloop_lock.lock();;
 	const void *audioBuffer;
 	pa_stream_peek(m_pa_stream, &audioBuffer, &readLength);
-	memcpy(data + readBytes, audioBuffer, readLength);
-/*	kDebug() << " stream: " << static_cast<void *>(m_pa_stream)
-		<< " Buffer size: " << length
-		<< " offset: " << offset
-		<< " freeBytes: " << freeBytes
-		<< " readLenght: " << readLength; */
-	readBytes += readLength;
+	memcpy(data, audioBuffer, readLength);
 	freeBytes -= readLength;
 	pa_stream_drop(m_pa_stream);
-	m_mainloop_lock.unlock();;
-    }
-    if(readBytes == 0)
+    } else {
 	return -EAGAIN;
+    }
 
-    int loffset = offset;
-    loffset += readBytes;
-    kDebug() << " loffset " << loffset << " readBytes " << readBytes;
-    kDebug() << " data " << static_cast<void *>(data);
-    kDebug() << " buffer " << &buffer;
-    int len = buffer.size() - loffset;
-    kDebug() << " len: " << len;
-    return readBytes;
+    m_mainloop_lock.unlock();;
+    return readLength;
 }
 //***************************************************************************
 int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)

@@ -7,6 +7,7 @@
  * unclean shutdown of the file progress dialog when saving
  * noise plugin: add noise (mix) instead of overwrite, with adjustable
    level in percent or dB
+ * pause button: change tooltip to "continue" if paused
 
 0.8.10 [2013-02-09]
 

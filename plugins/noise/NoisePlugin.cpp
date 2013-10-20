@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <errno.h>
 
 #include <klocale.h> // for the i18n macro
 
@@ -27,6 +28,9 @@
 #include "libkwave/PluginManager.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
+#include "libgui/OverViewCache.h"
+
+#include "NoiseDialog.h"
 #include "NoisePlugin.h"
 #include "NoiseGenerator.h"
 
@@ -35,50 +39,102 @@ KWAVE_PLUGIN(Kwave::NoisePlugin, "noise", "2.3",
 
 //***************************************************************************
 Kwave::NoisePlugin::NoisePlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager)
+    :Kwave::FilterPlugin(plugin_manager), m_level(1.0), m_last_level(0.0)
 {
 }
 
 //***************************************************************************
-void Kwave::NoisePlugin::run(QStringList params)
+Kwave::NoisePlugin::~NoisePlugin()
 {
-    sample_index_t first, last;
+}
+
+//***************************************************************************
+int Kwave::NoisePlugin::interpreteParameters(QStringList &params)
+{
+    bool ok;
+    QString param;
+
+    // evaluate the parameter list
+    if (params.count() != 2) return -EINVAL;
+
+    param = params[0];
+    m_level = param.toDouble(&ok);
+    Q_ASSERT(ok);
+    if (!ok) return -EINVAL;
+
+    param = params[1];
+    unsigned int mode = param.toUInt(&ok);
+    Q_ASSERT(ok);
+    if (!ok || (mode > 2)) return -EINVAL;
+
+    // all parameters accepted
+    return 0;
+}
+
+//***************************************************************************
+Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
+{
+    Q_UNUSED(parent);
+
+    // initialize the overview cache
+    Kwave::SignalManager &mgr = manager().signalManager();
     QList<unsigned int> tracks;
+    sample_index_t first, last;
+    sample_index_t length = selection(&tracks, &first, &last, true);
+    Kwave::OverViewCache *overview_cache = new Kwave::OverViewCache(mgr,
+        first, length, tracks.isEmpty() ? 0 : &tracks);
+    Q_ASSERT(overview_cache);
 
-    Q_UNUSED(params);
-
-    Kwave::UndoTransactionGuard undo_guard(*this, i18n("Noise"));
-
-    selection(&tracks, &first, &last, true);
-
-    // create all objects
-    Kwave::MultiTrackSource<Kwave::NoiseGenerator, true> source(tracks.count());
-    Kwave::MultiTrackWriter sink(signalManager(), tracks, Kwave::Overwrite,
-        first, last);
-
-    // break if aborted
-    if (!sink.tracks()) return;
-
-    // connect the progress dialog
-    connect(&sink, SIGNAL(progress(qreal)),
-	    this,  SLOT(updateProgress(qreal)),
-	     Qt::BlockingQueuedConnection);
-
-    // connect them
-    if (!Kwave::connect(source, SIGNAL(output(Kwave::SampleArray)),
-                        sink,   SLOT(input(Kwave::SampleArray))))
-    {
-	return;
+    // create the setup dialog
+    Kwave::NoiseDialog *dialog =
+	new Kwave::NoiseDialog(parentWidget(), overview_cache);
+    if (!dialog) {
+	if (overview_cache) delete overview_cache;
+	return 0;
     }
 
-    // transport the samples
-    qDebug("NoisePlugin: filter started [%lu ... %lu] ...",
-	   static_cast<unsigned long int>(first),
-	   static_cast<unsigned long int>(last));
-    while (!shouldStop() && !sink.done()) {
-	source.goOn();
-    }
-    qDebug("NoisePlugin: filter done.");
+    // connect the signals for detecting value changes in pre-listen mode
+    connect(dialog, SIGNAL(levelChanged(double)),
+            this,   SLOT(setNoiseLevel(double)));
+
+    return dialog;
+}
+
+//***************************************************************************
+Kwave::SampleSource *Kwave::NoisePlugin::createFilter(unsigned int tracks)
+{
+    return new Kwave::MultiTrackSource<Kwave::NoiseGenerator, true>(tracks);
+}
+
+//***************************************************************************
+bool Kwave::NoisePlugin::paramsChanged()
+{
+    return (m_level != m_last_level);
+}
+
+//***************************************************************************
+void Kwave::NoisePlugin::updateFilter(Kwave::SampleSource *filter,
+                                      bool force)
+{
+    if (!filter) return;
+
+    if ((m_level != m_last_level) || force)
+	filter->setAttribute(SLOT(setNoiseLevel(const QVariant)),
+	                     QVariant(m_level));
+
+    m_last_level = m_level;
+}
+
+//***************************************************************************
+QString Kwave::NoisePlugin::actionName()
+{
+    return i18n("Add Noise");
+}
+
+//***************************************************************************
+void Kwave::NoisePlugin::setNoiseLevel(double level)
+{
+    m_level = level;
 }
 
 //***************************************************************************

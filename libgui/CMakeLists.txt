@@ -18,6 +18,7 @@
 #############################################################################
 
 SET(libkwavegui_LIB_SRCS
+    Colors.cpp
     CurveWidget.cpp
     FileDialog.cpp
     FilterPlugin.cpp

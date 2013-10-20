@@ -88,7 +88,8 @@ namespace Kwave
 	 *               same one as created with createFilter()
 	 * @param force if true, even update if no settings have changed
 	 */
-	virtual void updateFilter(Kwave::SampleSource *filter, bool force=0);
+	virtual void updateFilter(Kwave::SampleSource *filter,
+	                          bool force = false);
 
 	/**
 	 * Returns a verbose name of the performed action. Used for giving
@@ -99,7 +100,7 @@ namespace Kwave
 
 	/**
 	 * Returns a text for the progress dialog if enabled.
-	 * (already be localized)
+	 * (should already be localized)
 	 */
 	virtual QString progressText();
 

@@ -38,8 +38,8 @@ Kwave::OverViewCache::OverViewCache(Kwave::SignalManager &signal,
                                     sample_index_t src_offset,
                                     sample_index_t src_length,
                                     const QList<unsigned int> *src_tracks)
-    :m_signal(signal), m_min(), m_max(), m_state(), m_count(0), m_scale(1),
-     m_lock(QMutex::Recursive), m_src_offset(src_offset),
+    :m_signal(signal), m_min(), m_max(), m_state(), m_minmax(), m_count(0),
+     m_scale(1), m_lock(QMutex::Recursive), m_src_offset(src_offset),
      m_src_length(src_length), m_src_tracks(), m_src_deleted()
 {
     // connect to the signal manager
@@ -85,6 +85,8 @@ Kwave::OverViewCache::~OverViewCache()
     m_state.clear();
     m_min.clear();
     m_max.clear();
+    m_src_tracks.clear();
+    m_src_deleted.clear();
 }
 
 //***************************************************************************
@@ -422,29 +424,23 @@ void Kwave::OverViewCache::slotSamplesModified(unsigned int track,
 }
 
 //***************************************************************************
-QImage Kwave::OverViewCache::getOverView(int width, int height,
-                                         const QColor &fg, const QColor &bg,
-                                         double gain)
+int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 {
-    QMutexLocker lock(&m_lock);
-
-    QImage bitmap(width, height, QImage::Format_ARGB32_Premultiplied);
-    if (!width || !height || bitmap.isNull()) return bitmap;
-
-    QPainter p;
-    p.begin(&bitmap);
-    p.fillRect(bitmap.rect(), bg);
-    p.setPen(fg);
+    int retval = 0;
 
     const unsigned int length = sourceLength();
-    if (!length) {
-	p.end();
-	return bitmap; // stay empty if no data available
-    }
+    if (!length)
+	return 0;
+
+    // resize the target buffer if necessary
+    if (minmax.count() < width)
+	minmax.resize(width);
+    if (minmax.count() < width) // truncated, OOM
+	width = minmax.count();
 
     QList<unsigned int> track_list;
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
-	for (int i=0; i < m_src_tracks.count(); ++i)
+	for (int i = 0; i < m_src_tracks.count(); ++i)
 	    track_list.append(m_src_tracks[i]);
     } else {
 	track_list = m_signal.allTracks();
@@ -459,9 +455,11 @@ QImage Kwave::OverViewCache::getOverView(int width, int height,
     // abort if the track count has recently changed
     if (m_state.count() != static_cast<int>(src.tracks())) {
 	qWarning("OverViewCache::getOverView(): track count has changed");
-	p.end();
-	return bitmap;
+	return 0;
     }
+
+    if ((length / m_scale < 2) || src.isEmpty())
+	return 0; // empty ?
 
     // loop over all min/max buffers and make their content valid
     for (int t = 0; (t < m_state.count()) && !src.isEmpty(); ++t) {
@@ -487,19 +485,14 @@ QImage Kwave::OverViewCache::getOverView(int width, int height,
 	}
     }
 
-    if ((width < 2) || (height < 2) || (length / m_scale < 2)) {
-	p.end();
-	return bitmap; // empty ?
-    }
-
     // loop over all min/max buffers
-    for (int x = 0; (x < width) && (m_state.count()) && !src.isEmpty(); ++x) {
+    for (int x = 0; (x < width) && (m_state.count()); ++x) {
 	unsigned int count = length / m_scale;
 	if (count > CACHE_SIZE) count = 1;
 
 	// get the corresponding cache index
-	unsigned int index = ((count-1) * x) / (width-1);
-	unsigned int last_index  = ((count-1) * (x+1)) / (width-1);
+	unsigned int index = ((count - 1) * x) / (width - 1);
+	unsigned int last_index  = ((count - 1) * (x + 1)) / (width - 1);
 	Q_ASSERT(index < CACHE_SIZE);
 	if (index >= CACHE_SIZE) index = CACHE_SIZE-1;
 	if (last_index > index) last_index--;
@@ -517,7 +510,7 @@ QImage Kwave::OverViewCache::getOverView(int width, int height,
 		Q_ASSERT(t < m_max.count());
 		sample_t *min = m_min[t].data();
 		sample_t *max = m_max[t].data();
-		CacheState *state = m_state[t].data();
+		const CacheState *state = m_state[t].data();
 		Q_ASSERT(state);
 		if (!state) continue;
 		if (state[index] != Valid) {
@@ -531,12 +524,43 @@ QImage Kwave::OverViewCache::getOverView(int width, int height,
 	    }
 	}
 
-	// update the bitmap
+	minmax[x].min = minimum;
+	minmax[x].max = maximum;
+	retval++;
+    }
+
+    return retval;
+}
+
+//***************************************************************************
+QImage Kwave::OverViewCache::getOverView(int width, int height,
+                                         const QColor &fg, const QColor &bg,
+                                         double gain)
+{
+    QMutexLocker lock(&m_lock);
+
+    QImage bitmap(width, height, QImage::Format_ARGB32_Premultiplied);
+    if ((width < 2) || (height < 3) || bitmap.isNull()) return bitmap;
+
+    QPainter p;
+    p.begin(&bitmap);
+    p.fillRect(bitmap.rect(), bg);
+    p.setPen(fg);
+
+    int count = getMinMax(width, m_minmax);
+    if (count < 1) {
+	p.end();
+	return bitmap; // empty ?
+    }
+
+    // draw the bitmap
+    for (int x = 0; x < count; ++x) {
 	const int middle = (height >> 1);
 	const double scale = static_cast<double>(middle) /
 	                     static_cast<double>(SAMPLE_MAX);
-	double min = minimum * scale;
-	double max = maximum * scale;
+	double min = m_minmax[x].min * scale;
+	double max = m_minmax[x].max * scale;
+
 	if (gain != 1.0) {
 	    min *= gain;
 	    max *= gain;
@@ -545,8 +569,8 @@ QImage Kwave::OverViewCache::getOverView(int width, int height,
 	    if (max < -middle) max = -middle;
 	    if (max > +middle) max = +middle;
 	}
-	p.drawLine(x, middle - static_cast<int>(min),
-	           x, middle - static_cast<int>(max));
+	p.drawLine(x, middle - static_cast<int>(max),
+	           x, middle - static_cast<int>(min));
     }
 
     p.end();

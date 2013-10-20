@@ -1,6 +1,4 @@
 
-o noise plugin: add noise (mix) instead of overwrite (with adjustable level [dB])
-
 o pause button: change tooltip to "continue" if paused
 
 o detect song titles / metadata by using musicbrainz

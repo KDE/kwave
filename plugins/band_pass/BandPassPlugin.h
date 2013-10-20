@@ -92,6 +92,10 @@ namespace Kwave
 	 */
 	void setFreqValue(double frequency);
 
+	/**
+	 * Called when the bandwidth parameter changed during pre-listen
+	 * @param bw relative bandwidth [0...1]
+	 */
 	void setBwValue(double bw);
 
     private:

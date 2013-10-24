@@ -9,6 +9,7 @@
    level in percent or dB
  * pause button: change tooltip to "continue" if paused
  * new command line option: "--disable-splashscreen"
+ * new command line option: "--iconic" to start minimized
 
 0.8.10 [2013-02-09]
 

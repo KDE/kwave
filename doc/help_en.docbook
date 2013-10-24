@@ -1269,6 +1269,13 @@
     when you start &kwave; from a script.
     </para>
 
+    <para>
+    The command line option <literal>--iconic</literal> lets &kwave;
+    start up minimized (iconified). This might be useful when you want to
+    start &kwave; without GUI interaction, e.g. when running from a script.
+    This option also implicitly disables the splash screen!
+    </para>
+
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->

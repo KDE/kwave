@@ -1263,6 +1263,12 @@
     <screen><prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
     </para>
 
+    <para>
+    With the option <literal>--disable-splashscreen</literal> you can disable
+    the splash screen that comes up when starting &kwave;. This might be useful
+    when you start &kwave; from a script.
+    </para>
+
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->

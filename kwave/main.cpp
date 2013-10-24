@@ -140,6 +140,7 @@ int main( int argc, char **argv )
     static KCmdLineOptions options;
 
     options.add("!+files", ki18n("List of audio files"), 0 );
+    options.add("disable-splashscreen", ki18n("Disable the Splash Screen"), 0);
 
     KAboutData about(
 	PACKAGE, "",
@@ -177,9 +178,13 @@ int main( int argc, char **argv )
 	return 0;
     }
 
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    bool show_splash = !(args && args->isSet("disable-splashscreen"));
+
     Kwave::App app;
     Kwave::Splash splash(_("pics/kwave-splash.png"));
-    splash.show();
+
+    if (show_splash) splash.show();
 
     int retval = app.exec();
 

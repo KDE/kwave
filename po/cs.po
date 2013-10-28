@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-14 10:16+0200\n"
+"POT-Creation-Date: 2013-10-28 06:36+0100\n"
 "PO-Revision-Date: 2013-02-03 20:50+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -231,13 +231,13 @@ msgstr "%1 kB (%2 bajtů)"
 msgid "%1 kB/s (%2 remaining)"
 msgstr "%1 kB/s (%2 zůstává)"
 
-#: kwave/TopWidget.cpp:363 kwave/TopWidget.cpp:364 kwave/TopWidget.cpp:365
-#: kwave/TopWidget.cpp:366 kwave/TopWidget.cpp:367 kwave/TopWidget.cpp:368
+#: kwave/TopWidget.cpp:371 kwave/TopWidget.cpp:372 kwave/TopWidget.cpp:373
+#: kwave/TopWidget.cpp:374 kwave/TopWidget.cpp:375 kwave/TopWidget.cpp:376
 #, kde-format
 msgid "%1 min"
 msgstr "%1 min"
 
-#: kwave/TopWidget.cpp:357 kwave/TopWidget.cpp:358 kwave/TopWidget.cpp:359
+#: kwave/TopWidget.cpp:365 kwave/TopWidget.cpp:366 kwave/TopWidget.cpp:367
 #, kde-format
 msgid "%1 ms"
 msgstr "%1 ms"
@@ -248,7 +248,7 @@ msgstr "%1 ms"
 msgid "%1 samples"
 msgstr "%1 vzorků"
 
-#: kwave/TopWidget.cpp:360 kwave/TopWidget.cpp:361 kwave/TopWidget.cpp:362
+#: kwave/TopWidget.cpp:368 kwave/TopWidget.cpp:369 kwave/TopWidget.cpp:370
 #, kde-format
 msgid "%1 sec"
 msgstr "%1 sec"
@@ -450,10 +450,11 @@ msgid "&Limit to"
 msgstr "&Omezit na"
 
 #: plugins/band_pass/BandPassDialog.cpp:192
-#: plugins/lowpass/LowPassDialog.cpp:168
+#: plugins/lowpass/LowPassDialog.cpp:168 plugins/noise/NoiseDialog.cpp:357
 #: plugins/notch_filter/NotchFilterDialog.cpp:196
 #: plugins/pitch_shift/PitchShiftDialog.cpp:325
 #: plugins/band_pass/ui_BandPassDlg.h:197 plugins/lowpass/ui_LowPassDlg.h:190
+#: plugins/noise/ui_NoiseDlg.h:245
 #: plugins/notch_filter/ui_NotchFilterDlg.h:223
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:206
 msgid "&Listen"
@@ -467,7 +468,7 @@ msgstr "&Nahrát štítky..."
 msgid "&Locate"
 msgstr "&Najít"
 
-#: plugins/volume/ui_VolumeDlg.h:263
+#: plugins/noise/ui_NoiseDlg.h:232 plugins/volume/ui_VolumeDlg.h:263
 msgid "&Logarithmic"
 msgstr "&Logaritmický"
 
@@ -555,7 +556,7 @@ msgstr "&Pozastavit"
 msgid "&Percent"
 msgstr "&Procento"
 
-#: plugins/volume/ui_VolumeDlg.h:255
+#: plugins/noise/ui_NoiseDlg.h:224 plugins/volume/ui_VolumeDlg.h:255
 msgid "&Percentage"
 msgstr "&Procentní podíl"
 
@@ -686,7 +687,7 @@ msgid "&Start recording"
 msgstr "&Začít s nahráváním"
 
 #: plugins/band_pass/BandPassDialog.cpp:188
-#: plugins/lowpass/LowPassDialog.cpp:164
+#: plugins/lowpass/LowPassDialog.cpp:164 plugins/noise/NoiseDialog.cpp:353
 #: plugins/notch_filter/NotchFilterDialog.cpp:192
 #: plugins/pitch_shift/PitchShiftDialog.cpp:321
 msgid "&Stop"
@@ -784,7 +785,7 @@ msgstr "(Použít výchozí nastavení serveru)"
 msgid "(built for KDE %1)"
 msgstr "(sestaveno pro KDE %1)"
 
-#: kwave/main.cpp:150
+#: kwave/main.cpp:152
 msgid "(c) 2011, Thomas Eschenbacher"
 msgstr "(c) 2011, Thomas Eschenbacher"
 
@@ -814,7 +815,7 @@ msgstr "(stereofonní zvuk)"
 msgid "(user defined)"
 msgstr "(Stanoveno uživatelem)"
 
-#: kwave/TopWidget.cpp:1591
+#: kwave/TopWidget.cpp:1599
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
@@ -1382,7 +1383,7 @@ msgstr "?:"
 msgid "A decoder structure is invalid or already freed."
 msgstr "Struktura dekodéru je neplatná, nebo je již volná."
 
-#: kwave/main.cpp:148
+#: kwave/main.cpp:150
 msgid "A sound editor for KDE"
 msgstr "Editor zvuku pro KDE"
 
@@ -1458,6 +1459,21 @@ msgstr "Sluchový"
 msgid "Add Label"
 msgstr "Přidat štítek"
 
+#: plugins/noise/NoisePlugin.cpp:131 plugins/noise/ui_NoiseDlg.h:215
+#, fuzzy
+msgid "Add Noise"
+msgstr "Šum"
+
+#: plugins/noise/ui_NoiseDlg.h:221
+#, fuzzy
+msgid ""
+"Adds a noise level given as a percentage relative to the maximum volume "
+"level.\n"
+"For example: \"1 %\", \"15%\" or \"100%\""
+msgstr ""
+"Nastaví hlasitost procentuálně vzhledem k původní úrovni. \n"
+"Například: \"50 %\", \"75%\" nebo \"125%\""
+
 #: libkwave/FileInfo.cpp:44
 msgid "Album"
 msgstr "Album"
@@ -1471,6 +1487,7 @@ msgid "All Supported Files"
 msgstr "Všechny podporované soubory"
 
 #: plugins/band_pass/ui_BandPassDlg.h:198 plugins/lowpass/ui_LowPassDlg.h:191
+#: plugins/noise/ui_NoiseDlg.h:246
 #: plugins/notch_filter/ui_NotchFilterDlg.h:224
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:207
 msgid "Alt+L"
@@ -1932,7 +1949,7 @@ msgstr "Vážná hudba"
 msgid "Clip&board"
 msgstr "Sch&ránka"
 
-#: kwave/TopWidget.cpp:235
+#: kwave/TopWidget.cpp:243
 msgid "Close the current file"
 msgstr "Zavřít nynější soubor"
 
@@ -2012,7 +2029,12 @@ msgstr "Obsah"
 msgid "Continue after highest index"
 msgstr "Pokračovat po nejvyšší index"
 
-#: kwave/TopWidget.cpp:261
+#: kwave/PlayerToolBar.cpp:409
+#, fuzzy
+msgid "Continue playback"
+msgstr "Pozastavit přehrávání"
+
+#: kwave/TopWidget.cpp:269
 msgid "Copy"
 msgstr "Kopírovat"
 
@@ -2044,7 +2066,7 @@ msgstr "Země"
 msgid "Create &type"
 msgstr "Vytvořit &druh"
 
-#: kwave/TopWidget.cpp:215
+#: kwave/TopWidget.cpp:223
 msgid "Create a new empty file"
 msgstr "Vytvořit nový prázdný soubor"
 
@@ -2076,7 +2098,7 @@ msgstr "Oblíbený"
 msgid "Currently Selected Point"
 msgstr "Nyní vybraný bod"
 
-#: kwave/TopWidget.cpp:256 libkwave/SignalManager.cpp:666
+#: kwave/TopWidget.cpp:264 libkwave/SignalManager.cpp:666
 msgid "Cut"
 msgstr "Vyjmout"
 
@@ -2181,7 +2203,7 @@ msgstr "Smazat metadata"
 msgid "Delete Track"
 msgstr "Smazat stopu"
 
-#: kwave/TopWidget.cpp:281
+#: kwave/TopWidget.cpp:289
 msgid "Delete selection"
 msgstr "Smazat výběr"
 
@@ -2269,6 +2291,10 @@ msgstr "Adresář pro uchovávání souborů swapu na disku"
 #: plugins/memory/ui_MemDlg.h:274
 msgid "Directory:"
 msgstr "Adresář:"
+
+#: kwave/main.cpp:142
+msgid "Disable the Splash Screen"
+msgstr ""
 
 #: libkwave/GenreType.cpp:100
 msgid "Disco"
@@ -2927,7 +2953,7 @@ msgstr "Průmyslová hudba"
 msgid "Info"
 msgstr "Informace"
 
-#: kwave/TopWidget.cpp:206
+#: kwave/TopWidget.cpp:214
 msgid "Initializing toolbar..."
 msgstr "Spouští nástrojový pruh..."
 
@@ -2939,7 +2965,7 @@ msgstr "Vstup"
 msgid "Input does not appear to be an Ogg bitstream."
 msgstr "Vstup nevypadá na to, že by šlo o Ogg datový proud."
 
-#: kwave/TopWidget.cpp:266 libkwave/undo/UndoInsertAction.cpp:41
+#: kwave/TopWidget.cpp:274 libkwave/undo/UndoInsertAction.cpp:41
 msgid "Insert"
 msgstr "Vložit"
 
@@ -3018,7 +3044,7 @@ msgstr "Do druhé poloviny"
 msgid "Invalid codec type"
 msgstr "Neplatný typ kodeku"
 
-#: kwave/TopWidget.cpp:884
+#: kwave/TopWidget.cpp:892
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
@@ -3057,7 +3083,7 @@ msgstr "Džungle"
 msgid "Keywords"
 msgstr "Klíčová slova"
 
-#: kwave/main.cpp:146
+#: kwave/main.cpp:148
 msgid "Kwave"
 msgstr "Kwave"
 
@@ -3162,7 +3188,7 @@ msgstr "Délka: "
 msgid "Length: %1"
 msgstr "Délka: %1"
 
-#: kwave/TopWidget.cpp:1252
+#: kwave/TopWidget.cpp:1260
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
@@ -3226,7 +3252,7 @@ msgstr "Přímý"
 msgid "Linear Two's Complement"
 msgstr "Přímý doplněk dvou"
 
-#: kwave/main.cpp:142
+#: kwave/main.cpp:144
 msgid "List of audio files"
 msgstr "Seznam zvukových souborů"
 
@@ -3251,7 +3277,7 @@ msgstr "Nízká věrnost (Lo-Fi, Low-Fidelity je opakem Hi-Fi, High Fidelity)"
 msgid "Loading file '%1'..."
 msgstr "Nahrává se soubor '%1'..."
 
-#: kwave/TopWidget.cpp:157
+#: kwave/TopWidget.cpp:165
 msgid "Loading main menu..."
 msgstr "Nahrávají se hlavní nabídky..."
 
@@ -3260,7 +3286,7 @@ msgstr "Nahrávají se hlavní nabídky..."
 msgid "Loading plugin %1..."
 msgstr "Nahrává se přídavný modul %1..."
 
-#: kwave/TopWidget.cpp:434 kwave/TopWidget.cpp:435
+#: kwave/TopWidget.cpp:442 kwave/TopWidget.cpp:443
 msgid "Loading plugins..."
 msgstr "Nahrává přídavné moduly..."
 
@@ -3458,7 +3484,7 @@ msgstr "Minuty"
 msgid "Miscellaneous"
 msgstr "Různé"
 
-#: plugins/pitch_shift/ui_PitchShiftDlg.h:229
+#: plugins/noise/ui_NoiseDlg.h:216 plugins/pitch_shift/ui_PitchShiftDlg.h:229
 #: plugins/volume/ui_VolumeDlg.h:239
 msgid "Mode"
 msgstr "Režim"
@@ -3467,7 +3493,7 @@ msgstr "Režim"
 msgid "Mode Extension"
 msgstr "Rozšíření režimu"
 
-#: kwave/TopWidget.cpp:1263
+#: kwave/TopWidget.cpp:1271
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Režim: %1 kHz @ %2 bitů"
@@ -3511,7 +3537,7 @@ msgstr "Monofonní"
 msgid "Musical"
 msgstr "Muzikál"
 
-#: kwave/TopWidget.cpp:275
+#: kwave/TopWidget.cpp:283
 msgid "Mute selection"
 msgstr "Ztlumit výběr"
 
@@ -3589,13 +3615,18 @@ msgstr "Žádná"
 msgid "No Compression"
 msgstr "Žádná komprese"
 
-#: libkwave/GenreType.cpp:135 plugins/noise/NoisePlugin.cpp:48
+#: libkwave/GenreType.cpp:135
 msgid "Noise"
 msgstr "Šum"
 
-#: plugins/noise/NoisePlugin.cpp:34
+#: plugins/noise/NoisePlugin.cpp:38
 msgid "Noise Generator"
 msgstr "Vyvíječ šumu"
+
+#: plugins/noise/ui_NoiseDlg.h:237
+#, fuzzy
+msgid "Noise Level"
+msgstr "Úroveň"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:792
 msgid "Noise Shaping:"
@@ -3742,7 +3773,7 @@ msgstr ""
 msgid "One or more invalid/out of range arguments."
 msgstr "Jeden nebo více neplatných argumentů nebo argumentů mimo rozsah."
 
-#: kwave/TopWidget.cpp:921
+#: kwave/TopWidget.cpp:929
 msgid "Open"
 msgstr "Otevřít"
 
@@ -3750,7 +3781,7 @@ msgstr "Otevřít"
 msgid "Open &Recent"
 msgstr "&Otevřít nedávný"
 
-#: kwave/TopWidget.cpp:220
+#: kwave/TopWidget.cpp:228
 msgid "Open an existing file"
 msgstr "Otevřít stávající soubor"
 
@@ -3844,7 +3875,7 @@ msgstr "Osciloskop (elektrický měřící přístroj měřící oscilace)"
 msgid "Other"
 msgstr "Jiné"
 
-#: kwave/TopWidget.cpp:876 plugins/codec_audiofile/AudiofileDecoder.cpp:107
+#: kwave/TopWidget.cpp:884 plugins/codec_audiofile/AudiofileDecoder.cpp:107
 #: plugins/codec_flac/FlacEncoder.cpp:245 plugins/codec_wav/WavEncoder.cpp:418
 #: plugins/codec_wav/WavDecoder.cpp:343 plugins/playback/PlayBack-OSS.cpp:244
 #: plugins/playback/PlayBack-Phonon.cpp:149
@@ -3880,7 +3911,7 @@ msgstr "Vložit"
 msgid "Path:"
 msgstr "Cesta:"
 
-#: kwave/PlayerToolBar.cpp:107
+#: kwave/PlayerToolBar.cpp:411
 msgid "Pause playback"
 msgstr "Pozastavit přehrávání"
 
@@ -3927,7 +3958,7 @@ msgstr "Přehrávání"
 msgid "Playback Settings"
 msgstr "Nastavení přehrávání"
 
-#: plugins/playback/PlayBackPlugin.cpp:426
+#: plugins/playback/PlayBackPlugin.cpp:428
 msgid "Playback Test"
 msgstr "Zkouška přehrávání"
 
@@ -3948,12 +3979,12 @@ msgstr "Kmitočet přehrávání %1 Hz není podporován"
 msgid "Playback resolution in bits per sample"
 msgstr "Rozlišení přehrávání v bitech na vzorek"
 
-#: kwave/TopWidget.cpp:1372
+#: kwave/TopWidget.cpp:1380
 #, kde-format
 msgid "Playback: %1"
 msgstr "Přehrávání: %1"
 
-#: kwave/TopWidget.cpp:1374
+#: kwave/TopWidget.cpp:1382
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Přehrávání: %1 vzorků"
@@ -3962,7 +3993,7 @@ msgstr "Přehrávání: %1 vzorků"
 msgid "Please check the source device settings..."
 msgstr "Prověřte, prosím, nastavení zdrojového zařízení..."
 
-#: plugins/playback/PlayBackPlugin.cpp:398
+#: plugins/playback/PlayBackPlugin.cpp:400
 msgid "Please select a playback device first"
 msgstr "Nejprve, prosím, vyberte přehrávací zařízení"
 
@@ -4015,7 +4046,7 @@ msgstr "Porn rytmus"
 msgid "Position:"
 msgstr "Místo:"
 
-#: kwave/TopWidget.cpp:1351
+#: kwave/TopWidget.cpp:1359
 #, kde-format
 msgid "Position: %1"
 msgstr "Poloha: %1"
@@ -4129,12 +4160,12 @@ msgstr "Kvalita"
 msgid "R&B"
 msgstr "R&B"
 
-#: kwave/TopWidget.cpp:1426
+#: kwave/TopWidget.cpp:1434
 msgctxt "menu entry for redo if redo disabled"
 msgid "R&edo"
 msgstr "Z&novu"
 
-#: kwave/TopWidget.cpp:1425
+#: kwave/TopWidget.cpp:1433
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "R&edo (%1)"
@@ -4164,7 +4195,7 @@ msgstr "Pře&kvantování"
 msgid "Re-enable all \"Do not ask again\" messages"
 msgstr "Povolit znovu všechny zprávy Neptat se znovu"
 
-#: kwave/TopWidget.cpp:665
+#: kwave/TopWidget.cpp:673
 msgid ""
 "Re-enable all disabled notifications?\n"
 "All messages that you previously turned off by activating the \"Do not ask "
@@ -4192,7 +4223,7 @@ msgstr "Čtení z nahrávacího zařízení selhalo. Chyba číslo = %1 (%2)"
 msgid "Reading..."
 msgstr "Čte se..."
 
-#: kwave/TopWidget.cpp:437
+#: kwave/TopWidget.cpp:445
 msgid "Ready"
 msgstr "Připraven"
 
@@ -4249,16 +4280,16 @@ msgstr ""
 msgid "Rectangular"
 msgstr "Obdélníkový"
 
-#: kwave/TopWidget.cpp:251
+#: kwave/TopWidget.cpp:259
 msgid "Redo"
 msgstr "Znovu"
 
-#: kwave/TopWidget.cpp:1408
+#: kwave/TopWidget.cpp:1416
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Znovu"
 
-#: kwave/TopWidget.cpp:1406
+#: kwave/TopWidget.cpp:1414
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
@@ -4268,7 +4299,7 @@ msgstr "Znovu (%1)"
 msgid "Reggae"
 msgstr "Regé"
 
-#: kwave/TopWidget.cpp:658
+#: kwave/TopWidget.cpp:666
 msgid "Reset the toolbar to default settings?"
 msgstr "Nastavit nástrojový pruh na výchozí nastavení?"
 
@@ -4412,7 +4443,7 @@ msgstr "vzorků za sekundu"
 msgid "Satire"
 msgstr "Satira"
 
-#: kwave/TopWidget.cpp:1005
+#: kwave/TopWidget.cpp:1013
 msgid "Save As"
 msgstr "Uložit jako"
 
@@ -4433,11 +4464,11 @@ msgstr "Uložit obraz vytvořený ultrazvukem"
 msgid "Save selection only"
 msgstr "Uložit pouze výběr"
 
-#: kwave/TopWidget.cpp:225
+#: kwave/TopWidget.cpp:233
 msgid "Save the current file"
 msgstr "Uložit nynější soubor"
 
-#: kwave/TopWidget.cpp:230
+#: kwave/TopWidget.cpp:238
 msgid "Save the current file under a different name or file format..."
 msgstr "Uložit nynější soubor pod jiným názvem nebo v jiném formátu..."
 
@@ -4457,7 +4488,7 @@ msgstr ""
 msgid "Sawtooth"
 msgstr "Pilovitý časový průběh signálu"
 
-#: kwave/TopWidget.cpp:430
+#: kwave/TopWidget.cpp:438
 msgid "Scanning plugins..."
 msgstr "Prohledávají se přídavné moduly..."
 
@@ -4544,11 +4575,11 @@ msgstr "Toto vyberte pro přímé zadání počtu vzorků"
 msgid "Select this to set the length of the file by time"
 msgstr "Toto vyberte pro nastavení délky souboru podle času"
 
-#: kwave/TopWidget.cpp:348
+#: kwave/TopWidget.cpp:356
 msgid "Select zoom factor"
 msgstr "Vybrat násobek zvětšení"
 
-#: kwave/TopWidget.cpp:1319
+#: kwave/TopWidget.cpp:1327
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -4556,7 +4587,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Vybráno: %1...%2  (%3 vzorky)"
 
-#: kwave/TopWidget.cpp:1331
+#: kwave/TopWidget.cpp:1339
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -4702,9 +4733,9 @@ msgstr "Pomalý rock"
 msgid "Software"
 msgstr "Program"
 
+#: plugins/sonagram/SonagramWindow.cpp:502
 #: plugins/sonagram/SonagramPlugin.cpp:48
 #: plugins/sonagram/SonagramPlugin.cpp:85
-#: plugins/sonagram/SonagramWindow.cpp:502
 msgid "Sonagram"
 msgstr "Obraz vytvořený ultrazvukem"
 
@@ -4716,10 +4747,6 @@ msgstr "Sonogram %1"
 #: libkwave/GenreType.cpp:203
 msgid "Sonata"
 msgstr "Sonáta"
-
-#: plugins/codec_ascii/AsciiDecoder.cpp:97
-msgid "Sorry"
-msgstr "Promiňte"
 
 #: plugins/codec_wav/WavEncoder.cpp:340
 msgid ""
@@ -4839,11 +4866,16 @@ msgstr "Spustit"
 msgid "Start &at:"
 msgstr "Začít &na:"
 
+#: kwave/main.cpp:143
+msgid "Start Kwave iconified"
+msgstr ""
+
 #: plugins/record/ui_RecordDlg.h:987
 msgid "Start at a given date and time"
 msgstr "Začít v zadaném datu a čase"
 
 #: plugins/band_pass/ui_BandPassDlg.h:195 plugins/lowpass/ui_LowPassDlg.h:188
+#: plugins/noise/ui_NoiseDlg.h:243
 #: plugins/notch_filter/ui_NotchFilterDlg.h:221
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:204
 msgid ""
@@ -5050,7 +5082,7 @@ msgstr ""
 "onoho programu tím, že si vyžádáte: \"fuser -v %1\" \n"
 "z příkazové řádky.)"
 
-#: kwave/TopWidget.cpp:1029
+#: kwave/TopWidget.cpp:1037
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -5157,17 +5189,13 @@ msgstr ""
 "Tento kodek podporuje jen soubory mon nebo stereo, %1 kanály nejsou "
 "podporovány."
 
-#: kwave/TopWidget.cpp:812
+#: kwave/TopWidget.cpp:820
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 "Tento soubor byl upraven.\n"
 "Chcete jej uložit?"
-
-#: plugins/codec_ascii/AsciiDecoder.cpp:96
-msgid "This is not implemented yet."
-msgstr "Toto ještě není provedeno."
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:217
 #, kde-format
@@ -5277,12 +5305,12 @@ msgstr "Citlivost spouště"
 msgid "Trip-Hop"
 msgstr "Halucinační poskakování (Trip hop)"
 
-#: kwave/TopWidget.cpp:1419
+#: kwave/TopWidget.cpp:1427
 msgctxt "menu entry for undo if undo disabled"
 msgid "U&ndo"
 msgstr "Z&pět"
 
-#: kwave/TopWidget.cpp:1418
+#: kwave/TopWidget.cpp:1426
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "U&ndo (%1)"
@@ -5293,7 +5321,7 @@ msgstr "Z&pět (%1)"
 msgid "Unable to open '%1'"
 msgstr "Nelze otevřít '%1'"
 
-#: kwave/TopWidget.cpp:880
+#: kwave/TopWidget.cpp:888
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
@@ -5307,7 +5335,7 @@ msgstr "Nelze otevřít kodér FLAC."
 msgid "Unable to open the file for saving!"
 msgstr "Neschopen otevřít soubor pro ukládání!"
 
-#: plugins/codec_ascii/AsciiEncoder.cpp:90
+#: plugins/codec_ascii/AsciiEncoder.cpp:91
 #: plugins/codec_flac/FlacEncoder.cpp:212 plugins/codec_ogg/OggEncoder.cpp:121
 msgid "Unable to open the file for saving."
 msgstr "Nelze otevřít soubor pro uložení."
@@ -5316,16 +5344,16 @@ msgstr "Nelze otevřít soubor pro uložení."
 msgid "Unable to open the recording device"
 msgstr "Nelze otevřít nahrávací zařízení"
 
-#: kwave/TopWidget.cpp:246
+#: kwave/TopWidget.cpp:254
 msgid "Undo"
 msgstr "Zpět"
 
-#: kwave/TopWidget.cpp:1397
+#: kwave/TopWidget.cpp:1405
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Zpět"
 
-#: kwave/TopWidget.cpp:1395
+#: kwave/TopWidget.cpp:1403
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
@@ -5394,8 +5422,8 @@ msgid "Vocal"
 msgstr "Zpěv"
 
 #: plugins/volume/VolumePlugin.cpp:40 plugins/volume/VolumePlugin.cpp:131
-#: plugins/volume/ui_VolumeDlg.h:238 plugins/volume/ui_VolumeDlg.h:265
-#: plugins/volume/ui_VolumeDlg.h:268
+#: plugins/noise/ui_NoiseDlg.h:234 plugins/volume/ui_VolumeDlg.h:238
+#: plugins/volume/ui_VolumeDlg.h:265 plugins/volume/ui_VolumeDlg.h:268
 msgid "Volume"
 msgstr "Hlasitost"
 
@@ -5470,7 +5498,7 @@ msgstr ""
 "Nevybral jste datový tok pro kódování. Chcete pokračovat a kódovat %1 kB/s, "
 "nebo zrušit tento krok a vybrat jiný datový tok?"
 
-#: plugins/playback/PlayBackPlugin.cpp:435
+#: plugins/playback/PlayBackPlugin.cpp:437
 #, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br><br>(If you hear clicks or "
@@ -5492,11 +5520,11 @@ msgstr "Při&blížit"
 msgid "Zoom &Out"
 msgstr "Od&dálit"
 
-#: kwave/TopWidget.cpp:323
+#: kwave/TopWidget.cpp:331
 msgid "Zoom in"
 msgstr "Přiblížit"
 
-#: kwave/TopWidget.cpp:329
+#: kwave/TopWidget.cpp:337
 msgid "Zoom out"
 msgstr "Oddálit"
 
@@ -5504,7 +5532,7 @@ msgstr "Oddálit"
 msgid "Zoom to &Selection"
 msgstr "Najet na &výběr"
 
-#: kwave/TopWidget.cpp:335 kwave/menus_config_i18n.cpp:138
+#: kwave/TopWidget.cpp:343 kwave/menus_config_i18n.cpp:138
 msgid "Zoom to 100%"
 msgstr "Zvětšit na 100 %"
 
@@ -5512,13 +5540,22 @@ msgstr "Zvětšit na 100 %"
 msgid "Zoom to Whole Signal"
 msgstr "Zvětšit na celý signál"
 
-#: kwave/TopWidget.cpp:341
+#: kwave/TopWidget.cpp:349
 msgid "Zoom to all"
 msgstr "Zvětšit na vše"
 
-#: kwave/TopWidget.cpp:317
+#: kwave/TopWidget.cpp:325
 msgid "Zoom to selection"
 msgstr "Zvětšit na výběr"
+
+#: plugins/noise/ui_NoiseDlg.h:218
+#, fuzzy
+msgid "add a noise level by percentage"
+msgstr "Změnit rychlost podle procentního podílu"
+
+#: plugins/noise/ui_NoiseDlg.h:226
+msgid "add a noise level in dB"
+msgstr ""
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:825
 msgid "additional parameters to append at the end of the encoder command line"
@@ -5527,6 +5564,15 @@ msgstr "Dodatečné parametry k připojení na konec příkazového řádku pro 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:820
 msgid "additional parameters to put at the start of the encoder command line"
 msgstr "Dodatečné parametry k položení na začátek příkazového řádku pro kodér"
+
+#: plugins/noise/ui_NoiseDlg.h:229
+#, fuzzy
+msgid ""
+"adds a noise level in logarithmic scale (decibel).\n"
+"For example: \"-3 dB\", \"- 6 dB\"."
+msgstr ""
+"Zvýší nebo sníží hlasitost v závislosti na logaritmické řadě (decibely). \n"
+"Například:  \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 
 #: plugins/record/RecordDialog.cpp:1167
 #, kde-format
@@ -5612,7 +5658,7 @@ msgid "cutoff frequency"
 msgstr "Odříznutý kmitočet"
 
 #: plugins/band_pass/BandPassDialog.cpp:62
-#: plugins/lowpass/LowPassDialog.cpp:61
+#: plugins/lowpass/LowPassDialog.cpp:61 plugins/noise/NoiseDialog.cpp:270
 #: plugins/notch_filter/NotchFilterDialog.cpp:65
 #: plugins/volume/VolumeDialog.cpp:258
 msgid "dB"
@@ -5844,6 +5890,7 @@ msgid "some description of the label (optional)"
 msgstr "Popis štítku (volitelný)"
 
 #: plugins/band_pass/ui_BandPassDlg.h:192 plugins/lowpass/ui_LowPassDlg.h:185
+#: plugins/noise/ui_NoiseDlg.h:240
 #: plugins/notch_filter/ui_NotchFilterDlg.h:218
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:201
 msgid "start/stop pre-listening"
@@ -6023,6 +6070,12 @@ msgstr "Ano"
 
 #~ msgid "Polynom, N-th Degree"
 #~ msgstr "Mnohočlen n-tého stupně"
+
+#~ msgid "Sorry"
+#~ msgstr "Promiňte"
+
+#~ msgid "This is not implemented yet."
+#~ msgstr "Toto ještě není provedeno."
 
 #~ msgid ""
 #~ "Unable to load the file\n"

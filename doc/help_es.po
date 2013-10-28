@@ -1,13 +1,11 @@
 #
 # Thomas Eschenbacher, 2013.
-# royak <royak.antifeixista@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2013-09-11 05:52+0000\n"
 "PO-Revision-Date: 2013-09-04 13:44+0200\n"
-"Last-Translator: royak <royak.antifeixista@gmail.com>\n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"

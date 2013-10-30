@@ -10,6 +10,7 @@
  * pause button: change tooltip to "continue" if paused
  * new command line option: "--disable-splashscreen"
  * new command line option: "--iconic" to start minimized
+ * fixed quoting errors in CMakeLists.txt (cmake-2.8.12 complained)
 
 0.8.10 [2013-02-09]
 

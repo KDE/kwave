@@ -70,7 +70,7 @@ IF (WITH_OGG)
 	    MESSAGE(FATAL_ERROR "
 
 	    your system lacks support for at least libvorbis-devel!
-	    please visit "http://vorbis.com" for obtainig a current version
+	    please visit \"http://vorbis.com\" for obtainig a current version
 	    of libogg and libvorbis plus the -devel packages if your
 	    distribution does not include them.
 	    ")

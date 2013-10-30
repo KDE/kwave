@@ -70,11 +70,11 @@ IF (WITH_FLAC)
             /* FLAC-1.1.4 has cur=8, rev=1 */
             #if !defined(FLAC_API_VERSION_CURRENT) || \\
                 !defined(FLAC_API_VERSION_REVISION)
-                #error "FLAC\ API\ is\ much\ too\ old"
+                #error \"FLAC\ API\ is\ much\ too\ old\"
             #endif
 
             #if (FLAC_API_VERSION_CURRENT < 8)
-                #error "FLAC\ API\ is\ too\ old"
+                #error \"FLAC\ API\ is\ too\ old\"
             #endif
 
             int main(int, char **)
@@ -114,11 +114,11 @@ IF (WITH_FLAC)
                 /* FLAC-1.1.4 has cur=8, rev=1 */
                 #if !defined(FLAC_API_VERSION_CURRENT) || \\
                     !defined(FLAC_API_VERSION_REVISION)
-                    #error "FLAC\ API\ is\ much\ too\ old"
+                    #error \"FLAC\ API\ is\ much\ too\ old\"
                 #endif
 
                 #if (FLAC_API_VERSION_CURRENT < 8)
-                    #error "FLAC\ API\ is\ too\ old"
+                    #error \"FLAC\ API\ is\ too\ old\"
                 #endif
 
                 int main(int, char **)

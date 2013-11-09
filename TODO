@@ -19,6 +19,8 @@ o use noise shaping globally in sample2float()
 
 o support for "raw" import/export
 
+o ASCII codec: support for labels
+
 o move label with mouse (drag&drop)
 
 o new import/export plugin using ffmpeg/libavcodec

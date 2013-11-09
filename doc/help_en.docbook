@@ -1354,8 +1354,7 @@
 	</para></listitem>
 	<listitem><para>
             The second format that &kwave; supports is "ASCII". You can export to
-            ASCII, but currently not import from it (this is currently
-            not implemented). Please be aware that storing in this format
+            and also import from ASCII. Please be aware that storing in this format
             might produce very large files! The file format will be described
 	    <link linkend="ascii_format">below</link>.
 	</para></listitem>
@@ -1449,24 +1448,13 @@
 		are treated as comments and are ignored.
 	    </para></listitem>
 	    <listitem><para>
-		Values can be are given in any format that the C library of
-		your system is able to read and interprete as a floating
-		point or integer number. But when saving, &kwave; will save
-		as in signed integer format with a 24 bit range.
+		Values have to be given in signed integer format with a
+		24 bit range, which is the internal storage format of &kwave;.
 	    </para></listitem>
 	    <listitem><para>
-		All values are expected to be in signed format. So if you
-		import a file with only positive values, you will only see
-		samples that are above the zero line.
-	    </para></listitem>
-	    <listitem><para>
-		When importing, values can be specified in any range,
-		&kwave; always does a first pass over the file to get the
-		highest absolute value and defines that value as "100%" before
-		really reading in the file and scaling it.
-	    </para></listitem>
-	    <listitem><para>
-		Internally all values are stored with 24 bit precision (signed).
+		Everything after a <literal>#</literal> (except property lines,
+		see above) will be treated as comment and will be ignored.
+		Empty lines will also be ignored.
 	    </para></listitem>
 	    </orderedlist>
 	</para>
@@ -1481,8 +1469,8 @@
 ## 'tracks'=2
 ## 'bits'=16
 ## 'length'=11
-## 'Date'='2007-04-22'
-## 'Software'='Kwave-0.7.9 for KDE 3.5.5'
+## 'Date'='2013-11-09'
+## 'Software'='Kwave-0.8.11 for KDE 4.11.3'
   5930496,   5930496 #            0
         0,   8388352 #            1
  -5930752,   5930496 #            2

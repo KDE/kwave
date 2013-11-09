@@ -11,6 +11,8 @@
  * new command line option: "--disable-splashscreen"
  * new command line option: "--iconic" to start minimized
  * fixed quoting errors in CMakeLists.txt (cmake-2.8.12 complained)
+ * bugfix: ASCII encoder: escape special characters in meta data
+ * implementation of ASCII import
 
 0.8.10 [2013-02-09]
 

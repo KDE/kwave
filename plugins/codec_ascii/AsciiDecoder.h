@@ -20,6 +20,10 @@
 
 #include "config.h"
 
+#include <QtCore/QQueue>
+#include <QtCore/QString>
+#include <QtCore/QTextStream>
+
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
@@ -65,11 +69,27 @@ namespace Kwave
 
     private:
 
+	/**
+	 * try to read a complete line from the source, skip empty lines
+	 * and comments
+	 * @return true if one line was read, false if EOF was reached
+	 *         before one line was complete
+	 */
+	bool readNextLine();
+
+    private:
+
 	/** source of the audio data */
-	QIODevice *m_source;
+	QTextStream m_source;
 
 	/** destination of the audio data */
 	Kwave::MultiWriter *m_dest;
+
+	/** queue for buffering strings read from the file */
+	QQueue<QString> m_queue_input;
+
+	/** last read line number, starting with 1 */
+	quint64 m_line_nr;
 
     };
 }

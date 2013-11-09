@@ -1,4 +1,4 @@
-0.8.11 [2013-xx-xx]
+0.8.11 [2013-11-xx]
 
  * added spanish translation, provided by Carlos R. <pureacetone@gmail.com>
  * bugfix: file names were not properly escaped in context of file/open,
@@ -13,6 +13,7 @@
  * fixed quoting errors in CMakeLists.txt (cmake-2.8.12 complained)
  * bugfix: ASCII encoder: escape special characters in meta data
  * implementation of ASCII import
+ * memory settings: raised default memory limits
 
 0.8.10 [2013-02-09]
 

@@ -1,4 +1,8 @@
 
+o recording via Phonon
+
+o auto detect and marker generation at song borders
+
 o detect song titles / metadata by using musicbrainz
 
 o proper channel mixing matrix for well-known track numbers and file formats
@@ -126,8 +130,6 @@ o new plugin: fft, averagefft
 o new plugin: distort
 
 o new plugin: channel mixer
-
-o import of multi-channel ASCII files
 
 o support for KDE's session management
 

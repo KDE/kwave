@@ -34,6 +34,7 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/MultiTrackReader.h"
+#include "libkwave/Parser.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 
@@ -117,7 +118,8 @@ bool Kwave::AsciiEncoder::encode(QWidget *widget,
 
 	    // write the property
 	    m_dst << META_PREFIX << "'" << info.name(p) << "'='"
-	          << v.toString().toUtf8() << "'" << endl;
+	          << Kwave::Parser::escape(v.toString()).toUtf8()
+	          << "'" << endl;
 	}
 
 	sample_index_t rest = length;

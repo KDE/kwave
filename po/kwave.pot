@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-28 06:36+0100\n"
+"POT-Creation-Date: 2013-11-12 22:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3493,66 +3493,6 @@ msgctxt ""
 msgid "Error: No Codec for '%1' available"
 msgstr ""
 
-#: libgui/ui_SelectTimeWidgetBase.h:286
-msgid "frmLength"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:289
-msgid "select by number of samples"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:291
-msgid "&Samples"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:293
-msgid "select by time"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:295
-msgid "&Time"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:297
-msgid "select by percentage of the signal's length"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:299
-msgid "&Percent"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:300 plugins/newsignal/ui_NewSigDlg.h:497
-msgid "Minutes"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:301
-msgid "Milliseconds"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:302 plugins/newsignal/ui_NewSigDlg.h:496
-msgid "Seconds"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:303 plugins/newsignal/ui_NewSigDlg.h:498
-msgid "Hours"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:304 plugins/newsignal/ui_NewSigDlg.h:505
-msgid "0%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:305 plugins/newsignal/ui_NewSigDlg.h:506
-msgid "50%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:306 plugins/newsignal/ui_NewSigDlg.h:507
-msgid "100%"
-msgstr ""
-
-#: libgui/ui_SelectTimeWidgetBase.h:308
-msgid "sets the selection by the percentage of the whole signal"
-msgstr ""
-
 #: libgui/ui_HMSTimeWidgetBase.h:77
 msgid "HMSTimeWidgetBase"
 msgstr ""
@@ -3614,6 +3554,66 @@ msgid ""
 "This is just a numeric index of the label, starting with zero, sorted by "
 "position. Lower index means 'left', higher index means 'right'. You cannot "
 "change the index itself, but change the label's position."
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:286
+msgid "frmLength"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:289
+msgid "select by number of samples"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:291
+msgid "&Samples"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:293
+msgid "select by time"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:295
+msgid "&Time"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:297
+msgid "select by percentage of the signal's length"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:299
+msgid "&Percent"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:300 plugins/newsignal/ui_NewSigDlg.h:497
+msgid "Minutes"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:301
+msgid "Milliseconds"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:302 plugins/newsignal/ui_NewSigDlg.h:496
+msgid "Seconds"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:303 plugins/newsignal/ui_NewSigDlg.h:498
+msgid "Hours"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:304 plugins/newsignal/ui_NewSigDlg.h:505
+msgid "0%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:305 plugins/newsignal/ui_NewSigDlg.h:506
+msgid "50%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:306 plugins/newsignal/ui_NewSigDlg.h:507
+msgid "100%"
+msgstr ""
+
+#: libgui/ui_SelectTimeWidgetBase.h:308
+msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:10

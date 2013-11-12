@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-28 06:36+0100\n"
-"PO-Revision-Date: 2013-02-02 17:51+0100\n"
+"POT-Creation-Date: 2013-11-12 22:19+0100\n"
+"PO-Revision-Date: 2013-11-12 22:23+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -1464,19 +1464,17 @@ msgid "Add Label"
 msgstr "Markierung hinzufügen"
 
 #: plugins/noise/NoisePlugin.cpp:131 plugins/noise/ui_NoiseDlg.h:215
-#, fuzzy
 msgid "Add Noise"
-msgstr "Rauschen"
+msgstr "Rauschen hinzufügen"
 
 #: plugins/noise/ui_NoiseDlg.h:221
-#, fuzzy
 msgid ""
 "Adds a noise level given as a percentage relative to the maximum volume "
 "level.\n"
 "For example: \"1 %\", \"15%\" or \"100%\""
 msgstr ""
-"Setzt die Lautstärke auf einen Prozentsatz der ursprünglichen Lautstärke. \n"
-"Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
+"Fügt Rauschen hinzu, als Prozentsatz relativ zur aktuellen Lautstärke.\n"
+"Beispiel: \"1 %\", \"15%\" or \"100%\""
 
 #: libkwave/FileInfo.cpp:44
 msgid "Album"
@@ -1885,7 +1883,7 @@ msgstr "Karte %1: "
 
 #: kwave/main.cpp:113
 msgid "Carlos R."
-msgstr ""
+msgstr "Carlos R."
 
 #: kwave/main.cpp:55
 msgid "Caulier Gilles"
@@ -2035,9 +2033,8 @@ msgid "Continue after highest index"
 msgstr "Nach dem höchsten Index fortsetzen"
 
 #: kwave/PlayerToolBar.cpp:409
-#, fuzzy
 msgid "Continue playback"
-msgstr "Wiedergabe anhalten"
+msgstr "Wiedergabe fortsetzen"
 
 #: kwave/TopWidget.cpp:269
 msgid "Copy"
@@ -2299,7 +2296,7 @@ msgstr "Verzeichnis:"
 
 #: kwave/main.cpp:142
 msgid "Disable the Splash Screen"
-msgstr ""
+msgstr "Deaktiviere das Startbild"
 
 #: libkwave/GenreType.cpp:100
 msgid "Disco"
@@ -3628,9 +3625,8 @@ msgid "Noise Generator"
 msgstr "Rauschgenerator"
 
 #: plugins/noise/ui_NoiseDlg.h:237
-#, fuzzy
 msgid "Noise Level"
-msgstr "Pegel"
+msgstr "Rausch-Pegel"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:792
 msgid "Noise Shaping:"
@@ -4804,9 +4800,8 @@ msgid "Space"
 msgstr "Space"
 
 #: kwave/main.cpp:114
-#, fuzzy
 msgid "Spanish translation"
-msgstr "Tschechische Übersetzung"
+msgstr "Spanische Übersetzung"
 
 #: kwave/menus_config_i18n.cpp:119
 msgid "Spe&ctrum"
@@ -4877,7 +4872,7 @@ msgstr "Start&zeit:"
 
 #: kwave/main.cpp:143
 msgid "Start Kwave iconified"
-msgstr ""
+msgstr "Starte Kwave minimiert"
 
 #: plugins/record/ui_RecordDlg.h:987
 msgid "Start at a given date and time"
@@ -5567,13 +5562,12 @@ msgid "Zoom to selection"
 msgstr "Auf Auswahl vergrössern"
 
 #: plugins/noise/ui_NoiseDlg.h:218
-#, fuzzy
 msgid "add a noise level by percentage"
-msgstr "Geschwindigkeit nach Prozentsatz ändern"
+msgstr "Rauschpegel nach Prozentsatz hinzufügen"
 
 #: plugins/noise/ui_NoiseDlg.h:226
 msgid "add a noise level in dB"
-msgstr ""
+msgstr "Rauschpegel in dB hinzufügen"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:825
 msgid "additional parameters to append at the end of the encoder command line"
@@ -5588,13 +5582,12 @@ msgstr ""
 "werden"
 
 #: plugins/noise/ui_NoiseDlg.h:229
-#, fuzzy
 msgid ""
 "adds a noise level in logarithmic scale (decibel).\n"
 "For example: \"-3 dB\", \"- 6 dB\"."
 msgstr ""
-"Erhöht oder senkt die Lautstärke im logarithmischen Maßstab (Dezibel). \n"
-"Zum Beispiel: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
+"Fügt Rauschen im logarithmischen Maßstab (Dezibel) hinzu. \n"
+"Zum Beispiel: \"-3 dB\", \"-6 dB\"."
 
 #: plugins/record/RecordDialog.cpp:1167
 #, kde-format

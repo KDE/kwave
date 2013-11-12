@@ -1,4 +1,4 @@
-0.8.11 [2013-11-xx]
+0.8.11 [2013-11-30]
 
  * added spanish translation, provided by Carlos R. <pureacetone@gmail.com>
  * bugfix: file names were not properly escaped in context of file/open,

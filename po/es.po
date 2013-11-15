@@ -1,12 +1,14 @@
 # Copyright (C) 2013
 # This file is distributed under the same license as the Kwave package.
 #
+# Carlos <pureacetone@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 22:19+0100\n"
-"PO-Revision-Date: 2013-09-04 13:58+0200\n"
+"POT-Creation-Date: 2013-11-16 00:46+0100\n"
+"PO-Revision-Date: 2013-11-14 15:28+0100\n"
+"Last-Translator: Carlos <pureacetone@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
@@ -2062,7 +2064,7 @@ msgstr "Cabecera secundaria corrompida. Saliendo."
 
 #: libkwave/GenreType.cpp:98
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #: kwave/menus_config_i18n.cpp:34
 msgid "Create &type"
@@ -2159,11 +2161,11 @@ msgstr "Empaquetador Debian"
 #: plugins/debug/DebugPlugin.cpp:80
 #, kde-format
 msgid "Debug (%1)"
-msgstr ""
+msgstr "Depuración (%1)"
 
 #: plugins/debug/DebugPlugin.cpp:28
 msgid "Debug Functions"
-msgstr ""
+msgstr "Funciones de depuración"
 
 #: plugins/codec_ogg/OpusCommon.cpp:76
 #, kde-format
@@ -2297,7 +2299,7 @@ msgstr "Directorio:"
 
 #: kwave/main.cpp:142
 msgid "Disable the Splash Screen"
-msgstr ""
+msgstr "Desactivar la pantalla de inicio"
 
 #: libkwave/GenreType.cpp:100
 msgid "Disco"
@@ -3596,7 +3598,7 @@ msgstr "Nuevo archivo"
 #: plugins/newsignal/NewSignalPlugin.cpp:29
 #: plugins/newsignal/ui_NewSigDlg.h:456
 msgid "New Signal"
-msgstr ""
+msgstr "Nueva señal"
 
 #: libkwave/GenreType.cpp:162
 msgid "New Wave"
@@ -4867,7 +4869,7 @@ msgstr "Comenz&ar en:"
 
 #: kwave/main.cpp:143
 msgid "Start Kwave iconified"
-msgstr ""
+msgstr "Iniciar Kwave en b"
 
 #: plugins/record/ui_RecordDlg.h:987
 msgid "Start at a given date and time"
@@ -5550,13 +5552,12 @@ msgid "Zoom to selection"
 msgstr "Zum a la selección"
 
 #: plugins/noise/ui_NoiseDlg.h:218
-#, fuzzy
 msgid "add a noise level by percentage"
-msgstr "cambiar velocidad según porcentaje"
+msgstr "añadir un nivel de ruido mediante porcentaje"
 
 #: plugins/noise/ui_NoiseDlg.h:226
 msgid "add a noise level in dB"
-msgstr ""
+msgstr "añadir un nievel de ruido en dB"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:825
 msgid "additional parameters to append at the end of the encoder command line"

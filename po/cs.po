@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-12 22:19+0100\n"
-"PO-Revision-Date: 2013-02-03 20:50+0100\n"
+"PO-Revision-Date: 2013-11-12 23:03+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -1460,19 +1460,17 @@ msgid "Add Label"
 msgstr "Přidat štítek"
 
 #: plugins/noise/NoisePlugin.cpp:131 plugins/noise/ui_NoiseDlg.h:215
-#, fuzzy
 msgid "Add Noise"
-msgstr "Šum"
+msgstr "Přidat šum"
 
 #: plugins/noise/ui_NoiseDlg.h:221
-#, fuzzy
 msgid ""
 "Adds a noise level given as a percentage relative to the maximum volume "
 "level.\n"
 "For example: \"1 %\", \"15%\" or \"100%\""
 msgstr ""
-"Nastaví hlasitost procentuálně vzhledem k původní úrovni. \n"
-"Například: \"50 %\", \"75%\" nebo \"125%\""
+"Přidá úroveň šumu procentuálně vzhledem k největší úrovni hlasitosti.\n"
+"Například: \"1 %\", \"15%\" or \"100%\""
 
 #: libkwave/FileInfo.cpp:44
 msgid "Album"
@@ -1881,7 +1879,7 @@ msgstr "Karta %1: "
 
 #: kwave/main.cpp:113
 msgid "Carlos R."
-msgstr ""
+msgstr "Carlos R."
 
 #: kwave/main.cpp:55
 msgid "Caulier Gilles"
@@ -2030,9 +2028,8 @@ msgid "Continue after highest index"
 msgstr "Pokračovat po nejvyšší index"
 
 #: kwave/PlayerToolBar.cpp:409
-#, fuzzy
 msgid "Continue playback"
-msgstr "Pozastavit přehrávání"
+msgstr "Pokračovat v přehrávání"
 
 #: kwave/TopWidget.cpp:269
 msgid "Copy"
@@ -2104,7 +2101,7 @@ msgstr "Vyjmout"
 
 #: kwave/main.cpp:122
 msgid "Czech translation"
-msgstr "Český překlad"
+msgstr "Překlad do češtiny"
 
 #: plugins/playback/PlayBack-ALSA.cpp:877
 msgid "DMIX plugin"
@@ -2294,7 +2291,7 @@ msgstr "Adresář:"
 
 #: kwave/main.cpp:142
 msgid "Disable the Splash Screen"
-msgstr ""
+msgstr "Zakázat úvodní obrazovku"
 
 #: libkwave/GenreType.cpp:100
 msgid "Disco"
@@ -3624,9 +3621,8 @@ msgid "Noise Generator"
 msgstr "Vyvíječ šumu"
 
 #: plugins/noise/ui_NoiseDlg.h:237
-#, fuzzy
 msgid "Noise Level"
-msgstr "Úroveň"
+msgstr "Úroveň šumu"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:792
 msgid "Noise Shaping:"
@@ -3848,7 +3844,7 @@ msgstr "Kodér pro Opus selhal při nastavování omezení PDT: '%1'"
 #: plugins/codec_ogg/OpusEncoder.cpp:576
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
-msgstr ""
+msgstr "Kodér pro Opus selhal. Hodnota: '%1'"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:451
 #, kde-format
@@ -4794,9 +4790,8 @@ msgid "Space"
 msgstr "Mezera"
 
 #: kwave/main.cpp:114
-#, fuzzy
 msgid "Spanish translation"
-msgstr "Český překlad"
+msgstr "Překlad do španělštiny"
 
 #: kwave/menus_config_i18n.cpp:119
 msgid "Spe&ctrum"
@@ -4868,7 +4863,7 @@ msgstr "Začít &na:"
 
 #: kwave/main.cpp:143
 msgid "Start Kwave iconified"
-msgstr ""
+msgstr "Spustit Kwave s ikonami"
 
 #: plugins/record/ui_RecordDlg.h:987
 msgid "Start at a given date and time"
@@ -5134,7 +5129,7 @@ msgstr "Seznam štítků/značek."
 
 #: plugins/codec_ogg/OpusCommon.cpp:58
 msgid "The mode struct passed is invalid."
-msgstr ""
+msgstr "Byla předána neplatná stavba režimu."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:437
 msgid ""
@@ -5549,13 +5544,12 @@ msgid "Zoom to selection"
 msgstr "Zvětšit na výběr"
 
 #: plugins/noise/ui_NoiseDlg.h:218
-#, fuzzy
 msgid "add a noise level by percentage"
-msgstr "Změnit rychlost podle procentního podílu"
+msgstr "Přidat úroveň šumu procentuálně"
 
 #: plugins/noise/ui_NoiseDlg.h:226
 msgid "add a noise level in dB"
-msgstr ""
+msgstr "Přidat úroveň šumu v dB"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:825
 msgid "additional parameters to append at the end of the encoder command line"
@@ -5566,13 +5560,12 @@ msgid "additional parameters to put at the start of the encoder command line"
 msgstr "Dodatečné parametry k položení na začátek příkazového řádku pro kodér"
 
 #: plugins/noise/ui_NoiseDlg.h:229
-#, fuzzy
 msgid ""
 "adds a noise level in logarithmic scale (decibel).\n"
 "For example: \"-3 dB\", \"- 6 dB\"."
 msgstr ""
-"Zvýší nebo sníží hlasitost v závislosti na logaritmické řadě (decibely). \n"
-"Například:  \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
+"Přidá úroveň šumu logaritmicky (decibely). \n"
+"Například:  \"-3 dB\", \"- 6 dB\"."
 
 #: plugins/record/RecordDialog.cpp:1167
 #, kde-format

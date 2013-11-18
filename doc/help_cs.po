@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2013-11-15 23:48+0000\n"
-"PO-Revision-Date: 2013-02-03 20:53+0100\n"
+"POT-Creation-Date: 2013-11-18 17:13+0000\n"
+"PO-Revision-Date: 2013-11-13 20:02+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -61,9 +61,9 @@ msgstr "Thomas Eschenbacher"
 
 #. Tag: date
 #: help_en.docbook:66
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "2013-11-30"
-msgstr "2012-11-06"
+msgstr "2013-11-30"
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -2188,6 +2188,9 @@ msgid ""
 "the splash screen that comes up when starting &kwave;. This might be useful "
 "when you start &kwave; from a script."
 msgstr ""
+"Volbou <literal>--disable-splashscreen</literal> můžete zakázat uvítací "
+"obrazovku, která se objevuje při spouštění &kwave;. To může být užitečné, "
+"když &kwave; spouštíte pomocí skriptu."
 
 #. Tag: para
 #: help_en.docbook:1220
@@ -2198,6 +2201,10 @@ msgid ""
 "without GUI interaction, e.g. when running from a script. This option also "
 "implicitly disables the splash screen!"
 msgstr ""
+"Volby pro příkazový řádek <literal>--iconic</literal> spustí &kwave; "
+"zmenšený v panelu (ikona). To může být užitečné, když chcete &kwave; spustit "
+"bez rozhraní, např. při spouštění pomocí skriptu. Tato volba rovněž "
+"bezpodmínečně zakáže uvítací obrazovku!"
 
 #. Tag: title
 #: help_en.docbook:1232
@@ -2340,7 +2347,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:1303
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The second format that &kwave; supports is \"ASCII\". You can export to and "
 "also import from ASCII. Please be aware that storing in this format might "
@@ -2348,10 +2355,9 @@ msgid ""
 "\"ascii_format\">below</link>."
 msgstr ""
 "Druhým formátem, který &kwave; podporuje je \"ASCII\". Můžete vyvést soubor "
-"do ASCII, ale v současnosti z něj nelze soubor zavést (toto nyní není v "
-"programu uskutečněno). Buďte si, prosím, vědom, že ukládání do tohoto "
-"formátu může vytvořit velmi rozsáhlé soubory! Tento souborový formát bude "
-"popsán <link linkend=\"ascii_format\">níže</link>."
+"do ASCII, a také jej z ASCII zavést. Buďte si, prosím, vědomi, že ukládání "
+"do tohoto formátu může vytvořit velmi rozsáhlé soubory! Tento souborový "
+"formát bude popsán <link linkend=\"ascii_format\">níže</link>."
 
 #. Tag: para
 #: help_en.docbook:1309
@@ -2524,6 +2530,8 @@ msgid ""
 "Values have to be given in signed integer format with a 24 bit range, which "
 "is the internal storage format of &kwave;."
 msgstr ""
+"Hodnoty se musí zadat ve formátu celého čísla se znaménkem s rozsahem 24 "
+"bitů, což je původní vnitřní ukládací formát &kwave;."
 
 #. Tag: para
 #: help_en.docbook:1402
@@ -2533,6 +2541,9 @@ msgid ""
 "will be treated as comment and will be ignored. Empty lines will also be "
 "ignored."
 msgstr ""
+"Se vším po <literal>#</literal> (s výjimkou výše popsaných vlastností "
+"souboru) se bude zacházet jako s poznámkou, a bude se proto přehlížet. "
+"Prázdné řádky se budou přehlížet taktéž."
 
 #. Tag: para
 #: help_en.docbook:1410
@@ -2552,7 +2563,7 @@ msgstr "obsah ASCII souboru s jednoduchou sinusovou vlnou"
 
 #. Tag: screen
 #: help_en.docbook:1415
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "## 'rate'=44100\n"
 "## 'tracks'=2\n"
@@ -2577,8 +2588,8 @@ msgstr ""
 "## 'tracks'=2\n"
 "## 'bits'=16\n"
 "## 'length'=11\n"
-"## 'Date'='2007-04-22'\n"
-"## 'Software'='Kwave-0.7.9 for KDE 3.5.5'\n"
+"## 'Date'='2013-11-09'\n"
+"## 'Software'='Kwave-0.8.11 for KDE 4.11.3'\n"
 "  5930496,   5930496 #            0\n"
 "        0,   8388352 #            1\n"
 " -5930752,   5930496 #            2\n"
@@ -4119,7 +4130,7 @@ msgstr "nápověda po internetu:"
 
 #. Tag: para
 #: help_en.docbook:2443
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "This is similar to the procedure for the user interface, but requires some "
 "extra steps because the master file is in <literal>docbook</literal> format "
@@ -4164,8 +4175,8 @@ msgstr ""
 "replaceable></parameter></command>\n"
 "</screen> Potom změňte svůj adresář pro sestavení (např. někam do <filename>/"
 "tmp</filename>), připravte se na sestavení a pak vytvořte <filename>.pot</"
-"filename> šablonu (bezpečně si nemusíte všímat chybových hlášekkteré v této "
-"době přicházejí). Tuto šablonu je potřeba zkopírovat do <filename>.po</"
+"filename> šablonu (bezpečně si nemusíte všímat chybových hlášek, které v "
+"této době přicházejí). Tuto šablonu je potřeba zkopírovat do <filename>.po</"
 "filename> souboru ve zdrojovém adresáři nápovědy po internetu. Příklad: "
 "<screen>\n"
 "<prompt>% </prompt><command>mkdir <parameter>/tmp/kwave-build</parameter></"
@@ -4720,9 +4731,9 @@ msgstr "Carlos R <email>pureacetone@gmail.com</email>"
 
 #. Tag: para
 #: help_en.docbook:2872
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "spanish translation"
-msgstr "Překlad do češtiny"
+msgstr "Překlad do španělštiny"
 
 #. Tag: emphasis
 #: help_en.docbook:2877

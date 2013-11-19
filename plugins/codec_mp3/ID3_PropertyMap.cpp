@@ -145,7 +145,7 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     //     Kwave::INF_PRODUCT
     //     Kwave::INF_SAMPLE_FORMAT
     //     Kwave::INF_SAMPLE_RATE
-    //     Kwave::INF_SOFTWARE
+    insert(Kwave::INF_SOFTWARE,      ID3FID_ENCODERSETTINGS    , ENC_TEXT);
     //     Kwave::INF_SOURCE
     //     Kwave::INF_SOURCE_FORM
     //     Kwave::INF_SUBJECT

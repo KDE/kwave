@@ -15,6 +15,7 @@
  * implementation of ASCII import
  * memory settings: raised default memory limits
  * bugfix: crash in file info dialog / auto generate keywords
+ * MP3 plugin: use ID3 tag TSSE for software version
 
 0.8.10 [2013-02-09]
 

@@ -27,6 +27,8 @@
 #include <klocale.h>
 #include <kmimetype.h>
 
+#include "libkwave/Label.h"
+#include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Parser.h"
@@ -79,6 +81,7 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
     m_source.setDevice(&src);
 
     Kwave::FileInfo info(metaData());
+    Kwave::LabelList labels;
 
     /********** Decoder setup ************/
     qDebug("--- AsciiDecoder::open() ---");
@@ -97,14 +100,15 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
 	    "(^##\\s*)"                  // 1 start of meta data line
 	    "([\\'\\\"])?"               // 2 property, quote start (' or ")
 	    "\\s*(\\w+[\\s\\w]*\\w)\\s*" // 3 property
-	    "(\\2)"                      // 4 property, quote end
-	    "(\\s*=\\s*)"                // 5 assignment '='
-	    "(.*)"                       // 6 rest, up to end of line
+	    "(\\[\\d*\\])?"              // 4 index (optional)
+	    "(\\2)"                      // 5 property, quote end
+	    "(\\s*=\\s*)"                // 6 assignment '='
+	    "(.*)"                       // 7 rest, up to end of line
 	));
 	if (regex.exactMatch(line)) {
 	    // meta data entry: "## 'Name' = value"
-	    QString name  = Kwave::Parser::unescape(regex.cap(3));
-	    QString v     = regex.cap(6);
+	    QString name = Kwave::Parser::unescape(regex.cap(3) + regex.cap(4));
+	    QString v    = regex.cap(7);
 
 	    QString value;
 	    if (v.length()) {
@@ -114,7 +118,8 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
 		if ((quote != '\'') && (quote != '"'))
 		    quote = -1;
 
-		for (QString::ConstIterator it = v.begin(); it != v.end(); ++it) {
+		for (QString::ConstIterator it = v.begin(); it != v.end(); ++it)
+		{
 		    const char c = QChar(*it).toAscii();
 
 		    if ((c == '\\') && !is_escaped) {
@@ -150,6 +155,21 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
 	    if (name == _("rate")) name = info.name(INF_SAMPLE_RATE);
 	    if (name == _("bits")) name = info.name(INF_BITS_PER_SAMPLE);
 
+	    // handle labels
+	    QRegExp regex_label(_("label\\[(\\d*)\\]"));
+	    if (regex_label.exactMatch(name)) {
+		bool ok = false;
+		sample_index_t pos = regex_label.cap(1).toULongLong(&ok);
+		if (!ok) {
+		    qWarning("line %llu: malformed label position: '%s'",
+		              m_line_nr, DBG(name));
+		    continue; // skip it
+		}
+		Kwave::Label label(pos, value);
+		labels.append(label);
+		continue;
+	    }
+
 	    bool found = false;
 	    foreach (Kwave::FileProperty p, info.allKnownProperties()) {
 		if (info.name(p).toLower() == name.toLower()) {
@@ -181,6 +201,7 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     metaData().replace(info);
+    metaData().add(labels.toMetaDataList());
 
     return (info.tracks() >= 1);
 }

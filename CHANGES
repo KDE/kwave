@@ -1,4 +1,4 @@
-0.8.11 [2013-11-30]
+0.8.11 [2013-11-24]
 
  * added spanish translation, provided by Carlos R. <pureacetone@gmail.com>
  * bugfix: file names were not properly escaped in context of file/open,
@@ -16,6 +16,7 @@
  * memory settings: raised default memory limits
  * bugfix: crash in file info dialog / auto generate keywords
  * MP3 plugin: use ID3 tag TSSE for software version
+ * ASCII codec: implemented support for labels
 
 0.8.10 [2013-02-09]
 

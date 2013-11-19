@@ -47,6 +47,7 @@ Kwave::AsciiEncoder::AsciiEncoder()
 {
     m_dst.setCodec(QTextCodec::codecForName("UTF-8"));
     LOAD_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPES;
 }
 
 /***************************************************************************/

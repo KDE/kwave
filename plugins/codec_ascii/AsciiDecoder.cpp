@@ -44,6 +44,7 @@ Kwave::AsciiDecoder::AsciiDecoder()
     :Kwave::Decoder(), m_source(), m_dest(0), m_queue_input(), m_line_nr(0)
 {
     LOAD_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPES;
     m_source.setCodec("UTF-8");
 }
 

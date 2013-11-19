@@ -14,6 +14,7 @@
  * bugfix: ASCII encoder: escape special characters in meta data
  * implementation of ASCII import
  * memory settings: raised default memory limits
+ * bugfix: crash in file info dialog / auto generate keywords
 
 0.8.10 [2013-02-09]
 

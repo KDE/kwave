@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 22:19+0100\n"
+"POT-Creation-Date: 2013-11-24 06:47+0100\n"
 "PO-Revision-Date: 2013-11-12 22:23+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -124,7 +124,7 @@ msgstr "%02u:%02u:%02u.%04u"
 msgid "%1"
 msgstr "%1"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:263
+#: plugins/fileinfo/FileInfoDialog.cpp:265
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 Samples)"
@@ -154,7 +154,7 @@ msgstr "%1Hz ist fehlgeschlagen, verwende %2Hz"
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr "%1Hz wird nicht unterstützt, verwende %2Hz"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:211
+#: plugins/fileinfo/FileInfoDialog.cpp:213
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 MB (%2 Bytes)"
@@ -190,7 +190,7 @@ msgstr ""
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr "%1 Bits pro Sample wird nicht unterstützt, verwende %2 Bits pro Sample"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:206
+#: plugins/fileinfo/FileInfoDialog.cpp:208
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 Bytes"
@@ -220,7 +220,7 @@ msgstr "'%1' wird nicht unterstützt, verwende '%2'"
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:208
+#: plugins/fileinfo/FileInfoDialog.cpp:210
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 Bytes)"
@@ -241,7 +241,7 @@ msgstr "%1 min"
 msgid "%1 ms"
 msgstr "%1 ms"
 
-#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:267
+#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:269
 #: plugins/record/RecordDialog.cpp:581 plugins/record/ui_RecordDlg.h:1057
 #, kde-format
 msgid "%1 samples"
@@ -755,12 +755,12 @@ msgstr "(%1%) %2"
 msgid "(File Size)"
 msgstr "(Dateigrösse)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:557
+#: plugins/fileinfo/FileInfoDialog.cpp:559
 #: plugins/newsignal/NewSignalDialog.cpp:306
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:563
+#: plugins/fileinfo/FileInfoDialog.cpp:565
 #: plugins/newsignal/NewSignalDialog.cpp:312
 msgid "(Quadro)"
 msgstr "(Quadro)"
@@ -770,7 +770,7 @@ msgstr "(Quadro)"
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Resultierende Dateigrösse: %1 MB)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:560
+#: plugins/fileinfo/FileInfoDialog.cpp:562
 #: plugins/newsignal/NewSignalDialog.cpp:309
 msgid "(Stereo)"
 msgstr "(Stereo)"
@@ -1423,7 +1423,7 @@ msgstr "ALSA-Aufnahmegerät (adsp*)"
 msgid "ASCII Codec"
 msgstr "ASCII Codec"
 
-#: plugins/codec_ascii/AsciiCodecPlugin.h:56
+#: plugins/codec_ascii/AsciiCodecPlugin.h:57
 msgid "ASCII encoded audio"
 msgstr "ASCII-codiertes Audio"
 
@@ -1719,19 +1719,19 @@ msgstr "Bandpass"
 msgid "Band Pass Filter"
 msgstr "Bandpass-Filter"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:376
+#: plugins/fileinfo/FileInfoDialog.cpp:378
 msgid "Bands 0 to 31"
 msgstr "Bänder 0 bis 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:378
+#: plugins/fileinfo/FileInfoDialog.cpp:380
 msgid "Bands 12 to 31"
 msgstr "Bänder 12 bis 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:379
+#: plugins/fileinfo/FileInfoDialog.cpp:381
 msgid "Bands 16 to 31"
 msgstr "Bänder 16 bis 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:377
+#: plugins/fileinfo/FileInfoDialog.cpp:379
 msgid "Bands 8 to 31"
 msgstr "Bänder 8 bis 31"
 
@@ -2768,7 +2768,7 @@ msgstr "Hanning"
 msgid "Hard Rock"
 msgstr "Hard Rock"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:227
+#: plugins/fileinfo/FileInfoDialog.cpp:229
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
@@ -3178,7 +3178,7 @@ msgstr "Länge"
 msgid "Length of the file in samples."
 msgstr "Länge der Datei in Samples."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:254
+#: plugins/fileinfo/FileInfoDialog.cpp:256
 msgid "Length:"
 msgstr "Länge:"
 
@@ -3607,8 +3607,8 @@ msgstr "New Wave"
 msgid "Next"
 msgstr "Nächstes"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:413
 msgid "No"
 msgstr "Nein"
 
@@ -4307,7 +4307,7 @@ msgid "Reset the toolbar to default settings?"
 msgstr ""
 "Wollen Sie die Werkzeugleiste auf ihre Standardeinstellung zurücksetzen?"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:233
+#: plugins/fileinfo/FileInfoDialog.cpp:235
 #: plugins/newsignal/ui_NewSigDlg.h:477 plugins/record/ui_RecordDlg.h:1027
 msgid "Resolution:"
 msgstr "Auflösung:"
@@ -4426,7 +4426,7 @@ msgstr ""
 "Die Abtastrate %1 samples/sec ist außerhalb des unterstützten Bereichs,"
 "unterstützt werden %2...%3 samples/sec."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:224
+#: plugins/fileinfo/FileInfoDialog.cpp:226
 #: plugins/newsignal/ui_NewSigDlg.h:474 plugins/record/ui_RecordDlg.h:1010
 msgid "Sample rate:"
 msgstr "Abtastrate:"
@@ -4563,7 +4563,7 @@ msgstr "Spur auswählen"
 msgid "Select a date from the calendar."
 msgstr "Datum per Kalender auswählen."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:236
+#: plugins/fileinfo/FileInfoDialog.cpp:238
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
@@ -4663,7 +4663,7 @@ msgstr ""
 "Setzt die Lautstärke auf einen Prozentsatz der ursprünglichen Lautstärke. \n"
 "Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:257
+#: plugins/fileinfo/FileInfoDialog.cpp:259
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
@@ -4681,7 +4681,7 @@ msgstr ""
 "Bei mehreren Technikern sind die Namen durch ein Semikolon\n"
 "und ein Leerzeichen zu trennen."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:244
+#: plugins/fileinfo/FileInfoDialog.cpp:246
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
@@ -5270,7 +5270,7 @@ msgstr "Track der CD wenn die Quelle eine CDROM war."
 msgid "Tracks"
 msgstr "Tracks"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:241
+#: plugins/fileinfo/FileInfoDialog.cpp:243
 #: plugins/newsignal/ui_NewSigDlg.h:476 plugins/record/ui_RecordDlg.h:1011
 msgid "Tracks:"
 msgstr "Spuren:"
@@ -5345,7 +5345,7 @@ msgstr "Der FLAC-Encoder konnte nicht geöffnet werden."
 msgid "Unable to open the file for saving!"
 msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
 
-#: plugins/codec_ascii/AsciiEncoder.cpp:91
+#: plugins/codec_ascii/AsciiEncoder.cpp:94
 #: plugins/codec_flac/FlacEncoder.cpp:212 plugins/codec_ogg/OggEncoder.cpp:121
 msgid "Unable to open the file for saving."
 msgstr "Datei konnte nicht zum Speichern geöffnet werden."
@@ -5484,8 +5484,8 @@ msgstr ""
 msgid "Window function:"
 msgstr "Fensterfunktion:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:413
 msgid "Yes"
 msgstr "Ja"
 

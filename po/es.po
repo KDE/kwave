@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-16 00:46+0100\n"
+"POT-Creation-Date: 2013-11-24 06:47+0100\n"
 "PO-Revision-Date: 2013-11-14 15:28+0100\n"
 "Last-Translator: Carlos <pureacetone@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -125,7 +125,7 @@ msgstr ""
 msgid "%1"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:263
+#: plugins/fileinfo/FileInfoDialog.cpp:265
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr ""
@@ -155,7 +155,7 @@ msgstr "%1 Hz falló, usando %2 Hz"
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr "%1 Hz no está soportado, usando %2 Hz"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:211
+#: plugins/fileinfo/FileInfoDialog.cpp:213
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr ""
@@ -190,7 +190,7 @@ msgstr "%1 bits por muestra falló, usando %2 bits por muestra"
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr "%1 bits por muestra no está soportado, usando %2 bits por muestra"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:206
+#: plugins/fileinfo/FileInfoDialog.cpp:208
 #, kde-format
 msgid "%1 bytes"
 msgstr ""
@@ -220,7 +220,7 @@ msgstr "%1 no está soportado, usando %2"
 msgid "%1 kB"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:208
+#: plugins/fileinfo/FileInfoDialog.cpp:210
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr ""
@@ -241,7 +241,7 @@ msgstr ""
 msgid "%1 ms"
 msgstr ""
 
-#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:267
+#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:269
 #: plugins/record/RecordDialog.cpp:581 plugins/record/ui_RecordDlg.h:1057
 #, kde-format
 msgid "%1 samples"
@@ -755,12 +755,12 @@ msgstr ""
 msgid "(File Size)"
 msgstr "(Tamaño del archivo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:557
+#: plugins/fileinfo/FileInfoDialog.cpp:559
 #: plugins/newsignal/NewSignalDialog.cpp:306
 msgid "(Mono)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:563
+#: plugins/fileinfo/FileInfoDialog.cpp:565
 #: plugins/newsignal/NewSignalDialog.cpp:312
 msgid "(Quadro)"
 msgstr "(Cuadrafónico)"
@@ -770,7 +770,7 @@ msgstr "(Cuadrafónico)"
 msgid "(Resulting file size: %1 MB)"
 msgstr "(tamaño del archivo resultante: %1 MB)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:560
+#: plugins/fileinfo/FileInfoDialog.cpp:562
 #: plugins/newsignal/NewSignalDialog.cpp:309
 msgid "(Stereo)"
 msgstr "(Estéreo)"
@@ -1426,7 +1426,7 @@ msgstr "Dispositivo de grabación ALSA (adsp*)"
 msgid "ASCII Codec"
 msgstr "Códec ASCII"
 
-#: plugins/codec_ascii/AsciiCodecPlugin.h:56
+#: plugins/codec_ascii/AsciiCodecPlugin.h:57
 msgid "ASCII encoded audio"
 msgstr "Codificación audio ASCII"
 
@@ -1467,19 +1467,17 @@ msgid "Add Label"
 msgstr "Añadir Etiqueta"
 
 #: plugins/noise/NoisePlugin.cpp:131 plugins/noise/ui_NoiseDlg.h:215
-#, fuzzy
 msgid "Add Noise"
-msgstr "Ruido"
+msgstr "Añadir Ruido"
 
 #: plugins/noise/ui_NoiseDlg.h:221
-#, fuzzy
 msgid ""
 "Adds a noise level given as a percentage relative to the maximum volume "
 "level.\n"
 "For example: \"1 %\", \"15%\" or \"100%\""
 msgstr ""
-"Fija el volumen a un porcentaje relativo al nivel original.\n"
-"Por ejemplo: \"50%\",  \"75%\" o \"125%\""
+"Añadir ruido a un porcentaje relativo al nivel original.\n"
+"Por ejemplo: \"1%\",  \"15%\" o \"100%\""
 
 #: libkwave/FileInfo.cpp:44
 msgid "Album"
@@ -1723,19 +1721,19 @@ msgstr "Paso banda"
 msgid "Band Pass Filter"
 msgstr "Filtro paso banda"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:376
+#: plugins/fileinfo/FileInfoDialog.cpp:378
 msgid "Bands 0 to 31"
 msgstr "Bandas de 0 a 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:378
+#: plugins/fileinfo/FileInfoDialog.cpp:380
 msgid "Bands 12 to 31"
 msgstr "Bandas de 12 a 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:379
+#: plugins/fileinfo/FileInfoDialog.cpp:381
 msgid "Bands 16 to 31"
 msgstr "Bandas de 16 a 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:377
+#: plugins/fileinfo/FileInfoDialog.cpp:379
 msgid "Bands 8 to 31"
 msgstr "Bandas de 8 a 31"
 
@@ -2034,9 +2032,8 @@ msgid "Continue after highest index"
 msgstr "Continuar después del índice más alto"
 
 #: kwave/PlayerToolBar.cpp:409
-#, fuzzy
 msgid "Continue playback"
-msgstr "Pausar reproducción"
+msgstr "Continuar reproducción"
 
 #: kwave/TopWidget.cpp:269
 msgid "Copy"
@@ -2771,7 +2768,7 @@ msgstr ""
 msgid "Hard Rock"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:227
+#: plugins/fileinfo/FileInfoDialog.cpp:229
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
@@ -3179,7 +3176,7 @@ msgstr "Duración"
 msgid "Length of the file in samples."
 msgstr "Duración del archivo en muestras"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:254
+#: plugins/fileinfo/FileInfoDialog.cpp:256
 msgid "Length:"
 msgstr "Duración:"
 
@@ -3608,8 +3605,8 @@ msgstr ""
 msgid "Next"
 msgstr "Siguiente"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:413
 msgid "No"
 msgstr ""
 
@@ -3626,9 +3623,8 @@ msgid "Noise Generator"
 msgstr "Generador de ruido"
 
 #: plugins/noise/ui_NoiseDlg.h:237
-#, fuzzy
 msgid "Noise Level"
-msgstr "Nivel"
+msgstr "Nivel de ruido"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:792
 msgid "Noise Shaping:"
@@ -4306,7 +4302,7 @@ msgstr ""
 msgid "Reset the toolbar to default settings?"
 msgstr "¿Restaurar la barra de tareas a sus parámetros por defecto?"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:233
+#: plugins/fileinfo/FileInfoDialog.cpp:235
 #: plugins/newsignal/ui_NewSigDlg.h:477 plugins/record/ui_RecordDlg.h:1027
 msgid "Resolution:"
 msgstr "Resolución"
@@ -4425,7 +4421,7 @@ msgstr ""
 "La frecuencia de muestreo de %1 muestras/s está fuera de rango,\n"
 "las soportadas están entre %2 ... %3 muestras/s."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:224
+#: plugins/fileinfo/FileInfoDialog.cpp:226
 #: plugins/newsignal/ui_NewSigDlg.h:474 plugins/record/ui_RecordDlg.h:1010
 msgid "Sample rate:"
 msgstr "Frecuencia de muestreo"
@@ -4561,7 +4557,7 @@ msgstr "Seleccionar pista"
 msgid "Select a date from the calendar."
 msgstr "Seleccione una fecha del calendario"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:236
+#: plugins/fileinfo/FileInfoDialog.cpp:238
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
@@ -4660,7 +4656,7 @@ msgstr ""
 "Fija el volumen a un porcentaje relativo al nivel original.\n"
 "Por ejemplo: \"50%\",  \"75%\" o \"125%\""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:257
+#: plugins/fileinfo/FileInfoDialog.cpp:259
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
@@ -4678,7 +4674,7 @@ msgstr ""
 "Si existen varios ingenieros sepárelos mediante punto y\n"
 "coma y un espacio en blanco."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:244
+#: plugins/fileinfo/FileInfoDialog.cpp:246
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
@@ -4796,9 +4792,8 @@ msgid "Space"
 msgstr ""
 
 #: kwave/main.cpp:114
-#, fuzzy
 msgid "Spanish translation"
-msgstr "Traducción al checo."
+msgstr "Traducción al español."
 
 #: kwave/menus_config_i18n.cpp:119
 msgid "Spe&ctrum"
@@ -5263,7 +5258,7 @@ msgstr "Pista del CD si la fuente era un CDROM."
 msgid "Tracks"
 msgstr "Pistas"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:241
+#: plugins/fileinfo/FileInfoDialog.cpp:243
 #: plugins/newsignal/ui_NewSigDlg.h:476 plugins/record/ui_RecordDlg.h:1011
 msgid "Tracks:"
 msgstr "Pistas:"
@@ -5338,7 +5333,7 @@ msgstr "Incapaz de abrir el codificador FLAC."
 msgid "Unable to open the file for saving!"
 msgstr "Incapaz de abrir el archivo para guardar!"
 
-#: plugins/codec_ascii/AsciiEncoder.cpp:91
+#: plugins/codec_ascii/AsciiEncoder.cpp:94
 #: plugins/codec_flac/FlacEncoder.cpp:212 plugins/codec_ogg/OggEncoder.cpp:121
 msgid "Unable to open the file for saving."
 msgstr "Incapaz de abrir el archivo para guardar."
@@ -5475,8 +5470,8 @@ msgstr ""
 msgid "Window function:"
 msgstr "Función de ventana:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:413
 msgid "Yes"
 msgstr "Sí"
 
@@ -5572,13 +5567,12 @@ msgstr ""
 "codificador"
 
 #: plugins/noise/ui_NoiseDlg.h:229
-#, fuzzy
 msgid ""
 "adds a noise level in logarithmic scale (decibel).\n"
 "For example: \"-3 dB\", \"- 6 dB\"."
 msgstr ""
-"Incrementa o disminuye el volumen en escala logarítimica (decibelio).\n"
-"Por ejemplo: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
+"añadir un nivel de ruido en escala logarítimica (decibelio).\n"
+"Por ejemplo: \"-3 dB\", \"- 6 dB\"."
 
 #: plugins/record/RecordDialog.cpp:1167
 #, kde-format

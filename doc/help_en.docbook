@@ -6,7 +6,7 @@
   <!ENTITY % addindex "IGNORE">
   <!ENTITY version "0.8.11">
   <!ENTITY version_tag "0_8_11">
-  <!ENTITY version_year "2012">
+  <!ENTITY version_year "2013">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
   <!ENTITY url_changelog "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/CHANGES">
@@ -16,13 +16,13 @@
   <!ENTITY url_doxygen "http://www.stack.nl/~dimitri/doxygen">
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
-  <!ENTITY url_id3lib "http://www.id3lib.org/">
+  <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
   <!ENTITY url_iso639 "http://www.loc.gov/standards/iso639-2/php/code_list.php">
   <!ENTITY url_kde_l10n "http://l10n.kde.org/">
   <!ENTITY url_kde_localize "http://userbase.kde.org/Lokalize/">
   <!ENTITY url_kde_screenshots "http://l10n.kde.org/docs/screenshots.php">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
-  <!ENTITY url_levelmeter "http://rikkus.info/esound-level-meter/">
+  <!ENTITY url_levelmeter "http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
   <!ENTITY url_libmad "http://www.mars.org/home/rob/proj/mpeg/">
   <!ENTITY url_libsndfile "http://www.mega-nerd.com/libsndfile/">
@@ -63,7 +63,7 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2013-11-30</date>
+    <date>2013-11-24</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>

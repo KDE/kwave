@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 22:19+0100\n"
+"POT-Creation-Date: 2013-11-24 06:47+0100\n"
 "PO-Revision-Date: 2013-11-12 23:03+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -126,7 +126,7 @@ msgstr "%02u:%02u:%02u.%04u"
 msgid "%1"
 msgstr "%1"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:263
+#: plugins/fileinfo/FileInfoDialog.cpp:265
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 vzorky)"
@@ -156,7 +156,7 @@ msgstr "%1 Hz selhalo. Používá se %2 Hz"
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr "%1 Hz není podporováno. Používá se %2 Hz"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:211
+#: plugins/fileinfo/FileInfoDialog.cpp:213
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 MB (%2 bajtů)"
@@ -191,7 +191,7 @@ msgstr "%1 bitů na vzorek selhalo. Používá se %2 bitů na vzorek"
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr "%1 bitů na vzorek není podporováno. Používá se %2 bitů na vzorek"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:206
+#: plugins/fileinfo/FileInfoDialog.cpp:208
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 bajtů"
@@ -221,7 +221,7 @@ msgstr "%1 není podporováno. Používá se %2"
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:208
+#: plugins/fileinfo/FileInfoDialog.cpp:210
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 bajtů)"
@@ -242,7 +242,7 @@ msgstr "%1 min"
 msgid "%1 ms"
 msgstr "%1 ms"
 
-#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:267
+#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:269
 #: plugins/record/RecordDialog.cpp:581 plugins/record/ui_RecordDlg.h:1057
 #, kde-format
 msgid "%1 samples"
@@ -756,12 +756,12 @@ msgstr "(%1%) %2"
 msgid "(File Size)"
 msgstr "(velikost souboru)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:557
+#: plugins/fileinfo/FileInfoDialog.cpp:559
 #: plugins/newsignal/NewSignalDialog.cpp:306
 msgid "(Mono)"
 msgstr "(monofonní zvuk)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:563
+#: plugins/fileinfo/FileInfoDialog.cpp:565
 #: plugins/newsignal/NewSignalDialog.cpp:312
 msgid "(Quadro)"
 msgstr "(kvadrofonní zvuk)"
@@ -771,7 +771,7 @@ msgstr "(kvadrofonní zvuk)"
 msgid "(Resulting file size: %1 MB)"
 msgstr "(výsledná velikost souboru: %1 MB)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:560
+#: plugins/fileinfo/FileInfoDialog.cpp:562
 #: plugins/newsignal/NewSignalDialog.cpp:309
 msgid "(Stereo)"
 msgstr "(stereofonní zvuk)"
@@ -1419,7 +1419,7 @@ msgstr "ALSA zařízení umožňující nahrávání (adsp*)"
 msgid "ASCII Codec"
 msgstr "ASCII zakódovaný zvuk"
 
-#: plugins/codec_ascii/AsciiCodecPlugin.h:56
+#: plugins/codec_ascii/AsciiCodecPlugin.h:57
 msgid "ASCII encoded audio"
 msgstr "ASCII zakódovaný zvuk"
 
@@ -1717,19 +1717,19 @@ msgstr "Průchod nízkým a vysokým kmitočtem signálu"
 msgid "Band Pass Filter"
 msgstr "Pásmový filtr"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:376
+#: plugins/fileinfo/FileInfoDialog.cpp:378
 msgid "Bands 0 to 31"
 msgstr "Pásma 0 až 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:378
+#: plugins/fileinfo/FileInfoDialog.cpp:380
 msgid "Bands 12 to 31"
 msgstr "Pásma 12 až 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:379
+#: plugins/fileinfo/FileInfoDialog.cpp:381
 msgid "Bands 16 to 31"
 msgstr "Pásma 16 až 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:377
+#: plugins/fileinfo/FileInfoDialog.cpp:379
 msgid "Bands 8 to 31"
 msgstr "Pásma 8 až 31"
 
@@ -2764,7 +2764,7 @@ msgstr "Hanning"
 msgid "Hard Rock"
 msgstr "Hard Rock"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:227
+#: plugins/fileinfo/FileInfoDialog.cpp:229
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
@@ -3172,7 +3172,7 @@ msgstr "Délka"
 msgid "Length of the file in samples."
 msgstr "Velikost souboru ve vzorcích."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:254
+#: plugins/fileinfo/FileInfoDialog.cpp:256
 msgid "Length:"
 msgstr "Délka:"
 
@@ -3603,8 +3603,8 @@ msgstr "Nová vlna"
 msgid "Next"
 msgstr "Další"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:413
 msgid "No"
 msgstr "Žádná"
 
@@ -4299,7 +4299,7 @@ msgstr "Regé"
 msgid "Reset the toolbar to default settings?"
 msgstr "Nastavit nástrojový pruh na výchozí nastavení?"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:233
+#: plugins/fileinfo/FileInfoDialog.cpp:235
 #: plugins/newsignal/ui_NewSigDlg.h:477 plugins/record/ui_RecordDlg.h:1027
 msgid "Resolution:"
 msgstr "Rozlišení:"
@@ -4418,7 +4418,7 @@ msgstr ""
 "Vzorkovací kmitočet %1 vzorků/s je mimo rozsah,\n"
 "podporováno je %2 ... %3 vzorků/s."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:224
+#: plugins/fileinfo/FileInfoDialog.cpp:226
 #: plugins/newsignal/ui_NewSigDlg.h:474 plugins/record/ui_RecordDlg.h:1010
 msgid "Sample rate:"
 msgstr "Vzorkovací kmitočet:"
@@ -4555,7 +4555,7 @@ msgstr "Vybrat stopu"
 msgid "Select a date from the calendar."
 msgstr "Vybrat datum z kalendáře."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:236
+#: plugins/fileinfo/FileInfoDialog.cpp:238
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
@@ -4655,7 +4655,7 @@ msgstr ""
 "Nastaví hlasitost procentuálně vzhledem k původní úrovni. \n"
 "Například: \"50 %\", \"75%\" nebo \"125%\""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:257
+#: plugins/fileinfo/FileInfoDialog.cpp:259
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
@@ -4670,7 +4670,7 @@ msgid ""
 "a semicolon and a blank."
 msgstr "Ukáže jméno technika, který se souborem pracoval."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:244
+#: plugins/fileinfo/FileInfoDialog.cpp:246
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
@@ -5255,7 +5255,7 @@ msgstr "Stopa na CD v případě, že zdrojem byl malý disk (CD)."
 msgid "Tracks"
 msgstr "Stopy"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:241
+#: plugins/fileinfo/FileInfoDialog.cpp:243
 #: plugins/newsignal/ui_NewSigDlg.h:476 plugins/record/ui_RecordDlg.h:1011
 msgid "Tracks:"
 msgstr "Stopy:"
@@ -5330,7 +5330,7 @@ msgstr "Nelze otevřít kodér FLAC."
 msgid "Unable to open the file for saving!"
 msgstr "Neschopen otevřít soubor pro ukládání!"
 
-#: plugins/codec_ascii/AsciiEncoder.cpp:91
+#: plugins/codec_ascii/AsciiEncoder.cpp:94
 #: plugins/codec_flac/FlacEncoder.cpp:212 plugins/codec_ogg/OggEncoder.cpp:121
 msgid "Unable to open the file for saving."
 msgstr "Nelze otevřít soubor pro uložení."
@@ -5467,8 +5467,8 @@ msgstr ""
 msgid "Window function:"
 msgstr "Okenní funkce:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:413
 msgid "Yes"
 msgstr "Ano"
 

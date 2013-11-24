@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 22:19+0100\n"
+"POT-Creation-Date: 2013-11-24 06:47+0100\n"
 "PO-Revision-Date: 2007-08-01 19:04+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -127,7 +127,7 @@ msgstr ""
 msgid "%1"
 msgstr "%1"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:263
+#: plugins/fileinfo/FileInfoDialog.cpp:265
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 échantillons)"
@@ -161,7 +161,7 @@ msgstr ""
 "La fréquence de %1 Hz n'est pas gérée. La fréquence de %2 Hz sera utilisée à "
 "la place."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:211
+#: plugins/fileinfo/FileInfoDialog.cpp:213
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 Mo (%2 octets)"
@@ -200,7 +200,7 @@ msgstr ""
 "La résolution de %1 bits par échantillon n'est pas gérée.\n"
 "La résolution de %2 bits par échantillon sera utilisée à la place."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:206
+#: plugins/fileinfo/FileInfoDialog.cpp:208
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 octets"
@@ -232,7 +232,7 @@ msgstr ""
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:208
+#: plugins/fileinfo/FileInfoDialog.cpp:210
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 Ko (%2 octets)"
@@ -253,7 +253,7 @@ msgstr " min"
 msgid "%1 ms"
 msgstr "%1 ms"
 
-#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:267
+#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:269
 #: plugins/record/RecordDialog.cpp:581 plugins/record/ui_RecordDlg.h:1057
 #, kde-format
 msgid "%1 samples"
@@ -800,12 +800,12 @@ msgstr "(%1%) %2"
 msgid "(File Size)"
 msgstr "Taille du fichier "
 
-#: plugins/fileinfo/FileInfoDialog.cpp:557
+#: plugins/fileinfo/FileInfoDialog.cpp:559
 #: plugins/newsignal/NewSignalDialog.cpp:306
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:563
+#: plugins/fileinfo/FileInfoDialog.cpp:565
 #: plugins/newsignal/NewSignalDialog.cpp:312
 msgid "(Quadro)"
 msgstr "(Quadro)"
@@ -815,7 +815,7 @@ msgstr "(Quadro)"
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Taille du fichier cible : %1 Mo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:560
+#: plugins/fileinfo/FileInfoDialog.cpp:562
 #: plugins/newsignal/NewSignalDialog.cpp:309
 msgid "(Stereo)"
 msgstr "(Stéréo)"
@@ -1417,7 +1417,7 @@ msgstr "Périphérique de lecture ALSA (adsp*)"
 msgid "ASCII Codec"
 msgstr "Encodage audio ASCII"
 
-#: plugins/codec_ascii/AsciiCodecPlugin.h:56
+#: plugins/codec_ascii/AsciiCodecPlugin.h:57
 msgid "ASCII encoded audio"
 msgstr "Encodage audio ASCII"
 
@@ -1733,22 +1733,22 @@ msgstr "Filtre passe bande"
 msgid "Band Pass Filter"
 msgstr "Filtre passe bande"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:376
+#: plugins/fileinfo/FileInfoDialog.cpp:378
 #, fuzzy
 msgid "Bands 0 to 31"
 msgstr "bandes de 0 à 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:378
+#: plugins/fileinfo/FileInfoDialog.cpp:380
 #, fuzzy
 msgid "Bands 12 to 31"
 msgstr "bandes de 12 à 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:379
+#: plugins/fileinfo/FileInfoDialog.cpp:381
 #, fuzzy
 msgid "Bands 16 to 31"
 msgstr "bandes de 16 à 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:377
+#: plugins/fileinfo/FileInfoDialog.cpp:379
 #, fuzzy
 msgid "Bands 8 to 31"
 msgstr "bandes de 8 à 31"
@@ -2858,7 +2858,7 @@ msgstr "Hanning"
 msgid "Hard Rock"
 msgstr "Hard Rock"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:227
+#: plugins/fileinfo/FileInfoDialog.cpp:229
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
@@ -3287,7 +3287,7 @@ msgstr "Taille "
 msgid "Length of the file in samples."
 msgstr "Taille du fichier en octets"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:254
+#: plugins/fileinfo/FileInfoDialog.cpp:256
 #, fuzzy
 msgid "Length:"
 msgstr "Taille "
@@ -3746,8 +3746,8 @@ msgstr "New Wave"
 msgid "Next"
 msgstr "Page &suivante"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:413
 #, fuzzy
 msgid "No"
 msgstr "Aucun"
@@ -4504,7 +4504,7 @@ msgstr "Reggae"
 msgid "Reset the toolbar to default settings?"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:233
+#: plugins/fileinfo/FileInfoDialog.cpp:235
 #: plugins/newsignal/ui_NewSigDlg.h:477 plugins/record/ui_RecordDlg.h:1027
 msgid "Resolution:"
 msgstr "Résolution :"
@@ -4632,7 +4632,7 @@ msgid ""
 "supported are %2 ... %3 samples/sec."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:224
+#: plugins/fileinfo/FileInfoDialog.cpp:226
 #: plugins/newsignal/ui_NewSigDlg.h:474 plugins/record/ui_RecordDlg.h:1010
 #, fuzzy
 msgid "Sample rate:"
@@ -4785,7 +4785,7 @@ msgstr "supprimer une piste"
 msgid "Select a date from the calendar."
 msgstr "Permet de sélectionner une date dans le calendrier."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:236
+#: plugins/fileinfo/FileInfoDialog.cpp:238
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
@@ -4891,7 +4891,7 @@ msgstr ""
 "Paramètre le volume sonore à un pourcentage qui est relatif au niveau\n"
 "sonore d'origine. Par exemple : « 50 % », « 75 % », ou « 125 % »"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:257
+#: plugins/fileinfo/FileInfoDialog.cpp:259
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
@@ -4909,7 +4909,7 @@ msgstr ""
 "S'il y a plusieurs ingénieurs, séparés les noms par un point \n"
 "virgule et un espace."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:244
+#: plugins/fileinfo/FileInfoDialog.cpp:246
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
@@ -5521,7 +5521,7 @@ msgstr "Piste du CD si la source est un CDROM."
 msgid "Tracks"
 msgstr "Pistes : "
 
-#: plugins/fileinfo/FileInfoDialog.cpp:241
+#: plugins/fileinfo/FileInfoDialog.cpp:243
 #: plugins/newsignal/ui_NewSigDlg.h:476 plugins/record/ui_RecordDlg.h:1011
 msgid "Tracks:"
 msgstr "Pistes : "
@@ -5601,7 +5601,7 @@ msgstr "Impossible d'ouvrir l'encodeur FLAC."
 msgid "Unable to open the file for saving!"
 msgstr "Impossible d'ouvrir le fichier pour l'enregistrer !"
 
-#: plugins/codec_ascii/AsciiEncoder.cpp:91
+#: plugins/codec_ascii/AsciiEncoder.cpp:94
 #: plugins/codec_flac/FlacEncoder.cpp:212 plugins/codec_ogg/OggEncoder.cpp:121
 #, fuzzy
 msgid "Unable to open the file for saving."
@@ -5744,8 +5744,8 @@ msgstr ""
 msgid "Window function:"
 msgstr "Fonction de la fenêtre:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:413
 #, fuzzy
 msgid "Yes"
 msgstr "Oui"

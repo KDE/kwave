@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2013-11-15 23:48+0000\n"
+"POT-Creation-Date: 2013-11-24 05:37+0000\n"
 "PO-Revision-Date: 2013-11-14 15:38+0100\n"
 "Last-Translator: Carlos <pureacetone@gmail.com>\n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -56,9 +56,9 @@ msgstr "Thomas Eschenbacher"
 
 #. Tag: date
 #: help_en.docbook:66
-#, fuzzy, no-c-format
-msgid "2013-11-30"
-msgstr "2013-02-09"
+#, no-c-format
+msgid "2013-11-24"
+msgstr "2013-11-24"
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -2604,8 +2604,8 @@ msgstr ""
 "## 'tracks'=2\n"
 "## 'bits'=16\n"
 "## 'length'=11\n"
-"## 'Date'='2007-04-22'\n"
-"## 'Software'='Kwave-0.7.9 for KDE 3.5.5'\n"
+"## 'Date'='2013-11-00'\n"
+"## 'Software'='Kwave-0.8.11 for KDE 4.11.3'\n"
 "  5930496,   5930496 #            0\n"
 "        0,   8388352 #            1\n"
 " -5930752,   5930496 #            2\n"

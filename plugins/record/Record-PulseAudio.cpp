@@ -616,37 +616,42 @@ int Kwave::RecordPulseAudio::close()
 //***************************************************************************
 int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
 {
-    unsigned int length = buffer.size();
-    if (!length)   return 0;             // no buffer, nothing to do
+    if (buffer.isNull() || buffer.isEmpty())
+	return 0; // no buffer, nothing to do
 
+    unsigned int length = buffer.size();
     // we configure our device at a late stage, not on the fly like in OSS
     if (!m_initialized) {
 	int err = initialize(length);
 	if (err < 0) return err;
     }
-    m_mainloop_lock.lock();;
 
-    char *data = buffer.data() + offset;
+    m_mainloop_lock.lock();
+
     size_t freeBytes = length - offset;
-    if(pa_stream_readable_size(m_pa_stream) > freeBytes) {
-	int additional_size = pa_stream_readable_size(m_pa_stream) - freeBytes;
+    size_t readableSize = pa_stream_readable_size(m_pa_stream);
+    if(readableSize > freeBytes) {
+	int additional_size = readableSize - freeBytes;
 	buffer.resize(length + additional_size);
-	length = buffer.size();
     }
 
     size_t readLength = 0;
-    if(pa_stream_readable_size(m_pa_stream) > 0) {
+    if(readableSize > 0) {
 	const void *audioBuffer;
 	pa_stream_peek(m_pa_stream, &audioBuffer, &readLength);
+
+	char *data = buffer.data() + offset;
 	memcpy(data, audioBuffer, readLength);
-	freeBytes -= readLength;
+
 	pa_stream_drop(m_pa_stream);
+
     } else {
+	m_mainloop_lock.unlock();
 	return -EAGAIN;
     }
+    m_mainloop_lock.unlock();
 
-    m_mainloop_lock.unlock();;
-    return readLength;
+    return static_cast<int>(readLength);
 }
 //***************************************************************************
 int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
@@ -746,23 +751,6 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 	if (pa_stream_get_state(m_pa_stream) != PA_STREAM_READY)
 	    result = -1;
     }
-/*
-    double volume = 80.0;
-    pa_cvolume cvolume;
-    pa_cvolume_set(&cvolume, sample_spec.channels, pa_sw_volume_from_linear(volume));
-
-    pa_operation *op = pa_context_set_source_volume_by_index(
-	m_pa_context,
-	pa_stream_get_device_index(m_pa_stream),
-	&cvolume,
-	pa_inputVolume_cb,
-	this);
-
-    if (op == NULL)
-        qWarning() << "QAudioInput: Failed to set volume";
-    else
-        pa_operation_unref(op);
-*/
     m_mainloop_lock.unlock();
 
     if (result < 0) {

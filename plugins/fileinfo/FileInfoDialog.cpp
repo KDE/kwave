@@ -177,22 +177,24 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 	    int comp_found = -1;
 	    foreach (int c, comps) {
 		Kwave::Compression comp(c);
-		if (comp.preferredMimeType() == mimetype) {
+		if ((comp.preferredMimeType() == mimetype) &&
+		     comps.contains(c))
+		{
 		    found = true;
 		    comp_found = c;
 		    break;
 		}
 	    }
-	    if (!found || (comp_found != comp)) {
+	    if (found && (comp_found != comp)) {
 		int cn = ((comp_found == -1) && !comps.isEmpty()) ?
 		    comps.last() : comp_found;
+		if (cn < 0) cn = 0;
+
 		Kwave::Compression comp_old(comp);
 		Kwave::Compression comp_new(cn);
-		if (comp_old.toInt() != comp_new.toInt()) {
-		    qDebug("mime type/compression mismatch: "
-			"switch from '%s' to '%s'",
-			DBG(comp_old.name()), DBG(comp_new.name()));
-		}
+		qDebug("mime type/compression mismatch: "
+		       "switch from '%s' to '%s'",
+		       DBG(comp_old.name()), DBG(comp_new.name()));
 		m_info.set(Kwave::INF_COMPRESSION, comp_new.toInt());
 	    }
 	}

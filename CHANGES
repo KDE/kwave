@@ -1,3 +1,8 @@
+
+0.8.12 [2014-xx-xx]
+
+ * bugfix: "Close" button of the record dialog did not save settings
+
 0.8.11 [2013-11-24]
 
  * added spanish translation, provided by Carlos R. <pureacetone@gmail.com>

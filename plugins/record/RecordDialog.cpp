@@ -304,6 +304,12 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     tabRecord->setCurrentIndex(0);
     if (page) delete page;
 
+    // add the "Done" button manually, otherwise it would have "Cancel" semantic
+    KGuiItem item = KStandardGuiItem::ok();
+    item.setText(i18n("&Done"));
+    buttonBox->addButton(item, QDialogButtonBox::AcceptRole,
+	                 this, SLOT(accept()));
+
     // set the focus onto the "Record" button
     btRecord->setFocus();
 }

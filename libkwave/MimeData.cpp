@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QtGui/QApplication>
 #include <QtCore/QBuffer>
 #include <QtCore/QMutableListIterator>
@@ -36,6 +38,7 @@
 #include "libkwave/Signal.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Writer.h"
@@ -46,9 +49,125 @@
 // RFC 2361:
 #define WAVE_FORMAT_PCM "audio/vnd.wave" // ; codec=001"
 
+/** block size in bytes used as increment when resizing the raw buffer */
+#define BUFFER_BLOCK_SIZE (4 * 1024 * 1024) /* 4 MB */
+
+//***************************************************************************
+Kwave::MimeData::Buffer::Buffer()
+    :QIODevice(), m_block(0), m_size(0), m_data()
+{
+}
+
+//***************************************************************************
+Kwave::MimeData::Buffer::~Buffer()
+{
+    close();
+}
+
+//***************************************************************************
+qint64 Kwave::MimeData::Buffer::readData(char *data, qint64 maxlen)
+{
+    if (atEnd() || (pos() >= size())) return -1;
+    if (pos() + maxlen > size())
+	maxlen = size() - pos();
+
+    Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
+    return static_cast<qint64>(mem.readFrom(
+	m_block,
+	static_cast<unsigned int>(pos()),
+	data,
+	static_cast<unsigned int>(maxlen)
+    ));
+}
+
+//***************************************************************************
+qint64 Kwave::MimeData::Buffer::writeData(const char *data, qint64 len)
+{
+    Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
+    quint64 new_size = pos() + len;
+
+    // round up the block size if it can no longer be considered to be a
+    // small block (~ half of block size), avoid wasting too much memory
+    // if the needed size is very small.
+    if (new_size > (BUFFER_BLOCK_SIZE / 2))
+	new_size = Kwave::round_up<qint64>(new_size, BUFFER_BLOCK_SIZE);
+
+    if (!m_block) {
+	// first call: allocate a new memory object
+	m_block = mem.allocate(new_size);
+	if (!m_block) return -1; // allocation failed
+    }
+
+    if ((pos() + len) > static_cast<qint64>(mem.sizeOf(m_block))) {
+	if (!mem.resize(m_block, new_size))
+	    return -1; // resize failed
+    }
+
+    // write to the memory block (may be physical or swap file)
+    qint64 written = static_cast<qint64>(mem.writeTo(
+	m_block,
+	static_cast<unsigned int>(pos()),
+	data,
+	static_cast<unsigned int>(len)
+    ));
+    if (written < 0)
+	return -1; // write failed: disk full?
+
+    if (pos() + written > m_size)
+	m_size = pos() + written ; // push the "m_size"
+
+    return written; // write operation was successful
+}
+
+//***************************************************************************
+bool Kwave::MimeData::Buffer::mapToByteArray()
+{
+    // reset our QByteArray
+    m_data.setRawData(0, 0);
+    m_data.clear();
+
+    Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
+    const char *raw = (m_block) ?
+	static_cast<const char *>(mem.map(m_block)) : 0;
+    if (!raw) {
+	// mapping failed: free the block here to avoid trouble
+	// in close()
+	mem.free(m_block);
+	m_block = 0;
+	qWarning("Kwave::MimeData::Buffer::mapToByteArray() failed");
+	return false; // mmap failed
+    }
+
+    // attach the mapped memory to our QByteArray
+    const unsigned int len = static_cast<unsigned int>(m_size);
+//    qDebug("Kwave::MimeData::Buffer::mapToByteArray() - %p [%u]", raw, len);
+    m_data.setRawData(raw, len);
+    return true;
+}
+
+//***************************************************************************
+void Kwave::MimeData::Buffer::close()
+{
+    QIODevice::close();
+
+    // reset the byte array and it's connection to the block of memory
+    m_data.setRawData(0, 0);
+    m_data.clear();
+
+    // unmap and discard the mapped memory
+    if (m_block) {
+	Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
+	mem.unmap(m_block);
+	mem.free(m_block);
+	m_block = 0;
+    }
+    m_size = 0;
+}
+
+//***************************************************************************
 //***************************************************************************
 Kwave::MimeData::MimeData()
-    :QMimeData(), m_data()
+    :QMimeData(), m_buffer()
 {
 }
 
@@ -59,12 +178,11 @@ Kwave::MimeData::~MimeData()
 
 //***************************************************************************
 bool Kwave::MimeData::encode(QWidget *widget,
-	                     Kwave::MultiTrackReader &src,
-	                     const Kwave::MetaDataList &meta_data)
+                             Kwave::MultiTrackReader &src,
+                             const Kwave::MetaDataList &meta_data)
 {
     // use our default encoder
-    Kwave::Encoder *encoder =
-	Kwave::CodecManager::encoder(_(WAVE_FORMAT_PCM));
+    Kwave::Encoder *encoder = Kwave::CodecManager::encoder(_(WAVE_FORMAT_PCM));
     Q_ASSERT(encoder);
     if (!encoder) return false;
 
@@ -78,10 +196,6 @@ bool Kwave::MimeData::encode(QWidget *widget,
     sample_index_t last  = src.last();
     Kwave::MetaDataList new_meta_data = meta_data.selectByRange(first, last);
 
-    // create a buffer for the wav data
-    m_data.resize(0);
-    QBuffer dst(&m_data);
-
     // move all meta data left, to start at the beginning of the selection
     new_meta_data.shiftLeft(first, first, QList<unsigned int>());
 
@@ -94,17 +208,25 @@ bool Kwave::MimeData::encode(QWidget *widget,
     new_meta_data.replace(info);
 
     // encode into the buffer
-    encoder->encode(widget, src, dst, new_meta_data);
+    m_buffer.close(); // discard old stuff
+    encoder->encode(widget, src, m_buffer, new_meta_data);
 
     delete encoder;
 
     // set the mime data into this mime data container
-    setData(_(WAVE_FORMAT_PCM), m_data);
+    bool succeeded = m_buffer.mapToByteArray();
+    if (succeeded) {
+	// mmap succeeded
+	setData(_(WAVE_FORMAT_PCM), m_buffer.byteArray());
+    } else {
+	// failed to map memory
+	m_buffer.close();
+    }
 
     // remove hourglass
     QApplication::restoreOverrideCursor();
 
-    return true;
+    return succeeded;
 }
 
 //***************************************************************************
@@ -185,7 +307,8 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	if (ok && (decoded_tracks != dst_tracks)) {
 	    qDebug("Kwave::MimeData::decode(...) -> mixing channels: %u -> %u",
 	           decoded_tracks, dst_tracks);
-	    mixer = new Kwave::ChannelMixer(decoded_tracks, dst_tracks);
+	    mixer = new(std::nothrow)
+		Kwave::ChannelMixer(decoded_tracks, dst_tracks);
 	    Q_ASSERT(mixer);
 	    ok &= (mixer) && mixer->init();
 	    Q_ASSERT(ok);
@@ -198,8 +321,8 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    // create a sample rate converter
 	    qDebug("Kwave::MimeData::decode(...) -> rate conversion: "\
 	           "%0.1f -> %0.1f", src_rate, dst_rate);
-	    rate_converter =
-		new Kwave::MultiTrackSource<Kwave::RateConverter, true>(
+	    rate_converter = new(std::nothrow)
+		Kwave::MultiTrackSource<Kwave::RateConverter, true>(
 		    dst_tracks, widget);
 	    Q_ASSERT(rate_converter);
 	    if (rate_converter)
@@ -306,7 +429,7 @@ unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 //***************************************************************************
 void Kwave::MimeData::clear()
 {
-    m_data.clear();
+    m_buffer.close();
 }
 
 //***************************************************************************

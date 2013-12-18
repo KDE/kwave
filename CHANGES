@@ -2,6 +2,7 @@
 0.8.12 [2014-xx-xx]
 
  * bugfix: "Close" button of the record dialog did not save settings
+ * support for swap files to store undo data
 
 0.8.11 [2013-11-24]
 

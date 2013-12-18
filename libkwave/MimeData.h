@@ -26,6 +26,7 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/MemoryManager.h"
 #include "libkwave/Sample.h"
 
 class QWidget;
@@ -80,9 +81,76 @@ namespace Kwave
 	    virtual void clear();
 
 	private:
+	    /**
+	     * interal class for buffering huge amounts of mime data with
+	     * support for swap files (using Kwave::MemoryManager).
+	     * Used as a "write only" stream, after writing the data can be
+	     * memory mapped and accessed through a QByteArray.
+	     */
+	    class Buffer: public QIODevice
+	    {
+	    public:
+		/** Constructor */
+		Buffer();
 
-	    /** simple array for storage of the wave data */
-	    QByteArray m_data;
+		/** Destructor, closes the buffer */
+		virtual ~Buffer();
+
+		/** returns the number of bytes written */
+		virtual qint64 size() const { return m_size; }
+
+		/**
+		 * Try to map the memory to a QByteArray
+		 */
+		bool mapToByteArray();
+
+		/**
+		 * Returns the mapped data as a QByteArray
+		 */
+		inline const QByteArray &byteArray() const { return m_data; }
+
+		/**
+		 * Closes the buffer and frees the memory
+		 * (calling multiple times is allowed)
+		 */
+		virtual void close();
+
+	    protected:
+		/**
+		 * read a block of data from the buffer
+		 *
+		 * @param data buffer that receives the data
+		 * @param maxlen maximum number of bytes to read
+		 * @return number of bytes read or -1 if failed
+		 */
+		virtual qint64 readData(char *data, qint64 maxlen);
+
+		/**
+		 * write a block of data, internally increments the buffer
+		 * size if necessary
+		 *
+		 * @param data pointer to a buffer with data to write
+		 * @param len number of bytes to write
+		 * @return number of bytes written or -1 if failed
+		 */
+		virtual qint64 writeData(const char *data, qint64 len);
+
+	    private:
+		/** handle of the block of memory (see MemoryManager) */
+		Kwave::Handle m_block;
+
+		/** number of total bytes written */
+		qint64 m_size;
+
+		/** simple array for storage of the wave data */
+		QByteArray m_data;
+	    };
+
+	private:
+
+	    /** buffer for the mime data (with swap file support) */
+	    Kwave::MimeData::Buffer m_buffer;
+
     };
 }
 

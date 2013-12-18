@@ -102,6 +102,19 @@
 #define ELEMENTS_OF(__x__) (sizeof(__x__) / sizeof(__x__[0]))
 
 //***************************************************************************
+/**
+ * struct for info about a label within a Kwave script
+ * @internal
+ */
+namespace Kwave {
+    typedef struct {
+	qint64       pos;  /**< position within the stream      */
+	unsigned int hits; /**< number of "goto"s to this label */
+    } label_t;
+}
+
+
+//***************************************************************************
 //***************************************************************************
 Kwave::TopWidget::TopWidget(Kwave::App &app)
     :KMainWindow(), m_context(app),
@@ -715,7 +728,7 @@ int Kwave::TopWidget::loadBatch(const KUrl &url)
 int Kwave::TopWidget::parseCommands(QTextStream &stream)
 {
     int result = 0;
-    QMap<QString, qint64> labels;
+    QMap<QString, label_t> labels;
 
     // set hourglass cursor
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -735,7 +748,10 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	    if (!labels.contains(line)) {
 		qDebug("new label '%s' at %u", DBG(line),
 		       static_cast<unsigned int>(stream.pos()));
-		labels[line] = stream.pos();
+		label_t label;
+		label.pos  = stream.pos();
+		label.hits = 0;
+		labels[line] = label;
 	    }
 	    continue;
 	}
@@ -747,9 +763,12 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	    qDebug(">>> detected 'goto'");
 	    QString label = line.split(QLatin1Char(' ')).at(1).simplified();
 	    if (labels.contains(label)) {
-		qDebug(">>> goto '%s' @ offset %u", DBG(label),
-		       static_cast<unsigned int>(labels[label]));
-		stream.seek(labels[label]);
+		labels[label].hits++;
+		qDebug(">>> goto '%s' @ offset %u (pass #%d)", DBG(label),
+		       static_cast<unsigned int>(labels[label].pos),
+		       labels[label].hits
+  		    );
+		stream.seek(labels[label].pos);
 	    } else {
 		qWarning("label '%s' not found", DBG(label));
 		break;

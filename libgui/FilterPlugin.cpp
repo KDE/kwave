@@ -16,6 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <new>
 #include <errno.h>
 #include <unistd.h>
 
@@ -113,14 +115,15 @@ void Kwave::FilterPlugin::run(QStringList params)
 	Q_ASSERT(m_sink);
     } else {
 	// normal mode, with undo
-	undo_guard = new Kwave::UndoTransactionGuard(*this, actionName());
+	undo_guard = new(std::nothrow)
+	    Kwave::UndoTransactionGuard(*this, actionName());
 	Q_ASSERT(undo_guard);
 	if (!undo_guard) {
 	    if (filter) delete filter;
 	    Kwave::StreamObject::setInteractive(false);
 	    return;
 	}
-	m_sink = new MultiTrackWriter(signalManager(), tracks,
+	m_sink = new(std::nothrow) MultiTrackWriter(signalManager(), tracks,
 	    Kwave::Overwrite, first, last);
 	Q_ASSERT(m_sink);
     }

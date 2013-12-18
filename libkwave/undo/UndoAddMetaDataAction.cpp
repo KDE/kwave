@@ -18,6 +18,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QtCore/QVariant>
 #include <QtCore/QtAlgorithms>
 
@@ -177,7 +179,7 @@ Kwave::UndoAction *Kwave::UndoAddMetaDataAction::undo(
 
     // store data for redo
     if (with_redo && !meta_data.isEmpty()) {
-	redo = new Kwave::UndoDeleteMetaDataAction(meta_data);
+	redo = new(std::nothrow) Kwave::UndoDeleteMetaDataAction(meta_data);
 	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }

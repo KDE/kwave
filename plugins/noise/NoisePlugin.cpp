@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <new>
+
 #include <errno.h>
 
 #include <klocale.h> // for the i18n macro
@@ -81,8 +84,9 @@ Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
     QList<unsigned int> tracks;
     sample_index_t first, last;
     sample_index_t length = selection(&tracks, &first, &last, true);
-    Kwave::OverViewCache *overview_cache = new Kwave::OverViewCache(mgr,
-        first, length, tracks.isEmpty() ? 0 : &tracks);
+    Kwave::OverViewCache *overview_cache =
+        new(std::nothrow) Kwave::OverViewCache(mgr, first, length,
+            tracks.isEmpty() ? 0 : &tracks);
     Q_ASSERT(overview_cache);
 
     // create the setup dialog

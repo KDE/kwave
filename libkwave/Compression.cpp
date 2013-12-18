@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <new>
 #include <stdlib.h>
 
 #include "libkwave/Compression.h"
@@ -61,7 +62,7 @@ Kwave::Compression::Compression(
 {
     if (m_map.contains(value)) return; // ignore duplicates
 
-    m_data = new Kwave::Compression::CompressionInfo;
+    m_data = new(std::nothrow) Kwave::Compression::CompressionInfo;
     Q_ASSERT(m_data);
     if (!m_data) return;
 

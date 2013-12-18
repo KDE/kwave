@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <new>
 #include <string.h> // for some speed-ups like memmove, memcpy ...
 
 #include "libkwave/memcpy.h"
@@ -206,7 +207,7 @@ Kwave::Stripe::StripeStorage::~StripeStorage()
 //***************************************************************************
 //***************************************************************************
 Kwave::Stripe::Stripe()
-    :m_lock(), m_data(new StripeStorage)
+    :m_lock(), m_data(new(std::nothrow) StripeStorage)
 {
 }
 
@@ -219,14 +220,14 @@ Kwave::Stripe::Stripe(const Stripe &other)
 
 //***************************************************************************
 Kwave::Stripe::Stripe(sample_index_t start)
-    :m_lock(), m_data(new StripeStorage)
+    :m_lock(), m_data(new(std::nothrow) StripeStorage)
 {
     if (m_data) m_data->m_start = start;
 }
 
 //***************************************************************************
 Kwave::Stripe::Stripe(sample_index_t start, const Kwave::SampleArray &samples)
-    :m_lock(), m_data(new StripeStorage)
+    :m_lock(), m_data(new(std::nothrow) StripeStorage)
 {
     if (m_data) m_data->m_start = start;
     if (samples.size()) append(samples, 0, samples.size());
@@ -236,7 +237,7 @@ Kwave::Stripe::Stripe(sample_index_t start, const Kwave::SampleArray &samples)
 Kwave::Stripe::Stripe(sample_index_t start,
                       Kwave::Stripe &stripe,
                       unsigned int offset)
-    :m_lock(), m_data(new StripeStorage)
+    :m_lock(), m_data(new(std::nothrow) StripeStorage)
 {
     if (!m_data) return;
 

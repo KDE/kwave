@@ -18,6 +18,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QtGui/QApplication>
 #include <QtGui/QClipboard>
 #include <QtCore/QList>
@@ -73,7 +75,7 @@ void Kwave::ClipBoard::copy(QWidget *widget,
     if (!length || !track_list.count()) return;
 
     // get a buffer, implemented as a KwaveMimeData container
-    Kwave::MimeData *buffer = new Kwave::MimeData();
+    Kwave::MimeData *buffer = new(std::nothrow) Kwave::MimeData();
     Q_ASSERT(buffer);
     if (!buffer) return;
 

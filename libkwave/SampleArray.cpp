@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <new>
 #include <stdlib.h>
 
 #include "libkwave/memcpy.h"
@@ -25,13 +26,13 @@
 //***************************************************************************
 Kwave::SampleArray::SampleArray()
 {
-    m_storage = new SampleStorage;
+    m_storage = new(std::nothrow) SampleStorage;
 }
 
 //***************************************************************************
 Kwave::SampleArray::SampleArray(unsigned int size)
 {
-    m_storage = new SampleStorage;
+    m_storage = new(std::nothrow) SampleStorage;
     resize(size);
 }
 

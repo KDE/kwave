@@ -19,6 +19,9 @@
 #define _MULTI_TRACK_SINK_H_
 
 #include "config.h"
+
+#include <new>
+
 #include <QtCore/QObject>
 #include <QtCore/QVector>
 
@@ -128,7 +131,7 @@ namespace Kwave
 	    :Kwave::MultiTrackSink<SINK, false>(0, parent)
 	{
 	    for (unsigned int i = 0; i < tracks; i++)
-		this->insert(i, new SINK());
+		this->insert(i, new(std::nothrow) SINK());
 	}
 
 	/** Destructor */

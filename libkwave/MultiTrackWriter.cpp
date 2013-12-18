@@ -18,6 +18,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SignalManager.h"
@@ -121,7 +123,7 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
     switch (mode) {
 	case Kwave::Append:
 	case Kwave::Insert: {
-	    undo = new Kwave::UndoInsertAction(
+	    undo = new(std::nothrow) Kwave::UndoInsertAction(
 		signal_manager.parentWidget(),
 		track_list,
 		left,
@@ -140,7 +142,7 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
 	}
 	case Kwave::Overwrite: {
 	    foreach (unsigned int track, track_list) {
-		undo = new Kwave::UndoModifyAction(
+		undo = new(std::nothrow) Kwave::UndoModifyAction(
 		    track, left, right - left + 1);
 		if (!signal_manager.registerUndoAction(undo)) {
 		    // aborted, do not continue without undo

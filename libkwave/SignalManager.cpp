@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <new>
 #include <errno.h>
 #include <limits.h>
 #include <math.h>
@@ -905,7 +906,7 @@ void Kwave::SignalManager::insertTrack(unsigned int index)
 
     // undo action for the track insert
     if (m_undo_enabled && !registerUndoAction(
-	new Kwave::UndoInsertTrack(m_signal, index))) return;
+	new(std::nothrow) Kwave::UndoInsertTrack(m_signal, index))) return;
 
     // if the signal is currently empty, use the last
     // known length instead of the current one
@@ -921,7 +922,8 @@ void Kwave::SignalManager::insertTrack(unsigned int index)
 	    for (unsigned int t = index; t < count; t++) tracks.append(t);
 	    Kwave::MetaDataList list = m_meta_data.selectByTracks(tracks);
 	    if (!list.isEmpty() && !registerUndoAction(
-		new Kwave::UndoModifyMetaDataAction(list))) return;
+		new(std::nothrow) Kwave::UndoModifyMetaDataAction(list)))
+		    return;
 	}
 
 	// adjust the track bound meta data
@@ -946,14 +948,17 @@ void Kwave::SignalManager::deleteTrack(unsigned int index)
 
     if (m_undo_enabled) {
 	// undo action for the track deletion
-	if (!registerUndoAction(new UndoDeleteTrack(m_signal, index))) return;
+	if (!registerUndoAction(new(std::nothrow)
+	    UndoDeleteTrack(m_signal, index)))
+		return;
 
 	// undo action for the corresponding meta data change
 	QList<unsigned int> tracks;
 	for (unsigned int t = index; t < count; t++) tracks.append(t);
 	Kwave::MetaDataList list = m_meta_data.selectByTracks(tracks);
 	if (!list.isEmpty() && !registerUndoAction(
-	    new Kwave::UndoModifyMetaDataAction(list))) return;
+	    new(std::nothrow) Kwave::UndoModifyMetaDataAction(list)))
+		return;
     }
 
     // adjust the track bound meta data
@@ -1052,7 +1057,7 @@ bool Kwave::SignalManager::deleteRange(sample_index_t offset,
 
     // put the selected meta data into a undo action
     if (m_undo_enabled) {
-	if (!registerUndoAction(new UndoDeleteMetaDataAction(
+	if (!registerUndoAction(new(std::nothrow) UndoDeleteMetaDataAction(
 	    m_meta_data.copy(offset, length, track_list))))
 	{
 	    abortUndoTransaction();
@@ -1061,7 +1066,7 @@ bool Kwave::SignalManager::deleteRange(sample_index_t offset,
 	m_meta_data.deleteRange(offset, length, track_list);
 
 	// store undo data for all audio data (without meta data)
-	if (!registerUndoAction(new UndoDeleteAction(
+	if (!registerUndoAction(new(std::nothrow) UndoDeleteAction(
 	    m_parent_widget, track_list, offset, length)))
 	{
 	    abortUndoTransaction();
@@ -1104,7 +1109,7 @@ bool Kwave::SignalManager::insertSpace(sample_index_t offset,
     // first store undo data for all tracks
     unsigned int track;
     if (m_undo_enabled) {
-	if (!registerUndoAction(new Kwave::UndoInsertAction(
+	if (!registerUndoAction(new(std::nothrow) Kwave::UndoInsertAction(
 	    m_parent_widget, track_list, offset, length))) return false;
     }
 
@@ -1177,13 +1182,13 @@ void Kwave::SignalManager::startUndoTransaction(const QString &name)
 	// if a new action starts, discard all redo actions !
 	flushRedoBuffer();
 
-	m_undo_transaction = new Kwave::UndoTransaction(name);
+	m_undo_transaction = new(std::nothrow) Kwave::UndoTransaction(name);
 	Q_ASSERT(m_undo_transaction);
 	if (!m_undo_transaction) return;
 
 	// if it is the start of the transaction, also create one
 	// for the selection
-	UndoAction *selection = new Kwave::UndoSelection(*this);
+	UndoAction *selection = new(std::nothrow) Kwave::UndoSelection(*this);
 	Q_ASSERT(selection);
 	if (selection) {
 	    if (selection->store(*this)) {
@@ -1416,8 +1421,8 @@ bool Kwave::SignalManager::saveUndoDelete(QList<unsigned int> &track_list,
     if (track_list.isEmpty()) return true;
 
     // create a undo action for deletion
-    UndoDeleteAction *action =
-	new UndoDeleteAction(m_parent_widget, track_list, offset, length);
+    UndoDeleteAction *action = new(std::nothrow)
+	UndoDeleteAction(m_parent_widget, track_list, offset, length);
     if (!registerUndoAction(action)) return false;
 
     return true;
@@ -1533,7 +1538,7 @@ void Kwave::SignalManager::undo()
 
 	// create a new redo transaction
 	QString name = undo_transaction->description();
-	redo_transaction = new Kwave::UndoTransaction(name);
+	redo_transaction = new(std::nothrow) Kwave::UndoTransaction(name);
 	Q_ASSERT(redo_transaction);
     }
 
@@ -1595,7 +1600,8 @@ void Kwave::SignalManager::undo()
 	QList<unsigned int> tracks = selectedTracks();
 	bool tracks_modified = !(tracks == m_last_track_selection);
 	if (range_modified || tracks_modified) {
-	    UndoAction *redo_action = new Kwave::UndoSelection(*this,
+	    UndoAction *redo_action = new(std::nothrow) Kwave::UndoSelection(
+		*this,
 		m_last_track_selection,
 		m_last_selection.offset(),
 		m_last_selection.length());
@@ -1674,7 +1680,7 @@ void Kwave::SignalManager::redo()
 
 	// create a new undo transaction
 	QString name = redo_transaction->description();
-	undo_transaction = new Kwave::UndoTransaction(name);
+	undo_transaction = new(std::nothrow) Kwave::UndoTransaction(name);
 	Q_ASSERT(undo_transaction);
     }
 
@@ -1780,7 +1786,8 @@ void Kwave::SignalManager::setFileInfo(Kwave::FileInfo &new_info,
 	Kwave::UndoTransactionGuard undo_transaction(*this,
 	                                             i18n("Modify File Info"));
 	Kwave::FileInfo old_inf(m_meta_data);
-	if (!registerUndoAction(new Kwave::UndoModifyMetaDataAction(old_inf)))
+	if (!registerUndoAction(
+	    new(std::nothrow) Kwave::UndoModifyMetaDataAction(old_inf)))
 	    return;
     }
 
@@ -1825,7 +1832,7 @@ Kwave::Label Kwave::SignalManager::addLabel(sample_index_t pos,
     // register the undo action
     if (m_undo_enabled) {
 	Kwave::UndoTransactionGuard undo(*this, i18n("Add Label"));
-	if (!registerUndoAction(new UndoAddMetaDataAction(label)))
+	if (!registerUndoAction(new(std::nothrow) UndoAddMetaDataAction(label)))
 	    return Kwave::Label();
     }
 
@@ -1854,7 +1861,8 @@ void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
     // register the undo action
     if (with_undo) {
 	Kwave::UndoTransactionGuard undo(*this, i18n("Delete Label"));
-	if (!registerUndoAction(new UndoDeleteMetaDataAction(label)))
+	if (!registerUndoAction(new(std::nothrow)
+	    UndoDeleteMetaDataAction(label)))
 	    return;
     }
 
@@ -1886,7 +1894,7 @@ bool Kwave::SignalManager::modifyLabel(int index, sample_index_t pos,
     // add a undo action
     if (m_undo_enabled) {
 	Kwave::UndoModifyMetaDataAction *undo_modify =
-	    new Kwave::UndoModifyMetaDataAction(label);
+	    new(std::nothrow) Kwave::UndoModifyMetaDataAction(label);
 	if (!registerUndoAction(undo_modify))
 	    return false;
     }

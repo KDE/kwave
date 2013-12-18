@@ -18,6 +18,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include "libkwave/MultiStreamWriter.h"
 #include "libkwave/StreamWriter.h"
 
@@ -26,7 +28,7 @@ Kwave::MultiStreamWriter::MultiStreamWriter(unsigned int tracks)
     :Kwave::MultiWriter()
 {
     for (unsigned int index = 0; index < tracks; index++) {
-	Kwave::StreamWriter *s = new Kwave::StreamWriter();
+	Kwave::StreamWriter *s = new(std::nothrow) Kwave::StreamWriter();
 	if (s) {
 	    insert(index, s);
 	} else {

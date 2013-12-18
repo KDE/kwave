@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <math.h>
+#include <new>
 
 #include <QtCore/QMutexLocker>
 #include <QtGui/QPainter>
@@ -561,7 +562,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     if (m_interpolation_alpha.count() != (N + 1)) return;
 
     // buffer for intermediate resampled data
-    sig_buffer = new float[width + N + 2];
+    sig_buffer = new(std::nothrow) float[width + N + 2];
     Q_ASSERT(sig_buffer);
     if (!sig_buffer) return;
 

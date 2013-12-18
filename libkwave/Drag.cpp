@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QtCore/QMimeData>
 
 #include "libkwave/CodecManager.h"
@@ -57,7 +59,7 @@ bool Kwave::Drag::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     if (!src[0]) return false;
 
     // create a mime data container
-    Kwave::MimeData *mime_data = new Kwave::MimeData;
+    Kwave::MimeData *mime_data = new(std::nothrow) Kwave::MimeData;
     Q_ASSERT(mime_data);
     if (!mime_data) return false;
 

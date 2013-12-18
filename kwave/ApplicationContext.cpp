@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include "libkwave/ApplicationContext.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"

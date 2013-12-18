@@ -16,7 +16,10 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <math.h>
+#include <new>
+
 #include <klocale.h> // for the i18n macro
 
 #include <QtCore/QList>
@@ -99,13 +102,13 @@ void Kwave::ZeroPlugin::run(QStringList params)
 	if (!length || tracks.isEmpty()) return; // nothing to do
 
 	last  = first + length - 1;
-	writers = new Kwave::MultiTrackWriter(signalManager(),
+	writers = new(std::nothrow) Kwave::MultiTrackWriter(signalManager(),
 	    tracks, Kwave::Insert, first, last);
     } else {
-	writers = new Kwave::MultiTrackWriter(signalManager(), Kwave::Overwrite);
+	writers = new(std::nothrow) Kwave::MultiTrackWriter(signalManager(),
+	    Kwave::Overwrite);
     }
 
-    Q_ASSERT(writers);
     if (!writers) return; // out-of-memory
 
     // break if aborted

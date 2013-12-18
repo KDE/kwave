@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QtCore/QReadLocker>
 #include <QtCore/QWriteLocker>
 
@@ -149,7 +151,8 @@ Kwave::Writer *Kwave::Track::openWriter(Kwave::InsertMode mode,
                                         sample_index_t right)
 {
     // create the input stream
-    Kwave::Writer *stream = new Kwave::TrackWriter(*this, mode, left, right);
+    Kwave::Writer *stream =
+	new(std::nothrow) Kwave::TrackWriter(*this, mode, left, right);
     Q_ASSERT(stream);
 
     return stream;
@@ -179,7 +182,7 @@ Kwave::SampleReader *Kwave::Track::openSampleReader(Kwave::ReaderMode mode,
 
     // create the input stream
     Kwave::SampleReader *stream =
-	new Kwave::SampleReader(mode, stripes, left, right);
+	new(std::nothrow) Kwave::SampleReader(mode, stripes, left, right);
     Q_ASSERT(stream);
     return stream;
 }

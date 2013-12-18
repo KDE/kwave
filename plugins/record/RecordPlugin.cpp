@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <math.h>
 #include <stdlib.h>
+#include <new>
 
 #include <QtCore/QtGlobal>
 #include <QtGui/QCursor>
@@ -938,10 +939,8 @@ void Kwave::RecordPlugin::startRecording()
 
 	    // create a sink for our audio data
 	    if (m_writers) delete m_writers;
-	    m_writers = new Kwave::MultiTrackWriter(signalManager(),
-	                                            Kwave::Append);
-	    Q_ASSERT(m_writers);
-	    Q_ASSERT((m_writers) && (m_writers->tracks() == tracks));
+	    m_writers = new(std::nothrow) Kwave::MultiTrackWriter(
+	        signalManager(), Kwave::Append);
 	    if ((!m_writers) || (m_writers->tracks() != tracks)) {
 		Kwave::MessageBox::sorry(m_dialog, i18n("Out of memory"));
 		return;

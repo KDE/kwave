@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QtCore/QtGlobal>
 #include <QtCore/QMutexLocker>
 
@@ -38,7 +40,8 @@ Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
 
     for (unsigned int track = 0; track < m_tracks; track++) {
 	// allocate a sink
-	Kwave::PlaybackSink *sink = new Kwave::PlaybackSink(track);
+	Kwave::PlaybackSink *sink =
+	    new(std::nothrow) Kwave::PlaybackSink(track);
 	insert(track, sink);
 	connect(sink, SIGNAL(output(unsigned int, Kwave::SampleArray)),
 	        this, SLOT(input(unsigned int, Kwave::SampleArray)),

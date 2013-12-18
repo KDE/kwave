@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <new>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,7 +74,7 @@ Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
     {
 	QWriteLocker lock(&m_lock_tracks);
 
-	t = new Kwave::Track(length);
+	t = new(std::nothrow) Kwave::Track(length);
 	Q_ASSERT(t);
 	if (!t) return 0;
 

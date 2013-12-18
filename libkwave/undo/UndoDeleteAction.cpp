@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <new>
+
 #include <klocale.h>
 
 #include "libkwave/MultiTrackReader.h"
@@ -89,7 +92,7 @@ Kwave::UndoAction *Kwave::UndoDeleteAction::undo(Kwave::SignalManager &manager,
 
     // store data for redo
     if (with_redo) {
-	redo_action = new Kwave::UndoInsertAction(
+	redo_action = new(std::nothrow) Kwave::UndoInsertAction(
 	    m_parent_widget, m_track_list,
 	    m_offset, m_length
 	);

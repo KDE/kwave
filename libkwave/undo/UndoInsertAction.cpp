@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <new>
+
 #include <klocale.h>
 
 #include "libkwave/SignalManager.h"
@@ -69,7 +72,7 @@ Kwave::UndoAction *Kwave::UndoInsertAction::undo(
 
     // store data for redo
     if (with_redo) {
-	redo_action = new Kwave::UndoDeleteAction(
+	redo_action = new(std::nothrow) Kwave::UndoDeleteAction(
 	    m_parent_widget, m_track_list, m_offset, m_length);
 	Q_ASSERT(redo_action);
 	if (!redo_action) return 0;

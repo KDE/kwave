@@ -16,6 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <new>
 #include <errno.h>
 #include <math.h>
 #include <string.h>
@@ -313,7 +315,7 @@ int Kwave::Plugin::execute(QStringList &params)
     QMutexLocker lock(&m_thread_lock);
     m_stop = false;
 
-    m_thread = new Kwave::WorkerThread(this, QVariant(params));
+    m_thread = new(std::nothrow) Kwave::WorkerThread(this, QVariant(params));
     Q_ASSERT(m_thread);
     if (!m_thread) return -ENOMEM;
 

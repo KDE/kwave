@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <new>
+
 #include <klocale.h>
 
 #include "libkwave/SignalManager.h"
@@ -113,7 +116,7 @@ Kwave::UndoAction *Kwave::UndoDeleteMetaDataAction::undo(
 
     // store data for redo
     if (with_redo) {
-	redo = new Kwave::UndoAddMetaDataAction(m_meta_data);
+	redo = new(std::nothrow) Kwave::UndoAddMetaDataAction(m_meta_data);
 	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }

@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <limits.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -164,7 +165,7 @@ unsigned int Kwave::MemoryManager::totalPhysical()
 	if (physical_ulimit < total) total = physical_ulimit;
     }
 
-    // check ulimit of total (physical+virtual) system memory
+    // check ulimit of total (virtual) system memory (address space)
 #ifdef RLIMIT_AS
     if (getrlimit(RLIMIT_AS, &limit) == 0) {
 	unsigned int total_ulimit =
@@ -588,6 +589,33 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 }
 
 //***************************************************************************
+size_t Kwave::MemoryManager::sizeOf(Kwave::Handle handle)
+{
+    if (!handle) return 0;
+    QMutexLocker lock(&m_lock);
+
+    // case 1: physical memory
+    if (m_physical.contains(handle)) {
+	const physical_memory_t phys_c = m_physical[handle];
+	return phys_c.m_size;
+    }
+
+    // case 2: mapped swapfile
+    if (m_mapped_swap.contains(handle)) {
+	const Kwave::SwapFile *swapfile = m_mapped_swap[handle];
+	return swapfile->size();
+    }
+
+    // case 3: unmapped swapfile
+    if (m_unmapped_swap.contains(handle)) {
+	const Kwave::SwapFile *swapfile = m_unmapped_swap[handle];
+	return swapfile->size();
+    }
+
+    return 0;
+}
+
+//***************************************************************************
 void Kwave::MemoryManager::free(Kwave::Handle &handle)
 {
     if (!handle) return;
@@ -679,7 +707,16 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
 	void *mapped = swap->map();
 	if (!mapped) {
 	    qDebug("Kwave::MemoryManager[%9d] - mmap FAILED", handle);
-	    return 0;
+	    // maybe address space is already full wil already cached
+	    // mapped swap files -> kick out the last one and try again
+	    while (!mapped && !m_cached_swap.isEmpty()) {
+		Kwave::Handle h = m_cached_swap.keys().last();
+		unmapFromCache(h);
+		mapped = swap->map();
+		qDebug("Kwave::MemoryManager[%9d] - retry: %p", handle, mapped);
+	    }
+
+	    if (!mapped) return 0;
 	}
 
 	// remember that we have mapped it, move the entry from the

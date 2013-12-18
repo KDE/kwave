@@ -72,6 +72,12 @@ namespace Kwave
 	bool resize(Kwave::Handle handle, size_t size) KDE_EXPORT;
 
 	/**
+	 * Returns the allocated size of the block
+	 * @note this may be more than allocated, can be rounded up
+	 */
+	size_t sizeOf(Kwave::Handle handle) KDE_EXPORT;
+
+	/**
 	 * Frees a block of memory that has been previously allocated with the
 	 * allocate() function.
 	 *

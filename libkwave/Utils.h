@@ -76,6 +76,17 @@ namespace Kwave
      */
     QString KDE_EXPORT string2date(const QString &s);
 
+    /**
+     * Round up a numeric value
+     * @param x value to round up
+     * @param s unit size
+     * @return x rounded up to the next unit
+     */
+    template<class T> T round_up(T x, const T s) {
+	T modulo = (x % s);
+	if (modulo) x += (s - modulo);
+	return x;
+    }
 }
 
 #endif /* _KWAVE_UTILS_H_ */

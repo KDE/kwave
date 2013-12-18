@@ -21,6 +21,7 @@
 
 #include "libkwave/String.h"
 #include "libkwave/SwapFile.h"
+#include "libkwave/Utils.h"
 
 // just for debugging: number of open swapfiles
 static unsigned int g_instances = 0;
@@ -60,16 +61,6 @@ Kwave::SwapFile::~SwapFile()
 }
 
 //***************************************************************************
-static inline unsigned int round_up(unsigned int size, unsigned int units)
-{
-    if (size < MINIMUM_SIZE) return MINIMUM_SIZE;
-
-    unsigned int modulo = (size % units);
-    if (modulo) size += (units - modulo);
-    return size;
-}
-
-//***************************************************************************
 bool Kwave::SwapFile::allocate(size_t size)
 {
     Q_ASSERT(!m_address); // MUST NOT be mapped !
@@ -92,7 +83,7 @@ bool Kwave::SwapFile::allocate(size_t size)
 #endif /* HAVE_UNLINK */
 
     // round up the new size to a full page
-    size_t rounded = round_up(size, m_pagesize);
+    size_t rounded = Kwave::round_up<size_t>(size, m_pagesize);
 
     // touch each new page in order to *really* allocate the disk space
     size_t offset = 0;
@@ -143,7 +134,7 @@ bool Kwave::SwapFile::resize(size_t size)
 
     // this file seems to be a growing one:
     // round up the new size to a full block
-    size_t rounded = round_up(size, BLOCK_SIZE);
+    size_t rounded = Kwave::round_up<size_t>(size, BLOCK_SIZE);
 
     // optimization: if rounded size already matches -> done
     if (rounded == m_size) {

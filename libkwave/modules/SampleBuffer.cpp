@@ -105,7 +105,7 @@ const sample_t *Kwave::SampleBuffer::get(unsigned int len)
     if (len > size) len = size;
 
     // get a pointer to the raw data
-    const sample_t *raw = m_data.data() + m_offset;
+    const sample_t *raw = m_data.constData() + m_offset;
 
     // advance the offset
     m_offset += len;

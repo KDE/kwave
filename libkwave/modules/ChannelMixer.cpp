@@ -200,7 +200,7 @@ void Kwave::ChannelMixer::mix()
 	v_input[track] = buffer;
 
 	// get a pointer for quick access
-	const sample_t *raw_data = v_input[track].data();
+	const sample_t *raw_data = v_input[track].constData();
 	input[track] = raw_data;
 
 	// detect minimum input length

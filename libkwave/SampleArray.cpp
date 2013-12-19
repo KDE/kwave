@@ -89,7 +89,7 @@ sample_t & Kwave::SampleArray::operator [] (unsigned int index)
 const sample_t & Kwave::SampleArray::operator [] (unsigned int index) const
 {
     static const sample_t dummy = 0;
-    const sample_t *p = data();
+    const sample_t *p = constData();
 
     if (KDE_ISLIKELY(p))
         return (*(p + index));

@@ -53,9 +53,9 @@ void Kwave::Mul::multiply()
     unsigned int count = blockSize();
     float a = 0;
     float b = 0;
-    sample_t *p_a = 0;
-    sample_t *p_b = 0;
-    sample_t *p_x = 0;
+    const sample_t *p_a = 0;
+    const sample_t *p_b = 0;
+    sample_t       *p_x = 0;
 
     // get input A
     if (!m_a_is_const) {
@@ -108,8 +108,8 @@ void Kwave::Mul::multiply()
     Q_ASSERT(m_buffer_x.size() == count);
 
     // get pointers to the buffer's raw data
-    p_a = m_a.data();
-    p_b = m_b.data();
+    p_a = m_a.constData();
+    p_b = m_b.constData();
     p_x = m_buffer_x.data();
     Q_ASSERT((m_a_is_const || p_a) && (m_b_is_const || p_b) && p_x);
     if ((!m_a_is_const && !p_a) || (!m_b_is_const && !p_b) || !p_x)

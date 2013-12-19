@@ -134,9 +134,10 @@ void Kwave::GetMaxPowerJob::run()
 
 	// calculate power of one block
 	double sum = 0;
+	const Kwave::SampleArray &in = data;
 	for (unsigned int i = 0; i < len; i++) {
-	    sample_t s = data[i];
-	    double d = sample2double(s);
+	    sample_t s = in[i];
+	    double d   = sample2double(s);
 	    sum += d * d;
 	}
 	double pow = sum / static_cast<double>(len);

@@ -1198,7 +1198,7 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 
 //***************************************************************************
 bool Kwave::RecordPlugin::checkTrigger(unsigned int track,
-                                       Kwave::SampleArray &buffer)
+                                       const Kwave::SampleArray &buffer)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return false;
@@ -1260,7 +1260,7 @@ bool Kwave::RecordPlugin::checkTrigger(unsigned int track,
 
     float y = m_trigger_value[track];
     float last_x = y;
-    for (unsigned int t=0; t < buffer.size(); ++t) {
+    for (unsigned int t = 0; t < buffer.size(); ++t) {
 	float x = fabs(sample2float(buffer[t])); /* rectifier */
 
 	if (x > y) { /* diode */

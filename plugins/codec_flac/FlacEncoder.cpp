@@ -278,13 +278,14 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
 		Q_ASSERT(buf);
 		if (!buf) break;
 
-		for (register unsigned int in_pos=0; in_pos < len; in_pos++) {
-			register FLAC__int32 s = in_buffer[in_pos];
-			if (div) s /= div;
-			if (s > clip_max) s = clip_max;
-			if (s < clip_min) s = clip_min;
-			*buf = s;
-			buf++;
+		const Kwave::SampleArray &in = in_buffer;
+		for (register unsigned int in_pos = 0; in_pos < len; in_pos++) {
+		    register FLAC__int32 s = in[in_pos];
+		    if (div) s /= div;
+		    if (s > clip_max) s = clip_max;
+		    if (s < clip_min) s = clip_min;
+		    *buf = s;
+		    buf++;
 		}
 	    }
 

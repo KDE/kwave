@@ -622,7 +622,7 @@ int Kwave::PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
 
     // copy the samples
     MEMCPY(reinterpret_cast<quint8 *>(m_buffer) + m_buffer_used,
-	   samples.data(), bytes);
+	   samples.constData(), bytes);
     m_buffer_used += bytes;
 
     // write the buffer if it is full

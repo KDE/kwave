@@ -52,7 +52,7 @@ namespace Kwave
 	virtual ~SampleArray();
 
 	/** returns a const pointer to the raw data (non-mutable) */
-	inline const sample_t * data() const
+	inline const sample_t * constData() const
 	{
 	    if (KDE_ISUNLIKELY(!m_storage)) return 0;
 	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
@@ -60,7 +60,7 @@ namespace Kwave
 	}
 
 	/** returns a pointer to the raw data (mutable) */
-	inline sample_t *data()
+	inline sample_t *data() /* __attribute__((deprecated)) <- for debug */
 	{
 	    if (KDE_ISUNLIKELY(!m_storage)) return 0;
 	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
@@ -86,14 +86,14 @@ namespace Kwave
 	/**
 	 * operator [], non-const.
 	 * @param index sample index [0...count()-1]
-	 * @return reference to the requested sample (read only)
+	 * @return reference to the requested sample (read/write)
 	 */
 	sample_t & operator [] (unsigned int index);
 
 	/**
 	 * operator [], non-const.
 	 * @param index sample index [0...count()-1]
-	 * @return reference to the requested sample (read/write)
+	 * @return reference to the requested sample (read only)
 	 */
 	const sample_t & operator [] (unsigned int index) const;
 

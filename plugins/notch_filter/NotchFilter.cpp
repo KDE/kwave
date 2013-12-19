@@ -119,14 +119,16 @@ void Kwave::NotchFilter::setfilter_peaknotch2(double freq, double bw)
 //***************************************************************************
 void Kwave::NotchFilter::input(Kwave::SampleArray data)
 {
-    if (m_buffer.size() != data.size()) m_buffer.resize(data.size());
+    const Kwave::SampleArray &in = data;
+
+    if (m_buffer.size() != in.size()) m_buffer.resize(in.size());
 
     setfilter_peaknotch2(m_f_cutoff, m_f_bw);
 
-    for (unsigned i = 0; i < data.size(); i++)
+    for (unsigned i = 0; i < in.size(); i++)
     {
 	// do the filtering
-	m_filter.x = sample2float(data[i]);
+	m_filter.x = sample2float(in[i]);
 	m_filter.y =
 	    m_filter.cx  * m_filter.x  +
 	    m_filter.cx1 * m_filter.x1 +

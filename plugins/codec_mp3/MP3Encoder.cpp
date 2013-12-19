@@ -450,7 +450,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
 	unsigned int written = 0;
 	for (written = 0; written < count; written++) {
-	    sample_t *src_buf = 0;
+	    const sample_t *src_buf = 0;
 
 	    // fill input buffer with samples
 	    for (x = 0; x < tracks; x++) {
@@ -464,19 +464,19 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
 	    if (tracks > 2) {
 		// multiply matrix with input to get output
+		const Kwave::SampleArray &in = in_samples;
 		for (y = 0; y < out_tracks; y++) {
 		    double sum = 0;
-		    for (x = 0; x < tracks; x++) {
-			sum += static_cast<double>(in_samples[x]) * mixer[x][y];
-		    }
+		    for (x = 0; x < tracks; x++)
+			sum += static_cast<double>(in[x]) * mixer[x][y];
 		    out_samples[y] = static_cast<sample_t>(sum);
 		}
 
 		// use output of the matrix
-		src_buf = out_samples.data();
+		src_buf = out_samples.constData();
 	    } else {
 		// use input buffer directly
-		src_buf = in_samples.data();
+		src_buf = in_samples.constData();
 	    }
 
 	    // sample conversion from 24bit to raw PCM, native endian

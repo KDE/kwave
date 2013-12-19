@@ -49,9 +49,10 @@ void Kwave::NoiseGenerator::input(Kwave::SampleArray data)
     const double alpha = (1.0 - m_noise_level);
     const double scale = (m_noise_level * 2.0) / static_cast<double>(RAND_MAX);
     for (unsigned i = 0; i < data.size(); i++) {
+	const Kwave::SampleArray &in = data;
 	m_buffer[i] = double2sample(
-	    (sample2double(m_buffer[i]) * alpha) +
-	    (((rand() - (RAND_MAX / 2)) * scale))
+	    (sample2double(in[i]) * alpha) + 
+	    ((rand() - (RAND_MAX / 2)) * scale)
 	);
     }
 }

@@ -493,10 +493,11 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 	    }
 
 	    // multiply matrix with input to get output
+	    const Kwave::SampleArray &in = in_samples;
 	    for (y = 0; y < out_channels; y++) {
 		double sum = 0;
 		for (x = 0; x < audible_count; x++) {
-		    sum += static_cast<double>(in_samples[x]) * (*mixer)[x][y];
+		    sum += static_cast<double>(in[x]) * (*mixer)[x][y];
 		}
 		out_samples[y] = static_cast<sample_t>(sum);
 	    }

@@ -93,8 +93,10 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
     // to convert the buffers into a big combined one
     Q_ASSERT(m_out_buffer.size() >= m_tracks);
     for (unsigned int sample=0; sample < samples; sample++) {
-	for (unsigned int t=0; t < m_tracks; t++)
-	    m_out_buffer[t] = (m_in_buffer[t])[sample];
+	for (unsigned int t = 0; t < m_tracks; t++) {
+	    const Kwave::SampleArray &in = m_in_buffer[t];
+	    m_out_buffer[t] = in[sample];
+	}
 
 	// play the output buffer
 	m_device->write(m_out_buffer);

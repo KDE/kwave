@@ -188,7 +188,7 @@ namespace Kwave
 	 * @param buffer array with Kwave sample data
 	 * @return true if trigger reached or no trigger set
 	 */
-	bool checkTrigger(unsigned int track, Kwave::SampleArray &buffer);
+	bool checkTrigger(unsigned int track, const Kwave::SampleArray &buffer);
 
 	/**
 	 * Split off one track from a raw buffer with multiple tracks into

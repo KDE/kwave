@@ -68,7 +68,8 @@ namespace Kwave
 	 * @param track index of the track
 	 * @param buffer array with samples
 	 */
-	virtual void updateTrack(unsigned int track, Kwave::SampleArray &buffer);
+	virtual void updateTrack(unsigned int track,
+	                         const Kwave::SampleArray &buffer);
 
 	/**
 	 * Resets all meters to zero

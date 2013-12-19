@@ -3,6 +3,7 @@
 
  * bugfix: "Close" button of the record dialog did not save settings
  * support for swap files to store undo data
+ * speedup: too many copy-on-write operations, use more const data
 
 0.8.11 [2013-11-24]
 

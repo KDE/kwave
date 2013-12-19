@@ -253,7 +253,7 @@ bool Kwave::VorbisEncoder::encode(Kwave::MultiTrackReader &src,
 	    for (unsigned int track = 0; track < tracks; ++track) {
 		float *p = buffer[track];
 		unsigned int l = src[track]->read(samples, 0, len);
-		const sample_t *s = samples.data();
+		const sample_t *s = samples.constData();
 
 		const unsigned int block = 8;
 		pos = 0;

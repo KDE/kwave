@@ -551,7 +551,7 @@ void Kwave::Stripe::minMax(unsigned int first, unsigned int last,
 
     if (!m_data) return;
     MappedArray _samples(*this);
-    const sample_t *buffer = _samples.data();
+    const sample_t *buffer = _samples.constData();
     if (!buffer || !m_data) return;
 
     // loop over the mapped storage to get min/max

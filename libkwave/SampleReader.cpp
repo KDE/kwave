@@ -66,7 +66,8 @@ static inline void padBuffer(Kwave::SampleArray &buffer,
     while (len--)
 	buffer[offset++] = 0;
 #else
-    memset((&buffer[offset]), 0x00, len * sizeof(buffer[0]));
+    memset((&buffer[offset]), 0x00,
+           len * sizeof(const_cast<const Kwave::SampleArray &>(buffer)[0]));
 #endif
 }
 
@@ -166,7 +167,8 @@ unsigned int Kwave::SampleReader::read(Kwave::SampleArray &buffer,
 	    buffer[dst++] = m_buffer[src++];
 	}
 #else
-	MEMCPY(&(buffer[dst]), &(m_buffer[src]), cnt * sizeof(sample_t));
+	const Kwave::SampleArray &in = m_buffer;
+	MEMCPY(&(buffer[dst]), &(in[src]), cnt * sizeof(sample_t));
 #endif
 
 	if (m_buffer_position >= m_buffer_used) {
@@ -265,8 +267,9 @@ Kwave::SampleReader &Kwave::SampleReader::operator >> (sample_t &sample)
 {
     // get new buffer if end of last buffer reached
     if (m_buffer_position >= m_buffer_used) fillBuffer();
+    const Kwave::SampleArray &buffer = m_buffer;
     sample = (m_buffer_position < m_buffer_used) ?
-              m_buffer[m_buffer_position++] : 0;
+              buffer[m_buffer_position++] : 0;
     return *this;
 }
 

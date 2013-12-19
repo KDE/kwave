@@ -80,9 +80,9 @@ unsigned int Kwave::SampleFIFO::get(Kwave::SampleArray &buffer)
     sample_t *dst = buffer.data();
     unsigned int read = 0;
     while (rest && !m_buffer.isEmpty()) {
-	Kwave::SampleArray head = m_buffer.head();
-	sample_t *src        = head.data();
-	unsigned int src_len = head.size();
+	const Kwave::SampleArray head = m_buffer.head();
+	const sample_t *src     = head.constData();
+	unsigned int    src_len = head.size();
 	Q_ASSERT(src_len > m_read_offset);
 
 	if (m_read_offset + rest >= src_len) {

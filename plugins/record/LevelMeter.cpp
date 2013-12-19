@@ -100,7 +100,7 @@ void Kwave::LevelMeter::setSampleRate(double rate)
 
 //***************************************************************************
 void Kwave::LevelMeter::updateTrack(unsigned int track,
-                                    Kwave::SampleArray &buffer)
+                                    const Kwave::SampleArray &buffer)
 {
     Q_ASSERT(static_cast<int>(track) < m_tracks);
     if (static_cast<int>(track) >= m_tracks) return;

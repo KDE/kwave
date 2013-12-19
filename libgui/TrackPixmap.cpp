@@ -438,21 +438,24 @@ void Kwave::TrackPixmap::selectionChanged()
 void Kwave::TrackPixmap::drawOverview(QPainter &p, int middle, int height,
 	int first, int last)
 {
+    const Kwave::SampleArray &min_buffer = m_min_buffer;
+    const Kwave::SampleArray &max_buffer = m_max_buffer;
+
     Q_ASSERT(m_minmax_mode);
-    Q_ASSERT(width() <= static_cast<int>(m_min_buffer.size()));
-    Q_ASSERT(width() <= static_cast<int>(m_max_buffer.size()));
+    Q_ASSERT(width() <= static_cast<int>(min_buffer.size()));
+    Q_ASSERT(width() <= static_cast<int>(max_buffer.size()));
 
     // scale_y: pixels per unit
     double scale_y = (m_vertical_zoom * static_cast<double>(height)) /
 	(1 << SAMPLE_BITS);
 
     p.setPen(m_colors.sample);
-    int last_min = static_cast<int>(m_min_buffer[first] * scale_y);
-    int last_max = static_cast<int>(m_max_buffer[first] * scale_y);
+    int last_min = static_cast<int>(min_buffer[first] * scale_y);
+    int last_max = static_cast<int>(max_buffer[first] * scale_y);
     for (int i = first; i <= last; i++) {
 	Q_ASSERT(m_valid[i]);
-	int max = static_cast<int>(m_max_buffer[i] * scale_y);
-	int min = static_cast<int>(m_min_buffer[i] * scale_y);
+	int max = static_cast<int>(max_buffer[i] * scale_y);
+	int min = static_cast<int>(min_buffer[i] * scale_y);
 
 	// make sure there is a connection between this
 	// section and the one before, avoid gaps
@@ -537,6 +540,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     int sample;
     int x;
     int buflen = m_valid.size();
+    const Kwave::SampleArray &sample_buffer = m_sample_buffer;
 
 //     qDebug("TrackPixmap::drawInterpolatedSignal()");
 
@@ -576,7 +580,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     sig = sig_buffer + (N / 2);
     while (x <= width + N / 2) {
 	if ((x >= -N / 2) && (sample > 0) && (sample < buflen)) {
-	    sig[x] = m_sample_buffer[sample] * scale_y;
+	    sig[x] = sample_buffer[sample] * scale_y;
 	}
 	sample++;
 	x = samples2pixels(sample);
@@ -622,9 +626,10 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 	int middle, int height)
 {
+    const Kwave::SampleArray &sample_buffer = m_sample_buffer;
     double scale_y;
     unsigned int sample;
-    unsigned int buflen = m_sample_buffer.size();
+    unsigned int buflen = sample_buffer.size();
 
     // scale_y: pixels per unit
     scale_y = (m_vertical_zoom * static_cast<double>(height)) /
@@ -639,7 +644,7 @@ void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
     int y = 0;
     while (x < width) {
 	// mark original samples
-	sample_t value = (sample < buflen) ? m_sample_buffer[sample] : 0;
+	sample_t value = (sample < buflen) ? sample_buffer[sample] : 0;
 	y = static_cast<int>(value * scale_y);
 	points.append(QPoint(x, middle - y));
 
@@ -658,9 +663,9 @@ void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 	x2 = samples2pixels(sample);
 
 	y1 = ((sample) && (sample <= buflen)) ?
-	    static_cast<int>(scale_y * m_sample_buffer[sample-1]) : 0.0;
+	    static_cast<int>(scale_y * sample_buffer[sample - 1]) : 0.0;
 	y2 = (sample < buflen) ?
-	    static_cast<int>(scale_y * m_sample_buffer[sample]) : 0.0;
+	    static_cast<int>(scale_y * sample_buffer[sample    ]) : 0.0;
 
 	x = width - 1;
 	y = static_cast<int>(static_cast<float>(x - x1) *

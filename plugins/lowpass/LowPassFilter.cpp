@@ -137,15 +137,17 @@ void Kwave::LowPassFilter::normed_setfilter_shelvelowpass(double freq)
 //***************************************************************************
 void Kwave::LowPassFilter::input(Kwave::SampleArray data)
 {
-    if (m_buffer.size() != data.size()) m_buffer.resize(data.size());
+    const Kwave::SampleArray &in = data;
+
+    if (m_buffer.size() != in.size()) m_buffer.resize(in.size());
 
     normed_setfilter_shelvelowpass(m_f_cutoff);
-    Q_ASSERT(data.size() == m_buffer.size());
+    Q_ASSERT(in.size() == m_buffer.size());
 
-    for (unsigned i = 0; i < data.size(); i++)
+    for (unsigned i = 0; i < in.size(); i++)
     {
 	// do the filtering
-	m_filter.x = sample2float(data[i]);
+	m_filter.x = sample2float(in[i]);
 	m_filter.y =
 	    m_filter.cx  * m_filter.x  +
 	    m_filter.cx1 * m_filter.x1 +

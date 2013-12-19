@@ -159,9 +159,7 @@ void Kwave::SampleBuffer::input(Kwave::SampleArray data)
 void Kwave::SampleBuffer::enqueue(Kwave::SampleArray data)
 {
     m_job.enqueue(data);
-    m_weaver.suspend();
     m_weaver.enqueue(&m_job);
-    m_weaver.resume();
 }
 
 //***************************************************************************

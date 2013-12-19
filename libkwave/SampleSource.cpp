@@ -92,14 +92,11 @@ ThreadWeaver::Job *Kwave::SampleSource::enqueue(ThreadWeaver::Weaver *weaver)
 {
     Kwave::SourceJob *job = 0;
 
-//     weaver=0;
     if (weaver) job = new(std::nothrow) Kwave::SourceJob(this);
 
     if (job && weaver) {
 	// async operation in a separate thread
-	weaver->suspend();
 	weaver->enqueue(job);
-	weaver->resume();
     } else {
 	// fallback -> synchronous/sequential execution
 	goOn();

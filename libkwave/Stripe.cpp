@@ -154,7 +154,30 @@ Kwave::Stripe::StripeStorage::StripeStorage(const StripeStorage &other)
 	    mem.writeTo(m_storage, 0, original, m_length * sizeof(sample_t));
 	    mem.unmap(other.m_storage);
 	} else {
-	    qWarning("StripeStorage: DEEP COPY (%u) MMAP FAILED!", m_length);
+	    qWarning("StripeStorage: DEEP COPY (%u) MMAP FAILED - "
+	             "FALLING BACK TO SLOW COPY!", m_length);
+	    // fall back to slow copy algorithm
+	    char buf[256]; // use a small buffer on the stack
+	    unsigned int remaining = m_length;
+	    unsigned int ofs       = 0;
+
+	    while (remaining) {
+		unsigned int len =  qMin(remaining, sizeof(buf));
+		unsigned int read = mem.readFrom(other.m_storage, ofs,
+		                                 &buf[0], len);
+		Q_ASSERT(read == len);
+		if (read != len) break;
+		unsigned int written = mem.writeTo(m_storage, ofs,
+		                                   &buf[0], len);
+		Q_ASSERT(written == len);
+		if (written != len) break;
+		remaining -= len;
+		ofs       += len;
+	    }
+	    if (remaining) {
+		qWarning("StripeStorage: DEEP COPY (%u) FAILED - DATA LOST!",
+		         m_length);
+	    }
 	}
     }
 }

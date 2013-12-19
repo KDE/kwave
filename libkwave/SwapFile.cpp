@@ -67,8 +67,8 @@ bool Kwave::SwapFile::allocate(size_t size)
     if (m_address) return false;
 
     if (m_size) close();
-    qDebug("SwapFile::allocate(%u), instances: %u",
-           static_cast<unsigned int>(size), g_instances);
+//     qDebug("SwapFile::allocate(%u), instances: %u",
+//            static_cast<unsigned int>(size), g_instances);
 
     // try to create the temporary file
     if (!m_file.open()) {
@@ -109,7 +109,6 @@ bool Kwave::SwapFile::allocate(size_t size)
 	m_size = 0;
 	return false;
     }
-    m_file.putChar(0);
 
     // now the size is valid
     m_size = size;
@@ -168,26 +167,19 @@ bool Kwave::SwapFile::resize(size_t size)
 	offset += m_pagesize;
     }
 
-    m_file.seek(rounded - 1);
-    if (m_file.pos() == static_cast<qint64>(rounded - 1)) {
-	if (rounded > m_size) {
-	    // growing: mark the new "last byte"
-	    m_file.putChar(0);
-	} else {
-	    // shrinking: only truncate the file
-	    m_file.flush();
-	    int res = ftruncate(m_file.handle(), rounded);
-	    if (res) perror("ftruncate failed");
-	}
-
+    bool ok = true;
+    ok &= m_file.resize(rounded);
+    ok &= m_file.seek(rounded - 1);
+    ok &= m_file.putChar(0);
+    ok &= m_file.flush();
+    if (ok) {
 	m_size = rounded;
     } else {
-	qWarning("SwapFile::resize(): seek failed. DISK FULL !?");
-	return false;
+	qWarning("SwapFile::resize(): failed. DISK FULL !?");
     }
 
 //  qDebug("SwapFile::resize() to size=%u", m_size);
-    return true;
+    return ok;
 }
 
 //***************************************************************************

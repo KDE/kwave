@@ -1,7 +1,15 @@
 
+o progress bar, e.g. "fade out" - not translated?
+
+o do no longer use a mime data container for undo
+  (unreliable due to memory fragmentation)
+
+o use mouse wheel for vertical scroll bar in signal widget
+
 o recording via Phonon
 
-o auto detect and marker generation at song borders
+o auto-detect song borders set markers, for splitting recorded stuff into several
+  parts and then save them to disc as separate files
 
 o detect song titles / metadata by using musicbrainz
 
@@ -80,11 +88,6 @@ o more precise handling of the playback pointer
 
 o dithering/noise shaping when loading/saving
 
-o auto-detect pause and set markers, for splitting recorded stuff into several
-  parts and then save them to disc as separate files
-
-o install a new_handler() for cases in which we run out of memory
-
 o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons
 
@@ -134,8 +137,6 @@ o support for KDE's session management
 o fix bug in Fx->Periodic Silence (segmentation fault)
 
 o macro recorder
-
-o use MemoryManager for undo actions
 
 o user selectable color scheme
   (feature requested by John David Thompson, 2006-12-20)

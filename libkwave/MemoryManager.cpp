@@ -222,10 +222,12 @@ bool Kwave::MemoryManager::freePhysical(size_t size)
 
 	// convert to swapfile
 	size_t s = p.m_size;
+#if 0
 	qDebug("Kwave::MemoryManager[%9d] - swapping %2u MB out to make "\
 	       "space for %2u MB", handle,
 	       static_cast<unsigned int>(s >> 20),
 	       static_cast<unsigned int>(size >> 20));
+#endif
 
 	if (convertToVirtual(handle, s)) {
 	    freed += s;
@@ -832,7 +834,7 @@ int Kwave::MemoryManager::readFrom(Kwave::Handle handle, unsigned int offset,
 	Q_ASSERT(data);
 	if (!data) return 0;
 	MEMCPY(buffer, data + offset, length);
-	qDebug("Kwave::MemoryManager[%9d] - readFrom -> cached swap", handle);
+// 	qDebug("Kwave::MemoryManager[%9d] - readFrom -> cached swap", handle);
 	return length;
     }
 
@@ -844,14 +846,14 @@ int Kwave::MemoryManager::readFrom(Kwave::Handle handle, unsigned int offset,
 	Q_ASSERT(data);
 	if (!data) return 0;
 	MEMCPY(buffer, data + offset, length);
-	qDebug("Kwave::MemoryManager[%9d] - readFrom -> mapped swap", handle);
+// 	qDebug("Kwave::MemoryManager[%9d] - readFrom -> mapped swap", handle);
 	return length;
     }
 
     // now it must be in unmapped swap -> read(...)
     Q_ASSERT(m_unmapped_swap.contains(handle));
     if (m_unmapped_swap.contains(handle)) {
-	qDebug("Kwave::MemoryManager[%9d] - readFrom -> unmapped swap", handle);
+// 	qDebug("Kwave::MemoryManager[%9d] - readFrom -> unmapped swap", handle);
 	Kwave::SwapFile *swap = m_unmapped_swap[handle];
 	length = swap->read(offset, buffer, length);
 	return length;
@@ -895,7 +897,7 @@ int Kwave::MemoryManager::writeTo(Kwave::Handle handle, unsigned int offset,
     // now it must be in unmapped swap
     Q_ASSERT(m_unmapped_swap.contains(handle));
     if (m_unmapped_swap.contains(handle)) {
-	qDebug("Kwave::MemoryManager[%9d] - writeTo -> unmapped swap", handle);
+// 	qDebug("Kwave::MemoryManager[%9d] - writeTo -> unmapped swap", handle);
 	Kwave::SwapFile *swap = m_unmapped_swap[handle];
 	swap->write(offset, buffer, length);
 	return length;

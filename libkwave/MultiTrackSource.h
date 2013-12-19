@@ -19,6 +19,9 @@
 #define _MULTI_TRACK_SOURCE_H_
 
 #include "config.h"
+
+#include <new>
+
 #include <QtCore/QObject>
 #include <QtCore/QVector>
 
@@ -170,7 +173,7 @@ namespace Kwave
 	    :Kwave::MultiTrackSource<SOURCE, false>(0, parent)
 	{
 	    for (unsigned int i = 0; i < tracks; i++)
-		this->insert(i, new SOURCE());
+		this->insert(i, new(std::nothrow) SOURCE());
 	}
 
 	/** Destructor */

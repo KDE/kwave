@@ -459,7 +459,6 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     const unsigned int buffer_frames = (8*1024);
     qint32 *buffer = static_cast<qint32 *>(
 	malloc(buffer_frames * virtual_frame_size));
-    Q_ASSERT(buffer);
     if (!buffer) return false;
 
     // read in from the sample readers

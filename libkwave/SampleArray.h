@@ -54,16 +54,16 @@ namespace Kwave
 	/** returns a const pointer to the raw data (non-mutable) */
 	inline const sample_t * data() const
 	{
-	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
 	    if (KDE_ISUNLIKELY(!m_storage)) return 0;
+	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
 	    return m_storage->m_data;
 	}
 
 	/** returns a pointer to the raw data (mutable) */
 	inline sample_t *data()
 	{
-	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
 	    if (KDE_ISUNLIKELY(!m_storage)) return 0;
+	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
 	    return m_storage->m_data;
 	}
 

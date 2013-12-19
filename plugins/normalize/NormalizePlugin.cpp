@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <math.h>
+#include <new>
 
 #include <QtCore/QList>
 #include <QtCore/QStringList>
@@ -268,9 +269,9 @@ double Kwave::NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
 	    if (!reader) continue;
 	    if (reader->eof()) continue;
 
-	    Kwave::GetMaxPowerJob *job = new Kwave::GetMaxPowerJob(
-		*reader, average[t], window_size
-	    );
+	    Kwave::GetMaxPowerJob *job =
+		new(std::nothrow) Kwave::GetMaxPowerJob(
+		    *reader, average[t], window_size);
 	    if (!job) continue;
 	    joblist.append(job);
 

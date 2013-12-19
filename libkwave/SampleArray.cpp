@@ -110,7 +110,7 @@ void Kwave::SampleArray::resize(unsigned int size)
 //***************************************************************************
 unsigned int Kwave::SampleArray::size() const
 {
-    return m_storage->m_size;
+    return (m_storage) ? m_storage->m_size : 0;
 }
 
 //***************************************************************************
@@ -167,8 +167,8 @@ void Kwave::SampleArray::SampleStorage::resize(unsigned int size)
 	    m_data = new_data;
 	    m_size = size;
 	} else {
-	    qWarning("OOM in Kwave::SampleArray::SampleStorage::resize(%u)",
-		size);
+	    qWarning("Kwave::SampleArray::SampleStorage::resize(%u): OOM! "
+	             "- keeping old size %u", size, m_size);
 	}
     } else {
 	// resize to zero == delete/free memory

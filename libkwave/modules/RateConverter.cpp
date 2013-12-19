@@ -48,7 +48,7 @@ void Kwave::RateConverter::goOn()
 void Kwave::RateConverter::input(Kwave::SampleArray data)
 {
     // shortcut for ratio == 1:1
-    if (m_ratio == 1.0) {
+    if ((m_ratio == 1.0) || data.isEmpty()) {
 	emit output(data);
 	return;
     }
@@ -60,7 +60,9 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
     // convert the input buffer into an array of floats
     m_converter_in.resize(in_len);
     float          *f_in = m_converter_in.data();
-    const sample_t *s_in = data.data();
+    const sample_t *s_in = static_cast<const Kwave::SampleArray>(data).data();
+    Q_ASSERT(f_in);
+    Q_ASSERT(s_in);
 
     // work blockwise to allow loop unrolling
     unsigned int remaining = in_len;

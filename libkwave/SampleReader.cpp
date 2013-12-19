@@ -77,6 +77,7 @@ void Kwave::SampleReader::fillBuffer()
     m_buffer_used = 0;
     m_buffer_position = 0;
     if (eof()) return;
+    if (m_buffer.isEmpty()) return; // we had a OOM before?
 
     unsigned int rest = m_buffer.size();/* - m_buffer_used (is 0) */
     if (m_src_position + rest > m_last) rest = (m_last - m_src_position + 1);

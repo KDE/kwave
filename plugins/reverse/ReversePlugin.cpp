@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <math.h>
+#include <new>
 
 #include <klocale.h> // for the i18n macro
 #include <threadweaver/Job.h>
@@ -228,11 +229,13 @@ void Kwave::ReversePlugin::run(QStringList params)
     if ((params.count() != 1) || (params.first() != _("noundo"))) {
 	// undo is enabled, create a undo guard
 	undo_guard = QSharedPointer<Kwave::UndoTransactionGuard>(
-	    new Kwave::UndoTransactionGuard(*this, i18n("Reverse")));
+	    new(std::nothrow) Kwave::UndoTransactionGuard(
+	        *this, i18n("Reverse")));
 	if (!undo_guard) return;
 
 	// try to save undo information
-	Kwave::UndoAction *undo = new Kwave::UndoReverseAction(manager());
+	Kwave::UndoAction *undo =
+	    new(std::nothrow) Kwave::UndoReverseAction(manager());
 	if (!undo_guard->registerUndoAction(undo))
 	    return;
 	undo->store(signalManager());
@@ -270,7 +273,7 @@ void Kwave::ReversePlugin::run(QStringList params)
 	// loop over all tracks
 	for (int track = 0; track < tracks.count(); track++) {
 
-	    Kwave::ReverseJob *job = new Kwave::ReverseJob(
+	    Kwave::ReverseJob *job = new(std::nothrow) Kwave::ReverseJob(
 		signalManager(), tracks[track], first, last, block_size,
 		source_a[track], source_b[track]
 	    );

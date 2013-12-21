@@ -53,13 +53,18 @@ void Kwave::Delay::setDelay(const QVariant &d)
     // fill it with zeroes, up to the delay time
     m_fifo.flush();
     Kwave::SampleArray zeroes(blockSize());
+    Q_ASSERT(zeroes.size() == blockSize());
     for (unsigned int pos=0; pos < blockSize(); ++pos)
 	zeroes[pos] = 0;
     unsigned int rest = new_delay;
     while (rest) {
+	bool ok = true;
 	unsigned int len = blockSize();
-	if (rest < len) zeroes.resize(rest);
-	m_fifo.put(zeroes);
+	if (rest < len) {
+	    ok = zeroes.resize(rest);
+	    Q_ASSERT(ok);
+	}
+	if (ok) m_fifo.put(zeroes);
 	rest -= zeroes.size();
     }
 }

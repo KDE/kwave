@@ -216,10 +216,10 @@ void Kwave::ChannelMixer::mix()
 	Kwave::SampleBuffer *buffer = m_output_buffer[track];
 	Q_ASSERT(buffer);
 	if (!buffer) return;
+	bool ok = true;
 	if (buffer->data().size() < min_len)
-	    buffer->data().resize(min_len);
-	if (buffer->data().size() < min_len) {
-	    Q_ASSERT(buffer->data().size() >= min_len);
+	    ok &= buffer->data().resize(min_len);
+	if (!ok) {
 	    qWarning("ChannelMixer: failed to increase buffer size to %u",
 		     min_len);
 	    return; // OOM ?
@@ -242,8 +242,10 @@ void Kwave::ChannelMixer::mix()
 
 	// emit the output
 	Kwave::SampleBuffer *out_buf = m_output_buffer[y];
-	if (KDE_ISUNLIKELY(out_buf->data().size() > min_len))
-	    out_buf->data().resize(min_len);
+	if (KDE_ISUNLIKELY(out_buf->data().size() > min_len)) {
+	    bool ok = out_buf->data().resize(min_len);
+	    Q_ASSERT(ok);
+	}
 	out_buf->finished();
     }
 

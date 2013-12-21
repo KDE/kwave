@@ -103,9 +103,8 @@ void Kwave::Mul::multiply()
 // 	qWarning("Kwave::Mul: block sizes differ: %u x %u -> shrinked to %u",
 // 	    m_a.size(), m_b.size(), count);
 
-    if (m_buffer_x.size() != count)
-	m_buffer_x.resize(count);
-    Q_ASSERT(m_buffer_x.size() == count);
+    bool ok = m_buffer_x.resize(count);
+    Q_ASSERT(ok);
 
     // get pointers to the buffer's raw data
     p_a = m_a.constData();

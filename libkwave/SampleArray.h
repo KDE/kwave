@@ -101,8 +101,9 @@ namespace Kwave
 	 * Resizes the array. Using raw data mode is not allowed and will
 	 * lead to an assert!
 	 * @param size new number of samples
+	 * @return true if succeeded, false if failed
 	 */
-	void resize(unsigned int size);
+	bool resize(unsigned int size) KDE_MUST_USE_RESULT;
 
 	/**
 	 * Returns the number of samples.

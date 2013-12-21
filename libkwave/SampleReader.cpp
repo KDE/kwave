@@ -279,7 +279,13 @@ Kwave::SampleReader &Kwave::SampleReader::operator >> (
 {
     unsigned int size = buffer.size();
     unsigned int count = read(buffer, 0, size);
-    if (count != size) buffer.resize(count);
+    if (count != size) {
+	bool ok = buffer.resize(count);
+	Q_ASSERT(ok); // shrinking should always be possible
+	if (!ok) {
+	    qWarning("Kwave::SampleReader::operator >> - OOM?");
+	}
+    }
     return *this;
 }
 

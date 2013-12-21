@@ -189,7 +189,8 @@ QString Kwave::PlayBackPhonon::open(const QString &device, double rate,
 
     // resize our buffer (size in samples) and reset it
     m_buffer_size /= m_encoder->rawBytesPerSample();
-    m_buffer.resize(m_buffer_size);
+    if (!m_buffer.resize(m_buffer_size))
+	return i18n("Out of memory");
 
     // create a dummy wave RIFF header
     createHeader(rate, channels, bits);

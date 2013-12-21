@@ -120,8 +120,8 @@ void Kwave::NotchFilter::setfilter_peaknotch2(double freq, double bw)
 void Kwave::NotchFilter::input(Kwave::SampleArray data)
 {
     const Kwave::SampleArray &in = data;
-
-    if (m_buffer.size() != in.size()) m_buffer.resize(in.size());
+    bool ok = m_buffer.resize(in.size());
+    Q_ASSERT(ok);
 
     setfilter_peaknotch2(m_f_cutoff, m_f_bw);
 

@@ -142,6 +142,7 @@ void Kwave::ReverseJob::reverse(Kwave::SampleArray &buffer)
 //***************************************************************************
 void Kwave::ReverseJob::run()
 {
+    bool ok = true;
     sample_index_t start_a = m_first;
     sample_index_t start_b = (m_last >= m_block_size) ?
 	(m_last - m_block_size) : 0;
@@ -149,12 +150,14 @@ void Kwave::ReverseJob::run()
     if (start_a + m_block_size < start_b) {
 	// read from start
 	Kwave::SampleArray buffer_a;
-	buffer_a.resize(m_block_size);
+	ok &= buffer_a.resize(m_block_size);
+	Q_ASSERT(ok);
 	*m_src_a >> buffer_a;
 
 	// read from end
 	Kwave::SampleArray buffer_b;
-	buffer_b.resize(m_block_size);
+	ok &= buffer_b.resize(m_block_size);
+	Q_ASSERT(ok);
 	m_src_b->seek(start_b);
 	*m_src_b >> buffer_b;
 
@@ -183,7 +186,8 @@ void Kwave::ReverseJob::run()
     } else {
 	// single buffer with last block
 	Kwave::SampleArray buffer;
-	buffer.resize(m_last - m_first + 1);
+	ok &= buffer.resize(m_last - m_first + 1);
+	Q_ASSERT(ok);
 
 	// read from start
 	*m_src_a >> buffer;

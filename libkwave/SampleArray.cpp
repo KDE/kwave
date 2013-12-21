@@ -33,7 +33,9 @@ Kwave::SampleArray::SampleArray()
 Kwave::SampleArray::SampleArray(unsigned int size)
 {
     m_storage = new(std::nothrow) SampleStorage;
-    resize(size);
+    bool ok = resize(size);
+    if (!ok)
+	qWarning("Kwave::SampleArray::SampleArray(%u) - FAILED, OOM?", size);
 }
 
 //***************************************************************************
@@ -45,7 +47,11 @@ Kwave::SampleArray::~SampleArray()
 void Kwave::SampleArray::setRawData(sample_t *data, unsigned int size)
 {
     if (!m_storage) return;
-    resize(0);
+    bool ok = resize(0);
+    if (!ok) qWarning("Kwave::SampleArray::setRawData(...) - OOM?");
+    Q_ASSERT(m_storage->m_raw_data == 0);
+    Q_ASSERT(m_storage->m_data == 0);
+    Q_ASSERT(m_storage->m_size == 0);
     m_storage->m_raw_data = data;
     m_storage->m_size     = size;
 }
@@ -98,13 +104,19 @@ const sample_t & Kwave::SampleArray::operator [] (unsigned int index) const
 }
 
 //***************************************************************************
-void Kwave::SampleArray::resize(unsigned int size)
+bool Kwave::SampleArray::resize(unsigned int size)
 {
-    if (!m_storage) return;
-    if (size == m_storage->m_size) return;
+    if (!m_storage) return false;
+    if (size == m_storage->m_size) return true;
 
     Q_ASSERT(m_storage->m_raw_data == 0);
     m_storage->resize(size);
+    if (size && (m_storage->m_size > size)) {
+	qWarning("Kwave::SampleArray::resize(): shrinking from %u to %u "
+	         "failed, keeping old memory", m_storage->m_size, size);
+	return true;
+    }
+    return (m_storage->m_size == size);
 }
 
 //***************************************************************************

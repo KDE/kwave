@@ -121,7 +121,8 @@ void Kwave::SampleBuffer::put(sample_t sample)
     if (m_buffered >= block_size) finished();
 
     // initial fill of the buffer?
-    if (m_data.size() < block_size) m_data.resize(block_size);
+    bool ok = m_data.resize(block_size);
+    Q_ASSERT(ok);
 
     m_data[m_buffered++] = sample;
     if (m_buffered >= block_size) finished();
@@ -131,12 +132,15 @@ void Kwave::SampleBuffer::put(sample_t sample)
 //***************************************************************************
 void Kwave::SampleBuffer::finished()
 {
-    if (m_buffered && (m_data.size() != m_buffered))
-	m_data.resize(m_buffered);
-    enqueue(m_data);
+    bool ok = true;
 
+    if (m_buffered && (m_data.size() != m_buffered))
+	ok &= m_data.resize(m_buffered);
+
+    enqueue(m_data);
     m_buffered = 0;
-    m_data.resize(Kwave::StreamObject::blockSize());
+    ok &= m_data.resize(Kwave::StreamObject::blockSize());
+    Q_ASSERT(ok);
 }
 
 //***************************************************************************
@@ -144,7 +148,8 @@ void Kwave::SampleBuffer::input(Kwave::SampleArray data)
 {
     // if we have buffered data, flush that first
     if (m_buffered) {
-	m_data.resize(m_buffered);
+	bool ok = m_data.resize(m_buffered);
+	Q_ASSERT(ok);
 	m_buffered = 0;
 	enqueue(m_data);
     }

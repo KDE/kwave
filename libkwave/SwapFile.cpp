@@ -215,6 +215,7 @@ void *Kwave::SwapFile::map()
 
     m_file.flush();
 
+    qDebug("m_file.size()=%d, m_size=%d", static_cast<int>(m_file.size()), static_cast<int>(m_size)); // ###
     m_address = m_file.map(0, m_size, QFile::NoOptions);
 
     // map -1 to null pointer

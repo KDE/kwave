@@ -75,7 +75,8 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
     const Kwave::SampleArray &in = data;
 
     Q_ASSERT(static_cast<int>(in.size()) <= m_dbuffer.size());
-    if (m_buffer.size() != in.size()) m_buffer.resize(in.size());
+    bool ok = m_buffer.resize(in.size());
+    Q_ASSERT(ok);
 
     float pi2 = 2*M_PI;
     float lfo, b1value, b2value;

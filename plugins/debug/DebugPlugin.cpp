@@ -81,11 +81,9 @@ void Kwave::DebugPlugin::run(QStringList params)
     Kwave::UndoTransactionGuard undo_guard(*this, action);
 
     // get the buffer for faster processing
-    if (m_buffer.size() != BUFFER_SIZE) {
-	m_buffer.resize(BUFFER_SIZE);
-	m_buffer.fill(0);
-    }
-    Q_ASSERT(m_buffer.size() == BUFFER_SIZE);
+    bool ok = m_buffer.resize(BUFFER_SIZE);
+    Q_ASSERT(ok);
+    m_buffer.fill(0);
 
     bool make_new_track = (
 	(command == _("stripe_index")) ||
@@ -135,7 +133,11 @@ void Kwave::DebugPlugin::run(QStringList params)
     sample_t v = 0;
     while ((first <= last) && (!shouldStop())) {
 	unsigned int rest = last - first + 1;
-	if (rest < m_buffer.size()) m_buffer.resize(rest);
+	if (rest < m_buffer.size()) {
+	    bool ok = m_buffer.resize(rest);
+	    Q_ASSERT(ok);
+	    if (!ok) break;
+	}
 
 	// sawtooth pattern from min to max
 	if (command == _("sawtooth")) {

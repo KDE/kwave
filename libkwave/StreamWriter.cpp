@@ -47,7 +47,8 @@ bool Kwave::StreamWriter::write(const Kwave::SampleArray &buffer,
     if (count < buffer.size()) {
 	// have to work with a resized copy - slow :-(
 	Kwave::SampleArray data = buffer;
-	data.resize(count);
+	if (!data.resize(count))
+	    return false; // out-of-memory ?
 
 	// emit the resized copy
 	emit output(data);

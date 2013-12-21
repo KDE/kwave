@@ -256,13 +256,17 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
 	const FLAC__int32 clip_max =  (1 << bits) - 1;
 
 	unsigned int rest = length;
-	while (rest && len && !src.isCanceled()) {
+	while (rest && len && !src.isCanceled() && result) {
 	    // limit to rest of signal
 	    if (len > rest) len = rest;
-	    if (in_buffer.size() != len) in_buffer.resize(len);
+	    if (!in_buffer.resize(len)) {
+		Kwave::MessageBox::error(widget, i18n("Out of memory"));
+		result = false;
+		break;
+	    }
 
 	    // add all samples to one single buffer
-	    for (int track=0; track < tracks; track++) {
+	    for (int track = 0; track < tracks; track++) {
 		Kwave::SampleReader *reader = src[track];
 		Q_ASSERT(reader);
 		if (!reader) break;
@@ -270,7 +274,11 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
 		(*reader) >> in_buffer;           // read samples into in_buffer
 		unsigned int l = in_buffer.size();// in_buffer might be empty!
 		if (l < len) {
-		    in_buffer.resize(len);
+		    if (!in_buffer.resize(len)) {
+			Kwave::MessageBox::error(widget, i18n("Out of memory"));
+			result = false;
+			break;
+		    }
 		    while (l < len) in_buffer[l++] = 0;
 		}
 
@@ -288,6 +296,7 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
 		    buf++;
 		}
 	    }
+	    if (!result) break; // error occurred?
 
 	    // process all collected samples
 	    FLAC__int32 **buffer = flac_buffer.data();

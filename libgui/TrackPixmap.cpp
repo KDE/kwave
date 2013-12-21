@@ -185,17 +185,21 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 //***************************************************************************
 void Kwave::TrackPixmap::resizeBuffer()
 {
+    bool ok = true;
     unsigned int buflen;
     unsigned int oldlen = m_valid.size();
     if (m_minmax_mode) {
 	// one buffer index == one screen pixel
 	buflen = width();
-	m_min_buffer.resize(buflen);
-	m_max_buffer.resize(buflen);
+	ok &= m_min_buffer.resize(buflen);
+	Q_ASSERT(ok);
+	ok &= m_max_buffer.resize(buflen);
+	Q_ASSERT(ok);
     } else {
 	// one buffer index == one sample
 	buflen = pixels2samples(width());
-	m_sample_buffer.resize(buflen);
+	ok &= m_sample_buffer.resize(buflen);
+	Q_ASSERT(ok);
     }
     m_valid.resize(buflen);
     while (oldlen < buflen) m_valid.clearBit(oldlen++);

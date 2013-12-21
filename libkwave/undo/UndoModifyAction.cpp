@@ -58,7 +58,7 @@ unsigned int Kwave::UndoModifyAction::undoSize()
 bool Kwave::UndoModifyAction::store(Kwave::SignalManager &manager)
 {
     Kwave::SampleReader *reader = manager.openSampleReader(
-	Kwave::SinglePassForward, m_track, m_offset, m_offset+m_length-1);
+	Kwave::SinglePassForward, m_track, m_offset, m_offset + m_length - 1);
     Q_ASSERT(reader);
     if (!reader) return false;
 
@@ -82,6 +82,8 @@ bool Kwave::UndoModifyAction::store(Kwave::SignalManager &manager)
 Kwave::UndoAction *Kwave::UndoModifyAction::undo(
     Kwave::SignalManager &manager, bool with_redo)
 {
+    bool ok = true;
+
     Kwave::Writer *writer = manager.openWriter(
 	m_track, Kwave::Overwrite, m_offset, m_offset + m_length - 1);
     Q_ASSERT(writer);
@@ -103,16 +105,14 @@ Kwave::UndoAction *Kwave::UndoModifyAction::undo(
 
 	// exchange content of the current signal with the content
 	// of the internal buffer
-	while (reader_cur && reader_sav && writer_sav && len) {
+	while (ok && reader_cur && reader_sav && writer_sav && len) {
 	    // 1. fill buf_cur with data from current signal
 	    (*reader_cur) >> buf_cur;
-	    Q_ASSERT(buf_cur.size());
-	    if (!buf_cur.size()) break;
+	    if (!buf_cur.size()) { ok = false; break; }
 
 	    // 2. fill buf_sav with data from buffer
 	    (*reader_sav) >> buf_sav;
-	    Q_ASSERT(buf_sav.size() == buf_cur.size());
-	    if (buf_sav.size() != buf_cur.size()) break;
+	    if (buf_sav.size() != buf_cur.size()) { ok = false; break; }
 
 	    // 3. write buf_cur to buffer
 	    (*writer_sav) << buf_cur;
@@ -122,7 +122,7 @@ Kwave::UndoAction *Kwave::UndoModifyAction::undo(
 
 	    len = (len > buf_cur.size()) ? (len - buf_cur.size()) : 0;
 	}
-	Q_ASSERT(m_buffer_track.length() == m_length);
+	ok &= (m_buffer_track.length() == m_length);
 
 	if (reader_cur) delete reader_cur;
 	if (reader_sav) delete reader_sav;
@@ -136,7 +136,7 @@ Kwave::UndoAction *Kwave::UndoModifyAction::undo(
     }
 
     delete writer;
-    return (with_redo) ? this : 0;
+    return (with_redo && ok) ? this : 0;
 }
 
 //***************************************************************************

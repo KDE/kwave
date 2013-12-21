@@ -171,6 +171,42 @@ namespace Kwave
 	int writeTo(Kwave::Handle handle, unsigned int offset,
 		    const void *buffer, unsigned int length) KDE_EXPORT;
 
+#ifdef DEBUG_MEMORY
+	/** structure used for statistics */
+	typedef struct {
+	    /** physical memory */
+	    struct {
+		quint64 handles; /**< used handles     */
+		quint64 bytes;   /**< allocated bytes  */
+		quint64 limit;   /**< maximum allowed  */
+		quint64 allocs;  /**< number of allocs */
+		quint64 frees;   /**< number of frees  */
+	    } physical;
+
+	    /** swap files */
+	    struct {
+		/** mapped swap files */
+		struct {
+		    quint64 handles; /**< used handles    */
+		    quint64 bytes;   /**< allocated bytes */
+		} mapped;
+		/** swap files mapped (cached) */
+		struct {
+		    quint64 handles; /**< used handles    */
+		    quint64 bytes;   /**< mapped bytes    */
+		} cached;
+		/** unmapped swap files */
+		struct {
+		    quint64 handles; /**< used handles    */
+		    quint64 bytes;   /**< allocated bytes */
+		} unmapped;
+		quint64 limit;  /**< maximum allowed  */
+		quint64 allocs; /**< number of allocs */
+		quint64 frees;  /**< number of frees  */
+	    } swap;
+	} statistic_t;
+#endif
+
     protected:
 
 	/** returns the currently allocated physical memory */
@@ -247,6 +283,9 @@ namespace Kwave
 	/** limit of the physical memory */
 	unsigned int m_physical_limit;
 
+	/** total maximum physical memory (system dependent) */
+	unsigned int m_physical_max;
+
 	/** currently allocated amount of physical memory */
 	unsigned int m_virtual_allocated;
 
@@ -280,6 +319,11 @@ namespace Kwave
 
 	/** last used handle */
 	static Kwave::Handle m_last_handle;
+
+#ifdef DEBUG_MEMORY
+	/** statistics, for debugging */
+	statistic_t m_stats;
+#endif /* DEBUG_MEMORY */
     };
 
 }

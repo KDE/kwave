@@ -33,6 +33,7 @@ SET(KWAVE_LINGUAS
 ### build options:                                                        ###
 
 # OPTION(DEBUG           "build debug code [default=off]" OFF)
+# OPTION(DEBUG_MEMORY    "enable memory management debug code [default=off]" OFF)
 # OPTION(WITH_ALSA       "enable playback/recording via ALSA [default=on]" ON)
 # OPTION(WITH_DOC        "build online documentation [default=on]" ON)
 # OPTION(WITH_FLAC       "enable support for FLAC files [default=on]" ON)
@@ -278,6 +279,8 @@ IF (DEBUG)
 ELSE(DEBUG)
     ADD_DEFINITIONS(-DNO_DEBUG -DQT_NO_DEBUG)
 ENDIF (DEBUG)
+
+OPTION(DEBUG_MEMORY "enable memory management debug code [default=off]" OFF)
 
 #############################################################################
 ### subdirs                                                               ###

@@ -93,5 +93,8 @@
 /* suffix of executable files */
 #cmakedefine EXECUTABLE_SUFFIX @CMAKE_EXECUTABLE_SUFFIX@
 
+/* enable memory management debug code */
+#cmakedefine DEBUG_MEMORY
+
 /***************************************************************************/
 /***************************************************************************/

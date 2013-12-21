@@ -53,13 +53,90 @@ Kwave::Handle Kwave::MemoryManager::m_last_handle = 0;
 
 //***************************************************************************
 Kwave::MemoryManager::MemoryManager()
-    :m_physical_allocated(0), m_physical_limit(0), m_virtual_allocated(0),
-     m_virtual_limit(0), m_swap_dir(_("/tmp")), m_undo_limit(0),
+    :m_physical_allocated(0), m_physical_limit(0), m_physical_max(0),
+     m_virtual_allocated(0), m_virtual_limit(0),
+     m_swap_dir(_("/tmp")), m_undo_limit(0),
      m_physical(), m_unmapped_swap(), m_mapped_swap(),
      m_cached_swap(), m_lock()
 {
+    // reset statistics
+    memset(&m_stats, 0x00, sizeof(m_stats));
+
     // determine amount of physical memory
-    m_physical_limit = totalPhysical();
+    // start with 1/4 of the theoretical address space
+
+    // if sizeof(void *) == 4 -> 32 bit ->  1024 MB
+    // if sizeof(void *) == 8 -> 64 bit -> 4.398E12 MB
+    quint64 total = (1ULL << ((sizeof(void *) * 8ULL) - 22ULL));
+
+    // limit the total memory to a 32bit value [MB]
+    if (total > (1ULL << 32)) total = (1ULL << 32) - 1;
+#ifdef DEBUG
+    qDebug("Kwave::MemoryManager: theoretical limit: %llu MB", total);
+#endif /* DEBUG */
+
+#ifdef HAVE_SYSINFO
+    // get the physically installed memory
+    quint64 installed_physical;
+    struct sysinfo info;
+
+    sysinfo(&info);
+
+    // find out installed memory and convert to megabytes
+#ifdef HAVE_SYSINFO_MEMUNIT
+    installed_physical = (info.totalram * info.mem_unit) >> 20;
+#ifdef DEBUG
+    qDebug("Kwave::MemoryManager: sysinfo/memunit: %llu MB", installed_physical);
+#endif /* DEBUG */
+#else /* HAVE_SYSINFO_MEMUNIT */
+    installed_physical = info.totalram >> 20;
+    qDebug("Kwave::MemoryManager: sysinfo: %llu MB", installed_physical);
+#endif /* HAVE_SYSINFO_MEMUNIT */
+    if (installed_physical && (installed_physical < total))
+	total = installed_physical;
+#endif /* HAVE_SYSINFO */
+
+#ifdef HAVE_GETRLIMIT
+    struct rlimit limit;
+
+    // check ulimit of data segment size
+    if (getrlimit(RLIMIT_DATA, &limit) == 0) {
+	unsigned int physical_ulimit =
+	    qMin(limit.rlim_cur, limit.rlim_max) >> 20;
+#ifdef DEBUG
+	qDebug("Kwave::MemoryManager: RLIMIT_DATA: %u MB", physical_ulimit);
+#endif /* DEBUG */
+	if (physical_ulimit < total) total = physical_ulimit;
+    }
+
+    // check ulimit of total (virtual) system memory (address space)
+#ifdef RLIMIT_AS
+    if (getrlimit(RLIMIT_AS, &limit) == 0) {
+	unsigned int total_ulimit =
+	    qMin(limit.rlim_cur, limit.rlim_max) >> 20;
+#ifdef DEBUG
+	qDebug("Kwave::MemoryManager: RLIMIT_AS: %u MB", total_ulimit);
+#endif /* DEBUG */
+	if (total_ulimit < total) total = total_ulimit;
+    }
+#endif /* RLIMIT_AS */
+#endif /* HAVE_GETRLIMIT */
+
+    // limit the total memory to a int value [MB]
+    if (total > (1ULL << ((sizeof(m_physical_max) * 8) - 1)))
+	total = (1ULL << ((sizeof(m_physical_max) * 8) - 1)) - 1;
+
+#ifdef DEBUG
+    qDebug("Kwave::MemoryManager: => using up to %llu MB RAM", total);
+#endif /* DEBUG */
+
+    m_physical_max   = static_cast<unsigned int>(total);
+    m_physical_limit = static_cast<unsigned int>(total);
+
+#ifdef DEBUG_MEMORY
+    m_stats.physical.limit = m_physical_limit << 20ULL;
+    m_stats.swap.limit     = m_virtual_limit  << 20ULL;
+#endif /* DEBUG_MEMORY */
 }
 
 //***************************************************************************
@@ -96,6 +173,9 @@ void Kwave::MemoryManager::setPhysicalLimit(unsigned int mb)
     m_physical_limit = mb;
     mb = totalPhysical();
     if (m_physical_limit > mb) m_physical_limit = mb;
+#ifdef DEBUG_MEMORY
+    m_stats.physical.limit = m_physical_limit << 20ULL;
+#endif /* DEBUG_MEMORY */
 }
 
 //***************************************************************************
@@ -104,6 +184,9 @@ void Kwave::MemoryManager::setVirtualLimit(unsigned int mb)
     QMutexLocker lock(&m_lock);
 
     m_virtual_limit = mb;
+#ifdef DEBUG_MEMORY
+    m_stats.swap.limit = m_virtual_limit << 20ULL;
+#endif /* DEBUG_MEMORY */
 
 /** @todo write a function to find out the limit of virtual memory */
 //    mb = totalVirtual();
@@ -136,46 +219,7 @@ unsigned int Kwave::MemoryManager::undoLimit() const
 //***************************************************************************
 unsigned int Kwave::MemoryManager::totalPhysical()
 {
-    quint64 total = 2 * 1024;
-
-#ifdef HAVE_SYSINFO
-    // get the physically installed memory
-    quint64 installed_physical;
-    struct sysinfo info;
-
-    sysinfo(&info);
-
-    // find out installed memory and convert to megabytes
-#ifdef HAVE_SYSINFO_MEMUNIT
-    installed_physical = (info.totalram * info.mem_unit) >> 20;
-#else /* HAVE_SYSINFO_MEMUNIT */
-    installed_physical = info.totalram >> 20;
-#endif /* HAVE_SYSINFO_MEMUNIT */
-    if (installed_physical && (installed_physical < total))
-	total = installed_physical;
-#endif /* HAVE_SYSINFO */
-
-#ifdef HAVE_GETRLIMIT
-    struct rlimit limit;
-
-    // check ulimit of data segment size
-    if (getrlimit(RLIMIT_DATA, &limit) == 0) {
-	unsigned int physical_ulimit =
-	    qMin(limit.rlim_cur, limit.rlim_max) >> 20;
-	if (physical_ulimit < total) total = physical_ulimit;
-    }
-
-    // check ulimit of total (virtual) system memory (address space)
-#ifdef RLIMIT_AS
-    if (getrlimit(RLIMIT_AS, &limit) == 0) {
-	unsigned int total_ulimit =
-	    qMin(limit.rlim_cur, limit.rlim_max) >> 20;
-	if (total_ulimit < total) total = total_ulimit;
-    }
-#endif /* RLIMIT_AS */
-#endif /* HAVE_GETRLIMIT */
-
-    return total;
+    return m_physical_max;
 }
 
 //***************************************************************************
@@ -294,6 +338,11 @@ Kwave::Handle Kwave::MemoryManager::allocatePhysical(size_t size)
     phys.m_mapcount = 0;
     Q_ASSERT(!m_physical.contains(handle));
     m_physical.insert(handle, phys);
+#ifdef DEBUG_MEMORY
+    m_stats.physical.handles++;
+    m_stats.physical.allocs++;
+    m_stats.physical.bytes += size;
+#endif /* DEBUG_MEMORY */
 
     return handle;
 }
@@ -367,6 +416,11 @@ Kwave::Handle Kwave::MemoryManager::allocateVirtual(size_t size)
     if (swap->allocate(size)) {
 	// succeeded, store the object in our map
 	m_unmapped_swap.insert(handle, swap);
+#ifdef DEBUG_MEMORY
+	m_stats.swap.unmapped.bytes += size;
+	m_stats.swap.unmapped.handles++;
+	m_stats.swap.allocs++;
+#endif /* DEBUG_MEMORY */
 	return handle;
     } else {
 	qWarning("Kwave::MemoryManager::allocateVirtual(%u): OOM, "\
@@ -400,11 +454,17 @@ bool Kwave::MemoryManager::convertToVirtual(Kwave::Handle handle,
 
     // copy old stuff to new location
     Kwave::SwapFile *swap = m_unmapped_swap[temp_handle];
+    Q_ASSERT(swap);
     swap->write(0, mem.m_data, mem.m_size);
 
     // free the old physical memory
     ::free(mem.m_data);
     m_physical.remove(handle);
+#ifdef DEBUG_MEMORY
+    m_stats.physical.handles--;
+    m_stats.physical.frees++;
+    m_stats.physical.bytes -= mem.m_size;
+#endif /* DEBUG_MEMORY */
 
     // discard the new (temporary) handle and re-use the old one
     m_unmapped_swap.remove(temp_handle); // temp_handle is now no longer valid
@@ -439,10 +499,6 @@ bool Kwave::MemoryManager::convertToPhysical(Kwave::Handle handle,
     physical_memory_t mem = m_physical[temp_handle];
     Q_ASSERT(mem.m_data);
     Q_ASSERT(mem.m_size >= new_size);
-    if (!mem.m_data || !mem.m_size) {
-	m_physical.remove(temp_handle);
-	return false;
-    }
 
     // copy old stuff to new location
     if (new_size <= swap->size()) {
@@ -453,6 +509,12 @@ bool Kwave::MemoryManager::convertToPhysical(Kwave::Handle handle,
 	swap->read(0, mem.m_data, swap->size());
     }
 
+#ifdef DEBUG_MEMORY
+    m_stats.swap.unmapped.bytes -= swap->size();
+    m_stats.swap.unmapped.handles--;
+    m_stats.swap.frees++;
+#endif /* DEBUG_MEMORY */
+
     // free the old swapfile
     m_unmapped_swap.remove(handle);
     delete swap;
@@ -462,8 +524,8 @@ bool Kwave::MemoryManager::convertToPhysical(Kwave::Handle handle,
     m_physical.insert(handle, mem);
 
     // we now have the old data with new size and old handle in m_physical
-    qDebug("Kwave::MemoryManager[%9d] - reloaded %2u MB from swap",
-           handle, static_cast<unsigned int>(mem.m_size >> 20));
+//     qDebug("Kwave::MemoryManager[%9d] - reloaded %2u MB from swap",
+//            handle, static_cast<unsigned int>(mem.m_size >> 20));
 
     dump("convertToPhysical");
     return true;
@@ -544,6 +606,10 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 	    phys.m_size     = size;
 	    phys.m_mapcount = 0;
 	    m_physical[handle] = phys;
+#ifdef DEBUG_MEMORY
+	    m_stats.physical.bytes -= current_size;
+	    m_stats.physical.bytes += size;
+#endif /* DEBUG_MEMORY */
 
 	    dump("resize");
 	    return true;
@@ -559,7 +625,7 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
     // case 3: mapped swapfile -> forbidden !
     Q_ASSERT(!m_mapped_swap.contains(handle));
     if (m_mapped_swap.contains(handle))
-	return 0;
+	return false;
 
     // case 4: unmapped swapfile -> resize
     Q_ASSERT(m_unmapped_swap.contains(handle));
@@ -584,7 +650,16 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 
 	dump("resize");
 	Kwave::SwapFile *swap = m_unmapped_swap[handle];
-	return swap->resize(size);
+#ifdef DEBUG_MEMORY
+	size_t old_size = swap->size();
+#endif /* DEBUG_MEMORY */
+	bool ok = swap->resize(size);
+	if (!ok) return false;
+#ifdef DEBUG_MEMORY
+	m_stats.swap.unmapped.bytes -= old_size;
+	m_stats.swap.unmapped.bytes += size;
+#endif /* DEBUG_MEMORY */
+	return true;
     }
 
     return false; // nothing known about this object / invalid handle?
@@ -602,13 +677,19 @@ size_t Kwave::MemoryManager::sizeOf(Kwave::Handle handle)
 	return phys_c.m_size;
     }
 
-    // case 2: mapped swapfile
+    // case 2: cached mapped swapfile
+    if (m_cached_swap.contains(handle)) {
+	const Kwave::SwapFile *swapfile = m_cached_swap[handle];
+	return swapfile->size();
+    }
+
+    // case 3: mapped swapfile
     if (m_mapped_swap.contains(handle)) {
 	const Kwave::SwapFile *swapfile = m_mapped_swap[handle];
 	return swapfile->size();
     }
 
-    // case 3: unmapped swapfile
+    // case 4: unmapped swapfile
     if (m_unmapped_swap.contains(handle)) {
 	const Kwave::SwapFile *swapfile = m_unmapped_swap[handle];
 	return swapfile->size();
@@ -628,6 +709,13 @@ void Kwave::MemoryManager::free(Kwave::Handle &handle)
     if (m_physical.contains(handle)) {
 	// physical memory (must not be mapped)
 	Q_ASSERT(!m_physical[handle].m_mapcount);
+
+#ifdef DEBUG_MEMORY
+	m_stats.physical.handles--;
+	m_stats.physical.frees++;
+	m_stats.physical.bytes -= m_physical[handle].m_size;
+#endif /* DEBUG_MEMORY */
+
 	void *b = m_physical[handle].m_data;
 	Q_ASSERT(b);
 	m_physical.remove(handle);
@@ -649,6 +737,11 @@ void Kwave::MemoryManager::free(Kwave::Handle &handle)
     if (m_unmapped_swap.contains(handle)) {
 	// remove the pagefile
 	Kwave::SwapFile *swap = m_unmapped_swap[handle];
+#ifdef DEBUG_MEMORY
+	m_stats.swap.unmapped.handles--;
+	m_stats.swap.unmapped.bytes -= swap->size();
+	m_stats.swap.frees++;
+#endif /* DEBUG_MEMORY */
 	m_unmapped_swap.remove(handle);
 	Q_ASSERT(!swap->mapCount());
 	delete swap;
@@ -687,6 +780,12 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
 	Kwave::SwapFile *swap = m_cached_swap[handle];
 	m_cached_swap.remove(handle);
 	m_mapped_swap.insert(handle, swap);
+#ifdef DEBUG_MEMORY
+	m_stats.swap.cached.handles--;
+	m_stats.swap.cached.bytes -= swap->size();
+	m_stats.swap.mapped.handles++;
+	m_stats.swap.mapped.bytes += swap->size();
+#endif /* DEBUG_MEMORY */
 // 	qDebug("Kwave::MemoryManager[%9d] - mmap -> cache hit", handle);
 	Q_ASSERT(swap->mapCount() == 1);
 	return swap->address();
@@ -726,6 +825,12 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
 	m_unmapped_swap.remove(handle);
 	m_mapped_swap.insert(handle, swap);
 
+#ifdef DEBUG_MEMORY
+	m_stats.swap.unmapped.handles--;
+	m_stats.swap.unmapped.bytes -= swap->size();
+	m_stats.swap.mapped.handles++;
+	m_stats.swap.mapped.bytes += swap->size();
+#endif /* DEBUG_MEMORY */
 // 	qDebug("Kwave::MemoryManager[%9d] - mmap -> new mapping", handle);
 	return mapped;
     } else {
@@ -747,6 +852,12 @@ void Kwave::MemoryManager::unmapFromCache(Kwave::Handle handle)
 	Q_ASSERT(!swap->mapCount());
 	m_cached_swap.remove(handle);
 	m_unmapped_swap.insert(handle, swap);
+#ifdef DEBUG_MEMORY
+	m_stats.swap.cached.handles--;
+	m_stats.swap.cached.bytes -= swap->size();
+	m_stats.swap.unmapped.handles++;
+	m_stats.swap.unmapped.bytes += swap->size();
+#endif /* DEBUG_MEMORY */
     }
 
     dump("unmap");
@@ -799,6 +910,12 @@ void Kwave::MemoryManager::unmap(Kwave::Handle handle)
 	    // move it into the swap file cache
 	    m_mapped_swap.remove(handle);
 	    m_cached_swap.insert(handle, swap);
+#ifdef DEBUG_MEMORY
+	    m_stats.swap.mapped.handles--;
+	    m_stats.swap.mapped.bytes -= swap->size();
+	    m_stats.swap.cached.handles++;
+	    m_stats.swap.cached.bytes += swap->size();
+#endif /* DEBUG_MEMORY */
 // 	    qDebug("Kwave::MemoryManager[%9d] - unmap -> moved to cache",
 // 	           handle);
 	}
@@ -941,9 +1058,33 @@ void Kwave::MemoryManager::dump(const char *function)
 
     qDebug("physical: %5u MB, virtual: %5u MB [m:%5u, c:%5u, u:%5u]",
            p_used, v_used, m, c, u);
-#else
-    Q_UNUSED(function);
 #endif
+
+#ifdef DEBUG_MEMORY
+    qDebug("------- %s -------", function);
+    qDebug("physical:    %12llu, %12llu / %12llu (%12llu : %12llu)",
+	   m_stats.physical.handles,
+	   m_stats.physical.bytes,
+	   m_stats.physical.limit,
+	   m_stats.physical.allocs,
+	   m_stats.physical.frees);
+    qDebug("mapped swap: %12llu, %12llu / %12llu (%12llu : %12llu)",
+	   m_stats.swap.mapped.handles,
+	   m_stats.swap.mapped.bytes,
+	   m_stats.swap.limit,
+	   m_stats.swap.allocs,
+	   m_stats.swap.frees);
+    qDebug("cached:      %12llu, %12llu",
+	   m_stats.swap.cached.handles,
+	   m_stats.swap.cached.bytes);
+    qDebug("unmapped:    %12llu, %12llu",
+	   m_stats.swap.unmapped.handles,
+	   m_stats.swap.unmapped.bytes);
+    qDebug("-----------------------------------------------------------------");
+
+#else /* DEBUG_MEMORY */
+    Q_UNUSED(function);
+#endif /* DEBUG_MEMORY */
 }
 
 //***************************************************************************

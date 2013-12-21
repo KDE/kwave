@@ -162,7 +162,8 @@ Kwave::Stripe::StripeStorage::StripeStorage(const StripeStorage &other)
 	    unsigned int ofs       = 0;
 
 	    while (remaining) {
-		unsigned int len =  qMin(remaining, sizeof(buf));
+		unsigned int len =  qMin(remaining, 
+		    static_cast<unsigned int>(sizeof(buf)));
 		unsigned int read = mem.readFrom(other.m_storage, ofs,
 		                                 &buf[0], len);
 		Q_ASSERT(read == len);

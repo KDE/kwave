@@ -60,7 +60,9 @@ Kwave::MemoryManager::MemoryManager()
      m_cached_swap(), m_lock()
 {
     // reset statistics
+#ifdef DEBUG_MEMORY
     memset(&m_stats, 0x00, sizeof(m_stats));
+#endif /* DEBUG_MEMORY */
 
     // determine amount of physical memory
     // start with 1/4 of the theoretical address space

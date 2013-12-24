@@ -63,7 +63,7 @@ int Kwave::UndoDeleteTrack::redoSize()
 //***************************************************************************
 bool Kwave::UndoDeleteTrack::store(Kwave::SignalManager &manager)
 {
-    Kwave::SampleReader *reader = manager.openSampleReader(
+    Kwave::SampleReader *reader = manager.openReader(
 	Kwave::SinglePassForward, m_track, 0, m_length-1);
     Q_ASSERT(reader);
     if (!reader) return false;
@@ -106,7 +106,7 @@ Kwave::UndoAction *Kwave::UndoDeleteTrack::undo(Kwave::SignalManager &manager,
 	Kwave::Overwrite, 0, m_length-1);
     Q_ASSERT(writer);
 
-    Kwave::SampleReader *reader = m_buffer_track.openSampleReader(
+    Kwave::SampleReader *reader = m_buffer_track.openReader(
 	Kwave::SinglePassForward, 0, m_length-1);
     Q_ASSERT(reader);
     if (reader && writer) (*writer) << (*reader);

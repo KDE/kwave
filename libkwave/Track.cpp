@@ -159,7 +159,7 @@ Kwave::Writer *Kwave::Track::openWriter(Kwave::InsertMode mode,
 }
 
 //***************************************************************************
-Kwave::SampleReader *Kwave::Track::openSampleReader(Kwave::ReaderMode mode,
+Kwave::SampleReader *Kwave::Track::openReader(Kwave::ReaderMode mode,
 	sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock);

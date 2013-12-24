@@ -257,8 +257,12 @@ namespace Kwave
 	 * @param right end of the input (only useful with overwrite mode)
 	 * @see InsertMode
 	 */
-	Kwave::Writer *openWriter(unsigned int track, Kwave::InsertMode mode,
-	    sample_index_t left = 0, sample_index_t right = 0);
+	inline Kwave::Writer *openWriter(unsigned int track,
+	    Kwave::InsertMode mode,
+	    sample_index_t left = 0, sample_index_t right = 0)
+	{
+	    return m_signal.openWriter(track, mode, left, right);
+	}
 
 	/**
 	 * Opens a stream for reading samples. If the the last position
@@ -269,11 +273,11 @@ namespace Kwave
 	 * @param left first offset to be read (default = 0)
 	 * @param right last position to read (default = UINT_MAX)
 	 */
-	inline Kwave::SampleReader *openSampleReader(Kwave::ReaderMode mode,
+	inline Kwave::SampleReader *openReader(Kwave::ReaderMode mode,
 	    unsigned int track,
 	    sample_index_t left = 0, sample_index_t right = SAMPLE_INDEX_MAX)
 	{
-	    return m_signal.openSampleReader(mode, track, left, right);
+	    return m_signal.openReader(mode, track, left, right);
 	}
 
 	/** Returns true if undo/redo is currently enabled */

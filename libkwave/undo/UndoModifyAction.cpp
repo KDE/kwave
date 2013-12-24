@@ -57,7 +57,7 @@ unsigned int Kwave::UndoModifyAction::undoSize()
 //***************************************************************************
 bool Kwave::UndoModifyAction::store(Kwave::SignalManager &manager)
 {
-    Kwave::SampleReader *reader = manager.openSampleReader(
+    Kwave::SampleReader *reader = manager.openReader(
 	Kwave::SinglePassForward, m_track, m_offset, m_offset + m_length - 1);
     Q_ASSERT(reader);
     if (!reader) return false;
@@ -95,10 +95,10 @@ Kwave::UndoAction *Kwave::UndoModifyAction::undo(
 	Kwave::SampleArray buf_cur(BUFFER_SIZE);
 	Kwave::SampleArray buf_sav(BUFFER_SIZE);
 
-	Kwave::SampleReader *reader_cur = manager.openSampleReader(
+	Kwave::SampleReader *reader_cur = manager.openReader(
 	    Kwave::SinglePassForward, m_track, m_offset, m_offset+m_length-1);
 	Kwave::Writer *writer_cur = writer;
-	Kwave::SampleReader *reader_sav = m_buffer_track.openSampleReader(
+	Kwave::SampleReader *reader_sav = m_buffer_track.openReader(
 	    Kwave::SinglePassForward, 0, m_length-1);
 	Kwave::Writer *writer_sav = m_buffer_track.openWriter(
 	    Kwave::Overwrite, 0, m_length - 1);
@@ -128,7 +128,7 @@ Kwave::UndoAction *Kwave::UndoModifyAction::undo(
 	if (reader_sav) delete reader_sav;
 	if (writer_sav) delete writer_sav;
     } else {
-	Kwave::SampleReader *reader = m_buffer_track.openSampleReader(
+	Kwave::SampleReader *reader = m_buffer_track.openReader(
 	    Kwave::SinglePassForward, 0, m_length-1);
 	Q_ASSERT(reader);
 

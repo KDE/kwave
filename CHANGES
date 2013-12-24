@@ -4,6 +4,9 @@
  * bugfix: "Close" button of the record dialog did not save settings
  * support for swap files to store undo data
  * speedup: too many copy-on-write operations, use more const data
+ * improved robustness against out of memory situations
+ * memory manager: added statistics for debugging
+ * memory settings: only use up to 25% of process address space
 
 0.8.11 [2013-11-24]
 

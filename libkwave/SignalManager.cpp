@@ -598,13 +598,6 @@ const QList<unsigned int> Kwave::SignalManager::allTracks()
 }
 
 //***************************************************************************
-Kwave::Writer *Kwave::SignalManager::openWriter(unsigned int track,
-	Kwave::InsertMode mode, sample_index_t left, sample_index_t right)
-{
-    return m_signal.openWriter(track, mode, left, right);
-}
-
-//***************************************************************************
 int Kwave::SignalManager::executeCommand(const QString &command)
 {
     sample_index_t offset = m_selection.offset();

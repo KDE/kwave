@@ -87,7 +87,7 @@ namespace Kwave
 	 * @param left first offset to be read (default = 0)
 	 * @param right last position to read (default = UINT_MAX)
 	 */
-	Kwave::SampleReader *openSampleReader(Kwave::ReaderMode mode,
+	Kwave::SampleReader *openReader(Kwave::ReaderMode mode,
 	    sample_index_t left = 0,
             sample_index_t right = SAMPLE_INDEX_MAX);
 

@@ -94,7 +94,7 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
 	// NOTE: this function is *nearly* identical to the one in the
 	//       Signal class, except for undo support
 	Kwave::Writer *writer = signal_manager.openWriter(
-	    track, mode, left, right);
+	    mode, track, left, right);
 	if (writer) {
 	    insert(index++, writer);
 

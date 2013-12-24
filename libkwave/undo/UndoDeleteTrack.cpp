@@ -102,8 +102,8 @@ Kwave::UndoAction *Kwave::UndoDeleteTrack::undo(Kwave::SignalManager &manager,
     m_signal.insertTrack(m_track, m_length);
 
     // restore the sample data from the internal buffer
-    Kwave::Writer *writer = m_signal.openWriter(m_track,
-	Kwave::Overwrite, 0, m_length-1);
+    Kwave::Writer *writer = m_signal.openWriter(Kwave::Overwrite,
+	m_track, 0, m_length-1);
     Q_ASSERT(writer);
 
     Kwave::SampleReader *reader = m_buffer_track.openReader(

@@ -140,8 +140,8 @@ void Kwave::Signal::deleteTrack(unsigned int index)
 }
 
 //***************************************************************************
-Kwave::Writer *Kwave::Signal::openWriter(unsigned int track,
-	Kwave::InsertMode mode, sample_index_t left, sample_index_t right)
+Kwave::Writer *Kwave::Signal::openWriter(Kwave::InsertMode mode,
+	unsigned int track, sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock_tracks);
 

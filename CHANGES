@@ -7,6 +7,8 @@
  * improved robustness against out of memory situations
  * memory manager: added statistics for debugging
  * memory settings: only use up to 25% of process address space
+ * internal cleanups: renamed openSampleReader -> openReader,
+   fixed signature of Signal/SignalManager::openWriter
 
 0.8.11 [2013-11-24]
 

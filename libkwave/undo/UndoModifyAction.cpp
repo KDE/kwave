@@ -85,7 +85,7 @@ Kwave::UndoAction *Kwave::UndoModifyAction::undo(
     bool ok = true;
 
     Kwave::Writer *writer = manager.openWriter(
-	m_track, Kwave::Overwrite, m_offset, m_offset + m_length - 1);
+	Kwave::Overwrite, m_track, m_offset, m_offset + m_length - 1);
     Q_ASSERT(writer);
     if (!writer) return 0;
 

@@ -73,7 +73,7 @@ bool Kwave::UndoDeleteAction::store(Kwave::SignalManager &manager)
 {
     if (!m_length) return true; // shortcut: this is an empty action
 
-    // fork off a MultiTrackStripeSet for the selected range
+    // fork off a multi track stripe list for the selected range
     const sample_index_t left  = m_offset;
     const sample_index_t right = m_offset + m_length - 1;
     m_stripes = manager.stripes(m_track_list, left, right);

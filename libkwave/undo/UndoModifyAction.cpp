@@ -33,7 +33,7 @@ Kwave::UndoModifyAction::UndoModifyAction(unsigned int track,
                                           sample_index_t offset,
                                           sample_index_t length)
     :UndoAction(), m_track(track), m_offset(offset), m_length(length),
-     m_buffer_track()
+     m_stripes()
 {
 }
 
@@ -57,85 +57,50 @@ unsigned int Kwave::UndoModifyAction::undoSize()
 //***************************************************************************
 bool Kwave::UndoModifyAction::store(Kwave::SignalManager &manager)
 {
-    Kwave::SampleReader *reader = manager.openReader(
-	Kwave::SinglePassForward, m_track, m_offset, m_offset + m_length - 1);
-    Q_ASSERT(reader);
-    if (!reader) return false;
+    if (!m_length) return true; // shortcut: this is an empty action
 
-    Kwave::Writer *writer =
-	m_buffer_track.openWriter(Kwave::Append, 0, m_length - 1);
-    Q_ASSERT(writer);
-    if (!writer) {
-	delete reader;
-	return false;
-    }
+    // fork off a multi track stripe list for the selected range
+    QList<unsigned int> track_list;
+    track_list.append(m_track);
+    const sample_index_t left  = m_offset;
+    const sample_index_t right = m_offset + m_length - 1;
+    m_stripes = manager.stripes(track_list, left, right);
+    if (m_stripes.isEmpty())
+	return false; // retrieving the stripes failed
 
-    // copy the data
-    (*writer) << (*reader);
-
-    delete reader;
-    delete writer;
-    return (m_buffer_track.length() == m_length);
+    return true;
 }
 
 //***************************************************************************
 Kwave::UndoAction *Kwave::UndoModifyAction::undo(
     Kwave::SignalManager &manager, bool with_redo)
 {
+    const sample_index_t left  = m_offset;
+    const sample_index_t right = m_offset + m_length - 1;
+    QList<Kwave::Stripe::List> redo_data;
+    QList<unsigned int> track_list;
+    track_list.append(m_track);
     bool ok = true;
 
-    Kwave::Writer *writer = manager.openWriter(
-	Kwave::Overwrite, m_track, m_offset, m_offset + m_length - 1);
-    Q_ASSERT(writer);
-    if (!writer) return 0;
-
-    sample_index_t len = m_length;
-
-    if (with_redo) {
-	Kwave::SampleArray buf_cur(BUFFER_SIZE);
-	Kwave::SampleArray buf_sav(BUFFER_SIZE);
-
-	Kwave::SampleReader *reader_cur = manager.openReader(
-	    Kwave::SinglePassForward, m_track, m_offset, m_offset+m_length-1);
-	Kwave::Writer *writer_cur = writer;
-	Kwave::SampleReader *reader_sav = m_buffer_track.openReader(
-	    Kwave::SinglePassForward, 0, m_length-1);
-	Kwave::Writer *writer_sav = m_buffer_track.openWriter(
-	    Kwave::Overwrite, 0, m_length - 1);
-
-	// exchange content of the current signal with the content
-	// of the internal buffer
-	while (ok && reader_cur && reader_sav && writer_sav && len) {
-	    // 1. fill buf_cur with data from current signal
-	    (*reader_cur) >> buf_cur;
-	    if (!buf_cur.size()) { ok = false; break; }
-
-	    // 2. fill buf_sav with data from buffer
-	    (*reader_sav) >> buf_sav;
-	    if (buf_sav.size() != buf_cur.size()) { ok = false; break; }
-
-	    // 3. write buf_cur to buffer
-	    (*writer_sav) << buf_cur;
-
-	    // 4. write buf_sav to current signal
-	    (*writer_cur) << buf_sav;
-
-	    len = (len > buf_cur.size()) ? (len - buf_cur.size()) : 0;
-	}
-	ok &= (m_buffer_track.length() == m_length);
-
-	if (reader_cur) delete reader_cur;
-	if (reader_sav) delete reader_sav;
-	if (writer_sav) delete writer_sav;
-    } else {
-	Kwave::SampleReader *reader = m_buffer_track.openReader(
-	    Kwave::SinglePassForward, 0, m_length-1);
-	Q_ASSERT(reader);
-
-	if (reader && writer) (*writer) << (*reader);
+    if (m_length && with_redo) {
+	// save the current stripes for later redo
+	redo_data = manager.stripes(track_list, left, right);
+	ok &= !redo_data.isEmpty();
     }
 
-    delete writer;
+    // merge the stripes back into the signal
+    if (m_length && ok) {
+	if (!manager.mergeStripes(m_stripes, track_list)) {
+	    qWarning("UndoModifyAction::undo() FAILED [mergeStripes]");
+	    return 0;
+	}
+    }
+
+    if (ok && with_redo) {
+	// now store the redo data in this object
+	m_stripes = redo_data;
+    }
+
     return (with_redo && ok) ? this : 0;
 }
 

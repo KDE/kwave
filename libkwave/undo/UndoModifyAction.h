@@ -23,7 +23,7 @@
 #include <QtCore/QString>
 
 #include "libkwave/Sample.h"
-#include "libkwave/Track.h"
+#include "libkwave/Stripe.h"
 
 #include "libkwave/undo/UndoAction.h"
 
@@ -79,8 +79,8 @@ namespace Kwave
 	/** number of samples */
 	sample_index_t m_length;
 
-	/** track that serves as buffer with undo data */
-	Kwave::Track m_buffer_track;
+	/** storage for all deleted stripes */
+	QList<Kwave::Stripe::List> m_stripes;
 
     };
 }

@@ -1,9 +1,6 @@
 
 o progress bar, e.g. "fade out" - not translated?
 
-o do no longer use a mime data container for undo
-  (unreliable due to memory fragmentation)
-
 o use mouse wheel for vertical scroll bar in signal widget
 
 o recording via Phonon

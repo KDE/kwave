@@ -140,58 +140,18 @@ bool Kwave::Track::mergeStripe(Kwave::Stripe &stripe)
 //     qDebug("Track::mergeStripe() [%llu - %llu]", left, right);
 //     dump();
 
-    // first pass: remove all stripes that are overlapped completely by
+    // remove all stripes that are overlapped completely by
     // this stripe and crop stripes that overlap partially
-    QMutableListIterator<Stripe> it(m_stripes);
+    unlockedDelete(left, right - left + 1, true);
+
+//     qDebug("Track::mergeStripe() [%llu - %llu] - after delete", left, right);
+//     dump();
+
+    // find the stripe after which we have to insert
+    QListIterator<Stripe> it(m_stripes);
     while (it.hasNext()) {
-	Stripe &s = it.next();
-	sample_index_t end    = s.end();
-
-	// remember the stripe after which we want to insert
-	if (left > end) index_before = m_stripes.indexOf(s);
-
-	if (end < left) continue; // skip, "s" is left from stripe
-	sample_index_t start  = s.start();
-	if (start > right) break; // "s" is after the stripe
-
-	if ((start == left) && (end == right)) {
-	    // we have luck: there is a stripe we can replace 1:1
-// 	    qDebug("Track::mergeStripe() - replacing [%llu - %llu]",
-// 	           start, end);
-	    it.remove();
-	    break; // -> done
-	}
-
-	if ((start >= left) && (end <= right)) {
-	    // there is a stripe that we fully overlap
-	    it.remove();
-	    qDebug("Track::mergeStripe() - removing [%llu - %llu]",
-	           start, end);
-	    if (m_stripes.isEmpty()) {
-		// special case: we removed everything
-		// -> now the stripe to merge is the one and only one
-		break;
-	    }
-	    continue;
-	}
-
-	// at this point we know that there is some partial overlap
-	// either at the end or at the start
-
-	if (end >= left) {
-	    // crop off at the end
-	    s.resize(s.length() - (end - left + 1));
-// 	    qDebug("Track::mergeStripe() - cropped end -> [%llu - %llu]",
-// 	           s.start(), s.end());
-	}
-
-	if (start <= right) {
-	    // crop data from the start
-	    s.deleteRange(0, right - start + 1);
-	    s.setStart(right);
-// 	    qDebug("Track::mergeStripe() - cropped start -> [%llu - %llu]",
-// 	           s.start(), s.end());
-	}
+	const Stripe &s = it.next();
+	if (left > s.end()) index_before = m_stripes.indexOf(s);
     }
 
     if (index_before >= 0) {

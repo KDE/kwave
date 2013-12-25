@@ -22,10 +22,7 @@
 
 #include <klocale.h>
 
-#include "libkwave/InsertMode.h"
-#include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
-#include "libkwave/Writer.h"
 #include "libkwave/undo/UndoInsertTrack.h"
 #include "libkwave/undo/UndoDeleteTrack.h"
 
@@ -33,7 +30,7 @@
 Kwave::UndoDeleteTrack::UndoDeleteTrack(Kwave::Signal &signal,
                                         unsigned int track)
     :UndoAction(), m_signal(signal), m_track(track),
-     m_length(signal.length()), m_buffer_track()
+     m_length(signal.length()), m_stripes()
 {
 }
 
@@ -63,25 +60,16 @@ int Kwave::UndoDeleteTrack::redoSize()
 //***************************************************************************
 bool Kwave::UndoDeleteTrack::store(Kwave::SignalManager &manager)
 {
-    Kwave::SampleReader *reader = manager.openReader(
-	Kwave::SinglePassForward, m_track, 0, m_length-1);
-    Q_ASSERT(reader);
-    if (!reader) return false;
+    if (!m_length) return true; // shortcut: this is an empty action
 
-    Kwave::Writer *writer =
-	m_buffer_track.openWriter(Kwave::Append, 0, m_length - 1);
-    Q_ASSERT(writer);
-    if (!writer) {
-	delete reader;
-	return false;
-    }
+    // fork off a multi track stripe list for the selected range
+    QList<unsigned int> track_list;
+    track_list.append(m_track);
+    m_stripes = manager.stripes(track_list, 0, m_length - 1);
+    if (m_stripes.isEmpty())
+	return false; // retrieving the stripes failed
 
-    // copy the data
-    (*writer) << (*reader);
-
-    delete reader;
-    delete writer;
-    return (m_buffer_track.length() == m_length);
+    return true;
 }
 
 //***************************************************************************
@@ -101,18 +89,14 @@ Kwave::UndoAction *Kwave::UndoDeleteTrack::undo(Kwave::SignalManager &manager,
     // insert an empty track into the signal
     m_signal.insertTrack(m_track, m_length);
 
-    // restore the sample data from the internal buffer
-    Kwave::Writer *writer = m_signal.openWriter(Kwave::Overwrite,
-	m_track, 0, m_length-1);
-    Q_ASSERT(writer);
-
-    Kwave::SampleReader *reader = m_buffer_track.openReader(
-	Kwave::SinglePassForward, 0, m_length-1);
-    Q_ASSERT(reader);
-    if (reader && writer) (*writer) << (*reader);
-
-    if (reader) delete reader;
-    if (writer) delete writer;
+    // merge the stripes back into the signal
+    QList<unsigned int> track_list;
+    track_list.append(m_track);
+    if (!manager.mergeStripes(m_stripes, track_list)) {
+	qWarning("UndoDeleteTrack::undo() FAILED [mergeStripes]");
+	delete redo_action;
+	return 0;
+    }
 
     return redo_action;
 }

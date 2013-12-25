@@ -131,6 +131,86 @@ Kwave::Stripe Kwave::Track::splitStripe(Kwave::Stripe &stripe,
 }
 
 //***************************************************************************
+bool Kwave::Track::mergeStripe(Kwave::Stripe &stripe)
+{
+    sample_index_t left  = stripe.start();
+    sample_index_t right = stripe.end();
+    int index_before = -1;
+
+//     qDebug("Track::mergeStripe() [%llu - %llu]", left, right);
+//     dump();
+
+    // first pass: remove all stripes that are overlapped completely by
+    // this stripe and crop stripes that overlap partially
+    QMutableListIterator<Stripe> it(m_stripes);
+    while (it.hasNext()) {
+	Stripe &s = it.next();
+	sample_index_t end    = s.end();
+
+	// remember the stripe after which we want to insert
+	if (left > end) index_before = m_stripes.indexOf(s);
+
+	if (end < left) continue; // skip, "s" is left from stripe
+	sample_index_t start  = s.start();
+	if (start > right) break; // "s" is after the stripe
+
+	if ((start == left) && (end == right)) {
+	    // we have luck: there is a stripe we can replace 1:1
+// 	    qDebug("Track::mergeStripe() - replacing [%llu - %llu]",
+// 	           start, end);
+	    it.remove();
+	    break; // -> done
+	}
+
+	if ((start >= left) && (end <= right)) {
+	    // there is a stripe that we fully overlap
+	    it.remove();
+	    qDebug("Track::mergeStripe() - removing [%llu - %llu]",
+	           start, end);
+	    if (m_stripes.isEmpty()) {
+		// special case: we removed everything
+		// -> now the stripe to merge is the one and only one
+		break;
+	    }
+	    continue;
+	}
+
+	// at this point we know that there is some partial overlap
+	// either at the end or at the start
+
+	if (end >= left) {
+	    // crop off at the end
+	    s.resize(s.length() - (end - left + 1));
+// 	    qDebug("Track::mergeStripe() - cropped end -> [%llu - %llu]",
+// 	           s.start(), s.end());
+	}
+
+	if (start <= right) {
+	    // crop data from the start
+	    s.deleteRange(0, right - start + 1);
+	    s.setStart(right);
+// 	    qDebug("Track::mergeStripe() - cropped start -> [%llu - %llu]",
+// 	           s.start(), s.end());
+	}
+    }
+
+    if (index_before >= 0) {
+	// insert after some existing stripe
+// 	qDebug("Kwave::Track::mergeStripe: insert after index %d",
+// 	       index_before);
+	m_stripes.insert(index_before + 1, stripe);
+    } else {
+	// the one and only or insert before all others
+// 	qDebug("Kwave::Track::mergeStripe: prepending");
+	m_stripes.prepend(stripe);
+    }
+
+//     qDebug("Track::mergeStripe() - done");
+//     dump();
+    return true;
+}
+
+//***************************************************************************
 sample_index_t Kwave::Track::length()
 {
     QReadLocker lock(&m_lock);
@@ -159,16 +239,13 @@ Kwave::Writer *Kwave::Track::openWriter(Kwave::InsertMode mode,
 }
 
 //***************************************************************************
-Kwave::SampleReader *Kwave::Track::openReader(Kwave::ReaderMode mode,
-	sample_index_t left, sample_index_t right)
+Kwave::Stripe::List Kwave::Track::stripes(sample_index_t left,
+                                          sample_index_t right)
 {
     QReadLocker lock(&m_lock);
 
-    sample_index_t length = unlockedLength();
-    if (right >= length) right = (length) ? (length - 1) : 0;
-
     // collect all stripes that are in the requested range
-    QList<Stripe> stripes;
+    Kwave::Stripe::List stripes(left, right);
     foreach (const Stripe &stripe, m_stripes) {
 	if (!stripe.length()) continue;
 	sample_index_t start = stripe.start();
@@ -177,12 +254,68 @@ Kwave::SampleReader *Kwave::Track::openReader(Kwave::ReaderMode mode,
 	if (end < left) continue; // not yet in range
 	if (start > right) break; // done
 
-	stripes.append(stripe);
+	if ((end <= right) && (start >= left)) {
+	    // append the stripe as it is, unmodified
+	    stripes.append(stripe);
+	    continue;
+	}
+
+	// there is only some overlap, no 100% match
+	// -> make a cropped copy
+	Stripe cropped(stripe);
+
+	// remove data after the end of the selection
+	if (end > right) {
+	    cropped.resize(cropped.length() - (end - right));
+	}
+
+	// remove data before the start of the selection
+	if (start < left) {
+	    cropped.deleteRange(0, left - start);
+	    cropped.setStart(left);
+	}
+
+	stripes.append(cropped);
     }
+
+    return stripes;
+}
+
+//***************************************************************************
+bool Kwave::Track::mergeStripes(const Kwave::Stripe::List &stripes)
+{
+    bool succeeded = true;
+    {
+	QWriteLocker lock(&m_lock);
+	foreach (Stripe stripe, stripes) {
+	    if (!mergeStripe(stripe)) {
+		succeeded = false;
+		break;
+	    }
+	}
+    }
+
+    const sample_index_t left  = stripes.left();
+    const sample_index_t right = stripes.right();
+    emit sigSamplesModified(this, left, right - left + 1);
+    return succeeded;
+}
+
+//***************************************************************************
+Kwave::SampleReader *Kwave::Track::openReader(Kwave::ReaderMode mode,
+	sample_index_t left, sample_index_t right)
+{
+    QReadLocker lock(&m_lock);
+
+    const sample_index_t length = unlockedLength();
+    if (right >= length) right = (length) ? (length - 1) : 0;
+
+    // collect all stripes that are in the requested range
+    Kwave::Stripe::List stripe_list = stripes(left, right);
 
     // create the input stream
     Kwave::SampleReader *stream =
-	new(std::nothrow) Kwave::SampleReader(mode, stripes, left, right);
+	new(std::nothrow) Kwave::SampleReader(mode, stripe_list);
     Q_ASSERT(stream);
     return stream;
 }

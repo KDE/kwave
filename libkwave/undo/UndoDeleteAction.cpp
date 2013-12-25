@@ -35,9 +35,10 @@ Kwave::UndoDeleteAction::UndoDeleteAction(QWidget *parent_widget,
                                           sample_index_t length)
     :Kwave::UndoAction(),
      m_parent_widget(parent_widget),
+     m_stripes(), m_meta_data(),
      m_track_list(track_list),
      m_offset(offset), m_length(length),
-     m_mime_data(), m_undo_size(0)
+     m_undo_size(sizeof(*this))
 {
     // undo size needed for samples
     m_undo_size += m_length * sizeof(sample_t) * m_track_list.count();
@@ -46,7 +47,7 @@ Kwave::UndoDeleteAction::UndoDeleteAction(QWidget *parent_widget,
 //***************************************************************************
 Kwave::UndoDeleteAction::~UndoDeleteAction()
 {
-    m_mime_data.clear();
+    m_stripes.clear();
 }
 
 //***************************************************************************
@@ -72,14 +73,15 @@ bool Kwave::UndoDeleteAction::store(Kwave::SignalManager &manager)
 {
     if (!m_length) return true; // shortcut: this is an empty action
 
-    Kwave::MultiTrackReader reader(Kwave::SinglePassForward, manager,
-	m_track_list, m_offset, m_offset + m_length - 1);
+    // fork off a MultiTrackStripeSet for the selected range
+    const sample_index_t left  = m_offset;
+    const sample_index_t right = m_offset + m_length - 1;
+    m_stripes = manager.stripes(m_track_list, left, right);
+    if (m_stripes.isEmpty())
+	return false; // retrieving the stripes failed
 
-    // encode the data that will be deleted into a Kwave::MimeData container
-    if (!m_mime_data.encode(m_parent_widget, reader, manager.metaData())) {
-	m_mime_data.clear();
-	return false;
-    }
+    // save the meta data
+    m_meta_data = manager.metaData().copy(m_offset, m_length, m_track_list);
 
     return true;
 }
@@ -103,14 +105,22 @@ Kwave::UndoAction *Kwave::UndoDeleteAction::undo(Kwave::SignalManager &manager,
 
     if (!m_length) return redo_action; // shortcut: this is an empty action
 
-    // perform the undo operation
-    if (!m_mime_data.decode(m_parent_widget, &m_mime_data,
-                            manager, m_offset))
-    {
-	qWarning("UndoDeleteAction::undo() FAILED");
+    // insert space for the stripes
+    if (!manager.insertSpace(m_offset, m_length, m_track_list)) {
+	qWarning("UndoDeleteAction::undo() FAILED [insertSpace]");
 	delete redo_action;
 	return 0;
     }
+
+    // merge the stripes back into the signal
+    if (!manager.mergeStripes(m_stripes, m_track_list)) {
+	qWarning("UndoDeleteAction::undo() FAILED [mergeStripes]");
+	delete redo_action;
+	return 0;
+    }
+
+    // restore the saved meta data
+    manager.metaData().merge(m_meta_data);
 
     return redo_action;
 }

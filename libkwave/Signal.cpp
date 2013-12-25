@@ -157,7 +157,9 @@ Kwave::Writer *Kwave::Signal::openWriter(Kwave::InsertMode mode,
 
 //***************************************************************************
 Kwave::SampleReader *Kwave::Signal::openReader(Kwave::ReaderMode mode,
-	unsigned int track, sample_index_t left, sample_index_t right)
+                                               unsigned int track,
+                                               sample_index_t left,
+                                               sample_index_t right)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -167,6 +169,37 @@ Kwave::SampleReader *Kwave::Signal::openReader(Kwave::ReaderMode mode,
     Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
     return (t) ? t->openReader(mode, left, right) : 0;
+}
+
+//***************************************************************************
+Kwave::Stripe::List Kwave::Signal::stripes(unsigned int track,
+                                           sample_index_t left,
+                                           sample_index_t right)
+{
+    QReadLocker lock(&m_lock_tracks);
+
+    if (static_cast<int>(track) < m_tracks.count()) {
+	Kwave::Track *t = m_tracks.at(track);
+	Q_ASSERT(t);
+	if (t) return t->stripes(left, right);
+    }
+    return Kwave::Stripe::List(); // track does not exist !
+}
+
+//***************************************************************************
+bool Kwave::Signal::mergeStripes(const Kwave::Stripe::List &stripes,
+                                 unsigned int track)
+{
+    QReadLocker lock(&m_lock_tracks);
+
+    if (static_cast<int>(track) >= m_tracks.count())
+	return false;
+
+    Kwave::Track *t = m_tracks.at(track);
+    Q_ASSERT(t);
+    if (!t) return false;
+
+    return t->mergeStripes(stripes);
 }
 
 //***************************************************************************
@@ -184,7 +217,8 @@ QList<unsigned int> Kwave::Signal::allTracks()
 }
 
 //***************************************************************************
-void Kwave::Signal::deleteRange(unsigned int track, sample_index_t offset,
+void Kwave::Signal::deleteRange(unsigned int track,
+                                sample_index_t offset,
                                 sample_index_t length)
 {
     QReadLocker lock(&m_lock_tracks);

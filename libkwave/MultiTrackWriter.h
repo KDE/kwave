@@ -50,7 +50,7 @@ namespace Kwave
 	/**
 	 * Constructor
 	 * @param signal_manager reference to a SignalManager
-	 * @param track_list array of indices of tracks for reading
+	 * @param track_list list of track indices
 	 * @param mode specifies where and how to insert
 	 * @param left index of the first sample
 	 * @param right index of the last sample

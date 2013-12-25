@@ -92,6 +92,23 @@ namespace Kwave
             sample_index_t right = SAMPLE_INDEX_MAX);
 
 	/**
+	 * Get a list of stripes that matches a given range of samples
+	 * @param left  offset of the first sample
+	 * @param right offset of the last sample
+	 * @return a list of stripes that cover the given range
+	 *         between left and right
+	 */
+	Kwave::Stripe::List stripes(sample_index_t left,
+	                            sample_index_t right);
+
+	/**
+	 * Merge a list of stripes into the track.
+	 * @param stripes list of stripes
+	 * @return true if succeeded, false if failed
+	 */
+	bool mergeStripes(const Kwave::Stripe::List &stripes);
+
+	/**
 	 * Deletes a range of samples
 	 * @param offset index of the first sample
 	 * @param length number of samples
@@ -222,6 +239,15 @@ namespace Kwave
 	 * @return the new created stripe
 	 */
 	Stripe splitStripe(Stripe &stripe, unsigned int offset);
+
+
+	/**
+	 * Merge a single stripe into the track.
+	 *
+	 * @param stripe the stripe to merge
+	 * @return true if succeeded, false if failed
+	 */
+	bool mergeStripe(Kwave::Stripe &stripe);
 
 	/**
 	 * dump the list of stripes, for debugging

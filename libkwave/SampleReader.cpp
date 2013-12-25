@@ -32,13 +32,12 @@
 
 //***************************************************************************
 Kwave::SampleReader::SampleReader(Kwave::ReaderMode mode,
-                                  QList<Kwave::Stripe> stripes,
-                                  sample_index_t left, sample_index_t right)
+                                  Kwave::Stripe::List stripes)
     :m_mode(mode), m_stripes(stripes),
-     m_src_position(left), m_first(left), m_last(right),
-     m_buffer(blockSize()),
+     m_src_position(stripes.left()), m_first(stripes.left()),
+     m_last(stripes.right()), m_buffer(blockSize()),
      m_buffer_used(0), m_buffer_position(0),
-     m_progress_time(), m_last_seek_pos(right)
+     m_progress_time(), m_last_seek_pos(stripes.right())
 {
     m_progress_time.start();
 }

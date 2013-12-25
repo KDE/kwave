@@ -280,6 +280,30 @@ namespace Kwave
 	    return m_signal.openReader(mode, track, left, right);
 	}
 
+
+	/**
+	 * Get a list of stripes that matches a given range of samples
+	 * @param track_list list with indices of tracks for selecting
+	 * @param left  offset of the first sample
+	 * @param right offset of the last sample
+	 * @return a list with lists of stripes that cover the given range
+	 *         between left and right
+	 */
+	QList<Kwave::Stripe::List> stripes(
+	    const QList<unsigned int> &track_list,
+	    sample_index_t left = 0,
+	    sample_index_t right = SAMPLE_INDEX_MAX);
+
+	/**
+	 * Merge a list of stripes into the signal.
+	 * @note this operation works without undo!
+	 * @param stripes list of stripe list (multi track)
+	 * @param track_list list with indices of tracks for selecting
+	 * @return true if succeeded, false if failed
+	 */
+	bool mergeStripes(const QList<Kwave::Stripe::List> &stripes,
+	                  const QList<unsigned int> &track_list);
+
 	/** Returns true if undo/redo is currently enabled */
 	inline bool undoEnabled() const { return m_undo_enabled; }
 

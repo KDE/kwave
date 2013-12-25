@@ -45,14 +45,10 @@ namespace Kwave
 	/**
 	 * Constructor. Creates a stream for reading samples from a track.
 	 * @param mode the reader mode, see Kwave::ReaderMode
-	 * @param stripes list of stripes which contain data in the desired range
-	 * @param left start of the input (only useful in insert and
-	 *             overwrite mode)
-	 * @param right end of the input (only useful with overwrite mode)
+	 * @param stripes list of stripes which contains the desired range
 	 * @see InsertMode
 	 */
-	SampleReader(Kwave::ReaderMode mode, QList<Kwave::Stripe> stripes,
-	             sample_index_t left, sample_index_t right);
+	SampleReader(Kwave::ReaderMode mode, Kwave::Stripe::List stripes);
 
 	/** Destructor */
 	virtual ~SampleReader();

@@ -23,8 +23,9 @@
 #include <QtCore/QList>
 #include <QtCore/QString>
 
-#include "libkwave/MimeData.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
+#include "libkwave/String.h"
 #include "libkwave/undo/UndoAction.h"
 
 class QWidget;
@@ -85,6 +86,12 @@ namespace Kwave
 	/** parent widget for showing error messages */
 	QWidget *m_parent_widget;
 
+	/** storage for all deleted stripes */
+	QList<Kwave::Stripe::List> m_stripes;
+
+	/** storage for the affected meta data items */
+	Kwave::MetaDataList m_meta_data;
+
 	/** list of affected tracks */
 	QList<unsigned int> m_track_list;
 
@@ -93,12 +100,6 @@ namespace Kwave
 
 	/** number of deleted samples */
 	sample_index_t m_length;
-
-	/**
-	 * Kwave::MimeData container that holds the whole range of samples
-	 * and deleted labels
-	 */
-	Kwave::MimeData m_mime_data;
 
 	/** memory needed for undo */
 	unsigned int m_undo_size;

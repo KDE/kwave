@@ -31,8 +31,8 @@
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"
 #include "libkwave/Sample.h"
+#include "libkwave/Stripe.h"
 #include "libkwave/WindowFunction.h"
-
 
 //**********************************************************************
 namespace Kwave
@@ -106,28 +106,52 @@ namespace Kwave
 	 * Opens an output stream for a track, starting at a specified sample
 	 * position.
 	 * @param mode specifies where and how to insert
-	 * @param track index of the track. If the track does not exist, this
-	 *        function will fail and return 0
+	 * @param track index of the track
 	 *  @param left start of the input (only useful in insert and
 	 *             overwrite mode)
 	 * @param right end of the input (only useful with overwrite mode)
+	 * @return a Writer or null pointer if the track does not exist
 	 * @see InsertMode
 	 */
-	Kwave::Writer *openWriter(Kwave::InsertMode mode, unsigned int track,
-	    sample_index_t left = 0, sample_index_t right = 0);
+	Kwave::Writer *openWriter(Kwave::InsertMode mode,
+	                          unsigned int track,
+	                          sample_index_t left = 0,
+	                          sample_index_t right = 0);
 
 	/**
 	 * Opens a stream for reading samples. If the the last position
 	 * is omitted, the value UINT_MAX will be used.
 	 * @param mode a reader mode, see Kwave::ReaderMode
-	 * @param track index of the track. If the track does not exist, this
-	 *        function will fail and return 0
+	 * @param track index of the track
 	 * @param left first offset to be read (default = 0)
 	 * @param right last position to read (default = UINT_MAX)
+	 * @return a SampleReader or null if the track does not exist
 	 */
 	Kwave::SampleReader *openReader(Kwave::ReaderMode mode,
-	    unsigned int track, sample_index_t left = 0,
-	    sample_index_t right = SAMPLE_INDEX_MAX);
+	                          unsigned int track,
+	                          sample_index_t left = 0,
+	                          sample_index_t right = SAMPLE_INDEX_MAX);
+
+	/**
+	 * Get a list of stripes that matches a given range of samples
+	 * @param track index of the track
+	 * @param left  offset of the first sample
+	 * @param right offset of the last sample
+	 * @return a list of stripes that cover the given range
+	 *         between left and right
+	 */
+	Kwave::Stripe::List stripes(unsigned int track,
+	                            sample_index_t left = 0,
+	                            sample_index_t right = SAMPLE_INDEX_MAX);
+
+	/**
+	 * Merge a list of stripes into the signal.
+	 * @param stripes list of stripes
+	 * @param track index of the track
+	 * @return true if succeeded, false if failed
+	 */
+	bool mergeStripes(const Kwave::Stripe::List &stripes,
+	                  unsigned int track);
 
 	/**
 	 * Returns the number of tracks.
@@ -140,7 +164,8 @@ namespace Kwave
 	 * @param offset index of the first sample
 	 * @param length number of samples
 	 */
-	void deleteRange(unsigned int track, sample_index_t offset,
+	void deleteRange(unsigned int track,
+	                 sample_index_t offset,
 	                 sample_index_t length);
 
 	/**
@@ -149,7 +174,8 @@ namespace Kwave
 	 * @param offset index of the first sample
 	 * @param length number of samples
 	 */
-	void insertSpace(unsigned int track, sample_index_t offset,
+	void insertSpace(unsigned int track,
+	                 sample_index_t offset,
 	                 sample_index_t length);
 
 	/**

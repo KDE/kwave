@@ -177,6 +177,46 @@ namespace Kwave
 	/** assignment operator */
 	Stripe &operator = (const Stripe &other);
 
+	/**
+	 * Container for a list of stripes that covers a range of samples.
+	 * @note the first/last list entry may contain some samples
+	 *       before/after the selected range
+	 */
+	class List: public QList<Kwave::Stripe>
+	{
+	public:
+
+	    /** Default constructor */
+	    List()
+		:QList<Kwave::Stripe>(), m_left(0), m_right(0)
+	    {
+	    }
+
+	    /** Constructor */
+	    List(sample_index_t left, sample_index_t right)
+		:QList<Kwave::Stripe>(), m_left(left), m_right(right)
+	    {
+	    }
+
+	    /** Destructor */
+	    virtual ~List()
+	    {
+	    }
+
+	    /** returns the index of the first sample */
+	    inline sample_index_t left() const { return m_left; }
+
+	    /** returns the index of the last sample */
+	    inline sample_index_t right() const { return m_right; }
+
+	private:
+	    /** index of the first sample */
+	    sample_index_t m_left;
+
+	    /** index of the last sample */
+	    sample_index_t m_right;
+	};
+
     protected:
 
 	/**

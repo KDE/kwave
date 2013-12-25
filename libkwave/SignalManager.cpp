@@ -1151,6 +1151,46 @@ void Kwave::SignalManager::selectTrack(unsigned int track, bool select)
 }
 
 //***************************************************************************
+QList<Kwave::Stripe::List> Kwave::SignalManager::stripes(
+    const QList<unsigned int> &track_list,
+    sample_index_t left, sample_index_t right)
+{
+    QList<Kwave::Stripe::List> stripes;
+
+    foreach (unsigned int track, track_list) {
+	Kwave::Stripe::List s = m_signal.stripes(track, left, right);
+	if (s.isEmpty()) {
+	    stripes.clear(); // something went wrong -> abort
+	    break;
+	}
+	stripes.append(s);
+    }
+
+    return stripes;
+}
+
+//***************************************************************************
+bool Kwave::SignalManager::mergeStripes(
+    const QList<Kwave::Stripe::List> &stripes,
+    const QList<unsigned int> &track_list)
+{
+    Q_ASSERT(stripes.count() == track_list.count());
+    if (stripes.count() != track_list.count())
+	return false;
+
+    QListIterator<Kwave::Stripe::List> it_s(stripes);
+    QListIterator<unsigned int>        it_t(track_list);
+    while (it_s.hasNext() && it_t.hasNext()) {
+	Kwave::Stripe::List s = it_s.next();
+	unsigned int        t = it_t.next();
+	if (!m_signal.mergeStripes(s, t))
+	    return false; // operation failed
+    }
+
+    return true;
+}
+
+//***************************************************************************
 Kwave::PlaybackController &Kwave::SignalManager::playbackController()
 {
     return m_playback_controller;

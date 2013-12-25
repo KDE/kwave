@@ -13,6 +13,7 @@
 #include <QtCore/QList>
 #include <QtCore/QStringList>
 
+#include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
@@ -56,12 +57,12 @@ void Kwave::DebugPlugin::load(QStringList &params)
     MENU_ENTRY("dc_100",            _(I18N_NOOP("Generate 100% DC Level")));
     MENU_ENTRY("min_max",           _(I18N_NOOP("MinMax Pattern")));
     MENU_ENTRY("sawtooth",          _(I18N_NOOP("Generate Sawtooth Pattern")));
-//     MENU_ENTRY("sawtooth",          _(I18N_NOOP("Verify Sawtooth Pattern")));
+    MENU_ENTRY("sawtooth_verify",   _(I18N_NOOP("Verify Sawtooth Pattern")));
 //     MENU_ENTRY("stripe_index",      _(I18N_NOOP("Stripe Index")));
 //     MENU_ENTRY("hull_curve",        _(I18N_NOOP("Hull Curve")));
 //     MENU_ENTRY("offset_in_stripe",  _(I18N_NOOP("Offset in Stripe")));
 //     MENU_ENTRY("stripe_borders",    _(I18N_NOOP("Show Stripe Borders")));
-//     MENU_ENTRY("labels_at_stripes", _(I18N_NOOP("Labels at Stripe borders")));
+    MENU_ENTRY("labels_at_stripes", _(I18N_NOOP("Labels at Stripe borders")));
 
     emitCommand(_("menu (dump_metadata(), ") +
                 _(I18N_NOOP("&Help")) + _("/") +
@@ -73,6 +74,7 @@ void Kwave::DebugPlugin::run(QStringList params)
 {
     sample_index_t first = 0;
     sample_index_t last  = 0;
+    Kwave::SignalManager &sig = signalManager();
 
     if (params.count() != 1) return;
 
@@ -97,21 +99,81 @@ void Kwave::DebugPlugin::run(QStringList params)
 	    m_buffer[i] = (i & 1) ? SAMPLE_MIN : SAMPLE_MAX;
     }
 
+    if (command == _("labels_at_stripes")) {
+	QList<Kwave::Stripe::List> all_stripes = sig.stripes(sig.allTracks());
+	if (all_stripes.isEmpty()) return;
+
+	const Kwave::Stripe::List &stripes = all_stripes.first();
+	unsigned int index = 0;
+	foreach (const Kwave::Stripe &stripe, stripes) {
+	    QString text;
+	    text = text.sprintf("stripe #%d [%llu .. %llu]",
+		index++, stripe.start(), stripe.end());
+	    sig.addLabel(stripe.start(), text);
+	}
+	return;
+    } else if (command == _("dump_metadata")) {
+	sig.metaData().dump();
+	return;
+    } else if (command == _("sawtooth_verify")) {
+	Kwave::MultiTrackReader *readers = new Kwave::MultiTrackReader(
+	    Kwave::SinglePassForward, sig, sig.selectedTracks(), first, last);
+	Q_ASSERT(readers);
+	if (!readers) return;
+
+	sample_index_t pos = first;
+	bool ok = true;
+	while (ok && (first <= last) && (!shouldStop())) {
+	    unsigned int rest = last - first + 1;
+	    if (rest < m_buffer.size()) {
+		ok = m_buffer.resize(rest);
+		Q_ASSERT(ok);
+		if (!ok) break;
+	    }
+
+	    unsigned int count = readers->tracks();
+	    for (unsigned int r = 0; ok && (r < count); r++) {
+		*((*readers)[r]) >> m_buffer;
+		for (unsigned int ofs = 0; ofs < m_buffer.size(); ++ofs) {
+		    sample_t value_is = m_buffer[ofs];
+		    sample_t value_should = SAMPLE_MIN +
+			((pos + ofs) % (SAMPLE_MAX - SAMPLE_MIN));
+		    if (value_is != value_should) {
+			qWarning("ERROR: mismatch detected at offset %llu: "
+			         "value=%d, expected=%d", pos + ofs,
+			         value_is, value_should);
+			ok = false;
+			break;
+		    }
+		}
+		if (!ok) break;
+	    }
+
+	    pos   += m_buffer.size();
+	    first += m_buffer.size();
+	}
+	delete readers;
+	if (ok) {
+	    qDebug("test pattern successfully detected, no errors :-)");
+	}
+	return;
+    }
+
     Kwave::MultiTrackWriter *writers = 0;
 
     if (make_new_track) {
 	// append a new track
-	signalManager().appendTrack();
+	sig.appendTrack();
 
 	// and use only the new track as target
 	last = signalLength() - 1;
 	QList<unsigned int> track_list;
-	track_list.append(signalManager().tracks() - 1);
-	writers = new Kwave::MultiTrackWriter(signalManager(), track_list,
+	track_list.append(sig.tracks() - 1);
+	writers = new Kwave::MultiTrackWriter(sig, track_list,
 	                                      Kwave::Overwrite, 0, last);
     } else {
 	// use all currently selected tracks
-	writers = new Kwave::MultiTrackWriter(signalManager(), Kwave::Overwrite);
+	writers = new Kwave::MultiTrackWriter(sig, Kwave::Overwrite);
     }
 
     Q_ASSERT(writers);
@@ -130,7 +192,7 @@ void Kwave::DebugPlugin::run(QStringList params)
 	     Qt::BlockingQueuedConnection);
 
     // loop over the sample range
-    sample_t v = 0;
+    sample_index_t pos = first;
     while ((first <= last) && (!shouldStop())) {
 	unsigned int rest = last - first + 1;
 	if (rest < m_buffer.size()) {
@@ -141,12 +203,8 @@ void Kwave::DebugPlugin::run(QStringList params)
 
 	// sawtooth pattern from min to max
 	if (command == _("sawtooth")) {
-	    unsigned int shift = SAMPLE_BITS -
-		Kwave::FileInfo(signalManager().metaData()).bits();
-	    for (unsigned int i = 0; i < m_buffer.size(); i++) {
-		m_buffer[i] = v;
-		v += (1 << shift);
-		if (v > SAMPLE_MAX) v = 0;
+	    for (unsigned int i = 0; i < m_buffer.size(); i++, pos++) {
+		m_buffer[i] = SAMPLE_MIN + (pos % (SAMPLE_MAX - SAMPLE_MIN));
 	    }
 	} else if (command == _("dc_50")) {
 	    const sample_t s = float2sample(0.5);

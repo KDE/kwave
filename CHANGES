@@ -9,6 +9,9 @@
  * memory settings: only use up to 25% of process address space
  * internal cleanups: renamed openSampleReader -> openReader,
    fixed signature of Signal/SignalManager::openWriter
+ * speedup: use stripe list instead of raw data for saving undo data
+ * debug plugin: added functions "labels_at_stripes", "sawtooth_verify"
+   and "dump_metadata"
 
 0.8.11 [2013-11-24]
 

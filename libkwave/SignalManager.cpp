@@ -612,6 +612,12 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	undo();
     CASE_COMMAND("redo")
 	redo();
+    CASE_COMMAND("undo_all")
+	while (m_undo_enabled && !m_undo_buffer.isEmpty())
+	    undo();
+    CASE_COMMAND("redo_all")
+	while (!m_redo_buffer.isEmpty())
+	    redo();
 
     // --- copy & paste + clipboard ---
     CASE_COMMAND("copy")

@@ -61,8 +61,6 @@ o use LADSPA
 
 o JACK audio support
 
-o automatic defragmentation of stripes
-
 o maybe some effects from soundtouch
 
 o re-activate the "label" menu

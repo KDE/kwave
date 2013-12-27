@@ -195,6 +195,14 @@ Kwave::Writer *Kwave::Track::openWriter(Kwave::InsertMode mode,
 	new(std::nothrow) Kwave::TrackWriter(*this, mode, left, right);
     Q_ASSERT(stream);
 
+    if (stream) {
+	// at the point of time when the writer gets closed we can take
+	// care of fragmentation
+	connect(stream, SIGNAL(destroyed(QObject*)),
+	        this,   SLOT(defragment()),
+	        Qt::DirectConnection);
+    }
+
     return stream;
 }
 
@@ -255,6 +263,9 @@ bool Kwave::Track::mergeStripes(const Kwave::Stripe::List &stripes)
 	}
     }
 
+    // do some defragmentation, to combin the ends of the inserted stripes
+    defragment();
+
     const sample_index_t left  = stripes.left();
     const sample_index_t right = stripes.right();
     emit sigSamplesModified(this, left, right - left + 1);
@@ -293,6 +304,10 @@ void Kwave::Track::deleteRange(sample_index_t offset, sample_index_t length,
 	QWriteLocker lock(&m_lock);
 	unlockedDelete(offset, length, make_gap);
     }
+
+    // deletion without gap might have left some fragments
+    if (!make_gap)
+	defragment();
 
     emit sigSamplesDeleted(this, offset, length);
 }
@@ -673,6 +688,72 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
     }
 
     return true;
+}
+
+//***************************************************************************
+void Kwave::Track::defragment()
+{
+
+    if (!m_lock.tryLockForWrite()) {
+	// this could happen when there are two or more writers
+// 	qDebug("Track::defragment() - busy");
+	return;
+    }
+
+    if (m_stripes.count() > 1)
+    {
+// 	qDebug("Track::defragment(), state before:");
+// 	dump();
+
+	unsigned int   index  = 0;
+	Kwave::Stripe *before = 0;
+	Kwave::Stripe *stripe = 0;
+
+	// use a quick and simple algorithm:
+	// iterate over all stripes and analyze pairwise
+	QMutableListIterator<Kwave::Stripe> it(m_stripes);
+	while (it.hasNext()) {
+	    before = stripe;
+	    stripe = &(it.next());
+	    if (!before) continue; // skip the first entry
+	    index++;
+
+// 	    qDebug("Track::defragment(), checking #%u [%llu..%llu] (%u)",
+// 		    index, stripe->start(), stripe->end(), stripe->length());
+
+	    const sample_index_t before_start = before->start();
+	    const sample_index_t stripe_end   = stripe->end();
+	    const sample_index_t combined_len = stripe_end - before_start + 1;
+
+	    if (combined_len > STRIPE_LENGTH_MAXIMUM)
+		continue; // would be too large
+
+	    if ((before->length() < STRIPE_LENGTH_OPTIMAL) ||
+		(stripe->length() < STRIPE_LENGTH_OPTIMAL)) {
+// 		qDebug("Track::defragment(), combine #%u [%llu..%llu] & "
+// 		       "#%u [%llu..%llu] => [%llu..%llu] (%llu)",
+// 		       index - 1, before->start(), before->end(),
+// 		       index, stripe->start(), stripe->end(),
+// 		       before->start(), stripe->end(), combined_len);
+
+		// try to resize the stripe befor to contain the
+		// combined length
+		const unsigned int offset = stripe->start() - before_start;
+		if (!before->combine(offset, *stripe))
+		    continue; // not possible, maybe OOM ?
+
+		// remove the current stripe, to avoid an overlap
+		it.remove();
+		stripe = before;
+		index--;
+	    }
+	}
+
+// 	qDebug("Track::defragment(), state after:");
+// 	dump();
+    }
+
+    m_lock.unlock();
 }
 
 //***************************************************************************

@@ -141,6 +141,14 @@ namespace Kwave
 	               unsigned int srcoff, unsigned int srclen);
 
 	/**
+	 * Combine this stripe with another stripe
+	 * @param offset the offset within this stripe to put the other stripe
+	 * @param other reference to another stripe
+	 * @return true if succeeded or false if failed (e.g. out of memory)
+	 */
+	bool combine(unsigned int offset, Kwave::Stripe &other);
+
+	/**
 	 * Reads out samples from the stripe into a buffer
 	 *
 	 * @param buffer array for samples to be read (destination)
@@ -217,7 +225,7 @@ namespace Kwave
 	    sample_index_t m_right;
 	};
 
-    protected:
+    private:
 
 	/**
 	 * Resizes the internal storage.

@@ -75,6 +75,7 @@ namespace Kwave
 	 *             overwrite mode)
 	 * @param right end of the input (only useful with overwrite mode)
 	 * @see InsertMode
+	 * @note destruction of the writer triggers defragmentation
 	 */
 	Kwave::Writer *openWriter(Kwave::InsertMode mode,
 	                          sample_index_t left = 0,
@@ -105,6 +106,7 @@ namespace Kwave
 	 * Merge a list of stripes into the track.
 	 * @param stripes list of stripes
 	 * @return true if succeeded, false if failed
+	 * @note triggers a defragmentation
 	 */
 	bool mergeStripes(const Kwave::Stripe::List &stripes);
 
@@ -114,6 +116,7 @@ namespace Kwave
 	 * @param length number of samples
 	 * @param make_gap if true, make a gap into the list of stripes
 	 *                 instead of moving the stuff from right to left
+	 * @note triggers a defragmentation if make_gap is false
 	 */
 	void deleteRange(sample_index_t offset, sample_index_t length,
 	                 bool make_gap = false);
@@ -138,6 +141,9 @@ namespace Kwave
 
 	/** toggles the selection of the slot on/off */
 	void toggleSelection();
+
+	/** do some defragmentation of stripes */
+	void defragment();
 
     signals:
 

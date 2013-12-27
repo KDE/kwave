@@ -12,6 +12,7 @@
  * speedup: use stripe list instead of raw data for saving undo data
  * debug plugin: added functions "labels_at_stripes", "sawtooth_verify"
    and "dump_metadata"
+ * automatic defragmentation of stripes
 
 0.8.11 [2013-11-24]
 

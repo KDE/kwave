@@ -162,7 +162,7 @@ Kwave::Stripe::StripeStorage::StripeStorage(const StripeStorage &other)
 	    unsigned int ofs       = 0;
 
 	    while (remaining) {
-		unsigned int len =  qMin(remaining, 
+		unsigned int len =  qMin(remaining,
 		    static_cast<unsigned int>(sizeof(buf)));
 		unsigned int read = mem.readFrom(other.m_storage, ofs,
 		                                 &buf[0], len);
@@ -492,6 +492,40 @@ void Kwave::Stripe::deleteRange(unsigned int offset, unsigned int length)
 	// resize the buffer to it's new size
 	resizeStorage(size - length);
     }
+}
+
+//***************************************************************************
+bool Kwave::Stripe::combine(unsigned int offset, Kwave::Stripe &other)
+{
+    // detach the data and check for map count zero
+    if (!m_data) return false;
+    m_data.detach();
+    if (!m_data) return false; // OOM when detaching
+
+    {
+	QMutexLocker lock(&m_lock);
+	if (m_data->mapCount()) return false; // data is mapped
+
+	const sample_index_t old_len      = m_data->m_length;
+	const sample_index_t combined_len = offset + other.length();
+	if (old_len < combined_len) {
+	    // resize the storage if necessary
+	    if (resizeStorage(combined_len) != combined_len)
+		return false; // resizing failed, maybe OOM ?
+	}
+
+	// copy the data from the other stripe
+	MappedArray _src(other);
+	MappedArray _dst(*this);
+	sample_t    *src = _src.data();
+	sample_t    *dst = _dst.data();
+	unsigned int len = _src.size() * sizeof(sample_t);
+	if (!src || !dst) return false; // mmap of src or dst failed
+
+	MEMCPY(dst + offset, src, len);
+    }
+
+    return true;
 }
 
 //***************************************************************************

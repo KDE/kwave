@@ -345,6 +345,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Functions.h				GPL2+
 	libkwave/GenreType.cpp				GPL2+
 	libkwave/GenreType.h				GPL2+
+	libkwave/GlobalLock.cpp				GPL2+
+	libkwave/GlobalLock.h				GPL2+
 	libkwave/InsertMode.h				GPL2+
 	libkwave/Interpolation.cpp			GPL2+
 	libkwave/Interpolation.h			GPL2+

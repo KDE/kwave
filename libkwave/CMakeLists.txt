@@ -42,6 +42,7 @@ SET(libkwave_LIB_SRCS
     FileProgress.cpp
     Functions.cpp
     GenreType.cpp
+    GlobalLock.cpp
     Interpolation.cpp
     Label.cpp
     LabelList.cpp

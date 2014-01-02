@@ -340,6 +340,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/FileProgress.h				GPL2+
 	libkwave/Filter.cpp				GPL2+
 	libkwave/Filter.h				GPL2+
+	libkwave/FixedPool.h				GPL2+
 	libkwave/Functions.cpp				GPL2+
 	libkwave/Functions.h				GPL2+
 	libkwave/GenreType.cpp				GPL2+

@@ -282,7 +282,6 @@ bool Kwave::PluginManager::canClose()
     return true;
 }
 
-
 //***************************************************************************
 bool Kwave::PluginManager::onePluginRunning()
 {

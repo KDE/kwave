@@ -345,13 +345,13 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 	p.fillRect(0, 0, width, height, Qt::black);
 
 	int last_marker = -1;
-	const sample_index_t visible = pixels2samples(width);
+	const sample_index_t last_visible = lastVisible();
 	foreach (const Kwave::Label &label,
 	         Kwave::LabelList(m_signal_manager->metaData()))
 	{
 	    sample_index_t pos = label.pos();
-	    if (pos < m_offset)           continue; // outside left
-	    if (pos > m_offset + visible) break;    // far outside right, done
+	    if (pos < m_offset)     continue; // outside left
+	    if (pos > last_visible) break;    // far outside right, done
 	    int x = samples2pixels(pos - m_offset);
 	    if (x >= width) break; // outside right, done
 

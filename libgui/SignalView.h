@@ -98,23 +98,34 @@ namespace Kwave
 	}
 
 	/** returns the index of the associated track (or -1) */
-	int track() const {
+	inline int track() const {
 	    return m_track_index;
 	}
 
 	/** returns the current start position */
-	sample_index_t offset() const {
+	inline sample_index_t offset() const {
 	    return m_offset;
 	}
 
 	/** returns the current zoom [pixels/sample] */
-	double zoom() const {
+	inline double zoom() const {
 	    return m_zoom;
 	}
 
 	/** returns the current vertical zoom factor */
-	double verticalZoom() const {
+	inline double verticalZoom() const {
 	    return m_vertical_zoom;
+	}
+
+	/** returns the index of the first visible sample */
+	inline sample_index_t firstVisible() const {
+	    return m_offset;
+	}
+
+	/** returns the index of the last visible sample */
+	inline sample_index_t lastVisible() const {
+	    const sample_index_t w = pixels2samples(width());
+	    return m_offset + (w) ? (w - 1) : 0;
 	}
 
 	/**

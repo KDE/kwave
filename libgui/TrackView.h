@@ -80,7 +80,7 @@ namespace Kwave
 	virtual void resizeEvent(QResizeEvent *event);
 
 	/** slot for repainting the widget or portions of it */
-	void paintEvent(QPaintEvent *);
+	virtual void paintEvent(QPaintEvent *);
 
 	/**
 	 * Should be overwritten by subclasses that can display the currently

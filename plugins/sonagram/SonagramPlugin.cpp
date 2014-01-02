@@ -26,12 +26,16 @@
 #include <complex>
 #include <fftw3.h>
 
-#include <QtGui/QColor>
+#include <QtCore/QFutureSynchronizer>
+#include <QtCore/QtConcurrentRun>
 #include <QtCore/QString>
+#include <QtGui/QApplication>
+#include <QtGui/QColor>
 #include <QtGui/QImage>
 
-#include "libkwave/Plugin.h"
+#include "libkwave/GlobalLock.h"
 #include "libkwave/MultiTrackReader.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -47,42 +51,21 @@
 KWAVE_PLUGIN(Kwave::SonagramPlugin, "sonagram", "2.3",
              I18N_NOOP("Sonagram"), "Thomas Eschenbacher");
 
-#define MAX_QUEUE_USAGE 256
-
-/**
- * simple private container class for stripe number and data (TSS-safe)
- */
-namespace Kwave {
-    class StripeInfoPrivate
-    {
-    public:
-	StripeInfoPrivate(unsigned int nr, const QByteArray &data)
-	    :m_nr(nr), m_data(data)
-	    {};
-	StripeInfoPrivate(const StripeInfoPrivate &copy)
-	    :m_nr(copy.nr()), m_data(copy.data())
-	    {};
-	virtual ~StripeInfoPrivate() {} ;
-	unsigned int nr() const { return m_nr; };
-	const QByteArray &data() const { return m_data; };
-    private:
-	unsigned int m_nr;
-	QByteArray m_data;
-    };
-}
-
+//***************************************************************************
 //***************************************************************************
 Kwave::SonagramPlugin::SonagramPlugin(Kwave::PluginManager &plugin_manager)
     :Kwave::Plugin(plugin_manager), m_sonagram_window(0), m_selected_channels(),
-     m_first_sample(0), m_last_sample(0), m_stripes(0), m_fft_points(0),
+     m_first_sample(0), m_last_sample(0), m_slices(0), m_fft_points(0),
      m_window_type(Kwave::WINDOW_FUNC_NONE), m_color(true),
      m_track_changes(true), m_follow_selection(false), m_image(),
-     m_overview_cache(0)
+     m_overview_cache(0), m_slice_pool(), m_pending_jobs()
 {
-    connect(this, SIGNAL(stripeAvailable(Kwave::StripeInfoPrivate *)),
-            this, SLOT(insertStripe(Kwave::StripeInfoPrivate *)),
-            Qt::BlockingQueuedConnection);
     i18n("Sonagram");
+
+    // connect the output
+    connect(this, SIGNAL(sliceAvailable(Kwave::SonagramPlugin::Slice *)),
+            this, SLOT(insertSlice(Kwave::SonagramPlugin::Slice *)),
+            Qt::QueuedConnection);
 }
 
 //***************************************************************************
@@ -131,7 +114,7 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
     param = params[0];
     m_fft_points = param.toUInt(&ok);
     if (!ok) return -EINVAL;
-    if (m_fft_points > 32767) m_fft_points = 32767;
+    if (m_fft_points > MAX_FFT_POINTS) m_fft_points = MAX_FFT_POINTS;
 
     param = params[1];
     m_window_type = Kwave::WindowFunction::findFromName(param);
@@ -173,14 +156,14 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     if (!input_length || m_selected_channels.isEmpty())
 	return -EINVAL;
 
-    // calculate the number of stripes (width of image)
-    m_stripes = static_cast<unsigned int>
+    // calculate the number of slices (width of image)
+    m_slices = static_cast<unsigned int>
 	(ceil(static_cast<double>(input_length) /
 	      static_cast<double>(m_fft_points)));
-    if (m_stripes > 32767) m_stripes = 32767;
+    if (m_slices > 32767) m_slices = 32767;
 
     // create a new empty image
-    createNewImage(m_stripes, m_fft_points/2);
+    createNewImage(m_slices, m_fft_points/2);
 
     // set the overview
     Kwave::SignalManager &sig_mgr = manager().signalManager();
@@ -228,7 +211,7 @@ int Kwave::SonagramPlugin::start(QStringList &params)
 //***************************************************************************
 void Kwave::SonagramPlugin::run(QStringList params)
 {
-//    qDebug("SonagramPlugin::run()");
+    qDebug("SonagramPlugin::run()");
 
     Q_UNUSED(params);
 
@@ -238,142 +221,152 @@ void Kwave::SonagramPlugin::run(QStringList params)
     Kwave::MultiTrackReader source(Kwave::SinglePassForward,
 	signalManager(), selectedTracks(),
 	m_first_sample, m_last_sample);
-//    qDebug("SonagramPlugin::run(), first=%u, last=%u",m_first_sample,m_last_sample);
+//     qDebug("SonagramPlugin::run(), [%llu..%llu]",m_first_sample,m_last_sample);
 
-    QByteArray stripe_data(m_fft_points / 2, 0x00);
-    unsigned int stripe_nr;
-    for (stripe_nr = 0; stripe_nr < m_stripes; stripe_nr++) {
-// 	qDebug("SonagramPlugin::run(): calculating stripe %d of %d",
-// 	    stripe_nr,m_stripes);
+    const unsigned int tracks = source.tracks();
+    Q_ASSERT(tracks);
+    if (!tracks) return;
 
-	// calculate one stripe
-	calculateStripe(source, m_fft_points, stripe_data);
+    QFutureSynchronizer<void> synchronizer;
+    for (unsigned int slice_nr = 0; slice_nr < m_slices; slice_nr++) {
+// 	qDebug("SonagramPlugin::run(): calculating slice %d of %d",
+// 	       slice_nr, m_slices);
 
-	Kwave::StripeInfoPrivate *stripe_info = new
-	    Kwave::StripeInfoPrivate(stripe_nr, stripe_data);
-	if (!stripe_info) break; // out of memory
+	// get a new slice from the pool and initialize it
+	Kwave::SonagramPlugin::Slice *slice = m_slice_pool.allocate();
+	Q_ASSERT(slice);
 
-	// emit the stripe data to be synchronously inserted into
-	// the current image
-	emit stripeAvailable(stripe_info);
-	delete stripe_info;
+	slice->m_index = slice_nr;
+	memset(slice->m_input,  0x00, sizeof(slice->m_input));
+	memset(slice->m_output, 0x00, sizeof(slice->m_output));
+	memset(slice->m_result, 0x00, sizeof(slice->m_result));
+
+	// we have a new slice, now fill it's input buffer
+	double *in = slice->m_input;
+	for (unsigned int j = 0; j < m_fft_points; j++) {
+	    double value = 0.0;
+	    if (!(source.eof())) {
+		for (unsigned int t = 0; t < tracks; t++) {
+		    sample_t s = 0;
+		    Kwave::SampleReader *reader = source[t];
+		    Q_ASSERT(reader);
+		    if (reader) *reader >> s;
+		    value += sample2double(s);
+		}
+		value /= tracks;
+	    }
+	    in[j] = value;
+	}
+
+	// a background job is runing soon
+	// (for counterpart, see insertSlice(...) below [main thread])
+	m_pending_jobs.lockForRead();
+
+	// run the FFT in a background thread
+	synchronizer.addFuture(QtConcurrent::run(
+	    this, &Kwave::SonagramPlugin::calculateSlice, slice)
+	);
 
 	if (shouldStop()) break;
     }
 
-//    qDebug("SonagramPlugin::run(): done.");
+    qDebug("SonagramPlugin::run(): waiting for background jobs...");
+
+    // wait for all worker threads
+    synchronizer.waitForFinished();
+
+    // wait for queued signals
+    m_pending_jobs.lockForWrite();
+    m_pending_jobs.unlock();
+
+    qDebug("SonagramPlugin::run(): done.");
 }
 
 //***************************************************************************
-void Kwave::SonagramPlugin::insertStripe(Kwave::StripeInfoPrivate *stripe_info)
+void Kwave::SonagramPlugin::calculateSlice(Kwave::SonagramPlugin::Slice *slice)
 {
-    Q_ASSERT(stripe_info);
-    if (!stripe_info) return;
-
-    unsigned int stripe_nr  = stripe_info->nr();
-    const QByteArray stripe = stripe_info->data();
-
-    // forward the stripe to the window to display it
-    if (m_sonagram_window) m_sonagram_window->insertStripe(
-	stripe_nr, stripe);
-}
-
-//***************************************************************************
-void Kwave::SonagramPlugin::calculateStripe(Kwave::MultiTrackReader &source,
-	const int points, QByteArray &output)
-{
-    double *in  = 0;
-    fftw_complex *out = 0;
     fftw_plan p;
 
-    // first initialize the output to zeroes in case of errors
-    output.fill(0);
+//     qDebug("SonagramPlugin::calculateSlice(%u)...", slice->m_index);
 
-    Kwave::WindowFunction func(m_window_type);
-    QVector<double> windowfunction = func.points(points);
-    Q_ASSERT(windowfunction.count() == points);
-    if (windowfunction.count() != points) return;
-
-    // initialize the tables for fft
-    in = static_cast<double *>(fftw_malloc(points * sizeof(double)));
-    Q_ASSERT(in);
-    if (!in) return;
-
-    out = static_cast<fftw_complex *>(fftw_malloc(
-	((points / 2) + 1) * sizeof(fftw_complex)));
-    Q_ASSERT(out);
-    if (!out){
-	fftw_free(in);
-	return;
-    }
+// TODO: window function!
+//     Kwave::WindowFunction func(m_window_type);
+//     QVector<double> windowfunction = func.points(m_fft_points);
+//     Q_ASSERT(windowfunction.count() == static_cast<int>(m_fft_points));
+//     if (windowfunction.count() != static_cast<int>(m_fft_points)) return;
 
     // prepare for a 1-dimensional real-to-complex DFT
-    p = fftw_plan_dft_r2c_1d(points, in, out, FFTW_ESTIMATE);
-
-    // copy normed signal data into the real array
-    for (int j = 0; j < points; j++) {
-	double value = 0.0;
-	if (!(source.eof())) {
-	    unsigned int count = source.tracks();
-	    Q_ASSERT(count);
-	    if (!count) return;
-
-	    unsigned int t;
-	    for (t=0; t < count; t++) {
-		sample_t s = 0;
-		Kwave::SampleReader *reader = source[t];
-		Q_ASSERT(reader);
-		if (reader) *reader >> s;
-		value += static_cast<double>(s);
-	    }
-	    value /= static_cast<double>(1 << (SAMPLE_BITS-1)) *
-		static_cast<double>(count);
-	}
-	in[j] = value;
+    {
+	Kwave::GlobalLock _lock; // libfftw is not threadsafe!
+	p = fftw_plan_dft_r2c_1d(
+	    m_fft_points,
+	    &(slice->m_input[0]),
+	    &(slice->m_output[0]),
+	    FFTW_ESTIMATE
+	);
     }
+    Q_ASSERT(p);
+    if (!p) return;
 
-    // calculate the fft
+    // calculate the fft (according to the specs, this is the one and only
+    // libfft function that is threadsafe!)
     fftw_execute(p);
 
-//    double max = 0.0;
-//    for (int k = 0; k < points/2; k++) {
-//	rea = data[k].real;
-//	ima = data[k].imag;
-//
-//	//get amplitude
-//	rea = sqrt(rea * rea + ima * ima);
-//
-//	//and set maximum for display..
-//	if (rea > max) max = rea;
-//    }
-//
-//     double max = m_fft_points/2;
-
     // norm all values to [0...254] and use them as pixel value
-    for (int j = 0; j < points / 2; j++) {
-	double rea = out[j][0];
-	double ima = out[j][1];
+    for (unsigned int j = 0; j < m_fft_points / 2; j++) {
+	double rea = slice->m_output[j][0];
+	double ima = slice->m_output[j][1];
 	double a = sqrt((rea * rea) + (ima * ima)) /
-	    static_cast<double>(points);
+	    static_cast<double>(m_fft_points);
 
 	// get amplitude and scale to 1
 	a = 1 - ((1 - a) * (1 - a));
 
-	output[j] = 0xFE - static_cast<int>(a * 0xFE );
+	slice->m_result[j] = 0xFE - static_cast<int>(a * 0xFE);
     }
 
     // free the the allocated FFT resources
-    fftw_destroy_plan(p);
-    fftw_free(in);
-    fftw_free(out);
+    {
+	Kwave::GlobalLock _lock; // libfftw is not threadsafe!
+	fftw_destroy_plan(p);
+    }
+
+    // emit the slice data to be synchronously inserted into
+    // the current image in the context of the main thread
+    // (Qt does the queuing for us)
+    emit sliceAvailable(slice);
+
+//     qDebug("SonagramPlugin::calculateSlice(%u) done.", slice->m_index);
+}
+
+//***************************************************************************
+void Kwave::SonagramPlugin::insertSlice(Kwave::SonagramPlugin::Slice *slice)
+{
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+    Q_ASSERT(slice);
+    if (!slice) return;
+
+    QByteArray result;
+    result.setRawData(&(slice->m_result[0]), m_fft_points / 2);
+    unsigned int nr = slice->m_index;
+
+    // forward the slice to the window to display it
+    if (m_sonagram_window) m_sonagram_window->insertSlice(nr, result);
+
+    // return the slice into the pool
+    m_slice_pool.release(slice);
+
+    // job is done
+    m_pending_jobs.unlock();
 }
 
 //***************************************************************************
 void Kwave::SonagramPlugin::createNewImage(const unsigned int width,
-	const unsigned int height)
+                                           const unsigned int height)
 {
-//    qDebug("SonagramPlugin::createNewImage()");
-
     // delete the previous image
     m_image = QImage();
     if (m_sonagram_window) m_sonagram_window->setImage(m_image);
@@ -388,8 +381,6 @@ void Kwave::SonagramPlugin::createNewImage(const unsigned int width,
     Q_ASSERT(height <= 32767);
     if ((width >= 32767) || (height >= 32767)) return;
 
-//     qDebug("SonagramPlugin::createNewImage(): settings ok, creating image");
-
     // create the new image object
     m_image = QImage(width, height, QImage::Format_Indexed8);
     Q_ASSERT(!m_image.isNull());
@@ -397,14 +388,12 @@ void Kwave::SonagramPlugin::createNewImage(const unsigned int width,
 
     // initialize the image's palette with transparecy
     m_image.setNumColors(256);
-    for (int i=0; i < 256; i++) {
+    for (int i = 0; i < 256; i++) {
 	m_image.setColor(i, 0x00000000);
     }
 
     // fill the image with "empty"
     m_image.fill(0xFF);
-
-//     qDebug("SonagramPlugin::createNewImage(): done.");
 }
 
 //***************************************************************************

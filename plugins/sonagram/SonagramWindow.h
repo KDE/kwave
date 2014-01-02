@@ -67,14 +67,14 @@ namespace Kwave
 	void setOverView(const QImage &image);
 
 	/**
-	 * Inserts a stripe into the current image. If the stripe contains more
+	 * Inserts a slice into the current image. If the slice contains more
 	 * data than fits into the image, the remaining rest will be ignored,
 	 * if less data is present, it will be filled with 0xFF. The previous
-	 * content of the image stripe will be cleared or updated in all cases.
-	 * @param stripe_nr index of the stripe (horizontal position) [0..n-1]
-	 * @param stripe array with the byte data
+	 * content of the image slice will be cleared or updated in all cases.
+	 * @param slice_nr index of the slice (horizontal position) [0..n-1]
+	 * @param slice array with the byte data
 	 */
-	void insertStripe(const unsigned int stripe_nr, const QByteArray &stripe);
+	void insertSlice(const unsigned int slice_nr, const QByteArray &slice);
 
     public slots:
 

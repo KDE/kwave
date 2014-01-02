@@ -260,12 +260,12 @@ void Kwave::SonagramWindow::setImage(QImage image)
     m_image = image;
 
     // re-initialize histogram over all pixels
-    for (int i=0; i < 256; i++)
+    for (unsigned int i = 0; i < 256; i++)
 	m_histogram[i] = 0;
     if (!m_image.isNull()) {
 	for (int x = 0; x < m_image.width(); x++) {
 	    for (int y = 0; y < m_image.height(); y++) {
-		unsigned char p = m_image.pixelIndex(x, y);
+		quint8 p = m_image.pixelIndex(x, y);
 		m_histogram[p]++;
 	    }
 	}
@@ -281,38 +281,37 @@ void Kwave::SonagramWindow::setOverView(const QImage &overview)
 }
 
 //****************************************************************************
-void Kwave::SonagramWindow::insertStripe(const unsigned int stripe_nr,
-	const QByteArray &stripe)
+void Kwave::SonagramWindow::insertSlice(const unsigned int slice_nr,
+                                        const QByteArray &slice)
 {
     Q_ASSERT(m_view);
-    Q_ASSERT(!m_image.isNull());
     if (!m_view) return;
     if (m_image.isNull()) return;
 
     unsigned int image_width  = m_image.width();
     unsigned int image_height = m_image.height();
 
-    // stripe is out of range ?
-    if (stripe_nr >= image_width) return;
+    // slice is out of range ?
+    if (slice_nr >= image_width) return;
 
     unsigned int y;
-    unsigned int size = stripe.size();
+    unsigned int size = slice.size();
     for (y = 0; y < size; y++) {
-	unsigned char p;
+	quint8 p;
 
 	// remove the current pixel from the histogram
-	p = m_image.pixelIndex(stripe_nr, y);
+	p = m_image.pixelIndex(slice_nr, y);
 	m_histogram[p]--;
 
 	// set the new pixel value
-	p = static_cast<int>(stripe[(size - 1) - y]);
-	m_image.setPixel(stripe_nr, y, p);
+	p = slice[(size - 1) - y];
+	m_image.setPixel(slice_nr, y, p);
 
 	// insert the new pixel into the histogram
 	m_histogram[p]++;
     }
     while (y < image_height) { // fill the rest with blank
-	m_image.setPixel(stripe_nr, y++, 0xFE);
+	m_image.setPixel(slice_nr, y++, 0xFE);
 	m_histogram[0xFE]++;
     }
 

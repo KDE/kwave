@@ -39,8 +39,13 @@ KWAVE_PLUGIN(Kwave::AmplifyFreePlugin, "amplifyfree", "2.3",
 
 //***************************************************************************
 Kwave::AmplifyFreePlugin::AmplifyFreePlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_action_name(), m_params(), m_curve()
+    :Kwave::Plugin(plugin_manager), m_action_name(), m_params(), m_curve(),
+     m_cmd_map()
 {
+    m_cmd_map[_("fade in")]      = i18n("Fade In");
+    m_cmd_map[_("fade out")]     = i18n("Fade Out");
+    m_cmd_map[_("fade intro")]   = i18n("Fade Intro");
+    m_cmd_map[_("fade leadout")] = i18n("Fade Leadout");
 }
 
 //***************************************************************************
@@ -59,7 +64,8 @@ int Kwave::AmplifyFreePlugin::interpreteParameters(QStringList &params)
     if (params.count() & 1) return -1; // no. of params must be even
 
     // first list entry == name of operation
-    if (params[0].length()) m_action_name = params[0];
+    m_action_name = (params[0].length() && m_cmd_map.contains(params[0])) ?
+	 m_cmd_map[params[0]] : i18n("Amplify Free");
 
     // convert string list into command again...
     QString cmd = _("curve(");
@@ -118,8 +124,7 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
 //***************************************************************************
 QString Kwave::AmplifyFreePlugin::progressText()
 {
-    return m_action_name.length() ?
-	i18n(__(m_action_name)) : i18n("Amplify Free");
+    return m_action_name;
 }
 
 //***************************************************************************
@@ -137,7 +142,7 @@ void Kwave::AmplifyFreePlugin::run(QStringList params)
 
     interpreteParameters(params);
 
-    Kwave::UndoTransactionGuard undo_guard(*this, i18n(__(m_action_name)));
+    Kwave::UndoTransactionGuard undo_guard(*this, m_action_name);
 
     unsigned int input_length = selection(&track_list, &first, &last, true);
     unsigned int tracks = track_list.count();

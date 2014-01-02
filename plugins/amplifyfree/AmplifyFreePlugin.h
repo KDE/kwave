@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -86,6 +87,8 @@ namespace Kwave
 	/** curve used for interpolation */
 	Kwave::Curve m_curve;
 
+	/** map for command name <-> description */
+	QMap<QString, QString> m_cmd_map;
     };
 }
 

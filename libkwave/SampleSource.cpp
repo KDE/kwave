@@ -17,14 +17,7 @@
 
 #include "config.h"
 
-#include <new>
-
-#include <QtCore/QThread>
-#include <threadweaver/Job.h>
-#include <threadweaver/ThreadWeaver.h>
-
 #include "libkwave/SampleSource.h"
-#include "libkwave/Utils.h"
 
 //***************************************************************************
 Kwave::SampleSource::SampleSource(QObject *parent)
@@ -35,74 +28,6 @@ Kwave::SampleSource::SampleSource(QObject *parent)
 //***************************************************************************
 Kwave::SampleSource::~SampleSource()
 {
-}
-
-//***************************************************************************
-//***************************************************************************
-namespace Kwave {
-    class SourceJob: public ThreadWeaver::Job
-    {
-    public:
-	/** Constructor */
-	SourceJob(Kwave::SampleSource *source);
-
-	/** Destructor */
-	virtual ~SourceJob();
-
-	/**
-	 * overloaded 'run' function that runns goOn() in the context
-	 * of the worker thread.
-	 */
-	virtual void run();
-
-    private:
-
-	/** reference to the Kwave::SampleSource */
-	Kwave::SampleSource *m_source;
-
-    };
-}
-
-//***************************************************************************
-Kwave::SourceJob::SourceJob(Kwave::SampleSource *source)
-    :ThreadWeaver::Job(), m_source(source)
-{
-}
-
-//***************************************************************************
-Kwave::SourceJob::~SourceJob()
-{
-    int i = 0;
-    while (!isFinished()) {
-	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	Kwave::yield();
-    }
-    Q_ASSERT(isFinished());
-}
-
-//***************************************************************************
-void Kwave::SourceJob::run()
-{
-    if (!m_source) return;
-    m_source->goOn();
-}
-
-//***************************************************************************
-ThreadWeaver::Job *Kwave::SampleSource::enqueue(ThreadWeaver::Weaver *weaver)
-{
-    Kwave::SourceJob *job = 0;
-
-    if (weaver) job = new(std::nothrow) Kwave::SourceJob(this);
-
-    if (job && weaver) {
-	// async operation in a separate thread
-	weaver->enqueue(job);
-    } else {
-	// fallback -> synchronous/sequential execution
-	goOn();
-    }
-
-    return job;
 }
 
 //***************************************************************************

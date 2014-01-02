@@ -19,9 +19,6 @@
 #include <errno.h>
 
 #include <klocale.h> // for the i18n macro
-#include <threadweaver/Job.h>
-#include <threadweaver/ThreadWeaver.h>
-#include <threadweaver/DebuggingAids.h>
 
 #include <QtCore/QList>
 #include <QtCore/QListIterator>

@@ -23,8 +23,6 @@
 #include <QtCore/QObject>
 
 #include <kdemacros.h>
-#include <threadweaver/Job.h>
-#include <threadweaver/ThreadWeaver.h>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/modules/StreamObject.h"
@@ -52,14 +50,6 @@ namespace Kwave
 	 * "output(SampleArray data)"
 	 */
 	virtual void goOn() = 0;
-
-	/**
-	 * enqueues the call to the goOn() function into a KDE
-	 * thread weaver.
-	 * @param weaver a thread weaver into which we enqueue
-	 * @return a job that processes the work
-	 */
-	virtual ThreadWeaver::Job *enqueue(ThreadWeaver::Weaver *weaver);
 
 	/**
 	 * Returns true if the end of the source has been reached,

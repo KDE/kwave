@@ -20,10 +20,9 @@
 #include <new>
 
 #include <klocale.h> // for the i18n macro
-#include <threadweaver/Job.h>
-#include <threadweaver/ThreadWeaver.h>
-#include <threadweaver/DebuggingAids.h>
 
+#include <QtCore/QFutureSynchronizer>
+#include <QtCore/QtConcurrentRun>
 #include <QtCore/QList>
 #include <QtCore/QSharedPointer>
 #include <QtCore/QStringList>
@@ -46,166 +45,6 @@ KWAVE_PLUGIN(Kwave::ReversePlugin, "reverse", "2.3",
              I18N_NOOP("Reverse"), "Thomas Eschenbacher");
 
 //***************************************************************************
-namespace Kwave
-{
-    class ReverseJob: public ThreadWeaver::Job
-    {
-    public:
-
-	/**
-	 * Constructor
-	 */
-	ReverseJob(
-	    Kwave::SignalManager &manager, unsigned int track,
-	    sample_index_t first, sample_index_t last, unsigned int block_size,
-	    Kwave::SampleReader *src_a, Kwave::SampleReader *src_b
-	);
-
-	/** Destructor */
-	virtual ~ReverseJob();
-
-	/**
-	 * overloaded 'run' function that runns goOn() in the context
-	 * of the worker thread.
-	 */
-	virtual void run();
-
-    private:
-
-	/** reverses the content of an array of samples */
-	void reverse(Kwave::SampleArray &buffer);
-
-    private:
-
-	/** signal manager, for opening a sample writer */
-	Kwave::SignalManager &m_manager;
-
-	/** index of the track */
-	unsigned int m_track;
-
-	/** first sample (from start) */
-	sample_index_t m_first;
-
-	/** last sample (from end) */
-	sample_index_t m_last;
-
-	/** block size in samples */
-	unsigned int m_block_size;
-
-	/** reader for start of signal */
-	Kwave::SampleReader *m_src_a;
-
-	/** reader for end of signal */
-	Kwave::SampleReader *m_src_b;
-
-    };
-}
-
-//***************************************************************************
-Kwave::ReverseJob::ReverseJob(
-    Kwave::SignalManager &manager, unsigned int track,
-    sample_index_t first, sample_index_t last, unsigned int block_size,
-    Kwave::SampleReader *src_a, Kwave::SampleReader *src_b)
-    :ThreadWeaver::Job(),
-     m_manager(manager), m_track(track),
-     m_first(first), m_last(last), m_block_size(block_size),
-     m_src_a(src_a), m_src_b(src_b)
-{
-}
-
-//***************************************************************************
-Kwave::ReverseJob::~ReverseJob()
-{
-    int i = 0;
-    while (!isFinished()) {
-	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	Kwave::yield();
-    }
-    Q_ASSERT(isFinished());
-}
-
-//***************************************************************************
-void Kwave::ReverseJob::reverse(Kwave::SampleArray &buffer)
-{
-    unsigned int count = buffer.size() >> 1;
-    if (count <= 1) return;
-
-    sample_t *a = buffer.data();
-    sample_t *b = buffer.data() + (buffer.size() - 1);
-    while (count--) {
-	register sample_t h = *a;
-	*a++ = *b;
-	*b-- = h;
-    }
-}
-
-//***************************************************************************
-void Kwave::ReverseJob::run()
-{
-    bool ok = true;
-    sample_index_t start_a = m_first;
-    sample_index_t start_b = (m_last >= m_block_size) ?
-	(m_last - m_block_size) : 0;
-
-    if (start_a + m_block_size < start_b) {
-	// read from start
-	Kwave::SampleArray buffer_a;
-	ok &= buffer_a.resize(m_block_size);
-	Q_ASSERT(ok);
-	*m_src_a >> buffer_a;
-
-	// read from end
-	Kwave::SampleArray buffer_b;
-	ok &= buffer_b.resize(m_block_size);
-	Q_ASSERT(ok);
-	m_src_b->seek(start_b);
-	*m_src_b >> buffer_b;
-
-	// swap the contents
-	reverse(buffer_a);
-	reverse(buffer_b);
-
-	// write back buffer from the end at the start
-	Kwave::Writer *dst_a = m_manager.openWriter(
-	    Kwave::Overwrite, m_track, 
-	    start_a, start_a + m_block_size - 1);
-	Q_ASSERT(dst_a);
-	if (!dst_a) return;
-	*dst_a << buffer_b;
-	dst_a->flush();
-	delete dst_a;
-
-	// write back buffer from the start at the end
-	Kwave::Writer *dst_b = m_manager.openWriter(
-	    Kwave::Overwrite, m_track,
-	    start_b, start_b + m_block_size - 1);
-	Q_ASSERT(dst_b);
-	if (!dst_b) return;
-	*dst_b << buffer_a << flush;
-	delete dst_b;
-    } else {
-	// single buffer with last block
-	Kwave::SampleArray buffer;
-	ok &= buffer.resize(m_last - m_first + 1);
-	Q_ASSERT(ok);
-
-	// read from start
-	*m_src_a >> buffer;
-
-	// swap content
-	reverse(buffer);
-
-	// write back
-	Kwave::Writer *dst = m_manager.openWriter(
-	    Kwave::Overwrite, m_track, m_first, m_last);
-	if (!dst) return;
-	(*dst) << buffer << flush;
-	delete dst;
-    }
-
-}
-
-//***************************************************************************
 //***************************************************************************
 Kwave::ReversePlugin::ReversePlugin(Kwave::PluginManager &plugin_manager)
     :Kwave::Plugin(plugin_manager)
@@ -220,6 +59,8 @@ Kwave::ReversePlugin::~ReversePlugin()
 //***************************************************************************
 void Kwave::ReversePlugin::run(QStringList params)
 {
+    Kwave::SignalManager &signal_manager = signalManager();
+
     QSharedPointer<Kwave::UndoTransactionGuard> undo_guard;
 
     // get the current selection and the list of affected tracks
@@ -242,7 +83,7 @@ void Kwave::ReversePlugin::run(QStringList params)
 	    new(std::nothrow) Kwave::UndoReverseAction(manager());
 	if (!undo_guard->registerUndoAction(undo))
 	    return;
-	undo->store(signalManager());
+	undo->store(signal_manager);
     }
 
     Kwave::MultiTrackReader source_a(Kwave::SinglePassForward,
@@ -259,47 +100,119 @@ void Kwave::ReversePlugin::run(QStringList params)
 	    this,      SLOT(updateProgress(qreal)),
 	    Qt::BlockingQueuedConnection);
 
-    // get the buffers for exchanging the data
+    // use a reasonably big buffer size
     const unsigned int block_size = 5 * source_a.blockSize();
-    Kwave::SampleArray buffer_a(block_size);
-    Kwave::SampleArray buffer_b(block_size);
-    Q_ASSERT(buffer_a.size() == block_size);
-    Q_ASSERT(buffer_b.size() == block_size);
-
-    ThreadWeaver::Weaver weaver;
-    QList<ThreadWeaver::Job *> joblist;
 
     // loop over the sample range
     while ((first < last) && !shouldStop()) {
+	QFutureSynchronizer<void> synchronizer;
 
-	weaver.suspend();
+	Kwave::ReversePlugin::SliceParams params;
+	params.m_first      = first;
+	params.m_last       = last;
+	params.m_block_size = block_size;
 
 	// loop over all tracks
 	for (int track = 0; track < tracks.count(); track++) {
-
-	    Kwave::ReverseJob *job = new(std::nothrow) Kwave::ReverseJob(
-		signalManager(), tracks[track], first, last, block_size,
-		source_a[track], source_b[track]
+	    synchronizer.addFuture(QtConcurrent::run(
+		this,
+		&Kwave::ReversePlugin::reverseSlice,
+		track, source_a[track], source_b[track], params)
 	    );
-
-	    if (!job) continue;
-	    joblist.append(job);
-
-	    // put the job into the thread weaver
-	    weaver.enqueue(job);
-	}
-	weaver.resume();
-
-	if (!joblist.isEmpty()) {
-	    weaver.finish();
-	    Q_ASSERT(weaver.isEmpty());
-	    qDeleteAll(joblist);
-	    joblist.clear();
 	}
 
 	// next positions
 	first += block_size;
 	last  = (last > block_size) ? (last - block_size) : 0;
+
+	synchronizer.waitForFinished();
+    }
+
+}
+
+//***************************************************************************
+void Kwave::ReversePlugin::reverseSlice(unsigned int track,
+    Kwave::SampleReader *src_a, Kwave::SampleReader *src_b,
+    const Kwave::ReversePlugin::SliceParams &params)
+{
+    Kwave::SignalManager &signal_manager = signalManager();
+    const sample_index_t first      = params.m_first;
+    const sample_index_t last       = params.m_last;
+    const unsigned int   block_size = params.m_block_size;
+    const sample_index_t start_a    = first;
+    const sample_index_t start_b    = (last >= block_size) ?
+                                      (last - block_size) : 0;
+    bool ok = true;
+
+    if (start_a + block_size < start_b) {
+	// read from start
+	Kwave::SampleArray buffer_a;
+	ok &= buffer_a.resize(block_size);
+	Q_ASSERT(ok);
+	*src_a >> buffer_a;
+
+	// read from end
+	Kwave::SampleArray buffer_b;
+	ok &= buffer_b.resize(block_size);
+	Q_ASSERT(ok);
+	src_b->seek(start_b);
+	*src_b >> buffer_b;
+
+	// swap the contents
+	reverse(buffer_a);
+	reverse(buffer_b);
+
+	// write back buffer from the end at the start
+	Kwave::Writer *dst_a = signal_manager.openWriter(
+	    Kwave::Overwrite, track,
+	    start_a, start_a + block_size - 1);
+	Q_ASSERT(dst_a);
+	if (!dst_a) return;
+	*dst_a << buffer_b;
+	dst_a->flush();
+	delete dst_a;
+
+	// write back buffer from the start at the end
+	Kwave::Writer *dst_b = signal_manager.openWriter(
+	    Kwave::Overwrite, track,
+	    start_b, start_b + block_size - 1);
+	Q_ASSERT(dst_b);
+	if (!dst_b) return;
+	*dst_b << buffer_a << flush;
+	delete dst_b;
+    } else {
+	// single buffer with last block
+	Kwave::SampleArray buffer;
+	ok &= buffer.resize(last - first + 1);
+	Q_ASSERT(ok);
+
+	// read from start
+	*src_a >> buffer;
+
+	// swap content
+	reverse(buffer);
+
+	// write back
+	Kwave::Writer *dst = signal_manager.openWriter(
+	    Kwave::Overwrite, track, first, last);
+	if (!dst) return;
+	(*dst) << buffer << flush;
+	delete dst;
+    }
+}
+
+//***************************************************************************
+void Kwave::ReversePlugin::reverse(Kwave::SampleArray &buffer)
+{
+    unsigned int count = buffer.size() >> 1;
+    if (count <= 1) return;
+
+    sample_t *a = buffer.data();
+    sample_t *b = buffer.data() + (buffer.size() - 1);
+    while (count--) {
+	register sample_t h = *a;
+	*a++ = *b;
+	*b-- = h;
     }
 }
 

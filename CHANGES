@@ -16,6 +16,7 @@
  * sonagram plugin: use Qt Concurrent framework -> more than factor 40
    faster on a quad core cpu
  * bugfix: sonagram plugin did not honor the windowing function parameter
+ * got rid of KDE ThreadWeaver, replaced with Qt Concurrent framework
 
 0.8.11 [2013-11-24]
 

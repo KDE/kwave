@@ -17,57 +17,24 @@
 
 #include "config.h"
 
-#include <threadweaver/DebuggingAids.h>
+#include <QtCore/QFuture>
+#include <QtCore/QtConcurrentRun>
 
 #include "libkwave/Utils.h"
 #include "libkwave/modules/SampleBuffer.h"
 
 //***************************************************************************
-Kwave::SampleBuffer::BufferJob::BufferJob(Kwave::SampleBuffer *buffer)
-    :ThreadWeaver::Job(), m_buffer(buffer), m_data(), m_sema(1)
-{
-}
-
-//***************************************************************************
-Kwave::SampleBuffer::BufferJob::~BufferJob()
-{
-    m_sema.acquire();
-
-    int i = 0;
-    while (!isFinished()) {
-	qDebug("buffer job %p waiting... #%u", static_cast<void *>(this), i++);
-	Kwave::yield();
-    }
-    Q_ASSERT(isFinished());
-}
-
-//***************************************************************************
-void Kwave::SampleBuffer::BufferJob::enqueue(Kwave::SampleArray data)
-{
-    m_sema.acquire();
-    m_data = data;
-}
-
-//***************************************************************************
-void Kwave::SampleBuffer::BufferJob::run()
-{
-    if (!m_buffer) return;
-    m_buffer->emitData(m_data);
-    m_sema.release();
-}
-
-//***************************************************************************
 //***************************************************************************
 Kwave::SampleBuffer::SampleBuffer(QObject *parent)
     :Kwave::SampleSink(parent),
-     m_data(), m_offset(0), m_buffered(0), m_weaver(), m_job(this)
+     m_data(), m_offset(0), m_buffered(0), m_sema(1)
 {
 }
 
 //***************************************************************************
 Kwave::SampleBuffer::~SampleBuffer()
 {
-    m_weaver.finish();
+    m_sema.acquire();
 }
 
 //***************************************************************************
@@ -163,14 +130,16 @@ void Kwave::SampleBuffer::input(Kwave::SampleArray data)
 //***************************************************************************
 void Kwave::SampleBuffer::enqueue(Kwave::SampleArray data)
 {
-    m_job.enqueue(data);
-    m_weaver.enqueue(&m_job);
+    m_sema.acquire();
+    QtConcurrent::run(this, &Kwave::SampleBuffer::emitData, data);
 }
 
 //***************************************************************************
 void Kwave::SampleBuffer::emitData(Kwave::SampleArray data)
 {
+    // NOTE: this signal could be connected to a slot that blocks for a while
     emit output(data);
+    m_sema.release();
 }
 
 //***************************************************************************

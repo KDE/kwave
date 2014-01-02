@@ -22,12 +22,10 @@
 
 #include <new>
 
+#include <QtCore/QFutureSynchronizer>
+#include <QtCore/QtConcurrentRun>
 #include <QtCore/QObject>
 #include <QtCore/QVector>
-
-#include <threadweaver/Job.h>
-#include <threadweaver/ThreadWeaver.h>
-#include <threadweaver/DebuggingAids.h>
 
 #include "libkwave/SampleSource.h"
 
@@ -55,18 +53,15 @@ namespace Kwave
 	MultiTrackSource(unsigned int tracks,
 	                 QObject *parent=0)
 	    :Kwave::SampleSource(parent),
-	     QVector<SOURCE *>(tracks),
-	     m_weaver()
+	     QVector<SOURCE *>(tracks)
         {
 	    Q_ASSERT(INITIALIZE || (tracks == 0));
 	    Q_ASSERT(QVector<SOURCE *>::size() == static_cast<int>(tracks));
-	    // if (tracks) m_weaver.setMaximumNumberOfThreads(tracks);
 	}
 
 	/** Destructor */
 	virtual ~MultiTrackSource()
 	{
-	    m_weaver.finish();
 	    clear();
 	}
 
@@ -76,21 +71,18 @@ namespace Kwave
 	 */
 	virtual void goOn()
 	{
-	    QList<ThreadWeaver::Job *> joblist;
+	    QFutureSynchronizer<void> synchronizer;
 
-	    m_weaver.suspend();
 	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this)) {
 		if (!src) continue;
-		ThreadWeaver::Job *job = src->enqueue(&m_weaver);
-		if (job) joblist.append(job);
+		synchronizer.addFuture(QtConcurrent::run(
+		    this,
+		    &Kwave::MultiTrackSource<SOURCE, INITIALIZE>::runSource,
+		    src)
+		);
 	    }
-	    m_weaver.resume();
 
-	    if (!joblist.isEmpty()) {
-		m_weaver.finish();
-		Q_ASSERT(m_weaver.isEmpty());
-		qDeleteAll(joblist);
-	    }
+	    synchronizer.waitForFinished();
 	}
 
 	/** Returns true when all sources are done */
@@ -146,10 +138,12 @@ namespace Kwave
 	    QVector<SOURCE *>::clear();
 	}
 
-    protected:
+    private:
 
-	/** thread weaver, for processing multi track jobs in parallel */
-	ThreadWeaver::Weaver m_weaver;
+	/** little wrapper for calling goOn() of a source in a worker thread */
+	void runSource(SOURCE *src) {
+	    src->goOn();
+	}
 
     };
 

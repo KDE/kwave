@@ -23,15 +23,14 @@
 #include <math.h>
 #include <new>
 
+#include <QtCore/QFutureSynchronizer>
+#include <QtCore/QtConcurrentRun>
 #include <QtCore/QList>
 #include <QtCore/QStringList>
 #include <QtCore/QThread>
 #include <QtCore/QVector>
 
 #include <klocale.h> // for the i18n macro
-#include <threadweaver/Job.h>
-#include <threadweaver/ThreadWeaver.h>
-#include <threadweaver/DebuggingAids.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Connect.h"
@@ -54,112 +53,6 @@
 
 KWAVE_PLUGIN(Kwave::NormalizePlugin, "normalize", "2.3",
              I18N_NOOP("Normalizer"), "Thomas Eschenbacher");
-
-//***************************************************************************
-namespace Kwave
-{
-    class GetMaxPowerJob: public ThreadWeaver::Job
-    {
-    public:
-	typedef struct {
-	    QVector<double> fifo; /**< FIFO for power values */
-	    unsigned int    wp;   /**< FIFO write pointer */
-	    unsigned int    n;    /**< number of elements in the FIFO */
-	    double          sum;  /**< sum of queued power values */
-	    double          max;  /**< maximum power value */
-	} average_t;
-
-	/**
-	* Constructor
-	* @param reader reference to a SampleReader to read from
-	* @param average reference to smoothing information
-	* @param window_size length of the sliding window for volume detection
-	*/
-	GetMaxPowerJob(Kwave::SampleReader &reader, average_t &average,
-		    unsigned int window_size);
-
-	/** Destructor */
-	virtual ~GetMaxPowerJob();
-
-	/**
-	    * overloaded 'run' function that runns goOn() in the context
-	    * of the worker thread.
-	    */
-	virtual void run();
-
-    private:
-
-	/** reference to the SampleReader */
-	Kwave::SampleReader &m_reader;
-
-	/** reference to the smoothing information */
-	average_t &m_average;
-
-	/** size of a processing window */
-	unsigned int m_window_size;
-
-    };
-}
-
-//***************************************************************************
-Kwave::GetMaxPowerJob::GetMaxPowerJob(Kwave::SampleReader &reader,
-                                      average_t &average,
-                                      unsigned int window_size)
-    :ThreadWeaver::Job(), m_reader(reader), m_average(average),
-     m_window_size(window_size)
-{
-}
-
-//***************************************************************************
-Kwave::GetMaxPowerJob::~GetMaxPowerJob()
-{
-    int i = 0;
-    while (!isFinished()) {
-	qDebug("job %p waiting... #%u", static_cast<void *>(this), i++);
-	Kwave::yield();
-    }
-    Q_ASSERT(isFinished());
-}
-
-//***************************************************************************
-void Kwave::GetMaxPowerJob::run()
-{
-    Kwave::SampleArray data(m_window_size);
-    unsigned int round = 0;
-    unsigned int loops = 5 * m_reader.blockSize() / m_window_size;
-    loops++;
-
-    while ((round++ < loops) && !m_reader.eof()) {
-	unsigned int len = m_reader.read(data, 0, m_window_size);
-
-	// calculate power of one block
-	double sum = 0;
-	const Kwave::SampleArray &in = data;
-	for (unsigned int i = 0; i < len; i++) {
-	    sample_t s = in[i];
-	    double d   = sample2double(s);
-	    sum += d * d;
-	}
-	double pow = sum / static_cast<double>(len);
-
-	// collect all power values in a FIFO
-	average_t &avg = m_average;
-	unsigned int wp = avg.wp;
-	avg.sum -= avg.fifo[wp];
-	avg.sum += pow;
-	avg.fifo[wp] = pow;
-	if (++wp >= SMOOTHLEN) wp = 0;
-	avg.wp = wp;
-	if (avg.n == SMOOTHLEN) {
-	    // detect power peak
-	    double p = avg.sum / static_cast<double>(SMOOTHLEN);
-	    if (p > avg.max) avg.max = p;
-	} else {
-	    avg.n++;
-	}
-    }
-//     qDebug("%p -> pos=%u, max=%g", this, m_reader.pos(), m_average.max);
-}
 
 //***************************************************************************
 //***************************************************************************
@@ -249,7 +142,7 @@ double Kwave::NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
     if (!window_size) return 0;
 
     // set up smoothing window buffer
-    QVector<Kwave::GetMaxPowerJob::average_t> average(tracks);
+    QVector<Kwave::NormalizePlugin::Average> average(tracks);
     for (unsigned int t = 0; t < tracks; t++) {
 	average[t].fifo.resize(SMOOTHLEN);
 	average[t].fifo.fill(0.0);
@@ -259,40 +152,27 @@ double Kwave::NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
 	average[t].max = 0.0;
     }
 
-    ThreadWeaver::Weaver weaver;
-    QList<ThreadWeaver::Job *> joblist;
-
     while (!shouldStop() && !source.eof()) {
+	QFutureSynchronizer<void> synchronizer;
 
-	weaver.suspend();
 	for (unsigned int t = 0; t < tracks; t++) {
 	    Kwave::SampleReader *reader = source[t];
 	    if (!reader) continue;
 	    if (reader->eof()) continue;
 
-	    Kwave::GetMaxPowerJob *job =
-		new(std::nothrow) Kwave::GetMaxPowerJob(
-		    *reader, average[t], window_size);
-	    if (!job) continue;
-	    joblist.append(job);
-
-	    // put the job into the thread weaver
-	    weaver.enqueue(job);
+	    synchronizer.addFuture(QtConcurrent::run(
+		this,
+		&Kwave::NormalizePlugin::getMaxPowerOfTrack,
+		reader, &(average[t]), window_size
+	    ));
 	}
-	weaver.resume();
-
-	if (!joblist.isEmpty()) {
-	    weaver.finish();
-	    Q_ASSERT(weaver.isEmpty());
-	    qDeleteAll(joblist);
-	    joblist.clear();
-	}
-    }
+	synchronizer.waitForFinished();
+     }
 
     if (average[0].n < SMOOTHLEN) {
 	// if file was too short, calculate power out of what we have
 	for (unsigned int t = 0; t < tracks; t++) {
-	    GetMaxPowerJob::average_t &avg = average[t];
+	    Kwave::NormalizePlugin::Average &avg = average[t];
 	    double pow = avg.sum / static_cast<double>(avg.n);
 	    if (pow > maxpow) maxpow = pow;
 	}
@@ -306,6 +186,49 @@ double Kwave::NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
 
     double level = sqrt(maxpow);
     return level;
+}
+
+//***************************************************************************
+void Kwave::NormalizePlugin::getMaxPowerOfTrack(
+    Kwave::SampleReader *reader,
+    Kwave::NormalizePlugin::Average *p_average,
+    unsigned int window_size)
+{
+    Kwave::NormalizePlugin::Average &average = *p_average;
+    Kwave::SampleArray data(window_size);
+    unsigned int round = 0;
+    unsigned int loops = 5 * reader->blockSize() / window_size;
+    loops++;
+
+    while ((round++ < loops) && !reader->eof()) {
+	unsigned int len = reader->read(data, 0, window_size);
+
+	// calculate power of one block
+	double sum = 0;
+	const Kwave::SampleArray &in = data;
+	for (unsigned int i = 0; i < len; i++) {
+	    sample_t s = in[i];
+	    double d   = sample2double(s);
+	    sum += d * d;
+	}
+	double pow = sum / static_cast<double>(len);
+
+	// collect all power values in a FIFO
+	unsigned int wp = average.wp;
+	average.sum -= average.fifo[wp];
+	average.sum += pow;
+	average.fifo[wp] = pow;
+	if (++wp >= SMOOTHLEN) wp = 0;
+	average.wp = wp;
+	if (average.n == SMOOTHLEN) {
+	    // detect power peak
+	    double p = average.sum / static_cast<double>(SMOOTHLEN);
+	    if (p > average.max) average.max = p;
+	} else {
+	    average.n++;
+	}
+    }
+//     qDebug("%p -> pos=%u, max=%g", this, m_reader.pos(), m_average.max);
 }
 
 //***************************************************************************

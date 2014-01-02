@@ -32,6 +32,8 @@
 
 namespace Kwave
 {
+    class SampleReader;
+
     /**
      * This is a two-pass plugin that determines the average volume level
      * of a signal and then calls the volume plugin to adjust the volume.
@@ -58,11 +60,29 @@ namespace Kwave
 	virtual void run(QStringList params);
 
     private:
+	typedef struct {
+	    QVector<double> fifo; /**< FIFO for power values */
+	    unsigned int    wp;   /**< FIFO write pointer */
+	    unsigned int    n;    /**< number of elements in the FIFO */
+	    double          sum;  /**< sum of queued power values */
+	    double          max;  /**< maximum power value */
+	} Average;
 
 	/**
 	 * get the maximum power level of the input
 	 */
 	double getMaxPower(Kwave::MultiTrackReader &source);
+
+	/**
+	 * calculate the maximum power of one track
+	 *
+	 * @param reader reference to a SampleReader to read from
+	 * @param average reference to smoothing information
+	 * @param window_size length of the sliding window for volume detection
+	 */
+	void getMaxPowerOfTrack(Kwave::SampleReader *reader,
+	                        Kwave::NormalizePlugin::Average *average,
+	                        unsigned int window_size);
 
     };
 }

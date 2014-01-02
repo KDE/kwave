@@ -15,6 +15,7 @@
  * automatic defragmentation of stripes
  * sonagram plugin: use Qt Concurrent framework -> more than factor 40
    faster on a quad core cpu
+ * bugfix: sonagram plugin did not honor the windowing function parameter
 
 0.8.11 [2013-11-24]
 

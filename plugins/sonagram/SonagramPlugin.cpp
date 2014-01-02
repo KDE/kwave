@@ -218,6 +218,11 @@ void Kwave::SonagramPlugin::run(QStringList params)
     if (m_fft_points < 4)
 	return;
 
+    Kwave::WindowFunction func(m_window_type);
+    const QVector<double> windowfunction = func.points(m_fft_points);
+    Q_ASSERT(windowfunction.count() == static_cast<int>(m_fft_points));
+    if (windowfunction.count() != static_cast<int>(m_fft_points)) return;
+
     Kwave::MultiTrackReader source(Kwave::SinglePassForward,
 	signalManager(), selectedTracks(),
 	m_first_sample, m_last_sample);
@@ -255,7 +260,7 @@ void Kwave::SonagramPlugin::run(QStringList params)
 		}
 		value /= tracks;
 	    }
-	    in[j] = value;
+	    in[j] = value * windowfunction[j];
 	}
 
 	// a background job is runing soon
@@ -288,12 +293,6 @@ void Kwave::SonagramPlugin::calculateSlice(Kwave::SonagramPlugin::Slice *slice)
     fftw_plan p;
 
 //     qDebug("SonagramPlugin::calculateSlice(%u)...", slice->m_index);
-
-// TODO: window function!
-//     Kwave::WindowFunction func(m_window_type);
-//     QVector<double> windowfunction = func.points(m_fft_points);
-//     Q_ASSERT(windowfunction.count() == static_cast<int>(m_fft_points));
-//     if (windowfunction.count() != static_cast<int>(m_fft_points)) return;
 
     // prepare for a 1-dimensional real-to-complex DFT
     {

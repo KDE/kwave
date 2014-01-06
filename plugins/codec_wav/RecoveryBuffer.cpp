@@ -39,7 +39,7 @@ unsigned int Kwave::RecoveryBuffer::read(unsigned int offset, char *data,
     if (bytes < len) len = bytes;
     if (!len) return 0;
 
-    char *src = m_buffer.data();
+    const char *src = m_buffer.constData();
     src += off;
     memcpy(data, src, len);
 

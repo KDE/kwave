@@ -50,7 +50,7 @@ Kwave::SampleArray &Kwave::SampleBuffer::data()
 }
 
 //***************************************************************************
-const Kwave::SampleArray &Kwave::SampleBuffer::data() const
+const Kwave::SampleArray &Kwave::SampleBuffer::constData() const
 {
     return m_data;
 }

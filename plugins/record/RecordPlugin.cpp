@@ -1107,7 +1107,7 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    case 1: {
 		// 1...8 bits per sample, use 8 bit pointers
 		const quint8 *src =
-		    reinterpret_cast<quint8 *>(raw_data.data());
+		    reinterpret_cast<const quint8 *>(raw_data.constData());
 		quint8 *dst =
 		    reinterpret_cast<quint8 *>(dest.data());
 		src += track;
@@ -1121,7 +1121,7 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    case 2: {
 		// 9...16 bits per sample, use 16 bit pointers
 		const quint16 *src =
-		    reinterpret_cast<const quint16 *>(raw_data.data());
+		    reinterpret_cast<const quint16 *>(raw_data.constData());
 		quint16 *dst =
 		    reinterpret_cast<quint16 *>(dest.data());
 		src += track;
@@ -1135,7 +1135,7 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    case 3: {
 		// 17...24 bits per sample, use 8 bit pointers, three times
 		const quint8 *src =
-		    reinterpret_cast<quint8 *>(raw_data.data());
+		    reinterpret_cast<const quint8 *>(raw_data.constData());
 		quint8 *dst =
 		    reinterpret_cast<quint8 *>(dest.data());
 		src += track * 3;
@@ -1150,7 +1150,7 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    case 4: {
 		// 24...32 bits per sample, use 32 bit pointers
 		const quint32 *src =
-		    reinterpret_cast<quint32 *>(raw_data.data());
+		    reinterpret_cast<const quint32 *>(raw_data.constData());
 		quint32 *dst =
 		    reinterpret_cast<quint32 *>(dest.data());
 		src += track;
@@ -1164,7 +1164,7 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    case 8: {
 		// 64 bits per sample, use 64 bit pointers
 		const quint64 *src =
-		    reinterpret_cast<const quint64 *>(raw_data.data());
+		    reinterpret_cast<const quint64 *>(raw_data.constData());
 		quint64 *dst =
 		    reinterpret_cast<quint64 *>(dest.data());
 		src += track;
@@ -1178,7 +1178,7 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	    default: {
 		// default: bytewise operation
 		const quint8 *src =
-		    reinterpret_cast<const quint8 *>(raw_data.data());
+		    reinterpret_cast<const quint8 *>(raw_data.constData());
 		quint8 *dst =
 		    reinterpret_cast<quint8 *>(dest.data());
 		src += (track * bytes_per_sample);

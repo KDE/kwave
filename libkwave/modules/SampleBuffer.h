@@ -51,7 +51,7 @@ namespace Kwave
 	virtual Kwave::SampleArray &data();
 
 	/** returns a const reference to the sample data */
-	virtual const Kwave::SampleArray &data() const;
+	virtual const Kwave::SampleArray &constData() const;
 
 	/** returns the number of samples that can be fetched with get() */
 	virtual unsigned int available() const;

@@ -517,9 +517,9 @@ bool Kwave::Stripe::combine(unsigned int offset, Kwave::Stripe &other)
 	// copy the data from the other stripe
 	MappedArray _src(other);
 	MappedArray _dst(*this);
-	sample_t    *src = _src.data();
-	sample_t    *dst = _dst.data();
-	unsigned int len = _src.size() * sizeof(sample_t);
+	const sample_t *src = _src.constData();
+	sample_t       *dst = _dst.data();
+	unsigned int    len = _src.size() * sizeof(sample_t);
 	if (!src || !dst) return false; // mmap of src or dst failed
 
 	MEMCPY(dst + offset, src, len);

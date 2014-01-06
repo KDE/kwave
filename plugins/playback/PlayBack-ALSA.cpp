@@ -652,7 +652,7 @@ int Kwave::PlayBackALSA::write(const Kwave::SampleArray &samples)
 
     QByteArray raw(bytes, char(0));
     m_encoder->encode(samples, m_channels, raw);
-    MEMCPY(m_buffer.data() + m_buffer_used, raw.data(), bytes);
+    MEMCPY(m_buffer.data() + m_buffer_used, raw.constData(), bytes);
     m_buffer_used += bytes;
 
     // write buffer to device if full

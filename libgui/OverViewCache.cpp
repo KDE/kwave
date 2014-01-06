@@ -510,7 +510,7 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 		Q_ASSERT(t < m_max.count());
 		sample_t *min = m_min[t].data();
 		sample_t *max = m_max[t].data();
-		const CacheState *state = m_state[t].data();
+		const CacheState *state = m_state[t].constData();
 		Q_ASSERT(state);
 		if (!state) continue;
 		if (state[index] != Valid) {

@@ -217,7 +217,7 @@ void Kwave::ChannelMixer::mix()
 	Q_ASSERT(buffer);
 	if (!buffer) return;
 	bool ok = true;
-	if (buffer->data().size() < min_len)
+	if (buffer->constData().size() < min_len)
 	    ok &= buffer->data().resize(min_len);
 	if (!ok) {
 	    qWarning("ChannelMixer: failed to increase buffer size to %u",
@@ -242,7 +242,7 @@ void Kwave::ChannelMixer::mix()
 
 	// emit the output
 	Kwave::SampleBuffer *out_buf = m_output_buffer[y];
-	if (KDE_ISUNLIKELY(out_buf->data().size() > min_len)) {
+	if (KDE_ISUNLIKELY(out_buf->constData().size() > min_len)) {
 	    bool ok = out_buf->data().resize(min_len);
 	    Q_ASSERT(ok);
 	}

@@ -113,6 +113,7 @@ void Kwave::BandPass::input(Kwave::SampleArray data)
 
     bool ok = m_buffer.resize(in.size());
     Q_ASSERT(ok);
+    Q_UNUSED(ok);
 
     setfilter_2polebp(m_frequency, m_bandwidth);
 

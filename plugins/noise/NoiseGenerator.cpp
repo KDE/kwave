@@ -43,6 +43,7 @@ void Kwave::NoiseGenerator::input(Kwave::SampleArray data)
 {
     bool ok = m_buffer.resize(data.size());
     Q_ASSERT(ok);
+    Q_UNUSED(ok);
 
     m_buffer = data;
 

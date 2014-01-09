@@ -245,6 +245,7 @@ void Kwave::ChannelMixer::mix()
 	if (KDE_ISUNLIKELY(out_buf->constData().size() > min_len)) {
 	    bool ok = out_buf->data().resize(min_len);
 	    Q_ASSERT(ok);
+	    Q_UNUSED(ok);
 	}
 	out_buf->finished();
     }

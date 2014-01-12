@@ -360,10 +360,12 @@ INCLUDE(KwaveEbuild)
 #############################################################################
 ### collection of all files used for distribution                         ###
 
+FIND_PROGRAM(SED_EXECUTABLE NAMES sed)
 SET(_distfiles_md5sum ${DISTFILES_DIR}/MD5SUMS-${KWAVE_VERSION_FULL})
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_distfiles_md5sum}
-    COMMAND md5sum ${KWAVE_DISTFILES} > ${_distfiles_md5sum}
+    COMMAND md5sum ${KWAVE_DISTFILES} |
+        ${SED_EXECUTABLE} s+${DISTFILES_DIR}/++g > ${_distfiles_md5sum}
     DEPENDS ${KWAVE_DISTFILES}
 )
 

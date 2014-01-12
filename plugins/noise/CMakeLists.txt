@@ -16,8 +16,13 @@
 #############################################################################
 
 SET(plugin_noise_LIB_SRCS
+    NoiseDialog.cpp
     NoiseGenerator.cpp
     NoisePlugin.cpp
+)
+
+SET(plugin_noise_LIB_UI
+    NoiseDlg.ui
 )
 
 KWAVE_PLUGIN(noise)

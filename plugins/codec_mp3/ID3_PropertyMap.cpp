@@ -117,7 +117,7 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     // File owner/licensee
     insert(Kwave::INF_LICENSE,       ID3FID_FILEOWNER          , ENC_TEXT);
     // Medium type
-    insert(Kwave::INF_MEDIUM,        ID3FID_MEDIATYPE          , ENC_TEXT); // ### TODO ### TMED
+    insert(Kwave::INF_MEDIUM,        ID3FID_MEDIATYPE          , ENC_TEXT);
     //     Kwave::INF_MIMETYPE
     //     Kwave::INF_MPEG_EMPHASIS
     //     Kwave::INF_MPEG_LAYER
@@ -145,7 +145,7 @@ Kwave::ID3_PropertyMap::ID3_PropertyMap()
     //     Kwave::INF_PRODUCT
     //     Kwave::INF_SAMPLE_FORMAT
     //     Kwave::INF_SAMPLE_RATE
-    //     Kwave::INF_SOFTWARE
+    insert(Kwave::INF_SOFTWARE,      ID3FID_ENCODERSETTINGS    , ENC_TEXT);
     //     Kwave::INF_SOURCE
     //     Kwave::INF_SOURCE_FORM
     //     Kwave::INF_SUBJECT

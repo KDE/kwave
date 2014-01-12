@@ -48,6 +48,14 @@ namespace Kwave
     {
 	Q_OBJECT
     public:
+
+	typedef struct {
+	    sample_t min;
+	    sample_t max;
+	} MinMax;
+
+	typedef QVector<MinMax> MinMaxArray;
+
 	/**
 	 * Constructor
 	 * @param signal reference to a SignalManager with the source
@@ -65,6 +73,14 @@ namespace Kwave
 
 	/** Destructor */
 	virtual ~OverViewCache();
+
+	/**
+	 * Get an array with min/max sample values
+	 * @param width number of min/max entries to fill
+	 * @param minmax array that receives the minmax values
+	 * @return number of successfully filled min/max entries
+	 */
+	int getMinMax(int width, MinMaxArray &minmax);
 
 	/**
 	 * Renders an overview into a QImage.
@@ -205,6 +221,9 @@ namespace Kwave
 
 	/** bitmask for "validity" of the min/max values */
 	QList< QVector <CacheState> > m_state;
+
+	/** list of min/max pairs, cached internally for getOverView */
+	MinMaxArray m_minmax;
 
 	/** number of min/max values */
 	unsigned int m_count;

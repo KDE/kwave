@@ -188,9 +188,11 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 		    comps.last() : comp_found;
 		Kwave::Compression comp_old(comp);
 		Kwave::Compression comp_new(cn);
-		qDebug("mime type/compression mismatch: "
-		       "switch from '%s' to '%s'",
-		       DBG(comp_old.name()), DBG(comp_new.name()));
+		if (comp_old.toInt() != comp_new.toInt()) {
+		    qDebug("mime type/compression mismatch: "
+			"switch from '%s' to '%s'",
+			DBG(comp_old.name()), DBG(comp_new.name()));
+		}
 		m_info.set(Kwave::INF_COMPRESSION, comp_new.toInt());
 	    }
 	}
@@ -781,7 +783,6 @@ void Kwave::FileInfoDialog::autoGenerateKeywords()
 
 	    if (token == old_value) break; // no (more) change(s)
 	}
-	it.setValue(token);
 
 	// remove empty entries
 	if (!token.length()) {
@@ -790,7 +791,7 @@ void Kwave::FileInfoDialog::autoGenerateKeywords()
 	}
 
 	// remove simple numbers and too short stuff
-	bool ok;
+	bool ok = false;
 	token.toInt(&ok);
 	if ((ok) || (token.length() < 3)) {
 	    it.remove(); // number or less than 3 characters -> remove
@@ -798,7 +799,8 @@ void Kwave::FileInfoDialog::autoGenerateKeywords()
 	}
 
 	// remove duplicates that differ in case
-	QMutableStringListIterator it2(list);
+	bool is_duplicate = false;
+	QStringListIterator it2(list);
 	while (it2.hasNext()) {
 	    QString token2 = it2.next();
 	    if (list.indexOf(token) == list.lastIndexOf(token2)) continue;
@@ -812,9 +814,15 @@ void Kwave::FileInfoDialog::autoGenerateKeywords()
 		for (int i=0; i < token2.length(); ++i)
 		    if (token2[i].category() == QChar::Letter_Uppercase)
 			upper2++;
-		if (upper2 < upper1) token = token2;
-		it2.remove();
+		if (upper2 < upper1) {
+		    is_duplicate = true;
+		    break;
+		}
 	    }
+	}
+	if (is_duplicate) {
+	    it.remove();
+	    continue;
 	}
 
 	it.setValue(token);

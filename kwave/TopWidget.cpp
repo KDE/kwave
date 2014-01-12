@@ -37,6 +37,7 @@
 #include <QtCore/QTextStream>
 
 #include <kapplication.h>
+#include <kcmdlineargs.h>
 #include <kcombobox.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
@@ -140,6 +141,13 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
     status_bar->addWidget(m_lbl_status_size);
     m_lbl_status_size->setSizePolicy(policy);
     m_lbl_status_size->setFrameStyle(frame_style);
+
+    // start up iconified if requested
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    bool iconic = (args && args->isSet("iconic"));
+    if (iconic) {
+	showMinimized();
+    }
 
     // direct all kind of focus to this window per default
     setFocusPolicy(Qt::WheelFocus);

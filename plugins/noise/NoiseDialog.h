@@ -1,9 +1,9 @@
 /***************************************************************************
-        BandPassDialog.h  -  dialog for the "band_pass" plugin
+          NoiseDialog.h  -  dialog for the "noise" plugin
                              -------------------
-    begin                : Tue Jun 24 2003
-    copyright            : (C) 2003 by Dave Flogeras
-    email                : d.flogeras@unb.ca
+    begin                : Sat Sep 28 2013
+    copyright            : (C) 2013 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -15,45 +15,37 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _NOTCH_FILTER_DIALOG_H_
-#define _NOTCH_FILTER_DIALOG_H_
+#ifndef _NOISE_DIALOG_H_
+#define _NOISE_DIALOG_H_
 
 #include "config.h"
 
 #include <QtGui/QDialog>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
 
 #include "libkwave/PluginSetupDialog.h"
-#include "ui_BandPassDlg.h"
+#include "ui_NoiseDlg.h"
 
 class QStringList;
-class QWidget;
 
 namespace Kwave
 {
 
-    class BandPass;
+    class OverViewCache;
 
-    class BandPassDialog: public QDialog,
-                          public Kwave::PluginSetupDialog,
-                          public Ui::BandPassDlg
+    class NoiseDialog: public QDialog,
+                       public Kwave::PluginSetupDialog,
+                       public Ui::NoiseDlg
     {
 	Q_OBJECT
     public:
 
-	/**
-	 * Constructor.
-	 * @param parent parent widget
-	 * @param sample_rate sample rate of the audio data to be processed,
-	 *                    needed for determining the allowed range of
-	 *                    the cutoff frequency
-	 */
-	BandPassDialog(QWidget *parent, double sample_rate);
+	/** Constructor */
+	NoiseDialog(QWidget *parent, Kwave::OverViewCache *overview_cache);
 
 	/** Destructor */
-	virtual ~BandPassDialog();
+	virtual ~NoiseDialog();
 
 	/** Returns the parameters as string list */
 	virtual QStringList params();
@@ -67,16 +59,10 @@ namespace Kwave
     signals:
 
 	/**
-	 * Emitted whenever the frequency changes
-	 * @param freq the frequency parameter in Hz
+	 * Emitted whenever the noise level changes
+	 * @param level the noise level [0 .. 1.0]
 	 */
-	void freqChanged(double freq);
-
-	/**
-	 * emitted whenever the bandwidth setting has changed
-	 * @param bw bandwith parameter [0 .. 1.0]
-	 */
-	void bwChanged(double bw);
+	void levelChanged(double level);
 
 	/** Pre-listen mode has been started */
 	void startPreListen();
@@ -86,11 +72,14 @@ namespace Kwave
 
     protected slots:
 
-	/** called when the freq spinbox or slider value has changed */
-	void freqValueChanged(int pos);
+	/** called when the mode radio buttons changed */
+	void modeChanged(bool);
 
-	/** called when the bw spinbox or slider value has changed */
-	void bwValueChanged(int pos);
+	/** called when the slider's position has changed */
+	void sliderChanged(int pos);
+
+	/** called when the spinbox value has changed */
+	void spinboxChanged(int pos);
 
 	/**
 	 * called when the "Listen" button has been toggled,
@@ -105,27 +94,41 @@ namespace Kwave
 
     protected:
 
-	/** Update the graphic display */
-	void updateDisplay();
+	/**
+	 * Mode for amplification selection
+	 * by percentage or by decibel
+	 */
+	typedef enum {
+	    MODE_PERCENT = 0,
+	    MODE_DECIBEL = 1
+	} Mode;
+
+	/** Sets a new volume selection mode */
+	void setMode(Mode mode);
+
+	/** Update the slider position and the spinbox value */
+	void updateDisplay(double value);
 
     private:
 
-	/** the cutoff frequency in Hz */
-	double m_frequency;
+	/** noise level, as a linear factor [0...1] */
+	double m_noise;
 
-	/** the bw in Hz */
-	double m_bw;
+	/**
+	 * current mode for noise level selection
+	 */
+	Mode m_mode;
 
-	/** sample rate of the signal in samples/sec */
-	double m_sample_rate;
+	/** if false, ignore the signals of slider and spinbox */
+	bool m_enable_updates;
 
-	/** filter function for calculating the frequency response */
-	Kwave::BandPass *m_filter;
+	/** overview cache for calculating the preview image */
+	Kwave::OverViewCache *m_overview_cache;
 
     };
 }
 
-#endif /* _NOTCH_FILTER_DIALOG_H_ */
+#endif /* _NOISE_DIALOG_H_ */
 
 //***************************************************************************
 //***************************************************************************

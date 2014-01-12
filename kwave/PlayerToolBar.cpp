@@ -104,7 +104,7 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
     m_action_pause = addAction(
 	icon_loader.loadIcon(_("kwave_player_pause"),
 	                     KIconLoader::Toolbar, max_s),
-	i18n("Pause playback"),
+	QString(),
 	this, SLOT(pausePressed()));
 
     m_action_stop = addAction(
@@ -403,6 +403,14 @@ void Kwave::PlayerToolBar::updateState()
 	blinkPause();
 	m_blink_on = false;
     }
+
+    /* pause button: continue/pause playback */
+    if (paused) {
+	m_action_pause->setToolTip(i18n("Continue playback"));
+    } else {
+	m_action_pause->setToolTip(i18n("Pause playback"));
+    }
+
 }
 
 //***************************************************************************

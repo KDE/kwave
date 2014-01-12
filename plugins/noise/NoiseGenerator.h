@@ -19,6 +19,11 @@
 #define _NOISE_GENERATOR_H_
 
 #include "config.h"
+
+#include <QtCore/QObject>
+#include <QtCore/QVariant>
+
+#include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
 
 namespace Kwave
@@ -45,10 +50,23 @@ namespace Kwave
 	/** emits a block with noise */
 	void output(Kwave::SampleArray data);
 
+    public slots:
+
+	/** receives input data */
+	void input(Kwave::SampleArray data);
+
+	/**
+	 * Sets the noise level as a factor [0 .. 1.0]
+	 */
+	void setNoiseLevel(const QVariant fc);
+
     private:
 
-	/** array with noise, will be re-used */
-	Kwave::SampleArray m_noise;
+	/** buffer for input */
+	Kwave::SampleArray m_buffer;
+
+	/** noise level [0 .. 1.0] */
+	double m_noise_level;
 
     };
 }

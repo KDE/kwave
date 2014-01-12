@@ -23,8 +23,7 @@
 
 //***************************************************************************
 Kwave::NoiseGenerator::NoiseGenerator(QObject *parent)
-    :Kwave::SampleSource(parent),
-     m_noise(blockSize())
+    :Kwave::SampleSource(parent), m_buffer(blockSize()), m_noise_level(1.0)
 {
 }
 
@@ -36,14 +35,31 @@ Kwave::NoiseGenerator::~NoiseGenerator()
 //***************************************************************************
 void Kwave::NoiseGenerator::goOn()
 {
-    const unsigned int size = m_noise.size();
-    sample_t *p = m_noise.data();
-    float scale = 2.0 / static_cast<float>(RAND_MAX);
+    emit output(m_buffer);
+}
 
-    for (unsigned int i=0; i < size; i++, p++)
-	*p = float2sample((static_cast<float>(rand()) * scale)) - SAMPLE_MAX;
+//***************************************************************************
+void Kwave::NoiseGenerator::input(Kwave::SampleArray data)
+{
+    if (m_buffer.size() != data.size()) m_buffer.resize(data.size());
+    Q_ASSERT(data.size() == m_buffer.size());
 
-    emit output(m_noise);
+    m_buffer = data;
+
+    const double alpha = (1.0 - m_noise_level);
+    const double scale = (m_noise_level * 2.0) / static_cast<double>(RAND_MAX);
+    for (unsigned i = 0; i < data.size(); i++) {
+	m_buffer[i] = double2sample(
+	    (sample2double(m_buffer[i]) * alpha) +
+	    (((rand() - (RAND_MAX / 2)) * scale))
+	);
+    }
+}
+
+//***************************************************************************
+void Kwave::NoiseGenerator::setNoiseLevel(const QVariant fc)
+{
+    m_noise_level = QVariant(fc).toDouble();
 }
 
 //***************************************************************************

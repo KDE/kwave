@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include "libkwave/CodecPlugin.h"
+#include "libkwave/Compression.h"
 
 namespace Kwave
 {
@@ -54,6 +55,10 @@ namespace Kwave
 #define LOAD_MIME_TYPES { \
     addMimeType("audio/x-audio-ascii", \
     i18n("ASCII encoded audio"), "*.ascii; *.ASCII"); \
+}
+
+#define REGISTER_COMPRESSION_TYPES { \
+    addCompression(Kwave::Compression::NONE);   \
 }
 
 /** prefix used for encoding metadata / properties */

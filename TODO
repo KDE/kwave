@@ -1,7 +1,7 @@
 
-o noise plugin: add noise (mix) instead of overwrite (with adjustable level [dB])
+o recording via Phonon
 
-o pause button: change tooltip to "continue" if paused
+o auto detect and marker generation at song borders
 
 o detect song titles / metadata by using musicbrainz
 
@@ -22,8 +22,6 @@ o SPEEX in Ogg container
 o use noise shaping globally in sample2float()
 
 o support for "raw" import/export
-
-o TODO in MP3 plugin (ID3FID_MEDIATYPE)
 
 o move label with mouse (drag&drop)
 
@@ -130,8 +128,6 @@ o new plugin: fft, averagefft
 o new plugin: distort
 
 o new plugin: channel mixer
-
-o import of multi-channel ASCII files
 
 o support for KDE's session management
 

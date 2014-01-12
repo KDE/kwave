@@ -34,6 +34,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 
+#include "libgui/Colors.h"
+
 /**
  * The TrackPixmap is a graphical representation of a track's sample
  * data. It is connected directly to a Track object so that it is able
@@ -183,25 +185,6 @@ namespace Kwave
 	 * selection of the track has changed
 	 */
 	void selectionChanged();
-
-    public:
-
-	typedef struct {
-	    /** Background color */
-	    QColor background;
-
-	    /** Color for samples */
-	    QColor sample;
-
-	    /** Color for interpolated samples */
-	    QColor interpolated;
-
-	    /** Color for the zero line, used areas */
-	    QColor zero;
-
-	    /** Color of the zero line, unused areas */
-	    QColor zero_unused;
-	} color_set_t;
 
     private:
 
@@ -381,7 +364,7 @@ namespace Kwave
 	QVector<float> m_interpolation_alpha;
 
 	/** set of colors for drawing */
-	color_set_t m_colors;
+	Kwave::Colors::ColorSet m_colors;
 
     };
 }

@@ -1,14 +1,14 @@
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2013
+# This file is distributed under the same license as the Kwave package.
 #
-# royak <royak.antifeixista@gmail.com>, 2013.
+# Carlos <pureacetone@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-14 10:16+0200\n"
-"PO-Revision-Date: 2013-09-04 13:58+0200\n"
-"Last-Translator: royak <royak.antifeixista@gmail.com>\n"
+"POT-Creation-Date: 2013-11-24 06:47+0100\n"
+"PO-Revision-Date: 2013-11-14 15:28+0100\n"
+"Last-Translator: Carlos <pureacetone@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
@@ -125,7 +125,7 @@ msgstr ""
 msgid "%1"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:263
+#: plugins/fileinfo/FileInfoDialog.cpp:265
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr ""
@@ -155,7 +155,7 @@ msgstr "%1 Hz falló, usando %2 Hz"
 msgid "%1 Hz is not supported, using %2 Hz"
 msgstr "%1 Hz no está soportado, usando %2 Hz"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:211
+#: plugins/fileinfo/FileInfoDialog.cpp:213
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr ""
@@ -190,7 +190,7 @@ msgstr "%1 bits por muestra falló, usando %2 bits por muestra"
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr "%1 bits por muestra no está soportado, usando %2 bits por muestra"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:206
+#: plugins/fileinfo/FileInfoDialog.cpp:208
 #, kde-format
 msgid "%1 bytes"
 msgstr ""
@@ -220,7 +220,7 @@ msgstr "%1 no está soportado, usando %2"
 msgid "%1 kB"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:208
+#: plugins/fileinfo/FileInfoDialog.cpp:210
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr ""
@@ -230,24 +230,24 @@ msgstr ""
 msgid "%1 kB/s (%2 remaining)"
 msgstr "%1 kB/s (%2 restante/s)"
 
-#: kwave/TopWidget.cpp:363 kwave/TopWidget.cpp:364 kwave/TopWidget.cpp:365
-#: kwave/TopWidget.cpp:366 kwave/TopWidget.cpp:367 kwave/TopWidget.cpp:368
+#: kwave/TopWidget.cpp:371 kwave/TopWidget.cpp:372 kwave/TopWidget.cpp:373
+#: kwave/TopWidget.cpp:374 kwave/TopWidget.cpp:375 kwave/TopWidget.cpp:376
 #, kde-format
 msgid "%1 min"
 msgstr ""
 
-#: kwave/TopWidget.cpp:357 kwave/TopWidget.cpp:358 kwave/TopWidget.cpp:359
+#: kwave/TopWidget.cpp:365 kwave/TopWidget.cpp:366 kwave/TopWidget.cpp:367
 #, kde-format
 msgid "%1 ms"
 msgstr ""
 
-#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:267
+#: libkwave/FileProgress.cpp:354 plugins/fileinfo/FileInfoDialog.cpp:269
 #: plugins/record/RecordDialog.cpp:581 plugins/record/ui_RecordDlg.h:1057
 #, kde-format
 msgid "%1 samples"
 msgstr "%1 muestras"
 
-#: kwave/TopWidget.cpp:360 kwave/TopWidget.cpp:361 kwave/TopWidget.cpp:362
+#: kwave/TopWidget.cpp:368 kwave/TopWidget.cpp:369 kwave/TopWidget.cpp:370
 #, kde-format
 msgid "%1 sec"
 msgstr "%1 s"
@@ -449,10 +449,11 @@ msgid "&Limit to"
 msgstr "&Limitar a"
 
 #: plugins/band_pass/BandPassDialog.cpp:192
-#: plugins/lowpass/LowPassDialog.cpp:168
+#: plugins/lowpass/LowPassDialog.cpp:168 plugins/noise/NoiseDialog.cpp:357
 #: plugins/notch_filter/NotchFilterDialog.cpp:196
 #: plugins/pitch_shift/PitchShiftDialog.cpp:325
 #: plugins/band_pass/ui_BandPassDlg.h:197 plugins/lowpass/ui_LowPassDlg.h:190
+#: plugins/noise/ui_NoiseDlg.h:245
 #: plugins/notch_filter/ui_NotchFilterDlg.h:223
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:206
 msgid "&Listen"
@@ -466,7 +467,7 @@ msgstr "&Cargar marcadores..."
 msgid "&Locate"
 msgstr "&Localizar"
 
-#: plugins/volume/ui_VolumeDlg.h:263
+#: plugins/noise/ui_NoiseDlg.h:232 plugins/volume/ui_VolumeDlg.h:263
 msgid "&Logarithmic"
 msgstr "&Logarítmica"
 
@@ -554,7 +555,7 @@ msgstr "&Pausar"
 msgid "&Percent"
 msgstr "&Porcentaje"
 
-#: plugins/volume/ui_VolumeDlg.h:255
+#: plugins/noise/ui_NoiseDlg.h:224 plugins/volume/ui_VolumeDlg.h:255
 msgid "&Percentage"
 msgstr "&Porcentaje"
 
@@ -685,7 +686,7 @@ msgid "&Start recording"
 msgstr "&Comenzar grabación"
 
 #: plugins/band_pass/BandPassDialog.cpp:188
-#: plugins/lowpass/LowPassDialog.cpp:164
+#: plugins/lowpass/LowPassDialog.cpp:164 plugins/noise/NoiseDialog.cpp:353
 #: plugins/notch_filter/NotchFilterDialog.cpp:192
 #: plugins/pitch_shift/PitchShiftDialog.cpp:321
 msgid "&Stop"
@@ -754,12 +755,12 @@ msgstr ""
 msgid "(File Size)"
 msgstr "(Tamaño del archivo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:557
+#: plugins/fileinfo/FileInfoDialog.cpp:559
 #: plugins/newsignal/NewSignalDialog.cpp:306
 msgid "(Mono)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:563
+#: plugins/fileinfo/FileInfoDialog.cpp:565
 #: plugins/newsignal/NewSignalDialog.cpp:312
 msgid "(Quadro)"
 msgstr "(Cuadrafónico)"
@@ -769,7 +770,7 @@ msgstr "(Cuadrafónico)"
 msgid "(Resulting file size: %1 MB)"
 msgstr "(tamaño del archivo resultante: %1 MB)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:560
+#: plugins/fileinfo/FileInfoDialog.cpp:562
 #: plugins/newsignal/NewSignalDialog.cpp:309
 msgid "(Stereo)"
 msgstr "(Estéreo)"
@@ -783,7 +784,7 @@ msgstr "(Usar valores por defecto del servidor)"
 msgid "(built for KDE %1)"
 msgstr "(hecho para KDE %1)"
 
-#: kwave/main.cpp:150
+#: kwave/main.cpp:152
 msgid "(c) 2011, Thomas Eschenbacher"
 msgstr ""
 
@@ -813,7 +814,7 @@ msgstr "(estéreo)"
 msgid "(user defined)"
 msgstr "(definido por el usuario)"
 
-#: kwave/TopWidget.cpp:1591
+#: kwave/TopWidget.cpp:1599
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
@@ -1389,7 +1390,7 @@ msgstr ""
 msgid "A decoder structure is invalid or already freed."
 msgstr "Una estructura del decodificador es inválida o ya ha sido liberada."
 
-#: kwave/main.cpp:148
+#: kwave/main.cpp:150
 msgid "A sound editor for KDE"
 msgstr "Un editor de sonido para KDE"
 
@@ -1425,7 +1426,7 @@ msgstr "Dispositivo de grabación ALSA (adsp*)"
 msgid "ASCII Codec"
 msgstr "Códec ASCII"
 
-#: plugins/codec_ascii/AsciiCodecPlugin.h:56
+#: plugins/codec_ascii/AsciiCodecPlugin.h:57
 msgid "ASCII encoded audio"
 msgstr "Codificación audio ASCII"
 
@@ -1465,6 +1466,19 @@ msgstr ""
 msgid "Add Label"
 msgstr "Añadir Etiqueta"
 
+#: plugins/noise/NoisePlugin.cpp:131 plugins/noise/ui_NoiseDlg.h:215
+msgid "Add Noise"
+msgstr "Añadir Ruido"
+
+#: plugins/noise/ui_NoiseDlg.h:221
+msgid ""
+"Adds a noise level given as a percentage relative to the maximum volume "
+"level.\n"
+"For example: \"1 %\", \"15%\" or \"100%\""
+msgstr ""
+"Añadir ruido a un porcentaje relativo al nivel original.\n"
+"Por ejemplo: \"1%\",  \"15%\" o \"100%\""
+
 #: libkwave/FileInfo.cpp:44
 msgid "Album"
 msgstr "Álbum"
@@ -1478,6 +1492,7 @@ msgid "All Supported Files"
 msgstr "Todos los archivos soportados"
 
 #: plugins/band_pass/ui_BandPassDlg.h:198 plugins/lowpass/ui_LowPassDlg.h:191
+#: plugins/noise/ui_NoiseDlg.h:246
 #: plugins/notch_filter/ui_NotchFilterDlg.h:224
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:207
 msgid "Alt+L"
@@ -1706,19 +1721,19 @@ msgstr "Paso banda"
 msgid "Band Pass Filter"
 msgstr "Filtro paso banda"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:376
+#: plugins/fileinfo/FileInfoDialog.cpp:378
 msgid "Bands 0 to 31"
 msgstr "Bandas de 0 a 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:378
+#: plugins/fileinfo/FileInfoDialog.cpp:380
 msgid "Bands 12 to 31"
 msgstr "Bandas de 12 a 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:379
+#: plugins/fileinfo/FileInfoDialog.cpp:381
 msgid "Bands 16 to 31"
 msgstr "Bandas de 16 a 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:377
+#: plugins/fileinfo/FileInfoDialog.cpp:379
 msgid "Bands 8 to 31"
 msgstr "Bandas de 8 a 31"
 
@@ -1936,7 +1951,7 @@ msgstr ""
 msgid "Clip&board"
 msgstr "Po&rtapapeles"
 
-#: kwave/TopWidget.cpp:235
+#: kwave/TopWidget.cpp:243
 msgid "Close the current file"
 msgstr "Cerrar el archivo actual"
 
@@ -2016,7 +2031,11 @@ msgstr "Contenido"
 msgid "Continue after highest index"
 msgstr "Continuar después del índice más alto"
 
-#: kwave/TopWidget.cpp:261
+#: kwave/PlayerToolBar.cpp:409
+msgid "Continue playback"
+msgstr "Continuar reproducción"
+
+#: kwave/TopWidget.cpp:269
 msgid "Copy"
 msgstr "Copiar"
 
@@ -2042,13 +2061,13 @@ msgstr "Cabecera secundaria corrompida. Saliendo."
 
 #: libkwave/GenreType.cpp:98
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #: kwave/menus_config_i18n.cpp:34
 msgid "Create &type"
 msgstr "Crear &tipo"
 
-#: kwave/TopWidget.cpp:215
+#: kwave/TopWidget.cpp:223
 msgid "Create a new empty file"
 msgstr "Crear un nuevo archivo"
 
@@ -2080,7 +2099,7 @@ msgstr ""
 msgid "Currently Selected Point"
 msgstr "Punto seleccionado actualmente"
 
-#: kwave/TopWidget.cpp:256 libkwave/SignalManager.cpp:666
+#: kwave/TopWidget.cpp:264 libkwave/SignalManager.cpp:666
 msgid "Cut"
 msgstr "Cortar"
 
@@ -2139,11 +2158,11 @@ msgstr "Empaquetador Debian"
 #: plugins/debug/DebugPlugin.cpp:80
 #, kde-format
 msgid "Debug (%1)"
-msgstr ""
+msgstr "Depuración (%1)"
 
 #: plugins/debug/DebugPlugin.cpp:28
 msgid "Debug Functions"
-msgstr ""
+msgstr "Funciones de depuración"
 
 #: plugins/codec_ogg/OpusCommon.cpp:76
 #, kde-format
@@ -2185,7 +2204,7 @@ msgstr "Eliminar Metadatos"
 msgid "Delete Track"
 msgstr "Eliminar Pista"
 
-#: kwave/TopWidget.cpp:281
+#: kwave/TopWidget.cpp:289
 msgid "Delete selection"
 msgstr "Eliminar selección"
 
@@ -2274,6 +2293,10 @@ msgstr "Directorio para almacenar archivos de intercambio"
 #: plugins/memory/ui_MemDlg.h:274
 msgid "Directory:"
 msgstr "Directorio:"
+
+#: kwave/main.cpp:142
+msgid "Disable the Splash Screen"
+msgstr "Desactivar la pantalla de inicio"
 
 #: libkwave/GenreType.cpp:100
 msgid "Disco"
@@ -2745,7 +2768,7 @@ msgstr ""
 msgid "Hard Rock"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:227
+#: plugins/fileinfo/FileInfoDialog.cpp:229
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
@@ -2931,7 +2954,7 @@ msgstr ""
 msgid "Info"
 msgstr "Información"
 
-#: kwave/TopWidget.cpp:206
+#: kwave/TopWidget.cpp:214
 msgid "Initializing toolbar..."
 msgstr "Inicializando barra de herramientas..."
 
@@ -2943,7 +2966,7 @@ msgstr "Entrada"
 msgid "Input does not appear to be an Ogg bitstream."
 msgstr "La entrada no parece ser un flujo de bits Ogg."
 
-#: kwave/TopWidget.cpp:266 libkwave/undo/UndoInsertAction.cpp:41
+#: kwave/TopWidget.cpp:274 libkwave/undo/UndoInsertAction.cpp:41
 msgid "Insert"
 msgstr "Insertar"
 
@@ -3022,7 +3045,7 @@ msgstr "En la segunda mitad"
 msgid "Invalid codec type"
 msgstr "Tipo de códec inválido"
 
-#: kwave/TopWidget.cpp:884
+#: kwave/TopWidget.cpp:892
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
@@ -3061,7 +3084,7 @@ msgstr ""
 msgid "Keywords"
 msgstr "Palabras clave"
 
-#: kwave/main.cpp:146
+#: kwave/main.cpp:148
 msgid "Kwave"
 msgstr ""
 
@@ -3153,7 +3176,7 @@ msgstr "Duración"
 msgid "Length of the file in samples."
 msgstr "Duración del archivo en muestras"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:254
+#: plugins/fileinfo/FileInfoDialog.cpp:256
 msgid "Length:"
 msgstr "Duración:"
 
@@ -3166,7 +3189,7 @@ msgstr "Duración:"
 msgid "Length: %1"
 msgstr "Duración: %1"
 
-#: kwave/TopWidget.cpp:1252
+#: kwave/TopWidget.cpp:1260
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
@@ -3228,7 +3251,7 @@ msgstr "Linear"
 msgid "Linear Two's Complement"
 msgstr "Linear complemento a dos"
 
-#: kwave/main.cpp:142
+#: kwave/main.cpp:144
 msgid "List of audio files"
 msgstr "Lista de archivos de audio"
 
@@ -3253,7 +3276,7 @@ msgstr ""
 msgid "Loading file '%1'..."
 msgstr "Cargando archivo '%1'..."
 
-#: kwave/TopWidget.cpp:157
+#: kwave/TopWidget.cpp:165
 msgid "Loading main menu..."
 msgstr "Cargando menu principal..."
 
@@ -3262,7 +3285,7 @@ msgstr "Cargando menu principal..."
 msgid "Loading plugin %1..."
 msgstr "Cargando complemento %1..."
 
-#: kwave/TopWidget.cpp:434 kwave/TopWidget.cpp:435
+#: kwave/TopWidget.cpp:442 kwave/TopWidget.cpp:443
 msgid "Loading plugins..."
 msgstr "Cargando complementos..."
 
@@ -3460,7 +3483,7 @@ msgstr "Minutos"
 msgid "Miscellaneous"
 msgstr "Miscelánea"
 
-#: plugins/pitch_shift/ui_PitchShiftDlg.h:229
+#: plugins/noise/ui_NoiseDlg.h:216 plugins/pitch_shift/ui_PitchShiftDlg.h:229
 #: plugins/volume/ui_VolumeDlg.h:239
 msgid "Mode"
 msgstr "Modo"
@@ -3469,7 +3492,7 @@ msgstr "Modo"
 msgid "Mode Extension"
 msgstr "Modo de extensión"
 
-#: kwave/TopWidget.cpp:1263
+#: kwave/TopWidget.cpp:1271
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Modo: %1 KHz @ %2 Bit"
@@ -3513,7 +3536,7 @@ msgstr ""
 msgid "Musical"
 msgstr ""
 
-#: kwave/TopWidget.cpp:275
+#: kwave/TopWidget.cpp:283
 msgid "Mute selection"
 msgstr "Silenciar selección"
 
@@ -3572,7 +3595,7 @@ msgstr "Nuevo archivo"
 #: plugins/newsignal/NewSignalPlugin.cpp:29
 #: plugins/newsignal/ui_NewSigDlg.h:456
 msgid "New Signal"
-msgstr ""
+msgstr "Nueva señal"
 
 #: libkwave/GenreType.cpp:162
 msgid "New Wave"
@@ -3582,8 +3605,8 @@ msgstr ""
 msgid "Next"
 msgstr "Siguiente"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:413
 msgid "No"
 msgstr ""
 
@@ -3591,13 +3614,17 @@ msgstr ""
 msgid "No Compression"
 msgstr "Sin compresión"
 
-#: libkwave/GenreType.cpp:135 plugins/noise/NoisePlugin.cpp:48
+#: libkwave/GenreType.cpp:135
 msgid "Noise"
 msgstr "Ruido"
 
-#: plugins/noise/NoisePlugin.cpp:34
+#: plugins/noise/NoisePlugin.cpp:38
 msgid "Noise Generator"
 msgstr "Generador de ruido"
+
+#: plugins/noise/ui_NoiseDlg.h:237
+msgid "Noise Level"
+msgstr "Nivel de ruido"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:792
 msgid "Noise Shaping:"
@@ -3745,7 +3772,7 @@ msgstr ""
 msgid "One or more invalid/out of range arguments."
 msgstr "Uno o más argumentos inválidos o fuera de rango."
 
-#: kwave/TopWidget.cpp:921
+#: kwave/TopWidget.cpp:929
 msgid "Open"
 msgstr "Abrir"
 
@@ -3753,7 +3780,7 @@ msgstr "Abrir"
 msgid "Open &Recent"
 msgstr "Abrir &reciente"
 
-#: kwave/TopWidget.cpp:220
+#: kwave/TopWidget.cpp:228
 msgid "Open an existing file"
 msgstr "Abrir un archivo existente"
 
@@ -3846,7 +3873,7 @@ msgstr "Osciloscopio"
 msgid "Other"
 msgstr "Otros"
 
-#: kwave/TopWidget.cpp:876 plugins/codec_audiofile/AudiofileDecoder.cpp:107
+#: kwave/TopWidget.cpp:884 plugins/codec_audiofile/AudiofileDecoder.cpp:107
 #: plugins/codec_flac/FlacEncoder.cpp:245 plugins/codec_wav/WavEncoder.cpp:418
 #: plugins/codec_wav/WavDecoder.cpp:343 plugins/playback/PlayBack-OSS.cpp:244
 #: plugins/playback/PlayBack-Phonon.cpp:149
@@ -3882,7 +3909,7 @@ msgstr "Pegar"
 msgid "Path:"
 msgstr "Ruta:"
 
-#: kwave/PlayerToolBar.cpp:107
+#: kwave/PlayerToolBar.cpp:411
 msgid "Pause playback"
 msgstr "Pausar reproducción"
 
@@ -3929,7 +3956,7 @@ msgstr "Reproducción"
 msgid "Playback Settings"
 msgstr "Ajustes de reproducción"
 
-#: plugins/playback/PlayBackPlugin.cpp:426
+#: plugins/playback/PlayBackPlugin.cpp:428
 msgid "Playback Test"
 msgstr "Test de reproducción"
 
@@ -3950,12 +3977,12 @@ msgstr "Frecuencia de reproducción de %1 Hz no está soportada"
 msgid "Playback resolution in bits per sample"
 msgstr "Resolución de la reproducción en bits por muestra"
 
-#: kwave/TopWidget.cpp:1372
+#: kwave/TopWidget.cpp:1380
 #, kde-format
 msgid "Playback: %1"
 msgstr "Reproducción: %1"
 
-#: kwave/TopWidget.cpp:1374
+#: kwave/TopWidget.cpp:1382
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Reproducción: %1 muestras"
@@ -3964,7 +3991,7 @@ msgstr "Reproducción: %1 muestras"
 msgid "Please check the source device settings..."
 msgstr "Por favor compruebe los ajustes del dispositivo de origen..."
 
-#: plugins/playback/PlayBackPlugin.cpp:398
+#: plugins/playback/PlayBackPlugin.cpp:400
 msgid "Please select a playback device first"
 msgstr "Por favor seleccione primero un dispositivo de reproducción"
 
@@ -4017,7 +4044,7 @@ msgstr ""
 msgid "Position:"
 msgstr "Posición:"
 
-#: kwave/TopWidget.cpp:1351
+#: kwave/TopWidget.cpp:1359
 #, kde-format
 msgid "Position: %1"
 msgstr "Posición: %1"
@@ -4130,12 +4157,12 @@ msgstr "Calidad"
 msgid "R&B"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1426
+#: kwave/TopWidget.cpp:1434
 msgctxt "menu entry for redo if redo disabled"
 msgid "R&edo"
 msgstr "Re&hacer"
 
-#: kwave/TopWidget.cpp:1425
+#: kwave/TopWidget.cpp:1433
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "R&edo (%1)"
@@ -4165,7 +4192,7 @@ msgstr "Re&cuantizador"
 msgid "Re-enable all \"Do not ask again\" messages"
 msgstr "Reactivar todas los mensajes con la casilla \"No preguntar de nuevo\""
 
-#: kwave/TopWidget.cpp:665
+#: kwave/TopWidget.cpp:673
 msgid ""
 "Re-enable all disabled notifications?\n"
 "All messages that you previously turned off by activating the \"Do not ask "
@@ -4194,7 +4221,7 @@ msgstr ""
 msgid "Reading..."
 msgstr "Leyendo..."
 
-#: kwave/TopWidget.cpp:437
+#: kwave/TopWidget.cpp:445
 msgid "Ready"
 msgstr "Listo"
 
@@ -4252,16 +4279,16 @@ msgstr ""
 msgid "Rectangular"
 msgstr "Rectangular"
 
-#: kwave/TopWidget.cpp:251
+#: kwave/TopWidget.cpp:259
 msgid "Redo"
 msgstr "Rehacer"
 
-#: kwave/TopWidget.cpp:1408
+#: kwave/TopWidget.cpp:1416
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Rehacer"
 
-#: kwave/TopWidget.cpp:1406
+#: kwave/TopWidget.cpp:1414
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
@@ -4271,11 +4298,11 @@ msgstr "Rehacer (%1)"
 msgid "Reggae"
 msgstr ""
 
-#: kwave/TopWidget.cpp:658
+#: kwave/TopWidget.cpp:666
 msgid "Reset the toolbar to default settings?"
 msgstr "¿Restaurar la barra de tareas a sus parámetros por defecto?"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:233
+#: plugins/fileinfo/FileInfoDialog.cpp:235
 #: plugins/newsignal/ui_NewSigDlg.h:477 plugins/record/ui_RecordDlg.h:1027
 msgid "Resolution:"
 msgstr "Resolución"
@@ -4394,7 +4421,7 @@ msgstr ""
 "La frecuencia de muestreo de %1 muestras/s está fuera de rango,\n"
 "las soportadas están entre %2 ... %3 muestras/s."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:224
+#: plugins/fileinfo/FileInfoDialog.cpp:226
 #: plugins/newsignal/ui_NewSigDlg.h:474 plugins/record/ui_RecordDlg.h:1010
 msgid "Sample rate:"
 msgstr "Frecuencia de muestreo"
@@ -4415,7 +4442,7 @@ msgstr "Muestras por segundo"
 msgid "Satire"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1005
+#: kwave/TopWidget.cpp:1013
 msgid "Save As"
 msgstr "Guardar como"
 
@@ -4436,11 +4463,11 @@ msgstr "Guardar sonograma"
 msgid "Save selection only"
 msgstr "Guardar únicamente la selección"
 
-#: kwave/TopWidget.cpp:225
+#: kwave/TopWidget.cpp:233
 msgid "Save the current file"
 msgstr "Guardar el archivo actual"
 
-#: kwave/TopWidget.cpp:230
+#: kwave/TopWidget.cpp:238
 msgid "Save the current file under a different name or file format..."
 msgstr "Guardar el archivo actual bajo un nuevo nombre o formato..."
 
@@ -4459,7 +4486,7 @@ msgstr ""
 msgid "Sawtooth"
 msgstr "Diente de sierra"
 
-#: kwave/TopWidget.cpp:430
+#: kwave/TopWidget.cpp:438
 msgid "Scanning plugins..."
 msgstr "Escaneando complementos..."
 
@@ -4530,7 +4557,7 @@ msgstr "Seleccionar pista"
 msgid "Select a date from the calendar."
 msgstr "Seleccione una fecha del calendario"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:236
+#: plugins/fileinfo/FileInfoDialog.cpp:238
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
@@ -4546,11 +4573,11 @@ msgstr "Seleccione esto para introducir el número de muestras directamente"
 msgid "Select this to set the length of the file by time"
 msgstr "Seleccione esto para fijar la longitud del archivo por tiempo"
 
-#: kwave/TopWidget.cpp:348
+#: kwave/TopWidget.cpp:356
 msgid "Select zoom factor"
 msgstr "Seleccionar factor de zum"
 
-#: kwave/TopWidget.cpp:1319
+#: kwave/TopWidget.cpp:1327
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -4558,7 +4585,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Seleccionado: %1...%2 (%3 muestras)"
 
-#: kwave/TopWidget.cpp:1331
+#: kwave/TopWidget.cpp:1339
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -4629,7 +4656,7 @@ msgstr ""
 "Fija el volumen a un porcentaje relativo al nivel original.\n"
 "Por ejemplo: \"50%\",  \"75%\" o \"125%\""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:257
+#: plugins/fileinfo/FileInfoDialog.cpp:259
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
@@ -4647,7 +4674,7 @@ msgstr ""
 "Si existen varios ingenieros sepárelos mediante punto y\n"
 "coma y un espacio en blanco."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:244
+#: plugins/fileinfo/FileInfoDialog.cpp:246
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
@@ -4704,9 +4731,9 @@ msgstr ""
 msgid "Software"
 msgstr ""
 
+#: plugins/sonagram/SonagramWindow.cpp:502
 #: plugins/sonagram/SonagramPlugin.cpp:48
 #: plugins/sonagram/SonagramPlugin.cpp:85
-#: plugins/sonagram/SonagramWindow.cpp:502
 msgid "Sonagram"
 msgstr "Sonograma"
 
@@ -4718,10 +4745,6 @@ msgstr "Sonograma de %1"
 #: libkwave/GenreType.cpp:203
 msgid "Sonata"
 msgstr ""
-
-#: plugins/codec_ascii/AsciiDecoder.cpp:97
-msgid "Sorry"
-msgstr "Lo siento"
 
 #: plugins/codec_wav/WavEncoder.cpp:340
 msgid ""
@@ -4769,9 +4792,8 @@ msgid "Space"
 msgstr ""
 
 #: kwave/main.cpp:114
-#, fuzzy
 msgid "Spanish translation"
-msgstr "Traducción al checo."
+msgstr "Traducción al español."
 
 #: kwave/menus_config_i18n.cpp:119
 msgid "Spe&ctrum"
@@ -4840,11 +4862,16 @@ msgstr "Comienzo"
 msgid "Start &at:"
 msgstr "Comenz&ar en:"
 
+#: kwave/main.cpp:143
+msgid "Start Kwave iconified"
+msgstr "Iniciar Kwave en b"
+
 #: plugins/record/ui_RecordDlg.h:987
 msgid "Start at a given date and time"
 msgstr "Comenzar a la fecha y hora indicada"
 
 #: plugins/band_pass/ui_BandPassDlg.h:195 plugins/lowpass/ui_LowPassDlg.h:188
+#: plugins/noise/ui_NoiseDlg.h:243
 #: plugins/notch_filter/ui_NotchFilterDlg.h:221
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:204
 msgid ""
@@ -5051,7 +5078,7 @@ msgstr ""
 "escribiendo: \"fuser -v %1\"\n"
 "en la línea de comandos.)"
 
-#: kwave/TopWidget.cpp:1029
+#: kwave/TopWidget.cpp:1037
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -5158,17 +5185,13 @@ msgstr ""
 "Este códec sólo soporta archivos mono o estéreo, %1 canales no están "
 "soportados."
 
-#: kwave/TopWidget.cpp:812
+#: kwave/TopWidget.cpp:820
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 "Este archivo ha sido modificado.\n"
 "¿Desea guardarlo?"
-
-#: plugins/codec_ascii/AsciiDecoder.cpp:96
-msgid "This is not implemented yet."
-msgstr "Esto no está todavía implementado."
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:217
 #, kde-format
@@ -5235,7 +5258,7 @@ msgstr "Pista del CD si la fuente era un CDROM."
 msgid "Tracks"
 msgstr "Pistas"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:241
+#: plugins/fileinfo/FileInfoDialog.cpp:243
 #: plugins/newsignal/ui_NewSigDlg.h:476 plugins/record/ui_RecordDlg.h:1011
 msgid "Tracks:"
 msgstr "Pistas:"
@@ -5280,12 +5303,12 @@ msgstr "Nivel de detección"
 msgid "Trip-Hop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1419
+#: kwave/TopWidget.cpp:1427
 msgctxt "menu entry for undo if undo disabled"
 msgid "U&ndo"
 msgstr "De&shacer"
 
-#: kwave/TopWidget.cpp:1418
+#: kwave/TopWidget.cpp:1426
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "U&ndo (%1)"
@@ -5296,7 +5319,7 @@ msgstr "De&shacer (%1)"
 msgid "Unable to open '%1'"
 msgstr "Incapaz de abrir '%1'"
 
-#: kwave/TopWidget.cpp:880
+#: kwave/TopWidget.cpp:888
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
@@ -5310,7 +5333,7 @@ msgstr "Incapaz de abrir el codificador FLAC."
 msgid "Unable to open the file for saving!"
 msgstr "Incapaz de abrir el archivo para guardar!"
 
-#: plugins/codec_ascii/AsciiEncoder.cpp:90
+#: plugins/codec_ascii/AsciiEncoder.cpp:94
 #: plugins/codec_flac/FlacEncoder.cpp:212 plugins/codec_ogg/OggEncoder.cpp:121
 msgid "Unable to open the file for saving."
 msgstr "Incapaz de abrir el archivo para guardar."
@@ -5319,16 +5342,16 @@ msgstr "Incapaz de abrir el archivo para guardar."
 msgid "Unable to open the recording device"
 msgstr "Incapaz de abrir el dispositivo de grabación"
 
-#: kwave/TopWidget.cpp:246
+#: kwave/TopWidget.cpp:254
 msgid "Undo"
 msgstr "Deshacer"
 
-#: kwave/TopWidget.cpp:1397
+#: kwave/TopWidget.cpp:1405
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Deshacer"
 
-#: kwave/TopWidget.cpp:1395
+#: kwave/TopWidget.cpp:1403
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
@@ -5397,8 +5420,8 @@ msgid "Vocal"
 msgstr ""
 
 #: plugins/volume/VolumePlugin.cpp:40 plugins/volume/VolumePlugin.cpp:131
-#: plugins/volume/ui_VolumeDlg.h:238 plugins/volume/ui_VolumeDlg.h:265
-#: plugins/volume/ui_VolumeDlg.h:268
+#: plugins/noise/ui_NoiseDlg.h:234 plugins/volume/ui_VolumeDlg.h:238
+#: plugins/volume/ui_VolumeDlg.h:265 plugins/volume/ui_VolumeDlg.h:268
 msgid "Volume"
 msgstr "Volumen"
 
@@ -5447,8 +5470,8 @@ msgstr ""
 msgid "Window function:"
 msgstr "Función de ventana:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:405
-#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:407
+#: plugins/fileinfo/FileInfoDialog.cpp:413
 msgid "Yes"
 msgstr "Sí"
 
@@ -5474,7 +5497,7 @@ msgstr ""
 "continuar y codificar con %1 kBits/s o cancelar y seleccionar una tasa de "
 "bits distinta?"
 
-#: plugins/playback/PlayBackPlugin.cpp:435
+#: plugins/playback/PlayBackPlugin.cpp:437
 #, kde-format
 msgid ""
 "You should now hear a %1 Hz test tone.<br><br>(If you hear clicks or "
@@ -5495,11 +5518,11 @@ msgstr "&Acercar"
 msgid "Zoom &Out"
 msgstr "Ale&jar"
 
-#: kwave/TopWidget.cpp:323
+#: kwave/TopWidget.cpp:331
 msgid "Zoom in"
 msgstr "Acercar"
 
-#: kwave/TopWidget.cpp:329
+#: kwave/TopWidget.cpp:337
 msgid "Zoom out"
 msgstr "Alejar"
 
@@ -5507,7 +5530,7 @@ msgstr "Alejar"
 msgid "Zoom to &Selection"
 msgstr "Zum a la &selección"
 
-#: kwave/TopWidget.cpp:335 kwave/menus_config_i18n.cpp:138
+#: kwave/TopWidget.cpp:343 kwave/menus_config_i18n.cpp:138
 msgid "Zoom to 100%"
 msgstr "Zum al 100%"
 
@@ -5515,13 +5538,21 @@ msgstr "Zum al 100%"
 msgid "Zoom to Whole Signal"
 msgstr "Zum a toda la señal"
 
-#: kwave/TopWidget.cpp:341
+#: kwave/TopWidget.cpp:349
 msgid "Zoom to all"
 msgstr "Zum a todo"
 
-#: kwave/TopWidget.cpp:317
+#: kwave/TopWidget.cpp:325
 msgid "Zoom to selection"
 msgstr "Zum a la selección"
+
+#: plugins/noise/ui_NoiseDlg.h:218
+msgid "add a noise level by percentage"
+msgstr "añadir un nivel de ruido mediante porcentaje"
+
+#: plugins/noise/ui_NoiseDlg.h:226
+msgid "add a noise level in dB"
+msgstr "añadir un nievel de ruido en dB"
 
 #: plugins/codec_mp3/ui_MP3EncoderDialogBase.h:825
 msgid "additional parameters to append at the end of the encoder command line"
@@ -5534,6 +5565,14 @@ msgid "additional parameters to put at the start of the encoder command line"
 msgstr ""
 "parámetros adicionales a colocar al comienzo de la línea de comando del "
 "codificador"
+
+#: plugins/noise/ui_NoiseDlg.h:229
+msgid ""
+"adds a noise level in logarithmic scale (decibel).\n"
+"For example: \"-3 dB\", \"- 6 dB\"."
+msgstr ""
+"añadir un nivel de ruido en escala logarítimica (decibelio).\n"
+"Por ejemplo: \"-3 dB\", \"- 6 dB\"."
 
 #: plugins/record/RecordDialog.cpp:1167
 #, kde-format
@@ -5619,7 +5658,7 @@ msgid "cutoff frequency"
 msgstr "frecuencia de corte"
 
 #: plugins/band_pass/BandPassDialog.cpp:62
-#: plugins/lowpass/LowPassDialog.cpp:61
+#: plugins/lowpass/LowPassDialog.cpp:61 plugins/noise/NoiseDialog.cpp:270
 #: plugins/notch_filter/NotchFilterDialog.cpp:65
 #: plugins/volume/VolumeDialog.cpp:258
 msgid "dB"
@@ -5853,6 +5892,7 @@ msgid "some description of the label (optional)"
 msgstr "alguna descripción para el marcador (opcional)"
 
 #: plugins/band_pass/ui_BandPassDlg.h:192 plugins/lowpass/ui_LowPassDlg.h:185
+#: plugins/noise/ui_NoiseDlg.h:240
 #: plugins/notch_filter/ui_NotchFilterDlg.h:218
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:201
 msgid "start/stop pre-listening"
@@ -5884,3 +5924,9 @@ msgstr "versión"
 #: plugins/fileinfo/ui_FileInfoDlg.h:1292
 msgid "yes"
 msgstr "sí"
+
+#~ msgid "Sorry"
+#~ msgstr "Lo siento"
+
+#~ msgid "This is not implemented yet."
+#~ msgstr "Esto no está todavía implementado."

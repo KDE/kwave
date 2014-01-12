@@ -43,25 +43,6 @@
  */
 #define INTERPOLATION_ZOOM 0.10
 
-
-static Kwave::TrackPixmap::color_set_t color_set_normal =
-{
-    /* background   : */ Qt::black,
-    /* sample       : */ Qt::white,
-    /* interpolated : */ Qt::lightGray,
-    /* zero         : */ Qt::green,
-    /* zero_unused  : */ Qt::darkGray
-};
-
-static Kwave::TrackPixmap::color_set_t color_set_disabled =
-{
-    /* background   : */ QColor(Qt::darkGray).darker(300),
-    /* sample       : */ color_set_normal.sample.dark(),
-    /* interpolated : */ color_set_normal.interpolated.dark(),
-    /* zero         : */ Qt::darkGreen,
-    /* zero_unused  : */ Qt::black
-};
-
 //***************************************************************************
 Kwave::TrackPixmap::TrackPixmap(Kwave::Track &track)
     :QObject(), m_pixmap(), m_track(track), m_offset(0), m_zoom(0.0),
@@ -69,7 +50,7 @@ Kwave::TrackPixmap::TrackPixmap(Kwave::Track &track)
     m_sample_buffer(), m_min_buffer(), m_max_buffer(),
     m_modified(false), m_valid(0), m_lock_buffer(),
     m_interpolation_order(0), m_interpolation_alpha(),
-    m_colors(color_set_normal)
+    m_colors(Kwave::Colors::Normal)
 {
     // connect all the notification signals of the track
     connect(&track,
@@ -389,9 +370,9 @@ void Kwave::TrackPixmap::repaint()
     if (!w || !h) return; // not valid yet
 
     if (m_track.selected()) {
-	m_colors = color_set_normal;
+	m_colors = Kwave::Colors::Normal;
     } else {
-	m_colors = color_set_disabled;
+	m_colors = Kwave::Colors::Disabled;
     }
 
     QPainter p(&m_pixmap);
@@ -839,5 +820,3 @@ void Kwave::TrackPixmap::convertOverlap(sample_index_t &offset,
 
 //***************************************************************************
 #include "TrackPixmap.moc"
-//***************************************************************************
-//***************************************************************************

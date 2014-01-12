@@ -31,9 +31,12 @@
 
 
 #include "libkwave/FileInfo.h"
+#include "libkwave/Label.h"
+#include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/MultiTrackReader.h"
+#include "libkwave/Parser.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 
@@ -46,6 +49,7 @@ Kwave::AsciiEncoder::AsciiEncoder()
 {
     m_dst.setCodec(QTextCodec::codecForName("UTF-8"));
     LOAD_MIME_TYPES;
+    REGISTER_COMPRESSION_TYPES;
 }
 
 /***************************************************************************/
@@ -117,7 +121,17 @@ bool Kwave::AsciiEncoder::encode(QWidget *widget,
 
 	    // write the property
 	    m_dst << META_PREFIX << "'" << info.name(p) << "'='"
-	          << v.toString().toUtf8() << "'" << endl;
+	          << Kwave::Parser::escape(v.toString()).toUtf8()
+	          << "'" << endl;
+	}
+
+	// write out all labels
+	Kwave::LabelList labels(meta_data);
+	foreach (const Kwave::Label &label, labels) {
+	    m_dst << META_PREFIX << "'label["
+	    << QString::number(label.pos()) << "]'='"
+	    << Kwave::Parser::escape(label.name()).toUtf8()
+	    << "'" << endl;
 	}
 
 	sample_index_t rest = length;

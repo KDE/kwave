@@ -244,6 +244,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/toolbar/kwave_zoom_out.svgz		derived from "Oxygen" icons
 
 	libgui/CMakeLists.txt				GPL2+
+	libgui/Colors.cpp				GPL2+
+	libgui/Colors.h					GPL2+
 	libgui/ConfirmCancelProxy.cpp			GPL2+
 	libgui/ConfirmCancelProxy.h			GPL2+
 	libgui/CurveWidget.cpp				GPL2+
@@ -669,6 +671,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/newsignal/NewSignalPlugin.h		GPL2+
 
 	plugins/noise/CMakeLists.txt			GPL2+
+	plugins/noise/NoiseDialog.cpp			GPL2+
+	plugins/noise/NoiseDialog.h			GPL2+
+	plugins/noise/NoiseDlg.ui			GPL2+
 	plugins/noise/NoiseGenerator.cpp		GPL2+
 	plugins/noise/NoiseGenerator.h			GPL2+
 	plugins/noise/NoisePlugin.cpp			GPL2+

@@ -29,17 +29,17 @@
 #include "MemoryPlugin.h"
 #include "MemoryDialog.h"
 
-KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.3",
+KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.4",
              I18N_NOOP("Memory Settings"), "Thomas Eschenbacher");
 
 /** default memory limit for physical memory [MB] */
-#define DEFAULT_PHYSICAL_LIMIT 1024
+#define DEFAULT_PHYSICAL_LIMIT 2048
 
 /** default memory limit for swap space [MB] */
 #define DEFAULT_VIRTUAL_LIMIT 2048
 
 /** default memory limit for undo memory [MB] */
-#define DEFAULT_UNDO_LIMIT 512
+#define DEFAULT_UNDO_LIMIT 1024
 
 //***************************************************************************
 Kwave::MemoryPlugin::MemoryPlugin(Kwave::PluginManager &plugin_manager)

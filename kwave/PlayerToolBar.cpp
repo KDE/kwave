@@ -127,8 +127,6 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
 	i18n("Next"),
 	this, SLOT(toolbarForwardNext()));
 
-    // connect the playback controller
-
     // initial state update
     updateState();
 }

@@ -386,9 +386,8 @@ void Kwave::PlaybackController::stopDevicePlayBack()
 	emit sigDevicePlaybackDone();
     }
     closeDevice();
-
-
 }
+
 //***************************************************************************
 void Kwave::PlaybackController::trackSelectionChanged()
 {

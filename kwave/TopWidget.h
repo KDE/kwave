@@ -24,6 +24,8 @@
 #include <QtCore/QPair>
 #include <QtCore/QPointer>
 #include <QtCore/QString>
+#include <QtGui/QMdiArea>
+#include <QtGui/QMdiSubWindow>
 
 #include <kdemacros.h>
 #include <kmainwindow.h>
@@ -243,6 +245,7 @@ namespace Kwave
 
 	/** shows a message/progress in the splash screen */
 	void showInSplashSreen(const QString &message);
+
 	/**
 	 * Show a message in the status bar
 	 * @param msg the status bar message, already localized
@@ -356,6 +359,9 @@ namespace Kwave
 	/** menu manager for this window */
 	Kwave::MenuManager *m_menu_manager;
 
+// 	/** MDI area, parent of all MDI child windows */
+// 	QMdiArea *m_mdi_area;
+
 	/** action of the "file save" toolbar button */
 	QAction *m_action_save;
 
@@ -379,7 +385,6 @@ namespace Kwave
 
 	/** status bar label for cursor / playback position */
 	QLabel *m_lbl_status_cursor;
-
     };
 }
 

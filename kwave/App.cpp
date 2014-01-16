@@ -52,7 +52,7 @@ Kwave::App::App()
     qRegisterMetaType<Kwave::LabelList>("Kwave::LabelList");
     qRegisterMetaType<sample_index_t>("sample_index_t");
     qRegisterMetaType<Kwave::MetaDataList>("Kwave::MetaDataList");
-
+    
     // connect the clipboard
     connect(QApplication::clipboard(),
             SIGNAL(changed(QClipboard::Mode)),

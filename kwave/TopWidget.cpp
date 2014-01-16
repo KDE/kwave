@@ -76,6 +76,8 @@
 #include "PlayerToolBar.h"
 #include "TopWidget.h"
 
+#include <Qt/qdebug.h>
+
 /**
  * useful macro for command parsing
  */
@@ -118,7 +120,7 @@ namespace Kwave {
 //***************************************************************************
 //***************************************************************************
 Kwave::TopWidget::TopWidget(Kwave::App &app)
-    :KMainWindow(), m_context(app),
+    :KMainWindow(), 
      m_main_widget(0), m_toolbar_record_playback(0), m_zoomselect(0),
      m_menu_manager(0), m_action_save(0), m_action_save_as(0),
      m_action_close(0), m_action_undo(0), m_action_redo(0),
@@ -126,6 +128,7 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
      m_action_zoomnormal(0), m_action_zoomall(0), m_action_zoomselect(0),
      m_lbl_status_size(0), m_lbl_status_mode(0), m_lbl_status_cursor(0)
 {
+    m_context = new Kwave::ApplicationContext(app);
     // status bar items
     KStatusBar *status_bar = statusBar();
     Q_ASSERT(status_bar);
@@ -165,12 +168,16 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
 
     // direct all kind of focus to this window per default
     setFocusPolicy(Qt::WheelFocus);
+    
+    m_mdiArea = new QMdiArea(this);
+    
+    connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), SLOT(updateCurrent(QMdiSubWindow*)));
 }
 
 //***************************************************************************
 bool Kwave::TopWidget::init()
 {
-    if (!m_context.init(this))
+    if (!m_context->init(this))
 	return false;
 
     KIconLoader icon_loader;
@@ -198,7 +205,7 @@ bool Kwave::TopWidget::init()
     if (!stream.atEnd()) parseCommands(stream);
     menufile.close();
 
-    m_main_widget = new Kwave::MainWidget(this, m_context);
+    m_main_widget = new Kwave::MainWidget(this, *m_context);
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return false;
     if (!(m_main_widget->isOK())) {
@@ -207,14 +214,14 @@ bool Kwave::TopWidget::init()
 	m_main_widget = 0;
 	return false;
     }
-
+    m_map_contexts.insert(m_main_widget.data(), m_context);
     // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
             this, SLOT(executeCommand(const QString &)));
-    connect(&m_context.signalManager()->playbackController(),
+    connect(&m_context->signalManager()->playbackController(),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
-    connect(&m_context.signalManager()->playbackController(),
+    connect(&m_context->signalManager()->playbackController(),
             SIGNAL(sigSeekDone(sample_index_t)),
             m_main_widget, SLOT(scrollTo(sample_index_t)));
 
@@ -314,7 +321,7 @@ bool Kwave::TopWidget::init()
 
     m_toolbar_record_playback = new Kwave::PlayerToolBar(
 	this, TOOLBAR_RECORD_PLAY,
-	m_context.signalManager()->playbackController(),
+	&m_context->signalManager()->playbackController(),
 	*m_menu_manager);
 
     Q_ASSERT(m_toolbar_record_playback);
@@ -408,7 +415,7 @@ bool Kwave::TopWidget::init()
     m_zoomselect->setFocusPolicy(Qt::FocusPolicy(Qt::ClickFocus | Qt::TabFocus));
 
     // connect the signal manager
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     connect(&(signal_manager->selection()),
             SIGNAL(changed(sample_index_t, sample_index_t)),
             this,
@@ -425,14 +432,17 @@ bool Kwave::TopWidget::init()
                             SLOT(metaDataChanged(Kwave::MetaDataList)));
 
     // connect the plugin manager
-    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
+    Kwave::PluginManager *plugin_manager = m_context->pluginManager();
     connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
             this,           SLOT(executeCommand(const QString &)));
     connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
             this,           SLOT(showInSplashSreen(const QString &)));
 
+    qDebug() << "Before subWindow is added.";
+    m_mdiArea->addSubWindow(m_main_widget.data());
+    qDebug() << "After subWindow is added.";
     // set the MainWidget as the main view
-    setCentralWidget(m_main_widget);
+    setCentralWidget(m_mdiArea);
 
     // set a nice initial size
     int w = m_main_widget->minimumSize().width();
@@ -500,6 +510,80 @@ bool Kwave::TopWidget::init()
     return true;
 }
 
+bool Kwave::TopWidget::initializeSubWindow()
+{
+    m_context = new Kwave::ApplicationContext(*qobject_cast<Kwave::App*>(this->parent()));
+
+    if (!m_context->init(this))
+	return false;
+    
+    m_main_widget = new Kwave::MainWidget(this, *m_context);
+    Q_ASSERT(m_main_widget);
+    if (!m_main_widget) return false;
+    if (!(m_main_widget->isOK())) {
+	qWarning("TopWidget::TopWidget(): failed at creating main widget");
+	delete m_main_widget;
+	m_main_widget = 0;
+	return false;
+    }
+
+    m_map_contexts.insert(m_main_widget, m_context);    
+    qDebug() << "before initializeSubWindow is called.";
+    m_mdiArea->addSubWindow(m_main_widget)->show();
+    qDebug() << "after initializeSubWindow is called.";
+    
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
+    connect(&(signal_manager->selection()),
+            SIGNAL(changed(sample_index_t, sample_index_t)),
+            this,
+            SLOT(selectionChanged(sample_index_t,sample_index_t)));
+    connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
+                                                   const QString&)),
+            this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
+    connect(signal_manager, SIGNAL(sigModified(bool)),
+            this,           SLOT(modifiedChanged(bool)));
+    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            this,           SLOT(metaDataChanged(Kwave::MetaDataList)));
+    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            m_toolbar_record_playback,
+                            SLOT(metaDataChanged(Kwave::MetaDataList)));  
+    
+    Kwave::PluginManager *plugin_manager = m_context->pluginManager();
+    connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
+            this,           SLOT(executeCommand(const QString &)));
+    connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
+            this,           SLOT(showInSplashSreen(const QString &)));
+    
+
+    plugin_manager->searchPluginModules();
+    plugin_manager->loadAllPlugins();
+
+    
+    // connect the main widget
+    connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
+            this, SLOT(executeCommand(const QString &)));  
+    connect(&m_context->signalManager()->playbackController(),
+            SIGNAL(sigSeekDone(sample_index_t)),
+            m_main_widget, SLOT(scrollTo(sample_index_t)));    
+    connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)),
+	    m_toolbar_record_playback, SLOT(visibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)) );    
+    return true;
+}
+
+void Kwave::TopWidget::updateCurrent(QMdiSubWindow* window)
+{
+  qDebug() << "updateCurrent got called!";
+  if(window)
+  {
+    m_main_widget = qobject_cast<Kwave::MainWidget*>(window->widget());
+    m_context = const_cast<Kwave::ApplicationContext*>(m_map_contexts.value(m_main_widget));       
+    m_toolbar_record_playback->switchPlaybackController(&m_context->signalManager()->playbackController());
+   }
+}
+
+
 //***************************************************************************
 Kwave::TopWidget::~TopWidget()
 {
@@ -515,9 +599,9 @@ Kwave::TopWidget::~TopWidget()
     delete m_menu_manager;
     m_menu_manager = 0;
 
-    m_context.application().closeWindow(this);
+    m_context->application().closeWindow(this);
 
-    m_context.close();
+    m_context->close();
 }
 
 //***************************************************************************
@@ -532,7 +616,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     if (command.trimmed().startsWith(_("#")))
 	return 0; // only a comment
 
-    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
+    Kwave::PluginManager *plugin_manager = m_context->pluginManager();
 
     // log all commands to the log file if enabled
     Kwave::Logger::log(this, Kwave::Logger::Info, _("CMD: ") + line);
@@ -604,7 +688,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	qDebug("# %s ", DBG(command));
     }
 
-    if (m_context.application().executeCommand(command)) {
+    if (m_context->application().executeCommand(command)) {
 	return 0;
     CASE_COMMAND("about_kde")
 	// Help / About KDE
@@ -721,7 +805,7 @@ int Kwave::TopWidget::loadBatch(const KUrl &url)
     file.close();
 
     // successful run -> add URL to recent files
-    m_context.application().addRecentFile(url.path());
+    m_context->application().addRecentFile(url.path());
     updateMenu();
     updateToolbar();
 
@@ -780,7 +864,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	}
 
 	// synchronize before the command
-	if (m_context.pluginManager()) m_context.pluginManager()->sync();
+	if (m_context->pluginManager()) m_context->pluginManager()->sync();
 
 	// the "msgbox" command (useful for debugging)
 	if (parser.command() == _("msgbox")) {
@@ -801,7 +885,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	    qDebug(">>> '%s' - result=%d", DBG(line), result);
 
 	// synchronize after the command
-	if (m_context.pluginManager()) m_context.pluginManager()->sync();
+	if (m_context->pluginManager()) m_context->pluginManager()->sync();
 
 	// special handling of the "quit" command
 	if (parser.command() == _("quit")) {
@@ -827,8 +911,8 @@ int Kwave::TopWidget::revert()
 //***************************************************************************
 bool Kwave::TopWidget::closeFile()
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
-    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
+    Kwave::PluginManager *plugin_manager = m_context->pluginManager();
 
     if (plugin_manager && !plugin_manager->canClose())
     {
@@ -871,7 +955,16 @@ bool Kwave::TopWidget::closeFile()
 //***************************************************************************
 int Kwave::TopWidget::loadFile(const KUrl &url)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    if(m_context->signalManager()->signalName().length())
+    {
+      qDebug() << "Signal Name: " << m_context->signalManager()->signalName();
+      if(!initializeSubWindow())
+      {
+	return 1;
+      }
+    }
+    
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     Q_ASSERT(signal_manager);
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -1;
@@ -887,7 +980,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     }
 
     // try to close the previous file
-    if (!closeFile()) return -1;
+//     if (!closeFile()) return -1;
 
     emit sigSignalNameChanged(url.path());
 
@@ -926,7 +1019,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	// load failed
 	closeFile();
     }
-    m_context.application().addRecentFile(signalName());
+//     m_context->application().addRecentFile(signalName());
     updateMenu();
     updateToolbar();
 
@@ -959,7 +1052,7 @@ int Kwave::TopWidget::openFile()
 int Kwave::TopWidget::saveFile()
 {
     int res = 0;
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
     if (!signal_manager) return -EINVAL;
@@ -987,7 +1080,7 @@ int Kwave::TopWidget::saveFile()
 //***************************************************************************
 int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     int res = 0;
     Q_ASSERT(m_main_widget);
     Q_ASSERT(signal_manager);
@@ -1093,9 +1186,9 @@ int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
 
 	// now call the fileinfo plugin with the new filename and
 	// mimetype
-	Q_ASSERT(m_context.pluginManager());
-	res = (m_context.pluginManager()) ?
-	    m_context.pluginManager()->setupPlugin(_("fileinfo")) : -1;
+	Q_ASSERT(m_context->pluginManager());
+	res = (m_context->pluginManager()) ?
+	    m_context->pluginManager()->setupPlugin(_("fileinfo")) : -1;
 
 	// restore the mime type and the filename
 	info = Kwave::FileInfo(signal_manager->metaData());
@@ -1107,7 +1200,7 @@ int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
     if (!res) res = signal_manager->save(url, selection);
 
     updateCaption();
-    m_context.application().addRecentFile(signalName());
+    m_context->application().addRecentFile(signalName());
     updateMenu();
 
     if (!res && !selection) {
@@ -1123,7 +1216,7 @@ int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
 int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
                                 unsigned int bits, unsigned int tracks)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return -1;
 
@@ -1143,7 +1236,7 @@ int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
 //***************************************************************************
 void Kwave::TopWidget::selectZoom(int index)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     Q_ASSERT(signal_manager);
     Q_ASSERT(m_main_widget);
     Q_ASSERT(m_zoomselect);
@@ -1176,7 +1269,7 @@ void Kwave::TopWidget::selectZoom(int index)
 //***************************************************************************
 void Kwave::TopWidget::setZoomInfo(double zoom)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     Q_ASSERT(zoom >= 0);
     Q_ASSERT(m_zoomselect);
 
@@ -1328,7 +1421,7 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 void Kwave::TopWidget::selectionChanged(sample_index_t offset,
                                         sample_index_t length)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     Q_ASSERT(statusBar());
@@ -1398,13 +1491,13 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 //***************************************************************************
 void Kwave::TopWidget::updatePlaybackPos(sample_index_t offset)
 {
-    if (!m_context.pluginManager()) return;
+    if (!m_context->pluginManager()) return;
     if (!m_main_widget) return;
 
-    bool playing = m_context.signalManager()->playbackController().running();
+    bool playing = m_context->signalManager()->playbackController().running();
     if (!playing) return;
     QString txt;
-    double rate = m_context.pluginManager()->signalRate();
+    double rate = m_context->pluginManager()->signalRate();
     if (rate > 0) {
 	double ms = static_cast<double>(offset) * 1E3 / rate;
 	txt = i18n("Playback: %1", Kwave::ms2string(ms));
@@ -1470,6 +1563,10 @@ void Kwave::TopWidget::mouseChanged(Kwave::MouseMark::Mode mode,
                                     sample_index_t offset,
                                     sample_index_t length)
 {
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return;
+
     switch (mode) {
 	case (Kwave::MouseMark::MouseAtSelectionBorder) :
 	case (Kwave::MouseMark::MouseInSelection) :
@@ -1495,7 +1592,7 @@ void Kwave::TopWidget::updateRecentFiles()
 
     m_menu_manager->clearNumberedMenu(_("ID_FILE_OPEN_RECENT"));
 
-    QStringList recent_files = m_context.application().recentFiles();
+    QStringList recent_files = m_context->application().recentFiles();
     QStringList::Iterator it;
     for (it = recent_files.begin(); it != recent_files.end(); ++it) {
 	m_menu_manager->addNumberedMenuEntry(
@@ -1506,7 +1603,7 @@ void Kwave::TopWidget::updateRecentFiles()
 //***************************************************************************
 void Kwave::TopWidget::updateMenu()
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     Q_ASSERT(m_menu_manager);
@@ -1570,7 +1667,7 @@ void Kwave::TopWidget::resetToolbarToDefaults()
 //***************************************************************************
 void Kwave::TopWidget::updateToolbar()
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
@@ -1606,7 +1703,7 @@ void Kwave::TopWidget::modifiedChanged(bool)
 //***************************************************************************
 void Kwave::TopWidget::updateCaption()
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     bool modified = signal_manager->isModified();
@@ -1636,15 +1733,15 @@ void Kwave::TopWidget::closeEvent(QCloseEvent *e)
 //***************************************************************************
 bool Kwave::TopWidget::haveSignal()
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
     return (signal_manager) ? (signal_manager->tracks()) : false;
 }
 
 //***************************************************************************
 QString Kwave::TopWidget::signalName() const
 {
-    if (!m_context.pluginManager()) return QString();
-    return m_context.pluginManager()->signalManager().signalName();
+    if (!m_context->pluginManager()) return QString();
+    return m_context->pluginManager()->signalManager().signalName();
 }
 
 //***************************************************************************

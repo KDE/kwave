@@ -20,6 +20,7 @@
 #include <math.h>
 
 #include <QtCore/QMutexLocker>
+#include <Qt/qdebug.h>
 
 #include "libkwave/MessageBox.h"
 #include "libkwave/MixerMatrix.h"
@@ -38,6 +39,8 @@
 /** Sets the number of screen refreshes per second when in playback mode */
 #define SCREEN_REFRESHES_PER_SECOND 10
 
+// QList<Kwave::PlaybackDeviceFactory *> Kwave::PlaybackController::m_playback_factories;
+
 //***************************************************************************
 Kwave::PlaybackController::PlaybackController(
     Kwave::SignalManager &signal_manager
@@ -48,8 +51,7 @@ Kwave::PlaybackController::PlaybackController(
      m_track_selection_changed(false),
      m_reload_mode(false), m_loop_mode(false), m_paused(false),
      m_playing(false), m_playback_position(0), m_playback_start(0),
-     m_playback_end(0), m_old_first(0), m_old_last(0),
-     m_playback_factories()
+     m_playback_end(0), m_old_first(0), m_old_last(0)
 {
 
     connect(this, SIGNAL(sigDevicePlaybackDone()),
@@ -155,6 +157,7 @@ void Kwave::PlaybackController::playbackContinue()
 //***************************************************************************
 void Kwave::PlaybackController::playbackStop()
 {
+  qDebug() << "playbackStop got called";
     // leave the reload mode in any case
     m_reload_mode = false;
 
@@ -386,8 +389,6 @@ void Kwave::PlaybackController::stopDevicePlayBack()
 	emit sigDevicePlaybackDone();
     }
     closeDevice();
-
-
 }
 //***************************************************************************
 void Kwave::PlaybackController::trackSelectionChanged()

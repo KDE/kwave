@@ -326,6 +326,7 @@ namespace Kwave
 	/** End of the selection when playback started */
 	sample_index_t m_old_last;
 
+    public:
 	/** list of playback device factories */
 	QList<Kwave::PlaybackDeviceFactory *> m_playback_factories;
 

@@ -138,7 +138,7 @@ namespace Kwave
 
 	/** list of toplevel widgets */
 	QList<Kwave::TopWidget *> m_top_widgets;
-
+	
     };
 }
 

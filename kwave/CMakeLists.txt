@@ -53,6 +53,7 @@ SET(kwave_SRCS
     Splash.cpp
     TopWidget.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
+    PlaybackContext.cpp
 )
 
 #############################################################################

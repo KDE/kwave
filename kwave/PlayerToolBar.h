@@ -23,12 +23,15 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QTimer>
+#include <Qt/qmap.h>
 
 #include "ktoolbar.h"
 
 #include "libkwave/LabelList.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
+
+#include "kwave/PlaybackContext.h"
 
 class QAction;
 class KMainWindow;
@@ -51,12 +54,14 @@ namespace Kwave
 	 * @param menu_manager the MenuManager
 	 */
 	PlayerToolBar(KMainWindow *parent, const QString &name,
-	              Kwave::PlaybackController &playback,
+	              Kwave::PlaybackController* playback,
 	              Kwave::MenuManager &menu_manager
 	);
 
 	/** Destructor */
 	virtual ~PlayerToolBar();
+	
+	void switchPlaybackController(Kwave::PlaybackController* playback);
 
     signals:
 
@@ -123,6 +128,12 @@ namespace Kwave
 
 	/** updates the current playback position */
 	void updatePlaybackPos(sample_index_t pos);
+	
+	void startPlayback();
+	
+	void stopPlayback();
+	
+	void loopPlayback();
 
     private:
 
@@ -160,7 +171,7 @@ namespace Kwave
 	bool m_blink_on;
 
 	/** reference to a playback controller */
-	Kwave::PlaybackController &m_playback;
+	Kwave::PlaybackController* m_playback;
 
 	/** reference to a menu manager */
 	Kwave::MenuManager &m_menu_manager;
@@ -180,6 +191,8 @@ namespace Kwave
 	/** last length of the signal */
 	sample_index_t m_last_length;
 
+	QMap<Kwave::PlaybackController*, Kwave::PlaybackContext> m_active_playbacks;
+	
     };
 
 }

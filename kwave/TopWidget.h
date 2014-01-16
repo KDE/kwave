@@ -35,6 +35,10 @@
 
 #include "libgui/MouseMark.h"
 
+#include <Qt/qmdiarea.h>
+#include <Qt/qmdisubwindow.h>
+#include <Qt/qmap.h>
+
 class QCloseEvent;
 class QLabel;
 class QTextStream;
@@ -252,6 +256,8 @@ namespace Kwave
 
 	/** shows a message/progress in the splash screen */
 	void showInSplashSreen(const QString &message);
+	
+	void updateCurrent(QMdiSubWindow* window);
 
     signals:
 	/**
@@ -339,11 +345,14 @@ namespace Kwave
 
 	/** returns the name of the signal */
 	QString signalName() const;
+	
+	
+	bool initializeSubWindow();
 
     private:
 
 	/** application context of this instance */
-	Kwave::ApplicationContext m_context;
+	Kwave::ApplicationContext* m_context;
 
 	/**
 	 * the main widget with all views and controls (except menu and
@@ -402,6 +411,10 @@ namespace Kwave
 	/** status bar label for cursor / playback position */
 	QLabel *m_lbl_status_cursor;
 
+	QMdiArea* m_mdiArea;
+	
+	QMap<Kwave::MainWidget*, Kwave::ApplicationContext*> m_map_contexts;
+	
     };
 }
 

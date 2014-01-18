@@ -55,13 +55,15 @@
 
 //***************************************************************************
 Kwave::Track::Track()
-    :m_lock(), m_lock_usage(), m_stripes(), m_selected(true)
+    :m_lock(), m_lock_usage(), m_stripes(), m_selected(true),
+     m_uuid(QUuid::createUuid())
 {
 }
 
 //***************************************************************************
-Kwave::Track::Track(sample_index_t length)
-    :m_lock(), m_lock_usage(), m_stripes(), m_selected(true)
+Kwave::Track::Track(sample_index_t length, QUuid *uuid)
+    :m_lock(), m_lock_usage(), m_stripes(), m_selected(true),
+     m_uuid((uuid) ? *uuid : QUuid::createUuid())
 {
     if (length < 2*STRIPE_LENGTH_OPTIMAL) {
 	if (length) appendStripe(length);

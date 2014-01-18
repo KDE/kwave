@@ -19,6 +19,7 @@
 
 #include <math.h>
 #include <limits.h>
+#include <new>
 
 #include <QtGui/QBitmap>
 #include <QtGui/QImage>
@@ -89,12 +90,12 @@ Kwave::SonagramWindow::SonagramWindow(const QString &name)
 
     for (int i = 0; i < 256; m_histogram[i++] = 0) {}
 
-    QWidget *mainwidget = new QWidget(this);
+    QWidget *mainwidget = new(std::nothrow) QWidget(this);
     Q_ASSERT(mainwidget);
     if (!mainwidget) return;
     setCentralWidget(mainwidget);
 
-    QGridLayout *top_layout = new QGridLayout(mainwidget/*, 3, 2*/);
+    QGridLayout *top_layout = new(std::nothrow) QGridLayout(mainwidget/*, 3, 2*/);
     Q_ASSERT(top_layout);
     if (!top_layout) return;
 
@@ -135,7 +136,7 @@ Kwave::SonagramWindow::SonagramWindow(const QString &name)
     status->insertItem(i18n("Frequency: ------ Hz"), 2);
     status->insertItem(i18n("Amplitude: --- %"), 3);
 
-    m_view = new Kwave::ImageView(mainwidget);
+    m_view = new(std::nothrow) Kwave::ImageView(mainwidget);
     Q_ASSERT(m_view);
     if (!m_view) return;
     top_layout->addWidget(m_view, 0, 1);
@@ -143,20 +144,22 @@ Kwave::SonagramWindow::SonagramWindow(const QString &name)
     palette.setBrush(m_view->backgroundRole(), QBrush(background));
     m_view->setPalette(palette);
 
-    m_xscale = new Kwave::ScaleWidget(mainwidget, 0, 100, i18n("ms"));
+    m_xscale = new(std::nothrow)
+	Kwave::ScaleWidget(mainwidget, 0, 100, i18n("ms"));
     Q_ASSERT(m_xscale);
     if (!m_xscale) return;
     m_xscale->setFixedHeight(m_xscale->sizeHint().height());
     top_layout->addWidget(m_xscale, 1, 1);
 
-    m_yscale = new Kwave::ScaleWidget(mainwidget, 0, 100, i18n("Hz"));
+    m_yscale = new(std::nothrow)
+	Kwave::ScaleWidget(mainwidget, 0, 100, i18n("Hz"));
     Q_ASSERT(m_yscale);
     if (!m_yscale) return ;
     m_yscale->setFixedWidth(m_yscale->sizeHint().width());
     m_yscale->setMinimumHeight(9*6*5);
     top_layout->addWidget(m_yscale, 0, 0);
 
-    m_overview = new Kwave::ImageView(mainwidget);
+    m_overview = new(std::nothrow) Kwave::ImageView(mainwidget);
     Q_ASSERT(m_overview);
     if (!m_overview) return;
     m_overview->setFixedHeight(30);
@@ -277,7 +280,7 @@ void Kwave::SonagramWindow::setImage(QImage image)
 //****************************************************************************
 void Kwave::SonagramWindow::setOverView(const QImage &overview)
 {
-    m_overview->setImage(overview);
+    if (m_overview) m_overview->setImage(overview);
 }
 
 //****************************************************************************

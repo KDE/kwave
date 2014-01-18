@@ -1,6 +1,4 @@
 
-o use mouse wheel for vertical scroll bar in signal widget
-
 o recording via Phonon
 
 o auto-detect song borders set markers, for splitting recorded stuff into several
@@ -26,6 +24,10 @@ o use noise shaping globally in sample2float()
 
 o support for "raw" import/export
 
+o file import from non-local URLs (e.g. fish://...)
+
+o file export to non-local URLs (e.g. fish://...)
+
 o move label with mouse (drag&drop)
 
 o new import/export plugin using ffmpeg/libavcodec
@@ -45,7 +47,6 @@ o debug aid: new plugin for adding a new track with test/debug info:
   - hull curve
   - test pattern: sample offset within stripe
   - test pattern: stripe borders
-  - generate labels at stripe borders
 
 o use xml description for device names in playback/record plugins
 
@@ -100,10 +101,6 @@ o use a MenuManager in the plugins (e.g. sonagram)
 
 o optimized cut/paste, at zero-crossing
 
-o new plugin: amplifyclip
-
-o new plugin: pulse train
-
 o document how to do an optimized build, for example:
   CFLAGS="-march=athlon-xp -mcpu=athlon-xp \
   -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_TRANSLATION" \
@@ -115,24 +112,38 @@ o import/export of labels as meta info in codecs other than wav
 
 o SonagramWindow::toSignal()
 
-o rework of the FFTWidget
+o new plugin: amplifyclip [porting from v0.6.4]
 
-o new plugin: additive synthesis
+o new plugin: pulse train [porting from v0.6.4]
 
-o new plugin: fft, averagefft
+o new plugin: additive synthesis [porting from v0.6.4]
 
-o new plugin: distort
+o new plugin: fft, averagefft [porting from v0.6.4]
 
-o new plugin: channel mixer
+o new plugin: distort [porting from v0.6.4]
+
+o new plugin: channel mixer [porting from v0.6.4]
+
+o new plugin: delay [porting from v0.6.4]
+
+o new plugin: flip [porting from v0.6.4]
+
+o new plugin: quantize [porting from v0.6.4]
+
+o new plugin: sweep [porting from v0.6.4]
+
+o new plugin: Fx->Periodic Silence [porting from v0.6.4]
 
 o support for KDE's session management
 
-o fix bug in Fx->Periodic Silence (segmentation fault)
-
 o macro recorder
+
+o documentation of the internal macro language
 
 o user selectable color scheme
   (feature requested by John David Thompson, 2006-12-20)
+
+o re-evaluate use of taglib as alternative to id3lib
 
 o port from id3lib to taglib
   => rejected, currently no alternative available

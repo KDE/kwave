@@ -24,6 +24,7 @@
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QReadWriteLock>
+#include <QtCore/QUuid>
 
 #include <kdemacros.h>
 
@@ -46,15 +47,16 @@ namespace Kwave
     public:
 	/**
 	 * Default constructor. Creates a new and empty track with
-	 * zero-length and no stripes
+	 * zero-length, no stripes and new uuid
 	 */
 	Track();
 
 	/**
-	 * Constructor. Creates an empty track with one stripe
-	 * with specified length.
+	 * Constructor. Creates an empty track with a specified length.
+	 * @param length the length in samples
+	 * @param uuid unique ID of the track, can be null
 	 */
-	Track(sample_index_t length);
+	Track(sample_index_t length, QUuid *uuid);
 
 	/**
 	 * Destructor.
@@ -136,6 +138,9 @@ namespace Kwave
 
 	/** Sets the "selected" flag. */
 	void select(bool select);
+
+	/** returns the unique ID of this track instance */
+	const QUuid &uuid() const { return m_uuid; }
 
     public slots:
 
@@ -311,6 +316,8 @@ namespace Kwave
 	/** True if the track is selected */
 	bool m_selected;
 
+	/** unique ID */
+	QUuid m_uuid;
     };
 }
 

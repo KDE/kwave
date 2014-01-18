@@ -390,6 +390,16 @@ namespace Kwave
 	 */
 	const Kwave::MetaDataList &metaData() const { return m_meta_data; }
 
+	/**
+	 * Returns the uuid of a track
+	 * @param track index of the track [0...tracks-1]
+	 * @return the QUuid of the track or a "null" uuid if the track
+	 *         does not exist
+	 */
+	QUuid uuidOfTrack(unsigned int track) {
+	    return m_signal.uuidOfTrack(track);
+	}
+
     signals:
 
 	/**
@@ -409,8 +419,9 @@ namespace Kwave
 	/**
 	 * Signals that a track has been deleted.
 	 * @param index position of the deleted track [0...tracks()-1]
+	 * @param track reference to the new track
 	 */
-	void sigTrackDeleted(unsigned int index);
+	void sigTrackDeleted(unsigned int index, Kwave::Track *track);
 
 	/**
 	 * Signals that the selection of one of the tracks has changed
@@ -494,10 +505,11 @@ namespace Kwave
 	/**
 	 * Connected to the signal's sigTrackInserted.
 	 * @param index numeric index of the inserted track
+	 * @param track reference to the track that has been deleted
 	 * @see Signal::sigTrackDeleted
 	 * @internal
 	 */
-	void slotTrackDeleted(unsigned int index);
+	void slotTrackDeleted(unsigned int index, Kwave::Track *track);
 
 	/**
 	 * Connected to the signal's sigSamplesInserted.

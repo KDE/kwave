@@ -21,9 +21,11 @@
 #include "config.h"
 
 #include <QtGui/QImage>
+#include <QtCore/QHash>
 #include <QtCore/QList>
 #include <QtCore/QMutex>
 #include <QtCore/QObject>
+#include <QtCore/QUuid>
 #include <QtCore/QVector>
 
 #include <kdemacros.h>
@@ -105,18 +107,20 @@ namespace Kwave
 	/**
 	 * Connected to the signal's sigTrackInserted.
 	 * @param index the index [0...tracks()-1] of the inserted track
+	 * @param track pointer to the track instance
 	 * @see Signal::sigTrackInserted
 	 * @internal
 	 */
-	void slotTrackInserted(unsigned int index, Kwave::Track *);
+	void slotTrackInserted(unsigned int index, Kwave::Track *track);
 
 	/**
 	 * Connected to the signal's sigTrackInserted.
 	 * @param index the index of the inserted track
+	 * @param track pointer to the track instance
 	 * @see Signal::sigTrackDeleted
 	 * @internal
 	 */
-	void slotTrackDeleted(unsigned int index);
+	void slotTrackDeleted(unsigned int index, Kwave::Track *track);
 
 	/**
 	 * Connected to the signal's sigSamplesInserted.
@@ -169,18 +173,15 @@ namespace Kwave
 	 */
 	void dumpTracks();
 
-	/**
-	 * Translates a track number from the original signal into an
-	 * internal track index. If all tracks are selected, this is
-	 * equal to the signal's track number, in "selected-tracks" mode
-	 * it is the internal index within the list of selected tracks.
-	 * @param track_nr index of a track of the signal
-	 * @return internal index or -1 if not in selection
-	 */
-	int trackIndex(unsigned int track_nr);
-
 	/** Returns the number of selected samples of the source */
 	sample_index_t sourceLength();
+
+	/**
+	 * Returns true when there was a list of selected tracks
+	 */
+	bool haveTrackSelection() const {
+	    return (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty());
+	}
 
 	/**
 	 * Compresses the cache to hold more samples per entry.
@@ -196,17 +197,13 @@ namespace Kwave
 
 	/**
 	 * Marks a range of cache entries of a track as invalid
-	 * @param track index of the track to invalidate
+	 * @param uuid ID of the track to invalidate
 	 * @param first index of the first entry
 	 * @param last index of the last entry (will be truncated to CACHE_SIZE-1)
 	 */
-	void invalidateCache(unsigned int track, unsigned int first,
+	void invalidateCache(const QUuid &uuid,
+	                     unsigned int first,
 	                     unsigned int last);
-
-	/**
-	 * Refreshes all modified parts of the bitmap
-	 */
-	void refreshBitmap();
 
     private:
 
@@ -214,13 +211,13 @@ namespace Kwave
 	Kwave::SignalManager &m_signal;
 
 	/** list of minimum value arrays, one array per track */
-	QList< QVector <sample_t> > m_min;
+	QHash<QUuid, QVector <sample_t> > m_min;
 
 	/** list of maximum value arrays, one array per track */
-	QList< QVector <sample_t> > m_max;
+	QHash<QUuid, QVector <sample_t> > m_max;
 
 	/** bitmask for "validity" of the min/max values */
-	QList< QVector <CacheState> > m_state;
+	QHash<QUuid, QVector <CacheState> > m_state;
 
 	/** list of min/max pairs, cached internally for getOverView */
 	MinMaxArray m_minmax;
@@ -241,10 +238,10 @@ namespace Kwave
 	sample_index_t m_src_length;
 
 	/** list of selected source tracks */
-	QList<unsigned int> m_src_tracks;
+	QList<QUuid> m_src_tracks;
 
 	/** list of selected and deleted source tracks */
-	QList<unsigned int> m_src_deleted;
+	QList<QUuid> m_src_deleted;
 
     };
 }

@@ -25,6 +25,7 @@
 
 #include <QtCore/QReadWriteLock>
 #include <QtCore/QList>
+#include <QtCore/QUuid>
 
 #include <kdemacros.h>
 
@@ -33,6 +34,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/WindowFunction.h"
+
+class QUuid;
 
 //**********************************************************************
 namespace Kwave
@@ -77,19 +80,24 @@ namespace Kwave
 	 * @param index the position where to insert [0...tracks()]. If the
 	 *        position is at or after the last track, the new track will
 	 *        be appended to the end.
-	 * @param length number of samples of the new track. Optional, if omitted
-	 *        the track will be zero-length.
+	 * @param length number of samples of the new track (zero is allowed)
+	 * @param uuid pointer to a unique ID (optional, can be null)
 	 * @return pointer to the created track. If the length is
 	 *         omitted or zero, the track will have zero length.
 	 */
-	Kwave::Track *insertTrack(unsigned int index, sample_index_t length = 0);
+	Kwave::Track *insertTrack(unsigned int index,
+	                          sample_index_t length,
+	                          QUuid *uuid);
 
 	/**
 	 * Appends a new track to the end of the tracks list, shortcut for
 	 * insertTrack(tracks()-1, length)
 	 * @see insertTrack
+	 * @param length number of samples of the new track (zero is allowed)
+	 * @param uuid pointer to a unique ID (optional, can be null)
 	 */
-	Kwave::Track *appendTrack(sample_index_t length);
+	Kwave::Track *appendTrack(sample_index_t length,
+	                          QUuid *uuid);
 
 	/**
 	 * Deletes a track.
@@ -198,6 +206,14 @@ namespace Kwave
 	 */
 	void selectTrack(unsigned int track, bool select);
 
+	/**
+	 * Returns the uuid of a track
+	 * @param track index of the track [0...tracks-1]
+	 * @return the QUuid of the track or a "null" uuid if the track
+	 *         does not exist
+	 */
+	QUuid uuidOfTrack(unsigned int track);
+
     signals:
 
 	/**
@@ -210,8 +226,9 @@ namespace Kwave
 	/**
 	 * Signals that a track has been deleted.
 	 * @param index position of the deleted track [0...tracks()-1]
+	 * @param track reference to the deleted track
 	 */
-	void sigTrackDeleted(unsigned int index);
+	void sigTrackDeleted(unsigned int index, Kwave::Track *track);
 
 	/**
 	 * Signals that the selection of one of the tracks has changed
@@ -287,24 +304,11 @@ namespace Kwave
     private:
 
 	/**
-	 * Looks up the index of a trackin the track list
+	 * Looks up the index of a track in the track list
 	 * @param track reference to the trac to be looked up
 	 * @returns index of the track [0...tracks()-1] or tracks() if not found
 	 */
 	unsigned int trackIndex(const Kwave::Track *track);
-
-//        //signal modifying functions
-//        void replaceStutter (int, int);
-//        void delayRecursive (int, int);
-//        void delay (int, int);
-//        void movingFilter (Kwave::Filter *filter, int tap,
-//                           Kwave::Curve *points,
-// 	                     int low, int high);
-//
-//        //functions creating a new Object
-//
-//        void fft (int, bool);
-//        void averageFFT (int points, window_function_t windowtype);
 
 	/** list of tracks */
 	QList<Kwave::Track *> m_tracks;

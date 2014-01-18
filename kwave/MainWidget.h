@@ -208,10 +208,11 @@ namespace Kwave
 	 * Called if a track has been deleted. Updates the display by
 	 * resizing/re-positioning the signal views.
 	 * @param index the index of the inserted track [0...tracks-1]
+	 * @param track pointer to the track object (ignored here)
 	 * @see SignalManager::sigTrackDeleted
 	 * @internal
 	 */
-	void slotTrackDeleted(unsigned int index);
+	void slotTrackDeleted(unsigned int index, Kwave::Track *track);
 
 	/**
 	 * Connected to the vertical scrollbar and called if the value

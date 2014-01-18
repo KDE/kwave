@@ -46,7 +46,7 @@ Kwave::Signal::Signal(unsigned int tracks, sample_index_t length)
     :m_tracks(), m_lock_tracks()
 {
     while (tracks--) {
-	appendTrack(length);
+	appendTrack(length, 0);
     }
 }
 
@@ -68,13 +68,14 @@ void Kwave::Signal::close()
 
 //***************************************************************************
 Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
-                                         sample_index_t length)
+                                         sample_index_t length,
+                                         QUuid *uuid)
 {
     Kwave::Track *t = 0;
     {
 	QWriteLocker lock(&m_lock_tracks);
 
-	t = new(std::nothrow) Kwave::Track(length);
+	t = new(std::nothrow) Kwave::Track(length, uuid);
 	Q_ASSERT(t);
 	if (!t) return 0;
 
@@ -110,9 +111,9 @@ Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
 
 
 //***************************************************************************
-Kwave::Track *Kwave::Signal::appendTrack(sample_index_t length)
+Kwave::Track *Kwave::Signal::appendTrack(sample_index_t length, QUuid *uuid)
 {
-    return insertTrack(tracks(), length);
+    return insertTrack(tracks(), length, uuid);
 }
 
 //***************************************************************************
@@ -132,7 +133,7 @@ void Kwave::Signal::deleteTrack(unsigned int index)
     // now emit a signal that the track has been deleted. Maybe
     // someone is still using a reference to it, so we have not
     // deleted it yet - still only unlinked from the track list!
-    emit sigTrackDeleted(index);
+    emit sigTrackDeleted(index, t);
 
     // as everybody now knows that the track is gone, we can safely
     // delete it now.
@@ -290,6 +291,18 @@ void Kwave::Signal::selectTrack(unsigned int track, bool select)
     if (!m_tracks.at(track)) return;
 
     m_tracks.at(track)->select(select);
+}
+
+//***************************************************************************
+QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
+{
+    QReadLocker lock(&m_lock_tracks);
+
+    if (static_cast<int>(track) >= m_tracks.count()) return QUuid();
+    Q_ASSERT(m_tracks.at(track));
+    if (!m_tracks.at(track)) return QUuid();
+
+    return m_tracks.at(track)->uuid();
 }
 
 //// now follow the various editing and effects functions

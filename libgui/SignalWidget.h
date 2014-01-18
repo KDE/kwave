@@ -161,10 +161,11 @@ namespace Kwave
 	/**
 	 * Connected to the signal's sigTrackDeleted.
 	 * @param index numeric index of the deleted track
+	 * @param track reference to the deleted track
 	 * @see Signal::sigTrackInserted
 	 * @internal
 	 */
-	void slotTrackDeleted(unsigned int index);
+	void slotTrackDeleted(unsigned int index, Kwave::Track *track);
 
 	/** context menu: "edit/undo" */
 	void contextMenuEditUndo() { forwardCommand(_("undo()")); }

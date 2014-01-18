@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <new>
 
 #include <complex>
 #include <fftw3.h>
@@ -83,7 +84,7 @@ QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
     // try to interprete the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
 
-    Kwave::SonagramDialog *dlg = new Kwave::SonagramDialog(*this);
+    Kwave::SonagramDialog *dlg = new(std::nothrow) Kwave::SonagramDialog(*this);
     Q_ASSERT(dlg);
     if (!dlg) return 0;
 
@@ -124,13 +125,13 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
     m_color = (param.toUInt(&ok) != 0);
     if (!ok) return -EINVAL;
 
-//     param = params[3];
-    m_track_changes = false; // (param.toUInt(&ok) != 0);
-//     if (!ok) return -EINVAL;
+    param = params[3];
+    m_track_changes = (param.toUInt(&ok) != 0);
+    if (!ok) return -EINVAL;
 
-//     param = params[4];
-    m_follow_selection = false; // (param.toUInt(&ok) != 0);
-//     if (!ok) return -EINVAL;
+    param = params[4];
+    m_follow_selection = (param.toUInt(&ok) != 0);
+    if (!ok) return -EINVAL;
 
     return 0;
 }

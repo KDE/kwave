@@ -96,8 +96,8 @@ Kwave::SignalManager::SignalManager(QWidget *parent)
     Kwave::Signal *sig = &m_signal;
     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
             this, SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
-    connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
-            this, SLOT(slotTrackDeleted(unsigned int)));
+    connect(sig, SIGNAL(sigTrackDeleted(unsigned int, Kwave::Track *)),
+            this, SLOT(slotTrackDeleted(unsigned int, Kwave::Track *)));
     connect(sig, SIGNAL(sigTrackSelectionChanged(bool)),
             this,SIGNAL(sigTrackSelectionChanged(bool)));
     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,
@@ -171,7 +171,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	if (!tracks) break;
 
 	for (track = 0; track < tracks; ++track) {
-	    Kwave::Track *t = m_signal.appendTrack(length);
+	    Kwave::Track *t = m_signal.appendTrack(length, 0);
 	    Q_ASSERT(t);
 	    if (!t || (t->length() != length)) {
 		qWarning("out of memory");
@@ -508,7 +508,7 @@ void Kwave::SignalManager::newSignal(sample_index_t samples, double rate,
     m_empty = false;
 
     // add all empty tracks
-    while (tracks--) m_signal.appendTrack(samples);
+    while (tracks--) m_signal.appendTrack(samples, 0);
 
     // remember the last length
     m_last_length = samples;
@@ -913,7 +913,7 @@ void Kwave::SignalManager::insertTrack(unsigned int index)
 
     if (index >= count) {
 	// do an "append"
-	m_signal.appendTrack(len);
+	m_signal.appendTrack(len, 0);
     } else {
 	if (m_undo_enabled) {
 	    // undo action for the corresponding meta data change
@@ -929,7 +929,7 @@ void Kwave::SignalManager::insertTrack(unsigned int index)
 	m_meta_data.insertTrack(index);
 
 	// insert into the list
-	m_signal.insertTrack(index, len);
+	m_signal.insertTrack(index, len, 0);
     }
 
     // remember the last length
@@ -982,7 +982,8 @@ void Kwave::SignalManager::slotTrackInserted(unsigned int index,
 }
 
 //***************************************************************************
-void Kwave::SignalManager::slotTrackDeleted(unsigned int index)
+void Kwave::SignalManager::slotTrackDeleted(unsigned int index,
+                                             Kwave::Track *track)
 {
     setModified(true);
 
@@ -990,7 +991,7 @@ void Kwave::SignalManager::slotTrackDeleted(unsigned int index)
     file_info.setTracks(tracks());
     m_meta_data.replace(file_info);
 
-    emit sigTrackDeleted(index);
+    emit sigTrackDeleted(index, track);
     emit sigMetaDataChanged(m_meta_data);
 }
 

@@ -109,8 +109,8 @@ Kwave::SignalWidget::SignalWidget(QWidget *parent,
 
     connect(sig,  SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
             this, SLOT( slotTrackInserted(unsigned int, Kwave::Track *)));
-    connect(sig,  SIGNAL(sigTrackDeleted(unsigned int)),
-            this, SLOT( slotTrackDeleted(unsigned int)));
+    connect(sig,  SIGNAL(sigTrackDeleted(unsigned int, Kwave::Track *)),
+            this, SLOT( slotTrackDeleted(unsigned int, Kwave::Track *)));
 
     // use a timer for limiting the repaint rate
     m_repaint_timer.setSingleShot(true);
@@ -608,8 +608,11 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
 }
 
 //***************************************************************************
-void Kwave::SignalWidget::slotTrackDeleted(unsigned int index)
+void Kwave::SignalWidget::slotTrackDeleted(unsigned int index,
+                                           Kwave::Track *track)
 {
+    Q_UNUSED(track);
+
     // loop over all views, delete those that are bound to this track
     // and adjust the index of the following ones
     bool empty = true;

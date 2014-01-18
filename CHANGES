@@ -18,6 +18,7 @@
  * bugfix: sonagram plugin did not honor the windowing function parameter
  * got rid of KDE ThreadWeaver, replaced with Qt Concurrent framework
  * amplify free plugin: action names were not translated in progress bar
+ * bugfix: coherency problems in overview cache
 
 0.8.11 [2013-11-24]
 

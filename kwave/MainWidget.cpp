@@ -181,8 +181,10 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
 	    SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
 	    this,
 	    SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
-    connect(signal_manager, SIGNAL(sigTrackDeleted(unsigned int)),
-	    this,           SLOT(slotTrackDeleted(unsigned int)));
+    connect(signal_manager,
+	    SIGNAL(sigTrackDeleted(unsigned int, Kwave::Track *)),
+	    this,
+	    SLOT(slotTrackDeleted(unsigned int, Kwave::Track *)));
     connect(signal_manager,
             SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
             this,
@@ -350,10 +352,12 @@ void Kwave::MainWidget::slotTrackInserted(unsigned int index,
 }
 
 //***************************************************************************
-void Kwave::MainWidget::slotTrackDeleted(unsigned int index)
+void Kwave::MainWidget::slotTrackDeleted(unsigned int index,
+                                         Kwave::Track *track)
 {
 //     qDebug("MainWidget::slotTrackDeleted(%u)", index);
     Q_UNUSED(index);
+    Q_UNUSED(track);
 
     resizeViewPort();
     updateViewRange();

@@ -88,7 +88,6 @@ void Kwave::SampleReader::fillBuffer()
     unsigned int len = readSamples(m_src_position, m_buffer, 0, rest);
     Q_ASSERT(len == rest);
     m_buffer_used  += len;
-    m_src_position += len;
 
     // inform others that we proceeded
     if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
@@ -194,7 +193,6 @@ unsigned int Kwave::SampleReader::read(Kwave::SampleArray &buffer,
     Q_ASSERT(dstoff + rest <= buffer.size());
     unsigned int len = readSamples(m_src_position, buffer, dstoff, rest);
     Q_ASSERT(len == rest);
-    m_src_position += len;
     count += len;
 
     // inform others that we proceeded
@@ -217,6 +215,16 @@ void Kwave::SampleReader::skip(sample_index_t count)
 	count -= m_buffer_used;
 	m_src_position += count;
 	m_buffer_position = m_buffer_used = 0;
+    }
+
+    // if this reader is of "single pass forward only" type: remove all
+    // stripes that we have passed -> there is no way back!
+    if (m_mode == Kwave::SinglePassForward) {
+	while (!m_stripes.isEmpty() &&
+	       (m_stripes.first().end() < m_src_position))
+	{
+	    m_stripes.removeFirst();
+	}
     }
 }
 
@@ -346,14 +354,14 @@ unsigned int Kwave::SampleReader::readSamples(sample_index_t offset,
     // pad at the end
     if (rest) padBuffer(buffer, buf_offset, rest);
 
+    m_src_position += length;
+
     // if this reader is of "single pass forward only" type: remove all
     // stripes that we have passed -> there is no way back!
     if (m_mode == Kwave::SinglePassForward) {
-	while (!m_stripes.isEmpty() && (m_stripes.first().end() < m_first)) {
-// 	    qDebug("SampleReader: removing stripe [%9u ... %9u] (first=%9u)",
-// 		    m_stripes.first().start(),
-// 		    m_stripes.first().end(),
-// 		    m_first);
+	while (!m_stripes.isEmpty() &&
+	       (m_stripes.first().end() < m_src_position))
+	{
 	    m_stripes.removeFirst();
 	}
     }

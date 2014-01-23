@@ -45,22 +45,22 @@ Kwave::OverViewCache::OverViewCache(Kwave::SignalManager &signal,
     // connect to the signal manager
     Kwave::SignalManager *sig = &signal;
     Q_ASSERT(sig);
-    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
+    connect(sig,  SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
             this, SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
-    connect(sig, SIGNAL(sigTrackDeleted(unsigned int, Kwave::Track *)),
+    connect(sig,  SIGNAL(sigTrackDeleted(unsigned int, Kwave::Track *)),
             this, SLOT(slotTrackDeleted(unsigned int, Kwave::Track *)));
-    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,
-	sample_index_t)),
-	this, SLOT(slotSamplesDeleted(unsigned int, sample_index_t,
-	sample_index_t)));
-    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, sample_index_t,
-	sample_index_t)),
-	this, SLOT(slotSamplesInserted(unsigned int, sample_index_t,
-	sample_index_t)));
-    connect(sig, SIGNAL(sigSamplesModified(unsigned int, sample_index_t,
-	sample_index_t)),
-	this, SLOT(slotSamplesModified(unsigned int, sample_index_t,
-	sample_index_t)));
+    connect(sig,  SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,
+                                           sample_index_t)),
+            this, SLOT(slotSamplesDeleted(unsigned int, sample_index_t,
+                                          sample_index_t)));
+    connect(sig,  SIGNAL(sigSamplesInserted(unsigned int, sample_index_t,
+                                            sample_index_t)),
+            this, SLOT(slotSamplesInserted(unsigned int, sample_index_t,
+                                           sample_index_t)));
+    connect(sig,  SIGNAL(sigSamplesModified(unsigned int, sample_index_t,
+                                            sample_index_t)),
+            this, SLOT(slotSamplesModified(unsigned int, sample_index_t,
+                                           sample_index_t)));
 
     if (src_tracks && !src_tracks->isEmpty()) {
 	// already having a list of selected tracks
@@ -205,7 +205,6 @@ void Kwave::OverViewCache::slotTrackInserted(unsigned int index,
 	    const QUuid &uuid = track->uuid();
 
 	    m_src_deleted.removeAll(uuid);
-	    Q_ASSERT(!m_src_tracks.contains(uuid));
 	    m_src_tracks.append(uuid);
 	    dumpTracks();
 	} else {
@@ -282,7 +281,6 @@ void Kwave::OverViewCache::slotSamplesInserted(unsigned int track,
 
     // not in our selection
     const QUuid uuid = m_signal.uuidOfTrack(track);
-    Q_ASSERT(!m_src_deleted.contains(uuid));
     if (haveTrackSelection() && !m_src_tracks.contains(uuid)) return;
 
     // right out of our range -> out of interest
@@ -320,7 +318,6 @@ void Kwave::OverViewCache::slotSamplesDeleted(unsigned int track,
 
     // not in our selection
     const QUuid uuid = m_signal.uuidOfTrack(track);
-    Q_ASSERT(!m_src_deleted.contains(uuid));
     if (haveTrackSelection() && !m_src_tracks.contains(uuid)) return;
 
     // right out of our range -> out of interest
@@ -366,7 +363,6 @@ void Kwave::OverViewCache::slotSamplesModified(unsigned int track,
 
     // not in our selection
     const QUuid uuid = m_signal.uuidOfTrack(track);
-    Q_ASSERT(!m_src_deleted.contains(uuid));
     if (haveTrackSelection() && !m_src_tracks.contains(uuid)) return;
 
     // right out of our range -> out of interest
@@ -407,7 +403,7 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 	width = minmax.count();
 
     QList<unsigned int> track_list;
-    if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
+    if (haveTrackSelection()) {
 	foreach (unsigned int track, m_signal.allTracks())
 	    if (m_src_tracks.contains(m_signal.uuidOfTrack(track)))
 		track_list.append(track);
@@ -423,9 +419,6 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
     Q_ASSERT(m_min.count() == m_max.count());
     Q_ASSERT(m_min.count() == m_state.count());
 
-    // abort if the track count has recently changed
-    Q_ASSERT(m_state.count() == static_cast<int>(src.tracks()));
-
     if ((length / m_scale < 2) || src.isEmpty() || !m_state.count())
 	return 0; // empty ?
 
@@ -435,8 +428,7 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 	if (count > CACHE_SIZE) count = 0;
 
 	QUuid uuid = m_signal.uuidOfTrack(track_list[index]);
-	Q_ASSERT(!uuid.isNull());
-	if (uuid.isNull()) return 0;
+	if (uuid.isNull()) continue; // track has just been deleted
 
 	sample_t *min = m_min[uuid].data();
 	sample_t *max = m_max[uuid].data();

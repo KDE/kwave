@@ -310,6 +310,8 @@ namespace Kwave
 	 */
 	unsigned int trackIndex(const Kwave::Track *track);
 
+    private:
+
 	/** list of tracks */
 	QList<Kwave::Track *> m_tracks;
 

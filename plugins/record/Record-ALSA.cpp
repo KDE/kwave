@@ -227,8 +227,7 @@ void Kwave::RecordALSA::detectSupportedFormats()
     Q_ASSERT(m_handle);
     if (!m_handle || !m_hw_params) return;
 
-    int err;
-    if (!snd_pcm_hw_params_any(m_handle, m_hw_params) < 0) return;
+    if (snd_pcm_hw_params_any(m_handle, m_hw_params) < 0) return;
 
     // try all known formats
 //     qDebug("--- list of supported formats --- ");
@@ -237,7 +236,7 @@ void Kwave::RecordALSA::detectSupportedFormats()
     for (unsigned int i=0; i < count; i++) {
 	// test the sample format
 	snd_pcm_format_t format = _known_formats[i];
-	err = snd_pcm_hw_params_test_format(m_handle, m_hw_params, format);
+	int err = snd_pcm_hw_params_test_format(m_handle, m_hw_params, format);
 	if (err < 0) continue;
 
 	const snd_pcm_format_t *fmt = &(_known_formats[i]);
@@ -714,11 +713,10 @@ int Kwave::RecordALSA::tracks()
 QList<double> Kwave::RecordALSA::detectSampleRates()
 {
     QList<double> list;
-    int err;
 
     if (!m_handle || !m_hw_params) return list;
 
-    if (!snd_pcm_hw_params_any(m_handle, m_hw_params) < 0) return list;
+    if (snd_pcm_hw_params_any(m_handle, m_hw_params) < 0) return list;
 
     static const unsigned int known_rates[] = {
 	  1000, // (just for testing)
@@ -762,7 +760,7 @@ QList<double> Kwave::RecordALSA::detectSampleRates()
     for (unsigned int i = 0; i < ELEMENTS_OF(known_rates); i++) {
 	unsigned int rate = known_rates[i];
 
-	err = snd_pcm_hw_params_test_rate(m_handle, m_hw_params, rate, 0);
+	int err = snd_pcm_hw_params_test_rate(m_handle, m_hw_params, rate, 0);
 	if (err < 0) continue;
 
 	// do not produce duplicates

@@ -294,7 +294,6 @@ QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
     // start with an empty list
     QList<int> supported_formats;
 
-    int err;
     ALSA_MALLOC_WRAPPER(snd_pcm_hw_params) p;
 
     if (!p) return supported_formats;
@@ -302,7 +301,7 @@ QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
     snd_pcm_t *pcm = openDevice(device);
     if (!pcm) return supported_formats;
 
-    if (!snd_pcm_hw_params_any(pcm, p) < 0) {
+    if (snd_pcm_hw_params_any(pcm, p) < 0) {
 	if (pcm != m_handle) snd_pcm_close(pcm);
 	return supported_formats;
     }
@@ -314,7 +313,7 @@ QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
     for (unsigned int i=0; i < count; i++) {
 	// test the sample format
 	snd_pcm_format_t format = _known_formats[i];
-	err = snd_pcm_hw_params_test_format(pcm, p, format);
+	int err = snd_pcm_hw_params_test_format(pcm, p, format);
 	if (err < 0) continue;
 
 	const snd_pcm_format_t *fmt = &(_known_formats[i]);
@@ -676,7 +675,6 @@ int Kwave::PlayBackALSA::flush()
 	    3 * ((1000 * buffer_samples) /
 	    static_cast<unsigned int>(m_rate)) : 1000U;
 	quint8 *p = reinterpret_cast<quint8 *>(m_buffer.data());
-	int r;
 
 	// pad the buffer with silence if necessary
 	if (samples < m_chunk_size) {
@@ -689,7 +687,7 @@ int Kwave::PlayBackALSA::flush()
 
 	while (samples > 0) {
 	    // try to write as much as the device accepts
-	    r = snd_pcm_writei(m_handle, p, samples);
+	    int r = snd_pcm_writei(m_handle, p, samples);
 	    if ((r == -EAGAIN) || ((r >= 0) &&
 	        (r < static_cast<int>(samples))))
 	    {

@@ -58,6 +58,7 @@ void Kwave::DebugPlugin::load(QStringList &params)
     MENU_ENTRY("min_max",           _(I18N_NOOP("MinMax Pattern")));
     MENU_ENTRY("sawtooth",          _(I18N_NOOP("Generate Sawtooth Pattern")));
     MENU_ENTRY("sawtooth_verify",   _(I18N_NOOP("Verify Sawtooth Pattern")));
+    MENU_ENTRY("fm_sweep",          _(I18N_NOOP("FM Sweep")));
 //     MENU_ENTRY("stripe_index",      _(I18N_NOOP("Stripe Index")));
 //     MENU_ENTRY("hull_curve",        _(I18N_NOOP("Hull Curve")));
 //     MENU_ENTRY("offset_in_stripe",  _(I18N_NOOP("Offset in Stripe")));
@@ -74,7 +75,8 @@ void Kwave::DebugPlugin::run(QStringList params)
 {
     sample_index_t first = 0;
     sample_index_t last  = 0;
-    Kwave::SignalManager &sig = signalManager();
+    Kwave::SignalManager &sig    = signalManager();
+    const double          rate   = signalRate();
 
     if (params.count() != 1) return;
 
@@ -192,6 +194,9 @@ void Kwave::DebugPlugin::run(QStringList params)
 	     Qt::BlockingQueuedConnection);
 
     // loop over the sample range
+    const sample_index_t left   = first;
+    const sample_index_t right  = last;
+    const sample_index_t length = right - left + 1;
     sample_index_t pos = first;
     while ((first <= last) && (!shouldStop())) {
 	unsigned int rest = last - first + 1;
@@ -202,7 +207,18 @@ void Kwave::DebugPlugin::run(QStringList params)
 	}
 
 	// sawtooth pattern from min to max
-	if (command == _("sawtooth")) {
+	if (command == _("fm_sweep")) {
+	    const double f_max = rate / 2.0;
+	    const double f_min = 1;
+	    for (unsigned int i = 0; i < m_buffer.size(); i++, pos++) {
+		double t = static_cast<double>((pos - left) / rate);
+		double f = f_min + (((f_max - f_min) *
+		    static_cast<double>(pos - left)) /
+		    static_cast<double>(length));
+		double y = 0.707 * sin(M_PI * f * t);
+		m_buffer[i] = double2sample(y);
+	    }
+	} else if (command == _("sawtooth")) {
 	    for (unsigned int i = 0; i < m_buffer.size(); i++, pos++) {
 		m_buffer[i] = SAMPLE_MIN + (pos % (SAMPLE_MAX - SAMPLE_MIN));
 	    }

@@ -1226,19 +1226,24 @@ void Kwave::SignalManager::startUndoTransaction(const QString &name)
 	Q_ASSERT(m_undo_transaction);
 	if (!m_undo_transaction) return;
 
+	// give all registered undo handlers a chance to register their own
+	// undo actions
+	if (!m_undo_manager.startUndoTransaction(m_undo_transaction)) {
+	    delete m_undo_transaction;
+	    m_undo_transaction = 0;
+	}
+
 	// if it is the start of the transaction, also create one
 	// for the selection
 	UndoAction *selection = new(std::nothrow) Kwave::UndoSelection(*this);
 	Q_ASSERT(selection);
-	if (selection) {
-	    if (selection->store(*this)) {
-		m_undo_transaction->append(selection);
-	    } else {
-		// out of memory
-		delete selection;
-		delete m_undo_transaction;
-		m_undo_transaction = 0;
-	    }
+	if (selection && selection->store(*this)) {
+	    m_undo_transaction->append(selection);
+	} else {
+	    // out of memory
+	    delete selection;
+	    delete m_undo_transaction;
+	    m_undo_transaction = 0;
 	}
     }
 }

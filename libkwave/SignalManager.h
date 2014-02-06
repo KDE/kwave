@@ -38,6 +38,7 @@
 #include "libkwave/ReaderMode.h"
 #include "libkwave/Selection.h"
 #include "libkwave/Signal.h"
+#include "libkwave/undo/UndoManager.h"
 
 class QBitmap;
 class QFile;
@@ -303,6 +304,9 @@ namespace Kwave
 	 */
 	bool mergeStripes(const QList<Kwave::Stripe::List> &stripes,
 	                  const QList<unsigned int> &track_list);
+
+	/** Returns a reference to the undo manager */
+	inline Kwave::UndoManager &undoManager() { return m_undo_manager; }
 
 	/** Returns true if undo/redo is currently enabled */
 	inline bool undoEnabled() const { return m_undo_enabled; }
@@ -744,6 +748,9 @@ namespace Kwave
 
 	/** mutex for locking undo transactions */
 	QMutex m_undo_transaction_lock;
+
+	/** Manager for undo/redo actions */
+	Kwave::UndoManager m_undo_manager;
 
 	/**
 	 * meta data of the signal

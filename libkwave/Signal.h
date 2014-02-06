@@ -35,8 +35,6 @@
 #include "libkwave/Stripe.h"
 #include "libkwave/WindowFunction.h"
 
-class QUuid;
-
 //**********************************************************************
 namespace Kwave
 {

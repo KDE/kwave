@@ -49,7 +49,7 @@ QString Kwave::zoom2string(double percent)
 
     if (percent < 1.0) {
 	int digits = static_cast<int>(ceil(1.0 - log10(percent)));
-	QString format = _("%0.") + format.setNum(digits) + _("f %%");
+	QString format = _("%0.") + QString::number(digits) + _("f %%");
 	result = format.sprintf(__(format), percent);
     } else if (percent < 10.0) {
 	result = result.sprintf("%0.1f %%", percent);

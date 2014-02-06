@@ -253,12 +253,6 @@ namespace Kwave
 	/** file info, for meta info like title, author, name etc. */
 	Kwave::FileInfo m_info;
 
-	/** Playback rate [samples/second] */
-	double m_rate;
-
-	/** Number of channels */
-	unsigned int m_channels;
-
 	/** number of bytes per sample x nr of channels */
 	unsigned int m_bytes_per_sample;
 

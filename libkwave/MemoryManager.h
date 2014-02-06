@@ -277,17 +277,11 @@ namespace Kwave
 
     private:
 
-	/** currently allocated amount of physical memory */
-	unsigned int m_physical_allocated;
-
 	/** limit of the physical memory */
 	unsigned int m_physical_limit;
 
 	/** total maximum physical memory (system dependent) */
 	unsigned int m_physical_max;
-
-	/** currently allocated amount of physical memory */
-	unsigned int m_virtual_allocated;
 
 	/** limit of the virtual memory, 0 = disabled */
 	unsigned int m_virtual_limit;

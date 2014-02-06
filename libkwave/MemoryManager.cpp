@@ -53,8 +53,7 @@ Kwave::Handle Kwave::MemoryManager::m_last_handle = 0;
 
 //***************************************************************************
 Kwave::MemoryManager::MemoryManager()
-    :m_physical_allocated(0), m_physical_limit(0), m_physical_max(0),
-     m_virtual_allocated(0), m_virtual_limit(0),
+    :m_physical_limit(0), m_physical_max(0), m_virtual_limit(0),
      m_swap_dir(_("/tmp")), m_undo_limit(0),
      m_physical(), m_unmapped_swap(), m_mapped_swap(),
      m_cached_swap(), m_lock()

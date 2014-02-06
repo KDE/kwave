@@ -76,8 +76,7 @@
 //***************************************************************************
 Kwave::PlayBackPulseAudio::PlayBackPulseAudio(const Kwave::FileInfo &info)
     :Kwave::PlayBackDevice(), m_mainloop_thread(this, QVariant()),
-     m_mainloop_lock(), m_mainloop_signal(),
-     m_info(info), m_rate(0), m_channels(0),
+     m_mainloop_lock(), m_mainloop_signal(), m_info(info),
      m_bytes_per_sample(0), m_buffer(0), m_buffer_size(0), m_buffer_used(0),
      m_bufbase(10), m_pa_proplist(0), m_pa_mainloop(0), m_pa_context(0),
      m_pa_stream(0), m_device_list()

@@ -142,9 +142,6 @@ static const snd_pcm_format_t _known_formats[] =
 #endif
 };
 
-/** sleep seconds, used for recording */
-static const unsigned int g_sleep_min = 0;
-
 //***************************************************************************
 /** find out the SampleFormat of an ALSA format */
 static Kwave::SampleFormat sample_format_of(snd_pcm_format_t fmt)

@@ -276,12 +276,6 @@ namespace Kwave
 	 */
 	sample_index_t m_offset;
 
-	/** width of the widget in pixels, cached value */
-	int m_width;
-
-	/** height of the widget in pixels, cached value */
-	int m_height;
-
 	/** number of samples per pixel */
 	double m_zoom;
 

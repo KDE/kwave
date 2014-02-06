@@ -22,6 +22,8 @@
 
 #include <mad.h>		// needs libmad-devel package
 
+#include <id3/globals.h>
+
 #include <QtCore/QString>
 
 #include "libkwave/Decoder.h"
@@ -29,7 +31,6 @@
 
 #include "ID3_PropertyMap.h"
 
-class Mp3_Headerinfo;
 class ID3_Frame;
 class ID3_Tag;
 class QWidget;

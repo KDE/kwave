@@ -55,10 +55,9 @@ void Kwave::Normalizer::goOn()
  * With limiter level = 0, this is equivalent to a tanh() function;
  * with limiter level = 1, this is equivalent to clipping.
  */
-static inline double limiter(double x)
+static inline double limiter(const double x, const double lmtr_lvl)
 {
     double xp;
-    const double lmtr_lvl = 0.5;
 
     if (x < -lmtr_lvl)
 	xp = tanh((x + lmtr_lvl) / (1-lmtr_lvl)) * (1-lmtr_lvl) - lmtr_lvl;
@@ -79,7 +78,7 @@ void Kwave::Normalizer::input(Kwave::SampleArray data)
     for (unsigned int i = 0; i < len; i++) {
 	double s = sample2double(data[i]);
 	s *= m_gain;
-	if (use_limiter) s = limiter(s);
+	if (use_limiter) s = limiter(s, m_limit);
 	data[i] = double2sample(s);
     }
 

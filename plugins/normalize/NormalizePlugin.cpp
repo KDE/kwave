@@ -80,21 +80,26 @@ void Kwave::NormalizePlugin::run(QStringList params)
     sample_index_t length = selection(&tracks, &first, &last, true);
     if (!length || tracks.isEmpty()) return;
 
-    // get the list of affected tracks
+    // get the current volume level
+    double level = 0.0;
+    {
+	Kwave::MultiTrackReader src(Kwave::SinglePassForward,
+	    signalManager(), tracks, first, last);
+
+	// connect the progress dialog
+	connect(&src, SIGNAL(progress(qreal)),
+		this,  SLOT(updateProgress(qreal)),
+		Qt::BlockingQueuedConnection);
+
+	// detect the peak value
+	emit setProgressText(i18n("Analyzing volume level..."));
+//         qDebug("NormalizePlugin: getting peak...");
+	level = getMaxPower(src);
+//         qDebug("NormalizePlugin: level is %g", level);
+    }
+
     Kwave::MultiTrackReader source(Kwave::SinglePassForward,
 	signalManager(), tracks, first, last);
-
-    // connect the progress dialog
-    connect(&source, SIGNAL(progress(qreal)),
-	    this,  SLOT(updateProgress(qreal)),
-	     Qt::BlockingQueuedConnection);
-
-    // detect the peak value
-    emit setProgressText(i18n("Analyzing volume level..."));
-//     qDebug("NormalizePlugin: getting peak...");
-    double level = getMaxPower(source);
-//     qDebug("NormalizePlugin: level is %g", level);
-
     Kwave::MultiTrackWriter sink(signalManager(), tracks, Kwave::Overwrite,
 	first, last);
     Kwave::MultiTrackSource<Kwave::Normalizer, true> normalizer(
@@ -102,6 +107,11 @@ void Kwave::NormalizePlugin::run(QStringList params)
 
     // break if aborted
     if (!sink.tracks()) return;
+
+    // connect the progress dialog
+    connect(&source, SIGNAL(progress(qreal)),
+	    this,  SLOT(updateProgress(qreal)),
+	    Qt::BlockingQueuedConnection);
 
     // connect them
     bool ok = true;
@@ -119,7 +129,6 @@ void Kwave::NormalizePlugin::run(QStringList params)
     double gain = target / level;
     qDebug("NormalizePlugin: gain=%g", gain);
 
-    source.reset();
     QString db;
     emit setProgressText(i18n("Normalizing (%1 dB) ...",
 	db.sprintf("%+0.1f", 20 * log10(gain))));
@@ -209,7 +218,7 @@ void Kwave::NormalizePlugin::getMaxPowerOfTrack(
 	for (unsigned int i = 0; i < len; i++) {
 	    sample_t s = in[i];
 	    double d   = sample2double(s);
-	    sum += d * d;
+	    sum += (d * d);
 	}
 	double pow = sum / static_cast<double>(len);
 
@@ -228,7 +237,7 @@ void Kwave::NormalizePlugin::getMaxPowerOfTrack(
 	    average.n++;
 	}
     }
-//     qDebug("%p -> pos=%u, max=%g", this, m_reader.pos(), m_average.max);
+//     qDebug("%p -> pos=%llu, max=%g", this, reader->pos(), average.max);
 }
 
 //***************************************************************************

@@ -20,6 +20,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QString>
 #include <QtCore/QMetaType>
+#include <QtCore/QDebug>
 
 #include <kcmdlineargs.h>
 #include <kconfig.h>
@@ -41,6 +42,7 @@
 #include "TopWidget.h"
 #include "App.h"
 #include "Splash.h"
+
 
 //***************************************************************************
 Kwave::App::App()

@@ -26,7 +26,7 @@ namespace Kwave
 	/** last offset of the current view */
 	sample_index_t m_last_offset;
 
-	/** last number of visible samples */
+	/** last number of the visible samples */
 	sample_index_t m_last_visible;
 
 	/** last length of the signal */

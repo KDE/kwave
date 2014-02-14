@@ -120,7 +120,7 @@ namespace Kwave {
 //***************************************************************************
 //***************************************************************************
 Kwave::TopWidget::TopWidget(Kwave::App &app)
-    :KMainWindow(), 
+    :KMainWindow(),
      m_main_widget(0), m_toolbar_record_playback(0), m_zoomselect(0),
      m_menu_manager(0), m_action_save(0), m_action_save_as(0),
      m_action_close(0), m_action_undo(0), m_action_redo(0),
@@ -172,6 +172,8 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
     m_mdiArea = new QMdiArea(this);
     
     connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), SLOT(updateCurrent(QMdiSubWindow*)));
+    
+    setCentralWidget(m_mdiArea);
 }
 
 //***************************************************************************
@@ -205,25 +207,25 @@ bool Kwave::TopWidget::init()
     if (!stream.atEnd()) parseCommands(stream);
     menufile.close();
 
-    m_main_widget = new Kwave::MainWidget(this, *m_context);
-    Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return false;
-    if (!(m_main_widget->isOK())) {
-	qWarning("TopWidget::TopWidget(): failed at creating main widget");
-	delete m_main_widget;
-	m_main_widget = 0;
-	return false;
-    }
-    m_map_contexts.insert(m_main_widget.data(), m_context);
-    // connect the main widget
-    connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
-            this, SLOT(executeCommand(const QString &)));
-    connect(&m_context->signalManager()->playbackController(),
-            SIGNAL(sigPlaybackPos(sample_index_t)),
-            this, SLOT(updatePlaybackPos(sample_index_t)));
-    connect(&m_context->signalManager()->playbackController(),
-            SIGNAL(sigSeekDone(sample_index_t)),
-            m_main_widget, SLOT(scrollTo(sample_index_t)));
+//     m_main_widget = new Kwave::MainWidget(this, *m_context);
+//     Q_ASSERT(m_main_widget);
+//     if (!m_main_widget) return false;
+//     if (!(m_main_widget->isOK())) {
+// 	qWarning("TopWidget::TopWidget(): failed at creating main widget");
+// 	delete m_main_widget;
+// 	m_main_widget = 0;
+// 	return false;
+//     }
+    m_map_contexts.insert(m_main_widget, m_context);
+//     // connect the main widget
+//     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
+//             this, SLOT(executeCommand(const QString &)));
+//     connect(&m_context->signalManager()->playbackController(),
+//             SIGNAL(sigPlaybackPos(sample_index_t)),
+//             this, SLOT(updatePlaybackPos(sample_index_t)));
+//     connect(&m_context->signalManager()->playbackController(),
+//             SIGNAL(sigSeekDone(sample_index_t)),
+//             m_main_widget, SLOT(scrollTo(sample_index_t)));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
@@ -329,10 +331,10 @@ bool Kwave::TopWidget::init()
 
     connect(m_toolbar_record_playback, SIGNAL(sigCommand(const QString &)),
             this,                    SLOT(executeCommand(const QString &)));
-    connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
-	    sample_index_t, sample_index_t)),
-	    m_toolbar_record_playback, SLOT(visibleRangeChanged(sample_index_t,
-	    sample_index_t, sample_index_t)) );
+//     connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
+// 	    sample_index_t, sample_index_t)),
+// 	    m_toolbar_record_playback, SLOT(visibleRangeChanged(sample_index_t,
+// 	    sample_index_t, sample_index_t)) );
 
     // --- zoom controls ---
 
@@ -343,33 +345,34 @@ bool Kwave::TopWidget::init()
     m_action_zoomselection = toolbar_zoom->addAction(
 	icon_loader.loadIcon(_("kwave_viewmag"),
 	                     KIconLoader::Toolbar, max_s),
-	i18n("Zoom to selection"),
-	m_main_widget, SLOT(zoomSelection()));
-
+	i18n("Zoom to selection"));        
+	
     m_action_zoomin = toolbar_zoom->addAction(
 	icon_loader.loadIcon(_("kwave_zoom_in"),
 	                     KIconLoader::Toolbar, max_s),
-	i18n("Zoom in"),
-	m_main_widget, SLOT(zoomIn()));
+	i18n("Zoom in"));
 
     m_action_zoomout = toolbar_zoom->addAction(
 	icon_loader.loadIcon(_("kwave_zoom_out"),
 	                     KIconLoader::Toolbar, max_s),
-	i18n("Zoom out"),
-	m_main_widget, SLOT(zoomOut()));
+	i18n("Zoom out"));
 
     m_action_zoomnormal = toolbar_zoom->addAction(
 	icon_loader.loadIcon(_("kwave_zoom_original"),
 	                     KIconLoader::Toolbar, max_s),
-	i18n("Zoom to 100%"),
-	m_main_widget, SLOT(zoomNormal()));
+	i18n("Zoom to 100%"));
 
     m_action_zoomall = toolbar_zoom->addAction(
 	icon_loader.loadIcon(_("kwave_viewmagfit"),
 	                     KIconLoader::Toolbar, max_s),
-	i18n("Zoom to all"),
-	m_main_widget, SLOT(zoomAll()));
+	i18n("Zoom to all"));
 
+    connect(m_action_zoomselection, SIGNAL(triggered(bool)), this, SLOT(applyZoom()));
+    connect(m_action_zoomin, SIGNAL(triggered(bool)), this, SLOT(applyZoom()));
+    connect(m_action_zoomout, SIGNAL(triggered(bool)), this, SLOT(applyZoom()));
+    connect(m_action_zoomnormal, SIGNAL(triggered(bool)), this, SLOT(applyZoom()));
+    connect(m_action_zoomall, SIGNAL(triggered(bool)), this, SLOT(applyZoom()));
+    
     // zoom selection combo box
     m_zoomselect = new KComboBox(this);
     Q_ASSERT(m_zoomselect);
@@ -408,49 +411,50 @@ bool Kwave::TopWidget::init()
     m_action_zoomselect = toolbar_zoom->addWidget(m_zoomselect);
     connect(m_zoomselect, SIGNAL(activated(int)),
 	    this, SLOT(selectZoom(int)));
-    connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
-            this, SLOT(setZoomInfo(double)));
+//     connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
+//             this, SLOT(setZoomInfo(double)));
     int h = m_zoomselect->sizeHint().height();
     m_zoomselect->setMinimumWidth(h * 5);
     m_zoomselect->setFocusPolicy(Qt::FocusPolicy(Qt::ClickFocus | Qt::TabFocus));
 
     // connect the signal manager
     Kwave::SignalManager *signal_manager = m_context->signalManager();
-    connect(&(signal_manager->selection()),
-            SIGNAL(changed(sample_index_t, sample_index_t)),
-            this,
-            SLOT(selectionChanged(sample_index_t,sample_index_t)));
-    connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
-                                                   const QString&)),
-            this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
-    connect(signal_manager, SIGNAL(sigModified(bool)),
-            this,           SLOT(modifiedChanged(bool)));
-    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
-            this,           SLOT(metaDataChanged(Kwave::MetaDataList)));
-    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
-            m_toolbar_record_playback,
-                            SLOT(metaDataChanged(Kwave::MetaDataList)));
+//     connect(&(signal_manager->selection()),
+//             SIGNAL(changed(sample_index_t, sample_index_t)),
+//             this,
+//             SLOT(selectionChanged(sample_index_t,sample_index_t)));
+//     connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
+//                                                    const QString&)),
+//             this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
+//     connect(signal_manager, SIGNAL(sigModified(bool)),
+//             this,           SLOT(modifiedChanged(bool)));
+//     connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+//             this,           SLOT(metaDataChanged(Kwave::MetaDataList)));
+//     connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+//             m_toolbar_record_playback,
+//                             SLOT(metaDataChanged(Kwave::MetaDataList)));
 
     // connect the plugin manager
     Kwave::PluginManager *plugin_manager = m_context->pluginManager();
-    connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
-            this,           SLOT(executeCommand(const QString &)));
-    connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
-            this,           SLOT(showInSplashSreen(const QString &)));
+//     connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
+//             this,           SLOT(executeCommand(const QString &)));
+//     connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
+//             this,           SLOT(showInSplashSreen(const QString &)));
 
-    qDebug() << "Before subWindow is added.";
-    m_mdiArea->addSubWindow(m_main_widget.data());
-    qDebug() << "After subWindow is added.";
+//     qDebug() << "Before subWindow is added.";
+//     qDebug() << "MDIArea size: " << m_mdiArea->width() << " x " << m_mdiArea->height() << " QSize: " << m_mdiArea->size();
+//     m_mdiArea->addSubWindow(m_main_widget)->resize(850, 250);
+//     qDebug() << "After subWindow is added.";
     // set the MainWidget as the main view
-    setCentralWidget(m_mdiArea);
+//     setCentralWidget(m_mdiArea);
 
     // set a nice initial size
-    int w = m_main_widget->minimumSize().width();
-    w = qMax(w, m_main_widget->sizeHint().width());
-    w = qMax(w, width());
-    h = qMax(m_main_widget->sizeHint().height(), (w * 6) / 10);
-    h = qMax(h, height());
-    resize(w, h);
+//     int w = m_main_widget->minimumSize().width();
+//     w = qMax(w, m_main_widget->sizeHint().width());
+//     w = qMax(w, width());
+//     h = qMax(m_main_widget->sizeHint().height(), (w * 6) / 10);
+//     h = qMax(h, height());
+//     resize(w, h);
 
     metaDataChanged(Kwave::MetaData());
     setUndoRedoInfo(QString(), QString());
@@ -511,13 +515,25 @@ bool Kwave::TopWidget::init()
 }
 
 bool Kwave::TopWidget::initializeSubWindow()
-{
-    m_context = new Kwave::ApplicationContext(*qobject_cast<Kwave::App*>(this->parent()));
+{  
+    if(m_map_contexts.key(m_context))
+    {
+	m_context = new Kwave::ApplicationContext(m_context->application());
 
-    if (!m_context->init(this))
-	return false;
+	if (!m_context->init(this))
+	  return false;	
+    }
+   
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
+    Kwave::PluginManager *plugin_manager = m_context->pluginManager();
+   
+    if(!m_main_widget)
+      m_map_contexts.remove(m_main_widget);
     
     m_main_widget = new Kwave::MainWidget(this, *m_context);
+    m_map_contexts.insert(m_main_widget, m_context);      
+    
+    
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return false;
     if (!(m_main_widget->isOK())) {
@@ -527,12 +543,14 @@ bool Kwave::TopWidget::initializeSubWindow()
 	return false;
     }
 
-    m_map_contexts.insert(m_main_widget, m_context);    
-    qDebug() << "before initializeSubWindow is called.";
-    m_mdiArea->addSubWindow(m_main_widget)->show();
-    qDebug() << "after initializeSubWindow is called.";
     
-    Kwave::SignalManager *signal_manager = m_context->signalManager();
+    QMdiSubWindow* subWindow =  m_mdiArea->addSubWindow(m_main_widget);
+    QWidget* viewportMDI = m_mdiArea->viewport();
+    subWindow->resize(viewportMDI->width(), viewportMDI->height() / 3);    
+    subWindow->setAttribute(Qt::WA_DeleteOnClose);
+    subWindow->show();
+    
+    
     connect(&(signal_manager->selection()),
             SIGNAL(changed(sample_index_t, sample_index_t)),
             this,
@@ -548,7 +566,7 @@ bool Kwave::TopWidget::initializeSubWindow()
             m_toolbar_record_playback,
                             SLOT(metaDataChanged(Kwave::MetaDataList)));  
     
-    Kwave::PluginManager *plugin_manager = m_context->pluginManager();
+    
     connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
             this,           SLOT(executeCommand(const QString &)));
     connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
@@ -572,6 +590,7 @@ bool Kwave::TopWidget::initializeSubWindow()
     return true;
 }
 
+//***************************************************************************
 void Kwave::TopWidget::updateCurrent(QMdiSubWindow* window)
 {
   qDebug() << "updateCurrent got called!";
@@ -580,15 +599,16 @@ void Kwave::TopWidget::updateCurrent(QMdiSubWindow* window)
     m_main_widget = qobject_cast<Kwave::MainWidget*>(window->widget());
     m_context = const_cast<Kwave::ApplicationContext*>(m_map_contexts.value(m_main_widget));       
     m_toolbar_record_playback->switchPlaybackController(&m_context->signalManager()->playbackController());
-   }
+  }
 }
 
 
 //***************************************************************************
 Kwave::TopWidget::~TopWidget()
 {
+    qDebug() << "TopWidget destructor called!";
     // close the current file (no matter what the user wants)
-    closeFile();
+    closeAllSubWindows();
 
     delete m_toolbar_record_playback;
     m_toolbar_record_playback = 0;
@@ -601,7 +621,8 @@ Kwave::TopWidget::~TopWidget()
 
     m_context->application().closeWindow(this);
 
-    m_context->close();
+//     qDeleteAll(m_map_contexts);
+//     m_map_contexts.clear();
 }
 
 //***************************************************************************
@@ -750,7 +771,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("save")
 	result = saveFile();
     CASE_COMMAND("close")
-	result = closeFile() ? 0 : 1;
+	result = closeFile(m_context) ? 0 : 1;
     CASE_COMMAND("revert")
 	result = revert();
     CASE_COMMAND("saveas") {
@@ -864,7 +885,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	}
 
 	// synchronize before the command
-	if (m_context->pluginManager()) m_context->pluginManager()->sync();
+	if (m_context && m_context->pluginManager()) m_context->pluginManager()->sync();
 
 	// the "msgbox" command (useful for debugging)
 	if (parser.command() == _("msgbox")) {
@@ -885,7 +906,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	    qDebug(">>> '%s' - result=%d", DBG(line), result);
 
 	// synchronize after the command
-	if (m_context->pluginManager()) m_context->pluginManager()->sync();
+	if (m_context && m_context->pluginManager()) m_context->pluginManager()->sync();
 
 	// special handling of the "quit" command
 	if (parser.command() == _("quit")) {
@@ -909,10 +930,26 @@ int Kwave::TopWidget::revert()
 }
 
 //***************************************************************************
-bool Kwave::TopWidget::closeFile()
+bool Kwave::TopWidget::closeAllSubWindows()
 {
-    Kwave::SignalManager *signal_manager = m_context->signalManager();
-    Kwave::PluginManager *plugin_manager = m_context->pluginManager();
+    QMap<Kwave::MainWidget*, Kwave::ApplicationContext*>::iterator it;
+    for(it = m_map_contexts.begin(); it != m_map_contexts.end(); ++it)
+    {
+      if(!it.value() && closeFile(it.value()) == false)
+      {
+	return false;
+      }
+    }
+    return true;
+}
+
+//***************************************************************************
+bool Kwave::TopWidget::closeFile(Kwave::ApplicationContext* contextSubWindow)
+{
+    if(!contextSubWindow) return false;
+    
+    Kwave::SignalManager *signal_manager = contextSubWindow->signalManager();
+    Kwave::PluginManager *plugin_manager = contextSubWindow->pluginManager();
 
     if (plugin_manager && !plugin_manager->canClose())
     {
@@ -955,15 +992,10 @@ bool Kwave::TopWidget::closeFile()
 //***************************************************************************
 int Kwave::TopWidget::loadFile(const KUrl &url)
 {
-    if(m_context->signalManager()->signalName().length())
+    if(!initializeSubWindow())
     {
-      qDebug() << "Signal Name: " << m_context->signalManager()->signalName();
-      if(!initializeSubWindow())
-      {
-	return 1;
-      }
-    }
-    
+      return 1;
+    }  
     Kwave::SignalManager *signal_manager = m_context->signalManager();
     Q_ASSERT(signal_manager);
     Q_ASSERT(m_main_widget);
@@ -1017,9 +1049,9 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	}
 
 	// load failed
-	closeFile();
+	closeFile(m_context);
     }
-//     m_context->application().addRecentFile(signalName());
+    m_context->application().addRecentFile(signalName());
     updateMenu();
     updateToolbar();
 
@@ -1221,7 +1253,7 @@ int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
     if (!signal_manager) return -1;
 
     // abort if the user pressed cancel
-    if (!closeFile()) return -1;
+    if (!closeFile(m_context)) return -1;
     emit sigSignalNameChanged(signalName());
 
     signal_manager->newSignal(samples, rate, bits, tracks);
@@ -1707,27 +1739,26 @@ void Kwave::TopWidget::updateCaption()
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     bool modified = signal_manager->isModified();
-
+    QMdiSubWindow* currentSubWindow = m_mdiArea->currentSubWindow();
     // shortcut if no file loaded
     if (signalName().length() == 0) {
-	setCaption(QString());
+	currentSubWindow->setWindowTitle(QString());
 	return;
     }
 
     if (modified)
-	setCaption(i18nc(
-	    "%1 = Path to modified file",
-	    "* %1 (modified)",
-	    signalName())
-	);
+	currentSubWindow->setWindowTitle(i18nc(
+	  	    "%1 = Path to modified file",
+		    "* %1 (modified)",
+		    signalName()));
     else
-	setCaption(signalName());
+      currentSubWindow->setWindowTitle(signalName());
 }
 
 //***************************************************************************
 void Kwave::TopWidget::closeEvent(QCloseEvent *e)
 {
-    (closeFile()) ? e->accept() : e->ignore();
+    (closeAllSubWindows()) ? e->accept() : e->ignore();
 }
 
 //***************************************************************************
@@ -1748,6 +1779,36 @@ QString Kwave::TopWidget::signalName() const
 void Kwave::TopWidget::showInSplashSreen(const QString &message)
 {
     Kwave::Splash::showMessage(message);
+}
+
+//***************************************************************************
+void Kwave::TopWidget::applyZoom()
+{
+  if(!m_main_widget) return;
+  
+  QAction* zoomAction = qobject_cast<QAction*>(sender());
+  
+  if(zoomAction == m_action_zoomselection)
+  {
+    m_main_widget->zoomSelection();
+    qDebug() << "Zoom to selection triggered";
+  }
+  else if(zoomAction == m_action_zoomin)
+  {
+    m_main_widget->zoomIn();
+  }
+  else if(zoomAction == m_action_zoomout)
+  {
+    m_main_widget->zoomOut();
+  }
+  else if(zoomAction == m_action_zoomall)
+  {
+    m_main_widget->zoomAll();
+  }
+  else if(zoomAction == m_action_zoomnormal)
+  {
+    m_main_widget->zoomNormal();
+  }    
 }
 
 //***************************************************************************

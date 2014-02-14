@@ -189,13 +189,13 @@ void Kwave::PlayerToolBar::switchPlaybackController(Kwave::PlaybackController* p
     }
       
     connect(m_playback, SIGNAL(sigPlaybackStarted()),
-            this,        SLOT(updateState()));
+            this,        SLOT(updateState()), Qt::UniqueConnection);
     connect(m_playback, SIGNAL(sigPlaybackPaused()),
-            this,        SLOT(playbackPaused()));
+            this,        SLOT(playbackPaused()), Qt::UniqueConnection);
     connect(m_playback, SIGNAL(sigPlaybackStopped()),
-            this,        SLOT(updateState()));
+            this,        SLOT(updateState()), Qt::UniqueConnection);
     connect(m_playback, SIGNAL(sigPlaybackPos(sample_index_t)),
-	    this,        SLOT(updatePlaybackPos(sample_index_t)));    
+	    this,        SLOT(updatePlaybackPos(sample_index_t)), Qt::UniqueConnection);    
     
     updateState();
 }

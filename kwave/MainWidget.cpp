@@ -29,6 +29,7 @@
 #include <QtGui/QScrollBar>
 #include <QtCore/QtGlobal>
 #include <QtGui/QWheelEvent>
+#include <QtCore/QDebug>
 
 #include <klocale.h>
 
@@ -189,6 +190,7 @@ bool Kwave::MainWidget::isOK()
 //***************************************************************************
 Kwave::MainWidget::~MainWidget()
 {
+  qDebug() << "MainWidget destructor is called!";
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
     Q_ASSERT(plugin_manager);
     if (plugin_manager) plugin_manager->registerViewManager(0);

@@ -257,7 +257,11 @@ namespace Kwave
 	/** shows a message/progress in the splash screen */
 	void showInSplashSreen(const QString &message);
 	
+	/** updates the pointers to the current selected MdiSubWindow */
 	void updateCurrent(QMdiSubWindow* window);
+	
+	/** applies the triggered zoom to the current signal */
+	void applyZoom();
 
     signals:
 	/**
@@ -296,15 +300,24 @@ namespace Kwave
 	 * @return zero if succeeded or error code
 	 */
 	int openFile();
+	
+	/**
+	 * Close all the currently opened subwindows
+	 * @return true if closing is allowd
+	 */
+	
+	 bool closeAllSubWindows();
 
 	/**
 	 * Closes the current file and updates the menu and other controls.
 	 * If the file has been modified and the user wanted to break
 	 * the close operation, the file will not get closed and the
 	 * function returns with false.
+	 * @param subWindow subWindow to be closed
+	 * @param contextSubWindow context of the subWindow
 	 * @return true if closing is allowed
 	 */
-	bool closeFile();
+	bool closeFile(ApplicationContext* contextSubWindow);
 
 	/**
 	 * Saves the current file.
@@ -414,7 +427,6 @@ namespace Kwave
 	QMdiArea* m_mdiArea;
 	
 	QMap<Kwave::MainWidget*, Kwave::ApplicationContext*> m_map_contexts;
-	
     };
 }
 

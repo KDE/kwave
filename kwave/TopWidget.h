@@ -269,6 +269,12 @@ namespace Kwave
     private:
 
 	/**
+	 * Close all the currently opened subwindows
+	 * @return true if closing is allowed
+	 */
+	bool closeAllSubWindows();
+
+	/**
 	 * Closes the current file and creates a new empty signal.
 	 * @param samples number of samples per track
 	 * @param rate sample rate
@@ -298,9 +304,11 @@ namespace Kwave
 	 * If the file has been modified and the user wanted to break
 	 * the close operation, the file will not get closed and the
 	 * function returns with false.
+	 * @param subWindow subWindow to be closed
+	 * @param contextSubWindow context of the subWindow
 	 * @return true if closing is allowed
 	 */
-	bool closeFile();
+	bool closeFile(ApplicationContext* contextSubWindow);
 
 	/**
 	 * Saves the current file.

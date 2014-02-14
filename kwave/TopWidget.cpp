@@ -155,6 +155,7 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
 
 //     m_mdiArea = new QMdiArea(this);
 //     connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), SLOT(updateCurrent(QMdiSubWindow*)));
+//     setCentralWidget(m_mdiArea);
 }
 
 //***************************************************************************
@@ -401,15 +402,26 @@ bool Kwave::TopWidget::init()
     return true;
 }
 
-// //***************************************************************************
 // bool Kwave::TopWidget::initializeSubWindow()
 // {
-//     m_context = new Kwave::ApplicationContext(*qobject_cast<Kwave::App*>(this->parent()));
+//     if(m_map_contexts.key(m_context))
+//     {
+// 	m_context = new Kwave::ApplicationContext(m_context->application());
 //
-//     if (!m_context->init(this))
-// 	return false;
+// 	if (!m_context->init(this))
+// 	  return false;
+//     }
+//
+//     Kwave::SignalManager *signal_manager = m_context->signalManager();
+//     Kwave::PluginManager *plugin_manager = m_context->pluginManager();
+//
+//     if(!m_main_widget)
+//       m_map_contexts.remove(m_main_widget);
 //
 //     m_main_widget = new Kwave::MainWidget(this, *m_context);
+//     m_map_contexts.insert(m_main_widget, m_context);
+//
+//
 //     Q_ASSERT(m_main_widget);
 //     if (!m_main_widget) return false;
 //     if (!(m_main_widget->isOK())) {
@@ -419,12 +431,14 @@ bool Kwave::TopWidget::init()
 // 	return false;
 //     }
 //
-//     m_map_contexts.insert(m_main_widget, m_context);
-//     qDebug() << "before initializeSubWindow is called.";
-//     m_mdiArea->addSubWindow(m_main_widget)->show();
-//     qDebug() << "after initializeSubWindow is called.";
 //
-//     Kwave::SignalManager *signal_manager = m_context->signalManager();
+//     QMdiSubWindow* subWindow =  m_mdiArea->addSubWindow(m_main_widget);
+//     QWidget* viewportMDI = m_mdiArea->viewport();
+//     subWindow->resize(viewportMDI->width(), viewportMDI->height() / 3);
+//     subWindow->setAttribute(Qt::WA_DeleteOnClose);
+//     subWindow->show();
+//
+//
 //     connect(&(signal_manager->selection()),
 //             SIGNAL(changed(sample_index_t, sample_index_t)),
 //             this,
@@ -440,7 +454,7 @@ bool Kwave::TopWidget::init()
 //             m_toolbar_record_playback,
 //                             SLOT(metaDataChanged(Kwave::MetaDataList)));
 //
-//     Kwave::PluginManager *plugin_manager = m_context->pluginManager();
+//
 //     connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
 //             this,           SLOT(executeCommand(const QString &)));
 //     connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
@@ -463,24 +477,12 @@ bool Kwave::TopWidget::init()
 // 	    sample_index_t, sample_index_t)) );
 //     return true;
 // }
-//
-// //***************************************************************************
-// void Kwave::TopWidget::updateCurrent(QMdiSubWindow* window)
-// {
-//   qDebug() << "updateCurrent got called!";
-//   if(window)
-//   {
-//     m_main_widget = qobject_cast<Kwave::MainWidget*>(window->widget());
-//     m_context = const_cast<Kwave::ApplicationContext*>(m_map_contexts.value(m_main_widget));
-//     m_toolbar_record_playback->switchPlaybackController(&m_context->signalManager()->playbackController());
-//    }
-// }
 
 //***************************************************************************
 Kwave::TopWidget::~TopWidget()
 {
     // close the current file (no matter what the user wants)
-    closeFile();
+    closeAllSubWindows();
 
     delete m_toolbar_zoom;
     m_toolbar_zoom = 0;
@@ -630,6 +632,25 @@ bool Kwave::TopWidget::closeFile()
     emit sigSignalNameChanged(signalName());
 
     updateMenu();
+    return true;
+}
+
+//***************************************************************************
+bool Kwave::TopWidget::closeAllSubWindows()
+{
+//     Q_ASSERT(m_current_context);
+//     if (!m_current_context) return true;
+//
+//     Kwave::SignalManager *signal_manager = m_current_context->signalManager();
+//     Kwave::PluginManager *plugin_manager = m_current_context->pluginManager();
+//     QMap<Kwave::MainWidget*, Kwave::ApplicationContext*>::iterator it;
+//     for(it = m_map_contexts.begin(); it != m_map_contexts.end(); ++it)
+//     {
+//       if(!it.value() && closeFile(it.value()) == false)
+//       {
+// 	return false;
+//       }
+//     }
     return true;
 }
 
@@ -1251,7 +1272,7 @@ void Kwave::TopWidget::updateCaption(const QString &name, bool is_modified)
 //***************************************************************************
 void Kwave::TopWidget::closeEvent(QCloseEvent *e)
 {
-    (closeFile()) ? e->accept() : e->ignore();
+    (closeAllSubWindows()) ? e->accept() : e->ignore();
 }
 
 //***************************************************************************

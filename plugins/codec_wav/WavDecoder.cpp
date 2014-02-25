@@ -155,6 +155,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // check if there is a RIFF chunk at all...
     Kwave::RIFFChunk *riff_chunk = parser.findChunk("/RIFF:WAVE");
+    Kwave::RIFFChunk *fact_chunk = parser.findChunk("/RIFF:WAVE/fact");
     Kwave::RIFFChunk *fmt_chunk  = parser.findChunk("/RIFF:WAVE/fmt ");
     Kwave::RIFFChunk *data_chunk = parser.findChunk("/RIFF:WAVE/data");
 
@@ -233,6 +234,25 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 	    "There is not enough valid sound data.\n\n"
 	    "It makes no sense to continue now."));
 	return false;
+    }
+
+    // WORKAROUND: if there is a fact chunk, it must not contain zero
+    //             for the moment the only workaround known is to open
+    //             such broken files in repair mode
+    if (fact_chunk) {
+	qint64 offset = fact_chunk->dataStart();
+	union {
+	    quint32 len;
+	    char    bytes[4];
+	} fact;
+	fact.len = 0;
+	src.seek(offset);
+	src.read(&(fact.bytes[0]), 4);
+	if ((fact.len == 0x00000000) || (fact.len == 0xFFFFFFFF)) {
+	    qWarning("WARNING: invalid 'fact' chunk content: 0x%08X "
+	             "-> silent repair mode", fact.len);
+	    need_repair = true;
+	}
     }
 
     // final check for structural integrity:

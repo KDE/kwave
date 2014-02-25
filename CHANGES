@@ -20,6 +20,7 @@
  * amplify free plugin: action names were not translated in progress bar
  * bugfix: coherency problems in overview cache
  * debug plugin: added function "fm_sweep"
+ * workaround for broken WAV files with zeroed fact chunk
 
 0.8.11 [2013-11-24]
 

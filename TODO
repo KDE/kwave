@@ -20,6 +20,9 @@ o FLAC in Ogg container
 
 o SPEEX in Ogg container
 
+o codec_wav: disable workaround for fact chunk == 0 as soon as a newer
+  version of libaudiofile is available which can handle this
+
 o use noise shaping globally in sample2float()
 
 o support for "raw" import/export

@@ -52,7 +52,7 @@ namespace Kwave
 	 * Returns true if this instance was successfully initialized, or
 	 * false if something went wrong during initialization.
 	 */
-	virtual bool isOK();
+	virtual bool isOK() const;
 
 	/** Destructor. */
 	virtual ~App();

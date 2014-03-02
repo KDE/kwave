@@ -121,7 +121,7 @@ namespace Kwave
 	virtual void clear();
 
 	/** returns a pointer to the menu's parent node */
-	virtual Kwave::MenuNode *parentNode();
+	virtual Kwave::MenuNode *parentNode() const;
 
 	/**
 	 * Returns true if the node is enabled.

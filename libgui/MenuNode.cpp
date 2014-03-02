@@ -94,7 +94,7 @@ void Kwave::MenuNode::clear()
 }
 
 //*****************************************************************************
-Kwave::MenuNode *Kwave::MenuNode::parentNode()
+Kwave::MenuNode *Kwave::MenuNode::parentNode() const
 {
     return m_parentNode;
 }

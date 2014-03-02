@@ -120,7 +120,7 @@ QString Kwave::Functions::name(unsigned int index)
 
 //***************************************************************************
 Kwave::Functions::periodic_function_t &Kwave::Functions::function(
-    unsigned int index)
+    unsigned int index) const
 {
     Kwave::Functions::periodic_function_t *f = 0;
 
@@ -132,7 +132,7 @@ Kwave::Functions::periodic_function_t &Kwave::Functions::function(
 }
 
 //***************************************************************************
-unsigned int Kwave::Functions::count()
+unsigned int Kwave::Functions::count() const
 {
     return m_functions_map.count();
 }

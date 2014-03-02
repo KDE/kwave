@@ -44,7 +44,7 @@ namespace Kwave
 	virtual ~Functions();
 
 	/** Returns the number of functions */
-	unsigned int count();
+	unsigned int count() const;
 
 	/**
 	 * Returns the name of a function. If the index is out of range,
@@ -58,7 +58,7 @@ namespace Kwave
 	 * the returned function will be "zero()".
 	 * @param index [0...count-1]
 	 */
-	periodic_function_t &function(unsigned int index);
+	periodic_function_t &function(unsigned int index) const;
 
     private:
 

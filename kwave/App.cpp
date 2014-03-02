@@ -94,7 +94,7 @@ int Kwave::App::newInstance()
 }
 
 //***************************************************************************
-bool Kwave::App::isOK()
+bool Kwave::App::isOK() const
 {
     return (!m_top_widgets.isEmpty());
 }

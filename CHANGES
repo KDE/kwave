@@ -21,6 +21,8 @@
  * bugfix: coherency problems in overview cache
  * debug plugin: added function "fm_sweep"
  * workaround for broken WAV files with zeroed fact chunk
+ * fixed many 32/64 bit issues
+ * bugfix: metadata got lost after cut/undo/redo
 
 0.8.11 [2013-11-24]
 

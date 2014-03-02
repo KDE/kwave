@@ -387,6 +387,9 @@ void Kwave::MetaDataList::cropByTracks(const QList<unsigned int> &tracks)
 Kwave::MetaDataList Kwave::MetaDataList::copy(sample_index_t offset,
     sample_index_t length, const QList<unsigned int> &tracks) const
 {
+    if (!length)
+	return Kwave::MetaDataList(); // no range selected - empty list
+
     Kwave::MetaDataList list(*this);
     list.cropByRange(offset, offset + length - 1);
     list.cropByTracks(tracks);
@@ -396,6 +399,9 @@ Kwave::MetaDataList Kwave::MetaDataList::copy(sample_index_t offset,
 //***************************************************************************
 void Kwave::MetaDataList::merge(const Kwave::MetaDataList &meta_data)
 {
+    if (meta_data.isEmpty())
+	return; // shortcut: bail out if empty
+
     const QStringList position_bound_properties =
 	Kwave::MetaData::positionBoundPropertyNames();
 

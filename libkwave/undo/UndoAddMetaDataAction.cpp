@@ -79,8 +79,8 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
 
     // fix first/last in case that nothing was found, select everything
     if (first > last) {
-	m_offset = 0;
-	m_length = SAMPLE_INDEX_MAX;
+	m_offset = SAMPLE_INDEX_MAX;
+	m_length = 0;
     } else {
 	m_offset = first;
 	m_length = (last - first) + 1;

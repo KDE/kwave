@@ -813,10 +813,10 @@ void Kwave::PlayBackPulseAudio::scanDevices()
 
 	// if the name is not unique, add the internal sink name
 	int unique = true;
-	foreach (QString s, m_device_list.keys()) {
-	    if (s == sink) continue;
-	    if ((m_device_list[s].m_description == description) &&
-		(m_device_list[s].m_driver      == driver))
+	foreach (QString sn, m_device_list.keys()) {
+	    if (sn == sink) continue;
+	    if ((m_device_list[sn].m_description == description) &&
+		(m_device_list[sn].m_driver      == driver))
 	    {
 		unique = false;
 		break;

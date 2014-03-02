@@ -231,7 +231,6 @@ QVector<double> Kwave::Interpolation::interpolation(
     switch (m_type) {
 	case INTPOL_LINEAR:
 	{
-	    Kwave::Curve::Point p;
 	    double x0, y0, x1, y1;
 	    Kwave::Curve::ConstIterator it(points);
 

@@ -636,13 +636,13 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	Kwave::ClipBoard &clip = Kwave::ClipBoard::instance();
 	if (clip.isEmpty()) return 0;
 	if (!selectedTracks().size()) return 0;
-	sample_index_t offset = parser.toSampleIndex();
+	sample_index_t ofs = parser.toSampleIndex();
 
 	Kwave::UndoTransactionGuard undo(*this,
 	                                 i18n("Insert Clipboard at position"));
 
-	selectRange(offset, 0);
-	clip.paste(m_parent_widget, *this, offset, 0);
+	selectRange(ofs, 0);
+	clip.paste(m_parent_widget, *this, ofs, 0);
 
     CASE_COMMAND("paste")
 	Kwave::ClipBoard &clip = Kwave::ClipBoard::instance();
@@ -815,13 +815,13 @@ int Kwave::SignalManager::executeCommand(const QString &command)
     CASE_COMMAND("add_track")
 	appendTrack();
     CASE_COMMAND("delete_track")
-	Kwave::Parser parser(command);
-	unsigned int track = parser.toUInt();
+	Kwave::Parser p(command);
+	unsigned int track = p.toUInt();
 	if (track >= tracks()) return -EINVAL;
 	deleteTrack(track);
     CASE_COMMAND("insert_track")
-	Kwave::Parser parser(command);
-	unsigned int track = parser.toUInt();
+	Kwave::Parser p(command);
+	unsigned int track = p.toUInt();
 	insertTrack(track);
 
     // track selection

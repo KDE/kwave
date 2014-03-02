@@ -183,8 +183,8 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
     foreach (const Kwave::Label &label,
 	Kwave::LabelList(m_signal_manager->metaData()))
     {
-	double pos = static_cast<double>(label.pos());
-	double d = (pos > offset) ? (pos - offset) : (offset - pos);
+	double x = static_cast<double>(label.pos());
+	double d = (x > offset) ? (x - offset) : (offset - x);
 	if (d < d_min) {
 	    d_min = d;
 	    nearest_label = label;

@@ -700,9 +700,9 @@ QString Kwave::MP3EncoderDialog::searchPath(const QString &program)
 	    p += QDir::separator();
 	p += f.fileName();
 
-	QFile f(p);
+	QFile file(p);
 	qDebug("testing '%s'", DBG(p));
-	if (f.exists() && (f.permissions() & executable)) {
+	if (file.exists() && (file.permissions() & executable)) {
 	    // found it :)
 	    return p;
 	}
@@ -732,9 +732,9 @@ void Kwave::MP3EncoderDialog::updateEncoderInfo()
 	    title = version;
 	} else {
 	    // fallback: detect by using list of predefined settings
-	    QString param   = g_predefined_settings[index].m_info.m_version;
-	    program         = searchPath(g_predefined_settings[index].m_path);
-	    version         = encoderVersion(program, param);
+	    QString p  = g_predefined_settings[index].m_info.m_version;
+	    program    = searchPath(g_predefined_settings[index].m_path);
+	    version    = encoderVersion(program, p);
 	    if (version.length() >= name.length())
 		title = version;
 	}

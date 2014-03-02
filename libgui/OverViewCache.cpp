@@ -296,9 +296,9 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 	    if (state[ofs] == Unused) continue;
 
 	    // get min/max
-	    sample_index_t first = m_selection.offset() + (ofs * m_scale);
-	    sample_index_t last  = first + m_scale - 1;
-	    reader->minMax(first, last, min[ofs], max[ofs]);
+	    sample_index_t first_idx = m_selection.offset() + (ofs * m_scale);
+	    sample_index_t last_idx  = first_idx + m_scale - 1;
+	    reader->minMax(first_idx, last_idx, min[ofs], max[ofs]);
 	    state[ofs] = Valid;
 	}
     }

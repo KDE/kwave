@@ -836,7 +836,7 @@ void Kwave::PlayBackALSA::scanDevices()
 			QString hwdev = hw_device + _(",%1").arg(idx);
 			QString subdevice_name =
 			    _(snd_pcm_info_get_subdevice_name(pcminfo));
-			QString name = QString(
+			QString full_name = QString(
 			    i18n("Card %1: ", card) + card_name +
 			    _("|sound_card||") +
 			    i18n("Device %1: ", dev) + device_name +
@@ -844,20 +844,20 @@ void Kwave::PlayBackALSA::scanDevices()
 			    i18n("Subdevice %1: ", idx) + subdevice_name +
 			    _("|sound_subdevice")
 			);
-			qDebug("# '%s' -> '%s'", DBG(hwdev), DBG(name));
-			m_device_list.insert(name, hwdev);
+			qDebug("# '%s' -> '%s'", DBG(hwdev), DBG(full_name));
+			m_device_list.insert(full_name, hwdev);
 		    }
 		}
 	    } else {
 		// no sub-devices
-		QString name = QString(
+		QString full_name = QString(
 		    i18n("Card %1: ", card) +
 		         card_name + _("|sound_card||") +
 		    i18n("Device %1: ", dev) +
 		          device_name + _("|sound_subdevice")
 		);
 // 		qDebug("# '%s' -> '%s'", DBG(hw_device), DBG(name));
-		m_device_list.insert(name, hw_device);
+		m_device_list.insert(full_name, hw_device);
 	    }
 	}
 	snd_ctl_close(handle);

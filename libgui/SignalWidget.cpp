@@ -583,10 +583,10 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
     if (!controls) return;
 
     // create a new view for the track's signal
-    Kwave::SignalView *view = new Kwave::TrackView(
+    Kwave::SignalView *new_view = new Kwave::TrackView(
 	this, controls, m_context.signalManager(), track);
-    Q_ASSERT(view);
-    if (!view) {
+    Q_ASSERT(new_view);
+    if (!new_view) {
 	if (controls) delete controls;
 	return;
     }
@@ -598,9 +598,9 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
     }
 
     // assign the view to the new track
-    view->setTrack(index);
+    new_view->setTrack(index);
 
-    insertView(view, controls);
+    insertView(new_view, controls);
 }
 
 //***************************************************************************
@@ -630,15 +630,15 @@ void Kwave::SignalWidget::slotTrackDeleted(unsigned int index,
     const int rows = m_layout.rowCount();
     const int cols = m_layout.columnCount();
     for (int row = 0; row < rows; row++) {
-	bool empty = true;
+	bool row_is_empty = true;
 	for (int col = 0; col < cols; col++) {
 	    QLayoutItem *item = m_layout.itemAtPosition(row, col);
 	    if (item) {
-		empty = false;
+		row_is_empty = false;
 		break;
 	    }
 	}
-	if (empty) deleteRow(row);
+	if (row_is_empty) deleteRow(row);
     }
 
     // if there are only views with track() == -1, we are empty,

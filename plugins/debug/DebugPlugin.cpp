@@ -86,9 +86,11 @@ void Kwave::DebugPlugin::run(QStringList params)
     Kwave::UndoTransactionGuard undo_guard(*this, action);
 
     // get the buffer for faster processing
-    bool ok = m_buffer.resize(BUFFER_SIZE);
-    Q_ASSERT(ok);
-    m_buffer.fill(0);
+    {
+	bool ok = m_buffer.resize(BUFFER_SIZE);
+	Q_ASSERT(ok);
+	m_buffer.fill(0);
+    }
 
     bool make_new_track = (
 	(command == _("stripe_index")) ||

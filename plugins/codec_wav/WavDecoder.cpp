@@ -420,12 +420,12 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 
 	    // read the content into a QString
 	    Kwave::FileProperty prop = m_property_map.property(chunk->name());
-	    unsigned int offset = chunk->dataStart();
-	    unsigned int length = chunk->dataLength();
-	    QByteArray buffer(length+1, 0x00);
-	    src.seek(offset);
-	    src.read(buffer.data(), length);
-	    buffer[length] = 0;
+	    unsigned int ofs = chunk->dataStart();
+	    unsigned int len = chunk->dataLength();
+	    QByteArray buffer(len + 1, 0x00);
+	    src.seek(ofs);
+	    src.read(buffer.data(), len);
+	    buffer[len] = 0;
 	    QString value;
 	    value = QString::fromUtf8(buffer);
 	    info.set(prop, value);
@@ -503,7 +503,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 		bool found = false;
 		QListIterator<Kwave::RIFFChunk *> it(adtl_chunk->subChunks());
 		while (it.hasNext()) {
-		    quint32 data, labl_index;
+		    quint32 labl_index;
 		    labl_chunk = it.next();
 		    /*
 		     * typedef struct {
@@ -526,12 +526,12 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 		}
 		if (found) {
 		    Q_ASSERT(labl_chunk);
-		    unsigned int length = labl_chunk->length();
-		    if (length > 4) {
-			length -= 4;
-			name.resize(length);
+		    unsigned int len = labl_chunk->length();
+		    if (len > 4) {
+			len -= 4;
+			name.resize(len);
 			src.seek(labl_chunk->dataStart() + 4);
-			src.read(static_cast<char *>(name.data()), length);
+			src.read(static_cast<char *>(name.data()), len);
 			if (name[name.count() - 1] != '\0')
 			    name += '\0';
 		    }
@@ -696,9 +696,9 @@ bool Kwave::WavDecoder::repairChunk(
 
     // recursively go over all sub-chunks
     Kwave::RIFFChunkList &list = chunk->subChunks();
-    foreach (Kwave::RIFFChunk *chunk, list) {
-	if (!chunk) continue;
-	if (!repairChunk(repair_list, chunk, offset))
+    foreach (Kwave::RIFFChunk *c, list) {
+	if (!c) continue;
+	if (!repairChunk(repair_list, c, offset))
 	    return false;
     }
 

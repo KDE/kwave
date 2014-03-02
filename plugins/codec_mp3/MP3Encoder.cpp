@@ -168,9 +168,9 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	    }
 	    case ID3_PropertyMap::ENC_GENRE_TYPE:
 	    {
-		int id = Kwave::GenreType::fromID3(str_val);
-		if (id >= 0)
-		    str_val = Kwave::GenreType::name(id, false);
+		int genre = Kwave::GenreType::fromID3(str_val);
+		if (genre >= 0)
+		    str_val = Kwave::GenreType::name(genre, false);
 		// else: user defined genre type, take it as it is
 
 		field->SetEncoding(ID3TE_UTF16);
@@ -444,7 +444,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	unsigned int y;
 
 	// merge the tracks into the sample buffer
-	quint8 *dst = &(m_write_buffer[0]);
+	quint8 *dst_buffer = &(m_write_buffer[0]);
 	unsigned int count = buf_len / (bytes_per_sample * tracks);
 	if (rest < count) count = Kwave::toUint(rest);
 
@@ -485,23 +485,23 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
 		// big endian
 		if (bits >= 8)
-		    *(dst++) = static_cast<quint8>(s >> 16);
+		    *(dst_buffer++) = static_cast<quint8>(s >> 16);
 		if (bits > 8)
-		    *(dst++) = static_cast<quint8>(s >> 8);
+		    *(dst_buffer++) = static_cast<quint8>(s >> 8);
 		if (bits > 16)
-		    *(dst++) = static_cast<quint8>(s & 0xFF);
+		    *(dst_buffer++) = static_cast<quint8>(s & 0xFF);
 		if (bits > 24)
-		    *(dst++) = 0x00;
+		    *(dst_buffer++) = 0x00;
 #else
 		// little endian
 		if (bits > 24)
-		    *(dst++) = 0x00;
+		    *(dst_buffer++) = 0x00;
 		if (bits > 16)
-		    *(dst++) = static_cast<quint8>(s & 0xFF);
+		    *(dst_buffer++) = static_cast<quint8>(s & 0xFF);
 		if (bits > 8)
-		    *(dst++) = static_cast<quint8>(s >> 8);
+		    *(dst_buffer++) = static_cast<quint8>(s >> 8);
 		if (bits >= 8)
-		    *(dst++) = static_cast<quint8>(s >> 16);
+		    *(dst_buffer++) = static_cast<quint8>(s >> 16);
 #endif
 	    }
 	}

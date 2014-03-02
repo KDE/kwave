@@ -70,14 +70,16 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
     edSamples->setRange(0, Kwave::toInt(m_length - m_offset), 1);
 
     // set range of time controls
-    quint64 t = static_cast<quint64>((m_length * 1E3) / m_rate);
-    sbMilliseconds->setMaximum(Kwave::toInt(qMax(t, quint64(999))));
-    t /= 1000;
-    sbSeconds->setMaximum(Kwave::toInt(qMax(t, quint64(59))));
-    t /= 60;
-    sbMinutes->setMaximum(Kwave::toInt(qMax(t, quint64(59))));
-    t /= 60;
-    sbHours->setMaximum(Kwave::toInt(t));
+    {
+	quint64 t = static_cast<quint64>((m_length * 1E3) / m_rate);
+	sbMilliseconds->setMaximum(Kwave::toInt(qMax(t, quint64(999))));
+	t /= 1000;
+	sbSeconds->setMaximum(Kwave::toInt(qMax(t, quint64(59))));
+	t /= 60;
+	sbMinutes->setMaximum(Kwave::toInt(qMax(t, quint64(59))));
+	t /= 60;
+	sbHours->setMaximum(Kwave::toInt(t));
+    }
 
     // activate the current mode
     setMode(mode);

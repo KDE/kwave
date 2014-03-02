@@ -95,10 +95,9 @@ Kwave::Plugin::~Plugin()
     close();
 
     // lock usage
-    QMutexLocker lock(&m_usage_lock);
-
+    QMutexLocker lock_usage(&m_usage_lock);
     {
-	QMutexLocker lock(&m_thread_lock);
+	QMutexLocker lock_thread(&m_thread_lock);
 	if (m_thread) {
 	    if (m_thread->isRunning()) m_thread->wait(5000);
 	    if (m_thread->isRunning()) m_thread->stop();

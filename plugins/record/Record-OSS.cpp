@@ -424,7 +424,10 @@ QList<double> Kwave::RecordOSS::detectSampleRates()
 	}
 
 	// do not produce duplicates
-	if (list.contains(rate)) continue;
+	bool is_duplicate = false;
+	foreach (const double &r, list)
+	    if (qFuzzyCompare(rate, r)) { is_duplicate = true; break; }
+	if (is_duplicate) continue;
 
 	// qDebug("found rate %d Hz", rate);
 	list.append(rate);

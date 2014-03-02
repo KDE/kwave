@@ -415,11 +415,11 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
 		    OPUS_MULTISTREAM_GET_ENCODER_STATE_REQUEST, i, &oe
 		);
 
-		int err = opus_encoder_ctl(oe,
+		int err_ctl = opus_encoder_ctl(oe,
 		    OPUS_SET_MAX_BANDWIDTH_REQUEST, OPUS_BANDWIDTH_NARROWBAND);
 
-		if (err != OPUS_OK) {
-		    Kwave::MessageBox::error(widget, Kwave::opus_error(err),
+		if (err_ctl != OPUS_OK) {
+		    Kwave::MessageBox::error(widget, Kwave::opus_error(err_ctl),
 			i18n("Opus encoder failed"));
 		    return false;
 		}

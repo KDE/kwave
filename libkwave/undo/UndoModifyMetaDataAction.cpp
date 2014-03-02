@@ -43,9 +43,11 @@ QString Kwave::UndoModifyMetaDataAction::description()
     if (m_saved_data.isEmpty()) return _("");
 
     QString name;
-    const Kwave::MetaData &m = m_saved_data.values().first();
-    if (m.hasProperty(Kwave::MetaData::STDPROP_TYPE))
-	name = m[Kwave::MetaData::STDPROP_TYPE].toString();
+    {
+	const Kwave::MetaData &m = m_saved_data.values().first();
+	if (m.hasProperty(Kwave::MetaData::STDPROP_TYPE))
+	    name = m[Kwave::MetaData::STDPROP_TYPE].toString();
+    }
 
     // if the meta data list contains only one object: try to find
     // out the object's name

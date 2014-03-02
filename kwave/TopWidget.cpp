@@ -1016,9 +1016,9 @@ int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
 		    QString ext = extensions.first().split(_(" ")).first();
 		    if (ext.length()) {
 			extension = ext;
-			QString filename = current_url.fileName();
-			filename += extension.mid(1); // remove the "*"
-			current_url.setFileName(filename);
+			QString new_filename = current_url.fileName();
+			new_filename += extension.mid(1); // remove the "*"
+			current_url.setFileName(new_filename);
 		    }
 		}
 	    }
@@ -1034,17 +1034,17 @@ int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
 	url = dlg.selectedUrl();
 	if (url.isEmpty()) return 0;
 
-	QString name = url.path();
-	QFileInfo path(name);
+	QString new_name = url.path();
+	QFileInfo path(new_name);
 
 	// add the correct extension if necessary
 	if (!path.suffix().length()) {
 	    QString ext = dlg.selectedExtension();
 	    QStringList extensions = ext.split(_(" "));
 	    ext = extensions.first();
-	    name += ext.mid(1);
-	    path = name;
-	    url.setPath(name);
+	    new_name += ext.mid(1);
+	    path = new_name;
+	    url.setPath(new_name);
 	}
     }
 
@@ -1219,9 +1219,9 @@ void Kwave::TopWidget::setZoomInfo(double zoom)
 	    if (!v.isValid() || !v.toBool()) {
 		m_zoomselect->removeItem(i);
 	    } else {
-		QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
+		QVariant vz = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
 		bool ok = false;
-		double t = v.toDouble(&ok);
+		double t = vz.toDouble(&ok);
 		if (ok && (t > 0) && fabs(1 - (t / ms)) < (1.0 / 60.0)) {
 		    match = i;
 		}

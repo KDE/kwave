@@ -160,18 +160,18 @@ void Kwave::MenuManager::executeCommand(const QString &command)
     if (param.length()) {
 	// replace "::<StandardKeyName>" with the key sequence as string
 	QRegExp rx(_("::(\\w+)"), Qt::CaseInsensitive);
-	int pos = 0;
-	while ((pos = rx.indexIn(param, 0)) >= 0) {
+	int p = 0;
+	while ((p = rx.indexIn(param, 0)) >= 0) {
 	    QString stdname = rx.cap(1);
 	    if (m_standard_keys.contains(stdname)) {
 		// translate into a key sequence
 		QKeySequence sequence = m_standard_keys[stdname];
 		QString expanded = sequence.toString();
-		param = param.replace(pos, stdname.length()+2, expanded);
+		param = param.replace(p, stdname.length() + 2, expanded);
 	    } else {
 		// unknown standard key sequence name?
 		qWarning("MenuManager::executeCommand: pos=%d, stdname='%s' "
-		         "-> UNKNOWN ???", pos, DBG(stdname));
+		         "-> UNKNOWN ???", p, DBG(stdname));
 		break;
 	    }
 	}

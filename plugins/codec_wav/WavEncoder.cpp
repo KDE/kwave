@@ -126,8 +126,9 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
     QMap<QByteArray, QByteArray> info_chunks;
     unsigned int info_size = 0;
 
-    QMap<Kwave::FileProperty, QVariant>::Iterator it;
-    for (it = properties.begin(); it != properties.end(); ++it) {
+    for (QMap<Kwave::FileProperty, QVariant>::Iterator it = properties.begin();
+	 it != properties.end(); ++it)
+    {
 	Kwave::FileProperty property = it.key();
 	if (!m_property_map.containsProperty(property)) continue;
 
@@ -162,13 +163,14 @@ void Kwave::WavEncoder::writeInfoChunk(QIODevice &dst, Kwave::FileInfo &info)
 	dst.write("INFO", 4);
 
 	// append the chunks to the end of the file
-	QMap<QByteArray, QByteArray>::Iterator it;
-	for (it=info_chunks.begin(); it != info_chunks.end(); ++it) {
+	for (QMap<QByteArray, QByteArray>::Iterator it = info_chunks.begin();
+	     it != info_chunks.end(); ++it)
+	{
 	    QByteArray name  = it.key();
 	    QByteArray value = it.value();
 
 	    dst.write(name.data(), 4); // chunk name
-	    quint32 size = value.length(); // length of the chunk
+	    size = value.length(); // length of the chunk
 	    if (size & 0x01) size++;
 	    size = qToLittleEndian<quint32>(size);
 	    dst.write(reinterpret_cast<char *>(&size), 4);

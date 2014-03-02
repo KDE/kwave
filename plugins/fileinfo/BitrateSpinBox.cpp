@@ -54,9 +54,9 @@ void Kwave::BitrateSpinBox::snapIn(int value)
 	index--;
 
     if (index != old_index) {
-	int value = m_rates[index];
-	setValue(value);
-	emit snappedIn(value);
+	int v = m_rates[index];
+	setValue(v);
+	emit snappedIn(v);
     }
 }
 

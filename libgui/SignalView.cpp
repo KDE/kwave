@@ -307,7 +307,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
     if (mouse_y < 0) mouse_y = 0;
     if (mouse_x >= width())  mouse_x = width()  - 1;
     if (mouse_y >= height()) mouse_y = height() - 1;
-    QPoint mouse_pos(mouse_x, mouse_y);
+    const QPoint mouse_pos(mouse_x, mouse_y);
 
     // bail out if the position did not change
     static int last_x = -1;
@@ -347,7 +347,6 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 	const bool     selection_is_empty = (selection_first == selection_last);
 
 	// check whether there is some object near this position
-	const QPoint mouse_pos = QPoint(mouse_x, mouse_y);
 	QSharedPointer<Kwave::ViewItem> item       = findItem(mouse_pos);
 	bool                            item_found = !item.isNull();
 
@@ -657,10 +656,10 @@ void Kwave::SignalView::startDragging()
 	// special case: when dropping into the same widget, before
 	// the previous selection, the previous range has already
 	// been moved to the right !
-	sample_index_t src = first;
-	if ((d->target() == this) && (f < src)) src += len;
+	sample_index_t src_pos = first;
+	if ((d->target() == this) && (f < src_pos)) src_pos += len;
 
-	m_signal_manager->deleteRange(src, len,
+	m_signal_manager->deleteRange(src_pos, len,
 	    m_signal_manager->selectedTracks());
 
 	// restore the new selection

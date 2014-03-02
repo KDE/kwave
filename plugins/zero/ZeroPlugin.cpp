@@ -57,7 +57,7 @@ void Kwave::ZeroPlugin::run(QStringList params)
     QList<unsigned int> tracks;
     sample_index_t first = 0;
     sample_index_t last  = 0;
-    bool ok = true;
+    bool succeeded = true;
 
     Kwave::UndoTransactionGuard undo_guard(*this, i18n("Silence"));
 
@@ -127,19 +127,19 @@ void Kwave::ZeroPlugin::run(QStringList params)
 
     // get the buffer with zeroes for faster filling
     if (m_zeroes.size() != ZERO_COUNT) {
-	ok &= m_zeroes.resize(ZERO_COUNT);
-	Q_ASSERT(ok);
+	succeeded &= m_zeroes.resize(ZERO_COUNT);
+	Q_ASSERT(succeeded);
 	m_zeroes.fill(0);
     }
     Q_ASSERT(m_zeroes.size() == ZERO_COUNT);
 
     // loop over the sample range
-    while ((first <= last) && !shouldStop() && ok) {
+    while ((first <= last) && !shouldStop() && succeeded) {
 	sample_index_t rest = last - first + 1;
 	if (rest < m_zeroes.size()) {
-	    ok &= m_zeroes.resize(Kwave::toUint(rest));
-	    Q_ASSERT(ok);
-	    if (!ok) break;
+	    succeeded &= m_zeroes.resize(Kwave::toUint(rest));
+	    Q_ASSERT(succeeded);
+	    if (!succeeded) break;
 	}
 
 	// loop over all writers

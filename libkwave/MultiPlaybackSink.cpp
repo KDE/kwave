@@ -86,8 +86,8 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
     m_in_buffer[track] = data;
 
     // check if all buffers are filled
-    for (unsigned int track = 0; track < m_tracks; track++)
-	if (!m_in_buffer_filled[track]) return;
+    for (unsigned int t = 0; t < m_tracks; t++)
+	if (!m_in_buffer_filled[t]) return;
 
     // all tracks have left their data, now we are ready
     // to convert the buffers into a big combined one

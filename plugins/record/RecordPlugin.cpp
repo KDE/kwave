@@ -993,21 +993,21 @@ void Kwave::RecordPlugin::recordStopped(int reason)
     if (reason >= 0) return; // nothing to do
 
     // recording was aborted
-    QString description;
+    QString err_msg;
     switch (reason) {
 	case -ENOBUFS:
-	    description = i18n("Buffer overrun. Please increase the "\
-	                       "number and/or size of the record buffers.");
+	    err_msg = i18n("Buffer overrun. Please increase the "\
+	                    "number and/or size of the record buffers.");
 	    break;
 	case -EBUSY:
-	    description = i18n("The recording device seems to be busy.");
+	    err_msg = i18n("The recording device seems to be busy.");
 	    break;
 	default:
-	    description = i18n("Reading from the recording device failed. "\
-	                       "Error number = %1 (%2)", -reason,
-			       QString::fromLocal8Bit(strerror(-reason)));
+	    err_msg = i18n("Reading from the recording device failed. "\
+	                   "Error number = %1 (%2)", -reason,
+	                    QString::fromLocal8Bit(strerror(-reason)));
     }
-    Kwave::MessageBox::error(m_dialog, description);
+    Kwave::MessageBox::error(m_dialog, err_msg);
 
     if (m_writers) m_writers->flush();
     qDebug("RecordPlugin::recordStopped(): last=%lu",

@@ -176,8 +176,8 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 	    bool found = false;
 	    int comp_found = -1;
 	    foreach (int c, comps) {
-		Kwave::Compression comp(c);
-		if ((comp.preferredMimeType() == mimetype) &&
+		Kwave::Compression cmp(c);
+		if ((cmp.preferredMimeType() == mimetype) &&
 		     comps.contains(c))
 		{
 		    found = true;

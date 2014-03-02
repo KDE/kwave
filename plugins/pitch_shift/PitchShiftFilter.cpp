@@ -195,7 +195,7 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 void Kwave::PitchShiftFilter::setSpeed(const QVariant speed)
 {
     float new_speed = QVariant(speed).toFloat();
-    if (new_speed == m_speed) return; // nothing to do
+    if (qFuzzyCompare(new_speed, m_speed)) return; // nothing to do
 
     m_speed = new_speed;
     initFilter();
@@ -205,7 +205,7 @@ void Kwave::PitchShiftFilter::setSpeed(const QVariant speed)
 void Kwave::PitchShiftFilter::setFrequency(const QVariant freq)
 {
     float new_freq = QVariant(freq).toFloat();
-    if (new_freq == m_frequency) return; // nothing to do
+    if (qFuzzyCompare(new_freq, m_frequency)) return; // nothing to do
 
     m_frequency = new_freq;
     initFilter();

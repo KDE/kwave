@@ -94,7 +94,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 	return;
 
     double old_rate = Kwave::FileInfo(signalManager().metaData()).rate();
-    if ((old_rate <= 0) || (old_rate == m_new_rate)) return;
+    if ((old_rate <= 0) || qFuzzyCompare(old_rate, m_new_rate)) return;
 
     Kwave::UndoTransactionGuard undo_guard(*this, i18n("Change sample rate"));
 

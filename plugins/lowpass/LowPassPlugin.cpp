@@ -85,7 +85,7 @@ Kwave::SampleSource *Kwave::LowPassPlugin::createFilter(unsigned int tracks)
 //***************************************************************************
 bool Kwave::LowPassPlugin::paramsChanged()
 {
-    return (m_frequency != m_last_freq);
+    return (!qFuzzyCompare(m_frequency, m_last_freq));
 }
 
 //***************************************************************************
@@ -96,7 +96,7 @@ void Kwave::LowPassPlugin::updateFilter(Kwave::SampleSource *filter,
 
     if (!filter) return;
 
-    if ((m_frequency != m_last_freq) || force)
+    if (!qFuzzyCompare(m_frequency, m_last_freq) || force)
 	filter->setAttribute(SLOT(setFrequency(const QVariant)),
 	    QVariant((m_frequency * 2.0 * M_PI) / sr));
 

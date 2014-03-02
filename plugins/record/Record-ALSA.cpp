@@ -761,7 +761,10 @@ QList<double> Kwave::RecordALSA::detectSampleRates()
 	if (err < 0) continue;
 
 	// do not produce duplicates
-	if (list.contains(rate)) continue;
+	bool is_duplicate = false;
+	foreach (const double &r, list)
+	    if (qFuzzyCompare(rate, r)) { is_duplicate = true; break; }
+	if (is_duplicate) continue;
 
 // 	qDebug("found rate %u Hz", rate);
 	list.append(rate);
@@ -773,7 +776,7 @@ QList<double> Kwave::RecordALSA::detectSampleRates()
 //***************************************************************************
 int Kwave::RecordALSA::setSampleRate(double &new_rate)
 {
-    if (new_rate != m_rate) m_initialized = false;
+    if (!qFuzzyCompare(new_rate, m_rate)) m_initialized = false;
     m_rate = new_rate;
     return 0;
 }

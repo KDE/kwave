@@ -212,7 +212,7 @@ void Kwave::TrackPixmap::setZoom(double zoom)
 {
     QMutexLocker lock(&m_lock_buffer);
 
-    if (zoom == m_zoom) return; // no change
+    if (qFuzzyCompare(zoom, m_zoom)) return; // no change
 
 //    qDebug("TrackPixmap::setZoom(%0.3f)", zoom);
     if ((zoom > 1.0) && !m_minmax_mode) {
@@ -422,7 +422,7 @@ void Kwave::TrackPixmap::setVerticalZoom(double zoom)
 {
     QMutexLocker lock(&m_lock_buffer);
 
-    if (zoom == m_vertical_zoom) return;
+    if (qFuzzyCompare(zoom, m_vertical_zoom)) return;
     m_vertical_zoom = zoom;
     m_modified = true;
 }

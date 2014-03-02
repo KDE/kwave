@@ -204,7 +204,7 @@ void Kwave::Curve::scaleFit(unsigned int range)
 
     foreach (Point p, *this) {
 	p.ry() -= min;
-	if (max != min)
+	if (!qFuzzyCompare(max, min))
 	    p.ry() /= (max - min);
 	else
 	    p.ry() = min;

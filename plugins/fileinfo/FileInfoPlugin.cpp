@@ -73,7 +73,7 @@ void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
     if (old_info == new_info) return; // nothing to do
 
     /* sample rate */
-    if (old_info.rate() != new_info.rate()) {
+    if (!qFuzzyCompare(old_info.rate(), new_info.rate())) {
 
 	// sample rate changed -> only change rate or resample ?
 	double new_rate = new_info.rate();

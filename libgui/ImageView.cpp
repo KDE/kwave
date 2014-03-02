@@ -58,9 +58,9 @@ void Kwave::ImageView::mouseMoveEvent(QMouseEvent *e)
      * re-transform the coordinates from the screen (pixmap) coordinates to
      * the original image coordinates and emit a cursor position signal
      */
-    x = m_offset.x() + Kwave::toInt((m_scale_x != 0) ?
+    x = m_offset.x() + Kwave::toInt((!qFuzzyIsNull(m_scale_x)) ?
 	(static_cast<double>(x) / m_scale_x) : 0);
-    y = m_offset.y() + Kwave::toInt((m_scale_y != 0) ?
+    y = m_offset.y() + Kwave::toInt((!qFuzzyIsNull(m_scale_y)) ?
 	(static_cast<double>(y) / m_scale_y) : 0);
     emit sigCursorPos(QPoint(x, y));
 }

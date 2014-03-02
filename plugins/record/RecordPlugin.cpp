@@ -519,8 +519,11 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
 
     // check the supported sample rates
     QList<double> supported_rates = m_device->detectSampleRates();
+    bool is_supported = false;
+    foreach (const double &r, supported_rates)
+	if (qFuzzyCompare(new_rate, r)) { is_supported = true; break; }
     double rate = new_rate;
-    if (!supported_rates.isEmpty() && !supported_rates.contains(rate)) {
+    if (!is_supported) {
 	// find the nearest sample rate
 	double nearest = supported_rates.last();
 	foreach (double r, supported_rates) {
@@ -920,15 +923,15 @@ void Kwave::RecordPlugin::startRecording()
 	 * -> start over with a new signal and new settings
 	 */
 	if ((!m_writers) ||
-	    (m_writers->tracks() != tracks) ||
-	    (Kwave::FileInfo(signalManager().metaData()).rate() != rate))
+	    (m_writers->tracks() != tracks) || !qFuzzyCompare(
+	     Kwave::FileInfo(signalManager().metaData()).rate(), rate))
 	{
 	    // create a new and empty signal
 
 	    emitCommand(QString(_("newsignal(%1,%2,%3,%4)")).arg(
 		samples).arg(rate).arg(bits).arg(tracks));
 	    Kwave::SignalManager &mgr = signalManager();
-	    if ((mgr.rate() != rate) || (mgr.bits() != bits) ||
+	    if (!qFuzzyCompare(mgr.rate(), rate) || (mgr.bits() != bits) ||
 	        (mgr.tracks() != tracks))
 	    {
 		emitCommand(_("close"));

@@ -448,7 +448,7 @@ void Kwave::SonagramWindow::translatePixels2TF(const QPoint p,
 {
     if (ms) {
 	// get the time coordinate [0...(N_samples-1)* (1/f_sample) ]
-	if (m_rate != 0) {
+	if (!qFuzzyIsNull(m_rate)) {
 	    *ms = static_cast<double>(p.x()) *
 	          static_cast<double>(m_points) * 1000.0 / m_rate;
 	} else {
@@ -509,11 +509,11 @@ void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
     KStatusBar *status = statusBar();
     Q_ASSERT(status);
     Q_ASSERT(m_points);
-    Q_ASSERT(m_rate != 0);
+    Q_ASSERT(!qFuzzyIsNull(m_rate));
     if (!status) return;
     if (m_image.isNull()) return;
     if (!m_points) return;
-    if (m_rate == 0) return;
+    if (qFuzzyIsNull(m_rate)) return;
 
     double ms;
     double f;

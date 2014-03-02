@@ -96,7 +96,7 @@ void Kwave::LevelMeter::setTracks(unsigned int tracks)
 //***************************************************************************
 void Kwave::LevelMeter::setSampleRate(double rate)
 {
-    if (static_cast<float>(rate) == m_sample_rate) return;
+    if (qFuzzyCompare(static_cast<float>(rate), m_sample_rate)) return;
     m_sample_rate = static_cast<float>(rate);
 }
 
@@ -110,7 +110,7 @@ void Kwave::LevelMeter::updateTrack(unsigned int track,
     // calculate the number of samples per update (approx)
     const unsigned int samples = buffer.size();
     const unsigned int samples_per_update = Kwave::toUint(
-        rint(ceil(m_sample_rate/UPDATES_PER_SECOND)));
+        rint(ceil(m_sample_rate / UPDATES_PER_SECOND)));
     unsigned int next_fraction = samples_per_update;
     const unsigned int queue_depth = ((samples / samples_per_update) + 2);
 

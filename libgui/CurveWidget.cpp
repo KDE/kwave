@@ -387,13 +387,14 @@ void Kwave::CurveWidget::mouseMoveEvent(QMouseEvent *e )
 	do {
 	    Kwave::Curve::Point nearest = m_curve.findPoint(
 		m_current.x(), m_current.y(), 1.0);
-	    if (nearest.x() == m_current.x()) {
+	    if (qFuzzyCompare(nearest.x(), m_current.x())) {
 		if (nearest == m_curve.last())
 		    m_current.setX(m_current.x() - dx);
 		else
 		    m_current.setX(m_current.x() + dx);
 	    }
-	    else break;
+	    else
+		break;
 	} while (true);
 
 	m_curve.insert(m_current.x(), m_current.y());

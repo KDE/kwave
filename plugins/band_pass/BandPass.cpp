@@ -141,7 +141,7 @@ void Kwave::BandPass::input(Kwave::SampleArray data)
 void Kwave::BandPass::setFrequency(const QVariant fc)
 {
     double new_freq = QVariant(fc).toDouble();
-    if (new_freq == m_frequency) return; // nothing to do
+    if (qFuzzyCompare(new_freq, m_frequency)) return; // nothing to do
 
     m_frequency = new_freq;
     initFilter();
@@ -152,7 +152,7 @@ void Kwave::BandPass::setFrequency(const QVariant fc)
 void Kwave::BandPass::setBandwidth(const QVariant bw)
 {
     double new_bw = QVariant(bw).toDouble();
-    if (new_bw == m_bandwidth) return; // nothing to do
+    if (qFuzzyCompare(new_bw, m_bandwidth)) return; // nothing to do
 
     m_bandwidth = new_bw;
     initFilter();

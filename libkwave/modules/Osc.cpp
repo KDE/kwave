@@ -39,8 +39,8 @@ void Kwave::Osc::goOn()
     unsigned int samples = m_buffer.size();
     const double two_pi = 2.0 * M_PI;
 
-    Q_ASSERT(m_f != 0);
-    if (m_f == 0) return;
+    Q_ASSERT(!qFuzzyIsNull(m_f));
+    if (qFuzzyIsNull(m_f)) return;
 
     double omega = two_pi / m_f;
     for (unsigned int sample = 0; sample < samples; sample++) {

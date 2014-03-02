@@ -803,9 +803,9 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
     }
 
     // emit change in the zoom factor
-    if (m_zoom != old_zoom) emit sigZoomChanged(m_zoom);
+    if (!qFuzzyCompare(m_zoom, old_zoom)) emit sigZoomChanged(m_zoom);
 
-    if ((m_offset != old_offset) || (m_zoom != old_zoom)) {
+    if ((m_offset != old_offset) || !qFuzzyCompare(m_zoom, old_zoom)) {
 	emit sigVisibleRangeChanged(m_offset, displaySamples(), length);
 	updateViewRange();
     }

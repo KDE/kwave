@@ -91,7 +91,8 @@ Kwave::SampleSource *Kwave::NotchFilterPlugin::createFilter(unsigned int tracks)
 //***************************************************************************
 bool Kwave::NotchFilterPlugin::paramsChanged()
 {
-    return (m_frequency != m_last_freq) || (m_bw != m_last_bw);
+    return (!qFuzzyCompare(m_frequency, m_last_freq) ||
+            !qFuzzyCompare(m_bw, m_last_bw));
 }
 
 //***************************************************************************
@@ -102,11 +103,11 @@ void Kwave::NotchFilterPlugin::updateFilter(Kwave::SampleSource *filter,
 
     if (!filter) return;
 
-    if ((m_frequency != m_last_freq) || force)
+    if (!qFuzzyCompare(m_frequency, m_last_freq) || force)
 	filter->setAttribute(SLOT(setFrequency(const QVariant)),
 	    QVariant((m_frequency * 2.0 * M_PI) / sr));
 
-    if ((m_bw != m_last_bw) || force)
+    if (!qFuzzyCompare(m_bw, m_last_bw) || force)
 	filter->setAttribute(SLOT(setBandwidth(const QVariant)),
 	    QVariant((m_bw * 2.0 * M_PI) / sr));
 

@@ -262,7 +262,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
              "and if possible as time."));
     sample_index_t samples = m_info.length();
     double rate = m_info.rate();
-    if (rate != 0) {
+    if (!qFuzzyIsNull(rate)) {
 	double ms = static_cast<double>(samples) * 1E3 / rate;
 	txtLength->setText(i18n("%1 (%2 samples)",
 	    Kwave::ms2string(ms),

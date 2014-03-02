@@ -783,7 +783,7 @@ void Kwave::RecordDialog::sampleRateChanged(const QString &rate)
 {
     if (!rate.length()) return; // no rate selected, combo box clear
     double sample_rate = string2rate(rate);
-    if (sample_rate == m_params.sample_rate) return;
+    if (qFuzzyCompare(sample_rate, m_params.sample_rate)) return;
 
     m_params.sample_rate = sample_rate;
     emit sampleRateChanged(sample_rate);

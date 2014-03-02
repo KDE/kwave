@@ -112,7 +112,7 @@ void Kwave::SignalView::setTrack(int track)
 //***************************************************************************
 void Kwave::SignalView::setZoomAndOffset(double zoom, sample_index_t offset)
 {
-    if ((zoom == m_zoom) && (offset == m_offset)) return;
+    if (qFuzzyCompare(zoom, m_zoom) && (offset == m_offset)) return;
     m_zoom   = zoom;
     m_offset = offset;
 

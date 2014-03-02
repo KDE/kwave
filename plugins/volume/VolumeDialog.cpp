@@ -156,7 +156,7 @@ void Kwave::VolumeDialog::updateDisplay(double value)
     bool old_enable_updates = m_enable_updates;
     m_enable_updates = false;
 
-    if (m_factor != value) {
+    if (!qFuzzyCompare(m_factor, value)) {
 	// take over the new factor
 	m_factor = value;
 

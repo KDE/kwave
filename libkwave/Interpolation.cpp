@@ -293,7 +293,7 @@ QVector<double> Kwave::Interpolation::interpolation(
 
 		    h = x[j] - x[j - 1];
 
-		    if (h != 0) {
+		    if (!qFuzzyIsNull(h)) {
 			a = (x[j] - xin) / h;
 			b = (xin - x[j - 1]) / h;
 

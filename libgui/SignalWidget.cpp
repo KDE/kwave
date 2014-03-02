@@ -354,7 +354,7 @@ void Kwave::SignalWidget::setVerticalZoom(double zoom)
 {
     if (zoom > VERTICAL_ZOOM_MAX) zoom = VERTICAL_ZOOM_MAX;
     if (zoom < VERTICAL_ZOOM_MIN) zoom = VERTICAL_ZOOM_MIN;
-    if (zoom == m_vertical_zoom) return; // no change
+    if (qFuzzyCompare(zoom, m_vertical_zoom)) return; // no change
 
     // take over the zoom factor
     m_vertical_zoom = zoom;

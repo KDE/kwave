@@ -277,7 +277,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	// if the sample rate has to be converted, adjust the length
 	// right border
-	if ((src_rate != dst_rate) && (dst_rate > 1) && sig.tracks())
+	if (!qFuzzyCompare(src_rate, dst_rate) && (dst_rate > 1) && sig.tracks())
 	    decoded_length *= (dst_rate / src_rate);
 
 	sample_index_t left  = pos;
@@ -322,7 +322,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	// if the sample rates do not match, then we need a rate converter
 	Kwave::StreamObject *rate_converter = 0;
-	if (ok && (src_rate != dst_rate)) {
+	if (ok && !qFuzzyCompare(src_rate, dst_rate)) {
 	    // create a sample rate converter
 	    qDebug("Kwave::MimeData::decode(...) -> rate conversion: "\
 	           "%0.1f -> %0.1f", src_rate, dst_rate);
@@ -410,7 +410,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	Kwave::MetaDataList meta_data = decoder->metaData();
 
         // adjust meta data position in case of different sample rate
-        if (src_rate != dst_rate)
+        if (!qFuzzyCompare(src_rate, dst_rate))
 	    meta_data.scalePositions(dst_rate / src_rate, tracks);
 
 	meta_data.shiftRight(0, left, tracks);

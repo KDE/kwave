@@ -204,7 +204,7 @@ void Kwave::LowPassFilter::setFrequency(const QVariant fc)
 {
 
     double new_freq = QVariant(fc).toDouble();
-    if (new_freq == m_f_cutoff) return; // nothing to do
+    if (qFuzzyCompare(new_freq, m_f_cutoff)) return; // nothing to do
 
     m_f_cutoff = new_freq;
     initFilter();

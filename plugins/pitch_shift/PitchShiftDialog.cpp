@@ -228,7 +228,7 @@ void Kwave::PitchShiftDialog::sliderChanged(int pos)
     }
 
     // emit changes
-    if (m_speed != last_speed) {
+    if (!qFuzzyCompare(m_speed, last_speed)) {
 	emit changed(m_speed, m_frequency);
     }
 }
@@ -262,7 +262,7 @@ void Kwave::PitchShiftDialog::spinboxChanged(int pos)
     }
 
     // emit changes
-    if (m_speed != last_speed) {
+    if (!qFuzzyCompare(m_speed, last_speed)) {
 	emit changed(m_speed, m_frequency);
     }
 
@@ -273,7 +273,7 @@ void Kwave::PitchShiftDialog::spinboxChanged(int pos)
 void Kwave::PitchShiftDialog::frequencyChanged(int pos)
 {
     // emit changes
-    if (m_frequency != pos) {
+    if (!qFuzzyCompare(m_frequency, pos)) {
 	m_frequency = pos;
 	emit changed(m_speed, m_frequency);
     }

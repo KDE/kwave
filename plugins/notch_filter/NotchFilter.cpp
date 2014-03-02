@@ -148,7 +148,7 @@ void Kwave::NotchFilter::input(Kwave::SampleArray data)
 void Kwave::NotchFilter::setFrequency(const QVariant fc)
 {
     double new_freq = QVariant(fc).toDouble();
-    if (new_freq == m_f_cutoff) return; // nothing to do
+    if (qFuzzyCompare(new_freq, m_f_cutoff)) return; // nothing to do
 
     m_f_cutoff = new_freq;
     initFilter();
@@ -159,7 +159,7 @@ void Kwave::NotchFilter::setFrequency(const QVariant fc)
 void Kwave::NotchFilter::setBandwidth(const QVariant bw)
 {
     double new_bw = QVariant(bw).toDouble();
-    if (new_bw == m_f_bw) return; // nothing to do
+    if (qFuzzyCompare(new_bw, m_f_bw)) return; // nothing to do
 
     m_f_bw = new_bw;
     initFilter();

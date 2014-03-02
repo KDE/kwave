@@ -113,7 +113,7 @@ Kwave::SampleSource *Kwave::NoisePlugin::createFilter(unsigned int tracks)
 //***************************************************************************
 bool Kwave::NoisePlugin::paramsChanged()
 {
-    return (m_level != m_last_level);
+    return (!qFuzzyCompare(m_level, m_last_level));
 }
 
 //***************************************************************************
@@ -122,7 +122,7 @@ void Kwave::NoisePlugin::updateFilter(Kwave::SampleSource *filter,
 {
     if (!filter) return;
 
-    if ((m_level != m_last_level) || force)
+    if (!qFuzzyCompare(m_level, m_last_level) || force)
 	filter->setAttribute(SLOT(setNoiseLevel(const QVariant)),
 	                     QVariant(m_level));
 

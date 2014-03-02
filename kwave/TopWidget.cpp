@@ -1336,7 +1336,10 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	bool sample_mode = false;
 
 	sample_index_t last = offset + ((length) ? length-1 : 0);
-	if (rate == 0) sample_mode = true; // force sample mode if rate==0
+
+	if (qFuzzyIsNull(rate))
+	    sample_mode = true; // force sample mode if rate==0
+
 	QString txt = _(" ");
 	if (sample_mode) {
 	    txt += i18nc(
@@ -1369,7 +1372,9 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	// Position: 02:00
 	bool sample_mode = false;
 
-	if (rate == 0) sample_mode = true; // force sample mode if rate==0
+	if (qFuzzyIsNull(rate))
+	    sample_mode = true; // force sample mode if rate==0
+
 	if (sample_mode || !signal_manager->tracks()) {
 	    m_lbl_status_cursor->setText(_(""));
 	} else {

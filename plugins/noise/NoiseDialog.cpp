@@ -163,7 +163,7 @@ void Kwave::NoiseDialog::updateDisplay(double value)
 
     Kwave::OverViewCache::MinMaxArray m_minmax;
 
-    if (m_noise != value) {
+    if (!qFuzzyCompare(m_noise, value)) {
 
 	// take over the new factor
 	m_noise = value;

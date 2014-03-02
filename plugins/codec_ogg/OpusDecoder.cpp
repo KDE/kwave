@@ -510,13 +510,13 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     int frames = opus_packet_get_nb_frames(m_op.packet, m_op.bytes);
     if(frames < 1 || frames > 48) {
 	qWarning("WARNING: Invalid packet TOC in packet #%llu",
-	         m_op.packetno);
+	         static_cast<unsigned long long int>(m_op.packetno));
     }
     int spf = opus_packet_get_samples_per_frame(m_op.packet, 48000);
     int spp = frames * spf;
     if (spp < 120 || spp > 5760 || (spp % 120) != 0) {
 	qWarning("WARNING: Invalid packet TOC in packet #%llu",
-	         m_op.packetno);
+	         static_cast<unsigned long long int>(m_op.packetno));
     }
 
     if (spp < m_packet_len_min) m_packet_len_min = spp;

@@ -48,7 +48,7 @@ QString Kwave::zoom2string(double percent)
     QString result;
 
     if (percent < 1.0) {
-	int digits = static_cast<int>(ceil(1.0 - log10(percent)));
+	int digits = Kwave::toInt(ceil(1.0 - log10(percent)));
 	QString format = _("%0.") + QString::number(digits) + _("f %%");
 	result = format.sprintf(__(format), percent);
     } else if (percent < 10.0) {
@@ -57,7 +57,7 @@ QString Kwave::zoom2string(double percent)
 	result = result.sprintf("%0.0f %%", percent);
     } else {
 	result = result.sprintf("x %d",
-	    static_cast<int>(rint(percent / 100.0)));
+	    Kwave::toInt(rint(percent / 100.0)));
     }
     return result;
 }
@@ -69,18 +69,18 @@ QString Kwave::ms2string(double ms, int precision)
 
     if (ms < 1.0) {
 	// limit precision, use 0.0 for exact zero
-	int digits = (ms != 0.0) ? static_cast<int>(ceil(1.0 - log10(ms))) : 1;
+	int digits = (ms != 0.0) ? Kwave::toInt(ceil(1.0 - log10(ms))) : 1;
 	if ( (digits < 0) || (digits > precision)) digits = precision;
 
 	result = _("%1 ms").arg(ms, 0, 'f', digits);
     } else if (ms < 1000.0) {
 	result = _("%1 ms").arg(ms, 0, 'f', 1);
     } else {
-	int s = static_cast<int>(round(ms / 1000.0));
-	int m = static_cast<int>(floor(s / 60.0));
+	int s = Kwave::toInt(round(ms / 1000.0));
+	int m = Kwave::toInt(floor(s / 60.0));
 
 	if (m < 1) {
-	    int digits = static_cast<int>(
+	    int digits = Kwave::toInt(
 		ceil(static_cast<double>(precision + 1) - log10(ms)));
 	    result = _("%1 s").arg(
 		static_cast<double>(ms) / 1000.0, 0, 'f', digits);
@@ -92,6 +92,14 @@ QString Kwave::ms2string(double ms, int precision)
     }
 
     return result;
+}
+
+//***************************************************************************
+QString Kwave::samples2string(sample_index_t samples)
+{
+    QString result;
+    result.setNum(samples);
+    return KGlobal::locale()->formatNumber(result);
 }
 
 //***************************************************************************

@@ -35,6 +35,7 @@
 #include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "Record-OSS.h"
 
@@ -144,7 +145,7 @@ int Kwave::RecordOSS::read(QByteArray &buffer, unsigned int offset)
 #endif
 
     // determine the timeout for reading, use safety factor 2
-    int rate = static_cast<int>(sampleRate());
+    int rate = Kwave::toInt(sampleRate());
     if (rate < 1) rate = 1;
 
     unsigned int timeout = (length / rate) * 2;
@@ -303,7 +304,7 @@ int Kwave::RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
 {
     Q_ASSERT(m_fd >= 0);
     unsigned int t;
-    int err;
+    int err = -1;
 
     // preset
     min = 0;
@@ -313,7 +314,7 @@ int Kwave::RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
     for (t = 1; t < MAX_CHANNELS; t++) {
 	int real_tracks = t;
 	err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
-	if ((err >= 0) && (static_cast<unsigned int>(real_tracks) == t)) {
+	if ((err >= 0) && (real_tracks == Kwave::toInt(t))) {
 	    min = real_tracks;
 	    break;
 	}
@@ -331,7 +332,7 @@ int Kwave::RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
     for (t = MAX_CHANNELS; t >= min; t--) {
 	int real_tracks = t;
 	err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
-	if ((err >= 0) && (static_cast<unsigned int>(real_tracks) == t)) {
+	if ((err >= 0) && (real_tracks == Kwave::toInt(t))) {
 	    max = real_tracks;
 	    break;
 	}
@@ -438,7 +439,7 @@ int Kwave::RecordOSS::setSampleRate(double &new_rate)
 {
     Q_ASSERT(m_fd >= 0);
     // OSS supports only integer rates
-    int rate = static_cast<int>(rint(new_rate));
+    int rate = Kwave::toInt(rint(new_rate));
 
     // set the rate of the device (must already be opened)
     int err = ioctl(m_fd, SNDCTL_DSP_SPEED, &rate);

@@ -45,13 +45,13 @@ QString Kwave::UndoReverseAction::description()
 }
 
 //***************************************************************************
-unsigned int Kwave::UndoReverseAction::undoSize()
+qint64 Kwave::UndoReverseAction::undoSize()
 {
     return sizeof(*this);
 }
 
 //***************************************************************************
-int Kwave::UndoReverseAction::redoSize()
+qint64 Kwave::UndoReverseAction::redoSize()
 {
     return sizeof(*this);
 }

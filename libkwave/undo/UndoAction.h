@@ -22,6 +22,10 @@
 #include "config.h"
 #include <QtCore/QString>
 
+#include <kdemacros.h>
+
+#include "libkwave/String.h"
+
 namespace Kwave
 {
 
@@ -37,7 +41,7 @@ namespace Kwave
      * also creates a new UndoAction object that is responsible for holding
      * all information for undoing that undo (redo).
      */
-    class UndoAction
+    class KDE_EXPORT UndoAction
     {
 
     public:
@@ -58,13 +62,13 @@ namespace Kwave
 	 * free memory to be reserved.
 	 * @note this is the first step (after the constructor)
 	 */
-	virtual unsigned int undoSize() = 0;
+	virtual qint64 undoSize() = 0;
 
 	/**
 	 * Returns the difference of needed memory that is needed for
 	 * redo.
 	 */
-	virtual int redoSize() = 0;
+	virtual qint64 redoSize() = 0;
 
 	/**
 	 * Stores the data needed for undo.
@@ -100,7 +104,7 @@ namespace Kwave
 	/** dump, for debugging purposes */
 	virtual void dump(const QString &indent) {
 	    qDebug("%s%s", DBG(indent), DBG(description()));
-	};
+	}
 
     };
 }

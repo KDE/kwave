@@ -26,9 +26,6 @@
 #include "libkwave/MimeData.h"
 #include "libkwave/MultiTrackReader.h"
 
-// RFC 2361:
-#define WAVE_FORMAT_PCM "audio/vnd.wave" // ; codec=001"
-
 //***************************************************************************
 Kwave::Drag::Drag(QWidget *dragSource)
     :QDrag(dragSource)
@@ -75,9 +72,9 @@ bool Kwave::Drag::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 }
 
 //***************************************************************************
-unsigned int Kwave::Drag::decode(QWidget *widget, const QMimeData *e,
-                                 Kwave::SignalManager &sig,
-                                 sample_index_t pos)
+sample_index_t Kwave::Drag::decode(QWidget *widget, const QMimeData *e,
+                                   Kwave::SignalManager &sig,
+                                   sample_index_t pos)
 {
     return Kwave::MimeData::decode(widget, e, sig, pos);
 }

@@ -122,7 +122,7 @@ void Kwave::BandPass::input(Kwave::SampleArray data)
     for (unsigned i = 0; i < in.size(); i++)
     {
 	// do the filtering
-	m_filter.x = sample2float(in[i]);
+	m_filter.x = sample2double(in[i]);
 	m_filter.y =
 	    m_filter.cx  * m_filter.x  +
 	    m_filter.cx1 * m_filter.x1 +
@@ -133,7 +133,7 @@ void Kwave::BandPass::input(Kwave::SampleArray data)
 	m_filter.x1 = m_filter.x;
 	m_filter.y2 = m_filter.y1;
 	m_filter.y1 = m_filter.y;
-	m_buffer[i] = float2sample(0.95 * m_filter.y);
+	m_buffer[i] = double2sample(0.95 * m_filter.y);
     }
 }
 

@@ -37,7 +37,7 @@ namespace Kwave
 	WavFormatMap();
 
 	/** Destructor */
-	virtual ~WavFormatMap() {};
+	virtual ~WavFormatMap() {}
 
 	/** Returns the name of an id, or "unknown" if not found. */
 	const QString &findName(unsigned int id);

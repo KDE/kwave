@@ -122,8 +122,8 @@ namespace Kwave
 	 * @param bits number of bits/sample (8, 16, 24 or 32)
 	 */
 	void createHeader(double rate,
-	                  unsigned int channels,
-	                  unsigned int bits);
+	                  quint8 channels,
+	                  quint16 bits);
 
 	/**
 	 * writes the output buffer to the Phonon layer

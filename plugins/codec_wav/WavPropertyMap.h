@@ -37,7 +37,7 @@ namespace Kwave
 	WavPropertyMap();
 
 	/** Destructor */
-	virtual ~WavPropertyMap() {};
+	virtual ~WavPropertyMap() {}
 
 	/**
 	 * Returns the chunk name of a property or an empty string

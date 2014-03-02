@@ -19,6 +19,7 @@
 
 #include "libkwave/MetaDataList.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 //***************************************************************************
 Kwave::MetaDataList::MetaDataList()
@@ -373,7 +374,7 @@ void Kwave::MetaDataList::cropByTracks(const QList<unsigned int> &tracks)
 		// do the renumbering
 		v_track_list.clear();
 		for (int i = 0; i < bound_tracks.count(); i++)
-		    v_track_list.append(static_cast<unsigned int>(i));
+		    v_track_list.append(Kwave::toUint(i));
 
 		// set a new track list
 		m[Kwave::MetaData::STDPROP_TRACKS] = v_track_list;
@@ -885,7 +886,6 @@ void Kwave::MetaDataList::scalePositions(double scale,
 		meta[Kwave::MetaData::STDPROP_POS].toULongLong(&ok));
 	    if (!ok) continue;
 
-	    Q_ASSERT((pos * scale) <= SAMPLE_INDEX_MAX);
 	    if ((pos * scale) <= SAMPLE_INDEX_MAX) {
 		// scale position
 		meta[Kwave::MetaData::STDPROP_POS] = (pos * scale);
@@ -904,17 +904,15 @@ void Kwave::MetaDataList::scalePositions(double scale,
 	}
 
 	// check: range overflow
-	Q_ASSERT((meta_first * scale) <= SAMPLE_INDEX_MAX);
-	if ((meta_first * scale) <= SAMPLE_INDEX_MAX) {
+	if ((meta_first * scale) >= SAMPLE_INDEX_MAX) {
 	    it.remove();
 	    continue;
 	}
 
 	// scale, clip end to maximum coordinate
-	Q_ASSERT((meta_last * scale) <= SAMPLE_INDEX_MAX);
-	meta_last  = ((meta_last * scale) <= SAMPLE_INDEX_MAX) ?
-	    (meta_last * scale) : SAMPLE_INDEX_MAX;
-	meta_first *= scale;
+	meta_last  = static_cast<sample_index_t>(
+	    qMin<double>(SAMPLE_INDEX_MAX, meta_last * scale));
+	meta_first = static_cast<sample_index_t>(meta_first * scale);
 
 	if (meta.hasProperty(Kwave::MetaData::STDPROP_START))
 	    meta[Kwave::MetaData::STDPROP_START] = QVariant(meta_first);

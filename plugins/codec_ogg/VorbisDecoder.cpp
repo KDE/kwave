@@ -34,6 +34,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/StandardBitrates.h"
+#include "libkwave/Utils.h"
 
 #include "VorbisDecoder.h"
 
@@ -152,14 +153,14 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     info.set(Kwave::INF_COMPRESSION, Kwave::Compression::OGG_VORBIS);
     info.set(Kwave::INF_SOURCE, _(m_vc.vendor));
     if (m_vi.bitrate_nominal > 0)
-	info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(
-	static_cast<int>(m_vi.bitrate_nominal)));
+	info.set(Kwave::INF_BITRATE_NOMINAL,
+	QVariant(Kwave::toInt(m_vi.bitrate_nominal)));
     if (m_vi.bitrate_lower > 0)
-	info.set(Kwave::INF_BITRATE_LOWER, QVariant(
-	static_cast<int>(m_vi.bitrate_lower)));
+	info.set(Kwave::INF_BITRATE_LOWER,
+	QVariant(Kwave::toInt(m_vi.bitrate_lower)));
     if (m_vi.bitrate_upper > 0)
-	info.set(Kwave::INF_BITRATE_UPPER, QVariant(
-	static_cast<int>(m_vi.bitrate_upper)));
+	info.set(Kwave::INF_BITRATE_UPPER,
+	QVariant(Kwave::toInt(m_vi.bitrate_upper)));
 
     // the first comment sometimes is used for the software version
     {
@@ -214,7 +215,7 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	qint64 file_size       = m_source->size();
 	qreal rate             = m_vi.rate;
 	qreal seconds          = file_size / (br / 8);
-	sample_index_t samples = seconds * rate;
+	sample_index_t samples = static_cast<sample_index_t>(seconds * rate);
 
 	qDebug("    estimated length: %llu samples", samples);
 	info.set(Kwave::INF_ESTIMATED_LENGTH, samples);
@@ -321,7 +322,7 @@ void Kwave::VorbisDecoder::close(Kwave::FileInfo &info)
 
 	int bitrate = DEFAULT_BITRATE;
 
-	if (static_cast<int>(info.rate()) && m_samples_written) {
+	if (Kwave::toInt(info.rate()) && m_samples_written) {
 	    // guess bitrates from the stream
 	    const qint64 stream_end_pos = m_source->pos();
 	    const qint64 stream_read = stream_end_pos -
@@ -329,7 +330,7 @@ void Kwave::VorbisDecoder::close(Kwave::FileInfo &info)
 	    double bits = static_cast<double>(stream_read) * 8.0;
 	    double seconds = static_cast<double>(m_samples_written) /
 		static_cast<double>(info.rate());
-	    bitrate = static_cast<unsigned int>(bits / seconds);
+	    bitrate = Kwave::toUint(bits / seconds);
 
 	    // round to nearest standard bitrate
 	    bitrate = Kwave::StandardBitrates::instance().nearest(bitrate);
@@ -339,7 +340,7 @@ void Kwave::VorbisDecoder::close(Kwave::FileInfo &info)
 	    qDebug("-> using default %d kBits/sec", bitrate);
 	}
 
-	info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(static_cast<int>(bitrate)));
+	info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(bitrate));
     }
 }
 

@@ -31,10 +31,10 @@ namespace Kwave
     {
     public:
 	/** Constructor */
-	SampleDecoder() {};
+	SampleDecoder() {}
 
 	/** Destructor */
-	virtual ~SampleDecoder() {};
+	virtual ~SampleDecoder() {}
 
 	/**
 	 * Decodes the given buffer (byte array) by splitting it into

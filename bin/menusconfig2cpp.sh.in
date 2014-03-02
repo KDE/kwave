@@ -43,6 +43,8 @@
 
 #include <klocale.h> // (for i18n macro)
 
+void __menusconfig_2_cpp_internationalize_all();
+
 void __menusconfig_2_cpp_internationalize_all()
 {
 EOF_HEADER

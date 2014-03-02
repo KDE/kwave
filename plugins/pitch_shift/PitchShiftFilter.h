@@ -82,10 +82,10 @@ namespace Kwave
 	Kwave::SampleArray m_buffer;
 
 	/** speed factor */
-	double m_speed;
+	float m_speed;
 
 	/** base frequency */
-	double m_frequency;
+	float m_frequency;
 
 	enum { MAXDELAY = 1000000 };
 

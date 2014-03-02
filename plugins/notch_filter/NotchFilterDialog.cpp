@@ -27,8 +27,10 @@
 
 #include <knuminput.h>
 #include <kpushbutton.h>
-
 #include <klocale.h>
+
+#include "libkwave/Utils.h"
+
 #include "libgui/ScaleWidget.h"
 #include "libgui/FrequencyResponseWidget.h"
 
@@ -48,14 +50,14 @@ Kwave::NotchFilterDialog::NotchFilterDialog(QWidget *parent, double sample_rate)
     // set maximum frequency to sample rate / 2
     double f_max = sample_rate / 2.0;
 
-    slider->setMaximum(static_cast<int>(f_max));
-    spinbox->setMaximum(static_cast<int>(f_max));
+    slider->setMaximum(Kwave::toInt(f_max));
+    spinbox->setMaximum(Kwave::toInt(f_max));
 
-    slider_2->setMaximum(static_cast<int>(f_max));
-    spinbox_2->setMaximum(static_cast<int>(f_max));
+    slider_2->setMaximum(Kwave::toInt(f_max));
+    spinbox_2->setMaximum(Kwave::toInt(f_max));
 
     // initialize the frequency scale widget
-    scale_freq->setMinMax(0, static_cast<int>(f_max));
+    scale_freq->setMinMax(0, Kwave::toInt(f_max));
     scale_freq->setLogMode(false);
     scale_freq->setUnit(i18n("Hz"));
 
@@ -72,10 +74,10 @@ Kwave::NotchFilterDialog::NotchFilterDialog(QWidget *parent, double sample_rate)
     freq_response->setFilter(m_filter);
 
     // initialize the controls and the curve display
-    slider->setValue(static_cast<int>(m_frequency));
-    spinbox->setValue(static_cast<int>(m_frequency));
-    slider_2->setValue(static_cast<int>(m_bw));
-    spinbox_2->setValue(static_cast<int>(m_bw));
+    slider->setValue(Kwave::toInt(m_frequency));
+    spinbox->setValue(Kwave::toInt(m_frequency));
+    slider_2->setValue(Kwave::toInt(m_bw));
+    spinbox_2->setValue(Kwave::toInt(m_bw));
     updateDisplay();
 
     // changes in the slider or spinbox
@@ -118,7 +120,7 @@ Kwave::NotchFilterDialog::~NotchFilterDialog()
 //***************************************************************************
 void Kwave::NotchFilterDialog::freqValueChanged(int pos)
 {
-    if (static_cast<int>(m_frequency) != pos) {
+    if (Kwave::toInt(m_frequency) != pos) {
 	m_frequency = pos;
 	updateDisplay();
 
@@ -129,7 +131,7 @@ void Kwave::NotchFilterDialog::freqValueChanged(int pos)
 //***************************************************************************
 void Kwave::NotchFilterDialog::bwValueChanged(int pos)
 {
-    if (static_cast<int>(m_bw) != pos) {
+    if (Kwave::toInt(m_bw) != pos) {
     	m_bw = pos;
 	updateDisplay();
 
@@ -159,11 +161,11 @@ void Kwave::NotchFilterDialog::setParams(QStringList &params)
     Q_ASSERT(ok);
     if (ok) m_bw = bw;
 
-    slider->setValue(static_cast<int>(m_frequency));
-    spinbox->setValue(static_cast<int>(m_frequency));
+    slider->setValue(Kwave::toInt(m_frequency));
+    spinbox->setValue(Kwave::toInt(m_frequency));
 
-    slider_2->setValue(static_cast<int>(m_bw));
-    spinbox_2->setValue(static_cast<int>(m_bw));
+    slider_2->setValue(Kwave::toInt(m_bw));
+    spinbox_2->setValue(Kwave::toInt(m_bw));
 
     updateDisplay();
 }

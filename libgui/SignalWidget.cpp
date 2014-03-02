@@ -48,6 +48,7 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 #include "libkwave/Track.h"
+#include "libkwave/Utils.h"
 
 // #include "libgui/ShortcutWrapper.h"
 #include "libgui/SignalView.h"
@@ -68,11 +69,6 @@
 //     Qt::Key_9,
 //     Qt::Key_0
 // };
-
-/**
- * useful macro for command parsing
- */
-#define CASE_COMMAND(x) } else if (parser.command() == x) {
 
 /** vertical zoom factor: minimum value */
 #define VERTICAL_ZOOM_MIN 1.0
@@ -597,7 +593,7 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
 
     // loop over all views and adjust the track index of the following ones
     foreach (QPointer<Kwave::SignalView> view, m_views) {
-	if (view->track() >= static_cast<int>(index))
+	if (view->track() >= Kwave::toInt(index))
 	    view->setTrack(view->track() + 1);
     }
 
@@ -619,10 +615,10 @@ void Kwave::SignalWidget::slotTrackDeleted(unsigned int index,
     QMutableListIterator<QPointer<Kwave::SignalView> > it(m_views);
     while (it.hasNext()) {
 	Kwave::SignalView *view = it.next();
-	if (view->track() == static_cast<int>(index)) {
+	if (view->track() == Kwave::toInt(index)) {
 	    it.remove();
 	    delete view;
-	} else if (view->track() > static_cast<int>(index)) {
+	} else if (view->track() > Kwave::toInt(index)) {
 	    view->setTrack(view->track() - 1);
 	    empty = false;
 	} else if (view->track() != -1) {

@@ -25,9 +25,10 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
+#include "libkwave/Utils.h"
 
 //***************************************************************************
-void encode_NULL(const sample_t *src, quint8 *dst, unsigned int count)
+static void encode_NULL(const sample_t *src, quint8 *dst, unsigned int count)
 {
     (void)src;
     (void)dst;
@@ -68,19 +69,19 @@ void encode_linear(const sample_t *src, quint8 *dst, unsigned int count)
 	    if (bits > 24)
 		*(dst++) = 0x00;
 	    if (bits > 16)
-		*(dst++) = s & 0xFF;
+		*(dst++) = static_cast<quint8>(s & 0xFF);
 	    if (bits > 8)
-		*(dst++) = (s >> 8);
+		*(dst++) = static_cast<quint8>(s >> 8);
 	    if (bits >= 8)
-		*(dst++) = (s >> 16);
+		*(dst++) = static_cast<quint8>(s >> 16);
 	} else {
 	    // big endian
 	    if (bits >= 8)
-		*(dst++) = (s >> 16);
+		*(dst++) = static_cast<quint8>(s >> 16);
 	    if (bits > 8)
-		*(dst++) = (s >> 8);
+		*(dst++) = static_cast<quint8>(s >> 8);
 	    if (bits > 16)
-		*(dst++) = (s & 0xFF);
+		*(dst++) = static_cast<quint8>(s & 0xFF);
 	    if (bits > 24)
 		*(dst++) = 0x00;
 	}
@@ -175,10 +176,8 @@ void Kwave::SampleEncoderLinear::encode(const Kwave::SampleArray &samples,
     Q_ASSERT(m_encoder);
     if (!m_encoder) return;
 
-    Q_ASSERT(count * m_bytes_per_sample <=
-	static_cast<unsigned int>(raw_data.size()));
-    if (count * m_bytes_per_sample >
-	static_cast<unsigned int>(raw_data.size())) return;
+    Q_ASSERT(count * m_bytes_per_sample <= Kwave::toUint(raw_data.size()));
+    if (count * m_bytes_per_sample > Kwave::toUint(raw_data.size())) return;
 
     const sample_t *src = samples.constData();
     quint8 *dst = reinterpret_cast<quint8 *>(raw_data.data());

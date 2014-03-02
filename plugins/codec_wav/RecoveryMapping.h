@@ -19,6 +19,7 @@
 #define _RECOVERY_MAPPING_H_
 
 #include "config.h"
+
 #include "RecoverySource.h"
 
 class QIODevice;
@@ -35,15 +36,14 @@ namespace Kwave
 	 * @param dev damaged source/file
 	 * @param dev_offset offset withing dev
 	 */
-	RecoveryMapping(unsigned int offset, unsigned int length,
-	                QIODevice &dev, unsigned int dev_offset);
+	RecoveryMapping(quint64 offset, quint64 length,
+	                QIODevice &dev, quint64 dev_offset);
 
 	/** Destructor */
-	virtual ~RecoveryMapping() {};
+	virtual ~RecoveryMapping() {}
 
 	/** implementation of Recoverysource::read */
-	virtual unsigned int read(unsigned int offset, char *data,
-	                          unsigned int bytes);
+	virtual qint64 read(quint64 offset, char *data, unsigned int bytes);
 
     private:
 
@@ -51,7 +51,7 @@ namespace Kwave
 	QIODevice &m_dev;
 
 	/** start offset in the damaged file */
-	unsigned int m_dev_offset;
+	quint64 m_dev_offset;
     };
 }
 

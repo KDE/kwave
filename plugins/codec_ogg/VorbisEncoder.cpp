@@ -29,6 +29,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
+#include "libkwave/Utils.h"
 
 #include "VorbisEncoder.h"
 
@@ -155,7 +156,7 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     } else if (vbr_quality >= 0) {
 	// Encoding using VBR mode.
 	ret = vorbis_encode_init_vbr(&m_vi, tracks, sample_rate,
-	    static_cast<float>(vbr_quality) / 100.0);
+	    static_cast<float>(vbr_quality) / 100.0f);
 	qDebug("OggEncoder: VBR with %d%%", vbr_quality);
     } else {
 	// unknown setup !?
@@ -230,11 +231,11 @@ bool Kwave::VorbisEncoder::writeHeader(QIODevice &dst)
 bool Kwave::VorbisEncoder::encode(Kwave::MultiTrackReader &src,
                                   QIODevice &dst)
 {
-    bool eos                  = false;
-    const unsigned int tracks = m_info.tracks();
-    const unsigned int length = m_info.length();
+    bool                 eos    = false;
+    const unsigned int   tracks = m_info.tracks();
+    const sample_index_t length = m_info.length();
 
-    unsigned int rest = length;
+    sample_index_t rest = length;
     while (!eos && !src.isCanceled()) {
 	if (src.eof()) {
 	    // end of file.  this can be done implicitly in the mainline,
@@ -248,7 +249,8 @@ bool Kwave::VorbisEncoder::encode(Kwave::MultiTrackReader &src,
 	    // expose the buffer to submit data
 	    float **buffer = vorbis_analysis_buffer(&m_vd, BUFFER_SIZE);
 	    unsigned int pos = 0;
-	    unsigned int len = (rest > BUFFER_SIZE) ? BUFFER_SIZE : rest;
+	    unsigned int len = (rest > BUFFER_SIZE) ? BUFFER_SIZE :
+		                                      Kwave::toUint(rest);
 	    Kwave::SampleArray samples(BUFFER_SIZE);
 	    for (unsigned int track = 0; track < tracks; ++track) {
 		float *p = buffer[track];

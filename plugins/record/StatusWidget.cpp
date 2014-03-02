@@ -20,6 +20,8 @@
 #include <QtGui/QPainter>
 #include <QtGui/QPixmap>
 
+#include "libkwave/Utils.h"
+
 #include "StatusWidget.h"
 
 //***************************************************************************
@@ -71,7 +73,7 @@ void Kwave::StatusWidget::setPixmaps(const QVector<QPixmap> &pixmaps,
 void Kwave::StatusWidget::nextPixmap()
 {
     m_index++;
-    if (static_cast<int>(m_index) >= m_pixmaps.count())
+    if (Kwave::toInt(m_index) >= m_pixmaps.count())
 	m_index = 0;
     repaint();
 }

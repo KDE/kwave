@@ -213,7 +213,7 @@ int Kwave::Parser::toInt ()
 }
 
 //***************************************************************************
-unsigned int Kwave::Parser::toUInt ()
+unsigned int Kwave::Parser::toUInt()
 {
     const QString &p = nextParam();
     bool ok;
@@ -226,6 +226,22 @@ unsigned int Kwave::Parser::toUInt ()
 
     return value;
 }
+
+//***************************************************************************
+sample_index_t Kwave::Parser::toSampleIndex()
+{
+    const QString &p = nextParam();
+    bool ok;
+    sample_index_t value = p.toULongLong(&ok);
+
+    if (!ok) {
+	qWarning("Parser: unable to parse unsigned int from '%s'", DBG(p));
+	value = 0;
+    }
+
+    return value;
+}
+
 
 //***************************************************************************
 double Kwave::Parser::toDouble()

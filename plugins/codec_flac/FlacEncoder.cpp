@@ -38,6 +38,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "FlacCodecPlugin.h"
 #include "FlacEncoder.h"
@@ -176,9 +177,9 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
     m_dst  = &dst;
 
     // get info: tracks, sample rate
-    int tracks          = info.tracks();
-    unsigned int bits   = info.bits();
-    unsigned int length = info.length();
+    int            tracks = info.tracks();
+    unsigned int   bits   = info.bits();
+    sample_index_t length = info.length();
 
     set_compression_level(5); // @todo make the FLAC compression configurable
     set_channels(static_cast<unsigned>(tracks));
@@ -255,10 +256,10 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
 	const FLAC__int32 clip_min = -(1 << bits);
 	const FLAC__int32 clip_max =  (1 << bits) - 1;
 
-	unsigned int rest = length;
+	sample_index_t rest = length;
 	while (rest && len && !src.isCanceled() && result) {
 	    // limit to rest of signal
-	    if (len > rest) len = rest;
+	    if (len > rest) len = Kwave::toUint(rest);
 	    if (!in_buffer.resize(len)) {
 		Kwave::MessageBox::error(widget, i18n("Out of memory"));
 		result = false;

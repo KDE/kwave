@@ -57,13 +57,13 @@ QString Kwave::UndoDeleteAction::description()
 }
 
 //***************************************************************************
-unsigned int Kwave::UndoDeleteAction::undoSize()
+qint64 Kwave::UndoDeleteAction::undoSize()
 {
     return m_undo_size;
 }
 
 //***************************************************************************
-int Kwave::UndoDeleteAction::redoSize()
+qint64 Kwave::UndoDeleteAction::redoSize()
 {
     return sizeof(Kwave::UndoInsertAction);
 }

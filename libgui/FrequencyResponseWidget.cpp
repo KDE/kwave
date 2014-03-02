@@ -25,6 +25,8 @@
 #include <QtGui/QPixmap>
 
 #include "libkwave/TransmissionFunction.h"
+#include "libkwave/Utils.h"
+
 #include "libgui/FrequencyResponseWidget.h"
 
 //***************************************************************************
@@ -44,7 +46,7 @@ Kwave::FrequencyResponseWidget::~FrequencyResponseWidget()
 void Kwave::FrequencyResponseWidget::init(double freq, int db_min, int db_max)
 {
     const int base = 10;
-    m_decades = static_cast<int>(ceil(log(freq)/log(base)));
+    m_decades = Kwave::toInt(ceil(log(freq)/log(base)));
     m_f_max = pow(base, m_decades);
 
     m_db_min = db_min;
@@ -102,14 +104,14 @@ void Kwave::FrequencyResponseWidget::paintEvent(QPaintEvent*)
 	double db = 10.0 * log10(a);
 
 	// draw one line
-	int y = height - static_cast<int>((db - m_db_min) * scale);
+	int y = height - Kwave::toInt((db - m_db_min) * scale);
 
 	p.drawLine(x, y+1, x, height-1);
     }
 
     // draw the zero db line
     p.setPen(palette().text().color());
-    int y = height - static_cast<int>((0.0 - m_db_min) * scale);
+    int y = height - Kwave::toInt((0.0 - m_db_min) * scale);
     p.drawLine(0, y, width-1, y);
 }
 

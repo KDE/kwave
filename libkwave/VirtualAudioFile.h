@@ -77,13 +77,13 @@ namespace Kwave
 	inline QString lastErrorText() { return m_last_error_text; }
 
 	/** reads a block of data */
-	virtual unsigned int read(char *data, unsigned int nbytes);
+	virtual qint64 read(char *data, unsigned int nbytes);
 
 	/** returns the length of the file */
 	virtual qint64 length();
 
 	/** writes a block of data */
-	virtual unsigned int write(const char *data, unsigned int nbytes);
+	virtual qint64 write(const char *data, unsigned int nbytes);
 
 	/** called to close the source */
 	virtual void destroy();

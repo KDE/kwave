@@ -33,7 +33,10 @@
 #include "libkwave/WorkerThread.h"
 
 //***************************************************************************
-extern "C" void _dummy_SIGHUP_handler(int)
+extern "C" void _dummy_SIGHUP_handler(int);
+
+//***************************************************************************
+void _dummy_SIGHUP_handler(int)
 {
     printf("\r\n--- SIGHUP ---\r\n");
 }

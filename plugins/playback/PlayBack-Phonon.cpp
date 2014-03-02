@@ -23,6 +23,7 @@
 #include "libkwave/memcpy.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "PlayBack-Phonon.h"
 
@@ -69,8 +70,8 @@ void Kwave::PlayBackPhonon::createEncoder(unsigned int bits)
 
 //***************************************************************************
 void Kwave::PlayBackPhonon::createHeader(double rate,
-                                         unsigned int channels,
-                                         unsigned int bits)
+                                         quint8 channels,
+                                         quint16 bits)
 {
     m_header.resize(44);
 
@@ -105,7 +106,7 @@ void Kwave::PlayBackPhonon::createHeader(double rate,
     m_header[22] = channels;
     m_header[23] = 0;
 
-    int r = static_cast<int>(rate);
+    int r = Kwave::toInt(rate);
     m_header[24] = (r >>  0) & 0xFF;
     m_header[25] = (r >>  8) & 0xFF;
     m_header[26] = (r >> 16) & 0xFF;
@@ -193,7 +194,8 @@ QString Kwave::PlayBackPhonon::open(const QString &device, double rate,
 	return i18n("Out of memory");
 
     // create a dummy wave RIFF header
-    createHeader(rate, channels, bits);
+    createHeader(rate, static_cast<quint8>(channels),
+                 static_cast<quint16>(bits));
 
     m_media_object.play();
     setStreamSize(44);

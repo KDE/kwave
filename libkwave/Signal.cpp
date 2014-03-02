@@ -33,6 +33,7 @@
 #include "libkwave/MessageBox.h"
 #include "libkwave/Signal.h"
 #include "libkwave/Track.h"
+#include "libkwave/Utils.h"
 #include "libkwave/WindowFunction.h"
 
 //***************************************************************************
@@ -80,7 +81,7 @@ Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
 	if (!t) return 0;
 
 	// clip the track index
-	if (static_cast<int>(index) > m_tracks.count())
+	if (Kwave::toInt(index) > m_tracks.count())
 	    index = m_tracks.count();
 
 	// insert / append to the list
@@ -123,7 +124,7 @@ void Kwave::Signal::deleteTrack(unsigned int index)
     Kwave::Track *t = 0;
     {
 	QWriteLocker lock(&m_lock_tracks);
-	if (static_cast<int>(index) > m_tracks.count())
+	if (Kwave::toInt(index) > m_tracks.count())
 	    return; // bail out if not in range
 
 	t = m_tracks.at(index);
@@ -146,8 +147,8 @@ Kwave::Writer *Kwave::Signal::openWriter(Kwave::InsertMode mode,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    Q_ASSERT(static_cast<int>(track) < m_tracks.count());
-    if (static_cast<int>(track) >= m_tracks.count()) {
+    Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
+    if (Kwave::toInt(track) >= m_tracks.count()) {
 	return 0; // track does not exist !
     }
 
@@ -164,7 +165,7 @@ Kwave::SampleReader *Kwave::Signal::openReader(Kwave::ReaderMode mode,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (static_cast<int>(track) >= m_tracks.count())
+    if (Kwave::toInt(track) >= m_tracks.count())
 	return 0; // track does not exist !
 
     Kwave::Track *t = m_tracks.at(track);
@@ -179,7 +180,7 @@ Kwave::Stripe::List Kwave::Signal::stripes(unsigned int track,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (static_cast<int>(track) < m_tracks.count()) {
+    if (Kwave::toInt(track) < m_tracks.count()) {
 	Kwave::Track *t = m_tracks.at(track);
 	Q_ASSERT(t);
 	if (t) return t->stripes(left, right);
@@ -193,7 +194,7 @@ bool Kwave::Signal::mergeStripes(const Kwave::Stripe::List &stripes,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (static_cast<int>(track) >= m_tracks.count())
+    if (Kwave::toInt(track) >= m_tracks.count())
 	return false;
 
     Kwave::Track *t = m_tracks.at(track);
@@ -224,8 +225,8 @@ void Kwave::Signal::deleteRange(unsigned int track,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    Q_ASSERT(static_cast<int>(track) < m_tracks.count());
-    if (static_cast<int>(track) >= m_tracks.count())
+    Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
+    if (Kwave::toInt(track) >= m_tracks.count())
 	return; // track does not exist !
 
     Kwave::Track *t = m_tracks.at(track);
@@ -239,8 +240,8 @@ void Kwave::Signal::insertSpace(unsigned int track, sample_index_t offset,
 {
     QReadLocker lock(&m_lock_tracks);
 
-    Q_ASSERT(static_cast<int>(track) < m_tracks.count());
-    if (static_cast<int>(track) >= m_tracks.count())
+    Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
+    if (Kwave::toInt(track) >= m_tracks.count())
 	return; // track does not exist !
 
     Kwave::Track *t = m_tracks.at(track);
@@ -274,7 +275,7 @@ bool Kwave::Signal::trackSelected(unsigned int track)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (static_cast<int>(track) >= m_tracks.count()) return false;
+    if (Kwave::toInt(track) >= m_tracks.count()) return false;
     if (!m_tracks.at(track)) return false;
 
     return m_tracks.at(track)->selected();
@@ -285,8 +286,8 @@ void Kwave::Signal::selectTrack(unsigned int track, bool select)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    Q_ASSERT(static_cast<int>(track) < m_tracks.count());
-    if (static_cast<int>(track) >= m_tracks.count()) return;
+    Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
+    if (Kwave::toInt(track) >= m_tracks.count()) return;
     Q_ASSERT(m_tracks.at(track));
     if (!m_tracks.at(track)) return;
 
@@ -298,7 +299,7 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 {
     QReadLocker lock(&m_lock_tracks);
 
-    if (static_cast<int>(track) >= m_tracks.count()) return QUuid();
+    if (Kwave::toInt(track) >= m_tracks.count()) return QUuid();
     Q_ASSERT(m_tracks.at(track));
     if (!m_tracks.at(track)) return QUuid();
 

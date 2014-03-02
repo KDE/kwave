@@ -71,6 +71,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
+#include "libkwave/Utils.h"
 #include "libkwave/modules/ChannelMixer.h"
 #include "libkwave/modules/RateConverter.h"
 
@@ -119,7 +120,7 @@ bool Kwave::OpusEncoder::setupDownMix(QWidget *widget, unsigned int tracks,
     m_downmix = DOWNMIX_AUTO; // currently not user configurable
 
     if ((m_downmix == DOWNMIX_AUTO) &&
-	(bitrate > 0) && (bitrate < (32000 * static_cast<int>(tracks))))
+	(bitrate > 0) && (bitrate < (32000 * Kwave::toInt(tracks))))
     {
 	if (tracks > 8) {
 	    // downmix from more than 8 channels to mono
@@ -197,7 +198,7 @@ bool Kwave::OpusEncoder::setupBitrate(QWidget *widget, unsigned int tracks)
     else if (bitrate_upper   > 0) bitrate = bitrate_upper;
     else if (bitrate_lower   > 0) bitrate = bitrate_lower;
 
-    if ((bitrate > 0) && ((bitrate > (BITRATE_MAX * static_cast<int>(tracks)))
+    if ((bitrate > 0) && ((bitrate > (BITRATE_MAX * Kwave::toInt(tracks)))
         || (bitrate < BITRATE_MIN)))
     {
 	int bitrate_new =
@@ -231,7 +232,7 @@ bool Kwave::OpusEncoder::setupCodingRate(QWidget *widget,
 
     Q_ASSERT(!m_rate_converter);
 
-    int rate_orig = static_cast<int>(rate);
+    int rate_orig = Kwave::toInt(rate);
     int rate_supp = Kwave::opus_next_sample_rate(rate_orig);
 
     m_coding_rate = rate_supp;
@@ -251,8 +252,8 @@ bool Kwave::OpusEncoder::setupCodingRate(QWidget *widget,
     // range check: conversion ration must be between 1/256 and 256
     if ((ratio < (1.0 / 256.0)) || (ratio > 256.0)) {
 	int lowest  = qMin<int>(SAMPLE_RATE_MIN,
-	                        static_cast<int>(ceil( rate_to / 256.0)));
-	int highest = qMax<int>(static_cast<int>(floor(rate_to * 256.0)),
+	                        Kwave::toInt(ceil( rate_to / 256.0)));
+	int highest = qMax<int>(Kwave::toInt(floor(rate_to * 256.0)),
 	                        SAMPLE_RATE_MAX);
 	Kwave::MessageBox::sorry(
 	    widget,
@@ -321,15 +322,21 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
 
     // calculate the frame size in samples from the frame duration in ms
     // = frame_length [ms] * bitrate [bits/sec] / 1000 [ms/sec]
-    m_frame_size = (ms_per_frame * m_coding_rate) / 1000;
+    m_frame_size = Kwave::toUint(
+	(ms_per_frame * m_coding_rate) / 1000);
+
+    if (tracks > 255) {
+	qWarning("too many tracks: %u, supported: 255", tracks);
+	return false; // more than 255 tracks are not supported
+    }
 
     // fill out all header fields
-    m_opus_header.channels        = tracks;
+    m_opus_header.channels        = static_cast<quint8>(tracks);
     m_opus_header.preskip         = 0;
     m_opus_header.sample_rate     = static_cast<quint32>(rate);
     m_opus_header.gain            = 0;
     m_opus_header.channel_mapping = 255;
-    m_opus_header.streams         = tracks;
+    m_opus_header.streams         = static_cast<quint8>(tracks);
     m_opus_header.coupled         = 0;
 
     // determine channel mapping and coupling
@@ -351,7 +358,8 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
 	    m_opus_header.map[i] = opusenc_streams[tracks - 1][i + 2];
 	force_narrow = opusenc_streams[tracks - 1][1];
 	m_opus_header.coupled         = opusenc_streams[tracks - 1][0];
-	m_opus_header.streams         = tracks - m_opus_header.coupled;
+	m_opus_header.streams         = static_cast<quint8>(
+	    tracks - m_opus_header.coupled);
 	m_opus_header.channel_mapping = (m_opus_header.streams > 1);
 
    	qDebug("    OpusEncoder: %d stream(s) / %d coupled (mapping=%d)",
@@ -580,7 +588,8 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
 
     // regardless of the rate we're coding at the ogg timestamping/skip is
     //  always timed at 48000 kBit/s
-    m_opus_header.preskip = lookahead * (48000.0 / m_coding_rate);
+    m_opus_header.preskip = static_cast<quint16>(
+	lookahead * (48000.0 / m_coding_rate));
     qDebug("    OpusEncoder: preskip=%d", m_opus_header.preskip);
 
     /* Extra samples that need to be read to compensate for the pre-skip */
@@ -696,7 +705,7 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
     }
 
     m_op.packet     = reinterpret_cast<unsigned char *>(buffer.buffer().data());
-    m_op.bytes      = buffer.size();
+    m_op.bytes      = static_cast<long int>(buffer.size());
     m_op.b_o_s      = 0;
     m_op.e_o_s      = 0;
     m_op.granulepos = 0;
@@ -841,8 +850,10 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
 
 	// pad the rest of the frame with zeroes if necessary
 	if (nb_samples < m_frame_size ) {
-	    const unsigned int pad_from = nb_samples * m_encoder_channels;
-	    const unsigned int pad_to   = m_frame_size * m_encoder_channels;
+	    const unsigned int pad_from =
+		Kwave::toUint(nb_samples * m_encoder_channels);
+	    const unsigned int pad_to   =
+		Kwave::toUint(m_frame_size * m_encoder_channels);
 	    for (unsigned int pos = pad_from; pos < pad_to; pos++ )
 		m_encoder_input[pos] = 0;
 	}
@@ -913,8 +924,8 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
             // conversion the length will be exactly the same as the input.
             sample_index_t length = m_info.length();
 	    double         rate   = m_info.rate();
-	    m_op.granulepos = ceil((length * 48000.0) / rate) +
-	                      m_opus_header.preskip;
+	    m_op.granulepos = static_cast<ogg_int64_t>(
+		ceil((length * 48000.0) / rate) + m_opus_header.preskip);
         }
         ogg_stream_packetin(&m_os, &m_op);
         last_segments += size_segments;

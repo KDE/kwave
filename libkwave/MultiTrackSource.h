@@ -152,7 +152,7 @@ namespace Kwave
      * by generating them through their default constructor.
      */
     template <class SOURCE>
-    class MultiTrackSource<SOURCE, true>
+    class KDE_EXPORT MultiTrackSource<SOURCE, true>
 	:public Kwave::MultiTrackSource<SOURCE, false>
     {
     public:

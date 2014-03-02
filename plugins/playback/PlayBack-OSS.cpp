@@ -39,6 +39,7 @@
 #include "libkwave/Compression.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "PlayBack-OSS.h"
 
@@ -191,7 +192,7 @@ QString Kwave::PlayBackOSS::open(const QString &device, double rate,
     }
 
     // playback rate, we allow up to 10% variation
-    int int_rate = static_cast<int>(m_rate);
+    int int_rate = Kwave::toInt(m_rate);
     if ((ioctl(m_handle, SNDCTL_DSP_SPEED, &int_rate) == -1) ||
 	(int_rate < 0.9 * m_rate) || (int_rate > 1.1 * m_rate)) {
 	return i18n("Playback rate %1 Hz is not supported", int_rate);
@@ -572,7 +573,7 @@ QList<unsigned int> Kwave::PlayBackOSS::supportedBits(const QString &device)
 int Kwave::PlayBackOSS::detectChannels(const QString &device,
                                        unsigned int &min, unsigned int &max)
 {
-    int fd, t, err;
+    int fd, t, err = -1;
 
     min = 0;
     max = 0;
@@ -592,14 +593,14 @@ int Kwave::PlayBackOSS::detectChannels(const QString &device,
     }
     if (t >= MAX_CHANNELS) {
 	// no minimum track number found :-o
-	qWarning("no minimum track number found, err=%d",err);
+	qWarning("no minimum track number found, err=%d", err);
 	// close the device if *we* opened it
 	if ((fd != m_handle) && (fd >= 0)) ::close(fd);
 	return err;
     }
 
     // find the highest number of tracks, start from MAX_CHANNELS downwards
-    for (t = MAX_CHANNELS; t >= static_cast<int>(min); t--) {
+    for (t = MAX_CHANNELS; t >= Kwave::toInt(min); t--) {
 	int real_tracks = t;
 	err = ioctl(fd, SNDCTL_DSP_CHANNELS, &real_tracks);
 	Q_ASSERT(real_tracks == t);

@@ -44,6 +44,7 @@
 #include "libkwave/Interpolation.h"
 #include "libkwave/Curve.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "libgui/CurveWidget.h"
 
@@ -422,8 +423,8 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
     const int kh = m_knob.height();
 
     QVector<double> y = m_curve.interpolation(m_width);
-    Q_ASSERT(static_cast<int>(y.count()) == m_width);
-    if (static_cast<int>(y.count()) < m_width) {
+    Q_ASSERT(Kwave::toInt(y.count()) == m_width);
+    if (Kwave::toInt(y.count()) < m_width) {
 	qWarning("CurveWidget: unable to get interpolation !");
 	return;
     }
@@ -433,17 +434,17 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
 
     // draw the lines
     int ay;
-    ly = (m_height-1) - static_cast<int>(y[0] * (m_height-1));
+    ly = (m_height-1) - Kwave::toInt(y[0] * (m_height-1));
     for (int i=1; i < m_width; i++) {
-	ay = (m_height-1) - static_cast<int>(y[i] * (m_height-1));
+	ay = (m_height-1) - Kwave::toInt(y[i] * (m_height-1));
 	p.drawLine (i-1, ly, i, ay);
 	ly = ay;
     }
 
     // draw the points (knobs)
     foreach (Kwave::Curve::Point pt, m_curve) {
-	lx = static_cast<int>(pt.x() * (m_width-1));
-	ly = (m_height-1) - static_cast<int>(pt.y() * (m_height-1));
+	lx = Kwave::toInt(pt.x() * (m_width-1));
+	ly = (m_height-1) - Kwave::toInt(pt.y() * (m_height-1));
 
 	if ((pt == m_current) || (!m_down && (pt == m_last)) )
 	    p.drawPixmap(lx - (kw >> 1), ly - (kh >> 1), m_selected_knob);

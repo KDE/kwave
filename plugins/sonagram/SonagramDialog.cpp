@@ -58,10 +58,11 @@ Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     if (!pointslider) return;
     if (!windowtypebox) return;
 
-    pointslider->setMaximum(m_length / 16);
+    /** @todo 64bit support */
+    pointslider->setMaximum(Kwave::toInt(m_length / 16)); // TODO
 
     Kwave::window_function_t wf = Kwave::WINDOW_FUNC_NONE;
-    for (unsigned int i=0; i < Kwave::WindowFunction::count(); i++) {
+    for (unsigned int i = 0; i < Kwave::WindowFunction::count(); i++) {
 	windowtypebox->addItem(Kwave::WindowFunction::description(wf, true));
 	++wf;
     }
@@ -83,7 +84,7 @@ Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
 
     // round down to an exponent of 2, this makes the image more
     // wide than heigh and gives a fast calculation
-    int bits = static_cast<int>(floor(log(np) / log(2)));
+    int bits = Kwave::toInt(floor(log(np) / log(2)));
     if (bits < 2) bits = 2;
     if (bits > 16) bits = 16;
     setPoints(1 << (bits-1));

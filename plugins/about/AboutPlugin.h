@@ -39,7 +39,7 @@ namespace Kwave
 	AboutPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
-	virtual ~AboutPlugin() {};
+	virtual ~AboutPlugin() {}
 
 	/** Returns the name of the plugin. */
 	virtual QString name() const;

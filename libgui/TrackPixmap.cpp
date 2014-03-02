@@ -27,6 +27,8 @@
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/Track.h"
+#include "libkwave/Utils.h"
+
 #include "libgui/TrackPixmap.h"
 
 /**
@@ -82,7 +84,6 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
     QMutexLocker lock(&m_lock_buffer);
     if (offset == m_offset) return; // no change
 
-    sample_index_t diff;
     unsigned int src;
     unsigned int dst;
     unsigned int buflen = m_valid.size();
@@ -120,7 +121,7 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 	    invalidateBuffer();
 	} else if (offset > m_offset) {
 	    // move left
-	    diff = samples2pixels(offset - m_offset);
+	    int diff = samples2pixels(offset - m_offset);
 //	    qDebug("TrackPixmap::setOffset(): moving left (min/max): %u",diff);
 	    Q_ASSERT(diff);
 	    Q_ASSERT(buflen);
@@ -134,15 +135,16 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 	    }
 	} else {
 	    // move right
-	    diff = samples2pixels(m_offset - offset);
+	    unsigned int diff =
+		Kwave::toUint(samples2pixels(m_offset - offset));
 //	    qDebug("TrackPixmap::setOffset(): moving right (min/max): %u",diff);
 	    Q_ASSERT(diff);
 	    Q_ASSERT(buflen);
 	    if (diff && buflen) {
-		for (dst = buflen-1, src=dst-diff; dst>=diff; --dst, --src) {
+		for (dst = buflen - 1, src = dst - diff; dst >= diff; ) {
 		    m_min_buffer[dst] = m_min_buffer[src];
 		    m_max_buffer[dst] = m_max_buffer[src];
-		    m_valid[dst] = m_valid[src];
+		    m_valid[dst--] = m_valid[src--];
 		}
 		diff = dst + 1;
 		while (diff--) m_valid.clearBit(dst--);
@@ -156,21 +158,21 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 	if (offset > m_offset) {
 	    // move left
 //	    qDebug("TrackPixmap::setOffset(): moving left (normal)"); // ###
-	    diff = offset - m_offset;
-	    for (src=diff, dst=0; src<buflen; ++dst, ++src) {
+	    unsigned int diff = Kwave::toUint(offset - m_offset);
+	    for (src = diff, dst = 0; src < buflen; ) {
 		m_sample_buffer[dst] = m_sample_buffer[src];
-		m_valid[dst] = m_valid[src];
+		m_valid[dst++] = m_valid[src++];
 	    }
 	    while (dst < buflen) m_valid[dst++] = 0;
 	} else {
 	    // move right
 //	    qDebug("TrackPixmap::setOffset(): moving right (normal)"); // ###
-	    diff = m_offset - offset;
+	    unsigned int diff = Kwave::toUint(m_offset - offset);
 	    Q_ASSERT(buflen);
 	    if (buflen) {
-		for (dst=buflen-1, src=dst-diff; dst>=diff; --dst, --src) {
+		for (dst = buflen - 1, src = dst - diff; dst >= diff; ) {
 		    m_sample_buffer[dst] = m_sample_buffer[src];
-		    m_valid[dst] = m_valid[src];
+		    m_valid[dst--] = m_valid[src--];
 		}
 		diff = dst+1;
 		while (diff--) m_valid.clearBit(dst--);
@@ -186,8 +188,8 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 void Kwave::TrackPixmap::resizeBuffer()
 {
     bool ok = true;
-    unsigned int buflen;
-    unsigned int oldlen = m_valid.size();
+    int buflen;
+    int oldlen = m_valid.size();
     if (m_minmax_mode) {
 	// one buffer index == one screen pixel
 	buflen = width();
@@ -197,7 +199,7 @@ void Kwave::TrackPixmap::resizeBuffer()
 	Q_ASSERT(ok);
     } else {
 	// one buffer index == one sample
-	buflen = pixels2samples(width());
+	buflen = Kwave::toInt(pixels2samples(width()));
 	ok &= m_sample_buffer.resize(buflen);
 	Q_ASSERT(ok);
     }
@@ -273,10 +275,10 @@ bool Kwave::TrackPixmap::validateBuffer()
     if (!reader) return false;
 
     if (m_minmax_mode) {
-	Q_ASSERT(static_cast<int>(m_min_buffer.size()) == buflen);
-	Q_ASSERT(static_cast<int>(m_max_buffer.size()) == buflen);
+	Q_ASSERT(Kwave::toInt(m_min_buffer.size()) == buflen);
+	Q_ASSERT(Kwave::toInt(m_max_buffer.size()) == buflen);
     } else {
-	Q_ASSERT(static_cast<int>(m_sample_buffer.size()) == buflen);
+	Q_ASSERT(Kwave::toInt(m_sample_buffer.size()) == buflen);
     }
 
     // ### FIXME:
@@ -383,7 +385,7 @@ void Kwave::TrackPixmap::repaint()
     QPainter p(&m_pixmap);
     p.fillRect(0, 0, w, h, m_colors.background);
 
-    if (m_zoom ) {
+    if (m_zoom > 0) {
 	// first make the buffer valid
 	validateBuffer();
 
@@ -399,7 +401,8 @@ void Kwave::TrackPixmap::repaint()
 	}
 
 	// draw the zero-line
-	int last = samples2pixels(m_track.length() - 1 - m_offset);
+	int last = (m_track.length() > m_offset) ?
+	    samples2pixels(m_track.length() - 1 - m_offset) : 0;
 	p.setPen(m_colors.zero);
 	if (last >= w) {
 	    p.drawLine(0, h >> 1, w - 1, h >> 1);
@@ -440,26 +443,25 @@ void Kwave::TrackPixmap::selectionChanged()
 
 //***************************************************************************
 void Kwave::TrackPixmap::drawOverview(QPainter &p, int middle, int height,
-	int first, int last)
+                                      int first, int last)
 {
     const Kwave::SampleArray &min_buffer = m_min_buffer;
     const Kwave::SampleArray &max_buffer = m_max_buffer;
 
     Q_ASSERT(m_minmax_mode);
-    Q_ASSERT(width() <= static_cast<int>(min_buffer.size()));
-    Q_ASSERT(width() <= static_cast<int>(max_buffer.size()));
+    Q_ASSERT(width() <= Kwave::toInt(min_buffer.size()));
+    Q_ASSERT(width() <= Kwave::toInt(max_buffer.size()));
 
     // scale_y: pixels per unit
-    double scale_y = (m_vertical_zoom * static_cast<double>(height)) /
-	(1 << SAMPLE_BITS);
+    double scale_y = (m_vertical_zoom * height) / (1 << SAMPLE_BITS);
 
     p.setPen(m_colors.sample);
-    int last_min = static_cast<int>(min_buffer[first] * scale_y);
-    int last_max = static_cast<int>(max_buffer[first] * scale_y);
+    int last_min = Kwave::toInt(min_buffer[first] * scale_y);
+    int last_max = Kwave::toInt(max_buffer[first] * scale_y);
     for (int i = first; i <= last; i++) {
 	Q_ASSERT(m_valid[i]);
-	int max = static_cast<int>(max_buffer[i] * scale_y);
-	int min = static_cast<int>(min_buffer[i] * scale_y);
+	int max = Kwave::toInt(max_buffer[i] * scale_y);
+	int min = Kwave::toInt(min_buffer[i] * scale_y);
 
 	// make sure there is a connection between this
 	// section and the one before, avoid gaps
@@ -476,8 +478,8 @@ void Kwave::TrackPixmap::drawOverview(QPainter &p, int middle, int height,
 //***************************************************************************
 void Kwave::TrackPixmap::calculateInterpolation()
 {
-    float f;
-    float Fg;
+    double f;
+    double Fg;
     int k;
     int N;
 
@@ -548,12 +550,12 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 
 //     qDebug("TrackPixmap::drawInterpolatedSignal()");
 
-    Q_ASSERT(m_zoom);
-    if (m_zoom == 0.0) return;
+    Q_ASSERT(m_zoom > 0);
+    if (m_zoom <= 0) return;
 
     // scale_y: pixels per unit
-    scale_y = (m_vertical_zoom * static_cast<double>(height)) /
-	static_cast<double>((SAMPLE_MAX + 1) << 1);
+    scale_y = static_cast<float>(m_vertical_zoom * height) /
+              static_cast<float>((SAMPLE_MAX + 1) << 1);
 
     // N: order of the filter, at least 2 * (1/m_zoom)
     N = samples2pixels(INTERPOLATION_PRECISION);
@@ -584,10 +586,12 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     sig = sig_buffer + (N / 2);
     while (x <= width + N / 2) {
 	if ((x >= -N / 2) && (sample > 0) && (sample < buflen)) {
-	    sig[x] = sample_buffer[sample] * scale_y;
+	    sig[x] = static_cast<float>(sample_buffer[sample] * scale_y);
 	}
 	sample++;
-	x = samples2pixels(sample);
+	x = KDE_ISLIKELY(sample >= 0) ?
+	    samples2pixels(sample) :
+	    (-1 * samples2pixels(-1 * sample));
     }
 
     // array with sample points
@@ -599,7 +603,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	y = 0.0;
 	for (k = 0; k <= N; k++)
 	    y += *(sig--) * m_interpolation_alpha[k];
-	points.append(QPoint(i, middle - static_cast<int>(y)));
+	points.append(QPoint(i, middle - Kwave::toInt(y)));
     }
 
     // display the filter's interpolated output
@@ -616,7 +620,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     while (x < width) {
 	if ((x >= 0) && (x < width)) {
 	    // mark original samples
-	    points.append(QPoint(x, middle - static_cast<int>(sig[x])));
+	    points.append(QPoint(x, middle - Kwave::toInt(sig[x])));
 	}
 	sample++;
 	x = samples2pixels(sample);
@@ -649,7 +653,7 @@ void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
     while (x < width) {
 	// mark original samples
 	sample_t value = (sample < buflen) ? sample_buffer[sample] : 0;
-	y = static_cast<int>(value * scale_y);
+	y = Kwave::toInt(value * scale_y);
 	points.append(QPoint(x, middle - y));
 
 	sample++;
@@ -667,12 +671,12 @@ void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 	x2 = samples2pixels(sample);
 
 	y1 = ((sample) && (sample <= buflen)) ?
-	    static_cast<int>(scale_y * sample_buffer[sample - 1]) : 0.0;
+	    Kwave::toInt(scale_y * sample_buffer[sample - 1]) : 0.0;
 	y2 = (sample < buflen) ?
-	    static_cast<int>(scale_y * sample_buffer[sample    ]) : 0.0;
+	    Kwave::toInt(scale_y * sample_buffer[sample    ]) : 0.0;
 
 	x = width - 1;
-	y = static_cast<int>(static_cast<float>(x - x1) *
+	y = Kwave::toInt(static_cast<float>(x - x1) *
 	    static_cast<float>(y2 - y1) / static_cast<float>(x2 - x1));
 
 	points.append(QPoint(x, middle - y));
@@ -704,12 +708,12 @@ void Kwave::TrackPixmap::slotSamplesInserted(Kwave::Track *,
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
 
-	Q_ASSERT(offset < static_cast<sample_index_t>(m_valid.size()));
-	Q_ASSERT(offset+length <= static_cast<sample_index_t>(m_valid.size()));
-
 	// mark all positions from here to right end as "invalid"
-	while (offset < static_cast<sample_index_t>(m_valid.size()))
-	    m_valid.clearBit(offset++);
+	const int first = Kwave::toInt(offset);
+	const int last  = m_valid.size();
+	Q_ASSERT(first < m_valid.size());
+	Q_ASSERT(last  > first);
+	m_valid.fill(false, first, last);
 
 	// repaint of the signal is needed
 	m_modified = true;
@@ -730,12 +734,12 @@ void Kwave::TrackPixmap::slotSamplesDeleted(Kwave::Track *,
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
 
-	Q_ASSERT(offset < static_cast<sample_index_t>(m_valid.size()));
-	Q_ASSERT(offset+length <= static_cast<sample_index_t>(m_valid.size()));
-
 	// mark all positions from here to right end as "invalid"
-	while (offset < static_cast<sample_index_t>(m_valid.size()))
-	    m_valid.clearBit(offset++);
+	const int first = Kwave::toInt(offset);
+	const int last  = m_valid.size();
+	Q_ASSERT(first < m_valid.size());
+	Q_ASSERT(last  > first);
+	m_valid.fill(false, first, last);
 
 	// repaint of the signal is needed
 	m_modified = true;
@@ -756,11 +760,12 @@ void Kwave::TrackPixmap::slotSamplesModified(Kwave::Track *,
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
 
-	Q_ASSERT(offset < static_cast<sample_index_t>(m_valid.size()));
-	Q_ASSERT(offset+length <= static_cast<sample_index_t>(m_valid.size()));
-
 	// mark all overlapping positions as "invalid"
-	while (length--) m_valid.clearBit(offset++);
+	const int first = Kwave::toInt(offset);
+	const int last  = Kwave::toInt(offset + length);
+	Q_ASSERT(first < m_valid.size());
+	Q_ASSERT(last  > first);
+	m_valid.fill(false, first, last);
 
 	// repaint of the signal is needed
 	m_modified = true;

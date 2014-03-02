@@ -61,7 +61,6 @@ namespace Kwave
 	 * @param widget a QWidget to be used as parent for error messages
 	 * @param info reference to a FileInfo to fill
 	 * @param src MultiTrackReader used as source of the audio data
-	 * @param src MultiTrackReader used as source of the audio data
 	 * @return true if succeeded, false if failed
 	 */
 	virtual bool open(QWidget *widget,

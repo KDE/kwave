@@ -25,6 +25,7 @@
 
 #include "libkwave/Compression.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "Record-ALSA.h"
 
@@ -397,8 +398,7 @@ int Kwave::RecordALSA::initialize()
 	return -EINVAL;
     }
 
-    unsigned int rrate = m_rate > 0 ?
-	static_cast<unsigned int>(rint(m_rate)) : 0;
+    unsigned int rrate = (m_rate > 0) ? Kwave::toUint(rint(m_rate)) : 0;
     err = snd_pcm_hw_params_set_rate_near(m_handle, m_hw_params, &rrate, 0);
     if (err < 0) {
 	qWarning("Cannot set sample rate: %s", snd_strerror(err));
@@ -408,7 +408,7 @@ int Kwave::RecordALSA::initialize()
 //     qDebug("   real rate = %u", rrate);
     if (m_rate * 1.05 < rrate || m_rate * 0.95 > rrate) {
 	qWarning("rate is not accurate (requested = %iHz, got = %iHz)",
-	         static_cast<int>(m_rate), static_cast<int>(rrate));
+	         Kwave::toInt(m_rate), Kwave::toInt(rrate));
     }
     m_rate = rrate;
 
@@ -597,13 +597,13 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
 
     // try to read as much as the device accepts
     Q_ASSERT(samples);
-    Q_ASSERT(offset + samples <= static_cast<unsigned int>(buffer.size()));
+    Q_ASSERT(offset + samples <= Kwave::toUint(buffer.size()));
     int r = snd_pcm_readi(m_handle, buffer.data() + offset, samples);
 
     // handle all negative result codes
     if (r == -EAGAIN) {
 	unsigned int timeout = (m_rate > 0) ?
-	    (((1000 * samples) / 4) / static_cast<unsigned int>(m_rate)) : 10U;
+	    (((1000 * samples) / 4) / Kwave::toUint(m_rate)) : 10U;
 	snd_pcm_wait(m_handle, timeout);
 	return -EAGAIN;
     } else if (r == -EPIPE) {
@@ -643,8 +643,8 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
     // no error, successfully read something:
     // advance in the buffer
 //     qDebug("<<< after read, r=%d", r);
-    Q_ASSERT(r <= static_cast<int>(samples));
-    if (r > static_cast<int>(samples)) r = samples;
+    Q_ASSERT(r <= Kwave::toInt(samples));
+    if (r > Kwave::toInt(samples)) r = samples;
 
     return (r * m_bytes_per_sample);
 }
@@ -902,7 +902,7 @@ QList<Kwave::SampleFormat> Kwave::RecordALSA::detectSampleFormats()
 	// only accept bits/sample if compression types
 	// and bits per sample match
 	if (compression_of(*fmt) != m_compression) continue;
-	if (snd_pcm_format_width(*fmt) != static_cast<int>(m_bits_per_sample))
+	if (snd_pcm_format_width(*fmt) != Kwave::toInt(m_bits_per_sample))
 	    continue;
 
 	// do not produce duplicates
@@ -1028,7 +1028,7 @@ void Kwave::RecordALSA::scanDevices()
 //  	    qDebug("  Subdevices: %i/%i\n",
 // 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
 	    if (count > 1) {
-		for (idx = 0; idx < static_cast<int>(count); idx++) {
+		for (idx = 0; idx < Kwave::toInt(count); idx++) {
 		    snd_pcm_info_set_subdevice(pcminfo, idx);
 		    if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
 			qWarning("ctrl digital audio playback info (%i): %s",

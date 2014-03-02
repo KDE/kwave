@@ -96,7 +96,7 @@ namespace Kwave
 	/**
 	 * Scales the curve vertically to fit into a range of (+/- range/2)
 	 * on the y-axis.
-	 * @param range
+	 * @param range the size range to use for scaling
 	 */
 	void scaleFit(unsigned int range = 1024);
 

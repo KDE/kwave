@@ -18,6 +18,7 @@
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
@@ -126,9 +127,9 @@ void Kwave::DebugPlugin::run(QStringList params)
 	sample_index_t pos = first;
 	bool ok = true;
 	while (ok && (first <= last) && (!shouldStop())) {
-	    unsigned int rest = last - first + 1;
+	    sample_index_t rest = last - first + 1;
 	    if (rest < m_buffer.size()) {
-		ok = m_buffer.resize(rest);
+		ok = m_buffer.resize(Kwave::toUint(rest));
 		Q_ASSERT(ok);
 		if (!ok) break;
 	    }
@@ -138,8 +139,8 @@ void Kwave::DebugPlugin::run(QStringList params)
 		*((*readers)[r]) >> m_buffer;
 		for (unsigned int ofs = 0; ofs < m_buffer.size(); ++ofs) {
 		    sample_t value_is = m_buffer[ofs];
-		    sample_t value_should = SAMPLE_MIN +
-			((pos + ofs) % (SAMPLE_MAX - SAMPLE_MIN));
+		    sample_t value_should = SAMPLE_MIN + static_cast<sample_t>(
+			((pos + ofs) % (SAMPLE_MAX - SAMPLE_MIN)));
 		    if (value_is != value_should) {
 			qWarning("ERROR: mismatch detected at offset %llu: "
 			         "value=%d, expected=%d", pos + ofs,
@@ -199,9 +200,9 @@ void Kwave::DebugPlugin::run(QStringList params)
     const sample_index_t length = right - left + 1;
     sample_index_t pos = first;
     while ((first <= last) && (!shouldStop())) {
-	unsigned int rest = last - first + 1;
+	sample_index_t rest = last - first + 1;
 	if (rest < m_buffer.size()) {
-	    bool ok = m_buffer.resize(rest);
+	    bool ok = m_buffer.resize(Kwave::toUint(rest));
 	    Q_ASSERT(ok);
 	    if (!ok) break;
 	}
@@ -220,7 +221,8 @@ void Kwave::DebugPlugin::run(QStringList params)
 	    }
 	} else if (command == _("sawtooth")) {
 	    for (unsigned int i = 0; i < m_buffer.size(); i++, pos++) {
-		m_buffer[i] = SAMPLE_MIN + (pos % (SAMPLE_MAX - SAMPLE_MIN));
+		m_buffer[i] = SAMPLE_MIN +
+		    static_cast<sample_t>(pos % (SAMPLE_MAX - SAMPLE_MIN));
 	    }
 	} else if (command == _("dc_50")) {
 	    const sample_t s = float2sample(0.5);

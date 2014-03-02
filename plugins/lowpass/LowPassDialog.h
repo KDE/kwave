@@ -61,7 +61,7 @@ namespace Kwave
 	virtual void setParams(QStringList &params);
 
 	/** retruns a pointer to this as a QDialog */
-	virtual QDialog *dialog() { return this; };
+	virtual QDialog *dialog() { return this; }
 
     signals:
 

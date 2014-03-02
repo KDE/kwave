@@ -37,7 +37,7 @@ namespace Kwave
 	* @param curve the curve from which we take the interpolation
 	* @param length number of samples of the interpolated range
 	*/
-	CurveStreamAdapter(Kwave::Curve &curve, unsigned int length);
+	CurveStreamAdapter(Kwave::Curve &curve, sample_index_t length);
 
 	/** Destructor */
 	virtual ~CurveStreamAdapter();
@@ -54,10 +54,10 @@ namespace Kwave
     private:
 
 	/** position within the interpolation */
-	unsigned int m_position;
+	sample_index_t m_position;
 
 	/** number of samples of the interpolated area */
-	unsigned int m_length;
+	sample_index_t m_length;
 
 	/** the interpolation */
 	Kwave::Interpolation &m_interpolation;

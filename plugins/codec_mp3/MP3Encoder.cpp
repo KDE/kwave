@@ -277,7 +277,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
     // get info: tracks, sample rate
     const unsigned int tracks     = src.tracks();
-    const unsigned int length     = src.last() - src.first() + 1;
+    const sample_index_t length   = src.last() - src.first() + 1;
     unsigned int       bits       = qBound(8U, ((info.bits() + 7) & ~0x7), 32U);
     const double       rate       = info.rate();
     const unsigned int out_tracks = qMax(tracks, 2U);
@@ -435,7 +435,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     const unsigned int buf_len = sizeof(m_write_buffer);
     const int bytes_per_sample = bits / 8;
 
-    unsigned int rest = length;
+    sample_index_t rest = length;
     Kwave::SampleArray in_samples(tracks);
     Kwave::SampleArray out_samples(tracks);
 
@@ -446,7 +446,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	// merge the tracks into the sample buffer
 	quint8 *dst = &(m_write_buffer[0]);
 	unsigned int count = buf_len / (bytes_per_sample * tracks);
-	if (rest < count) count = rest;
+	if (rest < count) count = Kwave::toUint(rest);
 
 	unsigned int written = 0;
 	for (written = 0; written < count; written++) {
@@ -485,11 +485,11 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
 		// big endian
 		if (bits >= 8)
-		    *(dst++) = (s >> 16);
+		    *(dst++) = static_cast<quint8>(s >> 16);
 		if (bits > 8)
-		    *(dst++) = (s >> 8);
+		    *(dst++) = static_cast<quint8>(s >> 8);
 		if (bits > 16)
-		    *(dst++) = (s & 0xFF);
+		    *(dst++) = static_cast<quint8>(s & 0xFF);
 		if (bits > 24)
 		    *(dst++) = 0x00;
 #else
@@ -497,17 +497,17 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 		if (bits > 24)
 		    *(dst++) = 0x00;
 		if (bits > 16)
-		    *(dst++) = s & 0xFF;
+		    *(dst++) = static_cast<quint8>(s & 0xFF);
 		if (bits > 8)
-		    *(dst++) = (s >> 8);
+		    *(dst++) = static_cast<quint8>(s >> 8);
 		if (bits >= 8)
-		    *(dst++) = (s >> 16);
+		    *(dst++) = static_cast<quint8>(s >> 16);
 #endif
 	    }
 	}
 
 	// write out to the stdin of the external process
-	unsigned int bytes_written = m_process.write(
+	qint64 bytes_written = m_process.write(
 	    reinterpret_cast<char *>(&(m_write_buffer[0])),
 	    written * (bytes_per_sample * tracks)
 	);

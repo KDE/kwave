@@ -36,10 +36,10 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	RecordDevice() {};
+	RecordDevice() {}
 
 	/** Destructor */
-	virtual ~RecordDevice() {};
+	virtual ~RecordDevice() {}
 
 	/**
 	 * Open the record device.

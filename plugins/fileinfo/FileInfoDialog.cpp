@@ -260,16 +260,16 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
         lblLength->text().length() - 1),
         i18n("Shows the length of the file in samples\n"
              "and if possible as time."));
-    unsigned int samples = m_info.length();
+    sample_index_t samples = m_info.length();
     double rate = m_info.rate();
     if (rate != 0) {
 	double ms = static_cast<double>(samples) * 1E3 / rate;
 	txtLength->setText(i18n("%1 (%2 samples)",
 	    Kwave::ms2string(ms),
-	    KGlobal::locale()->formatLong(samples)));
+	    Kwave::samples2string(samples)));
     } else {
 	txtLength->setText(i18n("%1 samples",
-	    KGlobal::locale()->formatLong(samples)));
+	    Kwave::samples2string(samples)));
     }
 
     /* sample format */
@@ -354,7 +354,7 @@ void Kwave::FileInfoDialog::setupMpegTab()
 
     /* MPEG version */
     initInfo(lblMpegVersion, cbMpegVersion,  Kwave::INF_MPEG_VERSION);
-    int ver = static_cast<int>(
+    int ver = Kwave::toInt(
         (2.0 * QVariant(m_info.get(Kwave::INF_MPEG_VERSION)).toDouble()));
     // 1, 2, 2.5 -> 2, 4, 5
     if ((ver < 1) || (ver > 5)) ver = 4; // default = version 2

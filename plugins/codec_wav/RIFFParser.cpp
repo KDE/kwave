@@ -20,6 +20,8 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <limits>
+
 #include <QtCore/QIODevice>
 #include <QtCore/QLatin1String>
 #include <QtCore/QList>
@@ -42,11 +44,22 @@
 #define SYSTEM_ENDIANNES Kwave::LittleEndian
 #endif
 
+/**
+ * saturated conversion of a quint64 into a quint32
+ * @param x numeric value, 64 bit
+ * @return the value of x clipped to 0xFFFFFFFF
+ */
+static inline quint32 toUint32(quint64 x) {
+    const quint64 max = std::numeric_limits<qint32>::max();
+    return static_cast<quint32>(qMin(x, max));
+}
+
 //***************************************************************************
 Kwave::RIFFParser::RIFFParser(QIODevice &device,
                               const QStringList &main_chunks,
                               const QStringList &known_subchunks)
-    :m_dev(device), m_root(0, "", "", device.size(), 0, device.size()),
+    :m_dev(device),
+     m_root(0, "", "", toUint32(device.size()), 0, toUint32(device.size())),
      m_main_chunk_names(main_chunks), m_sub_chunk_names(known_subchunks),
      m_endianness(Kwave::UnknownEndian), m_cancel(false)
 {
@@ -191,13 +204,12 @@ void Kwave::RIFFParser::detectEndianness()
 }
 
 //***************************************************************************
-QByteArray Kwave::RIFFParser::read4ByteString(quint32 offset)
+QByteArray Kwave::RIFFParser::read4ByteString(qint64 offset)
 {
-    char s[5];
+    char s[5] = {0, 0, 0, 0, 0};
 
     m_dev.seek(offset);
     m_dev.read(&s[0], 4);
-    s[4]=0;
 
     return QByteArray(s);
 }
@@ -215,7 +227,7 @@ bool Kwave::RIFFParser::parse()
     }
 
     // find all primary chunks
-    return parse(&m_root, 0, m_dev.size());
+    return parse(&m_root, 0, toUint32(m_dev.size()));
 }
 
 //***************************************************************************
@@ -767,7 +779,7 @@ bool Kwave::RIFFParser::joinGarbageToEmpty()
 
 		if (chunk->type() == Kwave::RIFFChunk::Main) {
 		    // was joined to a main chunk -> parse again!
-		    chunk->setFormat(read4ByteString(chunk->physStart()+8));
+		    chunk->setFormat(read4ByteString(chunk->physStart() + 8));
 		    parse(chunk, chunk->dataStart(), chunk->dataLength());
 		}
 

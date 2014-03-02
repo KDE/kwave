@@ -37,11 +37,12 @@
 #include <ktoolinvocation.h>
 
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "NewSignalDialog.h"
 
 //***************************************************************************
-Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
+Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, sample_index_t samples,
 	unsigned int rate, unsigned int bits, unsigned int tracks,
 	bool by_time)
     :QDialog(parent), Ui::NewSigDlg(), m_timer(this), m_recursive(false)
@@ -106,7 +107,7 @@ Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 	// by samples
 	rbTime->setChecked(false);
 	rbSamples->setChecked(true);
-	edSamples->setValue(samples);
+	edSamples->setValue(Kwave::toInt(samples));
 	edSamples->setEnabled(true);
 	sbHours->setEnabled(false);
 	sbMinutes->setEnabled(false);
@@ -125,9 +126,9 @@ Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 }
 
 //***************************************************************************
-unsigned int Kwave::NewSignalDialog::samples()
+sample_index_t Kwave::NewSignalDialog::samples()
 {
-    return static_cast<unsigned int>(edSamples->value());
+    return static_cast<sample_index_t>(edSamples->value());
 }
 
 //***************************************************************************
@@ -170,7 +171,7 @@ bool Kwave::NewSignalDialog::byTime()
 }
 
 //***************************************************************************
-unsigned int Kwave::NewSignalDialog::maxSamples()
+sample_index_t Kwave::NewSignalDialog::maxSamples()
 {
     unsigned int bytes_per_sample = bitsPerSample() >> 3;
 
@@ -179,7 +180,7 @@ unsigned int Kwave::NewSignalDialog::maxSamples()
      *       only needed because some gui elements like
      *       KIntNumInput cannot handle more :-(
      */
-    unsigned int max_file_size = INT_MAX;
+    const sample_index_t max_file_size = INT_MAX;
 
     return (max_file_size / tracks() / bytes_per_sample);
 }
@@ -207,7 +208,7 @@ void Kwave::NewSignalDialog::timeChanged(int)
 {
     if (m_recursive) return; // don't do recursive processing
     if (!rbTime->isChecked()) return;
-    if (!rate() || !tracks() || (bitsPerSample() < 8)) return;
+    if ((rate() <= 0) || !tracks() || (bitsPerSample() < 8)) return;
     m_recursive = true;
 
     // get current time and correct wrap-overs
@@ -244,8 +245,8 @@ void Kwave::NewSignalDialog::timeChanged(int)
     seconds += 60 * minutes;
 
     // limit the current number of samples
-    unsigned int max_samples = maxSamples();
-    unsigned int samples = static_cast<unsigned int>(ceil(
+    sample_index_t max_samples = maxSamples();
+    sample_index_t samples     = static_cast<sample_index_t>(ceil(
 	static_cast<double>(seconds) * rate()));
 
     if (samples > max_samples) {
@@ -255,10 +256,8 @@ void Kwave::NewSignalDialog::timeChanged(int)
     }
 
     // update the other controls
-    Q_ASSERT(samples <= INT_MAX);
-    if (samples > INT_MAX) samples = INT_MAX;
-    edSamples->setValue(samples);
-    slideLength->setValue(static_cast<int>(100.0 * samples / max_samples));
+    edSamples->setValue(Kwave::toInt(samples));
+    slideLength->setValue(Kwave::toInt(100.0 * samples / max_samples));
     updateFileSize();
     buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0.0);
 
@@ -272,20 +271,17 @@ void Kwave::NewSignalDialog::samplesChanged(int)
     if (!rbSamples->isChecked()) return;
     m_recursive = true;
 
-    unsigned int samples = edSamples->value();
-    unsigned int max_samples = maxSamples();
+    sample_index_t samples = edSamples->value();
+    sample_index_t max_samples = maxSamples();
 
     if (samples > max_samples) {
 	samples = max_samples;
-
-	Q_ASSERT(samples <= INT_MAX);
-	if (samples > INT_MAX) samples = INT_MAX;
-	edSamples->setValue(samples);
+	edSamples->setValue(Kwave::toInt(samples));
     }
 
     // update the other controls
     setHMS(samples);
-    slideLength->setValue(static_cast<int>(100.0 * samples / max_samples));
+    slideLength->setValue(Kwave::toInt(100.0 * samples / max_samples));
     updateFileSize();
     buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0.0);
 
@@ -344,27 +340,28 @@ void Kwave::NewSignalDialog::setLengthPercentage(int percent)
     if (rate() <= 0) return;
     m_recursive = true;
 
-    unsigned int samples = static_cast<unsigned int>(maxSamples() *
+    sample_index_t samples = static_cast<sample_index_t>(maxSamples() *
 	static_cast<double>(percent) / 100.0);
-    Q_ASSERT(samples <= INT_MAX);
-    if (samples > INT_MAX) samples = INT_MAX;
 
     // update the other controls
-    edSamples->setValue(samples);
     setHMS(samples);
+    edSamples->setValue(Kwave::toInt(samples));
     updateFileSize();
-    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0.0);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0);
 
     m_recursive = false;
 }
 
 //***************************************************************************
-void Kwave::NewSignalDialog::setHMS(const double &samples)
+void Kwave::NewSignalDialog::setHMS(sample_index_t &samples)
 {
     double rate = this->rate();
     if (rate <= 0.0) return;
 
-    int total_sec = static_cast<int>(ceil(samples / rate));
+    // TODO: support for 64 bit
+    if (samples > maxSamples()) samples = maxSamples();
+
+    int total_sec = Kwave::toInt(ceil(samples / rate));
     int hours   = total_sec / (60*60);
     int minutes = (total_sec / 60) % 60;
     int seconds = total_sec % 60;

@@ -17,31 +17,36 @@
 
 #include "config.h"
 #include <string.h>
+
+#include "libkwave/memcpy.h"
+#include "libkwave/Utils.h"
+
 #include "RecoveryBuffer.h"
 
 //***************************************************************************
-Kwave::RecoveryBuffer::RecoveryBuffer(unsigned int offset,
-                                      unsigned int length,
+Kwave::RecoveryBuffer::RecoveryBuffer(quint64 offset,
+                                      quint64 length,
                                       char *buffer)
-    :Kwave::RecoverySource(offset, length), m_buffer(buffer, length)
+    :Kwave::RecoverySource(offset, length),
+     m_buffer(buffer, Kwave::toUint(length))
 {
 }
 
 //***************************************************************************
-unsigned int Kwave::RecoveryBuffer::read(unsigned int offset, char *data,
-                                         unsigned int bytes)
+qint64 Kwave::RecoveryBuffer::read(quint64 offset, char *data,
+                                   unsigned int bytes)
 {
     if (offset < this->offset()) return 0;
     if (offset > end()) return 0;
 
-    unsigned int off = offset - this->offset();
-    unsigned int len = length() - off;
+    quint64 off = offset - this->offset();
+    qint64 len  = length() - off;
     if (bytes < len) len = bytes;
     if (!len) return 0;
 
     const char *src = m_buffer.constData();
     src += off;
-    memcpy(data, src, len);
+    MEMCPY(data, src, static_cast<size_t>(len));
 
     return len;
 }

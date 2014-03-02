@@ -22,6 +22,7 @@
 #include <QtGui/QMouseEvent>
 
 #include "libgui/ImageView.h"
+#include "libkwave/Utils.h"
 
 //****************************************************************************
 Kwave::ImageView::ImageView(QWidget *parent, bool fit_width, bool fit_height)
@@ -57,9 +58,9 @@ void Kwave::ImageView::mouseMoveEvent(QMouseEvent *e)
      * re-transform the coordinates from the screen (pixmap) coordinates to
      * the original image coordinates and emit a cursor position signal
      */
-    x = m_offset.x() + static_cast<int>((m_scale_x != 0) ?
+    x = m_offset.x() + Kwave::toInt((m_scale_x != 0) ?
 	(static_cast<double>(x) / m_scale_x) : 0);
-    y = m_offset.y() + static_cast<int>((m_scale_y != 0) ?
+    y = m_offset.y() + Kwave::toInt((m_scale_y != 0) ?
 	(static_cast<double>(y) / m_scale_y) : 0);
     emit sigCursorPos(QPoint(x, y));
 }
@@ -112,9 +113,9 @@ void Kwave::ImageView::paintEvent(QPaintEvent *)
                                static_cast<float>(m_image.height()) : 1.0;
 
     if (m_offset.x() + m_scale_x * m_image.width() > width())
-	m_offset.setX(static_cast<int>(m_scale_x * m_image.width() - width()));
+	m_offset.setX(Kwave::toInt(m_scale_x * m_image.width() - width()));
     if (m_offset.y() + m_scale_y * m_image.height() > height())
-	m_offset.setY(static_cast<int>(
+	m_offset.setY(Kwave::toInt(
 	    m_scale_y * m_image.height() - height()));
 
     matrix.scale(m_scale_x, m_scale_y);

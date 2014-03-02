@@ -58,8 +58,9 @@ ID3_Reader::pos_type Kwave::ID3_QIODeviceReader::getCur()
 //***************************************************************************
 ID3_Reader::pos_type Kwave::ID3_QIODeviceReader::setCur(ID3_Reader::pos_type pos)
 {
-    m_source.seek(static_cast<qint64>(pos));
-    return m_source.pos();
+    if (!m_source.seek(static_cast<qint64>(pos)))
+	return static_cast<ID3_Reader::pos_type>(-1);
+    return static_cast<ID3_Reader::pos_type>(m_source.pos());
 }
 
 //***************************************************************************

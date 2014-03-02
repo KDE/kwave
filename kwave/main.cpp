@@ -37,7 +37,7 @@
  * add data concerning the developers and
  * contributers to the about data
  */
-void addDataStrings(KAboutData &aboutdata)
+static void addDataStrings(KAboutData &aboutdata)
 {
     //Developers
     aboutdata.addAuthor(ki18n("Thomas Eschenbacher"),

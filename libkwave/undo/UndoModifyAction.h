@@ -50,10 +50,10 @@ namespace Kwave
 	virtual QString description();
 
 	/** @see UndoAction::undoSize() */
-	virtual unsigned int undoSize();
+	virtual qint64 undoSize();
 
 	/** @see UndoAction::redoSize() */
-	virtual int redoSize() { return undoSize(); }
+	virtual qint64 redoSize() { return undoSize(); }
 
 	/**
 	* @see UndoAction::store()

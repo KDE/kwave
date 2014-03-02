@@ -60,7 +60,7 @@ namespace Kwave
      * Toplevel widget of the Kwave application. Holds a main widget, a menu
      * bar, a status bar and a toolbar.
      */
-    class TopWidget : public KMainWindow
+    class KDE_EXPORT TopWidget : public KMainWindow
     {
 	Q_OBJECT
 

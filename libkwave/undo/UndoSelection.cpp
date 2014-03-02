@@ -52,14 +52,14 @@ QString Kwave::UndoSelection::description()
 }
 
 //***************************************************************************
-unsigned int Kwave::UndoSelection::undoSize()
+qint64 Kwave::UndoSelection::undoSize()
 {
     return sizeof(*this) +
 	(m_selected_tracks.count() * sizeof(unsigned int));
 }
 
 //***************************************************************************
-int Kwave::UndoSelection::redoSize()
+qint64 Kwave::UndoSelection::redoSize()
 {
     return sizeof(*this) +
 	(m_manager.selectedTracks().count() * sizeof(unsigned int));

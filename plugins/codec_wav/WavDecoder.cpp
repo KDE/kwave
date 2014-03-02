@@ -38,6 +38,7 @@
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 #include "libkwave/VirtualAudioFile.h"
 #include "libkwave/Writer.h"
 
@@ -298,8 +299,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     src.seek(fmt_offset);
 
     // get the encoded block of data from the mime source
-    CHECK(static_cast<unsigned int>(src.size()) >
-          sizeof(Kwave::wav_header_t) + 8);
+    CHECK(src.size() > static_cast<qint64>(sizeof(Kwave::wav_header_t) + 8));
 
     // get the header
     src.read(reinterpret_cast<char *>(&header), sizeof(Kwave::wav_fmt_header_t));
@@ -392,7 +392,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 	return false;
     }
 
-    unsigned int length = afGetFrameCount(fh, AF_DEFAULT_TRACK);
+    AFframecount length = afGetFrameCount(fh, AF_DEFAULT_TRACK);
     tracks = afGetVirtualChannels(fh, AF_DEFAULT_TRACK);
 
     int sample_format;
@@ -470,7 +470,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 	    src.read(reinterpret_cast<char *>(&data), 4);
 	    /* we currently support only 'data' */
 	    if (qstrncmp(reinterpret_cast<const char *>(&data), "data", 4)) {
-		qWarning("cue list entry %d refers to '%s', "\
+		qWarning("cue list entry %d refers to '%s', "
                          "which is not supported -> skipped",
 		         index, QByteArray(
 		         reinterpret_cast<const char *>(&data), 4).data());
@@ -532,7 +532,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 			name.resize(length);
 			src.seek(labl_chunk->dataStart() + 4);
 			src.read(static_cast<char *>(name.data()), length);
-			if (name[name.count()-1] != '\0')
+			if (name[name.count() - 1] != '\0')
 			    name += '\0';
 		    }
 		}
@@ -583,17 +583,16 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     QVector<Kwave::Writer *>writers;
     for (unsigned int t = 0; t < tracks; t++)
 	writers.append(dst[t]);
-    Q_ASSERT(writers.count() == static_cast<int>(dst.tracks()));
-    if (writers.count() != static_cast<int>(dst.tracks())) return false;
+    Q_ASSERT(writers.count() == Kwave::toInt(dst.tracks()));
+    if (writers.count() != Kwave::toInt(dst.tracks())) return false;
     Kwave::Writer **writer_fast = writers.data();
 
-    unsigned int frame_size = static_cast<unsigned int>(
+    unsigned int frame_size = Kwave::toUint(
 	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
 
     // allocate a buffer for input data
-    const unsigned int buffer_frames = (8*1024);
-    qint32 *buffer = static_cast<qint32 *>(
-	malloc(buffer_frames * frame_size));
+    const unsigned int buffer_frames = (8 * 1024);
+    qint32 *buffer = static_cast<qint32 *>(malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
 
@@ -602,7 +601,7 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     sample_index_t rest = Kwave::FileInfo(metaData()).length();
     while (rest) {
 	unsigned int frames = buffer_frames;
-	if (frames > rest) frames = rest;
+	if (frames > rest) frames = Kwave::toUint(rest);
 	unsigned int buffer_used = afReadFrames(fh,
 	    AF_DEFAULT_TRACK, reinterpret_cast<char *>(buffer), frames);
 

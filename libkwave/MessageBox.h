@@ -95,7 +95,6 @@ namespace Kwave
 	 * @param button1 a KGuiItem for the first button (optional)
 	 * @param button2 a KGuiItem for the second button (optional)
 	 * @param dontAskAgainName tag name for "dont ask again"
-	 * @return the return value of the KMessageBox
 	 */
 	MessageBox(KMessageBox::DialogType mode, QWidget *parent,
 	    QString message, QString caption,

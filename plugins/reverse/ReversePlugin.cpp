@@ -107,17 +107,18 @@ void Kwave::ReversePlugin::run(QStringList params)
     while ((first < last) && !shouldStop()) {
 	QFutureSynchronizer<void> synchronizer;
 
-	Kwave::ReversePlugin::SliceParams params;
-	params.m_first      = first;
-	params.m_last       = last;
-	params.m_block_size = block_size;
+	Kwave::ReversePlugin::SliceParams slice_params;
+	slice_params.m_first      = first;
+	slice_params.m_last       = last;
+	slice_params.m_block_size = block_size;
 
 	// loop over all tracks
-	for (int track = 0; track < tracks.count(); track++) {
+	for (int i = 0; i < tracks.count(); i++) {
 	    synchronizer.addFuture(QtConcurrent::run(
 		this,
 		&Kwave::ReversePlugin::reverseSlice,
-		track, source_a[track], source_b[track], params)
+		tracks[i], source_a[i], source_b[i],
+		slice_params)
 	    );
 	}
 
@@ -183,7 +184,7 @@ void Kwave::ReversePlugin::reverseSlice(unsigned int track,
     } else {
 	// single buffer with last block
 	Kwave::SampleArray buffer;
-	ok &= buffer.resize(last - first + 1);
+	ok &= buffer.resize(Kwave::toUint(last - first + 1));
 	Q_ASSERT(ok);
 
 	// read from start

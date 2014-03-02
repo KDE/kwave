@@ -156,11 +156,11 @@ unsigned int mm_support(void)
             goto inteltest;
 	cpuid(0x80000001, eax, ebx, ecx, edx);
 	rval = 0;
-	if( edx & ( 1 << 31) )
+	if( edx & ( 1U << 31) )
 	  rval |= MM_3DNOW;
-	if( edx & ( 1 << 23) )
+	if( edx & ( 1U << 23) )
 	  rval |= MM_MMX;
-	if( edx & ( 1 << 24) )
+	if( edx & ( 1U << 24) )
 	  rval |= MM_MMXEXT;
 	return rval;
     } else if (ebx == 0x69727943 &&

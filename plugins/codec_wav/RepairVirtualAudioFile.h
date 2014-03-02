@@ -44,13 +44,13 @@ namespace Kwave
 	virtual ~RepairVirtualAudioFile();
 
 	/** reads a block of data */
-	virtual unsigned int read(char *data, unsigned int nbytes);
+	virtual qint64 read(char *data, unsigned int nbytes);
 
 	/** returns the length of the file */
 	virtual qint64 length();
 
 	/** writes a block of data */
-	virtual unsigned int write(const char *data, unsigned int nbytes);
+	virtual qint64 write(const char *data, unsigned int nbytes);
 
 	/** seek to a file position */
 	virtual qint64 seek(qint64 offset, bool is_relative);
@@ -61,7 +61,7 @@ namespace Kwave
     private:
 
 	/** position within the virtual file */
-	unsigned int m_position;
+	qint64 m_position;
 
 	/** list of sources for the recovered files */
 	QList<Kwave::RecoverySource *> *m_repair_list;

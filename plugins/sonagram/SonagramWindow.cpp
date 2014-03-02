@@ -88,7 +88,7 @@ Kwave::SonagramWindow::SonagramWindow(const QString &name)
 {
     KIconLoader icon_loader;
 
-    for (int i = 0; i < 256; m_histogram[i++] = 0) {}
+    for (int i = 0; i < 256; ++i) { m_histogram[i] = 0; }
 
     QWidget *mainwidget = new(std::nothrow) QWidget(this);
     Q_ASSERT(mainwidget);
@@ -141,7 +141,8 @@ Kwave::SonagramWindow::SonagramWindow(const QString &name)
     if (!m_view) return;
     top_layout->addWidget(m_view, 0, 1);
     QPalette palette;
-    palette.setBrush(m_view->backgroundRole(), QBrush(background));
+    palette.setBrush(m_view->backgroundRole(), QBrush(QImage(background)));
+    m_view->setAutoFillBackground(true);
     m_view->setPalette(palette);
 
     m_xscale = new(std::nothrow)
@@ -268,7 +269,7 @@ void Kwave::SonagramWindow::setImage(QImage image)
     if (!m_image.isNull()) {
 	for (int x = 0; x < m_image.width(); x++) {
 	    for (int y = 0; y < m_image.height(); y++) {
-		quint8 p = m_image.pixelIndex(x, y);
+		quint8 p = static_cast<quint8>(m_image.pixelIndex(x, y));
 		m_histogram[p]++;
 	    }
 	}
@@ -303,7 +304,7 @@ void Kwave::SonagramWindow::insertSlice(const unsigned int slice_nr,
 	quint8 p;
 
 	// remove the current pixel from the histogram
-	p = m_image.pixelIndex(slice_nr, y);
+	p = static_cast<quint8>(m_image.pixelIndex(slice_nr, y));
 	m_histogram[p]--;
 
 	// set the new pixel value
@@ -331,46 +332,42 @@ void Kwave::SonagramWindow::adjustBrightness()
 
     // get the sum of pixels != 0
     unsigned long int sum = 0;
-    for (int i=0; i < 254; i++) {
+    for (unsigned int i = 1; i <= 254; i++)
 	sum += m_histogram[i];
-    }
-    // cut off all parts below the cutoff ratio (e.g. 0.1%)
-    unsigned int cutoff = static_cast<int>(sum * COLOR_CUTOFF_RATIO);
 
-    // get the first used color
-    unsigned int first=0;
-    while ((first < 253) && (m_histogram[first] <= cutoff)) {
-	first++;
-    }
+    // cut off all parts below the cutoff ratio (e.g. 0.1%)
+    unsigned int cutoff = Kwave::toUint(sum * COLOR_CUTOFF_RATIO);
+
+    // get the last used color from the histogram
+    int last = 254;
+    while ((last >= 0) && (m_histogram[last] <= cutoff))
+	last--;
 
     QColor c;
-    for (unsigned int i=0; i < 255; i++) {
+    for (int i = 0; i < 255; i++) {
 	int v;
 
-	if (i <= first) {
-	    v = 0;
+	if (i >= last) {
+	    v = 254;
 	} else {
-	    // map [first...254] to [0...254]
-	    v = (i-first)*254/(254-first);
+	    // map [0...last] to [254...0]
+	    v = ((last - i) * 254) / last;
 	}
 
 	if (m_color_mode == 1) {
 	    // rainbow effect
-	    c.setHsv( (v*255)/256, 255, 255 );
+	    c.setHsv( (v * 255) / 255, 255, 255, 255);
 	} else {
 	    // greyscale palette
-	    c.setRgb(v, v, v);
+	    c.setRgb(v, v, v, 255);
 	}
 
-	c.setAlpha(255);
-	m_image.setColor(i, c.rgb());
-// 	qDebug("color[%3d] = 0x%08X",i, c.rgb());
+	m_image.setColor(i, c.rgba());
+// 	qDebug("color[%3d] = 0x%08X",i, c.rgba());
     }
 
     // use color 0xFF for transparency !
-    c.setRgb(0,0,0);
-    c.setAlpha(0);
-    m_image.setColor(255, c.rgb());
+    m_image.setColor(0xFF, QColor(0, 0, 0, 0).rgba());
 }
 
 //****************************************************************************
@@ -446,7 +443,8 @@ void Kwave::SonagramWindow::toSignal()
 }
 
 //***************************************************************************
-void Kwave::SonagramWindow::translatePixels2TF(const QPoint p, double *ms, double *f)
+void Kwave::SonagramWindow::translatePixels2TF(const QPoint p,
+                                               double *ms, double *f)
 {
     if (ms) {
 	// get the time coordinate [0...(N_samples-1)* (1/f_sample) ]
@@ -463,7 +461,7 @@ void Kwave::SonagramWindow::translatePixels2TF(const QPoint p, double *ms, doubl
 	double py = (m_points >= 2) ? (m_points / 2) - 1 : 0;
 	double y = py - p.y();
 	if (y < 0) y = 0;
-	*f = y / py * (m_rate/2.0);
+	*f = y / py * (m_rate / 2.0);
     }
 }
 
@@ -473,10 +471,10 @@ void Kwave::SonagramWindow::updateScaleWidgets()
     double ms;
     double f;
 
-    translatePixels2TF(QPoint(m_image.width()-1, 0), &ms, &f);
+    translatePixels2TF(QPoint(m_image.width() - 1, 0), &ms, &f);
 
-    m_xscale->setMinMax(0, static_cast<int>(rint(ms)));
-    m_yscale->setMinMax(0, static_cast<int>(rint(f)));
+    m_xscale->setMinMax(0, Kwave::toInt(rint(ms)));
+    m_yscale->setMinMax(0, Kwave::toInt(rint(f)));
 }
 
 //***************************************************************************
@@ -526,17 +524,16 @@ void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
     status->changeItem(i18n("Time: %1", Kwave::ms2string(ms)), 1);
 
     // item 2: frequency in Hz
-    QString text = i18n("Frequency: %1 Hz", static_cast<int>(f));
+    QString text = i18n("Frequency: %1 Hz", Kwave::toInt(f));
     status->changeItem(text, 2);
 
     // item 3: amplitude in %
     if (m_image.valid(pos.x(), pos.y())) {
-	a = (254.0 - m_image.pixelIndex(pos.x(), pos.y())) *
-	    (100.0 / 254.0);
+	a = m_image.pixelIndex(pos.x(), pos.y()) * (100.0 / 254.0);
     } else {
 	a = 0.0;
     }
-    text = i18n("Amplitude: %1%", static_cast<int>(a));
+    text = i18n("Amplitude: %1%", Kwave::toInt(a));
     status->changeItem(text, 3);
 }
 

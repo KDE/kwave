@@ -30,6 +30,7 @@
 #include "libkwave/MetaDataList.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "libgui/OverViewWidget.h"
 
@@ -288,9 +289,9 @@ void Kwave::OverViewWidget::playbackPositionChanged(sample_index_t pos)
     if (!length) return;
     const double scale = static_cast<double>(width()) /
                          static_cast<double>(length);
-    const unsigned int old_pixel_pos = static_cast<unsigned int>(
+    const int old_pixel_pos = Kwave::toInt(
 	static_cast<double>(old_pos) * scale);
-    const unsigned int new_pixel_pos = static_cast<unsigned int>(
+    const int new_pixel_pos = Kwave::toInt(
 	static_cast<double>(new_pos) * scale);
     if (old_pixel_pos == new_pixel_pos) return;
 
@@ -364,7 +365,7 @@ void Kwave::OverViewWidget::calculateBitmap()
 
     const double scale = static_cast<double>(width) /
 	                 static_cast<double>(length);
-    const int bitmap_width = static_cast<int>(m_signal_length * scale);
+    const int bitmap_width = Kwave::toInt(m_signal_length * scale);
 
     // let the bitmap be updated from the cache
     QImage bitmap = m_cache.getOverView(bitmap_width, height,
@@ -380,9 +381,9 @@ void Kwave::OverViewWidget::calculateBitmap()
     // hilight the selection
     if ((m_selection_length > 1) && m_signal_length)
     {
-	unsigned int first = static_cast<unsigned int>(
+	int first = Kwave::toInt(
 	    static_cast<double>(m_selection_start) * scale);
-	unsigned int len   = static_cast<unsigned int>(
+	int len   = Kwave::toInt(
 	    static_cast<double>(m_selection_length) * scale);
 	if (len < 1) len = 1;
 
@@ -400,11 +401,10 @@ void Kwave::OverViewWidget::calculateBitmap()
     }
 
     // draw labels
-    unsigned int last_label_pos = width + 1;;
+    int last_label_pos = width + 1;
     foreach (const Kwave::Label &label, m_labels) {
 	sample_index_t pos = label.pos();
-	unsigned int x = static_cast<unsigned int>(
-	    static_cast<double>(pos) * scale);
+	int x = Kwave::toInt(static_cast<double>(pos) * scale);
 
 	// position must differ from the last one, otherwise we
 	// would wipe out the last one with XOR mode
@@ -422,8 +422,7 @@ void Kwave::OverViewWidget::calculateBitmap()
     // draw playback position
     if (m_playback_position) {
 	const sample_index_t pos = m_playback_position;
-	unsigned int x = static_cast<unsigned int>(
-	    static_cast<double>(pos) * scale);
+	int x = Kwave::toInt(static_cast<double>(pos) * scale);
 
 	// draw a line for the playback position
 	QPen pen(Qt::yellow);
@@ -446,13 +445,12 @@ void Kwave::OverViewWidget::calculateBitmap()
 	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
 
 	if (m_view_offset > 0) {
-	    unsigned int x = static_cast<unsigned int>(
-		static_cast<double>(m_view_offset) * scale);
+	    int x = Kwave::toInt(static_cast<double>(m_view_offset) * scale);
 	    p.drawRect(0, 0, x, height);
 	}
 
 	if (m_view_offset + m_view_width < m_signal_length) {
-	    unsigned int x = static_cast<unsigned int>(
+	    int x = Kwave::toInt(
 		static_cast<double>(m_view_offset + m_view_width) * scale);
 	    p.drawRect(x, 0, width - x, height);
 	}

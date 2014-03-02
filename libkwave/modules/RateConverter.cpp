@@ -19,6 +19,7 @@
 
 #include <math.h>
 
+#include "libkwave/Utils.h"
 #include "libkwave/modules/RateConverter.h"
 
 //***************************************************************************
@@ -82,8 +83,9 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
     // leftover remaining from the previous pass
     // just for safety we limit the extra output space to some
     // (hopefully) reasonable range between 4096 and 16384
-    const unsigned int out_len =
-	ceil(static_cast<double>(in_len) * m_ratio);
+    const unsigned int out_len = Kwave::toUint(
+	ceil(static_cast<double>(in_len) * m_ratio)
+    );
     const unsigned int extra = qBound<unsigned int>(4096, out_len, 16384);
     m_converter_out.resize(out_len + extra);
 

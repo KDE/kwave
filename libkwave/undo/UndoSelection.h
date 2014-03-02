@@ -64,10 +64,10 @@ namespace Kwave
 	virtual QString description();
 
 	/** @see UndoAction::undoSize() */
-	virtual unsigned int undoSize();
+	virtual qint64 undoSize();
 
 	/** @see UndoAction::redoSize() */
-	virtual int redoSize();
+	virtual qint64 redoSize();
 
 	/** @see UndoAction::store() */
 	virtual bool store(Kwave::SignalManager &manager);

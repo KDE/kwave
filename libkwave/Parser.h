@@ -26,6 +26,8 @@
 
 #include <kdemacros.h>
 
+#include "libkwave/Sample.h" // for sample_index_t
+
 //*****************************************************************************
 namespace Kwave
 {
@@ -62,15 +64,15 @@ namespace Kwave
 	}
 
 	/** Returns the list of commands */
-	inline QStringList commandList() { return m_commands; };
+	inline QStringList commandList() { return m_commands; }
 
 	/** Returns true if the end of the parameter list has been reached. */
-	inline bool isDone () {
+	inline bool isDone () const {
 	    return (static_cast<int>(m_current) >= m_param.count());
 	}
 
 	/** Returns the number of parameters. */
-	inline unsigned int count() {
+	inline unsigned int count() const {
 	    return m_param.count();
 	}
 
@@ -116,6 +118,13 @@ namespace Kwave
 	 * return value will be zero.
 	 */
 	unsigned int toUInt();
+
+	/**
+	 * Gets the next parameter through calling nextParam() and
+	 * interpretes it as a "sample_index_t" value. On errors the
+	 * return value will be zero.
+	 */
+	sample_index_t toSampleIndex();
 
 	/**
 	 * Gets the next parameter through calling nextParam() and

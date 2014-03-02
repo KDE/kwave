@@ -21,8 +21,9 @@
 #include <QtCore/QObject>
 
 #include "libkwave/memcpy.h"
-#include "libkwave/Writer.h"
 #include "libkwave/SampleReader.h"
+#include "libkwave/Utils.h"
+#include "libkwave/Writer.h"
 
 /** size of m_buffer in samples */
 #define BUFFER_SIZE (1024 * 1024)
@@ -111,7 +112,7 @@ Kwave::Writer &Kwave::Writer::operator << (Kwave::SampleReader &reader)
 	// overwrite mode -> clip at right border
 	if (m_mode == Kwave::Overwrite) {
 	    if (m_position + buflen - 1 > m_last)
-		buflen = (m_last - m_position) + 1;
+		buflen = Kwave::toUint(m_last - m_position + 1);
 	}
 
 	m_buffer_used = reader.read(m_buffer, 0, buflen);

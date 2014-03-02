@@ -147,7 +147,7 @@ double Kwave::NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
     double maxpow = 0.0;
     const unsigned int tracks = source.tracks();
     const double rate = Kwave::FileInfo(signalManager().metaData()).rate();
-    const unsigned int window_size = static_cast<unsigned int>(rate / 100);
+    const unsigned int window_size = Kwave::toUint(rate / 100);
     if (!window_size) return 0;
 
     // set up smoothing window buffer

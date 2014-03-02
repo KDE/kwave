@@ -161,7 +161,7 @@ void Kwave::Mul::set_a(const QVariant &a)
 {
     QMutexLocker lock(&m_lock);
 
-    m_value_a = QVariant(a).toDouble();
+    m_value_a = QVariant(a).toFloat();
     m_a_is_const = true;
 }
 
@@ -170,7 +170,7 @@ void Kwave::Mul::set_b(const QVariant &b)
 {
     QMutexLocker lock(&m_lock);
 
-    m_value_b = QVariant(b).toDouble();
+    m_value_b = QVariant(b).toFloat();
     m_b_is_const = true;
 }
 

@@ -33,6 +33,7 @@
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
+#include "libkwave/Utils.h"
 
 #include "libgui/Colors.h"
 
@@ -268,8 +269,8 @@ namespace Kwave
 	 * Converts a sample offset into a pixel offset.
 	 */
 	inline int samples2pixels(sample_index_t samples) {
-	    if (m_zoom == 0.0) return 0;
-	    return static_cast<int>(rint(static_cast<double>(samples) / m_zoom));
+	    if (m_zoom <= 0) return 0;
+	    return Kwave::toInt(rint(static_cast<double>(samples) / m_zoom));
 	}
 
 	/**
@@ -361,7 +362,7 @@ namespace Kwave
 	 * interpolation.
 	 * @see #calculateInterpolation()
 	 */
-	QVector<float> m_interpolation_alpha;
+	QVector<double> m_interpolation_alpha;
 
 	/** set of colors for drawing */
 	Kwave::Colors::ColorSet m_colors;

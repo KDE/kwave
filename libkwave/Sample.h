@@ -21,14 +21,14 @@
 //***************************************************************************
 
 #include <sys/types.h>
-#include <limits.h>
+#include <limits>
 #include <QtCore/QtGlobal>
 
 /** use a unsigned integer for sample offset/count calculations */
-typedef qulonglong sample_index_t;
+typedef quint64 sample_index_t;
 
 /** the highest possible sample index */
-#define SAMPLE_INDEX_MAX UINT_MAX
+#define SAMPLE_INDEX_MAX ( std::numeric_limits<sample_index_t>::max() )
 
 /** Currently a "sample" is defined as a 32 bit integer with 24 valid bits */
 typedef qint32 sample_t;
@@ -40,10 +40,10 @@ typedef qint32 sample_t;
 #define SAMPLE_STORAGE_BITS 32
 
 /** lowest sample value */
-#define SAMPLE_MIN (-(1<<(SAMPLE_BITS-1))+1)
+#define SAMPLE_MIN (-(1 << (SAMPLE_BITS - 1)) + 1)
 
 /** highest sample value */
-#define SAMPLE_MAX (+(1<<(SAMPLE_BITS-1))-1)
+#define SAMPLE_MAX (+(1 << (SAMPLE_BITS - 1)) - 1)
 
 /**
  * Simple conversion from float to sample_t

@@ -43,6 +43,7 @@
 #include "libkwave/Parser.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/LabelPropertiesWidget.h"
@@ -397,15 +398,15 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 
     // -- navigation --
     CASE_COMMAND("goto")
-	sample_index_t offset = parser.toUInt();
+	sample_index_t offset = parser.toSampleIndex();
 	setOffset((offset > (visible_samples / 2)) ?
 	          (offset - (visible_samples / 2)) : 0);
 	signal_manager->selectRange(offset, 0);
     CASE_COMMAND("view:scroll_right")
-	const unsigned int step = visible_samples / 10;
+	const sample_index_t step = visible_samples / 10;
 	setOffset(m_offset + step);
     CASE_COMMAND("view:scroll_left")
-	const unsigned int step = visible_samples / 10;
+	const sample_index_t step = visible_samples / 10;
 	setOffset((step < m_offset) ? (m_offset - step) : 0);
     CASE_COMMAND("view:scroll_start")
 	setOffset(0);
@@ -460,7 +461,7 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 
     // label handling
     CASE_COMMAND("add_label")
-	unsigned int pos = parser.toUInt();
+	sample_index_t pos = parser.toSampleIndex();
 	QString description = parser.nextParam();
 	addLabel(pos, description);
     CASE_COMMAND("edit_label")
@@ -556,7 +557,7 @@ void Kwave::MainWidget::resizeViewPort()
 	min = 0;
 	max = h - m_view_port.height();
 	m_vertical_scrollbar->setRange(min, max);
-	m_vertical_scrollbar->setValue(static_cast<int>(floor(val *
+	m_vertical_scrollbar->setValue(Kwave::toInt(floor(val *
 	    static_cast<double>(max))));
 	m_vertical_scrollbar->setSingleStep(1);
 	m_vertical_scrollbar->setPageStep(m_view_port.height());
@@ -614,11 +615,12 @@ void Kwave::MainWidget::refreshHorizontalScrollBar()
 	// max                            = length   / f - page
 	// pos  = (m_offset / length) * x = m_offset / f
 
-	const int f = qMax(1U, SAMPLE_INDEX_MAX / INT_MAX);
-	int page    = (visible  / f);
+	const sample_index_t f = static_cast<sample_index_t>(
+	    qMax(sample_index_t(1), SAMPLE_INDEX_MAX / INT_MAX));
+	int page    = Kwave::toInt(visible  / f);
 	int min     = 0;
-	int max     = (length   / f) - page;
-	int pos     = (m_offset / f);
+	int max     = Kwave::toInt((length   / f) - page);
+	int pos     = Kwave::toInt(m_offset / f);
 	int single  = qMax(1, (page / (10 * qApp->wheelScrollLines())));
 	if (page < single) page = single;
 // 	qDebug("width=%d, max=%d, page=%d, single=%d, pos=%d, visible=%d",
@@ -639,7 +641,8 @@ void Kwave::MainWidget::refreshHorizontalScrollBar()
 void Kwave::MainWidget::horizontalScrollBarMoved(int newval)
 {
     // new offset = pos * f
-    const int f = qMax(1U, SAMPLE_INDEX_MAX / INT_MAX);
+    const sample_index_t f = static_cast<sample_index_t>(
+	qMax(sample_index_t(1), SAMPLE_INDEX_MAX / INT_MAX));
     const sample_index_t pos = newval * f;
     setOffset(pos);
 }
@@ -679,7 +682,7 @@ sample_index_t Kwave::MainWidget::pixels2samples(unsigned int pixels) const
 int Kwave::MainWidget::samples2pixels(sample_index_t samples) const
 {
     if (m_zoom == 0.0) return 0;
-    return static_cast<int>(rint(static_cast<double>(samples) / m_zoom));
+    return Kwave::toInt(rint(static_cast<double>(samples) / m_zoom));
 }
 
 //***************************************************************************
@@ -767,10 +770,14 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
     // ensure that m_offset is [0...length-1]
     if (m_offset >= length) m_offset = (length - 1);
 
-    // ensure that the zoom is in a proper range
+    // ensure that the zoom is in a reasonable range
     max_zoom = fullZoom();
     min_zoom = static_cast<double>(MINIMUM_SAMPLES_PER_SCREEN) /
 	       static_cast<double>(m_width);
+
+    // ensure that pixel coordinates are within signed int range
+    min_zoom = qMax(min_zoom, static_cast<double>(length) / double(INT_MAX));
+
     if (m_zoom < min_zoom) m_zoom = min_zoom;
     if (m_zoom > max_zoom) m_zoom = max_zoom;
 

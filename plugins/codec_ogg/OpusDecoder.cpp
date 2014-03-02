@@ -41,6 +41,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/StandardBitrates.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/modules/RateConverter.h"
 
@@ -92,7 +93,7 @@ void Kwave::OpusDecoder::parseComment(Kwave::FileInfo &info,
 
 	// convert to a integer Q8 dB value
 	bool ok = false;
-	int q8gain = static_cast<int>(rint(val.toDouble(&ok) * 256.0));
+	int q8gain = Kwave::toInt(rint(val.toDouble(&ok) * 256.0));
 	if (ok && q8gain) {
 	    m_opus_header.gain += q8gain;
 	    qDebug("    OpusDecoder: %s %+0.1g dB", DBG(tag),
@@ -102,7 +103,7 @@ void Kwave::OpusDecoder::parseComment(Kwave::FileInfo &info,
     } else if ((tag == _("R128_TRACK_GAIN")) || (tag == _("R128_ALBUM_GAIN"))) {
 	// R128_... already is a 7.8 integer value
 	bool ok = false;
-	int q8gain = rint(val.toInt(&ok));
+	int q8gain = Kwave::toInt(rint(val.toDouble(&ok)));
 	if (ok && q8gain) {
 	    m_opus_header.gain += q8gain;
 	    qDebug("    OpusDecoder: %s %+0.1g dB", DBG(tag),
@@ -472,7 +473,7 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	qreal bitrate          = 196000; // just guessed
 	qreal rate             = rate_orig;
 	qreal seconds          = file_size / (bitrate / 8);
-	sample_index_t samples = seconds * rate;
+	sample_index_t samples = static_cast<sample_index_t>(seconds * rate);
 
 	qDebug("    OpusDecoder: estimated length: %llu samples", samples);
 	info.set(Kwave::INF_ESTIMATED_LENGTH, samples);
@@ -508,14 +509,14 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 
     int frames = opus_packet_get_nb_frames(m_op.packet, m_op.bytes);
     if(frames < 1 || frames > 48) {
-	qWarning("WARNING: Invalid packet TOC in packet #%u",
-	         static_cast<unsigned int>(m_op.packetno));
+	qWarning("WARNING: Invalid packet TOC in packet #%llu",
+	         m_op.packetno);
     }
     int spf = opus_packet_get_samples_per_frame(m_op.packet, 48000);
     int spp = frames * spf;
     if (spp < 120 || spp > 5760 || (spp % 120) != 0) {
-	qWarning("WARNING: Invalid packet TOC in packet #%u",
-	         static_cast<unsigned int>(m_op.packetno));
+	qWarning("WARNING: Invalid packet TOC in packet #%llu",
+	         m_op.packetno);
     }
 
     if (spp < m_packet_len_min) m_packet_len_min = spp;
@@ -553,7 +554,7 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 
     // manually apply the gain if necessary
     if (m_opus_header.gain) {
-	const float g = pow(10.0, m_opus_header.gain / (20.0 * 256.0));
+	const float g = powf(10.0f, m_opus_header.gain / (20.0f * 256.0f));
 	for (int i = 0; i < (length * m_opus_header.channels); i++)
 	    m_raw_buffer[i] *= g;
     }
@@ -597,7 +598,7 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 	m_opus_header.preskip;
 
     if ((m_samples_written + length) > last) {
-	int diff = (m_samples_written + length) - last;
+	int diff = Kwave::toInt((m_samples_written + length) - last);
 	if (diff > length) return 0;
 	length -= diff;
     }
@@ -690,7 +691,8 @@ void Kwave::OpusDecoder::close(Kwave::FileInfo &info)
     // n_seconds = n_samples / sample_rate
     // => bitrate = (n_bytes * 8) / (n_samples / sample_rate)
     const double sr = Kwave::opus_next_sample_rate(m_opus_header.sample_rate);
-    int bitrate = ((m_bytes_count * 8) * sr) / m_samples_written;
+    int bitrate = Kwave::toInt(
+	((m_bytes_count * 8) * sr) / m_samples_written);
     qDebug("    OpusDecoder: average bitrate: %d bits/sec", bitrate);
     info.set(INF_BITRATE_NOMINAL, QVariant(bitrate));
 

@@ -31,22 +31,24 @@
 
 #include <klocale.h>
 
+#include "libkwave/Utils.h"
+
 #include "LevelMeter.h"
 
 /** number of display updates per second */
-static const float UPDATES_PER_SECOND = 8.0;
+static const float UPDATES_PER_SECOND = 8.0f;
 
 /** lowpass frequency used for rising the current (fast) value [Hz] */
-static const float F_FAST_RISE = (20.0);
+static const float F_FAST_RISE = (20.0f);
 
 /** lowpass frequency used for decay of the current (fast) value [Hz] */
-static const float F_FAST_DECAY = (0.5);
+static const float F_FAST_DECAY = (0.5f);
 
 /** lowpass frequency used for rising the peak values */
 static const float F_PEAK_RISE = (F_FAST_RISE);
 
 /** lowpass frequency used for decay of peak values [Hz] */
-static const float F_PEAK_DECAY = (0.005);
+static const float F_PEAK_DECAY = (0.005f);
 
 //***************************************************************************
 Kwave::LevelMeter::LevelMeter(QWidget *parent)
@@ -86,7 +88,7 @@ void Kwave::LevelMeter::resizeEvent(QResizeEvent *)
 //***************************************************************************
 void Kwave::LevelMeter::setTracks(unsigned int tracks)
 {
-    if (static_cast<int>(tracks) == m_tracks) return;
+    if (Kwave::toInt(tracks) == m_tracks) return;
     m_tracks = tracks;
     reset(); // re-create all arrays etc.
 }
@@ -102,46 +104,45 @@ void Kwave::LevelMeter::setSampleRate(double rate)
 void Kwave::LevelMeter::updateTrack(unsigned int track,
                                     const Kwave::SampleArray &buffer)
 {
-    Q_ASSERT(static_cast<int>(track) < m_tracks);
-    if (static_cast<int>(track) >= m_tracks) return;
+    Q_ASSERT(Kwave::toInt(track) < m_tracks);
+    if (Kwave::toInt(track) >= m_tracks) return;
 
     // calculate the number of samples per update (approx)
     const unsigned int samples = buffer.size();
-    const unsigned int samples_per_update =
-        static_cast<const unsigned int>(
+    const unsigned int samples_per_update = Kwave::toUint(
         rint(ceil(m_sample_rate/UPDATES_PER_SECOND)));
     unsigned int next_fraction = samples_per_update;
     const unsigned int queue_depth = ((samples / samples_per_update) + 2);
 
     /* fast update: rise */
     float Fg = F_FAST_RISE / m_sample_rate;
-    float n = 1.0 / tan(M_PI * Fg);
-    const float a0_fr = 1.0 / (1.0 + n);
-    const float b1_fr = (1.0 - n) / (1.0 + n);
+    float n = 1.0f / tanf(float(M_PI) * Fg);
+    const float a0_fr = 1.0f / (1.0f + n);
+    const float b1_fr = (1.0f - n) / (1.0f + n);
 
     /* fast update: decay */
     Fg = F_FAST_DECAY / m_sample_rate;
-    n = 1.0 / tan(M_PI * Fg);
-    const float a0_fd = 1.0 / (1.0 + n);
-    const float b1_fd = (1.0 - n) / (1.0 + n);
+    n = 1.0f / tanf(float(M_PI) * Fg);
+    const float a0_fd = 1.0f / (1.0f + n);
+    const float b1_fd = (1.0f - n) / (1.0f + n);
 
     /* peak value: rise */
     Fg = F_PEAK_RISE / m_sample_rate;
-    n = 1.0 / tan(M_PI * Fg);
-    const float a0_pr = 1.0 / (1.0 + n);
-    const float b1_pr = (1.0 - n) / (1.0 + n);
+    n = 1.0f / tanf(float(M_PI) * Fg);
+    const float a0_pr = 1.0f / (1.0f + n);
+    const float b1_pr = (1.0f - n) / (1.0f + n);
 
     /* peak value: decay */
     Fg = F_PEAK_DECAY / m_sample_rate;
-    n = 1.0 / tan(M_PI * Fg);
-    const float a0_pd = 1.0 / (1.0 + n);
-    const float b1_pd = (1.0 - n) / (1.0 + n);
+    n = 1.0f / tanf(float(M_PI) * Fg);
+    const float a0_pd = 1.0f / (1.0f + n);
+    const float b1_pd = (1.0f - n) / (1.0f + n);
 
     float yf = m_yf[track];
     float yp = m_yp[track];
     float last_x = yf;
-    for (unsigned int t=0; t < samples; ++t) {
-	float x = fabs(sample2float(buffer[t])); /* rectifier */
+    for (unsigned int t = 0; t < samples; ++t) {
+	float x = fabsf(sample2float(buffer[t])); /* rectifier */
 
 	/* fast value */
 	if (x > yf) yf = (a0_fr * x) + (a0_fr * last_x) - (b1_fr * yf); // rise
@@ -191,18 +192,18 @@ void Kwave::LevelMeter::reset()
 void Kwave::LevelMeter::enqueue(unsigned int track, float fast, float peak,
                                 unsigned int queue_depth)
 {
-    Q_ASSERT(static_cast<int>(track) < m_tracks);
+    Q_ASSERT(Kwave::toInt(track) < m_tracks);
     Q_ASSERT(m_peak_queue.size() == m_fast_queue.size());
     Q_ASSERT(m_fast_queue.size() >= m_tracks);
     Q_ASSERT(m_peak_queue.size() >= m_tracks);
-    if ((static_cast<int>(track) >= m_tracks) ||
-	(m_fast_queue.size() < static_cast<int>(m_tracks)) ||
+    if ((Kwave::toInt(track) >= m_tracks) ||
+	(m_fast_queue.size() < Kwave::toInt(m_tracks)) ||
 	(m_peak_queue.size() < m_tracks)) return;
     Q_ASSERT(m_peak_queue[track].size() == m_fast_queue[track].size());
     if (m_peak_queue[track].size() != m_fast_queue[track].size()) return;
 
     // remove old entries
-    while (m_fast_queue[track].size() > static_cast<int>(queue_depth)) {
+    while (m_fast_queue[track].size() > Kwave::toInt(queue_depth)) {
 //	qDebug("LevelMeter::enqueue(): purging old entry (%u/%u)",
 //	       m_fast_queue.size(), queue_depth);
 	m_fast_queue[track].dequeue();
@@ -215,7 +216,7 @@ void Kwave::LevelMeter::enqueue(unsigned int track, float fast, float peak,
 
     // restart the timer if necessary
     if (m_timer && !m_timer->isActive()) {
-	m_timer->setInterval(static_cast<int>(1000 / UPDATES_PER_SECOND));
+	m_timer->setInterval(Kwave::toInt(1000 / UPDATES_PER_SECOND));
 	m_timer->setSingleShot(false);
 	m_timer->start();
     }
@@ -227,7 +228,7 @@ bool Kwave::LevelMeter::dequeue(unsigned int track, float &fast, float &peak)
     Q_ASSERT(m_peak_queue.size() == m_fast_queue.size());
     Q_ASSERT(m_fast_queue.size() >= m_tracks);
     Q_ASSERT(m_peak_queue.size() >= m_tracks);
-    if ((static_cast<int>(track) >= m_tracks) ||
+    if ((Kwave::toInt(track) >= m_tracks) ||
 	(m_fast_queue.size() < m_tracks) ||
 	(m_peak_queue.size() < m_tracks)) return false;
     Q_ASSERT(m_peak_queue[track].size() == m_fast_queue[track].size());
@@ -297,7 +298,7 @@ void Kwave::LevelMeter::drawScale(QPainter &p)
 	int x;
 	do {
 	    txt = i18n("%1 dB", db);
-	    x = static_cast<int>(static_cast<double>(w) *
+	    x = Kwave::toInt(static_cast<double>(w) *
 		pow(10.0, static_cast<double>(db) / 20.0));
 	    db -= 3; // one step left == -3dB
 	} while ((x > right) && (x >= tw));
@@ -343,7 +344,7 @@ void Kwave::LevelMeter::drawScale(QPainter &p)
 void Kwave::LevelMeter::drawContents()
 {
     QPainter p;
-    unsigned int track;
+    int track;
 
     Q_ASSERT(width() > 0);
     Q_ASSERT(height() > 0);
@@ -358,13 +359,12 @@ void Kwave::LevelMeter::drawContents()
     const unsigned int w = width() - (border * 2) - (cell * 2);
     const unsigned int h = (height() - border) / (m_tracks ? m_tracks : 1);
 
-    const unsigned int w_low  = static_cast<int>(w * 0.7);  // -3 dB
-    const unsigned int w_high = static_cast<int>(w * 0.85); // -1.5dB
+    const unsigned int w_low  = Kwave::toUint(w * 0.7);  // -3 dB
+    const unsigned int w_high = Kwave::toUint(w * 0.85); // -1.5dB
 
-    for (track=0; track < static_cast<unsigned int>(m_tracks); track++) {
+    for (track = 0; track < m_tracks; track++) {
 	// show a bar up to the "fast" value
-	const unsigned int fast = static_cast<const unsigned int>(
-	    m_current_fast[track] * w);
+	const unsigned int fast = Kwave::toUint(m_current_fast[track] * w);
 	for (unsigned int i = 0; i < w; i += cell * 2) {
 	    QColor color;
 	    if (i >= w_high)
@@ -376,15 +376,14 @@ void Kwave::LevelMeter::drawContents()
 
 	    p.fillRect(
 		border + cell + i,
-		border + (track*h),
+		border + (track * h),
 		cell, h-border,
 		(i > fast) ? color.dark() : color
 	    );
 	}
 
 	// draw the peak value
-	unsigned int peak = static_cast<unsigned int>(
-	    m_current_peak[track] * w);
+	unsigned int peak = Kwave::toUint(m_current_peak[track] * w);
 	QColor peak_color;
 	if (peak >= w_high)
 	    peak_color = m_color_high;
@@ -395,8 +394,8 @@ void Kwave::LevelMeter::drawContents()
 
 	p.fillRect(
 	    border + cell + peak,
-	    border + (track*h),
-	    cell, h-border,
+	    border + (track * h),
+	    cell, h - border,
 	    peak_color.light()
 	);
     }

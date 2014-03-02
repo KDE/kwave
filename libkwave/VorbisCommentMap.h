@@ -36,7 +36,7 @@ namespace Kwave
 	VorbisCommentMap();
 
 	/** Destructor */
-	virtual ~VorbisCommentMap() {};
+	virtual ~VorbisCommentMap() {}
 
 	/**
 	 * Returns the vorbis comment name of a property or an empty string

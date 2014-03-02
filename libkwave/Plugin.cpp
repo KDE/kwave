@@ -38,6 +38,7 @@
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 #include "libkwave/WorkerThread.h"
 
 #ifdef DEBUG
@@ -268,7 +269,8 @@ void Kwave::Plugin::updateProgressTick()
     Q_ASSERT(this->thread() == qApp->thread());
 
     QMutexLocker lock(&m_progress_lock);
-    if (m_progress) m_progress->setValue(m_current_progress);
+    if (m_progress) m_progress->setValue(
+	Kwave::toInt(qBound<double>(0.0, m_current_progress, PROGRESS_MAXIMUM)));
 }
 
 //***************************************************************************
@@ -454,7 +456,7 @@ double Kwave::Plugin::signalRate()
 //***************************************************************************
 const QList<unsigned int> Kwave::Plugin::selectedTracks()
 {
-    return manager().selectedTracks();
+    return signalManager().selectedTracks();
 }
 
 //***************************************************************************
@@ -474,7 +476,7 @@ sample_index_t Kwave::Plugin::selection(QList<unsigned int> *tracks,
     }
 
     // get the list of selected tracks
-    if (tracks) *tracks = manager().selectedTracks();
+    if (tracks) *tracks = signalManager().selectedTracks();
 
     if (left)  *left  = l;
     if (right) *right = r;

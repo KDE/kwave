@@ -71,9 +71,9 @@ namespace Kwave
 	     * @param pos position within the signal where to insert the data
 	     * @return number of decoded samples if successful, zero if failed
 	     */
-	    static unsigned int decode(QWidget *widget, const QMimeData *e,
-	                               Kwave::SignalManager &sig,
-	                               sample_index_t pos);
+	    static sample_index_t decode(QWidget *widget, const QMimeData *e,
+	                                 Kwave::SignalManager &sig,
+	                                 sample_index_t pos);
 
 	    /**
 	     * Clears the content, makes the storage an empty byte array

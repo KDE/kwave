@@ -23,6 +23,7 @@
 #include "libkwave/InsertMode.h"
 #include "libkwave/Track.h"
 #include "libkwave/TrackWriter.h"
+#include "libkwave/Utils.h"
 
 /** minimum time between emitting the "progress()" signal [ms] */
 #define MIN_PROGRESS_INTERVAL 500
@@ -50,7 +51,7 @@ bool Kwave::TrackWriter::write(const Kwave::SampleArray &buffer,
 {
     if ((m_mode == Kwave::Overwrite) && (m_position + count > m_last + 1)) {
 	// need clipping
-	count = m_last + 1 - m_position;
+	count = Kwave::toUint(m_last + 1 - m_position);
 // 	qDebug("TrackWriter::write() clipped to count=%u", count);
     }
 

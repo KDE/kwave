@@ -65,7 +65,7 @@ namespace Kwave
 	Mode startMode() {
 	    return select_start ? select_start->mode() :
 		Kwave::SelectTimeWidget::bySamples;
-	};
+	}
 
 	/**
 	 * Returns the current selection mode for the range
@@ -74,7 +74,7 @@ namespace Kwave
 	Mode rangeMode() {
 	    return select_range ? select_range->mode() :
 		Kwave::SelectTimeWidget::bySamples;
-	};
+	}
 
 	/** Set a new selection mode */
 	void setMode(Kwave::SelectTimeWidget::Mode new_mode);
@@ -82,10 +82,14 @@ namespace Kwave
 	/**
 	* Returns the current start position (byTime, bySamples, byPercents)
 	*/
-	unsigned int start() { return select_start ? select_start->time() : 0; };
+	sample_index_t start() {
+	    return select_start ? select_start->time() : 0;
+	}
 
 	/** Returns the number of ms, samples or percents */
-	unsigned int range() { return select_range ? select_range->time() : 0; };
+	sample_index_t range() {
+	    return (select_range) ? select_range->time() : 0;
+	}
 
     };
 }

@@ -27,6 +27,8 @@
 
 #include <klocale.h>
 
+#include "libkwave/Utils.h"
+
 #include "libgui/CurveWidget.h"
 #include "libgui/InvertableSpinBox.h"
 #include "libgui/ImageView.h"
@@ -171,8 +173,8 @@ void Kwave::VolumeDialog::updateDisplay(double value)
 
 	    // color transformation: mark the peaks in light red
 	    int middle = height >> 1;
-	    int red    = static_cast<int>(middle * 0.841); // -1.5dB
-	    int orange = static_cast<int>(middle * 0.707); // -3.0dB
+	    int red    = Kwave::toInt(middle * 0.841); // -1.5dB
+	    int orange = Kwave::toInt(middle * 0.707); // -3.0dB
 
 	    QPainter p;
 	    p.begin(&image);
@@ -211,9 +213,9 @@ void Kwave::VolumeDialog::updateDisplay(double value)
 	    // -1 => /2
 	    //  0 => x1
 	    // +1 => x2
-	    if (static_cast<int>(rint(m_factor)) >= 1) {
+	    if (Kwave::toInt(rint(m_factor)) >= 1) {
 		// greater or equal to one -> multiply
-		int new_value = static_cast<int>(rint(value));
+		int new_value = Kwave::toInt(rint(value));
 		spinbox->setPrefix(_("x "));
 		spinbox->setSuffix(_(""));
 		spinbox->setInverse(false);
@@ -222,7 +224,7 @@ void Kwave::VolumeDialog::updateDisplay(double value)
 		new_slider_value = new_value-1;
 	    } else {
 		// less than one -> divide
-		int new_value = static_cast<int>(rint(-1.0 / value));
+		int new_value = Kwave::toInt(rint(-1.0 / value));
 
 		spinbox->setPrefix(_("1/"));
 		spinbox->setSuffix(_(""));
@@ -238,7 +240,7 @@ void Kwave::VolumeDialog::updateDisplay(double value)
 	}
 	case MODE_PERCENT: {
 	    // factor 1.0 means 100%
-	    new_spinbox_value = static_cast<int>(rint(value * 100.0));
+	    new_spinbox_value = Kwave::toInt(rint(value * 100.0));
 	    new_slider_value = new_spinbox_value;
 	    spinbox->setPrefix(_(""));
 	    spinbox->setSuffix(_("%"));
@@ -247,7 +249,7 @@ void Kwave::VolumeDialog::updateDisplay(double value)
 	}
 	case MODE_DECIBEL: {
 	    // factor 1.0 means 0dB
-	    new_slider_value = static_cast<int>(rint(20.0 * log10(value)));
+	    new_slider_value = Kwave::toInt(rint(20.0 * log10(value)));
 	    new_spinbox_value = new_slider_value;
 	    if (new_spinbox_value >= 0) {
 		spinbox->setPrefix(new_spinbox_value ? _("+") : _("+/- "));

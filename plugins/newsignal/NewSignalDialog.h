@@ -26,6 +26,8 @@
 
 #include "ui_NewSigDlg.h"
 
+#include "libkwave/Sample.h"
+
 class QString;
 
 namespace Kwave
@@ -44,15 +46,15 @@ namespace Kwave
 	 * @param tracks default tracks
 	 * @param by_time if true: select by time, if false: select by samples
 	 */
-	NewSignalDialog(QWidget *parent, unsigned int samples,
+	NewSignalDialog(QWidget *parent, sample_index_t samples,
 	                unsigned int rate, unsigned int bits,
 	                unsigned int tracks, bool by_time);
 
 	/** Destructor */
-	virtual ~NewSignalDialog() {};
+	virtual ~NewSignalDialog() {}
 
 	/** Returns the number of samples */
-	unsigned int samples();
+	sample_index_t samples();
 
 	/** Returns the selected sample rate [samples/second] */
 	double rate();
@@ -108,13 +110,13 @@ namespace Kwave
 	 * with the current settings, based on the maximum file size of a .wav
 	 * file and the header sizes.
 	 */
-	unsigned int maxSamples();
+	sample_index_t maxSamples();
 
 	/**
 	 * Sets hours, minutes and seconds according to a given
 	 * number of samples.
 	 */
-	void setHMS(const double &samples);
+	void setHMS(sample_index_t &samples);
 
     private:
 

@@ -53,7 +53,7 @@ namespace Kwave
 	 * @param tracks number of tracks
 	 */
 	FileProgress(QWidget *parent,
-	    const QUrl &url, unsigned int size,
+	    const QUrl &url, quint64 size,
 	    sample_index_t samples, double rate, unsigned int bits,
 	    unsigned int tracks);
 

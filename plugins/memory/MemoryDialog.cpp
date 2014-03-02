@@ -35,6 +35,7 @@
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "MemoryDialog.h"
 
@@ -49,11 +50,12 @@ Kwave::MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
     setModal(true);
 
     Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
-    unsigned int total_physical = mem.totalPhysical();
+    int total_physical = Kwave::toInt(qMin(
+	mem.totalPhysical(), static_cast<quint64>(INT_MAX)));
 
     if (!isOK()) return;
 
-    if (physical_limit > total_physical) physical_limit = total_physical;
+    physical_limit = qMin(physical_limit, Kwave::toUint(total_physical));
 
     // connect the controls
     connect(chkEnableVirtual, SIGNAL(toggled(bool)),

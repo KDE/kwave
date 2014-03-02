@@ -29,6 +29,8 @@
 #include <knuminput.h>
 #include <kpushbutton.h>
 
+#include "libkwave/Utils.h"
+
 #include "libgui/ScaleWidget.h"
 #include "libgui/FrequencyResponseWidget.h"
 
@@ -47,11 +49,11 @@ Kwave::LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     // set maximum frequency to sample rate / 2
     double f_max = sample_rate / 2.0;
 
-    slider->setMaximum(static_cast<int>(f_max));
-    spinbox->setMaximum(static_cast<int>(f_max));
+    slider->setMaximum(Kwave::toInt(f_max));
+    spinbox->setMaximum(Kwave::toInt(f_max));
 
     // initialize the frequency scale widget
-    scale_freq->setMinMax(0, static_cast<int>(f_max));
+    scale_freq->setMinMax(0, Kwave::toInt(f_max));
     scale_freq->setLogMode(false);
     scale_freq->setUnit(i18n("Hz"));
 
@@ -68,8 +70,8 @@ Kwave::LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     freq_response->setFilter(m_filter);
 
     // initialize the controls and the curve display
-    slider->setValue(static_cast<int>(m_frequency));
-    spinbox->setValue(static_cast<int>(m_frequency));
+    slider->setValue(Kwave::toInt(m_frequency));
+    spinbox->setValue(Kwave::toInt(m_frequency));
     updateDisplay();
 
     // changes in the slider or spinbox
@@ -110,7 +112,7 @@ Kwave::LowPassDialog::~LowPassDialog()
 //***************************************************************************
 void Kwave::LowPassDialog::valueChanged(int pos)
 {
-    if (static_cast<int>(m_frequency) != pos) {
+    if (Kwave::toInt(m_frequency) != pos) {
 	m_frequency = pos;
 	updateDisplay();
 
@@ -135,8 +137,8 @@ void Kwave::LowPassDialog::setParams(QStringList &params)
     Q_ASSERT(ok);
     if (ok) m_frequency = frequency;
 
-    slider->setValue(static_cast<int>(m_frequency));
-    spinbox->setValue(static_cast<int>(m_frequency));
+    slider->setValue(Kwave::toInt(m_frequency));
+    spinbox->setValue(Kwave::toInt(m_frequency));
 
     updateDisplay();
 }

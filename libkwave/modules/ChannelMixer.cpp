@@ -28,6 +28,7 @@
 
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/Sample.h"
+#include "libkwave/Utils.h"
 #include "libkwave/modules/ChannelMixer.h"
 #include "libkwave/modules/Indexer.h"
 #include "libkwave/modules/StreamObject.h"
@@ -52,8 +53,8 @@ bool Kwave::ChannelMixer::init()
 
     // create queues for the input data
     m_input_queue.resize(m_inputs);
-    Q_ASSERT(m_input_queue.count() == static_cast<int>(m_inputs));
-    if (m_input_queue.count() != static_cast<int>(m_inputs)) return false;
+    Q_ASSERT(m_input_queue.count() == Kwave::toInt(m_inputs));
+    if (m_input_queue.count() != Kwave::toInt(m_inputs)) return false;
 
     // create the buffers for the output data
     for (unsigned int index = 0; index < m_outputs; index++) {
@@ -142,13 +143,13 @@ Kwave::StreamObject *Kwave::ChannelMixer::port(const char *port,
 
     if (_sig(port) == _sig(SLOT(input(Kwave::SampleArray)))) {
 	// input proxy
-	Q_ASSERT(static_cast<int>(track) < m_indexer.count());
-	if (static_cast<int>(track) >= m_indexer.count()) return 0;
+	Q_ASSERT(Kwave::toInt(track) < m_indexer.count());
+	if (Kwave::toInt(track) >= m_indexer.count()) return 0;
 	return m_indexer.at(track);
     } else if (_sig(port) == _sig(SIGNAL(output(Kwave::SampleArray)))) {
 	// output proxy
-	Q_ASSERT(static_cast<int>(track) < m_output_buffer.count());
-	if (static_cast<int>(track) >= m_output_buffer.count()) return 0;
+	Q_ASSERT(Kwave::toInt(track) < m_output_buffer.count());
+	if (Kwave::toInt(track) >= m_output_buffer.count()) return 0;
 	return m_output_buffer[track];
     } else if (_sig(port) ==
 	       _sig(SLOT(idxInput(unsigned int, Kwave::SampleArray)))) {
@@ -165,8 +166,8 @@ void Kwave::ChannelMixer::idxInput(unsigned int index, Kwave::SampleArray data)
 
     // put the data into the corresponding input queue
     Q_ASSERT(index < m_inputs);
-    Q_ASSERT(static_cast<int>(index) < m_input_queue.count());
-    if (static_cast<int>(index) < m_input_queue.count())
+    Q_ASSERT(Kwave::toInt(index) < m_input_queue.count());
+    if (Kwave::toInt(index) < m_input_queue.count())
 	m_input_queue[index].enqueue(data);
 
     // check: if there is one empty queue we are not yet ready for mixing

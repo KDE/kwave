@@ -131,7 +131,7 @@ namespace Kwave
 	 * @param offset position within the source, no range checks!
 	 * @return string with 4 bytes
 	 */
-	QByteArray read4ByteString(quint32 offset);
+	QByteArray read4ByteString(qint64 offset);
 
 	/**
 	 * Tries to find the chunk name in the list of known main

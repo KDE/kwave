@@ -190,7 +190,7 @@ namespace Kwave
 	void setFileFilter(const QString &filter);
 
 	/** updates the number of recorded samples */
-	void setRecordedSamples(unsigned int samples_recorded);
+	void setRecordedSamples(sample_index_t samples_recorded);
 
 	/** show a message in the status bar */
 	void message(const QString &message);
@@ -330,7 +330,7 @@ namespace Kwave
 	 * time limit, for determining if recording should be enabled
 	 * or not. Also used in status bar for displaying the recorded time.
 	 */
-	unsigned int m_samples_recorded;
+	sample_index_t m_samples_recorded;
 
 	/** if false, do nothing in setDevice */
 	bool m_enable_setDevice;

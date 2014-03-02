@@ -31,6 +31,7 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/modules/RateConverter.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
@@ -109,7 +110,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
     } else {
 	length = selection(&tracks, &first, &last, true);
 	if ((length == signalLength()) &&
-	    (tracks.count() == static_cast<int>(mgr.tracks())))
+	    (tracks.count() == Kwave::toInt(mgr.tracks())))
 	{
 	    // manually selected the whole signal
 	    m_whole_signal = true;
@@ -123,7 +124,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 
     // calculate the new length
     double ratio = m_new_rate / old_rate;
-    sample_index_t new_length = length * ratio;
+    sample_index_t new_length = static_cast<sample_index_t>(length * ratio);
     if ((new_length == length) || !new_length) return;
 
     // if the new length is bigger than the current length,

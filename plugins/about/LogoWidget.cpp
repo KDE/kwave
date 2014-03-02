@@ -27,6 +27,8 @@
 #include <QtGui/QPolygon>
 #include <QtCore/QTimer>
 
+#include "libkwave/Utils.h"
+
 #include "logo.xpm"
 #include "LogoWidget.h"
 
@@ -109,8 +111,8 @@ void Kwave::LogoWidget::paintEvent(QPaintEvent *)
 	int ampy = (m_logo.height() - m_height) / 2;
 	p.setCompositionMode(QPainter::CompositionMode_Source);
 	p.drawPixmap(
-	    -ampx + static_cast<int>(sin(m_deg[0]) * ampx),
-	    -ampy + static_cast<int>(sin(m_deg[1]) * ampy),
+	    -ampx + Kwave::toInt(sin(m_deg[0]) * ampx),
+	    -ampy + Kwave::toInt(sin(m_deg[1]) * ampy),
 	    m_logo);
 
 	// draw the sine waves with XOR
@@ -121,9 +123,9 @@ void Kwave::LogoWidget::paintEvent(QPaintEvent *)
 
 	double amp = sin(m_deg[MAXSIN - 1] * 3);
 	for (int j = 0; j < MAXSIN; j++) {
-	    for (int i=0; i < 21; i++) {
-		si.setPoint(i, (j*m_width/MAXSIN) +
-		    static_cast<int>(amp * sin(M_PI * i / 10 + m_deg[j])
+	    for (int i = 0; i < 21; i++) {
+		si.setPoint(i, (j * m_width / MAXSIN) +
+		    Kwave::toInt(amp * sin(M_PI * i / 10 + m_deg[j])
 			* m_width / 2),
 		    m_height * i / 20);
 	    }

@@ -62,23 +62,19 @@
 
 #define _(m) m
 #define xprintf printf
-#define xine 0
-#define XINE_VERBOSITY_LOG                 1
 
 void probe_fast_memcpy(void);
 int mm_support(void);
 
 #endif /* XINE_COMPILE */
 
-#define LOG_MODULE "memcpy"
-#define LOG_VERBOSE
 /*
 #define LOG
 */
 
 /* #include "xine_internal.h" */
 
-void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
+static void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 
 /* Original comments from mplayer (file: aclib.c)
  This part of code was taken by me from Linux-2.4.3 and slightly modified

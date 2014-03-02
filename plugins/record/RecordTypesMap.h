@@ -35,7 +35,7 @@ namespace Kwave
 	}
 
 	/** Destructor */
-	virtual ~RecordTypesMap() {};
+	virtual ~RecordTypesMap() {}
 
 	/** fill function for the map */
 	virtual void fill();

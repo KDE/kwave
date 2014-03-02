@@ -54,6 +54,7 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 #include "libkwave/Track.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 #include "libkwave/undo/UndoAction.h"
@@ -174,7 +175,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	    Kwave::Track *t = m_signal.appendTrack(length, 0);
 	    Q_ASSERT(t);
 	    if (!t || (t->length() != length)) {
-		qWarning("out of memory");
+		qWarning("SignalManager::loadFile: out of memory");
 		res = -ENOMEM;
 		break;
 	    }
@@ -189,7 +190,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 
 	// try to calculate the resulting length, but if this is
 	// not possible, we try to use the source length instead
-	unsigned int resulting_size = info.tracks() * info.length() *
+	quint64 resulting_size = info.tracks() * info.length() *
 	                              (info.bits() >> 3);
 	bool use_src_size = (!resulting_size);
 	if (use_src_size) resulting_size = src.size();
@@ -243,7 +244,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	// enter the filename/mimetype and size into the file info
 	QFileInfo fi(src);
 	info.set(Kwave::INF_FILENAME, fi.absoluteFilePath());
-	info.set(Kwave::INF_FILESIZE, static_cast<unsigned int>(src.size()));
+	info.set(Kwave::INF_FILESIZE, src.size());
 	if (!info.contains(Kwave::INF_MIMETYPE))
 	    info.set(Kwave::INF_MIMETYPE, mimetype);
 
@@ -407,7 +408,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 
 	// prepare and show the progress dialog
 	Kwave::FileProgress *dialog = new Kwave::FileProgress(m_parent_widget,
-	    filename, file_info.tracks() * file_info.length() *
+	    filename, file_info.length() * file_info.tracks() *
 	    (file_info.bits() >> 3),
 	    file_info.length(), file_info.rate(), file_info.bits(),
 	    file_info.tracks());
@@ -579,11 +580,10 @@ QString Kwave::SignalManager::signalName()
 //***************************************************************************
 const QList<unsigned int> Kwave::SignalManager::selectedTracks()
 {
-    unsigned int track;
     QList<unsigned int> list;
     const unsigned int tracks = this->tracks();
 
-    for (track = 0; track < tracks; track++) {
+    for (unsigned int track = 0; track < tracks; track++) {
 	if (!m_signal.trackSelected(track)) continue;
 	list.append(track);
     }
@@ -636,7 +636,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	Kwave::ClipBoard &clip = Kwave::ClipBoard::instance();
 	if (clip.isEmpty()) return 0;
 	if (!selectedTracks().size()) return 0;
-	sample_index_t offset = parser.toUInt();
+	sample_index_t offset = parser.toSampleIndex();
 
 	Kwave::UndoTransactionGuard undo(*this,
 	                                 i18n("Insert Clipboard at position"));
@@ -1424,9 +1424,9 @@ bool Kwave::SignalManager::registerUndoAction(Kwave::UndoAction *action)
     }
 
     // check if the undo action is too large
-    unsigned int limit_mb     = Kwave::MemoryManager::instance().undoLimit();
-    unsigned int needed_size  = action->undoSize();
-    unsigned int needed_mb = needed_size  >> 20;
+    qint64 limit_mb     = Kwave::MemoryManager::instance().undoLimit();
+    qint64 needed_size  = action->undoSize();
+    qint64 needed_mb    = needed_size  >> 20;
     if (needed_mb > limit_mb) {
 	delete action;
 	return continueWithoutUndo();
@@ -1474,9 +1474,9 @@ bool Kwave::SignalManager::saveUndoDelete(QList<unsigned int> &track_list,
 }
 
 //***************************************************************************
-unsigned int Kwave::SignalManager::usedUndoRedoMemory()
+qint64 Kwave::SignalManager::usedUndoRedoMemory()
 {
-    unsigned int size = 0;
+    qint64 size = 0;
 
     foreach (Kwave::UndoTransaction *undo, m_undo_buffer)
 	if (undo) size += undo->undoSize();
@@ -1488,17 +1488,16 @@ unsigned int Kwave::SignalManager::usedUndoRedoMemory()
 }
 
 //***************************************************************************
-void Kwave::SignalManager::freeUndoMemory(unsigned int needed)
+void Kwave::SignalManager::freeUndoMemory(qint64 needed)
 {
-    unsigned int size = usedUndoRedoMemory() + needed;
-    unsigned int undo_limit =
-	Kwave::MemoryManager::instance().undoLimit() << 20;
+    qint64 size = usedUndoRedoMemory() + needed;
+    qint64 undo_limit = Kwave::MemoryManager::instance().undoLimit() << 20;
 
     // remove old undo actions if not enough free memory
     while (!m_undo_buffer.isEmpty() && (size > undo_limit)) {
 	Kwave::UndoTransaction *undo = m_undo_buffer.takeFirst();
 	if (!undo) continue;
-	unsigned int s = undo->undoSize();
+	qint64 s = undo->undoSize();
 	size = (size >= s) ? (size - s) : 0;
 	delete undo;
 
@@ -1511,7 +1510,7 @@ void Kwave::SignalManager::freeUndoMemory(unsigned int needed)
     while (!m_redo_buffer.isEmpty() && (size > undo_limit)) {
 	Kwave::UndoTransaction *redo = m_redo_buffer.takeLast();
 	if (!redo) continue;
-	unsigned int s = redo->undoSize();
+	qint64 s = redo->undoSize();
 	size = (size >= s) ? (size - s) : 0;
 	delete redo;
     }
@@ -1569,10 +1568,9 @@ void Kwave::SignalManager::undo()
     m_undo_enabled = false;
 
     // get free memory for redo
-    unsigned int undo_limit =
-	Kwave::MemoryManager::instance().undoLimit() << 20;
-    unsigned int redo_size = undo_transaction->redoSize();
-    unsigned int undo_size = undo_transaction->undoSize();
+    qint64 undo_limit = Kwave::MemoryManager::instance().undoLimit() << 20;
+    qint64 redo_size = undo_transaction->redoSize();
+    qint64 undo_size = undo_transaction->undoSize();
     Kwave::UndoTransaction *redo_transaction = 0;
     if ((redo_size > undo_size) && (redo_size - undo_size > undo_limit)) {
 	// not enough memory for redo
@@ -1711,10 +1709,9 @@ void Kwave::SignalManager::redo()
     m_undo_enabled = false;
 
     // get free memory for undo
-    unsigned int undo_limit =
-	Kwave::MemoryManager::instance().undoLimit() << 20;
-    unsigned int undo_size = redo_transaction->undoSize();
-    unsigned int redo_size = redo_transaction->redoSize();
+    qint64 undo_limit = Kwave::MemoryManager::instance().undoLimit() << 20;
+    qint64 undo_size = redo_transaction->undoSize();
+    qint64 redo_size = redo_transaction->redoSize();
     Kwave::UndoTransaction *undo_transaction = 0;
     if ((undo_size > redo_size) && (undo_size - redo_size > undo_limit)) {
 	// not enough memory for undo
@@ -1898,8 +1895,8 @@ void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
     Kwave::LabelList labels(m_meta_data);
 
     Q_ASSERT(index >= 0);
-    Q_ASSERT(index < static_cast<int>(labels.count()));
-    if ((index < 0) || (index >= static_cast<int>(labels.count()))) return;
+    Q_ASSERT(index < Kwave::toInt(labels.count()));
+    if ((index < 0) || (index >= Kwave::toInt(labels.count()))) return;
 
     Kwave::MetaData label(labels.at(index));
 
@@ -1925,8 +1922,8 @@ bool Kwave::SignalManager::modifyLabel(int index, sample_index_t pos,
 {
     Kwave::LabelList labels(m_meta_data);
     Q_ASSERT(index >= 0);
-    Q_ASSERT(index < static_cast<int>(labels.count()));
-    if ((index < 0) || (index >= static_cast<int>(labels.count())))
+    Q_ASSERT(index < Kwave::toInt(labels.count()));
+    if ((index < 0) || (index >= Kwave::toInt(labels.count())))
 	return false;
 
     Kwave::Label label = labels.at(index);

@@ -27,6 +27,7 @@
 
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
@@ -93,7 +94,7 @@ void Kwave::ZeroPlugin::run(QStringList params)
 	if (!ok) return;
 
 	// convert from time to samples
-	unsigned int length = Kwave::SelectTimeWidget::timeToSamples(
+	sample_index_t length = Kwave::SelectTimeWidget::timeToSamples(
 	    static_cast<Kwave::SelectTimeWidget::Mode>(mode),
 	    time, signalRate(), signalLength());
 
@@ -134,9 +135,9 @@ void Kwave::ZeroPlugin::run(QStringList params)
 
     // loop over the sample range
     while ((first <= last) && !shouldStop() && ok) {
-	unsigned int rest = last - first + 1;
+	sample_index_t rest = last - first + 1;
 	if (rest < m_zeroes.size()) {
-	    ok &= m_zeroes.resize(rest);
+	    ok &= m_zeroes.resize(Kwave::toUint(rest));
 	    Q_ASSERT(ok);
 	    if (!ok) break;
 	}

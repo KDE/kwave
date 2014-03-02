@@ -416,12 +416,6 @@ double Kwave::PluginManager::signalRate()
 }
 
 //***************************************************************************
-const QList<unsigned int> Kwave::PluginManager::selectedTracks()
-{
-    return m_signal_manager.selectedTracks();
-}
-
-//***************************************************************************
 sample_index_t Kwave::PluginManager::selectionStart()
 {
     return m_signal_manager.selection().first();

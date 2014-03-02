@@ -67,7 +67,7 @@ namespace Kwave
     signals:
 
 	/** emitted to promote the recording progress to the dialog */
-	void sigRecordedSamples(unsigned int samples_recorded);
+	void sigRecordedSamples(sample_index_t samples_recorded);
 
     protected:
 
@@ -83,13 +83,13 @@ namespace Kwave
 		:m_recorder(recorder)
 	    {
 		m_recorder.enterInhibit();
-	    };
+	    }
 
 	    /** Destructor, re-enables recording */
 	    virtual ~InhibitRecordGuard()
 	    {
 		m_recorder.leaveInhibit();
-	    };
+	    }
 
 	private:
 	    Kwave::RecordPlugin &m_recorder;
@@ -271,7 +271,7 @@ namespace Kwave
 	unsigned int m_inhibit_count;
 
 	/** buffer for trigger values */
-	QVector<double> m_trigger_value;
+	QVector<float> m_trigger_value;
 
     };
 }

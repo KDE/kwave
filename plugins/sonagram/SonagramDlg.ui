@@ -83,9 +83,6 @@
      <layout class="QVBoxLayout">
       <item>
        <widget class="QCheckBox" name="cbTrackChanges">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
         <property name="toolTip">
          <string>Automatically update the sonagram &lt;br&gt;if the signal data has changed</string>
         </property>

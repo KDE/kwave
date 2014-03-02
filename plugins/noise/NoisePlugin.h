@@ -81,7 +81,7 @@ namespace Kwave
 
 	/**
 	 * called when the noise level setting changed during pre-listen
-	 * @param level
+	 * @param level noise level, as a factor between 0 and 1
 	 */
 	void setNoiseLevel(double level);
 

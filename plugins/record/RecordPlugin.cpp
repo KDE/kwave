@@ -44,6 +44,7 @@
 #include "libkwave/SampleFormat.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 
 #include "RecordDevice.h"
@@ -127,8 +128,8 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
 	    SLOT(changeSampleFormat(Kwave::SampleFormat)));
     connect(m_dialog, SIGNAL(sigBuffersChanged()),
             this,     SLOT(buffersChanged()));
-    connect(this,     SIGNAL(sigRecordedSamples(unsigned int)),
-            m_dialog, SLOT(setRecordedSamples(unsigned int)));
+    connect(this,     SIGNAL(sigRecordedSamples(sample_index_t)),
+            m_dialog, SLOT(setRecordedSamples(sample_index_t)));
 
     connect(m_dialog,      SIGNAL(sigTriggerChanged(bool)),
             &m_controller, SLOT(enableTrigger(bool)));
@@ -507,7 +508,7 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-//     qDebug("RecordPlugin::changeSampleRate(%u)", static_cast<int>(new_rate));
+//     qDebug("RecordPlugin::changeSampleRate(%u)", Kwave::toInt(new_rate));
 
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
@@ -530,9 +531,9 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
 
 	const QString sr1(m_dialog->rate2string(new_rate));
 	const QString sr2(m_dialog->rate2string(rate));
-	if ((static_cast<int>(new_rate) > 0) &&
-	    (static_cast<int>(rate) > 0) &&
-	    (static_cast<int>(new_rate) != static_cast<int>(rate)))
+	if ((Kwave::toInt(new_rate) > 0) &&
+	    (Kwave::toInt(rate) > 0) &&
+	    (Kwave::toInt(new_rate) != Kwave::toInt(rate)))
 	    notice(i18n("%1 Hz is not supported, "\
 		        "using %2 Hz", sr1, sr2));
     }
@@ -547,9 +548,9 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
 
 	const QString sr1(m_dialog->rate2string(new_rate));
 	const QString sr2(m_dialog->rate2string(rate));
-	if ((static_cast<int>(new_rate) > 0) &&
-	    (static_cast<int>(rate) > 0) &&
-	    (static_cast<int>(new_rate) != static_cast<int>(rate)))
+	if ((Kwave::toInt(new_rate) > 0) &&
+	    (Kwave::toInt(rate) > 0) &&
+	    (Kwave::toInt(new_rate) != Kwave::toInt(rate)))
 	    notice(i18n("%1 Hz failed, using %2 Hz", sr1, sr2));
     }
     m_dialog->setSampleRate(rate);
@@ -638,15 +639,15 @@ void Kwave::RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 	// find the nearest resolution
 	int nearest = supported_bits.last();
 	foreach (unsigned int b, supported_bits) {
-	    if (qAbs(static_cast<int>(b) - nearest) <= qAbs(bits - nearest))
-	        nearest = static_cast<int>(b);
+	    if (qAbs(Kwave::toInt(b) - nearest) <= qAbs(bits - nearest))
+	        nearest = Kwave::toInt(b);
 	}
 	bits = nearest;
 
-	if ((static_cast<int>(new_bits) > 0) && (bits > 0)) notice(
+	if ((Kwave::toInt(new_bits) > 0) && (bits > 0)) notice(
 	    i18n("%1 bits per sample is not supported, "\
 	         "using %2 bits per sample",
-		 static_cast<int>(new_bits), bits));
+		 Kwave::toInt(new_bits), bits));
     }
     m_dialog->setSupportedBits(supported_bits);
 
@@ -656,10 +657,10 @@ void Kwave::RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 	// revert to the current device setting if failed
 	bits = m_device->bitsPerSample();
 	if (bits < 0) bits = 0;
-	if ((new_bits> 0) && (bits > 0)) notice(
+	if ((new_bits > 0) && (bits > 0)) notice(
 	    i18n("%1 bits per sample failed, "
 		 "using %2 bits per sample",
-		 static_cast<int>(new_bits), bits));
+		 Kwave::toInt(new_bits), bits));
     }
     m_dialog->setBitsPerSample(bits);
 
@@ -869,13 +870,13 @@ void Kwave::RecordPlugin::setupRecordThread()
     m_prerecording_queue.clear();
     if (params.pre_record_enabled) {
 	// prepare a queue for each track
-	const unsigned int prerecording_samples = static_cast<unsigned int>(
+	const unsigned int prerecording_samples = Kwave::toUint(
 	    rint(params.pre_record_time * params.sample_rate));
 	m_prerecording_queue.resize(params.tracks);
 	for (int i=0; i < m_prerecording_queue.size(); i++)
 	    m_prerecording_queue[i].setSize(prerecording_samples);
 
-	if (m_prerecording_queue.size() != static_cast<int>(params.tracks)) {
+	if (m_prerecording_queue.size() != Kwave::toInt(params.tracks)) {
 	    m_prerecording_queue.clear();
 	    Kwave::MessageBox::sorry(m_dialog, i18n("Out of memory"));
 	    return;
@@ -1215,7 +1216,7 @@ bool Kwave::RecordPlugin::checkTrigger(unsigned int track,
     // check the input parameters
     if (!buffer.size()) return false;
     if (!m_writers) return false;
-    if (m_trigger_value.size() != static_cast<int>(m_writers->tracks()))
+    if (m_trigger_value.size() != Kwave::toInt(m_writers->tracks()))
 	return false;
 
     // pass the buffer through a rectifier and a lowpass with
@@ -1245,23 +1246,23 @@ bool Kwave::RecordPlugin::checkTrigger(unsigned int track,
      */
 
     // rise coefficient: ~20Hz
-    const float f_rise = 20.0;
+    const float f_rise = 20.0f;
     float Fg = f_rise / rate;
-    float n = 1.0 / tan(M_PI * Fg);
-    const float a0_r = 1.0 / (1.0 + n);
-    const float b1_r = (1.0 - n) / (1.0 + n);
+    float n = 1.0f / tanf(float(M_PI) * Fg);
+    const float a0_r = 1.0f / (1.0f + n);
+    const float b1_r = (1.0f - n) / (1.0f + n);
 
     // fall coefficient: ~1.0Hz
-    const float f_fall = 1.0;
+    const float f_fall = 1.0f;
     Fg = f_fall / rate;
-    n = 1.0 / tan(M_PI * Fg);
-    const float a0_f = 1.0 / (1.0 + n);
-    const float b1_f = (1.0 - n) / (1.0 + n);
+    n = 1.0f / tanf(float(M_PI) * Fg);
+    const float a0_f = 1.0f / (1.0f + n);
+    const float b1_f = (1.0f - n) / (1.0f + n);
 
     float y = m_trigger_value[track];
     float last_x = y;
     for (unsigned int t = 0; t < buffer.size(); ++t) {
-	float x = fabs(sample2float(buffer[t])); /* rectifier */
+	float x = fabsf(sample2float(buffer[t])); /* rectifier */
 
 	if (x > y) { /* diode */
 	    // rise if amplitude is above average (serial R)
@@ -1290,9 +1291,9 @@ void Kwave::RecordPlugin::enqueuePrerecording(unsigned int track,
                                               const Kwave::SampleArray &decoded)
 {
     Q_ASSERT(m_dialog);
-    Q_ASSERT(static_cast<int>(track) < m_prerecording_queue.size());
+    Q_ASSERT(Kwave::toInt(track) < m_prerecording_queue.size());
     if (!m_dialog) return;
-    if (static_cast<int>(track) >= m_prerecording_queue.size()) return;
+    if (Kwave::toInt(track) >= m_prerecording_queue.size()) return;
 
     // append the array with decoded sample to the prerecording buffer
     m_prerecording_queue[track].put(decoded);
@@ -1379,15 +1380,16 @@ void Kwave::RecordPlugin::processBuffer()
 
     // check for reached recording time limit if enabled
     if (params.record_time_limited && m_writers) {
-	const unsigned int last = m_writers->last();
-	const unsigned int already_recorded = (last) ? (last + 1) : 0;
-	const unsigned int limit = static_cast<const unsigned int>(rint(
+	const sample_index_t last = m_writers->last();
+	const sample_index_t already_recorded = (last) ? (last + 1) : 0;
+	const sample_index_t limit = static_cast<const sample_index_t>(rint(
 	    params.record_time * params.sample_rate));
 	if (already_recorded + samples >= limit) {
 	    // reached end of recording time, we are full
 	    if (m_state == Kwave::REC_RECORDING) {
-		samples = (limit > already_recorded) ?
-		          (limit - already_recorded) : 0;
+		samples = Kwave::toUint(
+		    (limit > already_recorded) ?
+		    (limit - already_recorded) : 0);
 		buffer.resize(samples * tracks * bytes_per_sample);
 	    }
 	    recording_done = true;
@@ -1396,8 +1398,8 @@ void Kwave::RecordPlugin::processBuffer()
 
     QByteArray buf;
     buf.resize(bytes_per_sample * samples);
-    Q_ASSERT(buf.size() == static_cast<int>(bytes_per_sample * samples));
-    if (buf.size() != static_cast<int>(bytes_per_sample * samples)) return;
+    Q_ASSERT(buf.size() == Kwave::toInt(bytes_per_sample * samples));
+    if (buf.size() != Kwave::toInt(bytes_per_sample * samples)) return;
 
     Kwave::SampleArray decoded(samples);
     Q_ASSERT(decoded.size() == samples);
@@ -1478,7 +1480,7 @@ void Kwave::RecordPlugin::processBuffer()
     }
 
     // update the number of recorded samples
-    if (m_writers) emit sigRecordedSamples(m_writers->last()+1);
+    if (m_writers) emit sigRecordedSamples(m_writers->last() + 1);
 
     // if this was the last received buffer, change state
     if (recording_done &&

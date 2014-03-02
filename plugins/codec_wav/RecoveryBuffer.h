@@ -35,14 +35,13 @@ namespace Kwave
 	 * @param length number of recovered bytes
 	 * @param buffer a buffer with 'length' bytes of data
 	 */
-	RecoveryBuffer(unsigned int offset, unsigned int length, char *buffer);
+	RecoveryBuffer(quint64 offset, quint64 length, char *buffer);
 
 	/** Destructor */
-	virtual ~RecoveryBuffer() {};
+	virtual ~RecoveryBuffer() {}
 
 	/** implementation of RecoverySource::read */
-	virtual unsigned int read(unsigned int offset, char *data,
-	                          unsigned int bytes);
+	virtual qint64 read(quint64 offset, char *data, unsigned int bytes);
 
     private:
 

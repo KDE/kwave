@@ -72,8 +72,7 @@ int Kwave::RecordThread::setBuffers(unsigned int count, unsigned int size)
     m_buffer_count = count;
 
     // return number of buffers or -ENOMEM if not even two allocated
-    return (m_empty_queue.count() >= 2) ?
-           static_cast<int>(m_empty_queue.count()) : -ENOMEM;
+    return (m_empty_queue.count() >= 2) ? m_empty_queue.count() : -ENOMEM;
 }
 
 //***************************************************************************

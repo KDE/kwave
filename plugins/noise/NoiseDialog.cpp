@@ -27,6 +27,8 @@
 
 #include <klocale.h>
 
+#include "libkwave/Utils.h"
+
 #include "libgui/Colors.h"
 #include "libgui/CurveWidget.h"
 #include "libgui/InvertableSpinBox.h"
@@ -184,7 +186,7 @@ void Kwave::NoiseDialog::updateDisplay(double value)
 
 	    // calculate scaling factor and (noise level / 2) in pixel
 	    const int middle = height >> 1;
-	    const int noise_2 = static_cast<int>(middle * m_noise);
+	    const int noise_2 = Kwave::toInt(middle * m_noise);
 
 	    /*
 	     * mixing of noise goes like this:
@@ -201,9 +203,9 @@ void Kwave::NoiseDialog::updateDisplay(double value)
 	     */
 
 	    for (int x = 0; x < count; ++x) {
-		int y2 = static_cast<int>((sample2double(m_minmax[x].min) *
+		int y2 = Kwave::toInt((sample2double(m_minmax[x].min) *
 		    (1.0 - m_noise)) * middle);
-		int y5 = static_cast<int>((sample2double(m_minmax[x].max) *
+		int y5 = Kwave::toInt((sample2double(m_minmax[x].max) *
 		    (1.0 - m_noise)) * middle);
 		int y1 = y2 - noise_2;
 		int y3 = y2 + noise_2;
@@ -213,22 +215,18 @@ void Kwave::NoiseDialog::updateDisplay(double value)
 		if (y4 > y3) {
 		    // noise around "min" [y1 ... y3]
 		    p.setPen(color_noise);
-		    p.drawLine(x, middle - static_cast<int>(y3),
-		               x, middle - static_cast<int>(y1));
+		    p.drawLine(x, middle - y3, x, middle - y1);
 
 		    // noise around "max" [y4 ... y6]
-		    p.drawLine(x, middle - static_cast<int>(y6),
-		               x, middle - static_cast<int>(y4));
+		    p.drawLine(x, middle - y6, x, middle - y4);
 
 		    // original signal [y3 ... y4 ]
 		    p.setPen(color_sig);
-		    p.drawLine(x, middle - static_cast<int>(y4),
-		               x, middle - static_cast<int>(y3));
+		    p.drawLine(x, middle - y4, x, middle - y3);
 		} else {
 		    // only noise [y1 ... y6]
 		    p.setPen(color_noise);
-		    p.drawLine(x, middle - static_cast<int>(y6),
-		               x, middle - static_cast<int>(y1));
+		    p.drawLine(x, middle - y6, x, middle - y1);
 		}
 	    }
 
@@ -250,7 +248,7 @@ void Kwave::NoiseDialog::updateDisplay(double value)
     switch (m_mode) {
 	case MODE_PERCENT: {
 	    // factor 1.0 means 100%
-	    new_spinbox_value = static_cast<int>(rint(value * 100.0));
+	    new_spinbox_value = Kwave::toInt(rint(value * 100.0));
 	    new_slider_value = new_spinbox_value;
 	    spinbox->setPrefix(_(""));
 	    spinbox->setSuffix(_("%"));
@@ -259,7 +257,7 @@ void Kwave::NoiseDialog::updateDisplay(double value)
 	}
 	case MODE_DECIBEL: {
 	    // factor 1.0 means 0dB
-	    new_slider_value = static_cast<int>(rint(20.0 * log10(value)));
+	    new_slider_value = Kwave::toInt(rint(20.0 * log10(value)));
 	    new_spinbox_value = new_slider_value;
 	    if (new_spinbox_value >= 0) {
 		spinbox->setPrefix(new_spinbox_value ? _("+") : _("+/- "));

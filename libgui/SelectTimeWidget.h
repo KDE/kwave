@@ -64,7 +64,7 @@ namespace Kwave
 	 * @param signal_length length of the signal in samples, needed
 	 *                      for converting samples to percentage
 	 */
-	virtual void init(Mode mode, unsigned int range, double sample_rate,
+	virtual void init(Mode mode, quint64 range, double sample_rate,
 	                  sample_index_t offset, sample_index_t signal_length);
 
 	/** Destructor */
@@ -77,7 +77,7 @@ namespace Kwave
 	Mode mode() const { return m_mode; }
 
 	/** Returns the number of ms, samples or percents */
-	unsigned int time() const { return m_range; }
+	quint64 time() const { return m_range; }
 
 	/** Returns the time in units of samples */
 	sample_index_t samples() const;
@@ -93,7 +93,7 @@ namespace Kwave
 	 * @param length signal length
 	 * @return time converted to samples
 	 */
-	static sample_index_t timeToSamples(Mode mode, unsigned int time,
+	static sample_index_t timeToSamples(Mode mode, quint64 time,
 	                                    double rate, sample_index_t length);
 
 	/**
@@ -104,8 +104,8 @@ namespace Kwave
 	 * @param length signal length
 	 * @return time converted to the given mode
 	 */
-	static unsigned int samplesToTime(Mode mode, sample_index_t time,
-	                                  double rate, sample_index_t length);
+	static quint64 samplesToTime(Mode mode, sample_index_t time,
+	                             double rate, sample_index_t length);
 
     signals:
 
@@ -153,8 +153,7 @@ namespace Kwave
 	Mode m_mode;
 
 	/** selected range in ms, samples or percent */
-	/** @todo 64 bit support? */
-	unsigned int m_range;
+	quint64 m_range;
 
 	/** sample rate [samples/second] */
 	double m_rate;

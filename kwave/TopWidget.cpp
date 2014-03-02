@@ -643,7 +643,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	Q_ASSERT(m_menu_manager);
 	if (m_menu_manager) /*result = */m_menu_manager->executeCommand(command);
     CASE_COMMAND("newsignal")
-	sample_index_t samples = parser.toUInt();
+	sample_index_t samples = parser.toSampleIndex();
 	double         rate    = parser.toDouble();
 	unsigned int   bits    = parser.toUInt();
 	unsigned int   tracks  = parser.toUInt();
@@ -694,7 +694,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     } else {
 	// try to forward the command to the main widget
 	Q_ASSERT(m_main_widget);
-	return (m_main_widget) ? m_main_widget->executeCommand(command) : -1;
+	result = (m_main_widget) ? m_main_widget->executeCommand(command) : -1;
     }
 
     return result;
@@ -746,8 +746,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	    // this line seems to be a "label"
 	    line = line.left(line.length() - 1).simplified();
 	    if (!labels.contains(line)) {
-		qDebug("new label '%s' at %u", DBG(line),
-		       static_cast<unsigned int>(stream.pos()));
+		qDebug("new label '%s' at %llu", DBG(line), stream.pos());
 		label_t label;
 		label.pos  = stream.pos();
 		label.hits = 0;
@@ -764,8 +763,8 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	    QString label = line.split(QLatin1Char(' ')).at(1).simplified();
 	    if (labels.contains(label)) {
 		labels[label].hits++;
-		qDebug(">>> goto '%s' @ offset %u (pass #%d)", DBG(label),
-		       static_cast<unsigned int>(labels[label].pos),
+		qDebug(">>> goto '%s' @ offset %llu (pass #%d)", DBG(label),
+		       labels[label].pos,
 		       labels[label].hits
   		    );
 		stream.seek(labels[label].pos);
@@ -1185,7 +1184,7 @@ void Kwave::TopWidget::setZoomInfo(double zoom)
     if ((signal_manager) && (signal_manager->tracks())) {
 	if (rate > 0) {
 	    // time display mode
-	    int s = static_cast<int>(ms) / 1000;
+	    int s = Kwave::toInt(ms) / 1000;
 	    int m = s / 60;
 
 	    if (ms >= 60*1000) {
@@ -1194,7 +1193,7 @@ void Kwave::TopWidget::setZoomInfo(double zoom)
 		strZoom = strZoom.sprintf("%d sec", s);
 	    } else if (ms >= 1) {
 		strZoom = strZoom.sprintf("%d ms",
-		    static_cast<int>(round(ms)));
+		    Kwave::toInt(round(ms)));
 	    } else if (ms >= 0.01) {
 		strZoom = strZoom.sprintf("%0.3g ms", ms);
 	    }
@@ -1272,13 +1271,13 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 
     // length in milliseconds
     if (length) {
-	ms = (rate) ? (static_cast<double>(length) /
+	ms = (rate > 0) ? (static_cast<double>(length) /
 	    static_cast<double>(rate) * 1E3) : 0;
 	txt = _(" ") + i18nc(
 	    "Length, as in total duration of loaded song",
 	    "Length: %1 (%2 samples)",
 	    Kwave::ms2string(ms),
-	    KGlobal::locale()->formatLong(length)
+	    KGlobal::locale()->formatLong(static_cast<long int>(length))
 	) + _(" ");
     } else txt = _("");
     m_lbl_status_size->setText(txt);
@@ -1344,9 +1343,9 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	        "%1=first sample, %2=last sample, %3=number of samples, "\
 	        "example: 'Selected: 2000...3000 (1000 samples)'",
 	        "Selected: %1...%2 (%3 samples)",
-	        KGlobal::locale()->formatLong(offset),
-	        KGlobal::locale()->formatLong(last),
-	        KGlobal::locale()->formatLong(length)
+	        KGlobal::locale()->formatLong(static_cast<long int>(offset)),
+	        KGlobal::locale()->formatLong(static_cast<long int>(last)),
+	        KGlobal::locale()->formatLong(static_cast<long int>(length))
 	    );
 	} else {
 	    double ms_first = static_cast<double>(offset)   * 1E3 / rate;
@@ -1398,8 +1397,8 @@ void Kwave::TopWidget::updatePlaybackPos(sample_index_t offset)
 	double ms = static_cast<double>(offset) * 1E3 / rate;
 	txt = i18n("Playback: %1", Kwave::ms2string(ms));
     } else {
-	txt = i18n("Playback: %1 samples",
-	            KGlobal::locale()->formatLong(offset));
+	txt = i18n("Playback: %1 samples", KGlobal::locale()->formatLong(
+	           static_cast<long int>(offset)));
     }
     statusBar()->showMessage(txt, 2000);
 

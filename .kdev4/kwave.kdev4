@@ -29,9 +29,9 @@ Name=Kwave_Debug
 Type=Native Application
 
 [Launch][Launch Configuration 0][Data]
-Arguments=
+Arguments=--nofork
 Debugger Shell=
-Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\n\x00k\x00w\x00a\x00v\x00e)
 Dependency Action=Install
 Display Demangle Names=true
 Display Static Members=true
@@ -41,8 +41,9 @@ External Terminal=konsole --noclose --workdir %workdir -e %exe
 GDB Path=file:///usr/bin/gdb
 Project Target=
 Remote GDB Config Script=
-Remote GDB Run Script=file:///usr/src/packages/multimedia/sound/kwave/.gdbinit
+Remote GDB Run Script=
 Remote GDB Shell Script=
+Start With=ApplicationOutput
 Use External Terminal=false
 Working Directory=
 isExecutable=true

@@ -80,13 +80,13 @@ QString Kwave::UndoModifyMetaDataAction::description()
 }
 
 //***************************************************************************
-unsigned int Kwave::UndoModifyMetaDataAction::undoSize()
+qint64 Kwave::UndoModifyMetaDataAction::undoSize()
 {
     return sizeof(*this) + sizeof(m_saved_data);
 }
 
 //***************************************************************************
-int Kwave::UndoModifyMetaDataAction::redoSize()
+qint64 Kwave::UndoModifyMetaDataAction::redoSize()
 {
     return undoSize();
 }

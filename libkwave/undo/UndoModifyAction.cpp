@@ -25,9 +25,6 @@
 #include "libkwave/Writer.h"
 #include "libkwave/undo/UndoModifyAction.h"
 
-/** size of the buffer for internal copy operations */
-#define BUFFER_SIZE 65536
-
 //***************************************************************************
 Kwave::UndoModifyAction::UndoModifyAction(unsigned int track,
                                           sample_index_t offset,
@@ -49,7 +46,7 @@ QString Kwave::UndoModifyAction::description()
 }
 
 //***************************************************************************
-unsigned int Kwave::UndoModifyAction::undoSize()
+qint64 Kwave::UndoModifyAction::undoSize()
 {
     return sizeof(*this) + (m_length * sizeof(sample_t));
 }

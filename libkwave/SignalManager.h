@@ -386,7 +386,7 @@ namespace Kwave
 	 * Retrieves the list of meta data objects, mutable
 	 * @return list with all MetaData objects
 	 */
-	Kwave::MetaDataList &metaData() { return m_meta_data; };
+	Kwave::MetaDataList &metaData() { return m_meta_data; }
 
 	/**
 	 * Retrieves the list of meta data objects, const
@@ -661,7 +661,7 @@ namespace Kwave
 	/**
 	 * Returns the amount of memory currently used for undo + redo.
 	 */
-	unsigned int usedUndoRedoMemory();
+	qint64 usedUndoRedoMemory();
 
 	/**
 	 * Makes sure that enough memory for a following undo (or redo) action
@@ -669,7 +669,7 @@ namespace Kwave
 	 * still no enough, it also removes old redo transactions.
 	 * @param needed the amount of memory that should be free afterwards
 	 */
-	void freeUndoMemory(unsigned int needed);
+	void freeUndoMemory(qint64 needed);
 
 	/**
 	 * Enables changes of the modified flag.

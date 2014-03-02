@@ -69,7 +69,7 @@ ID3_Writer::size_type Kwave::ID3_QIODeviceWriter::getSize()
 //***************************************************************************
 ID3_Writer::size_type Kwave::ID3_QIODeviceWriter::getMaxSize()
 {
-    return (1 << ((sizeof(ID3_Writer::size_type) * 8) - 1));
+    return (1U << ((sizeof(ID3_Writer::size_type) * 8) - 1));
 }
 
 //***************************************************************************

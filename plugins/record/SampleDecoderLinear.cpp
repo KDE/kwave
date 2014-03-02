@@ -23,14 +23,15 @@
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"
+#include "libkwave/Utils.h"
 
 #include "SampleDecoderLinear.h"
 
 //***************************************************************************
-void decode_NULL(const quint8 *src, sample_t *dst, unsigned int count)
+static void decode_NULL(const quint8 *src, sample_t *dst, unsigned int count)
 {
     while (count--) {
-        printf("%02X ", static_cast<int>(*src));
+        printf("%02X ", Kwave::toInt(*src));
         *(dst++) = count % (1 << (SAMPLE_BITS-1));
     }
 }

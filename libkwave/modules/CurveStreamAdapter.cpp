@@ -19,7 +19,7 @@
 
 /***************************************************************************/
 Kwave::CurveStreamAdapter::CurveStreamAdapter(Kwave::Curve &curve,
-                                              unsigned int length)
+                                              sample_index_t length)
     :Kwave::SampleSource(),
      m_position(0), m_length(length),
      m_interpolation(curve.interpolation()),
@@ -42,10 +42,10 @@ void Kwave::CurveStreamAdapter::goOn()
     const unsigned int samples = blockSize();
 
     // fill with interpolated points
-    for (offset=0; offset < samples; ++offset) {
+    for (offset = 0; offset < samples; ++offset) {
 	x = static_cast<double>(m_position) / x_max; // x is [0.0 ... 1.0]
 	y = m_interpolation.singleInterpolation(x);
-	m_buffer[offset] = float2sample(y);
+	m_buffer[offset] = double2sample(y);
 	m_position++;
 
 	// wrap-around, for periodic signals

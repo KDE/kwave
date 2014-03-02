@@ -23,6 +23,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/Stripe.h"
+#include "libkwave/Utils.h"
 
 // define this for using only slow Qt array functions
 // #define STRICTLY_QT
@@ -80,7 +81,8 @@ void Kwave::SampleReader::fillBuffer()
     if (m_buffer.isEmpty()) return; // we had a OOM before?
 
     unsigned int rest = m_buffer.size();/* - m_buffer_used (is 0) */
-    if (m_src_position + rest > m_last) rest = (m_last - m_src_position + 1);
+    if (m_src_position + rest > m_last)
+	rest = Kwave::toUint(m_last - m_src_position + 1);
     Q_ASSERT(rest <= m_buffer.size());
     if (rest > m_buffer.size()) rest = m_buffer.size();
     Q_ASSERT(rest);
@@ -117,8 +119,10 @@ void Kwave::SampleReader::minMax(sample_index_t first, sample_index_t last,
 	empty = false;
 
 	// get min/max from the stripe
-	sample_index_t s1 = (first > start) ? (first - start) : 0;
-	sample_index_t s2 = (last < end) ? (last - start) : (end - start);
+	unsigned int s1 = Kwave::toUint(
+	    (first > start) ? (first - start) : 0);
+	unsigned int s2 = Kwave::toUint(
+	    (last < end) ? (last - start) : (end - start));
 	s.minMax(s1, s2, min, max);
     }
 
@@ -131,7 +135,8 @@ void Kwave::SampleReader::minMax(sample_index_t first, sample_index_t last,
 
 //***************************************************************************
 unsigned int Kwave::SampleReader::read(Kwave::SampleArray &buffer,
-                                       unsigned int dstoff, unsigned int length)
+                                       unsigned int dstoff,
+                                       unsigned int length)
 {
     if (eof() || !length) return 0; // already done or nothing to do
 
@@ -187,7 +192,7 @@ unsigned int Kwave::SampleReader::read(Kwave::SampleArray &buffer,
 
     // take the rest directly out of the stripe(s)
     if (m_src_position + rest > (m_last + 1)) // clip to end of reader range
-	rest = (m_last + 1) - m_src_position;
+	rest = Kwave::toUint((m_last + 1) - m_src_position);
     if (dstoff + rest > buffer.size()) // clip to end of buffer
 	rest = buffer.size() - dstoff;
     Q_ASSERT(dstoff + rest <= buffer.size());
@@ -325,9 +330,9 @@ unsigned int Kwave::SampleReader::readSamples(sample_index_t offset,
 
 	if (left < start) {
 	    // gap before the stripe -> pad
-	    sample_index_t pad = start - left;
+	    sample_index_t pad = Kwave::toUint(start - left);
 	    if (pad > rest) pad = rest;
-	    padBuffer(buffer, buf_offset, pad);
+	    padBuffer(buffer, buf_offset, Kwave::toUint(pad));
 	    buf_offset += pad;
 	    rest       -= pad;
 	    left       += pad;
@@ -339,8 +344,8 @@ unsigned int Kwave::SampleReader::readSamples(sample_index_t offset,
 	if (left <= end) {
 	    // some kind of overlap
 	    Q_ASSERT(left >= start);
-	    unsigned int ofs = left - start;
-	    unsigned int len = end - left + 1;
+	    unsigned int ofs = Kwave::toUint(left - start);
+	    unsigned int len = Kwave::toUint(end - left + 1);
 	    if (len > rest) len = rest;
 	    unsigned int count = s.read(buffer, buf_offset, ofs, len);
 	    Q_ASSERT(count == len);

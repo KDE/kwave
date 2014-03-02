@@ -20,6 +20,8 @@
 #include <limits.h>
 #include <knuminput.h>
 
+#include "libkwave/Utils.h"
+
 #include "libgui/HMSTimeWidget.h"
 
 //***************************************************************************
@@ -47,7 +49,7 @@ int Kwave::HMSTimeWidget::value()
 void Kwave::HMSTimeWidget::setValue(int value)
 {
     if (value < 0) value = 0;
-    if (static_cast<unsigned int>(value) > m_limit) value = m_limit;
+    if (Kwave::toUint(value) > m_limit) value = m_limit;
     m_time = value;
 
     const int seconds = (m_time % 60);

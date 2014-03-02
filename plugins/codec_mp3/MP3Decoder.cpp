@@ -418,10 +418,10 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
     ID3_QIODeviceReader adapter(src);
     tag.Link(adapter, static_cast<flags_t>(ID3TT_ALL));
 
-    qDebug("NumFrames = %d", static_cast<int>(tag.NumFrames()));
+    qDebug("NumFrames = %u", Kwave::toUint(tag.NumFrames()));
     /** @bug: id3lib crashes in this line on some MP3 files */
     if (tag.GetSpec() != ID3V2_UNKNOWN) {
-	qDebug("Size = %d",      static_cast<int>(tag.Size()));
+	qDebug("Size = %u",      Kwave::toUint(tag.Size()));
     }
     qDebug("HasLyrics = %d", tag.HasLyrics());
     qDebug("HasV1Tag = %d",  tag.HasV1Tag());
@@ -567,8 +567,9 @@ enum mad_flow Kwave::MP3Decoder::fillInput(struct mad_stream *stream)
 
     // clip source at "eof-appended_bytes"
     unsigned int bytes_to_read = m_buffer_size - rest;
-    if (m_source->pos() + bytes_to_read > m_source->size()-m_appended_bytes)
-        bytes_to_read = m_source->size() - m_appended_bytes-m_source->pos();
+    if (m_source->pos() + bytes_to_read > m_source->size() - m_appended_bytes)
+        bytes_to_read = Kwave::toUint(
+	    m_source->size() - m_appended_bytes - m_source->pos());
 
     // abort if nothing more to read, even if there are
     // some "left-overs" from the previous pass

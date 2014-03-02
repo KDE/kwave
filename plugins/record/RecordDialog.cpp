@@ -730,7 +730,7 @@ void Kwave::RecordDialog::setTracks(unsigned int tracks)
 void Kwave::RecordDialog::tracksChanged(int tracks)
 {
     if (tracks < 1) return; // no device
-    if (tracks == static_cast<int>(m_params.tracks)) return;
+    if (tracks == Kwave::toInt(m_params.tracks)) return;
 
     m_params.tracks = tracks;
     emit sigTracksChanged(tracks);
@@ -1190,13 +1190,13 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
 	case Kwave::REC_DONE: {
 	    if (m_samples_recorded > 1) {
 		double rate = m_params.sample_rate;
-		double ms = (rate) ?
+		double ms = (rate > 0) ?
 		    ((static_cast<double>(m_samples_recorded) / rate) * 1E3)
 		    : 0;
 		txt = _(" ") +
 		    i18n("Length: %1", Kwave::ms2string(ms)) +
 		    _(" ") + i18n("(%1 samples)",
-		    KGlobal::locale()->formatLong(m_samples_recorded));
+		    Kwave::samples2string(m_samples_recorded));
 	    } else txt = _("");
 	    break;
 	}
@@ -1320,7 +1320,7 @@ void Kwave::RecordDialog::updateEffects(unsigned int track,
 }
 
 //***************************************************************************
-void Kwave::RecordDialog::setRecordedSamples(unsigned int samples_recorded)
+void Kwave::RecordDialog::setRecordedSamples(sample_index_t samples_recorded)
 {
     // if (!m_params.record_time_limited) return; // not of interest
     m_samples_recorded = samples_recorded;

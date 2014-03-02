@@ -144,8 +144,8 @@ void Kwave::AmplifyFreePlugin::run(QStringList params)
 
     Kwave::UndoTransactionGuard undo_guard(*this, m_action_name);
 
-    unsigned int input_length = selection(&track_list, &first, &last, true);
-    unsigned int tracks = track_list.count();
+    sample_index_t input_length = selection(&track_list, &first, &last, true);
+    unsigned int   tracks       = track_list.count();
 
     // create all objects
     Kwave::MultiTrackReader source(Kwave::SinglePassForward,

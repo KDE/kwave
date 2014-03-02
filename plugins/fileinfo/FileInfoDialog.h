@@ -42,7 +42,7 @@ namespace Kwave
 	virtual ~FileInfoDialog();
 
 	/** Returns the current file info */
-	Kwave::FileInfo &info() { return m_info; };
+	Kwave::FileInfo &info() { return m_info; }
 
     public slots:
 

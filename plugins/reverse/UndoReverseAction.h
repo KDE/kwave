@@ -51,13 +51,13 @@ namespace Kwave
 	 * free memory to be reserved.
 	 * @note this is the first step (after the constructor)
 	 */
-	virtual unsigned int undoSize();
+	virtual qint64 undoSize();
 
 	/**
 	 * Returns the difference of needed memory that is needed for
 	 * redo.
 	 */
-	virtual int redoSize();
+	virtual qint64 redoSize();
 
 	/**
 	 * Stores the data needed for undo.

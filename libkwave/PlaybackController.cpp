@@ -33,6 +33,7 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 /** Sets the number of screen refreshes per second when in playback mode */
 #define SCREEN_REFRESHES_PER_SECOND 10
@@ -516,7 +517,7 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 
 	    // update the playback position if timer elapsed
 	    if (!pos_countdown) {
-		pos_countdown = static_cast<unsigned int>(ceil(
+		pos_countdown = Kwave::toUint(ceil(
 		    m_playback_params.rate / SCREEN_REFRESHES_PER_SECOND));
 		updatePlaybackPos(pos);
 	    } else {

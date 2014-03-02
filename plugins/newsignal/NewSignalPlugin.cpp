@@ -21,6 +21,7 @@
 #include <QtCore/QStringList>
 
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "NewSignalPlugin.h"
 #include "NewSignalDialog.h"
@@ -55,7 +56,7 @@ int Kwave::NewSignalPlugin::interpreteParameters(QStringList &params)
     if (!ok) return -EINVAL;
 
     param = params[1];
-    m_rate = static_cast<unsigned int>(param.toDouble(&ok));
+    m_rate = Kwave::toUint(param.toDouble(&ok));
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 

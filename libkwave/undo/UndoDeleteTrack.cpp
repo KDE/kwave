@@ -46,13 +46,13 @@ QString Kwave::UndoDeleteTrack::description()
 }
 
 //***************************************************************************
-unsigned int Kwave::UndoDeleteTrack::undoSize()
+qint64 Kwave::UndoDeleteTrack::undoSize()
 {
     return sizeof(*this) + m_length * sizeof(sample_t);
 }
 
 //***************************************************************************
-int Kwave::UndoDeleteTrack::redoSize()
+qint64 Kwave::UndoDeleteTrack::redoSize()
 {
     return sizeof(Kwave::UndoInsertTrack);
 }

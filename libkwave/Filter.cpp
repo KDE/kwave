@@ -25,6 +25,7 @@
 #include "libkwave/Filter.h"
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 //***************************************************************************
 Kwave::Filter::Filter(const QString &command)
@@ -83,8 +84,8 @@ unsigned int Kwave::Filter::resize(unsigned int newnum)
     // resize both arrays
     m_delay.resize(newnum);
     m_coeff.resize(newnum);
-    Q_ASSERT(m_delay.size() >= static_cast<int>(newnum));
-    Q_ASSERT(m_coeff.size() >= static_cast<int>(newnum));
+    Q_ASSERT(m_delay.size() >= Kwave::toInt(newnum));
+    Q_ASSERT(m_coeff.size() >= Kwave::toInt(newnum));
     Q_ASSERT(m_delay.size() == m_coeff.size());
 
     // initialize the new entries
@@ -107,28 +108,28 @@ unsigned int Kwave::Filter::count()
 //***************************************************************************
 double Kwave::Filter::coeff(unsigned int index)
 {
-    Q_ASSERT(static_cast<int>(index) < m_coeff.count());
+    Q_ASSERT(Kwave::toInt(index) < m_coeff.count());
     return m_coeff[index];
 }
 
 //***************************************************************************
 void Kwave::Filter::setCoeff(unsigned int index, double newval)
 {
-    Q_ASSERT(static_cast<int>(index) < m_coeff.count());
+    Q_ASSERT(Kwave::toInt(index) < m_coeff.count());
     m_coeff[index] = newval;
 }
 
 //***************************************************************************
 unsigned int Kwave::Filter::delay(unsigned int index)
 {
-    Q_ASSERT(static_cast<int>(index) < m_delay.count());
+    Q_ASSERT(Kwave::toInt(index) < m_delay.count());
     return m_delay[index];
 }
 
 //***************************************************************************
 void Kwave::Filter::setDelay(unsigned int index, unsigned int newval)
 {
-    Q_ASSERT(static_cast<int>(index) < m_delay.count());
+    Q_ASSERT(Kwave::toInt(index) < m_delay.count());
     m_delay[index] = newval;
 }
 
@@ -139,7 +140,7 @@ void Kwave::Filter::save(const QString &filename)
     Q_ASSERT(name.length());
     if (!name.length()) return;
 
-    if (name.lastIndexOf(_(".filter")) != static_cast<int>(name.length() - 7))
+    if (name.lastIndexOf(_(".filter")) != Kwave::toInt(name.length() - 7))
 	name.append(_(".filter"));
 
     QFile file(name);

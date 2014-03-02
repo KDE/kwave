@@ -69,7 +69,7 @@ namespace Kwave
 	/**
 	 * Returns the current position (byTime, bySamples, byPercents)
 	 */
-	unsigned int pos() { return select_pos ? select_pos->time() : 0; }
+	quint64 pos() const { return select_pos ? select_pos->time() : 0; }
 
     };
 }

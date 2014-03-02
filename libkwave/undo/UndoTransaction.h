@@ -50,10 +50,10 @@ namespace Kwave {
 	virtual ~UndoTransaction();
 
 	/** Returns the size in bytes summed up over all undo actions */
-	unsigned int undoSize();
+	qint64 undoSize();
 
 	/** Returns the additional memory needed for storing redo data */
-	unsigned int redoSize();
+	qint64 redoSize();
 
 	/**
 	 * Returns the description of the undo transaction as a user-readable

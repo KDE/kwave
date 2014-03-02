@@ -60,7 +60,7 @@ int Kwave::VolumePlugin::interpreteParameters(QStringList &params)
     if (params.count() != 2) return -EINVAL;
 
     param = params[0];
-    m_factor = param.toDouble(&ok);
+    m_factor = param.toFloat(&ok);
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 

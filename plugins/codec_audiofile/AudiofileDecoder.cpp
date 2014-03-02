@@ -32,12 +32,11 @@ extern "C" {
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 #include "libkwave/VirtualAudioFile.h"
 
 #include "AudiofileDecoder.h"
-
-#define CHECK(cond) Q_ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
 //***************************************************************************
 Kwave::AudiofileDecoder::AudiofileDecoder()
@@ -132,22 +131,22 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 	return false;
     }
 
-    unsigned int length = afGetFrameCount(fh, AF_DEFAULT_TRACK);
-    unsigned int tracks = afGetVirtualChannels(fh, AF_DEFAULT_TRACK);
+    AFframecount length = afGetFrameCount(fh, AF_DEFAULT_TRACK);
+    unsigned int tracks = qMax(afGetVirtualChannels(fh, AF_DEFAULT_TRACK), 0);
     unsigned int bits = 0;
-    unsigned int rate = 0;
+    double       rate = 0.0;
     int af_sample_format;
     afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &af_sample_format,
 	reinterpret_cast<int *>(&bits));
 
     // get sample rate, with fallback to 8kHz
-    rate = static_cast<int>(afGetRate(fh, AF_DEFAULT_TRACK));
-    if (rate < 1) {
+    rate = afGetRate(fh, AF_DEFAULT_TRACK);
+    if (rate < 1.0) {
 	qWarning("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"\
 	         "WARNING: file has no sample rate!\n"\
 	         "         => using 8000 samples/sec as fallback\n"\
 	         "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
-	rate = 8000;
+	rate = 8000.0;
     }
 
     Kwave::SampleFormat fmt;
@@ -203,7 +202,7 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
     Q_ASSERT(fh);
     if (!fh) return false;
 
-    unsigned int frame_size = static_cast<unsigned int>(
+    unsigned int frame_size = Kwave::toUint(
 	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
 
     // allocate a buffer for input data
@@ -218,13 +217,12 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
     sample_index_t rest = Kwave::FileInfo(metaData()).length();
     while (rest) {
 	unsigned int frames = buffer_frames;
-	if (frames > rest) frames = rest;
-	unsigned int buffer_used = afReadFrames(fh,
+	if (frames > rest) frames = Kwave::toUint(rest);
+	int buffer_used = afReadFrames(fh,
 	    AF_DEFAULT_TRACK, reinterpret_cast<char *>(buffer), frames);
 
 	// break if eof reached
-	Q_ASSERT(buffer_used);
-	if (!buffer_used) break;
+	if (buffer_used <= 0) break;
 	rest -= buffer_used;
 
 	// split into the tracks

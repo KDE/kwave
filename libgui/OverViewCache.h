@@ -32,6 +32,8 @@
 
 #include "libkwave/Sample.h"
 
+#include "libgui/SelectionTracker.h"
+
 class QColor;
 
 namespace Kwave
@@ -46,7 +48,7 @@ namespace Kwave
      * itself if data has been changed, inserted or deleted.
      * Optimized for speed!
      */
-    class KDE_EXPORT OverViewCache: public QObject
+    class KDE_EXPORT OverViewCache : public QObject
     {
 	Q_OBJECT
     public:
@@ -105,55 +107,28 @@ namespace Kwave
     protected slots:
 
 	/**
-	 * Connected to the signal's sigTrackInserted.
-	 * @param index the index [0...tracks()-1] of the inserted track
-	 * @param track pointer to the track instance
-	 * @see Signal::sigTrackInserted
-	 * @internal
+	 * Connected to the selection tracker's sigTrackInserted.
+	 * @param track_id unique ID of the track
+	 * @see SelectionTracker::sigTrackInserted
 	 */
-	void slotTrackInserted(unsigned int index, Kwave::Track *track);
+	void slotTrackInserted(const QUuid &track_id);
 
 	/**
-	 * Connected to the signal's sigTrackInserted.
-	 * @param index the index of the inserted track
-	 * @param track pointer to the track instance
-	 * @see Signal::sigTrackDeleted
-	 * @internal
+	 * Connected to the selection tracker's sigTrackInserted.
+	 * @param track_id unique ID of the track
+	 * @see SelectionTracker::sigTrackDeleted
 	 */
-	void slotTrackDeleted(unsigned int index, Kwave::Track *track);
+	void slotTrackDeleted(const QUuid &track_id);
 
 	/**
-	 * Connected to the signal's sigSamplesInserted.
-	 * @param track index of the source track [0...tracks-1]
-	 * @param offset position from which the data was inserted
-	 * @param length number of samples inserted
-	 * @see Signal::sigSamplesInserted
-	 * @internal
+	 * Connected to the selection tracker's sigInvalidated.
+	 * @param track_id UUID of the track or null for "all tracks"
+	 * @param first index of the first invalidated sample
+	 * @param last index of the last invalidated sample
 	 */
-	void slotSamplesInserted(unsigned int track, sample_index_t offset,
-	                         sample_index_t length);
-
-	/**
-	 * Connected to the signal's sigSamplesDeleted.
-	 * @param track index of the source track [0...tracks-1]
-	 * @param offset position from which the data was removed
-	 * @param length number of samples deleted
-	 * @see Signal::sigSamplesDeleted
-	 * @internal
-	 */
-	void slotSamplesDeleted(unsigned int track, sample_index_t offset,
-	                        sample_index_t length);
-
-	/**
-	 * Connected to the signal's sigSamplesModified
-	 * @param track index of the source track [0...tracks-1]
-	 * @param offset position from which the data was modified
-	 * @param length number of samples modified
-	 * @see Signal::sigSamplesModified
-	 * @internal
-	 */
-	void slotSamplesModified(unsigned int track, sample_index_t offset,
-	                         sample_index_t length);
+	void slotInvalidated(const QUuid *track_id,
+	                     sample_index_t first,
+	                     sample_index_t last);
 
     protected:
 
@@ -166,22 +141,6 @@ namespace Kwave
 	} CacheState;
 
     private:
-
-	/**
-	 * Shows a short list of selected / deleted selected tracks.
-	 * @internal for debugging only
-	 */
-	void dumpTracks();
-
-	/** Returns the number of selected samples of the source */
-	sample_index_t sourceLength();
-
-	/**
-	 * Returns true when there was a list of selected tracks
-	 */
-	bool haveTrackSelection() const {
-	    return (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty());
-	}
 
 	/**
 	 * Compresses the cache to hold more samples per entry.
@@ -197,11 +156,11 @@ namespace Kwave
 
 	/**
 	 * Marks a range of cache entries of a track as invalid
-	 * @param uuid ID of the track to invalidate
+	 * @param uuid ID of the track to invalidate or null for "all tracks"
 	 * @param first index of the first entry
 	 * @param last index of the last entry (will be truncated to CACHE_SIZE-1)
 	 */
-	void invalidateCache(const QUuid &uuid,
+	void invalidateCache(const QUuid *uuid,
 	                     unsigned int first,
 	                     unsigned int last);
 
@@ -209,6 +168,9 @@ namespace Kwave
 
 	/** signal with the data to be shown */
 	Kwave::SignalManager &m_signal;
+
+	/** selection tracker */
+	Kwave::SelectionTracker m_selection;
 
 	/** list of minimum value arrays, one array per track */
 	QHash<QUuid, QVector <sample_t> > m_min;
@@ -222,26 +184,11 @@ namespace Kwave
 	/** list of min/max pairs, cached internally for getOverView */
 	MinMaxArray m_minmax;
 
-	/** number of min/max values */
-	unsigned int m_count;
-
 	/** number of samples per cache entry */
-	unsigned int m_scale;
+	quint64 m_scale;
 
 	/** mutex for threadsafe access to the cache */
 	QMutex m_lock;
-
-	/** first sample index in the source */
-	sample_index_t m_src_offset;
-
-	/** length of the source in samples, or zero for "whole signal" */
-	sample_index_t m_src_length;
-
-	/** list of selected source tracks */
-	QList<QUuid> m_src_tracks;
-
-	/** list of selected and deleted source tracks */
-	QList<QUuid> m_src_deleted;
 
     };
 }

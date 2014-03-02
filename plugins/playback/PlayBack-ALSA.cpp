@@ -50,6 +50,7 @@
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "PlayBack-ALSA.h"
 
@@ -584,8 +585,7 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
     // initialize the list of supported formats
     m_supported_formats = detectSupportedFormats(device);
 
-    int err = openDevice(device, static_cast<unsigned int>(rate),
-	channels, bits);
+    int err = openDevice(device, Kwave::toUint(rate), channels, bits);
     if (err) {
 	QString reason;
 	switch (err) {
@@ -620,7 +620,7 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
     unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
     Q_ASSERT(chunk_bytes);
     if (!chunk_bytes) return QString();
-    unsigned int n = static_cast<unsigned int>(ceil(
+    unsigned int n = Kwave::toUint(ceil(
 	static_cast<float>(1 << m_bufbase) /
 	static_cast<float>(chunk_bytes)));
     if (n < 1) n = 1;
@@ -673,7 +673,7 @@ int Kwave::PlayBackALSA::flush()
 	unsigned int buffer_samples = m_buffer_size / m_bytes_per_sample;
 	unsigned int timeout = (m_rate > 0) ?
 	    3 * ((1000 * buffer_samples) /
-	    static_cast<unsigned int>(m_rate)) : 1000U;
+	    Kwave::toUint(m_rate)) : 1000U;
 	quint8 *p = reinterpret_cast<quint8 *>(m_buffer.data());
 
 	// pad the buffer with silence if necessary
@@ -688,8 +688,7 @@ int Kwave::PlayBackALSA::flush()
 	while (samples > 0) {
 	    // try to write as much as the device accepts
 	    int r = snd_pcm_writei(m_handle, p, samples);
-	    if ((r == -EAGAIN) || ((r >= 0) &&
-	        (r < static_cast<int>(samples))))
+	    if ((r == -EAGAIN) || ((r >= 0) && (r < Kwave::toInt(samples))))
 	    {
 		snd_pcm_wait(m_handle, timeout);
 	    } else if (r == -EPIPE) {
@@ -729,7 +728,7 @@ int Kwave::PlayBackALSA::flush()
 	    }
 	    if (r > 0) {
 		// advance in the buffer
-		Q_ASSERT(r <= static_cast<int>(samples));
+		Q_ASSERT(r <= Kwave::toInt(samples));
 		p       += r * m_bytes_per_sample;
 		samples -= r;
 	    }
@@ -828,7 +827,7 @@ void Kwave::PlayBackALSA::scanDevices()
 //  	    qDebug("  Subdevices: %i/%i\n",
 // 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
 	    if (count > 1) {
-		for (idx = 0; idx < static_cast<int>(count); idx++) {
+		for (idx = 0; idx < Kwave::toInt(count); idx++) {
 		    snd_pcm_info_set_subdevice(pcminfo, idx);
 		    if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
 			qWarning("ctrl digital audio playback info (%i): %s",

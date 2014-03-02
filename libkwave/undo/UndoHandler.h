@@ -43,7 +43,7 @@ namespace Kwave
 	 * Called by an undo manager to notify the handler that
 	 * it is time to save data for undo.
 	 *
-	 * @param transaction an undo transaction to append some undo data
+	 * @param undo an undo transaction to append some undo data
 	 * @retval true if successful
 	 * @retval false if saving undo data failed, e.g. out of memory
 	 *               or aborted

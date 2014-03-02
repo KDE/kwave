@@ -36,6 +36,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/SampleReader.h"
+#include "libkwave/Utils.h"
 #include "libkwave/VirtualAudioFile.h"
 
 #include "WavEncoder.h"
@@ -71,7 +72,7 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
                                                     Kwave::FileInfo &info,
                                                     unsigned int frame_size)
 {
-    const unsigned int length = info.length();
+    const unsigned int length = Kwave::toUint(info.length());
     quint32 correct_size = length * frame_size;
     const int compression = info.contains(Kwave::INF_COMPRESSION) ?
                       info.get(Kwave::INF_COMPRESSION).toInt() :
@@ -111,7 +112,7 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
 
     // also fix the "RIFF" size
     dst.seek(4);
-    quint32 riff_size = dst.size() - 4 - 4;
+    quint32 riff_size = static_cast<quint32>(dst.size()) - 4 - 4;
     riff_size = qToLittleEndian<quint32>(riff_size);
     dst.write(reinterpret_cast<char *>(&riff_size), 4);
 
@@ -256,7 +257,7 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
 	dst.write("data", 4);        // fccChunk
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwChunkStart
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwBlockStart
-	data = qToLittleEndian<quint32>(label.pos());
+	data = qToLittleEndian<quint32>(Kwave::toUint(label.pos()));
 	dst.write(reinterpret_cast<char *>(&data), 4); // dwSampleOffset
 	index++;
     }
@@ -310,8 +311,8 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     Kwave::FileInfo info(meta_data);
 
     /* first get and check some header information */
-    const unsigned int tracks = info.tracks();
-    const unsigned int length = info.length();
+    const unsigned int   tracks = info.tracks();
+    const sample_index_t length = info.length();
     unsigned int bits = info.bits();
     const double rate = info.rate();
     int sample_format = info.contains(Kwave::INF_SAMPLE_FORMAT) ?
@@ -394,13 +395,20 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	    i18n("Unable to open the file for saving!"));
 	return false;
     }
+
+    // check for proper size: WAV supports only 32bit addressing
+    if (length * ((bits + 7) / 8) >= UINT_MAX) {
+	Kwave::MessageBox::error(widget, i18n("File or selection too large"));
+	return false;
+    }
+
     AFfilesetup setup;
     setup = afNewFileSetup();
     afInitFileFormat(setup, AF_FILE_WAVE);
     afInitChannels(setup, AF_DEFAULT_TRACK, tracks);
     afInitSampleFormat(setup, AF_DEFAULT_TRACK, sample_format, bits);
     afInitCompression(setup, AF_DEFAULT_TRACK, compression);
-    afInitRate (setup, AF_DEFAULT_TRACK, rate);
+    afInitRate(setup, AF_DEFAULT_TRACK, rate);
 
     Kwave::VirtualAudioFile outfile(dst);
     outfile.open(&outfile, setup);
@@ -454,7 +462,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	AF_SAMPFMT_TWOSCOMP, SAMPLE_STORAGE_BITS);
 
     // allocate a buffer for input data
-    const unsigned int virtual_frame_size = static_cast<const unsigned int>(
+    const unsigned int virtual_frame_size = Kwave::toUint(
 	    afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
     const unsigned int buffer_frames = (8*1024);
     qint32 *buffer = static_cast<qint32 *>(
@@ -462,12 +470,12 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     if (!buffer) return false;
 
     // read in from the sample readers
-    unsigned int rest = length;
+    sample_index_t rest = length;
     while (rest) {
 	// merge the tracks into the sample buffer
 	qint32 *p = buffer;
 	unsigned int count = buffer_frames;
-	if (rest < count) count = rest;
+	if (rest < count) count = Kwave::toUint(rest);
 
 	for (unsigned int pos = 0; pos < count; pos++) {
 	    for (unsigned int track = 0; track < tracks; track++) {

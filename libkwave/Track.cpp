@@ -26,6 +26,7 @@
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
 #include "libkwave/TrackWriter.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 
 /**
@@ -33,7 +34,6 @@
  * When creating a new stripe, it should have this size
  */
 #define STRIPE_LENGTH_OPTIMAL (4UL * 1024UL * 1024UL) /* 16MB */
-// #define STRIPE_LENGTH_OPTIMAL (64 * 1024UL) /* 64kB */
 
 /**
  * Maximum stripe size [samples].
@@ -65,7 +65,7 @@ Kwave::Track::Track(sample_index_t length, QUuid *uuid)
     :m_lock(), m_lock_usage(), m_stripes(), m_selected(true),
      m_uuid((uuid) ? *uuid : QUuid::createUuid())
 {
-    if (length < 2*STRIPE_LENGTH_OPTIMAL) {
+    if (length < STRIPE_LENGTH_MAXIMUM) {
 	if (length) appendStripe(length);
     } else {
 	Stripe s(length - STRIPE_LENGTH_OPTIMAL);
@@ -90,17 +90,13 @@ Kwave::Track::~Track()
 //***************************************************************************
 void Kwave::Track::appendStripe(sample_index_t length)
 {
-//     SharedLockGuard lock(m_lock, true);
     sample_index_t start = unlockedLength();
-    sample_index_t len;
-
     do {
-	len = length;
-	if (len > STRIPE_LENGTH_MAXIMUM)
-	    len = STRIPE_LENGTH_MAXIMUM;
+	unsigned int len = Kwave::toUint(
+	    qMin<sample_index_t>(STRIPE_LENGTH_MAXIMUM, length));
 
 	Stripe s(start);
-	s.resize(length);
+	s.resize(len);
 	if (len) emit sigSamplesInserted(this, start, len);
 
 	length -= len;
@@ -235,13 +231,12 @@ Kwave::Stripe::List Kwave::Track::stripes(sample_index_t left,
 	Stripe cropped(stripe);
 
 	// remove data after the end of the selection
-	if (end > right) {
-	    cropped.resize(cropped.length() - (end - right));
-	}
+	if (end > right)
+	    cropped.resize(Kwave::toUint(cropped.length() - (end - right)));
 
 	// remove data before the start of the selection
 	if (start < left) {
-	    cropped.deleteRange(0, left - start);
+	    cropped.deleteRange(0, Kwave::toUint(left - start));
 	    cropped.setStart(left);
 	}
 
@@ -336,7 +331,9 @@ bool Kwave::Track::insertSpace(sample_index_t offset, sample_index_t shift)
 		if (start >= offset) break; // not "within" the stripe
 
 // 		qDebug("Kwave::Track::insertSpace => splitting [%u...%u]",start,end);
-		Stripe new_stripe = splitStripe(s, offset - start);
+		Stripe new_stripe = splitStripe(s,
+		    Kwave::toUint(offset - start)
+		);
 		if (!new_stripe.length()) return false; // OOM ?
 		it.insert(new_stripe);
 		break;
@@ -388,7 +385,7 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
 	    //        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	    //        already checked above
 	    // partial stripe overlap
-	    unsigned int ofs = (start < left) ? left : start;
+	    sample_index_t ofs = (start < left) ? left : start;
 	    if (end > right) end = right;
 // 	    qDebug("deleting [%u ... %u] (start=%u, ofs-start=%u, len=%u)",
 // 		ofs, end, start, ofs-start, end - ofs + 1);
@@ -401,7 +398,10 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
 		// case #3: delete from the left only
 		// case #4: delete from the right only
 // 		qDebug("    deleting within the stripe");
-		s.deleteRange(ofs - start, end - ofs + 1);
+		s.deleteRange(
+		    Kwave::toUint(ofs - start),
+		    Kwave::toUint(end - ofs + 1)
+		);
 		if (!s.length()) break; // OOM ?
 
 		// if deleted from start
@@ -416,7 +416,8 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
 		//          by splitting off a new stripe
 // 		qDebug("    splitting off to new stripe @ %u (ofs=%u)",
 // 		    right + 1, right + 1 - start);
-		Stripe new_stripe = splitStripe(s, right + 1 - start);
+		Stripe new_stripe = splitStripe(s,
+		    Kwave::toUint(right + 1 - start));
 		if (!new_stripe.length()) break; // OOM ?
 		it.next(); // right after "s"
 		it.insert(new_stripe);
@@ -424,10 +425,10 @@ void Kwave::Track::unlockedDelete(sample_index_t offset, sample_index_t length,
 		it.previous(); // before s, like
 
 		// erase to the end (reduce size)
+		const unsigned int todel = Kwave::toUint(s.end() - ofs + 1);
 // 		qDebug("ofs-start=%u, s->end()-ofs+1=%u [%u...%u] (%u)",
-// 		    ofs-start, s.end() - ofs + 1, s.start(),
-// 		    s.end(), s.length());
-		s.deleteRange(ofs - start, s.end() - ofs + 1);
+// 		    ofs-start, todel, s.start(), s.end(), s.length());
+		s.deleteRange(Kwave::toUint(ofs - start), todel);
 // 		qDebug("length now: %u [%u ... %u]", s.length(),
 // 		    s.start(), s.end());
 // 		Q_ASSERT(s.length());
@@ -503,9 +504,8 @@ bool Kwave::Track::appendAfter(Stripe *stripe,  sample_index_t offset,
 
     // append new stripes as long as there is something remaining
     while (length) {
-	sample_index_t len = length;
-	if (len > STRIPE_LENGTH_MAXIMUM)
-	    len = STRIPE_LENGTH_MAXIMUM;
+	unsigned int len = Kwave::toUint(qMin<sample_index_t>(
+	    length, STRIPE_LENGTH_MAXIMUM));
 
 // 	qDebug("Kwave::Track::appendAfter: new stripe, ofs=%u, len=%u",
 // 	       offset, len);
@@ -642,7 +642,8 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
 	        // split the target stripe and insert the samples
 		// between the two new ones
 		Stripe new_stripe = splitStripe(*target_stripe,
-		    offset - target_stripe->start());
+		    Kwave::toUint(offset - target_stripe->start())
+		);
 		if (!new_stripe.length()) break;
 		m_stripes.insert(m_stripes.indexOf(*target_stripe) + 1,
 		    new_stripe);
@@ -730,17 +731,18 @@ void Kwave::Track::defragment()
 	    if (combined_len > STRIPE_LENGTH_MAXIMUM)
 		continue; // would be too large
 
-	    if ((before->length() < STRIPE_LENGTH_OPTIMAL) ||
-		(stripe->length() < STRIPE_LENGTH_OPTIMAL)) {
+	    if ((before->length() < STRIPE_LENGTH_MINIMUM) ||
+		(stripe->length() < STRIPE_LENGTH_MINIMUM)) {
 // 		qDebug("Track::defragment(), combine #%u [%llu..%llu] & "
 // 		       "#%u [%llu..%llu] => [%llu..%llu] (%llu)",
 // 		       index - 1, before->start(), before->end(),
 // 		       index, stripe->start(), stripe->end(),
 // 		       before->start(), stripe->end(), combined_len);
 
-		// try to resize the stripe befor to contain the
+		// try to resize the stripe before to contain the
 		// combined length
-		const unsigned int offset = stripe->start() - before_start;
+		const unsigned int offset = Kwave::toUint(
+		    stripe->start() - before_start);
 		if (!before->combine(offset, *stripe))
 		    continue; // not possible, maybe OOM ?
 
@@ -774,10 +776,10 @@ void Kwave::Track::release()
 void Kwave::Track::dump()
 {
     qDebug("------------------------------------");
-    unsigned int index = 0;
-    unsigned int last_end = 0;
+    unsigned int   index    = 0;
+    sample_index_t last_end = 0;
     foreach (const Stripe &s, m_stripes) {
-	unsigned int start = s.start();
+	sample_index_t start = s.start();
 	if (index && (start <= last_end))
 	    qDebug("--- OVERLAP ---");
 	if (start > last_end+1)

@@ -21,10 +21,15 @@
 #include "config.h"
 
 #include <QtCore/QByteArray>
+#include <QtCore/QBitArray>
+#include <QtCore/QFuture>
 #include <QtCore/QList>
+#include <QtCore/QMutex>
 #include <QtCore/QQueue>
 #include <QtCore/QReadWriteLock>
 #include <QtCore/QString>
+#include <QtCore/QTimer>
+#include <QtCore/QUuid>
 
 #include "libkwave/FixedPool.h"
 #include "libkwave/Plugin.h"
@@ -39,11 +44,15 @@ class QStringList;
 /** maximum number of concurrent FFT jobs */
 #define MAX_FFT_JOBS 256
 
+/** maximum number of slices (width of the image) */
+#define MAX_SLICES 32767
+
 namespace Kwave
 {
     class MultiTrackReader;
     class OverViewCache;
     class PluginContext;
+    class SelectionTracker;
     class SonagramWindow;
 
     /**
@@ -104,6 +113,11 @@ namespace Kwave
     private slots:
 
 	/**
+	 * validate the sonagram by calling makeAllValid in a background thread
+	 */
+	void validate();
+
+	/**
 	 * Connected to the SonagramWindow's "destroyed()" signal.
 	 * @see class SonagramWindow
 	 */
@@ -123,6 +137,30 @@ namespace Kwave
 	 */
 	void refreshOverview();
 
+	/**
+	 * Connected to the selection tracker's sigTrackInserted.
+	 * @param track_id unique ID of the track
+	 * @see SelectionTracker::sigTrackInserted
+	 */
+	void slotTrackInserted(const QUuid &track_id);
+
+	/**
+	 * Connected to the selection tracker's sigTrackInserted.
+	 * @param track_id unique ID of the track
+	 * @see SelectionTracker::sigTrackDeleted
+	 */
+	void slotTrackDeleted(const QUuid &track_id);
+
+	/**
+	 * Connected to the selection tracker's sigInvalidated.
+	 * @param track_id UUID of the track or null for "all tracks"
+	 * @param first index of the first invalidated sample
+	 * @param last index of the last invalidated sample
+	 */
+	void slotInvalidated(const QUuid *track_id,
+	                     sample_index_t first,
+	                     sample_index_t last);
+
     protected:
 
 	/**
@@ -136,9 +174,19 @@ namespace Kwave
     private:
 
 	/**
+	 * will be run in a background thread to make all stripes
+	 * valid.
+	 */
+	void makeAllValid();
+
+	/**
+	 * Requests an update of the sonagram or portions of it
+	 */
+	void requestValidation();
+
+	/**
 	 * do the FFT calculation on a slice
 	 * @param slice structure with the input data and output buffer
-	 * @return a byte array with rendered FFT data
 	 */
 	void calculateSlice(Kwave::SonagramPlugin::Slice *slice);
 
@@ -160,14 +208,8 @@ namespace Kwave
 	/** the main view of the plugin, a SonagramWindow */
 	Kwave::SonagramWindow *m_sonagram_window;
 
-	/** list of selected channels */
-	QList<unsigned int> m_selected_channels;
-
-	/** first sample of the selection, inclusive */
-	sample_index_t m_first_sample;
-
-	/** last sample of the selection, inclusive */
-	sample_index_t m_last_sample;
+	/** selection tracker */
+	Kwave::SelectionTracker *m_selection;
 
 	/** number of slices (= width of the image in pixels) */
 	unsigned int m_slices;
@@ -196,9 +238,20 @@ namespace Kwave
 	/** pool of slices */
 	Kwave::FixedPool<MAX_FFT_JOBS, Slice> m_slice_pool;
 
+	/** bit field with "is valid" a flag for each stripe */
+	QBitArray m_valid;
+
 	/** lock used for tracking running background jobs */
 	QReadWriteLock m_pending_jobs;
 
+	/** lock to protect the job list (m_valid) */
+	QMutex m_lock_job_list;
+
+	/** the currently running background job */
+	QFuture<void> m_future;
+
+	/** timer for refreshing the sonagram */
+	QTimer m_repaint_timer;
     };
 }
 

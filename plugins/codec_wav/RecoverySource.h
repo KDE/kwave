@@ -20,6 +20,8 @@
 
 #include "config.h"
 
+#include <QtCore/qglobal.h>
+
 namespace Kwave
 {
     class RecoverySource
@@ -30,19 +32,19 @@ namespace Kwave
 	* @param offset position within the recovered file
 	* @param length number of bytes of the recovered area
 	*/
-	RecoverySource(unsigned int offset, unsigned int length);
+	RecoverySource(quint64 offset, quint64 length);
 
 	/** Destructor */
-	virtual ~RecoverySource() {};
+	virtual ~RecoverySource() {}
 
 	/** Returns the start offset in the recovered file */
-	virtual unsigned int offset() const;
+	virtual quint64 offset() const;
 
 	/** Returns the number of bytes of the recovered range */
-	virtual unsigned int length() const;
+	virtual quint64 length() const;
 
 	/** Returns the end offset in the recovered file */
-	virtual unsigned int end() const;
+	virtual quint64 end() const;
 
 	/**
 	* Reads bytes from the recovered file into a buffer
@@ -51,15 +53,15 @@ namespace Kwave
 	* @param bytes number of bytes to read
 	* @return number of successfully read bytes
 	*/
-	virtual unsigned int read(unsigned int offset, char *data,
-	                          unsigned int bytes) = 0;
+	virtual qint64 read(quint64 offset, char *data,
+	                    unsigned int bytes) = 0;
 
     private:
 	/** offset in the file */
-	unsigned int m_offset;
+	quint64 m_offset;
 
 	/** length in bytes */
-	unsigned int m_length;
+	quint64 m_length;
     };
 }
 

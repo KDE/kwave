@@ -22,6 +22,7 @@
 #include "libkwave/Curve.h"
 #include "libkwave/Interpolation.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 //***************************************************************************
 //***************************************************************************
@@ -245,13 +246,13 @@ QVector<double> Kwave::Interpolation::interpolation(
 		    y1 = p.y();
 
 		    double dy = (y1 - y0);
-		    int dx  = static_cast<int>((x1 - x0) * len);
-		    int min = static_cast<int>(x0 * len);
+		    int dx  = Kwave::toInt((x1 - x0) * len);
+		    int min = Kwave::toInt(x0 * len);
 
 		    Q_ASSERT(x0 >= 0.0);
 		    Q_ASSERT(x1 <= 1.0);
-		    for (int i = static_cast<int>(x0 * len);
-		         i < static_cast<int>(x1 * len); i++) {
+		    for (int i = Kwave::toInt(x0 * len);
+		         i < Kwave::toInt(x1 * len); i++) {
 			double h = dx ? ((double(i - min)) / dx) : 0.0;
 			y_out[i] = y0 + (h * dy);
 		    }
@@ -282,10 +283,10 @@ QVector<double> Kwave::Interpolation::interpolation(
 	    get2Derivate(x, y, der, count);
 
 	    int ent;
-	    int start = static_cast<int>(x[1] * len);
+	    int start = Kwave::toInt(x[1] * len);
 
 	    for (unsigned int j = 2; j <= count; j++) {
-		ent = static_cast<int>(x[j] * len);
+		ent = Kwave::toInt(x[j] * len);
 		for (int i = start; i < ent; i++) {
 		    double xin = static_cast<double>(i) / len;
 		    double h, b, a;
@@ -330,8 +331,8 @@ QVector<double> Kwave::Interpolation::interpolation(
 		    else
 			ent = points[px + 1].x();
 
-		    for (int i = static_cast<int>(start * len);
-			i < static_cast<int>(ent * len); i++)
+		    for (int i = Kwave::toInt(start * len);
+			i < Kwave::toInt(ent * len); i++)
 		    {
 			ny = y[0];
 			for (unsigned int j = 1; j < degree; j++)
@@ -382,8 +383,8 @@ QVector<double> Kwave::Interpolation::interpolation(
 		    x1 = p.x();
 		    y1 = p.y();
 
-		    for (int i = static_cast<int>(x0 * len);
-		         i < static_cast<int>(x1 * len); i++)
+		    for (int i = Kwave::toInt(x0 * len);
+		         i < Kwave::toInt(x1 * len); i++)
 			y_out[i] = y0;
 
 		    x0 = x1;

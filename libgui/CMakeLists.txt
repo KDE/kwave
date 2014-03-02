@@ -39,6 +39,7 @@ SET(libkwavegui_LIB_SRCS
     OverViewCache.cpp
     OverViewWidget.cpp
     ScaleWidget.cpp
+    SelectionTracker.cpp
     SelectTimeWidget.cpp
     SignalView.cpp
     SignalWidget.cpp

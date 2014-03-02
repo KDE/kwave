@@ -136,7 +136,7 @@ void Kwave::SignalView::setVerticalZoom(double zoom)
 //***************************************************************************
 int Kwave::SignalView::samples2pixels(sample_index_t samples) const
 {
-    return (m_zoom > 0.0) ? (samples / m_zoom) : 0;
+    return Kwave::toInt((m_zoom > 0.0) ? (samples / m_zoom) : 0);
 }
 
 //***************************************************************************
@@ -757,23 +757,18 @@ void Kwave::SignalView::dragMoveEvent(QDragMoveEvent* event)
 	sample_index_t left  = m_signal_manager->selection().first();
 	sample_index_t right = m_signal_manager->selection().last();
 	const sample_index_t w = pixels2samples(width());
-	QRect r(this->rect());
+	QRect rect(this->rect());
 
 	// crop selection to widget borders
 	if (left < m_offset) left = m_offset;
 	if (right > m_offset + w) right = m_offset + w - 1;
 
 	// transform to pixel coordinates
-	left  = samples2pixels(left  - m_offset);
-	right = samples2pixels(right - m_offset);
-	if (right >= static_cast<unsigned int>(width()))
-	    right = width() - 1;
-	if (left > right)
-	    left = right;
-
-	r.setLeft(left);
-	r.setRight(right);
-	event->ignore(r);
+	int l = qMin(samples2pixels(left  - m_offset), width() - 1);
+	int r = qMin(samples2pixels(right - m_offset), l);
+	rect.setLeft(l);
+	rect.setRight(r);
+	event->ignore(rect);
     } else if (Kwave::Drag::canDecode(event->mimeData())) {
 	// accept if it is decodeable within the
 	// current range (if it's outside our own selection)

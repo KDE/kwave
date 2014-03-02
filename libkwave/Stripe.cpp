@@ -22,17 +22,10 @@
 
 #include "libkwave/memcpy.h"
 #include "libkwave/Stripe.h"
+#include "libkwave/Utils.h"
 
 // define this for using only slow Qt array functions
 #undef STRICTLY_QT
-
-#ifndef unlikely
-#define unlikely(x) (__builtin_expect((x),0))
-#endif
-
-#ifndef likely
-#define likely(x) (__builtin_expect((x),1))
-#endif
 
 //***************************************************************************
 //***************************************************************************
@@ -162,8 +155,7 @@ Kwave::Stripe::StripeStorage::StripeStorage(const StripeStorage &other)
 	    unsigned int ofs       = 0;
 
 	    while (remaining) {
-		unsigned int len =  qMin(remaining,
-		    static_cast<unsigned int>(sizeof(buf)));
+		unsigned int len =  qMin(remaining, Kwave::toUint(sizeof(buf)));
 		unsigned int read = mem.readFrom(other.m_storage, ofs,
 		                                 &buf[0], len);
 		Q_ASSERT(read == len);
@@ -506,8 +498,8 @@ bool Kwave::Stripe::combine(unsigned int offset, Kwave::Stripe &other)
 	QMutexLocker lock(&m_lock);
 	if (m_data->mapCount()) return false; // data is mapped
 
-	const sample_index_t old_len      = m_data->m_length;
-	const sample_index_t combined_len = offset + other.length();
+	const unsigned int old_len      = m_data->m_length;
+	const unsigned int combined_len = offset + other.length();
 	if (old_len < combined_len) {
 	    // resize the storage if necessary
 	    if (resizeStorage(combined_len) != combined_len)
@@ -600,18 +592,18 @@ void Kwave::Stripe::minMax(unsigned int first, unsigned int last,
 
     // speedup: process a block of 8 samples at once, to allow loop unrolling
     const unsigned int block = 8;
-    while (likely(remaining >= block)) {
+    while (Q_LIKELY(remaining >= block)) {
 	for (unsigned int count = 0; count < block; count++) {
 	    register sample_t s = *(buffer++);
-	    if (unlikely(s < lo)) lo = s;
-	    if (unlikely(s > hi)) hi = s;
+	    if (Q_UNLIKELY(s < lo)) lo = s;
+	    if (Q_UNLIKELY(s > hi)) hi = s;
 	}
 	remaining -= block;
     }
-    while (likely(remaining--)) {
+    while (Q_LIKELY(remaining--)) {
 	register sample_t s = *(buffer++);
-	if (unlikely(s < lo)) lo = s;
-	if (unlikely(s > hi)) hi = s;
+	if (Q_UNLIKELY(s < lo)) lo = s;
+	if (Q_UNLIKELY(s > hi)) hi = s;
     }
     min = lo;
     max = hi;

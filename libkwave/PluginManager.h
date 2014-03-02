@@ -128,11 +128,6 @@ namespace Kwave
 	double signalRate();
 
 	/**
-	 * Returns an array of indices of currently selected channels.
-	 */
-	const QList<unsigned int> selectedTracks();
-
-	/**
 	 * Returns the start of the selection. If nothing is currently
 	 * selected this will be the first sample (0).
 	 */

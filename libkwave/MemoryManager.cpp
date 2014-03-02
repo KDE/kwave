@@ -41,6 +41,7 @@
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"
 #include "libkwave/SwapFile.h"
+#include "libkwave/Utils.h"
 
 /** number of elements in the m_cached_swap list */
 #define CACHE_SIZE 16
@@ -102,10 +103,10 @@ Kwave::MemoryManager::MemoryManager()
 
     // check ulimit of data segment size
     if (getrlimit(RLIMIT_DATA, &limit) == 0) {
-	unsigned int physical_ulimit =
+	quint64 physical_ulimit =
 	    qMin(limit.rlim_cur, limit.rlim_max) >> 20;
 #ifdef DEBUG
-	qDebug("Kwave::MemoryManager: RLIMIT_DATA: %u MB", physical_ulimit);
+	qDebug("Kwave::MemoryManager: RLIMIT_DATA: %llu MB", physical_ulimit);
 #endif /* DEBUG */
 	if (physical_ulimit < total) total = physical_ulimit;
     }
@@ -113,10 +114,10 @@ Kwave::MemoryManager::MemoryManager()
     // check ulimit of total (virtual) system memory (address space)
 #ifdef RLIMIT_AS
     if (getrlimit(RLIMIT_AS, &limit) == 0) {
-	unsigned int total_ulimit =
+	quint64 total_ulimit =
 	    qMin(limit.rlim_cur, limit.rlim_max) >> 20;
 #ifdef DEBUG
-	qDebug("Kwave::MemoryManager: RLIMIT_AS: %u MB", total_ulimit);
+	qDebug("Kwave::MemoryManager: RLIMIT_AS: %llu MB", total_ulimit);
 #endif /* DEBUG */
 	if (total_ulimit < total) total = total_ulimit;
     }
@@ -124,15 +125,15 @@ Kwave::MemoryManager::MemoryManager()
 #endif /* HAVE_GETRLIMIT */
 
     // limit the total memory to a int value [MB]
-    if (total > (1ULL << ((sizeof(m_physical_max) * 8) - 1)))
-	total = (1ULL << ((sizeof(m_physical_max) * 8) - 1)) - 1;
+    // (values go into the GUI)
+    total = qMin(total, static_cast<quint64>(INT_MAX));
 
 #ifdef DEBUG
     qDebug("Kwave::MemoryManager: => using up to %llu MB RAM", total);
 #endif /* DEBUG */
 
-    m_physical_max   = static_cast<unsigned int>(total);
-    m_physical_limit = static_cast<unsigned int>(total);
+    m_physical_max   = total;
+    m_physical_limit = total;
 
 #ifdef DEBUG_MEMORY
     m_stats.physical.limit = m_physical_limit << 20ULL;
@@ -167,7 +168,7 @@ Kwave::MemoryManager &Kwave::MemoryManager::instance()
 }
 
 //***************************************************************************
-void Kwave::MemoryManager::setPhysicalLimit(unsigned int mb)
+void Kwave::MemoryManager::setPhysicalLimit(quint64 mb)
 {
     QMutexLocker lock(&m_lock);
 
@@ -180,7 +181,7 @@ void Kwave::MemoryManager::setPhysicalLimit(unsigned int mb)
 }
 
 //***************************************************************************
-void Kwave::MemoryManager::setVirtualLimit(unsigned int mb)
+void Kwave::MemoryManager::setVirtualLimit(quint64 mb)
 {
     QMutexLocker lock(&m_lock);
 
@@ -202,7 +203,7 @@ void Kwave::MemoryManager::setSwapDirectory(const QString &dir)
 }
 
 //***************************************************************************
-void Kwave::MemoryManager::setUndoLimit(unsigned int mb)
+void Kwave::MemoryManager::setUndoLimit(quint64 mb)
 {
     QMutexLocker lock(&m_lock);
 
@@ -212,13 +213,13 @@ void Kwave::MemoryManager::setUndoLimit(unsigned int mb)
 }
 
 //***************************************************************************
-unsigned int Kwave::MemoryManager::undoLimit() const
+quint64 Kwave::MemoryManager::undoLimit() const
 {
     return m_undo_limit;
 }
 
 //***************************************************************************
-unsigned int Kwave::MemoryManager::totalPhysical()
+quint64 Kwave::MemoryManager::totalPhysical()
 {
     return m_physical_max;
 }
@@ -270,8 +271,8 @@ bool Kwave::MemoryManager::freePhysical(size_t size)
 #if 0
 	qDebug("Kwave::MemoryManager[%9d] - swapping %2u MB out to make "\
 	       "space for %2u MB", handle,
-	       static_cast<unsigned int>(s >> 20),
-	       static_cast<unsigned int>(size >> 20));
+	       Kwave::toUint(s >> 20),
+	       Kwave::toUint(size >> 20));
 #endif
 
 	if (convertToVirtual(handle, s)) {
@@ -307,7 +308,7 @@ Kwave::Handle Kwave::MemoryManager::allocate(size_t size)
 
     if (!handle) {
 	qWarning("Kwave::MemoryManager::allocate(%u) - out of memory!",
-	          static_cast<unsigned int>(size));
+	          Kwave::toUint(size));
     }
 
     dump("allocate");
@@ -318,10 +319,10 @@ Kwave::Handle Kwave::MemoryManager::allocate(size_t size)
 Kwave::Handle Kwave::MemoryManager::allocatePhysical(size_t size)
 {
     // check for limits
-    unsigned limit = totalPhysical();
+    quint64 limit = totalPhysical();
     if (m_physical_limit < limit) limit = m_physical_limit;
-    unsigned int used = physicalUsed();
-    unsigned int available = (used < limit) ? (limit - used) : 0;
+    quint64 used = physicalUsed();
+    quint64 available = (used < limit) ? (limit - used) : 0;
     if ((size >> 20) >= available) return 0;
 
     // get a new handle
@@ -349,18 +350,18 @@ Kwave::Handle Kwave::MemoryManager::allocatePhysical(size_t size)
 }
 
 //***************************************************************************
-size_t Kwave::MemoryManager::physicalUsed()
+quint64 Kwave::MemoryManager::physicalUsed()
 {
-    size_t used = 0;
+    quint64 used = 0;
     foreach (const physical_memory_t &mem, m_physical.values())
 	used += (mem.m_size >> 10) + 1;
     return (used >> 10);
 }
 
 //***************************************************************************
-size_t Kwave::MemoryManager::virtualUsed()
+quint64 Kwave::MemoryManager::virtualUsed()
 {
-    size_t used = 0;
+    quint64 used = 0;
 
     foreach (const Kwave::SwapFile *swapfile, m_cached_swap.values())
 	used += (swapfile->size() >> 10) + 1;
@@ -393,14 +394,14 @@ QString Kwave::MemoryManager::nextSwapFileName(Kwave::Handle handle)
 Kwave::Handle Kwave::MemoryManager::allocateVirtual(size_t size)
 {
     // check for limits
-    unsigned int limit = INT_MAX; // totalVirtual() in MB
+    quint64 limit = INT_MAX; // totalVirtual() in MB
     if (m_virtual_limit < limit) limit = m_virtual_limit;
-    unsigned int used = virtualUsed(); // in MB
-    unsigned int available = (used < limit) ? (limit - used) : 0;
+    quint64 used = virtualUsed(); // in MB
+    quint64 available = (used < limit) ? (limit - used) : 0;
     if ((size >> 20) >= available) {
 	qWarning("Kwave::MemoryManager::allocateVirtual(%u): out of memory, "\
-	         "(used: %uMB, available: %uMB, limit=%uMB)",
-	         static_cast<unsigned int>(size), used, available, limit);
+	         "(used: %lluMB, available: %lluMB, limit=%lluMB)",
+	         Kwave::toUint(size), used, available, limit);
 	dump("allocateVirtual");
         return 0;
     }
@@ -425,8 +426,8 @@ Kwave::Handle Kwave::MemoryManager::allocateVirtual(size_t size)
 	return handle;
     } else {
 	qWarning("Kwave::MemoryManager::allocateVirtual(%u): OOM, "\
-	         "(used: %uMB) - failed resizing swap file",
-	         static_cast<unsigned int>(size), used);
+	         "(used: %lluMB) - failed resizing swap file",
+	         Kwave::toUint(size), used);
 	// failed: give up, delete the swapfile object
 	delete swap;
     }
@@ -526,7 +527,7 @@ bool Kwave::MemoryManager::convertToPhysical(Kwave::Handle handle,
 
     // we now have the old data with new size and old handle in m_physical
 //     qDebug("Kwave::MemoryManager[%9d] - reloaded %2u MB from swap",
-//            handle, static_cast<unsigned int>(mem.m_size >> 20));
+//            handle, Kwave::toUint(mem.m_size >> 20));
 
     dump("convertToPhysical");
     return true;
@@ -549,10 +550,10 @@ void Kwave::MemoryManager::tryToMakePhysical(Kwave::Handle handle)
 
     size_t size = swap->size();
 
-    unsigned limit = totalPhysical();
+    quint64 limit = totalPhysical();
     if (m_physical_limit < limit) limit = m_physical_limit;
-    unsigned int used = physicalUsed();
-    unsigned int available = (used < limit) ? (limit - used) : 0;
+    quint64 used = physicalUsed();
+    quint64 available = (used < limit) ? (limit - used) : 0;
 
     // if we would go over the physical limit...
     if ((size >> 20) >= available) {
@@ -570,7 +571,7 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
     QMutexLocker lock(&m_lock);
 
 //     qDebug("Kwave::MemoryManager[%9d] - resize to %u", handle,
-//            static_cast<unsigned int>(size));
+//            Kwave::toUint(size));
 
     // case 1: physical memory
     if (m_physical.contains(handle)) {
@@ -593,7 +594,7 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 	    if (!physical_freed) {
 		// still too large -> move to virtual memory
 		qDebug("Kwave::MemoryManager[%9d] - resize(%uMB) -> moving to swap",
-		    handle, static_cast<unsigned int>(size >> 20));
+		    handle, Kwave::toUint(size >> 20));
 		return convertToVirtual(handle, size);
 	    }
 	}
@@ -646,8 +647,8 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 	// not enough free RAM: resize the pagefile
 // 	qDebug("Kwave::MemoryManager[%9d] - resize swap %u -> %u MB",
 // 	        handle,
-// 	        static_cast<unsigned int>(swap->size() >> 20),
-// 	        static_cast<unsigned int>(size >> 20));
+// 	        Kwave::toUint(swap->size() >> 20),
+// 	        Kwave::toUint(size >> 20));
 
 	dump("resize");
 	Kwave::SwapFile *swap = m_unmapped_swap[handle];
@@ -1028,8 +1029,8 @@ int Kwave::MemoryManager::writeTo(Kwave::Handle handle, unsigned int offset,
 void Kwave::MemoryManager::dump(const char *function)
 {
 #if 0
-    unsigned int v_used  = static_cast<unsigned int>(virtualUsed());
-    unsigned int p_used  = static_cast<unsigned int>(physicalUsed());
+    quint64 v_used  = virtualUsed();
+    quint64 p_used  = physicalUsed();
 
     qDebug("------- %s -------", function);
     foreach (const Kwave::Handle &handle, m_physical.keys())
@@ -1057,7 +1058,7 @@ void Kwave::MemoryManager::dump(const char *function)
 	                              m_unmapped_swap[handle]->size() >> 20);
     }
 
-    qDebug("physical: %5u MB, virtual: %5u MB [m:%5u, c:%5u, u:%5u]",
+    qDebug("physical: %5llu MB, virtual: %5llu MB [m:%5u, c:%5u, u:%5u]",
            p_used, v_used, m, c, u);
 #endif
 

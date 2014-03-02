@@ -41,6 +41,7 @@
 #include "libkwave/ReaderMode.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "libgui/FileDialog.h"
 
@@ -355,7 +356,7 @@ void Kwave::MP3EncoderDialog::load()
 	    break;
 	}
     }
-    if ((!use_preset) && (cbProgram->currentIndex() != static_cast<int>(i))) {
+    if ((!use_preset) && (cbProgram->currentIndex() != Kwave::toInt(i))) {
 	// set the combo box to "user defined" and load the rest from the config
 	cbProgram->setCurrentIndex(i);
     }
@@ -400,7 +401,7 @@ void Kwave::MP3EncoderDialog::save()
 {
     // get the content of the combo box
     int index = cbProgram->currentIndex();
-    if (index < static_cast<int>(ELEMENTS_OF(g_predefined_settings))) {
+    if (index < Kwave::toInt(ELEMENTS_OF(g_predefined_settings))) {
 	m_settings.m_name = g_predefined_settings[index].m_name;
     } else {
 	m_settings.m_name = _("*");
@@ -445,7 +446,7 @@ void Kwave::MP3EncoderDialog::save()
 void Kwave::MP3EncoderDialog::selectProgram(int index)
 {
     if (index < 0) return;
-    if (index >= static_cast<int>(ELEMENTS_OF(g_predefined_settings))) return;
+    if (index >= Kwave::toInt(ELEMENTS_OF(g_predefined_settings))) return;
 
     m_settings = g_predefined_settings[index];
     load();
@@ -495,7 +496,7 @@ void Kwave::MP3EncoderDialog::switchToUserDefined()
 
 	if (match) {
 	    // found a match against known preset
-	    if (static_cast<int>(i) != index) {
+	    if (Kwave::toInt(i) != index) {
 		cbProgram->setCurrentIndex(i);
 		updateEncoderInfo();
 	    }
@@ -716,7 +717,7 @@ void Kwave::MP3EncoderDialog::updateEncoderInfo()
     int index = cbProgram->currentIndex();
     QString title;
 
-    if (index >= static_cast<int>(ELEMENTS_OF(g_predefined_settings))) {
+    if (index >= Kwave::toInt(ELEMENTS_OF(g_predefined_settings))) {
 	title = PRESET_NAME_USER_DEFINED;
     }
 

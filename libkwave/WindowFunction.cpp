@@ -20,6 +20,7 @@
 #include <klocale.h>
 
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 #include "libkwave/WindowFunction.h"
 
 //***************************************************************************
@@ -59,8 +60,8 @@ Kwave::WindowFunction::~WindowFunction()
 QVector<double> Kwave::WindowFunction::points(unsigned int len) const
 {
     QVector<double> out(len);
-    Q_ASSERT(out.count() == static_cast<int>(len));
-    if (out.count() != static_cast<int>(len)) {
+    Q_ASSERT(out.count() == Kwave::toInt(len));
+    if (out.count() != Kwave::toInt(len)) {
 	out.resize(0);
 	return out;
     }

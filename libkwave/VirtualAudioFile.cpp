@@ -19,6 +19,8 @@
 #include <stdlib.h> // for calloc()
 #include <unistd.h>
 #include <QtCore/QIODevice>
+
+#include "libkwave/Utils.h"
 #include "libkwave/VirtualAudioFile.h"
 
 /**
@@ -68,7 +70,7 @@ static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
     return (adapter) ?
 	static_cast<ssize_t>(adapter->read(
 	    static_cast<char *>(data),
-	    static_cast<unsigned int>(nbytes)
+	    Kwave::toUint(nbytes)
 	)) : 0;
 }
 
@@ -87,7 +89,7 @@ static ssize_t af_file_write(AFvirtualfile *vfile, const void *data,
     return (adapter) ?
 	static_cast<ssize_t>(adapter->write(
 	    static_cast<const char *>(data),
-	    static_cast<unsigned int>(nbytes)
+	    Kwave::toUint(nbytes)
 	)) : 0;
 }
 
@@ -196,7 +198,7 @@ Kwave::VirtualAudioFile::~VirtualAudioFile()
 }
 
 //***************************************************************************
-unsigned int Kwave::VirtualAudioFile::read(char *data, unsigned int nbytes)
+qint64 Kwave::VirtualAudioFile::read(char *data, unsigned int nbytes)
 {
     Q_ASSERT(data);
     if (!data) return 0;
@@ -210,7 +212,7 @@ qint64 Kwave::VirtualAudioFile::length()
 }
 
 //***************************************************************************
-unsigned int Kwave::VirtualAudioFile::write(const char *data,
+qint64 Kwave::VirtualAudioFile::write(const char *data,
                                             unsigned int nbytes)
 {
     Q_ASSERT(data);

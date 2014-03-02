@@ -33,13 +33,13 @@
 #include <kstandardguiitem.h>
 
 #include "libkwave/FileProgress.h"
-#include "libkwave/Utils.h"  // for ms2string
 #include "libkwave/MessageBox.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 //***************************************************************************
 Kwave::FileProgress::FileProgress(QWidget *parent,
-	const QUrl &url, unsigned int size,
+	const QUrl &url, quint64 size,
 	sample_index_t samples, double rate, unsigned int bits,
 	unsigned int tracks)
     :QDialog(parent),
@@ -260,24 +260,19 @@ void Kwave::FileProgress::updateStatistics(double rate, double rest,
     if (!m_stat_bytes) return;
 
     // left: transfer rate and estimated time
-    num = num.sprintf("%1.1f", rate/1024.0);
+    num = num.sprintf("%1.1f", rate / 1024.0);
 
-    int h =  static_cast<int>(floor(rest)) / (60*60);
-    int m = (static_cast<int>(floor(rest)) / 60) % 60;
-    int s =  static_cast<int>(floor(rest)) % 60;
-    if (h > 23) {
-	h = 23;
-	m = s = 59;
-    }
-    QTime time(h,m,s,0);
-    text = i18n("%1 kB/s (%2 remaining)", num, time.toString());
+    QTime time;
+    time = time.addSecs(Kwave::toInt(qMin(rest, (24.0 * 60.0 * 60.0) - 1.0)));
+    text = i18n("%1 kB/s (%2 remaining)", num,
+                KGlobal::locale()->formatTime(time, true, true));
     m_stat_transfer->setText(text);
 
     // right: statistic over the transferred bytes
     QString num1, num2;
     text = i18n("%1 MB of %2 MB done",
-	num1.sprintf("%1.1f", pos / (1024.0*1024.0)),
-	num2.sprintf("%1.1f", m_size / (1024.0*1024.0)));
+	num1.sprintf("%1.1f", pos / (1024.0 * 1024.0)),
+	num2.sprintf("%1.1f", m_size / (1024.0 * 1024.0)));
     m_stat_bytes->setText(text);
 
     // process events for some short time, otherwise we would
@@ -298,7 +293,7 @@ void Kwave::FileProgress::updateStatistics(double rate, double rest,
 void Kwave::FileProgress::setValue(qreal percent)
 {
     // position is in samples, we need bytes
-    quint64 pos = percent * qreal(m_size) / qreal(100.0);
+    quint64 pos = static_cast<quint64>(percent * qreal(m_size) / 100.0);
     setBytePosition(pos);
 }
 
@@ -308,7 +303,7 @@ void Kwave::FileProgress::setBytePosition(quint64 pos)
     if (!m_progress) return;
 
     // the easiest part: the progress bar and the caption
-    int percent = static_cast<int>(
+    int percent = Kwave::toInt(
 	static_cast<double>(pos) / static_cast<double>(m_size) * 100.0);
 
     // not enough progress not worth showing ?
@@ -332,7 +327,7 @@ void Kwave::FileProgress::setBytePosition(quint64 pos)
     double rate = pos / seconds;                // [bytes/sec]
     double rest = 0;
     if (rate > 10) {
-	rest = double(m_size - pos) / rate;     // [seconds]
+	rest = static_cast<double>(m_size - pos) / rate;     // [seconds]
     }
     updateStatistics(rate, rest, pos);
 }
@@ -343,7 +338,7 @@ void Kwave::FileProgress::setLength(quint64 samples)
     QString text;
 
     // length in samples -> h:m:s
-    if (m_sample_rate && m_tracks) {
+    if ((m_sample_rate > 0) && m_tracks) {
 	// length in ms
 	text = Kwave::ms2string(
 	    1000.0 *

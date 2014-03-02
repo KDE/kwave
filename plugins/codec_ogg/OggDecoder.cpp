@@ -32,6 +32,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 
 #include "OggCodecPlugin.h"
@@ -240,7 +241,7 @@ bool Kwave::OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 
 	    if (!eos) {
 		char *buffer = ogg_sync_buffer(&m_oy, 4096);
-		unsigned int bytes = m_source->read(buffer, 4096);
+		int bytes = Kwave::toInt(m_source->read(buffer, 4096));
 		ogg_sync_wrote(&m_oy, bytes);
 		if (!bytes) eos = 1;
 	    }

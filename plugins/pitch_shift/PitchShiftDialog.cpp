@@ -27,6 +27,7 @@
 #include <kpushbutton.h>
 
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "libgui/InvertableSpinBox.h"
 
@@ -155,9 +156,9 @@ void Kwave::PitchShiftDialog::updateSpeed(double speed)
 	    // -1 => /2
 	    //  0 => x1
 	    // +1 => x2
-	    if (static_cast<int>(m_speed) >= 1) {
+	    if (Kwave::toInt(m_speed) >= 1) {
 		// greater or equal to one -> multiply
-		int new_value = static_cast<int>(speed);
+		int new_value = Kwave::toInt(speed);
 		sbSpeed->setPrefix(_("x "));
 		sbSpeed->setSuffix(_(""));
 		sbSpeed->setInverse(false);
@@ -166,7 +167,7 @@ void Kwave::PitchShiftDialog::updateSpeed(double speed)
 		new_slider_value = new_value-1;
 	    } else {
 		// less than one -> divide
-		int new_value = static_cast<int>(-1.0 / speed);
+		int new_value = Kwave::toInt(-1.0 / speed);
 
 		sbSpeed->setPrefix(_("1/"));
 		sbSpeed->setSuffix(_(""));
@@ -181,7 +182,7 @@ void Kwave::PitchShiftDialog::updateSpeed(double speed)
 	}
 	case MODE_PERCENT: {
 	    // factor 1.0 means 100%
-	    new_spinbox_value = static_cast<int>(rint(speed * 100.0));
+	    new_spinbox_value = Kwave::toInt(rint(speed * 100.0));
 	    new_slider_value = new_spinbox_value;
 	    sbSpeed->setPrefix(_(""));
 	    sbSpeed->setSuffix(_("%"));

@@ -20,9 +20,14 @@
 
 #include "config.h"
 
+#include <limits>
+
+#include <QtCore/qglobal.h>
 #include <QtCore/QString>
 
 #include "kdemacros.h"
+
+#include "libkwave/Sample.h" // for sample_index_t
 
 namespace Kwave
 {
@@ -61,6 +66,14 @@ namespace Kwave
     QString KDE_EXPORT ms2string(double ms, int precision = 6);
 
     /**
+     * Converts a number of samples (aka sample_index_t) into a string,
+     * according the current locale settings.
+     * @param samples number of sample
+     * @return number formatted with thousands separators
+     */
+    QString KDE_EXPORT samples2string(sample_index_t samples);
+
+    /**
      * Converts a time in milliseconds into a string with hours,
      * minutes, seconds and milliseconds.
      * @param ms time in milliseconds
@@ -82,11 +95,51 @@ namespace Kwave
      * @param s unit size
      * @return x rounded up to the next unit
      */
-    template<class T> T round_up(T x, const T s) {
+    template<class T>
+    Q_DECL_CONSTEXPR T round_up(T x, const T s)
+    {
 	T modulo = (x % s);
 	if (modulo) x += (s - modulo);
 	return x;
     }
+
+    /**
+     * Convert a numeric value into an unsigned int, with range / overflow
+     * protection
+     * @param x some numeric value, e.g. a sample_index_t or qint64
+     * @return some unsigned int [0 ... UINT_MAX]
+     */
+    template <typename T> Q_DECL_CONSTEXPR unsigned int toUint(T x)
+    {
+	const unsigned int max = std::numeric_limits<unsigned int>::max();
+	Q_ASSERT(x >= 0);
+	Q_ASSERT(static_cast<quint64>(x) <= static_cast<quint64>(max));
+
+	if (x <= 0) return 0;
+	if (static_cast<quint64>(x) > static_cast<quint64>(max)) return max;
+
+	return static_cast<unsigned int>(x);
+    }
+
+    /**
+     * Convert a numeric value into an int, with range / overflow
+     * protection
+     * @param x some numeric value, e.g. a sample_index_t or qint64
+     * @return some (signed) int [INT_MIN ... INT_MAX]
+     */
+    template <typename T> Q_DECL_CONSTEXPR int toInt(T x)
+    {
+	const int min = std::numeric_limits<int>::min();
+	const int max = std::numeric_limits<int>::max();
+	Q_ASSERT(static_cast<qint64>(x) >= static_cast<qint64>(min));
+	Q_ASSERT(static_cast<qint64>(x) <= static_cast<qint64>(max));
+
+	if (static_cast<qint64>(x) < static_cast<qint64>(min)) return min;
+	if (static_cast<qint64>(x) > static_cast<qint64>(max)) return max;
+
+	return static_cast<int>(x);
+    }
+
 }
 
 #endif /* _KWAVE_UTILS_H_ */

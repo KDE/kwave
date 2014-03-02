@@ -208,6 +208,10 @@ void Kwave::MessageBox::show()
 	case KMessageBox::Error:
 	    KMessageBox::error(m_parent, m_message, m_caption);
 	    break;
+	case KMessageBox::Information:
+	    KMessageBox::information(m_parent, m_message, m_caption,
+	                             m_dont_ask_again_name);
+	    break;
 	default:
 	    qWarning("unsupported messagebox mode");
 	    Q_ASSERT(0);

@@ -47,7 +47,7 @@ namespace Kwave
 	/**
 	 * Constructor, creates a writer for write access to a track.
 	 *
-	 * @param track
+	 * @param track reference to the track
 	 * @param mode specifies where and how to insert
 	 * @param left start of the input (only useful in insert and
 	 *             overwrite mode)

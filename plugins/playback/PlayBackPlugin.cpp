@@ -312,7 +312,7 @@ void Kwave::PlayBackPlugin::run(QStringList params)
     // settings are valid -> take them
 
     float t_period = t_sweep * channels;
-    unsigned int curve_length = static_cast<unsigned int>(t_period * rate);
+    unsigned int curve_length = Kwave::toUint(t_period * rate);
 
     // create all objects
     Kwave::Curve curve;
@@ -369,7 +369,8 @@ void Kwave::PlayBackPlugin::run(QStringList params)
     // show a progress dialog
 
     // transport the samples
-    sample_index_t samples_max     = periods * t_period * rate;
+    sample_index_t samples_max     = static_cast<sample_index_t>(
+                                     periods * t_period * rate);
     sample_index_t samples_written = 0;
     while (!shouldStop() && (samples_written <= samples_max)) {
 	osc.goOn();
@@ -379,10 +380,10 @@ void Kwave::PlayBackPlugin::run(QStringList params)
 
 	samples_written += osc.blockSize();
 
-	int percent = (samples_written * 100) / samples_max;
-	emit sigTestProgress(percent);
+	double percent = (static_cast<double>(samples_written) * 100.0) /
+	                  static_cast<double>(samples_max);
+	emit sigTestProgress(Kwave::toInt(percent));
     }
-
 }
 
 //***************************************************************************
@@ -437,7 +438,7 @@ void Kwave::PlayBackPlugin::testPlayBack()
 	    i18n("You should now hear a %1 Hz test tone.<br><br>"
 		    "(If you hear clicks or dropouts, please increase<br>"
 		    "the buffer size and try again)",
-		    static_cast<int>(PLAYBACK_TEST_FREQUENCY)) +
+		    Kwave::toInt(PLAYBACK_TEST_FREQUENCY)) +
 	    _("</p></html>")
 	);
 	connect(progress, SIGNAL(canceled()), this, SLOT(cancel()),

@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <new>
+#include <limits>
 
 #include <QtGui/QApplication>
 #include <QtCore/QBuffer>
@@ -72,12 +73,12 @@ qint64 Kwave::MimeData::Buffer::readData(char *data, qint64 maxlen)
 	maxlen = size() - pos();
 
     Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
-    return static_cast<qint64>(mem.readFrom(
+    return mem.readFrom(
 	m_block,
-	static_cast<unsigned int>(pos()),
+	Kwave::toUint(pos()),
 	data,
-	static_cast<unsigned int>(maxlen)
-    ));
+	Kwave::toUint(maxlen)
+    );
 }
 
 //***************************************************************************
@@ -85,6 +86,10 @@ qint64 Kwave::MimeData::Buffer::writeData(const char *data, qint64 len)
 {
     Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
     quint64 new_size = pos() + len;
+
+    // clip the mime data buffer at the "unsigned int" border
+    if (new_size > std::numeric_limits<unsigned int>::max())
+	return -1;
 
     // round up the block size if it can no longer be considered to be a
     // small block (~ half of block size), avoid wasting too much memory
@@ -94,22 +99,22 @@ qint64 Kwave::MimeData::Buffer::writeData(const char *data, qint64 len)
 
     if (!m_block) {
 	// first call: allocate a new memory object
-	m_block = mem.allocate(new_size);
+	m_block = mem.allocate(static_cast<size_t>(new_size));
 	if (!m_block) return -1; // allocation failed
     }
 
     if ((pos() + len) > static_cast<qint64>(mem.sizeOf(m_block))) {
-	if (!mem.resize(m_block, new_size))
+	if (!mem.resize(m_block, static_cast<size_t>(new_size)))
 	    return -1; // resize failed
     }
 
     // write to the memory block (may be physical or swap file)
-    qint64 written = static_cast<qint64>(mem.writeTo(
+    qint64 written = mem.writeTo(
 	m_block,
 	static_cast<unsigned int>(pos()),
 	data,
 	static_cast<unsigned int>(len)
-    ));
+    );
     if (written < 0)
 	return -1; // write failed: disk full?
 
@@ -139,7 +144,7 @@ bool Kwave::MimeData::Buffer::mapToByteArray()
     }
 
     // attach the mapped memory to our QByteArray
-    const unsigned int len = static_cast<unsigned int>(m_size);
+    const unsigned int len = Kwave::toUint(m_size);
 //    qDebug("Kwave::MimeData::Buffer::mapToByteArray() - %p [%u]", raw, len);
     m_data.setRawData(raw, len);
     return true;
@@ -230,13 +235,13 @@ bool Kwave::MimeData::encode(QWidget *widget,
 }
 
 //***************************************************************************
-unsigned int Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
-                                     Kwave::SignalManager &sig,
-                                     sample_index_t pos)
+sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
+                                        Kwave::SignalManager &sig,
+                                        sample_index_t pos)
 {
     // decode, use the first format that matches
-    unsigned int decoded_length = 0;
-    unsigned int decoded_tracks = 0;
+    sample_index_t decoded_length = 0;
+    unsigned int   decoded_tracks = 0;
 
     // try to find a suitable decoder
     foreach (QString format, e->formats()) {

@@ -240,8 +240,8 @@ namespace Kwave
 	 *
 	 * @param offset index of the first sample
 	 * @param length number of samples to delete
-	 * @param tracks list of track indices
-	 * @return list with a copy of found meta data objects
+	 * @param tracks list of track indices, will be filled
+	 *               with copies of found meta data objects
 	 */
 	virtual void deleteRange(
 	    sample_index_t offset,

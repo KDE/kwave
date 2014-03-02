@@ -21,6 +21,8 @@
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
 
+#include "libkwave/Utils.h"
+
 #include "BitrateSpinBox.h"
 #include "BitrateWidget.h"
 
@@ -98,7 +100,7 @@ int Kwave::BitrateWidget::nearestIndex(int rate)
     // limit the index into a reasonable range
     if (index < 0)
 	index = 0;
-    if (index >= static_cast<int>(m_rates.size()))
+    if (index >= Kwave::toInt(m_rates.size()))
 	index = m_rates.size()-1;
 
     return index;

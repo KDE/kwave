@@ -26,6 +26,8 @@
 #include <complex>
 
 #include "libkwave/Sample.h"
+#include "libkwave/Utils.h"
+
 #include "PitchShiftFilter.h"
 
 //***************************************************************************
@@ -61,7 +63,7 @@ void Kwave::PitchShiftFilter::initFilter()
 
     if (m_speed <= 1.0) {
 	m_b1pos = m_b2pos = 0.0;
-	m_b1inc = m_b2inc = 1.0 - m_speed;
+	m_b1inc = m_b2inc = 1.0f - m_speed;
     } else {
 	/* not yet sure what would be a nice initialization here? */
 	m_b1pos = m_b2pos = 0.0;
@@ -74,14 +76,14 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 {
     const Kwave::SampleArray &in = data;
 
-    Q_ASSERT(static_cast<int>(in.size()) <= m_dbuffer.size());
+    Q_ASSERT(Kwave::toInt(in.size()) <= m_dbuffer.size());
     bool ok = m_buffer.resize(in.size());
     Q_ASSERT(ok);
     Q_UNUSED(ok);
 
-    float pi2 = 2*M_PI;
+    float pi2 = 2 * float(M_PI);
     float lfo, b1value, b2value;
-    float lfoposinc = m_frequency;
+    float lfoposinc = static_cast<float>(m_frequency);
 
     for (unsigned int pos = 0; pos < m_buffer.size(); pos++) {
 	/*
@@ -108,22 +110,22 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 	if (!m_b1reset && m_lfopos > 0.25) {
 	    if (m_speed <= 1.0) {
 		m_b1pos = 0;
-		m_b1inc = 1 - m_speed;
+		m_b1inc = 1.0f - m_speed;
 	    } else {
-		m_b1inc = 1 - m_speed;
-		m_b1pos = 10 + ((-m_b1inc) * (1 / lfoposinc));
+		m_b1inc = 1.0f - m_speed;
+		m_b1pos = 10.0f + ((-m_b1inc) * (1.0f / lfoposinc));
 		/* 10+ are not strictly necessary */
 	    }
 	    m_b1reset = true;
 	}
 
-	if (!m_b2reset && m_lfopos > 0.75) {
+	if (!m_b2reset && (m_lfopos > 0.75f)) {
 	    if (m_speed <= 1.0) {
 		m_b2pos = 0;
-		m_b2inc = 1 - m_speed;
+		m_b2inc = 1.0f - m_speed;
 	    } else{
-		m_b2inc = 1 - m_speed;
-		m_b2pos = 10 + ((-m_b2inc) * (1/lfoposinc));
+		m_b2inc = 1.0f - m_speed;
+		m_b2pos = 10.0f + ((-m_b2inc) * (1.0f / lfoposinc));
 		/* 10+ are not strictly necessary */
 	    }
 	    m_b2reset = true;
@@ -133,14 +135,14 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 	m_b2pos += m_b2inc;
 
 	int position, position1;
-	double error, int_pos;
+	float error, int_pos;
 
 	/*
 	 * Interpolate value from buffer position 1
 	 */
-	error = modf(m_b1pos, &int_pos);
+	error = modff(m_b1pos, &int_pos);
 
-	position = m_dbpos - static_cast<int>(int_pos);
+	position = m_dbpos - Kwave::toInt(int_pos);
 	if (position < 0)
 	    position += MAXDELAY;
 	position1 = position - 1;
@@ -153,9 +155,9 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 	/*
 	 * Interpolate value from buffer position 2
 	 */
-	error = modf(m_b2pos,&int_pos);
+	error = modff(m_b2pos,&int_pos);
 
-	position = m_dbpos - static_cast<int>(int_pos);
+	position = m_dbpos - Kwave::toInt(int_pos);
 	if (position < 0)
 	    position += MAXDELAY;
 	position1 = position-1;
@@ -169,7 +171,7 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 	 * Calculate output signal from these two buffers
 	 */
 
-	lfo = (sin(pi2 * m_lfopos) + 1) / 2;
+	lfo = (sinf(pi2 * m_lfopos) + 1.0f) / 2.0f;
 
 	/*             position    sin   lfo variable
 	 *------------------------------------------------------------------
@@ -177,7 +179,7 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 	 *               0.75      -1         0        => buffer 1 is used
 	 */
 
-	m_buffer[pos] = float2sample(b1value * (1.0 - lfo) + b2value * lfo);
+	m_buffer[pos] = float2sample(b1value * (1.0f - lfo) + b2value * lfo);
 
 	/*
 	 * increment delay buffer position
@@ -192,7 +194,7 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 //***************************************************************************
 void Kwave::PitchShiftFilter::setSpeed(const QVariant speed)
 {
-    double new_speed = QVariant(speed).toDouble();
+    float new_speed = QVariant(speed).toFloat();
     if (new_speed == m_speed) return; // nothing to do
 
     m_speed = new_speed;
@@ -202,7 +204,7 @@ void Kwave::PitchShiftFilter::setSpeed(const QVariant speed)
 //***************************************************************************
 void Kwave::PitchShiftFilter::setFrequency(const QVariant freq)
 {
-    double new_freq = QVariant(freq).toDouble();
+    float new_freq = QVariant(freq).toFloat();
     if (new_freq == m_frequency) return; // nothing to do
 
     m_frequency = new_freq;

@@ -19,6 +19,8 @@
 
 #include <QtCore/QtGlobal>
 
+#include "libkwave/Utils.h"
+
 #include "BitrateSpinBox.h"
 
 /***************************************************************************/
@@ -45,7 +47,7 @@ void Kwave::BitrateSpinBox::snapIn(int value)
 
     if (value == old_value) return;
 
-    if ((value > old_value) && (index < static_cast<int>(m_rates.size()) - 1))
+    if ((value > old_value) && (index < Kwave::toInt(m_rates.size()) - 1))
 	index++;
 
     if ((value < old_value) && (index > 0))
@@ -87,7 +89,7 @@ int Kwave::BitrateSpinBox::nearestIndex(int rate)
     // limit the index into a reasonable range
     if (index < 0)
 	index = 0;
-    if (index >= static_cast<int>(m_rates.size()))
+    if (index >= Kwave::toInt(m_rates.size()))
 	index = m_rates.size()-1;
 
     return index;

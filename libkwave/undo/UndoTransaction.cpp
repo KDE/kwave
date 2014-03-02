@@ -39,9 +39,9 @@ Kwave::UndoTransaction::~UndoTransaction()
 }
 
 //***************************************************************************
-unsigned int Kwave::UndoTransaction::undoSize()
+qint64 Kwave::UndoTransaction::undoSize()
 {
-    unsigned int s = 0;
+    qint64 s = 0;
     QListIterator<UndoAction *> it(*this);
     while (it.hasNext()) {
 	UndoAction *undo = it.next();
@@ -51,9 +51,9 @@ unsigned int Kwave::UndoTransaction::undoSize()
 }
 
 //***************************************************************************
-unsigned int Kwave::UndoTransaction::redoSize()
+qint64 Kwave::UndoTransaction::redoSize()
 {
-    unsigned int s = 0;
+    qint64 s = 0;
     QListIterator<UndoAction *> it(*this);
     while (it.hasNext()) {
 	UndoAction *undo = it.next();

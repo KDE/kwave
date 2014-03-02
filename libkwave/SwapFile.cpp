@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <limits.h>
 #include <unistd.h>     // for unlink() and getpagesize()
 
 #include "libkwave/String.h"
@@ -45,7 +46,7 @@ Kwave::SwapFile::SwapFile(const QString &name)
 #endif
 
     // fallback: assume 4kB pagesize
-    if (static_cast<int>(m_pagesize) <= 0) {
+    if (Kwave::toInt(m_pagesize) <= 0) {
 	qWarning("SwapFile: unable to determine page size, using fallback");
 	m_pagesize = (4 << 10);
     }
@@ -68,7 +69,7 @@ bool Kwave::SwapFile::allocate(size_t size)
 
     if (m_size) close();
 //     qDebug("SwapFile::allocate(%u), instances: %u",
-//            static_cast<unsigned int>(size), g_instances);
+//            Kwave::toUint(size), g_instances);
 
     // try to create the temporary file
     if (!m_file.open()) {
@@ -89,7 +90,7 @@ bool Kwave::SwapFile::allocate(size_t size)
     size_t offset = 0;
     while (offset < rounded) {
 	// 	qDebug("SwapFile: touching at offset 0x%08X",
-	// 		static_cast<unsigned int>(offset));
+	// 		Kwave::toUint(offset));
 	m_file.seek(offset);
 	m_file.putChar(0);
 	m_file.flush();
@@ -105,7 +106,7 @@ bool Kwave::SwapFile::allocate(size_t size)
     m_file.flush();
     if (m_file.pos() + 1 < static_cast<qint64>(size)) {
 	qWarning("SwapFile::allocate(%d MB) failed, DISK FULL ?",
-	         static_cast<unsigned int>(size >> 20));
+	         Kwave::toUint(size >> 20));
 	m_size = 0;
 	return false;
     }
@@ -138,14 +139,14 @@ bool Kwave::SwapFile::resize(size_t size)
     // optimization: if rounded size already matches -> done
     if (rounded == m_size) {
 // 	qDebug("SwapFile::resize(%u MB) -> skipped, already big enough",
-// 	       static_cast<unsigned int>(size >> 20));
+// 	       Kwave::toUint(size >> 20));
 	return true;
     }
 
     // do not shrink below minimum size
     if ((size < m_size) && (size < MINIMUM_SIZE)) {
 // 	qDebug("SwapFile::resize(%u MB) -> skipped, limited by min size",
-// 	       static_cast<unsigned int>(size >> 20));
+// 	       Kwave::toUint(size >> 20));
 	return true;
     }
 
@@ -156,7 +157,7 @@ bool Kwave::SwapFile::resize(size_t size)
     size_t offset = static_cast<size_t>((m_size + m_pagesize - 1) / m_pagesize);
     while (offset < rounded) {
 // 	qDebug("SwapFile: touching at offset 0x%08X",
-// 		static_cast<unsigned int>(offset));
+// 		Kwave::toUint(offset));
 	m_file.seek(offset);
 	m_file.putChar(0);
 	m_file.flush();
@@ -215,7 +216,6 @@ void *Kwave::SwapFile::map()
 
     m_file.flush();
 
-    qDebug("m_file.size()=%d, m_size=%d", static_cast<int>(m_file.size()), static_cast<int>(m_size)); // ###
     m_address = m_file.map(0, m_size, QFile::NoOptions);
 
     // map -1 to null pointer
@@ -262,8 +262,12 @@ int Kwave::SwapFile::read(unsigned int offset, void *buffer,
     if (!m_file.seek(offset)) return -1;
 
     // read into the buffer
-    m_file.flush();
-    return m_file.read(reinterpret_cast<char *>(buffer), length);
+    if (!m_file.flush()) return -1;
+
+    if (length > INT_MAX) length = INT_MAX;
+    return Kwave::toInt(
+	m_file.read(reinterpret_cast<char *>(buffer), length)
+    );
 }
 
 //***************************************************************************
@@ -274,7 +278,10 @@ int Kwave::SwapFile::write(unsigned int offset, const void *buffer,
     if (!m_file.seek(offset)) return -1;
 
     // write data from the buffer
-    return m_file.write(reinterpret_cast<const char *>(buffer), length);
+    if (length > INT_MAX) length = INT_MAX;
+    return Kwave::toInt(
+	m_file.write(reinterpret_cast<const char *>(buffer), length)
+    );
 }
 
 //***************************************************************************

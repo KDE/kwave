@@ -70,7 +70,7 @@ static double sawinv(double param)
 }
 
 //***************************************************************************
-double tri(double param)
+static double tri(double param)
 {
     param += M_PI / 2;
     double div = param / (2 * M_PI);

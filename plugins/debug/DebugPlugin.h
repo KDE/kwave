@@ -55,7 +55,7 @@ namespace Kwave
 	 * performs the special function
 	 * @param params list of strings with parameters
 	 */
-	virtual void run(QStringList);
+	virtual void run(QStringList params);
 
     private:
 

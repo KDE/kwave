@@ -87,7 +87,7 @@ unsigned int Kwave::SampleFIFO::get(Kwave::SampleArray &buffer)
 
 	if (m_read_offset + rest >= src_len) {
 	    // use the whole buffer up to it's end
-	    unsigned int len = src_len - m_read_offset;
+	    size_t len = static_cast<size_t>(src_len - m_read_offset);
 	    MEMCPY(dst, src + m_read_offset, len * sizeof(sample_t));
 	    rest  -= len;
 	    read  += len;

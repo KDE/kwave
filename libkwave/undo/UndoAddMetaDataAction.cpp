@@ -149,13 +149,13 @@ QString Kwave::UndoAddMetaDataAction::description()
 }
 
 //***************************************************************************
-unsigned int Kwave::UndoAddMetaDataAction::undoSize()
+qint64 Kwave::UndoAddMetaDataAction::undoSize()
 {
     return sizeof(*this);
 }
 
 //***************************************************************************
-int Kwave::UndoAddMetaDataAction::redoSize()
+qint64 Kwave::UndoAddMetaDataAction::redoSize()
 {
     return sizeof(UndoDeleteMetaDataAction);
 }

@@ -31,6 +31,7 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 #include "libkwave/Track.h"
+#include "libkwave/Utils.h"
 
 #include "libgui/LabelItem.h"
 #include "libgui/MultiStateWidget.h"
@@ -162,7 +163,7 @@ void Kwave::TrackView::setVerticalZoom(double zoom)
 	zoom *= h / (MINIMUM_HEIGHT * current_zoom);
     }
     Kwave::SignalView::setVerticalZoom(zoom);
-    setMinimumHeight(MINIMUM_HEIGHT * zoom);
+    setMinimumHeight(Kwave::toInt(MINIMUM_HEIGHT * zoom));
 }
 
 //***************************************************************************

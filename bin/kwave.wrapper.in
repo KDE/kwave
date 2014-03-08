@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -e
+
+export PREFIX=@CMAKE_BINARY_DIR@/install
+make install DESTDIR=${PREFIX}
+
+export KDEDIR=@KDE4_PREFIX@
+export KDEDIRS="${PREFIX}/${KDEDIR}:${KDEDIRS}"
+export LD_LIBRARY_PATH=${PREFIX}@KDE4_LIB_INSTALL_DIR@:${LD_LIBRARY_PATH}
+export XDG_DATA_DIRS=${PREFIX}@KDE4_DATA_INSTALL_DIR@:${XDG_DATA_DIRS}
+export COLON_SEPARATED="XDG_DATA_DIRS"
+export PATH=${PREFIX}@KDE4_BIN_INSTALL_DIR@:${PATH}
+
+# for testing other languages
+# export LANG=de_DE.UTF-8@euro
+# export LANG=en_EN
+# export LANG=cs_CS
+# export LANG=es_ES
+# export LANG=fr_FR
+#
+# export KDE_LANG=${LANG}
+# export KDELANG=${LANG}
+# export LC_ALL=${LANG}
+
+# when using new icons:
+# rm -f /var/tmp/kdecache-$USER/icon-cache.kcache
+
+time ${PREFIX}@KDE4_BIN_INSTALL_DIR@/kwave --nofork "$@"
+
+### EOF ###

@@ -6,8 +6,6 @@ o auto-detect song borders set markers, for splitting recorded stuff into severa
 
 o detect song titles / metadata by using musicbrainz
 
-o wrapper script for test/debug purpose (or make target)
-
 o proper channel mixing matrix for well-known track numbers and file formats
   (e.g. wav or vorbis)
 

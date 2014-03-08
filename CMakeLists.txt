@@ -442,6 +442,29 @@ IF (KWAVE_ADDITIONAL_CLEAN_FILES)
 ENDIF (KWAVE_ADDITIONAL_CLEAN_FILES)
 
 #############################################################################
+### "make wrapper"                                                        ###
+### -> creates a wrapper script named "kw"                                ###
+
+EXECUTE_PROCESS(
+    COMMAND ${KDE4_KDECONFIG_EXECUTABLE} --prefix
+    OUTPUT_VARIABLE KDE4_PREFIX
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+SET(WRAPPER_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/kw")
+
+CONFIGURE_FILE(
+    "${CMAKE_CURRENT_SOURCE_DIR}/bin/kwave.wrapper.in"
+    "${WRAPPER_SCRIPT}"
+    @ONLY
+)
+
+ADD_CUSTOM_TARGET(wrapper
+    COMMAND chmod +rx "${WRAPPER_SCRIPT}"
+    DEPENDS "${WRAPPER_SCRIPT}"
+)
+
+#############################################################################
 
 MESSAGE(STATUS "Using CFLAGS=${CMAKE_C_FLAGS}")
 MESSAGE(STATUS "Using CXXFLAGS=${CMAKE_CXX_FLAGS}")

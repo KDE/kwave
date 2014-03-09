@@ -50,6 +50,7 @@ DIRECTLY USED EXTERNAL LIBRARIES
 	* libstdc++-v3.3.6		LGPL2.1
 	* glibc-2.6.1			LGPL2
 	* libsamplerate-0.1.4		GPL2+
+	* pulseaudio-4.0		LGPL2.1+
 
 LICENSE ISSUES
 ==============
@@ -722,6 +723,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/record/LevelMeter.h			GPL2+ / Rik Hemsley
 	plugins/record/Record-ALSA.cpp			GPL2+
 	plugins/record/Record-ALSA.h			GPL2+
+	plugins/record/Record-PulseAudio.cpp		GPL2+
+	plugins/record/Record-PulseAudio.h		GPL2+
 	plugins/record/RecordController.cpp		GPL2+
 	plugins/record/RecordController.h		GPL2+
 	plugins/record/RecordDevice.h			GPL2+

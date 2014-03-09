@@ -325,6 +325,9 @@
 		ALSA 1.0.14 or higher (for record/playback)
 	    </para></listitem>
 	    <listitem><para>
+		PulseAudio 4.0 or higher (for record/playback)
+	    </para></listitem>
+	    <listitem><para>
 		id3lib-3.8.1 or higher (for ID3 tags)
 	    </para></listitem>
 	    <listitem><para>
@@ -371,7 +374,7 @@
 		the package is normally called "qt4-devel" or similar.
 	    </para></listitem>
 	    <listitem><para>
-		pulseaudio-0.9.16 or newer
+		pulseaudio-4.0 or newer
 	    </para></listitem>
 	    <listitem><para>
 		id3lib-devel-3.8.1 or newer
@@ -516,7 +519,7 @@
 		</para></listitem>
 		<listitem><para>
 		    <literal>WITH_PULSEAUDIO</literal>
-		    enable playback via PulseAudio
+		    enable playback/recording via PulseAudio
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>
@@ -3183,6 +3186,14 @@
 		    Sun Microsystems, Inc.
 		</emphasis><emphasis>[historic]</emphasis></para><para>
 		    libaudiofile/g711.c, libaudiofile/g711.h
+		</para>
+	    </listitem>
+	    <listitem>
+		<para><emphasis role="bold">
+			Joerg-Christian Boehme <email>joerg@chaosdorf.de</email>
+		</emphasis></para><para>
+			plugins/record/Record-PulseAudio.cpp
+			plugins/record/Record-PulseAudio.h
 		</para>
 	    </listitem>
 	</itemizedlist>

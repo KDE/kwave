@@ -145,4 +145,8 @@ Sun Microsystems, Inc. [historic]
 Jean-Marc Valin / Xiph.Org Foundation / Gregory Maxwell
 	* base of plugins/codec_ogg/OpusDecoder.cpp
 
+Joerg-Christan Boehme <joerg@chaosdorf.de>
+	* plugins/record/Record-PulseAudio.cpp
+	* plugins/record/Record-PulseAudio.h
+
 ### EOF ###

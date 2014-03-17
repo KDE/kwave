@@ -234,33 +234,6 @@ Kwave::RecordPulseAudio::~RecordPulseAudio()
 }
 
 //***************************************************************************
-void Kwave::RecordPulseAudio::pa_inputVolume_cb(pa_context *c, int success,
-						void *userdata)
-{
-    Q_UNUSED(c);
-
-    Kwave::RecordPulseAudio *record_plugin =
-	reinterpret_cast<Kwave::RecordPulseAudio *>(userdata);
-    Q_ASSERT(record_plugin);
-    if (record_plugin) record_plugin->notifyInputVolume(c, success,
-	               userdata);
-}
-
-//***************************************************************************
-void Kwave::RecordPulseAudio::notifyInputVolume(pa_context *c, int success,
-    void *userdata)
-{
-    Q_UNUSED(success);
-
-    pa_context_get_source_info_by_index(
-	c,
-	pa_stream_get_device_index(m_pa_stream),
-	pa_source_info_cb,
-	userdata
-    );
-}
-
-//***************************************************************************
 void Kwave::RecordPulseAudio::pa_read_cb(pa_stream *p, size_t nbytes,
                                             void *userdata)
 {

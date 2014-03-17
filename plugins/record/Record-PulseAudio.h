@@ -193,15 +193,6 @@ namespace Kwave
 	 * @param c pulse server context
 	 * @param userdata user data, pointer to a RecordPulseAudio object
 	 */
-	static void pa_inputVolume_cb(pa_context *c, int success, void *userdata);
-
-	/**
-	 * called from pulse audio to inform about state changes of the
-	 * server context.
-	 *
-	 * @param c pulse server context
-	 * @param userdata user data, pointer to a RecordPulseAudio object
-	 */
 	static void pa_context_notify_cb(pa_context *c, void *userdata);
 
 	/**
@@ -234,16 +225,6 @@ namespace Kwave
 	 * @param userdata user data, pointer to a RecordPulseAudio object
 	 */
 	static void pa_read_cb(pa_stream *p, size_t nbytes, void *userdata);
-
-	/**
-	 * Callback for pulse input volume.
-	 *
-	 * @param c pulse server context
-	 * @param info pointer to a source info object
-	 * @param eol if negative: error occurred, zero: more data follows,
-	 *            positive: end of info, done.
-	 */
-	void notifyInputVolume(pa_context *c, int success, void *userdata);
 
 	/**
 	 * Callback for pulse sink info.

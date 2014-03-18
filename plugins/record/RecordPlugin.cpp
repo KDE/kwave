@@ -54,6 +54,7 @@
 #include "SampleDecoderLinear.h"
 #include "Record-ALSA.h"
 #include "Record-OSS.h"
+#include "Record-PulseAudio.h"
 
 KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.3",
              I18N_NOOP("Record"), "Thomas Eschenbacher");
@@ -269,6 +270,14 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 		    Q_ASSERT(m_device);
 		    break;
 #endif /* HAVE_ALSA_SUPPORT */
+
+#ifdef HAVE_PULSEAUDIO_SUPPORT
+		case Kwave::RECORD_PULSEAUDIO:
+		    m_device = new Kwave::RecordPulseAudio();
+		    Q_ASSERT(m_device);
+		    break;
+#endif /* HAVE_PULSEAUDIO_SUPPORT */
+
 		default:
 		    qDebug("unsupported recording method (%d)",
 			static_cast<int>(method));

@@ -64,6 +64,10 @@ static void addDataStrings(KAboutData &aboutdata)
                      ki18n("Level meter"),
                      "rik@kde.org",
                      "http://rikkus.info/esoundlevelmeter.html");
+    aboutdata.addAuthor(ki18n("Joerg-Christian Boehme"),
+                     ki18n("PulseAudio record plugin"),
+                     "joerg@chaosdorf.de",
+                     0);
 
     // translators
     aboutdata.setTranslator(ki18n("NAME OF TRANSLATORS"),

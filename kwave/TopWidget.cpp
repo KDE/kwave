@@ -1050,7 +1050,10 @@ int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
 
     // check if the file exists and ask before overwriting it
     // if it is not the old filename
-    if ((name != signalName()) && (QFileInfo(name).exists())) {
+    name = url.path();
+    if ((url.prettyUrl() != KUrl(signalName()).prettyUrl()) &&
+	(QFileInfo(name).exists()))
+    {
 	if (Kwave::MessageBox::warningYesNo(this,
 	    i18n("The file '%1' already exists.\n"
 	         "Do you really want to overwrite it?", name)) !=

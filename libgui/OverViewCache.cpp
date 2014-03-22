@@ -49,6 +49,8 @@ Kwave::OverViewCache::OverViewCache(Kwave::SignalManager &signal,
             this,         SLOT( slotTrackInserted(const QUuid &)));
     connect(&m_selection, SIGNAL(sigTrackDeleted(const QUuid &)),
             this,         SLOT( slotTrackDeleted(const QUuid &)));
+    connect(&m_selection, SIGNAL(sigLengthChanged(sample_index_t)),
+            this,         SLOT( slotLengthChanged(sample_index_t)));
     connect(
 	&m_selection,
 	SIGNAL(sigInvalidated(const QUuid *, sample_index_t, sample_index_t)),
@@ -240,6 +242,18 @@ void Kwave::OverViewCache::slotInvalidated(const QUuid *track_id,
 }
 
 //***************************************************************************
+void Kwave::OverViewCache::slotLengthChanged(sample_index_t new_length)
+{
+    QMutexLocker lock(&m_lock);
+
+    // just to be sure: check scale again, maybe it was the first track
+    if ((new_length / m_scale) > CACHE_SIZE)
+	scaleUp();
+    if ((new_length / m_scale) < (CACHE_SIZE / 4))
+	scaleDown();
+}
+
+//***************************************************************************
 int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 {
     QMutexLocker lock(&m_lock);
@@ -277,8 +291,8 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 
     // loop over all min/max buffers and make their content valid
     for (int index = 0; index < track_list.count(); ++index) {
-	unsigned int count = Kwave::toUint(length / m_scale);
-	if (count > CACHE_SIZE) count = 0;
+	unsigned int count = qBound<unsigned int>(
+	    1, Kwave::toUint(length / m_scale), CACHE_SIZE);
 
 	QUuid uuid = m_signal.uuidOfTrack(track_list[index]);
 	if (uuid.isNull()) continue; // track has just been deleted
@@ -305,8 +319,8 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 
     // loop over all min/max buffers
     for (int x = 0; x < width; ++x) {
-	unsigned int count = Kwave::toUint(length / m_scale);
-	if (count > CACHE_SIZE) count = 1;
+	unsigned int count = qBound<unsigned int>(
+	    1, Kwave::toUint(length / m_scale), CACHE_SIZE);
 
 	// get the corresponding cache index
 	unsigned int index = ((count - 1) * x) / (width - 1);

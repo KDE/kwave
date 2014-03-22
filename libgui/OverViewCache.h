@@ -121,6 +121,13 @@ namespace Kwave
 	void slotTrackDeleted(const QUuid &track_id);
 
 	/**
+	 * Connected to the selection tracker's sigLengthChanged.
+	 * @param new_length new length of the selection in samples
+	 * @see SelectionTracker::sigLengthChanged
+	 */
+	void slotLengthChanged(sample_index_t new_length);
+
+	/**
 	 * Connected to the selection tracker's sigInvalidated.
 	 * @param track_id UUID of the track or null for "all tracks"
 	 * @param first index of the first invalidated sample

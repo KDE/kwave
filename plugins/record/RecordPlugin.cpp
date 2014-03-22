@@ -1476,8 +1476,7 @@ void Kwave::RecordPlugin::processBuffer()
 		break;
 	    case Kwave::REC_RECORDING: {
 		// put the decoded track data into the buffer
-		Q_ASSERT(m_writers);
-		if (!m_writers) break;
+		if (!m_writers) break; // (could happen due to queued signal)
 		Q_ASSERT(tracks == m_writers->tracks());
 		if (!tracks || (tracks != m_writers->tracks())) break;
 

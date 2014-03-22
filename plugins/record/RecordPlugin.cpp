@@ -198,17 +198,18 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     if (m_decoder) delete m_decoder;
     m_decoder = 0;
 
-    if (m_dialog) {
-	Kwave::FileInfo info(signalManager().metaData());
-	info.setLength(signalLength());
-	info.setTracks(m_dialog->params().tracks);
-	signalManager().setFileInfo(info, false);
-	delete m_dialog;
-	m_dialog = 0;
-    }
+    Kwave::FileInfo info(signalManager().metaData());
+    info.setLength(signalLength());
+    info.setTracks(m_dialog->params().tracks);
+    signalManager().setFileInfo(info, false);
+    delete m_dialog;
+    m_dialog = 0;
 
     // flush away all prerecording buffers
     m_prerecording_queue.clear();
+
+    // enable undo again if we recorded something
+    if (signalManager().isModified()) signalManager().enableUndo();
 
     return list;
 }
@@ -947,7 +948,8 @@ void Kwave::RecordPlugin::startRecording()
 		return;
 	    }
 
-	    // we do not need UNDO here
+	    // we do not need undo while recording, this would only waste undo
+	    // buffers with modified/inserted data
 	    signalManager().disableUndo();
 
 	    // create a sink for our audio data

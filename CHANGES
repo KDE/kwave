@@ -26,6 +26,7 @@
  * new build target "make wrapper": creates a wrapper script to start Kwave
    for test/debug purpose
  * bugfix: save/as check against overwriting existing files failed
+ * bugfix: undo/redo did not work after recording
 
 0.8.11 [2013-11-24]
 

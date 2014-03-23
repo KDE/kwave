@@ -1,9 +1,9 @@
 /***************************************************************************
- *    Record-PulseAudio.h  -  device for audio recording via PulesAudio
+ *    Record-PulseAudio.cpp -  device for audio recording via PulesAudio
  *                             -------------------
  *    begin                : Sun Okt 20 2013
- *    copyright            : (C) 2005 by Thomas Eschenbacher
- *    email                : Thomas.Eschenbacher@gmx.de
+ *    copyright            : (C) 2014 by Joerg-Christian Boehme
+ *    email                : joerg@chaosdorf.de
  ***************************************************************************/
 
 /***************************************************************************

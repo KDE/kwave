@@ -593,6 +593,7 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 
     // make sure that we are connected to the sound server
     if (!connectToServer()) {
+	kWarning() << "Connecting to the PulseAudio server failed!";
 	return -1;
     }
 
@@ -702,6 +703,9 @@ int Kwave::RecordPulseAudio::open(const QString& device)
     if (m_pa_stream) close();
 
     if (!m_device_list.contains(device)) {
+	kWarning() << "The PulseAudio device '"
+	       << device.section(QLatin1Char('|'), 0, 0)
+	       << "' is unknown or no longer connected!";
 	return -1;
     }
     QString pa_device = m_device_list[device].m_name;

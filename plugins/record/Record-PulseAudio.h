@@ -92,6 +92,7 @@ namespace Kwave
 	/**
 	 * Set the resolution in bits per sample
 	 * @param new_bits resolution [bits/sample]
+	 * @return zero on success, negative error code if failed
 	 */
 	virtual int setBitsPerSample(unsigned int new_bits);
 

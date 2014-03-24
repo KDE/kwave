@@ -201,7 +201,6 @@ Kwave::RecordPulseAudio::RecordPulseAudio()
 //***************************************************************************
 Kwave::RecordPulseAudio::~RecordPulseAudio()
 {
-    kDebug() << "call ";
     close();
     disconnectFromServer();
     m_device_list.clear();
@@ -220,8 +219,6 @@ void Kwave::RecordPulseAudio::pa_read_cb(pa_stream *p, size_t nbytes,
 //***************************************************************************
 void Kwave::RecordPulseAudio::notifyRead(pa_stream *stream, size_t nbytes)
 {
-/*     kDebug() << " stream=" << static_cast<void *>(stream)
-	     << " nbytes=" << nbytes; */
     Q_UNUSED(nbytes);
 
     Q_ASSERT(stream);
@@ -249,20 +246,17 @@ void Kwave::RecordPulseAudio::notifyStreamState(pa_stream* stream)
     pa_stream_state_t state = pa_stream_get_state(stream);
     switch (state) {
 	case PA_STREAM_UNCONNECTED:
-	    kDebug() << "    -> UNCONNECTED"; break;
+	    break;
 	case PA_STREAM_CREATING:
-	    kDebug() << "    -> CREATING"; break;
+	    break;
 	case PA_STREAM_FAILED:
-	    kDebug() << "    -> FAILED";
 	case PA_STREAM_TERMINATED:
-	    kDebug() << "    -> TERMINATED";
 	case PA_STREAM_READY:
-	    kDebug() << "    -> READY";
 	    m_mainloop_signal.wakeAll();
 	    break;
 	default:
 	    Q_ASSERT(0 && "?");
-	    kDebug() << "    -> ???"; break;
+	    break;
     }
 }
 
@@ -282,27 +276,16 @@ void Kwave::RecordPulseAudio::notifyContext(pa_context *c)
     switch (pa_context_get_state(c))
     {
 	case PA_CONTEXT_UNCONNECTED:
-	    kDebug() << "RecordPulseAudio: PA_CONTEXT_UNCONNECTED!?";
 	    break;
 	case PA_CONTEXT_CONNECTING:
-	    kDebug() << "RecordPulseAudio: PA_CONTEXT_CONNECTING...";
 	    break;
 	case PA_CONTEXT_AUTHORIZING:
-	    kDebug() << "RecordPulseAudio: PA_CONTEXT_AUTHORIZING...";
 	    break;
 	case PA_CONTEXT_SETTING_NAME:
-	    kDebug() << "RecordPulseAudio: PA_CONTEXT_SETTING_NAME...";
 	    break;
 	case PA_CONTEXT_READY:
-	    kDebug() << "RecordPulseAudio: PA_CONTEXT_READY.";
-	    m_mainloop_signal.wakeAll();
-	    break;
 	case PA_CONTEXT_TERMINATED:
-	    kWarning() << "RecordPulseAudio: PA_CONTEXT_TERMINATED";
-	    m_mainloop_signal.wakeAll();
-	    break;
 	case PA_CONTEXT_FAILED:
-	    kWarning() << "RecordPulseAudio: PA_CONTEXT_FAILED";
 	    m_mainloop_signal.wakeAll();
 	    break;
     }
@@ -326,7 +309,6 @@ int Kwave::RecordPulseAudio::mode2format(int compression, int bits,
 	// As the list of known formats is already sorted so that
 	// the simplest formats come first, we don't have a lot
 	// of work -> just take the first entry ;-)
-	kDebug() << "RecordPulseAudio::mode2format -> " << index;
 	return index;
     }
 
@@ -337,7 +319,6 @@ int Kwave::RecordPulseAudio::mode2format(int compression, int bits,
 //***************************************************************************
 Kwave::byte_order_t Kwave::RecordPulseAudio::endianness()
 {
-    kDebug() << " call";
     int index = mode2format(m_compression, m_bits_per_sample, m_sample_format);
     return (index >= 0) ?
 	endian_of(_known_formats[index]) : Kwave::UnknownEndian;
@@ -360,7 +341,6 @@ int Kwave::RecordPulseAudio::setSampleFormat(Kwave::SampleFormat new_format)
 //***************************************************************************
 QList< Kwave::SampleFormat > Kwave::RecordPulseAudio::detectSampleFormats()
 {
-    kDebug() << " call";
     QList<Kwave::SampleFormat> list;
 
     // try all known sample formats
@@ -379,9 +359,6 @@ QList< Kwave::SampleFormat > Kwave::RecordPulseAudio::detectSampleFormats()
 	if (list.contains(sample_format)) continue;
 
 	Kwave::SampleFormat::Map sf;
-	kDebug() << "found sample format " << static_cast<int>(sample_format)
-		<< " (" << DBG(sf.name(sf.findFromData(sample_format)))
-		<< ")";
 
 	list.append(sample_format);
     }
@@ -406,7 +383,6 @@ int Kwave::RecordPulseAudio::setBitsPerSample(unsigned int new_bits)
 //***************************************************************************
 QList< unsigned int > Kwave::RecordPulseAudio::supportedBits()
 {
-    kDebug() << " call";
     QList<unsigned int> list;
 
     // try all known sample formats
@@ -424,7 +400,6 @@ QList< unsigned int > Kwave::RecordPulseAudio::supportedBits()
 	// do not produce duplicates
 	if (list.contains(bits)) continue;
 
-	kDebug() << "found bits/sample " << bits;
 	list.append(bits);
     }
 
@@ -448,7 +423,6 @@ int Kwave::RecordPulseAudio::setCompression(int new_compression)
 //***************************************************************************
 QList< int > Kwave::RecordPulseAudio::detectCompressions()
 {
-    kDebug() << " call";
     QList<int> list;
 
     // try all known sample formats
@@ -461,8 +435,6 @@ QList< int > Kwave::RecordPulseAudio::detectCompressions()
 	if (list.contains(compression)) continue;
 
 	Kwave::Compression t(compression);
-	kDebug() << "found compression " << compression << " '"
-	       << DBG(t.name()) << "'";
 	list.append(compression);
     }
 
@@ -550,7 +522,6 @@ int Kwave::RecordPulseAudio::setTracks(unsigned int& tracks)
 //***************************************************************************
 int Kwave::RecordPulseAudio::detectTracks(unsigned int& min, unsigned int& max)
 {
-    kDebug() << " call";
     min = 1;
     max = PA_CHANNELS_MAX;
     return 0;
@@ -559,8 +530,6 @@ int Kwave::RecordPulseAudio::detectTracks(unsigned int& min, unsigned int& max)
 //***************************************************************************
 int Kwave::RecordPulseAudio::close()
 {
-    kDebug() << " call close stream " << static_cast<void *>(m_pa_stream);
-
     if(m_pa_stream) {
 	pa_stream_drop(m_pa_stream);
 	pa_stream_unref(m_pa_stream);
@@ -624,7 +593,6 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 
     // make sure that we are connected to the sound server
     if (!connectToServer()) {
-	kDebug() << "Connecting to the PulseAudio server failed.";
 	return -1;
     }
 
@@ -687,8 +655,6 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 	            << _(pa_strerror(pa_context_errno(m_pa_context)));
 	return -1;
     }
-    kDebug() << "PulseAudio record - stream created as "
-	<< static_cast<void *>(m_pa_stream);
 
     pa_stream_set_state_callback(m_pa_stream, pa_stream_state_cb, this);
     pa_stream_set_read_callback(m_pa_stream, pa_read_cb, this);
@@ -732,19 +698,13 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 //***************************************************************************
 int Kwave::RecordPulseAudio::open(const QString& device)
 {
-    kDebug() << " Device(" << DBG(device) << ")";
-
     // close the previous device
     if (m_pa_stream) close();
 
     if (!m_device_list.contains(device)) {
-	kDebug() << "The PulseAudio device '"
-	<< device.section(QLatin1Char('|'), 0, 0)
-	<< "' is unknown or no longer connected";
 	return -1;
     }
     QString pa_device = m_device_list[device].m_name;
-    kDebug() << " Pulse Audio Device (" << DBG(pa_device) <<")";
 
     if(!pa_device.length()) return -ENOENT;
 
@@ -887,7 +847,6 @@ bool Kwave::RecordPulseAudio::connectToServer()
 	                            TIMEOUT_CONNECT_TO_SERVER) )
 	{
 	    if (pa_context_get_state(m_pa_context) == PA_CONTEXT_READY) {
-		kDebug() << "RecordPulseAudio: context is ready :-)";
 		failed = false;
 	    }
 	}
@@ -933,7 +892,6 @@ void Kwave::RecordPulseAudio::disconnectFromServer()
     if (m_pa_mainloop) {
 	pa_mainloop_free(m_pa_mainloop);
 	m_pa_mainloop = 0;
-	kDebug() << "RecordPulseAudio: mainloop freed";
     }
 
     // release the property list
@@ -963,21 +921,6 @@ void Kwave::RecordPulseAudio::notifySourceInfo(pa_context *c,
     Q_UNUSED(c);
     Q_ASSERT(c == m_pa_context);
     if (eol == 0) {
-#if 1
-	kDebug() << " [" << info->index
-	<< "] source='" << info->name << "' (" << info->description
-	<< ") driver='" << info->driver
-	<< "' card=" << info->card
-	<< ", ports=" << info->n_ports
-	<< ", volume=" << pa_sw_volume_to_linear(pa_cvolume_avg(&info->volume));
-
-	for (uint32_t p = 0; p < info->n_ports; p++) {
-	    kDebug() << "                     [" << p
-	    << "] - '" << info->ports[p]->name
-	    << "' (" << info->ports[p]->description
-	    << "), prio=" << info->ports[p]->priority << ((info->ports[p] == info->active_port) ? " <*>" : "");
-	}
-#endif
 	source_info_t i;
 	i.m_name        = QString::fromUtf8(info->name);
 	i.m_description = QString::fromUtf8(info->description);
@@ -1015,7 +958,6 @@ void Kwave::RecordPulseAudio::scanDevices()
     }
 
     // create a list with final names
-    kDebug() << "----------------------------------------";
     QMap<QString, source_info_t> list;
 
     // first entry == default device
@@ -1065,10 +1007,8 @@ void Kwave::RecordPulseAudio::scanDevices()
 	else
 	    description.append(_("|sound_note"));
 
-	kDebug() << "supported device: '"<< DBG(description) << "'";
 	list.insert(description, m_device_list[source]);
     }
-    kDebug() << "----------------------------------------";
 
     m_device_list = list;
     m_mainloop_lock.unlock();

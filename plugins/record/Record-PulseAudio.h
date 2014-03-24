@@ -322,7 +322,7 @@ namespace Kwave
 	Kwave::SampleFormat m_sample_format;
 
 	/** number of tracks [0...N-1] */
-	unsigned int m_tracks;
+	uint8_t m_tracks;
 
 	/** sample rate  */
 	double m_rate;

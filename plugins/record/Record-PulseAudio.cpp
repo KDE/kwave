@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <signal.h>
+#include <climits>
 
 #include <pulse/thread-mainloop.h>
 
@@ -533,6 +534,8 @@ int Kwave::RecordPulseAudio::tracks()
 //***************************************************************************
 int Kwave::RecordPulseAudio::setTracks(unsigned int& tracks)
 {
+    if (tracks > UCHAR_MAX)
+	return -1;
     if (tracks == m_tracks) 
 	return 0;
     close();
@@ -637,7 +640,7 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
     Q_ASSERT(format_index >= 0);
 
     pa_sample_spec sample_spec;
-    sample_spec.channels = static_cast<uint8_t>(m_tracks);
+    sample_spec.channels = m_tracks;
     sample_spec.format = _known_formats[format_index];
     sample_spec.rate = static_cast<quint32>(m_rate);
 

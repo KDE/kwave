@@ -104,32 +104,6 @@ static const pa_sample_format_t _known_formats[] =
 };
 
 //***************************************************************************
-static QString sampleFormatToString(pa_sample_format format)
-{
-/*    switch (format)
-    {
-	case PA_SAMPLE_U8:          return "Unsigned 8 Bit PCM.";
-	case PA_SAMPLE_ALAW:        return "8 Bit a-Law ";
-	case PA_SAMPLE_ULAW:        return "8 Bit mu-Law";
-	case PA_SAMPLE_S16LE:       return "Signed 16 Bit PCM, little endian (PC).";
-	case PA_SAMPLE_S16BE:       return "Signed 16 Bit PCM, big endian.";
-	case PA_SAMPLE_FLOAT32LE:   return "32 Bit IEEE floating point, little endian (PC), range -1.0 to 1.0";
-	case PA_SAMPLE_FLOAT32BE:   return "32 Bit IEEE floating point, big endian, range -1.0 to 1.0";
-	case PA_SAMPLE_S32LE:       return "Signed 32 Bit PCM, little endian (PC).";
-	case PA_SAMPLE_S32BE:       return "Signed 32 Bit PCM, big endian.";
-	case PA_SAMPLE_S24LE:       return "Signed 24 Bit PCM packed, little endian (PC).";
-	case PA_SAMPLE_S24BE:       return "Signed 24 Bit PCM packed, big endian.";
-	case PA_SAMPLE_S24_32LE:    return "Signed 24 Bit PCM in LSB of 32 Bit words, little endian (PC).";
-	case PA_SAMPLE_S24_32BE:    return "Signed 24 Bit PCM in LSB of 32 Bit words, big endian.";
-	case PA_SAMPLE_MAX:         return "Upper limit of valid sample types.";
-	case PA_SAMPLE_INVALID:     return "Invalid sample format";
-    }
-
-    return QString("Invalid value: %0").arg(format); */
-    return QString(format);
-}
-
-//***************************************************************************
 /** find out the SampleFormat of an PulseAudio format */
 static Kwave::SampleFormat sample_format_of(pa_sample_format_t fmt)
 {
@@ -681,7 +655,7 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 	Kwave::SampleFormat::Map sf;
 
 	kWarning() << "no valid pulse audio format: '"
-		    << DBG(sampleFormatToString(_known_formats[format_index]))
+		    << DBG(QString(_known_formats[format_index]))
 		    << "', Rate: '"
 		    << m_rate
 		    << "', Channels: '"

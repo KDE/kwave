@@ -107,17 +107,20 @@ static const pa_sample_format_t _known_formats[] =
 /** find out the SampleFormat of an PulseAudio format */
 static Kwave::SampleFormat sample_format_of(pa_sample_format_t fmt)
 {
+    Kwave::SampleFormat sampleFormat = Kwave::SampleFormat::Unknown;
     switch (fmt) {
 	case PA_SAMPLE_FLOAT32LE:
 	case PA_SAMPLE_FLOAT32BE:
-	    return Kwave::SampleFormat::Float;
+	    sampleFormat = Kwave::SampleFormat::Float;
+	    break;
 	case PA_SAMPLE_U8:
-	    return Kwave::SampleFormat::Unsigned;
+	    sampleFormat = Kwave::SampleFormat::Unsigned;
+	    break;
 	default:
-	    return Kwave::SampleFormat::Signed;
+	    sampleFormat = Kwave::SampleFormat::Signed;
+	    break;
     }
-
-    return Kwave::SampleFormat::Unknown;
+    return sampleFormat;
 }
 
 //***************************************************************************
@@ -134,42 +137,52 @@ static Kwave::byte_order_t endian_of(pa_sample_format_t fmt)
 //***************************************************************************
 static int compression_of(pa_sample_format_t fmt)
 {
+    int compression = Kwave::Compression::NONE;
     switch (fmt) {
 	case PA_SAMPLE_ULAW:
-	    return Kwave::Compression::G711_ULAW;
+	    compression = Kwave::Compression::G711_ULAW;
+	    break;
 	case PA_SAMPLE_ALAW:
-	    return Kwave::Compression::G711_ALAW;
+	    compression = Kwave::Compression::G711_ALAW;
+	    break;
 	default:
-	    return Kwave::Compression::NONE;
+	    compression = Kwave::Compression::NONE;
+	    break;
     }
-    return Kwave::Compression::NONE;
+    return compression;
 }
 
 //***************************************************************************
 static int bits_of(pa_sample_format_t fmt)
 {
+    int bits = 0;
     switch (fmt) {
 	case PA_SAMPLE_ULAW:
 	case PA_SAMPLE_ALAW:
 	case PA_SAMPLE_U8:
-	    return 8;
+	    bits = 8;
+	    break;
 	case PA_SAMPLE_S16LE:
 	case PA_SAMPLE_S16BE:
-	    return 16;
+	    bits = 16;
+	    break;
 	case PA_SAMPLE_S24LE:
 	case PA_SAMPLE_S24BE:
 	case PA_SAMPLE_S24_32LE:
 	case PA_SAMPLE_S24_32BE:
-	    return 24;
+	    bits = 24;
+	    break;
 	case PA_SAMPLE_S32LE:
 	case PA_SAMPLE_S32BE:
 	case PA_SAMPLE_FLOAT32LE:
 	case PA_SAMPLE_FLOAT32BE:
-	    return 32;
+	    bits = 32;
+	    break;
 	default:
-	    return 0;
+	    bits = 0;
+	    break;
     }
-    return 0;
+    return bits;
 }
 
 //***************************************************************************
@@ -219,9 +232,8 @@ void Kwave::RecordPulseAudio::pa_read_cb(pa_stream *p, size_t nbytes,
 void Kwave::RecordPulseAudio::notifyRead(pa_stream *stream, size_t nbytes)
 {
     Q_UNUSED(nbytes);
-
     Q_ASSERT(stream);
-    Q_ASSERT(stream == m_pa_stream);
+
     if (!stream || (stream != m_pa_stream)) return;
 
     m_mainloop_signal.wakeAll();
@@ -332,7 +344,9 @@ Kwave::SampleFormat Kwave::RecordPulseAudio::sampleFormat()
 //***************************************************************************
 int Kwave::RecordPulseAudio::setSampleFormat(Kwave::SampleFormat new_format)
 {
-    if (m_sample_format != new_format) close();
+    if (m_sample_format == new_format)
+	return 0;
+    close();
     m_sample_format = new_format;
     return 0;
 }
@@ -374,7 +388,9 @@ int Kwave::RecordPulseAudio::bitsPerSample()
 //***************************************************************************
 int Kwave::RecordPulseAudio::setBitsPerSample(unsigned int new_bits)
 {
-    if (m_bits_per_sample != new_bits) close();
+    if (m_bits_per_sample == new_bits)
+	return 0;
+    close();
     m_bits_per_sample = new_bits;
     return 0;
 }
@@ -414,9 +430,11 @@ int Kwave::RecordPulseAudio::compression()
 //***************************************************************************
 int Kwave::RecordPulseAudio::setCompression(int new_compression)
 {
-    if (m_compression != new_compression) close();
+    if (m_compression == new_compression)
+	return 0;
+    close();
     m_compression = new_compression;
-    return m_compression;
+    return 0;
 }
 
 //***************************************************************************
@@ -449,7 +467,9 @@ double Kwave::RecordPulseAudio::sampleRate()
 //***************************************************************************
 int Kwave::RecordPulseAudio::setSampleRate(double& new_rate)
 {
-    if (new_rate != m_rate) close();
+    if (qFuzzyCompare(new_rate, m_rate)) 
+	return 0;
+    close();
     m_rate = new_rate;
     return 0;
 }
@@ -513,7 +533,9 @@ int Kwave::RecordPulseAudio::tracks()
 //***************************************************************************
 int Kwave::RecordPulseAudio::setTracks(unsigned int& tracks)
 {
-    if (tracks != m_tracks) close();
+    if (tracks == m_tracks) 
+	return 0;
+    close();
     m_tracks = tracks;
     return 0;
 }
@@ -563,7 +585,7 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
     size_t freeBytes = length - offset;
     size_t readableSize = pa_stream_readable_size(m_pa_stream);
     if(readableSize > freeBytes) {
-	int additional_size = readableSize - freeBytes;
+	size_t additional_size = readableSize - freeBytes;
 	buffer.resize(length + additional_size);
     }
 
@@ -615,7 +637,7 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
     Q_ASSERT(format_index >= 0);
 
     pa_sample_spec sample_spec;
-    sample_spec.channels = m_tracks;
+    sample_spec.channels = static_cast<uint8_t>(m_tracks);
     sample_spec.format = _known_formats[format_index];
     sample_spec.rate = static_cast<quint32>(m_rate);
 
@@ -972,7 +994,7 @@ void Kwave::RecordPulseAudio::scanDevices()
     i.m_name        = QString();
     i.m_description = _("(server default)");
     i.m_driver      = QString();
-    i.m_card        = -1;
+    i.m_card        = PA_INVALID_INDEX;
     i.m_sample_spec = s;
     list[i18n("(Use server default)") + _("|sound_note")] = i;
 

@@ -2,8 +2,8 @@
  *    Record-PulseAudio.h  -  device for audio recording via PulesAudio
  *                             -------------------
  *    begin                : Sun Okt 20 2013
- *    copyright            : (C) 2005 by Thomas Eschenbacher
- *    email                : Thomas.Eschenbacher@gmx.de
+ *    copyright            : (C) 2014 by Joerg-Christian Boehme
+ *    email                : joerg@chaosdorf.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -92,6 +92,7 @@ namespace Kwave
 	/**
 	 * Set the resolution in bits per sample
 	 * @param new_bits resolution [bits/sample]
+	 * @return zero on success, negative error code if failed
 	 */
 	virtual int setBitsPerSample(unsigned int new_bits);
 
@@ -317,17 +318,11 @@ namespace Kwave
 	/** wait condition for mainloopWait/mainloopSignal */
 	QWaitCondition m_mainloop_signal;
 
-	/**
-	 * Number of bytes per sample, already multiplied with
-	 * the number of channels (m_channels)
-	 */
-	unsigned int m_bytes_per_sample;
-
 	/** sample format (signed int, unsigned int, float, ... */
 	Kwave::SampleFormat m_sample_format;
 
 	/** number of tracks [0...N-1] */
-	unsigned int m_tracks;
+	uint8_t m_tracks;
 
 	/** sample rate  */
 	double m_rate;

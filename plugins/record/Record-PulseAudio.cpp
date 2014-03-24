@@ -178,7 +178,6 @@ Kwave::RecordPulseAudio::RecordPulseAudio()
     m_mainloop_thread(this, QVariant()),
     m_mainloop_lock(),
     m_mainloop_signal(),
-    m_bytes_per_sample(0),
     m_sample_format(Kwave::SampleFormat::Unknown),
     m_tracks(0),
     m_rate(0.0),

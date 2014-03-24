@@ -317,12 +317,6 @@ namespace Kwave
 	/** wait condition for mainloopWait/mainloopSignal */
 	QWaitCondition m_mainloop_signal;
 
-	/**
-	 * Number of bytes per sample, already multiplied with
-	 * the number of channels (m_channels)
-	 */
-	unsigned int m_bytes_per_sample;
-
 	/** sample format (signed int, unsigned int, float, ... */
 	Kwave::SampleFormat m_sample_format;
 

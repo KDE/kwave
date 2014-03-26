@@ -539,7 +539,7 @@ int Kwave::RecordPulseAudio::setTracks(unsigned int& tracks)
     if (tracks == m_tracks) 
 	return 0;
     close();
-    m_tracks = tracks;
+    m_tracks = static_cast<uint8_t>(tracks);
     return 0;
 }
 
@@ -589,7 +589,7 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
     size_t readableSize = pa_stream_readable_size(m_pa_stream);
     if(readableSize > freeBytes) {
 	size_t additional_size = readableSize - freeBytes;
-	buffer.resize(length + additional_size);
+	buffer.resize(static_cast<int>(length + additional_size));
     }
 
     size_t readLength = 0;

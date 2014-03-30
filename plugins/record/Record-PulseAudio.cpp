@@ -222,6 +222,9 @@ Kwave::RecordPulseAudio::~RecordPulseAudio()
 //***************************************************************************
 void Kwave::RecordPulseAudio::inputVolumeCallback(pa_context *c, int success, void *userdata)
 {
+    Q_UNUSED(c);
+    Q_UNUSED(userdata);
+
     if (!success)
 	kWarning() << "failed to set input volume";
 }

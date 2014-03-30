@@ -556,17 +556,13 @@ int Kwave::RecordPulseAudio::close()
 {
     if(m_pa_stream) {
 	pa_stream_drop(m_pa_stream);
+	pa_stream_disconnect(m_pa_stream);
 	pa_stream_unref(m_pa_stream);
     }
     m_pa_stream = 0;
 
-    // set hourglass cursor, we are waiting...
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
     // we need to re-initialize the next time
     m_initialized = false;
-
-    QApplication::restoreOverrideCursor();
     return 0;
 }
 
@@ -900,6 +896,8 @@ bool Kwave::RecordPulseAudio::connectToServer()
 //***************************************************************************
 void Kwave::RecordPulseAudio::disconnectFromServer()
 {
+    close();
+
     // stop the main loop
     m_mainloop_thread.cancel();
     if (m_pa_mainloop) {

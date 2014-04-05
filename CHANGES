@@ -1,7 +1,14 @@
 
 0.8.12 [2014-xx-xx]
 
+ * recording via PulseAudio, by Joerg-Christan Boehme <joerg@chaosdorf.de>
  * bugfix: "Close" button of the record dialog did not save settings
+ * bugfix: amplify free plugin: untranslated action names in progress bar
+ * bugfix: sonagram plugin did not honor the windowing function parameter
+ * bugfix: coherency problems in overview cache
+ * bugfix: metadata got lost after cut/undo/redo
+ * bugfix: save/as check against overwriting existing files failed
+ * bugfix: undo/redo did not work after recording
  * support for swap files to store undo data
  * speedup: too many copy-on-write operations, use more const data
  * improved robustness against out of memory situations
@@ -15,18 +22,12 @@
  * automatic defragmentation of stripes
  * sonagram plugin: use Qt Concurrent framework -> more than factor 40
    faster on a quad core cpu
- * bugfix: sonagram plugin did not honor the windowing function parameter
  * got rid of KDE ThreadWeaver, replaced with Qt Concurrent framework
- * amplify free plugin: action names were not translated in progress bar
- * bugfix: coherency problems in overview cache
  * debug plugin: added function "fm_sweep"
  * workaround for broken WAV files with zeroed fact chunk
  * fixed many 32/64 bit issues
- * bugfix: metadata got lost after cut/undo/redo
  * new build target "make wrapper": creates a wrapper script to start Kwave
    for test/debug purpose
- * bugfix: save/as check against overwriting existing files failed
- * bugfix: undo/redo did not work after recording
 
 0.8.11 [2013-11-24]
 

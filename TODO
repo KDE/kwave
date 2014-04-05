@@ -1,4 +1,6 @@
 
+o bug: signal is "modified" after canceled record (empty) / done
+
 o recording via Phonon
 
 o auto-detect song borders set markers, for splitting recorded stuff into several
@@ -28,6 +30,11 @@ o new plugin: "anti clipping"
 o use noise shaping globally in sample2float()
 
 o support for "raw" import/export
+
+o record plugin: add popup menu to record button for direct recording,
+  record settings etc...
+
+o record plugin: add menu entry
 
 o file import from non-local URLs (e.g. fish://...)
 
@@ -90,7 +97,7 @@ o dithering/noise shaping when loading/saving
 o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons
 
-o fast playback mode, playback with facor 1.5x, 3x, 5x, 7x...
+o adjustable playback speed (similar to what vlcplayer offers)
   -> look how noatun does that...
 
 o support for compressed wav files, like those found on www.montypython.net

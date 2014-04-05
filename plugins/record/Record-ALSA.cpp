@@ -231,7 +231,7 @@ void Kwave::RecordALSA::detectSupportedFormats()
 //     qDebug("--- list of supported formats --- ");
     const unsigned int count =
 	sizeof(_known_formats) / sizeof(_known_formats[0]);
-    for (unsigned int i=0; i < count; i++) {
+    for (unsigned int i = 0; i < count; i++) {
 	// test the sample format
 	snd_pcm_format_t format = _known_formats[i];
 	int err = snd_pcm_hw_params_test_format(m_handle, m_hw_params, format);

@@ -21,7 +21,8 @@
 #include <unistd.h>
 #include <errno.h>
 #include <signal.h>
-#include <climits>
+
+#include <limits>
 
 #include <pulse/thread-mainloop.h>
 
@@ -39,7 +40,10 @@
 #include <kdebug.h>
 
 #include "libkwave/Compression.h"
+#include "libkwave/memcpy.h"
+#include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "Record-PulseAudio.h"
 
@@ -204,11 +208,9 @@ Kwave::RecordPulseAudio::RecordPulseAudio()
     m_pa_context(0),
     m_pa_stream(0),
     m_pa_device(),
-    m_name(),
+    m_name(i18n("Kwave record")),
     m_device_list()
 {
-    QString name = i18n("Kwave record");
-    m_name = name.toUtf8();
 }
 
 //***************************************************************************
@@ -220,8 +222,46 @@ Kwave::RecordPulseAudio::~RecordPulseAudio()
 }
 
 //***************************************************************************
+void Kwave::RecordPulseAudio::detectSupportedFormats(const QString &device)
+{
+    // start with an empty list
+    m_supported_formats.clear();
+
+    // lookup in the device list
+    if (!m_device_list.contains(device))
+	return;
+
+    // try all known formats
+    qDebug("--- list of supported formats --- ");
+    for(unsigned int i = 0; i < ELEMENTS_OF(_known_formats); ++i) {
+	const pa_sample_format_t &fmt = _known_formats[i];
+
+	// TODO: avoid duplicate entries that differ only in endianness,
+	//       prefer our own (native) endianness
+
+	// TODO: honor the capabilities of the device: max bits/sample,
+	//       max. sample rate, max. number of channels
+
+	Kwave::Compression t(compression_of(fmt));
+	Kwave::SampleFormat::Map sf;
+	qDebug("#%2u, %2u bit [%u byte], %s, '%s', '%s'",
+	    i,
+	    bits_of(fmt),
+	    (bits_of(fmt) + 7) >> 3,
+	    endian_of(fmt) == Kwave::CpuEndian ? "CPU" :
+	    (endian_of(fmt) == Kwave::LittleEndian ? "LE " : "BE "),
+	    DBG(sf.description(sf.findFromData(sample_format_of(fmt)), true)),
+	    DBG(t.name())
+	);
+
+	m_supported_formats.append(fmt);
+    }
+    qDebug("--------------------------------- ");
+}
+
+//***************************************************************************
 void Kwave::RecordPulseAudio::pa_read_cb(pa_stream *p, size_t nbytes,
-                                            void *userdata)
+                                         void *userdata)
 {
     Kwave::RecordPulseAudio *record_plugin =
 	reinterpret_cast<Kwave::RecordPulseAudio *>(userdata);
@@ -304,36 +344,35 @@ void Kwave::RecordPulseAudio::notifyContext(pa_context *c)
 }
 
 //***************************************************************************
-int Kwave::RecordPulseAudio::mode2format(int compression, int bits,
-                                   Kwave::SampleFormat sample_format)
+pa_sample_format_t Kwave::RecordPulseAudio::mode2format(
+    int compression, int bits, Kwave::SampleFormat sample_format)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
-    foreach (int index, m_supported_formats)
+    foreach (const pa_sample_format_t &fmt, m_supported_formats)
     {
-	const pa_sample_format_t *fmt = &_known_formats[index];
-
-	if (compression_of(*fmt) != compression) continue;
-	if (bits_of(*fmt) != bits) continue;
-	if (!(sample_format_of(*fmt) == sample_format)) continue;
+	if (compression_of(fmt) != compression) continue;
+	if (bits_of(fmt) != bits) continue;
+	if (!(sample_format_of(fmt) == sample_format)) continue;
 
 	// mode is compatible
 	// As the list of known formats is already sorted so that
 	// the simplest formats come first, we don't have a lot
 	// of work -> just take the first entry ;-)
-	return index;
+	return fmt;
     }
 
     kWarning() << "RecordPulesAudio::mode2format -> no match found !?";
-    return -1;
+    return PA_SAMPLE_INVALID;
 }
 
 //***************************************************************************
 Kwave::byte_order_t Kwave::RecordPulseAudio::endianness()
 {
-    int index = mode2format(m_compression, m_bits_per_sample, m_sample_format);
-    return (index >= 0) ?
-	endian_of(_known_formats[index]) : Kwave::UnknownEndian;
+    pa_sample_format_t fmt = mode2format(m_compression, m_bits_per_sample,
+                                         m_sample_format);
+    return (fmt != PA_SAMPLE_INVALID) ?
+	endian_of(fmt) : Kwave::UnknownEndian;
 }
 
 //***************************************************************************
@@ -353,26 +392,23 @@ int Kwave::RecordPulseAudio::setSampleFormat(Kwave::SampleFormat new_format)
 }
 
 //***************************************************************************
-QList< Kwave::SampleFormat > Kwave::RecordPulseAudio::detectSampleFormats()
+QList<Kwave::SampleFormat> Kwave::RecordPulseAudio::detectSampleFormats()
 {
     QList<Kwave::SampleFormat> list;
 
     // try all known sample formats
-    foreach(int it, m_supported_formats)
+    foreach (const pa_sample_format_t &fmt, m_supported_formats)
     {
-	const pa_sample_format_t *fmt = &(_known_formats[it]);
-	const Kwave::SampleFormat sample_format = sample_format_of(*fmt);
+	const Kwave::SampleFormat sample_format = sample_format_of(fmt);
 
 	// only accept bits/sample if compression types
 	// and bits per sample match
-	if (compression_of(*fmt) != m_compression) continue;
-	if (bits_of(*fmt) != static_cast<int>(m_bits_per_sample))
+	if (compression_of(fmt) != m_compression) continue;
+	if (bits_of(fmt) != Kwave::toInt(m_bits_per_sample))
 	    continue;
 
 	// do not produce duplicates
 	if (list.contains(sample_format)) continue;
-
-	Kwave::SampleFormat::Map sf;
 
 	list.append(sample_format);
     }
@@ -402,16 +438,15 @@ QList< unsigned int > Kwave::RecordPulseAudio::supportedBits()
     QList<unsigned int> list;
 
     // try all known sample formats
-    foreach(int it, m_supported_formats)
+    foreach(const pa_sample_format_t &fmt, m_supported_formats)
     {
-	const pa_sample_format_t *fmt = &(_known_formats[it]);
-	const unsigned int bits = bits_of(*fmt);
+	const unsigned int bits = bits_of(fmt);
 
 	// 0  bits means invalid/does not apply
 	if (!bits) continue;
 
 	// only accept bits/sample if compression matches
-	if (compression_of(*fmt) != m_compression) continue;
+	if (compression_of(fmt) != m_compression) continue;
 
 	// do not produce duplicates
 	if (list.contains(bits)) continue;
@@ -444,10 +479,9 @@ QList< int > Kwave::RecordPulseAudio::detectCompressions()
     QList<int> list;
 
     // try all known sample formats
-    foreach(int it, m_supported_formats)
+    foreach (const pa_sample_format_t &fmt, m_supported_formats)
     {
-	const pa_sample_format_t *fmt = &(_known_formats[it]);
-	int compression = compression_of(*fmt);
+	int compression = compression_of(fmt);
 
 	// do not produce duplicates
 	if (list.contains(compression)) continue;
@@ -532,19 +566,22 @@ int Kwave::RecordPulseAudio::tracks()
 }
 
 //***************************************************************************
-int Kwave::RecordPulseAudio::setTracks(unsigned int& tracks)
+int Kwave::RecordPulseAudio::setTracks(unsigned int &tracks)
 {
-    if (tracks > UCHAR_MAX)
+    const quint8 max_tracks = std::numeric_limits<quint8>::max();
+    if (tracks > max_tracks) {
+	tracks = max_tracks;
 	return -1;
+    }
     if (tracks == m_tracks)
 	return 0;
     close();
-    m_tracks = tracks;
+    m_tracks = static_cast<quint8>(tracks);
     return 0;
 }
 
 //***************************************************************************
-int Kwave::RecordPulseAudio::detectTracks(unsigned int& min, unsigned int& max)
+int Kwave::RecordPulseAudio::detectTracks(unsigned int &min, unsigned int &max)
 {
     min = 1;
     max = PA_CHANNELS_MAX;
@@ -554,19 +591,15 @@ int Kwave::RecordPulseAudio::detectTracks(unsigned int& min, unsigned int& max)
 //***************************************************************************
 int Kwave::RecordPulseAudio::close()
 {
-    if(m_pa_stream) {
+    if (m_pa_stream) {
 	pa_stream_drop(m_pa_stream);
+	pa_stream_disconnect(m_pa_stream);
 	pa_stream_unref(m_pa_stream);
     }
     m_pa_stream = 0;
 
-    // set hourglass cursor, we are waiting...
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
     // we need to re-initialize the next time
     m_initialized = false;
-
-    QApplication::restoreOverrideCursor();
     return 0;
 }
 
@@ -577,6 +610,7 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
 	return 0; // no buffer, nothing to do
 
     unsigned int length = buffer.size();
+
     // we configure our device at a late stage, not on the fly like in OSS
     if (!m_initialized) {
 	int err = initialize(length);
@@ -587,18 +621,28 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
 
     size_t freeBytes = length - offset;
     size_t readableSize = pa_stream_readable_size(m_pa_stream);
-    if(readableSize > freeBytes) {
+    if (readableSize > freeBytes) {
 	size_t additional_size = readableSize - freeBytes;
-	buffer.resize(length + additional_size);
+	buffer.resize(static_cast<int>(length + additional_size));
     }
 
     size_t readLength = 0;
-    if(readableSize > 0) {
-	const void *audioBuffer;
+    if (readableSize > 0) {
+	const void *audioBuffer = 0;
 	pa_stream_peek(m_pa_stream, &audioBuffer, &readLength);
 
+	if (offset + readLength > Kwave::toUint(buffer.length())) {
+	    pa_stream_drop(m_pa_stream);
+	    m_mainloop_lock.unlock();
+	    return -EIO; // peek returned invalid length
+	}
+
 	char *data = buffer.data() + offset;
-	memcpy(data, audioBuffer, readLength);
+	if (audioBuffer) {
+	    MEMCPY(data, audioBuffer, readLength); // real data
+	} else {
+	    memset(data, 0x00, readLength); // there was a gap
+	}
 
 	pa_stream_drop(m_pa_stream);
 
@@ -608,8 +652,9 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
     }
     m_mainloop_lock.unlock();
 
-    return static_cast<int>(readLength);
+    return Kwave::toInt(readLength);
 }
+
 //***************************************************************************
 int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 {
@@ -621,10 +666,9 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 	return -1;
     }
 
-    int format_index = mode2format(m_compression, m_bits_per_sample,
-                                   m_sample_format);
-    Q_ASSERT(format_index >= 0);
-    if (format_index < 0) {
+    pa_sample_format_t fmt = mode2format(m_compression, m_bits_per_sample,
+                                         m_sample_format);
+    if (fmt == PA_SAMPLE_INVALID) {
 	Kwave::SampleFormat::Map sf;
 
 	kWarning() << "format: no matching format for compression '"
@@ -637,18 +681,16 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 	return -EINVAL;
     }
 
-    Q_ASSERT(format_index >= 0);
-
     pa_sample_spec sample_spec;
     sample_spec.channels = m_tracks;
-    sample_spec.format = _known_formats[format_index];
+    sample_spec.format = fmt;
     sample_spec.rate = static_cast<quint32>(m_rate);
 
     if(!pa_sample_spec_valid(&sample_spec)) {
 	Kwave::SampleFormat::Map sf;
 
 	kWarning() << "no valid pulse audio format: '"
-		    << DBG(QString(_known_formats[format_index]))
+		    << DBG(QString(fmt))
 		    << "', Rate: '"
 		    << m_rate
 		    << "', Channels: '"
@@ -661,7 +703,8 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
     m_mainloop_lock.lock();
 
     pa_channel_map channel_map;
-    pa_channel_map_init_extend(&channel_map, sample_spec.channels, PA_CHANNEL_MAP_DEFAULT);
+    pa_channel_map_init_extend(&channel_map, sample_spec.channels,
+                               PA_CHANNEL_MAP_DEFAULT);
 
     if (!pa_channel_map_compatible(&channel_map, &sample_spec)) {
         kWarning() << "Channel map doesn't match sample specification!";
@@ -670,7 +713,7 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
     // create a new stream
     m_pa_stream = pa_stream_new(
 	m_pa_context,
-	m_name.constData(),
+	m_name.toUtf8().constData(),
 	&sample_spec,
 	&channel_map);
 
@@ -684,20 +727,18 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
     pa_stream_set_state_callback(m_pa_stream, pa_stream_state_cb, this);
     pa_stream_set_read_callback(m_pa_stream, pa_read_cb, this);
 
-    int flags = 0;
-
     pa_buffer_attr attr;
     attr.fragsize  = buffer_size;
     attr.maxlength = static_cast<uint32_t>(-1);
     attr.minreq    = static_cast<uint32_t>(-1);
     attr.prebuf    = static_cast<uint32_t>(-1);
     attr.tlength   = static_cast<uint32_t>(-1);
-    flags |= PA_STREAM_ADJUST_LATENCY;
+    int flags      = PA_STREAM_ADJUST_LATENCY;
 
     // connect the stream in record mode
     int result = pa_stream_connect_record(
 	m_pa_stream,
-	m_pa_device.constData(),
+	m_pa_device.toUtf8().constData(),
 	&attr,
 	static_cast<pa_stream_flags_t>(flags));
 
@@ -706,6 +747,7 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 	if (pa_stream_get_state(m_pa_stream) != PA_STREAM_READY)
 	    result = -1;
     }
+
     m_mainloop_lock.unlock();
 
     if (result < 0) {
@@ -732,16 +774,14 @@ int Kwave::RecordPulseAudio::open(const QString& device)
 	       << "' is unknown or no longer connected!";
 	return -1;
     }
+
     QString pa_device = m_device_list[device].m_name;
+    if (!pa_device.length()) return -ENOENT;
 
-    if(!pa_device.length()) return -ENOENT;
+    m_pa_device = pa_device;
 
-    m_pa_device = pa_device.toUtf8();
-
-    m_supported_formats.clear();
-    for(unsigned int i=0; i < ELEMENTS_OF(_known_formats); ++i) {
-	m_supported_formats.append(i);
-    }
+    // detect all formats the device knows
+    detectSupportedFormats(device);
 
     return 0;
 }
@@ -900,6 +940,8 @@ bool Kwave::RecordPulseAudio::connectToServer()
 //***************************************************************************
 void Kwave::RecordPulseAudio::disconnectFromServer()
 {
+    close();
+
     // stop the main loop
     m_mainloop_thread.cancel();
     if (m_pa_mainloop) {
@@ -948,6 +990,7 @@ void Kwave::RecordPulseAudio::notifySourceInfo(pa_context *c,
 {
     Q_UNUSED(c);
     Q_ASSERT(c == m_pa_context);
+
     if (eol == 0) {
 	source_info_t i;
 	i.m_name        = QString::fromUtf8(info->name);
@@ -989,17 +1032,17 @@ void Kwave::RecordPulseAudio::scanDevices()
     QMap<QString, source_info_t> list;
 
     // first entry == default device
-    source_info_t i;
-    pa_sample_spec s;
-    s.format   = PA_SAMPLE_INVALID;
-    s.rate     = 0;
-    s.channels = 0;
-    i.m_name        = QString();
-    i.m_description = _("(server default)");
-    i.m_driver      = QString();
-    i.m_card        = PA_INVALID_INDEX;
-    i.m_sample_spec = s;
-    list[i18n("(Use server default)") + _("|sound_note")] = i;
+//     source_info_t i;
+//     pa_sample_spec s;
+//     s.format   = PA_SAMPLE_INVALID;
+//     s.rate     = 0;
+//     s.channels = 0;
+//     i.m_name        = QString();
+//     i.m_description = _("(server default)");
+//     i.m_driver      = QString();
+//     i.m_card        = PA_INVALID_INDEX;
+//     i.m_sample_spec = s;
+//     list[i18n("(Use server default)") + _("|sound_note")] = i;
 
     foreach (QString source, m_device_list.keys()) {
 	QString name        = m_device_list[source].m_name;

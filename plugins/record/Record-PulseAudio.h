@@ -27,6 +27,7 @@
 #include <pulse/error.h>
 #include <pulse/introspect.h>
 #include <pulse/proplist.h>
+#include <pulse/sample.h>
 #include <pulse/stream.h>
 #include <pulse/mainloop.h>
 
@@ -188,6 +189,13 @@ namespace Kwave
     private:
 
 	/**
+	 * Walk through the list of all known formats and collect the
+	 * ones that are supported into "m_supported_formats".
+	 * @param device name of the device
+	 */
+	void detectSupportedFormats(const QString &device);
+
+	/**
 	 * called from pulse audio to inform about state changes of the
 	 * server context.
 	 *
@@ -280,11 +288,11 @@ namespace Kwave
 	 *        to the decoded stream
 	 * @param sample_format the sample format
 	 *        (signed or unsigned)
-	 * @return the index of the best matching format within the list
-	 *         of known formats, or -1 if no match was found
+	 * @return the best matching format within the list of known formats,
+	 *         or PA_SAMPLE_INVALID if no match was found
 	 */
-	int mode2format(int compression, int bits,
-			Kwave::SampleFormat sample_format);
+	pa_sample_format_t mode2format(int compression, int bits,
+	                               Kwave::SampleFormat sample_format);
 
 	/**
 	 * Initialize the PulseAudio device with current parameters and
@@ -297,13 +305,13 @@ namespace Kwave
 
     private:
 
-	/** relevant information about a PulseAudio sink */
+	/** relevant information about a PulseAudio source */
 	typedef struct
 	{
 	    QString m_name;               /**< internal name of the source */
 	    QString m_description;        /**< verbose name of the source  */
 	    QString m_driver;             /**< internal driver name        */
-	    quint32  m_card;              /**< index of the card or -1     */
+	    quint32 m_card;               /**< index of the card           */
 	    pa_sample_spec m_sample_spec; /**< accepted sample format      */
 	} source_info_t;
 
@@ -322,7 +330,7 @@ namespace Kwave
 	Kwave::SampleFormat m_sample_format;
 
 	/** number of tracks [0...N-1] */
-	uint8_t m_tracks;
+	quint8 m_tracks;
 
 	/** sample rate  */
 	double m_rate;
@@ -339,7 +347,7 @@ namespace Kwave
 	 * Only valid after a successful call to "open()",
 	 * otherwise empty
 	 */
-	QList<int> m_supported_formats;
+	QList<pa_sample_format_t> m_supported_formats;
 
 	/** true if initialize() has been successfully been run */
 	bool m_initialized;
@@ -357,10 +365,10 @@ namespace Kwave
 	pa_stream *m_pa_stream;
 
 	/** pulse: device */
-	QByteArray m_pa_device;
+	QString m_pa_device;
 
 	/** record plugin name */
-	QByteArray m_name;
+	QString m_name;
 
 	/**
 	 * list of available devices

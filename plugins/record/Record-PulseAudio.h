@@ -228,15 +228,6 @@ namespace Kwave
 	static void pa_read_cb(pa_stream *p, size_t nbytes, void *userdata);
 
 	/**
-	 * Callback for pulse volume operation.
-	 *
-	 * @param c pulse server context
-	 * @param success success to set volume
-	 * @param userdata user data, pointer to a RecordPulseAudio object
-	 */
-	static void inputVolumeCallback(pa_context *c, int success, void *userdata);
-
-	/**
 	 * Callback for pulse sink info.
 	 *
 	 * @param c pulse server context

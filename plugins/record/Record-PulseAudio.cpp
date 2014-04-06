@@ -220,16 +220,6 @@ Kwave::RecordPulseAudio::~RecordPulseAudio()
 }
 
 //***************************************************************************
-void Kwave::RecordPulseAudio::inputVolumeCallback(pa_context *c, int success, void *userdata)
-{
-    Q_UNUSED(c);
-    Q_UNUSED(userdata);
-
-    if (!success)
-	kWarning() << "failed to set input volume";
-}
-
-//***************************************************************************
 void Kwave::RecordPulseAudio::pa_read_cb(pa_stream *p, size_t nbytes,
                                             void *userdata)
 {
@@ -699,7 +689,6 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
     attr.prebuf    = static_cast<uint32_t>(-1);
     attr.tlength   = static_cast<uint32_t>(-1);
     flags |= PA_STREAM_ADJUST_LATENCY;
-    flags |= PA_STREAM_START_UNMUTED;
 
     // connect the stream in record mode
     int result = pa_stream_connect_record(
@@ -713,18 +702,6 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 	if (pa_stream_get_state(m_pa_stream) != PA_STREAM_READY)
 	    result = -1;
     }
-
-    pa_cvolume volume;
-    pa_cvolume_reset(&volume, sample_spec.channels);
-    pa_operation *op = pa_context_set_source_volume_by_index(m_pa_context,
-							     pa_stream_get_device_index(m_pa_stream),
-							     &volume,
-							     inputVolumeCallback,
-							     this);
-    if (op == NULL)
-	kWarning() << "Failed to set volume";
-    else
-	pa_operation_unref(op);
 
     m_mainloop_lock.unlock();
 

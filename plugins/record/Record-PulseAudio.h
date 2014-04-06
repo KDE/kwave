@@ -362,6 +362,9 @@ namespace Kwave
 	/** record plugin name */
 	QByteArray m_name;
 
+	/** encoded name of the sink */
+	QString m_device;
+
 	/**
 	 * list of available devices
 	 * key=full encoded name of the sink, data=info about the sink

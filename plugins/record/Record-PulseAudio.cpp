@@ -517,9 +517,12 @@ QList< double > Kwave::RecordPulseAudio::detectSampleRates()
 	192000 // AC97
     };
 
-    // try all known sample rates
+    pa_sample_spec sampleSpec = m_device_list[m_device].m_sample_spec;
+    uint32_t rate = sampleSpec.rate;
     for (unsigned int i = 0; i < ELEMENTS_OF(known_rates); i++) {
-	list.append(known_rates[i]);
+	if(known_rates[i] <= rate) {
+	    list.append(known_rates[i]);
+	}
     }
 
     return list;
@@ -547,7 +550,12 @@ int Kwave::RecordPulseAudio::setTracks(unsigned int& tracks)
 int Kwave::RecordPulseAudio::detectTracks(unsigned int& min, unsigned int& max)
 {
     min = 1;
-    max = PA_CHANNELS_MAX;
+    max = 2;
+    pa_sample_spec sampleSpec = m_device_list[m_device].m_sample_spec;
+    uint8_t channels = sampleSpec.channels;
+    if(channels > 0 && channels <= PA_CHANNELS_MAX) {
+	max = channels;
+    }
     return 0;
 }
 
@@ -734,10 +742,16 @@ int Kwave::RecordPulseAudio::open(const QString& device)
     if(!pa_device.length()) return -ENOENT;
 
     m_pa_device = pa_device.toUtf8();
+    m_device = device;
 
     m_supported_formats.clear();
+
+    pa_sample_spec sampleSpec = m_device_list[m_device].m_sample_spec;
+    pa_sample_format_t formatSpec = sampleSpec.format;
     for(unsigned int i=0; i < ELEMENTS_OF(_known_formats); ++i) {
-	m_supported_formats.append(i);
+	if(formatSpec >= _known_formats[i]) {
+	    m_supported_formats.append(i);
+	}
     }
 
     return 0;
@@ -957,7 +971,6 @@ void Kwave::RecordPulseAudio::notifySourceInfo(pa_context *c,
 
 	QString name    = QString::number(m_device_list.count());
 	m_device_list[name] = i;
-
     } else {
 	m_mainloop_signal.wakeAll();
     }
@@ -1024,6 +1037,7 @@ void Kwave::RecordPulseAudio::scanDevices()
 	list.insert(description, m_device_list[source]);
     }
 
+    m_device_list.clear();
     m_device_list = list;
     m_mainloop_lock.unlock();
 }

@@ -303,7 +303,7 @@ namespace Kwave
 	    QString m_name;               /**< internal name of the source */
 	    QString m_description;        /**< verbose name of the source  */
 	    QString m_driver;             /**< internal driver name        */
-	    quint32  m_card;              /**< index of the card or -1     */
+	    quint32 m_card;               /**< index of the card or -1     */
 	    pa_sample_spec m_sample_spec; /**< accepted sample format      */
 	} source_info_t;
 

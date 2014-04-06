@@ -987,19 +987,6 @@ void Kwave::RecordPulseAudio::scanDevices()
     // create a list with final names
     QMap<QString, source_info_t> list;
 
-    // first entry == default device
-    source_info_t i;
-    pa_sample_spec s;
-    s.format   = PA_SAMPLE_INVALID;
-    s.rate     = 0;
-    s.channels = 0;
-    i.m_name        = QString();
-    i.m_description = _("(server default)");
-    i.m_driver      = QString();
-    i.m_card        = PA_INVALID_INDEX;
-    i.m_sample_spec = s;
-    list[i18n("(Use server default)") + _("|sound_note")] = i;
-
     foreach (QString source, m_device_list.keys()) {
 	QString name        = m_device_list[source].m_name;
 	QString description = m_device_list[source].m_description;

@@ -1,6 +1,4 @@
 
-o bug: signal is "modified" after canceled record (empty) / done
-
 o recording via Phonon
 
 o auto-detect song borders set markers, for splitting recorded stuff into several

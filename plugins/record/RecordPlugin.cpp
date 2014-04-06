@@ -198,10 +198,6 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     if (m_decoder) delete m_decoder;
     m_decoder = 0;
 
-    Kwave::FileInfo info(signalManager().metaData());
-    info.setLength(signalLength());
-    info.setTracks(m_dialog->params().tracks);
-    signalManager().setFileInfo(info, false);
     delete m_dialog;
     m_dialog = 0;
 
@@ -209,7 +205,8 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     m_prerecording_queue.clear();
 
     // enable undo again if we recorded something
-    if (signalManager().isModified()) signalManager().enableUndo();
+    if (!signalManager().isEmpty())
+	signalManager().enableUndo();
 
     return list;
 }
@@ -738,7 +735,7 @@ void Kwave::RecordPlugin::changeSampleFormat(Kwave::SampleFormat new_format)
 void Kwave::RecordPlugin::buffersChanged()
 {
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    // this implicitely activates the new settings
+    // this implicitly activates the new settings
 }
 
 //***************************************************************************
@@ -1027,6 +1024,16 @@ void Kwave::RecordPlugin::recordStopped(int reason)
 
     // flush away all prerecording buffers
     m_prerecording_queue.clear();
+
+    // update the file info if we recorded something
+    // NOTE: this implicitly sets the "modified" flag of the signal
+    if (m_writers && m_writers->last()) {
+	Kwave::FileInfo info(signalManager().metaData());
+	info.setLength(signalLength());
+	info.setTracks(m_dialog->params().tracks);
+	signalManager().setFileInfo(info, false);
+    }
+
 }
 
 //***************************************************************************
@@ -1191,7 +1198,7 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 		break;
 	    }
 	    default: {
-		// default: bytewise operation
+		// default: byte wise operation
 		const quint8 *src =
 		    reinterpret_cast<const quint8 *>(raw_data.constData());
 		quint8 *dst =

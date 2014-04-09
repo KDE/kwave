@@ -370,6 +370,9 @@ namespace Kwave
 	/** record plugin name */
 	QString m_name;
 
+	/** encoded name of the sink */
+	QString m_device;
+
 	/**
 	 * list of available devices
 	 * key=full encoded name of the sink, data=info about the sink
@@ -382,7 +385,3 @@ namespace Kwave
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 #endif // KWAVE_RECORD_PULSEAUDIO_H
-
-
-
-

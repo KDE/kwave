@@ -40,11 +40,7 @@ Kwave::RecordParams::RecordParams()
     bits_per_sample(16),
     sample_format(Kwave::SampleFormat::Unknown),
     buffer_count(32),
-    buffer_size(13), /* (1 << 13) == 8192 bytes */
-    display_level_meter(true),
-    display_oscilloscope(false),
-    display_fft(false),
-    display_overview(false)
+    buffer_size(13) /* (1 << 13) == 8192 bytes */
 {
 }
 
@@ -64,13 +60,15 @@ int Kwave::RecordParams::fromList(const QStringList &list)
     bool ok;
     int index = 0;
 
-    // check number of elements:
-    // oldest version has only 26 elements
-    // <= v0.8.3 additionally has a recording method (27 entries)
-    // >= v0.8.4 additionally has a recording time (29 entries)
-    if ((list.size() != 26) &&
-        (list.size() != 27) &&
-        (list.size() != 29)) return -EINVAL;
+    // check number of elements
+    if (list.count() != 25) return -EINVAL;
+
+    // recording method
+    unsigned int method_index;
+    GET(method_index, toUInt);
+    method = (method_index < Kwave::RECORD_INVALID) ?
+		static_cast<Kwave::record_method_t>(method_index) :
+		Kwave::RECORD_INVALID;
 
     // pre-record
     GET(pre_record_enabled, toUInt);
@@ -81,13 +79,9 @@ int Kwave::RecordParams::fromList(const QStringList &list)
     GET(record_time, toUInt);
 
     // record start time
-    if (list.size() >= 29) {
-	GET(start_time_enabled, toUInt);
-	start_time = QDateTime::fromString(list[index++], Qt::ISODate);
-    } else {
-	start_time_enabled = false;
-	start_time = QDateTime::currentDateTime();
-    }
+    GET(start_time_enabled, toUInt);
+    start_time = QDateTime::fromString(list[index++], Qt::ISODate);
+
     // auto-adjust to same hour as last time but not in past
     if (start_time.date() < QDate::currentDate())
 	start_time.setDate(QDate::currentDate());
@@ -135,21 +129,6 @@ int Kwave::RecordParams::fromList(const QStringList &list)
     GET(buffer_count, toUInt);
     GET(buffer_size, toUInt);
 
-    // various displays: level meter, oscilloscope, FFT, Overview
-    GET(display_level_meter, toUInt);
-    GET(display_oscilloscope, toUInt);
-    GET(display_fft, toUInt);
-    GET(display_overview, toUInt);
-
-    // if we have >= 27 entries: new version, we have a recording method
-    if (list.size() >= 27) {
-	unsigned int method_index;
-	GET(method_index, toUInt);
-	method = (method_index < Kwave::RECORD_INVALID) ?
-	         static_cast<Kwave::record_method_t>(method_index) :
-	         Kwave::RECORD_INVALID;
-    }
-
     return 0;
 }
 
@@ -160,6 +139,9 @@ QStringList Kwave::RecordParams::toList() const
 {
     QStringList list;
     QString param;
+
+    // record method
+    PUT(static_cast<unsigned int>(method));
 
     // pre-record
     PUT(pre_record_enabled);
@@ -206,15 +188,6 @@ QStringList Kwave::RecordParams::toList() const
     // buffer count and power of buffer size
     PUT(buffer_count);
     PUT(buffer_size);
-
-    // various displays: level meter, oscilloscope, FFT, Overview
-    PUT(display_level_meter);
-    PUT(display_oscilloscope);
-    PUT(display_fft);
-    PUT(display_overview);
-
-    // record method
-    PUT(static_cast<unsigned int>(method));
 
     return list;
 }

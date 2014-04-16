@@ -271,9 +271,6 @@ namespace Kwave
 	/** record trigger has changed */
 	void triggerChanged(int trigger);
 
-	/** display: level meter enabled/disabled */
-	void displayLevelMeterChecked(bool enabled);
-
 	/** invoke the online help */
 	void invokeHelp();
 

@@ -56,7 +56,7 @@
 #include "Record-OSS.h"
 #include "Record-PulseAudio.h"
 
-KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.3",
+KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.4",
              I18N_NOOP("Record"), "Thomas Eschenbacher");
 
 //***************************************************************************

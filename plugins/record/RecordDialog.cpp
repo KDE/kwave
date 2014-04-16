@@ -169,16 +169,9 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     slSourceBufferSize->setValue(m_params.buffer_size);
     sourceBufferSizeChanged(m_params.buffer_size);
 
-    // various displays: level meter, oscilloscope, FFT, Overview
-    chkDisplayLevelMeter->setChecked(m_params.display_level_meter);
-    displayLevelMeterChecked(m_params.display_level_meter);
-    chkDisplayOscilloscope->setChecked(m_params.display_oscilloscope);
-    chkDisplayFFT->setChecked(m_params.display_fft);
-    chkDisplayOverview->setChecked(m_params.display_overview);
-
     // after this point all controls have their initial values
 
-    /* --- connect some missing lowlevel gui functionality --- */
+    /* --- connect some missing low level GUI functionality --- */
 
     connect(cbMethod, SIGNAL(activated(int)),
             this, SLOT(methodSelected(int)));
@@ -205,10 +198,6 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
             this, SLOT(selectRecordDevice()));
     connect(cbDevice, SIGNAL(activated(const QString &)),
             this, SLOT(setDevice(const QString &)));
-
-    // visualizations
-    connect(chkDisplayLevelMeter, SIGNAL(toggled(bool)),
-            this, SLOT(displayLevelMeterChecked(bool)));
 
     // setup controls
     connect(chkRecordTime, SIGNAL(toggled(bool)),
@@ -1265,25 +1254,6 @@ void Kwave::RecordDialog::triggerChanged(int trigger)
 }
 
 //***************************************************************************
-void Kwave::RecordDialog::displayLevelMeterChecked(bool enabled)
-{
-    m_params.display_level_meter = enabled;
-
-    Q_ASSERT(level_meter);
-    Q_ASSERT(lbl_level_meter);
-    if (!level_meter || !lbl_level_meter) return;
-    if (enabled) {
-	level_meter->show();
-	lbl_level_meter->show();
-    } else {
-	level_meter->setTracks(0);
-	level_meter->reset();
-	level_meter->hide();
-	lbl_level_meter->hide();
-    }
-}
-
-//***************************************************************************
 void Kwave::RecordDialog::updateBufferProgressBar()
 {
     unsigned int count = m_buffer_progress_count;
@@ -1311,7 +1281,7 @@ void Kwave::RecordDialog::updateEffects(unsigned int track,
 {
     if (!buffer.size()) return;
 
-    if (m_params.display_level_meter && level_meter) {
+    if (level_meter) {
 	level_meter->setTracks(m_params.tracks);
 	level_meter->setSampleRate(m_params.sample_rate);
 	level_meter->updateTrack(track, buffer);

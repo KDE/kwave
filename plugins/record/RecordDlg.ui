@@ -1191,68 +1191,6 @@ recording. Depending on the compilation options you can select one of the follow
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab_display">
-         <attribute name="title">
-          <string>Display</string>
-         </attribute>
-         <layout class="QVBoxLayout">
-          <item>
-           <widget class="QGroupBox" name="grpDisplay">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="title">
-             <string>Visualization</string>
-            </property>
-            <layout class="QVBoxLayout">
-             <item>
-              <widget class="QCheckBox" name="chkDisplayLevelMeter">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="text">
-                <string>Level meter</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="chkDisplayOscilloscope">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Oscilloscope</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="chkDisplayFFT">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>FFT</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="chkDisplayOverview">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Overview</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
        </widget>
       </item>
       <item>
@@ -1464,10 +1402,6 @@ recording. Depending on the compilation options you can select one of the follow
   <tabstop>sbSourceBuffer</tabstop>
   <tabstop>slSourceBufferCount</tabstop>
   <tabstop>slSourceBufferSize</tabstop>
-  <tabstop>chkDisplayLevelMeter</tabstop>
-  <tabstop>chkDisplayOscilloscope</tabstop>
-  <tabstop>chkDisplayFFT</tabstop>
-  <tabstop>chkDisplayOverview</tabstop>
  </tabstops>
  <includes>
   <include location="global">klocale.h</include>

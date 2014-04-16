@@ -115,7 +115,7 @@ namespace Kwave
 
 	/**
 	 * command for starting the recording, completion is
-	 * signalled with sigStarted()
+	 * signaled with sigStarted()
 	 */
 	void startRecording();
 
@@ -161,7 +161,7 @@ namespace Kwave
 	/** restart recorder with new buffer settings */
 	void buffersChanged();
 
-	/** the prerecording checkbos has changed */
+	/** the prerecording checkbox has changed */
 	void prerecordingChanged(bool enable);
 
     private:

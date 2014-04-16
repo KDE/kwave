@@ -105,11 +105,6 @@ namespace Kwave
 
 	unsigned int buffer_count;	/**< number of buffers */
 	unsigned int buffer_size;	/**< power of the record buffer size */
-
-	bool display_level_meter;	/**< enable level meter display */
-	bool display_oscilloscope;	/**< enable oscilloscope display */
-	bool display_fft;		/**< enable fft display */
-	bool display_overview;		/**< enable overview display */
     };
 }
 

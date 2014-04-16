@@ -49,6 +49,7 @@
  * bugfix: crash in file info dialog / auto generate keywords
  * MP3 plugin: use ID3 tag TSSE for software version
  * ASCII codec: implemented support for labels
+ * record plugin: level meter is always enabled, simplified dialog
 
 0.8.10 [2013-02-09]
 

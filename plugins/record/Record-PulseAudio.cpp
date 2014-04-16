@@ -245,9 +245,6 @@ void Kwave::RecordPulseAudio::detectSupportedFormats(const QString &device)
 	// TODO: avoid duplicate entries that differ only in endianness,
 	//       prefer our own (native) endianness
 
-	// TODO: honor the capabilities of the device: max bits/sample,
-	//       max. sample rate, max. number of channels
-
 	Kwave::Compression t(compression_of(fmt));
 	Kwave::SampleFormat::Map sf;
 	qDebug("#%2u, %2u bit [%u byte], %s, '%s', '%s'",

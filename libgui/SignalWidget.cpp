@@ -374,7 +374,14 @@ void Kwave::SignalWidget::setVerticalZoom(double zoom)
 }
 
 //***************************************************************************
-int Kwave::SignalWidget::viewPortWidth()
+int Kwave::SignalWidget::mapToViewPort(const QPoint &pos) const
+{
+    if (m_views.isEmpty()) return mapFromGlobal(pos).x(); // if empty
+    return mapFromGlobal(pos).x() - m_layout.cellRect(0, 1).left();
+}
+
+//***************************************************************************
+int Kwave::SignalWidget::viewPortWidth() const
 {
     if (m_views.isEmpty()) return width(); // if empty
     return m_layout.cellRect(0, 1).width();

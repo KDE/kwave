@@ -181,16 +181,18 @@ namespace Kwave
 	void zoomNormal();
 
 	/**
-	 * Zooms into the signal, the new display will show the middle
-	 * 33% of the current display.
+	 * Zooms into the signal, the new display will show the signal
+	 * zoomed at the position given as parameter (if >= 0) or centered
+	 * if a position < 0 is given.
 	 */
-	void zoomIn();
+	void zoomIn(int pos = -1);
 
 	/**
-	 * Zooms the signal out, the current display will become the
-	 * middle 30% of the new display.
+	 * Zooms out the signal, the new display will show the signal
+	 * zoomed at the position given as parameter (if >= 0) or centered
+	 * if a position < 0 is given.
 	 */
-	void zoomOut();
+	void zoomOut(int pos = -1);
 
     private slots:
 

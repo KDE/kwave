@@ -315,14 +315,16 @@ void Kwave::MainWidget::wheelEvent(QWheelEvent *event)
 		executeCommand(_("view:scroll_next()"));
 	    event->accept();
 	    break;
-	case Qt::ControlModifier:
+	case Qt::ControlModifier: {
 	    // <Ctrl> + <WheelUp/Down> => zoom in/out
+	    int x = qMax(m_signal_widget.mapToViewPort(event->globalPos()), 0);
 	    if (event->delta() > 0)
-		executeCommand(_("view:zoom_in()"));
+		executeCommand(_("view:zoom_in(%1)").arg(x));
 	    else if (event->delta() < 0)
-		executeCommand(_("view:zoom_out()"));
+		executeCommand(_("view:zoom_out(%1)").arg(x));
 	    event->accept();
 	    break;
+	}
 	default:
 	    event->ignore();
     }
@@ -386,9 +388,11 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 
     // -- zoom --
     CASE_COMMAND("view:zoom_in")
-	zoomIn();
+	int x = parser.hasParams() ? parser.toInt() : -1;
+	zoomIn(x);
     CASE_COMMAND("view:zoom_out")
-	zoomOut();
+	int x = parser.hasParams() ? parser.toInt() : -1;
+	zoomOut(x);
     CASE_COMMAND("view:zoom_selection")
 	zoomSelection();
     CASE_COMMAND("view:zoom_all")
@@ -877,19 +881,43 @@ void Kwave::MainWidget::zoomNormal()
 }
 
 //***************************************************************************
-void Kwave::MainWidget::zoomIn()
+void Kwave::MainWidget::zoomIn(int pos)
 {
-    const sample_index_t shift = displaySamples() / 3;
-    m_offset = (m_offset + shift >= m_offset) ? (m_offset + shift) : -shift;
-    setZoom(m_zoom / 3);
+    if (pos >= 0) {
+	// position given, calculate shift:
+	// ofs_old + (pos * m_zoom) := ofs_new + (pos * (m_zoom / 3))
+	// ofs_new = ofs_old + (pos * m_zoom) -  (pos * (m_zoom / 3))
+	fixZoomAndOffset(
+	    m_zoom / 3,
+	    m_offset + Kwave::toInt(pos * (m_zoom * (2.0 / 3.0)))
+	);
+    } else {
+	// no position given, show centered
+	fixZoomAndOffset(
+	    m_zoom / 3,
+	    m_offset + (displaySamples() / 3)
+	);
+    }
 }
 
 //***************************************************************************
-void Kwave::MainWidget::zoomOut()
+void Kwave::MainWidget::zoomOut(int pos)
 {
-    const sample_index_t shift = displaySamples();
-    m_offset = (m_offset > shift) ? (m_offset - shift) : 0;
-    setZoom(m_zoom * 3);
+    sample_index_t shift;
+
+    if (pos >= 0) {
+	// position given, calculate shift
+	// ofs_old + (pos * m_zoom) := ofs_new + (pos * (m_zoom * 3))
+	// ofs_new = ofs_old + (pos * m_zoom) -  (pos * (m_zoom * 3))
+	shift = Kwave::toInt(m_zoom * 2.0) * pos;
+    } else {
+	// no position given, show centered
+	shift = displaySamples();
+    }
+    fixZoomAndOffset(
+	m_zoom * 3,
+	(m_offset > shift) ? (m_offset - shift) : 0
+    );
 }
 
 //***************************************************************************

@@ -31,6 +31,7 @@
    for test/debug purpose
  * new build target "make dep": creates a binary debian package
    (for personal use and testing purposes)
+ * mouse wheel + Ctrl: zoom in/out aligns signal to mouse position
 
 0.8.11 [2013-11-24]
 

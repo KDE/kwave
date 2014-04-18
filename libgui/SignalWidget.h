@@ -106,11 +106,17 @@ namespace Kwave
 	void setZoomAndOffset(double zoom, sample_index_t offset);
 
 	/**
+	 * Returns the x coordinate of an absolute pixel position to a relative
+	 * coordinate within the viewport area (without controls)
+	 */
+	int mapToViewPort(const QPoint &pos) const;
+
+	/**
 	 * Returns the width of the viewport with the signal (without
 	 * controls)
 	 * @return width of the signal area [pixels]
 	 */
-	int viewPortWidth();
+	int viewPortWidth() const;
 
 	/**
 	 * Insert a new signal view into this widget (or the upper/lower
@@ -271,7 +277,7 @@ namespace Kwave
 	QPointer<QVBoxLayout> m_lower_dock;
 
 	/**
-	 * Offset from which signal is beeing displayed. This is equal to
+	 * Offset from which signal is being displayed. This is equal to
 	 * the index of the first visible sample.
 	 */
 	sample_index_t m_offset;

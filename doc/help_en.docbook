@@ -791,6 +791,49 @@
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Building DEB package from Source                      +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="building_deb_from_src">
+    <title>Building a DEB package for testing and personal use</title>
+
+    <para>
+	If you want to create a deb package of &kwave;, e.g. for testing a
+	version that is not yet available via official package repositories,
+	then you can create your own package quite easily. First of all, you
+	need to install some required tools:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>sudo apt-get install build-essential checkinstall</command>
+</screen>
+    </para>
+
+    <para>
+	Then you can install the required build dependencies by pretending to
+	install the dependencies of the official &kwave; version:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>sudo apt-get build-dep kwave</command>
+</screen>
+    </para>
+
+    <para>
+	After installing the required packages, you can build &kwave; as
+	described in the chapters before. After building you can type this
+	to get a .deb file in your current build directory:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>make deb</command>
+</screen>
+    </para>
+
+    <note><para>
+	The .deb file you get from this step will not have the quality that
+	a package from your official distribution has - it is just good enough
+	for installing and safely uninstalling &kwave; for testing purposes
+	and for personal use.
+    </para></note>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: optimizations                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
@@ -2467,6 +2510,56 @@
     </para>
 
     <!-- @@@ most of this has still to be done ... @@@ -->
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Creating API documentation                            +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="make_apidoc"><title>Creating API documentation</title>
+
+    <para>
+	If you are interested in the internal of &kwave; and you have
+	<ulink url="&url_doxygen;">doxygen</ulink> installed, then you
+	can type:
+<screen width="50" format="linespecific">
+<prompt>% </prompt><command>make apidoc</command>
+</screen>
+    </para>
+    <para>
+	to get a directory
+	<filename><replaceable>apicod/html</replaceable></filename>,
+	with documentation of the source and the internal API in your
+	current build directory.
+    </para>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Starting in a test environment                        +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="create_wrapper"><title>Starting in a test environment</title>
+
+    <para>
+	If you are developing or testing  &kwave;, then you do not necessarily
+	need to uninstall/install &kwave; after every build. Instead you can
+	use the application from where it is built by using a wrapper script.
+	This wrapper script can be built with the follwing command:
+<screen width="50" format="linespecific">
+<prompt>% </prompt><command>make wrapper</command>
+</screen>
+    </para>
+    <para>
+	The script will be named <filename><replaceable>kw</replaceable></filename>,
+	feel free to modify it to match your system if needed.
+    </para>
+    <warning><para>
+	For this to work, you must <emphasis>not</emphasis> have &kwave;
+	installed on your system. If so, please uninstall the package
+	before!
+    </para></warning>
+
+    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Adding a new language                                 +++ -->

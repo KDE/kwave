@@ -50,6 +50,7 @@ SET(KWAVE_LINGUAS
 
 # all            - default target, build all files
 # clean          - clean up the current build directory
+# deb            - create a debian package
 # doc            - generate docbook files for online help
 # distfiles      - generate subdirectory with all files for distribution
 # html_doc       - generate HTML help (for the web)
@@ -310,6 +311,11 @@ SET(DISTFILES_DIR ${CMAKE_BINARY_DIR}/v${KWAVE_VERSION_FULL})
 FILE(MAKE_DIRECTORY ${DISTFILES_DIR})
 
 INCLUDE(KwaveRPMSupport)
+
+#############################################################################
+### DEB support                                                           ###
+
+INCLUDE(KwaveDEBSupport)
 
 #############################################################################
 

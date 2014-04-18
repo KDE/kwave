@@ -9,6 +9,7 @@
  * bugfix: metadata got lost after cut/undo/redo
  * bugfix: save/as check against overwriting existing files failed
  * bugfix: undo/redo did not work after recording
+ * bugfix: signal was "modified" after canceled record (empty) / done
  * support for swap files to store undo data
  * speedup: too many copy-on-write operations, use more const data
  * improved robustness against out of memory situations
@@ -28,7 +29,8 @@
  * fixed many 32/64 bit issues
  * new build target "make wrapper": creates a wrapper script to start Kwave
    for test/debug purpose
- * bugfix: signal was "modified" after canceled record (empty) / done
+ * new build target "make dep": creates a binary debian package
+   (for personal use and testing purposes)
 
 0.8.11 [2013-11-24]
 

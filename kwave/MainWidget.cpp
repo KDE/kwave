@@ -32,6 +32,7 @@
 #include <QtCore/QDebug>
 
 #include <klocale.h>
+#include <kstatusbar.h>
 
 #include "libkwave/ApplicationContext.h"
 #include "libkwave/CodecManager.h"
@@ -150,6 +151,14 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
 	    this,                   SLOT(horizontalScrollBarMoved(int)));
     m_horizontal_scrollbar->hide();
 
+    // -- status bar --
+    
+    m_status_bar = new KStatusBar(this);
+    m_status_bar->showMessage(_("Status bar to show the selected range"));
+    m_status_bar->setMinimumHeight(m_status_bar->sizeHint().height());
+    m_status_bar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    topLayout->addWidget(m_status_bar);
+    
     // -- playback position update --
 
     Kwave::PlaybackController &playback = signal_manager->playbackController();

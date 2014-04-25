@@ -174,10 +174,20 @@ void Kwave::PlayerToolBar::switchPlaybackController(Kwave::PlaybackController* p
     pbContext.setLastOffset(m_last_offset);
     pbContext.setLastVisible(m_last_visible);
     pbContext.setLastLength(m_last_length);
+    pbContext.setPauseTimer(m_pause_timer);
   
+    if(m_pause_timer && m_pause_timer->isActive())
+    {
+      m_pause_timer->stop();
+      m_blink_on = false;
+      blinkPause();
+    }
+      
     m_active_playbacks.insert(m_playback, pbContext); 
     
     m_playback = playback;
+    m_last_tracks = m_last_offset = m_last_visible = m_last_length = 0;
+    m_pause_timer = 0;
     
     if(m_active_playbacks.contains(playback))
     {
@@ -186,6 +196,12 @@ void Kwave::PlayerToolBar::switchPlaybackController(Kwave::PlaybackController* p
       m_last_offset = tmpPbContext.lastOffset();
       m_last_visible = tmpPbContext.lastVisible();
       m_last_length = tmpPbContext.lastLength();
+      m_pause_timer = tmpPbContext.pauseTimer();
+      if(m_pause_timer)
+      {
+	m_pause_timer->start(500);
+	m_blink_on = true;
+      }
     }
       
     connect(m_playback, SIGNAL(sigPlaybackStarted()),

@@ -599,6 +599,9 @@ void Kwave::TopWidget::updateCurrent(QMdiSubWindow* window)
     m_main_widget = qobject_cast<Kwave::MainWidget*>(window->widget());
     m_context = const_cast<Kwave::ApplicationContext*>(m_map_contexts.value(m_main_widget));       
     m_toolbar_record_playback->switchPlaybackController(&m_context->signalManager()->playbackController());
+    Kwave::Selection& tmpSelection = m_context->signalManager()->selection();
+    selectionChanged(tmpSelection.offset(), tmpSelection.length());      
+    metaDataChanged(m_context->signalManager()->metaData());
   }
 }
 

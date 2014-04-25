@@ -2,10 +2,10 @@
 #define _PLAYBACK_CONTEXT_H_
 
 #include "libkwave/Sample.h"
+#include <Qt/qtimer.h>
 
 namespace Kwave 
 {
-  
   class PlaybackContext
   {
   public:
@@ -14,10 +14,12 @@ namespace Kwave
     void setLastOffset(sample_index_t Loffset) { m_last_offset = Loffset; }
     void setLastVisible(sample_index_t Lvisible) { m_last_visible = Lvisible; }
     void setLastLength(sample_index_t Llength) { m_last_length = Llength; }
+    void setPauseTimer(QTimer* timer) { m_pause_timer = timer; }
     unsigned int lastTracks() { return m_last_tracks; }
     sample_index_t lastOffset() { return m_last_offset; }
     sample_index_t lastVisible() { return m_last_visible; }
     sample_index_t lastLength() { return m_last_length; }
+    QTimer* pauseTimer() { return m_pause_timer; }
     
   private:
 	/** last number of tracks */
@@ -31,6 +33,9 @@ namespace Kwave
 
 	/** last length of the signal */
 	sample_index_t m_last_length;
+	
+	/** Timer used to let the pause button blink... */
+	QTimer *m_pause_timer;
   };
 }
 

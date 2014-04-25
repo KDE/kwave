@@ -402,81 +402,96 @@ bool Kwave::TopWidget::init()
     return true;
 }
 
-// bool Kwave::TopWidget::initializeSubWindow()
-// {
-//     if(m_map_contexts.key(m_context))
-//     {
-// 	m_context = new Kwave::ApplicationContext(m_context->application());
-//
-// 	if (!m_context->init(this))
-// 	  return false;
-//     }
-//
-//     Kwave::SignalManager *signal_manager = m_context->signalManager();
-//     Kwave::PluginManager *plugin_manager = m_context->pluginManager();
-//
-//     if(!m_main_widget)
-//       m_map_contexts.remove(m_main_widget);
-//
-//     m_main_widget = new Kwave::MainWidget(this, *m_context);
-//     m_map_contexts.insert(m_main_widget, m_context);
-//
-//
-//     Q_ASSERT(m_main_widget);
-//     if (!m_main_widget) return false;
-//     if (!(m_main_widget->isOK())) {
-// 	qWarning("TopWidget::TopWidget(): failed at creating main widget");
-// 	delete m_main_widget;
-// 	m_main_widget = 0;
-// 	return false;
-//     }
-//
-//
-//     QMdiSubWindow* subWindow =  m_mdiArea->addSubWindow(m_main_widget);
-//     QWidget* viewportMDI = m_mdiArea->viewport();
-//     subWindow->resize(viewportMDI->width(), viewportMDI->height() / 3);
-//     subWindow->setAttribute(Qt::WA_DeleteOnClose);
-//     subWindow->show();
-//
-//
-//     connect(&(signal_manager->selection()),
-//             SIGNAL(changed(sample_index_t, sample_index_t)),
-//             this,
-//             SLOT(selectionChanged(sample_index_t,sample_index_t)));
-//     connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
-//                                                    const QString&)),
-//             this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
-//     connect(signal_manager, SIGNAL(sigModified(bool)),
-//             this,           SLOT(modifiedChanged(bool)));
-//     connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
-//             this,           SLOT(metaDataChanged(Kwave::MetaDataList)));
-//     connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
-//             m_toolbar_record_playback,
-//                             SLOT(metaDataChanged(Kwave::MetaDataList)));
-//
-//
-//     connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
-//             this,           SLOT(executeCommand(const QString &)));
-//     connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
-//             this,           SLOT(showInSplashSreen(const QString &)));
-//
-//
-//     plugin_manager->searchPluginModules();
-//     plugin_manager->loadAllPlugins();
-//
-//
-//     // connect the main widget
-//     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
-//             this, SLOT(executeCommand(const QString &)));
-//     connect(&m_context->signalManager()->playbackController(),
-//             SIGNAL(sigSeekDone(sample_index_t)),
-//             m_main_widget, SLOT(scrollTo(sample_index_t)));
-//     connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
-// 	    sample_index_t, sample_index_t)),
-// 	    m_toolbar_record_playback, SLOT(visibleRangeChanged(sample_index_t,
-// 	    sample_index_t, sample_index_t)) );
-//     return true;
-// }
+bool Kwave::TopWidget::initializeSubWindow()
+{
+    if(m_map_contexts.key(m_context))
+    {
+	m_context = new Kwave::ApplicationContext(m_context->application());
+
+	if (!m_context->init(this))
+	  return false;
+    }
+
+    Kwave::SignalManager *signal_manager = m_context->signalManager();
+    Kwave::PluginManager *plugin_manager = m_context->pluginManager();
+
+    if(!m_main_widget)
+      m_map_contexts.remove(m_main_widget);
+
+    m_main_widget = new Kwave::MainWidget(this, *m_context);
+    m_map_contexts.insert(m_main_widget, m_context);
+
+
+    Q_ASSERT(m_main_widget);
+    if (!m_main_widget) return false;
+    if (!(m_main_widget->isOK())) {
+	qWarning("TopWidget::TopWidget(): failed at creating main widget");
+	delete m_main_widget;
+	m_main_widget = 0;
+	return false;
+    }
+
+
+    QMdiSubWindow* subWindow =  m_mdiArea->addSubWindow(m_main_widget);
+    QWidget* viewportMDI = m_mdiArea->viewport();
+    subWindow->resize(viewportMDI->width(), viewportMDI->height() / 3);
+    subWindow->setAttribute(Qt::WA_DeleteOnClose);
+    subWindow->show();
+
+
+    connect(&(signal_manager->selection()),
+            SIGNAL(changed(sample_index_t, sample_index_t)),
+            this,
+            SLOT(selectionChanged(sample_index_t,sample_index_t)));
+    connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
+                                                   const QString&)),
+            this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
+    connect(signal_manager, SIGNAL(sigModified(bool)),
+            this,           SLOT(modifiedChanged(bool)));
+    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            this,           SLOT(metaDataChanged(Kwave::MetaDataList)));
+    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            m_toolbar_record_playback,
+                            SLOT(metaDataChanged(Kwave::MetaDataList)));
+
+
+    connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
+            this,           SLOT(executeCommand(const QString &)));
+    connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
+            this,           SLOT(showInSplashSreen(const QString &)));
+
+
+    plugin_manager->searchPluginModules();
+    plugin_manager->loadAllPlugins();
+
+
+    // connect the main widget
+    connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
+            this, SLOT(executeCommand(const QString &)));
+    connect(&m_context->signalManager()->playbackController(),
+            SIGNAL(sigSeekDone(sample_index_t)),
+            m_main_widget, SLOT(scrollTo(sample_index_t)));
+    connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)),
+	    m_toolbar_record_playback, SLOT(visibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)) );
+    return true;
+}
+
+//***************************************************************************
+void Kwave::TopWidget::updateCurrent(QMdiSubWindow* window)
+{
+  qDebug() << "updateCurrent got called!";
+  if(window)
+  {
+    m_main_widget = qobject_cast<Kwave::MainWidget*>(window->widget());
+    m_context = const_cast<Kwave::ApplicationContext*>(m_map_contexts.value(m_main_widget));
+    m_toolbar_record_playback->switchPlaybackController(&m_context->signalManager()->playbackController());
+    Kwave::Selection& tmpSelection = m_context->signalManager()->selection();
+    selectionChanged(tmpSelection.offset(), tmpSelection.length());
+    metaDataChanged(m_context->signalManager()->metaData());
+  }
+}
 
 //***************************************************************************
 Kwave::TopWidget::~TopWidget()

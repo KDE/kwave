@@ -53,6 +53,7 @@
  * MP3 plugin: use ID3 tag TSSE for software version
  * ASCII codec: implemented support for labels
  * record plugin: level meter is always enabled, simplified dialog
+ * PulseAudio playback: fixed wrong timeout calculation
 
 0.8.10 [2013-02-09]
 

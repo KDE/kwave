@@ -253,6 +253,9 @@ namespace Kwave
 	/** file info, for meta info like title, author, name etc. */
 	Kwave::FileInfo m_info;
 
+	/** sample rate used when opening the device */
+	double m_rate;
+
 	/** number of bytes per sample x nr of channels */
 	unsigned int m_bytes_per_sample;
 

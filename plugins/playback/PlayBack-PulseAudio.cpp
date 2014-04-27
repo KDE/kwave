@@ -77,7 +77,7 @@
 //***************************************************************************
 Kwave::PlayBackPulseAudio::PlayBackPulseAudio(const Kwave::FileInfo &info)
     :Kwave::PlayBackDevice(), m_mainloop_thread(this, QVariant()),
-     m_mainloop_lock(), m_mainloop_signal(), m_info(info),
+     m_mainloop_lock(), m_mainloop_signal(), m_info(info), m_rate(0),
      m_bytes_per_sample(0), m_buffer(0), m_buffer_size(0), m_buffer_used(0),
      m_bufbase(10), m_pa_proplist(0), m_pa_mainloop(0), m_pa_context(0),
      m_pa_stream(0), m_device_list()
@@ -447,6 +447,8 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
 	DBG(device.split(_("|")).at(0)), rate, channels,
 	bits, bufbase);
 
+    m_rate = rate;
+
     if (channels > 255)
 	return i18n("%1 channels are not supported, maximum is 255").arg(
 	    channels);
@@ -496,7 +498,7 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
     sample_spec.format = PA_SAMPLE_S24_32LE;
 #endif
     sample_spec.channels = static_cast<uint8_t>(channels);
-    sample_spec.rate     = static_cast<uint32_t>(rate);
+    sample_spec.rate     = static_cast<uint32_t>(m_rate);
 
     // use the current title / filename or fixed string as stream name
     QString name;
@@ -644,7 +646,8 @@ int Kwave::PlayBackPulseAudio::flush()
 
     // calculate a reasonable time for the timeout (16 buffers)
     int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
-    int ms = Kwave::toInt((samples_per_buffer * 1000.0) / m_info.rate());
+    int ms = (!qFuzzyIsNull(m_rate)) ?
+	Kwave::toInt((samples_per_buffer * 1000.0) / m_rate) : 0;
     int timeout = (ms + 1) * 16;
     if (timeout < TIMEOUT_MIN_FLUSH)
 	timeout = TIMEOUT_MIN_FLUSH;
@@ -734,7 +737,8 @@ int Kwave::PlayBackPulseAudio::close()
 
 	// calculate a reasonable time for the timeout (16 buffers)
 	int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
-	int ms = Kwave::toInt((samples_per_buffer * 1000.0) / m_info.rate());
+	int ms = (!qFuzzyIsNull(m_rate)) ?
+	    Kwave::toInt((samples_per_buffer * 1000.0) / m_rate) : 0;
 	int timeout = (ms + 1) * 4;
 	if (timeout < TIMEOUT_MIN_DRAIN)
 	    timeout = TIMEOUT_MIN_DRAIN;

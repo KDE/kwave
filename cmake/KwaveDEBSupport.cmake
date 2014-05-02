@@ -50,19 +50,18 @@ ENDIF (KWAVE_VERSION_PATCHLEVEL)
 ### binary DEB (for personal use only)                                    ###
 
 ADD_CUSTOM_TARGET(deb
-    COMMAND ${CHECKINSTALL_EXECUTABLE} 
-        -y -D 
+    COMMAND ${CHECKINSTALL_EXECUTABLE}
+        -y -D
         --pkgname=${PACKAGE}
-        --pkgversion=${DEB_SHORT_VERSION} 
+        --pkgversion=${DEB_SHORT_VERSION}
         --pkgrelease=${DEB_RELEASE}
         --install=no --fstrans
-    COMMAND echo -e "\\n\\n\
-        NOTE: This .deb file is for personal use and testing only, \\n\
-              not for distribution\! \\n\
-              It does not have the quality of the .deb packages you \\n\
-              can get from your official package maintainer\!\\n\
-	\\n\
-    "
+    COMMAND echo    ""
+    COMMAND echo -e "    NOTE: This .deb file is for personal use and testing only"
+    COMMAND echo -e "          not for distribution!"
+    COMMAND echo -e "          It does not have the quality of the .deb packages you"
+    COMMAND echo -e "          can get from your official package maintainer!"
+    COMMAND echo    ""
 )
 
 #############################################################################

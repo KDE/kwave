@@ -1156,7 +1156,7 @@ void Kwave::TopWidget::selectZoom(int index)
     if (!ok) ms = 1;
 
     const double rate = signal_manager->rate();
-    unsigned int width = m_main_widget->displayWidth();
+    unsigned int width = m_main_widget->viewPortWidth();
     Q_ASSERT(width > 1);
     if (width <= 1) width = 2;
     const double new_zoom = rint(((rate * ms) / 1.0E3) -1 ) /

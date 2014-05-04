@@ -94,13 +94,10 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 	    msw,   SLOT(switchState(bool))
 	);
 
-	msw->setGeometry(5, 5, 20, 20);
 	msw->setMinimumSize(20, 20);
 	msw->switchState(track->selected());
-
 	layout->addWidget(msw);
-	msw->show();
-    }
+   }
 
     // get informed about meta data changes
     connect(signal_manager, SIGNAL(
@@ -127,7 +124,6 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
     // update when the track selection changed
     connect(track, SIGNAL(sigSelectionChanged(bool)),
             this,  SLOT(refreshSignalLayer()));
-
 }
 
 //***************************************************************************
@@ -146,6 +142,7 @@ void Kwave::TrackView::refresh()
 //***************************************************************************
 void Kwave::TrackView::setZoomAndOffset(double zoom, sample_index_t offset)
 {
+    Q_ASSERT(zoom >= 0.0);
     Kwave::SignalView::setZoomAndOffset(zoom, offset);
     m_pixmap.setZoom(zoom);
     m_pixmap.setOffset(offset);
@@ -157,13 +154,17 @@ void Kwave::TrackView::setZoomAndOffset(double zoom, sample_index_t offset)
 //***************************************************************************
 void Kwave::TrackView::setVerticalZoom(double zoom)
 {
-    const int h = height();
-    double current_zoom = verticalZoom();
-    if (h > (MINIMUM_HEIGHT * current_zoom)) {
-	zoom *= h / (MINIMUM_HEIGHT * current_zoom);
+    const int    old_height = this->height();
+    const double old_zoom   = verticalZoom();
+
+    if (old_height > MINIMUM_HEIGHT * old_zoom) {
+	// stretched mode
+	zoom *= double(old_height) / (old_zoom * double(MINIMUM_HEIGHT));
     }
+
     Kwave::SignalView::setVerticalZoom(zoom);
     setMinimumHeight(Kwave::toInt(MINIMUM_HEIGHT * zoom));
+    emit contentSizeChanged();
 }
 
 //***************************************************************************

@@ -89,12 +89,6 @@ namespace Kwave
 	SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
 	             QVBoxLayout *upper_dock, QVBoxLayout *lower_dock);
 
-	/**
-	 * Returns true if this instance was successfully initialized, or
-	 * false if something went wrong during initialization.
-	 */
-	bool isOK();
-
 	/** Destructor */
 	virtual ~SignalWidget();
 
@@ -208,6 +202,12 @@ namespace Kwave
 	    forwardCommand(_("selectprevlabels()"));
 	}
 
+	/**
+	 * updates the minimum height of the widget
+	 * according to the number of rows
+	 */
+	void updateMinimumHeight();
+
     signals:
 
 	/**
@@ -224,9 +224,6 @@ namespace Kwave
 	 * Emits a command to be processed by the next higher instance.
 	 */
 	void sigCommand(const QString &command);
-
-	/** emitted whenever the size of the content has changed */
-	void contentSizeChanged();
 
     protected:
 
@@ -291,12 +288,7 @@ namespace Kwave
 	/** timer for limiting the number of repaints per second */
 	QTimer m_repaint_timer;
 
-	/**
-	 * list of signal views. Contains one entry for each signal view, starting
-	 * with the ones in m_upper_dock, then the ones in m_layout, and at
-	 * the end the ones from m_lower_dock.
-	 * The list is sorted in the order of the appearance in the GUI.
-	 */
+	/** queue with pointers to all signal views that need a repaint */
 	QQueue< QPointer<Kwave::SignalView> > m_repaint_queue;
     };
 }

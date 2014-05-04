@@ -125,7 +125,7 @@ namespace Kwave
 	/** returns the index of the last visible sample */
 	inline sample_index_t lastVisible() const {
 	    const sample_index_t w = pixels2samples(width());
-	    return m_offset + (w) ? (w - 1) : 0;
+	    return m_offset + ((w) ? (w - 1) : 0);
 	}
 
 	/**
@@ -207,6 +207,9 @@ namespace Kwave
 	virtual void addSibling(QWidget *widget);
 
     signals:
+
+	/** emitted whenever the size of the content has changed */
+	void contentSizeChanged();
 
 	/**
 	 * Can be emitted to signal that this view needs to be repainted,
@@ -338,7 +341,7 @@ namespace Kwave
 	int m_track_index;
 
 	/**
-	 * Offset from which signal is beeing displayed. This is equal to
+	 * Offset from which signal is being displayed. This is equal to
 	 * the index of the first visible sample.
 	 */
 	sample_index_t m_offset;

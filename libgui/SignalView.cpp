@@ -903,7 +903,7 @@ void Kwave::SignalView::PositionWidget::updateMask()
     clearMask();
     setMask(bmp);
 
-    // remember size/alignment for detecing changes
+    // remember size/alignment for detecting changes
     m_last_alignment = m_alignment;
     m_last_size      = size();
 }

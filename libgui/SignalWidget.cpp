@@ -20,6 +20,7 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <QtGui/QApplication>
 #include <QtGui/QBitmap>
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QDragLeaveEvent>
@@ -121,21 +122,14 @@ Kwave::SignalWidget::SignalWidget(QWidget *parent,
 // 	        this, SLOT(parseKey(int)));
 //     }
 
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     m_layout.setColumnStretch(0,   0);
     m_layout.setColumnStretch(1, 100);
-    m_layout.setMargin(3);
-    m_layout.setSpacing(3);
+    m_layout.setMargin(0);
+    m_layout.setVerticalSpacing(3);
     setLayout(&m_layout);
-
-    setMinimumHeight(200);
-
-//    qDebug("SignalWidget::SignalWidget(): done.");
-}
-
-//***************************************************************************
-bool Kwave::SignalWidget::isOK()
-{
-    return true;
+    m_layout.activate();
 }
 
 //***************************************************************************
@@ -146,6 +140,7 @@ Kwave::SignalWidget::~SignalWidget()
 //***************************************************************************
 void Kwave::SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 {
+    Q_ASSERT(zoom >= 0.0);
     foreach (QPointer<Kwave::SignalView> view, m_views)
 	view->setZoomAndOffset(zoom, offset);
 }
@@ -336,7 +331,7 @@ void Kwave::SignalWidget::wheelEvent(QWheelEvent *event)
     }
 
     if (event->delta() > 0) {
-	// zom in
+	// zoom in
 	setVerticalZoom(m_vertical_zoom  * VERTICAL_ZOOM_STEP_FACTOR);
 	event->accept();
     } else if (event->delta() < 0) {
@@ -364,13 +359,9 @@ void Kwave::SignalWidget::setVerticalZoom(double zoom)
 	if (view) view->setVerticalZoom(m_vertical_zoom);
 
     // get back the maximum zoom set by the views
-    double max_zoom = VERTICAL_ZOOM_MIN;
     foreach (QPointer<Kwave::SignalView> view, m_views)
-	if (view && view->verticalZoom() > max_zoom)
-	    max_zoom = view->verticalZoom();
-    if (max_zoom > m_vertical_zoom) m_vertical_zoom = max_zoom;
-
-    emit contentSizeChanged();
+	if (view && view->verticalZoom() > m_vertical_zoom)
+	    m_vertical_zoom = view->verticalZoom();
 }
 
 //***************************************************************************
@@ -415,6 +406,16 @@ void Kwave::SignalWidget::insertRow(int index, Kwave::SignalView *view,
 	// associate the controls to the view, so that when the view
 	// gets removed/deleted, the controls get removed as well
 	view->addSibling(controls);
+
+	m_layout.activate();
+	// NOTE: QLayout::activate() does not really activate the layout
+	//       synchronously as expected. Instead it posts an event to
+	//       invalidate the layout of it's parent widget.
+	//       Unfortunately we need reliable geometry information
+	//       already *now*, which forces us to do the event loop
+	//       right here.
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents |
+	                    QEventLoop::ExcludeSocketNotifiers);
     }
 }
 
@@ -437,7 +438,6 @@ void Kwave::SignalWidget::deleteRow(int index)
 	    }
 	}
     }
-
 }
 
 //***************************************************************************
@@ -563,7 +563,6 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
     view->setZoomAndOffset(m_zoom, m_offset);
 
     // connect all signals
-
     QWidget *top_widget = reinterpret_cast<QWidget *>(m_context.topWidget());
     connect(view,       SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode)),
 	    top_widget, SLOT(mouseChanged(Kwave::MouseMark::Mode)));
@@ -575,6 +574,12 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
     connect(view,       SIGNAL(sigNeedRepaint(Kwave::SignalView *)),
 	    this,       SLOT(requestRepaint(Kwave::SignalView *)));
 
+    connect(view,       SIGNAL(contentSizeChanged()),
+	    this,       SLOT(updateMinimumHeight()));
+    connect(view,       SIGNAL(destroyed(QObject*)),
+	    this,       SLOT(updateMinimumHeight()));
+
+    updateMinimumHeight();
 }
 
 //***************************************************************************
@@ -594,7 +599,7 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
 	this, controls, m_context.signalManager(), track);
     Q_ASSERT(new_view);
     if (!new_view) {
-	if (controls) delete controls;
+	delete controls;
 	return;
     }
 
@@ -654,6 +659,30 @@ void Kwave::SignalWidget::slotTrackDeleted(unsigned int index,
 	while (!m_views.isEmpty())
 	    delete m_views.takeFirst();
     }
+}
+
+//***************************************************************************
+void Kwave::SignalWidget::updateMinimumHeight()
+{
+    int height = 0;
+
+    const int rows = m_layout.rowCount();
+    const int cols = m_layout.columnCount();
+    for (int row = 0; row < rows; row++) {
+	int h = 0;
+	for (int col = 0; col < cols; col++) {
+	    QLayoutItem *item = m_layout.itemAtPosition(row, col);
+	    QWidget *widget = (item) ? item->widget() : 0;
+	    if (widget) {
+		int min_height = widget->minimumSize().height();
+		if (min_height > h) h = min_height;
+	    }
+	}
+	height += h;
+    }
+    if (rows > 1) height += (rows - 1) * m_layout.verticalSpacing();
+
+    setMinimumHeight(height);
 }
 
 //***************************************************************************

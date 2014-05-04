@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QtCore/QString>
+#include <QtGui/QScrollArea>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 
@@ -53,7 +54,7 @@ namespace Kwave
      * | m_upper_dock                                                          |
      * |-----------------------------------------------------------------------|
      * | /- hbox ------------------------------------------------------------\ |
-     * | +--- m_view_port--------------------------------------------------+-| |
+     * | +--- m_scroll_area------------------------------------------------+-| |
      * | |/---- m_signal_widget-------------------------------------------\|^| |
      * | ||          |                                                    ||#| |
      * | || controls |  SignalView                                        ||#| |
@@ -97,7 +98,7 @@ namespace Kwave
 	double zoom() const;
 
 	/** Returns the width of the current view in pixels */
-	int displayWidth() const;
+	int viewPortWidth() const;
 
 	/** Returns the width of the current view in samples */
 	sample_index_t displaySamples() const;
@@ -117,15 +118,12 @@ namespace Kwave
 	 * Called if the main widget has been resized and resizes/moves
 	 * the signal widget and the channel controls
 	 */
-	virtual void resizeEvent(QResizeEvent *);
+	virtual void resizeEvent(QResizeEvent *event);
 
 	/** slot for mouse wheel events, for scrolling/zooming */
 	virtual void wheelEvent(QWheelEvent *event);
 
     protected slots:
-
-	/** resize the viewport and its contents */
-	void resizeViewPort();
 
 	/** updates all widgets that depend on the current view range */
 	void updateViewRange();
@@ -216,19 +214,6 @@ namespace Kwave
 	 */
 	void slotTrackDeleted(unsigned int index, Kwave::Track *track);
 
-	/**
-	 * Connected to the vertical scrollbar and called if the value
-	 * has changed so that the signal display and the channel
-	 * controls have to be moved.
-	 */
-	void verticalScrollBarMoved(int newval);
-
-	/** refresh the scale and position of the horizontal scrollbar */
-	void refreshHorizontalScrollBar();
-
-	/** Connected to the horizontal scrollbar for scrolling left/right */
-	void horizontalScrollBarMoved(int newval);
-
     signals:
 
 	/**
@@ -315,7 +300,7 @@ namespace Kwave
 	QVBoxLayout m_lower_dock;
 
 	/** container widget that contains the signal widget. */
-	QWidget m_view_port;
+	QScrollArea m_scroll_area;
 
 	/** the widget that shows the signal, scrolled within the view port */
 	Kwave::SignalWidget m_signal_widget;
@@ -323,20 +308,11 @@ namespace Kwave
 	/** overview widget */
 	Kwave::OverViewWidget *m_overview;
 
-	/** vertical scrollbar, only visible if tracks do not fit vertically */
-	QScrollBar *m_vertical_scrollbar;
-
-	/** horizontal scrollbar, always visible */
-	QScrollBar *m_horizontal_scrollbar;
-
 	/**
-	* Offset from which signal is beeing displayed. This is equal to
+	* Offset from which signal is being displayed. This is equal to
 	* the index of the first visible sample.
 	*/
 	sample_index_t m_offset;
-
-	/** width of the widget in pixels, cached value */
-	int m_width;
 
 	/** number of samples per pixel */
 	double m_zoom;

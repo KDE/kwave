@@ -157,7 +157,7 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 
 	if (offset > m_offset) {
 	    // move left
-//	    qDebug("TrackPixmap::setOffset(): moving left (normal)"); // ###
+//	    qDebug("TrackPixmap::setOffset(): moving left (normal)");
 	    unsigned int diff = Kwave::toUint(offset - m_offset);
 	    for (src = diff, dst = 0; src < buflen; ) {
 		m_sample_buffer[dst] = m_sample_buffer[src];
@@ -166,7 +166,7 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 	    while (dst < buflen) m_valid[dst++] = 0;
 	} else {
 	    // move right
-//	    qDebug("TrackPixmap::setOffset(): moving right (normal)"); // ###
+//	    qDebug("TrackPixmap::setOffset(): moving right (normal)");
 	    unsigned int diff = Kwave::toUint(m_offset - offset);
 	    Q_ASSERT(buflen);
 	    if (buflen) {
@@ -212,6 +212,7 @@ void Kwave::TrackPixmap::setZoom(double zoom)
 {
     QMutexLocker lock(&m_lock_buffer);
 
+    Q_ASSERT(zoom >= 0.0);
     if (qFuzzyCompare(zoom, m_zoom)) return; // no change
 
 //    qDebug("TrackPixmap::setZoom(%0.3f)", zoom);
@@ -779,8 +780,7 @@ void Kwave::TrackPixmap::slotSamplesModified(Kwave::Track *,
 void Kwave::TrackPixmap::convertOverlap(sample_index_t &offset,
                                         sample_index_t &length)
 {
-    Q_ASSERT(m_zoom != 0.0);
-    if (m_zoom == 0.0) length = 0;
+    if (m_zoom <= 0.0) length = 0;
     if (!length) return;
     if ((offset + length) <= m_offset) {
 	length = 0;

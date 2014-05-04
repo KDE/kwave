@@ -73,12 +73,10 @@
 Kwave::MainWidget::MainWidget(QWidget *parent,
 			      Kwave::ApplicationContext &context)
     :QWidget(parent), m_context(context), m_upper_dock(), m_lower_dock(),
-     m_view_port(this),
-     m_signal_widget(&m_view_port, context, &m_upper_dock, &m_lower_dock),
-     m_overview(0), m_vertical_scrollbar(0),
-     m_horizontal_scrollbar(0), m_offset(0), m_width(0), m_zoom(1.0)
+     m_scroll_area(this),
+     m_signal_widget(&m_scroll_area, context, &m_upper_dock, &m_lower_dock),
+     m_overview(0), m_offset(0), m_zoom(1.0)
 {
-//     QPalette palette;
 //    qDebug("MainWidget::MainWidget()");
 
     setAcceptDrops(true); // enable drag&drop
@@ -94,7 +92,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
 
     // topLayout:
     // - upper dock
-    // - hbox
+    // - view port
     // - lower dock
     // - overview
     // - horizontal scroll bar
@@ -102,35 +100,23 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
     Q_ASSERT(topLayout);
     if (!topLayout) return;
 
+    topLayout->setSpacing(0);
+
     // -- upper dock --
     topLayout->addLayout(&m_upper_dock);
 
-    // -- signal widget --
+    // -- view port with signal widget --
+    m_signal_widget.setSizePolicy(
+	QSizePolicy::Expanding,
+	QSizePolicy::Expanding
+    );
+    m_scroll_area.setFrameStyle(QFrame::NoFrame);
+    m_scroll_area.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_scroll_area.setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    m_scroll_area.setWidgetResizable(true);
+    m_scroll_area.setWidget(&m_signal_widget);
 
-    // hbox: left = viewport, right = vertical scroll bar
-    QHBoxLayout *hbox = new QHBoxLayout();
-    Q_ASSERT(hbox);
-    if (!hbox) return;
-
-    // viewport for the SignalWidget, does the clipping
-    hbox->addWidget(&m_view_port);
-
-    connect(&m_signal_widget, SIGNAL(contentSizeChanged()),
-	    this, SLOT(resizeViewPort()));
-
-    // -- vertical scrollbar for the view port --
-
-    m_vertical_scrollbar = new QScrollBar();
-    Q_ASSERT(m_vertical_scrollbar);
-    if (!m_vertical_scrollbar) return;
-    m_vertical_scrollbar->setOrientation(Qt::Vertical);
-    m_vertical_scrollbar->setFixedWidth(
-	m_vertical_scrollbar->sizeHint().width());
-    hbox->addWidget(m_vertical_scrollbar);
-    topLayout->addLayout(hbox, 100);
-    connect(m_vertical_scrollbar, SIGNAL(valueChanged(int)),
-            this,                 SLOT(verticalScrollBarMoved(int)));
-    m_vertical_scrollbar->hide();
+    topLayout->addWidget(&m_scroll_area);
 
     // -- lower dock --
     topLayout->addLayout(&m_lower_dock);
@@ -151,17 +137,6 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
             this,       SIGNAL(sigCommand(const QString &)));
     m_overview->metaDataChanged(signal_manager->metaData());
     m_overview->hide();
-
-    // -- horizontal scrollbar --
-
-    m_horizontal_scrollbar = new QScrollBar(this);
-    Q_ASSERT(m_horizontal_scrollbar);
-    if (!m_horizontal_scrollbar) return;
-    m_horizontal_scrollbar->setOrientation(Qt::Horizontal);
-    topLayout->addWidget(m_horizontal_scrollbar);
-    connect(m_horizontal_scrollbar, SIGNAL(valueChanged(int)),
-	    this,                   SLOT(horizontalScrollBarMoved(int)));
-    m_horizontal_scrollbar->hide();
 
     // -- playback position update --
 
@@ -192,16 +167,12 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
             SLOT(updateViewRange()));
 
     this->setLayout(topLayout);
-
-    resizeViewPort();
-
-//    qDebug("MainWidget::MainWidget(): done.");
 }
 
 //***************************************************************************
 bool Kwave::MainWidget::isOK()
 {
-    return (m_vertical_scrollbar && m_horizontal_scrollbar && m_overview);
+    return (m_overview);
 }
 
 //***************************************************************************
@@ -216,7 +187,7 @@ Kwave::MainWidget::~MainWidget()
 void Kwave::MainWidget::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);
-    resizeViewPort();
+    updateViewRange();
 }
 
 //***************************************************************************
@@ -230,7 +201,6 @@ void Kwave::MainWidget::dragEnterEvent(QDragEnterEvent *event)
     if (Kwave::FileDrag::canDecode(event->mimeData()))
 	event->acceptProposedAction();
 }
-
 
 //***************************************************************************
 void Kwave::MainWidget::dropEvent(QDropEvent *event)
@@ -290,7 +260,7 @@ void Kwave::MainWidget::wheelEvent(QWheelEvent *event)
 
     // process only wheel events on the signal and overview frame,
     // not on the channel controls or scrollbars
-    if (!m_view_port.geometry().contains(event->pos()) &&
+    if (!m_scroll_area.geometry().contains(event->pos()) &&
 	!m_overview->geometry().contains(event->pos()) )
     {
 	event->ignore();
@@ -331,12 +301,6 @@ void Kwave::MainWidget::wheelEvent(QWheelEvent *event)
 }
 
 //***************************************************************************
-void Kwave::MainWidget::verticalScrollBarMoved(int newval)
-{
-    m_signal_widget.move(0, -newval); // move the signal views
-}
-
-//***************************************************************************
 void Kwave::MainWidget::slotTrackInserted(unsigned int index,
                                           Kwave::Track *track)
 {
@@ -348,10 +312,11 @@ void Kwave::MainWidget::slotTrackInserted(unsigned int index,
     // when the first track has been inserted, set some reasonable zoom
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     bool first_track = (signal_manager && (signal_manager->tracks() == 1));
+    if (first_track)
+	zoomAll();
+    else
+	updateViewRange();
 
-    resizeViewPort();
-    updateViewRange();
-    if (first_track) zoomAll();
 }
 
 //***************************************************************************
@@ -362,7 +327,6 @@ void Kwave::MainWidget::slotTrackDeleted(unsigned int index,
     Q_UNUSED(index);
     Q_UNUSED(track);
 
-    resizeViewPort();
     updateViewRange();
 }
 
@@ -503,164 +467,24 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 }
 
 //***************************************************************************
-void Kwave::MainWidget::resizeViewPort()
-{
-    const int old_h = m_signal_widget.height();
-    const int old_w = m_signal_widget.width();
-
-    // workaround for layout update issues: give the layouts a chance to resize
-    layout()->invalidate();
-    layout()->update();
-    layout()->activate();
-    qApp->sendPostedEvents();
-
-    bool vertical_scrollbar_visible = m_vertical_scrollbar->isVisible();
-    const int min_height = m_signal_widget.sizeHint().height();
-    int h = m_view_port.height();
-    int w = m_view_port.width();
-    const int b = m_vertical_scrollbar->sizeHint().width();
-
-    // if the signal widget's minimum height is smaller than the viewport
-    if (min_height <= h) {
-	// change the signal widget's vertical mode to "MinimumExpanding"
-	m_signal_widget.setSizePolicy(
-	    QSizePolicy::Expanding,
-	    QSizePolicy::MinimumExpanding
-	);
-
-	// hide the vertical scrollbar
-	if (vertical_scrollbar_visible) {
-	    m_vertical_scrollbar->setShown(false);
-	    w += b;
-	    m_signal_widget.move(0, 0);
-	    // qDebug("MainWidget::resizeViewPort(): hiding scrollbar");
-	}
-    } else {
-	// -> otherwise set the widget height to "Fixed"
-	m_signal_widget.setSizePolicy(
-	    QSizePolicy::Expanding,
-	    QSizePolicy::Preferred
-	);
-
-	// -- show the scrollbar --
-	if (!vertical_scrollbar_visible) {
-	    m_vertical_scrollbar->setFixedWidth(b);
-	    m_vertical_scrollbar->setValue(0);
-	    m_vertical_scrollbar->setShown(true);
-	    w -= b;
-	    // qDebug("MainWidget::resizeViewPort(): showing scrollbar");
-	}
-
-	// adjust the limits of the vertical scrollbar
-	int min = m_vertical_scrollbar->minimum();
-	int max = m_vertical_scrollbar->maximum();
-	double val = (m_vertical_scrollbar->value() -
-	    static_cast<double>(min)) / static_cast<double>(max - min);
-
-	h = min_height;
-	min = 0;
-	max = h - m_view_port.height();
-	m_vertical_scrollbar->setRange(min, max);
-	m_vertical_scrollbar->setValue(Kwave::toInt(floor(val *
-	    static_cast<double>(max))));
-	m_vertical_scrollbar->setSingleStep(1);
-	m_vertical_scrollbar->setPageStep(m_view_port.height());
-    }
-
-//     qDebug("w: %4d -> %4d, h: %4d -> %4d", old_w, w, old_h, h);
-
-    // resize the signal widget and the frame with the channel controls
-    if ((old_w != w) || (old_h != h))
-    {
-	m_width = m_width + w - old_w;
-	m_signal_widget.resize(w, h);
-	fixZoomAndOffset(m_zoom, m_offset);
-    }
-
-    // remember the last width of the signal widget, for zoom calculation
-    m_width = m_signal_widget.viewPortWidth();
-
-    repaint();
-}
-
-//***************************************************************************
-void Kwave::MainWidget::refreshHorizontalScrollBar()
-{
-    if (!m_horizontal_scrollbar || !m_context.signalManager()) return;
-
-    m_horizontal_scrollbar->blockSignals(true);
-
-    // show/hide the overview widget
-    if (!m_context.signalManager()->isEmpty() && !m_overview->isVisible())
-	m_overview->show();
-    if (m_context.signalManager()->isEmpty() && m_overview->isVisible())
-	m_overview->hide();
-
-    // adjust the limits of the horizontal scrollbar
-    if (m_context.signalManager()->length() > 1) {
-	// get the view information in samples
-	sample_index_t length  = m_context.signalManager()->length();
-	sample_index_t visible = displaySamples();
-	if (visible > length) visible = length;
-
-	// calculate the scrollbar ranges in scrollbar's units
-	//
-	// NOTE: we must take care of possible numeric overflows
-	//       as the scrollbar works internally with "int" and
-	//       the offsets we use for the samples might be bigger!
-	//
-	// [-------------------------------------------##############]
-	// ^                                          ^     ^
-	// min                                      max    page
-	//
-	// max + page = x | x < INT_MAX (!)
-	//                                  x := length / f
-	// page = x * (visible / length)  = visible  / f
-	// max                            = length   / f - page
-	// pos  = (m_offset / length) * x = m_offset / f
-
-	const sample_index_t f = static_cast<sample_index_t>(
-	    qMax(sample_index_t(1), SAMPLE_INDEX_MAX / INT_MAX));
-	int page    = Kwave::toInt(visible  / f);
-	int min     = 0;
-	int max     = Kwave::toInt((length   / f) - page);
-	int pos     = Kwave::toInt(m_offset / f);
-	int single  = qMax(1, (page / (10 * qApp->wheelScrollLines())));
-	if (page < single) page = single;
-// 	qDebug("width=%d, max=%d, page=%d, single=%d, pos=%d, visible=%d",
-// 	       m_width, max, page, single, pos, visible);
-// 	qDebug("       last=%d", pos + visible - 1);
-	m_horizontal_scrollbar->setRange(min, max);
-	m_horizontal_scrollbar->setValue(pos);
-	m_horizontal_scrollbar->setSingleStep(single);
-	m_horizontal_scrollbar->setPageStep(page);
-    } else {
-	m_horizontal_scrollbar->setRange(0, 0);
-    }
-
-    m_horizontal_scrollbar->blockSignals(false);
-}
-
-//***************************************************************************
-void Kwave::MainWidget::horizontalScrollBarMoved(int newval)
-{
-    // new offset = pos * f
-    const sample_index_t f = static_cast<sample_index_t>(
-	qMax(sample_index_t(1), SAMPLE_INDEX_MAX / INT_MAX));
-    const sample_index_t pos = newval * f;
-    setOffset(pos);
-}
-
-//***************************************************************************
 void Kwave::MainWidget::updateViewRange()
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     sample_index_t total = (signal_manager) ? signal_manager->length() : 0;
 
+    if (m_overview) {
+	m_overview->setRange(m_offset, displaySamples(), total);
+
+	// show/hide the overview widget
+	if (!m_context.signalManager()->isEmpty() && !m_overview->isVisible())
+	    m_overview->show();
+	if (m_context.signalManager()->isEmpty() && m_overview->isVisible())
+	    m_overview->hide();
+    }
+
     // forward the zoom and offset to the signal widget and overview
+    fixZoomAndOffset(m_zoom, m_offset);
     m_signal_widget.setZoomAndOffset(m_zoom, m_offset);
-    if (m_overview) m_overview->setRange(m_offset, displaySamples(), total);
-    refreshHorizontalScrollBar();
 }
 
 //***************************************************************************
@@ -685,25 +509,28 @@ sample_index_t Kwave::MainWidget::pixels2samples(unsigned int pixels) const
 //***************************************************************************
 int Kwave::MainWidget::samples2pixels(sample_index_t samples) const
 {
-    if (m_zoom == 0.0) return 0;
+    if (m_zoom <= 0.0) return 0;
     return Kwave::toInt(rint(static_cast<double>(samples) / m_zoom));
 }
 
 //***************************************************************************
-int Kwave::MainWidget::displayWidth() const
+int Kwave::MainWidget::viewPortWidth() const
 {
-    return m_width;
+    return m_signal_widget.viewPortWidth();
 }
 
 //***************************************************************************
 sample_index_t Kwave::MainWidget::displaySamples() const
 {
-    return pixels2samples(m_width - 1) + 1;
+    return pixels2samples(viewPortWidth() - 1) + 1;
 }
 
 //***************************************************************************
 double Kwave::MainWidget::fullZoom() const
 {
+    const int width = viewPortWidth();
+    if (width <= 0) return 0.0; // no zoom info, window is not yet ready
+
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return 0.0;
@@ -719,7 +546,7 @@ double Kwave::MainWidget::fullZoom() const
 	    length = info.get(Kwave::INF_ESTIMATED_LENGTH).toULongLong();
 	    length += length / 10;
 	}
-	if (!length) {
+	if (length <= 0) {
 	    // fallback: start with some default zoom,
 	    // use five minutes (just guessed)
 	    length = static_cast<sample_index_t>(ceil(DEFAULT_DISPLAY_TIME *
@@ -732,14 +559,14 @@ double Kwave::MainWidget::fullZoom() const
     //          -> 49.5 [pixels / sample]
     //          -> zoom = 1 / 49.5 [samples / pixel]
     // => full zoom [samples/pixel] = (length - 1) / (width - 1)
-    if (length < static_cast<sample_index_t>(m_width) * 2) {
+    if (length < static_cast<sample_index_t>(width) * 2) {
 	// zoom is small enough, no error compensation needed
 	return (static_cast<double>(length) - 1.0) /
-	        static_cast<double>(m_width - 1);
+	        static_cast<double>(width - 1);
     } else {
 	// zoom is big, pre-compensate rounding errors
 	return (static_cast<double>(length) - 0.5) /
-	        static_cast<double>(m_width - 1);
+	        static_cast<double>(width - 1);
     }
 }
 
@@ -752,19 +579,21 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
 
     const double         old_zoom   = m_zoom;
     const sample_index_t old_offset = m_offset;
+    const int            width      = viewPortWidth();
 
     m_zoom   = zoom;
     m_offset = offset;
+    Q_ASSERT(m_zoom >= 0.0);
 
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
-    if (!m_width) return;
+    if (!width) return;
 
     length = signal_manager->length();
     if (!length) {
 	// in streaming mode we have to use a guessed length
-	length = static_cast<sample_index_t>(ceil(m_width * fullZoom()));
+	length = static_cast<sample_index_t>(ceil(width * fullZoom()));
     }
     if (!length) {
 	m_offset = 0;
@@ -777,7 +606,7 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
     // ensure that the zoom is in a reasonable range
     max_zoom = fullZoom();
     min_zoom = static_cast<double>(MINIMUM_SAMPLES_PER_SCREEN) /
-	       static_cast<double>(m_width);
+               static_cast<double>(width);
 
     // ensure that pixel coordinates are within signed int range
     min_zoom = qMax(min_zoom, static_cast<double>(length) / double(INT_MAX));
@@ -795,9 +624,9 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
     //             = (99/49.5) + 1 = 3
     //          -> decrease offset by 3 - 2 = 1
     Q_ASSERT(length >= m_offset);
-    if ((pixels2samples(m_width - 1) + 1) > (length - m_offset)) {
+    if ((pixels2samples(width - 1) + 1) > (length - m_offset)) {
 	// there is space after the signal -> move offset right
-	sample_index_t shift = pixels2samples(m_width - 1) + 1 -
+	sample_index_t shift = pixels2samples(width - 1) + 1 -
 	                       (length - m_offset);
 	if (shift >= m_offset) {
 	    m_offset = 0;
@@ -859,8 +688,9 @@ void Kwave::MainWidget::zoomSelection()
     sample_index_t len = signal_manager->selection().length();
 
     if (len) {
+	int width = viewPortWidth();
 	m_offset = ofs;
-	setZoom((static_cast<double>(len)) / static_cast<double>(m_width - 1));
+	setZoom((static_cast<double>(len)) / static_cast<double>(width - 1));
     }
 }
 
@@ -873,7 +703,7 @@ void Kwave::MainWidget::zoomAll()
 //***************************************************************************
 void Kwave::MainWidget::zoomNormal()
 {
-    const sample_index_t shift1 = m_width / 2;
+    const sample_index_t shift1 = viewPortWidth() / 2;
     const sample_index_t shift2 = displaySamples() / 2;
     m_offset = (m_offset + shift2 >= m_offset) ? (m_offset + shift2) : -shift2;
     m_offset = (m_offset > shift1) ? (m_offset - shift1) : 0;

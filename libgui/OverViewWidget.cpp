@@ -378,7 +378,7 @@ void Kwave::OverViewWidget::calculateBitmap()
     p.fillRect(rect(), BAR_BACKGROUND);
     p.drawImage(0, 0, bitmap);
 
-    // hilight the selection
+    // highlight the selection
     if ((m_selection_length > 1) && m_signal_length)
     {
 	int first = Kwave::toInt(

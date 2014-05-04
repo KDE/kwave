@@ -169,7 +169,6 @@ void Kwave::OverViewCache::invalidateCache(const QUuid *track_id,
 	// invalidate all tracks
 	foreach (const QUuid &uuid, m_state.keys())
 	    invalidateCache(&uuid, first, last);
-	return;
     }
 }
 

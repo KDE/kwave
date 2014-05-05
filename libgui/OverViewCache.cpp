@@ -218,6 +218,8 @@ void Kwave::OverViewCache::slotInvalidated(const QUuid *track_id,
                                            sample_index_t first,
                                            sample_index_t last)
 {
+    QMutexLocker lock(&m_lock);
+
     // adjust offsets, absolute -> relative
     sample_index_t offset = m_selection.offset();
     Q_ASSERT(first >= offset);

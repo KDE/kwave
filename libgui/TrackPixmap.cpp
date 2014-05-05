@@ -322,7 +322,7 @@ bool Kwave::TrackPixmap::validateBuffer()
 		s2 = m_offset + static_cast<sample_index_t>(
 		    floor((first + 1) * m_zoom));
 
-		// get min/max for interval [s1...s2[
+		// get min/max for interval [s1...s2]
 		sample_t min;
 		sample_t max;
 		reader->minMax(s1, s2, min, max);

@@ -345,7 +345,7 @@ void Kwave::OverViewWidget::refreshBitmap()
 	m_repaint_timer.start(REPAINT_INTERVAL);
     } else {
 	// start the calculation in a background thread
-	m_worker_thread.start(QThread::LowPriority);
+	m_worker_thread.start(QThread::IdlePriority);
     }
 }
 

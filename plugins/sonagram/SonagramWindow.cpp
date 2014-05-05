@@ -163,7 +163,7 @@ Kwave::SonagramWindow::SonagramWindow(const QString &name)
     m_overview = new(std::nothrow) Kwave::ImageView(mainwidget);
     Q_ASSERT(m_overview);
     if (!m_overview) return;
-    m_overview->setFixedHeight(30);
+    m_overview->setFixedHeight(SONAGRAM_OVERVIEW_HEIGHT);
     top_layout->addWidget(m_overview, 2, 1);
 
     connect(m_view, SIGNAL(sigCursorPos(const QPoint)),

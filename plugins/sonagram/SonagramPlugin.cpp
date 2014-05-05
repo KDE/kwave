@@ -508,7 +508,7 @@ void Kwave::SonagramPlugin::refreshOverview()
     QColor fg = m_sonagram_window->palette().light().color();
     QColor bg = m_sonagram_window->palette().mid().color();
     QImage overview = m_overview_cache->getOverView(
-       m_sonagram_window->width(), 40, fg, bg);
+       m_sonagram_window->width(), SONAGRAM_OVERVIEW_HEIGHT, fg, bg);
 
     m_sonagram_window->setOverView(overview);
 }

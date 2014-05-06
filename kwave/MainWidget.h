@@ -214,6 +214,12 @@ namespace Kwave
 	 */
 	void slotTrackDeleted(unsigned int index, Kwave::Track *track);
 
+	/** refresh the scale and position of the horizontal scrollbar */
+	void refreshHorizontalScrollBar();
+
+	/** Connected to the horizontal scrollbar for scrolling left/right */
+	void horizontalScrollBarMoved(int newval);
+
     signals:
 
 	/**
@@ -301,6 +307,9 @@ namespace Kwave
 
 	/** container widget that contains the signal widget. */
 	QScrollArea m_scroll_area;
+
+	/** horizontal scrollbar */
+	QScrollBar *m_horizontal_scrollbar;
 
 	/** the widget that shows the signal, scrolled within the view port */
 	Kwave::SignalWidget m_signal_widget;

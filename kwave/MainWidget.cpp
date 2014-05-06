@@ -73,7 +73,7 @@
 Kwave::MainWidget::MainWidget(QWidget *parent,
 			      Kwave::ApplicationContext &context)
     :QWidget(parent), m_context(context), m_upper_dock(), m_lower_dock(),
-     m_scroll_area(this),
+     m_scroll_area(this), m_horizontal_scrollbar(0),
      m_signal_widget(&m_scroll_area, context, &m_upper_dock, &m_lower_dock),
      m_overview(0), m_offset(0), m_zoom(1.0)
 {
@@ -137,6 +137,17 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
             this,       SIGNAL(sigCommand(const QString &)));
     m_overview->metaDataChanged(signal_manager->metaData());
     m_overview->hide();
+
+    // -- horizontal scrollbar --
+
+    m_horizontal_scrollbar = new QScrollBar(this);
+    Q_ASSERT(m_horizontal_scrollbar);
+    if (!m_horizontal_scrollbar) return;
+    m_horizontal_scrollbar->setOrientation(Qt::Horizontal);
+    topLayout->addWidget(m_horizontal_scrollbar);
+    connect(m_horizontal_scrollbar, SIGNAL(valueChanged(int)),
+	    this,                   SLOT(horizontalScrollBarMoved(int)));
+    m_horizontal_scrollbar->hide();
 
     // -- playback position update --
 
@@ -467,6 +478,72 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 }
 
 //***************************************************************************
+void Kwave::MainWidget::refreshHorizontalScrollBar()
+{
+    if (!m_horizontal_scrollbar || !m_context.signalManager()) return;
+
+    m_horizontal_scrollbar->blockSignals(true);
+
+    // show/hide the overview widget
+    if (!m_context.signalManager()->isEmpty() && !m_overview->isVisible())
+	m_overview->show();
+    if (m_context.signalManager()->isEmpty() && m_overview->isVisible())
+	m_overview->hide();
+
+    // adjust the limits of the horizontal scrollbar
+    if (m_context.signalManager()->length() > 1) {
+	// get the view information in samples
+	sample_index_t length  = m_context.signalManager()->length();
+	sample_index_t visible = displaySamples();
+	if (visible > length) visible = length;
+
+	// calculate the scrollbar ranges in scrollbar's units
+	//
+	// NOTE: we must take care of possible numeric overflows
+	//       as the scrollbar works internally with "int" and
+	//       the offsets we use for the samples might be bigger!
+	//
+	// [-------------------------------------------##############]
+	// ^                                          ^     ^
+	// min                                      max    page
+	//
+	// max + page = x | x < INT_MAX (!)
+	//                                  x := length / f
+	// page = x * (visible / length)  = visible  / f
+	// max                            = length   / f - page
+	// pos  = (m_offset / length) * x = m_offset / f
+
+	const int f = qMax(sample_index_t(1), SAMPLE_INDEX_MAX / INT_MAX);
+	int page    = (visible  / f);
+	int min     = 0;
+	int max     = (length   / f) - page;
+	int pos     = (m_offset / f);
+	int single  = qMax(1, (page / (10 * qApp->wheelScrollLines())));
+	if (page < single) page = single;
+// 	qDebug("width=%d, max=%d, page=%d, single=%d, pos=%d, visible=%d",
+// 	       m_width, max, page, single, pos, visible);
+// 	qDebug("       last=%d", pos + visible - 1);
+	m_horizontal_scrollbar->setRange(min, max);
+	m_horizontal_scrollbar->setValue(pos);
+	m_horizontal_scrollbar->setSingleStep(single);
+	m_horizontal_scrollbar->setPageStep(page);
+    } else {
+	m_horizontal_scrollbar->setRange(0, 0);
+    }
+
+    m_horizontal_scrollbar->blockSignals(false);
+}
+
+//***************************************************************************
+void Kwave::MainWidget::horizontalScrollBarMoved(int newval)
+{
+    // new offset = pos * f
+    const int f = qMax(sample_index_t(1), SAMPLE_INDEX_MAX / INT_MAX);
+    const sample_index_t pos = newval * f;
+    setOffset(pos);
+}
+
+//***************************************************************************
 void Kwave::MainWidget::updateViewRange()
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
@@ -475,16 +552,25 @@ void Kwave::MainWidget::updateViewRange()
     if (m_overview) {
 	m_overview->setRange(m_offset, displaySamples(), total);
 
-	// show/hide the overview widget
-	if (!m_context.signalManager()->isEmpty() && !m_overview->isVisible())
-	    m_overview->show();
-	if (m_context.signalManager()->isEmpty() && m_overview->isVisible())
-	    m_overview->hide();
+	// show/hide the overview widget and the horizontal scroll bar
+	if (!m_context.signalManager()->isEmpty()) {
+	    if (!m_overview->isVisible())
+		m_overview->show();
+	    if (!m_horizontal_scrollbar->isVisible())
+		m_horizontal_scrollbar->show();
+	}
+	if (m_context.signalManager()->isEmpty()) {
+	    if (m_overview->isVisible())
+		m_overview->hide();
+	    if (m_horizontal_scrollbar->isVisible())
+		m_horizontal_scrollbar->hide();
+	}
     }
 
     // forward the zoom and offset to the signal widget and overview
     fixZoomAndOffset(m_zoom, m_offset);
     m_signal_widget.setZoomAndOffset(m_zoom, m_offset);
+    refreshHorizontalScrollBar();
 }
 
 //***************************************************************************

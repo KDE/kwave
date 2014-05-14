@@ -12,6 +12,7 @@
  * bugfix: signal was "modified" after canceled record (empty) / done
  * bugfix: wrong calculation of zoom and window geometry at startup
  * bugfix: wrong scaling of overview in sonagram window
+ * bugfix: playback pointer did not update synchronously across tracks
  * brought back the horizontal scroll bar
  * support for swap files to store undo data
  * speedup: too many copy-on-write operations, use more const data

@@ -58,7 +58,8 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
      m_img_signal_needs_refresh(true),
      m_img_selection_needs_refresh(true),
      m_img_markers_needs_refresh(true),
-     m_mouse_click_position(0)
+     m_mouse_click_position(0),
+     m_playback_pos(SAMPLE_INDEX_MAX)
 {
     setMinimumSize(400, MINIMUM_HEIGHT);
 
@@ -115,7 +116,7 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
     connect(&(signal_manager->playbackController()),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this,
-            SLOT(refreshPlaybackPointer()));
+            SLOT(refreshPlaybackPointer(sample_index_t)));
     connect(&(signal_manager->playbackController()),
             SIGNAL(sigPlaybackStopped()),
             this,
@@ -431,13 +432,12 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
     p.drawImage(0, 0, m_img_markers);
 
     // --- show the playback position ---
-    for (;;)
+    do
     {
 	if (!m_signal_manager->playbackController().running() &&
 	    !m_signal_manager->playbackController().paused())
 	    break;
-	const sample_index_t pos =
-	    m_signal_manager->playbackController().currentPos();
+	const sample_index_t pos = m_playback_pos;
 	if (pos < m_offset) break;
 	const sample_index_t visible = pixels2samples(width);
 	if (pos >= m_offset + visible) break;
@@ -448,8 +448,7 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 	p.setPen(Qt::yellow);
 	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
 	p.drawLine(x, 0, x, height);
-	break;
-    }
+    } while (0);
 
     p.end();
 
@@ -464,8 +463,9 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-void Kwave::TrackView::refreshPlaybackPointer()
+void Kwave::TrackView::refreshPlaybackPointer(sample_index_t pos)
 {
+    m_playback_pos = pos;
     emit sigNeedRepaint(this);
 }
 

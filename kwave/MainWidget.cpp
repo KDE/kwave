@@ -513,11 +513,12 @@ void Kwave::MainWidget::refreshHorizontalScrollBar()
 	// max                            = length   / f - page
 	// pos  = (m_offset / length) * x = m_offset / f
 
-	const int f = qMax(sample_index_t(1), SAMPLE_INDEX_MAX / INT_MAX);
-	int page    = (visible  / f);
+	const sample_index_t f =
+	    qMax(sample_index_t(1), SAMPLE_INDEX_MAX / INT_MAX);
+	int page    = Kwave::toInt(visible  / f);
 	int min     = 0;
-	int max     = (length   / f) - page;
-	int pos     = (m_offset / f);
+	int max     = Kwave::toInt(length   / f) - page;
+	int pos     = Kwave::toInt(m_offset / f);
 	int single  = qMax(1, (page / (10 * qApp->wheelScrollLines())));
 	if (page < single) page = single;
 // 	qDebug("width=%d, max=%d, page=%d, single=%d, pos=%d, visible=%d",
@@ -538,7 +539,8 @@ void Kwave::MainWidget::refreshHorizontalScrollBar()
 void Kwave::MainWidget::horizontalScrollBarMoved(int newval)
 {
     // new offset = pos * f
-    const int f = qMax(sample_index_t(1), SAMPLE_INDEX_MAX / INT_MAX);
+    const sample_index_t f =
+	qMax(sample_index_t(1), SAMPLE_INDEX_MAX / INT_MAX);
     const sample_index_t pos = newval * f;
     setOffset(pos);
 }

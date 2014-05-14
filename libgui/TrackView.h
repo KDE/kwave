@@ -108,8 +108,11 @@ namespace Kwave
 
     private slots:
 
-	/** requests a repaint, as soon as the repaint timer elapsed */
-	void refreshPlaybackPointer();
+	/**
+	 * requests a repaint, as soon as the repaint timer elapsed
+	 * @param pos current position of the playback pointer
+	 */
+	void refreshPlaybackPointer(sample_index_t pos = SAMPLE_INDEX_MAX);
 
 	/** requests a refresh of the signal layer */
 	void refreshSignalLayer();
@@ -164,6 +167,8 @@ namespace Kwave
 	/** position of the last mouse click in samples */
 	sample_index_t m_mouse_click_position;
 
+	/** last known position of the playback pointer */
+	sample_index_t m_playback_pos;
     };
 }
 

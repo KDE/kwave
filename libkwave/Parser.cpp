@@ -80,7 +80,9 @@ Kwave::Parser::Parser (const QString &init)
 		break;
 	    case ')':
 		if (!level) {
-		    m_param.append(unescape(param.trimmed()));
+		    param = unescape(param.trimmed());
+		    if (param.length())
+			m_param.append(param);
 		    // break, belongs to command, end of line
 		    line.clear();
 		}

@@ -29,6 +29,7 @@
 #include "libkwave/ApplicationContext.h"
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
+#include "libkwave/Logger.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Parser.h"
 #include "libkwave/Sample.h"
@@ -65,6 +66,13 @@ int Kwave::App::newInstance()
     static bool first_time = true;
     if (first_time) {
 	first_time = false;
+
+	// open the log file if given on the command line
+	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+	if (args && args->isSet("logfile")) {
+	    if (!Kwave::Logger::open(args->getOption("logfile")))
+		exit(-1);
+	}
 
 	Kwave::Splash::showMessage(i18n("Reading configuration..."));
 	readConfig();
@@ -145,7 +153,7 @@ bool Kwave::App::newWindow(const KUrl &url)
     Kwave::Splash::showMessage(i18n("Opening main window..."));
 
     Kwave::TopWidget *new_top_widget = new Kwave::TopWidget(*this);
-    if (!new_top_widget->init()) {
+    if (!new_top_widget || !new_top_widget->init()) {
 	// init failed
 	qWarning("ERROR: initialization of TopWidget failed");
 	delete new_top_widget;

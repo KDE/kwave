@@ -46,6 +46,7 @@ SET(libkwave_LIB_SRCS
     Interpolation.cpp
     Label.cpp
     LabelList.cpp
+    Logger.cpp
     MemoryManager.cpp
     MessageBox.cpp
     MetaData.cpp

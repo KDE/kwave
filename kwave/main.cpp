@@ -145,6 +145,7 @@ int main( int argc, char **argv )
 
     options.add("disable-splashscreen", ki18n("Disable the Splash Screen"), 0);
     options.add("iconic",               ki18n("Start Kwave iconified"), 0);
+    options.add("logfile <file>",       ki18n("Log all commands into a file"));
     options.add("!+files",              ki18n("List of audio files"), 0 );
 
     KAboutData about(
@@ -153,7 +154,7 @@ int main( int argc, char **argv )
 	PACKAGE_VERSION,
 	ki18n("A sound editor for KDE"),
 	KAboutData::License_GPL_V2,
-        ki18n("(c) 2011, Thomas Eschenbacher"),
+        ki18n("(c) 2014, Thomas Eschenbacher"),
 	ki18n(0),
 	"http://kwave.sourceforge.net",
 	"Thomas.Eschenbacher@gmx.de"

@@ -41,7 +41,7 @@
 static inline QString _(const char *s) { return QLatin1String(s); }
 
 /**
- * helper for converting QString to const char *, useful for debug output
+ * helper for converting QString to a UTF-8 string
  * @param qs a QString
  * @return a const char * in UTF8 representation
  */
@@ -52,7 +52,7 @@ static inline QString _(const char *s) { return QLatin1String(s); }
  * @param qs a QString
  * @return a const char * in local 8 bit representation
  */
-#define DBG(qs) ((qs).toLocal8Bit().data())
+#define DBG(qs) qPrintable(qs)
 
 #endif /* _KWAVE_STRING_H_ */
 

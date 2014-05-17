@@ -50,8 +50,6 @@ o support for multi selection
 
 o support for recording via PULSE audio
 
-o debug aid: write all actions to a logfile
-
 o debug aid: new plugin for adding a new track with test/debug info:
   - stripe number
   - hull curve

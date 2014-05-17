@@ -58,6 +58,7 @@
 #include "libkwave/Encoder.h"
 #include "libkwave/Plugin.h" // for some helper functions
 #include "libkwave/LabelList.h"
+#include "libkwave/Logger.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Parser.h"
@@ -532,6 +533,9 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	return 0; // only a comment
 
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
+
+    // log all commands to the log file if enabled
+    Kwave::Logger::log(this, Kwave::Logger::Info, _("CMD: ") + line);
 
     // special case: if the command contains ";" it is a list of
     // commands -> macro !

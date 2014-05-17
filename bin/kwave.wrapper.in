@@ -26,6 +26,6 @@ export PATH=${PREFIX}@KDE4_BIN_INSTALL_DIR@:${PATH}
 # when using new icons:
 # rm -f /var/tmp/kdecache-$USER/icon-cache.kcache
 
-time ${PREFIX}@KDE4_BIN_INSTALL_DIR@/kwave --nofork "$@"
+time ${PREFIX}@KDE4_BIN_INSTALL_DIR@/kwave --logfile=/var/tmp/kwave.log --nofork "$@"
 
 ### EOF ###

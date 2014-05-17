@@ -1322,6 +1322,13 @@
     This option also implicitly disables the splash screen!
     </para>
 
+    <para>
+    By using the command line option <literal>--logfile=<replaceable>kwave.log</replaceable></literal>
+    you can log the sequence of actions of a &kwave; session into a file.
+    This is useful for debugging, you might be asked for such a logfile when
+    reporting an error.
+    </para>
+
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->

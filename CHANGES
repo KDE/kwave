@@ -1,4 +1,3 @@
-
 0.8.12 [2014-xx-xx]
 
  * recording via PulseAudio, by Joerg-Christan Boehme <joerg@chaosdorf.de>
@@ -13,6 +12,7 @@
  * bugfix: wrong calculation of zoom and window geometry at startup
  * bugfix: wrong scaling of overview in sonagram window
  * bugfix: playback pointer did not update synchronously across tracks
+ * new command line option: "--logfile=<FILE>" for logging to a file
  * brought back the horizontal scroll bar
  * support for swap files to store undo data
  * speedup: too many copy-on-write operations, use more const data

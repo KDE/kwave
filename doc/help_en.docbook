@@ -4,8 +4,8 @@
   <!ENTITY kappname "&kwave;">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.8.11">
-  <!ENTITY version_tag "0_8_11">
+  <!ENTITY version "0.8.12">
+  <!ENTITY version_tag "0_8_12">
   <!ENTITY version_year "2013">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
@@ -63,7 +63,7 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2013-11-24</date>
+    <date>2014-05-31</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>

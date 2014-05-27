@@ -25,7 +25,10 @@
 #cmakedefine ARCH_X86_64
 
 /* use target optimized memcpy */
-#cmakedefine HAVE_OPTIMIZED_MEMCPY
+#cmakedefine WITH_OPTIMIZED_MEMCPY
+
+/* use target optimized memcpy using AVX assembler code */
+#cmakedefine HAVE_AVX
 
 /* support playback/recording via ALSA */
 #cmakedefine HAVE_ALSA_SUPPORT

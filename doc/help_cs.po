@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-05-23 19:14+0000\n"
+"POT-Creation-Date: 2014-05-26 19:47+0000\n"
 "PO-Revision-Date: 2013-11-13 20:02+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -4947,24 +4947,20 @@ msgstr "Domovská stránka, překlad do němčiny"
 msgid "Minor contributors, copyright holders and others"
 msgstr "Další přispěvatelé, držitelé autorských práv a jiní"
 
-#. Tag: para
+#. Tag: emphasis
 #: help_en.docbook:3017
 #, no-c-format
-msgid ""
-"<emphasis role=\"bold\"> Andreas Schneider <email>mail@cynapses.org</email> "
-"</emphasis><emphasis>[historic]</emphasis>"
+msgid "Aaron Holtzman <email>aholtzma@ess.engr.uvic.ca</email>"
 msgstr ""
-"<emphasis role=\"bold\"> Andreas Schneider <email>mail@cynapses.org</email> "
-"</emphasis><emphasis>[historický]</emphasis>"
 
 #. Tag: para
-#: help_en.docbook:3020
-#, no-c-format
-msgid "cmake/FindARTS.cmake"
-msgstr "cmake/FindARTS.cmake"
+#: help_en.docbook:3019
+#, fuzzy, no-c-format
+msgid "libkwave/cpu_accel.cpp"
+msgstr "libkwave/cputest.c"
 
 #. Tag: para
-#: help_en.docbook:3025
+#: help_en.docbook:3024
 #, no-c-format
 msgid ""
 "<emphasis role=\"bold\"> Bertrand Songis <email>bsongis@gmail.com</email> </"
@@ -4974,7 +4970,7 @@ msgstr ""
 "emphasis><emphasis>[historický]</emphasis>"
 
 #. Tag: para
-#: help_en.docbook:3027
+#: help_en.docbook:3026
 #, no-c-format
 msgid ""
 "french translation fixes, substitutes for patented libaudiofile code, debian "
@@ -4984,55 +4980,55 @@ msgstr ""
 "chyba v Debianu 419124"
 
 #. Tag: emphasis
-#: help_en.docbook:3034
+#: help_en.docbook:3033
 #, no-c-format
 msgid "Carsten Lohrke <email>carlo@gentoo.org</email>"
 msgstr "Carsten Lohrke <email>carlo@gentoo.org</email>"
 
 #. Tag: para
-#: help_en.docbook:3036
+#: help_en.docbook:3035
 #, no-c-format
 msgid "svn r2163, patch for libaudiofile detection"
 msgstr "svn r2163, záplata pro detekci libaudiofile"
 
 #. Tag: emphasis
-#: help_en.docbook:3041
+#: help_en.docbook:3040
 #, no-c-format
 msgid "Chris Vaill <email>chrisvaill@gmail</email>"
 msgstr "Chris Vaill <email>chrisvaill@gmail</email>"
 
 #. Tag: para
-#: help_en.docbook:3043
+#: help_en.docbook:3042
 #, no-c-format
 msgid "code base for the normalize plugin"
 msgstr "Kód pro přídavný modul normalizace"
 
 #. Tag: emphasis
-#: help_en.docbook:3048
+#: help_en.docbook:3047
 #, no-c-format
 msgid "David Faure <email>faure@kde.org</email>"
 msgstr "David Faure <email>faure@kde.org</email>"
 
 #. Tag: para
-#: help_en.docbook:3050 help_en.docbook:3131
+#: help_en.docbook:3049 help_en.docbook:3123
 #, no-c-format
 msgid "cmake/FindAlsa.cmake"
 msgstr "cmake/FindAlsa.cmake"
 
 #. Tag: emphasis
-#: help_en.docbook:3055
+#: help_en.docbook:3054
 #, no-c-format
 msgid "Diederick de Vries <email>diederick76@gmail.com</email>"
 msgstr "Diederick de Vries <email>diederick76@gmail.com</email>"
 
 #. Tag: para
-#: help_en.docbook:3058
+#: help_en.docbook:3057
 #, no-c-format
 msgid "packaging for Crux Linux"
 msgstr "Balíčkování pro Crux Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:3063
+#: help_en.docbook:3062
 #, no-c-format
 msgid ""
 "Espen Sand <email>espen@kde.org</email> + Mirko Boehm <email>mirko@kde.org</"
@@ -5042,67 +5038,55 @@ msgstr ""
 "email>"
 
 #. Tag: para
-#: help_en.docbook:3066
+#: help_en.docbook:3065
 #, no-c-format
 msgid "K3AboutContainer, base of KwaveAboutContainer"
 msgstr "K3AboutContainer, základ KwaveAboutContainer"
 
 #. Tag: emphasis
-#: help_en.docbook:3071
+#: help_en.docbook:3070
 #, no-c-format
 msgid "Everaldo Coelho <email>contact@everaldo.com</email>"
 msgstr "Everaldo Coelho <email>contact@everaldo.com</email>"
 
 #. Tag: para
-#: help_en.docbook:3073
+#: help_en.docbook:3072
 #, no-c-format
 msgid "the crystal icon theme http://www.everaldo.com/crystal/"
 msgstr "Sada ikon crystal http://www.everaldo.com/crystal/"
 
 #. Tag: emphasis
-#: help_en.docbook:3078
-#, no-c-format
-msgid "Fabrice Bellard (extracted) + H. Dietz (mmx.h) + R. Fisher (mmx.h)"
-msgstr "Fabrice Bellard (extracted) + H. Dietz (mmx.h) + R. Fisher (mmx.h)"
-
-#. Tag: para
-#: help_en.docbook:3080
-#, no-c-format
-msgid "libkwave/cputest.c"
-msgstr "libkwave/cputest.c"
-
-#. Tag: emphasis
-#: help_en.docbook:3085
+#: help_en.docbook:3077
 #, no-c-format
 msgid "Jaroslav Kysela"
 msgstr "Jaroslav Kysela"
 
 #. Tag: para
-#: help_en.docbook:3087
+#: help_en.docbook:3079
 #, no-c-format
 msgid "parts of plugins/playback/PlayBack-ALSA.cpp"
 msgstr "Části plugins/playback/PlayBack-ALSA.cpp"
 
 #. Tag: emphasis
-#: help_en.docbook:3092
+#: help_en.docbook:3084
 #, no-c-format
 msgid "Jeff Tranter"
 msgstr "Jeff Tranter"
 
 #. Tag: para
-#: help_en.docbook:3094 help_en.docbook:3169
+#: help_en.docbook:3086 help_en.docbook:3161
 #, no-c-format
 msgid "parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}"
 msgstr "Části plugins/pitch_shift/PitchShiftFilter.{h,cpp}"
 
 #. Tag: emphasis
-#: help_en.docbook:3099
+#: help_en.docbook:3091
 #, no-c-format
 msgid "Juhana Sadeharju <email>kouhia@nic.funet.fi</email>"
 msgstr "Juhana Sadeharju <email>kouhia@nic.funet.fi</email>"
 
 #. Tag: para
-#: help_en.docbook:3101
+#: help_en.docbook:3093
 #, no-c-format
 msgid ""
 "plugins/band_pass/BandPass.{h,cpp}, plugins/lowpass/LowPassFilter.cpp, "
@@ -5112,67 +5096,67 @@ msgstr ""
 "plugins/notch_filter/NotchFilter.{h,cpp}"
 
 #. Tag: emphasis
-#: help_en.docbook:3108
+#: help_en.docbook:3100
 #, no-c-format
 msgid "Kurt Roeck <email>Q@ping.be</email>"
 msgstr "Kurt Roeck <email>Q@ping.be</email>"
 
 #. Tag: para
-#: help_en.docbook:3110
+#: help_en.docbook:3102
 #, no-c-format
 msgid "svn r1370, fix for debian bug#288781, compilation for amd64"
 msgstr "svn r1370, oprava chyby pro Debian-Bug#288781, sestavení pro amd64"
 
 #. Tag: emphasis
-#: help_en.docbook:3115
+#: help_en.docbook:3107
 #, no-c-format
 msgid "Mark Donohoe (KDE) <email>donohoe@kde.org</email>"
 msgstr "Mark Donohoe (KDE) <email>donohoe@kde.org</email>"
 
 #. Tag: para
-#: help_en.docbook:3117
+#: help_en.docbook:3109
 #, no-c-format
 msgid "some icons and bitmaps for toolbar and GUI"
 msgstr "Několik ikon a obrázků pro nástrojový pruh a rozhraní"
 
 #. Tag: emphasis
-#: help_en.docbook:3122
+#: help_en.docbook:3114
 #, no-c-format
 msgid "Martin Hinsch <email>vidas@sourceforge.net</email>"
 msgstr "Martin Hinsch <email>vidas@sourceforge.net</email>"
 
 #. Tag: para
-#: help_en.docbook:3124
+#: help_en.docbook:3116
 #, no-c-format
 msgid "Matrix class"
 msgstr "Třída Matrix"
 
 #. Tag: emphasis
-#: help_en.docbook:3129
+#: help_en.docbook:3121
 #, no-c-format
 msgid "Matthias Kretz <email>kretz@kde.org</email>"
 msgstr "Matthias Kretz <email>kretz@kde.org</email>"
 
 #. Tag: emphasis
-#: help_en.docbook:3136
+#: help_en.docbook:3128
 #, no-c-format
 msgid "Miguel Freitas"
 msgstr "Miguel Freitas"
 
 #. Tag: para
-#: help_en.docbook:3138
+#: help_en.docbook:3130
 #, no-c-format
 msgid "parts of libkwave/memcpy.c"
 msgstr "Části libkwave/memcpy.c"
 
 #. Tag: emphasis
-#: help_en.docbook:3143
+#: help_en.docbook:3135
 #, no-c-format
 msgid "Paul Mackerras <email>paulus@samba.org</email>"
 msgstr "Paul Mackerras <email>paulus@samba.org</email>"
 
 #. Tag: para
-#: help_en.docbook:3145
+#: help_en.docbook:3137
 #, no-c-format
 msgid ""
 "libkwave/ppcasm_string.h, libkwave/ppcasm_string.S, libkwave/ppc_asm.tmpl"
@@ -5180,37 +5164,37 @@ msgstr ""
 "libkwave/ppcasm_string.h, libkwave/ppcasm_string.S, libkwave/ppc_asm.tmpl"
 
 #. Tag: emphasis
-#: help_en.docbook:3152
+#: help_en.docbook:3144
 #, no-c-format
 msgid "Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>"
 msgstr "Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>"
 
 #. Tag: para
-#: help_en.docbook:3154
+#: help_en.docbook:3146
 #, no-c-format
 msgid "cmake/FindOggVorbis.cmake"
 msgstr "cmake/FindOggVorbis.cmake"
 
 #. Tag: emphasis
-#: help_en.docbook:3159
+#: help_en.docbook:3151
 #, no-c-format
 msgid "Rik Hemsley <email>rik@kde.org</email>"
 msgstr "Rik Hemsley <email>rik@kde.org</email>"
 
 #. Tag: ulink
-#: help_en.docbook:3163
+#: help_en.docbook:3155
 #, no-c-format
 msgid "level meter"
 msgstr "Měřič úrovně"
 
 #. Tag: emphasis
-#: help_en.docbook:3167
+#: help_en.docbook:3159
 #, no-c-format
 msgid "Stefan Westerfeld <email>stefan@space.twc.de</email>"
 msgstr "Stefan Westerfeld <email>stefan@space.twc.de</email>"
 
 #. Tag: para
-#: help_en.docbook:3174
+#: help_en.docbook:3166
 #, no-c-format
 msgid ""
 "<emphasis role=\"bold\"> Stichting Mathematisch Centrum, Amsterdam </"
@@ -5220,13 +5204,13 @@ msgstr ""
 "emphasis><emphasis>[historický]</emphasis>"
 
 #. Tag: para
-#: help_en.docbook:3176
+#: help_en.docbook:3168
 #, no-c-format
 msgid "libaudiofile/modules/adpcm.c"
 msgstr "libaudiofile/modules/adpcm.c"
 
 #. Tag: para
-#: help_en.docbook:3181
+#: help_en.docbook:3173
 #, no-c-format
 msgid ""
 "<emphasis role=\"bold\"> Sun Microsystems, Inc. </"
@@ -5236,138 +5220,151 @@ msgstr ""
 "emphasis><emphasis>[historisch]</emphasis>"
 
 #. Tag: para
-#: help_en.docbook:3183
+#: help_en.docbook:3175
 #, no-c-format
 msgid "libaudiofile/g711.c, libaudiofile/g711.h"
 msgstr "libaudiofile/g711.c, libaudiofile/g711.h"
 
 #. Tag: emphasis
-#: help_en.docbook:3188
+#: help_en.docbook:3180
 #, no-c-format
 msgid "Joerg-Christian Boehme <email>joerg@chaosdorf.de</email>"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:3190
+#: help_en.docbook:3182
 #, no-c-format
 msgid "plugins/record/Record-PulseAudio.cpp plugins/record/Record-PulseAudio.h"
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:3199
+#: help_en.docbook:3191
 #, no-c-format
 msgid "Thanks To"
 msgstr "Poděkování"
 
 #. Tag: emphasis
-#: help_en.docbook:3203
+#: help_en.docbook:3195
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email>"
 msgstr "Martin Kuball <email>makube@user.sourceforge.net</email>"
 
 #. Tag: para
-#: help_en.docbook:3206
+#: help_en.docbook:3198
 #, no-c-format
 msgid "beta tester"
 msgstr "Zkoušeč"
 
 #. Tag: emphasis
-#: help_en.docbook:3211
+#: help_en.docbook:3203
 #, no-c-format
 msgid "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
 msgstr "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:3214
+#: help_en.docbook:3206
 #, no-c-format
 msgid "packaging for SuSE Linux"
 msgstr "Balíčkování pro SuSE Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:3219
+#: help_en.docbook:3211
 #, no-c-format
 msgid "Michael Favreau <email>michel.favreau@free.fr</email>"
 msgstr "Michael Favreau <email>michel.favreau@free.fr</email>"
 
 #. Tag: para
-#: help_en.docbook:3222
+#: help_en.docbook:3214
 #, no-c-format
 msgid "packaging for Arch Linux"
 msgstr "Balíčkování pro Arch Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:3228
+#: help_en.docbook:3220
 #, no-c-format
 msgid "Matthias Düsterhöft <email>duesti@gmx.de</email>"
 msgstr "Matthias Düsterhöft <email>duesti@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:3231
+#: help_en.docbook:3223
 #, no-c-format
 msgid "for information about RPM optimization"
 msgstr "Za informace o optimalizaci RPM"
 
 #. Tag: emphasis
-#: help_en.docbook:3236
+#: help_en.docbook:3228
 #, no-c-format
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr "T.H.F. Klok a Cedric Tefft"
 
 #. Tag: para
-#: help_en.docbook:3238
+#: help_en.docbook:3230
 #, no-c-format
 msgid "maintainers of the <ulink url=\"&url_id3lib;\"> id3lib</ulink> library"
 msgstr "Udržovatelé knihovny <ulink url=\"&url_id3lib;\"> id3lib</ulink>"
 
 #. Tag: emphasis
-#: help_en.docbook:3244
+#: help_en.docbook:3236
 #, no-c-format
 msgid "Robert Leslie <email>rob@mars.org</email>"
 msgstr "Robert Leslie <email>rob@mars.org</email>"
 
 #. Tag: para
-#: help_en.docbook:3247
+#: help_en.docbook:3239
 #, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libmad;\">mad</ulink> mp3 decoder library"
 msgstr "Autor knihovny dekodéru MP3 <ulink url=\"&url_libmad;\">mad</ulink>"
 
 #. Tag: emphasis
-#: help_en.docbook:3254
+#: help_en.docbook:3246
 #, no-c-format
 msgid "Robert M. Stockmann <email>stock@stokkie.net</email>"
 msgstr "Robert M. Stockmann <email>stock@stokkie.net</email>"
 
 #. Tag: para
-#: help_en.docbook:3257
+#: help_en.docbook:3249
 #, no-c-format
 msgid "packaging for Mandrake / X86_64"
 msgstr "Balíčkování pro Mandrake / X86_64"
 
 #. Tag: emphasis
-#: help_en.docbook:3262
+#: help_en.docbook:3254
 #, no-c-format
 msgid "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
 msgstr "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
 
 #. Tag: para
-#: help_en.docbook:3265
+#: help_en.docbook:3257
 #, no-c-format
 msgid "author of the <ulink url=\"&url_libsndfile;\">sndfile</ulink> library"
 msgstr "Autor knihovny <ulink url=\"&url_libsndfile;\">sndfile</ulink>"
 
 #. Tag: emphasis
-#: help_en.docbook:3272
+#: help_en.docbook:3264
 #, no-c-format
 msgid "Michael Pruett <email>mpruett@sgi.com</email>"
 msgstr "Michael Pruett <email>mpruett@sgi.com</email>"
 
 #. Tag: para
-#: help_en.docbook:3275
+#: help_en.docbook:3267
 #, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libaudiofile;\">audiofile</ulink> library"
 msgstr "Autor knihovny <ulink url=\"&url_libaudiofile;\">audiofile</ulink>"
+
+#~ msgid ""
+#~ "<emphasis role=\"bold\"> Andreas Schneider <email>mail@cynapses.org</"
+#~ "email> </emphasis><emphasis>[historic]</emphasis>"
+#~ msgstr ""
+#~ "<emphasis role=\"bold\"> Andreas Schneider <email>mail@cynapses.org</"
+#~ "email> </emphasis><emphasis>[historický]</emphasis>"
+
+#~ msgid "cmake/FindARTS.cmake"
+#~ msgstr "cmake/FindARTS.cmake"
+
+#~ msgid "Fabrice Bellard (extracted) + H. Dietz (mmx.h) + R. Fisher (mmx.h)"
+#~ msgstr "Fabrice Bellard (extracted) + H. Dietz (mmx.h) + R. Fisher (mmx.h)"
 
 #~ msgid "2013-11-24"
 #~ msgstr "2013-11-24"

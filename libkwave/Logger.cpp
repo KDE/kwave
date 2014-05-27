@@ -117,9 +117,9 @@ void Kwave::Logger::log(const QObject *sender,
 
     // translate the log level into a text (syslog format)
     const char *x_status = str_level[qBound(
-	static_cast<typeof(sizeof(int))>(0),
-	static_cast<typeof(sizeof(int))>(level),
-	ELEMENTS_OF(str_level))
+	Q_UINT64_C(0),
+	static_cast<quint64>(level),
+	static_cast<quint64>(ELEMENTS_OF(str_level)))
     ];
 
     // get the time stamp

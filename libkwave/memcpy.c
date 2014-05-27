@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2004 the xine project
+ * Copyright (C) 2001-2014 the xine project
  *
  * This file is part of xine, a free video player.
  *
@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
  *
  * These are the MMX/MMX2/SSE optimized versions of memcpy
  *
@@ -37,6 +37,8 @@
  *   synced with latest cvs version from sourceforge.net,
  *   xine/xine-lib/src/xine-utils/memcpy.c, rev. 1.44, 2007-07-20 20:00:36
  *
+ * 2014-05-26
+ *   synced with latest hg version, xine-lib-1-2-02e5a69f56c9
  */
 
 #ifdef HAVE_CONFIG_H
@@ -49,6 +51,8 @@
 
 #ifdef HAVE_SYS_TIMES_H
 #include <sys/times.h>
+#else
+#include <time.h>
 #endif
 
 #include <stdlib.h>
@@ -64,17 +68,24 @@
 #define xprintf printf
 
 void probe_fast_memcpy(void);
-int mm_support(void);
+extern void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 
-#endif /* XINE_COMPILE */
+#define LOG_MODULE "memcpy"
+#define LOG_VERBOSE
+#define HAVE_AVX
+
+#else /* XINE_COMPILE */
 
 /*
 #define LOG
 */
 
-/* #include "xine_internal.h" */
+#include <xine/xine_internal.h>
+#include "../xine-engine/xine_private.h"
 
-static void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
+#endif /* XINE_COMPILE */
+
+void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 
 /* Original comments from mplayer (file: aclib.c)
  This part of code was taken by me from Linux-2.4.3 and slightly modified
@@ -146,7 +157,7 @@ quote of the day:
 /* for small memory blocks (<256 bytes) this version is faster */
 #define small_memcpy(to,from,n)\
 {\
-register unsigned long int dummy;\
+register uintptr_t dummy;\
 __asm__ __volatile__(\
   "rep; movsb"\
   :"=&D"(to), "=&S"(from), "=&c"(dummy)\
@@ -176,12 +187,13 @@ int d0, d1, d2;
     "movsb\n"
     "2:"
     : "=&c" (d0), "=&D" (d1), "=&S" (d2)
-    :"0" (n/4), "q" (n),"1" ((long) to),"2" ((long) from)
+    :"0" (n/4), "q" (n),"1" ((uintptr_t) to),"2" ((uintptr_t) from)
     : "memory");
 
   return (to);
 }
 
+#define AVX_MMREG_SIZE 32
 #define SSE_MMREG_SIZE 16
 #define MMX_MMREG_SIZE 8
 
@@ -213,9 +225,9 @@ static void * sse_memcpy(void * to, const void * from, size_t len)
 
   if(len >= MIN_LEN)
   {
-    register unsigned long int delta;
+    register uintptr_t delta;
     /* Align destinition to MMREG_SIZE -boundary */
-    delta = ((unsigned long int)to)&(SSE_MMREG_SIZE-1);
+    delta = ((uintptr_t)to)&(SSE_MMREG_SIZE-1);
     if(delta)
     {
       delta=SSE_MMREG_SIZE-delta;
@@ -224,7 +236,7 @@ static void * sse_memcpy(void * to, const void * from, size_t len)
     }
     i = len >> 6; /* len/64 */
     len&=63;
-    if(((unsigned long)from) & 15)
+    if(((uintptr_t)from) & 15)
       /* if SRC is misaligned */
       for(; i>0; i--)
       {
@@ -277,6 +289,99 @@ static void * sse_memcpy(void * to, const void * from, size_t len)
   return retval;
 }
 
+#ifdef HAVE_AVX
+static void * avx_memcpy(void * to, const void * from, size_t len)
+{
+  void *retval;
+  size_t i;
+  retval = to;
+
+  /* PREFETCH has effect even for MOVSB instruction ;) */
+  __asm__ __volatile__ (
+    "   prefetchnta (%0)\n"
+    "   prefetchnta 32(%0)\n"
+    "   prefetchnta 64(%0)\n"
+    "   prefetchnta 96(%0)\n"
+    "   prefetchnta 128(%0)\n"
+    "   prefetchnta 160(%0)\n"
+    "   prefetchnta 192(%0)\n"
+    "   prefetchnta 224(%0)\n"
+    "   prefetchnta 256(%0)\n"
+    "   prefetchnta 288(%0)\n"
+    : : "r" (from) );
+
+  if(len >= MIN_LEN)
+  {
+    register uintptr_t delta;
+    /* Align destinition to MMREG_SIZE -boundary */
+    delta = ((uintptr_t)to)&(AVX_MMREG_SIZE-1);
+    if(delta)
+    {
+      delta=AVX_MMREG_SIZE-delta;
+      len -= delta;
+      small_memcpy(to, from, delta);
+    }
+    i = len >> 7; /* len/128 */
+    len&=127;
+    if(((uintptr_t)from) & 31)
+      /* if SRC is misaligned */
+      for(; i>0; i--)
+      {
+        __asm__ __volatile__ (
+        "prefetchnta 320(%0)\n"
+        "prefetchnta 352(%0)\n"
+        "prefetchnta 384(%0)\n"
+        "prefetchnta 416(%0)\n"
+        "vmovups    (%0), %%ymm0\n"
+        "vmovups  32(%0), %%ymm1\n"
+        "vmovups  64(%0), %%ymm2\n"
+        "vmovups  96(%0), %%ymm3\n"
+        "vmovntps %%ymm0,   (%1)\n"
+        "vmovntps %%ymm1, 32(%1)\n"
+        "vmovntps %%ymm2, 64(%1)\n"
+        "vmovntps %%ymm3, 96(%1)\n"
+        :: "r" (from), "r" (to) : "memory");
+        from = ((const unsigned char *)from) + 128;
+        to = ((unsigned char *)to) + 128;
+      }
+    else
+      /*
+         Only if SRC is aligned on 16-byte boundary.
+         It allows to use movaps instead of movups, which required data
+         to be aligned or a general-protection exception (#GP) is generated.
+      */
+      for(; i>0; i--)
+      {
+        __asm__ __volatile__ (
+        "prefetchnta 320(%0)\n"
+        "prefetchnta 352(%0)\n"
+        "prefetchnta 384(%0)\n"
+        "prefetchnta 416(%0)\n"
+        "vmovaps    (%0), %%ymm0\n"
+        "vmovaps  32(%0), %%ymm1\n"
+        "vmovaps  64(%0), %%ymm2\n"
+        "vmovaps  96(%0), %%ymm3\n"
+        "vmovntps %%ymm0,   (%1)\n"
+        "vmovntps %%ymm1, 32(%1)\n"
+        "vmovntps %%ymm2, 64(%1)\n"
+        "vmovntps %%ymm3, 96(%1)\n"
+        :: "r" (from), "r" (to) : "memory");
+        from = ((const unsigned char *)from) + 128;
+        to = ((unsigned char *)to) + 128;
+      }
+    /* since movntq is weakly-ordered, a "sfence"
+     * is needed to become ordered again. */
+    __asm__ __volatile__ ("sfence":::"memory");
+    __asm__ __volatile__ ("vzeroupper");
+  }
+  /*
+   *	Now do the tail of the block
+   */
+  if(len) linux_kernel_memcpy_impl(to, from, len);
+  return retval;
+}
+#endif /* HAVE_AVX */
+
 static void * mmx_memcpy(void * to, const void * from, size_t len)
 {
   void *retval;
@@ -285,9 +390,9 @@ static void * mmx_memcpy(void * to, const void * from, size_t len)
 
   if(len >= MMX1_MIN_LEN)
   {
-    register unsigned long int delta;
+    register uintptr_t delta;
     /* Align destinition to MMREG_SIZE -boundary */
-    delta = ((unsigned long int)to)&(MMX_MMREG_SIZE-1);
+    delta = ((uintptr_t)to)&(MMX_MMREG_SIZE-1);
     if(delta)
     {
       delta=MMX_MMREG_SIZE-delta;
@@ -350,9 +455,9 @@ static void * mmx2_memcpy(void * to, const void * from, size_t len)
 
   if(len >= MIN_LEN)
   {
-    register unsigned long int delta;
+    register uintptr_t delta;
     /* Align destinition to MMREG_SIZE -boundary */
-    delta = ((unsigned long int)to)&(MMX_MMREG_SIZE-1);
+    delta = ((uintptr_t)to)&(MMX_MMREG_SIZE-1);
     if(delta)
     {
       delta=MMX_MMREG_SIZE-delta;
@@ -404,31 +509,51 @@ static void *linux_kernel_memcpy(void *to, const void *from, size_t len) {
 #endif /* _MSC_VER */
 #endif /* ARCH_X86 */
 
-static struct {
-  const char *name;
-  void *(* function)(void *to, const void *from, size_t len);
-
-  uint64_t time; /* This type could be used for non-MSC build too! */
+static const struct {
+  const char name[16];
+  void *(*const  function)(void *to, const void *from, size_t len);
 
   uint32_t cpu_require;
 } memcpy_method[] =
 {
-  { NULL, NULL, 0, 0 },
-  { "libc memcpy()", memcpy, 0, 0 },
+  { "", NULL, 0 },
+  { "libc", memcpy, 0 },
 #if (defined(ARCH_X86) || defined(ARCH_X86_64)) && !defined(_MSC_VER)
-  { "linux kernel memcpy()", linux_kernel_memcpy, 0, 0 },
-  { "MMX optimized memcpy()", mmx_memcpy, 0, MM_MMX },
-  { "MMXEXT optimized memcpy()", mmx2_memcpy, 0, MM_MMXEXT },
-  { "SSE optimized memcpy()", sse_memcpy, 0, MM_MMXEXT|MM_SSE },
+  { "linux kernel", linux_kernel_memcpy, 0 },
+  { "MMX ", mmx_memcpy, MM_MMX },
+  { "MMXEXT", mmx2_memcpy, MM_MMXEXT },
+  { "SSE", sse_memcpy, MM_MMXEXT|MM_SSE },
+# ifdef HAVE_AVX
+  { "AVX", avx_memcpy, MM_ACCEL_X86_AVX },
+# endif /* HAVE_AVX */
 #endif /* ARCH_X86 */
 #if defined (ARCH_PPC) && !defined (HOST_OS_DARWIN)
-  { "ppcasm_memcpy()", ppcasm_memcpy, 0, 0 },
-  { "ppcasm_cacheable_memcpy()", ppcasm_cacheable_memcpy, 0, MM_ACCEL_PPC_CACHE32 },
+  { "ppcasm", ppcasm_memcpy, 0 },
+  { "ppcasm_cached", ppcasm_cacheable_memcpy, MM_ACCEL_PPC_CACHE32 },
 #endif /* ARCH_PPC && !HOST_OS_DARWIN */
-  { NULL, NULL, 0, 0 }
+  { "", NULL, 0 }
 };
 
-#if (defined(ARCH_X86) || defined(ARCH_X86_64)) && defined(HAVE_SYS_TIMES_H)
+static uint64_t memcpy_timing[sizeof(memcpy_method)/sizeof(memcpy_method[0])] = { 0, };
+
+#ifdef HAVE_POSIX_TIMERS
+/* Prefer clock_gettime() where available. */
+
+# ifndef CLOCK_THREAD_CPUTIME_ID
+/*  not defined in NetBSD (bug #535) */
+#   define CLOCK_THREAD_CPUTIME_ID CLOCK_MONOTONIC
+# endif
+
+static int64_t _x_gettime(void)
+{
+  struct timespec tm;
+  return (clock_gettime (CLOCK_THREAD_CPUTIME_ID, &tm) == -1)
+       ? times (NULL)
+       : (int64_t)tm.tv_sec * 1e9 + tm.tv_nsec;
+}
+#  define rdtsc(x) _x_gettime()
+
+#elif (defined(ARCH_X86) || defined(ARCH_X86_64)) && defined(HAVE_SYS_TIMES_H)
 static int64_t rdtsc(int config_flags)
 {
   int64_t x;
@@ -452,7 +577,7 @@ static uint64_t rdtsc(int config_flags)
   struct tms tp;
   return times(&tp);
 #else
-	return ((uint64_t)0);
+	return clock();
 #endif /* HAVE_SYS_TIMES_H */
 }
 #endif
@@ -470,11 +595,11 @@ static void update_fast_memcpy(void *user_data, xine_cfg_entry_t *entry) {
   if (method != 0
       && (config_flags & memcpy_method[method].cpu_require) ==
       memcpy_method[method].cpu_require ) {
-    lprintf("using %s\n", memcpy_method[method].name );
+    lprintf("using %s memcpy()\n", memcpy_method[method].name );
     xine_fast_memcpy = memcpy_method[method].function;
     return;
   } else {
-    xprintf("xine: will probe memcpy on startup\n" );
+    xprintf(xine, XINE_VERBOSITY_DEBUG, "xine: will probe memcpy on startup\n" );
   }
 }
 #endif /* XINE_COMPILE */
@@ -493,10 +618,13 @@ void probe_fast_memcpy(void)
 
 #ifdef XINE_COMPILE
 
-  static const char *memcpy_methods[] = {
+  static const char *const memcpy_methods[] = {
     "probe", "libc",
-#if defined(ARCH_X86) && !defined(_MSC_VER)
+#if (defined(ARCH_X86) || defined(ARCH_X86_64)) && !defined(_MSC_VER)
     "kernel", "mmx", "mmxext", "sse",
+# ifdef HAVE_AVX
+    "avx",
+# endif /* HAVE_AVX */
 #endif
 #if defined (ARCH_PPC) && !defined (HOST_OS_DARWIN)
     "ppcasm_memcpy", "ppcasm_cacheable_memcpy",
@@ -507,7 +635,7 @@ void probe_fast_memcpy(void)
   config_flags = xine_mm_accel();
 
   best = xine->config->register_enum (xine->config, "engine.performance.memcpy_method", 0,
-				      memcpy_methods,
+				      (char **)memcpy_methods,
 				      _("memcopy method used by xine"),
 				      _("The copying of large memory blocks is one of the most "
 					"expensive operations on todays computers. Therefore xine "
@@ -517,14 +645,15 @@ void probe_fast_memcpy(void)
 
   /* check if function is configured and valid for this machine */
   if( best != 0 &&
+      best < sizeof(memcpy_methods)/sizeof(memcpy_method[0]) &&
      (config_flags & memcpy_method[best].cpu_require) ==
       memcpy_method[best].cpu_require ) {
-    lprintf("using %s\n", memcpy_method[best].name );
+    lprintf("using %s memcpy()\n", memcpy_method[best].name );
     xine_fast_memcpy = memcpy_method[best].function;
     return;
   }
 #else /* XINE_COMPILE */
-  config_flags = mm_support();
+  config_flags = xine_mm_accel();
 #endif /* XINE_COMPILE */
   best = 0;
 
@@ -543,7 +672,13 @@ void probe_fast_memcpy(void)
   memset(buf1,0,BUFSIZE);
   memset(buf2,0,BUFSIZE);
 
-  for(i=1; memcpy_method[i].name; i++)
+  /* some initial activity to ensure that we're not running slowly :-) */
+  for(j=0;j<50;j++) {
+    memcpy_method[1].function(buf2,buf1,BUFSIZE);
+    memcpy_method[1].function(buf1,buf2,BUFSIZE);
+  }
+
+  for(i=1; memcpy_method[i].name[0]; i++)
   {
     if( (config_flags & memcpy_method[i].cpu_require) !=
          memcpy_method[i].cpu_require )
@@ -556,16 +691,16 @@ void probe_fast_memcpy(void)
     }
 
     t = rdtsc(config_flags) - t;
-    memcpy_method[i].time = t;
+    memcpy_timing[i] = t;
 
     xprintf("\t%s : %lld\n", memcpy_method[i].name, (long long int)t);
 
-    if( best == 0 || t < memcpy_method[best].time )
+    if( best == 0 || t < memcpy_timing[best] )
       best = i;
   }
 
 #ifdef XINE_COMPILE
- xine->config->update_num (xine->config, "engine.performance.memcpy_method", best);
+  xine->config->update_num (xine->config, "engine.performance.memcpy_method", best);
 #else /* XINE_COMPILE */
   xprintf("using -> '%s'\n", memcpy_method[best].name);
   xine_fast_memcpy = memcpy_method[best].function;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-23 21:15+0200\n"
+"POT-Creation-Date: 2014-05-27 19:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3562,6 +3562,23 @@ msgstr ""
 msgid "Congratulation, the test was successful!"
 msgstr ""
 
+#: libgui/ui_HMSTimeWidgetBase.h:77
+msgid "HMSTimeWidgetBase"
+msgstr ""
+
+#: libgui/ui_HMSTimeWidgetBase.h:78
+msgid " h"
+msgstr ""
+
+#: libgui/ui_HMSTimeWidgetBase.h:79
+msgid " min"
+msgstr ""
+
+#: libgui/ui_HMSTimeWidgetBase.h:80 plugins/record/ui_RecordDlg.h:946
+#: plugins/record/ui_RecordDlg.h:947
+msgid " sec"
+msgstr ""
+
 #: libgui/ui_SelectTimeWidgetBase.h:286
 msgid "frmLength"
 msgstr ""
@@ -3620,23 +3637,6 @@ msgstr ""
 
 #: libgui/ui_SelectTimeWidgetBase.h:308
 msgid "sets the selection by the percentage of the whole signal"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:77
-msgid "HMSTimeWidgetBase"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:78
-msgid " h"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:79
-msgid " min"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:80 plugins/record/ui_RecordDlg.h:946
-#: plugins/record/ui_RecordDlg.h:947
-msgid " sec"
 msgstr ""
 
 #: libgui/ui_LabelPropertiesWidgetBase.h:150

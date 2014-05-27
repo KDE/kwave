@@ -19,7 +19,7 @@
 
 #include "config.h"
 
-#ifdef HAVE_OPTIMIZED_MEMCPY
+#ifdef WITH_OPTIMIZED_MEMCPY
 
 #include <stdlib.h> /* for size_t */
 
@@ -29,14 +29,14 @@
 /* forward declaration to libkwave/memcpy.c */
 extern "C" void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 
-#else /* HAVE_OPTIMIZED_MEMCPY */
+#else /* WITH_OPTIMIZED_MEMCPY */
 
 #include <string.h> /* for memcpy from libc */
 
 /** use standard memcpy() from libc */
 #define MEMCPY memcpy
 
-#endif /* HAVE_OPTIMIZED_MEMCPY */
+#endif /* WITH_OPTIMIZED_MEMCPY */
 
 #endif /* _MEMCPY_H_ */
 

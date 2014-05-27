@@ -20,8 +20,26 @@
 #############################################################################
 
 IF (WITH_OPTIMIZED_MEMCPY)
-    SET(libkwave_LIB_SRCS_memcpy cputest.c memcpy.c ppcasm_string.S)
+    SET(libkwave_LIB_SRCS_memcpy cpu_accel.cpp memcpy.c ppcasm_string.S)
     SET_SOURCE_FILES_PROPERTIES(ppcasm_string.S PROPERTIES LANGUAGE C)
+
+    SET(_try_src_dir "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp")
+    SET(_try_avx_assembler "${_try_src_dir}/cmake_try_avx_assembler.c")
+    WRITE_FILE("${_try_avx_assembler}" "
+	int main()
+	{
+	    __asm __volatile(\"vmovaps %ymm1, %ymm0\");
+	    return 0;
+	}
+    ")
+    MESSAGE(STATUS "Detecting compiler support for AVX inline assembler")
+    TRY_COMPILE(HAVE_AVX ${CMAKE_BINARY_DIR} ${_try_avx_assembler} OUTPUT_VARIABLE _out)
+    IF (HAVE_AVX)
+	MESSAGE(STATUS "Detecting compiler support for AVX inline assembler - Success")
+    ELSE (HAVE_AVX)
+	MESSAGE(STATUS "Detecting compiler support for AVX inline assembler - not available")
+    ENDIF (HAVE_AVX)
+
 ENDIF (WITH_OPTIMIZED_MEMCPY)
 
 SET(libkwave_LIB_SRCS

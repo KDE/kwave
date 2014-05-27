@@ -62,8 +62,8 @@ Sven-Steffen Arndt <ssa29@gmx.de>
 minor contributors, copyright holders and others
 ================================================
 
-Andreas Schneider, <mail@cynapses.org> [historic]
-	* cmake/FindARTS.cmake
+Aaron Holtzman <aholtzma@ess.engr.uvic.ca>
+	* libkwave/cpu_accel.cpp
 
 Bertrand Songis <bsongis@gmail.com>
 	* french translation fixes
@@ -87,9 +87,6 @@ Espen Sand (espen@kde.org) + Mirko Boehm (mirko@kde.org)
 Everaldo Coelho <contact@everaldo.com>
 	* the crystal icon theme
 	  http://www.everaldo.com/crystal/
-
-Fabrice Bellard (extracted) + H. Dietz (mmx.h) + R. Fisher (mmx.h)
-	* libkwave/cputest.c
 
 Jaroslav Kysela
 	* parts of plugins/playback/PlayBack-ALSA.cpp

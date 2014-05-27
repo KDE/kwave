@@ -326,7 +326,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Compression.h				GPL2+
 	libkwave/Connect.cpp				GPL2+
 	libkwave/Connect.h				GPL2+
-	libkwave/cputest.c				GPL2+ / H. Dietz + R. Fisher + Fabrice Bellard
+	libkwave/cpu_accel.cpp				GPL2+ / Aaron Holtzman <aholtzma@ess.engr.uvic.ca>
 	libkwave/cputest.h				GPL2+
 	libkwave/Curve.cpp				GPL2+
 	libkwave/Curve.h				GPL2+

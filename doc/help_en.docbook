@@ -6,7 +6,7 @@
   <!ENTITY % addindex "IGNORE">
   <!ENTITY version "0.8.12">
   <!ENTITY version_tag "0_8_12">
-  <!ENTITY version_year "2013">
+  <!ENTITY version_year "2014">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
   <!ENTITY url_changelog "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/CHANGES">
@@ -3119,10 +3119,9 @@
     	<itemizedlist>
 	    <listitem>
 	    	<para><emphasis role="bold">
-		    Andreas Schneider
-		    <email>mail@cynapses.org</email>
-		</emphasis><emphasis>[historic]</emphasis></para><para>
-		    cmake/FindARTS.cmake
+		    Aaron Holtzman <email>aholtzma@ess.engr.uvic.ca</email>
+		</emphasis></para><para>
+		    libkwave/cpu_accel.cpp
 		</para>
 	    </listitem>
 	    <listitem>
@@ -3176,13 +3175,6 @@
 		    Everaldo Coelho <email>contact@everaldo.com</email>
 		</emphasis></para><para>
 		    the crystal icon theme http://www.everaldo.com/crystal/
-		</para>
-	    </listitem>
-	    <listitem>
-	    	<para><emphasis role="bold">
-		    Fabrice Bellard (extracted) + H. Dietz (mmx.h) + R. Fisher (mmx.h)
-		</emphasis></para><para>
-		    libkwave/cputest.c
 		</para>
 	    </listitem>
 	    <listitem>

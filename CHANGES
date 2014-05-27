@@ -1,4 +1,4 @@
-0.8.12 [2014-xx-xx]
+0.8.12 [2014-05-31]
 
  * recording via PulseAudio, by Joerg-Christan Boehme <joerg@chaosdorf.de>
  * bugfix: "Close" button of the record dialog did not save settings
@@ -12,6 +12,8 @@
  * bugfix: wrong calculation of zoom and window geometry at startup
  * bugfix: wrong scaling of overview in sonagram window
  * bugfix: playback pointer did not update synchronously across tracks
+ * bugfix: brought back support for optimized memcpy (from xine-lib)
+ * updated memcpy.c + cpu detection, including AVX assembler support
  * new command line option: "--logfile=<FILE>" for logging to a file
  * brought back the horizontal scroll bar
  * support for swap files to store undo data

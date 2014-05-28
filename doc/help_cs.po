@@ -4,13 +4,13 @@
 #
 # Pavel Fric <pavelfric@seznam.cz>, 2009.
 # Pavel Fric <pavelfric@seznam.cz>, 2009, 2012.
-# Pavel Fric <pavelfric@seznam.cz>, 2009, 2011, 2013.
+# Pavel Fric <pavelfric@seznam.cz>, 2009, 2011, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2014-05-26 19:47+0000\n"
-"PO-Revision-Date: 2013-11-13 20:02+0100\n"
+"PO-Revision-Date: 2014-05-27 20:39+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -63,7 +63,7 @@ msgstr "Thomas Eschenbacher"
 #: help_en.docbook:66
 #, no-c-format
 msgid "2014-05-31"
-msgstr ""
+msgstr "2014-05-31"
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -542,9 +542,9 @@ msgstr "ALSA ve verzi 1.0.14 nebo vyšší (kvůli nahrávání a přehrávání
 
 #. Tag: para
 #: help_en.docbook:327
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "PulseAudio 4.0 or higher (for record/playback)"
-msgstr "ALSA ve verzi 1.0.14 nebo vyšší (kvůli nahrávání a přehrávání)"
+msgstr "PulseAudio ve verzi 4.0 nebo vyšší (kvůli nahrávání a přehrávání)"
 
 #. Tag: para
 #: help_en.docbook:330
@@ -642,9 +642,9 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:376
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "pulseaudio-4.0 or newer"
-msgstr "pulseaudio-0.9.16  nebo vyšší"
+msgstr "pulseaudio-4.0  nebo vyšší"
 
 #. Tag: para
 #: help_en.docbook:379
@@ -889,7 +889,7 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:514
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<literal>WITH_PULSEAUDIO</literal> enable playback/recording via PulseAudio "
 "[<literal>on</literal>/<literal>off</literal>, default=<literal>on</literal>]"
@@ -1389,7 +1389,7 @@ msgstr ""
 #: help_en.docbook:756
 #, no-c-format
 msgid "Building a DEB package for testing and personal use"
-msgstr ""
+msgstr "Sestavení balíčku DEB pro zkoušení a osobní užití"
 
 #. Tag: para
 #: help_en.docbook:758
@@ -1400,14 +1400,21 @@ msgid ""
 "create your own package quite easily. First of all, you need to install some "
 "required tools:"
 msgstr ""
+"Pokud chcete vytvořit balíček .deb &kwave;, např. kvůli vyzkoušení verze, "
+"která ještě není dostupná přes oficiální úložiště balíčků, potom si svůj "
+"vlastní "
+"balíček můžete vytvořit docela snadno. Především musíte nainstalovat "
+"některé požadované nástroje."
 
 #. Tag: screen
 #: help_en.docbook:763
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command>sudo apt-get install build-essential "
 "checkinstall</command>"
-msgstr "<prompt>% </prompt><command>git clone &url_git_master; kwave</command>"
+msgstr ""
+"<prompt>% </prompt><command>sudo apt-get install build-essential "
+"checkinstall</command>"
 
 #. Tag: para
 #: help_en.docbook:766
@@ -1416,12 +1423,14 @@ msgid ""
 "Then you can install the required build dependencies by pretending to "
 "install the dependencies of the official &kwave; version:"
 msgstr ""
+"Potom můžete nainstalovat závislosti požadované pro sestavení, tím "
+"že budete předstírat, že instalujete závislosti pro oficiální verzi &kwave;"
 
 #. Tag: screen
 #: help_en.docbook:769
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "<prompt>% </prompt><command>sudo apt-get build-dep kwave</command>"
-msgstr "<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>"
+msgstr "<prompt>% </prompt><command>sudo apt-get build-dep kwave</command>"
 
 #. Tag: para
 #: help_en.docbook:772
@@ -1431,12 +1440,15 @@ msgid ""
 "in the chapters before. After building you can type this to get a .deb file "
 "in your current build directory:"
 msgstr ""
+"Po nainstalování všech požadovaných balíčků můžete vytvořit &kwave;, jak "
+"je to popsáno v předchozích kapitolách. Po sestavení můžete napsat toto pro "
+"získání souboru .deb ve vašem nynějším sestavovacím adresáři."
 
 #. Tag: screen
 #: help_en.docbook:776
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "<prompt>% </prompt><command>make deb</command>"
-msgstr "<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>"
+msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
 #: help_en.docbook:779
@@ -1447,6 +1459,9 @@ msgid ""
 "installing and safely uninstalling &kwave; for testing purposes and for "
 "personal use."
 msgstr ""
+"Soubor .deb, který dostanete pomocí tohoto kroku, nebude mít kvalitu, "
+"kterou má balíček z vašeho oficiálního úložiště. Je dost dobrý právě pro "
+"nainstalování, účely zkoušení, osobní užití a bezpečné odinstalování &kwave;."
 
 #. Tag: title
 #: help_en.docbook:793
@@ -2284,6 +2299,10 @@ msgid ""
 "session into a file. This is useful for debugging, you might be asked for "
 "such a logfile when reporting an error."
 msgstr ""
+"Použitím volby pro příkazový řádek <literal>--logfile=<replaceable>kwave.log</"
+"replaceable></literal> můžete uložit sled činností sezení &kwave; "
+"do souboru. Toto je užitečné pro ladění. Můžete být o soubor se záznamem "
+"požádán při nahlášení chyby."
 
 #. Tag: title
 #: help_en.docbook:1279
@@ -4105,7 +4124,7 @@ msgstr ""
 #: help_en.docbook:2448
 #, no-c-format
 msgid "Creating API documentation"
-msgstr ""
+msgstr "Vytvoření dokumentace API"
 
 #. Tag: para
 #: help_en.docbook:2450
@@ -4114,12 +4133,14 @@ msgid ""
 "If you are interested in the internal of &kwave; and you have <ulink url="
 "\"&url_doxygen;\">doxygen</ulink> installed, then you can type:"
 msgstr ""
+"Pokud máte zájem o vnitřnosti &kwave; a máte nainstalován <ulink url="
+"\"&url_doxygen;\">doxygen</ulink>, pak můžete napsat:"
 
 #. Tag: screen
 #: help_en.docbook:2454
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "<prompt>% </prompt><command>make apidoc</command>"
-msgstr "<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>"
+msgstr "<prompt>% </prompt><command>make apidoc</command>"
 
 #. Tag: para
 #: help_en.docbook:2456
@@ -4129,12 +4150,15 @@ msgid ""
 "filename>, with documentation of the source and the internal API in your "
 "current build directory."
 msgstr ""
+"pro obdržení podadresáře <filename><replaceable>apicod/html</replaceable></"
+"filename> s dokumentací zdrojového kódu a vnitřního rozhraní ve svém "
+"sestavovacím adresáři."
 
 #. Tag: title
 #: help_en.docbook:2469
 #, no-c-format
 msgid "Starting in a test environment"
-msgstr ""
+msgstr "Spuštění ve zkoušecím prostředí"
 
 #. Tag: para
 #: help_en.docbook:2471
@@ -4145,12 +4169,17 @@ msgid ""
 "application from where it is built by using a wrapper script. This wrapper "
 "script can be built with the follwing command:"
 msgstr ""
+"Pokud vyvíjíte nebo zkoušíte &kwave;, potom pro vás není nezbytné nutné "
+"&kwave; instalovat/odinstalovat po každém sestavení. Namísto toho můžete "
+"program použít s pomocí wrapper skriptu tam, kde byla vytvořena. Tento "
+"wrapper "
+"skript lze vytvořit následujícím příkazem:"
 
 #. Tag: screen
 #: help_en.docbook:2476
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "<prompt>% </prompt><command>make wrapper</command>"
-msgstr "<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>"
+msgstr "<prompt>% </prompt><command>make wrapper</command>"
 
 #. Tag: para
 #: help_en.docbook:2478
@@ -4159,6 +4188,8 @@ msgid ""
 "The script will be named <filename><replaceable>kw</replaceable></filename>, "
 "feel free to modify it to match your system if needed."
 msgstr ""
+"Skript bude pojmenován <filename><replaceable>kw</replaceable></filename>, "
+"Změňte jej klidně tak, aby odpovídal vašemu systému, bude-li to nutné."
 
 #. Tag: para
 #: help_en.docbook:2482
@@ -4167,6 +4198,9 @@ msgid ""
 "For this to work, you must <emphasis>not</emphasis> have &kwave; installed "
 "on your system. If so, please uninstall the package before!"
 msgstr ""
+"Aby to fungovalo  <emphasis>nesmíte</emphasis> mít &kwave; nainstalován "
+"ve vašem systému. Pokud ale v systému nainstalován je, nejprve jej, prosím, "
+"odinstalujte!"
 
 #. Tag: title
 #: help_en.docbook:2494
@@ -4951,13 +4985,13 @@ msgstr "Další přispěvatelé, držitelé autorských práv a jiní"
 #: help_en.docbook:3017
 #, no-c-format
 msgid "Aaron Holtzman <email>aholtzma@ess.engr.uvic.ca</email>"
-msgstr ""
+msgstr "Aaron Holtzman <email>aholtzma@ess.engr.uvic.ca</email>"
 
 #. Tag: para
 #: help_en.docbook:3019
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "libkwave/cpu_accel.cpp"
-msgstr "libkwave/cputest.c"
+msgstr "libkwave/cpu_accel.cpp"
 
 #. Tag: para
 #: help_en.docbook:3024
@@ -5229,13 +5263,14 @@ msgstr "libaudiofile/g711.c, libaudiofile/g711.h"
 #: help_en.docbook:3180
 #, no-c-format
 msgid "Joerg-Christian Boehme <email>joerg@chaosdorf.de</email>"
-msgstr ""
+msgstr "Joerg-Christian Boehme <email>joerg@chaosdorf.de</email>"
 
 #. Tag: para
 #: help_en.docbook:3182
 #, no-c-format
 msgid "plugins/record/Record-PulseAudio.cpp plugins/record/Record-PulseAudio.h"
 msgstr ""
+"plugins/record/Record-PulseAudio.cpp plugins/record/Record-PulseAudio.h"
 
 #. Tag: title
 #: help_en.docbook:3191

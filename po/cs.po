@@ -2,13 +2,13 @@
 # Copyright (C) 2009 Pavel Fric
 # This file is distributed under the same license as the Kwave package.
 #
-# Pavel Fric <pavelfric@seznam.cz>, 2009, 2010, 2011, 2012, 2013.
+# Pavel Fric <pavelfric@seznam.cz>, 2009, 2010, 2011, 2012, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-23 19:49+0200\n"
-"PO-Revision-Date: 2013-11-12 23:03+0100\n"
+"PO-Revision-Date: 2014-05-27 19:56+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -202,9 +202,9 @@ msgid "%1 channels"
 msgstr "%1 kanály"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:453
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 channels are not supported, maximum is 255"
-msgstr "%1 kanálové přehrávání není podporováno"
+msgstr "%1 kanálové přehrávání není podporováno, maximum je 255"
 
 #: plugins/playback/PlayBack-OSS.cpp:191
 #, kde-format
@@ -375,9 +375,8 @@ msgid "&Distort"
 msgstr "&Zkreslit"
 
 #: plugins/record/RecordDialog.cpp:298
-#, fuzzy
 msgid "&Done"
-msgstr "Hotovo"
+msgstr "&Hotovo"
 
 #: kwave/menus_config_i18n.cpp:42
 msgid "&Edit"
@@ -796,9 +795,8 @@ msgid "(built for KDE %1)"
 msgstr "(sestaveno pro KDE %1)"
 
 #: kwave/main.cpp:157
-#, fuzzy
 msgid "(c) 2014, Thomas Eschenbacher"
-msgstr "(c) 2011, Thomas Eschenbacher"
+msgstr "(c) 2014, Thomas Eschenbacher"
 
 #: plugins/record/RecordDialog.cpp:984
 msgid "(empty)"
@@ -2504,7 +2502,7 @@ msgstr "Zvuk FLAC"
 
 #: plugins/debug/DebugPlugin.cpp:62
 msgid "FM Sweep"
-msgstr ""
+msgstr "Kmitočtový průběh FM"
 
 #: libkwave/Compression.cpp:177
 msgid "FS1016"
@@ -2541,9 +2539,9 @@ msgid "Fading"
 msgstr "Prolínání"
 
 #: libkwave/Logger.cpp:79
-#, fuzzy, kde-format
+#, kde-format
 msgid "Failed opening the log file '%1' for writing"
-msgstr "Neschopen otevřít soubor pro ukládání!"
+msgstr "Nepodařilo se otevřít soubor se záznamem '%1' pro zápis!"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:527
 #, kde-format
@@ -2587,9 +2585,8 @@ msgstr "Hlavička souboru je poškozená"
 
 #: plugins/codec_wav/WavEncoder.cpp:403
 #: plugins/sonagram/SonagramPlugin.cpp:206
-#, fuzzy
 msgid "File or selection too large"
-msgstr "Uložit pouze výběr"
+msgstr "Soubor nebo výběr je příliš velký"
 
 #: libkwave/FileInfo.cpp:130
 msgid "Filename"
@@ -3094,7 +3091,7 @@ msgstr "Jazz+Funk"
 
 #: kwave/main.cpp:67
 msgid "Joerg-Christian Boehme"
-msgstr ""
+msgstr "Joerg-Christian Boehme"
 
 #: libkwave/GenreType.cpp:159
 msgid "Jungle"
@@ -3121,9 +3118,8 @@ msgid "Kwave homepage and German online help"
 msgstr "Domovská stránka Kwave a německá nápověda po internetu"
 
 #: plugins/record/Record-PulseAudio.cpp:211
-#, fuzzy
 msgid "Kwave record"
-msgstr "Přednahrát:"
+msgstr "Nahrávání Kwave"
 
 #: plugins/record/RecordPlugin.cpp:397
 #, kde-format
@@ -3166,7 +3162,7 @@ msgstr "Štítky"
 
 #: plugins/debug/DebugPlugin.cpp:67
 msgid "Labels at Stripe borders"
-msgstr ""
+msgstr "Značky na hranicích proužků"
 
 #: kwave/menus_config_i18n.cpp:67
 msgid "Labels..."
@@ -3322,7 +3318,7 @@ msgstr "Nahrává přídavné moduly..."
 
 #: kwave/main.cpp:148
 msgid "Log all commands into a file"
-msgstr ""
+msgstr "Uložit všechny příkazy do souboru"
 
 #: plugins/lowpass/LowPassPlugin.cpp:109 plugins/lowpass/ui_LowPassDlg.h:166
 msgid "Low Pass"
@@ -4170,7 +4166,7 @@ msgstr "Pulse Audio"
 
 #: kwave/main.cpp:68
 msgid "PulseAudio record plugin"
-msgstr ""
+msgstr "Přídavný modul pro nahrávání PulseAudio"
 
 #: libkwave/GenreType.cpp:139
 msgid "Punk"
@@ -5438,9 +5434,8 @@ msgid "Variable Bitrate Mode"
 msgstr "Režim proměnlivého datového toku"
 
 #: plugins/debug/DebugPlugin.cpp:61
-#, fuzzy
 msgid "Verify Sawtooth Pattern"
-msgstr "Vytvořit pilovitý časový průběh signálu"
+msgstr "Ověřit pilovitý průběh signálu"
 
 #: libkwave/FileInfo.cpp:180 libkwave/FileInfo.cpp:255
 msgid "Version"

@@ -24,13 +24,13 @@
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
-  <!ENTITY url_libmad "http://www.mars.org/home/rob/proj/mpeg/">
+  <!ENTITY url_libmad "http://www.underbit.com/products/mad/">
   <!ENTITY url_libsndfile "http://www.mega-nerd.com/libsndfile/">
   <!ENTITY url_licenses "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/LICENSES">
   <!ENTITY url_mailinglist "https://lists.sourceforge.net/lists/listinfo/kwave-devel">
   <!ENTITY url_ogg_vorbis "http://www.xiph.org">
   <!ENTITY url_readme "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/README">
-  <!ENTITY url_rfc2361 "http://www.faqs.org/rfcs/rfc2361.html">
+  <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_rfc3066 "http://www.ietf.org/rfc/rfc3066.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
@@ -3264,20 +3264,6 @@
 		    Stefan Westerfeld <email>stefan@space.twc.de</email>
 		</emphasis></para><para>
 		    parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
-		</para>
-	    </listitem>
-	    <listitem>
-	    	<para><emphasis role="bold">
-		    Stichting Mathematisch Centrum, Amsterdam
-		</emphasis><emphasis>[historic]</emphasis></para><para>
-		    libaudiofile/modules/adpcm.c
-		</para>
-	    </listitem>
-	    <listitem>
-	    	<para><emphasis role="bold">
-		    Sun Microsystems, Inc.
-		</emphasis><emphasis>[historic]</emphasis></para><para>
-		    libaudiofile/g711.c, libaudiofile/g711.h
 		</para>
 	    </listitem>
 	    <listitem>

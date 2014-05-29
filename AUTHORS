@@ -132,13 +132,6 @@ Robert M. Stockmann <stock@stokkie.net>
 Stefan Westerfeld <stefan@space.twc.de>
 	* parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
 
-Stichting Mathematisch Centrum, Amsterdam [historic]
-	* libaudiofile/modules/adpcm.c
-
-Sun Microsystems, Inc. [historic]
-	* libaudiofile/g711.c
-	* libaudiofile/g711.h
-
 Jean-Marc Valin / Xiph.Org Foundation / Gregory Maxwell
 	* base of plugins/codec_ogg/OpusDecoder.cpp
 

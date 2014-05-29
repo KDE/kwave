@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-05-26 19:47+0000\n"
+"POT-Creation-Date: 2014-05-29 07:47+0000\n"
 "PO-Revision-Date: 2014-05-26 21:07+0200\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -5307,125 +5307,93 @@ msgstr "Aussteuerungsanzeige"
 msgid "Stefan Westerfeld <email>stefan@space.twc.de</email>"
 msgstr "Stefan Westerfeld <email>stefan@space.twc.de</email>"
 
-#. Tag: para
-#: help_en.docbook:3166
-#, no-c-format
-msgid ""
-"<emphasis role=\"bold\"> Stichting Mathematisch Centrum, Amsterdam </"
-"emphasis><emphasis>[historic]</emphasis>"
-msgstr ""
-"<emphasis role=\"bold\"> Stichting Mathematisch Centrum, Amsterdam </"
-"emphasis><emphasis>[historisch]</emphasis>"
-
-#. Tag: para
-#: help_en.docbook:3168
-#, no-c-format
-msgid "libaudiofile/modules/adpcm.c"
-msgstr "libaudiofile/modules/adpcm.c"
-
-#. Tag: para
-#: help_en.docbook:3173
-#, no-c-format
-msgid ""
-"<emphasis role=\"bold\"> Sun Microsystems, Inc. </"
-"emphasis><emphasis>[historic]</emphasis>"
-msgstr ""
-"<emphasis role=\"bold\"> Sun Microsystems, Inc. </"
-"emphasis><emphasis>[historisch]</emphasis>"
-
-#. Tag: para
-#: help_en.docbook:3175
-#, no-c-format
-msgid "libaudiofile/g711.c, libaudiofile/g711.h"
-msgstr "libaudiofile/g711.c, libaudiofile/g711.h"
-
 #. Tag: emphasis
-#: help_en.docbook:3180
+#: help_en.docbook:3166
 #, no-c-format
 msgid "Joerg-Christian Boehme <email>joerg@chaosdorf.de</email>"
 msgstr "Joerg-Christian Boehme <email>joerg@chaosdorf.de</email>"
 
 #. Tag: para
-#: help_en.docbook:3182
+#: help_en.docbook:3168
 #, no-c-format
 msgid "plugins/record/Record-PulseAudio.cpp plugins/record/Record-PulseAudio.h"
 msgstr ""
 "plugins/record/Record-PulseAudio.cpp plugins/record/Record-PulseAudio.h"
 
 #. Tag: title
-#: help_en.docbook:3191
+#: help_en.docbook:3177
 #, no-c-format
 msgid "Thanks To"
 msgstr "Dank an"
 
 #. Tag: emphasis
-#: help_en.docbook:3195
+#: help_en.docbook:3181
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email>"
 msgstr "Martin Kuball <email>makube@user.sourceforge.net</email>"
 
 #. Tag: para
-#: help_en.docbook:3198
+#: help_en.docbook:3184
 #, no-c-format
 msgid "beta tester"
 msgstr "Beta-Tester"
 
 #. Tag: emphasis
-#: help_en.docbook:3203
+#: help_en.docbook:3189
 #, no-c-format
 msgid "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
 msgstr "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:3206
+#: help_en.docbook:3192
 #, no-c-format
 msgid "packaging for SuSE Linux"
 msgstr "Pakete für SuSE Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:3211
+#: help_en.docbook:3197
 #, no-c-format
 msgid "Michael Favreau <email>michel.favreau@free.fr</email>"
 msgstr "Michael Favreau <email>michel.favreau@free.fr</email>"
 
 #. Tag: para
-#: help_en.docbook:3214
+#: help_en.docbook:3200
 #, no-c-format
 msgid "packaging for Arch Linux"
 msgstr "Pakete für Arch Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:3220
+#: help_en.docbook:3206
 #, no-c-format
 msgid "Matthias Düsterhöft <email>duesti@gmx.de</email>"
 msgstr "Matthias Düsterhöft <email>duesti@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:3223
+#: help_en.docbook:3209
 #, no-c-format
 msgid "for information about RPM optimization"
 msgstr "für Informationen zum Optimieren von RPM-Paketen"
 
 #. Tag: emphasis
-#: help_en.docbook:3228
+#: help_en.docbook:3214
 #, no-c-format
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr "T.H.F. Klok and Cedric Tefft"
 
 #. Tag: para
-#: help_en.docbook:3230
+#: help_en.docbook:3216
 #, no-c-format
 msgid "maintainers of the <ulink url=\"&url_id3lib;\"> id3lib</ulink> library"
 msgstr "Betreuer der <ulink url=\"&url_id3lib;\"> id3lib</ulink> Bibliothek"
 
 #. Tag: emphasis
-#: help_en.docbook:3236
+#: help_en.docbook:3222
 #, no-c-format
 msgid "Robert Leslie <email>rob@mars.org</email>"
 msgstr "Robert Leslie <email>rob@mars.org</email>"
 
 #. Tag: para
-#: help_en.docbook:3239
+#: help_en.docbook:3225
 #, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libmad;\">mad</ulink> mp3 decoder library"
@@ -5433,42 +5401,62 @@ msgstr ""
 "Autor der <ulink url=\"&url_libmad;\">mad</ulink> mp3-Decoder-Bibliothek"
 
 #. Tag: emphasis
-#: help_en.docbook:3246
+#: help_en.docbook:3232
 #, no-c-format
 msgid "Robert M. Stockmann <email>stock@stokkie.net</email>"
 msgstr "Robert M. Stockmann <email>stock@stokkie.net</email>"
 
 #. Tag: para
-#: help_en.docbook:3249
+#: help_en.docbook:3235
 #, no-c-format
 msgid "packaging for Mandrake / X86_64"
 msgstr "Pakete für Mandrake / X86_64"
 
 #. Tag: emphasis
-#: help_en.docbook:3254
+#: help_en.docbook:3240
 #, no-c-format
 msgid "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
 msgstr "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
 
 #. Tag: para
-#: help_en.docbook:3257
+#: help_en.docbook:3243
 #, no-c-format
 msgid "author of the <ulink url=\"&url_libsndfile;\">sndfile</ulink> library"
 msgstr "Autor der <ulink url=\"&url_libsndfile;\">sndfile</ulink>-Bibliothek"
 
 #. Tag: emphasis
-#: help_en.docbook:3264
+#: help_en.docbook:3250
 #, no-c-format
 msgid "Michael Pruett <email>mpruett@sgi.com</email>"
 msgstr "Michael Pruett <email>mpruett@sgi.com</email>"
 
 #. Tag: para
-#: help_en.docbook:3267
+#: help_en.docbook:3253
 #, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libaudiofile;\">audiofile</ulink> library"
 msgstr ""
 "Autor der <ulink url=\"&url_libaudiofile;\">audiofile</ulink> Bibliothek"
+
+#~ msgid ""
+#~ "<emphasis role=\"bold\"> Stichting Mathematisch Centrum, Amsterdam </"
+#~ "emphasis><emphasis>[historic]</emphasis>"
+#~ msgstr ""
+#~ "<emphasis role=\"bold\"> Stichting Mathematisch Centrum, Amsterdam </"
+#~ "emphasis><emphasis>[historisch]</emphasis>"
+
+#~ msgid "libaudiofile/modules/adpcm.c"
+#~ msgstr "libaudiofile/modules/adpcm.c"
+
+#~ msgid ""
+#~ "<emphasis role=\"bold\"> Sun Microsystems, Inc. </"
+#~ "emphasis><emphasis>[historic]</emphasis>"
+#~ msgstr ""
+#~ "<emphasis role=\"bold\"> Sun Microsystems, Inc. </"
+#~ "emphasis><emphasis>[historisch]</emphasis>"
+
+#~ msgid "libaudiofile/g711.c, libaudiofile/g711.h"
+#~ msgstr "libaudiofile/g711.c, libaudiofile/g711.h"
 
 #~ msgid ""
 #~ "<emphasis role=\"bold\"> Andreas Schneider <email>mail@cynapses.org</"

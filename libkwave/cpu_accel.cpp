@@ -77,7 +77,8 @@ static __attribute__((noreturn)) void sigill_handler (int n) {
 
 static uint32_t arch_accel (void)
 {
-  uint32_t caps = 0;
+  /* made static to avoid clobbering by longjmp (THE, 2014-05-30) */
+  static uint32_t caps = 0;
 
 #if defined(__x86_64__) || \
   ( defined(__SSE__) && defined(__SSE2__) && defined(__MMX__) )

@@ -29,6 +29,10 @@
 
 #include "libkwave/Sample.h" // for sample_index_t
 
+#ifndef Q_DECL_CONSTEXPR
+#define Q_DECL_CONSTEXPR const
+#endif /* Q_DECL_CONSTEXPR */
+
 namespace Kwave
 {
 

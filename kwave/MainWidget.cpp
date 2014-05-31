@@ -154,7 +154,6 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
     // -- status bar --
     
     m_status_bar = new KStatusBar(this);
-    m_status_bar->showMessage(_("Status bar to show the selected range"));
     m_status_bar->setMinimumHeight(m_status_bar->sizeHint().height());
     m_status_bar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     topLayout->addWidget(m_status_bar);

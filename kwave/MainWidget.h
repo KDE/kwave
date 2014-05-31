@@ -104,6 +104,9 @@ namespace Kwave
 
 	/** Returns the width of the current view in samples */
 	sample_index_t displaySamples() const;
+	
+	/** Returns the status bar */
+	KStatusBar* statusBar() { return m_status_bar; }
 
     protected:
 

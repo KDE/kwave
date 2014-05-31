@@ -30,12 +30,10 @@
 #include "libgui/SignalWidget.h"
 #include "libgui/Zoomable.h"
 
-class KStatusBar;
 class QDragEnterEvent;
 class QDropEvent;
 class QScrollBar;
 class QWheelEvent;
-
 
 namespace Kwave
 {
@@ -333,8 +331,6 @@ namespace Kwave
 	/** number of samples per pixel */
 	double m_zoom;
 
-	/** status bar with mode and length **/
-	KStatusBar* m_status_bar;
     };
 }
 

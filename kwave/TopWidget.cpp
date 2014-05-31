@@ -1061,7 +1061,7 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	}
 
 	m_lbl_status_cursor->setText(_(""));
-	statusBar()->showMessage(txt, 4000);
+	subWindowStatusBar->showMessage(txt);
 	m_menu_manager->setItemEnabled(_("@SELECTION"), true);
     } else {
 	// show cursor position
@@ -1075,7 +1075,7 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 		Kwave::ms2string(ms_first));
 	    m_lbl_status_cursor->setText(txt);
 	}
-
+	subWindowStatusBar->clearMessage();
 	m_menu_manager->setItemEnabled(_("@SELECTION"), false);
     }
 

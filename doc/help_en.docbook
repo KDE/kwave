@@ -319,7 +319,7 @@
 		libs are installed).
 	    </para></listitem>
 	    <listitem><para>
-		Qt-4.5.0 or higher (normally comes with KDE4)
+		Qt-4.7 or higher (normally comes with KDE4)
 	    </para></listitem>
 	    <listitem><para>
 		ALSA 1.0.14 or higher (for record/playback)
@@ -334,7 +334,7 @@
 		mad-0.15 or higher (optionally for MP3 import/export)
 	    </para></listitem>
 	    <listitem><para>
-		flac-1.1.0 or higher (for FLAC import/export)
+		flac-1.2.0 or higher (for FLAC import/export)
 	    </para></listitem>
             <listitem><para>
                 libsamplerate-0.1.3 or higher (sample rate conversion)
@@ -387,7 +387,7 @@
 		(if you have the permission to use MP3 code)
 	    </para></listitem>
 	    <listitem><para>
-		flac-devel-1.1.0 newer
+		flac-devel-1.2.0 newer
 	    </para></listitem>
 	    <listitem><para>
 		If you intend to get the &kwave; sources via GIT, you will also

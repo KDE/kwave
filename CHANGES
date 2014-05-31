@@ -40,6 +40,7 @@
  * mouse wheel + Ctrl: zoom in/out aligns signal to mouse position
  * record plugin: level meter is always enabled, simplified dialog
  * PulseAudio playback: fixed wrong timeout calculation
+ * requires at least Qt-4.7 + FLAC-1.2.0
 
 0.8.11 [2013-11-24]
 

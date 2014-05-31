@@ -60,11 +60,11 @@ Prefix:         /usr
 Requires:       %kde4_runtime_requires
 Requires:       alsa
 Requires:       fftw3 >= 3.0
-Requires:       libqt4 >= 4.2
+Requires:       libqt4 >= 4.7
 Requires:       pulseaudio >= 0.9.16
 BuildRequires:  fdupes
 BuildRequires:  audiofile-devel >= 0.3.0
-BuildRequires:  libqt4-devel > 4.5
+BuildRequires:  libqt4-devel > 4.7
 BuildRequires:  libkde4-devel >= 4.0
 BuildRequires:  alsa-devel
 BuildRequires:  flac-devel
@@ -116,8 +116,8 @@ BuildRequires:  pulseaudio-libs-devel
 # Fedora specific:
 %if %{defined fedora}
 Prefix:         /usr
-Requires:       qt4 >= 4.5
-Requires:       qt4-x11 >= 4.5
+Requires:       qt4 >= 4.7
+Requires:       qt4-x11 >= 4.7
 Requires:       kdelibs >= 4.0
 Requires:       alsa-lib
 Requires:       fftw3 >= 3.0
@@ -131,7 +131,7 @@ BuildRequires:  libogg-devel >= 1
 BuildRequires:  libsamplerate-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  gcc-c++
-BuildRequires:  qt4-devel >= 4.5.0
+BuildRequires:  qt4-devel >= 4.7.0
 BuildRequires:  kdesdk-utils >= 4.0
 BuildRequires:  kdelibs-devel >= 4.0
 BuildRequires:  kdemultimedia-devel >= 4.0
@@ -146,8 +146,8 @@ BuildRequires:  pulseaudio-libs-devel >= 0.9.16
 
 # RedHat specific:
 %if %{defined rhel_version}
-Requires:       qt4 >= 4.5
-Requires:       qt4-x11 >= 4.5
+Requires:       qt4 >= 4.7
+Requires:       qt4-x11 >= 4.7
 Requires:       kdelibs >= 4.0
 Requires:       alsa-lib
 Requires:       fftw3 >= 3.0
@@ -162,7 +162,7 @@ BuildRequires:  alsa-lib-devel
 BuildRequires:  fftw
 BuildRequires:  flac
 BuildRequires:  gcc-c++
-BuildRequires:  qt-devel >= 4.5
+BuildRequires:  qt-devel >= 4.7
 BuildRequires:  kdelibs-devel >= 4.0
 BuildRequires:  pulseaudio-libs-devel
 %define EXTRA_OPTS ""

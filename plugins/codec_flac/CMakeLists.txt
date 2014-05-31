@@ -20,6 +20,13 @@ IF (WITH_FLAC)
 
     INCLUDE(CheckLibraryExists)
 
+    PKG_CHECK_MODULES(FLAC REQUIRED flac>=1.2.0)
+    IF (NOT FLAC_FOUND)
+	MESSAGE(FATAL_ERROR "FLAC not found")
+    ENDIF(NOT FLAC_FOUND)
+
+    MESSAGE(STATUS "Found FLAC version ${FLAC_VERSION}")
+
 #############################################################################
 ### check for FLAC header files                                           ###
 
@@ -34,10 +41,7 @@ IF (WITH_FLAC)
 ### check for FLAC++ header files                                         ###
 
     IF (HAVE_FLAC_HEADERS)
-        CHECK_INCLUDE_FILES(FLAC++/decoder.h HAVE_FLAC_HEADERS)
-    ENDIF (HAVE_FLAC_HEADERS)
-    IF (HAVE_FLAC_HEADERS)
-        CHECK_INCLUDE_FILES(FLAC++/metadata.h HAVE_FLAC_HEADERS)
+        CHECK_INCLUDE_FILES("FLAC++/decoder.h;LAC++/metadata.h" HAVE_FLAC_HEADERS)
     ENDIF (HAVE_FLAC_HEADERS)
 
     IF (HAVE_FLAC_HEADERS)
@@ -46,119 +50,6 @@ IF (WITH_FLAC)
         MESSAGE(FATAL_ERROR "libFLAC++ not found, please install libflac++ !")
     ENDIF (HAVE_FLAC_HEADERS)
 
-    SET(_try_src_dir "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp")
-
-#############################################################################
-### check for FLAC API v1.1.3 and above                                   ###
-### known to work:
-### - v1.1.3
-### - v1.1.4
-### - v1.2.0
-### - v1.2.1
-### (older ones are no longer supported)
-
-    IF (NOT FLAC_API_FOUND)
-        SET(_try_flac_1_1_3 "${_try_src_dir}/cmake_try_flac_v1_1_3.cpp")
-        WRITE_FILE("${_try_flac_1_1_3}" "
-            #include <FLAC/export.h>
-            #include <FLAC/format.h>
-            #include <FLAC++/decoder.h>
-            #include <FLAC++/encoder.h>
-            #include <FLAC++/metadata.h>
-
-            /* FLAC-1.1.3 has cur=8, rev=0 */
-            /* FLAC-1.1.4 has cur=8, rev=1 */
-            #if !defined(FLAC_API_VERSION_CURRENT) || \\
-                !defined(FLAC_API_VERSION_REVISION)
-                #error \"FLAC\ API\ is\ much\ too\ old\"
-            #endif
-
-            #if (FLAC_API_VERSION_CURRENT < 8)
-                #error \"FLAC\ API\ is\ too\ old\"
-            #endif
-
-            int main(int, char **)
-            {
-                FLAC__StreamEncoderInitStatus init_state_d =
-                        FLAC__STREAM_ENCODER_INIT_STATUS_OK;
-                FLAC__StreamDecoderInitStatus init_state_e =
-                        FLAC__STREAM_DECODER_INIT_STATUS_OK;
-                (void)init_state_d;
-                (void)init_state_e;
-                return 0;
-            }
-        ")
-
-        TRY_COMPILE(
-            FLAC_API_VERSION_1_1_3
-            ${CMAKE_BINARY_DIR}
-            ${_try_flac_1_1_3}
-            CMAKE_FLAGS -DLINK_LIBRARIES:STRING=FLAC++
-            OUTPUT_VARIABLE _out
-        )
-#         MESSAGE(STATUS ${_out})
-
-        IF (FLAC_API_VERSION_1_1_3)
-            MESSAGE(STATUS "Found FLAC API version 1.1.3 or newer")
-            SET(FLAC_API_FOUND BOOL ON)
-        ELSE (FLAC_API_VERSION_1_1_3)
-            # failed, now try again with linking ogg
-            WRITE_FILE("${_try_flac_1_1_3}" "
-                #include <FLAC/export.h>
-                #include <FLAC/format.h>
-                #include <FLAC++/decoder.h>
-                #include <FLAC++/encoder.h>
-                #include <FLAC++/metadata.h>
-
-                /* FLAC-1.1.3 has cur=8, rev=0 */
-                /* FLAC-1.1.4 has cur=8, rev=1 */
-                #if !defined(FLAC_API_VERSION_CURRENT) || \\
-                    !defined(FLAC_API_VERSION_REVISION)
-                    #error \"FLAC\ API\ is\ much\ too\ old\"
-                #endif
-
-                #if (FLAC_API_VERSION_CURRENT < 8)
-                    #error \"FLAC\ API\ is\ too\ old\"
-                #endif
-
-                int main(int, char **)
-                {
-                    FLAC__StreamEncoderInitStatus init_state_d =
-                            FLAC__STREAM_ENCODER_INIT_STATUS_OK;
-                    FLAC__StreamDecoderInitStatus init_state_e =
-                            FLAC__STREAM_DECODER_INIT_STATUS_OK;
-                    (void)init_state_d;
-                    (void)init_state_e;
-                    return 0;
-                }
-            ")
-            TRY_COMPILE(
-                FLAC_API_VERSION_1_1_3
-                ${CMAKE_BINARY_DIR}
-                ${_try_flac_1_1_3}
-                CMAKE_FLAGS -DLINK_LIBRARIES:STRING=FLAC++ -DLINK_LIBRARIES:STRING=ogg
-                OUTPUT_VARIABLE _out
-            )
-            IF (FLAC_API_VERSION_1_1_3)
-                SET(FLAC_NEEDS_OGG ogg)
-                MESSAGE(STATUS "Found FLAC API version 1.1.3 or newer (needs libogg)")
-                SET(FLAC_API_FOUND BOOL ON)
-            ENDIF (FLAC_API_VERSION_1_1_3)
-        ENDIF (FLAC_API_VERSION_1_1_3)
-
-        IF (NOT FLAC_API_VERSION_1_1_3)
-#             MESSAGE(STATUS "FLAC API v1.1.3 does not work")
-#             MESSAGE(STATUS "${_out}")
-        ENDIF (NOT FLAC_API_VERSION_1_1_3)
-    ENDIF (NOT FLAC_API_FOUND)
-
-#############################################################################
-### abort if no working FLAC API has been found :-(                       ###
-
-    IF (NOT FLAC_API_FOUND)
-        MESSAGE(FATAL_ERROR "Found no supported FLAC API")
-    ENDIF (NOT FLAC_API_FOUND)
-
     SET(HAVE_FLAC  ON CACHE BOOL "enable FLAC codec")
     SET(plugin_codec_flac_LIB_SRCS
         FlacCodecPlugin.cpp
@@ -166,7 +57,7 @@ IF (WITH_FLAC)
         FlacEncoder.cpp
     )
 
-    SET(plugin_codec_flac_LIBS FLAC++ FLAC ${FLAC_NEEDS_OGG} )
+    SET(plugin_codec_flac_LIBS FLAC++ FLAC)
 
     KWAVE_PLUGIN(codec_flac)
 

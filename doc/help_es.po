@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-05-29 07:47+0000\n"
+"POT-Creation-Date: 2014-05-31 19:34+0000\n"
 "PO-Revision-Date: 2013-11-14 15:38+0100\n"
 "Last-Translator: Carlos <pureacetone@gmail.com>\n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -524,8 +524,8 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:321
-#, no-c-format
-msgid "Qt-4.5.0 or higher (normally comes with KDE4)"
+#, fuzzy, no-c-format
+msgid "Qt-4.7 or higher (normally comes with KDE4)"
 msgstr "Qt-4.5.0 o superior (normalmente se incluyen con KDE4)"
 
 #. Tag: para
@@ -555,8 +555,8 @@ msgstr "mad-0.15 o superior (opcionalmente para importación/exportación MP3)"
 #. Tag: para
 #: help_en.docbook:336
 #, no-c-format
-msgid "flac-1.1.0 or higher (for FLAC import/export)"
-msgstr "flac-1.1.0 o superior (para importación/exportación FLAC)"
+msgid "flac-1.2.0 or higher (for FLAC import/export)"
+msgstr "flac-1.2.0 o superior (para importación/exportación FLAC)"
 
 #. Tag: para
 #: help_en.docbook:339
@@ -660,8 +660,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:389
 #, no-c-format
-msgid "flac-devel-1.1.0 newer"
-msgstr "flac-devel-1.1.0 o superior"
+msgid "flac-devel-1.2.0 newer"
+msgstr "flac-devel-1.2.0 o superior"
 
 #. Tag: para
 #: help_en.docbook:392

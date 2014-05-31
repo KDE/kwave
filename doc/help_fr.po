@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-05-29 07:47+0000\n"
+"POT-Creation-Date: 2014-05-31 19:34+0000\n"
 "PO-Revision-Date: 2012-05-17 20:26+0200\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -530,7 +530,7 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:321
 #, fuzzy, no-c-format
-msgid "Qt-4.5.0 or higher (normally comes with KDE4)"
+msgid "Qt-4.7 or higher (normally comes with KDE4)"
 msgstr "De Qt-4.1 ou supérieure (normalement associée avec KDE4)."
 
 #. Tag: para
@@ -560,7 +560,7 @@ msgstr "De la bibliothèque « mad-0.15 » ou supérieure"
 #. Tag: para
 #: help_en.docbook:336
 #, fuzzy, no-c-format
-msgid "flac-1.1.0 or higher (for FLAC import/export)"
+msgid "flac-1.2.0 or higher (for FLAC import/export)"
 msgstr "De la bibliothèque « id3lib-3.8.1 » ou supérieure"
 
 #. Tag: para
@@ -664,7 +664,7 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:389
 #, fuzzy, no-c-format
-msgid "flac-devel-1.1.0 newer"
+msgid "flac-devel-1.2.0 newer"
 msgstr "la bibliothèque « mad-0.15 » ou supérieure"
 
 #. Tag: para

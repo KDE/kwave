@@ -1,14 +1,14 @@
 # Copyright (C) 2013
 # This file is distributed under the same license as the Kwave package.
 #
-# Carlos <pureacetone@gmail.com>, 2013.
+# Carlos <pureacetone@gmail.com>, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-23 19:49+0200\n"
-"PO-Revision-Date: 2013-11-14 15:28+0100\n"
-"Last-Translator: Carlos <pureacetone@gmail.com>\n"
+"PO-Revision-Date: 2014-06-01 12:35+0200\n"
+"Last-Translator: skynet\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
@@ -201,9 +201,9 @@ msgid "%1 channels"
 msgstr "%1 canales"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:453
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 channels are not supported, maximum is 255"
-msgstr "%1 canales de reproducción no está soportado"
+msgstr "%1 canales de reproducción no está soportado, máximo de 255"
 
 #: plugins/playback/PlayBack-OSS.cpp:191
 #, kde-format
@@ -374,9 +374,8 @@ msgid "&Distort"
 msgstr "&Distorsionar"
 
 #: plugins/record/RecordDialog.cpp:298
-#, fuzzy
 msgid "&Done"
-msgstr "Hecho"
+msgstr "&Hecho"
 
 #: kwave/menus_config_i18n.cpp:42
 msgid "&Edit"
@@ -2544,9 +2543,9 @@ msgid "Fading"
 msgstr "Ajuste de volumen"
 
 #: libkwave/Logger.cpp:79
-#, fuzzy, kde-format
+#, kde-format
 msgid "Failed opening the log file '%1' for writing"
-msgstr "Incapaz de abrir el archivo para guardar!"
+msgstr "No se pudo abrir el archivo de registro '%1' para escritura"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:527
 #, kde-format
@@ -2590,9 +2589,8 @@ msgstr "La cabecera del archivo está dañada"
 
 #: plugins/codec_wav/WavEncoder.cpp:403
 #: plugins/sonagram/SonagramPlugin.cpp:206
-#, fuzzy
 msgid "File or selection too large"
-msgstr "Guardar únicamente la selección"
+msgstr "Archivo o selección demasiado grande"
 
 #: libkwave/FileInfo.cpp:130
 msgid "Filename"
@@ -3124,9 +3122,8 @@ msgid "Kwave homepage and German online help"
 msgstr "Página de Kwave y ayuda en linea en alemán"
 
 #: plugins/record/Record-PulseAudio.cpp:211
-#, fuzzy
 msgid "Kwave record"
-msgstr "Pre-grabación:"
+msgstr "Grabador de Kwave"
 
 #: plugins/record/RecordPlugin.cpp:397
 #, kde-format
@@ -5440,9 +5437,8 @@ msgid "Variable Bitrate Mode"
 msgstr "Modo de tasa de bits variable"
 
 #: plugins/debug/DebugPlugin.cpp:61
-#, fuzzy
 msgid "Verify Sawtooth Pattern"
-msgstr "Generar patrón de sierra"
+msgstr "Verificar patrón de sierra"
 
 #: libkwave/FileInfo.cpp:180 libkwave/FileInfo.cpp:255
 msgid "Version"

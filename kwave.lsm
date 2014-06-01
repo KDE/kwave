@@ -9,6 +9,6 @@ Maintained-by:  Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 Homepage:       http://kwave.sourceforge.net
 Primary-site:   http://kwave.sourceforge.net
 Original-site:  http://kwave.sourceforge.net
-Platform:       Linux, i386 and many others, needs libqt >= 4.0, KDE-libs >= 4.0
+Platform:       Linux, i386 and many others, needs libqt >= 4.7, KDE-libs >= 4.0
 Copying-policy: GPL and others, see LICENSES file
 End

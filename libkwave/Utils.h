@@ -29,9 +29,18 @@
 
 #include "libkwave/Sample.h" // for sample_index_t
 
+/** @todo remove these compatibility macros when Qt-4.7 is no longer in use */
 #ifndef Q_DECL_CONSTEXPR
-#define Q_DECL_CONSTEXPR const
+#define Q_DECL_CONSTEXPR /* */
 #endif /* Q_DECL_CONSTEXPR */
+
+#ifndef Q_LIKELY
+#define Q_LIKELY(x) (x)
+#endif /* Q_LIKELY */
+
+#ifndef Q_UNLIKELY
+#define Q_UNLIKELY(x) (x)
+#endif /* Q_UNLIKELY */
 
 namespace Kwave
 {

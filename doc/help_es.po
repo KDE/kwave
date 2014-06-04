@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-05-29 07:47+0000\n"
+"POT-Creation-Date: 2014-06-04 16:45+0000\n"
 "PO-Revision-Date: 2014-06-01 14:59+0200\n"
 "Last-Translator: skynet\n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -57,8 +57,8 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en.docbook:66
 #, no-c-format
-msgid "2014-05-31"
-msgstr ""
+msgid "2014-06-04"
+msgstr "2014-06-04"
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -524,9 +524,9 @@ msgstr ""
 
 #. Tag: para
 #: help_en.docbook:321
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Qt-4.7 or higher (normally comes with KDE4)"
-msgstr "Qt-4.5.0 o superior (normalmente se incluyen con KDE4)"
+msgstr "Qt-4.7 o superior (normalmente se incluyen con KDE4)"
 
 #. Tag: para
 #: help_en.docbook:324
@@ -885,8 +885,7 @@ msgid ""
 "[<literal>on</literal>/<literal>off</literal>, default=<literal>on</literal>]"
 msgstr ""
 "<literal>WITH_PULSEAUDIO</literal> activa la reproducción/grabación a través "
-"de "
-"PulseAudio [<literal>on</literal>/<literal>off</literal>, por "
+"de PulseAudio [<literal>on</literal>/<literal>off</literal>, por "
 "defecto=<literal>on</literal>]"
 
 #. Tag: para
@@ -1400,9 +1399,8 @@ msgid ""
 msgstr ""
 "Si quiere crear un paquete deb de &kwave; por ejemplo para probar una "
 "versión que no está todavía disponible a través de los repositorios "
-"oficiales, "
-"puede hacerlo usted mismo de una manera bastante sencilla. Primeramente "
-"necesita instalar algunas herramientas:"
+"oficiales, puede hacerlo usted mismo de una manera bastante sencilla. "
+"Primeramente necesita instalar algunas herramientas:"
 
 #. Tag: screen
 #: help_en.docbook:763
@@ -1421,8 +1419,8 @@ msgid ""
 "Then you can install the required build dependencies by pretending to "
 "install the dependencies of the official &kwave; version:"
 msgstr ""
-"Entonces puede instalar las dependencias requeridas para compilar "
-"simulando instalar las dependencias de la versión oficial de &kwave;:"
+"Entonces puede instalar las dependencias requeridas para compilar simulando "
+"instalar las dependencias de la versión oficial de &kwave;:"
 
 #. Tag: screen
 #: help_en.docbook:769
@@ -1438,9 +1436,9 @@ msgid ""
 "in the chapters before. After building you can type this to get a .deb file "
 "in your current build directory:"
 msgstr ""
-"Después de instalar los paquetes necesarios puede compilar &kwave; como "
-"se describió en los capítulos anteriores. Después de compilar puede teclear "
-"lo siguiente para obtener el archivo .deb en su directorio de compilación:"
+"Después de instalar los paquetes necesarios puede compilar &kwave; como se "
+"describió en los capítulos anteriores. Después de compilar puede teclear lo "
+"siguiente para obtener el archivo .deb en su directorio de compilación:"
 
 #. Tag: screen
 #: help_en.docbook:776
@@ -1459,8 +1457,7 @@ msgid ""
 msgstr ""
 "El archivo .deb que obtendrá en este paso no tendrá la calidad de un paquete "
 "oficial de su distribución. Simplemente le permitirá instalar y desinstalar "
-"&kwave; "
-"con propositos de prueba y uso personal."
+"&kwave; con propositos de prueba y uso personal."
 
 #. Tag: title
 #: help_en.docbook:793
@@ -2308,12 +2305,10 @@ msgid ""
 "session into a file. This is useful for debugging, you might be asked for "
 "such a logfile when reporting an error."
 msgstr ""
-"Usando la opción de línea de comandos <literal>--logfile=<replaceable>"
-"kwave.log</"
-"replaceable></literal> puede registrar la secuencia de acciones de una sesión "
-"de &kwave; en un archivo. Esto es útil para testeo, pues se le podría pedir "
-"dicho "
-"archivo cuando reporte un error."
+"Usando la opción de línea de comandos <literal>--logfile=<replaceable>kwave."
+"log</replaceable></literal> puede registrar la secuencia de acciones de una "
+"sesión de &kwave; en un archivo. Esto es útil para testeo, pues se le podría "
+"pedir dicho archivo cuando reporte un error."
 
 #. Tag: title
 #: help_en.docbook:1279
@@ -2466,10 +2461,9 @@ msgid ""
 "\"ascii_format\">below</link>."
 msgstr ""
 "El segundo formato que &kwave; soporta es \"ASCII\". Puede tanto exportar a "
-"ASCII "
-"como importar desde ASCII. Por favor, dese cuenta que guardar en este formato "
-"puede producir archivos de gran tamaño! El formato de archivo será descrito "
-"<link linkend=\"ascii_format\"> abajo</link>."
+"ASCII como importar desde ASCII. Por favor, dese cuenta que guardar en este "
+"formato puede producir archivos de gran tamaño! El formato de archivo será "
+"descrito <link linkend=\"ascii_format\"> abajo</link>."
 
 #. Tag: para
 #: help_en.docbook:1356
@@ -4199,10 +4193,10 @@ msgid ""
 "application from where it is built by using a wrapper script. This wrapper "
 "script can be built with the follwing command:"
 msgstr ""
-"Si está desarrolando o probando &kwave; entonces no es necesario que "
-"instale/desinstale después de cada compilación. Puede utilizar la aplicación "
-"desde donde fue compilada usando un script. Este script puede ser creado "
-"con el siguiente comando:"
+"Si está desarrolando o probando &kwave; entonces no es necesario que instale/"
+"desinstale después de cada compilación. Puede utilizar la aplicación desde "
+"donde fue compilada usando un script. Este script puede ser creado con el "
+"siguiente comando:"
 
 #. Tag: screen
 #: help_en.docbook:2476
@@ -4382,12 +4376,11 @@ msgstr ""
 "<prompt>% </prompt><command>touch <parameter><replaceable>help_fr.po</"
 "replaceable></parameter></command>\n"
 "</screen> Después cambie al directorio donde se ha generado el ejecutable "
-"(por "
-"ejemplo en <filename>/tmp</filename>), prepare la compilación y entonces "
-"genere la plantilla <filename>.pot</filename> (puede ignorar los mensajes de "
-"error que se muestran). Esta plantilla tiene que ser copiada al directorio "
-"fuente con el nombre adecuado al idioma que contendrá. Por ejemplo: "
-"<screen>\n"
+"(por ejemplo en <filename>/tmp</filename>), prepare la compilación y "
+"entonces genere la plantilla <filename>.pot</filename> (puede ignorar los "
+"mensajes de error que se muestran). Esta plantilla tiene que ser copiada al "
+"directorio fuente con el nombre adecuado al idioma que contendrá. Por "
+"ejemplo: <screen>\n"
 "<prompt>% </prompt><command>mkdir <parameter>/tmp/kwave-build</parameter></"
 "command>\n"
 "<prompt>% </prompt><command>cd <parameter>/tmp/kwave-build</parameter></"

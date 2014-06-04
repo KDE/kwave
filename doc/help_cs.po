@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-05-31 19:34+0000\n"
+"POT-Creation-Date: 2014-06-04 16:45+0000\n"
 "PO-Revision-Date: 2014-05-27 20:39+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -62,8 +62,8 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en.docbook:66
 #, no-c-format
-msgid "2014-05-31"
-msgstr "2014-05-31"
+msgid "2014-06-04"
+msgstr "2014-06-04"
 
 #. Tag: releaseinfo
 #: help_en.docbook:67

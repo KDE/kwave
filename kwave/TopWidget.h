@@ -164,8 +164,12 @@ namespace Kwave
 	/**
 	 * Updates the status bar's content depending on the current status
 	 * or position of the mouse cursor.
+	 * @param mode one of the modes in enum MouseMode
+	 * @param offset selection start (not valid if mode is MouseNormal)
+	 * @param length selection length (not valid if mode is MouseNormal)
 	 */
-	void mouseChanged(Kwave::MouseMark::Mode mode);
+	void mouseChanged(Kwave::MouseMark::Mode mode,
+	                  sample_index_t offset, sample_index_t length);
 
 	/** updates the menus when the clipboard has become empty/full */
 	void clipboardChanged(bool data_available);

@@ -1466,21 +1466,15 @@ void Kwave::TopWidget::setUndoRedoInfo(const QString &undo,
 }
 
 //***************************************************************************
-void Kwave::TopWidget::mouseChanged(Kwave::MouseMark::Mode mode)
+void Kwave::TopWidget::mouseChanged(Kwave::MouseMark::Mode mode,
+                                    sample_index_t offset,
+                                    sample_index_t length)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return;
-
     switch (mode) {
 	case (Kwave::MouseMark::MouseAtSelectionBorder) :
 	case (Kwave::MouseMark::MouseInSelection) :
-	{
-	    sample_index_t offset = signal_manager->selection().offset();
-	    sample_index_t length = signal_manager->selection().length();
 	    selectionChanged(offset, length);
 	    break;
-	}
 	default:
 	    ;
     }

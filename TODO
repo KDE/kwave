@@ -20,6 +20,8 @@ o FLAC in Ogg container
 
 o SPEEX in Ogg container
 
+o ALAC support (via libaudiofile)
+
 o codec_wav: disable workaround for fact chunk == 0 as soon as a newer
   version of libaudiofile is available which can handle this
 

@@ -564,8 +564,10 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
 
     // connect all signals
     QWidget *top_widget = reinterpret_cast<QWidget *>(m_context.topWidget());
-    connect(view,       SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode)),
-	    top_widget, SLOT(mouseChanged(Kwave::MouseMark::Mode)));
+    connect(view,       SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
+                                               sample_index_t, sample_index_t)),
+            top_widget, SLOT(mouseChanged(Kwave::MouseMark::Mode,
+                                          sample_index_t, sample_index_t)));
 
     connect(view,       SIGNAL(sigCommand(QString)),
 	    this,       SIGNAL(sigCommand(QString)),

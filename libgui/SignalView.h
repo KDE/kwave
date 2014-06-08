@@ -184,8 +184,12 @@ namespace Kwave
         /**
 	 * Sets the mode of the mouse cursor and emits sigMouseChanged
 	 * if it differs from the previous value.
+	 * @param mode the mouse mode, e.g. if in selection or border etc.
+	 * @param offset selection start (not valid if mode is MouseNormal)
+	 * @param length selection length (not valid if mode is MouseNormal)
 	 */
-	virtual void setMouseMode(Kwave::MouseMark::Mode mode);
+	virtual void setMouseMode(Kwave::MouseMark::Mode mode,
+	                          sample_index_t offset, sample_index_t length);
 
 	/**
 	 * tolerance in pixel for snapping to a label or selection border
@@ -222,10 +226,13 @@ namespace Kwave
 	/**
 	 * Emits a change in the mouse cursor. This can be used to change
 	 * the content of a status bar if the mouse moves over a selected
-	 * area or a marker. The "mode" parameter is one of the modes in
-	 * enum MouseMode.
+	 * area or a marker.
+	 * @param mode one of the modes in enum MouseMode
+	 * @param offset selection start (not valid if mode is MouseNormal)
+	 * @param length selection length (not valid if mode is MouseNormal)
 	 */
-	void sigMouseChanged(Kwave::MouseMark::Mode mode);
+	void sigMouseChanged(Kwave::MouseMark::Mode mode,
+	                     sample_index_t offset, sample_index_t length);
 
 	/** forward a sigCommand to the next layer */
 	void sigCommand(const QString &command);

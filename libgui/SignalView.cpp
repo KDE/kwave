@@ -286,14 +286,9 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
     Q_ASSERT(e);
     if (!e) return;
 
-    Q_ASSERT(m_signal_manager);
-    if (!m_signal_manager) {
-	e->ignore();
-	return;
-    }
-
     // abort if no signal is loaded
-    if (!m_signal_manager->length()) {
+    Q_ASSERT(m_signal_manager);
+    if (!m_signal_manager || !m_signal_manager->length()) {
 	e->ignore();
 	return;
     }
@@ -344,7 +339,8 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
     } else {
 	sample_index_t selection_first = m_signal_manager->selection().first();
 	sample_index_t selection_last  = m_signal_manager->selection().last();
-	const bool     selection_is_empty = (selection_first == selection_last);
+	sample_index_t selection_len   = m_signal_manager->selection().length();
+	const bool     selection_is_empty = (selection_len == 0);
 
 	// check whether there is some object near this position
 	QSharedPointer<Kwave::ViewItem> item       = findItem(mouse_pos);
@@ -382,7 +378,8 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 	    // we have an item to show, activate the position window
 	    QString        item_text = item->toolTip(pos);
 	    sample_index_t item_pos  = item->first();
-	    setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
+	    setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder,
+	                 selection_first, selection_len);
 	    showPosition(item_text, item_pos, mouse_pos);
 	} else if ((!selection_is_empty) && isSelectionBorder(mouse_x)) {
 	    // show position window for start or end of the selection
@@ -402,7 +399,8 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		    hidePosition();
 	    }
 
-	    setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder);
+	    setMouseMode(Kwave::MouseMark::MouseAtSelectionBorder,
+	                 selection_first, selection_len);
 
 	    if (description.length()) {
 		QString hms = Kwave::ms2hms(samples2ms(position));
@@ -413,7 +411,8 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		showPosition(txt, position, mouse_pos);
 	    }
 	} else if (isInSelection(mouse_x)) {
-	    setMouseMode(Kwave::MouseMark::MouseInSelection);
+	    setMouseMode(Kwave::MouseMark::MouseInSelection,
+	                 selection_first, selection_len);
 	    hidePosition();
 	    int dmin = KGlobalSettings::dndEventDelay();
 	    if ((e->buttons() & Qt::LeftButton) &&
@@ -423,7 +422,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		startDragging();
 	    }
 	} else {
-	    setMouseMode(Kwave::MouseMark::MouseNormal);
+	    setMouseMode(Kwave::MouseMark::MouseNormal, 0, 0);
 	    hidePosition();
 	}
     }
@@ -458,11 +457,11 @@ void Kwave::SignalView::mousePressEvent(QMouseEvent *e)
 	switch (e->modifiers()) {
 	    case Qt::ShiftModifier: {
 		// expand the selection to "here"
-		setMouseMode(Kwave::MouseMark::MouseSelect);
-		m_mouse_selection.set(
-		    m_signal_manager->selection().first(),
-		    m_signal_manager->selection().last()
-		);
+		sample_index_t ofs = m_signal_manager->selection().first();
+		sample_index_t end = m_signal_manager->selection().last();
+		sample_index_t len = m_signal_manager->selection().length();
+		setMouseMode(Kwave::MouseMark::MouseSelect, ofs, len);
+		m_mouse_selection.set(ofs, end);
 		m_mouse_selection.grep(x);
 		m_signal_manager->selectRange(
 		    m_mouse_selection.left(),
@@ -480,11 +479,11 @@ void Kwave::SignalView::mousePressEvent(QMouseEvent *e)
 	    case 0: {
 		if (isSelectionBorder(e->pos().x())) {
 		    // modify selection border
-		    setMouseMode(Kwave::MouseMark::MouseSelect);
-		    m_mouse_selection.set(
-			m_signal_manager->selection().first(),
-			m_signal_manager->selection().last()
-		    );
+		    sample_index_t ofs = m_signal_manager->selection().first();
+		    sample_index_t end = m_signal_manager->selection().last();
+		    sample_index_t len = m_signal_manager->selection().length();
+		    setMouseMode(Kwave::MouseMark::MouseSelect, ofs, len);
+		    m_mouse_selection.set(ofs, end);
 		    m_mouse_selection.grep(x);
 		    m_signal_manager->selectRange(
 			m_mouse_selection.left(),
@@ -495,7 +494,7 @@ void Kwave::SignalView::mousePressEvent(QMouseEvent *e)
 		    m_mouse_down_x = e->pos().x();
 		} else if (canHandleSelection()) {
 		    // start a new selection
-		    setMouseMode(Kwave::MouseMark::MouseSelect);
+		    setMouseMode(Kwave::MouseMark::MouseSelect, x, 0);
 		    m_mouse_selection.set(x, x);
 		    m_signal_manager->selectRange(x, 0);
 		}
@@ -536,7 +535,7 @@ void Kwave::SignalView::mouseReleaseEvent(QMouseEvent *e)
 		    m_mouse_selection.left(),
 		    m_mouse_selection.length()
 		);
-		setMouseMode(Kwave::MouseMark::MouseNormal);
+		setMouseMode(Kwave::MouseMark::MouseNormal, 0, 0);
 		hidePosition();
 	    }
 	    e->accept();
@@ -551,7 +550,7 @@ void Kwave::SignalView::mouseReleaseEvent(QMouseEvent *e)
 		// deselect if only clicked without moving
 		sample_index_t pos = m_offset + pixels2samples(e->pos().x());
 		m_signal_manager->selectRange(pos, 0);
-		setMouseMode(Kwave::MouseMark::MouseNormal);
+		setMouseMode(Kwave::MouseMark::MouseNormal, 0, 0);
 		hidePosition();
 	    }
 	    e->accept();
@@ -565,13 +564,15 @@ void Kwave::SignalView::mouseReleaseEvent(QMouseEvent *e)
 //***************************************************************************
 void Kwave::SignalView::leaveEvent(QEvent* e)
 {
-    setMouseMode(Kwave::MouseMark::MouseNormal);
+    setMouseMode(Kwave::MouseMark::MouseNormal, 0, 0);
     hidePosition();
     QWidget::leaveEvent(e);
 }
 
 //***************************************************************************
-void Kwave::SignalView::setMouseMode(Kwave::MouseMark::Mode mode)
+void Kwave::SignalView::setMouseMode(Kwave::MouseMark::Mode mode,
+                                     sample_index_t offset,
+                                     sample_index_t length)
 {
     if (mode == m_mouse_mode) return;
 
@@ -591,7 +592,7 @@ void Kwave::SignalView::setMouseMode(Kwave::MouseMark::Mode mode)
 	    break;
     }
 
-    emit sigMouseChanged(mode);
+    emit sigMouseChanged(mode, offset, length);
 }
 
 //***************************************************************************
@@ -682,7 +683,7 @@ void Kwave::SignalView::dragEnterEvent(QDragEnterEvent *event)
 //***************************************************************************
 void Kwave::SignalView::dragLeaveEvent(QDragLeaveEvent *)
 {
-    setMouseMode(Kwave::MouseMark::MouseNormal);
+    setMouseMode(Kwave::MouseMark::MouseNormal, 0, 0);
 }
 
 //***************************************************************************
@@ -733,7 +734,7 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
     }
 
     qDebug("SignalView::dropEvent(): done");
-    setMouseMode(Kwave::MouseMark::MouseNormal);
+    setMouseMode(Kwave::MouseMark::MouseNormal, 0, 0);
 }
 
 //***************************************************************************

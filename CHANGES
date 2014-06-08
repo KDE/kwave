@@ -1,4 +1,8 @@
-0.8.12 [2014-05-31]
+0.8.13 [2014-xx-xx]
+
+ * ...
+
+0.8.12 [2014-06-04]
 
  * recording via PulseAudio, by Joerg-Christan Boehme <joerg@chaosdorf.de>
  * bugfix: "Close" button of the record dialog did not save settings

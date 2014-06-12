@@ -19,27 +19,41 @@
 #define _MENU_GROUP_H_
 
 #include "config.h"
+
+#include <QtCore/QList>
+
 #include "libgui/MenuNode.h"
+
+class QActionGroup;
 
 namespace Kwave
 {
 
+    class MenuNode;
+
     /**
      * A MenuGroup controls a group of menu nodes (items, submenus).
-     * @author Thomas Eschenbacher
      */
-    class MenuGroup : public Kwave::MenuNode
+    class MenuGroup
     {
-	Q_OBJECT
-
     public:
+
+	/** mode for group membership */
+	typedef enum
+	{
+	    NORMAL,   /**< normal group, no dependencies */
+	    EXCLUSIVE /**< exclusive group, one of many (radio buttons) */
+	} Mode;
 
 	/**
 	 * Constructor.
 	 * @param parent pointer to the group's parent (might be 0)
 	 * @param name the unique name of the group
+	 * @param mode the mode of the group, normal or exclusive
 	 */
-	MenuGroup(Kwave::MenuNode *parent, const QString &name);
+	MenuGroup(Kwave::MenuNode *parent,
+	          const QString &name,
+	          Kwave::MenuGroup::Mode mode);
 
 	/**
 	 * Destructor. cleans up.
@@ -48,10 +62,27 @@ namespace Kwave
 	virtual ~MenuGroup();
 
 	/**
+	 * add a menu node to the group
+	 * @param node a MenuNode to join, must not be NULL
+	 */
+	virtual void join(Kwave::MenuNode *node);
+
+	/**
+	 * remove a menu node from the group
+	 * @param node a MenuNode to remove, must not be NULL
+	 */
+	virtual void leave(Kwave::MenuNode *node);
+
+	/**
 	 * Enables/disables all members of the group.
 	 * @param enable true to enable the item, false to disable
 	 */
 	virtual void setEnabled(bool enable);
+
+	/**
+	 * returns the "enabled" state of the group
+	 */
+	virtual bool isEnabled() const { return m_enabled; }
 
 	/**
 	 * Resets all checkmarks of the group members except the one member
@@ -63,10 +94,27 @@ namespace Kwave
 	virtual void selectItem(const QString &uid);
 
 	/**
-	 * Deregisteres all child nodes from us and removes them from
+	 * De-registers all child nodes from us and removes them from
 	 * our internal list of child nodes.
 	 */
 	virtual void clear();
+
+    private:
+
+	/** the parent menu node */
+	Kwave::MenuNode *m_parent;
+
+	/** name of the group */
+	QString m_name;
+
+	/** list of group members */
+	QList<Kwave::MenuNode *> m_members;
+
+	/** a QActionGroup, in case of "exclusive" mode */
+	QActionGroup *m_action_group;
+
+	/** the group's enabled/disabled flag */
+	bool m_enabled;
 
     };
 }

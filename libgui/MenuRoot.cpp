@@ -44,7 +44,7 @@ Kwave::MenuRoot::~MenuRoot()
 }
 
 //***************************************************************************
-QHash<QString, Kwave::MenuGroup *> &Kwave::MenuRoot::getGroupList()
+QHash<QString, Kwave::MenuGroup *> &Kwave::MenuRoot::groupList()
 {
     return m_group_list;
 }
@@ -109,7 +109,7 @@ void Kwave::MenuRoot::removeChild(Kwave::MenuNode *child)
     if (!child) return ;
     if (!m_children.contains(child)) return ;
 
-    QHash<QString, Kwave::MenuGroup *> &group_list = getGroupList();
+    QHash<QString, Kwave::MenuGroup *> &group_list = groupList();
     if (!group_list.contains(child->name())) {
         // only remove what has been added to the menu bar,
         // but not menu groups

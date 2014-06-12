@@ -28,12 +28,13 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
+#include "libgui/MenuGroup.h"
+
 class QAction;
 
 namespace Kwave
 {
 
-    class MenuGroup;
     class MenuSub;
 
     /**
@@ -45,6 +46,7 @@ namespace Kwave
 	Q_OBJECT
 
     public:
+
 	/**
 	 * Constructor.
 	 * @param parent pointer to the node's parent (might be 0)
@@ -251,19 +253,19 @@ namespace Kwave
 
 	/**
 	 * Returns a reference to the list of groups. It recursively calls
-	 * all parent node's getGroupList() function until it reaches the
+	 * all parent node's groupList() function until it reaches the
 	 * root node of the menu structure that holds the list of groups and
 	 * overwrites this function.
 	 * @return reference to the list of groups
 	 */
-	virtual QHash<QString, Kwave::MenuGroup *> &getGroupList();
+	virtual QHash<QString, Kwave::MenuGroup *> &groupList();
 
 	/**
 	 * Adds the node to a group. If it is already a member of the
 	 * group this function will do nothing.
 	 * @param group name of the group
 	 */
-	void joinGroup(const QString &group);
+	void joinGroup(const QString &group, Kwave::MenuGroup::Mode mode);
 
 	/**
 	 * Removes the node from a group (opposite of joinGroup).

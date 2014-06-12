@@ -123,7 +123,7 @@ namespace Kwave
 	/**
 	 * Returns a pointer to the list of groups
 	 */
-	virtual QHash<QString, Kwave::MenuGroup *> &getGroupList();
+	virtual QHash<QString, Kwave::MenuGroup *> &groupList();
 
 	/**
 	 * replacement for QObject::deleteLater(...), which does not work

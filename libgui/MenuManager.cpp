@@ -237,31 +237,31 @@ void Kwave::MenuManager::addNumberedMenuEntry(const QString &uid,
 //***************************************************************************
 void Kwave::MenuManager::selectItem(const QString &group, const QString &uid)
 {
+    if (!m_menu_root)
+	return;
+
     if (!group.length()) {
 	qWarning("MenuManager::selectItem('','%s'): no group!?", DBG(uid));
-	return ;
+	return;
     }
 
     if (group[0] != QLatin1Char('@')) {
 	qWarning("MenuManager::selectItem('%s','%s'): "
 		"invalid group name, does not start with '@'!",
 		DBG(group), DBG(uid));
-	return ;
+	return;
     }
 
-    Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(group) : 0;
-    if (!node) {
+    QHash<QString, Kwave::MenuGroup *> &groups = m_menu_root->groupList();
+    if (!groups.contains(group)) {
 	qWarning("MenuManager::selectItem(): group '%s' not found!",
 	         DBG(group));
-	return ;
+	return;
     }
 
-    if (!qobject_cast<Kwave::MenuGroup *>(node)) {
-	qWarning("MenuManager::selectItem(): '%s' is not a group!", DBG(group));
-	return ;
-    }
-
-    (reinterpret_cast<Kwave::MenuGroup *>(node))->selectItem(uid);
+    Kwave::MenuGroup *group_node = groups[group];
+    Q_ASSERT(group_node);
+    if (group_node) group_node->selectItem(uid);
 }
 
 //***************************************************************************
@@ -283,10 +283,27 @@ void Kwave::MenuManager::setItemEnabled(const QString &uid, bool enable)
 {
     if (!m_menu_root) return;
 
+    bool found = false;
     Kwave::MenuNode *node = m_menu_root->findUID(uid);
-    if (node) node->setEnabled(enable);
-    else qWarning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",
-		  DBG(uid), enable);
+    if (node) {
+	/* enable/disable a single menu node */
+	node->setEnabled(enable);
+	found = true;
+    } else {
+	/* enable/disable a group */
+	QHash<QString, Kwave::MenuGroup *> &groups = m_menu_root->groupList();
+	if (groups.contains(uid)) {
+	    Kwave::MenuGroup *group = groups[uid];
+	    if (group) {
+		group->setEnabled(enable);
+		found = true;
+	    }
+	}
+    }
+
+    if (!found)
+	qWarning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",
+	         DBG(uid), enable);
 }
 
 //***************************************************************************

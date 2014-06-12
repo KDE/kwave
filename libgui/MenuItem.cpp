@@ -65,26 +65,8 @@ void Kwave::MenuItem::actionTriggered(bool checked)
 //*****************************************************************************
 void Kwave::MenuItem::actionSelected()
 {
-    if (isCheckable()) {
-	Kwave::MenuGroup *group = 0;
-
-	if (m_exclusive_group.length()) {
-	    Kwave::MenuNode *root = getRootNode();
-	    if (root) {
-		group = qobject_cast<Kwave::MenuGroup *>(
-		    root->findUID(m_exclusive_group)
-		);
-	    }
-	}
-
-	if (group) {
-	    // exclusive check == selection
-	    group->selectItem(uid());
-	} else {
-	    // normal check, maybe multiple
-	    setChecked(true);
-	}
-    }
+    if (isCheckable() && !m_exclusive_group.length())
+	setChecked(true);
 
     Kwave::MenuNode::actionSelected();
 }
@@ -92,21 +74,20 @@ void Kwave::MenuItem::actionSelected()
 //*****************************************************************************
 bool Kwave::MenuItem::specialCommand(const QString &command)
 {
+    Kwave::Parser parser(command);
 
-    if (command.startsWith(_("#checkable"))) {
+    if (parser.command() == _("#checkable")) {
 	// checking/selecting of the item (non-exclusive)
 	setCheckable(true);
     }
 
-    if (command.startsWith(_("#exclusive("))) {
-	Kwave::Parser parser(command);
-
+    if (parser.command() == _("#exclusive")) {
 	// join to a list of groups
 	QString group = parser.firstParam();
 	while (group.length()) {
 	    if (!m_exclusive_group.length()) {
 		m_exclusive_group = group;
-		joinGroup(group);
+		joinGroup(group, Kwave::MenuGroup::EXCLUSIVE);
 	    } else if (m_exclusive_group != group) {
 		qWarning("menu item '%s' already member of "
 			"exclusive group '%s'",

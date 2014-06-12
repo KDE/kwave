@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <stdio.h>
 
 #include <QtCore/QLatin1Char>
 #include <QtGui/QPixmap>
@@ -56,7 +55,7 @@ Kwave::MenuNode::~MenuNode()
     // remove all clients
     clear();
 
-    // deregister from our parent
+    // de-register from our parent
     if (m_parentNode) m_parentNode->removeChild(this);
 }
 
@@ -124,17 +123,17 @@ void Kwave::MenuNode::setIcon(const QIcon &icon)
 bool Kwave::MenuNode::isEnabled()
 {
     // evaluate our own (individual) enable and our parent's enable state
-    if ((m_parentNode != 0) && !m_parentNode->isEnabled())
+    if (m_parentNode && !m_parentNode->isEnabled())
 	return false;
 
     // find  out if all our groups are enabled
+    QHash<QString, Kwave::MenuGroup *> &groups = groupList();
     Kwave::MenuNode *root = getRootNode();
     if (root) {
 	foreach (QString group_name, m_groups) {
-	    Kwave::MenuGroup *group =
-		qobject_cast<Kwave::MenuGroup *>(root->findUID(group_name));
-	    if (group) {
-		if (!(static_cast<Kwave::MenuGroup *>(group))->isEnabled()) {
+	    if (groups.contains(group_name)) {
+		Kwave::MenuGroup *group = groups[group_name];
+		if (group && !group->isEnabled()) {
 		    qDebug("MenuNode(%s).isEnabled(): group %s is disabled",
 			   DBG(name()), DBG(group_name));
 		    return false;
@@ -335,7 +334,7 @@ Kwave::MenuNode *Kwave::MenuNode::leafToBranch(Kwave::MenuNode *node)
     if (sub) {
 	// join it to the same groups
 	foreach (QString group, old_groups)
-	    sub->joinGroup(group);
+	    sub->joinGroup(group, Kwave::MenuGroup::NORMAL);
 
 	// set the old icon
 	if (!old_icon.isNull()) sub->setIcon(old_icon);
@@ -353,26 +352,27 @@ Kwave::MenuNode *Kwave::MenuNode::leafToBranch(Kwave::MenuNode *node)
 }
 
 //*****************************************************************************
-QHash<QString, Kwave::MenuGroup *> &Kwave::MenuNode::getGroupList()
+QHash<QString, Kwave::MenuGroup *> &Kwave::MenuNode::groupList()
 {
     static QHash<QString, Kwave::MenuGroup *> _empty_list;
     Q_ASSERT(m_parentNode);
-    return (m_parentNode) ? m_parentNode->getGroupList() : _empty_list;
+    return (m_parentNode) ? m_parentNode->groupList() : _empty_list;
 }
 
 //*****************************************************************************
-void Kwave::MenuNode::joinGroup(const QString &group)
+void Kwave::MenuNode::joinGroup(const QString &group,
+                                Kwave::MenuGroup::Mode mode)
 {
     if (m_groups.contains(group))
 	return ;    // already joined
 
-    QHash<QString, Kwave::MenuGroup *> &group_list = getGroupList();
+    QHash<QString, Kwave::MenuGroup *> &group_list = groupList();
     Kwave::MenuGroup *grp = 0;
     if (group_list.contains(group)) {
 	grp = group_list[group];
     } else {
 	// group does not already exist, create a new one
-	grp = new Kwave::MenuGroup(getRootNode(), group);
+	grp = new Kwave::MenuGroup(getRootNode(), group, mode);
 	if (grp) group_list.insert(group, grp);
     }
 
@@ -380,13 +380,13 @@ void Kwave::MenuNode::joinGroup(const QString &group)
     m_groups.append(group);
 
     // register this node as a child of the group
-    if (grp) grp->registerChild(this);
+    if (grp) grp->join(this);
 }
 
 //*****************************************************************************
 void Kwave::MenuNode::leaveGroup(const QString &group)
 {
-    QHash<QString, Kwave::MenuGroup *> &group_list = getGroupList();
+    QHash<QString, Kwave::MenuGroup *> &group_list = groupList();
     Kwave::MenuGroup *grp = (group_list.contains(group)) ?
 	group_list.value(group) : 0;
 
@@ -394,16 +394,16 @@ void Kwave::MenuNode::leaveGroup(const QString &group)
     m_groups.removeAll(group);
 
     // remove ourself from the group
-    if (grp) grp->removeChild(this);
+    if (grp) grp->leave(this);
 }
 
 //*****************************************************************************
 bool Kwave::MenuNode::specialCommand(const QString &command)
 {
+    Kwave::Parser parser(command);
 
-    if (command.startsWith(_("#icon("))) {
+    if (parser.command() == _("#icon")) {
 	// --- give the item an icon ---
-	Kwave::Parser parser(command);
 	const QString &filename = parser.firstParam();
 	if (filename.length()) {
 	    // try to load from standard dirs
@@ -422,7 +422,7 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	return true;
     }
 
-    if (command.startsWith(_("#listmenu"))) {
+    if (parser.command() == _("#listmenu")) {
 	// insert an empty submenu for the list items
 	Kwave::MenuNode *parent = parentNode();
 	if (parent) parent->leafToBranch(this);
@@ -430,24 +430,22 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	return true;
     }
 
-    if (command.startsWith(_("#group("))) {
-	Kwave::Parser parser(command);
-
+    if (parser.command() == _("#group")) {
 	QString group = parser.firstParam();
 	while (group.length()) {
-	    joinGroup(group);
+	    joinGroup(group, Kwave::MenuGroup::NORMAL);
 	    group = parser.nextParam();
 	}
 	return true;
     }
 
-    if (command.startsWith(_("#disable"))) {
+    if (parser.command() == _("#disable")) {
 	// disable the node
 	setEnabled(false);
 	return true;
     }
 
-    if (command.startsWith(_("#enable"))) {
+    if (parser.command() == _("#enable")) {
 	// disable the node
 	setEnabled(true);
 	return true;

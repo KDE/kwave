@@ -108,9 +108,7 @@ namespace Kwave
     protected:
 
 	/**
-	 * Reads the configuration settings and the list of recent files,
-	 * opposite of saveConfig().
-	 * @see #saveConfig()
+	 * Reads the configuration settings and the list of recent files
 	 */
 	void readConfig();
 

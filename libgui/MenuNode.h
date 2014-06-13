@@ -264,6 +264,7 @@ namespace Kwave
 	 * Adds the node to a group. If it is already a member of the
 	 * group this function will do nothing.
 	 * @param group name of the group
+	 * @param mode the mode of the group (normal or exclusive)
 	 */
 	void joinGroup(const QString &group, Kwave::MenuGroup::Mode mode);
 

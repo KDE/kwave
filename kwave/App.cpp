@@ -194,8 +194,8 @@ bool Kwave::App::closeWindow(Kwave::TopWidget *todel)
 {
     Q_ASSERT(todel);
 
-    // save the configuration, including the list of recent files
-    saveConfig();
+    // save the list of recent files
+    saveRecentFiles();
 
     // remove the toplevel widget from our list
     if (m_top_widgets.contains(todel))
@@ -217,13 +217,6 @@ void Kwave::App::saveRecentFiles()
     }
 
     cfg.sync();
-}
-
-//***************************************************************************
-void Kwave::App::saveConfig()
-{
-    // save the list of recent files
-    saveRecentFiles();
 }
 
 //***************************************************************************
@@ -251,7 +244,7 @@ void Kwave::App::readConfig()
 //***************************************************************************
 Kwave::App::~App()
 {
-    saveConfig();
+    saveRecentFiles();
     m_recent_files.clear();
 }
 

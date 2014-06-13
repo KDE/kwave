@@ -120,13 +120,6 @@ namespace Kwave
 	 */
 	void saveRecentFiles();
 
-	/**
-	 * Saves the current configuration of kwave to the configuration file,
-	 * opposite of readConfig(). Also saves the list of recent files.
-	 * @see #saveRecentFiles()
-	 */
-	void saveConfig();
-
     private:
 
 	/**

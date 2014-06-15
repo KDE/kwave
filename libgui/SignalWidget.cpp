@@ -246,7 +246,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     if (mouse_y >= height())  mouse_y = height()  - 1;
 
 
-    QMenu *submenu_select = context_menu->addMenu(i18n("&Selection"));
+    QMenu *submenu_select = context_menu->addMenu(i18n("Selection"));
     Q_ASSERT(submenu_select);
     if (!submenu_select) return;
 

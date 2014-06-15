@@ -42,11 +42,15 @@
 #include "App.h"
 #include "Splash.h"
 
+/** maximum number of recent files */
+#define MAX_RECENT_FILES 20
+
 //***************************************************************************
 Kwave::App::App()
    :KUniqueApplication(),
     m_recent_files(),
-    m_top_widgets()
+    m_top_widgets(),
+    m_gui_type(Kwave::App::GUI_SDI)
 {
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
     qRegisterMetaType<Kwave::LabelList>("Kwave::LabelList");
@@ -58,6 +62,16 @@ Kwave::App::App()
             SIGNAL(changed(QClipboard::Mode)),
             &(Kwave::ClipBoard::instance()),
             SLOT(slotChanged(QClipboard::Mode)));
+
+    // read the configured user interface type
+    QString result;
+    const KConfigGroup cfg = KGlobal::config()->group("Global");
+    result = cfg.readEntry("UI Type");
+    if (result == _("MDI")) {
+	m_gui_type = Kwave::App::GUI_MDI;
+    }
+    // else: "SDI" is default
+
 }
 
 //***************************************************************************
@@ -133,8 +147,8 @@ void Kwave::App::addRecentFile(const QString &newfile)
     // remove old entries if present
     m_recent_files.removeAll(newfile);
 
-    // shorten the list down to 19 entries
-    while (m_recent_files.count() > 19)
+    // shorten the list down to MAX_RECENT_FILES entries
+    while (m_recent_files.count() >= MAX_RECENT_FILES)
 	m_recent_files.removeLast();
 
     // insert the new entry at top
@@ -226,7 +240,7 @@ void Kwave::App::readConfig()
     QString key;
     const KConfigGroup cfg = KGlobal::config()->group("Recent Files");
 
-    for (unsigned int i = 0 ; i < 20; i++) {
+    for (unsigned int i = 0 ; i < MAX_RECENT_FILES; i++) {
 	key = QString::number(i);        // generate number
 
 	// read corresponding entry, which is stored in UTF-8

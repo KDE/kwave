@@ -211,14 +211,14 @@ void Kwave::TrackView::handleContextMenu(const QPoint &pos, QMenu *menu)
 {
     KIconLoader icon_loader;
 
-    QMenu *submenu_label = menu->addMenu(i18n("&Label"));
+    QMenu *submenu_label = menu->addMenu(i18n("Label"));
     Q_ASSERT(submenu_label);
     if (!submenu_label) return;
 
     // add label
     QAction *action_label_new = submenu_label->addAction(
 	icon_loader.loadIcon(_("list-add"), KIconLoader::Toolbar),
-	i18n("&New"), this, SLOT(contextMenuLabelNew()));
+	i18n("New"), this, SLOT(contextMenuLabelNew()));
     Q_ASSERT(action_label_new);
     if (!action_label_new) return;
 

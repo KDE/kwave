@@ -1380,9 +1380,9 @@ bool Kwave::SignalManager::continueWithoutUndo()
 	_("</b><br><br><i>") +
 	i18n("<b>Hint</b>: you can configure the amount of memory<br>"
 	     "available for undo under '%1'/'%2'.").arg(
-	     i18n("&Options").replace(QRegExp(_("&(.)")),
+	     i18n("Settings").replace(QRegExp(_("&(.)")),
 	     _("<u>\\1</u>"))).arg(
-	     i18n("&Memory").replace(QRegExp(_("&(.)")),
+	     i18n("Memory").replace(QRegExp(_("&(.)")),
 	     _("<u>\\1</u>")) +
 	_("</i></html>"))) == KMessageBox::Continue)
     {

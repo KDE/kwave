@@ -422,11 +422,10 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	return true;
     }
 
-    if (parser.command() == _("#listmenu")) {
+    if (command == _("#listmenu")) {
 	// insert an empty submenu for the list items
 	Kwave::MenuNode *parent = parentNode();
 	if (parent) parent->leafToBranch(this);
-
 	return true;
     }
 
@@ -439,14 +438,14 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	return true;
     }
 
-    if (parser.command() == _("#disable")) {
+    if (command == _("#disabled")) {
 	// disable the node
 	setEnabled(false);
 	return true;
     }
 
-    if (parser.command() == _("#enable")) {
-	// disable the node
+    if (command == _("#enabled")) {
+	// enable the node
 	setEnabled(true);
 	return true;
     }

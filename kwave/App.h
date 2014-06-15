@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtCore/QObject>
 #include <QtCore/QList>
 #include <QtCore/QStringList>
 
@@ -44,6 +45,13 @@ namespace Kwave
     {
 	Q_OBJECT
     public:
+
+	typedef enum {
+	    GUI_SDI, /**< single document interface (SDI)          */
+	    GUI_MDI  /**< multi document interface (MDI)           */
+	/*  GUI_TAB,      tabbed interface                         */
+	/*  GUI_IDE       integrated development environment (IDE) */
+	} GuiType;
 
 	/** Constructor */
 	App();
@@ -89,9 +97,10 @@ namespace Kwave
 	bool closeWindow(Kwave::TopWidget *todel);
 
 	/** Returns a reference to the list of recent files */
-	QStringList recentFiles() {
-	    return m_recent_files;
-	}
+	inline QStringList recentFiles() const { return m_recent_files; }
+
+	/** returns the GUI type (e.g. SDI, MDI etc.) */
+	GuiType guiType() const { return m_gui_type; }
 
     signals:
 	/**
@@ -130,6 +139,8 @@ namespace Kwave
 	/** list of toplevel widgets */
 	QList<Kwave::TopWidget *> m_top_widgets;
 
+	/** the GUI type, e.g. SDI or MDI */
+	GuiType m_gui_type;
     };
 }
 

@@ -103,6 +103,7 @@
 #define ELEMENTS_OF(__x__) (sizeof(__x__) / sizeof(__x__[0]))
 
 //***************************************************************************
+
 /**
  * struct for info about a label within a Kwave script
  * @internal
@@ -113,7 +114,6 @@ namespace Kwave {
 	unsigned int hits; /**< number of "goto"s to this label */
     } label_t;
 }
-
 
 //***************************************************************************
 //***************************************************************************
@@ -1453,15 +1453,15 @@ void Kwave::TopWidget::setUndoRedoInfo(const QString &undo,
     // set new enable and text of the undo menu entry
     m_menu_manager->setItemEnabled(_("ID_EDIT_UNDO"), undo_enabled);
     txt = (undo_enabled) ?
-	i18nc("menu entry for undo if undo enabled",  "U&ndo (%1)", undo) :
-	i18nc("menu entry for undo if undo disabled", "U&ndo");
+	i18nc("menu entry for undo if undo enabled",  "Undo (%1)", undo) :
+	i18nc("menu entry for undo if undo disabled", "Undo");
     m_menu_manager->setItemText(_("ID_EDIT_UNDO"), txt);
 
     // set new enable and text of the undo menu entry
     m_menu_manager->setItemEnabled(_("ID_EDIT_REDO"), redo_enabled);
     txt = (redo_enabled) ?
-	i18nc("menu entry for redo if redo enabled",  "R&edo (%1)", redo) :
-	i18nc("menu entry for redo if redo disabled", "R&edo");
+	i18nc("menu entry for redo if redo enabled",  "Redo (%1)", redo) :
+	i18nc("menu entry for redo if redo disabled", "Redo");
     m_menu_manager->setItemText(_("ID_EDIT_REDO"), txt);
 }
 

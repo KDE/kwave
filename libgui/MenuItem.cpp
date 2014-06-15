@@ -76,7 +76,7 @@ bool Kwave::MenuItem::specialCommand(const QString &command)
 {
     Kwave::Parser parser(command);
 
-    if (parser.command() == _("#checkable")) {
+    if (command == _("#checkable")) {
 	// checking/selecting of the item (non-exclusive)
 	setCheckable(true);
     }

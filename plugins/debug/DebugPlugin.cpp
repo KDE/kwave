@@ -52,7 +52,7 @@ void Kwave::DebugPlugin::load(QStringList &params)
 {
     Q_UNUSED(params);
 
-    QString entry = _("menu (plugin:execute(debug,%1),&Calculate/Debug/%2)");
+    QString entry = _("menu (plugin:execute(debug,%1),Calculate/Debug/%2)");
 
     MENU_ENTRY("dc_50",             _(I18N_NOOP("Generate 50% DC Level")));
     MENU_ENTRY("dc_100",            _(I18N_NOOP("Generate 100% DC Level")));
@@ -67,8 +67,8 @@ void Kwave::DebugPlugin::load(QStringList &params)
     MENU_ENTRY("labels_at_stripes", _(I18N_NOOP("Labels at Stripe borders")));
 
     emitCommand(_("menu (dump_metadata(), ") +
-                _(I18N_NOOP("&Help")) + _("/") +
-                _(I18N_NOOP("Dump &Meta Data")) + _(")"));
+                _(I18N_NOOP("Help")) + _("/") +
+                _(I18N_NOOP("Dump Meta Data")) + _(")"));
 }
 
 //***************************************************************************

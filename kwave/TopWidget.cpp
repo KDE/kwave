@@ -857,7 +857,7 @@ bool Kwave::TopWidget::closeFile()
 
     if (signal_manager) signal_manager->close();
 
-    updateCaption();
+    updateCaption(signalName(), false);
     if (m_zoomselect) m_zoomselect->clearEditText();
     emit sigSignalNameChanged(signalName());
 
@@ -894,7 +894,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     int res = -ENOMEM;
     if (signal_manager && !(res = signal_manager->loadFile(url))) {
 	// succeeded
-	updateCaption();
+	updateCaption(signalName(), false);
 
 	// enable revert after successful load
 	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
@@ -974,7 +974,7 @@ int Kwave::TopWidget::saveFile()
 	if (res == -EINVAL) res = saveFileAs(QString(), false);
     } else res = saveFileAs(QString(), false);
 
-    updateCaption();
+    updateCaption(signalName(), signal_manager->isModified());
     updateMenu();
 
     // enable "revert" after successful "save"
@@ -1106,7 +1106,7 @@ int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
 
     if (!res) res = signal_manager->save(url, selection);
 
-    updateCaption();
+    updateCaption(signalName(), signal_manager->isModified());
     m_context.application().addRecentFile(signalName());
     updateMenu();
 
@@ -1133,7 +1133,7 @@ int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
 
     signal_manager->newSignal(samples, rate, bits, tracks);
 
-    updateCaption();
+    updateCaption(signalName(), true);
     updateMenu();
     updateToolbar();
 
@@ -1334,18 +1334,15 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
     Q_ASSERT(statusBar());
     if (!statusBar()) return;
 
-    const double rate = signal_manager->rate();
+    // force sample mode if rate==0
+    const double rate        = signal_manager->rate();
+    const bool   sample_mode = (qFuzzyIsNull(rate));
 
     if (length > 1) {
 	// show offset and length
 	// Selected: 2000...3000 (1000 samples)
 	// Selected: 02:00...05:00 (3 min)
-	bool sample_mode = false;
-
 	sample_index_t last = offset + ((length) ? length-1 : 0);
-
-	if (qFuzzyIsNull(rate))
-	    sample_mode = true; // force sample mode if rate==0
 
 	QString txt = _(" ");
 	if (sample_mode) {
@@ -1377,10 +1374,6 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
     } else {
 	// show cursor position
 	// Position: 02:00
-	bool sample_mode = false;
-
-	if (qFuzzyIsNull(rate))
-	    sample_mode = true; // force sample mode if rate==0
 
 	if (sample_mode || !signal_manager->tracks()) {
 	    m_lbl_status_cursor->setText(_(""));
@@ -1554,7 +1547,7 @@ void Kwave::TopWidget::resetToolbarToDefaults()
     insertToolBar(toolbar_record_play, toolbar_edit);
     insertToolBar(toolbar_edit,        toolbar_file);
 
-    // move record/playback into a seperate line, below file/edit
+    // move record/playback into a separate line, below file/edit
     insertToolBarBreak(toolbar_record_play);
 
     // let record/playback and zoom use bigger icons
@@ -1598,46 +1591,34 @@ void Kwave::TopWidget::updateToolbar()
 }
 
 //***************************************************************************
-void Kwave::TopWidget::modifiedChanged(bool)
+void Kwave::TopWidget::modifiedChanged(bool modified)
 {
-    updateCaption();
+    updateCaption(signalName(), modified);
 }
 
 //***************************************************************************
-void Kwave::TopWidget::updateCaption()
+void Kwave::TopWidget::updateCaption(const QString &name, bool is_modified)
 {
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return;
-    bool modified = signal_manager->isModified();
-
     // shortcut if no file loaded
-    if (signalName().length() == 0) {
+    if (!name.length()) {
 	setCaption(QString());
 	return;
     }
 
-    if (modified)
+    if (is_modified)
 	setCaption(i18nc(
 	    "%1 = Path to modified file",
 	    "* %1 (modified)",
-	    signalName())
+	    name)
 	);
     else
-	setCaption(signalName());
+	setCaption(name);
 }
 
 //***************************************************************************
 void Kwave::TopWidget::closeEvent(QCloseEvent *e)
 {
     (closeFile()) ? e->accept() : e->ignore();
-}
-
-//***************************************************************************
-bool Kwave::TopWidget::haveSignal()
-{
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
-    return (signal_manager) ? (signal_manager->tracks()) : false;
 }
 
 //***************************************************************************

@@ -247,8 +247,11 @@ namespace Kwave
 	    executeCommand(_("delete () "));
 	}
 
-	/** called if the signal now or no longer is modified */
-	void modifiedChanged(bool);
+	/**
+	 * called if the signal now or no longer is modified
+	 * @param modified if true: signal now is "modified", otherwise not
+	 */
+	void modifiedChanged(bool modified);
 
 	/** shows a message/progress in the splash screen */
 	void showInSplashSreen(const QString &message);
@@ -323,8 +326,12 @@ namespace Kwave
 	 */
 	int openRecent(const QString &str);
 
-	/** Updates the caption with the filename */
-	void updateCaption();
+	/**
+	 * Updates the caption with the filename
+	 * @param name the filename to show in the caption
+	 * @param is_modified true if the file is modified, false if not
+	 */
+	void updateCaption(const QString &name, bool is_modified);
 
 	/**
 	 * Parses a text stream line by line and executes each line
@@ -333,9 +340,6 @@ namespace Kwave
 	 * @return zero if successful, non-zero error code if a command failed
 	 */
 	int parseCommands(QTextStream &stream);
-
-	/** returns true if we have a non-empty signal */
-	bool haveSignal();
 
 	/** returns the name of the signal */
 	QString signalName() const;

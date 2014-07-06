@@ -32,9 +32,9 @@
 
 #include <klocale.h>
 
-#include "libkwave/ApplicationContext.h"
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"
+#include "libkwave/FileContext.h"
 #include "libkwave/FileDrag.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
@@ -71,7 +71,7 @@
 
 //***************************************************************************
 Kwave::MainWidget::MainWidget(QWidget *parent,
-			      Kwave::ApplicationContext &context)
+			      Kwave::FileContext &context)
     :QWidget(parent), m_context(context), m_upper_dock(), m_lower_dock(),
      m_scroll_area(this), m_horizontal_scrollbar(0),
      m_signal_widget(&m_scroll_area, context, &m_upper_dock, &m_lower_dock),

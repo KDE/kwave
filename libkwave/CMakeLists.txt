@@ -43,7 +43,6 @@ IF (WITH_OPTIMIZED_MEMCPY)
 ENDIF (WITH_OPTIMIZED_MEMCPY)
 
 SET(libkwave_LIB_SRCS
-    ApplicationContext.cpp
     ClipBoard.cpp
     CodecBase.cpp
     CodecManager.cpp
@@ -55,6 +54,7 @@ SET(libkwave_LIB_SRCS
     Decoder.cpp
     Drag.cpp
     Encoder.cpp
+    FileContext.cpp
     Filter.cpp
     FileInfo.cpp
     FileProgress.cpp
@@ -155,7 +155,6 @@ SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 ### install files                                                         ###
 
 INSTALL(TARGETS libkwave LIBRARY DESTINATION ${KDE4_LIB_INSTALL_DIR} NAMELINK_SKIP)
-
 
 #############################################################################
 #############################################################################

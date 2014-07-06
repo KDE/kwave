@@ -65,7 +65,7 @@ class TrackPixmap;
 namespace Kwave
 {
 
-    class ApplicationContext;
+    class FileContext;
     class SignalManager;
     class Track;
 
@@ -86,7 +86,7 @@ namespace Kwave
 	 * @param upper_dock layout of the upper docking area
 	 * @param lower_dock layout of the lower docking area
 	 */
-	SignalWidget(QWidget *parent, Kwave::ApplicationContext &context,
+	SignalWidget(QWidget *parent, Kwave::FileContext &context,
 	             QVBoxLayout *upper_dock, QVBoxLayout *lower_dock);
 
 	/** Destructor */
@@ -254,7 +254,7 @@ namespace Kwave
     private:
 
 	/** context of the Kwave application instance */
-	Kwave::ApplicationContext &m_context;
+	Kwave::FileContext &m_context;
 
 	/**
 	 * list of signal views. Contains one entry for each signal view, starting

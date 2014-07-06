@@ -1,5 +1,5 @@
 /***************************************************************************
-   ApplicationContext.h  -  Context of one Kwave instance
+    libkwave/FileContext.h  -  Context of a Loaded File
 			     -------------------
     begin                : 2009-12-31
     copyright            : (C) 2009 by Thomas.Eschenbacher
@@ -36,28 +36,28 @@ namespace Kwave
     class SignalManager;
     class TopWidget;
 
-    class KDE_EXPORT ApplicationContext: public QObject
+    class KDE_EXPORT FileContext: public QObject
     {
     public:
 	/**
 	 * Constructor. Creates a new toplevel window, signal manager,
 	 * plugin manager and so on.
 	 * @param app reference to the Kwave application
-	 * @note implementation is in kwave/ApplicationContext.cpp
+	 * @note implementation is in kwave/FileContext.cpp
 	 */
-	ApplicationContext(Kwave::App &app);
+	FileContext(Kwave::App &app);
 
 	/**
 	 * Destructor
-	 * @note implementation is in kwave/ApplicationContext.cpp
+	 * @note implementation is in kwave/FileContext.cpp
 	 */
-	virtual ~ApplicationContext();
+	virtual ~FileContext();
 
 	/**
 	 * initializes the instance
 	 * @param top_widget pointer to the toplevel widget
 	 * @return true if successful
-	 * @note implementation is in kwave/ApplicationContext.cpp
+	 * @note implementation is in kwave/FileContext.cpp
 	 */
 	bool init(Kwave::TopWidget *top_widget);
 

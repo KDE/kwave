@@ -26,8 +26,8 @@
 #include <kconfiggroup.h>
 #include <ktoolinvocation.h>
 
-#include "libkwave/ApplicationContext.h"
 #include "libkwave/ClipBoard.h"
+#include "libkwave/FileContext.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"
 #include "libkwave/MemoryManager.h"

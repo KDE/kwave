@@ -29,7 +29,7 @@
 #include <kmainwindow.h>
 #include <kurl.h>
 
-#include "libkwave/ApplicationContext.h"
+#include "libkwave/FileContext.h"
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"
 
@@ -54,7 +54,7 @@ namespace Kwave
     class SignalManager;
     class PlayerToolBar;
     class PluginManager;
-    class ApplicationContext;
+    class FileContext;
 
     /**
      * Toplevel widget of the Kwave application. Holds a main widget, a menu
@@ -347,7 +347,7 @@ namespace Kwave
     private:
 
 	/** application context of this instance */
-	Kwave::ApplicationContext m_context;
+	Kwave::FileContext m_context;
 
 	/**
 	 * the main widget with all views and controls (except menu and

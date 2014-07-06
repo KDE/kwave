@@ -44,8 +44,8 @@ ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
 #############################################################################
 
 SET(kwave_SRCS
-    ApplicationContext.cpp
     App.cpp
+    FileContext.cpp
     main.cpp
     MainWidget.cpp
     PlayerToolBar.cpp

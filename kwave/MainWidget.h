@@ -35,7 +35,7 @@ class QWheelEvent;
 namespace Kwave
 {
 
-    class ApplicationContext;
+    class FileContext;
     class OverViewWidget;
     class SignalManager;
 
@@ -83,7 +83,7 @@ namespace Kwave
 	 * @param parent parent widget
 	 * @param context reference to the context of this instance
 	 */
-	MainWidget(QWidget *parent, Kwave::ApplicationContext &context);
+	MainWidget(QWidget *parent, Kwave::FileContext &context);
 
 	/**
 	 * Returns true if this instance was successfully initialized, or
@@ -297,7 +297,7 @@ namespace Kwave
     private:
 
 	/** context of the Kwave application instance */
-	Kwave::ApplicationContext &m_context;
+	Kwave::FileContext &m_context;
 
 	/** upper docking area, managed by the signal widget */
 	QVBoxLayout m_upper_dock;

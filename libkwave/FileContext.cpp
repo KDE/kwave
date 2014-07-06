@@ -1,8 +1,8 @@
 /***************************************************************************
-    kwave/ApplicationContext.cpp  -  Context of one Kwave instance
+    libkwave/FileContext.cpp  -  Context of a Loaded File
 			     -------------------
-    begin                : 2010-01-02
-    copyright            : (C) 2010 by Thomas.Eschenbacher
+    begin                : 2009-12-31
+    copyright            : (C) 2009 by Thomas.Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -17,57 +17,36 @@
 
 #include "config.h"
 
-#include <new>
-
-#include "libkwave/ApplicationContext.h"
+#include "libkwave/FileContext.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 
 #include "kwave/TopWidget.h"
 
 //***************************************************************************
-Kwave::ApplicationContext::ApplicationContext(Kwave::App &app)
-    :QObject(), m_application(app), m_top_widget(0), m_signal_manager(0),
-     m_plugin_manager(0)
+Kwave::App &Kwave::FileContext::application() const
 {
+    return m_application;
 }
 
 //***************************************************************************
-Kwave::ApplicationContext::~ApplicationContext()
+Kwave::TopWidget *Kwave::FileContext::topWidget() const
 {
-    m_top_widget     = 0;
-    m_signal_manager = 0;
-    m_plugin_manager = 0;
-}
-
-//***************************************************************************
-bool Kwave::ApplicationContext::init(Kwave::TopWidget *top_widget)
-{
-    m_top_widget = top_widget;
     Q_ASSERT(m_top_widget);
-    if (!m_top_widget) return false;
-
-    m_signal_manager = new Kwave::SignalManager(m_top_widget);
-    Q_ASSERT(m_signal_manager);
-    if (!m_signal_manager) return false;
-
-    m_plugin_manager = new Kwave::PluginManager(m_top_widget, *m_signal_manager);
-    Q_ASSERT(m_plugin_manager);
-    if (!m_plugin_manager) return false;
-
-    return true;
+    return m_top_widget;
 }
 
 //***************************************************************************
-void Kwave::ApplicationContext::close()
+Kwave::SignalManager *Kwave::FileContext::signalManager() const
 {
-    if (m_plugin_manager) delete m_plugin_manager;
-    m_plugin_manager = 0;
+    Q_ASSERT(m_signal_manager);
+    return m_signal_manager;
+}
 
-    if (m_signal_manager) delete m_signal_manager;
-    m_signal_manager = 0;
-
-    m_top_widget = 0;
+//***************************************************************************
+Kwave::PluginManager *Kwave::FileContext::pluginManager() const
+{
+    return m_plugin_manager;
 }
 
 //***************************************************************************

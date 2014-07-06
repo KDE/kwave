@@ -43,8 +43,8 @@
 #include <kfiledialog.h>
 #include <kiconloader.h>
 
-#include "libkwave/ApplicationContext.h"
 #include "libkwave/ClipBoard.h"
+#include "libkwave/FileContext.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
@@ -85,7 +85,7 @@
 
 //***************************************************************************
 Kwave::SignalWidget::SignalWidget(QWidget *parent,
-                                  Kwave::ApplicationContext &context,
+                                  Kwave::FileContext &context,
                                   QVBoxLayout *upper_dock,
                                   QVBoxLayout *lower_dock)
     :QWidget(parent),

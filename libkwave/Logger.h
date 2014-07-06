@@ -29,7 +29,7 @@ class QString;
 namespace Kwave
 {
 
-    class ApplicationContext;
+    class FileContext;
     class TopWidget;
 
     /**

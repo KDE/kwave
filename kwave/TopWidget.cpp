@@ -52,10 +52,10 @@
 #include <kstandarddirs.h>
 #include <ktoolbar.h>
 
-#include "libkwave/ApplicationContext.h"
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"
+#include "libkwave/FileContext.h"
 #include "libkwave/Plugin.h" // for some helper functions
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"

@@ -193,9 +193,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/fr/kwave-volume.png				(should be FDL)
 
 	kwave/CMakeLists.txt				GPL2+
-	kwave/ApplicationContext.cpp			GPL2+
 	kwave/App.cpp					GPL2+
 	kwave/App.h					GPL2+
+	kwave/FileContext.cpp				GPL2+
 	kwave/kwave.desktop				(should be GPL2+)
 	kwave/main.cpp					GPL2+ / Martin Wilz
 	kwave/MainWidget.cpp				GPL2+ / Martin Wilz
@@ -309,8 +309,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/ViewItem.cpp				GPL2+
 	libgui/ViewItem.h				GPL2+
 
-	libkwave/ApplicationContext.cpp			GPL2+
-	libkwave/ApplicationContext.h			GPL2+
 	libkwave/BitrateMode.h				GPL2+
 	libkwave/ByteOrder.h				GPL2+
 	libkwave/ClipBoard.cpp				GPL2+
@@ -336,6 +334,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Drag.h					GPL2+
 	libkwave/Encoder.cpp				GPL2+
 	libkwave/Encoder.h				GPL2+
+	libkwave/FileContext.cpp			GPL2+
+	libkwave/FileContext.h				GPL2+
 	libkwave/FileDrag.h				GPL2+
 	libkwave/FileInfo.cpp				GPL2+
 	libkwave/FileInfo.h				GPL2+

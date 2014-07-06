@@ -33,7 +33,7 @@ class KUrl;
 namespace Kwave
 {
 
-    class ApplicationContext;
+    class FileContext;
     class TopWidget;
 
     /**

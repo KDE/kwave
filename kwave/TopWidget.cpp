@@ -198,15 +198,7 @@ bool Kwave::TopWidget::init()
     if (!stream.atEnd()) parseCommands(stream);
     menufile.close();
 
-    m_main_widget = new Kwave::MainWidget(this, m_context);
-    Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return false;
-    if (!(m_main_widget->isOK())) {
-	qWarning("TopWidget::TopWidget(): failed at creating main widget");
-	delete m_main_widget;
-	m_main_widget = 0;
-	return false;
-    }
+    m_main_widget = m_context.mainWidget();
 
     // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
@@ -214,9 +206,6 @@ bool Kwave::TopWidget::init()
     connect(&m_context.signalManager()->playbackController(),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
-    connect(&m_context.signalManager()->playbackController(),
-            SIGNAL(sigSeekDone(sample_index_t)),
-            m_main_widget, SLOT(scrollTo(sample_index_t)));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
@@ -509,13 +498,10 @@ Kwave::TopWidget::~TopWidget()
     delete m_toolbar_record_playback;
     m_toolbar_record_playback = 0;
 
-    delete m_main_widget;
-    m_main_widget = 0;
-
     delete m_menu_manager;
     m_menu_manager = 0;
 
-    m_context.application().closeWindow(this);
+    m_main_widget = 0;
 
     m_context.close();
 }
@@ -873,8 +859,6 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
-    Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return -1;
 
     // abort if new file not valid and local
     if (!url.isLocalFile()) return -1;
@@ -960,8 +944,6 @@ int Kwave::TopWidget::saveFile()
 {
     int res = 0;
     Kwave::SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return -EINVAL;
     if (!signal_manager) return -EINVAL;
 
     if (signalName() != NEW_FILENAME) {
@@ -989,9 +971,8 @@ int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
 {
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     int res = 0;
-    Q_ASSERT(m_main_widget);
     Q_ASSERT(signal_manager);
-    if (!m_main_widget || !signal_manager) return -EINVAL;
+    if (!!signal_manager) return -EINVAL;
 
     QString name = filename;
     KUrl url;

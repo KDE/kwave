@@ -129,7 +129,7 @@ namespace Kwave
 
 	/**
 	 * Called if a new zoom factor has been set in order to update
-	 * the status display and the content of the zomm selection
+	 * the status display and the content of the zoom selection
 	 * combo box.
 	 * @note This method can not be called to *set* a new zoom factor.
 	 */

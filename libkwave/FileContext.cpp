@@ -21,6 +21,7 @@
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 
+#include "kwave/MainWidget.h"
 #include "kwave/TopWidget.h"
 
 //***************************************************************************
@@ -34,6 +35,13 @@ Kwave::TopWidget *Kwave::FileContext::topWidget() const
 {
     Q_ASSERT(m_top_widget);
     return m_top_widget;
+}
+
+//***************************************************************************
+Kwave::MainWidget *Kwave::FileContext::mainWidget() const
+{
+    Q_ASSERT(m_main_widget);
+    return m_main_widget;
 }
 
 //***************************************************************************

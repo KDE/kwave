@@ -32,6 +32,7 @@ namespace Kwave
 {
 
     class App;
+    class MainWidget;
     class PluginManager;
     class SignalManager;
     class TopWidget;
@@ -72,10 +73,15 @@ namespace Kwave
 	/** returns a pointer to the instance's toplevel window */
 	Kwave::TopWidget     *topWidget() const;
 
-	/** returns a pointer to the instance's signal manager */
+	/**
+	 * returns a pointer to the main widget of this context
+	 */
+	Kwave::MainWidget    *mainWidget() const;
+
+	/** returns a pointer to the signal manager of this context */
 	Kwave::SignalManager *signalManager() const;
 
-	/** returns a pointer to the instance's plugin manager */
+	/** returns a pointer to the plugin manager of this context */
 	PluginManager *pluginManager() const;
 
     private:
@@ -85,6 +91,9 @@ namespace Kwave
 
 	/** instance of our toplevel window */
 	QPointer<Kwave::TopWidget> m_top_widget;
+
+	/** instance of our main widget */
+	Kwave::MainWidget *m_main_widget;
 
 	/** instance of our signal manager */
 	QPointer<Kwave::SignalManager> m_signal_manager;

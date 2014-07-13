@@ -207,11 +207,6 @@ bool Kwave::TopWidget::init()
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
 
-    // connect the sigCommand signal to ourself, this is needed
-    // for the plugins
-    connect(this, SIGNAL(sigCommand(const QString &)),
-	    this, SLOT(executeCommand(const QString &)));
-
     // --- set up the toolbar ---
 
     showInSplashSreen(i18n("Initializing toolbar..."));
@@ -972,7 +967,7 @@ int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     int res = 0;
     Q_ASSERT(signal_manager);
-    if (!!signal_manager) return -EINVAL;
+    if (!signal_manager) return -EINVAL;
 
     QString name = filename;
     KUrl url;

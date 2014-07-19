@@ -298,12 +298,18 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 	QUuid uuid = m_signal.uuidOfTrack(track_list[index]);
 	if (uuid.isNull()) continue; // track has just been deleted
 
+	// check: maybe slotTrackInserted has not yet been called
+	//        or slotTrackDeleted has just been called
+	if (!m_state.keys().contains(uuid))
+	    continue;
+
 	sample_t *min = m_min[uuid].data();
 	sample_t *max = m_max[uuid].data();
 	CacheState *state = m_state[uuid].data();
+	Q_ASSERT(min && max && state);
 	Kwave::SampleReader *reader = src[index];
 	Q_ASSERT(reader);
-	Q_ASSERT(min && max && state);
+
 	if (!reader || !min || !max || !state) continue;
 
 	for (unsigned int ofs = 0; ofs < count; ++ofs) {
@@ -336,8 +342,6 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 	sample_t maximum = SAMPLE_MIN;
 	for (; index <= last_index; ++index) {
 	    // loop over all tracks
-	    Q_ASSERT(m_min.count() == m_state.count());
-	    Q_ASSERT(m_max.count() == m_state.count());
 	    foreach (const QUuid &uuid, m_state.keys()) {
 		sample_t *min = m_min[uuid].data();
 		sample_t *max = m_max[uuid].data();

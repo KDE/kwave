@@ -25,7 +25,7 @@
 #include <QtCore/QFutureSynchronizer>
 #include <QtCore/QtConcurrentRun>
 #include <QtCore/QObject>
-#include <QtCore/QVector>
+#include <QtCore/QList>
 
 #include "libkwave/SampleSource.h"
 
@@ -38,7 +38,7 @@ namespace Kwave
      */
     template <class SOURCE, const bool INITIALIZE>
     class KDE_EXPORT MultiTrackSource: public Kwave::SampleSource,
-	                               private QVector<SOURCE *>
+	                               private QList<SOURCE *>
     {
     public:
 	/**
@@ -50,13 +50,12 @@ namespace Kwave
 	 * @param tracks number of tracks
 	 * @param parent a parent object, passed to QObject (optional)
 	 */
-	MultiTrackSource(unsigned int tracks,
-	                 QObject *parent=0)
+	MultiTrackSource(unsigned int tracks, QObject *parent = 0)
 	    :Kwave::SampleSource(parent),
-	     QVector<SOURCE *>(tracks)
+	     QList<SOURCE *>()
         {
 	    Q_ASSERT(INITIALIZE || (tracks == 0));
-	    Q_ASSERT(QVector<SOURCE *>::size() == static_cast<int>(tracks));
+	    Q_ASSERT(QList<SOURCE *>::size() == static_cast<int>(tracks));
 	}
 
 	/** Destructor */
@@ -73,7 +72,7 @@ namespace Kwave
 	{
 	    QFutureSynchronizer<void> synchronizer;
 
-	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this)) {
+	    foreach (SOURCE *src, static_cast< QList<SOURCE *> >(*this)) {
 		if (!src) continue;
 		synchronizer.addFuture(QtConcurrent::run(
 		    this,
@@ -88,7 +87,7 @@ namespace Kwave
 	/** Returns true when all sources are done */
 	virtual bool done() const
 	{
-	    foreach (SOURCE *src, static_cast< QVector<SOURCE *> >(*this))
+	    foreach (SOURCE *src, static_cast< QList<SOURCE *> >(*this))
 		if (src && !src->done()) return false;
 	    return true;
 	}
@@ -99,7 +98,7 @@ namespace Kwave
 	 */
 	virtual unsigned int tracks() const
 	{
-	    return QVector<SOURCE *>::size();
+	    return QList<SOURCE *>::size();
 	}
 
 	/**
@@ -108,7 +107,7 @@ namespace Kwave
 	 * it returns "this" for the first index and 0 for all others
 	 */
 	inline virtual SOURCE *at(unsigned int track) const {
-	    return QVector<SOURCE *>::at(track);
+	    return QList<SOURCE *>::at(track);
 	}
 
 	/** @see the Kwave::MultiTrackSource.at()... */
@@ -124,18 +123,14 @@ namespace Kwave
 	 * @return true if successful, false if failed
 	 */
 	inline virtual bool insert(unsigned int track, SOURCE *source) {
-	    QVector<SOURCE *>::insert(track, source);
+	    QList<SOURCE *>::insert(track, source);
 	    return (at(track) == source);
 	}
 
 	/** Remove all tracks / sources */
 	inline virtual void clear() {
-	    while (!QVector<SOURCE *>::isEmpty()) {
-		SOURCE *s = at(0);
-		if (s) delete s;
-		QVector<SOURCE *>::remove(0);
-	    }
-	    QVector<SOURCE *>::clear();
+	    while (!QList<SOURCE *>::isEmpty())
+		delete QList<SOURCE *>::takeLast();
 	}
 
     private:

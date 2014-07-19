@@ -23,7 +23,7 @@
 #include <new>
 
 #include <QtCore/QObject>
-#include <QtCore/QVector>
+#include <QtCore/QList>
 
 #include "libkwave/SampleSink.h"
 
@@ -32,7 +32,7 @@ namespace Kwave
 
     template <class SINK, const bool INITIALIZE>
     class MultiTrackSink: public Kwave::SampleSink,
-                          private QVector<SINK *>
+                          private QList<SINK *>
     {
     public:
 	/**
@@ -42,13 +42,10 @@ namespace Kwave
 	 */
 	MultiTrackSink(unsigned int tracks, QObject *parent = 0)
 	    :Kwave::SampleSink(parent),
-	    QVector<SINK *>(tracks)
+	    QList<SINK *>()
 	{
 	    Q_ASSERT(INITIALIZE || (tracks == 0));
-	    if (tracks) {
-		QVector<SINK *>::fill(static_cast<SINK *>(0));
-		Q_ASSERT(QVector<SINK *>::size() == static_cast<int>(tracks));
-	    }
+	    Q_ASSERT(QList<SINK *>::size() == static_cast<int>(tracks));
 	}
 
 	/** Destructor */
@@ -61,7 +58,7 @@ namespace Kwave
 	virtual bool done() const
 	{
 	    foreach (Kwave::SampleSink *s,
-		     static_cast< QVector<SINK *> >(*this))
+		     static_cast< QList<SINK *> >(*this))
 		if (s && !s->done()) return false;
 	    return true;
 	}
@@ -72,7 +69,7 @@ namespace Kwave
 	 */
 	virtual unsigned int tracks() const
 	{
-	    return QVector<SINK *>::size();
+	    return QList<SINK *>::size();
 	}
 
 	/**
@@ -81,7 +78,7 @@ namespace Kwave
 	 * it returns "this" for the first index and 0 for all others
 	 */
 	inline virtual SINK *at(unsigned int track) const {
-	    return QVector<SINK *>::at(track);
+	    return QList<SINK *>::at(track);
 	}
 
 	/** @see the Kwave::MultiTrackSink.at()... */
@@ -97,18 +94,14 @@ namespace Kwave
 	 * @return true if successful, false if failed
 	 */
 	virtual bool insert(unsigned int track, SINK *sink) {
-	    QVector<SINK *>::insert(track, sink);
+	    QList<SINK *>::insert(track, sink);
 	    return (at(track) == sink);
 	}
 
 	/** Remove all tracks / sinks */
 	virtual void clear() {
-	    while (!QVector<SINK *>::isEmpty()) {
-		Kwave::SampleSink *s = at(0);
-		if (s) delete s;
-		QVector<SINK *>::remove(0);
-	    }
-	    QVector<SINK *>::clear();
+	    while (!QList<SINK *>::isEmpty())
+		delete QList<SINK *>::takeLast();
 	}
     };
 

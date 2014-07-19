@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QtCore/QList>
+#include <QtCore/QVector>
 
 #include <FLAC/format.h>
 #include <FLAC++/encoder.h>

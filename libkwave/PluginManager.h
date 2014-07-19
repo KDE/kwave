@@ -26,7 +26,6 @@
 #include <QtCore/QMutableListIterator>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
-#include <QtCore/QVector>
 
 #include <kdemacros.h>
 

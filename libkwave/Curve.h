@@ -27,6 +27,7 @@
 #include <QtCore/QPointF>
 #include <QtCore/QString>
 #include <QtCore/QtGlobal>
+#include <QtCore/QVector>
 
 #include <kdemacros.h>
 

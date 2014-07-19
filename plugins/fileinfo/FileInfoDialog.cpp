@@ -31,7 +31,6 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtGui/QToolTip>
-#include <QtCore/QVector>
 #include <QtGui/QWhatsThis>
 
 #include <kglobal.h>

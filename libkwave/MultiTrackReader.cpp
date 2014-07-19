@@ -24,7 +24,7 @@
 
 //***************************************************************************
 Kwave::MultiTrackReader::MultiTrackReader()
-    :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0,0),
+    :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, 0),
      m_first(0), m_last(0), m_canceled(false)
 {
 }
@@ -111,7 +111,8 @@ void Kwave::MultiTrackReader::reset()
 }
 
 //***************************************************************************
-bool Kwave::MultiTrackReader::insert(unsigned int track, Kwave::SampleReader *reader)
+bool Kwave::MultiTrackReader::insert(unsigned int track,
+                                     Kwave::SampleReader *reader)
 {
     if (reader) {
         connect(

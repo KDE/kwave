@@ -600,10 +600,11 @@ void Kwave::Stripe::minMax(unsigned int first, unsigned int last,
 	}
 	remaining -= block;
     }
-    while (Q_LIKELY(remaining--)) {
+    while (Q_LIKELY(remaining)) {
 	register sample_t s = *(buffer++);
 	if (Q_UNLIKELY(s < lo)) lo = s;
 	if (Q_UNLIKELY(s > hi)) hi = s;
+	remaining--;
     }
     min = lo;
     max = hi;

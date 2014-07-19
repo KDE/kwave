@@ -26,7 +26,6 @@
 #include <QtGui/QProgressDialog>
 #include <QtCore/QThread>
 #include <QtCore/QTime>
-#include <QtCore/QVector>
 #include <QtGui/QWidget>
 
 #include <kapplication.h>

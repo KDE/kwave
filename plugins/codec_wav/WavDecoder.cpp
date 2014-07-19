@@ -23,6 +23,8 @@
 #include <QtCore/QtEndian>
 #include <QtCore/QtGlobal>
 #include <QtCore/QList>
+#include <QtCore/QVector>
+
 #include <QtGui/QApplication>
 #include <QtGui/QProgressDialog>
 
@@ -580,11 +582,11 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
     const unsigned int tracks = dst.tracks();
 
     // allocate an array of Writers, for speeding up
-    QVector<Kwave::Writer *>writers;
-    for (unsigned int t = 0; t < tracks; t++)
-	writers.append(dst[t]);
+    QVector<Kwave::Writer *>writers(tracks);
     Q_ASSERT(writers.count() == Kwave::toInt(dst.tracks()));
     if (writers.count() != Kwave::toInt(dst.tracks())) return false;
+    for (unsigned int t = 0; t < tracks; t++)
+	writers[t] = dst[t];
     Kwave::Writer **writer_fast = writers.data();
 
     unsigned int frame_size = Kwave::toUint(
@@ -611,8 +613,7 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 
 	// split into the tracks
 	qint32 *p = buffer;
-	unsigned int count = buffer_used;
-	while (count--) {
+	for (unsigned int count = buffer_used; count; count--) {
 	    for (unsigned int track = 0; track < tracks; track++) {
 		qint32 s = *p++;
 

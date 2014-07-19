@@ -18,6 +18,8 @@
 #include "config.h"
 
 #include <QtCore/QLatin1Char>
+#include <QtCore/QVector>
+
 #include <QtGui/QCheckBox>
 #include <QtGui/QGroupBox>
 #include <QtGui/QLabel>

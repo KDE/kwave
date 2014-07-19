@@ -86,7 +86,8 @@ Kwave::Parser::Parser (const QString &init)
 		    // break, belongs to command, end of line
 		    line.clear();
 		}
-		level--;
+		else
+		    level--;
 		param += c;
 		break;
 	    default:

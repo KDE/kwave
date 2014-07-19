@@ -26,7 +26,6 @@
 #include <QtCore/QString>
 #include <QtCore/QThread>
 #include <QtCore/QTimer>
-#include <QtCore/QVector>
 
 #include <kdemacros.h>
 

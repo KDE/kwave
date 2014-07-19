@@ -28,7 +28,6 @@
 #include <QtCore/QList>
 #include <QtCore/QStringList>
 #include <QtCore/QThread>
-#include <QtCore/QVector>
 
 #include <klocale.h> // for the i18n macro
 

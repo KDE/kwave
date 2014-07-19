@@ -301,6 +301,7 @@ void Kwave::FileProgress::setValue(qreal percent)
 void Kwave::FileProgress::setBytePosition(quint64 pos)
 {
     if (!m_progress) return;
+    if (pos > m_size) pos = m_size;
 
     // the easiest part: the progress bar and the caption
     int percent = Kwave::toInt(

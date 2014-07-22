@@ -75,7 +75,7 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
 	s_in      += block_size;
 	remaining -= block_size;
     }
-    while (remaining--)
+    for (; remaining; remaining--)
 	(*f_in++) = sample2float(*(s_in++));
 
     // prepare the output buffer (estimated size, rounded up)
@@ -120,7 +120,7 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
 	f_out     += block_size;
 	remaining -= block_size;
     }
-    while (remaining--)
+    for (; remaining; remaining--)
 	*(s_out++) = float2sample(*(f_out++));
 
     emit output(out);

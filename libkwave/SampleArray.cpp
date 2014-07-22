@@ -71,9 +71,7 @@ void Kwave::SampleArray::fill(sample_t value)
     sample_t *p = data();
     Q_ASSERT(p);
     if (!p) return;
-    unsigned int count = m_storage->m_size;
-    Q_ASSERT(count);
-    while (count--) {
+    for (unsigned int count = m_storage->m_size; KDE_ISLIKELY(count); count--) {
 	*p = value;
 	p++;
     }
@@ -82,7 +80,7 @@ void Kwave::SampleArray::fill(sample_t value)
 //***************************************************************************
 sample_t & Kwave::SampleArray::operator [] (unsigned int index)
 {
-    static sample_t dummy;
+    static sample_t dummy = 0;
     sample_t *p = data();
 
     if (KDE_ISLIKELY(p))

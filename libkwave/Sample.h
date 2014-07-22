@@ -33,11 +33,14 @@ typedef quint64 sample_index_t;
 /** Currently a "sample" is defined as a 32 bit integer with 24 valid bits */
 typedef qint32 sample_t;
 
+/** native data type used for storing a sample_t */
+typedef qint32 sample_storage_t;
+
 /** number of significant bits per sample */
 #define SAMPLE_BITS 24
 
 /** number of bits used for storing samples in integer representation */
-#define SAMPLE_STORAGE_BITS 32
+#define SAMPLE_STORAGE_BITS (sizeof(sample_storage_t) * 8)
 
 /** lowest sample value */
 #define SAMPLE_MIN (-(1 << (SAMPLE_BITS - 1)) + 1)

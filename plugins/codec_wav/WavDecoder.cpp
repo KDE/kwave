@@ -594,7 +594,8 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 
     // allocate a buffer for input data
     const unsigned int buffer_frames = (8 * 1024);
-    qint32 *buffer = static_cast<qint32 *>(malloc(buffer_frames * frame_size));
+    sample_storage_t *buffer = static_cast<sample_storage_t *>(
+	malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
 
@@ -612,10 +613,10 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 	rest -= buffer_used;
 
 	// split into the tracks
-	qint32 *p = buffer;
+	sample_storage_t *p = buffer;
 	for (unsigned int count = buffer_used; count; count--) {
 	    for (unsigned int track = 0; track < tracks; track++) {
-		qint32 s = *p++;
+		sample_storage_t s = *p++;
 
 		// adjust precision
 		if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
@@ -623,7 +624,7 @@ bool Kwave::WavDecoder::decode(QWidget */*widget*/, Kwave::MultiWriter &dst)
 		}
 
 		// the following cast is only necessary if
-		// sample_t is not equal to a quint32
+		// sample_t is not equal to a sample_storage_t
 		Q_ASSERT(writer_fast[track]);
 		*(writer_fast[track]) << static_cast<sample_t>(s);
 	    }

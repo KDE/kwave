@@ -466,8 +466,8 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     // allocate a buffer for input data
     const unsigned int virtual_frame_size = Kwave::toUint(
 	    afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
-    const unsigned int buffer_frames = (8*1024);
-    qint32 *buffer = static_cast<qint32 *>(
+    const unsigned int buffer_frames = (8 * 1024);
+    sample_storage_t *buffer = static_cast<sample_storage_t *>(
 	malloc(buffer_frames * virtual_frame_size));
     if (!buffer) return false;
 
@@ -475,7 +475,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     sample_index_t rest = length;
     while (rest) {
 	// merge the tracks into the sample buffer
-	qint32 *p = buffer;
+	sample_storage_t *p = buffer;
 	unsigned int count = buffer_frames;
 	if (rest < count) count = Kwave::toUint(rest);
 
@@ -486,8 +486,8 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 		if (!stream->eof()) (*stream) >> sample;
 
 		// the following cast is only necessary if
-		// sample_t is not equal to a 32bit int
-		register quint32 act = static_cast<quint32>(sample);
+		// sample_t is not equal to sample_storage_t
+		sample_storage_t act = static_cast<sample_storage_t>(sample);
 		act *= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
 		*p = act;
 		p++;
@@ -514,7 +514,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     outfile.close();
 
     // clean up the sample buffer
-    if (buffer) free(buffer);
+    free(buffer);
     afFreeFileSetup(setup);
 
     // due to a buggy implementation of libaudiofile

@@ -116,7 +116,7 @@ void Kwave::Mul::multiply()
 	return;
 
     // do the multiplication of the whole buffer
-    while (count--)
+    for (; count; count--)
     {
 	if (!m_a_is_const) a = sample2float(*(p_a++));
 	if (!m_b_is_const) b = sample2float(*(p_b++));

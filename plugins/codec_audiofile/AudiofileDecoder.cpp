@@ -18,9 +18,7 @@
 #include "config.h"
 #include <stdlib.h>
 
-extern "C" {
 #include <audiofile.h>
-}
 
 #include <QtCore/QtGlobal>
 
@@ -206,9 +204,9 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
 	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
 
     // allocate a buffer for input data
-    const unsigned int buffer_frames = (8*1024);
-    qint32 *buffer =
-	static_cast<qint32 *>(malloc(buffer_frames * frame_size));
+    const unsigned int buffer_frames = (8 * 1024);
+    sample_storage_t *buffer =
+	static_cast<sample_storage_t *>(malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
 
@@ -226,15 +224,15 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
 	rest -= buffer_used;
 
 	// split into the tracks
-	qint32 *p = buffer;
+	sample_storage_t *p = buffer;
 	unsigned int count = buffer_used;
 	while (count--) {
 	    for (unsigned int track = 0; track < tracks; track++) {
-		qint32 s = *p++;
+		sample_storage_t s = *p++;
 
 		// adjust precision
 		if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
-		    s /= (1 << (SAMPLE_STORAGE_BITS-SAMPLE_BITS));
+		    s /= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
 		}
 
 		// the following cast is only necessary if

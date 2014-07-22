@@ -3,6 +3,7 @@
  * menu subsystem: added support for exclusive selection (radio buttons)
  * menu subsystem: let KDE chose shortcuts automatically
  * bugfix: deadlock in class Track
+ * bugfix: segfault during shutdown of logger
 
 0.8.12 [2014-06-04]
 

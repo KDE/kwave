@@ -127,7 +127,7 @@ void Kwave::Logger::log(const QObject *sender,
     QString date_time = now.toString(_("yyyy-MM-dd hh:mm:ss.zzz"));
 
     // get the PID of the application
-    long int x_pid = static_cast<long int>(qApp->applicationPid());
+    long int x_pid = qApp ? static_cast<long int>(qApp->applicationPid()) : -1;
 
     // format the log log message
     // x-status date time x-pid x-message

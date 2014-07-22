@@ -2,6 +2,7 @@
 
  * menu subsystem: added support for exclusive selection (radio buttons)
  * menu subsystem: let KDE chose shortcuts automatically
+ * bugfix: deadlock in class Track
 
 0.8.12 [2014-06-04]
 
@@ -97,7 +98,7 @@
  * using QLibrary instead of functions from libdl
  * bugfix: shutdown sequence was incomplete
  * bugfix: keyboard shortcut for first menu entry did not work
- * bugfix: ambiguous keyboard shortscut for "File/New Window"
+ * bugfix: ambiguous keyboard shortcut for "File/New Window"
  * bugfix: undo of "modify label" caused loss of other labels
  * bugfix: use timeout for phonon playback, to avoid hang on unusable devices
  * using klocale for formating numbers of samples
@@ -223,7 +224,7 @@
  * new plugin: change sample rate
  * using libsamplerate (new dependency)
  * new feature: sample rate conversion on clipboard data
- * new feature: abillity to set recording start time in advance
+ * new feature: ability to set recording start time in advance
    (feature requested by John David Thompson)
  * bugfix: drag&drop of files on the main window was broken
  * workaround for bug in id3lib which crashed in ID3_Tag::GetSize()
@@ -239,7 +240,7 @@
  * bugfix: selection was not set after "paste" and undo of other operations
  * bugfix: label handling in context of "delete" and "undo" was broken
  * bugfix: invalidation of overview cache after delete was not correct
- * bugfix: artefacts in track display in min/max overview mode
+ * bugfix: artifacts in track display in min/max overview mode
  * bugfix: add/delete/modify of labels did not set the state of the
    current file to "modified"
  * bugfix: record dialog caused shutdown to hang when closed while recording
@@ -286,7 +287,7 @@
    with Qt::QueuedConnection -> now using Qt::BlockingQueuedConnection
  * new plugin: reverse
  * speedup: limiting the number of progress bar updates per second
- * memory manager: fixed multithreading issues, improved OOM behaviour
+ * memory manager: fixed multithreading issues, improved OOM behavior
  * bugfix: received SIGBUS in SwapFile when disk was full
  * improved performance of memory management
  * require Qt4 v4.5.0 or newer
@@ -360,7 +361,7 @@
  * show labels in overview widget
  * show current playback position in overview widget
  * overview widget: dimming parts that are out of view
- * no longer needing builtin copy of libaudiofile, removed
+ * no longer needing built in copy of libaudiofile, removed
 
 0.8.0  [2008-09-27]
 
@@ -574,7 +575,7 @@
  * volume plugin: simple clipping
  * volume plugin: mode for "multiply with /divide through factor"
  * newsignal and selectrange plugin: got rid of KDoubleNumInput and
-   it's weird display and entry behaviour
+   it's weird display and entry behavior
  * selectrange plugin: also select start position of selection
  * can use libmad and libaudiofile from the host system if usable
  * show the fileinfo plugin when saving under a different mime type
@@ -604,7 +605,7 @@
  * using time instead of zoom factor, e.g. set zoom to "1 minute"
    (feature requested by Gilles Caulier)
  * menu entries for playback control
- * some more icons in the menues
+ * some more icons in the menus
  * replaced KFileDialog with subclass KwaveFileDialog (works
    around some bugs in KDE)
  * added a little chapter about digital audio basics to online help
@@ -647,7 +648,7 @@
    of tracks, the result will be mixed (still not optimized/slow)
  * fixed compile problem with gcc-2.96 / gcc-3.0
  * fixed missing header file in NewSigDlg.ui
- * the RPM should be relocateable again
+ * the RPM should be relocatable again
  * fixed bug in shutdown sequence, now clipboard is flushed before the
    application closes.
 
@@ -693,7 +694,7 @@
  * sonagram: removed (need for) SonagramContainer, using
    QGridLayout instead
  * moved SignalProxy to the mt subdirectory
- * fixed X11 synchronzation problem with SignalProxy
+ * fixed X11 synchronization problem with SignalProxy
  * added TSS (thread-specific-storage) support to the mt classes
  * added some multithreading support classes: Thread, AsynchObject, ...
  * removed the "get" prefix from all member functions. This is the
@@ -822,7 +823,7 @@
    - made use of a combination of signals/slots and string messages
    - hierarchical processing: commands are are forwarded "upwards"
      until they reach a TopWidget
-   - the TopWidget (highest level) dispatches the comands and forwards
+   - the TopWidget (highest level) dispatches the commands and forwards
      them to the lower levels
 
 0.5.2 [2000-04-24]
@@ -846,8 +847,8 @@
 
 0.5.1-4 [2000-04-16]
 
- * >>> now compiles and runns under RedHat 6.1 / Halloween IV <<<
-   >>> as well as under SuSE 6.2                              <<<
+ * >>> now compiles and runs under RedHat 6.1 / Halloween IV <<<
+   >>> as well as under SuSE 6.2                             <<<
  * version info of libkwavegui.so is set to the package's version
  * bugfix in plugins/template/Makefile.am: will not create .moc files on
    make distclean and other targets
@@ -914,7 +915,7 @@
 
  * changed filenames to reflect class names
  * one class per file is now the standard
- * stripped leading "Kwave" in Classnames for most Classes
+ * stripped leading "Kwave" in class names for most classes
 
 1999-12-10 (by Thomas.Eschenbacher@gmx.de)
 
@@ -927,7 +928,7 @@
  * gave the destructor of SignalManager some code, this fixes
    a huge memory leak !
  * added a TODO file
- * added -Werror to the c++ compiler options when debuging enabled
+ * added -Werror to the c++ compiler options when debugging enabled
  * some include file cleanups in libgui
 
 1999-12-07 (by Thomas.Eschenbacher@gmx.de)
@@ -960,7 +961,7 @@
  * now using KTMainwindow for top level widgets
  * using timer to check message port -> alternative (threadsafe) message
    passing instead of signal/slot
- * labelling code rewritten, now incompatible with old releases
+ * labeling code rewritten, now incompatible with old releases
  * batch loading routines
 
 1999-09-07 (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
@@ -1000,13 +1001,13 @@
  * recent Files are updated again, while the program is running
  * kwave now keeps track of last directory saved to; for user convenience
  * reestablished selection mechanism to match versions
-   before 0.29.3 and corrected some otherwise screwed-up behaviour
+   before 0.29.3 and corrected some otherwise screwed-up behavior
  * _now_ all parameters to destructors should have vanished
 
 0.29.3 [1998-12-18] (by Martin Wilz <mwilz@ernie.mi.uni-koeln.de>)
 
  * developement has slowed down a bit, this release is not as complete as I
-   wished but since 0.29.2 has a destructor with parameters accidently left
+   wished but since 0.29.2 has a destructor with parameters accidentally left
    in, and so does not compile on all systems -> here we go again...
 
  * reworked selection routines into a new class, code is still rather
@@ -1039,7 +1040,7 @@
  * implemented cursor and db scale for fft-view
  * added reselection and cursor change
  * added possibility of different display modes in Frequency representation
- * fixed severe quantisation bug in saving 16Bit routine, reported by ?
+ * fixed severe quantization bug in saving 16Bit routine, reported by ?
  * mmaping support contributed by Juhana Kouhia
  * added as new Possibility to generate Signals: pulse trains
  * added wrapper for systems with no posixthreads ->

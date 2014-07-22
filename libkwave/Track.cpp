@@ -19,6 +19,7 @@
 
 #include <new>
 
+#include <QtCore/QMutexLocker>
 #include <QtCore/QReadLocker>
 #include <QtCore/QWriteLocker>
 
@@ -55,14 +56,14 @@
 
 //***************************************************************************
 Kwave::Track::Track()
-    :m_lock(), m_lock_usage(), m_stripes(), m_selected(true),
+    :m_lock(QMutex::Recursive), m_lock_usage(), m_stripes(), m_selected(true),
      m_uuid(QUuid::createUuid())
 {
 }
 
 //***************************************************************************
 Kwave::Track::Track(sample_index_t length, QUuid *uuid)
-    :m_lock(), m_lock_usage(), m_stripes(), m_selected(true),
+    :m_lock(QMutex::Recursive), m_lock_usage(), m_stripes(), m_selected(true),
      m_uuid((uuid) ? *uuid : QUuid::createUuid())
 {
     if (length < STRIPE_LENGTH_MAXIMUM) {
@@ -81,7 +82,7 @@ Kwave::Track::~Track()
     QWriteLocker lock_usage(&m_lock_usage);
 
     // don't allow any further operation
-    QWriteLocker lock(&m_lock);
+    QMutexLocker lock(&m_lock);
 
     // delete all stripes
     m_stripes.clear();
@@ -171,7 +172,7 @@ bool Kwave::Track::mergeStripe(Kwave::Stripe &stripe)
 //***************************************************************************
 sample_index_t Kwave::Track::length()
 {
-    QReadLocker lock(&m_lock);
+    QMutexLocker lock(&m_lock);
     return unlockedLength();
 }
 
@@ -208,7 +209,7 @@ Kwave::Writer *Kwave::Track::openWriter(Kwave::InsertMode mode,
 Kwave::Stripe::List Kwave::Track::stripes(sample_index_t left,
                                           sample_index_t right)
 {
-    QReadLocker lock(&m_lock);
+    QMutexLocker lock(&m_lock);
 
     // collect all stripes that are in the requested range
     Kwave::Stripe::List stripes(left, right);
@@ -251,7 +252,7 @@ bool Kwave::Track::mergeStripes(const Kwave::Stripe::List &stripes)
 {
     bool succeeded = true;
     {
-	QWriteLocker lock(&m_lock);
+	QMutexLocker lock(&m_lock);
 	foreach (Stripe stripe, stripes) {
 	    if (!mergeStripe(stripe)) {
 		succeeded = false;
@@ -260,7 +261,7 @@ bool Kwave::Track::mergeStripes(const Kwave::Stripe::List &stripes)
 	}
     }
 
-    // do some defragmentation, to combin the ends of the inserted stripes
+    // do some defragmentation, to combine the ends of the inserted stripes
     defragment();
 
     const sample_index_t left  = stripes.left();
@@ -273,7 +274,7 @@ bool Kwave::Track::mergeStripes(const Kwave::Stripe::List &stripes)
 Kwave::SampleReader *Kwave::Track::openReader(Kwave::ReaderMode mode,
 	sample_index_t left, sample_index_t right)
 {
-    QReadLocker lock(&m_lock);
+    QMutexLocker lock(&m_lock);
 
     const sample_index_t length = unlockedLength();
     if (right >= length) right = (length) ? (length - 1) : 0;
@@ -298,7 +299,7 @@ void Kwave::Track::deleteRange(sample_index_t offset, sample_index_t length,
 // 	offset, offset + length - 1, length);
 
     {
-	QWriteLocker lock(&m_lock);
+	QMutexLocker lock(&m_lock);
 	unlockedDelete(offset, length, make_gap);
     }
 
@@ -316,7 +317,7 @@ bool Kwave::Track::insertSpace(sample_index_t offset, sample_index_t shift)
     if (!shift) return true;
 
     {
-	QWriteLocker lock(&m_lock);
+	QMutexLocker lock(&m_lock);
 	sample_index_t len = unlockedLength();
 	if (offset < len) {
 	    // find out whether the offset is within a stripe and
@@ -571,7 +572,7 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
 // 	    qDebug("writeSamples() - Append");
 	    bool appended;
 	    {
-		QWriteLocker _lock(&m_lock);
+		QMutexLocker _lock(&m_lock);
 		appended = appendAfter(
 		    m_stripes.isEmpty() ? 0 : &(m_stripes.last()),
 		    offset, buffer,
@@ -584,7 +585,7 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
 	    break;
 	}
 	case Kwave::Insert: {
-	    m_lock.lockForWrite();
+	    m_lock.lock();
 
 // 	    qDebug("Kwave::Track::writeSamples() - Insert @ %u, length=%u",
 // 		   offset, length);
@@ -644,7 +645,10 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
 		Stripe new_stripe = splitStripe(*target_stripe,
 		    Kwave::toUint(offset - target_stripe->start())
 		);
-		if (!new_stripe.length()) break;
+		if (!new_stripe.length()) {
+		    m_lock.unlock();
+		    break;
+		}
 		m_stripes.insert(m_stripes.indexOf(*target_stripe) + 1,
 		    new_stripe);
 
@@ -664,7 +668,7 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
 // 	    qDebug("writeSamples() - Overwrite [%u - %u]", left, right);
 
 	    {
-		QWriteLocker _lock(&m_lock);
+		QMutexLocker _lock(&m_lock);
 
 		// delete old content, producing a gap
 		unlockedDelete(offset, length, true);
@@ -681,11 +685,6 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
 		appendAfter(stripe_before, offset, buffer, buf_offset, length);
 	    }
 	    emit sigSamplesModified(this, offset, length);
-
-	    // look for possible fragmentation at the left side
-
-	    // look for possible fragmentation at the right side
-
 	    break;
 	}
     }
@@ -697,7 +696,7 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
 void Kwave::Track::defragment()
 {
 
-    if (!m_lock.tryLockForWrite()) {
+    if (!m_lock.tryLock()) {
 	// this could happen when there are two or more writers
 // 	qDebug("Track::defragment() - busy");
 	return;

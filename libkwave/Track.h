@@ -22,6 +22,7 @@
 #include <limits.h>  // for UINT_MAX
 
 #include <QtCore/QList>
+#include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtCore/QReadWriteLock>
 #include <QtCore/QUuid>
@@ -304,8 +305,8 @@ namespace Kwave
 	Stripe *newStripe(sample_index_t start, unsigned int length);
 
     private:
-	/** read/write lock for access to the whole track */
-	QReadWriteLock m_lock;
+	/** lock for access to the whole track */
+	QMutex m_lock;
 
 	/** lock to protect against deletion while the track is in use */
 	QReadWriteLock m_lock_usage;

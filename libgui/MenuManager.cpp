@@ -16,6 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -131,11 +133,11 @@ Kwave::MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
 }
 
 //***************************************************************************
-void Kwave::MenuManager::executeCommand(const QString &command)
+int Kwave::MenuManager::executeCommand(const QString &command)
 {
 
     Q_ASSERT(command.length());
-    if (!m_menu_root) return; // makes no sense if no menu root
+    if (!m_menu_root) return -EINVAL; // makes no sense if no menu root
 
     Kwave::Parser parser(command);
 
@@ -152,7 +154,7 @@ void Kwave::MenuManager::executeCommand(const QString &command)
     // bail out if no menu position is found
     if (!pos.length()) {
 	qWarning("no position field !");
-	return ;
+	return -EINVAL;
     }
 
     // --- 3rd parameter: bitmask for the key shortcut (optional) ---
@@ -205,6 +207,8 @@ void Kwave::MenuManager::executeCommand(const QString &command)
 
     // --- insert the new node into the menu structure ---
     m_menu_root->insertNode(QString(), pos, com, shortcut, id);
+
+    return 0;
 }
 
 //***************************************************************************

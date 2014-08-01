@@ -61,8 +61,10 @@ namespace Kwave
 	/**
 	 * Executes menu commands.
 	 * @param command string with the command
+	 * @retval 0 if succeeded
+	 * @retval -EINVAL if failed
 	 */
-	void executeCommand(const QString &command);
+	int executeCommand(const QString &command);
 
 	/**
 	 * Deletes all entries of a numbered menu

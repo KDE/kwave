@@ -109,20 +109,29 @@ namespace Kwave
 	 */
 	void updateRecentFiles();
 
+	/**
+	 * Execute a Kwave text command
+	 * @param command a text command
+	 * @retval 0 if succeeded
+	 * @retval negative error code if failed
+	 * @retval ENOSYS if the command is unknown in this component
+	 */
+	int executeCommand(const QString &command);
+
+	/**
+	 * forward a Kwave text command coming from an upper layer to
+	 * the currently active context below us (which is the main
+	 * entry point for all text commands
+	 * @param command a text command
+	 */
+	void forwardCommand(const QString &command);
+
     protected slots:
 
 	/** @see QWidget::closeEvent() */
 	virtual void closeEvent(QCloseEvent *e);
 
     private slots:
-
-	/**
-	 * Execute a Kwave text command
-	 * @param command a text command
-	 * @return zero if succeeded or negative error code if failed
-	 * @retval -ENOSYS is returned if the command is unknown in this component
-	 */
-	int executeCommand(const QString &command);
 
 	/** called on changes in the zoom selection combo box */
 	void selectZoom(int index);
@@ -184,67 +193,67 @@ namespace Kwave
 	void updateToolbar();
 
 	void toolbarRecord() {
-	    executeCommand(_("plugin(record)"));
+	    forwardCommand(_("plugin(record)"));
 	}
 
 	/** toolbar: "file/new" */
 	void toolbarFileNew() {
-	    executeCommand(_("plugin(newsignal)"));
+	    forwardCommand(_("plugin(newsignal)"));
 	}
 
 	/** toolbar: "file/open" */
 	void toolbarFileOpen() {
-	    executeCommand(_("open () "));
+	    forwardCommand(_("open () "));
 	}
 
 	/** toolbar: "file/save" */
 	void toolbarFileSave() {
-	    executeCommand(_("save () "));
+	    forwardCommand(_("save () "));
 	}
 
 	/** toolbar: "file/save" */
 	void toolbarFileSaveAs() {
-	    executeCommand(_("saveas () "));
+	    forwardCommand(_("saveas () "));
 	}
 
 	/** toolbar: "file/save" */
 	void toolbarFileClose() {
-	    executeCommand(_("close () "));
+	    forwardCommand(_("close () "));
 	}
 
 	/** toolbar: "edit/undo" */
 	void toolbarEditUndo() {
-	    executeCommand(_("undo () "));
+	    forwardCommand(_("undo () "));
 	}
 
 	/** toolbar: "edit/redo" */
 	void toolbarEditRedo() {
-	    executeCommand(_("redo () "));
+	    forwardCommand(_("redo () "));
 	}
 
 	/** toolbar: "edit/cut" */
 	void toolbarEditCut() {
-	    executeCommand(_("cut () "));
+	    forwardCommand(_("cut () "));
 	}
 
 	/** toolbar: "edit/copy" */
 	void toolbarEditCopy() {
-	    executeCommand(_("copy () "));
+	    forwardCommand(_("copy () "));
 	}
 
 	/** toolbar: "edit/paste" */
 	void toolbarEditPaste() {
-	    executeCommand(_("paste () "));
+	    forwardCommand(_("paste () "));
 	}
 
 	/** toolbar: "edit/erase" */
 	void toolbarEditErase() {
-	    executeCommand(_("plugin(zero)"));
+	    forwardCommand(_("plugin(zero)"));
 	}
 
 	/** toolbar: "edit/delete" */
 	void toolbarEditDelete() {
-	    executeCommand(_("delete () "));
+	    forwardCommand(_("delete () "));
 	}
 
 	/**
@@ -257,10 +266,6 @@ namespace Kwave
 	void showInSplashSreen(const QString &message);
 
     signals:
-	/**
-	 * Tells this TopWidget's parent to execute a command
-	 */
-	void sigCommand(const QString &command);
 
 	/**
 	 * Emitted it the name of the signal has changed.

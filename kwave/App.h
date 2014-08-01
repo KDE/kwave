@@ -112,7 +112,14 @@ namespace Kwave
     protected:
 	friend class Kwave::TopWidget;
 
-	bool executeCommand(const QString &command);
+	/**
+	 * process an application global Kwave text command
+	 * @param command the text command to handle
+	 * @retval 0 if succeeded
+	 * @retval ENOSYS if the command is unknown
+	 * @retval -EIO if failed
+	 */
+	int executeCommand(const QString &command);
 
     protected:
 

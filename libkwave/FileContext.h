@@ -39,6 +39,7 @@ namespace Kwave
 
     class KDE_EXPORT FileContext: public QObject
     {
+	Q_OBJECT
     public:
 	/**
 	 * Constructor. Creates a new toplevel window, signal manager,
@@ -83,6 +84,15 @@ namespace Kwave
 
 	/** returns a pointer to the plugin manager of this context */
 	PluginManager *pluginManager() const;
+
+    public slots:
+
+	/**
+	 * Execute a Kwave text command
+	 * @param command a text command
+	 * @return zero if succeeded or negative error code if failed
+	 */
+	int executeCommand(const QString &command);
 
     private:
 

@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <errno.h>
+
 #include <QtCore/QFile>
 #include <QtCore/QString>
 #include <QtCore/QMetaType>
@@ -122,21 +124,23 @@ bool Kwave::App::isOK() const
 }
 
 //***************************************************************************
-bool Kwave::App::executeCommand(const QString &command)
+int Kwave::App::executeCommand(const QString &command)
 {
     Kwave::Parser parser(command);
     if (parser.command() == _("newwindow")) {
+	bool ok;
 	if (parser.hasParams()) {
-	    newWindow(KUrl(parser.params().at(0)));
+	    ok = newWindow(KUrl(parser.params().at(0)));
 	} else {
-	    newWindow(KUrl(QString()));
+	    ok = newWindow(KUrl(QString()));
 	}
+	return (ok) ? 0 : -EIO;
     } else if (parser.command() == _("help")) {
 	KToolInvocation::invokeHelp();
     } else {
-	return false;
+	return ENOSYS; // command not implemented (here)
     }
-    return true;
+    return 0;
 }
 
 //***************************************************************************

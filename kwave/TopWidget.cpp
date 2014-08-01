@@ -186,7 +186,7 @@ bool Kwave::TopWidget::init()
 
     // connect clicked menu entries with main communication channel of kwave
     connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
-	    this, SLOT(executeCommand(const QString &)));
+	    this, SLOT(forwardCommand(const QString &)));
     connect(&Kwave::ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
 	    this, SLOT(clipboardChanged(bool)));
 
@@ -201,8 +201,6 @@ bool Kwave::TopWidget::init()
     m_main_widget = m_context.mainWidget();
 
     // connect the main widget
-    connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
-            this, SLOT(executeCommand(const QString &)));
     connect(&m_context.signalManager()->playbackController(),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
@@ -305,7 +303,7 @@ bool Kwave::TopWidget::init()
     if (!m_toolbar_record_playback) return false;
 
     connect(m_toolbar_record_playback, SIGNAL(sigCommand(const QString &)),
-            this,                    SLOT(executeCommand(const QString &)));
+            this,                    SLOT(forwardCommand(const QString &)));
     connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
 	    sample_index_t, sample_index_t)),
 	    m_toolbar_record_playback, SLOT(visibleRangeChanged(sample_index_t,
@@ -410,8 +408,6 @@ bool Kwave::TopWidget::init()
 
     // connect the plugin manager
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
-    connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
-            this,           SLOT(executeCommand(const QString &)));
     connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
             this,           SLOT(showInSplashSreen(const QString &)));
 
@@ -505,54 +501,13 @@ Kwave::TopWidget::~TopWidget()
 int Kwave::TopWidget::executeCommand(const QString &line)
 {
     int result = 0;
-    bool use_recorder = true;
     QString command = line;
 
-//    qDebug("TopWidget::executeCommand(%s)", DBG(command));
+//     qDebug("TopWidget::executeCommand(%s)", DBG(command));
     if (!command.length()) return 0; // empty line -> nothing to do
-    if (command.trimmed().startsWith(_("#")))
-	return 0; // only a comment
-
-    Kwave::PluginManager *plugin_manager = m_context.pluginManager();
-
-    // log all commands to the log file if enabled
-    Kwave::Logger::log(this, Kwave::Logger::Info, _("CMD: ") + line);
-
-    // special case: if the command contains ";" it is a list of
-    // commands -> macro !
-    Kwave::Parser parse_list(command);
-    if (parse_list.hasMultipleCommands()) {
-	QStringList macro = parse_list.commandList();
-	foreach (const QString &it, macro) {
-	    result = executeCommand(_("nomacro:") + it);
-	    Q_ASSERT(!result);
-	    if (result) {
-		qWarning("macro execution of '%s' failed: %d",
-		         DBG(it), result);
-		return result; // macro failed :-(
-	    }
-
-	    // wait until the command has completed !
-	    Q_ASSERT(plugin_manager);
-	    if (plugin_manager) plugin_manager->sync();
-	}
-	return result;
-    }
-
-    // check if the macro recorder has to be disabled for this command
-    if (command.startsWith(_("nomacro:"))) {
-	use_recorder = false;
-	command = command.mid(QString(_("nomacro:")).length());
-    }
 
     // parse one single command
     Kwave::Parser parser(command);
-
-    // exclude menu commands from the recorder
-    if (parser.command() == _("menu")) use_recorder = false;
-
-    // only record plugin:execute, not plugin without parameters
-    if (parser.command() == _("plugin")) use_recorder = false;
 
     // playback commands are always possible
     if ( (parser.command() == _("playback")) &&
@@ -561,72 +516,15 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	return m_toolbar_record_playback->executeCommand(parser.firstParam());
     }
 
-    // let through all commands that handle zoom/view or playback like fwd/rew
-    bool allow_always =
-	parser.command().startsWith(_("view:")) ||
-	parser.command().startsWith(_("playback:")) ||
-	parser.command().startsWith(_("select_track:")) ||
-	(parser.command() == _("close")) ||
-	(parser.command() == _("quit"))
-	;
-
-    // all others only if no plugin is currently running
-    if (!allow_always && plugin_manager && plugin_manager->onePluginRunning())
-    {
-	qWarning("TopWidget::executeCommand('%s') - currently not possible, "
-		 "a plugin is running :-(",
-		 DBG(parser.command()));
-	return -1;
-    }
-
-    if (use_recorder) {
-	// append the command to the macro recorder
-	// @TODO macro recording...
-	qDebug("# %s ", DBG(command));
-    }
-
-    if (m_context.application().executeCommand(command)) {
-	return 0;
+    if ((result = m_context.application().executeCommand(command)) != ENOSYS) {
+	return result;
     CASE_COMMAND("about_kde")
 	// Help / About KDE
 	KHelpMenu *dlg = new KHelpMenu(this, _("Kwave"));
 	if (dlg) dlg->aboutKDE();
-    CASE_COMMAND("plugin")
-	QString name = parser.firstParam();
-	QStringList params;
-
-	int cnt = parser.count();
-	if (cnt > 1) {
-	    while (cnt--) {
-		const QString &par = parser.nextParam();
-		qDebug("TopWidget::executeCommand(): %s", DBG(par));
-		params.append(par);
-	    }
-	}
-	qDebug("TopWidget::executeCommand(): loading plugin '%s'", DBG(name));
-	qDebug("TopWidget::executeCommand(): with %d parameter(s)",
-		params.count());
-	Q_ASSERT(plugin_manager);
-	if (plugin_manager)
-	    result = plugin_manager->executePlugin(
-		name, params.count() ? &params : 0);
-    CASE_COMMAND("plugin:execute")
-	QStringList params;
-	int cnt = parser.count();
-	QString name(parser.firstParam());
-	while (--cnt > 0) {
-	    params.append(parser.nextParam());
-	}
-	Q_ASSERT(plugin_manager);
-	result = (plugin_manager) ? plugin_manager->executePlugin(
-	    name, &params) : -ENOMEM;
-    CASE_COMMAND("plugin:setup")
-	QString name(parser.firstParam());
-	Q_ASSERT(plugin_manager);
-	if (plugin_manager) result = plugin_manager->setupPlugin(name);
     CASE_COMMAND("menu")
 	Q_ASSERT(m_menu_manager);
-	if (m_menu_manager) /*result = */m_menu_manager->executeCommand(command);
+	if (m_menu_manager) result = m_menu_manager->executeCommand(command);
     CASE_COMMAND("newsignal")
 	sample_index_t samples = parser.toSampleIndex();
 	double         rate    = parser.toDouble();
@@ -650,9 +548,8 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	result = closeFile() ? 0 : 1;
     CASE_COMMAND("revert")
 	result = revert();
-    CASE_COMMAND("saveas") {
+    CASE_COMMAND("saveas")
 	result = saveFileAs(parser.nextParam(), false);
-    }
     CASE_COMMAND("loadbatch")
 	result = loadBatch(parser.nextParam());
     CASE_COMMAND("saveselect")
@@ -677,12 +574,18 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	    KMessageBox::enableAllMessages();
 	}
     } else {
-	// try to forward the command to the main widget
-	Q_ASSERT(m_main_widget);
-	result = (m_main_widget) ? m_main_widget->executeCommand(command) : -1;
+	return ENOSYS; // command not implemented (here)
     }
 
     return result;
+}
+
+//***************************************************************************
+void Kwave::TopWidget::forwardCommand(const QString &command)
+{
+    // NOTE: in case of multiple contexts, we have to switch here
+    // ### GUI_MDI ###
+    m_context.executeCommand(command);
 }
 
 //***************************************************************************
@@ -698,13 +601,7 @@ int Kwave::TopWidget::loadBatch(const KUrl &url)
     // use a text stream for parsing the commands
     QTextStream stream(&file);
     int result = parseCommands(stream);
-
     file.close();
-
-    // successful run -> add URL to recent files
-    m_context.application().addRecentFile(url.path());
-    updateMenu();
-    updateToolbar();
 
     return result;
 }
@@ -777,7 +674,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	    line.prepend(_("nomacro:"));
 
 	// emit the command
-	result = executeCommand(line);
+	result = m_context.executeCommand(line); // ### GUI_MDI ###
 	if (result)
 	    qDebug(">>> '%s' - result=%d", DBG(line), result);
 

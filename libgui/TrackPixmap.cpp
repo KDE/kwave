@@ -83,10 +83,7 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 {
     QMutexLocker lock(&m_lock_buffer);
     if (offset == m_offset) return; // no change
-
-    unsigned int src;
-    unsigned int dst;
-    unsigned int buflen = m_valid.size();
+    const unsigned int buflen = m_valid.size();
 
     if (m_minmax_mode) {
 	// move content of min and max buffer
@@ -126,25 +123,28 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 	    Q_ASSERT(diff);
 	    Q_ASSERT(buflen);
 	    if (diff && buflen) {
-		for (src = diff, dst = 0; src < buflen; ++dst, ++src) {
+		unsigned int src = Kwave::toUint(diff);
+		unsigned int dst = 0;
+		while (src < buflen) {
 		    m_min_buffer[dst] = m_min_buffer[src];
 		    m_max_buffer[dst] = m_max_buffer[src];
-		    m_valid[dst] = m_valid[src];
+		    m_valid[dst++]    = m_valid[src++];
 		}
 		while (dst < buflen) m_valid.clearBit(dst++);
 	    }
 	} else {
 	    // move right
-	    unsigned int diff =
-		Kwave::toUint(samples2pixels(m_offset - offset));
+	    int diff = Kwave::toInt(samples2pixels(m_offset - offset));
 //	    qDebug("TrackPixmap::setOffset(): moving right (min/max): %u",diff);
 	    Q_ASSERT(diff);
 	    Q_ASSERT(buflen);
 	    if (diff && buflen) {
-		for (dst = buflen - 1, src = dst - diff; dst >= diff; ) {
+		int dst = buflen - 1;
+		while (dst >= diff) {
+		    int src = dst - diff;
 		    m_min_buffer[dst] = m_min_buffer[src];
 		    m_max_buffer[dst] = m_max_buffer[src];
-		    m_valid[dst--] = m_valid[src--];
+		    m_valid[dst--]    = m_valid[src--];
 		}
 		diff = dst + 1;
 		while (diff--) m_valid.clearBit(dst--);
@@ -159,22 +159,26 @@ void Kwave::TrackPixmap::setOffset(sample_index_t offset)
 	    // move left
 //	    qDebug("TrackPixmap::setOffset(): moving left (normal)");
 	    unsigned int diff = Kwave::toUint(offset - m_offset);
-	    for (src = diff, dst = 0; src < buflen; ) {
+	    unsigned int src  = Kwave::toUint(diff);
+	    unsigned int dst  = 0;
+	    while (src < buflen) {
 		m_sample_buffer[dst] = m_sample_buffer[src];
-		m_valid[dst++] = m_valid[src++];
+		m_valid[dst++]       = m_valid[src++];
 	    }
-	    while (dst < buflen) m_valid[dst++] = 0;
+	    while (dst < buflen) m_valid.clearBit(dst++);
 	} else {
 	    // move right
 //	    qDebug("TrackPixmap::setOffset(): moving right (normal)");
-	    unsigned int diff = Kwave::toUint(m_offset - offset);
+	    int diff = Kwave::toInt(m_offset - offset);
 	    Q_ASSERT(buflen);
 	    if (buflen) {
-		for (dst = buflen - 1, src = dst - diff; dst >= diff; ) {
+		int dst = buflen - 1;
+		while (dst >= diff) {
+		    int src = dst - diff;
 		    m_sample_buffer[dst] = m_sample_buffer[src];
-		    m_valid[dst--] = m_valid[src--];
+		    m_valid[dst--]       = m_valid[src];
 		}
-		diff = dst+1;
+		diff = dst + 1;
 		while (diff--) m_valid.clearBit(dst--);
 	    }
 	}
@@ -341,7 +345,10 @@ bool Kwave::TrackPixmap::validateBuffer()
 	    reader->seek(m_offset + first);
 	    unsigned int count = reader->read(m_sample_buffer,
 		first, last - first + 1);
-	    while (count--) m_valid.setBit(first++);
+	    while (count) {
+		m_valid.setBit(first++);
+		count--;
+	    }
 
 	    // fill the rest with zeroes
 	    while (first <= last) {
@@ -489,8 +496,8 @@ void Kwave::TrackPixmap::calculateInterpolation()
     // remove all previous coefficents and signal buffer
     m_interpolation_alpha.clear();
 
-    Q_ASSERT(m_zoom != 0.0);
-    if (m_zoom == 0.0) return;
+    Q_ASSERT(!qFuzzyIsNull(m_zoom));
+    if (qFuzzyIsNull(m_zoom)) return;
 
     // offset: index of first visible sample (left) [0...length-1]
     // m_zoom: number of samples / pixel
@@ -501,12 +508,12 @@ void Kwave::TrackPixmap::calculateInterpolation()
     // f_g: signal rate = (m_zoom/2)
     Fg = m_zoom / 2;
 
-    // N: order of the filter, at least 2 * (1/m_zoom)
+    // N: order of the filter, at least 2 * (1 / m_zoom)
     N = samples2pixels(INTERPOLATION_PRECISION);
     N |= 0x01;    // make N an odd number !
 
     // allocate a buffer for the coefficients
-    m_interpolation_alpha.resize(N + 1);
+    m_interpolation_alpha = QVector<double>(N + 1);
     m_interpolation_order = N;
 
     Q_ASSERT(m_interpolation_alpha.count() == (N + 1));

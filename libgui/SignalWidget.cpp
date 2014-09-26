@@ -372,7 +372,7 @@ int Kwave::SignalWidget::mapToViewPort(const QPoint &pos) const
 }
 
 //***************************************************************************
-int Kwave::SignalWidget::viewPortWidth() const
+int Kwave::SignalWidget::visibleWidth() const
 {
     if (m_views.isEmpty()) return width(); // if empty
     return m_layout.cellRect(0, 1).width();

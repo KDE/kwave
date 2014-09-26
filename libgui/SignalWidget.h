@@ -110,7 +110,7 @@ namespace Kwave
 	 * controls)
 	 * @return width of the signal area [pixels]
 	 */
-	int viewPortWidth() const;
+	int visibleWidth() const;
 
 	/**
 	 * Insert a new signal view into this widget (or the upper/lower

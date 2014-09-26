@@ -55,6 +55,7 @@ namespace Kwave
     class PlayerToolBar;
     class PluginManager;
     class FileContext;
+    class ZoomToolBar;
 
     /**
      * Toplevel widget of the Kwave application. Holds a main widget, a menu
@@ -121,7 +122,7 @@ namespace Kwave
 	/**
 	 * forward a Kwave text command coming from an upper layer to
 	 * the currently active context below us (which is the main
-	 * entry point for all text commands
+	 * entry point for all text commands)
 	 * @param command a text command
 	 */
 	void forwardCommand(const QString &command);
@@ -132,17 +133,6 @@ namespace Kwave
 	virtual void closeEvent(QCloseEvent *e);
 
     private slots:
-
-	/** called on changes in the zoom selection combo box */
-	void selectZoom(int index);
-
-	/**
-	 * Called if a new zoom factor has been set in order to update
-	 * the status display and the content of the zoom selection
-	 * combo box.
-	 * @note This method can not be called to *set* a new zoom factor.
-	 */
-	void setZoomInfo(double zoom);
 
 	/**
 	 * Called when the meta data of the current signal has changed
@@ -363,8 +353,8 @@ namespace Kwave
 	/** toolbar with playback/record and seek controls */
 	Kwave::PlayerToolBar *m_toolbar_record_playback;
 
-	/** combo box for selection of the zoom factor */
-	KComboBox *m_zoomselect;
+	/** toolbar with zoom controls */
+	Kwave::ZoomToolBar *m_toolbar_zoom;
 
 	/** menu manager for this window */
 	Kwave::MenuManager *m_menu_manager;
@@ -383,24 +373,6 @@ namespace Kwave
 
 	/** action of the "edit redo" toolbar button */
 	QAction *m_action_redo;
-
-	/** action of the "zoom to selection" toolbar button */
-	QAction *m_action_zoomselection;
-
-	/** action of the "zoom in" toolbar button */
-	QAction *m_action_zoomin;
-
-	/** action of the "zoom out" toolbar button */
-	QAction *m_action_zoomout;
-
-	/** action of the "zoom to 100%" toolbar button */
-	QAction *m_action_zoomnormal;
-
-	/** action of the "zoom to all" toolbar button */
-	QAction *m_action_zoomall;
-
-	/** action of the "zoom factor" combobox in the toolbar */
-	QAction *m_action_zoomselect;
 
 	/** status bar label for length of the signal */
 	QLabel *m_lbl_status_size;

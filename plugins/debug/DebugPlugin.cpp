@@ -89,6 +89,7 @@ void Kwave::DebugPlugin::run(QStringList params)
     {
 	bool ok = m_buffer.resize(BUFFER_SIZE);
 	Q_ASSERT(ok);
+	if (!ok) return;
 	m_buffer.fill(0);
     }
 

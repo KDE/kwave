@@ -209,6 +209,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/PlayerToolBar.h				GPL2+
 	kwave/TopWidget.cpp				GPL2+ / Martin Wilz
 	kwave/TopWidget.h				GPL2+ / Martin Wilz
+	kwave/ZoomToolBar.cpp				GPL2+
+	kwave/ZoomToolBar.h				GPL2+
 
 	kwave/pics/amplify_free.png			(should be GPL2+)
 	kwave/pics/fade_in.png				(should be GPL2+)
@@ -308,6 +310,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/UndoModifyLabelAction.h			GPL2+
 	libgui/ViewItem.cpp				GPL2+
 	libgui/ViewItem.h				GPL2+
+	libgui/Zoomable.h				GPL2+
 
 	libkwave/BitrateMode.h				GPL2+
 	libkwave/ByteOrder.h				GPL2+
@@ -320,6 +323,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/CodecManager.h				GPL2+
 	libkwave/CodecPlugin.cpp			GPL2+
 	libkwave/CodecPlugin.h				GPL2+
+	libkwave/CommandHandler.h			GPL2+
 	libkwave/Compression.cpp			GPL2+
 	libkwave/Compression.h				GPL2+
 	libkwave/Connect.cpp				GPL2+

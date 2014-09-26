@@ -52,6 +52,7 @@ SET(kwave_SRCS
     ShortcutWrapper.cpp
     Splash.cpp
     TopWidget.cpp
+    ZoomToolBar.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
 )
 

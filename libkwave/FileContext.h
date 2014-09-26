@@ -36,6 +36,7 @@ namespace Kwave
     class PluginManager;
     class SignalManager;
     class TopWidget;
+    class Zoomable;
 
     class KDE_EXPORT FileContext: public QObject
     {
@@ -69,7 +70,7 @@ namespace Kwave
 	void close();
 
 	/** returns a reference to the global Kwave application */
-	Kwave::App      &application() const;
+	Kwave::App           &application() const;
 
 	/** returns a pointer to the instance's toplevel window */
 	Kwave::TopWidget     *topWidget() const;
@@ -83,7 +84,23 @@ namespace Kwave
 	Kwave::SignalManager *signalManager() const;
 
 	/** returns a pointer to the plugin manager of this context */
-	PluginManager *pluginManager() const;
+	Kwave::PluginManager *pluginManager() const;
+
+	/**
+	 * Returns a pointer to a GUI element that receives zoom info
+	 * (the MainWidget)
+	 */
+	Kwave::Zoomable *zoomable() const;
+
+    signals:
+
+	/**
+	 * emitted when the zoom factor of the corresponding main widget
+	 * has changed
+	 * @param context contains "this"
+	 * @param zoom new zoom factor
+	 */
+	void sigZoomChanged(Kwave::FileContext *context, double zoom);
 
     public slots:
 
@@ -93,6 +110,14 @@ namespace Kwave
 	 * @return zero if succeeded or negative error code if failed
 	 */
 	int executeCommand(const QString &command);
+
+    private slots:
+
+	/**
+	 * emits a sigZoomChanged(this, zoom) when the zoom has changed
+	 * in the m_main_widget
+	 */
+	void forwardZoomChanged(double zoom);
 
     private:
 

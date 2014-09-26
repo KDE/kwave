@@ -54,6 +54,7 @@ namespace Kwave
 	    :Kwave::SampleSource(parent),
 	     QList<SOURCE *>()
         {
+	    Q_UNUSED(tracks);
 	    Q_ASSERT(INITIALIZE || (tracks == 0));
 	    Q_ASSERT(QList<SOURCE *>::size() == static_cast<int>(tracks));
 	}

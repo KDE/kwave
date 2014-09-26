@@ -72,7 +72,10 @@
 //***************************************************************************
 Kwave::MainWidget::MainWidget(QWidget *parent,
 			      Kwave::FileContext &context)
-    :QWidget(parent), m_context(context), m_upper_dock(), m_lower_dock(),
+    :QWidget(parent),
+     Kwave::CommandHandler(),
+     Kwave::Zoomable(),
+     m_context(context), m_upper_dock(), m_lower_dock(),
      m_scroll_area(this), m_horizontal_scrollbar(0),
      m_signal_widget(&m_scroll_area, context, &m_upper_dock, &m_lower_dock),
      m_overview(0), m_offset(0), m_zoom(1.0)
@@ -356,24 +359,24 @@ int Kwave::MainWidget::executeCommand(const QString &command)
     if (!command.length()) return -EINVAL;
 
     Kwave::Parser parser(command);
-    const sample_index_t visible_samples = displaySamples();
+    const sample_index_t visible_samples = visibleSamples();
     const sample_index_t signal_length   = signal_manager->length();
 
     if (false) {
 
     // -- zoom --
+    CASE_COMMAND("view:zoom_selection")
+	zoomSelection();
     CASE_COMMAND("view:zoom_in")
 	int x = parser.hasParams() ? parser.toInt() : -1;
 	zoomIn(x);
     CASE_COMMAND("view:zoom_out")
 	int x = parser.hasParams() ? parser.toInt() : -1;
 	zoomOut(x);
-    CASE_COMMAND("view:zoom_selection")
-	zoomSelection();
-    CASE_COMMAND("view:zoom_all")
-	zoomAll();
     CASE_COMMAND("view:zoom_normal")
 	zoomNormal();
+    CASE_COMMAND("view:zoom_all")
+	zoomAll();
 
     // -- navigation --
     CASE_COMMAND("goto")
@@ -434,7 +437,7 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 	    signal_manager->length() - signal_manager->selection().first()
 	);
     CASE_COMMAND("selectvisible")
-	signal_manager->selectRange(m_offset, displaySamples());
+	signal_manager->selectRange(m_offset, visibleSamples());
     CASE_COMMAND("selectnone")
 	signal_manager->selectRange(m_offset, 0);
 
@@ -494,7 +497,7 @@ void Kwave::MainWidget::refreshHorizontalScrollBar()
     if (m_context.signalManager()->length() > 1) {
 	// get the view information in samples
 	sample_index_t length  = m_context.signalManager()->length();
-	sample_index_t visible = displaySamples();
+	sample_index_t visible = visibleSamples();
 	if (visible > length) visible = length;
 
 	// calculate the scrollbar ranges in scrollbar's units
@@ -557,7 +560,7 @@ void Kwave::MainWidget::updateViewRange()
     sample_index_t total = (signal_manager) ? signal_manager->length() : 0;
 
     if (m_overview) {
-	m_overview->setRange(m_offset, displaySamples(), total);
+	m_overview->setRange(m_offset, visibleSamples(), total);
 
 	// show/hide the overview widget and the horizontal scroll bar
 	if (!m_context.signalManager()->isEmpty()) {
@@ -607,21 +610,21 @@ int Kwave::MainWidget::samples2pixels(sample_index_t samples) const
 }
 
 //***************************************************************************
-int Kwave::MainWidget::viewPortWidth() const
+int Kwave::MainWidget::visibleWidth() const
 {
-    return m_signal_widget.viewPortWidth();
+    return m_signal_widget.visibleWidth();
 }
 
 //***************************************************************************
-sample_index_t Kwave::MainWidget::displaySamples() const
+sample_index_t Kwave::MainWidget::visibleSamples() const
 {
-    return pixels2samples(viewPortWidth() - 1) + 1;
+    return pixels2samples(visibleWidth() - 1) + 1;
 }
 
 //***************************************************************************
 double Kwave::MainWidget::fullZoom() const
 {
-    const int width = viewPortWidth();
+    const int width = visibleWidth();
     if (width <= 0) return 0.0; // no zoom info, window is not yet ready
 
     Kwave::SignalManager *signal_manager = m_context.signalManager();
@@ -672,7 +675,7 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
 
     const double         old_zoom   = m_zoom;
     const sample_index_t old_offset = m_offset;
-    const int            width      = viewPortWidth();
+    const int            width      = visibleWidth();
 
     m_zoom   = zoom;
     m_offset = offset;
@@ -732,7 +735,7 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
     if (!qFuzzyCompare(m_zoom, old_zoom)) emit sigZoomChanged(m_zoom);
 
     if ((m_offset != old_offset) || !qFuzzyCompare(m_zoom, old_zoom)) {
-	emit sigVisibleRangeChanged(m_offset, displaySamples(), length);
+	emit sigVisibleRangeChanged(m_offset, visibleSamples(), length);
 	updateViewRange();
     }
 }
@@ -752,7 +755,7 @@ void Kwave::MainWidget::setOffset(sample_index_t new_offset)
 //***************************************************************************
 void Kwave::MainWidget::scrollTo(sample_index_t pos)
 {
-    sample_index_t visible = displaySamples();
+    sample_index_t visible = visibleSamples();
 
     if ( (pos < (m_offset + (visible / 10))) ||
 	 (pos > (m_offset + (visible /  2))) )
@@ -781,7 +784,7 @@ void Kwave::MainWidget::zoomSelection()
     sample_index_t len = signal_manager->selection().length();
 
     if (len) {
-	int width = viewPortWidth();
+	int width = visibleWidth();
 	m_offset = ofs;
 	setZoom((static_cast<double>(len)) / static_cast<double>(width - 1));
     }
@@ -796,8 +799,8 @@ void Kwave::MainWidget::zoomAll()
 //***************************************************************************
 void Kwave::MainWidget::zoomNormal()
 {
-    const sample_index_t shift1 = viewPortWidth() / 2;
-    const sample_index_t shift2 = displaySamples() / 2;
+    const sample_index_t shift1 = visibleWidth() / 2;
+    const sample_index_t shift2 = visibleSamples() / 2;
     m_offset = (m_offset + shift2 >= m_offset) ? (m_offset + shift2) : -shift2;
     m_offset = (m_offset > shift1) ? (m_offset - shift1) : 0;
     setZoom(1.0);
@@ -818,7 +821,7 @@ void Kwave::MainWidget::zoomIn(int pos)
 	// no position given, show centered
 	fixZoomAndOffset(
 	    m_zoom / 3,
-	    m_offset + (displaySamples() / 3)
+	    m_offset + (visibleSamples() / 3)
 	);
     }
 }
@@ -835,7 +838,7 @@ void Kwave::MainWidget::zoomOut(int pos)
 	shift = Kwave::toInt(m_zoom * 2.0) * pos;
     } else {
 	// no position given, show centered
-	shift = displaySamples();
+	shift = visibleSamples();
     }
     fixZoomAndOffset(
 	m_zoom * 3,

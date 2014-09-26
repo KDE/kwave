@@ -63,7 +63,7 @@ namespace Kwave
 	/** Tells this widget's parent to execute a command */
 	void sigCommand(const QString &command);
 
-	/** Emitted when a action has been enabled/disabled */
+	/** Emitted when an action has been enabled/disabled */
 	void sigSetMenuItemEnabled(const QString &uid, bool enable);
 
     public slots:

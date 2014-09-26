@@ -75,6 +75,7 @@
 #include "MainWidget.h"
 #include "PlayerToolBar.h"
 #include "TopWidget.h"
+#include "ZoomToolBar.h"
 
 /**
  * useful macro for command parsing
@@ -93,15 +94,6 @@
 /** toolbar name: zoom controls */
 #define TOOLBAR_ZOOM        _("MainWidget Zoom")
 
-/** role value for entries in the zoom combo box, "predefined" flag (bool) */
-#define ZOOM_DATA_PREDEFINED (Qt::UserRole + 0)
-
-/** role value for entries in the zoom combo box, "time" in ms (double) */
-#define ZOOM_DATA_TIME       (Qt::UserRole + 1)
-
-/** returns the number of elements of an array */
-#define ELEMENTS_OF(__x__) (sizeof(__x__) / sizeof(__x__[0]))
-
 //***************************************************************************
 
 /**
@@ -119,11 +111,9 @@ namespace Kwave {
 //***************************************************************************
 Kwave::TopWidget::TopWidget(Kwave::App &app)
     :KMainWindow(), m_context(app),
-     m_main_widget(0), m_toolbar_record_playback(0), m_zoomselect(0),
+     m_main_widget(0), m_toolbar_record_playback(0), m_toolbar_zoom(0),
      m_menu_manager(0), m_action_save(0), m_action_save_as(0),
      m_action_close(0), m_action_undo(0), m_action_redo(0),
-     m_action_zoomselection(0), m_action_zoomin(0), m_action_zoomout(0),
-     m_action_zoomnormal(0), m_action_zoomall(0), m_action_zoomselect(0),
      m_lbl_status_size(0), m_lbl_status_mode(0), m_lbl_status_cursor(0)
 {
     // status bar items
@@ -170,11 +160,10 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
 //***************************************************************************
 bool Kwave::TopWidget::init()
 {
-    if (!m_context.init(this))
+    if (!m_context.init(this)) // ### GUI_MDI ###
 	return false;
 
     KIconLoader icon_loader;
-    const int max_s = KIconLoader::SizeEnormous;
 
     showInSplashSreen(i18n("Loading main menu..."));
     KMenuBar *menubar = menuBar();
@@ -298,7 +287,6 @@ bool Kwave::TopWidget::init()
 	this, TOOLBAR_RECORD_PLAY,
 	m_context.signalManager()->playbackController(),
 	*m_menu_manager);
-
     Q_ASSERT(m_toolbar_record_playback);
     if (!m_toolbar_record_playback) return false;
 
@@ -311,83 +299,9 @@ bool Kwave::TopWidget::init()
 
     // --- zoom controls ---
 
-    KToolBar *toolbar_zoom = toolBar(TOOLBAR_ZOOM);
-    Q_ASSERT(toolbar_zoom);
-    if (!toolbar_zoom) return false;
-
-    m_action_zoomselection = toolbar_zoom->addAction(
-	icon_loader.loadIcon(_("kwave_viewmag"),
-	                     KIconLoader::Toolbar, max_s),
-	i18n("Zoom to selection"),
-	m_main_widget, SLOT(zoomSelection()));
-
-    m_action_zoomin = toolbar_zoom->addAction(
-	icon_loader.loadIcon(_("kwave_zoom_in"),
-	                     KIconLoader::Toolbar, max_s),
-	i18n("Zoom in"),
-	m_main_widget, SLOT(zoomIn()));
-
-    m_action_zoomout = toolbar_zoom->addAction(
-	icon_loader.loadIcon(_("kwave_zoom_out"),
-	                     KIconLoader::Toolbar, max_s),
-	i18n("Zoom out"),
-	m_main_widget, SLOT(zoomOut()));
-
-    m_action_zoomnormal = toolbar_zoom->addAction(
-	icon_loader.loadIcon(_("kwave_zoom_original"),
-	                     KIconLoader::Toolbar, max_s),
-	i18n("Zoom to 100%"),
-	m_main_widget, SLOT(zoomNormal()));
-
-    m_action_zoomall = toolbar_zoom->addAction(
-	icon_loader.loadIcon(_("kwave_viewmagfit"),
-	                     KIconLoader::Toolbar, max_s),
-	i18n("Zoom to all"),
-	m_main_widget, SLOT(zoomAll()));
-
-    // zoom selection combo box
-    m_zoomselect = new KComboBox(this);
-    Q_ASSERT(m_zoomselect);
-    if (!m_zoomselect) return false;
-    m_zoomselect->setToolTip(i18n("Select zoom factor"));
-    m_zoomselect->setInsertPolicy(QComboBox::InsertAtTop);
-    m_zoomselect->setEditable(false);
-
-    /** Initialized list of zoom factors */
-    struct {
-	const QString text;
-	unsigned int ms;
-    } zoom_factors[] = {
-	{ i18n("%1 ms",   1),            1L},
-	{ i18n("%1 ms",  10),           10L},
-	{ i18n("%1 ms", 100),          100L},
-	{ i18n("%1 sec",  1),         1000L},
-	{ i18n("%1 sec", 10),     10L*1000L},
-	{ i18n("%1 sec", 30),     30L*1000L},
-	{ i18n("%1 min",  1),  1L*60L*1000L},
-	{ i18n("%1 min",  3),  3L*60L*1000L},
-	{ i18n("%1 min",  5),  5L*60L*1000L},
-	{ i18n("%1 min", 10), 10L*60L*1000L},
-	{ i18n("%1 min", 30), 30L*60L*1000L},
-	{ i18n("%1 min", 60), 60L*60L*1000L},
-    };
-
-    for (unsigned int i = 0; i < ELEMENTS_OF(zoom_factors); i++) {
-	m_zoomselect->addItem(zoom_factors[i].text);
-	int index = m_zoomselect->count() - 1;
-	unsigned int time = zoom_factors[i].ms;
-	m_zoomselect->setItemData(index, QVariant(true), ZOOM_DATA_PREDEFINED);
-	m_zoomselect->setItemData(index, QVariant(time), ZOOM_DATA_TIME);
-    }
-
-    m_action_zoomselect = toolbar_zoom->addWidget(m_zoomselect);
-    connect(m_zoomselect, SIGNAL(activated(int)),
-	    this, SLOT(selectZoom(int)));
-    connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
-            this, SLOT(setZoomInfo(double)));
-    int h = m_zoomselect->sizeHint().height();
-    m_zoomselect->setMinimumWidth(h * 5);
-    m_zoomselect->setFocusPolicy(Qt::FocusPolicy(Qt::ClickFocus | Qt::TabFocus));
+    m_toolbar_zoom = new Kwave::ZoomToolBar(this, TOOLBAR_ZOOM, &m_context);
+    Q_ASSERT(m_toolbar_zoom);
+    if (!m_toolbar_zoom) return false;
 
     // connect the signal manager
     Kwave::SignalManager *signal_manager = m_context.signalManager();
@@ -411,6 +325,10 @@ bool Kwave::TopWidget::init()
     connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
             this,           SLOT(showInSplashSreen(const QString &)));
 
+    // connect the zoom toolbar
+    connect(&m_context, SIGNAL(sigZoomChanged(Kwave::FileContext *, double)),
+            m_toolbar_zoom,  SLOT(setZoomInfo(Kwave::FileContext *, double)));
+
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget);
 
@@ -418,7 +336,7 @@ bool Kwave::TopWidget::init()
     int w = m_main_widget->minimumSize().width();
     w = qMax(w, m_main_widget->sizeHint().width());
     w = qMax(w, width());
-    h = qMax(m_main_widget->sizeHint().height(), (w * 6) / 10);
+    int h = qMax(m_main_widget->sizeHint().height(), (w * 6) / 10);
     h = qMax(h, height());
     resize(w, h);
 
@@ -472,7 +390,6 @@ bool Kwave::TopWidget::init()
     }
 
     // make sure we have the focus, not the zoom combo box
-    m_zoomselect->clearFocus();
     setFocus();
 
     // special handling: a null string tells the splash screen to hide
@@ -485,6 +402,9 @@ Kwave::TopWidget::~TopWidget()
 {
     // close the current file (no matter what the user wants)
     closeFile();
+
+    delete m_toolbar_zoom;
+    m_toolbar_zoom = 0;
 
     delete m_toolbar_record_playback;
     m_toolbar_record_playback = 0;
@@ -510,11 +430,8 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     Kwave::Parser parser(command);
 
     // playback commands are always possible
-    if ( (parser.command() == _("playback")) &&
-	 (m_toolbar_record_playback) )
-    {
+    if ( (parser.command() == _("playback")) && (m_toolbar_record_playback) )
 	return m_toolbar_record_playback->executeCommand(parser.firstParam());
-    }
 
     if ((result = m_context.application().executeCommand(command)) != ENOSYS) {
 	return result;
@@ -673,7 +590,7 @@ int Kwave::TopWidget::parseCommands(QTextStream &stream)
 	if (!line.startsWith(_("nomacro:"), Qt::CaseInsensitive))
 	    line.prepend(_("nomacro:"));
 
-	// emit the command
+	// process the command in the current context
 	result = m_context.executeCommand(line); // ### GUI_MDI ###
 	if (result)
 	    qDebug(">>> '%s' - result=%d", DBG(line), result);
@@ -705,6 +622,7 @@ int Kwave::TopWidget::revert()
 //***************************************************************************
 bool Kwave::TopWidget::closeFile()
 {
+    // ### GUI_MDI ###
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
 
@@ -736,13 +654,9 @@ bool Kwave::TopWidget::closeFile()
     if (signal_manager) signal_manager->close();
 
     updateCaption(signalName(), false);
-    if (m_zoomselect) m_zoomselect->clearEditText();
     emit sigSignalNameChanged(signalName());
 
     updateMenu();
-    updateToolbar();
-    metaDataChanged(Kwave::MetaData());
-
     return true;
 }
 
@@ -1011,128 +925,6 @@ int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
     updateToolbar();
 
     return 0;
-}
-
-//***************************************************************************
-void Kwave::TopWidget::selectZoom(int index)
-{
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(signal_manager);
-    Q_ASSERT(m_main_widget);
-    Q_ASSERT(m_zoomselect);
-    if (!signal_manager) return;
-    if (!m_main_widget) return;
-    if (!m_zoomselect) return;
-    if (index < 0) return;
-    if (index >= m_zoomselect->count()) return;
-
-    QVariant v = m_zoomselect->itemData(index, ZOOM_DATA_TIME);
-    unsigned int ms = 1;
-    bool ok = false;
-    if (v.isValid()) ms = v.toUInt(&ok);
-    if (!ok) ms = 1;
-
-    const double rate = signal_manager->rate();
-    unsigned int width = m_main_widget->viewPortWidth();
-    Q_ASSERT(width > 1);
-    if (width <= 1) width = 2;
-    const double new_zoom = rint(((rate * ms) / 1.0E3) -1 ) /
-	static_cast<double>(width - 1);
-    m_main_widget->setZoom(new_zoom);
-
-    // force the zoom factor to be set, maybe the current selection
-    // has been changed/corrected to the previous value so that we
-    // don't get a signal.
-    setZoomInfo(m_main_widget->zoom());
-}
-
-//***************************************************************************
-void Kwave::TopWidget::setZoomInfo(double zoom)
-{
-    Kwave::SignalManager *signal_manager = m_context.signalManager();
-    Q_ASSERT(zoom >= 0);
-    Q_ASSERT(m_zoomselect);
-
-    if (zoom <= 0.0) return; // makes no sense or signal is empty
-    if (!m_zoomselect) return;
-
-    double rate = (signal_manager) ? signal_manager->rate() : 0.0;
-    double ms   = (rate > 0) ?
-	(((m_main_widget->displaySamples()) * 1E3) / rate) : 0;
-
-    QString strZoom;
-    if ((signal_manager) && (signal_manager->tracks())) {
-	if (rate > 0) {
-	    // time display mode
-	    int s = Kwave::toInt(ms) / 1000;
-	    int m = s / 60;
-
-	    if (ms >= 60*1000) {
-		strZoom = strZoom.sprintf("%02d:%02d min", m, s % 60);
-	    } else if (ms >= 1000) {
-		strZoom = strZoom.sprintf("%d sec", s);
-	    } else if (ms >= 1) {
-		strZoom = strZoom.sprintf("%d ms",
-		    Kwave::toInt(round(ms)));
-	    } else if (ms >= 0.01) {
-		strZoom = strZoom.sprintf("%0.3g ms", ms);
-	    }
-	} else {
-	    // percent mode
-	    double percent = 100.0 / zoom;
-	    strZoom = Kwave::zoom2string(percent);
-	}
-    }
-
-    m_zoomselect->blockSignals(true);
-
-    // if the text is equal to an entry in the current list -> keep it
-    if (m_zoomselect->contains(strZoom)) {
-	// select existing entry, string match
-	m_zoomselect->setCurrentIndex(m_zoomselect->findText(strZoom));
-    } else {
-	// remove user defined entries and scan for more or less exact match
-	int i = 0;
-	int match = -1;
-	while (i < m_zoomselect->count()) {
-	    QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_PREDEFINED);
-	    if (!v.isValid() || !v.toBool()) {
-		m_zoomselect->removeItem(i);
-	    } else {
-		QVariant vz = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
-		bool ok = false;
-		double t = vz.toDouble(&ok);
-		if (ok && (t > 0) && fabs(1 - (t / ms)) < (1.0 / 60.0)) {
-		    match = i;
-		}
-		i++;
-	    }
-	}
-
-	if (match >= 0) {
-	    // use an exact match from the list
-	    i = match;
-	} else if (rate > 0) {
-	    // time mode:
-	    // find the best index where to insert the new user defined value
-	    for (i = 0; i < m_zoomselect->count(); i++) {
-		QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
-		bool ok = false;
-		double t = v.toDouble(&ok);
-		if (!ok) continue;
-		if (t > ms) break;
-	    }
-	    m_zoomselect->insertItem(i, strZoom);
-	    m_zoomselect->setItemData(i, QVariant(ms), ZOOM_DATA_TIME);
-	} else {
-	    // percent mode -> just insert at top
-	    m_zoomselect->insertItem(-1, strZoom);
-	    i = 0;
-	}
-	m_zoomselect->setCurrentIndex(i);
-    }
-
-    m_zoomselect->blockSignals(false);
 }
 
 //***************************************************************************
@@ -1436,6 +1228,7 @@ void Kwave::TopWidget::resetToolbarToDefaults()
 //***************************************************************************
 void Kwave::TopWidget::updateToolbar()
 {
+    // ### TODO ### GUI_MDI
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
@@ -1449,18 +1242,8 @@ void Kwave::TopWidget::updateToolbar()
     if (m_action_close)
 	m_action_close->setEnabled(have_signal);
 
-    if (m_action_zoomselection)
-	m_action_zoomselection->setEnabled(have_signal);
-    if (m_action_zoomin)
-        m_action_zoomin->setEnabled(have_signal);
-    if (m_action_zoomout)
-        m_action_zoomout->setEnabled(have_signal);
-    if (m_action_zoomnormal)
-        m_action_zoomnormal->setEnabled(have_signal);
-    if (m_action_zoomall)
-        m_action_zoomall->setEnabled(have_signal);
-    if (m_action_zoomselect)
-        m_action_zoomselect->setEnabled(have_signal);
+    if (m_toolbar_zoom)
+	m_toolbar_zoom->updateToolbar();
 }
 
 //***************************************************************************

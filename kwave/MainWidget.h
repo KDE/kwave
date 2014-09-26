@@ -25,7 +25,10 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 
+#include "libkwave/CommandHandler.h"
+
 #include "libgui/SignalWidget.h"
+#include "libgui/Zoomable.h"
 
 class QDragEnterEvent;
 class QDropEvent;
@@ -73,7 +76,9 @@ namespace Kwave
      * \-----------------------------------------------------------------------/
      * @endcode
      */
-    class MainWidget : public QWidget
+    class MainWidget : public QWidget,
+                       public CommandHandler,
+                       public Zoomable
     {
 	Q_OBJECT
     public:
@@ -95,13 +100,13 @@ namespace Kwave
 	virtual ~MainWidget();
 
 	/** Returns the current zoom factor [samples/pixel] */
-	double zoom() const;
+	virtual double zoom() const;
 
 	/** Returns the width of the current view in pixels */
-	int viewPortWidth() const;
+	virtual int visibleWidth() const;
 
 	/** Returns the width of the current view in samples */
-	sample_index_t displaySamples() const;
+	virtual sample_index_t visibleSamples() const;
 
     protected:
 
@@ -137,7 +142,7 @@ namespace Kwave
 	 * @retval -ENOSYS is returned if the command is unknown in this
 	 *                 component
 	 */
-	int executeCommand(const QString &command);
+	virtual int executeCommand(const QString &command);
 
 	/**
 	 * Sets the display offset [samples] and refreshes the screen.

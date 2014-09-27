@@ -1051,6 +1051,11 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 
 	m_menu_manager->setItemEnabled(_("@SELECTION"), false);
     }
+
+    // update the zoom toolbar on selection change, maybe the
+    // button for "zoom selection" has to be enabled/disabled
+    if (m_toolbar_zoom)
+	m_toolbar_zoom->updateToolbar();
 }
 
 //***************************************************************************
@@ -1242,6 +1247,7 @@ void Kwave::TopWidget::updateToolbar()
     if (m_action_close)
 	m_action_close->setEnabled(have_signal);
 
+    // update the zoom toolbar
     if (m_toolbar_zoom)
 	m_toolbar_zoom->updateToolbar();
 }

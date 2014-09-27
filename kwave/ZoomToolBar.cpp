@@ -27,6 +27,7 @@
 #include <kmainwindow.h>
 
 #include "libkwave/FileContext.h"
+#include "libkwave/Selection.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
 
@@ -164,19 +165,21 @@ void Kwave::ZoomToolBar::contextDestroyed(QObject *context)
 //***************************************************************************
 void Kwave::ZoomToolBar::updateToolbar()
 {
-    bool have_signal = false;
-    bool is_closed   = true;
+    bool have_signal    = false;
+    bool have_selection = false;
+    bool is_closed      = true;
 
     if (m_context) {
 	Kwave::SignalManager *signal_manager = m_context->signalManager();
 	Q_ASSERT(signal_manager);
 	if (!signal_manager) return;
-	have_signal = (signal_manager->tracks() != 0);
-	is_closed   = signal_manager->isClosed();
+	have_signal    = (signal_manager->tracks() != 0);
+	have_selection = (signal_manager->selection().length() != 0);
+	is_closed      = signal_manager->isClosed();
     }
 
     if (m_action_zoomselection)
-	m_action_zoomselection->setEnabled(have_signal);
+	m_action_zoomselection->setEnabled(have_signal  && have_selection);
     if (m_action_zoomin)
         m_action_zoomin->setEnabled(have_signal);
     if (m_action_zoomout)

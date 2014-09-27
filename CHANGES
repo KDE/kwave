@@ -4,6 +4,7 @@
  * menu subsystem: let KDE chose shortcuts automatically
  * bugfix: deadlock in class Track
  * bugfix: segfault during shutdown of logger
+ * bugfix: "zoom to selection" was not disabled if nothing was selected
 
 0.8.12 [2014-06-04]
 

@@ -15,15 +15,19 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_APPLICATION_CONTEXT_H_
-#define _KWAVE_APPLICATION_CONTEXT_H_
+#ifndef _KWAVE_FILE_CONTEXT_H_
+#define _KWAVE_FILE_CONTEXT_H_
 
 #include "config.h"
 
+#include <QtCore/QElapsedTimer>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
+#include <QtCore/QString>
 
 #include <kdemacros.h>
+
+#include "libkwave/Sample.h"
 
 class QApplication;
 class QWidget;
@@ -69,9 +73,6 @@ namespace Kwave
 	 */
 	void close();
 
-	/** returns a reference to the global Kwave application */
-	Kwave::App           &application() const;
-
 	/** returns a pointer to the instance's toplevel window */
 	Kwave::TopWidget     *topWidget() const;
 
@@ -92,7 +93,28 @@ namespace Kwave
 	 */
 	Kwave::Zoomable *zoomable() const;
 
+	/**
+	 * Returns whether this context is active or not.
+	 * @retval true if the context is active
+	 * @retval false if the context is inactive
+	 */
+	bool isActive() const { return m_active; }
+
+	/**
+	 * Execute a Kwave text command
+	 * @param command a text command
+	 * @return zero if succeeded or negative error code if failed
+	 */
+	int executeCommand(const QString &command);
+
     signals:
+
+	/**
+	 * emitted when there is a status bar message to show
+	 * @param message the status bar message, already localized
+	 * @param ms the time in milliseconds to show the message
+	 */
+	void sigStatusBarMessage(const QString &message, unsigned int ms);
 
 	/**
 	 * emitted when the zoom factor of the corresponding main widget
@@ -102,22 +124,52 @@ namespace Kwave
 	 */
 	void sigZoomChanged(Kwave::FileContext *context, double zoom);
 
-    public slots:
-
 	/**
-	 * Execute a Kwave text command
-	 * @param command a text command
-	 * @return zero if succeeded or negative error code if failed
+	 * emitted when the context is about to be destroyed
+	 * (in the context of it's destructor)
 	 */
-	int executeCommand(const QString &command);
+	void destroyed(Kwave::FileContext *context);
 
     private slots:
+
+	/**
+	 * called when the current file context has changed
+	 * @param context the new file context (can be "this")
+	 */
+	void contextSwitched(Kwave::FileContext *context);
 
 	/**
 	 * emits a sigZoomChanged(this, zoom) when the zoom has changed
 	 * in the m_main_widget
 	 */
 	void forwardZoomChanged(double zoom);
+
+	/**
+	 * updates the playback position in the status bar and scrolls the
+	 * current view to show the current playback region
+	 * @param offset the current playback position [samples]
+	 */
+	void updatePlaybackPos(sample_index_t offset);
+
+    private:
+
+	/**
+	 * should be called when this context got active, to update
+	 * the status bar, toolbar etc.
+	 */
+	void activated();
+
+	/**
+	 * should be called when this context got inactive
+	 */
+	void deactivated();
+
+	/**
+	 * Show a message in the status bar
+	 * @param msg the status bar message, already localized
+	 * @param ms the time in milliseconds to show the message
+	 */
+	void statusBarMessage(const QString &msg, unsigned int ms);
 
     private:
 
@@ -135,11 +187,29 @@ namespace Kwave
 
 	/** instance of our plugin manager */
 	QPointer<Kwave::PluginManager> m_plugin_manager;
+
+	/** if true, this context is active, otherwise it is inactive */
+	bool m_active;
+
+	/** last zoom factor */
+	double m_last_zoom;
+
+	/** last playback position, only valid if playback is running */
+	sample_index_t m_last_playback_pos;
+
+	/** last status bar message */
+	QString m_last_status_message_text;
+
+	/** time when the last status message has been shown */
+	QElapsedTimer m_last_status_message_timer;
+
+	/** number of milliseconds the status message should be shown */
+	unsigned int m_last_status_message_ms;
     };
 
 }
 
-#endif /* _KWAVE_APPLICATION_CONTEXT_H_ */
+#endif /* _KWAVE_FILE_CONTEXT_H_ */
 
 //***************************************************************************
 //***************************************************************************

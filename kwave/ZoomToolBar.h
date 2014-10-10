@@ -47,35 +47,30 @@ namespace Kwave
 	 * Constructor
 	 * @param parent a KMainWidget
 	 * @param name the name of the toolbar (for config)
-	 * @param context the current file context
 	 */
-	ZoomToolBar(KMainWindow *parent, const QString &name,
-	            Kwave::FileContext *context
-	);
+	ZoomToolBar(KMainWindow *parent, const QString &name);
 
 	/** Destructor */
 	virtual ~ZoomToolBar();
 
     signals:
 
-	/** Tells this widget's parent to execute a command */
+	/** tells this widget's parent to execute a command */
 	void sigCommand(const QString &command);
 
     public slots:
 
-	/**
-	 * Should be called when the file context changes, updates
-	 * the toolbar.
-	 */
-	void contextChanged(Kwave::FileContext *context);
+	/** called when the file context has been (updates the toolbar) */
+	void contextSwitched(Kwave::FileContext *context);
+
+	/** called when a file context has been deleted */
+	void contextDestroyed(Kwave::FileContext *context);
 
 	/**
 	 * updates all the toolbar, after change of context and
 	 * after meta data change (e.g. signal empty, closed, new, etc...)
 	 */
 	void updateToolbar();
-
-    public slots:
 
 	/**
 	 * Called if a new zoom factor has been set in order to update
@@ -91,9 +86,6 @@ namespace Kwave
 
 	/** called on changes in the zoom selection combo box */
 	void selectZoom(int index);
-
-	/** called when a file context has been deleted */
-	void contextDestroyed(QObject *context);
 
 	/** toolbar: "zoom selection" */
 	void zoomSelection() {

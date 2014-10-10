@@ -49,7 +49,7 @@ template<const unsigned int bits, const bool is_signed,
          const bool is_little_endian>
 void encode_linear(const sample_t *src, quint8 *dst, unsigned int count)
 {
-    while (count--) {
+    for ( ; count; --count) {
 	// read from source buffer
 	register sample_t s = *(src++);
 

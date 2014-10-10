@@ -46,11 +46,9 @@
 #define ELEMENTS_OF(__x__) (sizeof(__x__) / sizeof(__x__[0]))
 
 //***************************************************************************
-Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name,
-                                Kwave::FileContext *context
-)
+Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
     :KToolBar(name, parent, true),
-     m_context(context),
+     m_context(0),
      m_action_zoomselection(0),
      m_action_zoomin(0),
      m_action_zoomout(0),
@@ -147,19 +145,18 @@ Kwave::ZoomToolBar::~ZoomToolBar()
 }
 
 //***************************************************************************
-void Kwave::ZoomToolBar::contextChanged(Kwave::FileContext *context)
+void Kwave::ZoomToolBar::contextSwitched(Kwave::FileContext *context)
 {
     if (context == m_context) return; // nothing to do
     m_context = context;
     updateToolbar();
 }
 
-
 //***************************************************************************
-void Kwave::ZoomToolBar::contextDestroyed(QObject *context)
+void Kwave::ZoomToolBar::contextDestroyed(Kwave::FileContext *context)
 {
     if (context != m_context) return; // not of interest
-    contextChanged(0);
+    contextSwitched(0);
 }
 
 //***************************************************************************

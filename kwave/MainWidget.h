@@ -155,7 +155,7 @@ namespace Kwave
 	 * Scrolls the display so that the given position gets visible,
 	 * centered within the display if possible.
 	 */
-	void scrollTo(sample_index_t pos);
+	virtual void scrollTo(sample_index_t pos);
 
 	/**
 	 * sets a new zoom factor [samples/pixel], does not refresh the screen

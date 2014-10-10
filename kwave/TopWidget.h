@@ -49,6 +49,7 @@ namespace Kwave
 {
 
     class App;
+    class FileContext;
     class MainWidget;
     class MenuManager;
     class SignalManager;
@@ -76,8 +77,9 @@ namespace Kwave
 
 	/**
 	 * Does some initialization at startup of the instance
-	 * @return true if this instance was successfully initialized, or
-	 * false if something went wrong during initialization.
+	 *
+	 * @retval true if this instance was successfully initialized
+	 * @retval false if something went wrong during initialization
 	 */
 	bool init();
 
@@ -146,12 +148,6 @@ namespace Kwave
 	 * @param length number of selected samples
 	 */
 	void selectionChanged(sample_index_t offset, sample_index_t length);
-
-	/**
-	 * updates the playback position in the status bar
-	 * @param offset the current playback position [samples]
-	 */
-	void updatePlaybackPos(sample_index_t offset);
 
 	/**
 	 * Sets the descriptions of the last undo and redo action. If the
@@ -254,8 +250,20 @@ namespace Kwave
 
 	/** shows a message/progress in the splash screen */
 	void showInSplashSreen(const QString &message);
+	/**
+	 * Show a message in the status bar
+	 * @param msg the status bar message, already localized
+	 * @param ms the time in milliseconds to show the message
+	 */
+	void showStatusBarMessage(const QString &msg, unsigned int ms);
 
     signals:
+
+	/**
+	 * Emitted by us when the current file context has switched
+	 * @param context the new file context
+	 */
+	void sigFileContextSwitched(Kwave::FileContext *context);
 
 	/**
 	 * Emitted it the name of the signal has changed.
@@ -339,10 +347,20 @@ namespace Kwave
 	/** returns the name of the signal */
 	QString signalName() const;
 
+	/**
+	 * Creates a new file context and initializes it.
+	 * @retval true if succeeded
+	 * @retval false if creation or initialization failed
+	 */
+	bool newFileContext();
+
     private:
 
+	/** each TopWidget has exactly one corresponding Kwave::App instance */
+	Kwave::App &m_application;
+
 	/** application context of this instance */
-	Kwave::FileContext m_context;
+	QPointer<Kwave::FileContext> m_current_context;
 
 	/**
 	 * the main widget with all views and controls (except menu and

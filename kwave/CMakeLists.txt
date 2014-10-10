@@ -104,6 +104,8 @@ KDE4_ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
 
 #############################################################################
 
+
+
 TARGET_LINK_LIBRARIES(kwave_core
     kwavegui
     kwave

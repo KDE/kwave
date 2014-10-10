@@ -52,6 +52,12 @@ namespace Kwave
 	 */
 	virtual void setZoom(double factor) = 0;
 
+	/**
+	 * Scrolls the display so that the given position gets visible,
+	 * centered within the display if possible.
+	 */
+	virtual void scrollTo(sample_index_t pos) = 0;
+
     };
 }
 

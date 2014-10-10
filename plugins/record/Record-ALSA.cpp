@@ -176,21 +176,22 @@ static Kwave::byte_order_t endian_of(snd_pcm_format_t fmt)
 //***************************************************************************
 static int compression_of(snd_pcm_format_t fmt)
 {
+    int f = Kwave::Compression::NONE;
     switch (fmt) {
 	case SND_PCM_FORMAT_MU_LAW:
-	    return Kwave::Compression::G711_ULAW;
+	    f = Kwave::Compression::G711_ULAW;    break;
 	case SND_PCM_FORMAT_A_LAW:
-	    return Kwave::Compression::G711_ALAW;
+	    f = Kwave::Compression::G711_ALAW;    break;
 	case SND_PCM_FORMAT_IMA_ADPCM:
-	    return Kwave::Compression::MS_ADPCM;
+	    f = Kwave::Compression::MS_ADPCM;     break;
 	case SND_PCM_FORMAT_MPEG:
-	    return Kwave::Compression::MPEG_LAYER_I;
+	    f = Kwave::Compression::MPEG_LAYER_I; break;
 	case SND_PCM_FORMAT_GSM:
-	    return Kwave::Compression::GSM;
+	    f = Kwave::Compression::GSM;          break;
 	default:
-	    return Kwave::Compression::NONE;
+	    break;
     }
-    return Kwave::Compression::NONE;
+    return f;
 }
 
 //***************************************************************************

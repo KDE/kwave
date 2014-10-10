@@ -151,7 +151,7 @@ void Kwave::App::addRecentFile(const QString &newfile)
     // remove old entries if present
     m_recent_files.removeAll(newfile);
 
-    // shorten the list down to MAX_RECENT_FILES entries
+    // shorten the list down to (MAX_RECENT_FILES - 1) entries
     while (m_recent_files.count() >= MAX_RECENT_FILES)
 	m_recent_files.removeLast();
 

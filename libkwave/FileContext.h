@@ -100,13 +100,6 @@ namespace Kwave
 	 */
 	bool isActive() const { return m_active; }
 
-	/**
-	 * Execute a Kwave text command
-	 * @param command a text command
-	 * @return zero if succeeded or negative error code if failed
-	 */
-	int executeCommand(const QString &command);
-
     signals:
 
 	/**
@@ -129,6 +122,15 @@ namespace Kwave
 	 * (in the context of it's destructor)
 	 */
 	void destroyed(Kwave::FileContext *context);
+
+    public slots:
+
+	/**
+	 * Execute a Kwave text command
+	 * @param command a text command
+	 * @return zero if succeeded or negative error code if failed
+	 */
+	int executeCommand(const QString &command);
 
     private slots:
 

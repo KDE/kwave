@@ -303,23 +303,14 @@ bool Kwave::TopWidget::init()
             btPaste, SLOT(setEnabled(bool)));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon(_("draw-eraser"),
-	                     KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("draw-eraser"), KIconLoader::Toolbar),
 	i18n("Mute selection"),
 	this, SLOT(toolbarEditErase()));
 
     toolbar_edit->addAction(
-	icon_loader.loadIcon(_("edit-delete"),
-	                     KIconLoader::Toolbar),
+	icon_loader.loadIcon(_("edit-delete"), KIconLoader::Toolbar),
 	i18n("Delete selection"),
 	this, SLOT(toolbarEditDelete()));
-
-//                  Zoom
-//                  Previous Page/Back
-//                  Next Page/Forward
-//                  Go To Page/Home
-
-//                  Help
 
     // --- record/playback controls ---
 
@@ -357,12 +348,6 @@ bool Kwave::TopWidget::init()
             m_toolbar_record_playback,
                             SLOT(metaDataChanged(Kwave::MetaDataList)));
 
-    // connect the plugin manager
-    // ### GUI_MDI ###
-    Kwave::PluginManager *plugin_manager = m_current_context->pluginManager();
-    connect(plugin_manager, SIGNAL(sigProgress(const QString &)),
-            this,           SLOT(showInSplashSreen(const QString &)));
-
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget); // ### GUI_MDI ###
 
@@ -380,17 +365,6 @@ bool Kwave::TopWidget::init()
     updateMenu();
     updateToolbar();
     updateRecentFiles();
-
-    showInSplashSreen(i18n("Scanning plugins..."));
-    plugin_manager->searchPluginModules();
-
-    // now we are initialized, load all plugins now
-    showInSplashSreen(i18n("Loading plugins..."));
-    statusBar()->showMessage(i18n("Loading plugins..."));
-    plugin_manager->loadAllPlugins();
-    statusBar()->showMessage(i18n("Ready"), 1000);
-
-    updateMenu();
 
     // make sure that everything of our window is visible
     QRect desk = qApp->desktop()->rect();

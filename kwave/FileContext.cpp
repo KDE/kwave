@@ -32,6 +32,7 @@
 
 #include "App.h"
 #include "MainWidget.h"
+#include "Splash.h"
 #include "TopWidget.h"
 
 /**
@@ -91,6 +92,13 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 	return false;
     }
 
+    // connect the plugin manager
+    connect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
+            m_top_widget,     SLOT(showInSplashSreen(const QString &)));
+    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
+            this,             SLOT(executeCommand(const QString &)));
+
+    // connect the playback controller
     connect(&(m_signal_manager->playbackController()),
             SIGNAL(sigSeekDone(sample_index_t)),
             m_main_widget, SLOT(scrollTo(sample_index_t)));
@@ -98,16 +106,23 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
 
+    // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
             this,          SLOT(executeCommand(const QString &)));
     connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
             this,          SLOT(forwardZoomChanged(double)));
 
-    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
-            this,             SLOT(executeCommand(const QString &)));
-
     connect(top_widget, SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
             this,       SLOT(contextSwitched(Kwave::FileContext *)));
+
+    Kwave::Splash::showMessage(i18n("Scanning plugins..."));
+    m_plugin_manager->searchPluginModules();
+
+    // now we are initialized, load all plugins
+    Kwave::Splash::showMessage(i18n("Loading plugins..."));
+    statusBarMessage(i18n("Loading plugins..."), 0);
+    m_plugin_manager->loadAllPlugins();
+    statusBarMessage(i18n("Ready"), 1000);
 
     return true;
 }
@@ -284,7 +299,11 @@ void Kwave::FileContext::statusBarMessage(const QString &msg, unsigned int ms)
 {
     m_last_status_message_text = msg;
     m_last_status_message_ms   = ms;
-    m_last_status_message_timer.start();
+    if (ms)
+	m_last_status_message_timer.start();
+    else
+	m_last_status_message_timer.invalidate();
+
     if (isActive())
 	emit sigStatusBarMessage(msg, ms);
 }
@@ -351,6 +370,11 @@ void Kwave::FileContext::activated()
 	    emit sigStatusBarMessage(m_last_status_message_text, remaining);
 	} else
 	    m_last_status_message_timer.invalidate();
+    } else if (m_last_status_message_ms == 0) {
+	// static message without expiration
+	if (m_last_status_message_text.length()) {
+	    emit sigStatusBarMessage(m_last_status_message_text, 0);
+	}
     }
 }
 

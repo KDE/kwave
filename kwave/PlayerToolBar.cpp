@@ -25,9 +25,11 @@
 #include <klocale.h>
 #include <kmainwindow.h>
 
+#include "libkwave/FileContext.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/Parser.h"
 #include "libkwave/PlaybackController.h"
+#include "libkwave/SignalManager.h"
 
 #include "libgui/MenuManager.h"
 
@@ -46,9 +48,9 @@
 
 //***************************************************************************
 Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
-                                    Kwave::PlaybackController &playback,
                                     Kwave::MenuManager &menu_manager)
     :KToolBar(name, parent, true),
+     m_context(0),
      m_action_prev(0),
      m_action_rewind(0),
      m_action_record(0),
@@ -60,7 +62,7 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
      m_action_next(0),
      m_pause_timer(0),
      m_blink_on(false),
-     m_playback(playback),
+     m_playback(0),
      m_menu_manager(menu_manager),
      m_labels(),
      m_last_tracks(0),
@@ -93,25 +95,25 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
 	icon_loader.loadIcon(_("kwave_player_play"),
 	                     KIconLoader::Toolbar, max_s),
 	i18n("Start playback"),
-	&m_playback, SLOT(playbackStart()));
+	this, SLOT(toolbarStart()));
 
     m_action_loop = addAction(
 	icon_loader.loadIcon(_("kwave_player_loop"),
 	                     KIconLoader::Toolbar, max_s),
 	i18n("Start playback and loop"),
-	&m_playback, SLOT(playbackLoop()));
+	this, SLOT(toolbarLoop()));
 
     m_action_pause = addAction(
 	icon_loader.loadIcon(_("kwave_player_pause"),
 	                     KIconLoader::Toolbar, max_s),
 	QString(),
-	this, SLOT(pausePressed()));
+	this, SLOT(toolbarPause()));
 
     m_action_stop = addAction(
 	icon_loader.loadIcon(_("kwave_player_stop"),
 	                     KIconLoader::Toolbar, max_s),
 	i18n("Stop playback or loop"),
-	&m_playback, SLOT(playbackStop()));
+	this, SLOT(toolbarStop()));
 
     m_action_forward = addAction(
 	icon_loader.loadIcon(_("kwave_player_fwd"),
@@ -126,14 +128,6 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
 	this, SLOT(toolbarForwardNext()));
 
     // connect the playback controller
-    connect(&m_playback, SIGNAL(sigPlaybackStarted()),
-            this,        SLOT(updateState()));
-    connect(&m_playback, SIGNAL(sigPlaybackPaused()),
-            this,        SLOT(playbackPaused()));
-    connect(&m_playback, SIGNAL(sigPlaybackStopped()),
-            this,        SLOT(updateState()));
-    connect(&m_playback, SIGNAL(sigPlaybackPos(sample_index_t)),
-	    this,        SLOT(updatePlaybackPos(sample_index_t)));
 
     // initial state update
     updateState();
@@ -144,31 +138,85 @@ Kwave::PlayerToolBar::~PlayerToolBar()
 {
     if (m_pause_timer) delete m_pause_timer;
     m_pause_timer = 0;
+    m_context = 0;
+}
+
+//***************************************************************************
+void Kwave::PlayerToolBar::contextSwitched(Kwave::FileContext *context)
+{
+    if (context == m_context) return; // nothing to do
+
+    // disconnect the playback controller of the previous context
+    if (m_context && m_playback) {
+	disconnect(m_playback, SIGNAL(sigPlaybackStarted()),
+	           this,       SLOT(updateState()));
+	disconnect(m_playback, SIGNAL(sigPlaybackPaused()),
+	           this,       SLOT(playbackPaused()));
+	disconnect(m_playback, SIGNAL(sigPlaybackStopped()),
+	           this,       SLOT(updateState()));
+	disconnect(m_playback, SIGNAL(sigPlaybackPos(sample_index_t)),
+	           this,       SLOT(updatePlaybackPos(sample_index_t)));
+	disconnect(m_context, SIGNAL(sigVisibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)),
+	    this, SLOT(visibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)) );
+    }
+
+    // use the new context
+    m_context = context;
+
+    Kwave::SignalManager *signal = m_context ? m_context->signalManager() : 0;
+    m_playback = (signal) ? &signal->playbackController() : 0;
+
+    // connect the playback controller of the new context
+    if (m_context && m_playback) {
+	connect(m_playback, SIGNAL(sigPlaybackStarted()),
+	        this,       SLOT(updateState()));
+	connect(m_playback, SIGNAL(sigPlaybackPaused()),
+	        this,       SLOT(playbackPaused()));
+	connect(m_playback, SIGNAL(sigPlaybackStopped()),
+	        this,       SLOT(updateState()));
+	connect(m_playback, SIGNAL(sigPlaybackPos(sample_index_t)),
+	        this,       SLOT(updatePlaybackPos(sample_index_t)));
+	connect(m_context, SIGNAL(sigVisibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)),
+	    this, SLOT(visibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)) );
+    }
+
+    updateState();
+}
+
+//***************************************************************************
+void Kwave::PlayerToolBar::contextDestroyed(Kwave::FileContext *context)
+{
+    if (context != m_context) return; // not of interest
+    contextSwitched(0);
 }
 
 //***************************************************************************
 void Kwave::PlayerToolBar::toolbarRewindPrev()
 {
-    if (!m_action_prev || !m_action_prev->isEnabled()) return;
+    if (!m_action_prev || !m_action_prev->isEnabled() || !m_playback) return;
 
-    const bool play = m_playback.running() || m_playback.paused();
+    const bool play = m_playback->running() || m_playback->paused();
     if (play) {
-	const sample_index_t first = m_playback.startPos();
-	sample_index_t prev = m_labels.nextLabelLeft(m_playback.currentPos());
+	const sample_index_t first = m_playback->startPos();
+	sample_index_t prev = m_labels.nextLabelLeft(m_playback->currentPos());
 
 	if (!m_labels.isEmpty()) {
 	    // go to the start marker of the current block
 	    if (prev > first) {
 		// seek back to the start of the previous block
 		prev = m_labels.nextLabelLeft(prev);
-	    } else if (m_playback.loop()) {
+	    } else if (m_playback->loop()) {
 		// in loop mode: wrap around to last block
-		prev = m_labels.nextLabelLeft(m_playback.endPos());
+		prev = m_labels.nextLabelLeft(m_playback->endPos());
 	    }
 	}
 
 	if (prev < first) prev = first;
-	m_playback.seekTo(prev);
+	m_playback->seekTo(prev);
     } else {
 	emit sigCommand(_("view:scroll_prev_label()"));
     }
@@ -177,13 +225,13 @@ void Kwave::PlayerToolBar::toolbarRewindPrev()
 //***************************************************************************
 void Kwave::PlayerToolBar::toolbarRewind()
 {
-    if (!m_action_rewind || !m_action_rewind->isEnabled()) return;
+    if (!m_action_rewind || !m_action_rewind->isEnabled() || !m_playback) return;
 
-    const bool play = m_playback.running() || m_playback.paused();
+    const bool play = m_playback->running() || m_playback->paused();
     if (play) {
-	sample_index_t first = m_playback.startPos();
-	sample_index_t last  = m_playback.endPos();
-	sample_index_t pos   = m_playback.currentPos();
+	sample_index_t first = m_playback->startPos();
+	sample_index_t last  = m_playback->endPos();
+	sample_index_t pos   = m_playback->currentPos();
 
 	if (pos < first) pos = first;
 	if (pos > last)  pos = last;
@@ -191,7 +239,7 @@ void Kwave::PlayerToolBar::toolbarRewind()
 	if ((first + SEEK_LENGTH) <= pos) {
 	    // simple case: seek without wraparound
 	    pos = pos - SEEK_LENGTH;
-	} else if (m_playback.loop() && ((first + SEEK_LENGTH) <= last)) {
+	} else if (m_playback->loop() && ((first + SEEK_LENGTH) <= last)) {
 	    // loop mode: wrap around
 	    pos = last - (first + SEEK_LENGTH - pos);
 	} else {
@@ -199,7 +247,7 @@ void Kwave::PlayerToolBar::toolbarRewind()
 	    pos = first;
 	}
 
-	m_playback.seekTo(pos);
+	m_playback->seekTo(pos);
     } else {
 	emit sigCommand(_("view:scroll_left()"));
     }
@@ -211,6 +259,18 @@ void Kwave::PlayerToolBar::toolbarRecord()
     if (!m_action_record || !m_action_record->isEnabled()) return;
 
     emit sigCommand(_("plugin(record)"));
+}
+
+//***************************************************************************
+void Kwave::PlayerToolBar::toolbarStart()
+{
+    if (m_playback) m_playback->playbackStart();
+}
+
+//***************************************************************************
+void Kwave::PlayerToolBar::toolbarLoop()
+{
+    if (m_playback) m_playback->playbackLoop();
 }
 
 //***************************************************************************
@@ -232,20 +292,26 @@ void Kwave::PlayerToolBar::playbackPaused()
 }
 
 //***************************************************************************
-void Kwave::PlayerToolBar::pausePressed()
+void Kwave::PlayerToolBar::toolbarPause()
 {
-    if (!m_action_pause || !m_action_pause->isEnabled()) return;
+    if (!m_action_pause || !m_action_pause->isEnabled() || !m_playback) return;
 
     const bool have_signal = (m_last_length && m_last_tracks);
-    const bool playing     = m_playback.running();
+    const bool playing     = m_playback->running();
 
     if (!have_signal) return;
 
     if (playing) {
-	m_playback.playbackPause();
+	m_playback->playbackPause();
     } else {
-	m_playback.playbackContinue();
+	m_playback->playbackContinue();
     }
+}
+
+//***************************************************************************
+void Kwave::PlayerToolBar::toolbarStop()
+{
+    if (m_playback) m_playback->playbackStop();
 }
 
 //***************************************************************************
@@ -253,7 +319,7 @@ void Kwave::PlayerToolBar::blinkPause()
 {
     KIconLoader icon_loader;
     const int max_s   = KIconLoader::SizeEnormous;
-    const bool paused = m_playback.paused();
+    const bool paused = m_playback && m_playback->paused();
 
     Q_ASSERT(m_action_pause);
     if (!m_action_pause) return;
@@ -270,13 +336,14 @@ void Kwave::PlayerToolBar::blinkPause()
 //***************************************************************************
 void Kwave::PlayerToolBar::toolbarForward()
 {
-    if (!m_action_forward || !m_action_forward->isEnabled()) return;
+    if (!m_action_forward || !m_action_forward->isEnabled() ||
+        !m_playback) return;
 
-    const bool play = m_playback.running() || m_playback.paused();
+    const bool play = m_playback->running() || m_playback->paused();
     if (play) {
-	sample_index_t first = m_playback.startPos();
-	sample_index_t last  = m_playback.endPos();
-	sample_index_t pos   = m_playback.currentPos();
+	sample_index_t first = m_playback->startPos();
+	sample_index_t last  = m_playback->endPos();
+	sample_index_t pos   = m_playback->currentPos();
 
 	if (pos < first) pos = first;
 	if (pos > last)  pos = last;
@@ -284,7 +351,7 @@ void Kwave::PlayerToolBar::toolbarForward()
 	if ((pos + SEEK_LENGTH) <= last) {
 	    // simple case: seek without wraparound
 	    pos = pos + SEEK_LENGTH;
-	} else if (m_playback.loop() && ((first + SEEK_LENGTH) <= last)) {
+	} else if (m_playback->loop() && ((first + SEEK_LENGTH) <= last)) {
 	    // loop mode: wrap around
 	    pos = first + SEEK_LENGTH - (last - pos);
 	} else {
@@ -292,7 +359,7 @@ void Kwave::PlayerToolBar::toolbarForward()
 	    pos = first;
 	}
 
-	m_playback.seekTo(pos);
+	m_playback->seekTo(pos);
     } else {
 	emit sigCommand(_("view:scroll_right()"));
     }
@@ -301,15 +368,15 @@ void Kwave::PlayerToolBar::toolbarForward()
 //***************************************************************************
 void Kwave::PlayerToolBar::toolbarForwardNext()
 {
-    if (!m_action_next || !m_action_next->isEnabled()) return;
+    if (!m_action_next || !m_action_next->isEnabled() || !m_playback) return;
 
-    const bool play = m_playback.running() || m_playback.paused();
+    const bool play = m_playback->running() || m_playback->paused();
     if (play) {
-	sample_index_t last = m_playback.endPos();
-	sample_index_t next = m_labels.nextLabelRight(m_playback.currentPos());
+	sample_index_t last = m_playback->endPos();
+	sample_index_t next = m_labels.nextLabelRight(m_playback->currentPos());
 	if (next >= last)
-	    next = m_playback.startPos(); // wrap around to start
-	m_playback.seekTo(next);
+	    next = m_playback->startPos(); // wrap around to start
+	m_playback->seekTo(next);
     } else {
 	emit sigCommand(_("view:scroll_next_label()"));
     }
@@ -318,19 +385,21 @@ void Kwave::PlayerToolBar::toolbarForwardNext()
 //***************************************************************************
 void Kwave::PlayerToolBar::updateState()
 {
+    if (!m_playback) return;
+
     bool have_signal    = (m_last_length && m_last_tracks);
-    bool playing        = m_playback.running();
-    bool paused         = m_playback.paused();
+    bool playing        = m_playback->running();
+    bool paused         = m_playback->paused();
     bool at_start       = (m_last_offset == 0);
     bool at_end         = ((m_last_offset + m_last_visible) >= m_last_length);
 
     /* --- seek buttons, depending on mode --- */
     if (playing || paused) {
 	// seek buttons in playback mode
-	bool           loop       = m_playback.loop();
-	sample_index_t pos        = m_playback.currentPos();
-	sample_index_t first      = m_playback.startPos();
-	sample_index_t last       = m_playback.endPos();
+	bool           loop       = m_playback->loop();
+	sample_index_t pos        = m_playback->currentPos();
+	sample_index_t first      = m_playback->startPos();
+	sample_index_t last       = m_playback->endPos();
 	sample_index_t prev       = m_labels.nextLabelLeft(pos);
 	sample_index_t next       = m_labels.nextLabelRight(pos);
 	sample_index_t seek_len   = SEEK_LENGTH;
@@ -458,7 +527,7 @@ void Kwave::PlayerToolBar::metaDataChanged(Kwave::MetaDataList meta_data)
     const Kwave::FileInfo info(meta_data);
     sample_index_t length = info.length();
     unsigned int tracks   = info.tracks();
-    bool playing          = m_playback.running();
+    bool playing          = m_playback && m_playback->running();
 
     m_labels = LabelList(meta_data);
 

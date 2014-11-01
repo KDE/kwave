@@ -26,11 +26,16 @@
 #include <QtCore/QString>
 
 #include <kdemacros.h>
+#include <kurl.h>
 
+#include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
 
 class QApplication;
+class QTextStream;
 class QWidget;
+
+class KUrl;
 
 namespace Kwave
 {
@@ -100,6 +105,13 @@ namespace Kwave
 	 */
 	bool isActive() const { return m_active; }
 
+	/**
+	 * Loads a batch file into memory, parses and executes
+	 * all commands in it.
+	 * @param url URL of the macro (batch file) to be loaded
+	 */
+	int loadBatch(const KUrl &url);
+
     signals:
 
 	/**
@@ -116,6 +128,17 @@ namespace Kwave
 	 * @param zoom new zoom factor
 	 */
 	void sigZoomChanged(Kwave::FileContext *context, double zoom);
+
+	/**
+	 * emitted when the meta data of the current signal has changed
+	 * @param meta_data the new meta data, after the change
+	 */
+	void sigMetaDataChanged(Kwave::MetaDataList meta_data);
+
+	/** emitted when the visible range has changed */
+	void sigVisibleRangeChanged(sample_index_t offset,
+	                            sample_index_t visible,
+	                            sample_index_t total);
 
 	/**
 	 * emitted when the context is about to be destroyed
@@ -153,6 +176,22 @@ namespace Kwave
 	 */
 	void updatePlaybackPos(sample_index_t offset);
 
+	/**
+	 * Called when the meta data of the current signal has changed
+	 * @param meta_data the new meta data, after the change
+	 */
+	void metaDataChanged(Kwave::MetaDataList meta_data);
+
+	/**
+	 * Called after changes of the currently visible view range
+	 * @param offset index of the first visible sample
+	 * @param visible number of visible samples
+	 * @param total length of the whole signal
+	 */
+	void visibleRangeChanged(sample_index_t offset,
+	                         sample_index_t visible,
+	                         sample_index_t total);
+
     private:
 
 	/**
@@ -172,6 +211,14 @@ namespace Kwave
 	 * @param ms the time in milliseconds to show the message
 	 */
 	void statusBarMessage(const QString &msg, unsigned int ms);
+
+	/**
+	 * Parses a text stream line by line and executes each line
+	 * as a command until all commands are done or the first one fails.
+	 * @param stream a QTextStream to read from
+	 * @return zero if successful, non-zero error code if a command failed
+	 */
+	int parseCommands(QTextStream &stream);
 
     private:
 
@@ -207,6 +254,19 @@ namespace Kwave
 
 	/** number of milliseconds the status message should be shown */
 	unsigned int m_last_status_message_ms;
+
+	/** last meta data change received while inactive */
+	Kwave::MetaDataList m_last_meta_data;
+
+	/** last visible range: offset */
+	sample_index_t m_last_visible_offset;
+
+	/** last visible range: number of visible samples */
+	sample_index_t m_last_visible_samples;
+
+	/** last visible range: total samples */
+	sample_index_t m_last_visible_total;
+
     };
 
 }

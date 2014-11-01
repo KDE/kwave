@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include <QtGui/QApplication>
 #include <QtGui/QCloseEvent>
 #include <QtGui/QDesktopWidget>
 #include <QtCore/QFile>
@@ -95,26 +96,22 @@
 #define TOOLBAR_ZOOM        _("MainWidget Zoom")
 
 //***************************************************************************
-
-/**
- * struct for info about a label within a Kwave script
- * @internal
- */
-namespace Kwave {
-    typedef struct {
-	qint64       pos;  /**< position within the stream      */
-	unsigned int hits; /**< number of "goto"s to this label */
-    } label_t;
-}
-
-//***************************************************************************
 //***************************************************************************
 Kwave::TopWidget::TopWidget(Kwave::App &app)
-    :KMainWindow(), m_application(app), m_current_context(0),
-     m_main_widget(0), m_toolbar_record_playback(0), m_toolbar_zoom(0),
-     m_menu_manager(0), m_action_save(0), m_action_save_as(0),
-     m_action_close(0), m_action_undo(0), m_action_redo(0),
-     m_lbl_status_size(0), m_lbl_status_mode(0), m_lbl_status_cursor(0)
+    :KMainWindow(),
+     m_application(app),
+     m_current_context(0),
+     m_toolbar_record_playback(0),
+     m_toolbar_zoom(0),
+     m_menu_manager(0),
+     m_action_save(0),
+     m_action_save_as(0),
+     m_action_close(0),
+     m_action_undo(0),
+     m_action_redo(0),
+     m_lbl_status_size(0),
+     m_lbl_status_mode(0),
+     m_lbl_status_cursor(0)
 {
     // status bar items
     KStatusBar *status_bar = statusBar();
@@ -172,13 +169,25 @@ bool Kwave::TopWidget::newFileContext()
     }
     Q_ASSERT(context);
 
+    // connect the context to the top widget
+    connect(context, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            this,         SLOT(metaDataChanged(Kwave::MetaDataList)));
+
     // connect the zoom toolbar
     connect(context,   SIGNAL(sigZoomChanged(Kwave::FileContext *, double)),
             m_toolbar_zoom, SLOT(setZoomInfo(Kwave::FileContext *, double)));
-    connect(this,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
-            m_toolbar_zoom, SLOT(contextSwitched(Kwave::FileContext *)));
     connect(context,             SIGNAL(destroyed(Kwave::FileContext *)),
             m_toolbar_zoom, SLOT(contextDestroyed(Kwave::FileContext *)));
+
+    // connect the playback/record toolbar
+    connect(context,
+            SIGNAL(destroyed(Kwave::FileContext *)),
+            m_toolbar_record_playback,
+            SLOT(contextDestroyed(Kwave::FileContext *))
+    );
+    connect(context, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
+            m_toolbar_record_playback,
+            SLOT(metaDataChanged(Kwave::MetaDataList)));
 
     // connect the status bar
     connect(context, SIGNAL(sigStatusBarMessage(const QString &, unsigned int)),
@@ -197,18 +206,6 @@ bool Kwave::TopWidget::init()
 {
     KIconLoader icon_loader;
 
-    // --- zoom controls ---
-
-    m_toolbar_zoom = new Kwave::ZoomToolBar(this, TOOLBAR_ZOOM);
-    Q_ASSERT(m_toolbar_zoom);
-    if (!m_toolbar_zoom) return false;
-
-    // -- create a new file context ---
-    bool ok = newFileContext();
-    Q_ASSERT(ok);
-    if (!ok)
-	return false;
-
     showInSplashSreen(i18n("Loading main menu..."));
     KMenuBar *menubar = menuBar();
     Q_ASSERT(menubar);
@@ -223,16 +220,32 @@ bool Kwave::TopWidget::init()
     connect(&Kwave::ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
 	    this, SLOT(clipboardChanged(bool)));
 
-    // load the menu from file
-    QFile menufile(KStandardDirs::locate("data", _("kwave/menus.config")));
-    menufile.open(QIODevice::ReadOnly);
-    QTextStream stream(&menufile);
-    Q_ASSERT(!stream.atEnd());
-    if (!stream.atEnd()) parseCommands(stream);
-    menufile.close();
+    // --- zoom control toolbar ---
 
-    // ### GUI_MDI ###
-    m_main_widget = m_current_context->mainWidget();
+    m_toolbar_zoom = new Kwave::ZoomToolBar(this, TOOLBAR_ZOOM);
+    Q_ASSERT(m_toolbar_zoom);
+    if (!m_toolbar_zoom) return false;
+
+    connect(this,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
+            m_toolbar_zoom, SLOT(contextSwitched(Kwave::FileContext *)));
+
+    // --- playback control toolbar ---
+    m_toolbar_record_playback = new Kwave::PlayerToolBar(
+	this, TOOLBAR_RECORD_PLAY, *m_menu_manager);
+    Q_ASSERT(m_toolbar_record_playback);
+    if (!m_toolbar_record_playback) return false;
+
+    connect(this,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
+            m_toolbar_record_playback,
+            SLOT(contextSwitched(Kwave::FileContext *)));
+    connect(m_toolbar_record_playback, SIGNAL(sigCommand(const QString &)),
+            this,                    SLOT(forwardCommand(const QString &)));
+
+    // -- create a new file context ---
+    bool ok = newFileContext();
+    Q_ASSERT(ok);
+    if (!ok)
+	return false;
 
     // --- set up the toolbar ---
 
@@ -312,24 +325,6 @@ bool Kwave::TopWidget::init()
 	i18n("Delete selection"),
 	this, SLOT(toolbarEditDelete()));
 
-    // --- record/playback controls ---
-
-    // ### GUI_MDI ###
-    m_toolbar_record_playback = new Kwave::PlayerToolBar(
-	this, TOOLBAR_RECORD_PLAY,
-	m_current_context->signalManager()->playbackController(),
-	*m_menu_manager);
-    Q_ASSERT(m_toolbar_record_playback);
-    if (!m_toolbar_record_playback) return false;
-
-    connect(m_toolbar_record_playback, SIGNAL(sigCommand(const QString &)),
-            this,                    SLOT(forwardCommand(const QString &)));
-    // ### GUI_MDI ###
-    connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
-	    sample_index_t, sample_index_t)),
-	    m_toolbar_record_playback, SLOT(visibleRangeChanged(sample_index_t,
-	    sample_index_t, sample_index_t)) );
-
     // connect the signal manager
     // ### GUI_MDI ###
     Kwave::SignalManager *signal_manager = m_current_context->signalManager();
@@ -342,20 +337,16 @@ bool Kwave::TopWidget::init()
             this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
     connect(signal_manager, SIGNAL(sigModified(bool)),
             this,           SLOT(modifiedChanged(bool)));
-    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
-            this,           SLOT(metaDataChanged(Kwave::MetaDataList)));
-    connect(signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
-            m_toolbar_record_playback,
-                            SLOT(metaDataChanged(Kwave::MetaDataList)));
 
     // set the MainWidget as the main view
-    setCentralWidget(m_main_widget); // ### GUI_MDI ###
+    Kwave::MainWidget *main_widget = m_current_context->mainWidget();
+    setCentralWidget(main_widget); // ### GUI_MDI ###
 
     // set a nice initial size
-    int w = m_main_widget->minimumSize().width();
-    w = qMax(w, m_main_widget->sizeHint().width());
+    int w = main_widget->minimumSize().width();
+    w = qMax(w, main_widget->sizeHint().width());
     w = qMax(w, width());
-    int h = qMax(m_main_widget->sizeHint().height(), (w * 6) / 10);
+    int h = qMax(main_widget->sizeHint().height(), (w * 6) / 10);
     h = qMax(h, height());
     resize(w, h);
 
@@ -420,8 +411,6 @@ Kwave::TopWidget::~TopWidget()
     delete m_menu_manager;
     m_menu_manager = 0;
 
-    m_main_widget = 0;
-
     m_current_context->close();
     delete m_current_context;
     m_current_context = 0;
@@ -477,8 +466,6 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	result = revert();
     CASE_COMMAND("saveas")
 	result = saveFileAs(parser.nextParam(), false);
-    CASE_COMMAND("loadbatch")
-	result = loadBatch(parser.nextParam());
     CASE_COMMAND("saveselect")
 	result = saveFileAs(QString(), true);
     CASE_COMMAND("quit")
@@ -512,120 +499,6 @@ void Kwave::TopWidget::forwardCommand(const QString &command)
 {
     if (m_current_context)
         m_current_context->executeCommand(command);
-}
-
-//***************************************************************************
-int Kwave::TopWidget::loadBatch(const KUrl &url)
-{
-    // open the URL, read-only mode is enough
-    QFile file(url.path());
-    if (!file.open(QIODevice::ReadOnly)) {
-	qWarning("unable to open source in read-only mode!");
-	return -EIO;
-    }
-
-    // use a text stream for parsing the commands
-    QTextStream stream(&file);
-    int result = parseCommands(stream);
-    file.close();
-
-    return result;
-}
-
-//***************************************************************************
-int Kwave::TopWidget::parseCommands(QTextStream &stream)
-{
-    int result = 0;
-    QMap<QString, label_t> labels;
-
-    // hold an own context pointer, just in case the context changes
-    // during processing
-    QPointer<Kwave::FileContext> context(m_current_context);
-    if (!context) return ENOSYS;
-
-    // set hourglass cursor
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-    while (!stream.atEnd() && !result) {
-	QString line = stream.readLine().simplified();
-	if (line.startsWith(_("#"))) continue; // skip comments
-	if (!line.length()) continue;       // skip empty lines
-
-	// remove stuff after the "#'" (comments)
-	if (line.contains(QLatin1Char('#'))) {
-	}
-
-	if (line.endsWith(QLatin1Char(':'))) {
-	    // this line seems to be a "label"
-	    line = line.left(line.length() - 1).simplified();
-	    if (!labels.contains(line)) {
-		qDebug("new label '%s' at %llu", DBG(line), stream.pos());
-		label_t label;
-		label.pos  = stream.pos();
-		label.hits = 0;
-		labels[line] = label;
-	    }
-	    continue;
-	}
-
-	Kwave::Parser parser(line);
-
-	// the "goto" command
-	if (line.split(QLatin1Char(' ')).at(0) == _("goto")) {
-	    qDebug(">>> detected 'goto'");
-	    QString label = line.split(QLatin1Char(' ')).at(1).simplified();
-	    if (labels.contains(label)) {
-		labels[label].hits++;
-		qDebug(">>> goto '%s' @ offset %llu (pass #%d)", DBG(label),
-		       labels[label].pos,
-		       labels[label].hits
-  		    );
-		stream.seek(labels[label].pos);
-	    } else {
-		qWarning("label '%s' not found", DBG(label));
-		break;
-	    }
-	    continue;
-	}
-
-	// synchronize before the command
-	if (context && context->pluginManager())
-	    context->pluginManager()->sync();
-
-	// the "msgbox" command (useful for debugging)
-	if (parser.command() == _("msgbox")) {
-	    QApplication::restoreOverrideCursor();
-	    result = (Kwave::MessageBox::questionYesNo(this,
-		parser.firstParam()) == KMessageBox::Yes) ? 0 : 1;
-	    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-	    continue;
-	}
-
-	// prevent this command from being re-added to the macro recorder
-	if (!line.startsWith(_("nomacro:"), Qt::CaseInsensitive))
-	    line.prepend(_("nomacro:"));
-
-	// process the command in the current context
-	// NOTE: this could theoretically also be a command that modifies
-	//       or even deletes the current context!
-	result = (context) ? context->executeCommand(line) : -EINTR;
-	if (result)
-	    qDebug(">>> '%s' - result=%d", DBG(line), result);
-
-	// synchronize after the command
-	if (context && context->pluginManager())
-	    context->pluginManager()->sync();
-
-	// special handling of the "quit" command
-	if (parser.command() == _("quit")) {
-	    break;
-	}
-    }
-
-    // remove hourglass
-    QApplication::restoreOverrideCursor();
-
-    return result;
 }
 
 //***************************************************************************
@@ -683,7 +556,6 @@ bool Kwave::TopWidget::closeFile()
 //***************************************************************************
 int Kwave::TopWidget::loadFile(const KUrl &url)
 {
-    // ### TODO ### GUI_MDI ###
     if (!m_current_context) return -1;
 
     Kwave::SignalManager *signal_manager = m_current_context->signalManager();
@@ -696,7 +568,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     QFileInfo file(url.fileName());
     QString suffix = file.suffix();
     if (suffix == _("kwave")) {
-	return loadBatch(url);
+	return m_current_context->loadBatch(url);
     }
 
     // try to close the previous file

@@ -96,13 +96,6 @@ namespace Kwave
 	 */
 	int loadFile(const KUrl &url);
 
-	/**
-	 * Loads a batch file into memory, parses and executes
-	 * all commands in it.
-	 * @param url URL of the macro (batch file) to be loaded
-	 */
-	int loadBatch(const KUrl &url);
-
     public slots:
 
 	/**
@@ -336,14 +329,6 @@ namespace Kwave
 	 */
 	void updateCaption(const QString &name, bool is_modified);
 
-	/**
-	 * Parses a text stream line by line and executes each line
-	 * as a command until all commands are done or the first one fails.
-	 * @param stream a QTextStream to read from
-	 * @return zero if successful, non-zero error code if a command failed
-	 */
-	int parseCommands(QTextStream &stream);
-
 	/** returns the name of the signal */
 	QString signalName() const;
 
@@ -361,12 +346,6 @@ namespace Kwave
 
 	/** application context of this instance */
 	QPointer<Kwave::FileContext> m_current_context;
-
-	/**
-	 * the main widget with all views and controls (except menu and
-	 * toolbar)
-	 */
-	QPointer<Kwave::MainWidget> m_main_widget;
 
 	/** toolbar with playback/record and seek controls */
 	Kwave::PlayerToolBar *m_toolbar_record_playback;

@@ -22,6 +22,7 @@
 #include "config.h"
 
 #include <QtCore/QObject>
+#include <QtCore/QPointer>
 #include <QtCore/QTimer>
 
 #include "ktoolbar.h"
@@ -36,6 +37,7 @@ class KMainWindow;
 namespace Kwave
 {
 
+    class FileContext;
     class MenuManager;
     class PlaybackController;
 
@@ -47,11 +49,9 @@ namespace Kwave
 	 * Constructor
 	 * @param parent a KMainWidget
 	 * @param name the name of the toolbar (for config)
-	 * @param playback the playback controller
 	 * @param menu_manager the MenuManager
 	 */
 	PlayerToolBar(KMainWindow *parent, const QString &name,
-	              Kwave::PlaybackController &playback,
 	              Kwave::MenuManager &menu_manager
 	);
 
@@ -67,6 +67,12 @@ namespace Kwave
 	void sigSetMenuItemEnabled(const QString &uid, bool enable);
 
     public slots:
+
+	/** called when the file context has been (updates the toolbar) */
+	void contextSwitched(Kwave::FileContext *context);
+
+	/** called when a file context has been deleted */
+	void contextDestroyed(Kwave::FileContext *context);
 
 	/**
 	 * Executes a playback command
@@ -103,11 +109,20 @@ namespace Kwave
 	/** toolbar button for "record" pressed */
 	void toolbarRecord();
 
+	/** toolbar button for "start" pressed */
+	void toolbarStart();
+
+	/** toolbar button for "loop" pressed */
+	void toolbarLoop();
+
 	/** playback has been paused */
 	void playbackPaused();
 
 	/** connected to the clicked() signal of the pause button */
-	void pausePressed();
+	void toolbarPause();
+
+	/** toolbar button for "stop" pressed */
+	void toolbarStop();
 
 	/** toggles the state of the pause button */
 	void blinkPause();
@@ -125,6 +140,9 @@ namespace Kwave
 	void updatePlaybackPos(sample_index_t pos);
 
     private:
+
+	/** the current file context (could be null) */
+	Kwave::FileContext *m_context;
 
 	/** action of the "rewind to start" toolbar button */
 	QAction *m_action_prev;
@@ -159,8 +177,8 @@ namespace Kwave
 	/** determines the state of blinking toolbar buttons */
 	bool m_blink_on;
 
-	/** reference to a playback controller */
-	Kwave::PlaybackController &m_playback;
+	/** pointer to a playback controller */
+	QPointer<Kwave::PlaybackController> m_playback;
 
 	/** reference to a menu manager */
 	Kwave::MenuManager &m_menu_manager;

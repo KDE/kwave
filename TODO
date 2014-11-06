@@ -1,4 +1,6 @@
 
+o toolbar: copy and cut should be enabled only if there is a selection
+
 o recording via Phonon
 
 o auto-detect song borders set markers, for splitting recorded stuff into several

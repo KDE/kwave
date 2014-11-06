@@ -73,6 +73,11 @@ Kwave::FileContext::FileContext(Kwave::App &app)
      m_last_status_message_timer(),
      m_last_status_message_ms(0),
      m_last_meta_data(),
+     m_last_selection_offset(SAMPLE_INDEX_MAX),
+     m_last_selection_length(SAMPLE_INDEX_MAX),
+     m_last_undo(QString()),
+     m_last_redo(QString()),
+     m_last_modified(false),
      m_last_visible_offset(SAMPLE_INDEX_MAX),
      m_last_visible_samples(SAMPLE_INDEX_MAX),
      m_last_visible_total(SAMPLE_INDEX_MAX)
@@ -117,6 +122,15 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     // connect the signal manager
     connect(m_signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
             this,             SLOT(metaDataChanged(Kwave::MetaDataList)));
+    connect(&(m_signal_manager->selection()),
+            SIGNAL(changed(sample_index_t, sample_index_t)),
+            this,
+            SLOT(selectionChanged(sample_index_t, sample_index_t)));
+    connect(m_signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
+                                                     const QString&)),
+            this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
+    connect(m_signal_manager, SIGNAL(sigModified(bool)),
+            this,             SLOT(modifiedChanged(bool)));
 
     // connect the plugin manager
     connect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
@@ -189,7 +203,7 @@ Kwave::TopWidget *Kwave::FileContext::topWidget() const
 }
 
 //***************************************************************************
-Kwave::MainWidget *Kwave::FileContext::mainWidget() const
+QWidget *Kwave::FileContext::mainWidget() const
 {
     Q_ASSERT(m_main_widget);
     return m_main_widget;
@@ -389,6 +403,36 @@ void Kwave::FileContext::metaDataChanged(Kwave::MetaDataList meta_data)
 }
 
 //***************************************************************************
+void Kwave::FileContext::selectionChanged(sample_index_t offset,
+                                          sample_index_t length)
+{
+    m_last_selection_offset = offset;
+    m_last_selection_length = length;
+
+    if (isActive()) {
+	// we are active -> emit the selection change immediately
+	emit sigSelectionChanged(offset, length);
+    } else {
+	// we are inactive -> emit the selection change later, when activated
+    }
+}
+
+//***************************************************************************
+void Kwave::FileContext::setUndoRedoInfo(const QString &undo,
+                                         const QString &redo)
+{
+    m_last_undo = undo;
+    m_last_redo = redo;
+
+    if (isActive()) {
+	// we are active -> emit the undo/redo info immediately
+	emit sigUndoRedoInfo(undo, redo);
+    } else {
+	// we are inactive -> emit the undo/redo info later, when activated
+    }
+}
+
+//***************************************************************************
 void Kwave::FileContext::visibleRangeChanged(sample_index_t offset,
                                              sample_index_t visible,
                                              sample_index_t total)
@@ -405,6 +449,19 @@ void Kwave::FileContext::visibleRangeChanged(sample_index_t offset,
 	m_last_visible_offset  = offset;
 	m_last_visible_samples = visible;
 	m_last_visible_total   = total;
+    }
+}
+
+//***************************************************************************
+void Kwave::FileContext::modifiedChanged(bool modified)
+{
+    m_last_modified = modified;
+
+    if (isActive()) {
+	// we are active -> emit the modified state immediately
+	emit sigModified(modified);
+    } else {
+	// we are inactive -> emit the modified state later, when activated
     }
 }
 
@@ -456,7 +513,7 @@ void Kwave::FileContext::activated()
 	m_last_meta_data = Kwave::MetaDataList();
     }
 
-    // emit last view range change
+    // emit last view range change (always, if available)
     if (!( (m_last_visible_offset  == SAMPLE_INDEX_MAX) &&
            (m_last_visible_samples == SAMPLE_INDEX_MAX) &&
            (m_last_visible_total   == SAMPLE_INDEX_MAX)))
@@ -464,11 +521,19 @@ void Kwave::FileContext::activated()
 	emit sigVisibleRangeChanged(m_last_visible_offset,
 	                            m_last_visible_samples,
 	                            m_last_visible_total);
-
-	m_last_visible_offset  = SAMPLE_INDEX_MAX;
-	m_last_visible_samples = SAMPLE_INDEX_MAX;
-	m_last_visible_total   = SAMPLE_INDEX_MAX;
     }
+
+    // emit last selection change (always, if available)
+    if ( (m_last_selection_length != SAMPLE_INDEX_MAX) &&
+         (m_last_selection_offset != SAMPLE_INDEX_MAX) )
+    {
+	emit sigSelectionChanged(m_last_selection_offset,
+	                         m_last_selection_length);
+    }
+
+    // emit the last "modified" state (always)
+    emit sigModified(m_last_modified);
+
 }
 
 //***************************************************************************

@@ -169,9 +169,18 @@ bool Kwave::TopWidget::newFileContext()
     }
     Q_ASSERT(context);
 
+
     // connect the context to the top widget
     connect(context, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
             this,         SLOT(metaDataChanged(Kwave::MetaDataList)));
+    connect(context,
+            SIGNAL(sigSelectionChanged(sample_index_t, sample_index_t)),
+            this,
+            SLOT(selectionChanged(sample_index_t, sample_index_t)));
+    connect(context, SIGNAL(sigUndoRedoInfo(const QString &, const QString &)),
+            this,      SLOT(setUndoRedoInfo(const QString &, const QString &)));
+    connect(context, SIGNAL(sigModified(bool)),
+            this,  SLOT(modifiedChanged(bool)));
 
     // connect the zoom toolbar
     connect(context,   SIGNAL(sigZoomChanged(Kwave::FileContext *, double)),
@@ -325,21 +334,8 @@ bool Kwave::TopWidget::init()
 	i18n("Delete selection"),
 	this, SLOT(toolbarEditDelete()));
 
-    // connect the signal manager
-    // ### GUI_MDI ###
-    Kwave::SignalManager *signal_manager = m_current_context->signalManager();
-    connect(&(signal_manager->selection()),
-            SIGNAL(changed(sample_index_t, sample_index_t)),
-            this,
-            SLOT(selectionChanged(sample_index_t, sample_index_t)));
-    connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
-                                                   const QString&)),
-            this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
-    connect(signal_manager, SIGNAL(sigModified(bool)),
-            this,           SLOT(modifiedChanged(bool)));
-
     // set the MainWidget as the main view
-    Kwave::MainWidget *main_widget = m_current_context->mainWidget();
+    QWidget *main_widget = m_current_context->mainWidget();
     setCentralWidget(main_widget); // ### GUI_MDI ###
 
     // set a nice initial size

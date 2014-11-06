@@ -84,7 +84,7 @@ namespace Kwave
 	/**
 	 * returns a pointer to the main widget of this context
 	 */
-	Kwave::MainWidget    *mainWidget() const;
+	QWidget              *mainWidget() const;
 
 	/** returns a pointer to the signal manager of this context */
 	Kwave::SignalManager *signalManager() const;
@@ -135,10 +135,30 @@ namespace Kwave
 	 */
 	void sigMetaDataChanged(Kwave::MetaDataList meta_data);
 
+	/**
+	 * emits a change in the selected range.
+	 * @param offset index of the first selected items
+	 * @param length number of selected items
+	 */
+	void sigSelectionChanged(sample_index_t offset, sample_index_t length);
+
+	/**
+	 * Emitted if the state or description of undo/redo has changed. If
+	 * undo or redo is unavailable the description will be zero.
+	 */
+	void sigUndoRedoInfo(const QString &undo, const QString &redo);
+
 	/** emitted when the visible range has changed */
 	void sigVisibleRangeChanged(sample_index_t offset,
 	                            sample_index_t visible,
 	                            sample_index_t total);
+
+	/**
+	 * Emitted if the signal changes from non-modified to modified
+	 * state or vice-versa.
+	 * @param modified true if now modified, false if no longer
+	 */
+	void sigModified(bool modified);
 
 	/**
 	 * emitted when the context is about to be destroyed
@@ -170,8 +190,7 @@ namespace Kwave
 	void forwardZoomChanged(double zoom);
 
 	/**
-	 * updates the playback position in the status bar and scrolls the
-	 * current view to show the current playback region
+	 * Called when the playback position has changed
 	 * @param offset the current playback position [samples]
 	 */
 	void updatePlaybackPos(sample_index_t offset);
@@ -183,6 +202,20 @@ namespace Kwave
 	void metaDataChanged(Kwave::MetaDataList meta_data);
 
 	/**
+	 * Called when the number of selected samples has changed.
+	 * @param offset index of the first selected sample
+	 * @param length number of selected samples
+	 */
+	void selectionChanged(sample_index_t offset, sample_index_t length);
+
+	/**
+	 * Called when the undo or redo action has changed.
+	 * @param undo description of the last undo action
+	 * @param redo description of the last redo action
+	 */
+	void setUndoRedoInfo(const QString &undo, const QString &redo);
+
+	/**
 	 * Called after changes of the currently visible view range
 	 * @param offset index of the first visible sample
 	 * @param visible number of visible samples
@@ -191,6 +224,12 @@ namespace Kwave
 	void visibleRangeChanged(sample_index_t offset,
 	                         sample_index_t visible,
 	                         sample_index_t total);
+
+	/**
+	 * called if the signal now or no longer is modified
+	 * @param modified if true: signal now is "modified", otherwise not
+	 */
+	void modifiedChanged(bool modified);
 
     private:
 
@@ -257,6 +296,21 @@ namespace Kwave
 
 	/** last meta data change received while inactive */
 	Kwave::MetaDataList m_last_meta_data;
+
+	/** last selection: offset */
+	sample_index_t m_last_selection_offset;
+
+	/** last selection: length */
+	sample_index_t m_last_selection_length;
+
+	/** name of the last undo action */
+	QString m_last_undo;
+
+	/** name of the last redo action */
+	QString m_last_redo;
+
+	/** last "modified" state of the signal */
+	bool m_last_modified;
 
 	/** last visible range: offset */
 	sample_index_t m_last_visible_offset;

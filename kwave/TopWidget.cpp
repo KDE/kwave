@@ -371,6 +371,16 @@ bool Kwave::TopWidget::init()
 	setGeometry(g);
     }
 
+    // initialize the menu item with the selection of the GUI type
+    switch (m_application.guiType()) {
+	case Kwave::App::GUI_SDI:
+	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_SDI"));
+	    break;
+	case Kwave::App::GUI_MDI:
+	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_MDI"));
+	    break;
+    }
+
     // enable saving of window size and position for next startup
     setAutoSaveSettings();
 
@@ -478,6 +488,28 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	    == KMessageBox::Yes) ? 1 : 0))
 	{
 	    resetToolbarToDefaults();
+	}
+    CASE_COMMAND("select_gui_type")
+	QString gui_type = parser.nextParam();
+	if ((result = (Kwave::MessageBox::warningContinueCancel(this,
+	    i18n("Changing of the GUI type gets effective after "
+		    "restarting the application. Do you want to continue?"))
+	    == KMessageBox::Continue) ? 1 : 0))
+	{
+	    KConfigGroup cfg = KGlobal::config()->group("Global");
+	    cfg.writeEntry(_("UI Type"), gui_type);
+	}
+	else
+	{
+	    // undo the change, re-enable the previous menu entry
+	    switch (m_application.guiType()) {
+		case Kwave::App::GUI_SDI:
+		    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_SDI"));
+		    break;
+		case Kwave::App::GUI_MDI:
+		    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_MDI"));
+		    break;
+	    }
 	}
     CASE_COMMAND("reenable_dna")
 	if ((result = (Kwave::MessageBox::questionYesNo(this,

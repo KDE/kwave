@@ -259,7 +259,7 @@ void Kwave::MenuNode::insertNode(const QString &name,
 	if (pos < 0) pos = p.length();
     }
     n = position.left(pos);
-    p.remove(0, pos+1);
+    p.remove(0, pos + 1);
     if ((n.length()) && (specialCommand(n))) {
 	// no new branch, only a special command
 	return;

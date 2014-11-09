@@ -330,7 +330,6 @@ namespace Kwave
 
 	/** number of samples per pixel */
 	double m_zoom;
-
     };
 }
 

@@ -168,34 +168,50 @@ void Kwave::App::addRecentFile(const QString &newfile)
 //***************************************************************************
 bool Kwave::App::newWindow(const KUrl &url)
 {
+    Kwave::TopWidget *new_top_widget = 0;
+
     Kwave::Splash::showMessage(i18n("Opening main window..."));
 
-    Kwave::TopWidget *new_top_widget = new Kwave::TopWidget(*this);
-    if (!new_top_widget || !new_top_widget->init()) {
-	// init failed
-	qWarning("ERROR: initialization of TopWidget failed");
-	delete new_top_widget;
-	return false;
+    switch (m_gui_type) {
+	case Kwave::App::GUI_TAB: /* FALLTHROUGH */
+	case Kwave::App::GUI_MDI:
+	    // re-use the last top widget to open the file
+	    if (!m_top_widgets.isEmpty())
+		new_top_widget = m_top_widgets.last();
+	    break;
+	case Kwave::App::GUI_SDI:
+	    // always create a new top widget
+	    break;
     }
 
-    if (m_top_widgets.isEmpty()) {
-	// the first widget is the main widget !
-	setTopWidget(new_top_widget); // sets geometry and other properties
-	setTopWidget(0);              // that's enough, dont quit on close !
-    } else {
-	// create a new widget with the same geometry as
-	// the last created one
-	const QRect &geom = m_top_widgets.last()->geometry();
-	// calling setGeometry(geom) would overlap :-(
-	new_top_widget->resize(geom.width(), geom.height());
+    if (!new_top_widget) {
+	new_top_widget = new Kwave::TopWidget(*this);
+	if (!new_top_widget || !new_top_widget->init()) {
+	    // init failed
+	    qWarning("ERROR: initialization of TopWidget failed");
+	    delete new_top_widget;
+	    return false;
+	}
+
+	if (m_top_widgets.isEmpty()) {
+	    // the first widget is the main widget !
+	    setTopWidget(new_top_widget); // sets geometry and other properties
+	    setTopWidget(0);              // that's enough, don't quit on close!
+	} else {
+	    // create a new widget with the same geometry as
+	    // the last created one
+	    const QRect &geom = m_top_widgets.last()->geometry();
+	    // calling setGeometry(geom) would overlap :-(
+	    new_top_widget->resize(geom.width(), geom.height());
+	}
+
+	m_top_widgets.append(new_top_widget);
+	new_top_widget->show();
+
+	// inform the widget about changes in the list of recent files
+	connect(this, SIGNAL(recentFilesChanged()),
+		new_top_widget, SLOT(updateRecentFiles()));
     }
-
-    m_top_widgets.append(new_top_widget);
-    new_top_widget->show();
-
-    // inform the widget about changes in the list of recent files
-    connect(this, SIGNAL(recentFilesChanged()),
-            new_top_widget, SLOT(updateRecentFiles()));
 
     if (!url.isEmpty()) {
 	Kwave::Splash::showMessage(i18n("Loading file '%1'...",

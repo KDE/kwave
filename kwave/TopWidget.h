@@ -366,8 +366,8 @@ namespace Kwave
 	/** menu manager for this window */
 	Kwave::MenuManager *m_menu_manager;
 
-// 	/** MDI area, parent of all MDI child windows */
-// 	QMdiArea *m_mdi_area;
+	/** MDI area, parent of all MDI child windows */
+	QMdiArea *m_mdi_area;
 
 	/** action of the "file save" toolbar button */
 	QAction *m_action_save;

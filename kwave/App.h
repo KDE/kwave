@@ -48,8 +48,8 @@ namespace Kwave
 
 	typedef enum {
 	    GUI_SDI, /**< single document interface (SDI)          */
-	    GUI_MDI  /**< multi document interface (MDI)           */
-	/*  GUI_TAB,      tabbed interface                         */
+	    GUI_MDI, /**< multi document interface (MDI)           */
+	    GUI_TAB  /**< tabbed interface                         */
 	/*  GUI_IDE       integrated development environment (IDE) */
 	} GuiType;
 
@@ -78,10 +78,10 @@ namespace Kwave
 	virtual int newInstance();
 
 	/**
-	 * Opens a new toplevel window. If a filename is specified the will
-	 * will be opened (should be a .wav-file).
+	 * Opens a new toplevel window. If a filename is specified the file
+	 * will be opened.
 	 * @param url URL of the file to be loaded, (optional, might be empty)
-	 * @return true if succeeded
+	 * @return true if succeeded, false if failed
 	 * @see #closeWindow()
 	 * @see TopWidget
 	 */
@@ -121,7 +121,7 @@ namespace Kwave
 	 */
 	int executeCommand(const QString &command);
 
-    protected:
+    private:
 
 	/**
 	 * Reads the configuration settings and the list of recent files

@@ -104,6 +104,7 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
      m_toolbar_record_playback(0),
      m_toolbar_zoom(0),
      m_menu_manager(0),
+     m_mdi_area(0),
      m_action_save(0),
      m_action_save_as(0),
      m_action_close(0),
@@ -152,11 +153,6 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
 
     // direct all kind of focus to this window per default
     setFocusPolicy(Qt::WheelFocus);
-
-// ### GUI_MDI ###
-//     m_mdiArea = new QMdiArea(this);
-//     connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), SLOT(updateCurrent(QMdiSubWindow*)));
-//     setCentralWidget(m_mdiArea);
 }
 
 //***************************************************************************
@@ -339,16 +335,43 @@ bool Kwave::TopWidget::init()
 	i18n("Delete selection"),
 	this, SLOT(toolbarEditDelete()));
 
-    // set the MainWidget as the main view
-    QWidget *main_widget = m_current_context->mainWidget();
-    setCentralWidget(main_widget); // ### GUI_MDI ###
-//     m_mdiArea->addSubWindow(m_main_widget.data());
+    // set up the relationship between top widget / mdi area / main widget
+    QWidget *main_widget    = m_current_context->mainWidget();
+    QWidget *central_widget = 0;
+    switch (m_application.guiType()) {
+	case Kwave::App::GUI_SDI:
+	    central_widget = m_current_context->mainWidget();
+	    break;
+	case Kwave::App::GUI_MDI:
+	    m_mdi_area = new QMdiArea(this);
+	    Q_ASSERT(m_mdi_area);
+	    if (!m_mdi_area) return false;
+	    m_mdi_area->setViewMode(QMdiArea::SubWindowView);
+	    break;
+	case Kwave::App::GUI_TAB:
+	    m_mdi_area = new QMdiArea(this);
+	    Q_ASSERT(m_mdi_area);
+	    if (!m_mdi_area) return false;
+	    m_mdi_area->setViewMode(QMdiArea::TabbedView);
+	    break;
+    }
 
-    // set a nice initial size
-    int w = main_widget->minimumSize().width();
-    w = qMax(w, main_widget->sizeHint().width());
+    if (m_mdi_area) {
+	central_widget = m_mdi_area;
+	m_mdi_area->addSubWindow(main_widget, Qt::SubWindow);
+// 	connect(m_mdi_area,
+// 	        SIGNAL(subWindowActivated(QMdiSubWindow *)),
+// 	        SLOT(subWindowSwitched(QMdiSubWindow *))
+// 	);
+    }
+
+    setCentralWidget(central_widget);
+
+    // set a nice initial size of the toplevel window
+    int w = central_widget->minimumSize().width();
+    w = qMax(w, central_widget->sizeHint().width());
     w = qMax(w, width());
-    int h = qMax(main_widget->sizeHint().height(), (w * 6) / 10);
+    int h = qMax(central_widget->sizeHint().height(), (w * 6) / 10);
     h = qMax(h, height());
     resize(w, h);
 
@@ -371,13 +394,17 @@ bool Kwave::TopWidget::init()
 	setGeometry(g);
     }
 
-    // initialize the menu item with the selection of the GUI type
+    // initialize the menu according to the selection of the GUI type
+    // TODO: window management, prev/next etc...                                <= ###
     switch (m_application.guiType()) {
 	case Kwave::App::GUI_SDI:
 	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_SDI"));
 	    break;
 	case Kwave::App::GUI_MDI:
 	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_MDI"));
+	    break;
+	case Kwave::App::GUI_TAB:
+	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_TAB"));
 	    break;
     }
 
@@ -509,6 +536,9 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 		case Kwave::App::GUI_MDI:
 		    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_MDI"));
 		    break;
+		case Kwave::App::GUI_TAB:
+		    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_TAB"));
+		    break;
 	    }
 	}
     CASE_COMMAND("reenable_dna")
@@ -610,6 +640,19 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     QString suffix = file.suffix();
     if (suffix == _("kwave")) {
 	return m_current_context->loadBatch(url);
+    }
+
+    switch (m_application.guiType()) {
+	case Kwave::App::GUI_SDI:
+	    if (!signal_manager->isEmpty())
+		// SDI mode and already something loaded
+		// -> open a new toplevel window
+		return m_application.newWindow(url) ? 0 : -1;
+	    break;
+	case Kwave::App::GUI_MDI:
+	    break;
+	case Kwave::App::GUI_TAB:
+	    break;
     }
 
     // try to close the previous file
@@ -987,7 +1030,8 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 
 	m_lbl_status_cursor->setText(_(""));
 	statusBar()->showMessage(txt, 4000);
-	m_menu_manager->setItemEnabled(_("@SELECTION"), true);
+	if (m_menu_manager)
+	    m_menu_manager->setItemEnabled(_("@SELECTION"), true);
     } else {
 	// show cursor position
 	// Position: 02:00
@@ -1001,7 +1045,8 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	    m_lbl_status_cursor->setText(txt);
 	}
 
-	m_menu_manager->setItemEnabled(_("@SELECTION"), false);
+	if (m_menu_manager)
+	    m_menu_manager->setItemEnabled(_("@SELECTION"), false);
     }
 
     // update the zoom toolbar on selection change, maybe the

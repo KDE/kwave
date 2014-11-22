@@ -60,11 +60,9 @@ Kwave::Signal::~Signal()
 //***************************************************************************
 void Kwave::Signal::close()
 {
-    QWriteLocker lock(&m_lock_tracks);
-
-    while (m_tracks.count()) {
-	deleteTrack(m_tracks.count() - 1);
-    }
+    unsigned int count;
+    while ((count = tracks()))
+	deleteTrack(count - 1);
 }
 
 //***************************************************************************

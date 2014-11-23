@@ -32,6 +32,7 @@
 #include "libkwave/Sample.h"
 
 class QApplication;
+class QMdiSubWindow;
 class QTextStream;
 class QWidget;
 
@@ -74,12 +75,22 @@ namespace Kwave
 	bool init(Kwave::TopWidget *top_widget);
 
 	/**
-	 * shuts down the instance
+	 * Returns whether it is allowed to close the context. if there
+	 * are unsaved changes, the close operation can be canceled by
+	 * the user.
+	 * @return true if closing is allowed, false if rejected
 	 */
-	void close();
+	bool canClose();
+
+	/**
+	 * create a main widget, within the MDI area
+	 * or toplevel widget in case of SDI interface
+	 * @return true if successful, false if failed
+	 */
+	bool createMainWidget();
 
 	/** returns a pointer to the instance's toplevel window */
-	Kwave::TopWidget     *topWidget() const;
+	QWidget              *topWidget() const;
 
 	/**
 	 * returns a pointer to the main widget of this context
@@ -99,11 +110,18 @@ namespace Kwave
 	Kwave::Zoomable *zoomable() const;
 
 	/**
+	 * Returns whether this context is empty (has a main widget) or not.
+	 * @retval true if the context is empty
+	 * @retval false if the context has a main widget
+	 */
+	inline bool isEmpty() const { return m_main_widget.isNull(); }
+
+	/**
 	 * Returns whether this context is active or not.
 	 * @retval true if the context is active
 	 * @retval false if the context is inactive
 	 */
-	bool isActive() const { return m_active; }
+	inline bool isActive() const { return m_active; }
 
 	/**
 	 * Loads a batch file into memory, parses and executes
@@ -268,7 +286,7 @@ namespace Kwave
 	QPointer<Kwave::TopWidget> m_top_widget;
 
 	/** instance of our main widget */
-	Kwave::MainWidget *m_main_widget;
+	QPointer<Kwave::MainWidget> m_main_widget;
 
 	/** instance of our signal manager */
 	QPointer<Kwave::SignalManager> m_signal_manager;

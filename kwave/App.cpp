@@ -69,8 +69,12 @@ Kwave::App::App()
     QString result;
     const KConfigGroup cfg = KGlobal::config()->group("Global");
     result = cfg.readEntry("UI Type");
-    if (result == _("MDI")) {
+    if (result == _("SDI")) {
+	m_gui_type = Kwave::App::GUI_SDI;
+    } else if (result == _("MDI")) {
 	m_gui_type = Kwave::App::GUI_MDI;
+    } else if (result == _("TAB")) {
+	m_gui_type = Kwave::App::GUI_TAB;
     }
     // else: "SDI" is default
 

@@ -21,6 +21,7 @@
 #include <new>
 
 #include <QtGui/QApplication>
+#include <QtGui/QMdiSubWindow>
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 
@@ -89,10 +90,46 @@ Kwave::FileContext::~FileContext()
 {
     emit destroyed(this);
 
-    m_top_widget     = 0;
-    m_main_widget    = 0;
-    m_signal_manager = 0;
+    if (m_main_widget) delete m_main_widget;
+    m_main_widget = 0;
+
+    m_application.closeWindow(m_top_widget);
+    m_top_widget = 0;
+
+    if (m_plugin_manager) delete m_plugin_manager;
     m_plugin_manager = 0;
+
+    if (m_signal_manager) delete m_signal_manager;
+    m_signal_manager = 0;
+}
+
+//***************************************************************************
+bool Kwave::FileContext::createMainWidget()
+{
+    // create the main widget
+    m_main_widget = new(std::nothrow) Kwave::MainWidget(m_top_widget, *this);
+    Q_ASSERT(m_main_widget);
+    if (!m_main_widget) return false;
+    if (!(m_main_widget->isOK())) {
+	delete m_main_widget;
+	m_main_widget = 0;
+	return false;
+    }
+
+    // connect the main widget
+    connect(&(m_signal_manager->playbackController()),
+            SIGNAL(sigSeekDone(sample_index_t)),
+            m_main_widget, SLOT(scrollTo(sample_index_t)));
+    connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
+            this,          SLOT(executeCommand(const QString &)));
+    connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
+            this,          SLOT(forwardZoomChanged(double)));
+    connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)),
+	    this, SLOT(visibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)) );
+
+    return true;
 }
 
 //***************************************************************************
@@ -102,21 +139,20 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     Q_ASSERT(m_top_widget);
     if (!m_top_widget) return false;
 
-    m_signal_manager = new Kwave::SignalManager(m_top_widget);
+    m_signal_manager = new(std::nothrow)
+	Kwave::SignalManager(m_top_widget);
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return false;
 
-    m_plugin_manager = new Kwave::PluginManager(m_top_widget, *m_signal_manager);
+    m_plugin_manager = new(std::nothrow)
+	Kwave::PluginManager(m_top_widget, *m_signal_manager);
     Q_ASSERT(m_plugin_manager);
     if (!m_plugin_manager) return false;
 
-    m_main_widget = new Kwave::MainWidget(top_widget, *this);
-    Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return false;
-    if (!(m_main_widget->isOK())) {
-	delete m_main_widget;
-	m_main_widget = 0;
-	return false;
+    if (m_application.guiType() == Kwave::App::GUI_SDI) {
+	// SDI mode: create a main widget right now
+	if (!createMainWidget())
+	    return false;
     }
 
     // connect the signal manager
@@ -140,21 +176,8 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 
     // connect the playback controller
     connect(&(m_signal_manager->playbackController()),
-            SIGNAL(sigSeekDone(sample_index_t)),
-            m_main_widget, SLOT(scrollTo(sample_index_t)));
-    connect(&(m_signal_manager->playbackController()),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
-
-    // connect the main widget
-    connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
-            this,          SLOT(executeCommand(const QString &)));
-    connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
-            this,          SLOT(forwardZoomChanged(double)));
-    connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
-	    sample_index_t, sample_index_t)),
-	    this, SLOT(visibleRangeChanged(sample_index_t,
-	    sample_index_t, sample_index_t)) );
 
     connect(top_widget, SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
             this,       SLOT(contextSwitched(Kwave::FileContext *)));
@@ -180,23 +203,14 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 }
 
 //***************************************************************************
-void Kwave::FileContext::close()
+bool Kwave::FileContext::canClose()
 {
-    if (m_main_widget) delete m_main_widget;
-    m_main_widget = 0;
-
-    m_application.closeWindow(m_top_widget);
-    m_top_widget = 0;
-
-    if (m_plugin_manager) delete m_plugin_manager;
-    m_plugin_manager = 0;
-
-    if (m_signal_manager) delete m_signal_manager;
-    m_signal_manager = 0;
+    /* ### TODO ### */
+    return true;
 }
 
 //***************************************************************************
-Kwave::TopWidget *Kwave::FileContext::topWidget() const
+QWidget *Kwave::FileContext::topWidget() const
 {
     Q_ASSERT(m_top_widget);
     return m_top_widget;
@@ -205,8 +219,7 @@ Kwave::TopWidget *Kwave::FileContext::topWidget() const
 //***************************************************************************
 QWidget *Kwave::FileContext::mainWidget() const
 {
-    Q_ASSERT(m_main_widget);
-    return m_main_widget;
+    return static_cast<QWidget *>(m_main_widget);
 }
 
 //***************************************************************************
@@ -334,7 +347,6 @@ int Kwave::FileContext::executeCommand(const QString &line)
     } else {
 	// pass the command to the layer below (main widget)
 	Kwave::CommandHandler *layer_below = m_main_widget;
-	Q_ASSERT(layer_below);
 	result = (layer_below) ? layer_below->executeCommand(command) : -1;
     }
 
@@ -599,7 +611,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	// the "msgbox" command (useful for debugging)
 	if (parser.command() == _("msgbox")) {
 	    QApplication::restoreOverrideCursor();
-	    result = (Kwave::MessageBox::questionYesNo(m_main_widget,
+	    result = (Kwave::MessageBox::questionYesNo(mainWidget(),
 		parser.firstParam()) == KMessageBox::Yes) ? 0 : 1;
 	    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	    continue;

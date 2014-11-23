@@ -70,8 +70,7 @@
 #define DEFAULT_DISPLAY_TIME (5 * 60.0)
 
 //***************************************************************************
-Kwave::MainWidget::MainWidget(QWidget *parent,
-			      Kwave::FileContext &context)
+Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context)
     :QWidget(parent),
      Kwave::CommandHandler(),
      Kwave::Zoomable(),
@@ -180,7 +179,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
             this,
             SLOT(updateViewRange()));
 
-    this->setLayout(topLayout);
+    setLayout(topLayout);
 }
 
 //***************************************************************************
@@ -312,6 +311,12 @@ void Kwave::MainWidget::wheelEvent(QWheelEvent *event)
 	default:
 	    event->ignore();
     }
+}
+
+//***************************************************************************
+void Kwave::MainWidget::closeEvent(QCloseEvent *e)
+{
+    m_context.canClose() ? e->accept() : e->ignore();
 }
 
 //***************************************************************************

@@ -21,11 +21,10 @@
 
 #include "config.h"
 
-#include <QtCore/QPair>
+#include <QtCore/QMap>
 #include <QtCore/QPointer>
 #include <QtCore/QString>
 #include <QtGui/QMdiArea>
-#include <QtGui/QMdiSubWindow>
 
 #include <kdemacros.h>
 #include <kmainwindow.h>
@@ -39,6 +38,7 @@
 
 class QCloseEvent;
 class QLabel;
+class QMdiSubWindow;
 class QTextStream;
 class QTimer;
 
@@ -253,6 +253,18 @@ namespace Kwave
 	 */
 	void showStatusBarMessage(const QString &msg, unsigned int ms);
 
+	/**
+	 * called when a MDI sub window or TAB has been activated
+	 * @param sub the sub window that has been activated
+	 */
+	void subWindowActivated(QMdiSubWindow *sub);
+
+	/**
+	 * called when a MDI sub window or TAB is about to be deleted
+	 * @param obj the sub window (not yet deleted)
+	 */
+	void subWindowDeleted(QObject *obj);
+
     signals:
 
 	/**
@@ -267,6 +279,15 @@ namespace Kwave
 	void sigSignalNameChanged(const QString &name);
 
     private:
+
+	/**
+	 * Returns the currently active file context (corresponds to a MDI
+	 * sub window or tab in MDI / TAB mode). In SDI mode, m_context_map
+	 * contains only one element, the current context (reachable per index
+	 * null).
+	 * @return pointer to a active FileContext within m_context_map
+	 */
+	Kwave::FileContext *currentContext() const;
 
 	/**
 	 * Closes the current file and creates a new empty signal.
@@ -294,10 +315,9 @@ namespace Kwave
 	int openFile();
 
 	/**
-	 * Close all the currently opened subwindows
-	 * @return true if closing is allowd
+	 * Close all the currently opened sub windows
+	 * @return true if closing is allowed
 	 */
-
 	 bool closeAllSubWindows();
 
 	/**
@@ -344,18 +364,22 @@ namespace Kwave
 
 	/**
 	 * Creates a new file context and initializes it.
-	 * @retval true if succeeded
-	 * @retval false if creation or initialization failed
+	 * @return the new file context or null pointer if
+	 *         creation or initialization failed
 	 */
-	bool newFileContext();
+	Kwave::FileContext *newFileContext();
 
     private:
 
 	/** each TopWidget has exactly one corresponding Kwave::App instance */
 	Kwave::App &m_application;
 
-	/** application context of this instance */
-	QPointer<Kwave::FileContext> m_current_context;
+	/**
+	 * map for retrieving the file context that corresponds to
+	 * a MDI sub window or TAB. In SDI mode it contains only one
+	 * entry, corresponding to a null pointer as index.
+	 */
+	QMap<QMdiSubWindow *, Kwave::FileContext *> m_context_map;
 
 	/** toolbar with playback/record and seek controls */
 	Kwave::PlayerToolBar *m_toolbar_record_playback;
@@ -366,7 +390,10 @@ namespace Kwave
 	/** menu manager for this window */
 	Kwave::MenuManager *m_menu_manager;
 
-	/** MDI area, parent of all MDI child windows */
+	/**
+	 * MDI area, parent of all MDI child windows (only used in MDI and
+	 * TAB gui mode, null for SDI)
+	 */
 	QMdiArea *m_mdi_area;
 
 	/** action of the "file save" toolbar button */

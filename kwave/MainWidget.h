@@ -30,6 +30,7 @@
 #include "libgui/SignalWidget.h"
 #include "libgui/Zoomable.h"
 
+class QCloseEvent;
 class QDragEnterEvent;
 class QDropEvent;
 class QScrollBar;
@@ -127,6 +128,9 @@ namespace Kwave
 
 	/** slot for mouse wheel events, for scrolling/zooming */
 	virtual void wheelEvent(QWheelEvent *event);
+
+	/** @see QWidget::closeEvent() */
+	virtual void closeEvent(QCloseEvent *e);
 
     protected slots:
 

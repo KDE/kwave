@@ -58,7 +58,7 @@ void Kwave::MenuRoot::insertNode(const QString &name,
 {
     Kwave::MenuNode::insertNode(name, position, command, shortcut, uid);
 
-    // now delete all leafes that have been converted to branches
+    // now delete all leafs that have been converted to branches
     while (!m_garbage.isEmpty()) {
 	Kwave::MenuNode *node = m_garbage.takeFirst();
 	if (node) delete node;

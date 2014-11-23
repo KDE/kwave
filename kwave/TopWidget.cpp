@@ -705,7 +705,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     int res = -ENOMEM;
     if (signal_manager && !(res = signal_manager->loadFile(url))) {
 	// succeeded
-	updateCaption(signalName(), false);
+	updateCaption(context->signalName(), false);
 
 	// enable revert after successful load
 	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
@@ -738,7 +738,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	context->closeFile();
     }
 
-    m_application.addRecentFile(signalName());
+    m_application.addRecentFile(context->signalName());
     updateMenu();
     updateToolbar();
 
@@ -781,11 +781,11 @@ int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
 
     // abort if the user pressed cancel
     if (!context->closeFile()) return -1;
-    emit sigSignalNameChanged(signalName());
+    emit sigSignalNameChanged(context->signalName());
 
     signal_manager->newSignal(samples, rate, bits, tracks);
 
-    updateCaption(signalName(), true);
+    updateCaption(context->signalName(), true);
     updateMenu();
     updateToolbar();
 
@@ -1003,15 +1003,11 @@ void Kwave::TopWidget::updateRecentFiles()
 {
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
-
     m_menu_manager->clearNumberedMenu(_("ID_FILE_OPEN_RECENT"));
 
-    QStringList recent_files = m_application.recentFiles();
-    QStringList::Iterator it;
-    for (it = recent_files.begin(); it != recent_files.end(); ++it) {
+    foreach (const QString &file, m_application.recentFiles())
 	m_menu_manager->addNumberedMenuEntry(
-	    _("ID_FILE_OPEN_RECENT"), *it);
-    }
+	    _("ID_FILE_OPEN_RECENT"), file);
 }
 
 //***************************************************************************
@@ -1026,7 +1022,7 @@ void Kwave::TopWidget::updateMenu()
     if (!m_menu_manager) return;
 
     // enable/disable all items that depend on having a file
-    bool have_file = (signalName().length() != 0);
+    bool have_file = (context->signalName().length() != 0);
     m_menu_manager->setItemEnabled(_("@NOT_CLOSED"), have_file);
 
     // enable/disable all items that depend on having a label
@@ -1107,7 +1103,10 @@ void Kwave::TopWidget::updateToolbar()
 //***************************************************************************
 void Kwave::TopWidget::modifiedChanged(bool modified)
 {
-    updateCaption(signalName(), modified);
+    const Kwave::FileContext *context = currentContext();
+    QString name = (context) ? context->signalName() : QString();
+    updateCaption(name, modified);
+
     if (m_menu_manager)
 	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), modified);
 }
@@ -1135,13 +1134,6 @@ void Kwave::TopWidget::updateCaption(const QString &name, bool is_modified)
 void Kwave::TopWidget::closeEvent(QCloseEvent *e)
 {
     (closeAllSubWindows()) ? e->accept() : e->ignore();
-}
-
-//***************************************************************************
-QString Kwave::TopWidget::signalName() const
-{
-    const Kwave::FileContext *context = currentContext();
-    return (context) ? context->signalName() : QString();
 }
 
 //***************************************************************************

@@ -327,9 +327,6 @@ namespace Kwave
 	 */
 	void updateCaption(const QString &name, bool is_modified);
 
-	/** returns the name of the signal */
-	QString signalName() const;
-
 	/**
 	 * Creates a new file context and initializes it.
 	 * @return the new file context or null pointer if

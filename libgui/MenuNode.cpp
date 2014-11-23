@@ -425,7 +425,7 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
     if (command == _("#listmenu")) {
 	// insert an empty submenu for the list items
 	Kwave::MenuNode *parent = parentNode();
-	if (parent) parent->leafToBranch(this);
+	if (parent && !isBranch()) parent->leafToBranch(this);
 	return true;
     }
 

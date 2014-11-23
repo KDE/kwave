@@ -301,13 +301,6 @@ namespace Kwave
 	              unsigned int bits, unsigned int tracks);
 
 	/**
-	 * Discards all changes to the current file and loads
-	 * it again.
-	 * @return zero if succeeded or error code
-	 */
-	int revert();
-
-	/**
 	 * Shows an "open file" dialog and opens the .wav file the
 	 * user has selected.
 	 * @return zero if succeeded or error code
@@ -319,31 +312,6 @@ namespace Kwave
 	 * @return true if closing is allowed
 	 */
 	 bool closeAllSubWindows();
-
-	/**
-	 * Closes the current file and updates the menu and other controls.
-	 * If the file has been modified and the user wanted to break
-	 * the close operation, the file will not get closed and the
-	 * function returns with false.
-	 * @return true if closing is allowed
-	 */
-	bool closeFile();
-
-	/**
-	 * Saves the current file.
-	 * @return zero if succeeded, non-zero if failed
-	 */
-	int saveFile();
-
-	/**
-	 * Opens a dialog for saving the current .wav file.
-	 * @param filename the name of the new file
-	 *                 or empty string to open the File/SaveAs dialog
-	 * @param selection if set to true, only the current selection
-	 *        will be saved
-	 * @return zero if succeeded, non-zero if failed
-	 */
-	int saveFileAs(const QString &filename, bool selection = false);
 
 	/**
 	 * Opens a file contained in the list of recent files.

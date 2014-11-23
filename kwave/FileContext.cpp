@@ -28,6 +28,8 @@
 #include <kglobal.h>
 #include <kstandarddirs.h>
 
+#include "libkwave/CodecManager.h"
+#include "libkwave/Encoder.h"
 #include "libkwave/FileContext.h"
 #include "libkwave/Logger.h"
 #include "libkwave/MessageBox.h"
@@ -36,6 +38,8 @@
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
+
+#include "libgui/FileDialog.h"
 
 #include "App.h"
 #include "MainWidget.h"
@@ -203,13 +207,6 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 }
 
 //***************************************************************************
-bool Kwave::FileContext::canClose()
-{
-    /* ### TODO ### */
-    return true;
-}
-
-//***************************************************************************
 QWidget *Kwave::FileContext::topWidget() const
 {
     Q_ASSERT(m_top_widget);
@@ -323,6 +320,8 @@ int Kwave::FileContext::executeCommand(const QString &line)
 
     if ((result = m_top_widget->executeCommand(command)) != ENOSYS) {
 	return result;
+    CASE_COMMAND("close")
+	result = closeFile() ? 0 : 1;
     CASE_COMMAND("loadbatch")
 	result = loadBatch(parser.nextParam());
     CASE_COMMAND("plugin")
@@ -344,6 +343,14 @@ int Kwave::FileContext::executeCommand(const QString &line)
     CASE_COMMAND("plugin:setup")
 	QString name(parser.firstParam());
 	result = m_plugin_manager->setupPlugin(name);
+    CASE_COMMAND("revert")
+	result = revert();
+    CASE_COMMAND("save")
+	result = saveFile();
+    CASE_COMMAND("saveas")
+	result = saveFileAs(parser.nextParam(), false);
+    CASE_COMMAND("saveselect")
+	result = saveFileAs(QString(), true);
     } else {
 	// pass the command to the layer below (main widget)
 	Kwave::CommandHandler *layer_below = m_main_widget;
@@ -644,6 +651,11 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
     return result;
 }
 
+//***************************************************************************
+QString Kwave::FileContext::signalName() const
+{
+    return (m_signal_manager) ? m_signal_manager->signalName() : QString();
+}
 
 //***************************************************************************
 int Kwave::FileContext::loadBatch(const KUrl &url)
@@ -661,6 +673,195 @@ int Kwave::FileContext::loadBatch(const KUrl &url)
     file.close();
 
     return result;
+}
+
+//***************************************************************************
+int Kwave::FileContext::revert()
+{
+    KUrl url(signalName());
+    if (!url.isValid()) return -EINVAL;
+
+    return (m_signal_manager) ? m_signal_manager->loadFile(url) : -EINVAL;
+}
+
+//***************************************************************************
+int Kwave::FileContext::saveFile()
+{
+    if (!m_signal_manager) return -EINVAL;
+
+    int res = 0;
+
+    if (signalName() != NEW_FILENAME) {
+	KUrl url;
+	url = signalName();
+	res = m_signal_manager->save(url, false);
+
+	// if saving in current format is not possible (no encoder),
+	// then try to "save/as" instead...
+	if (res == -EINVAL) res = saveFileAs(QString(), false);
+    } else res = saveFileAs(QString(), false);
+
+    return res;
+}
+
+//***************************************************************************
+int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
+{
+    if (!m_signal_manager) return -EINVAL;
+
+    QString name = filename;
+    KUrl url;
+    int res = 0;
+
+    if (name.length()) {
+	/* name given -> take it */
+	url = KUrl(name);
+    } else {
+	/*
+	 * no name given -> show the File/SaveAs dialog...
+	 */
+	KUrl current_url;
+	current_url = signalName();
+
+	QString what  = Kwave::CodecManager::whatContains(current_url);
+	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
+	QString extension; // = "*.wav";
+	if (!encoder) {
+	    // no extension selected yet, use mime type from file info
+	    QString mime_type = Kwave::FileInfo(
+		m_signal_manager->metaData()).get(
+		    Kwave::INF_MIMETYPE).toString();
+	    encoder = Kwave::CodecManager::encoder(mime_type);
+	    if (encoder) {
+		QStringList extensions = encoder->extensions(mime_type);
+		if (!extensions.isEmpty()) {
+		    QString ext = extensions.first().split(_(" ")).first();
+		    if (ext.length()) {
+			extension = ext;
+			QString new_filename = current_url.fileName();
+			new_filename += extension.mid(1); // remove the "*"
+			current_url.setFileName(new_filename);
+		    }
+		}
+	    }
+	}
+
+	QString filter = Kwave::CodecManager::encodingFilter();
+	Kwave::FileDialog dlg(_("kfiledialog:///kwave_save_as"),
+	    filter, m_top_widget, true, current_url.prettyUrl(), extension);
+	dlg.setOperationMode(KFileDialog::Saving);
+	dlg.setCaption(i18n("Save As"));
+	if (dlg.exec() != QDialog::Accepted) return -1;
+
+	url = dlg.selectedUrl();
+	if (url.isEmpty()) return 0;
+
+	QString new_name = url.path();
+	QFileInfo path(new_name);
+
+	// add the correct extension if necessary
+	if (!path.suffix().length()) {
+	    QString ext = dlg.selectedExtension();
+	    QStringList extensions = ext.split(_(" "));
+	    ext = extensions.first();
+	    new_name += ext.mid(1);
+	    path = new_name;
+	    url.setPath(new_name);
+	}
+    }
+
+    // check if the file exists and ask before overwriting it
+    // if it is not the old filename
+    name = url.path();
+    if ((url.prettyUrl() != KUrl(signalName()).prettyUrl()) &&
+	(QFileInfo(name).exists()))
+    {
+	if (Kwave::MessageBox::warningYesNo(m_top_widget,
+	    i18n("The file '%1' already exists.\n"
+	         "Do you really want to overwrite it?", name)) !=
+	         KMessageBox::Yes)
+	{
+	    return -1;
+	}
+    }
+
+    // maybe we now have a new mime type
+    QString previous_mimetype_name =
+	Kwave::FileInfo(m_signal_manager->metaData()).get(
+	    Kwave::INF_MIMETYPE).toString();
+
+    QString new_mimetype_name = Kwave::CodecManager::whatContains(url);
+
+    if (new_mimetype_name != previous_mimetype_name) {
+	// saving to a different mime type
+	// now we have to do as if the mime type and file name
+	// has already been selected to satisfy the fileinfo
+	// plugin
+	qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
+	    DBG(url.prettyUrl()), DBG(new_mimetype_name),
+	    DBG(previous_mimetype_name) );
+
+	// set the new mimetype
+	Kwave::FileInfo info(m_signal_manager->metaData());
+	info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
+
+	// set the new filename
+	info.set(Kwave::INF_FILENAME, url.prettyUrl());
+	m_signal_manager->setFileInfo(info, false);
+
+	// now call the fileinfo plugin with the new filename and
+	// mimetype
+	Q_ASSERT(m_context.pluginManager());
+	res = (m_plugin_manager) ?
+	       m_plugin_manager->setupPlugin(_("fileinfo"))
+	       : -1;
+
+	// restore the mime type and the filename
+	info = Kwave::FileInfo(m_signal_manager->metaData());
+	info.set(Kwave::INF_MIMETYPE, previous_mimetype_name);
+	info.set(Kwave::INF_FILENAME, url.prettyUrl());
+	m_signal_manager->setFileInfo(info, false);
+    }
+
+    // now we have a file name -> do the "save" operation
+    if (!res) res = m_signal_manager->save(url, selection);
+
+    // if saving was successful, add the file to the list of recent files
+    if (!res) m_application.addRecentFile(signalName());
+
+    return res;
+}
+
+//***************************************************************************
+bool Kwave::FileContext::closeFile()
+{
+    if (m_plugin_manager && !m_plugin_manager->canClose())
+    {
+	qWarning("FileContext::closeFile() - currently not possible, "\
+	         "a plugin is running :-(");
+	return false;
+    }
+
+    if (m_signal_manager && m_signal_manager->isModified()) {
+	int res =  Kwave::MessageBox::warningYesNoCancel(m_top_widget,
+	    i18n("This file has been modified.\nDo you want to save it?"));
+	if (res == KMessageBox::Cancel) return false;
+	if (res == KMessageBox::Yes) {
+	    // user decided to save
+	    res = saveFile();
+	    qDebug("FileContext::closeFile()::saveFile, res=%d",res);
+	    if (res) return false;
+	}
+    }
+
+    // close all plugins that still might use the current signal
+    if (m_plugin_manager) {
+	m_plugin_manager->stopAllPlugins();
+	m_plugin_manager->signalClosed();
+    }
+
+    if (m_signal_manager) m_signal_manager->close();
+    return true;
 }
 
 //***************************************************************************

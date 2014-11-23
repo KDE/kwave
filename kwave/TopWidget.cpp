@@ -57,7 +57,6 @@
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
-#include "libkwave/Encoder.h"
 #include "libkwave/FileContext.h"
 #include "libkwave/Plugin.h" // for some helper functions
 #include "libkwave/LabelList.h"
@@ -534,16 +533,6 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	}
     CASE_COMMAND("openrecent")
 	result = openRecent(command);
-    CASE_COMMAND("save")
-	result = saveFile();
-    CASE_COMMAND("close")
-	result = closeFile() ? 0 : 1;
-    CASE_COMMAND("revert")
-	result = revert();
-    CASE_COMMAND("saveas")
-	result = saveFileAs(parser.nextParam(), false);
-    CASE_COMMAND("saveselect")
-	result = saveFileAs(QString(), true);
     CASE_COMMAND("quit")
 	result = (close()) ? 0 : -1;
     CASE_COMMAND("reset_toolbars")
@@ -600,60 +589,6 @@ void Kwave::TopWidget::forwardCommand(const QString &command)
 {
     Kwave::FileContext *context = currentContext();
     if (context) context->executeCommand(command);
-}
-
-//***************************************************************************
-int Kwave::TopWidget::revert()
-{
-    // TODO: handle this in the same context, currently a new context would be created
-    KUrl url(signalName());
-    if (!url.isValid()) return -EINVAL;
-
-    return loadFile(url);
-}
-
-//***************************************************************************
-bool Kwave::TopWidget::closeFile()
-{
-    const Kwave::FileContext *context = currentContext();
-    Q_ASSERT(context);
-    if (!context) return true;
-
-    Kwave::SignalManager *signal_manager = context->signalManager();
-    Kwave::PluginManager *plugin_manager = context->pluginManager();
-
-    if (plugin_manager && !plugin_manager->canClose())
-    {
-	qWarning("TopWidget::closeFile() - currently not possible, "\
-	         "a plugin is running :-(");
-	return false;
-    }
-
-    if (signal_manager && signal_manager->isModified()) {
-	int res =  Kwave::MessageBox::warningYesNoCancel(this,
-	    i18n("This file has been modified.\nDo you want to save it?"));
-	if (res == KMessageBox::Cancel) return false;
-	if (res == KMessageBox::Yes) {
-	    // user decided to save
-	    res = saveFile();
-	    qDebug("TopWidget::closeFile()::saveFile, res=%d",res);
-	    if (res) return false;
-	}
-    }
-
-    // close all plugins that still might use the current signal
-    if (plugin_manager) {
-	plugin_manager->stopAllPlugins();
-	plugin_manager->signalClosed();
-    }
-
-    if (signal_manager) signal_manager->close();
-
-    updateCaption(signalName(), false);
-    emit sigSignalNameChanged(signalName());
-
-    updateMenu();
-    return true;
 }
 
 //***************************************************************************
@@ -760,7 +695,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     }
 
     // try to close the previous file
-    if (!closeFile()) return -1;
+    if (!context->closeFile()) return -1;
 
     emit sigSignalNameChanged(url.path());
 
@@ -800,7 +735,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	}
 
 	// load failed
-	closeFile();
+	context->closeFile();
     }
 
     m_application.addRecentFile(signalName());
@@ -833,181 +768,10 @@ int Kwave::TopWidget::openFile()
 }
 
 //***************************************************************************
-int Kwave::TopWidget::saveFile()
-{
-    int res = 0;
-
-    const Kwave::FileContext *context = currentContext();
-    Q_ASSERT(context);
-    if (!context) return -EINVAL;
-
-    Kwave::SignalManager *signal_manager = context->signalManager();
-    if (!signal_manager) return -EINVAL;
-
-    if (signalName() != NEW_FILENAME) {
-	KUrl url;
-	url = signalName();
-	res = signal_manager->save(url, false);
-
-	// if saving in current format is not possible (no encoder),
-	// then try to "save/as" instead...
-	if (res == -EINVAL) res = saveFileAs(QString(), false);
-    } else res = saveFileAs(QString(), false);
-
-    updateCaption(signalName(), signal_manager->isModified());
-    updateMenu();
-
-    // enable "revert" after successful "save"
-    if (!res)
-	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
-
-    return res;
-}
-
-//***************************************************************************
-int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
-{
-    const Kwave::FileContext *context = currentContext();
-    Q_ASSERT(context);
-    if (!context) return -EINVAL;
-
-    Kwave::SignalManager *signal_manager = context->signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return -EINVAL;
-
-    QString name = filename;
-    KUrl url;
-    int res = 0;
-
-    if (name.length()) {
-	/* name given -> take it */
-	url = KUrl(name);
-    } else {
-	/*
-	 * no name given -> show the File/SaveAs dialog...
-	 */
-	KUrl current_url;
-	current_url = signalName();
-
-	QString what  = Kwave::CodecManager::whatContains(current_url);
-	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
-	QString extension; // = "*.wav";
-	if (!encoder) {
-	    // no extension selected yet, use mime type from file info
-	    QString mime_type = Kwave::FileInfo(
-		signal_manager->metaData()).get(Kwave::INF_MIMETYPE).toString();
-	    encoder = Kwave::CodecManager::encoder(mime_type);
-	    if (encoder) {
-		QStringList extensions = encoder->extensions(mime_type);
-		if (!extensions.isEmpty()) {
-		    QString ext = extensions.first().split(_(" ")).first();
-		    if (ext.length()) {
-			extension = ext;
-			QString new_filename = current_url.fileName();
-			new_filename += extension.mid(1); // remove the "*"
-			current_url.setFileName(new_filename);
-		    }
-		}
-	    }
-	}
-
-	QString filter = Kwave::CodecManager::encodingFilter();
-	Kwave::FileDialog dlg(_("kfiledialog:///kwave_save_as"),
-	    filter, this, true, current_url.prettyUrl(), extension);
-	dlg.setOperationMode(KFileDialog::Saving);
-	dlg.setCaption(i18n("Save As"));
-	if (dlg.exec() != QDialog::Accepted) return -1;
-
-	url = dlg.selectedUrl();
-	if (url.isEmpty()) return 0;
-
-	QString new_name = url.path();
-	QFileInfo path(new_name);
-
-	// add the correct extension if necessary
-	if (!path.suffix().length()) {
-	    QString ext = dlg.selectedExtension();
-	    QStringList extensions = ext.split(_(" "));
-	    ext = extensions.first();
-	    new_name += ext.mid(1);
-	    path = new_name;
-	    url.setPath(new_name);
-	}
-    }
-
-    // check if the file exists and ask before overwriting it
-    // if it is not the old filename
-    name = url.path();
-    if ((url.prettyUrl() != KUrl(signalName()).prettyUrl()) &&
-	(QFileInfo(name).exists()))
-    {
-	if (Kwave::MessageBox::warningYesNo(this,
-	    i18n("The file '%1' already exists.\n"
-	         "Do you really want to overwrite it?", name)) !=
-	         KMessageBox::Yes)
-	{
-	    return -1;
-	}
-    }
-
-    // maybe we now have a new mime type
-    QString previous_mimetype_name =
-	Kwave::FileInfo(signal_manager->metaData()).get(
-	    Kwave::INF_MIMETYPE).toString();
-
-    QString new_mimetype_name = Kwave::CodecManager::whatContains(url);
-
-    if (new_mimetype_name != previous_mimetype_name) {
-	// saving to a different mime type
-	// now we have to do as if the mime type and file name
-	// has already been selected to satisfy the fileinfo
-	// plugin
-	qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
-	    DBG(url.prettyUrl()), DBG(new_mimetype_name),
-	    DBG(previous_mimetype_name) );
-
-	// set the new mimetype
-	Kwave::FileInfo info(signal_manager->metaData());
-	info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
-
-	// set the new filename
-	info.set(Kwave::INF_FILENAME, url.prettyUrl());
-	signal_manager->setFileInfo(info, false);
-
-	// now call the fileinfo plugin with the new filename and
-	// mimetype
-	Q_ASSERT(m_context.pluginManager());
-	res = (context->pluginManager()) ?
-	       context->pluginManager()->setupPlugin(_("fileinfo"))
-	       : -1;
-
-	// restore the mime type and the filename
-	info = Kwave::FileInfo(signal_manager->metaData());
-	info.set(Kwave::INF_MIMETYPE, previous_mimetype_name);
-	info.set(Kwave::INF_FILENAME, url.prettyUrl());
-	signal_manager->setFileInfo(info, false);
-    }
-
-    if (!res) res = signal_manager->save(url, selection);
-
-    updateCaption(signalName(), signal_manager->isModified());
-    m_application.addRecentFile(signalName());
-    updateMenu();
-
-    if (!res && !selection) {
-	// enable "revert" after successful "save as"
-	// of the whole file (not only selection)
-	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
-    }
-
-    return res;
-}
-
-//***************************************************************************
 int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
                                 unsigned int bits, unsigned int tracks)
 {
-    const Kwave::FileContext *context = currentContext();
+    Kwave::FileContext *context = currentContext();
     Q_ASSERT(context);
     if (!context) return false;
 
@@ -1016,7 +780,7 @@ int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
     if (!signal_manager) return -1;
 
     // abort if the user pressed cancel
-    if (!closeFile()) return -1;
+    if (!context->closeFile()) return -1;
     emit sigSignalNameChanged(signalName());
 
     signal_manager->newSignal(samples, rate, bits, tracks);
@@ -1344,6 +1108,8 @@ void Kwave::TopWidget::updateToolbar()
 void Kwave::TopWidget::modifiedChanged(bool modified)
 {
     updateCaption(signalName(), modified);
+    if (m_menu_manager)
+	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), modified);
 }
 
 //***************************************************************************
@@ -1375,9 +1141,7 @@ void Kwave::TopWidget::closeEvent(QCloseEvent *e)
 QString Kwave::TopWidget::signalName() const
 {
     const Kwave::FileContext *context = currentContext();
-    if (!context) return QString();
-    if (!context->pluginManager()) return QString();
-    return context->pluginManager()->signalManager().signalName();
+    return (context) ? context->signalName() : QString();
 }
 
 //***************************************************************************

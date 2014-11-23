@@ -316,7 +316,7 @@ void Kwave::MainWidget::wheelEvent(QWheelEvent *event)
 //***************************************************************************
 void Kwave::MainWidget::closeEvent(QCloseEvent *e)
 {
-    m_context.canClose() ? e->accept() : e->ignore();
+    m_context.closeFile() ? e->accept() : e->ignore();
 }
 
 //***************************************************************************

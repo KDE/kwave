@@ -75,14 +75,6 @@ namespace Kwave
 	bool init(Kwave::TopWidget *top_widget);
 
 	/**
-	 * Returns whether it is allowed to close the context. if there
-	 * are unsaved changes, the close operation can be canceled by
-	 * the user.
-	 * @return true if closing is allowed, false if rejected
-	 */
-	bool canClose();
-
-	/**
 	 * create a main widget, within the MDI area
 	 * or toplevel widget in case of SDI interface
 	 * @return true if successful, false if failed
@@ -123,12 +115,40 @@ namespace Kwave
 	 */
 	inline bool isActive() const { return m_active; }
 
+	/** returns the name of the signal */
+	QString signalName() const;
+
 	/**
 	 * Loads a batch file into memory, parses and executes
 	 * all commands in it.
 	 * @param url URL of the macro (batch file) to be loaded
 	 */
 	int loadBatch(const KUrl &url);
+
+	/**
+	 * Saves the current file.
+	 * @return zero if succeeded, non-zero if failed
+	 */
+	int saveFile();
+
+	/**
+	 * Opens a dialog for saving the current file.
+	 * @param filename the name of the new file
+	 *                 or empty string to open the File/SaveAs dialog
+	 * @param selection if set to true, only the current selection
+	 *        will be saved
+	 * @return zero if succeeded, non-zero if failed
+	 */
+	int saveFileAs(const QString &filename, bool selection = false);
+
+	/**
+	 * Closes the current file.
+	 * If the file has been modified and the user wanted to cancel
+	 * the close operation, the file will not get closed and the
+	 * function returns with false.
+	 * @return true if closing is allowed, false if canceled
+	 */
+	bool closeFile();
 
     signals:
 
@@ -276,6 +296,13 @@ namespace Kwave
 	 * @return zero if successful, non-zero error code if a command failed
 	 */
 	int parseCommands(QTextStream &stream);
+
+	/**
+	 * Discards all changes to the current file and loads
+	 * it again.
+	 * @return zero if succeeded or error code
+	 */
+	int revert();
 
     private:
 

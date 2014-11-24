@@ -705,10 +705,6 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     int res = -ENOMEM;
     if (signal_manager && !(res = signal_manager->loadFile(url))) {
 	// succeeded
-	updateCaption(context->signalName(), false);
-
-	// enable revert after successful load
-	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
     } else {
 	qWarning("TopWidget::loadFile() failed: result=%d", res);
 	QString reason;
@@ -785,7 +781,6 @@ int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
 
     signal_manager->newSignal(samples, rate, bits, tracks);
 
-    updateCaption(context->signalName(), true);
     updateMenu();
     updateToolbar();
 
@@ -852,6 +847,9 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 
     // update the toolbar as well
     updateToolbar();
+
+    // update the window caption
+    updateCaption();
 }
 
 //***************************************************************************
@@ -1103,31 +1101,18 @@ void Kwave::TopWidget::updateToolbar()
 //***************************************************************************
 void Kwave::TopWidget::modifiedChanged(bool modified)
 {
-    const Kwave::FileContext *context = currentContext();
-    QString name = (context) ? context->signalName() : QString();
-    updateCaption(name, modified);
+    updateCaption();
 
     if (m_menu_manager)
 	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), modified);
 }
 
 //***************************************************************************
-void Kwave::TopWidget::updateCaption(const QString &name, bool is_modified)
+void Kwave::TopWidget::updateCaption()
 {
-    // shortcut if no file loaded
-    if (!name.length()) {
-	setCaption(QString());
-	return;
-    }
-
-    if (is_modified)
-	setCaption(i18nc(
-	    "%1 = Path to modified file",
-	    "* %1 (modified)",
-	    name)
-	);
-    else
-	setCaption(name);
+    const Kwave::FileContext *context = currentContext();
+    QString caption = (context) ? context->windowCaption() : QString();
+    setCaption(caption);
 }
 
 //***************************************************************************

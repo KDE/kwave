@@ -127,6 +127,20 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
     int res = 0;
     Kwave::FileProgress *dialog = 0;
 
+    // take over the new file name, so that we have a valid signal
+    // name during loading
+    QString filename = url.path();
+    QFile src(filename);
+    QFileInfo fi(src);
+    {
+	Kwave::FileInfo info(m_meta_data);
+	info.set(Kwave::INF_FILENAME, fi.absoluteFilePath());
+	m_meta_data.replace(info);
+    }
+
+    // work with a copy of meta data, to avoid flicker effects
+    Kwave::MetaDataList meta_data(m_meta_data);
+
     // enter and stay in not modified state
     enableModifiedChange(true);
     setModified(false);
@@ -144,8 +158,6 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	m_signal.close();
 
 	// open the source file
-	QString filename = url.path();
-	QFile src(filename);
 	if (!(res = decoder->open(m_parent_widget, src))) {
 	    qWarning("unable to open source: '%s'", DBG(url.prettyUrl()));
 	    res = -EIO;
@@ -153,8 +165,8 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	}
 
 	// get the initial meta data from the decoder
-	m_meta_data = decoder->metaData();
-	Kwave::FileInfo info(m_meta_data);
+	meta_data = decoder->metaData();
+	Kwave::FileInfo info(meta_data);
 
 	// detect stream mode. if so, use one sample as display
 	bool streaming = (!info.length());
@@ -223,8 +235,8 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	} else {
 	    // read information back from the decoder, some settings
 	    // might have become available during the decoding process
-	    m_meta_data = decoder->metaData();
-	    info = Kwave::FileInfo(m_meta_data);
+	    meta_data = decoder->metaData();
+	    info = Kwave::FileInfo(meta_data);
 	}
 
 	decoder->close();
@@ -242,7 +254,6 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	}
 
 	// enter the filename/mimetype and size into the file info
-	QFileInfo fi(src);
 	info.set(Kwave::INF_FILENAME, fi.absoluteFilePath());
 	info.set(Kwave::INF_FILESIZE, src.size());
 	if (!info.contains(Kwave::INF_MIMETYPE))
@@ -252,7 +263,8 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	info.set(Kwave::INF_ESTIMATED_LENGTH, QVariant());
 
 	// take over the decoded and updated file info
-	m_meta_data.replace(info);
+	meta_data.replace(info);
+	m_meta_data = meta_data;
 
 	// update the length info in the progress dialog if needed
 	if (dialog && use_src_size) {
@@ -271,9 +283,6 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
     } else {
 	delete decoder;
     }
-
-    // flush the envent queue, to avoid delayed modifications of the signal
-    qApp->sendPostedEvents();
 
     // remember the last length and selection
     m_last_length = length();

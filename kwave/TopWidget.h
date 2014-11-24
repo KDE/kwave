@@ -320,12 +320,8 @@ namespace Kwave
 	 */
 	int openRecent(const QString &str);
 
-	/**
-	 * Updates the caption with the filename
-	 * @param name the filename to show in the caption
-	 * @param is_modified true if the file is modified, false if not
-	 */
-	void updateCaption(const QString &name, bool is_modified);
+	/** Updates the window caption */
+	void updateCaption();
 
 	/**
 	 * Creates a new file context and initializes it.

@@ -419,6 +419,12 @@ void Kwave::FileContext::metaDataChanged(Kwave::MetaDataList meta_data)
 	// we are inactive -> emit the meta data later, when activated
 	m_last_meta_data = meta_data;
     }
+
+    // update the caption of the sub window
+    if (m_application.guiType() != Kwave::App::GUI_SDI) {
+	QString caption = windowCaption();
+	if (m_main_widget) m_main_widget->setWindowTitle(caption);
+    }
 }
 
 //***************************************************************************
@@ -655,6 +661,21 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 QString Kwave::FileContext::signalName() const
 {
     return (m_signal_manager) ? m_signal_manager->signalName() : QString();
+}
+
+//***************************************************************************
+QString Kwave::FileContext::windowCaption() const
+{
+    const QString name = signalName();
+
+    // shortcut if no file loaded
+    if (!name.length()) return QString();
+
+    bool modified = (m_signal_manager) ? m_signal_manager->isModified() :false;
+    if (modified)
+	return i18nc("%1 = Path to modified file", "* %1 (modified)", name);
+    else
+	return name;
 }
 
 //***************************************************************************

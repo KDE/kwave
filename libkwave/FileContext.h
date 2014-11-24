@@ -56,13 +56,11 @@ namespace Kwave
 	 * Constructor. Creates a new toplevel window, signal manager,
 	 * plugin manager and so on.
 	 * @param app reference to the Kwave application
-	 * @note implementation is in kwave/FileContext.cpp
 	 */
 	FileContext(Kwave::App &app);
 
 	/**
 	 * Destructor
-	 * @note implementation is in kwave/FileContext.cpp
 	 */
 	virtual ~FileContext();
 
@@ -70,7 +68,6 @@ namespace Kwave
 	 * initializes the instance
 	 * @param top_widget pointer to the toplevel widget
 	 * @return true if successful
-	 * @note implementation is in kwave/FileContext.cpp
 	 */
 	bool init(Kwave::TopWidget *top_widget);
 
@@ -117,6 +114,9 @@ namespace Kwave
 
 	/** returns the name of the signal */
 	QString signalName() const;
+
+	/** returns a string suitable as window caption */
+	QString windowCaption() const;
 
 	/**
 	 * Loads a batch file into memory, parses and executes

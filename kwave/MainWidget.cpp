@@ -70,14 +70,16 @@
 #define DEFAULT_DISPLAY_TIME (5 * 60.0)
 
 //***************************************************************************
-Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context)
+Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
+                              const QSize &preferred_size)
     :QWidget(parent),
      Kwave::CommandHandler(),
      Kwave::Zoomable(),
      m_context(context), m_upper_dock(), m_lower_dock(),
      m_scroll_area(this), m_horizontal_scrollbar(0),
      m_signal_widget(&m_scroll_area, context, &m_upper_dock, &m_lower_dock),
-     m_overview(0), m_offset(0), m_zoom(1.0)
+     m_overview(0), m_offset(0), m_zoom(1.0),
+     m_preferred_size(preferred_size)
 {
 //    qDebug("MainWidget::MainWidget()");
 

@@ -290,7 +290,7 @@ bool Kwave::TopWidget::init()
     switch (m_application.guiType()) {
 	case Kwave::App::GUI_SDI:
 	    // create a main widget
-	    if (!context->createMainWidget())
+	    if (!context->createMainWidget(QSize(0, 0)))
 		return false;
 	    central_widget = context->mainWidget();
 	    break;
@@ -668,7 +668,9 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 		context = newFileContext();
 		if (!context) return -1;
 	    }
-	    if (!context->createMainWidget()) return -1;
+	    if (!context->createMainWidget(
+		m_mdi_area->geometry().size() * 0.85)
+	    ) return -1;
 
 	    QMdiSubWindow *sub = m_mdi_area->addSubWindow(
 	        context->mainWidget(),
@@ -676,6 +678,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	    );
 	    Q_ASSERT(sub);
 	    if (!sub) return -1;
+	    sub->adjustSize();
 
 	    while (m_context_map.contains(0)) m_context_map.remove(0);
 	    m_context_map[sub] = context;
@@ -683,10 +686,6 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	    connect(sub,  SIGNAL(destroyed(QObject *)),
 	            this, SLOT(subWindowDeleted(QObject *)));
 
-	    sub->resize(
-		(m_mdi_area->geometry().width()  * 85) / 100,
-		(m_mdi_area->geometry().height() * 85) / 100
-	    );
 	    m_mdi_area->setActiveSubWindow(sub);
 	    sub->setAttribute(Qt::WA_DeleteOnClose);
 	    context->mainWidget()->show();

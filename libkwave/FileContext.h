@@ -33,6 +33,7 @@
 
 class QApplication;
 class QMdiSubWindow;
+class QSize;
 class QTextStream;
 class QWidget;
 
@@ -74,9 +75,10 @@ namespace Kwave
 	/**
 	 * create a main widget, within the MDI area
 	 * or toplevel widget in case of SDI interface
+	 * @param preferred_size preferred size of the main widget
 	 * @return true if successful, false if failed
 	 */
-	bool createMainWidget();
+	bool createMainWidget(const QSize &preferred_size);
 
 	/** returns a pointer to the instance's toplevel window */
 	QWidget              *topWidget() const;

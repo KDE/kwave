@@ -108,10 +108,12 @@ Kwave::FileContext::~FileContext()
 }
 
 //***************************************************************************
-bool Kwave::FileContext::createMainWidget()
+bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
 {
     // create the main widget
-    m_main_widget = new(std::nothrow) Kwave::MainWidget(m_top_widget, *this);
+    m_main_widget = new(std::nothrow) Kwave::MainWidget(
+	m_top_widget, *this, preferred_size
+    );
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return false;
     if (!(m_main_widget->isOK())) {
@@ -152,12 +154,6 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 	Kwave::PluginManager(m_top_widget, *m_signal_manager);
     Q_ASSERT(m_plugin_manager);
     if (!m_plugin_manager) return false;
-
-    if (m_application.guiType() == Kwave::App::GUI_SDI) {
-	// SDI mode: create a main widget right now
-	if (!createMainWidget())
-	    return false;
-    }
 
     // connect the signal manager
     connect(m_signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),

@@ -21,6 +21,8 @@
 #include "config.h"
 
 #include <QtCore/QString>
+#include <QtCore/QSize>
+
 #include <QtGui/QScrollArea>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
@@ -88,8 +90,12 @@ namespace Kwave
 	 * Constructor.
 	 * @param parent parent widget
 	 * @param context reference to the context of this instance
+	 * @param preferred_size preferred size of the widget,
+	 *                       needed in MDI mode, otherwise ignored
 	 */
-	MainWidget(QWidget *parent, Kwave::FileContext &context);
+	MainWidget(QWidget *parent,
+	           Kwave::FileContext &context,
+	           const QSize &preferred_size);
 
 	/**
 	 * Returns true if this instance was successfully initialized, or
@@ -108,6 +114,9 @@ namespace Kwave
 
 	/** Returns the width of the current view in samples */
 	virtual sample_index_t visibleSamples() const;
+
+	/** Returns the preferred size of the widget */
+	virtual QSize sizeHint () const { return m_preferred_size; }
 
     protected:
 
@@ -334,6 +343,9 @@ namespace Kwave
 
 	/** number of samples per pixel */
 	double m_zoom;
+
+	/** preferred size of the widget */
+	QSize m_preferred_size;
     };
 }
 

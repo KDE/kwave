@@ -428,20 +428,6 @@ bool Kwave::TopWidget::init()
 	setGeometry(g);
     }
 
-    // initialize the menu according to the selection of the GUI type
-    // TODO: window management, prev/next etc...                                <= ###
-    switch (m_application.guiType()) {
-	case Kwave::App::GUI_SDI:
-	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_SDI"));
-	    break;
-	case Kwave::App::GUI_MDI:
-	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_MDI"));
-	    break;
-	case Kwave::App::GUI_TAB:
-	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_TAB"));
-	    break;
-    }
-
     // enable saving of window size and position for next startup
     setAutoSaveSettings();
 
@@ -577,6 +563,14 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	{
 	    KMessageBox::enableAllMessages();
 	}
+    CASE_COMMAND("window:next_sub")
+	if (m_mdi_area) m_mdi_area->activateNextSubWindow();
+    CASE_COMMAND("window:prev_sub")
+	if (m_mdi_area) m_mdi_area->activatePreviousSubWindow();
+    CASE_COMMAND("window:cascade")
+	if (m_mdi_area) m_mdi_area->cascadeSubWindows();
+    CASE_COMMAND("window:tile")
+	if (m_mdi_area) m_mdi_area->tileSubWindows();
     } else {
 	return ENOSYS; // command not implemented (here)
     }
@@ -1018,6 +1012,33 @@ void Kwave::TopWidget::updateMenu()
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
+    switch (m_application.guiType()) {
+	case Kwave::App::GUI_SDI:
+	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_SDI"));
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"), false);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"), false);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"), false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"), false);
+	    break;
+	case Kwave::App::GUI_MDI:
+	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_MDI"));
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"), true);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"), true);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"), true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"), true);
+	    break;
+	case Kwave::App::GUI_TAB:
+	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_TAB"));
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"), true);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"), true);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"), true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"), false);
+	    break;
+    }
+
     // enable/disable all items that depend on having a file
     bool have_file = (context->signalName().length() != 0);
     m_menu_manager->setItemEnabled(_("@NOT_CLOSED"), have_file);
@@ -1138,9 +1159,7 @@ void Kwave::TopWidget::showStatusBarMessage(const QString &msg,
 //***************************************************************************
 void Kwave::TopWidget::subWindowActivated(QMdiSubWindow *sub)
 {
-    Q_ASSERT(sub);
-    Q_ASSERT(m_context_map.contains(sub));
-    if (!m_context_map.contains(sub)) return;
+    if (!sub || !m_context_map.contains(sub)) return;
     emit sigFileContextSwitched(currentContext());
 }
 
@@ -1148,11 +1167,7 @@ void Kwave::TopWidget::subWindowActivated(QMdiSubWindow *sub)
 void Kwave::TopWidget::subWindowDeleted(QObject *obj)
 {
     QMdiSubWindow *sub = static_cast<QMdiSubWindow *>(obj);
-    Q_ASSERT(sub);
-    if (!sub) return;
-
-    Q_ASSERT(m_context_map.contains(sub));
-    if (!m_context_map.contains(sub)) return;
+    if (!sub || !m_context_map.contains(sub)) return;
 
     Kwave::FileContext *context = m_context_map[sub];
     Q_ASSERT(context);

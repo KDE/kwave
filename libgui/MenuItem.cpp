@@ -105,6 +105,12 @@ bool Kwave::MenuItem::specialCommand(const QString &command)
 }
 
 //*****************************************************************************
+void Kwave::MenuItem::setVisible(bool visible)
+{
+    m_action.setVisible(visible);
+}
+
+//*****************************************************************************
 bool Kwave::MenuItem::isEnabled()
 {
     if (!m_action.isEnabled()) return false;

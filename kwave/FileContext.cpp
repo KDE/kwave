@@ -828,7 +828,6 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 
 	// now call the fileinfo plugin with the new filename and
 	// mimetype
-	Q_ASSERT(m_context.pluginManager());
 	res = (m_plugin_manager) ?
 	       m_plugin_manager->setupPlugin(_("fileinfo"))
 	       : -1;

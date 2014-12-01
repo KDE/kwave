@@ -283,6 +283,21 @@ void Kwave::MenuManager::setItemText(const QString &uid, const QString &text)
 }
 
 //***************************************************************************
+void Kwave::MenuManager::setItemVisible(const QString &uid, bool show)
+{
+    if (!m_menu_root) return;
+
+    Kwave::MenuNode *node = m_menu_root->findUID(uid);
+    if (node) {
+	/* show/hide a single menu node */
+	node->setVisible(show);
+    } else {
+	qWarning("MenuManager::setItemVisible('%s', '%d'): uid not found!",
+	         DBG(uid), show);
+    }
+}
+
+//***************************************************************************
 void Kwave::MenuManager::setItemEnabled(const QString &uid, bool enable)
 {
     if (!m_menu_root) return;

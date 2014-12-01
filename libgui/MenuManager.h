@@ -95,6 +95,14 @@ namespace Kwave
 	 */
 	void setItemText(const QString &uid, const QString &text);
 
+	/**
+	 * Shows/hides a menu entry identified by an ID. Groups are
+	 * not supported.
+	 * @param uid unique id string of the menu node
+	 * @param show true to show, false to hide
+	 */
+	void setItemVisible(const QString &uid, bool show);
+
     public slots:
 
 	/**

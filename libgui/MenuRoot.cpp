@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <QtCore/QListIterator>
+
 #include <klocale.h>
 #include <kmenubar.h>
 
@@ -103,11 +105,47 @@ Kwave::MenuNode *Kwave::MenuRoot::insertLeaf(const QString &name,
 }
 
 //***************************************************************************
+void Kwave::MenuRoot::hideChild(Kwave::MenuSub *child)
+{
+    Q_ASSERT(child);
+    if (!child) return;
+    if (!m_children.contains(child)) return;
+    if (groupList().contains(child->name())) return;
+
+    QAction *action = child->action();
+    if (action) m_menu_bar.removeAction(action);
+}
+
+//***************************************************************************
+void Kwave::MenuRoot::showChild(Kwave::MenuSub *child)
+{
+    Q_ASSERT(child);
+    if (!child) return;
+    if (!m_children.contains(child)) return;
+    if (groupList().contains(child->name())) return;
+
+    // find the menu bar entry after which we can insert
+    QAction *action_before = 0;
+    QListIterator<Kwave::MenuNode *> it(m_children);
+    it.toBack();
+    while (it.hasPrevious()) {
+	Kwave::MenuNode *c = it.previous();
+	if (c == child) break;
+	if (c) action_before = c->action();
+    }
+
+    if (action_before)
+	m_menu_bar.insertMenu(action_before, child->menu());
+    else
+	m_menu_bar.addMenu(child->menu());
+}
+
+//***************************************************************************
 void Kwave::MenuRoot::removeChild(Kwave::MenuNode *child)
 {
     Q_ASSERT(child);
-    if (!child) return ;
-    if (!m_children.contains(child)) return ;
+    if (!child) return;
+    if (!m_children.contains(child)) return;
 
     QHash<QString, Kwave::MenuGroup *> &group_list = groupList();
     if (!group_list.contains(child->name())) {

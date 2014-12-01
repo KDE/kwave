@@ -70,7 +70,7 @@ void Kwave::MenuNode::emitCommand(const QString &command)
 	emit sigCommand(command);
     } else {
 	// tell the root node to emit
-	Kwave::MenuNode *root = getRootNode();
+	Kwave::MenuNode *root = rootNode();
 	Q_ASSERT(root);
 	if (root) root->emitCommand(command);
     }
@@ -99,9 +99,9 @@ Kwave::MenuNode *Kwave::MenuNode::parentNode() const
 }
 
 //*****************************************************************************
-Kwave::MenuNode *Kwave::MenuNode::getRootNode()
+Kwave::MenuNode *Kwave::MenuNode::rootNode()
 {
-    return (m_parentNode) ? m_parentNode->getRootNode() : this;
+    return (m_parentNode) ? m_parentNode->rootNode() : this;
 }
 
 //*****************************************************************************
@@ -128,7 +128,7 @@ bool Kwave::MenuNode::isEnabled()
 
     // find  out if all our groups are enabled
     QHash<QString, Kwave::MenuGroup *> &groups = groupList();
-    Kwave::MenuNode *root = getRootNode();
+    Kwave::MenuNode *root = rootNode();
     if (root) {
 	foreach (QString group_name, m_groups) {
 	    if (groups.contains(group_name)) {
@@ -144,6 +144,12 @@ bool Kwave::MenuNode::isEnabled()
 
     // if we get here, everything is enabled
     return true;
+}
+
+//*****************************************************************************
+void Kwave::MenuNode::setVisible(bool visible)
+{
+    Q_UNUSED(visible);
 }
 
 //*****************************************************************************
@@ -372,7 +378,7 @@ void Kwave::MenuNode::joinGroup(const QString &group,
 	grp = group_list[group];
     } else {
 	// group does not already exist, create a new one
-	grp = new Kwave::MenuGroup(getRootNode(), group, mode);
+	grp = new Kwave::MenuGroup(rootNode(), group, mode);
 	if (grp) group_list.insert(group, grp);
     }
 

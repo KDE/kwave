@@ -118,6 +118,12 @@ namespace Kwave
 	virtual bool specialCommand(const QString &command);
 
 	/**
+	 * Shows/hides the current sub menu.
+	 * @param visible true to show the sub menu, false to hide
+	 */
+	virtual void setVisible(bool visible);
+
+	/**
 	 * Returns true if the node is enabled.
 	 */
 	virtual bool isEnabled();
@@ -136,6 +142,12 @@ namespace Kwave
 	 * @param icon QPixmap with the icon
 	 */
 	virtual void setIcon(const QIcon &icon);
+
+    protected:
+	friend class MenuRoot;
+
+	/** return the pointer to our QMenu */
+	virtual QMenu *menu() { return m_menu; }
 
     private:
 

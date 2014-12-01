@@ -38,8 +38,7 @@ namespace Kwave
     class MenuSub;
 
     /**
-     * Base class for the MenuRoot, MenuEntry, SubMenu and
-     * the ToplevelMenu class.
+     * Base class for the MenuItem, MenuSub and the MenuRoot class.
      */
     class MenuNode: public QObject
     {
@@ -124,6 +123,12 @@ namespace Kwave
 
 	/** returns a pointer to the menu's parent node */
 	virtual Kwave::MenuNode *parentNode() const;
+
+	/**
+	 * Shows/hides the current menu node.
+	 * @param visible true to show the item, false to hide
+	 */
+	virtual void setVisible(bool visible);
 
 	/**
 	 * Returns true if the node is enabled.
@@ -279,13 +284,13 @@ namespace Kwave
 	/**
 	 * Returns the address of the root node of the menu structure.
 	 */
-	Kwave::MenuNode *getRootNode();
+	Kwave::MenuNode *rootNode();
 
 	/**
 	 * Emits a command if the node is the root node. If it is a client
 	 * node it will call the root node's emitCommand() function.
 	 * @see #emitCommand()
-	 * @see #getRootNode()
+	 * @see #rootNode()
 	 */
 	void emitCommand(const QString &command);
 
@@ -296,7 +301,7 @@ namespace Kwave
 	 * root node, client nodes call the root node's emitCommand()
 	 * function.
 	 * @see #emitCommand()
-	 * @see #getRootNode()
+	 * @see #rootNode()
 	 */
 	void sigCommand(const QString &command);
 

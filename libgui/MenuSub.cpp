@@ -25,6 +25,7 @@
 
 #include "libgui/MenuItem.h"
 #include "libgui/MenuSub.h"
+#include "libgui/MenuRoot.h"
 
 //***************************************************************************
 Kwave::MenuSub::MenuSub(Kwave::MenuNode *parent,
@@ -43,6 +44,27 @@ Kwave::MenuSub::MenuSub(Kwave::MenuNode *parent,
 //***************************************************************************
 Kwave::MenuSub::~MenuSub()
 {
+}
+
+//*****************************************************************************
+void Kwave::MenuSub::setVisible(bool visible)
+{
+    if (!m_menu) return;
+
+    Kwave::MenuRoot *root = qobject_cast<Kwave::MenuRoot *>(rootNode());
+    Q_ASSERT(root);
+    if (root && (parentNode() == root)) {
+	// special case: entries of the main menu can only be made
+	// visible/invisible by adding to/removing from the main menu
+	if (visible) {
+	    root->showChild(this);
+	}
+	else
+	    root->hideChild(this);
+    } else {
+	// normal menu entry
+	m_menu->setVisible(visible);
+    }
 }
 
 //*****************************************************************************
@@ -127,8 +149,6 @@ bool Kwave::MenuSub::specialCommand(const QString &command)
     if (!command.length()) return false;
 
     if (command.startsWith(_("#exclusive"))) {
-	return true;
-    } else if (command.startsWith(_("#number"))) {
 	return true;
     } else if (command.startsWith(_("#separator"))) {
 	if (m_menu) m_menu->addSeparator();

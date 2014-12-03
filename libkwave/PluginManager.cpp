@@ -101,10 +101,7 @@ Kwave::PluginManager::~PluginManager()
 	    m_plugin_modules.remove(name);
 
 	    // now the handle of the shared object can be released too
-	    if (module) {
-		module->unload();
-		delete module;
-	    }
+	    if (module) delete module;
 	} else {
 	    // still in use
 	}

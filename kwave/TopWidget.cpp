@@ -30,6 +30,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QTextStream>
 #include <QtCore/QMutableMapIterator>
+#include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QCloseEvent>
 #include <QtGui/QDesktopWidget>
@@ -685,6 +686,17 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	            sub,                   SLOT(close()));
 	    connect(sub,  SIGNAL(destroyed(QObject *)),
 	            this, SLOT(subWindowDeleted(QObject *)));
+
+	    // this really sucks...
+	    // Qt adds a "Close" entry to the MDI subwindow's system menu,
+	    // with the shortcut "Ctrl+W". This collides with our own shortcut,
+	    // produces a warning and makes the key shortcut not work:
+	    // "QAction::eventFilter: Ambiguous shortcut overload: Ctrl+W"
+	    QMenu *m = sub->systemMenu();
+	    if (m) {
+		foreach (QAction *act, m->actions())
+		    if (act) act->setShortcut(0); // remove shortcut
+	    }
 
 	    m_mdi_area->setActiveSubWindow(sub);
 	    sub->setAttribute(Qt::WA_DeleteOnClose);

@@ -139,6 +139,10 @@ int Kwave::App::executeCommand(const QString &command)
 	    ok = newWindow(KUrl(QString()));
 	}
 	return (ok) ? 0 : -EIO;
+    } else if (parser.command() == _("openrecent:clear")) {
+	m_recent_files.clear();
+	saveRecentFiles();
+	emit recentFilesChanged();
     } else if (parser.command() == _("help")) {
 	KToolInvocation::invokeHelp();
     } else {

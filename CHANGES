@@ -1,10 +1,14 @@
 0.8.13 [2014-xx-xx]
 
- * menu subsystem: added support for exclusive selection (radio buttons)
- * menu subsystem: let KDE chose shortcuts automatically
+ * GUI: implemented SDI, MDI and Tab GUI modes
  * bugfix: deadlock in class Track
  * bugfix: segfault during shutdown of logger
+ * bugfix: segfault when unloading plugins (on some systems)
  * bugfix: "zoom to selection" was not disabled if nothing was selected
+ * menu subsystem: added support for lists within a menu
+ * menu subsystem: show/hide toplevel menu entries
+ * menu subsystem: added support for exclusive selection (radio buttons)
+ * menu subsystem: let KDE chose shortcuts automatically
 
 0.8.12 [2014-06-04]
 

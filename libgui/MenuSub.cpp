@@ -107,7 +107,7 @@ Kwave::MenuSub *Kwave::MenuSub::insertBranch(const QString &name,
     Q_ASSERT(sub);
     if (!sub) return 0;
 
-    registerChild(sub);
+    insertChild(sub, 0);
 
     return sub;
 }
@@ -127,8 +127,31 @@ Kwave::MenuNode *Kwave::MenuSub::insertLeaf(const QString &name,
     Q_ASSERT(item);
     if (!item) return 0;
 
-    registerChild(item);
-    m_menu->addAction(item->action());
+    /*
+     * find out where to insert the leaf: if there is a placeholder
+     * with the matching uid, insert after that one, otherwise append
+     * to the end
+     */
+    bool found = false;
+    Kwave::MenuNode *child_after = 0;
+    QListIterator<Kwave::MenuNode *> it(m_children);
+    it.toBack();
+    while (!found && it.hasPrevious()) {
+	Kwave::MenuNode *child = it.previous();
+	if (!child) continue;
+	if (uid.length() && ((uid == child->uid()) || (uid == child->name())))
+	    found = true;
+	else if (child->action())
+	    child_after = child;
+    }
+
+    insertChild(item, (found) ? child_after : 0);
+
+    QAction *action_after = (found && child_after) ? child_after->action() : 0;
+    if (action_after)
+	m_menu->insertAction(action_after, item->action());
+    else
+	m_menu->addAction(item->action());
 
     return item;
 }
@@ -136,7 +159,7 @@ Kwave::MenuNode *Kwave::MenuSub::insertLeaf(const QString &name,
 //***************************************************************************
 void Kwave::MenuSub::removeChild(Kwave::MenuNode *child)
 {
-    QAction *act = action();
+    QAction *act = (child) ? child->action() : 0;
     if (act && m_menu) m_menu->removeAction(act);
 
     Kwave::MenuNode::removeChild(child);

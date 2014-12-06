@@ -999,6 +999,10 @@ void Kwave::TopWidget::updateRecentFiles()
     foreach (const QString &file, m_application.recentFiles())
 	m_menu_manager->addNumberedMenuEntry(
 	    _("ID_FILE_OPEN_RECENT"), file);
+
+    // enable/disable the "clear" menu entry in Files / Open Recent
+    m_menu_manager->setItemEnabled(_("ID_FILE_OPEN_RECENT_CLEAR"),
+        !m_application.recentFiles().isEmpty());
 }
 
 //***************************************************************************

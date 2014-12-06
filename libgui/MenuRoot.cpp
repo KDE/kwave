@@ -82,7 +82,7 @@ Kwave::MenuSub *Kwave::MenuRoot::insertBranch(const QString &name,
     Q_ASSERT(sub);
     if (!sub) return 0;
 
-    registerChild(sub);
+    insertChild(sub, 0);
 
     return sub;
 }
@@ -98,7 +98,7 @@ Kwave::MenuNode *Kwave::MenuRoot::insertLeaf(const QString &name,
     Q_ASSERT(item);
     if (!item) return 0;
 
-    registerChild(item);
+    insertChild(item, 0);
     m_menu_bar.addAction(item->action());
 
     return item;

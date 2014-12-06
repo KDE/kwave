@@ -214,8 +214,11 @@ namespace Kwave
 	/**
 	 * Registers a node as a child of the current node.
 	 * @param node pointer to the child node
+	 * @param before the node before which the node should be inserted
+	 *               (optional, can be null for "append")
 	 */
-	virtual void registerChild(Kwave::MenuNode *node);
+	virtual void insertChild(Kwave::MenuNode *node,
+	                         Kwave::MenuNode *before);
 
 	/**
 	 * Inserts a new child node into the structure. If the specified

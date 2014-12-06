@@ -26,6 +26,7 @@
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
+#include "libgui/MenuList.h"
 #include "libgui/MenuNode.h"
 #include "libgui/MenuGroup.h"
 #include "libgui/MenuRoot.h"
@@ -171,9 +172,14 @@ void Kwave::MenuNode::setText(const QString &text)
 }
 
 //*****************************************************************************
-void Kwave::MenuNode::registerChild(Kwave::MenuNode *node)
+void Kwave::MenuNode::insertChild(Kwave::MenuNode *node,
+                                  Kwave::MenuNode *before)
 {
-    if (node) m_children.append(node);
+    if (!node) return;
+    if (before && m_children.contains(before))
+	m_children.insert(m_children.indexOf(before), node);
+    else
+	m_children.append(node);
 }
 
 //*****************************************************************************
@@ -250,22 +256,21 @@ void Kwave::MenuNode::insertNode(const QString &name,
     int pos = 0;
 
     if (!position.length()) {
-	qWarning("MenuNode::parseCommand: no position!");
+	qWarning("MenuNode::insertNode: no position!");
 	return;
     }
 
-    // make working copies of name and position
-    QString n(name);
-    QString p(position);
-
     // at start of the parsing process ?
-    if (!n.length()) {
+    if (!name.length()) {
 	// split off the first token, separated by a slash
-	pos = p.indexOf(QLatin1Char('/'));
-	if (pos < 0) pos = p.length();
+	pos = position.indexOf(QLatin1Char('/'));
+	if (pos < 0) pos = position.length();
     }
-    n = position.left(pos);
+
+    QString n = position.left(pos);
+    QString p = position;
     p.remove(0, pos + 1);
+
     if ((n.length()) && (specialCommand(n))) {
 	// no new branch, only a special command
 	return;
@@ -281,16 +286,14 @@ void Kwave::MenuNode::insertNode(const QString &name,
 
 	    if (uid.length()) sub->setUID(uid);
 
-	    if (p[0] == QLatin1Char('#')) sub->specialCommand(p);
-	    return;
 	} else {
 	    // insert a new leaf
-	    Kwave::MenuNode *leaf = insertLeaf(n, command, shortcut, uid);
-	    if (!leaf) return;
-
-	    if (p[0] == QLatin1Char('#')) leaf->specialCommand(p);
-	    return;
+	    sub = insertLeaf(n, command, shortcut, uid);
+	    if (!sub) return;
 	}
+
+	if (p[0] == QLatin1Char('#')) sub->specialCommand(p);
+
     } else {
 	// somewhere in the tree
 	Kwave::MenuNode *sub = findChild(n);
@@ -428,10 +431,24 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	return true;
     }
 
-    if (command == _("#listmenu")) {
-	// insert an empty submenu for the list items
+    if (parser.command() == _("#listmenu")) {
+	// make sure that the current node is a sub menu
 	Kwave::MenuNode *parent = parentNode();
-	if (parent && !isBranch()) parent->leafToBranch(this);
+	Kwave::MenuNode *sub = (parent && !isBranch()) ?
+	    parent->leafToBranch(this) : this;
+	if (!sub) return false;
+
+	// append a placeholder for inserting the list
+	// (if it does not already exist)
+	const QString &uid = parser.firstParam();
+	if (!sub->findUID(uid)) {
+	    Kwave::MenuList *placeholder =
+		new Kwave::MenuList(sub, m_command, uid);
+	    Q_ASSERT(placeholder);
+	    if (!placeholder) return false;
+
+	    sub->insertChild(placeholder, 0);
+	}
 	return true;
     }
 

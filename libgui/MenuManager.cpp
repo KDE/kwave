@@ -227,12 +227,12 @@ void Kwave::MenuManager::addNumberedMenuEntry(const QString &uid,
 
     Q_ASSERT(m_menu_root);
     Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
-    if (node) {
+    Kwave::MenuNode *parent = (node) ? node->parentNode() : 0;
+    if (parent) {
 	QString cmd     = node->command();
 	QString command = cmd.contains(_("%1")) ?
 	    cmd.arg(Kwave::Parser::escape(entry)) : cmd;
-
-	node->insertLeaf(entry, command, 0, QString());
+	node->insertLeaf(entry, command, 0, uid);
     } else
 	qWarning("MenuManager: could not find numbered Menu '%s'", DBG(uid));
 

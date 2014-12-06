@@ -187,7 +187,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 //***************************************************************************
 bool Kwave::MainWidget::isOK()
 {
-    return (m_overview);
+    return (m_horizontal_scrollbar && m_overview);
 }
 
 //***************************************************************************

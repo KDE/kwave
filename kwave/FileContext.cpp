@@ -77,7 +77,6 @@ Kwave::FileContext::FileContext(Kwave::App &app)
      m_last_status_message_text(),
      m_last_status_message_timer(),
      m_last_status_message_ms(0),
-     m_last_meta_data(),
      m_last_selection_offset(SAMPLE_INDEX_MAX),
      m_last_selection_length(SAMPLE_INDEX_MAX),
      m_last_undo(QString()),
@@ -409,12 +408,9 @@ void Kwave::FileContext::metaDataChanged(Kwave::MetaDataList meta_data)
 {
     if (isActive()) {
 	// we are active -> emit the meta data immediately
-	m_last_meta_data = Kwave::MetaDataList();
 	emit sigMetaDataChanged(meta_data);
-    } else {
-	// we are inactive -> emit the meta data later, when activated
-	m_last_meta_data = meta_data;
     }
+    // else: we are inactive -> emit the meta data later, when activated
 
     // update the caption of the sub window
     if (m_application.guiType() != Kwave::App::GUI_SDI) {
@@ -528,11 +524,9 @@ void Kwave::FileContext::activated()
 	}
     }
 
-    // emit last meta data change
-    if (!m_last_meta_data.isEmpty()) {
-	emit sigMetaDataChanged(m_last_meta_data);
-	m_last_meta_data = Kwave::MetaDataList();
-    }
+    // emit latest meta data
+    if (m_signal_manager)
+	emit sigMetaDataChanged(m_signal_manager->metaData());
 
     // emit last view range change (always, if available)
     if (!( (m_last_visible_offset  == SAMPLE_INDEX_MAX) &&
@@ -877,6 +871,17 @@ bool Kwave::FileContext::closeFile()
     }
 
     if (m_signal_manager) m_signal_manager->close();
+
+    switch (m_application.guiType()) {
+	case Kwave::App::GUI_MDI: /* FALLTHROUGH */
+	case Kwave::App::GUI_TAB:
+	    // close the main widget
+	    if (m_main_widget) m_main_widget->deleteLater();
+	    break;
+	case Kwave::App::GUI_SDI:
+	    break;
+    }
+
     return true;
 }
 

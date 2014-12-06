@@ -648,6 +648,10 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 		// SDI mode and already something loaded
 		// -> open a new toplevel window
 		return m_application.newWindow(url) ? 0 : -1;
+
+	    // try to close the previous file
+	    if (!context->closeFile()) return -1;
+
 	    break;
 	case Kwave::App::GUI_MDI: /* FALLTHROUGH */
 	case Kwave::App::GUI_TAB:
@@ -677,6 +681,8 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	    while (m_context_map.contains(0)) m_context_map.remove(0);
 	    m_context_map[sub] = context;
 
+	    connect(context->mainWidget(), SIGNAL(destroyed(QObject *)),
+	            sub,                   SLOT(close()));
 	    connect(sub,  SIGNAL(destroyed(QObject *)),
 	            this, SLOT(subWindowDeleted(QObject *)));
 
@@ -686,9 +692,6 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 
 	    break;
     }
-
-    // try to close the previous file
-    if (!context->closeFile()) return -1;
 
     emit sigSignalNameChanged(url.path());
 

@@ -341,9 +341,6 @@ namespace Kwave
 	/** number of milliseconds the status message should be shown */
 	unsigned int m_last_status_message_ms;
 
-	/** last meta data change received while inactive */
-	Kwave::MetaDataList m_last_meta_data;
-
 	/** last selection: offset */
 	sample_index_t m_last_selection_offset;
 

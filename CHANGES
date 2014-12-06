@@ -9,6 +9,7 @@
  * menu subsystem: show/hide toplevel menu entries
  * menu subsystem: added support for exclusive selection (radio buttons)
  * menu subsystem: let KDE chose shortcuts automatically
+ * added menu entry to clear "recently opened files" list
 
 0.8.12 [2014-06-04]
 

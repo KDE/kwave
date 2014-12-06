@@ -440,10 +440,10 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 
 	// append a placeholder for inserting the list
 	// (if it does not already exist)
-	const QString &uid = parser.firstParam();
+	const QString uid = parser.firstParam();
+	const QString cmd = parser.nextParam();
 	if (!sub->findUID(uid)) {
-	    Kwave::MenuList *placeholder =
-		new Kwave::MenuList(sub, m_command, uid);
+	    Kwave::MenuList *placeholder = new Kwave::MenuList(sub, cmd, uid);
 	    Q_ASSERT(placeholder);
 	    if (!placeholder) return false;
 

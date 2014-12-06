@@ -572,6 +572,27 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	if (m_mdi_area) m_mdi_area->cascadeSubWindows();
     CASE_COMMAND("window:tile")
 	if (m_mdi_area) m_mdi_area->tileSubWindows();
+    CASE_COMMAND("window:activate")
+	if (m_mdi_area) {
+	    QString title = parser.nextParam();
+	    foreach (QMdiSubWindow *sub, m_context_map.keys()) {
+		if (!sub) continue;
+		// identify the window by it's title
+		if (sub->windowTitle() == title) {
+		    // activate the sub window if it is not the active one
+		    if (m_mdi_area->activeSubWindow() != sub)
+			m_mdi_area->setActiveSubWindow(sub);
+
+		    // leave the "minimized" state if necessary
+		    Qt::WindowStates state = sub->windowState();
+		    if (state & Qt::WindowMinimized)
+			sub->setWindowState(state & ~(Qt::WindowMinimized));
+		    sub->raise();
+		    return 0;
+		}
+	    }
+	}
+	return EINVAL;
     } else {
 	return ENOSYS; // command not implemented (here)
     }
@@ -1031,6 +1052,7 @@ void Kwave::TopWidget::updateMenu()
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
+    bool have_window_menu = false;
     switch (m_application.guiType()) {
 	case Kwave::App::GUI_SDI:
 	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_SDI"));
@@ -1047,6 +1069,7 @@ void Kwave::TopWidget::updateMenu()
 	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"), true);
 	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), true);
 	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"), true);
+	    have_window_menu = true;
 	    break;
 	case Kwave::App::GUI_TAB:
 	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_TAB"));
@@ -1055,7 +1078,20 @@ void Kwave::TopWidget::updateMenu()
 	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"), true);
 	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), false);
 	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"), false);
+	    have_window_menu = true;
 	    break;
+    }
+
+    if (have_window_menu) {
+	// update the "Windows" menu
+	m_menu_manager->clearNumberedMenu(_("ID_WINDOW_LIST"));
+	foreach (QMdiSubWindow *sub, m_context_map.keys()) {
+	    if (!sub) continue;
+	    m_menu_manager->addNumberedMenuEntry(
+		_("ID_WINDOW_LIST"),
+		sub->windowTitle()
+	    );
+	}
     }
 
     // enable/disable all items that depend on having a file

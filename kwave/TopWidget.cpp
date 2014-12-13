@@ -636,11 +636,16 @@ bool Kwave::TopWidget::closeAllSubWindows()
     it.toBack();
     while (it.hasPrevious()) {
 	it.previous();
-
-	QMdiSubWindow *sub = it.key();
-	if (!sub) break; // reached the default context (without sub windows)
-
+	QMdiSubWindow      *sub     = it.key();
 	Kwave::FileContext *context = it.value();
+
+	if (!sub) {
+	    // reached the default context (without sub windows)
+	    // or SDI mode with only one context
+	    if (context) allowed &= context->closeFile();
+	    break;
+	}
+
 	if (!context) {
 	    // invalid entry?
 	    it.remove();

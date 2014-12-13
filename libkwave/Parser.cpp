@@ -23,6 +23,7 @@
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 //***************************************************************************
 Kwave::Parser::Parser (const QString &init)
@@ -299,6 +300,54 @@ QString Kwave::Parser::unescape(const QString &text)
     }
 
     return unescaped;
+}
+
+//***************************************************************************
+KUrl Kwave::Parser::toUrl(const QString &command)
+{
+    KUrl url;
+
+    url.setScheme(Kwave::urlScheme());
+    Parser parser(command);
+
+    // encode the command as "path"
+    url.setEncodedPath(QUrl::toPercentEncoding(parser.command()));
+
+    // encode the parameter list into a comma separated string
+    unsigned int count = parser.count();
+    QByteArray params;
+    for (unsigned int i = 0; i < count; ++i) {
+	QString param = parser.nextParam();
+	if (params.length()) params += ',';
+	params += QUrl::toPercentEncoding(param);
+    }
+    url.setEncodedQuery(params);
+
+    return url;
+}
+
+//***************************************************************************
+QString Kwave::Parser::fromUrl(const KUrl &url)
+{
+    if (url.scheme().toLower() != Kwave::urlScheme()) return QString();
+
+    // get the command name (path)
+    QString command = QUrl::fromPercentEncoding(url.encodedPath());
+
+    // get the parameter list
+    command += _("(");
+    QStringList params = QString::fromAscii(url.encodedQuery()).split(_(","));
+    if (!params.isEmpty()) {
+	bool first = true;
+	foreach (const QString &param, params) {
+	    if (!first) command += _(",");
+	    command += QUrl::fromPercentEncoding(param.toAscii());
+	    first = false;
+	}
+    }
+    command += _(")");
+
+    return command;
 }
 
 //***************************************************************************

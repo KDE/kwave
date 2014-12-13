@@ -280,11 +280,6 @@ namespace Kwave
 	 */
 	void sigFileContextSwitched(Kwave::FileContext *context);
 
-	/**
-	 * Emitted it the name of the signal has changed.
-	 */
-	void sigSignalNameChanged(const QString &name);
-
     private:
 
 	/**
@@ -295,6 +290,20 @@ namespace Kwave
 	 * @return pointer to a active FileContext within m_context_map
 	 */
 	Kwave::FileContext *currentContext() const;
+
+	/**
+	 * Opens a new empty window.
+	 * @param context reference to the pointer to the current context,
+	 *                can be modified in case that a new context has
+	 *                to be created for the new window!
+	 *                Must not be a null pointer
+	 * @param url URL of the file to be loaded (optional), used for
+	 *            opening a new SDI window
+	 * @retval -1 or negative in case of an error
+	 * @retval  0 if succeeded and done (SDI mode)
+	 * @retval  1 if succeeded but window is still empty (MDI or TAB mode)
+	 */
+	int newWindow(Kwave::FileContext *&context, const KUrl &url);
 
 	/**
 	 * Closes the current file and creates a new empty signal.

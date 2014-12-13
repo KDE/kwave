@@ -39,6 +39,7 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/Utils.h"
 
 #include "TopWidget.h"
 #include "App.h"
@@ -77,7 +78,13 @@ Kwave::App::App()
 	m_gui_type = Kwave::App::GUI_TAB;
     }
     // else: "SDI" is default
+}
 
+//***************************************************************************
+Kwave::App::~App()
+{
+    saveRecentFiles();
+    m_recent_files.clear();
 }
 
 //***************************************************************************
@@ -112,8 +119,7 @@ int Kwave::App::newInstance()
 	// command line an load it
 	for (unsigned int i = 0; i < argc; i++) {
 	    QString name = args->arg(i);
-	    QFileInfo file(name);
-	    newWindow(file.absoluteFilePath());
+	    newWindow(KUrl(name));
 	}
     }
     if (args) args->clear();
@@ -188,7 +194,9 @@ bool Kwave::App::newWindow(const KUrl &url)
 		new_top_widget = m_top_widgets.last();
 	    break;
 	case Kwave::App::GUI_SDI:
-	    // always create a new top widget
+	    // always create a new top widget, except when handling commands
+	    if (url.scheme().toLower() == Kwave::urlScheme())
+		new_top_widget = m_top_widgets.last();
 	    break;
     }
 
@@ -221,11 +229,7 @@ bool Kwave::App::newWindow(const KUrl &url)
 		new_top_widget, SLOT(updateRecentFiles()));
     }
 
-    if (!url.isEmpty()) {
-	Kwave::Splash::showMessage(i18n("Loading file '%1'...",
-	    url.prettyUrl()));
-	new_top_widget->loadFile(url);
-    }
+    if (!url.isEmpty()) new_top_widget->loadFile(url);
 
     Kwave::Splash::showMessage(i18n("Startup done"));
     return true;
@@ -294,13 +298,6 @@ void Kwave::App::readConfig()
 		m_recent_files.append(result);
 	}
     }
-}
-
-//***************************************************************************
-Kwave::App::~App()
-{
-    saveRecentFiles();
-    m_recent_files.clear();
 }
 
 //***************************************************************************

@@ -308,6 +308,7 @@ bool Kwave::TopWidget::init()
 	    Q_ASSERT(m_mdi_area);
 	    if (!m_mdi_area) return false;
 	    m_mdi_area->setViewMode(QMdiArea::TabbedView);
+	    m_mdi_area->setTabsClosable(true);
 	    break;
     }
 
@@ -473,8 +474,8 @@ Kwave::TopWidget::~TopWidget()
 
     while (!m_context_map.isEmpty()) {
 	Kwave::FileContext *context = m_context_map.values().last();
-	if (context) delete context;
 	m_context_map.remove(m_context_map.keys().last());
+	if (context) delete context;
     }
 }
 
@@ -662,29 +663,19 @@ bool Kwave::TopWidget::closeAllSubWindows()
 }
 
 //***************************************************************************
-int Kwave::TopWidget::loadFile(const KUrl &url)
+int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const KUrl &url)
 {
-    Kwave::FileContext *context = currentContext();
+    Q_ASSERT(context);
     if (!context) return -1;
-
     Kwave::SignalManager *signal_manager = context->signalManager();
-    Q_ASSERT(signal_manager);
-
-    // abort if new file not valid and local
-    if (!url.isLocalFile()) return -1;
-
-    // detect whether it is a macro (batch) file
-    QFileInfo file(url.fileName());
-    QString suffix = file.suffix();
-    if (suffix == _("kwave")) {
-	return context->loadBatch(url);
-    }
 
     switch (m_application.guiType()) {
 	case Kwave::App::GUI_SDI:
-	    if (signal_manager && !signal_manager->isEmpty())
-		// SDI mode and already something loaded
-		// -> open a new toplevel window
+	    // SDI mode and already something loaded
+	    // -> open a new toplevel window
+	    //    (except for processing commands per kwave: URL
+	    if ( signal_manager && !signal_manager->isEmpty() &&
+		(url.scheme().toLower() != Kwave::urlScheme()) )
 		return m_application.newWindow(url) ? 0 : -1;
 
 	    // try to close the previous file
@@ -742,7 +733,47 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	    break;
     }
 
-    emit sigSignalNameChanged(url.path());
+    return 1;
+}
+
+//***************************************************************************
+int Kwave::TopWidget::loadFile(const KUrl &url)
+{
+    // special handling for kwave: URLs
+    if (url.scheme().toLower() == Kwave::urlScheme()) {
+	QString cmd = Kwave::Parser::fromUrl(url);
+	Kwave::Logger::log(this, Kwave::Logger::Info,
+	    _("CMD from command line: '") + cmd + _("'"));
+	Kwave::Splash::showMessage(i18n("Executing command '%1'...", cmd));
+	return executeCommand(cmd);
+    }
+
+    Kwave::FileContext *context = currentContext();
+    if (!context) return -1;
+
+    Kwave::SignalManager *signal_manager = context->signalManager();
+    Q_ASSERT(signal_manager);
+
+    // abort if new file not valid and local
+    if (!url.isLocalFile()) return -1;
+
+    // detect whether it is a macro (batch) file
+    QFileInfo file(url.fileName());
+    QString suffix = file.suffix();
+    if (suffix == _("kwave")) {
+	Kwave::Splash::showMessage(
+	    i18n("Executing Kwave script file '%1'...", url.prettyUrl())
+	);
+	return context->loadBatch(url);
+    }
+
+    // open a new window (empty in case of MDI/TAB)
+    int retval = newWindow(context, url);
+    if (retval <= 0) return retval;
+
+    Kwave::Splash::showMessage(
+	i18n("Loading file '%1'...", url.prettyUrl())
+    );
 
     // NOTE: the context may have changed, now we may have a different
     //       signal manager
@@ -812,26 +843,22 @@ int Kwave::TopWidget::openFile()
 int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
                                 unsigned int bits, unsigned int tracks)
 {
-    Q_UNUSED(samples);
-    Q_UNUSED(rate);
-    Q_UNUSED(bits);
-    Q_UNUSED(tracks);
-//     Kwave::FileContext *context = currentContext();
-//     Q_ASSERT(context);
-//     if (!context) return false;
-//
-//     Kwave::SignalManager *signal_manager = context->signalManager();
-//     Q_ASSERT(signal_manager);
-//     if (!signal_manager) return -1;
-//
-//     // abort if the user pressed cancel
-//     emit sigSignalNameChanged(context->signalName());
-//
-//     signal_manager->newSignal(samples, rate, bits, tracks);
-//
-//     updateMenu();
-//     updateToolbar();
+    Kwave::FileContext *context = currentContext();
+    if (!context) return -1;
 
+    Kwave::SignalManager *signal_manager = context->signalManager();
+    if (!signal_manager) return -1;
+
+    KUrl url = Kwave::Parser::toUrl(
+	_("newsignal(%1,%2,%3,%4)"
+	).arg(samples).arg(rate).arg(bits).arg(tracks));
+    int retval = newWindow(context, url);
+    if (retval <= 0) return retval;
+
+    signal_manager = context->signalManager();
+    if (!signal_manager) return -1;
+
+    signal_manager->newSignal(samples, rate, bits, tracks);
     return 0;
 }
 

@@ -477,6 +477,8 @@ Kwave::TopWidget::~TopWidget()
 	m_context_map.remove(m_context_map.keys().last());
 	if (context) delete context;
     }
+
+    m_application.toplevelWindowHasClosed(this);
 }
 
 //***************************************************************************

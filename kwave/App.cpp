@@ -236,7 +236,7 @@ bool Kwave::App::newWindow(const KUrl &url)
 }
 
 //***************************************************************************
-bool Kwave::App::closeWindow(Kwave::TopWidget *todel)
+bool Kwave::App::toplevelWindowHasClosed(Kwave::TopWidget *todel)
 {
     Q_ASSERT(todel);
 

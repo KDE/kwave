@@ -95,13 +95,11 @@ namespace Kwave
 	bool newWindow(const KUrl &url);
 
 	/**
-	 * Closes a previously opened toplevel window.
-	 * @param todel the toplevel window that closes down
+	 * Called when a toplevel window has closed.
+	 * @param todel the toplevel window that has closed
 	 * @return true if it was the last toplevel window
-	 * @see #newWindow()
-	 * @see TopWidget
 	 */
-	bool closeWindow(Kwave::TopWidget *todel);
+	bool toplevelWindowHasClosed(Kwave::TopWidget *todel);
 
 	/** Returns a reference to the list of recent files */
 	inline QStringList recentFiles() const { return m_recent_files; }

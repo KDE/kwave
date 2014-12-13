@@ -248,6 +248,19 @@ bool Kwave::App::closeWindow(Kwave::TopWidget *todel)
 }
 
 //***************************************************************************
+QList<Kwave::App::FileAndInstance> Kwave::App::openFiles() const
+{
+    QList<Kwave::App::FileAndInstance> all_files;
+    foreach (Kwave::TopWidget *topwidget, m_top_widgets) {
+	if (!topwidget) continue;
+	QList<Kwave::App::FileAndInstance> files = topwidget->openFiles();
+	if (!files.isEmpty())
+	    all_files += files;
+    }
+    return all_files;
+}
+
+//***************************************************************************
 void Kwave::App::saveRecentFiles()
 {
     KConfigGroup cfg = KGlobal::config()->group("Recent Files");

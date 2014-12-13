@@ -479,6 +479,22 @@ Kwave::TopWidget::~TopWidget()
 }
 
 //***************************************************************************
+QList<Kwave::App::FileAndInstance> Kwave::TopWidget::openFiles() const
+{
+    QList<Kwave::App::FileAndInstance> all_files;
+
+    foreach (Kwave::FileContext *context, m_context_map.values()) {
+	if (!context) continue;
+	QString name = context->signalName();
+	if (!name.length()) continue;
+	int instance_nr = context->instanceNr();
+	all_files.append(Kwave::App::FileAndInstance(name, instance_nr));
+    }
+
+    return all_files;
+}
+
+//***************************************************************************
 int Kwave::TopWidget::executeCommand(const QString &line)
 {
     int result = 0;
@@ -591,7 +607,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 		    return 0;
 		}
 	    }
-	}
+	} else return ENOSYS;
 	return EINVAL;
     } else {
 	return ENOSYS; // command not implemented (here)
@@ -796,22 +812,25 @@ int Kwave::TopWidget::openFile()
 int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
                                 unsigned int bits, unsigned int tracks)
 {
-    Kwave::FileContext *context = currentContext();
-    Q_ASSERT(context);
-    if (!context) return false;
-
-    Kwave::SignalManager *signal_manager = context->signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return -1;
-
-    // abort if the user pressed cancel
-    if (!context->closeFile()) return -1;
-    emit sigSignalNameChanged(context->signalName());
-
-    signal_manager->newSignal(samples, rate, bits, tracks);
-
-    updateMenu();
-    updateToolbar();
+    Q_UNUSED(samples);
+    Q_UNUSED(rate);
+    Q_UNUSED(bits);
+    Q_UNUSED(tracks);
+//     Kwave::FileContext *context = currentContext();
+//     Q_ASSERT(context);
+//     if (!context) return false;
+//
+//     Kwave::SignalManager *signal_manager = context->signalManager();
+//     Q_ASSERT(signal_manager);
+//     if (!signal_manager) return -1;
+//
+//     // abort if the user pressed cancel
+//     emit sigSignalNameChanged(context->signalName());
+//
+//     signal_manager->newSignal(samples, rate, bits, tracks);
+//
+//     updateMenu();
+//     updateToolbar();
 
     return 0;
 }

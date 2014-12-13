@@ -84,7 +84,8 @@ Kwave::FileContext::FileContext(Kwave::App &app)
      m_last_modified(false),
      m_last_visible_offset(SAMPLE_INDEX_MAX),
      m_last_visible_samples(SAMPLE_INDEX_MAX),
-     m_last_visible_total(SAMPLE_INDEX_MAX)
+     m_last_visible_total(SAMPLE_INDEX_MAX),
+     m_instance_nr(-1)
 {
 }
 
@@ -96,7 +97,6 @@ Kwave::FileContext::~FileContext()
     if (m_main_widget) delete m_main_widget;
     m_main_widget = 0;
 
-    m_application.closeWindow(m_top_widget);
     m_top_widget = 0;
 
     if (m_plugin_manager) delete m_plugin_manager;
@@ -406,6 +406,30 @@ void Kwave::FileContext::updatePlaybackPos(sample_index_t offset)
 //***************************************************************************
 void Kwave::FileContext::metaDataChanged(Kwave::MetaDataList meta_data)
 {
+    // find out the instance ID
+    if (m_instance_nr == -1) {
+	// build a list of all currently open files/instances (including this)
+	QList<Kwave::App::FileAndInstance> files = m_application.openFiles();
+
+	// filter out all instances of our file name
+	QString our_name = signalName();
+	QList<int> existing_instances;
+	foreach (const Kwave::App::FileAndInstance &it, files) {
+	    const QString &name = it.first;
+	    int            inst = it.second;
+	    if (name == our_name) existing_instances.append(inst);
+	}
+
+	// remove our own entry
+	if (existing_instances.contains(m_instance_nr))
+	    existing_instances.removeOne(m_instance_nr);
+
+	// find an empty slot
+	if (!existing_instances.isEmpty())
+	    while (existing_instances.contains(m_instance_nr))
+		m_instance_nr = (m_instance_nr != -1) ? (m_instance_nr + 1) : 2;
+    }
+
     if (isActive()) {
 	// we are active -> emit the meta data immediately
 	emit sigMetaDataChanged(meta_data);
@@ -656,10 +680,20 @@ QString Kwave::FileContext::signalName() const
 //***************************************************************************
 QString Kwave::FileContext::windowCaption() const
 {
-    const QString name = signalName();
+    QString name = signalName();
 
     // shortcut if no file loaded
     if (!name.length()) return QString();
+
+    // if not in SDI mode we have to take care of multiple instances on our
+    // own and append a " <n>" manually !
+    if (m_application.guiType() != Kwave::App::GUI_SDI)
+	if (m_instance_nr != -1)
+	    name = i18nc(
+	        "for window title: "
+	        "%1 = Name of the file, "
+	        "%2 = Instance number when opened multiple times",
+	        "%1 <%2>").arg(name).arg(m_instance_nr);
 
     bool modified = (m_signal_manager) ? m_signal_manager->isModified() :false;
     if (modified)

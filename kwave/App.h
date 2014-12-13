@@ -22,6 +22,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QList>
+#include <QtCore/QPair>
 #include <QtCore/QStringList>
 
 #include <kuniqueapplication.h>
@@ -52,6 +53,12 @@ namespace Kwave
 	    GUI_TAB  /**< tabbed interface                         */
 	/*  GUI_IDE       integrated development environment (IDE) */
 	} GuiType;
+
+	/**
+	 * pair of file name and instance
+	 * @see openFiles()
+	 */
+	typedef QPair<QString,int> FileAndInstance;
 
 	/** Constructor */
 	App();
@@ -98,6 +105,9 @@ namespace Kwave
 
 	/** Returns a reference to the list of recent files */
 	inline QStringList recentFiles() const { return m_recent_files; }
+
+	/** Returns a list of currently opened files and their instance */
+	QList<FileAndInstance> openFiles() const;
 
 	/** returns the GUI type (e.g. SDI, MDI etc.) */
 	GuiType guiType() const { return m_gui_type; }

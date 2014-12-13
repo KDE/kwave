@@ -117,6 +117,9 @@ namespace Kwave
 	/** returns the name of the signal */
 	QString signalName() const;
 
+	/** returns the instance of the loaded file or -1 */
+	inline int instanceNr() const { return m_instance_nr; }
+
 	/** returns a string suitable as window caption */
 	QString windowCaption() const;
 
@@ -364,6 +367,9 @@ namespace Kwave
 
 	/** last visible range: total samples */
 	sample_index_t m_last_visible_total;
+
+	/** instance of the loaded file or -1 */
+	int m_instance_nr;
 
     };
 

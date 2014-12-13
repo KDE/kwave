@@ -36,6 +36,8 @@
 
 #include "libgui/MouseMark.h"
 
+#include "App.h"
+
 class QCloseEvent;
 class QLabel;
 class QMdiSubWindow;
@@ -50,7 +52,6 @@ class KStatusBar;
 namespace Kwave
 {
 
-    class App;
     class FileContext;
     class MainWidget;
     class MenuManager;
@@ -89,6 +90,12 @@ namespace Kwave
 	 * Destructor.
 	 */
 	virtual ~TopWidget();
+
+	/**
+	 * Returns a list of currently opened files
+	 * and their instance number
+	 */
+	QList<Kwave::App::FileAndInstance> openFiles() const;
 
 	/**
 	 * Loads a new file and updates the widget's title, menu, status bar

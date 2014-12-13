@@ -437,10 +437,8 @@ void Kwave::FileContext::metaDataChanged(Kwave::MetaDataList meta_data)
     // else: we are inactive -> emit the meta data later, when activated
 
     // update the caption of the sub window
-    if (m_application.guiType() != Kwave::App::GUI_SDI) {
-	QString caption = windowCaption();
-	if (m_main_widget) m_main_widget->setWindowTitle(caption);
-    }
+    if (m_main_widget && (m_application.guiType() != Kwave::App::GUI_SDI))
+	m_main_widget->setWindowTitle(windowCaption(true));
 }
 
 //***************************************************************************
@@ -504,6 +502,10 @@ void Kwave::FileContext::modifiedChanged(bool modified)
     } else {
 	// we are inactive -> emit the modified state later, when activated
     }
+
+    // update the caption of our main widget
+    if (m_main_widget && (m_application.guiType() != Kwave::App::GUI_SDI))
+	m_main_widget->setWindowTitle(windowCaption(true));
 }
 
 //***************************************************************************
@@ -678,7 +680,7 @@ QString Kwave::FileContext::signalName() const
 }
 
 //***************************************************************************
-QString Kwave::FileContext::windowCaption() const
+QString Kwave::FileContext::windowCaption(bool with_modified) const
 {
     QString name = signalName();
 
@@ -695,10 +697,12 @@ QString Kwave::FileContext::windowCaption() const
 	        "%2 = Instance number when opened multiple times",
 	        "%1 <%2>").arg(name).arg(m_instance_nr);
 
-    bool modified = (m_signal_manager) ? m_signal_manager->isModified() :false;
-    if (modified)
-	return i18nc("%1 = Path to modified file", "* %1 (modified)", name);
-    else
+    if (with_modified) {
+	bool modified = (m_signal_manager) ?
+	    m_signal_manager->isModified() : false;
+	if (modified)
+	    return i18nc("%1 = Path to modified file", "* %1 (modified)", name);
+    }
 	return name;
 }
 

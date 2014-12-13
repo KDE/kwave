@@ -596,8 +596,11 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	    QString title = parser.nextParam();
 	    foreach (QMdiSubWindow *sub, m_context_map.keys()) {
 		if (!sub) continue;
+		Kwave::FileContext *context = m_context_map[sub];
+		if (!context) continue;
+
 		// identify the window by it's title
-		if (sub->windowTitle() == title) {
+		if (context->windowCaption(false) == title) {
 		    // activate the sub window if it is not the active one
 		    if (m_mdi_area->activeSubWindow() != sub)
 			m_mdi_area->setActiveSubWindow(sub);
@@ -1138,11 +1141,11 @@ void Kwave::TopWidget::updateMenu()
     if (have_window_menu) {
 	// update the "Windows" menu
 	m_menu_manager->clearNumberedMenu(_("ID_WINDOW_LIST"));
-	foreach (QMdiSubWindow *sub, m_context_map.keys()) {
-	    if (!sub) continue;
+	foreach (const Kwave::FileContext *context, m_context_map.values()) {
+	    if (!context) continue;
 	    m_menu_manager->addNumberedMenuEntry(
 		_("ID_WINDOW_LIST"),
-		sub->windowTitle()
+		context->windowCaption(false)
 	    );
 	}
     }
@@ -1239,7 +1242,7 @@ void Kwave::TopWidget::modifiedChanged(bool modified)
 void Kwave::TopWidget::updateCaption()
 {
     const Kwave::FileContext *context = currentContext();
-    QString caption = (context) ? context->windowCaption() : QString();
+    QString caption = (context) ? context->windowCaption(true) : QString();
     setCaption(caption);
 }
 

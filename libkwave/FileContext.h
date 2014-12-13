@@ -120,8 +120,11 @@ namespace Kwave
 	/** returns the instance of the loaded file or -1 */
 	inline int instanceNr() const { return m_instance_nr; }
 
-	/** returns a string suitable as window caption */
-	QString windowCaption() const;
+	/**
+	 * returns a string suitable as window caption
+	 * @param with_modified if true, include the "modified" state
+	 */
+	QString windowCaption(bool with_modified) const;
 
 	/**
 	 * Loads a batch file into memory, parses and executes

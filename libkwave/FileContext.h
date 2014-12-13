@@ -286,11 +286,6 @@ namespace Kwave
 	void activated();
 
 	/**
-	 * should be called when this context got inactive
-	 */
-	void deactivated();
-
-	/**
 	 * Show a message in the status bar
 	 * @param msg the status bar message, already localized
 	 * @param ms the time in milliseconds to show the message
@@ -347,12 +342,6 @@ namespace Kwave
 	/** number of milliseconds the status message should be shown */
 	unsigned int m_last_status_message_ms;
 
-	/** last selection: offset */
-	sample_index_t m_last_selection_offset;
-
-	/** last selection: length */
-	sample_index_t m_last_selection_length;
-
 	/** name of the last undo action */
 	QString m_last_undo;
 
@@ -361,15 +350,6 @@ namespace Kwave
 
 	/** last "modified" state of the signal */
 	bool m_last_modified;
-
-	/** last visible range: offset */
-	sample_index_t m_last_visible_offset;
-
-	/** last visible range: number of visible samples */
-	sample_index_t m_last_visible_samples;
-
-	/** last visible range: total samples */
-	sample_index_t m_last_visible_total;
 
 	/** instance of the loaded file or -1 */
 	int m_instance_nr;

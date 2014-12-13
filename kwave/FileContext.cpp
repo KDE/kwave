@@ -77,14 +77,9 @@ Kwave::FileContext::FileContext(Kwave::App &app)
      m_last_status_message_text(),
      m_last_status_message_timer(),
      m_last_status_message_ms(0),
-     m_last_selection_offset(SAMPLE_INDEX_MAX),
-     m_last_selection_length(SAMPLE_INDEX_MAX),
      m_last_undo(QString()),
      m_last_redo(QString()),
      m_last_modified(false),
-     m_last_visible_offset(SAMPLE_INDEX_MAX),
-     m_last_visible_samples(SAMPLE_INDEX_MAX),
-     m_last_visible_total(SAMPLE_INDEX_MAX),
      m_instance_nr(-1)
 {
 }
@@ -433,8 +428,7 @@ void Kwave::FileContext::metaDataChanged(Kwave::MetaDataList meta_data)
     if (isActive()) {
 	// we are active -> emit the meta data immediately
 	emit sigMetaDataChanged(meta_data);
-    }
-    // else: we are inactive -> emit the meta data later, when activated
+    } // else: we are inactive -> emit the meta data later, when activated
 
     // update the caption of the sub window
     if (m_main_widget && (m_application.guiType() != Kwave::App::GUI_SDI))
@@ -445,15 +439,10 @@ void Kwave::FileContext::metaDataChanged(Kwave::MetaDataList meta_data)
 void Kwave::FileContext::selectionChanged(sample_index_t offset,
                                           sample_index_t length)
 {
-    m_last_selection_offset = offset;
-    m_last_selection_length = length;
-
     if (isActive()) {
 	// we are active -> emit the selection change immediately
 	emit sigSelectionChanged(offset, length);
-    } else {
-	// we are inactive -> emit the selection change later, when activated
-    }
+    } // else: we are inactive -> not of interest / ignore
 }
 
 //***************************************************************************
@@ -466,9 +455,7 @@ void Kwave::FileContext::setUndoRedoInfo(const QString &undo,
     if (isActive()) {
 	// we are active -> emit the undo/redo info immediately
 	emit sigUndoRedoInfo(undo, redo);
-    } else {
-	// we are inactive -> emit the undo/redo info later, when activated
-    }
+    } // else: we are inactive -> emit the undo/redo info later, when activated
 }
 
 //***************************************************************************
@@ -479,16 +466,7 @@ void Kwave::FileContext::visibleRangeChanged(sample_index_t offset,
     if (isActive()) {
 	// we are active -> emit the view info immediately
 	emit sigVisibleRangeChanged(offset, visible, total);
-
-	m_last_visible_offset  = SAMPLE_INDEX_MAX;
-	m_last_visible_samples = SAMPLE_INDEX_MAX;
-	m_last_visible_total   = SAMPLE_INDEX_MAX;
-    } else {
-	// we are inactive -> emit the view info later, when activated
-	m_last_visible_offset  = offset;
-	m_last_visible_samples = visible;
-	m_last_visible_total   = total;
-    }
+    } // else: we are inactive -> emit the view info later, when activated
 }
 
 //***************************************************************************
@@ -499,9 +477,7 @@ void Kwave::FileContext::modifiedChanged(bool modified)
     if (isActive()) {
 	// we are active -> emit the modified state immediately
 	emit sigModified(modified);
-    } else {
-	// we are inactive -> emit the modified state later, when activated
-    }
+    } // else: we are inactive -> emit the modified state later, when activated
 
     // update the caption of our main widget
     if (m_main_widget && (m_application.guiType() != Kwave::App::GUI_SDI))
@@ -516,12 +492,8 @@ void Kwave::FileContext::contextSwitched(Kwave::FileContext *context)
 	    m_active = true;
 	    activated();
 	}
-    } else {
-	if (m_active) {
-	    m_active = false;
-	    deactivated();
-	}
-    }
+    } else
+	m_active = false;
 }
 
 //***************************************************************************
@@ -534,7 +506,10 @@ void Kwave::FileContext::activated()
     // emit last zoom factor
     forwardZoomChanged(m_last_zoom);
 
-    // emit last status bar message if it has not expired
+    // erase the status message of the previous context
+    emit sigStatusBarMessage(QString(), 0);
+
+    // emit our last status bar message if it has not expired
     if (m_last_status_message_timer.isValid()) {
 	quint64 elapsed = m_last_status_message_timer.elapsed();
 	if (elapsed < m_last_status_message_ms) {
@@ -554,32 +529,20 @@ void Kwave::FileContext::activated()
     if (m_signal_manager)
 	emit sigMetaDataChanged(m_signal_manager->metaData());
 
-    // emit last view range change (always, if available)
-    if (!( (m_last_visible_offset  == SAMPLE_INDEX_MAX) &&
-           (m_last_visible_samples == SAMPLE_INDEX_MAX) &&
-           (m_last_visible_total   == SAMPLE_INDEX_MAX)))
-    {
-	emit sigVisibleRangeChanged(m_last_visible_offset,
-	                            m_last_visible_samples,
-	                            m_last_visible_total);
+    // emit latest view range change
+    if (m_main_widget && m_signal_manager) {
+	sample_index_t offset  = m_main_widget->visibleOffset();
+	sample_index_t visible = m_main_widget->visibleSamples();
+	sample_index_t total   = m_signal_manager->length();
+	emit sigVisibleRangeChanged(offset, visible, total);
     }
 
-    // emit last selection change (always, if available)
-    if ( (m_last_selection_length != SAMPLE_INDEX_MAX) &&
-         (m_last_selection_offset != SAMPLE_INDEX_MAX) )
-    {
-	emit sigSelectionChanged(m_last_selection_offset,
-	                         m_last_selection_length);
-    }
-
-    // emit the last "modified" state (always)
+    // emit the last "modified" state
     emit sigModified(m_last_modified);
 
-}
+    // emit last undo/redo info
+    emit sigUndoRedoInfo(m_last_undo, m_last_redo);
 
-//***************************************************************************
-void Kwave::FileContext::deactivated()
-{
 }
 
 //***************************************************************************

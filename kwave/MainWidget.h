@@ -115,6 +115,9 @@ namespace Kwave
 	/** Returns the width of the current view in samples */
 	virtual sample_index_t visibleSamples() const;
 
+	/** Returns the current start position of the visible area [samples] */
+	virtual sample_index_t visibleOffset() { return m_offset; }
+
 	/** Returns the preferred size of the widget */
 	virtual QSize sizeHint () const { return m_preferred_size; }
 

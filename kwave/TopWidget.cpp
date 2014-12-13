@@ -309,6 +309,7 @@ bool Kwave::TopWidget::init()
 	    if (!m_mdi_area) return false;
 	    m_mdi_area->setViewMode(QMdiArea::TabbedView);
 	    m_mdi_area->setTabsClosable(true);
+	    m_mdi_area->setTabsMovable(true);
 	    break;
     }
 
@@ -753,7 +754,7 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     if (url.scheme().toLower() == Kwave::urlScheme()) {
 	QString cmd = Kwave::Parser::fromUrl(url);
 	Kwave::Logger::log(this, Kwave::Logger::Info,
-	    _("CMD from command line: '") + cmd + _("'"));
+	    _("CMD: from command line: '") + cmd + _("'"));
 	Kwave::Splash::showMessage(i18n("Executing command '%1'...", cmd));
 	return executeCommand(cmd);
     }
@@ -1112,28 +1113,28 @@ void Kwave::TopWidget::updateMenu()
     switch (m_application.guiType()) {
 	case Kwave::App::GUI_SDI:
 	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_SDI"));
-	    m_menu_manager->setItemVisible(_("ID_WINDOW"), false);
-	    m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"), false);
-	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"), false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"),         false);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"),    false);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"),    false);
 	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), false);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"), false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),    false);
 	    break;
 	case Kwave::App::GUI_MDI:
 	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_MDI"));
-	    m_menu_manager->setItemVisible(_("ID_WINDOW"), true);
-	    m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"), true);
-	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"), true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"),         true);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"),    true);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"),    true);
 	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), true);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"), true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),    true);
 	    have_window_menu = true;
 	    break;
 	case Kwave::App::GUI_TAB:
 	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_TAB"));
-	    m_menu_manager->setItemVisible(_("ID_WINDOW"), true);
-	    m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"), true);
-	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"), true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"),         true);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"),    true);
+	    m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"),    true);
 	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), false);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"), false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),    false);
 	    have_window_menu = true;
 	    break;
     }
@@ -1263,8 +1264,12 @@ void Kwave::TopWidget::showStatusBarMessage(const QString &msg,
                                             unsigned int ms)
 {
     KStatusBar *status_bar = statusBar();
-    Q_ASSERT(status_bar);
-    if (status_bar) status_bar->showMessage(msg, ms);
+    if (!status_bar) return;
+
+    if (msg.length())
+	status_bar->showMessage(msg, ms);
+    else
+	status_bar->clearMessage();
 }
 
 //***************************************************************************

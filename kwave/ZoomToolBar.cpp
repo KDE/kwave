@@ -26,7 +26,6 @@
 #include <klocale.h>
 #include <kmainwindow.h>
 
-#include "libkwave/FileContext.h"
 #include "libkwave/Selection.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
@@ -34,6 +33,7 @@
 #include "libgui/MenuManager.h"
 #include "libgui/Zoomable.h"
 
+#include "FileContext.h"
 #include "ZoomToolBar.h"
 
 /** role value for entries in the zoom combo box, "predefined" flag (bool) */

@@ -1,5 +1,5 @@
 /***************************************************************************
-    libkwave/FileContext.h  -  Context of a Loaded File
+    kwave/FileContext.h  -  Context of a Loaded File
 			     -------------------
     begin                : 2009-12-31
     copyright            : (C) 2009 by Thomas.Eschenbacher

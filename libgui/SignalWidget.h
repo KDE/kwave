@@ -82,11 +82,14 @@ namespace Kwave
 	/**
 	 * Constructor
 	 * @param parent parent widget
-	 * @param context reference to the context of this instance
+	 * @param signal_manager signal manager of the file context
+	 * @param top_widget top widget of the file context
 	 * @param upper_dock layout of the upper docking area
 	 * @param lower_dock layout of the lower docking area
 	 */
-	SignalWidget(QWidget *parent, Kwave::FileContext &context,
+	SignalWidget(QWidget *parent,
+	             Kwave::SignalManager *signal_manager,
+	             QWidget *top_widget,
 	             QVBoxLayout *upper_dock, QVBoxLayout *lower_dock);
 
 	/** Destructor */
@@ -253,8 +256,11 @@ namespace Kwave
 
     private:
 
-	/** context of the Kwave application instance */
-	Kwave::FileContext &m_context;
+	/** the signal manager of the corresponding context */
+	Kwave::SignalManager *m_signal_manager;
+
+	/** pointer to the toplevel widget of the corresponding context */
+	QWidget *m_top_widget;
 
 	/**
 	 * list of signal views. Contains one entry for each signal view, starting

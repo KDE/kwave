@@ -44,7 +44,6 @@
 #include <kiconloader.h>
 
 #include "libkwave/ClipBoard.h"
-#include "libkwave/FileContext.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
@@ -85,11 +84,13 @@
 
 //***************************************************************************
 Kwave::SignalWidget::SignalWidget(QWidget *parent,
-                                  Kwave::FileContext &context,
+                                  Kwave::SignalManager *signal_manager,
+                                  QWidget *top_widget,
                                   QVBoxLayout *upper_dock,
                                   QVBoxLayout *lower_dock)
     :QWidget(parent),
-     m_context(context),
+     m_signal_manager(signal_manager),
+     m_top_widget(top_widget),
      m_views(),
      m_layout(this),
      m_upper_dock(upper_dock),
@@ -102,7 +103,7 @@ Kwave::SignalWidget::SignalWidget(QWidget *parent,
 //    qDebug("SignalWidget::SignalWidget()");
 
     // connect to the signal manager's signals
-    Kwave::SignalManager *sig = m_context.signalManager();
+    Kwave::SignalManager *sig = m_signal_manager;
 
     connect(sig,  SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
             this, SLOT( slotTrackInserted(unsigned int, Kwave::Track *)));
@@ -182,12 +183,11 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 {
     Q_ASSERT(e);
 
-    Kwave::SignalManager *manager = m_context.signalManager();
-    bool have_signal = manager && !manager->isEmpty();
+    bool have_signal = m_signal_manager && !m_signal_manager->isEmpty();
     if (!have_signal)return;
-    bool have_selection = manager && (manager->selection().length() > 1);
-    bool have_labels = manager &&
-	!(Kwave::LabelList(manager->metaData()).isEmpty());
+    bool have_selection = (m_signal_manager->selection().length() > 1);
+    bool have_labels =
+	!(Kwave::LabelList(m_signal_manager->metaData()).isEmpty());
 
     QMenu *context_menu = new QMenu(this);
     Q_ASSERT(context_menu);
@@ -205,7 +205,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 	Qt::CTRL + Qt::Key_Z);
     Q_ASSERT(action);
     if (!action) return;
-    if (!manager || !manager->canUndo())
+    if (!m_signal_manager->canUndo())
 	action->setEnabled(false);
 
     // redo
@@ -215,7 +215,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 	Qt::CTRL + Qt::Key_Y);
     Q_ASSERT(action);
     if (!action) return;
-    if (!manager || !manager->canRedo())
+    if (!m_signal_manager->canRedo())
 	action->setEnabled(false);
     context_menu->addSeparator();
 
@@ -563,11 +563,10 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
     view->setZoomAndOffset(m_zoom, m_offset);
 
     // connect all signals
-    QWidget *top_widget = reinterpret_cast<QWidget *>(m_context.topWidget());
     connect(view,       SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
                                                sample_index_t, sample_index_t)),
-            top_widget, SLOT(mouseChanged(Kwave::MouseMark::Mode,
-                                          sample_index_t, sample_index_t)));
+            m_top_widget, SLOT(mouseChanged(Kwave::MouseMark::Mode,
+                                            sample_index_t, sample_index_t)));
 
     connect(view,       SIGNAL(sigCommand(QString)),
 	    this,       SIGNAL(sigCommand(QString)),
@@ -598,7 +597,7 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
 
     // create a new view for the track's signal
     Kwave::SignalView *new_view = new Kwave::TrackView(
-	this, controls, m_context.signalManager(), track);
+	this, controls, m_signal_manager, track);
     Q_ASSERT(new_view);
     if (!new_view) {
 	delete controls;

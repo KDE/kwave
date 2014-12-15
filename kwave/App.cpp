@@ -29,7 +29,6 @@
 #include <ktoolinvocation.h>
 
 #include "libkwave/ClipBoard.h"
-#include "libkwave/FileContext.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"
 #include "libkwave/MemoryManager.h"
@@ -41,9 +40,10 @@
 #include "libkwave/PluginManager.h"
 #include "libkwave/Utils.h"
 
-#include "TopWidget.h"
 #include "App.h"
+#include "FileContext.h"
 #include "Splash.h"
+#include "TopWidget.h"
 
 /** maximum number of recent files */
 #define MAX_RECENT_FILES 20

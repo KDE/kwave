@@ -30,13 +30,13 @@
 #include <kmainwindow.h>
 #include <kurl.h>
 
-#include "libkwave/FileContext.h"
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"
 
 #include "libgui/MouseMark.h"
 
 #include "App.h"
+#include "FileContext.h"
 
 class QCloseEvent;
 class QLabel;

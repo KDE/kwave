@@ -58,7 +58,6 @@
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
-#include "libkwave/FileContext.h"
 #include "libkwave/Plugin.h" // for some helper functions
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"
@@ -74,9 +73,10 @@
 #include "libgui/MenuManager.h"
 
 #include "App.h"
-#include "Splash.h"
+#include "FileContext.h"
 #include "MainWidget.h"
 #include "PlayerToolBar.h"
+#include "Splash.h"
 #include "TopWidget.h"
 #include "ZoomToolBar.h"
 

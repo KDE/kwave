@@ -34,7 +34,6 @@
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"
-#include "libkwave/FileContext.h"
 #include "libkwave/FileDrag.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
@@ -50,6 +49,7 @@
 #include "libgui/OverViewWidget.h"
 #include "libgui/SignalWidget.h"
 
+#include "FileContext.h"
 #include "MainWidget.h"
 
 /**
@@ -77,7 +77,13 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
      Kwave::Zoomable(),
      m_context(context), m_upper_dock(), m_lower_dock(),
      m_scroll_area(this), m_horizontal_scrollbar(0),
-     m_signal_widget(&m_scroll_area, context, &m_upper_dock, &m_lower_dock),
+     m_signal_widget(
+         &m_scroll_area,
+         context.signalManager(),
+         context.topWidget(),
+         &m_upper_dock,
+         &m_lower_dock
+     ),
      m_overview(0), m_offset(0), m_zoom(1.0),
      m_preferred_size(preferred_size)
 {

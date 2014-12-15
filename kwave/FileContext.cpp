@@ -30,7 +30,6 @@
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"
-#include "libkwave/FileContext.h"
 #include "libkwave/Logger.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/Parser.h"
@@ -42,6 +41,7 @@
 #include "libgui/FileDialog.h"
 
 #include "App.h"
+#include "FileContext.h"
 #include "MainWidget.h"
 #include "Splash.h"
 #include "TopWidget.h"

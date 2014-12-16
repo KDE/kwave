@@ -21,13 +21,14 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <QtCore/QtGlobal>
+#include <QtCore/QPoint>
 #include <QtGui/QApplication>
 #include <QtGui/QFrame>
 #include <QtGui/QGridLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QResizeEvent>
 #include <QtGui/QScrollBar>
-#include <QtCore/QtGlobal>
 #include <QtGui/QWheelEvent>
 
 #include <klocale.h>
@@ -49,6 +50,7 @@
 #include "libgui/OverViewWidget.h"
 #include "libgui/SignalWidget.h"
 
+#include "App.h"
 #include "FileContext.h"
 #include "MainWidget.h"
 
@@ -85,7 +87,8 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
          &m_lower_dock
      ),
      m_overview(0), m_offset(0), m_zoom(1.0),
-     m_preferred_size(preferred_size)
+     m_preferred_size(preferred_size),
+     m_delayed_update_timer(this)
 {
 //    qDebug("MainWidget::MainWidget()");
 
@@ -187,6 +190,11 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
             this,
             SLOT(updateViewRange()));
 
+    // set up the timer for delayed view range update
+    m_delayed_update_timer.setSingleShot(true);
+    connect(&m_delayed_update_timer, SIGNAL(elapsed()),
+            this, SLOT(updateViewRange()));
+
     setLayout(topLayout);
 }
 
@@ -207,8 +215,20 @@ Kwave::MainWidget::~MainWidget()
 //***************************************************************************
 void Kwave::MainWidget::resizeEvent(QResizeEvent *event)
 {
-    Q_UNUSED(event);
-    updateViewRange();
+    QWidget::resizeEvent(event);
+
+    if (!m_context.isActive() &&
+	(m_context.app().guiType() == Kwave::App::GUI_TAB))
+    {
+	// HACK: this is a workaround for stupid bug in Qt, which sends us a
+	//       resize event with bogus size, when we are in tab mode, just
+	//       before getting deactivated !?
+	if (!m_delayed_update_timer.isActive())
+	    m_delayed_update_timer.start(0);
+    } else {
+	// update immediately
+	updateViewRange();
+    }
 }
 
 //***************************************************************************

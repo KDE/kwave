@@ -27,7 +27,6 @@
 #include <QtCore/QObject>
 #include <QtGui/QPainter>
 #include <QtGui/QPixmap>
-#include <QtCore/QPoint>
 #include <QtCore/QPointer>
 #include <QtGui/QPolygon>
 #include <QtCore/QQueue>
@@ -53,6 +52,7 @@ class QEvent;
 class QMouseEvent;
 class QMoveEvent;
 class QPaintEvent;
+class QPoint;
 class QVBoxLayout;
 class QWheelEvent;
 

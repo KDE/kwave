@@ -80,6 +80,9 @@ namespace Kwave
 	 */
 	bool createMainWidget(const QSize &preferred_size);
 
+	/** returns a reference to the application instance */
+	Kwave::App           &app() const { return m_application; }
+
 	/** returns a pointer to the instance's toplevel window */
 	QWidget              *topWidget() const;
 

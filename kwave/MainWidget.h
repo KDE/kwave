@@ -22,6 +22,7 @@
 
 #include <QtCore/QString>
 #include <QtCore/QSize>
+#include <QtCore/QTimer>
 
 #include <QtGui/QScrollArea>
 #include <QtGui/QVBoxLayout>
@@ -349,6 +350,9 @@ namespace Kwave
 
 	/** preferred size of the widget */
 	QSize m_preferred_size;
+
+	/** timer for delayed update */
+	QTimer m_delayed_update_timer;
     };
 }
 

@@ -192,7 +192,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     // set up the timer for delayed view range update
     m_delayed_update_timer.setSingleShot(true);
-    connect(&m_delayed_update_timer, SIGNAL(elapsed()),
+    connect(&m_delayed_update_timer, SIGNAL(timeout()),
             this, SLOT(updateViewRange()));
 
     setLayout(topLayout);

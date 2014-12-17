@@ -241,6 +241,9 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 
 	decoder->close();
 
+	// process any queued events of the writers, like "sigSamplesInserted"
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+
 	// check for length info in stream mode
 	if (!res && streaming) {
 	    // source was opened in stream mode -> now we have the length

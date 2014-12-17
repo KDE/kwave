@@ -129,6 +129,13 @@ bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
 	    this, SLOT(visibleRangeChanged(sample_index_t,
 	    sample_index_t, sample_index_t)) );
 
+    connect(m_main_widget,
+	    SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
+	                           sample_index_t, sample_index_t)),
+            m_top_widget,
+	    SLOT(mouseChanged(Kwave::MouseMark::Mode,
+	                      sample_index_t, sample_index_t)));
+
     return true;
 }
 
@@ -194,13 +201,6 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     statusBarMessage(i18n("Ready"), 1000);
 
     return true;
-}
-
-//***************************************************************************
-QWidget *Kwave::FileContext::topWidget() const
-{
-    Q_ASSERT(m_top_widget);
-    return m_top_widget;
 }
 
 //***************************************************************************

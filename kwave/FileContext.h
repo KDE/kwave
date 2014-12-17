@@ -83,9 +83,6 @@ namespace Kwave
 	/** returns a reference to the application instance */
 	Kwave::App           &app() const { return m_application; }
 
-	/** returns a pointer to the instance's toplevel window */
-	QWidget              *topWidget() const;
-
 	/**
 	 * returns a pointer to the main widget of this context
 	 */

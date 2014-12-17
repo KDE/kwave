@@ -247,14 +247,12 @@ void Kwave::ZoomToolBar::setZoomInfo(Kwave::FileContext *context, double zoom)
     Kwave::Zoomable *zoomable = m_context->zoomable();
     Q_ASSERT(zoom >= 0);
     Q_ASSERT(m_zoomselect);
-    Q_ASSERT(zoomable);
     if (zoom <= 0.0) return; // makes no sense or signal is empty
     if (!m_zoomselect) return;
-    if (!zoomable) return;
 
     double rate = (signal_manager) ? signal_manager->rate() : 0.0;
-    double ms   = (rate > 0) ?
-	(((zoomable->visibleSamples()) * 1E3) / rate) : 0;
+    double ms   = ((rate > 0) && (zoomable)) ?
+	(((zoomable->visibleSamples()) * 1E3) / rate) : 0.0;
 
     QString strZoom;
     if ((signal_manager) && (signal_manager->tracks())) {

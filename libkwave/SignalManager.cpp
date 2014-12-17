@@ -168,6 +168,9 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	meta_data = decoder->metaData();
 	Kwave::FileInfo info(meta_data);
 
+	// take the preliminary meta data, needed for estimated length
+	m_meta_data = meta_data;
+
 	// detect stream mode. if so, use one sample as display
 	bool streaming = (!info.length());
 
@@ -241,9 +244,6 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 
 	decoder->close();
 
-	// process any queued events of the writers, like "sigSamplesInserted"
-	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-
 	// check for length info in stream mode
 	if (!res && streaming) {
 	    // source was opened in stream mode -> now we have the length
@@ -286,6 +286,9 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
     } else {
 	delete decoder;
     }
+
+    // process any queued events of the writers, like "sigSamplesInserted"
+    qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
     // remember the last length and selection
     m_last_length = length();

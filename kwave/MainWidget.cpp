@@ -82,7 +82,6 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
      m_signal_widget(
          &m_scroll_area,
          context.signalManager(),
-         context.topWidget(),
          &m_upper_dock,
          &m_lower_dock
      ),
@@ -174,6 +173,12 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this,             SIGNAL(sigCommand(const QString &)));
+    connect(&m_signal_widget,
+	    SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
+	                           sample_index_t, sample_index_t)),
+            this,
+	    SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
+	                           sample_index_t, sample_index_t)));
 
     // -- connect all signals from/to the signal manager --
 
@@ -682,6 +687,7 @@ double Kwave::MainWidget::fullZoom() const
 		signal_manager->rate()));
 	}
     }
+    if (!length) return 0; // still no length !? -> bail out
 
     // example: width = 100 [pixels] and length = 3 [samples]
     //          -> samples should be at positions 0, 49.5 and 99

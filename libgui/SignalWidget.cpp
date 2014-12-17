@@ -85,12 +85,10 @@
 //***************************************************************************
 Kwave::SignalWidget::SignalWidget(QWidget *parent,
                                   Kwave::SignalManager *signal_manager,
-                                  QWidget *top_widget,
                                   QVBoxLayout *upper_dock,
                                   QVBoxLayout *lower_dock)
     :QWidget(parent),
      m_signal_manager(signal_manager),
-     m_top_widget(top_widget),
      m_views(),
      m_layout(this),
      m_upper_dock(upper_dock),
@@ -565,8 +563,8 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
     // connect all signals
     connect(view,       SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
                                                sample_index_t, sample_index_t)),
-            m_top_widget, SLOT(mouseChanged(Kwave::MouseMark::Mode,
-                                            sample_index_t, sample_index_t)));
+            this,       SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
+                                               sample_index_t, sample_index_t)));
 
     connect(view,       SIGNAL(sigCommand(QString)),
 	    this,       SIGNAL(sigCommand(QString)),

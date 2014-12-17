@@ -40,6 +40,7 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 
+#include "libgui/MouseMark.h"
 #include "libgui/SignalView.h"
 
 class QBitmap;
@@ -83,13 +84,11 @@ namespace Kwave
 	 * Constructor
 	 * @param parent parent widget
 	 * @param signal_manager signal manager of the file context
-	 * @param top_widget top widget of the file context
 	 * @param upper_dock layout of the upper docking area
 	 * @param lower_dock layout of the lower docking area
 	 */
 	SignalWidget(QWidget *parent,
 	             Kwave::SignalManager *signal_manager,
-	             QWidget *top_widget,
 	             QVBoxLayout *upper_dock, QVBoxLayout *lower_dock);
 
 	/** Destructor */
@@ -127,6 +126,16 @@ namespace Kwave
 
 	/** child views can connected to this signal to synchronize repaints */
 	void sigRepaint();
+
+	/**
+	 * Emits a change in the mouse cursor (forwarded from SignalView).
+	 * @see Kwave::SignalView
+	 * @param mode one of the modes in enum MouseMode
+	 * @param offset selection start (not valid if mode is MouseNormal)
+	 * @param length selection length (not valid if mode is MouseNormal)
+	 */
+	void sigMouseChanged(Kwave::MouseMark::Mode mode,
+	                     sample_index_t offset, sample_index_t length);
 
     public slots:
 
@@ -258,9 +267,6 @@ namespace Kwave
 
 	/** the signal manager of the corresponding context */
 	Kwave::SignalManager *m_signal_manager;
-
-	/** pointer to the toplevel widget of the corresponding context */
-	QWidget *m_top_widget;
 
 	/**
 	 * list of signal views. Contains one entry for each signal view, starting

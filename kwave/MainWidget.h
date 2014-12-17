@@ -30,6 +30,7 @@
 
 #include "libkwave/CommandHandler.h"
 
+#include "libgui/MouseMark.h"
 #include "libgui/SignalWidget.h"
 #include "libgui/Zoomable.h"
 
@@ -257,6 +258,15 @@ namespace Kwave
 	void sigVisibleRangeChanged(sample_index_t offset,
 	                            sample_index_t visible,
 	                            sample_index_t total);
+	/**
+	 * Emits a change in the mouse cursor (forwarded from SignalView).
+	 * @see Kwave::SignalView
+	 * @param mode one of the modes in enum MouseMode
+	 * @param offset selection start (not valid if mode is MouseNormal)
+	 * @param length selection length (not valid if mode is MouseNormal)
+	 */
+	void sigMouseChanged(Kwave::MouseMark::Mode mode,
+	                     sample_index_t offset, sample_index_t length);
 
     private:
 

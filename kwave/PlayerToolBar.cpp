@@ -25,7 +25,6 @@
 #include <klocale.h>
 #include <kmainwindow.h>
 
-#include "libkwave/FileContext.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/Parser.h"
 #include "libkwave/PlaybackController.h"
@@ -33,6 +32,7 @@
 
 #include "libgui/MenuManager.h"
 
+#include "FileContext.h"
 #include "PlayerToolBar.h"
 
 /** default width to skip when doing a "seek" = 1/10 of visible range */
@@ -126,8 +126,6 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
 	                     KIconLoader::Toolbar, max_s),
 	i18n("Next"),
 	this, SLOT(toolbarForwardNext()));
-
-    // connect the playback controller
 
     // initial state update
     updateState();

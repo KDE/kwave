@@ -54,7 +54,6 @@ SET(libkwave_LIB_SRCS
     Decoder.cpp
     Drag.cpp
     Encoder.cpp
-    FileContext.cpp
     Filter.cpp
     FileInfo.cpp
     FileProgress.cpp

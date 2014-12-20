@@ -33,10 +33,10 @@ namespace Kwave
 
     /**
      * This is the class for the root of a Menu (e.g. a MenuBar) that contains
-     * all toplevel menues of a menu hierarchy.
+     * all toplevel menus of a menu hierarchy.
      * @author Thomas Eschenbacher
      */
-    class MenuRoot : virtual public Kwave::MenuNode
+    class MenuRoot : public Kwave::MenuNode
     {
 	Q_OBJECT
 
@@ -72,8 +72,8 @@ namespace Kwave
 	                        const QString &uid);
 
 	/**
-	 * Inserts a new branch node into the menu structure. The new node
-	 * normally is (derived from) MenuToplevel.
+	 * Inserts a new branch node into the menu structure.
+	 *
 	 * @param name non-localized name of the node
 	 * @param command the command template used for creating commands of
 	 *                submenus (leafes) that don't have an own command
@@ -107,14 +107,14 @@ namespace Kwave
 	                                    const QString &uid);
 
 	/**
-	 * Removes a child node of the curren node. If the child
+	 * Removes a child node of the current node. If the child
 	 * was not found or is already removed this does nothing.
 	 * @param child pointer to the child node
 	 */
 	virtual void removeChild(Kwave::MenuNode *child);
 
 	/**
-	 * Handles/interpretes special menu commands.
+	 * Handles/interprets special menu commands.
 	 * @param command name of a menu node or command
 	 * @return true if the name was recognized as a command and handled
 	 */
@@ -130,6 +130,21 @@ namespace Kwave
 	 * in this context
 	 */
 	static void deleteLater(Kwave::MenuNode *node);
+
+    protected:
+	friend class MenuSub;
+
+	/**
+	 * Makes a child node visible, by adding it to the menu bar
+	 * @param child pointer to the child node (normally a MenuSub)
+	 */
+	void showChild(Kwave::MenuSub *child);
+
+	/**
+	 * Makes a child node invisible, by removing it from the menu bar
+	 * @param child pointer to the child node (normally a MenuSub)
+	 */
+	void hideChild(Kwave::MenuSub *child);
 
     private:
 

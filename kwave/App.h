@@ -22,6 +22,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QList>
+#include <QtCore/QPair>
 #include <QtCore/QStringList>
 
 #include <kuniqueapplication.h>
@@ -48,10 +49,16 @@ namespace Kwave
 
 	typedef enum {
 	    GUI_SDI, /**< single document interface (SDI)          */
-	    GUI_MDI  /**< multi document interface (MDI)           */
-	/*  GUI_TAB,      tabbed interface                         */
+	    GUI_MDI, /**< multi document interface (MDI)           */
+	    GUI_TAB  /**< tabbed interface                         */
 	/*  GUI_IDE       integrated development environment (IDE) */
 	} GuiType;
+
+	/**
+	 * pair of file name and instance
+	 * @see #openFiles()
+	 */
+	typedef QPair<QString,int> FileAndInstance;
 
 	/** Constructor */
 	App();
@@ -78,29 +85,38 @@ namespace Kwave
 	virtual int newInstance();
 
 	/**
-	 * Opens a new toplevel window. If a filename is specified the will
-	 * will be opened (should be a .wav-file).
+	 * Opens a new toplevel window. If a filename is specified the file
+	 * will be opened.
 	 * @param url URL of the file to be loaded, (optional, might be empty)
-	 * @return true if succeeded
-	 * @see #closeWindow()
+	 * @return true if succeeded, false if failed
+	 * @see #toplevelWindowHasClosed()
 	 * @see TopWidget
 	 */
 	bool newWindow(const KUrl &url);
 
 	/**
-	 * Closes a previously opened toplevel window.
-	 * @param todel the toplevel window that closes down
+	 * Called when a toplevel window has closed.
+	 * @param todel the toplevel window that has closed
 	 * @return true if it was the last toplevel window
-	 * @see #newWindow()
-	 * @see TopWidget
 	 */
-	bool closeWindow(Kwave::TopWidget *todel);
+	bool toplevelWindowHasClosed(Kwave::TopWidget *todel);
 
 	/** Returns a reference to the list of recent files */
 	inline QStringList recentFiles() const { return m_recent_files; }
 
+	/** Returns a list of currently opened files and their instance */
+	QList<FileAndInstance> openFiles() const;
+
 	/** returns the GUI type (e.g. SDI, MDI etc.) */
 	GuiType guiType() const { return m_gui_type; }
+
+	/**
+	 * Switches the GUI type to a new style, using the current toplevel
+	 * widget as start.
+	 * @param top the current toplevel widget
+	 * @param new_type the new GUI type
+	 */
+	void switchGuiType(Kwave::TopWidget *top, GuiType new_type);
 
     signals:
 	/**
@@ -121,7 +137,7 @@ namespace Kwave
 	 */
 	int executeCommand(const QString &command);
 
-    protected:
+    private:
 
 	/**
 	 * Reads the configuration settings and the list of recent files

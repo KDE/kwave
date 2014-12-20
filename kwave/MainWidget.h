@@ -21,15 +21,20 @@
 #include "config.h"
 
 #include <QtCore/QString>
+#include <QtCore/QSize>
+#include <QtCore/QTimer>
+
 #include <QtGui/QScrollArea>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 
 #include "libkwave/CommandHandler.h"
 
+#include "libgui/MouseMark.h"
 #include "libgui/SignalWidget.h"
 #include "libgui/Zoomable.h"
 
+class QCloseEvent;
 class QDragEnterEvent;
 class QDropEvent;
 class QScrollBar;
@@ -87,8 +92,12 @@ namespace Kwave
 	 * Constructor.
 	 * @param parent parent widget
 	 * @param context reference to the context of this instance
+	 * @param preferred_size preferred size of the widget,
+	 *                       needed in MDI mode, otherwise ignored
 	 */
-	MainWidget(QWidget *parent, Kwave::FileContext &context);
+	MainWidget(QWidget *parent,
+	           Kwave::FileContext &context,
+	           const QSize &preferred_size);
 
 	/**
 	 * Returns true if this instance was successfully initialized, or
@@ -107,6 +116,12 @@ namespace Kwave
 
 	/** Returns the width of the current view in samples */
 	virtual sample_index_t visibleSamples() const;
+
+	/** Returns the current start position of the visible area [samples] */
+	virtual sample_index_t visibleOffset() { return m_offset; }
+
+	/** Returns the preferred size of the widget */
+	virtual QSize sizeHint () const { return m_preferred_size; }
 
     protected:
 
@@ -127,6 +142,9 @@ namespace Kwave
 
 	/** slot for mouse wheel events, for scrolling/zooming */
 	virtual void wheelEvent(QWheelEvent *event);
+
+	/** @see QWidget::closeEvent() */
+	virtual void closeEvent(QCloseEvent *e);
 
     protected slots:
 
@@ -240,6 +258,15 @@ namespace Kwave
 	void sigVisibleRangeChanged(sample_index_t offset,
 	                            sample_index_t visible,
 	                            sample_index_t total);
+	/**
+	 * Emits a change in the mouse cursor (forwarded from SignalView).
+	 * @see Kwave::SignalView
+	 * @param mode one of the modes in enum MouseMode
+	 * @param offset selection start (not valid if mode is MouseNormal)
+	 * @param length selection length (not valid if mode is MouseNormal)
+	 */
+	void sigMouseChanged(Kwave::MouseMark::Mode mode,
+	                     sample_index_t offset, sample_index_t length);
 
     private:
 
@@ -331,6 +358,11 @@ namespace Kwave
 	/** number of samples per pixel */
 	double m_zoom;
 
+	/** preferred size of the widget */
+	QSize m_preferred_size;
+
+	/** timer for delayed update */
+	QTimer m_delayed_update_timer;
     };
 }
 

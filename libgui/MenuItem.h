@@ -69,6 +69,12 @@ namespace Kwave
 	virtual bool specialCommand(const QString &command);
 
 	/**
+	 * Shows/hides the current menu node.
+	 * @param visible true to show the item, false to hide
+	 */
+	virtual void setVisible(bool visible);
+
+	/**
 	 * Returns true if the node is enabled.
 	 */
 	virtual bool isEnabled();

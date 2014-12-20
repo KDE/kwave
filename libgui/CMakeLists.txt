@@ -31,6 +31,7 @@ SET(libkwavegui_LIB_SRCS
     MenuNode.cpp
     MenuGroup.cpp
     MenuItem.cpp
+    MenuList.cpp
     MenuSub.cpp
     MenuRoot.cpp
     MenuManager.cpp

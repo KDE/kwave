@@ -153,6 +153,9 @@ namespace Kwave
 	return static_cast<int>(x);
     }
 
+    /** returns the URL scheme for encoding/decoding kwave:<*> URLs */
+    QString KDE_EXPORT urlScheme();
+
 }
 
 #endif /* _KWAVE_UTILS_H_ */

@@ -22,6 +22,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QString>
 #include <QtCore/QMetaType>
+#include <QMutableListIterator>
 
 #include <kcmdlineargs.h>
 #include <kconfig.h>
@@ -29,7 +30,6 @@
 #include <ktoolinvocation.h>
 
 #include "libkwave/ClipBoard.h"
-#include "libkwave/FileContext.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"
 #include "libkwave/MemoryManager.h"
@@ -39,10 +39,12 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/Utils.h"
 
-#include "TopWidget.h"
 #include "App.h"
+#include "FileContext.h"
 #include "Splash.h"
+#include "TopWidget.h"
 
 /** maximum number of recent files */
 #define MAX_RECENT_FILES 20
@@ -69,11 +71,21 @@ Kwave::App::App()
     QString result;
     const KConfigGroup cfg = KGlobal::config()->group("Global");
     result = cfg.readEntry("UI Type");
-    if (result == _("MDI")) {
+    if (result == _("SDI")) {
+	m_gui_type = Kwave::App::GUI_SDI;
+    } else if (result == _("MDI")) {
 	m_gui_type = Kwave::App::GUI_MDI;
+    } else if (result == _("TAB")) {
+	m_gui_type = Kwave::App::GUI_TAB;
     }
     // else: "SDI" is default
+}
 
+//***************************************************************************
+Kwave::App::~App()
+{
+    saveRecentFiles();
+    m_recent_files.clear();
 }
 
 //***************************************************************************
@@ -108,8 +120,7 @@ int Kwave::App::newInstance()
 	// command line an load it
 	for (unsigned int i = 0; i < argc; i++) {
 	    QString name = args->arg(i);
-	    QFileInfo file(name);
-	    newWindow(file.absoluteFilePath());
+	    newWindow(KUrl(name));
 	}
     }
     if (args) args->clear();
@@ -135,6 +146,10 @@ int Kwave::App::executeCommand(const QString &command)
 	    ok = newWindow(KUrl(QString()));
 	}
 	return (ok) ? 0 : -EIO;
+    } else if (parser.command() == _("openrecent:clear")) {
+	m_recent_files.clear();
+	saveRecentFiles();
+	emit recentFilesChanged();
     } else if (parser.command() == _("help")) {
 	KToolInvocation::invokeHelp();
     } else {
@@ -168,50 +183,62 @@ void Kwave::App::addRecentFile(const QString &newfile)
 //***************************************************************************
 bool Kwave::App::newWindow(const KUrl &url)
 {
+    Kwave::TopWidget *new_top_widget = 0;
+
     Kwave::Splash::showMessage(i18n("Opening main window..."));
 
-    Kwave::TopWidget *new_top_widget = new Kwave::TopWidget(*this);
-    if (!new_top_widget || !new_top_widget->init()) {
-	// init failed
-	qWarning("ERROR: initialization of TopWidget failed");
-	delete new_top_widget;
-	return false;
+    switch (m_gui_type) {
+	case Kwave::App::GUI_TAB: /* FALLTHROUGH */
+	case Kwave::App::GUI_MDI:
+	    // re-use the last top widget to open the file
+	    if (!m_top_widgets.isEmpty())
+		new_top_widget = m_top_widgets.last();
+	    break;
+	case Kwave::App::GUI_SDI:
+	    // always create a new top widget, except when handling commands
+	    if (url.scheme().toLower() == Kwave::urlScheme())
+		new_top_widget = m_top_widgets.last();
+	    break;
     }
 
-    if (m_top_widgets.isEmpty()) {
-	// the first widget is the main widget !
-	setTopWidget(new_top_widget); // sets geometry and other properties
-	setTopWidget(0);              // that's enough, dont quit on close !
-    } else {
-	// create a new widget with the same geometry as
-	// the last created one
-	const QRect &geom = m_top_widgets.last()->geometry();
-	// calling setGeometry(geom) would overlap :-(
-	new_top_widget->resize(geom.width(), geom.height());
+    if (!new_top_widget) {
+	new_top_widget = new(std::nothrow) Kwave::TopWidget(*this);
+	if (!new_top_widget || !new_top_widget->init()) {
+	    // init failed
+	    qWarning("ERROR: initialization of TopWidget failed");
+	    delete new_top_widget;
+	    return false;
+	}
+
+	if (m_top_widgets.isEmpty()) {
+	    // the first widget is the main widget !
+	    setTopWidget(new_top_widget); // sets geometry and other properties
+	    setTopWidget(0);              // that's enough, don't quit on close!
+	} else {
+	    // create a new widget with the same geometry as
+	    // the last created one
+	    const QRect &geom = m_top_widgets.last()->geometry();
+	    // calling setGeometry(geom) would overlap :-(
+	    new_top_widget->resize(geom.width(), geom.height());
+	}
+
+	m_top_widgets.append(new_top_widget);
+	new_top_widget->show();
+
+	// inform the widget about changes in the list of recent files
+	connect(this, SIGNAL(recentFilesChanged()),
+		new_top_widget, SLOT(updateRecentFiles()));
     }
 
-    m_top_widgets.append(new_top_widget);
-    new_top_widget->show();
-
-    // inform the widget about changes in the list of recent files
-    connect(this, SIGNAL(recentFilesChanged()),
-            new_top_widget, SLOT(updateRecentFiles()));
-
-    if (!url.isEmpty()) {
-	Kwave::Splash::showMessage(i18n("Loading file '%1'...",
-	    url.prettyUrl()));
-	new_top_widget->loadFile(url);
-    }
+    if (!url.isEmpty()) new_top_widget->loadFile(url);
 
     Kwave::Splash::showMessage(i18n("Startup done"));
     return true;
 }
 
 //***************************************************************************
-bool Kwave::App::closeWindow(Kwave::TopWidget *todel)
+bool Kwave::App::toplevelWindowHasClosed(Kwave::TopWidget *todel)
 {
-    Q_ASSERT(todel);
-
     // save the list of recent files
     saveRecentFiles();
 
@@ -221,6 +248,91 @@ bool Kwave::App::closeWindow(Kwave::TopWidget *todel)
 
     // if list is empty -> no more windows there -> exit application
     return (m_top_widgets.isEmpty());
+}
+
+//***************************************************************************
+QList<Kwave::App::FileAndInstance> Kwave::App::openFiles() const
+{
+    QList<Kwave::App::FileAndInstance> all_files;
+    foreach (Kwave::TopWidget *topwidget, m_top_widgets) {
+	if (!topwidget) continue;
+	QList<Kwave::App::FileAndInstance> files = topwidget->openFiles();
+	if (!files.isEmpty())
+	    all_files += files;
+    }
+    return all_files;
+}
+
+//***************************************************************************
+void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
+{
+    Q_ASSERT(top);
+    if (!top) return;
+    if (new_type == m_gui_type) return;
+
+    // collect all contexts of all toplevel widgets, and delete all except
+    // the new top widget that is calling us
+    QList<Kwave::FileContext *> all_contexts;
+    QMutableListIterator<Kwave::TopWidget *> it(m_top_widgets);
+    while (it.hasNext()) {
+	Kwave::TopWidget *topwidget = it.next();
+	if (!topwidget) { it.remove(); continue; }
+	QList<Kwave::FileContext *> contexts = topwidget->detachAllContexts();
+	if (!contexts.isEmpty()) all_contexts += contexts;
+	if (topwidget != top) {
+	    it.remove();
+	    delete topwidget;
+	}
+    }
+
+    // from now on use the new GUI type
+    m_gui_type = new_type;
+
+    // at this point we should have exactly one toplevel widget without
+    // context and a list of contexts (which may be empty)
+    if (!all_contexts.isEmpty()) {
+	bool first = true;
+	foreach (Kwave::FileContext *context, all_contexts) {
+	    Kwave::TopWidget *top_widget = 0;
+
+	    switch (m_gui_type) {
+		case GUI_SDI:
+		    if (first) {
+			// the context reuses the calling toplevel widget
+			top_widget = top;
+			first = false;
+		    } else {
+			// for all other contexts we have to create a new
+			// toplevel widget
+			top_widget = new(std::nothrow) Kwave::TopWidget(*this);
+			if (!top_widget || !top_widget->init()) {
+			    // init failed
+			    qWarning("ERROR: initialization of TopWidget failed");
+			    delete top_widget;
+			    delete context;
+			}
+			m_top_widgets.append(top_widget);
+			top_widget->show();
+
+			// inform the widget about changes in the list of recent
+			// files
+			connect(this, SIGNAL(recentFilesChanged()),
+				top_widget, SLOT(updateRecentFiles()));
+		    }
+		    break;
+		case GUI_MDI: /* FALLTHROUGH */
+		case GUI_TAB:
+		    // all contexts go into the same toplevel widget
+		    top_widget = top;
+		    break;
+	    }
+
+	    top_widget->insertContext(context);
+	}
+    } else {
+	// give our one and only toplevel widget a default context
+	top->insertContext(0);
+    }
 }
 
 //***************************************************************************
@@ -257,13 +369,6 @@ void Kwave::App::readConfig()
 		m_recent_files.append(result);
 	}
     }
-}
-
-//***************************************************************************
-Kwave::App::~App()
-{
-    saveRecentFiles();
-    m_recent_files.clear();
 }
 
 //***************************************************************************

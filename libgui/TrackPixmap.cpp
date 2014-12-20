@@ -194,16 +194,19 @@ void Kwave::TrackPixmap::resizeBuffer()
     bool ok = true;
     int buflen;
     int oldlen = m_valid.size();
+    int w      = width();
+    Q_ASSERT(w >= 0);
+
     if (m_minmax_mode) {
 	// one buffer index == one screen pixel
-	buflen = width();
+	buflen = w;
 	ok &= m_min_buffer.resize(buflen);
 	Q_ASSERT(ok);
 	ok &= m_max_buffer.resize(buflen);
 	Q_ASSERT(ok);
     } else {
 	// one buffer index == one sample
-	buflen = Kwave::toInt(pixels2samples(width()));
+	buflen = Kwave::toInt(pixels2samples(w));
 	ok &= m_sample_buffer.resize(buflen);
 	Q_ASSERT(ok);
     }

@@ -1,5 +1,5 @@
 /***************************************************************************
-    libkwave/FileContext.h  -  Context of a Loaded File
+    kwave/FileContext.h  -  Context of a Loaded File
 			     -------------------
     begin                : 2009-12-31
     copyright            : (C) 2009 by Thomas.Eschenbacher
@@ -32,6 +32,8 @@
 #include "libkwave/Sample.h"
 
 class QApplication;
+class QMdiSubWindow;
+class QSize;
 class QTextStream;
 class QWidget;
 
@@ -55,13 +57,11 @@ namespace Kwave
 	 * Constructor. Creates a new toplevel window, signal manager,
 	 * plugin manager and so on.
 	 * @param app reference to the Kwave application
-	 * @note implementation is in kwave/FileContext.cpp
 	 */
 	FileContext(Kwave::App &app);
 
 	/**
 	 * Destructor
-	 * @note implementation is in kwave/FileContext.cpp
 	 */
 	virtual ~FileContext();
 
@@ -69,17 +69,25 @@ namespace Kwave
 	 * initializes the instance
 	 * @param top_widget pointer to the toplevel widget
 	 * @return true if successful
-	 * @note implementation is in kwave/FileContext.cpp
 	 */
 	bool init(Kwave::TopWidget *top_widget);
 
 	/**
-	 * shuts down the instance
+	 * create a main widget, within the MDI area
+	 * or toplevel widget in case of SDI interface
+	 * @param preferred_size preferred size of the main widget
+	 * @return true if successful, false if failed
 	 */
-	void close();
+	bool createMainWidget(const QSize &preferred_size);
 
-	/** returns a pointer to the instance's toplevel window */
-	Kwave::TopWidget     *topWidget() const;
+	/**
+	 * migrate this context to a different toplevel widget
+	 * @param top_widget pointer to the new toplevel widget
+	 */
+	void setParent(Kwave::TopWidget *top_widget);
+
+	/** returns a reference to the application instance */
+	Kwave::App           &app() const { return m_application; }
 
 	/**
 	 * returns a pointer to the main widget of this context
@@ -99,11 +107,30 @@ namespace Kwave
 	Kwave::Zoomable *zoomable() const;
 
 	/**
+	 * Returns whether this context is empty (has a main widget) or not.
+	 * @retval true if the context is empty
+	 * @retval false if the context has a main widget
+	 */
+	inline bool isEmpty() const { return m_main_widget.isNull(); }
+
+	/**
 	 * Returns whether this context is active or not.
 	 * @retval true if the context is active
 	 * @retval false if the context is inactive
 	 */
-	bool isActive() const { return m_active; }
+	inline bool isActive() const { return m_active; }
+
+	/** returns the name of the signal */
+	QString signalName() const;
+
+	/** returns the instance of the loaded file or -1 */
+	inline int instanceNr() const { return m_instance_nr; }
+
+	/**
+	 * returns a string suitable as window caption
+	 * @param with_modified if true, include the "modified" state
+	 */
+	QString windowCaption(bool with_modified) const;
 
 	/**
 	 * Loads a batch file into memory, parses and executes
@@ -111,6 +138,31 @@ namespace Kwave
 	 * @param url URL of the macro (batch file) to be loaded
 	 */
 	int loadBatch(const KUrl &url);
+
+	/**
+	 * Saves the current file.
+	 * @return zero if succeeded, non-zero if failed
+	 */
+	int saveFile();
+
+	/**
+	 * Opens a dialog for saving the current file.
+	 * @param filename the name of the new file
+	 *                 or empty string to open the File/SaveAs dialog
+	 * @param selection if set to true, only the current selection
+	 *        will be saved
+	 * @return zero if succeeded, non-zero if failed
+	 */
+	int saveFileAs(const QString &filename, bool selection = false);
+
+	/**
+	 * Closes the current file.
+	 * If the file has been modified and the user wanted to cancel
+	 * the close operation, the file will not get closed and the
+	 * function returns with false.
+	 * @return true if closing is allowed, false if canceled
+	 */
+	bool closeFile();
 
     signals:
 
@@ -240,11 +292,6 @@ namespace Kwave
 	void activated();
 
 	/**
-	 * should be called when this context got inactive
-	 */
-	void deactivated();
-
-	/**
 	 * Show a message in the status bar
 	 * @param msg the status bar message, already localized
 	 * @param ms the time in milliseconds to show the message
@@ -259,6 +306,13 @@ namespace Kwave
 	 */
 	int parseCommands(QTextStream &stream);
 
+	/**
+	 * Discards all changes to the current file and loads
+	 * it again.
+	 * @return zero if succeeded or error code
+	 */
+	int revert();
+
     private:
 
 	/** reference to the global Kwave application object */
@@ -268,7 +322,7 @@ namespace Kwave
 	QPointer<Kwave::TopWidget> m_top_widget;
 
 	/** instance of our main widget */
-	Kwave::MainWidget *m_main_widget;
+	QPointer<Kwave::MainWidget> m_main_widget;
 
 	/** instance of our signal manager */
 	QPointer<Kwave::SignalManager> m_signal_manager;
@@ -294,15 +348,6 @@ namespace Kwave
 	/** number of milliseconds the status message should be shown */
 	unsigned int m_last_status_message_ms;
 
-	/** last meta data change received while inactive */
-	Kwave::MetaDataList m_last_meta_data;
-
-	/** last selection: offset */
-	sample_index_t m_last_selection_offset;
-
-	/** last selection: length */
-	sample_index_t m_last_selection_length;
-
 	/** name of the last undo action */
 	QString m_last_undo;
 
@@ -312,14 +357,8 @@ namespace Kwave
 	/** last "modified" state of the signal */
 	bool m_last_modified;
 
-	/** last visible range: offset */
-	sample_index_t m_last_visible_offset;
-
-	/** last visible range: number of visible samples */
-	sample_index_t m_last_visible_samples;
-
-	/** last visible range: total samples */
-	sample_index_t m_last_visible_total;
+	/** instance of the loaded file or -1 */
+	int m_instance_nr;
 
     };
 

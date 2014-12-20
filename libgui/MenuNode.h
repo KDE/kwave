@@ -38,8 +38,7 @@ namespace Kwave
     class MenuSub;
 
     /**
-     * Base class for the MenuRoot, MenuEntry, SubMenu and
-     * the ToplevelMenu class.
+     * Base class for the MenuItem, MenuSub and the MenuRoot class.
      */
     class MenuNode: public QObject
     {
@@ -126,6 +125,12 @@ namespace Kwave
 	virtual Kwave::MenuNode *parentNode() const;
 
 	/**
+	 * Shows/hides the current menu node.
+	 * @param visible true to show the item, false to hide
+	 */
+	virtual void setVisible(bool visible);
+
+	/**
 	 * Returns true if the node is enabled.
 	 */
 	virtual bool isEnabled();
@@ -209,8 +214,11 @@ namespace Kwave
 	/**
 	 * Registers a node as a child of the current node.
 	 * @param node pointer to the child node
+	 * @param before the node before which the node should be inserted
+	 *               (optional, can be null for "append")
 	 */
-	virtual void registerChild(Kwave::MenuNode *node);
+	virtual void insertChild(Kwave::MenuNode *node,
+	                         Kwave::MenuNode *before);
 
 	/**
 	 * Inserts a new child node into the structure. If the specified
@@ -279,13 +287,13 @@ namespace Kwave
 	/**
 	 * Returns the address of the root node of the menu structure.
 	 */
-	Kwave::MenuNode *getRootNode();
+	Kwave::MenuNode *rootNode();
 
 	/**
 	 * Emits a command if the node is the root node. If it is a client
 	 * node it will call the root node's emitCommand() function.
 	 * @see #emitCommand()
-	 * @see #getRootNode()
+	 * @see #rootNode()
 	 */
 	void emitCommand(const QString &command);
 
@@ -296,7 +304,7 @@ namespace Kwave
 	 * root node, client nodes call the root node's emitCommand()
 	 * function.
 	 * @see #emitCommand()
-	 * @see #getRootNode()
+	 * @see #rootNode()
 	 */
 	void sigCommand(const QString &command);
 

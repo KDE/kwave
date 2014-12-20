@@ -21,20 +21,20 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <QtCore/QtGlobal>
+#include <QtCore/QPoint>
 #include <QtGui/QApplication>
 #include <QtGui/QFrame>
 #include <QtGui/QGridLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QResizeEvent>
 #include <QtGui/QScrollBar>
-#include <QtCore/QtGlobal>
 #include <QtGui/QWheelEvent>
 
 #include <klocale.h>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"
-#include "libkwave/FileContext.h"
 #include "libkwave/FileDrag.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
@@ -50,6 +50,8 @@
 #include "libgui/OverViewWidget.h"
 #include "libgui/SignalWidget.h"
 
+#include "App.h"
+#include "FileContext.h"
 #include "MainWidget.h"
 
 /**
@@ -70,15 +72,22 @@
 #define DEFAULT_DISPLAY_TIME (5 * 60.0)
 
 //***************************************************************************
-Kwave::MainWidget::MainWidget(QWidget *parent,
-			      Kwave::FileContext &context)
+Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
+                              const QSize &preferred_size)
     :QWidget(parent),
      Kwave::CommandHandler(),
      Kwave::Zoomable(),
      m_context(context), m_upper_dock(), m_lower_dock(),
      m_scroll_area(this), m_horizontal_scrollbar(0),
-     m_signal_widget(&m_scroll_area, context, &m_upper_dock, &m_lower_dock),
-     m_overview(0), m_offset(0), m_zoom(1.0)
+     m_signal_widget(
+         &m_scroll_area,
+         context.signalManager(),
+         &m_upper_dock,
+         &m_lower_dock
+     ),
+     m_overview(0), m_offset(0), m_zoom(1.0),
+     m_preferred_size(preferred_size),
+     m_delayed_update_timer(this)
 {
 //    qDebug("MainWidget::MainWidget()");
 
@@ -164,6 +173,12 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
 
     connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this,             SIGNAL(sigCommand(const QString &)));
+    connect(&m_signal_widget,
+	    SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
+	                           sample_index_t, sample_index_t)),
+            this,
+	    SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
+	                           sample_index_t, sample_index_t)));
 
     // -- connect all signals from/to the signal manager --
 
@@ -180,13 +195,18 @@ Kwave::MainWidget::MainWidget(QWidget *parent,
             this,
             SLOT(updateViewRange()));
 
-    this->setLayout(topLayout);
+    // set up the timer for delayed view range update
+    m_delayed_update_timer.setSingleShot(true);
+    connect(&m_delayed_update_timer, SIGNAL(timeout()),
+            this, SLOT(updateViewRange()));
+
+    setLayout(topLayout);
 }
 
 //***************************************************************************
 bool Kwave::MainWidget::isOK()
 {
-    return (m_overview);
+    return (m_horizontal_scrollbar && m_overview);
 }
 
 //***************************************************************************
@@ -200,8 +220,20 @@ Kwave::MainWidget::~MainWidget()
 //***************************************************************************
 void Kwave::MainWidget::resizeEvent(QResizeEvent *event)
 {
-    Q_UNUSED(event);
-    updateViewRange();
+    QWidget::resizeEvent(event);
+
+    if (!m_context.isActive() &&
+	(m_context.app().guiType() == Kwave::App::GUI_TAB))
+    {
+	// HACK: this is a workaround for stupid bug in Qt, which sends us a
+	//       resize event with bogus size, when we are in tab mode, just
+	//       before getting deactivated !?
+	if (!m_delayed_update_timer.isActive())
+	    m_delayed_update_timer.start(0);
+    } else {
+	// update immediately
+	updateViewRange();
+    }
 }
 
 //***************************************************************************
@@ -312,6 +344,12 @@ void Kwave::MainWidget::wheelEvent(QWheelEvent *event)
 	default:
 	    event->ignore();
     }
+}
+
+//***************************************************************************
+void Kwave::MainWidget::closeEvent(QCloseEvent *e)
+{
+    m_context.closeFile() ? e->accept() : e->ignore();
 }
 
 //***************************************************************************
@@ -649,6 +687,7 @@ double Kwave::MainWidget::fullZoom() const
 		signal_manager->rate()));
 	}
     }
+    if (!length) return 0; // still no length !? -> bail out
 
     // example: width = 100 [pixels] and length = 3 [samples]
     //          -> samples should be at positions 0, 49.5 and 99

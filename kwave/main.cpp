@@ -161,7 +161,7 @@ int main( int argc, char **argv )
     );
     addDataStrings(about);
 
-    /* process all interesting commandline parameters */
+    /* process all interesting command line parameters */
     KCmdLineArgs::init(argc, argv, &about);
     KCmdLineArgs::addCmdLineOptions(options);
     Kwave::App::addCmdLineOptions();

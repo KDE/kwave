@@ -226,7 +226,7 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
 	// split into the tracks
 	sample_storage_t *p = buffer;
 	unsigned int count = buffer_used;
-	while (count--) {
+	while (count) {
 	    for (unsigned int track = 0; track < tracks; track++) {
 		sample_storage_t s = *p++;
 
@@ -239,6 +239,7 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
 		// sample_t is not equal to a quint32
 		*(dst[track]) << static_cast<sample_t>(s);
 	    }
+	    --count;
 	}
 
 	// abort if the user pressed cancel

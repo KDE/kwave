@@ -24,18 +24,21 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include <QtCore/QFile>
+#include <QtCore/QLatin1Char>
+#include <QtCore/QMap>
+#include <QtCore/QStringList>
+#include <QtCore/QTextStream>
+#include <QtCore/QMutableMapIterator>
+#include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QCloseEvent>
 #include <QtGui/QDesktopWidget>
-#include <QtCore/QFile>
 #include <QtGui/QFrame>
 #include <QtGui/QLabel>
-#include <QtCore/QMap>
+#include <QtGui/QMdiSubWindow>
 #include <QtGui/QPixmap>
 #include <QtGui/QSizePolicy>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QStringList>
-#include <QtCore/QTextStream>
 
 #include <kapplication.h>
 #include <kcmdlineargs.h>
@@ -55,8 +58,6 @@
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
-#include "libkwave/Encoder.h"
-#include "libkwave/FileContext.h"
 #include "libkwave/Plugin.h" // for some helper functions
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"
@@ -72,9 +73,10 @@
 #include "libgui/MenuManager.h"
 
 #include "App.h"
-#include "Splash.h"
+#include "FileContext.h"
 #include "MainWidget.h"
 #include "PlayerToolBar.h"
+#include "Splash.h"
 #include "TopWidget.h"
 #include "ZoomToolBar.h"
 
@@ -100,15 +102,20 @@
 Kwave::TopWidget::TopWidget(Kwave::App &app)
     :KMainWindow(),
      m_application(app),
-     m_current_context(0),
+     m_context_map(),
      m_toolbar_record_playback(0),
      m_toolbar_zoom(0),
      m_menu_manager(0),
+     m_mdi_area(0),
      m_action_save(0),
      m_action_save_as(0),
      m_action_close(0),
      m_action_undo(0),
      m_action_redo(0),
+     m_action_cut(0),
+     m_action_copy(0),
+     m_action_erase(0),
+     m_action_delete(0),
      m_lbl_status_size(0),
      m_lbl_status_mode(0),
      m_lbl_status_cursor(0)
@@ -155,21 +162,8 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
 }
 
 //***************************************************************************
-bool Kwave::TopWidget::newFileContext()
+void Kwave::TopWidget::connectContext(Kwave::FileContext *context)
 {
-    Q_ASSERT(m_toolbar_zoom);
-    if (!m_toolbar_zoom) return false;
-
-    Kwave::FileContext *context = new Kwave::FileContext(m_application);
-    if (!context)
-	return false;
-    if (!context->init(this)) {
-	delete context;
-	return false;
-    }
-    Q_ASSERT(context);
-
-
     // connect the context to the top widget
     connect(context, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
             this,         SLOT(metaDataChanged(Kwave::MetaDataList)));
@@ -201,13 +195,63 @@ bool Kwave::TopWidget::newFileContext()
     // connect the status bar
     connect(context, SIGNAL(sigStatusBarMessage(const QString &, unsigned int)),
             this,    SLOT(showStatusBarMessage(const QString &, unsigned int)));
+}
+
+//***************************************************************************
+Kwave::FileContext *Kwave::TopWidget::newFileContext()
+{
+    Q_ASSERT(m_toolbar_zoom);
+    if (!m_toolbar_zoom) return 0;
+
+    Kwave::FileContext *context = new Kwave::FileContext(m_application);
+    if (!context) return 0;
+    if (!context->init(this)) {
+	delete context;
+	return 0;
+    }
+
+    // if we are in SDI mode, there is a context but no MDI sub window
+    // and in MDI/TAB mode we use this special entry for a context that
+    // has just been created but has no sub window yet
+    m_context_map[0] = context;
+
+    // do all signal/slot connections
+    connectContext(context);
 
     // if we reach this point everything was ok, now we can safely switch
     // to the new context
-    m_current_context = context;
-    emit sigFileContextSwitched(m_current_context);
+    emit sigFileContextSwitched(context);
 
-    return true;
+    return context;
+}
+
+//***************************************************************************
+Kwave::FileContext* Kwave::TopWidget::currentContext() const
+{
+    if (m_context_map.isEmpty()) return 0;
+
+    if (m_context_map.contains(0)) {
+	// the "null" entry is special, it has precedence over all
+	// other entries. In SDI mode it is the only one ever and in
+	// MDI/TAB mode it is used for a context that has no sub
+	// window yet.
+	return m_context_map[0];
+    }
+
+    if (m_mdi_area) {
+	// MDI or TAB mode
+	QMdiSubWindow *current_sub = m_mdi_area->currentSubWindow();
+	if (!m_context_map.contains(current_sub)) {
+	    qWarning("WARNING: unassociated MDI sub window %p?",
+	             static_cast<void *>(current_sub));
+	    return 0;
+	}
+	return m_context_map[current_sub];
+    } else {
+	// SDI mode
+	Q_ASSERT(0 && "SDI mode but no context?");
+	return 0;
+    }
 }
 
 //***************************************************************************
@@ -219,7 +263,7 @@ bool Kwave::TopWidget::init()
     KMenuBar *menubar = menuBar();
     Q_ASSERT(menubar);
     if (!menubar) return false;
-    m_menu_manager = new Kwave::MenuManager(this, *menubar);
+    m_menu_manager = new(std::nothrow) Kwave::MenuManager(this, *menubar);
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return false;
 
@@ -231,7 +275,7 @@ bool Kwave::TopWidget::init()
 
     // --- zoom control toolbar ---
 
-    m_toolbar_zoom = new Kwave::ZoomToolBar(this, TOOLBAR_ZOOM);
+    m_toolbar_zoom = new(std::nothrow) Kwave::ZoomToolBar(this, TOOLBAR_ZOOM);
     Q_ASSERT(m_toolbar_zoom);
     if (!m_toolbar_zoom) return false;
 
@@ -239,7 +283,7 @@ bool Kwave::TopWidget::init()
             m_toolbar_zoom, SLOT(contextSwitched(Kwave::FileContext *)));
 
     // --- playback control toolbar ---
-    m_toolbar_record_playback = new Kwave::PlayerToolBar(
+    m_toolbar_record_playback = new(std::nothrow) Kwave::PlayerToolBar(
 	this, TOOLBAR_RECORD_PLAY, *m_menu_manager);
     Q_ASSERT(m_toolbar_record_playback);
     if (!m_toolbar_record_playback) return false;
@@ -251,10 +295,40 @@ bool Kwave::TopWidget::init()
             this,                    SLOT(forwardCommand(const QString &)));
 
     // -- create a new file context ---
-    bool ok = newFileContext();
-    Q_ASSERT(ok);
-    if (!ok)
-	return false;
+    Kwave::FileContext *context = newFileContext();
+    if (!context) return false;
+
+    QWidget *central_widget = 0;
+    switch (m_application.guiType()) {
+	case Kwave::App::GUI_SDI:
+	    // create a main widget
+	    if (!context->createMainWidget(geometry().size() * 0.85))
+		return false;
+	    central_widget = context->mainWidget();
+	    break;
+	case Kwave::App::GUI_MDI:
+	    // create a MDI area if required, MDI mode
+	    m_mdi_area = new(std::nothrow) QMdiArea(this);
+	    Q_ASSERT(m_mdi_area);
+	    if (!m_mdi_area) return false;
+	    m_mdi_area->setViewMode(QMdiArea::SubWindowView);
+	    break;
+	case Kwave::App::GUI_TAB:
+	    // create a MDI area if required, TAB mode
+	    m_mdi_area = new(std::nothrow) QMdiArea(this);
+	    Q_ASSERT(m_mdi_area);
+	    if (!m_mdi_area) return false;
+	    m_mdi_area->setViewMode(QMdiArea::TabbedView);
+	    m_mdi_area->setTabsClosable(true);
+	    m_mdi_area->setTabsMovable(true);
+	    break;
+    }
+
+    if (m_mdi_area) {
+	connect(m_mdi_area, SIGNAL(subWindowActivated(QMdiSubWindow *)),
+	        this,       SLOT(subWindowActivated(QMdiSubWindow *)) );
+	central_widget = m_mdi_area;
+    }
 
     // --- set up the toolbar ---
 
@@ -306,12 +380,12 @@ bool Kwave::TopWidget::init()
 	i18n("Redo"),
 	this, SLOT(toolbarEditRedo()));
 
-    toolbar_edit->addAction(
+    m_action_cut = toolbar_edit->addAction(
 	icon_loader.loadIcon(_("edit-cut"), KIconLoader::Toolbar),
 	i18n("Cut"),
 	this, SLOT(toolbarEditCut()));
 
-    toolbar_edit->addAction(
+    m_action_copy = toolbar_edit->addAction(
 	icon_loader.loadIcon(_("edit-copy"), KIconLoader::Toolbar),
 	i18n("Copy"),
 	this, SLOT(toolbarEditCopy()));
@@ -324,25 +398,28 @@ bool Kwave::TopWidget::init()
     connect(&Kwave::ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
             btPaste, SLOT(setEnabled(bool)));
 
-    toolbar_edit->addAction(
+    m_action_erase = toolbar_edit->addAction(
 	icon_loader.loadIcon(_("draw-eraser"), KIconLoader::Toolbar),
 	i18n("Mute selection"),
 	this, SLOT(toolbarEditErase()));
 
-    toolbar_edit->addAction(
+    m_action_delete = toolbar_edit->addAction(
 	icon_loader.loadIcon(_("edit-delete"), KIconLoader::Toolbar),
 	i18n("Delete selection"),
 	this, SLOT(toolbarEditDelete()));
 
-    // set the MainWidget as the main view
-    QWidget *main_widget = m_current_context->mainWidget();
-    setCentralWidget(main_widget); // ### GUI_MDI ###
+    // set up the relationship between top widget / mdi area / main widget
+    Q_ASSERT(central_widget);
+    if (!central_widget)
+	return false;
 
-    // set a nice initial size
-    int w = main_widget->minimumSize().width();
-    w = qMax(w, main_widget->sizeHint().width());
+    setCentralWidget(central_widget);
+
+    // set a nice initial size of the toplevel window
+    int w = central_widget->minimumSize().width();
+    w = qMax(w, central_widget->sizeHint().width());
     w = qMax(w, width());
-    int h = qMax(main_widget->sizeHint().height(), (w * 6) / 10);
+    int h = qMax(central_widget->sizeHint().height(), (w * 6) / 10);
     h = qMax(h, height());
     resize(w, h);
 
@@ -396,7 +473,7 @@ bool Kwave::TopWidget::init()
 Kwave::TopWidget::~TopWidget()
 {
     // close the current file (no matter what the user wants)
-    closeFile();
+    closeAllSubWindows();
 
     delete m_toolbar_zoom;
     m_toolbar_zoom = 0;
@@ -407,9 +484,183 @@ Kwave::TopWidget::~TopWidget()
     delete m_menu_manager;
     m_menu_manager = 0;
 
-    m_current_context->close();
-    delete m_current_context;
-    m_current_context = 0;
+    while (!m_context_map.isEmpty()) {
+	Kwave::FileContext *context = m_context_map.values().last();
+	m_context_map.remove(m_context_map.keys().last());
+	if (context) delete context;
+    }
+
+    m_application.toplevelWindowHasClosed(this);
+}
+
+//***************************************************************************
+QList<Kwave::App::FileAndInstance> Kwave::TopWidget::openFiles() const
+{
+    QList<Kwave::App::FileAndInstance> all_files;
+
+    foreach (Kwave::FileContext *context, m_context_map.values()) {
+	if (!context) continue;
+	QString name = context->signalName();
+	if (!name.length()) continue;
+	int instance_nr = context->instanceNr();
+	all_files.append(Kwave::App::FileAndInstance(name, instance_nr));
+    }
+
+    return all_files;
+}
+
+//***************************************************************************
+QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
+{
+    QList<Kwave::FileContext *> list;
+
+    QMutableMapIterator<QMdiSubWindow *, Kwave::FileContext *> i(m_context_map);
+    while (i.hasNext()) {
+	i.next();
+	QMdiSubWindow      *sub     = i.key();
+	Kwave::FileContext *context = i.value();
+
+	// remove the entry from the map to prevent damage
+	i.remove();
+
+	// detach the main widget from the MDI sub window
+	if (sub) {
+	    sub->setWidget(0);
+	    delete sub;
+	}
+
+	// detach the context from this parent widget
+	if (context) {
+	    context->disconnect();
+	    context->setParent(0);
+	    Kwave::SignalManager *signal_manager = context->signalManager();
+	    if (signal_manager && !signal_manager->isEmpty())
+		list += context;
+	    else
+		context->deleteLater();
+	}
+    }
+
+    // get rid of the MDI area, it should be empty now
+    setCentralWidget(0);
+    if (m_mdi_area) {
+	delete m_mdi_area;
+	m_mdi_area = 0;
+    }
+
+    emit sigFileContextSwitched(0);
+
+    return list;
+}
+
+//***************************************************************************
+void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
+{
+    // if no context was given: create a new empty default context
+    if (!context) {
+	context = newFileContext();
+	Q_ASSERT(context);
+	if (!context) return;
+	m_context_map.remove(0); // prevent it from getting removed again
+    }
+
+    switch (m_application.guiType()) {
+	case Kwave::App::GUI_SDI:
+	    // we may have an empty default context -> get rid of it
+	    Q_ASSERT(m_context_map.count() <= 1);
+	    if (!m_context_map.isEmpty()) {
+		Kwave::FileContext *ctx = m_context_map[0];
+		m_context_map.remove(0);
+		if (ctx) {
+		    ctx->disconnect();
+		    ctx->setParent(0);
+		    ctx->deleteLater();
+		}
+	    }
+	    // take over the new context
+	    m_context_map[0] = context;
+	    connectContext(context);
+	    context->setParent(this);
+
+	    // set the central widget to the new main widget
+	    setCentralWidget(context->mainWidget());
+	    break;
+	case Kwave::App::GUI_MDI:
+	    if (!m_mdi_area) {
+		// create a MDI area if required, MDI mode
+		m_mdi_area = new(std::nothrow) QMdiArea(this);
+		Q_ASSERT(m_mdi_area);
+		if (!m_mdi_area) return;
+		m_mdi_area->setViewMode(QMdiArea::SubWindowView);
+	    }
+	    /* FALLTHROUGH */
+	case Kwave::App::GUI_TAB: {
+	    // create a MDI area if required, TAB mode
+	    if (!m_mdi_area) {
+		m_mdi_area = new(std::nothrow) QMdiArea(this);
+		Q_ASSERT(m_mdi_area);
+		if (!m_mdi_area) return;
+		m_mdi_area->setViewMode(QMdiArea::TabbedView);
+		m_mdi_area->setTabsClosable(true);
+		m_mdi_area->setTabsMovable(true);
+	    }
+
+	    context->setParent(this);
+	    setCentralWidget(m_mdi_area);
+
+	    connect(m_mdi_area, SIGNAL(subWindowActivated(QMdiSubWindow *)),
+		    this,       SLOT(subWindowActivated(QMdiSubWindow *)) );
+
+	    QWidget *main_widget = context->mainWidget();
+	    if (main_widget) {
+		QMdiSubWindow *sub = m_mdi_area->addSubWindow(
+		    main_widget, Qt::SubWindow);
+		Q_ASSERT(sub);
+		if (!sub) return;
+		sub->adjustSize();
+
+		if (m_context_map.contains(0)) m_context_map.remove(0);
+		m_context_map[sub] = context;
+
+		connect(context->mainWidget(), SIGNAL(destroyed(QObject *)),
+			sub,                   SLOT(close()));
+		connect(sub,  SIGNAL(destroyed(QObject *)),
+			this, SLOT(subWindowDeleted(QObject *)));
+		connectContext(context);
+
+		if (m_application.guiType() == Kwave::App::GUI_MDI) {
+		    // this really sucks...
+		    // Qt adds a "Close" entry to the MDI subwindow's system
+		    // menu, with the shortcut "Ctrl+W". This collides with
+		    // our own shortcut, produces a warning and makes the
+		    // shortcut key not work:
+		    // QAction::eventFilter: Ambiguous shortcut overload: Ctrl+W
+		    QMenu *m = sub->systemMenu();
+		    if (m) {
+			foreach (QAction *act, m->actions())
+			    if (act) act->setShortcut(0); // remove shortcut
+		    }
+		}
+
+		sub->setAttribute(Qt::WA_DeleteOnClose);
+		main_widget->setWindowTitle(context->windowCaption(true));
+		main_widget->show();
+		m_mdi_area->setActiveSubWindow(sub);
+	    } else {
+		m_context_map[0] = context; // set empty default context
+	    }
+
+	    break;
+	}
+    }
+
+    // update the menu bar, toolbar etc.
+    emit sigFileContextSwitched(0);
+    emit sigFileContextSwitched(context);
+    updateMenu();
+    updateToolbar();
+    updateCaption();
+
 }
 
 //***************************************************************************
@@ -454,16 +705,6 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	}
     CASE_COMMAND("openrecent")
 	result = openRecent(command);
-    CASE_COMMAND("save")
-	result = saveFile();
-    CASE_COMMAND("close")
-	result = closeFile() ? 0 : 1;
-    CASE_COMMAND("revert")
-	result = revert();
-    CASE_COMMAND("saveas")
-	result = saveFileAs(parser.nextParam(), false);
-    CASE_COMMAND("saveselect")
-	result = saveFileAs(QString(), true);
     CASE_COMMAND("quit")
 	result = (close()) ? 0 : -1;
     CASE_COMMAND("reset_toolbars")
@@ -473,6 +714,23 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	{
 	    resetToolbarToDefaults();
 	}
+    CASE_COMMAND("select_gui_type")
+	QString gui_type = parser.nextParam();
+	Kwave::App::GuiType new_type = Kwave::App::GUI_SDI;
+
+	if (gui_type == _("SDI"))
+	    new_type = Kwave::App::GUI_SDI;
+	else if (gui_type == _("MDI"))
+	    new_type = Kwave::App::GUI_MDI;
+	else if (gui_type == _("TAB"))
+	    new_type = Kwave::App::GUI_TAB;
+	else
+	    return -1;
+
+	KConfigGroup cfg = KGlobal::config()->group("Global");
+	cfg.writeEntry(_("UI Type"), gui_type);
+	m_application.switchGuiType(this, new_type);
+	return 0;
     CASE_COMMAND("reenable_dna")
 	if ((result = (Kwave::MessageBox::questionYesNo(this,
 	    i18n("Re-enable all disabled notifications?\n"
@@ -483,6 +741,38 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	{
 	    KMessageBox::enableAllMessages();
 	}
+    CASE_COMMAND("window:next_sub")
+	if (m_mdi_area) m_mdi_area->activateNextSubWindow();
+    CASE_COMMAND("window:prev_sub")
+	if (m_mdi_area) m_mdi_area->activatePreviousSubWindow();
+    CASE_COMMAND("window:cascade")
+	if (m_mdi_area) m_mdi_area->cascadeSubWindows();
+    CASE_COMMAND("window:tile")
+	if (m_mdi_area) m_mdi_area->tileSubWindows();
+    CASE_COMMAND("window:activate")
+	if (m_mdi_area) {
+	    QString title = parser.nextParam();
+	    foreach (QMdiSubWindow *sub, m_context_map.keys()) {
+		if (!sub) continue;
+		Kwave::FileContext *context = m_context_map[sub];
+		if (!context) continue;
+
+		// identify the window by it's title
+		if (context->windowCaption(false) == title) {
+		    // activate the sub window if it is not the active one
+		    if (m_mdi_area->activeSubWindow() != sub)
+			m_mdi_area->setActiveSubWindow(sub);
+
+		    // leave the "minimized" state if necessary
+		    Qt::WindowStates state = sub->windowState();
+		    if (state & Qt::WindowMinimized)
+			sub->setWindowState(state & ~(Qt::WindowMinimized));
+		    sub->raise();
+		    return 0;
+		}
+	    }
+	} else return ENOSYS;
+	return EINVAL;
     } else {
 	return ENOSYS; // command not implemented (here)
     }
@@ -493,68 +783,123 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 //***************************************************************************
 void Kwave::TopWidget::forwardCommand(const QString &command)
 {
-    if (m_current_context)
-        m_current_context->executeCommand(command);
+    Kwave::FileContext *context = currentContext();
+    if (context) context->executeCommand(command);
 }
 
 //***************************************************************************
-int Kwave::TopWidget::revert()
+bool Kwave::TopWidget::closeAllSubWindows()
 {
-    KUrl url(signalName());
-    if (!url.isValid()) return -EINVAL;
+    bool allowed = true;
 
-    return loadFile(url);
-}
+    QMutableMapIterator<QMdiSubWindow *, Kwave::FileContext *>
+	it(m_context_map);
+    it.toBack();
+    while (it.hasPrevious()) {
+	it.previous();
+	QMdiSubWindow      *sub     = it.key();
+	Kwave::FileContext *context = it.value();
 
-//***************************************************************************
-bool Kwave::TopWidget::closeFile()
-{
-    Q_ASSERT(m_current_context);
-    if (!m_current_context) return true;
+	if (!sub) {
+	    // reached the default context (without sub windows)
+	    // or SDI mode with only one context
+	    if (context) allowed &= context->closeFile();
+	    break;
+	}
 
-    Kwave::SignalManager *signal_manager = m_current_context->signalManager();
-    Kwave::PluginManager *plugin_manager = m_current_context->pluginManager();
+	if (!context) {
+	    // invalid entry?
+	    it.remove();
+	    continue;
+	}
 
-    if (plugin_manager && !plugin_manager->canClose())
-    {
-	qWarning("TopWidget::closeFile() - currently not possible, "\
-	         "a plugin is running :-(");
-	return false;
-    }
-
-    if (signal_manager && signal_manager->isModified()) {
-	int res =  Kwave::MessageBox::warningYesNoCancel(this,
-	    i18n("This file has been modified.\nDo you want to save it?"));
-	if (res == KMessageBox::Cancel) return false;
-	if (res == KMessageBox::Yes) {
-	    // user decided to save
-	    res = saveFile();
-	    qDebug("TopWidget::closeFile()::saveFile, res=%d",res);
-	    if (res) return false;
+	// try to close the sub window / context
+	if (!sub->close()) {
+	    allowed = false;
+	    break;
+	} else {
+	    it.remove();
+	    if (m_context_map.isEmpty()) {
+		// keep the default context, without a window
+		m_context_map[0] = context;
+		break;
+	    }
 	}
     }
 
-    // close all plugins that still might use the current signal
-    if (plugin_manager) {
-	plugin_manager->stopAllPlugins();
-	plugin_manager->signalClosed();
+    return allowed;
+}
+
+//***************************************************************************
+int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const KUrl &url)
+{
+    Q_ASSERT(context);
+    if (!context) return -1;
+    Kwave::SignalManager *signal_manager = context->signalManager();
+
+    switch (m_application.guiType()) {
+	case Kwave::App::GUI_SDI:
+	    // SDI mode and already something loaded
+	    // -> open a new toplevel window
+	    //    (except for processing commands per kwave: URL
+	    if ( signal_manager && !signal_manager->isEmpty() &&
+		(url.scheme().toLower() != Kwave::urlScheme()) )
+		return m_application.newWindow(url) ? 0 : -1;
+
+	    // try to close the previous file
+	    if (!context->closeFile()) return -1;
+
+	    break;
+	case Kwave::App::GUI_MDI: /* FALLTHROUGH */
+	case Kwave::App::GUI_TAB:
+	    // MDI or TAB mode: open a new sub window
+	    Q_ASSERT(m_mdi_area);
+	    if (!m_mdi_area) return -1;
+
+	    if (context->isEmpty()) {
+		// current context is empty, no main widget etc -> discard it
+		if (m_context_map.contains(0)) {
+		    // must have been the default context
+		    Q_ASSERT(m_context_map[0] == context);
+		    m_context_map.remove(0);
+		}
+		context->disconnect();
+		context->setParent(0);
+		context->deleteLater();
+	    }
+
+	    // create a new file context
+	    context = newFileContext();
+	    if (!context) return -1;
+
+	    // create a main widget
+	    if (!context->createMainWidget(
+		m_mdi_area->geometry().size() * 0.85)) return -1;
+
+	    // insert the context into this instance
+	    insertContext(context);
+	    break;
     }
 
-    if (signal_manager) signal_manager->close();
-
-    updateCaption(signalName(), false);
-    emit sigSignalNameChanged(signalName());
-
-    updateMenu();
-    return true;
+    return 1;
 }
 
 //***************************************************************************
 int Kwave::TopWidget::loadFile(const KUrl &url)
 {
-    if (!m_current_context) return -1;
+    // special handling for kwave: URLs
+    if (url.scheme().toLower() == Kwave::urlScheme()) {
+	QString cmd = Kwave::Parser::fromUrl(url);
+	Kwave::Logger::log(this, Kwave::Logger::Info,
+	    _("CMD: from command line: '") + cmd + _("'"));
+	Kwave::Splash::showMessage(i18n("Executing command '%1'...", cmd));
+	return executeCommand(cmd);
+    }
 
-    Kwave::SignalManager *signal_manager = m_current_context->signalManager();
+    Kwave::FileContext *context = currentContext();
+    if (!context) return -1;
+
+    Kwave::SignalManager *signal_manager = context->signalManager();
     Q_ASSERT(signal_manager);
 
     // abort if new file not valid and local
@@ -564,21 +909,26 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     QFileInfo file(url.fileName());
     QString suffix = file.suffix();
     if (suffix == _("kwave")) {
-	return m_current_context->loadBatch(url);
+	Kwave::Splash::showMessage(
+	    i18n("Executing Kwave script file '%1'...", url.prettyUrl())
+	);
+	return context->loadBatch(url);
     }
 
-    // try to close the previous file
-    if (!closeFile()) return -1;
+    // open a new window (empty in case of MDI/TAB)
+    int retval = newWindow(context, url);
+    if ((retval <= 0) || !context) return retval;
 
-    emit sigSignalNameChanged(url.path());
+    Kwave::Splash::showMessage(
+	i18n("Loading file '%1'...", url.prettyUrl())
+    );
 
+    // NOTE: the context may have changed, now we may have a different
+    //       signal manager
+    signal_manager = context->signalManager();
     int res = -ENOMEM;
     if (signal_manager && !(res = signal_manager->loadFile(url))) {
 	// succeeded
-	updateCaption(signalName(), false);
-
-	// enable revert after successful load
-	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
     } else {
 	qWarning("TopWidget::loadFile() failed: result=%d", res);
 	QString reason;
@@ -605,10 +955,10 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	}
 
 	// load failed
-	closeFile();
+	context->closeFile();
     }
 
-    m_application.addRecentFile(signalName());
+    m_application.addRecentFile(context->signalName());
     updateMenu();
     updateToolbar();
 
@@ -638,196 +988,25 @@ int Kwave::TopWidget::openFile()
 }
 
 //***************************************************************************
-int Kwave::TopWidget::saveFile()
-{
-    int res = 0;
-
-    Q_ASSERT(m_current_context);
-    if (!m_current_context) return -EINVAL;
-
-    Kwave::SignalManager *signal_manager = m_current_context->signalManager();
-    if (!signal_manager) return -EINVAL;
-
-    if (signalName() != NEW_FILENAME) {
-	KUrl url;
-	url = signalName();
-	res = signal_manager->save(url, false);
-
-	// if saving in current format is not possible (no encoder),
-	// then try to "save/as" instead...
-	if (res == -EINVAL) res = saveFileAs(QString(), false);
-    } else res = saveFileAs(QString(), false);
-
-    updateCaption(signalName(), signal_manager->isModified());
-    updateMenu();
-
-    // enable "revert" after successful "save"
-    if (!res)
-	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
-
-    return res;
-}
-
-//***************************************************************************
-int Kwave::TopWidget::saveFileAs(const QString &filename, bool selection)
-{
-    Q_ASSERT(m_current_context);
-    if (!m_current_context) return false;
-
-    Kwave::SignalManager *signal_manager = m_current_context->signalManager();
-    int res = 0;
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return -EINVAL;
-
-    QString name = filename;
-    KUrl url;
-
-    if (name.length()) {
-	/* name given -> take it */
-	url = KUrl(name);
-    } else {
-	/*
-	 * no name given -> show the File/SaveAs dialog...
-	 */
-	KUrl current_url;
-	current_url = signalName();
-
-	QString what  = Kwave::CodecManager::whatContains(current_url);
-	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
-	QString extension; // = "*.wav";
-	if (!encoder) {
-	    // no extension selected yet, use mime type from file info
-	    QString mime_type = Kwave::FileInfo(
-		signal_manager->metaData()).get(Kwave::INF_MIMETYPE).toString();
-	    encoder = Kwave::CodecManager::encoder(mime_type);
-	    if (encoder) {
-		QStringList extensions = encoder->extensions(mime_type);
-		if (!extensions.isEmpty()) {
-		    QString ext = extensions.first().split(_(" ")).first();
-		    if (ext.length()) {
-			extension = ext;
-			QString new_filename = current_url.fileName();
-			new_filename += extension.mid(1); // remove the "*"
-			current_url.setFileName(new_filename);
-		    }
-		}
-	    }
-	}
-
-	QString filter = Kwave::CodecManager::encodingFilter();
-	Kwave::FileDialog dlg(_("kfiledialog:///kwave_save_as"),
-	    filter, this, true, current_url.prettyUrl(), extension);
-	dlg.setOperationMode(KFileDialog::Saving);
-	dlg.setCaption(i18n("Save As"));
-	if (dlg.exec() != QDialog::Accepted) return -1;
-
-	url = dlg.selectedUrl();
-	if (url.isEmpty()) return 0;
-
-	QString new_name = url.path();
-	QFileInfo path(new_name);
-
-	// add the correct extension if necessary
-	if (!path.suffix().length()) {
-	    QString ext = dlg.selectedExtension();
-	    QStringList extensions = ext.split(_(" "));
-	    ext = extensions.first();
-	    new_name += ext.mid(1);
-	    path = new_name;
-	    url.setPath(new_name);
-	}
-    }
-
-    // check if the file exists and ask before overwriting it
-    // if it is not the old filename
-    name = url.path();
-    if ((url.prettyUrl() != KUrl(signalName()).prettyUrl()) &&
-	(QFileInfo(name).exists()))
-    {
-	if (Kwave::MessageBox::warningYesNo(this,
-	    i18n("The file '%1' already exists.\n"
-	         "Do you really want to overwrite it?", name)) !=
-	         KMessageBox::Yes)
-	{
-	    return -1;
-	}
-    }
-
-    // maybe we now have a new mime type
-    QString previous_mimetype_name =
-	Kwave::FileInfo(signal_manager->metaData()).get(
-	    Kwave::INF_MIMETYPE).toString();
-
-    QString new_mimetype_name = Kwave::CodecManager::whatContains(url);
-
-    if (new_mimetype_name != previous_mimetype_name) {
-	// saving to a different mime type
-	// now we have to do as if the mime type and file name
-	// has already been selected to satisfy the fileinfo
-	// plugin
-	qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
-	    DBG(url.prettyUrl()), DBG(new_mimetype_name),
-	    DBG(previous_mimetype_name) );
-
-	// set the new mimetype
-	Kwave::FileInfo info(signal_manager->metaData());
-	info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
-
-	// set the new filename
-	info.set(Kwave::INF_FILENAME, url.prettyUrl());
-	signal_manager->setFileInfo(info, false);
-
-	// now call the fileinfo plugin with the new filename and
-	// mimetype
-	Q_ASSERT(m_context.pluginManager());
-	res = (m_current_context->pluginManager()) ?
-	       m_current_context->pluginManager()->setupPlugin(_("fileinfo"))
-	       : -1;
-
-	// restore the mime type and the filename
-	info = Kwave::FileInfo(signal_manager->metaData());
-	info.set(Kwave::INF_MIMETYPE, previous_mimetype_name);
-	info.set(Kwave::INF_FILENAME, url.prettyUrl());
-	signal_manager->setFileInfo(info, false);
-    }
-
-    if (!res) res = signal_manager->save(url, selection);
-
-    updateCaption(signalName(), signal_manager->isModified());
-    m_application.addRecentFile(signalName());
-    updateMenu();
-
-    if (!res && !selection) {
-	// enable "revert" after successful "save as"
-	// of the whole file (not only selection)
-	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), true);
-    }
-
-    return res;
-}
-
-//***************************************************************************
 int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
                                 unsigned int bits, unsigned int tracks)
 {
-    // ### TODO ### GUI_MDI ###
-    Q_ASSERT(m_current_context);
-    if (!m_current_context) return false;
+    Kwave::FileContext *context = currentContext();
+    if (!context) return -1;
 
-    Kwave::SignalManager *signal_manager = m_current_context->signalManager();
-    Q_ASSERT(signal_manager);
+    Kwave::SignalManager *signal_manager = context->signalManager();
     if (!signal_manager) return -1;
 
-    // abort if the user pressed cancel
-    if (!closeFile()) return -1;
-    emit sigSignalNameChanged(signalName());
+    KUrl url = Kwave::Parser::toUrl(
+	_("newsignal(%1,%2,%3,%4)"
+	).arg(samples).arg(rate).arg(bits).arg(tracks));
+    int retval = newWindow(context, url);
+    if (retval <= 0) return retval;
+
+    signal_manager = context->signalManager();
+    if (!signal_manager) return -1;
 
     signal_manager->newSignal(samples, rate, bits, tracks);
-
-    updateCaption(signalName(), true);
-    updateMenu();
-    updateToolbar();
-
     return 0;
 }
 
@@ -866,24 +1045,8 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
     } else txt = _("");
     m_lbl_status_mode->setText(txt);
 
-    // update the list of deletable tracks
-    m_menu_manager->clearNumberedMenu(_("ID_EDIT_TRACK_DELETE"));
-    QString buf;
-    for (unsigned int i = 0; i < tracks; i++) {
-	m_menu_manager->addNumberedMenuEntry(
-	    _("ID_EDIT_TRACK_DELETE"), buf.setNum(i));
-    }
-
-    // enable/disable all items that depend on having a signal
-    bool have_signal = (tracks != 0);
-    m_menu_manager->setItemEnabled(_("@SIGNAL"), have_signal);
-
-    // revert is not possible if no signal at all is present
-    if (!have_signal) {
-	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), false);
-    }
-
     // remove selection/position display on file close
+    bool have_signal = (tracks != 0);
     if (!have_signal) selectionChanged(0, 0);
 
     // update the menu
@@ -891,16 +1054,19 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 
     // update the toolbar as well
     updateToolbar();
+
+    // update the window caption
+    updateCaption();
 }
 
 //***************************************************************************
 void Kwave::TopWidget::selectionChanged(sample_index_t offset,
                                         sample_index_t length)
 {
-    Q_ASSERT(m_current_context);
-    if (!m_current_context) return;
+    const Kwave::FileContext *context = currentContext();
+    if (!context) return;
 
-    Kwave::SignalManager *signal_manager = m_current_context->signalManager();
+    Kwave::SignalManager *signal_manager = context->signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
     Q_ASSERT(statusBar());
@@ -942,7 +1108,8 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 
 	m_lbl_status_cursor->setText(_(""));
 	statusBar()->showMessage(txt, 4000);
-	m_menu_manager->setItemEnabled(_("@SELECTION"), true);
+	if (m_menu_manager)
+	    m_menu_manager->setItemEnabled(_("@SELECTION"), true);
     } else {
 	// show cursor position
 	// Position: 02:00
@@ -956,13 +1123,13 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	    m_lbl_status_cursor->setText(txt);
 	}
 
-	m_menu_manager->setItemEnabled(_("@SELECTION"), false);
+	if (m_menu_manager)
+	    m_menu_manager->setItemEnabled(_("@SELECTION"), false);
     }
 
-    // update the zoom toolbar on selection change, maybe the
+    // update the toolbar on selection change, maybe the
     // button for "zoom selection" has to be enabled/disabled
-    if (m_toolbar_zoom)
-	m_toolbar_zoom->updateToolbar();
+    updateToolbar();
 }
 
 //***************************************************************************
@@ -1039,35 +1206,105 @@ void Kwave::TopWidget::updateRecentFiles()
 {
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
-
     m_menu_manager->clearNumberedMenu(_("ID_FILE_OPEN_RECENT"));
 
-    QStringList recent_files = m_application.recentFiles();
-    QStringList::Iterator it;
-    for (it = recent_files.begin(); it != recent_files.end(); ++it) {
+    foreach (const QString &file, m_application.recentFiles())
 	m_menu_manager->addNumberedMenuEntry(
-	    _("ID_FILE_OPEN_RECENT"), *it);
-    }
+	    _("ID_FILE_OPEN_RECENT"), file);
+
+    // enable/disable the "clear" menu entry in Files / Open Recent
+    m_menu_manager->setItemEnabled(_("ID_FILE_OPEN_RECENT_CLEAR"),
+        !m_application.recentFiles().isEmpty());
 }
 
 //***************************************************************************
 void Kwave::TopWidget::updateMenu()
 {
-    if (!m_current_context) return;
-    Kwave::SignalManager *signal_manager = m_current_context->signalManager();
-    Q_ASSERT(signal_manager);
-    if (!signal_manager) return;
+    const Kwave::FileContext *context = currentContext();
+    Kwave::SignalManager *signal_manager =
+	(context) ? context->signalManager() : 0;
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
+    bool have_window_menu = false;
+    switch (m_application.guiType()) {
+	case Kwave::App::GUI_SDI:
+	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_SDI"));
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"),         false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_NEXT"),    false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_PREV"),    false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),    false);
+	    m_menu_manager->setItemVisible(_("ID_FILE_NEW_WINDOW"),true);
+	    break;
+	case Kwave::App::GUI_MDI:
+	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_MDI"));
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"),         true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_NEXT"),    true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_PREV"),    true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),    true);
+	    m_menu_manager->setItemVisible(_("ID_FILE_NEW_WINDOW"),false);
+	    have_window_menu = true;
+	    break;
+	case Kwave::App::GUI_TAB:
+	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_TAB"));
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"),         true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_NEXT"),    true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_PREV"),    true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),    false);
+	    m_menu_manager->setItemVisible(_("ID_FILE_NEW_WINDOW"),false);
+	    have_window_menu = true;
+	    break;
+    }
+
+    if (have_window_menu) {
+	// update the "Windows" menu
+	m_menu_manager->clearNumberedMenu(_("ID_WINDOW_LIST"));
+	unsigned int win_count = 0;
+	foreach (const Kwave::FileContext *context, m_context_map.values()) {
+	    if (!context) continue;
+	    QString caption = context->windowCaption(false);
+	    if (!caption.length()) continue;
+	    m_menu_manager->addNumberedMenuEntry(_("ID_WINDOW_LIST"), caption);
+	    ++win_count;
+	}
+
+	m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"),    (win_count > 1));
+	m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"),    (win_count > 1));
+	m_menu_manager->setItemEnabled(_("ID_WINDOW_CASCADE"), (win_count > 1));
+	m_menu_manager->setItemEnabled(_("ID_WINDOW_TILE"),    (win_count > 1));
+    }
+
     // enable/disable all items that depend on having a file
-    bool have_file = (signalName().length() != 0);
+    bool have_file = (context && context->signalName().length());
     m_menu_manager->setItemEnabled(_("@NOT_CLOSED"), have_file);
 
     // enable/disable all items that depend on having a label
-    Kwave::LabelList labels(signal_manager->metaData());
-    bool have_labels = (!labels.isEmpty());
+    bool have_labels = false;
+    if (signal_manager) {
+	Kwave::LabelList labels(signal_manager->metaData());
+	have_labels = !labels.isEmpty();
+    }
     m_menu_manager->setItemEnabled(_("@LABELS"), have_labels);
+
+    // update the list of deletable tracks
+    unsigned int tracks = (signal_manager) ? signal_manager->tracks() : 0;
+    m_menu_manager->clearNumberedMenu(_("ID_EDIT_TRACK_DELETE"));
+    QString buf;
+    for (unsigned int i = 0; i < tracks; i++) {
+	m_menu_manager->addNumberedMenuEntry(
+	    _("ID_EDIT_TRACK_DELETE"), buf.setNum(i));
+    }
+
+    // enable/disable all items that depend on having a signal
+    bool have_signal = (tracks != 0);
+    m_menu_manager->setItemEnabled(_("@SIGNAL"), have_signal);
+
+    // revert is not possible if no signal at all is present
+    if (!have_signal)
+	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), false);
 
     // enable/disable all items that depend on having something in the
     // clipboard
@@ -1118,21 +1355,30 @@ void Kwave::TopWidget::resetToolbarToDefaults()
 //***************************************************************************
 void Kwave::TopWidget::updateToolbar()
 {
-    // ### TODO ### GUI_MDI
-    if (!m_current_context) return;
+    const Kwave::FileContext *context = currentContext();
+    if (!context) return;
 
-    Kwave::SignalManager *signal_manager = m_current_context->signalManager();
+    Kwave::SignalManager *signal_manager = context->signalManager();
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
     bool have_signal = signal_manager->tracks();
-
     if (m_action_save)
 	m_action_save->setEnabled(have_signal);
     if (m_action_save_as)
 	m_action_save_as->setEnabled(have_signal);
     if (m_action_close)
 	m_action_close->setEnabled(have_signal);
+
+    bool have_selection = (signal_manager->selection().length() > 1);
+    if (m_action_cut)
+	m_action_cut->setEnabled(have_selection);
+    if (m_action_copy)
+	m_action_copy->setEnabled(have_selection);
+    if (m_action_erase)
+	m_action_erase->setEnabled(have_selection);
+    if (m_action_delete)
+	m_action_delete->setEnabled(have_selection);
 
     // update the zoom toolbar
     if (m_toolbar_zoom)
@@ -1142,40 +1388,24 @@ void Kwave::TopWidget::updateToolbar()
 //***************************************************************************
 void Kwave::TopWidget::modifiedChanged(bool modified)
 {
-    updateCaption(signalName(), modified);
+    updateCaption();
+
+    if (m_menu_manager)
+	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), modified);
 }
 
 //***************************************************************************
-void Kwave::TopWidget::updateCaption(const QString &name, bool is_modified)
+void Kwave::TopWidget::updateCaption()
 {
-    // shortcut if no file loaded
-    if (!name.length()) {
-	setCaption(QString());
-	return;
-    }
-
-    if (is_modified)
-	setCaption(i18nc(
-	    "%1 = Path to modified file",
-	    "* %1 (modified)",
-	    name)
-	);
-    else
-	setCaption(name);
+    const Kwave::FileContext *context = currentContext();
+    QString caption = (context) ? context->windowCaption(true) : QString();
+    setCaption(caption);
 }
 
 //***************************************************************************
 void Kwave::TopWidget::closeEvent(QCloseEvent *e)
 {
-    (closeFile()) ? e->accept() : e->ignore();
-}
-
-//***************************************************************************
-QString Kwave::TopWidget::signalName() const
-{
-    if (!m_current_context) return QString();
-    if (!m_current_context->pluginManager()) return QString();
-    return m_current_context->pluginManager()->signalManager().signalName();
+    (closeAllSubWindows()) ? e->accept() : e->ignore();
 }
 
 //***************************************************************************
@@ -1189,8 +1419,40 @@ void Kwave::TopWidget::showStatusBarMessage(const QString &msg,
                                             unsigned int ms)
 {
     KStatusBar *status_bar = statusBar();
-    Q_ASSERT(status_bar);
-    if (status_bar) status_bar->showMessage(msg, ms);
+    if (!status_bar) return;
+
+    if (msg.length())
+	status_bar->showMessage(msg, ms);
+    else
+	status_bar->clearMessage();
+}
+
+//***************************************************************************
+void Kwave::TopWidget::subWindowActivated(QMdiSubWindow *sub)
+{
+    if (!sub || !m_context_map.contains(sub)) return;
+    emit sigFileContextSwitched(currentContext());
+}
+
+//***************************************************************************
+void Kwave::TopWidget::subWindowDeleted(QObject *obj)
+{
+    QMdiSubWindow *sub = static_cast<QMdiSubWindow *>(obj);
+    if (!sub || !m_context_map.contains(sub)) return;
+
+    Kwave::FileContext *context = m_context_map[sub];
+    Q_ASSERT(context);
+    if (!context) return;
+
+    m_context_map.remove(sub);
+
+    if (m_context_map.isEmpty()) {
+	// keep the default context, without a window
+	m_context_map[0] = context;
+    } else {
+	// remove the context
+	delete context;
+    }
 }
 
 //***************************************************************************

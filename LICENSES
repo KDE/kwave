@@ -196,6 +196,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/App.cpp					GPL2+
 	kwave/App.h					GPL2+
 	kwave/FileContext.cpp				GPL2+
+	kwave/FileContext.h				GPL2+
 	kwave/kwave.desktop				(should be GPL2+)
 	kwave/main.cpp					GPL2+ / Martin Wilz
 	kwave/MainWidget.cpp				GPL2+ / Martin Wilz
@@ -338,8 +339,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Drag.h					GPL2+
 	libkwave/Encoder.cpp				GPL2+
 	libkwave/Encoder.h				GPL2+
-	libkwave/FileContext.cpp			GPL2+
-	libkwave/FileContext.h				GPL2+
 	libkwave/FileDrag.h				GPL2+
 	libkwave/FileInfo.cpp				GPL2+
 	libkwave/FileInfo.h				GPL2+

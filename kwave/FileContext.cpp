@@ -21,13 +21,15 @@
 #include <new>
 
 #include <QtGui/QApplication>
+#include <QtGui/QMdiSubWindow>
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 
 #include <kglobal.h>
 #include <kstandarddirs.h>
 
-#include "libkwave/FileContext.h"
+#include "libkwave/CodecManager.h"
+#include "libkwave/Encoder.h"
 #include "libkwave/Logger.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/Parser.h"
@@ -36,7 +38,10 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
 
+#include "libgui/FileDialog.h"
+
 #include "App.h"
+#include "FileContext.h"
 #include "MainWidget.h"
 #include "Splash.h"
 #include "TopWidget.h"
@@ -72,15 +77,10 @@ Kwave::FileContext::FileContext(Kwave::App &app)
      m_last_status_message_text(),
      m_last_status_message_timer(),
      m_last_status_message_ms(0),
-     m_last_meta_data(),
-     m_last_selection_offset(SAMPLE_INDEX_MAX),
-     m_last_selection_length(SAMPLE_INDEX_MAX),
      m_last_undo(QString()),
      m_last_redo(QString()),
      m_last_modified(false),
-     m_last_visible_offset(SAMPLE_INDEX_MAX),
-     m_last_visible_samples(SAMPLE_INDEX_MAX),
-     m_last_visible_total(SAMPLE_INDEX_MAX)
+     m_instance_nr(-1)
 {
 }
 
@@ -89,10 +89,54 @@ Kwave::FileContext::~FileContext()
 {
     emit destroyed(this);
 
-    m_top_widget     = 0;
-    m_main_widget    = 0;
-    m_signal_manager = 0;
+    if (m_main_widget) delete m_main_widget;
+    m_main_widget = 0;
+
+    m_top_widget = 0;
+
+    if (m_plugin_manager) delete m_plugin_manager;
     m_plugin_manager = 0;
+
+    if (m_signal_manager) delete m_signal_manager;
+    m_signal_manager = 0;
+}
+
+//***************************************************************************
+bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
+{
+    // create the main widget
+    m_main_widget = new(std::nothrow) Kwave::MainWidget(
+	m_top_widget, *this, preferred_size
+    );
+    Q_ASSERT(m_main_widget);
+    if (!m_main_widget) return false;
+    if (!(m_main_widget->isOK())) {
+	delete m_main_widget;
+	m_main_widget = 0;
+	return false;
+    }
+
+    // connect the main widget
+    connect(&(m_signal_manager->playbackController()),
+            SIGNAL(sigSeekDone(sample_index_t)),
+            m_main_widget, SLOT(scrollTo(sample_index_t)));
+    connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
+            this,          SLOT(executeCommand(const QString &)));
+    connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
+            this,          SLOT(forwardZoomChanged(double)));
+    connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)),
+	    this, SLOT(visibleRangeChanged(sample_index_t,
+	    sample_index_t, sample_index_t)) );
+
+    connect(m_main_widget,
+	    SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
+	                           sample_index_t, sample_index_t)),
+            m_top_widget,
+	    SLOT(mouseChanged(Kwave::MouseMark::Mode,
+	                      sample_index_t, sample_index_t)));
+
+    return true;
 }
 
 //***************************************************************************
@@ -102,22 +146,15 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     Q_ASSERT(m_top_widget);
     if (!m_top_widget) return false;
 
-    m_signal_manager = new Kwave::SignalManager(m_top_widget);
+    m_signal_manager = new(std::nothrow)
+	Kwave::SignalManager(m_top_widget);
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return false;
 
-    m_plugin_manager = new Kwave::PluginManager(m_top_widget, *m_signal_manager);
+    m_plugin_manager = new(std::nothrow)
+	Kwave::PluginManager(m_top_widget, *m_signal_manager);
     Q_ASSERT(m_plugin_manager);
     if (!m_plugin_manager) return false;
-
-    m_main_widget = new Kwave::MainWidget(top_widget, *this);
-    Q_ASSERT(m_main_widget);
-    if (!m_main_widget) return false;
-    if (!(m_main_widget->isOK())) {
-	delete m_main_widget;
-	m_main_widget = 0;
-	return false;
-    }
 
     // connect the signal manager
     connect(m_signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
@@ -133,31 +170,15 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
             this,             SLOT(modifiedChanged(bool)));
 
     // connect the plugin manager
-    connect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
-            m_top_widget,     SLOT(showInSplashSreen(const QString &)));
     connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
             this,             SLOT(executeCommand(const QString &)));
 
     // connect the playback controller
     connect(&(m_signal_manager->playbackController()),
-            SIGNAL(sigSeekDone(sample_index_t)),
-            m_main_widget, SLOT(scrollTo(sample_index_t)));
-    connect(&(m_signal_manager->playbackController()),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
 
-    // connect the main widget
-    connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
-            this,          SLOT(executeCommand(const QString &)));
-    connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
-            this,          SLOT(forwardZoomChanged(double)));
-    connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
-	    sample_index_t, sample_index_t)),
-	    this, SLOT(visibleRangeChanged(sample_index_t,
-	    sample_index_t, sample_index_t)) );
-
-    connect(top_widget, SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
-            this,       SLOT(contextSwitched(Kwave::FileContext *)));
+    setParent(top_widget);
 
     Kwave::Splash::showMessage(i18n("Scanning plugins..."));
     m_plugin_manager->searchPluginModules();
@@ -180,33 +201,46 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 }
 
 //***************************************************************************
-void Kwave::FileContext::close()
+void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
 {
-    if (m_main_widget) delete m_main_widget;
-    m_main_widget = 0;
 
-    m_application.closeWindow(m_top_widget);
-    m_top_widget = 0;
+    if (m_top_widget) {
+	Kwave::TopWidget *old = m_top_widget;
 
-    if (m_plugin_manager) delete m_plugin_manager;
-    m_plugin_manager = 0;
+	// disconnect all old signal/slot relationships
+	disconnect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
+	           old,              SLOT(showInSplashSreen(const QString &)));
+	disconnect(old,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
+	           this, SLOT(contextSwitched(Kwave::FileContext *)));
 
-    if (m_signal_manager) delete m_signal_manager;
-    m_signal_manager = 0;
-}
+	if (m_signal_manager) m_signal_manager->setParentWidget(0);
+	if (m_plugin_manager) m_plugin_manager->setParentWidget(0);
+	if (m_main_widget)    m_main_widget->setParent(0);
 
-//***************************************************************************
-Kwave::TopWidget *Kwave::FileContext::topWidget() const
-{
-    Q_ASSERT(m_top_widget);
-    return m_top_widget;
+	m_active = false;
+    }
+
+    // set the new top widget
+    m_top_widget = top_widget;
+
+    if (m_top_widget) {
+	QWidget *top = m_top_widget;
+
+	connect(top,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
+	        this, SLOT(contextSwitched(Kwave::FileContext *)));
+	connect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
+	        top,              SLOT(showInSplashSreen(const QString &)));
+
+	if (m_signal_manager) m_signal_manager->setParentWidget(m_top_widget);
+	if (m_plugin_manager) m_plugin_manager->setParentWidget(m_top_widget);
+	if (m_main_widget)    m_main_widget->setParent(m_top_widget);
+    }
 }
 
 //***************************************************************************
 QWidget *Kwave::FileContext::mainWidget() const
 {
-    Q_ASSERT(m_main_widget);
-    return m_main_widget;
+    return static_cast<QWidget *>(m_main_widget);
 }
 
 //***************************************************************************
@@ -232,12 +266,9 @@ Kwave::Zoomable* Kwave::FileContext::zoomable() const
 int Kwave::FileContext::executeCommand(const QString &line)
 {
     int result = 0;
-    Q_UNUSED(line);
     bool use_recorder = true;
     QString command = line;
 
-    Q_ASSERT(m_plugin_manager);
-    Q_ASSERT(m_top_widget);
     if (!m_plugin_manager || !m_top_widget) return -ENOMEM;
 
 //     qDebug("FileContext::executeCommand(%s)", DBG(command));
@@ -310,6 +341,8 @@ int Kwave::FileContext::executeCommand(const QString &line)
 
     if ((result = m_top_widget->executeCommand(command)) != ENOSYS) {
 	return result;
+    CASE_COMMAND("close")
+	result = closeFile() ? 0 : 1;
     CASE_COMMAND("loadbatch")
 	result = loadBatch(parser.nextParam());
     CASE_COMMAND("plugin")
@@ -331,10 +364,17 @@ int Kwave::FileContext::executeCommand(const QString &line)
     CASE_COMMAND("plugin:setup")
 	QString name(parser.firstParam());
 	result = m_plugin_manager->setupPlugin(name);
+    CASE_COMMAND("revert")
+	result = revert();
+    CASE_COMMAND("save")
+	result = saveFile();
+    CASE_COMMAND("saveas")
+	result = saveFileAs(parser.nextParam(), false);
+    CASE_COMMAND("saveselect")
+	result = saveFileAs(QString(), true);
     } else {
 	// pass the command to the layer below (main widget)
 	Kwave::CommandHandler *layer_below = m_main_widget;
-	Q_ASSERT(layer_below);
 	result = (layer_below) ? layer_below->executeCommand(command) : -1;
     }
 
@@ -392,29 +432,48 @@ void Kwave::FileContext::updatePlaybackPos(sample_index_t offset)
 //***************************************************************************
 void Kwave::FileContext::metaDataChanged(Kwave::MetaDataList meta_data)
 {
+    // find out the instance ID
+    if (m_instance_nr == -1) {
+	// build a list of all currently open files/instances (including this)
+	QList<Kwave::App::FileAndInstance> files = m_application.openFiles();
+
+	// filter out all instances of our file name
+	QString our_name = signalName();
+	QList<int> existing_instances;
+	foreach (const Kwave::App::FileAndInstance &it, files) {
+	    const QString &name = it.first;
+	    int            inst = it.second;
+	    if (name == our_name) existing_instances.append(inst);
+	}
+
+	// remove our own entry
+	if (existing_instances.contains(m_instance_nr))
+	    existing_instances.removeOne(m_instance_nr);
+
+	// find an empty slot
+	if (!existing_instances.isEmpty())
+	    while (existing_instances.contains(m_instance_nr))
+		m_instance_nr = (m_instance_nr != -1) ? (m_instance_nr + 1) : 2;
+    }
+
     if (isActive()) {
 	// we are active -> emit the meta data immediately
-	m_last_meta_data = Kwave::MetaDataList();
 	emit sigMetaDataChanged(meta_data);
-    } else {
-	// we are inactive -> emit the meta data later, when activated
-	m_last_meta_data = meta_data;
-    }
+    } // else: we are inactive -> emit the meta data later, when activated
+
+    // update the caption of the sub window
+    if (m_main_widget && (m_application.guiType() != Kwave::App::GUI_SDI))
+	m_main_widget->setWindowTitle(windowCaption(true));
 }
 
 //***************************************************************************
 void Kwave::FileContext::selectionChanged(sample_index_t offset,
                                           sample_index_t length)
 {
-    m_last_selection_offset = offset;
-    m_last_selection_length = length;
-
     if (isActive()) {
 	// we are active -> emit the selection change immediately
 	emit sigSelectionChanged(offset, length);
-    } else {
-	// we are inactive -> emit the selection change later, when activated
-    }
+    } // else: we are inactive -> not of interest / ignore
 }
 
 //***************************************************************************
@@ -427,9 +486,7 @@ void Kwave::FileContext::setUndoRedoInfo(const QString &undo,
     if (isActive()) {
 	// we are active -> emit the undo/redo info immediately
 	emit sigUndoRedoInfo(undo, redo);
-    } else {
-	// we are inactive -> emit the undo/redo info later, when activated
-    }
+    } // else: we are inactive -> emit the undo/redo info later, when activated
 }
 
 //***************************************************************************
@@ -440,16 +497,7 @@ void Kwave::FileContext::visibleRangeChanged(sample_index_t offset,
     if (isActive()) {
 	// we are active -> emit the view info immediately
 	emit sigVisibleRangeChanged(offset, visible, total);
-
-	m_last_visible_offset  = SAMPLE_INDEX_MAX;
-	m_last_visible_samples = SAMPLE_INDEX_MAX;
-	m_last_visible_total   = SAMPLE_INDEX_MAX;
-    } else {
-	// we are inactive -> emit the view info later, when activated
-	m_last_visible_offset  = offset;
-	m_last_visible_samples = visible;
-	m_last_visible_total   = total;
-    }
+    } // else: we are inactive -> emit the view info later, when activated
 }
 
 //***************************************************************************
@@ -460,9 +508,11 @@ void Kwave::FileContext::modifiedChanged(bool modified)
     if (isActive()) {
 	// we are active -> emit the modified state immediately
 	emit sigModified(modified);
-    } else {
-	// we are inactive -> emit the modified state later, when activated
-    }
+    } // else: we are inactive -> emit the modified state later, when activated
+
+    // update the caption of our main widget
+    if (m_main_widget && (m_application.guiType() != Kwave::App::GUI_SDI))
+	m_main_widget->setWindowTitle(windowCaption(true));
 }
 
 //***************************************************************************
@@ -473,12 +523,8 @@ void Kwave::FileContext::contextSwitched(Kwave::FileContext *context)
 	    m_active = true;
 	    activated();
 	}
-    } else {
-	if (m_active) {
-	    m_active = false;
-	    deactivated();
-	}
-    }
+    } else
+	m_active = false;
 }
 
 //***************************************************************************
@@ -491,7 +537,10 @@ void Kwave::FileContext::activated()
     // emit last zoom factor
     forwardZoomChanged(m_last_zoom);
 
-    // emit last status bar message if it has not expired
+    // erase the status message of the previous context
+    emit sigStatusBarMessage(QString(), 0);
+
+    // emit our last status bar message if it has not expired
     if (m_last_status_message_timer.isValid()) {
 	quint64 elapsed = m_last_status_message_timer.elapsed();
 	if (elapsed < m_last_status_message_ms) {
@@ -507,38 +556,24 @@ void Kwave::FileContext::activated()
 	}
     }
 
-    // emit last meta data change
-    if (!m_last_meta_data.isEmpty()) {
-	emit sigMetaDataChanged(m_last_meta_data);
-	m_last_meta_data = Kwave::MetaDataList();
+    // emit latest meta data
+    if (m_signal_manager)
+	emit sigMetaDataChanged(m_signal_manager->metaData());
+
+    // emit latest view range change
+    if (m_main_widget && m_signal_manager) {
+	sample_index_t offset  = m_main_widget->visibleOffset();
+	sample_index_t visible = m_main_widget->visibleSamples();
+	sample_index_t total   = m_signal_manager->length();
+	emit sigVisibleRangeChanged(offset, visible, total);
     }
 
-    // emit last view range change (always, if available)
-    if (!( (m_last_visible_offset  == SAMPLE_INDEX_MAX) &&
-           (m_last_visible_samples == SAMPLE_INDEX_MAX) &&
-           (m_last_visible_total   == SAMPLE_INDEX_MAX)))
-    {
-	emit sigVisibleRangeChanged(m_last_visible_offset,
-	                            m_last_visible_samples,
-	                            m_last_visible_total);
-    }
-
-    // emit last selection change (always, if available)
-    if ( (m_last_selection_length != SAMPLE_INDEX_MAX) &&
-         (m_last_selection_offset != SAMPLE_INDEX_MAX) )
-    {
-	emit sigSelectionChanged(m_last_selection_offset,
-	                         m_last_selection_length);
-    }
-
-    // emit the last "modified" state (always)
+    // emit the last "modified" state
     emit sigModified(m_last_modified);
 
-}
+    // emit last undo/redo info
+    emit sigUndoRedoInfo(m_last_undo, m_last_redo);
 
-//***************************************************************************
-void Kwave::FileContext::deactivated()
-{
 }
 
 //***************************************************************************
@@ -599,7 +634,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	// the "msgbox" command (useful for debugging)
 	if (parser.command() == _("msgbox")) {
 	    QApplication::restoreOverrideCursor();
-	    result = (Kwave::MessageBox::questionYesNo(m_main_widget,
+	    result = (Kwave::MessageBox::questionYesNo(mainWidget(),
 		parser.firstParam()) == KMessageBox::Yes) ? 0 : 1;
 	    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	    continue;
@@ -632,6 +667,38 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
     return result;
 }
 
+//***************************************************************************
+QString Kwave::FileContext::signalName() const
+{
+    return (m_signal_manager) ? m_signal_manager->signalName() : QString();
+}
+
+//***************************************************************************
+QString Kwave::FileContext::windowCaption(bool with_modified) const
+{
+    QString name = signalName();
+
+    // shortcut if no file loaded
+    if (!name.length()) return QString();
+
+    // if not in SDI mode we have to take care of multiple instances on our
+    // own and append a " <n>" manually !
+    if (m_application.guiType() != Kwave::App::GUI_SDI)
+	if (m_instance_nr != -1)
+	    name = i18nc(
+	        "for window title: "
+	        "%1 = Name of the file, "
+	        "%2 = Instance number when opened multiple times",
+	        "%1 <%2>").arg(name).arg(m_instance_nr);
+
+    if (with_modified) {
+	bool modified = (m_signal_manager) ?
+	    m_signal_manager->isModified() : false;
+	if (modified)
+	    return i18nc("%1 = Path to modified file", "* %1 (modified)", name);
+    }
+	return name;
+}
 
 //***************************************************************************
 int Kwave::FileContext::loadBatch(const KUrl &url)
@@ -649,6 +716,205 @@ int Kwave::FileContext::loadBatch(const KUrl &url)
     file.close();
 
     return result;
+}
+
+//***************************************************************************
+int Kwave::FileContext::revert()
+{
+    KUrl url(signalName());
+    if (!url.isValid()) return -EINVAL;
+
+    return (m_signal_manager) ? m_signal_manager->loadFile(url) : -EINVAL;
+}
+
+//***************************************************************************
+int Kwave::FileContext::saveFile()
+{
+    if (!m_signal_manager) return -EINVAL;
+
+    int res = 0;
+
+    if (signalName() != NEW_FILENAME) {
+	KUrl url;
+	url = signalName();
+	res = m_signal_manager->save(url, false);
+
+	// if saving in current format is not possible (no encoder),
+	// then try to "save/as" instead...
+	if (res == -EINVAL) res = saveFileAs(QString(), false);
+    } else res = saveFileAs(QString(), false);
+
+    return res;
+}
+
+//***************************************************************************
+int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
+{
+    if (!m_signal_manager) return -EINVAL;
+
+    QString name = filename;
+    KUrl url;
+    int res = 0;
+
+    if (name.length()) {
+	/* name given -> take it */
+	url = KUrl(name);
+    } else {
+	/*
+	 * no name given -> show the File/SaveAs dialog...
+	 */
+	KUrl current_url;
+	current_url = signalName();
+
+	QString what  = Kwave::CodecManager::whatContains(current_url);
+	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
+	QString extension; // = "*.wav";
+	if (!encoder) {
+	    // no extension selected yet, use mime type from file info
+	    QString mime_type = Kwave::FileInfo(
+		m_signal_manager->metaData()).get(
+		    Kwave::INF_MIMETYPE).toString();
+	    encoder = Kwave::CodecManager::encoder(mime_type);
+	    if (encoder) {
+		QStringList extensions = encoder->extensions(mime_type);
+		if (!extensions.isEmpty()) {
+		    QString ext = extensions.first().split(_(" ")).first();
+		    if (ext.length()) {
+			extension = ext;
+			QString new_filename = current_url.fileName();
+			new_filename += extension.mid(1); // remove the "*"
+			current_url.setFileName(new_filename);
+		    }
+		}
+	    }
+	}
+
+	QString filter = Kwave::CodecManager::encodingFilter();
+	Kwave::FileDialog dlg(_("kfiledialog:///kwave_save_as"),
+	    filter, m_top_widget, true, current_url.prettyUrl(), extension);
+	dlg.setOperationMode(KFileDialog::Saving);
+	dlg.setCaption(i18n("Save As"));
+	if (dlg.exec() != QDialog::Accepted) return -1;
+
+	url = dlg.selectedUrl();
+	if (url.isEmpty()) return 0;
+
+	QString new_name = url.path();
+	QFileInfo path(new_name);
+
+	// add the correct extension if necessary
+	if (!path.suffix().length()) {
+	    QString ext = dlg.selectedExtension();
+	    QStringList extensions = ext.split(_(" "));
+	    ext = extensions.first();
+	    new_name += ext.mid(1);
+	    path = new_name;
+	    url.setPath(new_name);
+	}
+    }
+
+    // check if the file exists and ask before overwriting it
+    // if it is not the old filename
+    name = url.path();
+    if ((url.prettyUrl() != KUrl(signalName()).prettyUrl()) &&
+	(QFileInfo(name).exists()))
+    {
+	if (Kwave::MessageBox::warningYesNo(m_top_widget,
+	    i18n("The file '%1' already exists.\n"
+	         "Do you really want to overwrite it?", name)) !=
+	         KMessageBox::Yes)
+	{
+	    return -1;
+	}
+    }
+
+    // maybe we now have a new mime type
+    QString previous_mimetype_name =
+	Kwave::FileInfo(m_signal_manager->metaData()).get(
+	    Kwave::INF_MIMETYPE).toString();
+
+    QString new_mimetype_name = Kwave::CodecManager::whatContains(url);
+
+    if (new_mimetype_name != previous_mimetype_name) {
+	// saving to a different mime type
+	// now we have to do as if the mime type and file name
+	// has already been selected to satisfy the fileinfo
+	// plugin
+	qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
+	    DBG(url.prettyUrl()), DBG(new_mimetype_name),
+	    DBG(previous_mimetype_name) );
+
+	// set the new mimetype
+	Kwave::FileInfo info(m_signal_manager->metaData());
+	info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
+
+	// set the new filename
+	info.set(Kwave::INF_FILENAME, url.prettyUrl());
+	m_signal_manager->setFileInfo(info, false);
+
+	// now call the fileinfo plugin with the new filename and
+	// mimetype
+	res = (m_plugin_manager) ?
+	       m_plugin_manager->setupPlugin(_("fileinfo"))
+	       : -1;
+
+	// restore the mime type and the filename
+	info = Kwave::FileInfo(m_signal_manager->metaData());
+	info.set(Kwave::INF_MIMETYPE, previous_mimetype_name);
+	info.set(Kwave::INF_FILENAME, url.prettyUrl());
+	m_signal_manager->setFileInfo(info, false);
+    }
+
+    // now we have a file name -> do the "save" operation
+    if (!res) res = m_signal_manager->save(url, selection);
+
+    // if saving was successful, add the file to the list of recent files
+    if (!res) m_application.addRecentFile(signalName());
+
+    return res;
+}
+
+//***************************************************************************
+bool Kwave::FileContext::closeFile()
+{
+    if (m_plugin_manager && !m_plugin_manager->canClose())
+    {
+	qWarning("FileContext::closeFile() - currently not possible, "\
+	         "a plugin is running :-(");
+	return false;
+    }
+
+    if (m_signal_manager && m_signal_manager->isModified()) {
+	int res =  Kwave::MessageBox::warningYesNoCancel(m_top_widget,
+	    i18n("This file has been modified.\nDo you want to save it?"));
+	if (res == KMessageBox::Cancel) return false;
+	if (res == KMessageBox::Yes) {
+	    // user decided to save
+	    res = saveFile();
+	    qDebug("FileContext::closeFile()::saveFile, res=%d",res);
+	    if (res) return false;
+	}
+    }
+
+    // close all plugins that still might use the current signal
+    if (m_plugin_manager) {
+	m_plugin_manager->stopAllPlugins();
+	m_plugin_manager->signalClosed();
+    }
+
+    if (m_signal_manager) m_signal_manager->close();
+
+    switch (m_application.guiType()) {
+	case Kwave::App::GUI_MDI: /* FALLTHROUGH */
+	case Kwave::App::GUI_TAB:
+	    // close the main widget
+	    if (m_main_widget) m_main_widget->deleteLater();
+	    break;
+	case Kwave::App::GUI_SDI:
+	    break;
+    }
+
+    return true;
 }
 
 //***************************************************************************

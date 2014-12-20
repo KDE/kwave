@@ -80,8 +80,7 @@ bool Kwave::MenuItem::specialCommand(const QString &command)
 	// checking/selecting of the item (non-exclusive)
 	setCheckable(true);
     }
-
-    if (parser.command() == _("#exclusive")) {
+    else if (parser.command() == _("#exclusive")) {
 	// join to a list of groups
 	QString group = parser.firstParam();
 	while (group.length()) {
@@ -100,8 +99,17 @@ bool Kwave::MenuItem::specialCommand(const QString &command)
 	setCheckable(true);
 	return true;
     }
+    else if (command == _("#hidden")) {
+	setVisible(false);
+    }
 
     return (Kwave::MenuNode::specialCommand(command));
+}
+
+//*****************************************************************************
+void Kwave::MenuItem::setVisible(bool visible)
+{
+    m_action.setVisible(visible);
 }
 
 //*****************************************************************************

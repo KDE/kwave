@@ -73,8 +73,6 @@ namespace Kwave
 	/** Default destructor */
 	virtual ~SignalManager();
 
-    public:
-
 	/**
 	 * Closes the current signal and loads a new file.
 	 * @param url URL of the file to be loaded
@@ -402,6 +400,14 @@ namespace Kwave
 	 */
 	QUuid uuidOfTrack(unsigned int track) {
 	    return m_signal.uuidOfTrack(track);
+	}
+
+	/**
+	 * assigns a new parent widget, to be used for messages
+	 * @param new_parent pointer to a QWidget
+	 */
+	inline void setParentWidget(QWidget *new_parent) {
+	    m_parent_widget = new_parent;
 	}
 
     signals:

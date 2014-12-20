@@ -21,22 +21,26 @@
 
 #include "config.h"
 
-#include <QtCore/QPair>
+#include <QtCore/QMap>
 #include <QtCore/QPointer>
 #include <QtCore/QString>
+#include <QtGui/QMdiArea>
 
 #include <kdemacros.h>
 #include <kmainwindow.h>
 #include <kurl.h>
 
-#include "libkwave/FileContext.h"
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"
 
 #include "libgui/MouseMark.h"
 
+#include "App.h"
+#include "FileContext.h"
+
 class QCloseEvent;
 class QLabel;
+class QMdiSubWindow;
 class QTextStream;
 class QTimer;
 
@@ -48,7 +52,6 @@ class KStatusBar;
 namespace Kwave
 {
 
-    class App;
     class FileContext;
     class MainWidget;
     class MenuManager;
@@ -87,6 +90,24 @@ namespace Kwave
 	 * Destructor.
 	 */
 	virtual ~TopWidget();
+
+	/**
+	 * Returns a list of currently opened files
+	 * and their instance number
+	 */
+	QList<Kwave::App::FileAndInstance> openFiles() const;
+
+	/**
+	 * Detaches all file contexts from this instance
+	 * @return a list of Kwave::FileContext pointers (non-null)
+	 */
+	QList<Kwave::FileContext *> detachAllContexts();
+
+	/**
+	 * Insert a new file context into this instance
+	 * @param context the new file context
+	 */
+	void insertContext(Kwave::FileContext *context);
 
 	/**
 	 * Loads a new file and updates the widget's title, menu, status bar
@@ -243,12 +264,25 @@ namespace Kwave
 
 	/** shows a message/progress in the splash screen */
 	void showInSplashSreen(const QString &message);
+
 	/**
 	 * Show a message in the status bar
 	 * @param msg the status bar message, already localized
 	 * @param ms the time in milliseconds to show the message
 	 */
 	void showStatusBarMessage(const QString &msg, unsigned int ms);
+
+	/**
+	 * called when a MDI sub window or TAB has been activated
+	 * @param sub the sub window that has been activated
+	 */
+	void subWindowActivated(QMdiSubWindow *sub);
+
+	/**
+	 * called when a MDI sub window or TAB is about to be deleted
+	 * @param obj the sub window (not yet deleted)
+	 */
+	void subWindowDeleted(QObject *obj);
 
     signals:
 
@@ -258,12 +292,30 @@ namespace Kwave
 	 */
 	void sigFileContextSwitched(Kwave::FileContext *context);
 
-	/**
-	 * Emitted it the name of the signal has changed.
-	 */
-	void sigSignalNameChanged(const QString &name);
-
     private:
+
+	/**
+	 * Returns the currently active file context (corresponds to a MDI
+	 * sub window or tab in MDI / TAB mode). In SDI mode, m_context_map
+	 * contains only one element, the current context (reachable per index
+	 * null).
+	 * @return pointer to a active FileContext within m_context_map
+	 */
+	Kwave::FileContext *currentContext() const;
+
+	/**
+	 * Opens a new empty window.
+	 * @param context reference to the pointer to the current context,
+	 *                can be modified in case that a new context has
+	 *                to be created for the new window!
+	 *                Must not be a null pointer
+	 * @param url URL of the file to be loaded (optional), used for
+	 *            opening a new SDI window
+	 * @retval -1 or negative in case of an error
+	 * @retval  0 if succeeded and done (SDI mode)
+	 * @retval  1 if succeeded but window is still empty (MDI or TAB mode)
+	 */
+	int newWindow(Kwave::FileContext *&context, const KUrl &url);
 
 	/**
 	 * Closes the current file and creates a new empty signal.
@@ -277,13 +329,6 @@ namespace Kwave
 	              unsigned int bits, unsigned int tracks);
 
 	/**
-	 * Discards all changes to the current file and loads
-	 * it again.
-	 * @return zero if succeeded or error code
-	 */
-	int revert();
-
-	/**
 	 * Shows an "open file" dialog and opens the .wav file the
 	 * user has selected.
 	 * @return zero if succeeded or error code
@@ -291,29 +336,10 @@ namespace Kwave
 	int openFile();
 
 	/**
-	 * Closes the current file and updates the menu and other controls.
-	 * If the file has been modified and the user wanted to break
-	 * the close operation, the file will not get closed and the
-	 * function returns with false.
+	 * Close all the currently opened sub windows
 	 * @return true if closing is allowed
 	 */
-	bool closeFile();
-
-	/**
-	 * Saves the current file.
-	 * @return zero if succeeded, non-zero if failed
-	 */
-	int saveFile();
-
-	/**
-	 * Opens a dialog for saving the current .wav file.
-	 * @param filename the name of the new file
-	 *                 or empty string to open the File/SaveAs dialog
-	 * @param selection if set to true, only the current selection
-	 *        will be saved
-	 * @return zero if succeeded, non-zero if failed
-	 */
-	int saveFileAs(const QString &filename, bool selection = false);
+	 bool closeAllSubWindows();
 
 	/**
 	 * Opens a file contained in the list of recent files.
@@ -322,30 +348,33 @@ namespace Kwave
 	 */
 	int openRecent(const QString &str);
 
-	/**
-	 * Updates the caption with the filename
-	 * @param name the filename to show in the caption
-	 * @param is_modified true if the file is modified, false if not
-	 */
-	void updateCaption(const QString &name, bool is_modified);
+	/** Updates the window caption */
+	void updateCaption();
 
-	/** returns the name of the signal */
-	QString signalName() const;
+	/**
+	 * Establishes all signal/slot connections between a context and
+	 * this instance, including toolbars etc.
+	 */
+	void connectContext(Kwave::FileContext *context);
 
 	/**
 	 * Creates a new file context and initializes it.
-	 * @retval true if succeeded
-	 * @retval false if creation or initialization failed
+	 * @return the new file context or null pointer if
+	 *         creation or initialization failed
 	 */
-	bool newFileContext();
+	Kwave::FileContext *newFileContext();
 
     private:
 
 	/** each TopWidget has exactly one corresponding Kwave::App instance */
 	Kwave::App &m_application;
 
-	/** application context of this instance */
-	QPointer<Kwave::FileContext> m_current_context;
+	/**
+	 * map for retrieving the file context that corresponds to
+	 * a MDI sub window or TAB. In SDI mode it contains only one
+	 * entry, corresponding to a null pointer as index.
+	 */
+	QMap<QMdiSubWindow *, Kwave::FileContext *> m_context_map;
 
 	/** toolbar with playback/record and seek controls */
 	Kwave::PlayerToolBar *m_toolbar_record_playback;
@@ -355,6 +384,12 @@ namespace Kwave
 
 	/** menu manager for this window */
 	Kwave::MenuManager *m_menu_manager;
+
+	/**
+	 * MDI area, parent of all MDI child windows (only used in MDI and
+	 * TAB gui mode, null for SDI)
+	 */
+	QMdiArea *m_mdi_area;
 
 	/** action of the "file save" toolbar button */
 	QAction *m_action_save;
@@ -371,6 +406,18 @@ namespace Kwave
 	/** action of the "edit redo" toolbar button */
 	QAction *m_action_redo;
 
+	/** action of the "edit cut" toolbar button */
+	QAction *m_action_cut;
+
+	/** action of the "edit copy" toolbar button */
+	QAction *m_action_copy;
+
+	/** action of the "erase" toolbar button */
+	QAction *m_action_erase;
+
+	/** action of the "edit delete" toolbar button */
+	QAction *m_action_delete;
+
 	/** status bar label for length of the signal */
 	QLabel *m_lbl_status_size;
 
@@ -379,7 +426,6 @@ namespace Kwave
 
 	/** status bar label for cursor / playback position */
 	QLabel *m_lbl_status_cursor;
-
     };
 }
 

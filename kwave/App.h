@@ -56,7 +56,7 @@ namespace Kwave
 
 	/**
 	 * pair of file name and instance
-	 * @see openFiles()
+	 * @see #openFiles()
 	 */
 	typedef QPair<QString,int> FileAndInstance;
 
@@ -89,7 +89,7 @@ namespace Kwave
 	 * will be opened.
 	 * @param url URL of the file to be loaded, (optional, might be empty)
 	 * @return true if succeeded, false if failed
-	 * @see #closeWindow()
+	 * @see #toplevelWindowHasClosed()
 	 * @see TopWidget
 	 */
 	bool newWindow(const KUrl &url);

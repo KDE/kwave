@@ -5,6 +5,8 @@
  * bugfix: segfault during shutdown of logger
  * bugfix: segfault when unloading plugins (on some systems)
  * bugfix: "zoom to selection" was not disabled if nothing was selected
+ * bugfix: toolbar buttons for cut/copy/erase/delete did not properly get
+   enabled/disabled on change of selection
  * menu subsystem: added support for lists within a menu
  * menu subsystem: show/hide toplevel menu entries
  * menu subsystem: added support for exclusive selection (radio buttons)

@@ -406,6 +406,18 @@ namespace Kwave
 	/** action of the "edit redo" toolbar button */
 	QAction *m_action_redo;
 
+	/** action of the "edit cut" toolbar button */
+	QAction *m_action_cut;
+
+	/** action of the "edit copy" toolbar button */
+	QAction *m_action_copy;
+
+	/** action of the "erase" toolbar button */
+	QAction *m_action_erase;
+
+	/** action of the "edit delete" toolbar button */
+	QAction *m_action_delete;
+
 	/** status bar label for length of the signal */
 	QLabel *m_lbl_status_size;
 

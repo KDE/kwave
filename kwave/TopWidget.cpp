@@ -112,6 +112,10 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
      m_action_close(0),
      m_action_undo(0),
      m_action_redo(0),
+     m_action_cut(0),
+     m_action_copy(0),
+     m_action_erase(0),
+     m_action_delete(0),
      m_lbl_status_size(0),
      m_lbl_status_mode(0),
      m_lbl_status_cursor(0)
@@ -376,12 +380,12 @@ bool Kwave::TopWidget::init()
 	i18n("Redo"),
 	this, SLOT(toolbarEditRedo()));
 
-    toolbar_edit->addAction(
+    m_action_cut = toolbar_edit->addAction(
 	icon_loader.loadIcon(_("edit-cut"), KIconLoader::Toolbar),
 	i18n("Cut"),
 	this, SLOT(toolbarEditCut()));
 
-    toolbar_edit->addAction(
+    m_action_copy = toolbar_edit->addAction(
 	icon_loader.loadIcon(_("edit-copy"), KIconLoader::Toolbar),
 	i18n("Copy"),
 	this, SLOT(toolbarEditCopy()));
@@ -394,12 +398,12 @@ bool Kwave::TopWidget::init()
     connect(&Kwave::ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
             btPaste, SLOT(setEnabled(bool)));
 
-    toolbar_edit->addAction(
+    m_action_erase = toolbar_edit->addAction(
 	icon_loader.loadIcon(_("draw-eraser"), KIconLoader::Toolbar),
 	i18n("Mute selection"),
 	this, SLOT(toolbarEditErase()));
 
-    toolbar_edit->addAction(
+    m_action_delete = toolbar_edit->addAction(
 	icon_loader.loadIcon(_("edit-delete"), KIconLoader::Toolbar),
 	i18n("Delete selection"),
 	this, SLOT(toolbarEditDelete()));
@@ -1123,10 +1127,9 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	    m_menu_manager->setItemEnabled(_("@SELECTION"), false);
     }
 
-    // update the zoom toolbar on selection change, maybe the
+    // update the toolbar on selection change, maybe the
     // button for "zoom selection" has to be enabled/disabled
-    if (m_toolbar_zoom)
-	m_toolbar_zoom->updateToolbar();
+    updateToolbar();
 }
 
 //***************************************************************************
@@ -1360,13 +1363,22 @@ void Kwave::TopWidget::updateToolbar()
     if (!signal_manager) return;
 
     bool have_signal = signal_manager->tracks();
-
     if (m_action_save)
 	m_action_save->setEnabled(have_signal);
     if (m_action_save_as)
 	m_action_save_as->setEnabled(have_signal);
     if (m_action_close)
 	m_action_close->setEnabled(have_signal);
+
+    bool have_selection = (signal_manager->selection().length() > 1);
+    if (m_action_cut)
+	m_action_cut->setEnabled(have_selection);
+    if (m_action_copy)
+	m_action_copy->setEnabled(have_selection);
+    if (m_action_erase)
+	m_action_erase->setEnabled(have_selection);
+    if (m_action_delete)
+	m_action_delete->setEnabled(have_selection);
 
     // update the zoom toolbar
     if (m_toolbar_zoom)

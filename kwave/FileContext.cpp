@@ -170,8 +170,6 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
             this,             SLOT(modifiedChanged(bool)));
 
     // connect the plugin manager
-    connect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
-            m_top_widget,     SLOT(showInSplashSreen(const QString &)));
     connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
             this,             SLOT(executeCommand(const QString &)));
 
@@ -180,8 +178,7 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this, SLOT(updatePlaybackPos(sample_index_t)));
 
-    connect(top_widget, SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
-            this,       SLOT(contextSwitched(Kwave::FileContext *)));
+    setParent(top_widget);
 
     Kwave::Splash::showMessage(i18n("Scanning plugins..."));
     m_plugin_manager->searchPluginModules();
@@ -201,6 +198,43 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     statusBarMessage(i18n("Ready"), 1000);
 
     return true;
+}
+
+//***************************************************************************
+void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
+{
+
+    if (m_top_widget) {
+	Kwave::TopWidget *old = m_top_widget;
+
+	// disconnect all old signal/slot relationships
+	disconnect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
+	           old,              SLOT(showInSplashSreen(const QString &)));
+	disconnect(old,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
+	           this, SLOT(contextSwitched(Kwave::FileContext *)));
+
+	if (m_signal_manager) m_signal_manager->setParentWidget(0);
+	if (m_plugin_manager) m_plugin_manager->setParentWidget(0);
+	if (m_main_widget)    m_main_widget->setParent(0);
+
+	m_active = false;
+    }
+
+    // set the new top widget
+    m_top_widget = top_widget;
+
+    if (m_top_widget) {
+	QWidget *top = m_top_widget;
+
+	connect(top,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
+	        this, SLOT(contextSwitched(Kwave::FileContext *)));
+	connect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
+	        top,              SLOT(showInSplashSreen(const QString &)));
+
+	if (m_signal_manager) m_signal_manager->setParentWidget(m_top_widget);
+	if (m_plugin_manager) m_plugin_manager->setParentWidget(m_top_widget);
+	if (m_main_widget)    m_main_widget->setParent(m_top_widget);
+    }
 }
 
 //***************************************************************************
@@ -232,12 +266,9 @@ Kwave::Zoomable* Kwave::FileContext::zoomable() const
 int Kwave::FileContext::executeCommand(const QString &line)
 {
     int result = 0;
-    Q_UNUSED(line);
     bool use_recorder = true;
     QString command = line;
 
-    Q_ASSERT(m_plugin_manager);
-    Q_ASSERT(m_top_widget);
     if (!m_plugin_manager || !m_top_widget) return -ENOMEM;
 
 //     qDebug("FileContext::executeCommand(%s)", DBG(command));

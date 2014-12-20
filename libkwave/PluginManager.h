@@ -26,6 +26,7 @@
 #include <QtCore/QMutableListIterator>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
+#include <QtGui/QWidget>
 
 #include <kdemacros.h>
 
@@ -36,7 +37,6 @@
 class QLibrary;
 class QString;
 class QStringList;
-class QWidget;
 
 namespace Kwave
 {
@@ -163,6 +163,14 @@ namespace Kwave
 	 * only needed for plugins doing playback.
 	 */
 	Kwave::PlaybackController &playbackController();
+
+	/**
+	 * assigns a new parent widget, to be used for messages
+	 * @param new_parent pointer to a QWidget
+	 */
+	inline void setParentWidget(QWidget *new_parent) {
+	    m_parent_widget = new_parent;
+	}
 
 	/** returns a pointer to the parent widget */
 	inline QPointer<QWidget> parentWidget()

@@ -80,6 +80,12 @@ namespace Kwave
 	 */
 	bool createMainWidget(const QSize &preferred_size);
 
+	/**
+	 * migrate this context to a different toplevel widget
+	 * @param top_widget pointer to the new toplevel widget
+	 */
+	void setParent(Kwave::TopWidget *top_widget);
+
 	/** returns a reference to the application instance */
 	Kwave::App           &app() const { return m_application; }
 

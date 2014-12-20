@@ -22,6 +22,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QString>
 #include <QtCore/QMetaType>
+#include <QMutableListIterator>
 
 #include <kcmdlineargs.h>
 #include <kconfig.h>
@@ -201,7 +202,7 @@ bool Kwave::App::newWindow(const KUrl &url)
     }
 
     if (!new_top_widget) {
-	new_top_widget = new Kwave::TopWidget(*this);
+	new_top_widget = new(std::nothrow) Kwave::TopWidget(*this);
 	if (!new_top_widget || !new_top_widget->init()) {
 	    // init failed
 	    qWarning("ERROR: initialization of TopWidget failed");
@@ -238,8 +239,6 @@ bool Kwave::App::newWindow(const KUrl &url)
 //***************************************************************************
 bool Kwave::App::toplevelWindowHasClosed(Kwave::TopWidget *todel)
 {
-    Q_ASSERT(todel);
-
     // save the list of recent files
     saveRecentFiles();
 
@@ -262,6 +261,78 @@ QList<Kwave::App::FileAndInstance> Kwave::App::openFiles() const
 	    all_files += files;
     }
     return all_files;
+}
+
+//***************************************************************************
+void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
+{
+    Q_ASSERT(top);
+    if (!top) return;
+    if (new_type == m_gui_type) return;
+
+    // collect all contexts of all toplevel widgets, and delete all except
+    // the new top widget that is calling us
+    QList<Kwave::FileContext *> all_contexts;
+    QMutableListIterator<Kwave::TopWidget *> it(m_top_widgets);
+    while (it.hasNext()) {
+	Kwave::TopWidget *topwidget = it.next();
+	if (!topwidget) { it.remove(); continue; }
+	QList<Kwave::FileContext *> contexts = topwidget->detachAllContexts();
+	if (!contexts.isEmpty()) all_contexts += contexts;
+	if (topwidget != top) {
+	    it.remove();
+	    delete topwidget;
+	}
+    }
+
+    // from now on use the new GUI type
+    m_gui_type = new_type;
+
+    // at this point we should have exactly one toplevel widget without
+    // context and a list of contexts (which may be empty)
+    if (!all_contexts.isEmpty()) {
+	bool first = true;
+	foreach (Kwave::FileContext *context, all_contexts) {
+	    Kwave::TopWidget *top_widget = 0;
+
+	    switch (m_gui_type) {
+		case GUI_SDI:
+		    if (first) {
+			// the context reuses the calling toplevel widget
+			top_widget = top;
+			first = false;
+		    } else {
+			// for all other contexts we have to create a new
+			// toplevel widget
+			top_widget = new(std::nothrow) Kwave::TopWidget(*this);
+			if (!top_widget || !top_widget->init()) {
+			    // init failed
+			    qWarning("ERROR: initialization of TopWidget failed");
+			    delete top_widget;
+			    delete context;
+			}
+			m_top_widgets.append(top_widget);
+			top_widget->show();
+
+			// inform the widget about changes in the list of recent
+			// files
+			connect(this, SIGNAL(recentFilesChanged()),
+				top_widget, SLOT(updateRecentFiles()));
+		    }
+		    break;
+		case GUI_MDI: /* FALLTHROUGH */
+		case GUI_TAB:
+		    // all contexts go into the same toplevel widget
+		    top_widget = top;
+		    break;
+	    }
+
+	    top_widget->insertContext(context);
+	}
+    } else {
+	// give our one and only toplevel widget a default context
+	top->insertContext(0);
+    }
 }
 
 //***************************************************************************

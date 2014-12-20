@@ -110,6 +110,14 @@ namespace Kwave
 	/** returns the GUI type (e.g. SDI, MDI etc.) */
 	GuiType guiType() const { return m_gui_type; }
 
+	/**
+	 * Switches the GUI type to a new style, using the current toplevel
+	 * widget as start.
+	 * @param top the current toplevel widget
+	 * @param new_type the new GUI type
+	 */
+	void switchGuiType(Kwave::TopWidget *top, GuiType new_type);
+
     signals:
 	/**
 	 * Will be emitted if the list of recent files has changed. Can

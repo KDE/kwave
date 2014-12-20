@@ -98,6 +98,18 @@ namespace Kwave
 	QList<Kwave::App::FileAndInstance> openFiles() const;
 
 	/**
+	 * Detaches all file contexts from this instance
+	 * @return a list of Kwave::FileContext pointers (non-null)
+	 */
+	QList<Kwave::FileContext *> detachAllContexts();
+
+	/**
+	 * Insert a new file context into this instance
+	 * @param context the new file context
+	 */
+	void insertContext(Kwave::FileContext *context);
+
+	/**
 	 * Loads a new file and updates the widget's title, menu, status bar
 	 * and so on.
 	 * @param url URL of the file to be loaded
@@ -338,6 +350,12 @@ namespace Kwave
 
 	/** Updates the window caption */
 	void updateCaption();
+
+	/**
+	 * Establishes all signal/slot connections between a context and
+	 * this instance, including toolbars etc.
+	 */
+	void connectContext(Kwave::FileContext *context);
 
 	/**
 	 * Creates a new file context and initializes it.

@@ -19,6 +19,9 @@
                     kwave:quit
  * using perl scripts creating for i18n from menus.config and for getting
    entries from lsm files, no longer need awk, sort, uniq
+ * creating menu translation template directly per perl script instead
+   of generated dummy cpp file (requires "msgcat")
+ * menu translations: assign a context to each menu entry
 
 0.8.12 [2014-06-04]
 

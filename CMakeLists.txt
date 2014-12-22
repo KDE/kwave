@@ -75,6 +75,8 @@ SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 #############################################################################
 ### Kwave version number                                                  ###
 
+FIND_PACKAGE(RequiredProgram REQUIRED)
+FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
 INCLUDE(FindKwaveVersion)
 
 #############################################################################

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-22 08:02+0100\n"
+"POT-Creation-Date: 2014-12-22 10:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,17 +103,16 @@ msgstr ""
 msgid "Modify Label"
 msgstr ""
 
-#: kwave/PlayerToolBar.cpp:79 kwave/menus_config_i18n.cpp:68
+#: kwave/PlayerToolBar.cpp:79
 msgid "Previous"
 msgstr ""
 
-#: kwave/PlayerToolBar.cpp:85 kwave/menus_config_i18n.cpp:79
+#: kwave/PlayerToolBar.cpp:85
 msgid "Rewind"
 msgstr ""
 
 #: kwave/PlayerToolBar.cpp:91 plugins/record/RecordPlugin.cpp:60
-#: kwave/menus_config_i18n.cpp:74 plugins/record/ui_RecordDlg.h:889
-#: plugins/record/ui_RecordDlg.h:925
+#: plugins/record/ui_RecordDlg.h:889 plugins/record/ui_RecordDlg.h:925
 msgid "Record"
 msgstr ""
 
@@ -129,11 +128,11 @@ msgstr ""
 msgid "Stop playback or loop"
 msgstr ""
 
-#: kwave/PlayerToolBar.cpp:121 kwave/menus_config_i18n.cpp:43
+#: kwave/PlayerToolBar.cpp:121
 msgid "Forward"
 msgstr ""
 
-#: kwave/PlayerToolBar.cpp:127 kwave/menus_config_i18n.cpp:54
+#: kwave/PlayerToolBar.cpp:127
 msgid "Next"
 msgstr ""
 
@@ -173,20 +172,19 @@ msgstr ""
 msgid "Close the current file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:375 kwave/menus_config_i18n.cpp:101
+#: kwave/TopWidget.cpp:375
 msgid "Undo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:380 kwave/menus_config_i18n.cpp:75
+#: kwave/TopWidget.cpp:380
 msgid "Redo"
 msgstr ""
 
 #: kwave/TopWidget.cpp:385 libkwave/SignalManager.cpp:681
-#: kwave/menus_config_i18n.cpp:31
 msgid "Cut"
 msgstr ""
 
-#: kwave/TopWidget.cpp:390 kwave/menus_config_i18n.cpp:29
+#: kwave/TopWidget.cpp:390
 msgid "Copy"
 msgstr ""
 
@@ -256,7 +254,7 @@ msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr ""
 
-#: kwave/TopWidget.cpp:983 kwave/menus_config_i18n.cpp:61
+#: kwave/TopWidget.cpp:983
 msgid "Open"
 msgstr ""
 
@@ -348,7 +346,7 @@ msgstr ""
 msgid "Zoom out"
 msgstr ""
 
-#: kwave/ZoomToolBar.cpp:84 kwave/menus_config_i18n.cpp:108
+#: kwave/ZoomToolBar.cpp:84
 msgid "Zoom to 100%"
 msgstr ""
 
@@ -592,7 +590,7 @@ msgid "Into second half"
 msgstr ""
 
 #: libgui/CurveWidget.cpp:95 libkwave/undo/UndoDeleteAction.cpp:56
-#: libkwave/SignalManager.cpp:706 kwave/menus_config_i18n.cpp:32
+#: libkwave/SignalManager.cpp:706
 msgid "Delete"
 msgstr ""
 
@@ -700,7 +698,6 @@ msgid "&Paste"
 msgstr ""
 
 #: libgui/SignalWidget.cpp:247 libkwave/undo/UndoSelection.cpp:51
-#: kwave/menus_config_i18n.cpp:85
 msgid "Selection"
 msgstr ""
 
@@ -712,11 +709,11 @@ msgstr ""
 msgid "&Expand to Labels"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:269 kwave/menus_config_i18n.cpp:97
+#: libgui/SignalWidget.cpp:269
 msgid "To Next Labels"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:278 kwave/menus_config_i18n.cpp:98
+#: libgui/SignalWidget.cpp:278
 msgid "To Previous Labels"
 msgstr ""
 
@@ -1335,7 +1332,7 @@ msgid ""
 "Example: 'Torvalds, Linus'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:243 kwave/menus_config_i18n.cpp:100
+#: libkwave/FileInfo.cpp:243
 msgid "Track"
 msgstr ""
 
@@ -1558,7 +1555,7 @@ msgstr ""
 msgid "Gospel"
 msgstr ""
 
-#: libkwave/GenreType.cpp:135 kwave/menus_config_i18n.cpp:57
+#: libkwave/GenreType.cpp:135
 msgid "Noise"
 msgstr ""
 
@@ -2115,11 +2112,11 @@ msgstr ""
 msgid "Insert Clipboard at position"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:667 kwave/menus_config_i18n.cpp:63
+#: libkwave/SignalManager.cpp:667
 msgid "Paste"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:688 kwave/menus_config_i18n.cpp:30
+#: libkwave/SignalManager.cpp:688
 msgid "Crop"
 msgstr ""
 
@@ -2182,11 +2179,11 @@ msgid ""
 "under '%1'/'%2'."
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1398 kwave/menus_config_i18n.cpp:88
+#: libkwave/SignalManager.cpp:1398
 msgid "Settings"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1400 kwave/menus_config_i18n.cpp:51
+#: libkwave/SignalManager.cpp:1400
 msgid "Memory"
 msgstr ""
 
@@ -2242,8 +2239,7 @@ msgstr ""
 msgid "Plugins found: %1"
 msgstr ""
 
-#: plugins/about/AboutPlugin.cpp:28 kwave/menus_config_i18n.cpp:14
-#: plugins/about/ui_AboutDialogBase.h:281
+#: plugins/about/AboutPlugin.cpp:28 plugins/about/ui_AboutDialogBase.h:281
 msgid "About Kwave"
 msgstr ""
 
@@ -2258,26 +2254,26 @@ msgid "%"
 msgstr ""
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:38
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:68 kwave/menus_config_i18n.cpp:17
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:68
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:140
 msgid "Amplify Free"
 msgstr ""
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:45 kwave/menus_config_i18n.cpp:36
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:45
 #: plugins/record/ui_RecordDlg.h:944
 msgid "Fade In"
 msgstr ""
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:46 kwave/menus_config_i18n.cpp:39
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:46
 #: plugins/record/ui_RecordDlg.h:945
 msgid "Fade Out"
 msgstr ""
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:47 kwave/menus_config_i18n.cpp:37
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:47
 msgid "Fade Intro"
 msgstr ""
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:48 kwave/menus_config_i18n.cpp:38
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:48
 msgid "Fade Leadout"
 msgstr ""
 
@@ -2317,7 +2313,7 @@ msgstr ""
 msgid "Band Pass Filter"
 msgstr ""
 
-#: plugins/band_pass/BandPassPlugin.cpp:123 kwave/menus_config_i18n.cpp:19
+#: plugins/band_pass/BandPassPlugin.cpp:123
 #: plugins/band_pass/ui_BandPassDlg.h:188
 msgid "Band Pass"
 msgstr ""
@@ -2817,7 +2813,7 @@ msgstr ""
 msgid "Labels at Stripe borders"
 msgstr ""
 
-#: plugins/debug/DebugPlugin.cpp:70 kwave/menus_config_i18n.cpp:46
+#: plugins/debug/DebugPlugin.cpp:70
 msgid "Help"
 msgstr ""
 
@@ -2968,7 +2964,7 @@ msgstr ""
 msgid "Insert At"
 msgstr ""
 
-#: plugins/goto/InsertAtPlugin.cpp:50 kwave/menus_config_i18n.cpp:47
+#: plugins/goto/InsertAtPlugin.cpp:50
 msgid "Insert At..."
 msgstr ""
 
@@ -2976,8 +2972,7 @@ msgstr ""
 msgid "Low Pass Filter"
 msgstr ""
 
-#: plugins/lowpass/LowPassPlugin.cpp:109 kwave/menus_config_i18n.cpp:50
-#: plugins/lowpass/ui_LowPassDlg.h:166
+#: plugins/lowpass/LowPassPlugin.cpp:109 plugins/lowpass/ui_LowPassDlg.h:166
 msgid "Low Pass"
 msgstr ""
 
@@ -3007,7 +3002,7 @@ msgstr ""
 msgid "Normalizer"
 msgstr ""
 
-#: plugins/normalize/NormalizePlugin.cpp:73 kwave/menus_config_i18n.cpp:58
+#: plugins/normalize/NormalizePlugin.cpp:73
 msgid "Normalize"
 msgstr ""
 
@@ -3022,12 +3017,12 @@ msgstr ""
 
 #: plugins/notch_filter/NotchFilterPlugin.cpp:33
 #: plugins/notch_filter/NotchFilterPlugin.cpp:121
-#: kwave/menus_config_i18n.cpp:59 plugins/notch_filter/ui_NotchFilterDlg.h:182
+#: plugins/notch_filter/ui_NotchFilterDlg.h:182
 msgid "Notch Filter"
 msgstr ""
 
 #: plugins/pitch_shift/PitchShiftPlugin.cpp:32
-#: plugins/pitch_shift/PitchShiftPlugin.cpp:125 kwave/menus_config_i18n.cpp:65
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:125
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:199
 msgid "Pitch Shift"
 msgstr ""
@@ -3189,7 +3184,7 @@ msgstr ""
 msgid "Select Playback Device"
 msgstr ""
 
-#: plugins/playback/PlayBackPlugin.cpp:70 kwave/menus_config_i18n.cpp:67
+#: plugins/playback/PlayBackPlugin.cpp:70
 #: plugins/playback/ui_PlayBackDlg.h:351
 msgid "Playback"
 msgstr ""
@@ -3461,7 +3456,6 @@ msgstr ""
 
 #: plugins/reverse/UndoReverseAction.cpp:44
 #: plugins/reverse/ReversePlugin.cpp:45 plugins/reverse/ReversePlugin.cpp:78
-#: kwave/menus_config_i18n.cpp:77
 msgid "Reverse"
 msgstr ""
 
@@ -3493,7 +3487,7 @@ msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDialog.cpp:42 kwave/menus_config_i18n.cpp:92
+#: plugins/selectrange/SelectRangeDialog.cpp:42
 msgid "Start"
 msgstr ""
 
@@ -3515,7 +3509,7 @@ msgstr ""
 
 #: plugins/sonagram/SonagramPlugin.cpp:58
 #: plugins/sonagram/SonagramPlugin.cpp:78
-#: plugins/sonagram/SonagramWindow.cpp:502 kwave/menus_config_i18n.cpp:91
+#: plugins/sonagram/SonagramWindow.cpp:502
 msgid "Sonagram"
 msgstr ""
 
@@ -3580,9 +3574,8 @@ msgid "Amplitude: %1%"
 msgstr ""
 
 #: plugins/volume/VolumePlugin.cpp:40 plugins/volume/VolumePlugin.cpp:131
-#: kwave/menus_config_i18n.cpp:104 plugins/noise/ui_NoiseDlg.h:234
-#: plugins/volume/ui_VolumeDlg.h:238 plugins/volume/ui_VolumeDlg.h:265
-#: plugins/volume/ui_VolumeDlg.h:268
+#: plugins/noise/ui_NoiseDlg.h:234 plugins/volume/ui_VolumeDlg.h:238
+#: plugins/volume/ui_VolumeDlg.h:265 plugins/volume/ui_VolumeDlg.h:268
 msgid "Volume"
 msgstr ""
 
@@ -3590,71 +3583,8 @@ msgstr ""
 msgid "Zero Generator"
 msgstr ""
 
-#: plugins/zero/ZeroPlugin.cpp:62 kwave/menus_config_i18n.cpp:90
+#: plugins/zero/ZeroPlugin.cpp:62
 msgid "Silence"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:77
-msgid "HMSTimeWidgetBase"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:78
-msgid " h"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:79
-msgid " min"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:80 plugins/record/ui_RecordDlg.h:946
-#: plugins/record/ui_RecordDlg.h:947
-msgid " sec"
-msgstr ""
-
-#: libgui/ui_LabelPropertiesWidgetBase.h:150
-msgid "Label Properties..."
-msgstr ""
-
-#: libgui/ui_LabelPropertiesWidgetBase.h:152
-msgid ""
-"<b>label position:</b><br>\n"
-"Here you can set the position of the label, either by time, by percentage of "
-"the whole file or by an absolute sample position. However, internally Kwave "
-"always uses the position in samples."
-msgstr ""
-
-#: libgui/ui_LabelPropertiesWidgetBase.h:155
-msgid "Description:"
-msgstr ""
-
-#: libgui/ui_LabelPropertiesWidgetBase.h:157
-msgid "some description of the label (optional)"
-msgstr ""
-
-#: libgui/ui_LabelPropertiesWidgetBase.h:160
-msgid ""
-"<b>label description:</b><br>\n"
-"Here you can enter some short text to describe the label."
-msgstr ""
-
-#: libgui/ui_LabelPropertiesWidgetBase.h:163
-msgid "Position:"
-msgstr ""
-
-#: libgui/ui_LabelPropertiesWidgetBase.h:164
-msgid "Index:"
-msgstr ""
-
-#: libgui/ui_LabelPropertiesWidgetBase.h:166
-msgid "index of the label"
-msgstr ""
-
-#: libgui/ui_LabelPropertiesWidgetBase.h:169
-msgid ""
-"<b>label index</b><br>\n"
-"This is just a numeric index of the label, starting with zero, sorted by "
-"position. Lower index means 'left', higher index means 'right'. You cannot "
-"change the index itself, but change the label's position."
 msgstr ""
 
 #: libgui/ui_SelectTimeWidgetBase.h:286
@@ -3717,240 +3647,67 @@ msgstr ""
 msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:12
-msgid "&Save"
+#: libgui/ui_LabelPropertiesWidgetBase.h:150
+msgid "Label Properties..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:13
-msgid "About KDE"
+#: libgui/ui_LabelPropertiesWidgetBase.h:152
+msgid ""
+"<b>label position:</b><br>\n"
+"Here you can set the position of the label, either by time, by percentage of "
+"the whole file or by an absolute sample position. However, internally Kwave "
+"always uses the position in samples."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:15
-msgid "Add"
+#: libgui/ui_LabelPropertiesWidgetBase.h:155
+msgid "Description:"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:16
-msgid "All"
+#: libgui/ui_LabelPropertiesWidgetBase.h:157
+msgid "some description of the label (optional)"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:18
-msgid "As..."
+#: libgui/ui_LabelPropertiesWidgetBase.h:160
+msgid ""
+"<b>label description:</b><br>\n"
+"Here you can enter some short text to describe the label."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:20
-msgid "Begin"
+#: libgui/ui_LabelPropertiesWidgetBase.h:163
+msgid "Position:"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:21
-msgid "Blocks..."
+#: libgui/ui_LabelPropertiesWidgetBase.h:164
+msgid "Index:"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:22
-msgid "Calculate"
+#: libgui/ui_LabelPropertiesWidgetBase.h:166
+msgid "index of the label"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:23
-msgid "Cascade Sub Windows"
+#: libgui/ui_LabelPropertiesWidgetBase.h:169
+msgid ""
+"<b>label index</b><br>\n"
+"This is just a numeric index of the label, starting with zero, sorted by "
+"position. Lower index means 'left', higher index means 'right'. You cannot "
+"change the index itself, but change the label's position."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:24
-msgid "Clear List"
+#: libgui/ui_HMSTimeWidgetBase.h:77
+msgid "HMSTimeWidgetBase"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:25
-msgid "Clipboard"
+#: libgui/ui_HMSTimeWidgetBase.h:78
+msgid " h"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:26
-msgid "Close"
+#: libgui/ui_HMSTimeWidgetBase.h:79
+msgid " min"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:27
-msgid "Contents"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:28
-msgid "Continue"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:33
-msgid "Edit"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:34
-msgid "End"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:35
-msgid "Expand to Labels"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:40 plugins/fileinfo/ui_FileInfoDlg.h:1283
-msgid "File"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:41
-msgid "File Properties..."
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:42
-msgid "Flush"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:44
-msgid "Fx"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:45
-msgid "Go to Position..."
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:48
-msgid "Invert Selection"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:49
-msgid "Loop"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:52
-msgid "New Window"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:53
-msgid "New..."
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:55
-msgid "Next Page"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:56
-msgid "Next Window"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:60
-msgid "Nothing"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:62
-msgid "Open Recent"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:64
-msgid "Pause"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:66
-msgid "Play"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:69
-msgid "Previous Page"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:70
-msgid "Previous Window"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:71
-msgid "Quit"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:72
-msgid "Range"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:73
-msgid "Re-enable all \"Do not ask again\" messages"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:76
-msgid "Reset Toolbar"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:78
-msgid "Revert"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:80
-msgid "Same Window (MDI)"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:81
-msgid "Save"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:82
-msgid "Scroll Left"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:83
-msgid "Scroll Right"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:84
-msgid "Select all"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:86
-msgid "Selection..."
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:87
-msgid "Separate Windows (SDI)"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:89
-msgid "Show Files in..."
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:93
-msgid "Stop"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:94
-msgid "Tabs"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:95
-msgid "Tile Sub Windows"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:96
-msgid "To End"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:99
-msgid "To Start"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:102
-msgid "View"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:103
-msgid "Visible Area"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:105
-msgid "Window"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:106
-msgid "Zoom In"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:107
-msgid "Zoom Out"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:109
-msgid "Zoom to Selection"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:110
-msgid "Zoom to Whole Signal"
+#: libgui/ui_HMSTimeWidgetBase.h:80 plugins/record/ui_RecordDlg.h:946
+#: plugins/record/ui_RecordDlg.h:947
+msgid " sec"
 msgstr ""
 
 #: plugins/about/ui_AboutDialogBase.h:282
@@ -4477,6 +4234,10 @@ msgstr ""
 
 #: plugins/fileinfo/ui_FileInfoDlg.h:1280
 msgid "samples per second"
+msgstr ""
+
+#: plugins/fileinfo/ui_FileInfoDlg.h:1283
+msgid "File"
 msgstr ""
 
 #: plugins/fileinfo/ui_FileInfoDlg.h:1285
@@ -5403,4 +5164,499 @@ msgstr ""
 msgid ""
 "Increments or decrements the volume in logarithmic scale (decibel).\n"
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
+msgstr ""
+
+#: kwave/menus.config:33
+msgctxt "menu: /File/&Save"
+msgid "&Save"
+msgstr ""
+
+#: kwave/menus.config:254
+msgctxt "menu: /Help/About KDE"
+msgid "About KDE"
+msgstr ""
+
+#: kwave/menus.config:253
+msgctxt "menu: /Help/About Kwave"
+msgid "About Kwave"
+msgstr ""
+
+#: kwave/menus.config:90
+msgctxt "menu: /Edit/Track/Add"
+msgid "Add"
+msgstr ""
+
+#: kwave/menus.config:77
+msgctxt "menu: /Edit/Selection/All"
+msgid "All"
+msgstr ""
+
+#: kwave/menus.config:176
+msgctxt "menu: /Fx/Amplify Free"
+msgid "Amplify Free"
+msgstr ""
+
+#: kwave/menus.config:36
+msgctxt "menu: /File/Save/As..."
+msgid "As..."
+msgstr ""
+
+#: kwave/menus.config:187
+msgctxt "menu: /Fx/Band Pass"
+msgid "Band Pass"
+msgstr ""
+
+#: kwave/menus.config:117
+msgctxt "menu: /View/Begin"
+msgid "Begin"
+msgstr ""
+
+#: kwave/menus.config:39
+msgctxt "menu: /File/Save/Blocks..."
+msgid "Blocks..."
+msgstr ""
+
+#: kwave/menus.config:208
+msgctxt "menu: /Calculate"
+msgid "Calculate"
+msgstr ""
+
+#: kwave/menus.config:235
+msgctxt "menu: /Window/Cascade Sub Windows"
+msgid "Cascade Sub Windows"
+msgstr ""
+
+#: kwave/menus.config:26
+msgctxt "menu: /File/Open Recent/Clear List"
+msgid "Clear List"
+msgstr ""
+
+#: kwave/menus.config:101
+msgctxt "menu: /Edit/Clipboard"
+msgid "Clipboard"
+msgstr ""
+
+#: kwave/menus.config:41
+msgctxt "menu: /File/Close"
+msgid "Close"
+msgstr ""
+
+#: kwave/menus.config:252
+msgctxt "menu: /Help/Contents"
+msgid "Contents"
+msgstr ""
+
+#: kwave/menus.config:137
+msgctxt "menu: /Play/Continue"
+msgid "Continue"
+msgstr ""
+
+#: kwave/menus.config:63
+msgctxt "menu: /Edit/Copy"
+msgid "Copy"
+msgstr ""
+
+#: kwave/menus.config:67
+msgctxt "menu: /Edit/Crop"
+msgid "Crop"
+msgstr ""
+
+#: kwave/menus.config:61
+msgctxt "menu: /Edit/Cut"
+msgid "Cut"
+msgstr ""
+
+#: kwave/menus.config:69
+msgctxt "menu: /Edit/Delete"
+msgid "Delete"
+msgstr ""
+
+#: kwave/menus.config:55
+msgctxt "menu: /Edit"
+msgid "Edit"
+msgstr ""
+
+#: kwave/menus.config:118
+msgctxt "menu: /View/End"
+msgid "End"
+msgstr ""
+
+#: kwave/menus.config:85
+msgctxt "menu: /Edit/Selection/Expand to Labels"
+msgid "Expand to Labels"
+msgstr ""
+
+#: kwave/menus.config:170
+msgctxt "menu: /Fx/Fade In"
+msgid "Fade In"
+msgstr ""
+
+#: kwave/menus.config:181
+msgctxt "menu: /Fx/Fade Intro"
+msgid "Fade Intro"
+msgstr ""
+
+#: kwave/menus.config:182
+msgctxt "menu: /Fx/Fade Leadout"
+msgid "Fade Leadout"
+msgstr ""
+
+#: kwave/menus.config:173
+msgctxt "menu: /Fx/Fade Out"
+msgid "Fade Out"
+msgstr ""
+
+#: kwave/menus.config:18
+msgctxt "menu: /File"
+msgid "File"
+msgstr ""
+
+#: kwave/menus.config:112
+msgctxt "menu: /Edit/File Properties..."
+msgid "File Properties..."
+msgstr ""
+
+#: kwave/menus.config:102
+msgctxt "menu: /Edit/Clipboard/Flush"
+msgid "Flush"
+msgstr ""
+
+#: kwave/menus.config:139
+msgctxt "menu: /Play/Forward"
+msgid "Forward"
+msgstr ""
+
+#: kwave/menus.config:166
+msgctxt "menu: /Fx"
+msgid "Fx"
+msgstr ""
+
+#: kwave/menus.config:116
+msgctxt "menu: /View/Go to Position..."
+msgid "Go to Position..."
+msgstr ""
+
+#: kwave/menus.config:252
+msgctxt "menu: /Help"
+msgid "Help"
+msgstr ""
+
+#: kwave/menus.config:105
+msgctxt "menu: /Edit/Clipboard/Insert At..."
+msgid "Insert At..."
+msgstr ""
+
+#: kwave/menus.config:98
+msgctxt "menu: /Edit/Track/Invert Selection"
+msgid "Invert Selection"
+msgstr ""
+
+#: kwave/menus.config:135
+msgctxt "menu: /Play/Loop"
+msgid "Loop"
+msgstr ""
+
+#: kwave/menus.config:185
+msgctxt "menu: /Fx/Low Pass"
+msgid "Low Pass"
+msgstr ""
+
+#: kwave/menus.config:247
+msgctxt "menu: /Settings/Memory"
+msgid "Memory"
+msgstr ""
+
+#: kwave/menus.config:45
+msgctxt "menu: /File/New Window"
+msgid "New Window"
+msgstr ""
+
+#: kwave/menus.config:18
+msgctxt "menu: /File/New..."
+msgid "New..."
+msgstr ""
+
+#: kwave/menus.config:80
+msgctxt "menu: /Edit/Selection/Next"
+msgid "Next"
+msgstr ""
+
+#: kwave/menus.config:120
+msgctxt "menu: /View/Next Page"
+msgid "Next Page"
+msgstr ""
+
+#: kwave/menus.config:233
+msgctxt "menu: /Window/Next Window"
+msgid "Next Window"
+msgstr ""
+
+#: kwave/menus.config:211
+msgctxt "menu: /Calculate/Noise"
+msgid "Noise"
+msgstr ""
+
+#: kwave/menus.config:169
+msgctxt "menu: /Fx/Normalize"
+msgid "Normalize"
+msgstr ""
+
+#: kwave/menus.config:186
+msgctxt "menu: /Fx/Notch Filter"
+msgid "Notch Filter"
+msgstr ""
+
+#: kwave/menus.config:82
+msgctxt "menu: /Edit/Selection/Nothing"
+msgid "Nothing"
+msgstr ""
+
+#: kwave/menus.config:19
+msgctxt "menu: /File/Open"
+msgid "Open"
+msgstr ""
+
+#: kwave/menus.config:22
+msgctxt "menu: /File/Open Recent"
+msgid "Open Recent"
+msgstr ""
+
+#: kwave/menus.config:65
+msgctxt "menu: /Edit/Paste"
+msgid "Paste"
+msgstr ""
+
+#: kwave/menus.config:136
+msgctxt "menu: /Play/Pause"
+msgid "Pause"
+msgstr ""
+
+#: kwave/menus.config:192
+msgctxt "menu: /Fx/Pitch Shift"
+msgid "Pitch Shift"
+msgstr ""
+
+#: kwave/menus.config:131
+msgctxt "menu: /Play"
+msgid "Play"
+msgstr ""
+
+#: kwave/menus.config:246
+msgctxt "menu: /Settings/Playback"
+msgid "Playback"
+msgstr ""
+
+#: kwave/menus.config:81
+msgctxt "menu: /Edit/Selection/Previous"
+msgid "Previous"
+msgstr ""
+
+#: kwave/menus.config:119
+msgctxt "menu: /View/Previous Page"
+msgid "Previous Page"
+msgstr ""
+
+#: kwave/menus.config:234
+msgctxt "menu: /Window/Previous Window"
+msgid "Previous Window"
+msgstr ""
+
+#: kwave/menus.config:52
+msgctxt "menu: /File/Quit"
+msgid "Quit"
+msgstr ""
+
+#: kwave/menus.config:78
+msgctxt "menu: /Edit/Selection/Range"
+msgid "Range"
+msgstr ""
+
+#: kwave/menus.config:249
+msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
+msgid "Re-enable all \"Do not ask again\" messages"
+msgstr ""
+
+#: kwave/menus.config:29
+msgctxt "menu: /File/Record"
+msgid "Record"
+msgstr ""
+
+#: kwave/menus.config:58
+msgctxt "menu: /Edit/Redo"
+msgid "Redo"
+msgstr ""
+
+#: kwave/menus.config:248
+msgctxt "menu: /Settings/Reset Toolbar"
+msgid "Reset Toolbar"
+msgstr ""
+
+#: kwave/menus.config:194
+msgctxt "menu: /Fx/Reverse"
+msgid "Reverse"
+msgstr ""
+
+#: kwave/menus.config:48
+msgctxt "menu: /File/Revert"
+msgid "Revert"
+msgstr ""
+
+#: kwave/menus.config:133
+msgctxt "menu: /Play/Rewind"
+msgid "Rewind"
+msgstr ""
+
+#: kwave/menus.config:243
+msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
+msgid "Same Window (MDI)"
+msgstr ""
+
+#: kwave/menus.config:35
+msgctxt "menu: /File/Save"
+msgid "Save"
+msgstr ""
+
+#: kwave/menus.config:122
+msgctxt "menu: /View/Scroll Left"
+msgid "Scroll Left"
+msgstr ""
+
+#: kwave/menus.config:121
+msgctxt "menu: /View/Scroll Right"
+msgid "Scroll Right"
+msgstr ""
+
+#: kwave/menus.config:97
+msgctxt "menu: /Edit/Track/Select all"
+msgid "Select all"
+msgstr ""
+
+#: kwave/menus.config:76
+msgctxt "menu: /Edit/Selection"
+msgid "Selection"
+msgstr ""
+
+#: kwave/menus.config:38
+msgctxt "menu: /File/Save/Selection..."
+msgid "Selection..."
+msgstr ""
+
+#: kwave/menus.config:242
+msgctxt "menu: /Settings/Show Files in.../Separate Windows (SDI)"
+msgid "Separate Windows (SDI)"
+msgstr ""
+
+#: kwave/menus.config:241
+msgctxt "menu: /Settings"
+msgid "Settings"
+msgstr ""
+
+#: kwave/menus.config:242
+msgctxt "menu: /Settings/Show Files in..."
+msgid "Show Files in..."
+msgstr ""
+
+#: kwave/menus.config:209
+msgctxt "menu: /Calculate/Silence"
+msgid "Silence"
+msgstr ""
+
+#: kwave/menus.config:222
+msgctxt "menu: /Calculate/Sonagram"
+msgid "Sonagram"
+msgstr ""
+
+#: kwave/menus.config:134
+msgctxt "menu: /Play/Start"
+msgid "Start"
+msgstr ""
+
+#: kwave/menus.config:138
+msgctxt "menu: /Play/Stop"
+msgid "Stop"
+msgstr ""
+
+#: kwave/menus.config:244
+msgctxt "menu: /Settings/Show Files in.../Tabs"
+msgid "Tabs"
+msgstr ""
+
+#: kwave/menus.config:236
+msgctxt "menu: /Window/Tile Sub Windows"
+msgid "Tile Sub Windows"
+msgstr ""
+
+#: kwave/menus.config:84
+msgctxt "menu: /Edit/Selection/To End"
+msgid "To End"
+msgstr ""
+
+#: kwave/menus.config:86
+msgctxt "menu: /Edit/Selection/To Next Labels"
+msgid "To Next Labels"
+msgstr ""
+
+#: kwave/menus.config:87
+msgctxt "menu: /Edit/Selection/To Previous Labels"
+msgid "To Previous Labels"
+msgstr ""
+
+#: kwave/menus.config:83
+msgctxt "menu: /Edit/Selection/To Start"
+msgid "To Start"
+msgstr ""
+
+#: kwave/menus.config:90
+msgctxt "menu: /Edit/Track"
+msgid "Track"
+msgstr ""
+
+#: kwave/menus.config:56
+msgctxt "menu: /Edit/Undo"
+msgid "Undo"
+msgstr ""
+
+#: kwave/menus.config:115
+msgctxt "menu: /View"
+msgid "View"
+msgstr ""
+
+#: kwave/menus.config:79
+msgctxt "menu: /Edit/Selection/Visible Area"
+msgid "Visible Area"
+msgstr ""
+
+#: kwave/menus.config:168
+msgctxt "menu: /Fx/Volume"
+msgid "Volume"
+msgstr ""
+
+#: kwave/menus.config:232
+msgctxt "menu: /Window"
+msgid "Window"
+msgstr ""
+
+#: kwave/menus.config:124
+msgctxt "menu: /View/Zoom In"
+msgid "Zoom In"
+msgstr ""
+
+#: kwave/menus.config:125
+msgctxt "menu: /View/Zoom Out"
+msgid "Zoom Out"
+msgstr ""
+
+#: kwave/menus.config:129
+msgctxt "menu: /View/Zoom to 100%"
+msgid "Zoom to 100%"
+msgstr ""
+
+#: kwave/menus.config:126
+msgctxt "menu: /View/Zoom to Selection"
+msgid "Zoom to Selection"
+msgstr ""
+
+#: kwave/menus.config:128
+msgctxt "menu: /View/Zoom to Whole Signal"
+msgid "Zoom to Whole Signal"
 msgstr ""

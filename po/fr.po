@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-22 07:59+0100\n"
+"POT-Creation-Date: 2014-12-22 09:48+0100\n"
 "PO-Revision-Date: 2014-04-27 11:13+0200\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: French <kde-i18n-de@kde.org>\n"
@@ -425,8 +425,9 @@ msgstr "&Réparation"
 msgid "&Samples"
 msgstr "Écha&ntillons"
 
-#: kwave/menus_config_i18n.cpp:12
+#: kwave/menus.config:33
 #, fuzzy
+msgctxt "menu: /File/&Save"
 msgid "&Save"
 msgstr "E&nregistrer..."
 
@@ -1196,13 +1197,19 @@ msgstr "Encodage audio ASCII"
 msgid "About"
 msgstr "à propos de"
 
-#: kwave/menus_config_i18n.cpp:13
+#: kwave/menus.config:254
 #, fuzzy
+msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "A propos de &KDE"
 
-#: plugins/about/AboutPlugin.cpp:28 kwave/menus_config_i18n.cpp:14
-#: plugins/about/ui_AboutDialogBase.h:281
+#: plugins/about/AboutPlugin.cpp:28 plugins/about/ui_AboutDialogBase.h:281
+msgid "About Kwave"
+msgstr "A propos de Kwave"
+
+#: kwave/menus.config:253
+#, fuzzy
+msgctxt "menu: /Help/About Kwave"
 msgid "About Kwave"
 msgstr "A propos de Kwave"
 
@@ -1226,8 +1233,9 @@ msgstr "Acid Punk"
 msgid "Acoustic"
 msgstr "Acoustique"
 
-#: kwave/menus_config_i18n.cpp:15
+#: kwave/menus.config:90
 #, fuzzy
+msgctxt "menu: /Edit/Track/Add"
 msgid "Add"
 msgstr "&Ajouter"
 
@@ -1255,8 +1263,9 @@ msgstr ""
 msgid "Album"
 msgstr "Album"
 
-#: kwave/menus_config_i18n.cpp:16
+#: kwave/menus.config:77
 #, fuzzy
+msgctxt "menu: /Edit/Selection/All"
 msgid "All"
 msgstr "&Tous"
 
@@ -1300,8 +1309,14 @@ msgid "Ambient"
 msgstr "Ambiance"
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:38
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:68 kwave/menus_config_i18n.cpp:17
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:68
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:140
+msgid "Amplify Free"
+msgstr "Amplification libre"
+
+#: kwave/menus.config:176
+#, fuzzy
+msgctxt "menu: /Fx/Amplify Free"
 msgid "Amplify Free"
 msgstr "Amplification libre"
 
@@ -1412,8 +1427,9 @@ msgstr "Traitement de « %1 » en cours..."
 msgid "Archival location"
 msgstr "Emplacement pour l'archivage "
 
-#: kwave/menus_config_i18n.cpp:18
+#: kwave/menus.config:36
 #, fuzzy
+msgctxt "menu: /File/Save/As..."
 msgid "As..."
 msgstr "&Sous..."
 
@@ -1500,8 +1516,14 @@ msgstr "Mode de débit moyenné"
 msgid "Ballad"
 msgstr "Ballade"
 
-#: plugins/band_pass/BandPassPlugin.cpp:123 kwave/menus_config_i18n.cpp:19
+#: plugins/band_pass/BandPassPlugin.cpp:123
 #: plugins/band_pass/ui_BandPassDlg.h:188
+msgid "Band Pass"
+msgstr "Filtre passe bande"
+
+#: kwave/menus.config:187
+#, fuzzy
+msgctxt "menu: /Fx/Band Pass"
 msgid "Band Pass"
 msgstr "Filtre passe bande"
 
@@ -1546,8 +1568,9 @@ msgstr "Bass"
 msgid "Bebob"
 msgstr "Bebob"
 
-#: kwave/menus_config_i18n.cpp:20
+#: kwave/menus.config:117
 #, fuzzy
+msgctxt "menu: /View/Begin"
 msgid "Begin"
 msgstr "Dé&but"
 
@@ -1608,8 +1631,9 @@ msgstr "%1 bits par échantillon :"
 msgid "Blackman"
 msgstr "Blackman"
 
-#: kwave/menus_config_i18n.cpp:21
+#: kwave/menus.config:39
 #, fuzzy
+msgctxt "menu: /File/Save/Blocks..."
 msgid "Blocks..."
 msgstr "&Blocs..."
 
@@ -1692,8 +1716,9 @@ msgstr "CD "
 msgid "Cabaret"
 msgstr "Cabaret"
 
-#: kwave/menus_config_i18n.cpp:22
+#: kwave/menus.config:208
 #, fuzzy
+msgctxt "menu: /Calculate"
 msgid "Calculate"
 msgstr "&Calculer"
 
@@ -1708,8 +1733,9 @@ msgstr "Périphérique %2: "
 msgid "Carlos R."
 msgstr "Carlos R."
 
-#: kwave/menus_config_i18n.cpp:23
+#: kwave/menus.config:235
 #, fuzzy
+msgctxt "menu: /Window/Cascade Sub Windows"
 msgid "Cascade Sub Windows"
 msgstr "&Dans une nouvelle fenêtre"
 
@@ -1780,17 +1806,20 @@ msgstr "Rock classique"
 msgid "Classical"
 msgstr "Classique"
 
-#: kwave/menus_config_i18n.cpp:24
+#: kwave/menus.config:26
+msgctxt "menu: /File/Open Recent/Clear List"
 msgid "Clear List"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:25
+#: kwave/menus.config:101
 #, fuzzy
+msgctxt "menu: /Edit/Clipboard"
 msgid "Clipboard"
 msgstr "&Presse papier"
 
-#: kwave/menus_config_i18n.cpp:26
+#: kwave/menus.config:41
 #, fuzzy
+msgctxt "menu: /File/Close"
 msgid "Close"
 msgstr "&Bruit"
 
@@ -1875,13 +1904,15 @@ msgstr ""
 msgid "Content"
 msgstr "Contenu"
 
-#: kwave/menus_config_i18n.cpp:27
+#: kwave/menus.config:252
 #, fuzzy
+msgctxt "menu: /Help/Contents"
 msgid "Contents"
 msgstr "Contenu"
 
-#: kwave/menus_config_i18n.cpp:28
+#: kwave/menus.config:137
 #, fuzzy
+msgctxt "menu: /Play/Continue"
 msgid "Continue"
 msgstr "&Continuer"
 
@@ -1895,8 +1926,14 @@ msgstr "continuer après l'index le plus élevé"
 msgid "Continue playback"
 msgstr "met en pause la lecture"
 
-#: kwave/TopWidget.cpp:390 kwave/menus_config_i18n.cpp:29
+#: kwave/TopWidget.cpp:390
 #, fuzzy
+msgid "Copy"
+msgstr "&Couper la sélection"
+
+#: kwave/menus.config:63
+#, fuzzy
+msgctxt "menu: /Edit/Copy"
 msgid "Copy"
 msgstr "&Couper la sélection"
 
@@ -1941,8 +1978,14 @@ msgstr "Auteur de la boite de dialogue Aide/A propos de"
 msgid "Creator of the project, development 1998-2000"
 msgstr "Créateur du projet et développeur principal entre 1998 et 2000"
 
-#: libkwave/SignalManager.cpp:688 kwave/menus_config_i18n.cpp:30
+#: libkwave/SignalManager.cpp:688
 #, fuzzy
+msgid "Crop"
+msgstr "&Couper la sélection"
+
+#: kwave/menus.config:67
+#, fuzzy
+msgctxt "menu: /Edit/Crop"
 msgid "Crop"
 msgstr "&Couper la sélection"
 
@@ -1964,8 +2007,13 @@ msgid "Currently Selected Point"
 msgstr "Point récemment sélectionné"
 
 #: kwave/TopWidget.cpp:385 libkwave/SignalManager.cpp:681
-#: kwave/menus_config_i18n.cpp:31
 #, fuzzy
+msgid "Cut"
+msgstr "Co&uper"
+
+#: kwave/menus.config:61
+#, fuzzy
+msgctxt "menu: /Edit/Cut"
 msgid "Cut"
 msgstr "Co&uper"
 
@@ -2037,8 +2085,14 @@ msgid "Default device"
 msgstr ""
 
 #: libgui/CurveWidget.cpp:95 libkwave/undo/UndoDeleteAction.cpp:56
-#: libkwave/SignalManager.cpp:706 kwave/menus_config_i18n.cpp:32
+#: libkwave/SignalManager.cpp:706
 #, fuzzy
+msgid "Delete"
+msgstr "supprimer"
+
+#: kwave/menus.config:69
+#, fuzzy
+msgctxt "menu: /Edit/Delete"
 msgid "Delete"
 msgstr "supprimer"
 
@@ -2230,7 +2284,8 @@ msgstr "caulier.gilles@free.fr"
 msgid "Easy Listening"
 msgstr "Écoute facile"
 
-#: kwave/menus_config_i18n.cpp:33
+#: kwave/menus.config:55
+msgctxt "menu: /Edit"
 msgid "Edit"
 msgstr ""
 
@@ -2265,8 +2320,9 @@ msgstr "encodage:"
 msgid "Encoding Mode:"
 msgstr "Mode d'encodage:"
 
-#: kwave/menus_config_i18n.cpp:34
+#: kwave/menus.config:118
 #, fuzzy
+msgctxt "menu: /View/End"
 msgid "End"
 msgstr "&Fin"
 
@@ -2382,8 +2438,9 @@ msgstr ""
 msgid "Expand Selection to Label"
 msgstr "&Élargir par rapport aux labels"
 
-#: kwave/menus_config_i18n.cpp:35
+#: kwave/menus.config:85
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Expand to Labels"
 msgid "Expand to Labels"
 msgstr "&Élargir par rapport aux labels"
 
@@ -2412,21 +2469,45 @@ msgstr ""
 msgid "FS1016"
 msgstr "FS1016"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:45 kwave/menus_config_i18n.cpp:36
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:45
 #: plugins/record/ui_RecordDlg.h:944
 msgid "Fade In"
 msgstr "Augmenter progressivement"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:47 kwave/menus_config_i18n.cpp:37
+#: kwave/menus.config:170
+#, fuzzy
+msgctxt "menu: /Fx/Fade In"
+msgid "Fade In"
+msgstr "Augmenter progressivement"
+
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:47
 msgid "Fade Intro"
 msgstr "Augmenter progressivement"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:48 kwave/menus_config_i18n.cpp:38
+#: kwave/menus.config:181
+#, fuzzy
+msgctxt "menu: /Fx/Fade Intro"
+msgid "Fade Intro"
+msgstr "Augmenter progressivement"
+
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:48
 msgid "Fade Leadout"
 msgstr "Affaiblir progressivement"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:46 kwave/menus_config_i18n.cpp:39
+#: kwave/menus.config:182
+#, fuzzy
+msgctxt "menu: /Fx/Fade Leadout"
+msgid "Fade Leadout"
+msgstr "Affaiblir progressivement"
+
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:46
 #: plugins/record/ui_RecordDlg.h:945
+msgid "Fade Out"
+msgstr "Affaiblir progressivement"
+
+#: kwave/menus.config:173
+#, fuzzy
+msgctxt "menu: /Fx/Fade Out"
 msgid "Fade Out"
 msgstr "Affaiblir progressivement"
 
@@ -2453,8 +2534,14 @@ msgstr "Impossible d'ouvrir un flux PulseAudio en lecture"
 msgid "Fast Fusion"
 msgstr "Fast Fusion"
 
-#: kwave/menus_config_i18n.cpp:40 plugins/fileinfo/ui_FileInfoDlg.h:1283
+#: plugins/fileinfo/ui_FileInfoDlg.h:1283
 #, fuzzy
+msgid "File"
+msgstr "Fichier"
+
+#: kwave/menus.config:18
+#, fuzzy
+msgctxt "menu: /File"
 msgid "File"
 msgstr "Fichier"
 
@@ -2463,8 +2550,9 @@ msgstr "Fichier"
 msgid "File Info"
 msgstr "Informations sur le fichier"
 
-#: kwave/menus_config_i18n.cpp:41
+#: kwave/menus.config:112
 #, fuzzy
+msgctxt "menu: /Edit/File Properties..."
 msgid "File Properties..."
 msgstr "&Propriétés du fichier..."
 
@@ -2516,8 +2604,9 @@ msgstr "Arrangement horizontal"
 msgid "Flip vertical"
 msgstr "Arrangement vertical"
 
-#: kwave/menus_config_i18n.cpp:42
+#: kwave/menus.config:102
 #, fuzzy
+msgctxt "menu: /Edit/Clipboard/Flush"
 msgid "Flush"
 msgstr "&Vider"
 
@@ -2566,7 +2655,13 @@ msgstr ""
 "Format utilisé pour stocker les échantillons audio numériques.\n"
 "Exemple : « Nombres à virgule flottante sur 32 bits au format IEEE »."
 
-#: kwave/PlayerToolBar.cpp:121 kwave/menus_config_i18n.cpp:43
+#: kwave/PlayerToolBar.cpp:121
+msgid "Forward"
+msgstr "Précédant"
+
+#: kwave/menus.config:139
+#, fuzzy
+msgctxt "menu: /Play/Forward"
 msgid "Forward"
 msgstr "Précédant"
 
@@ -2605,8 +2700,9 @@ msgstr "Funk"
 msgid "Fusion"
 msgstr "Fusion"
 
-#: kwave/menus_config_i18n.cpp:44
+#: kwave/menus.config:166
 #, fuzzy
+msgctxt "menu: /Fx"
 msgid "Fx"
 msgstr "Effe&ts"
 
@@ -2656,8 +2752,9 @@ msgstr "Genre "
 msgid "Go to Position"
 msgstr "Position :"
 
-#: kwave/menus_config_i18n.cpp:45
+#: kwave/menus.config:116
 #, fuzzy
+msgctxt "menu: /View/Go to Position..."
 msgid "Go to Position..."
 msgstr "Position :"
 
@@ -2707,8 +2804,14 @@ msgstr "Hanning"
 msgid "Hard Rock"
 msgstr "Hard Rock"
 
-#: plugins/debug/DebugPlugin.cpp:70 kwave/menus_config_i18n.cpp:46
+#: plugins/debug/DebugPlugin.cpp:70
 #, fuzzy
+msgid "Help"
+msgstr "&Aide"
+
+#: kwave/menus.config:252
+#, fuzzy
+msgctxt "menu: /Help"
 msgid "Help"
 msgstr "&Aide"
 
@@ -2945,8 +3048,14 @@ msgstr "Insérer %1 %2 objets"
 msgid "Insert At"
 msgstr "insérer"
 
-#: plugins/goto/InsertAtPlugin.cpp:50 kwave/menus_config_i18n.cpp:47
+#: plugins/goto/InsertAtPlugin.cpp:50
 #, fuzzy
+msgid "Insert At..."
+msgstr "&Insertion de labels..."
+
+#: kwave/menus.config:105
+#, fuzzy
+msgctxt "menu: /Edit/Clipboard/Insert At..."
 msgid "Insert At..."
 msgstr "&Insertion de labels..."
 
@@ -3025,8 +3134,9 @@ msgstr "Numéro de demande non valide/non supporté"
 msgid "Inverse Sawtooth"
 msgstr "dents de scie inversées"
 
-#: kwave/menus_config_i18n.cpp:48
+#: kwave/menus.config:98
 #, fuzzy
+msgctxt "menu: /Edit/Track/Invert Selection"
 msgid "Invert Selection"
 msgstr "&Inversion de la sélection"
 
@@ -3280,13 +3390,19 @@ msgstr "Chargement des modules externes..."
 msgid "Log all commands into a file"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:49
+#: kwave/menus.config:135
 #, fuzzy
+msgctxt "menu: /Play/Loop"
 msgid "Loop"
 msgstr "Bouc&le"
 
-#: plugins/lowpass/LowPassPlugin.cpp:109 kwave/menus_config_i18n.cpp:50
-#: plugins/lowpass/ui_LowPassDlg.h:166
+#: plugins/lowpass/LowPassPlugin.cpp:109 plugins/lowpass/ui_LowPassDlg.h:166
+msgid "Low Pass"
+msgstr "Passe bas"
+
+#: kwave/menus.config:185
+#, fuzzy
+msgctxt "menu: /Fx/Low Pass"
 msgid "Low Pass"
 msgstr "Passe bas"
 
@@ -3441,8 +3557,14 @@ msgstr "La taille en méga-octets de la mémoire physique"
 msgid "Megabytes of virtual memory"
 msgstr "La taille en méga-octets de la mémoire virtuelle"
 
-#: libkwave/SignalManager.cpp:1400 kwave/menus_config_i18n.cpp:51
+#: libkwave/SignalManager.cpp:1400
 #, fuzzy
+msgid "Memory"
+msgstr "&Gestion de la mémoire"
+
+#: kwave/menus.config:247
+#, fuzzy
+msgctxt "menu: /Settings/Memory"
 msgid "Memory"
 msgstr "&Gestion de la mémoire"
 
@@ -3624,28 +3746,38 @@ msgstr "Nouveau signal audio"
 msgid "New Wave"
 msgstr "New Wave"
 
-#: kwave/menus_config_i18n.cpp:52
+#: kwave/menus.config:45
 #, fuzzy
+msgctxt "menu: /File/New Window"
 msgid "New Window"
 msgstr "Nouvelle &fenêtre"
 
-#: kwave/menus_config_i18n.cpp:53
+#: kwave/menus.config:18
 #, fuzzy
+msgctxt "menu: /File/New..."
 msgid "New..."
 msgstr "&Nouveau..."
 
-#: kwave/PlayerToolBar.cpp:127 kwave/menus_config_i18n.cpp:54
+#: kwave/PlayerToolBar.cpp:127
 #, fuzzy
 msgid "Next"
 msgstr "Page &suivante"
 
-#: kwave/menus_config_i18n.cpp:55
+#: kwave/menus.config:80
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Next"
+msgid "Next"
+msgstr "Page &suivante"
+
+#: kwave/menus.config:120
+#, fuzzy
+msgctxt "menu: /View/Next Page"
 msgid "Next Page"
 msgstr "Page &suivante"
 
-#: kwave/menus_config_i18n.cpp:56
+#: kwave/menus.config:233
 #, fuzzy
+msgctxt "menu: /Window/Next Window"
 msgid "Next Window"
 msgstr "Nouvelle &fenêtre"
 
@@ -3660,7 +3792,13 @@ msgstr "Aucun"
 msgid "No Compression"
 msgstr "Compression"
 
-#: libkwave/GenreType.cpp:135 kwave/menus_config_i18n.cpp:57
+#: libkwave/GenreType.cpp:135
+msgid "Noise"
+msgstr "Bruit"
+
+#: kwave/menus.config:211
+#, fuzzy
+msgctxt "menu: /Calculate/Noise"
 msgid "Noise"
 msgstr "Bruit"
 
@@ -3689,8 +3827,14 @@ msgstr "Débit nominal du flux audio en bits par seconde"
 msgid "None"
 msgstr "Aucun"
 
-#: plugins/normalize/NormalizePlugin.cpp:73 kwave/menus_config_i18n.cpp:58
+#: plugins/normalize/NormalizePlugin.cpp:73
 #, fuzzy
+msgid "Normalize"
+msgstr "&Bruit"
+
+#: kwave/menus.config:169
+#, fuzzy
+msgctxt "menu: /Fx/Normalize"
 msgid "Normalize"
 msgstr "&Bruit"
 
@@ -3710,7 +3854,13 @@ msgstr "Pas assez de mémoire pour enregistrer les informations d'annulation"
 
 #: plugins/notch_filter/NotchFilterPlugin.cpp:33
 #: plugins/notch_filter/NotchFilterPlugin.cpp:121
-#: kwave/menus_config_i18n.cpp:59 plugins/notch_filter/ui_NotchFilterDlg.h:182
+#: plugins/notch_filter/ui_NotchFilterDlg.h:182
+msgid "Notch Filter"
+msgstr "Filtre réjecteur"
+
+#: kwave/menus.config:186
+#, fuzzy
+msgctxt "menu: /Fx/Notch Filter"
 msgid "Notch Filter"
 msgstr "Filtre réjecteur"
 
@@ -3719,8 +3869,9 @@ msgstr "Filtre réjecteur"
 msgid "Notch filter plugin"
 msgstr "Module externe filtre réjecteur"
 
-#: kwave/menus_config_i18n.cpp:60
+#: kwave/menus.config:82
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Nothing"
 msgid "Nothing"
 msgstr "&Aucun"
 
@@ -3842,13 +3993,20 @@ msgstr ""
 msgid "One or more invalid/out of range arguments."
 msgstr "Au moins un argument de gamme non valide"
 
-#: kwave/TopWidget.cpp:983 kwave/menus_config_i18n.cpp:61
+#: kwave/TopWidget.cpp:983
 #, fuzzy
 msgid "Open"
 msgstr "Opéra"
 
-#: kwave/menus_config_i18n.cpp:62
+#: kwave/menus.config:19
 #, fuzzy
+msgctxt "menu: /File/Open"
+msgid "Open"
+msgstr "Opéra"
+
+#: kwave/menus.config:22
+#, fuzzy
+msgctxt "menu: /File/Open Recent"
 msgid "Open Recent"
 msgstr "&Pourcentage"
 
@@ -3979,8 +4137,14 @@ msgstr "Panagiotis Papadopoulos"
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: libkwave/SignalManager.cpp:667 kwave/menus_config_i18n.cpp:63
+#: libkwave/SignalManager.cpp:667
 #, fuzzy
+msgid "Paste"
+msgstr "&Pause"
+
+#: kwave/menus.config:65
+#, fuzzy
+msgctxt "menu: /Edit/Paste"
 msgid "Paste"
 msgstr "&Pause"
 
@@ -3988,8 +4152,9 @@ msgstr "&Pause"
 msgid "Path:"
 msgstr "Dossier:"
 
-#: kwave/menus_config_i18n.cpp:64
+#: kwave/menus.config:136
 #, fuzzy
+msgctxt "menu: /Play/Pause"
 msgid "Pause"
 msgstr "&Pause"
 
@@ -4020,13 +4185,20 @@ msgid "Phonon (KDE)"
 msgstr "Phonon (KDE)"
 
 #: plugins/pitch_shift/PitchShiftPlugin.cpp:32
-#: plugins/pitch_shift/PitchShiftPlugin.cpp:125 kwave/menus_config_i18n.cpp:65
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:125
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:199
 msgid "Pitch Shift"
 msgstr "Décalage fréquentiel"
 
-#: kwave/menus_config_i18n.cpp:66
+#: kwave/menus.config:192
 #, fuzzy
+msgctxt "menu: /Fx/Pitch Shift"
+msgid "Pitch Shift"
+msgstr "Décalage fréquentiel"
+
+#: kwave/menus.config:131
+#, fuzzy
+msgctxt "menu: /Play"
 msgid "Play"
 msgstr "&Jouer"
 
@@ -4034,8 +4206,14 @@ msgstr "&Jouer"
 msgid "Play a short test sound"
 msgstr "Jouer un court son de test"
 
-#: plugins/playback/PlayBackPlugin.cpp:70 kwave/menus_config_i18n.cpp:67
+#: plugins/playback/PlayBackPlugin.cpp:70
 #: plugins/playback/ui_PlayBackDlg.h:351
+msgid "Playback"
+msgstr "Lecture"
+
+#: kwave/menus.config:246
+#, fuzzy
+msgctxt "menu: /Settings/Playback"
 msgid "Playback"
 msgstr "Lecture"
 
@@ -4171,18 +4349,26 @@ msgstr "pré-enregistrement..."
 msgid "Presets"
 msgstr "Pré-réglages"
 
-#: kwave/PlayerToolBar.cpp:79 kwave/menus_config_i18n.cpp:68
+#: kwave/PlayerToolBar.cpp:79
 #, fuzzy
 msgid "Previous"
 msgstr "Page &précédente"
 
-#: kwave/menus_config_i18n.cpp:69
+#: kwave/menus.config:81
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Previous"
+msgid "Previous"
+msgstr "Page &précédente"
+
+#: kwave/menus.config:119
+#, fuzzy
+msgctxt "menu: /View/Previous Page"
 msgid "Previous Page"
 msgstr "Page &précédente"
 
-#: kwave/menus_config_i18n.cpp:70
+#: kwave/menus.config:234
 #, fuzzy
+msgctxt "menu: /Window/Previous Window"
 msgid "Previous Window"
 msgstr "Page &précédente"
 
@@ -4271,8 +4457,9 @@ msgstr "Quadro"
 msgid "Quality"
 msgstr "Qualité de base"
 
-#: kwave/menus_config_i18n.cpp:71
+#: kwave/menus.config:52
 #, fuzzy
+msgctxt "menu: /File/Quit"
 msgid "Quit"
 msgstr "A&uto"
 
@@ -4284,8 +4471,9 @@ msgstr "R&B"
 msgid "Ralf Waspe"
 msgstr "Ralf Waspe"
 
-#: kwave/menus_config_i18n.cpp:72
+#: kwave/menus.config:78
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Range"
 msgid "Range"
 msgstr "&Plage d'échantillons"
 
@@ -4302,8 +4490,9 @@ msgstr "Rave"
 msgid "Raw Format:"
 msgstr "Format"
 
-#: kwave/menus_config_i18n.cpp:73
+#: kwave/menus.config:249
 #, fuzzy
+msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
 msgid "Re-enable all \"Do not ask again\" messages"
 msgstr "Re-rendre disponibles les messages \"ne plus demander\""
 
@@ -4345,8 +4534,13 @@ msgid "Ready"
 msgstr "Prêt."
 
 #: kwave/PlayerToolBar.cpp:91 plugins/record/RecordPlugin.cpp:60
-#: kwave/menus_config_i18n.cpp:74 plugins/record/ui_RecordDlg.h:889
-#: plugins/record/ui_RecordDlg.h:925
+#: plugins/record/ui_RecordDlg.h:889 plugins/record/ui_RecordDlg.h:925
+msgid "Record"
+msgstr "Enregistrer"
+
+#: kwave/menus.config:29
+#, fuzzy
+msgctxt "menu: /File/Record"
 msgid "Record"
 msgstr "Enregistrer"
 
@@ -4406,7 +4600,7 @@ msgstr ""
 msgid "Rectangular"
 msgstr "Rectangulaire"
 
-#: kwave/TopWidget.cpp:380 kwave/menus_config_i18n.cpp:75
+#: kwave/TopWidget.cpp:380
 #, fuzzy
 msgid "Redo"
 msgstr "R&efaire"
@@ -4414,6 +4608,12 @@ msgstr "R&efaire"
 #: kwave/TopWidget.cpp:1178
 #, fuzzy
 msgctxt "menu entry for redo if redo disabled"
+msgid "Redo"
+msgstr "R&efaire"
+
+#: kwave/menus.config:58
+#, fuzzy
+msgctxt "menu: /Edit/Redo"
 msgid "Redo"
 msgstr "R&efaire"
 
@@ -4439,8 +4639,9 @@ msgstr "Refaire (%1)"
 msgid "Reggae"
 msgstr "Reggae"
 
-#: kwave/menus_config_i18n.cpp:76
+#: kwave/menus.config:248
 #, fuzzy
+msgctxt "menu: /Settings/Reset Toolbar"
 msgid "Reset Toolbar"
 msgstr "Réinitialiser les barres d'outils"
 
@@ -4464,13 +4665,19 @@ msgstr "Rétro"
 
 #: plugins/reverse/UndoReverseAction.cpp:44
 #: plugins/reverse/ReversePlugin.cpp:45 plugins/reverse/ReversePlugin.cpp:78
-#: kwave/menus_config_i18n.cpp:77
 #, fuzzy
 msgid "Reverse"
 msgstr "Inve&rser"
 
-#: kwave/menus_config_i18n.cpp:78
+#: kwave/menus.config:194
 #, fuzzy
+msgctxt "menu: /Fx/Reverse"
+msgid "Reverse"
+msgstr "Inve&rser"
+
+#: kwave/menus.config:48
+#, fuzzy
+msgctxt "menu: /File/Revert"
 msgid "Revert"
 msgstr "Rétablir"
 
@@ -4478,7 +4685,13 @@ msgstr "Rétablir"
 msgid "Revival"
 msgstr "Revival"
 
-#: kwave/PlayerToolBar.cpp:85 kwave/menus_config_i18n.cpp:79
+#: kwave/PlayerToolBar.cpp:85
+msgid "Rewind"
+msgstr "Rembobiner"
+
+#: kwave/menus.config:133
+#, fuzzy
+msgctxt "menu: /Play/Rewind"
 msgid "Rewind"
 msgstr "Rembobiner"
 
@@ -4515,8 +4728,9 @@ msgstr "Chargement des modules externes..."
 msgid "Samba"
 msgstr "Samba"
 
-#: kwave/menus_config_i18n.cpp:80
+#: kwave/menus.config:243
 #, fuzzy
+msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
 msgid "Same Window (MDI)"
 msgstr "Nouvelle &fenêtre"
 
@@ -4597,8 +4811,9 @@ msgstr "échantillons par seconde"
 msgid "Satire"
 msgstr "Satire"
 
-#: kwave/menus_config_i18n.cpp:81
+#: kwave/menus.config:35
 #, fuzzy
+msgctxt "menu: /File/Save"
 msgid "Save"
 msgstr "E&nregistrer..."
 
@@ -4656,13 +4871,15 @@ msgstr "dents de scie"
 msgid "Scanning plugins..."
 msgstr "Chargement des modules externes..."
 
-#: kwave/menus_config_i18n.cpp:82
+#: kwave/menus.config:122
 #, fuzzy
+msgctxt "menu: /View/Scroll Left"
 msgid "Scroll Left"
 msgstr "Déplacer à &gauche"
 
-#: kwave/menus_config_i18n.cpp:83
+#: kwave/menus.config:121
 #, fuzzy
+msgctxt "menu: /View/Scroll Right"
 msgid "Scroll Right"
 msgstr "Déplacer à &droite"
 
@@ -4738,8 +4955,9 @@ msgid ""
 msgstr ""
 "Sélectionner une résolution en bits pour chaque fichier qui sera enregistré."
 
-#: kwave/menus_config_i18n.cpp:84
+#: kwave/menus.config:97
 #, fuzzy
+msgctxt "menu: /Edit/Track/Select all"
 msgid "Select all"
 msgstr "&Sélectionner tout"
 
@@ -4775,8 +4993,13 @@ msgid "Selected: %1...%2 (%3)"
 msgstr "Sélectionnés: %1...%2 (%3 énchantillons)"
 
 #: libgui/SignalWidget.cpp:247 libkwave/undo/UndoSelection.cpp:51
-#: kwave/menus_config_i18n.cpp:85
 #, fuzzy
+msgid "Selection"
+msgstr "&Sélection"
+
+#: kwave/menus.config:76
+#, fuzzy
+msgctxt "menu: /Edit/Selection"
 msgid "Selection"
 msgstr "&Sélection"
 
@@ -4803,13 +5026,15 @@ msgstr "sélection, bord gauche"
 msgid "Selection, right border"
 msgstr "sélection, bord gauche"
 
-#: kwave/menus_config_i18n.cpp:86
+#: kwave/menus.config:38
 #, fuzzy
+msgctxt "menu: /File/Save/Selection..."
 msgid "Selection..."
 msgstr "&Sélection..."
 
-#: kwave/menus_config_i18n.cpp:87
+#: kwave/menus.config:242
 #, fuzzy
+msgctxt "menu: /Settings/Show Files in.../Separate Windows (SDI)"
 msgid "Separate Windows (SDI)"
 msgstr "Nouvelle &fenêtre"
 
@@ -4856,12 +5081,19 @@ msgstr ""
 "Paramètre le volume sonore à un pourcentage qui est relatif au niveau\n"
 "sonore d'origine. Par exemple : « 50 % », « 75 % », ou « 125 % »"
 
-#: libkwave/SignalManager.cpp:1398 kwave/menus_config_i18n.cpp:88
+#: libkwave/SignalManager.cpp:1398
 msgid "Settings"
 msgstr "Configuration"
 
-#: kwave/menus_config_i18n.cpp:89
+#: kwave/menus.config:241
 #, fuzzy
+msgctxt "menu: /Settings"
+msgid "Settings"
+msgstr "Configuration"
+
+#: kwave/menus.config:242
+#, fuzzy
+msgctxt "menu: /Settings/Show Files in..."
 msgid "Show Files in..."
 msgstr "Chargement des modules externes..."
 
@@ -4904,8 +5136,14 @@ msgstr ""
 msgid "Signal is empty, nothing to save."
 msgstr "Le signal est vide, il n'y a rien à enregistrer !"
 
-#: plugins/zero/ZeroPlugin.cpp:62 kwave/menus_config_i18n.cpp:90
+#: plugins/zero/ZeroPlugin.cpp:62
 #, fuzzy
+msgid "Silence"
+msgstr "&Silence"
+
+#: kwave/menus.config:209
+#, fuzzy
+msgctxt "menu: /Calculate/Silence"
 msgid "Silence"
 msgstr "&Silence"
 
@@ -4945,8 +5183,14 @@ msgstr "Logiciel "
 
 #: plugins/sonagram/SonagramPlugin.cpp:58
 #: plugins/sonagram/SonagramPlugin.cpp:78
-#: plugins/sonagram/SonagramWindow.cpp:502 kwave/menus_config_i18n.cpp:91
+#: plugins/sonagram/SonagramWindow.cpp:502
 #, fuzzy
+msgid "Sonagram"
+msgstr "&Sonagramme"
+
+#: kwave/menus.config:222
+#, fuzzy
+msgctxt "menu: /Calculate/Sonagram"
 msgid "Sonagram"
 msgstr "&Sonagramme"
 
@@ -5072,8 +5316,14 @@ msgstr "rainure"
 msgid "Square Sinus"
 msgstr "Sinusoïde au carré"
 
-#: plugins/selectrange/SelectRangeDialog.cpp:42 kwave/menus_config_i18n.cpp:92
+#: plugins/selectrange/SelectRangeDialog.cpp:42
 #, fuzzy
+msgid "Start"
+msgstr "Début"
+
+#: kwave/menus.config:134
+#, fuzzy
+msgctxt "menu: /Play/Start"
 msgid "Start"
 msgstr "Début"
 
@@ -5127,8 +5377,9 @@ msgstr "Stefan Westerfeld"
 msgid "Stereo"
 msgstr "Stéréo"
 
-#: kwave/menus_config_i18n.cpp:93
+#: kwave/menus.config:138
 #, fuzzy
+msgctxt "menu: /Play/Stop"
 msgid "Stop"
 msgstr "Arrê&ter"
 
@@ -5201,7 +5452,8 @@ msgstr "Perte de synchronisation"
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr "T.H.F. Klok and Cedric Tefft"
 
-#: kwave/menus_config_i18n.cpp:94
+#: kwave/menus.config:244
+msgctxt "menu: /Settings/Show Files in.../Tabs"
 msgid "Tabs"
 msgstr ""
 
@@ -5443,8 +5695,9 @@ msgstr ""
 msgid "Thomas Eschenbacher"
 msgstr "Thomas Eschenbacher"
 
-#: kwave/menus_config_i18n.cpp:95
+#: kwave/menus.config:236
 #, fuzzy
+msgctxt "menu: /Window/Tile Sub Windows"
 msgid "Tile Sub Windows"
 msgstr "&Dans une nouvelle fenêtre"
 
@@ -5465,22 +5718,36 @@ msgstr "Temps: ------ ms"
 msgid "Time: 0 ms"
 msgstr "Temps: 0 ms"
 
-#: kwave/menus_config_i18n.cpp:96
+#: kwave/menus.config:84
+msgctxt "menu: /Edit/Selection/To End"
 msgid "To End"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:269 kwave/menus_config_i18n.cpp:97
+#: libgui/SignalWidget.cpp:269
 #, fuzzy
 msgid "To Next Labels"
 msgstr "vers les labels suivants"
 
-#: libgui/SignalWidget.cpp:278 kwave/menus_config_i18n.cpp:98
+#: kwave/menus.config:86
+#, fuzzy
+msgctxt "menu: /Edit/Selection/To Next Labels"
+msgid "To Next Labels"
+msgstr "vers les labels suivants"
+
+#: libgui/SignalWidget.cpp:278
 #, fuzzy
 msgid "To Previous Labels"
 msgstr "vers les labels précédents"
 
-#: kwave/menus_config_i18n.cpp:99
+#: kwave/menus.config:87
 #, fuzzy
+msgctxt "menu: /Edit/Selection/To Previous Labels"
+msgid "To Previous Labels"
+msgstr "vers les labels précédents"
+
+#: kwave/menus.config:83
+#, fuzzy
+msgctxt "menu: /Edit/Selection/To Start"
 msgid "To Start"
 msgstr "Au débu&t"
 
@@ -5492,7 +5759,13 @@ msgstr ""
 msgid "Top 40"
 msgstr "Top 40"
 
-#: libkwave/FileInfo.cpp:243 kwave/menus_config_i18n.cpp:100
+#: libkwave/FileInfo.cpp:243
+msgid "Track"
+msgstr "Piste "
+
+#: kwave/menus.config:90
+#, fuzzy
+msgctxt "menu: /Edit/Track"
 msgid "Track"
 msgstr "Piste "
 
@@ -5574,13 +5847,19 @@ msgstr "Impossible d'ouvrir le fichier pour l'enregistrer !"
 msgid "Unable to open the recording device"
 msgstr "impossible d'ouvrir le périphérique d'enregistrement"
 
-#: kwave/TopWidget.cpp:375 kwave/menus_config_i18n.cpp:101
+#: kwave/TopWidget.cpp:375
 msgid "Undo"
 msgstr "Annuler"
 
 #: kwave/TopWidget.cpp:1171
 #, fuzzy
 msgctxt "menu entry for undo if undo disabled"
+msgid "Undo"
+msgstr "Annuler"
+
+#: kwave/menus.config:56
+#, fuzzy
+msgctxt "menu: /Edit/Undo"
 msgid "Undo"
 msgstr "Annuler"
 
@@ -5666,13 +5945,15 @@ msgstr "Version"
 msgid "Version Info:"
 msgstr "Version"
 
-#: kwave/menus_config_i18n.cpp:102
+#: kwave/menus.config:115
 #, fuzzy
+msgctxt "menu: /View"
 msgid "View"
 msgstr "&Nouveau..."
 
-#: kwave/menus_config_i18n.cpp:103
+#: kwave/menus.config:79
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Visible Area"
 msgid "Visible Area"
 msgstr "Région &visible"
 
@@ -5681,9 +5962,14 @@ msgid "Vocal"
 msgstr "Vocal"
 
 #: plugins/volume/VolumePlugin.cpp:40 plugins/volume/VolumePlugin.cpp:131
-#: kwave/menus_config_i18n.cpp:104 plugins/noise/ui_NoiseDlg.h:234
-#: plugins/volume/ui_VolumeDlg.h:238 plugins/volume/ui_VolumeDlg.h:265
-#: plugins/volume/ui_VolumeDlg.h:268
+#: plugins/noise/ui_NoiseDlg.h:234 plugins/volume/ui_VolumeDlg.h:238
+#: plugins/volume/ui_VolumeDlg.h:265 plugins/volume/ui_VolumeDlg.h:268
+msgid "Volume"
+msgstr "Volume"
+
+#: kwave/menus.config:168
+#, fuzzy
+msgctxt "menu: /Fx/Volume"
 msgid "Volume"
 msgstr "Volume"
 
@@ -5730,8 +6016,9 @@ msgstr ""
 "sur le bouton \"Enregistrement\". <i>(Par exemple pour enregistrer la "
 "radio)</i>"
 
-#: kwave/menus_config_i18n.cpp:105
+#: kwave/menus.config:232
 #, fuzzy
+msgctxt "menu: /Window"
 msgid "Window"
 msgstr "Nouvelle &fenêtre"
 
@@ -5783,13 +6070,15 @@ msgstr ""
 msgid "Zero Generator"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:106
+#: kwave/menus.config:124
 #, fuzzy
+msgctxt "menu: /View/Zoom In"
 msgid "Zoom In"
 msgstr "Agrand&ir"
 
-#: kwave/menus_config_i18n.cpp:107
+#: kwave/menus.config:125
 #, fuzzy
+msgctxt "menu: /View/Zoom Out"
 msgid "Zoom Out"
 msgstr "&Rétrécir"
 
@@ -5801,17 +6090,25 @@ msgstr "Agrandir"
 msgid "Zoom out"
 msgstr ""
 
-#: kwave/ZoomToolBar.cpp:84 kwave/menus_config_i18n.cpp:108
+#: kwave/ZoomToolBar.cpp:84
 msgid "Zoom to 100%"
 msgstr "zoomer à 100 %"
 
-#: kwave/menus_config_i18n.cpp:109
+#: kwave/menus.config:129
 #, fuzzy
+msgctxt "menu: /View/Zoom to 100%"
+msgid "Zoom to 100%"
+msgstr "zoomer à 100 %"
+
+#: kwave/menus.config:126
+#, fuzzy
+msgctxt "menu: /View/Zoom to Selection"
 msgid "Zoom to Selection"
 msgstr "Zoomer sur la &sélection"
 
-#: kwave/menus_config_i18n.cpp:110
+#: kwave/menus.config:128
 #, fuzzy
+msgctxt "menu: /View/Zoom to Whole Signal"
 msgid "Zoom to Whole Signal"
 msgstr "Zoomer sur la &sélection"
 
@@ -6297,6 +6594,21 @@ msgstr "Oui"
 #~ msgid "&Reverse"
 #~ msgstr "Inve&rser"
 
+#, fuzzy
+#~ msgctxt "/File/&Save"
+#~ msgid "&Save"
+#~ msgstr "E&nregistrer..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "&Save"
+#~ msgstr "E&nregistrer..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "&Save"
+#~ msgstr "E&nregistrer..."
+
 #~ msgid "&Search..."
 #~ msgstr "&Sélection..."
 
@@ -6438,13 +6750,73 @@ msgstr "Oui"
 #~ msgstr "<rien>"
 
 #, fuzzy
+#~ msgctxt "/Help/About KDE"
+#~ msgid "About KDE"
+#~ msgstr "A propos de &KDE"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "About KDE"
+#~ msgstr "A propos de &KDE"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "About KDE"
+#~ msgstr "A propos de &KDE"
+
+#, fuzzy
+#~ msgctxt "/Help/About Kwave"
+#~ msgid "About Kwave"
+#~ msgstr "A propos de Kwave"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "About Kwave"
+#~ msgstr "A propos de Kwave"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "About Kwave"
+#~ msgstr "A propos de Kwave"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Help/About Kwave'"
 #~ msgid "About Kwave"
 #~ msgstr "A propos de Kwave"
 
 #, fuzzy
+#~ msgctxt "/Edit/Track/Add"
+#~ msgid "Add"
+#~ msgstr "&Ajouter"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Add"
+#~ msgstr "&Ajouter"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Add"
+#~ msgstr "&Ajouter"
+
+#, fuzzy
 #~ msgid "Additive Synthesis"
 #~ msgstr "Synthèse &additionnelle"
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection/All"
+#~ msgid "All"
+#~ msgstr "&Tous"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "All"
+#~ msgstr "&Tous"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "All"
+#~ msgstr "&Tous"
 
 #~ msgid "Alt+C"
 #~ msgstr "Alt+C"
@@ -6463,6 +6835,21 @@ msgstr "Oui"
 #~ msgstr "Amplification libre"
 
 #, fuzzy
+#~ msgctxt "/Fx/Amplify Free"
+#~ msgid "Amplify Free"
+#~ msgstr "Amplification libre"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Amplify Free"
+#~ msgstr "Amplification libre"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Amplify Free"
+#~ msgstr "Amplification libre"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Amplify Free'"
 #~ msgid "Amplify Free"
 #~ msgstr "Amplification libre"
@@ -6472,13 +6859,88 @@ msgstr "Oui"
 #~ msgstr "avec le &presse-papiers"
 
 #, fuzzy
+#~ msgctxt "/File/Save/As..."
+#~ msgid "As..."
+#~ msgstr "&Sous..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "As..."
+#~ msgstr "&Sous..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "As..."
+#~ msgstr "&Sous..."
+
+#, fuzzy
 #~ msgid "Average spectrum"
 #~ msgstr "Spectre des &moyennes"
+
+#, fuzzy
+#~ msgctxt "/Fx/Band Pass"
+#~ msgid "Band Pass"
+#~ msgstr "Filtre passe bande"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Band Pass"
+#~ msgstr "Filtre passe bande"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Band Pass"
+#~ msgstr "Filtre passe bande"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Fx/Band Pass'"
 #~ msgid "Band Pass"
 #~ msgstr "Filtre passe bande"
+
+#, fuzzy
+#~ msgctxt "/View/Begin"
+#~ msgid "Begin"
+#~ msgstr "Dé&but"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Begin"
+#~ msgstr "Dé&but"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Begin"
+#~ msgstr "Dé&but"
+
+#, fuzzy
+#~ msgctxt "/File/Save/Blocks..."
+#~ msgid "Blocks..."
+#~ msgstr "&Blocs..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Blocks..."
+#~ msgstr "&Blocs..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Blocks..."
+#~ msgstr "&Blocs..."
+
+#, fuzzy
+#~ msgctxt "/Calculate"
+#~ msgid "Calculate"
+#~ msgstr "&Calculer"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Calculate"
+#~ msgstr "&Calculer"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Calculate"
+#~ msgstr "&Calculer"
 
 #~ msgid ""
 #~ "Can't connect to aRts soundserver. Maybe it is not properly installed or "
@@ -6486,6 +6948,21 @@ msgstr "Oui"
 #~ msgstr ""
 #~ "Impossible de se connecter au server de sons aRts. Peut-être n'est il pas "
 #~ "correctement installé ou en cours d'exécution."
+
+#, fuzzy
+#~ msgctxt "/Window/Cascade Sub Windows"
+#~ msgid "Cascade Sub Windows"
+#~ msgstr "&Dans une nouvelle fenêtre"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Cascade Sub Windows"
+#~ msgstr "&Dans une nouvelle fenêtre"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Cascade Sub Windows"
+#~ msgstr "&Dans une nouvelle fenêtre"
 
 #, fuzzy
 #~ msgid "Center Signal"
@@ -6503,8 +6980,83 @@ msgstr "Oui"
 #~ msgstr "Pres&se papier"
 
 #, fuzzy
+#~ msgctxt "/Edit/Clipboard"
+#~ msgid "Clipboard"
+#~ msgstr "&Presse papier"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Clipboard"
+#~ msgstr "&Presse papier"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Clipboard"
+#~ msgstr "&Presse papier"
+
+#, fuzzy
+#~ msgctxt "/File/Close"
+#~ msgid "Close"
+#~ msgstr "&Bruit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Close"
+#~ msgstr "&Bruit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Close"
+#~ msgstr "&Bruit"
+
+#, fuzzy
+#~ msgctxt "/Help/Contents"
+#~ msgid "Contents"
+#~ msgstr "Contenu"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Contents"
+#~ msgstr "Contenu"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Contents"
+#~ msgstr "Contenu"
+
+#, fuzzy
+#~ msgctxt "/Play/Continue"
+#~ msgid "Continue"
+#~ msgstr "&Continuer"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Continue"
+#~ msgstr "&Continuer"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Continue"
+#~ msgstr "&Continuer"
+
+#, fuzzy
 #~ msgid "Convert Label Distance to Pitch"
 #~ msgstr "&Convertir la distance entre deux labels en un décalage fréquentiel"
+
+#, fuzzy
+#~ msgctxt "/Edit/Copy"
+#~ msgid "Copy"
+#~ msgstr "&Couper la sélection"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Copy"
+#~ msgstr "&Couper la sélection"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Copy"
+#~ msgstr "&Couper la sélection"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Copy'"
@@ -6524,9 +7076,39 @@ msgstr "Oui"
 #~ msgstr "Créer un &type"
 
 #, fuzzy
+#~ msgctxt "/Edit/Crop"
+#~ msgid "Crop"
+#~ msgstr "&Couper la sélection"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Crop"
+#~ msgstr "&Couper la sélection"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Crop"
+#~ msgstr "&Couper la sélection"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Crop'"
 #~ msgid "Crop"
 #~ msgstr "&Couper la sélection"
+
+#, fuzzy
+#~ msgctxt "/Edit/Cut"
+#~ msgid "Cut"
+#~ msgstr "Co&uper"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Cut"
+#~ msgstr "Co&uper"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Cut"
+#~ msgstr "Co&uper"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Cut'"
@@ -6539,6 +7121,21 @@ msgstr "Oui"
 
 #~ msgid "De&lay"
 #~ msgstr "Ret&ard"
+
+#, fuzzy
+#~ msgctxt "/Edit/Delete"
+#~ msgid "Delete"
+#~ msgstr "supprimer"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Delete"
+#~ msgstr "supprimer"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Delete"
+#~ msgstr "supprimer"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Delete'"
@@ -6561,6 +7158,21 @@ msgstr "Oui"
 #~ msgstr "E&xécuter"
 
 #, fuzzy
+#~ msgctxt "/View/End"
+#~ msgid "End"
+#~ msgstr "&Fin"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "End"
+#~ msgstr "&Fin"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "End"
+#~ msgstr "&Fin"
+
+#, fuzzy
 #~ msgid "Enter Command"
 #~ msgstr "&Entrer une commande"
 
@@ -6571,6 +7183,21 @@ msgstr "Oui"
 #, fuzzy
 #~ msgid "Execute"
 #~ msgstr "E&xécuter"
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection/Expand to Labels"
+#~ msgid "Expand to Labels"
+#~ msgstr "&Élargir par rapport aux labels"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Expand to Labels"
+#~ msgstr "&Élargir par rapport aux labels"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Expand to Labels"
+#~ msgstr "&Élargir par rapport aux labels"
 
 #~ msgid "F1"
 #~ msgstr "F1"
@@ -6585,8 +7212,38 @@ msgstr "Oui"
 #~ msgstr "Affaiblir pr&ogressivement"
 
 #, fuzzy
+#~ msgctxt "/Fx/Fade In"
+#~ msgid "Fade In"
+#~ msgstr "Augmenter progressivement"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Fade In"
+#~ msgstr "Augmenter progressivement"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Fade In"
+#~ msgstr "Augmenter progressivement"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Fade In'"
 #~ msgid "Fade In"
+#~ msgstr "Augmenter progressivement"
+
+#, fuzzy
+#~ msgctxt "/Fx/Fade Intro"
+#~ msgid "Fade Intro"
+#~ msgstr "Augmenter progressivement"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Fade Intro"
+#~ msgstr "Augmenter progressivement"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Fade Intro"
 #~ msgstr "Augmenter progressivement"
 
 #, fuzzy
@@ -6595,8 +7252,38 @@ msgstr "Oui"
 #~ msgstr "Augmenter progressivement"
 
 #, fuzzy
+#~ msgctxt "/Fx/Fade Leadout"
+#~ msgid "Fade Leadout"
+#~ msgstr "Affaiblir progressivement"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Fade Leadout"
+#~ msgstr "Affaiblir progressivement"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Fade Leadout"
+#~ msgstr "Affaiblir progressivement"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Fade Leadout'"
 #~ msgid "Fade Leadout"
+#~ msgstr "Affaiblir progressivement"
+
+#, fuzzy
+#~ msgctxt "/Fx/Fade Out"
+#~ msgid "Fade Out"
+#~ msgstr "Affaiblir progressivement"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Fade Out"
+#~ msgstr "Affaiblir progressivement"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Fade Out"
 #~ msgstr "Affaiblir progressivement"
 
 #, fuzzy
@@ -6605,9 +7292,39 @@ msgstr "Oui"
 #~ msgstr "Affaiblir progressivement"
 
 #, fuzzy
+#~ msgctxt "/File"
+#~ msgid "File"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "File"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "File"
+#~ msgstr "Fichier"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/File'"
 #~ msgid "File"
 #~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgctxt "/Edit/File Properties..."
+#~ msgid "File Properties..."
+#~ msgstr "&Propriétés du fichier..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "File Properties..."
+#~ msgstr "&Propriétés du fichier..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "File Properties..."
+#~ msgstr "&Propriétés du fichier..."
 
 #, fuzzy
 #~ msgid "Filter"
@@ -6618,9 +7335,54 @@ msgstr "Oui"
 #~ msgstr "&Mouvement de Phase"
 
 #, fuzzy
+#~ msgctxt "/Edit/Clipboard/Flush"
+#~ msgid "Flush"
+#~ msgstr "&Vider"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Flush"
+#~ msgstr "&Vider"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Flush"
+#~ msgstr "&Vider"
+
+#, fuzzy
+#~ msgctxt "/Play/Forward"
+#~ msgid "Forward"
+#~ msgstr "Précédant"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Forward"
+#~ msgstr "Précédant"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Forward"
+#~ msgstr "Précédant"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Play/Forward'"
 #~ msgid "Forward"
 #~ msgstr "Précédant"
+
+#, fuzzy
+#~ msgctxt "/Fx"
+#~ msgid "Fx"
+#~ msgstr "Effe&ts"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Fx"
+#~ msgstr "Effe&ts"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Fx"
+#~ msgstr "Effe&ts"
 
 #~ msgid "G711 ALAW"
 #~ msgstr "G711 ALAW"
@@ -6633,12 +7395,57 @@ msgstr "Oui"
 #~ msgstr "&Générer"
 
 #, fuzzy
+#~ msgctxt "/View/Go to Position..."
+#~ msgid "Go to Position..."
+#~ msgstr "Position :"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Go to Position..."
+#~ msgstr "Position :"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Go to Position..."
+#~ msgstr "Position :"
+
+#, fuzzy
+#~ msgctxt "/Help"
+#~ msgid "Help"
+#~ msgstr "&Aide"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Help"
+#~ msgstr "&Aide"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Help"
+#~ msgstr "&Aide"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Help'"
 #~ msgid "Help"
 #~ msgstr "&Aide"
 
 #, fuzzy
 #~ msgid "Insert &At..."
+#~ msgstr "&Insertion de labels..."
+
+#, fuzzy
+#~ msgctxt "/Edit/Clipboard/Insert At..."
+#~ msgid "Insert At..."
+#~ msgstr "&Insertion de labels..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Insert At..."
+#~ msgstr "&Insertion de labels..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Insert At..."
 #~ msgstr "&Insertion de labels..."
 
 #, fuzzy
@@ -6653,6 +7460,21 @@ msgstr "Oui"
 #, fuzzy
 #~ msgid "Insert the content of clipboard"
 #~ msgstr "insérer le contenu du presse papier"
+
+#, fuzzy
+#~ msgctxt "/Edit/Track/Invert Selection"
+#~ msgid "Invert Selection"
+#~ msgstr "&Inversion de la sélection"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Invert Selection"
+#~ msgstr "&Inversion de la sélection"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Invert Selection"
+#~ msgstr "&Inversion de la sélection"
 
 #~ msgid "Kwave auto-repair"
 #~ msgstr "Auto-réparation par Kwave"
@@ -6680,6 +7502,36 @@ msgstr "Oui"
 #~ "à un problème avec l'installation de aRts."
 
 #, fuzzy
+#~ msgctxt "/Play/Loop"
+#~ msgid "Loop"
+#~ msgstr "Bouc&le"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Loop"
+#~ msgstr "Bouc&le"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Loop"
+#~ msgstr "Bouc&le"
+
+#, fuzzy
+#~ msgctxt "/Fx/Low Pass"
+#~ msgid "Low Pass"
+#~ msgstr "Passe bas"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Low Pass"
+#~ msgstr "Passe bas"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Low Pass"
+#~ msgstr "Passe bas"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Low Pass'"
 #~ msgid "Low Pass"
 #~ msgstr "Passe bas"
@@ -6697,6 +7549,21 @@ msgstr "Oui"
 #, fuzzy
 #~ msgid "Macro"
 #~ msgstr "&Macro"
+
+#, fuzzy
+#~ msgctxt "/Settings/Memory"
+#~ msgid "Memory"
+#~ msgstr "&Gestion de la mémoire"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Memory"
+#~ msgstr "&Gestion de la mémoire"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Memory"
+#~ msgstr "&Gestion de la mémoire"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Settings/Memory'"
@@ -6728,9 +7595,99 @@ msgstr "Oui"
 #~ msgstr "polynôme 3"
 
 #, fuzzy
+#~ msgctxt "/File/New Window"
+#~ msgid "New Window"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "New Window"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "New Window"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "/File/New..."
+#~ msgid "New..."
+#~ msgstr "&Nouveau..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "New..."
+#~ msgstr "&Nouveau..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "New..."
+#~ msgstr "&Nouveau..."
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection/Next"
+#~ msgid "Next"
+#~ msgstr "Page &suivante"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Next"
+#~ msgstr "Page &suivante"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Next"
+#~ msgstr "Page &suivante"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Selection/Next'"
 #~ msgid "Next"
 #~ msgstr "Page &suivante"
+
+#, fuzzy
+#~ msgctxt "/View/Next Page"
+#~ msgid "Next Page"
+#~ msgstr "Page &suivante"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Next Page"
+#~ msgstr "Page &suivante"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Next Page"
+#~ msgstr "Page &suivante"
+
+#, fuzzy
+#~ msgctxt "/Window/Next Window"
+#~ msgid "Next Window"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Next Window"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Next Window"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "/Calculate/Noise"
+#~ msgid "Noise"
+#~ msgstr "Bruit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Noise"
+#~ msgstr "Bruit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Noise"
+#~ msgstr "Bruit"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Calculate/Noise'"
@@ -6738,22 +7695,97 @@ msgstr "Oui"
 #~ msgstr "Bruit"
 
 #, fuzzy
+#~ msgctxt "/Fx/Normalize"
+#~ msgid "Normalize"
+#~ msgstr "&Bruit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Normalize"
+#~ msgstr "&Bruit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Normalize"
+#~ msgstr "&Bruit"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Normalize'"
 #~ msgid "Normalize"
 #~ msgstr "&Bruit"
+
+#, fuzzy
+#~ msgctxt "/Fx/Notch Filter"
+#~ msgid "Notch Filter"
+#~ msgstr "Filtre réjecteur"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Notch Filter"
+#~ msgstr "Filtre réjecteur"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Notch Filter"
+#~ msgstr "Filtre réjecteur"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Fx/Notch Filter'"
 #~ msgid "Notch Filter"
 #~ msgstr "Filtre réjecteur"
 
+#, fuzzy
+#~ msgctxt "/Edit/Selection/Nothing"
+#~ msgid "Nothing"
+#~ msgstr "&Aucun"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Nothing"
+#~ msgstr "&Aucun"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Nothing"
+#~ msgstr "&Aucun"
+
 #~ msgid "O&K"
 #~ msgstr "O&K"
+
+#, fuzzy
+#~ msgctxt "/File/Open"
+#~ msgid "Open"
+#~ msgstr "Opéra"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Open"
+#~ msgstr "Opéra"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Open"
+#~ msgstr "Opéra"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/File/Open'"
 #~ msgid "Open"
 #~ msgstr "Opéra"
+
+#, fuzzy
+#~ msgctxt "/File/Open Recent"
+#~ msgid "Open Recent"
+#~ msgstr "&Pourcentage"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Open Recent"
+#~ msgstr "&Pourcentage"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Open Recent"
+#~ msgstr "&Pourcentage"
 
 #~ msgid "Oscilloscope"
 #~ msgstr "Oscilloscope"
@@ -6765,8 +7797,38 @@ msgstr "Oui"
 #~ msgstr "Aperçu"
 
 #, fuzzy
+#~ msgctxt "/Edit/Paste"
+#~ msgid "Paste"
+#~ msgstr "&Pause"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Paste"
+#~ msgstr "&Pause"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Paste"
+#~ msgstr "&Pause"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Paste'"
 #~ msgid "Paste"
+#~ msgstr "&Pause"
+
+#, fuzzy
+#~ msgctxt "/Play/Pause"
+#~ msgid "Pause"
+#~ msgstr "&Pause"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Pause"
+#~ msgstr "&Pause"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Pause"
 #~ msgstr "&Pause"
 
 #, fuzzy
@@ -6777,9 +7839,54 @@ msgstr "Oui"
 #~ msgstr "Périodes..."
 
 #, fuzzy
+#~ msgctxt "/Fx/Pitch Shift"
+#~ msgid "Pitch Shift"
+#~ msgstr "Décalage fréquentiel"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Pitch Shift"
+#~ msgstr "Décalage fréquentiel"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Pitch Shift"
+#~ msgstr "Décalage fréquentiel"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Pitch Shift'"
 #~ msgid "Pitch Shift"
 #~ msgstr "Décalage fréquentiel"
+
+#, fuzzy
+#~ msgctxt "/Play"
+#~ msgid "Play"
+#~ msgstr "&Jouer"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Play"
+#~ msgstr "&Jouer"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Play"
+#~ msgstr "&Jouer"
+
+#, fuzzy
+#~ msgctxt "/Settings/Playback"
+#~ msgid "Playback"
+#~ msgstr "Lecture"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Playback"
+#~ msgstr "Lecture"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Playback"
+#~ msgstr "Lecture"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Settings/Playback'"
@@ -6796,8 +7903,53 @@ msgstr "Oui"
 #~ msgstr "polynôme de dégré 5"
 
 #, fuzzy
+#~ msgctxt "/Edit/Selection/Previous"
+#~ msgid "Previous"
+#~ msgstr "Page &précédente"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Previous"
+#~ msgstr "Page &précédente"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Previous"
+#~ msgstr "Page &précédente"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Selection/Previous'"
 #~ msgid "Previous"
+#~ msgstr "Page &précédente"
+
+#, fuzzy
+#~ msgctxt "/View/Previous Page"
+#~ msgid "Previous Page"
+#~ msgstr "Page &précédente"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Previous Page"
+#~ msgstr "Page &précédente"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Previous Page"
+#~ msgstr "Page &précédente"
+
+#, fuzzy
+#~ msgctxt "/Window/Previous Window"
+#~ msgid "Previous Window"
+#~ msgstr "Page &précédente"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Previous Window"
+#~ msgstr "Page &précédente"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Previous Window"
 #~ msgstr "Page &précédente"
 
 #~ msgid ""
@@ -6816,6 +7968,21 @@ msgstr "Oui"
 #~ msgstr "Train d'im&pulsions"
 
 #, fuzzy
+#~ msgctxt "/File/Quit"
+#~ msgid "Quit"
+#~ msgstr "A&uto"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Quit"
+#~ msgstr "A&uto"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Quit"
+#~ msgstr "A&uto"
+
+#, fuzzy
 #~ msgctxt "menu entry for redo if redo disabled"
 #~ msgid "R&edo"
 #~ msgstr "R&efaire"
@@ -6826,12 +7993,72 @@ msgstr "Oui"
 #~ msgstr "R&efaire"
 
 #, fuzzy
+#~ msgctxt "/Edit/Selection/Range"
+#~ msgid "Range"
+#~ msgstr "&Plage d'échantillons"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Range"
+#~ msgstr "&Plage d'échantillons"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Range"
+#~ msgstr "&Plage d'échantillons"
+
+#, fuzzy
+#~ msgctxt "/Settings/Re-enable all \"Do not ask again\" messages"
+#~ msgid "Re-enable all \"Do not ask again\" messages"
+#~ msgstr "Re-rendre disponibles les messages \"ne plus demander\""
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Re-enable all \"Do not ask again\" messages"
+#~ msgstr "Re-rendre disponibles les messages \"ne plus demander\""
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Re-enable all \"Do not ask again\" messages"
+#~ msgstr "Re-rendre disponibles les messages \"ne plus demander\""
+
+#, fuzzy
+#~ msgctxt "/File/Record"
+#~ msgid "Record"
+#~ msgstr "Enregistrer"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Record"
+#~ msgstr "Enregistrer"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Record"
+#~ msgstr "Enregistrer"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/File/Record'"
 #~ msgid "Record"
 #~ msgstr "Enregistrer"
 
 #~ msgid "Record!"
 #~ msgstr "Enregistrer !"
+
+#, fuzzy
+#~ msgctxt "/Edit/Redo"
+#~ msgid "Redo"
+#~ msgstr "R&efaire"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Redo"
+#~ msgstr "R&efaire"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Redo"
+#~ msgstr "R&efaire"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Redo'"
@@ -6846,13 +8073,73 @@ msgstr "Oui"
 #~ msgid "Resample"
 #~ msgstr "&Re-échantillonner"
 
+#, fuzzy
+#~ msgctxt "/Settings/Reset Toolbar"
+#~ msgid "Reset Toolbar"
+#~ msgstr "Réinitialiser les barres d'outils"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Reset Toolbar"
+#~ msgstr "Réinitialiser les barres d'outils"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Reset Toolbar"
+#~ msgstr "Réinitialiser les barres d'outils"
+
 #~ msgid "Resolution"
 #~ msgstr "Résolution "
+
+#, fuzzy
+#~ msgctxt "/Fx/Reverse"
+#~ msgid "Reverse"
+#~ msgstr "Inve&rser"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Reverse"
+#~ msgstr "Inve&rser"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Reverse"
+#~ msgstr "Inve&rser"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Fx/Reverse'"
 #~ msgid "Reverse"
 #~ msgstr "Inve&rser"
+
+#, fuzzy
+#~ msgctxt "/File/Revert"
+#~ msgid "Revert"
+#~ msgstr "Rétablir"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Revert"
+#~ msgstr "Rétablir"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Revert"
+#~ msgstr "Rétablir"
+
+#, fuzzy
+#~ msgctxt "/Play/Rewind"
+#~ msgid "Rewind"
+#~ msgstr "Rembobiner"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Rewind"
+#~ msgstr "Rembobiner"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Rewind"
+#~ msgstr "Rembobiner"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Play/Rewind'"
@@ -6865,8 +8152,98 @@ msgstr "Oui"
 #~ msgid "S&top"
 #~ msgstr "Arrê&ter"
 
+#, fuzzy
+#~ msgctxt "/Settings/Show Files in.../Same Window (MDI)"
+#~ msgid "Same Window (MDI)"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Same Window (MDI)"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Same Window (MDI)"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "/File/Save"
+#~ msgid "Save"
+#~ msgstr "E&nregistrer..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Save"
+#~ msgstr "E&nregistrer..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Save"
+#~ msgstr "E&nregistrer..."
+
+#, fuzzy
+#~ msgctxt "/View/Scroll Left"
+#~ msgid "Scroll Left"
+#~ msgstr "Déplacer à &gauche"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Scroll Left"
+#~ msgstr "Déplacer à &gauche"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Scroll Left"
+#~ msgstr "Déplacer à &gauche"
+
+#, fuzzy
+#~ msgctxt "/View/Scroll Right"
+#~ msgid "Scroll Right"
+#~ msgstr "Déplacer à &droite"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Scroll Right"
+#~ msgstr "Déplacer à &droite"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Scroll Right"
+#~ msgstr "Déplacer à &droite"
+
+#, fuzzy
+#~ msgctxt "/Edit/Track/Select all"
+#~ msgid "Select all"
+#~ msgstr "&Sélectionner tout"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Select all"
+#~ msgstr "&Sélectionner tout"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Select all"
+#~ msgstr "&Sélectionner tout"
+
 #~ msgid "Selected"
 #~ msgstr "Sélectionné"
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection"
+#~ msgid "Selection"
+#~ msgstr "&Sélection"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Selection"
+#~ msgstr "&Sélection"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Selection"
+#~ msgstr "&Sélection"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Selection'"
@@ -6874,14 +8251,104 @@ msgstr "Oui"
 #~ msgstr "&Sélection"
 
 #, fuzzy
+#~ msgctxt "/File/Save/Selection..."
+#~ msgid "Selection..."
+#~ msgstr "&Sélection..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Selection..."
+#~ msgstr "&Sélection..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Selection..."
+#~ msgstr "&Sélection..."
+
+#, fuzzy
+#~ msgctxt "/Settings/Show Files in.../Separate Windows (SDI)"
+#~ msgid "Separate Windows (SDI)"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Separate Windows (SDI)"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Separate Windows (SDI)"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "/Settings"
+#~ msgid "Settings"
+#~ msgstr "Configuration"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Settings"
+#~ msgstr "Configuration"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Settings"
+#~ msgstr "Configuration"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Settings'"
 #~ msgid "Settings"
 #~ msgstr "Configuration"
 
 #, fuzzy
+#~ msgctxt "/Settings/Show Files in..."
+#~ msgid "Show Files in..."
+#~ msgstr "Chargement des modules externes..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Show Files in..."
+#~ msgstr "Chargement des modules externes..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Show Files in..."
+#~ msgstr "Chargement des modules externes..."
+
+#, fuzzy
+#~ msgctxt "/Calculate/Silence"
+#~ msgid "Silence"
+#~ msgstr "&Silence"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Silence"
+#~ msgstr "&Silence"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Silence"
+#~ msgstr "&Silence"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Calculate/Silence'"
 #~ msgid "Silence"
 #~ msgstr "&Silence"
+
+#, fuzzy
+#~ msgctxt "/Calculate/Sonagram"
+#~ msgid "Sonagram"
+#~ msgstr "&Sonagramme"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Sonagram"
+#~ msgstr "&Sonagramme"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Sonagram"
+#~ msgstr "&Sonagramme"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Calculate/Sonagram'"
@@ -6893,6 +8360,21 @@ msgstr "Oui"
 #~ msgstr "Spe&ctre"
 
 #, fuzzy
+#~ msgctxt "/Play/Start"
+#~ msgid "Start"
+#~ msgstr "Début"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Start"
+#~ msgstr "Début"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Start"
+#~ msgstr "Début"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Play/Start'"
 #~ msgid "Start"
 #~ msgstr "Début"
@@ -6900,6 +8382,21 @@ msgstr "Oui"
 #, fuzzy
 #~ msgid "Start recording"
 #~ msgstr "Démarrer l'enregi&strement"
+
+#, fuzzy
+#~ msgctxt "/Play/Stop"
+#~ msgid "Stop"
+#~ msgstr "Arrê&ter"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Stop"
+#~ msgstr "Arrê&ter"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Stop"
+#~ msgstr "Arrê&ter"
 
 #, fuzzy
 #~ msgid "Stop recording"
@@ -6922,6 +8419,21 @@ msgstr "Oui"
 #~ msgstr "Format ou fonction non implantée"
 
 #, fuzzy
+#~ msgctxt "/Window/Tile Sub Windows"
+#~ msgid "Tile Sub Windows"
+#~ msgstr "&Dans une nouvelle fenêtre"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Tile Sub Windows"
+#~ msgstr "&Dans une nouvelle fenêtre"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Tile Sub Windows"
+#~ msgstr "&Dans une nouvelle fenêtre"
+
+#, fuzzy
 #~ msgid "To &End"
 #~ msgstr "A la &Fin"
 
@@ -6930,14 +8442,74 @@ msgstr "Oui"
 #~ msgstr "&Dans une nouvelle fenêtre"
 
 #, fuzzy
+#~ msgctxt "/Edit/Selection/To Next Labels"
+#~ msgid "To Next Labels"
+#~ msgstr "vers les labels suivants"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "To Next Labels"
+#~ msgstr "vers les labels suivants"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "To Next Labels"
+#~ msgstr "vers les labels suivants"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Selection/To Next Labels'"
 #~ msgid "To Next Labels"
 #~ msgstr "vers les labels suivants"
 
 #, fuzzy
+#~ msgctxt "/Edit/Selection/To Previous Labels"
+#~ msgid "To Previous Labels"
+#~ msgstr "vers les labels précédents"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "To Previous Labels"
+#~ msgstr "vers les labels précédents"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "To Previous Labels"
+#~ msgstr "vers les labels précédents"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Selection/To Previous Labels'"
 #~ msgid "To Previous Labels"
 #~ msgstr "vers les labels précédents"
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection/To Start"
+#~ msgid "To Start"
+#~ msgstr "Au débu&t"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "To Start"
+#~ msgstr "Au débu&t"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "To Start"
+#~ msgstr "Au débu&t"
+
+#, fuzzy
+#~ msgctxt "/Edit/Track"
+#~ msgid "Track"
+#~ msgstr "Piste "
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Track"
+#~ msgstr "Piste "
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Track"
+#~ msgstr "Piste "
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Track'"
@@ -6962,25 +8534,175 @@ msgstr "Oui"
 #~ " qui contient le module externe « %2 » !"
 
 #, fuzzy
+#~ msgctxt "/Edit/Undo"
+#~ msgid "Undo"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Undo"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Undo"
+#~ msgstr "Annuler"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Undo'"
 #~ msgid "Undo"
 #~ msgstr "Annuler"
 
+#, fuzzy
+#~ msgctxt "/View"
+#~ msgid "View"
+#~ msgstr "&Nouveau..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "View"
+#~ msgstr "&Nouveau..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "View"
+#~ msgstr "&Nouveau..."
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection/Visible Area"
+#~ msgid "Visible Area"
+#~ msgstr "Région &visible"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Visible Area"
+#~ msgstr "Région &visible"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Visible Area"
+#~ msgstr "Région &visible"
+
 #~ msgid "Visualization"
 #~ msgstr "Visualisation"
+
+#, fuzzy
+#~ msgctxt "/Fx/Volume"
+#~ msgid "Volume"
+#~ msgstr "Volume"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Volume"
+#~ msgstr "Volume"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Volume"
+#~ msgstr "Volume"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Fx/Volume'"
 #~ msgid "Volume"
 #~ msgstr "Volume"
 
+#, fuzzy
+#~ msgctxt "/Window"
+#~ msgid "Window"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Window"
+#~ msgstr "Nouvelle &fenêtre"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Window"
+#~ msgstr "Nouvelle &fenêtre"
+
 #~ msgid "Zero"
 #~ msgstr "Zéro"
+
+#, fuzzy
+#~ msgctxt "/View/Zoom In"
+#~ msgid "Zoom In"
+#~ msgstr "Agrand&ir"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Zoom In"
+#~ msgstr "Agrand&ir"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Zoom In"
+#~ msgstr "Agrand&ir"
+
+#, fuzzy
+#~ msgctxt "/View/Zoom Out"
+#~ msgid "Zoom Out"
+#~ msgstr "&Rétrécir"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Zoom Out"
+#~ msgstr "&Rétrécir"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Zoom Out"
+#~ msgstr "&Rétrécir"
+
+#, fuzzy
+#~ msgctxt "/View/Zoom to 100%"
+#~ msgid "Zoom to 100%"
+#~ msgstr "zoomer à 100 %"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Zoom to 100%"
+#~ msgstr "zoomer à 100 %"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Zoom to 100%"
+#~ msgstr "zoomer à 100 %"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/View/Zoom to 100%'"
 #~ msgid "Zoom to 100%"
 #~ msgstr "zoomer à 100 %"
+
+#, fuzzy
+#~ msgctxt "/View/Zoom to Selection"
+#~ msgid "Zoom to Selection"
+#~ msgstr "Zoomer sur la &sélection"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Zoom to Selection"
+#~ msgstr "Zoomer sur la &sélection"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Zoom to Selection"
+#~ msgstr "Zoomer sur la &sélection"
+
+#, fuzzy
+#~ msgctxt "/View/Zoom to Whole Signal"
+#~ msgid "Zoom to Whole Signal"
+#~ msgstr "Zoomer sur la &sélection"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Zoom to Whole Signal"
+#~ msgstr "Zoomer sur la &sélection"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Zoom to Whole Signal"
+#~ msgstr "Zoomer sur la &sélection"
 
 #~ msgid ""
 #~ "aRts output is not available because the initialization of the aRts "

@@ -17,9 +17,29 @@
 
 FIND_PACKAGE(RequiredProgram REQUIRED)
 
+FIND_REQUIRED_PROGRAM(MSGCAT_EXECUTABLE msgcat)
 FIND_REQUIRED_PROGRAM(XGETTEXT_EXECUTABLE xgettext)
 FIND_REQUIRED_PROGRAM(FIND_EXECUTABLE find)
-SET(KDE_POT_FILE ${KDE4_INCLUDE_DIR}/kde.pot)
+
+# SET(KDE_POT_FILE ${KDE4_INCLUDE_DIR}/kde.pot)
+
+SET(MENUSCONFIG2POT    ${CMAKE_SOURCE_DIR}/bin/menusconfig2pot.pl)
+SET(KWAVE_MENUS_CONFIG ${CMAKE_SOURCE_DIR}/kwave/menus.config)
+SET(KWAVE_GUI_POT      ${CMAKE_BINARY_DIR}/po/kwave_gui.pot)
+SET(KWAVE_MENU_POT     ${CMAKE_BINARY_DIR}/po/kwave_menu.pot)
+SET(KWAVE_POT          ${CMAKE_SOURCE_DIR}/po/kwave.pot)
+
+#############################################################################
+### generate kwave_menu.pot                                               ###
+
+ADD_CUSTOM_COMMAND(OUTPUT ${KWAVE_MENU_POT}
+    COMMAND ${MENUSCONFIG2POT} ${KWAVE_MENUS_CONFIG} ${KWAVE_MENU_POT}
+    DEPENDS ${KWAVE_MENUS_CONFIG}
+    DEPENDS ${MENUSCONFIG2POT}
+)
+
+#############################################################################
+### generate kwave_gui.pot and merge with kwave_menu.pot into kwave.pot   ###
 
 ADD_CUSTOM_TARGET(package-messages
     COMMAND $(MAKE) all # first make sure all generated source exists
@@ -32,9 +52,10 @@ ADD_CUSTOM_TARGET(package-messages
         -D ${CMAKE_CURRENT_BINARY_DIR}
         `cd ${CMAKE_CURRENT_SOURCE_DIR} && ${FIND_EXECUTABLE} . -name \\*.h -o -name \\*.cpp`
         `cd ${CMAKE_CURRENT_BINARY_DIR} && ${FIND_EXECUTABLE} . -name \\*.h -o -name \\*.cpp`
-        -o ${CMAKE_SOURCE_DIR}/po/kwave.pot
+        -o ${KWAVE_GUI_POT}
+    COMMAND ${MSGCAT_EXECUTABLE} ${KWAVE_GUI_POT} ${KWAVE_MENU_POT} -o ${KWAVE_POT}
     COMMAND $(MAKE) translations
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/kwave/menus.config
+    DEPENDS ${KWAVE_MENU_POT}
 )
 
 #############################################################################

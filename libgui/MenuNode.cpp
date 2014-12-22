@@ -61,6 +61,13 @@ Kwave::MenuNode::~MenuNode()
 }
 
 //*****************************************************************************
+const QString Kwave::MenuNode::path() const
+{
+    return (m_parentNode) ?
+	(m_parentNode->path() + _("/") + m_name) : QString();
+}
+
+//*****************************************************************************
 void Kwave::MenuNode::emitCommand(const QString &command)
 {
     Q_ASSERT(command.length());

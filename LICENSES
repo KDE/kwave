@@ -109,7 +109,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	bin/get_lsm_entry.pl				GPL2+
 	bin/make-specfile-changelog.pl			GPL2+
-	bin/menusconfig2cpp.pl				GPL2+
+	bin/menusconfig2pot.pl				GPL2+
 	bin/set_version.sh				GPL2+ / portions of Martin Wilz
 
 	cmake/Copyright.txt				Kitware (cmake)
@@ -135,6 +135,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/CMakeLists.txt				GPL2+
 	doc/fix-common					GPL2+
 	doc/help_de.po					(should be FDL)
+	doc/help_es.po					(should be FDL)
 	doc/help_en.docbook				(should be FDL)
 	doc/help_fr.po					(should be FDL)
 

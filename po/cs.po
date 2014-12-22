@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-22 07:59+0100\n"
+"POT-Creation-Date: 2014-12-22 09:48+0100\n"
 "PO-Revision-Date: 2014-05-27 19:56+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -400,8 +400,9 @@ msgstr "&Opravit"
 msgid "&Samples"
 msgstr "&Vzorky"
 
-#: kwave/menus_config_i18n.cpp:12
+#: kwave/menus.config:33
 #, fuzzy
+msgctxt "menu: /File/&Save"
 msgid "&Save"
 msgstr "Uložit"
 
@@ -1144,13 +1145,19 @@ msgstr "ASCII zakódovaný zvuk"
 msgid "About"
 msgstr "O programu"
 
-#: kwave/menus_config_i18n.cpp:13
+#: kwave/menus.config:254
 #, fuzzy
+msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "O KDE"
 
-#: plugins/about/AboutPlugin.cpp:28 kwave/menus_config_i18n.cpp:14
-#: plugins/about/ui_AboutDialogBase.h:281
+#: plugins/about/AboutPlugin.cpp:28 plugins/about/ui_AboutDialogBase.h:281
+msgid "About Kwave"
+msgstr "O aplikaci Kwave"
+
+#: kwave/menus.config:253
+#, fuzzy
+msgctxt "menu: /Help/About Kwave"
 msgid "About Kwave"
 msgstr "O aplikaci Kwave"
 
@@ -1174,8 +1181,9 @@ msgstr "Kyselý Punk"
 msgid "Acoustic"
 msgstr "Sluchový"
 
-#: kwave/menus_config_i18n.cpp:15
+#: kwave/menus.config:90
 #, fuzzy
+msgctxt "menu: /Edit/Track/Add"
 msgid "Add"
 msgstr "Přidat"
 
@@ -1200,8 +1208,9 @@ msgstr ""
 msgid "Album"
 msgstr "Album"
 
-#: kwave/menus_config_i18n.cpp:16
+#: kwave/menus.config:77
 #, fuzzy
+msgctxt "menu: /Edit/Selection/All"
 msgid "All"
 msgstr "Vše"
 
@@ -1245,8 +1254,14 @@ msgid "Ambient"
 msgstr "Uvolňující"
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:38
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:68 kwave/menus_config_i18n.cpp:17
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:68
 #: plugins/amplifyfree/ui_AmplifyFreeDlg.h:140
+msgid "Amplify Free"
+msgstr "Volně zesílit"
+
+#: kwave/menus.config:176
+#, fuzzy
+msgctxt "menu: /Fx/Amplify Free"
 msgid "Amplify Free"
 msgstr "Volně zesílit"
 
@@ -1354,8 +1369,9 @@ msgstr "Používá se '%1'..."
 msgid "Archival location"
 msgstr "Místo archivace"
 
-#: kwave/menus_config_i18n.cpp:18
+#: kwave/menus.config:36
 #, fuzzy
+msgctxt "menu: /File/Save/As..."
 msgid "As..."
 msgstr "Jako..."
 
@@ -1434,8 +1450,14 @@ msgid "Ballad"
 msgstr ""
 "Balada (dlouhá báseň či píseň vyprávějící prostým jazykem nějaký příběh)"
 
-#: plugins/band_pass/BandPassPlugin.cpp:123 kwave/menus_config_i18n.cpp:19
+#: plugins/band_pass/BandPassPlugin.cpp:123
 #: plugins/band_pass/ui_BandPassDlg.h:188
+msgid "Band Pass"
+msgstr "Průchod nízkým a vysokým kmitočtem signálu"
+
+#: kwave/menus.config:187
+#, fuzzy
+msgctxt "menu: /Fx/Band Pass"
 msgid "Band Pass"
 msgstr "Průchod nízkým a vysokým kmitočtem signálu"
 
@@ -1475,8 +1497,9 @@ msgstr "Basový part"
 msgid "Bebob"
 msgstr "Bebob"
 
-#: kwave/menus_config_i18n.cpp:20
+#: kwave/menus.config:117
 #, fuzzy
+msgctxt "menu: /View/Begin"
 msgid "Begin"
 msgstr "Začátek"
 
@@ -1530,8 +1553,9 @@ msgstr "Bitů na vzorek:"
 msgid "Blackman"
 msgstr "Blackman"
 
-#: kwave/menus_config_i18n.cpp:21
+#: kwave/menus.config:39
 #, fuzzy
+msgctxt "menu: /File/Save/Blocks..."
 msgid "Blocks..."
 msgstr "Bloky..."
 
@@ -1606,8 +1630,9 @@ msgstr "CDS"
 msgid "Cabaret"
 msgstr "Kabaret"
 
-#: kwave/menus_config_i18n.cpp:22
+#: kwave/menus.config:208
 #, fuzzy
+msgctxt "menu: /Calculate"
 msgid "Calculate"
 msgstr "Výpočty"
 
@@ -1622,8 +1647,9 @@ msgstr "Karta %1: "
 msgid "Carlos R."
 msgstr "Carlos R."
 
-#: kwave/menus_config_i18n.cpp:23
+#: kwave/menus.config:235
 #, fuzzy
+msgctxt "menu: /Window/Cascade Sub Windows"
 msgid "Cascade Sub Windows"
 msgstr "Do nového okna"
 
@@ -1689,17 +1715,20 @@ msgstr "Klasický rock"
 msgid "Classical"
 msgstr "Vážná hudba"
 
-#: kwave/menus_config_i18n.cpp:24
+#: kwave/menus.config:26
+msgctxt "menu: /File/Open Recent/Clear List"
 msgid "Clear List"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:25
+#: kwave/menus.config:101
 #, fuzzy
+msgctxt "menu: /Edit/Clipboard"
 msgid "Clipboard"
 msgstr "Schránka"
 
-#: kwave/menus_config_i18n.cpp:26
+#: kwave/menus.config:41
 #, fuzzy
+msgctxt "menu: /File/Close"
 msgid "Close"
 msgstr "Zavřít"
 
@@ -1779,13 +1808,15 @@ msgstr ""
 msgid "Content"
 msgstr "Obsah"
 
-#: kwave/menus_config_i18n.cpp:27
+#: kwave/menus.config:252
 #, fuzzy
+msgctxt "menu: /Help/Contents"
 msgid "Contents"
 msgstr "Obsah"
 
-#: kwave/menus_config_i18n.cpp:28
+#: kwave/menus.config:137
 #, fuzzy
+msgctxt "menu: /Play/Continue"
 msgid "Continue"
 msgstr "Pokračovat"
 
@@ -1797,7 +1828,13 @@ msgstr "Pokračovat po nejvyšší index"
 msgid "Continue playback"
 msgstr "Pokračovat v přehrávání"
 
-#: kwave/TopWidget.cpp:390 kwave/menus_config_i18n.cpp:29
+#: kwave/TopWidget.cpp:390
+msgid "Copy"
+msgstr "Kopírovat"
+
+#: kwave/menus.config:63
+#, fuzzy
+msgctxt "menu: /Edit/Copy"
 msgid "Copy"
 msgstr "Kopírovat"
 
@@ -1837,7 +1874,13 @@ msgstr "Tvůrce dialogu Nápověda/O programu"
 msgid "Creator of the project, development 1998-2000"
 msgstr "Tvůrce projektu, vývoj v letech 1998-2000"
 
-#: libkwave/SignalManager.cpp:688 kwave/menus_config_i18n.cpp:30
+#: libkwave/SignalManager.cpp:688
+msgid "Crop"
+msgstr "Oříznout"
+
+#: kwave/menus.config:67
+#, fuzzy
+msgctxt "menu: /Edit/Crop"
 msgid "Crop"
 msgstr "Oříznout"
 
@@ -1858,7 +1901,12 @@ msgid "Currently Selected Point"
 msgstr "Nyní vybraný bod"
 
 #: kwave/TopWidget.cpp:385 libkwave/SignalManager.cpp:681
-#: kwave/menus_config_i18n.cpp:31
+msgid "Cut"
+msgstr "Vyjmout"
+
+#: kwave/menus.config:61
+#, fuzzy
+msgctxt "menu: /Edit/Cut"
 msgid "Cut"
 msgstr "Vyjmout"
 
@@ -1929,7 +1977,13 @@ msgid "Default device"
 msgstr "Výchozí zařízení"
 
 #: libgui/CurveWidget.cpp:95 libkwave/undo/UndoDeleteAction.cpp:56
-#: libkwave/SignalManager.cpp:706 kwave/menus_config_i18n.cpp:32
+#: libkwave/SignalManager.cpp:706
+msgid "Delete"
+msgstr "Smazat"
+
+#: kwave/menus.config:69
+#, fuzzy
+msgctxt "menu: /Edit/Delete"
 msgid "Delete"
 msgstr "Smazat"
 
@@ -2109,8 +2163,9 @@ msgstr "pavelfric@seznam.cz"
 msgid "Easy Listening"
 msgstr "Snadno poslouchatelné"
 
-#: kwave/menus_config_i18n.cpp:33
+#: kwave/menus.config:55
 #, fuzzy
+msgctxt "menu: /Edit"
 msgid "Edit"
 msgstr "Úpravy"
 
@@ -2142,8 +2197,9 @@ msgstr "Kódování"
 msgid "Encoding Mode:"
 msgstr "Režim kódování:"
 
-#: kwave/menus_config_i18n.cpp:34
+#: kwave/menus.config:118
 #, fuzzy
+msgctxt "menu: /View/End"
 msgid "End"
 msgstr "Konec"
 
@@ -2247,8 +2303,9 @@ msgstr ""
 msgid "Expand Selection to Label"
 msgstr "Rozšířit výběr ke štítku"
 
-#: kwave/menus_config_i18n.cpp:35
+#: kwave/menus.config:85
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Expand to Labels"
 msgid "Expand to Labels"
 msgstr "Roztáhnout k štítkům"
 
@@ -2276,21 +2333,45 @@ msgstr "Kmitočtový průběh FM"
 msgid "FS1016"
 msgstr "FS1016"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:45 kwave/menus_config_i18n.cpp:36
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:45
 #: plugins/record/ui_RecordDlg.h:944
 msgid "Fade In"
 msgstr "Postupné zeslabení signálu"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:47 kwave/menus_config_i18n.cpp:37
+#: kwave/menus.config:170
+#, fuzzy
+msgctxt "menu: /Fx/Fade In"
+msgid "Fade In"
+msgstr "Postupné zeslabení signálu"
+
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:47
 msgid "Fade Intro"
 msgstr "Úvod prolínání"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:48 kwave/menus_config_i18n.cpp:38
+#: kwave/menus.config:181
+#, fuzzy
+msgctxt "menu: /Fx/Fade Intro"
+msgid "Fade Intro"
+msgstr "Úvod prolínání"
+
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:48
 msgid "Fade Leadout"
 msgstr "Vyvedení prolínání"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:46 kwave/menus_config_i18n.cpp:39
+#: kwave/menus.config:182
+#, fuzzy
+msgctxt "menu: /Fx/Fade Leadout"
+msgid "Fade Leadout"
+msgstr "Vyvedení prolínání"
+
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:46
 #: plugins/record/ui_RecordDlg.h:945
+msgid "Fade Out"
+msgstr "Postupné zesílení signálu"
+
+#: kwave/menus.config:173
+#, fuzzy
+msgctxt "menu: /Fx/Fade Out"
 msgid "Fade Out"
 msgstr "Postupné zesílení signálu"
 
@@ -2317,7 +2398,13 @@ msgstr "Proud PulseAudio se nepodařilo otevřít pro přehrávání (%1)."
 msgid "Fast Fusion"
 msgstr "Rychlá směsice"
 
-#: kwave/menus_config_i18n.cpp:40 plugins/fileinfo/ui_FileInfoDlg.h:1283
+#: plugins/fileinfo/ui_FileInfoDlg.h:1283
+msgid "File"
+msgstr "Soubor"
+
+#: kwave/menus.config:18
+#, fuzzy
+msgctxt "menu: /File"
 msgid "File"
 msgstr "Soubor"
 
@@ -2326,8 +2413,9 @@ msgstr "Soubor"
 msgid "File Info"
 msgstr "Informace o souboru"
 
-#: kwave/menus_config_i18n.cpp:41
+#: kwave/menus.config:112
 #, fuzzy
+msgctxt "menu: /Edit/File Properties..."
 msgid "File Properties..."
 msgstr "Vlastnosti souboru..."
 
@@ -2373,8 +2461,9 @@ msgstr "Převrátit vodorovně"
 msgid "Flip vertical"
 msgstr "Převrátit svisle"
 
-#: kwave/menus_config_i18n.cpp:42
+#: kwave/menus.config:102
 #, fuzzy
+msgctxt "menu: /Edit/Clipboard/Flush"
 msgid "Flush"
 msgstr "Vyrovnat"
 
@@ -2422,7 +2511,13 @@ msgstr ""
 "podoby.\n"
 "Příklad: '32-bitový IEEE s pohyblivou desetinnou čárkou'"
 
-#: kwave/PlayerToolBar.cpp:121 kwave/menus_config_i18n.cpp:43
+#: kwave/PlayerToolBar.cpp:121
+msgid "Forward"
+msgstr "Vpřed"
+
+#: kwave/menus.config:139
+#, fuzzy
+msgctxt "menu: /Play/Forward"
 msgid "Forward"
 msgstr "Vpřed"
 
@@ -2459,8 +2554,9 @@ msgstr "Funk"
 msgid "Fusion"
 msgstr "Směs"
 
-#: kwave/menus_config_i18n.cpp:44
+#: kwave/menus.config:166
 #, fuzzy
+msgctxt "menu: /Fx"
 msgid "Fx"
 msgstr "Efekty"
 
@@ -2508,8 +2604,9 @@ msgstr "Žánr"
 msgid "Go to Position"
 msgstr "Přejít na místo"
 
-#: kwave/menus_config_i18n.cpp:45
+#: kwave/menus.config:116
 #, fuzzy
+msgctxt "menu: /View/Go to Position..."
 msgid "Go to Position..."
 msgstr "Jít na místo..."
 
@@ -2557,7 +2654,13 @@ msgstr "Hanning"
 msgid "Hard Rock"
 msgstr "Hard Rock"
 
-#: plugins/debug/DebugPlugin.cpp:70 kwave/menus_config_i18n.cpp:46
+#: plugins/debug/DebugPlugin.cpp:70
+msgid "Help"
+msgstr "Nápověda"
+
+#: kwave/menus.config:252
+#, fuzzy
+msgctxt "menu: /Help"
 msgid "Help"
 msgstr "Nápověda"
 
@@ -2781,7 +2884,13 @@ msgstr "Vložit %1 %2 předměty"
 msgid "Insert At"
 msgstr "Vložit v"
 
-#: plugins/goto/InsertAtPlugin.cpp:50 kwave/menus_config_i18n.cpp:47
+#: plugins/goto/InsertAtPlugin.cpp:50
+msgid "Insert At..."
+msgstr "Vložit v..."
+
+#: kwave/menus.config:105
+#, fuzzy
+msgctxt "menu: /Edit/Clipboard/Insert At..."
 msgid "Insert At..."
 msgstr "Vložit v..."
 
@@ -2853,8 +2962,9 @@ msgstr "Neplatné/Nepodporované číslo požadavku."
 msgid "Inverse Sawtooth"
 msgstr "Obrátit pilovitý časový průběh signálu"
 
-#: kwave/menus_config_i18n.cpp:48
+#: kwave/menus.config:98
 #, fuzzy
+msgctxt "menu: /Edit/Track/Invert Selection"
 msgid "Invert Selection"
 msgstr "Obrátit výběr"
 
@@ -3093,13 +3203,19 @@ msgstr "Nahrává přídavné moduly..."
 msgid "Log all commands into a file"
 msgstr "Uložit všechny příkazy do souboru"
 
-#: kwave/menus_config_i18n.cpp:49
+#: kwave/menus.config:135
 #, fuzzy
+msgctxt "menu: /Play/Loop"
 msgid "Loop"
 msgstr "Přehrávat ve smyčce"
 
-#: plugins/lowpass/LowPassPlugin.cpp:109 kwave/menus_config_i18n.cpp:50
-#: plugins/lowpass/ui_LowPassDlg.h:166
+#: plugins/lowpass/LowPassPlugin.cpp:109 plugins/lowpass/ui_LowPassDlg.h:166
+msgid "Low Pass"
+msgstr "Průchod nízkým kmitočtem signálu"
+
+#: kwave/menus.config:185
+#, fuzzy
+msgctxt "menu: /Fx/Low Pass"
 msgid "Low Pass"
 msgstr "Průchod nízkým kmitočtem signálu"
 
@@ -3241,7 +3357,13 @@ msgstr "Megabajty fyzické paměti"
 msgid "Megabytes of virtual memory"
 msgstr "Megabajty virtuální paměti"
 
-#: libkwave/SignalManager.cpp:1400 kwave/menus_config_i18n.cpp:51
+#: libkwave/SignalManager.cpp:1400
+msgid "Memory"
+msgstr "Paměť"
+
+#: kwave/menus.config:247
+#, fuzzy
+msgctxt "menu: /Settings/Memory"
 msgid "Memory"
 msgstr "Paměť"
 
@@ -3415,27 +3537,37 @@ msgstr "Nový signál"
 msgid "New Wave"
 msgstr "Nová vlna"
 
-#: kwave/menus_config_i18n.cpp:52
+#: kwave/menus.config:45
 #, fuzzy
+msgctxt "menu: /File/New Window"
 msgid "New Window"
 msgstr "Nové okno"
 
-#: kwave/menus_config_i18n.cpp:53
+#: kwave/menus.config:18
 #, fuzzy
+msgctxt "menu: /File/New..."
 msgid "New..."
 msgstr "Nový..."
 
-#: kwave/PlayerToolBar.cpp:127 kwave/menus_config_i18n.cpp:54
+#: kwave/PlayerToolBar.cpp:127
 msgid "Next"
 msgstr "Další"
 
-#: kwave/menus_config_i18n.cpp:55
+#: kwave/menus.config:80
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Next"
+msgid "Next"
+msgstr "Další"
+
+#: kwave/menus.config:120
+#, fuzzy
+msgctxt "menu: /View/Next Page"
 msgid "Next Page"
 msgstr "Další strana"
 
-#: kwave/menus_config_i18n.cpp:56
+#: kwave/menus.config:233
 #, fuzzy
+msgctxt "menu: /Window/Next Window"
 msgid "Next Window"
 msgstr "Nové okno"
 
@@ -3448,7 +3580,13 @@ msgstr "Žádná"
 msgid "No Compression"
 msgstr "Žádná komprese"
 
-#: libkwave/GenreType.cpp:135 kwave/menus_config_i18n.cpp:57
+#: libkwave/GenreType.cpp:135
+msgid "Noise"
+msgstr "Šum"
+
+#: kwave/menus.config:211
+#, fuzzy
+msgctxt "menu: /Calculate/Noise"
 msgid "Noise"
 msgstr "Šum"
 
@@ -3476,7 +3614,13 @@ msgstr "Jmenovitý datový tok zvukového zdroje v bitech za sekundu"
 msgid "None"
 msgstr "Žádný"
 
-#: plugins/normalize/NormalizePlugin.cpp:73 kwave/menus_config_i18n.cpp:58
+#: plugins/normalize/NormalizePlugin.cpp:73
+msgid "Normalize"
+msgstr "Normalizovat"
+
+#: kwave/menus.config:169
+#, fuzzy
+msgctxt "menu: /Fx/Normalize"
 msgid "Normalize"
 msgstr "Normalizovat"
 
@@ -3495,7 +3639,13 @@ msgstr "Pro uložení informace o zpětných krocích není dostatek paměti."
 
 #: plugins/notch_filter/NotchFilterPlugin.cpp:33
 #: plugins/notch_filter/NotchFilterPlugin.cpp:121
-#: kwave/menus_config_i18n.cpp:59 plugins/notch_filter/ui_NotchFilterDlg.h:182
+#: plugins/notch_filter/ui_NotchFilterDlg.h:182
+msgid "Notch Filter"
+msgstr "Vroubkový filtr"
+
+#: kwave/menus.config:186
+#, fuzzy
+msgctxt "menu: /Fx/Notch Filter"
 msgid "Notch Filter"
 msgstr "Vroubkový filtr"
 
@@ -3503,8 +3653,9 @@ msgstr "Vroubkový filtr"
 msgid "Notch filter plugin"
 msgstr "Přídavný modul s vroubkovým filtrem"
 
-#: kwave/menus_config_i18n.cpp:60
+#: kwave/menus.config:82
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Nothing"
 msgid "Nothing"
 msgstr "Nic"
 
@@ -3610,12 +3761,19 @@ msgstr ""
 msgid "One or more invalid/out of range arguments."
 msgstr "Jeden nebo více neplatných argumentů nebo argumentů mimo rozsah."
 
-#: kwave/TopWidget.cpp:983 kwave/menus_config_i18n.cpp:61
+#: kwave/TopWidget.cpp:983
 msgid "Open"
 msgstr "Otevřít"
 
-#: kwave/menus_config_i18n.cpp:62
+#: kwave/menus.config:19
 #, fuzzy
+msgctxt "menu: /File/Open"
+msgid "Open"
+msgstr "Otevřít"
+
+#: kwave/menus.config:22
+#, fuzzy
+msgctxt "menu: /File/Open Recent"
 msgid "Open Recent"
 msgstr "Otevřít nedávný"
 
@@ -3737,7 +3895,13 @@ msgstr "Panagiotis Papadopoulos"
 msgid "Parameters"
 msgstr "Parametry"
 
-#: libkwave/SignalManager.cpp:667 kwave/menus_config_i18n.cpp:63
+#: libkwave/SignalManager.cpp:667
+msgid "Paste"
+msgstr "Vložit"
+
+#: kwave/menus.config:65
+#, fuzzy
+msgctxt "menu: /Edit/Paste"
 msgid "Paste"
 msgstr "Vložit"
 
@@ -3745,8 +3909,9 @@ msgstr "Vložit"
 msgid "Path:"
 msgstr "Cesta:"
 
-#: kwave/menus_config_i18n.cpp:64
+#: kwave/menus.config:136
 #, fuzzy
+msgctxt "menu: /Play/Pause"
 msgid "Pause"
 msgstr "Pozastavit"
 
@@ -3775,13 +3940,20 @@ msgid "Phonon (KDE)"
 msgstr "Phonon (KDE)"
 
 #: plugins/pitch_shift/PitchShiftPlugin.cpp:32
-#: plugins/pitch_shift/PitchShiftPlugin.cpp:125 kwave/menus_config_i18n.cpp:65
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:125
 #: plugins/pitch_shift/ui_PitchShiftDlg.h:199
 msgid "Pitch Shift"
 msgstr "Posun výšky tónu"
 
-#: kwave/menus_config_i18n.cpp:66
+#: kwave/menus.config:192
 #, fuzzy
+msgctxt "menu: /Fx/Pitch Shift"
+msgid "Pitch Shift"
+msgstr "Posun výšky tónu"
+
+#: kwave/menus.config:131
+#, fuzzy
+msgctxt "menu: /Play"
 msgid "Play"
 msgstr "Přehrávání"
 
@@ -3789,8 +3961,14 @@ msgstr "Přehrávání"
 msgid "Play a short test sound"
 msgstr "Přehrát krátký zkušební zvuk"
 
-#: plugins/playback/PlayBackPlugin.cpp:70 kwave/menus_config_i18n.cpp:67
+#: plugins/playback/PlayBackPlugin.cpp:70
 #: plugins/playback/ui_PlayBackDlg.h:351
+msgid "Playback"
+msgstr "Přehrávání"
+
+#: kwave/menus.config:246
+#, fuzzy
+msgctxt "menu: /Settings/Playback"
 msgid "Playback"
 msgstr "Přehrávání"
 
@@ -3915,17 +4093,25 @@ msgstr "Přednahrává..."
 msgid "Presets"
 msgstr "Nastavení"
 
-#: kwave/PlayerToolBar.cpp:79 kwave/menus_config_i18n.cpp:68
+#: kwave/PlayerToolBar.cpp:79
 msgid "Previous"
 msgstr "Předchozí"
 
-#: kwave/menus_config_i18n.cpp:69
+#: kwave/menus.config:81
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Previous"
+msgid "Previous"
+msgstr "Předchozí"
+
+#: kwave/menus.config:119
+#, fuzzy
+msgctxt "menu: /View/Previous Page"
 msgid "Previous Page"
 msgstr "Předchozí strana"
 
-#: kwave/menus_config_i18n.cpp:70
+#: kwave/menus.config:234
 #, fuzzy
+msgctxt "menu: /Window/Previous Window"
 msgid "Previous Window"
 msgstr "Předchozí"
 
@@ -4010,8 +4196,9 @@ msgstr "Quadro"
 msgid "Quality"
 msgstr "Kvalita"
 
-#: kwave/menus_config_i18n.cpp:71
+#: kwave/menus.config:52
 #, fuzzy
+msgctxt "menu: /File/Quit"
 msgid "Quit"
 msgstr "Ukončit"
 
@@ -4023,8 +4210,9 @@ msgstr "R&B"
 msgid "Ralf Waspe"
 msgstr "Ralf Waspe"
 
-#: kwave/menus_config_i18n.cpp:72
+#: kwave/menus.config:78
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Range"
 msgid "Range"
 msgstr "Rozsah"
 
@@ -4040,8 +4228,9 @@ msgstr "Rave"
 msgid "Raw Format:"
 msgstr "Formát RAW:"
 
-#: kwave/menus_config_i18n.cpp:73
+#: kwave/menus.config:249
 #, fuzzy
+msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
 msgid "Re-enable all \"Do not ask again\" messages"
 msgstr "Povolit znovu všechny zprávy Neptat se znovu"
 
@@ -4078,8 +4267,13 @@ msgid "Ready"
 msgstr "Připraven"
 
 #: kwave/PlayerToolBar.cpp:91 plugins/record/RecordPlugin.cpp:60
-#: kwave/menus_config_i18n.cpp:74 plugins/record/ui_RecordDlg.h:889
-#: plugins/record/ui_RecordDlg.h:925
+#: plugins/record/ui_RecordDlg.h:889 plugins/record/ui_RecordDlg.h:925
+msgid "Record"
+msgstr "Nahrávat"
+
+#: kwave/menus.config:29
+#, fuzzy
+msgctxt "menu: /File/Record"
 msgid "Record"
 msgstr "Nahrávat"
 
@@ -4131,12 +4325,18 @@ msgstr ""
 msgid "Rectangular"
 msgstr "Obdélníkový"
 
-#: kwave/TopWidget.cpp:380 kwave/menus_config_i18n.cpp:75
+#: kwave/TopWidget.cpp:380
 msgid "Redo"
 msgstr "Znovu"
 
 #: kwave/TopWidget.cpp:1178
 msgctxt "menu entry for redo if redo disabled"
+msgid "Redo"
+msgstr "Znovu"
+
+#: kwave/menus.config:58
+#, fuzzy
+msgctxt "menu: /Edit/Redo"
 msgid "Redo"
 msgstr "Znovu"
 
@@ -4161,8 +4361,9 @@ msgstr "Znovu (%1)"
 msgid "Reggae"
 msgstr "Regé"
 
-#: kwave/menus_config_i18n.cpp:76
+#: kwave/menus.config:248
 #, fuzzy
+msgctxt "menu: /Settings/Reset Toolbar"
 msgid "Reset Toolbar"
 msgstr "Nastavit nástrojový pruh znovu"
 
@@ -4185,12 +4386,18 @@ msgstr "Ve starém stylu (retrostylu)"
 
 #: plugins/reverse/UndoReverseAction.cpp:44
 #: plugins/reverse/ReversePlugin.cpp:45 plugins/reverse/ReversePlugin.cpp:78
-#: kwave/menus_config_i18n.cpp:77
 msgid "Reverse"
 msgstr "Obrátit"
 
-#: kwave/menus_config_i18n.cpp:78
+#: kwave/menus.config:194
 #, fuzzy
+msgctxt "menu: /Fx/Reverse"
+msgid "Reverse"
+msgstr "Obrátit"
+
+#: kwave/menus.config:48
+#, fuzzy
+msgctxt "menu: /File/Revert"
 msgid "Revert"
 msgstr "Začít znovu"
 
@@ -4198,7 +4405,13 @@ msgstr "Začít znovu"
 msgid "Revival"
 msgstr "Obrození"
 
-#: kwave/PlayerToolBar.cpp:85 kwave/menus_config_i18n.cpp:79
+#: kwave/PlayerToolBar.cpp:85
+msgid "Rewind"
+msgstr "Přetočit zpět"
+
+#: kwave/menus.config:133
+#, fuzzy
+msgctxt "menu: /Play/Rewind"
 msgid "Rewind"
 msgstr "Přetočit zpět"
 
@@ -4235,8 +4448,9 @@ msgstr "Spouští se přídavný modul '%1'..."
 msgid "Samba"
 msgstr "Samba"
 
-#: kwave/menus_config_i18n.cpp:80
+#: kwave/menus.config:243
 #, fuzzy
+msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
 msgid "Same Window (MDI)"
 msgstr "Nové okno"
 
@@ -4305,8 +4519,9 @@ msgstr "vzorků za sekundu"
 msgid "Satire"
 msgstr "Satira"
 
-#: kwave/menus_config_i18n.cpp:81
+#: kwave/menus.config:35
 #, fuzzy
+msgctxt "menu: /File/Save"
 msgid "Save"
 msgstr "Uložit"
 
@@ -4359,13 +4574,15 @@ msgstr "Pilovitý časový průběh signálu"
 msgid "Scanning plugins..."
 msgstr "Prohledávají se přídavné moduly..."
 
-#: kwave/menus_config_i18n.cpp:82
+#: kwave/menus.config:122
 #, fuzzy
+msgctxt "menu: /View/Scroll Left"
 msgid "Scroll Left"
 msgstr "Projíždět vlevo"
 
-#: kwave/menus_config_i18n.cpp:83
+#: kwave/menus.config:121
 #, fuzzy
+msgctxt "menu: /View/Scroll Right"
 msgid "Scroll Right"
 msgstr "Projíždět vpravo"
 
@@ -4436,8 +4653,9 @@ msgstr ""
 "Vybrat rozlišení v bitech, ve kterém bude\n"
 "soubor uložen."
 
-#: kwave/menus_config_i18n.cpp:84
+#: kwave/menus.config:97
 #, fuzzy
+msgctxt "menu: /Edit/Track/Select all"
 msgid "Select all"
 msgstr "Vybrat vše"
 
@@ -4470,7 +4688,12 @@ msgid "Selected: %1...%2 (%3)"
 msgstr "Vybráno: %1...%2  (%3)"
 
 #: libgui/SignalWidget.cpp:247 libkwave/undo/UndoSelection.cpp:51
-#: kwave/menus_config_i18n.cpp:85
+msgid "Selection"
+msgstr "Výběr"
+
+#: kwave/menus.config:76
+#, fuzzy
+msgctxt "menu: /Edit/Selection"
 msgid "Selection"
 msgstr "Výběr"
 
@@ -4495,13 +4718,15 @@ msgstr "Výběr, levý okraj"
 msgid "Selection, right border"
 msgstr "Výběr, pravý okraj"
 
-#: kwave/menus_config_i18n.cpp:86
+#: kwave/menus.config:38
 #, fuzzy
+msgctxt "menu: /File/Save/Selection..."
 msgid "Selection..."
 msgstr "Výběr..."
 
-#: kwave/menus_config_i18n.cpp:87
+#: kwave/menus.config:242
 #, fuzzy
+msgctxt "menu: /Settings/Show Files in.../Separate Windows (SDI)"
 msgid "Separate Windows (SDI)"
 msgstr "Nové okno"
 
@@ -4544,12 +4769,19 @@ msgstr ""
 "Nastaví hlasitost procentuálně vzhledem k původní úrovni. \n"
 "Například: \"50 %\", \"75%\" nebo \"125%\""
 
-#: libkwave/SignalManager.cpp:1398 kwave/menus_config_i18n.cpp:88
+#: libkwave/SignalManager.cpp:1398
 msgid "Settings"
 msgstr "Nas&tavení"
 
-#: kwave/menus_config_i18n.cpp:89
+#: kwave/menus.config:241
 #, fuzzy
+msgctxt "menu: /Settings"
+msgid "Settings"
+msgstr "Nas&tavení"
+
+#: kwave/menus.config:242
+#, fuzzy
+msgctxt "menu: /Settings/Show Files in..."
 msgid "Show Files in..."
 msgstr "Otevírá se hlavní okno..."
 
@@ -4588,7 +4820,13 @@ msgstr "Znaménko:"
 msgid "Signal is empty, nothing to save."
 msgstr "Bez signálu. Není co uložit."
 
-#: plugins/zero/ZeroPlugin.cpp:62 kwave/menus_config_i18n.cpp:90
+#: plugins/zero/ZeroPlugin.cpp:62
+msgid "Silence"
+msgstr "Ticho"
+
+#: kwave/menus.config:209
+#, fuzzy
+msgctxt "menu: /Calculate/Silence"
 msgid "Silence"
 msgstr "Ticho"
 
@@ -4629,7 +4867,13 @@ msgstr "Program"
 
 #: plugins/sonagram/SonagramPlugin.cpp:58
 #: plugins/sonagram/SonagramPlugin.cpp:78
-#: plugins/sonagram/SonagramWindow.cpp:502 kwave/menus_config_i18n.cpp:91
+#: plugins/sonagram/SonagramWindow.cpp:502
+msgid "Sonagram"
+msgstr "Obraz vytvořený ultrazvukem"
+
+#: kwave/menus.config:222
+#, fuzzy
+msgctxt "menu: /Calculate/Sonagram"
 msgid "Sonagram"
 msgstr "Obraz vytvořený ultrazvukem"
 
@@ -4747,7 +4991,13 @@ msgstr "Křivka"
 msgid "Square Sinus"
 msgstr "Čtvercový sinus"
 
-#: plugins/selectrange/SelectRangeDialog.cpp:42 kwave/menus_config_i18n.cpp:92
+#: plugins/selectrange/SelectRangeDialog.cpp:42
+msgid "Start"
+msgstr "Spustit"
+
+#: kwave/menus.config:134
+#, fuzzy
+msgctxt "menu: /Play/Start"
 msgid "Start"
 msgstr "Spustit"
 
@@ -4797,8 +5047,9 @@ msgstr "Stefan Westerfeld"
 msgid "Stereo"
 msgstr "Stereofonní zvuk"
 
-#: kwave/menus_config_i18n.cpp:93
+#: kwave/menus.config:138
 #, fuzzy
+msgctxt "menu: /Play/Stop"
 msgid "Stop"
 msgstr "Zastavit"
 
@@ -4871,7 +5122,8 @@ msgstr "Seřízení ztraceno."
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr "T.H.F. Klok a Cedric Tefft"
 
-#: kwave/menus_config_i18n.cpp:94
+#: kwave/menus.config:244
+msgctxt "menu: /Settings/Show Files in.../Tabs"
 msgid "Tabs"
 msgstr ""
 
@@ -5105,8 +5357,9 @@ msgstr "Toto by přepsalo následující soubor(y): %1 Opravdu chcete pokračova
 msgid "Thomas Eschenbacher"
 msgstr "Thomas Eschenbacher"
 
-#: kwave/menus_config_i18n.cpp:95
+#: kwave/menus.config:236
 #, fuzzy
+msgctxt "menu: /Window/Tile Sub Windows"
 msgid "Tile Sub Windows"
 msgstr "Do nového okna"
 
@@ -5127,20 +5380,34 @@ msgstr "&Čas: ------ ms"
 msgid "Time: 0 ms"
 msgstr "Čas: 0 ms"
 
-#: kwave/menus_config_i18n.cpp:96
+#: kwave/menus.config:84
+msgctxt "menu: /Edit/Selection/To End"
 msgid "To End"
 msgstr ""
 
-#: libgui/SignalWidget.cpp:269 kwave/menus_config_i18n.cpp:97
+#: libgui/SignalWidget.cpp:269
 msgid "To Next Labels"
 msgstr "K dalším štítkům"
 
-#: libgui/SignalWidget.cpp:278 kwave/menus_config_i18n.cpp:98
+#: kwave/menus.config:86
+#, fuzzy
+msgctxt "menu: /Edit/Selection/To Next Labels"
+msgid "To Next Labels"
+msgstr "K dalším štítkům"
+
+#: libgui/SignalWidget.cpp:278
 msgid "To Previous Labels"
 msgstr "K předchozím štítkům"
 
-#: kwave/menus_config_i18n.cpp:99
+#: kwave/menus.config:87
 #, fuzzy
+msgctxt "menu: /Edit/Selection/To Previous Labels"
+msgid "To Previous Labels"
+msgstr "K předchozím štítkům"
+
+#: kwave/menus.config:83
+#, fuzzy
+msgctxt "menu: /Edit/Selection/To Start"
 msgid "To Start"
 msgstr "Po začátek"
 
@@ -5152,7 +5419,13 @@ msgstr "Přepnout výběr stopy"
 msgid "Top 40"
 msgstr "Nejlepší 40"
 
-#: libkwave/FileInfo.cpp:243 kwave/menus_config_i18n.cpp:100
+#: libkwave/FileInfo.cpp:243
+msgid "Track"
+msgstr "Stopa"
+
+#: kwave/menus.config:90
+#, fuzzy
+msgctxt "menu: /Edit/Track"
 msgid "Track"
 msgstr "Stopa"
 
@@ -5233,12 +5506,18 @@ msgstr "Nelze otevřít soubor pro uložení."
 msgid "Unable to open the recording device"
 msgstr "Nelze otevřít nahrávací zařízení"
 
-#: kwave/TopWidget.cpp:375 kwave/menus_config_i18n.cpp:101
+#: kwave/TopWidget.cpp:375
 msgid "Undo"
 msgstr "Zpět"
 
 #: kwave/TopWidget.cpp:1171
 msgctxt "menu entry for undo if undo disabled"
+msgid "Undo"
+msgstr "Zpět"
+
+#: kwave/menus.config:56
+#, fuzzy
+msgctxt "menu: /Edit/Undo"
 msgid "Undo"
 msgstr "Zpět"
 
@@ -5317,13 +5596,15 @@ msgstr "Verze"
 msgid "Version Info:"
 msgstr "Verze:"
 
-#: kwave/menus_config_i18n.cpp:102
+#: kwave/menus.config:115
 #, fuzzy
+msgctxt "menu: /View"
 msgid "View"
 msgstr "Pohled"
 
-#: kwave/menus_config_i18n.cpp:103
+#: kwave/menus.config:79
 #, fuzzy
+msgctxt "menu: /Edit/Selection/Visible Area"
 msgid "Visible Area"
 msgstr "Viditelná oblast"
 
@@ -5332,9 +5613,14 @@ msgid "Vocal"
 msgstr "Zpěv"
 
 #: plugins/volume/VolumePlugin.cpp:40 plugins/volume/VolumePlugin.cpp:131
-#: kwave/menus_config_i18n.cpp:104 plugins/noise/ui_NoiseDlg.h:234
-#: plugins/volume/ui_VolumeDlg.h:238 plugins/volume/ui_VolumeDlg.h:265
-#: plugins/volume/ui_VolumeDlg.h:268
+#: plugins/noise/ui_NoiseDlg.h:234 plugins/volume/ui_VolumeDlg.h:238
+#: plugins/volume/ui_VolumeDlg.h:265 plugins/volume/ui_VolumeDlg.h:268
+msgid "Volume"
+msgstr "Hlasitost"
+
+#: kwave/menus.config:168
+#, fuzzy
+msgctxt "menu: /Fx/Volume"
 msgid "Volume"
 msgstr "Hlasitost"
 
@@ -5379,8 +5665,9 @@ msgstr ""
 "nahráno i těch několik sekundy předtí, než stisknete nahrávací tlačítko. "
 "<i>(Například, když nahráváte z rádia)</i>"
 
-#: kwave/menus_config_i18n.cpp:105
+#: kwave/menus.config:232
 #, fuzzy
+msgctxt "menu: /Window"
 msgid "Window"
 msgstr "Nové okno"
 
@@ -5428,13 +5715,15 @@ msgstr ""
 msgid "Zero Generator"
 msgstr "Tvůrce nul"
 
-#: kwave/menus_config_i18n.cpp:106
+#: kwave/menus.config:124
 #, fuzzy
+msgctxt "menu: /View/Zoom In"
 msgid "Zoom In"
 msgstr "Přiblížit"
 
-#: kwave/menus_config_i18n.cpp:107
+#: kwave/menus.config:125
 #, fuzzy
+msgctxt "menu: /View/Zoom Out"
 msgid "Zoom Out"
 msgstr "Oddálit"
 
@@ -5446,17 +5735,25 @@ msgstr "Přiblížit"
 msgid "Zoom out"
 msgstr "Oddálit"
 
-#: kwave/ZoomToolBar.cpp:84 kwave/menus_config_i18n.cpp:108
+#: kwave/ZoomToolBar.cpp:84
 msgid "Zoom to 100%"
 msgstr "Zvětšit na 100 %"
 
-#: kwave/menus_config_i18n.cpp:109
+#: kwave/menus.config:129
 #, fuzzy
+msgctxt "menu: /View/Zoom to 100%"
+msgid "Zoom to 100%"
+msgstr "Zvětšit na 100 %"
+
+#: kwave/menus.config:126
+#, fuzzy
+msgctxt "menu: /View/Zoom to Selection"
 msgid "Zoom to Selection"
 msgstr "Najet na výběr"
 
-#: kwave/menus_config_i18n.cpp:110
+#: kwave/menus.config:128
 #, fuzzy
+msgctxt "menu: /View/Zoom to Whole Signal"
 msgid "Zoom to Whole Signal"
 msgstr "Zvětšit na celý signál"
 
@@ -5906,6 +6203,21 @@ msgstr "Ano"
 #~ msgid "&Reverse"
 #~ msgstr "&Obrátit"
 
+#, fuzzy
+#~ msgctxt "/File/&Save"
+#~ msgid "&Save"
+#~ msgstr "Uložit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "&Save"
+#~ msgstr "Uložit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "&Save"
+#~ msgstr "Uložit"
+
 #~ msgid "&Selection"
 #~ msgstr "&Výběr"
 
@@ -6006,12 +6318,72 @@ msgstr "Ano"
 #~ msgstr "96K"
 
 #, fuzzy
+#~ msgctxt "/Help/About KDE"
+#~ msgid "About KDE"
+#~ msgstr "O KDE"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "About KDE"
+#~ msgstr "O KDE"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "About KDE"
+#~ msgstr "O KDE"
+
+#, fuzzy
+#~ msgctxt "/Help/About Kwave"
+#~ msgid "About Kwave"
+#~ msgstr "O aplikaci Kwave"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "About Kwave"
+#~ msgstr "O aplikaci Kwave"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "About Kwave"
+#~ msgstr "O aplikaci Kwave"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Help/About Kwave'"
 #~ msgid "About Kwave"
 #~ msgstr "O aplikaci Kwave"
 
+#, fuzzy
+#~ msgctxt "/Edit/Track/Add"
+#~ msgid "Add"
+#~ msgstr "Přidat"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Add"
+#~ msgstr "Přidat"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Add"
+#~ msgstr "Přidat"
+
 #~ msgid "Additive Synthesis"
 #~ msgstr "Přidané sloučení"
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection/All"
+#~ msgid "All"
+#~ msgstr "Vše"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "All"
+#~ msgstr "Vše"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "All"
+#~ msgstr "Vše"
 
 #~ msgid "Alt+C"
 #~ msgstr "Alt+C"
@@ -6029,6 +6401,21 @@ msgstr "Ano"
 #~ msgstr "&Volně zesílit"
 
 #, fuzzy
+#~ msgctxt "/Fx/Amplify Free"
+#~ msgid "Amplify Free"
+#~ msgstr "Volně zesílit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Amplify Free"
+#~ msgstr "Volně zesílit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Amplify Free"
+#~ msgstr "Volně zesílit"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Amplify Free'"
 #~ msgid "Amplify Free"
 #~ msgstr "Volně zesílit"
@@ -6036,13 +6423,103 @@ msgstr "Ano"
 #~ msgid "Amplify with Clipboard"
 #~ msgstr "Zesílit se schránkou"
 
+#, fuzzy
+#~ msgctxt "/File/Save/As..."
+#~ msgid "As..."
+#~ msgstr "Jako..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "As..."
+#~ msgstr "Jako..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "As..."
+#~ msgstr "Jako..."
+
 #~ msgid "Average spectrum"
 #~ msgstr "Průměrná škála"
+
+#, fuzzy
+#~ msgctxt "/Fx/Band Pass"
+#~ msgid "Band Pass"
+#~ msgstr "Průchod nízkým a vysokým kmitočtem signálu"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Band Pass"
+#~ msgstr "Průchod nízkým a vysokým kmitočtem signálu"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Band Pass"
+#~ msgstr "Průchod nízkým a vysokým kmitočtem signálu"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Fx/Band Pass'"
 #~ msgid "Band Pass"
 #~ msgstr "Průchod nízkým a vysokým kmitočtem signálu"
+
+#, fuzzy
+#~ msgctxt "/View/Begin"
+#~ msgid "Begin"
+#~ msgstr "Začátek"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Begin"
+#~ msgstr "Začátek"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Begin"
+#~ msgstr "Začátek"
+
+#, fuzzy
+#~ msgctxt "/File/Save/Blocks..."
+#~ msgid "Blocks..."
+#~ msgstr "Bloky..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Blocks..."
+#~ msgstr "Bloky..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Blocks..."
+#~ msgstr "Bloky..."
+
+#, fuzzy
+#~ msgctxt "/Calculate"
+#~ msgid "Calculate"
+#~ msgstr "Výpočty"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Calculate"
+#~ msgstr "Výpočty"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Calculate"
+#~ msgstr "Výpočty"
+
+#, fuzzy
+#~ msgctxt "/Window/Cascade Sub Windows"
+#~ msgid "Cascade Sub Windows"
+#~ msgstr "Do nového okna"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Cascade Sub Windows"
+#~ msgstr "Do nového okna"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Cascade Sub Windows"
+#~ msgstr "Do nového okna"
 
 #~ msgid "Center Signal"
 #~ msgstr "Vystředit signál"
@@ -6056,8 +6533,83 @@ msgstr "Ano"
 #~ msgid "Clip&board"
 #~ msgstr "Sch&ránka"
 
+#, fuzzy
+#~ msgctxt "/Edit/Clipboard"
+#~ msgid "Clipboard"
+#~ msgstr "Schránka"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Clipboard"
+#~ msgstr "Schránka"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Clipboard"
+#~ msgstr "Schránka"
+
+#, fuzzy
+#~ msgctxt "/File/Close"
+#~ msgid "Close"
+#~ msgstr "Zavřít"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Close"
+#~ msgstr "Zavřít"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Close"
+#~ msgstr "Zavřít"
+
+#, fuzzy
+#~ msgctxt "/Help/Contents"
+#~ msgid "Contents"
+#~ msgstr "Obsah"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Contents"
+#~ msgstr "Obsah"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Contents"
+#~ msgstr "Obsah"
+
+#, fuzzy
+#~ msgctxt "/Play/Continue"
+#~ msgid "Continue"
+#~ msgstr "Pokračovat"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Continue"
+#~ msgstr "Pokračovat"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Continue"
+#~ msgstr "Pokračovat"
+
 #~ msgid "Convert Label Distance to Pitch"
 #~ msgstr "Převést vzdálenost štítku na výšku tónu"
+
+#, fuzzy
+#~ msgctxt "/Edit/Copy"
+#~ msgid "Copy"
+#~ msgstr "Kopírovat"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Copy"
+#~ msgstr "Kopírovat"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Copy"
+#~ msgstr "Kopírovat"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Copy'"
@@ -6074,9 +6626,39 @@ msgstr "Ano"
 #~ msgstr "Vytvořit druh"
 
 #, fuzzy
+#~ msgctxt "/Edit/Crop"
+#~ msgid "Crop"
+#~ msgstr "Oříznout"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Crop"
+#~ msgstr "Oříznout"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Crop"
+#~ msgstr "Oříznout"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Crop'"
 #~ msgid "Crop"
 #~ msgstr "Oříznout"
+
+#, fuzzy
+#~ msgctxt "/Edit/Cut"
+#~ msgid "Cut"
+#~ msgstr "Vyjmout"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Cut"
+#~ msgstr "Vyjmout"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Cut"
+#~ msgstr "Vyjmout"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Cut'"
@@ -6090,6 +6672,21 @@ msgstr "Ano"
 #~ msgstr "Zpož&dění"
 
 #, fuzzy
+#~ msgctxt "/Edit/Delete"
+#~ msgid "Delete"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Delete"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Delete"
+#~ msgstr "Smazat"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Delete'"
 #~ msgid "Delete"
 #~ msgstr "Smazat"
@@ -6100,6 +6697,36 @@ msgstr "Ano"
 #~ msgid "Distort"
 #~ msgstr "Zkreslit"
 
+#, fuzzy
+#~ msgctxt "/Edit"
+#~ msgid "Edit"
+#~ msgstr "Úpravy"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Edit"
+#~ msgstr "Úpravy"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Edit"
+#~ msgstr "Úpravy"
+
+#, fuzzy
+#~ msgctxt "/View/End"
+#~ msgid "End"
+#~ msgstr "Konec"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "End"
+#~ msgstr "Konec"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "End"
+#~ msgstr "Konec"
+
 #~ msgid "Enter Command"
 #~ msgstr "Zadat příkaz"
 
@@ -6108,6 +6735,21 @@ msgstr "Ano"
 
 #~ msgid "Execute"
 #~ msgstr "Spustit"
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection/Expand to Labels"
+#~ msgid "Expand to Labels"
+#~ msgstr "Roztáhnout k štítkům"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Expand to Labels"
+#~ msgstr "Roztáhnout k štítkům"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Expand to Labels"
+#~ msgstr "Roztáhnout k štítkům"
 
 #~ msgid "F1"
 #~ msgstr "F1"
@@ -6122,9 +6764,39 @@ msgstr "Ano"
 #~ msgstr "Postupné &zeslabení signálu"
 
 #, fuzzy
+#~ msgctxt "/Fx/Fade In"
+#~ msgid "Fade In"
+#~ msgstr "Postupné zeslabení signálu"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Fade In"
+#~ msgstr "Postupné zeslabení signálu"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Fade In"
+#~ msgstr "Postupné zeslabení signálu"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Fade In'"
 #~ msgid "Fade In"
 #~ msgstr "Postupné zeslabení signálu"
+
+#, fuzzy
+#~ msgctxt "/Fx/Fade Intro"
+#~ msgid "Fade Intro"
+#~ msgstr "Úvod prolínání"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Fade Intro"
+#~ msgstr "Úvod prolínání"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Fade Intro"
+#~ msgstr "Úvod prolínání"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Fx/Fade Intro'"
@@ -6132,9 +6804,39 @@ msgstr "Ano"
 #~ msgstr "Úvod prolínání"
 
 #, fuzzy
+#~ msgctxt "/Fx/Fade Leadout"
+#~ msgid "Fade Leadout"
+#~ msgstr "Vyvedení prolínání"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Fade Leadout"
+#~ msgstr "Vyvedení prolínání"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Fade Leadout"
+#~ msgstr "Vyvedení prolínání"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Fade Leadout'"
 #~ msgid "Fade Leadout"
 #~ msgstr "Vyvedení prolínání"
+
+#, fuzzy
+#~ msgctxt "/Fx/Fade Out"
+#~ msgid "Fade Out"
+#~ msgstr "Postupné zesílení signálu"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Fade Out"
+#~ msgstr "Postupné zesílení signálu"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Fade Out"
+#~ msgstr "Postupné zesílení signálu"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Fx/Fade Out'"
@@ -6142,9 +6844,39 @@ msgstr "Ano"
 #~ msgstr "Postupné zesílení signálu"
 
 #, fuzzy
+#~ msgctxt "/File"
+#~ msgid "File"
+#~ msgstr "Soubor"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "File"
+#~ msgstr "Soubor"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "File"
+#~ msgstr "Soubor"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/File'"
 #~ msgid "File"
 #~ msgstr "Soubor"
+
+#, fuzzy
+#~ msgctxt "/Edit/File Properties..."
+#~ msgid "File Properties..."
+#~ msgstr "Vlastnosti souboru..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "File Properties..."
+#~ msgstr "Vlastnosti souboru..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "File Properties..."
+#~ msgstr "Vlastnosti souboru..."
 
 #~ msgid "Filter"
 #~ msgstr "Filtr"
@@ -6153,9 +6885,54 @@ msgstr "Ano"
 #~ msgstr "Přepnout fázi"
 
 #, fuzzy
+#~ msgctxt "/Edit/Clipboard/Flush"
+#~ msgid "Flush"
+#~ msgstr "Vyrovnat"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Flush"
+#~ msgstr "Vyrovnat"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Flush"
+#~ msgstr "Vyrovnat"
+
+#, fuzzy
+#~ msgctxt "/Play/Forward"
+#~ msgid "Forward"
+#~ msgstr "Vpřed"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Forward"
+#~ msgstr "Vpřed"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Forward"
+#~ msgstr "Vpřed"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Play/Forward'"
 #~ msgid "Forward"
 #~ msgstr "Vpřed"
+
+#, fuzzy
+#~ msgctxt "/Fx"
+#~ msgid "Fx"
+#~ msgstr "Efekty"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Fx"
+#~ msgstr "Efekty"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Fx"
+#~ msgstr "Efekty"
 
 #~ msgid "G711 ALAW"
 #~ msgstr "G711 ALAW"
@@ -6167,12 +6944,57 @@ msgstr "Ano"
 #~ msgstr "Vytvořit"
 
 #, fuzzy
+#~ msgctxt "/View/Go to Position..."
+#~ msgid "Go to Position..."
+#~ msgstr "Jít na místo..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Go to Position..."
+#~ msgstr "Jít na místo..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Go to Position..."
+#~ msgstr "Jít na místo..."
+
+#, fuzzy
+#~ msgctxt "/Help"
+#~ msgid "Help"
+#~ msgstr "Nápověda"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Help"
+#~ msgstr "Nápověda"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Help"
+#~ msgstr "Nápověda"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Help'"
 #~ msgid "Help"
 #~ msgstr "Nápověda"
 
 #~ msgid "Insert &At..."
 #~ msgstr "Vložit &v..."
+
+#, fuzzy
+#~ msgctxt "/Edit/Clipboard/Insert At..."
+#~ msgid "Insert At..."
+#~ msgstr "Vložit v..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Insert At..."
+#~ msgstr "Vložit v..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Insert At..."
+#~ msgstr "Vložit v..."
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Clipboard/Insert At...'"
@@ -6184,6 +7006,21 @@ msgstr "Ano"
 
 #~ msgid "Insert the content of clipboard"
 #~ msgstr "Vložit obsah schránky"
+
+#, fuzzy
+#~ msgctxt "/Edit/Track/Invert Selection"
+#~ msgid "Invert Selection"
+#~ msgstr "Obrátit výběr"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Invert Selection"
+#~ msgstr "Obrátit výběr"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Invert Selection"
+#~ msgstr "Obrátit výběr"
 
 #~ msgid "Label by Intensity"
 #~ msgstr "Štítek pomocí síly"
@@ -6198,12 +7035,57 @@ msgstr "Ano"
 #~ msgstr "Nahrát štítky..."
 
 #, fuzzy
+#~ msgctxt "/Play/Loop"
+#~ msgid "Loop"
+#~ msgstr "Přehrávat ve smyčce"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Loop"
+#~ msgstr "Přehrávat ve smyčce"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Loop"
+#~ msgstr "Přehrávat ve smyčce"
+
+#, fuzzy
+#~ msgctxt "/Fx/Low Pass"
+#~ msgid "Low Pass"
+#~ msgstr "Průchod nízkým kmitočtem signálu"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Low Pass"
+#~ msgstr "Průchod nízkým kmitočtem signálu"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Low Pass"
+#~ msgstr "Průchod nízkým kmitočtem signálu"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Low Pass'"
 #~ msgid "Low Pass"
 #~ msgstr "Průchod nízkým kmitočtem signálu"
 
 #~ msgid "Macro"
 #~ msgstr "Makro"
+
+#, fuzzy
+#~ msgctxt "/Settings/Memory"
+#~ msgid "Memory"
+#~ msgstr "Paměť"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Memory"
+#~ msgstr "Paměť"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Memory"
+#~ msgstr "Paměť"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Settings/Memory'"
@@ -6226,9 +7108,99 @@ msgstr "Ano"
 #~ msgstr "N-mnohočlen"
 
 #, fuzzy
+#~ msgctxt "/File/New Window"
+#~ msgid "New Window"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "New Window"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "New Window"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "/File/New..."
+#~ msgid "New..."
+#~ msgstr "Nový..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "New..."
+#~ msgstr "Nový..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "New..."
+#~ msgstr "Nový..."
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection/Next"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Selection/Next'"
 #~ msgid "Next"
 #~ msgstr "Další"
+
+#, fuzzy
+#~ msgctxt "/View/Next Page"
+#~ msgid "Next Page"
+#~ msgstr "Další strana"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Next Page"
+#~ msgstr "Další strana"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Next Page"
+#~ msgstr "Další strana"
+
+#, fuzzy
+#~ msgctxt "/Window/Next Window"
+#~ msgid "Next Window"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Next Window"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Next Window"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "/Calculate/Noise"
+#~ msgid "Noise"
+#~ msgstr "Šum"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Noise"
+#~ msgstr "Šum"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Noise"
+#~ msgstr "Šum"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Calculate/Noise'"
@@ -6236,22 +7208,97 @@ msgstr "Ano"
 #~ msgstr "Šum"
 
 #, fuzzy
+#~ msgctxt "/Fx/Normalize"
+#~ msgid "Normalize"
+#~ msgstr "Normalizovat"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Normalize"
+#~ msgstr "Normalizovat"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Normalize"
+#~ msgstr "Normalizovat"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Normalize'"
 #~ msgid "Normalize"
 #~ msgstr "Normalizovat"
+
+#, fuzzy
+#~ msgctxt "/Fx/Notch Filter"
+#~ msgid "Notch Filter"
+#~ msgstr "Vroubkový filtr"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Notch Filter"
+#~ msgstr "Vroubkový filtr"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Notch Filter"
+#~ msgstr "Vroubkový filtr"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Fx/Notch Filter'"
 #~ msgid "Notch Filter"
 #~ msgstr "Vroubkový filtr"
 
+#, fuzzy
+#~ msgctxt "/Edit/Selection/Nothing"
+#~ msgid "Nothing"
+#~ msgstr "Nic"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Nothing"
+#~ msgstr "Nic"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Nothing"
+#~ msgstr "Nic"
+
 #~ msgid "O&K"
 #~ msgstr "O&K"
+
+#, fuzzy
+#~ msgctxt "/File/Open"
+#~ msgid "Open"
+#~ msgstr "Otevřít"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Open"
+#~ msgstr "Otevřít"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Open"
+#~ msgstr "Otevřít"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/File/Open'"
 #~ msgid "Open"
 #~ msgstr "Otevřít"
+
+#, fuzzy
+#~ msgctxt "/File/Open Recent"
+#~ msgid "Open Recent"
+#~ msgstr "Otevřít nedávný"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Open Recent"
+#~ msgstr "Otevřít nedávný"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Open Recent"
+#~ msgstr "Otevřít nedávný"
 
 #~ msgid "Oscilloscope"
 #~ msgstr "Osciloskop (elektrický měřící přístroj měřící oscilace)"
@@ -6260,9 +7307,39 @@ msgstr "Ano"
 #~ msgstr "Obecný přehled"
 
 #, fuzzy
+#~ msgctxt "/Edit/Paste"
+#~ msgid "Paste"
+#~ msgstr "Vložit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Paste"
+#~ msgstr "Vložit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Paste"
+#~ msgstr "Vložit"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Paste'"
 #~ msgid "Paste"
 #~ msgstr "Vložit"
+
+#, fuzzy
+#~ msgctxt "/Play/Pause"
+#~ msgid "Pause"
+#~ msgstr "Pozastavit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Pause"
+#~ msgstr "Pozastavit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Pause"
+#~ msgstr "Pozastavit"
 
 #~ msgid "Periodic Silence"
 #~ msgstr "Opakující se ticho"
@@ -6271,9 +7348,54 @@ msgstr "Ano"
 #~ msgstr "Periody..."
 
 #, fuzzy
+#~ msgctxt "/Fx/Pitch Shift"
+#~ msgid "Pitch Shift"
+#~ msgstr "Posun výšky tónu"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Pitch Shift"
+#~ msgstr "Posun výšky tónu"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Pitch Shift"
+#~ msgstr "Posun výšky tónu"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Pitch Shift'"
 #~ msgid "Pitch Shift"
 #~ msgstr "Posun výšky tónu"
+
+#, fuzzy
+#~ msgctxt "/Play"
+#~ msgid "Play"
+#~ msgstr "Přehrávání"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Play"
+#~ msgstr "Přehrávání"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Play"
+#~ msgstr "Přehrávání"
+
+#, fuzzy
+#~ msgctxt "/Settings/Playback"
+#~ msgid "Playback"
+#~ msgstr "Přehrávání"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Playback"
+#~ msgstr "Přehrávání"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Playback"
+#~ msgstr "Přehrávání"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Settings/Playback'"
@@ -6291,12 +7413,72 @@ msgstr "Ano"
 #~ msgstr "Mnohočlen n-tého stupně"
 
 #, fuzzy
+#~ msgctxt "/Edit/Selection/Previous"
+#~ msgid "Previous"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Previous"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Previous"
+#~ msgstr "Předchozí"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Selection/Previous'"
 #~ msgid "Previous"
 #~ msgstr "Předchozí"
 
+#, fuzzy
+#~ msgctxt "/View/Previous Page"
+#~ msgid "Previous Page"
+#~ msgstr "Předchozí strana"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Previous Page"
+#~ msgstr "Předchozí strana"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Previous Page"
+#~ msgstr "Předchozí strana"
+
+#, fuzzy
+#~ msgctxt "/Window/Previous Window"
+#~ msgid "Previous Window"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Previous Window"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Previous Window"
+#~ msgstr "Předchozí"
+
 #~ msgid "Pulse Train"
 #~ msgstr "Rytmický sled"
+
+#, fuzzy
+#~ msgctxt "/File/Quit"
+#~ msgid "Quit"
+#~ msgstr "Ukončit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Quit"
+#~ msgstr "Ukončit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Quit"
+#~ msgstr "Ukončit"
 
 #~ msgctxt "menu entry for redo if redo disabled"
 #~ msgid "R&edo"
@@ -6307,9 +7489,69 @@ msgstr "Ano"
 #~ msgstr "Z&novu (%1)"
 
 #, fuzzy
+#~ msgctxt "/Edit/Selection/Range"
+#~ msgid "Range"
+#~ msgstr "Rozsah"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Range"
+#~ msgstr "Rozsah"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Range"
+#~ msgstr "Rozsah"
+
+#, fuzzy
+#~ msgctxt "/Settings/Re-enable all \"Do not ask again\" messages"
+#~ msgid "Re-enable all \"Do not ask again\" messages"
+#~ msgstr "Povolit znovu všechny zprávy Neptat se znovu"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Re-enable all \"Do not ask again\" messages"
+#~ msgstr "Povolit znovu všechny zprávy Neptat se znovu"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Re-enable all \"Do not ask again\" messages"
+#~ msgstr "Povolit znovu všechny zprávy Neptat se znovu"
+
+#, fuzzy
+#~ msgctxt "/File/Record"
+#~ msgid "Record"
+#~ msgstr "Nahrávat"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Record"
+#~ msgstr "Nahrávat"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Record"
+#~ msgstr "Nahrávat"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/File/Record'"
 #~ msgid "Record"
 #~ msgstr "Nahrávat"
+
+#, fuzzy
+#~ msgctxt "/Edit/Redo"
+#~ msgid "Redo"
+#~ msgstr "Znovu"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Redo"
+#~ msgstr "Znovu"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Redo"
+#~ msgstr "Znovu"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Redo'"
@@ -6323,9 +7565,69 @@ msgstr "Ano"
 #~ msgstr "Převzorkovat"
 
 #, fuzzy
+#~ msgctxt "/Settings/Reset Toolbar"
+#~ msgid "Reset Toolbar"
+#~ msgstr "Nastavit nástrojový pruh znovu"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Reset Toolbar"
+#~ msgstr "Nastavit nástrojový pruh znovu"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Reset Toolbar"
+#~ msgstr "Nastavit nástrojový pruh znovu"
+
+#, fuzzy
+#~ msgctxt "/Fx/Reverse"
+#~ msgid "Reverse"
+#~ msgstr "Obrátit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Reverse"
+#~ msgstr "Obrátit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Reverse"
+#~ msgstr "Obrátit"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Fx/Reverse'"
 #~ msgid "Reverse"
 #~ msgstr "Obrátit"
+
+#, fuzzy
+#~ msgctxt "/File/Revert"
+#~ msgid "Revert"
+#~ msgstr "Začít znovu"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Revert"
+#~ msgstr "Začít znovu"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Revert"
+#~ msgstr "Začít znovu"
+
+#, fuzzy
+#~ msgctxt "/Play/Rewind"
+#~ msgid "Rewind"
+#~ msgstr "Přetočit zpět"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Rewind"
+#~ msgstr "Přetočit zpět"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Rewind"
+#~ msgstr "Přetočit zpět"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Play/Rewind'"
@@ -6339,9 +7641,144 @@ msgstr "Ano"
 #~ msgstr "Za&stavit"
 
 #, fuzzy
+#~ msgctxt "/Settings/Show Files in.../Same Window (MDI)"
+#~ msgid "Same Window (MDI)"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Same Window (MDI)"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Same Window (MDI)"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "/File/Save"
+#~ msgid "Save"
+#~ msgstr "Uložit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Save"
+#~ msgstr "Uložit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Save"
+#~ msgstr "Uložit"
+
+#, fuzzy
+#~ msgctxt "/View/Scroll Left"
+#~ msgid "Scroll Left"
+#~ msgstr "Projíždět vlevo"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Scroll Left"
+#~ msgstr "Projíždět vlevo"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Scroll Left"
+#~ msgstr "Projíždět vlevo"
+
+#, fuzzy
+#~ msgctxt "/View/Scroll Right"
+#~ msgid "Scroll Right"
+#~ msgstr "Projíždět vpravo"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Scroll Right"
+#~ msgstr "Projíždět vpravo"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Scroll Right"
+#~ msgstr "Projíždět vpravo"
+
+#, fuzzy
+#~ msgctxt "/Edit/Track/Select all"
+#~ msgid "Select all"
+#~ msgstr "Vybrat vše"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Select all"
+#~ msgstr "Vybrat vše"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Select all"
+#~ msgstr "Vybrat vše"
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection"
+#~ msgid "Selection"
+#~ msgstr "Výběr"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Selection"
+#~ msgstr "Výběr"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Selection"
+#~ msgstr "Výběr"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Selection'"
 #~ msgid "Selection"
 #~ msgstr "Výběr"
+
+#, fuzzy
+#~ msgctxt "/File/Save/Selection..."
+#~ msgid "Selection..."
+#~ msgstr "Výběr..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Selection..."
+#~ msgstr "Výběr..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Selection..."
+#~ msgstr "Výběr..."
+
+#, fuzzy
+#~ msgctxt "/Settings/Show Files in.../Separate Windows (SDI)"
+#~ msgid "Separate Windows (SDI)"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Separate Windows (SDI)"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Separate Windows (SDI)"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "/Settings"
+#~ msgid "Settings"
+#~ msgstr "Nas&tavení"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Settings"
+#~ msgstr "Nas&tavení"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Settings"
+#~ msgstr "Nas&tavení"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Settings'"
@@ -6349,9 +7786,54 @@ msgstr "Ano"
 #~ msgstr "Nas&tavení"
 
 #, fuzzy
+#~ msgctxt "/Settings/Show Files in..."
+#~ msgid "Show Files in..."
+#~ msgstr "Otevírá se hlavní okno..."
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Show Files in..."
+#~ msgstr "Otevírá se hlavní okno..."
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Show Files in..."
+#~ msgstr "Otevírá se hlavní okno..."
+
+#, fuzzy
+#~ msgctxt "/Calculate/Silence"
+#~ msgid "Silence"
+#~ msgstr "Ticho"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Silence"
+#~ msgstr "Ticho"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Silence"
+#~ msgstr "Ticho"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Calculate/Silence'"
 #~ msgid "Silence"
 #~ msgstr "Ticho"
+
+#, fuzzy
+#~ msgctxt "/Calculate/Sonagram"
+#~ msgid "Sonagram"
+#~ msgstr "Obraz vytvořený ultrazvukem"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Sonagram"
+#~ msgstr "Obraz vytvořený ultrazvukem"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Sonagram"
+#~ msgstr "Obraz vytvořený ultrazvukem"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Calculate/Sonagram'"
@@ -6365,6 +7847,21 @@ msgstr "Ano"
 #~ msgstr "Škála"
 
 #, fuzzy
+#~ msgctxt "/Play/Start"
+#~ msgid "Start"
+#~ msgstr "Spustit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Start"
+#~ msgstr "Spustit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Start"
+#~ msgstr "Spustit"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Play/Start'"
 #~ msgid "Start"
 #~ msgstr "Spustit"
@@ -6372,11 +7869,41 @@ msgstr "Ano"
 #~ msgid "Start recording"
 #~ msgstr "Začít s nahráváním"
 
+#, fuzzy
+#~ msgctxt "/Play/Stop"
+#~ msgid "Stop"
+#~ msgstr "Zastavit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Stop"
+#~ msgstr "Zastavit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Stop"
+#~ msgstr "Zastavit"
+
 #~ msgid "Stop recording"
 #~ msgstr "Zastavit nahrávání"
 
 #~ msgid "This is not implemented yet."
 #~ msgstr "Toto ještě není provedeno."
+
+#, fuzzy
+#~ msgctxt "/Window/Tile Sub Windows"
+#~ msgid "Tile Sub Windows"
+#~ msgstr "Do nového okna"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Tile Sub Windows"
+#~ msgstr "Do nového okna"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Tile Sub Windows"
+#~ msgstr "Do nového okna"
 
 #~ msgid "To &End"
 #~ msgstr "Po &konec"
@@ -6385,14 +7912,74 @@ msgstr "Ano"
 #~ msgstr "Do nového okna"
 
 #, fuzzy
+#~ msgctxt "/Edit/Selection/To Next Labels"
+#~ msgid "To Next Labels"
+#~ msgstr "K dalším štítkům"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "To Next Labels"
+#~ msgstr "K dalším štítkům"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "To Next Labels"
+#~ msgstr "K dalším štítkům"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Selection/To Next Labels'"
 #~ msgid "To Next Labels"
 #~ msgstr "K dalším štítkům"
 
 #, fuzzy
+#~ msgctxt "/Edit/Selection/To Previous Labels"
+#~ msgid "To Previous Labels"
+#~ msgstr "K předchozím štítkům"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "To Previous Labels"
+#~ msgstr "K předchozím štítkům"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "To Previous Labels"
+#~ msgstr "K předchozím štítkům"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Selection/To Previous Labels'"
 #~ msgid "To Previous Labels"
 #~ msgstr "K předchozím štítkům"
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection/To Start"
+#~ msgid "To Start"
+#~ msgstr "Po začátek"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "To Start"
+#~ msgstr "Po začátek"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "To Start"
+#~ msgstr "Po začátek"
+
+#, fuzzy
+#~ msgctxt "/Edit/Track"
+#~ msgid "Track"
+#~ msgstr "Stopa"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Track"
+#~ msgstr "Stopa"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Track"
+#~ msgstr "Stopa"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Edit/Track'"
@@ -6420,25 +8007,175 @@ msgstr "Ano"
 #~ "který obsahuje přídavný modul '%2'."
 
 #, fuzzy
+#~ msgctxt "/Edit/Undo"
+#~ msgid "Undo"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Undo"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Undo"
+#~ msgstr "Zpět"
+
+#, fuzzy
 #~ msgctxt "menu entry: '/Edit/Undo'"
 #~ msgid "Undo"
 #~ msgstr "Zpět"
 
+#, fuzzy
+#~ msgctxt "/View"
+#~ msgid "View"
+#~ msgstr "Pohled"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "View"
+#~ msgstr "Pohled"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "View"
+#~ msgstr "Pohled"
+
+#, fuzzy
+#~ msgctxt "/Edit/Selection/Visible Area"
+#~ msgid "Visible Area"
+#~ msgstr "Viditelná oblast"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Visible Area"
+#~ msgstr "Viditelná oblast"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Visible Area"
+#~ msgstr "Viditelná oblast"
+
 #~ msgid "Visualization"
 #~ msgstr "Vizualizace"
+
+#, fuzzy
+#~ msgctxt "/Fx/Volume"
+#~ msgid "Volume"
+#~ msgstr "Hlasitost"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Volume"
+#~ msgstr "Hlasitost"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Volume"
+#~ msgstr "Hlasitost"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/Fx/Volume'"
 #~ msgid "Volume"
 #~ msgstr "Hlasitost"
 
+#, fuzzy
+#~ msgctxt "/Window"
+#~ msgid "Window"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Window"
+#~ msgstr "Nové okno"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Window"
+#~ msgstr "Nové okno"
+
 #~ msgid "Zero"
 #~ msgstr "Nula"
+
+#, fuzzy
+#~ msgctxt "/View/Zoom In"
+#~ msgid "Zoom In"
+#~ msgstr "Přiblížit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Zoom In"
+#~ msgstr "Přiblížit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Zoom In"
+#~ msgstr "Přiblížit"
+
+#, fuzzy
+#~ msgctxt "/View/Zoom Out"
+#~ msgid "Zoom Out"
+#~ msgstr "Oddálit"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Zoom Out"
+#~ msgstr "Oddálit"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Zoom Out"
+#~ msgstr "Oddálit"
+
+#, fuzzy
+#~ msgctxt "/View/Zoom to 100%"
+#~ msgid "Zoom to 100%"
+#~ msgstr "Zvětšit na 100 %"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Zoom to 100%"
+#~ msgstr "Zvětšit na 100 %"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Zoom to 100%"
+#~ msgstr "Zvětšit na 100 %"
 
 #, fuzzy
 #~ msgctxt "menu entry: '/View/Zoom to 100%'"
 #~ msgid "Zoom to 100%"
 #~ msgstr "Zvětšit na 100 %"
+
+#, fuzzy
+#~ msgctxt "/View/Zoom to Selection"
+#~ msgid "Zoom to Selection"
+#~ msgstr "Najet na výběr"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Zoom to Selection"
+#~ msgstr "Najet na výběr"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Zoom to Selection"
+#~ msgstr "Najet na výběr"
+
+#, fuzzy
+#~ msgctxt "/View/Zoom to Whole Signal"
+#~ msgid "Zoom to Whole Signal"
+#~ msgstr "Zvětšit na celý signál"
+
+#, fuzzy
+#~ msgctxt "@menu"
+#~ msgid "Zoom to Whole Signal"
+#~ msgstr "Zvětšit na celý signál"
+
+#, fuzzy
+#~ msgctxt "menu"
+#~ msgid "Zoom to Whole Signal"
+#~ msgstr "Zvětšit na celý signál"
 
 #~ msgid "to be done..."
 #~ msgstr "Je hotovo..."

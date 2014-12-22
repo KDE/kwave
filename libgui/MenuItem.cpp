@@ -43,7 +43,7 @@ Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,
     Q_ASSERT(parent);
     if (!parent) return;
 
-    m_action.setText(i18n(__(name)));
+    m_action.setText(i18nc(__(_("menu: ") + path()), __(name)));
     if (shortcut) m_action.setShortcut(shortcut);
 
     connect(&m_action, SIGNAL(triggered(bool)),

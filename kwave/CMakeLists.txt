@@ -16,22 +16,6 @@
 #############################################################################
 
 #############################################################################
-### generate menus_config_i18n.cpp                                        ###
-
-# check for programs needed by the script
-FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
-
-SET(MENUSCONFIG2CPP ${CMAKE_SOURCE_DIR}/bin/menusconfig2cpp.pl)
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
-    COMMAND ${MENUSCONFIG2CPP}
-        ${CMAKE_CURRENT_SOURCE_DIR}/menus.config
-        ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/menus.config
-    DEPENDS ${MENUSCONFIG2CPP}
-)
-
-#############################################################################
 
 SET(kwave_SRCS
     App.cpp
@@ -43,7 +27,6 @@ SET(kwave_SRCS
     Splash.cpp
     TopWidget.cpp
     ZoomToolBar.cpp
-    ${CMAKE_CURRENT_BINARY_DIR}/menus_config_i18n.cpp
 )
 
 #############################################################################
@@ -93,8 +76,6 @@ QT4_AUTOMOC( ${kwave_SRCS} )
 KDE4_ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
 
 #############################################################################
-
-
 
 TARGET_LINK_LIBRARIES(kwave_core
     kwavegui

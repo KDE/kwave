@@ -143,8 +143,7 @@ I am currently developing under a Gentoo Linux distribution
 * samplerate >= 0.1.3                (for sample rate conversion)
 
 Some tools that are normally installed in every distribution:
-* sed, bash, msgmerge, msgfmt, xgettext, expand, cat,
-  find, bzip2, perl
+* sed, bash, msgcat, msgmerge, msgfmt, xgettext, cat, find, bzip2, perl
 
 Nearly everything from ftp.kde.org, especially the following
 packets should be sufficient for building:

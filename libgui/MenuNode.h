@@ -67,6 +67,9 @@ namespace Kwave
 	 */
 	virtual ~MenuNode();
 
+	/** Returns the path of this menu entry */
+	const QString path() const;
+
 	/** Returns the (non-localized) name of the node. */
 	inline const QString &name() const { return m_name; }
 

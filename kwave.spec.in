@@ -25,7 +25,7 @@
 
 Summary:        @RPM_SUMMARY@
 License:        GPL
-Group:          Productivity/Multimedia/Sound/Editors and Convertors
+Group:          Productivity/Multimedia/Sound/Editors and Converters
 
 Name:           @RPM_NAME@
 Version:        @RPM_SHORT_VERSION@

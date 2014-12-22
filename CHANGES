@@ -22,6 +22,7 @@
  * creating menu translation template directly per perl script instead
    of generated dummy cpp file (requires "msgcat")
  * menu translations: assign a context to each menu entry
+ * bugfix: division through zero on ogg files with invalid bitrate info
 
 0.8.12 [2014-06-04]
 

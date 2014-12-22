@@ -214,7 +214,8 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	if ((br < 0) && (m_vi.bitrate_lower   > 0)) br = m_vi.bitrate_lower;
 	qint64 file_size       = m_source->size();
 	qreal rate             = m_vi.rate;
-	qreal seconds          = file_size / (br / 8);
+	qreal seconds          = (br > 0) ? (file_size / (br / 8)) :
+	                                     DEFAULT_BITRATE;
 	sample_index_t samples = static_cast<sample_index_t>(seconds * rate);
 
 	qDebug("    estimated length: %llu samples", samples);

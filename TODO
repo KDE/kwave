@@ -1,6 +1,4 @@
 
-o toolbar: copy and cut should be enabled only if there is a selection
-
 o recording via Phonon
 
 o auto-detect song borders set markers, for splitting recorded stuff into several
@@ -168,7 +166,7 @@ o port from id3lib to taglib
       produce a lot of work
 
 o switch to use float as sample_t (requires much work...)
-  -> version 0.9
+  -> version 0.9.x
 
 o about plugin: auto-scroll for contents
 

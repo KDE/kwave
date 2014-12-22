@@ -17,6 +17,8 @@
                     kwave:plugin%3Aexecute?normalize \
                     kwave:save \
                     kwave:quit
+ * using perl scripts creating for i18n from menus.config and for getting
+   entries from lsm files, no longer need awk, sort, uniq
 
 0.8.12 [2014-06-04]
 

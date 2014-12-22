@@ -107,9 +107,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	VERSION						(should be GPL2+)
 	CMakeLists.txt					GPL2+
 
-	bin/get_lsm_entry.sh				GPL2+
+	bin/get_lsm_entry.pl				GPL2+
 	bin/make-specfile-changelog.pl			GPL2+
-	bin/menusconfig2cpp.sh				GPL2+
+	bin/menusconfig2cpp.pl				GPL2+
 	bin/set_version.sh				GPL2+ / portions of Martin Wilz
 
 	cmake/Copyright.txt				Kitware (cmake)

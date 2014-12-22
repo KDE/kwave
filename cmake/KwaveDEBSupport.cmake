@@ -24,7 +24,7 @@ FIND_PROGRAM(CHECKINSTALL_EXECUTABLE NAMES checkinstall)
 ### macro for extracting a field from the kwave.lsm file                  ###
 
 MACRO(GET_LSM _var _field)
-    SET(_get_lsm ${CMAKE_SOURCE_DIR}/bin/get_lsm_entry.sh)
+    SET(_get_lsm ${CMAKE_SOURCE_DIR}/bin/get_lsm_entry.pl)
     SET(_lsm ${CMAKE_SOURCE_DIR}/kwave.lsm)
     EXECUTE_PROCESS(
         COMMAND ${_get_lsm} ${_lsm} ${_field}

@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/usr/bin/perl
 ############################################################################
-#   get_lsm_entry - gets the value of an entry in an lsm file
+#   get_lsm_entry.pl - gets the value of an entry in an lsm file
 #                            -------------------
-#   begin                : Sun Mar 05 2000
-#   copyright            : (C) 2000 by Thomas Eschenbacher
+#   begin                : Sun Dec 21 2014
+#   copyright            : (C) 2014 by Thomas Eschenbacher
 #   email                : Thomas.Eschenbacher@gmx.de
 ############################################################################
 #
@@ -15,21 +15,23 @@
 #    (at your option) any later version.                                   #
 #                                                                          #
 ############################################################################
-#
-# parameters:
-# stdin
-# $1 full path to the lsm file
-# $2 name of the lsm entry
-#
-# NOTE: this should be regarded to be a quick hack, only few error checking
-#       is performed !!!
 
-# uncomment this for debugging
-# set -x
+open (IN,  "<$ARGV[0]") or die("open input file failed");
+my $entry = $ARGV[1];
 
-cat $1 | awk -v field=$2: ' \
-    { p=index($0, field) } \
-    { if (p==1) print substr($0,length(field)+1) }' | sed s/^\[\ \]\*//g
+while (<IN>) {
+    my $line = $_;
 
-# | awk '{ print $1 }'
+    $line =~ s/\s+$//;
+    $line =~ s/^\s+|\s+$//g;
 
+    $line =~ /^($entry)(:\s*)(.*)(\s*$)/;
+    if ($1 eq $entry) {
+	print $3 . "\n";
+	exit 0;
+    }
+}
+
+exit -1;
+
+### EOF ###

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-22 10:03+0100\n"
+"POT-Creation-Date: 2014-12-22 10:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3647,6 +3647,23 @@ msgstr ""
 msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
+#: libgui/ui_HMSTimeWidgetBase.h:77
+msgid "HMSTimeWidgetBase"
+msgstr ""
+
+#: libgui/ui_HMSTimeWidgetBase.h:78
+msgid " h"
+msgstr ""
+
+#: libgui/ui_HMSTimeWidgetBase.h:79
+msgid " min"
+msgstr ""
+
+#: libgui/ui_HMSTimeWidgetBase.h:80 plugins/record/ui_RecordDlg.h:946
+#: plugins/record/ui_RecordDlg.h:947
+msgid " sec"
+msgstr ""
+
 #: libgui/ui_LabelPropertiesWidgetBase.h:150
 msgid "Label Properties..."
 msgstr ""
@@ -3691,23 +3708,6 @@ msgid ""
 "This is just a numeric index of the label, starting with zero, sorted by "
 "position. Lower index means 'left', higher index means 'right'. You cannot "
 "change the index itself, but change the label's position."
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:77
-msgid "HMSTimeWidgetBase"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:78
-msgid " h"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:79
-msgid " min"
-msgstr ""
-
-#: libgui/ui_HMSTimeWidgetBase.h:80 plugins/record/ui_RecordDlg.h:946
-#: plugins/record/ui_RecordDlg.h:947
-msgid " sec"
 msgstr ""
 
 #: plugins/about/ui_AboutDialogBase.h:282

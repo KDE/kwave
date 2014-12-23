@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2014-12-23 10:21+0000\n"
-"PO-Revision-Date: 2014-06-01 14:59+0200\n"
+"PO-Revision-Date: 2014-12-23 17:00+0100\n"
 "Last-Translator: skynet\n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
 "Language: es\n"
@@ -163,6 +163,7 @@ msgstr ""
 #, no-c-format
 msgid "a user interface that can be switched to SDI, MDI or Tab mode"
 msgstr ""
+"una interfaz de usuario que puede ser cambiada a modo SDI, MDI o pestañas."
 
 #. Tag: para
 #: help_en.docbook:100
@@ -2126,12 +2127,18 @@ msgid ""
 "through the menu <menuchoice> <guimenu>Settings</guimenu><guimenuitem>Show "
 "Files in...</guimenuitem> </menuchoice>."
 msgstr ""
+"Dependiendo de sus preferencias personales o casos de uso usted puede "
+"configurar "
+"como &kwave; maneja multiples archivos abiertos. Puede cambiar las opciones "
+"al instante a través del menú <menuchoice> <guimenu>Opciones</guimenu><"
+"guimenuitem>Mostrar "
+"archivos en...</guimenuitem> </menuchoice>."
 
 #. Tag: para
 #: help_en.docbook:1175
 #, no-c-format
 msgid "The three possible settings are:"
-msgstr ""
+msgstr "Las tres opciones disponibles son:"
 
 #. Tag: para
 #: help_en.docbook:1179
@@ -2141,6 +2148,9 @@ msgid ""
 "<emphasis>Single Document Interface</emphasis> (SDI), each file will be "
 "shown in a separate main window."
 msgstr ""
+"<guimenuitem>Ventanas separadas (SDI)</guimenuitem>: Al usar el modo "
+"<emphasis>Single Document Interface</emphasis> (SDI), cada archivo será "
+"mostrado en una ventana independiente."
 
 #. Tag: screeninfo
 #: help_en.docbook:1183
@@ -2163,6 +2173,14 @@ msgid ""
 "but within this window you have an area which shows sub windows, which can "
 "be resized, moved, tiled, cascaded or minimized."
 msgstr ""
+"<guimenuitem>Misma ventana (MDI)</guimenuitem>: Al usar el modo <emphasis>"
+"Multi "
+"Document Interface</emphasis> (MDI), sólo habrá una única ventana de &kwave "
+"pero "
+"dentro de dicha ventana dispondrá de un area que mostrará subventanas, cada "
+"una de "
+"las cuales podrá ser manipulada en tamaño, posición y organizada en vista en "
+"cascada o minimizada."
 
 #. Tag: para
 #: help_en.docbook:1204
@@ -2172,6 +2190,11 @@ msgid ""
 "through the sub windows with <keycombo><keysym>Ctrl</keysym><keysym>Tab</"
 "keysym></keycombo>."
 msgstr ""
+"Puede seleccionar una ventana desde el menú <guimenu>Ventanas</guimenu> o "
+"recorrerlas"
+"en ciclo a traves de la combinación de teclas <keycombo><keysym>Ctrl</keysym>"
+"<keysym>Tab</"
+"keysym></keycombo>."
 
 #. Tag: screeninfo
 #: help_en.docbook:1209
@@ -2193,6 +2216,11 @@ msgid ""
 "where files are shown within separate tabs. You may know this mode from some "
 "popular internet browsers."
 msgstr ""
+"<guimenuitem>Pestañas</guimenuitem>: Esta es una variante de la interfaz MDI "
+"donde "
+"los archivos son mostrados en pestañas independientes. Este modo es utilizado "
+"por "
+" ciertos navegadores de internet."
 
 #. Tag: para
 #: help_en.docbook:1229
@@ -2202,6 +2230,10 @@ msgid ""
 "through the tabs with <keycombo><keysym>Ctrl</keysym><keysym>Tab</keysym></"
 "keycombo>."
 msgstr ""
+"Puede activar una pestaña a través del menú <guimenu>Ventanas</guimenu> o"
+"recorrerlas a traves de la combinación de teclas <keycombo><keysym>Ctrl<"
+"/keysym><keysym>Tab</"
+"keysym></keycombo>."
 
 #. Tag: screeninfo
 #: help_en.docbook:1234

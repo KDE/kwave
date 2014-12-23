@@ -58,6 +58,7 @@
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
+#include "libkwave/FileDrag.h"
 #include "libkwave/Plugin.h" // for some helper functions
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"
@@ -156,6 +157,8 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
     if (iconic) {
 	showMinimized();
     }
+
+    setAcceptDrops(true); // enable drag&drop
 
     // direct all kind of focus to this window per default
     setFocusPolicy(Qt::WheelFocus);
@@ -1457,6 +1460,45 @@ void Kwave::TopWidget::subWindowDeleted(QObject *obj)
     } else {
 	// remove the context
 	delete context;
+    }
+}
+
+//***************************************************************************
+void Kwave::TopWidget::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (!event) return;
+    if ((event->proposedAction() != Qt::MoveAction) &&
+        (event->proposedAction() != Qt::CopyAction))
+        return; /* unsupported action */
+
+    if (Kwave::FileDrag::canDecode(event->mimeData()))
+	event->acceptProposedAction();
+}
+
+//***************************************************************************
+void Kwave::TopWidget::dropEvent(QDropEvent *event)
+{
+    if (!event) return;
+    if (!event->mimeData()) return;
+
+    if (event->mimeData()->hasUrls()) {
+	bool first = true;
+	foreach (QUrl url, event->mimeData()->urls()) {
+	    QString filename = url.toLocalFile();
+	    QString mimetype = Kwave::CodecManager::whatContains(filename);
+	    if (Kwave::CodecManager::canDecode(mimetype)) {
+		if (first) {
+		    // first dropped URL -> open in this window
+		    forwardCommand(_("open(%1)").arg(
+			Kwave::Parser::escape(filename)));
+		    first = false;
+		} else {
+		    // all others -> open a new window
+		    forwardCommand(_("newwindow(%1)").arg(
+			Kwave::Parser::escape(filename)));
+		}
+	    }
+	}
     }
 }
 

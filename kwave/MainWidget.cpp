@@ -274,29 +274,7 @@ void Kwave::MainWidget::dropEvent(QDropEvent *event)
 	    qWarning("MainWidget::dropEvent(%s): failed !", event->format(0));
 	    event->ignore();
 	}
-    } else if (event->mimeData()->hasUrls()) {
-	bool first = true;
-	foreach (QUrl url, event->mimeData()->urls()) {
-	    QString filename = url.toLocalFile();
-	    QString mimetype = Kwave::CodecManager::whatContains(filename);
-	    if (Kwave::CodecManager::canDecode(mimetype)) {
-		if (first) {
-		    // first dropped URL -> open in this window
-		    emit sigCommand(_("open(") +
-		                    Kwave::Parser::escape(filename) +
-		                    _(")"));
-		    first = false;
-		} else {
-		    // all others -> open a new window
-		    emit sigCommand(_("newwindow(") +
-		                    Kwave::Parser::escape(filename) +
-		                    _(")"));
-		}
-	    }
-	}
     }
-
-    qDebug("MainWidget::dropEvent(): done");
 }
 
 //***************************************************************************

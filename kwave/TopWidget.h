@@ -39,6 +39,8 @@
 #include "FileContext.h"
 
 class QCloseEvent;
+class QDragEnterEvent;
+class QDropEvent;
 class QLabel;
 class QMdiSubWindow;
 class QTextStream;
@@ -147,6 +149,15 @@ namespace Kwave
 
 	/** @see QWidget::closeEvent() */
 	virtual void closeEvent(QCloseEvent *e);
+
+	/** @see Qt XDND documentation */
+	virtual void dragEnterEvent(QDragEnterEvent *event);
+
+	/**
+	 * For dropping data into an empty signal
+	 * @see Qt XDND documentation
+	 */
+	virtual void dropEvent(QDropEvent *event);
 
     private slots:
 

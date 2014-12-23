@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-22 09:48+0100\n"
-"PO-Revision-Date: 2014-12-22 09:52+0100\n"
+"PO-Revision-Date: 2014-12-23 14:54+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -1643,7 +1643,7 @@ msgstr "Carlos R."
 #: kwave/menus.config:235
 msgctxt "menu: /Window/Cascade Sub Windows"
 msgid "Cascade Sub Windows"
-msgstr "Unterfenster kacheln"
+msgstr "Unterfenster überlappend anordnen"
 
 #: kwave/main.cpp:55
 msgid "Caulier Gilles"

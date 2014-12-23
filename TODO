@@ -11,6 +11,8 @@ o add some "did you know..." dialog to the application startup, to inform
 
 o in MDI mode: new menu entry + function for to arrange sub windows vertically
 
+o add command line parameter for selecting the GUI type
+
 o proper channel mixing matrix for well-known track numbers and file formats
   (e.g. wav or vorbis)
 

@@ -561,6 +561,11 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 	context = newFileContext();
 	Q_ASSERT(context);
 	if (!context) return;
+	if ( (m_application.guiType() == Kwave::App::GUI_SDI) &&
+	     !context->mainWidget() )
+	{
+	    context->createMainWidget(geometry().size() * 0.85);
+	}
 	m_context_map.remove(0); // prevent it from getting removed again
     }
 

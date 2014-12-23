@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-12-23 10:21+0000\n"
+"POT-Creation-Date: 2014-12-23 11:04+0000\n"
 "PO-Revision-Date: 2014-12-23 11:39+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -167,8 +167,8 @@ msgstr ""
 #, no-c-format
 msgid "a user interface that can be switched to SDI, MDI or Tab mode"
 msgstr ""
-"eine Benutzerschnittstelle die zwischen SDI-, MDI- und Tab-Modus umgeschaltet "
-"werden kann"
+"eine Benutzerschnittstelle die zwischen SDI-, MDI- und Tab-Modus "
+"umgeschaltet werden kann"
 
 #. Tag: para
 #: help_en.docbook:100
@@ -2161,11 +2161,10 @@ msgid ""
 "Files in...</guimenuitem> </menuchoice>."
 msgstr ""
 "Sie können je nach Ihren persönlichen Vorlieben oder Anwendungsfällen "
-"einstellen "
-"wie sich &kwave; beim Öffnen mehrerer Dateien verhält. Sie können diese "
-"Einstellung "
-"jederzeit über das Untermenü <menuchoice> <guimenu>Einstellungen</guimenu><"
-"guimenuitem>Zeige Dateien in...</guimenuitem> </menuchoice> vornehmen."
+"einstellen wie sich &kwave; beim Öffnen mehrerer Dateien verhält. Sie können "
+"diese Einstellung jederzeit über das Untermenü <menuchoice> "
+"<guimenu>Einstellungen</guimenu><guimenuitem>Zeige Dateien in...</"
+"guimenuitem> </menuchoice> vornehmen."
 
 #. Tag: para
 #: help_en.docbook:1175
@@ -2182,8 +2181,8 @@ msgid ""
 "shown in a separate main window."
 msgstr ""
 "<guimenuitem>In separaten Fenstern (SDI)</guimenuitem>: Wenn Sie das "
-"<emphasis>Single Document Interface</emphasis> (SDI), verwenden, wird "
-"jede Datei in einem separaten Fenster angezeigt."
+"<emphasis>Single Document Interface</emphasis> (SDI), verwenden, wird jede "
+"Datei in einem separaten Fenster angezeigt."
 
 #. Tag: screeninfo
 #: help_en.docbook:1183
@@ -2207,9 +2206,9 @@ msgid ""
 "be resized, moved, tiled, cascaded or minimized."
 msgstr ""
 "<guimenuitem>im gleichen Fenster (MDI)</guimenuitem>: Wenn Sie das "
-"<emphasis>Multi Document Interface</emphasis> (MDI), verwenden, "
-"dann gibt es nur ein einziges &kwave;-Hauptfenster das jedoch einen Bereich "
-"enthält in dem Unterfenster angezeigt werden die Sie vergrößern, verkleinern, "
+"<emphasis>Multi Document Interface</emphasis> (MDI), verwenden, dann gibt es "
+"nur ein einziges &kwave;-Hauptfenster das jedoch einen Bereich enthält in "
+"dem Unterfenster angezeigt werden die Sie vergrößern, verkleinern, "
 "verschieben, staffeln oder minimieren können."
 
 #. Tag: para
@@ -2245,9 +2244,8 @@ msgid ""
 "where files are shown within separate tabs. You may know this mode from some "
 "popular internet browsers."
 msgstr ""
-"<guimenuitem>Tabs</guimenuitem>: Dies ist eine Variante des MDI-Modus, "
-"in dem Dateien in einzelnen Karteireitern dargestellt werden. Sie kennen "
-"diesen "
+"<guimenuitem>Tabs</guimenuitem>: Dies ist eine Variante des MDI-Modus, in "
+"dem Dateien in einzelnen Karteireitern dargestellt werden. Sie kennen diesen "
 "Modus wahrscheinlich von einigen gängigen Internet-Browsern."
 
 #. Tag: para
@@ -2258,10 +2256,9 @@ msgid ""
 "through the tabs with <keycombo><keysym>Ctrl</keysym><keysym>Tab</keysym></"
 "keycombo>."
 msgstr ""
-"Sie können einen Tab über das <guimenu>Fenster</guimenu>-Menü aktivieren oder "
-"mit der Tastenkombination <keycombo><keysym>Strg</keysym><keysym>Tab</keysym>"
-"</"
-"keycombo> zwischen den Tabs wechseln."
+"Sie können einen Tab über das <guimenu>Fenster</guimenu>-Menü aktivieren "
+"oder mit der Tastenkombination <keycombo><keysym>Strg</keysym><keysym>Tab</"
+"keysym></keycombo> zwischen den Tabs wechseln."
 
 #. Tag: screeninfo
 #: help_en.docbook:1234
@@ -2383,9 +2380,8 @@ msgstr ""
 "von Dateien angeben, die geöffnet werden sollen. Die erste angegebene Datei "
 "wird dabei zuerst geöffnet und dann die anderen. Jede Datei wird dabei in "
 "einem neuen eigenen Fenster oder Unterfenster der selben &kwave; Instanz "
-"geöffnet. Wenn Sie "
-"Platzhalter-Zeichen verwenden, können Sie eine grosse Anzahl von Dateien auf "
-"einmal öffnen."
+"geöffnet. Wenn Sie Platzhalter-Zeichen verwenden, können Sie eine grosse "
+"Anzahl von Dateien auf einmal öffnen."
 
 #. Tag: para
 #: help_en.docbook:1321
@@ -2395,8 +2391,8 @@ msgid ""
 "the KDE window manager, each in a new window or sub window:"
 msgstr ""
 "So startet zum Beispiel der folgende Befehl &kwave; und öffnet alle "
-"Klangdateien "
-"des KDE-Fenstermanagers in jeweils einem eigenen Fenster oder Unterfenster:"
+"Klangdateien des KDE-Fenstermanagers in jeweils einem eigenen Fenster oder "
+"Unterfenster:"
 
 #. Tag: screen
 #: help_en.docbook:1324

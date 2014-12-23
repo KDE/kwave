@@ -90,16 +90,13 @@
 
 <chapter id="introduction"><title>Introduction</title>
 
-    <!-- The introduction chapter contains a brief introduction for
-    the application that explains what it does, where to get new
-    versions of the app, where to report problems, and a brief
-    revision history of the app.
-    Basically a long version of the abstract. -->
-
     <para>
     	This is "&kwave;", a simple sound editor for KDE-4.
 	Its features include:
 	<itemizedlist>
+    	<listitem><para>
+	    a user interface that can be switched to SDI, MDI or Tab mode
+	</para></listitem>
     	<listitem><para>
 	    simple cut, copy and paste functions
 	</para></listitem>
@@ -1220,6 +1217,98 @@
     </para>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: User Interface Selection                              +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <sect1 id="gui-setup"><title>User Interface Type</title>
+
+    <para>
+	Depending on your personal preferences or use cases you can configure
+	how &kwave; handles multiple open files. You can switch this setting
+	on the fly through the menu
+       <menuchoice>
+       <guimenu>Settings</guimenu><guimenuitem>Show Files in...</guimenuitem>
+       </menuchoice>.
+    </para>
+
+    <para>
+	The three possible settings are:
+	<itemizedlist>
+	    <listitem>
+		<para><guimenuitem>Separate Windows (SDI)</guimenuitem>:
+		    When using the <emphasis>Single Document Interface</emphasis>
+		    (SDI), each file will be shown in a separate main window.
+		    <screenshot>
+			<screeninfo>
+			    screenshot of &kwave; in SDI mode
+			</screeninfo>
+			<mediaobject>
+			    <imageobject>
+				<imagedata fileref="kwave-gui-sdi.png" format="PNG"/>
+			    </imageobject>
+			    <textobject>
+				<phrase>Screenshot of SDI mode</phrase>
+			    </textobject>
+			</mediaobject>
+		    </screenshot>
+	        </para>
+	    </listitem>
+	    <listitem>
+		<para><guimenuitem>Same Window (MDI)</guimenuitem>:
+		    When using the <emphasis>Multi Document Interface</emphasis>
+		    (MDI), there is only one &kwave; main window, but within this
+		    window you have an area which shows sub windows, which
+		    can be resized, moved, tiled, cascaded or minimized.
+		</para>
+		<para>
+		    You can select a window from the <guimenu>Windows</guimenu>
+		    menu or cycle through the sub windows with
+		    <keycombo><keysym>Ctrl</keysym><keysym>Tab</keysym></keycombo>.
+		    <screenshot>
+			<screeninfo>
+			    screenshot of &kwave; in MDI mode
+			</screeninfo>
+			<mediaobject>
+			    <imageobject>
+				<imagedata fileref="kwave-gui-mdi.png" format="PNG"/>
+			    </imageobject>
+			    <textobject>
+				<phrase>Screenshot of MDI mode</phrase>
+			    </textobject>
+			</mediaobject>
+		    </screenshot>
+	        </para>
+	    </listitem>
+	    <listitem>
+		<para><guimenuitem>Tabs</guimenuitem>:
+		    This is a variant of the MDI interface, where files are
+		    shown within separate tabs. You may know this mode from
+		    some popular internet browsers.
+		</para>
+		<para>
+		    You can activate a tab via the <guimenu>Windows</guimenu>
+		    menu or cycle through the tabs with
+		    <keycombo><keysym>Ctrl</keysym><keysym>Tab</keysym></keycombo>.
+		    <screenshot>
+			<screeninfo>
+			    screenshot of &kwave; in TAB mode
+			</screeninfo>
+			<mediaobject>
+			    <imageobject>
+				<imagedata fileref="kwave-gui-tab.png" format="PNG"/>
+			    </imageobject>
+			    <textobject>
+				<phrase>Screenshot of TAB mode</phrase>
+			    </textobject>
+			</mediaobject>
+		    </screenshot>
+	        </para>
+	    </listitem>
+	</itemizedlist>
+    </para>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Memory Setup                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <sect1 id="memory-setup"><title>Memory Setup</title>
@@ -1229,7 +1318,7 @@
        setup dialog an modify the settings to be suitable for yor needs
        and the installed memory of your computer. You can reach it under
        <menuchoice>
-       <guimenu>Options</guimenu><guimenuitem>Memory...</guimenuitem>
+       <guimenu>Settings</guimenu><guimenuitem>Memory...</guimenuitem>
        </menuchoice>.
     </para>
     <para>
@@ -1284,12 +1373,12 @@
     If you start &kwave; from the command line, you can specify a list
     of files that should be opened. The first specified file will be opened
     first, then the other files. Each file will be opened in an own new
-    window of the same &kwave; instance. If you specify wildcards, you can
-    open a large number of files at once.
+    window or sub window of the same &kwave; instance. If you specify
+    wildcards, you can open a large number of files at once.
     </para>
     <para>
     For example, the following command starts a &kwave; and opens all sounds
-    of the KDE window manager, each in a new window:
+    of the KDE window manager, each in a new window or sub window:
     <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
     </para>
 
@@ -1304,7 +1393,7 @@
     <para>
     For example, the following command starts a &kwave; window with an initial
     width of 600 pixels and a height of 400 pixels, with the right border
-    positioned 30 pixels away from the right and 0 pixels away form the top
+    positioned 30 pixels away from the right and 0 pixels away from the top
     of the screen.
     <screen><prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
     </para>
@@ -2384,21 +2473,6 @@
 
 </chapter>
 
-<!-- ###################################################################### -->
-<!-- ### Chapter: Command Reference                                     ### -->
-<!-- ###################################################################### -->
-
-<!-- @@@ still to be done ... @@@
-<chapter id="commands"><title>Command Reference</title>
-
-    < ! - - (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
-    application windows and their menubar and toolbar commands for easy reference.
-    Also include any keys that have a special function but have no equivalent in the
-    menus or toolbars. This may not be necessary for small apps or apps with no tool
-    or menu bars. - - >
-
-    <para></para>
--->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: The main Kwave window                                 +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -2485,10 +2559,6 @@
 <!-- ###################################################################### -->
 
 <chapter id="developers"><title>Developer's Guide to &kwave;</title>
-
-    <!-- (OPTIONAL) A Programming/Scripting reference chapter should be
-    used for apps that use plugins or that provide their own scripting hooks
-    and/or development libraries. -->
 
     <para>
 	<inlinemediaobject>

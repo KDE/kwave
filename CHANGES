@@ -1,6 +1,6 @@
-0.8.13 [2014-xx-xx]
+0.8.99 [2014-12-xx]
 
- * GUI: implemented SDI, MDI and Tab GUI modes
+ * GUI: implemented SDI, MDI and Tab GUI types
  * bugfix: deadlock in class Track
  * bugfix: segfault during shutdown of logger
  * bugfix: segfault when unloading plugins (on some systems)
@@ -23,6 +23,7 @@
    of generated dummy cpp file (requires "msgcat")
  * menu translations: assign a context to each menu entry
  * bugfix: division through zero on ogg files with invalid bitrate info
+ * manual: added section about GUI types
 
 0.8.12 [2014-06-04]
 

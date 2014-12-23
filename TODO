@@ -9,6 +9,8 @@ o detect song titles / metadata by using musicbrainz
 o add some "did you know..." dialog to the application startup, to inform
   the user about news (like MDI GUI) or tips and tricks
 
+o in MDI mode: new menu entry + function for to arrange sub windows vertically
+
 o proper channel mixing matrix for well-known track numbers and file formats
   (e.g. wav or vorbis)
 

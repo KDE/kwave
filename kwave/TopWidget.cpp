@@ -206,7 +206,8 @@ Kwave::FileContext *Kwave::TopWidget::newFileContext()
     Q_ASSERT(m_toolbar_zoom);
     if (!m_toolbar_zoom) return 0;
 
-    Kwave::FileContext *context = new Kwave::FileContext(m_application);
+    Kwave::FileContext *context =
+	new(std::nothrow) Kwave::FileContext(m_application);
     if (!context) return 0;
     if (!context->init(this)) {
 	delete context;
@@ -581,7 +582,6 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 		m_context_map.remove(0);
 		if (ctx) {
 		    ctx->disconnect();
-		    ctx->setParent(0);
 		    ctx->deleteLater();
 		}
 	    }
@@ -789,10 +789,10 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 }
 
 //***************************************************************************
-void Kwave::TopWidget::forwardCommand(const QString &command)
+int Kwave::TopWidget::forwardCommand(const QString &command)
 {
     Kwave::FileContext *context = currentContext();
-    if (context) context->executeCommand(command);
+    return (context) ? context->executeCommand(command) : EAGAIN;
 }
 
 //***************************************************************************
@@ -872,12 +872,12 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const KUrl &url)
 		    m_context_map.remove(0);
 		}
 		context->disconnect();
-		context->setParent(0);
 		context->deleteLater();
 	    }
 
 	    // create a new file context
 	    context = newFileContext();
+
 	    if (!context) return -1;
 
 	    // create a main widget
@@ -895,18 +895,18 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const KUrl &url)
 //***************************************************************************
 int Kwave::TopWidget::loadFile(const KUrl &url)
 {
+    Kwave::FileContext *context = currentContext();
+
     // special handling for kwave: URLs
     if (url.scheme().toLower() == Kwave::urlScheme()) {
 	QString cmd = Kwave::Parser::fromUrl(url);
 	Kwave::Logger::log(this, Kwave::Logger::Info,
 	    _("CMD: from command line: '") + cmd + _("'"));
 	Kwave::Splash::showMessage(i18n("Executing command '%1'...", cmd));
-	return executeCommand(cmd);
+	return (context) ? context->executeCommand(cmd) : executeCommand(cmd);
     }
 
-    Kwave::FileContext *context = currentContext();
     if (!context) return -1;
-
     Kwave::SignalManager *signal_manager = context->signalManager();
     Q_ASSERT(signal_manager);
 

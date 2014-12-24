@@ -307,7 +307,6 @@ bool Kwave::RIFFParser::parse(Kwave::RIFFChunk *parent,
     Kwave::RIFFChunkList found_chunks;
 
     Q_ASSERT(parent);
-    Q_ASSERT(!m_dev.isSequential());
     if (m_dev.isSequential()) return false;
     if (!parent) return false;
 

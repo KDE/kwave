@@ -100,6 +100,15 @@ namespace Kwave
 	QList<Kwave::App::FileAndInstance> openFiles() const;
 
 	/**
+	 * Returns the currently active file context (corresponds to a MDI
+	 * sub window or tab in MDI / TAB mode). In SDI mode, m_context_map
+	 * contains only one element, the current context (reachable per index
+	 * null).
+	 * @return pointer to a active FileContext within m_context_map
+	 */
+	Kwave::FileContext *currentContext() const;
+
+	/**
 	 * Detaches all file contexts from this instance
 	 * @return a list of Kwave::FileContext pointers (non-null)
 	 */
@@ -142,8 +151,12 @@ namespace Kwave
 	 * the currently active context below us (which is the main
 	 * entry point for all text commands)
 	 * @param command a text command
+	 * @retval 0 if succeeded
+	 * @retval negative error code if failed
+	 * @retval EAGAIN if there is no "current" context (yet)
+	 * @retval ENOSYS if the command is unknown in this component
 	 */
-	void forwardCommand(const QString &command);
+	int forwardCommand(const QString &command);
 
     protected slots:
 
@@ -203,69 +216,43 @@ namespace Kwave
 	/** updates all elements in the toolbar */
 	void updateToolbar();
 
-	void toolbarRecord() {
-	    forwardCommand(_("plugin(record)"));
-	}
+	void toolbarRecord()     { forwardCommand(_("plugin(record)")); }
 
 	/** toolbar: "file/new" */
-	void toolbarFileNew() {
-	    forwardCommand(_("plugin(newsignal)"));
-	}
+	void toolbarFileNew()    { forwardCommand(_("plugin(newsignal)")); }
 
 	/** toolbar: "file/open" */
-	void toolbarFileOpen() {
-	    forwardCommand(_("open () "));
-	}
+	void toolbarFileOpen()   { forwardCommand(_("open () ")); }
 
 	/** toolbar: "file/save" */
-	void toolbarFileSave() {
-	    forwardCommand(_("save () "));
-	}
+	void toolbarFileSave()   { forwardCommand(_("save () ")); }
 
 	/** toolbar: "file/save" */
-	void toolbarFileSaveAs() {
-	    forwardCommand(_("saveas () "));
-	}
+	void toolbarFileSaveAs() { forwardCommand(_("saveas () ")); }
 
 	/** toolbar: "file/save" */
-	void toolbarFileClose() {
-	    forwardCommand(_("close () "));
-	}
+	void toolbarFileClose()  { forwardCommand(_("close () ")); }
 
 	/** toolbar: "edit/undo" */
-	void toolbarEditUndo() {
-	    forwardCommand(_("undo () "));
-	}
+	void toolbarEditUndo()   { forwardCommand(_("undo () ")); }
 
 	/** toolbar: "edit/redo" */
-	void toolbarEditRedo() {
-	    forwardCommand(_("redo () "));
-	}
+	void toolbarEditRedo()   { forwardCommand(_("redo () ")); }
 
 	/** toolbar: "edit/cut" */
-	void toolbarEditCut() {
-	    forwardCommand(_("cut () "));
-	}
+	void toolbarEditCut()    { forwardCommand(_("cut () ")); }
 
 	/** toolbar: "edit/copy" */
-	void toolbarEditCopy() {
-	    forwardCommand(_("copy () "));
-	}
+	void toolbarEditCopy()   { forwardCommand(_("copy () ")); }
 
 	/** toolbar: "edit/paste" */
-	void toolbarEditPaste() {
-	    forwardCommand(_("paste () "));
-	}
+	void toolbarEditPaste()  { forwardCommand(_("paste () ")); }
 
 	/** toolbar: "edit/erase" */
-	void toolbarEditErase() {
-	    forwardCommand(_("plugin(zero)"));
-	}
+	void toolbarEditErase()  { forwardCommand(_("plugin(zero)")); }
 
 	/** toolbar: "edit/delete" */
-	void toolbarEditDelete() {
-	    forwardCommand(_("delete () "));
-	}
+	void toolbarEditDelete() { forwardCommand(_("delete () ")); }
 
 	/**
 	 * called if the signal now or no longer is modified
@@ -304,15 +291,6 @@ namespace Kwave
 	void sigFileContextSwitched(Kwave::FileContext *context);
 
     private:
-
-	/**
-	 * Returns the currently active file context (corresponds to a MDI
-	 * sub window or tab in MDI / TAB mode). In SDI mode, m_context_map
-	 * contains only one element, the current context (reachable per index
-	 * null).
-	 * @return pointer to a active FileContext within m_context_map
-	 */
-	Kwave::FileContext *currentContext() const;
 
 	/**
 	 * Opens a new empty window.

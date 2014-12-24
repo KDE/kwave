@@ -590,10 +590,6 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	if (line.startsWith(_("#"))) continue; // skip comments
 	if (!line.length()) continue;       // skip empty lines
 
-	// remove stuff after the "#'" (comments)
-	if (line.contains(QLatin1Char('#'))) {
-	}
-
 	if (line.endsWith(QLatin1Char(':'))) {
 	    // this line seems to be a "label"
 	    line = line.left(line.length() - 1).simplified();
@@ -647,7 +643,17 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	// process the command in the current context
 	// NOTE: this could theoretically also be a command that modifies
 	//       or even deletes the current context!
-	result = executeCommand(line);
+	result = EAGAIN;
+	if (m_top_widget && (m_top_widget->currentContext() != this))
+	    result = m_top_widget->forwardCommand(line);
+
+	// If the call returned with EAGAIN, then the context in duty is
+	// different from this instance but not yet completely set up.
+	// In that case this context is still responsible for executing the
+	// current command.
+	if (result == EAGAIN)
+	    result = executeCommand(line);
+
 	if (result)
 	    qDebug(">>> '%s' - result=%d", DBG(line), result);
 
@@ -908,7 +914,11 @@ bool Kwave::FileContext::closeFile()
 	case Kwave::App::GUI_MDI: /* FALLTHROUGH */
 	case Kwave::App::GUI_TAB:
 	    // close the main widget
-	    if (m_main_widget) m_main_widget->deleteLater();
+	    if (m_main_widget) {
+		m_main_widget->close();
+		delete m_main_widget;
+		m_main_widget = 0;
+	    }
 	    break;
 	case Kwave::App::GUI_SDI:
 	    break;

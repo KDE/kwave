@@ -25,6 +25,7 @@
  * menu translations: assign a context to each menu entry
  * bugfix: division through zero on ogg files with invalid bitrate info
  * manual: added section about GUI types
+ * i18n: translations were missing in kwave.desktop
 
 0.8.12 [2014-06-04]
 

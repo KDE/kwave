@@ -792,7 +792,16 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 int Kwave::TopWidget::forwardCommand(const QString &command)
 {
     Kwave::FileContext *context = currentContext();
-    return (context) ? context->executeCommand(command) : EAGAIN;
+    if (!context) return EAGAIN;
+
+    // execute the command in the current context
+    int retval = context->executeCommand(command);
+
+    // synchronize after the command
+    Kwave::PluginManager *plugin_manager = context->pluginManager();
+    if (plugin_manager) plugin_manager->sync();
+
+    return retval;
 }
 
 //***************************************************************************

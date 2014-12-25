@@ -7,6 +7,7 @@
  * bugfix: "zoom to selection" was not disabled if nothing was selected
  * bugfix: toolbar buttons for cut/copy/erase/delete did not properly get
    enabled/disabled on change of selection
+ * bugfix: overview widget did not properly refresh after deleting all tracks
  * menu subsystem: added support for lists within a menu
  * menu subsystem: show/hide toplevel menu entries
  * menu subsystem: added support for exclusive selection (radio buttons)

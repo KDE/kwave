@@ -627,7 +627,8 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 		if (!sub) return;
 		sub->adjustSize();
 
-		if (m_context_map.contains(0)) m_context_map.remove(0);
+		if (m_context_map.contains(0))
+		    m_context_map.remove(0);
 		m_context_map[sub] = context;
 
 		connect(context->mainWidget(), SIGNAL(destroyed(QObject *)),
@@ -850,30 +851,29 @@ bool Kwave::TopWidget::closeAllSubWindows()
 //***************************************************************************
 int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const KUrl &url)
 {
-    Q_ASSERT(context);
-    if (!context) return -1;
-    Kwave::SignalManager *signal_manager = context->signalManager();
-
     switch (m_application.guiType()) {
-	case Kwave::App::GUI_SDI:
+	case Kwave::App::GUI_SDI: {
 	    // SDI mode and already something loaded
 	    // -> open a new toplevel window
 	    //    (except for processing commands per kwave: URL
+	    Kwave::SignalManager *signal_manager = (context) ?
+		context->signalManager() : 0;
 	    if ( signal_manager && !signal_manager->isEmpty() &&
 		(url.scheme().toLower() != Kwave::urlScheme()) )
 		return m_application.newWindow(url) ? 0 : -1;
 
 	    // try to close the previous file
-	    if (!context->closeFile()) return -1;
+	    if (context && !context->closeFile()) return -1;
 
 	    break;
+	}
 	case Kwave::App::GUI_MDI: /* FALLTHROUGH */
 	case Kwave::App::GUI_TAB:
 	    // MDI or TAB mode: open a new sub window
 	    Q_ASSERT(m_mdi_area);
 	    if (!m_mdi_area) return -1;
 
-	    if (context->isEmpty()) {
+	    if (context && context->isEmpty()) {
 		// current context is empty, no main widget etc -> discard it
 		if (m_context_map.contains(0)) {
 		    // must have been the default context
@@ -886,7 +886,6 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const KUrl &url)
 
 	    // create a new file context
 	    context = newFileContext();
-
 	    if (!context) return -1;
 
 	    // create a main widget

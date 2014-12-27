@@ -300,12 +300,9 @@ void Kwave::PluginManager::sync()
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    qApp->processEvents();
-    qApp->flush();
-
     while (onePluginRunning()) {
 	Kwave::yield();
-	qApp->processEvents();
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	qApp->flush();
 	usleep(100000);
     }

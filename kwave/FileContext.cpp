@@ -271,7 +271,7 @@ int Kwave::FileContext::executeCommand(const QString &line)
 
     if (!m_plugin_manager || !m_top_widget) return -ENOMEM;
 
-//     qDebug("FileContext::executeCommand(%s)", DBG(command));
+//     qDebug("FileContext[%p]::executeCommand(%s)", this, DBG(command));
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.trimmed().startsWith(_("#")))
 	return 0; // only a comment
@@ -644,7 +644,9 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	// NOTE: this could theoretically also be a command that modifies
 	//       or even deletes the current context!
 	result = EAGAIN;
-	if (m_top_widget && (m_top_widget->currentContext() != this))
+	Kwave::FileContext *current_ctx = (m_top_widget) ?
+	    m_top_widget->currentContext() : 0;
+	if (current_ctx && (current_ctx != this))
 	    result = m_top_widget->forwardCommand(line);
 
 	// If the call returned with EAGAIN, then the context in duty is
@@ -656,6 +658,8 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 
 	if (result)
 	    qDebug(">>> '%s' - result=%d", DBG(line), result);
+
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
 	// synchronize after the command
 	if (m_plugin_manager)

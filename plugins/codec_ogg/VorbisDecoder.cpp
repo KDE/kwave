@@ -152,13 +152,16 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     info.setRate(m_vi.rate);
     info.set(Kwave::INF_COMPRESSION, Kwave::Compression::OGG_VORBIS);
     info.set(Kwave::INF_SOURCE, _(m_vc.vendor));
-    if (m_vi.bitrate_nominal > 0)
+    if ((m_vi.bitrate_nominal > 0) &&
+	(m_vi.bitrate_nominal < std::numeric_limits<int>::max()))
 	info.set(Kwave::INF_BITRATE_NOMINAL,
 	QVariant(Kwave::toInt(m_vi.bitrate_nominal)));
-    if (m_vi.bitrate_lower > 0)
+    if ((m_vi.bitrate_lower > 0) &&
+	(m_vi.bitrate_lower < std::numeric_limits<int>::max()))
 	info.set(Kwave::INF_BITRATE_LOWER,
 	QVariant(Kwave::toInt(m_vi.bitrate_lower)));
-    if (m_vi.bitrate_upper > 0)
+    if ((m_vi.bitrate_upper > 0) &&
+	(m_vi.bitrate_upper < std::numeric_limits<int>::max()))
 	info.set(Kwave::INF_BITRATE_UPPER,
 	QVariant(Kwave::toInt(m_vi.bitrate_upper)));
 
@@ -208,7 +211,7 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     // estimate a length
     // estimate the length of the file from file size, bitrate, channels
     if (!m_source->isSequential()) {
-	int br = -1;
+	long int br = -1;
 	if ((br < 0) && (m_vi.bitrate_nominal > 0)) br = m_vi.bitrate_nominal;
 	if ((br < 0) && (m_vi.bitrate_upper   > 0)) br = m_vi.bitrate_upper;
 	if ((br < 0) && (m_vi.bitrate_lower   > 0)) br = m_vi.bitrate_lower;

@@ -96,15 +96,15 @@ BuildRequires:  update-desktop-files
 Prefix:         /usr
 Requires:       alsa-lib
 Requires:       fftw3 >= 3.0
-Requires:       kdelibs >= 4.0
+Requires:       kdelibs >= 4.3
 Requires:       libopus
 BuildRequires:  alsa-lib-devel
 BuildRequires:  audiofile-devel >= 0.3.0
 BuildRequires:  fftw3-devel >= 3.0
 BuildRequires:  flac-devel
 BuildRequires:  gcc-c++
-BuildRequires:  kdemultimedia-devel >= 4.0
-BuildRequires:  kdesdk >= 4.0
+BuildRequires:  kdemultimedia-devel >= 4.3
+BuildRequires:  kdesdk >= 4.3
 BuildRequires:  libogg-devel >= 1
 BuildRequires:  libopus-devel
 BuildRequires:  libsamplerate-devel
@@ -113,6 +113,9 @@ BuildRequires:  pulseaudio-libs-devel
 %define _kde4_applicationsdir /usr/share/applications/kde4/
 %define _kde4_modulesdir %{_kde4_libdir}/kde4/plugins
 %define _kde4_htmldir /usr/share/doc/HTML/
+%ifarch x86_64
+%define EXTRA_OPTS "-DLIB_SUFFIX=64"
+%endif
 %endif
 
 # Fedora specific:
@@ -163,7 +166,7 @@ BuildRequires:  qt4-devel >= 4.7.0
 %if %{defined rhel_version}
 Requires:       alsa-lib
 Requires:       fftw3
-Requires:       flac
+Requires:       flac-libs
 Requires:       libogg
 Requires:       libopus
 Requires:       libsamplerate
@@ -173,23 +176,47 @@ Requires:       pulseaudio-libs >= 0.9.16
 Requires:       qt4 >= 4.7
 Requires:       qt4-x11 >= 4.7
 BuildRequires:  alsa-lib-devel
-BuildRequires:  audiofile-devel >= 0.3.0
+BuildRequires:  audiofile-devel >= 0.3.6
 BuildRequires:  fftw3
 BuildRequires:  fftw3-devel
-BuildRequires:  flac
+BuildRequires:  flac-devel
 BuildRequires:  gcc-c++
 BuildRequires:  kdelibs-devel >= 4.0
-BuildRequires:  kdesdk-utils >= 4.0
+BuildRequires:  kde4-l10n-devel
+BuildRequires:  libsndfile
 BuildRequires:  libogg-devel >= 1
 BuildRequires:  libopus-devel
 BuildRequires:  libsamplerate-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  qt-devel >= 4.7
-%define _kde4_applicationsdir /usr/share/applications/kde4
-%define _kde4_modulesdir %{_kde4_libdir}/kde4/plugins
-%define _kde4_htmldir /usr/share/doc/HTML
-%define EXTRA_OPTS -DWITH_FLAC=OFF
+%ifarch x86_64
+%define EXTRA_OPTS "-DLIB_SUFFIX=64"
+%endif
+%endif
+
+# ScientificLinux specific:
+%if %{defined scientificlinux_version}
+Prefix:         /usr
+Requires:       %kde4_runtime_requires
+Requires:       alsa
+Requires:       fftw3 >= 3.0
+Requires:       libqt4 >= 4.6
+Requires:       opus >= 1.0.0
+Requires:       pulseaudio >= 0.9.16
+BuildRequires:  alsa-devel
+BuildRequires:  audiofile-devel >= 0.3.0
+BuildRequires:  fftw3-devel >= 3.0
+BuildRequires:  flac-devel
+BuildRequires:  kde-l10n
+BuildRequires:  kdemultimedia
+BuildRequires:  kdelibs-devel >= 4.0
+BuildRequires:  libogg-devel >= 1
+BuildRequires:  opus-devel
+BuildRequires:  libqt4-devel > 4.7
+BuildRequires:  libsamplerate-devel
+BuildRequires:  libvorbis-devel
+BuildRequires:  pulseaudio-libs-devel
 %endif
 
 # Mandriva specific:

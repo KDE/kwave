@@ -99,7 +99,7 @@ namespace Kwave
 	    fftw_complex m_output[MAX_FFT_POINTS];
 
 	    /** rendered FFT result data */
-	    char m_result[MAX_FFT_POINTS];
+	    unsigned char m_result[MAX_FFT_POINTS];
 	} Slice;
 
     signals:

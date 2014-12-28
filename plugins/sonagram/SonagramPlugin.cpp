@@ -428,7 +428,7 @@ void Kwave::SonagramPlugin::calculateSlice(Kwave::SonagramPlugin::Slice *slice)
 	double ima = slice->m_output[j][1];
 	double a = ((rea * rea) + (ima * ima)) / scale;
 
-	slice->m_result[j] = static_cast<char>(qMin(a, 254.0));
+	slice->m_result[j] = static_cast<unsigned char>(qMin(a, 254.0));
     }
 
     // free the the allocated FFT resources
@@ -454,7 +454,8 @@ void Kwave::SonagramPlugin::insertSlice(Kwave::SonagramPlugin::Slice *slice)
     if (!slice) return;
 
     QByteArray result;
-    result.setRawData(&(slice->m_result[0]), m_fft_points / 2);
+    result.setRawData(reinterpret_cast<char *>(&(slice->m_result[0])),
+                      m_fft_points / 2);
     unsigned int nr = slice->m_index;
 
     // forward the slice to the window to display it

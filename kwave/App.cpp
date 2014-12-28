@@ -54,7 +54,7 @@ Kwave::App::App()
    :KUniqueApplication(),
     m_recent_files(),
     m_top_widgets(),
-    m_gui_type(Kwave::App::GUI_SDI)
+    m_gui_type(Kwave::App::GUI_TAB)
 {
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
     qRegisterMetaType<Kwave::LabelList>("Kwave::LabelList");
@@ -78,7 +78,7 @@ Kwave::App::App()
     } else if (result == _("TAB")) {
 	m_gui_type = Kwave::App::GUI_TAB;
     }
-    // else: "SDI" is default
+    // else: use default
 }
 
 //***************************************************************************
@@ -341,9 +341,12 @@ void Kwave::App::saveRecentFiles()
     KConfigGroup cfg = KGlobal::config()->group("Recent Files");
 
     QString num;
-    for (int i = 0 ; i < m_recent_files.count(); i++) {
+    for (int i = 0 ; i < MAX_RECENT_FILES; i++) {
 	num.setNum(i);
-	cfg.writeEntry(num, m_recent_files[i]);
+	if (i < m_recent_files.count())
+	    cfg.writeEntry(num, m_recent_files[i]);
+	else
+	    cfg.deleteEntry(num);
     }
 
     cfg.sync();

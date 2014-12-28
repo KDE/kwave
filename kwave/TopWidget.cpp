@@ -231,7 +231,7 @@ Kwave::FileContext *Kwave::TopWidget::newFileContext()
 }
 
 //***************************************************************************
-Kwave::FileContext* Kwave::TopWidget::currentContext() const
+Kwave::FileContext *Kwave::TopWidget::currentContext() const
 {
     if (m_context_map.isEmpty()) return 0;
 
@@ -925,6 +925,10 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
     Kwave::SignalManager *signal_manager = context->signalManager();
     Q_ASSERT(signal_manager);
 
+    // add an entry to the list of recent files
+    m_application.addRecentFile(url.isLocalFile() ?
+	url.toLocalFile() : url.prettyUrl());
+
     // abort if new file not valid and local
     if (!url.isLocalFile()) return -1;
 
@@ -981,7 +985,6 @@ int Kwave::TopWidget::loadFile(const KUrl &url)
 	context->closeFile();
     }
 
-    m_application.addRecentFile(context->signalName());
     updateMenu();
     updateToolbar();
 

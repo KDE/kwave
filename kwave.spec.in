@@ -84,8 +84,6 @@ BuildRequires:  libvorbis-devel
 BuildRequires:  pulseaudio-devel
 BuildRequires:  rsvg-view
 BuildRequires:  update-desktop-files
-# BuildRequires:  librsvg
-# BuildRequires:  python
 
 %define EXTRA_OPTS ""
 %define FDUPES %fdupes -s %{buildroot}
@@ -193,30 +191,40 @@ BuildRequires:  qt-devel >= 4.7
 %ifarch x86_64
 %define EXTRA_OPTS "-DLIB_SUFFIX=64"
 %endif
+%define _kde4_applicationsdir /usr/share/applications/kde4/
+%define _kde4_modulesdir %{_kde4_libdir}/kde4/plugins
+%define _kde4_htmldir /usr/share/doc/HTML/
 %endif
 
 # ScientificLinux specific:
 %if %{defined scientificlinux_version}
 Prefix:         /usr
-Requires:       %kde4_runtime_requires
-Requires:       alsa
+Requires:       alsa-lib
 Requires:       fftw3 >= 3.0
 Requires:       libqt4 >= 4.6
 Requires:       opus >= 1.0.0
 Requires:       pulseaudio >= 0.9.16
-BuildRequires:  alsa-devel
+BuildRequires:  alsa-lib-devel
 BuildRequires:  audiofile-devel >= 0.3.0
 BuildRequires:  fftw3-devel >= 3.0
 BuildRequires:  flac-devel
+BuildRequires:  gcc-c++
 BuildRequires:  kde-l10n
 BuildRequires:  kdemultimedia
 BuildRequires:  kdelibs-devel >= 4.0
+BuildRequires:  kdesdk-poxml
 BuildRequires:  libogg-devel >= 1
 BuildRequires:  opus-devel
-BuildRequires:  libqt4-devel > 4.7
+BuildRequires:  qt4-devel > 4.7
 BuildRequires:  libsamplerate-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  pulseaudio-libs-devel
+%ifarch x86_64
+%define EXTRA_OPTS "-DLIB_SUFFIX=64"
+%endif
+%define _kde4_applicationsdir /usr/share/applications/kde4/
+%define _kde4_modulesdir %{_kde4_libdir}/kde4/plugins
+%define _kde4_htmldir /usr/share/doc/HTML/
 %endif
 
 # Mandriva specific:

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-22 09:48+0100\n"
+"POT-Creation-Date: 2014-12-28 18:50+0100\n"
 "PO-Revision-Date: 2014-04-27 11:13+0200\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: French <kde-i18n-de@kde.org>\n"
@@ -134,7 +134,7 @@ msgstr "%1"
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 échantillons)"
 
-#: kwave/FileContext.cpp:692
+#: kwave/FileContext.cpp:702
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -561,7 +561,7 @@ msgstr "(stéréo)"
 msgid "(user defined)"
 msgstr "(user defined)"
 
-#: kwave/FileContext.cpp:698
+#: kwave/FileContext.cpp:708
 #, fuzzy, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
@@ -1239,7 +1239,7 @@ msgctxt "menu: /Edit/Track/Add"
 msgid "Add"
 msgstr "&Ajouter"
 
-#: kwave/MainWidget.cpp:895 libkwave/SignalManager.cpp:1891
+#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1891
 #, fuzzy
 msgid "Add Label"
 msgstr "Ajouter un label"
@@ -1348,7 +1348,7 @@ msgstr ""
 "Une erreur est apparue lors de l'ouverture du fichier :\n"
 "« %1 »"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:537
+#: plugins/codec_mp3/MP3Decoder.cpp:536
 #, fuzzy, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -1775,7 +1775,7 @@ msgstr "Pistes :"
 msgid "Chanson"
 msgstr "Chanson"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:508
+#: plugins/codec_mp3/MP3Decoder.cpp:507
 #, fuzzy
 msgid "Checksum error"
 msgstr "Erreur de somme de contrôle"
@@ -1823,7 +1823,7 @@ msgctxt "menu: /File/Close"
 msgid "Close"
 msgstr "&Bruit"
 
-#: kwave/TopWidget.cpp:364
+#: kwave/TopWidget.cpp:372
 #, fuzzy
 msgid "Close the current file"
 msgstr "enregistre le fichier courant"
@@ -1926,7 +1926,7 @@ msgstr "continuer après l'index le plus élevé"
 msgid "Continue playback"
 msgstr "met en pause la lecture"
 
-#: kwave/TopWidget.cpp:390
+#: kwave/TopWidget.cpp:398
 #, fuzzy
 msgid "Copy"
 msgstr "&Couper la sélection"
@@ -1963,7 +1963,7 @@ msgstr "La seconde en-tête du fichier est corrompue. Fin du processus."
 msgid "Country"
 msgstr "Country"
 
-#: kwave/TopWidget.cpp:344
+#: kwave/TopWidget.cpp:352
 #, fuzzy
 msgid "Create a new empty file"
 msgstr "créer un nouveau fichier vide"
@@ -2006,7 +2006,7 @@ msgstr "Culte"
 msgid "Currently Selected Point"
 msgstr "Point récemment sélectionné"
 
-#: kwave/TopWidget.cpp:385 libkwave/SignalManager.cpp:681
+#: kwave/TopWidget.cpp:393 libkwave/SignalManager.cpp:681
 #, fuzzy
 msgid "Cut"
 msgstr "Co&uper"
@@ -2124,7 +2124,7 @@ msgstr "Supprime les Métadonnées"
 msgid "Delete Track"
 msgstr "supprimer une piste"
 
-#: kwave/TopWidget.cpp:408
+#: kwave/TopWidget.cpp:416
 #, fuzzy
 msgid "Delete selection"
 msgstr "supprime la sélection courante"
@@ -2236,11 +2236,11 @@ msgstr "Voulez-vous réellement annuler l'operation en cours ?"
 msgid "Do you really want to abort the operation?"
 msgstr "Voulez-vous réellement annuler l'operation ?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:542
+#: plugins/codec_mp3/MP3Decoder.cpp:541
 msgid "Do you still want to continue?"
 msgstr "Voulez-vous réellement continuer ?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:547
+#: plugins/codec_mp3/MP3Decoder.cpp:546
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Voulez vous continuer et ignorer les prochaines erreurs ?"
 
@@ -2423,12 +2423,12 @@ msgstr ""
 msgid "Example:"
 msgstr "exemple:"
 
-#: kwave/TopWidget.cpp:913
+#: kwave/TopWidget.cpp:940
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:895
+#: kwave/TopWidget.cpp:920
 #, kde-format
 msgid "Executing command '%1'..."
 msgstr ""
@@ -2560,7 +2560,7 @@ msgstr "&Propriétés du fichier..."
 msgid "File Size"
 msgstr "Taille du fichier "
 
-#: plugins/codec_mp3/MP3Decoder.cpp:528
+#: plugins/codec_mp3/MP3Decoder.cpp:527
 #, fuzzy
 msgid "File contains invalid data"
 msgstr "Le fichier contient des données non valables"
@@ -3011,7 +3011,7 @@ msgstr "Industriel"
 msgid "Info"
 msgstr "Informations sur le fichier"
 
-#: kwave/TopWidget.cpp:335
+#: kwave/TopWidget.cpp:343
 msgid "Initializing toolbar..."
 msgstr "Initialisation des barres d'outils..."
 
@@ -3024,7 +3024,7 @@ msgid "Input does not appear to be an Ogg bitstream."
 msgstr ""
 "Le fichier d'entrée ne semble pas être un flux de données au format « Ogg »."
 
-#: kwave/TopWidget.cpp:395 libkwave/undo/UndoInsertAction.cpp:44
+#: kwave/TopWidget.cpp:403 libkwave/undo/UndoInsertAction.cpp:44
 #, fuzzy
 msgid "Insert"
 msgstr "insérer"
@@ -3114,7 +3114,7 @@ msgstr "dans le second quart"
 msgid "Invalid codec type"
 msgstr "Type de codec non valable"
 
-#: kwave/TopWidget.cpp:945
+#: kwave/TopWidget.cpp:972
 #, fuzzy, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
@@ -3279,7 +3279,7 @@ msgstr "Taille : %1"
 msgid "Length: %1"
 msgstr "Taille : %1"
 
-#: kwave/TopWidget.cpp:1033
+#: kwave/TopWidget.cpp:1059
 #, fuzzy, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
@@ -3367,17 +3367,17 @@ msgstr ""
 msgid "Lo-Fi"
 msgstr "Lo-Fi"
 
-#: kwave/TopWidget.cpp:923
+#: kwave/TopWidget.cpp:950
 #, fuzzy, kde-format
 msgid "Loading file '%1'..."
 msgstr "Traitement de « %1 » en cours..."
 
-#: kwave/TopWidget.cpp:262
+#: kwave/TopWidget.cpp:267
 #, fuzzy
 msgid "Loading main menu..."
 msgstr "Chargement des modules externes..."
 
-#: libkwave/PluginManager.cpp:647
+#: libkwave/PluginManager.cpp:644
 #, fuzzy, kde-format
 msgid "Loading plugin %1..."
 msgstr "Chargement des modules externes..."
@@ -3631,7 +3631,7 @@ msgstr "Mode"
 msgid "Mode Extension"
 msgstr "Mode étendu "
 
-#: kwave/TopWidget.cpp:1044
+#: kwave/TopWidget.cpp:1070
 #, fuzzy, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Format : %1 kHz @ %2 Bits"
@@ -3655,7 +3655,7 @@ msgstr "Modifier %1 %2 objets"
 msgid "Modify File Info"
 msgstr "modifier les informations du fichier"
 
-#: kwave/MainWidget.cpp:1040
+#: kwave/MainWidget.cpp:1018
 #, fuzzy
 msgid "Modify Label"
 msgstr "modifier le label"
@@ -3678,7 +3678,7 @@ msgstr "Mono"
 msgid "Musical"
 msgstr "Musique"
 
-#: kwave/TopWidget.cpp:403
+#: kwave/TopWidget.cpp:411
 #, fuzzy
 msgid "Mute selection"
 msgstr "Sélection"
@@ -3993,7 +3993,7 @@ msgstr ""
 msgid "One or more invalid/out of range arguments."
 msgstr "Au moins un argument de gamme non valide"
 
-#: kwave/TopWidget.cpp:983
+#: kwave/TopWidget.cpp:1009
 #, fuzzy
 msgid "Open"
 msgstr "Opéra"
@@ -4010,7 +4010,7 @@ msgctxt "menu: /File/Open Recent"
 msgid "Open Recent"
 msgstr "&Pourcentage"
 
-#: kwave/TopWidget.cpp:349
+#: kwave/TopWidget.cpp:357
 #, fuzzy
 msgid "Open an existing file"
 msgstr "ouvrir un fichier déjà existant"
@@ -4108,10 +4108,10 @@ msgstr "Original "
 msgid "Other"
 msgstr "Autre"
 
-#: kwave/TopWidget.cpp:937 plugins/codec_audiofile/AudiofileDecoder.cpp:104
+#: kwave/TopWidget.cpp:964 plugins/codec_audiofile/AudiofileDecoder.cpp:104
 #: plugins/codec_flac/FlacEncoder.cpp:246
 #: plugins/codec_flac/FlacEncoder.cpp:264
-#: plugins/codec_flac/FlacEncoder.cpp:279 plugins/codec_mp3/MP3Decoder.cpp:505
+#: plugins/codec_flac/FlacEncoder.cpp:279 plugins/codec_mp3/MP3Decoder.cpp:504
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:388
 #: plugins/codec_ogg/OpusEncoder.cpp:381 plugins/codec_ogg/OpusEncoder.cpp:434
 #: plugins/codec_wav/WavDecoder.cpp:365 plugins/codec_wav/WavEncoder.cpp:428
@@ -4317,7 +4317,7 @@ msgstr "Groove pornographique"
 msgid "Position:"
 msgstr "Position :"
 
-#: kwave/TopWidget.cpp:1121
+#: kwave/TopWidget.cpp:1147
 #, fuzzy, kde-format
 msgid "Position: %1"
 msgstr "Position :"
@@ -4496,7 +4496,7 @@ msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
 msgid "Re-enable all \"Do not ask again\" messages"
 msgstr "Re-rendre disponibles les messages \"ne plus demander\""
 
-#: kwave/TopWidget.cpp:736
+#: kwave/TopWidget.cpp:752
 msgid ""
 "Re-enable all disabled notifications?\n"
 "All messages that you previously turned off by activating the \"Do not ask "
@@ -4600,12 +4600,12 @@ msgstr ""
 msgid "Rectangular"
 msgstr "Rectangulaire"
 
-#: kwave/TopWidget.cpp:380
+#: kwave/TopWidget.cpp:388
 #, fuzzy
 msgid "Redo"
 msgstr "R&efaire"
 
-#: kwave/TopWidget.cpp:1178
+#: kwave/TopWidget.cpp:1204
 #, fuzzy
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
@@ -4617,19 +4617,19 @@ msgctxt "menu: /Edit/Redo"
 msgid "Redo"
 msgstr "R&efaire"
 
-#: kwave/TopWidget.cpp:1160
+#: kwave/TopWidget.cpp:1186
 #, fuzzy
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "R&efaire"
 
-#: kwave/TopWidget.cpp:1177
+#: kwave/TopWidget.cpp:1203
 #, fuzzy, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "Refaire (%1)"
 
-#: kwave/TopWidget.cpp:1158
+#: kwave/TopWidget.cpp:1184
 #, fuzzy, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
@@ -4645,7 +4645,7 @@ msgctxt "menu: /Settings/Reset Toolbar"
 msgid "Reset Toolbar"
 msgstr "Réinitialiser les barres d'outils"
 
-#: kwave/TopWidget.cpp:712
+#: kwave/TopWidget.cpp:728
 msgid "Reset the toolbar to default settings?"
 msgstr "Réinitialiser les barres d'outils par défaut?"
 
@@ -4817,7 +4817,7 @@ msgctxt "menu: /File/Save"
 msgid "Save"
 msgstr "E&nregistrer..."
 
-#: kwave/FileContext.cpp:796
+#: kwave/FileContext.cpp:806
 #, fuzzy
 msgid "Save As"
 msgstr "E&nregistrer..."
@@ -4841,12 +4841,12 @@ msgstr "&Sonagramme"
 msgid "Save selection only"
 msgstr "enregister uniquement la sélection"
 
-#: kwave/TopWidget.cpp:354
+#: kwave/TopWidget.cpp:362
 #, fuzzy
 msgid "Save the current file"
 msgstr "enregistre le fichier courant"
 
-#: kwave/TopWidget.cpp:359
+#: kwave/TopWidget.cpp:367
 msgid "Save the current file under a different name or file format..."
 msgstr "Sauver le fichier courant sous un différent nom ou format de fichier"
 
@@ -4887,7 +4887,7 @@ msgstr "Déplacer à &droite"
 msgid "Search on the filesystem for a device"
 msgstr "chercher un matériel sur le système de fichiers"
 
-#: plugins/codec_wav/RIFFParser.cpp:546
+#: plugins/codec_wav/RIFFParser.cpp:545
 #, fuzzy, kde-format
 msgid "Searching for missing chunk '%1'..."
 msgstr "Recherche pour le portion manquante « %1 »..."
@@ -4976,7 +4976,7 @@ msgstr "sélectionnez ici la durée de votre fichier sonore"
 msgid "Select zoom factor"
 msgstr "sélectionner le facteur de zoom"
 
-#: kwave/TopWidget.cpp:1090
+#: kwave/TopWidget.cpp:1116
 #, fuzzy, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -4984,7 +4984,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "%1 (%2 échantillons)"
 
-#: kwave/TopWidget.cpp:1102
+#: kwave/TopWidget.cpp:1128
 #, fuzzy, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -5181,9 +5181,9 @@ msgstr "Rock lent"
 msgid "Software"
 msgstr "Logiciel "
 
+#: plugins/sonagram/SonagramWindow.cpp:502
 #: plugins/sonagram/SonagramPlugin.cpp:58
 #: plugins/sonagram/SonagramPlugin.cpp:78
-#: plugins/sonagram/SonagramWindow.cpp:502
 #, fuzzy
 msgid "Sonagram"
 msgstr "&Sonagramme"
@@ -5443,7 +5443,7 @@ msgstr "Rock symphonique"
 msgid "Symphony"
 msgstr "Symphonie"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:511
+#: plugins/codec_mp3/MP3Decoder.cpp:510
 #, fuzzy
 msgid "Synchronization lost"
 msgstr "Perte de synchronisation"
@@ -5567,7 +5567,7 @@ msgstr ""
 "du programme correspondant en saisisant la ligne de commande « fuser -v %1 » "
 "sur une ligne de commande du système)."
 
-#: kwave/FileContext.cpp:823
+#: kwave/FileContext.cpp:833
 #, fuzzy, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -5621,7 +5621,7 @@ msgstr ""
 msgid "The mode struct passed is invalid."
 msgstr ""
 
-#: plugins/codec_mp3/MP3Decoder.cpp:437
+#: plugins/codec_mp3/MP3Decoder.cpp:436
 #, fuzzy
 msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
@@ -5651,7 +5651,7 @@ msgstr "Avertissement : le module externe « %1 » est inconnu ou non valable
 msgid "The recording device seems to be busy."
 msgstr "Le périphérique d'enregistrement est occupé !"
 
-#: kwave/MainWidget.cpp:1013
+#: kwave/MainWidget.cpp:991
 msgid ""
 "There already is a label at the position you have chosen.\n"
 "Do you want to replace it?"
@@ -5677,7 +5677,7 @@ msgstr ""
 "Ce codec ne supporte que les fichiers audio ou stereo. Il ne supporte pas %1 "
 "canaux."
 
-#: kwave/FileContext.cpp:889
+#: kwave/FileContext.cpp:899
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -5824,7 +5824,7 @@ msgstr "Trip-Hop"
 msgid "Unable to open '%1'"
 msgstr "impossible d'ouvrir « %1 »"
 
-#: kwave/TopWidget.cpp:941
+#: kwave/TopWidget.cpp:968
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
@@ -5847,11 +5847,11 @@ msgstr "Impossible d'ouvrir le fichier pour l'enregistrer !"
 msgid "Unable to open the recording device"
 msgstr "impossible d'ouvrir le périphérique d'enregistrement"
 
-#: kwave/TopWidget.cpp:375
+#: kwave/TopWidget.cpp:383
 msgid "Undo"
 msgstr "Annuler"
 
-#: kwave/TopWidget.cpp:1171
+#: kwave/TopWidget.cpp:1197
 #, fuzzy
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
@@ -5863,18 +5863,18 @@ msgctxt "menu: /Edit/Undo"
 msgid "Undo"
 msgstr "Annuler"
 
-#: kwave/TopWidget.cpp:1149
+#: kwave/TopWidget.cpp:1175
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Annuler"
 
-#: kwave/TopWidget.cpp:1170
+#: kwave/TopWidget.cpp:1196
 #, fuzzy, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "An&nuler (%1)"
 
-#: kwave/TopWidget.cpp:1147
+#: kwave/TopWidget.cpp:1173
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
@@ -5884,7 +5884,7 @@ msgstr ""
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:531
+#: plugins/codec_mp3/MP3Decoder.cpp:530
 #, fuzzy, c-format
 msgid "Unknown error 0x%X. Damaged file?"
 msgstr "Erreur inconnue « 0x%X ». Le fichier est il endommagé ?"

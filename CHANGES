@@ -1,4 +1,4 @@
-0.8.99 [2014-12-xx]
+0.8.99 [2014-12-28]
 
  * GUI: implemented SDI, MDI and Tab GUI types
  * bugfix: deadlock in class Track

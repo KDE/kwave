@@ -152,8 +152,7 @@ double Kwave::NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
     // set up smoothing window buffer
     QVector<Kwave::NormalizePlugin::Average> average(tracks);
     for (unsigned int t = 0; t < tracks; t++) {
-	average[t].fifo.resize(SMOOTHLEN);
-	average[t].fifo.fill(0.0);
+	average[t].fifo = QVector<double>(SMOOTHLEN, double(0.0));
 	average[t].wp  = 0;
 	average[t].n   = 0;
 	average[t].sum = 0.0;

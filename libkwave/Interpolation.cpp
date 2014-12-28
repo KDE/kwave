@@ -177,9 +177,9 @@ bool Kwave::Interpolation::prepareInterpolation(const Kwave::Curve &points)
     m_curve = &points;
     if (!count()) return false; // no data ?
 
-    m_x.resize(count()+1);
-    m_y.resize(count()+1);
-    m_der.resize(0);
+    m_x   = QVector<double>((count() + 1), double(0.0));
+    m_y   = QVector<double>((count() + 1), double(0.0));
+    m_der = QVector<double>();
 
     unsigned int c = 0;
     Kwave::Curve::ConstIterator it(points);
@@ -196,7 +196,7 @@ bool Kwave::Interpolation::prepareInterpolation(const Kwave::Curve &points)
 	    createFullPolynom(points, m_x, m_y);
 	    break;
 	case INTPOL_SPLINE:
-	    m_der.resize(count() + 1);
+	    m_der = QVector<double>((count() + 1), double(0.0));
 	    get2Derivate(m_x, m_y, m_der, count());
 	    break;
 	default:

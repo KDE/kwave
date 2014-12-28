@@ -644,7 +644,7 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 			this, SLOT(subWindowDeleted(QObject *)));
 		connectContext(context);
 
-		if (m_application.guiType() == Kwave::App::GUI_MDI) {
+		if (m_application.guiType() != Kwave::App::GUI_SDI) {
 		    // this really sucks...
 		    // Qt adds a "Close" entry to the MDI subwindow's system
 		    // menu, with the shortcut "Ctrl+W". This collides with

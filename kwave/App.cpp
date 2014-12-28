@@ -22,7 +22,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QString>
 #include <QtCore/QMetaType>
-#include <QMutableListIterator>
+#include <QtCore/QMutableListIterator>
 
 #include <kcmdlineargs.h>
 #include <kconfig.h>

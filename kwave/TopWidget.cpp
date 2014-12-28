@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QFile>
 #include <QtCore/QLatin1Char>
 #include <QtCore/QMap>
@@ -323,8 +324,11 @@ bool Kwave::TopWidget::init()
 	    Q_ASSERT(m_mdi_area);
 	    if (!m_mdi_area) return false;
 	    m_mdi_area->setViewMode(QMdiArea::TabbedView);
+/** @todo remove this Qt version check when Qt 4.7 is no longer supported */
+#if QT_VERSION >= 0x04080000
 	    m_mdi_area->setTabsClosable(true);
 	    m_mdi_area->setTabsMovable(true);
+#endif /* QT_VERSION >= 0x04080000 */
 	    break;
     }
 
@@ -609,8 +613,11 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 		Q_ASSERT(m_mdi_area);
 		if (!m_mdi_area) return;
 		m_mdi_area->setViewMode(QMdiArea::TabbedView);
+/** @todo remove this Qt version check when Qt 4.7 is no longer supported */
+#if QT_VERSION >= 0x04080000
 		m_mdi_area->setTabsClosable(true);
 		m_mdi_area->setTabsMovable(true);
+#endif /* QT_VERSION >= 0x04080000 */
 	    }
 
 	    context->setParent(this);

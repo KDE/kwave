@@ -325,10 +325,10 @@ bool Kwave::TopWidget::init()
 	    if (!m_mdi_area) return false;
 	    m_mdi_area->setViewMode(QMdiArea::TabbedView);
 /** @todo remove this Qt version check when Qt 4.7 is no longer supported */
-#if QT_VERSION >= 0x04080000
+#if QT_VERSION >= 0x040800
 	    m_mdi_area->setTabsClosable(true);
 	    m_mdi_area->setTabsMovable(true);
-#endif /* QT_VERSION >= 0x04080000 */
+#endif /* QT_VERSION >= 0x040800 */
 	    break;
     }
 
@@ -614,10 +614,10 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 		if (!m_mdi_area) return;
 		m_mdi_area->setViewMode(QMdiArea::TabbedView);
 /** @todo remove this Qt version check when Qt 4.7 is no longer supported */
-#if QT_VERSION >= 0x04080000
+#if QT_VERSION >= 0x040800
 		m_mdi_area->setTabsClosable(true);
 		m_mdi_area->setTabsMovable(true);
-#endif /* QT_VERSION >= 0x04080000 */
+#endif /* QT_VERSION >= 0x040800 */
 	    }
 
 	    context->setParent(this);

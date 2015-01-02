@@ -660,7 +660,16 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 
 		sub->setAttribute(Qt::WA_DeleteOnClose);
 		main_widget->setWindowTitle(context->windowCaption(true));
-		main_widget->show();
+
+		// workaround for stupid bug in Qt: when having only one
+		// single sub window, switching to tab mode shows a tab +
+		// a sub window with frame and title (not maximized within
+		// the mdi area)
+		if (m_application.guiType() == Kwave::App::GUI_TAB)
+		    sub->showMaximized();
+		else
+		    sub->showNormal();
+
 		m_mdi_area->setActiveSubWindow(sub);
 	    } else {
 		m_context_map[0] = context; // set empty default context

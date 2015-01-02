@@ -1,3 +1,9 @@
+
+0.9.0 [2015-xx-xx]
+
+ * bugfix: wrong sub window mode when switching to tab mode when having only
+   one sub window (workaround for bug in Qt)
+
 0.8.99 [2014-12-28]
 
  * GUI: implemented SDI, MDI and Tab GUI types

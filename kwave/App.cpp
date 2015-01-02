@@ -69,7 +69,7 @@ Kwave::App::App()
 
     // read the configured user interface type
     QString result;
-    const KConfigGroup cfg = KGlobal::config()->group("Global");
+    KConfigGroup cfg = KGlobal::config()->group("Global");
     result = cfg.readEntry("UI Type");
     if (result == _("SDI")) {
 	m_gui_type = Kwave::App::GUI_SDI;
@@ -79,6 +79,28 @@ Kwave::App::App()
 	m_gui_type = Kwave::App::GUI_TAB;
     }
     // else: use default
+
+    // if user interface type is given as cmdline parameter: use that one
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    if (args && args->isSet("gui")) {
+	QString arg = args->getOption("gui").toUpper();
+	bool valid = false;
+	if (arg == _("SDI")) {
+	    m_gui_type = Kwave::App::GUI_SDI;
+	    valid = true;
+	} else if (arg == _("MDI")) {
+	    m_gui_type = Kwave::App::GUI_MDI;
+	    valid = true;
+	} else if (arg == _("TAB")) {
+	    m_gui_type = Kwave::App::GUI_TAB;
+	    valid = true;
+	}
+	// else: use previous setting
+
+	// save this setting
+	if (valid && (arg != result))
+	    cfg.writeEntry(_("UI Type"), arg);
+    }
 }
 
 //***************************************************************************

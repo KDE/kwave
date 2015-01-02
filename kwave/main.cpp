@@ -146,6 +146,7 @@ int main( int argc, char **argv )
     options.add("disable-splashscreen", ki18n("Disable the Splash Screen"), 0);
     options.add("iconic",               ki18n("Start Kwave iconified"), 0);
     options.add("logfile <file>",       ki18n("Log all commands into a file"));
+    options.add("gui <sdi|mdi|tab>",    ki18n("GUI type: SDI, MDI or TAB mode"));
     options.add("!+files",              ki18n("List of audio files"), 0 );
 
     KAboutData about(

@@ -196,7 +196,8 @@ bool Kwave::App::newWindow(const KUrl &url)
 	    break;
 	case Kwave::App::GUI_SDI:
 	    // always create a new top widget, except when handling commands
-	    if (url.scheme().toLower() == Kwave::urlScheme())
+	    if ( (url.scheme().toLower() == Kwave::urlScheme()) &&
+		 !m_top_widgets.isEmpty() )
 		new_top_widget = m_top_widgets.last();
 	    break;
     }

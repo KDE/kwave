@@ -771,6 +771,31 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	if (m_mdi_area) m_mdi_area->cascadeSubWindows();
     CASE_COMMAND("window:tile")
 	if (m_mdi_area) m_mdi_area->tileSubWindows();
+    CASE_COMMAND("window:tile_vertical")
+	if (!m_mdi_area) return 0;
+	int count = m_mdi_area->subWindowList().count();
+	if (!count) return 0;
+	int total_height = m_mdi_area->height();
+	int width = m_mdi_area->width();
+	int height = total_height / count;
+	int increment = height;
+	int y = 0;
+	foreach (QMdiSubWindow *sub, m_mdi_area->subWindowList()) {
+	    if (!sub) continue;
+
+	    // leave the "minimized" state if necessary
+	    Qt::WindowStates state = sub->windowState();
+	    if (state & Qt::WindowMinimized) {
+		sub->setWindowState(state & ~(Qt::WindowMinimized));
+		sub->raise();
+	    }
+
+	    // resize/move the sub window
+	    sub->resize(width, height);
+	    sub->move(0, y);
+	    y += increment;
+	}
+
     CASE_COMMAND("window:activate")
 	if (m_mdi_area) {
 	    QString title = parser.nextParam();
@@ -1261,31 +1286,34 @@ void Kwave::TopWidget::updateMenu()
     switch (m_application.guiType()) {
 	case Kwave::App::GUI_SDI:
 	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_SDI"));
-	    m_menu_manager->setItemVisible(_("ID_WINDOW"),         false);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_NEXT"),    false);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_PREV"),    false);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), false);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),    false);
-	    m_menu_manager->setItemVisible(_("ID_FILE_NEW_WINDOW"),true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"),               false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_NEXT"),          false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_PREV"),          false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"),       false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),          false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE_VERTICAL"), false);
+	    m_menu_manager->setItemVisible(_("ID_FILE_NEW_WINDOW"),      true);
 	    break;
 	case Kwave::App::GUI_MDI:
 	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_MDI"));
-	    m_menu_manager->setItemVisible(_("ID_WINDOW"),         true);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_NEXT"),    true);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_PREV"),    true);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), true);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),    true);
-	    m_menu_manager->setItemVisible(_("ID_FILE_NEW_WINDOW"),false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"),               true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_NEXT"),          true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_PREV"),          true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"),       true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),          true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE_VERTICAL"), true);
+	    m_menu_manager->setItemVisible(_("ID_FILE_NEW_WINDOW"),      false);
 	    have_window_menu = true;
 	    break;
 	case Kwave::App::GUI_TAB:
 	    m_menu_manager->selectItem(_("@GUI_TYPE"), _("ID_GUI_TAB"));
-	    m_menu_manager->setItemVisible(_("ID_WINDOW"),         true);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_NEXT"),    true);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_PREV"),    true);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"), false);
-	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),    false);
-	    m_menu_manager->setItemVisible(_("ID_FILE_NEW_WINDOW"),false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW"),               true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_NEXT"),          true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_PREV"),          true);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_CASCADE"),       false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE"),          false);
+	    m_menu_manager->setItemVisible(_("ID_WINDOW_TILE_VERTICAL"), false);
+	    m_menu_manager->setItemVisible(_("ID_FILE_NEW_WINDOW"),      false);
 	    have_window_menu = true;
 	    break;
     }
@@ -1302,10 +1330,12 @@ void Kwave::TopWidget::updateMenu()
 	    ++win_count;
 	}
 
-	m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"),    (win_count > 1));
-	m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"),    (win_count > 1));
-	m_menu_manager->setItemEnabled(_("ID_WINDOW_CASCADE"), (win_count > 1));
-	m_menu_manager->setItemEnabled(_("ID_WINDOW_TILE"),    (win_count > 1));
+	bool on = (win_count > 1);
+	m_menu_manager->setItemEnabled(_("ID_WINDOW_NEXT"),          on);
+	m_menu_manager->setItemEnabled(_("ID_WINDOW_PREV"),          on);
+	m_menu_manager->setItemEnabled(_("ID_WINDOW_CASCADE"),       on);
+	m_menu_manager->setItemEnabled(_("ID_WINDOW_TILE"),          on);
+	m_menu_manager->setItemEnabled(_("ID_WINDOW_TILE_VERTICAL"), on);
     }
 
     // enable/disable all items that depend on having a file

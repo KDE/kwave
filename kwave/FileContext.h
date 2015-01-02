@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtCore/QAtomicInt>
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
@@ -164,6 +165,18 @@ namespace Kwave
 	 */
 	bool closeFile();
 
+	/**
+	 * increments the usage count of this context, prevents it from
+	 * being deleted
+	 */
+	void use();
+
+	/**
+	 * decrements the usage count of this context, and if it has reached
+	 * zero this instance will be deleted (delayed)
+	 */
+	void release();
+
     signals:
 
 	/**
@@ -285,6 +298,32 @@ namespace Kwave
 
     private:
 
+	class UsageGuard
+	{
+	public:
+	    /**
+	     * constructor, increments use count
+	     * @param context the file context to use
+	     */
+	    UsageGuard(Kwave::FileContext *context)
+		:m_context(context)
+	    {
+		if (m_context) m_context->use();
+	    }
+
+	    /** destructor, decrements use count of the context */
+	    virtual ~UsageGuard()
+	    {
+		if (m_context) m_context->release();
+		m_context = 0;
+	    }
+
+	private:
+	    QPointer<Kwave::FileContext> m_context;
+	};
+
+    private:
+
 	/**
 	 * should be called when this context got active, to update
 	 * the status bar, toolbar etc.
@@ -314,6 +353,9 @@ namespace Kwave
 	int revert();
 
     private:
+
+	/** usage counter [0...n] */
+	QAtomicInt m_use_count;
 
 	/** reference to the global Kwave application object */
 	Kwave::App &m_application;

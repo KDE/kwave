@@ -3,6 +3,7 @@
 
  * bugfix: wrong sub window mode when switching to tab mode when having only
    one sub window (workaround for bug in Qt)
+ * bugfix: recording did not work in MDI and Tab mode (wrong file context)
 
 0.8.99 [2014-12-28]
 

@@ -67,7 +67,9 @@ void decode_linear(const quint8 *src, sample_t *dst, unsigned int count)
     const quint32 negative = ~(sign - 1);
     const quint32 bytes = (bits+7) >> 3;
 
-    while (count--) {
+    while (count) {
+	count--;
+
 	// read from source buffer
 	register quint32 s = 0;
 	if (is_little_endian) {

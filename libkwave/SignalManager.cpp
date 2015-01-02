@@ -524,7 +524,10 @@ void Kwave::SignalManager::newSignal(sample_index_t samples, double rate,
     m_empty = false;
 
     // add all empty tracks
-    while (tracks--) m_signal.appendTrack(samples, 0);
+    while (tracks) {
+	m_signal.appendTrack(samples, 0);
+	tracks--;
+    }
 
     // remember the last length
     m_last_length = samples;

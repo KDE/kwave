@@ -545,7 +545,7 @@ QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
 	    if (signal_manager && !signal_manager->isEmpty())
 		list += context;
 	    else
-		context->deleteLater();
+		context->release();
 	}
     }
 
@@ -584,10 +584,7 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 	    if (!m_context_map.isEmpty()) {
 		Kwave::FileContext *ctx = m_context_map[0];
 		m_context_map.remove(0);
-		if (ctx) {
-		    ctx->disconnect();
-		    ctx->deleteLater();
-		}
+		if (ctx) ctx->release();
 	    }
 	    // take over the new context
 	    m_context_map[0] = context;
@@ -896,8 +893,7 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const KUrl &url)
 		    Q_ASSERT(m_context_map[0] == context);
 		    m_context_map.remove(0);
 		}
-		context->disconnect();
-		context->deleteLater();
+		context->release();
 	    }
 
 	    // create a new file context
@@ -1486,7 +1482,7 @@ void Kwave::TopWidget::subWindowDeleted(QObject *obj)
 	m_context_map[0] = context;
     } else {
 	// remove the context
-	delete context;
+	context->release();
     }
 }
 

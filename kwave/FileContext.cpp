@@ -66,6 +66,7 @@ namespace Kwave {
 //***************************************************************************
 Kwave::FileContext::FileContext(Kwave::App &app)
     :QObject(),
+     m_use_count(1),
      m_application(app),
      m_top_widget(0),
      m_main_widget(0),
@@ -99,6 +100,21 @@ Kwave::FileContext::~FileContext()
 
     if (m_signal_manager) delete m_signal_manager;
     m_signal_manager = 0;
+}
+
+//***************************************************************************
+void Kwave::FileContext::use()
+{
+    m_use_count.ref();
+}
+
+//***************************************************************************
+void Kwave::FileContext::release()
+{
+    if (m_use_count.deref() == false) {
+	disconnect();
+	deleteLater();
+    }
 }
 
 //***************************************************************************
@@ -142,6 +158,8 @@ bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
 //***************************************************************************
 bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 {
+    Kwave::FileContext::UsageGuard _keep(this);
+
     m_top_widget = top_widget;
     Q_ASSERT(m_top_widget);
     if (!m_top_widget) return false;
@@ -265,6 +283,8 @@ Kwave::Zoomable* Kwave::FileContext::zoomable() const
 //***************************************************************************
 int Kwave::FileContext::executeCommand(const QString &line)
 {
+    Kwave::FileContext::UsageGuard _keep(this);
+
     int result = 0;
     bool use_recorder = true;
     QString command = line;
@@ -518,6 +538,8 @@ void Kwave::FileContext::modifiedChanged(bool modified)
 //***************************************************************************
 void Kwave::FileContext::contextSwitched(Kwave::FileContext *context)
 {
+    Kwave::FileContext::UsageGuard _keep(this);
+
     if (context == this) {
 	if (!m_active) {
 	    m_active = true;
@@ -530,6 +552,9 @@ void Kwave::FileContext::contextSwitched(Kwave::FileContext *context)
 //***************************************************************************
 void Kwave::FileContext::activated()
 {
+    // let our plugin manager be the active one
+    if (m_plugin_manager) m_plugin_manager->setActive();
+
     // emit last playback position if playback is running
     if (m_signal_manager && m_signal_manager->playbackController().running())
 	updatePlaybackPos(m_last_playback_pos);
@@ -579,6 +604,8 @@ void Kwave::FileContext::activated()
 //***************************************************************************
 int Kwave::FileContext::parseCommands(QTextStream &stream)
 {
+    Kwave::FileContext::UsageGuard _keep(this);
+
     int result = 0;
     QMap<QString, label_t> labels;
 
@@ -713,6 +740,8 @@ QString Kwave::FileContext::windowCaption(bool with_modified) const
 //***************************************************************************
 int Kwave::FileContext::loadBatch(const KUrl &url)
 {
+    Kwave::FileContext::UsageGuard _keep(this);
+
     // open the URL, read-only mode is enough
     QFile file(url.path());
     if (!file.open(QIODevice::ReadOnly)) {
@@ -731,6 +760,8 @@ int Kwave::FileContext::loadBatch(const KUrl &url)
 //***************************************************************************
 int Kwave::FileContext::revert()
 {
+    Kwave::FileContext::UsageGuard _keep(this);
+
     KUrl url(signalName());
     if (!url.isValid()) return -EINVAL;
 
@@ -887,6 +918,8 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 //***************************************************************************
 bool Kwave::FileContext::closeFile()
 {
+    Kwave::FileContext::UsageGuard _keep(this);
+
     if (m_plugin_manager && !m_plugin_manager->canClose())
     {
 	qWarning("FileContext::closeFile() - currently not possible, "\

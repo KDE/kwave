@@ -240,6 +240,15 @@ namespace Kwave
 	 */
 	virtual void selectRange(sample_index_t offset, sample_index_t length);
 
+	/**
+	 * Migrates this plugin instance to the currently active file context.
+	 * This might be necessary for plugins that create a new file context
+	 * and then expect that all operations are executed in the context of
+	 * that new file context. Example: the record plugin creates a new
+	 * context and does recording into that new created file context.
+	 */
+	virtual void migrateToActiveContext();
+
     protected:
 
 	friend class Kwave::PluginManager;
@@ -257,6 +266,9 @@ namespace Kwave
 
 	/** increments the usage counter */
 	void use();
+
+	/** assign this plugin to a new plugin manager (when migrating) */
+	void setPluginManager(Kwave::PluginManager *new_plugin_manager);
 
     signals:
 
@@ -332,7 +344,7 @@ namespace Kwave
     private:
 
 	/** reference to the plugin manager */
-	Kwave::PluginManager &m_plugin_manager;
+	Kwave::PluginManager *m_plugin_manager;
 
 	/**
 	 * Thread that executes the run() member function.
@@ -352,7 +364,7 @@ namespace Kwave
 	QProgressDialog *m_progress;
 
 	/**
-	 * proxy dialog that asks for configmation if the user
+	 * proxy dialog that asks for confirmation if the user
 	 * pressed cancel in the progress dialog
 	 */
 	Kwave::ConfirmCancelProxy *m_confirm_cancel;

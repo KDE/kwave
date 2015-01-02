@@ -934,9 +934,13 @@ void Kwave::RecordPlugin::startRecording()
 	     Kwave::FileInfo(signalManager().metaData()).rate(), rate))
 	{
 	    // create a new and empty signal
-
 	    emitCommand(QString(_("newsignal(%1,%2,%3,%4)")).arg(
 		samples).arg(rate).arg(bits).arg(tracks));
+
+	    // the parent context might have changed, maybe we have to
+	    // re-parent this plugin instance!
+	    migrateToActiveContext();
+
 	    Kwave::SignalManager &mgr = signalManager();
 	    if (!qFuzzyCompare(mgr.rate(), rate) || (mgr.bits() != bits) ||
 	        (mgr.tracks() != tracks))
@@ -1133,10 +1137,11 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 		quint8 *dst =
 		    reinterpret_cast<quint8 *>(dest.data());
 		src += track;
-		while (samples--) {
+		while (samples) {
 		    *dst = *src;
 		    dst++;
 		    src += tracks;
+		    samples--;
 		}
 		break;
 	    }
@@ -1147,10 +1152,11 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 		quint16 *dst =
 		    reinterpret_cast<quint16 *>(dest.data());
 		src += track;
-		while (samples--) {
+		while (samples) {
 		    *dst = *src;
 		    dst++;
 		    src += tracks;
+		    samples--;
 		}
 		break;
 	    }
@@ -1161,11 +1167,12 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 		quint8 *dst =
 		    reinterpret_cast<quint8 *>(dest.data());
 		src += track * 3;
-		while (samples--) {
+		while (samples) {
 		    *(dst++) = *(src++);
 		    *(dst++) = *(src++);
 		    *(dst++) = *(src++);
 		    src += (tracks - 1) * 3;
+		    samples--;
 		}
 		break;
 	    }
@@ -1176,10 +1183,11 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 		quint32 *dst =
 		    reinterpret_cast<quint32 *>(dest.data());
 		src += track;
-		while (samples--) {
+		while (samples) {
 		    *dst = *src;
 		    dst++;
 		    src += tracks;
+		    samples--;
 		}
 		break;
 	    }
@@ -1190,10 +1198,11 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 		quint64 *dst =
 		    reinterpret_cast<quint64 *>(dest.data());
 		src += track;
-		while (samples--) {
+		while (samples) {
 		    *dst = *src;
 		    dst++;
 		    src += tracks;
+		    samples--;
 		}
 		break;
 	    }
@@ -1205,11 +1214,12 @@ void Kwave::RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 		    reinterpret_cast<quint8 *>(dest.data());
 		src += (track * bytes_per_sample);
 		unsigned int increment = (tracks - 1) * bytes_per_sample;
-		while (samples--) {
+		while (samples) {
 		    for (unsigned int b = 0; b < bytes_per_sample; b++) {
 			*dst = *src;
 			dst++;
 			src++;
+			samples--;
 		    }
 		    src += increment;
 		}

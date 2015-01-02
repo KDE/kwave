@@ -277,8 +277,10 @@ bool Kwave::TrackPixmap::validateBuffer()
     int last = 0;
     int buflen = m_valid.size();
 
+    sample_index_t left  = m_offset;
+    sample_index_t right = (m_track.length()) ? (m_track.length() - 1) : 0;
     Kwave::SampleReader *reader = m_track.openReader(
-	Kwave::SinglePassForward, m_offset, m_track.length() - 1);
+	Kwave::SinglePassForward, left, right);
     Q_ASSERT(reader);
     if (!reader) return false;
 

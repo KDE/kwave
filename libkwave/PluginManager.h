@@ -103,7 +103,7 @@ namespace Kwave
 	bool onePluginRunning();
 
 	/**
-	 * Waits until all currently running acions have completed.
+	 * Waits until all currently running actions have completed.
 	 */
 	void sync();
 
@@ -236,6 +236,18 @@ namespace Kwave
 	 */
 	const QList<PluginModule> pluginInfoList() const;
 
+	/**
+	 * Migrate a plugin to the currently active file context (which
+	 * might be different from the one that is currently executing
+	 * the plugin). The plugin will be removed from our lists and
+	 * inserted into the currently active plugin manager instance.
+	 * @param plugin the plugin to migrate
+	 */
+	void migratePluginToActiveContext(Kwave::Plugin *plugin);
+
+	/** Let this instance be the active one */
+	void setActive() { m_active_instance = this; }
+
     signals:
 
 	/**
@@ -344,6 +356,9 @@ namespace Kwave
 
     private:
 
+	/** pointer to the currently active instance */
+	static Kwave::PluginManager *m_active_instance;
+
 	/**
 	 * map with plugin information: key = short name of the plugin,
 	 * data = plugin info (description, author, version etc...)
@@ -364,6 +379,7 @@ namespace Kwave
 
 	/** interface for registering a SignalView */
 	ViewManager *m_view_manager;
+
     };
 }
 

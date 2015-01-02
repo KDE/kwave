@@ -51,6 +51,8 @@
 QMap<QString, Kwave::PluginManager::PluginModule>
     Kwave::PluginManager::m_plugin_modules;
 
+Kwave::PluginManager *Kwave::PluginManager::m_active_instance = 0;
+
 //***************************************************************************
 Kwave::PluginManager::PluginManager(QWidget *parent,
                                     Kwave::SignalManager &signal_manager)
@@ -106,6 +108,10 @@ Kwave::PluginManager::~PluginManager()
 	    // still in use
 	}
     }
+
+    // we are no longer the active instance
+    if (m_active_instance == this)
+	m_active_instance = 0;
 }
 
 //***************************************************************************
@@ -205,7 +211,7 @@ int Kwave::PluginManager::executePlugin(const QString &name,
     Q_ASSERT(this->thread() == qApp->thread());
 
     // synchronize: wait until any currently running plugins are done
-    sync();
+    this->sync();
 
     // load the new plugin
     KwavePluginPointer plugin = createPluginInstance(name);
@@ -667,6 +673,32 @@ const QList<Kwave::PluginManager::PluginModule>
     Kwave::PluginManager::pluginInfoList() const
 {
     return m_plugin_modules.values();
+}
+
+//***************************************************************************
+void Kwave::PluginManager::migratePluginToActiveContext(Kwave::Plugin *plugin)
+{
+    // check: this must be called from the GUI thread only!
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+    Q_ASSERT(plugin);
+    if (!plugin) return;
+    if (m_active_instance == this) return; // nothing to do
+    Q_ASSERT(m_active_instance);
+    if (!m_active_instance) return; // should never happen
+
+    Kwave::PluginManager *old_mgr = this;
+    old_mgr->m_plugin_instances.removeAll(plugin);
+    old_mgr->m_running_plugins.removeAll(plugin);
+    old_mgr->disconnectPlugin(plugin);
+
+    Kwave::PluginManager *new_mgr = m_active_instance;
+    new_mgr->m_plugin_instances.append(plugin);
+    new_mgr->m_running_plugins.append(plugin);
+    new_mgr->connectPlugin(plugin);
+
+    plugin->setPluginManager(new_mgr);
 }
 
 //***************************************************************************

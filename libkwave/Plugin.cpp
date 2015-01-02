@@ -68,7 +68,9 @@
 
 //***************************************************************************
 Kwave::Plugin::Plugin(Kwave::PluginManager &plugin_manager)
-    :m_plugin_manager(plugin_manager),
+    :QObject(0),
+     Kwave::Runnable(),
+     m_plugin_manager(&plugin_manager),
      m_thread(0),
      m_thread_lock(),
      m_progress_enabled(true),
@@ -418,7 +420,8 @@ void Kwave::Plugin::release()
 //***************************************************************************
 Kwave::PluginManager &Kwave::Plugin::manager()
 {
-    return m_plugin_manager;
+    Q_ASSERT(m_plugin_manager);
+    return *m_plugin_manager;
 }
 
 //***************************************************************************
@@ -491,6 +494,25 @@ void Kwave::Plugin::selectRange(sample_index_t offset, sample_index_t length)
 void Kwave::Plugin::emitCommand(const QString &command)
 {
     manager().enqueueCommand(command);
+}
+
+//***************************************************************************
+void Kwave::Plugin::migrateToActiveContext()
+{
+    manager().migratePluginToActiveContext(this);
+}
+
+//***************************************************************************
+void Kwave::Plugin::setPluginManager(Kwave::PluginManager *new_plugin_manager)
+{
+    Q_ASSERT(new_plugin_manager);
+    if (!new_plugin_manager) return;
+    m_plugin_manager = new_plugin_manager;
+
+    if (m_progress)
+	m_progress->setParent(m_plugin_manager->parentWidget());
+    if (m_confirm_cancel)
+	m_confirm_cancel->setParent(m_plugin_manager->parentWidget());
 }
 
 //***************************************************************************

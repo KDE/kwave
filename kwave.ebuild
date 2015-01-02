@@ -4,13 +4,13 @@
 
 EAPI=5
 
+KDE_LINGUAS="cs de en_US es fr"
 KDE_HANDBOOK="optional"
-KDE_LINGUAS="cs de en_GB es fr"
 inherit kde4-base
 
 DESCRIPTION="A sound editor for KDE that can edit many types of audio files"
 HOMEPAGE="http://kwave.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${P}-1.tar.bz2"
+SRC_URI="mirror://sourceforge/${PN}/${P}-2.tar.bz2"
 
 LICENSE="BSD GPL-2 LGPL-2
 	handbook? ( FDL-1.2 )"
@@ -33,7 +33,7 @@ RDEPEND="
 		media-libs/libogg
 		media-libs/opus
 	)
-	phonon? ( media-libs/phonon )
+	phonon? ( media-libs/phonon[qt4] )
 	pulseaudio? ( media-sound/pulseaudio )
 	vorbis? (
 		media-libs/libogg

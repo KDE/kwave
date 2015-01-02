@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-12-28 17:52+0000\n"
+"POT-Creation-Date: 2015-01-02 16:53+0000\n"
 "PO-Revision-Date: 2014-05-27 20:39+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -62,8 +62,8 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en.docbook:66
 #, no-c-format
-msgid "2014-12-28"
-msgstr "2014-12-28"
+msgid "2015-01-02"
+msgstr ""
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -5470,6 +5470,9 @@ msgstr "Michael Pruett <email>mpruett@sgi.com</email>"
 msgid ""
 "author of the <ulink url=\"&url_libaudiofile;\">audiofile</ulink> library"
 msgstr "Autor knihovny <ulink url=\"&url_libaudiofile;\">audiofile</ulink>"
+
+#~ msgid "2014-12-28"
+#~ msgstr "2014-12-28"
 
 #, fuzzy
 #~ msgid "Using the Command Line"

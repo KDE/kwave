@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-28 18:50+0100\n"
+"POT-Creation-Date: 2015-01-02 17:53+0100\n"
 "PO-Revision-Date: 2014-12-23 17:27+0100\n"
 "Last-Translator: skynet\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -42,7 +42,7 @@ msgstr ""
 msgid " dB"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:406 plugins/record/RecordPlugin.cpp:979
+#: libkwave/SignalManager.cpp:406 plugins/record/RecordPlugin.cpp:983
 msgid " for KDE "
 msgstr "para KDE"
 
@@ -130,7 +130,7 @@ msgstr ""
 msgid "%1 (%2 samples)"
 msgstr ""
 
-#: kwave/FileContext.cpp:702
+#: kwave/FileContext.cpp:729
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -531,7 +531,7 @@ msgstr "(estéreo)"
 msgid "(user defined)"
 msgstr "(definido por el usuario)"
 
-#: kwave/FileContext.cpp:708
+#: kwave/FileContext.cpp:735
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
@@ -780,7 +780,7 @@ msgstr ""
 "seleccionado. Si su dispositivo no se lista aquí puede introducir el nombre "
 "de un dispositivo usted mismo o buscar uno en el sistema de archivos."
 
-#: libkwave/SignalManager.cpp:1396
+#: libkwave/SignalManager.cpp:1399
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -1190,7 +1190,7 @@ msgctxt "menu: /Edit/Track/Add"
 msgid "Add"
 msgstr "Añadir"
 
-#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1891
+#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1894
 msgid "Add Label"
 msgstr "Añadir Etiqueta"
 
@@ -1337,7 +1337,7 @@ msgstr "Anotación"
 msgid "Any device (*)"
 msgstr "Cualquier dispositivo (*)"
 
-#: libkwave/SignalManager.cpp:908
+#: libkwave/SignalManager.cpp:911
 msgid "Append Track"
 msgstr "Agregar pista"
 
@@ -1573,7 +1573,7 @@ msgstr "Buscar un directorio para almacenar archivos de intercambio"
 msgid "Buffer count:"
 msgstr "Buffer:"
 
-#: plugins/record/RecordPlugin.cpp:1007
+#: plugins/record/RecordPlugin.cpp:1011
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
@@ -1861,7 +1861,7 @@ msgstr "Creador del dialogo de ayuda/acerca de..."
 msgid "Creator of the project, development 1998-2000"
 msgstr "Creador del proyecto, desarrollo entre 1998-2000"
 
-#: libkwave/SignalManager.cpp:688
+#: libkwave/SignalManager.cpp:691
 msgid "Crop"
 msgstr "Recortar"
 
@@ -1886,7 +1886,7 @@ msgstr ""
 msgid "Currently Selected Point"
 msgstr "Punto seleccionado actualmente"
 
-#: kwave/TopWidget.cpp:393 libkwave/SignalManager.cpp:681
+#: kwave/TopWidget.cpp:393 libkwave/SignalManager.cpp:684
 msgid "Cut"
 msgstr "Cortar"
 
@@ -1962,7 +1962,7 @@ msgid "Default device"
 msgstr "Dispositivo por defecto"
 
 #: libgui/CurveWidget.cpp:95 libkwave/undo/UndoDeleteAction.cpp:56
-#: libkwave/SignalManager.cpp:706
+#: libkwave/SignalManager.cpp:709
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -1985,7 +1985,7 @@ msgctxt ""
 msgid "Delete %1 %2 objects"
 msgstr "Eliminar %1 %2 objetos"
 
-#: libkwave/SignalManager.cpp:1920
+#: libkwave/SignalManager.cpp:1923
 msgid "Delete Label"
 msgstr "Eliminar marcador"
 
@@ -1993,7 +1993,7 @@ msgstr "Eliminar marcador"
 msgid "Delete Meta Data"
 msgstr "Eliminar Metadatos"
 
-#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:957
+#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:960
 msgid "Delete Track"
 msgstr "Eliminar Pista"
 
@@ -2031,11 +2031,11 @@ msgstr ""
 msgid "Description:"
 msgstr "Descripción:"
 
-#: libkwave/SignalManager.cpp:863
+#: libkwave/SignalManager.cpp:866
 msgid "Deselect Track"
 msgstr "Desmarcar pista"
 
-#: libkwave/SignalManager.cpp:848
+#: libkwave/SignalManager.cpp:851
 msgid "Deselect all tracks"
 msgstr "Desmarcar todas las pistas"
 
@@ -2111,7 +2111,7 @@ msgstr "¿Todavía desea continuar?"
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "¿Desea continuar e ignorar los siguiente errores?"
 
-#: libkwave/SignalManager.cpp:1394
+#: libkwave/SignalManager.cpp:1397
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "¿Desea continuar sin la posibilidad de deshacer la acción?"
 
@@ -2201,7 +2201,7 @@ msgstr "Ingeniero"
 msgid "Erik de Castro Lopo"
 msgstr ""
 
-#: libkwave/PluginManager.cpp:170
+#: libkwave/PluginManager.cpp:176
 msgid "Error On Loading Plugin"
 msgstr "Error al cargar el complemento"
 
@@ -2270,17 +2270,17 @@ msgstr ""
 msgid "Example:"
 msgstr "Ejemplo:"
 
-#: kwave/TopWidget.cpp:940
+#: kwave/TopWidget.cpp:945
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:920
+#: kwave/TopWidget.cpp:925
 #, kde-format
 msgid "Executing command '%1'..."
 msgstr ""
 
-#: libkwave/SignalManager.cpp:738
+#: libkwave/SignalManager.cpp:741
 msgid "Expand Selection to Label"
 msgstr "Expandir selección al marcador"
 
@@ -2862,7 +2862,7 @@ msgctxt "menu: /Edit/Clipboard/Insert At..."
 msgid "Insert At..."
 msgstr "Insertar en..."
 
-#: libkwave/SignalManager.cpp:657
+#: libkwave/SignalManager.cpp:660
 msgid "Insert Clipboard at position"
 msgstr "Insertar portapapeles en la posición"
 
@@ -2870,11 +2870,11 @@ msgstr "Insertar portapapeles en la posición"
 msgid "Insert Meta Data"
 msgstr "Insertar Metadatos"
 
-#: libkwave/SignalManager.cpp:1119
+#: libkwave/SignalManager.cpp:1122
 msgid "Insert Space"
 msgstr "Insertar espacio"
 
-#: libkwave/undo/UndoInsertTrack.cpp:44 libkwave/SignalManager.cpp:915
+#: libkwave/undo/UndoInsertTrack.cpp:44 libkwave/SignalManager.cpp:918
 msgid "Insert Track"
 msgstr "Insertar Pista"
 
@@ -2911,7 +2911,7 @@ msgstr "En la segunda mitad"
 msgid "Invalid codec type"
 msgstr "Tipo de códec inválido"
 
-#: kwave/TopWidget.cpp:972
+#: kwave/TopWidget.cpp:977
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
@@ -2935,7 +2935,7 @@ msgctxt "menu: /Edit/Track/Invert Selection"
 msgid "Invert Selection"
 msgstr "Invertir selección"
 
-#: libkwave/SignalManager.cpp:852
+#: libkwave/SignalManager.cpp:855
 msgid "Invert Track Selection"
 msgstr "Invertir selección de pistas"
 
@@ -3018,7 +3018,7 @@ msgstr "Marcadores"
 msgid "Labels at Stripe borders"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1547 libkwave/SignalManager.cpp:1554
+#: libkwave/SignalManager.cpp:1550 libkwave/SignalManager.cpp:1557
 msgid "Last Action"
 msgstr "Última acción"
 
@@ -3064,7 +3064,7 @@ msgstr "Duración:"
 msgid "Length: %1"
 msgstr "Duración: %1"
 
-#: kwave/TopWidget.cpp:1059
+#: kwave/TopWidget.cpp:1064
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
@@ -3146,7 +3146,7 @@ msgstr ""
 msgid "Lo-Fi"
 msgstr ""
 
-#: kwave/TopWidget.cpp:950
+#: kwave/TopWidget.cpp:955
 #, kde-format
 msgid "Loading file '%1'..."
 msgstr "Cargando archivo '%1'..."
@@ -3155,12 +3155,12 @@ msgstr "Cargando archivo '%1'..."
 msgid "Loading main menu..."
 msgstr "Cargando menu principal..."
 
-#: libkwave/PluginManager.cpp:644
+#: libkwave/PluginManager.cpp:650
 #, kde-format
 msgid "Loading plugin %1..."
 msgstr "Cargando complemento %1..."
 
-#: kwave/FileContext.cpp:195 kwave/FileContext.cpp:196
+#: kwave/FileContext.cpp:213 kwave/FileContext.cpp:214
 msgid "Loading plugins..."
 msgstr "Cargando complementos..."
 
@@ -3270,11 +3270,11 @@ msgstr "MS Estéreo"
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Mantenedor de la biblioteca 'id3lib'"
 
-#: libkwave/SignalManager.cpp:2007
+#: libkwave/SignalManager.cpp:2010
 msgid "Manual Selection"
 msgstr "Selección manual"
 
-#: libkwave/SignalManager.cpp:2004
+#: libkwave/SignalManager.cpp:2007
 msgid "Manual Track Selection"
 msgstr "Selección manual de la pista"
 
@@ -3320,7 +3320,7 @@ msgstr "Megabytes de memoria física"
 msgid "Megabytes of virtual memory"
 msgstr "Megabytes de memoria virtual"
 
-#: libkwave/SignalManager.cpp:1400
+#: libkwave/SignalManager.cpp:1403
 msgid "Memory"
 msgstr "Memoria"
 
@@ -3390,7 +3390,7 @@ msgstr "Modo"
 msgid "Mode Extension"
 msgstr "Modo de extensión"
 
-#: kwave/TopWidget.cpp:1070
+#: kwave/TopWidget.cpp:1075
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Modo: %1 KHz @ %2 Bit"
@@ -3409,7 +3409,7 @@ msgctxt ""
 msgid "Modify %1 %2 objects"
 msgstr "Modificar %1 %2  objetos"
 
-#: libkwave/SignalManager.cpp:1844
+#: libkwave/SignalManager.cpp:1847
 msgid "Modify File Info"
 msgstr "Modificar información del archivo"
 
@@ -3425,8 +3425,8 @@ msgstr "Modificar Metadatos"
 msgid "Modify Samples"
 msgstr "Modificar Muestras"
 
-#: plugins/record/RecordPlugin.cpp:464 plugins/record/RecordPlugin.cpp:472
-#: plugins/record/RecordDialog.cpp:697
+#: plugins/record/RecordDialog.cpp:697 plugins/record/RecordPlugin.cpp:464
+#: plugins/record/RecordPlugin.cpp:472
 msgid "Mono"
 msgstr ""
 
@@ -3588,7 +3588,7 @@ msgstr "Normalizador"
 msgid "Normalizing (%1 dB) ..."
 msgstr "Normalizando (%1 dB) ..."
 
-#: libkwave/SignalManager.cpp:1392
+#: libkwave/SignalManager.cpp:1395
 msgid "Not enough memory for saving undo information."
 msgstr ""
 "Memoria insuficiente para guardar información que permita deshacer la acción."
@@ -3715,7 +3715,7 @@ msgstr ""
 msgid "One or more invalid/out of range arguments."
 msgstr "Uno o más argumentos inválidos o fuera de rango."
 
-#: kwave/TopWidget.cpp:1009
+#: kwave/TopWidget.cpp:1014
 msgid "Open"
 msgstr "Abrir"
 
@@ -3818,7 +3818,7 @@ msgstr ""
 msgid "Other"
 msgstr "Otros"
 
-#: kwave/TopWidget.cpp:964 plugins/codec_audiofile/AudiofileDecoder.cpp:104
+#: kwave/TopWidget.cpp:969 plugins/codec_audiofile/AudiofileDecoder.cpp:104
 #: plugins/codec_flac/FlacEncoder.cpp:246
 #: plugins/codec_flac/FlacEncoder.cpp:264
 #: plugins/codec_flac/FlacEncoder.cpp:279 plugins/codec_mp3/MP3Decoder.cpp:504
@@ -3830,7 +3830,7 @@ msgstr "Otros"
 #: plugins/playback/PlayBack-Phonon.cpp:181
 #: plugins/playback/PlayBack-Phonon.cpp:194
 #: plugins/record/RecordPlugin.cpp:875 plugins/record/RecordPlugin.cpp:891
-#: plugins/record/RecordPlugin.cpp:957
+#: plugins/record/RecordPlugin.cpp:961
 msgid "Out of memory"
 msgstr "Sin memoria disponible"
 
@@ -3846,7 +3846,7 @@ msgstr ""
 msgid "Parameters"
 msgstr "Parámetros"
 
-#: libkwave/SignalManager.cpp:667
+#: libkwave/SignalManager.cpp:670
 msgid "Paste"
 msgstr "Pegar"
 
@@ -3943,12 +3943,12 @@ msgstr "Frecuencia de reproducción de %1 Hz no está soportada"
 msgid "Playback resolution in bits per sample"
 msgstr "Resolución de la reproducción en bits por muestra"
 
-#: kwave/FileContext.cpp:418
+#: kwave/FileContext.cpp:438
 #, kde-format
 msgid "Playback: %1"
 msgstr "Reproducción: %1"
 
-#: kwave/FileContext.cpp:420
+#: kwave/FileContext.cpp:440
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Reproducción: %1 muestras"
@@ -4010,7 +4010,7 @@ msgstr ""
 msgid "Position:"
 msgstr "Posición:"
 
-#: kwave/TopWidget.cpp:1147
+#: kwave/TopWidget.cpp:1152
 #, kde-format
 msgid "Position: %1"
 msgstr "Posición: %1"
@@ -4129,8 +4129,8 @@ msgstr ""
 msgid "Punk Rock"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:466 plugins/record/RecordPlugin.cpp:474
-#: plugins/record/RecordDialog.cpp:703
+#: plugins/record/RecordDialog.cpp:703 plugins/record/RecordPlugin.cpp:466
+#: plugins/record/RecordPlugin.cpp:474
 msgid "Quadro"
 msgstr "Cuadrófonico"
 
@@ -4173,7 +4173,7 @@ msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
 msgid "Re-enable all \"Do not ask again\" messages"
 msgstr "Reactivar todas los mensajes con la casilla \"No preguntar de nuevo\""
 
-#: kwave/TopWidget.cpp:752
+#: kwave/TopWidget.cpp:758
 msgid ""
 "Re-enable all disabled notifications?\n"
 "All messages that you previously turned off by activating the \"Do not ask "
@@ -4192,7 +4192,7 @@ msgstr "Fallo de lectura"
 msgid "Reading configuration..."
 msgstr "Cargando configuración..."
 
-#: plugins/record/RecordPlugin.cpp:1014
+#: plugins/record/RecordPlugin.cpp:1018
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr ""
@@ -4202,7 +4202,7 @@ msgstr ""
 msgid "Reading..."
 msgstr "Leyendo..."
 
-#: kwave/FileContext.cpp:198
+#: kwave/FileContext.cpp:216
 msgid "Ready"
 msgstr "Listo"
 
@@ -4269,7 +4269,7 @@ msgstr "Rectangular"
 msgid "Redo"
 msgstr "Rehacer"
 
-#: kwave/TopWidget.cpp:1204
+#: kwave/TopWidget.cpp:1209
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr "Rehacer"
@@ -4279,18 +4279,18 @@ msgctxt "menu: /Edit/Redo"
 msgid "Redo"
 msgstr "Rehacer"
 
-#: kwave/TopWidget.cpp:1186
+#: kwave/TopWidget.cpp:1191
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Rehacer"
 
-#: kwave/TopWidget.cpp:1203
+#: kwave/TopWidget.cpp:1208
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "Rehacer (%1)"
 
-#: kwave/TopWidget.cpp:1184
+#: kwave/TopWidget.cpp:1189
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
@@ -4305,7 +4305,7 @@ msgctxt "menu: /Settings/Reset Toolbar"
 msgid "Reset Toolbar"
 msgstr "Reiniciar barra de herramientas"
 
-#: kwave/TopWidget.cpp:728
+#: kwave/TopWidget.cpp:734
 msgid "Reset the toolbar to default settings?"
 msgstr "¿Restaurar la barra de tareas a sus parámetros por defecto?"
 
@@ -4374,7 +4374,7 @@ msgstr ""
 msgid "Rock & Roll"
 msgstr ""
 
-#: libkwave/Plugin.cpp:192
+#: libkwave/Plugin.cpp:194
 #, kde-format
 msgid "Running plugin '%1'..."
 msgstr "Ejecutando componente '%1'..."
@@ -4458,7 +4458,7 @@ msgctxt "menu: /File/Save"
 msgid "Save"
 msgstr "Guardar"
 
-#: kwave/FileContext.cpp:806
+#: kwave/FileContext.cpp:837
 msgid "Save As"
 msgstr "Guardar como"
 
@@ -4502,7 +4502,7 @@ msgstr ""
 msgid "Sawtooth"
 msgstr "Diente de sierra"
 
-#: kwave/FileContext.cpp:183
+#: kwave/FileContext.cpp:201
 msgid "Scanning plugins..."
 msgstr "Escaneando complementos..."
 
@@ -4533,7 +4533,7 @@ msgstr "Segundos"
 msgid "Selec&t..."
 msgstr "Selec&cionar..."
 
-#: libkwave/SignalManager.cpp:844
+#: libkwave/SignalManager.cpp:847
 msgid "Select All Tracks"
 msgstr "Seleccionar todas las pistas"
 
@@ -4545,7 +4545,7 @@ msgstr "Seleccionar fecha"
 msgid "Select MP3 Encoder"
 msgstr "Seleccionar codificador MP3"
 
-#: libkwave/SignalManager.cpp:767
+#: libkwave/SignalManager.cpp:770
 msgid "Select Next Labels"
 msgstr "Seleccionar siguientes marcadores"
 
@@ -4553,7 +4553,7 @@ msgstr "Seleccionar siguientes marcadores"
 msgid "Select Playback Device"
 msgstr "Seleccionar dispositivo de reproducción"
 
-#: libkwave/SignalManager.cpp:804
+#: libkwave/SignalManager.cpp:807
 msgid "Select Previous Labels"
 msgstr "Seleccionar marcadores anteriores"
 
@@ -4567,7 +4567,7 @@ msgstr "Seleccionar rango"
 msgid "Select Record Device"
 msgstr "Seleccionar dispositivo de grabación"
 
-#: libkwave/SignalManager.cpp:858
+#: libkwave/SignalManager.cpp:861
 msgid "Select Track"
 msgstr "Seleccionar pista"
 
@@ -4600,7 +4600,7 @@ msgstr "Seleccione esto para fijar la longitud del archivo por tiempo"
 msgid "Select zoom factor"
 msgstr "Seleccionar factor de zum"
 
-#: kwave/TopWidget.cpp:1116
+#: kwave/TopWidget.cpp:1121
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -4608,7 +4608,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Seleccionado: %1...%2 (%3 muestras)"
 
-#: kwave/TopWidget.cpp:1128
+#: kwave/TopWidget.cpp:1133
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -4694,7 +4694,7 @@ msgstr ""
 "Fija el volumen a un porcentaje relativo al nivel original.\n"
 "Por ejemplo: \"50%\",  \"75%\" o \"125%\""
 
-#: libkwave/SignalManager.cpp:1398
+#: libkwave/SignalManager.cpp:1401
 msgid "Settings"
 msgstr "&Opciones"
 
@@ -4954,7 +4954,7 @@ msgstr "Comenzar reproducción"
 msgid "Start playback and loop"
 msgstr "Comenzar reproducción y repetir"
 
-#: kwave/App.cpp:235
+#: kwave/App.cpp:236
 msgid "Startup done"
 msgstr "Arranque completado"
 
@@ -4962,8 +4962,8 @@ msgstr "Arranque completado"
 msgid "Stefan Westerfeld"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:465 plugins/record/RecordPlugin.cpp:473
-#: plugins/record/RecordDialog.cpp:700
+#: plugins/record/RecordDialog.cpp:700 plugins/record/RecordPlugin.cpp:465
+#: plugins/record/RecordPlugin.cpp:473
 msgid "Stereo"
 msgstr "Estéreo"
 
@@ -5151,7 +5151,7 @@ msgstr ""
 "escribiendo: \"fuser -v %1\"\n"
 "en la línea de comandos.)"
 
-#: kwave/FileContext.cpp:833
+#: kwave/FileContext.cpp:864
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -5225,12 +5225,12 @@ msgstr ""
 "\n"
 "No tiene ningún sentido continuar."
 
-#: libkwave/PluginManager.cpp:169
+#: libkwave/PluginManager.cpp:175
 #, kde-format
 msgid "The plugin '%1' is unknown or invalid."
 msgstr "El complemento '%1' es desconocido o inválido."
 
-#: plugins/record/RecordPlugin.cpp:1011
+#: plugins/record/RecordPlugin.cpp:1015
 msgid "The recording device seems to be busy."
 msgstr "El dispositivo de grabación parece estar ocupado."
 
@@ -5258,7 +5258,7 @@ msgstr ""
 "Este códec sólo soporta archivos mono o estéreo, %1 canales no están "
 "soportados."
 
-#: kwave/FileContext.cpp:899
+#: kwave/FileContext.cpp:932
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -5328,7 +5328,7 @@ msgctxt "menu: /Edit/Selection/To Start"
 msgid "To Start"
 msgstr "Al principio"
 
-#: libkwave/SignalManager.cpp:868
+#: libkwave/SignalManager.cpp:871
 msgid "Toggle Track Selection"
 msgstr "Alternar selección de pista"
 
@@ -5399,7 +5399,7 @@ msgstr ""
 msgid "Unable to open '%1'"
 msgstr "Incapaz de abrir '%1'"
 
-#: kwave/TopWidget.cpp:968
+#: kwave/TopWidget.cpp:973
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
@@ -5426,7 +5426,7 @@ msgstr "Incapaz de abrir el dispositivo de grabación"
 msgid "Undo"
 msgstr "Deshacer"
 
-#: kwave/TopWidget.cpp:1197
+#: kwave/TopWidget.cpp:1202
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr "Deshacer"
@@ -5436,18 +5436,18 @@ msgctxt "menu: /Edit/Undo"
 msgid "Undo"
 msgstr "Deshacer"
 
-#: kwave/TopWidget.cpp:1175
+#: kwave/TopWidget.cpp:1180
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Deshacer"
 
-#: kwave/TopWidget.cpp:1196
+#: kwave/TopWidget.cpp:1201
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "Deshacer (%1)"
 
-#: kwave/TopWidget.cpp:1173
+#: kwave/TopWidget.cpp:1178
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"

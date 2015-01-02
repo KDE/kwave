@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-12-28 17:52+0000\n"
+"POT-Creation-Date: 2015-01-02 16:53+0000\n"
 "PO-Revision-Date: 2014-12-23 11:39+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -60,8 +60,8 @@ msgstr "Thomas Eschenbacher"
 #. Tag: date
 #: help_en.docbook:66
 #, no-c-format
-msgid "2014-12-28"
-msgstr "2014-12-28"
+msgid "2015-01-02"
+msgstr ""
 
 #. Tag: releaseinfo
 #: help_en.docbook:67
@@ -5574,6 +5574,9 @@ msgid ""
 "author of the <ulink url=\"&url_libaudiofile;\">audiofile</ulink> library"
 msgstr ""
 "Autor der <ulink url=\"&url_libaudiofile;\">audiofile</ulink> Bibliothek"
+
+#~ msgid "2014-12-28"
+#~ msgstr "2014-12-28"
 
 #, fuzzy
 #~ msgid "Using the Command Line"

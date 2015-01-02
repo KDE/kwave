@@ -106,9 +106,11 @@ mv kwave.lsm.new kwave.lsm
 # update the docbook file
 #
 NEW_TAG=`echo ${NEW_VERSION} | sed s/\\\./_/g`
+NEW_YEAR=`echo ${NEW_DATE} | cut -d \- -f 1`
 cat doc/help_en.docbook | \
     sed s/\<\!ENTITY\ version\ \"*.*.*\"\>/\<\!ENTITY\ version\ \"${NEW_VERSION}\"\>/g | \
     sed s/\<\!ENTITY\ version_tag\ \"*.*.*\"\>/\<\!ENTITY\ version_tag\ \"${NEW_TAG}\"\>/g | \
+    sed s/\<\!ENTITY\ version_year\ \"....\"\>/\<\!ENTITY\ version_year\ \"${NEW_YEAR}\"\>/g | \
     sed s/\<date\>....-..-..\<\\/date\>/\<date\>${NEW_DATE}\<\\/date\>/g \
     > doc/help_en.docbook.new && \
 mv doc/help_en.docbook doc/help_en.docbook.old && \

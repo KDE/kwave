@@ -1219,7 +1219,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: User Interface Selection                              +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <sect1 id="gui-setup"><title>User Interface Type</title>
+    <sect1 id="gui_mode"><title>User Interface Mode</title>
 
     <para>
 	Depending on your personal preferences or use cases you can configure
@@ -1234,6 +1234,7 @@
 	The three possible settings are:
 	<itemizedlist>
 	    <listitem>
+		<anchor id="gui_sdi"/>
 		<para><guimenuitem>Separate Windows (SDI)</guimenuitem>:
 		    When using the <emphasis>Single Document Interface</emphasis>
 		    (SDI), each file will be shown in a separate main window.
@@ -1253,6 +1254,7 @@
 	        </para>
 	    </listitem>
 	    <listitem>
+		<anchor id="gui_mdi"/>
 		<para><guimenuitem>Same Window (MDI)</guimenuitem>:
 		    When using the <emphasis>Multi Document Interface</emphasis>
 		    (MDI), there is only one &kwave; main window, but within this
@@ -1279,6 +1281,7 @@
 	        </para>
 	    </listitem>
 	    <listitem>
+		<anchor id="gui_tab"/>
 		<para><guimenuitem>Tabs</guimenuitem>:
 		    This is a variant of the MDI interface, where files are
 		    shown within separate tabs. You may know this mode from
@@ -1369,54 +1372,75 @@
 
     <sect1 id="command_line"><title>Command Line</title>
 
-    <para>
-    If you start &kwave; from the command line, you can specify a list
-    of files that should be opened. The first specified file will be opened
-    first, then the other files. Each file will be opened in an own new
-    window or sub window of the same &kwave; instance. If you specify
-    wildcards, you can open a large number of files at once.
-    </para>
-    <para>
-    For example, the following command starts a &kwave; and opens all sounds
-    of the KDE window manager, each in a new window or sub window:
-    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
-    </para>
+	<sect2><title>List of Files or Commands</title>
+	    <para>
+	    If you start &kwave; from the command line, you can specify a list
+	    of files that should be opened. The first specified file will be opened
+	    first, then the other files. Each file will be opened in an own new
+	    window or sub window of the same &kwave; instance. If you specify
+	    wildcards, you can open a large number of files at once.
+	    </para>
+	    <para>
+	    For example, the following command starts a &kwave; and opens all sounds
+	    of the KDE window manager, each in a new window or sub window:
+	    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
+	    </para>
+	    <para>
+		It is also possible to pass &kwave; text commands, encoded as a
+		special <abbrev>URI</abbrev><footnote><para>universal resource identifier</para></footnote>,
+		this will be described in a <link linkend="kwave_uri">later section</link>.
+	    </para>
+	</sect2>
 
-    <para>
-    In addition to a list of files, you can specify a list of
-    <emphasis>Xt toolkit</emphasis> options like <literal>-geometry</literal>
-    for specifying the size and/or position of the first opened &kwave;
-    window and or <literal>-display</literal> for starting the &kwave; on a
-    different display.
-    </para>
+	<sect2><title>GUI Type</title>
+	    <para>
+	    The parameter <literal>--gui-type=<replaceable>SDI</replaceable>|<replaceable>MDI</replaceable>|<replaceable>TAB</replaceable></literal>
+	    lets &kwave; start in one of the three possible
+	    <abbrev>GUI</abbrev> modes:
+	    <link linkend="gui_sdi"><abbrev>SDI</abbrev></link>,
+	    <link linkend="gui_mdi"><abbrev>MDI</abbrev></link> or
+	    <link linkend="gui_tab"><abbrev>TAB</abbrev></link>.
+	    </para>
+	</sect2>
 
-    <para>
-    For example, the following command starts a &kwave; window with an initial
-    width of 600 pixels and a height of 400 pixels, with the right border
-    positioned 30 pixels away from the right and 0 pixels away from the top
-    of the screen.
-    <screen><prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
-    </para>
+	<sect2><title>Xt Toolkit options</title>
+	    <para>
+	    In addition to a list of files, you can specify a list of
+	    <emphasis>Xt toolkit</emphasis> options like <literal>-geometry</literal>
+	    for specifying the size and/or position of the first opened &kwave;
+	    window and or <literal>-display</literal> for starting the &kwave; on a
+	    different display.
+	    </para>
+	    <para>
+	    For example, the following command starts a &kwave; window with an initial
+	    width of 600 pixels and a height of 400 pixels, with the right border
+	    positioned 30 pixels away from the right and 0 pixels away from the top
+	    of the screen.
+	    <screen><prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
+	    </para>
+	</sect2>
 
-    <para>
-    With the option <literal>--disable-splashscreen</literal> you can disable
-    the splash screen that comes up when starting &kwave;. This might be useful
-    when you start &kwave; from a script.
-    </para>
+	<sect2><title>Startup Options</title>
+	    <para>
+	    With the option <literal>--disable-splashscreen</literal> you can disable
+	    the splash screen that comes up when starting &kwave;. This might be useful
+	    when you start &kwave; from a script.
+	    </para>
 
-    <para>
-    The command line option <literal>--iconic</literal> lets &kwave;
-    start up minimized (iconified). This might be useful when you want to
-    start &kwave; without GUI interaction, e.g. when running from a script.
-    This option also implicitly disables the splash screen!
-    </para>
+	    <para>
+	    The command line option <literal>--iconic</literal> lets &kwave;
+	    start up minimized (iconified). This might be useful when you want to
+	    start &kwave; without GUI interaction, e.g. when running from a script.
+	    This option also implicitly disables the splash screen!
+	    </para>
 
-    <para>
-    By using the command line option <literal>--logfile=<replaceable>kwave.log</replaceable></literal>
-    you can log the sequence of actions of a &kwave; session into a file.
-    This is useful for debugging, you might be asked for such a logfile when
-    reporting an error.
-    </para>
+	    <para>
+	    By using the command line option <literal>--logfile=<replaceable>kwave.log</replaceable></literal>
+	    you can log the sequence of actions of a &kwave; session into a file.
+	    This is useful for debugging, you might be asked for such a logfile when
+	    reporting an error.
+	    </para>
+	</sect2>
 
     </sect1>
 
@@ -2553,6 +2577,972 @@
 </chapter>
 
 -->
+<!-- ###################################################################### -->
+<!-- ### Chapter: Automization and scripting with Kwave                 ### -->
+<!-- ###################################################################### -->
+
+<chapter id="automization"><title>Automization and Scripting with &kwave;</title>
+    <para>
+	&kwave; since it's first version uses an internal text command language.
+	This command language is used internally for menu handling, GUI control,
+	builtin effects and plugin invocations. The commands will be described
+	later in the section <link linkend="kwave_commands">Command Reference</link>.
+    </para>
+
+    <sect1><title>General Syntax</title>
+    <para>
+	<itemizedlist>
+	    <listitem><para>
+		All commands consist of a <emphasis>command name</emphasis> and
+		an optional <emphasis>parameter list</emphasis> in round
+		brackets, depending on the command.
+	    </para></listitem>
+	    <listitem><para>
+		Allowed characters for command names are <emphasis>letters</emphasis>,
+		<emphasis>digits</emphasis> and <emphasis>colon</emphasis>.
+		Commands are case sensitive and are always in lower case.
+	    </para></listitem>
+	    <listitem><para>
+		Parameters within a parameter list are separated by
+		<emphasis>comma</emphasis>.
+	    </para></listitem>
+	    <listitem><para>
+		Numerical parameters can be given as fixed point numbers or
+		as floating point numbers, using a dot as decimal separator.
+	    </para></listitem>
+	    <listitem><para>
+		String parameters are automatically trimmed (all whitespace
+		at the start and at the end is removed). If that is not wanted,
+		they can be surrounded by double quotes (<token>&quot;</token>).
+		If a string parameter contains special characters (like
+		<quote><token>,</token></quote>,
+		<quote><token>;</token></quote>,
+		<quote><token>#</token></quote> or a
+		<quote><token>&bsol;</token></quote> itself), these special
+		characters have to be escaped by preceding a
+		<quote><token>&bsol;</token></quote>.
+	    </para></listitem>
+	    <listitem><para>
+		Multiple commands can be concatenated to a <emphasis>command
+		list</emphasis> by using a <quote>;</quote> as separator.
+	    </para></listitem>
+	</itemizedlist>
+	Example:
+	<screen><command>fileinfo(<parameter>Comments</parameter><token>,</token><parameter>"This is an \"example\" comment."</parameter>)</command></screen>
+	This example consist of the command
+	<quote><command>fileinfo</command></quote> and has two
+	parameters: the keyword <parameter>Comments</parameter> and the text
+	<quote><parameter>"This is an \"example\" comment."</parameter></quote>.
+	(These parameters are explained in the corresponding section in the command reference).
+    </para>
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Using the Command Line                                +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="kwave_uri"><title>Using the Command Line</title>
+    <para>
+	In addition to the command line options listed in the section
+	<link linkend="command_line">Command Line</link> which are used
+	to start &kwave; in iconified mode or without splash screen,
+	you can pass text commands on the command line, encoded in a
+	special URI format:
+    </para>
+    <para>
+	<literal>kwave:<replaceable>command</replaceable>[?<replaceable>parameter</replaceable>[,<replaceable>parameter</replaceable> ...] ]</literal>
+    </para>
+
+    <para>
+	The rules for transforming a &kwave; text command into a valid URI
+	are as follows:
+	<itemizedlist>
+	    <listitem><para>
+		The URI starts with the word <literal>kwave</literal>, followed
+		by a <quote><token>:</token></quote> and the command name.
+	    </para></listitem>
+	    <listitem><para>
+		If the command has parameters, they have to be appended after
+		the command name, using a <quote><token>?</token></quote> as separator.
+	    </para></listitem>
+	    <listitem><para>
+		Multiple parameters can be appended by using a <quote><token>,</token></quote>
+		as separator.
+	    </para></listitem>
+	    <listitem><para>
+		All special characters in command name and parameters have to
+		be URL encoded. Here a list of the translations:
+		<table frame='all'><title>URL Encoding Translation Table</title>
+		<tgroup cols='11' align='center' colsep='1' rowsep='1'>
+		<colspec colname='c1'/>
+		<colspec/>
+		<colspec colname='c2' colnum='4'/>
+		<colspec/>
+		<colspec colname='c3' colnum='7'/>
+		<colspec/>
+		<colspec colname='c4' colnum='10'/>
+		<colspec/>
+		<thead>
+		    <row>
+			<entry colname='c1'>original</entry><entry>encoded</entry><entry>&#x0020;</entry>
+			<entry colname='c2'>original</entry><entry>encoded</entry><entry>&#x0020;</entry>
+			<entry colname='c3'>original</entry><entry>encoded</entry><entry>&#x0020;</entry>
+			<entry colname='c4'>original</entry><entry>encoded</entry>
+		    </row>
+		</thead>
+		<tbody>
+		    <row>
+			<entry colname='c1'>(space)</entry><entry><literal>%20</literal></entry>
+			<entry colname='c2'>&#x0028;</entry><entry><literal>%28</literal></entry>
+			<entry colname='c3'>&#x003A;</entry><entry><literal>%3A</literal></entry>
+			<entry colname='c4'>&#x005C;</entry><entry><literal>%5C</literal></entry>
+		    </row>
+		    <row>
+			<entry colname='c1'>&#x0021;</entry><entry><literal>%21</literal></entry>
+			<entry colname='c2'>&#x0029;</entry><entry><literal>%29</literal></entry>
+			<entry colname='c3'>&#x003B;</entry><entry><literal>%3B</literal></entry>
+			<entry colname='c4'>&#x005D;</entry><entry><literal>%5D</literal></entry>
+		    </row>
+		    <row>
+			<entry colname='c1'>&#x0022;</entry><entry><literal>%22</literal></entry>
+			<entry colname='c2'>&#x002A;</entry><entry><literal>%2A</literal></entry>
+			<entry colname='c3'>&#x003C;</entry><entry><literal>%3C</literal></entry>
+			<entry colname='c4'>&#x005E;</entry><entry><literal>%5E</literal></entry>
+		    </row>
+		    <row>
+			<entry colname='c1'>&#x0023;</entry><entry><literal>%23</literal></entry>
+			<entry colname='c2'>&#x002B;</entry><entry><literal>%2B</literal></entry>
+			<entry colname='c3'>&#x003D;</entry><entry><literal>%3D</literal></entry>
+			<entry colname='c4'>&#x005F;</entry><entry><literal>%5F</literal></entry>
+		    </row>
+		    <row>
+			<entry colname='c1'>&#x0024;</entry><entry><literal>%24</literal></entry>
+			<entry colname='c2'>&#x002C;</entry><entry><literal>%2C</literal></entry>
+			<entry colname='c3'>&#x003E;</entry><entry><literal>%3E</literal></entry>
+			<entry colname='c4'>&#x0060;</entry><entry><literal>%60</literal></entry>
+		    </row>
+		    <row>
+			<entry colname='c1'>&#x0025;</entry><entry><literal>%25</literal></entry>
+			<entry colname='c2'>&#x002D;</entry><entry><literal>%2D</literal></entry>
+			<entry colname='c3'>&#x003F;</entry><entry><literal>%3F</literal></entry>
+			<entry colname='c4'>&#x007B;</entry><entry><literal>%7B</literal></entry>
+		    </row>
+		    <row>
+			<entry colname='c1'>&#x0026;</entry><entry><literal>%26</literal></entry>
+			<entry colname='c2'>&#x002E;</entry><entry><literal>%3E</literal></entry>
+			<entry colname='c3'>&#x0040;</entry><entry><literal>%40</literal></entry>
+			<entry colname='c4'>&#x007C;</entry><entry><literal>%7C</literal></entry>
+		    </row>
+		    <row>
+			<entry colname='c1'>&#x0027;</entry><entry><literal>%27</literal></entry>
+			<entry colname='c2'>&#x002F;</entry><entry><literal>%2F</literal></entry>
+			<entry colname='c3'>&#x005B;</entry><entry><literal>%5B</literal></entry>
+			<entry colname='c4'>&#x007D;</entry><entry><literal>%7D</literal></entry>
+		    </row>
+		    <row>
+			<entry colname='c4'>&#x007E;</entry><entry><literal>%7E</literal></entry>
+		    </row>
+		</tbody>
+		</tgroup>
+		</table>
+	    </para></listitem>
+	</itemizedlist>
+    </para>
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Kwave Script Files                                    +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="kwave_scripts"><title>&kwave; Script Files</title>
+    <sect2><title>General Structure</title>
+	<para>
+	    A &kwave; <emphasis>script</emphasis> consists of a list of
+	    lines, where each line can be:
+	    <itemizedlist>
+		<listitem>
+		    <para>a single <emphasis>command</emphasis>,</para>
+		</listitem>
+		<listitem>
+		    <para>a <emphasis>command list</emphasis>, with two
+			or more commands concatenated by
+			a <quote><token>;</token></quote>.
+		    </para>
+		</listitem>
+		<listitem>
+		    <para>a <emphasis>comment</emphasis>,</para>
+		</listitem>
+		<listitem>
+		    <para>a <emphasis>label</emphasis></para>
+		</listitem>
+		<listitem>
+		    <para>or an <emphasis>empty line</emphasis>,
+		    that contains whitespace only</para>
+		</listitem>
+	    </itemizedlist>
+	</para>
+    </sect2>
+    <sect2><title>Comments and Empty Lines</title>
+	<para>
+	    All characters that follow a <quote><token>#</token></quote>
+	    (except when used in quotes or when escaped) are treated as
+	    comments, they will be silently ignored.
+	</para>
+	<para>
+	    Lines that contain only whitespace or comments are ignored as
+	    well.
+	</para>
+    </sect2>
+    <sect2><title>Termination</title>
+    <para>
+	A &kwave; script terminates either when all commands have been
+	executed successfully without an error or when a command has returned
+	an error code. There is no special command for aborting the execution
+	of a script. If you want to implement a possibility for the user to
+	end a script, you can use the
+	command <quote><command>msgbox</command>(<parameter><replaceable>text</replaceable></parameter>)</quote>.
+	This shows a message box with the two
+	buttons <quote><guibutton>OK</guibutton></quote> (which lets the script
+	continue) and <quote><guibutton>Cancel</guibutton></quote> (which
+	returns an error code and stops the script).
+    </para>
+    </sect2>
+    <sect2><title>Labels</title>
+    <para>
+	Lines that consist only of an identifier, followed by a <quote><token>:</token></quote>
+	are treated <emphasis>labels</emphasis>. They can be referenced
+	later in the script by the special command <quote><command>goto</command></quote>.
+    </para>
+    <para>
+	A line that contains a label must not contain any other content
+	(except comments or whitespace) after the <quote><token>:</token></quote>.
+    </para>
+    <para>
+	Example:
+	<screen>
+	    <replaceable>start:</replaceable><literal>  # &lt;= this is a label</literal>
+	    <literal>        # do something...</literal>
+	    <literal>        </literal><command>msgbox</command>(<parameter>once again?</parameter>)
+	    <literal>        </literal><command>goto <parameter>start</parameter></command>
+	</screen>
+    </para>
+    </sect2>
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Command Reference                                     +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="kwave_commands"><title>Command Reference</title>
+	<index><title>Index</title>
+	    <!-- @COMMAND_INDEX_START@ -->
+	    <indexdiv><title>a</title>
+		<indexentry><primaryie><link linkend="cmd_sect_about_kde" endterm="cmd_title_about_kde"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_add_label" endterm="cmd_title_add_label"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_add_track" endterm="cmd_title_add_track"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>c</title>
+		<indexentry><primaryie><link linkend="cmd_sect_clipboard_flush" endterm="cmd_title_clipboard_flush"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_close" endterm="cmd_title_close"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_continue" endterm="cmd_title_continue"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_copy" endterm="cmd_title_copy"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_crop" endterm="cmd_title_crop"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_cut" endterm="cmd_title_cut"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>d</title>
+		<indexentry><primaryie><link linkend="cmd_sect_delete" endterm="cmd_title_delete"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_delete_label" endterm="cmd_title_delete_label"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_delete_track" endterm="cmd_title_delete_track"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_dump_metadata" endterm="cmd_title_dump_metadata"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>e</title>
+		<indexentry><primaryie><link linkend="cmd_sect_edit_label" endterm="cmd_title_edit_label"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_expandtolabel" endterm="cmd_title_expandtolabel"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>f</title>
+		<indexentry><primaryie><link linkend="cmd_sect_fileinfo" endterm="cmd_title_fileinfo"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_forward" endterm="cmd_title_forward"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>g</title>
+		<indexentry><primaryie><link linkend="cmd_sect_goto" endterm="cmd_title_goto"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>i</title>
+		<indexentry><primaryie><link linkend="cmd_sect_insert_at" endterm="cmd_title_insert_at"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_insert_track" endterm="cmd_title_insert_track"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>l</title>
+		<indexentry><primaryie><link linkend="cmd_sect_loadbatch" endterm="cmd_title_loadbatch"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_loop" endterm="cmd_title_loop"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>m</title>
+		<indexentry><primaryie><link linkend="cmd_sect_menu" endterm="cmd_title_menu"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>n</title>
+		<indexentry><primaryie><link linkend="cmd_sect_newsignal" endterm="cmd_title_newsignal"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_next" endterm="cmd_title_next"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>o</title>
+		<indexentry><primaryie><link linkend="cmd_sect_open" endterm="cmd_title_open"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_openrecent" endterm="cmd_title_openrecent"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>p</title>
+		<indexentry><primaryie><link linkend="cmd_sect_paste" endterm="cmd_title_paste"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_pause" endterm="cmd_title_pause"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_playback_start" endterm="cmd_title_playback_start"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_plugin" endterm="cmd_title_plugin"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_plugin_execute" endterm="cmd_title_plugin_execute"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_plugin_setup" endterm="cmd_title_plugin_setup"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_prev" endterm="cmd_title_prev"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>q</title>
+		<indexentry><primaryie><link linkend="cmd_sect_quit" endterm="cmd_title_quit"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>r</title>
+		<indexentry><primaryie><link linkend="cmd_sect_redo" endterm="cmd_title_redo"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_redo_all" endterm="cmd_title_redo_all"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_reenable_dna" endterm="cmd_title_reenable_dna"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_reset_toolbars" endterm="cmd_title_reset_toolbars"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_revert" endterm="cmd_title_revert"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_rewind" endterm="cmd_title_rewind"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>s</title>
+		<indexentry><primaryie><link linkend="cmd_sect_save" endterm="cmd_title_save"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_saveas" endterm="cmd_title_saveas"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_saveselect" endterm="cmd_title_saveselect"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_select_gui_type" endterm="cmd_title_select_gui_type"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_select_track_all" endterm="cmd_title_select_track_all"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_select_track_invert" endterm="cmd_title_select_track_invert"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_select_track_none" endterm="cmd_title_select_track_none"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_select_track_off" endterm="cmd_title_select_track_off"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_select_track_on" endterm="cmd_title_select_track_on"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_select_track_toggle" endterm="cmd_title_select_track_toggle"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_selectall" endterm="cmd_title_selectall"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_selectnext" endterm="cmd_title_selectnext"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_selectnextlabels" endterm="cmd_title_selectnextlabels"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_selectnone" endterm="cmd_title_selectnone"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_selectprev" endterm="cmd_title_selectprev"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_selectprevlabels" endterm="cmd_title_selectprevlabels"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_selecttoleft" endterm="cmd_title_selecttoleft"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_selecttoright" endterm="cmd_title_selecttoright"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_selectvisible" endterm="cmd_title_selectvisible"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_start" endterm="cmd_title_start"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_stop" endterm="cmd_title_stop"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>u</title>
+		<indexentry><primaryie><link linkend="cmd_sect_undo" endterm="cmd_title_undo"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_undo_all" endterm="cmd_title_undo_all"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>v</title>
+		<indexentry><primaryie><link linkend="cmd_sect_view_scroll_end" endterm="cmd_title_view_scroll_end"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_scroll_left" endterm="cmd_title_view_scroll_left"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_scroll_next" endterm="cmd_title_view_scroll_next"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_scroll_next_label" endterm="cmd_title_view_scroll_next_label"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_scroll_prev" endterm="cmd_title_view_scroll_prev"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_scroll_prev_label" endterm="cmd_title_view_scroll_prev_label"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_scroll_right" endterm="cmd_title_view_scroll_right"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_scroll_start" endterm="cmd_title_view_scroll_start"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_zoom_all" endterm="cmd_title_view_zoom_all"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_zoom_in" endterm="cmd_title_view_zoom_in"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_zoom_normal" endterm="cmd_title_view_zoom_normal"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_zoom_out" endterm="cmd_title_view_zoom_out"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_view_zoom_selection" endterm="cmd_title_view_zoom_selection"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>w</title>
+		<indexentry><primaryie><link linkend="cmd_sect_window_activate" endterm="cmd_title_window_activate"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_cascade" endterm="cmd_title_window_cascade"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_next_sub" endterm="cmd_title_window_next_sub"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_prev_sub" endterm="cmd_title_window_prev_sub"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_tile" endterm="cmd_title_window_tile"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_tile_vertical" endterm="cmd_title_window_tile_vertical"/></primaryie></indexentry>
+	    </indexdiv>
+	    <!-- @COMMAND_INDEX_END@ -->
+	</index>
+
+	<!-- @COMMAND@ about_kde(TODO) -->
+	<sect2 id="cmd_sect_about_kde"><title id="cmd_title_about_kde">about_kde</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ add_label(sample_index:pos,[string:description]) -->
+	<sect2 id="cmd_sect_add_label"><title id="cmd_title_add_label">add_label</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ add_track(TODO) -->
+	<sect2 id="cmd_sect_add_track"><title id="cmd_title_add_track">add_track</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ clipboard_flush(TODO) -->
+	<sect2 id="cmd_sect_clipboard_flush"><title id="cmd_title_clipboard_flush">clipboard_flush</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ close(TODO) -->
+	<sect2 id="cmd_sect_close"><title id="cmd_title_close">close</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ continue(TODO) -->
+	<sect2 id="cmd_sect_continue"><title id="cmd_title_continue">continue</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ copy(TODO) -->
+	<sect2 id="cmd_sect_copy"><title id="cmd_title_copy">copy</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ crop(TODO) -->
+	<sect2 id="cmd_sect_crop"><title id="cmd_title_crop">crop</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ cut(TODO) -->
+	<sect2 id="cmd_sect_cut"><title id="cmd_title_cut">cut</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ delete(TODO) -->
+	<sect2 id="cmd_sect_delete"><title id="cmd_title_delete">delete</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ delete_label(TODO) -->
+	<sect2 id="cmd_sect_delete_label"><title id="cmd_title_delete_label">delete_label</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ delete_track(TODO) -->
+	<sect2 id="cmd_sect_delete_track"><title id="cmd_title_delete_track">delete_track</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ dump_metadata(TODO) -->
+	<sect2 id="cmd_sect_dump_metadata"><title id="cmd_title_dump_metadata">dump_metadata</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ edit_label(TODO) -->
+	<sect2 id="cmd_sect_edit_label"><title id="cmd_title_edit_label">edit_label</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ expandtolabel(TODO) -->
+	<sect2 id="cmd_sect_expandtolabel"><title id="cmd_title_expandtolabel">expandtolabel</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ fileinfo(TODO) -->
+	<sect2 id="cmd_sect_fileinfo"><title id="cmd_title_fileinfo">fileinfo</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ forward(TODO) -->
+	<sect2 id="cmd_sect_forward"><title id="cmd_title_forward">forward</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ goto(TODO) -->
+	<sect2 id="cmd_sect_goto"><title id="cmd_title_goto">goto</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ insert_at(TODO) -->
+	<sect2 id="cmd_sect_insert_at"><title id="cmd_title_insert_at">insert_at</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ insert_track(TODO) -->
+	<sect2 id="cmd_sect_insert_track"><title id="cmd_title_insert_track">insert_track</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ loadbatch(TODO) -->
+	<sect2 id="cmd_sect_loadbatch"><title id="cmd_title_loadbatch">loadbatch</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ loop(TODO) -->
+	<sect2 id="cmd_sect_loop"><title id="cmd_title_loop">loop</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ menu(TODO) -->
+	<sect2 id="cmd_sect_menu"><title id="cmd_title_menu">menu</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ newsignal(TODO) -->
+	<sect2 id="cmd_sect_newsignal"><title id="cmd_title_newsignal">newsignal</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ next(TODO) -->
+	<sect2 id="cmd_sect_next"><title id="cmd_title_next">next</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ open(TODO) -->
+	<sect2 id="cmd_sect_open"><title id="cmd_title_open">open</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ openrecent(TODO) -->
+	<sect2 id="cmd_sect_openrecent"><title id="cmd_title_openrecent">openrecent</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ paste(TODO) -->
+	<sect2 id="cmd_sect_paste"><title id="cmd_title_paste">paste</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ pause(TODO) -->
+	<sect2 id="cmd_sect_pause"><title id="cmd_title_pause">pause</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ playback_start(TODO) -->
+	<sect2 id="cmd_sect_playback_start"><title id="cmd_title_playback_start">playback_start</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ plugin(TODO) -->
+	<sect2 id="cmd_sect_plugin"><title id="cmd_title_plugin">plugin</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ plugin:execute(TODO) -->
+	<sect2 id="cmd_sect_plugin_execute"><title id="cmd_title_plugin_execute">plugin:execute</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ plugin:setup(TODO) -->
+	<sect2 id="cmd_sect_plugin_setup"><title id="cmd_title_plugin_setup">plugin:setup</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ prev(TODO) -->
+	<sect2 id="cmd_sect_prev"><title id="cmd_title_prev">prev</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ quit(TODO) -->
+	<sect2 id="cmd_sect_quit"><title id="cmd_title_quit">quit</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ redo(TODO) -->
+	<sect2 id="cmd_sect_redo"><title id="cmd_title_redo">redo</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ redo_all(TODO) -->
+	<sect2 id="cmd_sect_redo_all"><title id="cmd_title_redo_all">redo_all</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ reenable_dna(TODO) -->
+	<sect2 id="cmd_sect_reenable_dna"><title id="cmd_title_reenable_dna">reenable_dna</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ reset_toolbars(TODO) -->
+	<sect2 id="cmd_sect_reset_toolbars"><title id="cmd_title_reset_toolbars">reset_toolbars</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ revert(TODO) -->
+	<sect2 id="cmd_sect_revert"><title id="cmd_title_revert">revert</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ rewind(TODO) -->
+	<sect2 id="cmd_sect_rewind"><title id="cmd_title_rewind">rewind</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ save(TODO) -->
+	<sect2 id="cmd_sect_save"><title id="cmd_title_save">save</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ saveas(TODO) -->
+	<sect2 id="cmd_sect_saveas"><title id="cmd_title_saveas">saveas</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ saveselect(TODO) -->
+	<sect2 id="cmd_sect_saveselect"><title id="cmd_title_saveselect">saveselect</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ select_gui_type(TODO) -->
+	<sect2 id="cmd_sect_select_gui_type"><title id="cmd_title_select_gui_type">select_gui_type</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ select_track:all(TODO) -->
+	<sect2 id="cmd_sect_select_track_all"><title id="cmd_title_select_track_all">select_track:all</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ select_track:invert(TODO) -->
+	<sect2 id="cmd_sect_select_track_invert"><title id="cmd_title_select_track_invert">select_track:invert</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ select_track:none(TODO) -->
+	<sect2 id="cmd_sect_select_track_none"><title id="cmd_title_select_track_none">select_track:none</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ select_track:off(TODO) -->
+	<sect2 id="cmd_sect_select_track_off"><title id="cmd_title_select_track_off">select_track:off</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ select_track:on(TODO) -->
+	<sect2 id="cmd_sect_select_track_on"><title id="cmd_title_select_track_on">select_track:on</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ select_track:toggle(TODO) -->
+	<sect2 id="cmd_sect_select_track_toggle"><title id="cmd_title_select_track_toggle">select_track:toggle</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ selectall(TODO) -->
+	<sect2 id="cmd_sect_selectall"><title id="cmd_title_selectall">selectall</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ selectnext(TODO) -->
+	<sect2 id="cmd_sect_selectnext"><title id="cmd_title_selectnext">selectnext</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ selectnextlabels(TODO) -->
+	<sect2 id="cmd_sect_selectnextlabels"><title id="cmd_title_selectnextlabels">selectnextlabels</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ selectnone(TODO) -->
+	<sect2 id="cmd_sect_selectnone"><title id="cmd_title_selectnone">selectnone</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ selectprev(TODO) -->
+	<sect2 id="cmd_sect_selectprev"><title id="cmd_title_selectprev">selectprev</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ selectprevlabels(TODO) -->
+	<sect2 id="cmd_sect_selectprevlabels"><title id="cmd_title_selectprevlabels">selectprevlabels</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ selecttoleft(TODO) -->
+	<sect2 id="cmd_sect_selecttoleft"><title id="cmd_title_selecttoleft">selecttoleft</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ selecttoright(TODO) -->
+	<sect2 id="cmd_sect_selecttoright"><title id="cmd_title_selecttoright">selecttoright</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ selectvisible(TODO) -->
+	<sect2 id="cmd_sect_selectvisible"><title id="cmd_title_selectvisible">selectvisible</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ start(TODO) -->
+	<sect2 id="cmd_sect_start"><title id="cmd_title_start">start</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ stop(TODO) -->
+	<sect2 id="cmd_sect_stop"><title id="cmd_title_stop">stop</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ undo(TODO) -->
+	<sect2 id="cmd_sect_undo"><title id="cmd_title_undo">undo</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ undo_all(TODO) -->
+	<sect2 id="cmd_sect_undo_all"><title id="cmd_title_undo_all">undo_all</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:scroll_end(TODO) -->
+	<sect2 id="cmd_sect_view_scroll_end"><title id="cmd_title_view_scroll_end">view:scroll_end</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:scroll_left(TODO) -->
+	<sect2 id="cmd_sect_view_scroll_left"><title id="cmd_title_view_scroll_left">view:scroll_left</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:scroll_next(TODO) -->
+	<sect2 id="cmd_sect_view_scroll_next"><title id="cmd_title_view_scroll_next">view:scroll_next</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:scroll_next_label(TODO) -->
+	<sect2 id="cmd_sect_view_scroll_next_label"><title id="cmd_title_view_scroll_next_label">view:scroll_next_label</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:scroll_prev(TODO) -->
+	<sect2 id="cmd_sect_view_scroll_prev"><title id="cmd_title_view_scroll_prev">view:scroll_prev</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:scroll_prev_label(TODO) -->
+	<sect2 id="cmd_sect_view_scroll_prev_label"><title id="cmd_title_view_scroll_prev_label">view:scroll_prev_label</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:scroll_right(TODO) -->
+	<sect2 id="cmd_sect_view_scroll_right"><title id="cmd_title_view_scroll_right">view:scroll_right</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:scroll_start(TODO) -->
+	<sect2 id="cmd_sect_view_scroll_start"><title id="cmd_title_view_scroll_start">view:scroll_start</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:zoom_all(TODO) -->
+	<sect2 id="cmd_sect_view_zoom_all"><title id="cmd_title_view_zoom_all">view:zoom_all</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:zoom_in(TODO) -->
+	<sect2 id="cmd_sect_view_zoom_in"><title id="cmd_title_view_zoom_in">view:zoom_in</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:zoom_normal(TODO) -->
+	<sect2 id="cmd_sect_view_zoom_normal"><title id="cmd_title_view_zoom_normal">view:zoom_normal</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:zoom_out(TODO) -->
+	<sect2 id="cmd_sect_view_zoom_out"><title id="cmd_title_view_zoom_out">view:zoom_out</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ view:zoom_selection(TODO) -->
+	<sect2 id="cmd_sect_view_zoom_selection"><title id="cmd_title_view_zoom_selection">view:zoom_selection</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ window:activate(TODO) -->
+	<sect2 id="cmd_sect_window_activate"><title id="cmd_title_window_activate">window:activate</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ window:cascade(TODO) -->
+	<sect2 id="cmd_sect_window_cascade"><title id="cmd_title_window_cascade">window:cascade</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ window:next_sub(TODO) -->
+	<sect2 id="cmd_sect_window_next_sub"><title id="cmd_title_window_next_sub">window:next_sub</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ window:prev_sub(TODO) -->
+	<sect2 id="cmd_sect_window_prev_sub"><title id="cmd_title_window_prev_sub">window:prev_sub</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ window:tile(TODO) -->
+	<sect2 id="cmd_sect_window_tile"><title id="cmd_title_window_tile">window:tile</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND@ window:tile_vertical(TODO) -->
+	<sect2 id="cmd_sect_window_tile_vertical"><title id="cmd_title_window_tile_vertical">window:tile_vertical</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+
+	<!-- @COMMAND_END_OF_LIST@ -->
+    </sect1>
+
+</chapter>
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Developer's Guide to Kwave                            ### -->

@@ -1,7 +1,8 @@
 0.9.0 [2015-xx-xx]
 
-* added command line parameter for selecting the GUI type
-* in MDI mode: new menu entry + function to arrange sub windows vertically
+ * added command line parameter for selecting the GUI type
+ * in MDI mode: new menu entry + function to arrange sub windows vertically
+ * handbook: added text command reference
 
 0.8.99-2 [2015-01-02]
 
@@ -12,7 +13,7 @@
 
 0.8.99 [2014-12-28]
 
- * GUI: implemented SDI, MDI and Tab GUI types
+ * GUI: implemented SDI, MDI and Tab GUI modes
  * bugfix: deadlock in class Track
  * bugfix: segfault during shutdown of logger
  * bugfix: segfault when unloading plugins (on some systems)

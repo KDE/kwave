@@ -111,6 +111,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	bin/make-specfile-changelog.pl			GPL2+
 	bin/menusconfig2pot.pl				GPL2+
 	bin/set_version.sh				GPL2+ / portions of Martin Wilz
+	bin/update-command-xref.pl			GPL2+
 
 	cmake/Copyright.txt				Kitware (cmake)
 	cmake/COPYING-CMAKE-SCRIPTS			New BSD

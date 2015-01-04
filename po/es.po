@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-02 17:53+0100\n"
+"POT-Creation-Date: 2015-01-04 21:53+0100\n"
 "PO-Revision-Date: 2014-12-23 17:27+0100\n"
 "Last-Translator: skynet\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -501,7 +501,7 @@ msgstr "(Usar valores por defecto del servidor)"
 msgid "(built for KDE %1)"
 msgstr "(hecho para KDE %1)"
 
-#: kwave/main.cpp:157
+#: kwave/main.cpp:158
 msgid "(c) 2014, Thomas Eschenbacher"
 msgstr ""
 
@@ -1107,7 +1107,7 @@ msgstr ""
 msgid "A decoder structure is invalid or already freed."
 msgstr "Una estructura del decodificador es inválida o ya ha sido liberada."
 
-#: kwave/main.cpp:155
+#: kwave/main.cpp:156
 msgid "A sound editor for KDE"
 msgstr "Un editor de sonido para KDE"
 
@@ -1151,7 +1151,7 @@ msgstr "Codificación audio ASCII"
 msgid "About"
 msgstr "Acerca de"
 
-#: kwave/menus.config:254
+#: kwave/menus.config:255
 msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "Acerca de KDE"
@@ -1160,7 +1160,7 @@ msgstr "Acerca de KDE"
 msgid "About Kwave"
 msgstr "Sobre Kwave"
 
-#: kwave/menus.config:253
+#: kwave/menus.config:254
 msgctxt "menu: /Help/About Kwave"
 msgid "About Kwave"
 msgstr "Sobre Kwave"
@@ -1369,6 +1369,11 @@ msgstr "Aplicando '%1' ..."
 #: libkwave/FileInfo.cpp:55
 msgid "Archival location"
 msgstr "Ubicación de archivos"
+
+#: kwave/menus.config:237
+msgctxt "menu: /Window/Arrange Sub Windows Vertically"
+msgid "Arrange Sub Windows Vertically"
+msgstr ""
 
 #: kwave/menus.config:36
 msgctxt "menu: /File/Save/As..."
@@ -1798,7 +1803,7 @@ msgstr ""
 msgid "Content"
 msgstr "Contenido"
 
-#: kwave/menus.config:252
+#: kwave/menus.config:253
 msgctxt "menu: /Help/Contents"
 msgid "Contents"
 msgstr "Contenidos"
@@ -2270,12 +2275,12 @@ msgstr ""
 msgid "Example:"
 msgstr "Ejemplo:"
 
-#: kwave/TopWidget.cpp:945
+#: kwave/TopWidget.cpp:970
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:925
+#: kwave/TopWidget.cpp:950
 #, kde-format
 msgid "Executing command '%1'..."
 msgstr ""
@@ -2547,6 +2552,10 @@ msgstr ""
 msgid "GSM"
 msgstr ""
 
+#: kwave/main.cpp:149
+msgid "GUI type: SDI, MDI or TAB mode"
+msgstr ""
+
 #: libkwave/GenreType.cpp:132
 msgid "Game"
 msgstr ""
@@ -2628,7 +2637,7 @@ msgstr ""
 msgid "Help"
 msgstr "Ayuda"
 
-#: kwave/menus.config:252
+#: kwave/menus.config:253
 msgctxt "menu: /Help"
 msgid "Help"
 msgstr "Ayuda"
@@ -2911,7 +2920,7 @@ msgstr "En la segunda mitad"
 msgid "Invalid codec type"
 msgstr "Tipo de códec inválido"
 
-#: kwave/TopWidget.cpp:977
+#: kwave/TopWidget.cpp:1002
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
@@ -2959,7 +2968,7 @@ msgstr ""
 msgid "Keywords"
 msgstr "Palabras clave"
 
-#: kwave/main.cpp:153
+#: kwave/main.cpp:154
 msgid "Kwave"
 msgstr ""
 
@@ -3064,7 +3073,7 @@ msgstr "Duración:"
 msgid "Length: %1"
 msgstr "Duración: %1"
 
-#: kwave/TopWidget.cpp:1064
+#: kwave/TopWidget.cpp:1089
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
@@ -3126,7 +3135,7 @@ msgstr "Linear"
 msgid "Linear Two's Complement"
 msgstr "Linear complemento a dos"
 
-#: kwave/main.cpp:149
+#: kwave/main.cpp:150
 msgid "List of audio files"
 msgstr "Lista de archivos de audio"
 
@@ -3146,7 +3155,7 @@ msgstr ""
 msgid "Lo-Fi"
 msgstr ""
 
-#: kwave/TopWidget.cpp:955
+#: kwave/TopWidget.cpp:980
 #, kde-format
 msgid "Loading file '%1'..."
 msgstr "Cargando archivo '%1'..."
@@ -3324,7 +3333,7 @@ msgstr "Megabytes de memoria virtual"
 msgid "Memory"
 msgstr "Memoria"
 
-#: kwave/menus.config:247
+#: kwave/menus.config:248
 msgctxt "menu: /Settings/Memory"
 msgid "Memory"
 msgstr "Memoria"
@@ -3390,7 +3399,7 @@ msgstr "Modo"
 msgid "Mode Extension"
 msgstr "Modo de extensión"
 
-#: kwave/TopWidget.cpp:1075
+#: kwave/TopWidget.cpp:1100
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Modo: %1 KHz @ %2 Bit"
@@ -3715,7 +3724,7 @@ msgstr ""
 msgid "One or more invalid/out of range arguments."
 msgstr "Uno o más argumentos inválidos o fuera de rango."
 
-#: kwave/TopWidget.cpp:1014
+#: kwave/TopWidget.cpp:1039
 msgid "Open"
 msgstr "Abrir"
 
@@ -3733,7 +3742,7 @@ msgstr "Abrir reciente"
 msgid "Open an existing file"
 msgstr "Abrir un archivo existente"
 
-#: kwave/App.cpp:188
+#: kwave/App.cpp:210
 msgid "Opening main window..."
 msgstr "Abriendo ventana principal..."
 
@@ -3818,7 +3827,7 @@ msgstr ""
 msgid "Other"
 msgstr "Otros"
 
-#: kwave/TopWidget.cpp:969 plugins/codec_audiofile/AudiofileDecoder.cpp:104
+#: kwave/TopWidget.cpp:994 plugins/codec_audiofile/AudiofileDecoder.cpp:104
 #: plugins/codec_flac/FlacEncoder.cpp:246
 #: plugins/codec_flac/FlacEncoder.cpp:264
 #: plugins/codec_flac/FlacEncoder.cpp:279 plugins/codec_mp3/MP3Decoder.cpp:504
@@ -3913,7 +3922,7 @@ msgstr "Reproducir sonido de prueba"
 msgid "Playback"
 msgstr "Reproducción"
 
-#: kwave/menus.config:246
+#: kwave/menus.config:247
 msgctxt "menu: /Settings/Playback"
 msgid "Playback"
 msgstr "Reproducción"
@@ -4010,7 +4019,7 @@ msgstr ""
 msgid "Position:"
 msgstr "Posición:"
 
-#: kwave/TopWidget.cpp:1152
+#: kwave/TopWidget.cpp:1177
 #, kde-format
 msgid "Position: %1"
 msgstr "Posición: %1"
@@ -4168,7 +4177,7 @@ msgstr ""
 msgid "Raw Format:"
 msgstr "Formato en bruto:"
 
-#: kwave/menus.config:249
+#: kwave/menus.config:250
 msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
 msgid "Re-enable all \"Do not ask again\" messages"
 msgstr "Reactivar todas los mensajes con la casilla \"No preguntar de nuevo\""
@@ -4188,7 +4197,7 @@ msgstr ""
 msgid "Read access failed"
 msgstr "Fallo de lectura"
 
-#: kwave/App.cpp:105
+#: kwave/App.cpp:127
 msgid "Reading configuration..."
 msgstr "Cargando configuración..."
 
@@ -4269,7 +4278,7 @@ msgstr "Rectangular"
 msgid "Redo"
 msgstr "Rehacer"
 
-#: kwave/TopWidget.cpp:1209
+#: kwave/TopWidget.cpp:1234
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr "Rehacer"
@@ -4279,18 +4288,18 @@ msgctxt "menu: /Edit/Redo"
 msgid "Redo"
 msgstr "Rehacer"
 
-#: kwave/TopWidget.cpp:1191
+#: kwave/TopWidget.cpp:1216
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Rehacer"
 
-#: kwave/TopWidget.cpp:1208
+#: kwave/TopWidget.cpp:1233
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "Rehacer (%1)"
 
-#: kwave/TopWidget.cpp:1189
+#: kwave/TopWidget.cpp:1214
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
@@ -4300,7 +4309,7 @@ msgstr "Rehacer (%1)"
 msgid "Reggae"
 msgstr ""
 
-#: kwave/menus.config:248
+#: kwave/menus.config:249
 msgctxt "menu: /Settings/Reset Toolbar"
 msgid "Reset Toolbar"
 msgstr "Reiniciar barra de herramientas"
@@ -4383,7 +4392,7 @@ msgstr "Ejecutando componente '%1'..."
 msgid "Samba"
 msgstr ""
 
-#: kwave/menus.config:243
+#: kwave/menus.config:244
 msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
 msgid "Same Window (MDI)"
 msgstr "Misma Ventana (MDI)"
@@ -4600,7 +4609,7 @@ msgstr "Seleccione esto para fijar la longitud del archivo por tiempo"
 msgid "Select zoom factor"
 msgstr "Seleccionar factor de zum"
 
-#: kwave/TopWidget.cpp:1121
+#: kwave/TopWidget.cpp:1146
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -4608,7 +4617,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Seleccionado: %1...%2 (%3 muestras)"
 
-#: kwave/TopWidget.cpp:1133
+#: kwave/TopWidget.cpp:1158
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -4651,7 +4660,7 @@ msgctxt "menu: /File/Save/Selection..."
 msgid "Selection..."
 msgstr "Selección..."
 
-#: kwave/menus.config:242
+#: kwave/menus.config:243
 msgctxt "menu: /Settings/Show Files in.../Separate Windows (SDI)"
 msgid "Separate Windows (SDI)"
 msgstr "Ventanas separadas (SDI)"
@@ -4698,12 +4707,12 @@ msgstr ""
 msgid "Settings"
 msgstr "&Opciones"
 
-#: kwave/menus.config:241
+#: kwave/menus.config:242
 msgctxt "menu: /Settings"
 msgid "Settings"
 msgstr "&Opciones"
 
-#: kwave/menus.config:242
+#: kwave/menus.config:243
 msgctxt "menu: /Settings/Show Files in..."
 msgid "Show Files in..."
 msgstr "Mostrar archivos en..."
@@ -4954,7 +4963,7 @@ msgstr "Comenzar reproducción"
 msgid "Start playback and loop"
 msgstr "Comenzar reproducción y repetir"
 
-#: kwave/App.cpp:236
+#: kwave/App.cpp:258
 msgid "Startup done"
 msgstr "Arranque completado"
 
@@ -5041,7 +5050,7 @@ msgstr "Pérdida de sincronización"
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr ""
 
-#: kwave/menus.config:244
+#: kwave/menus.config:245
 msgctxt "menu: /Settings/Show Files in.../Tabs"
 msgid "Tabs"
 msgstr ""
@@ -5399,7 +5408,7 @@ msgstr ""
 msgid "Unable to open '%1'"
 msgstr "Incapaz de abrir '%1'"
 
-#: kwave/TopWidget.cpp:973
+#: kwave/TopWidget.cpp:998
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
@@ -5426,7 +5435,7 @@ msgstr "Incapaz de abrir el dispositivo de grabación"
 msgid "Undo"
 msgstr "Deshacer"
 
-#: kwave/TopWidget.cpp:1202
+#: kwave/TopWidget.cpp:1227
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr "Deshacer"
@@ -5436,18 +5445,18 @@ msgctxt "menu: /Edit/Undo"
 msgid "Undo"
 msgstr "Deshacer"
 
-#: kwave/TopWidget.cpp:1180
+#: kwave/TopWidget.cpp:1205
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Deshacer"
 
-#: kwave/TopWidget.cpp:1201
+#: kwave/TopWidget.cpp:1226
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "Deshacer (%1)"
 
-#: kwave/TopWidget.cpp:1178
+#: kwave/TopWidget.cpp:1203
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"

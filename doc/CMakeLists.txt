@@ -18,6 +18,7 @@
 FIND_PACKAGE(RequiredProgram REQUIRED)
 
 SET(_help_en_docbook ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
+SET(_help_en_updated ${CMAKE_CURRENT_BINARY_DIR}/help_en-updated.docbook)
 SET(_help_en_shifted ${CMAKE_CURRENT_BINARY_DIR}/help_en-shifted.docbook)
 SET(_help_en_pot ${CMAKE_CURRENT_BINARY_DIR}/help_en.pot)
 SET(_version ${PROJECT_SOURCE_DIR}/VERSION)
@@ -30,6 +31,8 @@ FIND_REQUIRED_PROGRAM(XML2POT_EXECUTABLE xml2pot)
 FIND_REQUIRED_PROGRAM(MSGMERGE_EXECUTABLE msgmerge)
 FIND_REQUIRED_PROGRAM(PO2XML_EXECUTABLE po2xml)
 FIND_REQUIRED_PROGRAM(CHECKXML_EXECUTABLE checkXML)
+
+SET(UPDATE_COMMAND_XREF ${CMAKE_SOURCE_DIR}/bin/update-command-xref.pl)
 
 #############################################################################
 ### how to convert from svg to png                                        ###
@@ -313,6 +316,15 @@ ENDMACRO(KWAVE_TRANSLATE_DOC)
 #############################################################################
 
 KWAVE_TRANSLATE_DOC(_docs _html_files ${KWAVE_BUILD_LINGUAS})
+
+#############################################################################
+### "make update-handbook"                                                ###
+
+ADD_CUSTOM_TARGET(update-handbook
+    COMMAND ${UPDATE_COMMAND_XREF} ${CMAKE_SOURCE_DIR} ${_help_en_docbook} ${_help_en_updated}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_help_en_updated} ${_help_en_docbook}
+)
+
 
 #############################################################################
 ### "make html_doc"                                                       ###

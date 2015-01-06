@@ -3,6 +3,9 @@
  * added command line parameter for selecting the GUI type
  * in MDI mode: new menu entry + function to arrange sub windows vertically
  * handbook: added text command reference
+ * make system: new target "update-handbook" (updates command cross reference)
+ * make system: fixed dependency problem in translation
+ * i18n: implemented filter for non-translatable pot entries
 
 0.8.99-2 [2015-01-02]
 

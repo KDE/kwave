@@ -688,22 +688,24 @@ int Kwave::SignalManager::executeCommand(const QString &command)
     CASE_COMMAND("clipboard_flush")
 	Kwave::ClipBoard::instance().clear();
     CASE_COMMAND("crop")
-	Kwave::UndoTransactionGuard undo(*this, i18n("Crop"));
-	sample_index_t rest = this->length() - offset;
-	rest = (rest > length) ? (rest-length) : 0;
-	QList<unsigned int> tracks = selectedTracks();
-	if (saveUndoDelete(tracks, offset+length, rest) &&
-	    saveUndoDelete(tracks, 0, offset))
-	{
-	    // remember the last selection
-	    rememberCurrentSelection();
+	if (length) {
+	    Kwave::UndoTransactionGuard undo(*this, i18n("Crop"));
+	    sample_index_t rest = this->length() - offset;
+	    rest = (rest > length) ? (rest-length) : 0;
+	    QList<unsigned int> tracks = selectedTracks();
+	    if (saveUndoDelete(tracks, offset+length, rest) &&
+		saveUndoDelete(tracks, 0, offset))
+	    {
+		// remember the last selection
+		rememberCurrentSelection();
 
-	    unsigned int count = tracks.count();
-	    while (count--) {
-		m_signal.deleteRange(count, offset+length, rest);
-		m_signal.deleteRange(count, 0, offset);
+		unsigned int count = tracks.count();
+		while (count--) {
+		    m_signal.deleteRange(count, offset+length, rest);
+		    m_signal.deleteRange(count, 0, offset);
+		}
+		selectRange(0, length);
 	    }
-	    selectRange(0, length);
 	}
     CASE_COMMAND("delete")
 	Kwave::UndoTransactionGuard undo(*this, i18n("Delete"));
@@ -1912,8 +1914,6 @@ void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
 {
     Kwave::LabelList labels(m_meta_data);
 
-    Q_ASSERT(index >= 0);
-    Q_ASSERT(index < Kwave::toInt(labels.count()));
     if ((index < 0) || (index >= Kwave::toInt(labels.count()))) return;
 
     Kwave::MetaData label(labels.at(index));
@@ -1939,8 +1939,6 @@ bool Kwave::SignalManager::modifyLabel(int index, sample_index_t pos,
                                        const QString &name)
 {
     Kwave::LabelList labels(m_meta_data);
-    Q_ASSERT(index >= 0);
-    Q_ASSERT(index < Kwave::toInt(labels.count()));
     if ((index < 0) || (index >= Kwave::toInt(labels.count())))
 	return false;
 

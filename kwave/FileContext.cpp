@@ -633,12 +633,12 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	Kwave::Parser parser(line);
 
 	// the "goto" command
-	if (line.split(QLatin1Char(' ')).at(0) == _("goto")) {
-	    qDebug(">>> detected 'goto'");
+	if (line.split(QLatin1Char(' ')).at(0) == _("GOTO")) {
+	    qDebug(">>> detected 'GOTO'");
 	    QString label = line.split(QLatin1Char(' ')).at(1).simplified();
 	    if (labels.contains(label)) {
 		labels[label].hits++;
-		qDebug(">>> goto '%s' @ offset %llu (pass #%d)", DBG(label),
+		qDebug(">>> GOTO '%s' @ offset %llu (pass #%d)", DBG(label),
 		       labels[label].pos,
 		       labels[label].hits
 		    );
@@ -655,7 +655,8 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	    m_plugin_manager->sync();
 
 	// the "msgbox" command (useful for debugging)
-	if (parser.command() == _("msgbox")) {
+	if (false) { ;
+	CASE_COMMAND("msgbox")
 	    QApplication::restoreOverrideCursor();
 	    result = (Kwave::MessageBox::questionYesNo(mainWidget(),
 		parser.firstParam()) == KMessageBox::Yes) ? 0 : 1;

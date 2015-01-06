@@ -42,8 +42,8 @@ ADD_CUSTOM_COMMAND(OUTPUT ${KWAVE_MENU_POT}
 ### generate kwave_gui.pot and merge with kwave_menu.pot into kwave.pot   ###
 
 ADD_CUSTOM_TARGET(package-messages
-    COMMAND $(MAKE) all # first make sure all generated source exists
     COMMAND $(MAKE) update-handbook # update the handbook
+    COMMAND $(MAKE) all # first make sure all generated source exists
     COMMAND ${RM_EXECUTABLE} -f po/*.gmo
     COMMAND ${XGETTEXT_EXECUTABLE} --from-code=UTF-8 -C --kde
         -ci18n -ki18n:1 -ki18nc:1c,2 -ki18np:1,2 -ki18ncp:1c,2,3 -ktr2i18n:1

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-04 21:53+0100\n"
+"POT-Creation-Date: 2015-01-06 08:17+0100\n"
 "PO-Revision-Date: 2014-04-27 11:13+0200\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: French <kde-i18n-de@kde.org>\n"
@@ -134,7 +134,7 @@ msgstr "%1"
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 échantillons)"
 
-#: kwave/FileContext.cpp:729
+#: kwave/FileContext.cpp:730
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -561,7 +561,7 @@ msgstr "(stéréo)"
 msgid "(user defined)"
 msgstr "(user defined)"
 
-#: kwave/FileContext.cpp:735
+#: kwave/FileContext.cpp:736
 #, fuzzy, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
@@ -812,7 +812,7 @@ msgstr ""
 "matériel n'est pas listé ici, vous pouvez entrer un nom de matériel ou "
 "rechercher dans votre système de fichiers.</p>"
 
-#: libkwave/SignalManager.cpp:1399
+#: libkwave/SignalManager.cpp:1401
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -1239,7 +1239,7 @@ msgctxt "menu: /Edit/Track/Add"
 msgid "Add"
 msgstr "&Ajouter"
 
-#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1894
+#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1896
 #, fuzzy
 msgid "Add Label"
 msgstr "Ajouter un label"
@@ -1392,7 +1392,7 @@ msgstr "Annotation"
 msgid "Any device (*)"
 msgstr "Tous les périphériques (*)"
 
-#: libkwave/SignalManager.cpp:911
+#: libkwave/SignalManager.cpp:913
 #, fuzzy
 msgid "Append Track"
 msgstr "ajouter une piste"
@@ -1983,7 +1983,7 @@ msgstr "Auteur de la boite de dialogue Aide/A propos de"
 msgid "Creator of the project, development 1998-2000"
 msgstr "Créateur du projet et développeur principal entre 1998 et 2000"
 
-#: libkwave/SignalManager.cpp:691
+#: libkwave/SignalManager.cpp:692
 #, fuzzy
 msgid "Crop"
 msgstr "&Couper la sélection"
@@ -2090,7 +2090,7 @@ msgid "Default device"
 msgstr ""
 
 #: libgui/CurveWidget.cpp:95 libkwave/undo/UndoDeleteAction.cpp:56
-#: libkwave/SignalManager.cpp:709
+#: libkwave/SignalManager.cpp:711
 #, fuzzy
 msgid "Delete"
 msgstr "supprimer"
@@ -2124,7 +2124,7 @@ msgstr "supprimer un label"
 msgid "Delete Meta Data"
 msgstr "Supprime les Métadonnées"
 
-#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:960
+#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:962
 #, fuzzy
 msgid "Delete Track"
 msgstr "supprimer une piste"
@@ -2164,12 +2164,12 @@ msgstr ""
 msgid "Description:"
 msgstr "Description :"
 
-#: libkwave/SignalManager.cpp:866
+#: libkwave/SignalManager.cpp:868
 #, fuzzy
 msgid "Deselect Track"
 msgstr "supprimer une piste"
 
-#: libkwave/SignalManager.cpp:851
+#: libkwave/SignalManager.cpp:853
 #, fuzzy
 msgid "Deselect all tracks"
 msgstr "supprimer une piste"
@@ -2249,7 +2249,7 @@ msgstr "Voulez-vous réellement continuer ?"
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Voulez vous continuer et ignorer les prochaines erreurs ?"
 
-#: libkwave/SignalManager.cpp:1397
+#: libkwave/SignalManager.cpp:1399
 #, fuzzy
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Voulez vous continuer et ignorer les prochaines erreurs ?"
@@ -2438,7 +2438,7 @@ msgstr ""
 msgid "Executing command '%1'..."
 msgstr ""
 
-#: libkwave/SignalManager.cpp:741
+#: libkwave/SignalManager.cpp:743
 #, fuzzy
 msgid "Expand Selection to Label"
 msgstr "&Élargir par rapport aux labels"
@@ -3077,12 +3077,12 @@ msgstr "Position :"
 msgid "Insert Meta Data"
 msgstr "Insérer des Métadonnées"
 
-#: libkwave/SignalManager.cpp:1122
+#: libkwave/SignalManager.cpp:1124
 #, fuzzy
 msgid "Insert Space"
 msgstr "insérer une piste"
 
-#: libkwave/undo/UndoInsertTrack.cpp:44 libkwave/SignalManager.cpp:918
+#: libkwave/undo/UndoInsertTrack.cpp:44 libkwave/SignalManager.cpp:920
 #, fuzzy
 msgid "Insert Track"
 msgstr "insérer une piste"
@@ -3149,7 +3149,7 @@ msgctxt "menu: /Edit/Track/Invert Selection"
 msgid "Invert Selection"
 msgstr "&Inversion de la sélection"
 
-#: libkwave/SignalManager.cpp:855
+#: libkwave/SignalManager.cpp:857
 #, fuzzy
 msgid "Invert Track Selection"
 msgstr "&Inversion de la sélection"
@@ -3238,7 +3238,7 @@ msgstr "Labels"
 msgid "Labels at Stripe borders"
 msgstr ""
 
-#: libkwave/SignalManager.cpp:1550 libkwave/SignalManager.cpp:1557
+#: libkwave/SignalManager.cpp:1552 libkwave/SignalManager.cpp:1559
 #, fuzzy
 msgid "Last Action"
 msgstr "dernière action"
@@ -3511,12 +3511,12 @@ msgstr "Stéréo MS"
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Mainteneur de la bibliothèque « id3lib »"
 
-#: libkwave/SignalManager.cpp:2010
+#: libkwave/SignalManager.cpp:2008
 #, fuzzy
 msgid "Manual Selection"
 msgstr "Sélection"
 
-#: libkwave/SignalManager.cpp:2007
+#: libkwave/SignalManager.cpp:2005
 #, fuzzy
 msgid "Manual Track Selection"
 msgstr "zoomer la sélection"
@@ -3566,7 +3566,7 @@ msgstr "La taille en méga-octets de la mémoire physique"
 msgid "Megabytes of virtual memory"
 msgstr "La taille en méga-octets de la mémoire virtuelle"
 
-#: libkwave/SignalManager.cpp:1403
+#: libkwave/SignalManager.cpp:1405
 #, fuzzy
 msgid "Memory"
 msgstr "&Gestion de la mémoire"
@@ -3659,7 +3659,7 @@ msgctxt ""
 msgid "Modify %1 %2 objects"
 msgstr "Modifier %1 %2 objets"
 
-#: libkwave/SignalManager.cpp:1847
+#: libkwave/SignalManager.cpp:1849
 #, fuzzy
 msgid "Modify File Info"
 msgstr "modifier les informations du fichier"
@@ -3857,7 +3857,7 @@ msgstr "&Bruit"
 msgid "Normalizing (%1 dB) ..."
 msgstr "Traitement de « %1 » en cours..."
 
-#: libkwave/SignalManager.cpp:1395
+#: libkwave/SignalManager.cpp:1397
 msgid "Not enough memory for saving undo information."
 msgstr "Pas assez de mémoire pour enregistrer les informations d'annulation"
 
@@ -4826,7 +4826,7 @@ msgctxt "menu: /File/Save"
 msgid "Save"
 msgstr "E&nregistrer..."
 
-#: kwave/FileContext.cpp:837
+#: kwave/FileContext.cpp:838
 #, fuzzy
 msgid "Save As"
 msgstr "E&nregistrer..."
@@ -4909,7 +4909,7 @@ msgstr "Secondes"
 msgid "Selec&t..."
 msgstr "Sélec&tionner..."
 
-#: libkwave/SignalManager.cpp:847
+#: libkwave/SignalManager.cpp:849
 #, fuzzy
 msgid "Select All Tracks"
 msgstr "supprimer une piste"
@@ -4923,7 +4923,7 @@ msgstr "Sélectionner la date"
 msgid "Select MP3 Encoder"
 msgstr "sélectionner le facteur de zoom"
 
-#: libkwave/SignalManager.cpp:770
+#: libkwave/SignalManager.cpp:772
 #, fuzzy
 msgid "Select Next Labels"
 msgstr "vers les labels suivants"
@@ -4932,7 +4932,7 @@ msgstr "vers les labels suivants"
 msgid "Select Playback Device"
 msgstr "Sélectionnez le périphérique de lecture"
 
-#: libkwave/SignalManager.cpp:807
+#: libkwave/SignalManager.cpp:809
 #, fuzzy
 msgid "Select Previous Labels"
 msgstr "vers les labels précédents"
@@ -4948,7 +4948,7 @@ msgstr "Sélectionner une plage d'échantillons..."
 msgid "Select Record Device"
 msgstr "Sélectionnez le périphérique d'enregistrement"
 
-#: libkwave/SignalManager.cpp:861
+#: libkwave/SignalManager.cpp:863
 #, fuzzy
 msgid "Select Track"
 msgstr "supprimer une piste"
@@ -5090,7 +5090,7 @@ msgstr ""
 "Paramètre le volume sonore à un pourcentage qui est relatif au niveau\n"
 "sonore d'origine. Par exemple : « 50 % », « 75 % », ou « 125 % »"
 
-#: libkwave/SignalManager.cpp:1401
+#: libkwave/SignalManager.cpp:1403
 msgid "Settings"
 msgstr "Configuration"
 
@@ -5576,7 +5576,7 @@ msgstr ""
 "du programme correspondant en saisisant la ligne de commande « fuser -v %1 » "
 "sur une ligne de commande du système)."
 
-#: kwave/FileContext.cpp:864
+#: kwave/FileContext.cpp:865
 #, fuzzy, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -5686,7 +5686,7 @@ msgstr ""
 "Ce codec ne supporte que les fichiers audio ou stereo. Il ne supporte pas %1 "
 "canaux."
 
-#: kwave/FileContext.cpp:932
+#: kwave/FileContext.cpp:933
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -5760,7 +5760,7 @@ msgctxt "menu: /Edit/Selection/To Start"
 msgid "To Start"
 msgstr "Au débu&t"
 
-#: libkwave/SignalManager.cpp:871
+#: libkwave/SignalManager.cpp:873
 msgid "Toggle Track Selection"
 msgstr ""
 

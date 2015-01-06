@@ -20,6 +20,7 @@ FIND_PACKAGE(RequiredProgram REQUIRED)
 SET(_help_en_docbook ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
 SET(_help_en_updated ${CMAKE_CURRENT_BINARY_DIR}/help_en-updated.docbook)
 SET(_help_en_shifted ${CMAKE_CURRENT_BINARY_DIR}/help_en-shifted.docbook)
+SET(_help_en_pot_raw ${CMAKE_CURRENT_BINARY_DIR}/help_en.pot.raw)
 SET(_help_en_pot ${CMAKE_CURRENT_BINARY_DIR}/help_en.pot)
 SET(_version ${PROJECT_SOURCE_DIR}/VERSION)
 
@@ -33,6 +34,7 @@ FIND_REQUIRED_PROGRAM(PO2XML_EXECUTABLE po2xml)
 FIND_REQUIRED_PROGRAM(CHECKXML_EXECUTABLE checkXML)
 
 SET(UPDATE_COMMAND_XREF ${CMAKE_SOURCE_DIR}/bin/update-command-xref.pl)
+SET(FILTER_POT ${CMAKE_SOURCE_DIR}/bin/filter-pot.pl)
 
 #############################################################################
 ### how to convert from svg to png                                        ###
@@ -117,10 +119,18 @@ ENDIF (NOT RSVG_AVAILABLE)
 FILE(REMOVE "${CMAKE_BINARY_DIR}/${_png_file}")
 
 #############################################################################
-### help_en.docbook -> help_en.pot                                        ###
+### help_en.pot.raw -> help_en.pot                                        ###
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_pot}
-    COMMAND ${XML2POT_EXECUTABLE} ${_help_en_docbook} > ${_help_en_pot}
+    COMMAND ${FILTER_POT} ${_help_en_pot_raw} ${_help_en_pot}
+    DEPENDS ${FILTER_POT} ${_help_en_pot_raw}
+)
+
+#############################################################################
+### help_en.docbook -> help_en.pot.raw                                    ###
+
+ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_pot_raw}
+    COMMAND ${XML2POT_EXECUTABLE} ${_help_en_docbook} > ${_help_en_pot_raw}
     DEPENDS ${_help_en_docbook}
 )
 
@@ -175,14 +185,18 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
         # translation of the po and the docbook file not for english
         IF (NOT "${_lang}" STREQUAL "en")
             SET(_docbook ${CMAKE_CURRENT_BINARY_DIR}/help_${_lang}.docbook)
+	    SET(_gui_po ${CMAKE_SOURCE_DIR}/po/${_lang}.po)
             GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
 
             # translated po file
             ADD_CUSTOM_COMMAND(OUTPUT ${_po}
                 COMMAND ${MSGMERGE_EXECUTABLE}
+                    -C ${_gui_po}
                     -o ${_po} ${_po_orig} ${_help_en_pot}
-                COMMAND ${CMAKE_COMMAND} -E copy ${_po} ${_po_orig}
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_po} ${_po_orig}
+                DEPENDS ${_po_orig}
                 DEPENDS ${_help_en_pot}
+                DEPENDS ${_gui_po}
             )
 
             # translated docbook file

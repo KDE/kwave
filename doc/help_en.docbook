@@ -38,6 +38,94 @@
   <!ENTITY url_git_web "http://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY url_git_list_tags "http://sourceforge.net/p/kwave/code/ref/master~/tags/">
   <!ENTITY url_git_master "git://git.code.sf.net/p/kwave/code">
+  <!ENTITY i18n-cmd_syntax "Syntax: ">
+  <!ENTITY no-i18n-tag "">
+  <!-- @COMMAND_ENTITIES_START@ -->
+  <!ENTITY no-i18n-cmd_about_kde "about_kde">
+  <!ENTITY no-i18n-cmd_add_label "add_label">
+  <!ENTITY no-i18n-cmd_add_track "add_track">
+  <!ENTITY no-i18n-cmd_clipboard_flush "clipboard_flush">
+  <!ENTITY no-i18n-cmd_close "close">
+  <!ENTITY no-i18n-cmd_continue "continue">
+  <!ENTITY no-i18n-cmd_copy "copy">
+  <!ENTITY no-i18n-cmd_crop "crop">
+  <!ENTITY no-i18n-cmd_cut "cut">
+  <!ENTITY no-i18n-cmd_delete "delete">
+  <!ENTITY no-i18n-cmd_delete_label "delete_label">
+  <!ENTITY no-i18n-cmd_delete_track "delete_track">
+  <!ENTITY no-i18n-cmd_dump_metadata "dump_metadata">
+  <!ENTITY no-i18n-cmd_edit_label "edit_label">
+  <!ENTITY no-i18n-cmd_expandtolabel "expandtolabel">
+  <!ENTITY no-i18n-cmd_fileinfo "fileinfo">
+  <!ENTITY no-i18n-cmd_forward "forward">
+  <!ENTITY no-i18n-cmd_goto "goto">
+  <!ENTITY no-i18n-cmd_insert_at "insert_at">
+  <!ENTITY no-i18n-cmd_insert_track "insert_track">
+  <!ENTITY no-i18n-cmd_loadbatch "loadbatch">
+  <!ENTITY no-i18n-cmd_loop "loop">
+  <!ENTITY no-i18n-cmd_menu "menu">
+  <!ENTITY no-i18n-cmd_msgbox "msgbox">
+  <!ENTITY no-i18n-cmd_newsignal "newsignal">
+  <!ENTITY no-i18n-cmd_next "next">
+  <!ENTITY no-i18n-cmd_open "open">
+  <!ENTITY no-i18n-cmd_openrecent "openrecent">
+  <!ENTITY no-i18n-cmd_paste "paste">
+  <!ENTITY no-i18n-cmd_pause "pause">
+  <!ENTITY no-i18n-cmd_playback_start "playback_start">
+  <!ENTITY no-i18n-cmd_plugin "plugin">
+  <!ENTITY no-i18n-cmd_plugin_execute "plugin:execute">
+  <!ENTITY no-i18n-cmd_plugin_setup "plugin:setup">
+  <!ENTITY no-i18n-cmd_prev "prev">
+  <!ENTITY no-i18n-cmd_quit "quit">
+  <!ENTITY no-i18n-cmd_redo "redo">
+  <!ENTITY no-i18n-cmd_redo_all "redo_all">
+  <!ENTITY no-i18n-cmd_reenable_dna "reenable_dna">
+  <!ENTITY no-i18n-cmd_reset_toolbars "reset_toolbars">
+  <!ENTITY no-i18n-cmd_revert "revert">
+  <!ENTITY no-i18n-cmd_rewind "rewind">
+  <!ENTITY no-i18n-cmd_save "save">
+  <!ENTITY no-i18n-cmd_saveas "saveas">
+  <!ENTITY no-i18n-cmd_saveselect "saveselect">
+  <!ENTITY no-i18n-cmd_select_gui_type "select_gui_type">
+  <!ENTITY no-i18n-cmd_select_track_all "select_track:all">
+  <!ENTITY no-i18n-cmd_select_track_invert "select_track:invert">
+  <!ENTITY no-i18n-cmd_select_track_none "select_track:none">
+  <!ENTITY no-i18n-cmd_select_track_off "select_track:off">
+  <!ENTITY no-i18n-cmd_select_track_on "select_track:on">
+  <!ENTITY no-i18n-cmd_select_track_toggle "select_track:toggle">
+  <!ENTITY no-i18n-cmd_selectall "selectall">
+  <!ENTITY no-i18n-cmd_selectnext "selectnext">
+  <!ENTITY no-i18n-cmd_selectnextlabels "selectnextlabels">
+  <!ENTITY no-i18n-cmd_selectnone "selectnone">
+  <!ENTITY no-i18n-cmd_selectprev "selectprev">
+  <!ENTITY no-i18n-cmd_selectprevlabels "selectprevlabels">
+  <!ENTITY no-i18n-cmd_selecttoleft "selecttoleft">
+  <!ENTITY no-i18n-cmd_selecttoright "selecttoright">
+  <!ENTITY no-i18n-cmd_selectvisible "selectvisible">
+  <!ENTITY no-i18n-cmd_start "start">
+  <!ENTITY no-i18n-cmd_stop "stop">
+  <!ENTITY no-i18n-cmd_undo "undo">
+  <!ENTITY no-i18n-cmd_undo_all "undo_all">
+  <!ENTITY no-i18n-cmd_view_scroll_end "view:scroll_end">
+  <!ENTITY no-i18n-cmd_view_scroll_left "view:scroll_left">
+  <!ENTITY no-i18n-cmd_view_scroll_next "view:scroll_next">
+  <!ENTITY no-i18n-cmd_view_scroll_next_label "view:scroll_next_label">
+  <!ENTITY no-i18n-cmd_view_scroll_prev "view:scroll_prev">
+  <!ENTITY no-i18n-cmd_view_scroll_prev_label "view:scroll_prev_label">
+  <!ENTITY no-i18n-cmd_view_scroll_right "view:scroll_right">
+  <!ENTITY no-i18n-cmd_view_scroll_start "view:scroll_start">
+  <!ENTITY no-i18n-cmd_view_zoom_all "view:zoom_all">
+  <!ENTITY no-i18n-cmd_view_zoom_in "view:zoom_in">
+  <!ENTITY no-i18n-cmd_view_zoom_normal "view:zoom_normal">
+  <!ENTITY no-i18n-cmd_view_zoom_out "view:zoom_out">
+  <!ENTITY no-i18n-cmd_view_zoom_selection "view:zoom_selection">
+  <!ENTITY no-i18n-cmd_window_activate "window:activate">
+  <!ENTITY no-i18n-cmd_window_cascade "window:cascade">
+  <!ENTITY no-i18n-cmd_window_next_sub "window:next_sub">
+  <!ENTITY no-i18n-cmd_window_prev_sub "window:prev_sub">
+  <!ENTITY no-i18n-cmd_window_tile "window:tile">
+  <!ENTITY no-i18n-cmd_window_tile_vertical "window:tile_vertical">
+  <!-- @COMMAND_ENTITIES_END@ -->
 ]>
 
 <book lang="&language;">
@@ -2800,7 +2888,7 @@
 	an error code. There is no special command for aborting the execution
 	of a script. If you want to implement a possibility for the user to
 	end a script, you can use the
-	command <quote><command>msgbox</command>(<parameter><replaceable>text</replaceable></parameter>)</quote>.
+	command <quote><link linkend="cmd_sect_msgbox"><command>msgbox</command></link>(<parameter><replaceable>text</replaceable></parameter>)</quote>.
 	This shows a message box with the two
 	buttons <quote><guibutton>OK</guibutton></quote> (which lets the script
 	continue) and <quote><guibutton>Cancel</guibutton></quote> (which
@@ -2811,7 +2899,15 @@
     <para>
 	Lines that consist only of an identifier, followed by a <quote><token>:</token></quote>
 	are treated <emphasis>labels</emphasis>. They can be referenced
-	later in the script by the special command <quote><command>goto</command></quote>.
+	later in the script by the special keyword <quote><command>GOTO</command></quote>
+	<footnote><para>Note:
+	    Please don't mix up the keyword <quote><command>GOTO</command></quote>
+	    with the text command
+	    <quote><link linkend="cmd_sect_goto"><command>goto</command></link>
+		    (<parameter><replaceable>position</replaceable></parameter>)</quote> !
+	</para></footnote>
+	,which makes the execution of the script continue at the location of
+	that label (see example below).
     </para>
     <para>
 	A line that contains a label must not contain any other content
@@ -2823,7 +2919,7 @@
 	    <replaceable>start:</replaceable><literal>  # &lt;= this is a label</literal>
 	    <literal>        # do something...</literal>
 	    <literal>        </literal><command>msgbox</command>(<parameter>once again?</parameter>)
-	    <literal>        </literal><command>goto <parameter>start</parameter></command>
+	    <literal>        </literal><command>GOTO <parameter>start</parameter></command>
 	</screen>
     </para>
     </sect2>
@@ -2835,6 +2931,7 @@
 
     <sect1 id="kwave_commands"><title>Command Reference</title>
 	<index><title>Index</title>
+	    &no-i18n-tag;
 	    <!-- @COMMAND_INDEX_START@ -->
 	    <indexdiv><title>a</title>
 		<indexentry><primaryie><link linkend="cmd_sect_about_kde" endterm="cmd_title_about_kde"/></primaryie></indexentry>
@@ -2876,6 +2973,7 @@
 	    </indexdiv>
 	    <indexdiv><title>m</title>
 		<indexentry><primaryie><link linkend="cmd_sect_menu" endterm="cmd_title_menu"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_msgbox" endterm="cmd_title_msgbox"/></primaryie></indexentry>
 	    </indexdiv>
 	    <indexdiv><title>n</title>
 		<indexentry><primaryie><link linkend="cmd_sect_newsignal" endterm="cmd_title_newsignal"/></primaryie></indexentry>
@@ -2958,582 +3056,745 @@
 	    <!-- @COMMAND_INDEX_END@ -->
 	</index>
 
-	<!-- @COMMAND@ about_kde(TODO) -->
-	<sect2 id="cmd_sect_about_kde"><title id="cmd_title_about_kde">about_kde</title>
-	<para>
-	    TBD
-	</para>
+	<para><literal> </literal></para>
+    </sect1>
+
+    <sect1 id="commands_a"><title>&no-i18n-tag;a</title>
+
+	<!-- @COMMAND@ about_kde() -->
+	<sect2 id="cmd_sect_about_kde"><title id="cmd_title_about_kde">&no-i18n-cmd_about_kde;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_about_kde;</command>()</title>
+	    <para>
+		Shows a dialog window with information about the KDE
+		version used by the computer &kwave; is running at.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ add_label(sample_index:pos,[string:description]) -->
-	<sect2 id="cmd_sect_add_label"><title id="cmd_title_add_label">add_label</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ add_label(pos,[text]) -->
+	<sect2 id="cmd_sect_add_label"><title id="cmd_title_add_label">&no-i18n-cmd_add_label;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_add_label;</command>(<replaceable>pos</replaceable>[,<replaceable>text</replaceable>])</title>
+	    <para>
+		Add a new label at a given position. If the given position already
+		contains a label, then this command does nothing. The label can
+		be given an optional description.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>pos</parameter>:</entry><entry>position in samples where to insert the label</entry></row>
+	    <row><entry><parameter>text</parameter>:</entry><entry>some descriptive text (optional)</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ add_track(TODO) -->
-	<sect2 id="cmd_sect_add_track"><title id="cmd_title_add_track">add_track</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ add_track(index) -->
+	<sect2 id="cmd_sect_add_track"><title id="cmd_title_add_track">&no-i18n-cmd_add_track;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_add_track;</command>(<replaceable>index</replaceable>)</title>
+	    <para>
+		Adds a new track at the given index, using the current length and sample rate
+		settings of the signal. If there are index is higher than or equal to the current number
+		of tracks, it will be appended as the last track. The index of all existing tracks at
+		and after the given position will be incremented by one.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>index</parameter>:</entry><entry>index of the track to insert, starting with 0</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	</sect2>
+    </sect1>
+
+    <sect1 id="commands_c"><title>&no-i18n-tag;c</title>
+
+	<!-- @COMMAND@ clipboard_flush() -->
+	<sect2 id="cmd_sect_clipboard_flush"><title id="cmd_title_clipboard_flush">&no-i18n-cmd_clipboard_flush;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_clipboard_flush;</command>()</title>
+	    <para>
+		Discards the current content of the clipboard
+		(might free some memory).
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ clipboard_flush(TODO) -->
-	<sect2 id="cmd_sect_clipboard_flush"><title id="cmd_title_clipboard_flush">clipboard_flush</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ close() -->
+	<sect2 id="cmd_sect_close"><title id="cmd_title_close">&no-i18n-cmd_close;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_close;</command>()</title>
+	    <para>
+		Closes the current file. If the GUI is configured to MDI or Tab mode,
+		this also closes the corresponding sub window.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ close(TODO) -->
-	<sect2 id="cmd_sect_close"><title id="cmd_title_close">close</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ continue() -->
+	<sect2 id="cmd_sect_continue"><title id="cmd_title_continue">&no-i18n-cmd_continue;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_continue;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Continue</guibutton> toolbar
+		button and lets the playback continue if it is paused.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ continue(TODO) -->
-	<sect2 id="cmd_sect_continue"><title id="cmd_title_continue">continue</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ copy() -->
+	<sect2 id="cmd_sect_copy"><title id="cmd_title_copy">&no-i18n-cmd_copy;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_copy;</command>()</title>
+	    <para>
+		Copies the content of the current selection to the clipboard. If the
+		selection is empty, this command does nothing and the content
+		of the clipboard remains unchanged.
+		Only the content of the currently selected tracks is copied
+		to the clipboard!
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ copy(TODO) -->
-	<sect2 id="cmd_sect_copy"><title id="cmd_title_copy">copy</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ crop() -->
+	<sect2 id="cmd_sect_crop"><title id="cmd_title_crop">&no-i18n-cmd_crop;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_crop;</command>()</title>
+	    <para>
+		Crops the signal to the current selection by deleting everything
+		that is after and before the current selection. Affects all tracks.
+		If nothing is selected this command does nothing.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ crop(TODO) -->
-	<sect2 id="cmd_sect_crop"><title id="cmd_title_crop">crop</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ cut() -->
+	<sect2 id="cmd_sect_cut"><title id="cmd_title_cut">&no-i18n-cmd_cut;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_cut;</command>()</title>
+	    <para>
+		Copies the content of the current selection to the clipboard and
+		removes it from the signal. If the selection is empty, this
+		command does nothing and the content of the clipboard remains unchanged.
+		Only the content of the currently selected tracks is copied to
+		the clipboard, but the selected range is deleted from all tracks.
+	    </para>
+	</simplesect>
+	</sect2>
+    </sect1>
+
+    <sect1 id="commands_d"><title>&no-i18n-tag;d</title>
+
+	<!-- @COMMAND@ delete() -->
+	<sect2 id="cmd_sect_delete"><title id="cmd_title_delete">&no-i18n-cmd_delete;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_delete;</command>()</title>
+	    <para>
+		Deletes the currently selected range of samples.
+		If the selection is empty, this command does nothing.
+		Affects all tracks.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ cut(TODO) -->
-	<sect2 id="cmd_sect_cut"><title id="cmd_title_cut">cut</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ delete_label(index) -->
+	<sect2 id="cmd_sect_delete_label"><title id="cmd_title_delete_label">&no-i18n-cmd_delete_label;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_delete_label;</command>(<replaceable>index</replaceable>)</title>
+	    <para>
+		Deletes a label, identified by it's index (starting from zero).
+		If no label with the given index exists, this command does nothing.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>index</parameter>:</entry><entry>index of the label to delete, starting with 0</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ delete(TODO) -->
-	<sect2 id="cmd_sect_delete"><title id="cmd_title_delete">delete</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ delete_track(index) -->
+	<sect2 id="cmd_sect_delete_track"><title id="cmd_title_delete_track">&no-i18n-cmd_delete_track;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_delete_label;</command>(<replaceable>index</replaceable>)</title>
+	    <para>
+		Deletes a track, identified by it's index (starting from zero).
+		If no track with the given index exists, this command exits with an error.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>index</parameter>:</entry><entry>index of the track to delete, starting with 0</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ delete_label(TODO) -->
-	<sect2 id="cmd_sect_delete_label"><title id="cmd_title_delete_label">delete_label</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ dump_metadata() -->
+	<sect2 id="cmd_sect_dump_metadata"><title id="cmd_title_dump_metadata">&no-i18n-cmd_dump_metadata;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_dump_metadata;</command>()</title>
+	    <para>
+		Prints a list of all meta data entries to the console, for diagnostic purposes.
+		(Only available when &kwave; has been compiled with the option
+		<literal>WITH_DEBUG</literal> switched on).
+	    </para>
+	</simplesect>
+	</sect2>
+    </sect1>
+
+    <sect1 id="commands_e"><title>&no-i18n-tag;e</title>
+
+	<!-- @COMMAND@ edit_label(index) -->
+	<sect2 id="cmd_sect_edit_label"><title id="cmd_title_edit_label">&no-i18n-cmd_edit_label;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_edit_label;</command>(<replaceable>index</replaceable>)</title>
+	    <para>
+		Opens a window in which the user can edit the position and the
+		description of a label, which is identified by it's index
+		(starting from zero). If no label with the given index exists,
+		this command does nothing.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>index</parameter>:</entry><entry>index of the label to edit, starting with 0</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ delete_track(TODO) -->
-	<sect2 id="cmd_sect_delete_track"><title id="cmd_title_delete_track">delete_track</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ expandtolabel() -->
+	<sect2 id="cmd_sect_expandtolabel"><title id="cmd_title_expandtolabel">&no-i18n-cmd_expandtolabel;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_expandtolabel;</command>()</title>
+	    <para>
+		Expands the current selection to the labels left and right from
+		the current selection borders. If the border of selection already
+		is on a label, it stays unchanged. If there is no label left
+		or right of the current selection, it will be expanded to the
+		start or end of the file.
+	    </para>
+	</simplesect>
 	</sect2>
+    </sect1>
 
-	<!-- @COMMAND@ dump_metadata(TODO) -->
-	<sect2 id="cmd_sect_dump_metadata"><title id="cmd_title_dump_metadata">dump_metadata</title>
-	<para>
-	    TBD
-	</para>
-	</sect2>
+    <sect1 id="commands_f"><title>&no-i18n-tag;f</title>
 
-	<!-- @COMMAND@ edit_label(TODO) -->
-	<sect2 id="cmd_sect_edit_label"><title id="cmd_title_edit_label">edit_label</title>
-	<para>
-	    TBD
-	</para>
-	</sect2>
-
-	<!-- @COMMAND@ expandtolabel(TODO) -->
-	<sect2 id="cmd_sect_expandtolabel"><title id="cmd_title_expandtolabel">expandtolabel</title>
-	<para>
-	    TBD
-	</para>
-	</sect2>
-
-	<!-- @COMMAND@ fileinfo(TODO) -->
-	<sect2 id="cmd_sect_fileinfo"><title id="cmd_title_fileinfo">fileinfo</title>
-	<para>
-	    TBD
-	</para>
+	<!-- @COMMAND@ fileinfo(keyword,value) -->
+	<sect2 id="cmd_sect_fileinfo"><title id="cmd_title_fileinfo">&no-i18n-cmd_fileinfo;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_fileinfo;</command>(<replaceable>index</replaceable>)</title>
+	    <para>
+		Set a file info entry to a new value.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>keyword</parameter>:</entry><entry>keyword of the entry</entry></row>
+	    <row><entry><parameter>value</parameter>:</entry><entry>value of the entry</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
 	<!-- @COMMAND@ forward(TODO) -->
-	<sect2 id="cmd_sect_forward"><title id="cmd_title_forward">forward</title>
+	<sect2 id="cmd_sect_forward"><title id="cmd_title_forward">&no-i18n-cmd_forward;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_g"><title>&no-i18n-tag;g</title>
 
 	<!-- @COMMAND@ goto(TODO) -->
-	<sect2 id="cmd_sect_goto"><title id="cmd_title_goto">goto</title>
+	<sect2 id="cmd_sect_goto"><title id="cmd_title_goto">&no-i18n-cmd_goto;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_i"><title>&no-i18n-tag;i</title>
 
 	<!-- @COMMAND@ insert_at(TODO) -->
-	<sect2 id="cmd_sect_insert_at"><title id="cmd_title_insert_at">insert_at</title>
+	<sect2 id="cmd_sect_insert_at"><title id="cmd_title_insert_at">&no-i18n-cmd_insert_at;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ insert_track(TODO) -->
-	<sect2 id="cmd_sect_insert_track"><title id="cmd_title_insert_track">insert_track</title>
+	<sect2 id="cmd_sect_insert_track"><title id="cmd_title_insert_track">&no-i18n-cmd_insert_track;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_l"><title>&no-i18n-tag;l</title>
 
 	<!-- @COMMAND@ loadbatch(TODO) -->
-	<sect2 id="cmd_sect_loadbatch"><title id="cmd_title_loadbatch">loadbatch</title>
+	<sect2 id="cmd_sect_loadbatch"><title id="cmd_title_loadbatch">&no-i18n-cmd_loadbatch;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ loop(TODO) -->
-	<sect2 id="cmd_sect_loop"><title id="cmd_title_loop">loop</title>
+	<sect2 id="cmd_sect_loop"><title id="cmd_title_loop">&no-i18n-cmd_loop;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_m"><title>&no-i18n-tag;m</title>
 
 	<!-- @COMMAND@ menu(TODO) -->
-	<sect2 id="cmd_sect_menu"><title id="cmd_title_menu">menu</title>
+	<sect2 id="cmd_sect_menu"><title id="cmd_title_menu">&no-i18n-cmd_menu;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
+	<!-- @COMMAND@ msgbox(TODO) -->
+	<sect2 id="cmd_sect_msgbox"><title id="cmd_title_msgbox">&no-i18n-cmd_msgbox;</title>
+	<para>
+	    TBD
+	</para>
+	</sect2>
+    </sect1>
+
+    <sect1 id="commands_n"><title>&no-i18n-tag;n</title>
+
 	<!-- @COMMAND@ newsignal(TODO) -->
-	<sect2 id="cmd_sect_newsignal"><title id="cmd_title_newsignal">newsignal</title>
+	<sect2 id="cmd_sect_newsignal"><title id="cmd_title_newsignal">&no-i18n-cmd_newsignal;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ next(TODO) -->
-	<sect2 id="cmd_sect_next"><title id="cmd_title_next">next</title>
+	<sect2 id="cmd_sect_next"><title id="cmd_title_next">&no-i18n-cmd_next;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_o"><title>&no-i18n-tag;o</title>
 
 	<!-- @COMMAND@ open(TODO) -->
-	<sect2 id="cmd_sect_open"><title id="cmd_title_open">open</title>
+	<sect2 id="cmd_sect_open"><title id="cmd_title_open">&no-i18n-cmd_open;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ openrecent(TODO) -->
-	<sect2 id="cmd_sect_openrecent"><title id="cmd_title_openrecent">openrecent</title>
+	<sect2 id="cmd_sect_openrecent"><title id="cmd_title_openrecent">&no-i18n-cmd_openrecent;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_p"><title>&no-i18n-tag;p</title>
 
 	<!-- @COMMAND@ paste(TODO) -->
-	<sect2 id="cmd_sect_paste"><title id="cmd_title_paste">paste</title>
+	<sect2 id="cmd_sect_paste"><title id="cmd_title_paste">&no-i18n-cmd_paste;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ pause(TODO) -->
-	<sect2 id="cmd_sect_pause"><title id="cmd_title_pause">pause</title>
+	<sect2 id="cmd_sect_pause"><title id="cmd_title_pause">&no-i18n-cmd_pause;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ playback_start(TODO) -->
-	<sect2 id="cmd_sect_playback_start"><title id="cmd_title_playback_start">playback_start</title>
+	<sect2 id="cmd_sect_playback_start"><title id="cmd_title_playback_start">&no-i18n-cmd_playback_start;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ plugin(TODO) -->
-	<sect2 id="cmd_sect_plugin"><title id="cmd_title_plugin">plugin</title>
+	<sect2 id="cmd_sect_plugin"><title id="cmd_title_plugin">&no-i18n-cmd_plugin;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ plugin:execute(TODO) -->
-	<sect2 id="cmd_sect_plugin_execute"><title id="cmd_title_plugin_execute">plugin:execute</title>
+	<sect2 id="cmd_sect_plugin_execute"><title id="cmd_title_plugin_execute">&no-i18n-cmd_plugin_execute;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ plugin:setup(TODO) -->
-	<sect2 id="cmd_sect_plugin_setup"><title id="cmd_title_plugin_setup">plugin:setup</title>
+	<sect2 id="cmd_sect_plugin_setup"><title id="cmd_title_plugin_setup">&no-i18n-cmd_plugin_setup;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ prev(TODO) -->
-	<sect2 id="cmd_sect_prev"><title id="cmd_title_prev">prev</title>
+	<sect2 id="cmd_sect_prev"><title id="cmd_title_prev">&no-i18n-cmd_prev;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_q"><title>&no-i18n-tag;q</title>
 
 	<!-- @COMMAND@ quit(TODO) -->
-	<sect2 id="cmd_sect_quit"><title id="cmd_title_quit">quit</title>
+	<sect2 id="cmd_sect_quit"><title id="cmd_title_quit">&no-i18n-cmd_quit;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_r"><title>&no-i18n-tag;r</title>
 
 	<!-- @COMMAND@ redo(TODO) -->
-	<sect2 id="cmd_sect_redo"><title id="cmd_title_redo">redo</title>
+	<sect2 id="cmd_sect_redo"><title id="cmd_title_redo">&no-i18n-cmd_redo;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ redo_all(TODO) -->
-	<sect2 id="cmd_sect_redo_all"><title id="cmd_title_redo_all">redo_all</title>
+	<sect2 id="cmd_sect_redo_all"><title id="cmd_title_redo_all">&no-i18n-cmd_redo_all;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ reenable_dna(TODO) -->
-	<sect2 id="cmd_sect_reenable_dna"><title id="cmd_title_reenable_dna">reenable_dna</title>
+	<sect2 id="cmd_sect_reenable_dna"><title id="cmd_title_reenable_dna">&no-i18n-cmd_reenable_dna;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ reset_toolbars(TODO) -->
-	<sect2 id="cmd_sect_reset_toolbars"><title id="cmd_title_reset_toolbars">reset_toolbars</title>
+	<sect2 id="cmd_sect_reset_toolbars"><title id="cmd_title_reset_toolbars">&no-i18n-cmd_reset_toolbars;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ revert(TODO) -->
-	<sect2 id="cmd_sect_revert"><title id="cmd_title_revert">revert</title>
+	<sect2 id="cmd_sect_revert"><title id="cmd_title_revert">&no-i18n-cmd_revert;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ rewind(TODO) -->
-	<sect2 id="cmd_sect_rewind"><title id="cmd_title_rewind">rewind</title>
+	<sect2 id="cmd_sect_rewind"><title id="cmd_title_rewind">&no-i18n-cmd_rewind;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_s"><title>&no-i18n-tag;s</title>
 
 	<!-- @COMMAND@ save(TODO) -->
-	<sect2 id="cmd_sect_save"><title id="cmd_title_save">save</title>
+	<sect2 id="cmd_sect_save"><title id="cmd_title_save">&no-i18n-cmd_save;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ saveas(TODO) -->
-	<sect2 id="cmd_sect_saveas"><title id="cmd_title_saveas">saveas</title>
+	<sect2 id="cmd_sect_saveas"><title id="cmd_title_saveas">&no-i18n-cmd_saveas;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ saveselect(TODO) -->
-	<sect2 id="cmd_sect_saveselect"><title id="cmd_title_saveselect">saveselect</title>
+	<sect2 id="cmd_sect_saveselect"><title id="cmd_title_saveselect">&no-i18n-cmd_saveselect;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ select_gui_type(TODO) -->
-	<sect2 id="cmd_sect_select_gui_type"><title id="cmd_title_select_gui_type">select_gui_type</title>
+	<sect2 id="cmd_sect_select_gui_type"><title id="cmd_title_select_gui_type">&no-i18n-cmd_select_gui_type;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ select_track:all(TODO) -->
-	<sect2 id="cmd_sect_select_track_all"><title id="cmd_title_select_track_all">select_track:all</title>
+	<sect2 id="cmd_sect_select_track_all"><title id="cmd_title_select_track_all">&no-i18n-cmd_select_track_all;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ select_track:invert(TODO) -->
-	<sect2 id="cmd_sect_select_track_invert"><title id="cmd_title_select_track_invert">select_track:invert</title>
+	<sect2 id="cmd_sect_select_track_invert"><title id="cmd_title_select_track_invert">&no-i18n-cmd_select_track_invert;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ select_track:none(TODO) -->
-	<sect2 id="cmd_sect_select_track_none"><title id="cmd_title_select_track_none">select_track:none</title>
+	<sect2 id="cmd_sect_select_track_none"><title id="cmd_title_select_track_none">&no-i18n-cmd_select_track_none;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ select_track:off(TODO) -->
-	<sect2 id="cmd_sect_select_track_off"><title id="cmd_title_select_track_off">select_track:off</title>
+	<sect2 id="cmd_sect_select_track_off"><title id="cmd_title_select_track_off">&no-i18n-cmd_select_track_off;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ select_track:on(TODO) -->
-	<sect2 id="cmd_sect_select_track_on"><title id="cmd_title_select_track_on">select_track:on</title>
+	<sect2 id="cmd_sect_select_track_on"><title id="cmd_title_select_track_on">&no-i18n-cmd_select_track_on;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ select_track:toggle(TODO) -->
-	<sect2 id="cmd_sect_select_track_toggle"><title id="cmd_title_select_track_toggle">select_track:toggle</title>
+	<sect2 id="cmd_sect_select_track_toggle"><title id="cmd_title_select_track_toggle">&no-i18n-cmd_select_track_toggle;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ selectall(TODO) -->
-	<sect2 id="cmd_sect_selectall"><title id="cmd_title_selectall">selectall</title>
+	<sect2 id="cmd_sect_selectall"><title id="cmd_title_selectall">&no-i18n-cmd_selectall;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ selectnext(TODO) -->
-	<sect2 id="cmd_sect_selectnext"><title id="cmd_title_selectnext">selectnext</title>
+	<sect2 id="cmd_sect_selectnext"><title id="cmd_title_selectnext">&no-i18n-cmd_selectnext;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ selectnextlabels(TODO) -->
-	<sect2 id="cmd_sect_selectnextlabels"><title id="cmd_title_selectnextlabels">selectnextlabels</title>
+	<sect2 id="cmd_sect_selectnextlabels"><title id="cmd_title_selectnextlabels">&no-i18n-cmd_selectnextlabels;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ selectnone(TODO) -->
-	<sect2 id="cmd_sect_selectnone"><title id="cmd_title_selectnone">selectnone</title>
+	<sect2 id="cmd_sect_selectnone"><title id="cmd_title_selectnone">&no-i18n-cmd_selectnone;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ selectprev(TODO) -->
-	<sect2 id="cmd_sect_selectprev"><title id="cmd_title_selectprev">selectprev</title>
+	<sect2 id="cmd_sect_selectprev"><title id="cmd_title_selectprev">&no-i18n-cmd_selectprev;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ selectprevlabels(TODO) -->
-	<sect2 id="cmd_sect_selectprevlabels"><title id="cmd_title_selectprevlabels">selectprevlabels</title>
+	<sect2 id="cmd_sect_selectprevlabels"><title id="cmd_title_selectprevlabels">&no-i18n-cmd_selectprevlabels;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ selecttoleft(TODO) -->
-	<sect2 id="cmd_sect_selecttoleft"><title id="cmd_title_selecttoleft">selecttoleft</title>
+	<sect2 id="cmd_sect_selecttoleft"><title id="cmd_title_selecttoleft">&no-i18n-cmd_selecttoleft;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ selecttoright(TODO) -->
-	<sect2 id="cmd_sect_selecttoright"><title id="cmd_title_selecttoright">selecttoright</title>
+	<sect2 id="cmd_sect_selecttoright"><title id="cmd_title_selecttoright">&no-i18n-cmd_selecttoright;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ selectvisible(TODO) -->
-	<sect2 id="cmd_sect_selectvisible"><title id="cmd_title_selectvisible">selectvisible</title>
+	<sect2 id="cmd_sect_selectvisible"><title id="cmd_title_selectvisible">&no-i18n-cmd_selectvisible;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ start(TODO) -->
-	<sect2 id="cmd_sect_start"><title id="cmd_title_start">start</title>
+	<sect2 id="cmd_sect_start"><title id="cmd_title_start">&no-i18n-cmd_start;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ stop(TODO) -->
-	<sect2 id="cmd_sect_stop"><title id="cmd_title_stop">stop</title>
+	<sect2 id="cmd_sect_stop"><title id="cmd_title_stop">&no-i18n-cmd_stop;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_u"><title>&no-i18n-tag;u</title>
 
 	<!-- @COMMAND@ undo(TODO) -->
-	<sect2 id="cmd_sect_undo"><title id="cmd_title_undo">undo</title>
+	<sect2 id="cmd_sect_undo"><title id="cmd_title_undo">&no-i18n-cmd_undo;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ undo_all(TODO) -->
-	<sect2 id="cmd_sect_undo_all"><title id="cmd_title_undo_all">undo_all</title>
+	<sect2 id="cmd_sect_undo_all"><title id="cmd_title_undo_all">&no-i18n-cmd_undo_all;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_v"><title>&no-i18n-tag;v</title>
 
 	<!-- @COMMAND@ view:scroll_end(TODO) -->
-	<sect2 id="cmd_sect_view_scroll_end"><title id="cmd_title_view_scroll_end">view:scroll_end</title>
+	<sect2 id="cmd_sect_view_scroll_end"><title id="cmd_title_view_scroll_end">&no-i18n-cmd_view_scroll_end;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:scroll_left(TODO) -->
-	<sect2 id="cmd_sect_view_scroll_left"><title id="cmd_title_view_scroll_left">view:scroll_left</title>
+	<sect2 id="cmd_sect_view_scroll_left"><title id="cmd_title_view_scroll_left">&no-i18n-cmd_view_scroll_left;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:scroll_next(TODO) -->
-	<sect2 id="cmd_sect_view_scroll_next"><title id="cmd_title_view_scroll_next">view:scroll_next</title>
+	<sect2 id="cmd_sect_view_scroll_next"><title id="cmd_title_view_scroll_next">&no-i18n-cmd_view_scroll_next;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:scroll_next_label(TODO) -->
-	<sect2 id="cmd_sect_view_scroll_next_label"><title id="cmd_title_view_scroll_next_label">view:scroll_next_label</title>
+	<sect2 id="cmd_sect_view_scroll_next_label"><title id="cmd_title_view_scroll_next_label">&no-i18n-cmd_view_scroll_next_label;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:scroll_prev(TODO) -->
-	<sect2 id="cmd_sect_view_scroll_prev"><title id="cmd_title_view_scroll_prev">view:scroll_prev</title>
+	<sect2 id="cmd_sect_view_scroll_prev"><title id="cmd_title_view_scroll_prev">&no-i18n-cmd_view_scroll_prev;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:scroll_prev_label(TODO) -->
-	<sect2 id="cmd_sect_view_scroll_prev_label"><title id="cmd_title_view_scroll_prev_label">view:scroll_prev_label</title>
+	<sect2 id="cmd_sect_view_scroll_prev_label"><title id="cmd_title_view_scroll_prev_label">&no-i18n-cmd_view_scroll_prev_label;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:scroll_right(TODO) -->
-	<sect2 id="cmd_sect_view_scroll_right"><title id="cmd_title_view_scroll_right">view:scroll_right</title>
+	<sect2 id="cmd_sect_view_scroll_right"><title id="cmd_title_view_scroll_right">&no-i18n-cmd_view_scroll_right;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:scroll_start(TODO) -->
-	<sect2 id="cmd_sect_view_scroll_start"><title id="cmd_title_view_scroll_start">view:scroll_start</title>
+	<sect2 id="cmd_sect_view_scroll_start"><title id="cmd_title_view_scroll_start">&no-i18n-cmd_view_scroll_start;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:zoom_all(TODO) -->
-	<sect2 id="cmd_sect_view_zoom_all"><title id="cmd_title_view_zoom_all">view:zoom_all</title>
+	<sect2 id="cmd_sect_view_zoom_all"><title id="cmd_title_view_zoom_all">&no-i18n-cmd_view_zoom_all;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:zoom_in(TODO) -->
-	<sect2 id="cmd_sect_view_zoom_in"><title id="cmd_title_view_zoom_in">view:zoom_in</title>
+	<sect2 id="cmd_sect_view_zoom_in"><title id="cmd_title_view_zoom_in">&no-i18n-cmd_view_zoom_in;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:zoom_normal(TODO) -->
-	<sect2 id="cmd_sect_view_zoom_normal"><title id="cmd_title_view_zoom_normal">view:zoom_normal</title>
+	<sect2 id="cmd_sect_view_zoom_normal"><title id="cmd_title_view_zoom_normal">&no-i18n-cmd_view_zoom_normal;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:zoom_out(TODO) -->
-	<sect2 id="cmd_sect_view_zoom_out"><title id="cmd_title_view_zoom_out">view:zoom_out</title>
+	<sect2 id="cmd_sect_view_zoom_out"><title id="cmd_title_view_zoom_out">&no-i18n-cmd_view_zoom_out;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ view:zoom_selection(TODO) -->
-	<sect2 id="cmd_sect_view_zoom_selection"><title id="cmd_title_view_zoom_selection">view:zoom_selection</title>
+	<sect2 id="cmd_sect_view_zoom_selection"><title id="cmd_title_view_zoom_selection">&no-i18n-cmd_view_zoom_selection;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
+    </sect1>
+
+    <sect1 id="commands_w"><title>&no-i18n-tag;w</title>
 
 	<!-- @COMMAND@ window:activate(TODO) -->
-	<sect2 id="cmd_sect_window_activate"><title id="cmd_title_window_activate">window:activate</title>
+	<sect2 id="cmd_sect_window_activate"><title id="cmd_title_window_activate">&no-i18n-cmd_window_activate;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ window:cascade(TODO) -->
-	<sect2 id="cmd_sect_window_cascade"><title id="cmd_title_window_cascade">window:cascade</title>
+	<sect2 id="cmd_sect_window_cascade"><title id="cmd_title_window_cascade">&no-i18n-cmd_window_cascade;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ window:next_sub(TODO) -->
-	<sect2 id="cmd_sect_window_next_sub"><title id="cmd_title_window_next_sub">window:next_sub</title>
+	<sect2 id="cmd_sect_window_next_sub"><title id="cmd_title_window_next_sub">&no-i18n-cmd_window_next_sub;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ window:prev_sub(TODO) -->
-	<sect2 id="cmd_sect_window_prev_sub"><title id="cmd_title_window_prev_sub">window:prev_sub</title>
+	<sect2 id="cmd_sect_window_prev_sub"><title id="cmd_title_window_prev_sub">&no-i18n-cmd_window_prev_sub;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ window:tile(TODO) -->
-	<sect2 id="cmd_sect_window_tile"><title id="cmd_title_window_tile">window:tile</title>
+	<sect2 id="cmd_sect_window_tile"><title id="cmd_title_window_tile">&no-i18n-cmd_window_tile;</title>
 	<para>
 	    TBD
 	</para>
 	</sect2>
 
 	<!-- @COMMAND@ window:tile_vertical(TODO) -->
-	<sect2 id="cmd_sect_window_tile_vertical"><title id="cmd_title_window_tile_vertical">window:tile_vertical</title>
+	<sect2 id="cmd_sect_window_tile_vertical"><title id="cmd_title_window_tile_vertical">&no-i18n-cmd_window_tile_vertical;</title>
 	<para>
 	    TBD
 	</para>
@@ -4448,5 +4709,386 @@
 -->
 
 </chapter>
+
+<appendix><title>File Info</title>
+    <table frame='all'><title>List of File Info Identifiers</title>
+    <tgroup cols='3' align='center' colsep='1' rowsep='1'>
+    <colspec colname='c1'/>           <colspec/>
+    <colspec colname='c2' colnum='3'/><colspec/>
+    <thead>
+	<row><entry>Keyword</entry><entry>&#x0020;</entry><entry>Description</entry></row>
+    </thead>
+    <tbody>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Album</entry>
+	    <entry colname='c2'>
+		Name of the album if the source is an album
+		that consist of more medias.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Annotation</entry>
+	    <entry colname='c2'>
+		Provides general comments about the file or the subject of
+		the file. If the comment is several sentences long, end
+		each sentence with a period. Do not include newline
+		characters!
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Archival location</entry>
+	    <entry colname='c2'>
+		Indicates where the subject of the file is archived.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Author</entry>
+	    <entry colname='c2'>
+		Identifies the name of the author of the original
+		subject of the file.
+		Example: 'van Beethoven, Ludwig'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Lower Bitrate</entry>
+	    <entry colname='c2'>
+		Specifies the lower limit in a VBR bitstream.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Bitrate Mode</entry>
+	    <entry colname='c2'>
+		Bitrate Mode (ABR, VBR, CBR, etc...)
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Bitrate</entry>
+	    <entry colname='c2'>
+		Nominal bitrate of the audio stream in bits per second
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Upper Bitrate</entry>
+	    <entry colname='c2'>
+		Specifies the upper limit in a VBR bitstream.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Bits per Sample</entry>
+	    <entry colname='c2'>
+		Specifies the number of bits per sample.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;CD</entry>
+	    <entry colname='c2'>
+		Number of the CD, if the source is an album of more CDROMs
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;CDS</entry>
+	    <entry colname='c2'>
+		Number of CDs, if the source is an album of more CDROMs
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Channels</entry>
+	    <entry colname='c2'>
+		Specifies the number of channels of the signal.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Commisioned</entry>
+	    <entry colname='c2'>
+		Lists the name of the person or organization
+		that commissioned the subject of the file.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Comments</entry>
+	    <entry colname='c2'>
+		Provides general comments about the file or the subject of
+		the file. If the comment is several sentences long, end
+		each sentence with a period. Do not include newline
+		characters!
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Compression</entry>
+	    <entry colname='c2'>
+		Sets a mode for compressing the audio
+		data to reduce disk space.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Contact</entry>
+	    <entry colname='c2'>
+		Contact information for the creators or distributors of
+		the track. This could be a URL, an email address, the
+		physical address of the producing label.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Copyright</entry>
+	    <entry colname='c2'>
+		Records the copyright information for the file. If there are
+		multiple copyrights, separate them by a semicolon followed
+		by a space.
+		Example: 'Copyright Linux community 2002'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Copyrighted</entry>
+	    <entry colname='c2'>
+		Indicates whether the file is protected by copyright or not.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Date</entry>
+	    <entry colname='c2'>
+		Specifies the date the subject of the file was created.
+		Example: '2001-12-24'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Engineer</entry>
+	    <entry colname='c2'>
+		Shows the name of the engineer who worked on the file.
+		If there are multiple engineers, separate the names by
+		a semicolon and a blank.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Estimated Length</entry>
+	    <entry colname='c2'>
+		Estimated length of the file in samples
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Filename</entry>
+	    <entry colname='c2'>
+		Name of the opened file
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;File Size</entry>
+	    <entry colname='c2'>
+		Size of the file in bytes
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Genre</entry>
+	    <entry colname='c2'>
+		Describes the genre or style of the original work.
+		Examples: 'classic', 'pop'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;ISRC</entry>
+	    <entry colname='c2'>
+		ISRC number for the track; see the ISRC intro page
+		for more information on ISRC numbers.
+		http://www.ifpi.org/site-content/online/isrc_intro.html
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Keywords</entry>
+	    <entry colname='c2'>
+		Provides a list of keywords that refer to the
+		file or subject of the file.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Labels</entry>
+	    <entry colname='c2'>
+		The list of labels/markers.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Length</entry>
+	    <entry colname='c2'>
+		Length of the file in samples.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;License</entry>
+	    <entry colname='c2'>
+		License information, e.g., 'All Rights Reserved',
+		'Any Use Permitted', an URL to a license or the
+		EFF Open Audio License ('distributed under the
+		terms of the Open Audio License.
+		See http://www.eff.org/IP/Open_licenses/eff_oal.html
+		for details')), etc.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Medium</entry>
+	    <entry colname='c2'>
+		Describes the original subject of the file,
+		where it was first recorded.
+		Example: 'orchester'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Mime Type</entry>
+	    <entry colname='c2'>
+		Mime type of the file format
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Emphasis</entry>
+	    <entry colname='c2'>
+		Audio emphasis mode
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Layer</entry>
+	    <entry colname='c2'>
+		MPEG Layer, I, II or III
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Mode Extension</entry>
+	    <entry colname='c2'>
+		MPEG Mode Extension (only if Joint Stereo)
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Version</entry>
+	    <entry colname='c2'>
+		MPEG Version, 1, 2 or 2.5
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Name</entry>
+	    <entry colname='c2'>
+		Stores the title of the subject of the file.
+		Example: "Symphony No.6, Op.68 'Pastoral'"
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Opus Frame Length</entry>
+	    <entry colname='c2'>
+		Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Organization</entry>
+	    <entry colname='c2'>
+		Name of the organization producing the track
+		(i.e. the 'record label')
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Original</entry>
+	    <entry colname='c2'>
+		Indicates whether the file is an original or a copy
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Performer</entry>
+	    <entry colname='c2'>
+		The artist(s) who performed the work. In classical
+		music this would be the conductor, orchestra, soloists.
+		In an audio book it would be the actor who did the reading.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Private</entry>
+	    <entry colname='c2'>
+		Indicates whether the subject is private
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Product</entry>
+	    <entry colname='c2'>
+		Specifies the name or the title the
+		file was originally intended for.
+		Example: 'Linux audio collection'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Sample Format</entry>
+	    <entry colname='c2'>
+		Format used for storing the digitized audio samples.
+		Example: '32-bit IEEE floating-point'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Sample Rate</entry>
+	    <entry colname='c2'>
+		Number of samples per second
+
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Software</entry>
+	    <entry colname='c2'>
+		Identifies the name of the software package
+		used to create the file.
+		Example: 'Kwave v0.6.4-1'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Source</entry>
+	    <entry colname='c2'>
+		Identifies the name of the person or organization
+		who supplied the original subject of the file.
+		Example: 'Chaotic Sound Research'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Source form</entry>
+	    <entry colname='c2'>
+		Identifies the original form of
+		the material that was digitized.
+		Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Subject</entry>
+	    <entry colname='c2'>
+		Describes the subject of the file.
+		Example: 'Bird voices at early morning'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Technican</entry>
+	    <entry colname='c2'>
+		Identifies the technican who digitized the subject file.
+		Example: 'Torvalds, Linus'
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Track</entry>
+	    <entry colname='c2'>
+		Track of the CD if the source was a CDROM.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Tracks</entry>
+	    <entry colname='c2'>
+		Number of tracks of the CD if the source was a CDROM.
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Base Quality</entry>
+	    <entry colname='c2'>
+		Base quality of the compression in VBR mode
+	    </entry>
+	</row>
+	<row>
+	    <entry colname='c1'>&no-i18n-tag;Version</entry>
+	    <entry colname='c2'>
+		May be used to differentiate multiple versions
+		of the same track title in a single collection.
+		(e.g. remix info)
+	    </entry>
+	</row>
+
+    </tbody>
+    </tgroup>
+    </table>
+</appendix>
 
 </book>

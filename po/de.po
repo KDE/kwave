@@ -1,11 +1,11 @@
 # translation of de.po to Deutsch
-# Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2011, 2012, 2013, 2014.
+# Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2011, 2012, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-04 21:53+0100\n"
-"PO-Revision-Date: 2014-12-23 14:54+0100\n"
+"POT-Creation-Date: 2015-01-05 23:26+0100\n"
+"PO-Revision-Date: 2015-01-05 14:46+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -129,7 +129,7 @@ msgstr "%1"
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 Samples)"
 
-#: kwave/FileContext.cpp:729
+#: kwave/FileContext.cpp:730
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -531,7 +531,7 @@ msgstr "(Stereo)"
 msgid "(user defined)"
 msgstr "(benutzerdefiniert)"
 
-#: kwave/FileContext.cpp:735
+#: kwave/FileContext.cpp:736
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
@@ -780,7 +780,7 @@ msgstr ""
 "können Sie einen Gerätenamen manuell eintragen oder im Dateisystem suchen.</"
 "p>"
 
-#: libkwave/SignalManager.cpp:1399
+#: libkwave/SignalManager.cpp:1401
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -1187,7 +1187,7 @@ msgctxt "menu: /Edit/Track/Add"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1894
+#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1896
 msgid "Add Label"
 msgstr "Markierung hinzufügen"
 
@@ -1334,7 +1334,7 @@ msgstr "Anmerkung"
 msgid "Any device (*)"
 msgstr "Anderes Wiedergabegerät (*)"
 
-#: libkwave/SignalManager.cpp:911
+#: libkwave/SignalManager.cpp:913
 msgid "Append Track"
 msgstr "Spur hinzufügen"
 
@@ -1370,7 +1370,7 @@ msgstr "Archivierungs-Ort"
 #: kwave/menus.config:237
 msgctxt "menu: /Window/Arrange Sub Windows Vertically"
 msgid "Arrange Sub Windows Vertically"
-msgstr ""
+msgstr "Unterfenster senkrecht anordnen"
 
 #: kwave/menus.config:36
 msgctxt "menu: /File/Save/As..."
@@ -1867,7 +1867,7 @@ msgstr "Ersteller des \"Hilfe/Über\"-Dialogs"
 msgid "Creator of the project, development 1998-2000"
 msgstr "Urheber des Projekts, Entwicklung von 1998-2000"
 
-#: libkwave/SignalManager.cpp:691
+#: libkwave/SignalManager.cpp:692
 msgid "Crop"
 msgstr "Zuschneiden"
 
@@ -1968,7 +1968,7 @@ msgid "Default device"
 msgstr "Standard-Gerät"
 
 #: libgui/CurveWidget.cpp:95 libkwave/undo/UndoDeleteAction.cpp:56
-#: libkwave/SignalManager.cpp:709
+#: libkwave/SignalManager.cpp:711
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1999,7 +1999,7 @@ msgstr "Markierung löschen"
 msgid "Delete Meta Data"
 msgstr "Löschen von Metadaten"
 
-#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:960
+#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:962
 msgid "Delete Track"
 msgstr "Spur löschen"
 
@@ -2037,11 +2037,11 @@ msgstr ""
 msgid "Description:"
 msgstr "Beschreibung:"
 
-#: libkwave/SignalManager.cpp:866
+#: libkwave/SignalManager.cpp:868
 msgid "Deselect Track"
 msgstr "Auswahl dieser Spur aufheben"
 
-#: libkwave/SignalManager.cpp:851
+#: libkwave/SignalManager.cpp:853
 msgid "Deselect all tracks"
 msgstr "Auswahl aller Spuren aufheben"
 
@@ -2116,7 +2116,7 @@ msgstr "Wollen Sie trotzdem fortsetzen?"
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Wollen Sie fortsetzen und alle weiteren Fehler ignorieren?"
 
-#: libkwave/SignalManager.cpp:1397
+#: libkwave/SignalManager.cpp:1399
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Wollen Sie fortsetzen ohne die Möglichkeit rückgängig zu machen?"
 
@@ -2285,7 +2285,7 @@ msgstr "Führe Kwave Skript '%1' aus..."
 msgid "Executing command '%1'..."
 msgstr "Führe Kommando '%1' aus..."
 
-#: libkwave/SignalManager.cpp:741
+#: libkwave/SignalManager.cpp:743
 msgid "Expand Selection to Label"
 msgstr "Auswahl auf Markierungen erweitern"
 
@@ -2554,7 +2554,7 @@ msgstr "GSM"
 
 #: kwave/main.cpp:149
 msgid "GUI type: SDI, MDI or TAB mode"
-msgstr ""
+msgstr "GUI-Modus SDI-, MDI- oder TAB-Modus"
 
 #: libkwave/GenreType.cpp:132
 msgid "Game"
@@ -2881,11 +2881,11 @@ msgstr "Zwischenablage einfügen an Position"
 msgid "Insert Meta Data"
 msgstr "Einfügen von Metadaten"
 
-#: libkwave/SignalManager.cpp:1122
+#: libkwave/SignalManager.cpp:1124
 msgid "Insert Space"
 msgstr "Platz einfügen"
 
-#: libkwave/undo/UndoInsertTrack.cpp:44 libkwave/SignalManager.cpp:918
+#: libkwave/undo/UndoInsertTrack.cpp:44 libkwave/SignalManager.cpp:920
 msgid "Insert Track"
 msgstr "Spur einfügen"
 
@@ -2946,7 +2946,7 @@ msgctxt "menu: /Edit/Track/Invert Selection"
 msgid "Invert Selection"
 msgstr "Auswahl umkehren"
 
-#: libkwave/SignalManager.cpp:855
+#: libkwave/SignalManager.cpp:857
 msgid "Invert Track Selection"
 msgstr "Spur-Auswahl umkehren"
 
@@ -3029,7 +3029,7 @@ msgstr "Markierung"
 msgid "Labels at Stripe borders"
 msgstr "Markierungen an Stripe-Grenzen"
 
-#: libkwave/SignalManager.cpp:1550 libkwave/SignalManager.cpp:1557
+#: libkwave/SignalManager.cpp:1552 libkwave/SignalManager.cpp:1559
 msgid "Last Action"
 msgstr "Letzte Aktion"
 
@@ -3281,11 +3281,11 @@ msgstr "MS Stereo"
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Betreuer der 'id3lib'-Bibliothek"
 
-#: libkwave/SignalManager.cpp:2010
+#: libkwave/SignalManager.cpp:2008
 msgid "Manual Selection"
 msgstr "Manuelle Auswahl"
 
-#: libkwave/SignalManager.cpp:2007
+#: libkwave/SignalManager.cpp:2005
 msgid "Manual Track Selection"
 msgstr "Manuelle Spur-Auswahl"
 
@@ -3331,7 +3331,7 @@ msgstr "Megabytes physikalischer Speicher"
 msgid "Megabytes of virtual memory"
 msgstr "Megabytes in Auslagerungsdateien"
 
-#: libkwave/SignalManager.cpp:1403
+#: libkwave/SignalManager.cpp:1405
 msgid "Memory"
 msgstr "Speicher"
 
@@ -3420,7 +3420,7 @@ msgctxt ""
 msgid "Modify %1 %2 objects"
 msgstr "Ändern von %1 Objekten des Typs %2"
 
-#: libkwave/SignalManager.cpp:1847
+#: libkwave/SignalManager.cpp:1849
 msgid "Modify File Info"
 msgstr "Datei-Information ändern"
 
@@ -3599,7 +3599,7 @@ msgstr "Normalisierer"
 msgid "Normalizing (%1 dB) ..."
 msgstr "Normalisiere (%1 dB) ..."
 
-#: libkwave/SignalManager.cpp:1395
+#: libkwave/SignalManager.cpp:1397
 msgid "Not enough memory for saving undo information."
 msgstr ""
 "Nicht genügend Speicher zum Sichern der Wiederherstellungs-Informationen."
@@ -4472,7 +4472,7 @@ msgctxt "menu: /File/Save"
 msgid "Save"
 msgstr "Speichern"
 
-#: kwave/FileContext.cpp:837
+#: kwave/FileContext.cpp:838
 msgid "Save As"
 msgstr "Speichern &unter"
 
@@ -4548,7 +4548,7 @@ msgstr "Sekunden"
 msgid "Selec&t..."
 msgstr "Aus&wählen..."
 
-#: libkwave/SignalManager.cpp:847
+#: libkwave/SignalManager.cpp:849
 msgid "Select All Tracks"
 msgstr "Alle Spuren auswählen"
 
@@ -4560,7 +4560,7 @@ msgstr "Datum auswählen"
 msgid "Select MP3 Encoder"
 msgstr "MP3-Encoder auswählen"
 
-#: libkwave/SignalManager.cpp:770
+#: libkwave/SignalManager.cpp:772
 msgid "Select Next Labels"
 msgstr "Nächste Markierungen auswählen"
 
@@ -4568,7 +4568,7 @@ msgstr "Nächste Markierungen auswählen"
 msgid "Select Playback Device"
 msgstr "Auswahl des Wiedergabegeräts"
 
-#: libkwave/SignalManager.cpp:807
+#: libkwave/SignalManager.cpp:809
 msgid "Select Previous Labels"
 msgstr "Vorhergehende Markierungen auswählen"
 
@@ -4582,7 +4582,7 @@ msgstr "Bereich auswählen"
 msgid "Select Record Device"
 msgstr "Auswahl des Aufnahmegeräts"
 
-#: libkwave/SignalManager.cpp:861
+#: libkwave/SignalManager.cpp:863
 msgid "Select Track"
 msgstr "Spur auswählen"
 
@@ -4710,7 +4710,7 @@ msgstr ""
 "Setzt die Lautstärke auf einen Prozentsatz der ursprünglichen Lautstärke. \n"
 "Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
 
-#: libkwave/SignalManager.cpp:1401
+#: libkwave/SignalManager.cpp:1403
 msgid "Settings"
 msgstr "&Einstellungen"
 
@@ -5171,7 +5171,7 @@ msgstr ""
 "Programms herauszufinden:\n"
 "\"fuser -v %1\" )"
 
-#: kwave/FileContext.cpp:864
+#: kwave/FileContext.cpp:865
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -5279,7 +5279,7 @@ msgstr ""
 "Diese Codec unterstützt nur Mono oder Stereo, %1 Kanäle werden nicht "
 "unterstützt."
 
-#: kwave/FileContext.cpp:932
+#: kwave/FileContext.cpp:933
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -5349,7 +5349,7 @@ msgctxt "menu: /Edit/Selection/To Start"
 msgid "To Start"
 msgstr "Bis zum Anfang"
 
-#: libkwave/SignalManager.cpp:871
+#: libkwave/SignalManager.cpp:873
 msgid "Toggle Track Selection"
 msgstr "Spur-Auswahl umkehren"
 

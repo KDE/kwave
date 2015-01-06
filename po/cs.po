@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-04 21:53+0100\n"
+"POT-Creation-Date: 2015-01-06 08:17+0100\n"
 "PO-Revision-Date: 2014-12-22 22:40+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -131,7 +131,7 @@ msgstr "%1"
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 vzorky)"
 
-#: kwave/FileContext.cpp:729
+#: kwave/FileContext.cpp:730
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -532,7 +532,7 @@ msgstr "(stereofonní zvuk)"
 msgid "(user defined)"
 msgstr "(Stanoveno uživatelem)"
 
-#: kwave/FileContext.cpp:735
+#: kwave/FileContext.cpp:736
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
@@ -778,7 +778,7 @@ msgstr ""
 "Pokud není vaše zařízení zahrnuto v tomto seznamu, můžete zadat název tohoto "
 "zařízení o své vůli, nebo je hledat v souborovém systému.</p>"
 
-#: libkwave/SignalManager.cpp:1399
+#: libkwave/SignalManager.cpp:1401
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -1183,7 +1183,7 @@ msgctxt "menu: /Edit/Track/Add"
 msgid "Add"
 msgstr "Přidat"
 
-#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1894
+#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1896
 msgid "Add Label"
 msgstr "Přidat štítek"
 
@@ -1330,7 +1330,7 @@ msgstr "Poznámka"
 msgid "Any device (*)"
 msgstr "Jakékoli zařízení (*)"
 
-#: libkwave/SignalManager.cpp:911
+#: libkwave/SignalManager.cpp:913
 msgid "Append Track"
 msgstr "Připojit stopu"
 
@@ -1862,7 +1862,7 @@ msgstr "Tvůrce dialogu Nápověda/O programu"
 msgid "Creator of the project, development 1998-2000"
 msgstr "Tvůrce projektu, vývoj v letech 1998-2000"
 
-#: libkwave/SignalManager.cpp:691
+#: libkwave/SignalManager.cpp:692
 msgid "Crop"
 msgstr "Oříznout"
 
@@ -1963,7 +1963,7 @@ msgid "Default device"
 msgstr "Výchozí zařízení"
 
 #: libgui/CurveWidget.cpp:95 libkwave/undo/UndoDeleteAction.cpp:56
-#: libkwave/SignalManager.cpp:709
+#: libkwave/SignalManager.cpp:711
 msgid "Delete"
 msgstr "Smazat"
 
@@ -1994,7 +1994,7 @@ msgstr "Smazat štítek"
 msgid "Delete Meta Data"
 msgstr "Smazat metadata"
 
-#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:960
+#: libkwave/undo/UndoDeleteTrack.cpp:45 libkwave/SignalManager.cpp:962
 msgid "Delete Track"
 msgstr "Smazat stopu"
 
@@ -2032,11 +2032,11 @@ msgstr ""
 msgid "Description:"
 msgstr "Popis:"
 
-#: libkwave/SignalManager.cpp:866
+#: libkwave/SignalManager.cpp:868
 msgid "Deselect Track"
 msgstr "Zrušit výběr stopy"
 
-#: libkwave/SignalManager.cpp:851
+#: libkwave/SignalManager.cpp:853
 msgid "Deselect all tracks"
 msgstr "Zrušit výběr u všech stop"
 
@@ -2111,7 +2111,7 @@ msgstr "Stále ještě chcete pokračovat?"
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Chcete pokračovat a nevšímat si všech následujících chyb?"
 
-#: libkwave/SignalManager.cpp:1397
+#: libkwave/SignalManager.cpp:1399
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Chcete pokračovat bez možnosti vrátit se zpět?"
 
@@ -2281,7 +2281,7 @@ msgstr "Spouští se soubor se skriptem Kwave '%1'..."
 msgid "Executing command '%1'..."
 msgstr "Spouští se příkaz '%1'..."
 
-#: libkwave/SignalManager.cpp:741
+#: libkwave/SignalManager.cpp:743
 msgid "Expand Selection to Label"
 msgstr "Rozšířit výběr ke štítku"
 
@@ -2875,11 +2875,11 @@ msgstr "Vložit obsah schránky v poloze"
 msgid "Insert Meta Data"
 msgstr "Vložit metadata"
 
-#: libkwave/SignalManager.cpp:1122
+#: libkwave/SignalManager.cpp:1124
 msgid "Insert Space"
 msgstr "Vložit mezeru"
 
-#: libkwave/undo/UndoInsertTrack.cpp:44 libkwave/SignalManager.cpp:918
+#: libkwave/undo/UndoInsertTrack.cpp:44 libkwave/SignalManager.cpp:920
 msgid "Insert Track"
 msgstr "Vložit stopu"
 
@@ -2940,7 +2940,7 @@ msgctxt "menu: /Edit/Track/Invert Selection"
 msgid "Invert Selection"
 msgstr "Obrátit výběr"
 
-#: libkwave/SignalManager.cpp:855
+#: libkwave/SignalManager.cpp:857
 msgid "Invert Track Selection"
 msgstr "Obrátit výběr stopy"
 
@@ -3023,7 +3023,7 @@ msgstr "Štítky"
 msgid "Labels at Stripe borders"
 msgstr "Značky na hranicích proužků"
 
-#: libkwave/SignalManager.cpp:1550 libkwave/SignalManager.cpp:1557
+#: libkwave/SignalManager.cpp:1552 libkwave/SignalManager.cpp:1559
 msgid "Last Action"
 msgstr "Poslední prováděný krok"
 
@@ -3279,11 +3279,11 @@ msgstr "MS Stereo"
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Správci knihovny 'id3lib'"
 
-#: libkwave/SignalManager.cpp:2010
+#: libkwave/SignalManager.cpp:2008
 msgid "Manual Selection"
 msgstr "Vlastnoruční výběr"
 
-#: libkwave/SignalManager.cpp:2007
+#: libkwave/SignalManager.cpp:2005
 msgid "Manual Track Selection"
 msgstr "Vlastnoruční výběr stopy"
 
@@ -3329,7 +3329,7 @@ msgstr "Megabajty fyzické paměti"
 msgid "Megabytes of virtual memory"
 msgstr "Megabajty virtuální paměti"
 
-#: libkwave/SignalManager.cpp:1403
+#: libkwave/SignalManager.cpp:1405
 msgid "Memory"
 msgstr "Paměť"
 
@@ -3418,7 +3418,7 @@ msgctxt ""
 msgid "Modify %1 %2 objects"
 msgstr "Upravit %1 %2 předměty"
 
-#: libkwave/SignalManager.cpp:1847
+#: libkwave/SignalManager.cpp:1849
 msgid "Modify File Info"
 msgstr "Upravit souborové údaje"
 
@@ -3597,7 +3597,7 @@ msgstr "Normalizátor"
 msgid "Normalizing (%1 dB) ..."
 msgstr "Normalizuje se (%1dB) ..."
 
-#: libkwave/SignalManager.cpp:1395
+#: libkwave/SignalManager.cpp:1397
 msgid "Not enough memory for saving undo information."
 msgstr "Pro uložení informace o zpětných krocích není dostatek paměti."
 
@@ -4466,7 +4466,7 @@ msgctxt "menu: /File/Save"
 msgid "Save"
 msgstr "Uložit"
 
-#: kwave/FileContext.cpp:837
+#: kwave/FileContext.cpp:838
 msgid "Save As"
 msgstr "Uložit jako"
 
@@ -4542,7 +4542,7 @@ msgstr "Sekundy"
 msgid "Selec&t..."
 msgstr "Vybra&t..."
 
-#: libkwave/SignalManager.cpp:847
+#: libkwave/SignalManager.cpp:849
 msgid "Select All Tracks"
 msgstr "Vybrat všechny stopy"
 
@@ -4554,7 +4554,7 @@ msgstr "Vybrat datum"
 msgid "Select MP3 Encoder"
 msgstr "Vybrat kodér MP3"
 
-#: libkwave/SignalManager.cpp:770
+#: libkwave/SignalManager.cpp:772
 msgid "Select Next Labels"
 msgstr "Vybrat další štítky"
 
@@ -4562,7 +4562,7 @@ msgstr "Vybrat další štítky"
 msgid "Select Playback Device"
 msgstr "Vybrat přehrávací zařízení"
 
-#: libkwave/SignalManager.cpp:807
+#: libkwave/SignalManager.cpp:809
 msgid "Select Previous Labels"
 msgstr "Vybrat předchozí štítky"
 
@@ -4576,7 +4576,7 @@ msgstr "Vybrat rozsah"
 msgid "Select Record Device"
 msgstr "Vybrat nahrávací zařízení"
 
-#: libkwave/SignalManager.cpp:861
+#: libkwave/SignalManager.cpp:863
 msgid "Select Track"
 msgstr "Vybrat stopu"
 
@@ -4704,7 +4704,7 @@ msgstr ""
 "Nastaví hlasitost procentuálně vzhledem k původní úrovni. \n"
 "Například: \"50 %\", \"75%\" nebo \"125%\""
 
-#: libkwave/SignalManager.cpp:1401
+#: libkwave/SignalManager.cpp:1403
 msgid "Settings"
 msgstr "Nas&tavení"
 
@@ -5161,7 +5161,7 @@ msgstr ""
 "onoho programu tím, že si vyžádáte: \"fuser -v %1\" \n"
 "z příkazové řádky.)"
 
-#: kwave/FileContext.cpp:864
+#: kwave/FileContext.cpp:865
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -5268,7 +5268,7 @@ msgstr ""
 "Tento kodek podporuje jen soubory mon nebo stereo, %1 kanály nejsou "
 "podporovány."
 
-#: kwave/FileContext.cpp:932
+#: kwave/FileContext.cpp:933
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -5336,7 +5336,7 @@ msgctxt "menu: /Edit/Selection/To Start"
 msgid "To Start"
 msgstr "Až po začátek"
 
-#: libkwave/SignalManager.cpp:871
+#: libkwave/SignalManager.cpp:873
 msgid "Toggle Track Selection"
 msgstr "Přepnout výběr stopy"
 

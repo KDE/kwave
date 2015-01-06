@@ -73,7 +73,8 @@ sub make_stub
     print OUT "\t\<\!-- \@COMMAND\@ " . $cmd . "(TODO) --\>\n";
     $lbl =~ s/[^\w]/_/g;
     print OUT "\t<sect2 id=\"cmd_sect_" . $lbl . "\">" .
-              "<title id=\"cmd_title_" . $lbl . "\">" . $cmd . "</title>\n";
+              "<title id=\"cmd_title_" . $lbl . "\">" .
+	      "&no-i18n-cmd_" . $lbl . ";</title>\n";
     print OUT "\t<para>\n";
     print OUT "\t    TBD\n";
     print OUT "\t</para>\n";
@@ -101,6 +102,12 @@ LINE: while (<IN>) {
 	if ($line =~ /\<\!\-\-\ \@COMMAND_INDEX_START\@\ \-\-\>/) {
 	    print OUT $line;
 	    $mode = "index";
+	    next LINE;
+	}
+
+	if ($line =~ /\<\!\-\-\ \@COMMAND_ENTITIES_START\@\ \-\-\>/) {
+	    print OUT $line;
+	    $mode = "entities";
 	    next LINE;
 	}
 
@@ -142,13 +149,25 @@ LINE: while (<IN>) {
 	if ($line =~ /\<\!\-\-\ \@COMMAND_END_OF_LIST\@\ \-\-\>/) {
 	    # print "WARNING: some commands left\n";
 	    while (@remaining_cmds) {
-		my $cmd = shift @remaining_cmds;
+		local $cmd = shift @remaining_cmds;
 		print STDERR "WARNING: command '" . $cmd . "' is undocumented, adding stub\n";
 		make_stub $cmd;
 	    }
 	}
 
 	print OUT $line;
+    }
+
+    if ($line =~ /\<\!\-\-\ \@COMMAND_ENTITIES_END\@\ \-\-\>/) {
+	foreach (@scanned_cmds) {
+	    local $cmd = $_;
+	    local $lbl = $cmd;
+	    $lbl =~ s/[^\w]/_/g;
+	    print OUT "  \<\!ENTITY no-i18n-cmd_" . $lbl . " \"" . $cmd . "\"\>\n";
+	}
+	print OUT $line;
+	$mode = "normal";
+	next LINE;
     }
 
     if ($mode eq "index") {

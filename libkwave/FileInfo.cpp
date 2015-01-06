@@ -449,6 +449,16 @@ void Kwave::FileInfo::dump() const
 	QVariant val = get(key);
 	QString name = m_property_map.name(key);
 	qDebug("   '%s' = '%s'", DBG(name), DBG(val.toString()));
+
+// 	for updating the list of properties in the appendix of the handbook:
+// 	QString name  = m_property_map.name(key);
+// 	QString descr = m_property_map.description(key, false);
+// 	qDebug("\t    <row>");
+// 	qDebug("\t\t<entry colname='c1'>&no-i18n-tag;%s</entry>", DBG(name));
+// 	qDebug("\t\t<entry colname='c2'>");
+// 	qDebug("\t\t    %s", DBG(descr.replace(_("\n"), _("\n\t\t    "))));
+// 	qDebug("\t\t</entry>");
+// 	qDebug("\t    </row>");
     }
     qDebug("-------------------------");
 }

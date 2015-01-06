@@ -69,7 +69,7 @@ msgstr "Thomas Eschenbacher"
 #: help_en.docbook:154
 #, no-c-format
 msgid "2015-01-02"
-msgstr ""
+msgstr "2015-01-02"
 
 #. Tag: releaseinfo
 #: help_en.docbook:155
@@ -175,6 +175,8 @@ msgstr ""
 #, no-c-format
 msgid "a user interface that can be switched to SDI, MDI or Tab mode"
 msgstr ""
+"Uživatelské rozhraní, které je možné přepnout do režimu rozhraní s jedním "
+"dokumentem (SDI), rozhraní s více dokumenty (MDI) nebo s kartami"
 
 #. Tag: para
 #: help_en.docbook:188
@@ -2129,12 +2131,17 @@ msgid ""
 "through the menu <menuchoice> <guimenu>Settings</guimenu><guimenuitem>Show "
 "Files in...</guimenuitem> </menuchoice>."
 msgstr ""
+"V závislosti na to, čemu vy osobně dáváte přednost, nebo podle určitého "
+"případu užití, můžete nastavit, jak &kwave; zachází s více otevřenými "
+"dokumenty. Toto nastavení můžete měnit za běhu v nabídce <menuchoice> "
+"<guimenu>Nastavení</guimenu><guimenuitem>Ukázat soubory v...</guimenuitem> </"
+"menuchoice>."
 
 #. Tag: para
 #: help_en.docbook:1263
 #, no-c-format
 msgid "The three possible settings are:"
-msgstr ""
+msgstr "Třemi možnými nastaveními jsou tato:"
 
 #. Tag: para
 #: help_en.docbook:1268
@@ -2144,6 +2151,9 @@ msgid ""
 "<emphasis>Single Document Interface</emphasis> (SDI), each file will be "
 "shown in a separate main window."
 msgstr ""
+"<guimenuitem>V samostatném okně (SDI)</guimenuitem>: Při použití "
+"<emphasis>rozhraní s jedním dokumentem</emphasis> (SDI) bude každý soubor "
+"zobrazen v samostatném hlavním okně."
 
 #. Tag: screeninfo
 #: help_en.docbook:1272
@@ -2166,6 +2176,11 @@ msgid ""
 "but within this window you have an area which shows sub windows, which can "
 "be resized, moved, tiled, cascaded or minimized."
 msgstr ""
+"<guimenuitem>Ve stejném okně (MDI)</guimenuitem>: Při použití "
+"<emphasis>rozhraní s více dokumenty</emphasis> (MDI), je jen jedno &kwave; "
+"hlavní okno, ale uvnitř tohoto okna máte oblast, která ukazuje podokna, u "
+"nichž lze měnit velikost, lze je přesouvat, klást vedle sebe, překrývat nebo "
+"zmenšit do panelu."
 
 #. Tag: para
 #: help_en.docbook:1294
@@ -2199,6 +2214,9 @@ msgid ""
 "where files are shown within separate tabs. You may know this mode from some "
 "popular internet browsers."
 msgstr ""
+"<guimenuitem>Karty</guimenuitem>: Toto je varianta rozhraní s více "
+"dokumenty, kde jsou soubory ukazovány v samostatných kartách. Tento režim "
+"vám může být znám z některých oblíbených internetových prohlížečů."
 
 #. Tag: para
 #: help_en.docbook:1320

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2015-01-06 21:14+0000\n"
+"POT-Creation-Date: 2015-01-08 20:17+0000\n"
 "PO-Revision-Date: 2015-01-04 21:25+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: Spanish <kde-i18n-de@kde.org>\n"
@@ -4463,7 +4463,7 @@ msgstr ""
 #. Tag: entry
 #. Tag: entry
 #: help_en.docbook:2698 help_en.docbook:2699 help_en.docbook:2700
-#: help_en.docbook:4610 help_en.docbook:2706
+#: help_en.docbook:4880 help_en.docbook:2706
 #, no-c-format
 msgid "(space)"
 msgstr ""
@@ -4737,14 +4737,16 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:3003 help_en.docbook:3020 help_en.docbook:3125
-#: help_en.docbook:3139 help_en.docbook:3170 help_en.docbook:3200
+#: help_en.docbook:3003 help_en.docbook:3124 help_en.docbook:3138
+#: help_en.docbook:3169 help_en.docbook:3199 help_en.docbook:3236
+#: help_en.docbook:3254 help_en.docbook:3276 help_en.docbook:3299
+#: help_en.docbook:3349 help_en.docbook:3533
 #, no-c-format
 msgid "Parameters"
 msgstr "Parámetros"
 
 #. Tag: entry
-#: help_en.docbook:3004
+#: help_en.docbook:3004 help_en.docbook:3237 help_en.docbook:3255
 #, fuzzy, no-c-format
 msgid "<parameter>pos</parameter>:"
 msgstr "<para>Formato con signo</para>"
@@ -4756,7 +4758,7 @@ msgid "position in samples where to insert the label"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3005
+#: help_en.docbook:3005 help_en.docbook:3534
 #, no-c-format
 msgid "<parameter>text</parameter>:"
 msgstr ""
@@ -4771,60 +4773,51 @@ msgstr "alguna descripción para el marcador (opcional)"
 #. Tag: title
 #: help_en.docbook:3010 help_en.docbook:3012
 #, fuzzy, no-c-format
-msgid ""
-"&i18n-cmd_syntax;<command>&no-i18n-cmd_add_track;</"
-"command>(<replaceable>index</replaceable>)"
-msgstr ""
-"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
-"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_add_track;</command>()"
+msgstr "clipboard_flush"
 
 #. Tag: para
 #: help_en.docbook:3013
 #, no-c-format
-msgid ""
-"Adds a new track at the given index, using the current length and sample "
-"rate settings of the signal. If there are index is higher than or equal to "
-"the current number of tracks, it will be appended as the last track. The "
-"index of all existing tracks at and after the given position will be "
-"incremented by one."
+msgid "Adds a new track after all existing tracks."
 msgstr ""
 
-#. Tag: entry
-#: help_en.docbook:3021 help_en.docbook:3126 help_en.docbook:3140
-#: help_en.docbook:3171
+#. Tag: title
+#: help_en.docbook:3017 help_en.docbook:3217 help_en.docbook:3257
+#: help_en.docbook:3279 help_en.docbook:3315
 #, no-c-format
-msgid "<parameter>index</parameter>:"
+msgid "See also"
 msgstr ""
 
-#. Tag: entry
-#: help_en.docbook:3021
-#, no-c-format
-msgid "index of the track to insert, starting with 0"
-msgstr ""
+#. Tag: link
+#: help_en.docbook:3019
+#, fuzzy, no-c-format
+msgid "<command>&no-i18n-cmd_insert_track;</command>()"
+msgstr "clipboard_flush"
 
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3026 help_en.docbook:3029 help_en.docbook:3031
+#: help_en.docbook:3025 help_en.docbook:3028 help_en.docbook:3030
 #, fuzzy, no-c-format
 msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_clipboard_flush;</command>()"
 msgstr "clipboard_flush"
 
 #. Tag: para
-#: help_en.docbook:3032
+#: help_en.docbook:3031
 #, no-c-format
 msgid "Discards the current content of the clipboard (might free some memory)."
 msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3040 help_en.docbook:3042
+#: help_en.docbook:3039 help_en.docbook:3041
 #, fuzzy, no-c-format
 msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_close;</command>()"
 msgstr "clipboard_flush"
 
 #. Tag: para
-#: help_en.docbook:3043
+#: help_en.docbook:3042
 #, no-c-format
 msgid ""
 "Closes the current file. If the GUI is configured to MDI or Tab mode, this "
@@ -4833,13 +4826,13 @@ msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3051 help_en.docbook:3053
+#: help_en.docbook:3050 help_en.docbook:3052
 #, fuzzy, no-c-format
 msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_continue;</command>()"
 msgstr "clipboard_flush"
 
 #. Tag: para
-#: help_en.docbook:3054
+#: help_en.docbook:3053
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Continue</guibutton> toolbar button and "
@@ -4848,13 +4841,13 @@ msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3062 help_en.docbook:3064
+#: help_en.docbook:3061 help_en.docbook:3063
 #, fuzzy, no-c-format
 msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_copy;</command>()"
 msgstr "clipboard_flush"
 
 #. Tag: para
-#: help_en.docbook:3065
+#: help_en.docbook:3064
 #, no-c-format
 msgid ""
 "Copies the content of the current selection to the clipboard. If the "
@@ -4865,13 +4858,13 @@ msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3076 help_en.docbook:3078
+#: help_en.docbook:3075 help_en.docbook:3077
 #, fuzzy, no-c-format
 msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_crop;</command>()"
 msgstr "clipboard_flush"
 
 #. Tag: para
-#: help_en.docbook:3079
+#: help_en.docbook:3078
 #, no-c-format
 msgid ""
 "Crops the signal to the current selection by deleting everything that is "
@@ -4881,13 +4874,13 @@ msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3088 help_en.docbook:3090
+#: help_en.docbook:3087 help_en.docbook:3089
 #, fuzzy, no-c-format
 msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_cut;</command>()"
 msgstr "clipboard_flush"
 
 #. Tag: para
-#: help_en.docbook:3091
+#: help_en.docbook:3090
 #, no-c-format
 msgid ""
 "Copies the content of the current selection to the clipboard and removes it "
@@ -4900,13 +4893,13 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3102 help_en.docbook:3105 help_en.docbook:3107
+#: help_en.docbook:3101 help_en.docbook:3104 help_en.docbook:3106
 #, fuzzy, no-c-format
 msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_delete;</command>()"
 msgstr "clipboard_flush"
 
 #. Tag: para
-#: help_en.docbook:3108
+#: help_en.docbook:3107
 #, no-c-format
 msgid ""
 "Deletes the currently selected range of samples. If the selection is empty, "
@@ -4915,7 +4908,7 @@ msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3117 help_en.docbook:3119 help_en.docbook:3133
+#: help_en.docbook:3116 help_en.docbook:3118 help_en.docbook:3132
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_delete_label;</"
@@ -4925,7 +4918,7 @@ msgstr ""
 "literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
 
 #. Tag: para
-#: help_en.docbook:3120
+#: help_en.docbook:3119
 #, no-c-format
 msgid ""
 "Deletes a label, identified by it's index (starting from zero). If no label "
@@ -4933,14 +4926,21 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3126
+#: help_en.docbook:3125 help_en.docbook:3139 help_en.docbook:3170
+#: help_en.docbook:3277
+#, no-c-format
+msgid "<parameter>index</parameter>:"
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3125
 #, no-c-format
 msgid "index of the label to delete, starting with 0"
 msgstr ""
 
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3131 help_en.docbook:3134
+#: help_en.docbook:3130 help_en.docbook:3133
 #, no-c-format
 msgid ""
 "Deletes a track, identified by it's index (starting from zero). If no track "
@@ -4948,20 +4948,20 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3140
+#: help_en.docbook:3139
 #, no-c-format
 msgid "index of the track to delete, starting with 0"
 msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3145 help_en.docbook:3147
+#: help_en.docbook:3144 help_en.docbook:3146
 #, fuzzy, no-c-format
 msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_dump_metadata;</command>()"
 msgstr "clipboard_flush"
 
 #. Tag: para
-#: help_en.docbook:3148
+#: help_en.docbook:3147
 #, no-c-format
 msgid ""
 "Prints a list of all meta data entries to the console, for diagnostic "
@@ -4972,7 +4972,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3157 help_en.docbook:3160 help_en.docbook:3162
+#: help_en.docbook:3156 help_en.docbook:3159 help_en.docbook:3161
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_edit_label;</"
@@ -4982,7 +4982,7 @@ msgstr ""
 "literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
 
 #. Tag: para
-#: help_en.docbook:3163
+#: help_en.docbook:3162
 #, no-c-format
 msgid ""
 "Opens a window in which the user can edit the position and the description "
@@ -4991,20 +4991,20 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3171
+#: help_en.docbook:3170
 #, no-c-format
 msgid "index of the label to edit, starting with 0"
 msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3176 help_en.docbook:3178
+#: help_en.docbook:3175 help_en.docbook:3177
 #, fuzzy, no-c-format
 msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_expandtolabel;</command>()"
 msgstr "clipboard_flush"
 
 #. Tag: para
-#: help_en.docbook:3179
+#: help_en.docbook:3178
 #, no-c-format
 msgid ""
 "Expands the current selection to the labels left and right from the current "
@@ -5016,7 +5016,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3190 help_en.docbook:3193 help_en.docbook:3195
+#: help_en.docbook:3189 help_en.docbook:3192 help_en.docbook:3194
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_fileinfo;</"
@@ -5026,60 +5026,530 @@ msgstr ""
 "literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
 
 #. Tag: para
-#: help_en.docbook:3196
+#: help_en.docbook:3195
 #, no-c-format
 msgid "Set a file info entry to a new value."
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3201
+#: help_en.docbook:3200
 #, no-c-format
 msgid "<parameter>keyword</parameter>:"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3201
+#: help_en.docbook:3200
 #, no-c-format
 msgid "keyword of the entry"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3202
+#: help_en.docbook:3201
 #, no-c-format
 msgid "<parameter>value</parameter>:"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3202
+#: help_en.docbook:3201
 #, no-c-format
 msgid "value of the entry"
 msgstr ""
 
 #. Tag: title
+#. Tag: title
+#: help_en.docbook:3206 help_en.docbook:3208
+#, fuzzy, no-c-format
+msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_forward;</command>()"
+msgstr "clipboard_flush"
+
 #. Tag: para
-#: help_en.docbook:3207 help_en.docbook:3208 help_en.docbook:3218
-#: help_en.docbook:3228 help_en.docbook:3235 help_en.docbook:3245
-#: help_en.docbook:3252 help_en.docbook:3262 help_en.docbook:3269
-#: help_en.docbook:3279 help_en.docbook:3286 help_en.docbook:3296
-#: help_en.docbook:3303 help_en.docbook:3313 help_en.docbook:3320
-#: help_en.docbook:3327 help_en.docbook:3334 help_en.docbook:3341
-#: help_en.docbook:3348 help_en.docbook:3355 help_en.docbook:3365
-#: help_en.docbook:3375 help_en.docbook:3382 help_en.docbook:3389
-#: help_en.docbook:3396 help_en.docbook:3403 help_en.docbook:3410
-#: help_en.docbook:3420 help_en.docbook:3427 help_en.docbook:3434
-#: help_en.docbook:3441 help_en.docbook:3448 help_en.docbook:3455
-#: help_en.docbook:3462 help_en.docbook:3469 help_en.docbook:3476
-#: help_en.docbook:3483 help_en.docbook:3490 help_en.docbook:3497
-#: help_en.docbook:3504 help_en.docbook:3511 help_en.docbook:3518
-#: help_en.docbook:3525 help_en.docbook:3532 help_en.docbook:3539
-#: help_en.docbook:3546 help_en.docbook:3553 help_en.docbook:3560
-#: help_en.docbook:3570 help_en.docbook:3577 help_en.docbook:3587
-#: help_en.docbook:3594 help_en.docbook:3601 help_en.docbook:3608
-#: help_en.docbook:3615 help_en.docbook:3622 help_en.docbook:3629
-#: help_en.docbook:3636 help_en.docbook:3643 help_en.docbook:3650
-#: help_en.docbook:3657 help_en.docbook:3664 help_en.docbook:3671
-#: help_en.docbook:3681 help_en.docbook:3688 help_en.docbook:3695
-#: help_en.docbook:3702 help_en.docbook:3709 help_en.docbook:3716
+#: help_en.docbook:3209
+#, no-c-format
+msgid ""
+"Corresponds to to the <guibutton>Forward</guibutton> toolbar button. If the "
+"playback is currently running, it skips forward by 1/10 of the visible "
+"range. If the playback is not running, this does the same as the command "
+"<command>&no-i18n-cmd_view_scroll_right;</command>."
+msgstr ""
+
+#. Tag: link
+#: help_en.docbook:3219
+#, fuzzy, no-c-format
+msgid "<command>&no-i18n-cmd_view_scroll_right;</command>()"
+msgstr "clipboard_flush"
+
+#. Tag: title
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:3225 help_en.docbook:3228 help_en.docbook:3230
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_goto;</command>(<replaceable>pos</"
+"replaceable>)"
+msgstr ""
+"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
+"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+
+#. Tag: para
+#: help_en.docbook:3231
+#, no-c-format
+msgid ""
+"Sets the cursor to the given position and makes it visible in current view. "
+"After this the selection has zero length."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3237
+#, no-c-format
+msgid "position in samples where to go to"
+msgstr ""
+
+#. Tag: title
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:3242 help_en.docbook:3245 help_en.docbook:3247
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_insert_at;</"
+"command>(<replaceable>pos</replaceable>)"
+msgstr ""
+"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
+"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+
+#. Tag: para
+#: help_en.docbook:3248
+#, no-c-format
+msgid ""
+"Inserts the content of the clipboard at the given position, like the command "
+"<command>&no-i18n-cmd_paste;()</command>(). If the clipboard is currently "
+"empty, this function does nothing."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3255
+#, no-c-format
+msgid "position in samples where to insert"
+msgstr ""
+
+#. Tag: link
+#: help_en.docbook:3258
+#, fuzzy, no-c-format
+msgid "<command>&no-i18n-cmd_paste;</command>()"
+msgstr "clipboard_flush"
+
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:3263 help_en.docbook:3265
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_insert_track;</"
+"command>(<replaceable>index</replaceable>)"
+msgstr ""
+"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
+"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+
+#. Tag: para
+#: help_en.docbook:3266
+#, no-c-format
+msgid ""
+"Inserts a new track at the given index, using the current length and sample "
+"rate settings of the signal. If the index is higher than or equal to the "
+"current number of tracks, it will be appended as the last track, same as by "
+"the command <command>&no-i18n-cmd_add_track;()</command>. The index of all "
+"existing tracks at and after the given index will be incremented by one."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3277
+#, no-c-format
+msgid "index of the track to insert, starting with 0"
+msgstr ""
+
+#. Tag: link
+#: help_en.docbook:3281
+#, fuzzy, no-c-format
+msgid "<command>&no-i18n-cmd_add_track;</command>()"
+msgstr "clipboard_flush"
+
+#. Tag: title
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:3287 help_en.docbook:3290 help_en.docbook:3292
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_loadbatch;</"
+"command>(<replaceable>filename</replaceable>)"
+msgstr ""
+"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
+"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+
+#. Tag: para
+#: help_en.docbook:3293
+#, no-c-format
+msgid ""
+"Opens a &kwave; script file and processes the commands in it. Uses the "
+"context of the currently opened file or the current main window if no file "
+"is loaded."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3300
+#, fuzzy, no-c-format
+msgid "<parameter>filename</parameter>:"
+msgstr "<para>Formato con signo</para>"
+
+#. Tag: entry
+#: help_en.docbook:3301
+#, fuzzy, no-c-format
+msgid "name of the kwave script file including path and extension"
+msgstr "Nombre del archivo abierto"
+
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:3306 help_en.docbook:3308
+#, fuzzy, no-c-format
+msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_loop;</command>()"
+msgstr "clipboard_flush"
+
+#. Tag: para
+#: help_en.docbook:3309
+#, no-c-format
+msgid ""
+"Corresponds to to the <guibutton>Loop</guibutton> toolbar button. Starts the "
+"playback (if it is not already running) and lets it play in a loop."
+msgstr ""
+
+#. Tag: link
+#: help_en.docbook:3317
+#, fuzzy, no-c-format
+msgid "<command>&no-i18n-cmd_playback_start;</command>()"
+msgstr "clipboard_flush"
+
+#. Tag: title
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:3323 help_en.docbook:3326 help_en.docbook:3328
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_menu;</command> "
+"(<replaceable>command</replaceable>, <replaceable>path</replaceable>, "
+"[<replaceable>hotkey</replaceable>], [<replaceable>id</replaceable>])"
+msgstr ""
+"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
+"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+
+#. Tag: para
+#: help_en.docbook:3334
+#, no-c-format
+msgid ""
+"This is a very powerful command, which is used to add a new entry to the "
+"menu or to modify an existing entry. It determines which <emphasis>command</"
+"emphasis> is executed when the menu entry is activated, which "
+"<emphasis>icon</emphasis> is shown in the menu and which <emphasis>hotkey</"
+"emphasis> is used. Each menu entry can be <emphasis>disabled</emphasis> or "
+"<emphasis>hidden</emphasis>, can be assigned a unique <emphasis>id</"
+"emphasis> and can also join a <emphasis>menu group</emphasis>."
+msgstr ""
+
+#. Tag: para
+#: help_en.docbook:3345
+#, no-c-format
+msgid "You normally do not need this command within a &kwave; script!"
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3351
+#, fuzzy, no-c-format
+msgid "<parameter>command</parameter>:"
+msgstr "<para>Formato con signo</para>"
+
+#. Tag: entry
+#: help_en.docbook:3352
+#, no-c-format
+msgid ""
+"A text command (including parameters) or a command list that will be "
+"executed when the menu entry gets activated. If a menu entry does not have a "
+"corresponding command (for example if it is a sub menu and not menu entry), "
+"you should use the special command <command>ignore()</command>."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3362
+#, fuzzy, no-c-format
+msgid "<parameter>path</parameter>:"
+msgstr "<para>Formato con signo</para>"
+
+#. Tag: entry
+#: help_en.docbook:3363
+#, no-c-format
+msgid ""
+"The path within the menu, using a <quote><token>/</token></quote> as "
+"separator. The last part of the path can be a <emphasis>sub command</"
+"emphasis> which modifies some property of the menu entry (see <link linkend="
+"\"menu_sub_commands\">below</link>). The last portion of the path (that is "
+"not a sub command) produces a menu entry, the parts before produce the main "
+"menu entry or sub menus that lead to it. Main menu entries or sub menus are "
+"automatically created when a menu entry is created, you do not need them "
+"manually."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3376
+#, fuzzy, no-c-format
+msgid "<parameter>hotkey</parameter>:"
+msgstr "<para>Formato con signo</para>"
+
+#. Tag: entry
+#: help_en.docbook:3377
+#, no-c-format
+msgid ""
+"A bitmask that consists of a combination of predefined <emphasis>keys</"
+"emphasis> and <emphasis>modifiers</emphasis>, concatenated with a "
+"<quote><token>+</token></quote>. The <emphasis>key</emphasis> can be either "
+"a digit, an upper case letter, a function key (<quote>F1</quote> ... "
+"<quote>F12</quote>) or any other key name understood by the Qt class "
+"<quote><literal>QKeySequence</literal></quote>,including key names for "
+"predefined actions (like for example <quote><literal>::Copy</literal></"
+"quote>). Typical <emphasis>modifiers</emphasis> are <quote><literal>SHIFT</"
+"literal></quote>, <quote><literal>ALT</literal></quote> and "
+"<quote><literal>CTRL</literal></quote>."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3395
+#, fuzzy, no-c-format
+msgid "<parameter>id</parameter>:"
+msgstr "<para>Formato con signo</para>"
+
+#. Tag: entry
+#: help_en.docbook:3396
+#, no-c-format
+msgid ""
+"A unique id that can be internally used to identify this menu entry or "
+"menu / sub menu. Only uppercase letters, digits and <quote><literal>_</"
+"literal></quote> should be used and it should start with "
+"<quote><literal>ID_</literal></quote>. It is in your own responsibility to "
+"make sure that the same id is not used twice."
+msgstr ""
+
+#. Tag: title
+#: help_en.docbook:3406
+#, fuzzy, no-c-format
+msgid "Sub Commands"
+msgstr "Introducir comando"
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:3408 help_en.docbook:3409
+#, no-c-format
+msgid ""
+"Makes a menu entry <emphasis>checkable</emphasis>, so that it can be "
+"switched on or off."
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:3414 help_en.docbook:3415
+#, no-c-format
+msgid "Lets the menu entry or menu/sub menu be <emphasis>disabled</emphasis>."
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:3420 help_en.docbook:3421
+#, no-c-format
+msgid ""
+"Makes a menu entry or menu/sub menu that has been previously disabled "
+"<emphasis>enabled</emphasis> again."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3426
+#, fuzzy, no-c-format
+msgid "<command>#exclusive</command>(<replaceable>group</replaceable>):"
+msgstr ""
+"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
+"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+
+#. Tag: entry
+#: help_en.docbook:3427
+#, no-c-format
+msgid ""
+"Makes a menu entry be part of an <emphasis>exclusive</emphasis> "
+"<emphasis><replaceable>group</replaceable></emphasis> (one of many "
+"selection). The group that is given as parameter should not be used for any "
+"other purpose. Only one entry within that group can be selected at a time."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3435
+#, fuzzy, no-c-format
+msgid "<command>#group</command>(<replaceable>list</replaceable>):"
+msgstr ""
+"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
+"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+
+#. Tag: para
+#: help_en.docbook:3436
+#, no-c-format
+msgid ""
+"Adds the menu entry or menu/sub menu to one or more a <emphasis>groups</"
+"emphasis>, so that the application can enable/disable a bunch of menu "
+"entries without need to know all their unique ids. Multiple groups can be "
+"passed as a list with a <quote><literal>,</literal></quote> as separator. "
+"Group names have to start with a <quote><literal>@</literal></quote>. The "
+"following groups predefined:"
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:3447 help_en.docbook:3448
+#, no-c-format
+msgid "Only enabled when the clipboard is not empty."
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:3453 help_en.docbook:3454
+#, no-c-format
+msgid "Only enabled when the current signal contains at least one label."
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:3459 help_en.docbook:3460
+#, no-c-format
+msgid ""
+"Enabled when the current signal is not closed (the signal might be empty or "
+"zero length)."
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:3466 help_en.docbook:3467
+#, no-c-format
+msgid ""
+"Enabled when the selection is not empty (more than one sample is selected)."
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:3473 help_en.docbook:3474
+#, no-c-format
+msgid ""
+"Enabled when there is some signal loaded and it is not empty or zero length."
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:3482 help_en.docbook:3483
+#, no-c-format
+msgid "<emphasis>Hides</emphasis> the menu entry or menu/sub menu."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3486
+#, fuzzy, no-c-format
+msgid "<command>#icon</command>(<replaceable>name</replaceable>):"
+msgstr ""
+"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
+"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+
+#. Tag: entry
+#: help_en.docbook:3487
+#, no-c-format
+msgid ""
+"Assigns an <emphasis>icon</emphasis> to a menu entry. The icon "
+"<emphasis><replaceable>name</replaceable></emphasis> should correspond to an "
+"icon file (without path and file extension) that is installed with KDE or "
+"with &kwave;."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3495
+#, fuzzy, no-c-format
+msgid ""
+"<command>#listmenu</command>(<replaceable>id</replaceable>,"
+"<replaceable>command</replaceable>):"
+msgstr ""
+"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
+"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+
+#. Tag: entry
+#: help_en.docbook:3496
+#, no-c-format
+msgid ""
+"Inserts a placeholder for a list of menu entries into a sub menu. The unique "
+"<emphasis><replaceable>id</replaceable></emphasis> specified in this sub "
+"command is used to add/remove or clear the list of menu entries. The "
+"<emphasis><replaceable>command</replaceable></emphasis> parameter has to "
+"contain <quote><literal>%1</literal></quote> as parameter, which will be "
+"replaced with the text of the menu entry when it is activated. (This sub "
+"command is internally used for the list of recent files, list of tracks and "
+"window list)."
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:3510 help_en.docbook:3511
+#, no-c-format
+msgid "Inserts a separator into a sub menu."
+msgstr ""
+
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:3521 help_en.docbook:3523
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_msgbox;</command>(<replaceable>text</"
+"replaceable>)"
+msgstr ""
+"<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
+"literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
+
+#. Tag: para
+#: help_en.docbook:3524
+#, no-c-format
+msgid ""
+"Shows a message box with some <emphasis><replaceable>text</replaceable></"
+"emphasis> and the two buttons <quote><guibutton>OK</guibutton></quote> "
+"(returns without error code) and <quote><guibutton>Cancel</guibutton></"
+"quote> (returns and error code). You can use this command to give the user a "
+"possibility to abort a running script."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3535
+#, no-c-format
+msgid ""
+"A message that will be shown in the message box, should contain a question "
+"that can be answered with <quote>OK</quote> or <quote>Cancel</quote>"
+msgstr ""
+
+#. Tag: title
+#. Tag: title
+#. Tag: para
+#: help_en.docbook:3545 help_en.docbook:3548 help_en.docbook:3549
+#: help_en.docbook:3556 help_en.docbook:3566 help_en.docbook:3573
+#: help_en.docbook:3583 help_en.docbook:3590 help_en.docbook:3597
+#: help_en.docbook:3604 help_en.docbook:3611 help_en.docbook:3618
+#: help_en.docbook:3625 help_en.docbook:3635 help_en.docbook:3645
+#: help_en.docbook:3652 help_en.docbook:3659 help_en.docbook:3666
+#: help_en.docbook:3673 help_en.docbook:3680 help_en.docbook:3690
+#: help_en.docbook:3697 help_en.docbook:3704 help_en.docbook:3711
+#: help_en.docbook:3718 help_en.docbook:3725 help_en.docbook:3732
+#: help_en.docbook:3739 help_en.docbook:3746 help_en.docbook:3753
+#: help_en.docbook:3760 help_en.docbook:3767 help_en.docbook:3774
+#: help_en.docbook:3781 help_en.docbook:3788 help_en.docbook:3795
+#: help_en.docbook:3802 help_en.docbook:3809 help_en.docbook:3816
+#: help_en.docbook:3823 help_en.docbook:3830 help_en.docbook:3840
+#: help_en.docbook:3847 help_en.docbook:3857 help_en.docbook:3864
+#: help_en.docbook:3871 help_en.docbook:3878 help_en.docbook:3885
+#: help_en.docbook:3892 help_en.docbook:3899 help_en.docbook:3906
+#: help_en.docbook:3913 help_en.docbook:3920 help_en.docbook:3927
+#: help_en.docbook:3934 help_en.docbook:3941 help_en.docbook:3951
+#: help_en.docbook:3958 help_en.docbook:3965 help_en.docbook:3972
+#: help_en.docbook:3979 help_en.docbook:3986
 #, fuzzy, no-c-format
 msgid "<para>TBD</para>"
 msgstr "<para>Formato con signo</para>"
@@ -5152,58 +5622,41 @@ msgstr "<para>Formato con signo</para>"
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#. Tag: title
-#: help_en.docbook:3214 help_en.docbook:3217 help_en.docbook:3224
-#: help_en.docbook:3227 help_en.docbook:3234 help_en.docbook:3241
-#: help_en.docbook:3244 help_en.docbook:3251 help_en.docbook:3258
-#: help_en.docbook:3261 help_en.docbook:3268 help_en.docbook:3275
-#: help_en.docbook:3278 help_en.docbook:3285 help_en.docbook:3292
-#: help_en.docbook:3295 help_en.docbook:3302 help_en.docbook:3309
-#: help_en.docbook:3312 help_en.docbook:3319 help_en.docbook:3326
-#: help_en.docbook:3333 help_en.docbook:3340 help_en.docbook:3347
-#: help_en.docbook:3354 help_en.docbook:3361 help_en.docbook:3364
-#: help_en.docbook:3371 help_en.docbook:3374 help_en.docbook:3381
-#: help_en.docbook:3388 help_en.docbook:3395 help_en.docbook:3402
-#: help_en.docbook:3409 help_en.docbook:3416 help_en.docbook:3419
-#: help_en.docbook:3426 help_en.docbook:3433 help_en.docbook:3440
-#: help_en.docbook:3447 help_en.docbook:3454 help_en.docbook:3461
-#: help_en.docbook:3468 help_en.docbook:3475 help_en.docbook:3482
-#: help_en.docbook:3489 help_en.docbook:3496 help_en.docbook:3503
-#: help_en.docbook:3510 help_en.docbook:3517 help_en.docbook:3524
-#: help_en.docbook:3531 help_en.docbook:3538 help_en.docbook:3545
-#: help_en.docbook:3552 help_en.docbook:3559 help_en.docbook:3566
-#: help_en.docbook:3569 help_en.docbook:3576 help_en.docbook:3583
-#: help_en.docbook:3586 help_en.docbook:3593 help_en.docbook:3600
-#: help_en.docbook:3607 help_en.docbook:3614 help_en.docbook:3621
-#: help_en.docbook:3628 help_en.docbook:3635 help_en.docbook:3642
-#: help_en.docbook:3649 help_en.docbook:3656 help_en.docbook:3663
-#: help_en.docbook:3670 help_en.docbook:3677 help_en.docbook:3680
-#: help_en.docbook:3687 help_en.docbook:3694 help_en.docbook:3701
-#: help_en.docbook:3708 help_en.docbook:3715 help_en.docbook:3730
+#: help_en.docbook:3555 help_en.docbook:3562 help_en.docbook:3565
+#: help_en.docbook:3572 help_en.docbook:3579 help_en.docbook:3582
+#: help_en.docbook:3589 help_en.docbook:3596 help_en.docbook:3603
+#: help_en.docbook:3610 help_en.docbook:3617 help_en.docbook:3624
+#: help_en.docbook:3631 help_en.docbook:3634 help_en.docbook:3641
+#: help_en.docbook:3644 help_en.docbook:3651 help_en.docbook:3658
+#: help_en.docbook:3665 help_en.docbook:3672 help_en.docbook:3679
+#: help_en.docbook:3686 help_en.docbook:3689 help_en.docbook:3696
+#: help_en.docbook:3703 help_en.docbook:3710 help_en.docbook:3717
+#: help_en.docbook:3724 help_en.docbook:3731 help_en.docbook:3738
+#: help_en.docbook:3745 help_en.docbook:3752 help_en.docbook:3759
+#: help_en.docbook:3766 help_en.docbook:3773 help_en.docbook:3780
+#: help_en.docbook:3787 help_en.docbook:3794 help_en.docbook:3801
+#: help_en.docbook:3808 help_en.docbook:3815 help_en.docbook:3822
+#: help_en.docbook:3829 help_en.docbook:3836 help_en.docbook:3839
+#: help_en.docbook:3846 help_en.docbook:3853 help_en.docbook:3856
+#: help_en.docbook:3863 help_en.docbook:3870 help_en.docbook:3877
+#: help_en.docbook:3884 help_en.docbook:3891 help_en.docbook:3898
+#: help_en.docbook:3905 help_en.docbook:3912 help_en.docbook:3919
+#: help_en.docbook:3926 help_en.docbook:3933 help_en.docbook:3940
+#: help_en.docbook:3947 help_en.docbook:3950 help_en.docbook:3957
+#: help_en.docbook:3964 help_en.docbook:3971 help_en.docbook:3978
+#: help_en.docbook:3985 help_en.docbook:4000
 #, no-c-format
 msgid "Developer's Guide to &kwave;"
 msgstr "Guía del desarrolador de &kwave;"
 
 #. Tag: phrase
-#: help_en.docbook:3737
+#: help_en.docbook:4007
 #, no-c-format
 msgid "under construction"
 msgstr "en construcción"
 
 #. Tag: para
-#: help_en.docbook:3740
+#: help_en.docbook:4010
 #, no-c-format
 msgid ""
 "Sorry, this chapter is still to be written... At the moment the source code "
@@ -5222,7 +5675,7 @@ msgstr ""
 "sido construida)."
 
 #. Tag: para
-#: help_en.docbook:3749
+#: help_en.docbook:4019
 #, no-c-format
 msgid ""
 "If you want to write a plugin, contribute something to this project (or "
@@ -5237,13 +5690,13 @@ msgstr ""
 "bienvenida!"
 
 #. Tag: title
-#: help_en.docbook:3764
+#: help_en.docbook:4034
 #, no-c-format
 msgid "Creating API documentation"
 msgstr "Creando documentacion API"
 
 #. Tag: para
-#: help_en.docbook:3766
+#: help_en.docbook:4036
 #, no-c-format
 msgid ""
 "If you are interested in the internal of &kwave; and you have <ulink url="
@@ -5253,13 +5706,13 @@ msgstr ""
 "<ulink url=\"&url_doxygen;\">doxygen</ulink> instalado puede teclear:"
 
 #. Tag: screen
-#: help_en.docbook:3770
+#: help_en.docbook:4040
 #, no-c-format
 msgid "<prompt>% </prompt><command>make apidoc</command>"
 msgstr "<prompt>% </prompt><command>make apidoc</command>"
 
 #. Tag: para
-#: help_en.docbook:3772
+#: help_en.docbook:4042
 #, no-c-format
 msgid ""
 "to get a directory <filename><replaceable>apicod/html</replaceable></"
@@ -5271,13 +5724,13 @@ msgstr ""
 "directorio de compilación:"
 
 #. Tag: title
-#: help_en.docbook:3785
+#: help_en.docbook:4055
 #, no-c-format
 msgid "Starting in a test environment"
 msgstr "Comenzando en un entorno de  pruebas"
 
 #. Tag: para
-#: help_en.docbook:3787
+#: help_en.docbook:4057
 #, no-c-format
 msgid ""
 "If you are developing or testing &kwave;, then you do not necessarily need "
@@ -5291,13 +5744,13 @@ msgstr ""
 "siguiente comando:"
 
 #. Tag: screen
-#: help_en.docbook:3792
+#: help_en.docbook:4062
 #, no-c-format
 msgid "<prompt>% </prompt><command>make wrapper</command>"
 msgstr "<prompt>% </prompt><command>make wrapper</command>"
 
 #. Tag: para
-#: help_en.docbook:3794
+#: help_en.docbook:4064
 #, no-c-format
 msgid ""
 "The script will be named <filename><replaceable>kw</replaceable></filename>, "
@@ -5307,7 +5760,7 @@ msgstr ""
 "siéntase libre para ajustarlo a su sistema si lo necesita."
 
 #. Tag: para
-#: help_en.docbook:3798
+#: help_en.docbook:4068
 #, no-c-format
 msgid ""
 "For this to work, you must <emphasis>not</emphasis> have &kwave; installed "
@@ -5317,19 +5770,19 @@ msgstr ""
 "en su sistema. Si lo tiene, por favor desinstale el paquete antes!"
 
 #. Tag: title
-#: help_en.docbook:3810
+#: help_en.docbook:4080
 #, no-c-format
 msgid "Adding support for a new Language"
 msgstr "Añadir soporte para un nuevo idioma"
 
 #. Tag: emphasis
-#: help_en.docbook:3815
+#: help_en.docbook:4085
 #, no-c-format
 msgid "make system:"
 msgstr "Generar sistema:"
 
 #. Tag: para
-#: help_en.docbook:3816
+#: help_en.docbook:4086
 #, no-c-format
 msgid ""
 "Edit the toplevel <filename>CMakeLists.txt</filename> and add a new entry to "
@@ -5349,7 +5802,7 @@ msgstr ""
 "</literal><replaceable> &lt;nombre&gt;</replaceable></command>. Ejemplo:"
 
 #. Tag: screen
-#: help_en.docbook:3825
+#: help_en.docbook:4095
 #, no-c-format
 msgid ""
 "<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
@@ -5357,7 +5810,7 @@ msgstr ""
 "<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
 
 #. Tag: para
-#: help_en.docbook:3827
+#: help_en.docbook:4097
 #, no-c-format
 msgid ""
 "The language code is a 2-letter code which is used for directories and "
@@ -5374,13 +5827,13 @@ msgstr ""
 "\"&url_iso639;\"> ISO 639.2</ulink>."
 
 #. Tag: emphasis
-#: help_en.docbook:3838
+#: help_en.docbook:4108
 #, no-c-format
 msgid "user interface:"
 msgstr "Interfaz de usuario:\t"
 
 #. Tag: para
-#: help_en.docbook:3839
+#: help_en.docbook:4109
 #, no-c-format
 msgid ""
 "Go to the source directory of &kwave; (not the build directory), change into "
@@ -5398,7 +5851,7 @@ msgstr ""
 "usando su herramienta preferida, como <filename>Lokalize</filename>. Ejemplo:"
 
 #. Tag: screen
-#: help_en.docbook:3847
+#: help_en.docbook:4117
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</"
@@ -5416,13 +5869,13 @@ msgstr ""
 "<prompt>% </prompt><command>lokalize <parameter>fr.po</parameter></command>"
 
 #. Tag: emphasis
-#: help_en.docbook:3851
+#: help_en.docbook:4121
 #, no-c-format
 msgid "online help:"
 msgstr "Ayuda en línea:"
 
 #. Tag: para
-#: help_en.docbook:3852
+#: help_en.docbook:4122
 #, no-c-format
 msgid ""
 "This is similar to the procedure for the user interface, but requires some "
@@ -5487,7 +5940,7 @@ msgstr ""
 "filename> como hizo anteriormente:"
 
 #. Tag: screen
-#: help_en.docbook:3869
+#: help_en.docbook:4139
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</"
@@ -5503,13 +5956,13 @@ msgstr ""
 "replaceable></parameter></command>"
 
 #. Tag: emphasis
-#: help_en.docbook:3873
+#: help_en.docbook:4143
 #, no-c-format
 msgid "screenshots:"
 msgstr "Capturas de pantalla:"
 
 #. Tag: para
-#: help_en.docbook:3874
+#: help_en.docbook:4144
 #, no-c-format
 msgid ""
 "For the online documentation you also need screenshots that use the "
@@ -5531,7 +5984,7 @@ msgstr ""
 "obtener capturas de pantalla de los componentes que hubiera desactivado."
 
 #. Tag: para
-#: help_en.docbook:3883
+#: help_en.docbook:4153
 #, no-c-format
 msgid ""
 "For a list of screenshots you can look into one of the existing directories "
@@ -5548,55 +6001,55 @@ msgstr ""
 "la documentación KDE</ulink>.  Aquí tiene un resumen:"
 
 #. Tag: para
-#: help_en.docbook:3892
+#: help_en.docbook:4162
 #, no-c-format
 msgid "Window decoration: Oxygen"
 msgstr "Decoración de ventanas: Oxygen"
 
 #. Tag: para
-#: help_en.docbook:3895
+#: help_en.docbook:4165
 #, no-c-format
 msgid "Widget style: Oxygen"
 msgstr "Estilo de ventanas: Oxygen"
 
 #. Tag: para
-#: help_en.docbook:3898
+#: help_en.docbook:4168
 #, no-c-format
 msgid "Colors: Oxygen"
 msgstr "Colores: Oxygen"
 
 #. Tag: para
-#: help_en.docbook:3901
+#: help_en.docbook:4171
 #, no-c-format
 msgid "Background: Flat color - Color must be white"
 msgstr "Fondo: color plano - el color debe ser blanco"
 
 #. Tag: para
-#: help_en.docbook:3904
+#: help_en.docbook:4174
 #, no-c-format
 msgid "Run X11 in 72dpi mode"
 msgstr "X11 funcionando en modo de 72dpi."
 
 #. Tag: para
-#: help_en.docbook:3907
+#: help_en.docbook:4177
 #, no-c-format
 msgid "Save the files in 8bpp"
 msgstr "Guardar los archivos en 8bpp"
 
 #. Tag: para
-#: help_en.docbook:3910
+#: help_en.docbook:4180
 #, no-c-format
 msgid "Try to keep the size of each file below 20kB"
 msgstr "Intentar mantener el tamaño de los archivos por debajo de 20kB"
 
 #. Tag: emphasis
-#: help_en.docbook:3916
+#: help_en.docbook:4186
 #, no-c-format
 msgid "desktop file:"
 msgstr "Archivo de escritorio:"
 
 #. Tag: para
-#: help_en.docbook:3917
+#: help_en.docbook:4187
 #, no-c-format
 msgid ""
 "Add a <emphasis>Comment</emphasis> line for the new language to the file "
@@ -5608,7 +6061,7 @@ msgstr ""
 "que este archivo está codificado en UTF-8! Ejemplo:"
 
 #. Tag: screen
-#: help_en.docbook:3922
+#: help_en.docbook:4192
 #, no-c-format
 msgid ""
 "<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
@@ -5618,13 +6071,13 @@ msgstr ""
 "literal><replaceable>Un éditeur de sons pour KDE</replaceable>"
 
 #. Tag: para
-#: help_en.docbook:3927
+#: help_en.docbook:4197
 #, no-c-format
 msgid "Useful links:"
 msgstr "Enlaces útiles:"
 
 #. Tag: para
-#: help_en.docbook:3930
+#: help_en.docbook:4200
 #, no-c-format
 msgid ""
 "<ulink url=\"&url_rfc3066;\">RFC 3066</ulink> Tags for the Identification of "
@@ -5634,7 +6087,7 @@ msgstr ""
 "identificación de los idiomas."
 
 #. Tag: para
-#: help_en.docbook:3934
+#: help_en.docbook:4204
 #, no-c-format
 msgid ""
 "<ulink url=\"&url_kde_l10n;\">KDE Localization</ulink> contains a lot of "
@@ -5644,7 +6097,7 @@ msgstr ""
 "cantidad de enlaces útiles para traductores de KDE."
 
 #. Tag: para
-#: help_en.docbook:3938
+#: help_en.docbook:4208
 #, no-c-format
 msgid ""
 "<ulink url=\"&url_kde_localize;\">Lokalize</ulink> is <emphasis>the</"
@@ -5656,7 +6109,7 @@ msgstr ""
 "filename>."
 
 #. Tag: para
-#: help_en.docbook:3943
+#: help_en.docbook:4213
 #, no-c-format
 msgid ""
 "<ulink url=\"&url_kde_screenshots;\">KDE Documentation Screenshots "
@@ -5666,19 +6119,19 @@ msgstr ""
 "Requirements</ulink>."
 
 #. Tag: title
-#: help_en.docbook:3972
+#: help_en.docbook:4242
 #, no-c-format
 msgid "Questions and Answers"
 msgstr "Preguntas y respuestas"
 
 #. Tag: para
-#: help_en.docbook:3980
+#: help_en.docbook:4250
 #, no-c-format
 msgid "What do I need to compile &kwave;?"
 msgstr "¿Qué necesito para compilar &kwave;?"
 
 #. Tag: para
-#: help_en.docbook:3985
+#: help_en.docbook:4255
 #, no-c-format
 msgid ""
 "Read in the <link linkend=\"requirements\">chapter</link> mentioned before."
@@ -5687,13 +6140,13 @@ msgstr ""
 "anteriormente."
 
 #. Tag: para
-#: help_en.docbook:3995
+#: help_en.docbook:4265
 #, no-c-format
 msgid "Which sound cards does &kwave; support?"
 msgstr "¿Qué tarjetas de sonido soporta &kwave;?"
 
 #. Tag: para
-#: help_en.docbook:4000
+#: help_en.docbook:4270
 #, no-c-format
 msgid ""
 "&kwave; does not need support for any special sound card. The sound card "
@@ -5709,7 +6162,7 @@ msgstr ""
 "funcionar."
 
 #. Tag: para
-#: help_en.docbook:4013
+#: help_en.docbook:4283
 #, no-c-format
 msgid ""
 "Why does &kwave; consume more memory than it can be expected from the size "
@@ -5719,7 +6172,7 @@ msgstr ""
 "tamaño del archivo abierto?"
 
 #. Tag: para
-#: help_en.docbook:4019
+#: help_en.docbook:4289
 #, no-c-format
 msgid ""
 "The reason for this is that &kwave; internally stores all samples in 32-bit "
@@ -5735,13 +6188,13 @@ msgstr ""
 "el futuro..."
 
 #. Tag: para
-#: help_en.docbook:4032
+#: help_en.docbook:4302
 #, no-c-format
 msgid "Which sound formats does &kwave; support?"
 msgstr "¿Qué formatos de sonido soporta &kwave;?"
 
 #. Tag: para
-#: help_en.docbook:4037
+#: help_en.docbook:4307
 #, no-c-format
 msgid ""
 "&kwave; currently supports .wav files with 8, 16 and 24 bits per sample, "
@@ -5755,13 +6208,13 @@ msgstr ""
 "soporta y otros formatos como Ogg/Vorbis y MP3."
 
 #. Tag: para
-#: help_en.docbook:4049
+#: help_en.docbook:4319
 #, no-c-format
 msgid "What if I have files with a format not supported by &kwave;?"
 msgstr "¿Qué pasa si tengo archivos con un formato no soportado por &kwave;?"
 
 #. Tag: para
-#: help_en.docbook:4055
+#: help_en.docbook:4325
 #, no-c-format
 msgid ""
 "If you have to work on a different format, you can convert it into .wav "
@@ -5773,13 +6226,13 @@ msgstr ""
 "<ulink url=\"&url_sox;\">SoX</ulink>, el cual tiene una buen documentación."
 
 #. Tag: para
-#: help_en.docbook:4067
+#: help_en.docbook:4337
 #, no-c-format
 msgid "I get errors when I want to do playback?"
 msgstr "Obtengo errores al intentar reproducir"
 
 #. Tag: para
-#: help_en.docbook:4072
+#: help_en.docbook:4342
 #, no-c-format
 msgid ""
 "Maybe you have chosen a combination of playback rate and sample size that is "
@@ -5796,13 +6249,13 @@ msgstr ""
 "están soportadas por algunas tarjetas de sonido."
 
 #. Tag: para
-#: help_en.docbook:4086
+#: help_en.docbook:4356
 #, no-c-format
 msgid "The playback seems to do something but I hear nothing?"
 msgstr "La reproducción parece funcionar pero no oigo nada"
 
 #. Tag: para
-#: help_en.docbook:4091
+#: help_en.docbook:4361
 #, no-c-format
 msgid ""
 "Maybe you have forgotten to increase the volume of the playback channel. "
@@ -5812,25 +6265,25 @@ msgstr ""
 "no es responsable de cambiar el volumen de reproducción."
 
 #. Tag: para
-#: help_en.docbook:4101
+#: help_en.docbook:4371
 #, no-c-format
 msgid "Some files are played with half-speed?"
 msgstr "Algunos archivos son reproducidos a la mitad de su velocidad normal"
 
 #. Tag: para
-#: help_en.docbook:4106
+#: help_en.docbook:4376
 #, no-c-format
 msgid "Try choosing a different sound playback device."
 msgstr "Intente escoger otro dispositivo de reproducción."
 
 #. Tag: para
-#: help_en.docbook:4114
+#: help_en.docbook:4384
 #, no-c-format
 msgid "The playback sometimes is disturbed and interrupted?"
 msgstr "La reproducción es algunas veces alterada e interrumpida"
 
 #. Tag: para
-#: help_en.docbook:4119
+#: help_en.docbook:4389
 #, no-c-format
 msgid ""
 "You should increase the size of the playback buffer to get a \"smoother\" "
@@ -5841,14 +6294,14 @@ msgstr ""
 "reproducción respondan un poco más lentos)."
 
 #. Tag: para
-#: help_en.docbook:4129
+#: help_en.docbook:4399
 #, no-c-format
 msgid "The playback does not stop if I immediately press the stop button?"
 msgstr ""
 "La reproducción no se detiene inmediatamente al pulsar el botón de detener"
 
 #. Tag: para
-#: help_en.docbook:4135
+#: help_en.docbook:4405
 #, no-c-format
 msgid ""
 "The reason for this is that the sound driver already has received some "
@@ -5863,19 +6316,19 @@ msgstr ""
 "reproducción)."
 
 #. Tag: para
-#: help_en.docbook:4147
+#: help_en.docbook:4417
 #, no-c-format
 msgid "Is ALSA supported?"
 msgstr "¿Es ALSA soportado?"
 
 #. Tag: para
-#: help_en.docbook:4152
+#: help_en.docbook:4422
 #, no-c-format
 msgid "Yes, since v0.7.4 for playback and recording"
 msgstr "Sí, desde la versión 0.7.4 tanto para reproducir como para grabación."
 
 #. Tag: para
-#: help_en.docbook:4160
+#: help_en.docbook:4430
 #, no-c-format
 msgid ""
 "What about playback with 18, 20, 24 or 32 bits per sample or more than two "
@@ -5885,19 +6338,19 @@ msgstr ""
 "canales?"
 
 #. Tag: para
-#: help_en.docbook:4166
+#: help_en.docbook:4436
 #, no-c-format
 msgid "This is possible through the ALSA interface, since v0.7.4."
 msgstr "Esto es posible a través de la interfaz ALSA desde la versión 0.7.4."
 
 #. Tag: para
-#: help_en.docbook:4175
+#: help_en.docbook:4445
 #, no-c-format
 msgid "What about MP3 support?"
 msgstr "¿Existe soporte MP3?"
 
 #. Tag: para
-#: help_en.docbook:4180
+#: help_en.docbook:4450
 #, no-c-format
 msgid ""
 "Well, as long as there are patent issues, we support only MP3 import through "
@@ -5912,19 +6365,19 @@ msgstr ""
 "Kwave para distribuir."
 
 #. Tag: title
-#: help_en.docbook:4214
+#: help_en.docbook:4484
 #, no-c-format
 msgid "Credits and License"
 msgstr "Créditos y Licencia"
 
 #. Tag: para
-#: help_en.docbook:4216
+#: help_en.docbook:4486
 #, no-c-format
 msgid "&kwave;"
 msgstr "&kwave;"
 
 #. Tag: para
-#: help_en.docbook:4218
+#: help_en.docbook:4488
 #, no-c-format
 msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>martin@wilz.de</email>"
@@ -5932,7 +6385,7 @@ msgstr ""
 "Derechos de autor desde 1998-2000 Martin Wilz <email>martin@wilz.de</email>"
 
 #. Tag: para
-#: help_en.docbook:4222
+#: help_en.docbook:4492
 #, no-c-format
 msgid ""
 "Program copyright since 2000 Thomas Eschenbacher <email>thomas."
@@ -5942,7 +6395,7 @@ msgstr ""
 "eschenbacher@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:4226
+#: help_en.docbook:4496
 #, no-c-format
 msgid ""
 "For a complete list of authors and licenses of all files, please refer to "
@@ -5959,7 +6412,7 @@ msgstr ""
 "colaboradores de &kwave;"
 
 #. Tag: para
-#: help_en.docbook:4234
+#: help_en.docbook:4504
 #, no-c-format
 msgid ""
 "Documentation copyright (C) &version_year; Thomas Eschenbacher <email>thomas."
@@ -5969,151 +6422,151 @@ msgstr ""
 "eschenbacher@gmx.de</email>"
 
 #. Tag: chapter
-#: help_en.docbook:4237
+#: help_en.docbook:4507
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
 
 #. Tag: title
-#: help_en.docbook:4242
+#: help_en.docbook:4512
 #, no-c-format
 msgid "Main Authors"
 msgstr "Autores principales"
 
 #. Tag: emphasis
-#: help_en.docbook:4246
+#: help_en.docbook:4516
 #, no-c-format
 msgid "Martin Wilz <email>martin@wilz.de</email>"
 msgstr "Martin Wilz <email>martin@wilz.de</email>"
 
 #. Tag: para
-#: help_en.docbook:4249
+#: help_en.docbook:4519
 #, no-c-format
 msgid "creator of the project, active development 1998-2000"
 msgstr "creador del proyecto, activo en el desarrollo entre 1998-2000"
 
 #. Tag: emphasis
-#: help_en.docbook:4254
+#: help_en.docbook:4524
 #, no-c-format
 msgid "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:4257
+#: help_en.docbook:4527
 #, no-c-format
 msgid "maintainer since 2000, core development"
 msgstr "responsable desde el año 2000, desarrollo principal"
 
 #. Tag: title
-#: help_en.docbook:4265
+#: help_en.docbook:4535
 #, no-c-format
 msgid "Major Contributors"
 msgstr "Colaboradores principales"
 
 #. Tag: emphasis
-#: help_en.docbook:4269
+#: help_en.docbook:4539
 #, no-c-format
 msgid "Aurelien Jarno <email>aurel32@debian.org</email>"
 msgstr "Aurelien Jarno <email>aurel32@debian.org</email>"
 
 #. Tag: para
-#: help_en.docbook:4272
+#: help_en.docbook:4542
 #, no-c-format
 msgid "<ulink url=\"&url_debian;\">debian</ulink> packager, patches"
 msgstr "Empaquetado y parches para <ulink url=\"&url_debian;\">debian</ulink>"
 
 #. Tag: emphasis
-#: help_en.docbook:4278
+#: help_en.docbook:4548
 #, no-c-format
 msgid "Carlos R <email>pureacetone@gmail.com</email>"
 msgstr "Carlos R <email>pureacetone@gmail.com</email>"
 
 #. Tag: para
-#: help_en.docbook:4281
+#: help_en.docbook:4551
 #, no-c-format
 msgid "spanish translation"
 msgstr "Traducción español"
 
 #. Tag: emphasis
-#: help_en.docbook:4286
+#: help_en.docbook:4556
 #, no-c-format
 msgid "David Flogeras <email>dflogera@nbnet.nb.ca</email>"
 msgstr "David Flogeras <email>dflogera@nbnet.nb.ca</email>"
 
 #. Tag: para
-#: help_en.docbook:4289
+#: help_en.docbook:4559
 #, no-c-format
 msgid "Notch Filter plugin"
 msgstr "Complemento filtro suprime banda"
 
 #. Tag: emphasis
-#: help_en.docbook:4294
+#: help_en.docbook:4564
 #, no-c-format
 msgid "Gilles Caulier <email>caulier.gilles@free.fr</email>"
 msgstr "Gilles Caulier <email>caulier.gilles@free.fr</email>"
 
 #. Tag: para
-#: help_en.docbook:4297
+#: help_en.docbook:4567
 #, no-c-format
 msgid "i18n, french translations, splashscreen, beta tester"
 msgstr "i18n, traducciones al francés, pantalla de inicio, beta tester"
 
 #. Tag: emphasis
-#: help_en.docbook:4302
+#: help_en.docbook:4572
 #, no-c-format
 msgid "Pavel Fric <email>pavelfric@seznam.cz</email>"
 msgstr "Pavel Fric <email>pavelfric@seznam.cz</email>"
 
 #. Tag: para
-#: help_en.docbook:4305
+#: help_en.docbook:4575
 #, no-c-format
 msgid "Czech translation"
 msgstr "Traducción al checo"
 
 #. Tag: emphasis
-#: help_en.docbook:4310
+#: help_en.docbook:4580
 #, no-c-format
 msgid "Ralf Waspe <email>rwaspe@web.de</email>"
 msgstr "Ralf Waspe <email>rwaspe@web.de</email>"
 
 #. Tag: para
-#: help_en.docbook:4313
+#: help_en.docbook:4583
 #, no-c-format
 msgid "Help/About plugin"
 msgstr "Complemento de ayuda/acerca de"
 
 #. Tag: emphasis
-#: help_en.docbook:4318
+#: help_en.docbook:4588
 #, no-c-format
 msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email>"
 msgstr "Sven-Steffen Arndt <email>ssa29@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:4321
+#: help_en.docbook:4591
 #, no-c-format
 msgid "homepage, german translation"
 msgstr "Traducción al alemán, página principal"
 
 #. Tag: title
-#: help_en.docbook:4329
+#: help_en.docbook:4599
 #, no-c-format
 msgid "Minor contributors, copyright holders and others"
 msgstr "Otros colaboradores, propietarios de derechos de autor y otros"
 
 #. Tag: emphasis
-#: help_en.docbook:4333
+#: help_en.docbook:4603
 #, no-c-format
 msgid "Aaron Holtzman <email>aholtzma@ess.engr.uvic.ca</email>"
 msgstr "Aaron Holtzman <email>aholtzma@ess.engr.uvic.ca</email>"
 
 #. Tag: para
-#: help_en.docbook:4335
+#: help_en.docbook:4605
 #, no-c-format
 msgid "libkwave/cpu_accel.cpp"
 msgstr "libkwave/cpu_accel.cpp"
 
 #. Tag: para
-#: help_en.docbook:4340
+#: help_en.docbook:4610
 #, no-c-format
 msgid ""
 "<emphasis role=\"bold\"> Bertrand Songis <email>bsongis@gmail.com</email> </"
@@ -6121,7 +6574,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:4342
+#: help_en.docbook:4612
 #, no-c-format
 msgid ""
 "french translation fixes, substitutes for patented libaudiofile code, debian "
@@ -6131,55 +6584,55 @@ msgstr ""
 "en libaudiofile, debian bug 419124"
 
 #. Tag: emphasis
-#: help_en.docbook:4349
+#: help_en.docbook:4619
 #, no-c-format
 msgid "Carsten Lohrke <email>carlo@gentoo.org</email>"
 msgstr "Carsten Lohrke <email>carlo@gentoo.org</email>"
 
 #. Tag: para
-#: help_en.docbook:4351
+#: help_en.docbook:4621
 #, no-c-format
 msgid "svn r2163, patch for libaudiofile detection"
 msgstr "svn r2163, parche para la detección de libaudiofile"
 
 #. Tag: emphasis
-#: help_en.docbook:4356
+#: help_en.docbook:4626
 #, no-c-format
 msgid "Chris Vaill <email>chrisvaill@gmail</email>"
 msgstr "Chris Vaill <email>chrisvaill@gmail</email>"
 
 #. Tag: para
-#: help_en.docbook:4358
+#: help_en.docbook:4628
 #, no-c-format
 msgid "code base for the normalize plugin"
 msgstr "Código base para el complemento de normalización"
 
 #. Tag: emphasis
-#: help_en.docbook:4363
+#: help_en.docbook:4633
 #, no-c-format
 msgid "David Faure <email>faure@kde.org</email>"
 msgstr "David Faure <email>faure@kde.org</email>"
 
 #. Tag: para
-#: help_en.docbook:4365 help_en.docbook:4439
+#: help_en.docbook:4635 help_en.docbook:4709
 #, no-c-format
 msgid "cmake/FindAlsa.cmake"
 msgstr "cmake/FindAlsa.cmake"
 
 #. Tag: emphasis
-#: help_en.docbook:4370
+#: help_en.docbook:4640
 #, no-c-format
 msgid "Diederick de Vries <email>diederick76@gmail.com</email>"
 msgstr "Diederick de Vries <email>diederick76@gmail.com</email>"
 
 #. Tag: para
-#: help_en.docbook:4373
+#: help_en.docbook:4643
 #, no-c-format
 msgid "packaging for Crux Linux"
 msgstr "Empaquetado para Crux Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:4378
+#: help_en.docbook:4648
 #, no-c-format
 msgid ""
 "Espen Sand <email>espen@kde.org</email> + Mirko Boehm <email>mirko@kde.org</"
@@ -6189,55 +6642,55 @@ msgstr ""
 "email>"
 
 #. Tag: para
-#: help_en.docbook:4381
+#: help_en.docbook:4651
 #, no-c-format
 msgid "K3AboutContainer, base of KwaveAboutContainer"
 msgstr "K3AboutContainer, base de KwaveAboutContainer"
 
 #. Tag: emphasis
-#: help_en.docbook:4386
+#: help_en.docbook:4656
 #, no-c-format
 msgid "Everaldo Coelho <email>contact@everaldo.com</email>"
 msgstr "Everaldo Coelho <email>contact@everaldo.com</email>"
 
 #. Tag: para
-#: help_en.docbook:4388
+#: help_en.docbook:4658
 #, no-c-format
 msgid "the crystal icon theme http://www.everaldo.com/crystal/"
 msgstr "Tema crystal icon http://www.everaldo.com/crystal/"
 
 #. Tag: emphasis
-#: help_en.docbook:4393
+#: help_en.docbook:4663
 #, no-c-format
 msgid "Jaroslav Kysela"
 msgstr "Jaroslav Kysela"
 
 #. Tag: para
-#: help_en.docbook:4395
+#: help_en.docbook:4665
 #, no-c-format
 msgid "parts of plugins/playback/PlayBack-ALSA.cpp"
 msgstr "partes de plugins/playback/PlayBack-ALSA.cpp"
 
 #. Tag: emphasis
-#: help_en.docbook:4400
+#: help_en.docbook:4670
 #, no-c-format
 msgid "Jeff Tranter"
 msgstr "Jeff Tranter"
 
 #. Tag: para
-#: help_en.docbook:4402 help_en.docbook:4477
+#: help_en.docbook:4672 help_en.docbook:4747
 #, no-c-format
 msgid "parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}"
 msgstr "partes de plugins/pitch_shift/PitchShiftFilter.{h,cpp}"
 
 #. Tag: emphasis
-#: help_en.docbook:4407
+#: help_en.docbook:4677
 #, no-c-format
 msgid "Juhana Sadeharju <email>kouhia@nic.funet.fi</email>"
 msgstr "Juhana Sadeharju <email>kouhia@nic.funet.fi</email>"
 
 #. Tag: para
-#: help_en.docbook:4409
+#: help_en.docbook:4679
 #, no-c-format
 msgid ""
 "plugins/band_pass/BandPass.{h,cpp}, plugins/lowpass/LowPassFilter.cpp, "
@@ -6247,25 +6700,25 @@ msgstr ""
 "plugins/notch_filter/NotchFilter.{h,cpp}"
 
 #. Tag: emphasis
-#: help_en.docbook:4416
+#: help_en.docbook:4686
 #, no-c-format
 msgid "Kurt Roeck <email>Q@ping.be</email>"
 msgstr "Kurt Roeck <email>Q@ping.be</email>"
 
 #. Tag: para
-#: help_en.docbook:4418
+#: help_en.docbook:4688
 #, no-c-format
 msgid "svn r1370, fix for debian bug#288781, compilation for amd64"
 msgstr "svn r1370, solución para debian bug#288781, compilación para amd64"
 
 #. Tag: emphasis
-#: help_en.docbook:4423
+#: help_en.docbook:4693
 #, no-c-format
 msgid "Mark Donohoe (KDE) <email>donohoe@kde.org</email>"
 msgstr "Mark Donohoe (KDE) <email>donohoe@kde.org</email>"
 
 #. Tag: para
-#: help_en.docbook:4425
+#: help_en.docbook:4695
 #, no-c-format
 msgid "some icons and bitmaps for toolbar and GUI"
 msgstr ""
@@ -6273,43 +6726,43 @@ msgstr ""
 "gŕafica."
 
 #. Tag: emphasis
-#: help_en.docbook:4430
+#: help_en.docbook:4700
 #, no-c-format
 msgid "Martin Hinsch <email>vidas@sourceforge.net</email>"
 msgstr "Martin Hinsch <email>vidas@sourceforge.net</email>"
 
 #. Tag: para
-#: help_en.docbook:4432
+#: help_en.docbook:4702
 #, no-c-format
 msgid "Matrix class"
 msgstr "Clase matrix"
 
 #. Tag: emphasis
-#: help_en.docbook:4437
+#: help_en.docbook:4707
 #, no-c-format
 msgid "Matthias Kretz <email>kretz@kde.org</email>"
 msgstr "Matthias Kretz <email>kretz@kde.org</email>"
 
 #. Tag: emphasis
-#: help_en.docbook:4444
+#: help_en.docbook:4714
 #, no-c-format
 msgid "Miguel Freitas"
 msgstr "Miguel Freitas"
 
 #. Tag: para
-#: help_en.docbook:4446
+#: help_en.docbook:4716
 #, no-c-format
 msgid "parts of libkwave/memcpy.c"
 msgstr "partes de libkwave/memcpy.c"
 
 #. Tag: emphasis
-#: help_en.docbook:4451
+#: help_en.docbook:4721
 #, no-c-format
 msgid "Paul Mackerras <email>paulus@samba.org</email>"
 msgstr "Paul Mackerras <email>paulus@samba.org</email>"
 
 #. Tag: para
-#: help_en.docbook:4453
+#: help_en.docbook:4723
 #, no-c-format
 msgid ""
 "libkwave/ppcasm_string.h, libkwave/ppcasm_string.S, libkwave/ppc_asm.tmpl"
@@ -6317,123 +6770,123 @@ msgstr ""
 "libkwave/ppcasm_string.h, libkwave/ppcasm_string.S, libkwave/ppc_asm.tmpl"
 
 #. Tag: emphasis
-#: help_en.docbook:4460
+#: help_en.docbook:4730
 #, no-c-format
 msgid "Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>"
 msgstr "Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>"
 
 #. Tag: para
-#: help_en.docbook:4462
+#: help_en.docbook:4732
 #, no-c-format
 msgid "cmake/FindOggVorbis.cmake"
 msgstr "cmake/FindOggVorbis.cmake"
 
 #. Tag: emphasis
-#: help_en.docbook:4467
+#: help_en.docbook:4737
 #, no-c-format
 msgid "Rik Hemsley <email>rik@kde.org</email>"
 msgstr "Rik Hemsley <email>rik@kde.org</email>"
 
 #. Tag: ulink
-#: help_en.docbook:4471
+#: help_en.docbook:4741
 #, no-c-format
 msgid "level meter"
 msgstr "Medidor de señal"
 
 #. Tag: emphasis
-#: help_en.docbook:4475
+#: help_en.docbook:4745
 #, no-c-format
 msgid "Stefan Westerfeld <email>stefan@space.twc.de</email>"
 msgstr "Stefan Westerfeld <email>stefan@space.twc.de</email>"
 
 #. Tag: emphasis
-#: help_en.docbook:4482
+#: help_en.docbook:4752
 #, no-c-format
 msgid "Joerg-Christian Boehme <email>joerg@chaosdorf.de</email>"
 msgstr "Joerg-Christian Boehme <email>joerg@chaosdorf.de</email>"
 
 #. Tag: para
-#: help_en.docbook:4484
+#: help_en.docbook:4754
 #, no-c-format
 msgid "plugins/record/Record-PulseAudio.cpp plugins/record/Record-PulseAudio.h"
 msgstr ""
 "plugins/record/Record-PulseAudio.cpp plugins/record/Record-PulseAudio.h"
 
 #. Tag: title
-#: help_en.docbook:4493
+#: help_en.docbook:4763
 #, no-c-format
 msgid "Thanks To"
 msgstr "Gracias a"
 
 #. Tag: emphasis
-#: help_en.docbook:4497
+#: help_en.docbook:4767
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email>"
 msgstr "Martin Kuball <email>makube@user.sourceforge.net</email>"
 
 #. Tag: para
-#: help_en.docbook:4500
+#: help_en.docbook:4770
 #, no-c-format
 msgid "beta tester"
 msgstr ""
 
 #. Tag: emphasis
-#: help_en.docbook:4505
+#: help_en.docbook:4775
 #, no-c-format
 msgid "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
 msgstr "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:4508
+#: help_en.docbook:4778
 #, no-c-format
 msgid "packaging for SuSE Linux"
 msgstr "empaquetador para SUSE Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:4513
+#: help_en.docbook:4783
 #, no-c-format
 msgid "Michael Favreau <email>michel.favreau@free.fr</email>"
 msgstr "Michael Favreau <email>michel.favreau@free.fr</email>"
 
 #. Tag: para
-#: help_en.docbook:4516
+#: help_en.docbook:4786
 #, no-c-format
 msgid "packaging for Arch Linux"
 msgstr "empaquetador para Arch Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:4522
+#: help_en.docbook:4792
 #, no-c-format
 msgid "Matthias Düsterhöft <email>duesti@gmx.de</email>"
 msgstr "Matthias Düsterhöft <email>duesti@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:4525
+#: help_en.docbook:4795
 #, no-c-format
 msgid "for information about RPM optimization"
 msgstr "por la información sobre optimización en RPM"
 
 #. Tag: emphasis
-#: help_en.docbook:4530
+#: help_en.docbook:4800
 #, no-c-format
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:4532
+#: help_en.docbook:4802
 #, no-c-format
 msgid "maintainers of the <ulink url=\"&url_id3lib;\"> id3lib</ulink> library"
 msgstr ""
 "responsables de la biblioteca <ulink url=\"&url_id3lib;\"> id3lib</ulink>"
 
 #. Tag: emphasis
-#: help_en.docbook:4538
+#: help_en.docbook:4808
 #, no-c-format
 msgid "Robert Leslie <email>rob@mars.org</email>"
 msgstr "Robert Leslie <email>rob@mars.org</email>"
 
 #. Tag: para
-#: help_en.docbook:4541
+#: help_en.docbook:4811
 #, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libmad;\">mad</ulink> mp3 decoder library"
@@ -6442,37 +6895,37 @@ msgstr ""
 "de decodificar MP3"
 
 #. Tag: emphasis
-#: help_en.docbook:4548
+#: help_en.docbook:4818
 #, no-c-format
 msgid "Robert M. Stockmann <email>stock@stokkie.net</email>"
 msgstr "Robert M. Stockmann <email>stock@stokkie.net</email>"
 
 #. Tag: para
-#: help_en.docbook:4551
+#: help_en.docbook:4821
 #, no-c-format
 msgid "packaging for Mandrake / X86_64"
 msgstr "empaquetador para Mandrake/X86_64"
 
 #. Tag: emphasis
-#: help_en.docbook:4556
+#: help_en.docbook:4826
 #, no-c-format
 msgid "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
 msgstr "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
 
 #. Tag: para
-#: help_en.docbook:4559
+#: help_en.docbook:4829
 #, no-c-format
 msgid "author of the <ulink url=\"&url_libsndfile;\">sndfile</ulink> library"
 msgstr "autor de la biblioteca <ulink url=\"&url_libsndfile;\">sndfile</ulink>"
 
 #. Tag: emphasis
-#: help_en.docbook:4566
+#: help_en.docbook:4836
 #, no-c-format
 msgid "Michael Pruett <email>mpruett@sgi.com</email>"
 msgstr "Michael Pruett <email>mpruett@sgi.com</email>"
 
 #. Tag: para
-#: help_en.docbook:4569
+#: help_en.docbook:4839
 #, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libaudiofile;\">audiofile</ulink> library"
@@ -6480,32 +6933,32 @@ msgstr ""
 "autor de la biblioteca  <ulink url=\"&url_libaudiofile;\">audiofile</ulink>"
 
 #. Tag: title
-#: help_en.docbook:4604
+#: help_en.docbook:4874
 #, no-c-format
 msgid "File Info"
 msgstr "Información del archivo"
 
 #. Tag: title
-#: help_en.docbook:4605
+#: help_en.docbook:4875
 #, fuzzy, no-c-format
 msgid "List of File Info Identifiers"
 msgstr "Lista de archivos de audio"
 
 #. Tag: entry
-#: help_en.docbook:4610
+#: help_en.docbook:4880
 #, fuzzy, no-c-format
 msgid "Keyword"
 msgstr "Palabras clave"
 
 #. Tag: entry
-#: help_en.docbook:4610
+#: help_en.docbook:4880
 #, fuzzy, no-c-format
 msgid "Description"
 msgstr "Descripción:"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4614 help_en.docbook:4615
+#: help_en.docbook:4884 help_en.docbook:4885
 #, fuzzy, no-c-format
 msgid ""
 "Name of the album if the source is an album that consist of more medias."
@@ -6515,7 +6968,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4621 help_en.docbook:4622 help_en.docbook:4700
+#: help_en.docbook:4891 help_en.docbook:4892 help_en.docbook:4970
 #, fuzzy, no-c-format
 msgid ""
 "Provides general comments about the file or the subject of the file. If the "
@@ -6528,14 +6981,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4630 help_en.docbook:4631
+#: help_en.docbook:4900 help_en.docbook:4901
 #, no-c-format
 msgid "Indicates where the subject of the file is archived."
 msgstr "Indica donde es archivado el sujeto del archivo."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4636 help_en.docbook:4637
+#: help_en.docbook:4906 help_en.docbook:4907
 #, fuzzy, no-c-format
 msgid ""
 "Identifies the name of the author of the original subject of the file. "
@@ -6546,63 +6999,63 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4644 help_en.docbook:4645
+#: help_en.docbook:4914 help_en.docbook:4915
 #, no-c-format
 msgid "Specifies the lower limit in a VBR bitstream."
 msgstr "Especifica el límite mínimo en un flujo VBR."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4650 help_en.docbook:4651
+#: help_en.docbook:4920 help_en.docbook:4921
 #, no-c-format
 msgid "Bitrate Mode (ABR, VBR, CBR, etc...)"
 msgstr "Tasa de bits (ABR, VBR, CBR, etc...)"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4656 help_en.docbook:4657
+#: help_en.docbook:4926 help_en.docbook:4927
 #, no-c-format
 msgid "Nominal bitrate of the audio stream in bits per second"
 msgstr "Tasa de bits nominal del flujo de audio en bits por segundo"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4662 help_en.docbook:4663
+#: help_en.docbook:4932 help_en.docbook:4933
 #, no-c-format
 msgid "Specifies the upper limit in a VBR bitstream."
 msgstr "Especifica el límite superior en un flujo VBR"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4668 help_en.docbook:4669
+#: help_en.docbook:4938 help_en.docbook:4939
 #, no-c-format
 msgid "Specifies the number of bits per sample."
 msgstr "Especifica el numero de bits por muestra"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4674 help_en.docbook:4675
+#: help_en.docbook:4944 help_en.docbook:4945
 #, no-c-format
 msgid "Number of the CD, if the source is an album of more CDROMs"
 msgstr "Número de CD, si la fuente es un álbum de más de un CD."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4680 help_en.docbook:4681
+#: help_en.docbook:4950 help_en.docbook:4951
 #, no-c-format
 msgid "Number of CDs, if the source is an album of more CDROMs"
 msgstr "Número de CDs, si la fuente es un álbum de más de un CD."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4686 help_en.docbook:4687
+#: help_en.docbook:4956 help_en.docbook:4957
 #, no-c-format
 msgid "Specifies the number of channels of the signal."
 msgstr "Especifica el número de canales de la señal."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4692 help_en.docbook:4693
+#: help_en.docbook:4962 help_en.docbook:4963
 #, fuzzy, no-c-format
 msgid ""
 "Lists the name of the person or organization that commissioned the subject "
@@ -6614,7 +7067,7 @@ msgstr ""
 #. Tag: entry
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4699 help_en.docbook:4708 help_en.docbook:4709
+#: help_en.docbook:4969 help_en.docbook:4978 help_en.docbook:4979
 #, fuzzy, no-c-format
 msgid "Sets a mode for compressing the audio data to reduce disk space."
 msgstr ""
@@ -6623,7 +7076,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4715 help_en.docbook:4716
+#: help_en.docbook:4985 help_en.docbook:4986
 #, fuzzy, no-c-format
 msgid ""
 "Contact information for the creators or distributors of the track. This "
@@ -6636,7 +7089,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4723 help_en.docbook:4724
+#: help_en.docbook:4993 help_en.docbook:4994
 #, fuzzy, no-c-format
 msgid ""
 "Records the copyright information for the file. If there are multiple "
@@ -6650,14 +7103,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4732 help_en.docbook:4733
+#: help_en.docbook:5002 help_en.docbook:5003
 #, no-c-format
 msgid "Indicates whether the file is protected by copyright or not."
 msgstr "Indica si el archivo está sujeto a derechos de autor o no."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4738 help_en.docbook:4739
+#: help_en.docbook:5008 help_en.docbook:5009
 #, fuzzy, no-c-format
 msgid ""
 "Specifies the date the subject of the file was created. Example: '2001-12-24'"
@@ -6667,7 +7120,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4745 help_en.docbook:4746
+#: help_en.docbook:5015 help_en.docbook:5016
 #, fuzzy, no-c-format
 msgid ""
 "Shows the name of the engineer who worked on the file. If there are multiple "
@@ -6679,28 +7132,28 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4753 help_en.docbook:4754
+#: help_en.docbook:5023 help_en.docbook:5024
 #, no-c-format
 msgid "Estimated length of the file in samples"
 msgstr "Duración estimada del archivo en muestras"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4759 help_en.docbook:4760
+#: help_en.docbook:5029 help_en.docbook:5030
 #, no-c-format
 msgid "Name of the opened file"
 msgstr "Nombre del archivo abierto"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4765 help_en.docbook:4766
+#: help_en.docbook:5035 help_en.docbook:5036
 #, no-c-format
 msgid "Size of the file in bytes"
 msgstr "Tamaño del archivo en bytes"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4771 help_en.docbook:4772
+#: help_en.docbook:5041 help_en.docbook:5042
 #, fuzzy, no-c-format
 msgid ""
 "Describes the genre or style of the original work. Examples: 'classic', 'pop'"
@@ -6710,7 +7163,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4778 help_en.docbook:4779
+#: help_en.docbook:5048 help_en.docbook:5049
 #, fuzzy, no-c-format
 msgid ""
 "ISRC number for the track; see the ISRC intro page for more information on "
@@ -6722,7 +7175,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4786 help_en.docbook:4787
+#: help_en.docbook:5056 help_en.docbook:5057
 #, fuzzy, no-c-format
 msgid ""
 "Provides a list of keywords that refer to the file or subject of the file."
@@ -6732,21 +7185,21 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4793 help_en.docbook:4794
+#: help_en.docbook:5063 help_en.docbook:5064
 #, no-c-format
 msgid "The list of labels/markers."
 msgstr "La lista de etiquetas/marcadores."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4799 help_en.docbook:4800
+#: help_en.docbook:5069 help_en.docbook:5070
 #, no-c-format
 msgid "Length of the file in samples."
 msgstr "Duración del archivo en muestras"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4805 help_en.docbook:4806
+#: help_en.docbook:5075 help_en.docbook:5076
 #, fuzzy, no-c-format
 msgid ""
 "License information, e.g., 'All Rights Reserved', 'Any Use Permitted', an "
@@ -6763,7 +7216,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4816 help_en.docbook:4817
+#: help_en.docbook:5086 help_en.docbook:5087
 #, fuzzy, no-c-format
 msgid ""
 "Describes the original subject of the file, where it was first recorded. "
@@ -6775,42 +7228,42 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4824 help_en.docbook:4825
+#: help_en.docbook:5094 help_en.docbook:5095
 #, no-c-format
 msgid "Mime type of the file format"
 msgstr "Tipo MIME del formato de archivo"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4830 help_en.docbook:4831
+#: help_en.docbook:5100 help_en.docbook:5101
 #, no-c-format
 msgid "Audio emphasis mode"
 msgstr "Tipo de énfasis del audio"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4836 help_en.docbook:4837
+#: help_en.docbook:5106 help_en.docbook:5107
 #, no-c-format
 msgid "MPEG Layer, I, II or III"
 msgstr "MPEG capa I, II o III"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4842 help_en.docbook:4843
+#: help_en.docbook:5112 help_en.docbook:5113
 #, no-c-format
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "MPEG Mode de extensión (sólo con estéreo conjunto)"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4848 help_en.docbook:4972 help_en.docbook:4849
+#: help_en.docbook:5118 help_en.docbook:5242 help_en.docbook:5119
 #, no-c-format
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr "MPEG Versión, 1, 2, o 2.5"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4854 help_en.docbook:4855
+#: help_en.docbook:5124 help_en.docbook:5125
 #, fuzzy, no-c-format
 msgid ""
 "Stores the title of the subject of the file. Example: \"Symphony No.6, Op.68 "
@@ -6821,7 +7274,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4861 help_en.docbook:4862
+#: help_en.docbook:5131 help_en.docbook:5132
 #, no-c-format
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
@@ -6830,7 +7283,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4867 help_en.docbook:4868
+#: help_en.docbook:5137 help_en.docbook:5138
 #, fuzzy, no-c-format
 msgid "Name of the organization producing the track (i.e. the 'record label')"
 msgstr ""
@@ -6839,14 +7292,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4874 help_en.docbook:4875
+#: help_en.docbook:5144 help_en.docbook:5145
 #, no-c-format
 msgid "Indicates whether the file is an original or a copy"
 msgstr "Indica si el archivo es un original o una copia"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4880 help_en.docbook:4881
+#: help_en.docbook:5150 help_en.docbook:5151
 #, fuzzy, no-c-format
 msgid ""
 "The artist(s) who performed the work. In classical music this would be the "
@@ -6859,14 +7312,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4888 help_en.docbook:4889
+#: help_en.docbook:5158 help_en.docbook:5159
 #, no-c-format
 msgid "Indicates whether the subject is private"
 msgstr "Indica si el tema es privado"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4894 help_en.docbook:4895
+#: help_en.docbook:5164 help_en.docbook:5165
 #, fuzzy, no-c-format
 msgid ""
 "Specifies the name or the title the file was originally intended for. "
@@ -6878,7 +7331,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4902 help_en.docbook:4903
+#: help_en.docbook:5172 help_en.docbook:5173
 #, fuzzy, no-c-format
 msgid ""
 "Format used for storing the digitized audio samples. Example: '32-bit IEEE "
@@ -6889,14 +7342,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4909 help_en.docbook:4910
+#: help_en.docbook:5179 help_en.docbook:5180
 #, fuzzy, no-c-format
 msgid "Number of samples per second"
 msgstr "Número de muestras por segundo\n"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4916 help_en.docbook:4917
+#: help_en.docbook:5186 help_en.docbook:5187
 #, fuzzy, no-c-format
 msgid ""
 "Identifies the name of the software package used to create the file. "
@@ -6908,7 +7361,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4924 help_en.docbook:4925
+#: help_en.docbook:5194 help_en.docbook:5195
 #, fuzzy, no-c-format
 msgid ""
 "Identifies the name of the person or organization who supplied the original "
@@ -6920,7 +7373,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4932 help_en.docbook:4933
+#: help_en.docbook:5202 help_en.docbook:5203
 #, fuzzy, no-c-format
 msgid ""
 "Identifies the original form of the material that was digitized. Examples: "
@@ -6932,7 +7385,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4940 help_en.docbook:4941
+#: help_en.docbook:5210 help_en.docbook:5211
 #, fuzzy, no-c-format
 msgid ""
 "Describes the subject of the file. Example: 'Bird voices at early morning'"
@@ -6942,7 +7395,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4947 help_en.docbook:4948
+#: help_en.docbook:5217 help_en.docbook:5218
 #, fuzzy, no-c-format
 msgid ""
 "Identifies the technican who digitized the subject file. Example: 'Torvalds, "
@@ -6953,27 +7406,27 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4954 help_en.docbook:4955
+#: help_en.docbook:5224 help_en.docbook:5225
 #, no-c-format
 msgid "Track of the CD if the source was a CDROM."
 msgstr "Pista del CD si la fuente era un CDROM."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4960 help_en.docbook:4961
+#: help_en.docbook:5230 help_en.docbook:5231
 #, no-c-format
 msgid "Number of tracks of the CD if the source was a CDROM."
 msgstr "Número de pistas del CD si la fuente era un CDROM."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:4966 help_en.docbook:4967
+#: help_en.docbook:5236 help_en.docbook:5237
 #, no-c-format
 msgid "Base quality of the compression in VBR mode"
 msgstr "Calidad base de la compresión en modo VBR"
 
 #. Tag: entry
-#: help_en.docbook:4973
+#: help_en.docbook:5243
 #, fuzzy, no-c-format
 msgid ""
 "May be used to differentiate multiple versions of the same track title in a "
@@ -6982,3 +7435,55 @@ msgstr ""
 "Podría ser utilizada para diferenciar múltiples versiones\n"
 "de la misma pista en una colección.\n"
 "(por ejemplo, información de un remix)"
+
+#, fuzzy
+#~ msgid "<command>#checkable</command>:"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "<command>#disabled</command>:"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "<command>#enabled</command>:"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "<command>@CLIPBOARD</command>:"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "<command>@LABELS</command>:"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "<command>@NOT_CLOSED</command>:"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "<command>@SELECTION</command>:"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "<command>@SIGNAL</command>:"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "<command>#hidden</command>:"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "<command>#separator</command>:"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "<parameter>#disabled</parameter>:"
+#~ msgstr "<para>Formato con signo</para>"
+
+#, fuzzy
+#~ msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_menu;</command>()"
+#~ msgstr "clipboard_flush"
+
+#, fuzzy
+#~ msgid "paste()"
+#~ msgstr "Pegar"

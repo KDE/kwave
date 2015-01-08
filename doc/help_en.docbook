@@ -3088,20 +3088,19 @@
 	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ add_track(index) -->
+	<!-- @COMMAND@ add_track() -->
 	<sect2 id="cmd_sect_add_track"><title id="cmd_title_add_track">&no-i18n-cmd_add_track;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_add_track;</command>(<replaceable>index</replaceable>)</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_add_track;</command>()</title>
 	    <para>
-		Adds a new track at the given index, using the current length and sample rate
-		settings of the signal. If there are index is higher than or equal to the current number
-		of tracks, it will be appended as the last track. The index of all existing tracks at
-		and after the given position will be incremented by one.
+		Adds a new track after all existing tracks.
 	    </para>
 	</simplesect>
-	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
-	    <row><entry><parameter>index</parameter>:</entry><entry>index of the track to insert, starting with 0</entry></row>
-	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_insert_track"><command>&no-i18n-cmd_insert_track;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
@@ -3285,72 +3284,343 @@
 	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ forward(TODO) -->
+	<!-- @COMMAND@ forward() -->
 	<sect2 id="cmd_sect_forward"><title id="cmd_title_forward">&no-i18n-cmd_forward;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_forward;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Forward</guibutton> toolbar
+		button. If the playback is currently running, it skips forward
+		by 1/10 of the visible range. If the playback is not running,
+		this does the same as the command
+		<command>&no-i18n-cmd_view_scroll_right;</command>.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_right"><command>&no-i18n-cmd_view_scroll_right;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
     <sect1 id="commands_g"><title>&no-i18n-tag;g</title>
 
-	<!-- @COMMAND@ goto(TODO) -->
+	<!-- @COMMAND@ goto() -->
 	<sect2 id="cmd_sect_goto"><title id="cmd_title_goto">&no-i18n-cmd_goto;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_goto;</command>(<replaceable>pos</replaceable>)</title>
+	    <para>
+		Sets the cursor to the given position and makes it visible in
+		current view. After this the selection has zero length.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>pos</parameter>:</entry><entry>position in samples where to go to</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
     </sect1>
 
     <sect1 id="commands_i"><title>&no-i18n-tag;i</title>
 
-	<!-- @COMMAND@ insert_at(TODO) -->
+	<!-- @COMMAND@ insert_at(pos) -->
 	<sect2 id="cmd_sect_insert_at"><title id="cmd_title_insert_at">&no-i18n-cmd_insert_at;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_insert_at;</command>(<replaceable>pos</replaceable>)</title>
+	    <para>
+		Inserts the content of the clipboard at the given position,
+		like the command <command>&no-i18n-cmd_paste;()</command>().
+		If the clipboard is currently empty, this function does nothing.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>pos</parameter>:</entry><entry>position in samples where to insert</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title>See also</title>
+	    <para><link linkend="cmd_sect_paste"><command>&no-i18n-cmd_paste;</command>()</link></para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ insert_track(TODO) -->
+	<!-- @COMMAND@ insert_track(index) -->
 	<sect2 id="cmd_sect_insert_track"><title id="cmd_title_insert_track">&no-i18n-cmd_insert_track;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_insert_track;</command>(<replaceable>index</replaceable>)</title>
+	    <para>
+		Inserts a new track at the given index, using the current length
+		and sample rate settings of the signal. If the index is
+		higher than or equal to the current number of tracks, it will
+		be appended as the last track, same as by the command
+		<command>&no-i18n-cmd_add_track;()</command>.
+		The index of all existing tracks at and after the given
+		index will be incremented by one.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>index</parameter>:</entry><entry>index of the track to insert, starting with 0</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_add_track"><command>&no-i18n-cmd_add_track;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
     <sect1 id="commands_l"><title>&no-i18n-tag;l</title>
 
-	<!-- @COMMAND@ loadbatch(TODO) -->
+	<!-- @COMMAND@ loadbatch(filename) -->
 	<sect2 id="cmd_sect_loadbatch"><title id="cmd_title_loadbatch">&no-i18n-cmd_loadbatch;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_loadbatch;</command>(<replaceable>filename</replaceable>)</title>
+	    <para>
+		Opens a &kwave; script file and processes the commands in it.
+		Uses the context of the currently opened file or the current
+		main window if no file is loaded.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>filename</parameter>:</entry>
+		<entry>name of the kwave script file including path and extension</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ loop(TODO) -->
+	<!-- @COMMAND@ loop() -->
 	<sect2 id="cmd_sect_loop"><title id="cmd_title_loop">&no-i18n-cmd_loop;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_loop;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Loop</guibutton> toolbar
+		button. Starts the playback (if it is not already running) and
+		lets it play in a loop.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_playback_start"><command>&no-i18n-cmd_playback_start;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
     <sect1 id="commands_m"><title>&no-i18n-tag;m</title>
 
-	<!-- @COMMAND@ menu(TODO) -->
+	<!-- @COMMAND@ menu(command,path,hotkey,id) -->
 	<sect2 id="cmd_sect_menu"><title id="cmd_title_menu">&no-i18n-cmd_menu;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_menu;</command>
+		(<replaceable>command</replaceable>,
+		 <replaceable>path</replaceable>,
+		 [<replaceable>hotkey</replaceable>],
+		 [<replaceable>id</replaceable>])
+	    </title>
+	    <para>
+		This is a very powerful command, which is used to add a new
+		entry to the menu or to modify an existing entry. It determines
+		which <emphasis>command</emphasis> is executed when the menu
+		entry is activated, which <emphasis>icon</emphasis> is shown
+		in the menu and which <emphasis>hotkey</emphasis> is used.
+		Each menu entry can be <emphasis>disabled</emphasis> or
+		<emphasis>hidden</emphasis>, can be assigned
+		a unique <emphasis>id</emphasis> and can also join
+		a <emphasis>menu group</emphasis>.
+	    </para>
+	    <para>
+		You normally do not need this command within a &kwave; script!
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row valign="top">
+		<entry><parameter>command</parameter>:</entry>
+		<entry>
+		    A text command (including parameters) or a command list
+		    that will be executed when the menu entry gets activated.
+		    If a menu entry does not have a corresponding command
+		    (for example if it is a sub menu and not menu entry),
+		    you should use the special
+		    command <command>ignore()</command>.
+		</entry>
+	    </row>
+	    <row valign="top">
+		<entry><parameter>path</parameter>:</entry>
+		<entry>
+		    The path within the menu, using a <quote><token>/</token></quote>
+		    as separator. The last part of the path can be a <emphasis>sub
+		    command</emphasis> which modifies some property of the menu
+		    entry (see <link linkend="menu_sub_commands">below</link>).
+		    The last portion of the path (that is not a sub
+		    command) produces a menu entry, the parts before produce
+		    the main menu entry or sub menus that lead to it.
+		    Main menu entries or sub menus are automatically created
+		    when a menu entry is created, you do not need them manually.
+		</entry>
+	    </row>
+	    <row valign="top">
+		<entry><parameter>hotkey</parameter>:</entry>
+		<entry>
+		    A bitmask that consists of a combination of predefined
+		    <emphasis>keys</emphasis> and <emphasis>modifiers</emphasis>,
+		    concatenated with a <quote><token>+</token></quote>.
+		    The <emphasis>key</emphasis> can be either a digit, an
+		    upper case letter, a function
+		    key (<quote>F1</quote> ... <quote>F12</quote>) or any other
+		    key name understood by the Qt class
+		    <quote><literal>QKeySequence</literal></quote>,including
+		    key names for predefined actions (like for example
+		    <quote><literal>::Copy</literal></quote>).
+		    Typical <emphasis>modifiers</emphasis> are
+		    <quote><literal>SHIFT</literal></quote>,
+		    <quote><literal>ALT</literal></quote> and
+		    <quote><literal>CTRL</literal></quote>.
+		</entry>
+	    </row>
+	    <row valign="top">
+		<entry><parameter>id</parameter>:</entry>
+		<entry>
+		    A unique id that can be internally used to identify this
+		    menu entry or menu / sub menu. Only uppercase letters, digits
+		    and <quote><literal>_</literal></quote> should be used and
+		    it should start with <quote><literal>ID_</literal></quote>.
+		    It is in your own responsibility to make sure that the same
+		    id is not used twice.
+		</entry>
+	    </row>
+	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title id="menu_sub_commands">Sub Commands</title>
+	    <informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row valign="top"><entry><command>&no-i18n-tag;#checkable</command>:</entry>
+		<entry>
+		    Makes a menu entry <emphasis>checkable</emphasis>, so that
+		    it can be switched on or off.
+		</entry>
+	    </row>
+	    <row valign="top"><entry><command>&no-i18n-tag;#disabled</command>:</entry>
+		<entry>
+		    Lets the menu entry or menu/sub menu be
+		    <emphasis>disabled</emphasis>.
+		</entry>
+	    </row>
+	    <row valign="top"><entry><command>&no-i18n-tag;#enabled</command>:</entry>
+		<entry>
+		    Makes a menu entry or menu/sub menu that has been previously
+		    disabled <emphasis>enabled</emphasis> again.
+		</entry>
+	    </row>
+	    <row valign="top"><entry><command>#exclusive</command>(<replaceable>group</replaceable>):</entry>
+		<entry>
+		    Makes a menu entry be part of an <emphasis>exclusive</emphasis>
+		    <emphasis><replaceable>group</replaceable></emphasis> (one
+		    of many selection). The group that is given as parameter
+		    should not be used for any other purpose. Only one entry
+		    within that group can be selected at a time.
+		</entry>
+	    </row>
+	    <row valign="top"><entry><command>#group</command>(<replaceable>list</replaceable>):</entry>
+		<entry><para>
+		    Adds the menu entry or menu/sub menu to one or more
+		    a <emphasis>groups</emphasis>, so that the application can
+		    enable/disable a bunch of menu entries without need to know
+		    all their unique ids. Multiple groups can be passed as a
+		    list with a <quote><literal>,</literal></quote> as
+		    separator. Group names have to start
+		    with a <quote><literal>@</literal></quote>.
+		    The following groups predefined:
+		    <informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row valign="top">
+			<entry><command>&no-i18n-tag;@CLIPBOARD</command>:</entry>
+			<entry>
+			    Only enabled when the clipboard is not empty.
+			</entry>
+		    </row>
+		    <row valign="top">
+			<entry><command>&no-i18n-tag;@LABELS</command>:</entry>
+			<entry>Only enabled when the current signal contains
+			    at least one label.
+			</entry>
+		    </row>
+		    <row valign="top">
+			<entry><command>&no-i18n-tag;@NOT_CLOSED</command>:</entry>
+			<entry>
+			    Enabled when the current signal is not closed
+			    (the signal might be empty or zero length).
+			</entry>
+		    </row>
+		    <row valign="top">
+			<entry><command>&no-i18n-tag;@SELECTION</command>:</entry>
+			<entry>
+			    Enabled when the selection is not empty (more than
+			    one sample is selected).
+			</entry>
+		    </row>
+		    <row valign="top">
+			<entry><command>&no-i18n-tag;@SIGNAL</command>:</entry>
+			<entry>
+			    Enabled when there is some signal loaded and it
+			    is not empty or zero length.
+			</entry>
+		    </row>
+		    </tbody></tgroup></informaltable>
+		</para></entry>
+	    </row>
+	    <row valign="top"><entry><command>&no-i18n-tag;#hidden</command>:</entry>
+		<entry>
+		    <emphasis>Hides</emphasis> the menu entry or menu/sub menu.
+		</entry></row>
+	    <row valign="top"><entry><command>#icon</command>(<replaceable>name</replaceable>):</entry>
+		<entry>
+		    Assigns an <emphasis>icon</emphasis> to a menu entry. The
+		    icon <emphasis><replaceable>name</replaceable></emphasis>
+		    should correspond to an icon file (without
+		    path and file extension) that is installed with KDE or
+		    with &kwave;.
+		</entry>
+	    </row>
+	    <row valign="top"><entry><command>#listmenu</command>(<replaceable>id</replaceable>,<replaceable>command</replaceable>):</entry>
+		<entry>
+		    Inserts a placeholder for a list of menu entries into a
+		    sub menu.
+		    The unique <emphasis><replaceable>id</replaceable></emphasis>
+		    specified in this sub command is used
+		    to add/remove or clear the list of menu entries.
+		    The <emphasis><replaceable>command</replaceable></emphasis>
+		    parameter has to contain <quote><literal>%1</literal></quote>
+		    as parameter, which will be replaced with the text of the
+		    menu entry when it is activated.
+		    (This sub command is internally used for the list of
+		    recent files, list of tracks and window list).
+		</entry>
+	    </row>
+	    <row valign="top"><entry><command>&no-i18n-tag;#separator</command>:</entry>
+		<entry>
+		    Inserts a separator into a sub menu.
+		</entry>
+	    </row>
+	</tbody></tgroup></informaltable>
+	</simplesect>
+
 	</sect2>
 
-	<!-- @COMMAND@ msgbox(TODO) -->
+	<!-- @COMMAND@ msgbox(text) -->
 	<sect2 id="cmd_sect_msgbox"><title id="cmd_title_msgbox">&no-i18n-cmd_msgbox;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_msgbox;</command>(<replaceable>text</replaceable>)</title>
+	    <para>
+		Shows a message box with some <emphasis><replaceable>text</replaceable></emphasis>
+		and the two buttons <quote><guibutton>OK</guibutton></quote>
+		(returns without error code) and
+		<quote><guibutton>Cancel</guibutton></quote> (returns and error
+		code). You can use this command to give the user a possibility
+		to abort a running script.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>text</parameter>:</entry>
+		<entry>A message that will be shown in the message box, should
+		    contain a question that can be answered with <quote>OK</quote>
+		    or <quote>Cancel</quote>
+		</entry>
+	    </row>
+	</tbody></tgroup></informaltable></simplesect>
+
 	</sect2>
     </sect1>
 

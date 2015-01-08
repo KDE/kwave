@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-06 22:16+0100\n"
+"POT-Creation-Date: 2015-01-08 21:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,196 +134,57 @@ msgstr ""
 msgid "Startup done"
 msgstr ""
 
-#: kwave/main.cpp:43
-msgid "Thomas Eschenbacher"
+#: kwave/FileContext.cpp:201
+msgid "Scanning plugins..."
 msgstr ""
 
-#: kwave/main.cpp:44
-msgid "Project leader since 2000, core development"
+#: kwave/FileContext.cpp:213 kwave/FileContext.cpp:214
+msgid "Loading plugins..."
 msgstr ""
 
-#: kwave/main.cpp:47
-msgid "Martin Wilz"
+#: kwave/FileContext.cpp:216
+msgid "Ready"
 msgstr ""
 
-#: kwave/main.cpp:48
-msgid "Creator of the project, development 1998-2000"
+#: kwave/FileContext.cpp:438
+#, kde-format
+msgid "Playback: %1"
 msgstr ""
 
-#: kwave/main.cpp:51
-msgid "Ralf Waspe"
+#: kwave/FileContext.cpp:440
+#, kde-format
+msgid "Playback: %1 samples"
 msgstr ""
 
-#: kwave/main.cpp:52
-msgid "Creator of the Help/About dialog"
+#: kwave/FileContext.cpp:730
+#, kde-format
+msgctxt ""
+"for window title: %1 = Name of the file, %2 = Instance number when opened "
+"multiple times"
+msgid "%1 <%2>"
 msgstr ""
 
-#: kwave/main.cpp:55
-msgid "Caulier Gilles"
+#: kwave/FileContext.cpp:736
+#, kde-format
+msgctxt "%1 = Path to modified file"
+msgid "* %1 (modified)"
 msgstr ""
 
-#: kwave/main.cpp:56
-msgid "French translations, splashscreen, tests and bugfixes"
+#: kwave/FileContext.cpp:838
+msgid "Save As"
 msgstr ""
 
-#: kwave/main.cpp:59
-msgid "Dave Flogeras"
+#: kwave/FileContext.cpp:865
+#, kde-format
+msgid ""
+"The file '%1' already exists.\n"
+"Do you really want to overwrite it?"
 msgstr ""
 
-#: kwave/main.cpp:60
-msgid "Notch filter plugin"
-msgstr ""
-
-#: kwave/main.cpp:63
-msgid "Rik Hemsley"
-msgstr ""
-
-#: kwave/main.cpp:64
-msgid "Level meter"
-msgstr ""
-
-#: kwave/main.cpp:67
-msgid "Joerg-Christian Boehme"
-msgstr ""
-
-#: kwave/main.cpp:68
-msgid "PulseAudio record plugin"
-msgstr ""
-
-#: kwave/main.cpp:73
-msgid "NAME OF TRANSLATORS"
-msgstr ""
-
-#: kwave/main.cpp:74
-msgid "EMAIL OF TRANSLATORS"
-msgstr ""
-
-#: kwave/main.cpp:77
-msgid "Stefan Westerfeld"
-msgstr ""
-
-#: kwave/main.cpp:78
-msgid "Author of aRts"
-msgstr ""
-
-#: kwave/main.cpp:81
-msgid "Sven-Steffen Arndt"
-msgstr ""
-
-#: kwave/main.cpp:82
-msgid "Kwave homepage and German online help"
-msgstr ""
-
-#: kwave/main.cpp:85
-msgid "Aurelien Jarno"
-msgstr ""
-
-#: kwave/main.cpp:86
-msgid "Debian packager"
-msgstr ""
-
-#: kwave/main.cpp:89
-msgid "Robert M. Stockmann"
-msgstr ""
-
-#: kwave/main.cpp:90
-msgid "Packaging for Mandrake / X86_64"
-msgstr ""
-
-#: kwave/main.cpp:101
-msgid "Martin Kuball"
-msgstr ""
-
-#: kwave/main.cpp:102
-msgid "Tester"
-msgstr ""
-
-#: kwave/main.cpp:105
-msgid "Robert Leslie"
-msgstr ""
-
-#: kwave/main.cpp:106
-msgid "Author of the 'mad' MP3 decoder library"
-msgstr ""
-
-#: kwave/main.cpp:109
-msgid "T.H.F. Klok and Cedric Tefft"
-msgstr ""
-
-#: kwave/main.cpp:110
-msgid "Maintainers of the 'id3lib' library"
-msgstr ""
-
-#: kwave/main.cpp:113
-msgid "Michael Pruett"
-msgstr ""
-
-#: kwave/main.cpp:114
-msgid "Author of the 'audiofile' library"
-msgstr ""
-
-#: kwave/main.cpp:117
-msgid "Carlos R."
-msgstr ""
-
-#: kwave/main.cpp:118
-msgid "Spanish translation"
-msgstr ""
-
-#: kwave/main.cpp:121
-msgid "Erik de Castro Lopo"
-msgstr ""
-
-#: kwave/main.cpp:122
-msgid "Author of the 'sndfile' library"
-msgstr ""
-
-#: kwave/main.cpp:125
-msgid "Pavel Fric"
-msgstr ""
-
-#: kwave/main.cpp:126
-msgid "Czech translation"
-msgstr ""
-
-#: kwave/main.cpp:129
-msgid "Panagiotis Papadopoulos"
-msgstr ""
-
-#: kwave/main.cpp:130
-msgid "String and i18n updates"
-msgstr ""
-
-#: kwave/main.cpp:146
-msgid "Disable the Splash Screen"
-msgstr ""
-
-#: kwave/main.cpp:147
-msgid "Start Kwave iconified"
-msgstr ""
-
-#: kwave/main.cpp:148
-msgid "Log all commands into a file"
-msgstr ""
-
-#: kwave/main.cpp:149
-msgid "GUI type: SDI, MDI or TAB mode"
-msgstr ""
-
-#: kwave/main.cpp:150
-msgid "List of audio files"
-msgstr ""
-
-#: kwave/main.cpp:154
-msgid "Kwave"
-msgstr ""
-
-#: kwave/main.cpp:156
-msgid "A sound editor for KDE"
-msgstr ""
-
-#: kwave/main.cpp:158
-msgid "(c) 2014, Thomas Eschenbacher"
+#: kwave/FileContext.cpp:933
+msgid ""
+"This file has been modified.\n"
+"Do you want to save it?"
 msgstr ""
 
 #: kwave/TopWidget.cpp:267
@@ -516,57 +377,196 @@ msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr ""
 
-#: kwave/FileContext.cpp:201
-msgid "Scanning plugins..."
+#: kwave/main.cpp:43
+msgid "Thomas Eschenbacher"
 msgstr ""
 
-#: kwave/FileContext.cpp:213 kwave/FileContext.cpp:214
-msgid "Loading plugins..."
+#: kwave/main.cpp:44
+msgid "Project leader since 2000, core development"
 msgstr ""
 
-#: kwave/FileContext.cpp:216
-msgid "Ready"
+#: kwave/main.cpp:47
+msgid "Martin Wilz"
 msgstr ""
 
-#: kwave/FileContext.cpp:438
-#, kde-format
-msgid "Playback: %1"
+#: kwave/main.cpp:48
+msgid "Creator of the project, development 1998-2000"
 msgstr ""
 
-#: kwave/FileContext.cpp:440
-#, kde-format
-msgid "Playback: %1 samples"
+#: kwave/main.cpp:51
+msgid "Ralf Waspe"
 msgstr ""
 
-#: kwave/FileContext.cpp:730
-#, kde-format
-msgctxt ""
-"for window title: %1 = Name of the file, %2 = Instance number when opened "
-"multiple times"
-msgid "%1 <%2>"
+#: kwave/main.cpp:52
+msgid "Creator of the Help/About dialog"
 msgstr ""
 
-#: kwave/FileContext.cpp:736
-#, kde-format
-msgctxt "%1 = Path to modified file"
-msgid "* %1 (modified)"
+#: kwave/main.cpp:55
+msgid "Caulier Gilles"
 msgstr ""
 
-#: kwave/FileContext.cpp:838
-msgid "Save As"
+#: kwave/main.cpp:56
+msgid "French translations, splashscreen, tests and bugfixes"
 msgstr ""
 
-#: kwave/FileContext.cpp:865
-#, kde-format
-msgid ""
-"The file '%1' already exists.\n"
-"Do you really want to overwrite it?"
+#: kwave/main.cpp:59
+msgid "Dave Flogeras"
 msgstr ""
 
-#: kwave/FileContext.cpp:933
-msgid ""
-"This file has been modified.\n"
-"Do you want to save it?"
+#: kwave/main.cpp:60
+msgid "Notch filter plugin"
+msgstr ""
+
+#: kwave/main.cpp:63
+msgid "Rik Hemsley"
+msgstr ""
+
+#: kwave/main.cpp:64
+msgid "Level meter"
+msgstr ""
+
+#: kwave/main.cpp:67
+msgid "Joerg-Christian Boehme"
+msgstr ""
+
+#: kwave/main.cpp:68
+msgid "PulseAudio record plugin"
+msgstr ""
+
+#: kwave/main.cpp:73
+msgid "NAME OF TRANSLATORS"
+msgstr ""
+
+#: kwave/main.cpp:74
+msgid "EMAIL OF TRANSLATORS"
+msgstr ""
+
+#: kwave/main.cpp:77
+msgid "Stefan Westerfeld"
+msgstr ""
+
+#: kwave/main.cpp:78
+msgid "Author of aRts"
+msgstr ""
+
+#: kwave/main.cpp:81
+msgid "Sven-Steffen Arndt"
+msgstr ""
+
+#: kwave/main.cpp:82
+msgid "Kwave homepage and German online help"
+msgstr ""
+
+#: kwave/main.cpp:85
+msgid "Aurelien Jarno"
+msgstr ""
+
+#: kwave/main.cpp:86
+msgid "Debian packager"
+msgstr ""
+
+#: kwave/main.cpp:89
+msgid "Robert M. Stockmann"
+msgstr ""
+
+#: kwave/main.cpp:90
+msgid "Packaging for Mandrake / X86_64"
+msgstr ""
+
+#: kwave/main.cpp:101
+msgid "Martin Kuball"
+msgstr ""
+
+#: kwave/main.cpp:102
+msgid "Tester"
+msgstr ""
+
+#: kwave/main.cpp:105
+msgid "Robert Leslie"
+msgstr ""
+
+#: kwave/main.cpp:106
+msgid "Author of the 'mad' MP3 decoder library"
+msgstr ""
+
+#: kwave/main.cpp:109
+msgid "T.H.F. Klok and Cedric Tefft"
+msgstr ""
+
+#: kwave/main.cpp:110
+msgid "Maintainers of the 'id3lib' library"
+msgstr ""
+
+#: kwave/main.cpp:113
+msgid "Michael Pruett"
+msgstr ""
+
+#: kwave/main.cpp:114
+msgid "Author of the 'audiofile' library"
+msgstr ""
+
+#: kwave/main.cpp:117
+msgid "Carlos R."
+msgstr ""
+
+#: kwave/main.cpp:118
+msgid "Spanish translation"
+msgstr ""
+
+#: kwave/main.cpp:121
+msgid "Erik de Castro Lopo"
+msgstr ""
+
+#: kwave/main.cpp:122
+msgid "Author of the 'sndfile' library"
+msgstr ""
+
+#: kwave/main.cpp:125
+msgid "Pavel Fric"
+msgstr ""
+
+#: kwave/main.cpp:126
+msgid "Czech translation"
+msgstr ""
+
+#: kwave/main.cpp:129
+msgid "Panagiotis Papadopoulos"
+msgstr ""
+
+#: kwave/main.cpp:130
+msgid "String and i18n updates"
+msgstr ""
+
+#: kwave/main.cpp:146
+msgid "Disable the Splash Screen"
+msgstr ""
+
+#: kwave/main.cpp:147
+msgid "Start Kwave iconified"
+msgstr ""
+
+#: kwave/main.cpp:148
+msgid "Log all commands into a file"
+msgstr ""
+
+#: kwave/main.cpp:149
+msgid "GUI type: SDI, MDI or TAB mode"
+msgstr ""
+
+#: kwave/main.cpp:150
+msgid "List of audio files"
+msgstr ""
+
+#: kwave/main.cpp:154
+msgid "Kwave"
+msgstr ""
+
+#: kwave/main.cpp:156
+msgid "A sound editor for KDE"
+msgstr ""
+
+#: kwave/main.cpp:158
+msgid "(c) 2014, Thomas Eschenbacher"
 msgstr ""
 
 #: libgui/CurveWidget.cpp:77

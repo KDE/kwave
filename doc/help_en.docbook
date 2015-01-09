@@ -3126,6 +3126,12 @@
 		this also closes the corresponding sub window.
 	    </para>
 	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_open"><command>&no-i18n-cmd_open;</command>(<replaceable>filename</replaceable>)</link>,
+		<link linkend="cmd_sect_quit"><command>&no-i18n-cmd_quit;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
 	<!-- @COMMAND@ continue() -->
@@ -3135,6 +3141,11 @@
 	    <para>
 		Corresponds to to the <guibutton>Continue</guibutton> toolbar
 		button and lets the playback continue if it is paused.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_pause"><command>&no-i18n-cmd_pause;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3149,6 +3160,11 @@
 		of the clipboard remains unchanged.
 		Only the content of the currently selected tracks is copied
 		to the clipboard!
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_paste"><command>&no-i18n-cmd_paste;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3626,97 +3642,273 @@
 
     <sect1 id="commands_n"><title>&no-i18n-tag;n</title>
 
-	<!-- @COMMAND@ newsignal(TODO) -->
+	<!-- @COMMAND@ newsignal(samples,rate,bits,tracks) -->
 	<sect2 id="cmd_sect_newsignal"><title id="cmd_title_newsignal">&no-i18n-cmd_newsignal;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_newsignal;</command>(
+		<replaceable>samples</replaceable>,
+		<replaceable>rate</replaceable>,
+		<replaceable>bits</replaceable>,
+		<replaceable>tracks</replaceable>)
+	    </title>
+	    <para>
+		Creates a new signal, with a given length in
+		<emphasis><replaceable>samples</replaceable></emphasis>, a
+		<emphasis><replaceable>rate</replaceable></emphasis> in samples
+		per second (floating point number), a number of
+		<emphasis><replaceable>bits</replaceable></emphasis> per sample
+		and number of <emphasis><replaceable>tracks</replaceable></emphasis>.
+		You can calculate the length in samples by multiplying the desired
+		length in seconds with the sample rate.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>samples</parameter>:</entry>
+		<entry>Length of the signal in samples.</entry></row>
+	    <row><entry><parameter>rate</parameter>:</entry>
+		<entry>Sample rate in samples per second.</entry></row>
+	    <row><entry><parameter>bits</parameter>:</entry>
+		<entry>Number of bits per sample, must not be zero, should be
+		    a number from 8...32.</entry></row>
+	    <row><entry><parameter>tracks</parameter>:</entry>
+		<entry>Number of tracks.</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ next(TODO) -->
+	<!-- @COMMAND@ next() -->
 	<sect2 id="cmd_sect_next"><title id="cmd_title_next">&no-i18n-cmd_next;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_next;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Next</guibutton> toolbar
+		button. If the playback is currently running, it skips forward
+		to the next label. If the playback is not running,
+		this does the same as the command
+		<command>&no-i18n-cmd_view_scroll_next_label;</command>.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_next_label"><command>&no-i18n-cmd_view_scroll_next_label;</command>()</link>,
+		<link linkend="cmd_sect_prev"><command>&no-i18n-cmd_prev;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
     <sect1 id="commands_o"><title>&no-i18n-tag;o</title>
 
-	<!-- @COMMAND@ open(TODO) -->
+	<!-- @COMMAND@ open(filename) -->
 	<sect2 id="cmd_sect_open"><title id="cmd_title_open">&no-i18n-cmd_open;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_open;</command>([<replaceable>filename</replaceable>])</title>
+	    <para>
+		Opens a file, which can be either a sound file or a &kwave; script.
+		If no file name is passed, then a dialog window will be opened that
+		allows to select an existing file. Depending on the GUI mode the
+		file will be opened in the context of a new sub window (MDI and
+		tab) or in a new main window (SDI, if there was already something
+		loaded).
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>filename</parameter>:</entry>
+		<entry>name of a file including path and extension</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_close"><command>&no-i18n-cmd_close;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ openrecent(TODO) -->
+	<!-- @COMMAND@ openrecent(filename) -->
 	<sect2 id="cmd_sect_openrecent"><title id="cmd_title_openrecent">&no-i18n-cmd_openrecent;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_openrecent;</command>(<replaceable>filename</replaceable>)</title>
+	    <para>
+		Practically the same as the command
+		<command>&no-i18n-cmd_open;</command>, but intended to be used
+		internally for the list of recently opened files in the menu
+		<menuchoice>
+		    <guimenu>File</guimenu><guimenu>Open Recent</guimenu>
+		</menuchoice>.
+		In this command the parameter <replaceable>filename</replaceable> is
+		not optional.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>filename</parameter>:</entry>
+		<entry>entry of the list of recently opened files</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_open"><command>&no-i18n-cmd_open;</command>(<replaceable>filename</replaceable>)</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
     <sect1 id="commands_p"><title>&no-i18n-tag;p</title>
 
-	<!-- @COMMAND@ paste(TODO) -->
+	<!-- @COMMAND@ paste() -->
 	<sect2 id="cmd_sect_paste"><title id="cmd_title_paste">&no-i18n-cmd_paste;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_paste;</command>()</title>
+	    <para>
+		Replaces the current selection with the content of the clipboard.
+		If the clipboard is empty, this command does nothing.
+		The sample rate of the inserted data is adjusted to match the
+		sample rate of the current signal if necessary.
+		Only enabled tracks are affected, disabled tracks remain
+		unchanged. Please be aware that this might produce a time shift
+		between enabled and disabled tracks!
+		If the number of tracks of the clipboard data differs
+		from the number of enabled tracks, then the data is mixed to
+		be spread equally over all selected tracks.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_copy"><command>&no-i18n-cmd_copy;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ pause(TODO) -->
+	<!-- @COMMAND@ pause() -->
 	<sect2 id="cmd_sect_pause"><title id="cmd_title_pause">&no-i18n-cmd_pause;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_continue;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Pause</guibutton> toolbar
+		button and lets the playback pause if it is currently running,
+		or continue if it is currently paused.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_continue"><command>&no-i18n-cmd_continue;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ playback_start(TODO) -->
+	<!-- @COMMAND@ playback_start() -->
 	<sect2 id="cmd_sect_playback_start"><title id="cmd_title_playback_start">&no-i18n-cmd_playback_start;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_playback_start;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Start</guibutton> toolbar
+		button and lets the playback start if it is currently paused.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ plugin(TODO) -->
+	<!-- @COMMAND@ plugin(name,[parameter,...]) -->
 	<sect2 id="cmd_sect_plugin"><title id="cmd_title_plugin">&no-i18n-cmd_plugin;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_plugin;</command>(<replaceable>name</replaceable>, [<replaceable>parameter</replaceable> ...])</title>
+	    <para>
+		Executes a plugin, with an optional list of parameters. If no
+		parameter list is given, then the setup function of the plugin
+		will be called, using the parameters of the previous
+		invocation or default parameters as input (normally shows a
+		setup dialog, depending on the plugin).
+		Please refer to the chapter about <link linkend="plugins">plugins</link>
+		for a description of the various plugins.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>name</parameter>:</entry>
+		<entry>the (internal) name of a &kwave; plugin</entry></row>
+	    <row><entry><parameter>parameter</parameter>:</entry>
+		<entry>a list of parameters understood by the plugin (optional)</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_plugin_execute"><command>&no-i18n-cmd_plugin_execute;</command>()</link>,
+		<link linkend="cmd_sect_plugin_setup"><command>&no-i18n-cmd_plugin_setup;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ plugin:execute(TODO) -->
+	<!-- @COMMAND@ plugin:execute(name,[parameter,...]) -->
 	<sect2 id="cmd_sect_plugin_execute"><title id="cmd_title_plugin_execute">&no-i18n-cmd_plugin_execute;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_plugin_execute;</command>(<replaceable>name</replaceable>, [<replaceable>parameter</replaceable> ...])</title>
+	    <para>
+		Similar to the command <quote><command>&no-i18n-cmd_plugin;</command>()</quote>,
+		but without calling the setup function of the plugin if no parameters
+		were passed.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>name</parameter>:</entry>
+		<entry>the (internal) name of a &kwave; plugin</entry></row>
+	    <row><entry><parameter>parameter</parameter>:</entry>
+		<entry>a list of parameters understood by the plugin</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ plugin:setup(TODO) -->
+	<!-- @COMMAND@ plugin:setup(name,[parameter,...]) -->
 	<sect2 id="cmd_sect_plugin_setup"><title id="cmd_title_plugin_setup">&no-i18n-cmd_plugin_setup;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_plugin_setup;</command>(<replaceable>name</replaceable>, [<replaceable>parameter</replaceable> ...])</title>
+	    <para>
+		Calls the <emphasis>setup</emphasis> function of a plugin, with
+		an optional list of parameters. If no parameter list is given,
+		the parameters of the previous invocation or default parameters
+		will be used as input. This normally shows a setup dialog,
+		depending on the plugin.
+		Please refer to the chapter about <link linkend="plugins">plugins</link>
+		for a description of the various plugins.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>name</parameter>:</entry>
+		<entry>the (internal) name of a &kwave; plugin</entry></row>
+	    <row><entry><parameter>parameter</parameter>:</entry>
+		<entry>a list of parameters understood by the plugin (optional)</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ prev(TODO) -->
+	<!-- @COMMAND@ prev() -->
 	<sect2 id="cmd_sect_prev"><title id="cmd_title_prev">&no-i18n-cmd_prev;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_prev;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Previous</guibutton> toolbar
+		button. If the playback is currently running, it skips back
+		to the previous label or start of the selection. If the playback
+		is not running, this does the same as the command
+		<command>&no-i18n-cmd_view_scroll_prev_label;</command>.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_next_label"><command>&no-i18n-cmd_view_scroll_prev_label;</command>()</link>,
+		<link linkend="cmd_sect_next"><command>&no-i18n-cmd_next;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
     <sect1 id="commands_q"><title>&no-i18n-tag;q</title>
 
-	<!-- @COMMAND@ quit(TODO) -->
+	<!-- @COMMAND@ quit() -->
 	<sect2 id="cmd_sect_quit"><title id="cmd_title_quit">&no-i18n-cmd_quit;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_quit;</command>()</title>
+	    <para>
+		Closes the current main window, including all sub windows.
+		In SDI mode this is the same as the command
+		<quote><command>&no-i18n-cmd_close;</command>()</quote>.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_close"><command>&no-i18n-cmd_close;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
@@ -4073,6 +4265,16 @@
 	<!-- @COMMAND_END_OF_LIST@ -->
     </sect1>
 
+</chapter>
+
+<!-- ###################################################################### -->
+<!-- ### Chapter: Developer's Guide to Kwave                            ### -->
+<!-- ###################################################################### -->
+
+<chapter id="plugins"><title>Plugins</title>
+    <para>
+	TODO: description of all plugins ...
+    </para>
 </chapter>
 
 <!-- ###################################################################### -->

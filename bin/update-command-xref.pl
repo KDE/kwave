@@ -111,7 +111,7 @@ LINE: while (<IN>) {
 	    next LINE;
 	}
 
-	if ($line =~ /\<\!\-\-\ \@COMMAND\@\ ([\w\:]+)\(([\w\,\:\[\]]*)\)\ \-\-\>/) {
+	if ($line =~ /\<\!\-\-\ \@COMMAND\@\ ([\w\:]+)\(([\w\,\:\[\]\.]*)\)\ \-\-\>/) {
 	    my $cmd = $1;
 	    my $params = $2;
 	    # print "### found command '" . $cmd . "' params: '" . $params . "'\n";

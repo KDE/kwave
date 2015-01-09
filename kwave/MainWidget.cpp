@@ -436,7 +436,7 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 	signal_manager->selectRange(0, signal_manager->length());
     CASE_COMMAND("selectnext")
 	if (signal_manager->selection().length())
-	    signal_manager->selectRange(signal_manager->selection().last()+1,
+	    signal_manager->selectRange(signal_manager->selection().last() + 1,
 	                signal_manager->selection().length());
 	else
 	    signal_manager->selectRange(signal_manager->length() - 1, 0);

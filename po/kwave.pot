@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-09 10:59+0100\n"
+"POT-Creation-Date: 2015-01-09 22:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,20 +100,6 @@ msgstr ""
 #: kwave/ZoomToolBar.cpp:117 kwave/ZoomToolBar.cpp:118
 #, kde-format
 msgid "%1 min"
-msgstr ""
-
-#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1896
-msgid "Add Label"
-msgstr ""
-
-#: kwave/MainWidget.cpp:991
-msgid ""
-"There already is a label at the position you have chosen.\n"
-"Do you want to replace it?"
-msgstr ""
-
-#: kwave/MainWidget.cpp:1018
-msgid "Modify Label"
 msgstr ""
 
 #: kwave/Splash.cpp:54
@@ -567,6 +553,20 @@ msgstr ""
 
 #: kwave/main.cpp:158
 msgid "(c) 2014, Thomas Eschenbacher"
+msgstr ""
+
+#: kwave/MainWidget.cpp:873 libkwave/SignalManager.cpp:1896
+msgid "Add Label"
+msgstr ""
+
+#: kwave/MainWidget.cpp:991
+msgid ""
+"There already is a label at the position you have chosen.\n"
+"Do you want to replace it?"
+msgstr ""
+
+#: kwave/MainWidget.cpp:1018
+msgid "Modify Label"
 msgstr ""
 
 #: libgui/CurveWidget.cpp:77

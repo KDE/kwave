@@ -3314,7 +3314,8 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_view_scroll_right"><command>&no-i18n-cmd_view_scroll_right;</command>()</link>
+		<link linkend="cmd_sect_view_scroll_right"><command>&no-i18n-cmd_view_scroll_right;</command>()</link>,
+		<link linkend="cmd_sect_rewind"><command>&no-i18n-cmd_rewind;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3914,213 +3915,477 @@
 
     <sect1 id="commands_r"><title>&no-i18n-tag;r</title>
 
-	<!-- @COMMAND@ redo(TODO) -->
+	<!-- @COMMAND@ redo() -->
 	<sect2 id="cmd_sect_redo"><title id="cmd_title_redo">&no-i18n-cmd_redo;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_redo;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Redo</guibutton> toolbar
+		button and repeats one operation that has been reverted with
+		<command>&no-i18n-cmd_undo;</command>.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_undo"><command>&no-i18n-cmd_undo;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ redo_all(TODO) -->
+	<!-- @COMMAND@ redo_all() -->
 	<sect2 id="cmd_sect_redo_all"><title id="cmd_title_redo_all">&no-i18n-cmd_redo_all;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_redo_all;</command>()</title>
+	    <para>
+		Similar to <command>&no-i18n-cmd_redo;</command>, but re-does
+		as many operations as possible.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_undo"><command>&no-i18n-cmd_undo;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ reenable_dna(TODO) -->
+	<!-- @COMMAND@ reenable_dna() -->
 	<sect2 id="cmd_sect_reenable_dna"><title id="cmd_title_reenable_dna">&no-i18n-cmd_reenable_dna;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_reenable_dna;</command>()</title>
+	    <para>
+		Some message boxes offer the possibility to prevent them from
+		appearing again (<quote>do not ask again</quote>). This command
+		makes all of them appear again.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ reset_toolbars(TODO) -->
+	<!-- @COMMAND@ reset_toolbars() -->
 	<sect2 id="cmd_sect_reset_toolbars"><title id="cmd_title_reset_toolbars">&no-i18n-cmd_reset_toolbars;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_reset_toolbars;</command>()</title>
+	    <para>
+		Resets all toolbar settings, like location, icon size and text
+		location back to defaults.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ revert(TODO) -->
+	<!-- @COMMAND@ revert() -->
 	<sect2 id="cmd_sect_revert"><title id="cmd_title_revert">&no-i18n-cmd_revert;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_revert;</command>()</title>
+	    <para>
+		Reverts the currently loaded file back to the last saved state,
+		discarding all changes that are not saved.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ rewind(TODO) -->
+	<!-- @COMMAND@ rewind() -->
 	<sect2 id="cmd_sect_rewind"><title id="cmd_title_rewind">&no-i18n-cmd_rewind;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_rewind;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Rewind</guibutton> toolbar
+		button. If the playback is currently running, it skips backward
+		by 1/10 of the visible range. If the playback is not running,
+		this does the same as the command
+		<command>&no-i18n-cmd_view_scroll_left;</command>.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_left"><command>&no-i18n-cmd_view_scroll_left;</command>()</link>,
+		<link linkend="cmd_sect_forward"><command>&no-i18n-cmd_forward;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
     <sect1 id="commands_s"><title>&no-i18n-tag;s</title>
 
-	<!-- @COMMAND@ save(TODO) -->
+	<!-- @COMMAND@ save() -->
 	<sect2 id="cmd_sect_save"><title id="cmd_title_save">&no-i18n-cmd_save;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_save;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Save</guibutton> toolbar
+		button. Saves the current file if it has modifications.
+		If the file does not already have a name (e.g. a file that has
+		just been created and does not yet have a file name), this
+		command does the same as <command>&no-i18n-cmd_saveas;</command>.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_saveas"><command>&no-i18n-cmd_saveas;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ saveas(TODO) -->
+	<!-- @COMMAND@ saveas(filename) -->
 	<sect2 id="cmd_sect_saveas"><title id="cmd_title_saveas">&no-i18n-cmd_saveas;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_saveas;</command>([<replaceable>filename</replaceable>])</title>
+	    <para>
+		Saves the currently opened file under a given file name. If no
+		file name is given as parameter, a dialog will be shown to
+		select the directory and to enter a file name.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>filename</parameter>:</entry>
+		<entry>file name for saving (optional)</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ saveselect(TODO) -->
+	<!-- @COMMAND@ saveselect() -->
 	<sect2 id="cmd_sect_saveselect"><title id="cmd_title_saveselect">&no-i18n-cmd_saveselect;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_saveselect;</command>()</title>
+	    <para>
+		This command does the same as <command>&no-i18n-cmd_save;</command>,
+		but saves only the currently selected range and the activated
+		tracks instead of the whole file.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_save"><command>&no-i18n-cmd_save;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ select_gui_type(TODO) -->
+	<!-- @COMMAND@ select_gui_type(mode) -->
 	<sect2 id="cmd_sect_select_gui_type"><title id="cmd_title_select_gui_type">&no-i18n-cmd_select_gui_type;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_gui_type;</command>(mode)</title>
+	    <para>
+		Select a GUI mode, which can be either SDI, MDI or Tab mode.
+		Please be aware that this changes will immediately take
+		effect!
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>filename</parameter>:</entry>
+		<entry>
+		    name of the mode, must be either <quote>SDI</quote>,
+		    <quote>MDI</quote> or <quote>TAB</quote>.
+		</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ select_track:all(TODO) -->
+	<!-- @COMMAND@ select_track:all() -->
 	<sect2 id="cmd_sect_select_track_all"><title id="cmd_title_select_track_all">&no-i18n-cmd_select_track_all;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_all;</command>()</title>
+	    <para>
+		Mark all tracks <quote>enabled</quote>. This is the same as
+		calling the command <quote><command>&no-i18n-cmd_select_track_on;</command>()</quote>
+		for all existing tracks.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_select_track_on"><command>&no-i18n-cmd_select_track_on;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ select_track:invert(TODO) -->
+	<!-- @COMMAND@ select_track:invert() -->
 	<sect2 id="cmd_sect_select_track_invert"><title id="cmd_title_select_track_invert">&no-i18n-cmd_select_track_invert;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_all;</command>()</title>
+	    <para>
+		Invert the <quote>enabled</quote> state of all tracks.
+		This is the same as calling the command
+		<quote><command>&no-i18n-cmd_select_track_toggle;</command>()</quote>
+		for all existing tracks.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_select_track_toggle"><command>&no-i18n-cmd_select_track_toggle;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ select_track:none(TODO) -->
+	<!-- @COMMAND@ select_track:none() -->
 	<sect2 id="cmd_sect_select_track_none"><title id="cmd_title_select_track_none">&no-i18n-cmd_select_track_none;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_none;</command>()</title>
+	    <para>
+		Mark all tracks <quote>disabled</quote>. This is the same as
+		calling the command <quote><command>&no-i18n-cmd_select_track_off;</command>()</quote>
+		for all existing tracks.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_select_track_off"><command>&no-i18n-cmd_select_track_off;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ select_track:off(TODO) -->
+	<!-- @COMMAND@ select_track:off(index) -->
 	<sect2 id="cmd_sect_select_track_off"><title id="cmd_title_select_track_off">&no-i18n-cmd_select_track_off;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_off;</command>(index)</title>
+	    <para>
+		Disables a single track, so that it does not get affected by
+		most operations.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>index</parameter>:</entry>
+		<entry>index of the track, starting with zero</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ select_track:on(TODO) -->
+	<!-- @COMMAND@ select_track:on(index) -->
 	<sect2 id="cmd_sect_select_track_on"><title id="cmd_title_select_track_on">&no-i18n-cmd_select_track_on;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_on;</command>(index)</title>
+	    <para>
+		Enables a single track, so that it gets affected by all operations.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>index</parameter>:</entry>
+		<entry>index of the track, starting with zero</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ select_track:toggle(TODO) -->
+	<!-- @COMMAND@ select_track:toggle(index) -->
 	<sect2 id="cmd_sect_select_track_toggle"><title id="cmd_title_select_track_toggle">&no-i18n-cmd_select_track_toggle;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_toggle;</command>(index)</title>
+	    <para>
+		Enables a track if it is currently disabled, or disables it if
+		it is currently enabled.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>index</parameter>:</entry>
+		<entry>index of the track, starting with zero</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ selectall(TODO) -->
+	<!-- @COMMAND@ selectall() -->
 	<sect2 id="cmd_sect_selectall"><title id="cmd_title_selectall">&no-i18n-cmd_selectall;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectall;</command>()</title>
+	    <para>
+		Selects the range of the whole signal, from the first to the
+		last sample.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ selectnext(TODO) -->
+	<!-- @COMMAND@ selectnext() -->
 	<sect2 id="cmd_sect_selectnext"><title id="cmd_title_selectnext">&no-i18n-cmd_selectnext;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectnext;</command>()</title>
+	    <para>
+		Selects a range of samples that starts right after the current
+		selection, using the same length as the current selection.
+		The selection is automatically clipped to the end of the signal.
+		For example: if you have selected samples 1000 ... 1019, then
+		the result will be a selection from sample 1020 ... 1039.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_selectprev"><command>&no-i18n-cmd_selectprev;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ selectnextlabels(TODO) -->
+	<!-- @COMMAND@ selectnextlabels() -->
 	<sect2 id="cmd_sect_selectnextlabels"><title id="cmd_title_selectnextlabels">&no-i18n-cmd_selectnextlabels;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectnextlabels;</command>()</title>
+	    <para>
+		Selects a range of samples between the next two labels after the
+		current selection. If nothing is selected, it selects from the
+		start of the signal up to the first label. Otherwise the left
+		border of the new selection will be the position of first label
+		after the selection (or the last label if there are no more
+		labels right from the selection), and the right border of the
+		new selection will be the first label after the left border of
+		the new selection (or the end of the signal if there is none).
+		This command returns an error when there are no labels at all.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_selectprevlabels"><command>&no-i18n-cmd_selectprevlabels;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ selectnone(TODO) -->
+	<!-- @COMMAND@ selectnone() -->
 	<sect2 id="cmd_sect_selectnone"><title id="cmd_title_selectnone">&no-i18n-cmd_selectnone;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectnone;</command>()</title>
+	    <para>
+		Resets the selection to zero length.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ selectprev(TODO) -->
+	<!-- @COMMAND@ selectprev() -->
 	<sect2 id="cmd_sect_selectprev"><title id="cmd_title_selectprev">&no-i18n-cmd_selectprev;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectprev;</command>()</title>
+	    <para>
+		Selects a range of samples that starts left from the current
+		selection, using the same length as the current selection.
+		The selection is automatically clipped to the start of the signal.
+		For example: if you have selected samples 1000 ... 1019, then
+		the result will be a selection from sample 980 ... 999.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_selectprev"><command>&no-i18n-cmd_selectnext;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ selectprevlabels(TODO) -->
+	<!-- @COMMAND@ selectprevlabels() -->
 	<sect2 id="cmd_sect_selectprevlabels"><title id="cmd_title_selectprevlabels">&no-i18n-cmd_selectprevlabels;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectprevlabels;</command>()</title>
+	    <para>
+		Selects a range of samples between the previous two labels before the
+		current selection. If nothing is selected, it selects from the
+		start of the signal up to the first label. Otherwise the right
+		border of the new selection will be the position of first label
+		before the selection (or the first label if there are no more
+		labels left from the selection), and the left border of the
+		new selection will be the first label before the right border of
+		the new selection (or the start of the signal if there is none).
+		This command returns an error when there are no labels at all.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_selectnextlabels"><command>&no-i18n-cmd_selectnextlabels;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ selecttoleft(TODO) -->
+	<!-- @COMMAND@ selecttoleft() -->
 	<sect2 id="cmd_sect_selecttoleft"><title id="cmd_title_selecttoleft">&no-i18n-cmd_selecttoleft;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selecttoleft;</command>()</title>
+	    <para>
+		Sets the start of the selection to the start of the signal, the
+		end of the current selection stays unchanged.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_selecttoright"><command>&no-i18n-cmd_selecttoright;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ selecttoright(TODO) -->
+	<!-- @COMMAND@ selecttoright() -->
 	<sect2 id="cmd_sect_selecttoright"><title id="cmd_title_selecttoright">&no-i18n-cmd_selecttoright;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selecttoright;</command>()</title>
+	    <para>
+		Sets the end of the selection to the end of the signal, the
+		start of the current selection stays unchanged.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_selecttoleft"><command>&no-i18n-cmd_selecttoleft;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ selectvisible(TODO) -->
+	<!-- @COMMAND@ selectvisible() -->
 	<sect2 id="cmd_sect_selectvisible"><title id="cmd_title_selectvisible">&no-i18n-cmd_selectvisible;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectvisible;</command>()</title>
+	    <para>
+		Selects the range of samples that is visible in the current
+		window.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ start(TODO) -->
+	<!-- @COMMAND@ start() -->
 	<sect2 id="cmd_sect_start"><title id="cmd_title_start">&no-i18n-cmd_start;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_start;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Start</guibutton> toolbar
+		button and lets the playback start from the beginning of the
+		selection or continue if it is currently paused.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_stop"><command>&no-i18n-cmd_stop;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ stop(TODO) -->
+	<!-- @COMMAND@ stop() -->
 	<sect2 id="cmd_sect_stop"><title id="cmd_title_stop">&no-i18n-cmd_stop;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_stop;</command>()</title>
+	    <para>
+		Corresponds to to the <guibutton>Stop</guibutton> toolbar
+		button and lets the playback stop if it is currently running.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_start"><command>&no-i18n-cmd_start;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
     <sect1 id="commands_u"><title>&no-i18n-tag;u</title>
 
-	<!-- @COMMAND@ undo(TODO) -->
+	<!-- @COMMAND@ undo() -->
 	<sect2 id="cmd_sect_undo"><title id="cmd_title_undo">&no-i18n-cmd_undo;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_undo;</command>()</title>
+	    <para>
+		Corresponds to the <guibutton>Undo</guibutton> toolbar
+		button and reverts the last operation.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_redo"><command>&no-i18n-cmd_redo;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ undo_all(TODO) -->
+	<!-- @COMMAND@ undo_all() -->
 	<sect2 id="cmd_sect_undo_all"><title id="cmd_title_undo_all">&no-i18n-cmd_undo_all;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_undo_all;</command>()</title>
+	    <para>
+		Similar to <command>&no-i18n-cmd_undo;</command>, but reverts
+		as many operations as possible.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_undo"><command>&no-i18n-cmd_undo;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 

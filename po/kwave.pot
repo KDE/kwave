@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-09 22:41+0100\n"
+"POT-Creation-Date: 2015-01-10 14:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -171,196 +171,6 @@ msgstr ""
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
-msgstr ""
-
-#: kwave/TopWidget.cpp:267
-msgid "Loading main menu..."
-msgstr ""
-
-#: kwave/TopWidget.cpp:343
-msgid "Initializing toolbar..."
-msgstr ""
-
-#: kwave/TopWidget.cpp:352
-msgid "Create a new empty file"
-msgstr ""
-
-#: kwave/TopWidget.cpp:357
-msgid "Open an existing file"
-msgstr ""
-
-#: kwave/TopWidget.cpp:362
-msgid "Save the current file"
-msgstr ""
-
-#: kwave/TopWidget.cpp:367
-msgid "Save the current file under a different name or file format..."
-msgstr ""
-
-#: kwave/TopWidget.cpp:372
-msgid "Close the current file"
-msgstr ""
-
-#: kwave/TopWidget.cpp:383
-msgid "Undo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:388
-msgid "Redo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:393 libkwave/SignalManager.cpp:684
-msgid "Cut"
-msgstr ""
-
-#: kwave/TopWidget.cpp:398
-msgid "Copy"
-msgstr ""
-
-#: kwave/TopWidget.cpp:403 libkwave/undo/UndoInsertAction.cpp:44
-msgid "Insert"
-msgstr ""
-
-#: kwave/TopWidget.cpp:411
-msgid "Mute selection"
-msgstr ""
-
-#: kwave/TopWidget.cpp:416
-msgid "Delete selection"
-msgstr ""
-
-#: kwave/TopWidget.cpp:734
-msgid "Reset the toolbar to default settings?"
-msgstr ""
-
-#: kwave/TopWidget.cpp:758
-msgid ""
-"Re-enable all disabled notifications?\n"
-"All messages that you previously turned off by activating the \"Do not ask "
-"again\" checkbox will then be enabled again."
-msgstr ""
-
-#: kwave/TopWidget.cpp:950
-#, kde-format
-msgid "Executing command '%1'..."
-msgstr ""
-
-#: kwave/TopWidget.cpp:970
-#, kde-format
-msgid "Executing Kwave script file '%1'..."
-msgstr ""
-
-#: kwave/TopWidget.cpp:980
-#, kde-format
-msgid "Loading file '%1'..."
-msgstr ""
-
-#: kwave/TopWidget.cpp:994 plugins/codec_audiofile/AudiofileDecoder.cpp:104
-#: plugins/codec_flac/FlacEncoder.cpp:246
-#: plugins/codec_flac/FlacEncoder.cpp:264
-#: plugins/codec_flac/FlacEncoder.cpp:279 plugins/codec_mp3/MP3Decoder.cpp:504
-#: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:388
-#: plugins/codec_ogg/OpusEncoder.cpp:381 plugins/codec_ogg/OpusEncoder.cpp:434
-#: plugins/codec_wav/WavDecoder.cpp:365 plugins/codec_wav/WavEncoder.cpp:428
-#: plugins/playback/PlayBack-OSS.cpp:245 plugins/playback/PlayBack-OSS.cpp:253
-#: plugins/playback/PlayBack-Phonon.cpp:150
-#: plugins/playback/PlayBack-Phonon.cpp:181
-#: plugins/playback/PlayBack-Phonon.cpp:194
-#: plugins/record/RecordPlugin.cpp:875 plugins/record/RecordPlugin.cpp:891
-#: plugins/record/RecordPlugin.cpp:961
-msgid "Out of memory"
-msgstr ""
-
-#: kwave/TopWidget.cpp:998
-#, kde-format
-msgctxt "error message after opening a file failed"
-msgid "Unable to open '%1'"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1002
-#, kde-format
-msgctxt "error message after opening a file failed"
-msgid "Invalid or unknown file type: '%1'"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1039
-msgid "Open"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1089
-#, kde-format
-msgctxt "Length, as in total duration of loaded song"
-msgid "Length: %1 (%2 samples)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1100
-#, kde-format
-msgid "Mode: %1 kHz @ %2 Bit"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1146
-#, kde-format
-msgctxt ""
-"%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
-"2000...3000 (1000 samples)'"
-msgid "Selected: %1...%2 (%3 samples)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1158
-#, kde-format
-msgctxt ""
-"%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
-"(3 min)'"
-msgid "Selected: %1...%2 (%3)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1177
-#, kde-format
-msgid "Position: %1"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1203
-#, kde-format
-msgctxt "tooltip of the undo toolbar button if undo enabled"
-msgid "Undo (%1)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1205
-msgctxt "tooltip of the undo toolbar button if undo disabled"
-msgid "Undo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1214
-#, kde-format
-msgctxt "tooltip of the redo toolbar button, redo enabled"
-msgid "Redo (%1)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1216
-msgctxt "tooltip of the redo toolbar button, redo disabled"
-msgid "Redo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1226
-#, kde-format
-msgctxt "menu entry for undo if undo enabled"
-msgid "Undo (%1)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1227
-msgctxt "menu entry for undo if undo disabled"
-msgid "Undo"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1233
-#, kde-format
-msgctxt "menu entry for redo if redo enabled"
-msgid "Redo (%1)"
-msgstr ""
-
-#: kwave/TopWidget.cpp:1234
-msgctxt "menu entry for redo if redo disabled"
-msgid "Redo"
 msgstr ""
 
 #: kwave/main.cpp:43
@@ -567,6 +377,196 @@ msgstr ""
 
 #: kwave/MainWidget.cpp:1018
 msgid "Modify Label"
+msgstr ""
+
+#: kwave/TopWidget.cpp:267
+msgid "Loading main menu..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:343
+msgid "Initializing toolbar..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:352
+msgid "Create a new empty file"
+msgstr ""
+
+#: kwave/TopWidget.cpp:357
+msgid "Open an existing file"
+msgstr ""
+
+#: kwave/TopWidget.cpp:362
+msgid "Save the current file"
+msgstr ""
+
+#: kwave/TopWidget.cpp:367
+msgid "Save the current file under a different name or file format..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:372
+msgid "Close the current file"
+msgstr ""
+
+#: kwave/TopWidget.cpp:383
+msgid "Undo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:388
+msgid "Redo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:393 libkwave/SignalManager.cpp:684
+msgid "Cut"
+msgstr ""
+
+#: kwave/TopWidget.cpp:398
+msgid "Copy"
+msgstr ""
+
+#: kwave/TopWidget.cpp:403 libkwave/undo/UndoInsertAction.cpp:44
+msgid "Insert"
+msgstr ""
+
+#: kwave/TopWidget.cpp:411
+msgid "Mute selection"
+msgstr ""
+
+#: kwave/TopWidget.cpp:416
+msgid "Delete selection"
+msgstr ""
+
+#: kwave/TopWidget.cpp:734
+msgid "Reset the toolbar to default settings?"
+msgstr ""
+
+#: kwave/TopWidget.cpp:758
+msgid ""
+"Re-enable all disabled notifications?\n"
+"All messages that you previously turned off by activating the \"Do not ask "
+"again\" checkbox will then be enabled again."
+msgstr ""
+
+#: kwave/TopWidget.cpp:950
+#, kde-format
+msgid "Executing command '%1'..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:970
+#, kde-format
+msgid "Executing Kwave script file '%1'..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:980
+#, kde-format
+msgid "Loading file '%1'..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:994 plugins/codec_audiofile/AudiofileDecoder.cpp:104
+#: plugins/codec_flac/FlacEncoder.cpp:246
+#: plugins/codec_flac/FlacEncoder.cpp:264
+#: plugins/codec_flac/FlacEncoder.cpp:279 plugins/codec_mp3/MP3Decoder.cpp:504
+#: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:388
+#: plugins/codec_ogg/OpusEncoder.cpp:381 plugins/codec_ogg/OpusEncoder.cpp:434
+#: plugins/codec_wav/WavDecoder.cpp:365 plugins/codec_wav/WavEncoder.cpp:428
+#: plugins/playback/PlayBack-OSS.cpp:245 plugins/playback/PlayBack-OSS.cpp:253
+#: plugins/playback/PlayBack-Phonon.cpp:150
+#: plugins/playback/PlayBack-Phonon.cpp:181
+#: plugins/playback/PlayBack-Phonon.cpp:194
+#: plugins/record/RecordPlugin.cpp:875 plugins/record/RecordPlugin.cpp:891
+#: plugins/record/RecordPlugin.cpp:961
+msgid "Out of memory"
+msgstr ""
+
+#: kwave/TopWidget.cpp:998
+#, kde-format
+msgctxt "error message after opening a file failed"
+msgid "Unable to open '%1'"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1002
+#, kde-format
+msgctxt "error message after opening a file failed"
+msgid "Invalid or unknown file type: '%1'"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1039
+msgid "Open"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1089
+#, kde-format
+msgctxt "Length, as in total duration of loaded song"
+msgid "Length: %1 (%2 samples)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1100
+#, kde-format
+msgid "Mode: %1 kHz @ %2 Bit"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1146
+#, kde-format
+msgctxt ""
+"%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
+"2000...3000 (1000 samples)'"
+msgid "Selected: %1...%2 (%3 samples)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1158
+#, kde-format
+msgctxt ""
+"%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
+"(3 min)'"
+msgid "Selected: %1...%2 (%3)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1177
+#, kde-format
+msgid "Position: %1"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1203
+#, kde-format
+msgctxt "tooltip of the undo toolbar button if undo enabled"
+msgid "Undo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1205
+msgctxt "tooltip of the undo toolbar button if undo disabled"
+msgid "Undo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1214
+#, kde-format
+msgctxt "tooltip of the redo toolbar button, redo enabled"
+msgid "Redo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1216
+msgctxt "tooltip of the redo toolbar button, redo disabled"
+msgid "Redo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1226
+#, kde-format
+msgctxt "menu entry for undo if undo enabled"
+msgid "Undo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1227
+msgctxt "menu entry for undo if undo disabled"
+msgid "Undo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1233
+#, kde-format
+msgctxt "menu entry for redo if redo enabled"
+msgid "Redo (%1)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1234
+msgctxt "menu entry for redo if redo disabled"
+msgid "Redo"
 msgstr ""
 
 #: libgui/CurveWidget.cpp:77

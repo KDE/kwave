@@ -157,18 +157,18 @@
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
 
     <keywordset>
-	<keyword>KDE</keyword>
-	<keyword>multimedia</keyword>
-	<keyword>sound</keyword>
-	<keyword>audio</keyword>
-	<keyword>Kwave</keyword>
-	<keyword>wav</keyword>
-	<keyword>editor</keyword>
-	<keyword>record</keyword>
-	<keyword>playback</keyword>
-	<keyword>sonagram</keyword>
-	<keyword>FFT</keyword>
-	<keyword>Linux</keyword>
+	<keyword>&no-i18n-tag;KDE</keyword>
+	<keyword>&no-i18n-tag;multimedia</keyword>
+	<keyword>&no-i18n-tag;sound</keyword>
+	<keyword>&no-i18n-tag;audio</keyword>
+	<keyword>&no-i18n-tag;Kwave</keyword>
+	<keyword>&no-i18n-tag;wav</keyword>
+	<keyword>&no-i18n-tag;editor</keyword>
+	<keyword>&no-i18n-tag;record</keyword>
+	<keyword>&no-i18n-tag;playback</keyword>
+	<keyword>&no-i18n-tag;sonagram</keyword>
+	<keyword>&no-i18n-tag;FFT</keyword>
+	<keyword>&no-i18n-tag;Linux</keyword>
     </keywordset>
 </bookinfo>
 
@@ -515,11 +515,11 @@
 	unpacked in <filename><replaceable>$HOME/src/kwave-&version;</replaceable></filename>, you
 	can do the following:
 <screen width="50" format="linespecific">
-<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
-<prompt>% </prompt><command>cd /tmp/kwave-build</command>
-<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-&version;</replaceable> <replaceable>[build options]</replaceable></command>
-<prompt>% </prompt><command>make</command>
-<prompt>% </prompt><command>su root -c "make install"</command>
+&no-i18n-tag;<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
+&no-i18n-tag;<prompt>% </prompt><command>cd /tmp/kwave-build</command>
+&no-i18n-tag;<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-&version;</replaceable> <replaceable>[build options]</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>make</command>
+&no-i18n-tag;<prompt>% </prompt><command>su root -c "make install"</command>
 </screen>
 	(Specifying build options is a way to enable or disable specific features.
 	See the following section for descriptions)
@@ -617,7 +617,7 @@
 	    For example, if you want to enable MP3 support,
 	    you can pass the corresponding option as follows:
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></command>
 </screen>
 	</para>
     </sect1>
@@ -657,8 +657,8 @@
     <para>
     To build the &kwave; package and install it do:
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.bz2</replaceable></command>
-<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.bz2</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
     </para>
 
@@ -694,7 +694,7 @@
 	    or <filename>/usr/src/packages</filename> if you
 	    have the SuSE distribution.
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></command>
 </screen>
 	</para></listitem>
 
@@ -703,7 +703,7 @@
 	    have to replace "somewhere" with the real directory where
 	    the files are, of course).
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.bz2</replaceable> SOURCES</command>
+&no-i18n-tag;<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.bz2</replaceable> SOURCES</command>
 </screen>
 	</para></listitem>
 
@@ -711,7 +711,7 @@
 	    Extract the spec file from the archives and put it into
 	    the SPEC subdirectory.
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>tar -xOjf SOURCES/<replaceable>kwave-XXX.tar.bz2</replaceable> \*.spec > SPECS/kwave.spec</command>
+&no-i18n-tag;<prompt>% </prompt><command>tar -xOjf SOURCES/<replaceable>kwave-XXX.tar.bz2</replaceable> \*.spec > SPECS/kwave.spec</command>
 </screen>
 	</para></listitem>
 
@@ -722,7 +722,7 @@
 	    <literal>-ba</literal>, or just <literal>-bs</literal> to build
 	    only a source package.
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>
+&no-i18n-tag;<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>
 </screen>
 	</para></listitem>
 
@@ -734,7 +734,7 @@
 	    <literal>-U</literal> instead
 	    of <literal>-i</literal> for upgrading instead of installing.
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>rpm -ivh BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>rpm -ivh BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
 	</para></listitem>
 
@@ -766,23 +766,23 @@
 	First create the directory that will receive the subdirectoy with
 	&kwave; sources and change into it:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></command>
-<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>
 </screen>
     </para></listitem>
     <listitem>
 	<para>
 	    Then check out the latest sources from the GIT server:
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>git clone &url_git_master; kwave</command>
+&no-i18n-tag;<prompt>% </prompt><command>git clone &url_git_master; kwave</command>
 </screen>
 	</para>
 	<para>
 	or you can check out a specific release with the following commands:
 <screen width="70" format="linespecific">
-    <prompt>% </prompt><command>git clone &url_git_master; kwave</command>
-    <prompt>% </prompt><command>cd kwave</command>
-    <prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]</replaceable> </command>
+    &no-i18n-tag;<prompt>% </prompt><command>git clone &url_git_master; kwave</command>
+    &no-i18n-tag;<prompt>% </prompt><command>cd kwave</command>
+    &no-i18n-tag;<prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]</replaceable> </command>
 </screen>
 	You can look up the names of the release tags in the git web page at
 	<ulink url="&url_git_list_tags;"> &url_git_list_tags;</ulink>.
@@ -810,7 +810,7 @@
 	directory where you have the checked out sources and do the following
 	to update to the latest version:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>git pull</command>
+&no-i18n-tag;<prompt>% </prompt><command>git pull</command>
 </screen>
 	Then go on to the next section and compile as usual.
     </para>
@@ -820,9 +820,9 @@
 	state, you can do the following to discard all local changes and switch
 	back to the latest version from the master branch:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>git clean --force -d</command>
-<prompt>% </prompt><command>git reset --hard</command>
-<prompt>% </prompt><command>git checkout <replaceable>master</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>git clean --force -d</command>
+&no-i18n-tag;<prompt>% </prompt><command>git reset --hard</command>
+&no-i18n-tag;<prompt>% </prompt><command>git checkout <replaceable>master</replaceable></command>
 </screen>
     </para></note>
     </sect2>
@@ -856,11 +856,11 @@
 	please remove it first or use <command>rpm -U</command> instead
 	of <command>rpm -i</command> for updating instead of installing.
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
-<prompt>% </prompt><command>cd /tmp/kwave-build</command>
-<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave</replaceable></command>
-<prompt>% </prompt><command>make rpm</command>
-<prompt>% </prompt><command>rpm -ivh /usr/src/redhat/BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
+&no-i18n-tag;<prompt>% </prompt><command>cd /tmp/kwave-build</command>
+&no-i18n-tag;<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave</replaceable></command>
+&no-i18n-tag;<prompt>% </prompt><command>make rpm</command>
+&no-i18n-tag;<prompt>% </prompt><command>rpm -ivh /usr/src/redhat/BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
     </para>
 
@@ -888,7 +888,7 @@
 	then you can create your own package quite easily. First of all, you
 	need to install some required tools:
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>sudo apt-get install build-essential checkinstall</command>
+&no-i18n-tag;<prompt>% </prompt><command>sudo apt-get install build-essential checkinstall</command>
 </screen>
     </para>
 
@@ -896,7 +896,7 @@
 	Then you can install the required build dependencies by pretending to
 	install the dependencies of the official &kwave; version:
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>sudo apt-get build-dep kwave</command>
+&no-i18n-tag;<prompt>% </prompt><command>sudo apt-get build-dep kwave</command>
 </screen>
     </para>
 
@@ -905,7 +905,7 @@
 	described in the chapters before. After building you can type this
 	to get a .deb file in your current build directory:
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>make deb</command>
+&no-i18n-tag;<prompt>% </prompt><command>make deb</command>
 </screen>
     </para>
 
@@ -1006,7 +1006,7 @@
 	the flags need to be specified before the call. For example:
 
 	<screen width="70" format="linespecific">
-<prompt>% </prompt><command>CFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
+&no-i18n-tag;<prompt>% </prompt><command>CFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
   CXXFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
   cmake <replaceable>[source directory]</replaceable></command>
 </screen>
@@ -1471,7 +1471,7 @@
 	    <para>
 	    For example, the following command starts a &kwave; and opens all sounds
 	    of the KDE window manager, each in a new window or sub window:
-	    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
+	    <screen>&no-i18n-tag;<prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
 	    </para>
 	    <para>
 		It is also possible to pass &kwave; text commands, encoded as a
@@ -1504,7 +1504,7 @@
 	    width of 600 pixels and a height of 400 pixels, with the right border
 	    positioned 30 pixels away from the right and 0 pixels away from the top
 	    of the screen.
-	    <screen><prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
+	    <screen>&no-i18n-tag;<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
 	    </para>
 	</sect2>
 
@@ -3064,7 +3064,7 @@
 	<!-- @COMMAND@ about_kde() -->
 	<sect2 id="cmd_sect_about_kde"><title id="cmd_title_about_kde">&no-i18n-cmd_about_kde;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_about_kde;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_about_kde;</command>()</title>
 	    <para>
 		Shows a dialog window with information about the KDE
 		version used by the computer &kwave; is running at.
@@ -3091,14 +3091,14 @@
 	<!-- @COMMAND@ add_track() -->
 	<sect2 id="cmd_sect_add_track"><title id="cmd_title_add_track">&no-i18n-cmd_add_track;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_add_track;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_add_track;</command>()</title>
 	    <para>
 		Adds a new track after all existing tracks.
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_insert_track"><command>&no-i18n-cmd_insert_track;</command>()</link>
+		<link linkend="cmd_sect_insert_track"><command>&no-i18n-tag;&no-i18n-cmd_insert_track;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3109,7 +3109,7 @@
 	<!-- @COMMAND@ clipboard_flush() -->
 	<sect2 id="cmd_sect_clipboard_flush"><title id="cmd_title_clipboard_flush">&no-i18n-cmd_clipboard_flush;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_clipboard_flush;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_clipboard_flush;</command>()</title>
 	    <para>
 		Discards the current content of the clipboard
 		(might free some memory).
@@ -3120,7 +3120,7 @@
 	<!-- @COMMAND@ close() -->
 	<sect2 id="cmd_sect_close"><title id="cmd_title_close">&no-i18n-cmd_close;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_close;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_close;</command>()</title>
 	    <para>
 		Closes the current file. If the GUI is configured to MDI or Tab mode,
 		this also closes the corresponding sub window.
@@ -3128,8 +3128,8 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_open"><command>&no-i18n-cmd_open;</command>(<replaceable>filename</replaceable>)</link>,
-		<link linkend="cmd_sect_quit"><command>&no-i18n-cmd_quit;</command>()</link>
+		<link linkend="cmd_sect_open"><command>&no-i18n-tag;&no-i18n-cmd_open;</command>(<replaceable>filename</replaceable>)</link>,
+		<link linkend="cmd_sect_quit"><command>&no-i18n-tag;&no-i18n-cmd_quit;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3137,7 +3137,7 @@
 	<!-- @COMMAND@ continue() -->
 	<sect2 id="cmd_sect_continue"><title id="cmd_title_continue">&no-i18n-cmd_continue;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_continue;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_continue;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Continue</guibutton> toolbar
 		button and lets the playback continue if it is paused.
@@ -3145,7 +3145,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_pause"><command>&no-i18n-cmd_pause;</command>()</link>
+		<link linkend="cmd_sect_pause"><command>&no-i18n-tag;&no-i18n-cmd_pause;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3153,7 +3153,7 @@
 	<!-- @COMMAND@ copy() -->
 	<sect2 id="cmd_sect_copy"><title id="cmd_title_copy">&no-i18n-cmd_copy;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_copy;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_copy;</command>()</title>
 	    <para>
 		Copies the content of the current selection to the clipboard. If the
 		selection is empty, this command does nothing and the content
@@ -3164,7 +3164,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_paste"><command>&no-i18n-cmd_paste;</command>()</link>
+		<link linkend="cmd_sect_paste"><command>&no-i18n-tag;&no-i18n-cmd_paste;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3172,7 +3172,7 @@
 	<!-- @COMMAND@ crop() -->
 	<sect2 id="cmd_sect_crop"><title id="cmd_title_crop">&no-i18n-cmd_crop;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_crop;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_crop;</command>()</title>
 	    <para>
 		Crops the signal to the current selection by deleting everything
 		that is after and before the current selection. Affects all tracks.
@@ -3184,7 +3184,7 @@
 	<!-- @COMMAND@ cut() -->
 	<sect2 id="cmd_sect_cut"><title id="cmd_title_cut">&no-i18n-cmd_cut;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_cut;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_cut;</command>()</title>
 	    <para>
 		Copies the content of the current selection to the clipboard and
 		removes it from the signal. If the selection is empty, this
@@ -3201,7 +3201,7 @@
 	<!-- @COMMAND@ delete() -->
 	<sect2 id="cmd_sect_delete"><title id="cmd_title_delete">&no-i18n-cmd_delete;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_delete;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_delete;</command>()</title>
 	    <para>
 		Deletes the currently selected range of samples.
 		If the selection is empty, this command does nothing.
@@ -3241,7 +3241,7 @@
 	<!-- @COMMAND@ dump_metadata() -->
 	<sect2 id="cmd_sect_dump_metadata"><title id="cmd_title_dump_metadata">&no-i18n-cmd_dump_metadata;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_dump_metadata;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_dump_metadata;</command>()</title>
 	    <para>
 		Prints a list of all meta data entries to the console, for diagnostic purposes.
 		(Only available when &kwave; has been compiled with the option
@@ -3272,7 +3272,7 @@
 	<!-- @COMMAND@ expandtolabel() -->
 	<sect2 id="cmd_sect_expandtolabel"><title id="cmd_title_expandtolabel">&no-i18n-cmd_expandtolabel;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_expandtolabel;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_expandtolabel;</command>()</title>
 	    <para>
 		Expands the current selection to the labels left and right from
 		the current selection borders. If the border of selection already
@@ -3303,7 +3303,7 @@
 	<!-- @COMMAND@ forward() -->
 	<sect2 id="cmd_sect_forward"><title id="cmd_title_forward">&no-i18n-cmd_forward;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_forward;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_forward;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Forward</guibutton> toolbar
 		button. If the playback is currently running, it skips forward
@@ -3314,8 +3314,8 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_view_scroll_right"><command>&no-i18n-cmd_view_scroll_right;</command>()</link>,
-		<link linkend="cmd_sect_rewind"><command>&no-i18n-cmd_rewind;</command>()</link>
+		<link linkend="cmd_sect_view_scroll_right"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_right;</command>()</link>,
+		<link linkend="cmd_sect_rewind"><command>&no-i18n-tag;&no-i18n-cmd_rewind;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3354,7 +3354,7 @@
 	    <row><entry><parameter>pos</parameter>:</entry><entry>position in samples where to insert</entry></row>
 	</tbody></tgroup></informaltable></simplesect>
 	<simplesect><title>See also</title>
-	    <para><link linkend="cmd_sect_paste"><command>&no-i18n-cmd_paste;</command>()</link></para>
+	    <para><link linkend="cmd_sect_paste"><command>&no-i18n-tag;&no-i18n-cmd_paste;</command>()</link></para>
 	</simplesect>
 	</sect2>
 
@@ -3377,7 +3377,7 @@
 	</tbody></tgroup></informaltable></simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_add_track"><command>&no-i18n-cmd_add_track;</command>()</link>
+		<link linkend="cmd_sect_add_track"><command>&no-i18n-tag;&no-i18n-cmd_add_track;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3404,7 +3404,7 @@
 	<!-- @COMMAND@ loop() -->
 	<sect2 id="cmd_sect_loop"><title id="cmd_title_loop">&no-i18n-cmd_loop;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_loop;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_loop;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Loop</guibutton> toolbar
 		button. Starts the playback (if it is not already running) and
@@ -3413,7 +3413,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_playback_start"><command>&no-i18n-cmd_playback_start;</command>()</link>
+		<link linkend="cmd_sect_playback_start"><command>&no-i18n-tag;&no-i18n-cmd_playback_start;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3679,7 +3679,7 @@
 	<!-- @COMMAND@ next() -->
 	<sect2 id="cmd_sect_next"><title id="cmd_title_next">&no-i18n-cmd_next;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_next;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_next;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Next</guibutton> toolbar
 		button. If the playback is currently running, it skips forward
@@ -3690,8 +3690,8 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_view_scroll_next_label"><command>&no-i18n-cmd_view_scroll_next_label;</command>()</link>,
-		<link linkend="cmd_sect_prev"><command>&no-i18n-cmd_prev;</command>()</link>
+		<link linkend="cmd_sect_view_scroll_next_label"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_next_label;</command>()</link>,
+		<link linkend="cmd_sect_prev"><command>&no-i18n-tag;&no-i18n-cmd_prev;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3718,7 +3718,7 @@
 	</tbody></tgroup></informaltable></simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_close"><command>&no-i18n-cmd_close;</command>()</link>
+		<link linkend="cmd_sect_close"><command>&no-i18n-tag;&no-i18n-cmd_close;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3744,7 +3744,7 @@
 	</tbody></tgroup></informaltable></simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_open"><command>&no-i18n-cmd_open;</command>(<replaceable>filename</replaceable>)</link>
+		<link linkend="cmd_sect_open"><command>&no-i18n-tag;&no-i18n-cmd_open;</command></link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3755,7 +3755,7 @@
 	<!-- @COMMAND@ paste() -->
 	<sect2 id="cmd_sect_paste"><title id="cmd_title_paste">&no-i18n-cmd_paste;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_paste;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_paste;</command>()</title>
 	    <para>
 		Replaces the current selection with the content of the clipboard.
 		If the clipboard is empty, this command does nothing.
@@ -3771,7 +3771,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_copy"><command>&no-i18n-cmd_copy;</command>()</link>
+		<link linkend="cmd_sect_copy"><command>&no-i18n-tag;&no-i18n-cmd_copy;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3779,7 +3779,7 @@
 	<!-- @COMMAND@ pause() -->
 	<sect2 id="cmd_sect_pause"><title id="cmd_title_pause">&no-i18n-cmd_pause;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_continue;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_continue;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Pause</guibutton> toolbar
 		button and lets the playback pause if it is currently running,
@@ -3788,7 +3788,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_continue"><command>&no-i18n-cmd_continue;</command>()</link>
+		<link linkend="cmd_sect_continue"><command>&no-i18n-tag;&no-i18n-cmd_continue;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3796,7 +3796,7 @@
 	<!-- @COMMAND@ playback_start() -->
 	<sect2 id="cmd_sect_playback_start"><title id="cmd_title_playback_start">&no-i18n-cmd_playback_start;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_playback_start;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_playback_start;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Start</guibutton> toolbar
 		button and lets the playback start if it is currently paused.
@@ -3826,8 +3826,8 @@
 	</tbody></tgroup></informaltable></simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_plugin_execute"><command>&no-i18n-cmd_plugin_execute;</command>()</link>,
-		<link linkend="cmd_sect_plugin_setup"><command>&no-i18n-cmd_plugin_setup;</command>()</link>
+		<link linkend="cmd_sect_plugin_execute"><command>&no-i18n-tag;&no-i18n-cmd_plugin_execute;</command>()</link>,
+		<link linkend="cmd_sect_plugin_setup"><command>&no-i18n-tag;&no-i18n-cmd_plugin_setup;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3875,7 +3875,7 @@
 	<!-- @COMMAND@ prev() -->
 	<sect2 id="cmd_sect_prev"><title id="cmd_title_prev">&no-i18n-cmd_prev;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_prev;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_prev;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Previous</guibutton> toolbar
 		button. If the playback is currently running, it skips back
@@ -3886,8 +3886,8 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_view_scroll_next_label"><command>&no-i18n-cmd_view_scroll_prev_label;</command>()</link>,
-		<link linkend="cmd_sect_next"><command>&no-i18n-cmd_next;</command>()</link>
+		<link linkend="cmd_sect_view_scroll_next_label"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_prev_label;</command>()</link>,
+		<link linkend="cmd_sect_next"><command>&no-i18n-tag;&no-i18n-cmd_next;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3898,7 +3898,7 @@
 	<!-- @COMMAND@ quit() -->
 	<sect2 id="cmd_sect_quit"><title id="cmd_title_quit">&no-i18n-cmd_quit;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_quit;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_quit;</command>()</title>
 	    <para>
 		Closes the current main window, including all sub windows.
 		In SDI mode this is the same as the command
@@ -3907,7 +3907,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_close"><command>&no-i18n-cmd_close;</command>()</link>
+		<link linkend="cmd_sect_close"><command>&no-i18n-tag;&no-i18n-cmd_close;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3918,7 +3918,7 @@
 	<!-- @COMMAND@ redo() -->
 	<sect2 id="cmd_sect_redo"><title id="cmd_title_redo">&no-i18n-cmd_redo;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_redo;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_redo;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Redo</guibutton> toolbar
 		button and repeats one operation that has been reverted with
@@ -3927,7 +3927,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_undo"><command>&no-i18n-cmd_undo;</command>()</link>
+		<link linkend="cmd_sect_undo"><command>&no-i18n-tag;&no-i18n-cmd_undo;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3935,7 +3935,7 @@
 	<!-- @COMMAND@ redo_all() -->
 	<sect2 id="cmd_sect_redo_all"><title id="cmd_title_redo_all">&no-i18n-cmd_redo_all;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_redo_all;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_redo_all;</command>()</title>
 	    <para>
 		Similar to <command>&no-i18n-cmd_redo;</command>, but re-does
 		as many operations as possible.
@@ -3943,7 +3943,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_undo"><command>&no-i18n-cmd_undo;</command>()</link>
+		<link linkend="cmd_sect_undo"><command>&no-i18n-tag;&no-i18n-cmd_undo;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3951,7 +3951,7 @@
 	<!-- @COMMAND@ reenable_dna() -->
 	<sect2 id="cmd_sect_reenable_dna"><title id="cmd_title_reenable_dna">&no-i18n-cmd_reenable_dna;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_reenable_dna;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_reenable_dna;</command>()</title>
 	    <para>
 		Some message boxes offer the possibility to prevent them from
 		appearing again (<quote>do not ask again</quote>). This command
@@ -3963,7 +3963,7 @@
 	<!-- @COMMAND@ reset_toolbars() -->
 	<sect2 id="cmd_sect_reset_toolbars"><title id="cmd_title_reset_toolbars">&no-i18n-cmd_reset_toolbars;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_reset_toolbars;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_reset_toolbars;</command>()</title>
 	    <para>
 		Resets all toolbar settings, like location, icon size and text
 		location back to defaults.
@@ -3974,7 +3974,7 @@
 	<!-- @COMMAND@ revert() -->
 	<sect2 id="cmd_sect_revert"><title id="cmd_title_revert">&no-i18n-cmd_revert;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_revert;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_revert;</command>()</title>
 	    <para>
 		Reverts the currently loaded file back to the last saved state,
 		discarding all changes that are not saved.
@@ -3985,7 +3985,7 @@
 	<!-- @COMMAND@ rewind() -->
 	<sect2 id="cmd_sect_rewind"><title id="cmd_title_rewind">&no-i18n-cmd_rewind;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_rewind;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_rewind;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Rewind</guibutton> toolbar
 		button. If the playback is currently running, it skips backward
@@ -3996,8 +3996,8 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_view_scroll_left"><command>&no-i18n-cmd_view_scroll_left;</command>()</link>,
-		<link linkend="cmd_sect_forward"><command>&no-i18n-cmd_forward;</command>()</link>
+		<link linkend="cmd_sect_view_scroll_left"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_left;</command>()</link>,
+		<link linkend="cmd_sect_forward"><command>&no-i18n-tag;&no-i18n-cmd_forward;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4008,7 +4008,7 @@
 	<!-- @COMMAND@ save() -->
 	<sect2 id="cmd_sect_save"><title id="cmd_title_save">&no-i18n-cmd_save;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_save;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_save;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Save</guibutton> toolbar
 		button. Saves the current file if it has modifications.
@@ -4019,7 +4019,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_saveas"><command>&no-i18n-cmd_saveas;</command>()</link>
+		<link linkend="cmd_sect_saveas"><command>&no-i18n-tag;&no-i18n-cmd_saveas;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4043,7 +4043,7 @@
 	<!-- @COMMAND@ saveselect() -->
 	<sect2 id="cmd_sect_saveselect"><title id="cmd_title_saveselect">&no-i18n-cmd_saveselect;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_saveselect;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_saveselect;</command>()</title>
 	    <para>
 		This command does the same as <command>&no-i18n-cmd_save;</command>,
 		but saves only the currently selected range and the activated
@@ -4052,7 +4052,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_save"><command>&no-i18n-cmd_save;</command>()</link>
+		<link linkend="cmd_sect_save"><command>&no-i18n-tag;&no-i18n-cmd_save;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4079,16 +4079,16 @@
 	<!-- @COMMAND@ select_track:all() -->
 	<sect2 id="cmd_sect_select_track_all"><title id="cmd_title_select_track_all">&no-i18n-cmd_select_track_all;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_all;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_select_track_all;</command>()</title>
 	    <para>
 		Mark all tracks <quote>enabled</quote>. This is the same as
-		calling the command <quote><command>&no-i18n-cmd_select_track_on;</command>()</quote>
+		calling the command <quote><command>&no-i18n-tag;&no-i18n-cmd_select_track_on;</command>()</quote>
 		for all existing tracks.
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_select_track_on"><command>&no-i18n-cmd_select_track_on;</command>()</link>
+		<link linkend="cmd_sect_select_track_on"><command>&no-i18n-tag;&no-i18n-cmd_select_track_on;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4096,7 +4096,7 @@
 	<!-- @COMMAND@ select_track:invert() -->
 	<sect2 id="cmd_sect_select_track_invert"><title id="cmd_title_select_track_invert">&no-i18n-cmd_select_track_invert;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_all;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_select_track_all;</command>()</title>
 	    <para>
 		Invert the <quote>enabled</quote> state of all tracks.
 		This is the same as calling the command
@@ -4106,7 +4106,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_select_track_toggle"><command>&no-i18n-cmd_select_track_toggle;</command>()</link>
+		<link linkend="cmd_sect_select_track_toggle"><command>&no-i18n-tag;&no-i18n-cmd_select_track_toggle;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4114,7 +4114,7 @@
 	<!-- @COMMAND@ select_track:none() -->
 	<sect2 id="cmd_sect_select_track_none"><title id="cmd_title_select_track_none">&no-i18n-cmd_select_track_none;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_none;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_select_track_none;</command>()</title>
 	    <para>
 		Mark all tracks <quote>disabled</quote>. This is the same as
 		calling the command <quote><command>&no-i18n-cmd_select_track_off;</command>()</quote>
@@ -4123,7 +4123,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_select_track_off"><command>&no-i18n-cmd_select_track_off;</command>()</link>
+		<link linkend="cmd_sect_select_track_off"><command>&no-i18n-tag;&no-i18n-cmd_select_track_off;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4175,7 +4175,7 @@
 	<!-- @COMMAND@ selectall() -->
 	<sect2 id="cmd_sect_selectall"><title id="cmd_title_selectall">&no-i18n-cmd_selectall;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectall;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_selectall;</command>()</title>
 	    <para>
 		Selects the range of the whole signal, from the first to the
 		last sample.
@@ -4186,7 +4186,7 @@
 	<!-- @COMMAND@ selectnext() -->
 	<sect2 id="cmd_sect_selectnext"><title id="cmd_title_selectnext">&no-i18n-cmd_selectnext;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectnext;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_selectnext;</command>()</title>
 	    <para>
 		Selects a range of samples that starts right after the current
 		selection, using the same length as the current selection.
@@ -4197,7 +4197,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_selectprev"><command>&no-i18n-cmd_selectprev;</command>()</link>
+		<link linkend="cmd_sect_selectprev"><command>&no-i18n-tag;&no-i18n-cmd_selectprev;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4205,7 +4205,7 @@
 	<!-- @COMMAND@ selectnextlabels() -->
 	<sect2 id="cmd_sect_selectnextlabels"><title id="cmd_title_selectnextlabels">&no-i18n-cmd_selectnextlabels;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectnextlabels;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_selectnextlabels;</command>()</title>
 	    <para>
 		Selects a range of samples between the next two labels after the
 		current selection. If nothing is selected, it selects from the
@@ -4220,7 +4220,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_selectprevlabels"><command>&no-i18n-cmd_selectprevlabels;</command>()</link>
+		<link linkend="cmd_sect_selectprevlabels"><command>&no-i18n-tag;&no-i18n-cmd_selectprevlabels;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4228,7 +4228,7 @@
 	<!-- @COMMAND@ selectnone() -->
 	<sect2 id="cmd_sect_selectnone"><title id="cmd_title_selectnone">&no-i18n-cmd_selectnone;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectnone;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_selectnone;</command>()</title>
 	    <para>
 		Resets the selection to zero length.
 	    </para>
@@ -4238,7 +4238,7 @@
 	<!-- @COMMAND@ selectprev() -->
 	<sect2 id="cmd_sect_selectprev"><title id="cmd_title_selectprev">&no-i18n-cmd_selectprev;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectprev;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_selectprev;</command>()</title>
 	    <para>
 		Selects a range of samples that starts left from the current
 		selection, using the same length as the current selection.
@@ -4249,7 +4249,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_selectprev"><command>&no-i18n-cmd_selectnext;</command>()</link>
+		<link linkend="cmd_sect_selectprev"><command>&no-i18n-tag;&no-i18n-cmd_selectnext;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4257,7 +4257,7 @@
 	<!-- @COMMAND@ selectprevlabels() -->
 	<sect2 id="cmd_sect_selectprevlabels"><title id="cmd_title_selectprevlabels">&no-i18n-cmd_selectprevlabels;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectprevlabels;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_selectprevlabels;</command>()</title>
 	    <para>
 		Selects a range of samples between the previous two labels before the
 		current selection. If nothing is selected, it selects from the
@@ -4272,7 +4272,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_selectnextlabels"><command>&no-i18n-cmd_selectnextlabels;</command>()</link>
+		<link linkend="cmd_sect_selectnextlabels"><command>&no-i18n-tag;&no-i18n-cmd_selectnextlabels;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4280,7 +4280,7 @@
 	<!-- @COMMAND@ selecttoleft() -->
 	<sect2 id="cmd_sect_selecttoleft"><title id="cmd_title_selecttoleft">&no-i18n-cmd_selecttoleft;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selecttoleft;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_selecttoleft;</command>()</title>
 	    <para>
 		Sets the start of the selection to the start of the signal, the
 		end of the current selection stays unchanged.
@@ -4288,7 +4288,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_selecttoright"><command>&no-i18n-cmd_selecttoright;</command>()</link>
+		<link linkend="cmd_sect_selecttoright"><command>&no-i18n-tag;&no-i18n-cmd_selecttoright;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4296,7 +4296,7 @@
 	<!-- @COMMAND@ selecttoright() -->
 	<sect2 id="cmd_sect_selecttoright"><title id="cmd_title_selecttoright">&no-i18n-cmd_selecttoright;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selecttoright;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_selecttoright;</command>()</title>
 	    <para>
 		Sets the end of the selection to the end of the signal, the
 		start of the current selection stays unchanged.
@@ -4304,7 +4304,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_selecttoleft"><command>&no-i18n-cmd_selecttoleft;</command>()</link>
+		<link linkend="cmd_sect_selecttoleft"><command>&no-i18n-tag;&no-i18n-cmd_selecttoleft;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4312,7 +4312,7 @@
 	<!-- @COMMAND@ selectvisible() -->
 	<sect2 id="cmd_sect_selectvisible"><title id="cmd_title_selectvisible">&no-i18n-cmd_selectvisible;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_selectvisible;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_selectvisible;</command>()</title>
 	    <para>
 		Selects the range of samples that is visible in the current
 		window.
@@ -4323,7 +4323,7 @@
 	<!-- @COMMAND@ start() -->
 	<sect2 id="cmd_sect_start"><title id="cmd_title_start">&no-i18n-cmd_start;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_start;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_start;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Start</guibutton> toolbar
 		button and lets the playback start from the beginning of the
@@ -4332,7 +4332,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_stop"><command>&no-i18n-cmd_stop;</command>()</link>
+		<link linkend="cmd_sect_stop"><command>&no-i18n-tag;&no-i18n-cmd_stop;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4340,7 +4340,7 @@
 	<!-- @COMMAND@ stop() -->
 	<sect2 id="cmd_sect_stop"><title id="cmd_title_stop">&no-i18n-cmd_stop;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_stop;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_stop;</command>()</title>
 	    <para>
 		Corresponds to to the <guibutton>Stop</guibutton> toolbar
 		button and lets the playback stop if it is currently running.
@@ -4348,7 +4348,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_start"><command>&no-i18n-cmd_start;</command>()</link>
+		<link linkend="cmd_sect_start"><command>&no-i18n-tag;&no-i18n-cmd_start;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4359,7 +4359,7 @@
 	<!-- @COMMAND@ undo() -->
 	<sect2 id="cmd_sect_undo"><title id="cmd_title_undo">&no-i18n-cmd_undo;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_undo;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_undo;</command>()</title>
 	    <para>
 		Corresponds to the <guibutton>Undo</guibutton> toolbar
 		button and reverts the last operation.
@@ -4367,7 +4367,7 @@
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_redo"><command>&no-i18n-cmd_redo;</command>()</link>
+		<link linkend="cmd_sect_redo"><command>&no-i18n-tag;&no-i18n-cmd_redo;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4375,15 +4375,15 @@
 	<!-- @COMMAND@ undo_all() -->
 	<sect2 id="cmd_sect_undo_all"><title id="cmd_title_undo_all">&no-i18n-cmd_undo_all;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_undo_all;</command>()</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_undo_all;</command>()</title>
 	    <para>
-		Similar to <command>&no-i18n-cmd_undo;</command>, but reverts
+		Similar to <command>&no-i18n-tag;&no-i18n-cmd_undo;</command>, but reverts
 		as many operations as possible.
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_undo"><command>&no-i18n-cmd_undo;</command>()</link>
+		<link linkend="cmd_sect_undo"><command>&no-i18n-tag;&no-i18n-cmd_undo;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4391,140 +4391,293 @@
 
     <sect1 id="commands_v"><title>&no-i18n-tag;v</title>
 
-	<!-- @COMMAND@ view:scroll_end(TODO) -->
+	<!-- @COMMAND@ view:scroll_end() -->
 	<sect2 id="cmd_sect_view_scroll_end"><title id="cmd_title_view_scroll_end">&no-i18n-cmd_view_scroll_end;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_scroll_end;</command>()</title>
+	    <para>Scrolls the current view to the <emphasis>end</emphasis> of the signal.</para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_start"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_start;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:scroll_left(TODO) -->
+	<!-- @COMMAND@ view:scroll_left() -->
 	<sect2 id="cmd_sect_view_scroll_left"><title id="cmd_title_view_scroll_left">&no-i18n-cmd_view_scroll_left;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_scroll_left;</command>()</title>
+	    <para>
+		Scrolls the current view by 1/10 of the currently visible range towards
+		the start of the signal. If the start of the signal is reached the visible
+		area starts at offset zero.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_right"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_right;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:scroll_next(TODO) -->
+	<!-- @COMMAND@ view:scroll_next() -->
 	<sect2 id="cmd_sect_view_scroll_next"><title id="cmd_title_view_scroll_next">&no-i18n-cmd_view_scroll_next;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_scroll_next;</command>()</title>
+	    <para>
+		Scrolls the current view towards the end of the signal by
+		the currently visible range.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_prev"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_prev;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:scroll_next_label(TODO) -->
+	<!-- @COMMAND@ view:scroll_next_label() -->
 	<sect2 id="cmd_sect_view_scroll_next_label"><title id="cmd_title_view_scroll_next_label">&no-i18n-cmd_view_scroll_next_label;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_scroll_next_label;</command>()</title>
+	    <para>
+		Scrolls right and tries to show the next label centered in the
+		view. If there was no label right from the current position,
+		it will scroll to the end of the signal.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_prev_label"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_prev_label;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:scroll_prev(TODO) -->
+	<!-- @COMMAND@ view:scroll_prev() -->
 	<sect2 id="cmd_sect_view_scroll_prev"><title id="cmd_title_view_scroll_prev">&no-i18n-cmd_view_scroll_prev;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_scroll_prev;</command>()</title>
+	    <para>
+		Scrolls the current view towards the start of the signal by
+		the currently visible range.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_next"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_next;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:scroll_prev_label(TODO) -->
+	<!-- @COMMAND@ view:scroll_prev_label() -->
 	<sect2 id="cmd_sect_view_scroll_prev_label"><title id="cmd_title_view_scroll_prev_label">&no-i18n-cmd_view_scroll_prev_label;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_scroll_prev_label;</command>()</title>
+	    <para>
+		Scrolls left and tries to show the previous label centered in the
+		view. If there was no label left from the current position,
+		it will scroll to the start of the signal.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_next_label"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_next_label;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:scroll_right(TODO) -->
+	<!-- @COMMAND@ view:scroll_right() -->
 	<sect2 id="cmd_sect_view_scroll_right"><title id="cmd_title_view_scroll_right">&no-i18n-cmd_view_scroll_right;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_scroll_right;</command>()</title>
+	    <para>
+		Scrolls the current view by 1/10 of the currently visible range towards
+		the end of the signal. If the end of the signal is reached the visible
+		area ends at the end of the signal.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_left"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_left;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:scroll_start(TODO) -->
+	<!-- @COMMAND@ view:scroll_start() -->
 	<sect2 id="cmd_sect_view_scroll_start"><title id="cmd_title_view_scroll_start">&no-i18n-cmd_view_scroll_start;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_scroll_start;</command>()</title>
+	    <para>Scrolls the current view to the start of the signal.</para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_scroll_end"><command>&no-i18n-tag;&no-i18n-cmd_view_scroll_end;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:zoom_all(TODO) -->
+	<!-- @COMMAND@ view:zoom_all() -->
 	<sect2 id="cmd_sect_view_zoom_all"><title id="cmd_title_view_zoom_all">&no-i18n-cmd_view_zoom_all;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_zoom_all;</command>()</title>
+	    <para>
+		Adjusts the zoom factor so that the complete signal is visible
+		in the current view.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:zoom_in(TODO) -->
+	<!-- @COMMAND@ view:zoom_in([position]) -->
 	<sect2 id="cmd_sect_view_zoom_in"><title id="cmd_title_view_zoom_in">&no-i18n-cmd_view_zoom_in;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_view_zoom_in;</command>([<replaceable>position</replaceable>])</title>
+	    <para>
+		Reduces the zoom factor (in samples per pixel) by 30%, so that
+		more details get visible.
+		If a <replaceable>position</replaceable> is
+		given, it tries to show that position centered in the current
+		view, otherwise the center of the view before the zoom change
+		is used for centering.
+		The minimum zoom factor is limited to a minimum of five samples
+		per width of the view.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>position</parameter>:</entry>
+		<entry>a zero based position is samples to center the view (optional)</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_zoom_out"><command>&no-i18n-tag;&no-i18n-cmd_view_zoom_out;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:zoom_normal(TODO) -->
+	<!-- @COMMAND@ view:zoom_normal() -->
 	<sect2 id="cmd_sect_view_zoom_normal"><title id="cmd_title_view_zoom_normal">&no-i18n-cmd_view_zoom_normal;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_zoom_normal;</command>()</title>
+	    <para>
+		Sets the zoom factor to one pixel per sample (factor 1.0) and
+		tries to keep the previous center of the view.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:zoom_out(TODO) -->
+	<!-- @COMMAND@ view:zoom_out([position]) -->
 	<sect2 id="cmd_sect_view_zoom_out"><title id="cmd_title_view_zoom_out">&no-i18n-cmd_view_zoom_out;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_view_zoom_out;([<replaceable>position</replaceable>])</command></title>
+	    <para>
+		Increases the zoom factor (in samples per pixel) by 30%, so that
+		less details get visible.
+		If a <replaceable>position</replaceable> is
+		given, it tries to show that position centered in the current
+		view, otherwise the center of the view before the zoom change
+		is used for centering.
+		The maximum zoom factor is limited to the number of samples of
+		the complete signal and the width of the view.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>position</parameter>:</entry>
+		<entry>a zero based position is samples to center the view (optional)</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_view_zoom_in"><command>&no-i18n-tag;&no-i18n-cmd_view_zoom_in;</command>()</link>
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ view:zoom_selection(TODO) -->
+	<!-- @COMMAND@ view:zoom_selection() -->
 	<sect2 id="cmd_sect_view_zoom_selection"><title id="cmd_title_view_zoom_selection">&no-i18n-cmd_view_zoom_selection;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_view_zoom_selection;</command>()</title>
+	    <para>
+		Adjusts the view (zoom factor and start of visible area) so
+		that it matches the current selection. This command does
+		nothing if the selection is empty.
+	    </para>
+	</simplesect>
 	</sect2>
     </sect1>
 
     <sect1 id="commands_w"><title>&no-i18n-tag;w</title>
 
-	<!-- @COMMAND@ window:activate(TODO) -->
+	<!-- @COMMAND@ window:activate(title) -->
 	<sect2 id="cmd_sect_window_activate"><title id="cmd_title_window_activate">&no-i18n-cmd_window_activate;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_activate;</command>(<replaceable>title</replaceable>])</title>
+	    <para>
+		Activates a sub window, identified by it's window <replaceable>title</replaceable>.
+		If the sub window is minimized it will be restored.
+		Only available if in MDI and tab mode.
+		This command is internally used by the <quote><guisubmenu>Window</guisubmenu></quote> menu.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>title</parameter>:</entry>
+		<entry>the title of the sub window that should be activated</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ window:cascade(TODO) -->
+	<!-- @COMMAND@ window:cascade() -->
 	<sect2 id="cmd_sect_window_cascade"><title id="cmd_title_window_cascade">&no-i18n-cmd_window_cascade;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_cascade;</command>()</title>
+	    <para>
+		Cascades all sub windows when in MDI mode. All sub windows that are currently
+		minimized stay minimized, they will not be restored.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ window:next_sub(TODO) -->
+	<!-- @COMMAND@ window:next_sub() -->
 	<sect2 id="cmd_sect_window_next_sub"><title id="cmd_title_window_next_sub">&no-i18n-cmd_window_next_sub;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_next_sub;</command>()</title>
+	    <para>
+		Activates the <emphasis>next</emphasis> sub window when in MDI or tab mode. If the next
+		sub window is minimized it will be restored.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ window:prev_sub(TODO) -->
+	<!-- @COMMAND@ window:prev_sub() -->
 	<sect2 id="cmd_sect_window_prev_sub"><title id="cmd_title_window_prev_sub">&no-i18n-cmd_window_prev_sub;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_prev_sub;</command>()</title>
+	    <para>
+		Activates the <emphasis>previous</emphasis> sub window when in MDI or tab mode. If the previous
+		sub window is minimized it will be restored.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ window:tile(TODO) -->
+	<!-- @COMMAND@ window:tile() -->
 	<sect2 id="cmd_sect_window_tile"><title id="cmd_title_window_tile">&no-i18n-cmd_window_tile;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_tile;</command>()</title>
+	    <para>
+		Tiles all sub windows when in MDI mode, using some scheme of
+		KDE. All sub windows that are currently minimized stay minimized,
+		they will not be restored.
+	    </para>
+	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ window:tile_vertical(TODO) -->
+	<!-- @COMMAND@ window:tile_vertical() -->
 	<sect2 id="cmd_sect_window_tile_vertical"><title id="cmd_title_window_tile_vertical">&no-i18n-cmd_window_tile_vertical;</title>
-	<para>
-	    TBD
-	</para>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_tile_vertical;</command>()</title>
+	    <para>
+		Tiles all sub windows vertically when in MDI mode. All windows
+		that are currently minimized stay minimized, they will not be
+		restored.
+	    </para>
+	</simplesect>
 	</sect2>
 
 	<!-- @COMMAND_END_OF_LIST@ -->
@@ -4539,6 +4692,36 @@
 <chapter id="plugins"><title>Plugins</title>
     <para>
 	TODO: description of all plugins ...
+	<!--
+	about
+	amplifyfree
+	band_pass
+	codec_ascii
+	codec_audiofile
+	codec_flac
+	codec_mp3
+	codec_ogg
+	codec_wav
+	debug
+	fileinfo
+	goto
+	lowpass
+	memory
+	newsignal
+	noise
+	normalize
+	notch_filter
+	pitch_shift
+	playback
+	record
+	reverse
+	samplerate
+	saveblocks
+	selectrange
+	sonagram
+	volume
+	zero
+	-->
     </para>
 </chapter>
 
@@ -4587,7 +4770,7 @@
 	<ulink url="&url_doxygen;">doxygen</ulink> installed, then you
 	can type:
 <screen width="50" format="linespecific">
-<prompt>% </prompt><command>make apidoc</command>
+&no-i18n-tag;<prompt>% </prompt><command>make apidoc</command>
 </screen>
     </para>
     <para>
@@ -4611,7 +4794,7 @@
 	use the application from where it is built by using a wrapper script.
 	This wrapper script can be built with the follwing command:
 <screen width="50" format="linespecific">
-<prompt>% </prompt><command>make wrapper</command>
+&no-i18n-tag;<prompt>% </prompt><command>make wrapper</command>
 </screen>
     </para>
     <para>
@@ -4670,10 +4853,10 @@
 		<filename>Lokalize</filename>.
 		Example:
 <screen>
-<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-<prompt>% </prompt><command>cd <parameter>po</parameter></command>
-<prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> <parameter><replaceable>fr.po</replaceable></parameter></command>
-<prompt>% </prompt><command>lokalize <parameter>fr.po</parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>cd <parameter>po</parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> <parameter><replaceable>fr.po</replaceable></parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>lokalize <parameter>fr.po</parameter></command>
 </screen>
 	    </para></listitem>
 
@@ -4688,9 +4871,9 @@
 		change into the subdirectory <filename>doc</filename> and create
 		an empty <filename>.po</filename> file:
 <screen>
-<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
-<prompt>% </prompt><command>touch <parameter><replaceable>help_fr.po</replaceable></parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>touch <parameter><replaceable>help_fr.po</replaceable></parameter></command>
 </screen>
 		Then change to your build directory (e.g. somewhere in <filename>/tmp</filename>),
 		prepare for building and then generate the <filename>.pot</filename> template (you
@@ -4699,17 +4882,17 @@
 		directory of the online help.
 		Example:
 <screen>
-<prompt>% </prompt><command>mkdir <parameter>/tmp/kwave-build</parameter></command>
-<prompt>% </prompt><command>cd <parameter>/tmp/kwave-build</parameter></command>
-<prompt>% </prompt><command>cmake <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-<prompt>% </prompt><command>make doc</command>
-<prompt>% </prompt><command>cp <parameter>doc/help_en.pot</parameter> <parameter><replaceable>$HOME/src/kwave/doc/help_fr.po</replaceable></parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>mkdir <parameter>/tmp/kwave-build</parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>cd <parameter>/tmp/kwave-build</parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>cmake <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>make doc</command>
+&no-i18n-tag;<prompt>% </prompt><command>cp <parameter>doc/help_en.pot</parameter> <parameter><replaceable>$HOME/src/kwave/doc/help_fr.po</replaceable></parameter></command>
 </screen>
 	    Now you can translate the <filename>.po</filename> file, like above:
 <screen>
-<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
-<prompt>% </prompt><command>lokalize <parameter><replaceable>help_fr.po</replaceable></parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
+&no-i18n-tag;<prompt>% </prompt><command>lokalize <parameter><replaceable>help_fr.po</replaceable></parameter></command>
 </screen>
 	    </para></listitem>
 
@@ -5638,7 +5821,7 @@
 	<row>
 	    <entry colname='c1'>&no-i18n-tag;Labels</entry>
 	    <entry colname='c2'>
-		The list of labels/markers.
+		The list of labels.
 	    </entry>
 	</row>
 	<row>

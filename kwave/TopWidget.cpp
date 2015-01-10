@@ -773,23 +773,23 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	if (m_mdi_area) m_mdi_area->tileSubWindows();
     CASE_COMMAND("window:tile_vertical")
 	if (!m_mdi_area) return 0;
-	int count = m_mdi_area->subWindowList().count();
+
+	// determine the number of not minimized sub windows
+	int count = 0;
+	foreach (QMdiSubWindow *sub, m_mdi_area->subWindowList()) {
+	    if (sub && !(sub->windowState() & Qt::WindowMinimized))
+		++count;
+	}
 	if (!count) return 0;
+
 	int total_height = m_mdi_area->height();
 	int width = m_mdi_area->width();
 	int height = total_height / count;
 	int increment = height;
 	int y = 0;
 	foreach (QMdiSubWindow *sub, m_mdi_area->subWindowList()) {
-	    if (!sub) continue;
-
-	    // leave the "minimized" state if necessary
-	    Qt::WindowStates state = sub->windowState();
-	    if (state & Qt::WindowMinimized) {
-		sub->setWindowState(state & ~(Qt::WindowMinimized));
-		sub->raise();
-	    }
-
+	    if (!sub || (sub->windowState() & Qt::WindowMinimized))
+		continue;
 	    // resize/move the sub window
 	    sub->resize(width, height);
 	    sub->move(0, y);

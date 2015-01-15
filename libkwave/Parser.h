@@ -91,6 +91,9 @@ namespace Kwave
 	 */
 	const QString &nextParam();
 
+	/** Returns all remaining parameters in a string list */
+	QStringList remainingParams();
+
 	/**
 	 * Skips a parameter and advances the current position
 	 * by one if the end has not already been reached.

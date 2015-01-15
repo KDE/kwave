@@ -184,6 +184,15 @@ void Kwave::Parser::skipParam()
 }
 
 //***************************************************************************
+QStringList Kwave::Parser::remainingParams()
+{
+    QStringList list;
+    while (!isDone())
+	list.append(nextParam());
+    return list;
+}
+
+//***************************************************************************
 bool Kwave::Parser::toBool()
 {
     const QString &p = nextParam();

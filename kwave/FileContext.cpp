@@ -20,10 +20,12 @@
 #include <errno.h>
 #include <new>
 
+#include <QtCore/QFile>
+#include <QtCore/QLocale>
+#include <QtCore/QTextStream>
+
 #include <QtGui/QApplication>
 #include <QtGui/QMdiSubWindow>
-#include <QtCore/QFile>
-#include <QtCore/QTextStream>
 
 #include <kglobal.h>
 #include <kstandarddirs.h>
@@ -323,6 +325,16 @@ int Kwave::FileContext::executeCommand(const QString &line)
     if (command.startsWith(_("nomacro:"))) {
 	use_recorder = false;
 	command = command.mid(QString(_("nomacro:")).length());
+    }
+
+    // expand variables
+    if (command.contains(_("${"))) {
+	// current language
+	if (command.contains(_("${LANG}"))) {
+	    QLocale locale;
+	    QString lang = locale.bcp47Name().split(_("-")).at(0);
+	    command.replace(_("${LANG}"), lang);
+	}
     }
 
     // parse one single command

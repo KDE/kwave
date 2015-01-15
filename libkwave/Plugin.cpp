@@ -418,7 +418,7 @@ void Kwave::Plugin::release()
 }
 
 //***************************************************************************
-Kwave::PluginManager &Kwave::Plugin::manager()
+Kwave::PluginManager &Kwave::Plugin::manager() const
 {
     Q_ASSERT(m_plugin_manager);
     return *m_plugin_manager;
@@ -431,7 +431,7 @@ Kwave::SignalManager &Kwave::Plugin::signalManager()
 }
 
 //***************************************************************************
-QWidget *Kwave::Plugin::parentWidget()
+QWidget *Kwave::Plugin::parentWidget() const
 {
     return manager().parentWidget();
 }

@@ -366,24 +366,21 @@ int Kwave::FileContext::executeCommand(const QString &line)
     CASE_COMMAND("loadbatch")
 	result = loadBatch(parser.nextParam());
     CASE_COMMAND("plugin")
-	QString name = parser.firstParam();
-	QStringList params;
-	int cnt = Kwave::toInt(parser.count());
-	while (--cnt > 0) params.append(parser.nextParam());
+	QString name(parser.firstParam());
+	QStringList params(parser.remainingParams());
 	qDebug("FileContext::executeCommand(): loading plugin '%s'", DBG(name));
 	qDebug("FileContext::executeCommand(): with %d parameter(s)",
 		params.count());
 	result = m_plugin_manager->executePlugin(
 		    name, params.count() ? &params : 0);
     CASE_COMMAND("plugin:execute")
-	QStringList params;
-	int cnt = Kwave::toInt(parser.count());
 	QString name(parser.firstParam());
-	while (--cnt > 0) params.append(parser.nextParam());
+	QStringList params(parser.remainingParams());
 	result = m_plugin_manager->executePlugin(name, &params);
     CASE_COMMAND("plugin:setup")
 	QString name(parser.firstParam());
-	result = m_plugin_manager->setupPlugin(name);
+	QStringList params(parser.remainingParams());
+	result = m_plugin_manager->setupPlugin(name, params);
     CASE_COMMAND("revert")
 	result = revert();
     CASE_COMMAND("save")
@@ -392,6 +389,24 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	result = saveFileAs(parser.nextParam(), false);
     CASE_COMMAND("saveselect")
 	result = saveFileAs(QString(), true);
+    CASE_COMMAND("window:sendkey")
+	// delegate: window:sendkey(class,shortcut)
+	// -> plugin:setup(debug,sendkey,class,shortcut)
+	if (parser.count() != 2) return -EINVAL;
+	QString name = _("debug");
+	QStringList params;
+	params.append(_("sendkey"));
+	params.append(parser.remainingParams());
+	return m_plugin_manager->setupPlugin(name, params);
+    CASE_COMMAND("window:screenshot")
+	// delegate: window:screenshot(class,file,delay)
+	// -> plugin:setup(debug,screenshot,class,file,delay)
+	if (parser.count() != 3) return -EINVAL;
+	QString name = _("debug");
+	QStringList params;
+	params.append(_("screenshot"));
+	params.append(parser.remainingParams());
+	return m_plugin_manager->setupPlugin(name, params);
     } else {
 	// pass the command to the layer below (main widget)
 	Kwave::CommandHandler *layer_below = m_main_widget;
@@ -897,7 +912,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	// now call the fileinfo plugin with the new filename and
 	// mimetype
 	res = (m_plugin_manager) ?
-	       m_plugin_manager->setupPlugin(_("fileinfo"))
+	       m_plugin_manager->setupPlugin(_("fileinfo"), QStringList())
 	       : -1;
 
 	// restore the mime type and the filename

@@ -315,22 +315,24 @@ void Kwave::PluginManager::sync()
 }
 
 //***************************************************************************
-int Kwave::PluginManager::setupPlugin(const QString &name)
+int Kwave::PluginManager::setupPlugin(const QString &name,
+                                      const QStringList &params)
 {
     // load the plugin
     Kwave::Plugin* plugin = createPluginInstance(name);
     if (!plugin) return -ENOMEM;
 
     // now the plugin is present and loaded
-    QStringList last_params = loadPluginDefaults(name);
+    QStringList last_params = (!params.isEmpty()) ?
+	params : loadPluginDefaults(name);
 
     // call the plugin's setup function
-    QStringList *params = plugin->setup(last_params);
-    if (params) {
+    QStringList *new_params = plugin->setup(last_params);
+    if (new_params) {
 	// we have a non-zero parameter list, so
 	// the setup function has not been aborted.
-	savePluginDefaults(name, *params);
-	delete params;
+	savePluginDefaults(name, *new_params);
+	delete new_params;
     } else {
 	plugin->release();
 	return -1;

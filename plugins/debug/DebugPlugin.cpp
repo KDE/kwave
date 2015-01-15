@@ -8,10 +8,25 @@
 
 #include "config.h"
 #include <math.h>
+#include <string.h>
 #include <klocale.h> // for the i18n macro
 
+#include <QtCore/QByteArray>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
 #include <QtCore/QList>
+#include <QtCore/QPoint>
+#include <QtCore/QRect>
 #include <QtCore/QStringList>
+#include <QtCore/QTimer>
+
+#include <QtGui/QApplication>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QKeySequence>
+#include <QtGui/QDesktopWidget>
+#include <QtGui/QPixmap>
+#include <QtGui/QtEvents>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -52,7 +67,7 @@ void Kwave::DebugPlugin::load(QStringList &params)
 {
     Q_UNUSED(params);
 
-    QString entry = _("menu (plugin:execute(debug,%1),Calculate/Debug/%2)");
+    QString entry = _("menu(plugin:execute(debug,%1),Calculate/Debug/%2)");
 
     MENU_ENTRY("dc_50",             _(I18N_NOOP("Generate 50% DC Level")));
     MENU_ENTRY("dc_100",            _(I18N_NOOP("Generate 100% DC Level")));
@@ -66,9 +81,62 @@ void Kwave::DebugPlugin::load(QStringList &params)
 //     MENU_ENTRY("stripe_borders",    _(I18N_NOOP("Show Stripe Borders")));
     MENU_ENTRY("labels_at_stripes", _(I18N_NOOP("Labels at Stripe borders")));
 
-    emitCommand(_("menu (dump_metadata(), ") +
-                _(I18N_NOOP("Help")) + _("/") +
-                _(I18N_NOOP("Dump Meta Data")) + _(")"));
+    entry = _("menu(plugin:setup(debug,%1),Help/%2)");
+    MENU_ENTRY("dump_windows",      _(I18N_NOOP("Dump Window Hierarchy")));
+
+    entry = _("menu(%1,Help/%2)");
+    MENU_ENTRY("dump_metadata()",   _(I18N_NOOP("Dump Meta Data")));
+}
+
+//***************************************************************************
+QStringList *Kwave::DebugPlugin::setup(QStringList &params)
+{
+    if (params.count() < 1) return 0;
+
+    QString command = params.first();
+    QString action = i18n("Debug (%1)", command);
+    Kwave::UndoTransactionGuard undo_guard(*this, action);
+
+    if (command == _("dump_windows")) {
+	dump_children(parentWidget(), _(""));
+    } else if (command == _("screenshot")) {
+	if (params.count() != 4)
+	    return 0;
+
+	m_screenshot.m_class = params[1].toUtf8();
+	m_screenshot.m_file  = params[2];
+	m_screenshot.m_delay = params[3].toUInt();
+
+	if (m_screenshot.m_delay > 0) {
+	    use();
+	    QTimer::singleShot(m_screenshot.m_delay, this, SLOT(screenshot()));
+	} else {
+	    screenshot();
+	}
+    } else if (command == _("sendkey")) {
+	if (params.count() != 3)
+	    return 0;
+	QString class_name = params[1];
+	QString key_name   = params[2];
+	QWidget *widget    = findWidget(class_name.toUtf8().constData());
+
+	qDebug("send key '%s' to '%s' [%p]",
+	       DBG(key_name), DBG(class_name), static_cast<void *>(widget));
+	if (!widget) return 0;
+
+	unsigned int          shortcut = QKeySequence::fromString(key_name)[0];
+	int                   key_code = shortcut & 0x00FFFFFF;
+	Qt::KeyboardModifiers key_modifiers(shortcut & 0xFF000000);
+	QKeyEvent *press_event =
+	    new QKeyEvent(QEvent::KeyPress, key_code, key_modifiers);
+	QCoreApplication::postEvent(widget, press_event);
+
+	QKeyEvent *release_event =
+	    new QKeyEvent(QEvent::QEvent::KeyRelease, key_code, key_modifiers);
+	QCoreApplication::postEvent(widget, release_event);
+    }
+
+    return new QStringList;
 }
 
 //***************************************************************************
@@ -79,7 +147,7 @@ void Kwave::DebugPlugin::run(QStringList params)
     Kwave::SignalManager &sig    = signalManager();
     const double          rate   = signalRate();
 
-    if (params.count() != 1) return;
+    if (params.count() < 1) return;
 
     QString command = params.first();
     QString action = i18n("Debug (%1)", command);
@@ -248,6 +316,81 @@ void Kwave::DebugPlugin::run(QStringList params)
     }
 
     delete writers;
+}
+
+//***************************************************************************
+void Kwave::DebugPlugin::dump_children(const QObject *obj,
+                                       const QString &indent) const
+{
+    if (!obj) return;
+    const char *classname = obj->metaObject()->className();
+    qDebug("%s - %p [%s]",
+	DBG(indent),
+	static_cast<const void *>(obj),
+	classname
+    );
+
+    foreach (QObject *o, obj->children()) {
+	dump_children(o, indent + _("|   "));
+    }
+}
+
+//***************************************************************************
+QWidget *Kwave::DebugPlugin::findWidget(const char *class_name) const
+{
+    QObject *obj = findObject(parentWidget(), class_name);
+    if (!obj) return 0;
+    return qobject_cast<QWidget *>(obj);
+}
+
+//***************************************************************************
+QObject *Kwave::DebugPlugin::findObject(QObject *obj,
+                                        const char *class_name) const
+{
+    if (!obj) return 0;
+    const char *obj_class_name = obj->metaObject()->className();
+    if (strcmp(class_name, obj_class_name) == 0)
+	return obj;
+
+    foreach (QObject *o, obj->children()) {
+	QObject *result = findObject(o, class_name);
+	if (result) return result; // first match -> found
+    }
+
+    return 0; // nothing found
+}
+
+//***************************************************************************
+void Kwave::DebugPlugin::screenshot()
+{
+    // find the first widget/window with the given class name
+    QWidget *widget = findWidget(m_screenshot.m_class.constData());
+    qDebug("screenshot of '%s' [%p] -> '%s'",
+	m_screenshot.m_class.constData(),
+	static_cast<void *>(widget),
+	DBG(m_screenshot.m_file)
+    );
+    if (!widget) return;
+
+    // get the outer frame geometry, absolute coordinates
+    QRect rect = widget->frameGeometry();
+    QPixmap pixmap = QPixmap::grabWindow(
+	QApplication::desktop()->winId(),
+	rect.x(), rect.y(),
+	rect.width(), rect.height()
+    );
+
+    // make sure the directory exists
+    QFileInfo file(m_screenshot.m_file);
+    QDir dir = file.absoluteDir();
+    if (!dir.exists()) dir.mkpath(dir.absolutePath());
+
+    // save the file
+    pixmap.save(m_screenshot.m_file, "PNG", 90);
+
+    // release the plugin's use count if we were called per timer (delayed)
+    if (m_screenshot.m_delay)
+	release();
 }
 
 //***************************************************************************

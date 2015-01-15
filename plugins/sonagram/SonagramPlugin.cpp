@@ -177,7 +177,8 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     if (result) return result;
 
     // create an empty sonagram window
-    m_sonagram_window = new Kwave::SonagramWindow(signalName());
+    m_sonagram_window = new(std::nothrow)
+	Kwave::SonagramWindow(parentWidget(), signalName());
     Q_ASSERT(m_sonagram_window);
     if (!m_sonagram_window) return -ENOMEM;
 

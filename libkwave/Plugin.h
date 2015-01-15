@@ -176,7 +176,7 @@ namespace Kwave
 	/**
 	 * Returns a reference to the manager of this plugin.
 	 */
-	Kwave::PluginManager &manager();
+	Kwave::PluginManager &manager() const;
 
 	/** Returns a reference to the current signal manager */
 	Kwave::SignalManager &signalManager();
@@ -185,7 +185,7 @@ namespace Kwave
 	 * Returns the parent widget of the plugin. This normally should be
 	 * a TopWidget of the Kwave main program.
 	 */
-	QWidget *parentWidget();
+	QWidget *parentWidget() const;
 
 	/**
 	 * Returns the name of the current signal. This can be used to set the

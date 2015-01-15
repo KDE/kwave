@@ -48,10 +48,11 @@ namespace Kwave
 
 	/**
 	 * Constructor.
+	 * @param parent the parent widget
 	 * @param name reference to the initial name of the signal (used for
 	 *        setting the window title, might be an empty string)
 	 */
-	SonagramWindow(const QString &name);
+	SonagramWindow(QWidget *parent, const QString &name);
 
 	/**
 	 * Destructor.

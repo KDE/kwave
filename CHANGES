@@ -6,6 +6,7 @@
  * make system: new target "update-handbook" (updates command cross reference)
  * make system: fixed dependency problem in translation
  * i18n: implemented filter for non-translatable pot entries
+ * new commands: "window:sendkey" and "window:screenshot"
 
 0.8.99-2 [2015-01-02]
 

@@ -89,6 +89,9 @@ namespace Kwave
 
 	/**
 	 * Executes a plugin in the context of a given parent widget.
+	 * @param name the name of the plugin
+	 * @param params pointer to a parameter list
+	 *               or null if defaults should be used
 	 * @return zero on success or negative error code
 	 */
 	int executePlugin(const QString &name, QStringList *params);
@@ -111,8 +114,12 @@ namespace Kwave
 	 * Loads a plugin, calls it's setup function and then closes
 	 * it again. The parameters will be loaded before the setup
 	 * and saved if the setup has not been aborted.
+	 * @param name the name of the plugin
+	 * @param params pointer to a parameter list
+	 *               or null if defaults should be used
+	 * @return zero on success or negative error code
 	 */
-	int setupPlugin(const QString &name);
+	int setupPlugin(const QString &name, const QStringList &params);
 
 	/**
 	 * Returns the length of the current signal in samples.

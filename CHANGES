@@ -6,8 +6,10 @@
  * make system: new target "update-handbook" (updates command cross reference)
  * make system: fixed dependency problem in translation
  * i18n: implemented filter for non-translatable pot entries
- * new commands: "window:sendkey" and "window:screenshot"
+ * new commands: "window:sendkey", "window:screenshot", "window:close"
+   and "window:resize"
  * built-in variable ${LANG} for kwave commands
+ * support for delayed command execution
 
 0.8.99-2 [2015-01-02]
 

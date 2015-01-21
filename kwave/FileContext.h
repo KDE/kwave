@@ -22,9 +22,11 @@
 
 #include <QtCore/QAtomicInt>
 #include <QtCore/QElapsedTimer>
+#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
 #include <QtCore/QString>
+#include <QtCore/QTimer>
 
 #include <kdemacros.h>
 #include <kurl.h>
@@ -45,6 +47,7 @@ namespace Kwave
 
     class App;
     class MainWidget;
+    class Parser;
     class PluginManager;
     class SignalManager;
     class TopWidget;
@@ -296,6 +299,9 @@ namespace Kwave
 	 */
 	void modifiedChanged(bool modified);
 
+	/** process the next delayed command from m_delayed_command_queue */
+	void processDelayedCommand();
+
     private:
 
 	class UsageGuard
@@ -346,11 +352,28 @@ namespace Kwave
 	int parseCommands(QTextStream &stream);
 
 	/**
+	 * enqueues a command for later execution
+	 * @param delay milliseconds to wait before execution
+	 * @param command the command to execute
+	 */
+	void enqueueCommand(unsigned int delay, const QString &command);
+
+	/**
 	 * Discards all changes to the current file and loads
 	 * it again.
 	 * @return zero if succeeded or error code
 	 */
 	int revert();
+
+	/**
+	 * delegate a command to a plugin
+	 * @param plugin name of a plugin to delegate the command to
+	 * @param parser the parser with the parts of the command
+	 * @param param_count required number of parameters
+	 */
+	int delegateCommand(const char *plugin,
+                            Kwave::Parser &parser,
+                            unsigned int param_count);
 
     private:
 
@@ -401,6 +424,12 @@ namespace Kwave
 
 	/** instance of the loaded file or -1 */
 	int m_instance_nr;
+
+	/** timer for delayed commands */
+	QTimer m_delayed_command_timer;
+
+	/** queue for delayed execution of commands */
+	QList< QPair<unsigned int, QString> > m_delayed_command_queue;
 
     };
 

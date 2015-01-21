@@ -72,8 +72,11 @@ namespace Kwave
 
 	/**
 	 * makes a screenshot, using the information from m_screenshot
+	 * @param class_name class name of the widget to capture
+	 * @param filename path to the file to save the screenshot
 	 */
-	void screenshot();
+	void screenshot(const QByteArray &class_name,
+	                const QString &filename);
 
     private:
 
@@ -105,12 +108,6 @@ namespace Kwave
 
 	/** use an intermediate buffer for faster filling */
 	Kwave::SampleArray m_buffer;
-
-	struct {
-	    QString    m_file;  /**< filename to save the screenshot */
-	    QByteArray m_class; /**< class name of the widget to capture */
-	    int        m_delay; /**< delay in ms */
-	} m_screenshot;
 
     };
 }

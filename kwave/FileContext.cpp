@@ -83,8 +83,13 @@ Kwave::FileContext::FileContext(Kwave::App &app)
      m_last_undo(QString()),
      m_last_redo(QString()),
      m_last_modified(false),
-     m_instance_nr(-1)
+     m_instance_nr(-1),
+     m_delayed_command_timer(),
+     m_delayed_command_queue()
 {
+    m_delayed_command_timer.setSingleShot(true);
+    connect(&m_delayed_command_timer, SIGNAL(timeout()),
+            this, SLOT(processDelayedCommand()));
 }
 
 //***************************************************************************
@@ -283,6 +288,20 @@ Kwave::Zoomable* Kwave::FileContext::zoomable() const
 }
 
 //***************************************************************************
+int Kwave::FileContext::delegateCommand(const char *plugin,
+                                        Kwave::Parser &parser,
+                                        unsigned int param_count)
+{
+    if (!m_plugin_manager) return -1;
+    if (parser.count() != param_count) return -EINVAL;
+
+    QStringList params;
+    params.append(parser.command());
+    params.append(parser.remainingParams());
+    return m_plugin_manager->setupPlugin(_(plugin), params);
+}
+
+//***************************************************************************
 int Kwave::FileContext::executeCommand(const QString &line)
 {
     Kwave::FileContext::UsageGuard _keep(this);
@@ -332,6 +351,7 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	// current language
 	if (command.contains(_("${LANG}"))) {
 	    QLocale locale;
+	    if (m_main_widget) locale = m_main_widget->locale();
 	    QString lang = locale.bcp47Name().split(_("-")).at(0);
 	    command.replace(_("${LANG}"), lang);
 	}
@@ -339,21 +359,24 @@ int Kwave::FileContext::executeCommand(const QString &line)
 
     // parse one single command
     Kwave::Parser parser(command);
+    QString cmd = parser.command();
 
     // exclude menu commands from the recorder
-    if (parser.command() == _("menu")) use_recorder = false;
+    if (cmd == _("menu")) use_recorder = false;
 
     // only record plugin:execute, not plugin without parameters
-    if (parser.command() == _("plugin")) use_recorder = false;
+    if (cmd == _("plugin")) use_recorder = false;
 
     // let through all commands that handle zoom/view or playback like fwd/rew
     bool allow_always =
-        (parser.command() == _("playback")) ||
-	parser.command().startsWith(_("view:")) ||
-	parser.command().startsWith(_("playback:")) ||
-	parser.command().startsWith(_("select_track:")) ||
-	(parser.command() == _("close")) ||
-	(parser.command() == _("quit"))
+        (cmd == _("playback")) ||
+	cmd.startsWith(_("view:")) ||
+	cmd.startsWith(_("playback:")) ||
+	cmd.startsWith(_("select_track:")) ||
+	(cmd == _("close")) ||
+	(cmd == _("quit")) ||
+	(cmd == _("window:screenshot")) ||
+	(cmd == _("window:sendkey"))
 	;
 
     // all others only if no plugin is currently running
@@ -361,7 +384,7 @@ int Kwave::FileContext::executeCommand(const QString &line)
     {
 	qWarning("FileContext::executeCommand('%s') - currently not possible, "
 		 "a plugin is running :-(",
-		 DBG(parser.command()));
+		 DBG(cmd));
 	return -1;
     }
 
@@ -375,6 +398,13 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	return result;
     CASE_COMMAND("close")
 	result = closeFile() ? 0 : 1;
+    CASE_COMMAND("delayed")
+	if (parser.count() != 2)
+	    return -EINVAL;
+	unsigned int delay = parser.firstParam().toUInt();
+	QString      cmd   = parser.nextParam();
+	enqueueCommand(delay, cmd);
+	result = 0;
     CASE_COMMAND("loadbatch")
 	result = loadBatch(parser.nextParam());
     CASE_COMMAND("plugin")
@@ -401,24 +431,14 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	result = saveFileAs(parser.nextParam(), false);
     CASE_COMMAND("saveselect")
 	result = saveFileAs(QString(), true);
+    CASE_COMMAND("window:close")
+	return delegateCommand("debug", parser, 1);
+    CASE_COMMAND("window:resize")
+	return delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:sendkey")
-	// delegate: window:sendkey(class,shortcut)
-	// -> plugin:setup(debug,sendkey,class,shortcut)
-	if (parser.count() != 2) return -EINVAL;
-	QString name = _("debug");
-	QStringList params;
-	params.append(_("sendkey"));
-	params.append(parser.remainingParams());
-	return m_plugin_manager->setupPlugin(name, params);
+	return delegateCommand("debug", parser, 2);
     CASE_COMMAND("window:screenshot")
-	// delegate: window:screenshot(class,file,delay)
-	// -> plugin:setup(debug,screenshot,class,file,delay)
-	if (parser.count() != 3) return -EINVAL;
-	QString name = _("debug");
-	QStringList params;
-	params.append(_("screenshot"));
-	params.append(parser.remainingParams());
-	return m_plugin_manager->setupPlugin(name, params);
+	return delegateCommand("debug", parser, 2);
     } else {
 	// pass the command to the layer below (main widget)
 	Kwave::CommandHandler *layer_below = m_main_widget;
@@ -730,6 +750,30 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
     QApplication::restoreOverrideCursor();
 
     return result;
+}
+
+//***************************************************************************
+void Kwave::FileContext::enqueueCommand(unsigned int delay,
+                                       const QString &command)
+{
+    m_delayed_command_queue.append(
+	QPair<unsigned int, QString>(delay, command)
+    );
+    if (!m_delayed_command_timer.isActive())
+	m_delayed_command_timer.start(delay);
+}
+
+//***************************************************************************
+void Kwave::FileContext::processDelayedCommand()
+{
+    if (m_delayed_command_queue.isEmpty()) return;
+
+    QPair<unsigned int, QString> current = m_delayed_command_queue.takeFirst();
+    executeCommand(current.second);
+    if (m_delayed_command_queue.isEmpty()) return;
+
+    QPair<unsigned int, QString> next = m_delayed_command_queue.first();
+    m_delayed_command_timer.start(next.first);
 }
 
 //***************************************************************************

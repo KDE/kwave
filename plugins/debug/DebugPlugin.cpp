@@ -7,8 +7,11 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <errno.h>
 #include <math.h>
 #include <string.h>
+
 #include <klocale.h> // for the i18n macro
 
 #include <QtCore/QByteArray>
@@ -97,43 +100,59 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
     QString action = i18n("Debug (%1)", command);
     Kwave::UndoTransactionGuard undo_guard(*this, action);
 
+//     for (int i = 0; i < params.count()d; ++i)
+// 	qDebug("param[%d] = '%s'", i, DBG(params[i]));
+
     if (command == _("dump_windows")) {
 	dump_children(parentWidget(), _(""));
-    } else if (command == _("screenshot")) {
-	if (params.count() != 4)
-	    return 0;
+    } else if (command == _("window:close")) {
+	if (params.count() != 2) return 0;
+	QString    class_name = params[1];
+	QWidget   *widget     = findWidget(class_name.toUtf8().constData());
 
-	m_screenshot.m_class = params[1].toUtf8();
-	m_screenshot.m_file  = params[2];
-	m_screenshot.m_delay = params[3].toUInt();
-
-	if (m_screenshot.m_delay > 0) {
-	    use();
-	    QTimer::singleShot(m_screenshot.m_delay, this, SLOT(screenshot()));
-	} else {
-	    screenshot();
-	}
-    } else if (command == _("sendkey")) {
-	if (params.count() != 3)
-	    return 0;
-	QString class_name = params[1];
-	QString key_name   = params[2];
-	QWidget *widget    = findWidget(class_name.toUtf8().constData());
-
-	qDebug("send key '%s' to '%s' [%p]",
-	       DBG(key_name), DBG(class_name), static_cast<void *>(widget));
+	qDebug("close window '%s' [%p]",
+	    DBG(class_name), static_cast<void *>(widget));
 	if (!widget) return 0;
+	widget->close();
+    } else if (command == _("window:resize")) {
+	if (params.count() != 4) return 0;
+	QString    class_name = params[1];
+	QWidget   *widget     = findWidget(class_name.toUtf8().constData());
+	unsigned int width    = params[2].toUInt();
+	unsigned int height   = params[3].toUInt();
+	if (!widget) return 0;
+	widget->resize(width, height);
+    } else if (command == _("window:screenshot")) {
+	if (params.count() != 3) return 0;
+	screenshot(params[1].toUtf8(), params[2]);
+    } else if (command == _("window:sendkey")) {
+	if (params.count() != 3) return 0;
+	QString    class_name = params[1];
+	QString    key_name   = params[2];
+	QWidget   *widget     = findWidget(class_name.toUtf8().constData());
 
 	unsigned int          shortcut = QKeySequence::fromString(key_name)[0];
-	int                   key_code = shortcut & 0x00FFFFFF;
-	Qt::KeyboardModifiers key_modifiers(shortcut & 0xFF000000);
+	int                   key_code = shortcut & Qt::Key_unknown;
+	Qt::KeyboardModifiers key_modifiers(shortcut & ~Qt::Key_unknown);
+
+	qDebug("send key '%s' [0x%08X:0x%08X] to '%s' [%p]",
+	       DBG(key_name), static_cast<int>(key_modifiers), key_code,
+	       DBG(class_name), static_cast<void *>(widget));
+	if (!widget) return 0;
+
+	// make sure that the widget gets the focus
+	widget->activateWindow();
+	widget->raise();
+	widget->setFocus(Qt::OtherFocusReason);
+
 	QKeyEvent *press_event =
 	    new QKeyEvent(QEvent::KeyPress, key_code, key_modifiers);
 	QCoreApplication::postEvent(widget, press_event);
 
 	QKeyEvent *release_event =
-	    new QKeyEvent(QEvent::QEvent::KeyRelease, key_code, key_modifiers);
+	    new QKeyEvent(QEvent::KeyRelease, key_code, key_modifiers);
 	QCoreApplication::postEvent(widget, release_event);
+
     }
 
     return new QStringList;
@@ -361,14 +380,15 @@ QObject *Kwave::DebugPlugin::findObject(QObject *obj,
 }
 
 //***************************************************************************
-void Kwave::DebugPlugin::screenshot()
+void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
+                                    const QString &filename)
 {
     // find the first widget/window with the given class name
-    QWidget *widget = findWidget(m_screenshot.m_class.constData());
+    QWidget *widget = findWidget(class_name.constData());
     qDebug("screenshot of '%s' [%p] -> '%s'",
-	m_screenshot.m_class.constData(),
+	class_name.constData(),
 	static_cast<void *>(widget),
-	DBG(m_screenshot.m_file)
+	DBG(filename)
     );
     if (!widget) return;
 
@@ -381,16 +401,12 @@ void Kwave::DebugPlugin::screenshot()
     );
 
     // make sure the directory exists
-    QFileInfo file(m_screenshot.m_file);
+    QFileInfo file(filename);
     QDir dir = file.absoluteDir();
     if (!dir.exists()) dir.mkpath(dir.absolutePath());
 
     // save the file
-    pixmap.save(m_screenshot.m_file, "PNG", 90);
-
-    // release the plugin's use count if we were called per timer (delayed)
-    if (m_screenshot.m_delay)
-	release();
+    pixmap.save(filename, "PNG", 90);
 }
 
 //***************************************************************************

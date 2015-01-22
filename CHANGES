@@ -10,6 +10,7 @@
    and "window:resize"
  * built-in variable ${LANG} for kwave commands
  * support for delayed command execution
+ * debug plugin: always compiled in, but only visible in debug build
 
 0.8.99-2 [2015-01-02]
 

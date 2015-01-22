@@ -33,6 +33,9 @@
 /* support playback/recording via ALSA */
 #cmakedefine HAVE_ALSA_SUPPORT
 
+/* enable the debug plugin in the menu */
+#cmakedefine HAVE_DEBUG_PLUGIN
+
 /* support playback/recording via PulseAudio */
 #cmakedefine HAVE_PULSEAUDIO_SUPPORT
 

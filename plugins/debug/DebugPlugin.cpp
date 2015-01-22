@@ -69,7 +69,7 @@ Kwave::DebugPlugin::~DebugPlugin()
 void Kwave::DebugPlugin::load(QStringList &params)
 {
     Q_UNUSED(params);
-
+#ifdef HAVE_DEBUG_PLUGIN
     QString entry = _("menu(plugin:execute(debug,%1),Calculate/Debug/%2)");
 
     MENU_ENTRY("dc_50",             _(I18N_NOOP("Generate 50% DC Level")));
@@ -89,6 +89,7 @@ void Kwave::DebugPlugin::load(QStringList &params)
 
     entry = _("menu(%1,Help/%2)");
     MENU_ENTRY("dump_metadata()",   _(I18N_NOOP("Dump Meta Data")));
+#endif /* HAVE_DEBUG_PLUGIN */
 }
 
 //***************************************************************************

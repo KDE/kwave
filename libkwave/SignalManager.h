@@ -264,7 +264,7 @@ namespace Kwave
 	}
 
 	/**
-	 * Opens a stream for reading samples. If the the last position
+	 * Opens a stream for reading samples. If the last position
 	 * is omitted, the value UINT_MAX will be used.
 	 * @param mode a reader mode, see SampleReader::Mode
 	 * @param track index of the track. If the track does not exist, this

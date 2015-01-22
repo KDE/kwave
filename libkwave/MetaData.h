@@ -122,7 +122,7 @@ namespace Kwave
 	Scope scope() const;
 
 	/**
-	 * Sets the the scope of the meta data
+	 * Sets the scope of the meta data
 	 * @param scope the new scope
 	 */
 	void setScope(Scope scope);

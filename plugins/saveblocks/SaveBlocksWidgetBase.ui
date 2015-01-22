@@ -62,7 +62,7 @@
      </property>
      <property name="whatsThis">
       <string>Determines how the &lt;b&gt;numbering of the files&lt;/b&gt; should happen:&lt;ul&gt;
-&lt;li&gt;Continue after the &lt;b&gt;highest index&lt;/b&gt; that can be found, avoiding collissions with existing files&lt;/li&gt;
+&lt;li&gt;Continue after the &lt;b&gt;highest index&lt;/b&gt; that can be found, avoiding collisions with existing files&lt;/li&gt;
 &lt;li&gt;Always start numbering from &lt;b&gt;one&lt;/b&gt;, possibly colliding with already existing files&lt;/li&gt;
 &lt;/ul&gt;</string>
      </property>

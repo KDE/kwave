@@ -127,7 +127,7 @@ namespace Kwave
 
 	/**
 	 * Used in "openDevice()" to set the member variables m_format,
-	 * m_bytes_per_sample and m_bits according the the given
+	 * m_bytes_per_sample and m_bits according the given
 	 * resolution in bits per sample. The number of bits per sample
 	 * will be rounded up to the next multiple of 8. m_handle must
 	 * already be an opened device.

@@ -18,6 +18,8 @@
    one sub window (workaround for bug in Qt)
  * bugfix: recording did not work in MDI and Tab mode (wrong file context)
  * bugfix: fixed passing a text command as first command line parameter
+ * new commands: delayed, window:click, window:sendkey, window:close,
+   window:resize, window:screenshot
 
 0.8.99 [2014-12-28]
 

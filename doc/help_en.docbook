@@ -50,6 +50,7 @@
   <!ENTITY no-i18n-cmd_copy "copy">
   <!ENTITY no-i18n-cmd_crop "crop">
   <!ENTITY no-i18n-cmd_cut "cut">
+  <!ENTITY no-i18n-cmd_delayed "delayed">
   <!ENTITY no-i18n-cmd_delete "delete">
   <!ENTITY no-i18n-cmd_delete_label "delete_label">
   <!ENTITY no-i18n-cmd_delete_track "delete_track">
@@ -121,8 +122,13 @@
   <!ENTITY no-i18n-cmd_view_zoom_selection "view:zoom_selection">
   <!ENTITY no-i18n-cmd_window_activate "window:activate">
   <!ENTITY no-i18n-cmd_window_cascade "window:cascade">
+  <!ENTITY no-i18n-cmd_window_click "window:click">
+  <!ENTITY no-i18n-cmd_window_close "window:close">
   <!ENTITY no-i18n-cmd_window_next_sub "window:next_sub">
   <!ENTITY no-i18n-cmd_window_prev_sub "window:prev_sub">
+  <!ENTITY no-i18n-cmd_window_resize "window:resize">
+  <!ENTITY no-i18n-cmd_window_screenshot "window:screenshot">
+  <!ENTITY no-i18n-cmd_window_sendkey "window:sendkey">
   <!ENTITY no-i18n-cmd_window_tile "window:tile">
   <!ENTITY no-i18n-cmd_window_tile_vertical "window:tile_vertical">
   <!-- @COMMAND_ENTITIES_END@ -->
@@ -2930,7 +2936,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <sect1 id="kwave_commands"><title>Command Reference</title>
-	<index><title>Index</title>
+	<index><title>Alphabetical Index</title>
 	    &no-i18n-tag;
 	    <!-- @COMMAND_INDEX_START@ -->
 	    <indexdiv><title>a</title>
@@ -2947,6 +2953,7 @@
 		<indexentry><primaryie><link linkend="cmd_sect_cut" endterm="cmd_title_cut"/></primaryie></indexentry>
 	    </indexdiv>
 	    <indexdiv><title>d</title>
+		<indexentry><primaryie><link linkend="cmd_sect_delayed" endterm="cmd_title_delayed"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_delete" endterm="cmd_title_delete"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_delete_label" endterm="cmd_title_delete_label"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_delete_track" endterm="cmd_title_delete_track"/></primaryie></indexentry>
@@ -3048,8 +3055,13 @@
 	    <indexdiv><title>w</title>
 		<indexentry><primaryie><link linkend="cmd_sect_window_activate" endterm="cmd_title_window_activate"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_cascade" endterm="cmd_title_window_cascade"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_click" endterm="cmd_title_window_click"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_close" endterm="cmd_title_window_close"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_next_sub" endterm="cmd_title_window_next_sub"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_prev_sub" endterm="cmd_title_window_prev_sub"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_resize" endterm="cmd_title_window_resize"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_screenshot" endterm="cmd_title_window_screenshot"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_sendkey" endterm="cmd_title_window_sendkey"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_tile" endterm="cmd_title_window_tile"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_tile_vertical" endterm="cmd_title_window_tile_vertical"/></primaryie></indexentry>
 	    </indexdiv>
@@ -3197,6 +3209,40 @@
     </sect1>
 
     <sect1 id="commands_d"><title>&no-i18n-tag;d</title>
+
+	<!-- @COMMAND@ delayed(milliseconds,command) -->
+	<sect2 id="cmd_sect_delayed"><title id="cmd_title_delayed">&no-i18n-cmd_delayed;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_delayed;</command>(
+		<replaceable>milliseconds</replaceable>,
+		<replaceable>command</replaceable>
+	    )</title>
+	    <para>
+		Executes a <replaceable>command</replaceable> after a given delay.
+		Please note that the command is executed asynchronously after the
+		given time has elapsed. Multiple commands can be queued, where the
+		delays are relative to the last queued command. This command is
+		intended to be used for queuing commands when taking screenshots
+		for documentation purposes.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>milliseconds</parameter>:</entry>
+		<entry>number of whole milliseconds to wait before executing the command</entry></row>
+	    <row><entry><parameter>command</parameter>:</entry>
+		<entry>a command, including parameters to be executed after
+		    the given delay</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_window_resize"><command>&no-i18n-tag;&no-i18n-cmd_window_resize;</command>()</link>,
+		<link linkend="cmd_sect_window_click"><command>&no-i18n-tag;&no-i18n-cmd_window_click;</command>()</link>,
+		<link linkend="cmd_sect_window_sendkey"><command>&no-i18n-tag;&no-i18n-cmd_window_sendkey;</command>()</link>,
+		<link linkend="cmd_sect_window_close"><command>&no-i18n-tag;&no-i18n-cmd_window_close;</command>()</link>,
+		<link linkend="cmd_sect_window_screenshot"><command>&no-i18n-tag;&no-i18n-cmd_window_screenshot;</command>()</link>
+	    </para>
+	</simplesect>
+	</sect2>
 
 	<!-- @COMMAND@ delete() -->
 	<sect2 id="cmd_sect_delete"><title id="cmd_title_delete">&no-i18n-cmd_delete;</title>
@@ -3473,7 +3519,7 @@
 	    </row>
 	    <row valign="top">
 		<entry><parameter>hotkey</parameter>:</entry>
-		<entry>
+		<entry id="cmd_menu_param_hotkey">
 		    A bitmask that consists of a combination of predefined
 		    <emphasis>keys</emphasis> and <emphasis>modifiers</emphasis>,
 		    concatenated with a <quote><token>+</token></quote>.
@@ -4634,6 +4680,53 @@
 	</simplesect>
 	</sect2>
 
+	<!-- @COMMAND@ window:click(class,x,y) -->
+	<sect2 id="cmd_sect_window_click"><title id="cmd_title_window_click">&no-i18n-cmd_window_click;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_resize;</command>(
+		<replaceable>class</replaceable>,
+		<replaceable>x</replaceable>,
+		<replaceable>y</replaceable>
+	    )</title>
+	    <para>
+		Sends a mouse click event to window, identified by it's
+		<replaceable>class</replaceable> name.
+		The event will only be sent to the first window that has
+		the given class name, therefore you should make sure that you
+		have only one instance of the given window when this command
+		gets executed.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>class</parameter>:</entry>
+		<entry>name of the window class</entry></row>
+	    <row><entry><parameter>x</parameter>:</entry>
+		<entry>x position, relative to the left border of the window (in pixels)</entry></row>
+	    <row><entry><parameter>y</parameter>:</entry>
+		<entry>y position, relative to the top border of the window (in pixels)</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	</sect2>
+
+	<!-- @COMMAND@ window:close(class) -->
+	<sect2 id="cmd_sect_window_close"><title id="cmd_title_window_close">&no-i18n-cmd_window_close;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_close;</command>(
+		<replaceable>class</replaceable>
+	    )</title>
+	    <para>
+		Closes a window, identified by it's
+		<replaceable>class</replaceable> name.
+		Only the first window that has the given class name will be
+		closed, therefore you should make sure that you have only one
+		instance of the given window when this command gets executed.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>class</parameter>:</entry>
+		<entry>name of the window class</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	</sect2>
+
 	<!-- @COMMAND@ window:next_sub() -->
 	<sect2 id="cmd_sect_window_next_sub"><title id="cmd_title_window_next_sub">&no-i18n-cmd_window_next_sub;</title>
 	<simplesect>
@@ -4652,6 +4745,94 @@
 	    <para>
 		Activates the <emphasis>previous</emphasis> sub window when in MDI or tab mode. If the previous
 		sub window is minimized it will be restored.
+	    </para>
+	</simplesect>
+	</sect2>
+
+	<!-- @COMMAND@ window:resize(width,height) -->
+	<sect2 id="cmd_sect_window_resize"><title id="cmd_title_window_resize">&no-i18n-cmd_window_resize;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_resize;</command>(
+		<replaceable>class</replaceable>,
+		<replaceable>width</replaceable>,
+		<replaceable>height</replaceable>
+	    )</title>
+	    <para>
+		Changes the size of a window, identified by it's
+		<replaceable>class</replaceable> name to a new
+		<replaceable>width</replaceable> and
+		<replaceable>height</replaceable>.
+		The change will only be applied to the first window that has
+		the given class name, therefore you should make sure that you
+		have only one instance of the given window when this command
+		gets executed.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>class</parameter>:</entry>
+		<entry>name of the window class</entry></row>
+	    <row><entry><parameter>width</parameter>:</entry>
+		<entry>new width of the window (in pixels)</entry></row>
+	    <row><entry><parameter>height</parameter>:</entry>
+		<entry>new height of the window (in pixels)</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	</sect2>
+
+	<!-- @COMMAND@ window:screenshot(class,filename) -->
+	<sect2 id="cmd_sect_window_screenshot"><title id="cmd_title_window_screenshot">&no-i18n-cmd_window_screenshot;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_screenshot;</command>(
+		<replaceable>class</replaceable>,
+		<replaceable>filename</replaceable>
+	    )</title>
+	    <para>
+		Takes a screenshot of a window, identified by it's
+		<replaceable>class</replaceable> and saves it to a file.
+		The screenshot will be taken from the first window that has
+		the given class name, therefore you should make sure that you
+		have only one instance of the given window when this command
+		gets executed.
+		Currently the format of the file is hardcoded and has to be
+		<literal>*.png</literal>.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>class</parameter>:</entry>
+		<entry>name of the window class</entry></row>
+	    <row><entry><parameter>filename</parameter>:</entry>
+		<entry>name of the file to save the screenshot, must have the extension
+		    <literal>*.png</literal></entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	</sect2>
+
+	<!-- @COMMAND@ window:sendkey(class,keycombo) -->
+	<sect2 id="cmd_sect_window_sendkey"><title id="cmd_title_window_sendkey">&no-i18n-cmd_window_sendkey;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_sendkey;</command>(
+		<replaceable>class</replaceable>,
+		<replaceable>key code</replaceable>
+	    )</title>
+	    <para>
+		Sends a key press and release event to a window, identified by it's
+		<replaceable>class</replaceable> name.
+		The key will only be sent to the first window that has
+		the given class name, therefore you should make sure that you
+		have only one instance of the given window when this command
+		gets executed.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>class</parameter>:</entry>
+		<entry>name of the window class</entry></row>
+	    <row><entry><parameter>key code</parameter>:</entry>
+		<entry>the key code that should be sent, using the same syntax
+		    as used for setting up menus</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		description of the parameter
+		<link linkend="cmd_menu_param_hotkey"><parameter>hotkey</parameter></link>
+		of the <command>&no-i18n-cmd_menu;</command> command.
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4690,8 +4871,154 @@
 <!-- ###################################################################### -->
 
 <chapter id="plugins"><title>Plugins</title>
-    <para>
-	TODO: description of all plugins ...
+
+    <sect1 id="kwave_plugins"><title>Plugin Reference</title>
+    <index><title>Alphabetical Index</title>
+	&no-i18n-tag;
+	<indexdiv><title>a</title>
+	    <indexentry><primaryie><link linkend="plugin_amplifyfree" endterm="plugin_title_amplifyfree"/></primaryie></indexentry>
+	</indexdiv>
+    </index>
+    <para><literal> </literal></para>
+    </sect1>
+
+    <sect1 id="plugin_amplifyfree"><title id="plugin_title_amplifyfree">Amplify Free</title>
+	<screenshot>
+    	    <screeninfo>Screenshot</screeninfo>
+    	    <mediaobject>
+		<imageobject>
+	    	    <imagedata fileref="kwave-plugin-amplifyfree.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+	    	    <phrase>Screenshot of the Amplify Free Plugin</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
+	<informaltable frame='none'>
+	    <tgroup cols='3'>
+		<colspec colname='c1'/><colspec colname='c2'/><colspec colname='c3'/>
+		<tbody>
+		    <row valign='top'>
+			<entry><emphasis role="bold">Internal&nbsp;Name</emphasis>:</entry>
+			<entry><literal>amplifyfree</literal></entry>
+		    </row>
+		    <row valign='top'>
+			<entry><emphasis role="bold">Plugin&nbsp;Type</emphasis>:</entry>
+			<entry>effect</entry>
+		    </row>
+		    <row valign='top'>
+			<entry><emphasis role="bold">Description</emphasis>:</entry>
+			<entry namest='c2' nameend='c3'>
+			    Amplifies the current selection with a curve that
+			    consists of a set of coordinates and an interpolation
+			    method. The coordinates on the time axis as well as on
+			    the amplitude axis must be normed between 0.0
+			    and 1.0.
+			</entry>
+		    </row>
+		    <row valign='top'>
+			<entry><emphasis role="bold">Parameters</emphasis>:</entry>
+			<entry><replaceable>operation</replaceable></entry>
+			<entry>
+			    <para>
+			    Internal name, for undo/redo handling. Possible values are:
+			    <informaltable frame='all'>
+				<tgroup cols='2'>
+				    <thead>
+					<row>
+					    <entry align='left'>keyword</entry>
+					    <entry align='left'>description</entry>
+					</row>
+				    </thead>
+				    <tbody>
+					<row>
+					    <entry>&no-i18n-tag;<command>fade in</command></entry>
+					    <entry>fade in, curve from 0.0/0.0 to 1.0/1.0</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>fade out</command></entry>
+					    <entry>fade out, curve from 0.0/1.0 to 1.0/0.0</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>fade intro</command></entry>
+					    <entry>fade intro, one second pause, then fade in</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>fade outro</command></entry>
+					    <entry>fade outro, first fade out, then one second pause</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>amplify free</command></entry>
+					    <entry>user defined curve</entry>
+					</row>
+				    </tbody>
+				</tgroup>
+			    </informaltable>
+			    </para>
+			</entry>
+		    </row>
+		    <row valign='top'>
+			<entry colname='c2'><replaceable>interpolation</replaceable></entry>
+			<entry>
+			    <para>
+			    Interpolation type, possible values are:
+			    <informaltable frame='all'>
+				<tgroup cols='2'>
+				    <thead>
+					<row>
+					    <entry align='left'>keyword</entry>
+					    <entry align='left'>description</entry>
+					</row>
+				    </thead>
+				    <tbody>
+					<row>
+					    <entry>&no-i18n-tag;<command>linear</command></entry>
+					    <entry>Linear</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>spline</command></entry>
+					    <entry>Spline</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>n-polynom</command></entry>
+					    <entry>Polynom, nth Degree</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>3-polynom</command></entry>
+					    <entry>Polynom, 3rd Degree</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>5-polynom</command></entry>
+					    <entry>Polynom, 5th Degree</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>7-polynom</command></entry>
+					    <entry>Polynom, 7th Degree</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>sample_hold</command></entry>
+					    <entry>Sample and Hold</entry>
+					</row>
+				    </tbody>
+				</tgroup>
+			    </informaltable>
+			    </para>
+			</entry>
+		    </row>
+		    <row valign='top'>
+			<entry colname='c2'><replaceable>curve</replaceable></entry>
+			<entry>
+			    A comma separated list of pairs of coordinates,
+			    normed between 0.0 and 1.0, must be sorted by time
+			    axis (ascending), should start at time 0.0 and end
+			    with time 1.0.
+			</entry>
+		    </row>
+		</tbody>
+	    </tgroup>
+	</informaltable>
+    </sect1>
+
 	<!--
 	about
 	amplifyfree
@@ -4722,7 +5049,6 @@
 	volume
 	zero
 	-->
-    </para>
 </chapter>
 
 <!-- ###################################################################### -->

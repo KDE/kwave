@@ -117,7 +117,9 @@ namespace Kwave
 	 * @param name the name of the plugin
 	 * @param params pointer to a parameter list
 	 *               or null if defaults should be used
-	 * @return zero on success or negative error code
+	 * @retval  0 if succeeded and accepted
+	 * @retval  1 if canceled
+	 * @retval -1 if failed
 	 */
 	int setupPlugin(const QString &name, const QStringList &params);
 

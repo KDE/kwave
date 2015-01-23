@@ -298,7 +298,9 @@ int Kwave::FileContext::delegateCommand(const char *plugin,
     QStringList params;
     params.append(parser.command());
     params.append(parser.remainingParams());
-    return m_plugin_manager->setupPlugin(_(plugin), params);
+    int result = m_plugin_manager->setupPlugin(_(plugin), params);
+    if (result > 0) result = 0;
+    return result;
 }
 
 //***************************************************************************
@@ -423,6 +425,7 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	QString name(parser.firstParam());
 	QStringList params(parser.remainingParams());
 	result = m_plugin_manager->setupPlugin(name, params);
+	if (result > 0) result = 0;
     CASE_COMMAND("revert")
 	result = revert();
     CASE_COMMAND("save")
@@ -431,6 +434,8 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	result = saveFileAs(parser.nextParam(), false);
     CASE_COMMAND("saveselect")
 	result = saveFileAs(QString(), true);
+    CASE_COMMAND("window:click")
+	return delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:close")
 	return delegateCommand("debug", parser, 1);
     CASE_COMMAND("window:resize")

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave_help_cs\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2015-01-10 13:18+0000\n"
+"POT-Creation-Date: 2015-01-23 18:03+0000\n"
 "PO-Revision-Date: 2015-01-04 21:36+0100\n"
 "Last-Translator: Thomas Eschenbacher\n"
 "Language-Team: Czech <kde-i18n-de@kde.org>\n"
@@ -27,25 +27,25 @@ msgid "<!ENTITY i18n-cmd_syntax \"Syntax: \">"
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:134
+#: help_en.docbook:140
 #, no-c-format
 msgid "The &kwave; Handbook"
 msgstr "&kwave; Příručka"
 
 #. Tag: author
-#: help_en.docbook:137
+#: help_en.docbook:143
 #, no-c-format
 msgid "<firstname>Thomas</firstname> <surname>Eschenbacher</surname>"
 msgstr "<firstname>Thomas</firstname> <surname>Eschenbacher</surname>"
 
 #. Tag: email
-#: help_en.docbook:141
+#: help_en.docbook:147
 #, no-c-format
 msgid "thomas.eschenbacher@gmx.de"
 msgstr "thomas.eschenbacher@gmx.de"
 
 #. Tag: trans_comment
-#: help_en.docbook:145
+#: help_en.docbook:151
 #, no-c-format
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
@@ -54,31 +54,31 @@ msgstr ""
 "affiliation><contrib>Překlad do českého jazyka</contrib></othercredit>"
 
 #. Tag: holder
-#: help_en.docbook:149
+#: help_en.docbook:155
 #, no-c-format
 msgid "Martin Wilz"
 msgstr "Martin Wilz"
 
 #. Tag: holder
-#: help_en.docbook:150
+#: help_en.docbook:156
 #, no-c-format
 msgid "Thomas Eschenbacher"
 msgstr "Thomas Eschenbacher"
 
 #. Tag: date
-#: help_en.docbook:154
+#: help_en.docbook:160
 #, no-c-format
 msgid "2015-01-02"
 msgstr "2015-01-02"
 
 #. Tag: releaseinfo
-#: help_en.docbook:155
+#: help_en.docbook:161
 #, no-c-format
 msgid "&version;"
 msgstr "&version;"
 
 #. Tag: para
-#: help_en.docbook:157
+#: help_en.docbook:163
 #, no-c-format
 msgid "&kwave; is a simple sound editor for KDE."
 msgstr "&kwave; je jednoduchý editor zvuku pro prostředí KDE."
@@ -96,17 +96,17 @@ msgstr "&kwave; je jednoduchý editor zvuku pro prostředí KDE."
 #. Tag: keyword
 #. Tag: keyword
 #. Tag: title
-#: help_en.docbook:160 help_en.docbook:161 help_en.docbook:162
-#: help_en.docbook:163 help_en.docbook:164 help_en.docbook:165
 #: help_en.docbook:166 help_en.docbook:167 help_en.docbook:168
 #: help_en.docbook:169 help_en.docbook:170 help_en.docbook:171
-#: help_en.docbook:179
+#: help_en.docbook:172 help_en.docbook:173 help_en.docbook:174
+#: help_en.docbook:175 help_en.docbook:176 help_en.docbook:177
+#: help_en.docbook:185
 #, no-c-format
 msgid "Introduction"
 msgstr "Úvod"
 
 #. Tag: para
-#: help_en.docbook:181
+#: help_en.docbook:187
 #, no-c-format
 msgid ""
 "This is \"&kwave;\", a simple sound editor for KDE-4. Its features include:"
@@ -115,7 +115,7 @@ msgstr ""
 "přednosti patří:"
 
 #. Tag: para
-#: help_en.docbook:185
+#: help_en.docbook:191
 #, no-c-format
 msgid "a user interface that can be switched to SDI, MDI or Tab mode"
 msgstr ""
@@ -123,85 +123,85 @@ msgstr ""
 "dokumentem (SDI), rozhraní s více dokumenty (MDI) nebo s kartami"
 
 #. Tag: para
-#: help_en.docbook:188
+#: help_en.docbook:194
 #, no-c-format
 msgid "simple cut, copy and paste functions"
 msgstr "funkce jednoduchého vyjímání, kopírování a vkládání"
 
 #. Tag: para
-#: help_en.docbook:191
+#: help_en.docbook:197
 #, no-c-format
 msgid "multi-level undo/redo"
 msgstr "Víceúrovňový krok zpět/znovu"
 
 #. Tag: para
-#: help_en.docbook:200
+#: help_en.docbook:206
 #, no-c-format
 msgid "labeling of signals"
 msgstr "Označení signálů štítkem"
 
 #. Tag: para
-#: help_en.docbook:203
+#: help_en.docbook:209
 #, no-c-format
 msgid "Recording functionality, including pre-recording"
 msgstr "Nahrávací funkce včetně nahrávání předem"
 
 #. Tag: para
-#: help_en.docbook:206
+#: help_en.docbook:212
 #, no-c-format
 msgid "Playback via ALSA and OSS"
 msgstr "Přehrávání prostřednictvím ALSA a OSS"
 
 #. Tag: para
-#: help_en.docbook:209
+#: help_en.docbook:215
 #, no-c-format
 msgid "Recording via ALSA and OSS"
 msgstr "Nahrávání prostřednictvím ALSA a OSS"
 
 #. Tag: para
-#: help_en.docbook:212
+#: help_en.docbook:218
 #, no-c-format
 msgid "MP3 import/export"
 msgstr "Zavedení a vyvedení MP3"
 
 #. Tag: para
-#: help_en.docbook:215
+#: help_en.docbook:221
 #, no-c-format
 msgid "Ogg/Vorbis import/export"
 msgstr "Import a export Ogg/Vorbis"
 
 #. Tag: para
-#: help_en.docbook:218
+#: help_en.docbook:224
 #, no-c-format
 msgid "FLAC import/export"
 msgstr "Import a export FLAC"
 
 #. Tag: para
-#: help_en.docbook:221
+#: help_en.docbook:227
 #, no-c-format
 msgid "some analysis functions such as Sonagram"
 msgstr "Některé analytické funkce jako například Sonogram"
 
 #. Tag: para
-#: help_en.docbook:224
+#: help_en.docbook:230
 #, no-c-format
 msgid "internally uses 24 bit fixed precision for sample data"
 msgstr "Vnitřně používá pro data vzorků pevně danou 24 bitovou přesnost "
 
 #. Tag: para
-#: help_en.docbook:227
+#: help_en.docbook:233
 #, no-c-format
 msgid "free selectable sample rates"
 msgstr "Volně volitelné vzorkovacá kmitočty"
 
 #. Tag: para
-#: help_en.docbook:230
+#: help_en.docbook:236
 #, no-c-format
 msgid "support for editing of multi channel files"
 msgstr "Podpora pro upravování mnohakanálových souborů"
 
 #. Tag: para
-#: help_en.docbook:233
+#: help_en.docbook:239
 #, no-c-format
 msgid ""
 "playback of multi channel audio files (audio output will be mixed down to "
@@ -211,13 +211,13 @@ msgstr ""
 "monofonní nebo stereofonní zvuk)"
 
 #. Tag: para
-#: help_en.docbook:237
+#: help_en.docbook:243
 #, no-c-format
 msgid "extendible through an easy-to-use plugin interface"
 msgstr "Grafické rozhraní rozšiřitelné přes snadno použitelný přídavný modul"
 
 #. Tag: para
-#: help_en.docbook:240
+#: help_en.docbook:246
 #, no-c-format
 msgid ""
 "import/export of other audio formats through <ulink url=\"&url_libaudiofile;"
@@ -227,7 +227,7 @@ msgstr ""
 "\"&url_libaudiofile;\">zvukový soubor</ulink>"
 
 #. Tag: para
-#: help_en.docbook:247
+#: help_en.docbook:253
 #, no-c-format
 msgid ""
 "If you are interested what has been done and what has still to be done, then "
@@ -240,13 +240,13 @@ msgstr ""
 "zdrojovém balíčku. Pomoc a konstruktivní kritika jsou vždy vítány."
 
 #. Tag: title
-#: help_en.docbook:259
+#: help_en.docbook:265
 #, no-c-format
 msgid "&kwave; Resources"
 msgstr "&kwave; Zdroje"
 
 #. Tag: para
-#: help_en.docbook:261
+#: help_en.docbook:267
 #, no-c-format
 msgid ""
 "So if you want to get in contact with the developers, need some further help "
@@ -258,13 +258,13 @@ msgstr ""
 "mohly by vás zajímat následující zdroje:"
 
 #. Tag: para
-#: help_en.docbook:268
+#: help_en.docbook:274
 #, no-c-format
 msgid "Project Homepage<anchor id=\"project-homepage\"/>"
 msgstr "Domovská stránka projektu<anchor id=\"project-homepage\"/>"
 
 #. Tag: para
-#: help_en.docbook:269
+#: help_en.docbook:275
 #, no-c-format
 msgid ""
 "For information about new up-to-date releases or some other information "
@@ -276,13 +276,13 @@ msgstr ""
 "domovská stránka</ulink>"
 
 #. Tag: para
-#: help_en.docbook:274
+#: help_en.docbook:280
 #, no-c-format
 msgid "Mailing List<anchor id=\"mailing-list\"/>"
 msgstr "Poštovní seznam<anchor id=\"mailing-list\"/>"
 
 #. Tag: para
-#: help_en.docbook:275
+#: help_en.docbook:281
 #, no-c-format
 msgid ""
 "If you need some help on using &kwave; or want to get involved in the "
@@ -294,13 +294,13 @@ msgstr ""
 "\"&url_mailinglist;\"> \"&url_mailinglist;\"</ulink>."
 
 #. Tag: para
-#: help_en.docbook:281
+#: help_en.docbook:287
 #, no-c-format
 msgid "GIT Repository<anchor id=\"git-repository\"/>"
 msgstr "Skladiště Git<anchor id=\"git-repository\"/>"
 
 #. Tag: para
-#: help_en.docbook:284
+#: help_en.docbook:290
 #, no-c-format
 msgid ""
 "There also is a GIT repository, hosted by <ulink url=\"&url_sourceforge;"
@@ -322,13 +322,13 @@ msgstr ""
 "internetu</ulink>."
 
 #. Tag: title
-#: help_en.docbook:305
+#: help_en.docbook:311
 #, no-c-format
 msgid "&kwave; Revision History"
 msgstr "&kwave; Historie revizí"
 
 #. Tag: para
-#: help_en.docbook:307
+#: help_en.docbook:313
 #, no-c-format
 msgid ""
 "This project has been started by Martin Wilz in summer 1998 and has been "
@@ -346,7 +346,7 @@ msgstr ""
 "strávil mnoho času jeho vylepšováním."
 
 #. Tag: para
-#: help_en.docbook:317
+#: help_en.docbook:323
 #, no-c-format
 msgid ""
 "Since &kwave; v0.8.0 the changelog is no longer included in this manual. So "
@@ -361,19 +361,19 @@ msgstr ""
 "pomocí  <ulink url=\"&url_git_web;\">rozhraní pro Git na internetu</ulink>.."
 
 #. Tag: title
-#: help_en.docbook:336
+#: help_en.docbook:342
 #, no-c-format
 msgid "Installation"
 msgstr "Instalace"
 
 #. Tag: title
-#: help_en.docbook:342
+#: help_en.docbook:348
 #, no-c-format
 msgid "How to obtain &kwave;"
 msgstr "Jakým způsobem získat &kwave;"
 
 #. Tag: para
-#: help_en.docbook:344
+#: help_en.docbook:350
 #, no-c-format
 msgid ""
 "&kwave; has an own homepage under <ulink url=\"&url_homepage;"
@@ -386,7 +386,7 @@ msgstr ""
 "tak i informace o aktuální stabilní a nejnovější vývojářské verzi."
 
 #. Tag: para
-#: help_en.docbook:352
+#: help_en.docbook:358
 #, no-c-format
 msgid ""
 "If you want to get a &kwave; release, you have the choice to visit <ulink "
@@ -396,7 +396,7 @@ msgstr ""
 "\"&url_download;\"></ulink> &url_download; a "
 
 #. Tag: para
-#: help_en.docbook:356
+#: help_en.docbook:362
 #, no-c-format
 msgid ""
 "download a binary package of the latest stable version, if there is one for "
@@ -406,13 +406,13 @@ msgstr ""
 "nějaký určený pro vaši distribuci,"
 
 #. Tag: para
-#: help_en.docbook:360
+#: help_en.docbook:366
 #, no-c-format
 msgid "download a source RPM package of the latest stable version,"
 msgstr "stáhnout si zdrojový RPM balíček poslední stabilní verze, "
 
 #. Tag: para
-#: help_en.docbook:363
+#: help_en.docbook:369
 #, no-c-format
 msgid ""
 "compile on your own, from a .tar.bz2 archive with the source code of the "
@@ -422,13 +422,13 @@ msgstr ""
 "zdrojový kód poslední stabilní verze,"
 
 #. Tag: para
-#: help_en.docbook:367
+#: help_en.docbook:373
 #, no-c-format
 msgid "compile on your own, from the latest GIT source."
 msgstr "sestavit si program vlastními silami z poslední Git verze."
 
 #. Tag: para
-#: help_en.docbook:373
+#: help_en.docbook:379
 #, no-c-format
 msgid ""
 "Don't be afraid, compiling Kwave should be quite simple even if you are not "
@@ -439,19 +439,19 @@ msgstr ""
 "nainstalovány některé vývojářské balíčky."
 
 #. Tag: title
-#: help_en.docbook:385
+#: help_en.docbook:391
 #, no-c-format
 msgid "Requirements"
 msgstr "Požadavky"
 
 #. Tag: para
-#: help_en.docbook:387
+#: help_en.docbook:393
 #, no-c-format
 msgid "In order to successfully use &kwave;, you need:"
 msgstr "Abyste program mohl úspěšně používat &kwave;, potřebujete:"
 
 #. Tag: para
-#: help_en.docbook:390
+#: help_en.docbook:396
 #, no-c-format
 msgid ""
 "a computer running Linux (&kwave; might also run under some other operating "
@@ -464,7 +464,7 @@ msgstr ""
 "pod jiným operačním systémem)"
 
 #. Tag: para
-#: help_en.docbook:396
+#: help_en.docbook:402
 #, no-c-format
 msgid ""
 "working sound playback (not really required for using but what would you do "
@@ -476,7 +476,7 @@ msgstr ""
 "<emphasis>poslechnout</emphasis> výsledek vaší práce?)"
 
 #. Tag: para
-#: help_en.docbook:401
+#: help_en.docbook:407
 #, no-c-format
 msgid ""
 "KDE-4.5 or higher (at least the libraries, if you are a gnome fan, you can "
@@ -487,49 +487,49 @@ msgstr ""
 "nainstalovány ty správné knihovny)."
 
 #. Tag: para
-#: help_en.docbook:406
+#: help_en.docbook:412
 #, no-c-format
 msgid "Qt-4.7 or higher (normally comes with KDE4)"
 msgstr "qt ve verzi 4.7 nebo vyšší (normálně je k dispozici s KDE4)"
 
 #. Tag: para
-#: help_en.docbook:409
+#: help_en.docbook:415
 #, no-c-format
 msgid "ALSA 1.0.14 or higher (for record/playback)"
 msgstr "ALSA ve verzi 1.0.14 nebo vyšší (kvůli nahrávání a přehrávání)"
 
 #. Tag: para
-#: help_en.docbook:412
+#: help_en.docbook:418
 #, no-c-format
 msgid "PulseAudio 4.0 or higher (for record/playback)"
 msgstr "PulseAudio ve verzi 4.0 nebo vyšší (kvůli nahrávání a přehrávání)"
 
 #. Tag: para
-#: help_en.docbook:415
+#: help_en.docbook:421
 #, no-c-format
 msgid "id3lib-3.8.1 or higher (for ID3 tags)"
 msgstr "id3lib ve verzi 1.0.14 nebo vyšší (kvůli ID3 značkám)"
 
 #. Tag: para
-#: help_en.docbook:418
+#: help_en.docbook:424
 #, no-c-format
 msgid "mad-0.15 or higher (optionally for MP3 import/export)"
 msgstr "mad ve verzi 0.15 nebo vyšší (volitelně kvůli zavedení/vyvedení MP3)"
 
 #. Tag: para
-#: help_en.docbook:421
+#: help_en.docbook:427
 #, no-c-format
 msgid "flac-1.2.0 or higher (for FLAC import/export)"
 msgstr "flac ve verzi 1.2.0 nebo vyšší (kvůli importu FLAC)"
 
 #. Tag: para
-#: help_en.docbook:424
+#: help_en.docbook:430
 #, no-c-format
 msgid "libsamplerate-0.1.3 or higher (sample rate conversion)"
 msgstr "libsamplerate-0.1.3 nebo vyšší (převod kmitočtu)"
 
 #. Tag: para
-#: help_en.docbook:430
+#: help_en.docbook:436
 #, no-c-format
 msgid ""
 "For a more complete and up-to-date list, please consult the <ulink url="
@@ -544,7 +544,7 @@ msgstr ""
 "distribucemi  &kwave; spustit a/nebo sestavit."
 
 #. Tag: para
-#: help_en.docbook:438
+#: help_en.docbook:444
 #, no-c-format
 msgid ""
 "If you intend to compile &kwave; from the sources, you will need at least:"
@@ -553,13 +553,13 @@ msgstr ""
 "alespoň potřebovat:"
 
 #. Tag: para
-#: help_en.docbook:441
+#: help_en.docbook:447
 #, no-c-format
 msgid "<ulink url=\"&url_cmake;\">cmake</ulink>-2.4.6 or newer"
 msgstr "<ulink url=\"&url_cmake;\">cmake</ulink>-2.4.6 nebo novější"
 
 #. Tag: para
-#: help_en.docbook:444
+#: help_en.docbook:450
 #, no-c-format
 msgid ""
 "A recent C/C++ compiler. GCC-4.x works fine, some older and any newer "
@@ -569,7 +569,7 @@ msgstr ""
 "novější verze (jako gcc-4.8 a novější) pracují rovněž."
 
 #. Tag: para
-#: help_en.docbook:448
+#: help_en.docbook:454
 #, no-c-format
 msgid ""
 "The glibc2 (libc-6) development environment. On SuSE systems the package is "
@@ -579,7 +579,7 @@ msgstr ""
 "nazývá \"libc\", na jiných systémech může být nazván \"libc-devel\"."
 
 #. Tag: para
-#: help_en.docbook:453
+#: help_en.docbook:459
 #, no-c-format
 msgid ""
 "The KDE4 development environment: \"kdelibs4-devel\", \"kdemultimedia4-devel"
@@ -589,7 +589,7 @@ msgstr ""
 "\"kdesdk4\"."
 
 #. Tag: para
-#: help_en.docbook:457
+#: help_en.docbook:463
 #, no-c-format
 msgid ""
 "The Qt4 development environment, the package is normally called \"qt4-devel"
@@ -599,37 +599,37 @@ msgstr ""
 "podobně."
 
 #. Tag: para
-#: help_en.docbook:461
+#: help_en.docbook:467
 #, no-c-format
 msgid "pulseaudio-4.0 or newer"
 msgstr "pulseaudio-4.0  nebo vyšší"
 
 #. Tag: para
-#: help_en.docbook:464
+#: help_en.docbook:470
 #, no-c-format
 msgid "id3lib-devel-3.8.1 or newer"
 msgstr "id3lib-devel-3.8.1 nebo vyšší"
 
 #. Tag: para
-#: help_en.docbook:467
+#: help_en.docbook:473
 #, no-c-format
 msgid "fftw-3.0 or newer"
 msgstr "fftw-3.0 nebo vyšší"
 
 #. Tag: para
-#: help_en.docbook:470
+#: help_en.docbook:476
 #, no-c-format
 msgid "mad-devel-0.15 or newer (if you have the permission to use MP3 code)"
 msgstr "mad-devel-0.15 nebo vyšší (pokud máte oprávnění používat kód MP3)"
 
 #. Tag: para
-#: help_en.docbook:474
+#: help_en.docbook:480
 #, no-c-format
 msgid "flac-devel-1.2.0 newer"
 msgstr "flac-devel-1.2.0 nebo vyšší"
 
 #. Tag: para
-#: help_en.docbook:477
+#: help_en.docbook:483
 #, no-c-format
 msgid ""
 "If you intend to get the &kwave; sources via GIT, you will also need a "
@@ -639,7 +639,7 @@ msgstr ""
 "budete také potřebovat aktuální balíček \"Git\"."
 
 #. Tag: para
-#: help_en.docbook:481
+#: help_en.docbook:487
 #, no-c-format
 msgid ""
 "...many other packages, please take a look at the <ulink url=\"&url_readme;"
@@ -649,13 +649,13 @@ msgstr ""
 "\"&url_readme;\"> \"README\"</ulink> soubor je zahrnut ve zdrojovém balíčku. "
 
 #. Tag: title
-#: help_en.docbook:495
+#: help_en.docbook:501
 #, no-c-format
 msgid "Manual Compilation and installation"
 msgstr "Vlastnoruční kompilace a instalace"
 
 #. Tag: para
-#: help_en.docbook:497
+#: help_en.docbook:503
 #, no-c-format
 msgid ""
 "Since version 0.7.10 &kwave; uses <ulink url=\"&url_cmake;\">cmake</ulink>, "
@@ -671,7 +671,7 @@ msgstr ""
 "list\">poštovního seznamu</link>."
 
 #. Tag: para
-#: help_en.docbook:506
+#: help_en.docbook:512
 #, no-c-format
 msgid ""
 "In order to compile and install &kwave; on your system, it is best practice "
@@ -686,13 +686,13 @@ msgstr ""
 
 #. Tag: para
 #. Tag: title
-#: help_en.docbook:513 help_en.docbook:528
+#: help_en.docbook:519 help_en.docbook:534
 #, no-c-format
 msgid "Build options"
 msgstr "Volby pro sestavení programu"
 
 #. Tag: para
-#: help_en.docbook:530
+#: help_en.docbook:536
 #, no-c-format
 msgid ""
 "By specifying build options, you can enable or disable some features of "
@@ -704,7 +704,7 @@ msgstr ""
 "vytvořeného balíčku. Seznam dostupných voleb je zde:"
 
 #. Tag: para
-#: help_en.docbook:536
+#: help_en.docbook:542
 #, no-c-format
 msgid ""
 "<literal>WITH_ALSA</literal> enable playback/recording via ALSA "
@@ -715,7 +715,7 @@ msgstr ""
 "default=: výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
-#: help_en.docbook:542
+#: help_en.docbook:548
 #, no-c-format
 msgid ""
 "<literal>WITH_DEBUG</literal> build a debug version [<literal>on</literal>/"
@@ -726,7 +726,7 @@ msgstr ""
 "vypnuto</literal>]"
 
 #. Tag: para
-#: help_en.docbook:548
+#: help_en.docbook:554
 #, no-c-format
 msgid ""
 "<literal>WITH_DOC</literal> build online documentation [<literal>on</"
@@ -737,7 +737,7 @@ msgstr ""
 "výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
-#: help_en.docbook:554
+#: help_en.docbook:560
 #, no-c-format
 msgid ""
 "<literal>WITH_FLAC</literal> enable support for FLAC files [<literal>on</"
@@ -748,7 +748,7 @@ msgstr ""
 "výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
-#: help_en.docbook:560
+#: help_en.docbook:566
 #, no-c-format
 msgid ""
 "<literal>WITH_MP3</literal> enable support for mp3 files [<literal>on</"
@@ -761,7 +761,7 @@ msgstr ""
 "kódu zahrnutého do patentů k počítačovým programům potřebujete svolení!"
 
 #. Tag: para
-#: help_en.docbook:568
+#: help_en.docbook:574
 #, no-c-format
 msgid ""
 "<literal>WITH_OGG_OPUS</literal> enable support for Ogg/Opus files "
@@ -772,7 +772,7 @@ msgstr ""
 "výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
-#: help_en.docbook:574
+#: help_en.docbook:580
 #, no-c-format
 msgid ""
 "<literal>WITH_OGG_VORBIS</literal> enable support for Ogg/Vorbis files "
@@ -783,7 +783,7 @@ msgstr ""
 "výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
-#: help_en.docbook:580
+#: help_en.docbook:586
 #, no-c-format
 msgid ""
 "<literal>WITH_OPTIMIZED_MEMCPY</literal> use an optimized version of memcpy, "
@@ -795,7 +795,7 @@ msgstr ""
 "<literal>vypnuto</literal>, výchozí=<literal>zapnuto</literal>]"
 
 #. Tag: para
-#: help_en.docbook:587
+#: help_en.docbook:593
 #, no-c-format
 msgid ""
 "<literal>WITH_OSS</literal> enable playback/recording via OSS [<literal>on</"
@@ -806,7 +806,7 @@ msgstr ""
 "výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
-#: help_en.docbook:593
+#: help_en.docbook:599
 #, no-c-format
 msgid ""
 "<literal>WITH_PHONON</literal> enable playback via Phonon (for testing only) "
@@ -818,7 +818,7 @@ msgstr ""
 "vypnuto</literal>, default=: výchozí=<literal>off: vypnuto</literal>]"
 
 #. Tag: para
-#: help_en.docbook:599
+#: help_en.docbook:605
 #, no-c-format
 msgid ""
 "<literal>WITH_PULSEAUDIO</literal> enable playback/recording via PulseAudio "
@@ -829,7 +829,7 @@ msgstr ""
 "vypnuto</literal>, default=: výchozí=<literal>on: zapnuto</literal>]"
 
 #. Tag: para
-#: help_en.docbook:608
+#: help_en.docbook:614
 #, no-c-format
 msgid ""
 "These options can be passed to <literal><command>cmake</command></literal> "
@@ -845,19 +845,19 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: title
-#: help_en.docbook:613 help_en.docbook:622
+#: help_en.docbook:619 help_en.docbook:628
 #, no-c-format
 msgid "Building RPM packages from tar.bz2 archives"
 msgstr "Vytvoření balíčků RPM z archivů tar.bz2"
 
 #. Tag: title
-#: help_en.docbook:625
+#: help_en.docbook:631
 #, no-c-format
 msgid "With working rpmbuild -ta"
 msgstr "S pracujícím rpmbuild -ta"
 
 #. Tag: para
-#: help_en.docbook:627
+#: help_en.docbook:633
 #, no-c-format
 msgid ""
 "If you are runnig a system with RPM support, the preferred way to install "
@@ -877,7 +877,7 @@ msgstr ""
 "<link linkend=\"building_rpm_from_git\">další</link> kapitolu."
 
 #. Tag: para
-#: help_en.docbook:638
+#: help_en.docbook:644
 #, no-c-format
 msgid ""
 "If you have downloaded a tar.bz2 archives of &kwave;, create and install the "
@@ -895,14 +895,14 @@ msgstr ""
 "verze, kterou jste si stáhl)."
 
 #. Tag: para
-#: help_en.docbook:649
+#: help_en.docbook:655
 #, no-c-format
 msgid "To build the &kwave; package and install it do:"
 msgstr "Vytvořit &kwave; balíček a instalovat jej do:"
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:651 help_en.docbook:654
+#: help_en.docbook:657 help_en.docbook:660
 #, no-c-format
 msgid ""
 "<emphasis>Note for SuSE users: </emphasis> you have to specify the directory "
@@ -914,7 +914,7 @@ msgstr ""
 "filename> !"
 
 #. Tag: para
-#: help_en.docbook:661
+#: help_en.docbook:667
 #, no-c-format
 msgid ""
 "If you haven't seen any errors, then that's it and you can skip the rest of "
@@ -927,13 +927,13 @@ msgstr ""
 "tohoto oddílu."
 
 #. Tag: title
-#: help_en.docbook:671
+#: help_en.docbook:677
 #, no-c-format
 msgid "With broken rpmbuild -ta support"
 msgstr "S pokaženou podporou rpmbuild -ta"
 
 #. Tag: para
-#: help_en.docbook:673
+#: help_en.docbook:679
 #, no-c-format
 msgid ""
 "If you can't get <command>rpmbuild -ta</command> working, here are the steps "
@@ -944,7 +944,7 @@ msgstr ""
 "(složitější způsob):"
 
 #. Tag: para
-#: help_en.docbook:679
+#: help_en.docbook:685
 #, no-c-format
 msgid ""
 "Go to your RPM \"topdir\". This normally is <filename>/usr/src/redhat</"
@@ -957,7 +957,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:685 help_en.docbook:688
+#: help_en.docbook:691 help_en.docbook:694
 #, no-c-format
 msgid ""
 "Put the tar.bz2 archive into the SOURCES subdirectory (you have to replace "
@@ -968,7 +968,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:692 help_en.docbook:695
+#: help_en.docbook:698 help_en.docbook:701
 #, no-c-format
 msgid ""
 "Extract the spec file from the archives and put it into the SPEC "
@@ -977,7 +977,7 @@ msgstr "Získejte z archivu soubor spec a vložte jej do podadresáře SPEC"
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:698 help_en.docbook:701
+#: help_en.docbook:704 help_en.docbook:707
 #, no-c-format
 msgid ""
 "Let rpm do the compile job and generate the rpm of &kwave;. If you only want "
@@ -991,7 +991,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:707 help_en.docbook:710
+#: help_en.docbook:713 help_en.docbook:716
 #, no-c-format
 msgid ""
 "If everything was ok, you can install the binary rpm of &kwave;, it will be "
@@ -1006,19 +1006,19 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: title
-#: help_en.docbook:717 help_en.docbook:730
+#: help_en.docbook:723 help_en.docbook:736
 #, no-c-format
 msgid "Building RPM packages from GIT"
 msgstr "Tvoření RPM balíčků z Git"
 
 #. Tag: title
-#: help_en.docbook:732
+#: help_en.docbook:738
 #, no-c-format
 msgid "Checking out the sources"
 msgstr "Stažení zdrojů"
 
 #. Tag: para
-#: help_en.docbook:734
+#: help_en.docbook:740
 #, no-c-format
 msgid ""
 "For initially checking out the sources you will need some disk space (about "
@@ -1035,7 +1035,7 @@ msgstr ""
 "Dobrým místem pro zdrojové soubory bude <filename>\"$HOME/src\"</filename>."
 
 #. Tag: para
-#: help_en.docbook:744
+#: help_en.docbook:750
 #, no-c-format
 msgid ""
 "First create the directory that will receive the subdirectoy with &kwave; "
@@ -1046,7 +1046,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:747 help_en.docbook:750
+#: help_en.docbook:753 help_en.docbook:756
 #, no-c-format
 msgid "Then check out the latest sources from the GIT server:"
 msgstr "Potom stáhněte poslední zdroje z Git serveru:"
@@ -1054,7 +1054,7 @@ msgstr "Potom stáhněte poslední zdroje z Git serveru:"
 #. Tag: screen
 #. Tag: para
 #. Tag: para
-#: help_en.docbook:752 help_en.docbook:754 help_en.docbook:766
+#: help_en.docbook:758 help_en.docbook:760 help_en.docbook:772
 #, no-c-format
 msgid ""
 "There <emphasis>must not</emphasis> be a directory named <filename>kwave</"
@@ -1067,14 +1067,14 @@ msgstr ""
 "existující soubory a načtení nebude pracovat."
 
 #. Tag: title
-#: help_en.docbook:776
+#: help_en.docbook:782
 #, no-c-format
 msgid "Updating fresh sources from GIT"
 msgstr "Aktualizace zdrojů z Git"
 
 #. Tag: para
 #. Tag: para
-#: help_en.docbook:777 help_en.docbook:785
+#: help_en.docbook:783 help_en.docbook:791
 #, no-c-format
 msgid ""
 "If you think that you have messed up your local source tree or if there are "
@@ -1089,13 +1089,13 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: title
-#: help_en.docbook:790 help_en.docbook:794
+#: help_en.docbook:796 help_en.docbook:800
 #, no-c-format
 msgid "Compiling"
 msgstr "Kompilace"
 
 #. Tag: para
-#: help_en.docbook:795
+#: help_en.docbook:801
 #, no-c-format
 msgid ""
 "Building rpm package from a GIT snapshot is quite simple. The procedure is "
@@ -1117,7 +1117,7 @@ msgstr ""
 "zastupuje číslo verze, kterou jste stáhl."
 
 #. Tag: para
-#: help_en.docbook:808
+#: help_en.docbook:814
 #, no-c-format
 msgid ""
 "<emphasis>Note for SuSE users: </emphasis> here you have to specify the "
@@ -1129,7 +1129,7 @@ msgstr ""
 "redhat</filename>!"
 
 #. Tag: para
-#: help_en.docbook:815
+#: help_en.docbook:821
 #, no-c-format
 msgid ""
 "Assuming that you are in the root of where you checked out from GIT, do the "
@@ -1146,7 +1146,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:822 help_en.docbook:825
+#: help_en.docbook:828 help_en.docbook:831
 #, no-c-format
 msgid ""
 "If you still have problems with <command>make rpm</command>, you will find "
@@ -1159,13 +1159,13 @@ msgstr ""
 "instrukce v <link linkend=\"manual_rpm_creation\">předchozí</link> kapitole."
 
 #. Tag: title
-#: help_en.docbook:841
+#: help_en.docbook:847
 #, no-c-format
 msgid "Building a DEB package for testing and personal use"
 msgstr "Sestavení balíčku DEB pro zkoušení a osobní užití"
 
 #. Tag: para
-#: help_en.docbook:843
+#: help_en.docbook:849
 #, no-c-format
 msgid ""
 "If you want to create a deb package of &kwave;, e.g. for testing a version "
@@ -1180,7 +1180,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:848 help_en.docbook:851
+#: help_en.docbook:854 help_en.docbook:857
 #, no-c-format
 msgid ""
 "Then you can install the required build dependencies by pretending to "
@@ -1191,7 +1191,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:854 help_en.docbook:857
+#: help_en.docbook:860 help_en.docbook:863
 #, no-c-format
 msgid ""
 "After installing the required packages, you can build &kwave; as described "
@@ -1204,7 +1204,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:861 help_en.docbook:864
+#: help_en.docbook:867 help_en.docbook:870
 #, no-c-format
 msgid ""
 "The .deb file you get from this step will not have the quality that a "
@@ -1217,13 +1217,13 @@ msgstr ""
 "nainstalování, účely zkoušení, osobní užití a bezpečné odinstalování &kwave;."
 
 #. Tag: title
-#: help_en.docbook:878
+#: help_en.docbook:884
 #, no-c-format
 msgid "Building CPU optimized packages"
 msgstr "Sestavení balíčků optimalizovaných pro CPU"
 
 #. Tag: para
-#: help_en.docbook:880
+#: help_en.docbook:886
 #, no-c-format
 msgid ""
 "If you are owner of a Pentium, an AMD K6, Athlon or Athlon-XP CPU, you might "
@@ -1241,7 +1241,7 @@ msgstr ""
 "provádějí složité operace spojené s časem a kmitočtem (jako FFT a Sonagram)."
 
 #. Tag: para
-#: help_en.docbook:888
+#: help_en.docbook:894
 #, no-c-format
 msgid ""
 "You do not need to understand much about programming for using an optimized "
@@ -1253,13 +1253,13 @@ msgstr ""
 "uvedení kompiléru do provozu a předtím také na jeho nainstalování."
 
 #. Tag: title
-#: help_en.docbook:895
+#: help_en.docbook:901
 #, no-c-format
 msgid "RPM optimizations"
 msgstr "Vyladění RPM"
 
 #. Tag: para
-#: help_en.docbook:897
+#: help_en.docbook:903
 #, no-c-format
 msgid ""
 "You can easily compile the RPM package optimized for Athlon, Athlon-XP, "
@@ -1305,7 +1305,7 @@ msgstr ""
 "rpmopt.en.html</ulink>. Díky Matthiasovi Düsterhöftovi!)."
 
 #. Tag: para
-#: help_en.docbook:917
+#: help_en.docbook:923
 #, no-c-format
 msgid ""
 "This means that on an <literal>k7</literal> architecture the rpm package "
@@ -1325,7 +1325,7 @@ msgstr ""
 "rebuild</command>."
 
 #. Tag: para
-#: help_en.docbook:930
+#: help_en.docbook:936
 #, no-c-format
 msgid ""
 "If <command>rpm</command> refuses to install your package because it seems "
@@ -1339,13 +1339,13 @@ msgstr ""
 "<command>--ignorearch</command>, a dál si nedělejte starosti."
 
 #. Tag: title
-#: help_en.docbook:941
+#: help_en.docbook:947
 #, no-c-format
 msgid "How to pass optimizer options to the compiler manually"
 msgstr "Jak předat překladač volby pro vyladění ručně"
 
 #. Tag: para
-#: help_en.docbook:942
+#: help_en.docbook:948
 #, no-c-format
 msgid ""
 "The invocation of the compiler is quite simple. It normally is sufficient to "
@@ -1361,7 +1361,7 @@ msgstr ""
 "nebo na domovských stránkách odpovídajícího překladače."
 
 #. Tag: para
-#: help_en.docbook:950
+#: help_en.docbook:956
 #, no-c-format
 msgid ""
 "If you build &kwave; from a source tree (unpacked tar.bz2 or from GIT) the "
@@ -1372,7 +1372,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:954 help_en.docbook:958
+#: help_en.docbook:960 help_en.docbook:964
 #, no-c-format
 msgid ""
 "If you re-build &kwave; from a source rpm package, please follow the "
@@ -1384,13 +1384,13 @@ msgstr ""
 "link>."
 
 #. Tag: title
-#: help_en.docbook:974
+#: help_en.docbook:980
 #, no-c-format
 msgid "Basics about digital audio"
 msgstr "Základy o digitálním zvuku"
 
 #. Tag: para
-#: help_en.docbook:976
+#: help_en.docbook:982
 #, no-c-format
 msgid ""
 "This chapter should give a short introduction about the basics of digital "
@@ -1404,13 +1404,13 @@ msgstr ""
 "seznamu s adresami nebo se poradit s nějakou další literaturou."
 
 #. Tag: title
-#: help_en.docbook:984
+#: help_en.docbook:990
 #, no-c-format
 msgid "The analogue world"
 msgstr "Svět analogu"
 
 #. Tag: para
-#: help_en.docbook:986
+#: help_en.docbook:992
 #, no-c-format
 msgid ""
 "First of all, one must know that the world is <emphasis>analogue</emphasis> "
@@ -1427,19 +1427,19 @@ msgstr ""
 "digitál."
 
 #. Tag: phrase
-#: help_en.docbook:1000
+#: help_en.docbook:1006
 #, no-c-format
 msgid "<phrase>Conversion from sound to bits</phrase>"
 msgstr "<phrase>Převod ze zvuku na bity</phrase>"
 
 #. Tag: para
-#: help_en.docbook:1003
+#: help_en.docbook:1009
 #, no-c-format
 msgid "<para>Conversion from sound to bits</para>"
 msgstr "<para>Převod ze zvuku na bity</para>"
 
 #. Tag: para
-#: help_en.docbook:1005
+#: help_en.docbook:1011
 #, no-c-format
 msgid ""
 "Before continuing, analogue audio has to be transformed into electronic "
@@ -1462,19 +1462,19 @@ msgstr ""
 "ve vaší zvukové kartě, kde jej normálně nemůžete vidět."
 
 #. Tag: phrase
-#: help_en.docbook:1022
+#: help_en.docbook:1028
 #, no-c-format
 msgid "<phrase>Conversion to electronic signal</phrase>"
 msgstr "<phrase>Přeměna na elektronický signál</phrase>"
 
 #. Tag: para
-#: help_en.docbook:1025
+#: help_en.docbook:1031
 #, no-c-format
 msgid "<para>Conversion to electronic signal</para>"
 msgstr "<para>Přeměna na elektronický signál</para>"
 
 #. Tag: para
-#: help_en.docbook:1027
+#: help_en.docbook:1033
 #, no-c-format
 msgid ""
 "At this stage, the electrical signal has three limitations that one should "
@@ -1484,7 +1484,7 @@ msgstr ""
 "mysli:"
 
 #. Tag: para
-#: help_en.docbook:1031
+#: help_en.docbook:1037
 #, no-c-format
 msgid ""
 "The <emphasis>amplitude</emphasis> (volume) is limited to some maximum "
@@ -1502,7 +1502,7 @@ msgstr ""
 "proti svým okrajům a výsledek tak bude narušený."
 
 #. Tag: para
-#: help_en.docbook:1041
+#: help_en.docbook:1047
 #, no-c-format
 msgid ""
 "The <emphasis>frequency range</emphasis> is also limited. Due to the "
@@ -1528,7 +1528,7 @@ msgstr ""
 "není schopné zaslechnout zvuk s kmitočtem nad 20 kHz."
 
 #. Tag: para
-#: help_en.docbook:1056
+#: help_en.docbook:1062
 #, no-c-format
 msgid ""
 "The signal contains <emphasis>noise</emphasis>. Noise is the most ugly enemy "
@@ -1554,13 +1554,13 @@ msgstr ""
 "hlasitost nižší než hlasitost šumu, nelze slyšet."
 
 #. Tag: title
-#: help_en.docbook:1075
+#: help_en.docbook:1081
 #, no-c-format
 msgid "Digitalization"
 msgstr "Digitalizace"
 
 #. Tag: para
-#: help_en.docbook:1077
+#: help_en.docbook:1083
 #, no-c-format
 msgid ""
 "When we want to store and play audio in a computer, we must convert the "
@@ -1574,19 +1574,19 @@ msgstr ""
 "signálu na sled číslicových hodnot (digitálních)."
 
 #. Tag: phrase
-#: help_en.docbook:1088
+#: help_en.docbook:1094
 #, no-c-format
 msgid "<phrase>Digitalization of the electronic signal</phrase>"
 msgstr "<phrase>Digitalizace elektronického signálu</phrase>"
 
 #. Tag: para
-#: help_en.docbook:1091
+#: help_en.docbook:1097
 #, no-c-format
 msgid "<para>Digitalization of the electronic signal</para>"
 msgstr "<para>Digitalizace elektronického signálu</para>"
 
 #. Tag: para
-#: help_en.docbook:1093
+#: help_en.docbook:1099
 #, no-c-format
 msgid ""
 "The conversion can be understood as a repetitive measurement of the "
@@ -1598,7 +1598,7 @@ msgstr ""
 "Výsledek se pak zakóduje jako číslicová hodnota."
 
 #. Tag: para
-#: help_en.docbook:1099
+#: help_en.docbook:1105
 #, no-c-format
 msgid ""
 "The sampling could be done in arbitrary distances or in constant intervals. "
@@ -1616,7 +1616,7 @@ msgstr ""
 "kHz."
 
 #. Tag: para
-#: help_en.docbook:1107
+#: help_en.docbook:1113
 #, no-c-format
 msgid ""
 "The sample rate limts the highest frequency a digitized signal can "
@@ -1635,25 +1635,25 @@ msgstr ""
 "kmitočty, které jsou vyšší než polovina používaného vzorkovacího kmitočtu."
 
 #. Tag: phrase
-#: help_en.docbook:1121
+#: help_en.docbook:1127
 #, no-c-format
 msgid "<phrase>Sampled signal</phrase>"
 msgstr "<phrase>Vzorkovaný signál</phrase>"
 
 #. Tag: para
-#: help_en.docbook:1124
+#: help_en.docbook:1130
 #, no-c-format
 msgid "<para>Sampled signal</para>"
 msgstr "<para>Vzorkovaný signál</para>"
 
 #. Tag: title
-#: help_en.docbook:1128
+#: help_en.docbook:1134
 #, no-c-format
 msgid "Sample Encoding"
 msgstr "Kódování vzorku"
 
 #. Tag: para
-#: help_en.docbook:1130
+#: help_en.docbook:1136
 #, no-c-format
 msgid ""
 "The result of the digital sampling process is a sequence of single "
@@ -1665,7 +1665,7 @@ msgstr ""
 "signálu v určitý čas."
 
 #. Tag: para
-#: help_en.docbook:1135
+#: help_en.docbook:1141
 #, no-c-format
 msgid ""
 "The value of a sample can be interpreted and encoded in several ways. The "
@@ -1683,7 +1683,7 @@ msgstr ""
 "slyšitelný u vysokých rozkmitů, kde je to méně slyšet."
 
 #. Tag: para
-#: help_en.docbook:1144
+#: help_en.docbook:1150
 #, no-c-format
 msgid ""
 "One way to reduce the influence of noise is <emphasis>non-linear</emphasis> "
@@ -1703,25 +1703,25 @@ msgstr ""
 "digitálním telefonování (ITU G.711 standard)."
 
 #. Tag: phrase
-#: help_en.docbook:1158
+#: help_en.docbook:1164
 #, no-c-format
 msgid "<phrase>Nonlinear Encoding</phrase>"
 msgstr "<phrase>Nepřímočaré zakódování</phrase>"
 
 #. Tag: para
-#: help_en.docbook:1161
+#: help_en.docbook:1167
 #, no-c-format
 msgid "<para>Nonlinear Encoding</para>"
 msgstr "<para>Nepřímočaré zakódování</para>"
 
 #. Tag: title
-#: help_en.docbook:1164
+#: help_en.docbook:1170
 #, no-c-format
 msgid "Sample Formats"
 msgstr "Vzorkovací formáty"
 
 #. Tag: para
-#: help_en.docbook:1166
+#: help_en.docbook:1172
 #, no-c-format
 msgid ""
 "Samples can be stored in different formats and precisions. The most common "
@@ -1740,31 +1740,31 @@ msgstr ""
 "(kladné a záporné hodnoty)"
 
 #. Tag: phrase
-#: help_en.docbook:1181
+#: help_en.docbook:1187
 #, no-c-format
 msgid "<phrase>Signed Format</phrase>"
 msgstr "<phrase>Formát se znaménkem</phrase>"
 
 #. Tag: para
-#: help_en.docbook:1184
+#: help_en.docbook:1190
 #, no-c-format
 msgid "<para>Signed Format</para>"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: phrase
-#: help_en.docbook:1190
+#: help_en.docbook:1196
 #, no-c-format
 msgid "<phrase>Unsigned Format</phrase>"
 msgstr "<phrase>Formát bez znaménka</phrase>"
 
 #. Tag: para
-#: help_en.docbook:1193
+#: help_en.docbook:1199
 #, no-c-format
 msgid "<para>Unsigned Format</para>"
 msgstr "<para>Formát bez znaménka</para>"
 
 #. Tag: para
-#: help_en.docbook:1194
+#: help_en.docbook:1200
 #, no-c-format
 msgid ""
 "As the quantisation loses some accuracy, it produces noise, the so-called "
@@ -1780,7 +1780,7 @@ msgstr ""
 "pevnou desetinnou čárkou)."
 
 #. Tag: para
-#: help_en.docbook:1202
+#: help_en.docbook:1208
 #, no-c-format
 msgid ""
 "The second way of encoding samples is with <emphasis>floating point</"
@@ -1799,7 +1799,7 @@ msgstr ""
 "desetinnou čárkou)."
 
 #. Tag: para
-#: help_en.docbook:1210
+#: help_en.docbook:1216
 #, no-c-format
 msgid ""
 "&kwave; internally uses <emphasis>signed integer</emphasis> format with 24 "
@@ -1816,13 +1816,13 @@ msgstr ""
 "pouze 24 bitů."
 
 #. Tag: title
-#: help_en.docbook:1228
+#: help_en.docbook:1234
 #, no-c-format
 msgid "Using &kwave;"
 msgstr "Používání &kwave;"
 
 #. Tag: para
-#: help_en.docbook:1229
+#: help_en.docbook:1235
 #, no-c-format
 msgid ""
 "Here is a little screenshot of the &kwave; main window, so that you get an "
@@ -1832,25 +1832,25 @@ msgstr ""
 "jak &kwave; vypadá..."
 
 #. Tag: screeninfo
-#: help_en.docbook:1235
+#: help_en.docbook:1241
 #, no-c-format
 msgid "Here's a screenshot of &kwave;"
 msgstr "Tady je snímek obrazovky &kwave;"
 
 #. Tag: phrase
-#: help_en.docbook:1243
+#: help_en.docbook:1249
 #, no-c-format
 msgid "Screenshot of the Main Window"
 msgstr "Snímek obrazovky hlavního okna"
 
 #. Tag: title
-#: help_en.docbook:1252
+#: help_en.docbook:1258
 #, fuzzy, no-c-format
 msgid "User Interface Mode"
 msgstr "uživatelské rozhraní:"
 
 #. Tag: para
-#: help_en.docbook:1254
+#: help_en.docbook:1260
 #, no-c-format
 msgid ""
 "Depending on your personal preferences or use cases you can configure how "
@@ -1865,13 +1865,13 @@ msgstr ""
 "menuchoice>."
 
 #. Tag: para
-#: help_en.docbook:1263
+#: help_en.docbook:1269
 #, no-c-format
 msgid "The three possible settings are:"
 msgstr "Třemi možnými nastaveními jsou tato:"
 
 #. Tag: para
-#: help_en.docbook:1268
+#: help_en.docbook:1274
 #, no-c-format
 msgid ""
 "<guimenuitem>Separate Windows (SDI)</guimenuitem>: When using the "
@@ -1883,19 +1883,19 @@ msgstr ""
 "zobrazen v samostatném hlavním okně."
 
 #. Tag: screeninfo
-#: help_en.docbook:1272
+#: help_en.docbook:1278
 #, fuzzy, no-c-format
 msgid "screenshot of &kwave; in SDI mode"
 msgstr "Tady je snímek obrazovky &kwave;"
 
 #. Tag: phrase
-#: help_en.docbook:1280
+#: help_en.docbook:1286
 #, fuzzy, no-c-format
 msgid "Screenshot of SDI mode"
 msgstr "Snímek obrazovky s nahrávacím dialogem"
 
 #. Tag: para
-#: help_en.docbook:1288
+#: help_en.docbook:1294
 #, no-c-format
 msgid ""
 "<guimenuitem>Same Window (MDI)</guimenuitem>: When using the <emphasis>Multi "
@@ -1910,7 +1910,7 @@ msgstr ""
 "zmenšit do panelu."
 
 #. Tag: para
-#: help_en.docbook:1294
+#: help_en.docbook:1300
 #, fuzzy, no-c-format
 msgid ""
 "You can select a window from the <guimenu>Windows</guimenu> menu or cycle "
@@ -1922,19 +1922,19 @@ msgstr ""
 "guimenu><guimenuitem>Otevřít</guimenuitem> </menuchoice>"
 
 #. Tag: screeninfo
-#: help_en.docbook:1299
+#: help_en.docbook:1305
 #, fuzzy, no-c-format
 msgid "screenshot of &kwave; in MDI mode"
 msgstr "Tady je snímek obrazovky &kwave;"
 
 #. Tag: phrase
-#: help_en.docbook:1307
+#: help_en.docbook:1313
 #, fuzzy, no-c-format
 msgid "Screenshot of MDI mode"
 msgstr "Snímek obrazovky s nahrávacím dialogem"
 
 #. Tag: para
-#: help_en.docbook:1315
+#: help_en.docbook:1321
 #, no-c-format
 msgid ""
 "<guimenuitem>Tabs</guimenuitem>: This is a variant of the MDI interface, "
@@ -1946,7 +1946,7 @@ msgstr ""
 "vám může být znám z některých oblíbených internetových prohlížečů."
 
 #. Tag: para
-#: help_en.docbook:1320
+#: help_en.docbook:1326
 #, fuzzy, no-c-format
 msgid ""
 "You can activate a tab via the <guimenu>Windows</guimenu> menu or cycle "
@@ -1958,25 +1958,25 @@ msgstr ""
 "guimenu><guimenuitem>Otevřít</guimenuitem> </menuchoice>"
 
 #. Tag: screeninfo
-#: help_en.docbook:1325
+#: help_en.docbook:1331
 #, fuzzy, no-c-format
 msgid "screenshot of &kwave; in TAB mode"
 msgstr "Tady je snímek obrazovky &kwave;"
 
 #. Tag: phrase
-#: help_en.docbook:1333
+#: help_en.docbook:1339
 #, fuzzy, no-c-format
 msgid "Screenshot of TAB mode"
 msgstr "Snímek obrazovky s nahrávacím dialogem"
 
 #. Tag: title
-#: help_en.docbook:1347
+#: help_en.docbook:1353
 #, no-c-format
 msgid "Memory Setup"
 msgstr "Nastavení paměti"
 
 #. Tag: para
-#: help_en.docbook:1349
+#: help_en.docbook:1355
 #, fuzzy, no-c-format
 msgid ""
 "When using &kwave; for the first time, you should go to the memory setup "
@@ -1991,19 +1991,19 @@ msgstr ""
 "<guimenu>Volby</guimenu><guimenuitem>Paměť...</guimenuitem> </menuchoice>."
 
 #. Tag: screeninfo
-#: help_en.docbook:1359
+#: help_en.docbook:1365
 #, no-c-format
 msgid "Here's a screenshot of &kwave;'s memory setup dialog"
 msgstr "Tady je snímek dialogu s nastavením paměti &kwave;"
 
 #. Tag: phrase
-#: help_en.docbook:1367
+#: help_en.docbook:1373
 #, no-c-format
 msgid "Screenshot of the Memory Setup Dialog"
 msgstr "Snímek dialogu s nastavením paměti"
 
 #. Tag: para
-#: help_en.docbook:1372
+#: help_en.docbook:1378
 #, no-c-format
 msgid ""
 "&kwave; is able to use two types of memory: <emphasis>physical</emphasis> "
@@ -2013,7 +2013,7 @@ msgstr ""
 "<emphasis>virtuální</emphasis> paměť."
 
 #. Tag: para
-#: help_en.docbook:1376
+#: help_en.docbook:1382
 #, no-c-format
 msgid ""
 "<emphasis>Physical memory</emphasis> is the memory (RAM) that is installed "
@@ -2035,7 +2035,7 @@ msgstr ""
 "soubory, protože používáte méně z rychlé fyzické paměti, než byste mohl."
 
 #. Tag: para
-#: help_en.docbook:1387
+#: help_en.docbook:1393
 #, no-c-format
 msgid ""
 "If you enable <emphasis>virtual memory</emphasis>, &kwave; is able to load "
@@ -2053,19 +2053,19 @@ msgstr ""
 "Adresář, který nastavíte, by se měl nacházet na vašem místním pevném disku."
 
 #. Tag: title
-#: help_en.docbook:1403
+#: help_en.docbook:1409
 #, no-c-format
 msgid "Command Line"
 msgstr "Příkazová řádka"
 
 #. Tag: title
-#: help_en.docbook:1405
+#: help_en.docbook:1411
 #, no-c-format
 msgid "List of Files or Commands"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:1406
+#: help_en.docbook:1412
 #, fuzzy, no-c-format
 msgid ""
 "If you start &kwave; from the command line, you can specify a list of files "
@@ -2081,7 +2081,7 @@ msgstr ""
 "můžete otevřít velký počet souborů ihned."
 
 #. Tag: para
-#: help_en.docbook:1413
+#: help_en.docbook:1419
 #, fuzzy, no-c-format
 msgid ""
 "For example, the following command starts a &kwave; and opens all sounds of "
@@ -2092,7 +2092,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:1416 help_en.docbook:1418
+#: help_en.docbook:1422 help_en.docbook:1424
 #, no-c-format
 msgid ""
 "It is also possible to pass &kwave; text commands, encoded as a special "
@@ -2102,13 +2102,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:1425
+#: help_en.docbook:1431
 #, no-c-format
 msgid "GUI Type"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:1426
+#: help_en.docbook:1432
 #, no-c-format
 msgid ""
 "The parameter <literal>--gui-type=<replaceable>SDI</replaceable>|"
@@ -2120,13 +2120,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:1436
+#: help_en.docbook:1442
 #, no-c-format
 msgid "Xt Toolkit options"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:1437
+#: help_en.docbook:1443
 #, no-c-format
 msgid ""
 "In addition to a list of files, you can specify a list of <emphasis>Xt "
@@ -2140,7 +2140,7 @@ msgstr ""
 "<literal>-zobrazení</literal> pro spuštění &kwave; na jiné obrazovce."
 
 #. Tag: para
-#: help_en.docbook:1444
+#: help_en.docbook:1450
 #, fuzzy, no-c-format
 msgid ""
 "For example, the following command starts a &kwave; window with an initial "
@@ -2154,13 +2154,13 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: title
-#: help_en.docbook:1449 help_en.docbook:1453
+#: help_en.docbook:1455 help_en.docbook:1459
 #, no-c-format
 msgid "Startup Options"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:1454
+#: help_en.docbook:1460
 #, no-c-format
 msgid ""
 "With the option <literal>--disable-splashscreen</literal> you can disable "
@@ -2172,7 +2172,7 @@ msgstr ""
 "když &kwave; spouštíte pomocí skriptu."
 
 #. Tag: para
-#: help_en.docbook:1460
+#: help_en.docbook:1466
 #, no-c-format
 msgid ""
 "The command line option <literal>--iconic</literal> lets &kwave; start up "
@@ -2186,7 +2186,7 @@ msgstr ""
 "bezpodmínečně zakáže uvítací obrazovku!"
 
 #. Tag: para
-#: help_en.docbook:1467
+#: help_en.docbook:1473
 #, no-c-format
 msgid ""
 "By using the command line option <literal>--logfile=<replaceable>kwave.log</"
@@ -2200,13 +2200,13 @@ msgstr ""
 "požádán při nahlášení chyby."
 
 #. Tag: title
-#: help_en.docbook:1480
+#: help_en.docbook:1486
 #, no-c-format
 msgid "Opening and Saving files"
 msgstr "Otevírání a ukládání souborů"
 
 #. Tag: para
-#: help_en.docbook:1482
+#: help_en.docbook:1488
 #, no-c-format
 msgid ""
 "Opening files with &kwave; works like in most other applications, you can"
@@ -2215,7 +2215,7 @@ msgstr ""
 "Můžete"
 
 #. Tag: para
-#: help_en.docbook:1486
+#: help_en.docbook:1492
 #, no-c-format
 msgid ""
 "specify a list of files on the <link linkend=\"command_line\">command line</"
@@ -2225,7 +2225,7 @@ msgstr ""
 "řádky</link>, když spouštíte program &kwave;,"
 
 #. Tag: para
-#: help_en.docbook:1488
+#: help_en.docbook:1494
 #, no-c-format
 msgid ""
 "open an empty &kwave; window (for example with <menuchoice> "
@@ -2241,7 +2241,7 @@ msgstr ""
 "\"drag_and_drop\">\"táhni a pusť\"</link>, nebo můžete"
 
 #. Tag: para
-#: help_en.docbook:1496
+#: help_en.docbook:1502
 #, no-c-format
 msgid ""
 "open a file through the menu with <menuchoice> "
@@ -2254,7 +2254,7 @@ msgstr ""
 "guimenu><guimenuitem>Otevřít</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:1502
+#: help_en.docbook:1508
 #, no-c-format
 msgid ""
 "or one of the last recently opened files under <menuchoice> <guimenu>File</"
@@ -2264,7 +2264,7 @@ msgstr ""
 "guimenu><guimenuitem>Otevřít nedávný</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:1508
+#: help_en.docbook:1514
 #, no-c-format
 msgid ""
 "save the current file with <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
@@ -2276,7 +2276,7 @@ msgstr ""
 "guimenu><guimenuitem>Uložit</guimenuitem> </menuchoice>,"
 
 #. Tag: para
-#: help_en.docbook:1515
+#: help_en.docbook:1521
 #, no-c-format
 msgid ""
 "save under a different name with <menuchoice> "
@@ -2290,7 +2290,7 @@ msgstr ""
 "guimenuitem><guimenuitem>Jako...</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:1522
+#: help_en.docbook:1528
 #, no-c-format
 msgid ""
 "save all areas that are separated by markers, each one to an own file, with "
@@ -2303,7 +2303,7 @@ msgstr ""
 "</menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:1529
+#: help_en.docbook:1535
 #, no-c-format
 msgid ""
 "or only the current selection with <menuchoice> <guimenu>File</"
@@ -2315,19 +2315,19 @@ msgstr ""
 "</menuchoice>"
 
 #. Tag: title
-#: help_en.docbook:1538
+#: help_en.docbook:1544
 #, no-c-format
 msgid "Supported File formats"
 msgstr "Podporované souborové formáty"
 
 #. Tag: para
-#: help_en.docbook:1540
+#: help_en.docbook:1546
 #, no-c-format
 msgid "&kwave; supports the following file formats:"
 msgstr "&kwave; podporuje následující formáty souborů:"
 
 #. Tag: para
-#: help_en.docbook:1546
+#: help_en.docbook:1552
 #, no-c-format
 msgid ""
 "The favourite file format of &kwave; is (like you can guess from the name) "
@@ -2339,7 +2339,7 @@ msgstr ""
 "\"operačních systémů\" a je rovněž obyčejně používán v rámci prostředí KDE."
 
 #. Tag: para
-#: help_en.docbook:1551
+#: help_en.docbook:1557
 #, no-c-format
 msgid ""
 "The second format that &kwave; supports is \"ASCII\". You can export to and "
@@ -2353,7 +2353,7 @@ msgstr ""
 "formát bude popsán <link linkend=\"ascii_format\">níže</link>."
 
 #. Tag: para
-#: help_en.docbook:1557
+#: help_en.docbook:1563
 #, no-c-format
 msgid ""
 "<filename>.mp3</filename> and <filename>.mp2</filename> import is available "
@@ -2367,7 +2367,7 @@ msgstr ""
 "značek a <ulink url=\"&url_lame;\">lame</ulink> pro zakódování."
 
 #. Tag: para
-#: help_en.docbook:1566
+#: help_en.docbook:1572
 #, no-c-format
 msgid ""
 "Ogg/Vorbis (<filename>*.ogg</filename>) import and export. See <ulink url="
@@ -2378,7 +2378,7 @@ msgstr ""
 "podrobnosti."
 
 #. Tag: para
-#: help_en.docbook:1570
+#: help_en.docbook:1576
 #, no-c-format
 msgid ""
 "FLAC (<filename>*.flac</filename>) import and export. See <ulink url="
@@ -2388,7 +2388,7 @@ msgstr ""
 "Viz <ulink url=\"&url_flac;\">&url_flac;</ulink> pro podrobnosti."
 
 #. Tag: para
-#: help_en.docbook:1575
+#: help_en.docbook:1581
 #, no-c-format
 msgid ""
 "Additionally &kwave; supports many other common formats through the <ulink "
@@ -2404,13 +2404,13 @@ msgstr ""
 "<filename>*.sf</filename> (Berkeley, IRCAM,Carl Sound Format)."
 
 #. Tag: title
-#: help_en.docbook:1591
+#: help_en.docbook:1597
 #, no-c-format
 msgid "Converting to and from .wav"
 msgstr "Převádění do a z .wav"
 
 #. Tag: para
-#: help_en.docbook:1593
+#: help_en.docbook:1599
 #, no-c-format
 msgid ""
 "The best way to work with formats other than those supported by &kwave; is "
@@ -2424,7 +2424,7 @@ msgstr ""
 "existuje hezká dokumentace!"
 
 #. Tag: para
-#: help_en.docbook:1601
+#: help_en.docbook:1607
 #, no-c-format
 msgid ""
 "The plans for future include support for import and also export filters for "
@@ -2438,13 +2438,13 @@ msgstr ""
 "i formáty nepodporované <literal>SoX</literal> (jako je MP3)."
 
 #. Tag: title
-#: help_en.docbook:1609
+#: help_en.docbook:1615
 #, no-c-format
 msgid "Format of ASCII files"
 msgstr "Formát ASCII souborů"
 
 #. Tag: para
-#: help_en.docbook:1610
+#: help_en.docbook:1616
 #, no-c-format
 msgid ""
 "The ASCII format is quite useful for scientific and educational purposes. "
@@ -2462,14 +2462,14 @@ msgstr ""
 "obvykle má nějaký druh svého vlastního ASCII formátu určeného pro export."
 
 #. Tag: para
-#: help_en.docbook:1622
+#: help_en.docbook:1628
 #, no-c-format
 msgid ""
 "The format of an ASCII file is quite simple and has the following rules:"
 msgstr "Formát ASCII je docela jednoduchý a řídí se následujícími pravidly:"
 
 #. Tag: para
-#: help_en.docbook:1625
+#: help_en.docbook:1631
 #, no-c-format
 msgid ""
 "At the start of the file comes a block of properties, with one property per "
@@ -2478,13 +2478,13 @@ msgstr ""
 "Na začátku souboru se nachází blok s vlastnostmi; jedna vlastnost na řádek."
 
 #. Tag: para
-#: help_en.docbook:1629
+#: help_en.docbook:1635
 #, no-c-format
 msgid "Each property line starts with <literal>##</literal>."
 msgstr "Každý řádek s vlastností začíná s <literal>##</literal>."
 
 #. Tag: para
-#: help_en.docbook:1632
+#: help_en.docbook:1638
 #, no-c-format
 msgid ""
 "After the properties comes a list of samples, with one sample per line. When "
@@ -2494,7 +2494,7 @@ msgstr ""
 "použití více kanálů jsou vzorky odděleny čárkami."
 
 #. Tag: para
-#: help_en.docbook:1636
+#: help_en.docbook:1642
 #, no-c-format
 msgid ""
 "Lines might end with a carriage return and/or a line feed character (so DOS "
@@ -2507,7 +2507,7 @@ msgstr ""
 "uloženy se znakem pro posun řádku jako konce řádku."
 
 #. Tag: para
-#: help_en.docbook:1642
+#: help_en.docbook:1648
 #, no-c-format
 msgid ""
 "Empty lines and characters after a <literal>#</literal> are treated as "
@@ -2517,7 +2517,7 @@ msgstr ""
 "poznámkami a jsou přehlíženy."
 
 #. Tag: para
-#: help_en.docbook:1646
+#: help_en.docbook:1652
 #, no-c-format
 msgid ""
 "Values have to be given in signed integer format with a 24 bit range, which "
@@ -2527,7 +2527,7 @@ msgstr ""
 "bitů, což je původní vnitřní ukládací formát &kwave;."
 
 #. Tag: para
-#: help_en.docbook:1650
+#: help_en.docbook:1656
 #, no-c-format
 msgid ""
 "Everything after a <literal>#</literal> (except property lines, see above) "
@@ -2539,7 +2539,7 @@ msgstr ""
 "Prázdné řádky se budou přehlížet taktéž."
 
 #. Tag: para
-#: help_en.docbook:1658
+#: help_en.docbook:1664
 #, no-c-format
 msgid ""
 "Here is an example of a simple ASCII file that represents a sine wave with "
@@ -2549,13 +2549,13 @@ msgstr ""
 "s jedenácti vzorky:"
 
 #. Tag: title
-#: help_en.docbook:1662
+#: help_en.docbook:1668
 #, no-c-format
 msgid "content of an ASCII file with a single sine wave"
 msgstr "obsah ASCII souboru s jednoduchou sinusovou vlnou"
 
 #. Tag: screen
-#: help_en.docbook:1663
+#: help_en.docbook:1669
 #, no-c-format
 msgid ""
 "## 'rate'=44100\n"
@@ -2597,13 +2597,13 @@ msgstr ""
 "# EOF"
 
 #. Tag: title
-#: help_en.docbook:1673
+#: help_en.docbook:1679
 #, no-c-format
 msgid "Creating a New File"
 msgstr "Vytvoření nového souboru"
 
 #. Tag: para
-#: help_en.docbook:1675
+#: help_en.docbook:1681
 #, no-c-format
 msgid ""
 "You can create a new and empty file menu under <menuchoice> <guimenu>File</"
@@ -2613,20 +2613,20 @@ msgstr ""
 "<guimenu>Soubor</guimenu><guimenuitem>Nový...</guimenuitem> </menuchoice>."
 
 #. Tag: screeninfo
-#: help_en.docbook:1683
+#: help_en.docbook:1689
 #, no-c-format
 msgid "Here's a screenshot of &kwave;'s new file dialog"
 msgstr ""
 "Tady je snímek obrazovky &kwave; s dialogem pro vytvoření nového souboru"
 
 #. Tag: phrase
-#: help_en.docbook:1691
+#: help_en.docbook:1697
 #, no-c-format
 msgid "Screenshot of the File New Dialog"
 msgstr "Snímek obrazovky s dialogem pro vytvoření nového souboru"
 
 #. Tag: para
-#: help_en.docbook:1696
+#: help_en.docbook:1702
 #, no-c-format
 msgid ""
 "You can select the sample rate, resolution in bits per sample and the number "
@@ -2638,7 +2638,7 @@ msgstr ""
 "změněn v době, kdy je soubor ukládán."
 
 #. Tag: para
-#: help_en.docbook:1701
+#: help_en.docbook:1707
 #, no-c-format
 msgid ""
 "The length of the new signal can be set by time (hours, minutes, seconds) or "
@@ -2652,13 +2652,13 @@ msgstr ""
 "GB)."
 
 #. Tag: title
-#: help_en.docbook:1713
+#: help_en.docbook:1719
 #, no-c-format
 msgid "Recording"
 msgstr "Nahrávání"
 
 #. Tag: para
-#: help_en.docbook:1715
+#: help_en.docbook:1721
 #, no-c-format
 msgid ""
 "&kwave; is able to record audio data from various sources, with all sample "
@@ -2674,7 +2674,7 @@ msgstr ""
 "pro linuxové jádro 2.6."
 
 #. Tag: para
-#: help_en.docbook:1722
+#: help_en.docbook:1728
 #, no-c-format
 msgid ""
 "The recording can be reached from the menu under <menuchoice> <guimenu>File</"
@@ -2684,7 +2684,7 @@ msgstr ""
 "guimenu><guimenuitem>Nahrát</guimenuitem> </menuchoice>."
 
 #. Tag: para
-#: help_en.docbook:1729
+#: help_en.docbook:1735
 #, no-c-format
 msgid ""
 "Here is a screenshot of the &kwave; record dialog, showing the first page "
@@ -2697,25 +2697,25 @@ msgstr ""
 "nebo si prohlédnout rady k nástrojům u ovládacích prvků."
 
 #. Tag: screeninfo
-#: help_en.docbook:1737
+#: help_en.docbook:1743
 #, no-c-format
 msgid "Here's a screenshot of &kwave;'s record dialog"
 msgstr "Tady je snímek obrazovky &kwave; s nahrávacím dialogem"
 
 #. Tag: phrase
-#: help_en.docbook:1745
+#: help_en.docbook:1751
 #, no-c-format
 msgid "Screenshot of the Record Dialog"
 msgstr "Snímek obrazovky s nahrávacím dialogem"
 
 #. Tag: para
-#: help_en.docbook:1751
+#: help_en.docbook:1757
 #, no-c-format
 msgid "Here you have the following controls:"
 msgstr "Tady jsou následující ovládací prvky:"
 
 #. Tag: para
-#: help_en.docbook:1754
+#: help_en.docbook:1760
 #, no-c-format
 msgid ""
 "<guilabel>Pre-Record:</guilabel> If the pre-recording feature of &kwave; is "
@@ -2745,7 +2745,7 @@ msgstr ""
 "&kwave;, čímž již vícekrát nezmeškáte žádný začátek."
 
 #. Tag: para
-#: help_en.docbook:1774
+#: help_en.docbook:1780
 #, no-c-format
 msgid ""
 "<guilabel>Record Time:</guilabel> If the length of the recording should be "
@@ -2766,7 +2766,7 @@ msgstr ""
 "textobject> </inlinemediaobject>)."
 
 #. Tag: para
-#: help_en.docbook:1784
+#: help_en.docbook:1790
 #, no-c-format
 msgid ""
 "<guilabel>Start At:</guilabel> If this setting is activated, you can set a "
@@ -2778,7 +2778,7 @@ msgstr ""
 "je nastavený čas v minulosti, nahrávání bude spuštěno okamžitě."
 
 #. Tag: para
-#: help_en.docbook:1790
+#: help_en.docbook:1796
 #, no-c-format
 msgid ""
 "<guilabel>Record Trigger:</guilabel> If enabled, the recording starts only "
@@ -2797,7 +2797,7 @@ msgstr ""
 "zesílení zvuku.)"
 
 #. Tag: para
-#: help_en.docbook:1800
+#: help_en.docbook:1806
 #, no-c-format
 msgid ""
 "The <guibutton>New</guibutton> (<inlinemediaobject><imageobject> <imagedata "
@@ -2814,7 +2814,7 @@ msgstr ""
 "se znovu."
 
 #. Tag: para
-#: help_en.docbook:1808
+#: help_en.docbook:1814
 #, no-c-format
 msgid ""
 "The <guibutton>Stop</guibutton> (<inlinemediaobject><imageobject> <imagedata "
@@ -2833,7 +2833,7 @@ msgstr ""
 "zastaven."
 
 #. Tag: para
-#: help_en.docbook:1816
+#: help_en.docbook:1822
 #, no-c-format
 msgid ""
 "The <guibutton>Pause</guibutton> (<inlinemediaobject><imageobject> "
@@ -2855,7 +2855,7 @@ msgstr ""
 "čekání na spoušť."
 
 #. Tag: para
-#: help_en.docbook:1826
+#: help_en.docbook:1832
 #, no-c-format
 msgid ""
 "The <guibutton>Record</guibutton> (<inlinemediaobject><imageobject> "
@@ -2871,7 +2871,7 @@ msgstr ""
 "závislosti na funkcích povolených výše:"
 
 #. Tag: para
-#: help_en.docbook:1833
+#: help_en.docbook:1839
 #, no-c-format
 msgid ""
 "If neither prerecording nor trigger level are used, the recording starts as "
@@ -2881,7 +2881,7 @@ msgstr ""
 "spuštěno, jakmile stisknete tlačítko pro nahrávání."
 
 #. Tag: para
-#: help_en.docbook:1838
+#: help_en.docbook:1844
 #, no-c-format
 msgid ""
 "If prerecording is not used and a trigger level is set, the first press will "
@@ -2897,7 +2897,7 @@ msgstr ""
 "samočinně po dosažení úrovně spouště."
 
 #. Tag: para
-#: help_en.docbook:1846
+#: help_en.docbook:1852
 #, no-c-format
 msgid ""
 "If prerecording is enabled, the first press starts only the prerecording and "
@@ -2907,13 +2907,13 @@ msgstr ""
 "předem a až druhý stisk skutečně spustí vlastní nahrávání."
 
 #. Tag: title
-#: help_en.docbook:1860
+#: help_en.docbook:1866
 #, no-c-format
 msgid "Playback"
 msgstr "Přehrávání"
 
 #. Tag: para
-#: help_en.docbook:1862
+#: help_en.docbook:1868
 #, no-c-format
 msgid ""
 "Depending on the compilation options &kwave; is able to play sounds trough "
@@ -2923,7 +2923,7 @@ msgstr ""
 "jednoho z následujících způsobů pro přehrání:"
 
 #. Tag: para
-#: help_en.docbook:1867
+#: help_en.docbook:1873
 #, no-c-format
 msgid ""
 "ALSA (Advanced Linux Sound Architecture): Supercedes OSS, supports more "
@@ -2939,7 +2939,7 @@ msgstr ""
 "ve výchozím nastavení. Takže ALSA je pro vás tou nejlepším volbou!"
 
 #. Tag: para
-#: help_en.docbook:1875
+#: help_en.docbook:1881
 #, no-c-format
 msgid ""
 "OSS (Open Sound System): The oldest linux implementation, capable of mono "
@@ -2953,7 +2953,7 @@ msgstr ""
 "jedna aplikace může používat OSS přehrání ve stejném okamžiku!"
 
 #. Tag: para
-#: help_en.docbook:1884
+#: help_en.docbook:1890
 #, no-c-format
 msgid ""
 "Before trying to play sounds, you should take a look on the playback "
@@ -2963,19 +2963,19 @@ msgstr ""
 "dialog pro nastavení přehrávání:"
 
 #. Tag: screeninfo
-#: help_en.docbook:1890
+#: help_en.docbook:1896
 #, no-c-format
 msgid "Here's a screenshot of &kwave;'s playback setup dialog"
 msgstr "Tady je snímek dialogu pro nastavení přehrávání v &kwave;"
 
 #. Tag: phrase
-#: help_en.docbook:1898
+#: help_en.docbook:1904
 #, no-c-format
 msgid "Screenshot of the Playback Setup Dialog"
 msgstr "Snímek dialogu pro nastavení přehrávání"
 
 #. Tag: para
-#: help_en.docbook:1904
+#: help_en.docbook:1910
 #, no-c-format
 msgid ""
 "Currently &kwave; supports only 8 and 16 bit playback, with mono or stereo "
@@ -2987,7 +2987,7 @@ msgstr ""
 "podporuje vaše zvuková karta prostřednictvím rozhraní ALSA."
 
 #. Tag: para
-#: help_en.docbook:1909
+#: help_en.docbook:1915
 #, no-c-format
 msgid ""
 "If your sound file uses more or less channels than the playback allows, all "
@@ -3004,7 +3004,7 @@ msgstr ""
 "(dolní)."
 
 #. Tag: para
-#: help_en.docbook:1917
+#: help_en.docbook:1923
 #, no-c-format
 msgid ""
 "For getting a smooth playback without interruptions, you should also set the "
@@ -3022,7 +3022,7 @@ msgstr ""
 "se zobrazení již přehrané polohy neobjeví)."
 
 #. Tag: para
-#: help_en.docbook:1925
+#: help_en.docbook:1931
 #, no-c-format
 msgid ""
 "The playback settings dialog also provides a button for playing a simple "
@@ -3034,7 +3034,7 @@ msgstr ""
 "postupně putuje všemi tlampači od jednoho k druhému."
 
 #. Tag: para
-#: help_en.docbook:1930
+#: help_en.docbook:1936
 #, no-c-format
 msgid ""
 "Once you have configured playback, you can use the playback controls of the "
@@ -3047,7 +3047,7 @@ msgstr ""
 "zkratky:"
 
 #. Tag: para
-#: help_en.docbook:1936
+#: help_en.docbook:1942
 #, no-c-format
 msgid ""
 "<menuchoice> <shortcut><keycombo><keycap>P</keycap></keycombo></shortcut> "
@@ -3061,7 +3061,7 @@ msgstr ""
 "nynější polohy ukazatele, pokud nebylo nic vybráno. Přehraje pouze jednou."
 
 #. Tag: para
-#: help_en.docbook:1944
+#: help_en.docbook:1950
 #, no-c-format
 msgid ""
 "<menuchoice> <guimenu>Play</guimenu><guimenuitem>Loop</guimenuitem> </"
@@ -3071,7 +3071,7 @@ msgstr ""
 "menuchoice>: Jako předtím, ale s opakováním ve smyčce."
 
 #. Tag: para
-#: help_en.docbook:1949
+#: help_en.docbook:1955
 #, no-c-format
 msgid ""
 "<menuchoice> <shortcut><keycombo><keycap>Space</keycap></keycombo></"
@@ -3085,7 +3085,7 @@ msgstr ""
 "dostupná pouze tehdy, když je spuštěno přehrávání."
 
 #. Tag: para
-#: help_en.docbook:1956
+#: help_en.docbook:1962
 #, no-c-format
 msgid ""
 "<menuchoice> <shortcut><keycombo><keycap>Space</keycap></keycombo></"
@@ -3099,7 +3099,7 @@ msgstr ""
 "Funkce je dostupná pouze tehdy, když je přehrávání pozastaveno."
 
 #. Tag: para
-#: help_en.docbook:1963
+#: help_en.docbook:1969
 #, no-c-format
 msgid ""
 "<menuchoice> <shortcut><keycombo><keycap>Esc</keycap></keycombo></shortcut> "
@@ -3111,13 +3111,13 @@ msgstr ""
 "Zastaví přehrávání, přejde na začátek výběru."
 
 #. Tag: title
-#: help_en.docbook:1977
+#: help_en.docbook:1983
 #, no-c-format
 msgid "File Properties"
 msgstr "Vlastnosti souboru"
 
 #. Tag: para
-#: help_en.docbook:1979
+#: help_en.docbook:1985
 #, no-c-format
 msgid ""
 "&kwave; is able to handle several meta information that is stored within an "
@@ -3133,7 +3133,7 @@ msgstr ""
 "ztratil meta informace, když je ukládá, ukáže varování."
 
 #. Tag: para
-#: help_en.docbook:1987
+#: help_en.docbook:1993
 #, no-c-format
 msgid ""
 "You can view and modify the meta information under <menuchoice> "
@@ -3147,25 +3147,25 @@ msgstr ""
 "vzorkovací formát, rozlišení a zhuštění."
 
 #. Tag: screeninfo
-#: help_en.docbook:1996
+#: help_en.docbook:2002
 #, no-c-format
 msgid "Here's a screenshot of &kwave;'s file properties dialog"
 msgstr "Tady je snímek obrazovky &kwave; s dialogem pro vlastnosti souboru"
 
 #. Tag: phrase
-#: help_en.docbook:2004
+#: help_en.docbook:2010
 #, no-c-format
 msgid "Screenshot of the File Properties Dialog"
 msgstr "Snímek obrazovky s dialogem pro vlastnosti souboru"
 
 #. Tag: title
-#: help_en.docbook:2015
+#: help_en.docbook:2021
 #, no-c-format
 msgid "Zooming and navigating"
 msgstr "Přibližování a oddalování a pohyb po souboru"
 
 #. Tag: para
-#: help_en.docbook:2017
+#: help_en.docbook:2023
 #, no-c-format
 msgid ""
 "&kwave; provides several ways to zoom and navigate, using keyboard "
@@ -3179,13 +3179,13 @@ msgstr ""
 "způsobů, jak používat všechny tyto funkce."
 
 #. Tag: title
-#: help_en.docbook:2024
+#: help_en.docbook:2030
 #, no-c-format
 msgid "Zooming in and out"
 msgstr "Přibližování a oddalování"
 
 #. Tag: para
-#: help_en.docbook:2028
+#: help_en.docbook:2034
 #, no-c-format
 msgid ""
 "<emphasis>zoom to whole signal:</emphasis> selects a zoom factor that makes "
@@ -3195,7 +3195,7 @@ msgstr ""
 "předvede celý signál jako viditelný v nynějším okně."
 
 #. Tag: para
-#: help_en.docbook:2033
+#: help_en.docbook:2039
 #, no-c-format
 msgid ""
 "menu entry: <menuchoice> <guimenu>View</guimenu><guimenuitem>Zoom to whole "
@@ -3205,21 +3205,21 @@ msgstr ""
 "guimenu><guimenuitem>Najet na celý signál</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2039 help_en.docbook:2059 help_en.docbook:2079
-#: help_en.docbook:2099 help_en.docbook:2120 help_en.docbook:2153
-#: help_en.docbook:2172 help_en.docbook:2191 help_en.docbook:2210
+#: help_en.docbook:2045 help_en.docbook:2065 help_en.docbook:2085
+#: help_en.docbook:2105 help_en.docbook:2126 help_en.docbook:2159
+#: help_en.docbook:2178 help_en.docbook:2197 help_en.docbook:2216
 #, no-c-format
 msgid "toolbar button:"
 msgstr "tlačítko nástrojové lišty:"
 
 #. Tag: phrase
-#: help_en.docbook:2042
+#: help_en.docbook:2048
 #, no-c-format
 msgid "zoom all button"
 msgstr "tlačítko najet na vše"
 
 #. Tag: para
-#: help_en.docbook:2048
+#: help_en.docbook:2054
 #, no-c-format
 msgid ""
 "<emphasis>zoom to 100%:</emphasis> zooms in up to a scale where on sample is "
@@ -3229,7 +3229,7 @@ msgstr ""
 "kdy vzorek je na obrazovce představován podle pixelu."
 
 #. Tag: para
-#: help_en.docbook:2053
+#: help_en.docbook:2059
 #, no-c-format
 msgid ""
 "menu entry: <menuchoice> <guimenu>View</guimenu><guimenuitem>Zoom to 100%</"
@@ -3239,13 +3239,13 @@ msgstr ""
 "guimenu><guimenuitem>Najet na 100%</guimenuitem> </menuchoice>"
 
 #. Tag: phrase
-#: help_en.docbook:2062
+#: help_en.docbook:2068
 #, no-c-format
 msgid "zoom to 100% button"
 msgstr "tlačítko Najet na 100 %"
 
 #. Tag: para
-#: help_en.docbook:2068
+#: help_en.docbook:2074
 #, no-c-format
 msgid ""
 "<emphasis>zoom in:</emphasis> zooms in to see more details, magnifies by "
@@ -3255,7 +3255,7 @@ msgstr ""
 "zvětšuje podle násobku 3."
 
 #. Tag: para
-#: help_en.docbook:2072
+#: help_en.docbook:2078
 #, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3269,13 +3269,13 @@ msgstr ""
 "menuchoice>"
 
 #. Tag: phrase
-#: help_en.docbook:2082
+#: help_en.docbook:2088
 #, no-c-format
 msgid "zoom in button"
 msgstr "tlačítko Přiblížit"
 
 #. Tag: para
-#: help_en.docbook:2088
+#: help_en.docbook:2094
 #, no-c-format
 msgid ""
 "<emphasis>zoom out:</emphasis> zooms in to see less details, shrinks by "
@@ -3285,7 +3285,7 @@ msgstr ""
 "zmenšuje podle násobku 3."
 
 #. Tag: para
-#: help_en.docbook:2092
+#: help_en.docbook:2098
 #, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3299,13 +3299,13 @@ msgstr ""
 "menuchoice>"
 
 #. Tag: phrase
-#: help_en.docbook:2102
+#: help_en.docbook:2108
 #, no-c-format
 msgid "zoom out button"
 msgstr "tlačítko Oddálit"
 
 #. Tag: para
-#: help_en.docbook:2108
+#: help_en.docbook:2114
 #, no-c-format
 msgid ""
 "<emphasis>zoom selection:</emphasis> zooms to a factor where the current "
@@ -3315,7 +3315,7 @@ msgstr ""
 "výběr zcela viditelný v nynějším pohledu."
 
 #. Tag: para
-#: help_en.docbook:2113
+#: help_en.docbook:2119
 #, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3329,13 +3329,13 @@ msgstr ""
 "guimenuitem> </menuchoice>"
 
 #. Tag: phrase
-#: help_en.docbook:2123
+#: help_en.docbook:2129
 #, no-c-format
 msgid "zoom to selection button"
 msgstr "tlačítko Přiblížit výběr"
 
 #. Tag: para
-#: help_en.docbook:2129
+#: help_en.docbook:2135
 #, no-c-format
 msgid ""
 "<emphasis>select predefined zoom:</emphasis> select a zoom factor from the "
@@ -3345,13 +3345,13 @@ msgstr ""
 "zvětšení z okénka v nástrojové liště."
 
 #. Tag: title
-#: help_en.docbook:2138
+#: help_en.docbook:2144
 #, no-c-format
 msgid "Scrolling left and right"
 msgstr "Projíždění vlevo a vpravo"
 
 #. Tag: para
-#: help_en.docbook:2142
+#: help_en.docbook:2148
 #, no-c-format
 msgid ""
 "<emphasis>scroll left:</emphasis> scrolls to the start of the signal by 1/3 "
@@ -3361,7 +3361,7 @@ msgstr ""
 "nynějšího pohledu."
 
 #. Tag: para
-#: help_en.docbook:2146
+#: help_en.docbook:2152
 #, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3374,13 +3374,13 @@ msgstr ""
 "menuchoice>"
 
 #. Tag: phrase
-#: help_en.docbook:2156
+#: help_en.docbook:2162
 #, no-c-format
 msgid "scroll left button"
 msgstr "tlačítko Projíždět doleva"
 
 #. Tag: para
-#: help_en.docbook:2161
+#: help_en.docbook:2167
 #, no-c-format
 msgid ""
 "<emphasis>scroll right:</emphasis> scrolls to the end of the signal by 1/3 "
@@ -3390,7 +3390,7 @@ msgstr ""
 "nynějšího pohledu."
 
 #. Tag: para
-#: help_en.docbook:2165
+#: help_en.docbook:2171
 #, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3403,13 +3403,13 @@ msgstr ""
 "menuchoice>"
 
 #. Tag: phrase
-#: help_en.docbook:2175
+#: help_en.docbook:2181
 #, no-c-format
 msgid "scroll right button"
 msgstr "tlačítko Projíždět doprava"
 
 #. Tag: para
-#: help_en.docbook:2180
+#: help_en.docbook:2186
 #, no-c-format
 msgid ""
 "<emphasis>previous page:</emphasis> scrolls to the position right before the "
@@ -3419,7 +3419,7 @@ msgstr ""
 "nynějším pohledem (vlevo)"
 
 #. Tag: para
-#: help_en.docbook:2184
+#: help_en.docbook:2190
 #, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3432,13 +3432,13 @@ msgstr ""
 "menuchoice>"
 
 #. Tag: phrase
-#: help_en.docbook:2194
+#: help_en.docbook:2200
 #, no-c-format
 msgid "previous page button"
 msgstr "tlačítko Předchozí strana"
 
 #. Tag: para
-#: help_en.docbook:2199
+#: help_en.docbook:2205
 #, no-c-format
 msgid ""
 "<emphasis>next page:</emphasis> scrolls to the position right after the "
@@ -3448,7 +3448,7 @@ msgstr ""
 "pohledu (vpravo)"
 
 #. Tag: para
-#: help_en.docbook:2203
+#: help_en.docbook:2209
 #, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3461,13 +3461,13 @@ msgstr ""
 "menuchoice>"
 
 #. Tag: phrase
-#: help_en.docbook:2213
+#: help_en.docbook:2219
 #, no-c-format
 msgid "next page button"
 msgstr "tlačítko Další strana"
 
 #. Tag: para
-#: help_en.docbook:2218
+#: help_en.docbook:2224
 #, no-c-format
 msgid ""
 "<emphasis>to begin:</emphasis> scrolls the current view so that it starts at "
@@ -3477,7 +3477,7 @@ msgstr ""
 "začátku signálu."
 
 #. Tag: para
-#: help_en.docbook:2223
+#: help_en.docbook:2229
 #, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3489,7 +3489,7 @@ msgstr ""
 "<guimenu>Pohled</guimenu><guimenuitem>Začátek</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2232
+#: help_en.docbook:2238
 #, no-c-format
 msgid ""
 "<emphasis>to end:</emphasis> scrolls the current view so that it ends at the "
@@ -3499,7 +3499,7 @@ msgstr ""
 "konci signálu."
 
 #. Tag: para
-#: help_en.docbook:2236
+#: help_en.docbook:2242
 #, no-c-format
 msgid ""
 "menu entry / keyboard shortcut: <menuchoice> "
@@ -3511,13 +3511,13 @@ msgstr ""
 "<guimenu>Pohled</guimenu><guimenuitem>Konec</guimenuitem> </menuchoice>"
 
 #. Tag: title
-#: help_en.docbook:2248
+#: help_en.docbook:2254
 #, no-c-format
 msgid "Using the overview"
 msgstr "Používání přehledu"
 
 #. Tag: para
-#: help_en.docbook:2250
+#: help_en.docbook:2256
 #, no-c-format
 msgid ""
 "The main screen of &kwave; shows a small <emphasis>overview</emphasis> of "
@@ -3529,7 +3529,7 @@ msgstr ""
 "poskytuje určitý rozsah funkcí pro pohyb po dokumentu: "
 
 #. Tag: para
-#: help_en.docbook:2256
+#: help_en.docbook:2262
 #, no-c-format
 msgid ""
 "<emphasis>single click with left mouse button</emphasis>: directly move the "
@@ -3539,7 +3539,7 @@ msgstr ""
 "nynější pohled na odklepnutou polohu."
 
 #. Tag: para
-#: help_en.docbook:2261
+#: help_en.docbook:2267
 #, no-c-format
 msgid ""
 "<emphasis>double click with left mouse button</emphasis>: directly move the "
@@ -3549,7 +3549,7 @@ msgstr ""
 "nynější pohled na odklepnutou polohu a vedle toho pohled přiblíží."
 
 #. Tag: para
-#: help_en.docbook:2267
+#: help_en.docbook:2273
 #, no-c-format
 msgid ""
 "<emphasis>double click with left mouse button, with <keycap>shift</keycap> "
@@ -3561,13 +3561,13 @@ msgstr ""
 "odklepnutou polohu a vedle toho pohled oddálí."
 
 #. Tag: title
-#: help_en.docbook:2278
+#: help_en.docbook:2284
 #, no-c-format
 msgid "Vertical zoom"
 msgstr "Svislý pohled"
 
 #. Tag: para
-#: help_en.docbook:2279
+#: help_en.docbook:2285
 #, no-c-format
 msgid ""
 "You can zoom the current view vertically by pressing the <keycap>Alt</"
@@ -3577,13 +3577,13 @@ msgstr ""
 "<keycap>Alt</keycap> a projížděním za pomoci kolečka myši."
 
 #. Tag: title
-#: help_en.docbook:2290
+#: help_en.docbook:2296
 #, no-c-format
 msgid "How to select"
 msgstr "Jak provádět výběr"
 
 #. Tag: para
-#: help_en.docbook:2292
+#: help_en.docbook:2298
 #, no-c-format
 msgid ""
 "&kwave; allows you to select a continuous range of samples as well as any "
@@ -3597,13 +3597,13 @@ msgstr ""
 "řadu a zrušením výběru kanálu nebude jeho obsah změněn."
 
 #. Tag: title
-#: help_en.docbook:2299
+#: help_en.docbook:2305
 #, no-c-format
 msgid "Selecting channels"
 msgstr "Výběr vzorků"
 
 #. Tag: para
-#: help_en.docbook:2300
+#: help_en.docbook:2306
 #, no-c-format
 msgid ""
 "Selecting or de-selecting a channel is quite simple. Just click on the lamp "
@@ -3613,31 +3613,31 @@ msgstr ""
 "klepněte na symbol žárovky po levé straně signálu, abyste přepli její stav:"
 
 #. Tag: phrase
-#: help_en.docbook:2309
+#: help_en.docbook:2315
 #, no-c-format
 msgid "green lamp"
 msgstr "zelená žárovka"
 
 #. Tag: para
-#: help_en.docbook:2310
+#: help_en.docbook:2316
 #, no-c-format
 msgid "a green lamp means \"enabled\", whereas"
 msgstr "zelená žárovka znamená \"povoleno\", zatímco"
 
 #. Tag: phrase
-#: help_en.docbook:2318
+#: help_en.docbook:2324
 #, no-c-format
 msgid "red lamp"
 msgstr "červená žárovka"
 
 #. Tag: para
-#: help_en.docbook:2319
+#: help_en.docbook:2325
 #, no-c-format
 msgid "a red lamp means \"disabled\"."
 msgstr "červená žárovka znamená \"vyřazeno z činnosti\""
 
 #. Tag: para
-#: help_en.docbook:2323
+#: help_en.docbook:2329
 #, no-c-format
 msgid ""
 "Note: If a channel is de-selected it will also not be audible for playback!"
@@ -3645,13 +3645,13 @@ msgstr ""
 "Poznámka: Pokud je výběr kanálu zrušen, nebude taktéž slyšet při přehrávání!"
 
 #. Tag: title
-#: help_en.docbook:2328
+#: help_en.docbook:2334
 #, no-c-format
 msgid "Selecting samples"
 msgstr "Výběr vzorků"
 
 #. Tag: para
-#: help_en.docbook:2330
+#: help_en.docbook:2336
 #, no-c-format
 msgid ""
 "If you select a range of samples in &kwave;, that range will be "
@@ -3671,7 +3671,7 @@ msgstr ""
 "tento jeden vzorek."
 
 #. Tag: para
-#: help_en.docbook:2340
+#: help_en.docbook:2346
 #, no-c-format
 msgid ""
 "The easiest way of selecting a range of samples is just to do that with "
@@ -3685,7 +3685,7 @@ msgstr ""
 "stisk tlačítka tam, kde si přejete, aby výběr končil."
 
 #. Tag: para
-#: help_en.docbook:2346
+#: help_en.docbook:2352
 #, no-c-format
 msgid ""
 "If you want to adjust or move the selection's start or end, you can move the "
@@ -3699,7 +3699,7 @@ msgstr ""
 "stiskněte levé tlačítko myši a proveďte úpravy."
 
 #. Tag: para
-#: help_en.docbook:2352
+#: help_en.docbook:2358
 #, no-c-format
 msgid ""
 "You can also extend or shrink the selection to a specific point by holding "
@@ -3713,7 +3713,7 @@ msgstr ""
 "výběru."
 
 #. Tag: para
-#: help_en.docbook:2358
+#: help_en.docbook:2364
 #, no-c-format
 msgid ""
 "There are also some functions available via the menu and of course some "
@@ -3723,7 +3723,7 @@ msgstr ""
 "samozřejmě nějaké ty klávesové zkratky:"
 
 #. Tag: para
-#: help_en.docbook:2362
+#: help_en.docbook:2368
 #, no-c-format
 msgid ""
 "select the whole signal: <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
@@ -3737,7 +3737,7 @@ msgstr ""
 "menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2369
+#: help_en.docbook:2375
 #, no-c-format
 msgid ""
 "remove any selection and select \"nothing\": <menuchoice> "
@@ -3751,7 +3751,7 @@ msgstr ""
 "guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2376
+#: help_en.docbook:2382
 #, no-c-format
 msgid ""
 "the currently visible area: <menuchoice> <shortcut><keycombo><keycap>V</"
@@ -3763,7 +3763,7 @@ msgstr ""
 "guimenuitem><guimenuitem>Viditelná oblast</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2383
+#: help_en.docbook:2389
 #, no-c-format
 msgid ""
 "the next block of samples, starting one sample after the end of the current "
@@ -3779,14 +3779,14 @@ msgstr ""
 "menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2391
+#: help_en.docbook:2397
 #, no-c-format
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
 msgstr ""
 "(Rada: použijte klávesu \"<keycap>+</keycap>\" na numerické klávesnici!)"
 
 #. Tag: para
-#: help_en.docbook:2394
+#: help_en.docbook:2400
 #, no-c-format
 msgid ""
 "the previous block of samples, ending one sample before the start of the "
@@ -3802,14 +3802,14 @@ msgstr ""
 "</menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2402
+#: help_en.docbook:2408
 #, no-c-format
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
 msgstr ""
 "(Rada: použijte klávesu \"<keycap>-</keycap>\" na numerické klávesnici!)"
 
 #. Tag: para
-#: help_en.docbook:2405
+#: help_en.docbook:2411
 #, no-c-format
 msgid ""
 "expand the selection to the start of the signal (first sample): <menuchoice> "
@@ -3823,7 +3823,7 @@ msgstr ""
 "guimenuitem><guimenuitem>Po začátek</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2412
+#: help_en.docbook:2418
 #, no-c-format
 msgid ""
 "expand the selection to the end of the signal (last sample): <menuchoice> "
@@ -3837,7 +3837,7 @@ msgstr ""
 "guimenuitem><guimenuitem>Po konec</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2420
+#: help_en.docbook:2426
 #, no-c-format
 msgid ""
 "expand the current selection left and right up to the next label (or start/"
@@ -3853,7 +3853,7 @@ msgstr ""
 "guimenuitem><guimenuitem>Roztáhnout k štítkům</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2430
+#: help_en.docbook:2436
 #, no-c-format
 msgid ""
 "select the area between the next two labels that are right from the current "
@@ -3869,7 +3869,7 @@ msgstr ""
 "guimenuitem><guimenuitem>Mezi dalšími štítky</guimenuitem> </menuchoice>"
 
 #. Tag: para
-#: help_en.docbook:2438
+#: help_en.docbook:2444
 #, no-c-format
 msgid ""
 "select the area between the previous two labels that are left from the "
@@ -3885,13 +3885,13 @@ msgstr ""
 "guimenuitem><guimenuitem>Mezi předchozími štítky</guimenuitem> </menuchoice>"
 
 #. Tag: title
-#: help_en.docbook:2456
+#: help_en.docbook:2462
 #, no-c-format
 msgid "Clipboard"
 msgstr "Schránka"
 
 #. Tag: para
-#: help_en.docbook:2458
+#: help_en.docbook:2464
 #, no-c-format
 msgid ""
 "&kwave; since v0.8.1 uses the clipboard of KDE. This way it is possible to "
@@ -3905,7 +3905,7 @@ msgstr ""
 "schopnosti používat schránku KDE."
 
 #. Tag: para
-#: help_en.docbook:2466
+#: help_en.docbook:2472
 #, no-c-format
 msgid ""
 "When copying data to the clipboard through the <literal>copy</literal> "
@@ -3922,13 +3922,13 @@ msgstr ""
 "stejný jako dobře známý <literal>wav</literal>"
 
 #. Tag: title
-#: help_en.docbook:2483
+#: help_en.docbook:2489
 #, no-c-format
 msgid "Drag and Drop"
 msgstr "Táhnout a pustit"
 
 #. Tag: para
-#: help_en.docbook:2485
+#: help_en.docbook:2491
 #, no-c-format
 msgid ""
 "&kwave; supports the KDE Drag and Drop protocol. This enables you to open "
@@ -3940,7 +3940,7 @@ msgstr ""
 "ploše a nechat je spustit do okna &kwave;."
 
 #. Tag: para
-#: help_en.docbook:2491
+#: help_en.docbook:2497
 #, no-c-format
 msgid ""
 "Please note that if you drop a file into a &kwave; window that already "
@@ -3954,7 +3954,7 @@ msgstr ""
 "měl byste nejprve otevřít nové prázdné okno &kwave;."
 
 #. Tag: para
-#: help_en.docbook:2498
+#: help_en.docbook:2504
 #, no-c-format
 msgid ""
 "You can also select a range of samples and drag or drop them into a &kwave; "
@@ -3972,13 +3972,13 @@ msgstr ""
 "<emphasis>kopírování</emphasis>."
 
 #. Tag: title
-#: help_en.docbook:2595
+#: help_en.docbook:2601
 #, no-c-format
 msgid "Automization and Scripting with &kwave;"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2596
+#: help_en.docbook:2602
 #, no-c-format
 msgid ""
 "&kwave; since it's first version uses an internal text command language. "
@@ -3988,13 +3988,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:2603
+#: help_en.docbook:2609
 #, no-c-format
 msgid "General Syntax"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2606
+#: help_en.docbook:2612
 #, no-c-format
 msgid ""
 "All commands consist of a <emphasis>command name</emphasis> and an optional "
@@ -4003,7 +4003,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2611
+#: help_en.docbook:2617
 #, no-c-format
 msgid ""
 "Allowed characters for command names are <emphasis>letters</emphasis>, "
@@ -4012,7 +4012,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2616
+#: help_en.docbook:2622
 #, no-c-format
 msgid ""
 "Parameters within a parameter list are separated by <emphasis>comma</"
@@ -4020,7 +4020,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2620
+#: help_en.docbook:2626
 #, no-c-format
 msgid ""
 "Numerical parameters can be given as fixed point numbers or as floating "
@@ -4028,7 +4028,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2624
+#: help_en.docbook:2630
 #, no-c-format
 msgid ""
 "String parameters are automatically trimmed (all whitespace at the start and "
@@ -4041,7 +4041,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2636
+#: help_en.docbook:2642
 #, no-c-format
 msgid ""
 "Multiple commands can be concatenated to a <emphasis>command list</emphasis> "
@@ -4049,7 +4049,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2640
+#: help_en.docbook:2646
 #, no-c-format
 msgid ""
 "Example: <screen><command>fileinfo(<parameter>Comments</parameter><token>,</"
@@ -4063,13 +4063,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:2655
+#: help_en.docbook:2661
 #, fuzzy, no-c-format
 msgid "Using the Command Line"
 msgstr "Příkazová řádka"
 
 #. Tag: para
-#: help_en.docbook:2656
+#: help_en.docbook:2662
 #, no-c-format
 msgid ""
 "In addition to the command line options listed in the section <link linkend="
@@ -4079,7 +4079,7 @@ msgid ""
 msgstr ""
 
 #. Tag: literal
-#: help_en.docbook:2664
+#: help_en.docbook:2670
 #, no-c-format
 msgid ""
 "kwave:<replaceable>command</replaceable>[?<replaceable>parameter</"
@@ -4089,7 +4089,7 @@ msgstr ""
 "replaceable>[,<replaceable>parameter</replaceable> ...] ]"
 
 #. Tag: para
-#: help_en.docbook:2667
+#: help_en.docbook:2673
 #, no-c-format
 msgid ""
 "The rules for transforming a &kwave; text command into a valid URI are as "
@@ -4097,7 +4097,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2671
+#: help_en.docbook:2677
 #, no-c-format
 msgid ""
 "The URI starts with the word <literal>kwave</literal>, followed by a "
@@ -4105,7 +4105,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2675
+#: help_en.docbook:2681
 #, no-c-format
 msgid ""
 "If the command has parameters, they have to be appended after the command "
@@ -4113,7 +4113,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2679
+#: help_en.docbook:2685
 #, no-c-format
 msgid ""
 "Multiple parameters can be appended by using a <quote><token>,</token></"
@@ -4121,7 +4121,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2683
+#: help_en.docbook:2689
 #, no-c-format
 msgid ""
 "All special characters in command name and parameters have to be URL "
@@ -4129,29 +4129,29 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:2686
+#: help_en.docbook:2692
 #, no-c-format
 msgid "URL Encoding Translation Table"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:2698 help_en.docbook:2699 help_en.docbook:2700
-#: help_en.docbook:2701
+#: help_en.docbook:2704 help_en.docbook:2705 help_en.docbook:2706
+#: help_en.docbook:2707
 #, no-c-format
 msgid "original"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:2698 help_en.docbook:2699 help_en.docbook:2700
-#: help_en.docbook:2701
+#: help_en.docbook:2704 help_en.docbook:2705 help_en.docbook:2706
+#: help_en.docbook:2707
 #, no-c-format
 msgid "encoded"
 msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:2698 help_en.docbook:2699 help_en.docbook:2700
-#: help_en.docbook:5530 help_en.docbook:2706
+#: help_en.docbook:2704 help_en.docbook:2705 help_en.docbook:2706
+#: help_en.docbook:5856 help_en.docbook:2712
 #, no-c-format
 msgid "(space)"
 msgstr ""
@@ -4221,30 +4221,30 @@ msgstr ""
 #. Tag: entry
 #. Tag: literal
 #. Tag: title
-#: help_en.docbook:2706 help_en.docbook:2707 help_en.docbook:2708
-#: help_en.docbook:2709 help_en.docbook:2712 help_en.docbook:2713
-#: help_en.docbook:2714 help_en.docbook:2715 help_en.docbook:2718
-#: help_en.docbook:2719 help_en.docbook:2720 help_en.docbook:2721
-#: help_en.docbook:2724 help_en.docbook:2725 help_en.docbook:2726
-#: help_en.docbook:2727 help_en.docbook:2730 help_en.docbook:2731
-#: help_en.docbook:2732 help_en.docbook:2743 help_en.docbook:2733
-#: help_en.docbook:2736 help_en.docbook:2737 help_en.docbook:2738
-#: help_en.docbook:2739 help_en.docbook:2742 help_en.docbook:2744
-#: help_en.docbook:2745 help_en.docbook:2748 help_en.docbook:2749
-#: help_en.docbook:2750 help_en.docbook:2751 help_en.docbook:2754
-#: help_en.docbook:2768
+#: help_en.docbook:2712 help_en.docbook:2713 help_en.docbook:2714
+#: help_en.docbook:2715 help_en.docbook:2718 help_en.docbook:2719
+#: help_en.docbook:2720 help_en.docbook:2721 help_en.docbook:2724
+#: help_en.docbook:2725 help_en.docbook:2726 help_en.docbook:2727
+#: help_en.docbook:2730 help_en.docbook:2731 help_en.docbook:2732
+#: help_en.docbook:2733 help_en.docbook:2736 help_en.docbook:2737
+#: help_en.docbook:2738 help_en.docbook:2749 help_en.docbook:2739
+#: help_en.docbook:2742 help_en.docbook:2743 help_en.docbook:2744
+#: help_en.docbook:2745 help_en.docbook:2748 help_en.docbook:2750
+#: help_en.docbook:2751 help_en.docbook:2754 help_en.docbook:2755
+#: help_en.docbook:2756 help_en.docbook:2757 help_en.docbook:2760
+#: help_en.docbook:2774
 #, no-c-format
 msgid "&kwave; Script Files"
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:2769
+#: help_en.docbook:2775
 #, no-c-format
 msgid "General Structure"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2770
+#: help_en.docbook:2776
 #, no-c-format
 msgid ""
 "A &kwave; <emphasis>script</emphasis> consists of a list of lines, where "
@@ -4252,13 +4252,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2775
+#: help_en.docbook:2781
 #, no-c-format
 msgid "a single <emphasis>command</emphasis>,"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2778
+#: help_en.docbook:2784
 #, no-c-format
 msgid ""
 "a <emphasis>command list</emphasis>, with two or more commands concatenated "
@@ -4266,31 +4266,31 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2784
+#: help_en.docbook:2790
 #, no-c-format
 msgid "a <emphasis>comment</emphasis>,"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2787
+#: help_en.docbook:2793
 #, no-c-format
 msgid "a <emphasis>label</emphasis>"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2790
+#: help_en.docbook:2796
 #, no-c-format
 msgid "or an <emphasis>empty line</emphasis>, that contains whitespace only"
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:2796
+#: help_en.docbook:2802
 #, fuzzy, no-c-format
 msgid "Comments and Empty Lines"
 msgstr "Příkazová řádka"
 
 #. Tag: para
-#: help_en.docbook:2797
+#: help_en.docbook:2803
 #, no-c-format
 msgid ""
 "All characters that follow a <quote><token>#</token></quote> (except when "
@@ -4299,19 +4299,19 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2802
+#: help_en.docbook:2808
 #, no-c-format
 msgid "Lines that contain only whitespace or comments are ignored as well."
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:2807
+#: help_en.docbook:2813
 #, no-c-format
 msgid "Termination"
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2808
+#: help_en.docbook:2814
 #, no-c-format
 msgid ""
 "A &kwave; script terminates either when all commands have been executed "
@@ -4327,13 +4327,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:2821
+#: help_en.docbook:2827
 #, no-c-format
 msgid "Labels"
 msgstr "Štítky"
 
 #. Tag: para
-#: help_en.docbook:2822
+#: help_en.docbook:2828
 #, no-c-format
 msgid ""
 "Lines that consist only of an identifier, followed by a <quote><token>:</"
@@ -4348,7 +4348,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2835
+#: help_en.docbook:2841
 #, no-c-format
 msgid ""
 "A line that contains a label must not contain any other content (except "
@@ -4356,13 +4356,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:2839
+#: help_en.docbook:2845
 #, no-c-format
 msgid "Example:"
 msgstr "Příklad:"
 
 #. Tag: screen
-#: help_en.docbook:2841
+#: help_en.docbook:2847
 #, no-c-format
 msgid ""
 "<replaceable>start:</replaceable><literal>  # &lt;= this is a label</"
@@ -4375,15 +4375,15 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:2850
+#: help_en.docbook:2856
 #, fuzzy, no-c-format
 msgid "Command Reference"
 msgstr "Příkazová řádka"
 
 #. Tag: title
-#: help_en.docbook:2851
+#: help_en.docbook:2857 help_en.docbook:4794
 #, no-c-format
-msgid "Index"
+msgid "Alphabetical Index"
 msgstr ""
 
 #. Tag: index
@@ -4391,8 +4391,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:2851 help_en.docbook:2980 help_en.docbook:2983
-#: help_en.docbook:2985 help_en.docbook:2986
+#: help_en.docbook:2857 help_en.docbook:2992 help_en.docbook:2995
+#: help_en.docbook:2997 help_en.docbook:2998
 #, no-c-format
 msgid ""
 "Shows a dialog window with information about the KDE version used by the "
@@ -4401,7 +4401,7 @@ msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:2994 help_en.docbook:2996
+#: help_en.docbook:3006 help_en.docbook:3008
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_add_label;</"
@@ -4411,7 +4411,7 @@ msgstr ""
 "replaceable>[,<replaceable>parameter</replaceable> ...] ]"
 
 #. Tag: para
-#: help_en.docbook:2997
+#: help_en.docbook:3009
 #, no-c-format
 msgid ""
 "Add a new label at a given position. If the given position already contains "
@@ -4420,39 +4420,41 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:3003 help_en.docbook:3140 help_en.docbook:3154
-#: help_en.docbook:3185 help_en.docbook:3215 help_en.docbook:3253
-#: help_en.docbook:3271 help_en.docbook:3293 help_en.docbook:3316
-#: help_en.docbook:3366 help_en.docbook:3550 help_en.docbook:3584
-#: help_en.docbook:3633 help_en.docbook:3659 help_en.docbook:3739
-#: help_en.docbook:3763 help_en.docbook:3785 help_en.docbook:3955
-#: help_en.docbook:3988 help_en.docbook:4058 help_en.docbook:4072
-#: help_en.docbook:4087 help_en.docbook:4464 help_en.docbook:4501
-#: help_en.docbook:4538
+#: help_en.docbook:3015 help_en.docbook:3147 help_en.docbook:3186
+#: help_en.docbook:3200 help_en.docbook:3231 help_en.docbook:3261
+#: help_en.docbook:3299 help_en.docbook:3317 help_en.docbook:3339
+#: help_en.docbook:3362 help_en.docbook:3412 help_en.docbook:3596
+#: help_en.docbook:3630 help_en.docbook:3679 help_en.docbook:3705
+#: help_en.docbook:3785 help_en.docbook:3809 help_en.docbook:3831
+#: help_en.docbook:4001 help_en.docbook:4034 help_en.docbook:4104
+#: help_en.docbook:4118 help_en.docbook:4133 help_en.docbook:4510
+#: help_en.docbook:4547 help_en.docbook:4584 help_en.docbook:4618
+#: help_en.docbook:4642 help_en.docbook:4689 help_en.docbook:4717
+#: help_en.docbook:4742
 #, no-c-format
 msgid "Parameters"
 msgstr "Parametry"
 
 #. Tag: entry
-#: help_en.docbook:3004 help_en.docbook:3254 help_en.docbook:3272
+#: help_en.docbook:3016 help_en.docbook:3300 help_en.docbook:3318
 #, fuzzy, no-c-format
 msgid "<parameter>pos</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3004
+#: help_en.docbook:3016
 #, no-c-format
 msgid "position in samples where to insert the label"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3005 help_en.docbook:3551
+#: help_en.docbook:3017 help_en.docbook:3597
 #, no-c-format
 msgid "<parameter>text</parameter>:"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3005
+#: help_en.docbook:3017
 #, fuzzy, no-c-format
 msgid "some descriptive text (optional)"
 msgstr "Popis štítku (volitelný)"
@@ -4460,27 +4462,28 @@ msgstr "Popis štítku (volitelný)"
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3010 help_en.docbook:3012 help_en.docbook:3013
+#: help_en.docbook:3022 help_en.docbook:3024 help_en.docbook:3025
 #, no-c-format
 msgid "Adds a new track after all existing tracks."
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:3017 help_en.docbook:3047 help_en.docbook:3064
-#: help_en.docbook:3083 help_en.docbook:3233 help_en.docbook:3274
-#: help_en.docbook:3296 help_en.docbook:3332 help_en.docbook:3609
-#: help_en.docbook:3637 help_en.docbook:3663 help_en.docbook:3690
-#: help_en.docbook:3707 help_en.docbook:3745 help_en.docbook:3805
-#: help_en.docbook:3826 help_en.docbook:3846 help_en.docbook:3862
-#: help_en.docbook:3915 help_en.docbook:3938 help_en.docbook:3971
-#: help_en.docbook:4007 help_en.docbook:4025 help_en.docbook:4042
-#: help_en.docbook:4116 help_en.docbook:4139 help_en.docbook:4168
-#: help_en.docbook:4191 help_en.docbook:4207 help_en.docbook:4223
-#: help_en.docbook:4251 help_en.docbook:4267 help_en.docbook:4286
-#: help_en.docbook:4302 help_en.docbook:4318 help_en.docbook:4335
-#: help_en.docbook:4351 help_en.docbook:4368 help_en.docbook:4384
-#: help_en.docbook:4401 help_en.docbook:4418 help_en.docbook:4431
-#: help_en.docbook:4468 help_en.docbook:4505
+#: help_en.docbook:3029 help_en.docbook:3059 help_en.docbook:3076
+#: help_en.docbook:3095 help_en.docbook:3154 help_en.docbook:3279
+#: help_en.docbook:3320 help_en.docbook:3342 help_en.docbook:3378
+#: help_en.docbook:3655 help_en.docbook:3683 help_en.docbook:3709
+#: help_en.docbook:3736 help_en.docbook:3753 help_en.docbook:3791
+#: help_en.docbook:3851 help_en.docbook:3872 help_en.docbook:3892
+#: help_en.docbook:3908 help_en.docbook:3961 help_en.docbook:3984
+#: help_en.docbook:4017 help_en.docbook:4053 help_en.docbook:4071
+#: help_en.docbook:4088 help_en.docbook:4162 help_en.docbook:4185
+#: help_en.docbook:4214 help_en.docbook:4237 help_en.docbook:4253
+#: help_en.docbook:4269 help_en.docbook:4297 help_en.docbook:4313
+#: help_en.docbook:4332 help_en.docbook:4348 help_en.docbook:4364
+#: help_en.docbook:4381 help_en.docbook:4397 help_en.docbook:4414
+#: help_en.docbook:4430 help_en.docbook:4447 help_en.docbook:4464
+#: help_en.docbook:4477 help_en.docbook:4514 help_en.docbook:4551
+#: help_en.docbook:4749
 #, no-c-format
 msgid "See also"
 msgstr ""
@@ -4490,8 +4493,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3019 help_en.docbook:3025 help_en.docbook:3028
-#: help_en.docbook:3030 help_en.docbook:3031
+#: help_en.docbook:3031 help_en.docbook:3037 help_en.docbook:3040
+#: help_en.docbook:3042 help_en.docbook:3043
 #, no-c-format
 msgid "Discards the current content of the clipboard (might free some memory)."
 msgstr ""
@@ -4499,7 +4502,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3039 help_en.docbook:3041 help_en.docbook:3042
+#: help_en.docbook:3051 help_en.docbook:3053 help_en.docbook:3054
 #, no-c-format
 msgid ""
 "Closes the current file. If the GUI is configured to MDI or Tab mode, this "
@@ -4510,8 +4513,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3048 help_en.docbook:3056 help_en.docbook:3058
-#: help_en.docbook:3700 help_en.docbook:3059
+#: help_en.docbook:3060 help_en.docbook:3068 help_en.docbook:3070
+#: help_en.docbook:3746 help_en.docbook:3071
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Continue</guibutton> toolbar button and "
@@ -4522,8 +4525,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3066 help_en.docbook:3072 help_en.docbook:3074
-#: help_en.docbook:3075
+#: help_en.docbook:3078 help_en.docbook:3084 help_en.docbook:3086
+#: help_en.docbook:3087
 #, no-c-format
 msgid ""
 "Copies the content of the current selection to the clipboard. If the "
@@ -4536,8 +4539,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3085 help_en.docbook:3275 help_en.docbook:3091
-#: help_en.docbook:3093 help_en.docbook:3094
+#: help_en.docbook:3097 help_en.docbook:3321 help_en.docbook:3103
+#: help_en.docbook:3105 help_en.docbook:3106
 #, no-c-format
 msgid ""
 "Crops the signal to the current selection by deleting everything that is "
@@ -4548,7 +4551,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3103 help_en.docbook:3105 help_en.docbook:3106
+#: help_en.docbook:3115 help_en.docbook:3117 help_en.docbook:3118
 #, no-c-format
 msgid ""
 "Copies the content of the current selection to the clipboard and removes it "
@@ -4561,9 +4564,57 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
+#: help_en.docbook:3129 help_en.docbook:3132 help_en.docbook:3134
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_delayed;</"
+"command>( <replaceable>milliseconds</replaceable>, <replaceable>command</"
+"replaceable> )"
+msgstr ""
+"kwave:<replaceable>command</replaceable>[?<replaceable>parameter</"
+"replaceable>[,<replaceable>parameter</replaceable> ...] ]"
+
 #. Tag: para
-#: help_en.docbook:3117 help_en.docbook:3120 help_en.docbook:3122
-#: help_en.docbook:3123
+#: help_en.docbook:3138
+#, no-c-format
+msgid ""
+"Executes a <replaceable>command</replaceable> after a given delay. Please "
+"note that the command is executed asynchronously after the given time has "
+"elapsed. Multiple commands can be queued, where the delays are relative to "
+"the last queued command. This command is intended to be used for queuing "
+"commands when taking screenshots for documentation purposes."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3148
+#, fuzzy, no-c-format
+msgid "<parameter>milliseconds</parameter>:"
+msgstr "<para>Formát se znaménkem</para>"
+
+#. Tag: entry
+#: help_en.docbook:3149
+#, no-c-format
+msgid "number of whole milliseconds to wait before executing the command"
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:3150 help_en.docbook:3414
+#, fuzzy, no-c-format
+msgid "<parameter>command</parameter>:"
+msgstr "<para>Formát se znaménkem</para>"
+
+#. Tag: entry
+#: help_en.docbook:3151
+#, no-c-format
+msgid "a command, including parameters to be executed after the given delay"
+msgstr ""
+
+#. Tag: para
+#. Tag: title
+#. Tag: title
+#. Tag: para
+#: help_en.docbook:3155 help_en.docbook:3166 help_en.docbook:3168
+#: help_en.docbook:3169
 #, no-c-format
 msgid ""
 "Deletes the currently selected range of samples. If the selection is empty, "
@@ -4572,7 +4623,7 @@ msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3132 help_en.docbook:3134 help_en.docbook:3148
+#: help_en.docbook:3178 help_en.docbook:3180 help_en.docbook:3194
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_delete_label;</"
@@ -4580,7 +4631,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3135
+#: help_en.docbook:3181
 #, no-c-format
 msgid ""
 "Deletes a label, identified by it's index (starting from zero). If no label "
@@ -4588,22 +4639,22 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3141 help_en.docbook:3155 help_en.docbook:3186
-#: help_en.docbook:3294 help_en.docbook:4059 help_en.docbook:4073
-#: help_en.docbook:4088
+#: help_en.docbook:3187 help_en.docbook:3201 help_en.docbook:3232
+#: help_en.docbook:3340 help_en.docbook:4105 help_en.docbook:4119
+#: help_en.docbook:4134
 #, no-c-format
 msgid "<parameter>index</parameter>:"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3141
+#: help_en.docbook:3187
 #, no-c-format
 msgid "index of the label to delete, starting with 0"
 msgstr ""
 
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3146 help_en.docbook:3149
+#: help_en.docbook:3192 help_en.docbook:3195
 #, no-c-format
 msgid ""
 "Deletes a track, identified by it's index (starting from zero). If no track "
@@ -4611,7 +4662,7 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3155
+#: help_en.docbook:3201
 #, no-c-format
 msgid "index of the track to delete, starting with 0"
 msgstr ""
@@ -4619,7 +4670,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3160 help_en.docbook:3162 help_en.docbook:3163
+#: help_en.docbook:3206 help_en.docbook:3208 help_en.docbook:3209
 #, no-c-format
 msgid ""
 "Prints a list of all meta data entries to the console, for diagnostic "
@@ -4630,7 +4681,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3172 help_en.docbook:3175 help_en.docbook:3177
+#: help_en.docbook:3218 help_en.docbook:3221 help_en.docbook:3223
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_edit_label;</"
@@ -4638,7 +4689,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3178
+#: help_en.docbook:3224
 #, no-c-format
 msgid ""
 "Opens a window in which the user can edit the position and the description "
@@ -4647,7 +4698,7 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3186
+#: help_en.docbook:3232
 #, no-c-format
 msgid "index of the label to edit, starting with 0"
 msgstr ""
@@ -4655,7 +4706,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3191 help_en.docbook:3193 help_en.docbook:3194
+#: help_en.docbook:3237 help_en.docbook:3239 help_en.docbook:3240
 #, no-c-format
 msgid ""
 "Expands the current selection to the labels left and right from the current "
@@ -4667,7 +4718,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3205 help_en.docbook:3208 help_en.docbook:3210
+#: help_en.docbook:3251 help_en.docbook:3254 help_en.docbook:3256
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_fileinfo;</"
@@ -4675,31 +4726,31 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3211
+#: help_en.docbook:3257
 #, no-c-format
 msgid "Set a file info entry to a new value."
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3216
+#: help_en.docbook:3262
 #, no-c-format
 msgid "<parameter>keyword</parameter>:"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3216
+#: help_en.docbook:3262
 #, no-c-format
 msgid "keyword of the entry"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3217
+#: help_en.docbook:3263
 #, no-c-format
 msgid "<parameter>value</parameter>:"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3217
+#: help_en.docbook:3263
 #, no-c-format
 msgid "value of the entry"
 msgstr ""
@@ -4707,7 +4758,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3222 help_en.docbook:3224 help_en.docbook:3225
+#: help_en.docbook:3268 help_en.docbook:3270 help_en.docbook:3271
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Forward</guibutton> toolbar button. If the "
@@ -4720,8 +4771,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3234 help_en.docbook:3242 help_en.docbook:3245
-#: help_en.docbook:3247
+#: help_en.docbook:3280 help_en.docbook:3288 help_en.docbook:3291
+#: help_en.docbook:3293
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_goto;</command>(<replaceable>pos</"
@@ -4729,7 +4780,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3248
+#: help_en.docbook:3294
 #, no-c-format
 msgid ""
 "Sets the cursor to the given position and makes it visible in current view. "
@@ -4737,7 +4788,7 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3254
+#: help_en.docbook:3300
 #, no-c-format
 msgid "position in samples where to go to"
 msgstr ""
@@ -4745,7 +4796,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3259 help_en.docbook:3262 help_en.docbook:3264
+#: help_en.docbook:3305 help_en.docbook:3308 help_en.docbook:3310
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_insert_at;</"
@@ -4753,7 +4804,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3265
+#: help_en.docbook:3311
 #, no-c-format
 msgid ""
 "Inserts the content of the clipboard at the given position, like the command "
@@ -4762,14 +4813,14 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3272
+#: help_en.docbook:3318
 #, no-c-format
 msgid "position in samples where to insert"
 msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3280 help_en.docbook:3282
+#: help_en.docbook:3326 help_en.docbook:3328
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_insert_track;</"
@@ -4777,7 +4828,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3283
+#: help_en.docbook:3329
 #, no-c-format
 msgid ""
 "Inserts a new track at the given index, using the current length and sample "
@@ -4788,7 +4839,7 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3294
+#: help_en.docbook:3340
 #, no-c-format
 msgid "index of the track to insert, starting with 0"
 msgstr ""
@@ -4797,8 +4848,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3298 help_en.docbook:3304 help_en.docbook:3307
-#: help_en.docbook:3309
+#: help_en.docbook:3344 help_en.docbook:3350 help_en.docbook:3353
+#: help_en.docbook:3355
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_loadbatch;</"
@@ -4806,7 +4857,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3310
+#: help_en.docbook:3356
 #, no-c-format
 msgid ""
 "Opens a &kwave; script file and processes the commands in it. Uses the "
@@ -4815,14 +4866,14 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3317 help_en.docbook:3634 help_en.docbook:3660
-#: help_en.docbook:3956 help_en.docbook:3989
+#: help_en.docbook:3363 help_en.docbook:3680 help_en.docbook:3706
+#: help_en.docbook:4002 help_en.docbook:4035 help_en.docbook:4720
 #, fuzzy, no-c-format
 msgid "<parameter>filename</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3318
+#: help_en.docbook:3364
 #, fuzzy, no-c-format
 msgid "name of the kwave script file including path and extension"
 msgstr "Název otevřeného souboru"
@@ -4830,7 +4881,7 @@ msgstr "Název otevřeného souboru"
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3323 help_en.docbook:3325 help_en.docbook:3326
+#: help_en.docbook:3369 help_en.docbook:3371 help_en.docbook:3372
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Loop</guibutton> toolbar button. Starts the "
@@ -4841,8 +4892,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3334 help_en.docbook:3340 help_en.docbook:3343
-#: help_en.docbook:3345
+#: help_en.docbook:3380 help_en.docbook:3386 help_en.docbook:3389
+#: help_en.docbook:3391
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_menu;</command> "
@@ -4853,7 +4904,7 @@ msgstr ""
 "replaceable>[,<replaceable>parameter</replaceable> ...] ]"
 
 #. Tag: para
-#: help_en.docbook:3351
+#: help_en.docbook:3397
 #, no-c-format
 msgid ""
 "This is a very powerful command, which is used to add a new entry to the "
@@ -4866,19 +4917,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: help_en.docbook:3362
+#: help_en.docbook:3408
 #, no-c-format
 msgid "You normally do not need this command within a &kwave; script!"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3368
-#, fuzzy, no-c-format
-msgid "<parameter>command</parameter>:"
-msgstr "<para>Formát se znaménkem</para>"
-
-#. Tag: entry
-#: help_en.docbook:3369
+#: help_en.docbook:3415
 #, no-c-format
 msgid ""
 "A text command (including parameters) or a command list that will be "
@@ -4888,13 +4933,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3379
+#: help_en.docbook:3425
 #, fuzzy, no-c-format
 msgid "<parameter>path</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3380
+#: help_en.docbook:3426
 #, no-c-format
 msgid ""
 "The path within the menu, using a <quote><token>/</token></quote> as "
@@ -4908,13 +4953,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3393
+#: help_en.docbook:3439
 #, fuzzy, no-c-format
 msgid "<parameter>hotkey</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3394
+#: help_en.docbook:3440
 #, no-c-format
 msgid ""
 "A bitmask that consists of a combination of predefined <emphasis>keys</"
@@ -4930,13 +4975,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3412
+#: help_en.docbook:3458
 #, fuzzy, no-c-format
 msgid "<parameter>id</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3413
+#: help_en.docbook:3459
 #, no-c-format
 msgid ""
 "A unique id that can be internally used to identify this menu entry or "
@@ -4947,14 +4992,14 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:3423
+#: help_en.docbook:3469
 #, fuzzy, no-c-format
 msgid "Sub Commands"
 msgstr "Zadat příkaz"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:3425 help_en.docbook:3426
+#: help_en.docbook:3471 help_en.docbook:3472
 #, no-c-format
 msgid ""
 "Makes a menu entry <emphasis>checkable</emphasis>, so that it can be "
@@ -4963,14 +5008,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:3431 help_en.docbook:3432
+#: help_en.docbook:3477 help_en.docbook:3478
 #, no-c-format
 msgid "Lets the menu entry or menu/sub menu be <emphasis>disabled</emphasis>."
 msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:3437 help_en.docbook:3438
+#: help_en.docbook:3483 help_en.docbook:3484
 #, no-c-format
 msgid ""
 "Makes a menu entry or menu/sub menu that has been previously disabled "
@@ -4978,13 +5023,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3443
+#: help_en.docbook:3489
 #, fuzzy, no-c-format
 msgid "<command>#exclusive</command>(<replaceable>group</replaceable>):"
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: entry
-#: help_en.docbook:3444
+#: help_en.docbook:3490
 #, no-c-format
 msgid ""
 "Makes a menu entry be part of an <emphasis>exclusive</emphasis> "
@@ -4994,13 +5039,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3452
+#: help_en.docbook:3498
 #, fuzzy, no-c-format
 msgid "<command>#group</command>(<replaceable>list</replaceable>):"
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3453
+#: help_en.docbook:3499
 #, no-c-format
 msgid ""
 "Adds the menu entry or menu/sub menu to one or more a <emphasis>groups</"
@@ -5013,21 +5058,21 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:3464 help_en.docbook:3465
+#: help_en.docbook:3510 help_en.docbook:3511
 #, no-c-format
 msgid "Only enabled when the clipboard is not empty."
 msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:3470 help_en.docbook:3471
+#: help_en.docbook:3516 help_en.docbook:3517
 #, no-c-format
 msgid "Only enabled when the current signal contains at least one label."
 msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:3476 help_en.docbook:3477
+#: help_en.docbook:3522 help_en.docbook:3523
 #, no-c-format
 msgid ""
 "Enabled when the current signal is not closed (the signal might be empty or "
@@ -5036,7 +5081,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:3483 help_en.docbook:3484
+#: help_en.docbook:3529 help_en.docbook:3530
 #, no-c-format
 msgid ""
 "Enabled when the selection is not empty (more than one sample is selected)."
@@ -5044,7 +5089,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:3490 help_en.docbook:3491
+#: help_en.docbook:3536 help_en.docbook:3537
 #, no-c-format
 msgid ""
 "Enabled when there is some signal loaded and it is not empty or zero length."
@@ -5052,19 +5097,19 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:3499 help_en.docbook:3500
+#: help_en.docbook:3545 help_en.docbook:3546
 #, no-c-format
 msgid "<emphasis>Hides</emphasis> the menu entry or menu/sub menu."
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3503
+#: help_en.docbook:3549
 #, fuzzy, no-c-format
 msgid "<command>#icon</command>(<replaceable>name</replaceable>):"
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: entry
-#: help_en.docbook:3504
+#: help_en.docbook:3550
 #, no-c-format
 msgid ""
 "Assigns an <emphasis>icon</emphasis> to a menu entry. The icon "
@@ -5074,7 +5119,7 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3512
+#: help_en.docbook:3558
 #, fuzzy, no-c-format
 msgid ""
 "<command>#listmenu</command>(<replaceable>id</replaceable>,"
@@ -5084,7 +5129,7 @@ msgstr ""
 "replaceable>[,<replaceable>parameter</replaceable> ...] ]"
 
 #. Tag: entry
-#: help_en.docbook:3513
+#: help_en.docbook:3559
 #, no-c-format
 msgid ""
 "Inserts a placeholder for a list of menu entries into a sub menu. The unique "
@@ -5099,14 +5144,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:3527 help_en.docbook:3528
+#: help_en.docbook:3573 help_en.docbook:3574
 #, no-c-format
 msgid "Inserts a separator into a sub menu."
 msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3538 help_en.docbook:3540
+#: help_en.docbook:3584 help_en.docbook:3586
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_msgbox;</command>(<replaceable>text</"
@@ -5114,7 +5159,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3541
+#: help_en.docbook:3587
 #, no-c-format
 msgid ""
 "Shows a message box with some <emphasis><replaceable>text</replaceable></"
@@ -5125,7 +5170,7 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3552
+#: help_en.docbook:3598
 #, no-c-format
 msgid ""
 "A message that will be shown in the message box, should contain a question "
@@ -5135,7 +5180,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3562 help_en.docbook:3565 help_en.docbook:3567
+#: help_en.docbook:3608 help_en.docbook:3611 help_en.docbook:3613
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_newsignal;</"
@@ -5147,7 +5192,7 @@ msgstr ""
 "replaceable>[,<replaceable>parameter</replaceable> ...] ]"
 
 #. Tag: para
-#: help_en.docbook:3573
+#: help_en.docbook:3619
 #, no-c-format
 msgid ""
 "Creates a new signal, with a given length in <emphasis><replaceable>samples</"
@@ -5160,50 +5205,50 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3585
+#: help_en.docbook:3631
 #, fuzzy, no-c-format
 msgid "<parameter>samples</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3586
+#: help_en.docbook:3632
 #, fuzzy, no-c-format
 msgid "Length of the signal in samples."
 msgstr "Velikost souboru ve vzorcích."
 
 #. Tag: entry
-#: help_en.docbook:3587
+#: help_en.docbook:3633
 #, fuzzy, no-c-format
 msgid "<parameter>rate</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3588
+#: help_en.docbook:3634
 #, fuzzy, no-c-format
 msgid "Sample rate in samples per second."
 msgstr "Počet vzorků za sekundu\n"
 
 #. Tag: entry
-#: help_en.docbook:3589
+#: help_en.docbook:3635
 #, fuzzy, no-c-format
 msgid "<parameter>bits</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3590
+#: help_en.docbook:3636
 #, no-c-format
 msgid ""
 "Number of bits per sample, must not be zero, should be a number from 8...32."
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3592
+#: help_en.docbook:3638
 #, fuzzy, no-c-format
 msgid "<parameter>tracks</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3593
+#: help_en.docbook:3639
 #, fuzzy, no-c-format
 msgid "Number of tracks."
 msgstr "Počet bodů FFT"
@@ -5211,7 +5256,7 @@ msgstr "Počet bodů FFT"
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3598 help_en.docbook:3600 help_en.docbook:3601
+#: help_en.docbook:3644 help_en.docbook:3646 help_en.docbook:3647
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Next</guibutton> toolbar button. If the "
@@ -5224,8 +5269,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3610 help_en.docbook:3618 help_en.docbook:3621
-#: help_en.docbook:3623
+#: help_en.docbook:3656 help_en.docbook:3664 help_en.docbook:3667
+#: help_en.docbook:3669
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_open;</"
@@ -5233,7 +5278,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3624
+#: help_en.docbook:3670
 #, no-c-format
 msgid ""
 "Opens a file, which can be either a sound file or a &kwave; script. If no "
@@ -5244,7 +5289,7 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3635
+#: help_en.docbook:3681
 #, fuzzy, no-c-format
 msgid "name of a file including path and extension"
 msgstr "Název otevřeného souboru"
@@ -5252,8 +5297,8 @@ msgstr "Název otevřeného souboru"
 #. Tag: link
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3639 help_en.docbook:3828 help_en.docbook:3645
-#: help_en.docbook:3647
+#: help_en.docbook:3685 help_en.docbook:3874 help_en.docbook:3691
+#: help_en.docbook:3693
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_openrecent;</"
@@ -5261,7 +5306,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3648
+#: help_en.docbook:3694
 #, no-c-format
 msgid ""
 "Practically the same as the command <command>&no-i18n-cmd_open;</command>, "
@@ -5272,7 +5317,7 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3661
+#: help_en.docbook:3707
 #, fuzzy, no-c-format
 msgid "entry of the list of recently opened files"
 msgstr "Název otevřeného souboru"
@@ -5281,8 +5326,8 @@ msgstr "Název otevřeného souboru"
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3671 help_en.docbook:3674 help_en.docbook:3676
-#: help_en.docbook:3677
+#: help_en.docbook:3717 help_en.docbook:3720 help_en.docbook:3722
+#: help_en.docbook:3723
 #, no-c-format
 msgid ""
 "Replaces the current selection with the content of the clipboard. If the "
@@ -5300,7 +5345,7 @@ msgstr ""
 #. Tag: link
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3692 help_en.docbook:3698 help_en.docbook:3701
+#: help_en.docbook:3738 help_en.docbook:3744 help_en.docbook:3747
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Pause</guibutton> toolbar button and lets "
@@ -5312,8 +5357,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3709 help_en.docbook:3715 help_en.docbook:3717
-#: help_en.docbook:3718
+#: help_en.docbook:3755 help_en.docbook:3761 help_en.docbook:3763
+#: help_en.docbook:3764
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Start</guibutton> toolbar button and lets "
@@ -5322,7 +5367,7 @@ msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3726 help_en.docbook:3728
+#: help_en.docbook:3772 help_en.docbook:3774
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_plugin;</command>(<replaceable>name</"
@@ -5332,7 +5377,7 @@ msgstr ""
 "replaceable>[,<replaceable>parameter</replaceable> ...] ]"
 
 #. Tag: para
-#: help_en.docbook:3729
+#: help_en.docbook:3775
 #, no-c-format
 msgid ""
 "Executes a plugin, with an optional list of parameters. If no parameter list "
@@ -5344,25 +5389,25 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3740 help_en.docbook:3764 help_en.docbook:3786
+#: help_en.docbook:3786 help_en.docbook:3810 help_en.docbook:3832
 #, fuzzy, no-c-format
 msgid "<parameter>name</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3741 help_en.docbook:3765 help_en.docbook:3787
+#: help_en.docbook:3787 help_en.docbook:3811 help_en.docbook:3833
 #, no-c-format
 msgid "the (internal) name of a &kwave; plugin"
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3742 help_en.docbook:3766 help_en.docbook:3788
+#: help_en.docbook:3788 help_en.docbook:3812 help_en.docbook:3834
 #, fuzzy, no-c-format
 msgid "<parameter>parameter</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:3743 help_en.docbook:3789
+#: help_en.docbook:3789 help_en.docbook:3835
 #, no-c-format
 msgid "a list of parameters understood by the plugin (optional)"
 msgstr ""
@@ -5370,7 +5415,7 @@ msgstr ""
 #. Tag: para
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3746 help_en.docbook:3754 help_en.docbook:3756
+#: help_en.docbook:3792 help_en.docbook:3800 help_en.docbook:3802
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_plugin_execute;</"
@@ -5381,7 +5426,7 @@ msgstr ""
 "replaceable>[,<replaceable>parameter</replaceable> ...] ]"
 
 #. Tag: para
-#: help_en.docbook:3757
+#: help_en.docbook:3803
 #, no-c-format
 msgid ""
 "Similar to the command <quote><command>&no-i18n-cmd_plugin;</command>()</"
@@ -5390,14 +5435,14 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3767
+#: help_en.docbook:3813
 #, no-c-format
 msgid "a list of parameters understood by the plugin"
 msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3772 help_en.docbook:3774
+#: help_en.docbook:3818 help_en.docbook:3820
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_plugin_setup;</"
@@ -5408,7 +5453,7 @@ msgstr ""
 "replaceable>[,<replaceable>parameter</replaceable> ...] ]"
 
 #. Tag: para
-#: help_en.docbook:3775
+#: help_en.docbook:3821
 #, no-c-format
 msgid ""
 "Calls the <emphasis>setup</emphasis> function of a plugin, with an optional "
@@ -5422,7 +5467,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3794 help_en.docbook:3796 help_en.docbook:3797
+#: help_en.docbook:3840 help_en.docbook:3842 help_en.docbook:3843
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Previous</guibutton> toolbar button. If the "
@@ -5436,8 +5481,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3806 help_en.docbook:3814 help_en.docbook:3817
-#: help_en.docbook:3819 help_en.docbook:3820
+#: help_en.docbook:3852 help_en.docbook:3860 help_en.docbook:3863
+#: help_en.docbook:3865 help_en.docbook:3866
 #, no-c-format
 msgid ""
 "Closes the current main window, including all sub windows. In SDI mode this "
@@ -5449,8 +5494,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3834 help_en.docbook:3837 help_en.docbook:3839
-#: help_en.docbook:3840
+#: help_en.docbook:3880 help_en.docbook:3883 help_en.docbook:3885
+#: help_en.docbook:3886
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Redo</guibutton> toolbar button and repeats "
@@ -5462,8 +5507,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3848 help_en.docbook:3864 help_en.docbook:4304
-#: help_en.docbook:3854 help_en.docbook:3856 help_en.docbook:3857
+#: help_en.docbook:3894 help_en.docbook:3910 help_en.docbook:4350
+#: help_en.docbook:3900 help_en.docbook:3902 help_en.docbook:3903
 #, no-c-format
 msgid ""
 "Similar to <command>&no-i18n-cmd_redo;</command>, but re-does as many "
@@ -5473,7 +5518,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3870 help_en.docbook:3872 help_en.docbook:3873
+#: help_en.docbook:3916 help_en.docbook:3918 help_en.docbook:3919
 #, no-c-format
 msgid ""
 "Some message boxes offer the possibility to prevent them from appearing "
@@ -5484,7 +5529,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3882 help_en.docbook:3884 help_en.docbook:3885
+#: help_en.docbook:3928 help_en.docbook:3930 help_en.docbook:3931
 #, no-c-format
 msgid ""
 "Resets all toolbar settings, like location, icon size and text location back "
@@ -5494,7 +5539,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3893 help_en.docbook:3895 help_en.docbook:3896
+#: help_en.docbook:3939 help_en.docbook:3941 help_en.docbook:3942
 #, no-c-format
 msgid ""
 "Reverts the currently loaded file back to the last saved state, discarding "
@@ -5506,7 +5551,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3904 help_en.docbook:3906 help_en.docbook:3907
+#: help_en.docbook:3950 help_en.docbook:3952 help_en.docbook:3953
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Rewind</guibutton> toolbar button. If the "
@@ -5524,8 +5569,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3916 help_en.docbook:3924 help_en.docbook:3927
-#: help_en.docbook:3929 help_en.docbook:3930
+#: help_en.docbook:3962 help_en.docbook:3970 help_en.docbook:3973
+#: help_en.docbook:3975 help_en.docbook:3976
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Save</guibutton> toolbar button. Saves the "
@@ -5537,7 +5582,7 @@ msgstr ""
 #. Tag: link
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3940 help_en.docbook:3946 help_en.docbook:3948
+#: help_en.docbook:3986 help_en.docbook:3992 help_en.docbook:3994
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_saveas;</"
@@ -5545,7 +5590,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3949
+#: help_en.docbook:3995
 #, no-c-format
 msgid ""
 "Saves the currently opened file under a given file name. If no file name is "
@@ -5554,7 +5599,7 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3957
+#: help_en.docbook:4003
 #, no-c-format
 msgid "file name for saving (optional)"
 msgstr ""
@@ -5562,7 +5607,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3962 help_en.docbook:3964 help_en.docbook:3965
+#: help_en.docbook:4008 help_en.docbook:4010 help_en.docbook:4011
 #, no-c-format
 msgid ""
 "This command does the same as <command>&no-i18n-cmd_save;</command>, but "
@@ -5573,13 +5618,13 @@ msgstr ""
 #. Tag: link
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:3973 help_en.docbook:3979 help_en.docbook:3981
+#: help_en.docbook:4019 help_en.docbook:4025 help_en.docbook:4027
 #, fuzzy, no-c-format
 msgid "&i18n-cmd_syntax;<command>&no-i18n-cmd_select_gui_type;</command>(mode)"
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:3982
+#: help_en.docbook:4028
 #, no-c-format
 msgid ""
 "Select a GUI mode, which can be either SDI, MDI or Tab mode. Please be aware "
@@ -5587,7 +5632,7 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:3990
+#: help_en.docbook:4036
 #, no-c-format
 msgid ""
 "name of the mode, must be either <quote>SDI</quote>, <quote>MDI</quote> or "
@@ -5602,9 +5647,9 @@ msgstr ""
 #. Tag: link
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:3998 help_en.docbook:4000 help_en.docbook:4017
-#: help_en.docbook:4001 help_en.docbook:4009 help_en.docbook:4015
-#: help_en.docbook:4018
+#: help_en.docbook:4044 help_en.docbook:4046 help_en.docbook:4063
+#: help_en.docbook:4047 help_en.docbook:4055 help_en.docbook:4061
+#: help_en.docbook:4064
 #, no-c-format
 msgid ""
 "Invert the <quote>enabled</quote> state of all tracks. This is the same as "
@@ -5616,8 +5661,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4027 help_en.docbook:4033 help_en.docbook:4035
-#: help_en.docbook:4036
+#: help_en.docbook:4073 help_en.docbook:4079 help_en.docbook:4081
+#: help_en.docbook:4082
 #, no-c-format
 msgid ""
 "Mark all tracks <quote>disabled</quote>. This is the same as calling the "
@@ -5628,49 +5673,49 @@ msgstr ""
 #. Tag: link
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:4044 help_en.docbook:4050 help_en.docbook:4052
+#: help_en.docbook:4090 help_en.docbook:4096 help_en.docbook:4098
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_off;</command>(index)"
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:4053
+#: help_en.docbook:4099
 #, no-c-format
 msgid ""
 "Disables a single track, so that it does not get affected by most operations."
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:4060 help_en.docbook:4074 help_en.docbook:4089
+#: help_en.docbook:4106 help_en.docbook:4120 help_en.docbook:4135
 #, no-c-format
 msgid "index of the track, starting with zero"
 msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:4065 help_en.docbook:4067
+#: help_en.docbook:4111 help_en.docbook:4113
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_on;</command>(index)"
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:4068
+#: help_en.docbook:4114
 #, no-c-format
 msgid "Enables a single track, so that it gets affected by all operations."
 msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:4079 help_en.docbook:4081
+#: help_en.docbook:4125 help_en.docbook:4127
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_toggle;</command>(index)"
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:4082
+#: help_en.docbook:4128
 #, no-c-format
 msgid ""
 "Enables a track if it is currently disabled, or disables it if it is "
@@ -5680,7 +5725,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4094 help_en.docbook:4096 help_en.docbook:4097
+#: help_en.docbook:4140 help_en.docbook:4142 help_en.docbook:4143
 #, no-c-format
 msgid ""
 "Selects the range of the whole signal, from the first to the last sample."
@@ -5689,7 +5734,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4105 help_en.docbook:4107 help_en.docbook:4108
+#: help_en.docbook:4151 help_en.docbook:4153 help_en.docbook:4154
 #, no-c-format
 msgid ""
 "Selects a range of samples that starts right after the current selection, "
@@ -5703,8 +5748,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4118 help_en.docbook:4124 help_en.docbook:4126
-#: help_en.docbook:4127
+#: help_en.docbook:4164 help_en.docbook:4170 help_en.docbook:4172
+#: help_en.docbook:4173
 #, no-c-format
 msgid ""
 "Selects a range of samples between the next two labels after the current "
@@ -5721,8 +5766,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4141 help_en.docbook:4147 help_en.docbook:4149
-#: help_en.docbook:4150
+#: help_en.docbook:4187 help_en.docbook:4193 help_en.docbook:4195
+#: help_en.docbook:4196
 #, fuzzy, no-c-format
 msgid "Resets the selection to zero length."
 msgstr "Nastavuje výběr podle procentního podílu z celého signálu"
@@ -5730,7 +5775,7 @@ msgstr "Nastavuje výběr podle procentního podílu z celého signálu"
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4157 help_en.docbook:4159 help_en.docbook:4160
+#: help_en.docbook:4203 help_en.docbook:4205 help_en.docbook:4206
 #, no-c-format
 msgid ""
 "Selects a range of samples that starts left from the current selection, "
@@ -5744,8 +5789,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4170 help_en.docbook:4176 help_en.docbook:4178
-#: help_en.docbook:4179
+#: help_en.docbook:4216 help_en.docbook:4222 help_en.docbook:4224
+#: help_en.docbook:4225
 #, no-c-format
 msgid ""
 "Selects a range of samples between the previous two labels before the "
@@ -5762,8 +5807,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4193 help_en.docbook:4199 help_en.docbook:4201
-#: help_en.docbook:4202
+#: help_en.docbook:4239 help_en.docbook:4245 help_en.docbook:4247
+#: help_en.docbook:4248
 #, no-c-format
 msgid ""
 "Sets the start of the selection to the start of the signal, the end of the "
@@ -5774,8 +5819,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4209 help_en.docbook:4215 help_en.docbook:4217
-#: help_en.docbook:4218
+#: help_en.docbook:4255 help_en.docbook:4261 help_en.docbook:4263
+#: help_en.docbook:4264
 #, no-c-format
 msgid ""
 "Sets the end of the selection to the end of the signal, the start of the "
@@ -5786,8 +5831,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4225 help_en.docbook:4231 help_en.docbook:4233
-#: help_en.docbook:4234
+#: help_en.docbook:4271 help_en.docbook:4277 help_en.docbook:4279
+#: help_en.docbook:4280
 #, no-c-format
 msgid "Selects the range of samples that is visible in the current window."
 msgstr ""
@@ -5795,7 +5840,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4242 help_en.docbook:4244 help_en.docbook:4245
+#: help_en.docbook:4288 help_en.docbook:4290 help_en.docbook:4291
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Start</guibutton> toolbar button and lets "
@@ -5807,8 +5852,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4253 help_en.docbook:4259 help_en.docbook:4261
-#: help_en.docbook:4262
+#: help_en.docbook:4299 help_en.docbook:4305 help_en.docbook:4307
+#: help_en.docbook:4308
 #, no-c-format
 msgid ""
 "Corresponds to to the <guibutton>Stop</guibutton> toolbar button and lets "
@@ -5820,8 +5865,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4269 help_en.docbook:4275 help_en.docbook:4278
-#: help_en.docbook:4280 help_en.docbook:4281
+#: help_en.docbook:4315 help_en.docbook:4321 help_en.docbook:4324
+#: help_en.docbook:4326 help_en.docbook:4327
 #, no-c-format
 msgid ""
 "Corresponds to the <guibutton>Undo</guibutton> toolbar button and reverts "
@@ -5836,9 +5881,9 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4288 help_en.docbook:4294 help_en.docbook:4296
-#: help_en.docbook:4297 help_en.docbook:4310 help_en.docbook:4313
-#: help_en.docbook:4315 help_en.docbook:4316
+#: help_en.docbook:4334 help_en.docbook:4340 help_en.docbook:4342
+#: help_en.docbook:4343 help_en.docbook:4356 help_en.docbook:4359
+#: help_en.docbook:4361 help_en.docbook:4362
 #, fuzzy, no-c-format
 msgid "Scrolls the current view to the <emphasis>end</emphasis> of the signal."
 msgstr ""
@@ -5849,8 +5894,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4320 help_en.docbook:4326 help_en.docbook:4328
-#: help_en.docbook:4329
+#: help_en.docbook:4366 help_en.docbook:4372 help_en.docbook:4374
+#: help_en.docbook:4375
 #, no-c-format
 msgid ""
 "Scrolls the current view by 1/10 of the currently visible range towards the "
@@ -5862,8 +5907,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4337 help_en.docbook:4343 help_en.docbook:4345
-#: help_en.docbook:4346
+#: help_en.docbook:4383 help_en.docbook:4389 help_en.docbook:4391
+#: help_en.docbook:4392
 #, fuzzy, no-c-format
 msgid ""
 "Scrolls the current view towards the end of the signal by the currently "
@@ -5876,8 +5921,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4353 help_en.docbook:4359 help_en.docbook:4361
-#: help_en.docbook:4362
+#: help_en.docbook:4399 help_en.docbook:4405 help_en.docbook:4407
+#: help_en.docbook:4408
 #, no-c-format
 msgid ""
 "Scrolls right and tries to show the next label centered in the view. If "
@@ -5889,8 +5934,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4370 help_en.docbook:4376 help_en.docbook:4378
-#: help_en.docbook:4379
+#: help_en.docbook:4416 help_en.docbook:4422 help_en.docbook:4424
+#: help_en.docbook:4425
 #, fuzzy, no-c-format
 msgid ""
 "Scrolls the current view towards the start of the signal by the currently "
@@ -5903,8 +5948,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4386 help_en.docbook:4392 help_en.docbook:4394
-#: help_en.docbook:4395
+#: help_en.docbook:4432 help_en.docbook:4438 help_en.docbook:4440
+#: help_en.docbook:4441
 #, no-c-format
 msgid ""
 "Scrolls left and tries to show the previous label centered in the view. If "
@@ -5916,8 +5961,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4403 help_en.docbook:4409 help_en.docbook:4411
-#: help_en.docbook:4412
+#: help_en.docbook:4449 help_en.docbook:4455 help_en.docbook:4457
+#: help_en.docbook:4458
 #, no-c-format
 msgid ""
 "Scrolls the current view by 1/10 of the currently visible range towards the "
@@ -5929,8 +5974,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4420 help_en.docbook:4426 help_en.docbook:4428
-#: help_en.docbook:4429
+#: help_en.docbook:4466 help_en.docbook:4472 help_en.docbook:4474
+#: help_en.docbook:4475
 #, fuzzy, no-c-format
 msgid "Scrolls the current view to the start of the signal."
 msgstr ""
@@ -5941,8 +5986,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4433 help_en.docbook:4439 help_en.docbook:4441
-#: help_en.docbook:4442
+#: help_en.docbook:4479 help_en.docbook:4485 help_en.docbook:4487
+#: help_en.docbook:4488
 #, fuzzy, no-c-format
 msgid ""
 "Adjusts the zoom factor so that the complete signal is visible in the "
@@ -5953,7 +5998,7 @@ msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:4450 help_en.docbook:4452
+#: help_en.docbook:4496 help_en.docbook:4498
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_view_zoom_in;</"
@@ -5961,7 +6006,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:4453
+#: help_en.docbook:4499
 #, no-c-format
 msgid ""
 "Reduces the zoom factor (in samples per pixel) by 30%, so that more details "
@@ -5972,13 +6017,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:4465 help_en.docbook:4502
+#: help_en.docbook:4511 help_en.docbook:4548
 #, fuzzy, no-c-format
 msgid "<parameter>position</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:4466 help_en.docbook:4503
+#: help_en.docbook:4512 help_en.docbook:4549
 #, no-c-format
 msgid "a zero based position is samples to center the view (optional)"
 msgstr ""
@@ -5987,8 +6032,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4470 help_en.docbook:4476 help_en.docbook:4478
-#: help_en.docbook:4479
+#: help_en.docbook:4516 help_en.docbook:4522 help_en.docbook:4524
+#: help_en.docbook:4525
 #, no-c-format
 msgid ""
 "Sets the zoom factor to one pixel per sample (factor 1.0) and tries to keep "
@@ -5997,7 +6042,7 @@ msgstr ""
 
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:4487 help_en.docbook:4489
+#: help_en.docbook:4533 help_en.docbook:4535
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_view_zoom_out;"
@@ -6005,7 +6050,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:4490
+#: help_en.docbook:4536
 #, no-c-format
 msgid ""
 "Increases the zoom factor (in samples per pixel) by 30%, so that less "
@@ -6020,8 +6065,8 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4507 help_en.docbook:4513 help_en.docbook:4515
-#: help_en.docbook:4516
+#: help_en.docbook:4553 help_en.docbook:4559 help_en.docbook:4561
+#: help_en.docbook:4562
 #, no-c-format
 msgid ""
 "Adjusts the view (zoom factor and start of visible area) so that it matches "
@@ -6031,7 +6076,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: title
-#: help_en.docbook:4525 help_en.docbook:4528 help_en.docbook:4530
+#: help_en.docbook:4571 help_en.docbook:4574 help_en.docbook:4576
 #, fuzzy, no-c-format
 msgid ""
 "&i18n-cmd_syntax;<command>&no-i18n-cmd_window_activate;</"
@@ -6039,7 +6084,7 @@ msgid ""
 msgstr "<prompt>% </prompt><command>make deb</command>"
 
 #. Tag: para
-#: help_en.docbook:4531
+#: help_en.docbook:4577
 #, no-c-format
 msgid ""
 "Activates a sub window, identified by it's window <replaceable>title</"
@@ -6049,13 +6094,13 @@ msgid ""
 msgstr ""
 
 #. Tag: entry
-#: help_en.docbook:4539
+#: help_en.docbook:4585
 #, fuzzy, no-c-format
 msgid "<parameter>title</parameter>:"
 msgstr "<para>Formát se znaménkem</para>"
 
 #. Tag: entry
-#: help_en.docbook:4540
+#: help_en.docbook:4586
 #, no-c-format
 msgid "the title of the sub window that should be activated"
 msgstr ""
@@ -6069,11 +6114,90 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4545 help_en.docbook:4547 help_en.docbook:4548
+#: help_en.docbook:4591 help_en.docbook:4593 help_en.docbook:4594
 #, no-c-format
 msgid ""
 "Cascades all sub windows when in MDI mode. All sub windows that are "
 "currently minimized stay minimized, they will not be restored."
+msgstr ""
+
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:4602 help_en.docbook:4604
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_window_resize;</"
+"command>( <replaceable>class</replaceable>, <replaceable>x</replaceable>, "
+"<replaceable>y</replaceable> )"
+msgstr ""
+"kwave:<replaceable>command</replaceable>[?<replaceable>parameter</"
+"replaceable>[,<replaceable>parameter</replaceable> ...] ]"
+
+#. Tag: para
+#: help_en.docbook:4609
+#, no-c-format
+msgid ""
+"Sends a mouse click event to window, identified by it's <replaceable>class</"
+"replaceable> name. The event will only be sent to the first window that has "
+"the given class name, therefore you should make sure that you have only one "
+"instance of the given window when this command gets executed."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4619 help_en.docbook:4643 help_en.docbook:4690
+#: help_en.docbook:4718 help_en.docbook:4743
+#, fuzzy, no-c-format
+msgid "<parameter>class</parameter>:"
+msgstr "<para>Formát se znaménkem</para>"
+
+#. Tag: entry
+#: help_en.docbook:4620 help_en.docbook:4644 help_en.docbook:4691
+#: help_en.docbook:4719 help_en.docbook:4744
+#, fuzzy, no-c-format
+msgid "name of the window class"
+msgstr "Název otevřeného souboru"
+
+#. Tag: entry
+#: help_en.docbook:4621
+#, fuzzy, no-c-format
+msgid "<parameter>x</parameter>:"
+msgstr "<para>Formát se znaménkem</para>"
+
+#. Tag: entry
+#: help_en.docbook:4622
+#, no-c-format
+msgid "x position, relative to the left border of the window (in pixels)"
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4623
+#, fuzzy, no-c-format
+msgid "<parameter>y</parameter>:"
+msgstr "<para>Formát se znaménkem</para>"
+
+#. Tag: entry
+#: help_en.docbook:4624
+#, no-c-format
+msgid "y position, relative to the top border of the window (in pixels)"
+msgstr ""
+
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:4629 help_en.docbook:4631
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_window_close;</"
+"command>( <replaceable>class</replaceable> )"
+msgstr "<prompt>% </prompt><command>make deb</command>"
+
+#. Tag: para
+#: help_en.docbook:4634
+#, no-c-format
+msgid ""
+"Closes a window, identified by it's <replaceable>class</replaceable> name. "
+"Only the first window that has the given class name will be closed, "
+"therefore you should make sure that you have only one instance of the given "
+"window when this command gets executed."
 msgstr ""
 
 # (filtered) msgid "&no-i18n-cmd_window_next_sub;"
@@ -6085,7 +6209,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4556 help_en.docbook:4558 help_en.docbook:4559
+#: help_en.docbook:4649 help_en.docbook:4651 help_en.docbook:4652
 #, no-c-format
 msgid ""
 "Activates the <emphasis>next</emphasis> sub window when in MDI or tab mode. "
@@ -6101,11 +6225,137 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4567 help_en.docbook:4569 help_en.docbook:4570
+#: help_en.docbook:4660 help_en.docbook:4662 help_en.docbook:4663
 #, no-c-format
 msgid ""
 "Activates the <emphasis>previous</emphasis> sub window when in MDI or tab "
 "mode. If the previous sub window is minimized it will be restored."
+msgstr ""
+
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:4671 help_en.docbook:4673
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_window_resize;</"
+"command>( <replaceable>class</replaceable>, <replaceable>width</"
+"replaceable>, <replaceable>height</replaceable> )"
+msgstr ""
+"kwave:<replaceable>command</replaceable>[?<replaceable>parameter</"
+"replaceable>[,<replaceable>parameter</replaceable> ...] ]"
+
+#. Tag: para
+#: help_en.docbook:4678
+#, no-c-format
+msgid ""
+"Changes the size of a window, identified by it's <replaceable>class</"
+"replaceable> name to a new <replaceable>width</replaceable> and "
+"<replaceable>height</replaceable>. The change will only be applied to the "
+"first window that has the given class name, therefore you should make sure "
+"that you have only one instance of the given window when this command gets "
+"executed."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4692
+#, fuzzy, no-c-format
+msgid "<parameter>width</parameter>:"
+msgstr "<para>Formát se znaménkem</para>"
+
+#. Tag: entry
+#: help_en.docbook:4693
+#, no-c-format
+msgid "new width of the window (in pixels)"
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4694
+#, fuzzy, no-c-format
+msgid "<parameter>height</parameter>:"
+msgstr "<para>Formát se znaménkem</para>"
+
+#. Tag: entry
+#: help_en.docbook:4695
+#, no-c-format
+msgid "new height of the window (in pixels)"
+msgstr ""
+
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:4700 help_en.docbook:4702
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_window_screenshot;</"
+"command>( <replaceable>class</replaceable>, <replaceable>filename</"
+"replaceable> )"
+msgstr ""
+"kwave:<replaceable>command</replaceable>[?<replaceable>parameter</"
+"replaceable>[,<replaceable>parameter</replaceable> ...] ]"
+
+#. Tag: para
+#: help_en.docbook:4706
+#, no-c-format
+msgid ""
+"Takes a screenshot of a window, identified by it's <replaceable>class</"
+"replaceable> and saves it to a file. The screenshot will be taken from the "
+"first window that has the given class name, therefore you should make sure "
+"that you have only one instance of the given window when this command gets "
+"executed. Currently the format of the file is hardcoded and has to be "
+"<literal>*.png</literal>."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4721
+#, no-c-format
+msgid ""
+"name of the file to save the screenshot, must have the extension <literal>*."
+"png</literal>"
+msgstr ""
+
+#. Tag: title
+#. Tag: title
+#: help_en.docbook:4727 help_en.docbook:4729
+#, fuzzy, no-c-format
+msgid ""
+"&i18n-cmd_syntax;<command>&no-i18n-cmd_window_sendkey;</"
+"command>( <replaceable>class</replaceable>, <replaceable>key code</"
+"replaceable> )"
+msgstr ""
+"kwave:<replaceable>command</replaceable>[?<replaceable>parameter</"
+"replaceable>[,<replaceable>parameter</replaceable> ...] ]"
+
+#. Tag: para
+#: help_en.docbook:4733
+#, no-c-format
+msgid ""
+"Sends a key press and release event to a window, identified by it's "
+"<replaceable>class</replaceable> name. The key will only be sent to the "
+"first window that has the given class name, therefore you should make sure "
+"that you have only one instance of the given window when this command gets "
+"executed."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4745
+#, fuzzy, no-c-format
+msgid "<parameter>key code</parameter>:"
+msgstr "<para>Formát se znaménkem</para>"
+
+#. Tag: entry
+#: help_en.docbook:4746
+#, no-c-format
+msgid ""
+"the key code that should be sent, using the same syntax as used for setting "
+"up menus"
+msgstr ""
+
+#. Tag: para
+#: help_en.docbook:4750
+#, no-c-format
+msgid ""
+"description of the parameter <link linkend=\"cmd_menu_param_hotkey"
+"\"><parameter>hotkey</parameter></link> of the <command>&no-i18n-cmd_menu;</"
+"command> command."
 msgstr ""
 
 # (filtered) msgid "&no-i18n-cmd_window_tile;"
@@ -6116,7 +6366,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4578 help_en.docbook:4580 help_en.docbook:4581
+#: help_en.docbook:4759 help_en.docbook:4761 help_en.docbook:4762
 #, no-c-format
 msgid ""
 "Tiles all sub windows when in MDI mode, using some scheme of KDE. All sub "
@@ -6129,7 +6379,7 @@ msgstr ""
 #. Tag: title
 #. Tag: title
 #. Tag: para
-#: help_en.docbook:4590 help_en.docbook:4592 help_en.docbook:4593
+#: help_en.docbook:4771 help_en.docbook:4773 help_en.docbook:4774
 #, no-c-format
 msgid ""
 "Tiles all sub windows vertically when in MDI mode. All windows that are "
@@ -6137,31 +6387,238 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:4610
+#: help_en.docbook:4791
 #, fuzzy, no-c-format
 msgid "Plugins"
 msgstr "Moduly"
 
-#. Tag: para
-#: help_en.docbook:4611
+#. Tag: title
+#: help_en.docbook:4793
+#, fuzzy, no-c-format
+msgid "Plugin Reference"
+msgstr "Příkazová řádka"
+
+#. Tag: index
+#. Tag: title
+#: help_en.docbook:4794 help_en.docbook:4803
 #, no-c-format
-msgid "TODO: description of all plugins ..."
+msgid "Amplify Free"
+msgstr "Volně zesílit"
+
+#. Tag: screeninfo
+#: help_en.docbook:4805
+#, fuzzy, no-c-format
+msgid "Screenshot"
+msgstr "Snímky obrazovky:"
+
+#. Tag: phrase
+#: help_en.docbook:4811
+#, fuzzy, no-c-format
+msgid "Screenshot of the Amplify Free Plugin"
+msgstr "Snímek obrazovky s dialogem pro vytvoření nového souboru"
+
+#. Tag: entry
+#: help_en.docbook:4820
+#, no-c-format
+msgid "<emphasis role=\"bold\">Internal&nbsp;Name</emphasis>:"
+msgstr ""
+
+#. Tag: literal
+#: help_en.docbook:4821
+#, fuzzy, no-c-format
+msgid "amplifyfree"
+msgstr "Volně zesílit"
+
+#. Tag: entry
+#: help_en.docbook:4824
+#, no-c-format
+msgid "<emphasis role=\"bold\">Plugin&nbsp;Type</emphasis>:"
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4825
+#, no-c-format
+msgid "effect"
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4828
+#, no-c-format
+msgid "<emphasis role=\"bold\">Description</emphasis>:"
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4829
+#, no-c-format
+msgid ""
+"Amplifies the current selection with a curve that consists of a set of "
+"coordinates and an interpolation method. The coordinates on the time axis as "
+"well as on the amplitude axis must be normed between 0.0 and 1.0."
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4838
+#, no-c-format
+msgid "<emphasis role=\"bold\">Parameters</emphasis>:"
+msgstr ""
+
+#. Tag: replaceable
+#: help_en.docbook:4839
+#, fuzzy, no-c-format
+msgid "operation"
+msgstr "Výpočet hodnoty funkce mezi již známými hodnotami"
+
+#. Tag: para
+#: help_en.docbook:4841
+#, no-c-format
+msgid "Internal name, for undo/redo handling. Possible values are:"
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4847 help_en.docbook:4887
+#, fuzzy, no-c-format
+msgid "keyword"
+msgstr "Klíčová slova"
+
+#. Tag: entry
+#: help_en.docbook:4848 help_en.docbook:4888
+#, fuzzy, no-c-format
+msgid "description"
+msgstr "Popis:"
+
+# (filtered) msgid "&no-i18n-tag;<quote>fade in</quote>"
+# (filtered) msgstr ""
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4853 help_en.docbook:4854
+#, no-c-format
+msgid "fade in, curve from 0.0/0.0 to 1.0/1.0"
+msgstr ""
+
+# (filtered) msgid "&no-i18n-tag;<quote><literal>fade out</literal></quote>:"
+# (filtered) msgstr ""
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4857 help_en.docbook:4858
+#, no-c-format
+msgid "fade out, curve from 0.0/1.0 to 1.0/0.0"
+msgstr ""
+
+# (filtered) msgid "&no-i18n-tag;<quote><literal>fade intro</literal></quote>:"
+# (filtered) msgstr ""
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4861 help_en.docbook:4862
+#, no-c-format
+msgid "fade intro, one second pause, then fade in"
+msgstr ""
+
+# (filtered) msgid "&no-i18n-tag;<quote><literal>fade outro</literal></quote>:"
+# (filtered) msgstr ""
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4865 help_en.docbook:4866
+#, no-c-format
+msgid "fade outro, first fade out, then one second pause"
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4869 help_en.docbook:4870
+#, fuzzy, no-c-format
+msgid "user defined curve"
+msgstr "(Stanoveno uživatelem)"
+
+#. Tag: replaceable
+#: help_en.docbook:4879
+#, fuzzy, no-c-format
+msgid "interpolation"
+msgstr "Výpočet hodnoty funkce mezi již známými hodnotami"
+
+#. Tag: para
+#: help_en.docbook:4881
+#, no-c-format
+msgid "Interpolation type, possible values are:"
+msgstr ""
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4893 help_en.docbook:4894
+#, no-c-format
+msgid "Linear"
+msgstr "Přímý"
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4897 help_en.docbook:4898
+#, no-c-format
+msgid "Spline"
+msgstr "Křivka"
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4901 help_en.docbook:4902
+#, no-c-format
+msgid "Polynom, nth Degree"
+msgstr "Mnohočlen n-tého stupně"
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4905 help_en.docbook:4906
+#, no-c-format
+msgid "Polynom, 3rd Degree"
+msgstr "Mnohočlen třetího stupně"
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4909 help_en.docbook:4910
+#, no-c-format
+msgid "Polynom, 5th Degree"
+msgstr "Mnohočlen pátého stupně"
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4913 help_en.docbook:4914
+#, no-c-format
+msgid "Polynom, 7th Degree"
+msgstr "Mnohočlen sedmého stupně"
+
+#. Tag: entry
+#. Tag: entry
+#: help_en.docbook:4917 help_en.docbook:4918
+#, no-c-format
+msgid "Sample and Hold"
+msgstr "Ukazovat vzorky a držet"
+
+#. Tag: replaceable
+#: help_en.docbook:4927
+#, no-c-format
+msgid "curve"
+msgstr ""
+
+#. Tag: entry
+#: help_en.docbook:4928
+#, no-c-format
+msgid ""
+"A comma separated list of pairs of coordinates, normed between 0.0 and 1.0, "
+"must be sorted by time axis (ascending), should start at time 0.0 and end "
+"with time 1.0."
 msgstr ""
 
 #. Tag: title
-#: help_en.docbook:4650
+#: help_en.docbook:4976
 #, no-c-format
 msgid "Developer's Guide to &kwave;"
 msgstr "Vývojářův průvodce k programu &kwave;"
 
 #. Tag: phrase
-#: help_en.docbook:4657
+#: help_en.docbook:4983
 #, no-c-format
 msgid "under construction"
 msgstr "ve výstavbě"
 
 #. Tag: para
-#: help_en.docbook:4660
+#: help_en.docbook:4986
 #, no-c-format
 msgid ""
 "Sorry, this chapter is still to be written... At the moment the source code "
@@ -6179,7 +6636,7 @@ msgstr ""
 "začlenit do zdroje docbooku (zdrojový kód této stránky z něj byl postaven)."
 
 #. Tag: para
-#: help_en.docbook:4669
+#: help_en.docbook:4995
 #, no-c-format
 msgid ""
 "If you want to write a plugin, contribute something to this project (or "
@@ -6193,13 +6650,13 @@ msgstr ""
 "\">mejlovacímu seznamu</link>. Pomoc je vždy vítána!"
 
 #. Tag: title
-#: help_en.docbook:4684
+#: help_en.docbook:5010
 #, no-c-format
 msgid "Creating API documentation"
 msgstr "Vytvoření dokumentace API"
 
 #. Tag: para
-#: help_en.docbook:4686
+#: help_en.docbook:5012
 #, no-c-format
 msgid ""
 "If you are interested in the internal of &kwave; and you have <ulink url="
@@ -6210,7 +6667,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:4690 help_en.docbook:4692
+#: help_en.docbook:5016 help_en.docbook:5018
 #, no-c-format
 msgid ""
 "to get a directory <filename><replaceable>apicod/html</replaceable></"
@@ -6222,13 +6679,13 @@ msgstr ""
 "sestavovacím adresáři."
 
 #. Tag: title
-#: help_en.docbook:4705
+#: help_en.docbook:5031
 #, no-c-format
 msgid "Starting in a test environment"
 msgstr "Spuštění ve zkoušecím prostředí"
 
 #. Tag: para
-#: help_en.docbook:4707
+#: help_en.docbook:5033
 #, no-c-format
 msgid ""
 "If you are developing or testing &kwave;, then you do not necessarily need "
@@ -6243,7 +6700,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: para
-#: help_en.docbook:4712 help_en.docbook:4714
+#: help_en.docbook:5038 help_en.docbook:5040
 #, no-c-format
 msgid ""
 "The script will be named <filename><replaceable>kw</replaceable></filename>, "
@@ -6253,7 +6710,7 @@ msgstr ""
 "Změňte jej klidně tak, aby odpovídal vašemu systému, bude-li to nutné."
 
 #. Tag: para
-#: help_en.docbook:4718
+#: help_en.docbook:5044
 #, no-c-format
 msgid ""
 "For this to work, you must <emphasis>not</emphasis> have &kwave; installed "
@@ -6264,19 +6721,19 @@ msgstr ""
 "odinstalujte!"
 
 #. Tag: title
-#: help_en.docbook:4730
+#: help_en.docbook:5056
 #, no-c-format
 msgid "Adding support for a new Language"
 msgstr "Přidání podpory pro nový jazyk"
 
 #. Tag: emphasis
-#: help_en.docbook:4735
+#: help_en.docbook:5061
 #, no-c-format
 msgid "make system:"
 msgstr "Systém provedení:"
 
 #. Tag: para
-#: help_en.docbook:4736
+#: help_en.docbook:5062
 #, no-c-format
 msgid ""
 "Edit the toplevel <filename>CMakeLists.txt</filename> and add a new entry to "
@@ -6296,7 +6753,7 @@ msgstr ""
 "literal><replaceable>&lt;název&gt;</replaceable></command>. Příklad:"
 
 #. Tag: screen
-#: help_en.docbook:4745
+#: help_en.docbook:5071
 #, no-c-format
 msgid ""
 "<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
@@ -6304,7 +6761,7 @@ msgstr ""
 "<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>"
 
 #. Tag: para
-#: help_en.docbook:4747
+#: help_en.docbook:5073
 #, no-c-format
 msgid ""
 "The language code is a 2-letter code which is used for directories and "
@@ -6321,13 +6778,13 @@ msgstr ""
 "\"&url_iso639;\">ISO 639-2</ulink>."
 
 #. Tag: emphasis
-#: help_en.docbook:4758
+#: help_en.docbook:5084
 #, no-c-format
 msgid "user interface:"
 msgstr "uživatelské rozhraní:"
 
 #. Tag: para
-#: help_en.docbook:4759
+#: help_en.docbook:5085
 #, no-c-format
 msgid ""
 "Go to the source directory of &kwave; (not the build directory), change into "
@@ -6347,7 +6804,7 @@ msgstr ""
 
 #. Tag: screen
 #. Tag: emphasis
-#: help_en.docbook:4767 help_en.docbook:4771
+#: help_en.docbook:5093 help_en.docbook:5097
 #, no-c-format
 msgid "online help:"
 msgstr "nápověda po internetu:"
@@ -6355,13 +6812,13 @@ msgstr "nápověda po internetu:"
 #. Tag: para
 #. Tag: screen
 #. Tag: emphasis
-#: help_en.docbook:4772 help_en.docbook:4789 help_en.docbook:4793
+#: help_en.docbook:5098 help_en.docbook:5115 help_en.docbook:5119
 #, no-c-format
 msgid "screenshots:"
 msgstr "Snímky obrazovky:"
 
 #. Tag: para
-#: help_en.docbook:4794
+#: help_en.docbook:5120
 #, no-c-format
 msgid ""
 "For the online documentation you also need screenshots that use the "
@@ -6383,7 +6840,7 @@ msgstr ""
 "částí, které jste zakázal."
 
 #. Tag: para
-#: help_en.docbook:4803
+#: help_en.docbook:5129
 #, no-c-format
 msgid ""
 "For a list of screenshots you can look into one of the existing directories "
@@ -6400,55 +6857,55 @@ msgstr ""
 "ulink>. Zde ve zkratce:"
 
 #. Tag: para
-#: help_en.docbook:4812
+#: help_en.docbook:5138
 #, no-c-format
 msgid "Window decoration: Oxygen"
 msgstr "Výzdoba okna: Oxygen"
 
 #. Tag: para
-#: help_en.docbook:4815
+#: help_en.docbook:5141
 #, no-c-format
 msgid "Widget style: Oxygen"
 msgstr "Styl prvku: Oxygen"
 
 #. Tag: para
-#: help_en.docbook:4818
+#: help_en.docbook:5144
 #, no-c-format
 msgid "Colors: Oxygen"
 msgstr "Barvy: Oxygen"
 
 #. Tag: para
-#: help_en.docbook:4821
+#: help_en.docbook:5147
 #, no-c-format
 msgid "Background: Flat color - Color must be white"
 msgstr "Pozadí: Uhlazená barva - Barva musí být bílá"
 
 #. Tag: para
-#: help_en.docbook:4824
+#: help_en.docbook:5150
 #, no-c-format
 msgid "Run X11 in 72dpi mode"
 msgstr "Spustit X11 v režimu 72dpi"
 
 #. Tag: para
-#: help_en.docbook:4827
+#: help_en.docbook:5153
 #, no-c-format
 msgid "Save the files in 8bpp"
 msgstr "Soubory ukládat v 8bpp"
 
 #. Tag: para
-#: help_en.docbook:4830
+#: help_en.docbook:5156
 #, no-c-format
 msgid "Try to keep the size of each file below 20kB"
 msgstr "Pokusit se udržet velikost každého souboru pod 20kB"
 
 #. Tag: emphasis
-#: help_en.docbook:4836
+#: help_en.docbook:5162
 #, no-c-format
 msgid "desktop file:"
 msgstr "soubor na ploše:"
 
 #. Tag: para
-#: help_en.docbook:4837
+#: help_en.docbook:5163
 #, no-c-format
 msgid ""
 "Add a <emphasis>Comment</emphasis> line for the new language to the file "
@@ -6460,7 +6917,7 @@ msgstr ""
 "soubor je zakódován v UTF-8! Příklad:"
 
 #. Tag: screen
-#: help_en.docbook:4842
+#: help_en.docbook:5168
 #, no-c-format
 msgid ""
 "<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</"
@@ -6470,13 +6927,13 @@ msgstr ""
 "literal><replaceable>Zvukový editor pro KDE</replaceable>"
 
 #. Tag: para
-#: help_en.docbook:4847
+#: help_en.docbook:5173
 #, no-c-format
 msgid "Useful links:"
 msgstr "Užitečné odkazy:"
 
 #. Tag: para
-#: help_en.docbook:4850
+#: help_en.docbook:5176
 #, no-c-format
 msgid ""
 "<ulink url=\"&url_rfc3066;\">RFC 3066</ulink> Tags for the Identification of "
@@ -6484,7 +6941,7 @@ msgid ""
 msgstr "<ulink url=\"&url_rfc3066;\">RFC 3066</ulink> Značky pro určení jazyků"
 
 #. Tag: para
-#: help_en.docbook:4854
+#: help_en.docbook:5180
 #, no-c-format
 msgid ""
 "<ulink url=\"&url_kde_l10n;\">KDE Localization</ulink> contains a lot of "
@@ -6494,7 +6951,7 @@ msgstr ""
 "užitečných odkazů pro překladatele KDE."
 
 #. Tag: para
-#: help_en.docbook:4858
+#: help_en.docbook:5184
 #, no-c-format
 msgid ""
 "<ulink url=\"&url_kde_localize;\">Lokalize</ulink> is <emphasis>the</"
@@ -6506,7 +6963,7 @@ msgstr ""
 "souborů."
 
 #. Tag: para
-#: help_en.docbook:4863
+#: help_en.docbook:5189
 #, no-c-format
 msgid ""
 "<ulink url=\"&url_kde_screenshots;\">KDE Documentation Screenshots "
@@ -6516,19 +6973,19 @@ msgstr ""
 "(KDE Documentation Screenshots Requirements)</ulink>."
 
 #. Tag: title
-#: help_en.docbook:4892
+#: help_en.docbook:5218
 #, no-c-format
 msgid "Questions and Answers"
 msgstr "Otázky a odpovědi"
 
 #. Tag: para
-#: help_en.docbook:4900
+#: help_en.docbook:5226
 #, no-c-format
 msgid "What do I need to compile &kwave;?"
 msgstr "Co potřebuji, abych mohl dát dohromady &kwave;?"
 
 #. Tag: para
-#: help_en.docbook:4905
+#: help_en.docbook:5231
 #, no-c-format
 msgid ""
 "Read in the <link linkend=\"requirements\">chapter</link> mentioned before."
@@ -6537,13 +6994,13 @@ msgstr ""
 "byla již zmiňována."
 
 #. Tag: para
-#: help_en.docbook:4915
+#: help_en.docbook:5241
 #, no-c-format
 msgid "Which sound cards does &kwave; support?"
 msgstr "Které zvukové karty &kwave; podporuje?"
 
 #. Tag: para
-#: help_en.docbook:4920
+#: help_en.docbook:5246
 #, no-c-format
 msgid ""
 "&kwave; does not need support for any special sound card. The sound card "
@@ -6558,7 +7015,7 @@ msgstr ""
 "hrát KDE."
 
 #. Tag: para
-#: help_en.docbook:4933
+#: help_en.docbook:5259
 #, no-c-format
 msgid ""
 "Why does &kwave; consume more memory than it can be expected from the size "
@@ -6568,7 +7025,7 @@ msgstr ""
 "velikosti otevřeného souboru?"
 
 #. Tag: para
-#: help_en.docbook:4939
+#: help_en.docbook:5265
 #, no-c-format
 msgid ""
 "The reason for this is that &kwave; internally stores all samples in 32-bit "
@@ -6584,13 +7041,13 @@ msgstr ""
 "budoucnosti..."
 
 #. Tag: para
-#: help_en.docbook:4952
+#: help_en.docbook:5278
 #, no-c-format
 msgid "Which sound formats does &kwave; support?"
 msgstr "Které zvukové formáty &kwave; podporuje?"
 
 #. Tag: para
-#: help_en.docbook:4957
+#: help_en.docbook:5283
 #, no-c-format
 msgid ""
 "&kwave; currently supports .wav files with 8, 16 and 24 bits per sample, "
@@ -6604,13 +7061,13 @@ msgstr ""
 "formáty jako jsou Ogg/Vorbis a MP3."
 
 #. Tag: para
-#: help_en.docbook:4969
+#: help_en.docbook:5295
 #, no-c-format
 msgid "What if I have files with a format not supported by &kwave;?"
 msgstr "A co když mám soubory ve formátu nepodporovaném &kwave;?"
 
 #. Tag: para
-#: help_en.docbook:4975
+#: help_en.docbook:5301
 #, no-c-format
 msgid ""
 "If you have to work on a different format, you can convert it into .wav "
@@ -6622,13 +7079,13 @@ msgstr ""
 "\">SoX</ulink>, pro který rovněž existuje hezká dokumentace!"
 
 #. Tag: para
-#: help_en.docbook:4987
+#: help_en.docbook:5313
 #, no-c-format
 msgid "I get errors when I want to do playback?"
 msgstr "Objeví se chyby, když chci přehrávat?"
 
 #. Tag: para
-#: help_en.docbook:4992
+#: help_en.docbook:5318
 #, no-c-format
 msgid ""
 "Maybe you have chosen a combination of playback rate and sample size that is "
@@ -6645,13 +7102,13 @@ msgstr ""
 "zvukovou technikou."
 
 #. Tag: para
-#: help_en.docbook:5006
+#: help_en.docbook:5332
 #, no-c-format
 msgid "The playback seems to do something but I hear nothing?"
 msgstr "Zdá se, že probíhá přehrávání, ale já neslyším nic?"
 
 #. Tag: para
-#: help_en.docbook:5011
+#: help_en.docbook:5337
 #, no-c-format
 msgid ""
 "Maybe you have forgotten to increase the volume of the playback channel. "
@@ -6661,25 +7118,25 @@ msgstr ""
 "není odpovědný za změnu hlasitosti přehrávání."
 
 #. Tag: para
-#: help_en.docbook:5021
+#: help_en.docbook:5347
 #, no-c-format
 msgid "Some files are played with half-speed?"
 msgstr "Některé soubory jsou hrány při poloviční rychlosti?"
 
 #. Tag: para
-#: help_en.docbook:5026
+#: help_en.docbook:5352
 #, no-c-format
 msgid "Try choosing a different sound playback device."
 msgstr "Zkuste výběr jiného zařízení pro přehrávání zvuku."
 
 #. Tag: para
-#: help_en.docbook:5034
+#: help_en.docbook:5360
 #, no-c-format
 msgid "The playback sometimes is disturbed and interrupted?"
 msgstr "Přehrávání je někdy nevyrovnané a přerušované?"
 
 #. Tag: para
-#: help_en.docbook:5039
+#: help_en.docbook:5365
 #, no-c-format
 msgid ""
 "You should increase the size of the playback buffer to get a \"smoother\" "
@@ -6690,14 +7147,14 @@ msgstr ""
 "něco pomaleji)."
 
 #. Tag: para
-#: help_en.docbook:5049
+#: help_en.docbook:5375
 #, no-c-format
 msgid "The playback does not stop if I immediately press the stop button?"
 msgstr ""
 "Přehrávání není zastaveno, když okamžitě stisknu tlačítko pro zastavení?"
 
 #. Tag: para
-#: help_en.docbook:5055
+#: help_en.docbook:5381
 #, no-c-format
 msgid ""
 "The reason for this is that the sound driver already has received some "
@@ -6711,19 +7168,19 @@ msgstr ""
 "větší pravděpodobnost přerušování)"
 
 #. Tag: para
-#: help_en.docbook:5067
+#: help_en.docbook:5393
 #, no-c-format
 msgid "Is ALSA supported?"
 msgstr "Je podporována ALSA?"
 
 #. Tag: para
-#: help_en.docbook:5072
+#: help_en.docbook:5398
 #, no-c-format
 msgid "Yes, since v0.7.4 for playback and recording"
 msgstr "Ano. Od verze 0.7.4 pro přehrávání a nahrávání"
 
 #. Tag: para
-#: help_en.docbook:5080
+#: help_en.docbook:5406
 #, no-c-format
 msgid ""
 "What about playback with 18, 20, 24 or 32 bits per sample or more than two "
@@ -6733,19 +7190,19 @@ msgstr ""
 "dvěma kanály?"
 
 #. Tag: para
-#: help_en.docbook:5086
+#: help_en.docbook:5412
 #, no-c-format
 msgid "This is possible through the ALSA interface, since v0.7.4."
 msgstr "Je to možné přes rozhraní ALSA od verze 0.7.4."
 
 #. Tag: para
-#: help_en.docbook:5095
+#: help_en.docbook:5421
 #, no-c-format
 msgid "What about MP3 support?"
 msgstr "A co se dá říct o podpoře MP3?"
 
 #. Tag: para
-#: help_en.docbook:5100
+#: help_en.docbook:5426
 #, no-c-format
 msgid ""
 "Well, as long as there are patent issues, we support only MP3 import through "
@@ -6760,19 +7217,19 @@ msgstr ""
 "patenty MP3 při !"
 
 #. Tag: title
-#: help_en.docbook:5134
+#: help_en.docbook:5460
 #, no-c-format
 msgid "Credits and License"
 msgstr "Zásluhy a licence"
 
 #. Tag: para
-#: help_en.docbook:5136
+#: help_en.docbook:5462
 #, no-c-format
 msgid "&kwave;"
 msgstr "&kwave;"
 
 #. Tag: para
-#: help_en.docbook:5138
+#: help_en.docbook:5464
 #, no-c-format
 msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>martin@wilz.de</email>"
@@ -6780,7 +7237,7 @@ msgstr ""
 "Autorské právo k programu 1998-2000 Martin Wilz <email>martin@wilz.de</email>"
 
 #. Tag: para
-#: help_en.docbook:5142
+#: help_en.docbook:5468
 #, no-c-format
 msgid ""
 "Program copyright since 2000 Thomas Eschenbacher <email>thomas."
@@ -6790,7 +7247,7 @@ msgstr ""
 "<email>thomas.eschenbacher@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:5146
+#: help_en.docbook:5472
 #, no-c-format
 msgid ""
 "For a complete list of authors and licenses of all files, please refer to "
@@ -6806,7 +7263,7 @@ msgstr ""
 "který uvádí všechny autory a přispěvatele &kwave;."
 
 #. Tag: para
-#: help_en.docbook:5154
+#: help_en.docbook:5480
 #, no-c-format
 msgid ""
 "Documentation copyright (C) &version_year; Thomas Eschenbacher <email>thomas."
@@ -6816,151 +7273,151 @@ msgstr ""
 "eschenbacher@gmx.de</email>"
 
 #. Tag: chapter
-#: help_en.docbook:5157
+#: help_en.docbook:5483
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
 
 #. Tag: title
-#: help_en.docbook:5162
+#: help_en.docbook:5488
 #, no-c-format
 msgid "Main Authors"
 msgstr "Hlavní autoři"
 
 #. Tag: emphasis
-#: help_en.docbook:5166
+#: help_en.docbook:5492
 #, no-c-format
 msgid "Martin Wilz <email>martin@wilz.de</email>"
 msgstr "Martin Wilz <email>martin@wilz.de</email>"
 
 #. Tag: para
-#: help_en.docbook:5169
+#: help_en.docbook:5495
 #, no-c-format
 msgid "creator of the project, active development 1998-2000"
 msgstr "Tvůrce projektu, aktivní vývoj 1998-2000"
 
 #. Tag: emphasis
-#: help_en.docbook:5174
+#: help_en.docbook:5500
 #, no-c-format
 msgid "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:5177
+#: help_en.docbook:5503
 #, no-c-format
 msgid "maintainer since 2000, core development"
 msgstr "Správce od roku 2000, hlavní vývojář"
 
 #. Tag: title
-#: help_en.docbook:5185
+#: help_en.docbook:5511
 #, no-c-format
 msgid "Major Contributors"
 msgstr "Hlavní přispěvatelé"
 
 #. Tag: emphasis
-#: help_en.docbook:5189
+#: help_en.docbook:5515
 #, no-c-format
 msgid "Aurelien Jarno <email>aurel32@debian.org</email>"
 msgstr "Aurelien Jarno <email>aurel32@debian.org</email>"
 
 #. Tag: para
-#: help_en.docbook:5192
+#: help_en.docbook:5518
 #, no-c-format
 msgid "<ulink url=\"&url_debian;\">debian</ulink> packager, patches"
 msgstr "<ulink url=\"&url_debian;\">tvůrce balíčků pro debian</ulink>, záplaty"
 
 #. Tag: emphasis
-#: help_en.docbook:5198
+#: help_en.docbook:5524
 #, no-c-format
 msgid "Carlos R <email>pureacetone@gmail.com</email>"
 msgstr "Carlos R <email>pureacetone@gmail.com</email>"
 
 #. Tag: para
-#: help_en.docbook:5201
+#: help_en.docbook:5527
 #, no-c-format
 msgid "spanish translation"
 msgstr "Překlad do španělštiny"
 
 #. Tag: emphasis
-#: help_en.docbook:5206
+#: help_en.docbook:5532
 #, no-c-format
 msgid "David Flogeras <email>dflogera@nbnet.nb.ca</email>"
 msgstr "David Flogeras <email>dflogera@nbnet.nb.ca</email>"
 
 #. Tag: para
-#: help_en.docbook:5209
+#: help_en.docbook:5535
 #, no-c-format
 msgid "Notch Filter plugin"
 msgstr "Přídavný modul vroubkový filtr"
 
 #. Tag: emphasis
-#: help_en.docbook:5214
+#: help_en.docbook:5540
 #, no-c-format
 msgid "Gilles Caulier <email>caulier.gilles@free.fr</email>"
 msgstr "Gilles Caulier <email>caulier.gilles@free.fr</email>"
 
 #. Tag: para
-#: help_en.docbook:5217
+#: help_en.docbook:5543
 #, no-c-format
 msgid "i18n, french translations, splashscreen, beta tester"
 msgstr "i18n, překlad do francouzštiny, úvodní obrazovka, beta tester"
 
 #. Tag: emphasis
-#: help_en.docbook:5222
+#: help_en.docbook:5548
 #, no-c-format
 msgid "Pavel Fric <email>pavelfric@seznam.cz</email>"
 msgstr "Pavel Fric <email>pavelfric@seznam.cz</email>"
 
 #. Tag: para
-#: help_en.docbook:5225
+#: help_en.docbook:5551
 #, no-c-format
 msgid "Czech translation"
 msgstr "Překlad do češtiny"
 
 #. Tag: emphasis
-#: help_en.docbook:5230
+#: help_en.docbook:5556
 #, no-c-format
 msgid "Ralf Waspe <email>rwaspe@web.de</email>"
 msgstr "Ralf Waspe <email>rwaspe@web.de</email>"
 
 #. Tag: para
-#: help_en.docbook:5233
+#: help_en.docbook:5559
 #, no-c-format
 msgid "Help/About plugin"
 msgstr "Nápověda/Přídavný modul \"O programu\""
 
 #. Tag: emphasis
-#: help_en.docbook:5238
+#: help_en.docbook:5564
 #, no-c-format
 msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email>"
 msgstr "Sven-Steffen Arndt <email>ssa29@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:5241
+#: help_en.docbook:5567
 #, no-c-format
 msgid "homepage, german translation"
 msgstr "Domovská stránka, překlad do němčiny"
 
 #. Tag: title
-#: help_en.docbook:5249
+#: help_en.docbook:5575
 #, no-c-format
 msgid "Minor contributors, copyright holders and others"
 msgstr "Další přispěvatelé, držitelé autorských práv a jiní"
 
 #. Tag: emphasis
-#: help_en.docbook:5253
+#: help_en.docbook:5579
 #, no-c-format
 msgid "Aaron Holtzman <email>aholtzma@ess.engr.uvic.ca</email>"
 msgstr "Aaron Holtzman <email>aholtzma@ess.engr.uvic.ca</email>"
 
 #. Tag: para
-#: help_en.docbook:5255
+#: help_en.docbook:5581
 #, no-c-format
 msgid "libkwave/cpu_accel.cpp"
 msgstr "libkwave/cpu_accel.cpp"
 
 #. Tag: para
-#: help_en.docbook:5260
+#: help_en.docbook:5586
 #, no-c-format
 msgid ""
 "<emphasis role=\"bold\"> Bertrand Songis <email>bsongis@gmail.com</email> </"
@@ -6970,7 +7427,7 @@ msgstr ""
 "emphasis><emphasis>[historický]</emphasis>"
 
 #. Tag: para
-#: help_en.docbook:5262
+#: help_en.docbook:5588
 #, no-c-format
 msgid ""
 "french translation fixes, substitutes for patented libaudiofile code, debian "
@@ -6980,55 +7437,55 @@ msgstr ""
 "chyba v Debianu 419124"
 
 #. Tag: emphasis
-#: help_en.docbook:5269
+#: help_en.docbook:5595
 #, no-c-format
 msgid "Carsten Lohrke <email>carlo@gentoo.org</email>"
 msgstr "Carsten Lohrke <email>carlo@gentoo.org</email>"
 
 #. Tag: para
-#: help_en.docbook:5271
+#: help_en.docbook:5597
 #, no-c-format
 msgid "svn r2163, patch for libaudiofile detection"
 msgstr "svn r2163, záplata pro detekci libaudiofile"
 
 #. Tag: emphasis
-#: help_en.docbook:5276
+#: help_en.docbook:5602
 #, no-c-format
 msgid "Chris Vaill <email>chrisvaill@gmail</email>"
 msgstr "Chris Vaill <email>chrisvaill@gmail</email>"
 
 #. Tag: para
-#: help_en.docbook:5278
+#: help_en.docbook:5604
 #, no-c-format
 msgid "code base for the normalize plugin"
 msgstr "Kód pro přídavný modul normalizace"
 
 #. Tag: emphasis
-#: help_en.docbook:5283
+#: help_en.docbook:5609
 #, no-c-format
 msgid "David Faure <email>faure@kde.org</email>"
 msgstr "David Faure <email>faure@kde.org</email>"
 
 #. Tag: para
-#: help_en.docbook:5285 help_en.docbook:5359
+#: help_en.docbook:5611 help_en.docbook:5685
 #, no-c-format
 msgid "cmake/FindAlsa.cmake"
 msgstr "cmake/FindAlsa.cmake"
 
 #. Tag: emphasis
-#: help_en.docbook:5290
+#: help_en.docbook:5616
 #, no-c-format
 msgid "Diederick de Vries <email>diederick76@gmail.com</email>"
 msgstr "Diederick de Vries <email>diederick76@gmail.com</email>"
 
 #. Tag: para
-#: help_en.docbook:5293
+#: help_en.docbook:5619
 #, no-c-format
 msgid "packaging for Crux Linux"
 msgstr "Balíčkování pro Crux Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:5298
+#: help_en.docbook:5624
 #, no-c-format
 msgid ""
 "Espen Sand <email>espen@kde.org</email> + Mirko Boehm <email>mirko@kde.org</"
@@ -7038,55 +7495,55 @@ msgstr ""
 "email>"
 
 #. Tag: para
-#: help_en.docbook:5301
+#: help_en.docbook:5627
 #, no-c-format
 msgid "K3AboutContainer, base of KwaveAboutContainer"
 msgstr "K3AboutContainer, základ KwaveAboutContainer"
 
 #. Tag: emphasis
-#: help_en.docbook:5306
+#: help_en.docbook:5632
 #, no-c-format
 msgid "Everaldo Coelho <email>contact@everaldo.com</email>"
 msgstr "Everaldo Coelho <email>contact@everaldo.com</email>"
 
 #. Tag: para
-#: help_en.docbook:5308
+#: help_en.docbook:5634
 #, no-c-format
 msgid "the crystal icon theme http://www.everaldo.com/crystal/"
 msgstr "Sada ikon crystal http://www.everaldo.com/crystal/"
 
 #. Tag: emphasis
-#: help_en.docbook:5313
+#: help_en.docbook:5639
 #, no-c-format
 msgid "Jaroslav Kysela"
 msgstr "Jaroslav Kysela"
 
 #. Tag: para
-#: help_en.docbook:5315
+#: help_en.docbook:5641
 #, no-c-format
 msgid "parts of plugins/playback/PlayBack-ALSA.cpp"
 msgstr "Části plugins/playback/PlayBack-ALSA.cpp"
 
 #. Tag: emphasis
-#: help_en.docbook:5320
+#: help_en.docbook:5646
 #, no-c-format
 msgid "Jeff Tranter"
 msgstr "Jeff Tranter"
 
 #. Tag: para
-#: help_en.docbook:5322 help_en.docbook:5397
+#: help_en.docbook:5648 help_en.docbook:5723
 #, no-c-format
 msgid "parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}"
 msgstr "Části plugins/pitch_shift/PitchShiftFilter.{h,cpp}"
 
 #. Tag: emphasis
-#: help_en.docbook:5327
+#: help_en.docbook:5653
 #, no-c-format
 msgid "Juhana Sadeharju <email>kouhia@nic.funet.fi</email>"
 msgstr "Juhana Sadeharju <email>kouhia@nic.funet.fi</email>"
 
 #. Tag: para
-#: help_en.docbook:5329
+#: help_en.docbook:5655
 #, no-c-format
 msgid ""
 "plugins/band_pass/BandPass.{h,cpp}, plugins/lowpass/LowPassFilter.cpp, "
@@ -7096,67 +7553,67 @@ msgstr ""
 "plugins/notch_filter/NotchFilter.{h,cpp}"
 
 #. Tag: emphasis
-#: help_en.docbook:5336
+#: help_en.docbook:5662
 #, no-c-format
 msgid "Kurt Roeck <email>Q@ping.be</email>"
 msgstr "Kurt Roeck <email>Q@ping.be</email>"
 
 #. Tag: para
-#: help_en.docbook:5338
+#: help_en.docbook:5664
 #, no-c-format
 msgid "svn r1370, fix for debian bug#288781, compilation for amd64"
 msgstr "svn r1370, oprava chyby pro Debian-Bug#288781, sestavení pro amd64"
 
 #. Tag: emphasis
-#: help_en.docbook:5343
+#: help_en.docbook:5669
 #, no-c-format
 msgid "Mark Donohoe (KDE) <email>donohoe@kde.org</email>"
 msgstr "Mark Donohoe (KDE) <email>donohoe@kde.org</email>"
 
 #. Tag: para
-#: help_en.docbook:5345
+#: help_en.docbook:5671
 #, no-c-format
 msgid "some icons and bitmaps for toolbar and GUI"
 msgstr "Několik ikon a obrázků pro nástrojový pruh a rozhraní"
 
 #. Tag: emphasis
-#: help_en.docbook:5350
+#: help_en.docbook:5676
 #, no-c-format
 msgid "Martin Hinsch <email>vidas@sourceforge.net</email>"
 msgstr "Martin Hinsch <email>vidas@sourceforge.net</email>"
 
 #. Tag: para
-#: help_en.docbook:5352
+#: help_en.docbook:5678
 #, no-c-format
 msgid "Matrix class"
 msgstr "Třída Matrix"
 
 #. Tag: emphasis
-#: help_en.docbook:5357
+#: help_en.docbook:5683
 #, no-c-format
 msgid "Matthias Kretz <email>kretz@kde.org</email>"
 msgstr "Matthias Kretz <email>kretz@kde.org</email>"
 
 #. Tag: emphasis
-#: help_en.docbook:5364
+#: help_en.docbook:5690
 #, no-c-format
 msgid "Miguel Freitas"
 msgstr "Miguel Freitas"
 
 #. Tag: para
-#: help_en.docbook:5366
+#: help_en.docbook:5692
 #, no-c-format
 msgid "parts of libkwave/memcpy.c"
 msgstr "Části libkwave/memcpy.c"
 
 #. Tag: emphasis
-#: help_en.docbook:5371
+#: help_en.docbook:5697
 #, no-c-format
 msgid "Paul Mackerras <email>paulus@samba.org</email>"
 msgstr "Paul Mackerras <email>paulus@samba.org</email>"
 
 #. Tag: para
-#: help_en.docbook:5373
+#: help_en.docbook:5699
 #, no-c-format
 msgid ""
 "libkwave/ppcasm_string.h, libkwave/ppcasm_string.S, libkwave/ppc_asm.tmpl"
@@ -7164,191 +7621,191 @@ msgstr ""
 "libkwave/ppcasm_string.h, libkwave/ppcasm_string.S, libkwave/ppc_asm.tmpl"
 
 #. Tag: emphasis
-#: help_en.docbook:5380
+#: help_en.docbook:5706
 #, no-c-format
 msgid "Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>"
 msgstr "Richard Laerkaeng, <email>richard@goteborg.utfors.se</email>"
 
 #. Tag: para
-#: help_en.docbook:5382
+#: help_en.docbook:5708
 #, no-c-format
 msgid "cmake/FindOggVorbis.cmake"
 msgstr "cmake/FindOggVorbis.cmake"
 
 #. Tag: emphasis
-#: help_en.docbook:5387
+#: help_en.docbook:5713
 #, no-c-format
 msgid "Rik Hemsley <email>rik@kde.org</email>"
 msgstr "Rik Hemsley <email>rik@kde.org</email>"
 
 #. Tag: ulink
-#: help_en.docbook:5391
+#: help_en.docbook:5717
 #, no-c-format
 msgid "level meter"
 msgstr "Měřič úrovně"
 
 #. Tag: emphasis
-#: help_en.docbook:5395
+#: help_en.docbook:5721
 #, no-c-format
 msgid "Stefan Westerfeld <email>stefan@space.twc.de</email>"
 msgstr "Stefan Westerfeld <email>stefan@space.twc.de</email>"
 
 #. Tag: emphasis
-#: help_en.docbook:5402
+#: help_en.docbook:5728
 #, no-c-format
 msgid "Joerg-Christian Boehme <email>joerg@chaosdorf.de</email>"
 msgstr "Joerg-Christian Boehme <email>joerg@chaosdorf.de</email>"
 
 #. Tag: para
-#: help_en.docbook:5404
+#: help_en.docbook:5730
 #, no-c-format
 msgid "plugins/record/Record-PulseAudio.cpp plugins/record/Record-PulseAudio.h"
 msgstr ""
 "plugins/record/Record-PulseAudio.cpp plugins/record/Record-PulseAudio.h"
 
 #. Tag: title
-#: help_en.docbook:5413
+#: help_en.docbook:5739
 #, no-c-format
 msgid "Thanks To"
 msgstr "Poděkování"
 
 #. Tag: emphasis
-#: help_en.docbook:5417
+#: help_en.docbook:5743
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email>"
 msgstr "Martin Kuball <email>makube@user.sourceforge.net</email>"
 
 #. Tag: para
-#: help_en.docbook:5420
+#: help_en.docbook:5746
 #, no-c-format
 msgid "beta tester"
 msgstr "Zkoušeč"
 
 #. Tag: emphasis
-#: help_en.docbook:5425
+#: help_en.docbook:5751
 #, no-c-format
 msgid "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
 msgstr "Jorge Luis Arzola <email>arzolacub@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:5428
+#: help_en.docbook:5754
 #, no-c-format
 msgid "packaging for SuSE Linux"
 msgstr "Balíčkování pro SuSE Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:5433
+#: help_en.docbook:5759
 #, no-c-format
 msgid "Michael Favreau <email>michel.favreau@free.fr</email>"
 msgstr "Michael Favreau <email>michel.favreau@free.fr</email>"
 
 #. Tag: para
-#: help_en.docbook:5436
+#: help_en.docbook:5762
 #, no-c-format
 msgid "packaging for Arch Linux"
 msgstr "Balíčkování pro Arch Linux"
 
 #. Tag: emphasis
-#: help_en.docbook:5442
+#: help_en.docbook:5768
 #, no-c-format
 msgid "Matthias Düsterhöft <email>duesti@gmx.de</email>"
 msgstr "Matthias Düsterhöft <email>duesti@gmx.de</email>"
 
 #. Tag: para
-#: help_en.docbook:5445
+#: help_en.docbook:5771
 #, no-c-format
 msgid "for information about RPM optimization"
 msgstr "Za informace o optimalizaci RPM"
 
 #. Tag: emphasis
-#: help_en.docbook:5450
+#: help_en.docbook:5776
 #, no-c-format
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr "T.H.F. Klok a Cedric Tefft"
 
 #. Tag: para
-#: help_en.docbook:5452
+#: help_en.docbook:5778
 #, no-c-format
 msgid "maintainers of the <ulink url=\"&url_id3lib;\"> id3lib</ulink> library"
 msgstr "Udržovatelé knihovny <ulink url=\"&url_id3lib;\"> id3lib</ulink>"
 
 #. Tag: emphasis
-#: help_en.docbook:5458
+#: help_en.docbook:5784
 #, no-c-format
 msgid "Robert Leslie <email>rob@mars.org</email>"
 msgstr "Robert Leslie <email>rob@mars.org</email>"
 
 #. Tag: para
-#: help_en.docbook:5461
+#: help_en.docbook:5787
 #, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libmad;\">mad</ulink> mp3 decoder library"
 msgstr "Autor knihovny dekodéru MP3 <ulink url=\"&url_libmad;\">mad</ulink>"
 
 #. Tag: emphasis
-#: help_en.docbook:5468
+#: help_en.docbook:5794
 #, no-c-format
 msgid "Robert M. Stockmann <email>stock@stokkie.net</email>"
 msgstr "Robert M. Stockmann <email>stock@stokkie.net</email>"
 
 #. Tag: para
-#: help_en.docbook:5471
+#: help_en.docbook:5797
 #, no-c-format
 msgid "packaging for Mandrake / X86_64"
 msgstr "Balíčkování pro Mandrake / X86_64"
 
 #. Tag: emphasis
-#: help_en.docbook:5476
+#: help_en.docbook:5802
 #, no-c-format
 msgid "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
 msgstr "Erik de Castro Lopo <email>erikd@zip.com.au</email>"
 
 #. Tag: para
-#: help_en.docbook:5479
+#: help_en.docbook:5805
 #, no-c-format
 msgid "author of the <ulink url=\"&url_libsndfile;\">sndfile</ulink> library"
 msgstr "Autor knihovny <ulink url=\"&url_libsndfile;\">sndfile</ulink>"
 
 #. Tag: emphasis
-#: help_en.docbook:5486
+#: help_en.docbook:5812
 #, no-c-format
 msgid "Michael Pruett <email>mpruett@sgi.com</email>"
 msgstr "Michael Pruett <email>mpruett@sgi.com</email>"
 
 #. Tag: para
-#: help_en.docbook:5489
+#: help_en.docbook:5815
 #, no-c-format
 msgid ""
 "author of the <ulink url=\"&url_libaudiofile;\">audiofile</ulink> library"
 msgstr "Autor knihovny <ulink url=\"&url_libaudiofile;\">audiofile</ulink>"
 
 #. Tag: title
-#: help_en.docbook:5524
+#: help_en.docbook:5850
 #, no-c-format
 msgid "File Info"
 msgstr "Informace o souboru"
 
 #. Tag: title
-#: help_en.docbook:5525
+#: help_en.docbook:5851
 #, fuzzy, no-c-format
 msgid "List of File Info Identifiers"
 msgstr "Seznam zvukových souborů"
 
 #. Tag: entry
-#: help_en.docbook:5530
+#: help_en.docbook:5856
 #, fuzzy, no-c-format
 msgid "Keyword"
 msgstr "Klíčová slova"
 
 #. Tag: entry
-#: help_en.docbook:5530
+#: help_en.docbook:5856
 #, fuzzy, no-c-format
 msgid "Description"
 msgstr "Popis:"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5534 help_en.docbook:5535
+#: help_en.docbook:5860 help_en.docbook:5861
 #, fuzzy, no-c-format
 msgid ""
 "Name of the album if the source is an album that consist of more medias."
@@ -7358,7 +7815,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5541 help_en.docbook:5542 help_en.docbook:5620
+#: help_en.docbook:5867 help_en.docbook:5868 help_en.docbook:5946
 #, fuzzy, no-c-format
 msgid ""
 "Provides general comments about the file or the subject of the file. If the "
@@ -7372,14 +7829,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5550 help_en.docbook:5551
+#: help_en.docbook:5876 help_en.docbook:5877
 #, no-c-format
 msgid "Indicates where the subject of the file is archived."
 msgstr "Ukazuje, kde je ukládána předloha souboru."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5556 help_en.docbook:5557
+#: help_en.docbook:5882 help_en.docbook:5883
 #, fuzzy, no-c-format
 msgid ""
 "Identifies the name of the author of the original subject of the file. "
@@ -7391,7 +7848,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5564 help_en.docbook:5565
+#: help_en.docbook:5890 help_en.docbook:5891
 #, no-c-format
 msgid "Specifies the lower limit in a VBR bitstream."
 msgstr ""
@@ -7399,56 +7856,56 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5570 help_en.docbook:5571
+#: help_en.docbook:5896 help_en.docbook:5897
 #, no-c-format
 msgid "Bitrate Mode (ABR, VBR, CBR, etc...)"
 msgstr "Režim datového toku (PrůmDT, PDT, SDT, atd.)"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5576 help_en.docbook:5577
+#: help_en.docbook:5902 help_en.docbook:5903
 #, no-c-format
 msgid "Nominal bitrate of the audio stream in bits per second"
 msgstr "Jmenovitý datový tok zvukového zdroje v bitech za sekundu"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5582 help_en.docbook:5583
+#: help_en.docbook:5908 help_en.docbook:5909
 #, no-c-format
 msgid "Specifies the upper limit in a VBR bitstream."
 msgstr "Přesně určuje horní mezní hodnotu v proudu proměnlivého datového toku."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5588 help_en.docbook:5589
+#: help_en.docbook:5914 help_en.docbook:5915
 #, no-c-format
 msgid "Specifies the number of bits per sample."
 msgstr "Stanovuje počet bitů na vzorek."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5594 help_en.docbook:5595
+#: help_en.docbook:5920 help_en.docbook:5921
 #, no-c-format
 msgid "Number of the CD, if the source is an album of more CDROMs"
 msgstr "Počet CD, když zdrojem je album vytvořené z více CDROM"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5600 help_en.docbook:5601
+#: help_en.docbook:5926 help_en.docbook:5927
 #, no-c-format
 msgid "Number of CDs, if the source is an album of more CDROMs"
 msgstr "Počet CD, když zdrojem je album vytvořené z více CD"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5606 help_en.docbook:5607
+#: help_en.docbook:5932 help_en.docbook:5933
 #, no-c-format
 msgid "Specifies the number of channels of the signal."
 msgstr "Stanovuje počet stop signálu."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5612 help_en.docbook:5613
+#: help_en.docbook:5938 help_en.docbook:5939
 #, fuzzy, no-c-format
 msgid ""
 "Lists the name of the person or organization that commissioned the subject "
@@ -7460,7 +7917,7 @@ msgstr ""
 #. Tag: entry
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5619 help_en.docbook:5628 help_en.docbook:5629
+#: help_en.docbook:5945 help_en.docbook:5954 help_en.docbook:5955
 #, fuzzy, no-c-format
 msgid "Sets a mode for compressing the audio data to reduce disk space."
 msgstr ""
@@ -7469,7 +7926,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5635 help_en.docbook:5636
+#: help_en.docbook:5961 help_en.docbook:5962
 #, fuzzy, no-c-format
 msgid ""
 "Contact information for the creators or distributors of the track. This "
@@ -7482,7 +7939,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5643 help_en.docbook:5644
+#: help_en.docbook:5969 help_en.docbook:5970
 #, fuzzy, no-c-format
 msgid ""
 "Records the copyright information for the file. If there are multiple "
@@ -7495,14 +7952,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5652 help_en.docbook:5653
+#: help_en.docbook:5978 help_en.docbook:5979
 #, no-c-format
 msgid "Indicates whether the file is protected by copyright or not."
 msgstr "Ukazuje, zda je soubor  chráněn autorským právem či nikoli."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5658 help_en.docbook:5659
+#: help_en.docbook:5984 help_en.docbook:5985
 #, fuzzy, no-c-format
 msgid ""
 "Specifies the date the subject of the file was created. Example: '2001-12-24'"
@@ -7512,7 +7969,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5665 help_en.docbook:5666
+#: help_en.docbook:5991 help_en.docbook:5992
 #, fuzzy, no-c-format
 msgid ""
 "Shows the name of the engineer who worked on the file. If there are multiple "
@@ -7521,28 +7978,28 @@ msgstr "Ukáže jméno technika, který se souborem pracoval."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5673 help_en.docbook:5674
+#: help_en.docbook:5999 help_en.docbook:6000
 #, no-c-format
 msgid "Estimated length of the file in samples"
 msgstr "Odhadovaná délka souboru ve vzorcích"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5679 help_en.docbook:5680
+#: help_en.docbook:6005 help_en.docbook:6006
 #, no-c-format
 msgid "Name of the opened file"
 msgstr "Název otevřeného souboru"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5685 help_en.docbook:5686
+#: help_en.docbook:6011 help_en.docbook:6012
 #, no-c-format
 msgid "Size of the file in bytes"
 msgstr "Velikost souboru v bajtech"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5691 help_en.docbook:5692
+#: help_en.docbook:6017 help_en.docbook:6018
 #, fuzzy, no-c-format
 msgid ""
 "Describes the genre or style of the original work. Examples: 'classic', 'pop'"
@@ -7552,7 +8009,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5698 help_en.docbook:5699
+#: help_en.docbook:6024 help_en.docbook:6025
 #, fuzzy, no-c-format
 msgid ""
 "ISRC number for the track; see the ISRC intro page for more information on "
@@ -7564,7 +8021,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5706 help_en.docbook:5707
+#: help_en.docbook:6032 help_en.docbook:6033
 #, fuzzy, no-c-format
 msgid ""
 "Provides a list of keywords that refer to the file or subject of the file."
@@ -7574,21 +8031,21 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5713 help_en.docbook:5714
+#: help_en.docbook:6039 help_en.docbook:6040
 #, fuzzy, no-c-format
 msgid "The list of labels."
 msgstr "Seznam štítků/značek."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5719 help_en.docbook:5720
+#: help_en.docbook:6045 help_en.docbook:6046
 #, no-c-format
 msgid "Length of the file in samples."
 msgstr "Velikost souboru ve vzorcích."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5725 help_en.docbook:5726
+#: help_en.docbook:6051 help_en.docbook:6052
 #, fuzzy, no-c-format
 msgid ""
 "License information, e.g., 'All Rights Reserved', 'Any Use Permitted', an "
@@ -7607,7 +8064,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5736 help_en.docbook:5737
+#: help_en.docbook:6062 help_en.docbook:6063
 #, fuzzy, no-c-format
 msgid ""
 "Describes the original subject of the file, where it was first recorded. "
@@ -7619,42 +8076,42 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5744 help_en.docbook:5745
+#: help_en.docbook:6070 help_en.docbook:6071
 #, no-c-format
 msgid "Mime type of the file format"
 msgstr "Mime typ souborového formátu"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5750 help_en.docbook:5751
+#: help_en.docbook:6076 help_en.docbook:6077
 #, no-c-format
 msgid "Audio emphasis mode"
 msgstr "Režim zdůraznění zvuku"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5756 help_en.docbook:5757
+#: help_en.docbook:6082 help_en.docbook:6083
 #, no-c-format
 msgid "MPEG Layer, I, II or III"
 msgstr "MPEG vrstva I, II nebo III"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5762 help_en.docbook:5763
+#: help_en.docbook:6088 help_en.docbook:6089
 #, no-c-format
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "Rozšíření režimu MPEG (jen při sdruženém stereu: Joint Stereo)"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5768 help_en.docbook:5892 help_en.docbook:5769
+#: help_en.docbook:6094 help_en.docbook:6218 help_en.docbook:6095
 #, no-c-format
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr "MPEG Verze, 1, 2 nebo 2.5"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5774 help_en.docbook:5775
+#: help_en.docbook:6100 help_en.docbook:6101
 #, fuzzy, no-c-format
 msgid ""
 "Stores the title of the subject of the file. Example: \"Symphony No.6, Op.68 "
@@ -7665,7 +8122,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5781 help_en.docbook:5782
+#: help_en.docbook:6107 help_en.docbook:6108
 #, no-c-format
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
@@ -7675,7 +8132,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5787 help_en.docbook:5788
+#: help_en.docbook:6113 help_en.docbook:6114
 #, fuzzy, no-c-format
 msgid "Name of the organization producing the track (i.e. the 'record label')"
 msgstr ""
@@ -7684,14 +8141,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5794 help_en.docbook:5795
+#: help_en.docbook:6120 help_en.docbook:6121
 #, no-c-format
 msgid "Indicates whether the file is an original or a copy"
 msgstr "Ukazuje, zda je soubor originálem nebo kopií."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5800 help_en.docbook:5801
+#: help_en.docbook:6126 help_en.docbook:6127
 #, fuzzy, no-c-format
 msgid ""
 "The artist(s) who performed the work. In classical music this would be the "
@@ -7704,14 +8161,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5808 help_en.docbook:5809
+#: help_en.docbook:6134 help_en.docbook:6135
 #, no-c-format
 msgid "Indicates whether the subject is private"
 msgstr "Ukazuje, zda je předloha soukromá."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5814 help_en.docbook:5815
+#: help_en.docbook:6140 help_en.docbook:6141
 #, fuzzy, no-c-format
 msgid ""
 "Specifies the name or the title the file was originally intended for. "
@@ -7723,7 +8180,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5822 help_en.docbook:5823
+#: help_en.docbook:6148 help_en.docbook:6149
 #, fuzzy, no-c-format
 msgid ""
 "Format used for storing the digitized audio samples. Example: '32-bit IEEE "
@@ -7735,14 +8192,14 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5829 help_en.docbook:5830
+#: help_en.docbook:6155 help_en.docbook:6156
 #, fuzzy, no-c-format
 msgid "Number of samples per second"
 msgstr "Počet vzorků za sekundu\n"
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5836 help_en.docbook:5837
+#: help_en.docbook:6162 help_en.docbook:6163
 #, fuzzy, no-c-format
 msgid ""
 "Identifies the name of the software package used to create the file. "
@@ -7754,7 +8211,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5844 help_en.docbook:5845
+#: help_en.docbook:6170 help_en.docbook:6171
 #, fuzzy, no-c-format
 msgid ""
 "Identifies the name of the person or organization who supplied the original "
@@ -7766,7 +8223,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5852 help_en.docbook:5853
+#: help_en.docbook:6178 help_en.docbook:6179
 #, fuzzy, no-c-format
 msgid ""
 "Identifies the original form of the material that was digitized. Examples: "
@@ -7778,7 +8235,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5860 help_en.docbook:5861
+#: help_en.docbook:6186 help_en.docbook:6187
 #, fuzzy, no-c-format
 msgid ""
 "Describes the subject of the file. Example: 'Bird voices at early morning'"
@@ -7788,7 +8245,7 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5867 help_en.docbook:5868
+#: help_en.docbook:6193 help_en.docbook:6194
 #, fuzzy, no-c-format
 msgid ""
 "Identifies the technican who digitized the subject file. Example: 'Torvalds, "
@@ -7799,27 +8256,27 @@ msgstr ""
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5874 help_en.docbook:5875
+#: help_en.docbook:6200 help_en.docbook:6201
 #, no-c-format
 msgid "Track of the CD if the source was a CDROM."
 msgstr "Stopa na CD v případě, že zdrojem byl malý disk (CD)."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5880 help_en.docbook:5881
+#: help_en.docbook:6206 help_en.docbook:6207
 #, no-c-format
 msgid "Number of tracks of the CD if the source was a CDROM."
 msgstr "Počet stop na CD v případě, že zdrojem byl CDROM."
 
 #. Tag: entry
 #. Tag: entry
-#: help_en.docbook:5886 help_en.docbook:5887
+#: help_en.docbook:6212 help_en.docbook:6213
 #, no-c-format
 msgid "Base quality of the compression in VBR mode"
 msgstr "Základní kvalita komprese v režimu proměnlivého datového toku"
 
 #. Tag: entry
-#: help_en.docbook:5893
+#: help_en.docbook:6219
 #, fuzzy, no-c-format
 msgid ""
 "May be used to differentiate multiple versions of the same track title in a "
@@ -7829,3 +8286,18 @@ msgstr ""
 "stejného názvu stopy v jednoduché sbírce.\n"
 "(např. informace o remixovaných verzích skladby)"
 
+#, fuzzy
+#~ msgid "<para>TBD</para>"
+#~ msgstr "<para>Formát se znaménkem</para>"
+
+#, fuzzy
+#~ msgid "fade in"
+#~ msgstr "Postupné zesílení signálu"
+
+#, fuzzy
+#~ msgid "fade in | fade out"
+#~ msgstr "Zeslabení signálu na konci"
+
+#, fuzzy
+#~ msgid "Parameters:"
+#~ msgstr "Parametry"

@@ -109,6 +109,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 
 	bin/filter-pot.pl				GPL2+
 	bin/get_lsm_entry.pl				GPL2+
+	bin/import-screenshots.sh			GPL2+
 	bin/make-specfile-changelog.pl			GPL2+
 	bin/menusconfig2pot.pl				GPL2+
 	bin/set_version.sh				GPL2+ / portions of Martin Wilz

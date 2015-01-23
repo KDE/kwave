@@ -27,6 +27,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QKeySequence>
+#include <QtGui/QMouseEvent>
 #include <QtGui/QDesktopWidget>
 #include <QtGui/QPixmap>
 #include <QtGui/QtEvents>
@@ -106,6 +107,27 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
 
     if (command == _("dump_windows")) {
 	dump_children(parentWidget(), _(""));
+    } else if (command == _("window:click")) {
+	if (params.count() != 4) return 0;
+	QString    class_name = params[1];
+	QWidget   *widget     = findWidget(class_name.toUtf8().constData());
+	unsigned int x        = params[2].toUInt();
+	unsigned int y        = params[3].toUInt();
+	if (!widget) return 0;
+
+	QMouseEvent *press_event =
+	    new QMouseEvent(QEvent::MouseButtonPress,
+		QPoint(x, y),
+		widget->mapToGlobal(QPoint(x,y)),
+		Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+	QCoreApplication::postEvent(widget, press_event);
+
+	QMouseEvent *release_event =
+	    new QMouseEvent(QEvent::MouseButtonRelease,
+		QPoint(x, y),
+		widget->mapToGlobal(QPoint(x,y)),
+		Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+	QCoreApplication::postEvent(widget, release_event);
     } else if (command == _("window:close")) {
 	if (params.count() != 2) return 0;
 	QString    class_name = params[1];

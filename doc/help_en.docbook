@@ -1260,7 +1260,7 @@
     <para>
 	The second way of encoding samples is with <emphasis>floating point</emphasis>
 	numbers. With floating point numbers, noise is spread nearly equal over
-	all ranges of amplitudes and has advantages especially on low ampltiudes.
+	all ranges of amplitudes and has advantages especially on low amplitudes.
 	However, this format is much slower when used for processing (computers are
 	much slower on calculating with floating point values in comparison to
 	fixed point numbers).

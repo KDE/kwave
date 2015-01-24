@@ -74,7 +74,7 @@ namespace Kwave
 
 	/**
 	 * Adds a file to the top of the list of recent files. If it was
-	 * already contained in the list the previous occourence is removed.
+	 * already contained in the list the previous occurrence is removed.
 	 * @param filename path to the file
 	 */
 	void addRecentFile(const QString &filename);

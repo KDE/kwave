@@ -402,7 +402,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     }
 
     OPTION(m_flags.m_protect);          // CRC protection
-    OPTION(m_flags.m_append);           // optional paramters at the end
+    OPTION(m_flags.m_append);           // optional parameters at the end
 
     m_params.append(_("-")); // infile  = stdin
     m_params.append(_("-")); // outfile = stdout

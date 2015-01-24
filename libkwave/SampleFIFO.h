@@ -75,7 +75,7 @@ namespace Kwave
 	virtual void setSize(unsigned int size);
 
 	/**
-	 * discards all superflous content until the size
+	 * discards all superfluous content until the size
 	 * condition is met.
 	 */
 	virtual void crop();

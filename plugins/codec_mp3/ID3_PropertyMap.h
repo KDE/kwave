@@ -42,7 +42,7 @@ namespace Kwave
 	    ENC_LENGTH,         /**< string with length in ms          */
 	    ENC_TERMS_OF_USE,   /**< terms of use                      */
 	    ENC_TEXT,           /**< text, appended by ';'             */
-	    ENC_TEXT_SLASH,     /**< text list, seperated by slash '/' */
+	    ENC_TEXT_SLASH,     /**< text list, separated by slash '/' */
 	    ENC_TEXT_LIST,      /**< list of zero terminated strings   */
 	    ENC_TEXT_URL,       /**< URL                               */
 	    ENC_TEXT_PARTINSET, /**< part in set (x/y)                 */

@@ -97,9 +97,6 @@
           <property name="text">
            <string>&amp;Select...</string>
           </property>
-          <property name="shortcut">
-           <string>Alt+S</string>
-          </property>
          </widget>
         </item>
        </layout>
@@ -465,9 +462,6 @@ playback. Depending on the compilation options you can select one of the followi
        </property>
        <property name="text">
         <string>&amp;Test...</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+T</string>
        </property>
       </widget>
      </item>

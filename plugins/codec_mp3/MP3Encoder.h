@@ -108,7 +108,7 @@ namespace Kwave
 	 * @note The size of this buffer should never be bigger than
 	 * PIPE_BUF (see POSIX.1-2001), otherwise there could be some
 	 * leftover when writing to the stdin queue of the process
-	 * which would be catched and queued up within Qt.
+	 * which would be caught and queued up within Qt.
 	 * After some time that leads to a critically increasing memory
 	 * consumption and a large delay when the progress bar has
 	 * reached 99%.

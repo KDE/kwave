@@ -85,7 +85,7 @@ namespace Kwave
 	sample_index_t right() const;
 
 	/**
-	 * Returns the lenght of the selection
+	 * Returns the length of the selection
 	 */
 	inline sample_index_t length() const {
 	    return right() - left() + 1;

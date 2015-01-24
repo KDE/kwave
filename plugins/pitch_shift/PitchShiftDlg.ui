@@ -65,9 +65,6 @@
        <property name="text">
         <string>&amp;Listen</string>
        </property>
-       <property name="shortcut">
-        <string>Alt+L</string>
-       </property>
        <property name="checkable">
         <bool>true</bool>
        </property>

@@ -1,5 +1,5 @@
 /***************************************************************************
-               cputest.h -  defines with CPU capabilites
+               cputest.h -  defines with CPU capabilities
                      -------------------
     begin                : Mon Dec 06 2004
     copyright            : (C) 2004 by Thomas Eschenbacher

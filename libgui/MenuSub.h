@@ -104,7 +104,7 @@ namespace Kwave
 	}
 
 	/**
-	 * Removes a child node of the curren node. If the child
+	 * Removes a child node of the current node. If the child
 	 * was not found or is already removed this does nothing.
 	 * @param child pointer to the child node
 	 */

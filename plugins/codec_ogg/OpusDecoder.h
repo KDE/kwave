@@ -91,7 +91,7 @@ namespace Kwave
 
 	/**
 	 * Parses an Ogg comment into a into Kwave FileInfo.
-	 * If more than one occurance is found, they are concatenated as a
+	 * If more than one occurrence is found, they are concatenated as a
 	 * semicolon separated list.
 	 * @param info the file info object to add the value
 	 * @param comment string with the full comment, assumed "tag=value"

@@ -160,9 +160,9 @@ int Kwave::OpusDecoder::parseOpusTags(QWidget *widget, Kwave::FileInfo &info)
 	const unsigned char *c   = m_op.packet;
 	unsigned long int length = m_op.bytes;
 
-	// check lenght of comments and magic value
+	// check length of comments and magic value
 	if (length < 16) {
-	    qWarning("OpusDecoder::parseHeader(): comment lenght < 16 (%lu)",
+	    qWarning("OpusDecoder::parseHeader(): comment length < 16 (%lu)",
 	              length);
 	    break;
 	}

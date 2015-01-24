@@ -240,9 +240,6 @@ For example: &quot;-3 dB&quot;, &quot;- 6 dB&quot;.</string>
        <property name="text">
         <string>&amp;Listen</string>
        </property>
-       <property name="shortcut">
-        <string>Alt+L</string>
-       </property>
        <property name="checkable">
         <bool>true</bool>
        </property>

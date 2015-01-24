@@ -1,5 +1,5 @@
 /*************************************************************************
-     RecordController.h  -  controller/state maching for the audio recorder
+     RecordController.h  -  controller/state matching for the audio recorder
                              -------------------
     begin                : Sat Oct 04 2003
     copyright            : (C) 2003 by Thomas Eschenbacher

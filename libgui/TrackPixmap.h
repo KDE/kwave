@@ -300,7 +300,7 @@ namespace Kwave
 	/**
 	 * Index of the first sample. Needed for converting pixel
 	 * positions into absolute sample numbers. This is always
-	 * in units of samples, independend of the current mode!
+	 * in units of samples, independent of the current mode!
 	 */
 	sample_index_t m_offset;
 

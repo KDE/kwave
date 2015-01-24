@@ -41,7 +41,6 @@
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Writer.h"
 
 #include "libkwave/modules/ChannelMixer.h"

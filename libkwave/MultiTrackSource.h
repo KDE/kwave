@@ -34,7 +34,7 @@ namespace Kwave
 
     /**
      * Template for easier handling of Kwave::SampleSource objects
-     * that consist of multiple independend tracks.
+     * that consist of multiple independent tracks.
      */
     template <class SOURCE, const bool INITIALIZE>
     class KDE_EXPORT MultiTrackSource: public Kwave::SampleSource,

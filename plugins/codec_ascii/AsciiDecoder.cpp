@@ -239,7 +239,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
 
     m_dest = &dst;
 
-    // for the moment: use a comma as seperator <= TODO
+    // for the moment: use a comma as separator <= TODO
     const char *seperators = ",";
 
     Kwave::FileInfo info(metaData());

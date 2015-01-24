@@ -66,7 +66,7 @@ namespace Kwave
     private:
 
 	/**
-	 * common slice paramters, which can be passed to all worker
+	 * common slice parameters, which can be passed to all worker
 	 * threads
 	 */
 	typedef struct {

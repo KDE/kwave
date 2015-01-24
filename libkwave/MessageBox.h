@@ -94,7 +94,7 @@ namespace Kwave
 	 * @param caption title of the window
 	 * @param button1 a KGuiItem for the first button (optional)
 	 * @param button2 a KGuiItem for the second button (optional)
-	 * @param dontAskAgainName tag name for "dont ask again"
+	 * @param dontAskAgainName tag name for "do not ask again"
 	 */
 	MessageBox(KMessageBox::DialogType mode, QWidget *parent,
 	    QString message, QString caption,
@@ -119,7 +119,7 @@ namespace Kwave
 	 * @param caption the window title (optional)
 	 * @param button1 a KGuiItem for the first button (optional)
 	 * @param button2 a KGuiItem for the second button (optional)
-	 * @param dontAskAgainName tag name for "dont ask again"
+	 * @param dontAskAgainName tag name for "do not ask again"
 	 * @return the result of the call to KMessageBox::xxx or -1
 	 */
 	static int exec(KMessageBox::DialogType mode, QWidget *parent,
@@ -187,7 +187,7 @@ namespace Kwave
 	/** second button (optional) */
 	const QString m_button2;
 
-	/** tag for "dont ask again" (optional) */
+	/** tag for "do not ask again" (optional) */
 	const QString m_dont_ask_again_name;
     };
 }

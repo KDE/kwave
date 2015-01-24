@@ -334,7 +334,7 @@ namespace Kwave
 	void disableUndo();
 
 	/**
-	 * Sets a complete set of file infos, including undo information
+	 * Sets a complete set of file info, including undo information
 	 * @param new_info a new FileInfo
 	 * @param with_undo if true, store undo information
 	 */

@@ -1077,9 +1077,6 @@ recording. Depending on the compilation options you can select one of the follow
                  <property name="text">
                   <string>Selec&amp;t...</string>
                  </property>
-                 <property name="shortcut">
-                  <string>Alt+T</string>
-                 </property>
                 </widget>
                </item>
               </layout>

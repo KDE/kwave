@@ -18,7 +18,7 @@
 #ifndef _SELECTION_TRACKER_H_
 #define _SELECTION_TRACKER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <kdemacros.h>
 

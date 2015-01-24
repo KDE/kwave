@@ -18,7 +18,7 @@
 #ifndef _PLAY_BACK_PHONON_H_
 #define _PLAY_BACK_PHONON_H_
 
-#include "config.h"
+#include <config.h>
 #ifdef HAVE_PHONON_SUPPORT
 
 #include <QtCore/QByteArray>

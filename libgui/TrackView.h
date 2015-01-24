@@ -18,7 +18,7 @@
 #ifndef _TRACK_VIEW_H_
 #define _TRACK_VIEW_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtGui/QImage>
 #include <QtCore/QObject>

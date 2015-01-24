@@ -18,7 +18,7 @@
 #ifndef _FILTER_H_
 #define _FILTER_H_
 
-#include "config.h"
+#include <config.h>
 #include <QtCore/QVector>
 
 class QString;

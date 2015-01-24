@@ -18,7 +18,7 @@
 #ifndef _OPUS_COMMON_H_
 #define _OPUS_COMMON_H_
 
-#include "config.h"
+#include <config.h>
 #ifdef HAVE_OGG_OPUS
 
 #include <opus/opus.h>

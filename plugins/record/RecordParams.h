@@ -18,7 +18,7 @@
 #ifndef _RECORD_PARAMS_H_
 #define _RECORD_PARAMS_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QDateTime>
 #include <QtCore/QString>

@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 #ifdef HAVE_PHONON_SUPPORT
 
 #include <errno.h>

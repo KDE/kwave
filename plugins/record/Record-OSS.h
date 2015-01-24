@@ -18,7 +18,7 @@
 #ifndef _RECORD_OSS_H_
 #define _RECORD_OSS_H_
 
-#include "config.h"
+#include <config.h>
 #ifdef HAVE_OSS_SUPPORT
 
 #include <QtCore/QByteArray>

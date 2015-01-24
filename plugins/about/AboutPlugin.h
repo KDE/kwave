@@ -18,7 +18,7 @@
 #ifndef _ABOUT_PLUGIN_H_
 #define _ABOUT_PLUGIN_H_
 
-#include "config.h"
+#include <config.h>
 
 #include "libkwave/Plugin.h"
 

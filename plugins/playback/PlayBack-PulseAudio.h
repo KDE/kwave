@@ -18,7 +18,7 @@
 #ifndef _PLAY_BACK_PULSE_AUDIO_H_
 #define _PLAY_BACK_PULSE_AUDIO_H_
 
-#include "config.h"
+#include <config.h>
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 
 #include <poll.h>

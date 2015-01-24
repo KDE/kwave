@@ -18,7 +18,7 @@
 #ifndef _FILE_INFO_H_
 #define _FILE_INFO_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QMap>
 #include <QtCore/QString>

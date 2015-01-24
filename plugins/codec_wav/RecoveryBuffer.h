@@ -18,7 +18,7 @@
 #ifndef _RECOVERY_BUFFER_H_
 #define _RECOVERY_BUFFER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QByteArray>
 

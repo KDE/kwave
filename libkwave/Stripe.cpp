@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 
 #include <new>
 #include <string.h> // for some speed-ups like memmove, memcpy ...

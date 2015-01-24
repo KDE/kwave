@@ -19,7 +19,7 @@
 #ifndef _PARSER_H_
 #define _PARSER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>

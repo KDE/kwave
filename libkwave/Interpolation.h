@@ -17,7 +17,7 @@
 #ifndef _INTERPOLATION_H_
 #define _INTERPOLATION_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>

@@ -15,7 +15,7 @@ VorbisCommentMap.cpp  -  map for translating properties to vorbis comments
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 
 #include "libkwave/String.h"
 #include "libkwave/VorbisCommentMap.h"

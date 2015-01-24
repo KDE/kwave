@@ -17,7 +17,7 @@
 #ifndef _MEMCPY_H_
 #define _MEMCPY_H_
 
-#include "config.h"
+#include <config.h>
 
 #ifdef WITH_OPTIMIZED_MEMCPY
 

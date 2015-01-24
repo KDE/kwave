@@ -18,7 +18,7 @@
 #ifndef _MENU_NODE_H_
 #define _MENU_NODE_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QHash>

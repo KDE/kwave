@@ -18,7 +18,7 @@
 #ifndef _ASCII_DECODER_H_
 #define _ASCII_DECODER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QQueue>
 #include <QtCore/QString>

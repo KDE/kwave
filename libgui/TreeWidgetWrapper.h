@@ -18,7 +18,7 @@
 #ifndef _TREE_WIDGET_WRAPPER_H_
 #define _TREE_WIDGET_WRAPPER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <kdemacros.h>
 

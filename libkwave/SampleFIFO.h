@@ -18,7 +18,7 @@
 #ifndef _SAMPLE_FIFO_H_
 #define _SAMPLE_FIFO_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QMutex>
 #include <QtCore/QQueue>

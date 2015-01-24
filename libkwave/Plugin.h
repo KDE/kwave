@@ -18,7 +18,7 @@
 #ifndef _PLUGIN_H_
 #define _PLUGIN_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QList>
 #include <QtCore/QMutex>

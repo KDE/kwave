@@ -16,7 +16,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QString>
 #include <QtGui/QPainter>

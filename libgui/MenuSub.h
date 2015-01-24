@@ -18,7 +18,7 @@
 #ifndef _MENU_SUB_H_
 #define _MENU_SUB_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtGui/QAction>
 #include <QtGui/QIcon>

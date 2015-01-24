@@ -18,7 +18,7 @@
 #ifndef _ID3_PROPERTY_MAP_H_
 #define _ID3_PROPERTY_MAP_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QList>
 #include <QtCore/QPair>

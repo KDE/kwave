@@ -18,7 +18,7 @@
 #ifndef _FILE_DRAG_H_
 #define _FILE_DRAG_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QMimeData>
 #include <QtCore/QString>

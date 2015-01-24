@@ -18,7 +18,7 @@
 #ifndef KWAVE_RECORD_PULSEAUDIO_H
 #define KWAVE_RECORD_PULSEAUDIO_H
 
-#include "config.h"
+#include <config.h>
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 
 #include <poll.h>

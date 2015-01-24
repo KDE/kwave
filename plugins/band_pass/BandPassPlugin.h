@@ -18,7 +18,7 @@
 #ifndef _BAND_PASS_PLUGIN_H_
 #define _BAND_PASS_PLUGIN_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QString>

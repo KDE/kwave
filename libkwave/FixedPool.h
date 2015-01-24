@@ -18,7 +18,7 @@
 #ifndef _FIXED_POOL_H_
 #define _FIXED_POOL_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QMutex>
 #include <QtCore/QMutexLocker>

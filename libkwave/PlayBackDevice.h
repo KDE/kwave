@@ -18,7 +18,7 @@
 #ifndef _PLAY_BACK_DEVICE_H_
 #define _PLAY_BACK_DEVICE_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QList>
 #include <QtCore/QString>

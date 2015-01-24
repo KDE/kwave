@@ -21,7 +21,7 @@
 #ifndef _NORMALIZER_H_
 #define _NORMALIZER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QVariant>

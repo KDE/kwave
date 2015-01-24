@@ -16,7 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SampleReader.h"

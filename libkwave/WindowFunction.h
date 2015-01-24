@@ -18,7 +18,7 @@
 #ifndef _WINDOW_FUNCTION_H_
 #define _WINDOW_FUNCTION_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QVector>
 

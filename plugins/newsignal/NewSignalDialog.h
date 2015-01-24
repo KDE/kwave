@@ -18,7 +18,7 @@
 #ifndef _NEW_SIGNAL_DIALOG_H_
 #define _NEW_SIGNAL_DIALOG_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtGui/QDialog>
 #include <QtCore/QTimer>

@@ -18,7 +18,7 @@
 #ifndef _FILE_PROGRESS_H_
 #define _FILE_PROGRESS_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtGui/QDialog>
 #include <QtCore/QUrl>

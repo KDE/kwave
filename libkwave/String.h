@@ -18,7 +18,7 @@
 #ifndef _KWAVE_STRING_H_
 #define _KWAVE_STRING_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QLatin1String>
 #include <QtCore/QString>

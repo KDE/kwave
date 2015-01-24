@@ -18,7 +18,7 @@
 #ifndef _AUDIOFILE_CODEC_PLUGIN_H_
 #define _AUDIOFILE_CODEC_PLUGIN_H_
 
-#include "config.h"
+#include <config.h>
 #include "libkwave/CodecPlugin.h"
 
 namespace Kwave

@@ -18,7 +18,7 @@
 #ifndef _SIGNAL_MANAGER_H_
 #define _SIGNAL_MANAGER_H_
 
-#include "config.h"
+#include <config.h>
 #include <limits.h>
 #include <stdio.h>
 

@@ -18,7 +18,7 @@
 #ifndef _VORBIS_ENCODER_H_
 #define _VORBIS_ENCODER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <vorbis/vorbisenc.h>
 

@@ -18,7 +18,7 @@
 #ifndef _NOTCH_FILTER_PLUGIN_H_
 #define _NOTCH_FILTER_PLUGIN_H_
 
-#include "config.h"
+#include <config.h>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>

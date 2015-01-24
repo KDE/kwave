@@ -19,7 +19,7 @@
 #ifndef _UNDO_TRANSACTION_GUARD_H_
 #define _UNDO_TRANSACTION_GUARD_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <kdemacros.h>
 

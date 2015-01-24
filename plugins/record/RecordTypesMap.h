@@ -17,7 +17,7 @@
 #ifndef _RECORD_TYPES_MAP_H_
 #define _RECORD_TYPES_MAP_H_
 
-#include "config.h"
+#include <config.h>
 #include "libkwave/TypesMap.h"
 #include "RecordParams.h"
 

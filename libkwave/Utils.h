@@ -18,7 +18,7 @@
 #ifndef _KWAVE_UTILS_H_
 #define _KWAVE_UTILS_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <limits>
 

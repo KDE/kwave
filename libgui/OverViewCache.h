@@ -18,7 +18,7 @@
 #ifndef _OVER_VIEW_CACHE_H_
 #define _OVER_VIEW_CACHE_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtGui/QImage>
 #include <QtCore/QHash>

@@ -3587,41 +3587,52 @@
 		    separator. Group names have to start
 		    with a <quote><literal>@</literal></quote>.
 		    The following groups predefined:
-		    <informaltable frame='none'><tgroup cols='2'><tbody>
-		    <row valign="top">
-			<entry><command>&no-i18n-tag;@CLIPBOARD</command>:</entry>
-			<entry>
+		    <variablelist>
+		    <varlistentry>
+			<term><command>&no-i18n-tag;@CLIPBOARD</command>:</term>
+			<listitem>
+			  <para>
 			    Only enabled when the clipboard is not empty.
-			</entry>
-		    </row>
-		    <row valign="top">
-			<entry><command>&no-i18n-tag;@LABELS</command>:</entry>
-			<entry>Only enabled when the current signal contains
+			  </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><command>&no-i18n-tag;@LABELS</command>:</term>
+			<listitem>
+			  <para>
+			    Only enabled when the current signal contains
 			    at least one label.
-			</entry>
-		    </row>
-		    <row valign="top">
-			<entry><command>&no-i18n-tag;@NOT_CLOSED</command>:</entry>
-			<entry>
+			  </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><command>&no-i18n-tag;@NOT_CLOSED</command>:</term>
+			<listitem>
+			  <para>
 			    Enabled when the current signal is not closed
 			    (the signal might be empty or zero length).
-			</entry>
-		    </row>
-		    <row valign="top">
-			<entry><command>&no-i18n-tag;@SELECTION</command>:</entry>
-			<entry>
+			  </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><command>&no-i18n-tag;@SELECTION</command>:</term>
+			<listitem>
+			  <para>
 			    Enabled when the selection is not empty (more than
 			    one sample is selected).
-			</entry>
-		    </row>
-		    <row valign="top">
-			<entry><command>&no-i18n-tag;@SIGNAL</command>:</entry>
-			<entry>
+			  </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><command>&no-i18n-tag;@SIGNAL</command>:</term>
+			<listitem>
+			  <para>
 			    Enabled when there is some signal loaded and it
 			    is not empty or zero length.
-			</entry>
-		    </row>
-		    </tbody></tgroup></informaltable>
+			  </para>
+			</listitem>
+		    </varlistentry>
+		    </variablelist>
 		</para></entry>
 	    </row>
 	    <row valign="top"><entry><command>&no-i18n-tag;#hidden</command>:</entry>

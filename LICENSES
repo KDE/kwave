@@ -106,6 +106,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	TODO						(should be GPL2+)
 	VERSION						(should be GPL2+)
 	CMakeLists.txt					GPL2+
+	.krazy						GPL2+
 
 	bin/filter-pot.pl				GPL2+
 	bin/get_lsm_entry.pl				GPL2+

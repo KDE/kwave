@@ -19,7 +19,7 @@
 #ifndef _ZOOM_TOOL_BAR_H_
 #define _ZOOM_TOOL_BAR_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QTimer>

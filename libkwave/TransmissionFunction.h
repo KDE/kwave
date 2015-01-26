@@ -18,7 +18,7 @@
 #ifndef _TRANSMISSION_FUNCTION_H_
 #define _TRANSMISSION_FUNCTION_H_
 
-#include "config.h"
+#include <config.h>
 
 namespace Kwave
 {

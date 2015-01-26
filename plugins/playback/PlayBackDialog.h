@@ -18,7 +18,7 @@
 #ifndef _PLAY_BACK_DIALOG_H_
 #define _PLAY_BACK_DIALOG_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QString>
 #include <QtCore/QMap>

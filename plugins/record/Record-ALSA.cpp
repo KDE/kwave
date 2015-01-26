@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 #ifdef HAVE_ALSA_SUPPORT
 
 #include <errno.h>
@@ -40,7 +40,7 @@ QMap<QString, QString> Kwave::RecordALSA::m_device_list;
 
 //***************************************************************************
 
-/* define some endian dependend symbols that are missing in ALSA */
+/* define some endian dependent symbols that are missing in ALSA */
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
 // big endian
 #define _SND_PCM_FORMAT_S18_3 SND_PCM_FORMAT_S18_3BE

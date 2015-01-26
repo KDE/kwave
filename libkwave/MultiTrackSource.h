@@ -18,7 +18,7 @@
 #ifndef _MULTI_TRACK_SOURCE_H_
 #define _MULTI_TRACK_SOURCE_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <new>
 
@@ -34,7 +34,7 @@ namespace Kwave
 
     /**
      * Template for easier handling of Kwave::SampleSource objects
-     * that consist of multiple independend tracks.
+     * that consist of multiple independent tracks.
      */
     template <class SOURCE, const bool INITIALIZE>
     class KDE_EXPORT MultiTrackSource: public Kwave::SampleSource,

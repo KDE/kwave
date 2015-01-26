@@ -18,7 +18,7 @@
 #ifndef _COMPRESSION_H_
 #define _COMPRESSION_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QList>
 #include <QtCore/QMap>

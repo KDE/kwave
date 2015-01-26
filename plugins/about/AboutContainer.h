@@ -24,7 +24,7 @@
 #ifndef _KWAVE_ABOUT_CONTAINER_H_
 #define _KWAVE_ABOUT_CONTAINER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtGui/QFrame>
 #include <QtCore/QSize>

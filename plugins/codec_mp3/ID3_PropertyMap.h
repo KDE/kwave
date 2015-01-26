@@ -18,7 +18,7 @@
 #ifndef _ID3_PROPERTY_MAP_H_
 #define _ID3_PROPERTY_MAP_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QList>
 #include <QtCore/QPair>
@@ -42,7 +42,7 @@ namespace Kwave
 	    ENC_LENGTH,         /**< string with length in ms          */
 	    ENC_TERMS_OF_USE,   /**< terms of use                      */
 	    ENC_TEXT,           /**< text, appended by ';'             */
-	    ENC_TEXT_SLASH,     /**< text list, seperated by slash '/' */
+	    ENC_TEXT_SLASH,     /**< text list, separated by slash '/' */
 	    ENC_TEXT_LIST,      /**< list of zero terminated strings   */
 	    ENC_TEXT_URL,       /**< URL                               */
 	    ENC_TEXT_PARTINSET, /**< part in set (x/y)                 */

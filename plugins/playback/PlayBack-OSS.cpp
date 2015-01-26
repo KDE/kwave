@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 #ifdef HAVE_OSS_SUPPORT
 
 #include <sys/types.h>

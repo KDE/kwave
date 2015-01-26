@@ -17,7 +17,7 @@
 #ifndef _META_DATA_H_
 #define _META_DATA_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QList>
 #include <QtCore/QMap>
@@ -122,7 +122,7 @@ namespace Kwave
 	Scope scope() const;
 
 	/**
-	 * Sets the the scope of the meta data
+	 * Sets the scope of the meta data
 	 * @param scope the new scope
 	 */
 	void setScope(Scope scope);

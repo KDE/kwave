@@ -19,7 +19,7 @@
 #ifndef _TOP_WIDGET_H_
 #define _TOP_WIDGET_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QMap>
 #include <QtCore/QPointer>

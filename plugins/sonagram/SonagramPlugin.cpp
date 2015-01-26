@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 
 #include <math.h>
 #include <limits.h>
@@ -432,7 +432,7 @@ void Kwave::SonagramPlugin::calculateSlice(Kwave::SonagramPlugin::Slice *slice)
 	slice->m_result[j] = static_cast<unsigned char>(qMin(a, 254.0));
     }
 
-    // free the the allocated FFT resources
+    // free the allocated FFT resources
     {
 	Kwave::GlobalLock _lock; // libfftw is not threadsafe!
 	fftw_destroy_plan(p);

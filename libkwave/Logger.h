@@ -18,7 +18,7 @@
 #ifndef _KWAVE_LOGGER_H_
 #define _KWAVE_LOGGER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <kdemacros.h>
 

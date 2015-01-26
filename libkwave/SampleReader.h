@@ -19,7 +19,7 @@
 #ifndef _SAMPLE_READER_H_
 #define _SAMPLE_READER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QList>
 #include <QtCore/QObject>
@@ -88,7 +88,7 @@ namespace Kwave
 	                  unsigned int length);
 
 	/**
-	 * Returns the minumum and maximum sample value within a range
+	 * Returns the minimum and maximum sample value within a range
 	 * of samples.
 	 * @param first index of the first sample
 	 * @param last index of the last sample

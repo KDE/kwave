@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 
 #include "libkwave/Track.h"
 #include "libkwave/undo/UndoAction.h"

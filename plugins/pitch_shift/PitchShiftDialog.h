@@ -18,7 +18,7 @@
 #ifndef _PITCH_SHIFT_DIALOG_H_
 #define _PITCH_SHIFT_DIALOG_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtGui/QDialog>
 #include <QtCore/QObject>

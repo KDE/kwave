@@ -18,7 +18,7 @@ VorbisCommentMap.h  -  map for translating properties to vorbis comments
 #ifndef _VORBIS_COMMENT_MAP_H_
 #define _VORBIS_COMMENT_MAP_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QMap>
 #include <QtCore/QString>

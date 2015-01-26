@@ -16,7 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 #include <klocale.h>
 
 #include "libkwave/SignalManager.h"

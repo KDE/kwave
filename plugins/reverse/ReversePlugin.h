@@ -18,7 +18,7 @@
 #ifndef _REVERSE_PLUGIN_H_
 #define _REVERSE_PLUGIN_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -66,7 +66,7 @@ namespace Kwave
     private:
 
 	/**
-	 * common slice paramters, which can be passed to all worker
+	 * common slice parameters, which can be passed to all worker
 	 * threads
 	 */
 	typedef struct {

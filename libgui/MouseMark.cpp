@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 #include <QtCore/QtGlobal>
 #include "libgui/MouseMark.h"
 

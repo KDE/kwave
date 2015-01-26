@@ -18,7 +18,7 @@
 #ifndef VORBIS_DECODER_H
 #define VORBIS_DECODER_H
 
-#include "config.h"
+#include <config.h>
 #ifdef HAVE_OGG_VORBIS
 
 #include <vorbis/codec.h>
@@ -82,7 +82,7 @@ namespace Kwave
 
 	/**
 	 * Searches for a vorbis comment and renders it into Kwave's FileInfo.
-	 * If more than one occurance is found, they are concatenated as a
+	 * If more than one occurrence is found, they are concatenated as a
 	 * semicolon separated list.
 	 * @param info the file info object to add the tag value
 	 * @param tag name of the field to search for

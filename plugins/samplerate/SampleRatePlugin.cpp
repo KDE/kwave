@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 #include <errno.h>
 
 #include <klocale.h> // for the i18n macro

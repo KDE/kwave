@@ -18,7 +18,7 @@
 #ifndef _UNDO_TRANSACTION_H_
 #define _UNDO_TRANSACTION_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QList>
 #include <QtCore/QString>
@@ -64,7 +64,7 @@ namespace Kwave {
 	QString description();
 
 	/**
-	 * Loops over all undo actions to determine wheter there is at least
+	 * Loops over all undo actions to determine whether there is at least
 	 * one undo action that contains a modification of the signal.
 	 * @see UndoAction::containsModification()
 	 * @return true if a modification is contained, false if not.

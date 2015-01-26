@@ -14,7 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include "config.h"
+#include <config.h>
 
 #include <ctype.h>
 #include <string.h>
@@ -239,7 +239,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
 
     m_dest = &dst;
 
-    // for the moment: use a comma as seperator <= TODO
+    // for the moment: use a comma as separator <= TODO
     const char *seperators = ",";
 
     Kwave::FileInfo info(metaData());

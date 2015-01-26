@@ -16,7 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 
 #include <errno.h>
 #include <math.h>
@@ -443,7 +443,7 @@ bool Kwave::TopWidget::init()
     QRect g    = this->geometry();
     if (!desk.contains(g)) {
 	// KDE's stupid geometry management has failed ?
-	// this happens when one passes "-geometry <WIDTH>x<HEIGTH>" without
+	// this happens when one passes "-geometry <WIDTH>x<HEIGHT>" without
 	// specifying a target position!?
 	// passing "-geometry <WIDTH>x<HEIGHT>-<LEFT>-<TOP>" works...
 	g = desk.intersect(g);

@@ -18,7 +18,7 @@
 #ifndef _COLORS_H_
 #define _COLORS_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtGui/QColor>
 

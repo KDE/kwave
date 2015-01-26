@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -121,7 +121,7 @@ Kwave::PlayBackDialog::PlayBackDialog(
     setBitsPerSample(params.bits_per_sample);
     setChannels(params.channels);
 
-    // buffer size is independend
+    // buffer size is independent
     setBufferSize(params.bufbase);
 
     // set the focus onto the "OK" button

@@ -18,7 +18,7 @@
 #ifndef _OPUS_HEADER_H_
 #define _OPUS_HEADER_H_
 
-#include "config.h"
+#include <config.h>
 #include <QtCore/qglobal.h>
 #include <kdemacros.h>
 

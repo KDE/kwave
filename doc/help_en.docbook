@@ -639,7 +639,7 @@
     <title>With working rpmbuild -ta</title>
 
     <para>
-	If you are runnig a system with RPM support, the preferred way to
+	If you are running a system with RPM support, the preferred way to
 	install &kwave; on your system will be the creation of a nice RPM
 	package. First you should get the current source of &kwave;, either
 	as a tar.bz2 archive from the &kwave; download page or
@@ -1171,7 +1171,7 @@
     <para>
 	The sample rate limts the
 	highest frequency a digitized signal can represent. Due to
-	Shannon's theoreme the highest usable frequency is half of the sample
+	Shannon's theorem the highest usable frequency is half of the sample
 	rate, so with 44.1 kHz sample rate you cannot sample signals with
 	more than 22 kHz. To avoid a violation of that half-sample rate
 	rule, your soundcard already has built-in filters that filter away
@@ -1266,7 +1266,7 @@
     <para>
 	The second way of encoding samples is with <emphasis>floating point</emphasis>
 	numbers. With floating point numbers, noise is spread nearly equal over
-	all ranges of amplitudes and has advantages especially on low ampliudes.
+	all ranges of amplitudes and has advantages especially on low amplitudes.
 	However, this format is much slower when used for processing (computers are
 	much slower on calculating with floating point values in comparison to
 	fixed point numbers).
@@ -5118,7 +5118,7 @@
 	If you are developing or testing  &kwave;, then you do not necessarily
 	need to uninstall/install &kwave; after every build. Instead you can
 	use the application from where it is built by using a wrapper script.
-	This wrapper script can be built with the follwing command:
+	This wrapper script can be built with the following command:
 <screen width="50" format="linespecific">
 &no-i18n-tag;<prompt>% </prompt><command>make wrapper</command>
 </screen>

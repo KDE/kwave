@@ -18,7 +18,7 @@
 #ifndef _ID3_QIODEVICE_READER_H_
 #define _ID3_QIODEVICE_READER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <id3/globals.h>
 #include <id3/reader.h>

@@ -18,7 +18,7 @@
 #ifndef _WORKER_THREAD_H_
 #define _WORKER_THREAD_H_
 
-#include "config.h"
+#include <config.h>
 #include <pthread.h>
 
 #include <QtCore/QMutex>

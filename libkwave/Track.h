@@ -18,7 +18,7 @@
 #ifndef _TRACK_H_
 #define _TRACK_H_
 
-#include "config.h"
+#include <config.h>
 #include <limits.h>  // for UINT_MAX
 
 #include <QtCore/QList>
@@ -85,7 +85,7 @@ namespace Kwave
 	                          sample_index_t right = 0);
 
 	/**
-	 * Opens a stream for reading samples. If the the last position
+	 * Opens a stream for reading samples. If the last position
 	 * is omitted, the value UINT_MAX will be used.
 	 * @param mode read mode, see Kwave::ReaderMode
 	 * @param left first offset to be read (default = 0)

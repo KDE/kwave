@@ -18,7 +18,7 @@
 #ifndef _MAIN_WIDGET_H_
 #define _MAIN_WIDGET_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QString>
 #include <QtCore/QSize>

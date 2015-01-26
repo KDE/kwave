@@ -18,7 +18,7 @@
 #ifndef _MOUSE_MARK_H_
 #define _MOUSE_MARK_H_
 
-#include "config.h"
+#include <config.h>
 
 #include "libkwave/Sample.h"
 
@@ -85,7 +85,7 @@ namespace Kwave
 	sample_index_t right() const;
 
 	/**
-	 * Returns the lenght of the selection
+	 * Returns the length of the selection
 	 */
 	inline sample_index_t length() const {
 	    return right() - left() + 1;

@@ -18,7 +18,7 @@
 #ifndef _UNDO_MODIFY_ACTION_H_
 #define _UNDO_MODIFY_ACTION_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QString>
 

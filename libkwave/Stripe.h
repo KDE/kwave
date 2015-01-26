@@ -18,7 +18,7 @@
 #ifndef _STRIPE_H_
 #define _STRIPE_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QMutex>
 #include <QtCore/QSharedData>
@@ -163,7 +163,7 @@ namespace Kwave
 	                  unsigned int offset, unsigned int length);
 
 	/**
-	 * Returns the minumum and maximum sample value within a range
+	 * Returns the minimum and maximum sample value within a range
 	 * of samples.
 	 * @param first index of the first sample
 	 * @param last index of the last sample

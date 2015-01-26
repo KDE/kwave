@@ -18,7 +18,7 @@
 #ifndef _RECOVERY_MAPPING_H_
 #define _RECOVERY_MAPPING_H_
 
-#include "config.h"
+#include <config.h>
 
 #include "RecoverySource.h"
 
@@ -34,7 +34,7 @@ namespace Kwave
 	 * @param offset position in the repaired file
 	 * @param length number of recovered bytes
 	 * @param dev damaged source/file
-	 * @param dev_offset offset withing dev
+	 * @param dev_offset offset within dev
 	 */
 	RecoveryMapping(quint64 offset, quint64 length,
 	                QIODevice &dev, quint64 dev_offset);

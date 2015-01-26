@@ -18,7 +18,7 @@
 #ifndef _BITRATE_MODE_H_
 #define _BITRATE_MODE_H_
 
-#include "config.h"
+#include <config.h>
 
 namespace Kwave
 {

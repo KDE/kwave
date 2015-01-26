@@ -18,7 +18,7 @@
 #ifndef _TRACK_PIXMAP_H_
 #define _TRACK_PIXMAP_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <math.h>
 
@@ -300,7 +300,7 @@ namespace Kwave
 	/**
 	 * Index of the first sample. Needed for converting pixel
 	 * positions into absolute sample numbers. This is always
-	 * in units of samples, independend of the current mode!
+	 * in units of samples, independent of the current mode!
 	 */
 	sample_index_t m_offset;
 

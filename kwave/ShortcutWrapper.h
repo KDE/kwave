@@ -18,7 +18,7 @@
 #ifndef _SHORTCUT_WRAPPER_H_
 #define _SHORTCUT_WRAPPER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QObject>
 #include <QtGui/QShortcut>

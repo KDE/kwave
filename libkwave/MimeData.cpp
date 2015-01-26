@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 
 #include <new>
 #include <limits>
@@ -41,7 +41,6 @@
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Writer.h"
 
 #include "libkwave/modules/ChannelMixer.h"

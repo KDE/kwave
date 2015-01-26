@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 
 #include <math.h>
 #include <stdlib.h>
@@ -262,7 +262,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		    ID3_FreeString(lang);
 		}
 
-		// append to already existing tag, seperated by a slash
+		// append to already existing tag, separated by a slash
 		if (info.contains(property))
 		    s = info.get(property).toString() + _(" / ") + s;
 		info.set(property, QVariant(s));
@@ -336,7 +336,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    }
 	    case ID3_PropertyMap::ENC_TEXT_SLASH:
 	    {
-		// append to already existing tag, seperated by a slash
+		// append to already existing tag, separated by a slash
 		QString s = parseId3Frame2String(frame);
 		if (info.contains(property))
 		    s = info.get(property).toString() + _(" / ") + s;

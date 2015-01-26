@@ -1,5 +1,5 @@
 /*************************************************************************
-     RecordController.h  -  controller/state maching for the audio recorder
+     RecordController.h  -  controller/state matching for the audio recorder
                              -------------------
     begin                : Sat Oct 04 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
@@ -18,7 +18,7 @@
 #ifndef _RECORD_CONTROLLER_H_
 #define _RECORD_CONTROLLER_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QObject>
 

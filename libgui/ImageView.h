@@ -18,7 +18,7 @@
 #ifndef _IMAGEVIEW_H_
 #define _IMAGEVIEW_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <kdemacros.h>
 

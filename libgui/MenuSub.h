@@ -18,7 +18,7 @@
 #ifndef _MENU_SUB_H_
 #define _MENU_SUB_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtGui/QAction>
 #include <QtGui/QIcon>
@@ -104,7 +104,7 @@ namespace Kwave
 	}
 
 	/**
-	 * Removes a child node of the curren node. If the child
+	 * Removes a child node of the current node. If the child
 	 * was not found or is already removed this does nothing.
 	 * @param child pointer to the child node
 	 */

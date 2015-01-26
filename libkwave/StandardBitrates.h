@@ -18,7 +18,7 @@
 #ifndef _STANDARD_BITRATES_H_
 #define _STANDARD_BITRATES_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <kdemacros.h>
 

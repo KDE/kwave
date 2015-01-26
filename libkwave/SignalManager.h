@@ -18,7 +18,7 @@
 #ifndef _SIGNAL_MANAGER_H_
 #define _SIGNAL_MANAGER_H_
 
-#include "config.h"
+#include <config.h>
 #include <limits.h>
 #include <stdio.h>
 
@@ -264,7 +264,7 @@ namespace Kwave
 	}
 
 	/**
-	 * Opens a stream for reading samples. If the the last position
+	 * Opens a stream for reading samples. If the last position
 	 * is omitted, the value UINT_MAX will be used.
 	 * @param mode a reader mode, see SampleReader::Mode
 	 * @param track index of the track. If the track does not exist, this
@@ -334,7 +334,7 @@ namespace Kwave
 	void disableUndo();
 
 	/**
-	 * Sets a complete set of file infos, including undo information
+	 * Sets a complete set of file info, including undo information
 	 * @param new_info a new FileInfo
 	 * @param with_undo if true, store undo information
 	 */

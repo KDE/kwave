@@ -18,7 +18,7 @@
 #ifndef _MEMORY_MANAGER_H_
 #define _MEMORY_MANAGER_H_
 
-#include "config.h"
+#include <config.h>
 #include <stddef.h>  // for size_t
 
 #include <QtCore/QDir>

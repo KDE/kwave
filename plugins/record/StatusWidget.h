@@ -18,7 +18,7 @@
 #ifndef _STATUS_WIDGET_H_
 #define _STATUS_WIDGET_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtGui/QWidget>
 #include <QtGui/QPixmap>

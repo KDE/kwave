@@ -18,7 +18,7 @@
 #ifndef _KEYWORD_WIDGET_H_
 #define _KEYWORD_WIDGET_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QStringList>

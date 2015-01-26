@@ -19,7 +19,7 @@
 #ifndef _PLAYER_TOOL_BAR_H_
 #define _PLAYER_TOOL_BAR_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QPointer>

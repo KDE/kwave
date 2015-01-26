@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 #include <stdio.h>
 #include <math.h>
 #include <limits.h>
@@ -39,7 +39,6 @@
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kfiledialog.h>
-#include <kstandarddirs.h>
 
 #include "libkwave/Interpolation.h"
 #include "libkwave/Curve.h"

@@ -18,7 +18,7 @@
 #ifndef _SAMPLE_FIFO_H_
 #define _SAMPLE_FIFO_H_
 
-#include "config.h"
+#include <config.h>
 
 #include <QtCore/QMutex>
 #include <QtCore/QQueue>
@@ -75,7 +75,7 @@ namespace Kwave
 	virtual void setSize(unsigned int size);
 
 	/**
-	 * discards all superflous content until the size
+	 * discards all superfluous content until the size
 	 * condition is met.
 	 */
 	virtual void crop();

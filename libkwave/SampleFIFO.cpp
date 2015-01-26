@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
+#include <config.h>
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFIFO.h"
 #include "libkwave/memcpy.h"

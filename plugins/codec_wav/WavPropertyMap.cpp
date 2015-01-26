@@ -42,7 +42,7 @@ Kwave::WavPropertyMap::WavPropertyMap()
     insert(Kwave::INF_SOFTWARE      ,"ISFT"); // software  (EXIF 2.3)
     insert(Kwave::INF_SOURCE        ,"ISRC"); // source  (EXIF 2.3)
     insert(Kwave::INF_SOURCE_FORM   ,"ISRF"); // source form  (EXIF 2.3)
-    insert(Kwave::INF_TECHNICAN     ,"ITCH"); // technican  (EXIF 2.3)
+    insert(Kwave::INF_TECHNICAN     ,"ITCH"); // technician  (EXIF 2.3)
     insert(Kwave::INF_SUBJECT       ,"ISBJ"); // subject  (EXIF 2.3)
 
     // tags from SoundForge Pro

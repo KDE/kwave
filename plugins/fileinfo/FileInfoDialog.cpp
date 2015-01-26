@@ -492,7 +492,7 @@ void Kwave::FileInfoDialog::setupSourceTab()
 	QVariant(m_info.get(Kwave::INF_TRACKS)).toInt() : 0;
     sbTracks->setValue(tracks);
 
-    /* software, engineer, technican */
+    /* software, engineer, technician */
     initInfoText(lblSoftware,     edSoftware,     Kwave::INF_SOFTWARE);
     initInfoText(lblEngineer,     edEngineer,     Kwave::INF_ENGINEER);
     initInfoText(lblTechnican,    edTechnican,    Kwave::INF_TECHNICAN);
@@ -741,7 +741,7 @@ void Kwave::FileInfoDialog::autoGenerateKeywords()
 
     // name, subject, version, genre, author, organization,
     // copyright, license, source, source form, album,
-    // product, archival, contact, software, technican, engineer,
+    // product, archival, contact, software, technician, engineer,
     // commissioned, ISRC
     const QString space = _(" ");
     list += edName->text().split(space);
@@ -969,7 +969,7 @@ void Kwave::FileInfoDialog::accept()
     acceptEdit(Kwave::INF_ARCHIVAL,    edArchival->text());
     acceptEdit(Kwave::INF_CONTACT,     edContact->text());
 
-    /* software, engineer, technican, commissioned, ISRC, keywords */
+    /* software, engineer, technician, commissioned, ISRC, keywords */
     acceptEdit(Kwave::INF_SOFTWARE,    edSoftware->text());
     acceptEdit(Kwave::INF_ENGINEER,    edEngineer->text());
     acceptEdit(Kwave::INF_TECHNICAN,   edTechnican->text());

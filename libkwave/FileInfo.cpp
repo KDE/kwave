@@ -84,7 +84,7 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
         _(I18N_NOOP(
              "Number of CDs, if the source is an album of more CDROMs")));
     append(Kwave::INF_COMMISSIONED, 0,
-        _(I18N_NOOP("Commisioned")),
+        _(I18N_NOOP("Commissioned")),
         _(I18N_NOOP("Lists the name of the person or organization\n"
              "that commissioned the subject of the file.")));
     append(Kwave::INF_COMMENTS, 0,
@@ -158,12 +158,12 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
              "EFF Open Audio License ('distributed under the\n"
              "terms of the Open Audio License.\n"
              "See http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
-             "for details')), etc.")));
+             "for details'), etc.")));
     append(Kwave::INF_MEDIUM, 0,
         _(I18N_NOOP("Medium")),
         _(I18N_NOOP("Describes the original subject of the file,\n"
              "where it was first recorded.\n"
-             "Example: 'orchester'")));
+             "Example: 'orchestra'")));
     append(Kwave::INF_MIMETYPE, FP_READONLY | FP_INTERNAL | FP_NO_LOAD_SAVE,
         _(I18N_NOOP("Mime Type")),
         _(I18N_NOOP("Mime type of the file format")));
@@ -235,9 +235,9 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
         _(I18N_NOOP("Describes the subject of the file.\n"
              "Example: 'Bird voices at early morning'")));
     append(Kwave::INF_TECHNICAN, 0,
-        _(I18N_NOOP("Technican")),
+        _(I18N_NOOP("Technician")),
         _(I18N_NOOP(
-             "Identifies the technican who digitized the subject file.\n"
+             "Identifies the technician who digitized the subject file.\n"
              "Example: 'Torvalds, Linus'")));
     append(Kwave::INF_TRACK, 0,
         _(I18N_NOOP("Track")),

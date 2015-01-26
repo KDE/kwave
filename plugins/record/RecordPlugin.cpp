@@ -499,8 +499,8 @@ void Kwave::RecordPlugin::changeTracks(unsigned int new_tracks)
 	}
 
 	if (new_tracks && (channels > 0)) notice(
-	    i18n("Recording with %1 channels(s) failed, "\
-		 "using %2 channels(s)", new_tracks, channels));
+	    i18n("Recording with %1 channel(s) failed, "\
+		 "using %2 channel(s)", new_tracks, channels));
     }
     m_dialog->setTracks(channels);
 

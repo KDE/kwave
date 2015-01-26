@@ -6055,7 +6055,7 @@
 	    </entry>
 	</row>
 	<row>
-	    <entry colname='c1'>&no-i18n-tag;Commisioned</entry>
+	    <entry colname='c1'>&no-i18n-tag;Commissioned</entry>
 	    <entry colname='c2'>
 		Lists the name of the person or organization
 		that commissioned the subject of the file.
@@ -6310,9 +6310,9 @@
 	    </entry>
 	</row>
 	<row>
-	    <entry colname='c1'>&no-i18n-tag;Technican</entry>
+	    <entry colname='c1'>&no-i18n-tag;Technician</entry>
 	    <entry colname='c2'>
-		Identifies the technican who digitized the subject file.
+		Identifies the technician who digitized the subject file.
 		Example: 'Torvalds, Linus'
 	    </entry>
 	</row>

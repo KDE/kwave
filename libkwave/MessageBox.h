@@ -18,7 +18,7 @@
 #ifndef _MESSAGE_BOX_H_
 #define _MESSAGE_BOX_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QSemaphore>

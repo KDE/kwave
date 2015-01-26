@@ -18,7 +18,7 @@
 #ifndef _CODEC_BASE_H_
 #define _CODEC_BASE_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QList>
 #include <QtCore/QString>

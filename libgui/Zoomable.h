@@ -18,7 +18,7 @@
 #ifndef _ZOOMABLE_H_
 #define _ZOOMABLE_H_
 
-#include <config.h>
+#include "config.h"
 
 #include "libkwave/Sample.h"
 

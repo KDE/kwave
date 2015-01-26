@@ -18,7 +18,7 @@
 #ifndef _INSERT_AT_PLUGIN_H_
 #define _INSERT_AT_PLUGIN_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QString>
 

@@ -18,7 +18,7 @@
 #ifndef _SIGNAL_WIDGET_H_
 #define _SIGNAL_WIDGET_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtGui/QGridLayout>
 #include <QtGui/QImage>

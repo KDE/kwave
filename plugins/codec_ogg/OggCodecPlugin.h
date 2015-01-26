@@ -18,7 +18,7 @@
 #ifndef _OGG_CODEC_PLUGIN_H_
 #define _OGG_CODEC_PLUGIN_H_
 
-#include <config.h>
+#include "config.h"
 
 #include "libkwave/CodecPlugin.h"
 #include "libkwave/Compression.h"

@@ -19,7 +19,7 @@
 #ifndef _KWAVE_WRITER_H_
 #define _KWAVE_WRITER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 

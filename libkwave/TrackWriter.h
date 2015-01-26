@@ -18,7 +18,7 @@
 #ifndef _TRACK_WRITER_H_
 #define _TRACK_WRITER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QTime>

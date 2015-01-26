@@ -16,7 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
+#include "config.h"
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/StreamWriter.h"

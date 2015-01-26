@@ -18,7 +18,7 @@
 #ifndef _SELECTION_H_
 #define _SELECTION_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 

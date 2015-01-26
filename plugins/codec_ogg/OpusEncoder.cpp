@@ -46,7 +46,7 @@
 
  ***************************************************************************/
 
-#include <config.h>
+#include "config.h"
 
 #include <math.h>
 #include <stdlib.h>

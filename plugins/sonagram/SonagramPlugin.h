@@ -18,7 +18,7 @@
 #ifndef _SONAGRAM_PLUGIN_H_
 #define _SONAGRAM_PLUGIN_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QByteArray>
 #include <QtCore/QBitArray>

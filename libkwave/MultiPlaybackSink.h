@@ -18,7 +18,7 @@
 #ifndef _MULTI_PLAYBACK_SINK_H_
 #define _MULTI_PLAYBACK_SINK_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QBitArray>
 #include <QtCore/QMutex>

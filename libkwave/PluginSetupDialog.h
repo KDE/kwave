@@ -18,7 +18,7 @@
 #ifndef _PLUGIN_SETUP_DIALOG_H_
 #define _PLUGIN_SETUP_DIALOG_H_
 
-#include <config.h>
+#include "config.h"
 #include <QtCore/QStringList>
 
 class QDialog;

@@ -18,7 +18,7 @@
 #ifndef _CONFIRM_CANCEL_PROXY_H_
 #define _CONFIRM_CANCEL_PROXY_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 

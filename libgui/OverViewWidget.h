@@ -18,7 +18,7 @@
 #ifndef _OVER_VIEW_WIDGET_H_
 #define _OVER_VIEW_WIDGET_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtGui/QBitmap>
 #include <QtGui/QColor>

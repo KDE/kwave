@@ -18,7 +18,7 @@
 #ifndef _REPAIR_VIRTUAL_AUDIO_FILE_H_
 #define _REPAIR_VIRTUAL_AUDIO_FILE_H_
 
-#include <config.h>
+#include "config.h"
 #include <QtCore/QList>
 #include "libkwave/VirtualAudioFile.h"
 

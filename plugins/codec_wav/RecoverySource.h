@@ -18,7 +18,7 @@
 #ifndef _RECOVERY_SOURCE_H_
 #define _RECOVERY_SOURCE_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/qglobal.h>
 

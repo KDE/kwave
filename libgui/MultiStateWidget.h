@@ -19,7 +19,7 @@
 #ifndef _MULTI_STATE_WIDGET_H_
 #define _MULTI_STATE_WIDGET_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtGui/QPixmap>
 #include <QtCore/QVector>

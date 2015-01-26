@@ -18,7 +18,7 @@
 #ifndef _AMPLIFY_FREE_DIALOG_H_
 #define _AMPLIFY_FREE_DIALOG_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtGui/QDialog>
 #include <QtCore/QObject>

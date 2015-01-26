@@ -18,7 +18,7 @@
 #ifndef _UNDO_MANAGER_H_
 #define _UNDO_MANAGER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QList>
 #include <QtCore/QPointer>

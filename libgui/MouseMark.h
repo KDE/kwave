@@ -18,7 +18,7 @@
 #ifndef _MOUSE_MARK_H_
 #define _MOUSE_MARK_H_
 
-#include <config.h>
+#include "config.h"
 
 #include "libkwave/Sample.h"
 

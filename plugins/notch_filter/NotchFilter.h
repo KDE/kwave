@@ -21,7 +21,7 @@
 #ifndef _NOTCH_FILTER_H_
 #define _NOTCH_FILTER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QVariant>

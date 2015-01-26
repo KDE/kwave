@@ -18,7 +18,7 @@
 #ifndef _SELECT_RANGE_DIALOG_H_
 #define _SELECT_RANGE_DIALOG_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtGui/QDialog>
 #include <QtCore/QObject>

@@ -18,7 +18,7 @@
 #ifndef _TRACK_PIXMAP_H_
 #define _TRACK_PIXMAP_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <math.h>
 

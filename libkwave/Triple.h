@@ -18,7 +18,7 @@
 #ifndef _TRIPLE_H_
 #define _TRIPLE_H_
 
-#include <config.h>
+#include "config.h"
 
 namespace Kwave
 {

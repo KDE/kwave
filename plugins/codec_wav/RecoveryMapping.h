@@ -18,7 +18,7 @@
 #ifndef _RECOVERY_MAPPING_H_
 #define _RECOVERY_MAPPING_H_
 
-#include <config.h>
+#include "config.h"
 
 #include "RecoverySource.h"
 

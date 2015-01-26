@@ -18,7 +18,7 @@
 #ifndef _MUL_H_
 #define _MUL_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QMutex>
 #include <QtCore/QQueue>

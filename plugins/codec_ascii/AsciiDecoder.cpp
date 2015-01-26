@@ -14,7 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <config.h>
+#include "config.h"
 
 #include <ctype.h>
 #include <string.h>

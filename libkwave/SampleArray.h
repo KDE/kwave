@@ -18,7 +18,7 @@
 #ifndef _SAMPLE_ARRAY_H_
 #define _SAMPLE_ARRAY_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QSharedData>
 #include <QtCore/QSharedDataPointer>

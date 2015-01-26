@@ -20,7 +20,7 @@
 #ifndef _LEVEL_METER_H_
 #define _LEVEL_METER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtGui/QColor>
 #include <QtCore/QTimer>

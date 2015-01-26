@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
+#include "config.h"
 #include <QtCore/QString>
 
 #include "libkwave/modules/Delay.h"

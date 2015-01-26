@@ -19,7 +19,7 @@
 #ifndef _UNDO_SELECTION_H_
 #define _UNDO_SELECTION_H_
 
-#include <config.h>
+#include "config.h"
 #include <QtCore/QList>
 
 #include "libkwave/Sample.h"

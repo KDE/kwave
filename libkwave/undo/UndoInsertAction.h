@@ -18,7 +18,7 @@
 #ifndef _UNDO_INSERT_ACTION_H_
 #define _UNDO_INSERT_ACTION_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QList>
 #include <QtCore/QObject>

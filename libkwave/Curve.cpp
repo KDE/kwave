@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
+#include "config.h"
 
 #include <float.h> // for FLT_MAX, DBL_MIN, DBL_MAX
 #include <math.h>

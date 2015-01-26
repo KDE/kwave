@@ -18,7 +18,7 @@
 #ifndef _LABEL_PROPERTIES_WIDGET_H_
 #define _LABEL_PROPERTIES_WIDGET_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtGui/QDialog>

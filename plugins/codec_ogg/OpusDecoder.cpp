@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
+#include "config.h"
 
 #include <limits>
 #include <math.h>

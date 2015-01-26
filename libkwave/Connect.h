@@ -18,7 +18,7 @@
 #ifndef _CONNECT_H_
 #define _CONNECT_H_
 
-#include <config.h>
+#include "config.h"
 #include <kdemacros.h>
 
 class QString;

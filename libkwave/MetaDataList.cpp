@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
+#include "config.h"
 
 #include "libkwave/MetaDataList.h"
 #include "libkwave/String.h"

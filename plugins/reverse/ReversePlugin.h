@@ -18,7 +18,7 @@
 #ifndef _REVERSE_PLUGIN_H_
 #define _REVERSE_PLUGIN_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>

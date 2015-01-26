@@ -18,7 +18,7 @@
 #ifndef _OGG_ENCODER_H_
 #define _OGG_ENCODER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QList>
 

@@ -18,7 +18,7 @@
 #ifndef _ASCII_ENCODER_H_
 #define _ASCII_ENCODER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QList>
 #include <QtCore/QTextStream>

@@ -18,7 +18,7 @@
 #ifndef _GENRE_TYPE_H_
 #define _GENRE_TYPE_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <kdemacros.h>
 

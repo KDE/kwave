@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
+#include "config.h"
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 
 #include <unistd.h>

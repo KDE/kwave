@@ -18,7 +18,7 @@
 #ifndef _CURVE_STREAM_ADAPTER_H_
 #define _CURVE_STREAM_ADAPTER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <kdemacros.h>
 

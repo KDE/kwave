@@ -18,7 +18,7 @@
 #ifndef _KWAVE_FILE_CONTEXT_H_
 #define _KWAVE_FILE_CONTEXT_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QAtomicInt>
 #include <QtCore/QElapsedTimer>

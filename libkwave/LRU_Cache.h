@@ -18,7 +18,7 @@
 #ifndef _LRU_CACHE_H_
 #define _LRU_CACHE_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QLinkedList>
 #include <QtCore/QMutableLinkedListIterator>

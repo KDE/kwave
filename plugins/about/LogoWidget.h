@@ -18,7 +18,7 @@
 #ifndef _LOGO_WIDGET_H_
 #define _LOGO_WIDGET_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtGui/QPixmap>
 #include <QtGui/QWidget>

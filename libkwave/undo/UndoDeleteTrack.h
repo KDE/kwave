@@ -19,7 +19,7 @@
 #ifndef _UNDO_DELETE_TRACK_H_
 #define _UNDO_DELETE_TRACK_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QString>
 #include <QtCore/QUuid>

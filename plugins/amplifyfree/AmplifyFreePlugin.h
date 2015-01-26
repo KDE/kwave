@@ -18,7 +18,7 @@
 #ifndef _AMPLIFY_FREE_PLUGIN_H_
 #define _AMPLIFY_FREE_PLUGIN_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QMap>
 #include <QtCore/QObject>

@@ -18,7 +18,7 @@
 #ifndef _SCALE_WIDGET_H_
 #define _SCALE_WIDGET_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QString>
 #include <QtGui/QWidget>

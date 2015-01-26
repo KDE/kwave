@@ -18,7 +18,7 @@
 #ifndef _SIGNAL_VIEW_H_
 #define _SIGNAL_VIEW_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtGui/QLabel>

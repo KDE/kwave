@@ -18,7 +18,7 @@
 #ifndef _BYTE_ORDER_H_
 #define _BYTE_ORDER_H_
 
-#include <config.h>
+#include "config.h"
 
 namespace Kwave
 {

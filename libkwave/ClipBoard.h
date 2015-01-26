@@ -19,7 +19,7 @@
 #ifndef _CLIP_BOARD_H_
 #define _CLIP_BOARD_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtGui/QClipboard>

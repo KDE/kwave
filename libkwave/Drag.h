@@ -18,7 +18,7 @@
 #ifndef _DRAG_H_
 #define _DRAG_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QByteArray>
 #include <QtGui/QDrag>

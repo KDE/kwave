@@ -18,7 +18,7 @@
 #ifndef _WAV_DECODER_H_
 #define _WAV_DECODER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include "libkwave/Decoder.h"
 

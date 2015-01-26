@@ -18,7 +18,7 @@
 #ifndef _BITRATE_WIDGET_H_
 #define _BITRATE_WIDGET_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtGui/QWidget>
 #include <QtCore/QList>

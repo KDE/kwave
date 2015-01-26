@@ -18,7 +18,7 @@
 #ifndef _TRACK_H_
 #define _TRACK_H_
 
-#include <config.h>
+#include "config.h"
 #include <limits.h>  // for UINT_MAX
 
 #include <QtCore/QList>

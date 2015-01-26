@@ -16,7 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QLatin1Char>
 #include <QtCore/QString>

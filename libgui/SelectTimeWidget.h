@@ -18,7 +18,7 @@
 #ifndef _SELECT_TIME_WIDGET_H_
 #define _SELECT_TIME_WIDGET_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtGui/QGroupBox>
 #include <QtCore/QObject>

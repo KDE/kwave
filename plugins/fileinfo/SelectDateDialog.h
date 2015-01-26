@@ -18,7 +18,7 @@
 #ifndef _SELECT_DATE_DIALOG_H_
 #define _SELECT_DATE_DIALOG_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QDateTime>
 #include <QtCore/QObject>

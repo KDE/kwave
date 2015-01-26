@@ -18,7 +18,7 @@
 #ifndef _RATE_CONVERTER_H_
 #define _RATE_CONVERTER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QVariant>

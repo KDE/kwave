@@ -19,7 +19,7 @@
 #ifndef _UNDO_REVERSE_ACTION_H_
 #define _UNDO_REVERSE_ACTION_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QString>
 #include "libkwave/undo/UndoAction.h"

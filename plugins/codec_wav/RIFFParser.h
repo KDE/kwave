@@ -18,7 +18,7 @@
 #ifndef _RIFF_PARSER_H_
 #define _RIFF_PARSER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QByteArray>
 #include <QtCore/QList>

@@ -18,7 +18,7 @@
 #ifndef _STREAM_OBJECT_H_
 #define _STREAM_OBJECT_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QMutex>

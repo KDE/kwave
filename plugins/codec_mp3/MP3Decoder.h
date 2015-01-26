@@ -18,7 +18,7 @@
 #ifndef _MP3_DECODER_H_
 #define _MP3_DECODER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <mad.h>		// needs libmad-devel package
 

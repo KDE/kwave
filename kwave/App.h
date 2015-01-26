@@ -18,7 +18,7 @@
 #ifndef _KWAVE_APP_H_
 #define _KWAVE_APP_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QList>

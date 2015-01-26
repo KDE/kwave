@@ -18,7 +18,7 @@
 #ifndef _SAMPLE_SOURCE_H_
 #define _SAMPLE_SOURCE_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 

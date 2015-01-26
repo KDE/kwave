@@ -18,7 +18,7 @@
 #ifndef _SWAP_FILE_H_
 #define _SWAP_FILE_H_
 
-#include <config.h>
+#include "config.h"
 #include <sys/types.h>  // for size_t
 
 #include <QtCore/QFile>

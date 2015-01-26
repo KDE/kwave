@@ -18,7 +18,7 @@
 #ifndef _MP3_ENCODER_H_
 #define _MP3_ENCODER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <limits.h>
 

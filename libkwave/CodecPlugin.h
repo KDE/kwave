@@ -18,7 +18,7 @@
 #ifndef _CODEC_PLUGIN_H_
 #define _CODEC_PLUGIN_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <kdemacros.h>
 

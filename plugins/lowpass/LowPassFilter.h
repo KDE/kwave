@@ -18,7 +18,7 @@
 #ifndef _LOW_PASS_FILTER_H_
 #define _LOW_PASS_FILTER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QVariant>

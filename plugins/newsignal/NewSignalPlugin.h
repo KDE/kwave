@@ -18,7 +18,7 @@
 #ifndef _NEW_SIGNAL_PLUGIN_H_
 #define _NEW_SIGNAL_PLUGIN_H_
 
-#include <config.h>
+#include "config.h"
 #include <QtCore/QObject>
 #include "libkwave/Plugin.h"
 

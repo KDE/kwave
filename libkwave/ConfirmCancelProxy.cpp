@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
+#include "config.h"
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtGui/QWidget>

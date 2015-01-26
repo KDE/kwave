@@ -19,7 +19,7 @@
 #ifndef _MULTI_STREAM_WRITER_H_
 #define _MULTI_STREAM_WRITER_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QList>

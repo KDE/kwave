@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
+#include "config.h"
 
 #include "libkwave/undo/UndoHandler.h"
 #include "libkwave/undo/UndoManager.h"

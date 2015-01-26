@@ -18,7 +18,7 @@
 #ifndef _MIME_DATA_H_
 #define _MIME_DATA_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QByteArray>
 #include <QtCore/QMimeData>

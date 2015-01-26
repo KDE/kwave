@@ -17,7 +17,7 @@
 #ifndef _LABEL_LIST_H_
 #define _LABEL_LIST_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QList>
 #include <QtCore/QListIterator>

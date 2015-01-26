@@ -18,7 +18,7 @@
 #ifndef _RECORD_STATE_H_
 #define _RECORD_STATE_H_
 
-#include <config.h>
+#include "config.h"
 
 namespace Kwave
 {

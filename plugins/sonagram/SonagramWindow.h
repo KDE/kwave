@@ -18,7 +18,7 @@
 #ifndef _SONAGRAM_WINDOW_H_
 #define _SONAGRAM_WINDOW_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QTimer>
 

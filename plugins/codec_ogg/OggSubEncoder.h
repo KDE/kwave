@@ -18,7 +18,7 @@
 #ifndef _OGG_SUB_ENCODER_H_
 #define _OGG_SUB_ENCODER_H_
 
-#include <config.h>
+#include "config.h"
 
 class QIODevice;
 class QWidget;

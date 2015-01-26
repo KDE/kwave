@@ -18,7 +18,7 @@
 #ifndef _WAV_FORMAT_MAP_H_
 #define _WAV_FORMAT_MAP_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QMap>
 #include <QtCore/QString>

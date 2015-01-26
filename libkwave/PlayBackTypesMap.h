@@ -17,7 +17,7 @@
 #ifndef _PLAY_BACK_TYPES_MAP_H_
 #define _PLAY_BACK_TYPES_MAP_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <kdemacros.h>
 

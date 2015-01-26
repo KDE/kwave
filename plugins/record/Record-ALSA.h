@@ -18,7 +18,7 @@
 #ifndef _RECORD_ALSA_H_
 #define _RECORD_ALSA_H_
 
-#include <config.h>
+#include "config.h"
 #ifdef HAVE_ALSA_SUPPORT
 
 /*

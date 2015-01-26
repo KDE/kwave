@@ -18,7 +18,7 @@
 #ifndef _FREQUENCY_RESPONSE_WIDGET_H_
 #define _FREQUENCY_RESPONSE_WIDGET_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QObject>
 #include <QtGui/QWidget>

@@ -19,7 +19,7 @@
 #ifndef _MIXER_MATRIX_H_
 #define _MIXER_MATRIX_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <kdemacros.h>
 

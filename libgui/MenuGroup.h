@@ -18,7 +18,7 @@
 #ifndef _MENU_GROUP_H_
 #define _MENU_GROUP_H_
 
-#include <config.h>
+#include "config.h"
 
 #include <QtCore/QList>
 

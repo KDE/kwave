@@ -32,7 +32,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	AsciiCodecPlugin(Kwave::PluginManager &plugin_manager);
+	explicit AsciiCodecPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~AsciiCodecPlugin();

@@ -34,7 +34,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	InsertAtPlugin(Kwave::PluginManager &plugin_manager);
+	explicit InsertAtPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~InsertAtPlugin();

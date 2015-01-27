@@ -34,7 +34,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	GotoPlugin(Kwave::PluginManager &plugin_manager);
+	explicit GotoPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~GotoPlugin();

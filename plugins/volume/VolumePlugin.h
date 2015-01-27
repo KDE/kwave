@@ -35,7 +35,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	VolumePlugin(Kwave::PluginManager &plugin_manager);
+	explicit VolumePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~VolumePlugin();

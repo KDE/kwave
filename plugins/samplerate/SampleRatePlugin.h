@@ -40,7 +40,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	SampleRatePlugin(Kwave::PluginManager &plugin_manager);
+	explicit SampleRatePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~SampleRatePlugin();

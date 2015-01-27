@@ -34,7 +34,7 @@ namespace Kwave
 	Q_OBJECT
     public:
 	/** Constructor */
-	BitrateWidget(QWidget *parent);
+	explicit BitrateWidget(QWidget *parent);
 
 	/** Destructor */
 	virtual ~BitrateWidget();

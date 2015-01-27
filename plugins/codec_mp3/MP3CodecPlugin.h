@@ -32,7 +32,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	MP3CodecPlugin(Kwave::PluginManager &plugin_manager);
+	explicit MP3CodecPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~MP3CodecPlugin();

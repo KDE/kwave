@@ -32,7 +32,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	NewSignalPlugin(Kwave::PluginManager &plugin_manager);
+	explicit NewSignalPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** virtual Destructor */
 	virtual ~NewSignalPlugin();

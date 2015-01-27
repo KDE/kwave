@@ -38,7 +38,7 @@ namespace Kwave
 
     public:
 	/** Constructor */
-	LogoWidget(QWidget *parent);
+	explicit LogoWidget(QWidget *parent);
 
 	/** Destructor */
 	virtual ~LogoWidget();

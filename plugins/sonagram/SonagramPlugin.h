@@ -63,7 +63,7 @@ namespace Kwave
 	Q_OBJECT
     public:
 	/** Constructor */
-	SonagramPlugin(Kwave::PluginManager &plugin_manager);
+	explicit SonagramPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~SonagramPlugin();

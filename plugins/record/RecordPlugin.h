@@ -53,7 +53,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	RecordPlugin(Kwave::PluginManager &plugin_manager);
+	explicit RecordPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~RecordPlugin();
@@ -79,7 +79,7 @@ namespace Kwave
 	{
 	public:
 	    /** Constructor, inhibits recording */
-	    InhibitRecordGuard(Kwave::RecordPlugin &recorder)
+	    explicit InhibitRecordGuard(Kwave::RecordPlugin &recorder)
 		:m_recorder(recorder)
 	    {
 		m_recorder.enterInhibit();

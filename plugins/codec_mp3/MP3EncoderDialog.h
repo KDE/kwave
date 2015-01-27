@@ -41,7 +41,7 @@ namespace Kwave
 
     public:
 	/** Constructor */
-	MP3EncoderDialog(QWidget *parent);
+	explicit MP3EncoderDialog(QWidget *parent);
 
 	/** Destructor */
 	virtual ~MP3EncoderDialog();

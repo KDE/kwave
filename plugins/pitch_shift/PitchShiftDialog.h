@@ -40,7 +40,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	PitchShiftDialog(QWidget *parent);
+	explicit PitchShiftDialog(QWidget *parent);
 
 	/** Destructor */
 	virtual ~PitchShiftDialog();

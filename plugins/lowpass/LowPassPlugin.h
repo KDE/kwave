@@ -43,7 +43,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	LowPassPlugin(Kwave::PluginManager &plugin_manager);
+	explicit LowPassPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~LowPassPlugin();

@@ -34,7 +34,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	NoiseGenerator(QObject *parent = 0);
+	explicit NoiseGenerator(QObject *parent = 0);
 
 	/** Destructor */
 	virtual ~NoiseGenerator();

@@ -40,7 +40,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	BandPassPlugin(Kwave::PluginManager &plugin_manager);
+	explicit BandPassPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~BandPassPlugin();

@@ -34,7 +34,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	FlacCodecPlugin(Kwave::PluginManager &plugin_manager);
+	explicit FlacCodecPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~FlacCodecPlugin();

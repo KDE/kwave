@@ -41,7 +41,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	PitchShiftPlugin(Kwave::PluginManager &plugin_manager);
+	explicit PitchShiftPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~PitchShiftPlugin();

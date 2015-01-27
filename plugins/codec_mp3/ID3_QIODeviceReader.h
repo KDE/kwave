@@ -36,7 +36,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	ID3_QIODeviceReader(QIODevice &source);
+	explicit ID3_QIODeviceReader(QIODevice &source);
 
 	/** Destructor */
 	virtual ~ID3_QIODeviceReader();

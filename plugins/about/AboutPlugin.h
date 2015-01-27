@@ -36,7 +36,7 @@ namespace Kwave
 	 * Constructor
 	 * @param plugin_manager reference to our plugin manager
 	 */
-	AboutPlugin(Kwave::PluginManager &plugin_manager);
+	explicit AboutPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~AboutPlugin() {}

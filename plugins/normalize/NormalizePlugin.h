@@ -46,7 +46,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	NormalizePlugin(Kwave::PluginManager &plugin_manager);
+	explicit NormalizePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~NormalizePlugin();

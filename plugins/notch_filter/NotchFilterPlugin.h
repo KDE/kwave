@@ -41,7 +41,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	NotchFilterPlugin(Kwave::PluginManager &plugin_manager);
+	explicit NotchFilterPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~NotchFilterPlugin();

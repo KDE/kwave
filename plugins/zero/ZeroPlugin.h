@@ -41,7 +41,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	ZeroPlugin(Kwave::PluginManager &plugin_manager);
+	explicit ZeroPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~ZeroPlugin();

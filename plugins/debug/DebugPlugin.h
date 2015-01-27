@@ -41,7 +41,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	DebugPlugin(Kwave::PluginManager &plugin_manager);
+	explicit DebugPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~DebugPlugin();

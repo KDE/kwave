@@ -38,7 +38,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	SelectRangePlugin(Kwave::PluginManager &plugin_manager);
+	explicit SelectRangePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~SelectRangePlugin();

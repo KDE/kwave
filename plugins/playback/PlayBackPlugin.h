@@ -45,7 +45,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	PlayBackPlugin(Kwave::PluginManager &plugin_manager);
+	explicit PlayBackPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~PlayBackPlugin();

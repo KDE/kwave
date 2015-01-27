@@ -32,7 +32,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	OggCodecPlugin(Kwave::PluginManager &plugin_manager);
+	explicit OggCodecPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~OggCodecPlugin();

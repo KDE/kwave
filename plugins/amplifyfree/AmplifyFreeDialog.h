@@ -36,7 +36,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	AmplifyFreeDialog(QWidget *parent);
+	explicit AmplifyFreeDialog(QWidget *parent);
 
 	/** Destructor */
 	virtual ~AmplifyFreeDialog();

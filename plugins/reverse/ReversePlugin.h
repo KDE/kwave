@@ -41,7 +41,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	ReversePlugin(Kwave::PluginManager &plugin_manager);
+	explicit ReversePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~ReversePlugin();

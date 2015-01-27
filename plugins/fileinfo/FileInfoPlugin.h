@@ -30,7 +30,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	FileInfoPlugin(Kwave::PluginManager &plugin_manager);
+	explicit FileInfoPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** virtual Destructor */
 	virtual ~FileInfoPlugin();

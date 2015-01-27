@@ -33,7 +33,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	NoisePlugin(Kwave::PluginManager &plugin_manager);
+	explicit NoisePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~NoisePlugin();

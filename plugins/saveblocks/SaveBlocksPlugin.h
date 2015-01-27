@@ -38,7 +38,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	SaveBlocksPlugin(Kwave::PluginManager &plugin_manager);
+	explicit SaveBlocksPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~SaveBlocksPlugin();

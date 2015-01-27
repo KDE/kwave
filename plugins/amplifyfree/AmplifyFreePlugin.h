@@ -38,7 +38,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	AmplifyFreePlugin(Kwave::PluginManager &plugin_manager);
+	explicit AmplifyFreePlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~AmplifyFreePlugin();

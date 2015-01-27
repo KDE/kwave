@@ -43,7 +43,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	KeywordWidget(QWidget *parent);
+	explicit KeywordWidget(QWidget *parent);
 
 	/** Destructor */
 	virtual ~KeywordWidget();

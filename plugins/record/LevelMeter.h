@@ -41,7 +41,7 @@ namespace Kwave
 	Q_OBJECT
     public:
 	/** Constructor */
-	LevelMeter(QWidget *parent);
+	explicit LevelMeter(QWidget *parent);
 
 	/** Destructor */
 	virtual ~LevelMeter();

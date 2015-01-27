@@ -40,7 +40,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	MemoryPlugin(Kwave::PluginManager &plugin_manager);
+	explicit MemoryPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~MemoryPlugin();

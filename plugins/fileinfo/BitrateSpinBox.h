@@ -32,7 +32,7 @@ namespace Kwave
 	Q_OBJECT
     public:
 	/** Constructor */
-	BitrateSpinBox(QWidget *parent);
+	explicit BitrateSpinBox(QWidget *parent);
 
 	/** Destructor */
 	virtual ~BitrateSpinBox();

@@ -40,7 +40,7 @@ namespace Kwave
 
     public:
 	/** Constructor */
-	SonagramDialog(Kwave::Plugin &p);
+	explicit SonagramDialog(Kwave::Plugin &p);
 
 	/** Destructor */
 	virtual ~SonagramDialog();

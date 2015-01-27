@@ -36,7 +36,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	StatusWidget(QWidget *parent = 0);
+	explicit StatusWidget(QWidget *parent = 0);
 
 	/** Destructor */
 	virtual ~StatusWidget();

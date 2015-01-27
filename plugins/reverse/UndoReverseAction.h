@@ -35,7 +35,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	UndoReverseAction(Kwave::PluginManager &plugin_manager);
+	explicit UndoReverseAction(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~UndoReverseAction();

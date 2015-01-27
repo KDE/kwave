@@ -42,7 +42,7 @@ namespace Kwave
 	} Mode;
 
 	/** Constructor */
-	CompressionWidget(QWidget *parent);
+	explicit CompressionWidget(QWidget *parent);
 
 	/** Destructor */
 	virtual ~CompressionWidget();

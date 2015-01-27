@@ -55,7 +55,7 @@ namespace Kwave
 	 * Constructor
 	 * @param info the current FileInfo with metadata
 	 */
-	PlayBackPulseAudio(const Kwave::FileInfo &info);
+	explicit PlayBackPulseAudio(const Kwave::FileInfo &info);
 
 	/** Destructor */
 	virtual ~PlayBackPulseAudio();

@@ -240,7 +240,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
     m_dest = &dst;
 
     // for the moment: use a comma as separator <= TODO
-    const char *seperators = ",";
+    const char *separators = ",";
 
     Kwave::FileInfo info(metaData());
     unsigned int channels = info.tracks();
@@ -257,7 +257,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
 	for (unsigned int channel = 0; channel < channels; channel++) {
 	    sample_t  s = 0;
 
-	    char *token = strtok_r(line, seperators, &saveptr);
+	    char *token = strtok_r(line, separators, &saveptr);
 	    line = 0;
 	    if (token) {
 		// skip whitespace at the start

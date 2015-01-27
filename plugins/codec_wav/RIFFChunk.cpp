@@ -87,9 +87,9 @@ const QByteArray Kwave::RIFFChunk::path() const
 {
     QByteArray p = "";
 
-    if (m_parent) p += m_parent->path() + "/";
+    if (m_parent) p += m_parent->path() + '/';
     p += m_name;
-    if (m_type == Main) p += ":" + m_format;
+    if (m_type == Main) p += ':' + m_format;
 
     if (m_parent) {
 	QListIterator<Kwave::RIFFChunk *> it(m_parent->subChunks());
@@ -117,7 +117,7 @@ const QByteArray Kwave::RIFFChunk::path() const
 	if (before + after != 0) {
 	    QByteArray index;
 	    index.setNum(before);
-	    p += "(" + index + ")";
+	    p += '(' + index + ')';
 	}
     }
 

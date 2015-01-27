@@ -135,7 +135,7 @@ Kwave::AboutDialog::AboutDialog(
         (translators.first().name() == _("NAME OF TRANSLATORS"))) {
 	tabwidget->removeTab(4);
     } else {
-	foreach (KAboutPerson translator, translators) {
+	foreach (const KAboutPerson &translator, translators) {
 	    QString website = translator.webAddress();
 
 	    // if the translator is already listed in the "authors" section,

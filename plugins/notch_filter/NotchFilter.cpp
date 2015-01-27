@@ -126,7 +126,7 @@ void Kwave::NotchFilter::input(Kwave::SampleArray data)
 
     setfilter_peaknotch2(m_f_cutoff, m_f_bw);
 
-    for (unsigned i = 0; i < in.size(); i++)
+    for (unsigned i = 0; i < in.size(); ++i)
     {
 	// do the filtering
 	m_filter.x = sample2double(in[i]);

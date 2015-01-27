@@ -411,7 +411,7 @@ bool Kwave::RIFFParser::parse(Kwave::RIFFChunk *parent,
 	    chunk->setType(Kwave::RIFFChunk::Main);
 
 	    QByteArray path = (parent ? parent->path() : QByteArray("")) +
-			    "/" + chunk->name();
+			    '/' + chunk->name();
 /*	    qDebug("scanning for chunks in '%s' (format='%s'), "\
 		"offset=0x%08X, length=0x%08X",
 		path.data(), chunk->format().data(),

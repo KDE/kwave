@@ -119,7 +119,7 @@ void Kwave::BandPass::input(Kwave::SampleArray data)
 
     Q_ASSERT(in.size() == m_buffer.size());
 
-    for (unsigned i = 0; i < in.size(); i++)
+    for (unsigned i = 0; i < in.size(); ++i)
     {
 	// do the filtering
 	m_filter.x = sample2double(in[i]);

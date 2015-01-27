@@ -362,7 +362,7 @@ void Kwave::LevelMeter::drawContents()
     const unsigned int w_low  = Kwave::toUint(w * 0.7);  // -3 dB
     const unsigned int w_high = Kwave::toUint(w * 0.85); // -1.5dB
 
-    for (track = 0; track < m_tracks; track++) {
+    for (track = 0; track < m_tracks; ++track) {
 	// show a bar up to the "fast" value
 	const unsigned int fast = Kwave::toUint(m_current_fast[track] * w);
 	for (unsigned int i = 0; i < w; i += cell * 2) {

@@ -77,7 +77,7 @@ Kwave::WavDecoder::WavDecoder()
     m_known_chunks.append(_("smpl")); /* Sampler */
 
     // add all sub-chunks of the LIST chunk (properties)
-    foreach (QByteArray name, m_property_map.chunks())
+    foreach (const QByteArray &name, m_property_map.chunks())
 	m_known_chunks.append(QLatin1String(name));
 
     // some chunks known from AIFF format

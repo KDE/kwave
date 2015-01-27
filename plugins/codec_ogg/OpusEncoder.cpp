@@ -16,9 +16,9 @@
 
     parts based on source snippets taken from "opusenc.c", opus-tools-0.1.5
    -------------------------------------------------------------------------
-   Copyright (C)2002-2011 Jean-Marc Valin
-   Copyright (C)2007-2012 Xiph.Org Foundation
-   Copyright (C)2008-2012 Gregory Maxwell
+   Copyright (C) 2002-2011 Jean-Marc Valin
+   Copyright (C) 2007-2012 Xiph.Org Foundation
+   Copyright (C) 2008-2012 Gregory Maxwell
    File: opusenc.c
 
    Redistribution and use in source and binary forms, with or without
@@ -367,7 +367,7 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
 	       m_opus_header.channel_mapping);
     } else {
 	/* map all channels 1:1 */
-	for (quint8 i = 0; i < m_opus_header.channels; i++ )
+	for (quint8 i = 0; i < m_opus_header.channels; ++i)
 	    m_opus_header.map[i] = i;
    	qDebug("    OpusEncoder: mapping channels 1:1");
     }
@@ -635,7 +635,7 @@ bool Kwave::OpusEncoder::writeOpusHeader(QIODevice &dst)
 	header.coupled = m_opus_header.coupled;
 	len += 2;
 
-	for (quint8 i = 0; i < m_opus_header.channels; i++)
+	for (quint8 i = 0; i < m_opus_header.channels; ++i)
 	    header.map[i] = m_opus_header.map[i];
 	len += m_opus_header.channels;
     }
@@ -678,7 +678,7 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
     // iterate over all known properties and collect them in a list
     QList<QByteArray> tags;
     len = 0;
-    foreach (QString key, m_comments_map.keys()) {
+    foreach (const QString &key, m_comments_map.keys()) {
 	Kwave::FileProperty property = m_comments_map[key];
 	if (!m_info.contains(property)) continue; // skip if not present
 

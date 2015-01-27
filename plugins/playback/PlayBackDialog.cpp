@@ -19,14 +19,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <QtCore/QPointer>
+#include <QtCore/QLatin1Char>
+#include <QtCore/QStringList>
 #include <QtGui/QIcon>
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QTreeWidgetItem>
 #include <QtGui/QSlider>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QStringList>
 
 #include <kapplication.h>
 #include <kcombobox.h>
@@ -289,11 +290,12 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 	m_devices_list_map.clear();
 
 	// build a tree with all nodes in the list
-	foreach (QString dev_id, devices) {
+	foreach (const QString &dev_id, devices) {
 	    QTreeWidgetItem *parent = 0;
 
 	    QStringList list = dev_id.split(_("||"), QString::KeepEmptyParts);
-	    foreach (QString token, list) {
+	    foreach (const QString &t, list) {
+		QString token(t);
 		QTreeWidgetItem *item = 0;
 
 		// split the icon name from the token
@@ -626,22 +628,23 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
 {
     QString filter = m_file_filter;
 
-    Kwave::FileDialog dlg(
+    QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
 	_("kfiledialog:///kwave_playback_device"), filter, this,
 	true, _("file:/dev"));
-    dlg.setKeepLocation(true);
-    dlg.setOperationMode(KFileDialog::Opening);
-    dlg.setCaption(i18n("Select Playback Device"));
+    if (!dlg) return;
+    dlg->setKeepLocation(true);
+    dlg->setOperationMode(KFileDialog::Opening);
+    dlg->setCaption(i18n("Select Playback Device"));
     if (!m_playback_params.device.startsWith(_("#")))
-        dlg.setUrl(KUrl(_("file:") + m_playback_params.device));
+        dlg->setUrl(KUrl(_("file:") + m_playback_params.device));
     else
-        dlg.setUrl(KUrl(_("file:/dev/*")));
-    if (dlg.exec() != QDialog::Accepted) return;
-
-    QString new_device = dlg.selectedFile();
-
-    // selected new device
-    if (cbDevice) cbDevice->setEditText(new_device);
+        dlg->setUrl(KUrl(_("file:/dev/*")));
+    if (dlg->exec() == QDialog::Accepted) {
+	QString new_device = dlg->selectedFile();
+	// selected new device
+	if (cbDevice) cbDevice->setEditText(new_device);
+    }
+    delete dlg;
 }
 
 //***************************************************************************

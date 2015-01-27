@@ -62,7 +62,7 @@ Kwave::VorbisEncoder::~VorbisEncoder()
 /***************************************************************************/
 void Kwave::VorbisEncoder::encodeProperties(const Kwave::FileInfo &info)
 {
-    foreach (QString key, m_comments_map.keys()) {
+    foreach (const QString &key, m_comments_map.keys()) {
 	Kwave::FileProperty property = m_comments_map[key];
 	if (!info.contains(property)) continue; // skip if not present
 
@@ -260,7 +260,7 @@ bool Kwave::VorbisEncoder::encode(Kwave::MultiTrackReader &src,
 		const unsigned int block = 8;
 		pos = 0;
 		while (pos + block < l) {
-		    for (unsigned int i = 0; i < block; i++, pos++)
+		    for (unsigned int i = 0; i < block; ++i, ++pos)
 			p[pos] = sample2float(s[pos]);
 		}
 		while (pos < l) {

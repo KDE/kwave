@@ -17,17 +17,18 @@
 
 #include "config.h"
 
-#include <QtGui/QAbstractButton>
-#include <QtGui/QPushButton>
 #include <QtCore/QBuffer>
-#include <QtGui/QCursor>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QLatin1Char>
-#include <QtGui/QApplication>
+#include <QtCore/QPointer>
 #include <QtCore/QProcess>
 #include <QtCore/QtGlobal>
+#include <QtGui/QApplication>
+#include <QtGui/QAbstractButton>
+#include <QtGui/QPushButton>
+#include <QtGui/QCursor>
 
 #include <kcombobox.h>
 #include <kdialogbuttonbox.h>
@@ -534,7 +535,7 @@ void Kwave::MP3EncoderDialog::buttonClicked(QAbstractButton *button)
 /***************************************************************************/
 void Kwave::MP3EncoderDialog::autoDetect()
 {
-    for (unsigned i = 0; i < ELEMENTS_OF(g_predefined_settings); i++) {
+    for (unsigned i = 0; i < ELEMENTS_OF(g_predefined_settings); ++i) {
 	QFile f(searchPath(g_predefined_settings[i].m_path));
 	if (f.exists()) {
 	    // found it :)
@@ -564,15 +565,17 @@ void Kwave::MP3EncoderDialog::browseFile()
 #ifdef EXECUTABLE_SUFFIX
     mask += QString(EXECUTABLE_SUFFIX);
 #endif
-    Kwave::FileDialog dlg(_("kfiledialog:///kwave_mp3_encoder"),
+    QPointer<Kwave::FileDialog> dlg = new(std::nothrow)
+	Kwave::FileDialog (_("kfiledialog:///kwave_mp3_encoder"),
 	_(""), this, true, _("file:/") + edPath->text().simplified(), mask);
-    dlg.setKeepLocation(true);
-    dlg.setOperationMode(KFileDialog::Opening);
-    dlg.setCaption(i18n("Select MP3 Encoder"));
-    dlg.setUrl(KUrl(_("file:/usr/bin/")));
-    if (dlg.exec() != QDialog::Accepted) return;
-
-    edPath->setText(dlg.selectedFile());
+    if (!dlg) return;
+    dlg->setKeepLocation(true);
+    dlg->setOperationMode(KFileDialog::Opening);
+    dlg->setCaption(i18n("Select MP3 Encoder"));
+    dlg->setUrl(KUrl(_("file:/usr/bin/")));
+    if (dlg->exec() == QDialog::Accepted)
+	edPath->setText(dlg->selectedFile());
+    delete dlg;
 }
 
 /***************************************************************************/

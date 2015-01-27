@@ -6,6 +6,15 @@
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 #include "config.h"
 
 #include <errno.h>
@@ -248,7 +257,7 @@ void Kwave::DebugPlugin::run(QStringList params)
 	    }
 
 	    unsigned int count = readers->tracks();
-	    for (unsigned int r = 0; ok && (r < count); r++) {
+	    for (unsigned int r = 0; ok && (r < count); ++r) {
 		*((*readers)[r]) >> m_buffer;
 		for (unsigned int ofs = 0; ofs < m_buffer.size(); ++ofs) {
 		    sample_t value_is = m_buffer[ofs];
@@ -324,7 +333,7 @@ void Kwave::DebugPlugin::run(QStringList params)
 	if (command == _("fm_sweep")) {
 	    const double f_max = rate / 2.0;
 	    const double f_min = 1;
-	    for (unsigned int i = 0; i < m_buffer.size(); i++, pos++) {
+	    for (unsigned int i = 0; i < m_buffer.size(); ++i, ++pos) {
 		double t = static_cast<double>((pos - left) / rate);
 		double f = f_min + (((f_max - f_min) *
 		    static_cast<double>(pos - left)) /
@@ -333,24 +342,24 @@ void Kwave::DebugPlugin::run(QStringList params)
 		m_buffer[i] = double2sample(y);
 	    }
 	} else if (command == _("sawtooth")) {
-	    for (unsigned int i = 0; i < m_buffer.size(); i++, pos++) {
+	    for (unsigned int i = 0; i < m_buffer.size(); ++i, ++pos) {
 		m_buffer[i] = SAMPLE_MIN +
 		    static_cast<sample_t>(pos % (SAMPLE_MAX - SAMPLE_MIN));
 	    }
 	} else if (command == _("dc_50")) {
 	    const sample_t s = float2sample(0.5);
-	    for (unsigned int i = 0; i < m_buffer.size(); i++) {
+	    for (unsigned int i = 0; i < m_buffer.size(); ++i) {
 		m_buffer[i] = s;
 	    }
 	} else if (command == _("dc_100")) {
 	    const sample_t s = SAMPLE_MAX;
-	    for (unsigned int i = 0; i < m_buffer.size(); i++) {
+	    for (unsigned int i = 0; i < m_buffer.size(); ++i) {
 		m_buffer[i] = s;
 	    }
 	}
 
 	// loop over all writers
-	for (unsigned int w = 0; w < count; w++) {
+	for (unsigned int w = 0; w < count; ++w) {
 	    *((*writers)[w]) << m_buffer;
 	}
 

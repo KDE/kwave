@@ -908,27 +908,35 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	}
 
 	QString filter = Kwave::CodecManager::encodingFilter();
-	Kwave::FileDialog dlg(_("kfiledialog:///kwave_save_as"),
-	    filter, m_top_widget, true, current_url.prettyUrl(), extension);
-	dlg.setOperationMode(KFileDialog::Saving);
-	dlg.setCaption(i18n("Save As"));
-	if (dlg.exec() != QDialog::Accepted) return -1;
+	QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
+	    _("kfiledialog:///kwave_save_as"),
+	    filter, m_top_widget, true, current_url.prettyUrl(), extension
+	);
+	if (!dlg) return 0;
+	dlg->setOperationMode(KFileDialog::Saving);
+	dlg->setCaption(i18n("Save As"));
+	if (dlg->exec() != QDialog::Accepted) return -1;
 
-	url = dlg.selectedUrl();
-	if (url.isEmpty()) return 0;
+	url = dlg->selectedUrl();
+	if (url.isEmpty()) {
+	    delete dlg;
+	    return 0;
+	}
 
 	QString new_name = url.path();
 	QFileInfo path(new_name);
 
 	// add the correct extension if necessary
 	if (!path.suffix().length()) {
-	    QString ext = dlg.selectedExtension();
+	    QString ext = dlg->selectedExtension();
 	    QStringList extensions = ext.split(_(" "));
 	    ext = extensions.first();
 	    new_name += ext.mid(1);
 	    path = new_name;
 	    url.setPath(new_name);
 	}
+
+	delete dlg;
     }
 
     // check if the file exists and ask before overwriting it

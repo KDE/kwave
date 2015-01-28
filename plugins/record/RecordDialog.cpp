@@ -125,7 +125,7 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     // fill the combo box with playback methods
     unsigned int index=0;
-    for (index=0; index < m_methods_map.count(); index++) {
+    for (index = 0; index < m_methods_map.count(); ++index) {
 	cbMethod->addItem(m_methods_map.description(index, true));
     }
     cbMethod->setEnabled(cbMethod->count() > 1);
@@ -188,18 +188,18 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     // device treeview
     connect(listDevices,
-            SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
-            SLOT(listEntrySelected(QTreeWidgetItem *, QTreeWidgetItem *)));
-    connect(listDevices, SIGNAL(itemExpanded(QTreeWidgetItem *)),
-            SLOT(listItemExpanded(QTreeWidgetItem *)));
+            SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
+            SLOT(listEntrySelected(QTreeWidgetItem*, QTreeWidgetItem*)));
+    connect(listDevices, SIGNAL(itemExpanded(QTreeWidgetItem*)),
+            SLOT(listItemExpanded(QTreeWidgetItem*)));
     connect(listDevices, SIGNAL(focusLost()),
             SLOT(updateListSelection()));
 
     // "select device..." button
     connect(btSourceSelect, SIGNAL(clicked()),
             this, SLOT(selectRecordDevice()));
-    connect(cbDevice, SIGNAL(activated(const QString &)),
-            this, SLOT(setDevice(const QString &)));
+    connect(cbDevice, SIGNAL(activated(QString)),
+            this, SLOT(setDevice(QString)));
 
     // setup controls
     connect(chkRecordTime, SIGNAL(toggled(bool)),
@@ -209,18 +209,18 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     connect(chkRecordStartTime, SIGNAL(toggled(bool)),
             this, SLOT(startTimeChecked(bool)));
-    connect(startTime, SIGNAL(valueChanged(const QDateTime &)),
-            this, SLOT(startTimeChanged(const QDateTime &)));
+    connect(startTime, SIGNAL(valueChanged(QDateTime)),
+            this, SLOT(startTimeChanged(QDateTime)));
 
     connect(chkRecordTrigger, SIGNAL(toggled(bool)),
             this, SLOT(triggerChecked(bool)));
     connect(sbRecordTrigger, SIGNAL(valueChanged(int)),
             this, SLOT(triggerChanged(int)));
 
-    connect(cbFormatSampleRate, SIGNAL(editTextChanged(const QString &)),
-            this, SLOT(sampleRateChanged(const QString &)));
-    connect(cbFormatSampleRate, SIGNAL(activated(const QString &)),
-            this, SLOT(sampleRateChanged(const QString &)));
+    connect(cbFormatSampleRate, SIGNAL(editTextChanged(QString)),
+            this, SLOT(sampleRateChanged(QString)));
+    connect(cbFormatSampleRate, SIGNAL(activated(QString)),
+            this, SLOT(sampleRateChanged(QString)));
 
     connect(sbFormatTracks, SIGNAL(valueChanged(int)),
             this, SLOT(tracksChanged(int)));
@@ -903,18 +903,18 @@ void Kwave::RecordDialog::bitsPerSampleChanged(int bits)
 
 //***************************************************************************
 void Kwave::RecordDialog::setSupportedSampleFormats(
-    const QList<Kwave::SampleFormat> &formats)
+    const QList<Kwave::SampleFormat::Format> &formats)
 {
     Q_ASSERT(cbFormatSampleFormat);
     if (!cbFormatSampleFormat) return;
 
     cbFormatSampleFormat->clear();
     Kwave::SampleFormat::Map types;
-    foreach (Kwave::SampleFormat format, formats) {
+    foreach (Kwave::SampleFormat::Format format, formats) {
 	int index = types.findFromData(format);
 	cbFormatSampleFormat->addItem(
 	    types.description(index, true),
-	    format.toInt()
+	    Kwave::SampleFormat(format).toInt()
 	);
     }
 
@@ -923,7 +923,8 @@ void Kwave::RecordDialog::setSupportedSampleFormats(
 }
 
 //***************************************************************************
-void Kwave::RecordDialog::setSampleFormat(Kwave::SampleFormat sample_format)
+void Kwave::RecordDialog::setSampleFormat(
+    Kwave::SampleFormat::Format sample_format)
 {
     Q_ASSERT(cbFormatSampleFormat);
     if (!cbFormatSampleFormat) return;
@@ -937,7 +938,8 @@ void Kwave::RecordDialog::setSampleFormat(Kwave::SampleFormat sample_format)
 	m_params.sample_format = sample_format;
     }
 
-    int cb_index = cbFormatSampleFormat->findData(sample_format.toInt());
+    int cb_index = cbFormatSampleFormat->findData(
+	Kwave::SampleFormat(sample_format).toInt());
     cbFormatSampleFormat->setCurrentIndex(cb_index);
 }
 

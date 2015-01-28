@@ -532,7 +532,7 @@ void Kwave::TrackPixmap::calculateInterpolation()
     //                      (2k - N) * Pi * Fg                            N
     //
     f = 0.0;    // (store the sum of all coefficients in "f")
-    for (k = 0; k <= N; k++) {
+    for (k = 0; k <= N; ++k) {
 	m_interpolation_alpha[k] =
 	    sin((2 * k - N) * M_PI * Fg) / ((2 * k - N) * M_PI * Fg);
 	m_interpolation_alpha[k] *= (0.54 - 0.46 * cos(2 * k * M_PI / N));
@@ -540,7 +540,7 @@ void Kwave::TrackPixmap::calculateInterpolation()
     }
     // norm the coefficients to 1.0 / m_zoom
     f *= m_zoom;
-    for (k = 0; k <= N; k++)
+    for (k = 0; k <= N; ++k)
 	m_interpolation_alpha[k] /= f;
 
 }
@@ -611,11 +611,11 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     QPolygon points;
 
     // pass the signal data through the filter
-    for (i = 0; i < width; i++) {
+    for (i = 0; i < width; ++i) {
 	sig = sig_buffer + (i + N);
 	y = 0.0;
-	for (k = 0; k <= N; k++)
-	    y += *(sig--) * m_interpolation_alpha[k];
+	for (k = 0; k <= N; ++k, --sig)
+	    y += (*sig) * m_interpolation_alpha[k];
 	points.append(QPoint(i, middle - Kwave::toInt(y)));
     }
 

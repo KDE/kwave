@@ -275,7 +275,7 @@ bool Kwave::OpusEncoder::setupCodingRate(QWidget *widget,
 	return false;
 
     m_rate_converter->setAttribute(
-	SLOT(setRatio(const QVariant)),
+	SLOT(setRatio(QVariant)),
 	QVariant(ratio)
     );
 

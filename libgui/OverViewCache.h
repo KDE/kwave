@@ -71,9 +71,9 @@ namespace Kwave
 	 *                   optional, default=0 (whole signal)
 	 */
 	OverViewCache(Kwave::SignalManager &signal,
-	              sample_index_t src_offset = 0,
-	              sample_index_t src_length = 0,
-	              const QList<unsigned int> *src_tracks = 0);
+	              sample_index_t src_offset,
+	              sample_index_t src_length,
+	              const QList<unsigned int> *src_tracks);
 
 	/** Destructor */
 	virtual ~OverViewCache();

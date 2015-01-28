@@ -52,7 +52,7 @@ namespace Kwave
 	 * Constructor
 	 * @param widget pointer to the parent widget
 	 */
-	SelectTimeWidget(QWidget *widget);
+	explicit SelectTimeWidget(QWidget *widget);
 
 	/**
 	 * Constructor

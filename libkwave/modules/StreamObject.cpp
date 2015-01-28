@@ -48,7 +48,7 @@ void Kwave::StreamObject::setAttribute(const char *attribute,
 	if (!obj) continue;
 
 	// temporary establish a signal->slot connection
-	QObject::connect(this, SIGNAL(attributeChanged(const QVariant)),
+	QObject::connect(this, SIGNAL(attributeChanged(QVariant)),
                          obj, attribute,
                          Qt::DirectConnection);
 
@@ -56,7 +56,7 @@ void Kwave::StreamObject::setAttribute(const char *attribute,
 	emit attributeChanged(value);
 
 	// remove the temporary signal->slot connection
-	QObject::disconnect(this, SIGNAL(attributeChanged(const QVariant)),
+	QObject::disconnect(this, SIGNAL(attributeChanged(QVariant)),
                             obj, attribute);
     }
 }

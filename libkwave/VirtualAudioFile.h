@@ -45,7 +45,7 @@ namespace Kwave
 	 * Constructor
 	 * @param device QIODevice used as source/destination
 	 */
-	VirtualAudioFile(QIODevice &device);
+	explicit VirtualAudioFile(QIODevice &device);
 
 	/** Destructor */
 	virtual ~VirtualAudioFile();

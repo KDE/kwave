@@ -74,7 +74,7 @@ QString Kwave::Curve::getCommand()
     QString cmd = _("curve(");
     cmd += m_interpolation.name(m_interpolation.type());
 
-    foreach (Point p, *this) {
+    foreach (const Point &p, *this) {
 	QString par = _(",%1,%2");
 	cmd += par.arg(p.x()).arg(p.y());
     }
@@ -122,7 +122,9 @@ void Kwave::Curve::secondHalf()
 {
     if (isEmpty()) return;
 
-    foreach (Point p, *this) {
+    QMutableListIterator<Point> it(*this);
+    while (it.hasNext()) {
+	Point &p = it.next();
 	p.setX(0.5 + p.x() / 2.0);
     }
 
@@ -158,7 +160,9 @@ void Kwave::Curve::firstHalf()
 {
     if (isEmpty()) return;
 
-    foreach (Point p, *this) {
+    QMutableListIterator<Point> it(*this);
+    while (it.hasNext()) {
+	Point &p = it.next();
 	p.setX(p.x() / 2.0);
     }
     append(Point(1.0, first().y()));
@@ -169,7 +173,9 @@ void Kwave::Curve::VFlip()
 {
     if (isEmpty()) return;
 
-    foreach (Point p, *this) {
+    QMutableListIterator<Point> it(*this);
+    while (it.hasNext()) {
+	Point &p = it.next();
 	p.setY(1.0 - p.y());
     }
 }
@@ -180,7 +186,9 @@ void Kwave::Curve::HFlip()
     if (isEmpty()) return;
 
     // flip all x coordinates
-    foreach (Point p, *this) {
+    QMutableListIterator<Point> it(*this);
+    while (it.hasNext()) {
+	Point &p = it.next();
 	p.setX(1.0 - p.x());
     }
 
@@ -202,7 +210,9 @@ void Kwave::Curve::scaleFit(unsigned int range)
 	if (yi < min) min = yi;
     }
 
-    foreach (Point p, *this) {
+    QMutableListIterator<Point> it(*this);
+    while (it.hasNext()) {
+	Point &p = it.next();
 	p.ry() -= min;
 	if (!qFuzzyCompare(max, min))
 	    p.ry() /= (max - min);
@@ -219,7 +229,9 @@ Kwave::Curve::Point Kwave::Curve::findPoint(double px, double py, double tol)
     double dist;
     double min_dist = tol;
 
-    foreach (Point p, *this) {
+    QMutableListIterator<Point> it(*this);
+    while (it.hasNext()) {
+	Point &p = it.next();
 	// use the length of the difference vector as criterium
 	dist = hypot(px - p.x(), py - p.y());
 	if (dist < min_dist) {

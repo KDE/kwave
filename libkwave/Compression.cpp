@@ -38,7 +38,7 @@ Kwave::Compression::Compression(int value)
     if (m_map.isEmpty()) fillMap();
 
     if (m_map.contains(value)) {
-	Kwave::Compression known_comp = m_map[value];
+	Kwave::Compression known_comp(m_map[value]);
 	m_data = known_comp.m_data;
     }
 }
@@ -121,13 +121,13 @@ void Kwave::Compression::fillMap()
     QList<Kwave::SampleFormat> sfmt_none;
 
     QList<Kwave::SampleFormat> sfmt_int;
-    sfmt_int += Kwave::SampleFormat::Signed;
-    sfmt_int += Kwave::SampleFormat::Unsigned;
+    sfmt_int += Kwave::SampleFormat(Kwave::SampleFormat::Signed);
+    sfmt_int += Kwave::SampleFormat(Kwave::SampleFormat::Unsigned);
 
     QList<Kwave::SampleFormat> sfmt_all;
     sfmt_all += sfmt_int;
-    sfmt_all += Kwave::SampleFormat::Float;
-    sfmt_all += Kwave::SampleFormat::Double;
+    sfmt_all += Kwave::SampleFormat(Kwave::SampleFormat::Float);
+    sfmt_all += Kwave::SampleFormat(Kwave::SampleFormat::Double);
 
     /* no compression */
 

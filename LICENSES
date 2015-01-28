@@ -97,11 +97,13 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	CHANGES						(should be GPL2+)
 	config.h.cmake					GPL2+
 	doxy.cfg.in					GPL2+
+	ExtraDesktop.sh					???
 	GNU-LICENSE					free
 	kwave.ebuild					GPL2+ / Gentoo
 	kwave.kdev4					(should be GPL2+)
 	kwave.lsm					(should be GPL2+)
 	kwave.spec.in					(should be GPL2+)
+	Messages.sh					GPL2+
 	README						(should be GPL2+)
 	TODO						(should be GPL2+)
 	VERSION						(should be GPL2+)
@@ -865,12 +867,5 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/zero/CMakeLists.txt			GPL2+
 	plugins/zero/ZeroPlugin.cpp			GPL2+
 	plugins/zero/ZeroPlugin.h			GPL2+
-
-	po/CMakeLists.txt				GPL2+
-	po/cs.po					(should be GPL2+)
-	po/de.po					(should be GPL2+)
-	po/es.po					(should be GPL2+)
-	po/fr.po					(should be GPL2+)
-	po/kwave.pot					(should be GPL2+)
 
 ### EOF ###

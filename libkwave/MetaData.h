@@ -104,7 +104,7 @@ namespace Kwave
 	MetaData(const MetaData &other);
 
 	/** constructor */
-	MetaData(Scope scope);
+	explicit MetaData(Scope scope);
 
 	/** destructor */
 	virtual ~MetaData();

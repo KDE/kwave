@@ -136,7 +136,7 @@ bool Kwave::ClipBoard::isEmpty()
     if (!mime_data) return true;
 
     // there is a format that we can decode -> not empty
-    foreach (QString format, mime_data->formats())
+    foreach (const QString &format, mime_data->formats())
 	if (Kwave::CodecManager::canDecode(format)) return false;
 
     // nothing to decode -> empty

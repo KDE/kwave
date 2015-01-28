@@ -52,7 +52,7 @@ namespace Kwave
 	 * Constructor
 	 * @param type initial window function type.
 	 */
-	WindowFunction(window_function_t type);
+	explicit WindowFunction(window_function_t type);
 
 	/** Destructor */
 	virtual ~WindowFunction();

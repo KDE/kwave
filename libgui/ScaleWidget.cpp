@@ -134,7 +134,7 @@ void Kwave::ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
 	static_cast<double>(w1) * log(base-1)/log(base))) > 1;
 
     // print the lines
-    for (a = 0; a < decades; a++) {
+    for (a = 0; a < decades; ++a) {
 	// big line, for each decade
 	x = Kwave::toInt((w-1) * a / decades);
 	p.drawLine (dir * x, dir * 1, dir * x, dir * (h2 - 2));
@@ -151,7 +151,7 @@ void Kwave::ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
     }
 
     // print the text
-    for (a = 0; a < decades; a++) {
+    for (a = 0; a < decades; ++a) {
 	QString buf = _("%1 %2");
 	int value = Kwave::toInt(pow(base, dec_lo + a));
 	buf = buf.arg(value).arg(m_unittext);
@@ -179,7 +179,7 @@ void Kwave::ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
     // print the lines
     while ((t / 10 > 1) && (h2 > 0)) {
 	for (ofs = 0; ofs < w - 1; ofs += t) {
-	    for (a = 0; a < 4; a++) {
+	    for (a = 0; a < 4; ++a) {
 		x = Kwave::toInt(ofs + (t * a / 4));
 		p.drawLine (dir * x, dir * 1, dir * x, dir * (h2 - 2));
 	    }
@@ -189,7 +189,7 @@ void Kwave::ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
     }
 
     // print the text
-    for (a = 0; a < 4; a++) {
+    for (a = 0; a < 4; ++a) {
 	QString buf = _("%1 %2");
 	int value = m_low + (((m_high - m_low)* (inverse ? (4 - a) : a)) / 4);
 	buf = buf.arg(value).arg(m_unittext);

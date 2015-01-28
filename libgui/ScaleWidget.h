@@ -39,7 +39,7 @@ namespace Kwave
 	 * Primitve constructor for usage in a Qt designer's dialog
 	 * @param parent the widget's parent widget
 	 */
-	ScaleWidget(QWidget *parent);
+	explicit ScaleWidget(QWidget *parent);
 
 	/**
 	 * Constructor with initialization.

@@ -123,7 +123,7 @@ int Kwave::RecordParams::fromList(const QStringList &list)
 
     int sf;
     GET(sf, toInt);
-    sample_format.fromInt(sf);
+    Kwave::SampleFormat(sample_format).fromInt(sf);
 
     // buffer count and power of buffer size
     GET(buffer_count, toUInt);
@@ -183,7 +183,7 @@ QStringList Kwave::RecordParams::toList() const
     PUT(sample_rate);
     PUT(compression);
     PUT(bits_per_sample);
-    PUT(sample_format.toInt());
+    PUT(Kwave::SampleFormat(sample_format).toInt());
 
     // buffer count and power of buffer size
     PUT(buffer_count);

@@ -41,7 +41,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	CurveWidget(QWidget *parent);
+	explicit CurveWidget(QWidget *parent);
 
 	/** Destructor */
 	virtual ~CurveWidget();

@@ -38,7 +38,7 @@ namespace Kwave
 	 * @param bits_per_sample number of bits per sample in the raw data
 	 * @param endianness either SOURCE_LITTLE_ENDIAN or SOURCE_BIG_ENDIAN
 	 */
-	SampleEncoderLinear(Kwave::SampleFormat sample_format,
+	SampleEncoderLinear(Kwave::SampleFormat::Format sample_format,
 	                    unsigned int bits_per_sample,
 	                    Kwave::byte_order_t endianness);
 

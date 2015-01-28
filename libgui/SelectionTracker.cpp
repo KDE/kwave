@@ -40,22 +40,28 @@ Kwave::SelectionTracker::SelectionTracker(Kwave::SignalManager *signal,
     if (!signal) return;
 
     QObject::connect(
-	signal, SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
-	this,   SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
-    connect(signal, SIGNAL(sigTrackDeleted(unsigned int, Kwave::Track *)),
-            this,   SLOT(slotTrackDeleted(unsigned int, Kwave::Track *)));
-    connect(signal, SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,
-                                             sample_index_t)),
-            this,   SLOT(slotSamplesDeleted(unsigned int, sample_index_t,
-                                            sample_index_t)));
-    connect(signal, SIGNAL(sigSamplesInserted(unsigned int, sample_index_t,
-                                              sample_index_t)),
-            this,   SLOT(slotSamplesInserted(unsigned int, sample_index_t,
-                                             sample_index_t)));
-    connect(signal, SIGNAL(sigSamplesModified(unsigned int, sample_index_t,
-                                              sample_index_t)),
-            this,   SLOT(slotSamplesModified(unsigned int, sample_index_t,
-                                             sample_index_t)));
+	signal, SIGNAL(sigTrackInserted(unsigned int, Kwave::Track*)),
+	this,   SLOT(slotTrackInserted(unsigned int, Kwave::Track*)));
+    connect(signal, SIGNAL(sigTrackDeleted(unsigned int, Kwave::Track*)),
+            this,   SLOT(slotTrackDeleted(unsigned int, Kwave::Track*)));
+    connect(
+	signal,
+	SIGNAL(sigSamplesDeleted(unsigned int,sample_index_t,sample_index_t)),
+	this,
+	SLOT(slotSamplesDeleted(unsigned int,sample_index_t,sample_index_t))
+    );
+    connect(
+	signal,
+	SIGNAL(sigSamplesInserted(unsigned int,sample_index_t,sample_index_t)),
+	this,
+	SLOT(slotSamplesInserted(unsigned int,sample_index_t,sample_index_t))
+    );
+    connect(
+	signal,
+	SIGNAL(sigSamplesModified(unsigned int,sample_index_t,sample_index_t)),
+	this,
+	SLOT(slotSamplesModified(unsigned int,sample_index_t,sample_index_t))
+    );
 
     // register ourself at the undo manager
     Kwave::UndoManager &undo = signal->undoManager();

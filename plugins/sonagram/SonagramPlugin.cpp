@@ -214,15 +214,15 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     Q_ASSERT(m_selection);
     if (!m_selection) return -ENOMEM;
 
-    connect(m_selection, SIGNAL(sigTrackInserted(const QUuid &)),
-            this,        SLOT( slotTrackInserted(const QUuid &)));
-    connect(m_selection, SIGNAL(sigTrackDeleted(const QUuid &)),
-            this,        SLOT( slotTrackDeleted(const QUuid &)));
+    connect(m_selection, SIGNAL(sigTrackInserted(QUuid)),
+            this,        SLOT( slotTrackInserted(QUuid)));
+    connect(m_selection, SIGNAL(sigTrackDeleted(QUuid)),
+            this,        SLOT( slotTrackDeleted(QUuid)));
     connect(
 	m_selection,
-	SIGNAL(sigInvalidated(const QUuid *, sample_index_t, sample_index_t)),
+	SIGNAL(sigInvalidated(QUuid*, sample_index_t, sample_index_t)),
 	this,
-	SLOT( slotInvalidated(const QUuid *, sample_index_t, sample_index_t))
+	SLOT( slotInvalidated(QUuid*, sample_index_t, sample_index_t))
     );
 
     // create a new empty image
@@ -260,8 +260,8 @@ int Kwave::SonagramPlugin::start(QStringList &params)
 
     if (m_track_changes) {
 	QObject::connect(static_cast<QObject*>(&(manager())),
-	    SIGNAL(sigSignalNameChanged(const QString &)),
-	    m_sonagram_window, SLOT(setName(const QString &)));
+	    SIGNAL(sigSignalNameChanged(QString)),
+	    m_sonagram_window, SLOT(setName(QString)));
     }
 
     // increment the usage counter and release the plugin when the

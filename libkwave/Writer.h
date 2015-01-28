@@ -50,8 +50,8 @@ namespace Kwave
 	 * @param right end of the input (only useful with overwrite mode)
 	 * @see InsertMode
 	 */
-	Writer(Kwave::InsertMode mode,
-	       sample_index_t left = 0, sample_index_t right = 0);
+	explicit Writer(Kwave::InsertMode mode,
+	                sample_index_t left = 0, sample_index_t right = 0);
 
 	/** Destructor */
 	virtual ~Writer();

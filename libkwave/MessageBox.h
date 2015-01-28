@@ -145,7 +145,7 @@ namespace Kwave
 	     * Constructor, re-parents itself to the GUI thread
 	     * @param box the Kwave::MessageBox to use
 	     */
-	    Trigger(Kwave::MessageBox &box);
+	    explicit Trigger(Kwave::MessageBox &box);
 
 	    /**
 	     * Destructor. Will always be executed in the GUI thread,

@@ -45,9 +45,9 @@ namespace Kwave
 	 *        vertically into the widget; if false the image will be
 	 *        cut off at the edge and should be scrolled
 	 */
-	ImageView(QWidget *parent = 0,
-	          bool fit_width = true,
-	          bool fit_height = true);
+	explicit ImageView(QWidget *parent = 0,
+	                   bool fit_width = true,
+	                   bool fit_height = true);
 
 	/**
 	 * Destructor

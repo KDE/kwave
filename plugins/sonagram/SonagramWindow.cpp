@@ -166,8 +166,8 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     m_overview->setFixedHeight(SONAGRAM_OVERVIEW_HEIGHT);
     top_layout->addWidget(m_overview, 2, 1);
 
-    connect(m_view, SIGNAL(sigCursorPos(const QPoint)),
-	    this, SLOT(cursorPosChanged(const QPoint)));
+    connect(m_view, SIGNAL(sigCursorPos(QPoint)),
+	    this, SLOT(cursorPosChanged(QPoint)));
     connect(&m_refresh_timer, SIGNAL(timeout()),
             this, SLOT(refresh_view()));
 

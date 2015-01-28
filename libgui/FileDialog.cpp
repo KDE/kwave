@@ -63,7 +63,8 @@ Kwave::FileDialog::FileDialog(const QString &startDir,
     if (m_last_ext.length() && filter.length()) {
 	QStringList filter_list = filter.split(_("\n"));
 	QString best;
-	foreach (QString f, filter_list) {
+	foreach (const QString &filter, filter_list) {
+	    QString f(filter);
 	    if (f.contains(_("|")))
 		f = f.left(f.indexOf(_("|")));
 	    if (!f.length()) continue;
@@ -128,7 +129,7 @@ void Kwave::FileDialog::saveConfig()
 	QString filename = selectedUrl().fileName();
 	QString filter = filterWidget()->currentFilter();
 	m_last_ext = _("");
-	foreach (QString mask, filter.split(_(" "))) {
+	foreach (const QString &mask, filter.split(_(" "))) {
 	    QRegExp regex(mask, Qt::CaseSensitive, QRegExp::Wildcard);
 	    if (regex.indexIn(filename) >= 0) {
 		m_last_ext = mask;

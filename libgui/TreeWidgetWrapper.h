@@ -34,7 +34,7 @@ namespace Kwave
 	Q_OBJECT
     public:
 	/** Constructor */
-	TreeWidgetWrapper(QWidget *parent);
+	explicit TreeWidgetWrapper(QWidget *parent);
 
 	/** Destructor */
 	virtual ~TreeWidgetWrapper();

@@ -129,8 +129,8 @@ Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
     m_action_zoomselect = addWidget(m_zoomselect);
     connect(m_zoomselect, SIGNAL(activated(int)),
             this, SLOT(selectZoom(int)));
-    connect(this, SIGNAL(sigCommand(const QString &)),
-            parent, SLOT(forwardCommand(const QString &)));
+    connect(this, SIGNAL(sigCommand(QString)),
+            parent, SLOT(forwardCommand(QString)));
 
     int h = m_zoomselect->sizeHint().height();
     m_zoomselect->setMinimumWidth(h * 5);
@@ -309,7 +309,7 @@ void Kwave::ZoomToolBar::setZoomInfo(Kwave::FileContext *context, double zoom)
 	} else if (rate > 0) {
 	    // time mode:
 	    // find the best index where to insert the new user defined value
-	    for (i = 0; i < m_zoomselect->count(); i++) {
+	    for (i = 0; i < m_zoomselect->count(); ++i) {
 		QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
 		bool ok = false;
 		double t = v.toDouble(&ok);

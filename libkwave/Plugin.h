@@ -87,7 +87,7 @@ namespace Kwave
 	 * Constructor
 	 * @param plugin_manager reference to our plugin manager
 	 */
-	Plugin(Kwave::PluginManager &plugin_manager);
+	explicit Plugin(Kwave::PluginManager &plugin_manager);
 
 	/**
 	 * Destructor.

@@ -107,7 +107,8 @@ namespace Kwave
 	 *        libaudiofile (signed or unsigned)
 	 */
 	void format2mode(int format, int &compression,
-	                 int &bits, Kwave::SampleFormat &sample_format) const;
+	                 int &bits,
+	                 Kwave::SampleFormat::Format &sample_format) const;
 
 	/**
 	 * Opens a physical device and returns its file descriptor

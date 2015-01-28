@@ -637,7 +637,7 @@ void Kwave::SignalView::startDragging()
     info.setRate(rate);
     info.setBits(bits);
     info.setTracks(src.tracks());
-    meta.replace(info);
+    meta.replace(Kwave::MetaDataList(info));
 
     if (!d->encode(this, src, meta)) {
 	delete d;
@@ -713,7 +713,7 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
 	}
     } else if (event->mimeData()->hasUrls()) {
 	bool first = true;
-	foreach (QUrl url, event->mimeData()->urls()) {
+	foreach (const QUrl &url, event->mimeData()->urls()) {
 	    QString filename = url.toLocalFile();
 	    QString mimetype = Kwave::CodecManager::whatContains(filename);
 	    if (Kwave::CodecManager::canDecode(mimetype)) {

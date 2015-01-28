@@ -171,7 +171,7 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
 	    }
 
 	    bool found = false;
-	    foreach (Kwave::FileProperty p, info.allKnownProperties()) {
+	    foreach (const Kwave::FileProperty &p, info.allKnownProperties()) {
 		if (info.name(p).toLower() == name.toLower()) {
 		    found = true;
 		    info.set(p, QVariant(value));
@@ -200,7 +200,7 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
 	info.set(INF_TRACKS, QVariant());
     }
 
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
     metaData().add(labels.toMetaDataList());
 
     return (info.tracks() >= 1);
@@ -240,7 +240,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
     m_dest = &dst;
 
     // for the moment: use a comma as separator <= TODO
-    const char *separators = ",";
+    const char separators[] = {',', '\0' };
 
     Kwave::FileInfo info(metaData());
     unsigned int channels = info.tracks();
@@ -276,7 +276,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
 
     m_dest = 0;
     info.setLength(dst.last() ? (dst.last() + 1) : 0);
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
 
     // return with a valid Signal, even if the user pressed cancel !
     return true;

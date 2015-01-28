@@ -108,11 +108,11 @@ void Kwave::PitchShiftPlugin::updateFilter(Kwave::SampleSource *filter,
     if (!filter) return;
 
     if (!qFuzzyCompare(m_frequency, m_last_freq) || force)
-	filter->setAttribute(SLOT(setFrequency(const QVariant)),
+	filter->setAttribute(SLOT(setFrequency(QVariant)),
 	    QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     if (!qFuzzyCompare(m_speed, m_last_speed) || force)
-	filter->setAttribute(SLOT(setSpeed(const QVariant)),
+	filter->setAttribute(SLOT(setSpeed(QVariant)),
 	    QVariant(m_speed));
 
     m_last_freq  = m_frequency;

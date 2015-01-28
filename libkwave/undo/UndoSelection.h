@@ -43,7 +43,7 @@ namespace Kwave
 	 * Constructor.
 	 * @param manager reference to the SignalManager
 	 */
-	UndoSelection(Kwave::SignalManager &manager);
+	explicit UndoSelection(Kwave::SignalManager &manager);
 
 	/**
 	 * Constructor.

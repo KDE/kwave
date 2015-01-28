@@ -147,7 +147,7 @@ void Kwave::VolumePlugin::run(QStringList params)
 	source, SIGNAL(output(Kwave::SampleArray)),
 	mul,    SLOT(input_a(Kwave::SampleArray)));
 
-    mul.setAttribute(SLOT(set_b(const QVariant)),
+    mul.setAttribute(SLOT(set_b(QVariant)),
                      QVariant(m_factor));
     Kwave::connect(
 	mul,    SIGNAL(output(Kwave::SampleArray)),

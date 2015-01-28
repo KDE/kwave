@@ -60,7 +60,7 @@ namespace Kwave
 	 * Constructor, creates a curve from a command string.
 	 * @param command string with parameters
 	 */
-	Curve(const QString &command);
+	explicit Curve(const QString &command);
 
 	/** Destructor */
 	virtual ~Curve();

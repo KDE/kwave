@@ -39,7 +39,7 @@ namespace Kwave
 	 *
 	 * @param parent a parent object, passed to QObject (optional)
 	 */
-	SampleSource(QObject *parent=0);
+	explicit SampleSource(QObject *parent=0);
 
 	/** Destructor */
 	virtual ~SampleSource();

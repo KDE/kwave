@@ -38,7 +38,7 @@ namespace Kwave
          * Constructor
          * @param parent a parent object, passed to QObject (optional)
          */
-        SampleSink(QObject *parent = 0);
+        explicit SampleSink(QObject *parent = 0);
 
         /** Destructor */
         virtual ~SampleSink();

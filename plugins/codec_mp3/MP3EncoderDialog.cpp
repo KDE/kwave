@@ -281,8 +281,8 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
 	    this, SLOT(selectProgram(int)));
 
     // standard actions, reset / reset to defaults etc...
-    connect(buttonBox, SIGNAL(clicked(QAbstractButton *)),
-	    this, SLOT(buttonClicked(QAbstractButton *)));
+    connect(buttonBox, SIGNAL(clicked(QAbstractButton*)),
+	    this, SLOT(buttonClicked(QAbstractButton*)));
 
     // auto-detec button
     connect(btDetect, SIGNAL(clicked()),      this, SLOT(autoDetect()));
@@ -605,7 +605,7 @@ void Kwave::MP3EncoderDialog::testSettings()
     info.set(Kwave::INF_MPEG_EMPHASIS,   QVariant(3));
     info.set(Kwave::INF_COPYRIGHTED,     QVariant(1));
     info.set(Kwave::INF_ORIGINAL,        QVariant(1));
-    meta_data.replace(info);
+    meta_data.replace(Kwave::MetaDataList(info));
 
     // create a multi track reader
     QList<unsigned int> track_list;

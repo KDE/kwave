@@ -164,7 +164,7 @@ int Kwave::OggDecoder::parseHeader(QWidget *widget)
     if (m_sub_decoder->open(widget, info) < 0)
 	return -1;
 
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
     return 1;
 }
 
@@ -264,7 +264,7 @@ bool Kwave::OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 
     Kwave::FileInfo info(metaData());
     m_sub_decoder->close(info);
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
 
     // return with a valid Signal, even if the user pressed cancel !
     return true;

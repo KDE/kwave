@@ -679,7 +679,8 @@ void Kwave::RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 }
 
 //***************************************************************************
-void Kwave::RecordPlugin::changeSampleFormat(Kwave::SampleFormat new_format)
+void Kwave::RecordPlugin::changeSampleFormat(
+    Kwave::SampleFormat::Format new_format)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -694,9 +695,9 @@ void Kwave::RecordPlugin::changeSampleFormat(Kwave::SampleFormat new_format)
     }
 
     // check the supported sample formats
-    QList<Kwave::SampleFormat> supported_formats =
+    QList<Kwave::SampleFormat::Format> supported_formats =
 	m_device->detectSampleFormats();
-    Kwave::SampleFormat format = new_format;
+    Kwave::SampleFormat::Format format = new_format;
     if (!supported_formats.contains(format) && !supported_formats.isEmpty()) {
 	// use the device default instead
 	format = m_device->sampleFormat();
@@ -972,7 +973,7 @@ void Kwave::RecordPlugin::startRecording()
 	fileInfo.setTracks(tracks);
 	fileInfo.set(Kwave::INF_MIMETYPE, _("audio/vnd.wave"));
 	fileInfo.set(Kwave::INF_SAMPLE_FORMAT,
-	    m_dialog->params().sample_format.toInt());
+	    Kwave::SampleFormat(m_dialog->params().sample_format).toInt());
 	fileInfo.set(Kwave::INF_COMPRESSION, m_dialog->params().compression);
 
 	// add our Kwave Software tag

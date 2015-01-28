@@ -43,7 +43,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	FilterPlugin(Kwave::PluginManager &plugin_manager);
+	explicit FilterPlugin(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
 	virtual ~FilterPlugin();

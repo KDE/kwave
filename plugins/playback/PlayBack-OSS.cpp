@@ -411,8 +411,7 @@ QString Kwave::PlayBackOSS::fileFilter()
 
 //***************************************************************************
 void Kwave::PlayBackOSS::format2mode(int format, int &compression,
-                                     int &bits,
-                                     Kwave::SampleFormat &sample_format) const
+    int &bits, Kwave::SampleFormat::Format &sample_format) const
 {
     switch (format) {
 	case AFMT_MU_LAW:
@@ -556,7 +555,7 @@ QList<unsigned int> Kwave::PlayBackOSS::supportedBits(const QString &device)
 
 	// format is supported, split into compression, bits, sample format
 	int c, b;
-	Kwave::SampleFormat s;
+	Kwave::SampleFormat::Format s;
 	format2mode(1 << bit, c, b, s);
 	if (b < 0) continue; // unknown -> skip
 

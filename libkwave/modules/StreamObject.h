@@ -39,7 +39,7 @@ namespace Kwave
 	 *
 	 * @param parent a parent object, passed to QObject (optional)
 	 */
-	StreamObject(QObject *parent = 0);
+	explicit StreamObject(QObject *parent = 0);
 
 	/** Destructor */
 	virtual ~StreamObject();

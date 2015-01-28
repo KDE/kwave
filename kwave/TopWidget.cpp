@@ -333,8 +333,8 @@ bool Kwave::TopWidget::init()
     }
 
     if (m_mdi_area) {
-	connect(m_mdi_area, SIGNAL(subWindowActivated(QMdiSubWindow *)),
-	        this,       SLOT(subWindowActivated(QMdiSubWindow *)) );
+	connect(m_mdi_area, SIGNAL(subWindowActivated(QMdiSubWindow*)),
+	        this,       SLOT(subWindowActivated(QMdiSubWindow*)) );
 	central_widget = m_mdi_area;
     }
 
@@ -431,7 +431,7 @@ bool Kwave::TopWidget::init()
     h = qMax(h, height());
     resize(w, h);
 
-    metaDataChanged(Kwave::MetaData());
+    metaDataChanged(Kwave::MetaDataList());
     setUndoRedoInfo(QString(), QString());
     selectionChanged(0, 0);
     updateMenu();
@@ -620,8 +620,8 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 	    context->setParent(this);
 	    setCentralWidget(m_mdi_area);
 
-	    connect(m_mdi_area, SIGNAL(subWindowActivated(QMdiSubWindow *)),
-		    this,       SLOT(subWindowActivated(QMdiSubWindow *)) );
+	    connect(m_mdi_area, SIGNAL(subWindowActivated(QMdiSubWindow*)),
+		    this,       SLOT(subWindowActivated(QMdiSubWindow*)) );
 
 	    QWidget *main_widget = context->mainWidget();
 	    if (main_widget) {
@@ -635,10 +635,10 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 		    m_context_map.remove(0);
 		m_context_map[sub] = context;
 
-		connect(context->mainWidget(), SIGNAL(destroyed(QObject *)),
+		connect(context->mainWidget(), SIGNAL(destroyed(QObject*)),
 			sub,                   SLOT(close()));
-		connect(sub,  SIGNAL(destroyed(QObject *)),
-			this, SLOT(subWindowDeleted(QObject *)));
+		connect(sub,  SIGNAL(destroyed(QObject*)),
+			this, SLOT(subWindowDeleted(QObject*)));
 		connectContext(context);
 
 		if (m_application.guiType() != Kwave::App::GUI_SDI) {
@@ -1536,7 +1536,7 @@ void Kwave::TopWidget::dropEvent(QDropEvent *event)
 
     if (event->mimeData()->hasUrls()) {
 	bool first = true;
-	foreach (QUrl url, event->mimeData()->urls()) {
+	foreach (const QUrl &url, event->mimeData()->urls()) {
 	    QString filename = url.toLocalFile();
 	    QString mimetype = Kwave::CodecManager::whatContains(filename);
 	    if (Kwave::CodecManager::canDecode(mimetype)) {

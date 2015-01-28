@@ -40,9 +40,9 @@ namespace Kwave
 
 	/**
 	 * Constructor
-	 * @param meta_data reference to the list of meta data that has been changed
+	 * @param meta_data list of meta data that has been changed
 	 */
-	UndoModifyMetaDataAction(const Kwave::MetaDataList &meta_data);
+	explicit UndoModifyMetaDataAction(const Kwave::MetaDataList &meta_data);
 
 	/** Destructor */
 	virtual ~UndoModifyMetaDataAction();

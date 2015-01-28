@@ -42,7 +42,7 @@ namespace Kwave
 	 * Constructor, takes over the identity of a MetaData object
 	 * @param meta_data reference to a meta data object
 	 */
-	Label(const Kwave::MetaData &meta_data);
+	explicit Label(const Kwave::MetaData &meta_data);
 
 	/**
 	 * Constructor

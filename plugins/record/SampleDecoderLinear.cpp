@@ -74,13 +74,13 @@ void decode_linear(const quint8 *src, sample_t *dst, unsigned int count)
 	register quint32 s = 0;
 	if (is_little_endian) {
 	    // little endian
-	    for (unsigned int byte = 0; byte < bytes; ++byte) {
-		s |= static_cast<quint8>(*(src++)) << (byte << 3);
+	    for (unsigned int byte = 0; byte < bytes; ++byte, ++src) {
+		s |= static_cast<quint8>(*src) << (byte << 3);
 	    }
 	} else {
 	    // big endian
-	    for (int byte = bytes - 1; byte >= 0; --byte) {
-		s |= static_cast<quint8>(*(src++)) << (byte << 3);
+	    for (int byte = bytes - 1; byte >= 0; --byte, ++src) {
+		s |= static_cast<quint8>(*src) << (byte << 3);
 	    }
 	}
 
@@ -116,7 +116,7 @@ if (sample_format != Kwave::SampleFormat::Unsigned) {  \
 
 //***************************************************************************
 Kwave::SampleDecoderLinear::SampleDecoderLinear(
-    Kwave::SampleFormat sample_format,
+    Kwave::SampleFormat::Format sample_format,
     unsigned int bits_per_sample,
     Kwave::byte_order_t endianness
 )

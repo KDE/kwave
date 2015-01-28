@@ -150,7 +150,7 @@ void Kwave::FlacDecoder::parseStreamInfo(
     info.setTracks(stream_info.get_channels());
     info.setBits(stream_info.get_bits_per_sample());
     info.setLength(stream_info.get_total_samples());
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
 
     qDebug("Bitstream is %u channel, %uHz",
            stream_info.get_channels(),
@@ -203,7 +203,7 @@ void Kwave::FlacDecoder::parseVorbisComments(
 	if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
      }
 
-     metaData().replace(info);
+     metaData().replace(Kwave::MetaDataList(info));
 }
 
 //***************************************************************************
@@ -293,7 +293,7 @@ bool Kwave::FlacDecoder::open(QWidget *widget, QIODevice &src)
     Kwave::FileInfo info(metaData());
     info.set(Kwave::INF_MIMETYPE, _(DEFAULT_MIME_TYPE));
     info.set(Kwave::INF_COMPRESSION, Kwave::Compression::FLAC);
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
 
     return true;
 }
@@ -314,7 +314,7 @@ bool Kwave::FlacDecoder::decode(QWidget * /* widget */,
     m_dest = 0;
     Kwave::FileInfo info(metaData());
     info.setLength(dst.last() ? (dst.last() + 1) : 0);
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
 
     // return with a valid Signal, even if the user pressed cancel !
     return true;

@@ -362,7 +362,7 @@ namespace Kwave
 	{
 	public:
 	    /** Constructor */
-	    PositionWidget(QWidget *parent);
+	    explicit PositionWidget(QWidget *parent);
 
 	    /** Destructor */
 	    virtual ~PositionWidget();

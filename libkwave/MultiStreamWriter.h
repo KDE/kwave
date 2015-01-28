@@ -42,7 +42,7 @@ namespace Kwave
     public:
 
 	/** Default constructor */
-	MultiStreamWriter(unsigned int tracks);
+	explicit MultiStreamWriter(unsigned int tracks);
 
 	/** Destructor */
 	virtual ~MultiStreamWriter();

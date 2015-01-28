@@ -138,7 +138,7 @@ Kwave::Decoder *Kwave::CodecManager::decoder(const QMimeData *mime_data)
 {
     if (!mime_data) return 0;
 
-    foreach (QString format, mime_data->formats()) {
+    foreach (const QString &format, mime_data->formats()) {
 	Kwave::Decoder *d = decoder(format);
 	if (d) return d;
     }

@@ -142,8 +142,8 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     progress.setLabelText(i18n("Reading..."));
     connect(&parser,   SIGNAL(progress(int)),
             &progress, SLOT(setValue(int)));
-    connect(&parser,   SIGNAL(action(const QString &)),
-            &progress, SLOT(setLabelText(const QString &)));
+    connect(&parser,   SIGNAL(action(QString)),
+            &progress, SLOT(setLabelText(QString)));
     Kwave::ConfirmCancelProxy confirm_cancel(widget,
                        &progress, SIGNAL(canceled()),
                        &parser,   SLOT(cancel()));
@@ -551,7 +551,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 	}
     }
     labels.sort();
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
     metaData().replace(labels.toMetaDataList());
 
     // set up libaudiofile to produce Kwave's internal sample format

@@ -46,7 +46,7 @@ namespace Kwave
 	 * Constructor.
 	 * @param bar reference to a KMenuBar
 	 */
-	MenuRoot(KMenuBar &bar);
+	explicit MenuRoot(KMenuBar &bar);
 
 	/** Destructor */
 	virtual ~MenuRoot();

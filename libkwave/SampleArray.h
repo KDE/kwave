@@ -46,7 +46,7 @@ namespace Kwave
 	 * (not initialized)
 	 * @param size number of samples to hold
 	 */
-	SampleArray(unsigned int size);
+	explicit SampleArray(unsigned int size);
 
 	/** Destructor */
 	virtual ~SampleArray();

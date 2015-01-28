@@ -117,14 +117,16 @@ namespace Kwave
 	 * sets the list of supported sample formats
 	 * @param formats list of supported sample formats, must not be empty
 	 */
-	void setSupportedSampleFormats(const QList<Kwave::SampleFormat> &formats);
+	void setSupportedSampleFormats(
+	    const QList<Kwave::SampleFormat::Format> &formats
+	);
 
 	/**
 	 * sets a new sample format
 	 * @param sample_format format of the samples, like signed/unsigned
 	 * @see SampleFormat
 	 */
-	void setSampleFormat(Kwave::SampleFormat sample_format);
+	void setSampleFormat(Kwave::SampleFormat::Format sample_format);
 
 	/**
 	 * updates the progress bar with the buffer fill state.

@@ -140,7 +140,7 @@ namespace Kwave
 	 * Gets a list of supported sample formats.
 	 * @note this depends on the current setting of the compression!
 	 */
-	virtual QList<Kwave::SampleFormat> detectSampleFormats();
+	virtual QList<Kwave::SampleFormat::Format> detectSampleFormats();
 
 	/**
 	 * Try to set a new sample format (signed/unsigned)
@@ -148,10 +148,10 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class SampleFormat
 	 */
-	virtual int setSampleFormat(Kwave::SampleFormat new_format);
+	virtual int setSampleFormat(Kwave::SampleFormat::Format new_format);
 
 	/** Returns the current sample format (signed/unsigned) */
-	virtual Kwave::SampleFormat sampleFormat();
+	virtual Kwave::SampleFormat::Format sampleFormat();
 
 	/** Returns the current endianness (big/little/cpu) */
 	virtual Kwave::byte_order_t endianness();
@@ -169,7 +169,8 @@ namespace Kwave
 	 *        libaudiofile (signed or unsigned)
 	 */
 	void format2mode(int format, int &compression,
-	                 int &bits, Kwave::SampleFormat &sample_format);
+	                 int &bits,
+	                 Kwave::SampleFormat::Format &sample_format);
 
 	/**
 	 * create a device format bitmask from it's parameters.
@@ -182,7 +183,7 @@ namespace Kwave
 	 * @return the device specific format
 	 */
 	int mode2format(int compression, int bits,
-	                Kwave::SampleFormat sample_format);
+	                Kwave::SampleFormat::Format sample_format);
 
     private:
 

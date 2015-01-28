@@ -41,7 +41,7 @@ Kwave::Drag::~Drag()
 bool Kwave::Drag::canDecode(const QMimeData *data)
 {
     if (!data) return false;
-    foreach (QString format, data->formats())
+    foreach (const QString &format, data->formats())
 	if (Kwave::CodecManager::canDecode(format)) return true;
     return false;
 }

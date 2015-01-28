@@ -62,7 +62,7 @@ namespace Kwave
 	 * plugin manager and so on.
 	 * @param app reference to the Kwave application
 	 */
-	FileContext(Kwave::App &app);
+	explicit FileContext(Kwave::App &app);
 
 	/**
 	 * Destructor
@@ -311,7 +311,7 @@ namespace Kwave
 	     * constructor, increments use count
 	     * @param context the file context to use
 	     */
-	    UsageGuard(Kwave::FileContext *context)
+	    explicit UsageGuard(Kwave::FileContext *context)
 		:m_context(context)
 	    {
 		if (m_context) m_context->use();

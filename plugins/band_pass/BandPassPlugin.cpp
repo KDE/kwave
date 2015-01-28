@@ -106,11 +106,11 @@ void Kwave::BandPassPlugin::updateFilter(Kwave::SampleSource *filter,
     if (!filter) return;
 
     if (!qFuzzyCompare(m_frequency, m_last_freq) || force)
-	filter->setAttribute(SLOT(setFrequency(const QVariant)),
+	filter->setAttribute(SLOT(setFrequency(QVariant)),
 	    QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     if (!qFuzzyCompare(m_bw, m_last_bw) || force)
-	filter->setAttribute(SLOT(setBandwidth(const QVariant)),
+	filter->setAttribute(SLOT(setBandwidth(QVariant)),
 	    QVariant((m_bw * 2.0 * M_PI) / sr));
 
     m_last_freq  = m_frequency;

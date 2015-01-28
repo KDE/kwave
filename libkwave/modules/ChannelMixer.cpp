@@ -73,8 +73,8 @@ bool Kwave::ChannelMixer::init()
 
 	m_indexer.append(indexer);
 	bool ok = Kwave::connect(
-	    *indexer, SIGNAL(output(unsigned int, Kwave::SampleArray)),
-	    *this,    SLOT(idxInput(unsigned int, Kwave::SampleArray)));
+	    *indexer, SIGNAL(output(unsigned int,Kwave::SampleArray)),
+	    *this,    SLOT(idxInput(unsigned int,Kwave::SampleArray)));
 	Q_ASSERT(ok);
 	if (!ok) return false;
     }
@@ -128,7 +128,7 @@ unsigned int Kwave::ChannelMixer::tracksOfPort(const char *port) const
 	// output ports
 	return m_outputs;
     } else if (_sig(port) ==
-               _sig(SLOT(idxInput(unsigned int, Kwave::SampleArray)))) {
+               _sig(SLOT(idxInput(unsigned int,Kwave::SampleArray)))) {
 	return 1;
     }
     qFatal("unknown port");
@@ -152,7 +152,7 @@ Kwave::StreamObject *Kwave::ChannelMixer::port(const char *port,
 	if (Kwave::toInt(track) >= m_output_buffer.count()) return 0;
 	return m_output_buffer[track];
     } else if (_sig(port) ==
-	       _sig(SLOT(idxInput(unsigned int, Kwave::SampleArray)))) {
+	       _sig(SLOT(idxInput(unsigned int,Kwave::SampleArray)))) {
 	return this;
     }
     qFatal("unknown port");

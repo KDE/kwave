@@ -114,14 +114,14 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
     // work blockwise to allow loop unrolling
     remaining = gen;
     while (remaining >= block_size) {
-	for (unsigned int i = 0; i < block_size; i++)
+	for (unsigned int i = 0; i < block_size; ++i)
 	    s_out[i] = float2sample(f_out[i]);
 	s_out     += block_size;
 	f_out     += block_size;
 	remaining -= block_size;
     }
-    for (; remaining; remaining--)
-	*(s_out++) = float2sample(*(f_out++));
+    for (; remaining; remaining--, ++s_out, ++f_out)
+	*s_out = float2sample(*f_out);
 
     emit output(out);
 }

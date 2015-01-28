@@ -68,7 +68,7 @@ namespace Kwave
 
     public:
 	/** Default constructor. */
-	SignalManager(QWidget *parent);
+	explicit SignalManager(QWidget *parent);
 
 	/** Default destructor */
 	virtual ~SignalManager();

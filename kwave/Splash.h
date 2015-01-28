@@ -40,7 +40,7 @@ namespace Kwave
 	 * @param PNGImageFileName name of a file to be shown as splashscreen,
 	 *        should be found in one of the "appdata" directories.
 	 */
-	Splash(const QString &PNGImageFileName);
+	explicit Splash(const QString &PNGImageFileName);
 
 	/** Destructor */
 	virtual ~Splash();

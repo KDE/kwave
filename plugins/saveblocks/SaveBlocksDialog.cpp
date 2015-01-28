@@ -51,10 +51,10 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
             this, SLOT(emitUpdate()));
 
     // if something in the file selection changes
-    connect(this, SIGNAL(filterChanged(const QString &)),
-            this, SLOT(textChanged(const QString &)));
-    connect(locationEdit(), SIGNAL(editTextChanged(const QString &)),
-            this, SLOT(textChanged(const QString &)));
+    connect(this, SIGNAL(filterChanged(QString)),
+            this, SLOT(textChanged(QString)));
+    connect(locationEdit(), SIGNAL(editTextChanged(QString)),
+            this, SLOT(textChanged(QString)));
 }
 
 //***************************************************************************

@@ -88,12 +88,12 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     if (!dialog) return 0;
 
     // connect the signals/slots from the plugin and the dialog
-    connect(dialog, SIGNAL(sigSelectionChanged(const QString &,
-	const QString &, Kwave::SaveBlocksPlugin::numbering_mode_t, bool)),
-	this, SLOT(updateExample(const QString &, const QString &,
+    connect(dialog, SIGNAL(sigSelectionChanged(QString,
+	QString, Kwave::SaveBlocksPlugin::numbering_mode_t, bool)),
+	this, SLOT(updateExample(QString, QString,
 	Kwave::SaveBlocksPlugin::numbering_mode_t, bool)));
-    connect(this, SIGNAL(sigNewExample(const QString &)),
-	dialog, SLOT(setNewExample(const QString &)));
+    connect(this, SIGNAL(sigNewExample(QString)),
+	dialog, SLOT(setNewExample(QString)));
 
     dialog->setOperationMode(KFileDialog::Saving);
     dialog->setCaption(i18n("Save Blocks"));

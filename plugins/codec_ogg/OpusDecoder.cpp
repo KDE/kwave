@@ -445,7 +445,7 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	    double rate_from = static_cast<double>(rate_supp);
 	    double rate_to   = static_cast<double>(rate_orig);
 	    m_rate_converter->setAttribute(
-		SLOT(setRatio(const QVariant)),
+		SLOT(setRatio(QVariant)),
 		QVariant(rate_to / rate_from)
 	    );
 

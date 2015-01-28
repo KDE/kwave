@@ -35,26 +35,26 @@ Kwave::KeywordWidget::KeywordWidget(QWidget *parent)
     Q_ASSERT(btRemove);
     Q_ASSERT(lstKeywords);
 
-    connect(edKeyword, SIGNAL(textChanged(const QString &)),
-            this, SLOT(editChanged(const QString &)));
+    connect(edKeyword, SIGNAL(textChanged(QString)),
+            this, SLOT(editChanged(QString)));
     connect(btAdd, SIGNAL(clicked()),
             this, SLOT(add()));
     connect(btAuto, SIGNAL(clicked()),
             this, SLOT(autoClicked()));
     connect(btRemove, SIGNAL(clicked()),
             this, SLOT(remove()));
-    connect(lstKeywords, SIGNAL(itemActivated(QListWidgetItem *)),
-            this, SLOT(listClicked(QListWidgetItem *)));
-    connect(lstKeywords, SIGNAL(itemClicked(QListWidgetItem *)),
-            this, SLOT(listClicked(QListWidgetItem *)));
-    connect(lstKeywords, SIGNAL(executed(QListWidgetItem *)),
-            this, SLOT(listClicked(QListWidgetItem *)));
+    connect(lstKeywords, SIGNAL(itemActivated(QListWidgetItem*)),
+            this, SLOT(listClicked(QListWidgetItem*)));
+    connect(lstKeywords, SIGNAL(itemClicked(QListWidgetItem*)),
+            this, SLOT(listClicked(QListWidgetItem*)));
+    connect(lstKeywords, SIGNAL(executed(QListWidgetItem*)),
+            this, SLOT(listClicked(QListWidgetItem*)));
 
     // if the user presses return in the edit control, this means
     // the same as clicking on the "Add" button
     edKeyword->setTrapReturnKey(true);
-    connect(edKeyword, SIGNAL(returnPressed(const QString &)),
-            this, SLOT(returnPressed(const QString &)));
+    connect(edKeyword, SIGNAL(returnPressed(QString)),
+            this, SLOT(returnPressed(QString)));
 
     update();
 }

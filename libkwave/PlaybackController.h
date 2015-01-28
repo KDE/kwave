@@ -58,7 +58,7 @@ namespace Kwave
     public:
 
 	/** Default constructor */
-	PlaybackController(Kwave::SignalManager &signal_manager);
+	explicit PlaybackController(Kwave::SignalManager &signal_manager);
 
 	/** Destructor */
 	virtual ~PlaybackController();

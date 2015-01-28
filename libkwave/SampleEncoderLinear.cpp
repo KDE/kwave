@@ -106,13 +106,13 @@ if (sample_format != Kwave::SampleFormat::Unsigned) {  \
 
 //***************************************************************************
 Kwave::SampleEncoderLinear::SampleEncoderLinear(
-    Kwave::SampleFormat sample_format,
+    Kwave::SampleFormat::Format sample_format,
     unsigned int bits_per_sample,
     Kwave::byte_order_t endianness
 )
     :SampleEncoder(),
-    m_bytes_per_sample((bits_per_sample + 7) >> 3),
-    m_encoder(encode_NULL)
+     m_bytes_per_sample((bits_per_sample + 7) >> 3),
+     m_encoder(encode_NULL)
 {
     // sanity checks: we support only signed/unsigned and big/little endian
     Q_ASSERT((sample_format == Kwave::SampleFormat::Signed) ||

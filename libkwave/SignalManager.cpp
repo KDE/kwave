@@ -135,7 +135,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
     {
 	Kwave::FileInfo info(m_meta_data);
 	info.set(Kwave::INF_FILENAME, fi.absoluteFilePath());
-	m_meta_data.replace(info);
+	m_meta_data.replace(Kwave::MetaDataList(info));
     }
 
     // work with a copy of meta data, to avoid flicker effects
@@ -266,7 +266,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 	info.set(Kwave::INF_ESTIMATED_LENGTH, QVariant());
 
 	// take over the decoded and updated file info
-	meta_data.replace(info);
+	meta_data.replace(Kwave::MetaDataList(info));
 	m_meta_data = meta_data;
 
 	// update the length info in the progress dialog if needed
@@ -436,7 +436,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 
 	// invoke the encoder...
 	bool encoded = false;
-	m_meta_data.replace(file_info);
+	m_meta_data.replace(Kwave::MetaDataList(file_info));
 
 	if (selection) {
 	    // use a copy, don't touch the original !
@@ -452,13 +452,13 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 	    // file which is currently open keeps it's name
 	    Kwave::FileInfo info(meta);
 	    info.set(Kwave::INF_FILENAME, filename);
-	    meta.replace(info);
+	    meta.replace(Kwave::MetaDataList(info));
 
 	    encoded = encoder->encode(m_parent_widget, src, dst, meta);
 	} else {
 	    // in case of a "save as" -> modify the current filename
 	    file_info.set(Kwave::INF_FILENAME, filename);
-	    m_meta_data.replace(file_info);
+	    m_meta_data.replace(Kwave::MetaDataList(file_info));
 	    encoded = encoder->encode(m_parent_widget, src, dst, m_meta_data);
 	}
 	if (!encoded) {
@@ -517,7 +517,7 @@ void Kwave::SignalManager::newSignal(sample_index_t samples, double rate,
     file_info.setRate(rate);
     file_info.setBits(bits);
     file_info.setTracks(tracks);
-    m_meta_data.replace(file_info);
+    m_meta_data.replace(Kwave::MetaDataList(file_info));
 
     // now the signal is considered not to be empty
     m_closed = false;
@@ -532,7 +532,7 @@ void Kwave::SignalManager::newSignal(sample_index_t samples, double rate,
     // remember the last length
     m_last_length = samples;
     file_info.setLength(length());
-    m_meta_data.replace(file_info);
+    m_meta_data.replace(Kwave::MetaDataList(file_info));
     rememberCurrentSelection();
 
     // from now on, undo is enabled
@@ -750,7 +750,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 
 	// the last label <= selection start -> label_left
 	// the first label >= selection end  -> label_right
-	foreach (Kwave::Label label, labels) {
+	foreach (const Kwave::Label &label, labels) {
 	    sample_index_t lp = label.pos();
 	    if (lp <= selection_left)
 		label_left = label;
@@ -815,7 +815,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	if (labels.isEmpty()) return false; // we need labels for this
 
 	// find the last label before the start of the selection
-	foreach (Kwave::Label label, labels) {
+	foreach (const Kwave::Label &label, labels) {
 	    if (label.pos() > selection_left)
 		break; // done
 	    label_left  = label_right;
@@ -894,7 +894,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	}
 
 	if (found)
-	    m_meta_data.replace(info);
+	    m_meta_data.replace(Kwave::MetaDataList(info));
 	else
 	    return -EINVAL;
     CASE_COMMAND("dump_metadata")
@@ -995,7 +995,7 @@ void Kwave::SignalManager::slotTrackInserted(unsigned int index,
 
     Kwave::FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
-    m_meta_data.replace(file_info);
+    m_meta_data.replace(Kwave::MetaDataList(file_info));
 
     emit sigTrackInserted(index, track);
     emit sigMetaDataChanged(m_meta_data);
@@ -1009,7 +1009,7 @@ void Kwave::SignalManager::slotTrackDeleted(unsigned int index,
 
     Kwave::FileInfo file_info(m_meta_data);
     file_info.setTracks(tracks());
-    m_meta_data.replace(file_info);
+    m_meta_data.replace(Kwave::MetaDataList(file_info));
 
     emit sigTrackDeleted(index, track);
     emit sigMetaDataChanged(m_meta_data);
@@ -1034,7 +1034,7 @@ void Kwave::SignalManager::slotSamplesInserted(unsigned int track,
 
     Kwave::FileInfo info(m_meta_data);
     info.setLength(m_last_length);
-    m_meta_data.replace(info);
+    m_meta_data.replace(Kwave::MetaDataList(info));
     emit sigMetaDataChanged(m_meta_data);
 }
 
@@ -1057,7 +1057,7 @@ void Kwave::SignalManager::slotSamplesDeleted(unsigned int track,
 
     Kwave::FileInfo info(m_meta_data);
     info.setLength(m_last_length);
-    m_meta_data.replace(info);
+    m_meta_data.replace(Kwave::MetaDataList(info));
     emit sigMetaDataChanged(m_meta_data);
 }
 
@@ -1849,11 +1849,12 @@ void Kwave::SignalManager::setFileInfo(Kwave::FileInfo &new_info,
 	                                             i18n("Modify File Info"));
 	Kwave::FileInfo old_inf(m_meta_data);
 	if (!registerUndoAction(
-	    new(std::nothrow) Kwave::UndoModifyMetaDataAction(old_inf)))
+	    new(std::nothrow) Kwave::UndoModifyMetaDataAction(
+		Kwave::MetaDataList(old_inf))))
 	    return;
     }
 
-    m_meta_data.replace(new_info);
+    m_meta_data.replace(Kwave::MetaDataList(new_info));
     setModified(true);
     emitUndoRedoInfo();
     emit sigMetaDataChanged(m_meta_data);
@@ -1894,7 +1895,8 @@ Kwave::Label Kwave::SignalManager::addLabel(sample_index_t pos,
     // register the undo action
     if (m_undo_enabled) {
 	Kwave::UndoTransactionGuard undo(*this, i18n("Add Label"));
-	if (!registerUndoAction(new(std::nothrow) UndoAddMetaDataAction(label)))
+	if (!registerUndoAction(new(std::nothrow) UndoAddMetaDataAction(
+	        Kwave::MetaDataList(label))))
 	    return Kwave::Label();
     }
 
@@ -1922,7 +1924,7 @@ void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
     if (with_undo) {
 	Kwave::UndoTransactionGuard undo(*this, i18n("Delete Label"));
 	if (!registerUndoAction(new(std::nothrow)
-	    UndoDeleteMetaDataAction(label)))
+	    UndoDeleteMetaDataAction(Kwave::MetaDataList(label))))
 	    return;
     }
 
@@ -1952,7 +1954,8 @@ bool Kwave::SignalManager::modifyLabel(int index, sample_index_t pos,
     // add a undo action
     if (m_undo_enabled) {
 	Kwave::UndoModifyMetaDataAction *undo_modify =
-	    new(std::nothrow) Kwave::UndoModifyMetaDataAction(label);
+	    new(std::nothrow) Kwave::UndoModifyMetaDataAction(
+	            Kwave::MetaDataList(label));
 	if (!registerUndoAction(undo_modify))
 	    return false;
     }

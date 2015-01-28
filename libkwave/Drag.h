@@ -53,7 +53,7 @@ namespace Kwave
 	 * Constructor
 	 * @see QDragObject
 	 */
-	Drag(QWidget *dragSource = 0);
+	explicit Drag(QWidget *dragSource = 0);
 
 	/** Destructor */
 	virtual ~Drag();

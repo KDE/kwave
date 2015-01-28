@@ -138,7 +138,7 @@ bool Kwave::MenuNode::isEnabled()
     QHash<QString, Kwave::MenuGroup *> &groups = groupList();
     Kwave::MenuNode *root = rootNode();
     if (root) {
-	foreach (QString group_name, m_groups) {
+	foreach (const QString &group_name, m_groups) {
 	    if (groups.contains(group_name)) {
 		Kwave::MenuGroup *group = groups[group_name];
 		if (group && !group->isEnabled()) {
@@ -349,7 +349,7 @@ Kwave::MenuNode *Kwave::MenuNode::leafToBranch(Kwave::MenuNode *node)
     Kwave::MenuSub *sub = insertBranch(name, command, old_shortcut, old_uid);
     if (sub) {
 	// join it to the same groups
-	foreach (QString group, old_groups)
+	foreach (const QString &group, old_groups)
 	    sub->joinGroup(group, Kwave::MenuGroup::NORMAL);
 
 	// set the old icon

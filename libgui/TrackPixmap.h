@@ -72,7 +72,7 @@ namespace Kwave
     public:
 
 	/** Default constructor */
-	TrackPixmap(Kwave::Track &track);
+	explicit TrackPixmap(Kwave::Track &track);
 
 	/** Destructor */
 	virtual ~TrackPixmap();

@@ -438,7 +438,7 @@ void Kwave::Interpolation::get2Derivate(const QVector<double> &x,
     ab[0] = ab[1] = 0;
     u[0] = u[1] = 0;
 
-    for (i = 2; i < n; i++) {
+    for (i = 2; i < n; ++i) {
 	sig = (x[i] - x[i-1]) / (x[i+1] - x[i-1]);
 	p = sig * ab[i-1] + 2;
 	ab[i] = (sig-1) / p;
@@ -451,7 +451,7 @@ void Kwave::Interpolation::get2Derivate(const QVector<double> &x,
     un = 0;
     ab[n] = (un - qn * u[n - 1]) / (qn * ab[n - 1] + 1);
 
-    for (k = n - 1; k > 0; k--)
+    for (k = n - 1; k > 0; --k)
 	ab[k] = ab[k] * ab[k + 1] + u[k];
 
 }

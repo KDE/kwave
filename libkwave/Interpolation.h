@@ -49,7 +49,7 @@ namespace Kwave
     {
     public:
 	/** Constructor, initializes type by enum type */
-	Interpolation(Kwave::interpolation_t type = INTPOL_LINEAR);
+	explicit Interpolation(Kwave::interpolation_t type = INTPOL_LINEAR);
 
 	/** Destructor. */
 	virtual ~Interpolation();

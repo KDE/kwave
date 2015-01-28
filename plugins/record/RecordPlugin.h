@@ -153,7 +153,7 @@ namespace Kwave
 	void changeBitsPerSample(unsigned int new_bits);
 
 	/** select a new sample format */
-	void changeSampleFormat(Kwave::SampleFormat new_format);
+	void changeSampleFormat(Kwave::SampleFormat::Format new_format);
 
 	/** process a raw audio buffer */
 	void processBuffer();

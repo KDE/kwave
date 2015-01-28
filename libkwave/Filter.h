@@ -40,7 +40,7 @@ namespace Kwave
 	 * Constructor, creates an empty filter with a given sample rate.
 	 * @param rate number of samples per second
 	 */
-	Filter(int rate);
+	explicit Filter(int rate);
 
 	/**
 	 * Constructor, creates a filter from a Kwave command string.

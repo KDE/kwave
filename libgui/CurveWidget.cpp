@@ -103,8 +103,8 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
     Q_ASSERT(m_preset_menu);
     if (!m_preset_menu) return;
     loadPresetList();
-    connect(m_preset_menu, SIGNAL(triggered(QAction *)),
-            this, SLOT(loadPreset(QAction *)));
+    connect(m_preset_menu, SIGNAL(triggered(QAction*)),
+            this, SLOT(loadPreset(QAction*)));
 
     m_menu->addAction(
 	icon_loader.loadIcon(_("document-export"), KIconLoader::Small),
@@ -121,14 +121,14 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
 
     QStringList types = Kwave::Interpolation::descriptions(true);
     int id = 0;
-    foreach (QString text, types) {
+    foreach (const QString &text, types) {
 	QAction *action = new QAction(interpolation);
 	action->setText(text);
 	action->setData(id++);
 	interpolation->addAction(action);
     }
-    connect(interpolation, SIGNAL(triggered(QAction *)),
-	    this, SLOT(selectInterpolationType(QAction *)));
+    connect(interpolation, SIGNAL(triggered(QAction*)),
+            this,          SLOT(selectInterpolationType(QAction*)));
 
     setMouseTracking(true);
 
@@ -442,7 +442,7 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
     }
 
     // draw the points (knobs)
-    foreach (Kwave::Curve::Point pt, m_curve) {
+    foreach (const Kwave::Curve::Point &pt, m_curve) {
 	lx = Kwave::toInt(pt.x() * (m_width-1));
 	ly = (m_height-1) - Kwave::toInt(pt.y() * (m_height-1));
 

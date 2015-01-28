@@ -250,7 +250,7 @@ namespace Kwave
 	     * Constructor
 	     * @param stripe should be *this of the stripe
 	     */
-	    MappedArray(Stripe &stripe);
+	    explicit MappedArray(Stripe &stripe);
 
 	    /** Destructor */
 	    virtual ~MappedArray();

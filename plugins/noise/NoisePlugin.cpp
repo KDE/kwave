@@ -123,7 +123,7 @@ void Kwave::NoisePlugin::updateFilter(Kwave::SampleSource *filter,
     if (!filter) return;
 
     if (!qFuzzyCompare(m_level, m_last_level) || force)
-	filter->setAttribute(SLOT(setNoiseLevel(const QVariant)),
+	filter->setAttribute(SLOT(setNoiseLevel(QVariant)),
 	                     QVariant(m_level));
 
     m_last_level = m_level;

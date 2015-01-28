@@ -42,7 +42,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	FrequencyResponseWidget(QWidget *parent);
+	explicit FrequencyResponseWidget(QWidget *parent);
 
 	/** Destructor */
 	virtual ~FrequencyResponseWidget();

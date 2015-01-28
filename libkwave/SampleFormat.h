@@ -44,7 +44,7 @@ namespace Kwave
 	SampleFormat() { assign(Unknown); }
 
 	/** Constructor, from SampleFormat::xxx */
-	SampleFormat(const Format x) { assign(x); }
+	explicit SampleFormat(const Format x) { assign(x); }
 
 	/** Copy constructor */
 	SampleFormat(const SampleFormat &f) { assign(f); }

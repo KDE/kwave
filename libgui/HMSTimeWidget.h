@@ -36,7 +36,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	HMSTimeWidget(QWidget *parent);
+	explicit HMSTimeWidget(QWidget *parent);
 
 	/** Destructor */
 	virtual ~HMSTimeWidget();

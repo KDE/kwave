@@ -303,8 +303,8 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
 	    // if found, give the item the chance to extend the context menu
 	    if (!item.isNull()) {
-		connect(item.data(), SIGNAL(sigCommand(const QString &)),
-		        this, SLOT(forwardCommand(const QString &)));
+		connect(item.data(), SIGNAL(sigCommand(QString)),
+		        this,        SLOT(forwardCommand(QString)));
 		item->appendContextMenu(context_menu);
 	    }
 
@@ -570,8 +570,8 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
 	    this,       SIGNAL(sigCommand(QString)),
 	    Qt::QueuedConnection);
 
-    connect(view,       SIGNAL(sigNeedRepaint(Kwave::SignalView *)),
-	    this,       SLOT(requestRepaint(Kwave::SignalView *)));
+    connect(view,       SIGNAL(sigNeedRepaint(Kwave::SignalView*)),
+	    this,       SLOT(requestRepaint(Kwave::SignalView*)));
 
     connect(view,       SIGNAL(contentSizeChanged()),
 	    this,       SLOT(updateMinimumHeight()));

@@ -45,7 +45,7 @@ namespace Kwave
 	 * Constructor
 	 * @param meta_data reference to the meta data that has been inserted
 	 */
-	UndoAddMetaDataAction(const Kwave::MetaDataList &meta_data);
+	explicit UndoAddMetaDataAction(const Kwave::MetaDataList &meta_data);
 
 	/** Destructor */
 	virtual ~UndoAddMetaDataAction();

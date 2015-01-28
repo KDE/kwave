@@ -152,7 +152,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
     // create the converter
     Kwave::MultiTrackSource<Kwave::RateConverter, true> converter(
 	tracks.count(), this);
-    converter.setAttribute(SLOT(setRatio(const QVariant)), QVariant(ratio));
+    converter.setAttribute(SLOT(setRatio(QVariant)), QVariant(ratio));
 
     // create the writer with the appropriate length
     Kwave::MultiTrackWriter sink(mgr, tracks, Kwave::Overwrite,

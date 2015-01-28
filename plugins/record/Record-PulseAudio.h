@@ -68,7 +68,7 @@ namespace Kwave
 	virtual Kwave::byte_order_t endianness();
 
 	/** Returns the current sample format (signed/unsigned) */
-	virtual Kwave::SampleFormat sampleFormat();
+	virtual Kwave::SampleFormat::Format sampleFormat();
 
 	/**
 	 * Try to set a new sample format (signed/unsigned)
@@ -76,13 +76,13 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class SampleFormat
 	 */
-	virtual int setSampleFormat(Kwave::SampleFormat new_format);
+	virtual int setSampleFormat(Kwave::SampleFormat::Format new_format);
 
 	/**
 	 * Gets a list of supported sample formats.
 	 * @note this depends on the current setting of the compression!
 	 */
-	virtual QList< Kwave::SampleFormat > detectSampleFormats();
+	virtual QList<Kwave::SampleFormat::Format> detectSampleFormats();
 
 	/**
 	 * Returns the current resolution in bits per sample or a negative
@@ -292,7 +292,7 @@ namespace Kwave
 	 *         or PA_SAMPLE_INVALID if no match was found
 	 */
 	pa_sample_format_t mode2format(int compression, int bits,
-	                               Kwave::SampleFormat sample_format);
+	    Kwave::SampleFormat::Format sample_format);
 
 	/**
 	 * Initialize the PulseAudio device with current parameters and
@@ -327,7 +327,7 @@ namespace Kwave
 	QWaitCondition m_mainloop_signal;
 
 	/** sample format (signed int, unsigned int, float, ... */
-	Kwave::SampleFormat m_sample_format;
+	Kwave::SampleFormat::Format m_sample_format;
 
 	/** number of tracks [0...N-1] */
 	quint8 m_tracks;

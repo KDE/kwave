@@ -110,9 +110,9 @@ static const pa_sample_format_t _known_formats[] =
 
 //***************************************************************************
 /** find out the SampleFormat of an PulseAudio format */
-static Kwave::SampleFormat sample_format_of(pa_sample_format_t fmt)
+static Kwave::SampleFormat::Format sample_format_of(pa_sample_format_t fmt)
 {
-    Kwave::SampleFormat sampleFormat = Kwave::SampleFormat::Unknown;
+    Kwave::SampleFormat::Format sampleFormat = Kwave::SampleFormat::Unknown;
     switch (fmt) {
 	case PA_SAMPLE_FLOAT32LE:
 	case PA_SAMPLE_FLOAT32BE:
@@ -348,7 +348,7 @@ void Kwave::RecordPulseAudio::notifyContext(pa_context *c)
 
 //***************************************************************************
 pa_sample_format_t Kwave::RecordPulseAudio::mode2format(
-    int compression, int bits, Kwave::SampleFormat sample_format)
+    int compression, int bits, Kwave::SampleFormat::Format sample_format)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
@@ -379,13 +379,14 @@ Kwave::byte_order_t Kwave::RecordPulseAudio::endianness()
 }
 
 //***************************************************************************
-Kwave::SampleFormat Kwave::RecordPulseAudio::sampleFormat()
+Kwave::SampleFormat::Format Kwave::RecordPulseAudio::sampleFormat()
 {
     return m_sample_format;
 }
 
 //***************************************************************************
-int Kwave::RecordPulseAudio::setSampleFormat(Kwave::SampleFormat new_format)
+int Kwave::RecordPulseAudio::setSampleFormat(
+    Kwave::SampleFormat::Format new_format)
 {
     if (m_sample_format == new_format)
 	return 0;
@@ -395,14 +396,14 @@ int Kwave::RecordPulseAudio::setSampleFormat(Kwave::SampleFormat new_format)
 }
 
 //***************************************************************************
-QList<Kwave::SampleFormat> Kwave::RecordPulseAudio::detectSampleFormats()
+QList<Kwave::SampleFormat::Format> Kwave::RecordPulseAudio::detectSampleFormats()
 {
-    QList<Kwave::SampleFormat> list;
+    QList<Kwave::SampleFormat::Format> list;
 
     // try all known sample formats
     foreach (const pa_sample_format_t &fmt, m_supported_formats)
     {
-	const Kwave::SampleFormat sample_format = sample_format_of(fmt);
+	const Kwave::SampleFormat::Format sample_format = sample_format_of(fmt);
 
 	// only accept bits/sample if compression types
 	// and bits per sample match

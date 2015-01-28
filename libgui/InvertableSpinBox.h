@@ -35,7 +35,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	InvertableSpinBox(QWidget *parent);
+	explicit InvertableSpinBox(QWidget *parent);
 
 	/** Destructor */
 	virtual ~InvertableSpinBox()

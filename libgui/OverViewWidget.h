@@ -50,7 +50,8 @@ namespace Kwave
 	Q_OBJECT
     public:
 	/** Constructor */
-	OverViewWidget(Kwave::SignalManager &signal, QWidget *parent = 0);
+	explicit OverViewWidget(Kwave::SignalManager &signal,
+	                        QWidget *parent = 0);
 
 	/** Destructor */
 	virtual ~OverViewWidget();
@@ -178,7 +179,7 @@ namespace Kwave
 	{
 	public:
 	    /** constructor */
-	    WorkerThread(Kwave::OverViewWidget *widget);
+	    explicit WorkerThread(Kwave::OverViewWidget *widget);
 
 	    /** destructor */
 	    virtual ~WorkerThread();

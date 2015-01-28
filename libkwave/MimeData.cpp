@@ -209,7 +209,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
     info.set(Kwave::INF_COMPRESSION, QVariant(Kwave::Compression::NONE));
     info.setLength(last - first + 1);
     info.setTracks(src.tracks());
-    new_meta_data.replace(info);
+    new_meta_data.replace(Kwave::MetaDataList(info));
 
     // encode into the buffer
     m_buffer.close(); // discard old stuff
@@ -243,7 +243,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
     unsigned int   decoded_tracks = 0;
 
     // try to find a suitable decoder
-    foreach (QString format, e->formats()) {
+    foreach (const QString &format, e->formats()) {
 	// skip all non-supported formats
 	if (!Kwave::CodecManager::canDecode(format)) continue;
 
@@ -330,7 +330,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 		    dst_tracks, widget);
 	    Q_ASSERT(rate_converter);
 	    if (rate_converter)
-		rate_converter->setAttribute(SLOT(setRatio(const QVariant)),
+		rate_converter->setAttribute(SLOT(setRatio(QVariant)),
 	                                     QVariant(dst_rate / src_rate));
 	    else
 		ok = false;

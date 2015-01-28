@@ -80,14 +80,14 @@ Kwave::PlayBackDialog::PlayBackDialog(
 
     connect(cbMethod, SIGNAL(activated(int)),
             SLOT(methodSelected(int)));
-    connect(cbDevice, SIGNAL(editTextChanged(const QString &)),
-            SLOT(setDevice(const QString &)));
-    connect(cbDevice, SIGNAL(activated(const QString &)),
-            SLOT(setDevice(const QString &)));
-    connect(cbBitsPerSample, SIGNAL(editTextChanged(const QString &)),
-            SLOT(bitsPerSampleSelected(const QString &)));
-    connect(cbBitsPerSample, SIGNAL(activated(const QString &)),
-            SLOT(bitsPerSampleSelected(const QString &)));
+    connect(cbDevice, SIGNAL(editTextChanged(QString)),
+            SLOT(setDevice(QString)));
+    connect(cbDevice, SIGNAL(activated(QString)),
+            SLOT(setDevice(QString)));
+    connect(cbBitsPerSample, SIGNAL(editTextChanged(QString)),
+            SLOT(bitsPerSampleSelected(QString)));
+    connect(cbBitsPerSample, SIGNAL(activated(QString)),
+            SLOT(bitsPerSampleSelected(QString)));
     connect(sbChannels, SIGNAL(valueChanged(int)),
             SLOT(setChannels(int)));
     connect(slBufferSize, SIGNAL(valueChanged(int)),
@@ -96,10 +96,10 @@ Kwave::PlayBackDialog::PlayBackDialog(
             SLOT(selectPlaybackDevice()));
 
     connect(listDevices,
-            SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
-            SLOT(listEntrySelected(QTreeWidgetItem *, QTreeWidgetItem *)));
-    connect(listDevices, SIGNAL(itemExpanded(QTreeWidgetItem *)),
-            SLOT(listItemExpanded(QTreeWidgetItem *)));
+            SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
+            SLOT(listEntrySelected(QTreeWidgetItem*, QTreeWidgetItem*)));
+    connect(listDevices, SIGNAL(itemExpanded(QTreeWidgetItem*)),
+            SLOT(listItemExpanded(QTreeWidgetItem*)));
     connect(listDevices, SIGNAL(focusLost()),
             SLOT(updateListSelection()));
 

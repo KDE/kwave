@@ -54,7 +54,7 @@ namespace Kwave
 	 * be quite handy
 	 * @param meta const reference to a single meta data item
 	 */
-	MetaDataList(const MetaData &meta);
+	explicit MetaDataList(const MetaData &meta);
 
 	/** Destructor */
 	virtual ~MetaDataList();

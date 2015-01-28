@@ -145,7 +145,7 @@ static const snd_pcm_format_t _known_formats[] =
 
 //***************************************************************************
 /** find out the SampleFormat of an ALSA format */
-static Kwave::SampleFormat sample_format_of(snd_pcm_format_t fmt)
+static Kwave::SampleFormat::Format sample_format_of(snd_pcm_format_t fmt)
 {
     if (snd_pcm_format_float(fmt)) {
 	if (snd_pcm_format_width(fmt) == 32)
@@ -790,7 +790,7 @@ double Kwave::RecordALSA::sampleRate()
 
 //***************************************************************************
 int Kwave::RecordALSA::mode2format(int compression, int bits,
-                                   Kwave::SampleFormat sample_format)
+                                   Kwave::SampleFormat::Format sample_format)
 {
     // loop over all supported formats and keep only those that are
     // compatible with the given compression, bits and sample format
@@ -893,15 +893,16 @@ int Kwave::RecordALSA::bitsPerSample()
 }
 
 //***************************************************************************
-QList<Kwave::SampleFormat> Kwave::RecordALSA::detectSampleFormats()
+QList<Kwave::SampleFormat::Format> Kwave::RecordALSA::detectSampleFormats()
 {
-    QList<Kwave::SampleFormat> list;
+    QList<Kwave::SampleFormat::Format> list;
 
     // try all known sample formats
     foreach(int it, m_supported_formats)
     {
 	const snd_pcm_format_t *fmt = &(_known_formats[it]);
-	const Kwave::SampleFormat sample_format = sample_format_of(*fmt);
+	const Kwave::SampleFormat::Format sample_format =
+	    sample_format_of(*fmt);
 
 	// only accept bits/sample if compression types
 	// and bits per sample match
@@ -923,7 +924,7 @@ QList<Kwave::SampleFormat> Kwave::RecordALSA::detectSampleFormats()
 }
 
 //***************************************************************************
-int Kwave::RecordALSA::setSampleFormat(Kwave::SampleFormat new_format)
+int Kwave::RecordALSA::setSampleFormat(Kwave::SampleFormat::Format new_format)
 {
     if (m_sample_format != new_format) m_initialized = false;
     m_sample_format = new_format;
@@ -931,7 +932,7 @@ int Kwave::RecordALSA::setSampleFormat(Kwave::SampleFormat new_format)
 }
 
 //***************************************************************************
-Kwave::SampleFormat Kwave::RecordALSA::sampleFormat()
+Kwave::SampleFormat::Format Kwave::RecordALSA::sampleFormat()
 {
     return m_sample_format;
 }

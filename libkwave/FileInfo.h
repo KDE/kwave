@@ -122,7 +122,7 @@ namespace Kwave
 	 * a list of meta data objects.
 	 * @param meta_data_list a meta data list to copy from
 	 */
-	FileInfo(const Kwave::MetaDataList &meta_data_list);
+	explicit FileInfo(const Kwave::MetaDataList &meta_data_list);
 
 	/** Destructor */
 	virtual ~FileInfo();

@@ -60,7 +60,7 @@ namespace Kwave
 	 * Constructor, from "int"
 	 * @param value the integer representation of a compression
 	 */
-	Compression(int value);
+	explicit Compression(int value);
 
 	/**
 	 * Copy constructor

@@ -162,7 +162,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     info.setTracks(tracks);
     info.setLength(length);
     info.set(INF_SAMPLE_FORMAT, af_sample_format);
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
     qDebug("-------------------------");
     qDebug("info:");
     qDebug("compression = %d", compression);

@@ -36,7 +36,7 @@ namespace Kwave
 	 * Constructor
 	 * @param track index of this playback channel
 	 */
-	PlaybackSink(unsigned int track);
+	explicit PlaybackSink(unsigned int track);
 
 	/** Destructor */
 	virtual ~PlaybackSink();

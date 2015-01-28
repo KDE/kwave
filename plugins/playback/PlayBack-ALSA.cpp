@@ -132,7 +132,7 @@ static const snd_pcm_format_t _known_formats[] =
 
 //***************************************************************************
 /** find out the SampleFormat of an ALSA format */
-static Kwave::SampleFormat sample_format_of(snd_pcm_format_t fmt)
+static Kwave::SampleFormat::Format sample_format_of(snd_pcm_format_t fmt)
 {
     if (snd_pcm_format_float(fmt)) {
 	if (snd_pcm_format_width(fmt) == 32)

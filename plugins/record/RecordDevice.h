@@ -146,7 +146,7 @@ namespace Kwave
 	 * Gets a list of supported sample formats.
 	 * @note this depends on the current setting of the compression!
 	 */
-	virtual QList<Kwave::SampleFormat> detectSampleFormats()=0;
+	virtual QList<Kwave::SampleFormat::Format> detectSampleFormats() = 0;
 
 	/**
 	 * Try to set a new sample format (signed/unsigned)
@@ -154,10 +154,10 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class SampleFormat
 	 */
-	virtual int setSampleFormat(Kwave::SampleFormat new_format) = 0;
+	virtual int setSampleFormat(Kwave::SampleFormat::Format new_format) = 0;
 
 	/** Returns the current sample format (signed/unsigned) */
-	virtual Kwave::SampleFormat sampleFormat() = 0;
+	virtual Kwave::SampleFormat::Format sampleFormat() = 0;
 
 	/** Returns the current endianness (big/little) */
 	virtual Kwave::byte_order_t endianness() = 0;

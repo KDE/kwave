@@ -149,7 +149,7 @@ namespace Kwave
 	 * Gets a list of supported sample formats.
 	 * @note this depends on the current setting of the compression!
 	 */
-	virtual QList<Kwave::SampleFormat> detectSampleFormats();
+	virtual QList<Kwave::SampleFormat::Format> detectSampleFormats();
 
 	/**
 	 * Try to set a new sample format (signed/unsigned)
@@ -157,10 +157,10 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class SampleFormat
 	 */
-	virtual int setSampleFormat(Kwave::SampleFormat new_format);
+	virtual int setSampleFormat(Kwave::SampleFormat::Format new_format);
 
 	/** Returns the current sample format (signed/unsigned) */
-	virtual Kwave::SampleFormat sampleFormat();
+	virtual Kwave::SampleFormat::Format sampleFormat();
 
 	/** Returns the current endianness (big/little) */
 	virtual Kwave::byte_order_t endianness();
@@ -193,7 +193,7 @@ namespace Kwave
 	 *         of known formats, or -1 if no match was found
 	 */
 	int mode2format(int compression, int bits,
-			Kwave::SampleFormat sample_format);
+	                Kwave::SampleFormat::Format sample_format);
 
 	/** scan all ALSA devices, re-creates m_device_list */
 	void scanDevices();
@@ -245,7 +245,7 @@ namespace Kwave
 	unsigned int m_bytes_per_sample;
 
 	/** sample format (signed int, unsigned int, float, ... */
-	Kwave::SampleFormat m_sample_format;
+	Kwave::SampleFormat::Format m_sample_format;
 
 	/**
 	 * list of supported formats of the current device, indices in

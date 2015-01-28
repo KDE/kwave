@@ -214,7 +214,7 @@ namespace Kwave
 	     * Constructor
 	     * @param selection pointer to the corresponding selection tracker
 	     */
-	    Undo(Kwave::SelectionTracker *selection);
+	    explicit Undo(Kwave::SelectionTracker *selection);
 
 	    /** Destructor */
 	    virtual ~Undo();

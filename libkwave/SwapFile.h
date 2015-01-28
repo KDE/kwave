@@ -37,7 +37,7 @@ namespace Kwave
 	 * @param name full path to the swap file, actually a template
 	 *             that <b>must</b> contain 6 "X" characters at the end!
 	 */
-	SwapFile(const QString &name);
+	explicit SwapFile(const QString &name);
 
 	/** Destructor */
 	virtual ~SwapFile();

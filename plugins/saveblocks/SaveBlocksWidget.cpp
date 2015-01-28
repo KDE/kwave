@@ -62,16 +62,16 @@ Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
     }
 
     // combo box with pattern
-    connect(cbPattern, SIGNAL(editTextChanged(const QString &)),
-            this, SLOT(textChanged(const QString &)));
+    connect(cbPattern, SIGNAL(editTextChanged(QString)),
+            this, SLOT(textChanged(QString)));
     connect(cbPattern, SIGNAL(highlighted(int)),
             this, SLOT(indexChanged(int)));
     connect(cbPattern, SIGNAL(activated(int)),
             this, SLOT(indexChanged(int)));
 
     // combo box with numbering
-    connect(cbNumbering, SIGNAL(editTextChanged(const QString &)),
-            this, SLOT(textChanged(const QString &)));
+    connect(cbNumbering, SIGNAL(editTextChanged(QString)),
+            this, SLOT(textChanged(QString)));
     connect(cbNumbering, SIGNAL(highlighted(int)),
             this, SLOT(indexChanged(int)));
     connect(cbNumbering, SIGNAL(activated(int)),

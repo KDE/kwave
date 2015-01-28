@@ -48,8 +48,8 @@ namespace Kwave {
 	 * @param name the name of the transaction as a user-readable and
 	 *        localized string. [optional]
 	 */
-	UndoTransactionGuard(Kwave::SignalManager &manager,
-	                     const QString &name = QString());
+	explicit UndoTransactionGuard(Kwave::SignalManager &manager,
+	                              const QString &name = QString());
 
 	/**
 	 * Constructor for use from a plugin. Also determines the name of the
@@ -60,8 +60,8 @@ namespace Kwave {
 	 *        localized string. [optional] If you pass null or omit this
 	 *        parameter, the name of the plugin will be used instead.
 	 */
-	UndoTransactionGuard(Kwave::Plugin &plugin,
-	                     const QString &name = QString());
+	explicit UndoTransactionGuard(Kwave::Plugin &plugin,
+	                              const QString &name = QString());
 
 	/** Destructor. */
 	virtual ~UndoTransactionGuard();

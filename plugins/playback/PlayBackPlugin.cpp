@@ -333,12 +333,12 @@ void Kwave::PlayBackPlugin::run(QStringList params)
     for (unsigned int i = 0; i < channels; i++) {
 	Q_ASSERT(delay[i]);
 	if (!delay[i]) break;
-	delay[i]->setAttribute(SLOT(setDelay(const QVariant)),
+	delay[i]->setAttribute(SLOT(setDelay(QVariant)),
 	    QVariant(i * t_sweep * rate));
     }
 
     Kwave::Osc osc;
-    osc.setAttribute(SLOT(setFrequency(const QVariant)),
+    osc.setAttribute(SLOT(setFrequency(QVariant)),
                      QVariant(rate / PLAYBACK_TEST_FREQUENCY));
 
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(channels);
@@ -443,7 +443,7 @@ void Kwave::PlayBackPlugin::testPlayBack()
 	);
 	connect(progress, SIGNAL(canceled()), this, SLOT(cancel()),
 		Qt::QueuedConnection);
-	connect(this, SIGNAL(sigDone(Kwave::Plugin *)), progress, SLOT(close()),
+	connect(this, SIGNAL(sigDone(Kwave::Plugin*)), progress, SLOT(close()),
 		Qt::QueuedConnection);
 	connect(this, SIGNAL(sigTestProgress(int)), progress, SLOT(setValue(int)),
 		Qt::QueuedConnection);

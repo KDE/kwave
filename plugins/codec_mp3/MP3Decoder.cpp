@@ -192,7 +192,7 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
     info.setBits(SAMPLE_BITS);      // fake Kwave's default resolution
     info.setLength(header.time * header.frequency);
 
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
 
     return true;
 }
@@ -380,7 +380,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	info.set(Kwave::INF_CREATION_DATE, creation_date.toString(_("yyyy")));
     }
 
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
 
     return true;
 }
@@ -448,7 +448,7 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
     m_source = &src;
     Kwave::FileInfo info(metaData());
     info.set(Kwave::INF_MIMETYPE, _("audio/mpeg"));
-    metaData().replace(info);
+    metaData().replace(Kwave::MetaDataList(info));
 
     // allocate a transfer buffer with 128 kB
     if (m_buffer) free(m_buffer);

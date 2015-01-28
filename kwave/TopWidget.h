@@ -78,7 +78,7 @@ namespace Kwave
 	 * buttons, working are an s on.
 	 * @param app reference to the Kwave application instance
 	 */
-	TopWidget(Kwave::App &app);
+	explicit TopWidget(Kwave::App &app);
 
 	/**
 	 * Does some initialization at startup of the instance

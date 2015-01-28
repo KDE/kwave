@@ -44,7 +44,7 @@ namespace Kwave {
 	 * @param name description of the undo transaction as a user-readable
 	 * localized string.
 	 */
-	UndoTransaction(const QString &name);
+	explicit UndoTransaction(const QString &name);
 
 	/** Destructor */
 	virtual ~UndoTransaction();

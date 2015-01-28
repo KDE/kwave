@@ -42,7 +42,7 @@ namespace Kwave
     public:
 
 	/** Constructor */
-	LabelPropertiesWidget(QWidget *parent);
+	explicit LabelPropertiesWidget(QWidget *parent);
 
 	/** Destructor */
 	virtual ~LabelPropertiesWidget();

@@ -34,11 +34,7 @@ $XGETTEXT --from-code=UTF-8 -C --kde \
 perl bin/menusconfig2pot.pl kwave/menus.config _kwave-i18n-menu.pot
 
 # put all parts together
-cat _kwave-i18n-src.pot   > _kwave-i18n-all.pot
-cat _kwave-i18n-menu.pot >> _kwave-i18n-all.pot
-
-# copy the result to the output directory
-cp  _kwave-i18n-all.pot $podir/kwave.pot
+msgcat _kwave-i18n-src.pot _kwave-i18n-menu.pot -o $podir/kwave.pot
 
 # clean up
 rm -f _kwave-i18n* kwave/kwave.desktop.in.h

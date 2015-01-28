@@ -17,11 +17,11 @@
 
 FIND_PACKAGE(RequiredProgram REQUIRED)
 
-SET(_help_en_docbook ${CMAKE_CURRENT_SOURCE_DIR}/help_en.docbook)
-SET(_help_en_updated ${CMAKE_CURRENT_BINARY_DIR}/help_en-updated.docbook)
-SET(_help_en_shifted ${CMAKE_CURRENT_BINARY_DIR}/help_en-shifted.docbook)
-SET(_help_en_pot_raw ${CMAKE_CURRENT_BINARY_DIR}/help_en.pot.raw)
-SET(_help_en_pot ${CMAKE_CURRENT_BINARY_DIR}/help_en.pot)
+SET(_index_docbook ${CMAKE_CURRENT_SOURCE_DIR}/index.docbook)
+SET(_index_updated ${CMAKE_CURRENT_BINARY_DIR}/index-updated.docbook)
+SET(_index_shifted ${CMAKE_CURRENT_BINARY_DIR}/index-shifted.docbook)
+SET(_index_pot_raw ${CMAKE_CURRENT_BINARY_DIR}/index.pot.raw)
+SET(_index_pot ${CMAKE_CURRENT_BINARY_DIR}/index.pot)
 SET(_version ${PROJECT_SOURCE_DIR}/VERSION)
 
 FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
@@ -119,29 +119,29 @@ ENDIF (NOT RSVG_AVAILABLE)
 FILE(REMOVE "${CMAKE_BINARY_DIR}/${_png_file}")
 
 #############################################################################
-### help_en.pot.raw -> help_en.pot                                        ###
+### index.pot.raw -> index.pot                                            ###
 
-ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_pot}
-    COMMAND ${FILTER_POT} ${_help_en_pot_raw} ${_help_en_pot}
-    DEPENDS ${FILTER_POT} ${_help_en_pot_raw}
+ADD_CUSTOM_COMMAND(OUTPUT ${_index_pot}
+    COMMAND ${FILTER_POT} ${_index_pot_raw} ${_index_pot}
+    DEPENDS ${FILTER_POT} ${_index_pot_raw}
 )
 
 #############################################################################
-### help_en.docbook -> help_en.pot.raw                                    ###
+### index.docbook -> index.pot.raw                                        ###
 
-ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_pot_raw}
-    COMMAND ${XML2POT_EXECUTABLE} ${_help_en_docbook} > ${_help_en_pot_raw}
-    DEPENDS ${_help_en_docbook}
+ADD_CUSTOM_COMMAND(OUTPUT ${_index_pot_raw}
+    COMMAND ${XML2POT_EXECUTABLE} ${_index_docbook} > ${_index_pot_raw}
+    DEPENDS ${_index_docbook}
 )
 
 #############################################################################
-### help_en.docbook -> help_en-shifted.docbook                            ###
+### index.docbook -> index-shifted.docbook                                ###
 
-ADD_CUSTOM_COMMAND(OUTPUT ${_help_en_shifted}
-    COMMAND ${CAT_EXECUTABLE} ${_help_en_docbook} |
+ADD_CUSTOM_COMMAND(OUTPUT ${_index_shifted}
+    COMMAND ${CAT_EXECUTABLE} ${_index_docbook} |
             ${SED_EXECUTABLE} s/^[[:blank:]]*// >
-            ${_help_en_shifted}
-    DEPENDS ${_help_en_docbook}
+            ${_index_shifted}
+    DEPENDS ${_index_docbook}
 )
 
 #############################################################################
@@ -192,22 +192,22 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
             ADD_CUSTOM_COMMAND(OUTPUT ${_po}
                 COMMAND ${MSGMERGE_EXECUTABLE}
                     -C ${_gui_po}
-                    -o ${_po} ${_po_orig} ${_help_en_pot}
+                    -o ${_po} ${_po_orig} ${_index_pot}
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_po} ${_po_orig}
                 DEPENDS ${_po_orig}
-                DEPENDS ${_help_en_pot}
+                DEPENDS ${_index_pot}
                 DEPENDS ${_gui_po}
             )
 
             # translated docbook file
             ADD_CUSTOM_COMMAND(OUTPUT ${_docbook}
-                COMMAND ${PO2XML_EXECUTABLE} ${_help_en_shifted} ${_po} |
+                COMMAND ${PO2XML_EXECUTABLE} ${_index_shifted} ${_po} |
                     ${SED_EXECUTABLE}
                     s/^\\<\\!ENTITY\\ %\\ English\\ /\\<\\!ENTITY\\ %\\ ${_lang_name}\\ /g
                     > ${_docbook}
                 COMMAND ${CHECKXML_EXECUTABLE} ${_docbook}
                 DEPENDS ${_po}
-                DEPENDS ${_help_en_shifted}
+                DEPENDS ${_index_shifted}
                 COMMENT STATUS "Building ${_docbook_basename} (${_lang_name})"
             )
 
@@ -225,7 +225,7 @@ MACRO(KWAVE_TRANSLATE_DOC _sources _html_sources)
             ENDFOREACH (_image_file)
 
         ELSE (NOT "${_lang}" STREQUAL "en")
-            SET(_docbook ${_help_en_docbook})
+            SET(_docbook ${_index_docbook})
             GET_FILENAME_COMPONENT(_docbook_basename ${_docbook} NAME)
         ENDIF (NOT "${_lang}" STREQUAL "en")
 
@@ -329,14 +329,15 @@ ENDMACRO(KWAVE_TRANSLATE_DOC)
 
 #############################################################################
 
-KWAVE_TRANSLATE_DOC(_docs _html_files ${KWAVE_BUILD_LINGUAS})
+# TODO find a replacement for standalone build
+# KWAVE_TRANSLATE_DOC(_docs _html_files ${KWAVE_BUILD_LINGUAS})
 
 #############################################################################
 ### "make update-handbook"                                                ###
 
 ADD_CUSTOM_TARGET(update-handbook
-    COMMAND ${UPDATE_COMMAND_XREF} ${CMAKE_SOURCE_DIR} ${_help_en_docbook} ${_help_en_updated}
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_help_en_updated} ${_help_en_docbook}
+    COMMAND ${UPDATE_COMMAND_XREF} ${CMAKE_SOURCE_DIR} ${_index_docbook} ${_index_updated}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_index_updated} ${_index_docbook}
 )
 
 
@@ -355,9 +356,15 @@ SET_DIRECTORY_PROPERTIES(PROPERTIES
 #############################################################################
 ### "make doc"                                                            ###
 
-ADD_CUSTOM_TARGET(doc ALL
-    DEPENDS ${_docbook_all} ${_index_all} ${_missing_images} ${_toolbar_pngs}
-)
+# TODO find a replacement for standalone build
+# ADD_CUSTOM_TARGET(doc ALL
+#     DEPENDS ${_docbook_all} ${_index_all} ${_missing_images} ${_toolbar_pngs}
+# )
+
+#############################################################################
+### generate the handbook, KDE environment                                ###
+
+kde4_create_handbook(index.docbook INSTALL_DESTINATION ${HTML_INSTALL_DIR}/en SUBDIR kwave)
 
 #############################################################################
 #############################################################################

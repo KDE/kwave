@@ -18,16 +18,17 @@
 #############################################################################
 ### build list of .po files                                               ###
 
-FOREACH(_lang ${KWAVE_BUILD_LINGUAS})
-    STRING(REGEX MATCH "^[^:]+" _lang_short ${_lang})
-    IF (NOT "${_lang_short}" STREQUAL "en")
-        SET(_po_files ${_po_files} ${_lang_short}.po)
-    ENDIF (NOT "${_lang_short}" STREQUAL "en")
-ENDFOREACH(_lang ${KWAVE_BUILD_LINGUAS})
-
-IF (DEFINED _po_files )
-    GETTEXT_CREATE_TRANSLATIONS(kwave.pot ALL ${_po_files})
-ENDIF (DEFINED _po_files )
+# TODO find a replacement for standalone build
+# FOREACH(_lang ${KWAVE_BUILD_LINGUAS})
+#     STRING(REGEX MATCH "^[^:]+" _lang_short ${_lang})
+#     IF (NOT "${_lang_short}" STREQUAL "en")
+#         SET(_po_files ${_po_files} ${_lang_short}.po)
+#     ENDIF (NOT "${_lang_short}" STREQUAL "en")
+# ENDFOREACH(_lang ${KWAVE_BUILD_LINGUAS})
+#
+# IF (DEFINED _po_files )
+#     GETTEXT_CREATE_TRANSLATIONS(kwave.pot ALL ${_po_files})
+# ENDIF (DEFINED _po_files )
 
 #############################################################################
 #############################################################################

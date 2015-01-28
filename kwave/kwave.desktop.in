@@ -1,21 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-GenericName=Sound Editor
-GenericName[cs]=editor zvuku pro prostředí
-GenericName[de]=Sound-Editor
-GenericName[es]=editor de sonido
-GenericName[fr]=éditeur de sons
-Name=Kwave Sound Editor
-Name[cs]=Kwave editor zvuku pro prostředí
-Name[de]=Kwave Sound-Editor
-Name[es]=Kwave editor de sonido para KDE
-Name[fr]=Kwave éditeur de sons
-Comment=A sound editor for KDE
-Comment[cs]=Editor zvuku pro prostředí KDE
-Comment[de]=Ein Sound-Editor für KDE
-Comment[es]=Un editor de sonido para KDE
-Comment[fr]=Un éditeur de sons pour KDE
+_GenericName=Sound Editor
+_Name=Kwave Sound Editor
+_Comment=A sound editor for KDE
 TryExec=kwave
 Exec=kwave %F
 Icon=kwave

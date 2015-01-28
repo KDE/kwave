@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-_GenericName=Sound Editor
-_Name=Kwave Sound Editor
-_Comment=A sound editor for KDE
+GenericName=Sound Editor
+Name=Kwave Sound Editor
+Comment=A sound editor for KDE
 TryExec=kwave
 Exec=kwave %F
 Icon=kwave

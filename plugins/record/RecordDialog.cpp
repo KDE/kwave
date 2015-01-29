@@ -188,8 +188,8 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     // device treeview
     connect(listDevices,
-            SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
-            SLOT(listEntrySelected(QTreeWidgetItem*, QTreeWidgetItem*)));
+            SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
+            SLOT(listEntrySelected(QTreeWidgetItem*,QTreeWidgetItem*)));
     connect(listDevices, SIGNAL(itemExpanded(QTreeWidgetItem*)),
             SLOT(listItemExpanded(QTreeWidgetItem*)));
     connect(listDevices, SIGNAL(focusLost()),
@@ -250,7 +250,7 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     // connect the notifications/commands of the record controller
     connect(controller, SIGNAL(stateChanged(Kwave::RecordState)),
-            this, SLOT(setState(Kwave::RecordState )));
+            this, SLOT(setState(Kwave::RecordState)));
 
     // timer for updating the buffer progress bar
     connect(&m_buffer_progress_timer, SIGNAL(timeout()),

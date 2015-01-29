@@ -67,7 +67,7 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
             this, SLOT(startPreListen()));
     connect(dlg, SIGNAL(stopPreListen()),
             this, SLOT(stopPreListen()));
-    connect(this, SIGNAL(sigDone(Kwave::Plugin *)),
+    connect(this, SIGNAL(sigDone(Kwave::Plugin*)),
             dlg, SLOT(listenStopped()));
 
     if (!m_params.isEmpty()) setup_dialog->setParams(m_params);

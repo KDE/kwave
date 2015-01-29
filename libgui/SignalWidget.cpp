@@ -103,10 +103,10 @@ Kwave::SignalWidget::SignalWidget(QWidget *parent,
     // connect to the signal manager's signals
     Kwave::SignalManager *sig = m_signal_manager;
 
-    connect(sig,  SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
-            this, SLOT( slotTrackInserted(unsigned int, Kwave::Track *)));
-    connect(sig,  SIGNAL(sigTrackDeleted(unsigned int, Kwave::Track *)),
-            this, SLOT( slotTrackDeleted(unsigned int, Kwave::Track *)));
+    connect(sig,  SIGNAL(sigTrackInserted(uint,Kwave::Track*)),
+            this, SLOT(slotTrackInserted(uint,Kwave::Track*)));
+    connect(sig,  SIGNAL(sigTrackDeleted(uint,Kwave::Track*)),
+            this, SLOT(slotTrackDeleted(uint,Kwave::Track*)));
 
     // use a timer for limiting the repaint rate
     m_repaint_timer.setSingleShot(true);

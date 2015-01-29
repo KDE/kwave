@@ -112,17 +112,17 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     // connect some signals of the setup dialog
     connect(m_dialog, SIGNAL(sigMethodChanged(Kwave::record_method_t)),
             this,     SLOT(setMethod(Kwave::record_method_t)));
-    connect(m_dialog, SIGNAL(sigDeviceChanged(const QString &)),
-            this,     SLOT(setDevice(const QString &)));
+    connect(m_dialog, SIGNAL(sigDeviceChanged(QString)),
+            this,     SLOT(setDevice(QString)));
 
-    connect(m_dialog, SIGNAL(sigTracksChanged(unsigned int)),
-            this,     SLOT(changeTracks(unsigned int)));
+    connect(m_dialog, SIGNAL(sigTracksChanged(uint)),
+            this,     SLOT(changeTracks(uint)));
     connect(m_dialog, SIGNAL(sampleRateChanged(double)),
             this,     SLOT(changeSampleRate(double)));
     connect(m_dialog, SIGNAL(sigCompressionChanged(int)),
             this,     SLOT(changeCompression(int)));
-    connect(m_dialog, SIGNAL(sigBitsPerSampleChanged(unsigned int)),
-            this,     SLOT(changeBitsPerSample(unsigned int)));
+    connect(m_dialog, SIGNAL(sigBitsPerSampleChanged(uint)),
+            this,     SLOT(changeBitsPerSample(uint)));
     connect(m_dialog,
 	    SIGNAL(sigSampleFormatChanged(Kwave::SampleFormat)),
             this,
@@ -146,8 +146,8 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     m_controller.enablePrerecording(m_dialog->params().pre_record_enabled);
 
     // connect the record controller and this
-    connect(&m_controller, SIGNAL(sigReset(bool &)),
-            this,          SLOT(resetRecording(bool &)));
+    connect(&m_controller, SIGNAL(sigReset(bool&)),
+            this,          SLOT(resetRecording(bool&)));
     connect(&m_controller, SIGNAL(sigStartRecord()),
             this,          SLOT(startRecording()));
     connect(&m_controller, SIGNAL(sigStopRecord(int)),

@@ -145,8 +145,8 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
     topLayout->addWidget(m_overview);
     connect(m_overview, SIGNAL(valueChanged(sample_index_t)),
 	    this,       SLOT(setOffset(sample_index_t)));
-    connect(m_overview, SIGNAL(sigCommand(const QString &)),
-            this,       SIGNAL(sigCommand(const QString &)));
+    connect(m_overview, SIGNAL(sigCommand(QString)),
+            this,       SIGNAL(sigCommand(QString)));
     m_overview->metaDataChanged(signal_manager->metaData());
     m_overview->hide();
 
@@ -171,8 +171,8 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     // -- connect all signals from/to the signal widget --
 
-    connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
-	    this,             SIGNAL(sigCommand(const QString &)));
+    connect(&m_signal_widget, SIGNAL(sigCommand(QString)),
+	    this,             SIGNAL(sigCommand(QString)));
     connect(&m_signal_widget,
 	    SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
 	                           sample_index_t, sample_index_t)),
@@ -183,13 +183,13 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
     // -- connect all signals from/to the signal manager --
 
     connect(signal_manager,
-	    SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
+	    SIGNAL(sigTrackInserted(uint,Kwave::Track*)),
 	    this,
-	    SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
+	    SLOT(slotTrackInserted(uint,Kwave::Track*)));
     connect(signal_manager,
-	    SIGNAL(sigTrackDeleted(unsigned int, Kwave::Track *)),
+	    SIGNAL(sigTrackDeleted(uint,Kwave::Track*)),
 	    this,
-	    SLOT(slotTrackDeleted(unsigned int, Kwave::Track *)));
+	    SLOT(slotTrackDeleted(uint,Kwave::Track*)));
     connect(signal_manager,
             SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
             this,

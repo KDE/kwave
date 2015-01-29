@@ -43,8 +43,8 @@ Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
 	Kwave::PlaybackSink *sink =
 	    new(std::nothrow) Kwave::PlaybackSink(track);
 	insert(track, sink);
-	connect(sink, SIGNAL(output(unsigned int,Kwave::SampleArray)),
-	        this, SLOT(input(unsigned int,Kwave::SampleArray)),
+	connect(sink, SIGNAL(output(uint,Kwave::SampleArray)),
+	        this, SLOT(input(uint,Kwave::SampleArray)),
 	        Qt::DirectConnection);
     }
 }

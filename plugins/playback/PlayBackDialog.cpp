@@ -96,8 +96,8 @@ Kwave::PlayBackDialog::PlayBackDialog(
             SLOT(selectPlaybackDevice()));
 
     connect(listDevices,
-            SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
-            SLOT(listEntrySelected(QTreeWidgetItem*, QTreeWidgetItem*)));
+            SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
+            SLOT(listEntrySelected(QTreeWidgetItem*,QTreeWidgetItem*)));
     connect(listDevices, SIGNAL(itemExpanded(QTreeWidgetItem*)),
             SLOT(listItemExpanded(QTreeWidgetItem*)));
     connect(listDevices, SIGNAL(focusLost()),

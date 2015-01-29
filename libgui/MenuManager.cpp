@@ -52,8 +52,8 @@ Kwave::MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
     Q_ASSERT(m_menu_root);
     if (m_menu_root) {
 	connect(
-	    m_menu_root, SIGNAL(sigCommand(const QString &)),
-	    this, SIGNAL(sigMenuCommand(const QString &)),
+	    m_menu_root, SIGNAL(sigCommand(QString)),
+	    this, SIGNAL(sigMenuCommand(QString)),
 	    Qt::QueuedConnection
 	);
     }

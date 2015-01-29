@@ -46,16 +46,16 @@ Kwave::OverViewCache::OverViewCache(Kwave::SignalManager &signal,
 {
 
     connect(&m_selection, SIGNAL(sigTrackInserted(QUuid)),
-            this,         SLOT( slotTrackInserted(QUuid)));
+            this,         SLOT(slotTrackInserted(QUuid)));
     connect(&m_selection, SIGNAL(sigTrackDeleted(QUuid)),
-            this,         SLOT( slotTrackDeleted(QUuid)));
+            this,         SLOT(slotTrackDeleted(QUuid)));
     connect(&m_selection, SIGNAL(sigLengthChanged(sample_index_t)),
-            this,         SLOT( slotLengthChanged(sample_index_t)));
+            this,         SLOT(slotLengthChanged(sample_index_t)));
     connect(
 	&m_selection,
-	SIGNAL(sigInvalidated(QUuid*, sample_index_t, sample_index_t)),
+	SIGNAL(sigInvalidated(QUuid*,sample_index_t,sample_index_t)),
 	this,
-	SLOT( slotInvalidated(QUuid*, sample_index_t, sample_index_t))
+	SLOT(slotInvalidated(QUuid*,sample_index_t,sample_index_t))
     );
 
     // take over the initial list of tracks

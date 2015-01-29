@@ -95,10 +95,10 @@ Kwave::SignalManager::SignalManager(QWidget *parent)
 {
     // connect to the track's signals
     Kwave::Signal *sig = &m_signal;
-    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Kwave::Track *)),
-            this, SLOT(slotTrackInserted(unsigned int, Kwave::Track *)));
-    connect(sig, SIGNAL(sigTrackDeleted(unsigned int, Kwave::Track *)),
-            this, SLOT(slotTrackDeleted(unsigned int, Kwave::Track *)));
+    connect(sig, SIGNAL(sigTrackInserted(uint,Kwave::Track*)),
+            this, SLOT(slotTrackInserted(uint,Kwave::Track*)));
+    connect(sig, SIGNAL(sigTrackDeleted(uint,Kwave::Track*)),
+            this, SLOT(slotTrackDeleted(uint,Kwave::Track*)));
     connect(sig, SIGNAL(sigTrackSelectionChanged(bool)),
             this,SIGNAL(sigTrackSelectionChanged(bool)));
     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, sample_index_t,

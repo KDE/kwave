@@ -545,16 +545,16 @@ void Kwave::PluginManager::connectPlugin(Kwave::Plugin *plugin)
     connect(this, SIGNAL(sigClosed()),
 	    plugin, SLOT(close()));
 
-    connect(plugin, SIGNAL(sigClosed(Kwave::Plugin *)),
-	    this, SLOT(pluginClosed(Kwave::Plugin *)),
+    connect(plugin, SIGNAL(sigClosed(Kwave::Plugin*)),
+	    this, SLOT(pluginClosed(Kwave::Plugin*)),
 	    Qt::QueuedConnection);
 
-    connect(plugin, SIGNAL(sigRunning(Kwave::Plugin *)),
-	    this, SLOT(pluginStarted(Kwave::Plugin *)),
+    connect(plugin, SIGNAL(sigRunning(Kwave::Plugin*)),
+	    this, SLOT(pluginStarted(Kwave::Plugin*)),
 	    Qt::DirectConnection);
 
-    connect(plugin, SIGNAL(sigDone(Kwave::Plugin *)),
-	    this, SLOT(pluginDone(Kwave::Plugin *)),
+    connect(plugin, SIGNAL(sigDone(Kwave::Plugin*)),
+	    this, SLOT(pluginDone(Kwave::Plugin*)),
 	    Qt::QueuedConnection);
 }
 
@@ -564,17 +564,17 @@ void Kwave::PluginManager::disconnectPlugin(Kwave::Plugin *plugin)
     Q_ASSERT(plugin);
     if (!plugin) return;
 
-    disconnect(plugin, SIGNAL(sigDone(Kwave::Plugin *)),
-	       this, SLOT(pluginDone(Kwave::Plugin *)));
+    disconnect(plugin, SIGNAL(sigDone(Kwave::Plugin*)),
+	       this, SLOT(pluginDone(Kwave::Plugin*)));
 
-    disconnect(plugin, SIGNAL(sigRunning(Kwave::Plugin *)),
-	       this, SLOT(pluginStarted(Kwave::Plugin *)));
+    disconnect(plugin, SIGNAL(sigRunning(Kwave::Plugin*)),
+	       this, SLOT(pluginStarted(Kwave::Plugin*)));
 
     disconnect(this, SIGNAL(sigClosed()),
 	       plugin, SLOT(close()));
 
-    disconnect(plugin, SIGNAL(sigClosed(Kwave::Plugin *)),
-	       this, SLOT(pluginClosed(Kwave::Plugin *)));
+    disconnect(plugin, SIGNAL(sigClosed(Kwave::Plugin*)),
+	       this, SLOT(pluginClosed(Kwave::Plugin*)));
 
 }
 

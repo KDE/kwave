@@ -143,8 +143,8 @@ bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
     connect(&(m_signal_manager->playbackController()),
             SIGNAL(sigSeekDone(sample_index_t)),
             m_main_widget, SLOT(scrollTo(sample_index_t)));
-    connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
-            this,          SLOT(executeCommand(const QString &)));
+    connect(m_main_widget, SIGNAL(sigCommand(QString)),
+            this,          SLOT(executeCommand(QString)));
     connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
             this,          SLOT(forwardZoomChanged(double)));
     connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
@@ -185,18 +185,18 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     connect(m_signal_manager, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
             this,             SLOT(metaDataChanged(Kwave::MetaDataList)));
     connect(&(m_signal_manager->selection()),
-            SIGNAL(changed(sample_index_t, sample_index_t)),
+            SIGNAL(changed(sample_index_t,sample_index_t)),
             this,
-            SLOT(selectionChanged(sample_index_t, sample_index_t)));
+            SLOT(selectionChanged(sample_index_t,sample_index_t)));
     connect(m_signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
                                                      const QString&)),
-            this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
+            this, SLOT(setUndoRedoInfo(QString,QString)));
     connect(m_signal_manager, SIGNAL(sigModified(bool)),
             this,             SLOT(modifiedChanged(bool)));
 
     // connect the plugin manager
-    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
-            this,             SLOT(executeCommand(const QString &)));
+    connect(m_plugin_manager, SIGNAL(sigCommand(QString)),
+            this,             SLOT(executeCommand(QString)));
 
     // connect the playback controller
     connect(&(m_signal_manager->playbackController()),
@@ -233,10 +233,10 @@ void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
 	Kwave::TopWidget *old = m_top_widget;
 
 	// disconnect all old signal/slot relationships
-	disconnect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
-	           old,              SLOT(showInSplashSreen(const QString &)));
-	disconnect(old,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
-	           this, SLOT(contextSwitched(Kwave::FileContext *)));
+	disconnect(m_plugin_manager, SIGNAL(sigProgress(QString)),
+	           old,              SLOT(showInSplashSreen(QString)));
+	disconnect(old,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
+	           this, SLOT(contextSwitched(Kwave::FileContext*)));
 
 	if (m_signal_manager) m_signal_manager->setParentWidget(0);
 	if (m_plugin_manager) m_plugin_manager->setParentWidget(0);
@@ -251,10 +251,10 @@ void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
     if (m_top_widget) {
 	QWidget *top = m_top_widget;
 
-	connect(top,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
-	        this, SLOT(contextSwitched(Kwave::FileContext *)));
-	connect(m_plugin_manager, SIGNAL(sigProgress(const QString &)),
-	        top,              SLOT(showInSplashSreen(const QString &)));
+	connect(top,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
+	        this, SLOT(contextSwitched(Kwave::FileContext*)));
+	connect(m_plugin_manager, SIGNAL(sigProgress(QString)),
+	        top,              SLOT(showInSplashSreen(QString)));
 
 	if (m_signal_manager) m_signal_manager->setParentWidget(m_top_widget);
 	if (m_plugin_manager) m_plugin_manager->setParentWidget(m_top_widget);

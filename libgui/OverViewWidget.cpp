@@ -92,7 +92,7 @@ Kwave::OverViewWidget::OverViewWidget(Kwave::SignalManager &signal,
 
     // get informed about selection changes
     connect(&(signal.selection()),
-            SIGNAL(changed(sample_index_t, sample_index_t)),
+            SIGNAL(changed(sample_index_t,sample_index_t)),
             this,
             SLOT(setSelection(sample_index_t,sample_index_t)));
 

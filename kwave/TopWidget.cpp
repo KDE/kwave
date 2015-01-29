@@ -172,33 +172,33 @@ void Kwave::TopWidget::connectContext(Kwave::FileContext *context)
     connect(context, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
             this,         SLOT(metaDataChanged(Kwave::MetaDataList)));
     connect(context,
-            SIGNAL(sigSelectionChanged(sample_index_t, sample_index_t)),
+            SIGNAL(sigSelectionChanged(sample_index_t,sample_index_t)),
             this,
-            SLOT(selectionChanged(sample_index_t, sample_index_t)));
-    connect(context, SIGNAL(sigUndoRedoInfo(const QString &, const QString &)),
-            this,      SLOT(setUndoRedoInfo(const QString &, const QString &)));
+            SLOT(selectionChanged(sample_index_t,sample_index_t)));
+    connect(context, SIGNAL(sigUndoRedoInfo(QString,QString)),
+            this,      SLOT(setUndoRedoInfo(QString,QString)));
     connect(context, SIGNAL(sigModified(bool)),
             this,  SLOT(modifiedChanged(bool)));
 
     // connect the zoom toolbar
-    connect(context,   SIGNAL(sigZoomChanged(Kwave::FileContext *, double)),
-            m_toolbar_zoom, SLOT(setZoomInfo(Kwave::FileContext *, double)));
-    connect(context,             SIGNAL(destroyed(Kwave::FileContext *)),
-            m_toolbar_zoom, SLOT(contextDestroyed(Kwave::FileContext *)));
+    connect(context,   SIGNAL(sigZoomChanged(Kwave::FileContext*,double)),
+            m_toolbar_zoom, SLOT(setZoomInfo(Kwave::FileContext*,double)));
+    connect(context,             SIGNAL(destroyed(Kwave::FileContext*)),
+            m_toolbar_zoom, SLOT(contextDestroyed(Kwave::FileContext*)));
 
     // connect the playback/record toolbar
     connect(context,
-            SIGNAL(destroyed(Kwave::FileContext *)),
+            SIGNAL(destroyed(Kwave::FileContext*)),
             m_toolbar_record_playback,
-            SLOT(contextDestroyed(Kwave::FileContext *))
+            SLOT(contextDestroyed(Kwave::FileContext*))
     );
     connect(context, SIGNAL(sigMetaDataChanged(Kwave::MetaDataList)),
             m_toolbar_record_playback,
             SLOT(metaDataChanged(Kwave::MetaDataList)));
 
     // connect the status bar
-    connect(context, SIGNAL(sigStatusBarMessage(const QString &, unsigned int)),
-            this,    SLOT(showStatusBarMessage(const QString &, unsigned int)));
+    connect(context, SIGNAL(sigStatusBarMessage(QString,uint)),
+            this,    SLOT(showStatusBarMessage(QString,uint)));
 }
 
 //***************************************************************************
@@ -273,8 +273,8 @@ bool Kwave::TopWidget::init()
     if (!m_menu_manager) return false;
 
     // connect clicked menu entries with main communication channel of kwave
-    connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
-	    this, SLOT(forwardCommand(const QString &)));
+    connect(m_menu_manager, SIGNAL(sigMenuCommand(QString)),
+	    this, SLOT(forwardCommand(QString)));
     connect(&Kwave::ClipBoard::instance(), SIGNAL(clipboardChanged(bool)),
 	    this, SLOT(clipboardChanged(bool)));
 
@@ -284,8 +284,8 @@ bool Kwave::TopWidget::init()
     Q_ASSERT(m_toolbar_zoom);
     if (!m_toolbar_zoom) return false;
 
-    connect(this,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
-            m_toolbar_zoom, SLOT(contextSwitched(Kwave::FileContext *)));
+    connect(this,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
+            m_toolbar_zoom, SLOT(contextSwitched(Kwave::FileContext*)));
 
     // --- playback control toolbar ---
     m_toolbar_record_playback = new(std::nothrow) Kwave::PlayerToolBar(
@@ -293,11 +293,11 @@ bool Kwave::TopWidget::init()
     Q_ASSERT(m_toolbar_record_playback);
     if (!m_toolbar_record_playback) return false;
 
-    connect(this,  SIGNAL(sigFileContextSwitched(Kwave::FileContext *)),
+    connect(this,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
             m_toolbar_record_playback,
-            SLOT(contextSwitched(Kwave::FileContext *)));
-    connect(m_toolbar_record_playback, SIGNAL(sigCommand(const QString &)),
-            this,                    SLOT(forwardCommand(const QString &)));
+            SLOT(contextSwitched(Kwave::FileContext*)));
+    connect(m_toolbar_record_playback, SIGNAL(sigCommand(QString)),
+            this,                    SLOT(forwardCommand(QString)));
 
     // -- create a new file context ---
     Kwave::FileContext *context = newFileContext();

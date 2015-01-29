@@ -78,8 +78,8 @@ Kwave::SonagramPlugin::SonagramPlugin(Kwave::PluginManager &plugin_manager)
     i18n("Sonagram");
 
     // connect the output ouf the sonagram worker thread
-    connect(this, SIGNAL(sliceAvailable(Kwave::SonagramPlugin::Slice *)),
-            this, SLOT(insertSlice(Kwave::SonagramPlugin::Slice *)),
+    connect(this, SIGNAL(sliceAvailable(Kwave::SonagramPlugin::Slice*)),
+            this, SLOT(insertSlice(Kwave::SonagramPlugin::Slice*)),
             Qt::QueuedConnection);
 
     // connect repaint timer
@@ -215,14 +215,14 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     if (!m_selection) return -ENOMEM;
 
     connect(m_selection, SIGNAL(sigTrackInserted(QUuid)),
-            this,        SLOT( slotTrackInserted(QUuid)));
+            this,        SLOT(slotTrackInserted(QUuid)));
     connect(m_selection, SIGNAL(sigTrackDeleted(QUuid)),
-            this,        SLOT( slotTrackDeleted(QUuid)));
+            this,        SLOT(slotTrackDeleted(QUuid)));
     connect(
 	m_selection,
-	SIGNAL(sigInvalidated(QUuid*, sample_index_t, sample_index_t)),
+	SIGNAL(sigInvalidated(QUuid*,sample_index_t,sample_index_t)),
 	this,
-	SLOT( slotInvalidated(QUuid*, sample_index_t, sample_index_t))
+	SLOT(slotInvalidated(QUuid*,sample_index_t,sample_index_t))
     );
 
     // create a new empty image

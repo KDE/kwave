@@ -108,7 +108,7 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 
     // get informed about selection changes
     connect(&(signal_manager->selection()),
-            SIGNAL(changed(sample_index_t, sample_index_t)),
+            SIGNAL(changed(sample_index_t,sample_index_t)),
             this,
             SLOT(refreshSelectionLayer()));
 

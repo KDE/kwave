@@ -115,5 +115,12 @@ INSTALL(
     DESTINATION ${DESTDIR}${KDE4_ICON_INSTALL_DIR}/hicolor/scalable/apps
 )
 
+# AppData file
+
+INSTALL(
+    FILES kwave.appdata.xml
+    DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/
+)
+
 #############################################################################
 #############################################################################

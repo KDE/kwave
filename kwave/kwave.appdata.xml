@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop">
+  <id>kwave.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>Kwave</name>
+  <summary>Kwave is a sound editor designed for the KDE Desktop Environment</summary>
+  <description>
+    <p>
+      With Kwave you can record, play back, import and edit many sorts of audio files including multi channel files.
+    </p>
+    <p>
+      Kwave includes some plugins to transform audio files in several ways and presents a graphical view with a complete zoom- and scroll capability.
+    </p>
+  </description>
+  <url type="homepage">http://kwave.sourceforge.net/</url>
+  <url type="bugtracker">http://sourceforge.net/bugs/?group_id=6478</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>http://kwave.sourceforge.net/screenshot/kwave-gui-tab.png</image>
+    </screenshot>
+  </screenshots>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>kwave</binary>
+  </provides>
+</component>

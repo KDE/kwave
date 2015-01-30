@@ -18,6 +18,9 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  or the GNU Library General Public License 3.0
 	  - Oxygen icons
 
+	* Creative Commons Zero v1.0 Universal (CC0-1.0)
+	  - kwave/kwave.appdata.xml
+
 	* Kitware (cmake)
 	  - cmake/Copyright.txt
 	  - cmake/FindGettext.cmake
@@ -30,9 +33,6 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  - cmake/FindOggVorbis.cmake
 	  - cmake/COPYING-CMAKE-SCRIPTS		(New BSD ?)
 	  - cmake/FindAlsa.cmake		{kretz,faure}@kde.org
-
-	* free, by statement in file header
-	  (currently none)
 
 DIRECTLY USED EXTERNAL LIBRARIES
 ================================
@@ -142,9 +142,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/fix-common					GPL2+
 	doc/help_cs.po					(should be FDL)
 	doc/help_de.po					(should be FDL)
-	doc/help_en.docbook				(should be FDL)
 	doc/help_es.po					(should be FDL)
 	doc/help_fr.po					(should be FDL)
+	doc/index.docbook				(should be FDL)
 
 	doc/cs/kwave-fileinfo.png			(should be FDL)
 	doc/cs/kwave-gui-mdi.png			(should be FDL)
@@ -243,6 +243,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/App.h					GPL2+
 	kwave/FileContext.cpp				GPL2+
 	kwave/FileContext.h				GPL2+
+	kwave/kwave.appdata.xml				CC0-1.0
 	kwave/kwave.desktop				(should be GPL2+)
 	kwave/main.cpp					GPL2+ / Martin Wilz
 	kwave/MainWidget.cpp				GPL2+ / Martin Wilz

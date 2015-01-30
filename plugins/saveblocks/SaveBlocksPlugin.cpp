@@ -89,9 +89,9 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 
     // connect the signals/slots from the plugin and the dialog
     connect(dialog, SIGNAL(sigSelectionChanged(QString,
-	QString, Kwave::SaveBlocksPlugin::numbering_mode_t, bool)),
-	this, SLOT(updateExample(QString, QString,
-	Kwave::SaveBlocksPlugin::numbering_mode_t, bool)));
+	QString,Kwave::SaveBlocksPlugin::numbering_mode_t,bool)),
+	this, SLOT(updateExample(QString,QString,
+	Kwave::SaveBlocksPlugin::numbering_mode_t,bool)));
     connect(this, SIGNAL(sigNewExample(QString)),
 	dialog, SLOT(setNewExample(QString)));
 

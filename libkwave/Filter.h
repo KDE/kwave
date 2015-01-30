@@ -46,7 +46,7 @@ namespace Kwave
 	 * Constructor, creates a filter from a Kwave command string.
 	 * @param command part of the Kwave command with parameters
 	 */
-	Filter(const QString &command);
+	explicit Filter(const QString &command);
 
 	/** Destructor */
 	virtual ~Filter();

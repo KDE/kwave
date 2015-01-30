@@ -590,7 +590,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     if (!sig_buffer) return;
 
     // fill the sample buffer with zeroes
-    for (i = 0; i < width + N + 2; i++)
+    for (i = 0; i < width + N + 2; ++i)
 	sig_buffer[i] = 0.0;
 
     // resample

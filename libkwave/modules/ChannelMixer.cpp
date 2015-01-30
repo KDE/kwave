@@ -57,7 +57,7 @@ bool Kwave::ChannelMixer::init()
     if (m_input_queue.count() != Kwave::toInt(m_inputs)) return false;
 
     // create the buffers for the output data
-    for (unsigned int index = 0; index < m_outputs; index++) {
+    for (unsigned int index = 0; index < m_outputs; ++index) {
 	// create a buffer for the input
 	Kwave::SampleBuffer *out_buffer = new Kwave::SampleBuffer();
 	Q_ASSERT(out_buffer);
@@ -66,7 +66,7 @@ bool Kwave::ChannelMixer::init()
     }
 
     // create indexing proxies and connect their output to this mixer
-    for (unsigned int index = 0; index < m_inputs; index++) {
+    for (unsigned int index = 0; index < m_inputs; ++index) {
 	Kwave::StreamObject *indexer = new Kwave::Indexer(index);
 	Q_ASSERT(indexer);
 	if (!indexer) return false;

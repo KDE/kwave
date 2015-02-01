@@ -69,10 +69,6 @@ static void addDataStrings(KAboutData &aboutdata)
                      "joerg@chaosdorf.de",
                      0);
 
-    // translators
-    aboutdata.setTranslator(ki18n("NAME OF TRANSLATORS"),
-                            ki18n("EMAIL OF TRANSLATORS"));
-
     // people who helped
     aboutdata.addCredit(ki18n("Stefan Westerfeld"),
                      ki18n("Author of aRts"),

@@ -17,17 +17,17 @@
 ############################################################################
 
 # collect all messages from the .ui files
-$EXTRACTRC `find . -name \*.ui | sort` > _kwave-i18n-ui.cpp
+$EXTRACTRC `find . -name \*.ui | sort` >> rc.cpp
 
 # fetch all messages from the C++ source and header files
 $XGETTEXT `find . -name \*.cpp -o -name \*.h | sort` \
-        -o _kwave-i18n-src.pot
+        -o $podir/kwave.pot
 
 # create a pot file from menus.config
 perl bin/menusconfig2pot.pl kwave/menus.config _kwave-i18n-menu.pot
 
 # put all parts together
-msgcat _kwave-i18n-src.pot _kwave-i18n-menu.pot -o $podir/kwave.pot
+msgcat $podir/kwave.pot _kwave-i18n-menu.pot -o $podir/kwave.pot
 
 # clean up
 rm -f _kwave-i18n*

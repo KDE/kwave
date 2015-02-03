@@ -163,9 +163,9 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 	    int comp = QVariant(m_info.get(Kwave::INF_COMPRESSION)).toInt();
 	    if (!comps.contains(comp)) {
 		Kwave::Compression comp_old(comp);
-		Kwave::Compression comp_new = Kwave::Compression(
-		    !comps.isEmpty() ? comps.last() :
-		    static_cast<int>(Kwave::Compression::NONE));
+		Kwave::Compression comp_new(!comps.isEmpty() ?
+		    comps.last() : static_cast<int>(Kwave::Compression::NONE)
+		);
 		qDebug("compression '%s' not supported: switch to '%s'",
 		    DBG(comp_old.name()), DBG(comp_new.name()));
 		comp = comp_new.toInt();

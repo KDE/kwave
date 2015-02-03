@@ -663,9 +663,20 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 		// a sub window with frame and title (not maximized within
 		// the mdi area)
 		if (m_application.guiType() == Kwave::App::GUI_TAB)
-		    sub->showMaximized();
+		{
+		    sub->setWindowState(
+			sub->windowState() | Qt::WindowMaximized
+		    );
+		    sub->show();
+		}
 		else
+		{
+		    sub->setWindowState(
+			sub->windowState() & ~Qt::WindowMaximized
+		    );
 		    sub->showNormal();
+
+		}
 
 		m_mdi_area->setActiveSubWindow(sub);
 	    } else {

@@ -340,7 +340,6 @@ ADD_CUSTOM_TARGET(update-handbook
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_index_updated} ${_index_docbook}
 )
 
-
 #############################################################################
 ### "make html_doc"                                                       ###
 

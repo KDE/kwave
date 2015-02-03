@@ -244,7 +244,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/FileContext.cpp				GPL2+
 	kwave/FileContext.h				GPL2+
 	kwave/kwave.appdata.xml				CC0-1.0
-	kwave/kwave.desktop				(should be GPL2+)
+	kwave/kwave.desktop.in				(should be GPL2+)
 	kwave/main.cpp					GPL2+ / Martin Wilz
 	kwave/MainWidget.cpp				GPL2+ / Martin Wilz
 	kwave/MainWidget.h				GPL2+ / Martin Wilz

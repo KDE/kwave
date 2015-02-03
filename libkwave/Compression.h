@@ -67,7 +67,7 @@ namespace Kwave
 	 *
 	 * @param other another compression to copy from
 	 */
-	Compression(const Kwave::Compression &other);
+	explicit Compression(const Kwave::Compression &other);
 
 	/**
 	 * Complete constructor

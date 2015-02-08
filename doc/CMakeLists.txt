@@ -361,9 +361,9 @@ SET_DIRECTORY_PROPERTIES(PROPERTIES
 # )
 
 #############################################################################
-### generate the handbook, KDE environment                                ###
+### handle the various languages                                          ###
 
-kde4_create_handbook(index.docbook INSTALL_DESTINATION ${HTML_INSTALL_DIR}/en SUBDIR kwave)
+add_subdirectory(en)
 
 #############################################################################
 #############################################################################

@@ -60,7 +60,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     INSTALL(TARGETS
         plugin_${_plugin}
         LIBRARY
-        DESTINATION ${DESTDIR}${MODULE_INSTALL_DIR}/plugins/kwave
+        DESTINATION ${MODULE_INSTALL_DIR}/plugins/kwave
     )
 
 ENDMACRO(KWAVE_PLUGIN)

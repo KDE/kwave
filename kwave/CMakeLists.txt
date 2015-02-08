@@ -93,26 +93,26 @@ SET_TARGET_PROPERTIES(kwave_core PROPERTIES OUTPUT_NAME "kwave")
 ### install files                                                         ###
 
 # the main program
-INSTALL(TARGETS kwave_core     DESTINATION ${DESTDIR}${KDE4_BIN_INSTALL_DIR})
+INSTALL(TARGETS kwave_core     DESTINATION ${DESTDIR}${BIN_INSTALL_DIR})
 
 # other files
-INSTALL(FILES menus.config     DESTINATION ${DESTDIR}${KDE4_DATA_INSTALL_DIR}/kwave)
-INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${DESTDIR}${KDE4_DATA_INSTALL_DIR}/kwave/pics)
+INSTALL(FILES menus.config     DESTINATION ${DESTDIR}${DATA_INSTALL_DIR}/kwave)
+INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${DESTDIR}${DATA_INSTALL_DIR}/kwave/pics)
 INSTALL(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/kwave.desktop
-    DESTINATION ${KDE4_XDG_APPS_INSTALL_DIR}
+    DESTINATION ${XDG_APPS_INSTALL_DIR}
 )
 
 # action icons
 INSTALL(
     FILES ${kwave_ACTION_ICONS}
-    DESTINATION ${DESTDIR}${KDE4_ICON_INSTALL_DIR}/hicolor/scalable/actions
+    DESTINATION ${DESTDIR}${ICON_INSTALL_DIR}/hicolor/scalable/actions
 )
 
 # application icon
 INSTALL(
     FILES ${CMAKE_CURRENT_SOURCE_DIR}/pics/kwave.svgz
-    DESTINATION ${DESTDIR}${KDE4_ICON_INSTALL_DIR}/hicolor/scalable/apps
+    DESTINATION ${DESTDIR}${ICON_INSTALL_DIR}/hicolor/scalable/apps
 )
 
 # AppData file

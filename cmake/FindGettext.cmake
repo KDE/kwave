@@ -43,8 +43,8 @@ MACRO(GETTEXT_CREATE_TRANSLATIONS _potFile _firstPoFile)
          DEPENDS ${_absPotFile} ${_absFile}
       )
 
-      # (THE, 2008-06-22, install into KDE4_LOCALE_INSTALL_DIR instead of usr/share)
-      INSTALL(FILES ${_gmoFile} DESTINATION ${KDE4_LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES RENAME ${_potBasename}.mo)
+      # (THE, 2008-06-22, install into LOCALE_INSTALL_DIR instead of usr/share)
+      INSTALL(FILES ${_gmoFile} DESTINATION ${LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES RENAME ${_potBasename}.mo)
       SET(_gmoFiles ${_gmoFiles} ${_gmoFile})
 
    ENDFOREACH (_currentPoFile )

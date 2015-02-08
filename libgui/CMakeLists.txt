@@ -82,7 +82,7 @@ SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 #############################################################################
 ### install files                                                         ###
 
-INSTALL(TARGETS libkwavegui LIBRARY DESTINATION ${KDE4_LIB_INSTALL_DIR} NAMELINK_SKIP)
+INSTALL(TARGETS libkwavegui LIBRARY DESTINATION ${LIB_INSTALL_DIR} NAMELINK_SKIP)
 
 #############################################################################
 #############################################################################

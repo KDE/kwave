@@ -7,10 +7,10 @@ make install DESTDIR=${PREFIX}
 
 export KDEDIR=@KDE4_PREFIX@
 export KDEDIRS="${PREFIX}/${KDEDIR}:${KDEDIRS}"
-export LD_LIBRARY_PATH=${PREFIX}@KDE4_LIB_INSTALL_DIR@:${LD_LIBRARY_PATH}
-export XDG_DATA_DIRS=${PREFIX}@KDE4_DATA_INSTALL_DIR@:${XDG_DATA_DIRS}
+export LD_LIBRARY_PATH=${PREFIX}@LIB_INSTALL_DIR@:${LD_LIBRARY_PATH}
+export XDG_DATA_DIRS=${PREFIX}@DATA_INSTALL_DIR@:${XDG_DATA_DIRS}
 export COLON_SEPARATED="XDG_DATA_DIRS"
-export PATH=${PREFIX}@KDE4_BIN_INSTALL_DIR@:${PATH}
+export PATH=${PREFIX}@BIN_INSTALL_DIR@:${PATH}
 
 # for testing other languages
 # export LANG=de_DE.UTF-8@euro
@@ -26,6 +26,6 @@ export PATH=${PREFIX}@KDE4_BIN_INSTALL_DIR@:${PATH}
 # when using new icons:
 # rm -f /var/tmp/kdecache-$USER/icon-cache.kcache
 
-time ${PREFIX}@KDE4_BIN_INSTALL_DIR@/kwave --logfile=/var/tmp/kwave.log --nofork "$@"
+time ${PREFIX}@BIN_INSTALL_DIR@/kwave --logfile=/var/tmp/kwave.log --nofork "$@"
 
 ### EOF ###

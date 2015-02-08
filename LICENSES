@@ -139,45 +139,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/uninstall.cmake.in			GPL2+
 
 	doc/CMakeLists.txt				GPL2+
-	doc/fix-common					GPL2+
-	doc/help_cs.po					(should be FDL)
-	doc/help_de.po					(should be FDL)
-	doc/help_es.po					(should be FDL)
-	doc/help_fr.po					(should be FDL)
-	doc/index.docbook				(should be FDL)
 
-	doc/cs/kwave-fileinfo.png			(should be FDL)
-	doc/cs/kwave-gui-mdi.png			(should be FDL)
-	doc/cs/kwave-gui-sdi.png			(should be FDL)
-	doc/cs/kwave-gui-tab.png			(should be FDL)
-	doc/cs/kwave-lowpass.png			(should be FDL)
-	doc/cs/kwave-main.png				(should be FDL)
-	doc/cs/kwave-memory-setup.png			(should be FDL)
-	doc/cs/kwave-newfile.png			(should be FDL)
-	doc/cs/kwave-notchfilter.png			(should be FDL)
-	doc/cs/kwave-pitch.png				(should be FDL)
-	doc/cs/kwave-playback-setup.png			(should be FDL)
-	doc/cs/kwave-record.png				(should be FDL)
-	doc/cs/kwave-sonagram.png			(should be FDL)
-	doc/cs/kwave-sonagram-setup.png			(should be FDL)
-	doc/cs/kwave-volume.png				(should be FDL)
-
-	doc/de/kwave-fileinfo.png			(should be FDL)
-	doc/de/kwave-gui-mdi.png			(should be FDL)
-	doc/de/kwave-gui-sdi.png			(should be FDL)
-	doc/de/kwave-gui-tab.png			(should be FDL)
-	doc/de/kwave-lowpass.png			(should be FDL)
-	doc/de/kwave-main.png				(should be FDL)
-	doc/de/kwave-memory-setup.png			(should be FDL)
-	doc/de/kwave-newfile.png			(should be FDL)
-	doc/de/kwave-notch-filter.png			(should be FDL)
-	doc/de/kwave-pitch.png				(should be FDL)
-	doc/de/kwave-playback-setup.png			(should be FDL)
-	doc/de/kwave-record.png				(should be FDL)
-	doc/de/kwave-sonagram.png			(should be FDL)
-	doc/de/kwave-sonagram-setup.png			(should be FDL)
-	doc/de/kwave-volume.png				(should be FDL)
-
+	doc/en/CMakeLists.txt				GPL2+
 #	doc/en/audio-1.png				??? UNKNOWN ???
 #	doc/en/audio2signal.png				??? UNKNOWN ???
 	doc/en/krec_record.png				LGPL2 (crystal project) [copied from mix_record.png]
@@ -208,35 +171,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/en/sonagram.png				(should be FDL)
 	doc/en/under-construction.png			LGPL2 (crystal project) [copied from Service\ Manager.png]
 	doc/en/unsigned.png				(should be FDL)
-
-	doc/es/kwave-fileinfo.png			(should be FDL)
-	doc/es/kwave-gui-mdi.png			(should be FDL)
-	doc/es/kwave-gui-sdi.png			(should be FDL)
-	doc/es/kwave-gui-tab.png			(should be FDL)
-	doc/es/kwave-lowpass.png			(should be FDL)
-	doc/es/kwave-main.png				(should be FDL)
-	doc/es/kwave-memory-setup.png			(should be FDL)
-	doc/es/kwave-newfile.png			(should be FDL)
-	doc/es/kwave-notch-filter.png			(should be FDL)
-	doc/es/kwave-pitch.png				(should be FDL)
-	doc/es/kwave-playback-setup.png			(should be FDL)
-	doc/es/kwave-record.png				(should be FDL)
-	doc/es/kwave-sonagram.png			(should be FDL)
-	doc/es/kwave-sonagram-setup.png			(should be FDL)
-	doc/es/kwave-volume.png				(should be FDL)
-
-	doc/fr/kwave-fileinfo.png			(should be FDL)
-	doc/fr/kwave-lowpass.png			(should be FDL)
-	doc/fr/kwave-main.png				(should be FDL)
-	doc/fr/kwave-memory-setup.png			(should be FDL)
-	doc/fr/kwave-newfile.png			(should be FDL)
-	doc/fr/kwave-notch-filter.png			(should be FDL)
-	doc/fr/kwave-pitch.png				(should be FDL)
-	doc/fr/kwave-playback-setup.png			(should be FDL)
-	doc/fr/kwave-record.png				(should be FDL)
-	doc/fr/kwave-sonagram.png			(should be FDL)
-	doc/fr/kwave-sonagram-setup.png			(should be FDL)
-	doc/fr/kwave-volume.png				(should be FDL)
 
 	kwave/CMakeLists.txt				GPL2+
 	kwave/App.cpp					GPL2+

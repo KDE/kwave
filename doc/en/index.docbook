@@ -401,7 +401,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		working sound playback (not really required for using but
-		what would you do with a sound editor if you can't
+		what would you do with a sound editor if you cannot
 		<emphasis>hear</emphasis> the result of your work?)
 	    </para></listitem>
 	    <listitem><para>
@@ -688,7 +688,7 @@
     <title>With broken rpmbuild -ta support</title>
 
     <para><anchor id="manual_rpm_creation"/>
-	If you can't get <command>rpmbuild -ta</command> working, here are
+	If you cannot get <command>rpmbuild -ta</command> working, here are
 	the steps for making that manually (the hard way):
     </para>
 
@@ -761,7 +761,7 @@
     <para>
 	For initially checking out the sources you will need some disk space
 	(about 25 megabytes) in a directory of your choice, the git package
-	of your favorite distribution and full access to the internet. If you
+	of your favorite distribution and full access to the Internet. If you
 	get error messages about rejected connections you either have typed
 	something wrong or your provider doesn't give you full access.
 	A good place for the source files will be <filename>"$HOME/src"</filename>.
@@ -889,7 +889,7 @@
     <title>Building a DEB package for testing and personal use</title>
 
     <para>
-	If you want to create a deb package of &kwave;, e.g. for testing a
+	If you want to create a deb package of &kwave;, &eg; for testing a
 	version that is not yet available via official package repositories,
 	then you can create your own package quite easily. First of all, you
 	need to install some required tools:
@@ -1076,7 +1076,7 @@
 	at the amplifier's output. This output is also called a
 	<emphasis>'signal'</emphasis>. Instead of a microphone you can of course
 	also imagine other sources of audio. And the "amplifier" can be the one
-	that is integrated into your sound card, where you normally can't see it.
+	that is integrated into your sound card, where you normally cannot see it.
     </para>
     <para>
 	<inlinemediaobject>
@@ -1107,9 +1107,9 @@
 		Due to the mechanical
 		constrains of microphones and the limited frequency range of
 		amplifiers, a signal's frequency range is limited. There
-		are no hard borders besides which the sound abruptely disappears,
+		are no hard borders besides which the sound abruptly disappears,
 		but below some low and above some higher frequency the amplitude
-		of the signal starts to decrease more and more. The existance of
+		of the signal starts to decrease more and more. The existence of
 		a maximum frequency can be easily understood as a limited speed
 		of the electrical signal to rise and fall. By using high quality
 		amplifiers and microphones, the limits can be spread into ranges
@@ -1124,9 +1124,9 @@
 		the audio signal "unsharp" and disturbed, it is always present
 		and cannot be avoided. One can only try to use high quality
 		components that produce as low noise as possible, so that one
-		can't hear it.
+		cannot hear it.
 		Normally noise has a certain volume, so that the interesting sound
-		should be much louder in comparism to the noise. This is called the
+		should be much louder in comparison to the noise. This is called the
 		<emphasis>signal to noise ratio (SNR)</emphasis>, the higher it is
 		the better the sound's quality will be. Sounds that have
 		lower volume than the noise cannot be heart.
@@ -1156,7 +1156,7 @@
 
     <para>
 	The conversion can be understood as a repetitive measurement of the
-	electonic signal's value at certain time, thus taking a
+	electronic signal's value at certain time, thus taking a
 	<emphasis>sample</emphasis> of the signal. The result is then encoded
 	as a digital value.
     </para>
@@ -1169,7 +1169,7 @@
 	rates are also given as frequencies, in Hz or kHz.
     </para>
     <para>
-	The sample rate limts the
+	The sample rate limits the
 	highest frequency a digitized signal can represent. Due to
 	Shannon's theorem the highest usable frequency is half of the sample
 	rate, so with 44.1 kHz sample rate you cannot sample signals with
@@ -1202,7 +1202,7 @@
 	that each sample's value directly represents the analogue signal's
 	value multiplied with a constant factor.
 	This is easy to handle, but has the disadvantage that
-	noise will be audibles especially on low amplitudes, where it disturbes
+	noise will be audibles especially on low amplitudes, where it disturbs
 	most, and less audible on high amplitudes, where it is less audible.
     </para>
     <para>
@@ -1275,7 +1275,7 @@
 	&kwave; internally uses <emphasis>signed integer</emphasis> format with
 	24 bit precision, stored in 32 bit integers. This has the disadvantage
 	of higher memory consumption when processing files with lower precision
-	(e.g. 8 bits), but processing 32 bit numbers is very fast and also
+	(&eg; 8 bits), but processing 32 bit numbers is very fast and also
 	leaves some reserves for internal calculations, as only 24 bits are
 	normally used.
     </para></note>
@@ -1379,7 +1379,7 @@
 		<para><guimenuitem>Tabs</guimenuitem>:
 		    This is a variant of the MDI interface, where files are
 		    shown within separate tabs. You may know this mode from
-		    some popular internet browsers.
+		    some popular Internet browsers.
 		</para>
 		<para>
 		    You can activate a tab via the <guimenu>Windows</guimenu>
@@ -1444,7 +1444,7 @@
 	size, as a rule of thumb, half of the installed memory should be ok.
 	If you set the limit too high, Linux will take memory from other
 	applications, which means that it swaps out memory of other programs
-	to the harddisk (swap), which is rather slow. If you set the limit
+	to the hard disk (swap), which is rather slow. If you set the limit
 	too low, you might lose some performance when working with big files,
 	because you use less of the fast physical memory than you could.
     </para>
@@ -1524,7 +1524,7 @@
 	    <para>
 	    The command line option <literal>--iconic</literal> lets &kwave;
 	    start up minimized (iconified). This might be useful when you want to
-	    start &kwave; without GUI interaction, e.g. when running from a script.
+	    start &kwave; without GUI interaction, &eg; when running from a script.
 	    This option also implicitly disables the splash screen!
 	    </para>
 
@@ -1664,7 +1664,7 @@
 
 	<para>
 	    The plans for future include support for import and also export filters
-	    for more formats and maybe some filter that uses a user-defineable script
+	    for more formats and maybe some filter that uses a user-definable script
 	    with a call to an external filter, so that even formats not supported
 	    by <literal>SoX</literal> (like MP3) can be read and/or written.
         </para>
@@ -2434,7 +2434,7 @@
     </para>
     <para>
     You can also extend or shrink the selection to a specific point by holding
-    down the shift button while klicking with the left mouse button. Depending
+    down the shift button while clicking with the left mouse button. Depending
     on which border is nearer, the left or right border of the selection will
     be set to a new position.
     </para>
@@ -2705,7 +2705,7 @@
 		as floating point numbers, using a dot as decimal separator.
 	    </para></listitem>
 	    <listitem><para>
-		String parameters are automatically trimmed (all whitespace
+		String parameters are automatically trimmed (all white space
 		at the start and at the end is removed). If that is not wanted,
 		they can be surrounded by double quotes (<token>&quot;</token>).
 		If a string parameter contains special characters (like
@@ -2871,7 +2871,7 @@
 		</listitem>
 		<listitem>
 		    <para>or an <emphasis>empty line</emphasis>,
-		    that contains whitespace only</para>
+		    that contains white space only</para>
 		</listitem>
 	    </itemizedlist>
 	</para>
@@ -2883,7 +2883,7 @@
 	    comments, they will be silently ignored.
 	</para>
 	<para>
-	    Lines that contain only whitespace or comments are ignored as
+	    Lines that contain only white space or comments are ignored as
 	    well.
 	</para>
     </sect2>
@@ -2917,7 +2917,7 @@
     </para>
     <para>
 	A line that contains a label must not contain any other content
-	(except comments or whitespace) after the <quote><token>:</token></quote>.
+	(except comments or white space) after the <quote><token>:</token></quote>.
     </para>
     <para>
 	Example:
@@ -4069,7 +4069,7 @@
 	    <para>
 		Corresponds to to the <guibutton>Save</guibutton> toolbar
 		button. Saves the current file if it has modifications.
-		If the file does not already have a name (e.g. a file that has
+		If the file does not already have a name (&eg; a file that has
 		just been created and does not yet have a file name), this
 		command does the same as <command>&no-i18n-cmd_saveas;</command>.
 	    </para>
@@ -5212,7 +5212,7 @@
 &no-i18n-tag;<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
 &no-i18n-tag;<prompt>% </prompt><command>touch <parameter><replaceable>help_fr.po</replaceable></parameter></command>
 </screen>
-		Then change to your build directory (e.g. somewhere in <filename>/tmp</filename>),
+		Then change to your build directory (&eg; somewhere in <filename>/tmp</filename>),
 		prepare for building and then generate the <filename>.pot</filename> template (you
 		can safely ignore the error messages that come out at this stage).
 		This template has to be copied to the <filename>.po</filename> file in the source
@@ -5601,7 +5601,7 @@
 	Documentation copyright (C) &version_year; Thomas Eschenbacher
 	<email>thomas.eschenbacher@gmx.de</email>
     </para>
-
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 &underFDL;
 &underGPL;
 
@@ -6170,7 +6170,7 @@
 	<row>
 	    <entry colname='c1'>&no-i18n-tag;License</entry>
 	    <entry colname='c2'>
-		License information, e.g., 'All Rights Reserved',
+		License information, &eg;, 'All Rights Reserved',
 		'Any Use Permitted', an URL to a license or the
 		EFF Open Audio License ('distributed under the
 		terms of the Open Audio License.
@@ -6339,7 +6339,7 @@
 	    <entry colname='c2'>
 		May be used to differentiate multiple versions
 		of the same track title in a single collection.
-		(e.g. remix info)
+		(&eg; remix info)
 	    </entry>
 	</row>
 

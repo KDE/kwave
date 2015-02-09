@@ -769,7 +769,7 @@
 
     <orderedlist>
     <listitem><para>
-	First create the directory that will receive the subdirectoy with
+	First create the directory that will receive the subdirectory with
 	&kwave; sources and change into it:
 <screen width="40" format="linespecific">
 &no-i18n-tag;<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></command>

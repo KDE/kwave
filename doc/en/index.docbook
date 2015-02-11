@@ -1412,7 +1412,7 @@
 
     <para>
        When using &kwave; for the first time, you should go to the memory
-       setup dialog an modify the settings to be suitable for yor needs
+       setup dialog an modify the settings to be suitable for your needs
        and the installed memory of your computer. You can reach it under
        <menuchoice>
        <guimenu>Settings</guimenu><guimenuitem>Memory...</guimenuitem>

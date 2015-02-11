@@ -312,7 +312,7 @@
 
     <para>
 	This project has been started by Martin Wilz in summer 1998
-	and has been developed and improved by him an some other
+	and has been developed and improved by him and some other
 	people. In November 1999 Thomas Eschenbacher has started
 	to fix some little bugs here and there and stepped into
 	the source code of the program deeper and deeper. Up to
@@ -975,7 +975,7 @@
     -->
 
     <para>
-	This means that on an <literal>k7</literal> architecture the
+	This means that on a <literal>k7</literal> architecture the
 	rpm package will be compiled using
 	<literal>-O3 -march=athlon-xp -DNDEBUG
 	-fomit-frame-pointer</literal>
@@ -1412,7 +1412,7 @@
 
     <para>
        When using &kwave; for the first time, you should go to the memory
-       setup dialog an modify the settings to be suitable for your needs
+       setup dialog and modify the settings to be suitable for your needs
        and the installed memory of your computer. You can reach it under
        <menuchoice>
        <guimenu>Settings</guimenu><guimenuitem>Memory...</guimenuitem>
@@ -6171,7 +6171,7 @@
 	    <entry colname='c1'>&no-i18n-tag;License</entry>
 	    <entry colname='c2'>
 		License information, &eg;, 'All Rights Reserved',
-		'Any Use Permitted', an URL to a license or the
+		'Any Use Permitted', a URL to a license or the
 		EFF Open Audio License ('distributed under the
 		terms of the Open Audio License.
 		See http://www.eff.org/IP/Open_licenses/eff_oal.html

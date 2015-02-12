@@ -650,7 +650,7 @@
     </para>
 
     <para>
-	If you have downloaded a tar.bz2 archives of &kwave;,
+	If you have downloaded tar.bz2 archives of &kwave;,
 	create and install the RPMs just by doing the following steps
 	(where <replaceable>[arch]</replaceable> stands for the platform you
 	have built the package and might be something like
@@ -840,7 +840,7 @@
 	has the same problem with the <command>rpmbuild -ta</command> command
 	our method internally uses.
 	Like in the previous chapter, <replaceable>[arch]</replaceable> stands
-	for the platform you have Built the package and might be something
+	for the platform you have built the package and might be something
 	like <literal>i386</literal>, <literal>i586</literal>,
 	<literal>sparc</literal> or whatever,
 	<replaceable>XXX</replaceable> stands

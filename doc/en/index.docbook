@@ -1858,7 +1858,7 @@
 	    <guilabel>Record Time:</guilabel> If the length of the recording
 	    should be limited to some time, you can activate this setting and
 	    select a time in hours, minutes, seconds for your recording. If
-	    this option is not enabled, the recording runns until you press
+	    this option is not enabled, the recording runs until you press
 	    the <guibutton>Stop</guibutton> (<inlinemediaobject><imageobject>
 	    <imagedata fileref="record_stop.png" format="PNG"/>
 	    </imageobject><textobject><phrase>stop button</phrase></textobject>
@@ -1901,7 +1901,7 @@
 	    <imagedata fileref="record_pause.png" format="PNG"/>
 	    </imageobject><textobject><phrase>pause button</phrase></textobject>
             </inlinemediaobject>) button is active when the recording or pre-recording
-	    is running. The first time you press it, the rcording will be halted and
+	    is running. The first time you press it, the recording will be halted and
 	    the button starts blinking. When you press it again the button will
 	    stop blinking and recording will continue immediately, without waiting
 	    for a trigger.
@@ -2306,7 +2306,7 @@
 	    <para>
 		menu entry / keyboard shortcut:
 		<menuchoice>
-		<shortcut><keycombo><keycap>Pos1</keycap></keycombo></shortcut>
+		<shortcut><keycombo>&Ctrl;<keycap>Home</keycap></keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Begin</guimenuitem>
 		</menuchoice>
 	    </para>
@@ -2319,7 +2319,7 @@
 	    <para>
 		menu entry / keyboard shortcut:
 		<menuchoice>
-		<shortcut><keycombo><keycap>End</keycap></keycombo></shortcut>
+		<shortcut><keycombo>&Ctrl;<keycap>End</keycap></keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>End</guimenuitem>
 		</menuchoice>
 	    </para>

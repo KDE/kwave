@@ -4905,34 +4905,39 @@
 		</textobject>
 	    </mediaobject>
 	</screenshot>
-	<informaltable frame='none'>
-	    <tgroup cols='3'>
-		<colspec colname='c1'/><colspec colname='c2'/><colspec colname='c3'/>
-		<tbody>
-		    <row valign='top'>
-			<entry><emphasis role="bold">Internal&nbsp;Name</emphasis>:</entry>
-			<entry><literal>amplifyfree</literal></entry>
-		    </row>
-		    <row valign='top'>
-			<entry><emphasis role="bold">Plugin&nbsp;Type</emphasis>:</entry>
-			<entry>effect</entry>
-		    </row>
-		    <row valign='top'>
-			<entry><emphasis role="bold">Description</emphasis>:</entry>
-			<entry namest='c2' nameend='c3'>
-			    Amplifies the current selection with a curve that
+	<variablelist>
+	  <varlistentry>
+	    <term><emphasis role="bold">Internal&nbsp;Name</emphasis>:</term>
+	    <listitem><para><literal>amplifyfree</literal></para></listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><emphasis role="bold">Plugin&nbsp;Type</emphasis>:</term>
+	    <listitem><para>effect</para></listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><emphasis role="bold">Description</emphasis>:</term>
+	    <listitem>
+	      <para>
+	                    Amplifies the current selection with a curve that
 			    consists of a set of coordinates and an interpolation
 			    method. The coordinates on the time axis as well as on
 			    the amplitude axis must be normed between 0.0
 			    and 1.0.
-			</entry>
-		    </row>
-		    <row valign='top'>
-			<entry><emphasis role="bold">Parameters</emphasis>:</entry>
-			<entry><replaceable>operation</replaceable></entry>
-			<entry>
-			    <para>
+	      </para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><emphasis role="bold">Parameters</emphasis>:</term>
+	    <listitem>
+	      <variablelist>
+		<varlistentry>
+		  <term>
+		    <replaceable>operation</replaceable>
+		  </term>
+		  <listitem>
+		    <para>
 			    Internal name, for undo/redo handling. Possible values are:
+		    </para>
 			    <informaltable frame='all'>
 				<tgroup cols='2'>
 				    <thead>
@@ -4965,12 +4970,11 @@
 				    </tbody>
 				</tgroup>
 			    </informaltable>
-			    </para>
-			</entry>
-		    </row>
-		    <row valign='top'>
-			<entry colname='c2'><replaceable>interpolation</replaceable></entry>
-			<entry>
+		    </listitem>
+		</varlistentry>
+		<varlistentry>
+		  <term><replaceable>interpolation</replaceable></term>
+		  <listitem>
 			    <para>
 			    Interpolation type, possible values are:
 			    <informaltable frame='all'>
@@ -5014,20 +5018,23 @@
 				</tgroup>
 			    </informaltable>
 			    </para>
-			</entry>
-		    </row>
-		    <row valign='top'>
-			<entry colname='c2'><replaceable>curve</replaceable></entry>
-			<entry>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+		      <term><replaceable>curve</replaceable></term>
+		      <listitem>
+			<para>
 			    A comma separated list of pairs of coordinates,
 			    normed between 0.0 and 1.0, must be sorted by time
 			    axis (ascending), should start at time 0.0 and end
 			    with time 1.0.
-			</entry>
-		    </row>
-		</tbody>
-	    </tgroup>
-	</informaltable>
+			</para>
+		      </listitem>
+		    </varlistentry>
+	      </variablelist>
+	    </listitem>
+	</varlistentry>
+      </variablelist>
     </sect1>
 
 	<!--

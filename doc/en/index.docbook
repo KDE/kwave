@@ -1068,10 +1068,10 @@
 
     <para>
 	Before continuing, analogue audio has to be transformed
-	into electronic signals in order to find it's way into a computer.
+	into electronic signals in order to find its way into a computer.
 	One common way to do this is by using a microphone and an
 	amplifier. This combination gets sound (changes of air pressure) at
-	it's input and a voltage at it's output. Higher
+	its input and a voltage at its output. Higher
 	amplitude of the pressure changes will be represented by higher voltages
 	at the amplifier's output. This output is also called a
 	<emphasis>'signal'</emphasis>. Instead of a microphone you can of course
@@ -1099,7 +1099,7 @@
 		only able to handle voltages within some specific range.
 		That's no problem as long as sounds are not too loud. In that
 		case the signal would be <emphasis>clipped</emphasis>, which
-		means that the electrical signal will run against it's margins
+		means that the electrical signal will run against its margins
 		and the result will be disturbed.
 	    </para></listitem>
 	    <listitem><para>
@@ -2020,7 +2020,7 @@
 	    <menuchoice>
 	    <shortcut><keycombo><keycap>P</keycap></keycombo></shortcut>
 	    <guimenu>Play</guimenu><guimenuitem>Start</guimenuitem>
-	    </menuchoice>: Start playback of the current selection from it's
+	    </menuchoice>: Start playback of the current selection from its
 	    beginning or the whole file from the current cursor position
 	    if nothing was selected. Play only once.
         </para></listitem>
@@ -2376,13 +2376,13 @@
     &kwave; allows you to select a continuous range of samples as well as any
     combination of channels (if you edit a multi-channel file). By selecting
     a range of samples (time scope) all following commands will be limited to
-    that range and by de-selecting a channel it's content will not be changed.
+    that range and by de-selecting a channel its content will not be changed.
     </para>
 
     <sect2 id="selecting_channels"><title>Selecting channels</title>
     <para>
     Selecting or de-selecting a channel is quite simple. Just click on the
-    lamp symbol on the left side of the signal to toggle it's state:
+    lamp symbol on the left side of the signal to toggle its state:
     </para>
     <para>
     <inlinemediaobject>
@@ -2677,7 +2677,7 @@
 
 <chapter id="automization"><title>Automization and Scripting with &kwave;</title>
     <para>
-	&kwave; since it's first version uses an internal text command language.
+	&kwave; since its first version uses an internal text command language.
 	This command language is used internally for menu handling, GUI control,
 	builtin effects and plugin invocations. The commands will be described
 	later in the section <link linkend="kwave_commands">Command Reference</link>.
@@ -3261,7 +3261,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_delete_label;</command>(<replaceable>index</replaceable>)</title>
 	    <para>
-		Deletes a label, identified by it's index (starting from zero).
+		Deletes a label, identified by its index (starting from zero).
 		If no label with the given index exists, this command does nothing.
 	    </para>
 	</simplesect>
@@ -3275,7 +3275,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_delete_label;</command>(<replaceable>index</replaceable>)</title>
 	    <para>
-		Deletes a track, identified by it's index (starting from zero).
+		Deletes a track, identified by its index (starting from zero).
 		If no track with the given index exists, this command exits with an error.
 	    </para>
 	</simplesect>
@@ -3305,7 +3305,7 @@
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_edit_label;</command>(<replaceable>index</replaceable>)</title>
 	    <para>
 		Opens a window in which the user can edit the position and the
-		description of a label, which is identified by it's index
+		description of a label, which is identified by its index
 		(starting from zero). If no label with the given index exists,
 		this command does nothing.
 	    </para>
@@ -4668,7 +4668,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_activate;</command>(<replaceable>title</replaceable>])</title>
 	    <para>
-		Activates a sub window, identified by it's window <replaceable>title</replaceable>.
+		Activates a sub window, identified by its window <replaceable>title</replaceable>.
 		If the sub window is minimized it will be restored.
 		Only available if in MDI and tab mode.
 		This command is internally used by the <quote><guisubmenu>Window</guisubmenu></quote> menu.
@@ -4700,7 +4700,7 @@
 		<replaceable>y</replaceable>
 	    )</title>
 	    <para>
-		Sends a mouse click event to window, identified by it's
+		Sends a mouse click event to window, identified by its
 		<replaceable>class</replaceable> name.
 		The event will only be sent to the first window that has
 		the given class name, therefore you should make sure that you
@@ -4725,7 +4725,7 @@
 		<replaceable>class</replaceable>
 	    )</title>
 	    <para>
-		Closes a window, identified by it's
+		Closes a window, identified by its
 		<replaceable>class</replaceable> name.
 		Only the first window that has the given class name will be
 		closed, therefore you should make sure that you have only one
@@ -4769,7 +4769,7 @@
 		<replaceable>height</replaceable>
 	    )</title>
 	    <para>
-		Changes the size of a window, identified by it's
+		Changes the size of a window, identified by its
 		<replaceable>class</replaceable> name to a new
 		<replaceable>width</replaceable> and
 		<replaceable>height</replaceable>.
@@ -4797,7 +4797,7 @@
 		<replaceable>filename</replaceable>
 	    )</title>
 	    <para>
-		Takes a screenshot of a window, identified by it's
+		Takes a screenshot of a window, identified by its
 		<replaceable>class</replaceable> and saves it to a file.
 		The screenshot will be taken from the first window that has
 		the given class name, therefore you should make sure that you
@@ -4824,7 +4824,7 @@
 		<replaceable>key code</replaceable>
 	    )</title>
 	    <para>
-		Sends a key press and release event to a window, identified by it's
+		Sends a key press and release event to a window, identified by its
 		<replaceable>class</replaceable> name.
 		The key will only be sent to the first window that has
 		the given class name, therefore you should make sure that you
@@ -5373,7 +5373,7 @@
 	    	<para>
 		    &kwave; does not need support for any special sound card.
 		    The sound card only has to be supported by your
-		    operating system and &kwave; uses it's interface to the
+		    operating system and &kwave; uses its interface to the
 		    operating system's sound driver through a OSS or ALSA
 		    interface. So &kwave; can play on any sound card that
 		    KDE is able to play on.

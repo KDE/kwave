@@ -17,6 +17,10 @@
 
 FIND_PACKAGE(RequiredProgram REQUIRED)
 
+SET(UPDATE_COMMAND_XREF    ${CMAKE_SOURCE_DIR}/bin/update-command-xref.pl)
+SET(_index_docbook         ${CMAKE_CURRENT_SOURCE_DIR}/en/index.docbook)
+SET(_index_docbook_updated ${CMAKE_CURRENT_BINARY_DIR}/index-updated.docbook)
+
 #############################################################################
 ### how to convert from svg to png                                        ###
 
@@ -100,9 +104,36 @@ ENDIF (NOT RSVG_AVAILABLE)
 FILE(REMOVE "${CMAKE_BINARY_DIR}/${_png_file}")
 
 #############################################################################
+### "make update-handbook"                                                ###
+
+ADD_CUSTOM_TARGET(update-handbook
+    COMMAND ${UPDATE_COMMAND_XREF} ${CMAKE_SOURCE_DIR} ${_index_docbook} ${_index_docbook_updated}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_index_docbook_updated} ${_index_docbook}
+)
+
+#############################################################################
 ### handle the various languages                                          ###
 
-add_subdirectory(en)
+FILE(GLOB _files "${CMAKE_SOURCE_DIR}/doc/*/index.docbook")
+FOREACH(_file ${_files})
+    GET_FILENAME_COMPONENT(_subdir ${_file} DIRECTORY)
+    GET_FILENAME_COMPONENT(_lang ${_subdir} NAME)
+
+    # take only languages that have been requested
+    SET(_take_it TRUE)
+    IF (NOT "${LINGUAS}" STREQUAL "*")
+	LIST(FIND LINGUAS "${_lang}" _found)
+	IF (_found LESS 0)
+	    SET(_take_it FALSE)
+	ENDIF (_found LESS 0)
+    ENDIF (NOT "${LINGUAS}" STREQUAL "*")
+
+    IF (_take_it)
+	MESSAGE(STATUS "Enabled handbook for ${_lang}")
+	ADD_SUBDIRECTORY(${_lang})
+    ENDIF (_take_it)
+
+ENDFOREACH(_file ${_files})
 
 #############################################################################
 #############################################################################

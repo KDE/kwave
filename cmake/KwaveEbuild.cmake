@@ -22,11 +22,7 @@ ENDIF (KWAVE_VERSION_PATCHLEVEL)
 
 SET(_ebuild ${DISTFILES_DIR}/kwave-${_ebuild_version}.ebuild)
 
-ADD_CUSTOM_COMMAND(OUTPUT ${_ebuild}
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_CURRENT_SOURCE_DIR}/kwave.ebuild ${_ebuild}
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/kwave.ebuild
-)
+CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/kwave.ebuild.in" "${_ebuild}")
 
 SET(KWAVE_DISTFILES ${KWAVE_DISTFILES} ${_ebuild})
 SET(KWAVE_ADDITIONAL_CLEAN_FILES ${KWAVE_ADDITIONAL_CLEAN_FILES} ${_ebuild})

@@ -30,6 +30,6 @@ perl bin/menusconfig2pot.pl kwave/menus.config _kwave-i18n-menu.pot
 msgcat $podir/kwave.pot _kwave-i18n-menu.pot -o $podir/kwave.pot
 
 # clean up
-rm -f _kwave-i18n*
+rm -f _kwave-i18n* rc.cpp
 
 ### EOF ###

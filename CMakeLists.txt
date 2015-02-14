@@ -20,16 +20,6 @@
 
 PROJECT(kwave)
 
-# TODO add auto detect for standalone build
-# SET(KWAVE_LINGUAS
-#     cs:čeština
-#     de:Deutsch
-#     en:English
-#     es:Español
-#     fr:Francais
-#     # <- add new languages here...
-# )
-
 #############################################################################
 ### build options:                                                        ###
 
@@ -138,7 +128,6 @@ INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
 INCLUDE(CheckTypeSize)
 INCLUDE(CheckFunctionExists)
-# INCLUDE(KwaveL10N) <= TODO find a replacement for standalone build
 
 #############################################################################
 
@@ -267,8 +256,7 @@ INCLUDE(KwavePulseAudioSupport)
 #############################################################################
 ### cmake includes                                                        ###
 
-FIND_PACKAGE(RequiredProgram REQUIRED)
-FIND_PACKAGE(Gettext REQUIRED)
+INCLUDE(KwaveL10N)
 
 #############################################################################
 ### flags for debugging                                                   ###
@@ -294,19 +282,11 @@ ADD_SUBDIRECTORY( libgui )
 ADD_SUBDIRECTORY( libkwave )
 ADD_SUBDIRECTORY( kwave )
 ADD_SUBDIRECTORY( plugins )
-# ADD_SUBDIRECTORY( po ) TODO find a replacement for standalone build
 
-# SET(KWAVE_BUILD_LINGUAS ${KWAVE_BUILD_LINGUAS})
 OPTION(WITH_DOC "build online documentation [default=on]" ON)
 IF (WITH_DOC)
     ADD_SUBDIRECTORY( doc )
 ENDIF (WITH_DOC)
-
-#############################################################################
-### target package-messages                                               ###
-
-# TODO find a replacement for standalone build
-# INCLUDE(KwavePackageMessages)
 
 #############################################################################
 ### RPM support                                                           ###

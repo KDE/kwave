@@ -4,7 +4,7 @@
 
 EAPI=5
 
-KDE_LINGUAS="cs de en_US es fr"
+KDE_LINGUAS="@KWAVE_BUILD_LINGUAS_STRING@"
 KDE_HANDBOOK="optional"
 inherit kde4-base
 

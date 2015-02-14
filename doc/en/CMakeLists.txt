@@ -15,6 +15,9 @@
 ##                                                                          #
 #############################################################################
 
+# auto detect this language (to make this file re-usable)
+GET_FILENAME_COMPONENT(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
+
 #############################################################################
 ### png files with the toolbar icons                                      ###
 
@@ -28,7 +31,7 @@ FOREACH(_toolbar_icon ${_toolbar_icons})
 ENDFOREACH(_toolbar_icon ${_toolbar_icons})
 
 #############################################################################
-### "make doc"                                                            ###
+### "make html_doc"                                                       ###
 
 FILE(GLOB _docbook_files "${CMAKE_CURRENT_SOURCE_DIR}/*.docbook")
 ADD_CUSTOM_TARGET(html_doc
@@ -47,14 +50,18 @@ ADD_CUSTOM_TARGET(generate_icons
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
 INSTALL(FILES
-        ${_toolbar_pngs}
-    DESTINATION ${HTML_INSTALL_DIR}/en/kwave/
+    ${_toolbar_pngs}
+    DESTINATION ${HTML_INSTALL_DIR}/${_lang}/kwave/
 )
 
 #############################################################################
 ### generate the handbook, KDE environment                                ###
 
-kde4_create_handbook(index.docbook INSTALL_DESTINATION ${HTML_INSTALL_DIR}/en SUBDIR kwave)
+KDE4_CREATE_HANDBOOK(
+    index.docbook
+    INSTALL_DESTINATION ${HTML_INSTALL_DIR}/${_lang}
+    SUBDIR kwave
+)
 
 #############################################################################
 #############################################################################

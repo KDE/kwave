@@ -99,7 +99,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doxy.cfg.in					GPL2+
 	ExtraDesktop.sh					???
 	GNU-LICENSE					free
-	kwave.ebuild					GPL2+ / Gentoo
+	kwave.ebuild.in					GPL2+ / Gentoo
 	kwave.kdev4					(should be GPL2+)
 	kwave.lsm					(should be GPL2+)
 	kwave.spec.in					(should be GPL2+)
@@ -116,12 +116,12 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	bin/make-specfile-changelog.pl			GPL2+
 	bin/menusconfig2pot.pl				GPL2+
 	bin/set_version.sh				GPL2+ / portions of Martin Wilz
+	bin/svn-update-l10n.sh				GPL2+
 	bin/update-command-xref.pl			GPL2+
 
 	cmake/Copyright.txt				Kitware (cmake)
 	cmake/COPYING-CMAKE-SCRIPTS			New BSD
 	cmake/FindAlsa.cmake				BSD / {kretz,faure}@kde.org
-	cmake/FindGettext.cmake				Kitware (cmake)
 	cmake/FindKwaveVersion.cmake			GPL2+
 	cmake/FindOggVorbis.cmake			BSD
 	cmake/FindRequiredProgram.cmake			GPL2+
@@ -131,7 +131,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/KwaveLibaudiofileSupport.cmake		GPL2+
 	cmake/KwaveLibsamplerateSupport.cmake		GPL2+
 	cmake/KwaveOSSSupport.cmake			GPL2+
-	cmake/KwavePackageMessages.cmake		GPL2+
 	cmake/KwavePhononSupport.cmake			GPL2+
 	cmake/KwavePulseAudioSupport.cmake		GPL2+
 	cmake/KwaveRPMSupport.cmake                     GPL2+

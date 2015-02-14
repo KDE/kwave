@@ -3151,7 +3151,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_continue;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Continue</guibutton> toolbar
+		Corresponds to the <guibutton>Continue</guibutton> toolbar
 		button and lets the playback continue if it is paused.
 	    </para>
 	</simplesect>
@@ -3351,7 +3351,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_forward;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Forward</guibutton> toolbar
+		Corresponds to the <guibutton>Forward</guibutton> toolbar
 		button. If the playback is currently running, it skips forward
 		by 1/10 of the visible range. If the playback is not running,
 		this does the same as the command
@@ -3452,7 +3452,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_loop;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Loop</guibutton> toolbar
+		Corresponds to the <guibutton>Loop</guibutton> toolbar
 		button. Starts the playback (if it is not already running) and
 		lets it play in a loop.
 	    </para>
@@ -3738,7 +3738,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_next;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Next</guibutton> toolbar
+		Corresponds to the <guibutton>Next</guibutton> toolbar
 		button. If the playback is currently running, it skips forward
 		to the next label. If the playback is not running,
 		this does the same as the command
@@ -3838,7 +3838,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_continue;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Pause</guibutton> toolbar
+		Corresponds to the <guibutton>Pause</guibutton> toolbar
 		button and lets the playback pause if it is currently running,
 		or continue if it is currently paused.
 	    </para>
@@ -3855,7 +3855,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_playback_start;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Start</guibutton> toolbar
+		Corresponds to the <guibutton>Start</guibutton> toolbar
 		button and lets the playback start if it is currently paused.
 	    </para>
 	</simplesect>
@@ -3934,7 +3934,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_prev;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Previous</guibutton> toolbar
+		Corresponds to the <guibutton>Previous</guibutton> toolbar
 		button. If the playback is currently running, it skips back
 		to the previous label or start of the selection. If the playback
 		is not running, this does the same as the command
@@ -3977,7 +3977,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_redo;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Redo</guibutton> toolbar
+		Corresponds to the <guibutton>Redo</guibutton> toolbar
 		button and repeats one operation that has been reverted with
 		<command>&no-i18n-cmd_undo;</command>.
 	    </para>
@@ -4044,7 +4044,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_rewind;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Rewind</guibutton> toolbar
+		Corresponds to the <guibutton>Rewind</guibutton> toolbar
 		button. If the playback is currently running, it skips backward
 		by 1/10 of the visible range. If the playback is not running,
 		this does the same as the command
@@ -4067,7 +4067,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_save;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Save</guibutton> toolbar
+		Corresponds to the <guibutton>Save</guibutton> toolbar
 		button. Saves the current file if it has modifications.
 		If the file does not already have a name (&eg; a file that has
 		just been created and does not yet have a file name), this
@@ -4382,7 +4382,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_start;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Start</guibutton> toolbar
+		Corresponds to the <guibutton>Start</guibutton> toolbar
 		button and lets the playback start from the beginning of the
 		selection or continue if it is currently paused.
 	    </para>
@@ -4399,7 +4399,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_stop;</command>()</title>
 	    <para>
-		Corresponds to to the <guibutton>Stop</guibutton> toolbar
+		Corresponds to the <guibutton>Stop</guibutton> toolbar
 		button and lets the playback stop if it is currently running.
 	    </para>
 	</simplesect>
@@ -4602,7 +4602,7 @@
 	</simplesect>
 	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
 	    <row><entry><parameter>position</parameter>:</entry>
-		<entry>a zero based position is samples to center the view (optional)</entry></row>
+		<entry>a zero based position in samples to center the view (optional)</entry></row>
 	</tbody></tgroup></informaltable></simplesect>
 	<simplesect><title>See also</title>
 	    <para>

@@ -1836,7 +1836,7 @@
 	<itemizedlist>
 	<listitem><para>
 	    <guilabel>Pre-Record:</guilabel> If the pre-recording feature of
-	    &kwave; is enabled and the recording is startet, &kwave; records
+	    &kwave; is enabled and the recording is started, &kwave; records
 	    into an internal buffer which is some seconds long. If you
 	    press the <guibutton>Record</guibutton> (
 	    <inlinemediaobject>

@@ -1202,7 +1202,7 @@
 	that each sample's value directly represents the analogue signal's
 	value multiplied with a constant factor.
 	This is easy to handle, but has the disadvantage that
-	noise will be audibles especially on low amplitudes, where it disturbs
+	noise will be audible especially on low amplitudes, where it disturbs
 	most, and less audible on high amplitudes, where it is less audible.
     </para>
     <para>
@@ -1502,7 +1502,7 @@
 	    In addition to a list of files, you can specify a list of
 	    <emphasis>Xt toolkit</emphasis> options like <literal>-geometry</literal>
 	    for specifying the size and/or position of the first opened &kwave;
-	    window and or <literal>-display</literal> for starting the &kwave; on a
+	    window and/or <literal>-display</literal> for starting the &kwave; on a
 	    different display.
 	    </para>
 	    <para>

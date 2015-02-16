@@ -2434,7 +2434,7 @@
     </para>
     <para>
     You can also extend or shrink the selection to a specific point by holding
-    down the shift button while clicking with the left mouse button. Depending
+    down the &Shift; key while clicking with the left mouse button. Depending
     on which border is nearer, the left or right border of the selection will
     be set to a new position.
     </para>
@@ -2723,7 +2723,7 @@
 	</itemizedlist>
 	Example:
 	<screen><command>fileinfo(<parameter>Comments</parameter><token>,</token><parameter>"This is an \"example\" comment."</parameter>)</command></screen>
-	This example consist of the command
+	This example consists of the command
 	<quote><command>fileinfo</command></quote> and has two
 	parameters: the keyword <parameter>Comments</parameter> and the text
 	<quote><parameter>"This is an \"example\" comment."</parameter></quote>.
@@ -2912,7 +2912,7 @@
 	    <quote><link linkend="cmd_sect_goto"><command>goto</command></link>
 		    (<parameter><replaceable>position</replaceable></parameter>)</quote> !
 	</para></footnote>
-	,which makes the execution of the script continue at the location of
+	, which makes the execution of the script continue at the location of
 	that label (see example below).
     </para>
     <para>
@@ -3527,7 +3527,7 @@
 		    upper case letter, a function
 		    key (<quote>F1</quote> ... <quote>F12</quote>) or any other
 		    key name understood by the Qt class
-		    <quote><literal>QKeySequence</literal></quote>,including
+		    <quote><literal>QKeySequence</literal></quote>, including
 		    key names for predefined actions (like for example
 		    <quote><literal>::Copy</literal></quote>).
 		    Typical <emphasis>modifiers</emphasis> are

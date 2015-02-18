@@ -127,6 +127,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/FindRequiredProgram.cmake			GPL2+
 	cmake/KwaveALSASupport.cmake			GPL2+
 	cmake/KwaveEbuild.cmake				GPL2+
+	cmake/KwaveHandbook.cmake			GPL2+
 	cmake/KwaveL10N.cmake				GPL2+
 	cmake/KwaveLibaudiofileSupport.cmake		GPL2+
 	cmake/KwaveLibsamplerateSupport.cmake		GPL2+

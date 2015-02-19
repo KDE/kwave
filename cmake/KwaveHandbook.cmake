@@ -15,8 +15,15 @@
 ##                                                                          #
 #############################################################################
 
+FIND_PACKAGE(RequiredProgram REQUIRED)
+
 # auto detect this language (to make this file re-usable)
 GET_FILENAME_COMPONENT(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
+
+FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
+
+SET(_common_dir ${HTML_INSTALL_DIR}/${_lang}/common)
+SET(_html_dir ${CMAKE_BINARY_DIR}/doc/html/${_lang})
 
 #############################################################################
 ### png files with the toolbar icons                                      ###
@@ -37,7 +44,17 @@ FILE(GLOB _docbook_files "${CMAKE_CURRENT_SOURCE_DIR}/*.docbook")
 ADD_CUSTOM_TARGET(html_doc
     DEPENDS ${_toolbar_pngs}
     DEPENDS ${_docbook_files}
-    COMMAND ${KDE4_MEINPROC_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/index.docbook
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${_html_dir}
+    COMMAND cd ${_html_dir} && ${KDE4_MEINPROC_EXECUTABLE}
+            --check ${CMAKE_CURRENT_SOURCE_DIR}/index.docbook
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${_html_dir}/common
+    COMMAND ${CMAKE_COMMAND} -E make_directory   ${_html_dir}/common
+    COMMAND ${CP_EXECUTABLE} ${_toolbar_pngs} ${_html_dir}
+    COMMAND ${CP_EXECUTABLE} ${CMAKE_SOURCE_DIR}/doc/${_lang}/*.png ${_html_dir}
+    COMMAND ${CP_EXECUTABLE} ${_common_dir}/* ${_html_dir}/common/
+    COMMAND ${CP_EXECUTABLE} -n ${CMAKE_SOURCE_DIR}/doc/en/*.png ${_html_dir}
+    COMMAND ${CP_EXECUTABLE} -n ${HTML_INSTALL_DIR}/en/common/* ${_html_dir}/common/
+    COMMAND cd ${_html_dir} && ${CMAKE_SOURCE_DIR}/doc/fix-common
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
 

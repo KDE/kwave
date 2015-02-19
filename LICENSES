@@ -139,6 +139,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/uninstall.cmake.in			GPL2+
 
 	doc/CMakeLists.txt				GPL2+
+	doc/fix-common					GPL2+
 
 	doc/en/CMakeLists.txt				GPL2+
 #	doc/en/audio-1.png				??? UNKNOWN ???

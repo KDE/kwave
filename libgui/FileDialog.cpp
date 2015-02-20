@@ -53,9 +53,12 @@ Kwave::FileDialog::FileDialog(const QString &startDir,
     }
 
     // if a filename was passed, try to re-use it
-    if (m_last_url.length()) {
-	setUrl(KUrl(KUrl(m_last_url).path()));
-	setSelection(KUrl(m_last_url).fileName());
+    if (m_last_url.length() && KUrl(m_last_url).isLocalFile()) {
+	QFileInfo file(m_last_url);
+	if (QFileInfo(file.path()).exists())
+	    setUrl(KUrl(KUrl(m_last_url).path()));
+	if (file.isFile() && file.exists()) {
+	    setSelection(KUrl(m_last_url).fileName());
     }
 
     // put the last extension to the top of the list

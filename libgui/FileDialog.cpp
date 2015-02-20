@@ -57,7 +57,7 @@ Kwave::FileDialog::FileDialog(const QString &startDir,
 	QFileInfo file(m_last_url);
 	if (QFileInfo(file.path()).exists())
 	    setUrl(KUrl(KUrl(m_last_url).path()));
-	if (file.isFile() && file.exists()) {
+	if (file.isFile() && file.exists())
 	    setSelection(KUrl(m_last_url).fileName());
     }
 

@@ -220,9 +220,9 @@ int Kwave::SonagramPlugin::start(QStringList &params)
             this,        SLOT(slotTrackDeleted(QUuid)));
     connect(
 	m_selection,
-	SIGNAL(sigInvalidated(QUuid*,sample_index_t,sample_index_t)),
+	SIGNAL(sigInvalidated(const QUuid*,sample_index_t,sample_index_t)),
 	this,
-	SLOT(slotInvalidated(QUuid*,sample_index_t,sample_index_t))
+	SLOT(slotInvalidated(const QUuid*,sample_index_t,sample_index_t))
     );
 
     // create a new empty image

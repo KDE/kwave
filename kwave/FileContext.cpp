@@ -679,7 +679,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	    // this line seems to be a "label"
 	    QString name = line.left(line.length() - 1).simplified();
 	    if (!labels.contains(name)) {
-		qDebug("new label '%s' at %llu", DBG(name), stream.pos());
+		// qDebug("new label '%s' at %llu", DBG(name), stream.pos());
 		label_t label_pos;
 		label_pos.pos  = stream.pos();
 		label_pos.hits = 0;
@@ -687,16 +687,18 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	    }
 
 	    // special handling for a label at the end of the file
-	    if (label.length() && (label != name))
-		continue;
+	    if (label.length() && (label == name)) {
+		// label found
+		label = QString();
+	    }
+	    continue;
 	}
 
 	Kwave::Parser parser(line);
 
-	// the "goto" command
+	// the "GOTO" command
 	if ( !label.length() &&
 	    (line.split(QLatin1Char(' ')).at(0) == _("GOTO")) ) {
-	    qDebug(">>> detected 'GOTO'");
 	    label = line.split(QLatin1Char(' ')).at(1).simplified();
 	}
 

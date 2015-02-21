@@ -673,19 +673,22 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
     while (!stream.atEnd() && !result) {
 	QString line = stream.readLine().simplified();
 	if (line.startsWith(_("#"))) continue; // skip comments
-	if (!line.length()) continue;       // skip empty lines
+	if (!line.length()) continue;          // skip empty lines
 
 	if (line.endsWith(QLatin1Char(':'))) {
 	    // this line seems to be a "label"
-	    line = line.left(line.length() - 1).simplified();
-	    if (!labels.contains(line)) {
-		qDebug("new label '%s' at %llu", DBG(line), stream.pos());
-		label_t label;
-		label.pos  = stream.pos();
-		label.hits = 0;
-		labels[line] = label;
+	    QString name = line.left(line.length() - 1).simplified();
+	    if (!labels.contains(name)) {
+		qDebug("new label '%s' at %llu", DBG(name), stream.pos());
+		label_t label_pos;
+		label_pos.pos  = stream.pos();
+		label_pos.hits = 0;
+		labels[name] = label_pos;
 	    }
-	    continue;
+
+	    // special handling for a label at the end of the file
+	    if (label.length() && (label != name))
+		continue;
 	}
 
 	Kwave::Parser parser(line);
@@ -695,7 +698,6 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	    (line.split(QLatin1Char(' ')).at(0) == _("GOTO")) ) {
 	    qDebug(">>> detected 'GOTO'");
 	    label = line.split(QLatin1Char(' ')).at(1).simplified();
-	    continue;
 	}
 
 	// jump to a label, scan/seek mode

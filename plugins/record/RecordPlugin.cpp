@@ -124,9 +124,9 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     connect(m_dialog, SIGNAL(sigBitsPerSampleChanged(uint)),
             this,     SLOT(changeBitsPerSample(uint)));
     connect(m_dialog,
-	    SIGNAL(sigSampleFormatChanged(Kwave::SampleFormat)),
+	    SIGNAL(sigSampleFormatChanged(Kwave::SampleFormat::Format)),
             this,
-	    SLOT(changeSampleFormat(Kwave::SampleFormat)));
+	    SLOT(changeSampleFormat(Kwave::SampleFormat::Format)));
     connect(m_dialog, SIGNAL(sigBuffersChanged()),
             this,     SLOT(buffersChanged()));
     connect(this,     SIGNAL(sigRecordedSamples(sample_index_t)),

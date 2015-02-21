@@ -169,7 +169,7 @@ namespace Kwave
 	void sigBitsPerSampleChanged(unsigned int bits);
 
 	/** emitted when the sample format has changed */
-	void sigSampleFormatChanged(Kwave::SampleFormat sample_format);
+	void sigSampleFormatChanged(Kwave::SampleFormat::Format sample_format);
 
 	/** emitted when the number and/or size of buffers has changed */
 	void sigBuffersChanged();

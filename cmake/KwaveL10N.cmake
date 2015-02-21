@@ -40,21 +40,27 @@ IF ("${LINGUAS}" STREQUAL "")
 ENDIF ("${LINGUAS}" STREQUAL "")
 
 #############################################################################
+### checks whether a language has been requested per configuration       ###
+
+MACRO(CHECK_LANG _lang _result)
+    # take only languages that have been requested
+    SET(${_result} TRUE)
+    IF (NOT "${LINGUAS}" STREQUAL "*")
+	LIST(FIND LINGUAS "${${_lang}}" _found)
+	IF (_found LESS 0)
+	    SET(${_result} FALSE)
+	ENDIF (_found LESS 0)
+    ENDIF (NOT "${LINGUAS}" STREQUAL "*")
+ENDMACRO(CHECK_LANG _lang _result)
+
+#############################################################################
 ### find out which po files exist                                        ###
 
 FILE(GLOB _existing_po_files "${PO_DIR}/*.po")
 FOREACH(_po_file ${_existing_po_files})
     GET_FILENAME_COMPONENT(_lang "${_po_file}" NAME_WE)
 
-    # take only languages that have been requested
-    SET(_take_it TRUE)
-    IF (NOT "${LINGUAS}" STREQUAL "*")
-	LIST(FIND LINGUAS "${_lang}" _found)
-	IF (_found LESS 0)
-	    SET(_take_it FALSE)
-	ENDIF (_found LESS 0)
-    ENDIF (NOT "${LINGUAS}" STREQUAL "*")
-
+    CHECK_LANG(_lang _take_it)
     IF (_take_it)
 	SET(KWAVE_BUILD_LINGUAS_STRING "${KWAVE_BUILD_LINGUAS_STRING} ${_lang}")
 	LIST(APPEND KWAVE_BUILD_LINGUAS "${_lang}")
@@ -84,6 +90,34 @@ FOREACH(_po_file ${_existing_po_files})
 ENDFOREACH(_po_file ${_existing_po_files})
 
 #############################################################################
+### if no po files are in the source tree: find out if gmo files exist    ###
+### (this comes into turn when we have are in a source tree that comes    ###
+### from an extracted source tar.gz that contains precompiled gmo files)  ###
+
+IF (NOT _existing_po_files)
+    FILE(GLOB _existing_gmo_files "${PO_DIR}/*.gmo")
+    FOREACH(_gmo_file ${_existing_gmo_files})
+	GET_FILENAME_COMPONENT(_lang "${_gmo_file}" NAME_WE)
+
+	CHECK_LANG(_lang _take_it)
+	IF (_take_it)
+	    SET(KWAVE_BUILD_LINGUAS_STRING "${KWAVE_BUILD_LINGUAS_STRING} ${_lang}")
+	    LIST(APPEND KWAVE_BUILD_LINGUAS "${_lang}")
+	    LIST(APPEND _po_files "${_po_file}")
+	    MESSAGE(STATUS "Enabled GUI translation for ${_lang}")
+
+	    INSTALL(
+		FILES ${_gmo_file}
+		DESTINATION ${KDE4_LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES
+		RENAME kwave.mo
+	    )
+	    SET(_gmo_files ${_gmo_files} ${_gmo_file})
+
+	ENDIF (_take_it)
+    ENDFOREACH(_gmo_file ${_existing_gmo_files})
+ENDIF (NOT _existing_po_files)
+
+#############################################################################
 ### update the local copy of the translations with files from kde svn     ###
 
 ADD_CUSTOM_TARGET(update-translations
@@ -101,24 +135,29 @@ IF (NOT "${KWAVE_BUILD_LINGUAS}" STREQUAL "")
 	MESSAGE(STATUS "LINGUAS not set, building for all supported languages")
     ENDIF ("${LINGUAS}" STREQUAL "*")
 
-    # generate po/kwave.pot
-    ADD_CUSTOM_COMMAND(OUTPUT ${POT_FILE}
-	COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/po
-	COMMAND ${RM_EXECUTABLE} -f ${CMAKE_BINARY_DIR}/po/*.gmo
-	COMMAND cd ${CMAKE_SOURCE_DIR} && ${EXTRACT_MESSAGES}
-	DEPENDS ${EXTRACT_MESSAGES}
-	COMMAND ${RM_EXECUTABLE} -f ${CMAKE_SOURCE_DIR}/messages.mo
-    )
+    # handle creation of gmo files from po and pot
+    # (in case we are in "package maintainer" mode with existing po files
+    #  or when fetching the translations from KDE later)
+    IF (_existing_po_files)
+	# generate po/kwave.pot
+	ADD_CUSTOM_COMMAND(OUTPUT ${POT_FILE}
+	    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/po
+	    COMMAND ${RM_EXECUTABLE} -f ${CMAKE_BINARY_DIR}/po/*.gmo
+	    COMMAND cd ${CMAKE_SOURCE_DIR} && ${EXTRACT_MESSAGES}
+	    DEPENDS ${EXTRACT_MESSAGES}
+	    COMMAND ${RM_EXECUTABLE} -f ${CMAKE_SOURCE_DIR}/messages.mo
+	)
 
-    # build target "package-messages"
-    ADD_CUSTOM_TARGET(package-messages ALL
-	DEPENDS ${_gmo_files}
-    )
+	# build target "package-messages"
+	ADD_CUSTOM_TARGET(package-messages ALL
+	    DEPENDS ${_gmo_files}
+	)
 
-    SET_DIRECTORY_PROPERTIES(PROPERTIES
-	ADDITIONAL_MAKE_CLEAN_FILES
-	"${CMAKE_BINARY_DIR}/po"
-    )
+	SET_DIRECTORY_PROPERTIES(PROPERTIES
+	    ADDITIONAL_MAKE_CLEAN_FILES
+	    "${CMAKE_BINARY_DIR}/po"
+	)
+    ENDIF (_existing_po_files)
 
 ELSE (NOT "${KWAVE_BUILD_LINGUAS}" STREQUAL "")
 

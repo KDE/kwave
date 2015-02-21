@@ -47,6 +47,11 @@ DEPEND="${RDEPEND}
 
 DOCS=( AUTHORS CHANGES LICENSES README TODO )
 
+src_prepare() {
+	mkdir -p po
+	echo "# generated dummy file, do not edit" > po/CMakeLists.txt
+}
+
 src_configure() {
 	local mycmakeargs=(
 		$(cmake-utils_use_with alsa)

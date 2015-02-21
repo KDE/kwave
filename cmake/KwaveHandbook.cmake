@@ -15,12 +15,8 @@
 ##                                                                          #
 #############################################################################
 
-FIND_PACKAGE(RequiredProgram REQUIRED)
-
 # auto detect this language (to make this file re-usable)
 GET_FILENAME_COMPONENT(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
-
-FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
 
 SET(_common_dir ${HTML_INSTALL_DIR}/${_lang}/common)
 SET(_html_dir ${CMAKE_BINARY_DIR}/doc/html/${_lang})

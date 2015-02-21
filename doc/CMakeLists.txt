@@ -21,6 +21,8 @@ SET(UPDATE_COMMAND_XREF    ${CMAKE_SOURCE_DIR}/bin/update-command-xref.pl)
 SET(_index_docbook         ${CMAKE_CURRENT_SOURCE_DIR}/en/index.docbook)
 SET(_index_docbook_updated ${CMAKE_CURRENT_BINARY_DIR}/index-updated.docbook)
 
+FIND_REQUIRED_PROGRAM(CP_EXECUTABLE cp)
+
 #############################################################################
 ### how to convert from svg to png                                        ###
 

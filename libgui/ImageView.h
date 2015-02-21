@@ -82,7 +82,10 @@ namespace Kwave
 
     protected:
 
-	void mouseMoveEvent(QMouseEvent *);
+	void mouseMoveEvent(QMouseEvent *e);
+
+	void mousePressEvent(QMouseEvent *e);
+
 	void paintEvent(QPaintEvent *);
 
     private:

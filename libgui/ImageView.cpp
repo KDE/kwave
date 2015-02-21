@@ -66,6 +66,12 @@ void Kwave::ImageView::mouseMoveEvent(QMouseEvent *e)
 }
 
 //****************************************************************************
+void Kwave::ImageView::mousePressEvent(QMouseEvent *e)
+{
+    mouseMoveEvent(e);
+}
+
+//****************************************************************************
 void Kwave::ImageView::setImage(QImage image)
 {
     m_image = image;

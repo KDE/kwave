@@ -664,6 +664,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
     // set hourglass cursor
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+    QString label; // label, jump target of a "GOTO"
     while (!stream.atEnd() && !result) {
 	QString line = stream.readLine().simplified();
 	if (line.startsWith(_("#"))) continue; // skip comments
@@ -685,9 +686,15 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	Kwave::Parser parser(line);
 
 	// the "goto" command
-	if (line.split(QLatin1Char(' ')).at(0) == _("GOTO")) {
+	if ( !label.length() &&
+	    (line.split(QLatin1Char(' ')).at(0) == _("GOTO")) ) {
 	    qDebug(">>> detected 'GOTO'");
-	    QString label = line.split(QLatin1Char(' ')).at(1).simplified();
+	    label = line.split(QLatin1Char(' ')).at(1).simplified();
+	    continue;
+	}
+
+	// jump to a label, scan/seek mode
+	if (label.length()) {
 	    if (labels.contains(label)) {
 		labels[label].hits++;
 		qDebug(">>> GOTO '%s' @ offset %llu (pass #%d)", DBG(label),
@@ -695,10 +702,12 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 		       labels[label].hits
 		    );
 		stream.seek(labels[label].pos);
-	    } else {
-		qWarning("label '%s' not found", DBG(label));
-		break;
+
+		// reset the label to search for
+		label = QString();
 	    }
+	    // else: maybe the label will follow somewhere below,
+	    //       scan forward...
 	    continue;
 	}
 
@@ -749,6 +758,12 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	if (parser.command() == _("quit")) {
 	    break;
 	}
+    }
+
+    if (label.length()) {
+	// oops, if we get here then we have searched for a non-exising label
+	qWarning("label '%s' not found", DBG(label));
+	result = -ENOENT;
     }
 
     // remove hourglass

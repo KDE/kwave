@@ -319,9 +319,6 @@ int Kwave::FileContext::executeCommand(const QString &line)
     if (command.trimmed().startsWith(_("#")))
 	return 0; // only a comment
 
-    // log all commands to the log file if enabled
-    Kwave::Logger::log(this, Kwave::Logger::Info, _("CMD: ") + line);
-
     // special case: if the command contains ";" it is a list of
     // commands -> macro !
     Kwave::Parser parse_list(command);
@@ -358,6 +355,9 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	    command.replace(_("${LANG}"), lang);
 	}
     }
+
+    // log all commands to the log file if enabled
+    Kwave::Logger::log(this, Kwave::Logger::Info, _("CMD: ") + line);
 
     // parse one single command
     Kwave::Parser parser(command);
@@ -434,6 +434,11 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	result = saveFileAs(parser.nextParam(), false);
     CASE_COMMAND("saveselect")
 	result = saveFileAs(QString(), true);
+    CASE_COMMAND("sync")
+	while (!m_delayed_command_queue.isEmpty()) {
+	    qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+	}
+	result = 0;
     CASE_COMMAND("window:click")
 	return delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:close")

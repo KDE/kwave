@@ -105,6 +105,7 @@
   <!ENTITY no-i18n-cmd_selectvisible "selectvisible">
   <!ENTITY no-i18n-cmd_start "start">
   <!ENTITY no-i18n-cmd_stop "stop">
+  <!ENTITY no-i18n-cmd_sync "sync">
   <!ENTITY no-i18n-cmd_undo "undo">
   <!ENTITY no-i18n-cmd_undo_all "undo_all">
   <!ENTITY no-i18n-cmd_view_scroll_end "view:scroll_end">
@@ -3032,6 +3033,7 @@
 		<indexentry><primaryie><link linkend="cmd_sect_selectvisible" endterm="cmd_title_selectvisible"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_start" endterm="cmd_title_start"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_stop" endterm="cmd_title_stop"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_sync" endterm="cmd_title_sync"/></primaryie></indexentry>
 	    </indexdiv>
 	    <indexdiv><title>u</title>
 		<indexentry><primaryie><link linkend="cmd_sect_undo" endterm="cmd_title_undo"/></primaryie></indexentry>
@@ -3235,6 +3237,7 @@
 	</tbody></tgroup></informaltable></simplesect>
 	<simplesect><title>See also</title>
 	    <para>
+		<link linkend="cmd_sect_sync"><command>&no-i18n-tag;&no-i18n-cmd_sync;</command>()</link>,
 		<link linkend="cmd_sect_window_resize"><command>&no-i18n-tag;&no-i18n-cmd_window_resize;</command>()</link>,
 		<link linkend="cmd_sect_window_click"><command>&no-i18n-tag;&no-i18n-cmd_window_click;</command>()</link>,
 		<link linkend="cmd_sect_window_sendkey"><command>&no-i18n-tag;&no-i18n-cmd_window_sendkey;</command>()</link>,
@@ -4409,6 +4412,24 @@
 	    </para>
 	</simplesect>
 	</sect2>
+
+	<!-- @COMMAND@ sync() -->
+	<sect2 id="cmd_sect_sync"><title id="cmd_title_sync">&no-i18n-cmd_sync;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_sync;</command>()</title>
+	    <para>
+		Waits until all commands which have been started asynchronously
+		have finished. If nothing is currently queued for delayed
+		execution this command has no effect.
+	    </para>
+	</simplesect>
+	<simplesect><title>See also</title>
+	    <para>
+		<link linkend="cmd_sect_delayed"><command>&no-i18n-tag;&no-i18n-cmd_delayed;</command>()</link>
+	    </para>
+	</simplesect>
+	</sect2>
+
     </sect1>
 
     <sect1 id="commands_u"><title>&no-i18n-tag;u</title>

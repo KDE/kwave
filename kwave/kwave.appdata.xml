@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Kwave</name>
+  <name xml:lang="bs">Kwave</name>
   <name xml:lang="cs">Kwave</name>
   <name xml:lang="en-GB">Kwave</name>
   <name xml:lang="es">Kwave</name>
@@ -16,6 +17,7 @@
   <name xml:lang="uk">Kwave</name>
   <name xml:lang="x-test">xxKwavexx</name>
   <summary>Kwave is a sound editor designed for the KDE Desktop Environment</summary>
+  <summary xml:lang="bs">Kwave je uređivač zvuka dizajniran za KDE Desktop Environment</summary>
   <summary xml:lang="en-GB">Kwave is a sound editor designed for the KDE Desktop Environment</summary>
   <summary xml:lang="es">Kwave es un editor de sonido diseñado para el entorno de escritorio KDE</summary>
   <summary xml:lang="nl">KWave is een geluidsbewerker ontworpen voor de KDE bureaubladomgeving</summary>

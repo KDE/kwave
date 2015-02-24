@@ -41,7 +41,8 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
     bool selection_only,
     bool have_selection
 )
-    :Kwave::FileDialog(startDir, filter, parent, modal, last_url, last_ext),
+    :Kwave::FileDialog(startDir, KFileDialog::Saving, filter, parent, modal,
+                       last_url, last_ext),
      m_widget(new Kwave::SaveBlocksWidget(this, filename_pattern,
 	numbering_mode, selection_only, have_selection))
 {

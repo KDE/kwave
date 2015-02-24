@@ -629,11 +629,11 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
     QString filter = m_file_filter;
 
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
-	_("kfiledialog:///kwave_playback_device"), filter, this,
+	_("kfiledialog:///kwave_playback_device"),
+	KFileDialog::Opening, filter, this,
 	true, _("file:/dev"));
     if (!dlg) return;
     dlg->setKeepLocation(true);
-    dlg->setOperationMode(KFileDialog::Opening);
     dlg->setCaption(i18n("Select Playback Device"));
     if (!m_playback_params.device.startsWith(_("#")))
         dlg->setUrl(KUrl(_("file:") + m_playback_params.device));

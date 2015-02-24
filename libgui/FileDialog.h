@@ -42,7 +42,9 @@ namespace Kwave
 	* Constructor.
 	* @see KFileFialog
 	*/
-	FileDialog(const QString& startDir, const QString& filter,
+	FileDialog(const QString& startDir,
+	           KFileDialog::OperationMode mode,
+	           const QString& filter,
 	           QWidget *parent, bool modal,
 	           const QString last_url = QString(),
 	           const QString last_ext = QString());

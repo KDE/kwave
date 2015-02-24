@@ -95,7 +95,6 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     connect(this, SIGNAL(sigNewExample(QString)),
 	dialog, SLOT(setNewExample(QString)));
 
-    dialog->setOperationMode(KFileDialog::Saving);
     dialog->setCaption(i18n("Save Blocks"));
     dialog->emitUpdate();
     if (dialog->exec() != QDialog::Accepted) return 0;

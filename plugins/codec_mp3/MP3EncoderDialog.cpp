@@ -567,10 +567,10 @@ void Kwave::MP3EncoderDialog::browseFile()
 #endif
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow)
 	Kwave::FileDialog (_("kfiledialog:///kwave_mp3_encoder"),
+	KFileDialog::Opening,
 	_(""), this, true, _("file:/") + edPath->text().simplified(), mask);
     if (!dlg) return;
     dlg->setKeepLocation(true);
-    dlg->setOperationMode(KFileDialog::Opening);
     dlg->setCaption(i18n("Select MP3 Encoder"));
     dlg->setUrl(KUrl(_("file:/usr/bin/")));
     if (dlg->exec() == QDialog::Accepted)

@@ -598,9 +598,9 @@ void Kwave::RecordDialog::selectRecordDevice()
     filter += _("\n*|")     + i18n("Any device (*)");
 
     Kwave::FileDialog dlg(_("kfiledialog:///kwave_record_device"),
+	KFileDialog::Opening,
 	filter, this, true, _("file:/dev"));
     dlg.setKeepLocation(true);
-    dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Select Record Device"));
     if (!m_params.device_name.startsWith(_("#")))
         dlg.setUrl(KUrl(_("file:") + m_params.device_name));

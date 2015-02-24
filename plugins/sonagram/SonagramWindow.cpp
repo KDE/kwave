@@ -205,9 +205,9 @@ void Kwave::SonagramWindow::save()
 {
     if (m_image.isNull()) return;
 
-    Kwave::FileDialog dlg(_("kfiledialog:///kwave_sonagram"), QString(),
+    Kwave::FileDialog dlg(_("kfiledialog:///kwave_sonagram"),
+        KFileDialog::Saving, QString(),
         this, true, QString(), _("*.bmp"));
-    dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save Sonagram"));
     if (dlg.exec() != QDialog::Accepted) return;
     QString filename = dlg.selectedFile();

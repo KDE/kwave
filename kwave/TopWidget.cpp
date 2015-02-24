@@ -1044,9 +1044,8 @@ int Kwave::TopWidget::openFile()
 {
     QString filter = Kwave::CodecManager::decodingFilter();
     Kwave::FileDialog dlg(_("kfiledialog:///kwave_open_dir"),
-                          filter, this, true);
+	KFileDialog::Opening, filter, this, true);
     dlg.setMode(static_cast<KFile::Modes>(KFile::File | KFile::ExistingOnly));
-    dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Open"));
     if (dlg.exec() == QDialog::Accepted)
 	return loadFile(dlg.selectedUrl());

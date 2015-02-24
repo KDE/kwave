@@ -32,9 +32,12 @@
 #include "libgui/FileDialog.h"
 
 //***************************************************************************
-Kwave::FileDialog::FileDialog(const QString &startDir,
+Kwave::FileDialog::FileDialog(
+    const QString &startDir,
+    KFileDialog::OperationMode mode,
     const QString &filter, QWidget *parent, bool modal,
-    const QString last_url, const QString last_ext)
+    const QString last_url, const QString last_ext
+)
     :KFileDialog(startDir, filter, parent),
      m_config_group(), m_last_url(last_url), m_last_ext(last_ext)
 {
@@ -55,9 +58,9 @@ Kwave::FileDialog::FileDialog(const QString &startDir,
     // if a filename was passed, try to re-use it
     if (m_last_url.length() && KUrl(m_last_url).isLocalFile()) {
 	QFileInfo file(m_last_url);
-	if (QFileInfo(file.path()).exists())
+	if (QFileInfo(file.path()).exists() || (mode == KFileDialog::Saving))
 	    setUrl(KUrl(KUrl(m_last_url).path()));
-	if (file.isFile() && file.exists())
+	if (file.isFile() && (file.exists() || (mode == KFileDialog::Saving)))
 	    setSelection(KUrl(m_last_url).fileName());
     }
 

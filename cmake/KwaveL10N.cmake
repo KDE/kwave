@@ -73,10 +73,8 @@ FOREACH(_po_file ${_existing_po_files})
 	ADD_CUSTOM_COMMAND(
 	    OUTPUT ${_gmo_file}
 	    COMMAND ${CMAKE_COMMAND} -E make_directory ${PO_DIR}
-	    COMMAND ${MSGMERGE_EXECUTABLE} --quiet --update --backup=none -s
-	                ${_po_file} ${POT_FILE}
 	    COMMAND ${MSGFMT_EXECUTABLE} -o ${_gmo_file} ${_po_file}
-	    DEPENDS ${POT_FILE} ${_po_file}
+	    DEPENDS ${_po_file}
 	)
 
 	INSTALL(
@@ -88,34 +86,6 @@ FOREACH(_po_file ${_existing_po_files})
 
     ENDIF (_take_it)
 ENDFOREACH(_po_file ${_existing_po_files})
-
-#############################################################################
-### if no po files are in the source tree: find out if gmo files exist    ###
-### (this comes into turn when we have are in a source tree that comes    ###
-### from an extracted source tar.gz that contains precompiled gmo files)  ###
-
-IF (NOT _existing_po_files)
-    FILE(GLOB _existing_gmo_files "${PO_DIR}/*.gmo")
-    FOREACH(_gmo_file ${_existing_gmo_files})
-	GET_FILENAME_COMPONENT(_lang "${_gmo_file}" NAME_WE)
-
-	CHECK_LANG(_lang _take_it)
-	IF (_take_it)
-	    SET(KWAVE_BUILD_LINGUAS_STRING "${KWAVE_BUILD_LINGUAS_STRING} ${_lang}")
-	    LIST(APPEND KWAVE_BUILD_LINGUAS "${_lang}")
-	    LIST(APPEND _po_files "${_po_file}")
-	    MESSAGE(STATUS "Enabled GUI translation for ${_lang}")
-
-	    INSTALL(
-		FILES ${_gmo_file}
-		DESTINATION ${KDE4_LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES
-		RENAME kwave.mo
-	    )
-	    SET(_gmo_files ${_gmo_files} ${_gmo_file})
-
-	ENDIF (_take_it)
-    ENDFOREACH(_gmo_file ${_existing_gmo_files})
-ENDIF (NOT _existing_po_files)
 
 #############################################################################
 ### update the local copy of the translations with files from kde svn     ###

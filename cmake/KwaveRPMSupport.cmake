@@ -107,7 +107,7 @@ IF (EXISTS ${_git})
 	ADD_CUSTOM_COMMAND(OUTPUT ${files_lst}
 	    COMMENT "Building file list from local .git repository"
 	    COMMAND "${GIT_EXECUTABLE}" ls-tree -r --name-only HEAD ">" ${files_lst}
-	    COMMAND test -e po && find po -name \\*.gmo ">>" ${files_lst}
+	    COMMAND test -e po && find po -name \\*.po ">>" ${files_lst}
 	    COMMAND find doc -type f ">>" ${files_lst}
 	    COMMAND cat ${files_lst} | sort | uniq > ${files_lst}.tmp
 	    COMMAND mv ${files_lst}.tmp ${files_lst}

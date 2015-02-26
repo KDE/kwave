@@ -133,6 +133,73 @@
   <!ENTITY no-i18n-cmd_window_tile "window:tile">
   <!ENTITY no-i18n-cmd_window_tile_vertical "window:tile_vertical">
   <!-- @COMMAND_ENTITIES_END@ -->
+  <!-- unicode characters, before URL encoding -->
+  <!ENTITY no-i18n-unicode-0x0020 "&#x0020;">
+  <!ENTITY no-i18n-unicode-0x0021 "&#x0021;">
+  <!ENTITY no-i18n-unicode-0x0022 "&#x0022;">
+  <!ENTITY no-i18n-unicode-0x0023 "&#x0023;">
+  <!ENTITY no-i18n-unicode-0x0024 "&#x0024;">
+  <!ENTITY no-i18n-unicode-0x0025 "&#x0025;">
+  <!ENTITY no-i18n-unicode-0x0026 "&amp;">
+  <!ENTITY no-i18n-unicode-0x0027 "&#x0027;">
+  <!ENTITY no-i18n-unicode-0x0028 "&#x0028;">
+  <!ENTITY no-i18n-unicode-0x0029 "&#x0029;">
+  <!ENTITY no-i18n-unicode-0x002A "&#x002A;">
+  <!ENTITY no-i18n-unicode-0x002B "&#x002B;">
+  <!ENTITY no-i18n-unicode-0x002C "&#x002C;">
+  <!ENTITY no-i18n-unicode-0x002D "&#x002D;">
+  <!ENTITY no-i18n-unicode-0x002E "&#x002E;">
+  <!ENTITY no-i18n-unicode-0x002F "&#x002F;">
+  <!ENTITY no-i18n-unicode-0x003A "&#x003A;">
+  <!ENTITY no-i18n-unicode-0x003B "&#x003B;">
+  <!ENTITY no-i18n-unicode-0x003C "&lt;">
+  <!ENTITY no-i18n-unicode-0x003D "&#x003D;">
+  <!ENTITY no-i18n-unicode-0x003E "&gt;">
+  <!ENTITY no-i18n-unicode-0x003F "&#x003F;">
+  <!ENTITY no-i18n-unicode-0x0040 "&#x0040;">
+  <!ENTITY no-i18n-unicode-0x005B "&#x005B;">
+  <!ENTITY no-i18n-unicode-0x005C "&#x005C;">
+  <!ENTITY no-i18n-unicode-0x005D "&#x005D;">
+  <!ENTITY no-i18n-unicode-0x005E "&#x005E;">
+  <!ENTITY no-i18n-unicode-0x005F "&#x005F;">
+  <!ENTITY no-i18n-unicode-0x0060 "&#x0060;">
+  <!ENTITY no-i18n-unicode-0x007B "&#x007B;">
+  <!ENTITY no-i18n-unicode-0x007C "&#x007C;">
+  <!ENTITY no-i18n-unicode-0x007D "&#x007D;">
+  <!ENTITY no-i18n-unicode-0x007E "&#x007E;">
+  <!-- URL encoded ASCII characters -->
+  <!ENTITY no-i18n-urlenc-20 "&#x0025;20">
+  <!ENTITY no-i18n-urlenc-21 "&#x0025;21">
+  <!ENTITY no-i18n-urlenc-22 "&#x0025;22">
+  <!ENTITY no-i18n-urlenc-23 "&#x0025;23">
+  <!ENTITY no-i18n-urlenc-24 "&#x0025;24">
+  <!ENTITY no-i18n-urlenc-25 "&#x0025;25">
+  <!ENTITY no-i18n-urlenc-26 "&#x0025;26">
+  <!ENTITY no-i18n-urlenc-27 "&#x0025;27">
+  <!ENTITY no-i18n-urlenc-28 "&#x0025;28">
+  <!ENTITY no-i18n-urlenc-29 "&#x0025;29">
+  <!ENTITY no-i18n-urlenc-2A "&#x0025;2A">
+  <!ENTITY no-i18n-urlenc-2B "&#x0025;2B">
+  <!ENTITY no-i18n-urlenc-2C "&#x0025;2C">
+  <!ENTITY no-i18n-urlenc-2D "&#x0025;2D">
+  <!ENTITY no-i18n-urlenc-2F "&#x0025;2F">
+  <!ENTITY no-i18n-urlenc-3A "&#x0025;3A">
+  <!ENTITY no-i18n-urlenc-3B "&#x0025;3B">
+  <!ENTITY no-i18n-urlenc-3C "&#x0025;3C">
+  <!ENTITY no-i18n-urlenc-3D "&#x0025;3D">
+  <!ENTITY no-i18n-urlenc-3E "&#x0025;3E">
+  <!ENTITY no-i18n-urlenc-3F "&#x0025;3F">
+  <!ENTITY no-i18n-urlenc-40 "&#x0025;40">
+  <!ENTITY no-i18n-urlenc-5B "&#x0025;5B">
+  <!ENTITY no-i18n-urlenc-5C "&#x0025;5C">
+  <!ENTITY no-i18n-urlenc-5D "&#x0025;5D">
+  <!ENTITY no-i18n-urlenc-5E "&#x0025;5E">
+  <!ENTITY no-i18n-urlenc-5F "&#x0025;5F">
+  <!ENTITY no-i18n-urlenc-60 "&#x0025;60">
+  <!ENTITY no-i18n-urlenc-7B "&#x0025;7B">
+  <!ENTITY no-i18n-urlenc-7C "&#x0025;7C">
+  <!ENTITY no-i18n-urlenc-7D "&#x0025;7D">
+  <!ENTITY no-i18n-urlenc-7E "&#x0025;7E">
 ]>
 
 <book lang="&language;">
@@ -2779,63 +2846,63 @@
 		<colspec/>
 		<thead>
 		    <row>
-			<entry colname='c1'>original</entry><entry>encoded</entry><entry>&#x0020;</entry>
-			<entry colname='c2'>original</entry><entry>encoded</entry><entry>&#x0020;</entry>
-			<entry colname='c3'>original</entry><entry>encoded</entry><entry>&#x0020;</entry>
+			<entry colname='c1'>original</entry><entry>encoded</entry><entry>&no-i18n-unicode-0x0020;</entry>
+			<entry colname='c2'>original</entry><entry>encoded</entry><entry>&no-i18n-unicode-0x0020;</entry>
+			<entry colname='c3'>original</entry><entry>encoded</entry><entry>&no-i18n-unicode-0x0020;</entry>
 			<entry colname='c4'>original</entry><entry>encoded</entry>
 		    </row>
 		</thead>
 		<tbody>
 		    <row>
-			<entry colname='c1'>(space)</entry><entry><literal>%20</literal></entry>
-			<entry colname='c2'>&#x0028;</entry><entry><literal>%28</literal></entry>
-			<entry colname='c3'>&#x003A;</entry><entry><literal>%3A</literal></entry>
-			<entry colname='c4'>&#x005C;</entry><entry><literal>%5C</literal></entry>
+			<entry colname='c1'>(space)</entry><entry><literal>&no-i18n-urlenc-20;</literal></entry>
+			<entry colname='c2'>&no-i18n-unicode-0x0028;</entry><entry><literal>&no-i18n-urlenc-28;</literal></entry>
+			<entry colname='c3'>&no-i18n-unicode-0x003A;</entry><entry><literal>&no-i18n-urlenc-3A;</literal></entry>
+			<entry colname='c4'>&no-i18n-unicode-0x005C;</entry><entry><literal>&no-i18n-urlenc-5C;</literal></entry>
 		    </row>
 		    <row>
-			<entry colname='c1'>&#x0021;</entry><entry><literal>%21</literal></entry>
-			<entry colname='c2'>&#x0029;</entry><entry><literal>%29</literal></entry>
-			<entry colname='c3'>&#x003B;</entry><entry><literal>%3B</literal></entry>
-			<entry colname='c4'>&#x005D;</entry><entry><literal>%5D</literal></entry>
+			<entry colname='c1'>&no-i18n-unicode-0x0021;</entry><entry><literal>&no-i18n-urlenc-21;</literal></entry>
+			<entry colname='c2'>&no-i18n-unicode-0x0029;</entry><entry><literal>&no-i18n-urlenc-29;</literal></entry>
+			<entry colname='c3'>&no-i18n-unicode-0x003B;</entry><entry><literal>&no-i18n-urlenc-3B;</literal></entry>
+			<entry colname='c4'>&no-i18n-unicode-0x005D;</entry><entry><literal>&no-i18n-urlenc-5D;</literal></entry>
 		    </row>
 		    <row>
-			<entry colname='c1'>&#x0022;</entry><entry><literal>%22</literal></entry>
-			<entry colname='c2'>&#x002A;</entry><entry><literal>%2A</literal></entry>
-			<entry colname='c3'>&#x003C;</entry><entry><literal>%3C</literal></entry>
-			<entry colname='c4'>&#x005E;</entry><entry><literal>%5E</literal></entry>
+			<entry colname='c1'>&no-i18n-unicode-0x0022;</entry><entry><literal>&no-i18n-urlenc-22;</literal></entry>
+			<entry colname='c2'>&no-i18n-unicode-0x002A;</entry><entry><literal>&no-i18n-urlenc-2A;</literal></entry>
+			<entry colname='c3'>&no-i18n-unicode-0x003C;</entry><entry><literal>&no-i18n-urlenc-3C;</literal></entry>
+			<entry colname='c4'>&no-i18n-unicode-0x005E;</entry><entry><literal>&no-i18n-urlenc-5E;</literal></entry>
 		    </row>
 		    <row>
-			<entry colname='c1'>&#x0023;</entry><entry><literal>%23</literal></entry>
-			<entry colname='c2'>&#x002B;</entry><entry><literal>%2B</literal></entry>
-			<entry colname='c3'>&#x003D;</entry><entry><literal>%3D</literal></entry>
-			<entry colname='c4'>&#x005F;</entry><entry><literal>%5F</literal></entry>
+			<entry colname='c1'>&no-i18n-unicode-0x0023;</entry><entry><literal>&no-i18n-urlenc-23;</literal></entry>
+			<entry colname='c2'>&no-i18n-unicode-0x002B;</entry><entry><literal>&no-i18n-urlenc-2B;</literal></entry>
+			<entry colname='c3'>&no-i18n-unicode-0x003D;</entry><entry><literal>&no-i18n-urlenc-3D;</literal></entry>
+			<entry colname='c4'>&no-i18n-unicode-0x005F;</entry><entry><literal>&no-i18n-urlenc-5F;</literal></entry>
 		    </row>
 		    <row>
-			<entry colname='c1'>&#x0024;</entry><entry><literal>%24</literal></entry>
-			<entry colname='c2'>&#x002C;</entry><entry><literal>%2C</literal></entry>
-			<entry colname='c3'>&#x003E;</entry><entry><literal>%3E</literal></entry>
-			<entry colname='c4'>&#x0060;</entry><entry><literal>%60</literal></entry>
+			<entry colname='c1'>&no-i18n-unicode-0x0024;</entry><entry><literal>&no-i18n-urlenc-24;</literal></entry>
+			<entry colname='c2'>&no-i18n-unicode-0x002C;</entry><entry><literal>&no-i18n-urlenc-2C;</literal></entry>
+			<entry colname='c3'>&no-i18n-unicode-0x003E;</entry><entry><literal>&no-i18n-urlenc-3E;</literal></entry>
+			<entry colname='c4'>&no-i18n-unicode-0x0060;</entry><entry><literal>&no-i18n-urlenc-60;</literal></entry>
 		    </row>
 		    <row>
-			<entry colname='c1'>&#x0025;</entry><entry><literal>%25</literal></entry>
-			<entry colname='c2'>&#x002D;</entry><entry><literal>%2D</literal></entry>
-			<entry colname='c3'>&#x003F;</entry><entry><literal>%3F</literal></entry>
-			<entry colname='c4'>&#x007B;</entry><entry><literal>%7B</literal></entry>
+			<entry colname='c1'>&no-i18n-unicode-0x0025;</entry><entry><literal>&no-i18n-urlenc-25;</literal></entry>
+			<entry colname='c2'>&no-i18n-unicode-0x002D;</entry><entry><literal>&no-i18n-urlenc-2D;</literal></entry>
+			<entry colname='c3'>&no-i18n-unicode-0x003F;</entry><entry><literal>&no-i18n-urlenc-3F;</literal></entry>
+			<entry colname='c4'>&no-i18n-unicode-0x007B;</entry><entry><literal>&no-i18n-urlenc-7B;</literal></entry>
 		    </row>
 		    <row>
-			<entry colname='c1'>&#x0026;</entry><entry><literal>%26</literal></entry>
-			<entry colname='c2'>&#x002E;</entry><entry><literal>%3E</literal></entry>
-			<entry colname='c3'>&#x0040;</entry><entry><literal>%40</literal></entry>
-			<entry colname='c4'>&#x007C;</entry><entry><literal>%7C</literal></entry>
+			<entry colname='c1'>&no-i18n-unicode-0x0026;</entry><entry><literal>&no-i18n-urlenc-26;</literal></entry>
+			<entry colname='c2'>&no-i18n-unicode-0x002E;</entry><entry><literal>&no-i18n-urlenc-3E;</literal></entry>
+			<entry colname='c3'>&no-i18n-unicode-0x0040;</entry><entry><literal>&no-i18n-urlenc-40;</literal></entry>
+			<entry colname='c4'>&no-i18n-unicode-0x007C;</entry><entry><literal>&no-i18n-urlenc-7C;</literal></entry>
 		    </row>
 		    <row>
-			<entry colname='c1'>&#x0027;</entry><entry><literal>%27</literal></entry>
-			<entry colname='c2'>&#x002F;</entry><entry><literal>%2F</literal></entry>
-			<entry colname='c3'>&#x005B;</entry><entry><literal>%5B</literal></entry>
-			<entry colname='c4'>&#x007D;</entry><entry><literal>%7D</literal></entry>
+			<entry colname='c1'>&no-i18n-unicode-0x0027;</entry><entry><literal>&no-i18n-urlenc-27;</literal></entry>
+			<entry colname='c2'>&no-i18n-unicode-0x002F;</entry><entry><literal>&no-i18n-urlenc-2F;</literal></entry>
+			<entry colname='c3'>&no-i18n-unicode-0x005B;</entry><entry><literal>&no-i18n-urlenc-5B;</literal></entry>
+			<entry colname='c4'>&no-i18n-unicode-0x007D;</entry><entry><literal>&no-i18n-urlenc-7D;</literal></entry>
 		    </row>
 		    <row>
-			<entry colname='c4'>&#x007E;</entry><entry><literal>%7E</literal></entry>
+			<entry colname='c4'>&no-i18n-unicode-0x007E;</entry><entry><literal>&no-i18n-urlenc-7E;</literal></entry>
 		    </row>
 		</tbody>
 		</tgroup>

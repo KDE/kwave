@@ -280,7 +280,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     const sample_index_t length   = src.last() - src.first() + 1;
     unsigned int       bits       = qBound(8U, ((info.bits() + 7) & ~0x7), 32U);
     const double       rate       = info.rate();
-    const unsigned int out_tracks = qMax(tracks, 2U);
+    const unsigned int out_tracks = qMin(tracks, 2U);
 
     // when encoding track count > 2, show a warning that we will mix down
     // to stereo

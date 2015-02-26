@@ -11,6 +11,7 @@
  * support for delayed command execution
  * debug plugin: always compiled in, but only visible in debug build
  * new command sync(): wait for commands scheduled with delayed
+ * bugfix: exporting a mono file as MP3 produced a stereo MP3 file
 
 0.8.99-2 [2015-01-02]
 

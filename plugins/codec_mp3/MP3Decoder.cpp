@@ -171,6 +171,9 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
 	int modeext = header.modeext;
 	if (header.layer >= 3) modeext += 4;
 	info.set(Kwave::INF_MPEG_MODEEXT, modeext);
+    } else {
+	int modeext = header.modeext;
+	info.set(Kwave::INF_MPEG_MODEEXT, modeext);
     }
 
     /* Emphasis mode */

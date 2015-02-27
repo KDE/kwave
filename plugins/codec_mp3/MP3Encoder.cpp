@@ -378,14 +378,14 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	int emphasis = info.get(Kwave::INF_MPEG_EMPHASIS).toInt();
 	switch (emphasis) {
 	    case  1:
-		OPTION(m_encoding.m_emphasis.m_50_15ms);   // 1 = 50/15ms
+		OPTION(m_encoding.m_emphasis.m_50_15ms);  // 1 = 50/15ms
 		break;
 	    case  3:
 		OPTION(m_encoding.m_emphasis.m_ccit_j17); // 3 = CCIT J.17
 		break;
 	    case  0: /* FALLTHROUGH */
 	    default:
-		OPTION(m_encoding.m_emphasis.m_none);      // 0 = none
+		OPTION(m_encoding.m_emphasis.m_none);     // 0 = none
 		break;
 	}
     }

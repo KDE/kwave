@@ -72,6 +72,12 @@ namespace Kwave
 	/** called when the MPEG layer combo box has changed */
 	void mpegLayerChanged();
 
+	/** called when the MPEG "copyrighted" check box has changed */
+	void mpegCopyrightedChanged(bool checked);
+
+	/** called when the MPEG "original" check box has changed */
+	void mpegOriginalChanged(bool checked);
+
 	/** auto-generate the list of keywords */
 	void autoGenerateKeywords();
 

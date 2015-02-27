@@ -75,6 +75,10 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
             this, SLOT(compressionChanged()));
     connect(cbMpegLayer, SIGNAL(currentIndexChanged(int)),
             this, SLOT(mpegLayerChanged()));
+    connect(chkMpegCopyrighted, SIGNAL(clicked(bool)),
+            this, SLOT(mpegCopyrightedChanged(bool)));
+    connect(chkMpegOriginal, SIGNAL(clicked(bool)),
+            this, SLOT(mpegOriginalChanged(bool)));
     connect(btHelp->button(QDialogButtonBox::Help), SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
 
@@ -375,44 +379,63 @@ void Kwave::FileInfoDialog::setupMpegTab()
     // 1 - bands  8 to 31  |  on               off  -> 5
     // 2 - bands 12 to 31  |  off              on   -> 6
     // 3 - bands 16 to 31  |  on               on   -> 7
-    int modeext = QVariant(m_info.get(Kwave::INF_MPEG_MODEEXT)).toInt();
+
+    int modeext = -1;
+    if (m_info.contains(Kwave::INF_MPEG_MODEEXT))
+	modeext = QVariant(m_info.get(Kwave::INF_MPEG_MODEEXT)).toInt();
+    if (modeext < 0) {
+	// find some reasonable default
+	if (m_info.tracks() < 2) {
+	    // mono -> -1
+	} else if (layer < 3) {
+	    // Layer I or II -> 0
+	    modeext = 0;
+	} else {
+	    // Layer III -> 7
+	    modeext = 7;
+	}
+    }
+
     if ((modeext >= 0) && (modeext <= 3)) {
-	cbMpegModeExt->addItem(i18n("Bands 0 to 31"));
-	cbMpegModeExt->addItem(i18n("Bands 8 to 31"));
-	cbMpegModeExt->addItem(i18n("Bands 12 to 31"));
-	cbMpegModeExt->addItem(i18n("Bands 16 to 31"));
+	cbMpegModeExt->setEnabled(true);
 	cbMpegModeExt->setCurrentIndex(modeext);
-	cbMpegIntensityStereo->setEnabled(false);
-	cbMpegMSStereo->setEnabled(false);
+	chkMpegIntensityStereo->setEnabled(false);
+	chkMpegMSStereo->setEnabled(false);
     } else if ((modeext >= 4) && (modeext <= 7)) {
 	cbMpegModeExt->setEnabled(false);
-	cbMpegIntensityStereo->setChecked(modeext & 0x01);
-	cbMpegMSStereo->setChecked(modeext & 0x02);
+	cbMpegModeExt->setCurrentIndex(-1);
+	chkMpegIntensityStereo->setEnabled(true);
+	chkMpegIntensityStereo->setChecked(modeext & 0x01);
+	chkMpegMSStereo->setEnabled(true);
+	chkMpegMSStereo->setChecked(modeext & 0x02);
     } else {
 	cbMpegModeExt->setEnabled(false);
-	cbMpegIntensityStereo->setEnabled(false);
-	cbMpegMSStereo->setEnabled(false);
+	cbMpegModeExt->setCurrentIndex(-1);
+	chkMpegIntensityStereo->setEnabled(false);
+	chkMpegMSStereo->setEnabled(false);
     }
 
     /* Emphasis */
     initInfo(lblMpegEmphasis, cbMpegEmphasis, Kwave::INF_MPEG_EMPHASIS);
     int emphasis = QVariant(m_info.get(Kwave::INF_MPEG_EMPHASIS)).toInt();
-    if ((emphasis >= 0) && (emphasis <= 2))
-	cbMpegEmphasis->setCurrentIndex(emphasis);
-    else
-	cbMpegEmphasis->setEnabled(false);
+    switch (emphasis) {
+	case 0:  cbMpegEmphasis->setCurrentIndex(0); break;
+	case 1:  cbMpegEmphasis->setCurrentIndex(1); break;
+	case 3:  cbMpegEmphasis->setCurrentIndex(2); break;
+	default: cbMpegEmphasis->setEnabled(false);  break;
+    }
 
     /* Copyrighted */
     initInfo(lblMpegCopyrighted, chkMpegCopyrighted, Kwave::INF_COPYRIGHTED);
     bool copyrighted = QVariant(m_info.get(Kwave::INF_COPYRIGHTED)).toBool();
     chkMpegCopyrighted->setChecked(copyrighted);
-    chkMpegCopyrighted->setText((copyrighted) ? i18n("Yes") : i18n("No"));
+    mpegCopyrightedChanged(copyrighted);
 
     /* Original */
     initInfo(lblMpegOriginal, chkMpegOriginal, Kwave::INF_ORIGINAL);
     bool original = QVariant(m_info.get(Kwave::INF_ORIGINAL)).toBool();
     chkMpegOriginal->setChecked(original);
-    chkMpegOriginal->setText((original) ? i18n("Yes") : i18n("No"));
+    mpegOriginalChanged(original);
 
     mpegLayerChanged();
 }
@@ -732,6 +755,64 @@ void Kwave::FileInfoDialog::mpegLayerChanged()
 	int index = cbCompression->findData(compression);
 	if (index >= 0) cbCompression->setCurrentIndex(index);
     }
+
+    /* Mode extension */
+    // only in "Joint Stereo" mode, then depends on Layer
+    //
+    // Layer I+II          |  Layer III
+    //                     |  Intensity stereo MS Stereo
+    //--------------------------------------------------
+    // 0 - bands  4 to 31  |  off              off  -> 4
+    // 1 - bands  8 to 31  |  on               off  -> 5
+    // 2 - bands 12 to 31  |  off              on   -> 6
+    // 3 - bands 16 to 31  |  on               on   -> 7
+    if (m_info.tracks() < 2) {
+	// mono
+	cbMpegModeExt->setEnabled(false);
+	cbMpegModeExt->setCurrentIndex(-1);
+
+	chkMpegIntensityStereo->setEnabled(false);
+	chkMpegIntensityStereo->setChecked(false);
+	chkMpegMSStereo->setEnabled(false);
+	chkMpegMSStereo->setChecked(false);
+    } else if (cbMpegModeExt->isEnabled() && (layer >= 3)) {
+	// switched from layer I or II to layer III
+	cbMpegModeExt->setEnabled(false);
+
+	int modeext = QVariant(m_info.get(Kwave::INF_MPEG_MODEEXT)).toInt();
+	if ((modeext < 4) || (modeext > 7)) {
+	    modeext = 7; // default to MS stereo + Intensity stereo
+	    chkMpegIntensityStereo->setChecked(modeext & 0x01);
+	    chkMpegMSStereo->setChecked(modeext & 0x02);
+	}
+
+	chkMpegIntensityStereo->setEnabled(true);
+	chkMpegMSStereo->setEnabled(true);
+    } else if (!cbMpegModeExt->isEnabled() && (layer <= 2)) {
+	// switched from layer III to layer I or II
+	int modeext = (m_info.contains(Kwave::INF_MPEG_MODEEXT)) ?
+	    QVariant(m_info.get(Kwave::INF_MPEG_MODEEXT)).toInt() : -1;
+	if ((modeext < 0) || (modeext > 3)) {
+	    modeext = 0; // default bands 4 to 31
+	    cbMpegModeExt->setCurrentIndex(modeext);
+	}
+	cbMpegModeExt->setEnabled(true);
+
+	chkMpegIntensityStereo->setEnabled(false);
+	chkMpegMSStereo->setEnabled(false);
+    }
+}
+
+//***************************************************************************
+void Kwave::FileInfoDialog::mpegCopyrightedChanged(bool checked)
+{
+    chkMpegCopyrighted->setText((checked) ? i18n("Yes") : i18n("No"));
+}
+
+//***************************************************************************
+void Kwave::FileInfoDialog::mpegOriginalChanged(bool checked)
+{
+    chkMpegOriginal->setText((checked) ? i18n("Yes") : i18n("No"));
 }
 
 //***************************************************************************
@@ -896,6 +977,50 @@ void Kwave::FileInfoDialog::accept()
     if (isMpeg()) {
 	int layer = cbMpegLayer->currentIndex() + 1;
 	m_info.set(Kwave::INF_MPEG_LAYER, layer);
+
+	// only in "Joint Stereo" mode, then depends on Layer
+	//
+	// Layer I+II          |  Layer III
+	//                     |  Intensity stereo MS Stereo
+	//--------------------------------------------------
+	// 0 - bands  4 to 31  |  off              off  -> 4
+	// 1 - bands  8 to 31  |  on               off  -> 5
+	// 2 - bands 12 to 31  |  off              on   -> 6
+	// 3 - bands 16 to 31  |  on               on   -> 7
+	if (m_info.tracks() < 2) {
+	    // mono -> no mode ext.
+	    m_info.set(Kwave::INF_MPEG_MODEEXT, QVariant());
+	} else if (cbMpegModeExt->isEnabled()) {
+	    // Layer I+II
+	    int modeext = cbMpegModeExt->currentIndex();
+	    m_info.set(Kwave::INF_MPEG_MODEEXT, modeext);
+	} else {
+	    // Layer III
+	    int modeext = 4;
+	    if (chkMpegIntensityStereo->isChecked()) modeext |= 1;
+	    if (chkMpegMSStereo->isChecked())        modeext |= 2;
+	    m_info.set(Kwave::INF_MPEG_MODEEXT, modeext);
+	}
+
+	int emphasis = 0;;
+	switch (cbMpegEmphasis->currentIndex()) {
+	    case 1:  emphasis = 1; break; /* 1 -> 1 */
+	    case 2:  emphasis = 3; break; /* 2 -> 3 */
+	    case 0: /* FALLTHROUGH */
+	    default: emphasis = 0; break; /* 0 -> 0 */
+	}
+	m_info.set(Kwave::INF_MPEG_EMPHASIS, emphasis);
+
+	bool copyrighted = chkMpegCopyrighted->isChecked();
+	m_info.set(Kwave::INF_COPYRIGHTED, copyrighted);
+
+	bool original = chkMpegOriginal->isChecked();
+	m_info.set(Kwave::INF_ORIGINAL, original);
+    } else {
+	m_info.set(Kwave::INF_MPEG_MODEEXT,  QVariant());
+	m_info.set(Kwave::INF_MPEG_EMPHASIS, QVariant());
+	m_info.set(Kwave::INF_COPYRIGHTED,   QVariant());
+	m_info.set(Kwave::INF_ORIGINAL,      QVariant());
     }
 
     /* bitrate in Ogg/Vorbis or MPEG mode */

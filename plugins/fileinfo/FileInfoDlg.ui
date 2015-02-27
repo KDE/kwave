@@ -785,14 +785,14 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QCheckBox" name="cbMpegIntensityStereo">
+          <widget class="QCheckBox" name="chkMpegIntensityStereo">
            <property name="text">
             <string>Intensity Stereo</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="cbMpegMSStereo">
+          <widget class="QCheckBox" name="chkMpegMSStereo">
            <property name="text">
             <string>MS Stereo</string>
            </property>
@@ -847,7 +847,28 @@
         </widget>
        </item>
        <item row="2" column="2" colspan="2">
-        <widget class="KComboBox" name="cbMpegModeExt"/>
+        <widget class="KComboBox" name="cbMpegModeExt">
+         <item>
+          <property name="text">
+           <string>Bands 4 to 31</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Bands 8 to 31</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Bands 12 to 31</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Bands 16 to 31</string>
+          </property>
+         </item>
+        </widget>
        </item>
        <item row="3" column="1">
         <spacer name="Spacer95_3_3_3_13_2_2_2_2_3">
@@ -2166,8 +2187,8 @@
   <tabstop>cbMpegLayer</tabstop>
   <tabstop>cbMpegVersion</tabstop>
   <tabstop>cbMpegModeExt</tabstop>
-  <tabstop>cbMpegIntensityStereo</tabstop>
-  <tabstop>cbMpegMSStereo</tabstop>
+  <tabstop>chkMpegIntensityStereo</tabstop>
+  <tabstop>chkMpegMSStereo</tabstop>
   <tabstop>cbMpegEmphasis</tabstop>
   <tabstop>chkMpegCopyrighted</tabstop>
   <tabstop>chkMpegOriginal</tabstop>

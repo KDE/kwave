@@ -24,10 +24,8 @@ FIND_REQUIRED_PROGRAM(MSGMERGE_EXECUTABLE msgmerge)
 FIND_REQUIRED_PROGRAM(MSGFMT_EXECUTABLE msgfmt)
 FIND_REQUIRED_PROGRAM(RM_EXECUTABLE rm)
 
-SET(EXTRACT_MESSAGES ${CMAKE_SOURCE_DIR}/l10n-kde4/scripts/extract-messages.sh)
-
-SET(PO_DIR "${CMAKE_SOURCE_DIR}/po")
-SET(POT_FILE "${PO_DIR}/kwave.pot")
+SET(PO_SRC_DIR "${CMAKE_SOURCE_DIR}/po")
+SET(PO_BIN_DIR "${CMAKE_BINARY_DIR}/po")
 
 #############################################################################
 ### get environment variable LINGUAS, default to all languages            ###
@@ -56,7 +54,7 @@ ENDMACRO(CHECK_LANG _lang _result)
 #############################################################################
 ### find out which po files exist                                        ###
 
-FILE(GLOB _existing_po_files "${PO_DIR}/*.po")
+FILE(GLOB _existing_po_files "${PO_SRC_DIR}/*.po")
 FOREACH(_po_file ${_existing_po_files})
     GET_FILENAME_COMPONENT(_lang "${_po_file}" NAME_WE)
 
@@ -68,11 +66,11 @@ FOREACH(_po_file ${_existing_po_files})
 	MESSAGE(STATUS "Enabled GUI translation for ${_lang}")
 
 	# handle generation and installation of the message catalog (gmo)
-	SET(_gmo_file ${PO_DIR}/${_lang}.gmo)
+	SET(_gmo_file ${PO_BIN_DIR}/${_lang}.gmo)
 
 	ADD_CUSTOM_COMMAND(
 	    OUTPUT ${_gmo_file}
-	    COMMAND ${CMAKE_COMMAND} -E make_directory ${PO_DIR}
+	    COMMAND ${CMAKE_COMMAND} -E make_directory ${PO_BIN_DIR}
 	    COMMAND ${MSGFMT_EXECUTABLE} -o ${_gmo_file} ${_po_file}
 	    DEPENDS ${_po_file}
 	)
@@ -99,29 +97,14 @@ ADD_CUSTOM_TARGET(update-translations
 
 IF (NOT "${KWAVE_BUILD_LINGUAS}" STREQUAL "")
 
-    FIND_PACKAGE(Gettext REQUIRED)
-
     IF ("${LINGUAS}" STREQUAL "*")
 	MESSAGE(STATUS "LINGUAS not set, building for all supported languages")
     ENDIF ("${LINGUAS}" STREQUAL "*")
 
-    # handle creation of gmo files from po and pot
-    # (in case we are in "package maintainer" mode with existing po files
-    #  or when fetching the translations from KDE later)
     IF (_existing_po_files)
-	# generate po/kwave.pot
-	ADD_CUSTOM_COMMAND(OUTPUT ${POT_FILE}
-	    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/po
-	    COMMAND ${RM_EXECUTABLE} -f ${CMAKE_BINARY_DIR}/po/*.gmo
-	    COMMAND cd ${CMAKE_SOURCE_DIR} && ${EXTRACT_MESSAGES}
-	    DEPENDS ${EXTRACT_MESSAGES}
-	    COMMAND ${RM_EXECUTABLE} -f ${CMAKE_SOURCE_DIR}/messages.mo
-	)
 
 	# build target "package-messages"
-	ADD_CUSTOM_TARGET(package-messages ALL
-	    DEPENDS ${_gmo_files}
-	)
+	ADD_CUSTOM_TARGET(package-messages ALL DEPENDS ${_gmo_files} )
 
 	SET_DIRECTORY_PROPERTIES(PROPERTIES
 	    ADDITIONAL_MAKE_CLEAN_FILES

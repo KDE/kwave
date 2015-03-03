@@ -460,8 +460,14 @@ int Kwave::MainWidget::executeCommand(const QString &command)
     // label handling
     CASE_COMMAND("add_label")
 	sample_index_t pos = parser.toSampleIndex();
-	QString description = parser.nextParam();
-	addLabel(pos, description);
+	if (!parser.isDone()) {
+	    // 2 parameters: position + description
+	    QString description = parser.nextParam();
+	    signal_manager->addLabel(pos, description);
+	} else {
+	    // 1 parameter only: open dialog for editing the description
+	    addLabel(pos, QString());
+	}
     CASE_COMMAND("edit_label")
 	int index = parser.toInt();
 	Kwave::LabelList labels(signal_manager->metaData());

@@ -802,7 +802,8 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	// default selection end = end of the file
 	selection_right = (label_right.isNull()) ?
 	    (this->length() - 1) : label_right.pos();
-	sample_index_t len = selection_right - selection_left + 1;
+	sample_index_t len = (selection_right > selection_left) ?
+	    (selection_right - selection_left + 1) : 1;
 	selectRange(selection_left, len);
 
     CASE_COMMAND("selectprevlabels")

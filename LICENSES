@@ -14,9 +14,13 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	* LGPL2 - GNU Library General Public License, version 2 or newer
 	  - some icons
 
-	* Creative Common Attribution-ShareAlike 3.0 License
+	* Creative Commons Attribution-Share Alike 3.0 License
 	  or the GNU Library General Public License 3.0
 	  - Oxygen icons
+
+	* Creative Commons Attribution-Share Alike 3.0 (CC BY-SA 3.0)
+	  http://creativecommons.org/licenses/by-sa/3.0/
+	  - audio samples in samples/...
 
 	* Creative Commons Zero v1.0 Universal (CC0-1.0)
 	  - kwave/kwave.appdata.xml
@@ -804,5 +808,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/zero/CMakeLists.txt			GPL2+
 	plugins/zero/ZeroPlugin.cpp			GPL2+
 	plugins/zero/ZeroPlugin.h			GPL2+
+
+	samples/sample.opus				CC BY-SA 3.0
+
+	scripts/create-testfile.kwave			GPL2+
+	scripts/screenshots.kwave			GPL2+
 
 ### EOF ###

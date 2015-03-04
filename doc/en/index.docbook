@@ -231,18 +231,18 @@
     <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
 
     <keywordset>
-	<keyword>&no-i18n-tag;KDE</keyword>
-	<keyword>&no-i18n-tag;multimedia</keyword>
-	<keyword>&no-i18n-tag;sound</keyword>
-	<keyword>&no-i18n-tag;audio</keyword>
-	<keyword>&no-i18n-tag;Kwave</keyword>
-	<keyword>&no-i18n-tag;wav</keyword>
-	<keyword>&no-i18n-tag;editor</keyword>
-	<keyword>&no-i18n-tag;record</keyword>
-	<keyword>&no-i18n-tag;playback</keyword>
-	<keyword>&no-i18n-tag;sonagram</keyword>
-	<keyword>&no-i18n-tag;FFT</keyword>
-	<keyword>&no-i18n-tag;Linux</keyword>
+	<keyword>KDE</keyword>
+	<keyword>multimedia</keyword>
+	<keyword>sound</keyword>
+	<keyword>audio</keyword>
+	<keyword>Kwave</keyword>
+	<keyword>wav</keyword>
+	<keyword>editor</keyword>
+	<keyword>record</keyword>
+	<keyword>playback</keyword>
+	<keyword>sonagram</keyword>
+	<keyword>FFT</keyword>
+	<keyword>Linux</keyword>
     </keywordset>
 </bookinfo>
 
@@ -589,11 +589,11 @@
 	unpacked in <filename><replaceable>$HOME/src/kwave-&version;</replaceable></filename>, you
 	can do the following:
 <screen width="50" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
-&no-i18n-tag;<prompt>% </prompt><command>cd /tmp/kwave-build</command>
-&no-i18n-tag;<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-&version;</replaceable> <replaceable>[build options]</replaceable></command>
-&no-i18n-tag;<prompt>% </prompt><command>make</command>
-&no-i18n-tag;<prompt>% </prompt><command>su root -c "make install"</command>
+<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
+<prompt>% </prompt><command>cd /tmp/kwave-build</command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-&version;</replaceable> <replaceable>[build options]</replaceable></command>
+<prompt>% </prompt><command>make</command>
+<prompt>% </prompt><command>su root -c "make install"</command>
 </screen>
 	(Specifying build options is a way to enable or disable specific features.
 	See the following section for descriptions)
@@ -691,7 +691,7 @@
 	    For example, if you want to enable MP3 support,
 	    you can pass the corresponding option as follows:
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></command>
+<prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></command>
 </screen>
 	</para>
     </sect1>
@@ -731,8 +731,8 @@
     <para>
     To build the &kwave; package and install it do:
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.bz2</replaceable></command>
-&no-i18n-tag;<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.bz2</replaceable></command>
+<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
     </para>
 
@@ -768,7 +768,7 @@
 	    or <filename>/usr/src/packages</filename> if you
 	    have the SuSE distribution.
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></command>
+<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></command>
 </screen>
 	</para></listitem>
 
@@ -777,7 +777,7 @@
 	    have to replace "somewhere" with the real directory where
 	    the files are, of course).
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.bz2</replaceable> SOURCES</command>
+<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.bz2</replaceable> SOURCES</command>
 </screen>
 	</para></listitem>
 
@@ -785,7 +785,7 @@
 	    Extract the spec file from the archives and put it into
 	    the SPEC subdirectory.
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>tar -xOjf SOURCES/<replaceable>kwave-XXX.tar.bz2</replaceable> \*.spec > SPECS/kwave.spec</command>
+<prompt>% </prompt><command>tar -xOjf SOURCES/<replaceable>kwave-XXX.tar.bz2</replaceable> \*.spec > SPECS/kwave.spec</command>
 </screen>
 	</para></listitem>
 
@@ -796,7 +796,7 @@
 	    <literal>-ba</literal>, or just <literal>-bs</literal> to build
 	    only a source package.
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>
+<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>
 </screen>
 	</para></listitem>
 
@@ -808,7 +808,7 @@
 	    <literal>-U</literal> instead
 	    of <literal>-i</literal> for upgrading instead of installing.
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>rpm -ivh BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+<prompt>% </prompt><command>rpm -ivh BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
 	</para></listitem>
 
@@ -840,23 +840,23 @@
 	First create the directory that will receive the subdirectory with
 	&kwave; sources and change into it:
 <screen width="40" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></command>
-&no-i18n-tag;<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>
+<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></command>
+<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>
 </screen>
     </para></listitem>
     <listitem>
 	<para>
 	    Then check out the latest sources from the GIT server:
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>git clone &url_git_master; kwave</command>
+<prompt>% </prompt><command>git clone &url_git_master; kwave</command>
 </screen>
 	</para>
 	<para>
 	or you can check out a specific release with the following commands:
 <screen width="70" format="linespecific">
-    &no-i18n-tag;<prompt>% </prompt><command>git clone &url_git_master; kwave</command>
-    &no-i18n-tag;<prompt>% </prompt><command>cd kwave</command>
-    &no-i18n-tag;<prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]</replaceable> </command>
+    <prompt>% </prompt><command>git clone &url_git_master; kwave</command>
+    <prompt>% </prompt><command>cd kwave</command>
+    <prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]</replaceable> </command>
 </screen>
 	You can look up the names of the release tags in the git web page at
 	<ulink url="&url_git_list_tags;"> &url_git_list_tags;</ulink>.
@@ -884,7 +884,7 @@
 	directory where you have the checked out sources and do the following
 	to update to the latest version:
 <screen width="40" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>git pull</command>
+<prompt>% </prompt><command>git pull</command>
 </screen>
 	Then go on to the next section and compile as usual.
     </para>
@@ -894,9 +894,9 @@
 	state, you can do the following to discard all local changes and switch
 	back to the latest version from the master branch:
 <screen width="40" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>git clean --force -d</command>
-&no-i18n-tag;<prompt>% </prompt><command>git reset --hard</command>
-&no-i18n-tag;<prompt>% </prompt><command>git checkout <replaceable>master</replaceable></command>
+<prompt>% </prompt><command>git clean --force -d</command>
+<prompt>% </prompt><command>git reset --hard</command>
+<prompt>% </prompt><command>git checkout <replaceable>master</replaceable></command>
 </screen>
     </para></note>
     </sect2>
@@ -930,11 +930,11 @@
 	please remove it first or use <command>rpm -U</command> instead
 	of <command>rpm -i</command> for updating instead of installing.
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
-&no-i18n-tag;<prompt>% </prompt><command>cd /tmp/kwave-build</command>
-&no-i18n-tag;<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave</replaceable></command>
-&no-i18n-tag;<prompt>% </prompt><command>make rpm</command>
-&no-i18n-tag;<prompt>% </prompt><command>rpm -ivh /usr/src/redhat/BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
+<prompt>% </prompt><command>cd /tmp/kwave-build</command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave</replaceable></command>
+<prompt>% </prompt><command>make rpm</command>
+<prompt>% </prompt><command>rpm -ivh /usr/src/redhat/BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
     </para>
 
@@ -962,7 +962,7 @@
 	then you can create your own package quite easily. First of all, you
 	need to install some required tools:
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>sudo apt-get install build-essential checkinstall</command>
+<prompt>% </prompt><command>sudo apt-get install build-essential checkinstall</command>
 </screen>
     </para>
 
@@ -970,7 +970,7 @@
 	Then you can install the required build dependencies by pretending to
 	install the dependencies of the official &kwave; version:
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>sudo apt-get build-dep kwave</command>
+<prompt>% </prompt><command>sudo apt-get build-dep kwave</command>
 </screen>
     </para>
 
@@ -979,7 +979,7 @@
 	described in the chapters before. After building you can type this
 	to get a .deb file in your current build directory:
 <screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>make deb</command>
+<prompt>% </prompt><command>make deb</command>
 </screen>
     </para>
 
@@ -1080,7 +1080,7 @@
 	the flags need to be specified before the call. For example:
 
 	<screen width="70" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>CFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
+<prompt>% </prompt><command>CFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
   CXXFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
   cmake <replaceable>[source directory]</replaceable></command>
 </screen>
@@ -1545,7 +1545,7 @@
 	    <para>
 	    For example, the following command starts a &kwave; and opens all sounds
 	    of the KDE window manager, each in a new window or sub window:
-	    <screen>&no-i18n-tag;<prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
+	    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
 	    </para>
 	    <para>
 		It is also possible to pass &kwave; text commands, encoded as a
@@ -1578,7 +1578,7 @@
 	    width of 600 pixels and a height of 400 pixels, with the right border
 	    positioned 30 pixels away from the right and 0 pixels away from the top
 	    of the screen.
-	    <screen>&no-i18n-tag;<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
+	    <screen><prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
 	    </para>
 	</sect2>
 
@@ -5202,7 +5202,7 @@
 	<ulink url="&url_doxygen;">doxygen</ulink> installed, then you
 	can type:
 <screen width="50" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>make apidoc</command>
+<prompt>% </prompt><command>make apidoc</command>
 </screen>
     </para>
     <para>
@@ -5226,7 +5226,7 @@
 	use the application from where it is built by using a wrapper script.
 	This wrapper script can be built with the following command:
 <screen width="50" format="linespecific">
-&no-i18n-tag;<prompt>% </prompt><command>make wrapper</command>
+<prompt>% </prompt><command>make wrapper</command>
 </screen>
     </para>
     <para>
@@ -5285,10 +5285,10 @@
 		<filename>Lokalize</filename>.
 		Example:
 <screen>
-&no-i18n-tag;<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-&no-i18n-tag;<prompt>% </prompt><command>cd <parameter>po</parameter></command>
-&no-i18n-tag;<prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> <parameter><replaceable>fr.po</replaceable></parameter></command>
-&no-i18n-tag;<prompt>% </prompt><command>lokalize <parameter>fr.po</parameter></command>
+<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+<prompt>% </prompt><command>cd <parameter>po</parameter></command>
+<prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> <parameter><replaceable>fr.po</replaceable></parameter></command>
+<prompt>% </prompt><command>lokalize <parameter>fr.po</parameter></command>
 </screen>
 	    </para></listitem>
 
@@ -5303,9 +5303,9 @@
 		change into the subdirectory <filename>doc</filename> and create
 		an empty <filename>.po</filename> file:
 <screen>
-&no-i18n-tag;<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-&no-i18n-tag;<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
-&no-i18n-tag;<prompt>% </prompt><command>touch <parameter><replaceable>help_fr.po</replaceable></parameter></command>
+<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
+<prompt>% </prompt><command>touch <parameter><replaceable>help_fr.po</replaceable></parameter></command>
 </screen>
 		Then change to your build directory (&eg; somewhere in <filename>/tmp</filename>),
 		prepare for building and then generate the <filename>.pot</filename> template (you
@@ -5314,17 +5314,17 @@
 		directory of the online help.
 		Example:
 <screen>
-&no-i18n-tag;<prompt>% </prompt><command>mkdir <parameter>/tmp/kwave-build</parameter></command>
-&no-i18n-tag;<prompt>% </prompt><command>cd <parameter>/tmp/kwave-build</parameter></command>
-&no-i18n-tag;<prompt>% </prompt><command>cmake <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-&no-i18n-tag;<prompt>% </prompt><command>make doc</command>
-&no-i18n-tag;<prompt>% </prompt><command>cp <parameter>doc/help_en.pot</parameter> <parameter><replaceable>$HOME/src/kwave/doc/help_fr.po</replaceable></parameter></command>
+<prompt>% </prompt><command>mkdir <parameter>/tmp/kwave-build</parameter></command>
+<prompt>% </prompt><command>cd <parameter>/tmp/kwave-build</parameter></command>
+<prompt>% </prompt><command>cmake <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+<prompt>% </prompt><command>make doc</command>
+<prompt>% </prompt><command>cp <parameter>doc/help_en.pot</parameter> <parameter><replaceable>$HOME/src/kwave/doc/help_fr.po</replaceable></parameter></command>
 </screen>
 	    Now you can translate the <filename>.po</filename> file, like above:
 <screen>
-&no-i18n-tag;<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-&no-i18n-tag;<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
-&no-i18n-tag;<prompt>% </prompt><command>lokalize <parameter><replaceable>help_fr.po</replaceable></parameter></command>
+<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
+<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
+<prompt>% </prompt><command>lokalize <parameter><replaceable>help_fr.po</replaceable></parameter></command>
 </screen>
 	    </para></listitem>
 

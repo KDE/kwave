@@ -476,7 +476,7 @@ void Kwave::SignalView::mousePressEvent(QMouseEvent *e)
 		}
 		break;
 	    }
-	    case 0: {
+	    case Qt::NoModifier: {
 		if (isSelectionBorder(e->pos().x())) {
 		    // modify selection border
 		    sample_index_t ofs = m_signal_manager->selection().first();

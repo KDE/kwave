@@ -443,6 +443,8 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	return delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:close")
 	return delegateCommand("debug", parser, 1);
+    CASE_COMMAND("window:mousemove")
+	return delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:resize")
 	return delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:sendkey")

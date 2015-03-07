@@ -159,7 +159,7 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
 {
     QStringList *result = 0;
 
-    // try to interprete the list of previous parameters, ignore errors
+    // try to interpret the list of previous parameters, ignore errors
     Kwave::PlayBackParam playback_params =
 	interpreteParameters(previous_params);
 

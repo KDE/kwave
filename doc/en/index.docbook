@@ -125,6 +125,7 @@
   <!ENTITY no-i18n-cmd_window_cascade "window:cascade">
   <!ENTITY no-i18n-cmd_window_click "window:click">
   <!ENTITY no-i18n-cmd_window_close "window:close">
+  <!ENTITY no-i18n-cmd_window_mousemove "window:mousemove">
   <!ENTITY no-i18n-cmd_window_next_sub "window:next_sub">
   <!ENTITY no-i18n-cmd_window_prev_sub "window:prev_sub">
   <!ENTITY no-i18n-cmd_window_resize "window:resize">
@@ -3126,6 +3127,7 @@
 		<indexentry><primaryie><link linkend="cmd_sect_window_cascade" endterm="cmd_title_window_cascade"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_click" endterm="cmd_title_window_click"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_close" endterm="cmd_title_window_close"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_mousemove" endterm="cmd_title_window_mousemove"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_next_sub" endterm="cmd_title_window_next_sub"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_prev_sub" endterm="cmd_title_window_prev_sub"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_resize" endterm="cmd_title_window_resize"/></primaryie></indexentry>
@@ -4823,6 +4825,33 @@
 	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
 	    <row><entry><parameter>class</parameter>:</entry>
 		<entry>name of the window class</entry></row>
+	</tbody></tgroup></informaltable></simplesect>
+	</sect2>
+
+	<!-- @COMMAND@ window:mousemove(class,x,y) -->
+	<sect2 id="cmd_sect_window_mousemove"><title id="cmd_title_window_mousemove">&no-i18n-cmd_window_mousemove;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_resize;</command>(
+		<replaceable>class</replaceable>,
+		<replaceable>x</replaceable>,
+		<replaceable>y</replaceable>
+	    )</title>
+	    <para>
+		Sends a mouse move event to window, identified by its
+		<replaceable>class</replaceable> name.
+		The event will only be sent to the first window that has
+		the given class name, therefore you should make sure that you
+		have only one instance of the given window when this command
+		gets executed.
+	    </para>
+	</simplesect>
+	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+	    <row><entry><parameter>class</parameter>:</entry>
+		<entry>name of the window class</entry></row>
+	    <row><entry><parameter>x</parameter>:</entry>
+		<entry>x position, relative to the left border of the window (in pixels)</entry></row>
+	    <row><entry><parameter>y</parameter>:</entry>
+		<entry>y position, relative to the top border of the window (in pixels)</entry></row>
 	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 

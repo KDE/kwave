@@ -146,6 +146,20 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
 	    DBG(class_name), static_cast<void *>(widget));
 	if (!widget) return 0;
 	widget->close();
+    } else if (command == _("window:mousemove")) {
+	if (params.count() != 4) return 0;
+	QString    class_name = params[1];
+	QWidget   *widget     = findWidget(class_name.toUtf8().constData());
+	unsigned int x        = params[2].toUInt();
+	unsigned int y        = params[3].toUInt();
+	if (!widget) return 0;
+
+	QMouseEvent *move_event =
+	    new QMouseEvent(QEvent::MouseMove,
+		QPoint(x, y),
+		widget->mapToGlobal(QPoint(x,y)),
+		Qt::NoButton, Qt::NoButton, Qt::NoModifier);
+	QCoreApplication::postEvent(widget, move_event);
     } else if (command == _("window:resize")) {
 	if (params.count() != 4) return 0;
 	QString    class_name = params[1];

@@ -93,6 +93,7 @@ ADD_SUBDIRECTORY( samplerate )      # needs libsamplerate
 ADD_SUBDIRECTORY( saveblocks )
 ADD_SUBDIRECTORY( selectrange )
 ADD_SUBDIRECTORY( sonagram )        # needs fftw >= 3.0
+ADD_SUBDIRECTORY( stringenter )
 ADD_SUBDIRECTORY( volume )
 ADD_SUBDIRECTORY( zero )
 

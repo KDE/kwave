@@ -15,6 +15,7 @@
  * MP3: emphasis, copyrighted, original got lost during save/load
  * file info dialog: MPEG settings were not handled properly
  * bugfix: assert/numeric overflow in selectnextlabels() at end of file
+ * new plugin: stringenter
 
 0.8.99-2 [2015-01-02]
 

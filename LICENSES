@@ -798,6 +798,13 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/sonagram/SonagramWindow.cpp		GPL2+
 	plugins/sonagram/SonagramWindow.h		GPL2+
 
+	plugins/stringenter/CMakeLists.txt		GPL2+
+	plugins/stringenter/StringEnterDialog.cpp	GPL2+
+	plugins/stringenter/StringEnterDialog.h		GPL2+
+	plugins/stringenter/StringEnterDlg.ui		(should be GPL2+)
+	plugins/stringenter/StringEnterPlugin.cpp	GPL2+
+	plugins/stringenter/StringEnterPlugin.h		GPL2+
+
 	plugins/volume/CMakeLists.txt			GPL2+
 	plugins/volume/VolumeDialog.cpp			GPL2+
 	plugins/volume/VolumeDialog.h			GPL2+

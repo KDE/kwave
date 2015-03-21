@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #############################################################################
 ##    svn-update-l10n.sh   - update/fetch translations from anonsvn.kde.org
 ##                           -------------------

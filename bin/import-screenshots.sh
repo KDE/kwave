@@ -20,9 +20,27 @@
 # $1 = directory where the screenshots are stored
 #
 
-for file in `cd $1 ; find . -name \*.png | sed s+^\.\/++g `; do {
-    echo ${file}
-    convert $1/${file} -dither none -colors 63 doc/${file}
+LANG=`basename $1`
+DEST=l10n-kde4/${LANG}/docs/kdereview/kwave
+
+OPTIONS="-dither none -colors 63"
+
+echo "importing screenshots into ${DEST}..."
+
+# flatten the three layers of the SDI mode screenshots
+# into one single image
+echo kwave-gui-sdi.png
+convert -size 906x667 xc:transparent -background transparent \
+	-page +40+0   "$1/01-kwave-gui-sdi.png" \
+	-page +80+80  "$1/02-kwave-gui-sdi.png" \
+	-page  +0+200 "$1/03-kwave-gui-sdi.png" \
+	-layers flatten \
+	"$1/kwave-gui-sdi.png"
+
+for file in `cd $1 ; find . -name kwave-\*.png | sed s+^\.\/++g `; do {
+	echo ${file}
+	mkdir -p ${DEST}
+	convert $1/${file} ${OPTIONS} ${DEST}/${file}
 } done
 
 #

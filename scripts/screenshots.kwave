@@ -16,12 +16,124 @@
 #############################################################################
 
 #
-# TODO: create a test file as /var/tmp/test.wav
+# open the example wav file
+# hint: this file is generated from samples/sample.opus by applying
+#       scripts/create-testfile.kwave
 #
-# for the moment use some test file
-# open(/var/tmp/test.wav)
+open(/var/tmp/example.wav)
 
-selectall()
+    #
+    # screenshot of MDI mode
+    #
+main-mdi:
+    window:resize(Kwave::TopWidget,900, 600)
+    select_gui_type(MDI)
+
+    # first sub window: test.ogg (foreground)
+    view:zoom_all()
+    selectnone()
+    selectnextlabels()
+    selectnextlabels()
+    fileinfo(Filename, test.ogg)
+
+    # second sub window: sample.flac (minimized)
+    open(/var/tmp/example.wav)
+    view:zoom_all()
+    fileinfo(Filename, sample.flac)
+    window:minimize()
+
+    # third sub window: example.wav (background)
+    open(/var/tmp/example.wav)
+    fileinfo(Filename, example.wav)
+    delete_track(0)
+    view:zoom_all()
+    selectnone()
+    window:next_sub()
+    window:resize(Kwave::TopWidget,900, 640)
+    delayed(500,window:screenshot(Kwave::TopWidget, /var/tmp/screenshots/${LANG}/kwave-gui-mdi.png))
+    sync()
+
+    #
+    # screenshot of TAB mode
+    #
+main-tab:
+    select_gui_type(TAB)
+    window:next_sub()
+    selectnone()
+    selectnextlabels()
+    selectnextlabels()
+    delayed(500,window:screenshot(Kwave::TopWidget, /var/tmp/screenshots/${LANG}/kwave-gui-tab.png))
+    sync()
+    undo_all()
+    close()
+    undo_all()
+    close()
+    undo_all()
+
+    #
+    # screenshots of SDI mode
+    #
+main-sdi:
+    select_gui_type(SDI)
+    sync()
+
+    # first sub window: sample.flac (background)
+    window:resize(Kwave::TopWidget,820, 440)
+    fileinfo(Filename, sample.flac)
+    selectnone()
+    selectnextlabels()
+    selectnextlabels()
+    view:zoom_selection()
+    selectnone()
+    delayed(500,window:screenshot(Kwave::TopWidget, /var/tmp/screenshots/${LANG}/01-kwave-gui-sdi.png))
+    sync()
+    undo_all()
+
+    # second sub window: test.ogg (middle)
+    fileinfo(Filename, test.ogg)
+    view:zoom_all()
+    delete_track(0)
+    selectnone()
+    view:zoom_in()
+    delayed(500,window:screenshot(Kwave::TopWidget, /var/tmp/screenshots/${LANG}/02-kwave-gui-sdi.png))
+    sync()
+    undo_all()
+
+    # third window: example.wav (foreground)
+    fileinfo(Filename, example.wav)
+    view:zoom_all()
+    selectnone()
+    selectnextlabels()
+    selectnextlabels()
+    delayed(500,window:mousemove(Kwave::TrackView,350,80))
+    delayed(500,window:screenshot(Kwave::TopWidget, /var/tmp/screenshots/${LANG}/03-kwave-gui-sdi.png))
+    sync()
+    undo_all()
+
+#
+# main screen, one single file, SDI mode
+#
+main:
+    select_gui_type(SDI)
+    window:resize(Kwave::TopWidget,900, 640)
+    view:zoom_all()
+    plugin:execute(selectrange,2,2,25,10)
+    expandtolabel()
+    delayed(1500,window:mousemove(Kwave::TrackView,350,80))
+    delayed(1500,window:screenshot(Kwave::TopWidget, /var/tmp/screenshots/${LANG}/kwave-main.png))
+    sync()
+
+#
+# screenshot of the AmplifyFree dialog
+#
+amplifyfree:
+    selectall()
+    delayed(2000,window:resize(Kwave::AmplifyFreeDialog, 400, 300))
+    delayed(500,window:click(Kwave::CurveWidget, 120, 50))
+    delayed(500,window:screenshot(Kwave::AmplifyFreeDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-amplifyfree.png))
+    delayed(100,window:close(Kwave::AmplifyFreeDialog))
+    plugin:setup(amplifyfree,Amplify Free,spline,0,0,0.68,0.47,1,1)
+    sync()
 
 #
 # screenshot of the File Info dialog
@@ -36,9 +148,10 @@ fileinfo:
 # screenshot of the Low Pass dialog
 #
 lowpass:
+    selectall()
     delayed(2000,window:screenshot(Kwave::LowPassDialog, /var/tmp/screenshots/${LANG}/kwave-lowpass.png))
     delayed(100,window:close(Kwave::LowPassDialog))
-    plugin:setup(lowpass, 5464)
+    plugin:setup(lowpass, 2342)
     sync()
 
 #
@@ -63,15 +176,17 @@ newsignal:
 # screenshot of the Notch Filter dialog
 #
 notch-filter:
+    selectall()
     delayed(2000,window:screenshot(Kwave::NotchFilterDialog, /var/tmp/screenshots/${LANG}/kwave-notch-filter.png))
     delayed(100,window:close(Kwave::NotchFilterDialog))
-    plugin:setup(notch_filter, 12000, 6056)
+    plugin:setup(notch_filter, 880, 230)
     sync()
 
 #
 # screenshot of the Pitch Shift dialog
 #
 pitch:
+    selectall()
     delayed(2000,window:screenshot(Kwave::PitchShiftDialog, /var/tmp/screenshots/${LANG}/kwave-pitch.png))
     delayed(100,window:close(Kwave::PitchShiftDialog))
     plugin:setup(pitch_shift,1.23, 4, 1)
@@ -80,23 +195,10 @@ pitch:
 #
 # screenshot of the Playback Setup dialog
 #
-# TODO, does not work yet
-#playback-setup:
-#    delayed(2000,window:screenshot(Kwave::PlayBackDialog, /var/tmp/screenshots/${LANG}/kwave-playback-setup.png))
-#    delayed(100,window:close(Kwave::PlayBackDialog))
-#    plugin:setup(playback,14,DMIX plugin|sound_note,2,16,10)
-#    sync()
-#    GOTO end
-
-#
-# screenshot of the AmplifyFree dialog
-#
-amplifyfree:
-    delayed(2000,window:resize(Kwave::AmplifyFreeDialog, 400, 300))
-    delayed(500,window:click(Kwave::CurveWidget, 120, 50))
-    delayed(500,window:screenshot(Kwave::AmplifyFreeDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-amplifyfree.png))
-    delayed(100,window:close(Kwave::AmplifyFreeDialog))
-    plugin:setup(amplifyfree,Amplify Free,spline,0,0,0.68,0.47,1,1)
+playback-setup:
+    delayed(2000,window:screenshot(Kwave::PlayBackDialog, /var/tmp/screenshots/${LANG}/kwave-playback-setup.png))
+    delayed(100,window:close(Kwave::PlayBackDialog))
+    plugin:setup(playback, 2,"null sink|sound_card||Null Output|sound_note",2,0,16)
     sync()
 
 #
@@ -148,10 +250,11 @@ volume:
 
 end:
 
+selectnone()
+close()
+quit()
 
 # Hint: sometimes useful to find out the class name of a window
 #       delayed(1000,plugin:setup(debug,dump_windows))
-
-# close()
 
 ### EOF ###

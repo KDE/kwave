@@ -39,22 +39,16 @@ ENDFOREACH(_toolbar_icon ${_toolbar_icons})
 FILE(GLOB _docbook_files "${CMAKE_CURRENT_SOURCE_DIR}/*.docbook")
 FILE(GLOB _png_files "${CMAKE_SOURCE_DIR}/doc/${_lang}/*.png")
 
-ADD_CUSTOM_TARGET(_copy_png_files
-    DEPENDS ${_png_files}
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${_html_dir}
-    COMMAND ${CP_EXECUTABLE} ${_png_files} ${_html_dir}
-)
-
 ADD_CUSTOM_TARGET(html_doc
     COMMENT "Generating HTML documentation for ${_lang}"
     DEPENDS ${_toolbar_pngs}
     DEPENDS ${_docbook_files}
-    DEPENDS ${_copy_png_files}
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${_html_dir}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${_html_dir}
     COMMAND cd ${_html_dir} && ${KDE4_MEINPROC_EXECUTABLE}
             --check ${CMAKE_CURRENT_SOURCE_DIR}/index.docbook
-    COMMAND ${CMAKE_COMMAND} -E remove_directory ${_html_dir}/common
     COMMAND ${CMAKE_COMMAND} -E make_directory   ${_html_dir}/common
+    COMMAND test -z \"${_png_files}\" || ${CP_EXECUTABLE} ${_png_files} ${_html_dir}
     COMMAND ${CP_EXECUTABLE} ${_toolbar_pngs} ${_html_dir}
     COMMAND ${CP_EXECUTABLE} ${_common_dir}/* ${_html_dir}/common/
     COMMAND ${CP_EXECUTABLE} -n ${CMAKE_SOURCE_DIR}/doc/en/*.png ${_html_dir}

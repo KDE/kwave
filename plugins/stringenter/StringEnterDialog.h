@@ -39,7 +39,7 @@ namespace Kwave
 	 * Constructor.
 	 * @param parent the parent widget the dialog belongs to
 	 */
-	StringEnterDialog(QWidget *parent);
+	explicit StringEnterDialog(QWidget *parent);
 
 	/** Destructor */
 	virtual ~StringEnterDialog();

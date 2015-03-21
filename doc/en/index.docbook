@@ -125,6 +125,7 @@
   <!ENTITY no-i18n-cmd_window_cascade "window:cascade">
   <!ENTITY no-i18n-cmd_window_click "window:click">
   <!ENTITY no-i18n-cmd_window_close "window:close">
+  <!ENTITY no-i18n-cmd_window_minimize "window:minimize">
   <!ENTITY no-i18n-cmd_window_mousemove "window:mousemove">
   <!ENTITY no-i18n-cmd_window_next_sub "window:next_sub">
   <!ENTITY no-i18n-cmd_window_prev_sub "window:prev_sub">
@@ -3127,6 +3128,7 @@
 		<indexentry><primaryie><link linkend="cmd_sect_window_cascade" endterm="cmd_title_window_cascade"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_click" endterm="cmd_title_window_click"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_close" endterm="cmd_title_window_close"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_window_minimize" endterm="cmd_title_window_minimize"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_mousemove" endterm="cmd_title_window_mousemove"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_next_sub" endterm="cmd_title_window_next_sub"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_window_prev_sub" endterm="cmd_title_window_prev_sub"/></primaryie></indexentry>
@@ -4826,6 +4828,17 @@
 	    <row><entry><parameter>class</parameter>:</entry>
 		<entry>name of the window class</entry></row>
 	</tbody></tgroup></informaltable></simplesect>
+	</sect2>
+
+	<!-- @COMMAND@ window:minimize() -->
+	<sect2 id="cmd_sect_window_minimize"><title id="cmd_title_window_minimize">&no-i18n-cmd_window_minimize;</title>
+	<simplesect>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_minimize;</command></title>
+	    <para>
+		Minimizes the currently active sub window when in MDI mode or
+		the current toplevel window when in SDI or Tab mode.
+	    </para>
+	</simplesect>
 	</sect2>
 
 	<!-- @COMMAND@ window:mousemove(class,x,y) -->

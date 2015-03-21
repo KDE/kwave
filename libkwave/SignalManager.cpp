@@ -894,9 +894,11 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	    }
 	}
 
-	if (found)
+	if (found) {
 	    m_meta_data.replace(Kwave::MetaDataList(info));
-	else
+	    // we now have new meta data
+	    emit sigMetaDataChanged(m_meta_data);
+	} else
 	    return -EINVAL;
     CASE_COMMAND("dump_metadata")
 	qDebug("DUMP OF META DATA => %s", DBG(parser.firstParam()));

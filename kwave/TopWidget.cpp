@@ -531,8 +531,17 @@ QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
 	// remove the entry from the map to prevent damage
 	i.remove();
 
-	// detach the main widget from the MDI sub window
 	if (sub) {
+	    // leave the "minimized" state before migration
+	    Qt::WindowStates state = sub->windowState();
+	    if (state & Qt::WindowMinimized)
+	    {
+		state &= ~Qt::WindowMinimized;
+		sub->setWindowState(state);
+		sub->showNormal();
+	    }
+
+	    // detach the main widget from the MDI sub window
 	    sub->setWidget(0);
 	    delete sub;
 	}
@@ -662,20 +671,18 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 		// single sub window, switching to tab mode shows a tab +
 		// a sub window with frame and title (not maximized within
 		// the mdi area)
+		Qt::WindowStates state = sub->windowState();
 		if (m_application.guiType() == Kwave::App::GUI_TAB)
 		{
-		    sub->setWindowState(
-			sub->windowState() | Qt::WindowMaximized
-		    );
+		    state |=  Qt::WindowMaximized;
+		    sub->setWindowState(state);
 		    sub->show();
 		}
 		else
 		{
-		    sub->setWindowState(
-			sub->windowState() & ~Qt::WindowMaximized
-		    );
+		    state &= ~Qt::WindowMaximized;
+		    sub->setWindowState(state);
 		    sub->showNormal();
-
 		}
 
 		m_mdi_area->setActiveSubWindow(sub);
@@ -774,14 +781,31 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	{
 	    KMessageBox::enableAllMessages();
 	}
+    CASE_COMMAND("window:minimize")
+	if (m_application.guiType() == Kwave::App::GUI_MDI) {
+	    // in case of MDI mode: minimize the current sub window
+	    if (m_mdi_area) {
+		QMdiSubWindow *sub = m_mdi_area->activeSubWindow();
+		if (!sub) return -1;
+		sub->setWindowState(windowState() | Qt::WindowMinimized);
+	    }
+	} else {
+	    // in case of TAB or SDI mode: minimize the toplevel window
+	    setWindowState(windowState() | Qt::WindowMinimized);
+	}
+	return 0;
     CASE_COMMAND("window:next_sub")
 	if (m_mdi_area) m_mdi_area->activateNextSubWindow();
+	return 0;
     CASE_COMMAND("window:prev_sub")
 	if (m_mdi_area) m_mdi_area->activatePreviousSubWindow();
+	return 0;
     CASE_COMMAND("window:cascade")
 	if (m_mdi_area) m_mdi_area->cascadeSubWindows();
+	return 0;
     CASE_COMMAND("window:tile")
 	if (m_mdi_area) m_mdi_area->tileSubWindows();
+	return 0;
     CASE_COMMAND("window:tile_vertical")
 	if (!m_mdi_area) return 0;
 
@@ -806,6 +830,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	    sub->move(0, y);
 	    y += increment;
 	}
+	return 0;
 
     CASE_COMMAND("window:activate")
 	if (m_mdi_area) {

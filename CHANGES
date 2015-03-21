@@ -16,6 +16,8 @@
  * file info dialog: MPEG settings were not handled properly
  * bugfix: assert/numeric overflow in selectnextlabels() at end of file
  * new plugin: stringenter
+ * bugfix: minimized windows were not migrated properly when switching GUI type
+ * new command: window:minimize
 
 0.8.99-2 [2015-01-02]
 

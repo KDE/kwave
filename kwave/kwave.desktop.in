@@ -2,6 +2,7 @@
 Version=1.0
 Type=Application
 GenericName=Sound Editor
+GenericName[ast]=Editor de soníu
 GenericName[bs]=Editor zvuka
 GenericName[cs]=Editor zvuku
 GenericName[de]=Sound-Editor

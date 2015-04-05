@@ -39,6 +39,15 @@
   <!ENTITY url_git_list_tags "http://sourceforge.net/p/kwave/code/ref/master~/tags/">
   <!ENTITY url_git_master "git://git.code.sf.net/p/kwave/code">
   <!ENTITY i18n-cmd_syntax "Syntax: ">
+  <!ENTITY i18n-plugin_lbl_internal_name "Internal&nbsp;Name:">
+  <!ENTITY i18n-plugin_lbl_type "Plugin&nbsp;Type:">
+  <!ENTITY i18n-plugin_lbl_description "Description:">
+  <!ENTITY i18n-plugin_lbl_parameters "Parameters:">
+  <!ENTITY i18n-plugin_lbl_file_types "Supported&nbsp;File&nbsp;Types:">
+  <!ENTITY i18n-plugin-lbl_file_type_description "Description:">
+  <!ENTITY i18n-plugin-lbl_file_type_extensions "File Extensions:">
+  <!ENTITY i18n-plugin-lbl_file_type_mime_types "Mime Types:">
+  <!ENTITY i18n-plugin_lbl_meta_data "Supported&nbsp;Meta&nbsp;Data:">
   <!ENTITY no-i18n-tag "">
   <!-- @COMMAND_ENTITIES_START@ -->
   <!ENTITY no-i18n-cmd_about_kde "about_kde">
@@ -135,6 +144,38 @@
   <!ENTITY no-i18n-cmd_window_tile "window:tile">
   <!ENTITY no-i18n-cmd_window_tile_vertical "window:tile_vertical">
   <!-- @COMMAND_ENTITIES_END@ -->
+  <!-- @PLUGIN_ENTITIES_START@ -->
+  <!ENTITY no-i18n-plugin_about "about">
+  <!ENTITY no-i18n-plugin_amplifyfree "amplifyfree">
+  <!ENTITY no-i18n-plugin_band_pass "band_pass">
+  <!ENTITY no-i18n-plugin_codec_ascii "codec_ascii">
+  <!ENTITY no-i18n-plugin_codec_audiofile "codec_audiofile">
+  <!ENTITY no-i18n-plugin_codec_flac "codec_flac">
+  <!ENTITY no-i18n-plugin_codec_mp3 "codec_mp3">
+  <!ENTITY no-i18n-plugin_codec_ogg "codec_ogg">
+  <!ENTITY no-i18n-plugin_codec_wav "codec_wav">
+  <!ENTITY no-i18n-plugin_debug "debug">
+  <!ENTITY no-i18n-plugin_fileinfo "fileinfo">
+  <!ENTITY no-i18n-plugin_goto "goto">
+  <!ENTITY no-i18n-plugin_insert_at "insert_at">
+  <!ENTITY no-i18n-plugin_lowpass "lowpass">
+  <!ENTITY no-i18n-plugin_memory "memory">
+  <!ENTITY no-i18n-plugin_newsignal "newsignal">
+  <!ENTITY no-i18n-plugin_noise "noise">
+  <!ENTITY no-i18n-plugin_normalize "normalize">
+  <!ENTITY no-i18n-plugin_notch_filter "notch_filter">
+  <!ENTITY no-i18n-plugin_pitch_shift "pitch_shift">
+  <!ENTITY no-i18n-plugin_playback "playback">
+  <!ENTITY no-i18n-plugin_record "record">
+  <!ENTITY no-i18n-plugin_reverse "reverse">
+  <!ENTITY no-i18n-plugin_samplerate "samplerate">
+  <!ENTITY no-i18n-plugin_saveblocks "saveblocks">
+  <!ENTITY no-i18n-plugin_selectrange "selectrange">
+  <!ENTITY no-i18n-plugin_sonagram "sonagram">
+  <!ENTITY no-i18n-plugin_stringenter "stringenter">
+  <!ENTITY no-i18n-plugin_volume "volume">
+  <!ENTITY no-i18n-plugin_zero "zero">
+  <!-- @PLUGIN_ENTITIES_END@ -->
   <!-- unicode characters, before URL encoding -->
   <!ENTITY no-i18n-unicode-0x0020 "&#x0020;">
   <!ENTITY no-i18n-unicode-0x0021 "&#x0021;">
@@ -202,6 +243,61 @@
   <!ENTITY no-i18n-urlenc-7C "&#x0025;7C">
   <!ENTITY no-i18n-urlenc-7D "&#x0025;7D">
   <!ENTITY no-i18n-urlenc-7E "&#x0025;7E">
+  <!-- @FILEINFO_ENTITIES_START@ -->
+  <!ENTITY i18n-INF_ALBUM "Album">
+  <!ENTITY i18n-INF_ANNOTATION "Annotation">
+  <!ENTITY i18n-INF_ARCHIVAL "Archival location">
+  <!ENTITY i18n-INF_AUTHOR "Author">
+  <!ENTITY i18n-INF_BITRATE_LOWER "Lower Bitrate">
+  <!ENTITY i18n-INF_BITRATE_MODE "Bitrate Mode">
+  <!ENTITY i18n-INF_BITRATE_NOMINAL "Bitrate">
+  <!ENTITY i18n-INF_BITRATE_UPPER "Upper Bitrate">
+  <!ENTITY i18n-INF_BITS_PER_SAMPLE "Bits per Sample">
+  <!ENTITY i18n-INF_CD "CD">
+  <!ENTITY i18n-INF_CDS "CDS">
+  <!ENTITY i18n-INF_COMMISSIONED "Commissioned">
+  <!ENTITY i18n-INF_COMMENTS "Comments">
+  <!ENTITY i18n-INF_COMPRESSION "Compression">
+  <!ENTITY i18n-INF_CONTACT "Contact">
+  <!ENTITY i18n-INF_COPYRIGHT "Copyright">
+  <!ENTITY i18n-INF_COPYRIGHTED "Copyrighted">
+  <!ENTITY i18n-INF_CREATION_DATE "Date">
+  <!ENTITY i18n-INF_ENGINEER "Engineer">
+  <!ENTITY i18n-INF_ESTIMATED_LENGTH "Estimated Length">
+  <!ENTITY i18n-INF_FILENAME "Filename">
+  <!ENTITY i18n-INF_FILESIZE "File Size">
+  <!ENTITY i18n-INF_GENRE "Genre">
+  <!ENTITY i18n-INF_ISRC "ISRC">
+  <!ENTITY i18n-INF_KEYWORDS "Keywords">
+  <!ENTITY i18n-INF_LABELS "Labels">
+  <!ENTITY i18n-INF_LENGTH "Length">
+  <!ENTITY i18n-INF_LICENSE "License">
+  <!ENTITY i18n-INF_MEDIUM "Medium">
+  <!ENTITY i18n-INF_MIMETYPE "Mime Type">
+  <!ENTITY i18n-INF_MPEG_EMPHASIS "Emphasis">
+  <!ENTITY i18n-INF_MPEG_LAYER "Layer">
+  <!ENTITY i18n-INF_MPEG_MODEEXT "Mode Extension">
+  <!ENTITY i18n-INF_MPEG_VERSION "Version">
+  <!ENTITY i18n-INF_NAME "Name">
+  <!ENTITY i18n-INF_OPUS_FRAME_LEN "Opus Frame Length">
+  <!ENTITY i18n-INF_ORGANIZATION "Organization">
+  <!ENTITY i18n-INF_ORIGINAL "Original">
+  <!ENTITY i18n-INF_PERFORMER "Performer">
+  <!ENTITY i18n-INF_PRIVATE "Private">
+  <!ENTITY i18n-INF_PRODUCT "Product">
+  <!ENTITY i18n-INF_SAMPLE_FORMAT "Sample Format">
+  <!ENTITY i18n-INF_SAMPLE_RATE "Sample Rate">
+  <!ENTITY i18n-INF_SOFTWARE "Software">
+  <!ENTITY i18n-INF_SOURCE "Source">
+  <!ENTITY i18n-INF_SOURCE_FORM "Source form">
+  <!ENTITY i18n-INF_SUBJECT "Subject">
+  <!ENTITY i18n-INF_TECHNICAN "Technician">
+  <!ENTITY i18n-INF_TRACK "Track">
+  <!ENTITY i18n-INF_TRACKS "Tracks">
+  <!ENTITY i18n-INF_CHANNELS "Channels">
+  <!ENTITY i18n-INF_VBR_QUALITY "Base Quality">
+  <!ENTITY i18n-INF_VERSION "Version">
+  <!-- @FILEINFO_ENTITIES_END@ -->
 ]>
 
 <book lang="&language;">
@@ -1495,7 +1591,7 @@
 	    </screeninfo>
     	    <mediaobject>
 		<imageobject>
-	    	    <imagedata fileref="kwave-memory-setup.png" format="PNG"/>
+	    	    <imagedata fileref="kwave-plugin-memory.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 	    	    <phrase>Screenshot of the Memory Setup Dialog</phrase>
@@ -2151,7 +2247,7 @@
 	    </screeninfo>
 	    <mediaobject>
 		<imageobject>
-		    <imagedata fileref="kwave-fileinfo.png" format="PNG"/>
+		    <imagedata fileref="kwave-plugin-fileinfo.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		    <phrase>Screenshot of the File Properties Dialog</phrase>
@@ -5016,14 +5112,114 @@
     <sect1 id="kwave_plugins"><title>Plugin Reference</title>
     <index><title>Alphabetical Index</title>
 	&no-i18n-tag;
-	<indexdiv><title>a</title>
-	    <indexentry><primaryie><link linkend="plugin_amplifyfree" endterm="plugin_title_amplifyfree"/></primaryie></indexentry>
-	</indexdiv>
+	<!-- @PLUGIN_INDEX_START@ -->
+	    <indexdiv><title>a</title>
+		<indexentry><primaryie><link linkend="plugin_sect_about" endterm="plugin_title_about"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_amplifyfree" endterm="plugin_title_amplifyfree"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>b</title>
+		<indexentry><primaryie><link linkend="plugin_sect_band_pass" endterm="plugin_title_band_pass"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>c</title>
+		<indexentry><primaryie><link linkend="plugin_sect_codec_ascii" endterm="plugin_title_codec_ascii"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_codec_audiofile" endterm="plugin_title_codec_audiofile"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_codec_flac" endterm="plugin_title_codec_flac"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_codec_mp3" endterm="plugin_title_codec_mp3"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_codec_ogg" endterm="plugin_title_codec_ogg"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_codec_wav" endterm="plugin_title_codec_wav"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>d</title>
+		<indexentry><primaryie><link linkend="plugin_sect_debug" endterm="plugin_title_debug"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>f</title>
+		<indexentry><primaryie><link linkend="plugin_sect_fileinfo" endterm="plugin_title_fileinfo"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>g</title>
+		<indexentry><primaryie><link linkend="plugin_sect_goto" endterm="plugin_title_goto"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>i</title>
+		<indexentry><primaryie><link linkend="plugin_sect_insert_at" endterm="plugin_title_insert_at"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>l</title>
+		<indexentry><primaryie><link linkend="plugin_sect_lowpass" endterm="plugin_title_lowpass"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>m</title>
+		<indexentry><primaryie><link linkend="plugin_sect_memory" endterm="plugin_title_memory"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>n</title>
+		<indexentry><primaryie><link linkend="plugin_sect_newsignal" endterm="plugin_title_newsignal"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_noise" endterm="plugin_title_noise"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_normalize" endterm="plugin_title_normalize"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_notch_filter" endterm="plugin_title_notch_filter"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>p</title>
+		<indexentry><primaryie><link linkend="plugin_sect_pitch_shift" endterm="plugin_title_pitch_shift"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_playback" endterm="plugin_title_playback"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>r</title>
+		<indexentry><primaryie><link linkend="plugin_sect_record" endterm="plugin_title_record"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_reverse" endterm="plugin_title_reverse"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>s</title>
+		<indexentry><primaryie><link linkend="plugin_sect_samplerate" endterm="plugin_title_samplerate"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_saveblocks" endterm="plugin_title_saveblocks"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_selectrange" endterm="plugin_title_selectrange"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_sonagram" endterm="plugin_title_sonagram"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="plugin_sect_stringenter" endterm="plugin_title_stringenter"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>v</title>
+		<indexentry><primaryie><link linkend="plugin_sect_volume" endterm="plugin_title_volume"/></primaryie></indexentry>
+	    </indexdiv>
+	    <indexdiv><title>z</title>
+		<indexentry><primaryie><link linkend="plugin_sect_zero" endterm="plugin_title_zero"/></primaryie></indexentry>
+	    </indexdiv>
+	<!-- @PLUGIN_INDEX_END@ -->
     </index>
     <para><literal> </literal></para>
     </sect1>
 
-    <sect1 id="plugin_amplifyfree"><title id="plugin_title_amplifyfree">Amplify Free</title>
+    <!-- @PLUGIN@ about -->
+    <sect1 id="plugin_sect_about"><title id="plugin_title_about">&no-i18n-plugin_about; (About Kwave)</title>
+    <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-about.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the About Kwave Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_about;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>gui</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        Shows a window with multiple tabs, including the following information:
+		<itemizedlist>
+		    <listitem><para>general information about the program</para></listitem>
+		    <listitem><para>authors, contributors and copyright holders</para></listitem>
+		    <listitem><para>all found plugins including their versions and authors</para></listitem>
+		    <listitem><para>information about the translation team</para></listitem>
+		    <listitem><para>copyright and licensing information</para></listitem>
+		</itemizedlist>
+	    </para>
+	    </listitem>
+	</varlistentry>
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ amplifyfree -->
+    <sect1 id="plugin_sect_amplifyfree"><title id="plugin_title_amplifyfree">&no-i18n-plugin_amplifyfree; (Amplify Free)</title>
 	<screenshot>
     	    <screeninfo>Screenshot</screeninfo>
     	    <mediaobject>
@@ -5037,22 +5233,22 @@
 	</screenshot>
 	<variablelist>
 	  <varlistentry>
-	    <term><emphasis role="bold">Internal&nbsp;Name</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
 	    <listitem><para><literal>amplifyfree</literal></para></listitem>
 	  </varlistentry>
 	  <varlistentry>
-	    <term><emphasis role="bold">Plugin&nbsp;Type</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
 	    <listitem><para>effect</para></listitem>
 	  </varlistentry>
 	  <varlistentry>
-	    <term><emphasis role="bold">Description</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	      <para>
-	                    Amplifies the current selection with a curve that
-			    consists of a set of coordinates and an interpolation
-			    method. The coordinates on the time axis as well as on
-			    the amplitude axis must be normed between 0.0
-			    and 1.0.
+		Amplifies the current selection with a curve that
+		consists of a set of coordinates and an interpolation
+		method. The coordinates on the time axis as well as on
+		the amplitude axis must be normed between 0.0
+		and 1.0.
 	      </para>
 	    </listitem>
 	  </varlistentry>
@@ -5068,44 +5264,44 @@
 		    <para>
 			    Internal name, for undo/redo handling. Possible values are:
 		    </para>
-			    <informaltable frame='all'>
-				<tgroup cols='2'>
-				    <thead>
-					<row>
-					    <entry align='left'>keyword</entry>
-					    <entry align='left'>description</entry>
-					</row>
-				    </thead>
-				    <tbody>
-					<row>
-					    <entry>&no-i18n-tag;<command>fade in</command></entry>
-					    <entry>fade in, curve from 0.0/0.0 to 1.0/1.0</entry>
-					</row>
-					<row>
-					    <entry>&no-i18n-tag;<command>fade out</command></entry>
-					    <entry>fade out, curve from 0.0/1.0 to 1.0/0.0</entry>
-					</row>
-					<row>
-					    <entry>&no-i18n-tag;<command>fade intro</command></entry>
-					    <entry>fade intro, one second pause, then fade in</entry>
-					</row>
-					<row>
-					    <entry>&no-i18n-tag;<command>fade outro</command></entry>
-					    <entry>fade outro, first fade out, then one second pause</entry>
-					</row>
-					<row>
-					    <entry>&no-i18n-tag;<command>amplify free</command></entry>
-					    <entry>user defined curve</entry>
-					</row>
-				    </tbody>
-				</tgroup>
-			    </informaltable>
+			<informaltable frame='all'>
+			    <tgroup cols='2'>
+				<thead>
+				    <row>
+					<entry align='left'>keyword</entry>
+					<entry align='left'>description</entry>
+				    </row>
+				</thead>
+				<tbody>
+				    <row>
+					<entry>&no-i18n-tag;<command>fade in</command></entry>
+					<entry>fade in, curve from 0.0/0.0 to 1.0/1.0</entry>
+				    </row>
+				    <row>
+					<entry>&no-i18n-tag;<command>fade out</command></entry>
+					<entry>fade out, curve from 0.0/1.0 to 1.0/0.0</entry>
+				    </row>
+				    <row>
+					<entry>&no-i18n-tag;<command>fade intro</command></entry>
+					<entry>fade intro, one second pause, then fade in</entry>
+				    </row>
+				    <row>
+					<entry>&no-i18n-tag;<command>fade outro</command></entry>
+					<entry>fade outro, first fade out, then one second pause</entry>
+				    </row>
+				    <row>
+					<entry>&no-i18n-tag;<command>amplify free</command></entry>
+					<entry>user defined curve</entry>
+				    </row>
+				</tbody>
+			    </tgroup>
+			</informaltable>
 		    </listitem>
 		</varlistentry>
 		<varlistentry>
-		  <term><replaceable>interpolation</replaceable></term>
-		  <listitem>
-			    <para>
+		    <term><replaceable>interpolation</replaceable></term>
+		    <listitem>
+			<para>
 			    Interpolation type, possible values are:
 			    <informaltable frame='all'>
 				<tgroup cols='2'>
@@ -5167,36 +5363,1578 @@
       </variablelist>
     </sect1>
 
-	<!--
-	about
-	amplifyfree
-	band_pass
-	codec_ascii
-	codec_audiofile
-	codec_flac
-	codec_mp3
-	codec_ogg
-	codec_wav
-	debug
-	fileinfo
-	goto
-	lowpass
-	memory
-	newsignal
-	noise
-	normalize
-	notch_filter
-	pitch_shift
-	playback
-	record
-	reverse
-	samplerate
-	saveblocks
-	selectrange
-	sonagram
-	volume
-	zero
-	-->
+    <!-- @PLUGIN@ band_pass -->
+    <sect1 id="plugin_sect_band_pass"><title id="plugin_title_band_pass">&no-i18n-plugin_band_pass; (Band Pass Filter)</title>
+    <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-band_pass.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Band Pass Filter Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_band_pass;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>effect</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        Applies a simple band pass filter to the current selection. A band pass
+		lets a certain range of frequencies around a <emphasis>center frequency</emphasis>
+		pass and filters out frequencies that are below or above the center frequency
+		by more than half of the <emphasis>bandwidth</emphasis> of the filter.
+	    </para>
+	    <para>
+		The filter has grade two and is implemented as described in the book
+		<citetitle>"An introduction to digital filter theory"</citetitle> by
+		<author>
+		    <personname>
+			<firstname>Julius O.</firstname>
+			<surname>Smith</surname>
+		    </personname>
+		</author>
+		and in Moore's book, where the the normalized version from
+		Moore's book is used.
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>frequency</replaceable></term>
+			<listitem>
+			    <para>
+				Center frequency of the filter in Hz, must be below
+				half of the sample rate of the file.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>bandwidth</replaceable></term>
+			<listitem>
+			    <para>
+				Bandwidth of the filter in Hz.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry>
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ codec_ascii -->
+    <sect1 id="plugin_sect_codec_ascii"><title id="plugin_title_codec_ascii">&no-i18n-plugin_codec_ascii; (ASCII Codec)</title>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_codec_ascii;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>codec</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_file_types;</emphasis></term>
+	    <listitem>
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>ASCII encoded audio</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.ascii</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry><literal>audio/x-audio-ascii</literal></entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_meta_data;</emphasis></term>
+	    <listitem>
+		<para>
+		    (all known file info items,
+		    see section <link linkend="file-info-list" endterm="file-info-list-title"/>)
+		</para>
+	    </listitem>
+	</varlistentry>
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ codec_audiofile -->
+    <sect1 id="plugin_sect_codec_audiofile"><title id="plugin_title_codec_audiofile">&no-i18n-plugin_codec_audiofile; (Audiofile Codec)</title>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_codec_audiofile;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>codec [import only]</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_file_types;</emphasis></term>
+	    <listitem>
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>NeXT, Sun Audio</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry>
+			    <filename>*.au</filename>,
+			    <filename>*.snd</filename>
+			</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry><literal>audio/basic</literal></entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>Compressed Audio Interchange Format</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.aifc</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry><literal>audio/x-aifc</literal></entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>Audio Interchange Format</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry>
+			    <filename>*.aif</filename>,
+			    <filename>*.aiff</filename>
+			</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry><literal>audio/x-aiff</literal></entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>Berkeley, IRCAM, Carl Sound Format</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.sf</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry><literal>audio/x-ircam</literal></entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_meta_data;</emphasis></term>
+	    <listitem>
+		<para>
+		    (none)
+		</para>
+	    </listitem>
+	</varlistentry>
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ codec_flac -->
+    <sect1 id="plugin_sect_codec_flac"><title id="plugin_title_codec_flac">&no-i18n-plugin_codec_flac; (FLAC Codec)</title>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_codec_flac;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>codec</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_file_types;</emphasis></term>
+	    <listitem>
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>FLAC audio (Free Lossles Audio Codec)</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.flac</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry><literal>audio/x-flac</literal></entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_meta_data;</emphasis></term>
+	    <listitem>
+		<para>
+		    <link linkend="INF_CREATION_DATE">&i18n-INF_CREATION_DATE;</link>,
+		    <link linkend="INF_NAME">&i18n-INF_NAME;</link>,
+		    <link linkend="INF_VERSION">&i18n-INF_VERSION;</link>,
+		    <link linkend="INF_ALBUM">&i18n-INF_ALBUM;</link>,
+		    <link linkend="INF_TRACK">&i18n-INF_TRACK;</link>,
+		    <link linkend="INF_AUTHOR">&i18n-INF_AUTHOR;</link>,
+		    <link linkend="INF_PERFORMER">&i18n-INF_PERFORMER;</link>,
+		    <link linkend="INF_COPYRIGHT">&i18n-INF_COPYRIGHT;</link>,
+		    <link linkend="INF_LICENSE">&i18n-INF_LICENSE;</link>,
+		    <link linkend="INF_ORGANIZATION">&i18n-INF_ORGANIZATION;</link>,
+		    <link linkend="INF_SUBJECT">&i18n-INF_SUBJECT;</link>,
+		    <link linkend="INF_GENRE">&i18n-INF_GENRE;</link>,
+		    <link linkend="INF_SOURCE">&i18n-INF_SOURCE;</link>,
+		    <link linkend="INF_CONTACT">&i18n-INF_CONTACT;</link>,
+		    <link linkend="INF_ISRC">&i18n-INF_ISRC;</link>,
+		    <link linkend="INF_SOFTWARE">&i18n-INF_SOFTWARE;</link>,
+		    <link linkend="INF_ENGINEER">&i18n-INF_ENGINEER;</link>,
+		    <link linkend="INF_VBR_QUALITY">&i18n-INF_VBR_QUALITY;</link>
+		</para>
+	    </listitem>
+	</varlistentry>
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ codec_mp3 -->
+    <sect1 id="plugin_sect_codec_mp3"><title id="plugin_title_codec_mp3">&no-i18n-plugin_codec_mp3; (MP3 Codec)</title>
+    <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-codec_mp3.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the MP3 Codec Setup Dialog</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_codec_mp3;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>codec</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_file_types;</emphasis></term>
+	    <listitem>
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>MPEG layer III audio</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.mp3</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry>
+			    <literal>audio/x-mp3</literal>,
+			    <literal>audio/mpeg</literal>s
+			</entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>MPEG layer II audio</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.mp2</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry>
+			    <literal>audio/x-mp2</literal>,
+			    <literal>audio/mpeg</literal>
+			</entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>MPEG layer I audio</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry>
+			    <filename>*.mp1</filename>,
+			    <filename>*.mpg</filename>,
+			    <filename>*.mpga</filename>
+			</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry>
+			    <literal>audio/x-mpga</literal>,
+			    <literal>audio/mpeg</literal>
+			</entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_meta_data;</emphasis></term>
+	    <listitem>
+		<para>
+		    <link linkend="INF_ALBUM">&i18n-INF_ALBUM;</link>,
+		    <link linkend="INF_ANNOTATION">&i18n-INF_ANNOTATION;</link>,
+		    <link linkend="INF_AUTHOR">&i18n-INF_AUTHOR;</link>,
+		    <link linkend="INF_CD">&i18n-INF_CD;</link>,
+		    <link linkend="INF_CDS">&i18n-INF_CDS;</link>,
+		    <link linkend="INF_COMMENTS">&i18n-INF_COMMENTS;</link>,
+		    <link linkend="INF_COMMISSIONED">&i18n-INF_COMMISSIONED;</link>,
+		    <link linkend="INF_CONTACT">&i18n-INF_CONTACT;</link>,
+		    <link linkend="INF_COPYRIGHT">&i18n-INF_COPYRIGHT;</link>,
+		    <link linkend="INF_CREATION_DATE">&i18n-INF_CREATION_DATE;</link>,
+		    <link linkend="INF_GENRE">&i18n-INF_GENRE;</link>,
+		    <link linkend="INF_ISRC">&i18n-INF_ISRC;</link>,
+		    <link linkend="INF_LENGTH">&i18n-INF_LENGTH;</link>,
+		    <link linkend="INF_LICENSE">&i18n-INF_LICENSE;</link>,
+		    <link linkend="INF_MEDIUM">&i18n-INF_MEDIUM;</link>,
+		    <link linkend="INF_NAME">&i18n-INF_NAME;</link>,
+		    <link linkend="INF_ORGANIZATION">&i18n-INF_ORGANIZATION;</link>,
+		    <link linkend="INF_PERFORMER">&i18n-INF_PERFORMER;</link>,
+		    <link linkend="INF_SOFTWARE">&i18n-INF_SOFTWARE;</link>,
+		    <link linkend="INF_TECHNICAN">&i18n-INF_TECHNICAN;</link>,
+		    <link linkend="INF_TRACK">&i18n-INF_TRACK;</link>,
+		    <link linkend="INF_TRACKS">&i18n-INF_TRACKS;</link>,
+		    <link linkend="INF_VERSION">&i18n-INF_VERSION;</link>
+		</para>
+	    </listitem>
+	</varlistentry>
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ codec_ogg (TODO) -->
+    <sect1 id="plugin_sect_codec_ogg"><title id="plugin_title_codec_ogg">&no-i18n-plugin_codec_ogg; (Ogg Codec)</title>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_codec_ogg;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>codec</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_file_types;</emphasis></term>
+	    <listitem>
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>Ogg Opus audio</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.opus</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry>
+			    <literal>audio/ogg</literal>,
+			    <literal>application/ogg</literal>,
+			    <literal>audio/opus</literal>
+			</entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>Ogg Vorbis audio</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.ogg</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry>
+			    <literal>audio/ogg</literal>,
+			    <literal>audio/x-ogg</literal>,
+			    <literal>application/x-ogg</literal>,
+			    <literal>audio/x-vorbis+ogg</literal>
+			</entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_meta_data;</emphasis></term>
+	    <listitem>
+		<para>
+		    <link linkend="INF_ALBUM">&i18n-INF_ALBUM;</link>,
+		    <link linkend="INF_AUTHOR">&i18n-INF_AUTHOR;</link>,
+		    <link linkend="INF_CONTACT">&i18n-INF_CONTACT;</link>,
+		    <link linkend="INF_COPYRIGHT">&i18n-INF_COPYRIGHT;</link>,
+		    <link linkend="INF_CREATION_DATE">&i18n-INF_CREATION_DATE;</link>,
+		    <link linkend="INF_ENGINEER">&i18n-INF_ENGINEER;</link>,
+		    <link linkend="INF_GENRE">&i18n-INF_GENRE;</link>,
+		    <link linkend="INF_ISRC">&i18n-INF_ISRC;</link>,
+		    <link linkend="INF_LICENSE">&i18n-INF_LICENSE;</link>,
+		    <link linkend="INF_NAME">&i18n-INF_NAME;</link>,
+		    <link linkend="INF_ORGANIZATION">&i18n-INF_ORGANIZATION;</link>,
+		    <link linkend="INF_PERFORMER">&i18n-INF_PERFORMER;</link>,
+		    <link linkend="INF_SOFTWARE">&i18n-INF_SOFTWARE;</link>,
+		    <link linkend="INF_SOURCE">&i18n-INF_SOURCE;</link>,
+		    <link linkend="INF_SUBJECT">&i18n-INF_SUBJECT;</link>,
+		    <link linkend="INF_TRACK">&i18n-INF_TRACK;</link>,
+		    <link linkend="INF_VBR_QUALITY">&i18n-INF_VBR_QUALITY;</link>,
+		    <link linkend="INF_VERSION">&i18n-INF_VERSION;</link>,
+		</para>
+	    </listitem>
+	</varlistentry>
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ codec_wav () -->
+    <sect1 id="plugin_sect_codec_wav"><title id="plugin_title_codec_wav">&no-i18n-plugin_codec_wav; (WAV Codec)</title>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_codec_wav;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>codec</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_file_types;</emphasis></term>
+	    <listitem>
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>WAV audio</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.wav</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry>
+			    <literal>audio/x-wav</literal>,
+			    <literal>audio/vnd.wave</literal>,
+			    <literal>audio/wav</literal>
+			</entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_meta_data;</emphasis></term>
+	    <listitem>
+		<para>
+		    <link linkend="INF_ALBUM">&i18n-INF_ALBUM;</link>,
+		    <link linkend="INF_ANNOTATION">&i18n-INF_ANNOTATION;</link>,
+		    <link linkend="INF_ARCHIVAL">&i18n-INF_ARCHIVAL;</link>,
+		    <link linkend="INF_AUTHOR">&i18n-INF_AUTHOR;</link>,
+		    <link linkend="INF_CD">&i18n-INF_CD;</link>,
+		    <link linkend="INF_COMMENTS">&i18n-INF_COMMENTS;</link>,
+		    <link linkend="INF_COMMISSIONED">&i18n-INF_COMMISSIONED;</link>,
+		    <link linkend="INF_CONTACT">&i18n-INF_CONTACT;</link>,
+		    <link linkend="INF_COPYRIGHT">&i18n-INF_COPYRIGHT;</link>,
+		    <link linkend="INF_CREATION_DATE">&i18n-INF_CREATION_DATE;</link>,
+		    <link linkend="INF_ENGINEER">&i18n-INF_ENGINEER;</link>,
+		    <link linkend="INF_GENRE">&i18n-INF_GENRE;</link>,
+		    <link linkend="INF_ISRC">&i18n-INF_ISRC;</link>,
+		    <link linkend="INF_KEYWORDS">&i18n-INF_KEYWORDS;</link>,
+		    <link linkend="INF_LICENSE">&i18n-INF_LICENSE;</link>,
+		    <link linkend="INF_MEDIUM">&i18n-INF_MEDIUM;</link>,
+		    <link linkend="INF_NAME">&i18n-INF_NAME;</link>,
+		    <link linkend="INF_ORGANIZATION">&i18n-INF_ORGANIZATION;</link>,
+		    <link linkend="INF_PERFORMER">&i18n-INF_PERFORMER;</link>,
+		    <link linkend="INF_PRODUCT">&i18n-INF_PRODUCT;</link>,
+		    <link linkend="INF_SOFTWARE">&i18n-INF_SOFTWARE;</link>,
+		    <link linkend="INF_SOURCE">&i18n-INF_SOURCE;</link>,
+		    <link linkend="INF_SOURCE_FORM">&i18n-INF_SOURCE_FORM;</link>,
+		    <link linkend="INF_SUBJECT">&i18n-INF_SUBJECT;</link>,
+		    <link linkend="INF_TECHNICAN">&i18n-INF_TECHNICAN;</link>,
+		    <link linkend="INF_TRACK">&i18n-INF_TRACK;</link>,
+		    <link linkend="INF_VERSION">&i18n-INF_VERSION;</link>,
+		</para>
+	    </listitem>
+	</varlistentry>
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ debug (TODO) -->
+    <sect1 id="plugin_sect_debug"><title id="plugin_title_debug">&no-i18n-plugin_debug; (Debug Functions)</title>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_debug;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>function</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Debug Functions plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ fileinfo (TODO) -->
+    <sect1 id="plugin_sect_fileinfo"><title id="plugin_title_fileinfo">&no-i18n-plugin_fileinfo; (File Info)</title>
+    <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-fileinfo.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the File Info Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_fileinfo;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>gui</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the File Info plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ goto (TODO) -->
+    <sect1 id="plugin_sect_goto"><title id="plugin_title_goto">&no-i18n-plugin_goto; (Goto Position)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-goto.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Goto Position Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_goto;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>function</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Goto Position plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ insert_at (TODO) -->
+    <sect1 id="plugin_sect_insert_at"><title id="plugin_title_insert_at">&no-i18n-plugin_insert_at; (Insert At)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-insert_at.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Insert At Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_insert_at;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>function</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Insert At plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ lowpass (TODO) -->
+    <sect1 id="plugin_sect_lowpass"><title id="plugin_title_lowpass">&no-i18n-plugin_lowpass; (Low Pass Filter)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-lowpass.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Low Pass Filter Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_lowpass;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>effect</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Low Pass Filter plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ memory (TODO) -->
+    <sect1 id="plugin_sect_memory"><title id="plugin_title_memory">&no-i18n-plugin_memory; (Memory Settings)</title>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_memory;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>gui</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        Provides a dialog to set up the memory usage of &kwave;.
+		Please refer to the section about the
+		<link linkend="memory-setup">Memory Setup</link>
+		for a description.
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>physical limited</replaceable></term>
+			<listitem>
+			    <para>
+				If zero, the use of physical memory will not limited,
+				otherwise the use of physical memory will be limited.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>physical limit</replaceable></term>
+			<listitem>
+			    <para>
+				Limitation of the physical memory in units of whole MB.
+				Only has an effect when the parameter <replaceable>physical limited</replaceable>
+				has been set to a non zero value.
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>virtual enabled</replaceable></term>
+			<listitem>
+			    <para>
+				If zero, the use of virtual memory will be disabled,
+				otherwise the use of virtual memory will be enabled.
+				Only has an effect when the parameter <replaceable>virtual enabled</replaceable>
+				has been set to a non zero value.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>virtual limited</replaceable></term>
+			<listitem>
+			    <para>
+				If zero, the use of virtual memory will be not limited,
+				otherwise the use of virtual memory will be limited.
+				Only has an effect when the parameter <replaceable>virtual enabled</replaceable>
+				has been set to a non zero value.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>virtual limit</replaceable></term>
+			<listitem>
+			    <para>
+				Limitation of the virtual memory in units of whole MB.
+				Only has an effect when the parameters <replaceable>virtual enabled</replaceable>
+				and <replaceable>virtual limited</replaceable>
+				have both been set to a non zero value.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>virtual directory</replaceable></term>
+			<listitem>
+			    <para>
+				Directory to use for storing swap files that will be used for
+				providing virtual memory.
+				Only has an effect when the parameters <replaceable>virtual enabled</replaceable>
+				and <replaceable>virtual limited</replaceable>
+				have both been set to a non zero value.
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		</variablelist>
+	    </listitem>
+	</varlistentry>
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ newsignal (TODO) -->
+    <sect1 id="plugin_sect_newsignal"><title id="plugin_title_newsignal">&no-i18n-plugin_newsignal; (New Signal)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-newsignal.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the New Signal Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_newsignal;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>function</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the New Signal plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ noise (TODO) -->
+    <sect1 id="plugin_sect_noise"><title id="plugin_title_noise">&no-i18n-plugin_noise; (Noise Generator)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-noise.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Noise Generator Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_noise;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>effect</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Noise Generator plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ normalize (TODO) -->
+    <sect1 id="plugin_sect_normalize"><title id="plugin_title_normalize">&no-i18n-plugin_normalize; (Normalizer)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-normalize.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Normalizer Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_normalize;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>effect</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Normalizer plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ notch_filter (TODO) -->
+    <sect1 id="plugin_sect_notch_filter"><title id="plugin_title_notch_filter">&no-i18n-plugin_notch_filter; (Notch Filter)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-notch_filter.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Notch Filter Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_notch_filter;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>effect</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Notch Filter plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ pitch_shift (TODO) -->
+    <sect1 id="plugin_sect_pitch_shift"><title id="plugin_title_pitch_shift">&no-i18n-plugin_pitch_shift; (Pitch Shift)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-pitch_shift.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Pitch Shift Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_pitch_shift;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>effect</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Pitch Shift plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ playback (TODO) -->
+    <sect1 id="plugin_sect_playback"><title id="plugin_title_playback">&no-i18n-plugin_playback; (Playback)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-playback.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Playback Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_playback;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>function</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Playback plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ record (TODO) -->
+    <sect1 id="plugin_sect_record"><title id="plugin_title_record">&no-i18n-plugin_record; (Record)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-record.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Record Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_record;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>function</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Record plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ reverse (TODO) -->
+    <sect1 id="plugin_sect_reverse"><title id="plugin_title_reverse">&no-i18n-plugin_reverse; (Reverse)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-reverse.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Reverse Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_reverse;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>effect</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Reverse plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ samplerate (TODO) -->
+    <sect1 id="plugin_sect_samplerate"><title id="plugin_title_samplerate">&no-i18n-plugin_samplerate; (Sample Rate Conversion)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-samplerate.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Sample Rate Conversion Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_samplerate;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>effect</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Sample Rate Conversion plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ saveblocks (TODO) -->
+    <sect1 id="plugin_sect_saveblocks"><title id="plugin_title_saveblocks">&no-i18n-plugin_saveblocks; (Save Blocks)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-saveblocks.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Save Blocks Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_saveblocks;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>function</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Save Blocks plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ selectrange (TODO) -->
+    <sect1 id="plugin_sect_selectrange"><title id="plugin_title_selectrange">&no-i18n-plugin_selectrange; (Select Range)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-selectrange.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Select Range Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_selectrange;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>function</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Select Range plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ sonagram (TODO) -->
+    <sect1 id="plugin_sect_sonagram"><title id="plugin_title_sonagram">&no-i18n-plugin_sonagram; (Sonagram)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-sonagram.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Sonagram Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_sonagram;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>function</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Sonagram plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ stringenter (TODO) -->
+    <sect1 id="plugin_sect_stringenter"><title id="plugin_title_stringenter">&no-i18n-plugin_stringenter; (Enter Command)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-stringenter.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Enter Command Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_stringenter;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>function</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Enter Command plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ volume (TODO) -->
+    <sect1 id="plugin_sect_volume"><title id="plugin_title_volume">&no-i18n-plugin_volume; (Volume)</title>
+    <!-- <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-volume.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Volume Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot> -->
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_volume;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>effect</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Volume plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ zero (TODO) -->
+    <sect1 id="plugin_sect_zero"><title id="plugin_title_zero">&no-i18n-plugin_zero; (Zero Generator)</title>
+    <variablelist>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+	    <listitem><para><literal>&no-i18n-plugin_zero;</literal></para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+	    <listitem><para>effect</para></listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+	    <listitem>
+	    <para>
+	        TODO: description of what the Zero Generator plugin does...
+	    </para>
+	    </listitem>
+	</varlistentry>
+	<!-- varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>operation</replaceable></term>
+			<listitem>
+			    <para>
+				description of the parameter
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry -->
+    </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN_END_OF_LIST@ -->
+
 </chapter>
 
 <!-- ###################################################################### -->
@@ -6104,7 +7842,7 @@
 
 </chapter>
 
-<appendix><title>File Info</title>
+<appendix id="file-info-list"><title id="file-info-list-title">File Info</title>
     <table frame='all'><title>List of File Info Identifiers</title>
     <tgroup cols='3' align='center' colsep='1' rowsep='1'>
     <colspec colname='c1'/>           <colspec/>
@@ -6113,373 +7851,366 @@
 	<row><entry>Keyword</entry><entry>&#x0020;</entry><entry>Description</entry></row>
     </thead>
     <tbody>
-	<row>
+	<!-- @FILEINFO_TABLE_START@ -->
+	<row id="INF_ALBUM">
 	    <entry colname='c1'>&no-i18n-tag;Album</entry>
 	    <entry colname='c2'>
-		Name of the album if the source is an album
-		that consist of more medias.
+		Name of the album if the source is an album that consist of
+		 more medias.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_ANNOTATION">
 	    <entry colname='c1'>&no-i18n-tag;Annotation</entry>
 	    <entry colname='c2'>
-		Provides general comments about the file or the subject of
-		the file. If the comment is several sentences long, end
-		each sentence with a period. Do not include newline
-		characters!
+		Provides general comments about the file or the subject of the
+		 file. If the comment is several sentences long, end each
+		 sentence with a period. Do not include newline characters!
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_ARCHIVAL">
 	    <entry colname='c1'>&no-i18n-tag;Archival location</entry>
 	    <entry colname='c2'>
 		Indicates where the subject of the file is archived.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_AUTHOR">
 	    <entry colname='c1'>&no-i18n-tag;Author</entry>
 	    <entry colname='c2'>
-		Identifies the name of the author of the original
-		subject of the file.
-		Example: 'van Beethoven, Ludwig'
+		Identifies the name of the author of the original subject of
+		 the file. Example: &quot;van Beethoven, Ludwig&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_BITRATE_LOWER">
 	    <entry colname='c1'>&no-i18n-tag;Lower Bitrate</entry>
 	    <entry colname='c2'>
 		Specifies the lower limit in a VBR bitstream.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_BITRATE_MODE">
 	    <entry colname='c1'>&no-i18n-tag;Bitrate Mode</entry>
 	    <entry colname='c2'>
 		Bitrate Mode (ABR, VBR, CBR, etc...)
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_BITRATE_NOMINAL">
 	    <entry colname='c1'>&no-i18n-tag;Bitrate</entry>
 	    <entry colname='c2'>
 		Nominal bitrate of the audio stream in bits per second
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_BITRATE_UPPER">
 	    <entry colname='c1'>&no-i18n-tag;Upper Bitrate</entry>
 	    <entry colname='c2'>
 		Specifies the upper limit in a VBR bitstream.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_BITS_PER_SAMPLE">
 	    <entry colname='c1'>&no-i18n-tag;Bits per Sample</entry>
 	    <entry colname='c2'>
 		Specifies the number of bits per sample.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_CD">
 	    <entry colname='c1'>&no-i18n-tag;CD</entry>
 	    <entry colname='c2'>
 		Number of the CD, if the source is an album of more CDROMs
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_CDS">
 	    <entry colname='c1'>&no-i18n-tag;CDS</entry>
 	    <entry colname='c2'>
 		Number of CDs, if the source is an album of more CDROMs
 	    </entry>
 	</row>
-	<row>
-	    <entry colname='c1'>&no-i18n-tag;Channels</entry>
-	    <entry colname='c2'>
-		Specifies the number of channels of the signal.
-	    </entry>
-	</row>
-	<row>
+	<row id="INF_COMMISSIONED">
 	    <entry colname='c1'>&no-i18n-tag;Commissioned</entry>
 	    <entry colname='c2'>
-		Lists the name of the person or organization
-		that commissioned the subject of the file.
+		Lists the name of the person or organization that commissioned
+		 the subject of the file.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_COMMENTS">
 	    <entry colname='c1'>&no-i18n-tag;Comments</entry>
 	    <entry colname='c2'>
-		Provides general comments about the file or the subject of
-		the file. If the comment is several sentences long, end
-		each sentence with a period. Do not include newline
-		characters!
+		Provides general comments about the file or the subject of the
+		 file. If the comment is several sentences long, end each
+		 sentence with a period. Do not include newline characters!
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_COMPRESSION">
 	    <entry colname='c1'>&no-i18n-tag;Compression</entry>
 	    <entry colname='c2'>
-		Sets a mode for compressing the audio
-		data to reduce disk space.
+		Sets a mode for compressing the audio data to reduce disk
+		 space.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_CONTACT">
 	    <entry colname='c1'>&no-i18n-tag;Contact</entry>
 	    <entry colname='c2'>
-		Contact information for the creators or distributors of
-		the track. This could be a URL, an email address, the
-		physical address of the producing label.
+		Contact information for the creators or distributors of the
+		 track. This could be a URL, an email address, the physical
+		 address of the producing label.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_COPYRIGHT">
 	    <entry colname='c1'>&no-i18n-tag;Copyright</entry>
 	    <entry colname='c2'>
 		Records the copyright information for the file. If there are
-		multiple copyrights, separate them by a semicolon followed
-		by a space.
-		Example: 'Copyright Linux community 2002'
+		 multiple copyrights, separate them by a semicolon followed by
+		 a space. Example: &quot;Copyright Linux community 2002&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_COPYRIGHTED">
 	    <entry colname='c1'>&no-i18n-tag;Copyrighted</entry>
 	    <entry colname='c2'>
 		Indicates whether the file is protected by copyright or not.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_CREATION_DATE">
 	    <entry colname='c1'>&no-i18n-tag;Date</entry>
 	    <entry colname='c2'>
 		Specifies the date the subject of the file was created.
-		Example: '2001-12-24'
+		 Example: &quot;2001-12-24&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_ENGINEER">
 	    <entry colname='c1'>&no-i18n-tag;Engineer</entry>
 	    <entry colname='c2'>
-		Shows the name of the engineer who worked on the file.
-		If there are multiple engineers, separate the names by
-		a semicolon and a blank.
+		Shows the name of the engineer who worked on the file. If there
+		 are multiple engineers, separate the names by a semicolon and
+		 a blank.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_ESTIMATED_LENGTH">
 	    <entry colname='c1'>&no-i18n-tag;Estimated Length</entry>
 	    <entry colname='c2'>
 		Estimated length of the file in samples
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_FILENAME">
 	    <entry colname='c1'>&no-i18n-tag;Filename</entry>
 	    <entry colname='c2'>
 		Name of the opened file
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_FILESIZE">
 	    <entry colname='c1'>&no-i18n-tag;File Size</entry>
 	    <entry colname='c2'>
 		Size of the file in bytes
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_GENRE">
 	    <entry colname='c1'>&no-i18n-tag;Genre</entry>
 	    <entry colname='c2'>
-		Describes the genre or style of the original work.
-		Examples: 'classic', 'pop'
+		Describes the genre or style of the original work. Examples:
+		 &quot;classic&quot;, &quot;pop&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_ISRC">
 	    <entry colname='c1'>&no-i18n-tag;ISRC</entry>
 	    <entry colname='c2'>
-		ISRC number for the track; see the ISRC intro page
-		for more information on ISRC numbers.
-		http://www.ifpi.org/site-content/online/isrc_intro.html
+		ISRC number for the track; see the ISRC intro page for more
+		 information on ISRC numbers.
+		 http://www.ifpi.org/site-content/online/isrc_intro.html
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_KEYWORDS">
 	    <entry colname='c1'>&no-i18n-tag;Keywords</entry>
 	    <entry colname='c2'>
-		Provides a list of keywords that refer to the
-		file or subject of the file.
+		Provides a list of keywords that refer to the file or subject
+		 of the file.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_LABELS">
 	    <entry colname='c1'>&no-i18n-tag;Labels</entry>
 	    <entry colname='c2'>
-		The list of labels.
+		The list of labels/markers.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_LENGTH">
 	    <entry colname='c1'>&no-i18n-tag;Length</entry>
 	    <entry colname='c2'>
 		Length of the file in samples.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_LICENSE">
 	    <entry colname='c1'>&no-i18n-tag;License</entry>
 	    <entry colname='c2'>
-		License information, &eg;, 'All Rights Reserved',
-		'Any Use Permitted', a URL to a license or the
-		EFF Open Audio License ('distributed under the
-		terms of the Open Audio License.
-		See http://www.eff.org/IP/Open_licenses/eff_oal.html
-		for details')), etc.
+		License information, e.g., &quot;All Rights Reserved&quot;,
+		 &quot;Any Use Permitted&quot;, an URL to a license or the EFF
+		 Open Audio License (&quot;distributed under the terms of the
+		 Open Audio License. See
+		 http://www.eff.org/IP/Open_licenses/eff_oal.html for
+		 details&quot;), etc.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_MEDIUM">
 	    <entry colname='c1'>&no-i18n-tag;Medium</entry>
 	    <entry colname='c2'>
-		Describes the original subject of the file,
-		where it was first recorded.
-		Example: 'orchester'
+		Describes the original subject of the file, where it was first
+		 recorded. Example: &quot;orchestra&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_MIMETYPE">
 	    <entry colname='c1'>&no-i18n-tag;Mime Type</entry>
 	    <entry colname='c2'>
 		Mime type of the file format
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_MPEG_EMPHASIS">
 	    <entry colname='c1'>&no-i18n-tag;Emphasis</entry>
 	    <entry colname='c2'>
 		Audio emphasis mode
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_MPEG_LAYER">
 	    <entry colname='c1'>&no-i18n-tag;Layer</entry>
 	    <entry colname='c2'>
 		MPEG Layer, I, II or III
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_MPEG_MODEEXT">
 	    <entry colname='c1'>&no-i18n-tag;Mode Extension</entry>
 	    <entry colname='c2'>
 		MPEG Mode Extension (only if Joint Stereo)
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_MPEG_VERSION">
 	    <entry colname='c1'>&no-i18n-tag;Version</entry>
 	    <entry colname='c2'>
 		MPEG Version, 1, 2 or 2.5
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_NAME">
 	    <entry colname='c1'>&no-i18n-tag;Name</entry>
 	    <entry colname='c2'>
-		Stores the title of the subject of the file.
-		Example: "Symphony No.6, Op.68 'Pastoral'"
+		Stores the title of the subject of the file. Example:
+		 &quot;Symphony No.6, Op.68 &quot;Pastoral&quot;&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_OPUS_FRAME_LEN">
 	    <entry colname='c1'>&no-i18n-tag;Opus Frame Length</entry>
 	    <entry colname='c2'>
-		Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)
+		Opus Frame Length in ms (supported values are 2.5, 5, 10, 20,
+		 40, or 60 ms)
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_ORGANIZATION">
 	    <entry colname='c1'>&no-i18n-tag;Organization</entry>
 	    <entry colname='c2'>
-		Name of the organization producing the track
-		(i.e. the 'record label')
+		Name of the organization producing the track (i.e. the
+		 &quot;record label&quot;)
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_ORIGINAL">
 	    <entry colname='c1'>&no-i18n-tag;Original</entry>
 	    <entry colname='c2'>
 		Indicates whether the file is an original or a copy
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_PERFORMER">
 	    <entry colname='c1'>&no-i18n-tag;Performer</entry>
 	    <entry colname='c2'>
-		The artist(s) who performed the work. In classical
-		music this would be the conductor, orchestra, soloists.
-		In an audio book it would be the actor who did the reading.
+		The artist(s) who performed the work. In classical music this
+		 would be the conductor, orchestra, soloists. In an audio book
+		 it would be the actor who did the reading.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_PRIVATE">
 	    <entry colname='c1'>&no-i18n-tag;Private</entry>
 	    <entry colname='c2'>
 		Indicates whether the subject is private
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_PRODUCT">
 	    <entry colname='c1'>&no-i18n-tag;Product</entry>
 	    <entry colname='c2'>
-		Specifies the name or the title the
-		file was originally intended for.
-		Example: 'Linux audio collection'
+		Specifies the name or the title the file was originally
+		 intended for. Example: &quot;Linux audio collection&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_SAMPLE_FORMAT">
 	    <entry colname='c1'>&no-i18n-tag;Sample Format</entry>
 	    <entry colname='c2'>
-		Format used for storing the digitized audio samples.
-		Example: '32-bit IEEE floating-point'
+		Format used for storing the digitized audio samples. Example:
+		 &quot;32-bit IEEE floating-point&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_SAMPLE_RATE">
 	    <entry colname='c1'>&no-i18n-tag;Sample Rate</entry>
 	    <entry colname='c2'>
 		Number of samples per second
-
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_SOFTWARE">
 	    <entry colname='c1'>&no-i18n-tag;Software</entry>
 	    <entry colname='c2'>
-		Identifies the name of the software package
-		used to create the file.
-		Example: 'Kwave v0.6.4-1'
+		Identifies the name of the software package used to create the
+		 file. Example: &quot;Kwave v0.6.4-1&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_SOURCE">
 	    <entry colname='c1'>&no-i18n-tag;Source</entry>
 	    <entry colname='c2'>
-		Identifies the name of the person or organization
-		who supplied the original subject of the file.
-		Example: 'Chaotic Sound Research'
+		Identifies the name of the person or organization who supplied
+		 the original subject of the file. Example: &quot;Chaotic Sound
+		 Research&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_SOURCE_FORM">
 	    <entry colname='c1'>&no-i18n-tag;Source form</entry>
 	    <entry colname='c2'>
-		Identifies the original form of
-		the material that was digitized.
-		Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'
+		Identifies the original form of the material that was
+		 digitized. Examples: &quot;Record/Vinyl/90RPM&quot;,
+		 &quot;Audio DAT&quot;, &quot;tape/CrO2/60min&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_SUBJECT">
 	    <entry colname='c1'>&no-i18n-tag;Subject</entry>
 	    <entry colname='c2'>
-		Describes the subject of the file.
-		Example: 'Bird voices at early morning'
+		Describes the subject of the file. Example: &quot;Bird voices
+		 at early morning&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_TECHNICAN">
 	    <entry colname='c1'>&no-i18n-tag;Technician</entry>
 	    <entry colname='c2'>
 		Identifies the technician who digitized the subject file.
-		Example: 'Torvalds, Linus'
+		 Example: &quot;Torvalds, Linus&quot;
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_TRACK">
 	    <entry colname='c1'>&no-i18n-tag;Track</entry>
 	    <entry colname='c2'>
 		Track of the CD if the source was a CDROM.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_TRACKS">
 	    <entry colname='c1'>&no-i18n-tag;Tracks</entry>
 	    <entry colname='c2'>
 		Number of tracks of the CD if the source was a CDROM.
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_CHANNELS">
+	    <entry colname='c1'>&no-i18n-tag;Channels</entry>
+	    <entry colname='c2'>
+		Specifies the number of channels of the signal.
+	    </entry>
+	</row>
+	<row id="INF_VBR_QUALITY">
 	    <entry colname='c1'>&no-i18n-tag;Base Quality</entry>
 	    <entry colname='c2'>
 		Base quality of the compression in VBR mode
 	    </entry>
 	</row>
-	<row>
+	<row id="INF_VERSION">
 	    <entry colname='c1'>&no-i18n-tag;Version</entry>
 	    <entry colname='c2'>
-		May be used to differentiate multiple versions
-		of the same track title in a single collection.
-		(&eg; remix info)
+		May be used to differentiate multiple versions of the same
+		 track title in a single collection. (e.g. remix info)
 	    </entry>
 	</row>
-
+	<!-- @FILEINFO_TABLE_END@ -->
     </tbody>
     </tgroup>
     </table>

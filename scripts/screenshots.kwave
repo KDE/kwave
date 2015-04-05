@@ -124,9 +124,17 @@ main:
     sync()
 
 #
+# screenshot of the Help/About dialog
+#
+plugin-about:
+    delayed(2000,window:screenshot(Kwave::AboutDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-about.png))
+    delayed(100,window:close(Kwave::AboutDialog))
+    plugin:execute(about)
+
+#
 # screenshot of the AmplifyFree dialog
 #
-amplifyfree:
+plugin-amplifyfree:
     selectall()
     delayed(2000,window:resize(Kwave::AmplifyFreeDialog, 400, 300))
     delayed(500,window:click(Kwave::CurveWidget, 120, 50))
@@ -136,10 +144,30 @@ amplifyfree:
     sync()
 
 #
+# screenshot of the BandPass dialog
+#
+plugin-band_pass:
+    selectall()
+    delayed(500,window:screenshot(Kwave::BandPassDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-band_pass.png))
+    delayed(100,window:close(Kwave::BandPassDialog))
+    plugin:setup(band_pass,1337,1971)
+    sync()
+
+#
+# screenshot of the MP3 codec setup dialog
+#
+plugin-codec_mp3:
+    selectall()
+    delayed(500,window:screenshot(Kwave::MP3EncoderDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-codec_mp3.png))
+    delayed(100,window:close(Kwave::MP3EncoderDialog))
+    plugin:setup(codec_mp3)
+    sync()
+
+#
 # screenshot of the File Info dialog
 #
-fileinfo:
-    delayed(2000,window:screenshot(Kwave::FileInfoDialog, /var/tmp/screenshots/${LANG}/kwave-fileinfo.png))
+plugin-fileinfo:
+    delayed(2000,window:screenshot(Kwave::FileInfoDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-fileinfo.png))
     delayed(100,window:close(Kwave::FileInfoDialog))
     plugin:setup(fileinfo)
     sync()
@@ -147,9 +175,9 @@ fileinfo:
 #
 # screenshot of the Low Pass dialog
 #
-lowpass:
+plugin-lowpass:
     selectall()
-    delayed(2000,window:screenshot(Kwave::LowPassDialog, /var/tmp/screenshots/${LANG}/kwave-lowpass.png))
+    delayed(2000,window:screenshot(Kwave::LowPassDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-lowpass.png))
     delayed(100,window:close(Kwave::LowPassDialog))
     plugin:setup(lowpass, 2342)
     sync()
@@ -157,8 +185,8 @@ lowpass:
 #
 # screenshot of the Memory Setup dialog
 #
-memory-setup:
-    delayed(1000,window:screenshot(Kwave::MemoryDialog, /var/tmp/screenshots/${LANG}/kwave-memory-setup.png))
+plugin-memory:
+    delayed(1000,window:screenshot(Kwave::MemoryDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-memory.png))
     delayed(100,window:close(Kwave::MemoryDialog))
     plugin:setup(memory, 1,1024,1,1,512,/var/tmp,512)
     sync()
@@ -166,7 +194,7 @@ memory-setup:
 #
 # screenshot of the New File dialog
 #
-newsignal:
+plugin-newfile:
     delayed(1000,window:screenshot(Kwave::NewSignalDialog, /var/tmp/screenshots/${LANG}/kwave-newfile.png))
     delayed(100,window:close(Kwave::NewSignalDialog))
     plugin:setup(newsignal, 3660300, 44100, 16, 2, 1)
@@ -175,7 +203,7 @@ newsignal:
 #
 # screenshot of the Notch Filter dialog
 #
-notch-filter:
+plugin-notch:
     selectall()
     delayed(2000,window:screenshot(Kwave::NotchFilterDialog, /var/tmp/screenshots/${LANG}/kwave-notch-filter.png))
     delayed(100,window:close(Kwave::NotchFilterDialog))
@@ -185,7 +213,7 @@ notch-filter:
 #
 # screenshot of the Pitch Shift dialog
 #
-pitch:
+plugin-pitch:
     selectall()
     delayed(2000,window:screenshot(Kwave::PitchShiftDialog, /var/tmp/screenshots/${LANG}/kwave-pitch.png))
     delayed(100,window:close(Kwave::PitchShiftDialog))
@@ -195,7 +223,7 @@ pitch:
 #
 # screenshot of the Playback Setup dialog
 #
-playback-setup:
+plugin-playback:
     delayed(2000,window:screenshot(Kwave::PlayBackDialog, /var/tmp/screenshots/${LANG}/kwave-playback-setup.png))
     delayed(100,window:close(Kwave::PlayBackDialog))
     plugin:setup(playback, 2,"null sink|sound_card||Null Output|sound_note",2,0,16)
@@ -204,7 +232,7 @@ playback-setup:
 #
 # screenshot of the Record dialog
 #
-record:
+plugin-record:
     delayed(2000,window:screenshot(Kwave::RecordDialog, /var/tmp/screenshots/${LANG}/kwave-record.png))
     delayed(100,window:close(Kwave::RecordDialog))
     plugin:setup(record,2,1,20,1,300,0,2015-02-22T08:43:00,1,30,0,3,0,50,0,5,0,5,DSNOOP-Plugin|sound_note,2,44100,0,16,401,64,12)
@@ -213,7 +241,7 @@ record:
 #
 # screenshot of the Sonagram window
 #
-sonagram:
+plugin-sonagram:
     plugin:execute(selectrange,2,2,33,10)
     expandtolabel()
     select_track:none()
@@ -227,7 +255,7 @@ sonagram:
 #
 # screenshot of the Sonagram dialog
 #
-sonagram-setup:
+plugin-sonagram-setup:
     plugin:execute(selectrange,2,2,33,10)
     expandtolabel()
     select_track:none()
@@ -240,7 +268,7 @@ sonagram-setup:
 #
 # screenshot of the Volume dialog
 #
-volume:
+plugin-volume:
     selectall()
     select_track:all()
     delayed(2000,window:screenshot(Kwave::VolumeDialog, /var/tmp/screenshots/${LANG}/kwave-volume.png))

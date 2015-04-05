@@ -122,6 +122,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	bin/set_version.sh				GPL2+ / portions of Martin Wilz
 	bin/svn-update-l10n.sh				GPL2+
 	bin/update-command-xref.pl			GPL2+
+	bin/update-fileinfo-xref.pl			GPL2+
+	bin/update-plugin-xref.pl			GPL2+
 
 	cmake/Copyright.txt				Kitware (cmake)
 	cmake/COPYING-CMAKE-SCRIPTS			New BSD
@@ -150,17 +152,21 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 #	doc/en/audio-1.png				??? UNKNOWN ???
 #	doc/en/audio2signal.png				??? UNKNOWN ???
 	doc/en/krec_record.png				LGPL2 (crystal project) [copied from mix_record.png]
-	doc/en/kwave-fileinfo.png			(should be FDL)
 	doc/en/kwave-gui-mdi.png			(should be FDL)
 	doc/en/kwave-gui-sdi.png			(should be FDL)
 	doc/en/kwave-gui-tab.png			(should be FDL)
-	doc/en/kwave-lowpass.png			(should be FDL)
 	doc/en/kwave-main.png				(should be FDL)
-	doc/en/kwave-memory-setup.png			(should be FDL)
 	doc/en/kwave-newfile.png			(should be FDL)
 	doc/en/kwave-notch-filter.png			(should be FDL)
 	doc/en/kwave-pitch.png				(should be FDL)
 	doc/en/kwave-playback-setup.png			(should be FDL)
+	doc/en/kwave-plugin-about.png			(should be FDL)
+	doc/en/kwave-plugin-amplifyfree.png		(should be FDL)
+	doc/en/kwave-plugin-band_pass.png		(should be FDL)
+	doc/en/kwave-plugin-codec_mp3.png		(should be FDL)
+	doc/en/kwave-plugin-fileinfo.png		(should be FDL)
+	doc/en/kwave-plugin-lowpass.png			(should be FDL)
+	doc/en/kwave-plugin-memory.png			(should be FDL)
 	doc/en/kwave-record.png				(should be FDL)
 	doc/en/kwave-sonagram.png			(should be FDL)
 	doc/en/kwave-sonagram-setup.png			(should be FDL)

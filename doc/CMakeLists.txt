@@ -18,6 +18,8 @@
 FIND_PACKAGE(RequiredProgram REQUIRED)
 
 SET(UPDATE_COMMAND_XREF    ${CMAKE_SOURCE_DIR}/bin/update-command-xref.pl)
+SET(UPDATE_FILEINFO_XREF   ${CMAKE_SOURCE_DIR}/bin/update-fileinfo-xref.pl)
+SET(UPDATE_PLUGIN_XREF     ${CMAKE_SOURCE_DIR}/bin/update-plugin-xref.pl)
 SET(_index_docbook         ${CMAKE_CURRENT_SOURCE_DIR}/en/index.docbook)
 SET(_index_docbook_updated ${CMAKE_CURRENT_BINARY_DIR}/index-updated.docbook)
 
@@ -109,7 +111,22 @@ FILE(REMOVE "${CMAKE_BINARY_DIR}/${_png_file}")
 ### "make update-handbook"                                                ###
 
 ADD_CUSTOM_TARGET(update-handbook
-    COMMAND ${UPDATE_COMMAND_XREF} ${CMAKE_SOURCE_DIR} ${_index_docbook} ${_index_docbook_updated}
+    COMMAND ${UPDATE_COMMAND_XREF}
+	${CMAKE_SOURCE_DIR}
+	${_index_docbook}
+	${_index_docbook_updated}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_index_docbook_updated} ${_index_docbook}
+
+    COMMAND ${UPDATE_FILEINFO_XREF}
+	${_index_docbook}
+	${CMAKE_SOURCE_DIR}/libkwave/FileInfo.cpp
+	${_index_docbook_updated}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_index_docbook_updated} ${_index_docbook}
+
+    COMMAND ${UPDATE_PLUGIN_XREF}
+	${CMAKE_SOURCE_DIR}/plugins
+	${_index_docbook}
+	${_index_docbook_updated}
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_index_docbook_updated} ${_index_docbook}
 )
 

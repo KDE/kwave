@@ -319,14 +319,14 @@ int Kwave::PluginManager::setupPlugin(const QString &name,
                                       const QStringList &params)
 {
     // load the plugin
-    Kwave::Plugin* plugin = createPluginInstance(name);
+    Kwave::Plugin *plugin = createPluginInstance(name);
     if (!plugin) return -ENOMEM;
 
     // now the plugin is present and loaded
     QStringList prev_params = (!params.isEmpty()) ?
 	params : loadPluginDefaults(name);
 
-    // call the plugin's setup function
+    // call the plugins' setup function
     QStringList *new_params = plugin->setup(prev_params);
     if (new_params) {
 	// we have a non-zero parameter list, so

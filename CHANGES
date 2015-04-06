@@ -20,6 +20,7 @@
  * new command: window:minimize
  * bugfix: missing range check in noise generator (when used per script)
  * bugfix: saveblocks plugin did not work when omitting file extension
+ * saveblocks plugin: use escaped strings for storing settings instead of base64
 
 0.8.99-2 [2015-01-02]
 

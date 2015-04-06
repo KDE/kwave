@@ -19,7 +19,6 @@
 
 #include <errno.h>
 
-#include <QtCore/QByteArray>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
@@ -33,13 +32,14 @@
 #include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
+#include "libkwave/Parser.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
 
-KWAVE_PLUGIN(Kwave::SaveBlocksPlugin, "saveblocks", "2.3",
+KWAVE_PLUGIN(Kwave::SaveBlocksPlugin, "saveblocks", "2.4",
              I18N_NOOP("Save Blocks"), "Thomas Eschenbacher");
 
 //***************************************************************************
@@ -123,9 +123,8 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	    url.setPath(name);
 	}
 
-	name = QLatin1String(QByteArray(name.toUtf8()).toBase64());
-	pattern = QLatin1String(QByteArray(
-	    dialog->pattern().toUtf8()).toBase64());
+	name     = Kwave::Parser::escape(name);
+	pattern  = Kwave::Parser::escape(dialog->pattern());
 	int mode = static_cast<int>(dialog->numberingMode());
 	bool selection_only = (enable_selection_only) ?
 	    dialog->selectionOnly() : m_selection_only;
@@ -309,12 +308,11 @@ int Kwave::SaveBlocksPlugin::interpreteParameters(QStringList &params)
     }
 
     // the selected URL
-    m_url = QString::fromUtf8(QByteArray::fromBase64(params[0].toAscii()));
+    m_url = Kwave::Parser::unescape(params[0]);
     if (!m_url.isValid()) return -EINVAL;
 
     // filename pattern
-    m_pattern =
-	QString::fromUtf8(QByteArray::fromBase64(params[1].toAscii()));
+    m_pattern = Kwave::Parser::unescape(params[1]);
     if (!m_pattern.length()) return -EINVAL;
 
     // numbering mode

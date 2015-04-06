@@ -60,7 +60,7 @@ Kwave::FileDialog::FileDialog(
 	QFileInfo file(m_last_url);
 	if (QFileInfo(file.path()).exists() || (mode == KFileDialog::Saving))
 	    setUrl(KUrl(KUrl(m_last_url).path()));
-	if (file.isFile() && (file.exists() || (mode == KFileDialog::Saving)))
+	if (!file.isDir() && (file.exists() || (mode == KFileDialog::Saving)))
 	    setSelection(KUrl(m_last_url).fileName());
     }
 

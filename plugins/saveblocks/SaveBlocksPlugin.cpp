@@ -62,7 +62,6 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     interpreteParameters(previous_params);
 
     // create the setup dialog
-    KUrl url(signalName());
     sample_index_t selection_left  = 0;
     sample_index_t selection_right = 0;
     selection(0, &selection_left, &selection_right, false);
@@ -79,7 +78,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	    _("kfiledialog:///kwave_save_blocks"),
 	    Kwave::CodecManager::encodingFilter(),
 	    parentWidget(), true,
-	    url.prettyUrl(), _("*.wav"),
+	    signalName(), _("*.wav"),
 	    m_pattern,
 	    m_numbering_mode,
 	    m_selection_only,
@@ -105,7 +104,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	// user has pressed "OK"
 	QString pattern;
 
-	url = dialog->selectedUrl();
+	KUrl url = dialog->selectedUrl();
 	if (url.isEmpty()) {
 	    delete dialog;
 	    return 0;

@@ -104,11 +104,6 @@ namespace Kwave
 	/** collects all needed data and emits a sigSelectionChanged */
 	void emitUpdate();
 
-    protected slots:
-
-	/** calls emitUpdate() and ignores it's parameter */
-	void textChanged(const QString &);
-
     private:
 
 	/** the widget with extra settings for saving the blocks */

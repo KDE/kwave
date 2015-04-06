@@ -63,25 +63,23 @@ Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
 
     // combo box with pattern
     connect(cbPattern, SIGNAL(editTextChanged(QString)),
-            this, SLOT(textChanged(QString)));
+            this, SIGNAL(somethingChanged()));
     connect(cbPattern, SIGNAL(highlighted(int)),
-            this, SLOT(indexChanged(int)));
+            this, SIGNAL(somethingChanged()));
     connect(cbPattern, SIGNAL(activated(int)),
-            this, SLOT(indexChanged(int)));
+            this, SIGNAL(somethingChanged()));
 
     // combo box with numbering
     connect(cbNumbering, SIGNAL(editTextChanged(QString)),
-            this, SLOT(textChanged(QString)));
+            this, SIGNAL(somethingChanged()));
     connect(cbNumbering, SIGNAL(highlighted(int)),
-            this, SLOT(indexChanged(int)));
+            this, SIGNAL(somethingChanged()));
     connect(cbNumbering, SIGNAL(activated(int)),
-            this, SLOT(indexChanged(int)));
+            this, SIGNAL(somethingChanged()));
 
     // selection only checkbox
     connect(chkSelectionOnly, SIGNAL(stateChanged(int)),
-	    this, SLOT(indexChanged(int)));
-
-    emit somethingChanged();
+            this, SIGNAL(somethingChanged()));
 }
 
 //***************************************************************************
@@ -117,18 +115,6 @@ void Kwave::SaveBlocksWidget::setNewExample(const QString &example)
 {
     Q_ASSERT(txtExample);
     if (txtExample) txtExample->setText(example);
-}
-
-//***************************************************************************
-void Kwave::SaveBlocksWidget::textChanged(const QString &)
-{
-    emit somethingChanged();
-}
-
-//***************************************************************************
-void Kwave::SaveBlocksWidget::indexChanged(int)
-{
-    emit somethingChanged();
 }
 
 //***************************************************************************

@@ -74,17 +74,17 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
                          (selection_right + 1 >= signalLength()));
     bool enable_selection_only = selected_something && !selected_all;
 
-    Kwave::SaveBlocksDialog *dialog = new Kwave::SaveBlocksDialog(
-	_(":<kwave_save_blocks>"),
-	Kwave::CodecManager::encodingFilter(),
-	parentWidget(), true,
-	url.prettyUrl(), _("*.wav"),
-	m_pattern,
-	m_numbering_mode,
-	m_selection_only,
-	enable_selection_only
-    );
-    Q_ASSERT(dialog);
+    QPointer<Kwave::SaveBlocksDialog> dialog =
+	new(std::nothrow) Kwave::SaveBlocksDialog(
+	    _("kfiledialog:///kwave_save_blocks"),
+	    Kwave::CodecManager::encodingFilter(),
+	    parentWidget(), true,
+	    url.prettyUrl(), _("*.wav"),
+	    m_pattern,
+	    m_numbering_mode,
+	    m_selection_only,
+	    enable_selection_only
+	);
     if (!dialog) return 0;
 
     // connect the signals/slots from the plugin and the dialog
@@ -103,10 +103,27 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     Q_ASSERT(list);
     if (list) {
 	// user has pressed "OK"
-	QString pattern, name;
+	QString pattern;
 
-	name = QLatin1String(QByteArray(
-	    dialog->selectedUrl().prettyUrl().toUtf8()).toBase64());
+	url = dialog->selectedUrl();
+	if (url.isEmpty()) {
+	    delete dialog;
+	    return 0;
+	}
+	QString name = url.path();
+	QFileInfo path(name);
+
+	// add the correct extension if necessary
+	if (!path.suffix().length()) {
+	    QString ext = dialog->selectedExtension();
+	    QStringList extensions = ext.split(_(" "));
+	    ext = extensions.first();
+	    name += ext.mid(1);
+	    path = name;
+	    url.setPath(name);
+	}
+
+	name = QLatin1String(QByteArray(name.toUtf8()).toBase64());
 	pattern = QLatin1String(QByteArray(
 	    dialog->pattern().toUtf8()).toBase64());
 	int mode = static_cast<int>(dialog->numberingMode());

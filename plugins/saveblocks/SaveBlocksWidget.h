@@ -82,14 +82,6 @@ namespace Kwave
 	 */
 	void setNewExample(const QString &example);
 
-    private slots:
-
-	/** calls somethingChanged() and ignores it's parameter */
-	void textChanged(const QString &);
-
-	/** calls somethingChanged() and ignores it's parameter */
-	void indexChanged(int);
-
     };
 }
 

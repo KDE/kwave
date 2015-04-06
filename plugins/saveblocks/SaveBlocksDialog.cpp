@@ -43,7 +43,7 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
 )
     :Kwave::FileDialog(startDir, KFileDialog::Saving, filter, parent, modal,
                        last_url, last_ext),
-     m_widget(new Kwave::SaveBlocksWidget(this, filename_pattern,
+     m_widget(new(std::nothrow) Kwave::SaveBlocksWidget(this, filename_pattern,
 	numbering_mode, selection_only, have_selection))
 {
     Q_ASSERT(m_widget);
@@ -53,9 +53,9 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
 
     // if something in the file selection changes
     connect(this, SIGNAL(filterChanged(QString)),
-            this, SLOT(textChanged(QString)));
+            this, SLOT(emitUpdate()));
     connect(locationEdit(), SIGNAL(editTextChanged(QString)),
-            this, SLOT(textChanged(QString)));
+            this, SLOT(emitUpdate()));
 }
 
 //***************************************************************************
@@ -100,19 +100,17 @@ void Kwave::SaveBlocksDialog::emitUpdate()
     QString path = baseUrl().path(KUrl::AddTrailingSlash);
     QString filename = path + locationEdit()->currentText();
     QFileInfo file(filename);
+
     if (!file.suffix().length()) {
 	// append the currently selected extension if it's missing
-	QString extension = selectedExtension().section(_(" "), 0, 0);
+	QString extension = selectedExtension();
+	if (extension.contains(_(" ")))
+	    extension = extension.section(_(" "), 0, 0);
 	filename += extension.remove(0, 1);
     }
+
     emit sigSelectionChanged(filename, pattern(),
 	numberingMode(), selectionOnly());
-}
-
-//***************************************************************************
-void Kwave::SaveBlocksDialog::textChanged(const QString &)
-{
-    emitUpdate();
 }
 
 //***************************************************************************

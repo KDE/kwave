@@ -46,7 +46,7 @@ Kwave::GotoPluginBase::~GotoPluginBase()
 //***************************************************************************
 QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
 {
-    // try to interprete the previous parameters
+    // try to interpret the previous parameters
     interpreteParameters(previous_params);
 
     // create the setup dialog

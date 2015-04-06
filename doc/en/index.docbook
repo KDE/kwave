@@ -17,10 +17,6 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
-  <!ENTITY url_iso639 "http://www.loc.gov/standards/iso639-2/php/code_list.php">
-  <!ENTITY url_kde_l10n "http://l10n.kde.org/">
-  <!ENTITY url_kde_localize "http://userbase.kde.org/Lokalize/">
-  <!ENTITY url_kde_screenshots "http://l10n.kde.org/docs/screenshots.php">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
@@ -31,7 +27,6 @@
   <!ENTITY url_ogg_vorbis "http://www.xiph.org">
   <!ENTITY url_readme "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/README">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
-  <!ENTITY url_rfc3066 "http://www.ietf.org/rfc/rfc3066.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_instructions "http://sourceforge.net/p/kwave/code/">
@@ -41,6 +36,7 @@
   <!ENTITY i18n-cmd_syntax "Syntax: ">
   <!ENTITY i18n-plugin_lbl_internal_name "Internal&nbsp;Name:">
   <!ENTITY i18n-plugin_lbl_type "Plugin&nbsp;Type:">
+  <!ENTITY i18n-plugin_lbl_commands "Commands:">
   <!ENTITY i18n-plugin_lbl_description "Description:">
   <!ENTITY i18n-plugin_lbl_parameters "Parameters:">
   <!ENTITY i18n-plugin_lbl_file_types "Supported&nbsp;File&nbsp;Types:">
@@ -717,7 +713,7 @@
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>
-		<listitem><para>
+		<listitem id="CMAKE_WITH_DEBUG"><para>
 		    <literal>WITH_DEBUG</literal>
 		    build a debug version
 		    [<literal>on</literal>/<literal>off</literal>,
@@ -1574,7 +1570,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Memory Setup                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <sect1 id="memory-setup"><title>Memory Setup</title>
+    <sect1 id="memory-setup"><title id="sect_title_memory-setup">Memory Setup</title>
 
     <para>
        When using &kwave; for the first time, you should go to the memory
@@ -1919,7 +1915,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: New File                                              +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <sect1 id="newfile"><title>Creating a New File</title>
+    <sect1 id="newsignal"><title id="sect_title_newsignal">Creating a New File</title>
 
     <para>
        You can create a new and empty file menu under
@@ -1934,7 +1930,7 @@
 	    </screeninfo>
 	    <mediaobject>
 		<imageobject>
-	    	    <imagedata fileref="kwave-newfile.png" format="PNG"/>
+	    	    <imagedata fileref="kwave-plugin-newsignal.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		    <phrase>Screenshot of the File New Dialog</phrase>
@@ -1959,7 +1955,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Recording                                             +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <sect1 id="recording"><title>Recording</title>
+    <sect1 id="recording"><title id="sect_title_recording">Recording</title>
 
     <para>
         &kwave; is able to record audio data from various sources, with all
@@ -2106,7 +2102,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Playback                                              +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <sect1 id="playback"><title>Playback</title>
+    <sect1 id="playback"><title id="sect_title_playback">Playback</title>
 
     <para>
         Depending on the compilation options &kwave; is able to play sounds
@@ -2141,7 +2137,7 @@
 	    </screeninfo>
 	    <mediaobject>
 		<imageobject>
-		    <imagedata fileref="kwave-playback-setup.png" format="PNG"/>
+		    <imagedata fileref="kwave-plugin-playback.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		    <phrase>Screenshot of the Playback Setup Dialog</phrase>
@@ -2221,9 +2217,9 @@
 
     </sect1>
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: How to select                                         +++ -->
+<!-- +++ Section: File Properties                                       +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <sect1 id="fileinfo"><title>File Properties</title>
+    <sect1 id="fileinfo"><title id="title_fileinfo">File Properties</title>
 
     <para>
 	&kwave; is able to handle several meta information that is stored
@@ -4882,7 +4878,7 @@
 	<!-- @COMMAND@ window:click(class,x,y) -->
 	<sect2 id="cmd_sect_window_click"><title id="cmd_title_window_click">&no-i18n-cmd_window_click;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_resize;</command>(
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_click;</command>(
 		<replaceable>class</replaceable>,
 		<replaceable>x</replaceable>,
 		<replaceable>y</replaceable>
@@ -5897,7 +5893,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ debug (TODO) -->
+    <!-- @PLUGIN@ debug -->
     <sect1 id="plugin_sect_debug"><title id="plugin_title_debug">&no-i18n-plugin_debug; (Debug Functions)</title>
     <variablelist>
 	<varlistentry>
@@ -5912,29 +5908,30 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Debug Functions plugin does...
+		Provides various internal commands useful for debugging and
+		scripting &kwave;. These functions are only available through
+		the main menu if &kwave; has been compiled in debug mode
+		(see <link linkend="CMAKE_WITH_DEBUG">build options)</link>.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_commands;</emphasis></term>
 	    <listitem>
-		<variablelist>
-		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
-			<listitem>
-			    <para>
-				description of the parameter
-			    </para>
-			</listitem>
-		    </varlistentry>
-		</variablelist>
+		<para>
+		    <link linkend="cmd_sect_window_click"      endterm="cmd_title_window_click"/>,
+		    <link linkend="cmd_sect_window_close"      endterm="cmd_title_window_close"/>
+		    <link linkend="cmd_sect_window_mousemove"  endterm="cmd_title_window_mousemove"/>,
+		    <link linkend="cmd_sect_window_resize"     endterm="cmd_title_window_resize"/>,
+		    <link linkend="cmd_sect_window_screenshot" endterm="cmd_title_window_screenshot"/>,
+		    <link linkend="cmd_sect_window_sendkey"    endterm="cmd_title_window_sendkey"/>
+		</para>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ fileinfo (TODO) -->
+    <!-- @PLUGIN@ fileinfo () -->
     <sect1 id="plugin_sect_fileinfo"><title id="plugin_title_fileinfo">&no-i18n-plugin_fileinfo; (File Info)</title>
     <screenshot>
 	<screeninfo>Screenshot</screeninfo>
@@ -5960,31 +5957,19 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the File Info plugin does...
+	        Provides a dialog window to view and change parameters and meta
+		data of the currently opened file.
+		See section <link linkend="fileinfo" endterm="title_fileinfo"/>
+		in this manual.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
-	    <listitem>
-		<variablelist>
-		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
-			<listitem>
-			    <para>
-				description of the parameter
-			    </para>
-			</listitem>
-		    </varlistentry>
-		</variablelist>
-	    </listitem>
-	</varlistentry -->
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ goto (TODO) -->
+    <!-- @PLUGIN@ goto -->
     <sect1 id="plugin_sect_goto"><title id="plugin_title_goto">&no-i18n-plugin_goto; (Goto Position)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -5994,7 +5979,7 @@
 		<phrase>Screenshot of the Goto Position Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6008,31 +5993,73 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Goto Position plugin does...
+	        Shows a dialog with the possibility to set the current position
+		of the selection to a new value, either by a time in milliseconds,
+		by a position in samples or by percentage of the length of the
+		current file.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_commands;</emphasis></term>
+	    <listitem>
+		<para>
+		    <link linkend="cmd_sect_goto" endterm="cmd_title_goto"/>
+		</para>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>mode</replaceable></term>
+			<listitem>
+			    <informaltable frame='all'>
+				<tgroup cols='2'>
+				    <thead>
+					<row>
+					    <entry align='left'>value</entry>
+					    <entry align='left'>description</entry>
+					</row>
+				    </thead>
+				    <tbody>
+					<row>
+					    <entry>&no-i18n-tag;<command>0</command></entry>
+					    <entry>position is given in milliseconds</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>1</command></entry>
+					    <entry>position is given in samples</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>2</command></entry>
+					    <entry>position is given in percentage of the file length</entry>
+					</row>
+				    </tbody>
+				</tgroup>
+			    </informaltable>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>position</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				position to go to, in milliseconds, samples or
+				percentage of the length of the file, depending
+				on the parameter <parameter>mode</parameter>.
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ insert_at (TODO) -->
+    <!-- @PLUGIN@ insert_at () -->
     <sect1 id="plugin_sect_insert_at"><title id="plugin_title_insert_at">&no-i18n-plugin_insert_at; (Insert At)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -6042,7 +6069,7 @@
 		<phrase>Screenshot of the Insert At Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6056,31 +6083,76 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Insert At plugin does...
+	        Similar to the
+		<link linkend="plugin_sect_goto" endterm="plugin_title_goto"/>
+		plugin, but shows a dialog with the possibility to insert the
+		current content of the clipboard at a given position, either
+		by a time in milliseconds, by a position in samples or by
+		percentage of the length of the current file.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_commands;</emphasis></term>
+	    <listitem>
+		<para>
+		    <link linkend="cmd_sect_insert_at" endterm="cmd_title_insert_at"/>
+		</para>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>mode</replaceable></term>
+			<listitem>
+			    <informaltable frame='all'>
+				<tgroup cols='2'>
+				    <thead>
+					<row>
+					    <entry align='left'>value</entry>
+					    <entry align='left'>description</entry>
+					</row>
+				    </thead>
+				    <tbody>
+					<row>
+					    <entry>&no-i18n-tag;<command>0</command></entry>
+					    <entry>position is given in milliseconds</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>1</command></entry>
+					    <entry>position is given in samples</entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>2</command></entry>
+					    <entry>position is given in percentage of the file length</entry>
+					</row>
+				    </tbody>
+				</tgroup>
+			    </informaltable>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>position</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				position where to insert the clipboard data,
+				in milliseconds, samples or percentage of the
+				length of the file, depending on the
+				parameter <parameter>mode</parameter>.
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ lowpass (TODO) -->
+    <!-- @PLUGIN@ lowpass -->
     <sect1 id="plugin_sect_lowpass"><title id="plugin_title_lowpass">&no-i18n-plugin_lowpass; (Low Pass Filter)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -6090,7 +6162,7 @@
 		<phrase>Screenshot of the Low Pass Filter Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6104,30 +6176,56 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Low Pass Filter plugin does...
+	        Applies a simple low pass filter to the current selection.
+		A low pass filter lets frequencies below a <emphasis>border frequency</emphasis>
+		pass and filters out frequencies that are above the border frequency.
+	    </para>
+	    <para>
+		The filter has grade two and is implemented as described in the book
+		<citetitle>"The manifold joys of conformal mapping,
+		applications to digital filtering in the studio</citetitle> by
+		<author>
+		    <personname>
+			<firstname>James A.</firstname>
+			<surname>Moorer</surname>
+		    </personname>
+		</author>
+		(JAES, Vol. 31, No. 11, 1983 November).
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>frequency</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				The border frequency of the low pass filter
+				in Hz.
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ memory (TODO) -->
+    <!-- @PLUGIN@ memory -->
     <sect1 id="plugin_sect_memory"><title id="plugin_title_memory">&no-i18n-plugin_memory; (Memory Settings)</title>
+    <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-memory.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Memory Setup Plugin</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6143,8 +6241,8 @@
 	    <para>
 	        Provides a dialog to set up the memory usage of &kwave;.
 		Please refer to the section about the
-		<link linkend="memory-setup">Memory Setup</link>
-		for a description.
+		<link linkend="memory-setup" endterm="sect_title_memory-setup"/>
+		in this manual for more information.
 	    </para>
 	    </listitem>
 	</varlistentry>
@@ -6156,8 +6254,9 @@
 			<term><replaceable>physical limited</replaceable></term>
 			<listitem>
 			    <para>
-				If zero, the use of physical memory will not limited,
-				otherwise the use of physical memory will be limited.
+				If zero, the use of physical memory will not
+				limited, otherwise the use of physical memory
+				will be limited.
 			    </para>
 			</listitem>
 		    </varlistentry>
@@ -6165,8 +6264,9 @@
 			<term><replaceable>physical limit</replaceable></term>
 			<listitem>
 			    <para>
-				Limitation of the physical memory in units of whole MB.
-				Only has an effect when the parameter <replaceable>physical limited</replaceable>
+				Limitation of the physical memory in units of
+				whole MB. Only has an effect when the parameter
+				<replaceable>physical limited</replaceable>
 				has been set to a non zero value.
 			    </para>
 			</listitem>
@@ -6176,9 +6276,11 @@
 			<term><replaceable>virtual enabled</replaceable></term>
 			<listitem>
 			    <para>
-				If zero, the use of virtual memory will be disabled,
-				otherwise the use of virtual memory will be enabled.
-				Only has an effect when the parameter <replaceable>virtual enabled</replaceable>
+				If zero, the use of virtual memory will be
+				disabled, otherwise the use of virtual memory
+				will be enabled. Only has an effect if the
+				parameter
+				<replaceable>virtual enabled</replaceable>
 				has been set to a non zero value.
 			    </para>
 			</listitem>
@@ -6187,9 +6289,11 @@
 			<term><replaceable>virtual limited</replaceable></term>
 			<listitem>
 			    <para>
-				If zero, the use of virtual memory will be not limited,
-				otherwise the use of virtual memory will be limited.
-				Only has an effect when the parameter <replaceable>virtual enabled</replaceable>
+				If zero, the use of virtual memory will be not
+				limited, otherwise the use of virtual memory
+				will be limited. Only has an effect if the
+				parameter
+				<replaceable>virtual enabled</replaceable>
 				has been set to a non zero value.
 			    </para>
 			</listitem>
@@ -6198,8 +6302,9 @@
 			<term><replaceable>virtual limit</replaceable></term>
 			<listitem>
 			    <para>
-				Limitation of the virtual memory in units of whole MB.
-				Only has an effect when the parameters <replaceable>virtual enabled</replaceable>
+				Limitation of the virtual memory in units of
+				whole MB. Only has an effect if the parameters
+				<replaceable>virtual enabled</replaceable>
 				and <replaceable>virtual limited</replaceable>
 				have both been set to a non zero value.
 			    </para>
@@ -6209,9 +6314,10 @@
 			<term><replaceable>virtual directory</replaceable></term>
 			<listitem>
 			    <para>
-				Directory to use for storing swap files that will be used for
-				providing virtual memory.
-				Only has an effect when the parameters <replaceable>virtual enabled</replaceable>
+				Directory to use for storing swap files that
+				will be used for providing virtual memory.
+				Only has an effect if the parameters
+				<replaceable>virtual enabled</replaceable>
 				and <replaceable>virtual limited</replaceable>
 				have both been set to a non zero value.
 			    </para>
@@ -6224,9 +6330,9 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ newsignal (TODO) -->
+    <!-- @PLUGIN@ newsignal -->
     <sect1 id="plugin_sect_newsignal"><title id="plugin_title_newsignal">&no-i18n-plugin_newsignal; (New Signal)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -6236,7 +6342,7 @@
 		<phrase>Screenshot of the New Signal Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6250,31 +6356,27 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the New Signal plugin does...
+	        Provides a dialog to create a new file.
+		Please refer to the section
+		<link linkend="newsignal" endterm="sect_title_newsignal"/>
+		in this manual for more information.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_commands;</emphasis></term>
 	    <listitem>
-		<variablelist>
-		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
-			<listitem>
-			    <para>
-				description of the parameter
-			    </para>
-			</listitem>
-		    </varlistentry>
-		</variablelist>
+		<para>
+		    <link linkend="cmd_sect_newsignal" endterm="cmd_title_newsignal"/>,
+		</para>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ noise (TODO) -->
+    <!-- @PLUGIN@ noise -->
     <sect1 id="plugin_sect_noise"><title id="plugin_title_noise">&no-i18n-plugin_noise; (Noise Generator)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -6284,7 +6386,7 @@
 		<phrase>Screenshot of the Noise Generator Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6298,41 +6400,65 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Noise Generator plugin does...
+	        Adds some amount of white noise to the current selection. The
+		amount of noise can be selected between zero (no noise, original
+		remains unchanged) and one (original will be replaced by
+		100% noise).
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>level</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				Noise level, always has to be a floating point
+				number above zero and below or equal to one.
 			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>mode</replaceable></term>
+			<listitem>
+			    <informaltable frame='all'>
+				<tgroup cols='2'>
+				    <thead>
+					<row>
+					    <entry align='left'>value</entry>
+					    <entry align='left'>description</entry>
+					</row>
+				    </thead>
+				    <tbody>
+					<row>
+					    <entry>&no-i18n-tag;<command>0</command></entry>
+					    <entry>
+						Enter the noise value as percentage
+						of the amplitude, from 0 to 100.
+					    </entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>1</command></entry>
+					    <entry>
+						Enter the noise in decibel, from
+						-21 dB to 0 dB.
+					    </entry>
+					</row>
+				    </tbody>
+				</tgroup>
+			    </informaltable>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ normalize (TODO) -->
+    <!-- @PLUGIN@ normalize -->
     <sect1 id="plugin_sect_normalize"><title id="plugin_title_normalize">&no-i18n-plugin_normalize; (Normalizer)</title>
-    <!-- <screenshot>
-	<screeninfo>Screenshot</screeninfo>
-	<mediaobject>
-	    <imageobject>
-		<imagedata fileref="kwave-plugin-normalize.png" format="PNG"/>
-	    </imageobject>
-	    <textobject>
-		<phrase>Screenshot of the Normalizer Plugin</phrase>
-	    </textobject>
-	</mediaobject>
-    </screenshot> -->
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6346,31 +6472,29 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Normalizer plugin does...
+	        Normalizes the volume level of the current selection. Use this
+		if the volume of your signal is too low or too high.
+	    </para>
+	    <para>
+		The algorithm is taken from the <citetitle>normalize</citetitle>
+		project, and was originally written by
+		<link linkend="author_Chris_Vaill">
+		    <author>
+			<personname>
+			    <firstname>Chris</firstname>
+			    <surname>Vaill</surname>
+			</personname>
+		    </author>
+		</link>.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
-	    <listitem>
-		<variablelist>
-		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
-			<listitem>
-			    <para>
-				description of the parameter
-			    </para>
-			</listitem>
-		    </varlistentry>
-		</variablelist>
-	    </listitem>
-	</varlistentry -->
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ notch_filter (TODO) -->
+    <!-- @PLUGIN@ notch_filter -->
     <sect1 id="plugin_sect_notch_filter"><title id="plugin_title_notch_filter">&no-i18n-plugin_notch_filter; (Notch Filter)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -6380,7 +6504,7 @@
 		<phrase>Screenshot of the Notch Filter Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6394,31 +6518,58 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Notch Filter plugin does...
+	        Applies a notch filter to the current selection. A notch filter
+		removes a small range of frequencies around a
+		<emphasis>center frequency</emphasis> and lets all other
+		frequencies below and above the center frequency
+		by more than half of the <emphasis>bandwidth</emphasis> pass.
+	    </para>
+	    <para>
+		Use this to filter out single distortion frequencies.
+	    </para>
+	    <para>
+		The filter has grade two and is based on the implementation of
+		<link linkend="author_Juhana_Sadeharju">
+		    <author>
+			<personname>
+			    <firstname>Juhana</firstname>
+			    <surname>Sadeharju</surname>
+			</personname>
+		    </author>
+		</link>.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>frequency</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				Center frequency of the filter in Hz, must be below
+				half of the sample rate of the file.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>bandwidth</replaceable></term>
+			<listitem>
+			    <para>
+				Bandwidth of the filter in Hz.
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ pitch_shift (TODO) -->
+    <!-- @PLUGIN@ pitch_shift -->
     <sect1 id="plugin_sect_pitch_shift"><title id="plugin_title_pitch_shift">&no-i18n-plugin_pitch_shift; (Pitch Shift)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -6428,7 +6579,7 @@
 		<phrase>Screenshot of the Pitch Shift Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6442,31 +6593,101 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Pitch Shift plugin does...
+	        The pitch shift effect modifies the signal by changing the speed
+		of the content, but with keeping the original length. You can
+		select the relative speed either by factor from 1/10 to x5, or
+		as a percentage from 1% to 400% of the original speed.
+	    </para>
+	    <para>
+		A speed factor below 1.0 pitches the signal down (lower voice,
+		makes voices sound older), factor 1.0 does no change and a
+		factor above 1.0 pitches the signal up (higher voice, mickey
+		mouse effect).
+	    </para>
+	    <para>
+		The implementation is based on the work of
+		<link linkend="author_Jeff_Tranter">
+		    <author>
+			<personname>
+			    <firstname>Jeff</firstname>
+			    <surname>Tranter</surname>
+			</personname>
+		    </author>
+		</link>
+		and
+		<link linkend="author_Stefan_Westerfeld">
+		    <author>
+			<personname>
+			    <firstname>Stefan</firstname>
+			    <surname>Westerfeld</surname>
+			</personname>
+		    </author>
+		</link>
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>speed</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				Factor for changing the speed, has to be a
+				floating point number between 0.001 and 4.0.
 			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>frequency</replaceable></term>
+			<listitem>
+			    <para>
+				Frequency internally used by the filter in Hz,
+				has to be between 2.0 and 10.0.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>mode</replaceable></term>
+			<listitem>
+			    <informaltable frame='all'>
+				<tgroup cols='2'>
+				    <thead>
+					<row>
+					    <entry align='left'>value</entry>
+					    <entry align='left'>description</entry>
+					</row>
+				    </thead>
+				    <tbody>
+					<row>
+					    <entry>&no-i18n-tag;<command>0</command></entry>
+					    <entry>
+						Enter the speed value as factor
+						from 1/10 to x5.
+					    </entry>
+					</row>
+					<row>
+					    <entry>&no-i18n-tag;<command>1</command></entry>
+					    <entry>
+						Enter the speed value as percentage
+						from 1 to 400.
+					    </entry>
+					</row>
+				    </tbody>
+				</tgroup>
+			    </informaltable>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ playback (TODO) -->
+    <!-- @PLUGIN@ playback -->
     <sect1 id="plugin_sect_playback"><title id="plugin_title_playback">&no-i18n-plugin_playback; (Playback)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -6476,7 +6697,7 @@
 		<phrase>Screenshot of the Playback Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6490,31 +6711,76 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Playback plugin does...
+	        Provides a dialog to set up the playback parameters.
+		Please refer to the section
+		<link linkend="playback" endterm="sect_title_playback"/>
+		in this manual for more information.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>playback method</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				The method used for playback, see
+				<filename>PlayBackParam.h</filename>.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>playback device</replaceable></term>
+			<listitem>
+			    <para>
+				A string that determines the playback device or
+				channel. The meaning depends on the playback
+				method.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>channels</replaceable></term>
+			<listitem>
+			    <para>
+				The number of channels to use for playback,
+				currently supports only 1 (mono) or 2 (stereo).
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>bits per sample</replaceable></term>
+			<listitem>
+			    <para>
+				The number of bits per sample for playback,
+				should be 8, 16, 24 or 32.
+				Depends on the playback method and the
+				playback device.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>buffer size</replaceable></term>
+			<listitem>
+			    <para>
+				Determines the size of the playback buffer, used
+				as exponent for calculating the real buffer
+				size as 2^n, e.g. setting this to 16 gives a
+				buffer size of 2^16 = 64 kB.
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ record (TODO) -->
+    <!-- @PLUGIN@ record -->
     <sect1 id="plugin_sect_record"><title id="plugin_title_record">&no-i18n-plugin_record; (Record)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -6524,7 +6790,7 @@
 		<phrase>Screenshot of the Record Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6538,41 +6804,18 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Record plugin does...
+	        Provides a dialog to set up the record parameters and to do
+		a recording. Please refer to the section
+		<link linkend="recording" endterm="sect_title_recording"/>
+		in this manual for more information.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
-	    <listitem>
-		<variablelist>
-		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
-			<listitem>
-			    <para>
-				description of the parameter
-			    </para>
-			</listitem>
-		    </varlistentry>
-		</variablelist>
-	    </listitem>
-	</varlistentry -->
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ reverse (TODO) -->
+    <!-- @PLUGIN@ reverse -->
     <sect1 id="plugin_sect_reverse"><title id="plugin_title_reverse">&no-i18n-plugin_reverse; (Reverse)</title>
-    <!-- <screenshot>
-	<screeninfo>Screenshot</screeninfo>
-	<mediaobject>
-	    <imageobject>
-		<imagedata fileref="kwave-plugin-reverse.png" format="PNG"/>
-	    </imageobject>
-	    <textobject>
-		<phrase>Screenshot of the Reverse Plugin</phrase>
-	    </textobject>
-	</mediaobject>
-    </screenshot> -->
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6586,25 +6829,10 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Reverse plugin does...
+	        This simple effect reverses the content of the current selection.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
-	    <listitem>
-		<variablelist>
-		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
-			<listitem>
-			    <para>
-				description of the parameter
-			    </para>
-			</listitem>
-		    </varlistentry>
-		</variablelist>
-	    </listitem>
-	</varlistentry -->
     </variablelist>
     </sect1>
 
@@ -7022,175 +7250,6 @@
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Adding a new language                                 +++ -->
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-    <sect1 id="add_new_language"><title>Adding support for a new Language</title>
-
-    <para>
-	<orderedlist>
-	    <listitem><para>
-		<emphasis>make system:</emphasis>
-		</para><para>
-		Edit the toplevel <filename>CMakeLists.txt</filename> and add
-		a new entry to the list of languages. Look for the variable
-		<literal><symbol>KWAVE_LINGUAS</symbol></literal> and add
-		a line for the new language. Each entry consists of a pair with
-		a language <emphasis>code</emphasis> and language
-		<emphasis>name</emphasis>, like this:
-<command><replaceable>&lt;code&gt;</replaceable><literal>:</literal><replaceable>&lt;name&gt;</replaceable></command>.
-		Example:
-<screen>
-	<parameter>fr</parameter><literal>:</literal><parameter>Francais</parameter>
-</screen>
-
-	    </para><para>
-		The language code is a 2-letter code which is used for
-		directories and filenames, as it is also used in KDE.
-		The language name is used internally for the
-		docbook online documentation and the online help only.
-		For a list of available language codes and names, please
-		refer to the documentation of the international standard
-		<ulink url="&url_iso639;">ISO 639.2</ulink>.
-	    </para></listitem>
-
-	    <listitem><para>
-		<emphasis>user interface:</emphasis>
-		</para><para>
-		Go to the source directory of &kwave; (not the build directory),
-		change into the subdirectory <filename>po</filename> and copy the
-		file <filename>kwave.pot</filename> to the corresponding <filename>.po</filename> file of
-		the language you want to add: <filename>"<replaceable>&lt;code&gt;</replaceable>.po"</filename>.
-		After that you can translate the file using your favorite tool, like
-		<filename>Lokalize</filename>.
-		Example:
-<screen>
-<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-<prompt>% </prompt><command>cd <parameter>po</parameter></command>
-<prompt>% </prompt><command>cp <parameter>kwave.pot</parameter> <parameter><replaceable>fr.po</replaceable></parameter></command>
-<prompt>% </prompt><command>lokalize <parameter>fr.po</parameter></command>
-</screen>
-	    </para></listitem>
-
-	    <listitem><para>
-		<emphasis>online help:</emphasis>
-		</para><para>
-		This is similar to the procedure for the user interface, but requires
-		some extra steps because the master file is in <literal>docbook</literal>
-		format and the <filename>.pot</filename> template is a generated
-		file.
-		Go to the source directory of &kwave; (not the build directory),
-		change into the subdirectory <filename>doc</filename> and create
-		an empty <filename>.po</filename> file:
-<screen>
-<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
-<prompt>% </prompt><command>touch <parameter><replaceable>help_fr.po</replaceable></parameter></command>
-</screen>
-		Then change to your build directory (&eg; somewhere in <filename>/tmp</filename>),
-		prepare for building and then generate the <filename>.pot</filename> template (you
-		can safely ignore the error messages that come out at this stage).
-		This template has to be copied to the <filename>.po</filename> file in the source
-		directory of the online help.
-		Example:
-<screen>
-<prompt>% </prompt><command>mkdir <parameter>/tmp/kwave-build</parameter></command>
-<prompt>% </prompt><command>cd <parameter>/tmp/kwave-build</parameter></command>
-<prompt>% </prompt><command>cmake <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-<prompt>% </prompt><command>make doc</command>
-<prompt>% </prompt><command>cp <parameter>doc/help_en.pot</parameter> <parameter><replaceable>$HOME/src/kwave/doc/help_fr.po</replaceable></parameter></command>
-</screen>
-	    Now you can translate the <filename>.po</filename> file, like above:
-<screen>
-<prompt>% </prompt><command>cd <parameter><replaceable>$HOME/src/kwave</replaceable></parameter></command>
-<prompt>% </prompt><command>cd <parameter>doc</parameter></command>
-<prompt>% </prompt><command>lokalize <parameter><replaceable>help_fr.po</replaceable></parameter></command>
-</screen>
-	    </para></listitem>
-
-	    <listitem><para>
-		<emphasis>screenshots:</emphasis>
-		</para><para>
-		For the online documentation you also need screenshots that use the
-		translated messages. This requires a built and installed &kwave; package,
-		so you should follow the steps mentioned in the section about
-		<link linkend="manual_compilation">Manual Compilation and installation</link>.
-		Of course you <emphasis>must not</emphasis> pass the build
-		option <literal>WITH_DOC=no</literal> or any other build option that
-		removes functionality, otherwise you would not be able to get
-		screenshots of components that you have disabled.
-		</para><para>
-		For a list of screenshots you can look into one of the existing directories
-		in the source tree, for example in <filename>$HOME/doc/de</filename>.
-		All screenshots are in <emphasis><filename>.png</filename></emphasis> and
-		should follow the
-		<ulink url="&url_kde_screenshots;">KDE
-		Documentation Screenshots Requirements</ulink>.
-		Here in short:
-		<itemizedlist>
-		    <listitem><para>
-			Window decoration: Oxygen
-		    </para></listitem>
-		    <listitem><para>
-			Widget style: Oxygen
-		    </para></listitem>
-		    <listitem><para>
-			Colors: Oxygen
-		    </para></listitem>
-		    <listitem><para>
-			Background: Flat color - Color must be white
-		    </para></listitem>
-		    <listitem><para>
-			Run X11 in 72dpi mode
-		    </para></listitem>
-		    <listitem><para>
-			Save the files in 8bpp
-		    </para></listitem>
-		    <listitem><para>
-			Try to keep the size of each file below 20kB
-		    </para></listitem>
-		</itemizedlist>
-	    </para></listitem>
-	    <listitem><para>
-		<emphasis>desktop file:</emphasis>
-		</para><para>
-		Add a <emphasis>Comment</emphasis> line for the new language
-		to the file <filename>kwave/kwave.desktop.in</filename>.
-		Please note that this file is UTF-8 encoded!
-		Example:
-<screen>
-	<literal>Comment[</literal><replaceable>fr</replaceable><literal>]=</literal><replaceable>Un éditeur de sons pour KDE</replaceable>
-</screen>
-	    </para></listitem>
-	</orderedlist>
-    </para>
-
-    <para>
-	Useful links:
-	<itemizedlist>
-	    <listitem><para>
-		<ulink url="&url_rfc3066;">RFC 3066</ulink>
-		Tags for the Identification of Languages
-	    </para></listitem>
-	    <listitem><para>
-		<ulink url="&url_kde_l10n;">KDE Localization</ulink> contains
-		a lot of useful links for KDE translators.
-	    </para></listitem>
-	    <listitem><para>
-		<ulink url="&url_kde_localize;">Lokalize</ulink> is
-		<emphasis>the</emphasis> standard tool that helps you
-		translating <filename>.po</filename> files.
-	    </para></listitem>
-	    <listitem><para>
-		<ulink url="&url_kde_screenshots;">KDE
-		Documentation Screenshots Requirements</ulink>.
-	    </para></listitem>
-	</itemizedlist>
-    </para>
-
-    </sect1>
-
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Adding a new plugin                                   +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
@@ -7593,7 +7652,7 @@
 		    svn r2163, patch for libaudiofile detection
 		</para>
 	    </listitem>
-	    <listitem>
+	    <listitem id="author_Chris_Vaill">
 	    	<para><emphasis role="bold">
 		    Chris Vaill <email>chrisvaill@gmail</email>
 		</emphasis></para><para>
@@ -7637,14 +7696,14 @@
 		    parts of plugins/playback/PlayBack-ALSA.cpp
 		</para>
 	    </listitem>
-	    <listitem>
+	    <listitem id="author_Jeff_Tranter">
 	    	<para><emphasis role="bold">
 		    Jeff Tranter
 		</emphasis></para><para>
 		    parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
 		</para>
 	    </listitem>
-	    <listitem>
+	    <listitem id="author_Juhana_Sadeharju">
 	    	<para><emphasis role="bold">
 		    Juhana Sadeharju <email>kouhia@nic.funet.fi</email>
 		</emphasis></para><para>
@@ -7712,7 +7771,7 @@
 		    <ulink url="&url_levelmeter;">level meter</ulink>
 		</para>
 	    </listitem>
-	    <listitem>
+	    <listitem id="author_Stefan_Westerfeld">
 	    	<para><emphasis role="bold">
 		    Stefan Westerfeld <email>stefan@space.twc.de</email>
 		</emphasis></para><para>

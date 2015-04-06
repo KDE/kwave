@@ -173,6 +173,24 @@ plugin-fileinfo:
     sync()
 
 #
+# screenshot of the Goto plugin
+#
+plugin-goto:
+    delayed(2000,window:screenshot(Kwave::GotoDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-goto.png))
+    delayed(100,window:close(Kwave::GotoDialog))
+    plugin:setup(goto, 2, 42)
+    sync()
+
+#
+# screenshot of the Insert At plugin
+#
+plugin-insert_at:
+    delayed(2000,window:screenshot(Kwave::GotoDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-insert_at.png))
+    delayed(100,window:close(Kwave::GotoDialog))
+    plugin:setup(insert_at, 2, 42)
+    sync()
+
+#
 # screenshot of the Low Pass dialog
 #
 plugin-lowpass:
@@ -180,6 +198,16 @@ plugin-lowpass:
     delayed(2000,window:screenshot(Kwave::LowPassDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-lowpass.png))
     delayed(100,window:close(Kwave::LowPassDialog))
     plugin:setup(lowpass, 2342)
+    sync()
+
+#
+# screenshot of the Noise Generator dialog
+#
+plugin-noise:
+    selectall()
+    delayed(2000,window:screenshot(Kwave::NoiseDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-noise.png))
+    delayed(100,window:close(Kwave::NoiseDialog))
+    plugin:setup(noise, 0.22, 1)
     sync()
 
 #
@@ -194,8 +222,8 @@ plugin-memory:
 #
 # screenshot of the New File dialog
 #
-plugin-newfile:
-    delayed(1000,window:screenshot(Kwave::NewSignalDialog, /var/tmp/screenshots/${LANG}/kwave-newfile.png))
+plugin-newsignal:
+    delayed(1000,window:screenshot(Kwave::NewSignalDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-newsignal.png))
     delayed(100,window:close(Kwave::NewSignalDialog))
     plugin:setup(newsignal, 3660300, 44100, 16, 2, 1)
     sync()
@@ -203,9 +231,9 @@ plugin-newfile:
 #
 # screenshot of the Notch Filter dialog
 #
-plugin-notch:
+plugin-notch_filter:
     selectall()
-    delayed(2000,window:screenshot(Kwave::NotchFilterDialog, /var/tmp/screenshots/${LANG}/kwave-notch-filter.png))
+    delayed(2000,window:screenshot(Kwave::NotchFilterDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-notch_filter.png))
     delayed(100,window:close(Kwave::NotchFilterDialog))
     plugin:setup(notch_filter, 880, 230)
     sync()
@@ -213,9 +241,9 @@ plugin-notch:
 #
 # screenshot of the Pitch Shift dialog
 #
-plugin-pitch:
+plugin-pitch_shift:
     selectall()
-    delayed(2000,window:screenshot(Kwave::PitchShiftDialog, /var/tmp/screenshots/${LANG}/kwave-pitch.png))
+    delayed(2000,window:screenshot(Kwave::PitchShiftDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-pitch_shift.png))
     delayed(100,window:close(Kwave::PitchShiftDialog))
     plugin:setup(pitch_shift,1.23, 4, 1)
     sync()
@@ -224,7 +252,7 @@ plugin-pitch:
 # screenshot of the Playback Setup dialog
 #
 plugin-playback:
-    delayed(2000,window:screenshot(Kwave::PlayBackDialog, /var/tmp/screenshots/${LANG}/kwave-playback-setup.png))
+    delayed(2000,window:screenshot(Kwave::PlayBackDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-playback.png))
     delayed(100,window:close(Kwave::PlayBackDialog))
     plugin:setup(playback, 2,"null sink|sound_card||Null Output|sound_note",2,0,16)
     sync()
@@ -233,7 +261,7 @@ plugin-playback:
 # screenshot of the Record dialog
 #
 plugin-record:
-    delayed(2000,window:screenshot(Kwave::RecordDialog, /var/tmp/screenshots/${LANG}/kwave-record.png))
+    delayed(2000,window:screenshot(Kwave::RecordDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-record.png))
     delayed(100,window:close(Kwave::RecordDialog))
     plugin:setup(record,2,1,20,1,300,0,2015-02-22T08:43:00,1,30,0,3,0,50,0,5,0,5,DSNOOP-Plugin|sound_note,2,44100,0,16,401,64,12)
     sync()

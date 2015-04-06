@@ -18,6 +18,7 @@
  * new plugin: stringenter
  * bugfix: minimized windows were not migrated properly when switching GUI type
  * new command: window:minimize
+ * bugfix: missing range check in noise generator (when used per script)
 
 0.8.99-2 [2015-01-02]
 

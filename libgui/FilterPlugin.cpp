@@ -207,7 +207,6 @@ void Kwave::FilterPlugin::startPreListen()
     Q_ASSERT(!m_sink);
     if (m_sink) delete m_sink;
     m_sink = manager().openMultiTrackPlayback(selectedTracks().count());
-    Q_ASSERT(m_sink);
 
     if (m_sink) {
 	m_listen = true;

@@ -257,7 +257,10 @@ void Kwave::NoiseDialog::updateDisplay(double value)
 	}
 	case MODE_DECIBEL: {
 	    // factor 1.0 means 0dB
-	    new_slider_value = Kwave::toInt(rint(20.0 * log10(value)));
+	    if (!qFuzzyIsNull(value))
+		new_slider_value = Kwave::toInt(rint(20.0 * log10(value)));
+	    else
+		new_slider_value = 0;
 	    new_spinbox_value = new_slider_value;
 	    if (new_spinbox_value >= 0) {
 		spinbox->setPrefix(new_spinbox_value ? _("+") : _("+/- "));
@@ -325,6 +328,8 @@ void Kwave::NoiseDialog::setParams(QStringList &params)
 {
     // evaluate the parameter list
     double factor = params[0].toDouble();
+    factor = qBound<double>(0.0, factor, 1.0);
+
     switch (params[1].toUInt()) {
 	case 0:  m_mode = MODE_PERCENT; break;
 	case 1:  m_mode = MODE_DECIBEL; break;

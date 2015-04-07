@@ -38,8 +38,9 @@ namespace Kwave
 	/**
 	 * Constructor.
 	 * @param parent the parent widget the dialog belongs to
+	 * @param preset initial text of the line edit field
 	 */
-	explicit StringEnterDialog(QWidget *parent);
+	explicit StringEnterDialog(QWidget *parent, const QString &preset);
 
 	/** Destructor */
 	virtual ~StringEnterDialog();

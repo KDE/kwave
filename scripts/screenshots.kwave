@@ -119,8 +119,8 @@ main:
     view:zoom_all()
     plugin:execute(selectrange,2,2,25,10)
     expandtolabel()
-    delayed(1500,window:mousemove(Kwave::TrackView,350,80))
-    delayed(1500,window:screenshot(Kwave::TopWidget, /var/tmp/screenshots/${LANG}/kwave-main.png))
+    delayed(1000,window:mousemove(Kwave::TrackView,350,80))
+    delayed(1000,window:screenshot(Kwave::TopWidget, /var/tmp/screenshots/${LANG}/kwave-main.png))
     sync()
 
 #
@@ -136,7 +136,7 @@ plugin-about:
 #
 plugin-amplifyfree:
     selectall()
-    delayed(2000,window:resize(Kwave::AmplifyFreeDialog, 400, 300))
+    delayed(1000,window:resize(Kwave::AmplifyFreeDialog, 400, 300))
     delayed(500,window:click(Kwave::CurveWidget, 120, 50))
     delayed(500,window:screenshot(Kwave::AmplifyFreeDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-amplifyfree.png))
     delayed(100,window:close(Kwave::AmplifyFreeDialog))
@@ -167,7 +167,7 @@ plugin-codec_mp3:
 # screenshot of the File Info dialog
 #
 plugin-fileinfo:
-    delayed(2000,window:screenshot(Kwave::FileInfoDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-fileinfo.png))
+    delayed(1000,window:screenshot(Kwave::FileInfoDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-fileinfo.png))
     delayed(100,window:close(Kwave::FileInfoDialog))
     plugin:setup(fileinfo)
     sync()
@@ -176,7 +176,7 @@ plugin-fileinfo:
 # screenshot of the Goto plugin
 #
 plugin-goto:
-    delayed(2000,window:screenshot(Kwave::GotoDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-goto.png))
+    delayed(1000,window:screenshot(Kwave::GotoDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-goto.png))
     delayed(100,window:close(Kwave::GotoDialog))
     plugin:setup(goto, 2, 42)
     sync()
@@ -185,7 +185,7 @@ plugin-goto:
 # screenshot of the Insert At plugin
 #
 plugin-insert_at:
-    delayed(2000,window:screenshot(Kwave::GotoDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-insert_at.png))
+    delayed(1000,window:screenshot(Kwave::GotoDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-insert_at.png))
     delayed(100,window:close(Kwave::GotoDialog))
     plugin:setup(insert_at, 2, 42)
     sync()
@@ -195,7 +195,7 @@ plugin-insert_at:
 #
 plugin-lowpass:
     selectall()
-    delayed(2000,window:screenshot(Kwave::LowPassDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-lowpass.png))
+    delayed(1000,window:screenshot(Kwave::LowPassDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-lowpass.png))
     delayed(100,window:close(Kwave::LowPassDialog))
     plugin:setup(lowpass, 2342)
     sync()
@@ -205,7 +205,7 @@ plugin-lowpass:
 #
 plugin-noise:
     selectall()
-    delayed(2000,window:screenshot(Kwave::NoiseDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-noise.png))
+    delayed(1000,window:screenshot(Kwave::NoiseDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-noise.png))
     delayed(100,window:close(Kwave::NoiseDialog))
     plugin:setup(noise, 0.22, 1)
     sync()
@@ -233,7 +233,7 @@ plugin-newsignal:
 #
 plugin-notch_filter:
     selectall()
-    delayed(2000,window:screenshot(Kwave::NotchFilterDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-notch_filter.png))
+    delayed(1000,window:screenshot(Kwave::NotchFilterDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-notch_filter.png))
     delayed(100,window:close(Kwave::NotchFilterDialog))
     plugin:setup(notch_filter, 880, 230)
     sync()
@@ -243,7 +243,7 @@ plugin-notch_filter:
 #
 plugin-pitch_shift:
     selectall()
-    delayed(2000,window:screenshot(Kwave::PitchShiftDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-pitch_shift.png))
+    delayed(1000,window:screenshot(Kwave::PitchShiftDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-pitch_shift.png))
     delayed(100,window:close(Kwave::PitchShiftDialog))
     plugin:setup(pitch_shift,1.23, 4, 1)
     sync()
@@ -252,7 +252,7 @@ plugin-pitch_shift:
 # screenshot of the Playback Setup dialog
 #
 plugin-playback:
-    delayed(2000,window:screenshot(Kwave::PlayBackDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-playback.png))
+    delayed(1000,window:screenshot(Kwave::PlayBackDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-playback.png))
     delayed(100,window:close(Kwave::PlayBackDialog))
     plugin:setup(playback, 2,"null sink|sound_card||Null Output|sound_note",2,0,16)
     sync()
@@ -261,9 +261,32 @@ plugin-playback:
 # screenshot of the Record dialog
 #
 plugin-record:
-    delayed(2000,window:screenshot(Kwave::RecordDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-record.png))
+    delayed(1000,window:screenshot(Kwave::RecordDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-record.png))
     delayed(100,window:close(Kwave::RecordDialog))
     plugin:setup(record,2,1,20,1,300,0,2015-02-22T08:43:00,1,30,0,3,0,50,0,5,0,5,DSNOOP-Plugin|sound_note,2,44100,0,16,401,64,12)
+    sync()
+
+#
+# screenshot of the Save Blocks dialog
+#
+plugin-saveblocks:
+    selectnone()
+    fileinfo(Filename, example.wav)
+    selectnone()
+    delayed(1500,window:screenshot(Kwave::SaveBlocksDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-saveblocks.png))
+    delayed(100,window:close(Kwave::SaveBlocksDialog))
+    plugin:setup(saveblocks,/var/tmp/screenshots/example.wav,[\%filename\]\-\[\%04nr\],0,1)
+    sync()
+
+#
+# screenshot of the Select Range dialog
+#
+plugin-selectrange:
+    plugin:execute(selectrange,2,2,42,11)
+    fileinfo(Filename, example.wav)
+    delayed(1500,window:screenshot(Kwave::SelectRangeDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-selectrange.png))
+    delayed(100,window:close(Kwave::SelectRangeDialog))
+    plugin:setup(selectrange,2,2,42,11)
     sync()
 
 #
@@ -276,7 +299,7 @@ plugin-sonagram:
     select_track:on(0)
     plugin:execute(sonagram, 1024, hamming, 1, 1, 0)
     delayed(2000,window:click(Kwave::ImageView, 396, 259))
-    delayed(100,window:screenshot(Kwave::SonagramWindow, /var/tmp/screenshots/${LANG}/kwave-sonagram.png))
+    delayed(100,window:screenshot(Kwave::SonagramWindow, /var/tmp/screenshots/${LANG}/kwave-plugin-sonagram-window.png))
     delayed(100,window:sendkey(Kwave::SonagramWindow, Ctrl+W))
     sync()
 
@@ -288,9 +311,18 @@ plugin-sonagram-setup:
     expandtolabel()
     select_track:none()
     select_track:on(0)
-    delayed(2000,window:screenshot(Kwave::SonagramDialog, /var/tmp/screenshots/${LANG}/kwave-sonagram-setup.png))
+    delayed(1000,window:screenshot(Kwave::SonagramDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-sonagram-setup.png))
     delayed(100,window:close(Kwave::SonagramDialog))
     plugin:setup(sonagram, 1024, hamming, 1, 1, 0)
+    sync()
+
+#
+# screenshot of the String Enter dialog
+#
+plugin-stringenter:
+    delayed(1000,window:screenshot(Kwave::StringEnterDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-stringenter.png))
+    delayed(100,window:close(Kwave::StringEnterDialog))
+    plugin:setup(stringenter, help\(\))
     sync()
 
 #
@@ -299,7 +331,7 @@ plugin-sonagram-setup:
 plugin-volume:
     selectall()
     select_track:all()
-    delayed(2000,window:screenshot(Kwave::VolumeDialog, /var/tmp/screenshots/${LANG}/kwave-volume.png))
+    delayed(1000,window:screenshot(Kwave::VolumeDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-volume.png))
     delayed(100,window:close(Kwave::VolumeDialog))
     plugin:setup(volume, 0.707946, 2)
     sync()

@@ -54,11 +54,13 @@ void Kwave::StringEnterPlugin::load(QStringList &params)
 //***************************************************************************
 QStringList *Kwave::StringEnterPlugin::setup(QStringList &previous_params)
 {
-    Q_UNUSED(previous_params);
+    QString preset = QString();
+    if (previous_params.count() == 1)
+	preset = previous_params[0];
 
     // create the setup dialog
     QPointer<Kwave::StringEnterDialog> dialog =
-	new Kwave::StringEnterDialog(parentWidget());
+	new Kwave::StringEnterDialog(parentWidget(), preset);
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 

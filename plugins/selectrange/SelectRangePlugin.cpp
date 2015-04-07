@@ -52,7 +52,7 @@ Kwave::SelectRangePlugin::~SelectRangePlugin()
 //***************************************************************************
 QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
 {
-    // try to interprete the previous parameters
+    // try to interpret the previous parameters
     interpreteParameters(previous_params);
 
     // create the setup dialog

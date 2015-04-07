@@ -171,9 +171,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	doc/en/kwave-plugin-pitch_shift.png		(should be FDL)
 	doc/en/kwave-plugin-playback.png		(should be FDL)
 	doc/en/kwave-plugin-record.png			(should be FDL)
-	doc/en/kwave-sonagram.png			(should be FDL)
-	doc/en/kwave-sonagram-setup.png			(should be FDL)
-	doc/en/kwave-volume.png				(should be FDL)
+	doc/en/kwave-plugin-selectrange.png		(should be FDL)
+	doc/en/kwave-plugin-sonagram-setup.png		(should be FDL)
+	doc/en/kwave-plugin-sonagram-window.png		(should be FDL)
+	doc/en/kwave-plugin-volume.png			(should be FDL)
 	doc/en/light_off.png				LGPL2 (crystal project) [derived from greenled.png]
 	doc/en/light_on.png				LGPL2 (crystal project) [derived from greenled.png]
 #	doc/en/nonlinear.png				??? UNKNOWN ??? (arrow only)

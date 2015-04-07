@@ -2842,7 +2842,8 @@
 	&kwave; since its first version uses an internal text command language.
 	This command language is used internally for menu handling, GUI control,
 	builtin effects and plugin invocations. The commands will be described
-	later in the section <link linkend="kwave_commands">Command Reference</link>.
+	later in the section
+	<link linkend="kwave_commands" endterm="title_kwave_commands" />.
     </para>
 
     <sect1><title>General Syntax</title>
@@ -3097,7 +3098,7 @@
 <!-- +++ Section: Command Reference                                     +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="kwave_commands"><title>Command Reference</title>
+    <sect1 id="kwave_commands"><title id="title_kwave_commands">Command Reference</title>
 	<index><title>Alphabetical Index</title>
 	    &no-i18n-tag;
 	    <!-- @COMMAND_INDEX_START@ -->
@@ -6836,19 +6837,8 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ samplerate (TODO) -->
+    <!-- @PLUGIN@ samplerate -->
     <sect1 id="plugin_sect_samplerate"><title id="plugin_title_samplerate">&no-i18n-plugin_samplerate; (Sample Rate Conversion)</title>
-    <!-- <screenshot>
-	<screeninfo>Screenshot</screeninfo>
-	<mediaobject>
-	    <imageobject>
-		<imagedata fileref="kwave-plugin-samplerate.png" format="PNG"/>
-	    </imageobject>
-	    <textobject>
-		<phrase>Screenshot of the Sample Rate Conversion Plugin</phrase>
-	    </textobject>
-	</mediaobject>
-    </screenshot> -->
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6862,31 +6852,45 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Sample Rate Conversion plugin does...
+	        Changes the sample rate of the current selection or the whole
+		signal.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>new rate</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				The new sample rate in samples per second
+				(floating point value).
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>mode</replaceable> (optional)</term>
+			<listitem>
+			    <para>
+				If this parameter is used and set to the
+				value "<literal>all</literal>", then this
+				effect will be applied to the whole signal.
+				Otherwise it will be applied to the current
+				selection only.
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ saveblocks (TODO) -->
+    <!-- @PLUGIN@ saveblocks -->
     <sect1 id="plugin_sect_saveblocks"><title id="plugin_title_saveblocks">&no-i18n-plugin_saveblocks; (Save Blocks)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -6896,7 +6900,7 @@
 		<phrase>Screenshot of the Save Blocks Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6910,31 +6914,166 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Save Blocks plugin does...
+		Saves all sections between markers, each into a separate file.
+		Each file is given a name that can be customized by using
+		a pattern that can contain the original file name, an index
+		and the number of sections.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>name</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				The name of the original file, will be used as
+				base name for the file names.
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>pattern</replaceable></term>
+			<listitem>
+			    <para>
+				A pattern that will be used for creating the
+				names of the files. It can contain the
+				following wildcards which will be replaced
+				by the corresponding content when creating
+				the final file name:
+				<informaltable frame='all'>
+				    <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'>wildcard</entry>
+						<entry align='left'>description</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry>&no-i18n-tag;<command>[%nr]</command></entry>
+						<entry>
+						    Will be replaced with the current index of the
+						    file to save.
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>[%count]</command></entry>
+						<entry>
+						    Will be replaced with the number of sections that
+						    will be saved.
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>[%total]</command></entry>
+						<entry>
+						    Will be replaced with the index of the last file
+						    to save.
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>[%filename]</command></entry>
+						<entry>
+						    Will be replaced with the base file name,
+						    without path and without extension.
+						</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+				All numeric wildcards can also contain a numerical argument after the
+				"<literal>%</literal>" and the identifier, to force a certain number
+				of digits. If the number is preceded by a <literal>0</literal> then
+				it will contain leading zeroes, otherwise it will contain leading
+				spaces.
+
+				Example: <command><literal>[%04nr]</literal></command> produces a
+				number between 0001 and 9999.
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>numbering mode</replaceable></term>
+			<listitem>
+			    <para>
+				Determines where the numbering should start.
+				<informaltable frame='all'>
+				    <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'>value</entry>
+						<entry align='left'>description</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry>&no-i18n-tag;<command>0</command></entry>
+						<entry>
+						    Continue after the index of the highest
+						    index that already exists, this avoids
+						    overwriting existing files.
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>1</command></entry>
+						<entry>
+						    Always start with index 1, with the risk
+						    of overwriting existing files.
+						</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>selection only</replaceable></term>
+			<listitem>
+			    <para>
+				<informaltable frame='all'>
+				    <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'>value</entry>
+						<entry align='left'>description</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry>&no-i18n-tag;<command>0</command></entry>
+						<entry>
+						    Save all sections of the whole file.
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>1</command></entry>
+						<entry>
+						    Save only the sections that are within the
+						    current selection. If nothing is selected,
+						    the whole file will be saved.
+						</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ selectrange (TODO) -->
+    <!-- @PLUGIN@ selectrange -->
     <sect1 id="plugin_sect_selectrange"><title id="plugin_title_selectrange">&no-i18n-plugin_selectrange; (Select Range)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -6944,7 +7083,7 @@
 		<phrase>Screenshot of the Select Range Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -6958,41 +7097,118 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Select Range plugin does...
+	        Shows a dialog to select a range of samples. The start and the
+		length of the selection can be set either by a time in milliseconds,
+		in samples, or as a percentage of the total length of the file.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term id="select_range_start_mode"><replaceable>start mode</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				Determines the units in which the
+				<emphasis>start</emphasis> of the selection
+				will be given.
+				<informaltable frame='all'>
+				    <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'>value</entry>
+						<entry align='left'>description</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry>&no-i18n-tag;<command>0</command></entry>
+						<entry>milliseconds</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>1</command></entry>
+						<entry>samples</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>2</command></entry>
+						<entry>percentage of the length of the file</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>range mode</replaceable></term>
+			<listitem>
+			    <para>
+				Determines the units in which the
+				<emphasis>length</emphasis> of
+				the selection will be given. See the description
+				if the parameter
+				<parameter>start mode</parameter>
+				for a list of possible values.
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>start</replaceable></term>
+			<listitem>
+			    <para>
+				The start of the selection, in milliseconds,
+				samples or percentage of the length of the
+				file, depending on the parameter
+				<parameter>range mode</parameter>.
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>length</replaceable></term>
+			<listitem>
+			    <para>
+				The length of the selection, in milliseconds,
+				samples or percentage of the length of the
+				file, depending on the parameter
+				<parameter>range mode</parameter>.
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ sonagram (TODO) -->
+    <!-- @PLUGIN@ sonagram -->
     <sect1 id="plugin_sect_sonagram"><title id="plugin_title_sonagram">&no-i18n-plugin_sonagram; (Sonagram)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
-		<imagedata fileref="kwave-plugin-sonagram.png" format="PNG"/>
+		<imagedata fileref="kwave-plugin-sonagram-setup.png" format="PNG"/>
 	    </imageobject>
 	    <textobject>
-		<phrase>Screenshot of the Sonagram Plugin</phrase>
+		<phrase>Screenshot of the setup dialog of the Sonagram Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
+    <screenshot>
+	<screeninfo>Screenshot</screeninfo>
+	<mediaobject>
+	    <imageobject>
+		<imagedata fileref="kwave-plugin-sonagram-window.png" format="PNG"/>
+	    </imageobject>
+	    <textobject>
+		<phrase>Screenshot of the Sonagram Window</phrase>
+	    </textobject>
+	</mediaobject>
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -7006,31 +7222,121 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Sonagram plugin does...
+		Evaluates the current selection by generating a
+		<emphasis>sonagram</emphasis>. A sonagram is an evaluation
+		of a signal over time (x axis), frequency (y axis) and
+		intensity (color).
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>FFT points</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				Number of points of the FFT, a whole number
+				between 4 and 32767 which determines the
+				frequency resolution.
 			    </para>
 			</listitem>
 		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>window function</replaceable></term>
+			<listitem>
+			    <para>
+				The window function used for the FFT calculation,
+				supported values are:
+				<informaltable frame='all'>
+				    <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'>value</entry>
+						<entry align='left'>description</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry>&no-i18n-tag;<command>none</command></entry>
+						<entry>no window function</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>hamming</command></entry>
+						<entry>
+						    <personname>
+							<surname>Hamming</surname>
+						    </personname> window
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>hanning</command></entry>
+						<entry>
+						    <personname>
+							<surname>Hanning</surname>
+						    </personname> window
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>blackman</command></entry>
+						<entry>
+						    <personname>
+							<surname>Blackman</surname>
+						    </personname> window
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>triangular</command></entry>
+						<entry>Triangular window</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>use colors</replaceable></term>
+			<listitem>
+			    <para>
+				If set to non-zero, generate use colors.
+				If set to zero use grayscales for intensity.
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>track changes</replaceable></term>
+			<listitem>
+			    <para>
+				If set to non-zero, the sonagram will be updated
+				when the area that was evaluated has changed.
+				If set to zero it will never be updated.
+			    </para>
+			</listitem>
+		    </varlistentry>
+
+		    <varlistentry>
+			<term><replaceable>follow selection</replaceable></term>
+			<listitem>
+			    <para>
+				Not yet implemented, use zero for this parameter.
+			    </para>
+			</listitem>
+		    </varlistentry>
+
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ stringenter (TODO) -->
+    <!-- @PLUGIN@ stringenter -->
     <sect1 id="plugin_sect_stringenter"><title id="plugin_title_stringenter">&no-i18n-plugin_stringenter; (Enter Command)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -7040,7 +7346,7 @@
 		<phrase>Screenshot of the Enter Command Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -7054,31 +7360,36 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Enter Command plugin does...
+		A small dialog window that allows to enter a &kwave; text command.
+		Please refer to the chapter
+		<link linkend="kwave_commands" endterm="title_kwave_commands"/> in
+		this manual.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>preset</replaceable> (optional)</term>
 			<listitem>
 			    <para>
-				description of the parameter
+				A text that is shown in the dialog. This parameter
+				is optional, if omitted the edit field of the
+				dialog will be empty at start.
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ volume (TODO) -->
+    <!-- @PLUGIN@ volume -->
     <sect1 id="plugin_sect_volume"><title id="plugin_title_volume">&no-i18n-plugin_volume; (Volume)</title>
-    <!-- <screenshot>
+    <screenshot>
 	<screeninfo>Screenshot</screeninfo>
 	<mediaobject>
 	    <imageobject>
@@ -7088,7 +7399,7 @@
 		<phrase>Screenshot of the Volume Plugin</phrase>
 	    </textobject>
 	</mediaobject>
-    </screenshot> -->
+    </screenshot>
     <variablelist>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
@@ -7102,29 +7413,74 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Volume plugin does...
+	        With this plugin you can change the volume of the current selection
+		by a constant factor. The corresponding dialog allows to enter
+		this factor as a
+		<emphasis>numeric factor</emphasis> given as a floating point
+		value between 0.10 and 10.0,
+		a <emphasis>percentage</emphasis> between 1 and 1000,
+		or in <emphasis>decibel</emphasis> between -21 and +21.
+	    </para>
+	    <para>
+		Use a factor above 1.0 (or percentage below 100 or more than 0 dB)
+		if the file is too silent, or a factor below 1.0
+		(percentage below 100 or less than 0 dB)
+		if the file is too loud.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>factor</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				A floating point value with the amplification
+				factor.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>mode</replaceable></term>
+			<listitem>
+			    <para>
+				<informaltable frame='all'>
+				    <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'>value</entry>
+						<entry align='left'>description</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry>&no-i18n-tag;<command>0</command></entry>
+						<entry>factor</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>1</command></entry>
+						<entry>percentage</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>1</command></entry>
+						<entry>decibel</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ zero (TODO) -->
+    <!-- @PLUGIN@ zero -->
     <sect1 id="plugin_sect_zero"><title id="plugin_title_zero">&no-i18n-plugin_zero; (Zero Generator)</title>
     <variablelist>
 	<varlistentry>
@@ -7139,25 +7495,65 @@
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
 	    <listitem>
 	    <para>
-	        TODO: description of what the Zero Generator plugin does...
+	        This plugin has two modes of operation. If used without parameters
+		it wipes the current selection by overwriting it with silence.
+		When used with two parameters, it inserts some
+		amount of silence at the start of the current selection.
 	    </para>
 	    </listitem>
 	</varlistentry>
-	<!-- varlistentry>
+	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>operation</replaceable></term>
+			<term><replaceable>length mode</replaceable></term>
 			<listitem>
 			    <para>
-				description of the parameter
+				Determines the units in which the
+				<emphasis>length</emphasis> of the inserted silence
+				will be given.
+				<informaltable frame='all'>
+				    <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'>value</entry>
+						<entry align='left'>description</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry>&no-i18n-tag;<command>0</command></entry>
+						<entry>milliseconds</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>1</command></entry>
+						<entry>samples</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>2</command></entry>
+						<entry>percentage of the length of the file</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>length</replaceable></term>
+			<listitem>
+			    <para>
+				Length of the silence to insert, in milliseconds,
+				samples or percentage of the length of the
+				file, depending on the parameter
+				<parameter>length mode</parameter>.
 			    </para>
 			</listitem>
 		    </varlistentry>
 		</variablelist>
 	    </listitem>
-	</varlistentry -->
+	</varlistentry>
     </variablelist>
     </sect1>
 

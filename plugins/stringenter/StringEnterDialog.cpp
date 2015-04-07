@@ -32,7 +32,8 @@
 #define CONFIG_WIDTH "width"
 
 //***************************************************************************
-Kwave::StringEnterDialog::StringEnterDialog(QWidget *parent)
+Kwave::StringEnterDialog::StringEnterDialog(QWidget *parent,
+                                            const QString &preset)
     :QDialog(parent), Ui::StringEnterDlg(), m_command()
 {
     setupUi(this);
@@ -46,6 +47,11 @@ Kwave::StringEnterDialog::StringEnterDialog(QWidget *parent)
     int          w      = result.toUInt(&ok);
     if (ok && (w > sizeHint().width()))
 	resize(w, height());
+
+    if (preset.length()) {
+	edCommand->setText(preset);
+	m_command = preset;
+    }
 }
 
 //***************************************************************************

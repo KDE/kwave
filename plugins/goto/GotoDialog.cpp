@@ -19,12 +19,15 @@
 
 #include <QtGui/QPushButton>
 
+#include <ktoolinvocation.h>
+
 #include "GotoDialog.h"
 
 //***************************************************************************
 Kwave::GotoDialog::GotoDialog(QWidget *widget, Mode mode, sample_index_t pos,
-                              double sample_rate, sample_index_t signal_length)
-    :QDialog(widget), Ui::GotoDlg()
+                              double sample_rate, sample_index_t signal_length,
+                              const QString &help_section)
+    :QDialog(widget), Ui::GotoDlg(), m_help_section(help_section)
 {
     setupUi(this);
     setModal(true);
@@ -36,6 +39,9 @@ Kwave::GotoDialog::GotoDialog(QWidget *widget, Mode mode, sample_index_t pos,
 
     setMinimumSize(sizeHint());
     setFixedSize(sizeHint());
+
+    connect(buttonBox_Help->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // set the focus onto the "OK" button
     buttonBox->button(QDialogButtonBox::Ok)->setFocus();
@@ -50,6 +56,12 @@ Kwave::GotoDialog::~GotoDialog()
 void Kwave::GotoDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
 {
     if (select_pos) select_pos->setMode(new_mode);
+}
+
+//***************************************************************************
+void Kwave::GotoDialog::invokeHelp()
+{
+    KToolInvocation::invokeHelp(m_help_section);
 }
 
 //***************************************************************************

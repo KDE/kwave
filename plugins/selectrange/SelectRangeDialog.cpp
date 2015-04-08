@@ -24,6 +24,9 @@
 
 #include <klocale.h>
 #include <knuminput.h>
+#include <ktoolinvocation.h>
+
+#include "libkwave/String.h"
 
 #include "SelectRangeDialog.h"
 
@@ -52,6 +55,9 @@ Kwave::SelectRangeDialog::SelectRangeDialog(QWidget *widget,
     setMinimumSize(sizeHint());
     setFixedSize(sizeHint());
 
+    connect(btHelp->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
+
     // set the focus onto the "OK" button
     buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
@@ -65,6 +71,13 @@ Kwave::SelectRangeDialog::~SelectRangeDialog()
 void Kwave::SelectRangeDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
 {
     if (select_range) select_range->setMode(new_mode);
+}
+
+
+//***************************************************************************
+void Kwave::SelectRangeDialog::invokeHelp()
+{
+    KToolInvocation::invokeHelp(_("plugin_sect_selectrange"));
 }
 
 //***************************************************************************

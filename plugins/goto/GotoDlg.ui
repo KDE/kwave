@@ -46,10 +46,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox_2">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
+      <widget class="KDialogButtonBox" name="buttonBox_Help">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>

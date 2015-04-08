@@ -91,6 +91,11 @@ namespace Kwave
 	    return (select_range) ? select_range->time() : 0;
 	}
 
+    private slots:
+
+	/** invoke the online help */
+	void invokeHelp();
+
     };
 }
 

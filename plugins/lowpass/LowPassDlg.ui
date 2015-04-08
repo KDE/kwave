@@ -136,10 +136,7 @@ frequencies will be cut off.</string>
    <item row="3" column="0" colspan="2">
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox_2">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
+      <widget class="KDialogButtonBox" name="buttonBox_Help">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>
@@ -219,7 +216,7 @@ frequencies will be cut off.</string>
  <tabstops>
   <tabstop>spinbox</tabstop>
   <tabstop>slider</tabstop>
-  <tabstop>buttonBox_2</tabstop>
+  <tabstop>buttonBox_Help</tabstop>
   <tabstop>btListen</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>

@@ -208,10 +208,7 @@ For example: &quot;-3 dB&quot;, &quot;- 6 dB&quot;.</string>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox_2">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
+      <widget class="KDialogButtonBox" name="buttonBox_Help">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -302,7 +299,7 @@ For example: &quot;-3 dB&quot;, &quot;- 6 dB&quot;.</string>
  </customwidgets>
  <tabstops>
   <tabstop>buttonBox</tabstop>
-  <tabstop>buttonBox_2</tabstop>
+  <tabstop>buttonBox_Help</tabstop>
   <tabstop>btListen</tabstop>
   <tabstop>rbPercentage</tabstop>
   <tabstop>rbLogarithmic</tabstop>

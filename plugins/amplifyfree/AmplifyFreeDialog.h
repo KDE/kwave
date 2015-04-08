@@ -47,6 +47,11 @@ namespace Kwave
 	/** Sets the curve parameters and points from a list of parameters */
 	void setParams(QStringList &params);
 
+    private slots:
+
+	/** invoke the online help */
+	void invokeHelp();
+
     };
 }
 

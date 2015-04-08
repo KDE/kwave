@@ -3,7 +3,11 @@
  * added command line parameter for selecting the GUI type
  * in MDI mode: new menu entry + function to arrange sub windows vertically
  * handbook: added text command reference
- * make system: new target "update-handbook" (updates command cross reference)
+ * handbook: added plugin reference
+ * enabled the "Help" buttons of all plugins and let them open the corresponding
+   section in the handbook
+ * make system: new target "update-handbook" (updates command, file info
+   and plugin cross references)
  * make system: fixed dependency problem in translation
  * new commands: "window:sendkey", "window:screenshot", "window:close"
    and "window:resize"

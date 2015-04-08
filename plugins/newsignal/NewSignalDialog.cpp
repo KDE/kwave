@@ -374,7 +374,7 @@ void Kwave::NewSignalDialog::setHMS(sample_index_t &samples)
 //***************************************************************************
 void Kwave::NewSignalDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("memory-setup"));
+    KToolInvocation::invokeHelp(_("newsignal"));
 }
 
 //***************************************************************************

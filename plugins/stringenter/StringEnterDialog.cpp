@@ -81,7 +81,7 @@ void Kwave::StringEnterDialog::accept()
 //***************************************************************************
 void Kwave::StringEnterDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("kwave_commands"));
+    KToolInvocation::invokeHelp(_("plugin_sect_stringenter"));
 }
 
 //***************************************************************************

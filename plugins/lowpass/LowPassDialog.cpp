@@ -28,7 +28,9 @@
 #include <klocale.h>
 #include <knuminput.h>
 #include <kpushbutton.h>
+#include <ktoolinvocation.h>
 
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/ScaleWidget.h"
@@ -94,6 +96,9 @@ Kwave::LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     if (height() < h) resize(width(), h);
     int w = (height() * 5) / 3;
     if (width() < w) resize(w, height());
+
+    connect(buttonBox_Help->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // set the focus onto the "OK" button
     buttonBox->button(QDialogButtonBox::Ok)->setFocus();
@@ -175,6 +180,12 @@ void Kwave::LowPassDialog::listenToggled(bool listen)
 void Kwave::LowPassDialog::listenStopped()
 {
     if (!btListen) btListen->setChecked(false);
+}
+
+//***************************************************************************
+void Kwave::LowPassDialog::invokeHelp()
+{
+    KToolInvocation::invokeHelp(_("plugin_sect_lowpass"));
 }
 
 //***************************************************************************

@@ -26,7 +26,9 @@
 #include <QtGui/QSpinBox>
 
 #include <klocale.h>
+#include <ktoolinvocation.h>
 
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/CurveWidget.h"
@@ -370,6 +372,13 @@ void Kwave::VolumeDialog::setParams(QStringList &params)
 
     // update factor
     updateDisplay(factor);
+}
+
+
+//***************************************************************************
+void Kwave::VolumeDialog::invokeHelp()
+{
+    KToolInvocation::invokeHelp(_("plugin_sect_volume"));
 }
 
 //***************************************************************************

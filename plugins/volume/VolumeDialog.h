@@ -62,6 +62,11 @@ namespace Kwave
 	/** called when the spinbox value has changed */
 	void spinboxChanged(int pos);
 
+    private slots:
+
+	/** invoke the online help */
+	void invokeHelp();
+
     protected:
 
 	/**

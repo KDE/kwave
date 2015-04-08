@@ -20,6 +20,7 @@
 #include <QtGui/QPushButton>
 
 #include <klocale.h>
+#include <ktoolinvocation.h>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
@@ -45,6 +46,9 @@ Kwave::AmplifyFreeDialog::AmplifyFreeDialog(QWidget *parent)
     yScale->setMinMax(0, 100);
     yScale->setLogMode(false);
     yScale->setUnit(i18n("%"));
+
+    connect(buttonBox_Help->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // set the focus onto the "OK" button
     buttonBox->button(QDialogButtonBox::Ok)->setFocus();
@@ -86,6 +90,12 @@ void Kwave::AmplifyFreeDialog::setParams(QStringList &params)
     cmd += _(")");
 
     if (curveWidget) curveWidget->setCurve(cmd);
+}
+
+//***************************************************************************
+void Kwave::AmplifyFreeDialog::invokeHelp()
+{
+    KToolInvocation::invokeHelp(_("plugin_sect_amplifyfree"));
 }
 
 //***************************************************************************

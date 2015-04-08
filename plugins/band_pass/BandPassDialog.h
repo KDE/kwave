@@ -103,6 +103,11 @@ namespace Kwave
 	 */
 	void listenStopped();
 
+    private slots:
+
+	/** invoke the online help */
+	void invokeHelp();
+
     protected:
 
 	/** Update the graphic display */

@@ -76,6 +76,8 @@ namespace Kwave
 
 	void setBoxPoints(int num);
 
+    private slots:
+
 	/** invoke the online help */
 	void invokeHelp();
 

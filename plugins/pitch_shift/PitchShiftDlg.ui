@@ -46,9 +46,6 @@
     <layout class="QHBoxLayout">
      <item>
       <widget class="KDialogButtonBox" name="btHelp">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>

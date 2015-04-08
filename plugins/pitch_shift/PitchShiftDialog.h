@@ -94,6 +94,11 @@ namespace Kwave
 	 */
 	void listenStopped();
 
+    private slots:
+
+	/** invoke the online help */
+	void invokeHelp();
+
     protected:
 
 	/**

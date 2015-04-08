@@ -205,7 +205,7 @@ Kwave::SonagramDialog::~SonagramDialog ()
 //***************************************************************************
 void Kwave::SonagramDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("sonagram"));
+    KToolInvocation::invokeHelp(_("plugin_sect_sonagram"));
 }
 
 //***************************************************************************

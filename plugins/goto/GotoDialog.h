@@ -47,9 +47,12 @@ namespace Kwave
 	 *                    converting between samples and time
 	 * @param signal_length length of the signal in samples, needed
 	 *                      for converting samples to percentage
+	 * @param help_section section within the manual
 	 */
 	GotoDialog(QWidget *widget, Mode mode, sample_index_t position,
-	           double sample_rate, sample_index_t signal_length);
+	           double sample_rate, sample_index_t signal_length,
+	           const QString &help_section
+  		);
 
 	/** Destructor */
 	virtual ~GotoDialog();
@@ -69,7 +72,17 @@ namespace Kwave
 	/**
 	 * Returns the current position (byTime, bySamples, byPercents)
 	 */
-	quint64 pos() const { return select_pos ? select_pos->time() : 0; }
+	quint64 pos() const { return (select_pos) ? select_pos->time() : 0; }
+
+    private slots:
+
+	/** invoke the online help */
+	void invokeHelp();
+
+    private:
+
+	/** name of the section in the handbook */
+	QString m_help_section;
 
     };
 }

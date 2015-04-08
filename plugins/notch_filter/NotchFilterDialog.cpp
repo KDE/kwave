@@ -28,7 +28,9 @@
 #include <knuminput.h>
 #include <kpushbutton.h>
 #include <klocale.h>
+#include <ktoolinvocation.h>
 
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/ScaleWidget.h"
@@ -102,6 +104,9 @@ Kwave::NotchFilterDialog::NotchFilterDialog(QWidget *parent, double sample_rate)
     if (height() < h) resize(width(), h);
     int w = (height() * 5) / 3;
     if (width() < w) resize(w, height());
+
+    connect(buttonHelp->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // set the focus onto the "OK" button
     buttonBox->button(QDialogButtonBox::Ok)->setFocus();
@@ -203,6 +208,13 @@ void Kwave::NotchFilterDialog::listenToggled(bool listen)
 void Kwave::NotchFilterDialog::listenStopped()
 {
     if (btListen) btListen->setChecked(false);
+}
+
+
+//***************************************************************************
+void Kwave::NotchFilterDialog::invokeHelp()
+{
+    KToolInvocation::invokeHelp(_("plugin_sect_notch_filter"));
 }
 
 //***************************************************************************

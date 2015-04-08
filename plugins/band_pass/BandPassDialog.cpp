@@ -27,7 +27,9 @@
 #include <klocale.h>
 #include <knuminput.h>
 #include <kpushbutton.h>
+#include <ktoolinvocation.h>
 
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/ScaleWidget.h"
@@ -66,7 +68,7 @@ Kwave::BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
     // initialize the frequency response widget
     freq_response->init(f_max, -24, +6);
 
-    // set up the low pass filter dunction
+    // set up the low pass filter function
     m_filter = new Kwave::BandPass();
     freq_response->setFilter(m_filter);
 
@@ -100,6 +102,9 @@ Kwave::BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
     if (height() < h) resize(width(), h);
     int w = (height() * 5) / 3;
     if (width() < w) resize(w, height());
+
+    connect(buttonBox_Help->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // set the focus onto the "OK" button
     buttonBox->button(QDialogButtonBox::Ok)->setFocus();
@@ -199,6 +204,12 @@ void Kwave::BandPassDialog::listenToggled(bool listen)
 void Kwave::BandPassDialog::listenStopped()
 {
     if (btListen) btListen->setChecked(false);
+}
+
+//***************************************************************************
+void Kwave::BandPassDialog::invokeHelp()
+{
+    KToolInvocation::invokeHelp(_("plugin_sect_band_pass"));
 }
 
 //***************************************************************************

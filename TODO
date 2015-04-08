@@ -43,6 +43,8 @@ o file import from non-local URLs (e.g. fish://...)
 
 o file export to non-local URLs (e.g. fish://...)
 
+o find a way to add a "Help" button to the saveblocks dialog
+
 o move label with mouse (drag&drop)
 
 o new import/export plugin using ffmpeg/libavcodec

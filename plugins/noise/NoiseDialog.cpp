@@ -26,7 +26,9 @@
 #include <QtGui/QSpinBox>
 
 #include <klocale.h>
+#include <ktoolinvocation.h>
 
+#include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/Colors.h"
@@ -88,6 +90,9 @@ Kwave::NoiseDialog::NoiseDialog(QWidget *parent,
     // set default: 10%
     setMode(m_mode);
     updateDisplay(+0.1);
+
+    connect(buttonBox_Help->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // set the focus onto the "OK" button
     buttonBox->button(QDialogButtonBox::Ok)->setFocus();
@@ -365,6 +370,12 @@ void Kwave::NoiseDialog::listenToggled(bool listen)
 void Kwave::NoiseDialog::listenStopped()
 {
     if (btListen) btListen->setChecked(false);
+}
+
+//***************************************************************************
+void Kwave::NoiseDialog::invokeHelp()
+{
+    KToolInvocation::invokeHelp(_("plugin_sect_noise"));
 }
 
 //***************************************************************************

@@ -25,6 +25,7 @@
 
 #include <klocale.h>
 #include <kpushbutton.h>
+#include <ktoolinvocation.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -76,6 +77,9 @@ Kwave::PitchShiftDialog::PitchShiftDialog(QWidget *parent)
     setFixedHeight(sizeHint().height());
     int w = (height() * 3) / 5;
     if (width() < w) resize(w, height());
+
+    connect(btHelp->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // set the focus onto the "OK" button
     buttonBox->button(QDialogButtonBox::Ok)->setFocus();
@@ -334,6 +338,13 @@ void Kwave::PitchShiftDialog::listenStopped()
     if (!btListen) return;
 
     btListen->setChecked(false);
+}
+
+
+//***************************************************************************
+void Kwave::PitchShiftDialog::invokeHelp()
+{
+    KToolInvocation::invokeHelp(_("plugin_sect_pitch_shift"));
 }
 
 //***************************************************************************

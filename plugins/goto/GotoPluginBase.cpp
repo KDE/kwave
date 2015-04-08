@@ -53,8 +53,11 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
     double rate = signalRate();
     sample_index_t length = signalLength();
 
+    // get the name of the help section
+    QString help_section = _("plugin_sect_") + command();
+
     Kwave::GotoDialog *dialog = new Kwave::GotoDialog(parentWidget(),
-        m_mode, m_position, rate, length);
+        m_mode, m_position, rate, length, help_section);
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 

@@ -105,9 +105,6 @@
      </property>
      <item>
       <widget class="KDialogButtonBox" name="buttonBox_Help">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>

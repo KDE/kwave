@@ -7425,7 +7425,7 @@
 		or in <emphasis>decibel</emphasis> between -21 and +21.
 	    </para>
 	    <para>
-		Use a factor above 1.0 (or percentage below 100 or more than 0 dB)
+		Use a factor above 1.0 (or percentage above 100 or more than 0 dB)
 		if the file is too silent, or a factor below 1.0
 		(percentage below 100 or less than 0 dB)
 		if the file is too loud.

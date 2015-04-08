@@ -6944,6 +6944,7 @@
 				following wildcards which will be replaced
 				by the corresponding content when creating
 				the final file name:
+			    </para>
 				<informaltable frame='all'>
 				    <tgroup cols='2'>
 					<thead>
@@ -6984,12 +6985,14 @@
 					</tbody>
 				    </tgroup>
 				</informaltable>
+			   <para>
 				All numeric wildcards can also contain a numerical argument after the
 				"<literal>%</literal>" and the identifier, to force a certain number
 				of digits. If the number is preceded by a <literal>0</literal> then
 				it will contain leading zeroes, otherwise it will contain leading
 				spaces.
-
+			   </para>
+			   <para>
 				Example: <command><literal>[%04nr]</literal></command> produces a
 				number between 0001 and 9999.
 			    </para>

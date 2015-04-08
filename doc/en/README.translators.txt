@@ -47,6 +47,6 @@ You can do that if you want, by doing the following steps:
    reduction to reduce the file size of the images:
 
        mkdir -p doc/${LC_ALL}
-       bin/import-screenshots.sh /var/tmp/screenshots
+       bin/import-screenshots.sh /var/tmp/screenshots/${LC_ALL}
 
 ### EOF ###

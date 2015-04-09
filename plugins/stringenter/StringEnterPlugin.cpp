@@ -54,7 +54,7 @@ void Kwave::StringEnterPlugin::load(QStringList &params)
 //***************************************************************************
 QStringList *Kwave::StringEnterPlugin::setup(QStringList &previous_params)
 {
-    QString preset = QString();
+    QString preset;
     if (previous_params.count() == 1)
 	preset = previous_params[0];
 

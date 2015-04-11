@@ -41,8 +41,8 @@
   <!ENTITY i18n-plugin_lbl_parameters "Parameters:">
   <!ENTITY i18n-plugin_lbl_file_types "Supported&nbsp;File&nbsp;Types:">
   <!ENTITY i18n-plugin-lbl_file_type_description "Description:">
-  <!ENTITY i18n-plugin-lbl_file_type_extensions "File Extensions:">
-  <!ENTITY i18n-plugin-lbl_file_type_mime_types "Mime Types:">
+  <!ENTITY i18n-plugin-lbl_file_type_extensions "File&nbsp;Extensions:">
+  <!ENTITY i18n-plugin-lbl_file_type_mime_types "Mime&nbsp;Types:">
   <!ENTITY i18n-plugin_lbl_meta_data "Supported&nbsp;Meta&nbsp;Data:">
   <!ENTITY no-i18n-tag "">
   <!-- @COMMAND_ENTITIES_START@ -->
@@ -6279,10 +6279,7 @@
 			    <para>
 				If zero, the use of virtual memory will be
 				disabled, otherwise the use of virtual memory
-				will be enabled. Only has an effect if the
-				parameter
-				<replaceable>virtual enabled</replaceable>
-				has been set to a non zero value.
+				will be enabled.
 			    </para>
 			</listitem>
 		    </varlistentry>
@@ -6317,10 +6314,9 @@
 			    <para>
 				Directory to use for storing swap files that
 				will be used for providing virtual memory.
-				Only has an effect if the parameters
+				Only has an effect if the parameter
 				<replaceable>virtual enabled</replaceable>
-				and <replaceable>virtual limited</replaceable>
-				have both been set to a non zero value.
+				has been set to a non zero value.
 			    </para>
 			</listitem>
 		    </varlistentry>
@@ -6989,7 +6985,7 @@
 				All numeric wildcards can also contain a numerical argument after the
 				"<literal>%</literal>" and the identifier, to force a certain number
 				of digits. If the number is preceded by a <literal>0</literal> then
-				it will contain leading zeroes, otherwise it will contain leading
+				the result will contain leading zeroes, otherwise it will contain leading
 				spaces.
 			   </para>
 			   <para>
@@ -7305,8 +7301,8 @@
 			<term><replaceable>use colors</replaceable></term>
 			<listitem>
 			    <para>
-				If set to non-zero, generate use colors.
-				If set to zero use grayscales for intensity.
+				If set to non-zero, use colors for intensity,
+				if set to zero use grayscales.
 			    </para>
 			</listitem>
 		    </varlistentry>
@@ -7378,9 +7374,10 @@
 			<term><replaceable>preset</replaceable> (optional)</term>
 			<listitem>
 			    <para>
-				A text that is shown in the dialog. This parameter
-				is optional, if omitted the edit field of the
-				dialog will be empty at start.
+				A text that is shown in the edit field when
+				entering the dialog. This parameter is optional,
+				if omitted the edit field of the dialog will
+				be empty at start.
 			    </para>
 			</listitem>
 		    </varlistentry>

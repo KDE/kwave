@@ -280,7 +280,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     initInfo(lblSampleFormat, cbSampleFormat, Kwave::INF_SAMPLE_FORMAT);
     cbSampleFormat->clear();
     Kwave::SampleFormat::Map sf;
-    foreach (int k, sf.keys()) {
+    foreach (const int &k, sf.keys()) {
 	cbSampleFormat->addItem(
 	    sf.description(k, true),
 	    QVariant(Kwave::SampleFormat(sf.data(k)).toInt())

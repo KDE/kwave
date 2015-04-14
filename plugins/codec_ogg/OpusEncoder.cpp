@@ -16,9 +16,9 @@
 
     parts based on source snippets taken from "opusenc.c", opus-tools-0.1.5
    -------------------------------------------------------------------------
-   Copyright (C) 2002-2011 Jean-Marc Valin
-   Copyright (C) 2007-2012 Xiph.Org Foundation
-   Copyright (C) 2008-2012 Gregory Maxwell
+   Copyright (C) 2002-2011 Jean-Marc Valin <jmvalin@jmvalin.ca>
+   Copyright (C) 2007-2012 Xiph.Org Foundation <monty@xiph.org/>
+   Copyright (C) 2008-2012 Gregory Maxwell <greg@xiph.org>
    File: opusenc.c
 
    Redistribution and use in source and binary forms, with or without

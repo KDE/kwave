@@ -86,23 +86,15 @@ for lang in ${LINGUAS}; do
     echo -n "processing ${lang} - `echo ${lang_team} | cut -d = -f 2`... "
 
     # get handbook and screenshots
-    checkout "" "${lang}" "docmessages" "${CATEGORY}" "${PO_FILE}"
-    if [ ${result} == 1 ] ; then
+    if test -e "${lang}/docmessages/${CATEGORY}/kwave.po" ; then
 	FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
-	mkdir -p "${DOC_DIR}/${lang}"
-	cp -u "${lang}/docmessages/${CATEGORY}/kwave.po" "${DOC_DIR}/${lang}/"
-	if test ! -e "${DOC_DIR}/${lang}/CMakeLists.txt"; then
-	    cp -u "${DOC_DIR}/en/CMakeLists.txt" \
-	          "${DOC_DIR}/${lang}/CMakeLists.txt"
-	fi
 	echo ${lang_team} >> ${LANG_NAMES_FILE}
-    fi
-
-    checkout "" "${lang}" "docs"        "${CATEGORY}" "kwave"
-    if [ ${result} == 1 ]; then
-	svn update --quiet --set-depth infinity ${lang}/docs/${CATEGORY}/kwave
-	mkdir -p "${DOC_DIR}/${lang}"
-	cp -u "${lang}/docs/${CATEGORY}/kwave"/* "${DOC_DIR}/${lang}"/
+    else
+	checkout "" "${lang}" "docmessages" "${CATEGORY}" "${PO_FILE}"
+	if [ ${result} == 1 ] ; then
+	    FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
+	    echo ${lang_team} >> ${LANG_NAMES_FILE}
+	fi
     fi
 
     # GUI translation is mandantory
@@ -125,6 +117,45 @@ for file in *.po ; do
 	rm -fv ${PO_DIR}/${file}
     fi
 done
+
+# generate all missing index.docbook files
+# or update the existing ones if necessary
+cd "${REPOSITORY}"
+for lang in ${FOUND_HANDBOOKS}; do
+    if ! test -e "${lang}/docs/${CATEGORY}/kwave/index.docbook" ; then
+	echo -n "${lang}: creating missing index.docbook... "
+	scripts/update_xml ${lang} kdereview kwave > /dev/null
+	echo "done"
+    else
+	if test "${lang}/docs/${CATEGORY}/kwave/index.docbook" -ot \
+	         "${lang}/docmessages/${CATEGORY}/kwave.po" ; then
+	    echo -n "${lang}: index.docbook is out of date - updating... "
+	    scripts/update_xml ${lang} kdereview kwave > /dev/null
+	    echo "done"
+	fi
+    fi
+done
+
+# install the files needed for the handbook
+for lang in ${FOUND_HANDBOOKS}; do
+    rm -Rf "${DOC_DIR}/${lang}"
+
+    if test -e "${lang}/docs/${CATEGORY}/kwave/index.docbook" ; then
+	mkdir -p "${DOC_DIR}/${lang}"
+	cp "${lang}/docs/${CATEGORY}/kwave/index.docbook" "${DOC_DIR}/${lang}/"
+	cp "${DOC_DIR}/en/CMakeLists.txt" \
+	   "${DOC_DIR}/${lang}/CMakeLists.txt"
+
+	checkout "" "${lang}" "docs"        "${CATEGORY}" "kwave"
+	if [ ${result} == 1 ]; then
+	    svn update --quiet --set-depth infinity ${lang}/docs/${CATEGORY}/kwave
+	    mkdir -p "${DOC_DIR}/${lang}"
+	    cp -u "${lang}/docs/${CATEGORY}/kwave"/* "${DOC_DIR}/${lang}"/
+	fi
+    fi
+done
+
+svn status
 
 # show translation statistics
 cd "${REPOSITORY}"

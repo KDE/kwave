@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _BITRATE_MODE_H_
-#define _BITRATE_MODE_H_
+#ifndef BITRATE_MODE_H
+#define BITRATE_MODE_H
 
 #include "config.h"
 
@@ -32,7 +32,7 @@ namespace Kwave
     } bitrate_mode_t;
 }
 
-#endif /* _BITRATE_MODE_H_ */
+#endif /* BITRATE_MODE_H */
 
 //***************************************************************************
 //***************************************************************************

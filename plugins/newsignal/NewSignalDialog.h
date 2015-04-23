@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _NEW_SIGNAL_DIALOG_H_
-#define _NEW_SIGNAL_DIALOG_H_
+#ifndef NEW_SIGNAL_DIALOG_H
+#define NEW_SIGNAL_DIALOG_H
 
 #include "config.h"
 
@@ -128,7 +128,7 @@ namespace Kwave
     };
 }
 
-#endif /* _NEW_SIGNAL_DIALOG_H_ */
+#endif /* NEW_SIGNAL_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

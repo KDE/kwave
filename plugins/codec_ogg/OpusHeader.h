@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _OPUS_HEADER_H_
-#define _OPUS_HEADER_H_
+#ifndef OPUS_HEADER_H
+#define OPUS_HEADER_H
 
 #include "config.h"
 #include <QtCore/qglobal.h>
@@ -40,7 +40,7 @@ namespace Kwave
     } KDE_PACKED opus_header_t;
 }
 
-#endif /* _OPUS_HEADER_H_ */
+#endif /* OPUS_HEADER_H */
 
 //***************************************************************************
 //***************************************************************************

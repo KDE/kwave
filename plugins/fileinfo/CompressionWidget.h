@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _COMPRESSION_WIDGET_H_
-#define _COMPRESSION_WIDGET_H_
+#ifndef COMPRESSION_WIDGET_H
+#define COMPRESSION_WIDGET_H
 
 #include "config.h"
 
@@ -149,7 +149,7 @@ namespace Kwave
     };
 }
 
-#endif /* _COMPRESSION_WIDGET_H_ */
+#endif /* COMPRESSION_WIDGET_H */
 
 //***************************************************************************
 //***************************************************************************

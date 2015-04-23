@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _WORKER_THREAD_H_
-#define _WORKER_THREAD_H_
+#ifndef WORKER_THREAD_H
+#define WORKER_THREAD_H
 
 #include "config.h"
 #include <pthread.h>
@@ -105,7 +105,7 @@ namespace Kwave
 
 }
 
-#endif /* _WORKER_THREAD_H_ */
+#endif /* WORKER_THREAD_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _OPUS_COMMON_H_
-#define _OPUS_COMMON_H_
+#ifndef OPUS_COMMON_H
+#define OPUS_COMMON_H
 
 #include "config.h"
 #ifdef HAVE_OGG_OPUS
@@ -48,7 +48,7 @@ namespace Kwave
 
 #endif /* HAVE_OGG_OPUS */
 
-#endif /* _OPUS_COMMON_H_ */
+#endif /* OPUS_COMMON_H */
 
 //***************************************************************************
 //***************************************************************************

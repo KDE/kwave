@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SCALE_WIDGET_H_
-#define _SCALE_WIDGET_H_
+#ifndef SCALE_WIDGET_H
+#define SCALE_WIDGET_H
 
 #include "config.h"
 

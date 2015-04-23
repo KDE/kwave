@@ -68,8 +68,8 @@ void Kwave::VorbisEncoder::encodeProperties(const Kwave::FileInfo &info)
 
 	// encode the property as string
 	vorbis_comment_add_tag(&m_vc,
-	    __(key),
-	    __(info.get(property).toString())
+	    UTF8(key),
+	    UTF8(info.get(property).toString())
 	);
     }
 }

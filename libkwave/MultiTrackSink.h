@@ -15,8 +15,8 @@
 *                                                                         *
 ***************************************************************************/
 
-#ifndef _MULTI_TRACK_SINK_H_
-#define _MULTI_TRACK_SINK_H_
+#ifndef MULTI_TRACK_SINK_H
+#define MULTI_TRACK_SINK_H
 
 #include "config.h"
 
@@ -134,7 +134,7 @@ namespace Kwave
 
 }
 
-#endif /* __MULTI_TRACK_SINK_H_ */
+#endif /* _MULTI_TRACK_SINK_H */
 
 //***************************************************************************
 //***************************************************************************

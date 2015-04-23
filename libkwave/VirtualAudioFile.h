@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _VIRTUAL_AUDIO_FILE_H_
-#define _VIRTUAL_AUDIO_FILE_H_
+#ifndef VIRTUAL_AUDIO_FILE_H
+#define VIRTUAL_AUDIO_FILE_H
 
 #include "config.h"
 
@@ -117,7 +117,7 @@ namespace Kwave
     };
 }
 
-#endif /* _VIRTUAL_AUDIO_FILE_H_ */
+#endif /* VIRTUAL_AUDIO_FILE_H */
 
 //***************************************************************************
 //***************************************************************************

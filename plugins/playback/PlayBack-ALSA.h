@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAY_BACK_ALSA_H_
-#define _PLAY_BACK_ALSA_H_
+#ifndef PLAY_BACK_ALSA_H
+#define PLAY_BACK_ALSA_H
 
 #include "config.h"
 #ifdef HAVE_ALSA_SUPPORT
@@ -234,7 +234,7 @@ namespace Kwave
 
 #endif /* HAVE_ALSA_SUPPORT */
 
-#endif /* _PLAY_BACK_ALSA_H_ */
+#endif /* PLAY_BACK_ALSA_H */
 
 //***************************************************************************
 //***************************************************************************

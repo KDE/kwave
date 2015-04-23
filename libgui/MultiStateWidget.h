@@ -16,8 +16,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef _MULTI_STATE_WIDGET_H_
-#define _MULTI_STATE_WIDGET_H_
+#ifndef MULTI_STATE_WIDGET_H
+#define MULTI_STATE_WIDGET_H
 
 #include "config.h"
 

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SAMPLE_RATE_PLUGIN_H_
-#define _SAMPLE_RATE_PLUGIN_H_
+#ifndef SAMPLE_RATE_PLUGIN_H
+#define SAMPLE_RATE_PLUGIN_H
 
 #include "config.h"
 
@@ -77,7 +77,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SAMPLE_RATE_PLUGIN_H_ */
+#endif /* SAMPLE_RATE_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

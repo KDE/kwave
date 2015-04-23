@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_ABOUT_CONTAINER_H_
-#define _KWAVE_ABOUT_CONTAINER_H_
+#ifndef KWAVE_ABOUT_CONTAINER_H
+#define KWAVE_ABOUT_CONTAINER_H
 
 #include "config.h"
 
@@ -96,7 +96,7 @@ namespace Kwave
     };
 }
 
-#endif /* _KWAVE_ABOUT_CONTAINER_H_ */
+#endif /* KWAVE_ABOUT_CONTAINER_H */
 
 //***************************************************************************
 //***************************************************************************

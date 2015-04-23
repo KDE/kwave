@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SELECTION_TRACKER_H_
-#define _SELECTION_TRACKER_H_
+#ifndef SELECTION_TRACKER_H
+#define SELECTION_TRACKER_H
 
 #include "config.h"
 
@@ -309,4 +309,4 @@ namespace Kwave
     };
 }
 
-#endif /* _SELECTION_TRACKER_H_ */
+#endif /* SELECTION_TRACKER_H */

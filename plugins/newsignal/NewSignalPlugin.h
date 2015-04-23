@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _NEW_SIGNAL_PLUGIN_H_
-#define _NEW_SIGNAL_PLUGIN_H_
+#ifndef NEW_SIGNAL_PLUGIN_H
+#define NEW_SIGNAL_PLUGIN_H
 
 #include "config.h"
 #include <QtCore/QObject>
@@ -71,7 +71,7 @@ namespace Kwave
     };
 }
 
-#endif /* _NEW_SIGNAL_PLUGIN_H_ */
+#endif /* NEW_SIGNAL_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

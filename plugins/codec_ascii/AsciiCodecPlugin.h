@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ASCII_CODEC_PLUGIN_H_
-#define _ASCII_CODEC_PLUGIN_H_
+#ifndef ASCII_CODEC_PLUGIN_H
+#define ASCII_CODEC_PLUGIN_H
 
 #include "config.h"
 
@@ -64,7 +64,7 @@ namespace Kwave
 /** prefix used for encoding metadata / properties */
 #define META_PREFIX _("## ")
 
-#endif /* _ASCII_CODEC_PLUGIN_H_ */
+#endif /* ASCII_CODEC_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

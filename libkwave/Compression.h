@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _COMPRESSION_H_
-#define _COMPRESSION_H_
+#ifndef COMPRESSION_H
+#define COMPRESSION_H
 
 #include "config.h"
 
@@ -175,7 +175,7 @@ namespace Kwave
 
 }
 
-#endif /* _COMPRESSION_H_ */
+#endif /* COMPRESSION_H */
 
 //***************************************************************************
 //***************************************************************************

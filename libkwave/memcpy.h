@@ -14,8 +14,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef _MEMCPY_H_
-#define _MEMCPY_H_
+#ifndef MEMCPY_H
+#define MEMCPY_H
 
 #include "config.h"
 
@@ -38,7 +38,7 @@ extern "C" void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 
 #endif /* WITH_OPTIMIZED_MEMCPY */
 
-#endif /* _MEMCPY_H_ */
+#endif /* MEMCPY_H */
 
 //***************************************************************************
 //***************************************************************************

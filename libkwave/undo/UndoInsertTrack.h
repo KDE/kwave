@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_INSERT_TRACK_H_
-#define _UNDO_INSERT_TRACK_H_
+#ifndef UNDO_INSERT_TRACK_H
+#define UNDO_INSERT_TRACK_H
 
 #include "config.h"
 
@@ -77,7 +77,7 @@ namespace Kwave
     };
 }
 
-#endif /* _UNDO_INSERT_TRACK_H_ */
+#endif /* UNDO_INSERT_TRACK_H */
 
 //***************************************************************************
 //***************************************************************************

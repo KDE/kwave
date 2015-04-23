@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _CPUTEST_H_
-#define _CPUTEST_H_
+#ifndef CPUTEST_H
+#define CPUTEST_H
 
 /* x86 accelerations */
 #define MM_ACCEL_X86_MMX        0x80000000
@@ -47,7 +47,7 @@ uint32_t xine_mm_accel (void);
 }
 #endif
 
-#endif /* _CPUTEST_H_ */
+#endif /* CPUTEST_H */
 
 /***************************************************************************/
 /***************************************************************************/

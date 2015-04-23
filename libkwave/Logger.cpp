@@ -134,9 +134,9 @@ void Kwave::Logger::log(const QObject *sender,
     QString line;
     line.sprintf("<%s> %s %ld %s\n",
 	x_status,
-	__(date_time),
+	UTF8(date_time),
 	x_pid,
-	__(msg)
+	UTF8(msg)
     );
 
     m_logfile->write(line.toUtf8().constData());

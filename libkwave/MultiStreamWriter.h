@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MULTI_STREAM_WRITER_H_
-#define _MULTI_STREAM_WRITER_H_
+#ifndef MULTI_STREAM_WRITER_H
+#define MULTI_STREAM_WRITER_H
 
 #include "config.h"
 
@@ -50,7 +50,7 @@ namespace Kwave
     };
 }
 
-#endif /* _MULTI_STREAM_WRITER_H_ */
+#endif /* MULTI_STREAM_WRITER_H */
 
 //***************************************************************************
 //***************************************************************************

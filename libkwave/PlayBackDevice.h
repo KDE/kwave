@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAY_BACK_DEVICE_H_
-#define _PLAY_BACK_DEVICE_H_
+#ifndef PLAY_BACK_DEVICE_H
+#define PLAY_BACK_DEVICE_H
 
 #include "config.h"
 
@@ -118,7 +118,7 @@ namespace Kwave
     };
 }
 
-#endif /* _PLAY_BACK_DEVICE_H_ */
+#endif /* PLAY_BACK_DEVICE_H */
 
 //***************************************************************************
 //***************************************************************************

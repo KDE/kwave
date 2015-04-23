@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _FILE_INFO_DIALOG_H_
-#define _FILE_INFO_DIALOG_H_
+#ifndef FILE_INFO_DIALOG_H
+#define FILE_INFO_DIALOG_H
 
 #include "config.h"
 
@@ -154,7 +154,7 @@ namespace Kwave
     };
 }
 
-#endif /* _FILE_INFO_DIALOG_H_ */
+#endif /* FILE_INFO_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

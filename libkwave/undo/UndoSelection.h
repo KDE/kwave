@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_SELECTION_H_
-#define _UNDO_SELECTION_H_
+#ifndef UNDO_SELECTION_H
+#define UNDO_SELECTION_H
 
 #include "config.h"
 #include <QtCore/QList>
@@ -99,7 +99,7 @@ namespace Kwave
     };
 }
 
-#endif /* _UNDO_SELECTION_H_ */
+#endif /* UNDO_SELECTION_H */
 
 //***************************************************************************
 //***************************************************************************

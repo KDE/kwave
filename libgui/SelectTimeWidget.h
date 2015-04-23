@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SELECT_TIME_WIDGET_H_
-#define _SELECT_TIME_WIDGET_H_
+#ifndef SELECT_TIME_WIDGET_H
+#define SELECT_TIME_WIDGET_H
 
 #include "config.h"
 
@@ -170,7 +170,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SELECT_TIME_WIDGET_H_ */
+#endif /* SELECT_TIME_WIDGET_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _OGG_SUB_DECODER_H_
-#define _OGG_SUB_DECODER_H_
+#ifndef OGG_SUB_DECODER_H
+#define OGG_SUB_DECODER_H
 
 #include "config.h"
 
@@ -60,7 +60,7 @@ namespace Kwave
     };
 }
 
-#endif /* _OGG_SUB_DECODER_H_ */
+#endif /* OGG_SUB_DECODER_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _TRACK_PIXMAP_H_
-#define _TRACK_PIXMAP_H_
+#ifndef TRACK_PIXMAP_H
+#define TRACK_PIXMAP_H
 
 #include "config.h"
 
@@ -370,7 +370,7 @@ namespace Kwave
     };
 }
 
-#endif /* _TRACK_PIXMAP_H_ */
+#endif /* TRACK_PIXMAP_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _CURVE_STREAM_ADAPTER_H_
-#define _CURVE_STREAM_ADAPTER_H_
+#ifndef CURVE_STREAM_ADAPTER_H
+#define CURVE_STREAM_ADAPTER_H
 
 #include "config.h"
 
@@ -68,7 +68,7 @@ namespace Kwave
     };
 
 }
-#endif /* _CURVE_STREAM_ADAPTER_H_ */
+#endif /* CURVE_STREAM_ADAPTER_H */
 
 //***************************************************************************
 //***************************************************************************

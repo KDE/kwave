@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _NOISE_GENERATOR_H_
-#define _NOISE_GENERATOR_H_
+#ifndef NOISE_GENERATOR_H
+#define NOISE_GENERATOR_H
 
 #include "config.h"
 
@@ -71,7 +71,7 @@ namespace Kwave
     };
 }
 
-#endif /* _NOISE_GENERATOR_H_ */
+#endif /* NOISE_GENERATOR_H */
 
 //***************************************************************************
 //***************************************************************************

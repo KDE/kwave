@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _WAV_PROPERTY_MAP_H_
-#define _WAV_PROPERTY_MAP_H_
+#ifndef WAV_PROPERTY_MAP_H
+#define WAV_PROPERTY_MAP_H
 
 #include "config.h"
 
@@ -85,7 +85,7 @@ namespace Kwave
     };
 }
 
-#endif /* _WAV_PROPERTY_MAP_H_ */
+#endif /* WAV_PROPERTY_MAP_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SONAGRAM_DIALOG_H_
-#define _SONAGRAM_DIALOG_H_
+#ifndef SONAGRAM_DIALOG_H
+#define SONAGRAM_DIALOG_H
 
 #include "config.h"
 
@@ -91,7 +91,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SONAGRAM_DIALOG_H_ */
+#endif /* SONAGRAM_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

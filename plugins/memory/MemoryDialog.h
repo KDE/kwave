@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MEMORY_DIALOG_H_
-#define _MEMORY_DIALOG_H_
+#ifndef MEMORY_DIALOG_H
+#define MEMORY_DIALOG_H
 
 #include "config.h"
 #include <QtGui/QDialog>
@@ -72,7 +72,7 @@ namespace Kwave
     };
 }
 
-#endif /* _MEMORY_DIALOG_H_ */
+#endif /* MEMORY_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

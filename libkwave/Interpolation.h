@@ -14,8 +14,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef _INTERPOLATION_H_
-#define _INTERPOLATION_H_
+#ifndef INTERPOLATION_H
+#define INTERPOLATION_H
 
 #include "config.h"
 
@@ -208,7 +208,7 @@ namespace Kwave
 
 }
 
-#endif /* _INTERPOLATION_H_ */
+#endif /* INTERPOLATION_H */
 
 //***************************************************************************
 //***************************************************************************

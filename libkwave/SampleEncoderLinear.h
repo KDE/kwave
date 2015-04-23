@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SAMPLE_ENCODER_LINEAR_H_
-#define _SAMPLE_ENCODER_LINEAR_H_
+#ifndef SAMPLE_ENCODER_LINEAR_H
+#define SAMPLE_ENCODER_LINEAR_H
 
 #include "config.h"
 
@@ -69,7 +69,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SAMPLE_ENCODER_LINEAR_H_ */
+#endif /* SAMPLE_ENCODER_LINEAR_H */
 
 //***************************************************************************
 //***************************************************************************

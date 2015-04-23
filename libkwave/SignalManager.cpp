@@ -359,7 +359,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 		qWarning("SignalManager::save(): unsupported property '%s'",
 		    DBG(file_info.name(it.key())));
 		all_supported = false;
-		lost_properties += i18n(__(file_info.name(it.key()))) + _("\n");
+		lost_properties += i18n(UTF8(file_info.name(it.key()))) + _("\n");
 	    }
 	}
 	if (!all_supported) {

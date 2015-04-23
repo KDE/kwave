@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_WRITER_H_
-#define _KWAVE_WRITER_H_
+#ifndef KWAVE_WRITER_H
+#define KWAVE_WRITER_H
 
 #include "config.h"
 
@@ -174,7 +174,7 @@ namespace Kwave
 /** modifier for flushing */
 Kwave::Writer &flush(Kwave::Writer &s) KDE_EXPORT;
 
-#endif /* _KWAVE_WRITER_H_ */
+#endif /* KWAVE_WRITER_H */
 
 //***************************************************************************
 //***************************************************************************

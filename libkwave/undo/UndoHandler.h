@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_HANDLER_H_
-#define _UNDO_HANDLER_H_
+#ifndef UNDO_HANDLER_H
+#define UNDO_HANDLER_H
 
 #include "config.h"
 
@@ -53,7 +53,7 @@ namespace Kwave
     };
 }
 
-#endif /* _UNDO_HANDLER_H_ */
+#endif /* UNDO_HANDLER_H */
 
 //***************************************************************************
 //***************************************************************************

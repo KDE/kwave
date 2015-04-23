@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _DEBUG_PLUGIN_H_
-#define _DEBUG_PLUGIN_H_
+#ifndef DEBUG_PLUGIN_H
+#define DEBUG_PLUGIN_H
 
 #include "config.h"
 
@@ -112,7 +112,7 @@ namespace Kwave
     };
 }
 
-#endif /* _DEBUG_PLUGIN_H_ */
+#endif /* DEBUG_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

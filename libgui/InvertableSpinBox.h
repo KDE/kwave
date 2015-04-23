@@ -21,8 +21,8 @@
 
 #include <QtGui/QSpinBox>
 
-#ifndef _INVERTABLE_SPIN_BOX_H_
-#define _INVERTABLE_SPIN_BOX_H_
+#ifndef INVERTABLE_SPIN_BOX_H
+#define INVERTABLE_SPIN_BOX_H
 
 class QWidget;
 
@@ -75,7 +75,7 @@ namespace Kwave
     };
 }
 
-#endif /* _INVERTABLE_SPIN_BOX_H_ */
+#endif /* INVERTABLE_SPIN_BOX_H */
 
 //***************************************************************************
 //***************************************************************************

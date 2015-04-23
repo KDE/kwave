@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_APP_H_
-#define _KWAVE_APP_H_
+#ifndef KWAVE_APP_H
+#define KWAVE_APP_H
 
 #include "config.h"
 

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ID3_QIODEVICE_WRITER_H_
-#define _ID3_QIODEVICE_WRITER_H_
+#ifndef ID3_QIODEVICE_WRITER_H
+#define ID3_QIODEVICE_WRITER_H
 
 #include "config.h"
 
@@ -84,7 +84,7 @@ namespace Kwave
     };
 }
 
-#endif /* _ID3_QIODEVICE_WRITER_H_ */
+#endif /* ID3_QIODEVICE_WRITER_H */
 
 //***************************************************************************
 //***************************************************************************

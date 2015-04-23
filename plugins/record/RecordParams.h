@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECORD_PARAMS_H_
-#define _RECORD_PARAMS_H_
+#ifndef RECORD_PARAMS_H
+#define RECORD_PARAMS_H
 
 #include "config.h"
 
@@ -108,7 +108,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RECORD_PARAMS_H_ */
+#endif /* RECORD_PARAMS_H */
 
 //***************************************************************************
 //***************************************************************************

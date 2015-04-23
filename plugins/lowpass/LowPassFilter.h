@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _LOW_PASS_FILTER_H_
-#define _LOW_PASS_FILTER_H_
+#ifndef LOW_PASS_FILTER_H
+#define LOW_PASS_FILTER_H
 
 #include "config.h"
 
@@ -89,7 +89,7 @@ namespace Kwave
     };
 }
 
-#endif /* _LOW_PASS_FILTER_H_ */
+#endif /* LOW_PASS_FILTER_H */
 
 //***************************************************************************
 //***************************************************************************

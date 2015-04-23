@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PITCH_SHIFT_FILTER_H_
-#define _PITCH_SHIFT_FILTER_H_
+#ifndef PITCH_SHIFT_FILTER_H
+#define PITCH_SHIFT_FILTER_H
 
 #include "config.h"
 
@@ -101,7 +101,7 @@ namespace Kwave
     };
 }
 
-#endif /* _PITCH_SHIFT_FILTER_H_ */
+#endif /* PITCH_SHIFT_FILTER_H */
 
 //***************************************************************************
 //***************************************************************************

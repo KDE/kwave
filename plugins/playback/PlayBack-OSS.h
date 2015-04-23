@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAY_BACK_OSS_H_
-#define _PLAY_BACK_OSS_H_
+#ifndef PLAY_BACK_OSS_H
+#define PLAY_BACK_OSS_H
 
 #include "config.h"
 #ifdef HAVE_OSS_SUPPORT
@@ -161,7 +161,7 @@ namespace Kwave
 
 #endif /* HAVE_OSS_SUPPORT */
 
-#endif /* _PLAY_BACK_OSS_H_ */
+#endif /* PLAY_BACK_OSS_H */
 
 //***************************************************************************
 //***************************************************************************

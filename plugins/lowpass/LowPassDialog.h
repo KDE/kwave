@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _LOW_PASS_DIALOG_H_
-#define _LOW_PASS_DIALOG_H_
+#ifndef LOW_PASS_DIALOG_H
+#define LOW_PASS_DIALOG_H
 
 #include "config.h"
 
@@ -117,7 +117,7 @@ namespace Kwave
     };
 }
 
-#endif /* _LOW_PASS_DIALOG_H_ */
+#endif /* LOW_PASS_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

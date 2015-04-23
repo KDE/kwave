@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SWAP_FILE_H_
-#define _SWAP_FILE_H_
+#ifndef SWAP_FILE_H
+#define SWAP_FILE_H
 
 #include "config.h"
 #include <sys/types.h>  // for size_t
@@ -140,7 +140,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SWAP_FILE_H_ */
+#endif /* SWAP_FILE_H */
 
 //***************************************************************************
 //***************************************************************************

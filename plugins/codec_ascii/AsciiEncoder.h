@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ASCII_ENCODER_H_
-#define _ASCII_ENCODER_H_
+#ifndef ASCII_ENCODER_H
+#define ASCII_ENCODER_H
 
 #include "config.h"
 
@@ -68,7 +68,7 @@ namespace Kwave
     };
 }
 
-#endif /* _ASCII_ENCODER_H_ */
+#endif /* ASCII_ENCODER_H */
 
 //***************************************************************************
 //***************************************************************************

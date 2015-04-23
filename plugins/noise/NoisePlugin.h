@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _NOISE_PLUGIN_H_
-#define _NOISE_PLUGIN_H_
+#ifndef NOISE_PLUGIN_H
+#define NOISE_PLUGIN_H
 
 #include "config.h"
 
@@ -96,7 +96,7 @@ namespace Kwave
     };
 }
 
-#endif /* _NOISE_PLUGIN_H_ */
+#endif /* NOISE_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

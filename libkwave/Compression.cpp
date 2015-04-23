@@ -82,7 +82,7 @@ Kwave::Compression::~Compression()
 //***************************************************************************
 QString Kwave::Compression::name() const
 {
-    return (m_data) ? i18n(__(m_data->m_name)) : QString();
+    return (m_data) ? i18n(UTF8(m_data->m_name)) : QString();
 }
 
 //***************************************************************************

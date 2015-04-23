@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _VORBIS_ENCODER_H_
-#define _VORBIS_ENCODER_H_
+#ifndef VORBIS_ENCODER_H
+#define VORBIS_ENCODER_H
 
 #include "config.h"
 
@@ -116,7 +116,7 @@ namespace Kwave
     };
 }
 
-#endif /* _VORBIS_ENCODER_H_ */
+#endif /* VORBIS_ENCODER_H */
 
 //***************************************************************************
 //***************************************************************************

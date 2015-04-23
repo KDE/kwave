@@ -315,9 +315,9 @@ bool Kwave::PlayBackPulseAudio::connectToServer()
     Q_ASSERT(m_pa_proplist);
 
     pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_LANGUAGE,
-                     __(QLocale::system().name()));
+                     UTF8(QLocale::system().name()));
     pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_NAME,
-                     __(qApp->applicationName()));
+                     UTF8(qApp->applicationName()));
     pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_ICON_NAME,
                      "kwave");
     pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_PROCESS_BINARY,
@@ -326,9 +326,9 @@ bool Kwave::PlayBackPulseAudio::connectToServer()
                     "%ld", static_cast<long int>(qApp->applicationPid()));
     KUser user;
     pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_PROCESS_USER,
-                     __(user.loginName()));
+                     UTF8(user.loginName()));
     pa_proplist_sets(m_pa_proplist, PA_PROP_APPLICATION_VERSION,
-                     __(qApp->applicationVersion()));
+                     UTF8(qApp->applicationVersion()));
 
     pa_proplist_sets(m_pa_proplist, PA_PROP_MEDIA_ROLE, "production");
 

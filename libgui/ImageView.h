@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _IMAGEVIEW_H_
-#define _IMAGEVIEW_H_
+#ifndef IMAGEVIEW_H
+#define IMAGEVIEW_H
 
 #include "config.h"
 

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _VOLUME_DIALOG_H_
-#define _VOLUME_DIALOG_H_
+#ifndef VOLUME_DIALOG_H
+#define VOLUME_DIALOG_H
 
 #include "config.h"
 
@@ -104,7 +104,7 @@ namespace Kwave
     };
 }
 
-#endif /* _VOLUME_DIALOG_H_ */
+#endif /* VOLUME_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

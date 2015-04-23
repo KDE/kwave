@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAYBACK_DEVICE_FACTORY_H_
-#define _PLAYBACK_DEVICE_FACTORY_H_
+#ifndef PLAYBACK_DEVICE_FACTORY_H
+#define PLAYBACK_DEVICE_FACTORY_H
 
 #include <QtCore/QList>
 
@@ -51,7 +51,7 @@ namespace Kwave
     };
 }
 
-#endif /* _PLAYBACK_DEVICE_FACTORY_H_ */
+#endif /* PLAYBACK_DEVICE_FACTORY_H */
 
 //***************************************************************************
 //***************************************************************************

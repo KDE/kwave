@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _TRANSMISSION_FUNCTION_H_
-#define _TRANSMISSION_FUNCTION_H_
+#ifndef TRANSMISSION_FUNCTION_H
+#define TRANSMISSION_FUNCTION_H
 
 #include "config.h"
 
@@ -41,7 +41,7 @@ namespace Kwave
     };
 }
 
-#endif /* _TRANSMISSION_FUNCTION_H_ */
+#endif /* TRANSMISSION_FUNCTION_H */
 
 //***************************************************************************
 //***************************************************************************

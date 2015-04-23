@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _CODEC_MANAGER_H_
-#define _CODEC_MANAGER_H_
+#ifndef CODEC_MANAGER_H
+#define CODEC_MANAGER_H
 
 #include "config.h"
 
@@ -152,7 +152,7 @@ namespace Kwave
     };
 }
 
-#endif /* _CODEC_MANAGER_H_ */
+#endif /* CODEC_MANAGER_H */
 
 //***************************************************************************
 //***************************************************************************

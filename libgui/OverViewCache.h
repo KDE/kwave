@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _OVER_VIEW_CACHE_H_
-#define _OVER_VIEW_CACHE_H_
+#ifndef OVER_VIEW_CACHE_H
+#define OVER_VIEW_CACHE_H
 
 #include "config.h"
 

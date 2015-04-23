@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MP3_ENCODER_SETTINGS_H_
-#define _MP3_ENCODER_SETTINGS_H_
+#ifndef MP3_ENCODER_SETTINGS_H
+#define MP3_ENCODER_SETTINGS_H
 
 #include <QtCore/QString>
 
@@ -88,7 +88,7 @@ namespace Kwave
 
 }
 
-#endif /* _MP3_ENCODER_SETTINGS_H_ */
+#endif /* MP3_ENCODER_SETTINGS_H */
 
 //***************************************************************************
 //***************************************************************************

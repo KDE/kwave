@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _VOLUME_PLUGIN_H_
-#define _VOLUME_PLUGIN_H_
+#ifndef VOLUME_PLUGIN_H
+#define VOLUME_PLUGIN_H
 
 #include "config.h"
 
@@ -69,7 +69,7 @@ namespace Kwave
     };
 }
 
-#endif /* _VOLUME_PLUGIN_H_ */
+#endif /* VOLUME_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

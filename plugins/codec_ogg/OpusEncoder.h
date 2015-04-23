@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _OPUS_ENCODER_H_
-#define _OPUS_ENCODER_H_
+#ifndef OPUS_ENCODER_H
+#define OPUS_ENCODER_H
 
 #include "config.h"
 #ifdef HAVE_OGG_OPUS
@@ -237,7 +237,7 @@ namespace Kwave
 
 #endif /* HAVE_OGG_OPUS */
 
-#endif /* _OPUS_ENCODER_H_ */
+#endif /* OPUS_ENCODER_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _STRING_ENTER_DIALOG_H_
-#define _STRING_ENTER_DIALOG_H_
+#ifndef STRING_ENTER_DIALOG_H
+#define STRING_ENTER_DIALOG_H
 
 #include "config.h"
 
@@ -64,7 +64,7 @@ namespace Kwave
     };
 }
 
-#endif /* _STRING_ENTER_DIALOG_H_ */
+#endif /* STRING_ENTER_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

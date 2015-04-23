@@ -14,8 +14,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef _LABEL_LIST_H_
-#define _LABEL_LIST_H_
+#ifndef LABEL_LIST_H
+#define LABEL_LIST_H
 
 #include "config.h"
 
@@ -78,7 +78,7 @@ namespace Kwave
 
 }
 
-#endif /* _LABEL_LIST_H_ */
+#endif /* LABEL_LIST_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _BITRATE_WIDGET_H_
-#define _BITRATE_WIDGET_H_
+#ifndef BITRATE_WIDGET_H
+#define BITRATE_WIDGET_H
 
 #include "config.h"
 
@@ -80,7 +80,7 @@ namespace Kwave
     };
 }
 
-#endif /* _BITRATE_WIDGET_H_ */
+#endif /* BITRATE_WIDGET_H */
 
 //***************************************************************************
 //***************************************************************************

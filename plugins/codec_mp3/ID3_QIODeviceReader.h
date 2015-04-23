@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ID3_QIODEVICE_READER_H_
-#define _ID3_QIODEVICE_READER_H_
+#ifndef ID3_QIODEVICE_READER_H
+#define ID3_QIODEVICE_READER_H
 
 #include "config.h"
 
@@ -73,7 +73,7 @@ namespace Kwave
     };
 }
 
-#endif /* _ID3_QIODEVICE_READER_H_ */
+#endif /* ID3_QIODEVICE_READER_H */
 
 //***************************************************************************
 //***************************************************************************

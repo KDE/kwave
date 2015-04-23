@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MENU_NODE_H_
-#define _MENU_NODE_H_
+#ifndef MENU_NODE_H
+#define MENU_NODE_H
 
 #include "config.h"
 

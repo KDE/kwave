@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _WINDOW_FUNCTION_H_
-#define _WINDOW_FUNCTION_H_
+#ifndef WINDOW_FUNCTION_H
+#define WINDOW_FUNCTION_H
 
 #include "config.h"
 
@@ -153,7 +153,7 @@ namespace Kwave
 
 }
 
-#endif /* _WINDOW_FUNCTION_H_ */
+#endif /* WINDOW_FUNCTION_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@ VorbisCommentMap.h  -  map for translating properties to vorbis comments
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _VORBIS_COMMENT_MAP_H_
-#define _VORBIS_COMMENT_MAP_H_
+#ifndef VORBIS_COMMENT_MAP_H
+#define VORBIS_COMMENT_MAP_H
 
 #include "config.h"
 
@@ -49,7 +49,7 @@ namespace Kwave
 
     };
 }
-#endif /* _VORBIS_COMMENT_MAP_H_ */
+#endif /* VORBIS_COMMENT_MAP_H */
 
 //***************************************************************************
 //***************************************************************************

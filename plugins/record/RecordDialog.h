@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECORD_DIALOG_H_
-#define _RECORD_DIALOG_H_
+#ifndef RECORD_DIALOG_H
+#define RECORD_DIALOG_H
 
 #include "config.h"
 
@@ -340,7 +340,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RECORD_DIALOG_H_ */
+#endif /* RECORD_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

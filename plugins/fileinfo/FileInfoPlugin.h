@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _FILE_INFO_PLUGIN_H_
-#define _FILE_INFO_PLUGIN_H_
+#ifndef FILE_INFO_PLUGIN_H
+#define FILE_INFO_PLUGIN_H
 
 #include "config.h"
 #include <QtCore/QObject>
@@ -52,7 +52,7 @@ namespace Kwave
     };
 }
 
-#endif /* _FILE_INFO_PLUGIN_H_ */
+#endif /* FILE_INFO_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

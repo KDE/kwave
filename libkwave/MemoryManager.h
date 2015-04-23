@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MEMORY_MANAGER_H_
-#define _MEMORY_MANAGER_H_
+#ifndef MEMORY_MANAGER_H
+#define MEMORY_MANAGER_H
 
 #include "config.h"
 #include <stddef.h>  // for size_t
@@ -322,7 +322,7 @@ namespace Kwave
 
 }
 
-#endif /* _MEMORY_MANAGER_H_ */
+#endif /* MEMORY_MANAGER_H */
 
 //***************************************************************************
 //***************************************************************************

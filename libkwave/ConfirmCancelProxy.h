@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _CONFIRM_CANCEL_PROXY_H_
-#define _CONFIRM_CANCEL_PROXY_H_
+#ifndef CONFIRM_CANCEL_PROXY_H
+#define CONFIRM_CANCEL_PROXY_H
 
 #include "config.h"
 
@@ -73,7 +73,7 @@ namespace Kwave
     };
 }
 
-#endif /* _CONFIRM_CANCEL_PROXY_H_ */
+#endif /* CONFIRM_CANCEL_PROXY_H */
 
 //***************************************************************************
 //***************************************************************************

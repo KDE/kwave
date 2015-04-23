@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECOVERY_BUFFER_H_
-#define _RECOVERY_BUFFER_H_
+#ifndef RECOVERY_BUFFER_H
+#define RECOVERY_BUFFER_H
 
 #include "config.h"
 
@@ -50,7 +50,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RECOVERY_BUFFER_H_ */
+#endif /* RECOVERY_BUFFER_H */
 
 //***************************************************************************
 //***************************************************************************

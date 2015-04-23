@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_STRING_H_
-#define _KWAVE_STRING_H_
+#ifndef KWAVE_STRING_H
+#define KWAVE_STRING_H
 
 #include "config.h"
 
@@ -45,7 +45,7 @@ static inline QString _(const char *s) { return QLatin1String(s); }
  * @param qs a QString
  * @return a const char * in UTF8 representation
  */
-#define __(qs) ((qs).toUtf8().data())
+#define UTF8(qs) ((qs).toUtf8().data())
 
 /**
  * helper for converting QString to const char *, useful for debug output
@@ -54,7 +54,7 @@ static inline QString _(const char *s) { return QLatin1String(s); }
  */
 #define DBG(qs) qPrintable(qs)
 
-#endif /* _KWAVE_STRING_H_ */
+#endif /* KWAVE_STRING_H */
 
 //***************************************************************************
 //***************************************************************************

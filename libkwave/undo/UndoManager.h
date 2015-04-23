@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_MANAGER_H_
-#define _UNDO_MANAGER_H_
+#ifndef UNDO_MANAGER_H
+#define UNDO_MANAGER_H
 
 #include "config.h"
 
@@ -90,7 +90,7 @@ namespace Kwave
     };
 }
 
-#endif /* _UNDO_MANAGER_H_ */
+#endif /* UNDO_MANAGER_H */
 
 //***************************************************************************
 //***************************************************************************

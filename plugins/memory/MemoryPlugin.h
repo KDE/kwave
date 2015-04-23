@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MEMORY_PLUGIN_H_
-#define _MEMORY_PLUGIN_H_
+#ifndef MEMORY_PLUGIN_H
+#define MEMORY_PLUGIN_H
 
 #include "config.h"
 #include <QtCore/QObject>
@@ -112,7 +112,7 @@ namespace Kwave
     };
 }
 
-#endif /* _MEMORY_PLUGIN_H_ */
+#endif /* MEMORY_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -18,8 +18,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _NOTCH_FILTER_H_
-#define _NOTCH_FILTER_H_
+#ifndef NOTCH_FILTER_H
+#define NOTCH_FILTER_H
 
 #include "config.h"
 
@@ -106,7 +106,7 @@ namespace Kwave
     };
 }
 
-#endif /* _NOTCH_FILTER_H_ */
+#endif /* NOTCH_FILTER_H */
 
 //***************************************************************************
 //***************************************************************************

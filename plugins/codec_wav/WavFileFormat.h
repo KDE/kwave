@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _WAV_FILE_FORMAT_H_
-#define _WAV_FILE_FORMAT_H_
+#ifndef WAV_FILE_FORMAT_H
+#define WAV_FILE_FORMAT_H
 
 #include <QtCore/QList>
 
@@ -211,7 +211,7 @@ namespace Kwave
     foreach (int comp, Kwave::audiofileCompressionTypes()) \
 	addCompression(comp)
 
-#endif /* _WAV_FILE_FORMAT_H_ */
+#endif /* WAV_FILE_FORMAT_H */
 
 //***************************************************************************
 //***************************************************************************

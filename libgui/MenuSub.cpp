@@ -38,7 +38,7 @@ Kwave::MenuSub::MenuSub(Kwave::MenuNode *parent,
 {
     QAction *act = action();
     Q_ASSERT(act);
-    if (act) act->setText(i18nc(__(_("menu: ") + path()), __(name)));
+    if (act) act->setText(i18nc(UTF8(_("menu: ") + path()), UTF8(name)));
 }
 
 //***************************************************************************

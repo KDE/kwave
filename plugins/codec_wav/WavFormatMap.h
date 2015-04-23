@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _WAV_FORMAT_MAP_H_
-#define _WAV_FORMAT_MAP_H_
+#ifndef WAV_FORMAT_MAP_H
+#define WAV_FORMAT_MAP_H
 
 #include "config.h"
 
@@ -45,7 +45,7 @@ namespace Kwave
     };
 }
 
-#endif /* _WAV_FORMAT_MAP_H_ */
+#endif /* WAV_FORMAT_MAP_H */
 
 //***************************************************************************
 //***************************************************************************

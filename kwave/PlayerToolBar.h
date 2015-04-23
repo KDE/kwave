@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAYER_TOOL_BAR_H_
-#define _PLAYER_TOOL_BAR_H_
+#ifndef PLAYER_TOOL_BAR_H
+#define PLAYER_TOOL_BAR_H
 
 #include "config.h"
 
@@ -202,7 +202,7 @@ namespace Kwave
 
 }
 
-#endif /* _PLAYER_TOOL_BAR_H_ */
+#endif /* PLAYER_TOOL_BAR_H */
 
 //***************************************************************************
 //***************************************************************************

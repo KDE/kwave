@@ -14,8 +14,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef _PLAY_BACK_TYPES_MAP_H_
-#define _PLAY_BACK_TYPES_MAP_H_
+#ifndef PLAY_BACK_TYPES_MAP_H
+#define PLAY_BACK_TYPES_MAP_H
 
 #include "config.h"
 
@@ -45,7 +45,7 @@ namespace Kwave
     };
 }
 
-#endif /* _PLAY_BACK_TYPES_MAP_H_ */
+#endif /* PLAY_BACK_TYPES_MAP_H */
 
 //***************************************************************************
 //***************************************************************************

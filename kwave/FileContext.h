@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_FILE_CONTEXT_H_
-#define _KWAVE_FILE_CONTEXT_H_
+#ifndef KWAVE_FILE_CONTEXT_H
+#define KWAVE_FILE_CONTEXT_H
 
 #include "config.h"
 
@@ -435,7 +435,7 @@ namespace Kwave
 
 }
 
-#endif /* _KWAVE_FILE_CONTEXT_H_ */
+#endif /* KWAVE_FILE_CONTEXT_H */
 
 //***************************************************************************
 //***************************************************************************

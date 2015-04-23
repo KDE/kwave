@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _GOTO_PLUGIN_BASE_H_
-#define _GOTO_PLUGIN_BASE_H_
+#ifndef GOTO_PLUGIN_BASE_H
+#define GOTO_PLUGIN_BASE_H
 
 #include "config.h"
 
@@ -78,7 +78,7 @@ namespace Kwave
     };
 }
 
-#endif /* _GOTO_PLUGIN_BASE_H_ */
+#endif /* GOTO_PLUGIN_BASE_H */
 
 //***************************************************************************
 //***************************************************************************

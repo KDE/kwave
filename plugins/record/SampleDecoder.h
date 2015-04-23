@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SAMPLE_DECODER_H_
-#define _SAMPLE_DECODER_H_
+#ifndef SAMPLE_DECODER_H
+#define SAMPLE_DECODER_H
 
 #include "config.h"
 
@@ -52,7 +52,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SAMPLE_DECODER_H_ */
+#endif /* SAMPLE_DECODER_H */
 
 //***************************************************************************
 //***************************************************************************

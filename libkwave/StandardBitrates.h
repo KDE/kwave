@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _STANDARD_BITRATES_H_
-#define _STANDARD_BITRATES_H_
+#ifndef STANDARD_BITRATES_H
+#define STANDARD_BITRATES_H
 
 #include "config.h"
 
@@ -48,7 +48,7 @@ namespace Kwave
     };
 }
 
-#endif /* _STANDARD_BITRATES_H_ */
+#endif /* STANDARD_BITRATES_H */
 
 //***************************************************************************
 //***************************************************************************

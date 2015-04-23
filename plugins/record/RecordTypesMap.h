@@ -14,8 +14,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef _RECORD_TYPES_MAP_H_
-#define _RECORD_TYPES_MAP_H_
+#ifndef RECORD_TYPES_MAP_H
+#define RECORD_TYPES_MAP_H
 
 #include "config.h"
 #include "libkwave/TypesMap.h"
@@ -42,7 +42,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RECORD_TYPES_MAP_H_ */
+#endif /* RECORD_TYPES_MAP_H */
 
 //***************************************************************************
 //***************************************************************************

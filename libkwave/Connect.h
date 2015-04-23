@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _CONNECT_H_
-#define _CONNECT_H_
+#ifndef CONNECT_H
+#define CONNECT_H
 
 #include "config.h"
 #include <kdemacros.h>
@@ -55,7 +55,7 @@ namespace Kwave
                  KDE_EXPORT;
 }
 
-#endif /* _CONNECT_H_ */
+#endif /* CONNECT_H */
 
 //***************************************************************************
 //***************************************************************************

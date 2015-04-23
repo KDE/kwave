@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAY_BACK_DIALOG_H_
-#define _PLAY_BACK_DIALOG_H_
+#ifndef PLAY_BACK_DIALOG_H
+#define PLAY_BACK_DIALOG_H
 
 #include "config.h"
 

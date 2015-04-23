@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAY_BACK_PARAM_H_
-#define _PLAY_BACK_PARAM_H_
+#ifndef PLAY_BACK_PARAM_H
+#define PLAY_BACK_PARAM_H
 
 #include <QtCore/QString>
 #include <kdemacros.h>
@@ -80,7 +80,7 @@ namespace Kwave
     };
 }
 
-#endif /* _PLAY_BACK_PARAM_H_ */
+#endif /* PLAY_BACK_PARAM_H */
 
 //***************************************************************************
 //***************************************************************************

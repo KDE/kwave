@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RATE_CONVERTER_H_
-#define _RATE_CONVERTER_H_
+#ifndef RATE_CONVERTER_H
+#define RATE_CONVERTER_H
 
 #include "config.h"
 
@@ -80,7 +80,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RATE_CONVERTER_H_ */
+#endif /* RATE_CONVERTER_H */
 
 //***************************************************************************
 //***************************************************************************

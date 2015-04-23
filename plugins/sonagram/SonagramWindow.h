@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SONAGRAM_WINDOW_H_
-#define _SONAGRAM_WINDOW_H_
+#ifndef SONAGRAM_WINDOW_H
+#define SONAGRAM_WINDOW_H
 
 #include "config.h"
 

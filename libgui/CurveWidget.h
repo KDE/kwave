@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _CURVE_WIDGET_H_
-#define _CURVE_WIDGET_H_
+#ifndef CURVE_WIDGET_H
+#define CURVE_WIDGET_H
 
 #include "config.h"
 

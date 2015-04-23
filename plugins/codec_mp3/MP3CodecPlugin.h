@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MP3_CODEC_PLUGIN_H_
-#define _MP3_CODEC_PLUGIN_H_
+#ifndef MP3_CODEC_PLUGIN_H
+#define MP3_CODEC_PLUGIN_H
 
 #include "config.h"
 
@@ -85,7 +85,7 @@ namespace Kwave
     addCompression(Kwave::Compression::MPEG_LAYER_III); \
 }
 
-#endif /* _MP3_CODEC_PLUGIN_H_ */
+#endif /* MP3_CODEC_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

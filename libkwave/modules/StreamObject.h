@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _STREAM_OBJECT_H_
-#define _STREAM_OBJECT_H_
+#ifndef STREAM_OBJECT_H
+#define STREAM_OBJECT_H
 
 #include "config.h"
 
@@ -130,7 +130,7 @@ namespace Kwave
     };
 }
 
-#endif /* _STREAM_OBJECT_H_ */
+#endif /* STREAM_OBJECT_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _BITRATE_SPIN_BOX_H_
-#define _BITRATE_SPIN_BOX_H_
+#ifndef BITRATE_SPIN_BOX_H
+#define BITRATE_SPIN_BOX_H
 
 #include "config.h"
 
@@ -63,7 +63,7 @@ namespace Kwave
     };
 }
 
-#endif /* _BITRATE_SPIN_BOX_H_ */
+#endif /* BITRATE_SPIN_BOX_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECORD_PLUGIN_H_
-#define _RECORD_PLUGIN_H_
+#ifndef RECORD_PLUGIN_H
+#define RECORD_PLUGIN_H
 
 #include "config.h"
 
@@ -276,7 +276,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RECORD_PLUGIN_H_ */
+#endif /* RECORD_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

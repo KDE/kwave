@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECORD_OSS_H_
-#define _RECORD_OSS_H_
+#ifndef RECORD_OSS_H
+#define RECORD_OSS_H
 
 #include "config.h"
 #ifdef HAVE_OSS_SUPPORT
@@ -203,7 +203,7 @@ namespace Kwave
 
 #endif /* HAVE_OSS_SUPPORT */
 
-#endif /* _RECORD_OSS_H_ */
+#endif /* RECORD_OSS_H */
 
 //***************************************************************************
 //***************************************************************************

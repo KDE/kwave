@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _AUDIOFILE_CODEC_PLUGIN_H_
-#define _AUDIOFILE_CODEC_PLUGIN_H_
+#ifndef AUDIOFILE_CODEC_PLUGIN_H
+#define AUDIOFILE_CODEC_PLUGIN_H
 
 #include "config.h"
 #include "libkwave/CodecPlugin.h"
@@ -50,7 +50,7 @@ namespace Kwave
     };
 }
 
-#endif /* _AUDIOFILE_CODEC_PLUGIN_H_ */
+#endif /* AUDIOFILE_CODEC_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

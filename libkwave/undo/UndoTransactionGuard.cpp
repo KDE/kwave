@@ -42,7 +42,7 @@ Kwave::UndoTransactionGuard::UndoTransactionGuard(Kwave::Plugin &plugin,
     :m_manager(plugin.manager().signalManager())
 {
     QString description = (name.length()) ?
-	name : i18n(__(plugin.name()));
+	name : i18n(UTF8(plugin.name()));
     m_manager.startUndoTransaction(description);
 }
 

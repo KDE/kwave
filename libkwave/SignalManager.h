@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SIGNAL_MANAGER_H_
-#define _SIGNAL_MANAGER_H_
+#ifndef SIGNAL_MANAGER_H
+#define SIGNAL_MANAGER_H
 
 #include "config.h"
 #include <limits.h>
@@ -767,7 +767,7 @@ namespace Kwave
     };
 }
 
-#endif  /* _SIGNAL_MANAGER_H_ */
+#endif  /* SIGNAL_MANAGER_H */
 
 //***************************************************************************
 //***************************************************************************

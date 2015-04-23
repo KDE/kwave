@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SELECT_RANGE_DIALOG_H_
-#define _SELECT_RANGE_DIALOG_H_
+#ifndef SELECT_RANGE_DIALOG_H
+#define SELECT_RANGE_DIALOG_H
 
 #include "config.h"
 
@@ -99,7 +99,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SELECT_RANGE_DIALOG_H_ */
+#endif /* SELECT_RANGE_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

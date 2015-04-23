@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_TRANSACTION_H_
-#define _UNDO_TRANSACTION_H_
+#ifndef UNDO_TRANSACTION_H
+#define UNDO_TRANSACTION_H
 
 #include "config.h"
 
@@ -95,7 +95,7 @@ namespace Kwave {
     };
 }
 
-#endif /* _UNDO_TRANSACTION_H_ */
+#endif /* UNDO_TRANSACTION_H */
 
 //***************************************************************************
 //***************************************************************************

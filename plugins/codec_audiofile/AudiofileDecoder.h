@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _WAV_DECODER_H_
-#define _WAV_DECODER_H_
+#ifndef WAV_DECODER_H
+#define WAV_DECODER_H
 
 #include "config.h"
 
@@ -75,7 +75,7 @@ namespace Kwave
     };
 }
 
-#endif /* _AUDIOFILE_DECODER_H_ */
+#endif /* AUDIOFILE_DECODER_H */
 
 //***************************************************************************
 //***************************************************************************

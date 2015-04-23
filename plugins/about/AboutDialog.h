@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ABOUT_KWAVE_DIALOG_H_
-#define _ABOUT_KWAVE_DIALOG_H_
+#ifndef ABOUT_KWAVE_DIALOG_H
+#define ABOUT_KWAVE_DIALOG_H
 
 #include "config.h"
 
@@ -56,7 +56,7 @@ namespace Kwave
     };
 }
 
-#endif  /* _ABOUT_KWAVE_DIALOG_H_ */
+#endif  /* ABOUT_KWAVE_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

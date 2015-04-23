@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MENU_GROUP_H_
-#define _MENU_GROUP_H_
+#ifndef MENU_GROUP_H
+#define MENU_GROUP_H
 
 #include "config.h"
 

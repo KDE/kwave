@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_LOGGER_H_
-#define _KWAVE_LOGGER_H_
+#ifndef KWAVE_LOGGER_H
+#define KWAVE_LOGGER_H
 
 #include "config.h"
 

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _FREQUENCY_RESPONSE_WIDGET_H_
-#define _FREQUENCY_RESPONSE_WIDGET_H_
+#ifndef FREQUENCY_RESPONSE_WIDGET_H
+#define FREQUENCY_RESPONSE_WIDGET_H
 
 #include "config.h"
 
@@ -85,7 +85,7 @@ namespace Kwave
     };
 }
 
-#endif /* _FREQUENCY_RESPONSE_WIDGET_H_ */
+#endif /* FREQUENCY_RESPONSE_WIDGET_H */
 
 //***************************************************************************
 //***************************************************************************

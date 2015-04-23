@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SAVE_BLOCKS_WIDGET_H_
-#define _SAVE_BLOCKS_WIDGET_H_
+#ifndef SAVE_BLOCKS_WIDGET_H
+#define SAVE_BLOCKS_WIDGET_H
 
 #include <QtGui/QWidget>
 
@@ -85,7 +85,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SAVE_BLOCKS_WIDGET_H_ */
+#endif /* SAVE_BLOCKS_WIDGET_H */
 
 //***************************************************************************
 //***************************************************************************

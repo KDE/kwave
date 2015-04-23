@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _STATUS_WIDGET_H_
-#define _STATUS_WIDGET_H_
+#ifndef STATUS_WIDGET_H
+#define STATUS_WIDGET_H
 
 #include "config.h"
 
@@ -74,7 +74,7 @@ namespace Kwave
     };
 }
 
-#endif /* _STATUS_WIDGET_H_ */
+#endif /* STATUS_WIDGET_H */
 
 //***************************************************************************
 //***************************************************************************

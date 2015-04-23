@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SIGNAL_WIDGET_H_
-#define _SIGNAL_WIDGET_H_
+#ifndef SIGNAL_WIDGET_H
+#define SIGNAL_WIDGET_H
 
 #include "config.h"
 
@@ -305,7 +305,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SIGNAL_WIDGET_H_ */
+#endif /* SIGNAL_WIDGET_H */
 
 //***************************************************************************
 //***************************************************************************

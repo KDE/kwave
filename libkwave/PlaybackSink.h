@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAYBACK_SINK_H_
-#define _PLAYBACK_SINK_H_
+#ifndef PLAYBACK_SINK_H
+#define PLAYBACK_SINK_H
 
 #include "config.h"
 
@@ -55,7 +55,7 @@ namespace Kwave
     };
 }
 
-#endif /* _PLAYBACK_SINK_H_ */
+#endif /* PLAYBACK_SINK_H */
 
 //***************************************************************************
 //***************************************************************************

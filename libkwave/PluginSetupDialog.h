@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLUGIN_SETUP_DIALOG_H_
-#define _PLUGIN_SETUP_DIALOG_H_
+#ifndef PLUGIN_SETUP_DIALOG_H
+#define PLUGIN_SETUP_DIALOG_H
 
 #include "config.h"
 #include <QtCore/QStringList>
@@ -52,7 +52,7 @@ namespace Kwave
     };
 }
 
-#endif /* _PLUGIN_SETUP_DIALOG_H_ */
+#endif /* PLUGIN_SETUP_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

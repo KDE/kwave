@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _OGG_CODEC_PLUGIN_H_
-#define _OGG_CODEC_PLUGIN_H_
+#ifndef OGG_CODEC_PLUGIN_H
+#define OGG_CODEC_PLUGIN_H
 
 #include "config.h"
 
@@ -76,7 +76,7 @@ namespace Kwave
 
 #define DEFAULT_MIME_TYPE "audio/ogg"
 
-#endif /* _OGG_CODEC_PLUGIN_H_ */
+#endif /* OGG_CODEC_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

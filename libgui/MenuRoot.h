@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MENU_ROOT_H_
-#define _MENU_ROOT_H_
+#ifndef MENU_ROOT_H
+#define MENU_ROOT_H
 
 #include "config.h"
 

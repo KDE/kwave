@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECORD_ALSA_H_
-#define _RECORD_ALSA_H_
+#ifndef RECORD_ALSA_H
+#define RECORD_ALSA_H
 
 #include "config.h"
 #ifdef HAVE_ALSA_SUPPORT
@@ -269,7 +269,7 @@ namespace Kwave
 
 #endif /* HAVE_ALSA_SUPPORT */
 
-#endif /* _RECORD_ALSA_H_ */
+#endif /* RECORD_ALSA_H */
 
 //***************************************************************************
 //***************************************************************************

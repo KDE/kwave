@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SAMPLE_READER_H_
-#define _SAMPLE_READER_H_
+#ifndef SAMPLE_READER_H
+#define SAMPLE_READER_H
 
 #include "config.h"
 
@@ -205,7 +205,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SAMPLE_READER_H_ */
+#endif /* SAMPLE_READER_H */
 
 //***************************************************************************
 //***************************************************************************

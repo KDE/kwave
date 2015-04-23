@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SAMPLE_FORMAT_H_
-#define _SAMPLE_FORMAT_H_
+#ifndef SAMPLE_FORMAT_H
+#define SAMPLE_FORMAT_H
 
 #include "config.h"
 
@@ -93,7 +93,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SAMPLE_FORMAT_H_ */
+#endif /* SAMPLE_FORMAT_H */
 
 //***************************************************************************
 //***************************************************************************

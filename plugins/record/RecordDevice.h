@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECORD_DEVICE_H_
-#define _RECORD_DEVICE_H_
+#ifndef RECORD_DEVICE_H
+#define RECORD_DEVICE_H
 
 #include "config.h"
 
@@ -165,7 +165,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RECORD_DEVICE_H_ */
+#endif /* RECORD_DEVICE_H */
 
 //***************************************************************************
 //***************************************************************************

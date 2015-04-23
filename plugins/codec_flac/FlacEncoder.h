@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _FLAC_ENCODER_H_
-#define _FLAC_ENCODER_H_
+#ifndef FLAC_ENCODER_H
+#define FLAC_ENCODER_H
 
 #include "config.h"
 
@@ -139,7 +139,7 @@ namespace Kwave
     };
 }
 
-#endif /* _FLAC_ENCODER_H_ */
+#endif /* FLAC_ENCODER_H */
 
 //***************************************************************************
 //***************************************************************************

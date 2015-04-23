@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAY_BACK_PULSE_AUDIO_H_
-#define _PLAY_BACK_PULSE_AUDIO_H_
+#ifndef PLAY_BACK_PULSE_AUDIO_H
+#define PLAY_BACK_PULSE_AUDIO_H
 
 #include "config.h"
 #ifdef HAVE_PULSEAUDIO_SUPPORT
@@ -297,7 +297,7 @@ namespace Kwave
 
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
-#endif /* _PLAY_BACK_PULSE_AUDIO_H_ */
+#endif /* PLAY_BACK_PULSE_AUDIO_H */
 
 //***************************************************************************
 //***************************************************************************

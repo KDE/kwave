@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _INSERT_MODE_H_
-#define _INSERT_MODE_H_
+#ifndef INSERT_MODE_H
+#define INSERT_MODE_H
 
 namespace Kwave
 {
@@ -49,7 +49,7 @@ namespace Kwave
     } InsertMode;
 }
 
-#endif /* _INSERT_MODE_H_ */
+#endif /* INSERT_MODE_H */
 
 //***************************************************************************
 //***************************************************************************

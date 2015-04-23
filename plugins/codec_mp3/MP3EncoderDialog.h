@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MP3_ENCODER_DIALOG_H_
-#define _MP3_ENCODER_DIALOG_H_
+#ifndef MP3_ENCODER_DIALOG_H
+#define MP3_ENCODER_DIALOG_H
 
 #include "config.h"
 
@@ -117,7 +117,7 @@ namespace Kwave
     };
 }
 
-#endif /* _MP3_ENCODER_DIALOG_H_ */
+#endif /* MP3_ENCODER_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

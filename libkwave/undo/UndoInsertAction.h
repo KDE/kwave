@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_INSERT_ACTION_H_
-#define _UNDO_INSERT_ACTION_H_
+#ifndef UNDO_INSERT_ACTION_H
+#define UNDO_INSERT_ACTION_H
 
 #include "config.h"
 
@@ -104,7 +104,7 @@ namespace Kwave
     };
 }
 
-#endif /* _UNDO_INSERT_ACTION_H_ */
+#endif /* UNDO_INSERT_ACTION_H */
 
 //***************************************************************************
 //***************************************************************************

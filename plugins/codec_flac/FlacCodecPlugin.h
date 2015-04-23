@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _FLAC_CODEC_PLUGIN_H_
-#define _FLAC_CODEC_PLUGIN_H_
+#ifndef FLAC_CODEC_PLUGIN_H
+#define FLAC_CODEC_PLUGIN_H
 
 #include "config.h"
 
@@ -65,7 +65,7 @@ namespace Kwave
 
 #define DEFAULT_MIME_TYPE "audio/x-flac"
 
-#endif /* _FLAC_CODEC_PLUGIN_H_ */
+#endif /* FLAC_CODEC_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SHORTCUT_WRAPPER_H_
-#define _SHORTCUT_WRAPPER_H_
+#ifndef SHORTCUT_WRAPPER_H
+#define SHORTCUT_WRAPPER_H
 
 #include "config.h"
 
@@ -65,7 +65,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SHORTCUT_WRAPPER_H_ */
+#endif /* SHORTCUT_WRAPPER_H */
 
 //***************************************************************************
 //***************************************************************************

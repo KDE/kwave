@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KWAVE_SPLASH_H_
-#define _KWAVE_SPLASH_H_
+#ifndef KWAVE_SPLASH_H
+#define KWAVE_SPLASH_H
 
 #include <QtGui/QFrame>
 #include <QtCore/QObject>
@@ -70,7 +70,7 @@ namespace Kwave
     };
 }
 
-#endif /* _KWAVE_SPLASH_H_ */
+#endif /* KWAVE_SPLASH_H */
 
 //***************************************************************************
 //***************************************************************************

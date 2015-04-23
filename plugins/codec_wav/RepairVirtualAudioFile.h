@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _REPAIR_VIRTUAL_AUDIO_FILE_H_
-#define _REPAIR_VIRTUAL_AUDIO_FILE_H_
+#ifndef REPAIR_VIRTUAL_AUDIO_FILE_H
+#define REPAIR_VIRTUAL_AUDIO_FILE_H
 
 #include "config.h"
 #include <QtCore/QList>
@@ -68,7 +68,7 @@ namespace Kwave
     };
 }
 
-#endif /* _REPAIR_VIRTUAL_AUDIO_FILE_H_ */
+#endif /* REPAIR_VIRTUAL_AUDIO_FILE_H */
 
 //***************************************************************************
 //***************************************************************************

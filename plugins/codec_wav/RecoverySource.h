@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECOVERY_SOURCE_H_
-#define _RECOVERY_SOURCE_H_
+#ifndef RECOVERY_SOURCE_H
+#define RECOVERY_SOURCE_H
 
 #include "config.h"
 
@@ -65,7 +65,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RECOVERY_SOURCE_H_ */
+#endif /* RECOVERY_SOURCE_H */
 
 //***************************************************************************
 //***************************************************************************

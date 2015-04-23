@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _CODEC_PLUGIN_H_
-#define _CODEC_PLUGIN_H_
+#ifndef CODEC_PLUGIN_H
+#define CODEC_PLUGIN_H
 
 #include "config.h"
 
@@ -81,7 +81,7 @@ namespace Kwave
     };
 }
 
-#endif /* _CODEC_PLUGIN_H_ */
+#endif /* CODEC_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

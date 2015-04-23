@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _CHANNEL_MIXER_H_
-#define _CHANNEL_MIXER_H_
+#ifndef CHANNEL_MIXER_H
+#define CHANNEL_MIXER_H
 
 #include "config.h"
 
@@ -132,7 +132,7 @@ namespace Kwave
 
 }
 
-#endif /* _CHANNEL_MIXER_H_ */
+#endif /* CHANNEL_MIXER_H */
 
 //***************************************************************************
 //***************************************************************************

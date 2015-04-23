@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _UNDO_MODIFY_ACTION_H_
-#define _UNDO_MODIFY_ACTION_H_
+#ifndef UNDO_MODIFY_ACTION_H
+#define UNDO_MODIFY_ACTION_H
 
 #include "config.h"
 
@@ -85,7 +85,7 @@ namespace Kwave
     };
 }
 
-#endif /* _UNDO_MODIFY_ACTION_H_ */
+#endif /* UNDO_MODIFY_ACTION_H */
 
 //***************************************************************************
 //***************************************************************************

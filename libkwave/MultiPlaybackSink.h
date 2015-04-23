@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MULTI_PLAYBACK_SINK_H_
-#define _MULTI_PLAYBACK_SINK_H_
+#ifndef MULTI_PLAYBACK_SINK_H
+#define MULTI_PLAYBACK_SINK_H
 
 #include "config.h"
 
@@ -81,7 +81,7 @@ namespace Kwave
     };
 }
 
-#endif /* _MULTI_PLAYBACK_SINK_H_ */
+#endif /* MULTI_PLAYBACK_SINK_H */
 
 //***************************************************************************
 //***************************************************************************

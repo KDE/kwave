@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _NOISE_DIALOG_H_
-#define _NOISE_DIALOG_H_
+#ifndef NOISE_DIALOG_H
+#define NOISE_DIALOG_H
 
 #include "config.h"
 
@@ -133,7 +133,7 @@ namespace Kwave
     };
 }
 
-#endif /* _NOISE_DIALOG_H_ */
+#endif /* NOISE_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

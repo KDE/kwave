@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECORD_CONTROLLER_H_
-#define _RECORD_CONTROLLER_H_
+#ifndef RECORD_CONTROLLER_H
+#define RECORD_CONTROLLER_H
 
 #include "config.h"
 
@@ -127,7 +127,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RECORD_CONTROLLER_H_ */
+#endif /* RECORD_CONTROLLER_H */
 
 //***************************************************************************
 //***************************************************************************

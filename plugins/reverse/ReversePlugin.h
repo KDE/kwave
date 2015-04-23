@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _REVERSE_PLUGIN_H_
-#define _REVERSE_PLUGIN_H_
+#ifndef REVERSE_PLUGIN_H
+#define REVERSE_PLUGIN_H
 
 #include "config.h"
 
@@ -93,7 +93,7 @@ namespace Kwave
     };
 }
 
-#endif /* _REVERSE_PLUGIN_H_ */
+#endif /* REVERSE_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KEYWORD_WIDGET_H_
-#define _KEYWORD_WIDGET_H_
+#ifndef KEYWORD_WIDGET_H
+#define KEYWORD_WIDGET_H
 
 #include "config.h"
 
@@ -90,7 +90,7 @@ namespace Kwave
     };
 }
 
-#endif /* _KEYWORD_WIDGET_H_ */
+#endif /* KEYWORD_WIDGET_H */
 
 //***************************************************************************
 //***************************************************************************

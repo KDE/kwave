@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ID3_PROPERTY_MAP_H_
-#define _ID3_PROPERTY_MAP_H_
+#ifndef ID3_PROPERTY_MAP_H
+#define ID3_PROPERTY_MAP_H
 
 #include "config.h"
 
@@ -124,7 +124,7 @@ namespace Kwave
     };
 }
 
-#endif /* _ID3_PROPERTY_MAP_H_ */
+#endif /* ID3_PROPERTY_MAP_H */
 
 //***************************************************************************
 //***************************************************************************

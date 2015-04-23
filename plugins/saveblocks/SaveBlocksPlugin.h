@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SAVE_BLOCKS_PLUGIN_H_
-#define _SAVE_BLOCKS_PLUGIN_H_
+#ifndef SAVE_BLOCKS_PLUGIN_H
+#define SAVE_BLOCKS_PLUGIN_H
 
 #include "config.h"
 
@@ -168,7 +168,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SAVE_BLOCKS_PLUGIN_H_ */
+#endif /* SAVE_BLOCKS_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

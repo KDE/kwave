@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _INSERT_AT_PLUGIN_H_
-#define _INSERT_AT_PLUGIN_H_
+#ifndef INSERT_AT_PLUGIN_H
+#define INSERT_AT_PLUGIN_H
 
 #include "config.h"
 
@@ -53,7 +53,7 @@ namespace Kwave
     };
 }
 
-#endif /* _INSERT_AT_PLUGIN_H_ */
+#endif /* INSERT_AT_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

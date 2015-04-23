@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _HMS_TIME_WIDGET_H_
-#define _HMS_TIME_WIDGET_H_
+#ifndef HMS_TIME_WIDGET_H
+#define HMS_TIME_WIDGET_H
 
 #include "config.h"
 
@@ -81,7 +81,7 @@ namespace Kwave
     };
 }
 
-#endif /* _HMS_TIME_WIDGET_H_ */
+#endif /* HMS_TIME_WIDGET_H */
 
 //***************************************************************************
 //***************************************************************************

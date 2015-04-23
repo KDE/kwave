@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAYBACK_CONTROLLER_H_
-#define _PLAYBACK_CONTROLLER_H_
+#ifndef PLAYBACK_CONTROLLER_H
+#define PLAYBACK_CONTROLLER_H
 
 #include "config.h"
 
@@ -332,7 +332,7 @@ namespace Kwave
     };
 }
 
-#endif /* _PLAYBACK_CONTROLLER_H_ */
+#endif /* PLAYBACK_CONTROLLER_H */
 
 //***************************************************************************
 //***************************************************************************

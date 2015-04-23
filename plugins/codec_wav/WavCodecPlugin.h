@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _WAV_CODEC_PLUGIN_H_
-#define _WAV_CODEC_PLUGIN_H_
+#ifndef WAV_CODEC_PLUGIN_H
+#define WAV_CODEC_PLUGIN_H
 
 #include "config.h"
 
@@ -51,7 +51,7 @@ namespace Kwave
     };
 }
 
-#endif /* _WAV_CODEC_PLUGIN_H_ */
+#endif /* WAV_CODEC_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

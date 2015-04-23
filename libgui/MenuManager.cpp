@@ -42,7 +42,7 @@
 QMap<QString, QKeySequence> Kwave::MenuManager::m_standard_keys;
 
 /** helper macro for inserting an entry into the m_standard_keys map */
-#define _INS(n,v) m_standard_keys.insert(_(n), v)
+#define INS(n,v) m_standard_keys.insert(_(n), v)
 
 //***************************************************************************
 Kwave::MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
@@ -65,70 +65,70 @@ Kwave::MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
     //       list.txt and then:
     //
     // cat list.txt | sed s/^\ \ //g | cut -d \  -f 1 | cut -d \: -f 3 |
-    // awk '{ print "\t_INS(\""$0"\", QKeySequence::"$0");"}'
+    // awk '{ print "\tINS(\""$0"\", QKeySequence::"$0");"}'
 
     if (m_standard_keys.isEmpty()) {
-	_INS("UnknownKey",            QKeySequence::UnknownKey);
-	_INS("HelpContents",          QKeySequence::HelpContents);
-	_INS("WhatsThis",             QKeySequence::WhatsThis);
-	_INS("Open",                  QKeySequence::Open);
-	_INS("Close",                 QKeySequence::Close);
-	_INS("Save",                  QKeySequence::Save);
-	_INS("New",                   QKeySequence::New);
-	_INS("Delete",                QKeySequence::Delete);
-	_INS("Cut",                   QKeySequence::Cut);
-	_INS("Copy",                  QKeySequence::Copy);
-	_INS("Paste",                 QKeySequence::Paste);
-	_INS("Undo",                  QKeySequence::Undo);
-	_INS("Redo",                  QKeySequence::Redo);
-	_INS("Back",                  QKeySequence::Back);
-	_INS("Forward",               QKeySequence::Forward);
-	_INS("Refresh",               QKeySequence::Refresh);
-	_INS("ZoomIn",                QKeySequence::ZoomIn);
-	_INS("ZoomOut",               QKeySequence::ZoomOut);
-	_INS("Print",                 QKeySequence::Print);
-	_INS("AddTab",                QKeySequence::AddTab);
-	_INS("NextChild",             QKeySequence::NextChild);
-	_INS("PreviousChild",         QKeySequence::PreviousChild);
-	_INS("Find",                  QKeySequence::Find);
-	_INS("FindNext",              QKeySequence::FindNext);
-	_INS("FindPrevious",          QKeySequence::FindPrevious);
-	_INS("Replace",               QKeySequence::Replace);
-	_INS("SelectAll",             QKeySequence::SelectAll);
-	_INS("Bold",                  QKeySequence::Bold);
-	_INS("Italic",                QKeySequence::Italic);
-	_INS("Underline",             QKeySequence::Underline);
-	_INS("MoveToNextChar",        QKeySequence::MoveToNextChar);
-	_INS("MoveToPreviousChar",    QKeySequence::MoveToPreviousChar);
-	_INS("MoveToNextWord",        QKeySequence::MoveToNextWord);
-	_INS("MoveToPreviousWord",    QKeySequence::MoveToPreviousWord);
-	_INS("MoveToNextLine",        QKeySequence::MoveToNextLine);
-	_INS("MoveToPreviousLine",    QKeySequence::MoveToPreviousLine);
-	_INS("MoveToNextPage",        QKeySequence::MoveToNextPage);
-	_INS("MoveToPreviousPage",    QKeySequence::MoveToPreviousPage);
-	_INS("MoveToStartOfLine",     QKeySequence::MoveToStartOfLine);
-	_INS("MoveToEndOfLine",       QKeySequence::MoveToEndOfLine);
-	_INS("MoveToStartOfBlock",    QKeySequence::MoveToStartOfBlock);
-	_INS("MoveToEndOfBlock",      QKeySequence::MoveToEndOfBlock);
-	_INS("MoveToStartOfDocument", QKeySequence::MoveToStartOfDocument);
-	_INS("MoveToEndOfDocument",   QKeySequence::MoveToEndOfDocument);
-	_INS("SelectNextChar",        QKeySequence::SelectNextChar);
-	_INS("SelectPreviousChar",    QKeySequence::SelectPreviousChar);
-	_INS("SelectNextWord",        QKeySequence::SelectNextWord);
-	_INS("SelectPreviousWord",    QKeySequence::SelectPreviousWord);
-	_INS("SelectNextLine",        QKeySequence::SelectNextLine);
-	_INS("SelectPreviousLine",    QKeySequence::SelectPreviousLine);
-	_INS("SelectNextPage",        QKeySequence::SelectNextPage);
-	_INS("SelectPreviousPage",    QKeySequence::SelectPreviousPage);
-	_INS("SelectStartOfLine",     QKeySequence::SelectStartOfLine);
-	_INS("SelectEndOfLine",       QKeySequence::SelectEndOfLine);
-	_INS("SelectStartOfBlock",    QKeySequence::SelectStartOfBlock);
-	_INS("SelectEndOfBlock",      QKeySequence::SelectEndOfBlock);
-	_INS("SelectStartOfDocument", QKeySequence::SelectStartOfDocument);
-	_INS("SelectEndOfDocument",   QKeySequence::SelectEndOfDocument);
-	_INS("DeleteStartOfWord",     QKeySequence::DeleteStartOfWord);
-	_INS("DeleteEndOfWord",       QKeySequence::DeleteEndOfWord);
-	_INS("DeleteEndOfLine",       QKeySequence::DeleteEndOfLine);
+	INS("UnknownKey",            QKeySequence::UnknownKey);
+	INS("HelpContents",          QKeySequence::HelpContents);
+	INS("WhatsThis",             QKeySequence::WhatsThis);
+	INS("Open",                  QKeySequence::Open);
+	INS("Close",                 QKeySequence::Close);
+	INS("Save",                  QKeySequence::Save);
+	INS("New",                   QKeySequence::New);
+	INS("Delete",                QKeySequence::Delete);
+	INS("Cut",                   QKeySequence::Cut);
+	INS("Copy",                  QKeySequence::Copy);
+	INS("Paste",                 QKeySequence::Paste);
+	INS("Undo",                  QKeySequence::Undo);
+	INS("Redo",                  QKeySequence::Redo);
+	INS("Back",                  QKeySequence::Back);
+	INS("Forward",               QKeySequence::Forward);
+	INS("Refresh",               QKeySequence::Refresh);
+	INS("ZoomIn",                QKeySequence::ZoomIn);
+	INS("ZoomOut",               QKeySequence::ZoomOut);
+	INS("Print",                 QKeySequence::Print);
+	INS("AddTab",                QKeySequence::AddTab);
+	INS("NextChild",             QKeySequence::NextChild);
+	INS("PreviousChild",         QKeySequence::PreviousChild);
+	INS("Find",                  QKeySequence::Find);
+	INS("FindNext",              QKeySequence::FindNext);
+	INS("FindPrevious",          QKeySequence::FindPrevious);
+	INS("Replace",               QKeySequence::Replace);
+	INS("SelectAll",             QKeySequence::SelectAll);
+	INS("Bold",                  QKeySequence::Bold);
+	INS("Italic",                QKeySequence::Italic);
+	INS("Underline",             QKeySequence::Underline);
+	INS("MoveToNextChar",        QKeySequence::MoveToNextChar);
+	INS("MoveToPreviousChar",    QKeySequence::MoveToPreviousChar);
+	INS("MoveToNextWord",        QKeySequence::MoveToNextWord);
+	INS("MoveToPreviousWord",    QKeySequence::MoveToPreviousWord);
+	INS("MoveToNextLine",        QKeySequence::MoveToNextLine);
+	INS("MoveToPreviousLine",    QKeySequence::MoveToPreviousLine);
+	INS("MoveToNextPage",        QKeySequence::MoveToNextPage);
+	INS("MoveToPreviousPage",    QKeySequence::MoveToPreviousPage);
+	INS("MoveToStartOfLine",     QKeySequence::MoveToStartOfLine);
+	INS("MoveToEndOfLine",       QKeySequence::MoveToEndOfLine);
+	INS("MoveToStartOfBlock",    QKeySequence::MoveToStartOfBlock);
+	INS("MoveToEndOfBlock",      QKeySequence::MoveToEndOfBlock);
+	INS("MoveToStartOfDocument", QKeySequence::MoveToStartOfDocument);
+	INS("MoveToEndOfDocument",   QKeySequence::MoveToEndOfDocument);
+	INS("SelectNextChar",        QKeySequence::SelectNextChar);
+	INS("SelectPreviousChar",    QKeySequence::SelectPreviousChar);
+	INS("SelectNextWord",        QKeySequence::SelectNextWord);
+	INS("SelectPreviousWord",    QKeySequence::SelectPreviousWord);
+	INS("SelectNextLine",        QKeySequence::SelectNextLine);
+	INS("SelectPreviousLine",    QKeySequence::SelectPreviousLine);
+	INS("SelectNextPage",        QKeySequence::SelectNextPage);
+	INS("SelectPreviousPage",    QKeySequence::SelectPreviousPage);
+	INS("SelectStartOfLine",     QKeySequence::SelectStartOfLine);
+	INS("SelectEndOfLine",       QKeySequence::SelectEndOfLine);
+	INS("SelectStartOfBlock",    QKeySequence::SelectStartOfBlock);
+	INS("SelectEndOfBlock",      QKeySequence::SelectEndOfBlock);
+	INS("SelectStartOfDocument", QKeySequence::SelectStartOfDocument);
+	INS("SelectEndOfDocument",   QKeySequence::SelectEndOfDocument);
+	INS("DeleteStartOfWord",     QKeySequence::DeleteStartOfWord);
+	INS("DeleteEndOfWord",       QKeySequence::DeleteEndOfWord);
+	INS("DeleteEndOfLine",       QKeySequence::DeleteEndOfLine);
     }
 }
 

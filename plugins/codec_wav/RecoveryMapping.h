@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECOVERY_MAPPING_H_
-#define _RECOVERY_MAPPING_H_
+#ifndef RECOVERY_MAPPING_H
+#define RECOVERY_MAPPING_H
 
 #include "config.h"
 
@@ -55,7 +55,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RECOVERY_MAPPING_H_ */
+#endif /* RECOVERY_MAPPING_H */
 
 //***************************************************************************
 //***************************************************************************

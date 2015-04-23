@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _FILTER_PLUGIN_H_
-#define _FILTER_PLUGIN_H_
+#ifndef FILTER_PLUGIN_H
+#define FILTER_PLUGIN_H
 
 #include "config.h"
 
@@ -140,7 +140,7 @@ namespace Kwave
     };
 }
 
-#endif /* _FILTER_PLUGIN_H_ */
+#endif /* FILTER_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

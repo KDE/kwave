@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PITCH_SHIFT_PLUGIN_H_
-#define _PITCH_SHIFT_PLUGIN_H_
+#ifndef PITCH_SHIFT_PLUGIN_H
+#define PITCH_SHIFT_PLUGIN_H
 
 #include "config.h"
 #include <QtCore/QObject>
@@ -113,7 +113,7 @@ namespace Kwave
     };
 }
 
-#endif /* _PITCH_SHIFT_PLUGIN_H_ */
+#endif /* PITCH_SHIFT_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

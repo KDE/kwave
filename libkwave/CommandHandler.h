@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _COMMAND_HANDLER_H_
-#define _COMMAND_HANDLER_H_
+#ifndef COMMAND_HANDLER_H
+#define COMMAND_HANDLER_H
 
 #include "config.h"
 
@@ -46,7 +46,7 @@ namespace Kwave
     };
 }
 
-#endif /* _COMMAND_HANDLER_H_ */
+#endif /* COMMAND_HANDLER_H */
 //***************************************************************************
 //***************************************************************************
 

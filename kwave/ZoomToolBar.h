@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ZOOM_TOOL_BAR_H_
-#define _ZOOM_TOOL_BAR_H_
+#ifndef ZOOM_TOOL_BAR_H
+#define ZOOM_TOOL_BAR_H
 
 #include "config.h"
 
@@ -142,7 +142,7 @@ namespace Kwave
 
 }
 
-#endif /* _ZOOM_TOOL_BAR_H_ */
+#endif /* ZOOM_TOOL_BAR_H */
 
 //***************************************************************************
 //***************************************************************************

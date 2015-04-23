@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAY_BACK_PLUGIN_H_
-#define _PLAY_BACK_PLUGIN_H_
+#ifndef PLAY_BACK_PLUGIN_H
+#define PLAY_BACK_PLUGIN_H
 
 #include "config.h"
 
@@ -122,7 +122,7 @@ namespace Kwave
     };
 }
 
-#endif /* _PLAY_BACK_PLUGIN_H_ */
+#endif /* PLAY_BACK_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

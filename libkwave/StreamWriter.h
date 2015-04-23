@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _STREAM_WRITER_H_
-#define _STREAM_WRITER_H_
+#ifndef STREAM_WRITER_H
+#define STREAM_WRITER_H
 
 #include "config.h"
 
@@ -78,7 +78,7 @@ namespace Kwave
 
 }
 
-#endif /* _STREAM_WRITER_H_ */
+#endif /* STREAM_WRITER_H */
 
 //***************************************************************************
 //***************************************************************************

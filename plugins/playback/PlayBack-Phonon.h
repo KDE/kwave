@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAY_BACK_PHONON_H_
-#define _PLAY_BACK_PHONON_H_
+#ifndef PLAY_BACK_PHONON_H
+#define PLAY_BACK_PHONON_H
 
 #include "config.h"
 #ifdef HAVE_PHONON_SUPPORT
@@ -174,7 +174,7 @@ namespace Kwave
 
 #endif /* HAVE_PHONON_SUPPORT */
 
-#endif /* _PLAY_BACK_PHONON_H_ */
+#endif /* PLAY_BACK_PHONON_H */
 
 //***************************************************************************
 //***************************************************************************

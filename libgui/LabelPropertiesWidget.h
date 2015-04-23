@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _LABEL_PROPERTIES_WIDGET_H_
-#define _LABEL_PROPERTIES_WIDGET_H_
+#ifndef LABEL_PROPERTIES_WIDGET_H
+#define LABEL_PROPERTIES_WIDGET_H
 
 #include "config.h"
 
@@ -92,7 +92,7 @@ namespace Kwave
     };
 }
 
-#endif /* _LABEL_PROPERTIES_WIDGET_H_ */
+#endif /* LABEL_PROPERTIES_WIDGET_H */
 
 //***************************************************************************
 //***************************************************************************

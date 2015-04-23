@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SAVE_BLOCKS_DIALOG_H_
-#define _SAVE_BLOCKS_DIALOG_H_
+#ifndef SAVE_BLOCKS_DIALOG_H
+#define SAVE_BLOCKS_DIALOG_H
 
 #include "config.h"
 
@@ -112,7 +112,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SAVE_BLOCKS_DIALOG_H_ */
+#endif /* SAVE_BLOCKS_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

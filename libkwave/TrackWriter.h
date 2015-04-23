@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _TRACK_WRITER_H_
-#define _TRACK_WRITER_H_
+#ifndef TRACK_WRITER_H
+#define TRACK_WRITER_H
 
 #include "config.h"
 
@@ -87,7 +87,7 @@ namespace Kwave
 
 }
 
-#endif /* _TRACK_WRITER_H_ */
+#endif /* TRACK_WRITER_H */
 
 //***************************************************************************
 //***************************************************************************

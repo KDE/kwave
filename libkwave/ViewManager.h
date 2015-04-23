@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _VIEW_MANAGER_H_
-#define _VIEW_MANAGER_H_
+#ifndef VIEW_MANAGER_H
+#define VIEW_MANAGER_H
 
 class QWidget;
 
@@ -44,7 +44,7 @@ namespace Kwave
     };
 }
 
-#endif /* _VIEW_MANAGER_H_ */
+#endif /* VIEW_MANAGER_H */
 
 //***************************************************************************
 //***************************************************************************

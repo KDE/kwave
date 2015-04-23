@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _TREE_WIDGET_WRAPPER_H_
-#define _TREE_WIDGET_WRAPPER_H_
+#ifndef TREE_WIDGET_WRAPPER_H
+#define TREE_WIDGET_WRAPPER_H
 
 #include "config.h"
 
@@ -50,7 +50,7 @@ namespace Kwave
     };
 }
 
-#endif /* _TREE_WIDGET_WRAPPER_H_ */
+#endif /* TREE_WIDGET_WRAPPER_H */
 
 //***************************************************************************
 //***************************************************************************

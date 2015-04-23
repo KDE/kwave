@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _BAND_PASS_PLUGIN_H_
-#define _BAND_PASS_PLUGIN_H_
+#ifndef BAND_PASS_PLUGIN_H
+#define BAND_PASS_PLUGIN_H
 
 #include "config.h"
 
@@ -115,7 +115,7 @@ namespace Kwave
     };
 }
 
-#endif /* _BAND_PASS_PLUGIN_H_ */
+#endif /* BAND_PASS_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

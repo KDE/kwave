@@ -18,8 +18,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _NORMALIZE_PLUGIN_H_
-#define _NORMALIZE_PLUGIN_H_
+#ifndef NORMALIZE_PLUGIN_H
+#define NORMALIZE_PLUGIN_H
 
 #include "config.h"
 
@@ -88,7 +88,7 @@ namespace Kwave
     };
 }
 
-#endif /* _NORMALIZE_PLUGIN_H_ */
+#endif /* NORMALIZE_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

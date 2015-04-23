@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MIXER_MATRIX_H_
-#define _MIXER_MATRIX_H_
+#ifndef MIXER_MATRIX_H
+#define MIXER_MATRIX_H
 
 #include "config.h"
 
@@ -44,7 +44,7 @@ namespace Kwave
 
 }
 
-#endif /* _MIXER_MATRIX_H_ */
+#endif /* MIXER_MATRIX_H */
 
 //***************************************************************************
 //***************************************************************************

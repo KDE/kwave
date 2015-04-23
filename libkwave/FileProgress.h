@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _FILE_PROGRESS_H_
-#define _FILE_PROGRESS_H_
+#ifndef FILE_PROGRESS_H
+#define FILE_PROGRESS_H
 
 #include "config.h"
 
@@ -189,7 +189,7 @@ namespace Kwave
 
 }
 
-#endif /* _FILE_PROGRESS_H_ */
+#endif /* FILE_PROGRESS_H */
 
 //***************************************************************************
 //***************************************************************************

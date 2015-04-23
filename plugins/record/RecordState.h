@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECORD_STATE_H_
-#define _RECORD_STATE_H_
+#ifndef RECORD_STATE_H
+#define RECORD_STATE_H
 
 #include "config.h"
 
@@ -74,7 +74,7 @@ namespace Kwave
     } RecordState;
 }
 
-#endif /* _RECORD_STATE_H_ */
+#endif /* RECORD_STATE_H */
 
 //***************************************************************************
 //***************************************************************************

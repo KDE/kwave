@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MULTI_WRITER_H_
-#define _MULTI_WRITER_H_
+#ifndef MULTI_WRITER_H
+#define MULTI_WRITER_H
 
 #include "config.h"
 
@@ -106,7 +106,7 @@ namespace Kwave
 
 }
 
-#endif /* _MULTI_WRITER_H_ */
+#endif /* MULTI_WRITER_H */
 
 //***************************************************************************
 //***************************************************************************

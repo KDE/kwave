@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SAMPLE_DECODER_LINEAR_H_
-#define _SAMPLE_DECODER_LINEAR_H_
+#ifndef SAMPLE_DECODER_LINEAR_H
+#define SAMPLE_DECODER_LINEAR_H
 
 #include "config.h"
 #include "libkwave/ByteOrder.h"
@@ -66,7 +66,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SAMPLE_DECODER_LINEAR_H_ */
+#endif /* SAMPLE_DECODER_LINEAR_H */
 
 //***************************************************************************
 //***************************************************************************

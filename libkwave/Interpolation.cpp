@@ -27,17 +27,17 @@
 //***************************************************************************
 //***************************************************************************
 
-#define _ADD(i,n,s,d) append(i,n,_(s), _(d))
+#define ADD(i,n,s,d) append(i,n,_(s), _(d))
 
 void Kwave::Interpolation::InterpolationMap::fill()
 {
-    _ADD(INTPOL_LINEAR,      0, "linear",     I18N_NOOP("Linear"));
-    _ADD(INTPOL_SPLINE,      1, "spline",     I18N_NOOP("Spline"));
-    _ADD(INTPOL_NPOLYNOMIAL, 2, "n-polynom",  I18N_NOOP("Polynom, nth Degree"));
-    _ADD(INTPOL_POLYNOMIAL3, 3, "3-polynom",  I18N_NOOP("Polynom, 3rd Degree"));
-    _ADD(INTPOL_POLYNOMIAL5, 4, "5-polynom",  I18N_NOOP("Polynom, 5th Degree"));
-    _ADD(INTPOL_POLYNOMIAL7, 5, "7-polynom",  I18N_NOOP("Polynom, 7th Degree"));
-    _ADD(INTPOL_SAH,         6, "sample_hold",I18N_NOOP("Sample and Hold"));
+    ADD(INTPOL_LINEAR,      0, "linear",     I18N_NOOP("Linear"));
+    ADD(INTPOL_SPLINE,      1, "spline",     I18N_NOOP("Spline"));
+    ADD(INTPOL_NPOLYNOMIAL, 2, "n-polynom",  I18N_NOOP("Polynom, nth Degree"));
+    ADD(INTPOL_POLYNOMIAL3, 3, "3-polynom",  I18N_NOOP("Polynom, 3rd Degree"));
+    ADD(INTPOL_POLYNOMIAL5, 4, "5-polynom",  I18N_NOOP("Polynom, 5th Degree"));
+    ADD(INTPOL_POLYNOMIAL7, 5, "7-polynom",  I18N_NOOP("Polynom, 7th Degree"));
+    ADD(INTPOL_SAH,         6, "sample_hold",I18N_NOOP("Sample and Hold"));
 }
 
 //***************************************************************************

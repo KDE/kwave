@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _AMPLIFY_FREE_DIALOG_H_
-#define _AMPLIFY_FREE_DIALOG_H_
+#ifndef AMPLIFY_FREE_DIALOG_H
+#define AMPLIFY_FREE_DIALOG_H
 
 #include "config.h"
 
@@ -55,7 +55,7 @@ namespace Kwave
     };
 }
 
-#endif /* _AMPLIFY_FREE_DIALOG_H_ */
+#endif /* AMPLIFY_FREE_DIALOG_H */
 
 //***************************************************************************
 //***************************************************************************

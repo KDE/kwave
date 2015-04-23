@@ -116,8 +116,8 @@ void Kwave::FileInfoDialog::describeWidget(QWidget *widget,
 void Kwave::FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
                                      Kwave::FileProperty property)
 {
-    if (label) label->setText(i18n(__(m_info.name(property))) + _(":"));
-    if (widget) describeWidget(widget, i18n(__(m_info.name(property))),
+    if (label) label->setText(i18n(UTF8(m_info.name(property))) + _(":"));
+    if (widget) describeWidget(widget, i18n(UTF8(m_info.name(property))),
                                m_info.description(property));
 }
 
@@ -280,7 +280,8 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     initInfo(lblSampleFormat, cbSampleFormat, Kwave::INF_SAMPLE_FORMAT);
     cbSampleFormat->clear();
     Kwave::SampleFormat::Map sf;
-    foreach (const int &k, sf.keys()) {
+    const QList<int> formats = sf.keys();
+    foreach (const int &k, formats) {
 	cbSampleFormat->addItem(
 	    sf.description(k, true),
 	    QVariant(Kwave::SampleFormat(sf.data(k)).toInt())

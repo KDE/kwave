@@ -14,8 +14,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef _SIGNAL_H_
-#define _SIGNAL_H_
+#ifndef SIGNAL_H
+#define SIGNAL_H
 
 #define PROGRESS_SIZE (512 * 3 * 5)
 
@@ -319,7 +319,7 @@ namespace Kwave
     };
 }
 
-#endif  /* _SIGNAL_H_ */
+#endif  /* SIGNAL_H */
 
 //***************************************************************************
 //***************************************************************************

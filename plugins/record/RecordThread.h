@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _RECORD_THREAD_H_
-#define _RECORD_THREAD_H_
+#ifndef RECORD_THREAD_H
+#define RECORD_THREAD_H
 
 #include "config.h"
 
@@ -104,7 +104,7 @@ namespace Kwave
     };
 }
 
-#endif /* _RECORD_THREAD_H_ */
+#endif /* RECORD_THREAD_H */
 
 //***************************************************************************
 //***************************************************************************

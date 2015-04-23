@@ -14,8 +14,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef _META_DATA_LIST_H_
-#define _META_DATA_LIST_H_
+#ifndef META_DATA_LIST_H
+#define META_DATA_LIST_H
 
 #include "config.h"
 
@@ -324,7 +324,7 @@ namespace Kwave
 
 }
 
-#endif /* _META_DATA_LIST_H_ */
+#endif /* META_DATA_LIST_H */
 
 //***************************************************************************
 //***************************************************************************

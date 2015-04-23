@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _NOTCH_FILTER_PLUGIN_H_
-#define _NOTCH_FILTER_PLUGIN_H_
+#ifndef NOTCH_FILTER_PLUGIN_H
+#define NOTCH_FILTER_PLUGIN_H
 
 #include "config.h"
 #include <QtCore/QObject>
@@ -116,7 +116,7 @@ namespace Kwave
     };
 }
 
-#endif /* _NOTCH_FILTER_PLUGIN_H_ */
+#endif /* NOTCH_FILTER_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

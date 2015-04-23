@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _SONAGRAM_PLUGIN_H_
-#define _SONAGRAM_PLUGIN_H_
+#ifndef SONAGRAM_PLUGIN_H
+#define SONAGRAM_PLUGIN_H
 
 #include "config.h"
 
@@ -255,7 +255,7 @@ namespace Kwave
     };
 }
 
-#endif /* _SONAGRAM_PLUGIN_H_ */
+#endif /* SONAGRAM_PLUGIN_H */
 
 //***************************************************************************
 //***************************************************************************

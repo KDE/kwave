@@ -69,9 +69,6 @@
 /* we can include <sys/times.h> */
 #cmakedefine HAVE_SYS_TIMES_H
 
-/* Define to 1 if you have the <unistd.h> header file. */
-#cmakedefine HAVE_UNISTD_H
-
 /* used for unlinking swap files */
 #cmakedefine HAVE_UNLINK
 

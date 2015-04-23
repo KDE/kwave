@@ -17,8 +17,9 @@
 
 #include "config.h"
 
-#include <float.h> // for FLT_MAX, DBL_MIN, DBL_MAX
 #include <math.h>
+
+#include <limits>
 
 #include <QtCore/QtAlgorithms>
 
@@ -29,7 +30,8 @@
 
 //***************************************************************************
 
-QPointF Kwave::Curve::NoPoint(FLT_MAX, FLT_MAX);
+QPointF Kwave::Curve::NoPoint(std::numeric_limits<qreal>::max(),
+                              std::numeric_limits<qreal>::max());
 
 //***************************************************************************
 Kwave::Curve::Curve()
@@ -199,8 +201,8 @@ void Kwave::Curve::HFlip()
 //***************************************************************************
 void Kwave::Curve::scaleFit(unsigned int range)
 {
-    double min = DBL_MAX;
-    double max = DBL_MIN;
+    double min = std::numeric_limits<double>::max();
+    double max = std::numeric_limits<double>::min();
 
     Kwave::Interpolation interpolation(m_interpolation.type());
 

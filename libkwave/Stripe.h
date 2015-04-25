@@ -269,20 +269,6 @@ namespace Kwave
 	                      unsigned int cnt);
 
 	    /**
-	     * Copy a portion of samples from an array of samples.
-	     *
-	     * @param dst destination index [samples]
-	     * @param source array with samples to copy from
-	     * @param offset offset within the source array to start copy
-	     * @param cnt number of samples
-	     * @return cnt if succeeded or zero if the mapping has failed
-	     * @note this is optimized for speed, no range checks!
-	     */
-	    unsigned int copy(unsigned int dst,
-	                      const Kwave::SampleArray &source,
-	                      unsigned int offset, unsigned int cnt);
-
-	    /**
 	     * Read a portion of samples into an array of samples.
 	     *
 	     * @param buffer array for samples to be read (destination)

@@ -68,27 +68,6 @@ unsigned int Kwave::Stripe::MappedArray::copy(unsigned int dst,
 }
 
 //***************************************************************************
-unsigned int Kwave::Stripe::MappedArray::copy(unsigned int dst,
-    const Kwave::SampleArray &source, unsigned int offset,
-    unsigned int cnt)
-{
-//  qDebug("    Stripe::MappedArray::copy(%u, ... ,%u, %u)", dst,
-//         offset, cnt);
-    if (!m_length || !m_storage) return 0;
-
-#ifdef STRICTLY_QT
-    unsigned int rest = cnt;
-    while (rest--) {
-	(*this)[dst++] = source[offset++];
-    }
-#else
-    MEMCPY(&(m_storage[dst]), &(source[offset]), cnt * sizeof(sample_t));
-#endif
-
-    return cnt;
-}
-
-//***************************************************************************
 unsigned int Kwave::Stripe::MappedArray::read(Kwave::SampleArray &buffer,
     unsigned int dstoff, unsigned int offset,  unsigned int length)
 {

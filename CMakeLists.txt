@@ -39,19 +39,20 @@ PROJECT(kwave)
 #############################################################################
 ### toplevel build targets:                                               ###
 
-# all            - default target, build all files
-# clean          - clean up the current build directory
-# deb            - create a debian package
-# doc            - generate docbook files for online help
-# distfiles      - generate subdirectory with all files for distribution
-# html_doc       - generate HTML help (for the web)
-# install        - install the package, with support for DESTDIR
-# rpm            - create a RPM package + a src.rpm file
-# src_rpm        - create the source RPM only
-# tarball        - create a tar.bz2 archive with the sources + specfile
-# uninstall      - uninstall the package, with support for DESTDIR
-# version-labels - update all version numbers and build dates
-# tarball        - create a tar.gz file with the sources
+# all                 - default target, build all files
+# clean               - clean up the current build directory
+# deb                 - create a debian package
+# doc                 - generate docbook files for online help
+# distfiles           - generate subdirectory with all files for distribution
+# html_doc            - generate HTML help (for the web)
+# install             - install the package, with support for DESTDIR
+# rpm                 - create a RPM package + a src.rpm file
+# src_rpm             - create the source RPM only
+# tarball             - create a tar.bz2 archive with the sources + specfile
+# uninstall           - uninstall the package, with support for DESTDIR
+# update-translations - update translation files from KDE SVN
+# version-labels      - update all version numbers and build dates
+# tarball             - create a tar.gz file with the sources
 
 #############################################################################
 ### check for the proper cmake version                                    ###

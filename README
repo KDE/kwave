@@ -32,10 +32,10 @@ of your choice and then generate it in a separate build directory.
 For example:
 
 cd ${HOME}/src
-tar -xvzf kwave-0.8.12-1.tar.bz2
+tar -xvzf kwave-0.9.0-1.tar.bz2
 mkdir kwave-build
 cd kwave-build
-cmake ../kwave-0.8.12
+cmake ../kwave-0.9.0
 
 make
 make install
@@ -59,15 +59,15 @@ Installing the rpm package normally requires root permissions.
 2.1 Building a binary rpm from archive file:
 -------------------------------------------
 
-Simply get the source archive (for example kwave-0.8.12-1.tar.bz2) and
+Simply get the source archive (for example kwave-0.9.0-1.tar.bz2) and
 then type:
 
-rpmbuild -ta kwave-0.8.12-1.tar.bz2
+rpmbuild -ta kwave-0.9.0-1.tar.bz2
 
 If you want to build for a different architecture than your current, you
 might want to add the parameter "--target ...", for example:
 
-rpmbuild -ta --target i586 kwave-0.8.12-1.tar.bz2
+rpmbuild -ta --target i586 kwave-0.9.0-1.tar.bz2
 
 compiles for i586 architecture.
 
@@ -85,7 +85,7 @@ make rpm              (and you get both, a binary and a source rpm)
 
 Instructions on how to get the sources via GIT can be found in the
 Kwave handbook and on the Kwave project homepage at SourceForge
-(see "http://sourceforge.net/git/?group_id=6478").
+(see "http://sourceforge.net/p/kwave/code/ci/master/tree/").
 
 Please note that the online documentation in not included in GIT, it will
 created from the corresponding docbook source which is included.
@@ -101,7 +101,7 @@ build the package on a system with the KDE base directory set to some
 location (like for example /usr) and install it on some other system
 and/or into a different directory.
 
-rpm -Uvh --prefix=/usr/local kwave-0.8.12-1.i586.rpm
+rpm -Uvh --prefix=/usr/local kwave-0.9.0-1.i586.rpm
 
 This modifies the path where the program is installed and it is strongly
 recommended that this is a directory that is contained in the KDEDIRS
@@ -123,8 +123,8 @@ C/C++ compiler, the qt and the kde libraries.
 I am currently developing under a Gentoo Linux distribution
 (i586 architecture) using at least the following packages:
 
-* cmake >= 2.4.6                     (the cmake build system)
-* gcc >= 3.0                         (the C / C++ compiler)
+* cmake >= 2.6.0                     (the cmake build system)
+* gcc >= 4.7                         (the C / C++ compiler)
 
 * make >= 3.80
 * libstdc++-v3 >= 3.3.4              (C++ library, including STL)
@@ -135,11 +135,12 @@ I am currently developing under a Gentoo Linux distribution
 * ImageMagick >= 6.1                 (needed to create scaled Kwave icons)
 
 * libmad + libmad-devel >= 0.15      (for MP3 import)
-* id3lib >= 3.8.2                    (for MP3 tag import, see www.id3lib.org)
+* id3lib >= 3.8.1                    (for MP3 tag import, see www.id3lib.org)
 * libogg >= 1.1.2                    (for Ogg/Vorbis import/export)
 * libvorbis >= 1.1.0                 (for Ogg/Vorbis import/export)
 * flac >= 1.2.0                      (for FLAC import/export)
 * fftw >= 3.0                        (for Sonagram plugin / FFT)
+* pulseaudio >= 0.9.16               (for record/playback via PulseAudio)
 * samplerate >= 0.1.3                (for sample rate conversion)
 
 Some tools that are normally installed in every distribution:

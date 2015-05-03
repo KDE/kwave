@@ -18,7 +18,7 @@
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
-  <!ENTITY url_levelmeter "http://www.rikkus.info/esound-level-meter/">
+  <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
   <!ENTITY url_libmad "http://www.underbit.com/products/mad/">
   <!ENTITY url_libsndfile "http://www.mega-nerd.com/libsndfile/">
@@ -607,11 +607,11 @@
     	If you intend to compile &kwave; from the sources, you will need at least:
 	<itemizedlist>
 	    <listitem><para>
-		<ulink url="&url_cmake;">cmake</ulink>-2.4.6 or newer
+		<ulink url="&url_cmake;">cmake</ulink>-2.6.0 or newer
 	    </para></listitem>
 	    <listitem><para>
 		A recent C/C++ compiler. GCC-4.x works fine, some older and any
-		newer version (like gcc-4.8 and newer) may work too.
+		newer version (like gcc-5.0) may work too.
 	    </para></listitem>
 	    <listitem><para>
 		The glibc2 (libc-6) development environment. On SuSE systems
@@ -627,7 +627,7 @@
 		the package is normally called "qt4-devel" or similar.
 	    </para></listitem>
 	    <listitem><para>
-		pulseaudio-4.0 or newer
+		pulseaudio-0.9.16 or newer
 	    </para></listitem>
 	    <listitem><para>
 		id3lib-devel-3.8.1 or newer

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ############################################################################
 #   set_version.sh - script to set version numbers of a project
 #                            -------------------
@@ -28,11 +28,9 @@
 # the updated files are:
 # - VERSION
 # - kwave.lsm
-# - doc/help_en.docbook
+# - doc/*/index.docbook
 #
-# NOTE: - this should be considered a quick hack, no error
-#         checking is performed !!!
-#       - there must be no additional spaces at the VERSION line
+# NOTE: - there must be no additional spaces at the VERSION line
 #         between the word "VERSION" and the "=".
 #
 # 1999-11-08 THE, adapted the script to work for the kwave project
@@ -60,6 +58,8 @@
 
 # uncomment the next line for debugging
 # set -x
+
+set -e # abort on errors
 
 cd $1
 NEW_VERSION=$2
@@ -107,14 +107,16 @@ mv kwave.lsm.new kwave.lsm
 #
 NEW_TAG=`echo ${NEW_VERSION} | sed s/\\\./_/g`
 NEW_YEAR=`echo ${NEW_DATE} | cut -d \- -f 1`
-cat doc/help_en.docbook | \
+for file in doc/*/index.docbook ; do {
+    cat ${file} | \
     sed s/\<\!ENTITY\ version\ \"*.*.*\"\>/\<\!ENTITY\ version\ \"${NEW_VERSION}\"\>/g | \
     sed s/\<\!ENTITY\ version_tag\ \"*.*.*\"\>/\<\!ENTITY\ version_tag\ \"${NEW_TAG}\"\>/g | \
     sed s/\<\!ENTITY\ version_year\ \"....\"\>/\<\!ENTITY\ version_year\ \"${NEW_YEAR}\"\>/g | \
     sed s/\<date\>....-..-..\<\\/date\>/\<date\>${NEW_DATE}\<\\/date\>/g \
-    > doc/help_en.docbook.new && \
-mv doc/help_en.docbook doc/help_en.docbook.old && \
-mv doc/help_en.docbook.new doc/help_en.docbook
+    > ${file}.new && \
+    mv ${file} ${file}.old && \
+    mv ${file}.new ${file}
+} done
 
 echo "new version numbers set."
 

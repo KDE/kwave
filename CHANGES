@@ -1,5 +1,6 @@
-0.9.0 [2015-xx-xx]
+0.9.0 [2015-05-25]
 
+ * first version hosted on KDE (kdereview) and SourceForge
  * added command line parameter for selecting the GUI type
  * in MDI mode: new menu entry + function to arrange sub windows vertically
  * handbook: added text command reference

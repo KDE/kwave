@@ -108,7 +108,9 @@ IF (EXISTS ${_git})
 	    COMMENT "Building file list from local .git repository"
 	    COMMAND "${GIT_EXECUTABLE}" ls-tree -r --name-only HEAD ">" ${files_lst}
 	    COMMAND test -e po && find po -name \\*.po ">>" ${files_lst}
-	    COMMAND find doc -type f ">>" ${files_lst}
+	    COMMAND find doc -type f -name \\*.txt ">>" ${files_lst}
+	    COMMAND find doc -type f -name index.docbook ">>" ${files_lst}
+	    COMMAND find doc -type f -name \\*.png ">>" ${files_lst}
 	    COMMAND cat ${files_lst} | sort | uniq > ${files_lst}.tmp
 	    COMMAND mv ${files_lst}.tmp ${files_lst}
 	    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}

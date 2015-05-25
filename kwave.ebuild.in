@@ -10,7 +10,7 @@ inherit kde4-base
 
 DESCRIPTION="A sound editor for KDE that can edit many types of audio files"
 HOMEPAGE="http://kwave.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${P}-2.tar.bz2"
+SRC_URI="mirror://sourceforge/${PN}/${P}-1.tar.bz2"
 
 LICENSE="BSD GPL-2 LGPL-2
 	handbook? ( FDL-1.2 )"

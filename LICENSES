@@ -37,6 +37,7 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  - cmake/FindOggVorbis.cmake
 	  - cmake/COPYING-CMAKE-SCRIPTS		(New BSD ?)
 	  - cmake/FindAlsa.cmake		{kretz,faure}@kde.org
+	  - plugins/codec_ogg/OpusEncoder.cpp   parts two clause BSD
 
 DIRECTLY USED EXTERNAL LIBRARIES
 ================================
@@ -568,7 +569,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/codec_ogg/OpusCommon.h			GPL2+
 	plugins/codec_ogg/OpusDecoder.cpp		GPL2+
 	plugins/codec_ogg/OpusDecoder.h			GPL2+
-	plugins/codec_ogg/OpusEncoder.cpp		GPL2+ => see source
+	plugins/codec_ogg/OpusEncoder.cpp		GPL2+, parts two clause BSD
 	plugins/codec_ogg/OpusEncoder.h			GPL2+
 	plugins/codec_ogg/OpusHeader.h			GPL2+
 	plugins/codec_ogg/VorbisDecoder.cpp		GPL2+

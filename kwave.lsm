@@ -1,7 +1,7 @@
 Begin3
 Title:          kwave
-Version:	0.8.99-2
-Entered-date:	02JAN2015
+Version:	0.9.0
+Entered-date:	25MAY2015
 Description:    A sound editor for KDE that can edit many types of audio files.
 Keywords:       KDE, Qt, WAV, Sound, Editor, Effects, playback, recording
 Author:         Martin Wilz <martin@wilz.de>

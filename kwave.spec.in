@@ -30,7 +30,7 @@ Group:          Productivity/Multimedia/Sound/Editors and Converters
 Name:           @RPM_NAME@
 Version:        @RPM_SHORT_VERSION@
 Release:        @RPM_RELEASE@
-Source0:        kwave-%{version}-2.tar.bz2
+Source0:        kwave-%{version}-1.tar.bz2
 Url:            @RPM_URL@
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 # hack for SLE
@@ -309,7 +309,8 @@ unset DESTDIR
 mkdir build
 cd build
 CXXFLAGS="${CXXFLAGS} ${RPM_OPT_FLAGS}" CFLAGS="${CFLAGS} ${RPM_OPT_FLAGS}" \
-    cmake ${CONFIGURE_OPTS} %{MP3ENABLED} %{EXTRA_OPTS} ..
+    cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+    ${CONFIGURE_OPTS} %{MP3ENABLED} %{EXTRA_OPTS} ..
 cd -
 
 make -C build %{?jobs:-j %jobs}
@@ -326,6 +327,7 @@ make -C build DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 %doc GNU-LICENSE AUTHORS LICENSES CHANGES README TODO kwave.lsm
 %{_kde4_bindir}/%name
 %{_kde4_applicationsdir}/%{name}.desktop
+%{_prefix}/share/appdata/kwave.appdata.xml
 %{_kde4_libdir}/libkwave*
 %{_kde4_appsdir}/%{name}
 %{_kde4_modulesdir}/*

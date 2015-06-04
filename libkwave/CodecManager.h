@@ -20,13 +20,13 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
-#include <kdemacros.h>
-#include <kmimetype.h>
+#include <TODO:kdemacros.h>
+#include <TODO:kmimetype.h>
 
 class KMimeType;
 class QMimeData;

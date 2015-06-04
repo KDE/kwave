@@ -20,8 +20,8 @@
 #include <new>
 #include <stdlib.h>
 
-#include "libkwave/memcpy.h"
 #include "libkwave/SampleArray.h"
+#include "libkwave/memcpy.h"
 
 //***************************************************************************
 Kwave::SampleArray::SampleArray()

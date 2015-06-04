@@ -19,15 +19,15 @@
 
 #include <math.h>
 
-#include <QtCore/QMutexLocker>
+#include <QMutexLocker>
 
 #include "libkwave/MessageBox.h"
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/PlaybackController.h"
 #include "libkwave/PlayBackDevice.h"
-#include "libkwave/PlaybackDeviceFactory.h"
 #include "libkwave/PlayBackTypesMap.h"
+#include "libkwave/PlaybackController.h"
+#include "libkwave/PlaybackDeviceFactory.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleReader.h"

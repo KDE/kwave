@@ -19,17 +19,17 @@
 
 #include <new>
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QDateTime>
-#include <QtCore/QFile>
-#include <QtCore/QString>
-#include <QtCore/QTextStream>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QDateTime>
+#include <QFile>
+#include <QString>
+#include <QTextStream>
+#include <QtGlobal>
 
-#include <kapplication.h>
-#include <kaboutdata.h>
-#include <kglobal.h>
+#include <KAboutData>
 #include <KI18n/KLocalizedString>
+#include <TODO:kapplication.h>
+#include <TODO:kglobal.h>
 
 #include "libkwave/Logger.h"
 #include "libkwave/MessageBox.h"

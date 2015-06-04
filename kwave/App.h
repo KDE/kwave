@@ -20,13 +20,13 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
-#include <QtCore/QPair>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QObject>
+#include <QPair>
+#include <QStringList>
 
-#include <kuniqueapplication.h>
-#include <kapplication.h>
+#include <TODO:kapplication.h>
+#include <TODO:kuniqueapplication.h>
 
 class QString;
 class KUrl;

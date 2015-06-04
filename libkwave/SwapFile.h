@@ -21,8 +21,8 @@
 #include "config.h"
 #include <sys/types.h>  // for size_t
 
-#include <QtCore/QFile>
-#include <QtCore/QTemporaryFile>
+#include <QFile>
+#include <QTemporaryFile>
 
 class QString;
 

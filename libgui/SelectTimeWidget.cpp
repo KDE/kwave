@@ -17,15 +17,15 @@
 
 #include "config.h"
 
-#include <math.h>
 #include <limits.h>
+#include <math.h>
 
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtWidgets/QWidget>
+#include <QRadioButton>
+#include <QSlider>
+#include <QWidget>
 
 #include <KI18n/KLocalizedString>
-#include <knuminput.h>
+#include <TODO:knuminput.h>
 
 #include "libkwave/Utils.h"
 
@@ -517,6 +517,5 @@ quint64 Kwave::SelectTimeWidget::samplesToTime(
 }
 
 //***************************************************************************
-#include "SelectTimeWidget.moc"
 //***************************************************************************
 //***************************************************************************

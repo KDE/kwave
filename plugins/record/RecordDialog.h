@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QTimer>
-#include <QtCore/QList>
-#include <QtCore/QMap>
+#include <QList>
+#include <QMap>
+#include <QString>
+#include <QStringList>
+#include <QTimer>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"

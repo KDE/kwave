@@ -21,12 +21,12 @@
 
 #include <KI18n/KLocalizedString> // for the i18n macro
 
-#include <QtConcurrent/QtConcurrentRun>
-#include <QtCore/QFutureSynchronizer>
-#include <QtCore/QList>
-#include <QtCore/QSharedPointer>
-#include <QtCore/QStringList>
-#include <QtCore/QThread>
+#include <QFutureSynchronizer>
+#include <QList>
+#include <QSharedPointer>
+#include <QStringList>
+#include <QThread>
+#include <QtConcurrentRun>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/PluginManager.h"
@@ -224,6 +224,5 @@ void Kwave::ReversePlugin::updateProgress(qreal progress)
 }
 
 //***************************************************************************
-#include "ReversePlugin.moc"
 //***************************************************************************
 //***************************************************************************

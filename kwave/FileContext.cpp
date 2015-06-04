@@ -20,15 +20,15 @@
 #include <errno.h>
 #include <new>
 
-#include <QtCore/QFile>
-#include <QtCore/QLocale>
-#include <QtCore/QTextStream>
+#include <QFile>
+#include <QLocale>
+#include <QTextStream>
 
-#include <QtWidgets/QMdiSubWindow>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QMdiSubWindow>
 
-#include <kglobal.h>
-#include <kstandarddirs.h>
+#include <TODO:kglobal.h>
+#include <TODO:kstandarddirs.h>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"

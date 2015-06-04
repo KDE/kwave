@@ -18,8 +18,8 @@
 #ifndef OPUS_DECODER_H
 #define OPUS_DECODER_H
 
-#include "config.h"
 #ifdef HAVE_OGG_OPUS
+#include "config.h"
 
 #include <ogg/ogg.h>
 #include <opus/opus.h>

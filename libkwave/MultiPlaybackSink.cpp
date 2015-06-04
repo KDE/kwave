@@ -19,13 +19,13 @@
 
 #include <new>
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QMutexLocker>
+#include <QMutexLocker>
+#include <QtGlobal>
 
-#include "libkwave/memcpy.h"
 #include "libkwave/MultiPlaybackSink.h"
-#include "libkwave/PlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/PlaybackSink.h"
+#include "libkwave/memcpy.h"
 
 //***************************************************************************
 Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,

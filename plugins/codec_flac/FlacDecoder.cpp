@@ -17,10 +17,10 @@
 
 #include "config.h"
 
-#include <QtCore/QDateTime>
+#include <QDateTime>
 
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
+#include <TODO:kmimetype.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"

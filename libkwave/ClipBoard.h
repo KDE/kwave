@@ -21,10 +21,10 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QClipboard>
+#include <QClipboard>
+#include <QObject>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

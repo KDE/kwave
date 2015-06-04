@@ -21,18 +21,18 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtCore/QTime>
+#include <QList>
+#include <QObject>
+#include <QTime>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"
 #include "libkwave/Sample.h"
-#include "libkwave/Stripe.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
+#include "libkwave/Stripe.h"
 
 namespace Kwave
 {

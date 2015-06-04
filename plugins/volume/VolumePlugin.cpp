@@ -18,7 +18,7 @@
 #include "config.h"
 #include <errno.h>
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
 #include <KI18n/KLocalizedString>
 
@@ -33,8 +33,8 @@
 
 #include "libgui/OverViewCache.h"
 
-#include "VolumePlugin.h"
 #include "VolumeDialog.h"
+#include "VolumePlugin.h"
 
 KWAVE_PLUGIN(Kwave::VolumePlugin, "volume", "2.3",
              I18N_NOOP("Volume"), "Thomas Eschenbacher");
@@ -163,6 +163,5 @@ void Kwave::VolumePlugin::run(QStringList params)
 }
 
 //***************************************************************************
-#include "VolumePlugin.moc"
 //***************************************************************************
 //***************************************************************************

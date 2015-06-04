@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QtCore/QByteArray>
+#include <QByteArray>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"

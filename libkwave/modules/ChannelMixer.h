@@ -20,17 +20,17 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QVector>
-#include <QtCore/QPointer>
-#include <QtCore/QQueue>
+#include <QObject>
+#include <QPointer>
+#include <QQueue>
+#include <QString>
+#include <QVector>
 
 #include "libkwave/Connect.h"
 #include "libkwave/SampleSink.h"
 #include "libkwave/SampleSource.h"
-#include "libkwave/modules/StreamObject.h"
 #include "libkwave/modules/SampleBuffer.h"
+#include "libkwave/modules/StreamObject.h"
 
 //***************************************************************************
 namespace Kwave

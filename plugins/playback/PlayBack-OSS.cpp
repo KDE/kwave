@@ -15,31 +15,31 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 #ifdef HAVE_OSS_SUPPORT
+#include "config.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <math.h>
+#include <stdlib.h>
 #include <sys/ioctl.h>
 #include <sys/soundcard.h>
-#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
-#include <stdlib.h>
-#include <math.h>
-#include <errno.h>
 
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QLatin1Char>
+#include <QDir>
+#include <QFile>
+#include <QLatin1Char>
 
 #include <KI18n/KLocalizedString>
 
-#include "libkwave/memcpy.h"
 #include "libkwave/ByteOrder.h"
 #include "libkwave/Compression.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 #include "PlayBack-OSS.h"
 

@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtCore/QQueue>
+#include <QByteArray>
+#include <QQueue>
 
 #include "libkwave/WorkerThread.h"
 

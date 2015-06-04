@@ -17,22 +17,23 @@
 
 #include "config.h"
 
-#include <new>
 #include <limits>
+#include <new>
 
-#include <QtCore/QBuffer>
-#include <QtCore/QMutableListIterator>
-#include <QtCore/QVariant>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QWidget>
+#include <QApplication>
+#include <QBuffer>
+#include <QMutableListIterator>
+#include <QVariant>
+#include <QWidget>
 
 #include "libkwave/CodecManager.h"
-#include "libkwave/Decoder.h"
-#include "libkwave/Encoder.h"
 #include "libkwave/Compression.h"
 #include "libkwave/Connect.h"
+#include "libkwave/Decoder.h"
+#include "libkwave/Encoder.h"
 #include "libkwave/MimeData.h"
 #include "libkwave/MultiStreamWriter.h"
+#include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -40,7 +41,6 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
-#include "libkwave/MultiTrackReader.h"
 #include "libkwave/Writer.h"
 
 #include "libkwave/modules/ChannelMixer.h"

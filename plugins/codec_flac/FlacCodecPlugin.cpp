@@ -22,8 +22,8 @@
 #include "libkwave/CodecManager.h"
 
 #include "FlacCodecPlugin.h"
-#include "FlacEncoder.h"
 #include "FlacDecoder.h"
+#include "FlacEncoder.h"
 
 KWAVE_PLUGIN(Kwave::FlacCodecPlugin, "codec_flac", "2.3",
              I18N_NOOP("FLAC Codec"), "Thomas Eschenbacher");
@@ -55,6 +55,5 @@ Kwave::Encoder *Kwave::FlacCodecPlugin::createEncoder()
 }
 
 /***************************************************************************/
-#include "FlacCodecPlugin.moc"
 /***************************************************************************/
 /***************************************************************************/

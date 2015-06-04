@@ -19,10 +19,10 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
+#include <QString>
 
-#include <kdemacros.h>
-#include <klocale.h>
+#include <TODO:kdemacros.h>
+#include <TODO:klocale.h>
 
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"

@@ -17,15 +17,15 @@
 
 #include "config.h"
 
-#include <QtCore/QFileInfo>
-#include <QtCore/QRegExp>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
+#include <QFileInfo>
+#include <QRegExp>
+#include <QString>
+#include <QStringList>
+#include <QUrl>
 
-#include <kapplication.h>
-#include <kconfig.h>
-#include <kfilefiltercombo.h>
+#include <KConfig>
+#include <KFileFilterCombo>
+#include <TODO:kapplication.h>
 
 #include "libkwave/String.h"
 
@@ -160,6 +160,5 @@ QString Kwave::FileDialog::selectedExtension()
 }
 
 //***************************************************************************
-#include "FileDialog.moc"
 //***************************************************************************
 //***************************************************************************

@@ -16,8 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <QtCore/QtGlobal>
 #include "libgui/MouseMark.h"
+#include <QtGlobal>
 
 //****************************************************************************
 Kwave::MouseMark::MouseMark()

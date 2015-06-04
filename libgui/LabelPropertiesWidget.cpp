@@ -18,16 +18,16 @@
 #include "config.h"
 #include "math.h"
 
-#include <QtGui/QPushButton>
+#include <QPushButton>
 
-#include <kapplication.h>
-#include <kconfig.h>
-#include <klineedit.h>
+#include <KConfig>
+#include <KLineEdit>
+#include <TODO:kapplication.h>
 
 #include "libkwave/String.h"
 
-#include "libgui/SelectTimeWidget.h"
 #include "libgui/LabelPropertiesWidget.h"
+#include "libgui/SelectTimeWidget.h"
 
 /** name of the section in the config file */
 #define CONFIG_SECTION "LabelProperties"
@@ -113,6 +113,5 @@ void Kwave::LabelPropertiesWidget::saveSettings()
 }
 
 //***************************************************************************
-#include "LabelPropertiesWidget.moc"
 //***************************************************************************
 //***************************************************************************

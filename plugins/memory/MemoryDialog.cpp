@@ -19,19 +19,19 @@
 #include <limits.h>
 #include <unistd.h>
 
-#include <QtGui/QCheckBox>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtCore/QObject>
-#include <QtGui/QSlider>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtGui/QSpinBox>
+#include <QCheckBox>
+#include <QLabel>
+#include <QObject>
+#include <QPushButton>
+#include <QSlider>
+#include <QSpinBox>
+#include <QString>
+#include <QStringList>
 
-#include <kfiledialog.h>
-#include <klineedit.h>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KLineEdit>
+#include <KToolInvocation>
+#include <TODO:kfiledialog.h>
+#include <TODO:kpushbutton.h>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"
@@ -153,6 +153,5 @@ void Kwave::MemoryDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "MemoryDialog.moc"
 //***************************************************************************
 //***************************************************************************

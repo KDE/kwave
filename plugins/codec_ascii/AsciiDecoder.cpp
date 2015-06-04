@@ -19,13 +19,13 @@
 #include <ctype.h>
 #include <string.h>
 
-#include <QtCore/QDateTime>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QLatin1String>
-#include <QtCore/QRegExp>
+#include <QDateTime>
+#include <QLatin1Char>
+#include <QLatin1String>
+#include <QRegExp>
 
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
+#include <TODO:kmimetype.h>
 
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"

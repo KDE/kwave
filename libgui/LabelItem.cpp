@@ -19,12 +19,12 @@
 
 #include <math.h>
 
-#include <QtGui/QAction>
-#include <QtCore/QList>
-#include <QtGui/QMenu>
+#include <QAction>
+#include <QList>
+#include <QMenu>
 
-#include "kiconloader.h"
-#include "klocalizedstring.h"
+#include <KIconLoader>
+#include <KLocalizedString>
 
 #include "libkwave/Label.h"
 #include "libkwave/String.h"
@@ -136,6 +136,5 @@ void Kwave::LabelItem::contextMenuLabelProperties()
 }
 
 //***************************************************************************
-#include "LabelItem.moc"
 //***************************************************************************
 //***************************************************************************

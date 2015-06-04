@@ -17,14 +17,14 @@
 
 #include "config.h"
 
-#include <stdlib.h>
 #include <math.h>
+#include <stdlib.h>
 
-#include <QtCore/QDate>
-#include <QtCore/QLatin1Char>
+#include <QDate>
+#include <QLatin1Char>
 
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
+#include <TODO:kmimetype.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"

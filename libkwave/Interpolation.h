@@ -19,11 +19,11 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QVector>
+#include <QString>
+#include <QStringList>
+#include <QVector>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/TypesMap.h"
 

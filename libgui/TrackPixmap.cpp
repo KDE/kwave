@@ -20,10 +20,10 @@
 #include <math.h>
 #include <new>
 
-#include <QtCore/QMutexLocker>
-#include <QtGui/QPainter>
-#include <QtGui/QPolygon>
-#include <QtCore/QTime>
+#include <QMutexLocker>
+#include <QPainter>
+#include <QPolygon>
+#include <QTime>
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/Track.h"
@@ -846,6 +846,5 @@ void Kwave::TrackPixmap::convertOverlap(sample_index_t &offset,
 }
 
 //***************************************************************************
-#include "TrackPixmap.moc"
 //***************************************************************************
 //***************************************************************************

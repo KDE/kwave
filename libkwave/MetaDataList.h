@@ -19,14 +19,14 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QString>
-#include <QtCore/QVariant>
-#include <QtCore/QMapIterator>
-#include <QtCore/QMutableMapIterator>
+#include <QList>
+#include <QMap>
+#include <QMapIterator>
+#include <QMutableMapIterator>
+#include <QString>
+#include <QVariant>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"

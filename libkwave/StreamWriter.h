@@ -21,9 +21,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
+#include <QObject>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/Writer.h"
 

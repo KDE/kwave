@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QSemaphore>
+#include <QObject>
+#include <QSemaphore>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSink.h"

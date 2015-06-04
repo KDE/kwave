@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QtGui/QAction>
-#include <QtGui/QIcon>
-#include <QtGui/QMenu>
-#include <QtCore/QString>
+#include <QAction>
+#include <QIcon>
+#include <QMenu>
+#include <QString>
 
 #include "libgui/MenuNode.h"
 

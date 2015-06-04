@@ -22,15 +22,15 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <QtCore/QDate>
-#include <QtCore/QDateTime>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QString>
-#include <QtCore/QThread>
+#include <QDate>
+#include <QDateTime>
+#include <QLatin1Char>
+#include <QString>
+#include <QThread>
 
-#include <kapplication.h>
-#include <kglobal.h>
 #include <KI18n/KLocalizedString>
+#include <TODO:kapplication.h>
+#include <TODO:kglobal.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"

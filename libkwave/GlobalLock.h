@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QMutex>
+#include <QMutex>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 namespace Kwave {
 

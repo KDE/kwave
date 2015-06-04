@@ -22,8 +22,8 @@
 #include "libkwave/CodecManager.h"
 
 #include "AsciiCodecPlugin.h"
-#include "AsciiEncoder.h"
 #include "AsciiDecoder.h"
+#include "AsciiEncoder.h"
 
 KWAVE_PLUGIN(Kwave::AsciiCodecPlugin, "codec_ascii", "2.3",
              I18N_NOOP("ASCII Codec"), "Thomas Eschenbacher");
@@ -55,6 +55,5 @@ Kwave::Encoder *Kwave::AsciiCodecPlugin::createEncoder()
 }
 
 /***************************************************************************/
-#include "AsciiCodecPlugin.moc"
 /***************************************************************************/
 /***************************************************************************/

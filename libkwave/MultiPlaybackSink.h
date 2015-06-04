@@ -20,15 +20,15 @@
 
 #include "config.h"
 
-#include <QtCore/QBitArray>
-#include <QtCore/QMutex>
-#include <QtCore/QVector>
+#include <QBitArray>
+#include <QMutex>
+#include <QVector>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/MultiTrackSink.h"
-#include "libkwave/PlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/PlaybackSink.h"
 #include "libkwave/SampleArray.h"
 
 namespace Kwave

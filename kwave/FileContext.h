@@ -20,16 +20,16 @@
 
 #include "config.h"
 
-#include <QtCore/QAtomicInt>
-#include <QtCore/QElapsedTimer>
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtCore/QPointer>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
+#include <QAtomicInt>
+#include <QElapsedTimer>
+#include <QList>
+#include <QObject>
+#include <QPointer>
+#include <QString>
+#include <QTimer>
 
-#include <kdemacros.h>
-#include <kurl.h>
+#include <TODO:kdemacros.h>
+#include <TODO:kurl.h>
 
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"

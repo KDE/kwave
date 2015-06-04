@@ -20,13 +20,13 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QHash>
-#include <QtGui/QIcon>
-#include <QtGui/QKeySequence>
-#include <QtGui/QPixmap>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QHash>
+#include <QIcon>
+#include <QKeySequence>
+#include <QObject>
+#include <QPixmap>
+#include <QString>
+#include <QStringList>
 
 #include "libgui/MenuGroup.h"
 

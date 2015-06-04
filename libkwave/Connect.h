@@ -19,7 +19,7 @@
 #define CONNECT_H
 
 #include "config.h"
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 class QString;
 

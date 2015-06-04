@@ -21,20 +21,20 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtGui/QSpinBox>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
+#include <QLabel>
+#include <QLayout>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
+#include <QString>
+#include <QTimer>
 
-#include <kcombobox.h>
+#include <KComboBox>
 #include <KI18n/KLocalizedString>
-#include <knuminput.h>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
+#include <TODO:knuminput.h>
+#include <TODO:kpushbutton.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -378,6 +378,5 @@ void Kwave::NewSignalDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "NewSignalDialog.moc"
 //***************************************************************************
 //***************************************************************************

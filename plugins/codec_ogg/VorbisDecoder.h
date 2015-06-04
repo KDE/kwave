@@ -18,8 +18,8 @@
 #ifndef VORBIS_DECODER_H
 #define VORBIS_DECODER_H
 
-#include "config.h"
 #ifdef HAVE_OGG_VORBIS
+#include "config.h"
 
 #include <vorbis/codec.h>
 

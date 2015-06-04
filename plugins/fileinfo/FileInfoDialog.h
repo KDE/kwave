@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include "libkwave/FileInfo.h"
 #include "ui_FileInfoDlg.h"

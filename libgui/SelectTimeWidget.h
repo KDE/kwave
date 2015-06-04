@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QtGui/QGroupBox>
-#include <QtCore/QObject>
-#include <QtCore/QTimer>
+#include <QGroupBox>
+#include <QObject>
+#include <QTimer>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libgui/ui_SelectTimeWidgetBase.h"
 #include "libkwave/Sample.h"

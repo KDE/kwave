@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtWidgets/QWidget>
+#include <QObject>
+#include <QWidget>
 
 #include "libgui/InvertableSpinBox.h"
 
@@ -78,6 +78,5 @@ void Kwave::InvertableSpinBox::stepDown()
 }
 
 //***************************************************************************
-#include "InvertableSpinBox.moc"
 //***************************************************************************
 //***************************************************************************

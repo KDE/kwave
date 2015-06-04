@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtGui/QDialog>
-#include <QtCore/QObject>
+#include <QDialog>
+#include <QObject>
 
 #include "libgui/SelectTimeWidget.h"
 #include "ui_GotoDlg.h"

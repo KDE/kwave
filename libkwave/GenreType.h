@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
-#include <QtCore/QMap>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QMap>
+#include <QString>
+#include <QStringList>
 
 namespace Kwave
 {

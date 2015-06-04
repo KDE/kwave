@@ -22,8 +22,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <math.h>
 #include <complex>
+#include <math.h>
 
 #include "libkwave/Sample.h"
 #include "libkwave/Utils.h"
@@ -212,6 +212,5 @@ void Kwave::PitchShiftFilter::setFrequency(const QVariant freq)
 }
 
 //***************************************************************************
-#include "PitchShiftFilter.moc"
 //***************************************************************************
 //***************************************************************************

@@ -18,7 +18,7 @@
 #ifndef PLAYBACK_DEVICE_FACTORY_H
 #define PLAYBACK_DEVICE_FACTORY_H
 
-#include <QtCore/QList>
+#include <QList>
 
 #include "libkwave/PlayBackParam.h"
 

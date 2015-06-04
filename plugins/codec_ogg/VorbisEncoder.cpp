@@ -20,8 +20,8 @@
 #include <math.h>
 #include <string.h>
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QTime>
+#include <QTime>
+#include <QtGlobal>
 
 #include <KI18n/KLocalizedString>
 

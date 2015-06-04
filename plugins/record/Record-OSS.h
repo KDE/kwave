@@ -18,11 +18,11 @@
 #ifndef RECORD_OSS_H
 #define RECORD_OSS_H
 
-#include "config.h"
 #ifdef HAVE_OSS_SUPPORT
+#include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtCore/QString>
+#include <QByteArray>
+#include <QString>
 
 #include "RecordDevice.h"
 

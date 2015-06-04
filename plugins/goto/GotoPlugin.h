@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
+#include <QString>
 
 #include "GotoPluginBase.h"
 

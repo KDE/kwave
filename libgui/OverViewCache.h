@@ -20,15 +20,15 @@
 
 #include "config.h"
 
-#include <QtGui/QImage>
-#include <QtCore/QHash>
-#include <QtCore/QList>
-#include <QtCore/QMutex>
-#include <QtCore/QObject>
-#include <QtCore/QUuid>
-#include <QtCore/QVector>
+#include <QHash>
+#include <QImage>
+#include <QList>
+#include <QMutex>
+#include <QObject>
+#include <QUuid>
+#include <QVector>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

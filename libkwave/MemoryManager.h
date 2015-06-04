@@ -21,12 +21,12 @@
 #include "config.h"
 #include <stddef.h>  // for size_t
 
-#include <QtCore/QDir>
-#include <QtCore/QHash>
-#include <QtCore/QMutex>
-#include <QtCore/QString>
+#include <QDir>
+#include <QHash>
+#include <QMutex>
+#include <QString>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/LRU_Cache.h"
 

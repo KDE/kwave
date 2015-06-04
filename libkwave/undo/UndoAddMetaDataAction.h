@@ -21,12 +21,12 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QString>
+#include <QList>
+#include <QString>
 
-#include "libkwave/Sample.h"
 #include "libkwave/MetaData.h"
 #include "libkwave/MetaDataList.h"
+#include "libkwave/Sample.h"
 #include "libkwave/undo/UndoAction.h"
 
 namespace Kwave

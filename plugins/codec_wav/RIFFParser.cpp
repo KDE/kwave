@@ -22,14 +22,14 @@
 
 #include <limits>
 
-#include <QtCore/QIODevice>
-#include <QtCore/QLatin1String>
-#include <QtCore/QList>
-#include <QtCore/QMutableListIterator>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QtEndian>
-#include <QtCore/QtGlobal>
+#include <QIODevice>
+#include <QLatin1String>
+#include <QList>
+#include <QMutableListIterator>
+#include <QString>
+#include <QStringList>
+#include <QtEndian>
+#include <QtGlobal>
 
 #include <KI18n/KLocalizedString>
 
@@ -819,6 +819,5 @@ void Kwave::RIFFParser::cancel()
 }
 
 //***************************************************************************
-#include "RIFFParser.moc"
 //***************************************************************************
 //***************************************************************************

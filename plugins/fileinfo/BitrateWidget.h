@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtGui/QWidget>
-#include <QtCore/QList>
+#include <QList>
+#include <QWidget>
 
 #include "ui_BitrateWidgetBase.h"
 

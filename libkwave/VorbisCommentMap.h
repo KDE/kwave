@@ -20,10 +20,10 @@ VorbisCommentMap.h  -  map for translating properties to vorbis comments
 
 #include "config.h"
 
-#include <QtCore/QMap>
-#include <QtCore/QString>
+#include <QMap>
+#include <QString>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/FileInfo.h"
 

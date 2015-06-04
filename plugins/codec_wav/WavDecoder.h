@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QMap>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"

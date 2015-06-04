@@ -21,7 +21,7 @@
 
 #include <limits>
 
-#include <QtCore/QtAlgorithms>
+#include <QtAlgorithms>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Interpolation.h"

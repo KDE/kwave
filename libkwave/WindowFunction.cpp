@@ -16,8 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <math.h>
 #include <KI18n/KLocalizedString>
+#include <math.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"

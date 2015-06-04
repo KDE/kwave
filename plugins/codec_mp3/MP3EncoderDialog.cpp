@@ -17,23 +17,23 @@
 
 #include "config.h"
 
-#include <QtCore/QBuffer>
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QPointer>
-#include <QtCore/QProcess>
-#include <QtCore/QtGlobal>
-#include <QtGui/QAbstractButton>
-#include <QtGui/QPushButton>
-#include <QtGui/QCursor>
-#include <QtWidgets/QApplication>
+#include <QAbstractButton>
+#include <QApplication>
+#include <QBuffer>
+#include <QCursor>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QLatin1Char>
+#include <QPointer>
+#include <QProcess>
+#include <QPushButton>
+#include <QtGlobal>
 
-#include <kcombobox.h>
-#include <kdialogbuttonbox.h>
-#include <klineedit.h>
-#include <kprocess.h>
+#include <KComboBox>
+#include <KLineEdit>
+#include <KProcess>
+#include <TODO:kdialogbuttonbox.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
@@ -747,6 +747,5 @@ void Kwave::MP3EncoderDialog::updateEncoderInfo()
 }
 
 /***************************************************************************/
-#include "MP3EncoderDialog.moc"
 /***************************************************************************/
 /***************************************************************************/

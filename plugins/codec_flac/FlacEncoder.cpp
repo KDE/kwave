@@ -20,20 +20,20 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtCore/QByteArray>
-#include <QtCore/QList>
-#include <QtCore/QVarLengthArray>
+#include <QByteArray>
+#include <QList>
+#include <QVarLengthArray>
 
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
-#include <kapplication.h>
-#include <kglobal.h>
+#include <TODO:kapplication.h>
+#include <TODO:kglobal.h>
+#include <TODO:kmimetype.h>
 
 #include <vorbis/vorbisenc.h>
 
 #include "libkwave/FileInfo.h"
-#include "libkwave/MetaDataList.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"

@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
+#include <QObject>
+#include <QVariant>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleFIFO.h"

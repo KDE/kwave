@@ -17,35 +17,35 @@
 
 #include "config.h"
 
-#include <QtCore/QtGlobal>
-#include <QtGui/QCheckBox>
-#include <QtCore/QDateTime>
-#include <QtGui/QDialog>
-#include <QtCore/QFileInfo>
-#include <QtGui/QLabel>
-#include <QtGui/QListWidget>
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtGui/QSpinBox>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtGui/QToolTip>
-#include <QtGui/QWhatsThis>
+#include <QCheckBox>
+#include <QDateTime>
+#include <QDialog>
+#include <QFileInfo>
+#include <QLabel>
+#include <QListWidget>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
+#include <QString>
+#include <QStringList>
+#include <QToolTip>
+#include <QWhatsThis>
+#include <QtGlobal>
 
-#include <kglobal.h>
-#include <kconfig.h>
-#include <kcombobox.h>
-#include <kdatewidget.h>
-#include <kglobal.h>
-#include <klineedit.h>
-#include <klistwidget.h>
+#include <KComboBox>
+#include <KConfig>
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
-#include <knuminput.h>
-#include <kpushbutton.h>
-#include <ktabwidget.h>
-#include <ktoolinvocation.h>
+#include <KLineEdit>
+#include <KToolInvocation>
+#include <TODO:kdatewidget.h>
+#include <TODO:kglobal.h>
+#include <TODO:kglobal.h>
+#include <TODO:klistwidget.h>
+#include <TODO:kmimetype.h>
+#include <TODO:knuminput.h>
+#include <TODO:kpushbutton.h>
+#include <TODO:ktabwidget.h>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Compression.h"
@@ -1120,6 +1120,5 @@ void Kwave::FileInfoDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "FileInfoDialog.moc"
 //***************************************************************************
 //***************************************************************************

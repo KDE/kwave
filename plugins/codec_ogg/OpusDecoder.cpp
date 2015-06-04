@@ -23,11 +23,11 @@
 
 #include <opus/opus_defines.h>
 
-#include <QtCore/QDate>
-#include <QtCore/qendian.h>
-#include <QtCore/QIODevice>
-#include <QtCore/QString>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QDate>
+#include <QIODevice>
+#include <QString>
+#include <qendian.h>
 
 #include <KI18n/KLocalizedString>
 

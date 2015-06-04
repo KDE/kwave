@@ -18,7 +18,7 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
+#include <QString>
 
 #include <KI18n/KLocalizedString>
 

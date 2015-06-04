@@ -20,18 +20,18 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QLabel>
-#include <QtCore/QList>
-#include <QtCore/QPointer>
-#include <QtCore/QSize>
-#include <QtGui/QPolygon>
-#include <QtCore/QSharedPointer>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
-#include <QtGui/QWidget>
+#include <QLabel>
+#include <QList>
+#include <QObject>
+#include <QPointer>
+#include <QPolygon>
+#include <QSharedPointer>
+#include <QSize>
+#include <QString>
+#include <QTimer>
+#include <QWidget>
 
-#include "kdemacros.h"
+#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

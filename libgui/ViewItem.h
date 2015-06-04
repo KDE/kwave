@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/Qt>
+#include <QObject>
+#include <QString>
+#include <Qt>
 
-#include "kdemacros.h"
+#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

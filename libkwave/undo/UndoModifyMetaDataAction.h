@@ -21,9 +21,9 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
+#include <QString>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/MetaDataList.h"
 #include "libkwave/undo/UndoAction.h"

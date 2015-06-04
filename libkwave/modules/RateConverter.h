@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
-#include <QtCore/QVarLengthArray>
+#include <QObject>
+#include <QVarLengthArray>
+#include <QVariant>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include <samplerate.h>
 

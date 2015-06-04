@@ -17,10 +17,10 @@
 
 #include "config.h"
 
-#include <QtGui/QPushButton>
+#include <QPushButton>
 
 #include <KI18n/KLocalizedString>
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
@@ -99,6 +99,5 @@ void Kwave::AmplifyFreeDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "AmplifyFreeDialog.moc"
 //***************************************************************************
 //***************************************************************************

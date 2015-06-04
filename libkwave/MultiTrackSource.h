@@ -22,10 +22,10 @@
 
 #include <new>
 
-#include <QtConcurrent/QtConcurrentRun>
-#include <QtCore/QFutureSynchronizer>
-#include <QtCore/QObject>
-#include <QtCore/QList>
+#include <QFutureSynchronizer>
+#include <QList>
+#include <QObject>
+#include <QtConcurrentRun>
 
 #include "libkwave/SampleSource.h"
 

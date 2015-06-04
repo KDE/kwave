@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtCore/QString>
+#include <QList>
+#include <QObject>
+#include <QString>
 
 #include "libkwave/Sample.h"
 #include "libkwave/undo/UndoAction.h"

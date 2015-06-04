@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QtConcurrent/QFuture>
-#include <QtConcurrent/QtConcurrentRun>
+#include <QFuture>
+#include <QtConcurrentRun>
 
 #include "libkwave/Utils.h"
 #include "libkwave/modules/SampleBuffer.h"

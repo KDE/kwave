@@ -17,12 +17,12 @@
 
 #include "config.h"
 
-#include <QtCore/QDir>
-#include <QtCore/QLatin1Char>
+#include <QDir>
+#include <QLatin1Char>
 
-#include <kconfiggroup.h>
-#include <kglobal.h>
-#include <ksharedconfig.h>
+#include <KConfigGroup>
+#include <KSharedConfig>
+#include <TODO:kglobal.h>
 
 #include "libkwave/String.h"
 

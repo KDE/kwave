@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
-#include <QtCore/QObject>
-#include <QtGui/QTreeWidget>
+#include <QObject>
+#include <QTreeWidget>
 
 class QFocusEvent;
 

@@ -18,8 +18,8 @@
 #include "config.h"
 #include "math.h"
 
-#include <QtGui/QColor>
-#include <QtGui/QPainter>
+#include <QColor>
+#include <QPainter>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
@@ -413,6 +413,5 @@ QImage Kwave::OverViewCache::getOverView(int width, int height,
 }
 
 //***************************************************************************
-#include "OverViewCache.moc"
 //***************************************************************************
 //***************************************************************************

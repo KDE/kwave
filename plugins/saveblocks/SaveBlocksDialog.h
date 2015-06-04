@@ -20,12 +20,12 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtGui/QWidget>
+#include <QObject>
+#include <QString>
+#include <QWidget>
 
-#include "libgui/FileDialog.h"
 #include "SaveBlocksPlugin.h"
+#include "libgui/FileDialog.h"
 
 class KURL;
 

@@ -17,20 +17,20 @@
 
 #include "config.h"
 
-#include <QtGui/QDesktopWidget>
-#include <QtGui/QFont>
-#include <QtGui/QLabel>
-#include <QtGui/QPainter>
-#include <QtGui/QPixmap>
-#include <QtCore/QString>
-#include <QtCore/QThread>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QFont>
+#include <QLabel>
+#include <QPainter>
+#include <QPixmap>
+#include <QString>
+#include <QThread>
 
-#include <kapplication.h>
-#include <kaboutdata.h>
-#include <kglobal.h>
+#include <KAboutData>
 #include <KI18n/KLocalizedString>
-#include <kstandarddirs.h>
+#include <TODO:kapplication.h>
+#include <TODO:kglobal.h>
+#include <TODO:kstandarddirs.h>
 
 #include "Splash.h"
 
@@ -151,6 +151,5 @@ void Kwave::Splash::mousePressEvent(QMouseEvent *)
 }
 
 //***************************************************************************
-#include "Splash.moc"
 //***************************************************************************
 //***************************************************************************

@@ -20,8 +20,8 @@
 
 #include <new>
 
-#include <QtCore/QVariant>
-#include <QtCore/QtAlgorithms>
+#include <QVariant>
+#include <QtAlgorithms>
 
 #include <KI18n/KLocalizedString>
 

@@ -20,8 +20,8 @@
 #include "libkwave/CodecManager.h"
 
 #include "WavCodecPlugin.h"
-#include "WavEncoder.h"
 #include "WavDecoder.h"
+#include "WavEncoder.h"
 
 KWAVE_PLUGIN(Kwave::WavCodecPlugin, "codec_wav", "2.3",
              I18N_NOOP("WAV Codec"), "Thomas Eschenbacher");
@@ -53,6 +53,5 @@ Kwave::Encoder *Kwave::WavCodecPlugin::createEncoder()
 }
 
 //***************************************************************************
-#include "WavCodecPlugin.moc"
 //***************************************************************************
 //***************************************************************************

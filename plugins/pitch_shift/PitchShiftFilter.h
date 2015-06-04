@@ -25,9 +25,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
-#include <QtCore/QVector>
+#include <QObject>
+#include <QVariant>
+#include <QVector>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"

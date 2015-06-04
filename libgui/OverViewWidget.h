@@ -20,14 +20,14 @@
 
 #include "config.h"
 
-#include <QtGui/QBitmap>
-#include <QtGui/QColor>
-#include <QtCore/QSize>
-#include <QtCore/QThread>
-#include <QtCore/QTimer>
-#include <QtGui/QWidget>
+#include <QBitmap>
+#include <QColor>
+#include <QSize>
+#include <QThread>
+#include <QTimer>
+#include <QWidget>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/LabelList.h"
 #include "libkwave/MetaDataList.h"

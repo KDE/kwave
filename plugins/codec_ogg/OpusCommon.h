@@ -18,12 +18,12 @@
 #ifndef OPUS_COMMON_H
 #define OPUS_COMMON_H
 
-#include "config.h"
 #ifdef HAVE_OGG_OPUS
+#include "config.h"
 
 #include <opus/opus.h>
 
-#include <QtCore/QString>
+#include <QString>
 
 #include "libkwave/String.h"
 

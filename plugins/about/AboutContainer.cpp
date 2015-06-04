@@ -21,13 +21,13 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <QtCore/qnamespace.h>
-#include <QtGui/QLabel>
+#include <QLabel>
+#include <qnamespace.h>
 
-#include <kapplication.h>
-#include <kdialog.h>
 #include <KLocalizedString>
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
+#include <TODO:kapplication.h>
+#include <TODO:kdialog.h>
 
 #include "libkwave/String.h"
 
@@ -259,6 +259,5 @@ void Kwave::AboutContributor::updateLayout()
 }
 
 //***************************************************************************
-#include "AboutContainer.moc"
 //***************************************************************************
 //***************************************************************************

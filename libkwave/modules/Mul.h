@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QtCore/QMutex>
-#include <QtCore/QQueue>
-#include <QtCore/QSemaphore>
+#include <QMutex>
+#include <QQueue>
+#include <QSemaphore>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSink.h"

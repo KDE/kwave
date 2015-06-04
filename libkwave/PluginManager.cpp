@@ -20,30 +20,30 @@
 #include <errno.h>
 #include <unistd.h>
 
-#include <QtCore/QLatin1Char>
-#include <QtCore/QLibrary>
-#include <QtCore/QMutableListIterator>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QLatin1Char>
+#include <QLibrary>
+#include <QMutableListIterator>
 
-#include <kglobal.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kmainwindow.h>
-#include <kstandarddirs.h>
+#include <KConfig>
+#include <KConfigGroup>
 #include <KI18n/KLocalizedString>
+#include <KMainWindow>
+#include <TODO:kglobal.h>
+#include <TODO:kstandarddirs.h>
 
-#include "libkwave/Plugin.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PlaybackDeviceFactory.h"
+#include "libkwave/Plugin.h"
+#include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
-#include "libkwave/undo/UndoTransactionGuard.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoModifyAction.h"
-#include "libkwave/PluginManager.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
 
 //***************************************************************************
 // static initializers

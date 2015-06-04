@@ -17,27 +17,27 @@
 
 #include "config.h"
 
-#include <QtCore/QtAlgorithms>
-#include <QtCore/QList>
-#include <QtCore/QListIterator>
-#include <QtGui/QHBoxLayout>
-#include <QtCore/QString>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTreeWidgetItem>
-#include <QtGui/QVBoxLayout>
+#include <QHBoxLayout>
+#include <QList>
+#include <QListIterator>
+#include <QString>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QVBoxLayout>
+#include <QtAlgorithms>
 
-#include <kaboutdata.h>
-#include <kapplication.h>
-#include <kglobal.h>
+#include <KAboutData>
 #include <KI18n/KLocalizedString>
-#include <kurllabel.h>
-#include <kstandarddirs.h>
-#include <ktextedit.h>
+#include <KTextEdit>
+#include <KUrlLabel>
+#include <TODO:kapplication.h>
+#include <TODO:kglobal.h>
+#include <TODO:kstandarddirs.h>
 
 #include "libkwave/String.h"
 
-#include "AboutDialog.h"
 #include "AboutContainer.h"
+#include "AboutDialog.h"
 #include "LogoWidget.h"
 
 //***************************************************************************
@@ -175,6 +175,5 @@ Kwave::AboutDialog::~AboutDialog()
 }
 
 //***************************************************************************
-#include "AboutDialog.moc"
 //***************************************************************************
 //***************************************************************************

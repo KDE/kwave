@@ -22,11 +22,11 @@
 
 #include "config.h"
 
-#include <QtGui/QColor>
-#include <QtCore/QTimer>
-#include <QtCore/QVector>
-#include <QtCore/QQueue>
-#include <QtGui/QWidget>
+#include <QColor>
+#include <QQueue>
+#include <QTimer>
+#include <QVector>
+#include <QWidget>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"

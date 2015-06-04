@@ -17,14 +17,14 @@
 
 #include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtCore/QMetaObject>
-#include <QtCore/QMutexLocker>
-#include <QtCore/QObject>
-#include <QtCore/QtGlobal>
-#include <QtCore/QVarLengthArray>
+#include <QByteArray>
+#include <QMetaObject>
+#include <QMutexLocker>
+#include <QObject>
+#include <QVarLengthArray>
+#include <QtGlobal>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/Sample.h"

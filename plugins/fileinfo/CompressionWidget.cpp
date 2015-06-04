@@ -17,17 +17,17 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QCheckBox>
-#include <QtGui/QLabel>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtGui/QToolTip>
-#include <QtCore/QList>
-#include <QtGui/QWhatsThis>
+#include <QCheckBox>
+#include <QLabel>
+#include <QList>
+#include <QObject>
+#include <QRadioButton>
+#include <QSlider>
+#include <QToolTip>
+#include <QWhatsThis>
 
 #include <KI18n/KLocalizedString>
-#include <knuminput.h>
+#include <TODO:knuminput.h>
 
 #include "libkwave/StandardBitrates.h"
 #include "libkwave/String.h"
@@ -275,6 +275,5 @@ int Kwave::CompressionWidget::baseQuality()
 }
 
 //***************************************************************************
-#include "CompressionWidget.moc"
 //***************************************************************************
 //***************************************************************************

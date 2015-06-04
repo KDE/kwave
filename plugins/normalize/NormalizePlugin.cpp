@@ -23,16 +23,16 @@
 #include <math.h>
 #include <new>
 
-#include <QtConcurrent/QtConcurrentRun>
-#include <QtCore/QFutureSynchronizer>
-#include <QtCore/QList>
-#include <QtCore/QStringList>
-#include <QtCore/QThread>
+#include <QFutureSynchronizer>
+#include <QList>
+#include <QStringList>
+#include <QThread>
+#include <QtConcurrentRun>
 
 #include <KI18n/KLocalizedString> // for the i18n macro
 
-#include "libkwave/FileInfo.h"
 #include "libkwave/Connect.h"
+#include "libkwave/FileInfo.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
@@ -239,6 +239,5 @@ void Kwave::NormalizePlugin::getMaxPowerOfTrack(
 }
 
 //***************************************************************************
-#include "NormalizePlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -18,11 +18,11 @@
  ***************************************************************************/
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtGui/QPainter>
-#include <QtGui/QMouseEvent>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QString>
 
-#include <kstandarddirs.h>
+#include <TODO:kstandarddirs.h>
 
 #include "libkwave/String.h"
 
@@ -92,6 +92,5 @@ void Kwave::MultiStateWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-#include "MultiStateWidget.moc"
 //***************************************************************************
 //***************************************************************************

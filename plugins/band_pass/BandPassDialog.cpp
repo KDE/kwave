@@ -18,25 +18,25 @@
 #include "config.h"
 #include "math.h"
 
-#include <QtGui/QPainter>
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtWidgets/QWidget>
+#include <QPainter>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QWidget>
 
 #include <KI18n/KLocalizedString>
-#include <knuminput.h>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
+#include <TODO:knuminput.h>
+#include <TODO:kpushbutton.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
-#include "libgui/ScaleWidget.h"
 #include "libgui/FrequencyResponseWidget.h"
+#include "libgui/ScaleWidget.h"
 
-#include "BandPassDialog.h"
 #include "BandPass.h"
+#include "BandPassDialog.h"
 
 //***************************************************************************
 Kwave::BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
@@ -213,6 +213,5 @@ void Kwave::BandPassDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "BandPassDialog.moc"
 //***************************************************************************
 //***************************************************************************

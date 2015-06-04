@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <ktoolinvocation.h>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KToolInvocation>
 
 #include "libkwave/String.h"
 
@@ -85,7 +85,7 @@ void Kwave::StringEnterDialog::invokeHelp()
 }
 
 //***************************************************************************
+//***************************************************************************
+//***************************************************************************
 #include "StringEnterDialog.moc"
-//***************************************************************************
-//***************************************************************************
 

@@ -16,32 +16,32 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <stdio.h>
-#include <math.h>
 #include <limits.h>
+#include <math.h>
+#include <stdio.h>
 
-#include <QtGui/QCursor>
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtGui/QKeySequence>
-#include <QtGui/QMenu>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QPainter>
-#include <QtGui/QPaintEvent>
-#include <QtGui/QPalette>
-#include <QtGui/QShortcut>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QTextStream>
+#include <QCursor>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QKeySequence>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QPalette>
+#include <QShortcut>
+#include <QString>
+#include <QStringList>
+#include <QTextStream>
 
-#include <kstandarddirs.h>
 #include <KI18n/KLocalizedString>
-#include <kiconloader.h>
-#include <kfiledialog.h>
+#include <KIconLoader>
+#include <TODO:kfiledialog.h>
+#include <TODO:kstandarddirs.h>
 
-#include "libkwave/Interpolation.h"
 #include "libkwave/Curve.h"
+#include "libkwave/Interpolation.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
@@ -456,6 +456,5 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-#include "CurveWidget.moc"
 //***************************************************************************
 //***************************************************************************

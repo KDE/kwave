@@ -17,13 +17,13 @@
 
 #include "config.h"
 
-#include <new>
 #include <errno.h>
+#include <new>
 #include <unistd.h>
 
-#include <QtGui/QDialog>
-#include <QtCore/QStringList>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QDialog>
+#include <QStringList>
 
 #include <KI18n/KLocalizedString>
 
@@ -231,6 +231,5 @@ QString Kwave::FilterPlugin::progressText()
 }
 
 //***************************************************************************
-#include "FilterPlugin.moc"
 //***************************************************************************
 //***************************************************************************

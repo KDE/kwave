@@ -22,9 +22,9 @@
 
 #include <limits.h>
 
-#include <QtCore/QList>
-#include <QtCore/QMutex>
-#include <QtCore/QProcess>
+#include <QList>
+#include <QMutex>
+#include <QProcess>
 
 #include "libkwave/Encoder.h"
 

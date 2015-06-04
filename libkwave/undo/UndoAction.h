@@ -20,9 +20,9 @@
 #define UNDO_ACTION_H
 
 #include "config.h"
-#include <QtCore/QString>
+#include <QString>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/String.h"
 

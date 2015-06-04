@@ -22,10 +22,10 @@
 
 #include <limits>
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QString>
+#include <QString>
+#include <QtGlobal>
 
-#include "kdemacros.h"
+#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h" // for sample_index_t
 

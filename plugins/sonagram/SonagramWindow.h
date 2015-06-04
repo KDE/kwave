@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QTimer>
+#include <QTimer>
 
-#include <kmainwindow.h>
+#include <KMainWindow>
 
 class QBitmap;
 class QImage;

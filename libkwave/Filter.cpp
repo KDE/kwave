@@ -17,10 +17,10 @@
 
 #include "config.h"
 
-#include <QtCore/QFile>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QString>
-#include <QtCore/QTextStream>
+#include <QFile>
+#include <QLatin1Char>
+#include <QString>
+#include <QTextStream>
 
 #include "libkwave/Filter.h"
 #include "libkwave/Parser.h"

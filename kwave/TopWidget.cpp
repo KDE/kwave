@@ -21,51 +21,51 @@
 #include <errno.h>
 #include <math.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QFile>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QMap>
-#include <QtCore/QStringList>
-#include <QtCore/QTextStream>
-#include <QtCore/QMutableMapIterator>
-#include <QtGui/QAction>
-#include <QtGui/QCloseEvent>
-#include <QtGui/QDesktopWidget>
-#include <QtGui/QFrame>
-#include <QtGui/QLabel>
-#include <QtGui/QMdiSubWindow>
-#include <QtGui/QPixmap>
-#include <QtGui/QSizePolicy>
-#include <QtWidgets/QApplication>
+#include <QAction>
+#include <QApplication>
+#include <QCloseEvent>
+#include <QDesktopWidget>
+#include <QFile>
+#include <QFrame>
+#include <QLabel>
+#include <QLatin1Char>
+#include <QMap>
+#include <QMdiSubWindow>
+#include <QMutableMapIterator>
+#include <QPixmap>
+#include <QSizePolicy>
+#include <QStringList>
+#include <QTextStream>
+#include <QtGlobal>
 
-#include <kapplication.h>
-#include <kcmdlineargs.h>
-#include <kcombobox.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kfiledialog.h>
-#include <kglobal.h>
-#include <khelpmenu.h>
-#include <kiconloader.h>
-#include <KI18n/KLocalizedString>
-#include <kmenubar.h>
+#include <KComboBox>
+#include <KConfig>
+#include <KConfigGroup>
 #include <KF5/KGuiAddons/KMessageBox>
-#include <kstatusbar.h>
-#include <kstandarddirs.h>
-#include <ktoolbar.h>
+#include <KHelpMenu>
+#include <KI18n/KLocalizedString>
+#include <KIconLoader>
+#include <KToolBar>
+#include <TODO:kapplication.h>
+#include <TODO:kcmdlineargs.h>
+#include <TODO:kfiledialog.h>
+#include <TODO:kglobal.h>
+#include <TODO:kmenubar.h>
+#include <TODO:kstandarddirs.h>
+#include <TODO:kstatusbar.h>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
 #include "libkwave/FileDrag.h"
-#include "libkwave/Plugin.h" // for some helper functions
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Parser.h"
+#include "libkwave/Plugin.h" // for some helper functions
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
@@ -1591,6 +1591,5 @@ void Kwave::TopWidget::dropEvent(QDropEvent *event)
 }
 
 //***************************************************************************
-#include "TopWidget.moc"
 //***************************************************************************
 //***************************************************************************

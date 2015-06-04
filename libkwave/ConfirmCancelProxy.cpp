@@ -16,9 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtWidgets/QWidget>
+#include <QObject>
+#include <QString>
+#include <QWidget>
 
 #include <KI18n/KLocalizedString>
 

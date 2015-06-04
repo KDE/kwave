@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <klineedit.h>
-#include <klistwidget.h>
-#include <kpushbutton.h>
+#include <KLineEdit>
+#include <TODO:klistwidget.h>
+#include <TODO:kpushbutton.h>
 
 #include "KeywordWidget.h"
 
@@ -201,6 +201,5 @@ void Kwave::KeywordWidget::autoClicked()
 }
 
 //***************************************************************************
-#include "KeywordWidget.moc"
 //***************************************************************************
 //***************************************************************************

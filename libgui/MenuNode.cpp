@@ -17,18 +17,18 @@
 
 #include "config.h"
 
-#include <QtCore/QLatin1Char>
-#include <QtGui/QPixmap>
+#include <QLatin1Char>
+#include <QPixmap>
 
-#include <kapplication.h>
-#include <kiconloader.h>
+#include <KIconLoader>
+#include <TODO:kapplication.h>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
+#include "libgui/MenuGroup.h"
 #include "libgui/MenuList.h"
 #include "libgui/MenuNode.h"
-#include "libgui/MenuGroup.h"
 #include "libgui/MenuRoot.h"
 #include "libgui/MenuSub.h"
 
@@ -484,6 +484,5 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 }
 
 //***************************************************************************
-#include "MenuNode.moc"
 //***************************************************************************
 //***************************************************************************

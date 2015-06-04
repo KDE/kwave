@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QtGui/QWidget>
-#include <QtGui/QPixmap>
-#include <QtCore/QVector>
-#include <QtCore/QTimer>
+#include <QPixmap>
+#include <QTimer>
+#include <QVector>
+#include <QWidget>
 
 namespace Kwave
 {

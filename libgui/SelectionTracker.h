@@ -20,12 +20,12 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtCore/QPointer>
-#include <QtCore/QUuid>
+#include <QList>
+#include <QObject>
+#include <QPointer>
+#include <QUuid>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SignalManager.h"

@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QMutex>
+#include <QMutex>
+#include <QObject>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 class QVariant;
 

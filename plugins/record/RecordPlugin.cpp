@@ -19,20 +19,20 @@
 
 #include <errno.h>
 #include <math.h>
-#include <stdlib.h>
 #include <new>
+#include <stdlib.h>
 
-#include <QtCore/QtGlobal>
-#include <QtGui/QCursor>
-#include <QtCore/QDateTime>
-#include <QtCore/QStringList>
-#include <QtCore/QList>
-#include <QtCore/QVariant>
+#include <QCursor>
+#include <QDateTime>
+#include <QList>
+#include <QStringList>
+#include <QVariant>
+#include <QtGlobal>
 
-#include <kapplication.h>
-#include <kaboutdata.h>
-#include <kconfig.h>
-#include <kglobal.h>
+#include <KAboutData>
+#include <KConfig>
+#include <TODO:kapplication.h>
+#include <TODO:kglobal.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"
@@ -47,14 +47,14 @@
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 
+#include "Record-ALSA.h"
+#include "Record-OSS.h"
+#include "Record-PulseAudio.h"
 #include "RecordDevice.h"
 #include "RecordDialog.h"
 #include "RecordPlugin.h"
 #include "RecordThread.h"
 #include "SampleDecoderLinear.h"
-#include "Record-ALSA.h"
-#include "Record-OSS.h"
-#include "Record-PulseAudio.h"
 
 KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.4",
              I18N_NOOP("Record"), "Thomas Eschenbacher");
@@ -1531,6 +1531,5 @@ void Kwave::RecordPlugin::prerecordingChanged(bool enable)
 }
 
 //***************************************************************************
-#include "RecordPlugin.moc"
 //***************************************************************************
 //***************************************************************************

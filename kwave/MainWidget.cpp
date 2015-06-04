@@ -21,15 +21,15 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QPoint>
-#include <QtGui/QResizeEvent>
-#include <QtGui/QWheelEvent>
-#include <QtWidgets/QFrame>
-#include <QtWidgets/QGridLayout>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QScrollBar>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QFrame>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QPoint>
+#include <QResizeEvent>
+#include <QScrollBar>
+#include <QWheelEvent>
+#include <QtGlobal>
 
 #include <KI18n/KLocalizedString>
 
@@ -1323,6 +1323,5 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
 // //}
 
 //***************************************************************************
-#include "MainWidget.moc"
 //***************************************************************************
 //***************************************************************************

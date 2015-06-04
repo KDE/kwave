@@ -18,11 +18,11 @@
 #include "config.h"
 
 #include <errno.h>
+#include <signal.h>
 #include <stdlib.h>
 #include <strings.h> // for bzero
-#include <signal.h>
 
-#include <QtCore/QVariant>
+#include <QVariant>
 
 #include "RecordDevice.h"
 #include "RecordThread.h"
@@ -190,6 +190,5 @@ void Kwave::RecordThread::run()
 }
 
 //***************************************************************************
-#include "RecordThread.moc"
 //***************************************************************************
 //***************************************************************************

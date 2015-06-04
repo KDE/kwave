@@ -17,29 +17,29 @@
 
 #include "config.h"
 
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 
-#include <QtCore/QString>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QCheckBox>
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtCore/QStringList>
+#include <QButtonGroup>
+#include <QCheckBox>
+#include <QLabel>
+#include <QLayout>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QString>
+#include <QStringList>
 
-#include <kcombobox.h>
+#include <KComboBox>
 #include <KI18n/KLocalizedString>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
+#include <TODO:kpushbutton.h>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"
-#include "libkwave/WindowFunction.h"
 #include "libkwave/Utils.h"
+#include "libkwave/WindowFunction.h"
 
 #include "SonagramDialog.h"
 
@@ -209,6 +209,5 @@ void Kwave::SonagramDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "SonagramDialog.moc"
 //***************************************************************************
 //***************************************************************************

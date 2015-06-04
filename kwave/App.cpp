@@ -19,26 +19,26 @@
 
 #include <errno.h>
 
-#include <QtCore/QFile>
-#include <QtCore/QString>
-#include <QtCore/QMetaType>
-#include <QtCore/QMutableListIterator>
+#include <QFile>
+#include <QMetaType>
+#include <QMutableListIterator>
+#include <QString>
 
-#include <kcmdlineargs.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <ktoolinvocation.h>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KToolInvocation>
+#include <TODO:kcmdlineargs.h>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Parser.h"
+#include "libkwave/PluginManager.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
-#include "libkwave/PluginManager.h"
 #include "libkwave/Utils.h"
 
 #include "App.h"
@@ -398,6 +398,5 @@ void Kwave::App::readConfig()
 }
 
 //***************************************************************************
-#include "App.moc"
 //***************************************************************************
 //***************************************************************************

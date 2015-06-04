@@ -19,15 +19,15 @@
 #include <errno.h>
 #include <limits.h>
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"
 
-#include "MemoryPlugin.h"
 #include "MemoryDialog.h"
+#include "MemoryPlugin.h"
 
 KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.4",
              I18N_NOOP("Memory Settings"), "Thomas Eschenbacher");
@@ -162,6 +162,5 @@ QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-#include "MemoryPlugin.moc"
 //***************************************************************************
 //***************************************************************************

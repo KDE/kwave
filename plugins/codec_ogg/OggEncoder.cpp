@@ -20,13 +20,13 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtCore/QList>
-#include <QtCore/QSharedPointer>
+#include <QList>
+#include <QSharedPointer>
 
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
-#include <kapplication.h>
-#include <kglobal.h>
+#include <TODO:kapplication.h>
+#include <TODO:kglobal.h>
+#include <TODO:kmimetype.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"

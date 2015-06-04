@@ -17,10 +17,10 @@
 
 #include "config.h"
 
-#include <QtGui/QCheckBox>
+#include <QCheckBox>
 
-#include <kcombobox.h>
-#include <klineedit.h>
+#include <KComboBox>
+#include <KLineEdit>
 
 #include "libkwave/String.h"
 
@@ -118,6 +118,5 @@ void Kwave::SaveBlocksWidget::setNewExample(const QString &example)
 }
 
 //***************************************************************************
-#include "SaveBlocksWidget.moc"
 //***************************************************************************
 //***************************************************************************

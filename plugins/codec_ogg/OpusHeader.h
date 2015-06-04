@@ -19,8 +19,8 @@
 #define OPUS_HEADER_H
 
 #include "config.h"
-#include <QtCore/qglobal.h>
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
+#include <qglobal.h>
 
 namespace Kwave
 {

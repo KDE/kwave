@@ -21,12 +21,12 @@
 #include "config.h"
 #include <pthread.h>
 
-#include <QtCore/QMutex>
-#include <QtCore/QObject>
-#include <QtCore/QThread>
-#include <QtCore/QVariant>
+#include <QMutex>
+#include <QObject>
+#include <QThread>
+#include <QVariant>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 namespace Kwave
 {

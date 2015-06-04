@@ -54,14 +54,14 @@
 
 #include <opus/opus_defines.h>
 
-#include <QtCore/QBuffer>
-#include <QtCore/QByteArray>
-#include <QtCore/qendian.h>
-#include <QtCore/QList>
-#include <QtCore/QtGlobal>
-#include <QtCore/QString>
-#include <QtCore/QTime>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QBuffer>
+#include <QByteArray>
+#include <QList>
+#include <QString>
+#include <QTime>
+#include <QtGlobal>
+#include <qendian.h>
 
 #include <KI18n/KLocalizedString>
 

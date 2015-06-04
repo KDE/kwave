@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
-#include <QtCore/QByteArray>
+#include <QByteArray>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"

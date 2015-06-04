@@ -18,21 +18,21 @@
 #ifndef PLAY_BACK_PHONON_H
 #define PLAY_BACK_PHONON_H
 
-#include "config.h"
 #ifdef HAVE_PHONON_SUPPORT
+#include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtCore/QList>
-#include <QtCore/QSemaphore>
-#include <QtCore/QString>
+#include <QByteArray>
+#include <QList>
+#include <QSemaphore>
+#include <QString>
 
-#include <phonon/phononnamespace.h>
 #include <phonon/abstractmediastream.h>
 #include <phonon/audiooutput.h>
 #include <phonon/backendcapabilities.h>
 #include <phonon/mediaobject.h>
 #include <phonon/mediasource.h>
 #include <phonon/path.h>
+#include <phonon/phononnamespace.h>
 
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"

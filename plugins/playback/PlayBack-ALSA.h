@@ -18,8 +18,8 @@
 #ifndef PLAY_BACK_ALSA_H
 #define PLAY_BACK_ALSA_H
 
-#include "config.h"
 #ifdef HAVE_ALSA_SUPPORT
+#include "config.h"
 
 /*
  * use the new ALSA HW/SW params API, needed to compile under SuSE-9.0
@@ -30,9 +30,9 @@
 
 #include <alsa/asoundlib.h>
 
-#include <QtCore/QString>
-#include <QtCore/QMap>
-#include <QtCore/QList>
+#include <QList>
+#include <QMap>
+#include <QString>
 
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"

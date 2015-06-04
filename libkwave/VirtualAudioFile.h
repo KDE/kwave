@@ -20,14 +20,14 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
-#include <QtCore/QMap>
+#include <QMap>
 
 extern "C" {
-#include <audiofile.h>
-#include <af_vfs.h>
 }
+#include <af_vfs.h>
+#include <audiofile.h>
 
 class QIODevice;
 

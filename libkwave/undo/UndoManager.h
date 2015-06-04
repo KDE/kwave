@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QPointer>
+#include <QList>
+#include <QPointer>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 namespace Kwave
 {

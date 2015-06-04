@@ -17,14 +17,14 @@
 
 #include "config.h"
 
-#include <QtGui/QMenu>
-#include <QtGui/QPainter>
-#include <QtGui/QPalette>
-#include <QtGui/QResizeEvent>
-#include <QtCore/QTime>
-#include <QtGui/QVBoxLayout>
+#include <QMenu>
+#include <QPainter>
+#include <QPalette>
+#include <QResizeEvent>
+#include <QTime>
+#include <QVBoxLayout>
 
-#include <kiconloader.h>
+#include <KIconLoader>
 
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
@@ -470,6 +470,5 @@ void Kwave::TrackView::refreshPlaybackPointer(sample_index_t pos)
 }
 
 //***************************************************************************
-#include "TrackView.moc"
 //***************************************************************************
 //***************************************************************************

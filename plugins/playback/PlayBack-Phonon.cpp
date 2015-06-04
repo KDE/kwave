@@ -15,15 +15,15 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 #ifdef HAVE_PHONON_SUPPORT
+#include "config.h"
 
 #include <errno.h>
 
-#include "libkwave/memcpy.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 #include "PlayBack-Phonon.h"
 

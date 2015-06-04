@@ -17,29 +17,29 @@
 
 #include "config.h"
 
-#include <QtCore/QLatin1Char>
-#include <QtCore/QVector>
+#include <QLatin1Char>
+#include <QVector>
 
-#include <QtGui/QCheckBox>
-#include <QtGui/QGroupBox>
-#include <QtGui/QLabel>
-#include <QtGui/QTreeView>
-#include <QtGui/QPixmap>
-#include <QtGui/QProgressBar>
-#include <QtGui/QSlider>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTreeWidgetItem>
+#include <QCheckBox>
+#include <QGroupBox>
+#include <QLabel>
+#include <QPixmap>
+#include <QProgressBar>
+#include <QSlider>
+#include <QTreeView>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 
-#include <kcombobox.h>
-#include <kglobal.h>
-#include <kiconloader.h>
-#include <kicontheme.h>
+#include <KComboBox>
 #include <KI18n/KLocalizedString>
-#include <kpushbutton.h>
-#include <knuminput.h>
-#include <kstatusbar.h>
-#include <ktabwidget.h>
-#include <ktoolinvocation.h>
+#include <KIconLoader>
+#include <KIconTheme>
+#include <KToolInvocation>
+#include <TODO:kglobal.h>
+#include <TODO:knuminput.h>
+#include <TODO:kpushbutton.h>
+#include <TODO:kstatusbar.h>
+#include <TODO:ktabwidget.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
@@ -55,17 +55,17 @@
 #include "RecordParams.h"
 #include "RecordState.h"
 
-#include "record_stop.xpm"
-#include "record_pause.xpm"
 #include "krec_record.xpm"
+#include "record_pause.xpm"
+#include "record_stop.xpm"
 
 // status bar icons
-#include "stop_hand.xpm"
-#include "ok.xpm"
-#include "ledred.xpm"
 #include "ledgreen.xpm"
 #include "ledlightgreen.xpm"
+#include "ledred.xpm"
 #include "ledyellow.xpm"
+#include "ok.xpm"
+#include "stop_hand.xpm"
 #include "walk_r1.xpm"
 #include "walk_r2.xpm"
 #include "walk_r3.xpm"
@@ -1334,6 +1334,5 @@ void Kwave::RecordDialog::showDevicePage()
 }
 
 //***************************************************************************
-#include "RecordDialog.moc"
 //***************************************************************************
 //***************************************************************************

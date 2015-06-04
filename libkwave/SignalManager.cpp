@@ -17,25 +17,25 @@
 
 #include "config.h"
 
-#include <new>
 #include <errno.h>
 #include <limits.h>
 #include <math.h>
+#include <new>
 
-#include <QtGui/QCursor>
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtCore/QMutexLocker>
-#include <QtCore/QMutableListIterator>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QCursor>
+#include <QFile>
+#include <QFileInfo>
+#include <QMutableListIterator>
+#include <QMutexLocker>
 
-#include <kaboutdata.h>
-#include <kapplication.h>
-#include <kcomponentdata.h>
+#include <KAboutData>
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
-#include <kprogressdialog.h>
-#include <kurl.h>
+#include <TODO:kapplication.h>
+#include <TODO:kcomponentdata.h>
+#include <TODO:kmimetype.h>
+#include <TODO:kprogressdialog.h>
+#include <TODO:kurl.h>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
@@ -56,7 +56,6 @@
 #include "libkwave/Track.h"
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
-#include "libkwave/undo/UndoTransactionGuard.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoAddMetaDataAction.h"
 #include "libkwave/undo/UndoDeleteAction.h"
@@ -68,6 +67,7 @@
 #include "libkwave/undo/UndoModifyMetaDataAction.h"
 #include "libkwave/undo/UndoSelection.h"
 #include "libkwave/undo/UndoTransaction.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
 
 #define CASE_COMMAND(x) } else if (parser.command() == _(x)) {
 

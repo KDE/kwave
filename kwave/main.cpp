@@ -19,14 +19,14 @@
 
 #include <stdio.h>
 
-#include <QtCore/QString>
+#include <QString>
 
-#include <kaboutdata.h>
-#include <kuniqueapplication.h>
-#include <kapplication.h>
-#include <kcrash.h>
+#include <KAboutData>
+#include <KCrash>
 #include <KI18n/KLocalizedString>
-#include <kcmdlineargs.h>
+#include <TODO:kapplication.h>
+#include <TODO:kcmdlineargs.h>
+#include <TODO:kuniqueapplication.h>
 
 #include "libkwave/String.h"
 

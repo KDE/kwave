@@ -15,22 +15,22 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 #ifdef HAVE_OSS_SUPPORT
+#include "config.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <math.h>
 #include <sys/ioctl.h>
 #include <sys/soundcard.h>
-#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
-#include <math.h>
-#include <errno.h>
 
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QtGlobal>
+#include <QDir>
+#include <QFile>
+#include <QLatin1Char>
+#include <QtGlobal>
 
 #include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"

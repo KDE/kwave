@@ -20,11 +20,11 @@
 
 #include <math.h>
 
-#include <QtGui/QAction>
+#include <QAction>
 
-#include <kiconloader.h>
 #include <KI18n/KLocalizedString>
-#include <kmainwindow.h>
+#include <KIconLoader>
+#include <KMainWindow>
 
 #include "libkwave/Selection.h"
 #include "libkwave/SignalManager.h"
@@ -330,6 +330,5 @@ void Kwave::ZoomToolBar::setZoomInfo(Kwave::FileContext *context, double zoom)
 }
 
 //***************************************************************************
-#include "ZoomToolBar.moc"
 //***************************************************************************
 //***************************************************************************

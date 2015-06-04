@@ -20,15 +20,15 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QListIterator>
-#include <QtCore/QMap>
-#include <QtCore/QMutableListIterator>
-#include <QtCore/QObject>
-#include <QtCore/QPointer>
-#include <QtGui/QWidget>
+#include <QList>
+#include <QListIterator>
+#include <QMap>
+#include <QMutableListIterator>
+#include <QObject>
+#include <QPointer>
+#include <QWidget>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"

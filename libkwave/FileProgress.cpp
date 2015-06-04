@@ -18,19 +18,19 @@
 #include "config.h"
 #include <math.h>
 
-#include <QtGui/QCloseEvent>
-#include <QtGui/QGridLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QProgressBar>
-#include <QtCore/QThread>
-#include <QtCore/QTimer>
-#include <QtGui/QVBoxLayout>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QCloseEvent>
+#include <QGridLayout>
+#include <QLabel>
+#include <QProgressBar>
+#include <QThread>
+#include <QTimer>
+#include <QVBoxLayout>
 
-#include <kpushbutton.h>
-#include <kglobal.h>
 #include <KI18n/KLocalizedString>
-#include <kstandardguiitem.h>
+#include <KStandardGuiItem>
+#include <TODO:kglobal.h>
+#include <TODO:kpushbutton.h>
 
 #include "libkwave/FileProgress.h"
 #include "libkwave/MessageBox.h"

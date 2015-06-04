@@ -19,7 +19,7 @@
 #define PLUGIN_SETUP_DIALOG_H
 
 #include "config.h"
-#include <QtCore/QStringList>
+#include <QStringList>
 
 class QDialog;
 

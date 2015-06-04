@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QWidget>
+#include <QObject>
+#include <QWidget>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libgui/ui_HMSTimeWidgetBase.h"
 

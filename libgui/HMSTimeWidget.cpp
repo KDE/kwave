@@ -17,8 +17,8 @@
 
 #include "config.h"
 
+#include <TODO:knuminput.h>
 #include <limits.h>
-#include <knuminput.h>
 
 #include "libkwave/Utils.h"
 
@@ -132,6 +132,5 @@ void Kwave::HMSTimeWidget::disconnect()
 }
 
 //***************************************************************************
-#include "HMSTimeWidget.moc"
 //***************************************************************************
 //***************************************************************************

@@ -21,12 +21,12 @@
 #include <stdlib.h>
 
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
-#include <kglobal.h>
+#include <TODO:kglobal.h>
+#include <TODO:kmimetype.h>
 
-#include <QtCore/QByteArray>
-#include <QtCore/QtEndian>
-#include <QtCore/QtGlobal>
+#include <QByteArray>
+#include <QtEndian>
+#include <QtGlobal>
 
 #include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"

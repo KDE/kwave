@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
-#include <QtGui/QWidget>
-#include <QtGui/QPainter>
-#include <QtGui/QImage>
+#include <QImage>
+#include <QPainter>
+#include <QWidget>
 
 namespace Kwave
 {

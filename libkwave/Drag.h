@@ -20,12 +20,12 @@
 
 #include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtGui/QDrag>
-#include <QtCore/QObject>
-#include <QtCore/QString>
+#include <QByteArray>
+#include <QDrag>
+#include <QObject>
+#include <QString>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

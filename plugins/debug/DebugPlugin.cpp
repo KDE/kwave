@@ -23,23 +23,23 @@
 
 #include <KI18n/KLocalizedString> // for the i18n macro
 
-#include <QtCore/QByteArray>
-#include <QtCore/QCoreApplication>
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QList>
-#include <QtCore/QPoint>
-#include <QtCore/QRect>
-#include <QtCore/QStringList>
-#include <QtCore/QTimer>
+#include <QByteArray>
+#include <QCoreApplication>
+#include <QDir>
+#include <QFile>
+#include <QList>
+#include <QPoint>
+#include <QRect>
+#include <QStringList>
+#include <QTimer>
 
-#include <QtGui/QKeyEvent>
-#include <QtGui/QKeySequence>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QDesktopWidget>
-#include <QtGui/QPixmap>
-#include <QtGui/QtEvents>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QKeyEvent>
+#include <QKeySequence>
+#include <QMouseEvent>
+#include <QPixmap>
+#include <QtEvents>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -456,6 +456,5 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
 }
 
 //***************************************************************************
-#include "DebugPlugin.moc"
 //***************************************************************************
 //***************************************************************************

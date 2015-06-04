@@ -16,8 +16,8 @@
  ***************************************************************************/
 #include "config.h"
 
-#include <QtCore/QString>
 #include <KI18n/KLocalizedString>
+#include <QString>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"

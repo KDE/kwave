@@ -20,13 +20,13 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QSize>
-#include <QtCore/QTimer>
+#include <QSize>
+#include <QString>
+#include <QTimer>
 
-#include <QtGui/QScrollArea>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QWidget>
+#include <QScrollArea>
+#include <QVBoxLayout>
+#include <QWidget>
 
 #include "libkwave/CommandHandler.h"
 

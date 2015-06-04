@@ -24,7 +24,7 @@
 
 #include <id3/globals.h>
 
-#include <QtCore/QString>
+#include <QString>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"

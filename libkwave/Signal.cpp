@@ -17,13 +17,13 @@
 
 #include "config.h"
 
-#include <new>
 #include <math.h>
+#include <new>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <QtCore/QReadLocker>
-#include <QtCore/QWriteLocker>
+#include <QReadLocker>
+#include <QWriteLocker>
 
 #include <KI18n/KLocalizedString>
 

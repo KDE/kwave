@@ -18,14 +18,14 @@
 #include "config.h"
 #include "math.h"
 
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtGui/QSpinBox>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
 
 #include <KI18n/KLocalizedString>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
+#include <TODO:kpushbutton.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -348,6 +348,5 @@ void Kwave::PitchShiftDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "PitchShiftDialog.moc"
 //***************************************************************************
 //***************************************************************************

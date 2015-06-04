@@ -18,8 +18,8 @@
 
 #include "config.h"
 
-#include <QtCore/QLatin1Char>
-#include <QtCore/QString>
+#include <QLatin1Char>
+#include <QString>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"

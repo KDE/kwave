@@ -19,30 +19,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <QtCore/QPointer>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QStringList>
-#include <QtGui/QIcon>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTreeWidgetItem>
-#include <QtGui/QSlider>
+#include <QIcon>
+#include <QLabel>
+#include <QLatin1Char>
+#include <QPointer>
+#include <QPushButton>
+#include <QSlider>
+#include <QStringList>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 
-#include <kapplication.h>
-#include <kcombobox.h>
-#include <kconfig.h>
-#include <kfiledialog.h>
-#include <kiconloader.h>
-#include <kicontheme.h>
+#include <KComboBox>
+#include <KConfig>
 #include <KI18n/KLocalizedString>
-#include <knuminput.h>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KIconLoader>
+#include <KIconTheme>
+#include <KToolInvocation>
+#include <TODO:kapplication.h>
+#include <TODO:kfiledialog.h>
+#include <TODO:knuminput.h>
+#include <TODO:kpushbutton.h>
 
-#include "libkwave/PlaybackController.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PlayBackTypesMap.h"
+#include "libkwave/PlaybackController.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"
 
@@ -654,6 +654,5 @@ void Kwave::PlayBackDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "PlayBackDialog.moc"
 //***************************************************************************
 //***************************************************************************

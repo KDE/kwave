@@ -18,19 +18,19 @@
 #include "config.h"
 #include <math.h>
 
-#include <QtGui/QBrush>
-#include <QtGui/QColor>
-#include <QtGui/QImage>
-#include <QtCore/QObject>
-#include <QtGui/QPainter>
-#include <QtGui/QPalette>
-#include <QtGui/QPolygon>
-#include <QtCore/QTimer>
+#include <QBrush>
+#include <QColor>
+#include <QImage>
+#include <QObject>
+#include <QPainter>
+#include <QPalette>
+#include <QPolygon>
+#include <QTimer>
 
 #include "libkwave/Utils.h"
 
-#include "logo.xpm"
 #include "LogoWidget.h"
+#include "logo.xpm"
 
 /** increment value of the "h" channel of the color of the sine waves */
 #define COLOR_INCREMENT (static_cast<double>(0.001))
@@ -150,6 +150,5 @@ void Kwave::LogoWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-#include "LogoWidget.moc"
 //***************************************************************************
 //***************************************************************************

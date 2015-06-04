@@ -20,9 +20,9 @@
 #include <new>
 #include <string.h> // for some speed-ups like memmove, memcpy ...
 
-#include "libkwave/memcpy.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 // define this for using only slow Qt array functions
 #undef STRICTLY_QT

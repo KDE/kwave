@@ -18,23 +18,23 @@
 #include "config.h"
 #include "math.h"
 
-#include <QtGui/QColor>
-#include <QtGui/QPainter>
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtGui/QSpinBox>
+#include <QColor>
+#include <QPainter>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
 
 #include <KI18n/KLocalizedString>
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/Colors.h"
 #include "libgui/CurveWidget.h"
-#include "libgui/InvertableSpinBox.h"
 #include "libgui/ImageView.h"
+#include "libgui/InvertableSpinBox.h"
 #include "libgui/OverViewCache.h"
 #include "libgui/ScaleWidget.h"
 
@@ -379,6 +379,5 @@ void Kwave::NoiseDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "NoiseDialog.moc"
 //***************************************************************************
 //***************************************************************************

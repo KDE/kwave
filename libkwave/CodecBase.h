@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QString>
+#include <QStringList>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 class KMimeType;
 class KUrl;

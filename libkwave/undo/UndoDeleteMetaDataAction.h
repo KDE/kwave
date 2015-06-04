@@ -20,7 +20,7 @@
 #define UNDO_DELETE_META_DATA_ACTION_H
 
 #include "config.h"
-#include <QtCore/QString>
+#include <QString>
 
 #include "libkwave/MetaDataList.h"
 #include "libkwave/undo/UndoAction.h"

@@ -19,16 +19,16 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QMutex>
-#include <QtCore/QSharedData>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QVariant>
+#include <QList>
+#include <QMap>
+#include <QMutex>
+#include <QSharedData>
+#include <QSharedDataPointer>
+#include <QString>
+#include <QStringList>
+#include <QVariant>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

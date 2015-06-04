@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QSpinBox>
-#include <QtCore/QList>
+#include <QList>
+#include <QObject>
+#include <QSpinBox>
 
 namespace Kwave
 {

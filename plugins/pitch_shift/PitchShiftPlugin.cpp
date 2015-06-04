@@ -19,14 +19,14 @@
 #include <errno.h>
 #include <math.h>
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
 #include <KI18n/KLocalizedString>
 
-#include "libkwave/MultiTrackSource.h"
+#include "PitchShiftDialog.h"
 #include "PitchShiftFilter.h"
 #include "PitchShiftPlugin.h"
-#include "PitchShiftDialog.h"
+#include "libkwave/MultiTrackSource.h"
 
 KWAVE_PLUGIN(Kwave::PitchShiftPlugin, "pitch_shift", "2.3",
              I18N_NOOP("Pitch Shift"), "Thomas Eschenbacher");
@@ -133,6 +133,5 @@ void Kwave::PitchShiftPlugin::setValues(double speed, double frequency)
 }
 
 //***************************************************************************
-#include "PitchShiftPlugin.moc"
 //***************************************************************************
 //***************************************************************************

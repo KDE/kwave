@@ -21,8 +21,8 @@
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
 
-#include "AboutPlugin.h"
 #include "AboutDialog.h"
+#include "AboutPlugin.h"
 
 KWAVE_PLUGIN(Kwave::AboutPlugin, "about", "2.3",
              I18N_NOOP("About Kwave"), "Ralf Waspe & Gilles Caulier");
@@ -52,6 +52,5 @@ int Kwave::AboutPlugin::start(QStringList& params)
 }
 
 //***************************************************************************
-#include "AboutPlugin.moc"
 //***************************************************************************
 //***************************************************************************

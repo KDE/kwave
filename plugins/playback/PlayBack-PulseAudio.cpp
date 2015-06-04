@@ -16,31 +16,31 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 #ifdef HAVE_PULSEAUDIO_SUPPORT
+#include "config.h"
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <math.h>
 #include <errno.h>
+#include <math.h>
 #include <signal.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#include <QtGui/QCursor>
-#include <QtCore/QFileInfo>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QLocale>
-#include <QtCore/QString>
-#include <QtCore/QtGlobal>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QCursor>
+#include <QFileInfo>
+#include <QLatin1Char>
+#include <QLocale>
+#include <QString>
+#include <QtGlobal>
 
 #include <KI18n/KLocalizedString>
-#include <kuser.h>
+#include <KUser>
 
 #include "libkwave/FileInfo.h"
-#include "libkwave/memcpy.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 #include "PlayBack-PulseAudio.h"
 

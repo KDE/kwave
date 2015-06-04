@@ -20,14 +20,14 @@
 #include <signal.h>
 #include <stdio.h>
 
-#include <QtCore/QtGlobal> // for qWarning()
+#include <QtGlobal> // for qWarning()
 
 #undef DEBUG_FIND_DEADLOCKS
 #ifdef DEBUG_FIND_DEADLOCKS
-#include <execinfo.h> // for backtrace()
+#endif
 #include <errno.h>
 #include <error.h>   // for strerror()
-#endif
+#include <execinfo.h> // for backtrace()
 
 #include "libkwave/Runnable.h"
 #include "libkwave/WorkerThread.h"

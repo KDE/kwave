@@ -17,22 +17,22 @@
 
 #include "config.h"
 
-#include <math.h>
 #include <limits.h>
+#include <math.h>
 #include <new>
 
-#include <QtGui/QBitmap>
-#include <QtGui/QImage>
-#include <QtGui/QLayout>
-#include <QtCore/QTimer>
+#include <QBitmap>
+#include <QImage>
+#include <QLayout>
+#include <QTimer>
 
-#include <kmenubar.h>
-#include <kfiledialog.h>
-#include <kstatusbar.h>
+#include <TODO:kfiledialog.h>
+#include <TODO:kmenubar.h>
+#include <TODO:kstatusbar.h>
 
-#include "libkwave/WindowFunction.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+#include "libkwave/WindowFunction.h"
 
 #include "libgui/FileDialog.h"
 #include "libgui/ImageView.h"
@@ -552,6 +552,5 @@ void Kwave::SonagramWindow::setRate(double rate)
 }
 
 //***************************************************************************
-#include "SonagramWindow.moc"
 //***************************************************************************
 //***************************************************************************

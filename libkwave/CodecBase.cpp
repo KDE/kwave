@@ -17,13 +17,13 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QtGlobal>
+#include <QString>
+#include <QStringList>
+#include <QtGlobal>
 
-#include <kmimetype.h>
-#include <kfile.h>
-#include <kurl.h>
+#include <KFile>
+#include <TODO:kmimetype.h>
+#include <TODO:kurl.h>
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/String.h"

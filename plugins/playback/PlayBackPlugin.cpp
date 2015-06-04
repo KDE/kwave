@@ -18,27 +18,27 @@
 #include "config.h"
 
 #include <errno.h>
-#include <math.h>
 #include <limits.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <QtGui/QCursor>
-#include <QtCore/QFile>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QMutex>
-#include <QtCore/QMutexLocker>
-#include <QtGui/QProgressDialog>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QCursor>
+#include <QFile>
+#include <QLatin1Char>
+#include <QMutex>
+#include <QMutexLocker>
+#include <QProgressDialog>
+#include <QString>
+#include <QTimer>
 
-#include <kapplication.h>
-#include <kconfig.h>
+#include <KConfig>
+#include <TODO:kapplication.h>
 
-#include "libkwave/Curve.h"
 #include "libkwave/Connect.h"
+#include "libkwave/Curve.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/MultiTrackReader.h"
@@ -58,8 +58,8 @@
 #include "libkwave/modules/Mul.h"
 #include "libkwave/modules/Osc.h"
 
-#include "PlayBack-OSS.h"
 #include "PlayBack-ALSA.h"
+#include "PlayBack-OSS.h"
 #include "PlayBack-Phonon.h"
 #include "PlayBack-PulseAudio.h"
 
@@ -482,6 +482,5 @@ void Kwave::PlayBackPlugin::testPlayBack()
 }
 
 //***************************************************************************
-#include "PlayBackPlugin.moc"
 //***************************************************************************
 //***************************************************************************

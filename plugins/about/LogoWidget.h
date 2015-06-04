@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtGui/QPixmap>
-#include <QtGui/QWidget>
+#include <QPixmap>
+#include <QWidget>
 
 class QPaintEvent;
 class QImage;

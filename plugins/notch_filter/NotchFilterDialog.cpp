@@ -18,26 +18,26 @@
 #include "config.h"
 #include "math.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QPainter>
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtWidgets/QWidget>
+#include <QObject>
+#include <QPainter>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QWidget>
 
-#include <knuminput.h>
-#include <kpushbutton.h>
 #include <KI18n/KLocalizedString>
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
+#include <TODO:knuminput.h>
+#include <TODO:kpushbutton.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
-#include "libgui/ScaleWidget.h"
 #include "libgui/FrequencyResponseWidget.h"
+#include "libgui/ScaleWidget.h"
 
-#include "NotchFilterDialog.h"
 #include "NotchFilter.h"
+#include "NotchFilterDialog.h"
 
 //***************************************************************************
 Kwave::NotchFilterDialog::NotchFilterDialog(QWidget *parent, double sample_rate)
@@ -218,6 +218,5 @@ void Kwave::NotchFilterDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "NotchFilterDialog.moc"
 //***************************************************************************
 //***************************************************************************

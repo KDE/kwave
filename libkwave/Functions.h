@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
 #include "libkwave/TypesMap.h"
+#include <QString>
 
 namespace Kwave
 {

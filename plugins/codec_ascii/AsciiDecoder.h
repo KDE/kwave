@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QQueue>
-#include <QtCore/QString>
-#include <QtCore/QTextStream>
+#include <QQueue>
+#include <QString>
+#include <QTextStream>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"

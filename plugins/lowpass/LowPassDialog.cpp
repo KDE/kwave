@@ -18,23 +18,23 @@
 #include "config.h"
 #include <math.h>
 
-#include <QtCore/QObject>
-#include <QtGui/QPainter>
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtWidgets/QWidget>
+#include <QObject>
+#include <QPainter>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QWidget>
 
 #include <KI18n/KLocalizedString>
-#include <knuminput.h>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
+#include <TODO:knuminput.h>
+#include <TODO:kpushbutton.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
-#include "libgui/ScaleWidget.h"
 #include "libgui/FrequencyResponseWidget.h"
+#include "libgui/ScaleWidget.h"
 
 #include "LowPassDialog.h"
 #include "LowPassFilter.h"
@@ -189,6 +189,5 @@ void Kwave::LowPassDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "LowPassDialog.moc"
 //***************************************************************************
 //***************************************************************************

@@ -18,12 +18,12 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
+#include <QObject>
 
-#include "libkwave/memcpy.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
+#include "libkwave/memcpy.h"
 
 /** size of m_buffer in samples */
 #define BUFFER_SIZE (1024 * 1024)

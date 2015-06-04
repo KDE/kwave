@@ -21,21 +21,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <QtCore/QLatin1Char>
-#include <QtGui/QKeySequence>
-#include <QtCore/QRegExp>
-#include <QtCore/QString>
-#include <QtWidgets/QWidget>
+#include <QKeySequence>
+#include <QLatin1Char>
+#include <QRegExp>
+#include <QString>
+#include <QWidget>
 
 #include <KI18n/KLocalizedString>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
-#include "libgui/MenuNode.h"
-#include "libgui/MenuRoot.h"
 #include "libgui/MenuGroup.h"
 #include "libgui/MenuManager.h"
+#include "libgui/MenuNode.h"
+#include "libgui/MenuRoot.h"
 
 //***************************************************************************
 /** static map with standard keys */
@@ -333,6 +333,5 @@ Kwave::MenuManager::~MenuManager()
 }
 
 //***************************************************************************
-#include "MenuManager.moc"
 //***************************************************************************
 //***************************************************************************

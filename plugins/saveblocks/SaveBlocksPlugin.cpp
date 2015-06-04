@@ -19,11 +19,11 @@
 
 #include <errno.h>
 
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtCore/QStringList>
-#include <QtCore/QRegExp>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QRegExp>
+#include <QStringList>
 
 #include <KI18n/KLocalizedString>
 
@@ -531,6 +531,5 @@ void Kwave::SaveBlocksPlugin::updateExample(const QString &filename,
 }
 
 //***************************************************************************
-#include "SaveBlocksPlugin.moc"
 //***************************************************************************
 //***************************************************************************

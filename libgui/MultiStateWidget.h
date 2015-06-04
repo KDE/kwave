@@ -21,11 +21,11 @@
 
 #include "config.h"
 
-#include <QtGui/QPixmap>
-#include <QtCore/QVector>
-#include <QtGui/QWidget>
+#include <QPixmap>
+#include <QVector>
+#include <QWidget>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 class QPaintEvent;
 class QMouseEvent;

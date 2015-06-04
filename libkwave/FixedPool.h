@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QMutex>
-#include <QtCore/QMutexLocker>
-#include <QtCore/QSemaphore>
-#include <QtCore/QQueue>
+#include <QMutex>
+#include <QMutexLocker>
+#include <QQueue>
+#include <QSemaphore>
 
 namespace Kwave
 {

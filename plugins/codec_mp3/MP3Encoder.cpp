@@ -20,25 +20,25 @@
 #include <math.h>
 
 #include <id3/globals.h>
-#include <id3/tag.h>
 #include <id3/misc_support.h>
+#include <id3/tag.h>
 
-#include <QtCore/QByteArray>
-#include <QtCore/QDate>
-#include <QtCore/QDateTime>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QList>
-#include <QtCore/QMap>
+#include <QByteArray>
+#include <QDate>
+#include <QDateTime>
+#include <QLatin1Char>
+#include <QList>
+#include <QMap>
 
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
-#include <kapplication.h>
-#include <kglobal.h>
+#include <TODO:kapplication.h>
+#include <TODO:kglobal.h>
+#include <TODO:kmimetype.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/GenreType.h"
-#include "libkwave/MetaDataList.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
@@ -576,5 +576,4 @@ void Kwave::MP3Encoder::dataAvailable()
 }
 
 /***************************************************************************/
-#include "MP3Encoder.moc"
 /***************************************************************************/

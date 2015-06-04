@@ -17,19 +17,19 @@
 
 #include "config.h"
 
-#include <QtGui/QPixmap>
-#include <QtGui/QMenu>
+#include <QMenu>
+#include <QPixmap>
 
-#include <kapplication.h>
-#include <kiconloader.h>
 #include <KI18n/KLocalizedString>
+#include <KIconLoader>
+#include <TODO:kapplication.h>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
-#include "libgui/MenuNode.h"
 #include "libgui/MenuGroup.h"
 #include "libgui/MenuItem.h"
+#include "libgui/MenuNode.h"
 
 //*****************************************************************************
 Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,
@@ -162,6 +162,5 @@ void Kwave::MenuItem::setIcon(const QIcon &icon)
 }
 
 //***************************************************************************
-#include "MenuItem.moc"
 //*****************************************************************************
 //*****************************************************************************

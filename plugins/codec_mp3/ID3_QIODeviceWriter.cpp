@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QtCore/QIODevice>
+#include <QIODevice>
 
 #include "ID3_QIODeviceWriter.h"
 

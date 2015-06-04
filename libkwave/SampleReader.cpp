@@ -17,13 +17,13 @@
 
 #include "config.h"
 
-#include <QtWidgets/QApplication>
+#include <QApplication>
 
-#include "libkwave/memcpy.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 // define this for using only slow Qt array functions
 // #define STRICTLY_QT

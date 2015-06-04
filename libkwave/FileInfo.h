@@ -20,16 +20,16 @@
 
 #include "config.h"
 
-#include <QtCore/QMap>
-#include <QtCore/QString>
-#include <QtCore/QVariant>
-#include <QtCore/QList>
+#include <QList>
+#include <QMap>
+#include <QString>
+#include <QVariant>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
+#include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"
 #include "libkwave/TypesMap.h"
-#include "libkwave/MetaData.h"
 
 namespace Kwave
 {

@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QtGui/QPushButton>
+#include <QPushButton>
 
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
 
 #include "GotoDialog.h"
 
@@ -65,6 +65,5 @@ void Kwave::GotoDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "GotoDialog.moc"
 //***************************************************************************
 //***************************************************************************

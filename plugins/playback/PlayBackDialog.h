@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QMap>
+#include <QMap>
+#include <QString>
 
 #include "libkwave/PlayBackParam.h"
 #include "libkwave/PlayBackTypesMap.h"

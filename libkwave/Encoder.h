@@ -19,10 +19,10 @@
 #define ENCODER_H
 
 #include "config.h"
-#include <QtCore/QList>
-#include <QtCore/QObject>
+#include <QList>
+#include <QObject>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/FileInfo.h"

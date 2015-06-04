@@ -17,23 +17,20 @@
 
 #include "config.h"
 
-#include <math.h>
+#include <errno.h>
 #include <limits.h>
+#include <math.h>
+#include <new>
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
-#include <new>
 
-#include <complex>
-#include <fftw3.h>
-
-#include <QtCore/QFutureSynchronizer>
-#include <QtCore/QMutexLocker>
-#include <QtCore/QtConcurrentRun>
-#include <QtCore/QString>
-#include <QtGui/QApplication>
-#include <QtGui/QColor>
-#include <QtGui/QImage>
+#include <QApplication>
+#include <QColor>
+#include <QFutureSynchronizer>
+#include <QImage>
+#include <QMutexLocker>
+#include <QString>
+#include <QtConcurrentRun>
 
 #include "libkwave/GlobalLock.h"
 #include "libkwave/MessageBox.h"
@@ -50,8 +47,8 @@
 #include "libgui/OverViewCache.h"
 #include "libgui/SelectionTracker.h"
 
-#include "SonagramPlugin.h"
 #include "SonagramDialog.h"
+#include "SonagramPlugin.h"
 #include "SonagramWindow.h"
 
 KWAVE_PLUGIN(Kwave::SonagramPlugin, "sonagram", "2.3",
@@ -621,7 +618,5 @@ void Kwave::SonagramPlugin::windowDestroyed()
     release();
 }
 
-//***************************************************************************
-#include "SonagramPlugin.moc"
 //***************************************************************************
 //***************************************************************************

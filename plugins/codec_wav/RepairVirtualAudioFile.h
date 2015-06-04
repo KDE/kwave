@@ -19,8 +19,8 @@
 #define REPAIR_VIRTUAL_AUDIO_FILE_H
 
 #include "config.h"
-#include <QtCore/QList>
 #include "libkwave/VirtualAudioFile.h"
+#include <QList>
 
 class QIODevice;
 

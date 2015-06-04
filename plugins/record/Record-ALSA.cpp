@@ -15,13 +15,13 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 #ifdef HAVE_ALSA_SUPPORT
+#include "config.h"
 
 #include <errno.h>
 #include <math.h>
 
-#include <QtCore/QtGlobal>
+#include <QtGlobal>
 
 #include "libkwave/Compression.h"
 #include "libkwave/String.h"

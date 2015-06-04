@@ -20,16 +20,16 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QListIterator>
-#include <QtCore/QMutableListIterator>
-#include <QtCore/QObject>
-#include <QtCore/QPointF>
-#include <QtCore/QString>
-#include <QtCore/QtGlobal>
-#include <QtCore/QVector>
+#include <QList>
+#include <QListIterator>
+#include <QMutableListIterator>
+#include <QObject>
+#include <QPointF>
+#include <QString>
+#include <QVector>
+#include <QtGlobal>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/Interpolation.h"
 

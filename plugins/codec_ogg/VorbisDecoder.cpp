@@ -22,9 +22,9 @@
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 
-#include <QtCore/QDate>
-#include <QtCore/QIODevice>
-#include <QtCore/QString>
+#include <QDate>
+#include <QIODevice>
+#include <QString>
 
 #include <KI18n/KLocalizedString>
 

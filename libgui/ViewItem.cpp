@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include "klocalizedstring.h"
+#include <KLocalizedString>
 
 #include "libgui/LabelItem.h"
 
@@ -52,6 +52,5 @@ void Kwave::ViewItem::appendContextMenu(QMenu *parent)
 }
 
 //***************************************************************************
-#include "ViewItem.moc"
 //***************************************************************************
 //***************************************************************************

@@ -20,12 +20,12 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QSemaphore>
-#include <QtCore/QString>
+#include <QObject>
+#include <QSemaphore>
+#include <QString>
 
-#include <kdemacros.h>
 #include <KF5/KWidgetsAddons/KMessageBox>
+#include <TODO:kdemacros.h>
 
 class QWidget;
 

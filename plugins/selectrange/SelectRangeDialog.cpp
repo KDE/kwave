@@ -18,13 +18,13 @@
 #include "config.h"
 #include <math.h>
 
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
 
 #include <KI18n/KLocalizedString>
-#include <knuminput.h>
-#include <ktoolinvocation.h>
+#include <KToolInvocation>
+#include <TODO:knuminput.h>
 
 #include "libkwave/String.h"
 
@@ -81,6 +81,5 @@ void Kwave::SelectRangeDialog::invokeHelp()
 }
 
 //***************************************************************************
-#include "SelectRangeDialog.moc"
 //***************************************************************************
 //***************************************************************************

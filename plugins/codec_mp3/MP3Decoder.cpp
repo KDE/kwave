@@ -22,13 +22,13 @@
 #include <string.h>
 
 #include <id3/globals.h>
-#include <id3/tag.h>
 #include <id3/misc_support.h>
+#include <id3/tag.h>
 
-#include <QtCore/QDate>
-#include <QtCore/QDateTime>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QTime>
+#include <QDate>
+#include <QDateTime>
+#include <QLatin1Char>
+#include <QTime>
 
 #include "libkwave/Compression.h"
 #include "libkwave/GenreType.h"
@@ -40,9 +40,9 @@
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 
+#include "ID3_QIODeviceReader.h"
 #include "MP3CodecPlugin.h"
 #include "MP3Decoder.h"
-#include "ID3_QIODeviceReader.h"
 
 //***************************************************************************
 Kwave::MP3Decoder::MP3Decoder()

@@ -19,8 +19,8 @@
 
 #include <new>
 
-#include <QtCore/QMimeData>
-#include <QtWidgets/QWidget>
+#include <QMimeData>
+#include <QWidget>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"

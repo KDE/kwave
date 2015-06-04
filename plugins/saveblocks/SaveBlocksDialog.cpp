@@ -17,12 +17,12 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
+#include <QString>
 
-#include <kabstractfilewidget.h>
-#include <kcombobox.h>
-#include <kfiledialog.h>
-#include <kurlcombobox.h>
+#include <KComboBox>
+#include <KUrlComboBox>
+#include <TODO:kabstractfilewidget.h>
+#include <TODO:kfiledialog.h>
 
 #include "libkwave/String.h"
 
@@ -114,6 +114,5 @@ void Kwave::SaveBlocksDialog::emitUpdate()
 }
 
 //***************************************************************************
-#include "SaveBlocksDialog.moc"
 //***************************************************************************
 //***************************************************************************

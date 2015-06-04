@@ -19,18 +19,18 @@
 
 #include <math.h>
 
-#include <QtGui/QBitmap>
-#include <QtGui/QBrush>
-#include <QtCore/QEvent>
-#include <QtCore/QMimeData>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QPainter>
-#include <QtCore/QThread>
-#include <QtGui/QToolTip>
-#include <QtCore/QUrl>
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QBitmap>
+#include <QBrush>
+#include <QEvent>
+#include <QMimeData>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QThread>
+#include <QToolTip>
+#include <QUrl>
 
-#include <kglobalsettings.h>
+#include <TODO:kglobalsettings.h>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"
@@ -918,6 +918,5 @@ void Kwave::SignalView::PositionWidget::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-#include "SignalView.moc"
 //***************************************************************************
 //***************************************************************************

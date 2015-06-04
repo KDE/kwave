@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QDialog>
-#include <QtCore/QString>
+#include <QDialog>
+#include <QObject>
+#include <QString>
 
 #include "libkwave/PluginSetupDialog.h"
 

@@ -19,12 +19,12 @@
 #define NOTCH_FILTER_PLUGIN_H
 
 #include "config.h"
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
-#include "libkwave/PluginSetupDialog.h"
 #include "libkwave/Plugin.h"
+#include "libkwave/PluginSetupDialog.h"
 
 #include "libgui/FilterPlugin.h"
 

@@ -20,14 +20,14 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtCore/QList>
-#include <QtCore/QTextCodec>
-#include <QtCore/QVariant>
+#include <QList>
+#include <QTextCodec>
+#include <QVariant>
 
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
-#include <kapplication.h>
-#include <kglobal.h>
+#include <TODO:kapplication.h>
+#include <TODO:kglobal.h>
+#include <TODO:kmimetype.h>
 
 
 #include "libkwave/FileInfo.h"

@@ -19,8 +19,8 @@
 #define FILE_INFO_PLUGIN_H
 
 #include "config.h"
-#include <QtCore/QObject>
 #include "libkwave/Plugin.h"
+#include <QObject>
 
 namespace Kwave
 {

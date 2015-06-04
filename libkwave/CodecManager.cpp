@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QtCore/QLatin1Char>
-#include <QtCore/QMimeData>
-#include <QtCore/QRegExp>
+#include <QLatin1Char>
+#include <QMimeData>
+#include <QRegExp>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"

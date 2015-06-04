@@ -18,8 +18,8 @@
 #ifndef PLAY_BACK_PULSE_AUDIO_H
 #define PLAY_BACK_PULSE_AUDIO_H
 
-#include "config.h"
 #ifdef HAVE_PULSEAUDIO_SUPPORT
+#include "config.h"
 
 #include <poll.h>
 
@@ -27,16 +27,16 @@
 #include <pulse/error.h>
 #include <pulse/gccmacro.h>
 #include <pulse/introspect.h>
+#include <pulse/mainloop.h>
 #include <pulse/proplist.h>
 #include <pulse/stream.h>
-#include <pulse/mainloop.h>
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QMutex>
-#include <QtCore/QSemaphore>
-#include <QtCore/QString>
-#include <QtCore/QWaitCondition>
+#include <QList>
+#include <QMap>
+#include <QMutex>
+#include <QSemaphore>
+#include <QString>
+#include <QWaitCondition>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/PlayBackDevice.h"

@@ -20,10 +20,10 @@
 
 #include <audiofile.h>
 
-#include <QtCore/QtGlobal>
+#include <QtGlobal>
 
 #include <KI18n/KLocalizedString>
-#include <kmimetype.h>
+#include <TODO:kmimetype.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
@@ -31,8 +31,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/Utils.h"
-#include "libkwave/Writer.h"
 #include "libkwave/VirtualAudioFile.h"
+#include "libkwave/Writer.h"
 
 #include "AudiofileDecoder.h"
 

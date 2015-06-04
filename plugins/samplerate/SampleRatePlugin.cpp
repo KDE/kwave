@@ -20,12 +20,12 @@
 
 #include <KI18n/KLocalizedString> // for the i18n macro
 
-#include <QtCore/QList>
-#include <QtCore/QListIterator>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QListIterator>
+#include <QStringList>
 
-#include "libkwave/FileInfo.h"
 #include "libkwave/Connect.h"
+#include "libkwave/FileInfo.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -248,6 +248,5 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 }
 
 //***************************************************************************
-#include "SampleRatePlugin.moc"
 //***************************************************************************
 //***************************************************************************

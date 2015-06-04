@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <stdlib.h>
 #include <audiofile.h>
+#include <stdlib.h>
 
 #include "WavFileFormat.h"
 

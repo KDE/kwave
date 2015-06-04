@@ -19,10 +19,10 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QListIterator>
+#include <QList>
+#include <QListIterator>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/Label.h"
 

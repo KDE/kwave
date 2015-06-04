@@ -18,12 +18,12 @@
 #ifndef PLAY_BACK_OSS_H
 #define PLAY_BACK_OSS_H
 
-#include "config.h"
 #ifdef HAVE_OSS_SUPPORT
+#include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtCore/QList>
-#include <QtCore/QString>
+#include <QByteArray>
+#include <QList>
+#include <QString>
 
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"

@@ -22,8 +22,8 @@
 
 #include <KI18n/KLocalizedString> // for the i18n macro
 
-#include <QtCore/QList>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QStringList>
 
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
@@ -155,6 +155,5 @@ void Kwave::ZeroPlugin::run(QStringList params)
 }
 
 //***************************************************************************
-#include "ZeroPlugin.moc"
 //***************************************************************************
 //***************************************************************************

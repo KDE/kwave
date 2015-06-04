@@ -17,12 +17,12 @@
 
 #include "config.h"
 
-#include <KI18n/KLocalizedString>
 #include "libkwave/CodecManager.h"
+#include <KI18n/KLocalizedString>
 
 #include "OggCodecPlugin.h"
-#include "OggEncoder.h"
 #include "OggDecoder.h"
+#include "OggEncoder.h"
 
 KWAVE_PLUGIN(Kwave::OggCodecPlugin, "codec_ogg", "2.3",
              I18N_NOOP("Ogg Codec"), "Thomas Eschenbacher");
@@ -54,6 +54,5 @@ Kwave::Encoder *Kwave::OggCodecPlugin::createEncoder()
 }
 
 //***************************************************************************
-#include "OggCodecPlugin.moc"
 //***************************************************************************
 //***************************************************************************

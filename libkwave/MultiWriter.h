@@ -21,10 +21,10 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
+#include <QList>
+#include <QObject>
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/MultiTrackSink.h"
 #include "libkwave/Writer.h"

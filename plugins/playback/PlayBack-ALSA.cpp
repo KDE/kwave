@@ -21,26 +21,26 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 #ifdef HAVE_ALSA_SUPPORT
+#include "config.h"
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <math.h>
 #include <errno.h>
+#include <math.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#include <QtCore/QLatin1Char>
-#include <QtCore/QString>
-#include <QtCore/QtGlobal>
+#include <QLatin1Char>
+#include <QString>
+#include <QtGlobal>
 
 #include <KI18n/KLocalizedString>
 
 #include "libkwave/Compression.h"
-#include "libkwave/memcpy.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 #include "PlayBack-ALSA.h"
 

@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
+#include <TODO:kdemacros.h>
 
 #include "libkwave/ByteOrder.h"
 #include "libkwave/SampleEncoder.h"

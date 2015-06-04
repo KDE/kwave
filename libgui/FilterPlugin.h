@@ -20,10 +20,9 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QObject>
 #include <QString>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginSetupDialog.h"

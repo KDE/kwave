@@ -25,8 +25,6 @@
 #include <QString>
 #include <QtGlobal>
 
-#include <TODO:kdemacros.h>
-
 #include "libkwave/Sample.h" // for sample_index_t
 
 #ifndef Q_LIKELY

@@ -20,12 +20,11 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QMap>
 #include <QSharedData>
 #include <QSharedDataPointer>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/SampleFormat.h"
 

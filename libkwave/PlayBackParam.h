@@ -18,8 +18,8 @@
 #ifndef PLAY_BACK_PARAM_H
 #define PLAY_BACK_PARAM_H
 
+#include <QtGlobal>
 #include <QString>
-#include <TODO:kdemacros.h>
 
 namespace Kwave
 {

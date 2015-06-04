@@ -21,9 +21,8 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QObject>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/SampleSink.h"

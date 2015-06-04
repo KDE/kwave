@@ -20,9 +20,8 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QObject>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/MetaDataList.h"

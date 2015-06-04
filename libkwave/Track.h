@@ -21,13 +21,12 @@
 #include "config.h"
 #include <limits.h>  // for UINT_MAX
 
+#include <QtGlobal>
 #include <QList>
 #include <QMutex>
 #include <QObject>
 #include <QReadWriteLock>
 #include <QUuid>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"

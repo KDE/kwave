@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <TODO:kdemacros.h>
+#include <QtGlobal>
 
 #include "libkwave/Curve.h"
 #include "libkwave/SampleSource.h"

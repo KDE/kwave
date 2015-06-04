@@ -20,10 +20,10 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QObject>
 #include <QString>
 
-#include <TODO:kdemacros.h>
 #include <TODO:kfiledialog.h>
 
 class QWidget;

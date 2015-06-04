@@ -20,11 +20,10 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QMutex>
 #include <QObject>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/PlayBackParam.h"
 #include "libkwave/Runnable.h"

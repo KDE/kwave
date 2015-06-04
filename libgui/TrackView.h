@@ -20,13 +20,12 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QImage>
 #include <QObject>
 #include <QPoint>
 #include <QPointer>
 #include <QWidget>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

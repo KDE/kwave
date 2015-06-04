@@ -19,7 +19,8 @@
 #define CONNECT_H
 
 #include "config.h"
-#include <TODO:kdemacros.h>
+
+#include <QtGlobal>
 
 class QString;
 

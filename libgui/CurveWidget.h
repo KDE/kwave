@@ -20,10 +20,9 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QMenu>
 #include <QWidget>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Curve.h"
 

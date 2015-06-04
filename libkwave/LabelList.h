@@ -19,10 +19,9 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QListIterator>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Label.h"
 

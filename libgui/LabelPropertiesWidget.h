@@ -20,11 +20,10 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QDialog>
 #include <QObject>
 #include <QString>
-
-#include <TODO:kdemacros.h>
 
 #include "libgui/ui_LabelPropertiesWidgetBase.h"
 #include "libkwave/Sample.h"

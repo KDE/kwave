@@ -20,9 +20,8 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QColor>
-
-#include <TODO:kdemacros.h>
 
 namespace Kwave
 {

@@ -20,12 +20,12 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QObject>
 #include <QString>
 #include <QStringList>
 
-#include <TODO:kdemacros.h>
 #include <TODO:kmimetype.h>
 
 class KMimeType;

@@ -20,10 +20,9 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QObject>
 #include <QVariant>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/SampleSource.h"
 

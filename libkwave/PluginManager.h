@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QListIterator>
 #include <QMap>
@@ -27,8 +28,6 @@
 #include <QObject>
 #include <QPointer>
 #include <QWidget>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"

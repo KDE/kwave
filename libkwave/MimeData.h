@@ -20,11 +20,10 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QByteArray>
 #include <QMimeData>
 #include <QObject>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Sample.h"

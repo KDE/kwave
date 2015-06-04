@@ -21,13 +21,13 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QMap>
 #include <QMdiArea>
 #include <QPointer>
 #include <QString>
 
 #include <KMainWindow>
-#include <TODO:kdemacros.h>
 #include <TODO:kurl.h>
 
 #include "libkwave/Sample.h"

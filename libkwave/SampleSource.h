@@ -20,9 +20,8 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QObject>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/modules/StreamObject.h"

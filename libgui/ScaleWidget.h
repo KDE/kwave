@@ -20,10 +20,9 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QString>
 #include <QWidget>
-
-#include <TODO:kdemacros.h>
 
 class QPaintEvent;
 class QPainter;

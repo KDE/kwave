@@ -21,11 +21,10 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QString>
 #include <QStringList>
-
-#include <TODO:kdemacros.h>
-#include <TODO:kurl.h>
+#include <QUrl>
 
 #include "libkwave/Sample.h" // for sample_index_t
 

@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QLabel>
 #include <QList>
 #include <QObject>
@@ -30,8 +31,6 @@
 #include <QString>
 #include <QTimer>
 #include <QWidget>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

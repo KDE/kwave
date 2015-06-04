@@ -20,8 +20,7 @@
 
 #include "config.h"
 
-#include <TODO:kdemacros.h>
-
+#include <QtGlobal>
 #include <QImage>
 #include <QPainter>
 #include <QWidget>

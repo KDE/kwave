@@ -19,7 +19,7 @@
 
 #include "config.h"
 
-#include <TODO:kdemacros.h>
+#include <QtGlobal>
 
 #include "libkwave/PlayBackParam.h"
 #include "libkwave/TypesMap.h"

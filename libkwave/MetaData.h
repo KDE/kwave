@@ -19,6 +19,7 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QMap>
 #include <QMutex>
@@ -27,8 +28,6 @@
 #include <QString>
 #include <QStringList>
 #include <QVariant>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

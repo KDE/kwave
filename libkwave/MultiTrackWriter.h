@@ -21,10 +21,9 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QObject>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/MultiWriter.h"

@@ -20,14 +20,13 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QMutex>
 #include <QObject>
 #include <QString>
 #include <QThread>
 #include <QTimer>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Runnable.h"
 #include "libkwave/Sample.h"

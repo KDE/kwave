@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QGridLayout>
 #include <QImage>
 #include <QLabel>
@@ -33,8 +34,6 @@
 #include <QSize>
 #include <QTimer>
 #include <QWidget>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"

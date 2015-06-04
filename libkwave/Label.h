@@ -19,9 +19,9 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QString>
 
-#include <TODO:kdemacros.h>
 #include <TODO:klocale.h>
 
 #include "libkwave/MetaData.h"

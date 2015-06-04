@@ -20,11 +20,10 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QBitArray>
 #include <QMutex>
 #include <QVector>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/MultiTrackSink.h"
 #include "libkwave/PlayBackDevice.h"

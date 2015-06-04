@@ -22,14 +22,13 @@
 
 #include <math.h>
 
+#include <QtGlobal>
 #include <QBitArray>
 #include <QColor>
 #include <QMutex>
 #include <QObject>
 #include <QPixmap>
 #include <QVector>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"

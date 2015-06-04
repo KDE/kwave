@@ -20,12 +20,11 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QMap>
 #include <QString>
 #include <QVariant>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"

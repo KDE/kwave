@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QAtomicInt>
 #include <QElapsedTimer>
 #include <QList>
@@ -28,7 +29,6 @@
 #include <QString>
 #include <QTimer>
 
-#include <TODO:kdemacros.h>
 #include <TODO:kurl.h>
 
 #include "libkwave/MetaDataList.h"

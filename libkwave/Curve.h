@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QListIterator>
 #include <QMutableListIterator>
@@ -28,8 +29,6 @@
 #include <QString>
 #include <QVector>
 #include <QtGlobal>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Interpolation.h"
 

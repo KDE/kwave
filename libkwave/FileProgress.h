@@ -20,13 +20,13 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QDialog>
 #include <QLabel>
 #include <QTime>
 #include <QUrl>
 
 #include "libkwave/Sample.h"
-#include <TODO:kdemacros.h>
 
 class QCloseEvent;
 class QGridLayout;

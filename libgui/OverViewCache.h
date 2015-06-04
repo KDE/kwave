@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QHash>
 #include <QImage>
 #include <QList>
@@ -27,8 +28,6 @@
 #include <QObject>
 #include <QUuid>
 #include <QVector>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

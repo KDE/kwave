@@ -20,10 +20,9 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QPointer>
-
-#include <TODO:kdemacros.h>
 
 namespace Kwave
 {

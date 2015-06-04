@@ -20,9 +20,8 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QObject>
-
-#include <TODO:kdemacros.h>
 
 class QString;
 class QWidget;

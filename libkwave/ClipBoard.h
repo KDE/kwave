@@ -22,9 +22,8 @@
 #include "config.h"
 
 #include <QClipboard>
+#include <QtGlobal>
 #include <QObject>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Sample.h"
 

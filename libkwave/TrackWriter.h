@@ -20,10 +20,9 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QObject>
 #include <QTime>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/Writer.h"
 

@@ -21,11 +21,10 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QList>
 #include <QObject>
 #include <QTime>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"

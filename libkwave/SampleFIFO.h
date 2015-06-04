@@ -20,10 +20,9 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QMutex>
 #include <QQueue>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/SampleArray.h"
 

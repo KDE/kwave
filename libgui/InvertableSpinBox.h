@@ -17,8 +17,7 @@
 
 #include "config.h"
 
-#include <TODO:kdemacros.h>
-
+#include <QtGlobal>
 #include <QSpinBox>
 
 #ifndef INVERTABLE_SPIN_BOX_H

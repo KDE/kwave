@@ -20,9 +20,8 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QVector>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/TypesMap.h"
 

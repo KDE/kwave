@@ -22,13 +22,12 @@
 #include <limits.h>
 #include <stdio.h>
 
+#include <QtGlobal>
 #include <QList>
 #include <QMap>
 #include <QMutex>
 #include <QObject>
 #include <QString>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"

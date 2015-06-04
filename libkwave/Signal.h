@@ -23,11 +23,10 @@
 #include <limits.h>
 #include <pthread.h>
 
+#include <QtGlobal>
 #include <QList>
 #include <QReadWriteLock>
 #include <QUuid>
-
-#include <TODO:kdemacros.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"

@@ -30,7 +30,7 @@ class QPaintEvent;
 
 namespace Kwave
 {
-    class Splash : public QFrame
+    class Splash: public QFrame
     {
     Q_OBJECT
 

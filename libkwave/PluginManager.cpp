@@ -20,17 +20,17 @@
 #include <errno.h>
 #include <unistd.h>
 
-#include <QtGui/QApplication>
 #include <QtCore/QLatin1Char>
 #include <QtCore/QLibrary>
 #include <QtCore/QMutableListIterator>
+#include <QtWidgets/QApplication>
 
 #include <kglobal.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <kmainwindow.h>
 #include <kstandarddirs.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/MessageBox.h"
@@ -703,7 +703,5 @@ void Kwave::PluginManager::migratePluginToActiveContext(Kwave::Plugin *plugin)
     plugin->setPluginManager(new_mgr);
 }
 
-//***************************************************************************
-#include "PluginManager.moc"
 //***************************************************************************
 //***************************************************************************

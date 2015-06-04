@@ -44,7 +44,7 @@ namespace Kwave
      *       the MenuNode class causes an action that deletes that menu
      *       node. <em>It took me one week to find that bug!</em>
      */
-    class KDE_EXPORT MenuManager: public QObject
+    class Q_DECL_EXPORT MenuManager: public QObject
     {
 	Q_OBJECT
     public:

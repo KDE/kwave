@@ -23,7 +23,7 @@
 #include <QtCore/QDate>
 #include <QtCore/QLatin1Char>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmimetype.h>
 
 #include "libkwave/Compression.h"

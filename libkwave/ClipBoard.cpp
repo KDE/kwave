@@ -20,11 +20,11 @@
 
 #include <new>
 
-#include <QtGui/QApplication>
 #include <QtGui/QClipboard>
 #include <QtCore/QList>
 #include <QtCore/QReadLocker>
 #include <QtCore/QWriteLocker>
+#include <QtWidgets/QApplication>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"

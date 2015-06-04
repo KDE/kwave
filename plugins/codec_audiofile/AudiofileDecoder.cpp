@@ -22,7 +22,7 @@
 
 #include <QtCore/QtGlobal>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmimetype.h>
 
 #include "libkwave/FileInfo.h"

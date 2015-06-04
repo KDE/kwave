@@ -34,7 +34,7 @@ namespace Kwave
     /**
      * Undo action for modifying meta data
      */
-    class KDE_EXPORT UndoModifyMetaDataAction: public UndoAction
+    class Q_DECL_EXPORT UndoModifyMetaDataAction: public UndoAction
     {
     public:
 

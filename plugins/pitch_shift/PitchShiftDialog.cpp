@@ -23,7 +23,7 @@
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kpushbutton.h>
 #include <ktoolinvocation.h>
 

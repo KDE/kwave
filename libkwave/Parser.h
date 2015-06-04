@@ -32,7 +32,7 @@
 //*****************************************************************************
 namespace Kwave
 {
-    class KDE_EXPORT Parser
+    class Q_DECL_EXPORT Parser
     {
     public:
 	/**

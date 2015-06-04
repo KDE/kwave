@@ -22,7 +22,7 @@
 
 #include <kapplication.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"

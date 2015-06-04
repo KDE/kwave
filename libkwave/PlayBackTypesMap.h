@@ -26,7 +26,7 @@
 
 namespace Kwave
 {
-    class KDE_EXPORT PlayBackTypesMap
+    class Q_DECL_EXPORT PlayBackTypesMap
 	:public Kwave::TypesMap<unsigned int, Kwave::playback_method_t>
     {
     public:

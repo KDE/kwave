@@ -62,7 +62,7 @@ namespace Kwave
     /**
      * The SignalManager class manages multi channel signals.
      */
-    class KDE_EXPORT SignalManager : public QObject
+    class Q_DECL_EXPORT SignalManager: public QObject
     {
 	Q_OBJECT
 

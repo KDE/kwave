@@ -22,7 +22,7 @@
 #include <QtGui/QAction>
 
 #include <kiconloader.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmainwindow.h>
 
 #include "libkwave/FileInfo.h"

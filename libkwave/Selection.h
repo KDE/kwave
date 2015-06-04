@@ -29,7 +29,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT Selection: public QObject
+    class Q_DECL_EXPORT Selection: public QObject
     {
 	Q_OBJECT
     public:

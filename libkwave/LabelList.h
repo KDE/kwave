@@ -31,7 +31,7 @@ namespace Kwave
     class MetaDataList;
 
     /** not more than a typedef since Qt4 */
-    class KDE_EXPORT LabelList: public QList<Kwave::Label>
+    class Q_DECL_EXPORT LabelList: public QList<Kwave::Label>
     {
     public:
 

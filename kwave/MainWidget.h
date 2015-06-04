@@ -81,9 +81,9 @@ namespace Kwave
      * \-----------------------------------------------------------------------/
      * @endcode
      */
-    class MainWidget : public QWidget,
-                       public CommandHandler,
-                       public Zoomable
+    class MainWidget: public QWidget,
+                      public CommandHandler,
+                      public Zoomable
     {
 	Q_OBJECT
     public:

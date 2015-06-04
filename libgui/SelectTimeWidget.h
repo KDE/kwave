@@ -35,7 +35,7 @@ namespace Kwave
     /**
     * widget for selecting a time or range
     */
-    class KDE_EXPORT SelectTimeWidget
+    class Q_DECL_EXPORT SelectTimeWidget
 	:public QGroupBox, public Ui::SelectTimeWidgetBase
     {
 	Q_OBJECT

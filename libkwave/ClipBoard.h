@@ -39,7 +39,7 @@ namespace Kwave
      * Implements a global clipboard for Kwave. It supports only the three
      * simple operations <c>put</c>, <c>get</c> and <c>clear</c>.
      */
-    class KDE_EXPORT ClipBoard: public QObject
+    class Q_DECL_EXPORT ClipBoard: public QObject
     {
 	Q_OBJECT
     public:

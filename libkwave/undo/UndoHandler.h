@@ -27,7 +27,7 @@ namespace Kwave
 
     class UndoTransaction;
 
-    class UndoHandler : public QObject
+    class UndoHandler: public QObject
     {
     public:
 

@@ -29,7 +29,7 @@
 #include <kaboutdata.h>
 #include <kapplication.h>
 #include <kglobal.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kurllabel.h>
 #include <kstandarddirs.h>
 #include <ktextedit.h>

@@ -46,8 +46,7 @@
 namespace Kwave
 {
 
-    class RecordPulseAudio : public Kwave::RecordDevice,
-                             public Kwave::Runnable
+    class RecordPulseAudio: public Kwave::RecordDevice, public Kwave::Runnable
     {
     public:
 

@@ -29,7 +29,7 @@
 
 namespace Kwave
 {
-    class KDE_EXPORT SampleSource: public Kwave::StreamObject
+    class Q_DECL_EXPORT SampleSource: public Kwave::StreamObject
     {
         Q_OBJECT
     public:

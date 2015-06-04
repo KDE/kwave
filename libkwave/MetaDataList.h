@@ -34,7 +34,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT MetaDataList: public QMap<QString, MetaData>
+    class Q_DECL_EXPORT MetaDataList: public QMap<QString, MetaData>
     {
     public:
 

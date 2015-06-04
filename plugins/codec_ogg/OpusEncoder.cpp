@@ -54,7 +54,6 @@
 
 #include <opus/opus_defines.h>
 
-#include <QtGui/QApplication>
 #include <QtCore/QBuffer>
 #include <QtCore/QByteArray>
 #include <QtCore/qendian.h>
@@ -62,8 +61,9 @@
 #include <QtCore/QtGlobal>
 #include <QtCore/QString>
 #include <QtCore/QTime>
+#include <QtWidgets/QApplication>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/BitrateMode.h"
 #include "libkwave/Connect.h"

@@ -26,10 +26,10 @@
 #include <QtGui/QProgressDialog>
 #include <QtCore/QThread>
 #include <QtCore/QTime>
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 
 #include <kapplication.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/Plugin.h"
@@ -515,7 +515,5 @@ void Kwave::Plugin::setPluginManager(Kwave::PluginManager *new_plugin_manager)
 	m_confirm_cancel->setParent(m_plugin_manager->parentWidget());
 }
 
-//***************************************************************************
-#include "Plugin.moc"
 //***************************************************************************
 //***************************************************************************

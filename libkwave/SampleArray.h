@@ -34,7 +34,7 @@ namespace Kwave
      * array with sample_t, for use in KwaveSampleSource, KwaveSampleSink
      * and other streaming classes.
      */
-    class KDE_EXPORT SampleArray
+    class Q_DECL_EXPORT SampleArray
     {
     public:
 

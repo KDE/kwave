@@ -42,7 +42,7 @@ namespace Kwave
     class TrackWriter;
     class Writer;
 
-    class KDE_EXPORT Track: public QObject
+    class Q_DECL_EXPORT Track: public QObject
     {
 	Q_OBJECT
     public:

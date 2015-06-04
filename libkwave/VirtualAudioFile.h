@@ -38,7 +38,7 @@ namespace Kwave
      * This class builds an interface between a QIODevice and a virtual
      * file in libaudiofile.
      */
-    class KDE_EXPORT VirtualAudioFile
+    class Q_DECL_EXPORT VirtualAudioFile
     {
     public:
 	/**

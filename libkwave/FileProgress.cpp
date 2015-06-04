@@ -18,7 +18,6 @@
 #include "config.h"
 #include <math.h>
 
-#include <QtGui/QApplication>
 #include <QtGui/QCloseEvent>
 #include <QtGui/QGridLayout>
 #include <QtGui/QLabel>
@@ -26,10 +25,11 @@
 #include <QtCore/QThread>
 #include <QtCore/QTimer>
 #include <QtGui/QVBoxLayout>
+#include <QtWidgets/QApplication>
 
 #include <kpushbutton.h>
 #include <kglobal.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kstandardguiitem.h>
 
 #include "libkwave/FileProgress.h"
@@ -359,7 +359,5 @@ void Kwave::FileProgress::cancel()
     if (m_canceled) emit canceled();
 }
 
-//***************************************************************************
-#include "FileProgress.moc"
 //***************************************************************************
 //***************************************************************************

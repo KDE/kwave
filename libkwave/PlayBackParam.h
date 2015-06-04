@@ -48,7 +48,7 @@ namespace Kwave
      * A class that contains all necessary parameters for
      * setting up (initializing) a playback device.
      */
-    class KDE_EXPORT PlayBackParam
+    class Q_DECL_EXPORT PlayBackParam
     {
     public:
 	/** Default constructor */

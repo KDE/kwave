@@ -31,7 +31,7 @@ namespace Kwave
     class UndoHandler;
     class UndoTransaction;
 
-    class KDE_EXPORT UndoManager
+    class Q_DECL_EXPORT UndoManager
     {
     public:
 

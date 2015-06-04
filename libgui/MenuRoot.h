@@ -36,7 +36,7 @@ namespace Kwave
      * all toplevel menus of a menu hierarchy.
      * @author Thomas Eschenbacher
      */
-    class MenuRoot : public Kwave::MenuNode
+    class MenuRoot: public Kwave::MenuNode
     {
 	Q_OBJECT
 

@@ -45,7 +45,7 @@ namespace Kwave
     /**
      * Interpolation types
      */
-    class KDE_EXPORT Interpolation
+    class Q_DECL_EXPORT Interpolation
     {
     public:
 	/** Constructor, initializes type by enum type */

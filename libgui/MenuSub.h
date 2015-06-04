@@ -33,7 +33,7 @@ namespace Kwave
      * This is the class for submenu entries in a Menu. It is normally owned by a
      * root menu node, a toplevel menu or another submenu.
      */
-    class MenuSub : public Kwave::MenuNode
+    class MenuSub: public Kwave::MenuNode
     {
 	Q_OBJECT
 

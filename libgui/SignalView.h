@@ -48,7 +48,7 @@ namespace Kwave
 
     class SignalManager; // forward declaration
 
-    class KDE_EXPORT SignalView: public QWidget
+    class Q_DECL_EXPORT SignalView: public QWidget
     {
 	Q_OBJECT
     public:

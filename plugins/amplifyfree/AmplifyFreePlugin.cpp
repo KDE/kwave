@@ -18,7 +18,7 @@
 #include "config.h"
 
 #include <QtCore/QStringList>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Connect.h"
 #include "libkwave/MultiTrackReader.h"

@@ -38,7 +38,7 @@ class KProgress;
 namespace Kwave
 {
 
-    class KDE_EXPORT FileProgress: public QDialog
+    class Q_DECL_EXPORT FileProgress: public QDialog
     {
 	Q_OBJECT
     public:

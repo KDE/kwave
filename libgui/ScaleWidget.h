@@ -31,7 +31,7 @@ class QSize;
 
 namespace Kwave
 {
-    class KDE_EXPORT ScaleWidget : public QWidget
+    class Q_DECL_EXPORT ScaleWidget: public QWidget
     {
     public:
 

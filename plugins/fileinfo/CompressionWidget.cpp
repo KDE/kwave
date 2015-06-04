@@ -26,7 +26,7 @@
 #include <QtCore/QList>
 #include <QtGui/QWhatsThis>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <knuminput.h>
 
 #include "libkwave/StandardBitrates.h"
@@ -100,8 +100,8 @@ void Kwave::CompressionWidget::initInfo(QLabel *label, QWidget *widget,
                                         Kwave::FileInfo &info)
 {
     Q_ASSERT(widget);
-    if (label) label->setText(i18n(info.name(property).toAscii()) + _(":"));
-    describeWidget(widget, i18n(info.name(property).toAscii()),
+    if (label) label->setText(i18n(info.name(property).toLatin1()) + _(":"));
+    describeWidget(widget, i18n(info.name(property).toLatin1()),
                    info.description(property));
 }
 

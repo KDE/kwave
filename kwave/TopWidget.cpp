@@ -32,7 +32,6 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QMutableMapIterator>
 #include <QtGui/QAction>
-#include <QtGui/QApplication>
 #include <QtGui/QCloseEvent>
 #include <QtGui/QDesktopWidget>
 #include <QtGui/QFrame>
@@ -40,6 +39,7 @@
 #include <QtGui/QMdiSubWindow>
 #include <QtGui/QPixmap>
 #include <QtGui/QSizePolicy>
+#include <QtWidgets/QApplication>
 
 #include <kapplication.h>
 #include <kcmdlineargs.h>
@@ -50,9 +50,9 @@
 #include <kglobal.h>
 #include <khelpmenu.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmenubar.h>
-#include <kmessagebox.h>
+#include <KF5/KGuiAddons/KMessageBox>
 #include <kstatusbar.h>
 #include <kstandarddirs.h>
 #include <ktoolbar.h>

@@ -30,7 +30,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT SampleFIFO
+    class Q_DECL_EXPORT SampleFIFO
     {
     public:
 	/** Constructor */

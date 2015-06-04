@@ -35,7 +35,7 @@ class QString;
 
 namespace Kwave
 {
-    class KDE_EXPORT CurveWidget: public QWidget
+    class Q_DECL_EXPORT CurveWidget: public QWidget
     {
 	Q_OBJECT
     public:

@@ -25,10 +25,10 @@
 #include <QtCore/QPointer>
 #include <QtCore/QProcess>
 #include <QtCore/QtGlobal>
-#include <QtGui/QApplication>
 #include <QtGui/QAbstractButton>
 #include <QtGui/QPushButton>
 #include <QtGui/QCursor>
+#include <QtWidgets/QApplication>
 
 #include <kcombobox.h>
 #include <kdialogbuttonbox.h>

@@ -26,7 +26,6 @@
 
 #include <pulse/thread-mainloop.h>
 
-#include <QtGui/QApplication>
 #include <QtGui/QCursor>
 #include <QtCore/QFileInfo>
 #include <QtCore/QLatin1Char>
@@ -34,8 +33,9 @@
 #include <QtCore/QString>
 #include <QtCore/QVariant>
 #include <QtCore/QtGlobal>
+#include <QtWidgets/QApplication>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kuser.h>
 #include <kdebug.h>
 

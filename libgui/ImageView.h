@@ -31,7 +31,7 @@ namespace Kwave
     /**
      * Simple widget class for displaying a QImage.
      */
-    class KDE_EXPORT ImageView : public QWidget
+    class Q_DECL_EXPORT ImageView: public QWidget
     {
 	Q_OBJECT
     public:

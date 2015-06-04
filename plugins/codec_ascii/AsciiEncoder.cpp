@@ -24,7 +24,7 @@
 #include <QtCore/QTextCodec>
 #include <QtCore/QVariant>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmimetype.h>
 #include <kapplication.h>
 #include <kglobal.h>

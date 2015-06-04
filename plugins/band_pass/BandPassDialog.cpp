@@ -22,9 +22,9 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <knuminput.h>
 #include <kpushbutton.h>
 #include <ktoolinvocation.h>

@@ -37,7 +37,7 @@ namespace Kwave {
      * operating on a SignalManager. Several nested UndoTransactionGuards
      * (or undo transactions) are allowed.
      */
-    class KDE_EXPORT UndoTransactionGuard
+    class Q_DECL_EXPORT UndoTransactionGuard
     {
 
     public:

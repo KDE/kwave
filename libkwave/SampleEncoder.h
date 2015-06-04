@@ -29,7 +29,7 @@
 
 namespace Kwave
 {
-    class KDE_EXPORT SampleEncoder
+    class Q_DECL_EXPORT SampleEncoder
     {
     public:
 	/** Constructor */

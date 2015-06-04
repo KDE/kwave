@@ -18,7 +18,7 @@
 
 #include "config.h"
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include <new>
 

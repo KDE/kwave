@@ -15,8 +15,6 @@
 ##                                                                          #
 #############################################################################
 
-FIND_PACKAGE(RequiredProgram REQUIRED)
-
 FIND_REQUIRED_PROGRAM(FIND_EXECUTABLE find)
 FIND_REQUIRED_PROGRAM(MSGCAT_EXECUTABLE msgcat)
 FIND_REQUIRED_PROGRAM(XGETTEXT_EXECUTABLE xgettext)

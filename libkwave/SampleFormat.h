@@ -29,7 +29,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT SampleFormat
+    class Q_DECL_EXPORT SampleFormat
     {
     public:
 	typedef enum {
@@ -77,7 +77,7 @@ namespace Kwave
     public:
 
 	/** map for translating between index, sample format and name */
-	class KDE_EXPORT Map: public Kwave::TypesMap<int, Format>
+	class Q_DECL_EXPORT Map: public Kwave::TypesMap<int, Format>
 	{
 	public:
 	    /** Constructor */

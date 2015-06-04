@@ -36,7 +36,7 @@
 #include <QtCore/QTextStream>
 
 #include <kstandarddirs.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kiconloader.h>
 #include <kfiledialog.h>
 

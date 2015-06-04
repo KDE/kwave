@@ -20,7 +20,7 @@
 #include <math.h>
 
 #include <QtCore/QString>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"

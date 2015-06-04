@@ -33,7 +33,7 @@
 //***************************************************************************
 namespace Kwave
 {
-    class KDE_EXPORT Stripe
+    class Q_DECL_EXPORT Stripe
     {
     public:
 
@@ -304,7 +304,8 @@ namespace Kwave
 
     private:
 
-	class StripeStorage : public QSharedData {
+	class StripeStorage: public QSharedData
+	{
 	public:
 	    /** default constructor */
 	    StripeStorage();

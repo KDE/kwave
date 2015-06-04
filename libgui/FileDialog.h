@@ -34,7 +34,7 @@ namespace Kwave
      * An improved version of KFileDialog that does not forget the last
      * directory and pre-selects the last file extension.
      */
-    class KDE_EXPORT FileDialog: public KFileDialog
+    class Q_DECL_EXPORT FileDialog: public KFileDialog
     {
 	Q_OBJECT
     public:

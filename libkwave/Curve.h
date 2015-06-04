@@ -35,7 +35,7 @@
 
 namespace Kwave
 {
-    class KDE_EXPORT Curve: public QList<QPointF>
+    class Q_DECL_EXPORT Curve: public QList<QPointF>
     {
     public:
 

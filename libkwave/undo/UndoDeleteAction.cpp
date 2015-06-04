@@ -19,7 +19,7 @@
 
 #include <new>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/SignalManager.h"

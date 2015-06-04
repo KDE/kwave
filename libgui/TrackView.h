@@ -42,7 +42,7 @@ namespace Kwave
     class SignalManager; // forward declaration
     class Track;
 
-    class KDE_EXPORT TrackView: public SignalView
+    class Q_DECL_EXPORT TrackView: public SignalView
     {
 	Q_OBJECT
     public:

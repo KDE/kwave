@@ -40,7 +40,7 @@ namespace Kwave
      * Window for displaying a sonagram with scale, status bar and
      * a small menu.
      */
-    class SonagramWindow : public KMainWindow
+    class SonagramWindow: public KMainWindow
     {
 	Q_OBJECT
 

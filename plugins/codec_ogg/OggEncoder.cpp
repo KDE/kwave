@@ -23,7 +23,7 @@
 #include <QtCore/QList>
 #include <QtCore/QSharedPointer>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmimetype.h>
 #include <kapplication.h>
 #include <kglobal.h>

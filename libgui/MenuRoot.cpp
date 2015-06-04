@@ -19,7 +19,7 @@
 
 #include <QtCore/QListIterator>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmenubar.h>
 
 #include "libkwave/String.h"

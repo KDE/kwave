@@ -17,10 +17,11 @@
 
 #include "config.h"
 
-#include <math.h>
 #include <stdio.h>
+#include <math.h>
 #include <stdlib.h>
 
+#include <QtCore/QString>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QCheckBox>
 #include <QtGui/QLabel>
@@ -28,11 +29,10 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
-#include <QtCore/QString>
 #include <QtCore/QStringList>
 
 #include <kcombobox.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kpushbutton.h>
 #include <ktoolinvocation.h>
 

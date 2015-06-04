@@ -20,7 +20,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmimetype.h>
 #include <kglobal.h>
 

@@ -19,7 +19,7 @@
 
 #include <QtGui/QPushButton>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <ktoolinvocation.h>
 
 #include "libkwave/Parser.h"

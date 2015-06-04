@@ -30,7 +30,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT Osc: public Kwave::SampleSource
+    class Q_DECL_EXPORT Osc: public Kwave::SampleSource
     {
 	Q_OBJECT
 	public:

@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"

@@ -32,7 +32,7 @@ namespace Kwave
 {
     class Runnable;
 
-    class KDE_EXPORT WorkerThread : public QThread
+    class Q_DECL_EXPORT WorkerThread: public QThread
     {
 	Q_OBJECT
     public:

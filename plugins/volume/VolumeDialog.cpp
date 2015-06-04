@@ -25,7 +25,7 @@
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <ktoolinvocation.h>
 
 #include "libkwave/String.h"

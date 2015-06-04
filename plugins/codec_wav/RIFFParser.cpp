@@ -31,7 +31,7 @@
 #include <QtCore/QtEndian>
 #include <QtCore/QtGlobal>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/String.h"
 
@@ -162,7 +162,7 @@ void Kwave::RIFFParser::detectEndianness()
     int index = 0;
     foreach (QString chunk_name, names) {
 	// scan all offsets where the name matches
-	QByteArray name = chunk_name.toAscii();
+	QByteArray name = chunk_name.toLatin1();
 	QList<quint32> offsets = scanForName(name,
 	    m_root.physStart(), m_root.physLength(),
 	    index, count);

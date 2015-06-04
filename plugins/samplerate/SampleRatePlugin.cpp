@@ -18,7 +18,7 @@
 #include "config.h"
 #include <errno.h>
 
-#include <klocale.h> // for the i18n macro
+#include <KI18n/KLocalizedString> // for the i18n macro
 
 #include <QtCore/QList>
 #include <QtCore/QListIterator>

@@ -34,7 +34,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT RateConverter: public Kwave::SampleSource
+    class Q_DECL_EXPORT RateConverter: public Kwave::SampleSource
     {
 	Q_OBJECT
     public:

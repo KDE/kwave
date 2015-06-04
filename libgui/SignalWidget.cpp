@@ -20,7 +20,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtGui/QApplication>
 #include <QtGui/QBitmap>
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QDragLeaveEvent>
@@ -35,11 +34,12 @@
 #include <QtGui/QResizeEvent>
 #include <QtCore/QTime>
 #include <QtGui/QToolTip>
+#include <QtWidgets/QApplication>
 
 #include <kcursor.h>
 #include <kglobal.h>
 #include <kglobalsettings.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kfiledialog.h>
 #include <kiconloader.h>
 

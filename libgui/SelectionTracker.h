@@ -38,7 +38,7 @@ namespace Kwave
     class Track;
     class UndoTransaction;
 
-    class KDE_EXPORT SelectionTracker : public Kwave::UndoHandler
+    class Q_DECL_EXPORT SelectionTracker: public Kwave::UndoHandler
     {
 	Q_OBJECT
     public:
@@ -206,7 +206,7 @@ namespace Kwave
 	/**
 	 * Undo action for tracking selection changes
 	 */
-	class KDE_EXPORT Undo: public Kwave::UndoAction
+	class Q_DECL_EXPORT Undo: public Kwave::UndoAction
 	{
 	public:
 

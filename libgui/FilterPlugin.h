@@ -37,7 +37,7 @@ namespace Kwave
     class SampleSource;
     class SampleSink;
 
-    class KDE_EXPORT FilterPlugin: public Kwave::Plugin
+    class Q_DECL_EXPORT FilterPlugin: public Kwave::Plugin
     {
 	Q_OBJECT
     public:

@@ -52,7 +52,7 @@ namespace Kwave
      */
     bool connect(Kwave::StreamObject &source, const char *output,
                  Kwave::StreamObject &sink,   const char *input)
-                 KDE_EXPORT;
+                 Q_DECL_EXPORT;
 }
 
 #endif /* CONNECT_H */

@@ -53,7 +53,7 @@ namespace Kwave
     class TopWidget;
     class Zoomable;
 
-    class KDE_EXPORT FileContext: public QObject
+    class Q_DECL_EXPORT FileContext: public QObject
     {
 	Q_OBJECT
     public:

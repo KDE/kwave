@@ -38,7 +38,7 @@ namespace Kwave
 
     class MixerMatrix;
 
-    class KDE_EXPORT ChannelMixer: public Kwave::SampleSource
+    class Q_DECL_EXPORT ChannelMixer: public Kwave::SampleSource
     {
 	Q_OBJECT
 	public:

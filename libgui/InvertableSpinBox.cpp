@@ -18,7 +18,7 @@
 #include "config.h"
 
 #include <QtCore/QObject>
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 
 #include "libgui/InvertableSpinBox.h"
 

@@ -29,7 +29,7 @@ class QFocusEvent;
 
 namespace Kwave
 {
-    class KDE_EXPORT TreeWidgetWrapper: public QTreeWidget
+    class Q_DECL_EXPORT TreeWidgetWrapper: public QTreeWidget
     {
 	Q_OBJECT
     public:

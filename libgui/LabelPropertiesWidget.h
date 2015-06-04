@@ -34,7 +34,7 @@ namespace Kwave
 
     class Label;
 
-    class KDE_EXPORT LabelPropertiesWidget
+    class Q_DECL_EXPORT LabelPropertiesWidget
 	:public QDialog,
 	 public Ui::LabelPropertiesWidgetBase
     {

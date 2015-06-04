@@ -30,7 +30,7 @@
 
 #include <kapplication.h>
 #include <kglobal.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"

@@ -38,7 +38,7 @@ namespace Kwave
     class MultiTrackReader;
     class SignalManager;
 
-    class KDE_EXPORT MimeData: public QMimeData
+    class Q_DECL_EXPORT MimeData: public QMimeData
     {
 	Q_OBJECT
 	public:

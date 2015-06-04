@@ -40,7 +40,7 @@
 #include <kglobal.h>
 #include <klineedit.h>
 #include <klistwidget.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmimetype.h>
 #include <knuminput.h>
 #include <kpushbutton.h>
@@ -547,9 +547,9 @@ void Kwave::FileInfoDialog::setupMiscellaneousTab()
     initInfoText(lblCommissioned, edCommissioned, Kwave::INF_COMMISSIONED);
 
     /* list of keywords */
-    lblKeywords->setText(i18n(m_info.name(Kwave::INF_KEYWORDS).toAscii()));
+    lblKeywords->setText(i18n(m_info.name(Kwave::INF_KEYWORDS).toLatin1()));
     lstKeywords->setWhatsThis(_("<b>") +
-	i18n(m_info.name(Kwave::INF_KEYWORDS).toAscii()) +
+	i18n(m_info.name(Kwave::INF_KEYWORDS).toLatin1()) +
 	_("</b><br>") + m_info.description(Kwave::INF_KEYWORDS));
     if (m_info.contains(Kwave::INF_KEYWORDS)) {
 	QString keywords = QVariant(m_info.get(Kwave::INF_KEYWORDS)).toString();

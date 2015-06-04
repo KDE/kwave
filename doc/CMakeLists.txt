@@ -15,8 +15,6 @@
 ##                                                                          #
 #############################################################################
 
-FIND_PACKAGE(RequiredProgram REQUIRED)
-
 SET(UPDATE_COMMAND_XREF    ${CMAKE_SOURCE_DIR}/bin/update-command-xref.pl)
 SET(UPDATE_FILEINFO_XREF   ${CMAKE_SOURCE_DIR}/bin/update-fileinfo-xref.pl)
 SET(UPDATE_PLUGIN_XREF     ${CMAKE_SOURCE_DIR}/bin/update-plugin-xref.pl)

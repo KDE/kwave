@@ -34,7 +34,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <kicontheme.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kpushbutton.h>
 #include <knuminput.h>
 #include <kstatusbar.h>

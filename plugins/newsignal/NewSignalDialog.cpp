@@ -31,7 +31,7 @@
 #include <QtCore/QTimer>
 
 #include <kcombobox.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <knuminput.h>
 #include <kpushbutton.h>
 #include <ktoolinvocation.h>

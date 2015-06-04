@@ -35,7 +35,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT MetaData
+    class Q_DECL_EXPORT MetaData
     {
     public:
 	/** standard property: type of the meta data object */

@@ -24,12 +24,12 @@
 #include <QtCore/QFile>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <kglobal.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Logger.h"
 #include "libkwave/MessageBox.h"

@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 
 #include "libkwave/memcpy.h"
 #include "libkwave/InsertMode.h"
@@ -85,7 +85,5 @@ bool Kwave::TrackWriter::write(const Kwave::SampleArray &buffer,
     return true;
 }
 
-//***************************************************************************
-#include "TrackWriter.moc"
 //***************************************************************************
 //***************************************************************************

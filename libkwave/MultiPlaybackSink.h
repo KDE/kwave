@@ -34,7 +34,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT MultiPlaybackSink
+    class Q_DECL_EXPORT MultiPlaybackSink
 	:public Kwave::MultiTrackSink<Kwave::PlaybackSink, false>
     {
 	Q_OBJECT

@@ -66,7 +66,7 @@ namespace Kwave
 	 * @param filename name of the log file
 	 * @return true if succeed, false if failed
 	 */
-	static bool KDE_EXPORT open(const QString &filename);
+	static bool Q_DECL_EXPORT open(const QString &filename);
 
 	/**
 	 * log a message to the log file
@@ -76,9 +76,9 @@ namespace Kwave
 	 * @param level the log level / severity
 	 * @param msg the message to log
 	 */
-	static void KDE_EXPORT log(const QObject *sender,
-	                           LogLevel level,
-	                           const QString &msg);
+	static void Q_DECL_EXPORT log(const QObject *sender,
+	                              LogLevel level,
+	                              const QString &msg);
 
     private:
 

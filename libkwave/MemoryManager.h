@@ -37,7 +37,7 @@ namespace Kwave
     /** handle for memory manager */
     typedef int Handle;
 
-    class KDE_EXPORT MemoryManager
+    class Q_DECL_EXPORT MemoryManager
     {
     public:
 	/** Constructor */
@@ -58,7 +58,7 @@ namespace Kwave
 	 * @return handle of a storage object, to be used to be mapped
 	 *         into physical memory through map() or zero if out of memory
 	 */
-	Kwave::Handle allocate(size_t size) KDE_EXPORT;
+	Kwave::Handle allocate(size_t size) Q_DECL_EXPORT;
 
 	/**
 	 * Resizes a block of memory to a new size. If the block will no longer
@@ -69,13 +69,13 @@ namespace Kwave
 	 * @return true if successful, false if out of memory or if the
 	 *         block is currently in use
 	 */
-	bool resize(Kwave::Handle handle, size_t size) KDE_EXPORT;
+	bool resize(Kwave::Handle handle, size_t size) Q_DECL_EXPORT;
 
 	/**
 	 * Returns the allocated size of the block
 	 * @note this may be more than allocated, can be rounded up
 	 */
-	size_t sizeOf(Kwave::Handle handle) KDE_EXPORT;
+	size_t sizeOf(Kwave::Handle handle) Q_DECL_EXPORT;
 
 	/**
 	 * Frees a block of memory that has been previously allocated with the
@@ -84,50 +84,50 @@ namespace Kwave
 	 * @param handle reference to the handle to the block to be freed. The
 	 *               handle will be set to zero afterwards.
 	 */
-	void free(Kwave::Handle &handle) KDE_EXPORT;
+	void free(Kwave::Handle &handle) Q_DECL_EXPORT;
 
 	/**
 	 * Sets the limit of physical memory that can be used.
 	 * @param mb number of whole megabytes of the limit
 	 */
-	void setPhysicalLimit(quint64 mb) KDE_EXPORT;
+	void setPhysicalLimit(quint64 mb) Q_DECL_EXPORT;
 
 	/**
 	 * Sets the limit of virtual memory that can be used.
 	 * @param mb number of whole megabytes of the limit
 	 */
-	void setVirtualLimit(quint64 mb) KDE_EXPORT;
+	void setVirtualLimit(quint64 mb) Q_DECL_EXPORT;
 
 	/**
 	 * Sets the directory where swap files should be stored
 	 * @param dir directory
 	 */
-	void setSwapDirectory(const QString &dir) KDE_EXPORT;
+	void setSwapDirectory(const QString &dir) Q_DECL_EXPORT;
 
 	/**
 	 * Sets the limit of memory that can be used for undo/redo.
 	 * @param mb number of whole megabytes of the limit
 	 */
-	void setUndoLimit(quint64 mb) KDE_EXPORT;
+	void setUndoLimit(quint64 mb) Q_DECL_EXPORT;
 
 	/**
 	 * Returns the limit of memory that can be used for undo/redo
 	 * in units of whole megabytes
 	 */
-	quint64 undoLimit() const KDE_EXPORT;
+	quint64 undoLimit() const Q_DECL_EXPORT;
 
 	/**
 	 * Returns the total amount of theoretically available physical
 	 * memory, as the minimum of the totally installed memory and
 	 * ulimit settings.
 	 */
-	quint64 totalPhysical() KDE_EXPORT;
+	quint64 totalPhysical() Q_DECL_EXPORT;
 
 	/**
 	 * Returns the global instance of the memory manager from the
 	 * KwaveApp.
 	 */
-	static MemoryManager &instance() KDE_EXPORT;
+	static MemoryManager &instance() Q_DECL_EXPORT;
 
 	/**
 	 * Map a portion of memory and return the physical address.
@@ -136,14 +136,14 @@ namespace Kwave
 	 *        memory block
 	 * @return pointer to the mapped area or null if failed
 	 */
-	void *map(Kwave::Handle handle) KDE_EXPORT;
+	void *map(Kwave::Handle handle) Q_DECL_EXPORT;
 
 	/**
 	 * Unmap a memory area, previously mapped with map()
 	 *
 	 * @param handle handle of a mapped block mapped with map()
 	 */
-	void unmap(Kwave::Handle handle) KDE_EXPORT;
+	void unmap(Kwave::Handle handle) Q_DECL_EXPORT;
 
 	/**
 	 * Read from a memory block into a buffer
@@ -156,7 +156,7 @@ namespace Kwave
 	 * @return number of read bytes or < 0 if failed
 	 */
 	int readFrom(Kwave::Handle handle, unsigned int offset,
-	             void *buffer, unsigned int length) KDE_EXPORT;
+	             void *buffer, unsigned int length) Q_DECL_EXPORT;
 
 	/**
 	 * Write a buffer into a memory block
@@ -169,7 +169,7 @@ namespace Kwave
 	 * @return number of written bytes or < 0 if failed
 	 */
 	int writeTo(Kwave::Handle handle, unsigned int offset,
-		    const void *buffer, unsigned int length) KDE_EXPORT;
+	            const void *buffer, unsigned int length) Q_DECL_EXPORT;
 
 #ifdef DEBUG_MEMORY
 	/** structure used for statistics */

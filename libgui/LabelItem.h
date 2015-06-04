@@ -35,7 +35,7 @@ namespace Kwave
 
     class Label;
 
-    class KDE_EXPORT LabelItem: public Kwave::ViewItem
+    class Q_DECL_EXPORT LabelItem: public Kwave::ViewItem
     {
 	Q_OBJECT
     public:

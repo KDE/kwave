@@ -25,7 +25,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QRegExp>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Label.h"
@@ -375,7 +375,7 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     while (rx_nr.indexIn(p) >= 0) {
 	QString format = rx_nr.cap(1);
 	format = format.mid(2, format.length() - 6) + _("u");
-	p.replace(rx_nr, nr.sprintf(format.toAscii(), index));
+	p.replace(rx_nr, nr.sprintf(format.toLatin1(), index));
     }
 
     // format the "count" parameter
@@ -384,7 +384,7 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
 	if (count >= 0) {
 	    QString format = rx_count.cap(1);
 	    format = format.mid(2, format.length() - 9) + _("u");
-	    p.replace(rx_count, nr.sprintf(format.toAscii(), count));
+	    p.replace(rx_count, nr.sprintf(format.toLatin1(), count));
 	} else {
 	    p.replace(rx_count, _("(\\d+)"));
 	}
@@ -396,7 +396,7 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
 	if (total >= 0) {
 	    QString format = rx_total.cap(1);
 	    format = format.mid(2, format.length() - 9) + _("u");
-	    p.replace(rx_total, nr.sprintf(format.toAscii(), total));
+	    p.replace(rx_total, nr.sprintf(format.toLatin1(), total));
 	} else {
 	    p.replace(rx_total, _("(\\d+)"));
 	}

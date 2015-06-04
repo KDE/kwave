@@ -30,7 +30,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT SampleSink: public Kwave::StreamObject
+    class Q_DECL_EXPORT SampleSink: public Kwave::StreamObject
     {
         Q_OBJECT
     public:

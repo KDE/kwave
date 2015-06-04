@@ -25,10 +25,10 @@
 #include <QtCore/QList>
 #include <QtCore/QVector>
 
-#include <QtGui/QApplication>
 #include <QtGui/QProgressDialog>
+#include <QtWidgets/QApplication>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmimetype.h>
 
 #include "libkwave/ConfirmCancelProxy.h"

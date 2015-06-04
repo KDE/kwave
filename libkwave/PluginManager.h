@@ -55,7 +55,7 @@ namespace Kwave
      * new instance of the PluginManager to be independent from other
      * toplevel widgets.
      */
-    class KDE_EXPORT PluginManager : public QObject
+    class Q_DECL_EXPORT PluginManager: public QObject
     {
 	Q_OBJECT
 

@@ -25,14 +25,14 @@
 #include <QtCore/QString>
 
 #include <kdemacros.h>
-#include <kmessagebox.h>
+#include <KF5/KWidgetsAddons/KMessageBox>
 
 class QWidget;
 
 namespace Kwave
 {
 
-    class KDE_EXPORT MessageBox: public QObject
+    class Q_DECL_EXPORT MessageBox: public QObject
     {
     Q_OBJECT
 

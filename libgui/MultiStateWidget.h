@@ -34,7 +34,7 @@ class QString;
 namespace Kwave
 {
 
-    class KDE_EXPORT MultiStateWidget : public QWidget
+    class Q_DECL_EXPORT MultiStateWidget: public QWidget
     {
 	Q_OBJECT
 

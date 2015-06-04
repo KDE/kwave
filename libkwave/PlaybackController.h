@@ -51,7 +51,8 @@ namespace Kwave
      * This class internally manages the logic and handling of the
      * playback position.
      */
-    class KDE_EXPORT PlaybackController: public QObject, public Kwave::Runnable
+    class Q_DECL_EXPORT PlaybackController: public QObject,
+                                            public Kwave::Runnable
     {
     Q_OBJECT
 

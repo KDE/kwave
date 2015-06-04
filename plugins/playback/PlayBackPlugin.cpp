@@ -25,7 +25,6 @@
 #include <unistd.h>
 
 #include <QtGui/QCursor>
-#include <QtGui/QApplication>
 #include <QtCore/QFile>
 #include <QtCore/QLatin1Char>
 #include <QtCore/QMutex>
@@ -33,6 +32,7 @@
 #include <QtGui/QProgressDialog>
 #include <QtCore/QString>
 #include <QtCore/QTimer>
+#include <QtWidgets/QApplication>
 
 #include <kapplication.h>
 #include <kconfig.h>

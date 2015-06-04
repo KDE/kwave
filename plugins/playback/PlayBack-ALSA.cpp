@@ -33,7 +33,7 @@
 #include <QtCore/QString>
 #include <QtCore/QtGlobal>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Compression.h"
 #include "libkwave/memcpy.h"

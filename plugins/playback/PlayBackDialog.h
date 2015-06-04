@@ -39,8 +39,7 @@ namespace Kwave
     class PlayBackDevice;
     class Plugin;
 
-    class PlayBackDialog : public QDialog,
-                           public Ui::PlayBackDlg
+    class PlayBackDialog: public QDialog, public Ui::PlayBackDlg
     {
 	Q_OBJECT
 

@@ -24,8 +24,8 @@
 #include <QtCore/QLocale>
 #include <QtCore/QTextStream>
 
-#include <QtGui/QApplication>
-#include <QtGui/QMdiSubWindow>
+#include <QtWidgets/QMdiSubWindow>
+#include <QtWidgets/QApplication>
 
 #include <kglobal.h>
 #include <kstandarddirs.h>

@@ -44,7 +44,7 @@ namespace Kwave
     class Track;
     class Writer;
 
-    class KDE_EXPORT Signal: public QObject
+    class Q_DECL_EXPORT Signal: public QObject
     {
 	Q_OBJECT
 

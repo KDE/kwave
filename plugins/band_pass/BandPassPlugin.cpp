@@ -21,7 +21,7 @@
 #include <errno.h>
 
 #include <QtCore/QStringList>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/MultiTrackSource.h"
 #include "BandPass.h"

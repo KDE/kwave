@@ -110,7 +110,7 @@ namespace Kwave
      * @class FileInfo
      * Holds various properties of a file.
      */
-    class KDE_EXPORT FileInfo: public Kwave::MetaData
+    class Q_DECL_EXPORT FileInfo: public Kwave::MetaData
     {
     public:
 
@@ -129,7 +129,7 @@ namespace Kwave
 
 	/** returns the identifier of the "type" of this meta data object */
 	static QString metaDataType() {
-	    return QString::fromAscii("FILE INFO");
+	    return QString::fromLatin1("FILE INFO");
 	}
 
 	/** returns the number of samples */

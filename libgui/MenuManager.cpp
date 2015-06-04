@@ -25,9 +25,9 @@
 #include <QtGui/QKeySequence>
 #include <QtCore/QRegExp>
 #include <QtCore/QString>
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
@@ -179,7 +179,7 @@ int Kwave::MenuManager::executeCommand(const QString &command)
 	}
 
 	// default case: direct specification of a key sequence
-	shortcut = QKeySequence::fromString(i18n(param.toAscii()));
+	shortcut = QKeySequence::fromString(i18n(param.toLatin1()));
     }
 
     // --- 4rth parameter: parse the string id of the node (optional) ---

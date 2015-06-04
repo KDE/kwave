@@ -17,7 +17,6 @@
 
 #include "config.h"
 
-#include <QtGui/QApplication>
 #include <QtGui/QDesktopWidget>
 #include <QtGui/QFont>
 #include <QtGui/QLabel>
@@ -25,11 +24,12 @@
 #include <QtGui/QPixmap>
 #include <QtCore/QString>
 #include <QtCore/QThread>
+#include <QtWidgets/QApplication>
 
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <kglobal.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kstandarddirs.h>
 
 #include "Splash.h"

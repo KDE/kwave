@@ -29,7 +29,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT GenreType
+    class Q_DECL_EXPORT GenreType
     {
     private:
 

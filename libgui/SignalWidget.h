@@ -74,7 +74,8 @@ namespace Kwave
      * The SignalWidget class is responsible for displaying and managing the
      * views that belong to a signal.
      */
-    class KDE_EXPORT SignalWidget : public QWidget, public Kwave::ViewManager
+    class Q_DECL_EXPORT SignalWidget: public QWidget,
+                                      public Kwave::ViewManager
     {
 	Q_OBJECT
 

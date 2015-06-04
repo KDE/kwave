@@ -32,7 +32,7 @@ class QTimer;
 
 namespace Kwave
 {
-    class LogoWidget : public QWidget
+    class LogoWidget: public QWidget
     {
 	Q_OBJECT
 

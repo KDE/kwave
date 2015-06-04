@@ -38,7 +38,7 @@ namespace Kwave
      * A MultiTrackReader encapsulates a set of <c>SampleReader</c>s for
      * easier use of multi-track signals.
      */
-    class KDE_EXPORT MultiTrackReader
+    class Q_DECL_EXPORT MultiTrackReader
 	:public Kwave::MultiTrackSource<Kwave::SampleReader, false>
     {
 	Q_OBJECT

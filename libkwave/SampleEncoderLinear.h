@@ -28,7 +28,7 @@
 
 namespace Kwave
 {
-    class KDE_EXPORT SampleEncoderLinear: public Kwave::SampleEncoder
+    class Q_DECL_EXPORT SampleEncoderLinear: public Kwave::SampleEncoder
     {
     public:
 

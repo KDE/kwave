@@ -37,7 +37,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT SampleReader: public Kwave::SampleSource
+    class Q_DECL_EXPORT SampleReader: public Kwave::SampleSource
     {
 	Q_OBJECT
     public:

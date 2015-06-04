@@ -25,7 +25,7 @@
 #include <QtCore/QReadLocker>
 #include <QtCore/QWriteLocker>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Filter.h"
@@ -599,7 +599,5 @@ void Kwave::Signal::slotSamplesModified(Kwave::Track *src,
     emit sigSamplesModified(track, offset, length);
 }
 
-//***************************************************************************
-#include "Signal.moc"
 //***************************************************************************
 //***************************************************************************

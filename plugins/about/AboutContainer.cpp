@@ -26,7 +26,7 @@
 
 #include <kapplication.h>
 #include <kdialog.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <ktoolinvocation.h>
 
 #include "libkwave/String.h"

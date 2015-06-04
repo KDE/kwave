@@ -20,11 +20,11 @@
 #include <new>
 #include <limits>
 
-#include <QtGui/QApplication>
 #include <QtCore/QBuffer>
 #include <QtCore/QMutableListIterator>
 #include <QtCore/QVariant>
-#include <QtGui/QWidget>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QWidget>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
@@ -436,7 +436,5 @@ void Kwave::MimeData::clear()
     m_buffer.close();
 }
 
-//***************************************************************************
-#include "MimeData.moc"
 //***************************************************************************
 //***************************************************************************

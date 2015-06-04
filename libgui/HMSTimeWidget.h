@@ -29,7 +29,7 @@
 
 namespace Kwave
 {
-    class KDE_EXPORT HMSTimeWidget
+    class Q_DECL_EXPORT HMSTimeWidget
         :public QWidget, public Ui::HMSTimeWidgetBase
     {
 	Q_OBJECT

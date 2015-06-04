@@ -22,17 +22,12 @@
 
 #include <limits>
 
-#include <QtCore/qglobal.h>
+#include <QtCore/QtGlobal>
 #include <QtCore/QString>
 
 #include "kdemacros.h"
 
 #include "libkwave/Sample.h" // for sample_index_t
-
-/** @todo remove these compatibility macros when Qt-4.7 is no longer in use */
-#ifndef Q_DECL_CONSTEXPR
-#define Q_DECL_CONSTEXPR /* */
-#endif /* Q_DECL_CONSTEXPR */
 
 #ifndef Q_LIKELY
 #define Q_LIKELY(x) (x)
@@ -49,7 +44,7 @@ namespace Kwave
      * Gives the control to the next thread. This can be called from
      * within the run() function.
      */
-    void KDE_EXPORT yield();
+    void Q_DECL_EXPORT yield();
 
     /**
      * Converts a zoom factor into a string. The number of decimals
@@ -61,7 +56,7 @@ namespace Kwave
      * @param percent the zoom factor to be formated, a value of "100.0"
      *             means "100%", "0.1" means "0.1%" and so on.
      */
-    QString KDE_EXPORT zoom2string(double percent);
+    QString Q_DECL_EXPORT zoom2string(double percent);
 
     /**
      * Converts a time in milliseconds into a string. Times below one
@@ -76,7 +71,7 @@ namespace Kwave
      *                  must be >= 3 !
      * @return time formatted as user-readable string
      */
-    QString KDE_EXPORT ms2string(double ms, int precision = 6);
+    QString Q_DECL_EXPORT ms2string(double ms, int precision = 6);
 
     /**
      * Converts a number of samples (aka sample_index_t) into a string,
@@ -84,7 +79,7 @@ namespace Kwave
      * @param samples number of sample
      * @return number formatted with thousands separators
      */
-    QString KDE_EXPORT samples2string(sample_index_t samples);
+    QString Q_DECL_EXPORT samples2string(sample_index_t samples);
 
     /**
      * Converts a time in milliseconds into a string with hours,
@@ -92,7 +87,7 @@ namespace Kwave
      * @param ms time in milliseconds
      * @return time formatted as HH:MM:SS:mmmm
      */
-    QString KDE_EXPORT ms2hms(double ms);
+    QString Q_DECL_EXPORT ms2hms(double ms);
 
     /**
      * Tries to convert a string into a QDate
@@ -100,7 +95,7 @@ namespace Kwave
      * @return a ISO 8601 timestamp: "yyyy-MM-ddTHH:mm:ss"
      *         or shortened as date "yyyy-MM-dd"
      */
-    QString KDE_EXPORT string2date(const QString &s);
+    QString Q_DECL_EXPORT string2date(const QString &s);
 
     /**
      * Round up a numeric value
@@ -122,7 +117,7 @@ namespace Kwave
      * @param x some numeric value, e.g. a sample_index_t or qint64
      * @return some unsigned int [0 ... UINT_MAX]
      */
-    template <typename T> Q_DECL_CONSTEXPR unsigned int toUint(T x)
+    template <typename T> unsigned int toUint(T x)
     {
 	const unsigned int max = std::numeric_limits<unsigned int>::max();
 	Q_ASSERT(x >= 0);
@@ -140,7 +135,7 @@ namespace Kwave
      * @param x some numeric value, e.g. a sample_index_t or qint64
      * @return some (signed) int [INT_MIN ... INT_MAX]
      */
-    template <typename T> Q_DECL_CONSTEXPR int toInt(T x)
+    template <typename T> int toInt(T x)
     {
 	const int min = std::numeric_limits<int>::min();
 	const int max = std::numeric_limits<int>::max();
@@ -154,7 +149,7 @@ namespace Kwave
     }
 
     /** returns the URL scheme for encoding/decoding kwave:<*> URLs */
-    QString KDE_EXPORT urlScheme();
+    QString Q_DECL_EXPORT urlScheme();
 
 }
 

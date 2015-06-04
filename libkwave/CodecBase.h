@@ -32,7 +32,7 @@ class KUrl;
 namespace Kwave
 {
 
-    class KDE_EXPORT CodecBase
+    class Q_DECL_EXPORT CodecBase
     {
     public:
 

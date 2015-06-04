@@ -30,7 +30,7 @@ class QWidget;
 namespace Kwave
 {
 
-    class KDE_EXPORT ConfirmCancelProxy: public QObject
+    class Q_DECL_EXPORT ConfirmCancelProxy: public QObject
     {
 	Q_OBJECT
     public:

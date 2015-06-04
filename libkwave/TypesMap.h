@@ -129,7 +129,7 @@ namespace Kwave
 	{
 	    if (!m_list.contains(type)) return QString();
 	    QString s(m_list[type].third());
-	    return (localized) ? i18n(s.toAscii()) : s;
+	    return (localized) ? i18n(s.toLatin1()) : s;
 	}
 
 	/**

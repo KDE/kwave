@@ -22,17 +22,17 @@
 #include <limits.h>
 #include <math.h>
 
-#include <QtGui/QApplication>
 #include <QtGui/QCursor>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QMutableListIterator>
+#include <QtWidgets/QApplication>
 
 #include <kaboutdata.h>
 #include <kapplication.h>
 #include <kcomponentdata.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmimetype.h>
 #include <kprogressdialog.h>
 #include <kurl.h>
@@ -2020,7 +2020,5 @@ void Kwave::SignalManager::checkSelectionChange()
 
 }
 
-//***************************************************************************
-#include "SignalManager.moc"
 //***************************************************************************
 //***************************************************************************

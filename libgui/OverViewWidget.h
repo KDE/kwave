@@ -45,7 +45,7 @@ namespace Kwave
     class SignalManager;
     class Track;
 
-    class KDE_EXPORT OverViewWidget : public Kwave::ImageView
+    class Q_DECL_EXPORT OverViewWidget: public Kwave::ImageView
     {
 	Q_OBJECT
     public:

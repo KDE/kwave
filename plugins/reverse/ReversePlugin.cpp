@@ -19,10 +19,10 @@
 #include <math.h>
 #include <new>
 
-#include <klocale.h> // for the i18n macro
+#include <KI18n/KLocalizedString> // for the i18n macro
 
+#include <QtConcurrent/QtConcurrentRun>
 #include <QtCore/QFutureSynchronizer>
-#include <QtCore/QtConcurrentRun>
 #include <QtCore/QList>
 #include <QtCore/QSharedPointer>
 #include <QtCore/QStringList>

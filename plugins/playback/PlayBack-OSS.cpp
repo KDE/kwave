@@ -32,7 +32,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QLatin1Char>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/memcpy.h"
 #include "libkwave/ByteOrder.h"

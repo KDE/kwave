@@ -49,7 +49,6 @@ MESSAGE(STATUS "Building Kwave version ${KWAVE_VERSION_FULL}")
 #############################################################################
 ### ISO formated date                                                     ###
 
-FIND_PACKAGE(RequiredProgram REQUIRED)
 FIND_REQUIRED_PROGRAM(DATE_EXECUTABLE date)
 
 EXECUTE_PROCESS(

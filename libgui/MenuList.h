@@ -34,7 +34,7 @@ namespace Kwave
      * which contains a number of list entries. It is normally owned by a
      * sub menu.
      */
-    class MenuList : public Kwave::MenuNode
+    class MenuList: public Kwave::MenuNode
     {
 	Q_OBJECT
 

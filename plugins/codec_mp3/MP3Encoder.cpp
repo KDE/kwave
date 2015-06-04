@@ -30,7 +30,7 @@
 #include <QtCore/QList>
 #include <QtCore/QMap>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kmimetype.h>
 #include <kapplication.h>
 #include <kglobal.h>
@@ -159,7 +159,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		    str_val  = str_val.mid(5);
 		    frame->GetField(ID3FN_DESCRIPTION)->Set("");
 		    frame->GetField(ID3FN_LANGUAGE)->Set(
-			static_cast<const char *>(lang.toAscii().data()));
+			static_cast<const char *>(lang.toLatin1().data()));
 		}
 		/* frame->GetField(ID3FN_DESCRIPTION)->Set(""); */
 		field->SetEncoding(ID3TE_UTF16);

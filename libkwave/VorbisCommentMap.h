@@ -29,7 +29,8 @@ VorbisCommentMap.h  -  map for translating properties to vorbis comments
 
 namespace Kwave
 {
-    class KDE_EXPORT VorbisCommentMap :public QMap<QString, Kwave::FileProperty>
+    class Q_DECL_EXPORT VorbisCommentMap
+	:public QMap<QString, Kwave::FileProperty>
     {
     public:
 	/** Default constructor, with initializing */

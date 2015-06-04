@@ -25,7 +25,7 @@
 #include <kuniqueapplication.h>
 #include <kapplication.h>
 #include <kcrash.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <kcmdlineargs.h>
 
 #include "libkwave/String.h"
@@ -165,8 +165,8 @@ int main( int argc, char **argv )
 
     /* show some version info */
     printf("\nThis is %s v%s (compiled for KDE %s)\n",
-	about.productName().toAscii().data(),
-	about.version().toAscii().data(),
+	about.productName().toLatin1().data(),
+	about.version().toLatin1().data(),
 	KDE_VERSION_STRING
     );
 

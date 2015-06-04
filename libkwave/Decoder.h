@@ -35,7 +35,7 @@ namespace Kwave
 
     class MultiWriter;
 
-    class KDE_EXPORT Decoder: public QObject, public Kwave::CodecBase
+    class Q_DECL_EXPORT Decoder: public QObject, public Kwave::CodecBase
     {
 	Q_OBJECT
     public:

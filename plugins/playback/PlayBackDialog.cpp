@@ -35,7 +35,7 @@
 #include <kfiledialog.h>
 #include <kiconloader.h>
 #include <kicontheme.h>
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 #include <knuminput.h>
 #include <kpushbutton.h>
 #include <ktoolinvocation.h>

@@ -35,7 +35,7 @@ namespace Kwave
 
     class MultiTrackReader;
 
-    class KDE_EXPORT Encoder: public QObject, public Kwave::CodecBase
+    class Q_DECL_EXPORT Encoder: public QObject, public Kwave::CodecBase
     {
 	Q_OBJECT
     public:

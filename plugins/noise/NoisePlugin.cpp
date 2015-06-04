@@ -21,7 +21,7 @@
 
 #include <errno.h>
 
-#include <klocale.h> // for the i18n macro
+#include <KI18n/KLocalizedString> // for the i18n macro
 
 #include "libkwave/MultiTrackSource.h"
 #include "libkwave/MultiTrackWriter.h"

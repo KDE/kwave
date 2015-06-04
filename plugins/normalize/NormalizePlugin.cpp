@@ -23,13 +23,13 @@
 #include <math.h>
 #include <new>
 
+#include <QtConcurrent/QtConcurrentRun>
 #include <QtCore/QFutureSynchronizer>
-#include <QtCore/QtConcurrentRun>
 #include <QtCore/QList>
 #include <QtCore/QStringList>
 #include <QtCore/QThread>
 
-#include <klocale.h> // for the i18n macro
+#include <KI18n/KLocalizedString> // for the i18n macro
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Connect.h"

@@ -23,15 +23,15 @@
 
 #include <QtCore/QtGlobal>
 #include <QtCore/QPoint>
-#include <QtGui/QApplication>
-#include <QtGui/QFrame>
-#include <QtGui/QGridLayout>
-#include <QtGui/QHBoxLayout>
 #include <QtGui/QResizeEvent>
-#include <QtGui/QScrollBar>
 #include <QtGui/QWheelEvent>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QApplication>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"

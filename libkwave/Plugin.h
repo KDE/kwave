@@ -41,11 +41,11 @@ class QVariant;
                      __description__,__author__)                              \
                                                                               \
     extern "C" Kwave::Plugin *load(                                           \
-                     Kwave::PluginManager &plugin_manager) KDE_EXPORT;        \
-    extern "C" const char    *name                         KDE_EXPORT;        \
-    extern "C" const char    *version                      KDE_EXPORT;        \
-    extern "C" const char    *description                  KDE_EXPORT;        \
-    extern "C" const char    *author                       KDE_EXPORT;        \
+                     Kwave::PluginManager &plugin_manager) Q_DECL_EXPORT;     \
+    extern "C" const char    *name                         Q_DECL_EXPORT;     \
+    extern "C" const char    *version                      Q_DECL_EXPORT;     \
+    extern "C" const char    *description                  Q_DECL_EXPORT;     \
+    extern "C" const char    *author                       Q_DECL_EXPORT;     \
                                                                               \
     extern "C" Kwave::Plugin *load(Kwave::PluginManager &plugin_manager) {    \
 	return new __class__(plugin_manager);                                 \
@@ -77,7 +77,7 @@ namespace Kwave
      * all necessary functions to access the functionality of the main
      * Kwave program.
      */
-    class KDE_EXPORT Plugin: public QObject, public Kwave::Runnable
+    class Q_DECL_EXPORT Plugin: public QObject, public Kwave::Runnable
     {
 	Q_OBJECT
 

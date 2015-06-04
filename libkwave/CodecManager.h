@@ -37,7 +37,7 @@ namespace Kwave
     class Decoder;
     class Encoder;
 
-    class KDE_EXPORT CodecManager: public QObject
+    class Q_DECL_EXPORT CodecManager: public QObject
     {
 	Q_OBJECT
     public:

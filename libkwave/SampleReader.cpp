@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 
 #include "libkwave/memcpy.h"
 #include "libkwave/Sample.h"
@@ -374,7 +374,5 @@ unsigned int Kwave::SampleReader::readSamples(sample_index_t offset,
     return length;
 }
 
-//***************************************************************************
-#include "SampleReader.moc"
 //***************************************************************************
 //***************************************************************************

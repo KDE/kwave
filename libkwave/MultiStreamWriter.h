@@ -35,7 +35,7 @@ namespace Kwave
      * A MultiStreamWriter encapsulates a set of <c>StreamWriter</c>s for
      * easier use of multi-track signals.
      */
-    class KDE_EXPORT MultiStreamWriter: public Kwave::MultiWriter
+    class Q_DECL_EXPORT MultiStreamWriter: public Kwave::MultiWriter
     {
 	Q_OBJECT
 

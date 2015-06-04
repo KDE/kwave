@@ -47,7 +47,7 @@ static void _handle_audiofile_error(long int error, const char *str)
 {
     qDebug("libaudiofile error %ld: '%s'", error, str);
     _last_audiofile_error = error;
-    _last_audiofile_error_text = QString::fromAscii(str);
+    _last_audiofile_error_text = QString::fromLatin1(str);
 }
 
 //***************************************************************************

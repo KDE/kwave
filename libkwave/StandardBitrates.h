@@ -26,7 +26,7 @@
 
 namespace Kwave
 {
-    class KDE_EXPORT StandardBitrates: public QList<int>
+    class Q_DECL_EXPORT StandardBitrates: public QList<int>
     {
     public:
 	/** Constructor */

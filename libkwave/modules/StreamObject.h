@@ -30,7 +30,7 @@ class QVariant;
 namespace Kwave
 {
 
-    class KDE_EXPORT StreamObject: public QObject
+    class Q_DECL_EXPORT StreamObject: public QObject
     {
 	Q_OBJECT
     public:

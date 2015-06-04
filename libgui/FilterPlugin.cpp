@@ -21,11 +21,11 @@
 #include <errno.h>
 #include <unistd.h>
 
-#include <QtGui/QApplication>
 #include <QtGui/QDialog>
 #include <QtCore/QStringList>
+#include <QtWidgets/QApplication>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Connect.h"
 #include "libkwave/MultiTrackReader.h"

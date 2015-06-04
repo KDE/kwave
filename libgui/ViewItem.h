@@ -32,7 +32,7 @@ class QMenu;
 
 namespace Kwave
 {
-    class KDE_EXPORT ViewItem: public QObject
+    class Q_DECL_EXPORT ViewItem: public QObject
     {
 	Q_OBJECT
 

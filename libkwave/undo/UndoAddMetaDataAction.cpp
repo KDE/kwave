@@ -23,7 +23,7 @@
 #include <QtCore/QVariant>
 #include <QtCore/QtAlgorithms>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/MetaData.h"
 #include "libkwave/SignalManager.h"

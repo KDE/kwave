@@ -63,7 +63,6 @@ KWAVE_PLUGIN(Kwave::SonagramPlugin, "sonagram", "2.3",
 #define REPAINT_INTERVAL 500
 
 //***************************************************************************
-//***************************************************************************
 Kwave::SonagramPlugin::SonagramPlugin(Kwave::PluginManager &plugin_manager)
     :Kwave::Plugin(plugin_manager),
      m_sonagram_window(0),

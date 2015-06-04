@@ -65,7 +65,7 @@ namespace Kwave
 {
     class Track;
 
-    class KDE_EXPORT TrackPixmap : public QObject
+    class Q_DECL_EXPORT TrackPixmap: public QObject
     {
 	Q_OBJECT
 

@@ -35,7 +35,7 @@ namespace Kwave
     /**
      * displays a frequency response
      */
-    class KDE_EXPORT FrequencyResponseWidget: public QWidget
+    class Q_DECL_EXPORT FrequencyResponseWidget: public QWidget
     {
 	Q_OBJECT
 

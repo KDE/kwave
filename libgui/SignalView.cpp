@@ -19,7 +19,6 @@
 
 #include <math.h>
 
-#include <QtGui/QApplication>
 #include <QtGui/QBitmap>
 #include <QtGui/QBrush>
 #include <QtCore/QEvent>
@@ -29,6 +28,7 @@
 #include <QtCore/QThread>
 #include <QtGui/QToolTip>
 #include <QtCore/QUrl>
+#include <QtWidgets/QApplication>
 
 #include <kglobalsettings.h>
 

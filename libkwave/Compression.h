@@ -32,7 +32,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT Compression
+    class Q_DECL_EXPORT Compression
     {
     public:
 

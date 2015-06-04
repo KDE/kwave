@@ -31,7 +31,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT Label: public Kwave::MetaData
+    class Q_DECL_EXPORT Label: public Kwave::MetaData
     {
     public:
 

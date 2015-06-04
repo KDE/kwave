@@ -20,7 +20,6 @@
 #include "config.h"
 #include <math.h>
 
-#include <QtGui/QApplication>
 #include <QtGui/QBrush>
 #include <QtGui/QColor>
 #include <QtGui/QFont>
@@ -28,8 +27,9 @@
 #include <QtGui/QPainter>
 #include <QtGui/QPixmap>
 #include <QtCore/QTimer>
+#include <QtWidgets/QApplication>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/Utils.h"
 

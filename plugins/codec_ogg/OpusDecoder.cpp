@@ -23,13 +23,13 @@
 
 #include <opus/opus_defines.h>
 
-#include <QtGui/QApplication>
 #include <QtCore/QDate>
 #include <QtCore/qendian.h>
 #include <QtCore/QIODevice>
 #include <QtCore/QString>
+#include <QtWidgets/QApplication>
 
-#include <klocale.h>
+#include <KI18n/KLocalizedString>
 
 #include "libkwave/BitrateMode.h"
 #include "libkwave/Compression.h"

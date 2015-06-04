@@ -28,7 +28,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT CurveStreamAdapter :public Kwave::SampleSource
+    class Q_DECL_EXPORT CurveStreamAdapter: public Kwave::SampleSource
     {
         Q_OBJECT
     public:

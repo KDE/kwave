@@ -29,7 +29,7 @@ class QWidget;
 namespace Kwave
 {
 
-    class KDE_EXPORT InvertableSpinBox: public QSpinBox
+    class Q_DECL_EXPORT InvertableSpinBox: public QSpinBox
     {
 	Q_OBJECT
     public:

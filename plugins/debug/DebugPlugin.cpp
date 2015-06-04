@@ -21,7 +21,7 @@
 #include <math.h>
 #include <string.h>
 
-#include <klocale.h> // for the i18n macro
+#include <KI18n/KLocalizedString> // for the i18n macro
 
 #include <QtCore/QByteArray>
 #include <QtCore/QCoreApplication>
@@ -33,13 +33,13 @@
 #include <QtCore/QStringList>
 #include <QtCore/QTimer>
 
-#include <QtGui/QApplication>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QKeySequence>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QDesktopWidget>
 #include <QtGui/QPixmap>
 #include <QtGui/QtEvents>
+#include <QtWidgets/QApplication>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"

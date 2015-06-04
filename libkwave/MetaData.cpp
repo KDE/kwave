@@ -17,10 +17,10 @@
 
 #include "config.h"
 
-#include <QtGui/QApplication>
 #include <QtCore/QDateTime>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QUuid>
+#include <QtWidgets/QApplication>
 
 #include "libkwave/MetaData.h"
 #include "libkwave/String.h"

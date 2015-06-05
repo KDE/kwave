@@ -20,7 +20,7 @@
 #include <errno.h>
 #include <math.h>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <QStringList>
 
 #include "BandPass.h"

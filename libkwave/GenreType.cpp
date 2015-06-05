@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/GenreType.h"
 #include "libkwave/String.h"

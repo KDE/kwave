@@ -143,7 +143,7 @@ frequencies will be cut off.</string>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="btListen">
+      <widget class="QPushButton" name="btListen">
        <property name="toolTip">
         <string>start/stop pre-listening</string>
        </property>
@@ -191,11 +191,6 @@ frequencies will be cut off.</string>
    <class>KDialogButtonBox</class>
    <extends>QDialogButtonBox</extends>
    <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KIntSpinBox</class>

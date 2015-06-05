@@ -19,7 +19,7 @@
 
 #include <QDateTime>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:kmimetype.h>
 
 #include "libkwave/Compression.h"

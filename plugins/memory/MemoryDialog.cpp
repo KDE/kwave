@@ -31,7 +31,6 @@
 #include <KLineEdit>
 #include <KToolInvocation>
 #include <TODO:kfiledialog.h>
-#include <TODO:kpushbutton.h>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"

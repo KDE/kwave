@@ -22,7 +22,7 @@
 
 #include <QAction>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KIconLoader>
 #include <KMainWindow>
 

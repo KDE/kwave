@@ -141,6 +141,7 @@ TARGET_LINK_LIBRARIES(libkwave
     ${SAMPLERATE_LIBS}
     Qt5::Core
     Qt5::Concurrent
+    KF5::CoreAddons
     KF5::I18n
     KF5::WidgetsAddons
 )

@@ -35,7 +35,7 @@
 #include <QStringList>
 #include <QTextStream>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KIconLoader>
 #include <TODO:kfiledialog.h>
 #include <TODO:kstandarddirs.h>

@@ -320,7 +320,7 @@ QUrl Kwave::Parser::toUrl(const QString &command)
     Parser parser(command);
 
     // encode the command as "path"
-    url.setEncodedPath(QUrl::toPercentEncoding(parser.command()));
+    url.setPath(QString::fromLatin1(QUrl::toPercentEncoding(parser.command())));
 
     // encode the parameter list into a comma separated string
     unsigned int count = parser.count();
@@ -330,7 +330,7 @@ QUrl Kwave::Parser::toUrl(const QString &command)
 	if (params.length()) params += ',';
 	params += QUrl::toPercentEncoding(param);
     }
-    url.setEncodedQuery(params);
+    url.setQuery(QString::fromLatin1(params));
 
     return url;
 }
@@ -341,11 +341,11 @@ QString Kwave::Parser::fromUrl(const QUrl &url)
     if (url.scheme().toLower() != Kwave::urlScheme()) return QString();
 
     // get the command name (path)
-    QString command = QUrl::fromPercentEncoding(url.encodedPath());
+    QString command = QUrl::fromPercentEncoding(url.path().toLatin1());
 
     // get the parameter list
     command += _("(");
-    QStringList params = QString::fromLatin1(url.encodedQuery()).split(_(","));
+    QStringList params = url.query().split(_(","));
     if (!params.isEmpty()) {
 	bool first = true;
 	foreach (const QString &param, params) {

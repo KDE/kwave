@@ -19,7 +19,7 @@
 
 #include <QListIterator>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:kmenubar.h>
 
 #include "libkwave/String.h"

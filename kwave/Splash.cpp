@@ -27,7 +27,7 @@
 #include <QThread>
 
 #include <KAboutData>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:kapplication.h>
 #include <TODO:kglobal.h>
 #include <TODO:kstandarddirs.h>

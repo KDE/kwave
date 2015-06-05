@@ -18,7 +18,7 @@
 
 #include "config.h"
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"

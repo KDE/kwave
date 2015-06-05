@@ -27,7 +27,7 @@
 #include <QString>
 #include <QWidget>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"

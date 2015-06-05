@@ -602,7 +602,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	    sig[x] = static_cast<float>(sample_buffer[sample] * scale_y);
 	}
 	sample++;
-	x = KDE_ISLIKELY(sample >= 0) ?
+	x = Q_LIKELY(sample >= 0) ?
 	    samples2pixels(sample) :
 	    (-1 * samples2pixels(-1 * sample));
     }

@@ -105,8 +105,9 @@ void Kwave::FileDialog::loadConfig(const QString &section)
 	    QUrl    url  = QUrl(last_path);
 	    QFile f(m_last_url);
 	    QString file = f.fileName();
-	    url.setFileName(file);
-	    m_last_url = url.prettyUrl();
+	    url = url.adjusted(QUrl::RemoveFilename);
+	    url.setPath(url.path() + file);
+	    m_last_url = url.toDisplayString();
 	}
     } else {
 	m_last_url = cfg.readEntry("last_url", m_last_url);

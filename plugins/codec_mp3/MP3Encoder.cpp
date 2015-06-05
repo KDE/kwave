@@ -30,7 +30,7 @@
 #include <QList>
 #include <QMap>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:kapplication.h>
 #include <TODO:kglobal.h>
 #include <TODO:kmimetype.h>

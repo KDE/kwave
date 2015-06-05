@@ -35,7 +35,7 @@
 
 #include <KComboBox>
 #include <KConfig>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KLineEdit>
 #include <KToolInvocation>
 #include <TODO:kdatewidget.h>
@@ -44,7 +44,6 @@
 #include <TODO:klistwidget.h>
 #include <TODO:kmimetype.h>
 #include <TODO:knuminput.h>
-#include <TODO:kpushbutton.h>
 #include <TODO:ktabwidget.h>
 
 #include "libkwave/CodecManager.h"

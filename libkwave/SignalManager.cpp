@@ -31,7 +31,7 @@
 #include <QUrl>
 
 #include <KAboutData>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:kapplication.h>
 #include <TODO:kcomponentdata.h>
 #include <TODO:kmimetype.h>
@@ -151,7 +151,7 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
 
     QString mimetype = Kwave::CodecManager::whatContains(url);
     qDebug("SignalManager::loadFile(%s) - [%s]",
-           DBG(url.prettyUrl()), DBG(mimetype));
+           DBG(url.toDisplayString()), DBG(mimetype));
     Kwave::Decoder *decoder = Kwave::CodecManager::decoder(mimetype);
     while (decoder) {
 	// be sure that the current signal is really closed
@@ -159,7 +159,7 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
 
 	// open the source file
 	if (!(res = decoder->open(m_parent_widget, src))) {
-	    qWarning("unable to open source: '%s'", DBG(url.prettyUrl()));
+	    qWarning("unable to open source: '%s'", DBG(url.toDisplayString()));
 	    res = -EIO;
 	    break;
 	}
@@ -336,7 +336,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
     QString mimetype_name;
     mimetype_name = Kwave::CodecManager::whatContains(url);
     qDebug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
-	DBG(url.prettyUrl()), DBG(mimetype_name), bits, selection);
+	DBG(url.toDisplayString()), DBG(mimetype_name), bits, selection);
 
     Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype_name);
     Kwave::FileInfo file_info(m_meta_data);

@@ -32,9 +32,8 @@
 #include <QStringList>
 
 #include <KComboBox>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KToolInvocation>
-#include <TODO:kpushbutton.h>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"

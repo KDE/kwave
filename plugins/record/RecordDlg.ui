@@ -139,7 +139,7 @@
              <item row="8" column="0" colspan="3">
               <layout class="QHBoxLayout">
                <item>
-                <widget class="KPushButton" name="btNew">
+                <widget class="QPushButton" name="btNew">
                  <property name="enabled">
                   <bool>true</bool>
                  </property>
@@ -158,7 +158,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btStop">
+                <widget class="QPushButton" name="btStop">
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
@@ -177,7 +177,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btPause">
+                <widget class="QPushButton" name="btPause">
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
@@ -196,7 +196,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btRecord">
+                <widget class="QPushButton" name="btRecord">
                  <property name="minimumSize">
                   <size>
                    <width>30</width>
@@ -1061,7 +1061,7 @@ recording. Depending on the compilation options you can select one of the follow
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btSourceSelect">
+                <widget class="QPushButton" name="btSourceSelect">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -1316,11 +1316,6 @@ recording. Depending on the compilation options you can select one of the follow
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KIntSpinBox</class>

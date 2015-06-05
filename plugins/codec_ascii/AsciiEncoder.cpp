@@ -24,7 +24,7 @@
 #include <QTextCodec>
 #include <QVariant>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:kapplication.h>
 #include <TODO:kglobal.h>
 #include <TODO:kmimetype.h>

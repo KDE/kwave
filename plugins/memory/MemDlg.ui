@@ -146,7 +146,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="KPushButton" name="btSearch">
+       <widget class="QPushButton" name="btSearch">
         <property name="toolTip">
          <string>Browse for a directory to hold page files</string>
         </property>
@@ -338,11 +338,6 @@ If you do not set a limit, the size of the physically installed memory in your c
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

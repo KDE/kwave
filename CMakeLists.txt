@@ -186,6 +186,7 @@ ADD_DEFINITIONS(${KDE4_DEFINITIONS})
 FIND_PACKAGE(KF5 REQUIRED COMPONENTS
     Config
     ConfigWidgets
+    CoreAddons
     DocTools
     GuiAddons
     I18n

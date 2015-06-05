@@ -21,7 +21,7 @@
 #include <QThread>
 #include <QWidget>
 
-#include <KF5/KGuiAddons/KMessageBox>
+#include <KMessageBox>
 
 #include "libkwave/MessageBox.h"
 

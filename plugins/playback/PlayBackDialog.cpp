@@ -31,14 +31,13 @@
 
 #include <KComboBox>
 #include <KConfig>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KIconLoader>
 #include <KIconTheme>
 #include <KToolInvocation>
 #include <TODO:kapplication.h>
 #include <TODO:kfiledialog.h>
 #include <TODO:knuminput.h>
-#include <TODO:kpushbutton.h>
 
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PlayBackTypesMap.h"

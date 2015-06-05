@@ -20,7 +20,7 @@
 #include <QString>
 #include <QWidget>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/MessageBox.h"

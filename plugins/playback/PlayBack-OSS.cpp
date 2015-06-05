@@ -32,7 +32,7 @@
 #include <QFile>
 #include <QLatin1Char>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/ByteOrder.h"
 #include "libkwave/Compression.h"

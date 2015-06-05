@@ -24,7 +24,7 @@
     <widget class="KLineEdit" name="edKeyword"/>
    </item>
    <item row="2" column="1">
-    <widget class="KPushButton" name="btRemove">
+    <widget class="QPushButton" name="btRemove">
      <property name="text">
       <string>&amp;Remove</string>
      </property>
@@ -47,7 +47,7 @@
     </spacer>
    </item>
    <item row="1" column="1">
-    <widget class="KPushButton" name="btAdd">
+    <widget class="QPushButton" name="btAdd">
      <property name="text">
       <string>&amp;Add</string>
      </property>
@@ -57,7 +57,7 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="KPushButton" name="btAuto">
+    <widget class="QPushButton" name="btAuto">
      <property name="toolTip">
       <string>auto-generate keywords</string>
      </property>
@@ -91,11 +91,6 @@ Create a list of keywords by going through all present file information and merg
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KListWidget</class>

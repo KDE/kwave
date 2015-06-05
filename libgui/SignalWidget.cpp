@@ -37,7 +37,7 @@
 #include <QToolTip>
 
 #include <KCursor>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KIconLoader>
 #include <TODO:kfiledialog.h>
 #include <TODO:kglobal.h>

@@ -22,7 +22,7 @@
 
 #include <QStringList>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "NotchFilter.h"
 #include "NotchFilterDialog.h"

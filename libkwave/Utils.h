@@ -93,8 +93,7 @@ namespace Kwave
      * @param s unit size
      * @return x rounded up to the next unit
      */
-    template<class T>
-    Q_DECL_CONSTEXPR T round_up(T x, const T s)
+    template<class T> T round_up(T x, const T s)
     {
 	T modulo = (x % s);
 	if (modulo) x += (s - modulo);

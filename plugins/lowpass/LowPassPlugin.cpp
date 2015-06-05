@@ -22,7 +22,7 @@
 
 #include <QStringList>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "LowPassDialog.h"
 #include "LowPassFilter.h"

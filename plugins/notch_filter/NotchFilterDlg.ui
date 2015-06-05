@@ -182,7 +182,7 @@ should be removed.</string>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="btListen">
+      <widget class="QPushButton" name="btListen">
        <property name="toolTip">
         <string>start/stop pre-listening</string>
        </property>
@@ -230,11 +230,6 @@ should be removed.</string>
    <class>KDialogButtonBox</class>
    <extends>QDialogButtonBox</extends>
    <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KIntSpinBox</class>

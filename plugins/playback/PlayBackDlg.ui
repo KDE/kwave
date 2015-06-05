@@ -75,7 +75,7 @@
          </widget>
         </item>
         <item>
-         <widget class="KPushButton" name="btSelectDevice">
+         <widget class="QPushButton" name="btSelectDevice">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -441,7 +441,7 @@ playback. Depending on the compilation options you can select one of the followi
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="btTest">
+      <widget class="QPushButton" name="btTest">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -503,11 +503,6 @@ playback. Depending on the compilation options you can select one of the followi
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KIntSpinBox</class>

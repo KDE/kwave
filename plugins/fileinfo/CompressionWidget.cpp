@@ -26,7 +26,7 @@
 #include <QToolTip>
 #include <QWhatsThis>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:knuminput.h>
 
 #include "libkwave/StandardBitrates.h"

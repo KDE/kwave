@@ -21,7 +21,7 @@
 #include <math.h>
 #include <string.h>
 
-#include <KI18n/KLocalizedString> // for the i18n macro
+#include <KLocalizedString> // for the i18n macro
 
 #include <QByteArray>
 #include <QCoreApplication>

@@ -22,7 +22,7 @@
 #include <QRadioButton>
 #include <QSlider>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KToolInvocation>
 #include <TODO:knuminput.h>
 

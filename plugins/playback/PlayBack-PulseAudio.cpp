@@ -33,7 +33,7 @@
 #include <QString>
 #include <QtGlobal>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KUser>
 
 #include "libkwave/FileInfo.h"

@@ -27,7 +27,7 @@
 #include <QtAlgorithms>
 
 #include <KAboutData>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KTextEdit>
 #include <KUrlLabel>
 #include <TODO:kapplication.h>

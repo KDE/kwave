@@ -24,12 +24,12 @@
 #include <QLatin1Char>
 #include <QLibrary>
 #include <QMutableListIterator>
+#include <QtGlobal>
 
 #include <KConfig>
 #include <KConfigGroup>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KMainWindow>
-#include <TODO:kglobal.h>
 #include <TODO:kstandarddirs.h>
 
 #include "libkwave/MessageBox.h"

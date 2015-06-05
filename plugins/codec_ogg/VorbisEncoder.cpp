@@ -23,7 +23,7 @@
 #include <QTime>
 #include <QtGlobal>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"

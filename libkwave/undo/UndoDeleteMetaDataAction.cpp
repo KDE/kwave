@@ -20,7 +20,7 @@
 
 #include <new>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoAddMetaDataAction.h"

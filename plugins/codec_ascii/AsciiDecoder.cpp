@@ -24,7 +24,7 @@
 #include <QLatin1String>
 #include <QRegExp>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:kmimetype.h>
 
 #include "libkwave/Label.h"

@@ -31,10 +31,9 @@
 #include <QTimer>
 
 #include <KComboBox>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KToolInvocation>
 #include <TODO:knuminput.h>
-#include <TODO:kpushbutton.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"

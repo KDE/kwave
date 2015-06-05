@@ -46,7 +46,7 @@
 #include <KConfigGroup>
 #include <KF5/KGuiAddons/KMessageBox>
 #include <KHelpMenu>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KIconLoader>
 #include <KToolBar>
 #include <TODO:kapplication.h>
@@ -993,7 +993,7 @@ int Kwave::TopWidget::loadFile(const QUrl &url)
 
     // add an entry to the list of recent files
     m_application.addRecentFile(url.isLocalFile() ?
-	url.toLocalFile() : url.prettyUrl());
+	url.toLocalFile() : url.toDisplayString());
 
     // abort if new file not valid and local
     if (!url.isLocalFile()) return -1;
@@ -1003,7 +1003,7 @@ int Kwave::TopWidget::loadFile(const QUrl &url)
     QString suffix = file.suffix();
     if (suffix == _("kwave")) {
 	Kwave::Splash::showMessage(
-	    i18n("Executing Kwave script file '%1'...", url.prettyUrl())
+	    i18n("Executing Kwave script file '%1'...", url.toDisplayString())
 	);
 	return context->loadBatch(url);
     }
@@ -1013,7 +1013,7 @@ int Kwave::TopWidget::loadFile(const QUrl &url)
     if ((retval <= 0) || !context) return retval;
 
     Kwave::Splash::showMessage(
-	i18n("Loading file '%1'...", url.prettyUrl())
+	i18n("Loading file '%1'...", url.toDisplayString())
     );
 
     // NOTE: the context may have changed, now we may have a different
@@ -1031,12 +1031,12 @@ int Kwave::TopWidget::loadFile(const QUrl &url)
 		break;
 	    case -EIO:
 		reason = i18nc("error message after opening a file failed",
-			       "Unable to open '%1'", url.prettyUrl());
+			       "Unable to open '%1'", url.toDisplayString());
 		break;
 	    case -EINVAL:
 		reason = i18nc("error message after opening a file failed",
 			       "Invalid or unknown file type: '%1'",
-			       url.prettyUrl());
+			       url.toDisplayString());
 		break;
 	    default:
 		reason = _("");

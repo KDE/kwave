@@ -26,7 +26,7 @@
 #include <QIODevice>
 #include <QString>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"

@@ -927,7 +927,8 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 			extension = ext;
 			QString new_filename = current_url.fileName();
 			new_filename += extension.mid(1); // remove the "*"
-			current_url.setFileName(new_filename);
+			current_url = current_url.adjusted(QUrl::RemoveFilename);
+			current_url.setPath(current_url.path() + new_filename);
 		    }
 		}
 	    }
@@ -937,7 +938,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
 	    _("kfiledialog:///kwave_save_as"),
 	    KFileDialog::Saving,
-	    filter, m_top_widget, true, current_url.prettyUrl(), extension
+	    filter, m_top_widget, true, current_url.toDisplayString(), extension
 	);
 	if (!dlg) return 0;
 	dlg->setCaption(i18n("Save As"));
@@ -968,7 +969,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
     // check if the file exists and ask before overwriting it
     // if it is not the old filename
     name = url.path();
-    if ((url.prettyUrl() != QUrl(signalName()).prettyUrl()) &&
+    if ((url.toDisplayString() != QUrl(signalName()).prettyUrl()) &&
 	(QFileInfo(name).exists()))
     {
 	if (Kwave::MessageBox::warningYesNo(m_top_widget,
@@ -993,7 +994,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	// has already been selected to satisfy the fileinfo
 	// plugin
 	qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
-	    DBG(url.prettyUrl()), DBG(new_mimetype_name),
+	    DBG(url.toDisplayString()), DBG(new_mimetype_name),
 	    DBG(previous_mimetype_name) );
 
 	// set the new mimetype
@@ -1001,7 +1002,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
 
 	// set the new filename
-	info.set(Kwave::INF_FILENAME, url.prettyUrl());
+	info.set(Kwave::INF_FILENAME, url.toDisplayString());
 	m_signal_manager->setFileInfo(info, false);
 
 	// now call the fileinfo plugin with the new filename and
@@ -1013,7 +1014,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	// restore the mime type and the filename
 	info = Kwave::FileInfo(m_signal_manager->metaData());
 	info.set(Kwave::INF_MIMETYPE, previous_mimetype_name);
-	info.set(Kwave::INF_FILENAME, url.prettyUrl());
+	info.set(Kwave::INF_FILENAME, url.toDisplayString());
 	m_signal_manager->setFileInfo(info, false);
     }
 

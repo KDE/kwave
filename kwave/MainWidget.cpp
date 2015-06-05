@@ -31,7 +31,7 @@
 #include <QWheelEvent>
 #include <QtGlobal>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"

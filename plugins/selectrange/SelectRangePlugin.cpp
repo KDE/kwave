@@ -19,7 +19,7 @@
 #include <errno.h>
 #include <math.h>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <QString>
 
 #include "libkwave/Plugin.h"

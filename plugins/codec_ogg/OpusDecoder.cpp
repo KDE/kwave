@@ -29,7 +29,7 @@
 #include <QString>
 #include <qendian.h>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/BitrateMode.h"
 #include "libkwave/Compression.h"

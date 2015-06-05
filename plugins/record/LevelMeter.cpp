@@ -29,7 +29,7 @@
 #include <QPixmap>
 #include <QTimer>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/Utils.h"
 

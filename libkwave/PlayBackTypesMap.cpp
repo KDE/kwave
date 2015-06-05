@@ -19,7 +19,7 @@
 
 #include <QString>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/PlayBackTypesMap.h"
 #include "libkwave/String.h"

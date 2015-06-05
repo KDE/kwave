@@ -17,9 +17,10 @@
 
 #include "config.h"
 
+#include <QPushButton>
+
 #include <KLineEdit>
 #include <TODO:klistwidget.h>
-#include <TODO:kpushbutton.h>
 
 #include "KeywordWidget.h"
 

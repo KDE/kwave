@@ -25,19 +25,19 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QProgressBar>
+#include <QPushButton>
 #include <QSlider>
 #include <QTreeView>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
 #include <KComboBox>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KIconLoader>
 #include <KIconTheme>
 #include <KToolInvocation>
 #include <TODO:kglobal.h>
 #include <TODO:knuminput.h>
-#include <TODO:kpushbutton.h>
 #include <TODO:kstatusbar.h>
 #include <TODO:ktabwidget.h>
 

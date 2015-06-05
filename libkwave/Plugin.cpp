@@ -23,13 +23,13 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <QApplication>
 #include <QProgressDialog>
 #include <QThread>
 #include <QTime>
 #include <QWidget>
 
-#include <KI18n/KLocalizedString>
-#include <TODO:kapplication.h>
+#include <KLocalizedString>
 
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/Plugin.h"

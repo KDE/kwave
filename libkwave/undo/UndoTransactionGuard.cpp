@@ -20,7 +20,7 @@
 
 #include <QString>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"

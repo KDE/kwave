@@ -28,7 +28,7 @@
 #include <QApplication>
 #include <QProgressDialog>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:kmimetype.h>
 
 #include "libkwave/ConfirmCancelProxy.h"

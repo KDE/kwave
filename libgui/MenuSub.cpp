@@ -19,7 +19,7 @@
 
 #include <QPixmap>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 

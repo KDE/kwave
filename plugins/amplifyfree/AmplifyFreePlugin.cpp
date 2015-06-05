@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <QStringList>
 
 #include "libkwave/Connect.h"

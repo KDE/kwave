@@ -49,7 +49,7 @@
        </widget>
       </item>
       <item row="2" column="6">
-       <widget class="KPushButton" name="btSearch">
+       <widget class="QPushButton" name="btSearch">
         <property name="toolTip">
          <string>manually browse for the encoder</string>
         </property>
@@ -84,7 +84,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="btDetect">
+         <widget class="QPushButton" name="btDetect">
           <property name="toolTip">
            <string>auto-detect the installed encoder</string>
           </property>
@@ -96,7 +96,7 @@
        </layout>
       </item>
       <item row="2" column="4">
-       <widget class="KPushButton" name="btEncoderHelp">
+       <widget class="QPushButton" name="btEncoderHelp">
         <property name="toolTip">
          <string>show the usage information of the encoder</string>
         </property>
@@ -129,7 +129,7 @@
        </widget>
       </item>
       <item row="2" column="5">
-       <widget class="KPushButton" name="btLocate">
+       <widget class="QPushButton" name="btLocate">
         <property name="toolTip">
          <string>find the full path to the encoder</string>
         </property>
@@ -1055,7 +1055,7 @@ use %1 as placeholder</string>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KPushButton" name="btTest">
+      <widget class="QPushButton" name="btTest">
        <property name="toolTip">
         <string>try to encode some short test signal with the current settings</string>
        </property>
@@ -1112,11 +1112,6 @@ use %1 as placeholder</string>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>

@@ -24,7 +24,7 @@
 #include <QSlider>
 #include <QWidget>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:knuminput.h>
 
 #include "libkwave/Utils.h"

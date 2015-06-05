@@ -25,7 +25,7 @@
 #include <QDialog>
 #include <QStringList>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/Connect.h"
 #include "libkwave/MultiTrackReader.h"

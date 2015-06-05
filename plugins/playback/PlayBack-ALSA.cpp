@@ -33,7 +33,7 @@
 #include <QString>
 #include <QtGlobal>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/Compression.h"
 #include "libkwave/SampleEncoderLinear.h"

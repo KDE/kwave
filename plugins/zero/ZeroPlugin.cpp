@@ -20,7 +20,7 @@
 #include <math.h>
 #include <new>
 
-#include <KI18n/KLocalizedString> // for the i18n macro
+#include <KLocalizedString> // for the i18n macro
 
 #include <QList>
 #include <QStringList>

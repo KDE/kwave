@@ -221,7 +221,7 @@ For example: &quot;-3 dB&quot;, &quot;- 6 dB&quot;.</string>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="btListen">
+      <widget class="QPushButton" name="btListen">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -280,11 +280,6 @@ For example: &quot;-3 dB&quot;, &quot;- 6 dB&quot;.</string>
    <class>KDialogButtonBox</class>
    <extends>QDialogButtonBox</extends>
    <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>Kwave::InvertableSpinBox</class>

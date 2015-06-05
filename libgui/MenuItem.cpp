@@ -20,7 +20,7 @@
 #include <QMenu>
 #include <QPixmap>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KIconLoader>
 #include <TODO:kapplication.h>
 

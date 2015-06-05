@@ -23,7 +23,7 @@
 
 #include <KAboutData>
 #include <KCrash>
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <TODO:kapplication.h>
 #include <TODO:kcmdlineargs.h>
 #include <TODO:kuniqueapplication.h>

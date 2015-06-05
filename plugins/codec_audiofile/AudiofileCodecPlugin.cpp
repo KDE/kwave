@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/CodecManager.h"
 

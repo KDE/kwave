@@ -29,7 +29,7 @@
 #include <QThread>
 #include <QtConcurrentRun>
 
-#include <KI18n/KLocalizedString> // for the i18n macro
+#include <KLocalizedString> // for the i18n macro
 
 #include "libkwave/Connect.h"
 #include "libkwave/FileInfo.h"

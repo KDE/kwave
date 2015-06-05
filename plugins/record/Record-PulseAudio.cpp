@@ -35,7 +35,7 @@
 #include <QVariant>
 #include <QtGlobal>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KUser>
 #include <TODO:kdebug.h>
 

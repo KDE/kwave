@@ -25,7 +25,7 @@
 #include <QRegExp>
 #include <QStringList>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Label.h"
@@ -157,7 +157,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     int result = interpreteParameters(params);
     if (result) return result;
 
-    QString filename = m_url.prettyUrl();
+    QString filename = m_url.toDisplayString();
     QFileInfo file(filename);
     QString path = file.absolutePath();
     QString ext  = file.suffix();
@@ -270,8 +270,9 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 	    QString name = createFileName(base, ext, m_pattern, index, count,
                                           first + count - 1);
 	    QUrl url = m_url;
-	    url.setFileName(name);
-	    filename = url.prettyUrl();
+	    url = url.adjusted(QUrl::RemoveFilename);
+	    url.setPath(url.path() + name);
+	    filename = url.toDisplayString();
 
 	    qDebug("saving %9lu...%9lu -> '%s'",
 		   static_cast<unsigned long int>(left),

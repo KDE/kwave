@@ -25,7 +25,7 @@
 #include <QReadLocker>
 #include <QWriteLocker>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Filter.h"

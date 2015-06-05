@@ -21,7 +21,7 @@
 
 #include <QStringList>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include "PitchShiftDialog.h"
 #include "PitchShiftFilter.h"

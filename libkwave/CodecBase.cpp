@@ -17,15 +17,13 @@
 
 #include "config.h"
 
+#include <QFileInfo>
+#include <QMimeDatabase>
+#include <QMimeType>
 #include <QString>
 #include <QStringList>
 #include <QtGlobal>
 #include <QUrl>
-
-#include <KFile>
-#include <TODO:kmimetype.h>
-#include <QMimeDatabase>
-#include <QMimeType>
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/String.h"
@@ -133,7 +131,8 @@ QString Kwave::CodecBase::whatContains(const QUrl &url)
     // get the extension of the file
     QFileInfo file(url.fileName());
     QString suffix = file.suffix();
-    if (!suffix.length()) return QMimeType::defaultMimeType();
+
+    if (!suffix.length()) return QMimeType().name();
     suffix = _("*.") + suffix;
 
     // try to find in the list of supported mime types
@@ -143,7 +142,7 @@ QString Kwave::CodecBase::whatContains(const QUrl &url)
 	if (mime_type.patterns.contains(suffix))
 	    return mime_type.name;
     }
-    return QMimeType::defaultMimeType();
+    return QMimeType().name();
 }
 
 /***************************************************************************/

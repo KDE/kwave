@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <math.h>
 
 #include <QApplication>
@@ -26,10 +27,10 @@
 #include <QThread>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <QtGlobal>
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 #include <KStandardGuiItem>
-#include <TODO:kglobal.h>
 #include <TODO:kpushbutton.h>
 
 #include "libkwave/FileProgress.h"

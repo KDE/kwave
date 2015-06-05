@@ -20,6 +20,8 @@
 #include <QLatin1Char>
 #include <QMimeData>
 #include <QRegExp>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
@@ -73,7 +75,7 @@ void Kwave::CodecManager::unregisterDecoder(Kwave::Decoder *decoder)
 }
 
 //***************************************************************************
-bool Kwave::CodecManager::canDecode(const KMimeType &mimetype)
+bool Kwave::CodecManager::canDecode(const QMimeType &mimetype)
 {
     foreach (Kwave::Decoder *d, m_decoders)
 	if (d && d->supports(mimetype)) return true;
@@ -94,14 +96,16 @@ QString Kwave::CodecManager::whatContains(const QUrl &url)
     foreach (Kwave::Decoder *d, m_decoders) {
 	if (!d) continue;
 	QString mime_type = d->whatContains(url);
-	if (mime_type != KMimeType::defaultMimeType()) return mime_type;
+	if (mime_type != QMimeType::defaultMimeType()) return mime_type;
     }
     foreach (Kwave::Encoder *e, m_encoders) {
 	if (!e) continue;
 	QString mime_type = e->whatContains(url);
-	if (mime_type != KMimeType::defaultMimeType()) return mime_type;
+	if (mime_type != QMimeType::defaultMimeType()) return mime_type;
     }
-    return KMimeType::findByUrl(url)->name();
+
+    QMimeDatabase db;
+    return db.mimeTypeForUrl(url).name();
 }
 
 //***************************************************************************
@@ -128,7 +132,7 @@ Kwave::Decoder *Kwave::CodecManager::decoder(const QString &mimetype_name)
 }
 
 //***************************************************************************
-Kwave::Decoder *Kwave::CodecManager::decoder(const KMimeType &mimetype)
+Kwave::Decoder *Kwave::CodecManager::decoder(const QMimeType &mimetype)
 {
     return decoder(mimetype.name());
 }

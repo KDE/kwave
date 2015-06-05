@@ -164,10 +164,11 @@ SET(QT_USE_QTCORE ON)
 SET(QT_DONTUSE_QTGUI OFF)
 SET(QT_USE_QTMAIN ON)
 
-FIND_PACKAGE(Qt4 4.7.0 REQUIRED)
-MESSAGE(STATUS "Found Qt4 version ${QTVERSION}")
-MESSAGE(STATUS "Found Qt4 libraries in ${QT_LIBRARY_DIR}")
-MESSAGE(STATUS "Found Qt4 header files in ${QT_INCLUDE_DIR}")
+FIND_PACKAGE(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
+    Concurrent
+    Core
+    Widgets
+)
 
 #############################################################################
 ### KDE 4 support                                                         ###
@@ -182,18 +183,28 @@ ENDIF(WIN32)
 INCLUDE(KDE4Defaults)
 ADD_DEFINITIONS(${KDE4_DEFINITIONS})
 
-SET(QT_AND_KDECORE_LIBS
-    ${QT_QTGUI_LIBRARY}
-    ${QT_LIBRARIES}
-    ${KDE4_KDECORE_LIBS}
-    ${KDE4_KDEUI_LIBRARY}
-    ${KDE4_KIO_LIBRARY}
-    pthread
+FIND_PACKAGE(KF5 REQUIRED COMPONENTS
+    Config
+    ConfigWidgets
+    DocTools
+    GuiAddons
+    I18n
+    Init
+    Notifications
+    XmlGui
+    WidgetsAddons
 )
 
+# FIND_PACKAGE(KF5DocTools ${KF5_DEP_VERSION})
+# SET_PACKAGE_PROPERTIES(KF5DocTools
+#     PROPERTIES DESCRIPTION "Tools to generate documentation"
+#     TYPE OPTIONAL
+# )
+
+FEATURE_SUMMARY(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
 INCLUDE_DIRECTORIES(
-    ${KDE4_INCLUDE_DIR}
-    ${QT_INCLUDE_DIR}
+    ${INTERFACE_INCLUDE_DIRECTORIES}
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
 )

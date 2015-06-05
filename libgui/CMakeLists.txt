@@ -69,7 +69,6 @@ ADD_DEPENDENCIES(libkwavegui libkwave)
 TARGET_LINK_LIBRARIES(libkwavegui
     kwave
     ${KDE4_KFILE_LIBS}
-    ${QT_AND_KDECORE_LIBS}
 )
 
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES OUTPUT_NAME "kwavegui")

@@ -37,7 +37,6 @@ MACRO(KWAVE_PLUGIN _plugin)
         kwave
         ${plugin_${_plugin}_LIBS}
         ${SAMPLERATE_LIBS}
-        ${QT_AND_KDECORE_LIBS}
     )
 
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES PREFIX "")

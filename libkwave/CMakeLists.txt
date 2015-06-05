@@ -139,7 +139,10 @@ KDE4_ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
 TARGET_LINK_LIBRARIES(libkwave
     audiofile
     ${SAMPLERATE_LIBS}
-    ${QT_AND_KDECORE_LIBS}
+    Qt5::Core
+    Qt5::Concurrent
+    KF5::I18n
+    KF5::WidgetsAddons
 )
 
 #############################################################################

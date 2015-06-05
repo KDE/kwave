@@ -26,9 +26,7 @@
 #include <QString>
 #include <QStringList>
 
-#include <TODO:kmimetype.h>
-
-class KMimeType;
+class QMimeType;
 class QMimeData;
 
 namespace Kwave
@@ -79,7 +77,7 @@ namespace Kwave
 	 * @param mimetype mime type describing the audio format
 	 * @return true if format is supported, false if not
 	 */
-	static bool canDecode(const KMimeType &mimetype);
+	static bool canDecode(const QMimeType &mimetype);
 
 	/**
 	 * Returns true if a decoder for the given mime type is known.
@@ -93,7 +91,7 @@ namespace Kwave
 	 * @param mimetype mime type of the source
 	 * @return a new decoder for the mime type or null if none found.
 	 */
-	static Kwave::Decoder *decoder(const KMimeType &mimetype);
+	static Kwave::Decoder *decoder(const QMimeType &mimetype);
 
 	/**
 	 * Same as above, but takes the mime type as string.

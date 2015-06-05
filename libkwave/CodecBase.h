@@ -25,7 +25,7 @@
 #include <QString>
 #include <QStringList>
 
-class KMimeType;
+class QMimeType;
 class QUrl;
 
 namespace Kwave
@@ -49,7 +49,7 @@ namespace Kwave
 	virtual ~CodecBase();
 
 	/** Returns true if the given mime type is supported */
-	virtual bool supports(const KMimeType &mimetype);
+	virtual bool supports(const QMimeType &mimetype);
 
 	/** Returns true if the given mime type is supported */
 	virtual bool supports(const QString &mimetype_name);

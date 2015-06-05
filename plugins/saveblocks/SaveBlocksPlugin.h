@@ -22,8 +22,7 @@
 
 #include <QObject>
 #include <QString>
-
-#include <TODO:kurl.h>
+#include <QUrl>
 
 #include "libkwave/Plugin.h"
 
@@ -154,7 +153,7 @@ namespace Kwave
     private:
 
 	/** the URL of the first file (user selection) */
-	KUrl m_url;
+	QUrl m_url;
 
 	/** expression with the filename pattern */
 	QString m_pattern;

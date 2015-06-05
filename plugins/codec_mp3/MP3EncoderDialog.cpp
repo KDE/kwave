@@ -572,7 +572,7 @@ void Kwave::MP3EncoderDialog::browseFile()
     if (!dlg) return;
     dlg->setKeepLocation(true);
     dlg->setCaption(i18n("Select MP3 Encoder"));
-    dlg->setUrl(KUrl(_("file:/usr/bin/")));
+    dlg->setUrl(QUrl(_("file:/usr/bin/")));
     if (dlg->exec() == QDialog::Accepted)
 	edPath->setText(dlg->selectedFile());
     delete dlg;

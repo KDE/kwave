@@ -26,9 +26,9 @@
 #include <QMdiArea>
 #include <QPointer>
 #include <QString>
+#include <QUrl>
 
 #include <KMainWindow>
-#include <TODO:kurl.h>
 
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"
@@ -126,7 +126,7 @@ namespace Kwave
 	 * @param url URL of the file to be loaded
 	 * @return 0 if successful
 	 */
-	int loadFile(const KUrl &url);
+	int loadFile(const QUrl &url);
 
     public slots:
 
@@ -304,7 +304,7 @@ namespace Kwave
 	 * @retval  0 if succeeded and done (SDI mode)
 	 * @retval  1 if succeeded but window is still empty (MDI or TAB mode)
 	 */
-	int newWindow(Kwave::FileContext *&context, const KUrl &url);
+	int newWindow(Kwave::FileContext *&context, const QUrl &url);
 
 	/**
 	 * Closes the current file and creates a new empty signal.

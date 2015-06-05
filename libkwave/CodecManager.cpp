@@ -89,7 +89,7 @@ bool Kwave::CodecManager::canDecode(const QString &mimetype_name)
 }
 
 //***************************************************************************
-QString Kwave::CodecManager::whatContains(const KUrl &url)
+QString Kwave::CodecManager::whatContains(const QUrl &url)
 {
     foreach (Kwave::Decoder *d, m_decoders) {
 	if (!d) continue;

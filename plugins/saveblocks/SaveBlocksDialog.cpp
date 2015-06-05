@@ -20,7 +20,7 @@
 #include <QString>
 
 #include <KComboBox>
-#include <KUrlComboBox>
+#include <QUrlComboBox>
 #include <TODO:kabstractfilewidget.h>
 #include <TODO:kfiledialog.h>
 
@@ -97,7 +97,7 @@ void Kwave::SaveBlocksDialog::setNewExample(const QString &example)
 //***************************************************************************
 void Kwave::SaveBlocksDialog::emitUpdate()
 {
-    QString path = baseUrl().path(KUrl::AddTrailingSlash);
+    QString path = baseUrl().path(QUrl::AddTrailingSlash);
     QString filename = path + locationEdit()->currentText();
     QFileInfo file(filename);
 

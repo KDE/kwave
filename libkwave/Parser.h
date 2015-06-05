@@ -157,16 +157,16 @@ namespace Kwave
 	 * Converts a string command into a URL suitable for passing to
 	 * Kwave as command line parameter
 	 * @param command the string command to encode as URL
-	 * @return a KUrl with the kwave:// scheme
+	 * @return a QUrl with the kwave:// scheme
 	 */
-	static KUrl toUrl(const QString &command);
+	static QUrl toUrl(const QString &command);
 
 	/**
 	 * Converts a kwave:// URL into a string command
 	 * @param url a URL using the kwave:// scheme
 	 * @return a Kwave string command parsed from the URL
 	 */
-	static QString fromUrl(const KUrl &url);
+	static QString fromUrl(const QUrl &url);
 
     protected:
 

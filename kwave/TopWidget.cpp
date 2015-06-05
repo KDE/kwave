@@ -923,7 +923,7 @@ bool Kwave::TopWidget::closeAllSubWindows()
 }
 
 //***************************************************************************
-int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const KUrl &url)
+int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const QUrl &url)
 {
     switch (m_application.guiType()) {
 	case Kwave::App::GUI_SDI: {
@@ -974,7 +974,7 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const KUrl &url)
 }
 
 //***************************************************************************
-int Kwave::TopWidget::loadFile(const KUrl &url)
+int Kwave::TopWidget::loadFile(const QUrl &url)
 {
     Kwave::FileContext *context = currentContext();
 
@@ -1088,7 +1088,7 @@ int Kwave::TopWidget::newSignal(sample_index_t samples, double rate,
     Kwave::SignalManager *signal_manager = context->signalManager();
     if (!signal_manager) return -1;
 
-    KUrl url = Kwave::Parser::toUrl(
+    QUrl url = Kwave::Parser::toUrl(
 	_("newsignal(%1,%2,%3,%4)"
 	).arg(samples).arg(rate).arg(bits).arg(tracks));
     int retval = newWindow(context, url);

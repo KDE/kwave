@@ -841,7 +841,7 @@ QString Kwave::FileContext::windowCaption(bool with_modified) const
 }
 
 //***************************************************************************
-int Kwave::FileContext::loadBatch(const KUrl &url)
+int Kwave::FileContext::loadBatch(const QUrl &url)
 {
     Kwave::FileContext::UsageGuard _keep(this);
 
@@ -865,7 +865,7 @@ int Kwave::FileContext::revert()
 {
     Kwave::FileContext::UsageGuard _keep(this);
 
-    KUrl url(signalName());
+    QUrl url(signalName());
     if (!url.isValid()) return -EINVAL;
 
     return (m_signal_manager) ? m_signal_manager->loadFile(url) : -EINVAL;
@@ -879,7 +879,7 @@ int Kwave::FileContext::saveFile()
     int res = 0;
 
     if (signalName() != NEW_FILENAME) {
-	KUrl url;
+	QUrl url;
 	url = signalName();
 	res = m_signal_manager->save(url, false);
 
@@ -897,17 +897,17 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
     if (!m_signal_manager) return -EINVAL;
 
     QString name = filename;
-    KUrl url;
+    QUrl url;
     int res = 0;
 
     if (name.length()) {
 	/* name given -> take it */
-	url = KUrl(name);
+	url = QUrl(name);
     } else {
 	/*
 	 * no name given -> show the File/SaveAs dialog...
 	 */
-	KUrl current_url;
+	QUrl current_url;
 	current_url = signalName();
 
 	QString what  = Kwave::CodecManager::whatContains(current_url);
@@ -968,7 +968,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
     // check if the file exists and ask before overwriting it
     // if it is not the old filename
     name = url.path();
-    if ((url.prettyUrl() != KUrl(signalName()).prettyUrl()) &&
+    if ((url.prettyUrl() != QUrl(signalName()).prettyUrl()) &&
 	(QFileInfo(name).exists()))
     {
 	if (Kwave::MessageBox::warningYesNo(m_top_widget,

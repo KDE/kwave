@@ -29,7 +29,7 @@
 #include <TODO:kuniqueapplication.h>
 
 class QString;
-class KUrl;
+class QUrl;
 
 namespace Kwave
 {
@@ -92,7 +92,7 @@ namespace Kwave
 	 * @see #toplevelWindowHasClosed()
 	 * @see TopWidget
 	 */
-	bool newWindow(const KUrl &url);
+	bool newWindow(const QUrl &url);
 
 	/**
 	 * Called when a toplevel window has closed.

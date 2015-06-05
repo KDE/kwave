@@ -56,7 +56,7 @@ class QPoint;
 class QVBoxLayout;
 class QWheelEvent;
 
-class KUrl;
+class QUrl;
 
 class LabelType;
 class TimeOperation;

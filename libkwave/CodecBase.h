@@ -26,7 +26,7 @@
 #include <QStringList>
 
 class KMimeType;
-class KUrl;
+class QUrl;
 
 namespace Kwave
 {
@@ -88,10 +88,10 @@ namespace Kwave
 	/**
 	 * Tries to find the name of a mime type by a URL. If not found, it
 	 * returns the default mime type, never an empty string.
-	 * @param url a KUrl, only the filename's extension will be inspected
+	 * @param url a QUrl, only the filename's extension will be inspected
 	 * @return name of the mime type or the default mime type
 	 */
-	virtual QString whatContains(const KUrl &url);
+	virtual QString whatContains(const QUrl &url);
 
     private:
 

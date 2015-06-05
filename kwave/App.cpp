@@ -136,13 +136,13 @@ int Kwave::App::newInstance()
 
     // only one parameter -> open with empty window
     if (argc == 0) {
-	newWindow(KUrl(QString()));
+	newWindow(QUrl(QString()));
     } else {
 	// open a window for each file specified in the
 	// command line an load it
 	for (unsigned int i = 0; i < argc; i++) {
 	    QString name = args->arg(i);
-	    newWindow(KUrl(name));
+	    newWindow(QUrl(name));
 	}
     }
     if (args) args->clear();
@@ -163,9 +163,9 @@ int Kwave::App::executeCommand(const QString &command)
     if (parser.command() == _("newwindow")) {
 	bool ok;
 	if (parser.hasParams()) {
-	    ok = newWindow(KUrl(parser.params().at(0)));
+	    ok = newWindow(QUrl(parser.params().at(0)));
 	} else {
-	    ok = newWindow(KUrl(QString()));
+	    ok = newWindow(QUrl(QString()));
 	}
 	return (ok) ? 0 : -EIO;
     } else if (parser.command() == _("openrecent:clear")) {
@@ -203,7 +203,7 @@ void Kwave::App::addRecentFile(const QString &newfile)
 }
 
 //***************************************************************************
-bool Kwave::App::newWindow(const KUrl &url)
+bool Kwave::App::newWindow(const QUrl &url)
 {
     Kwave::TopWidget *new_top_widget = 0;
 

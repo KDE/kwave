@@ -603,9 +603,9 @@ void Kwave::RecordDialog::selectRecordDevice()
     dlg.setKeepLocation(true);
     dlg.setCaption(i18n("Select Record Device"));
     if (!m_params.device_name.startsWith(_("#")))
-        dlg.setUrl(KUrl(_("file:") + m_params.device_name));
+        dlg.setUrl(QUrl(_("file:") + m_params.device_name));
     else
-        dlg.setUrl(KUrl(_("file:/dev/*")));
+        dlg.setUrl(QUrl(_("file:/dev/*")));
     if (dlg.exec() != QDialog::Accepted) return;
 
     // selected new device

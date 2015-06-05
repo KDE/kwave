@@ -28,8 +28,7 @@
 #include <QPointer>
 #include <QString>
 #include <QTimer>
-
-#include <TODO:kurl.h>
+#include <QUrl>
 
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
@@ -40,7 +39,7 @@ class QSize;
 class QTextStream;
 class QWidget;
 
-class KUrl;
+class QUrl;
 
 namespace Kwave
 {
@@ -141,7 +140,7 @@ namespace Kwave
 	 * all commands in it.
 	 * @param url URL of the macro (batch file) to be loaded
 	 */
-	int loadBatch(const KUrl &url);
+	int loadBatch(const QUrl &url);
 
 	/**
 	 * Saves the current file.

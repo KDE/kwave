@@ -28,6 +28,7 @@
 #include <QFileInfo>
 #include <QMutableListIterator>
 #include <QMutexLocker>
+#include <QUrl>
 
 #include <KAboutData>
 #include <KI18n/KLocalizedString>
@@ -35,7 +36,6 @@
 #include <TODO:kcomponentdata.h>
 #include <TODO:kmimetype.h>
 #include <TODO:kprogressdialog.h>
-#include <TODO:kurl.h>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
@@ -122,7 +122,7 @@ Kwave::SignalManager::~SignalManager()
 }
 
 //***************************************************************************
-int Kwave::SignalManager::loadFile(const KUrl &url)
+int Kwave::SignalManager::loadFile(const QUrl &url)
 {
     int res = 0;
     Kwave::FileProgress *dialog = 0;
@@ -312,7 +312,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 }
 
 //***************************************************************************
-int Kwave::SignalManager::save(const KUrl &url, bool selection)
+int Kwave::SignalManager::save(const QUrl &url, bool selection)
 {
     int res = 0;
     sample_index_t ofs  = 0;
@@ -584,7 +584,7 @@ void Kwave::SignalManager::close()
 QString Kwave::SignalManager::signalName()
 {
     // if a file is loaded -> path of the URL if it has one
-    KUrl url;
+    QUrl url;
     url = Kwave::FileInfo(m_meta_data).get(Kwave::INF_FILENAME).toString();
     if (url.isValid()) return url.path();
 

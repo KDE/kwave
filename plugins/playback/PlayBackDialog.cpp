@@ -636,9 +636,9 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
     dlg->setKeepLocation(true);
     dlg->setCaption(i18n("Select Playback Device"));
     if (!m_playback_params.device.startsWith(_("#")))
-        dlg->setUrl(KUrl(_("file:") + m_playback_params.device));
+        dlg->setUrl(QUrl(_("file:") + m_playback_params.device));
     else
-        dlg->setUrl(KUrl(_("file:/dev/*")));
+        dlg->setUrl(QUrl(_("file:/dev/*")));
     if (dlg->exec() == QDialog::Accepted) {
 	QString new_device = dlg->selectedFile();
 	// selected new device

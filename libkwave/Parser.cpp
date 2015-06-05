@@ -312,9 +312,9 @@ QString Kwave::Parser::unescape(const QString &text)
 }
 
 //***************************************************************************
-KUrl Kwave::Parser::toUrl(const QString &command)
+QUrl Kwave::Parser::toUrl(const QString &command)
 {
-    KUrl url;
+    QUrl url;
 
     url.setScheme(Kwave::urlScheme());
     Parser parser(command);
@@ -336,7 +336,7 @@ KUrl Kwave::Parser::toUrl(const QString &command)
 }
 
 //***************************************************************************
-QString Kwave::Parser::fromUrl(const KUrl &url)
+QString Kwave::Parser::fromUrl(const QUrl &url)
 {
     if (url.scheme().toLower() != Kwave::urlScheme()) return QString();
 

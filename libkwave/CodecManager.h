@@ -135,10 +135,10 @@ namespace Kwave
 	/**
 	 * Tries to find the name of a mime type of a decoder by a URL.
 	 * If not found, it returns the default mime type, never an empty string.
-	 * @param url a KUrl, only the filename's extension will be inspected
+	 * @param url a QUrl, only the filename's extension will be inspected
 	 * @return name of the mime type or the default mime type
 	 */
-	static QString whatContains(const KUrl &url);
+	static QString whatContains(const QUrl &url);
 
 	/** Returns a list of supported mime types for encoding */
 	static QStringList encodingMimeTypes();

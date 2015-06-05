@@ -50,7 +50,7 @@ namespace Kwave
 	virtual ~SaveBlocksWidget();
 
 	/** @see KPreviewWidgetBase::showPreview() */
-	virtual void showPreview(const KUrl &url)
+	virtual void showPreview(const QUrl &url)
 	{
 	    Q_UNUSED(url);
 	}

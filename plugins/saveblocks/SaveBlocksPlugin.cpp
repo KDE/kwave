@@ -104,7 +104,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	// user has pressed "OK"
 	QString pattern;
 
-	KUrl url = dialog->selectedUrl();
+	QUrl url = dialog->selectedUrl();
 	if (url.isEmpty()) {
 	    delete dialog;
 	    return 0;
@@ -269,7 +269,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 	    // determine the filename
 	    QString name = createFileName(base, ext, m_pattern, index, count,
                                           first + count - 1);
-	    KUrl url = m_url;
+	    QUrl url = m_url;
 	    url.setFileName(name);
 	    filename = url.prettyUrl();
 

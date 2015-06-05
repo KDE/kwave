@@ -20,10 +20,10 @@
 #include <QString>
 #include <QStringList>
 #include <QtGlobal>
+#include <QUrl>
 
 #include <KFile>
 #include <TODO:kmimetype.h>
-#include <TODO:kurl.h>
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/String.h"
@@ -125,7 +125,7 @@ const QList<int> Kwave::CodecBase::compressionTypes()
 }
 
 /***************************************************************************/
-QString Kwave::CodecBase::whatContains(const KUrl &url)
+QString Kwave::CodecBase::whatContains(const QUrl &url)
 {
     // get the extension of the file
     QFileInfo file(url.fileName());

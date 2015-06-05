@@ -32,10 +32,10 @@
 
 #include <KAboutData>
 #include <KLocalizedString>
-#include <TODO:kapplication.h>
-#include <TODO:kcomponentdata.h>
-#include <TODO:kmimetype.h>
-#include <TODO:kprogressdialog.h>
+// #include <kapplication.h>
+// #include <kcomponentdata.h>
+// #include <kmimetype.h>
+// #include <kprogressdialog.h>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"

@@ -25,9 +25,9 @@
 #include <QVarLengthArray>
 
 #include <KLocalizedString>
-#include <TODO:kapplication.h>
-#include <TODO:kglobal.h>
-#include <TODO:kmimetype.h>
+#include <kapplication.h>
+#include <kglobal.h>
+#include <kmimetype.h>
 
 #include <vorbis/vorbisenc.h>
 

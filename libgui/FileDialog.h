@@ -24,7 +24,7 @@
 #include <QObject>
 #include <QString>
 
-#include <TODO:kfiledialog.h>
+#include <kfiledialog.h>
 
 class QWidget;
 

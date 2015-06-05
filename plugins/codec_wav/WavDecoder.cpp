@@ -29,7 +29,7 @@
 #include <QProgressDialog>
 
 #include <KLocalizedString>
-#include <TODO:kmimetype.h>
+#include <kmimetype.h>
 
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/Label.h"

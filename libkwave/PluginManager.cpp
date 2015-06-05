@@ -30,7 +30,7 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMainWindow>
-#include <TODO:kstandarddirs.h>
+#include <KSharedConfig>
 
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiPlaybackSink.h"
@@ -355,9 +355,9 @@ QStringList Kwave::PluginManager::loadPluginDefaults(const QString &name)
     const PluginModule &info = m_plugin_modules[name];
     QString version = info.m_version;
 
-    Q_ASSERT(KGlobal::config());
-    if (!KGlobal::config()) return list;
-    KConfigGroup cfg = KGlobal::config()->group(section);
+    Q_ASSERT(KSharedConfig::openConfig());
+    if (!KSharedConfig::openConfig()) return list;
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
 
     cfg.sync();
 
@@ -395,9 +395,9 @@ void Kwave::PluginManager::savePluginDefaults(const QString &name,
     QString section = _("plugin ");
     section += name;
 
-    Q_ASSERT(KGlobal::config());
-    if (!KGlobal::config()) return;
-    KConfigGroup cfg = KGlobal::config()->group(section);
+    Q_ASSERT(KSharedConfig::openConfig());
+    if (!KSharedConfig::openConfig()) return;
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
 
     cfg.sync();
     cfg.writeEntry("version", version);

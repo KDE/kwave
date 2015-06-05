@@ -21,8 +21,8 @@
 
 #include <KComboBox>
 #include <QUrlComboBox>
-#include <TODO:kabstractfilewidget.h>
-#include <TODO:kfiledialog.h>
+#include <kabstractfilewidget.h>
+#include <kfiledialog.h>
 
 #include "libkwave/String.h"
 

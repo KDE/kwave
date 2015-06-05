@@ -20,6 +20,7 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KToolInvocation>
+#include <KSharedConfig>
 
 #include "libkwave/String.h"
 
@@ -41,7 +42,7 @@ Kwave::StringEnterDialog::StringEnterDialog(QWidget *parent,
     setMaximumWidth(sizeHint().width() * 2);
 
     // restore the window width from the previous invocation
-    KConfigGroup cfg    = KGlobal::config()->group(CONFIG_GROUP);
+    KConfigGroup cfg    = KSharedConfig::openConfig()->group(CONFIG_GROUP);
     QString      result = cfg.readEntry(CONFIG_WIDTH);
     bool         ok     = false;
     int          w      = result.toUInt(&ok);
@@ -58,7 +59,7 @@ Kwave::StringEnterDialog::StringEnterDialog(QWidget *parent,
 Kwave::StringEnterDialog::~StringEnterDialog()
 {
     // save the window width for the next invocation
-    KConfigGroup cfg = KGlobal::config()->group(CONFIG_GROUP);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(CONFIG_GROUP);
     cfg.writeEntry(CONFIG_WIDTH, width());
 }
 

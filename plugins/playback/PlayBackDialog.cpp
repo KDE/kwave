@@ -35,9 +35,10 @@
 #include <KIconLoader>
 #include <KIconTheme>
 #include <KToolInvocation>
-#include <TODO:kapplication.h>
-#include <TODO:kfiledialog.h>
-#include <TODO:knuminput.h>
+#include <kapplication.h>
+#include <kfiledialog.h>
+#include <knuminput.h>
+#include <KSharedConfig>
 
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PlayBackTypesMap.h"
@@ -164,7 +165,7 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
     // the previous one
     QString device = _("");
     QString section = _("plugin playback");
-    KConfigGroup cfg = KGlobal::config()->group(section);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
 
     // save the current device
     cfg.writeEntry(

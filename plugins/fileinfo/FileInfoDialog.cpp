@@ -38,13 +38,14 @@
 #include <KLocalizedString>
 #include <KLineEdit>
 #include <KToolInvocation>
-#include <TODO:kdatewidget.h>
-#include <TODO:kglobal.h>
-#include <TODO:kglobal.h>
-#include <TODO:klistwidget.h>
-#include <TODO:kmimetype.h>
-#include <TODO:knuminput.h>
-#include <TODO:ktabwidget.h>
+#include <kdatewidget.h>
+#include <kglobal.h>
+#include <kglobal.h>
+#include <klistwidget.h>
+#include <kmimetype.h>
+#include <knuminput.h>
+#include <ktabwidget.h>
+#include <KSharedConfig>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Compression.h"
@@ -82,7 +83,7 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
             this,   SLOT(invokeHelp()));
 
     // open config for reading default settings
-    KConfigGroup cfg = KGlobal::config()->group(CONFIG_DEFAULT_SECTION);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(CONFIG_DEFAULT_SECTION);
 
     setupFileInfoTab();
     setupCompressionTab(cfg);
@@ -934,7 +935,7 @@ void Kwave::FileInfoDialog::acceptEdit(Kwave::FileProperty property,
 void Kwave::FileInfoDialog::accept()
 {
     // save defaults for next time...
-    KConfigGroup cfg = KGlobal::config()->group(CONFIG_DEFAULT_SECTION);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(CONFIG_DEFAULT_SECTION);
     cfg.sync();
     {
 	int nominal, upper, lower;

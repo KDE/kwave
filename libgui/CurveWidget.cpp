@@ -37,8 +37,8 @@
 
 #include <KLocalizedString>
 #include <KIconLoader>
-#include <TODO:kfiledialog.h>
-#include <TODO:kstandarddirs.h>
+#include <kfiledialog.h>
+#include <kstandarddirs.h>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Interpolation.h"

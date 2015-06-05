@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <TODO:knuminput.h>
+#include <knuminput.h>
 #include <limits.h>
 
 #include "libkwave/Utils.h"

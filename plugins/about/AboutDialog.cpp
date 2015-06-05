@@ -30,9 +30,9 @@
 #include <KLocalizedString>
 #include <KTextEdit>
 #include <KUrlLabel>
-#include <TODO:kapplication.h>
-#include <TODO:kglobal.h>
-#include <TODO:kstandarddirs.h>
+#include <kapplication.h>
+#include <kglobal.h>
+
 
 #include "libkwave/String.h"
 

@@ -37,7 +37,7 @@
 
 #include <KLocalizedString>
 #include <KUser>
-#include <TODO:kdebug.h>
+#include <kdebug.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"

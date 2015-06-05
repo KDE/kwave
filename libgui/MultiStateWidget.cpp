@@ -22,7 +22,7 @@
 #include <QPainter>
 #include <QString>
 
-#include <TODO:kstandarddirs.h>
+#include <kstandarddirs.h>
 
 #include "libkwave/String.h"
 

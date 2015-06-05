@@ -33,7 +33,7 @@
 #include <KComboBox>
 #include <KLineEdit>
 #include <KProcess>
-#include <TODO:kdialogbuttonbox.h>
+#include <kdialogbuttonbox.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"

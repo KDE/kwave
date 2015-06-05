@@ -31,8 +31,9 @@
 
 #include <KAboutData>
 #include <KConfig>
-#include <TODO:kapplication.h>
-#include <TODO:kglobal.h>
+#include <kapplication.h>
+#include <kglobal.h>
+#include <KSharedConfig>
 
 #include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"
@@ -245,7 +246,7 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 
 	// use the previous device
 	QString section = _("plugin ") + name();
-	KConfigGroup cfg = KGlobal::config()->group(section);
+	KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
 
 	// restore the previous device
 	QString device = cfg.readEntry(
@@ -363,7 +364,7 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
     // remember the device selection, just for the GUI
     // for the next change in the method
     QString section = _("plugin ") + name();
-    KConfigGroup cfg = KGlobal::config()->group(section);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
     cfg.writeEntry(_("last_device_%1").arg(
 	static_cast<int>(m_method)), m_device_name);
 //     qDebug(">>> %d -> '%s'", static_cast<int>(m_method), DBG(m_device_name));

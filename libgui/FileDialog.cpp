@@ -25,7 +25,8 @@
 
 #include <KConfig>
 #include <KFileFilterCombo>
-#include <TODO:kapplication.h>
+#include <kapplication.h>
+#include <KSharedConfig>
 
 #include "libkwave/String.h"
 
@@ -96,7 +97,7 @@ Kwave::FileDialog::FileDialog(
 void Kwave::FileDialog::loadConfig(const QString &section)
 {
     if (!section.length()) return;
-    const KConfigGroup cfg = KGlobal::config()->group(section);
+    const KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
     m_config_group = section;
     if (m_last_url.length()) {
 	QString last_path = cfg.readEntry("last_url", m_last_url);
@@ -147,7 +148,7 @@ void Kwave::FileDialog::saveConfig()
 // 	    no extension given -> since 0.7.7 this is allowed
     }
 
-    KConfigGroup cfg = KGlobal::config()->group(m_config_group);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(m_config_group);
     cfg.writeEntry("last_url", m_last_url);
     cfg.writeEntry("last_ext", m_last_ext);
     cfg.sync();

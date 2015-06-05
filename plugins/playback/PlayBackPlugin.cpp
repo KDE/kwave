@@ -35,7 +35,7 @@
 #include <QTimer>
 
 #include <KConfig>
-#include <TODO:kapplication.h>
+#include <kapplication.h>
 
 #include "libkwave/Connect.h"
 #include "libkwave/Curve.h"

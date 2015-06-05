@@ -36,10 +36,10 @@
 #include <KIconLoader>
 #include <KIconTheme>
 #include <KToolInvocation>
-#include <TODO:kglobal.h>
-#include <TODO:knuminput.h>
-#include <TODO:kstatusbar.h>
-#include <TODO:ktabwidget.h>
+#include <kglobal.h>
+#include <knuminput.h>
+#include <kstatusbar.h>
+#include <ktabwidget.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"

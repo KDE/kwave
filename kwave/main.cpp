@@ -24,9 +24,9 @@
 #include <KAboutData>
 #include <KCrash>
 #include <KLocalizedString>
-#include <TODO:kapplication.h>
-#include <TODO:kcmdlineargs.h>
-#include <TODO:kuniqueapplication.h>
+#include <kapplication.h>
+#include <kcmdlineargs.h>
+#include <kuniqueapplication.h>
 
 #include "libkwave/String.h"
 

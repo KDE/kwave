@@ -25,7 +25,7 @@
 #include <QWidget>
 
 #include <KLocalizedString>
-#include <TODO:knuminput.h>
+#include <knuminput.h>
 
 #include "libkwave/Utils.h"
 

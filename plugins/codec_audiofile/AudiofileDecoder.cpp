@@ -23,7 +23,7 @@
 #include <QtGlobal>
 
 #include <KLocalizedString>
-#include <TODO:kmimetype.h>
+#include <kmimetype.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"

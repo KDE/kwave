@@ -25,8 +25,8 @@
 #include <QPair>
 #include <QStringList>
 
-#include <TODO:kapplication.h>
-#include <TODO:kuniqueapplication.h>
+#include <kapplication.h>
+#include <kuniqueapplication.h>
 
 class QString;
 class QUrl;

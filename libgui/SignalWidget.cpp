@@ -39,9 +39,9 @@
 #include <KCursor>
 #include <KLocalizedString>
 #include <KIconLoader>
-#include <TODO:kfiledialog.h>
-#include <TODO:kglobal.h>
-#include <TODO:kglobalsettings.h>
+#include <kfiledialog.h>
+#include <kglobal.h>
+#include <kglobalsettings.h>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"

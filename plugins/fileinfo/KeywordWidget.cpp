@@ -20,7 +20,7 @@
 #include <QPushButton>
 
 #include <KLineEdit>
-#include <TODO:klistwidget.h>
+#include <klistwidget.h>
 
 #include "KeywordWidget.h"
 

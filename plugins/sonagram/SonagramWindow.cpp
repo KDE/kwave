@@ -26,9 +26,9 @@
 #include <QLayout>
 #include <QTimer>
 
-#include <TODO:kfiledialog.h>
-#include <TODO:kmenubar.h>
-#include <TODO:kstatusbar.h>
+#include <kfiledialog.h>
+#include <kmenubar.h>
+#include <kstatusbar.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"

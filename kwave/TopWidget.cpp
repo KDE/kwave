@@ -49,13 +49,14 @@
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KToolBar>
-#include <TODO:kapplication.h>
-#include <TODO:kcmdlineargs.h>
-#include <TODO:kfiledialog.h>
-#include <TODO:kglobal.h>
-#include <TODO:kmenubar.h>
-#include <TODO:kstandarddirs.h>
-#include <TODO:kstatusbar.h>
+#include <kapplication.h>
+#include <kcmdlineargs.h>
+#include <kfiledialog.h>
+#include <kglobal.h>
+#include <kmenubar.h>
+
+#include <kstatusbar.h>
+#include <KSharedConfig>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
@@ -455,7 +456,7 @@ bool Kwave::TopWidget::init()
 
     // workaround for KDE4: detect first startup and set all toolbars
     // to "only symbols" mode
-    KConfigGroup cfg = KGlobal::config()->group("MainWindow");
+    KConfigGroup cfg = KSharedConfig::openConfig()->group("MainWindow");
     QString magic = _("3");
     if (cfg.readEntry("toolbars") != magic) {
 	qDebug("toolbar layout changed => resetting toolbars to defaults");
@@ -767,7 +768,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	else
 	    return -1;
 
-	KConfigGroup cfg = KGlobal::config()->group("Global");
+	KConfigGroup cfg = KSharedConfig::openConfig()->group("Global");
 	cfg.writeEntry(_("UI Type"), gui_type);
 	m_application.switchGuiType(this, new_type);
 	return 0;

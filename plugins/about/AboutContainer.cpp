@@ -26,8 +26,8 @@
 
 #include <KLocalizedString>
 #include <KToolInvocation>
-#include <TODO:kapplication.h>
-#include <TODO:kdialog.h>
+#include <kapplication.h>
+#include <kdialog.h>
 
 #include "libkwave/String.h"
 

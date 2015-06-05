@@ -24,9 +24,9 @@
 #include <QSharedPointer>
 
 #include <KLocalizedString>
-#include <TODO:kapplication.h>
-#include <TODO:kglobal.h>
-#include <TODO:kmimetype.h>
+#include <kapplication.h>
+#include <kglobal.h>
+#include <kmimetype.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"

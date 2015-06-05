@@ -28,9 +28,10 @@
 
 #include <KAboutData>
 #include <KLocalizedString>
-#include <TODO:kapplication.h>
-#include <TODO:kglobal.h>
-#include <TODO:kstandarddirs.h>
+#include <kapplication.h>
+#include <kglobal.h>
+
+#include <QStandardPaths>
 
 #include "Splash.h"
 
@@ -40,7 +41,7 @@ QPointer<Kwave::Splash> Kwave::Splash::m_splash = 0;
 //***************************************************************************
 Kwave::Splash::Splash(const QString &PNGImageFileName)
     :QFrame(0, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
-     m_pixmap(KStandardDirs::locate("appdata", PNGImageFileName))
+     m_pixmap(QStandardPaths::locate(QStandardPaths::DataLocation, PNGImageFileName))
 {
     const int w = m_pixmap.width();
     const int h = m_pixmap.height();

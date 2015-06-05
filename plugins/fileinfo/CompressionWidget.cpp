@@ -27,7 +27,7 @@
 #include <QWhatsThis>
 
 #include <KLocalizedString>
-#include <TODO:knuminput.h>
+#include <knuminput.h>
 
 #include "libkwave/StandardBitrates.h"
 #include "libkwave/String.h"

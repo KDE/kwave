@@ -30,7 +30,7 @@
 
 #include <KLineEdit>
 #include <KToolInvocation>
-#include <TODO:kfiledialog.h>
+#include <kfiledialog.h>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"

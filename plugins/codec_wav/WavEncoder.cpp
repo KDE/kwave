@@ -21,8 +21,8 @@
 #include <stdlib.h>
 
 #include <KLocalizedString>
-#include <TODO:kglobal.h>
-#include <TODO:kmimetype.h>
+#include <kglobal.h>
+#include <kmimetype.h>
 
 #include <QByteArray>
 #include <QtEndian>

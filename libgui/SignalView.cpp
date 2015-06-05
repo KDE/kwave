@@ -30,7 +30,7 @@
 #include <QToolTip>
 #include <QUrl>
 
-#include <TODO:kglobalsettings.h>
+#include <kglobalsettings.h>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"

@@ -24,7 +24,7 @@
 
 #include <KLocalizedString>
 #include <KToolInvocation>
-#include <TODO:knuminput.h>
+#include <knuminput.h>
 
 #include "libkwave/String.h"
 

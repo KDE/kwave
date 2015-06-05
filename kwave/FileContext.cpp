@@ -27,8 +27,9 @@
 #include <QApplication>
 #include <QMdiSubWindow>
 
-#include <TODO:kglobal.h>
-#include <TODO:kstandarddirs.h>
+#include <kglobal.h>
+
+#include <QStandardPaths>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"
@@ -209,7 +210,7 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     m_plugin_manager->searchPluginModules();
 
     // load the menu from file
-    QFile menufile(KStandardDirs::locate("data", _("kwave/menus.config")));
+    QFile menufile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, _("kwave/menus.config")));
     menufile.open(QIODevice::ReadOnly);
     QTextStream stream(&menufile);
     Q_ASSERT(!stream.atEnd());

@@ -27,7 +27,8 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KToolInvocation>
-#include <TODO:kcmdlineargs.h>
+#include <kcmdlineargs.h>
+#include <KSharedConfig>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
@@ -69,7 +70,7 @@ Kwave::App::App()
 
     // read the configured user interface type
     QString result;
-    KConfigGroup cfg = KGlobal::config()->group("Global");
+    KConfigGroup cfg = KSharedConfig::openConfig()->group("Global");
     result = cfg.readEntry("UI Type");
     if (result == _("SDI")) {
 	m_gui_type = Kwave::App::GUI_SDI;
@@ -361,7 +362,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
 //***************************************************************************
 void Kwave::App::saveRecentFiles()
 {
-    KConfigGroup cfg = KGlobal::config()->group("Recent Files");
+    KConfigGroup cfg = KSharedConfig::openConfig()->group("Recent Files");
 
     QString num;
     for (int i = 0 ; i < MAX_RECENT_FILES; i++) {
@@ -380,7 +381,7 @@ void Kwave::App::readConfig()
 {
     QString result;
     QString key;
-    const KConfigGroup cfg = KGlobal::config()->group("Recent Files");
+    const KConfigGroup cfg = KSharedConfig::openConfig()->group("Recent Files");
 
     for (unsigned int i = 0 ; i < MAX_RECENT_FILES; i++) {
 	key = QString::number(i);        // generate number

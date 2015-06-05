@@ -20,7 +20,7 @@
 #include <QDateTime>
 
 #include <KLocalizedString>
-#include <TODO:kmimetype.h>
+#include <kmimetype.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"

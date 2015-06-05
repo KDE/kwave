@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <TODO:klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Interpolation.h"

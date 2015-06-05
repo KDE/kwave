@@ -241,7 +241,7 @@ void Kwave::ChannelMixer::mix()
 
 	// emit the output
 	Kwave::SampleBuffer *out_buf = m_output_buffer[y];
-	if (KDE_ISUNLIKELY(out_buf->constData().size() > min_len)) {
+	if (Q_UNLIKELY(out_buf->constData().size() > min_len)) {
 	    bool ok = out_buf->data().resize(min_len);
 	    Q_ASSERT(ok);
 	    Q_UNUSED(ok);

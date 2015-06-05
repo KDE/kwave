@@ -53,7 +53,7 @@ namespace Kwave
 	/** returns a const pointer to the raw data (non-mutable) */
 	inline const sample_t * constData() const
 	{
-	    if (KDE_ISUNLIKELY(!m_storage)) return 0;
+	    if (Q_UNLIKELY(!m_storage)) return 0;
 	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
 	    return m_storage->m_data;
 	}
@@ -61,7 +61,7 @@ namespace Kwave
 	/** returns a pointer to the raw data (mutable) */
 	inline sample_t *data() /* __attribute__((deprecated)) <- for debug */
 	{
-	    if (KDE_ISUNLIKELY(!m_storage)) return 0;
+	    if (Q_UNLIKELY(!m_storage)) return 0;
 	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
 	    return m_storage->m_data;
 	}
@@ -102,7 +102,7 @@ namespace Kwave
 	 * @param size new number of samples
 	 * @return true if succeeded, false if failed
 	 */
-	bool resize(unsigned int size) KDE_MUST_USE_RESULT;
+	bool resize(unsigned int size) Q_REQUIRED_RESULT;
 
 	/**
 	 * Returns the number of samples.

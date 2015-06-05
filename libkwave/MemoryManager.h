@@ -36,17 +36,17 @@ namespace Kwave
     /** handle for memory manager */
     typedef int Handle;
 
-    class Q_DECL_EXPORT MemoryManager
+    class MemoryManager
     {
     public:
 	/** Constructor */
-	MemoryManager() KDE_NO_EXPORT;
+	MemoryManager();
 
 	/** Destructor */
-	virtual ~MemoryManager() KDE_NO_EXPORT;
+	virtual ~MemoryManager();
 
 	/** Closes the memory manager and does cleanups at program shutdown */
-	void close() KDE_NO_EXPORT;
+	void close();
 
 	/**
 	 * Gets a block of memory, either in physical memory or in a swap file
@@ -209,22 +209,22 @@ namespace Kwave
     protected:
 
 	/** returns the currently allocated physical memory */
-	quint64 physicalUsed() KDE_NO_EXPORT;
+	quint64 physicalUsed();
 
 	/** returns the currently allocated virtual memory */
-	quint64 virtualUsed() KDE_NO_EXPORT;
+	quint64 virtualUsed();
 
 	/** returns a new swap file name */
-	QString nextSwapFileName(Kwave::Handle handle) KDE_NO_EXPORT;
+	QString nextSwapFileName(Kwave::Handle handle);
 
 	/** convert a physical memory block into a new larger pagefile */
-	bool convertToVirtual(Kwave::Handle handle, size_t new_size) KDE_NO_EXPORT;
+	bool convertToVirtual(Kwave::Handle handle, size_t new_size);
 
 	/** convert a swapfile into a physical memory block */
-	bool convertToPhysical(Kwave::Handle handle, size_t new_size) KDE_NO_EXPORT;
+	bool convertToPhysical(Kwave::Handle handle, size_t new_size);
 
 	/** tries to allocate physical memory */
-	Kwave::Handle allocatePhysical(size_t size) KDE_NO_EXPORT;
+	Kwave::Handle allocatePhysical(size_t size);
 
 	/** tries to convert to physical RAM */
 	void tryToMakePhysical(Kwave::Handle handle);
@@ -235,7 +235,7 @@ namespace Kwave
 	 * @param size number of bytes to allocate
 	 * @return handle of a SwapFile object or zero if failed
 	 */
-	Kwave::Handle allocateVirtual(size_t size) KDE_NO_EXPORT;
+	Kwave::Handle allocateVirtual(size_t size);
 
     private:
 
@@ -261,7 +261,7 @@ namespace Kwave
 	 *
 	 * @param handle handle of a block in m_cached_swap
 	 */
-	void unmapFromCache(Kwave::Handle handle) KDE_NO_EXPORT;
+	void unmapFromCache(Kwave::Handle handle);
 
 	/** dump current state (for debugging) */
 	void dump(const char *function);

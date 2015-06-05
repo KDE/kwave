@@ -22,7 +22,7 @@
 #include <QtGlobal>
 #include <QString>
 
-#include <TODO:klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"

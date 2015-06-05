@@ -27,14 +27,6 @@
 
 #include "libkwave/Sample.h" // for sample_index_t
 
-#ifndef Q_LIKELY
-#define Q_LIKELY(x) (x)
-#endif /* Q_LIKELY */
-
-#ifndef Q_UNLIKELY
-#define Q_UNLIKELY(x) (x)
-#endif /* Q_UNLIKELY */
-
 namespace Kwave
 {
 

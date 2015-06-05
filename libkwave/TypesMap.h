@@ -26,7 +26,7 @@
 #include <QString>
 #include <QStringList>
 
-#include <TODO:klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 #include "libkwave/Triple.h"

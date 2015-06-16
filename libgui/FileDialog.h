@@ -21,10 +21,9 @@
 #include "config.h"
 
 #include <QtGlobal>
+#include <QFileDialog>
 #include <QObject>
 #include <QString>
-
-#include <kfiledialog.h>
 
 class QWidget;
 
@@ -34,16 +33,21 @@ namespace Kwave
      * An improved version of KFileDialog that does not forget the last
      * directory and pre-selects the last file extension.
      */
-    class Q_DECL_EXPORT FileDialog: public KFileDialog
+    class Q_DECL_EXPORT FileDialog: public QFileDialog
     {
 	Q_OBJECT
     public:
+	typedef enum {
+	    Saving = 0,
+	    Opening
+	} OperationMode;
+
 	/**
-	* Constructor.
-	* @see KFileFialog
-	*/
+	 * Constructor.
+	 * @see QFileDialog
+	 */
 	FileDialog(const QString& startDir,
-	           KFileDialog::OperationMode mode,
+	           OperationMode mode,
 	           const QString& filter,
 	           QWidget *parent, bool modal,
 	           const QString last_url = QString(),
@@ -58,6 +62,11 @@ namespace Kwave
 	 * Returns the last used extension, including "*."
 	 */
 	QString selectedExtension();
+
+	/**
+	 * Returns the first selected URL (if any)
+	 */
+	QUrl selectedUrl() const;
 
     protected:
 

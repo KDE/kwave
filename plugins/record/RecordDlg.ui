@@ -1285,7 +1285,7 @@ recording. Depending on the compilation options you can select one of the follow
        <number>2</number>
       </property>
       <item>
-       <widget class="KStatusBar" name="lbl_state" native="true">
+       <widget class="QStatusBar" name="lbl_state" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -1349,11 +1349,6 @@ recording. Depending on the compilation options you can select one of the follow
    <class>Kwave::LevelMeter</class>
    <extends>QWidget</extends>
    <header>LevelMeter.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KStatusBar</class>
-   <extends>QWidget</extends>
-   <header location="global">kstatusbar.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

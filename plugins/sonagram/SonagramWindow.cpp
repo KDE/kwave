@@ -27,8 +27,9 @@
 #include <QTimer>
 
 #include <kfiledialog.h>
-#include <kmenubar.h>
+#include <QMenuBar>
 #include <kstatusbar.h>
+#include <QFileDialog>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -99,7 +100,7 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     Q_ASSERT(top_layout);
     if (!top_layout) return;
 
-    KMenuBar *bar = menuBar();
+    QMenuBar *bar = menuBar();
     Q_ASSERT(bar);
     if (!bar) return ;
 
@@ -128,7 +129,7 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
 
 //    spectral->addAction (i18n("&Retransform to Signal"), this, SLOT(toSignal()));
 
-    KStatusBar *status = statusBar();
+    QStatusBar *status = statusBar();
     Q_ASSERT(status);
     if (!status) return ;
 
@@ -219,7 +220,7 @@ void Kwave::SonagramWindow::save()
 void Kwave::SonagramWindow::load()
 {
 //    if (image) {
-//	QString filename = KFileDialog::getOpenFileName("", "*.bmp", this);
+//	QString filename = QFileDialog::getOpenFileName(this, QString(), "", "*.bmp");
 //	printf ("loading %s\n", filename.local8Bit().data());
 //	if (!filename.isNull()) {
 //	    printf ("loading %s\n", filename.local8Bit().data());
@@ -506,7 +507,7 @@ void Kwave::SonagramWindow::setName(const QString &name)
 //****************************************************************************
 void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
 {
-    KStatusBar *status = statusBar();
+    QStatusBar *status = statusBar();
     Q_ASSERT(status);
     Q_ASSERT(m_points);
     Q_ASSERT(!qFuzzyIsNull(m_rate));

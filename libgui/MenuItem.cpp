@@ -22,7 +22,6 @@
 
 #include <KLocalizedString>
 #include <KIconLoader>
-#include <kapplication.h>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
@@ -44,7 +43,7 @@ Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,
     if (!parent) return;
 
     m_action.setText(i18nc(UTF8(_("menu: ") + path()), UTF8(name)));
-    if (shortcut) m_action.setShortcut(shortcut);
+    if (!shortcut.isEmpty()) m_action.setShortcut(shortcut);
 
     connect(&m_action, SIGNAL(triggered(bool)),
 	    this, SLOT(actionTriggered(bool)));

@@ -92,7 +92,7 @@ namespace Kwave
 	/**
 	 * Returns the bitmask of the keyboard shortcut.
 	 */
-	inline int shortcut() const { return m_shortcut; }
+	inline const QKeySequence &shortcut() const { return m_shortcut; }
 
 	/**
 	 * Sets the bitmask of the keyboard shortcut.

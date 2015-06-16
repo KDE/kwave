@@ -68,7 +68,13 @@ ADD_DEPENDENCIES(libkwavegui libkwave)
 
 TARGET_LINK_LIBRARIES(libkwavegui
     kwave
-    ${KDE4_KFILE_LIBS}
+    Qt5::Core
+    Qt5::Concurrent
+    Qt5::Widgets
+    KF5::ConfigCore
+    KF5::I18n
+    KF5::IconThemes
+    KF5::KIOFileWidgets
 )
 
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES OUTPUT_NAME "kwavegui")

@@ -136,7 +136,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KLineEdit" name="edDirectory">
+       <widget class="QLineEdit" name="edDirectory">
         <property name="toolTip">
          <string>Directory for storing swap files</string>
         </property>
@@ -335,7 +335,7 @@ If you do not set a limit, the size of the physically installed memory in your c
    <header>kdialogbuttonbox.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
+   <class>QLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>

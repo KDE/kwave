@@ -57,7 +57,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="KLineEdit" name="edCommand">
+       <widget class="QLineEdit" name="edCommand">
         <property name="minimumSize">
          <size>
           <width>300</width>
@@ -99,7 +99,7 @@
    <header>kdialogbuttonbox.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
+   <class>QLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>

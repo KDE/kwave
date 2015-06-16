@@ -25,6 +25,7 @@
 #include <QFrame>
 #include <QGridLayout>
 #include <QHBoxLayout>
+#include <QMimeType>
 #include <QPoint>
 #include <QResizeEvent>
 #include <QScrollBar>
@@ -32,6 +33,7 @@
 #include <QtGlobal>
 
 #include <KLocalizedString>
+#include <QFileDialog>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"
@@ -271,7 +273,9 @@ void Kwave::MainWidget::dropEvent(QDropEvent *event)
 	    signal_manager->selectRange(pos, len);
 	    event->acceptProposedAction();
 	} else {
-	    qWarning("MainWidget::dropEvent(%s): failed !", event->format(0));
+	    QStringList formats = event->mimeData()->formats();
+	    QString fmt = (!formats.isEmpty()) ? formats.first() : QString();
+	    qWarning("MainWidget::dropEvent(%s): failed !", DBG(fmt));
 	    event->ignore();
 	}
     }
@@ -904,7 +908,7 @@ void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
 // ////****************************************************************************
 // //void MainWidget::saveLabel (const char *typestring)
 // //{
-// //    QString name = KFileDialog::getSaveFileName (0, "*.label", this);
+// //    QString name = QFileDialog::getSaveFileName(this, QString(), 0, "*.label");
 // //    if (!name.isNull()) {
 // //	FILE *out;
 // //	out = fopen (name.local8Bit(), "w");
@@ -1065,7 +1069,7 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
 // //	    int last = 0;
 // //	    int rate = signalmanage->getRate ();
 // //
-// //	    QString name = KFileDialog::getSaveFileName (0, "*.dat", this);
+// //	    QString name = QFileDialog::getSaveFileName(this, QString(), 0, "*.dat");
 // //	    if (!name.isNull()) {
 // //		QFile out(name.local8Bit());
 // //		char buf[160];

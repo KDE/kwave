@@ -28,7 +28,7 @@
 #include <QString>
 #include <QStringList>
 
-#include <KLineEdit>
+#include <QLineEdit>
 #include <KToolInvocation>
 #include <kfiledialog.h>
 

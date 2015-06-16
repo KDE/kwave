@@ -72,7 +72,7 @@ namespace Kwave
 
 	/**
 	 * Checks for modifications of the sample number edit.
-	 * That stupid KIntNumInput doesn't notify us about changes :-[
+	 * That stupid QSpinBox doesn't notify us about changes :-[
 	 */
 	void checkNewSampleEdit();
 

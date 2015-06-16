@@ -22,6 +22,7 @@
 
 #include <QAction>
 
+#include <KComboBox>
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KMainWindow>

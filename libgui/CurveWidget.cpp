@@ -23,6 +23,7 @@
 #include <QCursor>
 #include <QDir>
 #include <QFile>
+#include <QFileDialog>
 #include <QFileInfo>
 #include <QKeySequence>
 #include <QMenu>
@@ -31,17 +32,17 @@
 #include <QPainter>
 #include <QPalette>
 #include <QShortcut>
+#include <QStandardPaths>
 #include <QString>
 #include <QStringList>
 #include <QTextStream>
 
 #include <KLocalizedString>
 #include <KIconLoader>
-#include <kfiledialog.h>
-#include <kstandarddirs.h>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Interpolation.h"
+#include "libkwave/Logger.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
@@ -175,13 +176,18 @@ void Kwave::CurveWidget::selectInterpolationType(QAction *action)
 //***************************************************************************
 void Kwave::CurveWidget::savePreset()
 {
-    KStandardDirs stddirs;
-    stddirs.addResourceType("curves", 0, _("presets") +
-	QDir::separator() + _("curves"));
-
-    QDir presetDir = stddirs.saveLocation("curves", QString(), true);
-    QString name = KFileDialog::getSaveFileName(
-		       presetDir.path(), _("*.curve"), this);
+    QString presetSubDir = _("presets") + QDir::separator() + _("curves");
+    QString presetPath = QStandardPaths::writableLocation(
+	QStandardPaths::AppDataLocation) +
+	QDir::separator() + presetSubDir;
+    if (!QDir(presetPath).exists()) {
+	Kwave::Logger::log(this, Logger::Info,
+	    _("curve preset directory did not exist, creating '%1'").arg(
+	    presetPath));
+	QDir(presetPath).mkpath(presetPath);
+    }
+    QString name = QFileDialog::getSaveFileName(this, QString(),
+	presetSubDir, _("*.curve"));
 
     // append the extension if not given
     if (!name.endsWith(_(".curve")))
@@ -199,16 +205,15 @@ void Kwave::CurveWidget::savePreset()
 //***************************************************************************
 void Kwave::CurveWidget::loadPresetList()
 {
-    KStandardDirs stddirs;
-    stddirs.addResourceType("curves", 0, _("presets") +
-	QDir::separator() + _("curves"));
-
-    QStringList files = stddirs.findAllResources("curves",
-	    _("*.curve"), KStandardDirs::NoDuplicates);
+    QString presetSubDir = _("presets") + QDir::separator() + _("curves");
+    QStringList files = QStandardPaths::locateAll(
+	QStandardPaths::AppDataLocation,
+	presetSubDir + QDir::separator() + _("*.curve"),
+	QStandardPaths::LocateFile);
     files.sort();
 
     m_preset_menu->clear();
-    for (int i=0; i < files.count(); i++) {
+    for (int i = 0; i < files.count(); i++) {
 	QFileInfo fi(files[i]);
 	QString name = fi.fileName();
 	name.chop(strlen(".curve"));
@@ -227,13 +232,14 @@ void Kwave::CurveWidget::loadPreset(QAction *action)
     m_current = Kwave::Curve::NoPoint;
     m_last    = Kwave::Curve::NoPoint;
 
-    KStandardDirs stddirs;
-    stddirs.addResourceType("curves", 0, _("presets") +
-	QDir::separator() + _("curves"));
+    QString presetSubDir = _("presets") + QDir::separator() + _("curves");
 
     // get the path of the file
     QString filename = action->text();
-    QString path = stddirs.findResource("curves", filename + _(".curve"));
+    QString path = QStandardPaths::locate(
+	QStandardPaths::AppDataLocation,
+	presetSubDir + QDir::separator() + _("*.curve"),
+	QStandardPaths::LocateFile);
 
     // load the file
     QFile file(path);

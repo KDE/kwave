@@ -20,7 +20,7 @@
 #include <QCheckBox>
 
 #include <KComboBox>
-#include <KLineEdit>
+#include <QLineEdit>
 
 #include "libkwave/String.h"
 

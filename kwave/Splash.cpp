@@ -28,8 +28,6 @@
 
 #include <KAboutData>
 #include <KLocalizedString>
-#include <kapplication.h>
-#include <kglobal.h>
 
 #include <QStandardPaths>
 
@@ -51,8 +49,8 @@ Kwave::Splash::Splash(const QString &PNGImageFileName)
     p.begin(&m_pixmap);
 
     // get all the strings that we should display
-    const KAboutData *about_data = KGlobal::mainComponent().aboutData();
-    QString version = i18nc("%1=Version number", "v%1", about_data->version());
+    const KAboutData about_data = KAboutData::applicationData();
+    QString version = i18nc("%1=Version number", "v%1", about_data.version());
 
     QFont font;
     font.setBold(true);

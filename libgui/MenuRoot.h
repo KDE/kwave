@@ -24,7 +24,7 @@
 
 #include "libgui/MenuNode.h"
 
-class KMenuBar;
+class QMenuBar;
 
 namespace Kwave
 {
@@ -44,9 +44,9 @@ namespace Kwave
 
 	/**
 	 * Constructor.
-	 * @param bar reference to a KMenuBar
+	 * @param bar reference to a QMenuBar
 	 */
-	explicit MenuRoot(KMenuBar &bar);
+	explicit MenuRoot(QMenuBar &bar);
 
 	/** Destructor */
 	virtual ~MenuRoot();
@@ -148,8 +148,8 @@ namespace Kwave
 
     private:
 
-	/** reference to a KMenuBar */
-	KMenuBar &m_menu_bar;
+	/** reference to a QMenuBar */
+	QMenuBar &m_menu_bar;
 
 	/** list of menu groups */
 	QHash<QString, Kwave::MenuGroup *> m_group_list;

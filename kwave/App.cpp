@@ -19,6 +19,7 @@
 
 #include <errno.h>
 
+#include <QCommandLineParser>
 #include <QFile>
 #include <QMetaType>
 #include <QMutableListIterator>
@@ -26,8 +27,7 @@
 
 #include <KConfig>
 #include <KConfigGroup>
-#include <KToolInvocation>
-#include <kcmdlineargs.h>
+#include <KHelpClient>
 #include <KSharedConfig>
 
 #include "libkwave/ClipBoard.h"
@@ -51,8 +51,9 @@
 #define MAX_RECENT_FILES 20
 
 //***************************************************************************
-Kwave::App::App()
-   :KUniqueApplication(),
+Kwave::App::App(int &argc, char **argv, QCommandLineParser &cmdline)
+   :QApplication(argc, argv),
+    m_cmdline(cmdline),
     m_recent_files(),
     m_top_widgets(),
     m_gui_type(Kwave::App::GUI_TAB)
@@ -82,9 +83,8 @@ Kwave::App::App()
     // else: use default
 
     // if user interface type is given as cmdline parameter: use that one
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    if (args && args->isSet("gui")) {
-	QString arg = args->getOption("gui").toUpper();
+    if (m_cmdline.isSet(_("gui"))) {
+	QString arg = m_cmdline.value(_("gui")).toUpper();
 	bool valid = false;
 	if (arg == _("SDI")) {
 	    m_gui_type = Kwave::App::GUI_SDI;
@@ -119,9 +119,8 @@ int Kwave::App::newInstance()
 	first_time = false;
 
 	// open the log file if given on the command line
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-	if (args && args->isSet("logfile")) {
-	    if (!Kwave::Logger::open(args->getOption("logfile")))
+	if (m_cmdline.isSet(_("logfile"))) {
+	    if (!Kwave::Logger::open(m_cmdline.value(_("logfile"))))
 		exit(-1);
 	}
 
@@ -132,21 +131,18 @@ int Kwave::App::newInstance()
 	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
     }
 
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    unsigned int argc = (args) ? args->count() : 0;
+    QStringList params = m_cmdline.positionalArguments();
 
     // only one parameter -> open with empty window
-    if (argc == 0) {
+    if (params.isEmpty()) {
 	newWindow(QUrl(QString()));
     } else {
 	// open a window for each file specified in the
 	// command line an load it
-	for (unsigned int i = 0; i < argc; i++) {
-	    QString name = args->arg(i);
+	foreach (const QString &name, params) {
 	    newWindow(QUrl(name));
 	}
     }
-    if (args) args->clear();
 
     return 0;
 }
@@ -174,7 +170,7 @@ int Kwave::App::executeCommand(const QString &command)
 	saveRecentFiles();
 	emit recentFilesChanged();
     } else if (parser.command() == _("help")) {
-	KToolInvocation::invokeHelp();
+	KHelpClient::invokeHelp();
     } else {
 	return ENOSYS; // command not implemented (here)
     }
@@ -234,11 +230,7 @@ bool Kwave::App::newWindow(const QUrl &url)
 	    return false;
 	}
 
-	if (m_top_widgets.isEmpty()) {
-	    // the first widget is the main widget !
-	    setTopWidget(new_top_widget); // sets geometry and other properties
-	    setTopWidget(0);              // that's enough, don't quit on close!
-	} else {
+	if (!m_top_widgets.isEmpty()) {
 	    // create a new widget with the same geometry as
 	    // the last created one
 	    const QRect &geom = m_top_widgets.last()->geometry();

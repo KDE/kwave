@@ -409,7 +409,7 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	enqueueCommand(delay, cmd);
 	result = 0;
     CASE_COMMAND("loadbatch")
-	result = loadBatch(parser.nextParam());
+	result = loadBatch(QUrl(parser.nextParam()));
     CASE_COMMAND("plugin")
 	QString name(parser.firstParam());
 	QStringList params(parser.remainingParams());
@@ -497,8 +497,7 @@ void Kwave::FileContext::updatePlaybackPos(sample_index_t offset)
 	double ms = static_cast<double>(offset) * 1E3 / rate;
 	txt = i18n("Playback: %1", Kwave::ms2string(ms));
     } else {
-	txt = i18n("Playback: %1 samples", KGlobal::locale()->formatLong(
-	           static_cast<long int>(offset)));
+	txt = i18n("Playback: %1 samples", Kwave::samples2string(offset));
     }
 
     statusBarMessage(txt, 2000);
@@ -881,7 +880,7 @@ int Kwave::FileContext::saveFile()
 
     if (signalName() != NEW_FILENAME) {
 	QUrl url;
-	url = signalName();
+	url = QUrl(signalName());
 	res = m_signal_manager->save(url, false);
 
 	// if saving in current format is not possible (no encoder),
@@ -909,7 +908,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	 * no name given -> show the File/SaveAs dialog...
 	 */
 	QUrl current_url;
-	current_url = signalName();
+	current_url = QUrl(signalName());
 
 	QString what  = Kwave::CodecManager::whatContains(current_url);
 	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
@@ -938,18 +937,19 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	QString filter = Kwave::CodecManager::encodingFilter();
 	QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
 	    _("kfiledialog:///kwave_save_as"),
-	    KFileDialog::Saving,
+	    Kwave::FileDialog::Saving,
 	    filter, m_top_widget, true, current_url.toDisplayString(), extension
 	);
 	if (!dlg) return 0;
-	dlg->setCaption(i18n("Save As"));
+	dlg->setWindowTitle(i18n("Save As"));
 	if (dlg->exec() != QDialog::Accepted) return -1;
 
-	url = dlg->selectedUrl();
-	if (url.isEmpty()) {
+	QList<QUrl> urls = dlg->selectedUrls();
+	if (urls.isEmpty()) {
 	    delete dlg;
 	    return 0;
 	}
+	url = urls.first();
 
 	QString new_name = url.path();
 	QFileInfo path(new_name);
@@ -970,7 +970,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
     // check if the file exists and ask before overwriting it
     // if it is not the old filename
     name = url.path();
-    if ((url.toDisplayString() != QUrl(signalName()).prettyUrl()) &&
+    if ((url.toDisplayString() != QUrl(signalName()).toDisplayString()) &&
 	(QFileInfo(name).exists()))
     {
 	if (Kwave::MessageBox::warningYesNo(m_top_widget,

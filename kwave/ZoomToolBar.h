@@ -24,7 +24,6 @@
 #include <QObject>
 #include <QTimer>
 
-#include <KComboBox>
 #include <KToolBar>
 
 #include "libkwave/LabelList.h"
@@ -32,6 +31,7 @@
 #include "libkwave/Sample.h"
 
 class QAction;
+class KComboBox;
 class KMainWindow;
 
 namespace Kwave

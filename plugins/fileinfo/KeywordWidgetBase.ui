@@ -21,7 +21,7 @@
     <number>10</number>
    </property>
    <item row="0" column="0" colspan="2">
-    <widget class="KLineEdit" name="edKeyword"/>
+    <widget class="QLineEdit" name="edKeyword"/>
    </item>
    <item row="2" column="1">
     <widget class="QPushButton" name="btRemove">
@@ -88,7 +88,7 @@ Create a list of keywords by going through all present file information and merg
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KLineEdit</class>
+   <class>QLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>

@@ -21,8 +21,10 @@
 #include <unistd.h>
 
 #include <QApplication>
+#include <QDir>
 #include <QLatin1Char>
 #include <QLibrary>
+#include <QLibraryInfo>
 #include <QMutableListIterator>
 #include <QtGlobal>
 
@@ -604,13 +606,10 @@ void Kwave::PluginManager::searchPluginModules()
 	return;
     }
 
-    KStandardDirs dirs;
-    QStringList files = dirs.findAllResources("module",
-	    _("plugins/kwave/*"), KStandardDirs::NoDuplicates);
-
-    /* fallback: search also in the old location (useful for developers) */
-    files += dirs.findAllResources("data",
-	    _("kwave/plugins/*"), KStandardDirs::NoDuplicates);
+    QDir dir(QLibraryInfo::location(QLibraryInfo::PluginsPath) +
+	QDir::separator() + _("kwave"));
+    QStringList files = dir.entryList(
+	QDir::Files | QDir::Executable, QDir::Name);
 
     foreach (const QString &file, files) {
 	QLibrary *module = new QLibrary(file);
@@ -626,17 +625,15 @@ void Kwave::PluginManager::searchPluginModules()
 
 	// get all required symbols from the plugin
 	const char **p_name    =
-	    static_cast<const char **>(module->resolve(sym_name));
+	    reinterpret_cast<const char **>(module->resolve(sym_name));
 	const char **p_version =
-	    static_cast<const char **>(module->resolve(sym_version));
+	    reinterpret_cast<const char **>(module->resolve(sym_version));
 	const char **p_description =
-	    static_cast<const char **>(module->resolve(sym_description));
+	    reinterpret_cast<const char **>(module->resolve(sym_description));
 	const char **p_author  =
-	    static_cast<const char **>(module->resolve(sym_author));
-
-	void *p = module->resolve(sym_loader);
-	plugin_ldr_func_t *p_loader = 0;
-	memcpy(&p_loader, &p, sizeof(p));
+	    reinterpret_cast<const char **>(module->resolve(sym_author));
+	plugin_ldr_func_t *p_loader =
+	    reinterpret_cast<plugin_ldr_func_t *>(module->resolve(sym_loader));
 
 	// skip the plugin if something is missing or null
 	if (!p_name || !p_version || !p_author ||

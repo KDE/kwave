@@ -27,6 +27,7 @@
 #include <QAction>
 #include <QApplication>
 #include <QCloseEvent>
+#include <QCommandLineParser>
 #include <QDesktopWidget>
 #include <QFile>
 #include <QFrame>
@@ -34,9 +35,11 @@
 #include <QLatin1Char>
 #include <QMap>
 #include <QMdiSubWindow>
+#include <QMenuBar>
 #include <QMutableMapIterator>
 #include <QPixmap>
 #include <QSizePolicy>
+#include <QStatusBar>
 #include <QStringList>
 #include <QTextStream>
 #include <QtGlobal>
@@ -44,18 +47,15 @@
 #include <KComboBox>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KF5/KGuiAddons/KMessageBox>
 #include <KHelpMenu>
-#include <KLocalizedString>
 #include <KIconLoader>
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <KToolBar>
-#include <kapplication.h>
-#include <kcmdlineargs.h>
-#include <kfiledialog.h>
-#include <kglobal.h>
-#include <kmenubar.h>
 
-#include <kstatusbar.h>
+// #include <kcmdlineargs.h>
+// #include <kfiledialog.h>
+// #include <kglobal.h>
 #include <KSharedConfig>
 
 #include "libkwave/ClipBoard.h"
@@ -124,7 +124,7 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
      m_lbl_status_cursor(0)
 {
     // status bar items
-    KStatusBar *status_bar = statusBar();
+    QStatusBar *status_bar = statusBar();
     Q_ASSERT(status_bar);
     if (!status_bar) return;
 
@@ -154,8 +154,8 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
     m_lbl_status_size->setFrameStyle(frame_style);
 
     // start up iconified if requested
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    bool iconic = (args && args->isSet("iconic"));
+    const QCommandLineParser &args = m_application.cmdline();
+    bool iconic = (args.isSet(_("iconic")));
     if (iconic) {
 	showMinimized();
     }
@@ -266,7 +266,7 @@ bool Kwave::TopWidget::init()
     KIconLoader icon_loader;
 
     showInSplashSreen(i18n("Loading main menu..."));
-    KMenuBar *menubar = menuBar();
+    QMenuBar *menubar = menuBar();
     Q_ASSERT(menubar);
     if (!menubar) return false;
     m_menu_manager = new(std::nothrow) Kwave::MenuManager(this, *menubar);
@@ -447,7 +447,7 @@ bool Kwave::TopWidget::init()
 	// this happens when one passes "-geometry <WIDTH>x<HEIGHT>" without
 	// specifying a target position!?
 	// passing "-geometry <WIDTH>x<HEIGHT>-<LEFT>-<TOP>" works...
-	g = desk.intersect(g);
+	g = desk.intersected(g);
 	setGeometry(g);
     }
 
@@ -739,7 +739,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	QString filename = parser.nextParam();
 	if (!filename.isEmpty()) {
 	    // open the selected file
-	    result = loadFile(filename);
+	    result = loadFile(QUrl(filename));
 	} else {
 	    // show file open dialog
 	    result = openFile();
@@ -1062,7 +1062,7 @@ int Kwave::TopWidget::loadFile(const QUrl &url)
 int Kwave::TopWidget::openRecent(const QString &str)
 {
     Kwave::Parser parser(str);
-    return loadFile(parser.firstParam());
+    return loadFile(QUrl(parser.firstParam()));
 }
 
 //***************************************************************************
@@ -1070,9 +1070,9 @@ int Kwave::TopWidget::openFile()
 {
     QString filter = Kwave::CodecManager::decodingFilter();
     Kwave::FileDialog dlg(_("kfiledialog:///kwave_open_dir"),
-	KFileDialog::Opening, filter, this, true);
-    dlg.setMode(static_cast<KFile::Modes>(KFile::File | KFile::ExistingOnly));
-    dlg.setCaption(i18n("Open"));
+	Kwave::FileDialog::Opening, filter, this, true);
+//     dlg.setMode(static_cast<KFile::Modes>(KFile::File | KFile::ExistingOnly));
+    dlg.setWindowTitle(i18n("Open"));
     if (dlg.exec() == QDialog::Accepted)
 	return loadFile(dlg.selectedUrl());
     else
@@ -1124,7 +1124,7 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 	    "Length, as in total duration of loaded song",
 	    "Length: %1 (%2 samples)",
 	    Kwave::ms2string(ms),
-	    KGlobal::locale()->formatLong(static_cast<long int>(length))
+	    Kwave::samples2string(length)
 	) + _(" ");
     } else txt = _("");
     m_lbl_status_size->setText(txt);
@@ -1180,9 +1180,9 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	        "%1=first sample, %2=last sample, %3=number of samples, "\
 	        "example: 'Selected: 2000...3000 (1000 samples)'",
 	        "Selected: %1...%2 (%3 samples)",
-	        KGlobal::locale()->formatLong(static_cast<long int>(offset)),
-	        KGlobal::locale()->formatLong(static_cast<long int>(last)),
-	        KGlobal::locale()->formatLong(static_cast<long int>(length))
+	        Kwave::samples2string(offset),
+	        Kwave::samples2string(last),
+	        Kwave::samples2string(length)
 	    );
 	} else {
 	    double ms_first = static_cast<double>(offset)   * 1E3 / rate;
@@ -1515,7 +1515,7 @@ void Kwave::TopWidget::showInSplashSreen(const QString &message)
 void Kwave::TopWidget::showStatusBarMessage(const QString &msg,
                                             unsigned int ms)
 {
-    KStatusBar *status_bar = statusBar();
+    QStatusBar *status_bar = statusBar();
     if (!status_bar) return;
 
     if (msg.length())
@@ -1574,7 +1574,7 @@ void Kwave::TopWidget::dropEvent(QDropEvent *event)
 	bool first = true;
 	foreach (const QUrl &url, event->mimeData()->urls()) {
 	    QString filename = url.toLocalFile();
-	    QString mimetype = Kwave::CodecManager::whatContains(filename);
+	    QString mimetype = Kwave::CodecManager::whatContains(url);
 	    if (Kwave::CodecManager::canDecode(mimetype)) {
 		if (first) {
 		    // first dropped URL -> open in this window

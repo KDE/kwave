@@ -36,7 +36,7 @@
 #include <KComboBox>
 #include <KConfig>
 #include <KLocalizedString>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <KToolInvocation>
 #include <kdatewidget.h>
 #include <kglobal.h>
@@ -122,7 +122,7 @@ void Kwave::FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
 }
 
 //***************************************************************************
-void Kwave::FileInfoDialog::initInfoText(QLabel *label, KLineEdit *edit,
+void Kwave::FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
                                          Kwave::FileProperty property)
 {
     initInfo(label, edit, property);

@@ -24,8 +24,8 @@
 #include <QUrl>
 
 #include <KConfig>
+#include <KConfigGroup>
 #include <KFileFilterCombo>
-#include <kapplication.h>
 #include <KSharedConfig>
 
 #include "libkwave/String.h"
@@ -35,14 +35,20 @@
 //***************************************************************************
 Kwave::FileDialog::FileDialog(
     const QString &startDir,
-    KFileDialog::OperationMode mode,
+    OperationMode mode,
     const QString &filter, QWidget *parent, bool modal,
     const QString last_url, const QString last_ext
 )
-    :KFileDialog(startDir, filter, parent),
+    :QFileDialog(parent, QString(), startDir, filter),
      m_config_group(), m_last_url(last_url), m_last_ext(last_ext)
 {
     setModal(modal);
+
+    if (mode == Saving) {
+	setFileMode(QFileDialog::AnyFile);
+    } else {
+	setFileMode(QFileDialog::ExistingFile);
+    }
 
     QString special_prefix = _("kfiledialog:///");
     if (startDir.startsWith(special_prefix))
@@ -59,10 +65,10 @@ Kwave::FileDialog::FileDialog(
     // if a filename was passed, try to re-use it
     if (m_last_url.length() && QUrl(m_last_url).isLocalFile()) {
 	QFileInfo file(m_last_url);
-	if (QFileInfo(file.path()).exists() || (mode == KFileDialog::Saving))
-	    setUrl(QUrl(QUrl(m_last_url).path()));
-	if (!file.isDir() && (file.exists() || (mode == KFileDialog::Saving)))
-	    setSelection(QUrl(m_last_url).fileName());
+	if (QFileInfo(file.path()).exists() || (mode == Saving))
+	    setDirectory(QUrl(m_last_url).path());
+	if (!file.isDir() && (file.exists() || (mode == Saving)))
+	    selectFile(QUrl(m_last_url).fileName());
     }
 
     // put the last extension to the top of the list
@@ -84,8 +90,7 @@ Kwave::FileDialog::FileDialog(
 	if (best.length()) {
 	    filter_list.removeAll(best);
 	    filter_list.prepend(best);
-	    QString new_filter = filter_list.join(_("\n"));
-	    setFilter(new_filter);
+	    setNameFilters(filter_list);
 	}
     }
 
@@ -115,52 +120,64 @@ void Kwave::FileDialog::loadConfig(const QString &section)
     }
     if (!m_last_ext.length())
 	m_last_ext = cfg.readEntry("last_ext", m_last_ext);
+
+    QByteArray last_state = cfg.readEntry("last_state", QByteArray());
+    if (!last_state.isEmpty()) restoreState(last_state);
 }
 
 //***************************************************************************
 void Kwave::FileDialog::saveConfig()
 {
     if (!m_config_group.length()) return;
-    if (!selectedUrl().fileName().length()) return; // aborted
+    if (selectedUrls().isEmpty()) return;
+
+    QString file_name = selectedUrls().first().fileName();
+    if (!file_name.length()) return; // aborted
 
     // store the last URL
-    m_last_url = baseUrl().prettyUrl();
+    m_last_url = directoryUrl().toDisplayString();
 
     // store the last extension if present
-    QFileInfo file(selectedUrl().fileName());
+    QFileInfo file(file_name);
     QString extension = file.suffix();
     if (extension.length()) {
 	// simple case: file extension
 	m_last_ext = _("*.") + extension;
     } else {
 	// tricky case: filename mask
-	QString filename = selectedUrl().fileName();
-	QString filter = filterWidget()->currentFilter();
+	QString filter = selectedNameFilter();
 	m_last_ext = _("");
 	foreach (const QString &mask, filter.split(_(" "))) {
 	    QRegExp regex(mask, Qt::CaseSensitive, QRegExp::Wildcard);
-	    if (regex.indexIn(filename) >= 0) {
+	    if (regex.indexIn(file_name) >= 0) {
 		m_last_ext = mask;
 		break;
 	    }
 	}
-// 	if (!m_last_ext.length())
-// 	    no extension given -> since 0.7.7 this is allowed
     }
 
     KConfigGroup cfg = KSharedConfig::openConfig()->group(m_config_group);
-    cfg.writeEntry("last_url", m_last_url);
-    cfg.writeEntry("last_ext", m_last_ext);
+    cfg.writeEntry("last_url",   m_last_url);
+    cfg.writeEntry("last_ext",   m_last_ext);
+    cfg.writeEntry("last_state", saveState());
     cfg.sync();
 }
 
 //***************************************************************************
 QString Kwave::FileDialog::selectedExtension()
 {
-    QStringList ext_list = currentFilter().split(_("; "));
+    QStringList ext_list = selectedNameFilter().split(_("; "));
     return *(ext_list.begin());
 }
 
 //***************************************************************************
+QUrl Kwave::FileDialog::selectedUrl() const
+{
+    QList<QUrl> urls = selectedUrls();
+    if (urls.isEmpty())
+	return QUrl();
+    return urls.first();
+}
+
 //***************************************************************************
 //***************************************************************************

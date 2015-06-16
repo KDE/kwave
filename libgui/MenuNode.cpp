@@ -21,7 +21,6 @@
 #include <QPixmap>
 
 #include <KIconLoader>
-#include <kapplication.h>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
@@ -289,7 +288,7 @@ void Kwave::MenuNode::insertNode(const QString &name,
 	if (sub) {
 	    // a leaf with this name already exists
 	    // -> maybe we want to set new properties
-	    if (shortcut) sub->setShortcut(shortcut);
+	    if (!shortcut.isEmpty()) sub->setShortcut(shortcut);
 
 	    if (uid.length()) sub->setUID(uid);
 
@@ -313,7 +312,7 @@ void Kwave::MenuNode::insertNode(const QString &name,
 	} else if ( (p[0] == QLatin1Char('#')) || (p[0] == 0) ) {
 	    // branch already exists and we are at the end of parsing
 	    // -> maybe we want to set new properties
-	    if (shortcut) sub->setShortcut(shortcut);
+	    if (!shortcut.isEmpty()) sub->setShortcut(shortcut);
 	    if (uid.length()) sub->setUID(uid);
 	}
 

@@ -45,7 +45,7 @@ QMap<QString, QKeySequence> Kwave::MenuManager::m_standard_keys;
 #define INS(n,v) m_standard_keys.insert(_(n), v)
 
 //***************************************************************************
-Kwave::MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
+Kwave::MenuManager::MenuManager(QWidget *parent, QMenuBar &bar)
     :QObject(parent)
 {
     m_menu_root = new Kwave::MenuRoot(bar);

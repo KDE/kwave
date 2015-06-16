@@ -145,6 +145,7 @@ TARGET_LINK_LIBRARIES(libkwave
     KF5::CoreAddons
     KF5::I18n
     KF5::WidgetsAddons
+    KF5::XmlGui
 )
 
 #############################################################################

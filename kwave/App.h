@@ -20,14 +20,13 @@
 
 #include "config.h"
 
+#include <QApplication>
 #include <QList>
 #include <QObject>
 #include <QPair>
 #include <QStringList>
 
-#include <kapplication.h>
-#include <kuniqueapplication.h>
-
+class QCommandLineParser;
 class QString;
 class QUrl;
 
@@ -42,7 +41,7 @@ namespace Kwave
      * for opening and saving files, opening new windows and holds global
      * configuration data.
      */
-    class App :public KUniqueApplication
+    class App :public QApplication
     {
 	Q_OBJECT
     public:
@@ -60,8 +59,13 @@ namespace Kwave
 	 */
 	typedef QPair<QString,int> FileAndInstance;
 
-	/** Constructor */
-	App();
+	/**
+	 * Constructor
+	 * @param argc number of cmdline args, must be >= 1
+	 * @param argv list of cmdline args, must be static
+	 * @param cmdline reference to the command line parameters
+	 */
+	App(int &argc, char **argv, QCommandLineParser &cmdline);
 
 	/**
 	 * Returns true if this instance was successfully initialized, or
@@ -118,6 +122,9 @@ namespace Kwave
 	 */
 	void switchGuiType(Kwave::TopWidget *top, GuiType new_type);
 
+	/** Returns the command line parameters passed to the application */
+	inline const QCommandLineParser &cmdline() const { return m_cmdline; }
+
     signals:
 	/**
 	 * Will be emitted if the list of recent files has changed. Can
@@ -152,6 +159,9 @@ namespace Kwave
 
     private:
 
+	/** reference to a (static) command line parser */
+	QCommandLineParser &m_cmdline;
+
 	/**
 	 * Local list of recent files. This list will be synchronized
 	 * with the global list of recent files stored in the libkwave
@@ -167,7 +177,7 @@ namespace Kwave
     };
 }
 
-#endif // _KWAVE_APP_H_
+#endif // KWAVE_APP_H
 
 //***************************************************************************
 //***************************************************************************

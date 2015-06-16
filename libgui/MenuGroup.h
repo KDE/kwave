@@ -14,15 +14,12 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
 #ifndef MENU_GROUP_H
 #define MENU_GROUP_H
 
 #include "config.h"
 
 #include <QList>
-
-#include "libgui/MenuNode.h"
 
 class QActionGroup;
 
@@ -119,7 +116,7 @@ namespace Kwave
     };
 }
 
-#endif // _MENU_GROUP_H_
+#endif // MENU_GROUP_H
 
 //***************************************************************************
 //***************************************************************************

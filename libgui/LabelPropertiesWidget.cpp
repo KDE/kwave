@@ -18,11 +18,12 @@
 #include "config.h"
 #include "math.h"
 
+#include <QApplication>
 #include <QPushButton>
 
 #include <KConfig>
-#include <KLineEdit>
-#include <kapplication.h>
+#include <KConfigGroup>
+#include <QLineEdit>
 #include <KSharedConfig>
 
 #include "libkwave/String.h"

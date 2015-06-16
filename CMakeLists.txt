@@ -184,14 +184,19 @@ INCLUDE(KDE4Defaults)
 ADD_DEFINITIONS(${KDE4_DEFINITIONS})
 
 FIND_PACKAGE(KF5 REQUIRED COMPONENTS
+    Completion
     Config
     ConfigWidgets
     CoreAddons
+    DBusAddons
     DocTools
     GuiAddons
     I18n
+    IconThemes
     Init
+    KIO
     Notifications
+    Service
     XmlGui
     WidgetsAddons
 )

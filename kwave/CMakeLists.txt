@@ -82,6 +82,15 @@ TARGET_LINK_LIBRARIES(kwave_core
     kwave
     audiofile
     ${SAMPLERATE_LIBS}
+    Qt5::Core
+    Qt5::Widgets
+    KF5::Completion
+    KF5::ConfigCore
+    KF5::DBusAddons
+    KF5::I18n
+    KF5::IconThemes
+    KF5::Service
+    KF5::XmlGui
 )
 
 ADD_DEPENDENCIES(kwave_core libkwavegui libkwave)

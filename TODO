@@ -1,4 +1,9 @@
 
+o testing: curve widget, save/load presets
+o testing: FileDialog, modes, save/restore
+o testing: command line options
+o print version info in main()
+
 o recording via Phonon
 
 o auto-detect song borders set markers, for splitting recorded stuff into several

@@ -51,7 +51,6 @@ Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, sample_index_t samples,
     setModal(true);
 
     edSamples->setRange(0, INT_MAX, 1);
-    edSamples->setSliderEnabled(false);
 
     // connect the timer for the sample edit
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(checkNewSampleEdit()));
@@ -177,7 +176,7 @@ sample_index_t Kwave::NewSignalDialog::maxSamples()
     /*
      * NOTE: this limitation to INT_MAX instead of UINT_MAX is
      *       only needed because some gui elements like
-     *       KIntNumInput cannot handle more :-(
+     *       QSpinBox cannot handle more :-(
      */
     const sample_index_t max_file_size = INT_MAX;
 

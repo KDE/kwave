@@ -20,7 +20,7 @@
 #include <QListIterator>
 
 #include <KLocalizedString>
-#include <kmenubar.h>
+#include <QMenuBar>
 
 #include "libkwave/String.h"
 
@@ -33,7 +33,7 @@
 QList<Kwave::MenuNode *> Kwave::MenuRoot::m_garbage;
 
 //***************************************************************************
-Kwave::MenuRoot::MenuRoot(KMenuBar &bar)
+Kwave::MenuRoot::MenuRoot(QMenuBar &bar)
     :Kwave::MenuNode(0, _("(root)"), QString(), 0, QString()),
      m_menu_bar(bar), m_group_list()
 {

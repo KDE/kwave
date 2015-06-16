@@ -260,7 +260,7 @@
     </layout>
    </item>
    <item row="2" column="1">
-    <widget class="KIntNumInput" name="edSamples">
+    <widget class="QSpinBox" name="edSamples">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -409,11 +409,6 @@
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KIntNumInput</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>rbPercents</tabstop>
@@ -425,10 +420,6 @@
   <tabstop>sbPercents</tabstop>
   <tabstop>slidePercents</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

@@ -26,7 +26,7 @@
 
 class QString;
 class QWidget;
-class KMenuBar;
+class QMenuBar;
 
 namespace Kwave
 {
@@ -52,7 +52,7 @@ namespace Kwave
 	 * @param parent the menu's parent widget
 	 * @param bar reference to the menu bar
 	 */
-	MenuManager(QWidget *parent, KMenuBar &bar);
+	MenuManager(QWidget *parent, QMenuBar &bar);
 
 	/** Destructor. */
 	virtual ~MenuManager();

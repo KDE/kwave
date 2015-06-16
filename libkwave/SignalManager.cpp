@@ -32,10 +32,7 @@
 
 #include <KAboutData>
 #include <KLocalizedString>
-// #include <kapplication.h>
-// #include <kcomponentdata.h>
-// #include <kmimetype.h>
-// #include <kprogressdialog.h>
+#include <kxmlgui_version.h>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
@@ -212,7 +209,7 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
 
 	//prepare and show the progress dialog
 	dialog = new Kwave::FileProgress(m_parent_widget,
-	    filename, resulting_size,
+	    QUrl(filename), resulting_size,
 	    info.length(), info.rate(), info.bits(), info.tracks());
 	Q_ASSERT(dialog);
 
@@ -399,12 +396,11 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 	    encoder->supportedProperties().contains(Kwave::INF_SOFTWARE))
 	{
 	    // add our Kwave Software tag
-	    const KAboutData *about_data =
-		KGlobal::mainComponent().aboutData();
-	    QString software = about_data->programName() + _("-") +
-	                       about_data->version() +
+	    const KAboutData about_data = KAboutData::applicationData();
+	    QString software = about_data.displayName() + _("-") +
+	                       about_data.version() +
 	                       i18n(" for KDE ") +
-			       i18n(KDE_VERSION_STRING);
+			       _(KXMLGUI_VERSION_STRING);
 	    qDebug("adding software tag: '%s'", DBG(software));
 	    file_info.set(Kwave::INF_SOFTWARE, software);
 	}
@@ -423,7 +419,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 
 	// prepare and show the progress dialog
 	Kwave::FileProgress *dialog = new Kwave::FileProgress(m_parent_widget,
-	    filename, file_info.length() * file_info.tracks() *
+	    QUrl(filename), file_info.length() * file_info.tracks() *
 	    (file_info.bits() >> 3),
 	    file_info.length(), file_info.rate(), file_info.bits(),
 	    file_info.tracks());
@@ -585,7 +581,7 @@ QString Kwave::SignalManager::signalName()
 {
     // if a file is loaded -> path of the URL if it has one
     QUrl url;
-    url = Kwave::FileInfo(m_meta_data).get(Kwave::INF_FILENAME).toString();
+    url = QUrl(Kwave::FileInfo(m_meta_data).get(Kwave::INF_FILENAME).toString());
     if (url.isValid()) return url.path();
 
     // we have something, but no name yet

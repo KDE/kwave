@@ -378,7 +378,7 @@
           </spacer>
          </item>
          <item row="3" column="1" colspan="3">
-          <widget class="KIntNumInput" name="edSamples">
+          <widget class="QSpinBox" name="edSamples">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -770,11 +770,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntNumInput</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <includes>

@@ -46,11 +46,6 @@ class QMdiSubWindow;
 class QTextStream;
 class QTimer;
 
-class KCombo;
-class KComboBox;
-class KDNDDropZone;
-class KStatusBar;
-
 namespace Kwave
 {
 

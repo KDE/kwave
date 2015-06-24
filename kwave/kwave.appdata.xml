@@ -26,6 +26,7 @@
   <summary>Kwave is a sound editor designed for the KDE Desktop Environment</summary>
   <summary xml:lang="bs">Kwave je uređivač zvuka dizajniran za KDE Desktop Environment</summary>
   <summary xml:lang="ca">El Kwave és un editor de so dissenyat per a l'entorn d'escriptori KDE</summary>
+  <summary xml:lang="de">KWave ist ein Sound-Editor für die KDE-Arbeitsumgebung</summary>
   <summary xml:lang="en-GB">Kwave is a sound editor designed for the KDE Desktop Environment</summary>
   <summary xml:lang="es">Kwave es un editor de sonido diseñado para el entorno de escritorio KDE</summary>
   <summary xml:lang="fi">Kwave on KDE-työpöytäympäristöön suunniteltu äänimuokkain</summary>
@@ -45,6 +46,7 @@
     </p>
     <p xml:lang="bs">Sa KWave možete snimati, reprodukovati, uvoziti i uređivati mnogo vrsta audio datoteka uključujući višekanalne datoteke.</p>
     <p xml:lang="ca">Amb el Kwave podeu enregistrar, escoltar, importar i editar molts tipus de fitxers d'àudio inclosos els fitxers multicanal.</p>
+    <p xml:lang="de">Mit KWave können Sie aufnehmen, abspielen und viele Arten von Audio-Dateien importieren und bearbeiten, einschließlich Dateien mit mehreren Spuren.</p>
     <p xml:lang="en-GB">With Kwave you can record, play back, import and edit many sorts of audio files including multi channel files.</p>
     <p xml:lang="es">Con Kwave puede grabar, reproducir, importar y editar muchos tipos de archivos de sonido, incluidos los archivos multicanal.</p>
     <p xml:lang="fi">Kwavella voit äänittää, toistaa, tuoda ja muokata monenlaisia äänitiedostoja, myös useampikanavaisia.</p>

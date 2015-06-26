@@ -30,8 +30,6 @@
 #include <QToolTip>
 #include <QUrl>
 
-#include <kglobalsettings.h>
-
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"
 #include "libkwave/FileDrag.h"
@@ -414,7 +412,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 	    setMouseMode(Kwave::MouseMark::MouseInSelection,
 	                 selection_first, selection_len);
 	    hidePosition();
-	    int dmin = KGlobalSettings::dndEventDelay();
+	    int dmin = QApplication::startDragDistance();
 	    if ((e->buttons() & Qt::LeftButton) &&
 		((mouse_x < m_mouse_down_x - dmin) ||
 		 (mouse_x > m_mouse_down_x + dmin)) )
@@ -542,7 +540,7 @@ void Kwave::SignalView::mouseReleaseEvent(QMouseEvent *e)
 	    break;
 	}
 	case Kwave::MouseMark::MouseInSelection: {
-	    int dmin = KGlobalSettings::dndEventDelay();
+	    int dmin = QApplication::startDragDistance();
 	    if ((e->button() & Qt::LeftButton) &&
 		    ((e->pos().x() >= m_mouse_down_x - dmin) ||
 		     (e->pos().x() <= m_mouse_down_x + dmin)) )

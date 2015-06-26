@@ -84,11 +84,6 @@ namespace Kwave
 	void addRecentFile(const QString &filename);
 
 	/**
-	 * Overwritten for unique application to open a new window.
-	 */
-	virtual int newInstance();
-
-	/**
 	 * Opens a new toplevel window. If a filename is specified the file
 	 * will be opened.
 	 * @param url URL of the file to be loaded, (optional, might be empty)
@@ -131,6 +126,13 @@ namespace Kwave
 	 * be used by toplevel widgets to update their menus.
 	 */
 	void recentFilesChanged();
+
+    private slots:
+
+	/**
+	 * Connected to the DBus service to open a new window.
+	 */
+	void newInstance(const QStringList &args, const QString &dir);
 
     protected:
 	friend class Kwave::TopWidget;

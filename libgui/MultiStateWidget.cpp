@@ -18,11 +18,11 @@
  ***************************************************************************/
 #include "config.h"
 
+#include <QDir>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QStandardPaths>
 #include <QString>
-
-#include <kstandarddirs.h>
 
 #include "libkwave/String.h"
 
@@ -50,9 +50,12 @@ void Kwave::MultiStateWidget::setID(int id)
 //***************************************************************************
 void Kwave::MultiStateWidget::addPixmap(const QString &filename)
 {
-    QString file = KStandardDirs::locate(
-	"data", _("kwave/pics/") + filename);
-    QPixmap newpix(file);
+    QString pics_dir = _("pics");
+    QString path = QStandardPaths::locate(
+	QStandardPaths::AppDataLocation,
+	pics_dir + QDir::separator() + filename,
+	QStandardPaths::LocateFile);
+    QPixmap newpix(path);
     m_pixmaps.append(newpix);
 }
 

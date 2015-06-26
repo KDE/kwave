@@ -58,6 +58,8 @@ Kwave::App::App(int &argc, char **argv, QCommandLineParser &cmdline)
     m_top_widgets(),
     m_gui_type(Kwave::App::GUI_TAB)
 {
+    m_cmdline.parse(arguments());
+
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
     qRegisterMetaType<Kwave::LabelList>("Kwave::LabelList");
     qRegisterMetaType<sample_index_t>("sample_index_t");
@@ -102,6 +104,8 @@ Kwave::App::App(int &argc, char **argv, QCommandLineParser &cmdline)
 	if (valid && (arg != result))
 	    cfg.writeEntry(_("UI Type"), arg);
     }
+
+    newInstance(arguments(), QString());
 }
 
 //***************************************************************************
@@ -112,8 +116,12 @@ Kwave::App::~App()
 }
 
 //***************************************************************************
-int Kwave::App::newInstance()
+void Kwave::App::newInstance(const QStringList &args, const QString &dir)
 {
+    Q_UNUSED(dir);
+
+    m_cmdline.parse(args);
+
     static bool first_time = true;
     if (first_time) {
 	first_time = false;
@@ -143,8 +151,6 @@ int Kwave::App::newInstance()
 	    newWindow(QUrl(name));
 	}
     }
-
-    return 0;
 }
 
 //***************************************************************************

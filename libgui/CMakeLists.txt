@@ -72,9 +72,12 @@ TARGET_LINK_LIBRARIES(libkwavegui
     Qt5::Concurrent
     Qt5::Widgets
     KF5::ConfigCore
+    KF5::CoreAddons
     KF5::I18n
     KF5::IconThemes
     KF5::KIOFileWidgets
+    KF5::WidgetsAddons
+    KF5::XmlGui
 )
 
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES OUTPUT_NAME "kwavegui")

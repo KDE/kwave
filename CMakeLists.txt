@@ -289,7 +289,7 @@ OPTION(DEBUG_MEMORY "enable memory management debug code [default=off]" OFF)
 ADD_SUBDIRECTORY( libgui )
 ADD_SUBDIRECTORY( libkwave )
 ADD_SUBDIRECTORY( kwave )
-# ADD_SUBDIRECTORY( plugins )
+ADD_SUBDIRECTORY( plugins )
 
 OPTION(WITH_DOC "build online documentation [default=on]" ON)
 IF (WITH_DOC)
@@ -443,12 +443,6 @@ ENDIF (KWAVE_ADDITIONAL_CLEAN_FILES)
 #############################################################################
 ### "make wrapper"                                                        ###
 ### -> creates a wrapper script named "kw"                                ###
-
-EXECUTE_PROCESS(
-    COMMAND ${KDE4_KDECONFIG_EXECUTABLE} --prefix
-    OUTPUT_VARIABLE KDE4_PREFIX
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-)
 
 SET(WRAPPER_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/kw")
 

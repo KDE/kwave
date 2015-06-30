@@ -23,7 +23,6 @@ MACRO(KWAVE_PLUGIN _plugin)
     INCLUDE_DIRECTORIES(
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_BINARY_DIR}
-        ${QT_INCLUDE_DIR}
     )
     KDE4_ADD_UI_FILES(plugin_${_plugin}_LIB_SRCS ${plugin_${_plugin}_LIB_UI})
     QT4_AUTOMOC(${plugin_${_plugin}_LIB_SRCS})
@@ -37,6 +36,16 @@ MACRO(KWAVE_PLUGIN _plugin)
         kwave
         ${plugin_${_plugin}_LIBS}
         ${SAMPLERATE_LIBS}
+        Qt5::Core
+        Qt5::Concurrent
+        Qt5::Widgets
+        KF5::ConfigCore
+        KF5::CoreAddons
+        KF5::I18n
+        KF5::IconThemes
+        KF5::KIOFileWidgets
+        KF5::WidgetsAddons
+        KF5::XmlGui
     )
 
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES PREFIX "")
@@ -51,49 +60,44 @@ MACRO(KWAVE_PLUGIN _plugin)
 
     ADD_DEPENDENCIES(plugin_${_plugin} libkwave libkwavegui)
 
-    EXECUTE_PROCESS(COMMAND "${KDE4_KDECONFIG_EXECUTABLE}"
-        --expandvars --install module
-        OUTPUT_VARIABLE MODULE_INSTALL_DIR
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
-
     INSTALL(TARGETS
         plugin_${_plugin}
         LIBRARY
-        DESTINATION ${MODULE_INSTALL_DIR}/plugins/kwave
+        DESTINATION ${DATA_INSTALL_DIR}/kwave/plugins
     )
 
 ENDMACRO(KWAVE_PLUGIN)
 
 #############################################################################
 
-ADD_SUBDIRECTORY( about )
-ADD_SUBDIRECTORY( amplifyfree )
-ADD_SUBDIRECTORY( band_pass )
-ADD_SUBDIRECTORY( codec_ascii )
-ADD_SUBDIRECTORY( codec_audiofile ) # needs libaudiofile
-ADD_SUBDIRECTORY( codec_flac )      # needs >= libflac 1.2.0
-ADD_SUBDIRECTORY( codec_mp3 )       # needs libmad + id3lib + "lame"
-ADD_SUBDIRECTORY( codec_ogg )       # needs libogg and (libvorbis or libopus)
-ADD_SUBDIRECTORY( codec_wav )       # needs libaudiofile
-ADD_SUBDIRECTORY( debug )
-ADD_SUBDIRECTORY( fileinfo )
-ADD_SUBDIRECTORY( goto )
-ADD_SUBDIRECTORY( lowpass )
-ADD_SUBDIRECTORY( memory )
-ADD_SUBDIRECTORY( newsignal )
-ADD_SUBDIRECTORY( noise )
-ADD_SUBDIRECTORY( normalize )
-ADD_SUBDIRECTORY( notch_filter )
-ADD_SUBDIRECTORY( pitch_shift )
-ADD_SUBDIRECTORY( playback )        # needs OSS and/or ALSA
-ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
+# ADD_SUBDIRECTORY( about )
+# ADD_SUBDIRECTORY( amplifyfree )
+# ADD_SUBDIRECTORY( band_pass )
+# ADD_SUBDIRECTORY( codec_ascii )
+# ADD_SUBDIRECTORY( codec_audiofile ) # needs libaudiofile
+# ADD_SUBDIRECTORY( codec_flac )      # needs >= libflac 1.2.0
+# ADD_SUBDIRECTORY( codec_mp3 )       # needs libmad + id3lib + "lame"
+# ADD_SUBDIRECTORY( codec_ogg )       # needs libogg and (libvorbis or libopus)
+# ADD_SUBDIRECTORY( codec_wav )       # needs libaudiofile
+# ADD_SUBDIRECTORY( debug )
+# ADD_SUBDIRECTORY( fileinfo )
+# ADD_SUBDIRECTORY( goto )
+# ADD_SUBDIRECTORY( lowpass )
+# ADD_SUBDIRECTORY( memory )
+# ADD_SUBDIRECTORY( newsignal )
+# ADD_SUBDIRECTORY( noise )
+# ADD_SUBDIRECTORY( normalize )
+# ADD_SUBDIRECTORY( notch_filter )
+# ADD_SUBDIRECTORY( pitch_shift )
+# ADD_SUBDIRECTORY( playback )        # needs OSS and/or ALSA
+# ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
 ADD_SUBDIRECTORY( reverse )
-ADD_SUBDIRECTORY( samplerate )      # needs libsamplerate
-ADD_SUBDIRECTORY( saveblocks )
-ADD_SUBDIRECTORY( selectrange )
-ADD_SUBDIRECTORY( sonagram )        # needs fftw >= 3.0
-ADD_SUBDIRECTORY( stringenter )
-ADD_SUBDIRECTORY( volume )
+# ADD_SUBDIRECTORY( samplerate )      # needs libsamplerate
+# ADD_SUBDIRECTORY( saveblocks )
+# ADD_SUBDIRECTORY( selectrange )
+# ADD_SUBDIRECTORY( sonagram )        # needs fftw >= 3.0
+# ADD_SUBDIRECTORY( stringenter )
+# ADD_SUBDIRECTORY( volume )
 ADD_SUBDIRECTORY( zero )
 
 #############################################################################

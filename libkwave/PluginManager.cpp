@@ -606,10 +606,15 @@ void Kwave::PluginManager::searchPluginModules()
 	return;
     }
 
-    QDir dir(QLibraryInfo::location(QLibraryInfo::PluginsPath) +
-	QDir::separator() + _("kwave"));
-    QStringList files = dir.entryList(
-	QDir::Files | QDir::Executable, QDir::Name);
+    QStringList files;
+    QStringList dirs(QStandardPaths::standardLocations(
+	QStandardPaths::GenericDataLocation));
+    foreach (const QString &dir, dirs) {
+	QDir d(dir + QDir::separator() + _("kwave") + QDir::separator() + _("plugins"));
+	QStringList f = d.entryList(QDir::Files | QDir::Executable, QDir::Name);
+	foreach (const QString &file, f)
+	    files += d.path() + QDir::separator() + file;
+    }
 
     foreach (const QString &file, files) {
 	QLibrary *module = new QLibrary(file);

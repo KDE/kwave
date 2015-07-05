@@ -100,10 +100,6 @@ Create a list of keywords by going through all present file information and merg
   <tabstop>btRemove</tabstop>
   <tabstop>btAuto</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">klistwidget.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

@@ -308,7 +308,7 @@ playback. Depending on the compilation options you can select one of the followi
       <item row="5" column="2">
        <layout class="QHBoxLayout">
         <item>
-         <widget class="KIntSpinBox" name="sbChannels">
+         <widget class="QSpinBox" name="sbChannels">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -500,11 +500,6 @@ playback. Depending on the compilation options you can select one of the followi
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
    <class>Kwave::TreeWidgetWrapper</class>
    <extends>QTreeWidget</extends>
    <header>libgui/TreeWidgetWrapper.h</header>
@@ -521,9 +516,6 @@ playback. Depending on the compilation options you can select one of the followi
   <tabstop>slBufferSize</tabstop>
   <tabstop>btTest</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

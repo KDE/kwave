@@ -348,10 +348,6 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
   <tabstop>slider</tabstop>
   <tabstop>spinbox</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

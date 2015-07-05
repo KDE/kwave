@@ -295,10 +295,6 @@ For example: &quot;-3 dB&quot;, &quot;- 6 dB&quot;.</string>
   <tabstop>rbLogarithmic</tabstop>
   <tabstop>slider</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

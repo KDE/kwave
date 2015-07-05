@@ -167,9 +167,6 @@
   <tabstop>cbNumbering</tabstop>
   <tabstop>chkSelectionOnly</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

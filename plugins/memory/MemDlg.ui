@@ -343,9 +343,6 @@ If you do not set a limit, the size of the physically installed memory in your c
   <tabstop>slUndo</tabstop>
   <tabstop>sbUndo</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

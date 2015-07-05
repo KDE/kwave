@@ -767,10 +767,6 @@
    <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
- <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

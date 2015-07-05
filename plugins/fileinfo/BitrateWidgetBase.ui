@@ -79,9 +79,6 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <includes>
-  <include location="global">klocale.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

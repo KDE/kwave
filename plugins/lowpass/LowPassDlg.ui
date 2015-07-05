@@ -61,7 +61,7 @@ frequencies will be cut off.</string>
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="KIntSpinBox" name="spinbox">
+    <widget class="QSpinBox" name="spinbox">
      <property name="toolTip">
       <string>cutoff frequency</string>
      </property>
@@ -188,11 +188,6 @@ frequencies will be cut off.</string>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
    <class>Kwave::ScaleWidget</class>
    <extends>QWidget</extends>
    <header location="global">libgui/ScaleWidget.h</header>
@@ -211,8 +206,6 @@ frequencies will be cut off.</string>
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <includes>
-  <include location="global">klocale.h</include>
-  <include location="local">knuminput.h</include>
   <include location="local">libgui/ScaleWidget.h</include>
   <include location="local">libgui/FrequencyResponseWidget.h</include>
  </includes>

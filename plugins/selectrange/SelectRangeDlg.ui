@@ -105,8 +105,6 @@
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
   <include location="local">libgui/SelectTimeWidget.h</include>
   <include location="local">libgui/SelectTimeWidget.h</include>
  </includes>

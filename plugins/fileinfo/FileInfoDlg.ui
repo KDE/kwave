@@ -1384,7 +1384,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="KIntSpinBox" name="sbTrack">
+          <widget class="QSpinBox" name="sbTrack">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1407,7 +1407,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KIntSpinBox" name="sbTracks">
+          <widget class="QSpinBox" name="sbTracks">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1443,7 +1443,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="KIntSpinBox" name="sbCD">
+          <widget class="QSpinBox" name="sbCD">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1466,7 +1466,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KIntSpinBox" name="sbCDs">
+          <widget class="QSpinBox" name="sbCDs">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -2136,11 +2136,6 @@
    <header>kdatewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
    <class>Kwave::KeywordWidget</class>
    <extends>QWidget</extends>
    <header>KeywordWidget.h</header>
@@ -2199,8 +2194,6 @@
   <tabstop>edCommissioned</tabstop>
  </tabstops>
  <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
   <include location="global">kcombobox.h</include>
   <include location="global">kdatewidget.h</include>
   <include location="local">CompressionWidget.h</include>

@@ -151,7 +151,6 @@
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="global">klocale.h</include>
   <include location="local">libgui/CurveWidget.h</include>
   <include location="local">libgui/ScaleWidget.h</include>
  </includes>

@@ -70,7 +70,7 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="KIntSpinBox" name="spinbox">
+    <widget class="QSpinBox" name="spinbox">
      <property name="suffix">
       <string> Hz</string>
      </property>
@@ -112,7 +112,7 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="KIntSpinBox" name="spinbox_2">
+    <widget class="QSpinBox" name="spinbox_2">
      <property name="suffix">
       <string>Hz</string>
      </property>
@@ -195,11 +195,6 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
    <class>Kwave::ScaleWidget</class>
    <extends>QWidget</extends>
    <header location="global">libgui/ScaleWidget.h</header>
@@ -220,10 +215,8 @@
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <includes>
-  <include location="global">klocale.h</include>
   <include location="local">libgui/ScaleWidget.h</include>
   <include location="local">libgui/FrequencyResponseWidget.h</include>
-  <include location="local">knuminput.h</include>
  </includes>
  <resources/>
  <connections>

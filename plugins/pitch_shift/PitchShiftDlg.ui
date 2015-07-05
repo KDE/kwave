@@ -261,7 +261,6 @@ For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
   <tabstop>rbPercentage</tabstop>
  </tabstops>
  <includes>
-  <include location="global">klocale.h</include>
   <include location="local">libgui/InvertableSpinBox.h</include>
  </includes>
  <resources/>

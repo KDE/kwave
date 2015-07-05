@@ -98,10 +98,6 @@
   <tabstop>edCommand</tabstop>
   <tabstop>buttonBox</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

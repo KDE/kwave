@@ -68,9 +68,6 @@
   </layout>
  </widget>
  <layoutdefault spacing="10" margin="10"/>
- <includes>
-  <include location="global">klocale.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

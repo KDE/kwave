@@ -345,10 +345,6 @@ The computation will be much faster!</string>
   <tabstop>cbTrackChanges</tabstop>
   <tabstop>cbFollowSelection</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

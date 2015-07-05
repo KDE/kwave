@@ -143,7 +143,7 @@ The bitrate is selected by an average quality.</string>
       <item row="4" column="2">
        <layout class="QHBoxLayout">
         <item>
-         <widget class="KIntSpinBox" name="sbBaseQuality">
+         <widget class="QSpinBox" name="sbBaseQuality">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -229,11 +229,6 @@ The bitrate is selected by an average quality.</string>
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>Kwave::BitrateWidget</class>
    <extends>QWidget</extends>

@@ -20,14 +20,14 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <QApplication>
 #include <QByteArray>
 #include <QList>
+#include <QMimeType>
 #include <QVarLengthArray>
 
 #include <KLocalizedString>
-#include <kapplication.h>
-#include <kglobal.h>
-#include <kmimetype.h>
+#include <QtGlobal>
 
 #include <vorbis/vorbisenc.h>
 

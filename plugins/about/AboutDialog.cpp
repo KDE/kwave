@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <QApplication>
 #include <QHBoxLayout>
 #include <QList>
 #include <QListIterator>
@@ -30,9 +31,7 @@
 #include <KLocalizedString>
 #include <KTextEdit>
 #include <KUrlLabel>
-#include <kapplication.h>
 #include <kglobal.h>
-
 
 #include "libkwave/String.h"
 

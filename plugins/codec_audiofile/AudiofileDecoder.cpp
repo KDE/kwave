@@ -20,10 +20,10 @@
 
 #include <audiofile.h>
 
+#include <QMimeType>
 #include <QtGlobal>
 
 #include <KLocalizedString>
-#include <kmimetype.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"

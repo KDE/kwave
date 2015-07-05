@@ -42,7 +42,7 @@
 #include <kglobal.h>
 #include <kglobal.h>
 #include <klistwidget.h>
-#include <kmimetype.h>
+#include <QMimeType>
 #include <knuminput.h>
 #include <ktabwidget.h>
 #include <KSharedConfig>

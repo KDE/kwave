@@ -22,10 +22,10 @@
 #include <QDateTime>
 #include <QLatin1Char>
 #include <QLatin1String>
+#include <QMimeType>
 #include <QRegExp>
 
 #include <KLocalizedString>
-#include <kmimetype.h>
 
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"

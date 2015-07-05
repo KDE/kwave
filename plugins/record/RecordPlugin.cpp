@@ -22,6 +22,7 @@
 #include <new>
 #include <stdlib.h>
 
+#include <QApplication>
 #include <QCursor>
 #include <QDateTime>
 #include <QList>
@@ -31,7 +32,6 @@
 
 #include <KAboutData>
 #include <KConfig>
-#include <kapplication.h>
 #include <kglobal.h>
 #include <KSharedConfig>
 

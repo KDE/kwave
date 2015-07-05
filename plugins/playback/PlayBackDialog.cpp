@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <QApplication>
 #include <QIcon>
 #include <QLabel>
 #include <QLatin1Char>
@@ -35,7 +36,6 @@
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KIconTheme>
-#include <kapplication.h>
 #include <kfiledialog.h>
 #include <knuminput.h>
 #include <KSharedConfig>

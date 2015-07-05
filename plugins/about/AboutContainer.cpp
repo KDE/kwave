@@ -21,11 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <QApplication>
 #include <QLabel>
 
 #include <KLocalizedString>
 #include <KHelpClient>
-// #include <kapplication.h>
 // #include <kdialog.h>
 
 #include "libkwave/String.h"

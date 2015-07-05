@@ -20,7 +20,7 @@
 #include <QDateTime>
 
 #include <KLocalizedString>
-#include <kmimetype.h>
+#include <QMimeType>
 
 #include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"
@@ -198,7 +198,7 @@ void Kwave::FlacDecoder::parseVorbisComments(
 	date = QDate::fromString(str_date, Qt::ISODate);
 	if (!date.isValid()) {
 	    int year = str_date.toInt();
-	    date.setYMD(year, 1, 1);
+	    date.setDate(year, 1, 1);
 	}
 	if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
      }

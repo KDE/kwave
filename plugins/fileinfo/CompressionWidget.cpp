@@ -23,11 +23,11 @@
 #include <QObject>
 #include <QRadioButton>
 #include <QSlider>
+#include <QSpinBox>
 #include <QToolTip>
 #include <QWhatsThis>
 
 #include <KLocalizedString>
-#include <knuminput.h>
 
 #include "libkwave/StandardBitrates.h"
 #include "libkwave/String.h"

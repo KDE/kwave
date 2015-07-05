@@ -27,6 +27,7 @@
 #include <QProgressBar>
 #include <QPushButton>
 #include <QSlider>
+#include <QSpinBox>
 #include <QTreeView>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -36,8 +37,8 @@
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KIconTheme>
+
 #include <kglobal.h>
-#include <knuminput.h>
 #include <kstatusbar.h>
 #include <ktabwidget.h>
 

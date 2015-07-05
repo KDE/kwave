@@ -33,7 +33,6 @@
 #include <KComboBox>
 #include <KHelpClient>
 #include <KLocalizedString>
-#include <knuminput.h>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -50,7 +49,8 @@ Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, sample_index_t samples,
     setupUi(this);
     setModal(true);
 
-    edSamples->setRange(0, INT_MAX, 1);
+    edSamples->setRange(0, INT_MAX);
+    edSamples->setSingleStep(1);
 
     // connect the timer for the sample edit
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(checkNewSampleEdit()));

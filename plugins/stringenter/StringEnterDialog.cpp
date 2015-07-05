@@ -72,7 +72,7 @@ QString Kwave::StringEnterDialog::command()
 //***************************************************************************
 void Kwave::StringEnterDialog::accept()
 {
-    m_command = edCommand->userText().trimmed();
+    m_command = edCommand->text().trimmed();
     if (m_command.length())
 	QDialog::accept();
     else

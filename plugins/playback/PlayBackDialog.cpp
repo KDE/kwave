@@ -26,6 +26,7 @@
 #include <QPointer>
 #include <QPushButton>
 #include <QSlider>
+#include <QSpinBox>
 #include <QStringList>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -37,7 +38,6 @@
 #include <KIconLoader>
 #include <KIconTheme>
 #include <kfiledialog.h>
-#include <knuminput.h>
 #include <KSharedConfig>
 
 #include "libkwave/PlayBackDevice.h"

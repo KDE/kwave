@@ -37,13 +37,15 @@
 #include <KConfig>
 #include <KHelpClient>
 #include <KLocalizedString>
+
 #include <QLineEdit>
+#include <QSpinBox>
+
 #include <kdatewidget.h>
 #include <kglobal.h>
 #include <kglobal.h>
 #include <klistwidget.h>
 #include <QMimeType>
-#include <knuminput.h>
 #include <ktabwidget.h>
 #include <KSharedConfig>
 

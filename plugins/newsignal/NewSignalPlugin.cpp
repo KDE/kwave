@@ -20,6 +20,8 @@
 
 #include <QStringList>
 
+#include <KLocalizedString>
+
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 

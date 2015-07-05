@@ -19,7 +19,10 @@
 #include "config.h"
 #include "errno.h"
 
+#include <QPointer>
 #include <QStringList>
+
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"

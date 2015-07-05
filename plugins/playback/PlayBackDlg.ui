@@ -418,7 +418,7 @@ playback. Depending on the compilation options you can select one of the followi
    <item>
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KDialogButtonBox" name="btHelp">
+      <widget class="QDialogButtonBox" name="btHelp">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>
@@ -482,7 +482,7 @@ playback. Depending on the compilation options you can select one of the followi
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -494,11 +494,6 @@ playback. Depending on the compilation options you can select one of the followi
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
@@ -528,7 +523,6 @@ playback. Depending on the compilation options you can select one of the followi
  </tabstops>
  <includes>
   <include location="global">klocale.h</include>
-  <include location="local">klineedit.h</include>
  </includes>
  <resources/>
  <connections>

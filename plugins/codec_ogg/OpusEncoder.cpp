@@ -61,7 +61,7 @@
 #include <QString>
 #include <QTime>
 #include <QtGlobal>
-#include <qendian.h>
+#include <QtEndian>
 
 #include <KLocalizedString>
 

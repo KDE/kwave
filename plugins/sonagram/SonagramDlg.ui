@@ -35,7 +35,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
        </property>
@@ -332,11 +332,6 @@ The computation will be much faster!</string>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
@@ -353,7 +348,6 @@ The computation will be much faster!</string>
  <includes>
   <include location="global">klocale.h</include>
   <include location="global">knuminput.h</include>
-  <include location="local">klineedit.h</include>
  </includes>
  <resources/>
  <connections>

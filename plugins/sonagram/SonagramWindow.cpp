@@ -209,7 +209,7 @@ void Kwave::SonagramWindow::save()
     Kwave::FileDialog dlg(_("kfiledialog:///kwave_sonagram"),
         KFileDialog::Saving, QString(),
         this, true, QString(), _("*.bmp"));
-    dlg.setCaption(i18n("Save Sonagram"));
+    dlg.setWindowTitle(i18n("Save Sonagram"));
     if (dlg.exec() != QDialog::Accepted) return;
     QString filename = dlg.selectedFile();
 
@@ -498,7 +498,7 @@ void Kwave::SonagramWindow::setColorMode(int mode)
 //***************************************************************************
 void Kwave::SonagramWindow::setName(const QString &name)
 {
-    setCaption((name.length()) ?
+    setWindowTitle((name.length()) ?
 	i18n("Sonagram of %1", name) :
 	i18n("Sonagram")
     );

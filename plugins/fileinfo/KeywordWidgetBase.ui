@@ -88,11 +88,6 @@ Create a list of keywords by going through all present file information and merg
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>QLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>KListWidget</class>
    <extends>QListWidget</extends>
    <header>klistwidget.h</header>
@@ -107,7 +102,6 @@ Create a list of keywords by going through all present file information and merg
  </tabstops>
  <includes>
   <include location="global">klocale.h</include>
-  <include location="global">klineedit.h</include>
   <include location="global">klistwidget.h</include>
  </includes>
  <resources/>

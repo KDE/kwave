@@ -17,8 +17,9 @@
 
 #include "config.h"
 
-#include "libkwave/CodecManager.h"
 #include <KLocalizedString>
+
+#include "libkwave/CodecManager.h"
 
 #include "OggCodecPlugin.h"
 #include "OggDecoder.h"
@@ -53,6 +54,5 @@ Kwave::Encoder *Kwave::OggCodecPlugin::createEncoder()
     return new Kwave::OggEncoder();
 }
 
-//***************************************************************************
 //***************************************************************************
 //***************************************************************************

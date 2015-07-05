@@ -24,7 +24,7 @@
 #include <QLatin1Char>
 
 #include <KLocalizedString>
-#include <kmimetype.h>
+#include <QMimeType>
 
 #include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"

@@ -29,11 +29,9 @@
 #include <QLatin1Char>
 #include <QList>
 #include <QMap>
+#include <QMimeType>
 
 #include <KLocalizedString>
-#include <kapplication.h>
-#include <kglobal.h>
-#include <kmimetype.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/GenreType.h"

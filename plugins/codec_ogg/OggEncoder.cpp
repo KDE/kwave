@@ -21,12 +21,10 @@
 #include <stdlib.h>
 
 #include <QList>
+#include <QMimeType>
 #include <QSharedPointer>
 
 #include <KLocalizedString>
-#include <kapplication.h>
-#include <kglobal.h>
-#include <kmimetype.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"

@@ -22,7 +22,6 @@
 
 #include <KConfigGroup>
 #include <KSharedConfig>
-#include <kglobal.h>
 
 #include "libkwave/String.h"
 

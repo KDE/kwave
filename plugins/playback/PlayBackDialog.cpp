@@ -634,7 +634,7 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
 	true, _("file:/dev"));
     if (!dlg) return;
     dlg->setKeepLocation(true);
-    dlg->setCaption(i18n("Select Playback Device"));
+    dlg->setWindowTitle(i18n("Select Playback Device"));
     if (!m_playback_params.device.startsWith(_("#")))
         dlg->setUrl(QUrl(_("file:") + m_playback_params.device));
     else

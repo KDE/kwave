@@ -317,7 +317,7 @@ If you do not set a limit, the size of the physically installed memory in your c
       <number>0</number>
      </property>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
        </property>
@@ -329,16 +329,6 @@ If you do not set a limit, the size of the physically installed memory in your c
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>QLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>chkLimitPhysical</tabstop>

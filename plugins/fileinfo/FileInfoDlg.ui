@@ -30,7 +30,7 @@
     <number>10</number>
    </property>
    <item>
-    <widget class="KTabWidget" name="InfoTab">
+    <widget class="QTabWidget" name="InfoTab">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -2090,7 +2090,7 @@
    <item>
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KDialogButtonBox" name="btHelp">
+      <widget class="QDialogButtonBox" name="btHelp">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>
@@ -2113,7 +2113,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -2126,11 +2126,6 @@
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
@@ -2141,20 +2136,9 @@
    <header>kdatewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>QLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>KIntSpinBox</class>
    <extends>QSpinBox</extends>
    <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>Kwave::KeywordWidget</class>
@@ -2219,8 +2203,6 @@
   <include location="global">knuminput.h</include>
   <include location="global">kcombobox.h</include>
   <include location="global">kdatewidget.h</include>
-  <include location="global">klineedit.h</include>
-  <include location="global">klineedit.h</include>
   <include location="local">CompressionWidget.h</include>
   <include location="local">KeywordWidget.h</include>
  </includes>

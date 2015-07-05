@@ -81,7 +81,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
        </property>
@@ -93,16 +93,6 @@
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>QLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>edCommand</tabstop>

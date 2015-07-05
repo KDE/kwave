@@ -160,11 +160,6 @@
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
   </customwidget>
-  <customwidget>
-   <class>QLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>cbPattern</tabstop>

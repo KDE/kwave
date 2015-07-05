@@ -21,10 +21,9 @@
 #include <stdlib.h>
 
 #include <KLocalizedString>
-#include <kglobal.h>
-#include <kmimetype.h>
 
 #include <QByteArray>
+#include <QMimeType>
 #include <QtEndian>
 #include <QtGlobal>
 

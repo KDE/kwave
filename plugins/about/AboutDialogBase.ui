@@ -52,7 +52,7 @@
     </widget>
    </item>
    <item>
-    <widget class="KTabWidget" name="tabwidget">
+    <widget class="QTabWidget" name="tabwidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -286,7 +286,7 @@ and scroll capability.</string>
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -324,20 +324,9 @@ and scroll capability.</string>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
    <header>ktextedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>Kwave::LogoWidget</class>

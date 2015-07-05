@@ -185,7 +185,7 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	date = QDate::fromString(str_date, Qt::ISODate);
 	if (!date.isValid()) {
 	    int year = str_date.toInt();
-	    date.setYMD(year, 1, 1);
+	    date.setDate(year, 1, 1);
 	}
 	if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
     }
@@ -347,7 +347,6 @@ void Kwave::VorbisDecoder::close(Kwave::FileInfo &info)
 	info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(bitrate));
     }
 }
-
 
 //***************************************************************************
 //***************************************************************************

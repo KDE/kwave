@@ -26,10 +26,10 @@
 #include <QtGlobal>
 
 #include <QApplication>
+#include <QMimeType>
 #include <QProgressDialog>
 
 #include <KLocalizedString>
-#include <kmimetype.h>
 
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/Label.h"

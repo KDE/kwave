@@ -45,7 +45,7 @@
    <item row="4" column="0" colspan="3">
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KDialogButtonBox" name="btHelp">
+      <widget class="QDialogButtonBox" name="btHelp">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>
@@ -84,7 +84,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -247,11 +247,6 @@ For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
   <customwidget>
    <class>Kwave::InvertableSpinBox</class>
    <extends>QWidget</extends>

@@ -45,7 +45,7 @@
        <number>10</number>
       </property>
       <item>
-       <widget class="KTabWidget" name="tabRecord">
+       <widget class="QTabWidget" name="tabRecord">
         <property name="currentIndex">
          <number>0</number>
         </property>
@@ -1258,7 +1258,7 @@ recording. Depending on the compilation options you can select one of the follow
       <item>
        <layout class="QHBoxLayout">
         <item>
-         <widget class="KDialogButtonBox" name="buttonBox">
+         <widget class="QDialogButtonBox" name="buttonBox">
           <property name="standardButtons">
            <set>QDialogButtonBox::Help</set>
           </property>
@@ -1308,11 +1308,6 @@ recording. Depending on the compilation options you can select one of the follow
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
@@ -1321,12 +1316,6 @@ recording. Depending on the compilation options you can select one of the follow
    <class>KIntSpinBox</class>
    <extends>QSpinBox</extends>
    <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>KDateTimeWidget</class>
@@ -1393,7 +1382,6 @@ recording. Depending on the compilation options you can select one of the follow
  <includes>
   <include location="global">klocale.h</include>
   <include location="local">libgui/HMSTimeWidget.h</include>
-  <include location="local">klineedit.h</include>
   <include location="local">LevelMeter.h</include>
   <include location="local">kstatusbar.h</include>
  </includes>

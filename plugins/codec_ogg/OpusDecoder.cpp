@@ -27,7 +27,7 @@
 #include <QDate>
 #include <QIODevice>
 #include <QString>
-#include <qendian.h>
+#include <QtEndian>
 
 #include <KLocalizedString>
 

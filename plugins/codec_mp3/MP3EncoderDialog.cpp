@@ -21,6 +21,7 @@
 #include <QApplication>
 #include <QBuffer>
 #include <QCursor>
+#include <QDialogButtonBox>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -32,7 +33,6 @@
 #include <QLineEdit>
 
 #include <KProcess>
-// #include <kdialogbuttonbox.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
@@ -565,15 +565,18 @@ void Kwave::MP3EncoderDialog::browseFile()
     mask += QString(EXECUTABLE_SUFFIX);
 #endif
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow)
-	Kwave::FileDialog (_("kfiledialog:///kwave_mp3_encoder"),
-	KFileDialog::Opening,
-	_(""), this, true, _("file:/") + edPath->text().simplified(), mask);
+	Kwave::FileDialog(
+	    _("kfiledialog:///kwave_mp3_encoder"),
+	    Kwave::FileDialog::Opening,
+	    _(""), this, true,
+	    _("file:/") + edPath->text().simplified(),
+	    mask
+	);
     if (!dlg) return;
-    dlg->setKeepLocation(true);
-    dlg->setCaption(i18n("Select MP3 Encoder"));
-    dlg->setUrl(QUrl(_("file:/usr/bin/")));
+    dlg->setWindowTitle(i18n("Select MP3 Encoder"));
+    dlg->setDirectory(_("/usr/bin/"));
     if (dlg->exec() == QDialog::Accepted)
-	edPath->setText(dlg->selectedFile());
+	edPath->setText(dlg->selectedUrl().toLocalFile());
     delete dlg;
 }
 
@@ -745,6 +748,5 @@ void Kwave::MP3EncoderDialog::updateEncoderInfo()
     cbProgram->setItemText(index, title);
 }
 
-/***************************************************************************/
 /***************************************************************************/
 /***************************************************************************/

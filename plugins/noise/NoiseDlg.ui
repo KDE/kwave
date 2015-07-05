@@ -208,7 +208,7 @@ For example: &quot;-3 dB&quot;, &quot;- 6 dB&quot;.</string>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox_Help">
+      <widget class="QDialogButtonBox" name="buttonBox_Help">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -259,7 +259,7 @@ For example: &quot;-3 dB&quot;, &quot;- 6 dB&quot;.</string>
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -276,11 +276,6 @@ For example: &quot;-3 dB&quot;, &quot;- 6 dB&quot;.</string>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
   <customwidget>
    <class>Kwave::InvertableSpinBox</class>
    <extends>QWidget</extends>

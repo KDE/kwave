@@ -136,7 +136,7 @@ frequencies will be cut off.</string>
    <item row="3" column="0" colspan="2">
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox_Help">
+      <widget class="QDialogButtonBox" name="buttonBox_Help">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>
@@ -175,7 +175,7 @@ frequencies will be cut off.</string>
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -187,11 +187,6 @@ frequencies will be cut off.</string>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
   <customwidget>
    <class>KIntSpinBox</class>
    <extends>QSpinBox</extends>

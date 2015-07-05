@@ -35,9 +35,9 @@
 
 #include <KComboBox>
 #include <KConfig>
+#include <KHelpClient>
 #include <KLocalizedString>
 #include <QLineEdit>
-#include <KToolInvocation>
 #include <kdatewidget.h>
 #include <kglobal.h>
 #include <kglobal.h>
@@ -1116,7 +1116,7 @@ void Kwave::FileInfoDialog::accept()
 //***************************************************************************
 void Kwave::FileInfoDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("fileinfo"));
+    KHelpClient::invokeHelp(_("fileinfo"));
 }
 
 //***************************************************************************

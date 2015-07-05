@@ -22,12 +22,11 @@
  ***************************************************************************/
 
 #include <QLabel>
-#include <qnamespace.h>
 
 #include <KLocalizedString>
-#include <KToolInvocation>
-#include <kapplication.h>
-#include <kdialog.h>
+#include <KHelpClient>
+// #include <kapplication.h>
+// #include <kdialog.h>
 
 #include "libkwave/String.h"
 
@@ -258,6 +257,5 @@ void Kwave::AboutContributor::updateLayout()
     setMinimumSize(sizeHint());
 }
 
-//***************************************************************************
 //***************************************************************************
 //***************************************************************************

@@ -32,6 +32,7 @@
 #include <QtGlobal>
 #include <QLineEdit>
 
+#include <KHelpClient>
 #include <KProcess>
 
 #include "libkwave/FileInfo.h"
@@ -277,13 +278,15 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
 
     // connect the combo box of the program selection
     connect(cbProgram, SIGNAL(activated(int)),
-	    this, SLOT(selectProgram(int)));
+            this, SLOT(selectProgram(int)));
 
     // standard actions, reset / reset to defaults etc...
     connect(buttonBox, SIGNAL(clicked(QAbstractButton*)),
-	    this, SLOT(buttonClicked(QAbstractButton*)));
+            this, SLOT(buttonClicked(QAbstractButton*)));
+    connect(buttonBox_Help, SIGNAL(helpRequested()),
+            this, SLOT(invokeHelp()));
 
-    // auto-detec button
+    // auto-detect button
     connect(btDetect, SIGNAL(clicked()),      this, SLOT(autoDetect()));
 
     // locate file path button
@@ -746,6 +749,12 @@ void Kwave::MP3EncoderDialog::updateEncoderInfo()
     }
 
     cbProgram->setItemText(index, title);
+}
+
+//***************************************************************************
+void Kwave::MP3EncoderDialog::invokeHelp()
+{
+    KHelpClient::invokeHelp(_("plugin_sect_codec_mp3"));
 }
 
 /***************************************************************************/

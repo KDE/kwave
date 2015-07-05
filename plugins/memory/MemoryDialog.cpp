@@ -24,12 +24,12 @@
 #include <QObject>
 #include <QPushButton>
 #include <QSlider>
+#include <QLineEdit>
 #include <QSpinBox>
 #include <QString>
 #include <QStringList>
 
-#include <QLineEdit>
-#include <KToolInvocation>
+#include <KHelpClient>
 #include <kfiledialog.h>
 
 #include "libkwave/MemoryManager.h"
@@ -148,7 +148,7 @@ void Kwave::MemoryDialog::searchSwapDir()
 //***************************************************************************
 void Kwave::MemoryDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("memory-setup"));
+    KHelpClient::invokeHelp(_("memory-setup"));
 }
 
 //***************************************************************************

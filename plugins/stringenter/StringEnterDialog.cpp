@@ -19,7 +19,7 @@
 
 #include <KConfig>
 #include <KConfigGroup>
-#include <KToolInvocation>
+#include <KHelpClient>
 #include <KSharedConfig>
 
 #include "libkwave/String.h"
@@ -82,7 +82,7 @@ void Kwave::StringEnterDialog::accept()
 //***************************************************************************
 void Kwave::StringEnterDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_stringenter"));
+    KHelpClient::invokeHelp(_("plugin_sect_stringenter"));
 }
 
 //***************************************************************************

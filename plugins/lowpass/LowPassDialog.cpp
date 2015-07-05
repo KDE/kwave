@@ -25,8 +25,8 @@
 #include <QSlider>
 #include <QWidget>
 
+#include <KHelpClient>
 #include <KLocalizedString>
-#include <KToolInvocation>
 #include <knuminput.h>
 
 #include "libkwave/String.h"
@@ -184,7 +184,7 @@ void Kwave::LowPassDialog::listenStopped()
 //***************************************************************************
 void Kwave::LowPassDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_lowpass"));
+    KHelpClient::invokeHelp(_("plugin_sect_lowpass"));
 }
 
 //***************************************************************************

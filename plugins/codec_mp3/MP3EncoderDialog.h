@@ -80,6 +80,9 @@ namespace Kwave
 	/** show help about the encoder */
 	void encoderHelp();
 
+	/** show the help page the manual */
+	void invokeHelp();
+
     private:
 
 	/**

@@ -32,10 +32,10 @@
 #include <QTreeWidgetItem>
 
 #include <KComboBox>
+#include <KHelpClient>
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KIconTheme>
-#include <KToolInvocation>
 #include <kglobal.h>
 #include <knuminput.h>
 #include <kstatusbar.h>
@@ -1318,7 +1318,7 @@ void Kwave::RecordDialog::updateRecordButton()
 //***************************************************************************
 void Kwave::RecordDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("recording"));
+    KHelpClient::invokeHelp(_("recording"));
 }
 
 //***************************************************************************

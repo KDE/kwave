@@ -25,8 +25,8 @@
 #include <QSlider>
 #include <QSpinBox>
 
+#include <KHelpClient>
 #include <KLocalizedString>
-#include <KToolInvocation>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -378,7 +378,7 @@ void Kwave::VolumeDialog::setParams(QStringList &params)
 //***************************************************************************
 void Kwave::VolumeDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_volume"));
+    KHelpClient::invokeHelp(_("plugin_sect_volume"));
 }
 
 //***************************************************************************

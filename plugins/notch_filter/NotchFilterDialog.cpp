@@ -25,8 +25,8 @@
 #include <QSlider>
 #include <QWidget>
 
+#include <KHelpClient>
 #include <KLocalizedString>
-#include <KToolInvocation>
 #include <knuminput.h>
 
 #include "libkwave/String.h"
@@ -213,7 +213,7 @@ void Kwave::NotchFilterDialog::listenStopped()
 //***************************************************************************
 void Kwave::NotchFilterDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_notch_filter"));
+    KHelpClient::invokeHelp(_("plugin_sect_notch_filter"));
 }
 
 //***************************************************************************

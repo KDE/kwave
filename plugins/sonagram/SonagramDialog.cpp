@@ -32,8 +32,8 @@
 #include <QStringList>
 
 #include <KComboBox>
+#include <KHelpClient>
 #include <KLocalizedString>
-#include <KToolInvocation>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"
@@ -204,7 +204,7 @@ Kwave::SonagramDialog::~SonagramDialog ()
 //***************************************************************************
 void Kwave::SonagramDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_sonagram"));
+    KHelpClient::invokeHelp(_("plugin_sect_sonagram"));
 }
 
 //***************************************************************************

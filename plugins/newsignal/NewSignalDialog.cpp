@@ -31,8 +31,8 @@
 #include <QTimer>
 
 #include <KComboBox>
+#include <KHelpClient>
 #include <KLocalizedString>
-#include <KToolInvocation>
 #include <knuminput.h>
 
 #include "libkwave/String.h"
@@ -372,7 +372,7 @@ void Kwave::NewSignalDialog::setHMS(sample_index_t &samples)
 //***************************************************************************
 void Kwave::NewSignalDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("newsignal"));
+    KHelpClient::invokeHelp(_("newsignal"));
 }
 
 //***************************************************************************

@@ -25,8 +25,8 @@
 #include <QSlider>
 #include <QSpinBox>
 
+#include <KHelpClient>
 #include <KLocalizedString>
-#include <KToolInvocation>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -375,7 +375,7 @@ void Kwave::NoiseDialog::listenStopped()
 //***************************************************************************
 void Kwave::NoiseDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_noise"));
+    KHelpClient::invokeHelp(_("plugin_sect_noise"));
 }
 
 //***************************************************************************

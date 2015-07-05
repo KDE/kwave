@@ -31,10 +31,10 @@
 
 #include <KComboBox>
 #include <KConfig>
+#include <KHelpClient>
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KIconTheme>
-#include <KToolInvocation>
 #include <kapplication.h>
 #include <kfiledialog.h>
 #include <knuminput.h>
@@ -650,7 +650,7 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
 //***************************************************************************
 void Kwave::PlayBackDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("playback"));
+    KHelpClient::invokeHelp(_("playback"));
 }
 
 //***************************************************************************

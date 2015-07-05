@@ -23,8 +23,8 @@
 #include <QSlider>
 #include <QSpinBox>
 
+#include <KHelpClient>
 #include <KLocalizedString>
-#include <KToolInvocation>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -343,7 +343,7 @@ void Kwave::PitchShiftDialog::listenStopped()
 //***************************************************************************
 void Kwave::PitchShiftDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_pitch_shift"));
+    KHelpClient::invokeHelp(_("plugin_sect_pitch_shift"));
 }
 
 //***************************************************************************

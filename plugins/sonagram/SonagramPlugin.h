@@ -20,6 +20,9 @@
 
 #include "config.h"
 
+#include <complex>
+#include <fftw3.h>
+
 #include <QtCore/QByteArray>
 #include <QtCore/QBitArray>
 #include <QtCore/QFuture>

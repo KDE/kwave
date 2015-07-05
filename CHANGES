@@ -22,6 +22,7 @@
  * added screenshot of the edit_label dialog
  * bugfix: tooltips of fileinfo dialog were not translated
  * new make target: "make msgstats" to show the progress of translations
+ * compile fix for armv7l
 
 0.9.0 [2015-05-25]
 

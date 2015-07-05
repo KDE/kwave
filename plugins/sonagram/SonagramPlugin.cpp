@@ -426,7 +426,7 @@ void Kwave::SonagramPlugin::calculateSlice(Kwave::SonagramPlugin::Slice *slice)
 	double ima = slice->m_output[j][1];
 	double a = ((rea * rea) + (ima * ima)) / scale;
 
-	slice->m_result[j] = static_cast<unsigned char>(qMin(a, qreal(254.0)));
+	slice->m_result[j] = static_cast<unsigned char>(qMin(a, double(254.0)));
     }
 
     // free the allocated FFT resources

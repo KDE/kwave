@@ -32,7 +32,7 @@ IF (RSVG_EXECUTABLE)
     MESSAGE(STATUS "Found ${_basename}: ${RSVG_EXECUTABLE}")
 ENDIF (RSVG_EXECUTABLE)
 
-SET(_test_icon "${CMAKE_SOURCE_DIR}/kwave/toolbar/kwave_zoom_in.svgz")
+SET(_test_icon "${CMAKE_SOURCE_DIR}/kwave/toolbar/sc-actions-kwave_zoom_in.svgz")
 GET_FILENAME_COMPONENT(_svgz_file ${_test_icon} NAME)
 STRING(REPLACE ".svgz" ".png" _png_file ${_svgz_file})
 

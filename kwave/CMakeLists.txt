@@ -15,6 +15,8 @@
 ##                                                                          #
 #############################################################################
 
+INCLUDE(ECMInstallIcons)
+
 #############################################################################
 
 SET(kwave_SRCS
@@ -53,21 +55,21 @@ SET(kwave_PIXMAPS
 ### scalable action icons to be installed in the icon dir                 ###
 
 SET(kwave_ACTION_ICONS
-    toolbar/kwave_player_end.svgz
-    toolbar/kwave_player_fwd.svgz
-    toolbar/kwave_player_pause.svgz
-    toolbar/kwave_player_pause_2.svgz
-    toolbar/kwave_player_play.svgz
-    toolbar/kwave_player_loop.svgz
-    toolbar/kwave_player_record.svgz
-    toolbar/kwave_player_rew.svgz
-    toolbar/kwave_player_start.svgz
-    toolbar/kwave_player_stop.svgz
-    toolbar/kwave_viewmagfit.svgz
-    toolbar/kwave_viewmag.svgz
-    toolbar/kwave_zoom_in.svgz
-    toolbar/kwave_zoom_original.svgz
-    toolbar/kwave_zoom_out.svgz
+    toolbar/sc-actions-kwave_player_end.svgz
+    toolbar/sc-actions-kwave_player_fwd.svgz
+    toolbar/sc-actions-kwave_player_pause.svgz
+    toolbar/sc-actions-kwave_player_pause_2.svgz
+    toolbar/sc-actions-kwave_player_play.svgz
+    toolbar/sc-actions-kwave_player_loop.svgz
+    toolbar/sc-actions-kwave_player_record.svgz
+    toolbar/sc-actions-kwave_player_rew.svgz
+    toolbar/sc-actions-kwave_player_start.svgz
+    toolbar/sc-actions-kwave_player_stop.svgz
+    toolbar/sc-actions-kwave_viewmagfit.svgz
+    toolbar/sc-actions-kwave_viewmag.svgz
+    toolbar/sc-actions-kwave_zoom_in.svgz
+    toolbar/sc-actions-kwave_zoom_original.svgz
+    toolbar/sc-actions-kwave_zoom_out.svgz
 )
 
 #############################################################################
@@ -112,15 +114,15 @@ INSTALL(
 )
 
 # action icons
-INSTALL(
-    FILES ${kwave_ACTION_ICONS}
-    DESTINATION ${ICON_INSTALL_DIR}/hicolor/scalable/actions
+ECM_INSTALL_ICONS(
+    ICONS ${kwave_ACTION_ICONS}
+    DESTINATION ${ICON_INSTALL_DIR}
 )
 
 # application icon
-INSTALL(
-    FILES ${CMAKE_CURRENT_SOURCE_DIR}/pics/kwave.svgz
-    DESTINATION ${ICON_INSTALL_DIR}/hicolor/scalable/apps
+ECM_INSTALL_ICONS(
+    ICONS ${CMAKE_CURRENT_SOURCE_DIR}/pics/sc-apps-kwave.svgz
+    DESTINATION ${ICON_INSTALL_DIR}
 )
 
 # AppData file

@@ -3,6 +3,9 @@ o testing: curve widget, save/load presets
 o testing: FileDialog, modes, save/restore
 o testing: command line options
 o print version info in main()
+o test: translated names and roles in about data
+o generation of handbook
+o porting of  all plugins
 
 o recording via Phonon
 

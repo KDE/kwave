@@ -22,6 +22,8 @@
 #include <QString>
 #include <QStringList>
 
+#include <KLocalizedString>
+
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"
@@ -136,7 +138,7 @@ QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
 {
     QStringList *result = 0;
 
-    // try to interprete the list of previous parameters, ignore errors
+    // try to interpret the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
 
     Kwave::MemoryDialog *dlg = new Kwave::MemoryDialog(
@@ -161,6 +163,5 @@ QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
     return result;
 }
 
-//***************************************************************************
 //***************************************************************************
 //***************************************************************************

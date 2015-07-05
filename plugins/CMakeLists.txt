@@ -71,8 +71,8 @@ ENDMACRO(KWAVE_PLUGIN)
 #############################################################################
 
 # ADD_SUBDIRECTORY( about )
-# ADD_SUBDIRECTORY( amplifyfree )
-# ADD_SUBDIRECTORY( band_pass )
+ADD_SUBDIRECTORY( amplifyfree )
+ADD_SUBDIRECTORY( band_pass )
 ADD_SUBDIRECTORY( codec_ascii )
 ADD_SUBDIRECTORY( codec_audiofile ) # needs libaudiofile
 ADD_SUBDIRECTORY( codec_flac )      # needs >= libflac 1.2.0
@@ -82,19 +82,19 @@ ADD_SUBDIRECTORY( codec_wav )       # needs libaudiofile
 ADD_SUBDIRECTORY( debug )
 # ADD_SUBDIRECTORY( fileinfo )
 ADD_SUBDIRECTORY( goto )
-# ADD_SUBDIRECTORY( lowpass )
-# ADD_SUBDIRECTORY( memory )
+ADD_SUBDIRECTORY( lowpass )
+ADD_SUBDIRECTORY( memory )
 ADD_SUBDIRECTORY( newsignal )
-# ADD_SUBDIRECTORY( noise )
-# ADD_SUBDIRECTORY( normalize )
-# ADD_SUBDIRECTORY( notch_filter )
-# ADD_SUBDIRECTORY( pitch_shift )
+ADD_SUBDIRECTORY( noise )
+ADD_SUBDIRECTORY( normalize )
+ADD_SUBDIRECTORY( notch_filter )
+ADD_SUBDIRECTORY( pitch_shift )
 # ADD_SUBDIRECTORY( playback )        # needs OSS and/or ALSA
 # ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
 ADD_SUBDIRECTORY( reverse )
-# ADD_SUBDIRECTORY( samplerate )      # needs libsamplerate
+ADD_SUBDIRECTORY( samplerate )      # needs libsamplerate
 # ADD_SUBDIRECTORY( saveblocks )
-# ADD_SUBDIRECTORY( selectrange )
+ADD_SUBDIRECTORY( selectrange )
 # ADD_SUBDIRECTORY( sonagram )        # needs fftw >= 3.0
 ADD_SUBDIRECTORY( stringenter )
 ADD_SUBDIRECTORY( volume )

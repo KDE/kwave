@@ -30,11 +30,12 @@
 #include <QStringList>
 
 #include <KHelpClient>
-#include <kfiledialog.h>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+
+#include "libgui/FileDialog.h"
 
 #include "MemoryDialog.h"
 
@@ -140,8 +141,8 @@ void Kwave::MemoryDialog::virtualMemoryEnabled(bool enable)
 //***************************************************************************
 void Kwave::MemoryDialog::searchSwapDir()
 {
-    QString dir = KFileDialog::getExistingDirectory(
-	edDirectory->text(), this);
+    QString dir = Kwave::FileDialog::getExistingDirectory(
+	this, QString(), edDirectory->text());
     if (dir.length()) edDirectory->setText(dir);
 }
 
@@ -151,6 +152,5 @@ void Kwave::MemoryDialog::invokeHelp()
     KHelpClient::invokeHelp(_("memory-setup"));
 }
 
-//***************************************************************************
 //***************************************************************************
 //***************************************************************************

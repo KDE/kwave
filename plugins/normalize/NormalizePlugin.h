@@ -33,6 +33,7 @@
 
 namespace Kwave
 {
+    class MultiTrackReader;
     class SampleReader;
 
     /**

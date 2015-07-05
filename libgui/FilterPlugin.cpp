@@ -52,7 +52,7 @@ Kwave::FilterPlugin::~FilterPlugin()
 //***************************************************************************
 QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
 {
-    // try to interprete and use the previous parameters
+    // try to interpret and use the previous parameters
     if (!interpreteParameters(previous_params))
 	m_params = previous_params;
 
@@ -230,6 +230,5 @@ QString Kwave::FilterPlugin::progressText()
     return i18n("Applying '%1'...", actionName());
 }
 
-//***************************************************************************
 //***************************************************************************
 //***************************************************************************

@@ -33,11 +33,11 @@
 
 #include <KComboBox>
 #include <KConfig>
+#include <KConfigGroup>
 #include <KHelpClient>
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KIconTheme>
-#include <kfiledialog.h>
 #include <KSharedConfig>
 
 #include "libkwave/PlayBackDevice.h"
@@ -630,10 +630,9 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
 
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
 	_("kfiledialog:///kwave_playback_device"),
-	KFileDialog::Opening, filter, this,
+	Kwave::FileDialog::Opening, filter, this,
 	true, _("file:/dev"));
     if (!dlg) return;
-    dlg->setKeepLocation(true);
     dlg->setWindowTitle(i18n("Select Playback Device"));
     if (!m_playback_params.device.startsWith(_("#")))
         dlg->setUrl(QUrl(_("file:") + m_playback_params.device));
@@ -653,6 +652,5 @@ void Kwave::PlayBackDialog::invokeHelp()
     KHelpClient::invokeHelp(_("playback"));
 }
 
-//***************************************************************************
 //***************************************************************************
 //***************************************************************************

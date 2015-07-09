@@ -158,6 +158,15 @@ namespace Kwave
 
     private:
 
+	/** status bar label for time */
+	QLabel *m_status_time;
+
+	/** status bar label for frequency */
+	QLabel *m_status_freq;
+
+	/** status bar label for amplitude */
+	QLabel *m_status_ampl;
+
 	/** the QImage to be displayed */
 	QImage m_image;
 

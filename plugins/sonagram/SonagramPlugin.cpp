@@ -489,7 +489,7 @@ void Kwave::SonagramPlugin::createNewImage(const unsigned int width,
     if (m_image.isNull()) return;
 
     // initialize the image's palette with transparecy
-    m_image.setNumColors(256);
+    m_image.setColorCount(256);
     for (int i = 0; i < 256; i++) {
 	m_image.setColor(i, 0x00000000);
     }

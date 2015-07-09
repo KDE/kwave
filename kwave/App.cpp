@@ -143,12 +143,12 @@ void Kwave::App::newInstance(const QStringList &args, const QString &dir)
 
     // only one parameter -> open with empty window
     if (params.isEmpty()) {
-	newWindow(QUrl(QString()));
+	newWindow(QUrl());
     } else {
 	// open a window for each file specified in the
 	// command line an load it
 	foreach (const QString &name, params) {
-	    newWindow(QUrl(name));
+	    newWindow(QUrl::fromUserInput(name));
 	}
     }
 }

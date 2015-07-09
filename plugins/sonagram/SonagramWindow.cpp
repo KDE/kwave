@@ -22,14 +22,15 @@
 #include <new>
 
 #include <QBitmap>
+#include <QFileDialog>
 #include <QImage>
+#include <QLabel>
+#include <QMenuBar>
 #include <QLayout>
+#include <QStatusBar>
 #include <QTimer>
 
-#include <kfiledialog.h>
-#include <QMenuBar>
-#include <kstatusbar.h>
-#include <QFileDialog>
+#include <KIconLoader>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -84,7 +85,9 @@ static const char *background[] = {
 
 //****************************************************************************
 Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
-    :KMainWindow(parent), m_image(), m_color_mode(0), m_view(0), m_overview(0),
+    :KMainWindow(parent),
+     m_status_time(0), m_status_freq(0), m_status_ampl(0),
+     m_image(), m_color_mode(0), m_view(0), m_overview(0),
      m_points(0), m_rate(0), m_xscale(0), m_yscale(0), m_refresh_timer()
 {
     KIconLoader icon_loader;
@@ -133,9 +136,15 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     Q_ASSERT(status);
     if (!status) return ;
 
-    status->insertItem(i18n("Time: ------ ms"), 1);
-    status->insertItem(i18n("Frequency: ------ Hz"), 2);
-    status->insertItem(i18n("Amplitude: --- %"), 3);
+    m_status_time = new(std::nothrow)
+	QLabel(i18n("Time: ------ ms"), status);
+    m_status_freq = new(std::nothrow)
+	QLabel(i18n("Frequency: ------ Hz"), status);
+    m_status_ampl = new(std::nothrow)
+	QLabel(i18n("Amplitude: --- %"), status);
+    status->addPermanentWidget(m_status_time);
+    status->addPermanentWidget(m_status_freq);
+    status->addPermanentWidget(m_status_ampl);
 
     m_view = new(std::nothrow) Kwave::ImageView(mainwidget);
     Q_ASSERT(m_view);
@@ -181,9 +190,9 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     top_layout->setColumnStretch(1, 100);
     top_layout->activate();
 
-    status->changeItem(i18n("Time: 0 ms"), 1);
-    status->changeItem(i18n("Frequency: 0 Hz"), 2);
-    status->changeItem(i18n("Amplitude: 0 %"), 3);
+    if (m_status_time) m_status_time->setText(i18n("Time: 0 ms"));
+    if (m_status_freq) m_status_freq->setText(i18n("Frequency: 0 Hz"));
+    if (m_status_ampl) m_status_ampl->setText(i18n("Amplitude: 0 %"));
 
     // try to make 5:3 format (looks best)
     int w = sizeHint().width();
@@ -207,11 +216,11 @@ void Kwave::SonagramWindow::save()
     if (m_image.isNull()) return;
 
     Kwave::FileDialog dlg(_("kfiledialog:///kwave_sonagram"),
-        KFileDialog::Saving, QString(),
-        this, true, QString(), _("*.bmp"));
+        Kwave::FileDialog::Saving, QString(),
+        this, true, QUrl(), _("*.bmp"));
     dlg.setWindowTitle(i18n("Save Sonagram"));
     if (dlg.exec() != QDialog::Accepted) return;
-    QString filename = dlg.selectedFile();
+    QString filename = dlg.selectedUrl().toLocalFile();
 
     if (!filename.isEmpty()) m_image.save(filename, "BMP");
 }
@@ -522,11 +531,12 @@ void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
     translatePixels2TF(pos, &ms, &f);
 
     // item 1: time in milliseconds
-    status->changeItem(i18n("Time: %1", Kwave::ms2string(ms)), 1);
+    if (m_status_time)
+	m_status_time->setText(i18n("Time: %1", Kwave::ms2string(ms)));
 
     // item 2: frequency in Hz
-    QString text = i18n("Frequency: %1 Hz", Kwave::toInt(f));
-    status->changeItem(text, 2);
+    if (m_status_freq)
+	m_status_freq->setText(i18n("Frequency: %1 Hz", Kwave::toInt(f)));
 
     // item 3: amplitude in %
     if (m_image.valid(pos.x(), pos.y())) {
@@ -534,8 +544,8 @@ void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
     } else {
 	a = 0.0;
     }
-    text = i18n("Amplitude: %1%", Kwave::toInt(a));
-    status->changeItem(text, 3);
+    if (m_status_ampl)
+	m_status_ampl->setText(i18n("Amplitude: %1%", Kwave::toInt(a)));
 }
 
 //****************************************************************************

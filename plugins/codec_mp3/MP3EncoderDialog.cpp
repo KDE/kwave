@@ -572,7 +572,7 @@ void Kwave::MP3EncoderDialog::browseFile()
 	    _("kfiledialog:///kwave_mp3_encoder"),
 	    Kwave::FileDialog::Opening,
 	    _(""), this, true,
-	    _("file:/") + edPath->text().simplified(),
+	    QUrl::fromLocalFile(_("file:/") + edPath->text().simplified()),
 	    mask
 	);
     if (!dlg) return;

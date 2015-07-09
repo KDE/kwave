@@ -938,7 +938,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
 	    _("kfiledialog:///kwave_save_as"),
 	    Kwave::FileDialog::Saving,
-	    filter, m_top_widget, true, current_url.toDisplayString(), extension
+	    filter, m_top_widget, true, current_url, extension
 	);
 	if (!dlg) return 0;
 	dlg->setWindowTitle(i18n("Save As"));

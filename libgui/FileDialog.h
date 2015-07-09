@@ -24,14 +24,15 @@
 #include <QFileDialog>
 #include <QObject>
 #include <QString>
+#include <QUrl>
 
 class QWidget;
 
 namespace Kwave
 {
     /**
-     * An improved version of KFileDialog that does not forget the last
-     * directory and pre-selects the last file extension.
+     * An improved version of KFileDialog that does not forget the previous
+     * directory and pre-selects the previous file extension.
      */
     class Q_DECL_EXPORT FileDialog: public QFileDialog
     {
@@ -50,7 +51,7 @@ namespace Kwave
 	           OperationMode mode,
 	           const QString& filter,
 	           QWidget *parent, bool modal,
-	           const QString last_url = QString(),
+	           const QUrl last_url = QUrl(),
 	           const QString last_ext = QString());
 
 	/** Destructor */
@@ -59,7 +60,7 @@ namespace Kwave
 	}
 
 	/**
-	 * Returns the last used extension, including "*."
+	 * Returns the previously used extension, including "*."
 	 */
 	QString selectedExtension();
 
@@ -70,7 +71,7 @@ namespace Kwave
 
     protected:
 
-	/** load last settings */
+	/** load previous settings */
 	void loadConfig(const QString &section);
 
     protected slots:
@@ -83,8 +84,8 @@ namespace Kwave
 	/** name of the group in the config file */
 	QString m_config_group;
 
-	/** last opened URL */
-	QString m_last_url;
+	/** URL of the previously opened file or directory */
+	QUrl m_last_url;
 
 	/** extension of the last selected single URL or file */
 	QString m_last_ext;

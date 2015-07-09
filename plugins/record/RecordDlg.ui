@@ -1377,7 +1377,6 @@ recording. Depending on the compilation options you can select one of the follow
  <includes>
   <include location="local">libgui/HMSTimeWidget.h</include>
   <include location="local">LevelMeter.h</include>
-  <include location="local">kstatusbar.h</include>
  </includes>
  <resources/>
  <connections>

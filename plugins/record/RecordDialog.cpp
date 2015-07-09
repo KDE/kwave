@@ -39,7 +39,6 @@
 #include <KIconTheme>
 
 #include <kglobal.h>
-#include <kstatusbar.h>
 #include <ktabwidget.h>
 
 #include "libkwave/Compression.h"

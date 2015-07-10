@@ -32,21 +32,18 @@
 #include <QToolTip>
 #include <QWhatsThis>
 #include <QtGlobal>
+#include <QUrl>
+#include <QLineEdit>
+#include <QLocale>
+#include <QSpinBox>
+#include <QDateEdit>
+#include <QMimeType>
 
 #include <KComboBox>
 #include <KConfig>
+#include <KConfigGroup>
 #include <KHelpClient>
 #include <KLocalizedString>
-
-#include <QLineEdit>
-#include <QSpinBox>
-
-#include <kdatewidget.h>
-#include <kglobal.h>
-#include <kglobal.h>
-#include <klistwidget.h>
-#include <QMimeType>
-#include <ktabwidget.h>
 #include <KSharedConfig>
 
 #include "libkwave/CodecManager.h"
@@ -211,7 +208,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     initInfo(lblFileSize, edFileSize, Kwave::INF_FILESIZE);
     if (m_info.contains(Kwave::INF_FILESIZE)) {
 	unsigned int size = QVariant(m_info.get(Kwave::INF_FILESIZE)).toUInt();
-	QString dotted = KGlobal::locale()->formatLong(size);
+	QString dotted = QLocale().toString(size);
 	if (size < 10*1024) {
 	    edFileSize->setText(i18n("%1 bytes", dotted));
 	} else if (size < 10*1024*1024) {

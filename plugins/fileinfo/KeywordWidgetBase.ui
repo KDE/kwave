@@ -71,7 +71,7 @@ Create a list of keywords by going through all present file information and merg
     </widget>
    </item>
    <item row="1" column="0" rowspan="4">
-    <widget class="KListWidget" name="lstKeywords">
+    <widget class="QListWidget" name="lstKeywords">
      <property name="minimumSize">
       <size>
        <width>150</width>
@@ -87,11 +87,6 @@ Create a list of keywords by going through all present file information and merg
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>edKeyword</tabstop>

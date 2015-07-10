@@ -25,6 +25,7 @@
 
 #include "ui_KeywordWidgetBase.h"
 
+class QEvent;
 class QString;
 class QWidget;
 
@@ -65,7 +66,7 @@ namespace Kwave
 	void editChanged(const QString &);
 
 	/** called if the user pressed return in the edit line */
-	void returnPressed(const QString &);
+	void returnPressed();
 
 	/** add an entry to the list */
 	void add();
@@ -86,6 +87,9 @@ namespace Kwave
 
 	/** update the enable state of the buttons */
 	void update();
+
+	/** event filter for blocking the effect of pressing "return" */
+	virtual bool eventFilter(QObject *sender, QEvent *event);
 
     };
 }

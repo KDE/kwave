@@ -1253,7 +1253,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="KDateWidget" name="dateEdit"/>
+          <widget class="QDateEdit" name="dateEdit"/>
          </item>
          <item>
           <widget class="QPushButton" name="btSelectDate">
@@ -2128,12 +2128,7 @@
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KDateWidget</class>
-   <extends>QWidget</extends>
-   <header>kdatewidget.h</header>
+   <header>KComboBox</header>
   </customwidget>
   <customwidget>
    <class>Kwave::KeywordWidget</class>
@@ -2195,7 +2190,6 @@
  </tabstops>
  <includes>
   <include location="global">kcombobox.h</include>
-  <include location="global">kdatewidget.h</include>
   <include location="local">CompressionWidget.h</include>
   <include location="local">KeywordWidget.h</include>
  </includes>

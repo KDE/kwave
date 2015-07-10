@@ -1310,7 +1310,7 @@ recording. Depending on the compilation options you can select one of the follow
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
+   <header>KComboBox</header>
   </customwidget>
   <customwidget>
    <class>KDateTimeWidget</class>

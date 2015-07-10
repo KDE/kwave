@@ -497,7 +497,7 @@ playback. Depending on the compilation options you can select one of the followi
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
+   <header>KComboBox</header>
   </customwidget>
   <customwidget>
    <class>Kwave::TreeWidgetWrapper</class>

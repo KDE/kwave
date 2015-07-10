@@ -80,7 +80,7 @@ ADD_SUBDIRECTORY( codec_mp3 )       # needs libmad + id3lib + "lame"
 ADD_SUBDIRECTORY( codec_ogg )       # needs libogg and (libvorbis or libopus)
 ADD_SUBDIRECTORY( codec_wav )       # needs libaudiofile
 ADD_SUBDIRECTORY( debug )
-# ADD_SUBDIRECTORY( fileinfo )
+ADD_SUBDIRECTORY( fileinfo )
 ADD_SUBDIRECTORY( goto )
 ADD_SUBDIRECTORY( lowpass )
 ADD_SUBDIRECTORY( memory )

@@ -17,10 +17,11 @@
 
 #include "config.h"
 
+#include <QEvent>
+#include <QKeyEvent>
 #include <QPushButton>
-
 #include <QLineEdit>
-#include <klistwidget.h>
+#include <QListWidget>
 
 #include "KeywordWidget.h"
 
@@ -48,14 +49,12 @@ Kwave::KeywordWidget::KeywordWidget(QWidget *parent)
             this, SLOT(listClicked(QListWidgetItem*)));
     connect(lstKeywords, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(listClicked(QListWidgetItem*)));
-    connect(lstKeywords, SIGNAL(executed(QListWidgetItem*)),
+    connect(lstKeywords, SIGNAL(itemDoubleClicked(QListWidgetItem*)),
             this, SLOT(listClicked(QListWidgetItem*)));
 
     // if the user presses return in the edit control, this means
     // the same as clicking on the "Add" button
-    edKeyword->setTrapReturnKey(true);
-    connect(edKeyword, SIGNAL(returnPressed(QString)),
-            this, SLOT(returnPressed(QString)));
+    edKeyword->installEventFilter(this);
 
     update();
 }
@@ -141,7 +140,7 @@ void Kwave::KeywordWidget::editChanged(const QString &edit)
 }
 
 //***************************************************************************
-void Kwave::KeywordWidget::returnPressed(const QString &)
+void Kwave::KeywordWidget::returnPressed()
 {
     add(); // means the same as pressing "Add"
 }
@@ -200,6 +199,22 @@ void Kwave::KeywordWidget::autoClicked()
 {
     emit autoGenerate();
 }
+
+//***************************************************************************
+bool Kwave::KeywordWidget::eventFilter(QObject *sender, QEvent *event)
+{
+    if (!event) return false;
+
+    if ((sender == edKeyword) && (event->type() == QEvent::KeyPress)) {
+	QKeyEvent *k = static_cast<QKeyEvent *>(event);
+	if ((k->key() == Qt::Key_Return) || (k->key() == Qt::Key_Enter)) {
+	    add();
+	    return true;
+	}
+    }
+    return QObject::eventFilter(sender, event);
+}
+
 
 //***************************************************************************
 //***************************************************************************

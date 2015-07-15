@@ -31,7 +31,7 @@
 #include <KLocalizedString>
 #include <KTextEdit>
 #include <KUrlLabel>
-#include <kglobal.h>
+#include <kxmlgui_version.h>
 
 #include "libkwave/String.h"
 
@@ -57,19 +57,19 @@ Kwave::AboutDialog::AboutDialog(
     setupUi(this);
 
     /* get the about data defined in main() */
-    const KAboutData *about_data = KGlobal::mainComponent().aboutData();
+    const KAboutData about_data = KAboutData::applicationData();
 
     /* display version information in the header */
-    QString kde_version = QString::fromLatin1(KDE_VERSION_STRING);
-    QString kwave_version = about_data->programName()+
-        _(" ") + about_data->version() + _(" ");
+    QString kde_version = QString::fromLatin1(KXMLGUI_VERSION_STRING);
+    QString kwave_version = about_data.componentName()+
+        _(" ") + about_data.version() + _(" ");
     QString header_text = _("<h2>") + kwave_version +
         i18n("(built for KDE %1)", kde_version) + _("</h2>");
     header->setText(header_text);
 
     /* the frame containing the developer information */
     Kwave::AboutContainer *about = new Kwave::AboutContainer(this);
-    foreach (const KAboutPerson &author, about_data->authors()) {
+    foreach (const KAboutPerson &author, about_data.authors()) {
 	about->addPerson(author.name(), author.emailAddress(),
 	    author.webAddress(), author.task());
     }
@@ -78,7 +78,7 @@ Kwave::AboutDialog::AboutDialog(
 
     /* the frame containing the thanks to ... */
     Kwave::AboutContainer *contrib = new Kwave::AboutContainer(this);
-    foreach (const KAboutPerson &credit, about_data->credits()) {
+    foreach (const KAboutPerson &credit, about_data.credits()) {
 	contrib->addPerson(credit.name(), credit.emailAddress(),
 	    credit.webAddress(), credit.task());
     }
@@ -122,14 +122,14 @@ Kwave::AboutDialog::AboutDialog(
 
     /* set the url of the kwave homepage */
     kwave_url_label->setText(_("<a href=\"") +
-	about_data->homepage() + _("\">") +
-	about_data->homepage() + _("</a>"));
+	about_data.homepage() + _("\">") +
+	about_data.homepage() + _("</a>"));
     kwave_url_label->setOpenExternalLinks(true);
     kwave_url_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 
     /* the frame containing the translators */
     Kwave::AboutContainer *trans = new Kwave::AboutContainer(this);
-    QList<KAboutPerson> translators = about_data->translators();
+    QList<KAboutPerson> translators = about_data.translators();
     if ((translators.count() == 1) &&
         (translators.first().name() == _("NAME OF TRANSLATORS"))) {
 	tabwidget->removeTab(4);
@@ -139,7 +139,7 @@ Kwave::AboutDialog::AboutDialog(
 
 	    // if the translator is already listed in the "authors" section,
 	    // give him the same web address
-	    foreach (const KAboutPerson &author, about_data->authors())
+	    foreach (const KAboutPerson &author, about_data.authors())
 		if (author.name() == translator.name()) {
 		    website = author.webAddress();
 		    break;
@@ -147,7 +147,7 @@ Kwave::AboutDialog::AboutDialog(
 
 	    // if the translator is already listed in the "credits" section,
 	    // give him the same web address
-	    foreach (const KAboutPerson &credit, about_data->credits())
+	    foreach (const KAboutPerson &credit, about_data.credits())
 		if (credit.name() == translator.name()) {
 		    website = credit.webAddress();
 		    break;
@@ -160,9 +160,13 @@ Kwave::AboutDialog::AboutDialog(
 	translatorsframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     }
 
-    /* the frame containing the license */
+    /* the frame containing the license(s) */
     licenseframe->setReadOnly(true);
-    licenseframe->setText(about_data->license());
+    QString licenses;
+    foreach (const KAboutLicense &license, about_data.licenses()) {
+	licenses += license.text();
+    }
+    licenseframe->setText(licenses);
 
     // set the focus onto the "OK" button
     buttonBox->setFocus();

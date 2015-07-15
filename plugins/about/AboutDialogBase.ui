@@ -326,7 +326,7 @@ and scroll capability.</string>
   <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
+   <header>KTextEdit</header>
   </customwidget>
   <customwidget>
    <class>Kwave::LogoWidget</class>

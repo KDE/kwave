@@ -44,6 +44,7 @@ MACRO(KWAVE_PLUGIN _plugin)
         KF5::I18n
         KF5::IconThemes
         KF5::KIOFileWidgets
+        KF5::TextWidgets
         KF5::WidgetsAddons
         KF5::XmlGui
     )
@@ -70,7 +71,7 @@ ENDMACRO(KWAVE_PLUGIN)
 
 #############################################################################
 
-# ADD_SUBDIRECTORY( about )
+ADD_SUBDIRECTORY( about )
 ADD_SUBDIRECTORY( amplifyfree )
 ADD_SUBDIRECTORY( band_pass )
 ADD_SUBDIRECTORY( codec_ascii )

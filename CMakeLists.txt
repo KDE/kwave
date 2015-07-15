@@ -197,6 +197,7 @@ FIND_PACKAGE(KF5 REQUIRED COMPONENTS
     KIO
     Notifications
     Service
+    TextWidgets
     XmlGui
     WidgetsAddons
 )

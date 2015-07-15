@@ -180,6 +180,9 @@ int main(int argc, char **argv)
     );
     addDataStrings(about);
 
+    /* use the about data above for this application */
+    KAboutData::setApplicationData(about);
+
     /* show some version info */
     printf("\nThis is %s v%s (compiled for KDE %s)\n",
 	about.productName().toLatin1().data(),

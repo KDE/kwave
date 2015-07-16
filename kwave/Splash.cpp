@@ -31,15 +31,19 @@
 
 #include <QStandardPaths>
 
+#include "libkwave/String.h"
+
 #include "Splash.h"
 
 // static pointer to the current instance
 QPointer<Kwave::Splash> Kwave::Splash::m_splash = 0;
 
 //***************************************************************************
-Kwave::Splash::Splash(const QString &PNGImageFileName)
+Kwave::Splash::Splash(const QString &PNGFile)
     :QFrame(0, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
-     m_pixmap(QStandardPaths::locate(QStandardPaths::DataLocation, PNGImageFileName))
+     m_font(),
+     m_pixmap(QStandardPaths::locate(QStandardPaths::DataLocation, PNGFile)),
+     m_message(_("   "))
 {
     const int w = m_pixmap.width();
     const int h = m_pixmap.height();
@@ -52,22 +56,20 @@ Kwave::Splash::Splash(const QString &PNGImageFileName)
     const KAboutData about_data = KAboutData::applicationData();
     QString version = i18nc("%1=Version number", "v%1", about_data.version());
 
-    QFont font;
-    font.setBold(true);
-    font.setStyleHint(QFont::Decorative);
-    font.setWeight(QFont::Black);
-    p.setFont(font);
+    m_font.setBold(true);
+    m_font.setStyleHint(QFont::Decorative);
+    m_font.setWeight(QFont::Black);
+    p.setFont(m_font);
 
-    QFontMetrics fm(font);
+    QFontMetrics fm(m_font);
     QRect rect = fm.boundingRect(version);
 
     // version
     const int r  = 5;
     const int th = rect.height();
     const int tw = rect.width();
-    int x = w - 10 - tw;
-    int y = h - 10 - th;
-    const QColor textcolor = palette().buttonText().color();
+    const int x  = w - 10 - tw;
+    const int y  = h - 10 - th;
 
     const QBrush brush(palette().background().color());
     p.setBrush(brush);
@@ -80,7 +82,7 @@ Kwave::Splash::Splash(const QString &PNGImageFileName)
     );
 
     p.setOpacity(1.0);
-    p.setPen(textcolor);
+    p.setPen(palette().buttonText().color());
     p.drawText(x, y, tw, th, Qt::AlignCenter, version);
 
     p.end();
@@ -115,7 +117,7 @@ void Kwave::Splash::showMessage(const QString &message)
     if (!m_splash) return;
     m_splash->m_message = message;
     m_splash->repaint();
-    QApplication::processEvents();
+    QApplication::processEvents(QEventLoop::AllEvents);
 }
 
 //***************************************************************************
@@ -139,8 +141,9 @@ void Kwave::Splash::paintEvent(QPaintEvent *)
 
     QPainter p(this);
     p.drawPixmap(this->rect(), m_pixmap);
-    p.setPen(Qt::black);
-    p.drawText(rect, Qt::AlignLeft, m_message);
+    p.setFont(m_font);
+    p.setPen(palette().buttonText().color());
+    p.drawText(rect, Qt::AlignLeft | Qt::AlignTop, m_message);
 }
 
 //***************************************************************************

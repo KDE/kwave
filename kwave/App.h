@@ -127,7 +127,7 @@ namespace Kwave
 	 */
 	void recentFilesChanged();
 
-    private slots:
+    public slots:
 
 	/**
 	 * Connected to the DBus service to open a new window.

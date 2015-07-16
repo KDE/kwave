@@ -104,8 +104,6 @@ Kwave::App::App(int &argc, char **argv, QCommandLineParser &cmdline)
 	if (valid && (arg != result))
 	    cfg.writeEntry(_("UI Type"), arg);
     }
-
-    newInstance(arguments(), QString());
 }
 
 //***************************************************************************

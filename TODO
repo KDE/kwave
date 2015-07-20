@@ -1,11 +1,15 @@
 
 o testing: curve widget, save/load presets
-o testing: FileDialog, modes, save/restore
 o testing: command line options
-o print version info in main()
 o test: translated names and roles in about data
 o generation of handbook
-o porting of  all plugins
+o set KXMLGUI_NO_DEPRECATED
+o BUG: pass a non existing file on the cmdline -> invalid mdi handle
+o BUG: crash when passing file on cmdline
+o plugin about: license texts, list of translators
+o TODO: port plugin playback via PHONON
+o TODO: port plugin record
+o TODO: port plugin saveblocks
 
 o recording via Phonon
 

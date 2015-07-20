@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifdef HAVE_PULSEAUDIO_SUPPORT
 #include "config.h"
+#ifdef HAVE_PULSEAUDIO_SUPPORT
 
 #include <errno.h>
 #include <math.h>

@@ -18,8 +18,8 @@
 #ifndef PLAY_BACK_OSS_H
 #define PLAY_BACK_OSS_H
 
-#ifdef HAVE_OSS_SUPPORT
 #include "config.h"
+#ifdef HAVE_OSS_SUPPORT
 
 #include <QByteArray>
 #include <QList>

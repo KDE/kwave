@@ -18,8 +18,8 @@
 #ifndef PLAY_BACK_PHONON_H
 #define PLAY_BACK_PHONON_H
 
-#ifdef HAVE_PHONON_SUPPORT
 #include "config.h"
+#ifdef HAVE_PHONON_SUPPORT
 
 #include <QByteArray>
 #include <QList>

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifdef HAVE_OSS_SUPPORT
 #include "config.h"
+#ifdef HAVE_OSS_SUPPORT
 
 #include <errno.h>
 #include <fcntl.h>

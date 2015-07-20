@@ -47,10 +47,15 @@ Kwave::FileDialog::FileDialog(
     setModal(modal);
 
     if (saving) {
+	setAcceptMode(QFileDialog::AcceptSave);
 	setFileMode(QFileDialog::AnyFile);
     } else {
+	setAcceptMode(QFileDialog::AcceptOpen);
 	setFileMode(QFileDialog::ExistingFile);
     }
+
+    if (m_last_ext.length())
+	setDefaultSuffix(m_last_ext);
 
     QString special_prefix = _("kfiledialog:///");
     if (startDir.startsWith(special_prefix)) {

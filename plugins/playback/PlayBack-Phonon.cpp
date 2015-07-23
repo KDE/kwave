@@ -198,7 +198,7 @@ QString Kwave::PlayBackPhonon::open(const QString &device, double rate,
                  static_cast<quint16>(bits));
 
     m_media_object.play();
-    setStreamSize(44);
+    setStreamSize(-1);
 
     return QString();
 }
@@ -213,7 +213,6 @@ int Kwave::PlayBackPhonon::write(const Kwave::SampleArray &samples)
 	flush();
 	return -EIO;
     }
-
     // number of samples left in the buffer
     unsigned int remaining = samples.size();
     unsigned int offset    = 0;
@@ -248,7 +247,7 @@ int Kwave::PlayBackPhonon::flush()
     m_encoder->encode(m_buffer, m_buffer_used, m_raw_buffer);
 
     // wait until the Phonon layer has called needData()
-    if (!m_sem.tryAcquire(1, 1000)) {
+    if (!m_sem.tryAcquire(1, 5000)) {
 	qDebug("PlayBackPhonon::flush() - EAGAIN");
 	m_buffer_used = 0;
 	return -EAGAIN;

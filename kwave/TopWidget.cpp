@@ -53,9 +53,6 @@
 #include <KMessageBox>
 #include <KToolBar>
 
-// #include <kcmdlineargs.h>
-// #include <kfiledialog.h>
-// #include <kglobal.h>
 #include <KSharedConfig>
 
 #include "libkwave/ClipBoard.h"

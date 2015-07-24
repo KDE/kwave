@@ -15,9 +15,14 @@ ProjectRootRelative=./
 
 [CMake][CMake Build Directory 0]
 Build Directory Path=file:///var/tmp/kwave-build
-Build Type=Release
+Build Type=DebugFull
 CMake Binary=file:///usr/bin/cmake
-Install Directory=file:///usr/local
+Install Directory=file:///usr
+
+[Defines And Includes][Compiler]
+Name=GCC
+Path=gcc
+Type=GCC
 
 [Launch]
 Launch Configurations=Launch Configuration 0
@@ -29,7 +34,7 @@ Name=Kwave_Debug
 Type=Native Application
 
 [Launch][Launch Configuration 0][Data]
-Arguments=--nofork
+Arguments=
 Debugger Shell=
 Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\n\x00k\x00w\x00a\x00v\x00e)
 Dependency Action=Install
@@ -39,7 +44,7 @@ EnvironmentGroup=Kwave-Debug
 Executable=file:///var/tmp/kwave-install/usr/bin/kwave
 External Terminal=konsole --noclose --workdir %workdir -e %exe
 GDB Path=file:///usr/bin/gdb
-Project Target=
+Project Target=kwave,kwave,kwave_core
 Remote GDB Config Script=
 Remote GDB Run Script=
 Remote GDB Shell Script=

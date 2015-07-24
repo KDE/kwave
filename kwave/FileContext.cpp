@@ -23,13 +23,11 @@
 #include <QFile>
 #include <QLocale>
 #include <QTextStream>
-
 #include <QApplication>
 #include <QMdiSubWindow>
+#include <QStandardPaths>
 
 #include <kglobal.h>
-
-#include <QStandardPaths>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"
@@ -210,7 +208,10 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     m_plugin_manager->searchPluginModules();
 
     // load the menu from file
-    QFile menufile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, _("kwave/menus.config")));
+    QFile menufile(QStandardPaths::locate(
+	QStandardPaths::GenericDataLocation,
+	_("kwave/menus.config")
+    ));
     menufile.open(QIODevice::ReadOnly);
     QTextStream stream(&menufile);
     Q_ASSERT(!stream.atEnd());
@@ -1065,8 +1066,8 @@ bool Kwave::FileContext::closeFile()
 	case Kwave::App::GUI_TAB:
 	    // close the main widget
 	    if (m_main_widget) {
+		m_main_widget->setAttribute(Qt::WA_DeleteOnClose);
 		m_main_widget->close();
-		delete m_main_widget;
 		m_main_widget = 0;
 	    }
 	    break;

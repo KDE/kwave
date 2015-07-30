@@ -609,19 +609,24 @@ void Kwave::RecordDialog::selectRecordDevice()
     filter += _("\nadsp*|") + i18n("ALSA record device (adsp*)");
     filter += _("\n*|")     + i18n("Any device (*)");
 
-    QUrl last_url = (!m_params.device_name.startsWith(_("#"))) ?
-        QUrl(_("dev:") + m_params.device_name) :
-        QUrl(_("dev:/dev/*"));
-    Kwave::FileDialog dlg(_("kfiledialog:///kwave_record_device"),
-	Kwave::FileDialog::Opening,
-	filter, this, true, last_url);
-    dlg.setIconProvider(0);
-    dlg.setWindowTitle(i18n("Select Record Device"));
-    if (dlg.exec() != QDialog::Accepted) return;
-
-    // selected new device
-    QString new_device = dlg.selectedUrl().path();
-    if (new_device != m_params.device_name) emit sigDeviceChanged(new_device);
+    QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
+	_("kfiledialog:///kwave_record_device"),
+	Kwave::FileDialog::Opening, filter, this,
+	true, QUrl(_("file:/dev"))
+    );
+    if (!dlg) return;
+    dlg->setWindowTitle(i18n("Select Record Device"));
+    if (!m_params.device_name.startsWith(_("#")))
+        dlg->selectUrl(QUrl(_("file:") + m_params.device_name));
+    else
+        dlg->selectUrl(QUrl(_("file:/dev/*")));
+    if (dlg->exec() == QDialog::Accepted) {
+	// selected new device
+	QString new_device = dlg->selectedUrl().path();
+	if (new_device != m_params.device_name)
+	    emit sigDeviceChanged(new_device);
+    }
+    delete dlg;
 }
 
 //***************************************************************************

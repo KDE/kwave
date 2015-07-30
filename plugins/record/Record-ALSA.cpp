@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifdef HAVE_ALSA_SUPPORT
 #include "config.h"
+#ifdef HAVE_ALSA_SUPPORT
 
 #include <errno.h>
 #include <math.h>

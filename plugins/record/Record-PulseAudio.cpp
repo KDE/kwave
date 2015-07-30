@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifdef HAVE_PULSEAUDIO_SUPPORT
 #include "config.h"
+#ifdef HAVE_PULSEAUDIO_SUPPORT
 
 #include <errno.h>
 #include <signal.h>
@@ -37,7 +37,6 @@
 
 #include <KLocalizedString>
 #include <KUser>
-#include <kdebug.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
@@ -365,7 +364,7 @@ pa_sample_format_t Kwave::RecordPulseAudio::mode2format(
 	return fmt;
     }
 
-    kWarning() << "RecordPulesAudio::mode2format -> no match found !?";
+    qWarning("RecordPulesAudio::mode2format -> no match found !?");
     return PA_SAMPLE_INVALID;
 }
 
@@ -676,7 +675,7 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 
     // make sure that we are connected to the sound server
     if (!connectToServer()) {
-	kWarning() << "Connecting to the PulseAudio server failed!";
+	qWarning("Connecting to the PulseAudio server failed!");
 	return -1;
     }
 
@@ -685,13 +684,12 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
     if (fmt == PA_SAMPLE_INVALID) {
 	Kwave::SampleFormat::Map sf;
 
-	kWarning() << "format: no matching format for compression '"
-		    << DBG(sf.description(sf.findFromData(m_sample_format), true))
-		    << "', "
-		    << m_bits_per_sample
-		    << " bits/sample, format '"
-		    << DBG(Kwave::Compression(m_compression).name())
-		    << "'";
+	qWarning("format: no matching format for compression '%s', "
+	    "%d bits/sample, format '%s'",
+	    DBG(sf.description(sf.findFromData(m_sample_format), true)),
+	    m_bits_per_sample,
+	    DBG(Kwave::Compression(m_compression).name())
+	);
 	return -EINVAL;
     }
 
@@ -703,13 +701,8 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
     if(!pa_sample_spec_valid(&sample_spec)) {
 	Kwave::SampleFormat::Map sf;
 
-	kWarning() << "no valid pulse audio format: '"
-		    << DBG(QString(fmt))
-		    << "', Rate: '"
-		    << m_rate
-		    << "', Channels: '"
-		    << m_tracks
-		    << "'";
+	qWarning("no valid pulse audio format: %d, rate: %0.3g, channels: %d",
+		 static_cast<int>(fmt), m_rate, m_tracks);
 	return -EINVAL;
     }
 
@@ -721,7 +714,7 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
                                PA_CHANNEL_MAP_DEFAULT);
 
     if (!pa_channel_map_compatible(&channel_map, &sample_spec)) {
-        kWarning() << "Channel map doesn't match sample specification!";
+        qWarning("Channel map doesn't match sample specification!");
     }
 
     // create a new stream
@@ -733,8 +726,8 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 
     if (!m_pa_stream) {
 	m_mainloop_lock.unlock();
-	kWarning() << "Failed to create a PulseAudio stream "
-	            << _(pa_strerror(pa_context_errno(m_pa_context)));
+	qWarning("Failed to create a PulseAudio stream %s",
+	         pa_strerror(pa_context_errno(m_pa_context)));
 	return -1;
     }
 
@@ -767,8 +760,8 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
     if (result < 0) {
 	pa_stream_unref(m_pa_stream);
 	m_pa_stream = 0;
-	kWarning() << "Failed to open a PulseAudio stream for record "
-	            << _(pa_strerror(pa_context_errno(m_pa_context)));
+	qWarning("Failed to open a PulseAudio stream for record %s",
+	         pa_strerror(pa_context_errno(m_pa_context)));
 	return -1;
     }
 
@@ -783,9 +776,9 @@ int Kwave::RecordPulseAudio::open(const QString& device)
     if (m_pa_stream) close();
 
     if (!m_device_list.contains(device)) {
-	kWarning() << "The PulseAudio device '"
-	       << device.section(QLatin1Char('|'), 0, 0)
-	       << "' is unknown or no longer connected!";
+	qWarning(
+	    "The PulseAudio device '%s' is unknown or no longer connected!",
+	    DBG(device.section(QLatin1Char('|'), 0, 0)));
 	return -1;
     }
 
@@ -914,9 +907,8 @@ bool Kwave::RecordPulseAudio::connectToServer()
     );
     if (error < 0)
     {
-	kWarning() << "RecordPulseAudio: pa_contect_connect failed ("
-	           << pa_strerror(pa_context_errno(m_pa_context))
-		   << ")";
+	qWarning("RecordPulseAudio: pa_contect_connect failed (%s)",
+	          pa_strerror(pa_context_errno(m_pa_context)));
 	failed = true;
     }
 
@@ -936,9 +928,8 @@ bool Kwave::RecordPulseAudio::connectToServer()
 	m_mainloop_lock.unlock();
 
 	if (failed) {
-	    kWarning() << "RecordPulseAudio: context FAILED ("
-	               << pa_strerror(pa_context_errno(m_pa_context))
-		       << "):-(";
+	    qWarning("RecordPulseAudio: context FAILED (%s):-(",
+	             pa_strerror(pa_context_errno(m_pa_context)));
 	}
     }
 

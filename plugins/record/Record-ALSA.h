@@ -18,8 +18,8 @@
 #ifndef RECORD_ALSA_H
 #define RECORD_ALSA_H
 
-#ifdef HAVE_ALSA_SUPPORT
 #include "config.h"
+#ifdef HAVE_ALSA_SUPPORT
 
 /*
  * use the new ALSA HW/SW params API, needed to compile under SuSE-9.0

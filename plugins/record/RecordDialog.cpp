@@ -21,13 +21,17 @@
 #include <QVector>
 
 #include <QCheckBox>
+#include <QDateTimeEdit>
 #include <QGroupBox>
+#include <QIcon>
 #include <QLabel>
 #include <QPixmap>
 #include <QProgressBar>
 #include <QPushButton>
 #include <QSlider>
 #include <QSpinBox>
+#include <QStatusBar>
+#include <QTabWidget>
 #include <QTreeView>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -37,9 +41,6 @@
 #include <KLocalizedString>
 #include <KIconLoader>
 #include <KIconTheme>
-
-#include <kglobal.h>
-#include <ktabwidget.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
@@ -89,16 +90,6 @@
 	STD_SETUP(enabled,property,control); \
 	sl##control->setEnabled(sb##control->isEnabled());
 
-
-enum {
-    ID_ICON=1,          /**< status bar id: state icon */
-    ID_STATE,           /**< status bar id: state text */
-    ID_TIME,            /**< status bar id: recorded time */
-    ID_SAMPLE_RATE,     /**< status bar id: sample rate */
-    ID_BITS_PER_SAMPLE, /**< status bar id: number of tracks */
-    ID_TRACKS           /**< status bar id: number of tracks */
-};
-
 //***************************************************************************
 Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
                                   Kwave::RecordController *controller)
@@ -110,6 +101,12 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
      m_record_enabled(true), m_samples_recorded(0),
      m_enable_setDevice(true), m_state_icon_widget(0)
 {
+    m_status_bar.m_state           = 0;
+    m_status_bar.m_time            = 0;
+    m_status_bar.m_sample_rate     = 0;
+    m_status_bar.m_bits_per_sample = 0;
+    m_status_bar.m_tracks          = 0;
+
     setupUi(this);
 
     /* get initial parameters */
@@ -117,11 +114,11 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     /* set the icons of the record control buttons */
     KIconLoader icon_loader;
-    btNew->setIcon(   KIcon(icon_loader.loadIcon(_("document-new"),
+    btNew->setIcon(   QIcon(icon_loader.loadIcon(_("document-new"),
 	              KIconLoader::Toolbar)));
-    btStop->setIcon(  KIcon(QPixmap(xpm_stop)));
-    btPause->setIcon( KIcon(QPixmap(xpm_pause)));
-    btRecord->setIcon(KIcon(QPixmap(xpm_krec_record)));
+    btStop->setIcon(  QIcon(QPixmap(xpm_stop)));
+    btPause->setIcon( QIcon(QPixmap(xpm_pause)));
+    btRecord->setIcon(QIcon(QPixmap(xpm_krec_record)));
 
     // fill the combo box with playback methods
     unsigned int index=0;
@@ -209,7 +206,7 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     connect(chkRecordStartTime, SIGNAL(toggled(bool)),
             this, SLOT(startTimeChecked(bool)));
-    connect(startTime, SIGNAL(valueChanged(QDateTime)),
+    connect(startTime, SIGNAL(dateTimeChanged(QDateTime)),
             this, SLOT(startTimeChanged(QDateTime)));
 
     connect(chkRecordTrigger, SIGNAL(toggled(bool)),
@@ -268,21 +265,35 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     m_state_icon_widget->setFixedSize(16, 16);
     lbl_state->addWidget(m_state_icon_widget);
 
-    lbl_state->insertItem(_(" "), ID_STATE, 100);
-    lbl_state->setItemAlignment(ID_STATE,
-                                Qt::AlignLeft | Qt::AlignVCenter);
-    lbl_state->insertItem(_(" "), ID_TIME);
-    lbl_state->setItemAlignment(ID_TIME,
-                                Qt::AlignLeft | Qt::AlignVCenter);
-    lbl_state->insertItem(_(" "), ID_SAMPLE_RATE);
-    lbl_state->setItemAlignment(ID_SAMPLE_RATE,
-                                Qt::AlignRight | Qt::AlignVCenter);
-    lbl_state->insertItem(_(" "), ID_BITS_PER_SAMPLE);
-    lbl_state->setItemAlignment(ID_BITS_PER_SAMPLE,
-                                Qt::AlignRight | Qt::AlignVCenter);
-    lbl_state->insertItem(_(" "), ID_TRACKS);
-    lbl_state->setItemAlignment(ID_TRACKS,
-                                Qt::AlignRight | Qt::AlignVCenter);
+    m_status_bar.m_state = new (std::nothrow) QLabel(_(" "));
+    Q_ASSERT(m_status_bar.m_state);
+    if (!m_status_bar.m_state) return;
+    m_status_bar.m_state->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    lbl_state->addWidget(m_status_bar.m_state);
+
+    m_status_bar.m_time = new (std::nothrow) QLabel(_(" "));
+    Q_ASSERT(m_status_bar.m_time);
+    if (!m_status_bar.m_time) return;
+    m_status_bar.m_time->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    lbl_state->addWidget(m_status_bar.m_time);
+
+    m_status_bar.m_sample_rate = new (std::nothrow) QLabel(_(" "));
+    Q_ASSERT(m_status_bar.m_sample_rate);
+    if (!m_status_bar.m_sample_rate) return;
+    m_status_bar.m_sample_rate->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lbl_state->addWidget(m_status_bar.m_sample_rate);
+
+    m_status_bar.m_bits_per_sample = new (std::nothrow) QLabel(_(" "));
+    Q_ASSERT(m_status_bar.m_bits_per_sample);
+    if (!m_status_bar.m_bits_per_sample) return;
+    m_status_bar.m_bits_per_sample->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lbl_state->addWidget(m_status_bar.m_bits_per_sample);
+
+    m_status_bar.m_tracks = new (std::nothrow) QLabel(_(" "));
+    Q_ASSERT(m_status_bar.m_tracks);
+    if (!m_status_bar.m_tracks) return;
+    m_status_bar.m_tracks->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lbl_state->addWidget(m_status_bar.m_tracks);
 
     m_state_icon_widget->setFixedSize(16, lbl_state->childrenRect().height());
 
@@ -296,10 +307,11 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     if (page) delete page;
 
     // add the "Done" button manually, otherwise it would have "Cancel" semantic
-    KGuiItem item = KStandardGuiItem::ok();
-    item.setText(i18n("&Done"));
-    buttonBox->addButton(item, QDialogButtonBox::AcceptRole,
-	                 this, SLOT(accept()));
+    QPushButton *bt_done =
+	buttonBox->addButton(i18n("&Done"), QDialogButtonBox::AcceptRole);
+    Q_ASSERT(bt_done);
+    if (!bt_done) return;
+    connect(bt_done, SIGNAL(clicked(bool)), this, SLOT(accept()));
 
     // set the focus onto the "Record" button
     btRecord->setFocus();
@@ -597,36 +609,30 @@ void Kwave::RecordDialog::selectRecordDevice()
     filter += _("\nadsp*|") + i18n("ALSA record device (adsp*)");
     filter += _("\n*|")     + i18n("Any device (*)");
 
+    QUrl last_url = (!m_params.device_name.startsWith(_("#"))) ?
+        QUrl(_("dev:") + m_params.device_name) :
+        QUrl(_("dev:/dev/*"));
     Kwave::FileDialog dlg(_("kfiledialog:///kwave_record_device"),
-	KFileDialog::Opening,
-	filter, this, true, _("file:/dev"));
-    dlg.setKeepLocation(true);
+	Kwave::FileDialog::Opening,
+	filter, this, true, last_url);
+    dlg.setIconProvider(0);
     dlg.setWindowTitle(i18n("Select Record Device"));
-    if (!m_params.device_name.startsWith(_("#")))
-        dlg.setUrl(QUrl(_("file:") + m_params.device_name));
-    else
-        dlg.setUrl(QUrl(_("file:/dev/*")));
     if (dlg.exec() != QDialog::Accepted) return;
 
     // selected new device
-    QString new_device = dlg.selectedFile();
+    QString new_device = dlg.selectedUrl().path();
     if (new_device != m_params.device_name) emit sigDeviceChanged(new_device);
 }
 
 //***************************************************************************
 QString Kwave::RecordDialog::rate2string(double rate) const
 {
-    const KLocale *locale = KGlobal::locale();
-    Q_ASSERT(locale);
-
-    QString s;
-    if (!locale) return s.setNum(rate,'f', 3);
-
-    const QString dot  = locale->decimalSymbol();
-    const QString tsep = locale->thousandsSeparator();
+    QLocale locale;
+    const QString dot  = locale.decimalPoint();
+    const QString tsep = locale.groupSeparator();
 
     // format number with 3 digits
-    s = locale->formatNumber(rate, 3);
+    QString s = locale.toString(rate, 'f', 3);
 
     // remove thousands separator (looks ugly)
     s.remove(tsep);
@@ -643,15 +649,11 @@ QString Kwave::RecordDialog::rate2string(double rate) const
 //***************************************************************************
 double Kwave::RecordDialog::string2rate(const QString &rate) const
 {
-    const KLocale *locale = KGlobal::locale();
-    Q_ASSERT(locale);
-
+    QLocale locale;
     const QString s = rate;
-    if (!locale) return s.toDouble();
-
     double r;
     bool ok;
-    r = locale->readNumber(rate, &ok);
+    r = locale.toDouble(rate, &ok);
     Q_ASSERT(ok);
     if (!ok) return s.toDouble();
 
@@ -686,7 +688,8 @@ void Kwave::RecordDialog::setTracks(unsigned int tracks)
 {
 //     qDebug("+++ RecordDialog::setTracks(%u)", tracks);
     Q_ASSERT(sbFormatTracks);
-    if (!sbFormatTracks) return;
+    Q_ASSERT(m_status_bar.m_tracks);
+    if (!sbFormatTracks || !m_status_bar.m_tracks) return;
     if (!tracks) return;
 
     m_params.tracks = tracks;
@@ -708,10 +711,10 @@ void Kwave::RecordDialog::setTracks(unsigned int tracks)
 
     if (tracks_str.length()) {
 	lblTracksVerbose->setText(_("(") + tracks_str + _(")"));
-	lbl_state->changeItem(tracks_str, ID_TRACKS);
+	m_status_bar.m_tracks->setText(tracks_str);
     } else {
 	lblTracksVerbose->setText(_(""));
-	lbl_state->changeItem(i18n("%1 tracks", tracks), ID_TRACKS);
+	m_status_bar.m_tracks->setText(i18n("%1 tracks", tracks));
     }
 
     sbFormatTracks->setValue(tracks);
@@ -752,7 +755,8 @@ void Kwave::RecordDialog::setSupportedSampleRates(const QList<double> &rates)
 void Kwave::RecordDialog::setSampleRate(double new_rate)
 {
     Q_ASSERT(cbFormatSampleRate);
-    if (!cbFormatSampleRate) return;
+    Q_ASSERT(m_status_bar.m_sample_rate);
+    if (!cbFormatSampleRate || !m_status_bar.m_sample_rate) return;
 
     if (new_rate <= 0) {
 	cbFormatSampleRate->setEnabled(false);
@@ -766,7 +770,7 @@ void Kwave::RecordDialog::setSampleRate(double new_rate)
     QString rate;
     rate = rate2string(new_rate);
     cbFormatSampleRate->setCurrentItem(rate, true);
-    lbl_state->changeItem(i18n("%1 Hz", rate), ID_SAMPLE_RATE);
+    m_status_bar.m_sample_rate->setText(i18n("%1 Hz", rate));
 }
 
 //***************************************************************************
@@ -850,7 +854,8 @@ void Kwave::RecordDialog::setSupportedBits(const QList<unsigned int> &bits)
 void Kwave::RecordDialog::setBitsPerSample(unsigned int bits)
 {
     Q_ASSERT(sbFormatResolution);
-    if (!sbFormatResolution) return;
+    Q_ASSERT(m_status_bar.m_bits_per_sample);
+    if (!sbFormatResolution || !m_status_bar.m_bits_per_sample) return;
 
     if (!bits ) {
 	sbFormatResolution->setEnabled(false);
@@ -860,7 +865,7 @@ void Kwave::RecordDialog::setBitsPerSample(unsigned int bits)
 	m_params.bits_per_sample = bits;
     }
 
-    lbl_state->changeItem(i18n("%1 bit", bits), ID_BITS_PER_SAMPLE);
+    m_status_bar.m_bits_per_sample->setText(i18n("%1 bit", bits));
     sbFormatResolution->setValue(bits);
 }
 
@@ -960,6 +965,9 @@ void Kwave::RecordDialog::sampleFormatChanged(int index)
 //***************************************************************************
 void Kwave::RecordDialog::setState(Kwave::RecordState state)
 {
+    Q_ASSERT(m_status_bar.m_state);
+    if (!m_status_bar.m_state) return;
+
     bool enable_new = false;
     bool enable_pause = false;
     bool enable_stop = false;
@@ -982,7 +990,7 @@ void Kwave::RecordDialog::setState(Kwave::RecordState state)
 	    enable_trigger  = true;
 	    pixmaps.push_back(QPixmap(stop_hand_xpm));
 	    pixmaps.push_back(QPixmap(ledred_xpm));
-	    lbl_state->changeItem(_(""), ID_TIME);
+	    m_status_bar.m_time->setText(_(""));
 	    break;
 	case Kwave::REC_EMPTY:
 	    state_text = i18n("(empty)");
@@ -993,7 +1001,7 @@ void Kwave::RecordDialog::setState(Kwave::RecordState state)
 	    enable_settings = true;
 	    enable_trigger  = true;
 	    pixmaps.push_back(QPixmap(ledgreen_xpm));
-	    lbl_state->changeItem(_(""), ID_TIME);
+	    m_status_bar.m_time->setText(_(""));
 	    break;
 	case Kwave::REC_BUFFERING:
 	    state_text = i18n("Buffering...");
@@ -1068,7 +1076,7 @@ void Kwave::RecordDialog::setState(Kwave::RecordState state)
 	    pixmaps.push_back(QPixmap(ok_xpm));
 	    break;
     }
-    lbl_state->changeItem(state_text, ID_STATE);
+    m_status_bar.m_state->setText(state_text);
     m_state_icon_widget->setPixmaps(pixmaps, animation_time);
 
     // enable/disable the record control buttons
@@ -1109,7 +1117,8 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
                                             unsigned int total)
 {
     Q_ASSERT(progress_bar);
-    if (!progress_bar) return;
+    Q_ASSERT(m_status_bar.m_state);
+    if (!progress_bar || !m_status_bar.m_state) return;
 
     if (total == 0) {
 	// we are done: stop update timer and reset buffer percentage
@@ -1174,7 +1183,7 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
 		// waiting for trigger...
 		state_text = i18n("Waiting for trigger...");
 	    }
-	    lbl_state->changeItem(state_text, ID_STATE);
+	    m_status_bar.m_state->setText(state_text);
 
 	    break;
 	}
@@ -1194,7 +1203,7 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
 	    break;
 	}
     }
-    lbl_state->changeItem(txt, ID_TIME);
+    m_status_bar.m_time->setText(txt);
 }
 
 //***************************************************************************

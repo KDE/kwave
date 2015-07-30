@@ -18,8 +18,8 @@
 #ifndef RECORD_OSS_H
 #define RECORD_OSS_H
 
-#ifdef HAVE_OSS_SUPPORT
 #include "config.h"
+#ifdef HAVE_OSS_SUPPORT
 
 #include <QByteArray>
 #include <QString>

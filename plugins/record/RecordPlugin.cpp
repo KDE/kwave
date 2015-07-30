@@ -32,8 +32,9 @@
 
 #include <KAboutData>
 #include <KConfig>
-#include <kglobal.h>
+#include <KConfigGroup>
 #include <KSharedConfig>
+#include <kxmlgui_version.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"
@@ -978,12 +979,11 @@ void Kwave::RecordPlugin::startRecording()
 	fileInfo.set(Kwave::INF_COMPRESSION, m_dialog->params().compression);
 
 	// add our Kwave Software tag
-	const KAboutData *about_data =
-	    KGlobal::mainComponent().aboutData();
-	QString software = about_data->programName() + _("-") +
-			    about_data->version() +
-			    i18n(" for KDE ") +
-			    i18n(KDE_VERSION_STRING);
+	const KAboutData about_data = KAboutData::applicationData();
+	QString software = about_data.componentName() + _("-") +
+	                   about_data.version() +
+	                   i18n(" for KDE ") +
+	                   _(KXMLGUI_VERSION_STRING);
 	qDebug("adding software tag: '%s'", DBG(software));
 	fileInfo.set(Kwave::INF_SOFTWARE, software);
 

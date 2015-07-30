@@ -91,7 +91,7 @@ ADD_SUBDIRECTORY( normalize )
 ADD_SUBDIRECTORY( notch_filter )
 ADD_SUBDIRECTORY( pitch_shift )
 ADD_SUBDIRECTORY( playback )        # needs one of: OSS/ALSA/PulseAudio/Phonon
-# ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
+ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
 ADD_SUBDIRECTORY( reverse )
 ADD_SUBDIRECTORY( samplerate )      # needs libsamplerate
 # ADD_SUBDIRECTORY( saveblocks )

@@ -42,8 +42,9 @@ namespace Kwave
 	Q_OBJECT
     public:
 	typedef enum {
-	    Saving = 0,
-	    Opening
+	    SaveFile = 0, /**< save a file */
+	    OpenFile,     /**< open a file */
+	    SelectDir     /**< select a directory */
 	} OperationMode;
 
 	/**

@@ -16,13 +16,16 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <limits.h>
+#include <new>
 #include <unistd.h>
 
 #include <QCheckBox>
 #include <QFileDialog>
 #include <QLabel>
 #include <QObject>
+#include <QPointer>
 #include <QPushButton>
 #include <QSlider>
 #include <QLineEdit>
@@ -31,6 +34,7 @@
 #include <QStringList>
 
 #include <KHelpClient>
+#include <KLocalizedString>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"
@@ -142,9 +146,15 @@ void Kwave::MemoryDialog::virtualMemoryEnabled(bool enable)
 //***************************************************************************
 void Kwave::MemoryDialog::searchSwapDir()
 {
-    QString dir = QFileDialog::getExistingDirectory(
-	this, QString(), edDirectory->text());
-    if (dir.length()) edDirectory->setText(dir);
+    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+	edDirectory->text(), Kwave::FileDialog::SelectDir, QString(), this);
+    if (!dlg) return;
+    dlg->setWindowTitle(i18n("Select Swap File Directory"));
+    if (dlg->exec() == QDialog::Accepted) {
+	QString dir = dlg->selectedUrl().toLocalFile();
+	if (dir.length()) edDirectory->setText(dir);
+    }
+    delete dlg;
 }
 
 //***************************************************************************

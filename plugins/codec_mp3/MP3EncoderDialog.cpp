@@ -570,7 +570,7 @@ void Kwave::MP3EncoderDialog::browseFile()
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow)
 	Kwave::FileDialog(
 	    _("kfiledialog:///kwave_mp3_encoder"),
-	    Kwave::FileDialog::Opening,
+	    Kwave::FileDialog::OpenFile,
 	    _(""), this,
 	    QUrl::fromLocalFile(_("file:/") + edPath->text().simplified()),
 	    mask

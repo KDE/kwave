@@ -939,7 +939,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	QString filter = Kwave::CodecManager::encodingFilter();
 	QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
 	    _("kfiledialog:///kwave_save_as"),
-	    Kwave::FileDialog::Saving,
+	    Kwave::FileDialog::SaveFile,
 	    filter, m_top_widget, current_url, extension
 	);
 	if (!dlg) return 0;

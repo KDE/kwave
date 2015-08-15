@@ -22,7 +22,6 @@
 #include <new>
 
 #include <QBitmap>
-#include <QFileDialog>
 #include <QImage>
 #include <QLabel>
 #include <QMenuBar>
@@ -216,7 +215,7 @@ void Kwave::SonagramWindow::save()
     if (m_image.isNull()) return;
 
     Kwave::FileDialog dlg(_("kfiledialog:///kwave_sonagram"),
-        Kwave::FileDialog::Saving, QString(),
+        Kwave::FileDialog::SaveFile, QString(),
         this, QUrl(), _("*.bmp"));
     dlg.setWindowTitle(i18n("Save Sonagram"));
     if (dlg.exec() != QDialog::Accepted) return;

@@ -611,7 +611,7 @@ void Kwave::RecordDialog::selectRecordDevice()
 
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
 	_("kfiledialog:///kwave_record_device"),
-	Kwave::FileDialog::Opening, filter, this,
+	Kwave::FileDialog::OpenFile, filter, this,
 	QUrl(_("file:/dev"))
     );
     if (!dlg) return;

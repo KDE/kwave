@@ -52,10 +52,11 @@ Kwave::FileDialog::FileDialog(
      m_last_url(last_url),
      m_last_ext(last_ext)
 {
-    const bool saving = (mode == Saving);
+    const bool saving = (mode == SaveFile);
 
     // do some layout and init stuff
     m_layout.addWidget(&m_file_widget);
+    setMinimumSize(m_file_widget.dialogSizeHint());
     setModal(true);
 
     // connect the Cancel button
@@ -70,13 +71,22 @@ Kwave::FileDialog::FileDialog(
     connect(button, SIGNAL(clicked(bool)), &m_file_widget, SLOT(slotOk()));
     button->show();
 
-    if (saving) {
-	m_file_widget.setOperationMode(KFileWidget::Saving);
-	m_file_widget.setMode(KFile::Mode::File);
-	m_file_widget.setConfirmOverwrite(false);
-    } else {
-	m_file_widget.setOperationMode(KFileWidget::Opening);
-	m_file_widget.setMode(KFile::Mode::File | KFile::Mode::ExistingOnly);
+    switch (mode) {
+	case SaveFile:
+	    m_file_widget.setOperationMode(KFileWidget::Saving);
+	    m_file_widget.setMode(KFile::Mode::File);
+	    m_file_widget.setConfirmOverwrite(false);
+	    break;
+	case OpenFile:
+	    m_file_widget.setOperationMode(KFileWidget::Opening);
+	    m_file_widget.setMode(KFile::Mode::File |
+	                          KFile::Mode::ExistingOnly);
+	    break;
+	case SelectDir:
+	    m_file_widget.setOperationMode(KFileWidget::Opening);
+	    m_file_widget.setMode(KFile::Mode::Directory |
+	                          KFile::Mode::ExistingOnly);
+	    break;
     }
 
     QString special_prefix = _("kfiledialog:///");
@@ -279,7 +289,7 @@ QString Kwave::FileDialog::guessFilterFromFileExt(const QString &pattern,
 
     // get the filter list of our own codecs, this prefers the Kwave internal
     // mime types against the ones from KDE
-    QString filters = (mode == Saving) ?
+    QString filters = (mode == SaveFile) ?
 	Kwave::CodecManager::encodingFilter() :
 	Kwave::CodecManager::decodingFilter();
     foreach (const QString &filter, filters.split(_(" "))) {

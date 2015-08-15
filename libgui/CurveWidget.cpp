@@ -18,6 +18,7 @@
 #include "config.h"
 #include <limits.h>
 #include <math.h>
+#include <new>
 #include <stdio.h>
 
 #include <QAction>
@@ -190,7 +191,7 @@ void Kwave::CurveWidget::savePreset()
     }
 
     QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
-	presetPath, Kwave::FileDialog::Saving,
+	presetPath, Kwave::FileDialog::SaveFile,
 	_("*.curve *.CURVE|") +
 	i18nc("Filter description for Kwave curve presets, "
 	      "for use in a FileDialog",
@@ -198,8 +199,13 @@ void Kwave::CurveWidget::savePreset()
 	 this, QUrl(), _("*.curve"));
     if (!dlg) return;
     dlg->setWindowTitle(i18n("Save Curve Preset"));
-    if (dlg->exec() != QDialog::Accepted) return;
+    if (dlg->exec() != QDialog::Accepted) {
+	delete dlg;
+	return;
+    }
+
     QString name = dlg->selectedUrl().toLocalFile();
+    delete dlg;
 
     // append the extension if not given
     if (!name.endsWith(_(".curve")))

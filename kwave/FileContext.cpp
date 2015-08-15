@@ -22,6 +22,7 @@
 
 #include <QFile>
 #include <QLocale>
+#include <QPointer>
 #include <QTextStream>
 #include <QApplication>
 #include <QMdiSubWindow>
@@ -943,7 +944,10 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	);
 	if (!dlg) return 0;
 	dlg->setWindowTitle(i18n("Save As"));
-	if (dlg->exec() != QDialog::Accepted) return -1;
+	if (dlg->exec() != QDialog::Accepted) {
+	    delete dlg;
+	    return -1;
+	}
 
 	url = dlg->selectedUrl();
 	if (url.isEmpty()) {

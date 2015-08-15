@@ -20,10 +20,10 @@
 #include <math.h>
 #include <stdio.h>
 
+#include <QAction>
 #include <QCursor>
 #include <QDir>
 #include <QFile>
-#include <QFileDialog>
 #include <QFileInfo>
 #include <QKeySequence>
 #include <QMenu>
@@ -31,6 +31,7 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <QPalette>
+#include <QPointer>
 #include <QShortcut>
 #include <QStandardPaths>
 #include <QString>
@@ -47,6 +48,7 @@
 #include "libkwave/Utils.h"
 
 #include "libgui/CurveWidget.h"
+#include "libgui/FileDialog.h"
 
 //***************************************************************************
 Kwave::CurveWidget::CurveWidget(QWidget *parent)
@@ -186,8 +188,18 @@ void Kwave::CurveWidget::savePreset()
 	    presetPath));
 	QDir(presetPath).mkpath(presetPath);
     }
-    QString name = QFileDialog::getSaveFileName(this, QString(),
-	presetSubDir, _("*.curve"));
+
+    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+	presetPath, Kwave::FileDialog::Saving,
+	_("*.curve *.CURVE|") +
+	i18nc("Filter description for Kwave curve presets, "
+	      "for use in a FileDialog",
+	      "Kwave curve preset (*.curve)"),
+	 this, QUrl(), _("*.curve"));
+    if (!dlg) return;
+    dlg->setWindowTitle(i18n("Save Curve Preset"));
+    if (dlg->exec() != QDialog::Accepted) return;
+    QString name = dlg->selectedUrl().toLocalFile();
 
     // append the extension if not given
     if (!name.endsWith(_(".curve")))
@@ -196,7 +208,7 @@ void Kwave::CurveWidget::savePreset()
     QFile out(name);
     out.open(QIODevice::WriteOnly);
     QString cmd = m_curve.getCommand();
-    out.write(DBG(cmd), cmd.length() + 1);
+    out.write(DBG(cmd), cmd.length());
 
     // reload the list of known presets
     loadPresetList();
@@ -205,19 +217,30 @@ void Kwave::CurveWidget::savePreset()
 //***************************************************************************
 void Kwave::CurveWidget::loadPresetList()
 {
-    QString presetSubDir = _("presets") + QDir::separator() + _("curves");
-    QStringList files = QStandardPaths::locateAll(
-	QStandardPaths::AppDataLocation,
-	presetSubDir + QDir::separator() + _("*.curve"),
-	QStandardPaths::LocateFile);
+    const QChar s = QDir::separator();
+    QString presetSubDir = s + _("kwave") + s + _("presets") + s + _("curves");
+    QStringList files;
+    QStringList presetPaths = QStandardPaths::standardLocations(
+	QStandardPaths::GenericDataLocation);
+    foreach (const QString &path, presetPaths) {
+	QDir d(path + presetSubDir);
+	QStringList f = d.entryList(QDir::Files, QDir::Name);
+	foreach (const QString &file, f) {
+	    QString preset = d.path() + s + file;
+	    if (!files.contains(preset)) files.append(preset);
+	}
+    }
     files.sort();
 
     m_preset_menu->clear();
-    for (int i = 0; i < files.count(); i++) {
-	QFileInfo fi(files[i]);
-	QString name = fi.fileName();
-	name.chop(strlen(".curve"));
-	m_preset_menu->addAction(name);
+    foreach (const QString &file, files) {
+	QFileInfo fi(file);
+	QString name = fi.baseName();
+	QAction *action = new (std::nothrow) QAction(name, m_preset_menu);
+	Q_ASSERT(action);
+	if (!action) continue;
+	action->setData(file);
+	m_preset_menu->addAction(action);
     }
 }
 
@@ -227,23 +250,23 @@ void Kwave::CurveWidget::loadPreset(QAction *action)
     Q_ASSERT(m_preset_menu);
     Q_ASSERT(action);
     if (!m_preset_menu || !action) return;
+    if (!action->data().isValid()) return;
 
     // invalidate the current selection
     m_current = Kwave::Curve::NoPoint;
     m_last    = Kwave::Curve::NoPoint;
 
-    QString presetSubDir = _("presets") + QDir::separator() + _("curves");
-
-    // get the path of the file
-    QString filename = action->text();
-    QString path = QStandardPaths::locate(
-	QStandardPaths::AppDataLocation,
-	presetSubDir + QDir::separator() + _("*.curve"),
-	QStandardPaths::LocateFile);
+    // get the path of the file and check whether it (still) exists
+    QString filename = action->data().toString();
+    QFileInfo fi(filename);
+    if (!fi.exists(filename)) return;
 
     // load the file
-    QFile file(path);
-    file.open(QIODevice::ReadOnly);
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly)) {
+	qWarning("CurveWidget::loadPreset('%s') - FAILED", DBG(filename));
+	return;
+    }
     QTextStream stream(&file);
     m_curve.fromCommand(stream.readLine());
     file.close();

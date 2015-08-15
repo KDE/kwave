@@ -610,10 +610,11 @@ void Kwave::PluginManager::searchPluginModules()
     QStringList dirs(QStandardPaths::standardLocations(
 	QStandardPaths::GenericDataLocation));
     foreach (const QString &dir, dirs) {
-	QDir d(dir + QDir::separator() + _("kwave") + QDir::separator() + _("plugins"));
+	const QChar sep = QDir::separator();
+	QDir d(dir + sep + _("kwave") + sep + _("plugins"));
 	QStringList f = d.entryList(QDir::Files | QDir::Executable, QDir::Name);
 	foreach (const QString &file, f)
-	    files += d.path() + QDir::separator() + file;
+	    files += d.path() + sep + file;
     }
 
     foreach (const QString &file, files) {

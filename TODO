@@ -5,8 +5,6 @@ o generation of handbook
 o set KXMLGUI_NO_DEPRECATED
 o plugin about: license texts, list of translators
 o TODO: PHONON playback is broken (skips input/too fast?)
-o TODO: port plugin record
-o TODO: port plugin saveblocks
 
 o recording via Phonon
 

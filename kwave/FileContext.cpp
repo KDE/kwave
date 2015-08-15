@@ -939,18 +939,17 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
 	    _("kfiledialog:///kwave_save_as"),
 	    Kwave::FileDialog::Saving,
-	    filter, m_top_widget, true, current_url, extension
+	    filter, m_top_widget, current_url, extension
 	);
 	if (!dlg) return 0;
 	dlg->setWindowTitle(i18n("Save As"));
 	if (dlg->exec() != QDialog::Accepted) return -1;
 
-	QList<QUrl> urls = dlg->selectedUrls();
-	if (urls.isEmpty()) {
+	url = dlg->selectedUrl();
+	if (url.isEmpty()) {
 	    delete dlg;
 	    return 0;
 	}
-	url = urls.first();
 
 	QString new_name = url.path();
 	QFileInfo path(new_name);

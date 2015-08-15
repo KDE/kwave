@@ -2189,7 +2189,7 @@
   <tabstop>edCommissioned</tabstop>
  </tabstops>
  <includes>
-  <include location="global">kcombobox.h</include>
+  <include location="global">KComboBox</include>
   <include location="local">CompressionWidget.h</include>
   <include location="local">KeywordWidget.h</include>
  </includes>

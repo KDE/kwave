@@ -21,20 +21,23 @@
 #include "config.h"
 
 #include <QtGlobal>
-#include <QFileDialog>
+#include <QDialog>
 #include <QObject>
 #include <QString>
 #include <QUrl>
+#include <QVBoxLayout>
+
+#include <KFileWidget>
 
 class QWidget;
 
 namespace Kwave
 {
     /**
-     * An improved version of KFileDialog that does not forget the previous
+     * An improved version of KFileWidget that does not forget the previous
      * directory and pre-selects the previous file extension.
      */
-    class Q_DECL_EXPORT FileDialog: public QFileDialog
+    class Q_DECL_EXPORT FileDialog: public QDialog
     {
 	Q_OBJECT
     public:
@@ -45,12 +48,22 @@ namespace Kwave
 
 	/**
 	 * Constructor.
-	 * @see QFileDialog
+	 * @see KFileWidget
+	 * @param startDir directory to start with, can start with the scheme
+	 *                 "kfiledialog://scope/path"
+	 * @param filter a "\n" separated list of file filters, each filter
+	 *               consists of a space separated list of file patterns
+	 *               (including "*.") and a "|" as separator followed
+	 *               by a verbose description of the file type
+	 * @param parent the parent widget of the dialog
+	 * @param last_url URL used for the last call, optional
+	 * @param last_ext file extension (pattern) used for the last
+	 *                 call (optional), including a "*."
 	 */
 	FileDialog(const QString& startDir,
 	           OperationMode mode,
 	           const QString& filter,
-	           QWidget *parent, bool modal,
+	           QWidget *parent,
 	           const QUrl last_url = QUrl(),
 	           const QString last_ext = QString());
 
@@ -69,6 +82,18 @@ namespace Kwave
 	 */
 	QUrl selectedUrl() const;
 
+	/**
+	 * Sets the current directory
+	 * @param directory the new directory to show
+	 */
+	void setDirectory(const QString &directory);
+
+	/**
+	 * Sets the currently selected URL
+	 * @param url the new URL to show
+	 */
+	void selectUrl(const QUrl &url);
+
     protected:
 
 	/** load previous settings */
@@ -76,10 +101,29 @@ namespace Kwave
 
     protected slots:
 
+	/** overwritten to call accept() of the KFileWidget and saveConfig() */
+	virtual void accept();
+
 	/** save current settings */
 	void saveConfig();
 
     private:
+
+	/**
+	 * Try to guess a file filter from a given file extension
+	 * @param pattern a file extension, e.g. "*.wav *.snd"
+	 * @return a filter string suitable for a KFileDialog
+	 */
+	QString guessFilterFromFileExt(const QString &pattern,
+	                               OperationMode mode);
+
+    private:
+
+	/** layout for holding the KFileWidget */
+	QVBoxLayout m_layout;
+
+	/** the KFileWidget that we wrap */
+	KFileWidget m_file_widget;
 
 	/** name of the group in the config file */
 	QString m_config_group;

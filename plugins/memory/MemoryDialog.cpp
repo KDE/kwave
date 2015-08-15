@@ -20,6 +20,7 @@
 #include <unistd.h>
 
 #include <QCheckBox>
+#include <QFileDialog>
 #include <QLabel>
 #include <QObject>
 #include <QPushButton>
@@ -141,7 +142,7 @@ void Kwave::MemoryDialog::virtualMemoryEnabled(bool enable)
 //***************************************************************************
 void Kwave::MemoryDialog::searchSwapDir()
 {
-    QString dir = Kwave::FileDialog::getExistingDirectory(
+    QString dir = QFileDialog::getExistingDirectory(
 	this, QString(), edDirectory->text());
     if (dir.length()) edDirectory->setText(dir);
 }

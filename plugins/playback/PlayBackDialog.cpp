@@ -631,7 +631,7 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
 	_("kfiledialog:///kwave_playback_device"),
 	Kwave::FileDialog::Opening, filter, this,
-	true, QUrl(_("file:/dev"))
+	QUrl(_("file:/dev"))
     );
     if (!dlg) return;
     dlg->setWindowTitle(i18n("Select Playback Device"));

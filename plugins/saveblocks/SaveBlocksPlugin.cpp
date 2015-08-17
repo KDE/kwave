@@ -58,7 +58,7 @@ Kwave::SaveBlocksPlugin::~SaveBlocksPlugin()
 //***************************************************************************
 QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 {
-    // try to interprete the previous parameters
+    // try to interpret the previous parameters
     interpreteParameters(previous_params);
 
     // create the setup dialog
@@ -77,8 +77,9 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	new(std::nothrow) Kwave::SaveBlocksDialog(
 	    _("kfiledialog:///kwave_save_blocks"),
 	    Kwave::CodecManager::encodingFilter(),
-	    parentWidget(), true,
-	    signalName(), _("*.wav"),
+	    parentWidget(),
+	    QUrl::fromUserInput(signalName()),
+	    _("*.wav"),
 	    m_pattern,
 	    m_numbering_mode,
 	    m_selection_only,
@@ -96,7 +97,10 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 
     dialog->setWindowTitle(i18n("Save Blocks"));
     dialog->emitUpdate();
-    if (dialog->exec() != QDialog::Accepted) return 0;
+    if (dialog->exec() != QDialog::Accepted) {
+	delete dialog;
+	return 0;
+    }
 
     QStringList *list = new QStringList();
     Q_ASSERT(list);
@@ -308,7 +312,7 @@ int Kwave::SaveBlocksPlugin::interpreteParameters(QStringList &params)
     }
 
     // the selected URL
-    m_url = Kwave::Parser::unescape(params[0]);
+    m_url = QUrl::fromUserInput(Kwave::Parser::unescape(params[0]));
     if (!m_url.isValid()) return -EINVAL;
 
     // filename pattern
@@ -514,21 +518,12 @@ QString Kwave::SaveBlocksPlugin::firstFileName(const QString &filename,
 }
 
 //***************************************************************************
-static QString unescape(const QString &s)
-{
-    QRegExp rx_single(_("\\\\(?!\\\\)"));
-    QString str = s;
-    str.replace(rx_single, _(""));
-    return str;
-}
-
-//***************************************************************************
 void Kwave::SaveBlocksPlugin::updateExample(const QString &filename,
     const QString &pattern, Kwave::SaveBlocksPlugin::numbering_mode_t mode,
     bool selection_only)
 {
     QString example = firstFileName(filename, pattern, mode, selection_only);
-    emit sigNewExample(unescape(example));
+    emit sigNewExample(Kwave::Parser::unescape(example));
 }
 
 //***************************************************************************

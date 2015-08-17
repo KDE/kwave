@@ -18,11 +18,10 @@
 #include "config.h"
 
 #include <QString>
+#include <QUrl>
 
 #include <KComboBox>
-#include <QUrlComboBox>
-#include <kabstractfilewidget.h>
-#include <kfiledialog.h>
+#include <KUrlComboBox>
 
 #include "libkwave/String.h"
 
@@ -33,21 +32,20 @@
 Kwave::SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
     const QString &filter,
     QWidget *parent,
-    bool modal,
-    const QString last_url,
-    const QString last_ext,
-    QString filename_pattern,
+    const QUrl &last_url,
+    const QString &last_ext,
+    QString &filename_pattern,
     Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
     bool selection_only,
     bool have_selection
 )
-    :Kwave::FileDialog(startDir, KFileDialog::Saving, filter, parent, modal,
+    :Kwave::FileDialog(startDir, Kwave::FileDialog::SaveFile, filter, parent,
                        last_url, last_ext),
      m_widget(new(std::nothrow) Kwave::SaveBlocksWidget(this, filename_pattern,
 	numbering_mode, selection_only, have_selection))
 {
     Q_ASSERT(m_widget);
-    fileWidget()->setCustomWidget(m_widget);
+    setCustomWidget(m_widget);
     connect(m_widget, SIGNAL(somethingChanged()),
             this, SLOT(emitUpdate()));
 
@@ -97,12 +95,12 @@ void Kwave::SaveBlocksDialog::setNewExample(const QString &example)
 //***************************************************************************
 void Kwave::SaveBlocksDialog::emitUpdate()
 {
-    QString path = baseUrl().path(QUrl::AddTrailingSlash);
+    QString path = baseUrl().path() + QDir::separator();
     QString filename = path + locationEdit()->currentText();
     QFileInfo file(filename);
 
     if (!file.suffix().length()) {
-	// append the currently selected extension if it's missing
+	// append the currently selected extension if missing
 	QString extension = selectedExtension();
 	if (extension.contains(_(" ")))
 	    extension = extension.section(_(" "), 0, 0);

@@ -30,6 +30,7 @@
 #include <KFileWidget>
 
 class QWidget;
+class KUrlComboBox;
 
 namespace Kwave
 {
@@ -84,6 +85,11 @@ namespace Kwave
 	QUrl selectedUrl() const;
 
 	/**
+	 * Returns the URL of the currently visible directory
+	 */
+	QUrl baseUrl() const;
+
+	/**
 	 * Sets the current directory
 	 * @param directory the new directory to show
 	 */
@@ -95,10 +101,27 @@ namespace Kwave
 	 */
 	void selectUrl(const QUrl &url);
 
+	/**
+	 * Add a custom widget to the dialog
+	 * @see KFileWidget
+	 */
+	void setCustomWidget(QWidget *widget);
+
+	/**
+	 * Returns the combobox used to type the filename or full
+	 * location of the file.
+	 * @see KFileWidget
+	 */
+	KUrlComboBox *locationEdit() const;
+
     protected:
 
 	/** load previous settings */
 	void loadConfig(const QString &section);
+
+    signals:
+
+	void filterChanged(const QString &filter);
 
     protected slots:
 

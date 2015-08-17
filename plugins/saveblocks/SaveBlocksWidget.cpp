@@ -18,9 +18,9 @@
 #include "config.h"
 
 #include <QCheckBox>
+#include <QLineEdit>
 
 #include <KComboBox>
-#include <QLineEdit>
 
 #include "libkwave/String.h"
 
@@ -37,15 +37,18 @@ Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
     setupUi(this);
 
     // the file name pattern combo box
+    cbPattern->addItem(_("[%filename] part [%nr] of [%total]"));
+    cbPattern->addItem(_("[%filename] - [%04nr]"));
     cbPattern->addItem(_("[%2nr] [%filename]"));
     cbPattern->addItem(_("[%2nr]-[%filename]"));
     cbPattern->addItem(_("[%02nr]-[%filename]"));
     cbPattern->addItem(_("[%04nr]-[%filename]"));
     cbPattern->addItem(_("[%02nr] of [%count] [%filename]"));
     cbPattern->addItem(_("[%02nr] of [%total] [%filename]"));
-    cbPattern->addItem(_("[%filename] part [%nr] of [%total]"));
-    cbPattern->addItem(_("[%filename] - [%04nr]"));
-    cbPattern->setEditText(filename_pattern);
+    if (filename_pattern.length())
+	cbPattern->setEditText(filename_pattern);
+    else
+	cbPattern->setCurrentIndex(0);
 
     // the numbering mode combo box
     cbNumbering->setCurrentIndex(static_cast<int>(numbering_mode));

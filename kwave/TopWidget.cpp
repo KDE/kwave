@@ -18,6 +18,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <errno.h>
 #include <math.h>
 #include <stdio.h>
@@ -1060,13 +1062,20 @@ int Kwave::TopWidget::openRecent(const QString &str)
 int Kwave::TopWidget::openFile()
 {
     QString filter = Kwave::CodecManager::decodingFilter();
-    Kwave::FileDialog dlg(_("kfiledialog:///kwave_open_dir"),
-	Kwave::FileDialog::OpenFile, filter, this);
-    dlg.setWindowTitle(i18n("Open"));
-    if (dlg.exec() == QDialog::Accepted)
-	return loadFile(dlg.selectedUrl());
-    else
+    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+	_("kfiledialog:///kwave_open_dir"),
+	Kwave::FileDialog::OpenFile, filter, this
+    );
+    if (!dlg) return -1;
+    dlg->setWindowTitle(i18n("Open"));
+    if (dlg->exec() == QDialog::Accepted) {
+	QUrl url = dlg->selectedUrl();
+	delete dlg;
+	return loadFile(url);
+    } else {
+	delete dlg;
 	return -1;
+    }
 }
 
 //***************************************************************************

@@ -403,7 +403,7 @@ void Kwave::PluginManager::savePluginDefaults(const QString &name,
 
     cfg.sync();
     cfg.writeEntry("version", version);
-    cfg.writeEntry("defaults", params);
+    cfg.writeEntry("defaults", params.join(QLatin1Char(',')));
     cfg.sync();
 }
 

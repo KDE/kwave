@@ -1,6 +1,9 @@
 
+ * bugfix: saved plugin parameter lists with escaped characters were not
+   unescaped when loading again
  * compile fix for armv7l
  * codec_mp3: added missing "help" button to encoder setup dialog
+ * fixed invocation of file dialog, as suggested by EBN
 
 0.9.0 [2015-05-25]
 

@@ -58,6 +58,8 @@ Kwave::FileDialog::FileDialog(
     m_layout.addWidget(&m_file_widget);
     setMinimumSize(m_file_widget.dialogSizeHint());
     setModal(true);
+    connect(&m_file_widget, SIGNAL(filterChanged(QString)),
+            this, SIGNAL(filterChanged(QString)));
 
     // connect the Cancel button
     QPushButton *button;
@@ -252,6 +254,12 @@ QUrl Kwave::FileDialog::selectedUrl() const
 }
 
 //***************************************************************************
+QUrl Kwave::FileDialog::baseUrl() const
+{
+    return m_file_widget.baseUrl();
+}
+
+//***************************************************************************
 void Kwave::FileDialog::setDirectory(const QString &directory)
 {
     m_file_widget.setStartDir(QUrl::fromUserInput(directory));
@@ -324,6 +332,18 @@ QString Kwave::FileDialog::guessFilterFromFileExt(const QString &pattern,
     }
 
     return QString();
+}
+
+//***************************************************************************
+void Kwave::FileDialog::setCustomWidget(QWidget *widget)
+{
+    m_file_widget.setCustomWidget(widget);
+}
+
+//***************************************************************************
+KUrlComboBox *Kwave::FileDialog::locationEdit() const
+{
+    return m_file_widget.locationEdit();
 }
 
 //***************************************************************************

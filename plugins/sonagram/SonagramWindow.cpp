@@ -25,6 +25,7 @@
 #include <QImage>
 #include <QLabel>
 #include <QMenuBar>
+#include <QPointer>
 #include <QLayout>
 #include <QStatusBar>
 #include <QTimer>
@@ -214,14 +215,18 @@ void Kwave::SonagramWindow::save()
 {
     if (m_image.isNull()) return;
 
-    Kwave::FileDialog dlg(_("kfiledialog:///kwave_sonagram"),
-        Kwave::FileDialog::SaveFile, QString(),
-        this, QUrl(), _("*.bmp"));
-    dlg.setWindowTitle(i18n("Save Sonagram"));
-    if (dlg.exec() != QDialog::Accepted) return;
-    QString filename = dlg.selectedUrl().toLocalFile();
-
-    if (!filename.isEmpty()) m_image.save(filename, "BMP");
+    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+	_("kfiledialog:///kwave_sonagram"),
+	Kwave::FileDialog::SaveFile, QString(),
+	this, QUrl(), _("*.bmp")
+    );
+    if (!dlg) return;
+    dlg->setWindowTitle(i18n("Save Sonagram"));
+    if (dlg->exec() == QDialog::Accepted) {
+	QString filename = dlg->selectedUrl().toLocalFile();
+	if (!filename.isEmpty()) m_image.save(filename, "BMP");
+    }
+    delete dlg;
 }
 
 //****************************************************************************

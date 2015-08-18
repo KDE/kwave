@@ -4,6 +4,7 @@
  * compile fix for armv7l
  * codec_mp3: added missing "help" button to encoder setup dialog
  * fixed invocation of file dialog, as suggested by EBN
+ * support for cmake > 3.3, fix for policy CMP0063
 
 0.9.0 [2015-05-25]
 

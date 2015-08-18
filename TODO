@@ -1,5 +1,4 @@
 
-o testing: curve widget, save/load presets
 o test: translated names and roles in about data
 o generation of handbook
 o set KXMLGUI_NO_DEPRECATED

@@ -53,6 +53,8 @@ namespace Kwave
 	 * @see KFileWidget
 	 * @param startDir directory to start with, can start with the scheme
 	 *                 "kfiledialog://scope/path"
+	 * @param mode determines the mode in which the dialog is used, either
+	 *             to open a file, save a file or select a directory
 	 * @param filter a "\n" separated list of file filters, each filter
 	 *               consists of a space separated list of file patterns
 	 *               (including "*.") and a "|" as separator followed
@@ -136,6 +138,8 @@ namespace Kwave
 	/**
 	 * Try to guess a file filter from a given file extension
 	 * @param pattern a file extension, e.g. "*.wav *.snd"
+	 * @param mode determines the mode in which the dialog is used,
+	 *             see constructor
 	 * @return a filter string suitable for a KFileDialog
 	 */
 	QString guessFilterFromFileExt(const QString &pattern,

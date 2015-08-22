@@ -1984,7 +1984,7 @@
 	    </screeninfo>
 	    <mediaobject>
 		<imageobject>
-		    <imagedata fileref="kwave-record.png" format="PNG"/>
+		    <imagedata fileref="kwave-plugin-record.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		    <phrase>Screenshot of the Record Dialog</phrase>
@@ -3499,7 +3499,7 @@
 
     <sect1 id="commands_f"><title>&no-i18n-tag;f</title>
 
-	<!-- @COMMAND@ fileinfo(keyword,value) -->
+	<!-- @COMMAND@ fileinfo() -->
 	<sect2 id="cmd_sect_fileinfo"><title id="cmd_title_fileinfo">&no-i18n-cmd_fileinfo;</title>
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_fileinfo;</command>(<replaceable>index</replaceable>)</title>
@@ -5741,7 +5741,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_ogg (TODO) -->
+    <!-- @PLUGIN@ codec_ogg -->
     <sect1 id="plugin_sect_codec_ogg"><title id="plugin_title_codec_ogg">&no-i18n-plugin_codec_ogg; (Ogg Codec)</title>
     <variablelist>
 	<varlistentry>
@@ -5823,7 +5823,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_wav () -->
+    <!-- @PLUGIN@ codec_wav -->
     <sect1 id="plugin_sect_codec_wav"><title id="plugin_title_codec_wav">&no-i18n-plugin_codec_wav; (WAV Codec)</title>
     <variablelist>
 	<varlistentry>
@@ -5932,7 +5932,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ fileinfo () -->
+    <!-- @PLUGIN@ fileinfo -->
     <sect1 id="plugin_sect_fileinfo"><title id="plugin_title_fileinfo">&no-i18n-plugin_fileinfo; (File Info)</title>
     <screenshot>
 	<screeninfo>Screenshot</screeninfo>
@@ -6058,7 +6058,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ insert_at () -->
+    <!-- @PLUGIN@ insert_at -->
     <sect1 id="plugin_sect_insert_at"><title id="plugin_title_insert_at">&no-i18n-plugin_insert_at; (Insert At)</title>
     <screenshot>
 	<screeninfo>Screenshot</screeninfo>

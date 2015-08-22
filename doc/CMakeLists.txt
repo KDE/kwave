@@ -133,8 +133,7 @@ ADD_CUSTOM_TARGET(update-handbook
 
 FILE(GLOB _files "${CMAKE_SOURCE_DIR}/doc/*/index.docbook")
 FOREACH(_file ${_files})
-    # TODO: use DIRECTORY instead of PATH as soon as cmake <= 0.8.1 is no longer used
-    GET_FILENAME_COMPONENT(_subdir ${_file} PATH)
+    GET_FILENAME_COMPONENT(_subdir ${_file} DIRECTORY)
     GET_FILENAME_COMPONENT(_lang ${_subdir} NAME)
 
     # take only languages that have been requested

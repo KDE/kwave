@@ -21,8 +21,8 @@ set -e
 
 CMAKE_SOURCE_DIR=$1
 
-REMOTE="svn://anonsvn.kde.org/home/kde/trunk/l10n-kde4/"
-REPOSITORY="${CMAKE_SOURCE_DIR}/l10n-kde4"
+REMOTE="svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/"
+REPOSITORY="${CMAKE_SOURCE_DIR}/l10n-kf5"
 PO_DIR="${CMAKE_SOURCE_DIR}/po"
 DOC_DIR="${CMAKE_SOURCE_DIR}/doc"
 
@@ -99,7 +99,7 @@ for lang in ${LINGUAS}; do
 
     # GUI translation is mandantory
     checkout "" "${lang}" "messages"    "${CATEGORY}" "${PO_FILE}"
-    if [ ${result} == 1 ] ; then
+    if test -e "${lang}/messages/${CATEGORY}/${PO_FILE}" ; then
 	FOUND_LINGUAS="${FOUND_LINGUAS} ${lang}"
 	cp "${lang}/messages/${CATEGORY}/${PO_FILE}" "${PO_DIR}/${lang}.po"
 	FOUND_POFILES="${FOUND_POFILES} ${lang}.po"
@@ -155,6 +155,7 @@ for lang in ${FOUND_HANDBOOKS}; do
     fi
 done
 
+set +e
 svn status
 
 # show translation statistics

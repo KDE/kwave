@@ -21,7 +21,7 @@
 #
 
 LANG=`basename $1`
-DEST=l10n-kde4/${LANG}/docs/kdereview/kwave
+DEST=l10n-kf5/${LANG}/docs/kdereview/kwave
 
 OPTIONS="-dither none -colors 63"
 

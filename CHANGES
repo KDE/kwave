@@ -1,4 +1,7 @@
 
+0.9.x [2015-xx-xx]
+
+ * ported to KDE Frameworks 5 (KF5) / Qt5
  * bugfix: saved plugin parameter lists with escaped characters were not
    unescaped when loading again
  * compile fix for armv7l

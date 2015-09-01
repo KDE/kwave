@@ -75,7 +75,7 @@ FOREACH(_po_file ${_existing_po_files})
 
 	INSTALL(
 	    FILES ${_gmo_file}
-	    DESTINATION ${KDE4_LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES
+	    DESTINATION ${LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES
 	    RENAME kwave.mo
 	)
 	SET(_gmo_files ${_gmo_files} ${_gmo_file})

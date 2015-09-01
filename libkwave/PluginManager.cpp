@@ -612,7 +612,8 @@ void Kwave::PluginManager::searchPluginModules()
     foreach (const QString &dir, dirs) {
 	const QChar sep = QDir::separator();
 	QDir d(dir + sep + _("kwave") + sep + _("plugins"));
-	QStringList f = d.entryList(QDir::Files | QDir::Executable, QDir::Name);
+	QStringList f = d.entryList(
+	    QDir::Files | QDir::Readable | QDir::Executable, QDir::Name);
 	foreach (const QString &file, f)
 	    files += d.path() + sep + file;
     }

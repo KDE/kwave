@@ -65,6 +65,9 @@ MACRO(KWAVE_PLUGIN _plugin)
         plugin_${_plugin}
         LIBRARY
         DESTINATION ${DATA_INSTALL_DIR}/kwave/plugins
+        PERMISSIONS OWNER_READ OWNER_EXECUTE
+                    GROUP_READ GROUP_EXECUTE
+                    WORLD_READ WORLD_EXECUTE
     )
 
 ENDMACRO(KWAVE_PLUGIN)

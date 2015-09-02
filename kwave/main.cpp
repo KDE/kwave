@@ -182,6 +182,9 @@ int main(int argc, char **argv)
 	_(I18N_NOOP2("placeholder of command line parameter", "[files...]"))
     );
 
+    // manually connect the translation catalog, otherwise i18n will not work
+    KLocalizedString::setApplicationDomain(PACKAGE);
+
     KAboutData about(
 	_(PACKAGE),
 	i18n("Kwave"),

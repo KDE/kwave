@@ -30,6 +30,7 @@
 #include <QList>
 #include <QPoint>
 #include <QRect>
+#include <QScreen>
 #include <QStringList>
 #include <QTimer>
 
@@ -440,7 +441,9 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
 
     // get the outer frame geometry, absolute coordinates
     QRect rect = widget->frameGeometry();
-    QPixmap pixmap = QPixmap::grabWindow(
+    QScreen *screen = QGuiApplication::primaryScreen();
+    if (!screen) return;
+    QPixmap pixmap = screen->grabWindow(
 	QApplication::desktop()->winId(),
 	rect.x(), rect.y(),
 	rect.width(), rect.height()

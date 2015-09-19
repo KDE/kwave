@@ -39,6 +39,9 @@
  *
  * 2014-05-26
  *   synced with latest hg version, xine-lib-1-2-02e5a69f56c9
+ *
+ * 2015-09-19
+ *   keyword "extern" was missing for probe_fast_memcpy()
  */
 
 #ifdef HAVE_CONFIG_H
@@ -67,7 +70,7 @@
 #define _(m) m
 #define xprintf printf
 
-void probe_fast_memcpy(void);
+extern void probe_fast_memcpy(void) ;
 extern void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 
 #define LOG_MODULE "memcpy"

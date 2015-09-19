@@ -20,6 +20,10 @@
 #############################################################################
 
 IF (WITH_OPTIMIZED_MEMCPY)
+
+    # use "default" visibility for memcpy.c (which is our one and only C file)
+    SET(CMAKE_C_VISIBILITY_PRESET default)
+
     SET(libkwave_LIB_SRCS_memcpy cpu_accel.cpp memcpy.c ppcasm_string.S)
     SET_SOURCE_FILES_PROPERTIES(ppcasm_string.S PROPERTIES LANGUAGE C)
 

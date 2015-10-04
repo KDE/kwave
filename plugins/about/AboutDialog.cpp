@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <algorithm>
+
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QList>
@@ -105,14 +107,16 @@ Kwave::AboutDialog::AboutDialog(
     QList<QTreeWidgetItem *> plugins;
 
     QList<Kwave::PluginManager::PluginModule> list = plugin_info;
-    qSort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
-    foreach (const Kwave::PluginManager::PluginModule &info, list) {
-	QStringList item;
-	item << info.m_description << info.m_version << info.m_author;
-	plugins.append(new QTreeWidgetItem(
-	    static_cast<QTreeWidget *>(0), item));
+    if (!list.isEmpty()) {
+	std::sort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
+	foreach (const Kwave::PluginManager::PluginModule &info, list) {
+	    QStringList item;
+	    item << info.m_description << info.m_version << info.m_author;
+	    plugins.append(new QTreeWidgetItem(
+		static_cast<QTreeWidget *>(0), item));
+	}
+	pluginsinfo->insertTopLevelItems(0, plugins);
     }
-    pluginsinfo->insertTopLevelItems(0, plugins);
     pluginsinfo->resizeColumnToContents(1);
     pluginsinfo->resizeColumnToContents(0);
 

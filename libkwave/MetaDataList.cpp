@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <algorithm>
+
 #include "libkwave/MetaDataList.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -50,7 +52,8 @@ QList<Kwave::MetaData> Kwave::MetaDataList::toSortedList() const
 {
     QList<Kwave::MetaData> list = this->values();
 
-    qStableSort(list.begin(), list.end(), isLessThan);
+    if (!list.isEmpty())
+	std::stable_sort(list.begin(), list.end(), isLessThan);
 
     return list;
 }

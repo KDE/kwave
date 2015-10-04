@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <algorithm>
+
 #include <QFileInfo>
 #include <QMimeDatabase>
 #include <QMimeType>
@@ -84,7 +86,8 @@ void Kwave::CodecBase::addCompression(int compression)
     if (m_supported_compression_types.contains(compression)) return;
 
     m_supported_compression_types.append(compression);
-    qSort(m_supported_compression_types);
+    std::sort(m_supported_compression_types.begin(),
+              m_supported_compression_types.end(), std::greater<int>());
 }
 
 /***************************************************************************/

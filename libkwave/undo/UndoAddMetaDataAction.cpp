@@ -18,10 +18,10 @@
 
 #include "config.h"
 
+#include <algorithm>
 #include <new>
 
 #include <QVariant>
-#include <QtAlgorithms>
 
 #include <KLocalizedString>
 
@@ -85,7 +85,9 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
 	m_offset = first;
 	m_length = (last - first) + 1;
     }
-    qSort(m_tracks);
+    if (!m_tracks.isEmpty())
+	std::sort(m_tracks.begin(),
+	          m_tracks.end(), std::greater<unsigned int>());
 
     /*
      * determine the description of the action

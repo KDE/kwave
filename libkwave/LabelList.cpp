@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QtAlgorithms>
+#include <algorithm>
 
 #include "libkwave/LabelList.h"
 #include "libkwave/MetaData.h"
@@ -63,7 +63,8 @@ static bool compare_labels(Kwave::Label a, Kwave::Label b)
 //***************************************************************************
 void Kwave::LabelList::sort()
 {
-    qSort(begin(), end(), compare_labels);
+    if (!isEmpty())
+	std::sort(begin(), end(), compare_labels);
 }
 
 //***************************************************************************

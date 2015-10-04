@@ -225,8 +225,7 @@ QVector<double> Kwave::Interpolation::interpolation(
     if (!len) return QVector<double>();
 
     unsigned int degree = 0;
-    QVector<double> y_out(len);
-    qFill(y_out, 0.0);
+    QVector<double> y_out(len, 0.0);
 
     switch (m_type) {
 	case INTPOL_LINEAR:

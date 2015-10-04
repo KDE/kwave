@@ -28,6 +28,7 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KHelpClient>
+#include <KLocalizedString>
 #include <KSharedConfig>
 
 #include "libkwave/ClipBoard.h"
@@ -317,27 +318,40 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
 
 	    switch (m_gui_type) {
 		case GUI_SDI:
-		    if (first) {
-			// the context reuses the calling toplevel widget
-			top_widget = top;
-			first = false;
-		    } else {
-			// for all other contexts we have to create a new
-			// toplevel widget
-			top_widget = new(std::nothrow) Kwave::TopWidget(*this);
-			if (!top_widget || !top_widget->init()) {
-			    // init failed
-			    qWarning("ERROR: initialization of TopWidget failed");
-			    delete top_widget;
-			    delete context;
-			}
-			m_top_widgets.append(top_widget);
-			top_widget->show();
+		    if (!context->isEmpty() || (all_contexts.count() == 1)) {
+			// either the context contains some signal and is worth
+			// assigning it to a toplevel widget, or it is the one
+			// and only context
+			if (first) {
+			    // the context reuses the calling toplevel widget
+			    top_widget = top;
+			    first = false;
+			} else {
+			    // for all other contexts we have to create a new
+			    // toplevel widget
+			    top_widget = new(std::nothrow) Kwave::TopWidget(*this);
+			    if (!top_widget || !top_widget->init()) {
+				// init failed
+				qWarning("ERROR: initialization of TopWidget failed");
+				delete top_widget;
+				delete context;
+			    }
+			    m_top_widgets.append(top_widget);
+			    top_widget->show();
 
-			// inform the widget about changes in the list of recent
-			// files
-			connect(this, SIGNAL(recentFilesChanged()),
-				top_widget, SLOT(updateRecentFiles()));
+			    // inform the widget about changes in the list of
+			    // recent files
+			    connect(this, SIGNAL(recentFilesChanged()),
+				    top_widget, SLOT(updateRecentFiles()));
+			}
+		    } else {
+			// probably this context is only executing a script and
+			// has (no longer) any valid signal. We need to assign
+			// it to a toplevel widget for processing further
+			// commands but reduce the reference count to make it
+			// vanish as soon as the script terminates.
+			context->setParent(top);
+			context->release();
 		    }
 		    break;
 		case GUI_MDI: /* FALLTHROUGH */
@@ -347,7 +361,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
 		    break;
 	    }
 
-	    top_widget->insertContext(context);
+	    if (top_widget) top_widget->insertContext(context);
 	}
     } else {
 	// give our one and only toplevel widget a default context

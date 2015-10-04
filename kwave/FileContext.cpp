@@ -29,6 +29,7 @@
 #include <QStandardPaths>
 
 #include <kglobal.h>
+#include <KLocalizedString>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Encoder.h"
@@ -95,8 +96,6 @@ Kwave::FileContext::FileContext(Kwave::App &app)
 //***************************************************************************
 Kwave::FileContext::~FileContext()
 {
-    emit destroyed(this);
-
     if (m_main_widget) delete m_main_widget;
     m_main_widget = 0;
 
@@ -112,12 +111,14 @@ Kwave::FileContext::~FileContext()
 //***************************************************************************
 void Kwave::FileContext::use()
 {
+    Q_ASSERT(int(m_use_count) > 0);
     m_use_count.ref();
 }
 
 //***************************************************************************
 void Kwave::FileContext::release()
 {
+    Q_ASSERT(int(m_use_count) > 0);
     if (m_use_count.deref() == false) {
 	disconnect();
 	deleteLater();
@@ -127,6 +128,8 @@ void Kwave::FileContext::release()
 //***************************************************************************
 bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
 {
+    Q_ASSERT(!m_main_widget);
+
     // create the main widget
     m_main_widget = new(std::nothrow) Kwave::MainWidget(
 	m_top_widget, *this, preferred_size
@@ -231,7 +234,6 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 //***************************************************************************
 void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
 {
-
     if (m_top_widget) {
 	Kwave::TopWidget *old = m_top_widget;
 
@@ -315,9 +317,12 @@ int Kwave::FileContext::executeCommand(const QString &line)
     bool use_recorder = true;
     QString command = line;
 
+//     qDebug("Kwave::FileContext[%p]::executeCommand(%s)", this, DBG(command));
+
+    Q_ASSERT(m_plugin_manager);
+    Q_ASSERT(m_top_widget);
     if (!m_plugin_manager || !m_top_widget) return -ENOMEM;
 
-//     qDebug("FileContext[%p]::executeCommand(%s)", this, DBG(command));
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.trimmed().startsWith(_("#")))
 	return 0; // only a comment
@@ -353,7 +358,7 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	// current language
 	if (command.contains(_("${LANG}"))) {
 	    QLocale locale;
-	    if (m_main_widget) locale = m_main_widget->locale();
+	    if (!m_main_widget.isNull()) locale = m_main_widget->locale();
 	    QString lang = locale.bcp47Name().split(_("-")).at(0);
 	    command.replace(_("${LANG}"), lang);
 	}
@@ -399,8 +404,10 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	qDebug("# %s ", DBG(command));
     }
 
-    if ((result = m_top_widget->executeCommand(command)) != ENOSYS) {
+    if ((result = m_top_widget->executeCommand(command)) != ENOSYS)
 	return result;
+
+    if (false) {
     CASE_COMMAND("close")
 	result = closeFile() ? 0 : 1;
     CASE_COMMAND("delayed")
@@ -443,21 +450,21 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	}
 	result = 0;
     CASE_COMMAND("window:click")
-	return delegateCommand("debug", parser, 3);
+	result = delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:close")
-	return delegateCommand("debug", parser, 1);
+	result = delegateCommand("debug", parser, 1);
     CASE_COMMAND("window:mousemove")
-	return delegateCommand("debug", parser, 3);
+	result = delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:resize")
-	return delegateCommand("debug", parser, 3);
+	result = delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:sendkey")
-	return delegateCommand("debug", parser, 2);
+	result = delegateCommand("debug", parser, 2);
     CASE_COMMAND("window:screenshot")
-	return delegateCommand("debug", parser, 2);
+	result = delegateCommand("debug", parser, 2);
     } else {
 	// pass the command to the layer below (main widget)
 	Kwave::CommandHandler *layer_below = m_main_widget;
-	result = (layer_below) ? layer_below->executeCommand(command) : -1;
+	result = (layer_below) ? layer_below->executeCommand(command) : -ENOSYS;
     }
 
     return result;
@@ -810,6 +817,13 @@ void Kwave::FileContext::processDelayedCommand()
 }
 
 //***************************************************************************
+bool Kwave::FileContext::isInUse() const
+{
+    if (m_use_count >= 2) return true;
+    return (m_signal_manager && !m_signal_manager->isEmpty());
+}
+
+//***************************************************************************
 QString Kwave::FileContext::signalName() const
 {
     return (m_signal_manager) ? m_signal_manager->signalName() : QString();
@@ -1068,11 +1082,7 @@ bool Kwave::FileContext::closeFile()
 	case Kwave::App::GUI_MDI: /* FALLTHROUGH */
 	case Kwave::App::GUI_TAB:
 	    // close the main widget
-	    if (m_main_widget) {
-		m_main_widget->setAttribute(Qt::WA_DeleteOnClose);
-		m_main_widget->close();
-		m_main_widget = 0;
-	    }
+	    if (m_main_widget) delete m_main_widget;
 	    break;
 	case Kwave::App::GUI_SDI:
 	    break;

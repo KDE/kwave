@@ -9,6 +9,7 @@
  * fixed invocation of file dialog, as suggested by EBN
  * support for cmake > 3.3, fix for policy CMP0063
  * cmdline option "--nofork" no longer exists
+ * bugfix: multiple issues in context of switching the GUI type in scripts
 
 0.9.0 [2015-05-25]
 

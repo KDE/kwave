@@ -123,6 +123,12 @@ namespace Kwave
 	 */
 	inline bool isActive() const { return m_active; }
 
+	/**
+	 * Returns true it this context has a signal (file is loaded)
+	 * or the context is executing a script
+	 */
+	bool isInUse() const;
+
 	/** returns the name of the signal */
 	QString signalName() const;
 

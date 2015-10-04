@@ -36,6 +36,7 @@
 #include <QLabel>
 #include <QLatin1Char>
 #include <QMap>
+#include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QMenuBar>
 #include <QMutableMapIterator>
@@ -249,7 +250,13 @@ Kwave::FileContext *Kwave::TopWidget::currentContext() const
 	if (!m_context_map.contains(current_sub)) {
 	    qWarning("WARNING: unassociated MDI sub window %p?",
 	             static_cast<void *>(current_sub));
-	    return 0;
+	    QMapIterator<QMdiSubWindow*, Kwave::FileContext*> it(m_context_map);
+	    Kwave::FileContext *context = 0;
+	    while (it.hasNext()) {
+		it.next();
+		context = it.value();
+	    }
+	    return (m_context_map.count() == 1) ? context : 0;
 	}
 	return m_context_map[current_sub];
     } else {
@@ -547,11 +554,10 @@ QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
 	if (context) {
 	    context->disconnect();
 	    context->setParent(0);
-	    Kwave::SignalManager *signal_manager = context->signalManager();
-	    if (signal_manager && !signal_manager->isEmpty())
-		list += context;
+	    if (context->isInUse())
+		list += context;    // in use -> keep
 	    else
-		context->release();
+		context->release(); // empty -> release
 	}
     }
 
@@ -639,9 +645,9 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 		m_context_map[sub] = context;
 
 		connect(context->mainWidget(), SIGNAL(destroyed(QObject*)),
-			sub,                   SLOT(close()));
+		        sub,                   SLOT(close()));
 		connect(sub,  SIGNAL(destroyed(QObject*)),
-			this, SLOT(subWindowDeleted(QObject*)));
+		        this, SLOT(subWindowDeleted(QObject*)));
 		connectContext(context);
 
 		if (m_application.guiType() != Kwave::App::GUI_SDI) {
@@ -679,6 +685,9 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 		    sub->showNormal();
 		}
 
+		// NOTE: we have to mark the sub window as "not hidden",
+		// otherwise currentSubWindow() would return a null pointer!
+		sub->setHidden(false);
 		m_mdi_area->setActiveSubWindow(sub);
 	    } else {
 		m_context_map[0] = context; // set empty default context
@@ -713,12 +722,15 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     if ( (parser.command() == _("playback")) && (m_toolbar_record_playback) )
 	return m_toolbar_record_playback->executeCommand(parser.firstParam());
 
-    if ((result = m_application.executeCommand(command)) != ENOSYS) {
+    if ((result = m_application.executeCommand(command)) != ENOSYS)
 	return result;
+    result = 0;
+    if (false) {
     CASE_COMMAND("about_kde")
 	// Help / About KDE
 	KHelpMenu *dlg = new KHelpMenu(this, _("Kwave"));
 	if (dlg) dlg->aboutKDE();
+	result = 0;
     CASE_COMMAND("menu")
 	Q_ASSERT(m_menu_manager);
 	if (m_menu_manager) result = m_menu_manager->executeCommand(command);
@@ -748,6 +760,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	{
 	    resetToolbarToDefaults();
 	}
+	result = 0;
     CASE_COMMAND("select_gui_type")
 	QString gui_type = parser.nextParam();
 	Kwave::App::GuiType new_type = Kwave::App::GUI_SDI;
@@ -764,7 +777,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	KConfigGroup cfg = KSharedConfig::openConfig()->group("Global");
 	cfg.writeEntry(_("UI Type"), gui_type);
 	m_application.switchGuiType(this, new_type);
-	return 0;
+	result = 0;
     CASE_COMMAND("reenable_dna")
 	if ((result = (Kwave::MessageBox::questionYesNo(this,
 	    i18n("Re-enable all disabled notifications?\n"
@@ -775,6 +788,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	{
 	    KMessageBox::enableAllMessages();
 	}
+	result = 0;
     CASE_COMMAND("window:minimize")
 	if (m_application.guiType() == Kwave::App::GUI_MDI) {
 	    // in case of MDI mode: minimize the current sub window
@@ -787,19 +801,19 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	    // in case of TAB or SDI mode: minimize the toplevel window
 	    setWindowState(windowState() | Qt::WindowMinimized);
 	}
-	return 0;
+	result = 0;
     CASE_COMMAND("window:next_sub")
 	if (m_mdi_area) m_mdi_area->activateNextSubWindow();
-	return 0;
+	result = 0;
     CASE_COMMAND("window:prev_sub")
 	if (m_mdi_area) m_mdi_area->activatePreviousSubWindow();
-	return 0;
+	result = 0;
     CASE_COMMAND("window:cascade")
 	if (m_mdi_area) m_mdi_area->cascadeSubWindows();
-	return 0;
+	result = 0;
     CASE_COMMAND("window:tile")
 	if (m_mdi_area) m_mdi_area->tileSubWindows();
-	return 0;
+	result = 0;
     CASE_COMMAND("window:tile_vertical")
 	if (!m_mdi_area) return 0;
 
@@ -824,7 +838,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	    sub->move(0, y);
 	    y += increment;
 	}
-	return 0;
+	result = 0;
 
     CASE_COMMAND("window:activate")
 	if (m_mdi_area) {
@@ -1534,7 +1548,10 @@ void Kwave::TopWidget::subWindowActivated(QMdiSubWindow *sub)
 void Kwave::TopWidget::subWindowDeleted(QObject *obj)
 {
     QMdiSubWindow *sub = static_cast<QMdiSubWindow *>(obj);
-    if (!sub || !m_context_map.contains(sub)) return;
+    if (!sub || !m_context_map.contains(sub)) {
+	// sub window is not in the map, maybe it has already been detached
+	return;
+    }
 
     Kwave::FileContext *context = m_context_map[sub];
     Q_ASSERT(context);

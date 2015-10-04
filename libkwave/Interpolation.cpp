@@ -309,8 +309,10 @@ QVector<double> Kwave::Interpolation::interpolation(
 	}
 	case INTPOL_POLYNOMIAL3:
 	    if (!degree) degree = 3;
+	    /* FALLTHROUGH */
 	case INTPOL_POLYNOMIAL5:
 	    if (!degree) degree = 5;
+	    /* FALLTHROUGH */
 	case INTPOL_POLYNOMIAL7:
 	{
 	    if (!degree) degree = 7;
@@ -390,6 +392,7 @@ QVector<double> Kwave::Interpolation::interpolation(
 		    y0 = y1;
 		}
 	    }
+	    break;
 	}
     }
 

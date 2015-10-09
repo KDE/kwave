@@ -86,6 +86,7 @@ namespace Kwave
 	 * @param index the index of the current file
 	 * @param count the number of files to save
 	 * @param total the highest index to save (first + count - 1)
+	 * @return the name of the file, escaped
 	 */
 	QString createFileName(const QString &base, const QString &ext,
 	                       const QString &pattern,
@@ -125,6 +126,7 @@ namespace Kwave
 	 * @param pattern the selected filename pattern
 	 * @param mode the numbering mode
 	 * @param selection_only if true: save only the selection
+	 * @return name of the first file, escaped
 	 */
 	QString firstFileName(const QString &filename, const QString &pattern,
 	    numbering_mode_t mode, bool selection_only);

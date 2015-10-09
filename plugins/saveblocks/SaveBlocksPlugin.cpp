@@ -161,7 +161,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     int result = interpreteParameters(params);
     if (result) return result;
 
-    QString filename = m_url.toDisplayString();
+    QString filename = m_url.path();
     QFileInfo file(filename);
     QString path = file.absolutePath();
     QString ext  = file.suffix();
@@ -201,15 +201,16 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     QDir dir(path, _("*"));
     QStringList files;
     files = dir.entryList();
+
     QStringList overwritten;
-    for (unsigned int i = first; i < first+count; i++) {
+    for (unsigned int i = first; i < (first + count); i++) {
 	QString name = createFileName(base, ext, m_pattern, i, count,
 	                              first + count - 1);
-	QRegExp rx(_("^(") + QRegExp::escape(name) + _(")$"),
+	QRegExp rx(_("^(") + name + _(")$"),
 	           Qt::CaseInsensitive);
 	QStringList matches = files.filter(rx);
 	if (matches.count() > 0) {
-	    overwritten += name;
+	    overwritten += Kwave::Parser::unescape(name);
 	    if (overwritten.count() > max_overwrite_list_length)
 		break; // we have collected enough names...
 	}
@@ -273,15 +274,16 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 	    // determine the filename
 	    QString name = createFileName(base, ext, m_pattern, index, count,
                                           first + count - 1);
-	    QUrl url = m_url;
-	    url = url.adjusted(QUrl::RemoveFilename);
-	    url.setPath(url.path() + name);
-	    filename = url.toDisplayString();
+	    name = Kwave::Parser::unescape(name);
+	    // use URL encoding for the filename
+	    name = QString::fromLatin1(QUrl::toPercentEncoding(name));
+	    QUrl url = m_url.adjusted(QUrl::RemoveFilename);
+	    url.setPath(url.path(QUrl::FullyEncoded) + name, QUrl::StrictMode);
 
 	    qDebug("saving %9lu...%9lu -> '%s'",
 		   static_cast<unsigned long int>(left),
 		   static_cast<unsigned long int>(right),
-		   DBG(filename));
+		   DBG(url.toDisplayString()));
 	    if (signalManager().save(url, true) < 0)
 		break;
 
@@ -431,7 +433,7 @@ unsigned int Kwave::SaveBlocksPlugin::firstIndex(const QString &path,
 	    QDir dir(path, _("*"));
 	    QStringList files;
 	    files = dir.entryList();
-	    for (unsigned int i = first; i < first+count; i++) {
+	    for (unsigned int i = first; i < (first + count); i++) {
 		QString name = createFileName(base, ext, pattern, i, -1, -1);
 		QRegExp rx(_("^(") + name + _(")$"),
 		           Qt::CaseInsensitive);
@@ -476,7 +478,7 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
     p.replace(rx_filename, _("(.+)"));
 
     int max = 0;
-    for (int i=0; i < pattern.length(); i++) {
+    for (int i = 0; i < pattern.length(); i++) {
 	if (idx_nr       == max) max++;
 	if (idx_count    == max) max++;
 	if (idx_total    == max) max++;

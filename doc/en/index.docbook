@@ -6986,6 +6986,15 @@
 						    without path and without extension.
 						</entry>
 					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>[%fileinfo{<replaceable>keyword</replaceable>}]</command></entry>
+						<entry>
+						    Will be replaced with the content of a file information
+						    identified by <replaceable>keyword</replaceable>.
+						    See section <link linkend="file-info-list" endterm="file-info-list-title"/>
+						    for a list of all available keywords.
+						</entry>
+					    </row>
 					</tbody>
 				    </tgroup>
 				</informaltable>

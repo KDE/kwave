@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QtGlobal>
+#include <QFlags>
 #include <QList>
 #include <QMap>
 #include <QString>
@@ -112,6 +113,29 @@ namespace Kwave
     class Q_DECL_EXPORT FileInfo: public Kwave::MetaData
     {
     public:
+	/**
+	 * @enum Flags
+	 * flags additional meta information about file info entries
+	 */
+	typedef enum {
+	    /** no flags */
+	    FP_NONE           = 0,
+
+	    /** for internal usage only, do not show to the user */
+	    FP_INTERNAL       = 1,
+
+	    /** readonly, cannot be modified by the user */
+	    FP_READONLY       = 2,
+
+	    /** available for the GUI, but not for loading/saving */
+	    FP_NO_LOAD_SAVE   = 4,
+
+	    /** represents a numeric value, otherwise handled as a string */
+	    FP_FORMAT_NUMERIC = 8
+
+	} Flag;
+
+	Q_DECLARE_FLAGS(Flags, Flag)
 
 	/** Default constructor, creates an empty file info object */
 	FileInfo();
@@ -176,15 +200,26 @@ namespace Kwave
 	QVariant get(FileProperty key) const;
 
 	/**
+	 * returns the flags of a property (meta data)
+	 */
+	inline Flags flags(FileProperty key) const {
+	    return m_property_map.data(key);
+	}
+
+	/**
 	 * Returns true if a property is only internal.
 	 */
-	bool isInternal(FileProperty key) const;
+	inline bool isInternal(FileProperty key) const {
+	    return (flags(key) & FP_INTERNAL);
+	}
 
 	/**
 	 * Returns true if a property is intended to be saved into or
 	 * loaded from a file.
 	 */
-	bool canLoadSave(FileProperty key) const;
+	inline bool canLoadSave(FileProperty key) const {
+	    return !(flags(key) & FP_NO_LOAD_SAVE);
+	}
 
 	/**
 	 * Returns the name of a property.
@@ -198,6 +233,13 @@ namespace Kwave
 	 */
 	inline QString description(FileProperty key) const {
 	    return m_property_map.description(key, false);
+	}
+
+	/**
+	 * Returns a file property key from a property name
+	 */
+	inline FileProperty fromName(const QString &name) const {
+	    return m_property_map.findFromName(name);
 	}
 
 	/** Returns a list with all properties */
@@ -214,12 +256,12 @@ namespace Kwave
 	/**
 	 * Pre-filled map with property names and descriptions
 	 */
-	class PropertyTypesMap: public Kwave::TypesMap<FileProperty, int>
+	class PropertyTypesMap: public Kwave::TypesMap<FileProperty, Flags>
 	{
 	public:
 	    /** constructor */
 	    explicit PropertyTypesMap()
-		:Kwave::TypesMap<FileProperty, int>()
+		:Kwave::TypesMap<FileProperty, Flags>()
 	    {
 		fill();
 	    }
@@ -235,8 +277,9 @@ namespace Kwave
 	PropertyTypesMap m_property_map;
 
     };
-
 }
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(Kwave::FileInfo::Flags)
 
 #endif /* FILE_INFO_H */
 

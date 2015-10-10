@@ -434,11 +434,14 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     QString nr;
 
     // format the "index" parameter
-    QRegExp rx_nr(_("(\\\\\\[%\\d*nr\\\\\\])"), Qt::CaseInsensitive);
+    QRegExp rx_nr(_("(\\\\\\[%(\\d*)nr\\\\\\])"), Qt::CaseInsensitive);
     while (rx_nr.indexIn(p) >= 0) {
 	QString format = rx_nr.cap(1);
-	format = format.mid(2, format.length() - 6) + _("u");
-	p.replace(rx_nr, nr.sprintf(format.toLatin1(), index));
+	format = format.mid(2, format.length() - 6);
+	QString ex = _("(\\\\\\[") + format + _("nr\\\\\\])");
+	QRegExp rx(ex, Qt::CaseInsensitive);
+	format += _("u");
+	p.replace(rx, nr.sprintf(format.toLatin1(), index));
     }
 
     // format the "count" parameter
@@ -446,8 +449,11 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     while (rx_count.indexIn(p) >= 0) {
 	if (count >= 0) {
 	    QString format = rx_count.cap(1);
-	    format = format.mid(2, format.length() - 9) + _("u");
-	    p.replace(rx_count, nr.sprintf(format.toLatin1(), count));
+	    format = format.mid(2, format.length() - 9);
+	    QString ex = _("(\\\\\\[") + format + _("count\\\\\\])");
+	    QRegExp rx(ex, Qt::CaseInsensitive);
+	    format += _("u");
+	    p.replace(rx, nr.sprintf(format.toLatin1(), count));
 	} else {
 	    p.replace(rx_count, _("(\\d+)"));
 	}
@@ -458,8 +464,11 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     while (rx_total.indexIn(p) >= 0) {
 	if (total >= 0) {
 	    QString format = rx_total.cap(1);
-	    format = format.mid(2, format.length() - 9) + _("u");
-	    p.replace(rx_total, nr.sprintf(format.toLatin1(), total));
+	    format = format.mid(2, format.length() - 9);
+	    QString ex = _("(\\\\\\[") + format + _("total\\\\\\])");
+	    QRegExp rx(ex, Qt::CaseInsensitive);
+	    format += _("u");
+	    p.replace(rx, nr.sprintf(format.toLatin1(), total));
 	} else {
 	    p.replace(rx_total, _("(\\d+)"));
 	}
@@ -469,6 +478,50 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     QRegExp rx_filename(_("\\\\\\[%filename\\\\\\]"), Qt::CaseInsensitive);
     if (rx_filename.indexIn(p) >= 0) {
 	p.replace(rx_filename, QRegExp::escape(base));
+    }
+
+    // support for file info
+    QRegExp rx_fileinfo(
+	_("\\\\\\[%(\\d*)fileinfo\\\\\\{([A-Z,a-z]+)\\\\\\}\\\\\\]"),
+	Qt::CaseInsensitive
+    );
+    Kwave::FileInfo info(signalManager().metaData());
+    while (rx_fileinfo.indexIn(p) >= 0) {
+	const QString format = rx_fileinfo.cap(1);
+	const QString id     = rx_fileinfo.cap(2);
+	QString value;
+	FileProperty property = info.fromName(id);
+	if (property != Kwave::INF_UNKNOWN) {
+	    QVariant val = info.get(property);
+	    if (!val.isNull()) {
+		// we have a property value
+		value = val.toString();
+
+		// check for format (desired minimum string length)
+		bool ok  = false;
+		int  len = format.toUInt(&ok);
+		if ((len > 0) && ok) {
+		    Kwave::FileInfo::Flags flags = info.flags(property);
+		    if (flags & Kwave::FileInfo::FP_FORMAT_NUMERIC) {
+			// numeric format, pad with leading zeros or spaces
+			QString pad = (format.startsWith(QLatin1Char('0'))) ?
+			    _("0") : _(" ");
+			while (value.length() < len)
+			    value = pad + value;
+		    } else {
+			// string format, pad with trailing spaces
+			while (value.length() < len)
+			    value = value + _(" ");
+		    }
+		}
+		value = Kwave::Parser::escape(value);
+	    }
+	}
+
+	QString ex(_("(\\\\\\[%") + format + _("fileinfo\\\\\\{") + id +
+	           _("\\\\\\}\\\\\\])"));
+	QRegExp rx(ex, Qt::CaseInsensitive);
+	p.replace(rx, value);
     }
 
     if (ext.length()) p += _(".") + ext;

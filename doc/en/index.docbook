@@ -6915,6 +6915,14 @@
 		a pattern that can contain the original file name, an index
 		and the number of sections.
 	    </para>
+	    <para>
+		It is also allowed that the file name pattern contains forward
+		slashes as path separators, which allows saving the sections
+		into different sub directories. Please note that all whitespace
+		characters around such path separators are silently removed, to
+		avoid creation of directory names which begin or end with a
+		whitespace.
+	    </para>
 	    </listitem>
 	</varlistentry>
 	<varlistentry>

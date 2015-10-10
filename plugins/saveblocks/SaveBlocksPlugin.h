@@ -154,6 +154,18 @@ namespace Kwave
 
     private:
 
+	/**
+	 * internal helper to create a string that contains a HTML
+	 * formated list of file names or directories
+	 * @param list a list of file names or directories
+	 * @param max_entries maximum number of entries to render
+	 * @return the list as a single string, separated by "\<br\>"
+	 */
+	QString createDisplayList(const QStringList &list,
+                                  unsigned int max_entries) const;
+
+    private:
+
 	/** the URL of the first file (user selection) */
 	QUrl m_url;
 

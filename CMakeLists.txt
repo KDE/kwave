@@ -59,6 +59,11 @@ PROJECT(kwave)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0 FATAL_ERROR)
 
+# Honor visibility properties for all target types (since cmake 3.3)
+IF (POLICY CMP0063)
+    CMAKE_POLICY(SET CMP0063 NEW)
+ENDIF (POLICY CMP0063)
+
 #############################################################################
 ### path to additional cmake modules and includes                         ###
 

@@ -40,11 +40,13 @@ MACRO(KWAVE_PLUGIN _plugin)
         ${QT_AND_KDECORE_LIBS}
     )
 
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES PREFIX "")
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES SUFFIX "")
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES OUTPUT_NAME "${_plugin}")
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES LINK_FLAGS
-        "-Wl,--export-dynamic")
+    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES
+        PREFIX ""
+        SUFFIX ""
+        OUTPUT_NAME "${_plugin}"
+        LINK_FLAGS "-Wl,--export-dynamic"
+        ENABLE_EXPORTS TRUE
+    )
     SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
     #########################################################################

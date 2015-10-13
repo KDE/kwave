@@ -1,5 +1,7 @@
 
  * compile fix for armv7l
+ * fixed memory leak in FileContext
+ * support for cmake > 3.3, fix for policy CMP0063
 
 0.9.0 [2015-05-25]
 

@@ -41,7 +41,7 @@ RDEPEND="
 	)
 "
 DEPEND="${RDEPEND}
-	kde-apps/poxml[extras]
+	kde-apps/poxml
 	|| ( media-gfx/imagemagick[png,svg] media-gfx/graphicsmagick[imagemagick,png,svg] )
 	$(add_frameworks_dep kcompletion)
 	$(add_frameworks_dep kconfig)

@@ -1,6 +1,5 @@
 
 o test: translated names and roles in about data
-o set KXMLGUI_NO_DEPRECATED
 o plugin about: license texts, list of translators
 o PHONON playback is broken (skips input/too fast?)
 o screenshot for "editlabel()"

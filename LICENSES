@@ -126,6 +126,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	bin/update-fileinfo-xref.pl			GPL2+
 	bin/update-plugin-xref.pl			GPL2+
 
+	cmake/CheckIncludeFilesCXX.cmake		GPL2+
 	cmake/Copyright.txt				Kitware (cmake)
 	cmake/COPYING-CMAKE-SCRIPTS			New BSD
 	cmake/FindAlsa.cmake				BSD / {kretz,faure}@kde.org

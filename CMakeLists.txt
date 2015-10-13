@@ -134,6 +134,7 @@ ENDIF (WITH_OPTIMIZED_MEMCPY)
 ### cmake includes                                                        ###
 
 INCLUDE(CheckIncludeFiles)
+INCLUDE(CheckIncludeFilesCXX)
 INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
 INCLUDE(CheckTypeSize)
@@ -245,15 +246,17 @@ MESSAGE(STATUS "Using ${CMAKE_INSTALL_RPATH} as install RPATH")
 CHECK_INCLUDE_FILES(sys/times.h HAVE_SYS_TIMES_H)
 CHECK_INCLUDE_FILES(signal.h HAVE_SIGNAL_H)
 
-SET(_inc algorithm limits new
-         errno.h limits.h math.h signal.h
-         stdint.h stdio.h stdlib.h string.h sys/types.h unistd.h pthread.h)
-CHECK_INCLUDE_FILES("${_inc}" REQUIRED_STD_HEADERS)
-IF (NOT REQUIRED_STD_HEADERS)
+SET(_inc_c errno.h limits.h math.h signal.h
+           stdint.h stdio.h stdlib.h string.h sys/types.h unistd.h pthread.h)
+CHECK_INCLUDE_FILES("${_inc_c}" HAVE_REQUIRED_STD_C_HEADERS)
+IF (NOT HAVE_REQUIRED_STD_C_HEADERS)
     MESSAGE(FATAL_ERROR "
-        unable to find one or more of the following header files:
-        ${_inc}")
-ENDIF (NOT REQUIRED_STD_HEADERS)
+        unable to find one or more of the following C header files:
+        ${_inc_c}")
+ENDIF (NOT HAVE_REQUIRED_STD_C_HEADERS)
+
+SET(_inc_cpp algorithm limits new)
+CHECK_INCLUDE_FILES_CXX("${_inc_cpp}")
 
 #############################################################################
 ### checks for some functions                                             ###

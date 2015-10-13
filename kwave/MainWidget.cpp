@@ -33,6 +33,7 @@
 #include <QtGlobal>
 
 #include <KLocalizedString>
+#include <KMessageBox>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"

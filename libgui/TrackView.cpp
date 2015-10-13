@@ -177,7 +177,7 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
     double offset    = m_offset + pixels2samples(pos.x()); // [samples]
     double tolerance = m_zoom * selectionTolerance();      // [samples]
 
-    // our display can contain labels -> find the nearest label
+    // our display could contain labels -> find the nearest label
     double d_min = tolerance;
     Kwave::Label nearest_label;
     int  nearest_index = 0;

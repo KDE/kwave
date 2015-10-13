@@ -941,7 +941,10 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	);
 	if (!dlg) return 0;
 	dlg->setCaption(i18n("Save As"));
-	if (dlg->exec() != QDialog::Accepted) return -1;
+	if (dlg->exec() != QDialog::Accepted) {
+	    delete dlg;
+	    return -1;
+	}
 
 	url = dlg->selectedUrl();
 	if (url.isEmpty()) {

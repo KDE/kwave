@@ -6995,6 +6995,19 @@
 						    for a list of all available keywords.
 						</entry>
 					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>[%title]</command></entry>
+						<entry>
+						    Will be replaced with the title the block, which is taken
+						    from the descriptive text of the label at the
+						    <emphasis>start</emphasis> of the block.
+						    If that text is empty it will fall back to the title
+						    of the file (see file information item
+						    "<link linkend="INF_NAME">Name</link>").
+						    If this also does not exist, it will fall back to the
+						    base file name as described above.
+						</entry>
+					    </row>
 					</tbody>
 				    </tgroup>
 				</informaltable>

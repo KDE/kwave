@@ -15,7 +15,8 @@
    of patterns were ignored
  * saveblocks: allow path separators in filename patterns to make it possible
    to create subdirectories
- * saveblocks: added pattern to include file info (file meta data)
+ * saveblocks: added patterns to include file info (file meta data) or the
+   title of the current block
 
 0.9.0 [2015-05-25]
 

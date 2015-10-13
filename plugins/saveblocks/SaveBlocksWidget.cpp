@@ -22,6 +22,7 @@
 
 #include <KComboBox>
 
+#include "libkwave/FileInfo.h"
 #include "libkwave/String.h"
 
 #include "SaveBlocksWidget.h"
@@ -36,8 +37,15 @@ Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
 {
     setupUi(this);
 
+    Kwave::FileInfo info;
+
     // the file name pattern combo box
+    cbPattern->addItem(_("[%2nr]-[%title]"));
     cbPattern->addItem(_("[%filename] part [%nr] of [%total]"));
+    cbPattern->addItem(
+	_("[%fileinfo{") +
+	info.name(Kwave::INF_NAME) +
+	_("}] (part [%nr] of [%total])"));
     cbPattern->addItem(_("[%filename] - [%04nr]"));
     cbPattern->addItem(_("[%2nr] [%filename]"));
     cbPattern->addItem(_("[%2nr]-[%filename]"));

@@ -70,12 +70,12 @@ namespace Kwave
 	int interpreteParameters(QStringList &params);
 
 	/**
-	 * Returns the number of blocks to save, depending on whether
-	 * we save everything or only the selection
+	 * determines the blocks which should be saved, including
+	 * start position, length and title.
+	 * @param base the base name, without indices, extension etc...
 	 * @param selection_only if true, save only selected blocks
-	 * @return number of blocks, [0...N]
 	 */
-	unsigned int blocksToSave(bool selection_only);
+	void scanBlocksToSave(const QString &base, bool selection_only);
 
 	/**
 	 * create a filename (without extension) out of a given base name,
@@ -154,6 +154,14 @@ namespace Kwave
 
     private:
 
+	typedef struct {
+	    sample_index_t m_start;  /**< start of the block [samples] */
+	    sample_index_t m_length; /**< length of the block [samples] */
+	    QString        m_title;  /**< title of the block */
+	} BlockInfo;
+
+    private:
+
 	/**
 	 * internal helper to create a string that contains a HTML
 	 * formated list of file names or directories
@@ -177,6 +185,9 @@ namespace Kwave
 
 	/** if true, only save stuff within the selection */
 	bool m_selection_only;
+
+	/** list of all blocks to save */
+	QList<BlockInfo> m_block_info;
 
     };
 }

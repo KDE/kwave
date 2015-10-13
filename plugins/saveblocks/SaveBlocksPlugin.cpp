@@ -28,6 +28,7 @@
 #include <KLocalizedString>
 
 #include "libkwave/CodecManager.h"
+#include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/MessageBox.h"
@@ -46,7 +47,7 @@ KWAVE_PLUGIN(Kwave::SaveBlocksPlugin, "saveblocks", "2.4",
 Kwave::SaveBlocksPlugin::SaveBlocksPlugin(Kwave::PluginManager &plugin_manager)
     :Kwave::Plugin(plugin_manager),
      m_url(), m_pattern(), m_numbering_mode(CONTINUE),
-     m_selection_only(true)
+     m_selection_only(true), m_block_info()
 {
 }
 
@@ -72,6 +73,10 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     bool selected_all = ((selection_left == 0) &&
                          (selection_right + 1 >= signalLength()));
     bool enable_selection_only = selected_something && !selected_all;
+
+    QString filename = m_url.path();
+    QString base = findBase(filename, m_pattern);
+    scanBlocksToSave(base, m_selection_only && enable_selection_only);
 
     QPointer<Kwave::SaveBlocksDialog> dialog =
 	new(std::nothrow) Kwave::SaveBlocksDialog(
@@ -212,7 +217,8 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     }
 
     // get the index range
-    unsigned int count = blocksToSave(selection_only);
+    scanBlocksToSave(base, selection_only);
+    unsigned int count = m_block_info.count();
     unsigned int first = firstIndex(path, base, ext, m_pattern,
                                     m_numbering_mode, count);
 
@@ -396,13 +402,14 @@ int Kwave::SaveBlocksPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-unsigned int Kwave::SaveBlocksPlugin::blocksToSave(bool selection_only)
+void Kwave::SaveBlocksPlugin::scanBlocksToSave(const QString &base,
+                                               bool selection_only)
 {
-    unsigned int count = 0;
     sample_index_t selection_left, selection_right;
 
     sample_index_t block_start;
     sample_index_t block_end = 0;
+    QString        block_title;
     Kwave::LabelList labels(signalManager().metaData());
     Kwave::LabelListIterator it(labels);
     Kwave::Label label = (it.hasNext()) ? it.next() : Kwave::Label();
@@ -410,19 +417,39 @@ unsigned int Kwave::SaveBlocksPlugin::blocksToSave(bool selection_only)
     if (selection_only) {
 	selection(0, &selection_left, &selection_right, true);
     } else {
-	selection_left = 0;
+	selection_left  = 0;
 	selection_right = signalLength() - 1;
     }
+
+    // get the title of the whole file, in case that a block does not have
+    // an own title
+    FileInfo info(signalManager().metaData());
+    QString file_title = info.get(INF_NAME).toString();
+
+    // fallback: if there is no INF_NAME either, fall back to the file
+    //           name as last resort
+    if (!file_title.length()) file_title = base;
+
+    m_block_info.clear();
+    QString prev_title;
     for (;;) {
 	block_start = block_end;
 	block_end   = (label.isNull()) ? signalLength() : label.pos();
-	if ((selection_left < block_end) && (selection_right > block_start))
-	    count++;
+	block_title = prev_title;
+	prev_title  = (label.isNull()) ? file_title     : label.name();
+
+	if ((block_end > selection_left) && (block_start <= selection_right)) {
+	    BlockInfo block;
+	    block.m_start  = block_start;
+	    block.m_length = block_end - block_start;
+	    block.m_title  = block_title;
+	    if (!block.m_title.length()) block.m_title = file_title;
+	    m_block_info.append(block);
+	}
+
 	if (label.isNull()) break;
 	label = (it.hasNext()) ? it.next() : Kwave::Label();
     }
-
-    return count;
 }
 
 //***************************************************************************
@@ -482,7 +509,7 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
 
     // support for file info
     QRegExp rx_fileinfo(
-	_("\\\\\\[%(\\d*)fileinfo\\\\\\{([A-Z,a-z]+)\\\\\\}\\\\\\]"),
+	_("\\\\\\[%(\\d*)fileinfo\\\\\\{([\\w\\s]+)\\\\\\}\\\\\\]"),
 	Qt::CaseInsensitive
     );
     Kwave::FileInfo info(signalManager().metaData());
@@ -522,6 +549,17 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
 	           _("\\\\\\}\\\\\\])"));
 	QRegExp rx(ex, Qt::CaseInsensitive);
 	p.replace(rx, value);
+    }
+
+    // format the "title" parameter
+    QRegExp rx_title(_("\\\\\\[%title\\\\\\]"), Qt::CaseInsensitive);
+    if (rx_title.indexIn(p) >= 0) {
+	QString title;
+	int idx = (index - 1) - (total - count);
+	if ((idx >= 0) && (idx < m_block_info.count()))
+	    title = m_block_info[idx].m_title;
+	if (title.length())
+	    p.replace(rx_title, QRegExp::escape(title));
     }
 
     if (ext.length()) p += _(".") + ext;
@@ -578,20 +616,28 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
     // \[%[0-9]?count\]   -> \d+
     // \[%[0-9]?total\]   -> \d+
     // \[%filename\]      -> base
+    // \[%fileinfo\]      -> .
+    // \[%title\]         -> .
     QRegExp rx_nr(_("\\\\\\[%\\d*nr\\\\\\]"), Qt::CaseInsensitive);
     QRegExp rx_count(_("\\\\\\[%\\d*count\\\\\\]"), Qt::CaseInsensitive);
     QRegExp rx_total(_("\\\\\\[%\\d*total\\\\\\]"), Qt::CaseInsensitive);
     QRegExp rx_filename(_("\\\\\\[%filename\\\\\\]"), Qt::CaseInsensitive);
+    QRegExp rx_fileinfo(_("\\\\\\[%fileinfo\\\\\\]"), Qt::CaseInsensitive);
+    QRegExp rx_title(_("\\\\\\[%title\\\\\\]"), Qt::CaseInsensitive);
 
     QString p = QRegExp::escape(pattern);
-    int idx_nr = rx_nr.indexIn(p);
-    int idx_count = rx_count.indexIn(p);
-    int idx_total = rx_total.indexIn(p);
+    int idx_nr       = rx_nr.indexIn(p);
+    int idx_count    = rx_count.indexIn(p);
+    int idx_total    = rx_total.indexIn(p);
     int idx_filename = rx_filename.indexIn(p);
-    p.replace(rx_nr, _("(\\d+)"));
-    p.replace(rx_count, _("(\\d+)"));
-    p.replace(rx_total, _("(\\d+)"));
+    int idx_fileinfo = rx_fileinfo.indexIn(p);
+    int idx_title    = rx_fileinfo.indexIn(p);
+    p.replace(rx_nr,       _("(\\d+)"));
+    p.replace(rx_count,    _("(\\d+)"));
+    p.replace(rx_total,    _("(\\d+)"));
     p.replace(rx_filename, _("(.+)"));
+    p.replace(rx_fileinfo, _("(.+)"));
+    p.replace(rx_title,    _("(.+)"));
 
     int max = 0;
     for (int i = 0; i < pattern.length(); i++) {
@@ -599,10 +645,15 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
 	if (idx_count    == max) max++;
 	if (idx_total    == max) max++;
 	if (idx_filename == max) max++;
+	if (idx_fileinfo == max) max++;
+	if (idx_title    == max) max++;
+
 	if (idx_nr       > max) idx_nr--;
 	if (idx_count    > max) idx_count--;
 	if (idx_total    > max) idx_total--;
 	if (idx_filename > max) idx_filename--;
+	if (idx_fileinfo > max) idx_fileinfo--;
+	if (idx_title    > max) idx_title--;
     }
 
     if (ext.length()) p += _(".") + ext;
@@ -627,7 +678,8 @@ QString Kwave::SaveBlocksPlugin::firstFileName(const QString &filename,
 
     // now we have a new name, base and extension
     // -> find out the numbering, min/max etc...
-    unsigned int count = blocksToSave(selection_only);
+    scanBlocksToSave(base, selection_only);
+    unsigned int count = m_block_info.count();
     unsigned int first = firstIndex(path, base, ext, pattern, mode, count);
     unsigned int total = first + count - 1;
 

@@ -133,6 +133,9 @@ ADD_CUSTOM_TARGET(update-handbook
 #############################################################################
 ### handle the various languages                                          ###
 
+# collects all "html_doc_${_lang}" sub targets
+ADD_CUSTOM_TARGET(html_doc)
+
 FILE(GLOB _files "${CMAKE_SOURCE_DIR}/doc/*/index.docbook")
 FOREACH(_file ${_files})
     # TODO: use DIRECTORY instead of PATH as soon as cmake <= 0.8.1 is no longer used

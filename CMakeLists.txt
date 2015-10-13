@@ -64,6 +64,10 @@ IF (POLICY CMP0063)
     CMAKE_POLICY(SET CMP0063 NEW)
 ENDIF (POLICY CMP0063)
 
+IF (POLICY CMP0059)
+    CMAKE_POLICY(SET CMP0059 NEW)
+ENDIF (POLICY CMP0059)
+
 #############################################################################
 ### path to additional cmake modules and includes                         ###
 

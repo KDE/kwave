@@ -60,9 +60,8 @@ SET(libkwavegui_LIB_UI
 
 #############################################################################
 
-KDE4_ADD_UI_FILES(libkwavegui_LIB_SRCS ${libkwavegui_LIB_UI} )
-QT4_AUTOMOC(${libkwavegui_LIB_SRCS})
-KDE4_ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
+KI18N_WRAP_UI(libkwavegui_LIB_SRCS ${libkwavegui_LIB_UI} )
+ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
 
 ADD_DEPENDENCIES(libkwavegui libkwave)
 

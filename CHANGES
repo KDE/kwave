@@ -10,7 +10,7 @@
  * support for cmake > 3.3, fix for policy CMP0063
  * cmdline option "--nofork" no longer exists
  * bugfix: multiple issues in context of switching the GUI type in scripts
- * bugfix: fixed issues in saveblocks saveblocks with special characters in
+ * bugfix: fixed issues in saveblocks plugin with special characters in
    filenames and patterns, format strings of second and later invocations
    of patterns were ignored
  * saveblocks: allow path separators in filename patterns to make it possible

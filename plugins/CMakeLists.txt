@@ -24,8 +24,7 @@ MACRO(KWAVE_PLUGIN _plugin)
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_BINARY_DIR}
     )
-    KDE4_ADD_UI_FILES(plugin_${_plugin}_LIB_SRCS ${plugin_${_plugin}_LIB_UI})
-    QT4_AUTOMOC(${plugin_${_plugin}_LIB_SRCS})
+    KI18N_WRAP_UI(plugin_${_plugin}_LIB_SRCS ${plugin_${_plugin}_LIB_UI})
 
     #########################################################################
     ### link stage                                                        ###

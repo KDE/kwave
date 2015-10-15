@@ -24,7 +24,7 @@ SET(plugin_goto_common_LIB_UI
     GotoDlg.ui
 )
 
-QT5_WRAP_UI(plugin_goto_common_LIB_SRCS ${plugin_goto_common_LIB_UI})
+KI18N_WRAP_UI(plugin_goto_common_LIB_SRCS ${plugin_goto_common_LIB_UI})
 ADD_LIBRARY(plugin_goto_common STATIC ${plugin_goto_common_LIB_SRCS})
 SET_TARGET_PROPERTIES(plugin_goto_common PROPERTIES ENABLE_EXPORTS ON)
 ADD_DEPENDENCIES(plugin_goto_common libkwave libkwavegui)

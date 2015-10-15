@@ -35,7 +35,8 @@
 #include "AmplifyFreePlugin.h"
 
 KWAVE_PLUGIN(Kwave::AmplifyFreePlugin, "amplifyfree", "2.3",
-             I18N_NOOP("Amplify Free"), "Thomas Eschenbacher");
+             I18N_NOOP("Amplify Free"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::AmplifyFreePlugin::AmplifyFreePlugin(Kwave::PluginManager &plugin_manager)

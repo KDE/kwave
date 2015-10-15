@@ -21,8 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
 #include <QApplication>
 #include <QDialog>
+#include <QGridLayout>
 #include <QLabel>
 
 #include <KLocalizedString>

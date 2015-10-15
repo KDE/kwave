@@ -72,8 +72,12 @@ Kwave::AboutDialog::AboutDialog(
     /* the frame containing the developer information */
     Kwave::AboutContainer *about = new Kwave::AboutContainer(this);
     foreach (const KAboutPerson &author, about_data.authors()) {
-	about->addPerson(author.name(), author.emailAddress(),
-	    author.webAddress(), author.task());
+	about->addPerson(
+	    i18n(author.name().toUtf8()),
+	    author.emailAddress(),
+	    i18n(author.webAddress().toUtf8()),
+	    i18n(author.task().toUtf8())
+	);
     }
     authorframe->setWidget(about);
     authorframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -81,8 +85,12 @@ Kwave::AboutDialog::AboutDialog(
     /* the frame containing the thanks to ... */
     Kwave::AboutContainer *contrib = new Kwave::AboutContainer(this);
     foreach (const KAboutPerson &credit, about_data.credits()) {
-	contrib->addPerson(credit.name(), credit.emailAddress(),
-	    credit.webAddress(), credit.task());
+	contrib->addPerson(
+	    i18n(credit.name().toUtf8()),
+	    credit.emailAddress(),
+	    i18n(credit.webAddress().toUtf8()),
+	    i18n(credit.task().toUtf8())
+	);
     }
     thanksframe->setWidget(contrib);
     thanksframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -111,7 +119,9 @@ Kwave::AboutDialog::AboutDialog(
 	std::sort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
 	foreach (const Kwave::PluginManager::PluginModule &info, list) {
 	    QStringList item;
-	    item << info.m_description << info.m_version << info.m_author;
+	    item << i18n(info.m_description.toUtf8())
+	         << info.m_version
+	         << i18n(info.m_author.toUtf8());
 	    plugins.append(new QTreeWidgetItem(
 		static_cast<QTreeWidget *>(0), item));
 	}
@@ -157,8 +167,12 @@ Kwave::AboutDialog::AboutDialog(
 		    break;
 		}
 
-	    trans->addPerson(translator.name(), translator.emailAddress(),
-		website, translator.task());
+	    trans->addPerson(
+		i18n(translator.name().toUtf8()),
+		translator.emailAddress(),
+		i18n(website.toUtf8()),
+		i18n(translator.task().toUtf8())
+	    );
 	}
 	translatorsframe->setWidget(trans);
 	translatorsframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

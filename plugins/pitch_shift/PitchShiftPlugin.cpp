@@ -29,7 +29,8 @@
 #include "libkwave/MultiTrackSource.h"
 
 KWAVE_PLUGIN(Kwave::PitchShiftPlugin, "pitch_shift", "2.3",
-             I18N_NOOP("Pitch Shift"), "Thomas Eschenbacher");
+             I18N_NOOP("Pitch Shift"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::PitchShiftPlugin::PitchShiftPlugin(

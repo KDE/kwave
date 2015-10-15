@@ -24,7 +24,8 @@
 #include "WavEncoder.h"
 
 KWAVE_PLUGIN(Kwave::WavCodecPlugin, "codec_wav", "2.3",
-             I18N_NOOP("WAV Codec"), "Thomas Eschenbacher");
+             I18N_NOOP("WAV Codec"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 // static instance of the codec container
 Kwave::CodecPlugin::Codec Kwave::WavCodecPlugin::m_codec = {0, 0, 0};

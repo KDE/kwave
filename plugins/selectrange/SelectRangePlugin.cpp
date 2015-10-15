@@ -32,7 +32,8 @@
 #include "SelectRangePlugin.h"
 
 KWAVE_PLUGIN(Kwave::SelectRangePlugin, "selectrange", "2.3",
-             I18N_NOOP("Select Range"), "Thomas Eschenbacher");
+             I18N_NOOP("Select Range"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::SelectRangePlugin::SelectRangePlugin(

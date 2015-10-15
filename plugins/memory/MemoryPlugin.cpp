@@ -32,7 +32,8 @@
 #include "MemoryPlugin.h"
 
 KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.4",
-             I18N_NOOP("Memory Settings"), "Thomas Eschenbacher");
+             I18N_NOOP("Memory Settings"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 /** default memory limit for physical memory [MB] */
 #define DEFAULT_PHYSICAL_LIMIT 2048

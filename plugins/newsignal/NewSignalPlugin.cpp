@@ -29,7 +29,8 @@
 #include "NewSignalPlugin.h"
 
 KWAVE_PLUGIN(Kwave::NewSignalPlugin, "newsignal", "2.3",
-             I18N_NOOP("New Signal"), "Thomas Eschenbacher");
+             I18N_NOOP("New Signal"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::NewSignalPlugin::NewSignalPlugin(Kwave::PluginManager &plugin_manager)

@@ -52,7 +52,8 @@
 #include "SonagramWindow.h"
 
 KWAVE_PLUGIN(Kwave::SonagramPlugin, "sonagram", "2.3",
-             I18N_NOOP("Sonagram"), "Thomas Eschenbacher");
+             I18N_NOOP("Sonagram"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 /**
  * interval for limiting the number of repaints per second [ms]

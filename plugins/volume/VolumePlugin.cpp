@@ -37,7 +37,8 @@
 #include "VolumePlugin.h"
 
 KWAVE_PLUGIN(Kwave::VolumePlugin, "volume", "2.3",
-             I18N_NOOP("Volume"), "Thomas Eschenbacher");
+             I18N_NOOP("Volume"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::VolumePlugin::VolumePlugin(Kwave::PluginManager &plugin_manager)

@@ -56,7 +56,8 @@
 #include "DebugPlugin.h"
 
 KWAVE_PLUGIN(Kwave::DebugPlugin, "debug", "2.3",
-             I18N_NOOP("Debug Functions"), "Thomas Eschenbacher");
+             I18N_NOOP("Debug Functions"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 /** size of the internal buffer */
 #define BUFFER_SIZE (64 * 1024)

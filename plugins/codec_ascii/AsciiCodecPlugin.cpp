@@ -26,7 +26,8 @@
 #include "AsciiEncoder.h"
 
 KWAVE_PLUGIN(Kwave::AsciiCodecPlugin, "codec_ascii", "2.3",
-             I18N_NOOP("ASCII Codec"), "Thomas Eschenbacher");
+             I18N_NOOP("ASCII Codec"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 // static instance of the codec container
 Kwave::CodecPlugin::Codec Kwave::AsciiCodecPlugin::m_codec = {0, 0, 0};

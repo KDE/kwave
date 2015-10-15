@@ -38,7 +38,8 @@
 #include "NoisePlugin.h"
 
 KWAVE_PLUGIN(Kwave::NoisePlugin, "noise", "2.3",
-             I18N_NOOP("Noise Generator"), "Thomas Eschenbacher");
+             I18N_NOOP("Noise Generator"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::NoisePlugin::NoisePlugin(Kwave::PluginManager &plugin_manager)

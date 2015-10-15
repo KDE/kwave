@@ -31,7 +31,8 @@
 #include "StringEnterPlugin.h"
 
 KWAVE_PLUGIN(Kwave::StringEnterPlugin, "stringenter", "2.3",
-             I18N_NOOP("Enter Command"), "Thomas Eschenbacher");
+             I18N_NOOP("Enter Command"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::StringEnterPlugin::StringEnterPlugin(Kwave::PluginManager &plugin_manager)

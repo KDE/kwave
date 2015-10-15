@@ -25,7 +25,8 @@
 #include "InsertAtPlugin.h"
 
 KWAVE_PLUGIN(Kwave::InsertAtPlugin, "insert_at", "2.3",
-             I18N_NOOP("Insert At"), "Thomas Eschenbacher");
+             I18N_NOOP("Insert At"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::InsertAtPlugin::InsertAtPlugin(Kwave::PluginManager &plugin_manager)

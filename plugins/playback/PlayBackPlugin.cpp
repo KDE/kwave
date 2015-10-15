@@ -66,7 +66,8 @@
 #include "PlayBackPlugin.h"
 
 KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.3",
-             I18N_NOOP("Playback"), "Thomas Eschenbacher");
+             I18N_NOOP("Playback"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 /** test frequency [Hz] */
 #define PLAYBACK_TEST_FREQUENCY 440.0

@@ -59,7 +59,8 @@
 #include "SampleDecoderLinear.h"
 
 KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.4",
-             I18N_NOOP("Record"), "Thomas Eschenbacher");
+             I18N_NOOP("Record"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::RecordPlugin::RecordPlugin(Kwave::PluginManager &plugin_manager)

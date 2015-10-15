@@ -36,7 +36,8 @@
 #include "ZeroPlugin.h"
 
 KWAVE_PLUGIN(Kwave::ZeroPlugin, "zero", "2.3",
-             I18N_NOOP("Zero Generator"), "Thomas Eschenbacher");
+             I18N_NOOP("Zero Generator"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 #define ZERO_COUNT (64 * 1024)
 

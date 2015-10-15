@@ -39,7 +39,8 @@
 #include "SampleRatePlugin.h"
 
 KWAVE_PLUGIN(Kwave::SampleRatePlugin, "samplerate", "2.3",
-             I18N_NOOP("Sample Rate Conversion"), "Thomas Eschenbacher");
+             I18N_NOOP("Sample Rate Conversion"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::SampleRatePlugin::SampleRatePlugin(Kwave::PluginManager &plugin_manager)

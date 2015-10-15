@@ -29,7 +29,8 @@
 #include "libkwave/MultiTrackSource.h"
 
 KWAVE_PLUGIN(Kwave::BandPassPlugin, "band_pass", "2.3",
-             I18N_NOOP("Band Pass Filter"), "Dave Flogeras");
+             I18N_NOOP("Band Pass Filter"),
+             I18N_NOOP("Dave Flogeras"));
 
 //***************************************************************************
 Kwave::BandPassPlugin::BandPassPlugin(Kwave::PluginManager &plugin_manager)

@@ -44,13 +44,13 @@ static void addDataStrings(KAboutData &aboutdata)
 	_(I18N_NOOP("Thomas Eschenbacher")),
 	_(I18N_NOOP("Project leader since 2000, core development")),
 	_("Thomas.Eschenbacher@gmx.de"),
-	_("http://kwave.sourceforge.net")
+	_(I18N_NOOP("http://kwave.sourceforge.net"))
     );
     aboutdata.addAuthor(
 	_(I18N_NOOP("Martin Wilz")),
 	_(I18N_NOOP("Creator of the project, development 1998-2000")),
 	_("martin@wilz.de"),
-	_("http://www.wilz.de"));
+	_(I18N_NOOP("http://www.wilz.de")));
     aboutdata.addAuthor(
 	_(I18N_NOOP("Ralf Waspe")),
 	_(I18N_NOOP("Creator of the Help/About dialog")),
@@ -60,7 +60,7 @@ static void addDataStrings(KAboutData &aboutdata)
 	_(I18N_NOOP("Caulier Gilles")),
 	_(I18N_NOOP("splashscreen, tests and bugfixes")),
 	_("caulier.gilles@free.fr"),
-	_("http://caulier.gilles.free.fr"));
+	_(I18N_NOOP("http://caulier.gilles.free.fr")));
     aboutdata.addAuthor(
 	_(I18N_NOOP("Dave Flogeras")),
 	_(I18N_NOOP("Notch filter plugin")),
@@ -70,7 +70,7 @@ static void addDataStrings(KAboutData &aboutdata)
 	_(I18N_NOOP("Rik Hemsley")),
 	_(I18N_NOOP("Level meter")),
 	_("rik@kde.org"),
-	_("http://rikkus.info/esoundlevelmeter.html"));
+	_(I18N_NOOP("http://rikkus.info/esoundlevelmeter.html")));
     aboutdata.addAuthor(
 	_(I18N_NOOP("Joerg-Christian Boehme")),
 	_(I18N_NOOP("PulseAudio record plugin")),
@@ -111,17 +111,17 @@ static void addDataStrings(KAboutData &aboutdata)
 	_(I18N_NOOP("Robert Leslie")),
 	_(I18N_NOOP("Author of the 'mad' MP3 decoder library")),
 	_("rob@mars.org"),
-	_("http://www.mars.org/home/rob/proj/mpeg"));
+	_(I18N_NOOP("http://www.mars.org/home/rob/proj/mpeg")));
     aboutdata.addCredit(
 	_(I18N_NOOP("T.H.F. Klok and Cedric Tefft")),
 	_(I18N_NOOP("Maintainers of the 'id3lib' library")),
 	QString(),
-	_("http://www.id3lib.org/"));
+	_(I18N_NOOP("http://www.id3lib.org/")));
     aboutdata.addCredit(
 	_(I18N_NOOP("Michael Pruett")),
 	_(I18N_NOOP("Author of the 'audiofile' library")),
 	_("mpruett@sgi.com"),
-	_("http://www.68k.org/~michael/audiofile/"));
+	_(I18N_NOOP("http://www.68k.org/~michael/audiofile/")));
     aboutdata.addCredit(
 	_(I18N_NOOP("Carlos R.")),
 	_(I18N_NOOP("Spanish translation")),
@@ -131,12 +131,12 @@ static void addDataStrings(KAboutData &aboutdata)
 	_(I18N_NOOP("Erik de Castro Lopo")),
 	_(I18N_NOOP("Author of the 'sndfile' library")),
 	_("erikd@zip.com.au"),
-	_("http://www.mega-nerd.com/libsndfile/"));
+	_(I18N_NOOP("http://www.mega-nerd.com/libsndfile/")));
     aboutdata.addCredit(
 	_(I18N_NOOP("Pavel Fric")),
 	_(I18N_NOOP("Czech translation")),
 	_("pavelfric@seznam.cz"),
-	_("http://fripohled.blogspot.com"));
+	_(I18N_NOOP("http://fripohled.blogspot.com")));
     aboutdata.addCredit(
 	_(I18N_NOOP("Panagiotis Papadopoulos")),
 	_(I18N_NOOP("String and i18n updates")),

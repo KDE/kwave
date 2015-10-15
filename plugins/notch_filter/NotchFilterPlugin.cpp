@@ -30,7 +30,8 @@
 #include "libkwave/MultiTrackSource.h"
 
 KWAVE_PLUGIN(Kwave::NotchFilterPlugin, "notch_filter", "2.3",
-             I18N_NOOP("Notch Filter"), "Dave Flogeras");
+             I18N_NOOP("Notch Filter"),
+             I18N_NOOP("Dave Flogeras"));
 
 //***************************************************************************
 Kwave::NotchFilterPlugin::NotchFilterPlugin(Kwave::PluginManager &plugin_manager)

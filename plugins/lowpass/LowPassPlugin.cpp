@@ -30,7 +30,8 @@
 #include "libkwave/MultiTrackSource.h"
 
 KWAVE_PLUGIN(Kwave::LowPassPlugin, "lowpass", "2.3",
-             I18N_NOOP("Low Pass Filter"), "Thomas Eschenbacher");
+             I18N_NOOP("Low Pass Filter"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::LowPassPlugin::LowPassPlugin(Kwave::PluginManager &plugin_manager)

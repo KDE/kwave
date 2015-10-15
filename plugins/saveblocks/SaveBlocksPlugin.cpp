@@ -41,7 +41,8 @@
 #include "SaveBlocksPlugin.h"
 
 KWAVE_PLUGIN(Kwave::SaveBlocksPlugin, "saveblocks", "2.4",
-             I18N_NOOP("Save Blocks"), "Thomas Eschenbacher");
+             I18N_NOOP("Save Blocks"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::SaveBlocksPlugin::SaveBlocksPlugin(Kwave::PluginManager &plugin_manager)

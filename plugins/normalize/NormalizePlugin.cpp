@@ -51,7 +51,8 @@
 #define TARGET_LEVEL -12
 
 KWAVE_PLUGIN(Kwave::NormalizePlugin, "normalize", "2.3",
-             I18N_NOOP("Normalizer"), "Thomas Eschenbacher");
+             I18N_NOOP("Normalizer"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 //***************************************************************************

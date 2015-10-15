@@ -27,7 +27,8 @@
 #include "FileInfoPlugin.h"
 
 KWAVE_PLUGIN(Kwave::FileInfoPlugin, "fileinfo", "2.3",
-             I18N_NOOP("File Info"), "Thomas Eschenbacher");
+             I18N_NOOP("File Info"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::FileInfoPlugin::FileInfoPlugin(Kwave::PluginManager &plugin_manager)

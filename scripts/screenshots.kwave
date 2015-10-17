@@ -124,6 +124,15 @@ main:
     sync()
 
 #
+# screenshot of the Edit Label dialog
+#
+edit-label:
+    delayed(1000,window:screenshot(Kwave::LabelPropertiesWidget, /var/tmp/screenshots/${LANG}/kwave-edit-label.png))
+    delayed(100,window:close(Kwave::LabelPropertiesWidget))
+    edit_label(0)
+    sync()
+
+#
 # screenshot of the Help/About dialog
 #
 plugin-about:

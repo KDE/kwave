@@ -3468,6 +3468,17 @@
 
 	<!-- @COMMAND@ edit_label(index) -->
 	<sect2 id="cmd_sect_edit_label"><title id="cmd_title_edit_label">&no-i18n-cmd_edit_label;</title>
+	<screenshot>
+	    <screeninfo>Screenshot</screeninfo>
+	    <mediaobject>
+		<imageobject>
+		    <imagedata fileref="kwave-edit-label.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		    <phrase>Screenshot of the label editing dialog</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_edit_label;</command>(<replaceable>index</replaceable>)</title>
 	    <para>

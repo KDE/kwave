@@ -18,9 +18,12 @@
 #include "config.h"
 
 #include <algorithm>
+#include <new>
 
 #include <QApplication>
+#include <QAbstractScrollArea>
 #include <QHBoxLayout>
+#include <QLabel>
 #include <QList>
 #include <QListIterator>
 #include <QString>
@@ -40,6 +43,9 @@
 #include "AboutContainer.h"
 #include "AboutDialog.h"
 #include "LogoWidget.h"
+
+#define NAME_OF_TRANSLATORS  "Your names"
+#define EMAIL_OF_TRANSLATORS "Your emails"
 
 //***************************************************************************
 static bool pluginInfoDescriptionLessThan(
@@ -144,8 +150,43 @@ Kwave::AboutDialog::AboutDialog(
     /* the frame containing the translators */
     Kwave::AboutContainer *trans = new Kwave::AboutContainer(this);
     QList<KAboutPerson> translators = about_data.translators();
+
+    /* ----------- begin workaround KDE #345320 ----------- */
+    /*
+     * workaround for KF5 bug #345320:
+     * do the translation of the translator names on our own, as the
+     * code in kaboutdata.cpp uses QCoreApplication::translate(...) which
+     * relies on a Qt style translation file - that we do not have, we are
+     * using message catalogs.
+     */
+    if (translators.isEmpty()) {
+	QString names  = ki18nc("NAME OF TRANSLATORS",
+	                         NAME_OF_TRANSLATORS).toString();
+	QString emails = ki18nc("EMAIL OF TRANSLATORS",
+	                         EMAIL_OF_TRANSLATORS).toString();
+
+	if (!names.isEmpty() && (names != _(NAME_OF_TRANSLATORS))) {
+	    const QStringList list_names(names.split(_(",")));
+
+	    QStringList list_emails;
+	    if (!emails.isEmpty() && (emails != _(EMAIL_OF_TRANSLATORS)))
+		list_emails = emails.split(_(","), QString::KeepEmptyParts);
+
+	    QStringList::const_iterator it_e = list_emails.constBegin();
+	    foreach (const QString &name, list_names) {
+		QString email;
+		if (it_e != list_emails.constEnd())
+		    email = *(it_e++);
+		translators.append(
+		    KAboutPerson(name.trimmed(), QString(), email.trimmed())
+		);
+	    }
+	}
+    }
+    /* ------------ end workaround KDE #345320 ------------ */
+
     if ((translators.count() == 1) &&
-        (translators.first().name() == _("NAME OF TRANSLATORS"))) {
+        (translators.first().name() == _(NAME_OF_TRANSLATORS))) {
 	tabwidget->removeTab(4);
     } else {
 	foreach (const KAboutPerson &translator, translators) {
@@ -168,12 +209,19 @@ Kwave::AboutDialog::AboutDialog(
 		}
 
 	    trans->addPerson(
-		i18n(translator.name().toUtf8()),
+		translator.name(),
 		translator.emailAddress(),
 		i18n(website.toUtf8()),
 		i18n(translator.task().toUtf8())
 	    );
 	}
+
+	QString about_team = about_data.aboutTranslationTeam();
+	if (!about_team.isEmpty()) {
+	    about_team.prepend(_("<br>"));
+	    trans->addWidget(new(std::nothrow) QLabel(about_team, trans));
+	}
+
 	translatorsframe->setWidget(trans);
 	translatorsframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     }

@@ -55,8 +55,6 @@ namespace Kwave
 	virtual QSize sizeHint() const;
 	virtual QSize minimumSizeHint() const;
 
-    protected:
-
 	void addWidget(QWidget *widget);
 
     private:

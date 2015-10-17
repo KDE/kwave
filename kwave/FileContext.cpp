@@ -796,6 +796,8 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 void Kwave::FileContext::enqueueCommand(unsigned int delay,
                                        const QString &command)
 {
+    use();
+
     m_delayed_command_queue.append(
 	QPair<unsigned int, QString>(delay, command)
     );
@@ -814,6 +816,8 @@ void Kwave::FileContext::processDelayedCommand()
 
     QPair<unsigned int, QString> next = m_delayed_command_queue.first();
     m_delayed_command_timer.start(next.first);
+
+    release();
 }
 
 //***************************************************************************

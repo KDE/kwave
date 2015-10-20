@@ -28,6 +28,7 @@
 
 #include <KConfig>
 #include <KConfigGroup>
+#include <KFile>
 #include <KFileFilterCombo>
 #include <KSharedConfig>
 
@@ -76,18 +77,18 @@ Kwave::FileDialog::FileDialog(
     switch (mode) {
 	case SaveFile:
 	    m_file_widget.setOperationMode(KFileWidget::Saving);
-	    m_file_widget.setMode(KFile::Mode::File);
+	    m_file_widget.setMode(KFile::File);
 	    m_file_widget.setConfirmOverwrite(false);
 	    break;
 	case OpenFile:
 	    m_file_widget.setOperationMode(KFileWidget::Opening);
-	    m_file_widget.setMode(KFile::Mode::File |
-	                          KFile::Mode::ExistingOnly);
+	    m_file_widget.setMode(KFile::File |
+	                          KFile::ExistingOnly);
 	    break;
 	case SelectDir:
 	    m_file_widget.setOperationMode(KFileWidget::Opening);
-	    m_file_widget.setMode(KFile::Mode::Directory |
-	                          KFile::Mode::ExistingOnly);
+	    m_file_widget.setMode(KFile::Directory |
+	                          KFile::ExistingOnly);
 	    break;
     }
 

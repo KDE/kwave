@@ -65,7 +65,7 @@ Kwave::AboutDialog::AboutDialog(
     setupUi(this);
 
     /* get the about data defined in main() */
-    const KAboutData about_data = KAboutData::applicationData();
+    KAboutData about_data = KAboutData::applicationData();
 
     /* display version information in the header */
     QString kde_version = QString::fromLatin1(KXMLGUI_VERSION_STRING);
@@ -160,33 +160,16 @@ Kwave::AboutDialog::AboutDialog(
      * using message catalogs.
      */
     if (translators.isEmpty()) {
-	QString names  = ki18nc("NAME OF TRANSLATORS",
-	                         NAME_OF_TRANSLATORS).toString();
-	QString emails = ki18nc("EMAIL OF TRANSLATORS",
-	                         EMAIL_OF_TRANSLATORS).toString();
-
-	if (!names.isEmpty() && (names != _(NAME_OF_TRANSLATORS))) {
-	    const QStringList list_names(names.split(_(",")));
-
-	    QStringList list_emails;
-	    if (!emails.isEmpty() && (emails != _(EMAIL_OF_TRANSLATORS)))
-		list_emails = emails.split(_(","), QString::KeepEmptyParts);
-
-	    QStringList::const_iterator it_e = list_emails.constBegin();
-	    foreach (const QString &name, list_names) {
-		QString email;
-		if (it_e != list_emails.constEnd())
-		    email = *(it_e++);
-		translators.append(
-		    KAboutPerson(name.trimmed(), QString(), email.trimmed())
-		);
-	    }
-	}
+	about_data.setTranslator(
+	    ki18nc("NAME OF TRANSLATORS",  NAME_OF_TRANSLATORS).toString(),
+	    ki18nc("EMAIL OF TRANSLATORS", EMAIL_OF_TRANSLATORS).toString()
+	);
+	translators = about_data.translators();
     }
     /* ------------ end workaround KDE #345320 ------------ */
 
-    if ((translators.count() == 1) &&
-        (translators.first().name() == _(NAME_OF_TRANSLATORS))) {
+    if (translators.isEmpty() || ((translators.count() == 1) &&
+        (translators.first().name() == _(NAME_OF_TRANSLATORS))) ) {
 	tabwidget->removeTab(4);
     } else {
 	foreach (const KAboutPerson &translator, translators) {

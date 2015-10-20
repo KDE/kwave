@@ -19,6 +19,8 @@
 #include "config.h"
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 
+#include <limits>
+
 #include <errno.h>
 #include <math.h>
 #include <signal.h>

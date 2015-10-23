@@ -116,8 +116,9 @@ void Kwave::FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
                                      Kwave::FileProperty property)
 {
     if (label) label->setText(i18n(UTF8(m_info.name(property))) + _(":"));
-    if (widget) describeWidget(widget, i18n(UTF8(m_info.name(property))),
-                               m_info.description(property));
+    if (widget) describeWidget(widget,
+                               i18n(UTF8(m_info.name(property))),
+                               i18n(UTF8(m_info.description(property))));
 }
 
 //***************************************************************************
@@ -230,7 +231,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     /* sample rate */
     lblSampleRate->setText(i18n("Sample rate:"));
     describeWidget(cbSampleRate, lblSampleRate->text().left(
-        lblSampleRate->text().length()-1),
+        lblSampleRate->text().length() - 1),
         i18n("Here you can select one of the predefined\n"
              "well-known sample rates or you can enter\n"
              "any sample rate on your own."));
@@ -239,7 +240,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     /* bits per sample */
     lblResolution->setText(i18n("Resolution:"));
     describeWidget(sbResolution, lblResolution->text().left(
-        lblResolution->text().length()-1),
+        lblResolution->text().length() - 1),
         i18n("Select a resolution in bits in which the file\n"
              "will be saved."));
     sbResolution->setValue(m_info.bits());
@@ -247,7 +248,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     /* number of tracks */
     lblChannels->setText(i18n("Tracks:"));
     describeWidget(sbChannels, lblChannels->text().left(
-        lblChannels->text().length()-1),
+        lblChannels->text().length() - 1),
         i18n("Shows the number of tracks of the signal.\n"
              "You can add or delete tracks via the Edit menu."));
     sbChannels->setMaximum(m_info.tracks());

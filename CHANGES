@@ -20,6 +20,7 @@
  * workaround for bug in KDE #345320 (missing translators in help/about dialog)
  * about pugin: added info about translation team
  * added screenshot of the edit_label dialog
+ * bugfix: tooltips of fileinfo dialog were not translated
 
 0.9.0 [2015-05-25]
 

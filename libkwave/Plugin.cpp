@@ -211,7 +211,7 @@ int Kwave::Plugin::stop()
 	       reinterpret_cast<void *>(QThread::currentThread()),
 	       reinterpret_cast<void *>(m_thread));
 	void *buf[256];
-	size_t n = backtrace(buf, 256);
+	int n = backtrace(buf, 256);
 	backtrace_symbols_fd(buf, n, 2);
 #endif
 	return -EBUSY;

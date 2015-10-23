@@ -1161,7 +1161,7 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
 	    if (m_params.start_time_enabled && (now < t_start)) {
 		// waiting for start time to come...
 
-		int s = now.secsTo(t_start);
+		int s = Kwave::toInt(now.secsTo(t_start));
 		int m = s / 60;
 		s %= 60;
 		int h = m / 60;

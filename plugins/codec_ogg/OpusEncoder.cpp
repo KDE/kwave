@@ -606,7 +606,7 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
 }
 
 /***************************************************************************/
-static inline void _writeInt(QBuffer &buffer, int value)
+static inline void _writeInt(QBuffer &buffer, quint32 value)
 {
     quint32 x = qToLittleEndian<quint32>(value);
     buffer.write(reinterpret_cast<const char *>(&x), sizeof(x));
@@ -671,7 +671,7 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
 
     // write the vendor string == name + version of the encoder library
     const char *opus_version = opus_get_version_string();
-    quint32 len = strlen(opus_version);
+    quint32 len = quint32(strlen(opus_version));
     _writeInt(buffer, len);
     buffer.write(opus_version, len);
 

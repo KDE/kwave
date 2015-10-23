@@ -298,10 +298,10 @@ void Kwave::PlayBackOSS::flush()
     unsigned int bytes = m_buffer_used * m_encoder->rawBytesPerSample();
     m_encoder->encode(m_buffer, m_buffer_used, m_raw_buffer);
 
-    int res = 0;
+    ssize_t res = 0;
     if (m_handle)
 	res = ::write(m_handle, m_raw_buffer.data(), bytes);
-    if (res) perror(__FUNCTION__);
+    if (res < 0) perror(__FUNCTION__);
 
     m_buffer_used = 0;
 }

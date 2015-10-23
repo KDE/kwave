@@ -106,7 +106,7 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
     Q_ASSERT(!error);
 
     // convert the result back from floats to sample_t
-    unsigned int gen = src.output_frames_gen;
+    unsigned int gen = Kwave::toUint(src.output_frames_gen);
     Kwave::SampleArray out(gen);
     const float *f_out = src.data_out;
     sample_t    *s_out = out.data();

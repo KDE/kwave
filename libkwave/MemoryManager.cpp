@@ -457,7 +457,7 @@ bool Kwave::MemoryManager::convertToVirtual(Kwave::Handle handle,
     // copy old stuff to new location
     Kwave::SwapFile *swap = m_unmapped_swap[temp_handle];
     Q_ASSERT(swap);
-    swap->write(0, mem.m_data, mem.m_size);
+    swap->write(0, mem.m_data, Kwave::toUint(mem.m_size));
 
     // free the old physical memory
     ::free(mem.m_data);
@@ -505,10 +505,10 @@ bool Kwave::MemoryManager::convertToPhysical(Kwave::Handle handle,
     // copy old stuff to new location
     if (new_size <= swap->size()) {
 	// shrinked
-	swap->read(0, mem.m_data, new_size);
+	swap->read(0, mem.m_data, Kwave::toUint(new_size));
     } else {
 	// grown
-	swap->read(0, mem.m_data, swap->size());
+	swap->read(0, mem.m_data, Kwave::toUint(swap->size()));
     }
 
 #ifdef DEBUG_MEMORY

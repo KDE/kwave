@@ -175,7 +175,7 @@ int Kwave::RecordOSS::read(QByteArray &buffer, unsigned int offset)
 	             errno, strerror(errno));
 	    return -errno;
 	} else if (retval) {
-	    int res = ::read(m_fd, buf, length);
+	    ssize_t res = ::read(m_fd, buf, length);
 
 	    if ((res == -1) && (errno == EINTR))
 		return -errno; // interrupted, return without warning

@@ -28,7 +28,6 @@
 #include <QMdiSubWindow>
 #include <QStandardPaths>
 
-#include <kglobal.h>
 #include <KLocalizedString>
 
 #include "libkwave/CodecManager.h"

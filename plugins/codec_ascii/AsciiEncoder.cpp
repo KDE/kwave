@@ -27,7 +27,6 @@
 #include <QVariant>
 
 #include <KLocalizedString>
-#include <kglobal.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"

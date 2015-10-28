@@ -120,6 +120,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	bin/import-screenshots.sh			GPL2+
 	bin/make-specfile-changelog.pl			GPL2+
 	bin/menusconfig2pot.pl				GPL2+
+	bin/msgstats.pl					GPL2+
 	bin/set_version.sh				GPL2+ / portions of Martin Wilz
 	bin/svn-update-l10n.sh				GPL2+
 	bin/update-command-xref.pl			GPL2+

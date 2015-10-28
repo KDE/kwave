@@ -46,6 +46,7 @@ PROJECT(kwave)
 # distfiles           - generate subdirectory with all files for distribution
 # html_doc            - generate HTML help (for the web)
 # install             - install the package, with support for DESTDIR
+# msgstats            - show the progress of translations
 # rpm                 - create a RPM package + a src.rpm file
 # src_rpm             - create the source RPM only
 # tarball             - create a tar.bz2 archive with the sources + specfile

@@ -117,4 +117,11 @@ ELSE (NOT "${KWAVE_BUILD_LINGUAS}" STREQUAL "")
 ENDIF (NOT "${KWAVE_BUILD_LINGUAS}" STREQUAL "")
 
 #############################################################################
+### show the progress of translations                                     ###
+
+ADD_CUSTOM_TARGET(msgstats
+    COMMAND ${CMAKE_SOURCE_DIR}/bin/msgstats.pl ${CMAKE_SOURCE_DIR}
+)
+
+#############################################################################
 #############################################################################

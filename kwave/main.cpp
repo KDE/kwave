@@ -235,9 +235,9 @@ int main(int argc, char **argv)
 
     QObject::connect(
 	&service,
-	SIGNAL(activateRequested(const QStringList &, const QString &)),
+	SIGNAL(activateRequested(QStringList,QString)),
 	&app,
-	SLOT(newInstance(const QStringList &, const QString &))
+	SLOT(newInstance(QStringList,QString))
     );
 
     int retval = app.exec();

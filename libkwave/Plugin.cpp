@@ -332,13 +332,13 @@ int Kwave::Plugin::execute(QStringList &params)
 }
 
 //***************************************************************************
-bool Kwave::Plugin::canClose()
+bool Kwave::Plugin::canClose() const
 {
     return !isRunning();
 }
 
 //***************************************************************************
-bool Kwave::Plugin::isRunning()
+bool Kwave::Plugin::isRunning() const
 {
     return (m_thread) && m_thread->isRunning();
 }

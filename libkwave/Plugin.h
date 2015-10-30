@@ -106,12 +106,12 @@ namespace Kwave
 	 * Returns true if the plugin can be closed.
 	 * The default implementation returns "!isRunning()"
 	 */
-	virtual bool canClose();
+	virtual bool canClose() const;
 
 	/**
 	 * Returns true if the plugin has a running thread.
 	 */
-	bool isRunning();
+	bool isRunning() const;
 
 	/**
 	 * Returns true if the plugin should stop, e.g. when the

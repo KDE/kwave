@@ -90,7 +90,7 @@ Kwave::PluginManager::~PluginManager()
     qApp->flush();
 
     // release all loaded modules
-    foreach (QString name, m_plugin_modules.keys()) {
+    foreach (const QString &name, m_plugin_modules.keys()) {
 	PluginModule &p = m_plugin_modules[name];
 	p.m_use_count--;
 
@@ -123,7 +123,7 @@ void Kwave::PluginManager::loadAllPlugins()
     // instance of the main window!
     // NOTE: this also gives each plugin the chance to stay in memory
     //       if necessary (e.g. for codecs)
-    foreach (QString name, m_plugin_modules.keys()) {
+    foreach (const QString &name, m_plugin_modules.keys()) {
 	KwavePluginPointer plugin = createPluginInstance(name);
 	if (plugin) {
 // 	    qDebug("PluginManager::loadAllPlugins(): plugin '%s'",
@@ -281,7 +281,7 @@ bool Kwave::PluginManager::canClose()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty())
-	foreach (KwavePluginPointer plugin, m_plugin_instances)
+	foreach (const KwavePluginPointer &plugin, m_plugin_instances)
 	    if (plugin && !plugin->canClose()) return false;
 
     return true;
@@ -295,7 +295,7 @@ bool Kwave::PluginManager::onePluginRunning()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty())
-	foreach (KwavePluginPointer plugin, m_plugin_instances)
+	foreach (const KwavePluginPointer &plugin, m_plugin_instances)
 	    if (plugin && plugin->isRunning()) return true;
 
     return false;

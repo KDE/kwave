@@ -19,6 +19,7 @@
 set -e
 # set -x
 
+CWD=`dirname $0`
 CMAKE_SOURCE_DIR=$1
 
 REMOTE="svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/"
@@ -159,12 +160,6 @@ set +e
 svn status
 
 # show translation statistics
-cd "${REPOSITORY}"
-cd ..
-dir=`basename ${REPOSITORY}`
-for catalog in `find "${dir}" -name "${PO_FILE}" | sort`; do
-    echo -n ${catalog}": "
-    msgfmt --statistics ${catalog}
-done
+${CWD}/msgstats.pl ${CMAKE_SOURCE_DIR}
 
 ### EOF ###

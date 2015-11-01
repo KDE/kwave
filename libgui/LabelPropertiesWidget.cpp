@@ -23,7 +23,7 @@
 
 #include <KConfig>
 #include <KConfigGroup>
-#include <QLineEdit>
+#include <KLineEdit>
 #include <KSharedConfig>
 
 #include "libkwave/String.h"

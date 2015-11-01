@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>393</height>
+    <width>454</width>
+    <height>435</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,16 @@
    <bool>false</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>10</number>
+   </property>
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
     <number>10</number>
    </property>
    <item>
@@ -36,7 +45,16 @@ If you do not set a limit, the size of the physically installed memory in your c
       <property name="spacing">
        <number>10</number>
       </property>
-      <property name="margin">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
        <number>10</number>
       </property>
       <item>
@@ -109,7 +127,16 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
       <string>&amp;Virtual Memory</string>
      </property>
      <layout class="QGridLayout">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
        <number>10</number>
       </property>
       <property name="spacing">
@@ -136,7 +163,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="edDirectory">
+       <widget class="KLineEdit" name="edDirectory">
         <property name="toolTip">
          <string>Directory for storing swap files</string>
         </property>
@@ -232,7 +259,16 @@ If you do not set a limit, the size of the physically installed memory in your c
       <property name="spacing">
        <number>10</number>
       </property>
-      <property name="margin">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
        <number>10</number>
       </property>
       <item>
@@ -313,7 +349,16 @@ If you do not set a limit, the size of the physically installed memory in your c
      <property name="spacing">
       <number>10</number>
      </property>
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <item>
@@ -329,6 +374,11 @@ If you do not set a limit, the size of the physically installed memory in your c
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>KLineEdit</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>chkLimitPhysical</tabstop>

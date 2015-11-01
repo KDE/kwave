@@ -30,9 +30,9 @@
 #include <QProcess>
 #include <QPushButton>
 #include <QtGlobal>
-#include <QLineEdit>
 
 #include <KHelpClient>
+#include <KLineEdit>
 #include <KProcess>
 
 #include "libkwave/FileInfo.h"
@@ -217,32 +217,32 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 /**
  * load a text field with the content of the current settings
  * @param field member within m_settings
- * @param control the QLineEdit to fill with the value
+ * @param control the KLineEdit to fill with the value
  */
 #define LOAD(field, control) control->setText(m_settings.field)
 
 /**
- * take the content of a QLineEdit and save it back into m_settings
+ * take the content of a KLineEdit and save it back into m_settings
  * @param field member within m_settings
- * @param control the QLineEdit to fill with the value
+ * @param control the KLineEdit to fill with the value
  */
 #define SAVE(field, control) \
     m_settings.field = QString(control->text()).simplified()
 
 /**
- * connect the editingFinished() signal of a QLineEdit to our slot
+ * connect the editingFinished() signal of a KLineEdit to our slot
  * switchToUserDefined()
- * @param control the QLineEdit to handle
+ * @param control the KLineEdit to handle
  */
 #define CONNECT(control) \
     connect(control, SIGNAL(editingFinished()), \
     this, SLOT(switchToUserDefined()))
 
 /**
- * check if the content of a QLineEdit matches the corresponding member
+ * check if the content of a KLineEdit matches the corresponding member
  * of some "settings" record
  * @param field member within m_settings
- * @param control the QLineEdit to compare against
+ * @param control the KLineEdit to compare against
  * @return the bool variable "match" is updated (logical AND)
  */
 #define CHECK(field, control) match &= \

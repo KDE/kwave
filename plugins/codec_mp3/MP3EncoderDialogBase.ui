@@ -106,7 +106,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="edPath">
+       <widget class="KLineEdit" name="edPath">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>100</horstretch>
@@ -171,7 +171,7 @@
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QLineEdit" name="edByteOrder">
+           <widget class="KLineEdit" name="edByteOrder">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -193,7 +193,7 @@
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QLineEdit" name="edRawFormat">
+           <widget class="KLineEdit" name="edRawFormat">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -242,7 +242,7 @@
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="QLineEdit" name="edSign">
+           <widget class="KLineEdit" name="edSign">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -278,7 +278,7 @@
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QLineEdit" name="edSampleRate">
+           <widget class="KLineEdit" name="edSampleRate">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -308,7 +308,7 @@ or kHz (use [%khz] as placeholder)</string>
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QLineEdit" name="edBitsPerSample">
+           <widget class="KLineEdit" name="edBitsPerSample">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -351,7 +351,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="QLineEdit" name="edMono">
+           <widget class="KLineEdit" name="edMono">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -386,7 +386,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="3" column="2">
-           <widget class="QLineEdit" name="edStereo">
+           <widget class="KLineEdit" name="edStereo">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -468,7 +468,7 @@ use %1 as placeholder</string>
            </spacer>
           </item>
           <item row="1" column="2">
-           <widget class="QLineEdit" name="edBitrateMin">
+           <widget class="KLineEdit" name="edBitrateMin">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -491,7 +491,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="QLineEdit" name="edBitrateMax">
+           <widget class="KLineEdit" name="edBitrateMax">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -534,7 +534,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QLineEdit" name="edBitrateAvg">
+           <widget class="KLineEdit" name="edBitrateAvg">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -584,7 +584,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QLineEdit" name="edEmphasisNone">
+           <widget class="KLineEdit" name="edEmphasisNone">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -625,7 +625,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QLineEdit" name="edEmphasis5015ms">
+           <widget class="KLineEdit" name="edEmphasis5015ms">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -660,7 +660,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="QLineEdit" name="edEmphasisCCIT_J17">
+           <widget class="KLineEdit" name="edEmphasisCCIT_J17">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -689,7 +689,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="3" column="2">
-           <widget class="QLineEdit" name="edNoiseShaping">
+           <widget class="KLineEdit" name="edNoiseShaping">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -718,7 +718,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="4" column="2">
-           <widget class="QLineEdit" name="edCompatibility">
+           <widget class="KLineEdit" name="edCompatibility">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -773,7 +773,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="edCopyright">
+           <widget class="KLineEdit" name="edCopyright">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -808,7 +808,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="edOriginal">
+           <widget class="KLineEdit" name="edOriginal">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -843,7 +843,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="edProtect">
+           <widget class="KLineEdit" name="edProtect">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -888,7 +888,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QLineEdit" name="edPrepend">
+           <widget class="KLineEdit" name="edPrepend">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -911,7 +911,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="QLineEdit" name="edAppend">
+           <widget class="KLineEdit" name="edAppend">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -954,7 +954,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="0" column="1" rowspan="2">
-           <widget class="QLineEdit" name="edEncoderHelp">
+           <widget class="KLineEdit" name="edEncoderHelp">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -1002,7 +1002,7 @@ use %1 as placeholder</string>
            </spacer>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="edVersionInfo">
+           <widget class="KLineEdit" name="edVersionInfo">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -1109,6 +1109,11 @@ use %1 as placeholder</string>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>KComboBox</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>KLineEdit</header>
   </customwidget>
  </customwidgets>
  <tabstops>

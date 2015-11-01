@@ -20,8 +20,9 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QPushButton>
-#include <QLineEdit>
 #include <QListWidget>
+
+#include <KLineEdit>
 
 #include "KeywordWidget.h"
 

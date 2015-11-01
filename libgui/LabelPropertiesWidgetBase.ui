@@ -56,7 +56,7 @@ Here you can set the position of the label, either by time, by percentage of the
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="edDescription">
+      <widget class="KLineEdit" name="edDescription">
        <property name="toolTip">
         <string>some description of the label (optional)</string>
        </property>
@@ -87,7 +87,7 @@ Here you can enter some short text to describe the label.</string>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lblIndex">
+      <widget class="KLineEdit" name="lblIndex">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -158,6 +158,11 @@ This is just a numeric index of the label, starting with zero, sorted by positio
    <extends>QWidget</extends>
    <header>libgui/SelectTimeWidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>KLineEdit</header>
   </customwidget>
  </customwidgets>
  <tabstops>

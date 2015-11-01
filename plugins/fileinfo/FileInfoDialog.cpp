@@ -33,7 +33,6 @@
 #include <QWhatsThis>
 #include <QtGlobal>
 #include <QUrl>
-#include <QLineEdit>
 #include <QLocale>
 #include <QSpinBox>
 #include <QDateEdit>
@@ -43,6 +42,7 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KHelpClient>
+#include <KLineEdit>
 #include <KLocalizedString>
 #include <KSharedConfig>
 
@@ -122,7 +122,7 @@ void Kwave::FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
 }
 
 //***************************************************************************
-void Kwave::FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
+void Kwave::FileInfoDialog::initInfoText(QLabel *label, KLineEdit *edit,
                                          Kwave::FileProperty property)
 {
     initInfo(label, edit, property);

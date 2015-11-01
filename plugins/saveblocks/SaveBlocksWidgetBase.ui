@@ -82,7 +82,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QLineEdit" name="txtExample">
+    <widget class="KLineEdit" name="txtExample">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -159,6 +159,11 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>KComboBox</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>KLineEdit</header>
   </customwidget>
  </customwidgets>
  <tabstops>

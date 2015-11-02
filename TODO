@@ -178,6 +178,8 @@ o re-run cmake automatically when VERSION file has changed
 
 o no null pointer checks around "delete"
 
+o EBN: re-enable qclasses check when it is maintained again
+
 o license change to GPL v3 ?
 
 o support for visualization plugins (svn rev 2498) => DROPPED

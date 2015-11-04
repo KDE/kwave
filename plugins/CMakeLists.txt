@@ -29,7 +29,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     #########################################################################
     ### link stage                                                        ###
 
-    KDE4_ADD_LIBRARY(plugin_${_plugin} SHARED ${plugin_${_plugin}_LIB_SRCS})
+    ADD_LIBRARY(plugin_${_plugin} SHARED ${plugin_${_plugin}_LIB_SRCS})
     TARGET_LINK_LIBRARIES(plugin_${_plugin}
         kwavegui
         kwave
@@ -48,11 +48,13 @@ MACRO(KWAVE_PLUGIN _plugin)
         KF5::XmlGui
     )
 
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES PREFIX "")
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES SUFFIX "")
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES OUTPUT_NAME "${_plugin}")
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES LINK_FLAGS
-        "-Wl,--export-dynamic")
+    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES
+        PREFIX ""
+        SUFFIX ""
+        OUTPUT_NAME "${_plugin}"
+        LINK_FLAGS "-Wl,--export-dynamic"
+        ENABLE_EXPORTS TRUE
+    )
     SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
     #########################################################################

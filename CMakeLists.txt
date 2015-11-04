@@ -56,7 +56,7 @@ PROJECT(kwave)
 # tarball             - create a tar.gz file with the sources
 
 #############################################################################
-### check for the proper cmake version                                    ###
+### required versions                                                     ###
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
 
@@ -69,6 +69,15 @@ SET(ECM_MIN_VERSION "1.7.0")
 SET(QT_MIN_VERSION  "5.4.0")
 SET(KF5_MIN_VERSION "5.2.0")
 
+# Honor visibility properties for all target types (since cmake 3.3)
+IF (POLICY CMP0063)
+    CMAKE_POLICY(SET CMP0063 NEW)
+ENDIF (POLICY CMP0063)
+
+IF (POLICY CMP0059)
+    CMAKE_POLICY(SET CMP0059 NEW)
+ENDIF (POLICY CMP0059)
+
 #############################################################################
 ### path to additional cmake modules and includes                         ###
 
@@ -77,7 +86,8 @@ SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 #############################################################################
 ### Kwave version number                                                  ###
 
-FIND_PACKAGE(RequiredProgram REQUIRED)
+INCLUDE(FindRequiredProgram)
+
 FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
 INCLUDE(FindKwaveVersion)
 
@@ -172,13 +182,10 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 
 #############################################################################
-### Qt 4 support                                                          ###
+### Qt 5 support                                                          ###
 
-SET(QT_USE_QT3SUPPORT OFF)
-SET(QT_USE_QTUITOOLS ON)
-SET(QT_USE_QTCORE ON)
-SET(QT_DONTUSE_QTGUI OFF)
-SET(QT_USE_QTMAIN ON)
+SET(CMAKE_AUTOMOC TRUE)
+SET(CMAKE_AUTOMOC_RELAXED_MODE FALSE)
 
 FIND_PACKAGE(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     Concurrent
@@ -187,17 +194,16 @@ FIND_PACKAGE(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
 )
 
 #############################################################################
-### KDE 4 support                                                         ###
+### KF5 support                                                           ###
 
-SET(KDE4_ENABLE_FPIE ON)
+FIND_PACKAGE(ECM ${ECM_MIN_VERSION} REQUIRED NO_MODULE)
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} )
 
-FIND_PROGRAM(KDECONFIG_EXECUTABLE kde4-config)
-FIND_PACKAGE(KDE4 REQUIRED)
-IF(WIN32)
-  FIND_PACKAGE(KDEWIN32 REQUIRED)
-ENDIF(WIN32)
-INCLUDE(KDE4Defaults)
-ADD_DEFINITIONS(${KDE4_DEFINITIONS})
+INCLUDE(KDEInstallDirs)
+INCLUDE(KDECompilerSettings)
+INCLUDE(KDECMakeSettings)
+INCLUDE(GenerateExportHeader)
+INCLUDE(FeatureSummary)
 
 FIND_PACKAGE(KF5 REQUIRED COMPONENTS
     Completion

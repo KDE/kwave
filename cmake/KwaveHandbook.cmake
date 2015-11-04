@@ -42,7 +42,7 @@ FILE(GLOB _docbook_files "${CMAKE_CURRENT_SOURCE_DIR}/*.docbook")
 FILE(GLOB _png_files "${CMAKE_SOURCE_DIR}/doc/${_lang}/*.png")
 GET_TARGET_PROPERTY(MEINPROC_EXECUTABLE ${KDOCTOOLS_MEINPROC_EXECUTABLE} LOCATION)
 
-ADD_CUSTOM_TARGET(html_doc
+ADD_CUSTOM_TARGET(html_doc_${_lang}
     COMMENT "Generating HTML documentation for ${_lang}"
     DEPENDS ${_toolbar_pngs}
     DEPENDS ${_docbook_files}
@@ -66,10 +66,12 @@ ADD_CUSTOM_TARGET(html_doc
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
 
+ADD_DEPENDENCIES(html_doc html_doc_${_lang})
+
 #############################################################################
 ### generate and install the icons                                        ###
 
-ADD_CUSTOM_TARGET(generate_icons
+ADD_CUSTOM_TARGET(generate_icons_${_lang}
     ALL
     DEPENDS ${_toolbar_pngs}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}

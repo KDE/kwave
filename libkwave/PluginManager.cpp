@@ -157,7 +157,7 @@ void Kwave::PluginManager::stopAllPlugins()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty())
-	foreach (KwavePluginPointer plugin, m_plugin_instances)
+	foreach (const KwavePluginPointer &plugin, m_plugin_instances)
 	    if (plugin && plugin->isRunning())
 		plugin->stop() ;
 

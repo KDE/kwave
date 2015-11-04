@@ -137,8 +137,7 @@ SET(libkwave_LIB_SRCS
 
 #############################################################################
 
-QT4_AUTOMOC(${libkwave_LIB_SRCS})
-KDE4_ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
+ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
 
 TARGET_LINK_LIBRARIES(libkwave
     audiofile

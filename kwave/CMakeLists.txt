@@ -74,8 +74,7 @@ SET(kwave_ACTION_ICONS
 
 #############################################################################
 
-QT4_AUTOMOC( ${kwave_SRCS} )
-KDE4_ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
+ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
 
 #############################################################################
 
@@ -98,7 +97,10 @@ TARGET_LINK_LIBRARIES(kwave_core
 
 ADD_DEPENDENCIES(kwave_core libkwavegui libkwave)
 
-SET_TARGET_PROPERTIES(kwave_core PROPERTIES OUTPUT_NAME "kwave")
+SET_TARGET_PROPERTIES(kwave_core PROPERTIES
+    OUTPUT_NAME "kwave"
+    ENABLE_EXPORTS TRUE
+)
 
 #############################################################################
 ### install files                                                         ###

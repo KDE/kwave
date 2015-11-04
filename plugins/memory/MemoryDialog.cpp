@@ -28,12 +28,12 @@
 #include <QPointer>
 #include <QPushButton>
 #include <QSlider>
+#include <QLineEdit>
 #include <QSpinBox>
 #include <QString>
 #include <QStringList>
 
 #include <KHelpClient>
-#include <KLineEdit>
 #include <KLocalizedString>
 
 #include "libkwave/MemoryManager.h"

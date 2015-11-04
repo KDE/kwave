@@ -18,9 +18,9 @@
 #include "config.h"
 
 #include <QCheckBox>
+#include <QLineEdit>
 
 #include <KComboBox>
-#include <KLineEdit>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/String.h"

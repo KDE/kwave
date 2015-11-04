@@ -57,7 +57,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="KLineEdit" name="edCommand">
+       <widget class="QLineEdit" name="edCommand">
         <property name="minimumSize">
          <size>
           <width>300</width>
@@ -93,11 +93,6 @@
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>KLineEdit</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>edCommand</tabstop>

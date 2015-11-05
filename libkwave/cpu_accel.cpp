@@ -91,7 +91,6 @@ static uint32_t arch_accel (void)
     ;
 #endif
 
-#ifndef _MSC_VER
   void (*old_sigill_handler)(int);
   uint32_t eax, ebx, ecx, edx;
 
@@ -229,7 +228,6 @@ static uint32_t arch_accel (void)
     }
   }
 #endif /* __x86_64__ */
-#endif /* _MSC_VER */
 
 #ifndef __x86_64__
   /* test OS support for SSE */
@@ -396,36 +394,3 @@ static uint32_t arch_accel (void)
 }
 #endif
 #endif /* ARCH_SPARC */
-
-uint32_t xine_mm_accel (void)
-{
-  static int initialized = 0;
-  static uint32_t accel = 0;
-
-  if (!initialized) {
-#ifdef HAVE_MLIB
-#ifdef MLIB_LAZYLOAD
-    void *hndl;
-
-    if ((hndl = dlopen("libmlib.so.2", RTLD_LAZY | RTLD_GLOBAL | RTLD_NODELETE)) != NULL) {
-      dlclose(hndl);
-      accel |= MM_ACCEL_MLIB;
-    }
-#else
-    accel |= MM_ACCEL_MLIB;
-#endif
-#endif
-
-#if defined(__i386__) || defined(__x86_64__) || (defined(ARCH_PPC) && defined(ENABLE_ALTIVEC)) || (defined(ARCH_SPARC) && defined(ENABLE_VIS))
-    accel |= arch_accel();
-#endif
-
-    if(getenv("XINE_NO_ACCEL")) {
-      accel = 0;
-    }
-
-    initialized = 1;
-  }
-
-  return accel;
-}

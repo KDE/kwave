@@ -4,7 +4,7 @@
 /*
  * String handling functions for PowerPC.
  *
- * Copyright (C) 1996 Paul Mackerras.
+ * Copyright (C) 1996 Paul Mackerras <paulus@samba.org>.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License

@@ -50,7 +50,7 @@ sub check_po
 
     if (($translated + $fuzzy + $untranslated) != 0) {
 	printf(
-	    "| %-22s | %-5s | %s   |    %9s |    %9s |    %9s |",
+	    "| %-22s | %-11s | %s   |    %9s |    %9s |    %9s |",
 	    $name, $lang, $scope, $translated, $fuzzy, $untranslated
 	);
 
@@ -63,9 +63,9 @@ sub check_po
 
 open (IN, $top_dir . "/teamnames") or die("open input file failed");
 
-print "+------------------------+-------+-------+--------------+--------------+--------------+\n";
-print "| language name          | lang  | scope |   translated |        fuzzy | untranslated |\n";
-print "+------------------------+-------+-------+--------------+--------------+--------------+\n";
+print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";
+print "| language name          | lang        | scope |   translated |        fuzzy | untranslated |\n";
+print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";
 
 while (<IN>) {
     my $line = $_;
@@ -81,7 +81,7 @@ while (<IN>) {
 	check_po($lang_name, $catalog, "GUI", $po_gui);
 
 	if ((-e $top_dir . "/" . $po_doc) || (-e $top_dir . "/" . $po_gui)) {
-	    print "+------------------------+-------+-------+--------------+--------------+--------------+\n";
+	    print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";
 	}
 
     }

@@ -114,7 +114,7 @@ namespace Kwave
     {
     public:
 	/**
-	 * @enum Flags
+	 * @enum Flag
 	 * flags additional meta information about file info entries
 	 */
 	typedef enum {

@@ -16,7 +16,7 @@ LICENSE="BSD GPL-2 LGPL-2
 	handbook? ( FDL-1.2 )"
 SLOT="5"
 KEYWORDS="amd64 ~ppc x86"
-IUSE="alsa debug flac handbook mp3 opus oss phonon pulseaudio vorbis"
+IUSE="alsa debug flac handbook mp3 opus oss pulseaudio vorbis"
 
 RDEPEND="
 	media-libs/audiofile:=
@@ -33,7 +33,6 @@ RDEPEND="
 		media-libs/libogg
 		media-libs/opus
 	)
-	phonon? ( media-libs/phonon[qt5] )
 	pulseaudio? ( media-sound/pulseaudio )
 	vorbis? (
 		media-libs/libogg
@@ -81,7 +80,6 @@ src_configure() {
 		$(cmake-utils_use_with vorbis OGG_VORBIS)
 		$(cmake-utils_use_with opus OGG_OPUS)
 		$(cmake-utils_use_with oss)
-		$(cmake-utils_use_with phonon)
 		$(cmake-utils_use_with pulseaudio)
 		$(cmake-utils_use debug)
 	)

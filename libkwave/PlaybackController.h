@@ -107,7 +107,7 @@ namespace Kwave
 	/**
 	 * Create a playback device matching the given playback method.
 	 *
-	 * @param method a playback_method_t (e.g. Pulse, Phonon, ALSA, OSS...)
+	 * @param method a playback_method_t (e.g. Pulse, ALSA, OSS...)
 	 * @return a new PlayBackDevice or 0 if failed
 	 */
 	virtual Kwave::PlayBackDevice *createDevice(

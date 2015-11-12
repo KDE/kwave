@@ -59,13 +59,12 @@
 
 #include "PlayBack-ALSA.h"
 #include "PlayBack-OSS.h"
-#include "PlayBack-Phonon.h"
 #include "PlayBack-PulseAudio.h"
 
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
 
-KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.3",
+KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.4",
              I18N_NOOP("Playback"),
              I18N_NOOP("Thomas Eschenbacher"));
 
@@ -235,10 +234,6 @@ QList<Kwave::playback_method_t> Kwave::PlayBackPlugin::supportedMethods()
     methods.append(Kwave::PLAYBACK_PULSEAUDIO);
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
-    #ifdef HAVE_PHONON_SUPPORT
-    methods.append(Kwave::PLAYBACK_PHONON);
-#endif /* HAVE_PHONON_SUPPORT */
-
 #ifdef HAVE_ALSA_SUPPORT
     methods.append(Kwave::PLAYBACK_ALSA);
 #endif /* HAVE_ALSA_SUPPORT */
@@ -265,11 +260,6 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::createDevice(
 	    return new Kwave::PlayBackPulseAudio(
 		Kwave::FileInfo(signalManager().metaData()));
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
-
-#ifdef HAVE_PHONON_SUPPORT
-	case Kwave::PLAYBACK_PHONON:
-	    return new Kwave::PlayBackPhonon();
-#endif /* HAVE_PHONON_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
 	case Kwave::PLAYBACK_ALSA:

@@ -32,7 +32,6 @@ namespace Kwave
 	PLAYBACK_NONE = 0,   /**< none selected */
 	PLAYBACK_JACK,       /**< Jack sound daemon */
 	PLAYBACK_PULSEAUDIO, /**< PulseAudio Sound Server */
-	PLAYBACK_PHONON,     /**< Phonon (KDE) */
 	PLAYBACK_ALSA,       /**< ALSA native */
 	PLAYBACK_OSS,        /**< OSS native or ALSA OSS emulation */
 	PLAYBACK_INVALID     /**< (keep this the last entry, EOL delimiter) */

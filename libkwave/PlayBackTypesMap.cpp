@@ -39,11 +39,6 @@ void Kwave::PlayBackTypesMap::fill()
 	   _(I18N_NOOP("OSS (Open Sound System)")) );
 #endif /* HAVE_OSS_SUPPORT */
 
-#ifdef HAVE_PHONON_SUPPORT
-    append(index++, Kwave::PLAYBACK_PHONON,     _("phonon"),
-	   _(I18N_NOOP("Phonon (KDE)")) );
-#endif /* HAVE_PHONON_SUPPORT */
-
 #ifdef HAVE_PULSEAUDIO_SUPPORT
     append(index++, Kwave::PLAYBACK_PULSEAUDIO, _("pulseaudio"),
 	   _(I18N_NOOP("Pulse Audio")) );

@@ -1,8 +1,4 @@
 
-o PHONON playback is broken (skips input/too fast?)
-
-o recording via Phonon
-
 o auto-detect song borders set markers, for splitting recorded stuff into several
   parts and then save them to disc as separate files
 
@@ -107,8 +103,6 @@ o adjustable playback speed (similar to what vlcplayer offers)
 
 o support for compressed wav files, like those found on www.montypython.net
   -> MPEG 3 is still not supported by libaudiofile
-
-o get Phonon playback support running correctly
 
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 

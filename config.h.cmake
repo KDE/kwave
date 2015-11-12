@@ -39,9 +39,6 @@
 /* support playback/recording via PulseAudio */
 #cmakedefine HAVE_PULSEAUDIO_SUPPORT
 
-/* support playback via Phonon */
-#cmakedefine HAVE_PHONON_SUPPORT
-
 /* support libsamplerate */
 #cmakedefine HAVE_LIBSAMPLERATE
 

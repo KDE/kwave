@@ -33,7 +33,6 @@ PROJECT(kwave)
 # OPTION(WITH_OGG_VORBIS "enable support for ogg/vorbis files [default=on]" ON)
 # OPTION(WITH_OSS        "enable playback/recording via OSS [default=on]" ON)
 # OPTION(WITH_OPTIMIZED_MEMCPY "enable optimized memcpy [default=on]" ON)
-# OPTION(WITH_PHONON     "enable playback via Phonon [default=off]" OFF)
 # OPTION(WITH_PULSEAUDIO "enable playback/recording via PulseAudio [default=on]" ON)
 
 #############################################################################
@@ -271,12 +270,11 @@ INCLUDE(KwaveLibaudiofileSupport)
 INCLUDE(KwaveLibsamplerateSupport)
 
 #############################################################################
-### optionally: OSS, ALSA, PulseAudio and Phonon support                  ###
+### optionally: OSS, ALSA and PulseAudio support                          ###
 ### for playback/recording                                                ###
 
 INCLUDE(KwaveOSSSupport)
 INCLUDE(KwaveALSASupport)
-INCLUDE(KwavePhononSupport)
 INCLUDE(KwavePulseAudioSupport)
 
 #############################################################################

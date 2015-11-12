@@ -765,12 +765,6 @@
 		    default=<literal>on</literal>]
 		</para></listitem>
 		<listitem><para>
-		    <literal>WITH_PHONON</literal>
-		    enable playback via Phonon (for testing only)
-		    [<literal>on</literal>/<literal>off</literal>,
-		    default=<literal>off</literal>]
-		</para></listitem>
-		<listitem><para>
 		    <literal>WITH_PULSEAUDIO</literal>
 		    enable playback/recording via PulseAudio
 		    [<literal>on</literal>/<literal>off</literal>,

@@ -185,6 +185,10 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
 	       static_cast<int>(m_playback_params.method),
 	       static_cast<int>(method));
 	setMethod(method); // -> recursion
+
+	// remove hourglass
+	QApplication::restoreOverrideCursor();
+
 	return;
     }
 
@@ -199,6 +203,10 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
 	// oops, something has failed :-(
 	setSupportedDevices(QStringList());
 	setDevice(QString());
+
+	// remove hourglass
+	QApplication::restoreOverrideCursor();
+
 	return;
     }
 

@@ -24,6 +24,7 @@
  * new make target: "make msgstats" to show the progress of translations
  * compile fix for armv7l
  * playback: dropped Phonon support (was broken and no longer supported by KF5)
+ * bugfix: hourglass cursor was not taken back in playback setup dialog
 
 0.9.0 [2015-05-25]
 

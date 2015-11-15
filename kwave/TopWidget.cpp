@@ -962,6 +962,16 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const QUrl &url)
 		    Q_ASSERT(m_context_map[0] == context);
 		    m_context_map.remove(0);
 		}
+
+		// NOTE: do not handle the following context switch
+		//       notification, it might be handled with a
+		//       refcount that has already been set to zero
+		disconnect(
+		    this,
+		    SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
+		    context,
+		    SLOT(contextSwitched(Kwave::FileContext*))
+		);
 		context->release();
 	    }
 

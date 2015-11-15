@@ -530,8 +530,9 @@ enum mad_flow Kwave::MP3Decoder::handleError(void */*data*/,
 		error = i18n("File contains invalid data");
 		break;
 	default:
-		error = i18n("Unknown error 0x%X. Damaged file?",
-		static_cast<int>(stream->error));
+		error = i18n("Unknown error 0x%1. Damaged file?",
+		    QString::number(
+		        static_cast<int>(stream->error), 16).toUpper());
     }
 
     long unsigned int pos = stream->this_frame - m_buffer;

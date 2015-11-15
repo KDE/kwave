@@ -1,7 +1,6 @@
 /*
  * BK Id: SCCS/s.string.S 1.9 10/25/01 10:08:51 trini
- */
-/*
+ *
  * String handling functions for PowerPC.
  *
  * Copyright (C) 1996 Paul Mackerras <paulus@samba.org>.

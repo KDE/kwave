@@ -452,8 +452,7 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
     m_rate = rate;
 
     if (channels > 255)
-	return i18n("%1 channels are not supported, maximum is 255").arg(
-	    channels);
+	return i18n("%1 channels are not supported, maximum is 255", channels);
 
     // close the previous device
     if (m_pa_stream) close();

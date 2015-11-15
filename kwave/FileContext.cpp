@@ -848,7 +848,7 @@ QString Kwave::FileContext::windowCaption(bool with_modified) const
 	        "for window title: "
 	        "%1 = Name of the file, "
 	        "%2 = Instance number when opened multiple times",
-	        "%1 <%2>").arg(name).arg(m_instance_nr);
+	        "%1 <%2>", name, m_instance_nr);
 
     if (with_modified) {
 	bool modified = (m_signal_manager) ?

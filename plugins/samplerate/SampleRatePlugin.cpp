@@ -146,8 +146,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 	     Qt::BlockingQueuedConnection);
     emit setProgressText(
 	i18n("Changing sample rate from %1 kHz to %2 kHz...",
-	QString::number(old_rate   / 1E3),
-	QString::number(m_new_rate / 1E3))
+	     (old_rate   / 1E3), (m_new_rate / 1E3))
     );
 
     // create the converter

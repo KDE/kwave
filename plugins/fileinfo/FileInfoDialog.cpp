@@ -214,10 +214,10 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 	    edFileSize->setText(i18n("%1 bytes", dotted));
 	} else if (size < 10*1024*1024) {
 	    edFileSize->setText(i18n("%1 kB (%2 byte)",
-		QString::number(size / 1024), dotted));
+		(size / 1024), dotted));
 	} else {
 	    edFileSize->setText(i18n("%1 MB (%2 byte)",
-		QString::number(size / (1024*1024)), dotted));
+		(size / (1024*1024)), dotted));
 	}
     } else {
 	edFileSize->setEnabled(false);

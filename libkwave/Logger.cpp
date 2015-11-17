@@ -74,7 +74,7 @@ bool Kwave::Logger::open(const QString& filename)
 	QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
     if (!m_logfile || (!m_logfile->isWritable())) {
 	if (Kwave::MessageBox::warningContinueCancel(0,
-	    i18n("Failed opening the log file '%1' for writing").arg(
+	    i18n("Failed opening the log file '%1' for writing",
 	    filename)) != KMessageBox::Continue)
 	{
 	    return false;

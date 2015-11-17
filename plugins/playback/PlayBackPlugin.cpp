@@ -425,8 +425,8 @@ void Kwave::PlayBackPlugin::testPlayBack()
 	progress->setValue(0);
 	progress->setLabelText(
 	    _("<html><p><br>") +
-	    i18n("You should now hear a %1 Hz test tone.<br><br>"
-		    "(If you hear clicks or dropouts, please increase<br>"
+	    i18n("You should now hear a %1 Hz test tone.<br/><br/>"
+		    "(If you hear clicks or dropouts, please increase<br/>"
 		    "the buffer size and try again)",
 		    Kwave::toInt(PLAYBACK_TEST_FREQUENCY)) +
 	    _("</p></html>")

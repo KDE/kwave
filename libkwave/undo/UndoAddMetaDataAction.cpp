@@ -128,8 +128,7 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
 		"name of the undo action for inserting multiple "
 		"meta data objects of the same type: "
 		"%1=number of elements, %2=name of one element in singular",
-		"Insert %1 %2 objects",
-		name
+		"Insert %1 %2 objects", meta_data.count(), name
 	    );
 	    break;
 	}

@@ -504,14 +504,14 @@ enum mad_flow Kwave::MP3Decoder::handleError(void */*data*/,
 	case MAD_ERROR_BUFLEN:
 	case MAD_ERROR_BUFPTR:
 	case MAD_ERROR_NOMEM:
-		error = i18n("Out of memory");
-		break;
+	    error = i18n("Out of memory");
+	    break;
 	case MAD_ERROR_BADCRC:
-		error = i18n("Checksum error");
-		break;
+	    error = i18n("Checksum error");
+	    break;
 	case MAD_ERROR_LOSTSYNC:
-		error = i18n("Synchronization lost");
-		break;
+	    error = i18n("Synchronization lost");
+	    break;
 	case MAD_ERROR_BADLAYER:
 	case MAD_ERROR_BADBITRATE:
 	case MAD_ERROR_BADSAMPLERATE:
@@ -527,12 +527,12 @@ enum mad_flow Kwave::MP3Decoder::handleError(void */*data*/,
 	case MAD_ERROR_BADHUFFTABLE:
 	case MAD_ERROR_BADHUFFDATA:
 	case MAD_ERROR_BADSTEREO:
-		error = i18n("File contains invalid data");
-		break;
+	    error = i18n("File contains invalid data");
+	    break;
 	default:
-		error = i18n("Unknown error 0x%1. Damaged file?",
-		    QString::number(
-		        static_cast<int>(stream->error), 16).toUpper());
+	    QString err_hex = QString::number(
+		static_cast<int>(stream->error), 16).toUpper();
+	    error = i18n("Unknown error 0x%1. Damaged file?", err_hex);
     }
 
     long unsigned int pos = stream->this_frame - m_buffer;

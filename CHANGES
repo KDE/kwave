@@ -1,8 +1,8 @@
 
-0.9.x [2015-xx-xx]
+0.9.1 [2016-01-xx]
 
  * ported to KDE Frameworks 5 (KF5) / Qt5
- * playback via Qt Multimedia Audio
+ * playback via Qt Multimedia
  * bugfix: saved plugin parameter lists with escaped characters were not
    unescaped when loading again
  * compile fix for armv7l

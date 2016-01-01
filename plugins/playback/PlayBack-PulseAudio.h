@@ -34,7 +34,6 @@
 #include <QList>
 #include <QMap>
 #include <QMutex>
-#include <QSemaphore>
 #include <QString>
 #include <QWaitCondition>
 

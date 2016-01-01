@@ -1955,6 +1955,7 @@ PREDEFINED             = DEBUG \
                          HAVE_OSS_SUPPORT \
                          HAVE_OGG_OPUS \
                          HAVE_OGG_VORBIS \
+                         HAVE_QT_AUDIO_SUPPORT \
                          HAVE_SYSCONF \
                          HAVE_SYSINFO \
                          HAVE_SYSINFO_MEMUNIT

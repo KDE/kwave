@@ -724,6 +724,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/playback/PlayBack-OSS.h			GPL2+
 	plugins/playback/PlayBack-PulseAudio.cpp	GPL2+
 	plugins/playback/PlayBack-PulseAudio.h		GPL2+
+	plugins/playback/PlayBack-Qt.cpp		GPL2+
+	plugins/playback/PlayBack-Qt.h			GPL2+
 	plugins/playback/PlayBackPlugin.cpp		GPL2+
 	plugins/playback/PlayBackPlugin.h		GPL2+
 

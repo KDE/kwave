@@ -39,7 +39,6 @@
 #include <KUser>
 
 #include "libkwave/FileInfo.h"
-#include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 #include "libkwave/memcpy.h"

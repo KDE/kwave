@@ -20,11 +20,11 @@
 #include <errno.h>
 #include <new>
 
+#include <QApplication>
 #include <QFile>
 #include <QLocale>
 #include <QPointer>
 #include <QTextStream>
-#include <QApplication>
 #include <QMdiSubWindow>
 #include <QStandardPaths>
 

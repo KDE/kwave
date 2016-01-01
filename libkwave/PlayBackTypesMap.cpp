@@ -44,6 +44,11 @@ void Kwave::PlayBackTypesMap::fill()
 	   _(I18N_NOOP("Pulse Audio")) );
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
+#ifdef HAVE_QT_AUDIO_SUPPORT
+    append(index++, Kwave::PLAYBACK_QT_AUDIO, _("qt_audio"),
+	   _(I18N_NOOP("Qt Multimedia Audio")) );
+#endif /* HAVE_QT_AUDIO_SUPPORT */
+
     if (!index) qWarning("no playback method defined!");
 }
 

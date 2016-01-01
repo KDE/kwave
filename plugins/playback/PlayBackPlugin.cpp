@@ -60,6 +60,7 @@
 #include "PlayBack-ALSA.h"
 #include "PlayBack-OSS.h"
 #include "PlayBack-PulseAudio.h"
+#include "PlayBack-Qt.h"
 
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
@@ -230,6 +231,10 @@ QList<Kwave::playback_method_t> Kwave::PlayBackPlugin::supportedMethods()
 {
     QList<Kwave::playback_method_t> methods;
 
+#ifdef HAVE_QT_AUDIO_SUPPORT
+    methods.append(Kwave::PLAYBACK_QT_AUDIO);
+#endif /* HAVE_QT_AUDIO_SUPPORT */
+
 #ifdef HAVE_PULSEAUDIO_SUPPORT
     methods.append(Kwave::PLAYBACK_PULSEAUDIO);
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
@@ -255,6 +260,11 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::createDevice(
 	   static_cast<int>(method) );
 
     switch (method) {
+#ifdef HAVE_QT_AUDIO_SUPPORT
+	case Kwave::PLAYBACK_QT_AUDIO:
+	    return new Kwave::PlayBackQt();
+#endif /* HAVE_QT_AUDIO_SUPPORT */
+
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 	case Kwave::PLAYBACK_PULSEAUDIO:
 	    return new Kwave::PlayBackPulseAudio(

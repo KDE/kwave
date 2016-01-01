@@ -554,7 +554,7 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
                                   unsigned int channels, unsigned int bits,
                                   unsigned int bufbase)
 {
-    qDebug("PlayBackALSA::open(device=%s,rate=%0.1f,channels=%u, bits=%u, "
+    qDebug("PlayBackALSA::open(device=%s, rate=%0.1f, channels=%u, bits=%u, "
            "bufbase=%u)", DBG(device), rate, channels, bits, bufbase);
 
     m_device_name = device;

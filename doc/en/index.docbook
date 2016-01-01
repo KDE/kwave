@@ -770,6 +770,12 @@
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_QT_AUDIO</literal>
+		    enable playback via Qt Multimedia
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
 	    </itemizedlist>
 	</para>
 

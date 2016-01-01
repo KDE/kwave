@@ -34,6 +34,7 @@ PROJECT(kwave)
 # OPTION(WITH_OSS        "enable playback/recording via OSS [default=on]" ON)
 # OPTION(WITH_OPTIMIZED_MEMCPY "enable optimized memcpy [default=on]" ON)
 # OPTION(WITH_PULSEAUDIO "enable playback/recording via PulseAudio [default=on]" ON)
+# OPTION(WITH_QT_AUDIO   "enable playback via Qt Multimedia [default=on]" ON)
 
 #############################################################################
 ### toplevel build targets:                                               ###
@@ -180,8 +181,16 @@ SET(CMAKE_AUTOMOC_RELAXED_MODE FALSE)
 FIND_PACKAGE(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     Concurrent
     Core
+    Multimedia
     Widgets
 )
+
+# Qt Multimedia support
+OPTION(WITH_QT_AUDIO "enable playback via Qt Multimedia [default=on]" ON)
+IF (WITH_QT_AUDIO)
+    SET(HAVE_QT_AUDIO_SUPPORT on)
+ENDIF (WITH_QT_AUDIO)
+
 
 #############################################################################
 ### KF5 support                                                           ###

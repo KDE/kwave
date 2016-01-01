@@ -39,6 +39,9 @@
 /* support playback/recording via PulseAudio */
 #cmakedefine HAVE_PULSEAUDIO_SUPPORT
 
+/* support playback via Qt */
+#cmakedefine HAVE_QT_AUDIO_SUPPORT
+
 /* support libsamplerate */
 #cmakedefine HAVE_LIBSAMPLERATE
 

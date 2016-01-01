@@ -173,6 +173,11 @@ namespace Kwave
 	 */
 	bool closeFile();
 
+    protected:
+	friend class App;
+	friend class TopWidget;
+	friend class UsageGuard;
+
 	/**
 	 * increments the usage count of this context, prevents it from
 	 * being deleted

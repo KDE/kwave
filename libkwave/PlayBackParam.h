@@ -31,6 +31,7 @@ namespace Kwave
     typedef enum {
 	PLAYBACK_NONE = 0,   /**< none selected */
 	PLAYBACK_JACK,       /**< Jack sound daemon */
+	PLAYBACK_QT_AUDIO,   /**< Qt Multimedia */
 	PLAYBACK_PULSEAUDIO, /**< PulseAudio Sound Server */
 	PLAYBACK_ALSA,       /**< ALSA native */
 	PLAYBACK_OSS,        /**< OSS native or ALSA OSS emulation */

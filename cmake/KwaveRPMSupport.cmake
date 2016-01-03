@@ -60,7 +60,6 @@ GET_LSM(RPM_COPYRIGHT "Copying-policy")
 GET_LSM(RPM_URL "Homepage")
 GET_LSM(RPM_VENDOR "Maintained-by")
 SET(RPM_VENDOR "Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>")
-SET(prefix "${KDE4_INSTALL_DIR}")
 
 #############################################################################
 ### generate the .changes file                                            ###
@@ -165,13 +164,13 @@ SET(_src_rpm ${_rpm_topdir}/SRPMS/kwave-${RPM_FULL_VERSION}.src.rpm)
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_src_rpm}
     COMMAND ${MKDIR_EXECUTABLE} -p ${_rpm_topdir}/{SPECS,SOURCES,RPMS,SRPMS,BUILD}
-    COMMAND ${TAR_EXECUTABLE} -x -O -f ${_tarball_bz2} --wildcards \\*.spec >
-        ${_rpm_topdir}/SPECS/kwave-${RPM_FULL_VERSION}.spec
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${_specfile} ${_rpm_topdir}/SPECS/kwave-${RPM_FULL_VERSION}.spec
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${_tarball_bz2} ${_rpm_topdir}/SOURCES/kwave-${RPM_FULL_VERSION}.tar.bz2
     COMMAND ${RPMBUILD_EXECUTABLE} -bs --nodeps
         ${_rpm_topdir}/SPECS/kwave-${RPM_FULL_VERSION}.spec
-    DEPENDS ${_tarball_bz2}
+    DEPENDS ${_specfile} ${_tarball_bz2}
 )
 
 ADD_CUSTOM_TARGET(src_rpm

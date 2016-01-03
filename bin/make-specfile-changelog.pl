@@ -67,11 +67,10 @@ while (<IN>) {
 	}
 
 	print OUT "\n";
-	print OUT "-------------------------------------------------------------------\n";
-	print OUT $date . " - " . $author . "\n";
-	print OUT "\n";
+	print OUT "# -------------------------------------------------------------------\n";
+	print OUT "* " . $date . " " . $author . "\n";
 	if ($version) {
-	    print OUT "- " . $version . "\n";
+	    print OUT "  " . $version . "\n";
 	}
     }
     elsif ($a)

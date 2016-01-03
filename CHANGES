@@ -1,4 +1,3 @@
-
 0.9.1 [2016-01-xx]
 
  * ported to KDE Frameworks 5 (KF5) / Qt5
@@ -19,13 +18,14 @@
  * saveblocks: added patterns to include file info (file meta data) or the
    title of the current block
  * workaround for bug in KDE #345320 (missing translators in help/about dialog)
- * about pugin: added info about translation team
+ * about plugin: added info about translation team
  * added screenshot of the edit_label dialog
- * bugfix: tooltips of fileinfo dialog were not translated
+ * bugfix: tooltips of the fileinfo dialog were not translated
  * new make target: "make msgstats" to show the progress of translations
  * compile fix for armv7l
  * playback: dropped Phonon support (was broken and no longer supported by KF5)
  * bugfix: hourglass cursor was not taken back in playback setup dialog
+ * RPM: format of changelog has changed
 
 0.9.0 [2015-05-25]
 

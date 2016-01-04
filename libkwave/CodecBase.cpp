@@ -55,9 +55,8 @@ void Kwave::CodecBase::addMimeType(const char *name,
     QMimeDatabase db;
     QMimeType t = db.mimeTypeForName(_(name));
 
-    if (t.isDefault()) {
-// 	qWarning("mime type '%s' not registered, using built-in!",
-// 	         DBG(name));
+    if (t.isDefault() || t.name().isEmpty()) {
+// 	qWarning("mime type '%s' not registered, using built-in!", name);
 	type.name        = _(name);
 	type.description = description;
 	type.patterns    = _(patterns).split(_("; "), QString::SkipEmptyParts);

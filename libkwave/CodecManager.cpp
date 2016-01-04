@@ -170,7 +170,7 @@ QString Kwave::CodecManager::encodingFilter()
 	    QString extensions = type.patterns.join(_(" "));
 
 	    // skip if extensions are already known/present
-	    if (list.join(_("\n")).contains(extensions))
+	    if (!list.isEmpty() && list.join(_("\n")).contains(extensions))
 		continue;
 
 	    // otherwise append to the list
@@ -206,7 +206,8 @@ QString Kwave::CodecManager::decodingFilter()
 	    QString extensions = type.patterns.join(_(" "));
 
 	    // skip if extensions are already known/present
-	    if (list.join(_("\n")).contains(extensions)) continue;
+	    if (!list.isEmpty() && list.join(_("\n")).contains(extensions))
+		continue;
 
 	    // otherwise append to the list
 	    all_extensions += type.patterns;
@@ -214,8 +215,7 @@ QString Kwave::CodecManager::decodingFilter()
 	    QString comment =
 		type.description.replace(QRegExp(_("/")), _(","));
 	    entry += _("|") + comment;
-	    list.append(entry +
-		_(" (") + extensions + _(")"));
+	    list.append(entry +	_(" (") + extensions + _(")"));
 	}
     }
 

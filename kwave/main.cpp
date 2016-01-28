@@ -230,7 +230,7 @@ int main(int argc, char **argv)
                          cmdline.isSet(_("iconic")));
     if (show_splash) splash.show();
 
-    // now as the splash screen is in place, we cat start a new instance
+    // now as the splash screen is in place, we can start a new instance
     app.newInstance(app.arguments(), QString());
 
     QObject::connect(

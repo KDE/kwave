@@ -8,7 +8,7 @@ KDE_LINGUAS="@KWAVE_BUILD_LINGUAS_STRING@"
 KDE_HANDBOOK="optional"
 inherit kde5
 
-DESCRIPTION="A sound editor for KDE that can edit many types of audio files"
+DESCRIPTION="@RPM_DESCRIPTION@"
 HOMEPAGE="http://kwave.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}-1.tar.bz2"
 

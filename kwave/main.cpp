@@ -189,9 +189,9 @@ int main(int argc, char **argv)
 	_(PACKAGE),
 	i18n("Kwave"),
 	_(PACKAGE_VERSION),
-	i18n("A sound editor for KDE"),
+	i18n("A sound editor built on KDE Frameworks 5"),
 	KAboutLicense::GPL_V2,
-        i18n("(c) 2015, Thomas Eschenbacher"),
+        i18n("(c) 2016, Thomas Eschenbacher"),
 	QString(),
 	_("http://kwave.sourceforge.net"),
 	_("Thomas.Eschenbacher@gmx.de")
@@ -202,7 +202,7 @@ int main(int argc, char **argv)
     KAboutData::setApplicationData(about);
 
     /* show some version info */
-    printf("\nThis is %s v%s (compiled for KDE %s)\n",
+    printf("\nThis is %s v%s (compiled for KDE Frameworks %s)\n",
 	about.productName().toLatin1().data(),
 	about.version().toLatin1().data(),
 	KXMLGUI_VERSION_STRING

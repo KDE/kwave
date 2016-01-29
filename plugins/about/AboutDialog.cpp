@@ -72,7 +72,7 @@ Kwave::AboutDialog::AboutDialog(
     QString kwave_version = about_data.componentName()+
         _(" ") + about_data.version() + _(" ");
     QString header_text = _("<h2>") + kwave_version +
-        i18n("(built for KDE %1)", kde_version) + _("</h2>");
+        i18n("(built for KDE Frameworks %1)", kde_version) + _("</h2>");
     header->setText(header_text);
 
     /* the frame containing the developer information */

@@ -983,7 +983,7 @@ void Kwave::RecordPlugin::startRecording()
 	const KAboutData about_data = KAboutData::applicationData();
 	QString software = about_data.componentName() + _("-") +
 	                   about_data.version() +
-	                   i18n(" for KDE ") +
+	                   i18n(" for KDE Frameworks ") +
 	                   _(KXMLGUI_VERSION_STRING);
 	qDebug("adding software tag: '%s'", DBG(software));
 	fileInfo.set(Kwave::INF_SOFTWARE, software);

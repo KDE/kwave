@@ -323,10 +323,11 @@
     <date>2015-05-25</date>
     <releaseinfo>&version;</releaseinfo>
 
-    <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
+    <abstract><para>&kwave; is a simple sound editor built on KDE Frameworks 5.</para></abstract>
 
     <keywordset>
 	<keyword>KDE</keyword>
+	<keyword>KF5</keyword>
 	<keyword>multimedia</keyword>
 	<keyword>sound</keyword>
 	<keyword>audio</keyword>
@@ -348,7 +349,7 @@
 <chapter id="introduction"><title>Introduction</title>
 
     <para>
-    	This is "&kwave;", a simple sound editor for KDE Frameworks 5.
+    	This is "&kwave;", a simple sound editor built on KDE Frameworks 5.
 	Its features include:
 	<itemizedlist>
     	<listitem><para>
@@ -1646,7 +1647,7 @@
 	    <para>
 	    For example, the following command starts a &kwave; and opens all sounds
 	    of the KDE window manager, each in a new window or sub window:
-	    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
+	    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE-*.ogg</filename></command></screen>
 	    </para>
 	    <para>
 		It is also possible to pass &kwave; text commands, encoded as a

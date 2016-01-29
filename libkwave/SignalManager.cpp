@@ -399,7 +399,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 	    const KAboutData about_data = KAboutData::applicationData();
 	    QString software = about_data.displayName() + _("-") +
 	                       about_data.version() +
-	                       i18n(" for KDE ") +
+	                       i18n(" for KDE Frameworks ") +
 			       _(KXMLGUI_VERSION_STRING);
 	    qDebug("adding software tag: '%s'", DBG(software));
 	    file_info.set(Kwave::INF_SOFTWARE, software);

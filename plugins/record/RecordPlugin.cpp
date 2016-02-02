@@ -982,9 +982,9 @@ void Kwave::RecordPlugin::startRecording()
 	// add our Kwave Software tag
 	const KAboutData about_data = KAboutData::applicationData();
 	QString software = about_data.componentName() + _("-") +
-	                   about_data.version() +
-	                   i18n(" for KDE Frameworks ") +
-	                   _(KXMLGUI_VERSION_STRING);
+	                   about_data.version() + _(" ") +
+	                   i18n("(built for KDE Frameworks %1)",
+	                   _(KXMLGUI_VERSION_STRING));
 	qDebug("adding software tag: '%s'", DBG(software));
 	fileInfo.set(Kwave::INF_SOFTWARE, software);
 

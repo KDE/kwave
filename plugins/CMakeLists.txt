@@ -49,8 +49,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     )
 
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES
-        PREFIX ""
-        SUFFIX ""
+        PREFIX "kwaveplugin_"
         OUTPUT_NAME "${_plugin}"
         LINK_FLAGS "-Wl,--export-dynamic"
         ENABLE_EXPORTS TRUE
@@ -65,7 +64,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     INSTALL(TARGETS
         plugin_${_plugin}
         LIBRARY
-        DESTINATION ${DATA_INSTALL_DIR}/kwave/plugins
+        DESTINATION ${PLUGIN_INSTALL_DIR}
         PERMISSIONS OWNER_READ OWNER_EXECUTE
                     GROUP_READ GROUP_EXECUTE
                     WORLD_READ WORLD_EXECUTE

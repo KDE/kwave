@@ -26,6 +26,7 @@
  * playback: dropped Phonon support (was broken and no longer supported by KF5)
  * bugfix: hourglass cursor was not taken back in playback setup dialog
  * RPM: format of changelog has changed
+ * changed plugin install directory and prefix/suffix
 
 0.9.0 [2015-05-25]
 

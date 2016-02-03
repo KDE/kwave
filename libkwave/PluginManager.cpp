@@ -613,15 +613,20 @@ void Kwave::PluginManager::searchPluginModules()
     }
 
     QStringList files;
-    QStringList dirs(QStandardPaths::standardLocations(
-	QStandardPaths::GenericDataLocation));
+    QStringList dirs(QLibraryInfo::location(QLibraryInfo::PluginsPath));
+    QString plugin_path = _(qgetenv("QT_PLUGIN_PATH").constData());
+    foreach (const QString &dir, plugin_path.split(_(":"))) {
+	if (!dirs.contains(dir)) dirs.append(dir);
+    }
     foreach (const QString &dir, dirs) {
 	const QChar sep = QDir::separator();
-	QDir d(dir + sep + _("kwave") + sep + _("plugins"));
+	QDir d(dir);
 	QStringList f = d.entryList(
 	    QDir::Files | QDir::Readable | QDir::Executable, QDir::Name);
-	foreach (const QString &file, f)
-	    files += d.path() + sep + file;
+	foreach (const QString &file, f) {
+	    if (file.startsWith(_("kwaveplugin_")))
+		files += d.path() + sep + file;
+	}
     }
 
     foreach (const QString &file, files) {

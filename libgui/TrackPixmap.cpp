@@ -554,7 +554,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     float *sig_buffer;
     float scale_y;
     int i;
-    register int k;
+    int k;
     int N;
     int sample;
     int x;

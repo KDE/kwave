@@ -71,7 +71,7 @@ void decode_linear(const quint8 *src, sample_t *dst, unsigned int count)
 	count--;
 
 	// read from source buffer
-	register quint32 s = 0;
+	quint32 s = 0;
 	if (is_little_endian) {
 	    // little endian
 	    for (unsigned int byte = 0; byte < bytes; ++byte, ++src) {

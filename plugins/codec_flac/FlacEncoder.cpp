@@ -288,8 +288,8 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
 		if (!buf) break;
 
 		const Kwave::SampleArray &in = in_buffer;
-		for (register unsigned int in_pos = 0; in_pos < len; in_pos++) {
-		    register FLAC__int32 s = in[in_pos];
+		for (unsigned int in_pos = 0; in_pos < len; in_pos++) {
+		    FLAC__int32 s = in[in_pos];
 		    if (div) s /= div;
 		    if (s > clip_max) s = clip_max;
 		    if (s < clip_min) s = clip_min;

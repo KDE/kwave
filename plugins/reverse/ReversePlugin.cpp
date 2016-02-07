@@ -212,7 +212,7 @@ void Kwave::ReversePlugin::reverse(Kwave::SampleArray &buffer)
     sample_t *a = buffer.data();
     sample_t *b = buffer.data() + (buffer.size() - 1);
     for (; count; count--) {
-	register sample_t h = *a;
+	sample_t h = *a;
 	*a++ = *b;
 	*b-- = h;
     }

@@ -479,7 +479,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
 	    // sample conversion from 24bit to raw PCM, native endian
 	    for (y = 0; y < out_tracks; ++y) {
-		register sample_t s = *(src_buf++);
+		sample_t s = *(src_buf++);
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
 		// big endian
 		if (bits >= 8)

@@ -110,13 +110,13 @@ Kwave::Decoder *Kwave::FlacDecoder::instance()
 	Kwave::Writer *writer = (*m_dest)[track];
 	Q_ASSERT(writer);
 	if (!writer) continue;
-	register const FLAC__int32 *src = buffer[track];
-	register sample_t *d = dst.data();
+	const FLAC__int32 *src = buffer[track];
+	sample_t *d = dst.data();
 
 	for (unsigned int sample = 0; sample < samples; sample++) {
 	    // the following cast is only necessary if
 	    // sample_t is not equal to a quint32
-	    register sample_t s  = static_cast<sample_t>(*src++);
+	    sample_t s  = static_cast<sample_t>(*src++);
 
 	    // correct precision
 	    if (shift) s *= mul;

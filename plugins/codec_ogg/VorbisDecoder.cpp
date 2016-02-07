@@ -292,7 +292,7 @@ int Kwave::VorbisDecoder::decode(Kwave::MultiWriter &dst)
     // whatever PCM format and write it out
     while ((samples = vorbis_synthesis_pcmout(&m_vd, &pcm)) > 0)
     {
-	register int bout = decodeFrame(pcm, samples, dst);
+	int bout = decodeFrame(pcm, samples, dst);
 
 	// tell libvorbis how many samples we
 	// actually consumed

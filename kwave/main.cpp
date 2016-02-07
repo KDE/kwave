@@ -24,6 +24,8 @@
 #include <QString>
 
 #include <KAboutData>
+#include <KCrash>
+#include <kcrash_version.h>
 #include <KDBusService>
 #include <KLocalizedString>
 #include <kxmlgui_version.h>
@@ -213,6 +215,11 @@ int main(int argc, char **argv)
     app.setApplicationVersion(_(PACKAGE_VERSION));
     app.setOrganizationDomain(_("kde.org"));
     cmdline.process(app);
+
+    // initialize the crash handler (only if KCrash >= 5.15 is available)
+#if KCrash_VERSION >= ((5 << 16) | (15 << 8) | (0))
+    KCrash::initialize();
+#endif
 
     /* let Kwave be a "unique" application, only one instance */
     KDBusService service(KDBusService::Unique);

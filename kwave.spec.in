@@ -73,6 +73,7 @@ Requires:       alsa
 Requires:       kconfig                 >= %{kf5_min_version}
 Requires:       kconfigwidgets          >= %{kf5_min_version}
 Requires:       kcoreaddons             >= %{kf5_min_version}
+Requires:       kcrash                  >= %{kf5_min_version}
 Requires:       kdbusaddons             >= %{kf5_min_version}
 Requires:       kdoctools               >= %{kf5_min_version}
 Requires:       kguiaddons              >= %{kf5_min_version}
@@ -99,6 +100,7 @@ BuildRequires:  fdupes
 BuildRequires:  kconfig-devel           >= %{kf5_min_version}
 BuildRequires:  kconfigwidgets-devel    >= %{kf5_min_version}
 BuildRequires:  kcoreaddons-devel       >= %{kf5_min_version}
+BuildRequires:  kcrash-devel            >= %{kf5_min_version}
 BuildRequires:  kdbusaddons-devel       >= %{kf5_min_version}
 BuildRequires:  kdoctools-devel         >= %{kf5_min_version}
 BuildRequires:  kguiaddons-devel        >= %{kf5_min_version}
@@ -136,6 +138,7 @@ Requires:       alsa-lib
 Requires:       kf5-kconfig              >= %{kf5_min_version}
 Requires:       kf5-kconfigwidgets       >= %{kf5_min_version}
 Requires:       kf5-kcoreaddons          >= %{kf5_min_version}
+Requires:       kf5-kcrash               >= %{kf5_min_version}
 Requires:       kf5-kdbusaddons          >= %{kf5_min_version}
 Requires:       kf5-kdoctools            >= %{kf5_min_version}
 Requires:       kf5-kguiaddons           >= %{kf5_min_version}
@@ -157,6 +160,7 @@ BuildRequires:  fdupes
 BuildRequires:  kf5-kconfig-devel        >= %{kf5_min_version}
 BuildRequires:  kf5-kconfigwidgets-devel >= %{kf5_min_version}
 BuildRequires:  kf5-kcoreaddons-devel    >= %{kf5_min_version}
+BuildRequires:  kf5-kcrash-devel         >= %{kf5_min_version}
 BuildRequires:  kf5-kdbusaddons-devel    >= %{kf5_min_version}
 BuildRequires:  kf5-kdoctools-devel      >= %{kf5_min_version}
 BuildRequires:  kf5-kguiaddons-devel     >= %{kf5_min_version}

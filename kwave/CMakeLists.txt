@@ -87,6 +87,7 @@ TARGET_LINK_LIBRARIES(kwave_core
     Qt5::Widgets
     KF5::Completion
     KF5::ConfigCore
+    KF5::Crash
     KF5::DBusAddons
     KF5::I18n
     KF5::IconThemes

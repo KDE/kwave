@@ -41,7 +41,7 @@ IF (WITH_FLAC)
 ### check for FLAC++ header files                                         ###
 
     IF (HAVE_FLAC_HEADERS)
-        CHECK_INCLUDE_FILES("FLAC++/decoder.h;LAC++/metadata.h" HAVE_FLAC_HEADERS)
+        CHECK_INCLUDE_FILES("FLAC++/decoder.h;FLAC++/metadata.h" HAVE_FLAC_HEADERS)
     ENDIF (HAVE_FLAC_HEADERS)
 
     IF (HAVE_FLAC_HEADERS)

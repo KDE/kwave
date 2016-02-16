@@ -91,6 +91,7 @@ for lang in ${LINGUAS}; do
 	FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
 	echo ${lang_team} >> ${LANG_NAMES_FILE}
     else
+	checkout "" "${lang}" "docmessages" "language"
 	checkout "" "${lang}" "docmessages" "${CATEGORY}" "${PO_FILE}"
 	if [ ${result} == 1 ] ; then
 	    FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"

@@ -1,6 +1,8 @@
 
 o use the KDE/Services interface for plugins
 
+o internal variable ${LANG} (QLocale) does not reflect the current gui language
+
 o auto-detect song borders set markers, for splitting recorded stuff into several
   parts and then save them to disc as separate files
 

@@ -618,9 +618,19 @@ void Kwave::PluginManager::searchPluginModules()
     foreach (const QString &dir, plugin_path.split(_(":"))) {
 	if (!dirs.contains(dir)) dirs.append(dir);
     }
+#ifdef PLUGIN_INSTALL_DIR
+    if (!dirs.contains(_(PLUGIN_INSTALL_DIR)))
+	dirs.append(_(PLUGIN_INSTALL_DIR));
+#endif /* PLUGIN_INSTALL_DIR */
+#ifdef QT_PLUGIN_INSTALL_DIR
+    if (!dirs.contains(_(QT_PLUGIN_INSTALL_DIR)))
+	dirs.append(_(QT_PLUGIN_INSTALL_DIR));
+#endif /* QT_PLUGIN_INSTALL_DIR */
     foreach (const QString &dir, dirs) {
 	const QChar sep = QDir::separator();
+	if (!dir.length()) continue;
 	QDir d(dir);
+	qDebug("searching for plugins in '%s'", DBG(dir));
 	QStringList f = d.entryList(
 	    QDir::Files | QDir::Readable | QDir::Executable, QDir::Name);
 	foreach (const QString &file, f) {

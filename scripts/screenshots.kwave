@@ -347,8 +347,9 @@ plugin-volume:
 
 end:
 
-# selectnone()
-# close()
+sync()
+selectnone()
+close()
 quit()
 
 # Hint: sometimes useful to find out the class name of a window

@@ -775,6 +775,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 
 	// special handling of the "quit" command
 	if (parser.command() == _("quit")) {
+	    result = ECANCELED;
 	    break;
 	}
     }

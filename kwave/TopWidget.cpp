@@ -942,7 +942,7 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const QUrl &url)
 		context->signalManager() : 0;
 	    if ( signal_manager && !signal_manager->isEmpty() &&
 		(url.scheme().toLower() != Kwave::urlScheme()) )
-		return m_application.newWindow(url) ? 0 : -1;
+		return m_application.newWindow(url);
 
 	    // try to close the previous file
 	    if (context && !context->closeFile()) return -1;

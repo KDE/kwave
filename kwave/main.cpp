@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <errno.h>
 #include <stdio.h>
 
 #include <QApplication>
@@ -154,7 +155,9 @@ extern "C" void probe_fast_memcpy(void);
 //***************************************************************************
 int main(int argc, char **argv)
 {
+    int retval = 0;
     QCommandLineParser cmdline;
+
     cmdline.addHelpOption();
     cmdline.addVersionOption();
     cmdline.addOption(QCommandLineOption(
@@ -238,7 +241,7 @@ int main(int argc, char **argv)
     if (show_splash) splash.show();
 
     // now as the splash screen is in place, we can start a new instance
-    app.newInstance(app.arguments(), QString());
+    retval = app.newInstance(app.arguments(), QString());
 
     QObject::connect(
 	&service,
@@ -247,7 +250,8 @@ int main(int argc, char **argv)
 	SLOT(newInstance(QStringList,QString))
     );
 
-    int retval = app.exec();
+    if (retval != ECANCELED)
+	retval = app.exec();
 
     splash.done();
     splash.close();

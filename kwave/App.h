@@ -87,11 +87,14 @@ namespace Kwave
 	 * Opens a new toplevel window. If a filename is specified the file
 	 * will be opened.
 	 * @param url URL of the file to be loaded, (optional, might be empty)
-	 * @return true if succeeded, false if failed
+	 * @retval 0 if succeeded
+	 * @retval ECANCELED if the application should shut down (e.g. when
+	 *                   a script was loaded and the script has called
+	 *                   quit() )
 	 * @see #toplevelWindowHasClosed()
 	 * @see TopWidget
 	 */
-	bool newWindow(const QUrl &url);
+	int newWindow(const QUrl &url);
 
 	/**
 	 * Called when a toplevel window has closed.
@@ -131,8 +134,13 @@ namespace Kwave
 
 	/**
 	 * Connected to the DBus service to open a new window.
+	 * @retval 0 if the new instance was successfully created and the
+	 *           application should run
+	 * @retval ECANCELED if the application should shut down (e.g. when
+	 *                   a script was loaded and the script has called
+	 *                   quit() )
 	 */
-	void newInstance(const QStringList &args, const QString &dir);
+	int newInstance(const QStringList &args, const QString &dir);
 
     protected:
 	friend class Kwave::TopWidget;

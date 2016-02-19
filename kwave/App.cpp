@@ -115,8 +115,9 @@ Kwave::App::~App()
 }
 
 //***************************************************************************
-void Kwave::App::newInstance(const QStringList &args, const QString &dir)
+int Kwave::App::newInstance(const QStringList &args, const QString &dir)
 {
+    int retval = 0;
     Q_UNUSED(dir);
 
     m_cmdline.parse(args);
@@ -142,14 +143,15 @@ void Kwave::App::newInstance(const QStringList &args, const QString &dir)
 
     // only one parameter -> open with empty window
     if (params.isEmpty()) {
-	newWindow(QUrl());
+	retval = newWindow(QUrl());
     } else {
 	// open a window for each file specified in the
 	// command line an load it
 	foreach (const QString &name, params) {
-	    newWindow(QUrl::fromUserInput(name));
+	    retval = newWindow(QUrl::fromUserInput(name));
 	}
     }
+    return retval;
 }
 
 //***************************************************************************
@@ -163,13 +165,13 @@ int Kwave::App::executeCommand(const QString &command)
 {
     Kwave::Parser parser(command);
     if (parser.command() == _("newwindow")) {
-	bool ok;
+	int retval = 0;
 	if (parser.hasParams()) {
-	    ok = newWindow(QUrl(parser.params().at(0)));
+	    retval = newWindow(QUrl(parser.params().at(0)));
 	} else {
-	    ok = newWindow(QUrl(QString()));
+	    retval = newWindow(QUrl(QString()));
 	}
-	return (ok) ? 0 : -EIO;
+	return (retval == 0) ? 0 : -EIO;
     } else if (parser.command() == _("openrecent:clear")) {
 	m_recent_files.clear();
 	saveRecentFiles();
@@ -205,8 +207,9 @@ void Kwave::App::addRecentFile(const QString &newfile)
 }
 
 //***************************************************************************
-bool Kwave::App::newWindow(const QUrl &url)
+int Kwave::App::newWindow(const QUrl &url)
 {
+    int retval = 0;
     Kwave::TopWidget *new_top_widget = 0;
 
     Kwave::Splash::showMessage(i18n("Opening main window..."));
@@ -232,7 +235,7 @@ bool Kwave::App::newWindow(const QUrl &url)
 	    // init failed
 	    qWarning("ERROR: initialization of TopWidget failed");
 	    delete new_top_widget;
-	    return false;
+	    return ECANCELED;
 	}
 
 	if (!m_top_widgets.isEmpty()) {
@@ -251,10 +254,12 @@ bool Kwave::App::newWindow(const QUrl &url)
 		new_top_widget, SLOT(updateRecentFiles()));
     }
 
-    if (!url.isEmpty()) new_top_widget->loadFile(url);
+    retval = (!url.isEmpty()) ? new_top_widget->loadFile(url) : 0;
+    if (retval == ECANCELED)
+	delete new_top_widget;
 
     Kwave::Splash::showMessage(i18n("Startup done"));
-    return true;
+    return retval;
 }
 
 //***************************************************************************

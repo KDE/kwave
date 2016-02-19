@@ -212,7 +212,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
     int day   = -1;
 
     ID3_Tag::Iterator *it = tag.CreateIterator();
-    ID3_Frame *frame;
+    ID3_Frame *frame = 0;
     Kwave::FileInfo info(metaData());
     while (it && (frame = it->GetNext())) {
 	const ID3_FrameID id = frame->GetID();

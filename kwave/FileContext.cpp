@@ -358,7 +358,7 @@ int Kwave::FileContext::executeCommand(const QString &line)
 	if (command.contains(_("${LANG}"))) {
 	    QLocale locale;
 	    if (!m_main_widget.isNull()) locale = m_main_widget->locale();
-	    QString lang = locale.bcp47Name().split(_("-")).at(0);
+	    QString lang = locale.name().split(_("-")).at(0);
 	    command.replace(_("${LANG}"), lang);
 	}
     }

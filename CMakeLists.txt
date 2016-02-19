@@ -296,7 +296,7 @@ INCLUDE(KwaveL10N)
 
 OPTION(DEBUG "build debug code [default=off]" OFF)
 IF (DEBUG)
-    SET(CMAKE_DEBUG_FLAGS "-O0 -fno-inline -g -Wall -W -Wextra -pedantic -fstack-protector-all")
+    SET(CMAKE_DEBUG_FLAGS "-Og -fno-inline -g -Wall -W -Wextra -pedantic -fstack-protector-all")
     SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${CMAKE_DEBUG_FLAGS}")
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_DEBUG_FLAGS} -Wold-style-cast -Wno-non-virtual-dtor")
     SET(CMAKE_SHARED_LINKER_FLAGS "$ENV{CMAKE_SHARED_LINKER_FLAGS}")

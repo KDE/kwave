@@ -351,8 +351,8 @@ Kwave::Curve::Point Kwave::CurveWidget::findPoint(int sx, int sy)
     Q_ASSERT(m_height > 1);
     if ((m_width <= 1) || (m_height <= 1)) return Kwave::Curve::NoPoint;
 
-    return m_curve.findPoint((static_cast<double>(sx)) / (m_width-1),
-	(static_cast<double>(m_height) - sy) / (m_height-1));
+    return m_curve.findPoint((static_cast<double>(sx)) / (m_width - 1),
+	(static_cast<double>(m_height) - sy) / (m_height - 1));
 }
 
 //***************************************************************************
@@ -373,9 +373,9 @@ void Kwave::CurveWidget::mousePressEvent(QMouseEvent *e)
 	m_current = findPoint(e->pos().x(), e->pos().y());
 	if (m_current == Kwave::Curve::NoPoint) {
 	    // no matching point is found -> generate a new one !
-	    addPoint(static_cast<double>(e->pos().x()) / (m_width-1),
+	    addPoint(static_cast<double>(e->pos().x()) / (m_width - 1),
 		     static_cast<double>(m_height - e->pos().y()) /
-		     (m_height-1));
+		     (m_height - 1));
 	    m_current = findPoint(e->pos().x(), e->pos().y());
 	}
 	repaint();
@@ -405,19 +405,19 @@ void Kwave::CurveWidget::mouseMoveEvent(QMouseEvent *e )
     // if a point is selected...
     if (m_current != Kwave::Curve::NoPoint) {
 	if (m_current == m_curve.first()) x = 0;
-	if (m_current == m_curve.last())  x = m_width-1;
+	if (m_current == m_curve.last())  x = m_width - 1;
 
 	m_curve.deletePoint(m_current, false);
 
-	m_current.setX(static_cast<double>(x) / (m_width-1));
-	m_current.setY(static_cast<double>(m_height - y) / (m_height-1));
+	m_current.setX(static_cast<double>(x) / (m_width - 1));
+	m_current.setY(static_cast<double>(m_height - y) / (m_height - 1));
 
 	if (m_current.x() < 0.0) m_current.setX(0.0);
 	if (m_current.y() < 0.0) m_current.setY(0.0);
 	if (m_current.x() > 1.0) m_current.setX(1.0);
 	if (m_current.y() > 1.0) m_current.setY(1.0);
 
-	double dx = (1.0 / static_cast<double>(m_width-1));
+	double dx = (1.0 / static_cast<double>(m_width - 1));
 	do {
 	    Kwave::Curve::Point nearest = m_curve.findPoint(
 		m_current.x(), m_current.y(), 1.0);
@@ -465,21 +465,22 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
     }
 
     p.begin(this);
-    p.setPen(Qt::white);
+    p.fillRect(rect(), QBrush(palette().dark()));
+    p.setPen(palette().text().color());
 
     // draw the lines
     int ay;
-    ly = (m_height-1) - Kwave::toInt(y[0] * (m_height-1));
-    for (int i=1; i < m_width; i++) {
-	ay = (m_height-1) - Kwave::toInt(y[i] * (m_height-1));
-	p.drawLine (i-1, ly, i, ay);
+    ly = (m_height-1) - Kwave::toInt(y[0] * (m_height - 1));
+    for (int i = 1; i < m_width; i++) {
+	ay = (m_height-1) - Kwave::toInt(y[i] * (m_height - 1));
+	p.drawLine (i - 1, ly, i, ay);
 	ly = ay;
     }
 
     // draw the points (knobs)
     foreach (const Kwave::Curve::Point &pt, m_curve) {
-	lx = Kwave::toInt(pt.x() * (m_width-1));
-	ly = (m_height-1) - Kwave::toInt(pt.y() * (m_height-1));
+	lx = Kwave::toInt(pt.x() * (m_width - 1));
+	ly = (m_height - 1) - Kwave::toInt(pt.y() * (m_height - 1));
 
 	if ((pt == m_current) || (!m_down && (pt == m_last)) )
 	    p.drawPixmap(lx - (kw >> 1), ly - (kh >> 1), m_selected_knob);

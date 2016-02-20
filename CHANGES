@@ -27,6 +27,8 @@
  * bugfix: hourglass cursor was not taken back in playback setup dialog
  * RPM: format of changelog has changed
  * changed plugin install directory and prefix/suffix
+ * curve widget: use same colors as in frequency response widget, for better
+   readability on bright color themes
 
 0.9.0 [2015-05-25]
 

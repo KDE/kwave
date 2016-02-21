@@ -20,6 +20,10 @@
 #############################################################################
 
 IF (WITH_OPTIMIZED_MEMCPY)
+
+    # use "default" visibility for memcpy.c (which is our one and only C file)
+    SET(CMAKE_C_VISIBILITY_PRESET default)
+
     SET(libkwave_LIB_SRCS_memcpy cpu_accel.cpp memcpy.c ppcasm_string.S)
     SET_SOURCE_FILES_PROPERTIES(ppcasm_string.S PROPERTIES LANGUAGE C)
 
@@ -133,13 +137,19 @@ SET(libkwave_LIB_SRCS
 
 #############################################################################
 
-QT4_AUTOMOC(${libkwave_LIB_SRCS})
-KDE4_ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
+ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
 
 TARGET_LINK_LIBRARIES(libkwave
     audiofile
     ${SAMPLERATE_LIBS}
-    ${QT_AND_KDECORE_LIBS}
+    Qt5::Core
+    Qt5::Concurrent
+    KF5::ConfigCore
+    KF5::CoreAddons
+    KF5::I18n
+    KF5::WidgetsAddons
+    KF5::XmlGui
+    pthread
 )
 
 #############################################################################

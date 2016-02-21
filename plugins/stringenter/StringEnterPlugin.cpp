@@ -19,16 +19,20 @@
 #include "config.h"
 #include "errno.h"
 
-#include <QtCore/QStringList>
+#include <QPointer>
+#include <QStringList>
+
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
-#include "StringEnterPlugin.h"
 #include "StringEnterDialog.h"
+#include "StringEnterPlugin.h"
 
 KWAVE_PLUGIN(Kwave::StringEnterPlugin, "stringenter", "2.3",
-             I18N_NOOP("Enter Command"), "Thomas Eschenbacher");
+             I18N_NOOP("Enter Command"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::StringEnterPlugin::StringEnterPlugin(Kwave::PluginManager &plugin_manager)
@@ -80,7 +84,5 @@ QStringList *Kwave::StringEnterPlugin::setup(QStringList &previous_params)
     return list;
 }
 
-//***************************************************************************
-#include "StringEnterPlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -21,10 +21,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QObject>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/MultiWriter.h"
@@ -38,7 +37,7 @@ namespace Kwave
      * A MultiTrackWriter encapsulates a set of <c>TrackWriter</c>s for
      * easier use of multi-track signals.
      */
-    class KDE_EXPORT MultiTrackWriter: public Kwave::MultiWriter
+    class Q_DECL_EXPORT MultiTrackWriter: public Kwave::MultiWriter
     {
 	Q_OBJECT
 

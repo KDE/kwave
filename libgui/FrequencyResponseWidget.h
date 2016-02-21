@@ -20,10 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QWidget>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QObject>
+#include <QWidget>
 
 class QPaintEvent;
 
@@ -35,7 +34,7 @@ namespace Kwave
     /**
      * displays a frequency response
      */
-    class KDE_EXPORT FrequencyResponseWidget: public QWidget
+    class Q_DECL_EXPORT FrequencyResponseWidget: public QWidget
     {
 	Q_OBJECT
 

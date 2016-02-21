@@ -61,7 +61,7 @@ frequencies will be cut off.</string>
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="KIntSpinBox" name="spinbox">
+    <widget class="QSpinBox" name="spinbox">
      <property name="toolTip">
       <string>cutoff frequency</string>
      </property>
@@ -136,14 +136,14 @@ frequencies will be cut off.</string>
    <item row="3" column="0" colspan="2">
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox_Help">
+      <widget class="QDialogButtonBox" name="buttonBox_Help">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="btListen">
+      <widget class="QPushButton" name="btListen">
        <property name="toolTip">
         <string>start/stop pre-listening</string>
        </property>
@@ -175,7 +175,7 @@ frequencies will be cut off.</string>
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -187,21 +187,6 @@ frequencies will be cut off.</string>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>Kwave::ScaleWidget</class>
    <extends>QWidget</extends>
@@ -221,8 +206,6 @@ frequencies will be cut off.</string>
   <tabstop>buttonBox</tabstop>
  </tabstops>
  <includes>
-  <include location="global">klocale.h</include>
-  <include location="local">knuminput.h</include>
   <include location="local">libgui/ScaleWidget.h</include>
   <include location="local">libgui/FrequencyResponseWidget.h</include>
  </includes>

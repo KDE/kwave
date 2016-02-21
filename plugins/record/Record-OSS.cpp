@@ -18,19 +18,19 @@
 #include "config.h"
 #ifdef HAVE_OSS_SUPPORT
 
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <math.h>
 #include <sys/ioctl.h>
 #include <sys/soundcard.h>
-#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
-#include <math.h>
-#include <errno.h>
 
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QtGlobal>
+#include <QDir>
+#include <QFile>
+#include <QLatin1Char>
+#include <QtGlobal>
 
 #include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
@@ -175,7 +175,7 @@ int Kwave::RecordOSS::read(QByteArray &buffer, unsigned int offset)
 	             errno, strerror(errno));
 	    return -errno;
 	} else if (retval) {
-	    int res = ::read(m_fd, buf, length);
+	    ssize_t res = ::read(m_fd, buf, length);
 
 	    if ((res == -1) && (errno == EINTR))
 		return -errno; // interrupted, return without warning

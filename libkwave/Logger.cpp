@@ -19,17 +19,15 @@
 
 #include <new>
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QDateTime>
-#include <QtCore/QFile>
-#include <QtCore/QString>
-#include <QtCore/QTextStream>
-#include <QtGui/QApplication>
+#include <QApplication>
+#include <QDateTime>
+#include <QFile>
+#include <QString>
+#include <QTextStream>
+#include <QtGlobal>
 
-#include <kapplication.h>
-#include <kaboutdata.h>
-#include <kglobal.h>
-#include <klocale.h>
+#include <KAboutData>
+#include <KLocalizedString>
 
 #include "libkwave/Logger.h"
 #include "libkwave/MessageBox.h"
@@ -76,7 +74,7 @@ bool Kwave::Logger::open(const QString& filename)
 	QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
     if (!m_logfile || (!m_logfile->isWritable())) {
 	if (Kwave::MessageBox::warningContinueCancel(0,
-	    i18n("Failed opening the log file '%1' for writing").arg(
+	    i18n("Failed opening the log file '%1' for writing",
 	    filename)) != KMessageBox::Continue)
 	{
 	    return false;
@@ -89,12 +87,12 @@ bool Kwave::Logger::open(const QString& filename)
      */
 
     QTextStream out(m_logfile);
-    const KAboutData *about_data = KGlobal::mainComponent().aboutData();
+    const KAboutData about_data = KAboutData::applicationData();
 
     out << "#Version: 1.0" << endl;
     out << "#Fields: x-status date time x-pid x-message" << endl;
-    out << "#Software: " << about_data->programName() << " "
-                         << about_data->version() << endl;
+    out << "#Software: " << about_data.displayName() << " "
+                         << about_data.version() << endl;
     QDateTime now = QDateTime::currentDateTime();
     out << "#Start-Date: " << now.toString(_("yyyy-MM-dd hh:mm:ss")) << endl;
 

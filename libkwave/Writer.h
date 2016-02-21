@@ -21,9 +21,8 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QObject>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/SampleSink.h"
@@ -33,7 +32,7 @@ namespace Kwave
     class SampleArray;
     class SampleReader;
 
-    class KDE_EXPORT Writer: public Kwave::SampleSink
+    class Q_DECL_EXPORT Writer: public Kwave::SampleSink
     {
         Q_OBJECT
     public:
@@ -172,7 +171,7 @@ namespace Kwave
 }
 
 /** modifier for flushing */
-Kwave::Writer &flush(Kwave::Writer &s) KDE_EXPORT;
+Kwave::Writer &flush(Kwave::Writer &s) Q_DECL_EXPORT;
 
 #endif /* KWAVE_WRITER_H */
 

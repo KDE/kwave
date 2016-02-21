@@ -21,11 +21,10 @@
 
 #include "config.h"
 
-#include <QtGui/QPixmap>
-#include <QtCore/QVector>
-#include <QtGui/QWidget>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QPixmap>
+#include <QVector>
+#include <QWidget>
 
 class QPaintEvent;
 class QMouseEvent;
@@ -34,7 +33,7 @@ class QString;
 namespace Kwave
 {
 
-    class KDE_EXPORT MultiStateWidget : public QWidget
+    class Q_DECL_EXPORT MultiStateWidget: public QWidget
     {
 	Q_OBJECT
 

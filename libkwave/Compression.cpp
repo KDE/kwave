@@ -181,7 +181,7 @@ void Kwave::Compression::fillMap()
     for (unsigned int index = 0; index < af_count; ++index) {
 	int id = af_list[index].compression;
 	if (m_map.contains(id)) continue;
-	QString name = QString::fromAscii(af_list[index].name);
+	QString name = QString::fromLatin1(af_list[index].name);
 	m_map.insert(id, Kwave::Compression(
 	    id, name, QString(), sfmt_all, false, false));
     }

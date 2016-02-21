@@ -21,23 +21,22 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtCore/QTime>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QObject>
+#include <QTime>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"
 #include "libkwave/Sample.h"
-#include "libkwave/Stripe.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSource.h"
+#include "libkwave/Stripe.h"
 
 namespace Kwave
 {
 
-    class KDE_EXPORT SampleReader: public Kwave::SampleSource
+    class Q_DECL_EXPORT SampleReader: public Kwave::SampleSource
     {
 	Q_OBJECT
     public:

@@ -20,10 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtGui/QWidget>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QString>
+#include <QWidget>
 
 class QPaintEvent;
 class QPainter;
@@ -31,7 +30,7 @@ class QSize;
 
 namespace Kwave
 {
-    class KDE_EXPORT ScaleWidget : public QWidget
+    class Q_DECL_EXPORT ScaleWidget: public QWidget
     {
     public:
 

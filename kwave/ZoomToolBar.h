@@ -21,17 +21,17 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QTimer>
+#include <QObject>
+#include <QTimer>
 
-#include "ktoolbar.h"
-#include "kcombobox.h"
+#include <KToolBar>
 
 #include "libkwave/LabelList.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
 
 class QAction;
+class KComboBox;
 class KMainWindow;
 
 namespace Kwave

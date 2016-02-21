@@ -16,26 +16,31 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <limits.h>
+#include <new>
 #include <unistd.h>
 
-#include <QtGui/QCheckBox>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtCore/QObject>
-#include <QtGui/QSlider>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtGui/QSpinBox>
+#include <QCheckBox>
+#include <QFileDialog>
+#include <QLabel>
+#include <QObject>
+#include <QPointer>
+#include <QPushButton>
+#include <QSlider>
+#include <QLineEdit>
+#include <QSpinBox>
+#include <QString>
+#include <QStringList>
 
-#include <kfiledialog.h>
-#include <klineedit.h>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KHelpClient>
+#include <KLocalizedString>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+
+#include "libgui/FileDialog.h"
 
 #include "MemoryDialog.h"
 
@@ -141,18 +146,22 @@ void Kwave::MemoryDialog::virtualMemoryEnabled(bool enable)
 //***************************************************************************
 void Kwave::MemoryDialog::searchSwapDir()
 {
-    QString dir = KFileDialog::getExistingDirectory(
-	edDirectory->text(), this);
-    if (dir.length()) edDirectory->setText(dir);
+    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+	edDirectory->text(), Kwave::FileDialog::SelectDir, QString(), this);
+    if (!dlg) return;
+    dlg->setWindowTitle(i18n("Select Swap File Directory"));
+    if (dlg->exec() == QDialog::Accepted) {
+	QString dir = dlg->selectedUrl().toLocalFile();
+	if (dir.length()) edDirectory->setText(dir);
+    }
+    delete dlg;
 }
 
 //***************************************************************************
 void Kwave::MemoryDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("memory-setup"));
+    KHelpClient::invokeHelp(_("memory-setup"));
 }
 
-//***************************************************************************
-#include "MemoryDialog.moc"
 //***************************************************************************
 //***************************************************************************

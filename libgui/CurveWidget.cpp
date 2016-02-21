@@ -16,36 +16,40 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <stdio.h>
-#include <math.h>
 #include <limits.h>
+#include <math.h>
+#include <new>
+#include <stdio.h>
 
-#include <QtGui/QCursor>
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtGui/QKeySequence>
-#include <QtGui/QMenu>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QPainter>
-#include <QtGui/QPaintEvent>
-#include <QtGui/QPalette>
-#include <QtGui/QShortcut>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QTextStream>
+#include <QAction>
+#include <QCursor>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QKeySequence>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QPalette>
+#include <QPointer>
+#include <QShortcut>
+#include <QStandardPaths>
+#include <QString>
+#include <QStringList>
+#include <QTextStream>
 
-#include <kstandarddirs.h>
-#include <klocale.h>
-#include <kiconloader.h>
-#include <kfiledialog.h>
+#include <KLocalizedString>
+#include <KIconLoader>
 
-#include "libkwave/Interpolation.h"
 #include "libkwave/Curve.h"
+#include "libkwave/Interpolation.h"
+#include "libkwave/Logger.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
 #include "libgui/CurveWidget.h"
+#include "libgui/FileDialog.h"
 
 //***************************************************************************
 Kwave::CurveWidget::CurveWidget(QWidget *parent)
@@ -175,13 +179,33 @@ void Kwave::CurveWidget::selectInterpolationType(QAction *action)
 //***************************************************************************
 void Kwave::CurveWidget::savePreset()
 {
-    KStandardDirs stddirs;
-    stddirs.addResourceType("curves", 0, _("presets") +
-	QDir::separator() + _("curves"));
+    QString presetSubDir = _("presets") + QDir::separator() + _("curves");
+    QString presetPath = QStandardPaths::writableLocation(
+	QStandardPaths::AppDataLocation) +
+	QDir::separator() + presetSubDir;
+    if (!QDir(presetPath).exists()) {
+	Kwave::Logger::log(this, Logger::Info,
+	    _("curve preset directory did not exist, creating '%1'").arg(
+	    presetPath));
+	QDir(presetPath).mkpath(presetPath);
+    }
 
-    QDir presetDir = stddirs.saveLocation("curves", QString(), true);
-    QString name = KFileDialog::getSaveFileName(
-		       presetDir.path(), _("*.curve"), this);
+    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+	presetPath, Kwave::FileDialog::SaveFile,
+	_("*.curve *.CURVE|") +
+	i18nc("Filter description for Kwave curve presets, "
+	      "for use in a FileDialog",
+	      "Kwave curve preset (*.curve)"),
+	 this, QUrl(), _("*.curve"));
+    if (!dlg) return;
+    dlg->setWindowTitle(i18n("Save Curve Preset"));
+    if (dlg->exec() != QDialog::Accepted) {
+	delete dlg;
+	return;
+    }
+
+    QString name = dlg->selectedUrl().toLocalFile();
+    delete dlg;
 
     // append the extension if not given
     if (!name.endsWith(_(".curve")))
@@ -190,7 +214,7 @@ void Kwave::CurveWidget::savePreset()
     QFile out(name);
     out.open(QIODevice::WriteOnly);
     QString cmd = m_curve.getCommand();
-    out.write(DBG(cmd), cmd.length() + 1);
+    out.write(DBG(cmd), cmd.length());
 
     // reload the list of known presets
     loadPresetList();
@@ -199,20 +223,30 @@ void Kwave::CurveWidget::savePreset()
 //***************************************************************************
 void Kwave::CurveWidget::loadPresetList()
 {
-    KStandardDirs stddirs;
-    stddirs.addResourceType("curves", 0, _("presets") +
-	QDir::separator() + _("curves"));
-
-    QStringList files = stddirs.findAllResources("curves",
-	    _("*.curve"), KStandardDirs::NoDuplicates);
+    const QChar s = QDir::separator();
+    QString presetSubDir = s + _("kwave") + s + _("presets") + s + _("curves");
+    QStringList files;
+    QStringList presetPaths = QStandardPaths::standardLocations(
+	QStandardPaths::GenericDataLocation);
+    foreach (const QString &path, presetPaths) {
+	QDir d(path + presetSubDir);
+	QStringList f = d.entryList(QDir::Files, QDir::Name);
+	foreach (const QString &file, f) {
+	    QString preset = d.path() + s + file;
+	    if (!files.contains(preset)) files.append(preset);
+	}
+    }
     files.sort();
 
     m_preset_menu->clear();
-    for (int i=0; i < files.count(); i++) {
-	QFileInfo fi(files[i]);
-	QString name = fi.fileName();
-	name.chop(strlen(".curve"));
-	m_preset_menu->addAction(name);
+    foreach (const QString &file, files) {
+	QFileInfo fi(file);
+	QString name = fi.baseName();
+	QAction *action = new (std::nothrow) QAction(name, m_preset_menu);
+	Q_ASSERT(action);
+	if (!action) continue;
+	action->setData(file);
+	m_preset_menu->addAction(action);
     }
 }
 
@@ -222,22 +256,23 @@ void Kwave::CurveWidget::loadPreset(QAction *action)
     Q_ASSERT(m_preset_menu);
     Q_ASSERT(action);
     if (!m_preset_menu || !action) return;
+    if (!action->data().isValid()) return;
 
     // invalidate the current selection
     m_current = Kwave::Curve::NoPoint;
     m_last    = Kwave::Curve::NoPoint;
 
-    KStandardDirs stddirs;
-    stddirs.addResourceType("curves", 0, _("presets") +
-	QDir::separator() + _("curves"));
-
-    // get the path of the file
-    QString filename = action->text();
-    QString path = stddirs.findResource("curves", filename + _(".curve"));
+    // get the path of the file and check whether it (still) exists
+    QString filename = action->data().toString();
+    QFileInfo fi(filename);
+    if (!fi.exists(filename)) return;
 
     // load the file
-    QFile file(path);
-    file.open(QIODevice::ReadOnly);
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly)) {
+	qWarning("CurveWidget::loadPreset('%s') - FAILED", DBG(filename));
+	return;
+    }
     QTextStream stream(&file);
     m_curve.fromCommand(stream.readLine());
     file.close();
@@ -316,8 +351,8 @@ Kwave::Curve::Point Kwave::CurveWidget::findPoint(int sx, int sy)
     Q_ASSERT(m_height > 1);
     if ((m_width <= 1) || (m_height <= 1)) return Kwave::Curve::NoPoint;
 
-    return m_curve.findPoint((static_cast<double>(sx)) / (m_width-1),
-	(static_cast<double>(m_height) - sy) / (m_height-1));
+    return m_curve.findPoint((static_cast<double>(sx)) / (m_width - 1),
+	(static_cast<double>(m_height) - sy) / (m_height - 1));
 }
 
 //***************************************************************************
@@ -338,9 +373,9 @@ void Kwave::CurveWidget::mousePressEvent(QMouseEvent *e)
 	m_current = findPoint(e->pos().x(), e->pos().y());
 	if (m_current == Kwave::Curve::NoPoint) {
 	    // no matching point is found -> generate a new one !
-	    addPoint(static_cast<double>(e->pos().x()) / (m_width-1),
+	    addPoint(static_cast<double>(e->pos().x()) / (m_width - 1),
 		     static_cast<double>(m_height - e->pos().y()) /
-		     (m_height-1));
+		     (m_height - 1));
 	    m_current = findPoint(e->pos().x(), e->pos().y());
 	}
 	repaint();
@@ -370,19 +405,19 @@ void Kwave::CurveWidget::mouseMoveEvent(QMouseEvent *e )
     // if a point is selected...
     if (m_current != Kwave::Curve::NoPoint) {
 	if (m_current == m_curve.first()) x = 0;
-	if (m_current == m_curve.last())  x = m_width-1;
+	if (m_current == m_curve.last())  x = m_width - 1;
 
 	m_curve.deletePoint(m_current, false);
 
-	m_current.setX(static_cast<double>(x) / (m_width-1));
-	m_current.setY(static_cast<double>(m_height - y) / (m_height-1));
+	m_current.setX(static_cast<double>(x) / (m_width - 1));
+	m_current.setY(static_cast<double>(m_height - y) / (m_height - 1));
 
 	if (m_current.x() < 0.0) m_current.setX(0.0);
 	if (m_current.y() < 0.0) m_current.setY(0.0);
 	if (m_current.x() > 1.0) m_current.setX(1.0);
 	if (m_current.y() > 1.0) m_current.setY(1.0);
 
-	double dx = (1.0 / static_cast<double>(m_width-1));
+	double dx = (1.0 / static_cast<double>(m_width - 1));
 	do {
 	    Kwave::Curve::Point nearest = m_curve.findPoint(
 		m_current.x(), m_current.y(), 1.0);
@@ -430,21 +465,22 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
     }
 
     p.begin(this);
-    p.setPen(Qt::white);
+    p.fillRect(rect(), QBrush(palette().dark()));
+    p.setPen(palette().text().color());
 
     // draw the lines
     int ay;
-    ly = (m_height-1) - Kwave::toInt(y[0] * (m_height-1));
-    for (int i=1; i < m_width; i++) {
-	ay = (m_height-1) - Kwave::toInt(y[i] * (m_height-1));
-	p.drawLine (i-1, ly, i, ay);
+    ly = (m_height-1) - Kwave::toInt(y[0] * (m_height - 1));
+    for (int i = 1; i < m_width; i++) {
+	ay = (m_height-1) - Kwave::toInt(y[i] * (m_height - 1));
+	p.drawLine (i - 1, ly, i, ay);
 	ly = ay;
     }
 
     // draw the points (knobs)
     foreach (const Kwave::Curve::Point &pt, m_curve) {
-	lx = Kwave::toInt(pt.x() * (m_width-1));
-	ly = (m_height-1) - Kwave::toInt(pt.y() * (m_height-1));
+	lx = Kwave::toInt(pt.x() * (m_width - 1));
+	ly = (m_height - 1) - Kwave::toInt(pt.y() * (m_height - 1));
 
 	if ((pt == m_current) || (!m_down && (pt == m_last)) )
 	    p.drawPixmap(lx - (kw >> 1), ly - (kh >> 1), m_selected_knob);
@@ -455,7 +491,5 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
 
 }
 
-//***************************************************************************
-#include "CurveWidget.moc"
 //***************************************************************************
 //***************************************************************************

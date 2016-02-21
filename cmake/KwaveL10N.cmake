@@ -15,8 +15,6 @@
 ##                                                                          #
 #############################################################################
 
-FIND_PACKAGE(RequiredProgram REQUIRED)
-
 FIND_REQUIRED_PROGRAM(FIND_EXECUTABLE find)
 FIND_REQUIRED_PROGRAM(MSGCAT_EXECUTABLE msgcat)
 FIND_REQUIRED_PROGRAM(XGETTEXT_EXECUTABLE xgettext)
@@ -77,7 +75,7 @@ FOREACH(_po_file ${_existing_po_files})
 
 	INSTALL(
 	    FILES ${_gmo_file}
-	    DESTINATION ${KDE4_LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES
+	    DESTINATION ${LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES
 	    RENAME kwave.mo
 	)
 	SET(_gmo_files ${_gmo_files} ${_gmo_file})
@@ -117,6 +115,13 @@ ELSE (NOT "${KWAVE_BUILD_LINGUAS}" STREQUAL "")
     MESSAGE(STATUS "Found no suitable language to build for")
 
 ENDIF (NOT "${KWAVE_BUILD_LINGUAS}" STREQUAL "")
+
+#############################################################################
+### show the progress of translations                                     ###
+
+ADD_CUSTOM_TARGET(msgstats
+    COMMAND ${CMAKE_SOURCE_DIR}/bin/msgstats.pl ${CMAKE_SOURCE_DIR}
+)
 
 #############################################################################
 #############################################################################

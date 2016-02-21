@@ -21,13 +21,12 @@
 #include "config.h"
 #include <limits.h>  // for UINT_MAX
 
-#include <QtCore/QList>
-#include <QtCore/QMutex>
-#include <QtCore/QObject>
-#include <QtCore/QReadWriteLock>
-#include <QtCore/QUuid>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QMutex>
+#include <QObject>
+#include <QReadWriteLock>
+#include <QUuid>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"
@@ -42,7 +41,7 @@ namespace Kwave
     class TrackWriter;
     class Writer;
 
-    class KDE_EXPORT Track: public QObject
+    class Q_DECL_EXPORT Track: public QObject
     {
 	Q_OBJECT
     public:

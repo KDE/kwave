@@ -19,18 +19,21 @@
 #include <errno.h>
 #include <limits.h>
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QString>
+#include <QStringList>
+
+#include <KLocalizedString>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"
 
-#include "MemoryPlugin.h"
 #include "MemoryDialog.h"
+#include "MemoryPlugin.h"
 
 KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.4",
-             I18N_NOOP("Memory Settings"), "Thomas Eschenbacher");
+             I18N_NOOP("Memory Settings"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 /** default memory limit for physical memory [MB] */
 #define DEFAULT_PHYSICAL_LIMIT 2048
@@ -136,7 +139,7 @@ QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
 {
     QStringList *result = 0;
 
-    // try to interprete the list of previous parameters, ignore errors
+    // try to interpret the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
 
     Kwave::MemoryDialog *dlg = new Kwave::MemoryDialog(
@@ -161,7 +164,5 @@ QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
     return result;
 }
 
-//***************************************************************************
-#include "MemoryPlugin.moc"
 //***************************************************************************
 //***************************************************************************

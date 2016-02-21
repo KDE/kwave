@@ -15,8 +15,6 @@
 ##                                                                          #
 #############################################################################
 
-FIND_PACKAGE(RequiredProgram REQUIRED)
-
 SET(UPDATE_COMMAND_XREF    ${CMAKE_SOURCE_DIR}/bin/update-command-xref.pl)
 SET(UPDATE_FILEINFO_XREF   ${CMAKE_SOURCE_DIR}/bin/update-fileinfo-xref.pl)
 SET(UPDATE_PLUGIN_XREF     ${CMAKE_SOURCE_DIR}/bin/update-plugin-xref.pl)
@@ -34,7 +32,7 @@ IF (RSVG_EXECUTABLE)
     MESSAGE(STATUS "Found ${_basename}: ${RSVG_EXECUTABLE}")
 ENDIF (RSVG_EXECUTABLE)
 
-SET(_test_icon "${CMAKE_SOURCE_DIR}/kwave/toolbar/kwave_zoom_in.svgz")
+SET(_test_icon "${CMAKE_SOURCE_DIR}/kwave/toolbar/sc-actions-kwave_zoom_in.svgz")
 GET_FILENAME_COMPONENT(_svgz_file ${_test_icon} NAME)
 STRING(REPLACE ".svgz" ".png" _png_file ${_svgz_file})
 
@@ -133,10 +131,12 @@ ADD_CUSTOM_TARGET(update-handbook
 #############################################################################
 ### handle the various languages                                          ###
 
+# collects all "html_doc_${_lang}" sub targets
+ADD_CUSTOM_TARGET(html_doc)
+
 FILE(GLOB _files "${CMAKE_SOURCE_DIR}/doc/*/index.docbook")
 FOREACH(_file ${_files})
-    # TODO: use DIRECTORY instead of PATH as soon as cmake <= 0.8.1 is no longer used
-    GET_FILENAME_COMPONENT(_subdir ${_file} PATH)
+    GET_FILENAME_COMPONENT(_subdir ${_file} DIRECTORY)
     GET_FILENAME_COMPONENT(_lang ${_subdir} NAME)
 
     # take only languages that have been requested

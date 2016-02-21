@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include "klocale.h"
+#include <KLocalizedString>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Interpolation.h"
@@ -225,8 +225,7 @@ QVector<double> Kwave::Interpolation::interpolation(
     if (!len) return QVector<double>();
 
     unsigned int degree = 0;
-    QVector<double> y_out(len);
-    qFill(y_out, 0.0);
+    QVector<double> y_out(len, 0.0);
 
     switch (m_type) {
 	case INTPOL_LINEAR:
@@ -309,8 +308,10 @@ QVector<double> Kwave::Interpolation::interpolation(
 	}
 	case INTPOL_POLYNOMIAL3:
 	    if (!degree) degree = 3;
+	    /* FALLTHROUGH */
 	case INTPOL_POLYNOMIAL5:
 	    if (!degree) degree = 5;
+	    /* FALLTHROUGH */
 	case INTPOL_POLYNOMIAL7:
 	{
 	    if (!degree) degree = 7;
@@ -390,6 +391,7 @@ QVector<double> Kwave::Interpolation::interpolation(
 		    y0 = y1;
 		}
 	    }
+	    break;
 	}
     }
 

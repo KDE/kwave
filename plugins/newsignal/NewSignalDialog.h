@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtGui/QDialog>
-#include <QtCore/QTimer>
-#include <QtGui/QWidget>
+#include <QDialog>
+#include <QTimer>
+#include <QWidget>
 
 #include "ui_NewSigDlg.h"
 
@@ -72,7 +72,7 @@ namespace Kwave
 
 	/**
 	 * Checks for modifications of the sample number edit.
-	 * That stupid KIntNumInput doesn't notify us about changes :-[
+	 * That stupid QSpinBox doesn't notify us about changes :-[
 	 */
 	void checkNewSampleEdit();
 

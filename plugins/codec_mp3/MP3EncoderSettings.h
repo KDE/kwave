@@ -18,9 +18,8 @@
 #ifndef MP3_ENCODER_SETTINGS_H
 #define MP3_ENCODER_SETTINGS_H
 
-#include <QtCore/QString>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QString>
 
 namespace Kwave
 {

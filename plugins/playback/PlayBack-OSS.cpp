@@ -18,28 +18,28 @@
 #include "config.h"
 #ifdef HAVE_OSS_SUPPORT
 
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <math.h>
+#include <stdlib.h>
 #include <sys/ioctl.h>
 #include <sys/soundcard.h>
-#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
-#include <stdlib.h>
-#include <math.h>
-#include <errno.h>
 
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QLatin1Char>
+#include <QDir>
+#include <QFile>
+#include <QLatin1Char>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
-#include "libkwave/memcpy.h"
 #include "libkwave/ByteOrder.h"
 #include "libkwave/Compression.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 #include "PlayBack-OSS.h"
 
@@ -298,10 +298,10 @@ void Kwave::PlayBackOSS::flush()
     unsigned int bytes = m_buffer_used * m_encoder->rawBytesPerSample();
     m_encoder->encode(m_buffer, m_buffer_used, m_raw_buffer);
 
-    int res = 0;
+    ssize_t res = 0;
     if (m_handle)
 	res = ::write(m_handle, m_raw_buffer.data(), bytes);
-    if (res) perror(__FUNCTION__);
+    if (res < 0) perror(__FUNCTION__);
 
     m_buffer_used = 0;
 }

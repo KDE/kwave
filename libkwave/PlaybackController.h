@@ -20,11 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMutex>
-#include <QtCore/QObject>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QMutex>
+#include <QObject>
 
 #include "libkwave/PlayBackParam.h"
 #include "libkwave/Runnable.h"
@@ -51,7 +50,8 @@ namespace Kwave
      * This class internally manages the logic and handling of the
      * playback position.
      */
-    class KDE_EXPORT PlaybackController: public QObject, public Kwave::Runnable
+    class Q_DECL_EXPORT PlaybackController: public QObject,
+                                            public Kwave::Runnable
     {
     Q_OBJECT
 
@@ -107,7 +107,7 @@ namespace Kwave
 	/**
 	 * Create a playback device matching the given playback method.
 	 *
-	 * @param method a playback_method_t (e.g. Pulse, Phonon, ALSA, OSS...)
+	 * @param method a playback_method_t (e.g. Pulse, ALSA, OSS...)
 	 * @return a new PlayBackDevice or 0 if failed
 	 */
 	virtual Kwave::PlayBackDevice *createDevice(

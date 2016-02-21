@@ -20,16 +20,15 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QWidget>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QObject>
+#include <QWidget>
 
 #include "libgui/ui_HMSTimeWidgetBase.h"
 
 namespace Kwave
 {
-    class KDE_EXPORT HMSTimeWidget
+    class Q_DECL_EXPORT HMSTimeWidget
         :public QWidget, public Ui::HMSTimeWidgetBase
     {
 	Q_OBJECT

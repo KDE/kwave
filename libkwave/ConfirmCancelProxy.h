@@ -20,9 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QObject>
 
 class QString;
 class QWidget;
@@ -30,7 +29,7 @@ class QWidget;
 namespace Kwave
 {
 
-    class KDE_EXPORT ConfirmCancelProxy: public QObject
+    class Q_DECL_EXPORT ConfirmCancelProxy: public QObject
     {
 	Q_OBJECT
     public:

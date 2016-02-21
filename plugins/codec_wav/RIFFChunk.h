@@ -20,11 +20,9 @@
 
 #include "config.h"
 
-#include <sys/types.h>
-
-#include <QtCore/QByteArray>
-#include <QtCore/QList>
-#include <QtCore/QString>
+#include <QByteArray>
+#include <QList>
+#include <QString>
 
 namespace Kwave
 {

@@ -18,16 +18,19 @@
 #include "config.h"
 #include "errno.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
+
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 
-#include "NewSignalPlugin.h"
 #include "NewSignalDialog.h"
+#include "NewSignalPlugin.h"
 
 KWAVE_PLUGIN(Kwave::NewSignalPlugin, "newsignal", "2.3",
-             I18N_NOOP("New Signal"), "Thomas Eschenbacher");
+             I18N_NOOP("New Signal"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::NewSignalPlugin::NewSignalPlugin(Kwave::PluginManager &plugin_manager)
@@ -116,7 +119,5 @@ QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
     return list;
 }
 
-//***************************************************************************
-#include "NewSignalPlugin.moc"
 //***************************************************************************
 //***************************************************************************

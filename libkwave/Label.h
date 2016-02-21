@@ -19,10 +19,10 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
+#include <QtGlobal>
+#include <QString>
 
-#include <kdemacros.h>
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"
@@ -31,7 +31,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT Label: public Kwave::MetaData
+    class Q_DECL_EXPORT Label: public Kwave::MetaData
     {
     public:
 

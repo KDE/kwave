@@ -19,7 +19,8 @@
 
 #include <new>
 
-#include <QtCore/QMimeData>
+#include <QMimeData>
+#include <QWidget>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"
@@ -79,7 +80,5 @@ sample_index_t Kwave::Drag::decode(QWidget *widget, const QMimeData *e,
     return Kwave::MimeData::decode(widget, e, sig, pos);
 }
 
-//***************************************************************************
-#include "Drag.moc"
 //***************************************************************************
 //***************************************************************************

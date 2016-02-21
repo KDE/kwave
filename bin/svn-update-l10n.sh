@@ -19,10 +19,11 @@
 set -e
 # set -x
 
+CWD=`dirname $0`
 CMAKE_SOURCE_DIR=$1
 
-REMOTE="svn://anonsvn.kde.org/home/kde/trunk/l10n-kde4/"
-REPOSITORY="${CMAKE_SOURCE_DIR}/l10n-kde4"
+REMOTE="svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/"
+REPOSITORY="${CMAKE_SOURCE_DIR}/l10n-kf5"
 PO_DIR="${CMAKE_SOURCE_DIR}/po"
 DOC_DIR="${CMAKE_SOURCE_DIR}/doc"
 
@@ -90,6 +91,7 @@ for lang in ${LINGUAS}; do
 	FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
 	echo ${lang_team} >> ${LANG_NAMES_FILE}
     else
+	checkout "" "${lang}" "docmessages" "language"
 	checkout "" "${lang}" "docmessages" "${CATEGORY}" "${PO_FILE}"
 	if [ ${result} == 1 ] ; then
 	    FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
@@ -99,7 +101,7 @@ for lang in ${LINGUAS}; do
 
     # GUI translation is mandantory
     checkout "" "${lang}" "messages"    "${CATEGORY}" "${PO_FILE}"
-    if [ ${result} == 1 ] ; then
+    if test -e "${lang}/messages/${CATEGORY}/${PO_FILE}" ; then
 	FOUND_LINGUAS="${FOUND_LINGUAS} ${lang}"
 	cp "${lang}/messages/${CATEGORY}/${PO_FILE}" "${PO_DIR}/${lang}.po"
 	FOUND_POFILES="${FOUND_POFILES} ${lang}.po"
@@ -155,15 +157,10 @@ for lang in ${FOUND_HANDBOOKS}; do
     fi
 done
 
+set +e
 svn status
 
 # show translation statistics
-cd "${REPOSITORY}"
-cd ..
-dir=`basename ${REPOSITORY}`
-for catalog in `find "${dir}" -name "${PO_FILE}" | sort`; do
-    echo -n ${catalog}": "
-    msgfmt --statistics ${catalog}
-done
+${CWD}/msgstats.pl ${CMAKE_SOURCE_DIR}
 
 ### EOF ###

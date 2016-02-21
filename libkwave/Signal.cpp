@@ -17,15 +17,15 @@
 
 #include "config.h"
 
-#include <new>
 #include <math.h>
+#include <new>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <QtCore/QReadLocker>
-#include <QtCore/QWriteLocker>
+#include <QReadLocker>
+#include <QWriteLocker>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Filter.h"
@@ -599,7 +599,5 @@ void Kwave::Signal::slotSamplesModified(Kwave::Track *src,
     emit sigSamplesModified(track, offset, length);
 }
 
-//***************************************************************************
-#include "Signal.moc"
 //***************************************************************************
 //***************************************************************************

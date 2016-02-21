@@ -22,13 +22,12 @@
 #include <limits.h>
 #include <stdio.h>
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QMutex>
-#include <QtCore/QObject>
-#include <QtCore/QString>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QMap>
+#include <QMutex>
+#include <QObject>
+#include <QString>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
@@ -42,7 +41,7 @@
 
 class QBitmap;
 class QFile;
-class KUrl;
+class QUrl;
 
 #define NEW_FILENAME i18n("New File")
 
@@ -62,7 +61,7 @@ namespace Kwave
     /**
      * The SignalManager class manages multi channel signals.
      */
-    class KDE_EXPORT SignalManager : public QObject
+    class Q_DECL_EXPORT SignalManager: public QObject
     {
 	Q_OBJECT
 
@@ -78,7 +77,7 @@ namespace Kwave
 	 * @param url URL of the file to be loaded
 	 * @return 0 if succeeded or error code < 0
 	 */
-	int loadFile(const KUrl &url);
+	int loadFile(const QUrl &url);
 
 	/**
 	 * Closes the current signal and creates a new empty signal.
@@ -170,7 +169,7 @@ namespace Kwave
 	 * @param selection if true, only the selected range will be saved
 	 * @return zero if succeeded or negative error code
 	 */
-	int save(const KUrl &url, bool selection);
+	int save(const QUrl &url, bool selection);
 
 	/**
 	 * Deletes a range of samples and creates an undo action.

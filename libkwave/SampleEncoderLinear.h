@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
+#include <QtGlobal>
 
 #include "libkwave/ByteOrder.h"
 #include "libkwave/SampleEncoder.h"
@@ -28,7 +28,7 @@
 
 namespace Kwave
 {
-    class KDE_EXPORT SampleEncoderLinear: public Kwave::SampleEncoder
+    class Q_DECL_EXPORT SampleEncoderLinear: public Kwave::SampleEncoder
     {
     public:
 

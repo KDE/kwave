@@ -136,7 +136,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KLineEdit" name="edDirectory">
+       <widget class="QLineEdit" name="edDirectory">
         <property name="toolTip">
          <string>Directory for storing swap files</string>
         </property>
@@ -146,7 +146,7 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="KPushButton" name="btSearch">
+       <widget class="QPushButton" name="btSearch">
         <property name="toolTip">
          <string>Browse for a directory to hold page files</string>
         </property>
@@ -317,7 +317,7 @@ If you do not set a limit, the size of the physically installed memory in your c
       <number>0</number>
      </property>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
        </property>
@@ -329,21 +329,6 @@ If you do not set a limit, the size of the physically installed memory in your c
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>chkLimitPhysical</tabstop>
@@ -358,9 +343,6 @@ If you do not set a limit, the size of the physically installed memory in your c
   <tabstop>slUndo</tabstop>
   <tabstop>sbUndo</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

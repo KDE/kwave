@@ -20,12 +20,12 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/Plugin.h"
-#include "libkwave/SampleArray.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleArray.h"
 
 namespace Kwave
 {

@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QtCore/QStringList>
-#include <klocale.h>
+#include <KLocalizedString>
+#include <QStringList>
 
 #include "libkwave/Connect.h"
 #include "libkwave/MultiTrackReader.h"
@@ -31,11 +31,12 @@
 #include "libkwave/modules/Mul.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
-#include "AmplifyFreePlugin.h"
 #include "AmplifyFreeDialog.h"
+#include "AmplifyFreePlugin.h"
 
 KWAVE_PLUGIN(Kwave::AmplifyFreePlugin, "amplifyfree", "2.3",
-             I18N_NOOP("Amplify Free"), "Thomas Eschenbacher");
+             I18N_NOOP("Amplify Free"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::AmplifyFreePlugin::AmplifyFreePlugin(Kwave::PluginManager &plugin_manager)
@@ -188,7 +189,5 @@ void Kwave::AmplifyFreePlugin::run(QStringList params)
     qDebug("AmplifyFreePlugin: filter done.");
 }
 
-//***************************************************************************
-#include "AmplifyFreePlugin.moc"
 //***************************************************************************
 //***************************************************************************

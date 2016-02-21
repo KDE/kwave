@@ -19,10 +19,10 @@
 #define ENCODER_H
 
 #include "config.h"
-#include <QtCore/QList>
-#include <QtCore/QObject>
 
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QObject>
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/FileInfo.h"
@@ -35,7 +35,7 @@ namespace Kwave
 
     class MultiTrackReader;
 
-    class KDE_EXPORT Encoder: public QObject, public Kwave::CodecBase
+    class Q_DECL_EXPORT Encoder: public QObject, public Kwave::CodecBase
     {
 	Q_OBJECT
     public:

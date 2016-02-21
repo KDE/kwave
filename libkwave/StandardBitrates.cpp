@@ -16,8 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <limits.h>
 #include "libkwave/StandardBitrates.h"
+#include <limits.h>
 
 /** the global static list of standard bitrates */
 static Kwave::StandardBitrates g_bitrates;

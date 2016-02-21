@@ -21,10 +21,10 @@
     <number>10</number>
    </property>
    <item row="0" column="0" colspan="2">
-    <widget class="KLineEdit" name="edKeyword"/>
+    <widget class="QLineEdit" name="edKeyword"/>
    </item>
    <item row="2" column="1">
-    <widget class="KPushButton" name="btRemove">
+    <widget class="QPushButton" name="btRemove">
      <property name="text">
       <string>&amp;Remove</string>
      </property>
@@ -47,7 +47,7 @@
     </spacer>
    </item>
    <item row="1" column="1">
-    <widget class="KPushButton" name="btAdd">
+    <widget class="QPushButton" name="btAdd">
      <property name="text">
       <string>&amp;Add</string>
      </property>
@@ -57,7 +57,7 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="KPushButton" name="btAuto">
+    <widget class="QPushButton" name="btAuto">
      <property name="toolTip">
       <string>auto-generate keywords</string>
      </property>
@@ -71,7 +71,7 @@ Create a list of keywords by going through all present file information and merg
     </widget>
    </item>
    <item row="1" column="0" rowspan="4">
-    <widget class="KListWidget" name="lstKeywords">
+    <widget class="QListWidget" name="lstKeywords">
      <property name="minimumSize">
       <size>
        <width>150</width>
@@ -87,21 +87,6 @@ Create a list of keywords by going through all present file information and merg
  </widget>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>edKeyword</tabstop>
@@ -110,11 +95,6 @@ Create a list of keywords by going through all present file information and merg
   <tabstop>btRemove</tabstop>
   <tabstop>btAuto</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">klineedit.h</include>
-  <include location="global">klistwidget.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

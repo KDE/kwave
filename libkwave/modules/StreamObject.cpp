@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QVariant>
+#include <QString>
+#include <QVariant>
 
 #include "libkwave/modules/StreamObject.h"
 
@@ -73,7 +73,5 @@ void Kwave::StreamObject::setInteractive(bool interactive)
     m_interactive = interactive;
 }
 
-//***************************************************************************
-#include "StreamObject.moc"
 //***************************************************************************
 //***************************************************************************

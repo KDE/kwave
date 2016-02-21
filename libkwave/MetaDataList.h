@@ -19,14 +19,13 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QString>
-#include <QtCore/QVariant>
-#include <QtCore/QMapIterator>
-#include <QtCore/QMutableMapIterator>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QMap>
+#include <QMapIterator>
+#include <QMutableMapIterator>
+#include <QString>
+#include <QVariant>
 
 #include "libkwave/MetaData.h"
 #include "libkwave/Sample.h"
@@ -34,7 +33,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT MetaDataList: public QMap<QString, MetaData>
+    class Q_DECL_EXPORT MetaDataList: public QMap<QString, MetaData>
     {
     public:
 

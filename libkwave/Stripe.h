@@ -20,11 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QMutex>
-#include <QtCore/QSharedData>
-#include <QtCore/QExplicitlySharedDataPointer>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QExplicitlySharedDataPointer>
+#include <QMutex>
+#include <QSharedData>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Sample.h"
@@ -33,7 +32,7 @@
 //***************************************************************************
 namespace Kwave
 {
-    class KDE_EXPORT Stripe
+    class Q_DECL_EXPORT Stripe
     {
     public:
 
@@ -304,7 +303,8 @@ namespace Kwave
 
     private:
 
-	class StripeStorage : public QSharedData {
+	class StripeStorage: public QSharedData
+	{
 	public:
 	    /** default constructor */
 	    StripeStorage();

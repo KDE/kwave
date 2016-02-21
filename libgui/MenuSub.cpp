@@ -17,15 +17,15 @@
 
 #include "config.h"
 
-#include <QtGui/QPixmap>
+#include <QPixmap>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 
 #include "libgui/MenuItem.h"
-#include "libgui/MenuSub.h"
 #include "libgui/MenuRoot.h"
+#include "libgui/MenuSub.h"
 
 //***************************************************************************
 Kwave::MenuSub::MenuSub(Kwave::MenuNode *parent,
@@ -181,7 +181,5 @@ bool Kwave::MenuSub::specialCommand(const QString &command)
     return Kwave::MenuNode::specialCommand(command);
 }
 
-//***************************************************************************
-#include "MenuSub.moc"
 //***************************************************************************
 //***************************************************************************

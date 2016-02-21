@@ -18,8 +18,8 @@
 
 #include "config.h"
 
-#include <QtCore/QLatin1Char>
-#include <QtCore/QString>
+#include <QLatin1Char>
+#include <QString>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
@@ -54,7 +54,7 @@ Kwave::Parser::Parser (const QString &init)
 	line.remove(0,1);
 
 	// the next character is escaped
-	if (!escaped && (c.toAscii() == '\\')) {
+	if (!escaped && (c.toLatin1() == '\\')) {
 	    escaped = true;
 	    param += c;
 	    continue;
@@ -67,7 +67,7 @@ Kwave::Parser::Parser (const QString &init)
 	    continue;
 	}
 
-	switch (c.toAscii()) {
+	switch (c.toLatin1()) {
 	    case ',':
 		if (!level) {
 		    m_param.append(unescape(param.trimmed()));
@@ -121,7 +121,7 @@ QStringList Kwave::Parser::splitCommands(QString &line)
 	line.remove(0,1);
 
 	// the next character is escaped
-	if (!escaped && (c.toAscii() == '\\')) {
+	if (!escaped && (c.toLatin1() == '\\')) {
 	    escaped = true;
 	    cmd += c;
 	    continue;
@@ -134,7 +134,7 @@ QStringList Kwave::Parser::splitCommands(QString &line)
 	    continue;
 	}
 
-	switch (c.toAscii()) {
+	switch (c.toLatin1()) {
 	    case ';':
 		if (!level) {
 		    // next command in the list
@@ -280,7 +280,7 @@ QString Kwave::Parser::escape(const QString &text)
     for (QString::ConstIterator it = text.begin(); it != text.end(); ++it) {
 	const QChar c(*it);
 
-	if ((c.toAscii() < '.') || (c.toAscii() > 'z') || special.contains(c))
+	if ((c.toLatin1() < '.') || (c.toLatin1() > 'z') || special.contains(c))
 	    escaped += _("\\");
 
 	escaped += c;
@@ -298,7 +298,7 @@ QString Kwave::Parser::unescape(const QString &text)
     for (QString::ConstIterator it = text.begin(); it != text.end(); ++it) {
 	const QChar c(*it);
 
-	if (!esc && (c.toAscii() == '\\')) {
+	if (!esc && (c.toLatin1() == '\\')) {
 	    // this is the leading escape character -> skip it
 	    esc = true;
 	    continue;
@@ -312,15 +312,15 @@ QString Kwave::Parser::unescape(const QString &text)
 }
 
 //***************************************************************************
-KUrl Kwave::Parser::toUrl(const QString &command)
+QUrl Kwave::Parser::toUrl(const QString &command)
 {
-    KUrl url;
+    QUrl url;
 
     url.setScheme(Kwave::urlScheme());
     Parser parser(command);
 
     // encode the command as "path"
-    url.setEncodedPath(QUrl::toPercentEncoding(parser.command()));
+    url.setPath(QString::fromLatin1(QUrl::toPercentEncoding(parser.command())));
 
     // encode the parameter list into a comma separated string
     unsigned int count = parser.count();
@@ -330,27 +330,27 @@ KUrl Kwave::Parser::toUrl(const QString &command)
 	if (params.length()) params += ',';
 	params += QUrl::toPercentEncoding(param);
     }
-    url.setEncodedQuery(params);
+    url.setQuery(QString::fromLatin1(params));
 
     return url;
 }
 
 //***************************************************************************
-QString Kwave::Parser::fromUrl(const KUrl &url)
+QString Kwave::Parser::fromUrl(const QUrl &url)
 {
     if (url.scheme().toLower() != Kwave::urlScheme()) return QString();
 
     // get the command name (path)
-    QString command = QUrl::fromPercentEncoding(url.encodedPath());
+    QString command = QUrl::fromPercentEncoding(url.path().toLatin1());
 
     // get the parameter list
     command += _("(");
-    QStringList params = QString::fromAscii(url.encodedQuery()).split(_(","));
+    QStringList params = url.query().split(_(","));
     if (!params.isEmpty()) {
 	bool first = true;
 	foreach (const QString &param, params) {
 	    if (!first) command += _(",");
-	    command += QUrl::fromPercentEncoding(param.toAscii());
+	    command += QUrl::fromPercentEncoding(param.toLatin1());
 	    first = false;
 	}
     }

@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QtGui/QPushButton>
+#include <QPushButton>
 
-#include <kdatepicker.h>
+#include <KDatePicker>
 
 #include "SelectDateDialog.h"
 
@@ -52,7 +52,5 @@ void Kwave::SelectDateDialog::accept()
     QDialog::accept();
 }
 
-//***************************************************************************
-#include "SelectDateDialog.moc"
 //***************************************************************************
 //***************************************************************************

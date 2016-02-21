@@ -21,8 +21,8 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
 #include "libkwave/undo/UndoAction.h"
+#include <QString>
 
 namespace Kwave
 {

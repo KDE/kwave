@@ -20,12 +20,11 @@
 
 #include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtGui/QDrag>
-#include <QtCore/QObject>
-#include <QtCore/QString>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QByteArray>
+#include <QDrag>
+#include <QObject>
+#include <QString>
 
 #include "libkwave/Sample.h"
 
@@ -44,7 +43,7 @@ namespace Kwave
      * @todo the current storage mechanism is straight-forward and stupid, it
      *       should be extended to use virtual memory
      */
-    class KDE_EXPORT Drag: public QDrag
+    class Q_DECL_EXPORT Drag: public QDrag
     {
 	Q_OBJECT
 

@@ -20,9 +20,9 @@
 
 //***************************************************************************
 
-#include <sys/types.h>
+#include <QtGlobal>
 #include <limits>
-#include <QtCore/QtGlobal>
+#include <sys/types.h>
 
 /** use a unsigned integer for sample offset/count calculations */
 typedef quint64 sample_index_t;

@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <QtCore/QtGlobal>
+#include <QtGlobal>
 
 #include "libkwave/Utils.h"
 
@@ -95,7 +95,5 @@ int Kwave::BitrateSpinBox::nearestIndex(int rate)
     return index;
 }
 
-//***************************************************************************
-#include "BitrateSpinBox.moc"
 //***************************************************************************
 //***************************************************************************

@@ -18,9 +18,9 @@
 #include "config.h"
 #include <math.h>
 
-#include <QtCore/QString>
+#include <QString>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/Functions.h"
 #include "libkwave/String.h"

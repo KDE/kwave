@@ -20,17 +20,18 @@
 #include <errno.h>
 #include <math.h>
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
-#include "libkwave/MultiTrackSource.h"
 #include "NotchFilter.h"
-#include "NotchFilterPlugin.h"
 #include "NotchFilterDialog.h"
+#include "NotchFilterPlugin.h"
+#include "libkwave/MultiTrackSource.h"
 
 KWAVE_PLUGIN(Kwave::NotchFilterPlugin, "notch_filter", "2.3",
-             I18N_NOOP("Notch Filter"), "Dave Flogeras");
+             I18N_NOOP("Notch Filter"),
+             I18N_NOOP("Dave Flogeras"));
 
 //***************************************************************************
 Kwave::NotchFilterPlugin::NotchFilterPlugin(Kwave::PluginManager &plugin_manager)
@@ -133,7 +134,5 @@ void Kwave::NotchFilterPlugin::setBwValue(double bw)
     m_bw = bw;
 }
 
-//***************************************************************************
-#include "NotchFilterPlugin.moc"
 //***************************************************************************
 //***************************************************************************

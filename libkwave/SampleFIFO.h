@@ -20,17 +20,16 @@
 
 #include "config.h"
 
-#include <QtCore/QMutex>
-#include <QtCore/QQueue>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QMutex>
+#include <QQueue>
 
 #include "libkwave/SampleArray.h"
 
 namespace Kwave
 {
 
-    class KDE_EXPORT SampleFIFO
+    class Q_DECL_EXPORT SampleFIFO
     {
     public:
 	/** Constructor */

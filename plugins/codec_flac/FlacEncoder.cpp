@@ -20,20 +20,20 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtCore/QByteArray>
-#include <QtCore/QList>
-#include <QtCore/QVarLengthArray>
+#include <QApplication>
+#include <QByteArray>
+#include <QList>
+#include <QMimeType>
+#include <QVarLengthArray>
 
-#include <klocale.h>
-#include <kmimetype.h>
-#include <kapplication.h>
-#include <kglobal.h>
+#include <KLocalizedString>
+#include <QtGlobal>
 
 #include <vorbis/vorbisenc.h>
 
 #include "libkwave/FileInfo.h"
-#include "libkwave/MetaDataList.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -288,8 +288,8 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
 		if (!buf) break;
 
 		const Kwave::SampleArray &in = in_buffer;
-		for (register unsigned int in_pos = 0; in_pos < len; in_pos++) {
-		    register FLAC__int32 s = in[in_pos];
+		for (unsigned int in_pos = 0; in_pos < len; in_pos++) {
+		    FLAC__int32 s = in[in_pos];
 		    if (div) s /= div;
 		    if (s > clip_max) s = clip_max;
 		    if (s < clip_min) s = clip_min;

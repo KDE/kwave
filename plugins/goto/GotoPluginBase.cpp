@@ -19,17 +19,17 @@
 #include <errno.h>
 #include <math.h>
 
-#include <QtGui/QDialog>
-#include <QtCore/QString>
-#include <klocale.h>
+#include <KLocalizedString>
+#include <QDialog>
+#include <QString>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 
-#include "GotoPluginBase.h"
 #include "GotoDialog.h"
+#include "GotoPluginBase.h"
 
 //***************************************************************************
 Kwave::GotoPluginBase::GotoPluginBase(Kwave::PluginManager &plugin_manager)
@@ -141,7 +141,5 @@ int Kwave::GotoPluginBase::interpreteParameters(QStringList &params)
     return 0;
 }
 
-//***************************************************************************
-#include "GotoPluginBase.moc"
 //***************************************************************************
 //***************************************************************************

@@ -19,15 +19,15 @@
 
 #include <math.h>
 
-#include <QtCore/QMutexLocker>
+#include <QMutexLocker>
 
 #include "libkwave/MessageBox.h"
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/PlaybackController.h"
 #include "libkwave/PlayBackDevice.h"
-#include "libkwave/PlaybackDeviceFactory.h"
 #include "libkwave/PlayBackTypesMap.h"
+#include "libkwave/PlaybackController.h"
+#include "libkwave/PlaybackDeviceFactory.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleReader.h"
@@ -541,11 +541,15 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 //***************************************************************************
 void Kwave::PlaybackController::closeDevice()
 {
-    QMutexLocker lock_for_delete(&m_lock_device);
-
-    if (!m_device) return; // already closed
-    delete m_device;
-    m_device = 0;
+    Kwave::PlayBackDevice *dev = 0;
+    if (m_device) {
+	// NOTE: we could get a recursion here if we delete with the lock
+	//       held, if the device calls processEvents during shutdown
+	QMutexLocker lock_for_delete(&m_lock_device);
+	dev = m_device;
+	m_device = 0;
+    }
+    delete dev;
 }
 
 //***************************************************************************
@@ -678,7 +682,5 @@ void Kwave::PlaybackController::unregisterPlaybackDeviceFactory(
     m_playback_factories.removeAll(factory);
 }
 
-//***************************************************************************
-#include "PlaybackController.moc"
 //***************************************************************************
 //***************************************************************************

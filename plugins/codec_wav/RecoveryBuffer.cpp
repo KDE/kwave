@@ -18,8 +18,8 @@
 #include "config.h"
 #include <string.h>
 
-#include "libkwave/memcpy.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 #include "RecoveryBuffer.h"
 

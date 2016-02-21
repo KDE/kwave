@@ -25,7 +25,7 @@
 
 #include <string.h>
 
-#include <QtCore/QtGlobal>
+#include <QtGlobal>
 
 namespace Kwave
 {

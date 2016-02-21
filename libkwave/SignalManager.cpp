@@ -17,25 +17,22 @@
 
 #include "config.h"
 
-#include <new>
 #include <errno.h>
 #include <limits.h>
 #include <math.h>
+#include <new>
 
-#include <QtGui/QApplication>
-#include <QtGui/QCursor>
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtCore/QMutexLocker>
-#include <QtCore/QMutableListIterator>
+#include <QApplication>
+#include <QCursor>
+#include <QFile>
+#include <QFileInfo>
+#include <QMutableListIterator>
+#include <QMutexLocker>
+#include <QUrl>
 
-#include <kaboutdata.h>
-#include <kapplication.h>
-#include <kcomponentdata.h>
-#include <klocale.h>
-#include <kmimetype.h>
-#include <kprogressdialog.h>
-#include <kurl.h>
+#include <KAboutData>
+#include <KLocalizedString>
+#include <kxmlgui_version.h>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
@@ -56,7 +53,6 @@
 #include "libkwave/Track.h"
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
-#include "libkwave/undo/UndoTransactionGuard.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoAddMetaDataAction.h"
 #include "libkwave/undo/UndoDeleteAction.h"
@@ -68,6 +64,7 @@
 #include "libkwave/undo/UndoModifyMetaDataAction.h"
 #include "libkwave/undo/UndoSelection.h"
 #include "libkwave/undo/UndoTransaction.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
 
 #define CASE_COMMAND(x) } else if (parser.command() == _(x)) {
 
@@ -122,7 +119,7 @@ Kwave::SignalManager::~SignalManager()
 }
 
 //***************************************************************************
-int Kwave::SignalManager::loadFile(const KUrl &url)
+int Kwave::SignalManager::loadFile(const QUrl &url)
 {
     int res = 0;
     Kwave::FileProgress *dialog = 0;
@@ -151,7 +148,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 
     QString mimetype = Kwave::CodecManager::whatContains(url);
     qDebug("SignalManager::loadFile(%s) - [%s]",
-           DBG(url.prettyUrl()), DBG(mimetype));
+           DBG(url.toDisplayString()), DBG(mimetype));
     Kwave::Decoder *decoder = Kwave::CodecManager::decoder(mimetype);
     while (decoder) {
 	// be sure that the current signal is really closed
@@ -159,7 +156,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 
 	// open the source file
 	if (!(res = decoder->open(m_parent_widget, src))) {
-	    qWarning("unable to open source: '%s'", DBG(url.prettyUrl()));
+	    qWarning("unable to open source: '%s'", DBG(url.toDisplayString()));
 	    res = -EIO;
 	    break;
 	}
@@ -212,7 +209,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 
 	//prepare and show the progress dialog
 	dialog = new Kwave::FileProgress(m_parent_widget,
-	    filename, resulting_size,
+	    QUrl(filename), resulting_size,
 	    info.length(), info.rate(), info.bits(), info.tracks());
 	Q_ASSERT(dialog);
 
@@ -312,7 +309,7 @@ int Kwave::SignalManager::loadFile(const KUrl &url)
 }
 
 //***************************************************************************
-int Kwave::SignalManager::save(const KUrl &url, bool selection)
+int Kwave::SignalManager::save(const QUrl &url, bool selection)
 {
     int res = 0;
     sample_index_t ofs  = 0;
@@ -336,7 +333,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
     QString mimetype_name;
     mimetype_name = Kwave::CodecManager::whatContains(url);
     qDebug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
-	DBG(url.prettyUrl()), DBG(mimetype_name), bits, selection);
+	DBG(url.toDisplayString()), DBG(mimetype_name), bits, selection);
 
     Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype_name);
     Kwave::FileInfo file_info(m_meta_data);
@@ -399,12 +396,11 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 	    encoder->supportedProperties().contains(Kwave::INF_SOFTWARE))
 	{
 	    // add our Kwave Software tag
-	    const KAboutData *about_data =
-		KGlobal::mainComponent().aboutData();
-	    QString software = about_data->programName() + _("-") +
-	                       about_data->version() +
-	                       i18n(" for KDE ") +
-			       i18n(KDE_VERSION_STRING);
+	    const KAboutData about_data = KAboutData::applicationData();
+	    QString software = about_data.displayName() + _("-") +
+	                       about_data.version() +
+	                       i18n("(built for KDE Frameworks %1)",
+	                            _(KXMLGUI_VERSION_STRING));
 	    qDebug("adding software tag: '%s'", DBG(software));
 	    file_info.set(Kwave::INF_SOFTWARE, software);
 	}
@@ -423,7 +419,7 @@ int Kwave::SignalManager::save(const KUrl &url, bool selection)
 
 	// prepare and show the progress dialog
 	Kwave::FileProgress *dialog = new Kwave::FileProgress(m_parent_widget,
-	    filename, file_info.length() * file_info.tracks() *
+	    QUrl(filename), file_info.length() * file_info.tracks() *
 	    (file_info.bits() >> 3),
 	    file_info.length(), file_info.rate(), file_info.bits(),
 	    file_info.tracks());
@@ -584,8 +580,8 @@ void Kwave::SignalManager::close()
 QString Kwave::SignalManager::signalName()
 {
     // if a file is loaded -> path of the URL if it has one
-    KUrl url;
-    url = Kwave::FileInfo(m_meta_data).get(Kwave::INF_FILENAME).toString();
+    QUrl url;
+    url = QUrl(Kwave::FileInfo(m_meta_data).get(Kwave::INF_FILENAME).toString());
     if (url.isValid()) return url.path();
 
     // we have something, but no name yet
@@ -1402,11 +1398,9 @@ bool Kwave::SignalManager::continueWithoutUndo()
 	i18n("Do you want to continue without the possibility to undo?") +
 	_("</b><br><br><i>") +
 	i18n("<b>Hint</b>: you can configure the amount of memory<br>"
-	     "available for undo under '%1'/'%2'.").arg(
-	     i18n("Settings").replace(QRegExp(_("&(.)")),
-	     _("<u>\\1</u>"))).arg(
-	     i18n("Memory").replace(QRegExp(_("&(.)")),
-	     _("<u>\\1</u>")) +
+	     "available for undo under '%1'/'%2'.",
+	     i18n("Settings"),
+	     i18n("Memory") +
 	_("</i></html>"))) == KMessageBox::Continue)
     {
 	// the signal was modified, it will stay in this state, it is
@@ -2020,7 +2014,5 @@ void Kwave::SignalManager::checkSelectionChange()
 
 }
 
-//***************************************************************************
-#include "SignalManager.moc"
 //***************************************************************************
 //***************************************************************************

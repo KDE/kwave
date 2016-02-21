@@ -17,23 +17,20 @@
 
 #include "config.h"
 
-#include <math.h>
+#include <errno.h>
 #include <limits.h>
+#include <math.h>
+#include <new>
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
-#include <new>
 
-#include <complex>
-#include <fftw3.h>
-
-#include <QtCore/QFutureSynchronizer>
-#include <QtCore/QMutexLocker>
-#include <QtCore/QtConcurrentRun>
-#include <QtCore/QString>
-#include <QtGui/QApplication>
-#include <QtGui/QColor>
-#include <QtGui/QImage>
+#include <QApplication>
+#include <QColor>
+#include <QFutureSynchronizer>
+#include <QImage>
+#include <QMutexLocker>
+#include <QString>
+#include <QtConcurrentRun>
 
 #include "libkwave/GlobalLock.h"
 #include "libkwave/MessageBox.h"
@@ -50,19 +47,19 @@
 #include "libgui/OverViewCache.h"
 #include "libgui/SelectionTracker.h"
 
-#include "SonagramPlugin.h"
 #include "SonagramDialog.h"
+#include "SonagramPlugin.h"
 #include "SonagramWindow.h"
 
 KWAVE_PLUGIN(Kwave::SonagramPlugin, "sonagram", "2.3",
-             I18N_NOOP("Sonagram"), "Thomas Eschenbacher");
+             I18N_NOOP("Sonagram"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 /**
  * interval for limiting the number of repaints per second [ms]
  */
 #define REPAINT_INTERVAL 500
 
-//***************************************************************************
 //***************************************************************************
 Kwave::SonagramPlugin::SonagramPlugin(Kwave::PluginManager &plugin_manager)
     :Kwave::Plugin(plugin_manager),
@@ -429,7 +426,7 @@ void Kwave::SonagramPlugin::calculateSlice(Kwave::SonagramPlugin::Slice *slice)
 	double ima = slice->m_output[j][1];
 	double a = ((rea * rea) + (ima * ima)) / scale;
 
-	slice->m_result[j] = static_cast<unsigned char>(qMin(a, qreal(254.0)));
+	slice->m_result[j] = static_cast<unsigned char>(qMin(a, double(254.0)));
     }
 
     // free the allocated FFT resources
@@ -493,7 +490,7 @@ void Kwave::SonagramPlugin::createNewImage(const unsigned int width,
     if (m_image.isNull()) return;
 
     // initialize the image's palette with transparecy
-    m_image.setNumColors(256);
+    m_image.setColorCount(256);
     for (int i = 0; i < 256; i++) {
 	m_image.setColor(i, 0x00000000);
     }
@@ -622,7 +619,5 @@ void Kwave::SonagramPlugin::windowDestroyed()
     release();
 }
 
-//***************************************************************************
-#include "SonagramPlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include "RecordState.h"
 

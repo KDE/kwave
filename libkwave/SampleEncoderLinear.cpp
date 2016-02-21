@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 
-#include <QtCore/QtGlobal>
+#include <QtGlobal>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleEncoderLinear.h"
@@ -51,7 +51,7 @@ void encode_linear(const sample_t *src, quint8 *dst, unsigned int count)
 {
     for ( ; count; --count) {
 	// read from source buffer
-	register sample_t s = *(src++);
+	sample_t s = *(src++);
 
 	// convert to unsigned if necessary
 	if (!is_signed)

@@ -20,10 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QObject>
+#include <QVariant>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleFIFO.h"
@@ -32,7 +31,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT Delay: public Kwave::SampleSource
+    class Q_DECL_EXPORT Delay: public Kwave::SampleSource
     {
 	Q_OBJECT
 	public:

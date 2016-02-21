@@ -120,12 +120,14 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	bin/import-screenshots.sh			GPL2+
 	bin/make-specfile-changelog.pl			GPL2+
 	bin/menusconfig2pot.pl				GPL2+
+	bin/msgstats.pl					GPL2+
 	bin/set_version.sh				GPL2+ / portions of Martin Wilz
 	bin/svn-update-l10n.sh				GPL2+
 	bin/update-command-xref.pl			GPL2+
 	bin/update-fileinfo-xref.pl			GPL2+
 	bin/update-plugin-xref.pl			GPL2+
 
+	cmake/CheckIncludeFilesCXX.cmake		GPL2+
 	cmake/Copyright.txt				Kitware (cmake)
 	cmake/COPYING-CMAKE-SCRIPTS			New BSD
 	cmake/FindAlsa.cmake				BSD / {kretz,faure}@kde.org
@@ -139,7 +141,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/KwaveLibaudiofileSupport.cmake		GPL2+
 	cmake/KwaveLibsamplerateSupport.cmake		GPL2+
 	cmake/KwaveOSSSupport.cmake			GPL2+
-	cmake/KwavePhononSupport.cmake			GPL2+
 	cmake/KwavePulseAudioSupport.cmake		GPL2+
 	cmake/KwaveRPMSupport.cmake                     GPL2+
 	cmake/KwaveSysinfo.cmake			GPL2+
@@ -721,10 +722,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/playback/PlayBackDlg.ui			(should be GPL2+)
 	plugins/playback/PlayBack-OSS.cpp		GPL2+
 	plugins/playback/PlayBack-OSS.h			GPL2+
-	plugins/playback/PlayBack-Phonon.cpp		GPL2+
-	plugins/playback/PlayBack-Phonon.h		GPL2+
 	plugins/playback/PlayBack-PulseAudio.cpp	GPL2+
 	plugins/playback/PlayBack-PulseAudio.h		GPL2+
+	plugins/playback/PlayBack-Qt.cpp		GPL2+
+	plugins/playback/PlayBack-Qt.h			GPL2+
 	plugins/playback/PlayBackPlugin.cpp		GPL2+
 	plugins/playback/PlayBackPlugin.h		GPL2+
 

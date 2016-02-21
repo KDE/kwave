@@ -26,7 +26,8 @@
 #include "MP3EncoderDialog.h"
 
 KWAVE_PLUGIN(Kwave::MP3CodecPlugin, "codec_mp3", "2.3",
-             I18N_NOOP("MP3 Codec"), "Thomas Eschenbacher");
+             I18N_NOOP("MP3 Codec"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 // static instance of the codec container
 Kwave::CodecPlugin::Codec Kwave::MP3CodecPlugin::m_codec = {0, 0, 0};
@@ -88,7 +89,5 @@ Kwave::Encoder *Kwave::MP3CodecPlugin::createEncoder()
     return new Kwave::MP3Encoder();
 }
 
-//***************************************************************************
-#include "MP3CodecPlugin.moc"
 //***************************************************************************
 //***************************************************************************

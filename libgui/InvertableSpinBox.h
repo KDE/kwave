@@ -17,9 +17,8 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
-
-#include <QtGui/QSpinBox>
+#include <QtGlobal>
+#include <QSpinBox>
 
 #ifndef INVERTABLE_SPIN_BOX_H
 #define INVERTABLE_SPIN_BOX_H
@@ -29,7 +28,7 @@ class QWidget;
 namespace Kwave
 {
 
-    class KDE_EXPORT InvertableSpinBox: public QSpinBox
+    class Q_DECL_EXPORT InvertableSpinBox: public QSpinBox
     {
 	Q_OBJECT
     public:

@@ -18,27 +18,26 @@
 #include "config.h"
 
 #include <errno.h>
-#include <math.h>
 #include <limits.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <QtGui/QCursor>
-#include <QtGui/QApplication>
-#include <QtCore/QFile>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QMutex>
-#include <QtCore/QMutexLocker>
-#include <QtGui/QProgressDialog>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
+#include <QApplication>
+#include <QCursor>
+#include <QFile>
+#include <QLatin1Char>
+#include <QMutex>
+#include <QMutexLocker>
+#include <QProgressDialog>
+#include <QString>
+#include <QTimer>
 
-#include <kapplication.h>
-#include <kconfig.h>
+#include <KConfig>
 
-#include "libkwave/Curve.h"
 #include "libkwave/Connect.h"
+#include "libkwave/Curve.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/MultiTrackReader.h"
@@ -58,16 +57,17 @@
 #include "libkwave/modules/Mul.h"
 #include "libkwave/modules/Osc.h"
 
-#include "PlayBack-OSS.h"
 #include "PlayBack-ALSA.h"
-#include "PlayBack-Phonon.h"
+#include "PlayBack-OSS.h"
 #include "PlayBack-PulseAudio.h"
+#include "PlayBack-Qt.h"
 
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
 
-KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.3",
-             I18N_NOOP("Playback"), "Thomas Eschenbacher");
+KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.4",
+             I18N_NOOP("Playback"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 /** test frequency [Hz] */
 #define PLAYBACK_TEST_FREQUENCY 440.0
@@ -231,13 +231,13 @@ QList<Kwave::playback_method_t> Kwave::PlayBackPlugin::supportedMethods()
 {
     QList<Kwave::playback_method_t> methods;
 
+#ifdef HAVE_QT_AUDIO_SUPPORT
+    methods.append(Kwave::PLAYBACK_QT_AUDIO);
+#endif /* HAVE_QT_AUDIO_SUPPORT */
+
 #ifdef HAVE_PULSEAUDIO_SUPPORT
     methods.append(Kwave::PLAYBACK_PULSEAUDIO);
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
-
-    #ifdef HAVE_PHONON_SUPPORT
-    methods.append(Kwave::PLAYBACK_PHONON);
-#endif /* HAVE_PHONON_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
     methods.append(Kwave::PLAYBACK_ALSA);
@@ -260,16 +260,16 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::createDevice(
 	   static_cast<int>(method) );
 
     switch (method) {
+#ifdef HAVE_QT_AUDIO_SUPPORT
+	case Kwave::PLAYBACK_QT_AUDIO:
+	    return new Kwave::PlayBackQt();
+#endif /* HAVE_QT_AUDIO_SUPPORT */
+
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 	case Kwave::PLAYBACK_PULSEAUDIO:
 	    return new Kwave::PlayBackPulseAudio(
 		Kwave::FileInfo(signalManager().metaData()));
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
-
-#ifdef HAVE_PHONON_SUPPORT
-	case Kwave::PLAYBACK_PHONON:
-	    return new Kwave::PlayBackPhonon();
-#endif /* HAVE_PHONON_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
 	case Kwave::PLAYBACK_ALSA:
@@ -435,8 +435,8 @@ void Kwave::PlayBackPlugin::testPlayBack()
 	progress->setValue(0);
 	progress->setLabelText(
 	    _("<html><p><br>") +
-	    i18n("You should now hear a %1 Hz test tone.<br><br>"
-		    "(If you hear clicks or dropouts, please increase<br>"
+	    i18n("You should now hear a %1 Hz test tone.<br/><br/>"
+		    "(If you hear clicks or dropouts, please increase<br/>"
 		    "the buffer size and try again)",
 		    Kwave::toInt(PLAYBACK_TEST_FREQUENCY)) +
 	    _("</p></html>")
@@ -481,7 +481,5 @@ void Kwave::PlayBackPlugin::testPlayBack()
     QApplication::restoreOverrideCursor();
 }
 
-//***************************************************************************
-#include "PlayBackPlugin.moc"
 //***************************************************************************
 //***************************************************************************

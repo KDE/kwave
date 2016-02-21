@@ -18,14 +18,14 @@
 #include "config.h"
 #include <errno.h>
 
-#include <klocale.h> // for the i18n macro
+#include <KLocalizedString> // for the i18n macro
 
-#include <QtCore/QList>
-#include <QtCore/QListIterator>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QListIterator>
+#include <QStringList>
 
-#include "libkwave/FileInfo.h"
 #include "libkwave/Connect.h"
+#include "libkwave/FileInfo.h"
 #include "libkwave/MetaDataList.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -39,7 +39,8 @@
 #include "SampleRatePlugin.h"
 
 KWAVE_PLUGIN(Kwave::SampleRatePlugin, "samplerate", "2.3",
-             I18N_NOOP("Sample Rate Conversion"), "Thomas Eschenbacher");
+             I18N_NOOP("Sample Rate Conversion"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::SampleRatePlugin::SampleRatePlugin(Kwave::PluginManager &plugin_manager)
@@ -145,8 +146,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 	     Qt::BlockingQueuedConnection);
     emit setProgressText(
 	i18n("Changing sample rate from %1 kHz to %2 kHz...",
-	QString::number(old_rate   / 1E3),
-	QString::number(m_new_rate / 1E3))
+	     (old_rate   / 1E3), (m_new_rate / 1E3))
     );
 
     // create the converter
@@ -247,7 +247,5 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 
 }
 
-//***************************************************************************
-#include "SampleRatePlugin.moc"
 //***************************************************************************
 //***************************************************************************

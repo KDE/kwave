@@ -20,16 +20,15 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QObject>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/modules/StreamObject.h"
 
 namespace Kwave
 {
-    class KDE_EXPORT SampleSource: public Kwave::StreamObject
+    class Q_DECL_EXPORT SampleSource: public Kwave::StreamObject
     {
         Q_OBJECT
     public:

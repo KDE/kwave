@@ -20,10 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QTime>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QObject>
+#include <QTime>
 
 #include "libkwave/Writer.h"
 
@@ -40,7 +39,7 @@ namespace Kwave
      * @warning THIS CLASS IS NOT THREADSAFE! It is intended to be owned by
      *          and used from only one thread.
      */
-    class KDE_EXPORT TrackWriter: public Kwave::Writer
+    class Q_DECL_EXPORT TrackWriter: public Kwave::Writer
     {
 	Q_OBJECT
     public:

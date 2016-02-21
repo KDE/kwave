@@ -19,29 +19,29 @@
 
 #include <limits.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <sys/types.h>
+#include <unistd.h>
 
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QMutexLocker>
-#include <QtCore/QString>
+#include <QFile>
+#include <QFileInfo>
+#include <QLatin1Char>
+#include <QMutexLocker>
+#include <QString>
 
 #ifdef HAVE_SYSINFO
+#endif
 #include <linux/kernel.h> // for struct sysinfo
 #include <sys/sysinfo.h>  // for sysinfo()
-#endif
 
 #ifdef HAVE_GETRLIMIT
-#include <sys/resource.h> // for getrlimit()
 #endif
+#include <sys/resource.h> // for getrlimit()
 
-#include "libkwave/memcpy.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"
 #include "libkwave/SwapFile.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 /** number of elements in the m_cached_swap list */
 #define CACHE_SIZE 16
@@ -457,7 +457,7 @@ bool Kwave::MemoryManager::convertToVirtual(Kwave::Handle handle,
     // copy old stuff to new location
     Kwave::SwapFile *swap = m_unmapped_swap[temp_handle];
     Q_ASSERT(swap);
-    swap->write(0, mem.m_data, mem.m_size);
+    swap->write(0, mem.m_data, Kwave::toUint(mem.m_size));
 
     // free the old physical memory
     ::free(mem.m_data);
@@ -505,10 +505,10 @@ bool Kwave::MemoryManager::convertToPhysical(Kwave::Handle handle,
     // copy old stuff to new location
     if (new_size <= swap->size()) {
 	// shrinked
-	swap->read(0, mem.m_data, new_size);
+	swap->read(0, mem.m_data, Kwave::toUint(new_size));
     } else {
 	// grown
-	swap->read(0, mem.m_data, swap->size());
+	swap->read(0, mem.m_data, Kwave::toUint(swap->size()));
     }
 
 #ifdef DEBUG_MEMORY

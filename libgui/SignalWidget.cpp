@@ -20,28 +20,25 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtGui/QApplication>
-#include <QtGui/QBitmap>
-#include <QtGui/QContextMenuEvent>
-#include <QtGui/QDragLeaveEvent>
-#include <QtCore/QEvent>
-#include <QtGui/QFrame>
-#include <QtGui/QDragEnterEvent>
-#include <QtGui/QDragMoveEvent>
-#include <QtGui/QDropEvent>
-#include <QtGui/QMenu>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QPaintEvent>
-#include <QtGui/QResizeEvent>
-#include <QtCore/QTime>
-#include <QtGui/QToolTip>
+#include <QApplication>
+#include <QBitmap>
+#include <QContextMenuEvent>
+#include <QDragEnterEvent>
+#include <QDragLeaveEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QEvent>
+#include <QFrame>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include <QResizeEvent>
+#include <QTime>
+#include <QToolTip>
 
-#include <kcursor.h>
-#include <kglobal.h>
-#include <kglobalsettings.h>
-#include <klocale.h>
-#include <kfiledialog.h>
-#include <kiconloader.h>
+#include <KCursor>
+#include <KLocalizedString>
+#include <KIconLoader>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
@@ -50,11 +47,11 @@
 #include "libkwave/Track.h"
 #include "libkwave/Utils.h"
 
-// #include "libgui/ShortcutWrapper.h"
 #include "libgui/SignalView.h"
 #include "libgui/SignalWidget.h"
 #include "libgui/TrackPixmap.h"
 #include "libgui/TrackView.h"
+// #include "libgui/ShortcutWrapper.h"
 
 // /** table of keyboard shortcuts 0...9 */
 // static const int tbl_keys[10] = {
@@ -692,7 +689,5 @@ void Kwave::SignalWidget::updateMinimumHeight()
 //     if (m_lamps.at(key)) m_lamps.at(key)->nextState();
 // }
 
-//***************************************************************************
-#include "SignalWidget.moc"
 //***************************************************************************
 //***************************************************************************

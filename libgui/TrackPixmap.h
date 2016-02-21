@@ -22,14 +22,13 @@
 
 #include <math.h>
 
-#include <QtCore/QBitArray>
-#include <QtGui/QColor>
-#include <QtCore/QMutex>
-#include <QtCore/QObject>
-#include <QtGui/QPixmap>
-#include <QtCore/QVector>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QBitArray>
+#include <QColor>
+#include <QMutex>
+#include <QObject>
+#include <QPixmap>
+#include <QVector>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
@@ -65,7 +64,7 @@ namespace Kwave
 {
     class Track;
 
-    class KDE_EXPORT TrackPixmap : public QObject
+    class Q_DECL_EXPORT TrackPixmap: public QObject
     {
 	Q_OBJECT
 

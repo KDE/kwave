@@ -19,20 +19,21 @@
 #include <errno.h>
 #include <math.h>
 
-#include <QtCore/QString>
-#include <klocale.h>
+#include <KLocalizedString>
+#include <QString>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
-#include "libkwave/String.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/String.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
-#include "SelectRangePlugin.h"
 #include "SelectRangeDialog.h"
+#include "SelectRangePlugin.h"
 
 KWAVE_PLUGIN(Kwave::SelectRangePlugin, "selectrange", "2.3",
-             I18N_NOOP("Select Range"), "Thomas Eschenbacher");
+             I18N_NOOP("Select Range"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::SelectRangePlugin::SelectRangePlugin(
@@ -182,7 +183,5 @@ int Kwave::SelectRangePlugin::interpreteParameters(QStringList &params)
     return 0;
 }
 
-//***************************************************************************
-#include "SelectRangePlugin.moc"
 //***************************************************************************
 //***************************************************************************

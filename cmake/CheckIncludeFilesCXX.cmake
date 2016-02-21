@@ -1,8 +1,8 @@
 #############################################################################
-##    Kwave                - cmake/KwavePhononSupport.cmake
+##    Kwave                - cmake/CheckIncludeFilesCXX.cmake
 ##                           -------------------
-##    begin                : Fri May 15 2009
-##    copyright            : (C) 2009 by Thomas Eschenbacher
+##    begin                : Tue Oct 13 2015
+##    copyright            : (C) 2015 by Thomas Eschenbacher
 ##    email                : Thomas.Eschenbacher@gmx.de
 #############################################################################
 #
@@ -15,20 +15,19 @@
 ##                                                                          #
 #############################################################################
 
-OPTION(WITH_PHONON "enable playback via Phonon [default=off]" OFF)
+INCLUDE(CheckIncludeFileCXX)
 
-IF (WITH_PHONON)
-
-    INCLUDE(FindPhonon)
-
-    IF (PHONON_FOUND)
-        MESSAGE(STATUS "Found Phonon version ${PHONON_VERSION}")
-        SET(HAVE_PHONON_SUPPORT  ON CACHE BOOL "enable Phonon support")
-    ELSE (PHONON_FOUND)
-        MESSAGE(FATAL_ERROR "Your system lacks Phonon support")
-    ENDIF (PHONON_FOUND)
-
-ENDIF (WITH_PHONON)
+# like CHECK_INCLUDE_FILES, but for C++ header and aborts with a fatal error
+# if one of them was not found
+# usage: CHECK_INCLUDE_FILES_CXX(header1 [header2] ...)
+MACRO(CHECK_INCLUDE_FILES_CXX INCLUDES)
+    FOREACH(_include ${INCLUDES})
+	CHECK_INCLUDE_FILE_CXX(${_include} HAVE_${_include})
+	IF (NOT HAVE_${_include})
+	    MESSAGE(FATAL_ERROR "unable to find the following C++ header file: ${_include}")
+	ENDIF (NOT HAVE_${_include})
+    ENDFOREACH(_include ${INCLUDES})
+ENDMACRO(CHECK_INCLUDE_FILES_CXX)
 
 #############################################################################
 #############################################################################

@@ -20,9 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QMutex>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QMutex>
 
 namespace Kwave {
 
@@ -31,7 +30,7 @@ namespace Kwave {
      * Use with care!
      * (might be needed for protecting external non-threadsafe libraries)
      */
-    class KDE_EXPORT GlobalLock
+    class Q_DECL_EXPORT GlobalLock
     {
     public:
 	/** Constructor, acquires the global lock */

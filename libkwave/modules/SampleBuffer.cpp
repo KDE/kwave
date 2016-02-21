@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QtCore/QFuture>
-#include <QtCore/QtConcurrentRun>
+#include <QFuture>
+#include <QtConcurrentRun>
 
 #include "libkwave/Utils.h"
 #include "libkwave/modules/SampleBuffer.h"
@@ -144,7 +144,5 @@ void Kwave::SampleBuffer::emitData(Kwave::SampleArray data)
     m_sema.release();
 }
 
-//***************************************************************************
-#include "SampleBuffer.moc"
 //***************************************************************************
 //***************************************************************************

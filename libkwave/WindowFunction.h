@@ -20,9 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QVector>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QVector>
 
 #include "libkwave/TypesMap.h"
 
@@ -45,7 +44,7 @@ namespace Kwave
      * Handles window functions for signal processing. Also holds a static
      * map of known window functions.
      */
-    class KDE_EXPORT WindowFunction
+    class Q_DECL_EXPORT WindowFunction
     {
     public:
 	/**

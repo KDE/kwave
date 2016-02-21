@@ -20,16 +20,15 @@
 
 #include "config.h"
 
-#include <QtCore/QAtomicInt>
-#include <QtCore/QElapsedTimer>
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtCore/QPointer>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
-
-#include <kdemacros.h>
-#include <kurl.h>
+#include <QtGlobal>
+#include <QAtomicInt>
+#include <QElapsedTimer>
+#include <QList>
+#include <QObject>
+#include <QPointer>
+#include <QString>
+#include <QTimer>
+#include <QUrl>
 
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
@@ -40,7 +39,7 @@ class QSize;
 class QTextStream;
 class QWidget;
 
-class KUrl;
+class QUrl;
 
 namespace Kwave
 {
@@ -53,7 +52,7 @@ namespace Kwave
     class TopWidget;
     class Zoomable;
 
-    class KDE_EXPORT FileContext: public QObject
+    class Q_DECL_EXPORT FileContext: public QObject
     {
 	Q_OBJECT
     public:
@@ -124,6 +123,12 @@ namespace Kwave
 	 */
 	inline bool isActive() const { return m_active; }
 
+	/**
+	 * Returns true it this context has a signal (file is loaded)
+	 * or the context is executing a script
+	 */
+	bool isInUse() const;
+
 	/** returns the name of the signal */
 	QString signalName() const;
 
@@ -141,7 +146,7 @@ namespace Kwave
 	 * all commands in it.
 	 * @param url URL of the macro (batch file) to be loaded
 	 */
-	int loadBatch(const KUrl &url);
+	int loadBatch(const QUrl &url);
 
 	/**
 	 * Saves the current file.
@@ -167,6 +172,11 @@ namespace Kwave
 	 * @return true if closing is allowed, false if canceled
 	 */
 	bool closeFile();
+
+    protected:
+	friend class App;
+	friend class TopWidget;
+	friend class UsageGuard;
 
 	/**
 	 * increments the usage count of this context, prevents it from

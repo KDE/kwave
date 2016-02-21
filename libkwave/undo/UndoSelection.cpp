@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoSelection.h"

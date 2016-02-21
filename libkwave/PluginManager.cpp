@@ -20,30 +20,32 @@
 #include <errno.h>
 #include <unistd.h>
 
-#include <QtGui/QApplication>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QLibrary>
-#include <QtCore/QMutableListIterator>
+#include <QApplication>
+#include <QDir>
+#include <QLatin1Char>
+#include <QLibrary>
+#include <QLibraryInfo>
+#include <QMutableListIterator>
+#include <QtGlobal>
 
-#include <kglobal.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kmainwindow.h>
-#include <kstandarddirs.h>
-#include <klocale.h>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <KMainWindow>
+#include <KSharedConfig>
 
-#include "libkwave/Plugin.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PlaybackDeviceFactory.h"
+#include "libkwave/Plugin.h"
+#include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
-#include "libkwave/undo/UndoTransactionGuard.h"
 #include "libkwave/undo/UndoAction.h"
 #include "libkwave/undo/UndoModifyAction.h"
-#include "libkwave/PluginManager.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
 
 //***************************************************************************
 // static initializers
@@ -88,7 +90,7 @@ Kwave::PluginManager::~PluginManager()
     qApp->flush();
 
     // release all loaded modules
-    foreach (QString name, m_plugin_modules.keys()) {
+    foreach (const QString &name, m_plugin_modules.keys()) {
 	PluginModule &p = m_plugin_modules[name];
 	p.m_use_count--;
 
@@ -121,7 +123,7 @@ void Kwave::PluginManager::loadAllPlugins()
     // instance of the main window!
     // NOTE: this also gives each plugin the chance to stay in memory
     //       if necessary (e.g. for codecs)
-    foreach (QString name, m_plugin_modules.keys()) {
+    foreach (const QString &name, m_plugin_modules.keys()) {
 	KwavePluginPointer plugin = createPluginInstance(name);
 	if (plugin) {
 // 	    qDebug("PluginManager::loadAllPlugins(): plugin '%s'",
@@ -155,7 +157,7 @@ void Kwave::PluginManager::stopAllPlugins()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty())
-	foreach (KwavePluginPointer plugin, m_plugin_instances)
+	foreach (const KwavePluginPointer &plugin, m_plugin_instances)
 	    if (plugin && plugin->isRunning())
 		plugin->stop() ;
 
@@ -279,7 +281,7 @@ bool Kwave::PluginManager::canClose()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty())
-	foreach (KwavePluginPointer plugin, m_plugin_instances)
+	foreach (const KwavePluginPointer &plugin, m_plugin_instances)
 	    if (plugin && !plugin->canClose()) return false;
 
     return true;
@@ -293,7 +295,7 @@ bool Kwave::PluginManager::onePluginRunning()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty())
-	foreach (KwavePluginPointer plugin, m_plugin_instances)
+	foreach (const KwavePluginPointer &plugin, m_plugin_instances)
 	    if (plugin && plugin->isRunning()) return true;
 
     return false;
@@ -306,6 +308,12 @@ void Kwave::PluginManager::sync()
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
+    // this triggers all kinds of garbage collector (objects queued for
+    // deletion through obj->deleteLater()
+    qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+    qApp->flush();
+
+    // wait until all plugins have finished their work...
     while (onePluginRunning()) {
 	Kwave::yield();
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
@@ -355,9 +363,9 @@ QStringList Kwave::PluginManager::loadPluginDefaults(const QString &name)
     const PluginModule &info = m_plugin_modules[name];
     QString version = info.m_version;
 
-    Q_ASSERT(KGlobal::config());
-    if (!KGlobal::config()) return list;
-    KConfigGroup cfg = KGlobal::config()->group(section);
+    Q_ASSERT(KSharedConfig::openConfig());
+    if (!KSharedConfig::openConfig()) return list;
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
 
     cfg.sync();
 
@@ -395,13 +403,13 @@ void Kwave::PluginManager::savePluginDefaults(const QString &name,
     QString section = _("plugin ");
     section += name;
 
-    Q_ASSERT(KGlobal::config());
-    if (!KGlobal::config()) return;
-    KConfigGroup cfg = KGlobal::config()->group(section);
+    Q_ASSERT(KSharedConfig::openConfig());
+    if (!KSharedConfig::openConfig()) return;
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
 
     cfg.sync();
     cfg.writeEntry("version", version);
-    cfg.writeEntry("defaults", params);
+    cfg.writeEntry("defaults", params.join(QLatin1Char(',')));
     cfg.sync();
 }
 
@@ -604,13 +612,32 @@ void Kwave::PluginManager::searchPluginModules()
 	return;
     }
 
-    KStandardDirs dirs;
-    QStringList files = dirs.findAllResources("module",
-	    _("plugins/kwave/*"), KStandardDirs::NoDuplicates);
-
-    /* fallback: search also in the old location (useful for developers) */
-    files += dirs.findAllResources("data",
-	    _("kwave/plugins/*"), KStandardDirs::NoDuplicates);
+    QStringList files;
+    QStringList dirs(QLibraryInfo::location(QLibraryInfo::PluginsPath));
+    QString plugin_path = _(qgetenv("QT_PLUGIN_PATH").constData());
+    foreach (const QString &dir, plugin_path.split(_(":"))) {
+	if (!dirs.contains(dir)) dirs.append(dir);
+    }
+#ifdef PLUGIN_INSTALL_DIR
+    if (!dirs.contains(_(PLUGIN_INSTALL_DIR)))
+	dirs.append(_(PLUGIN_INSTALL_DIR));
+#endif /* PLUGIN_INSTALL_DIR */
+#ifdef QT_PLUGIN_INSTALL_DIR
+    if (!dirs.contains(_(QT_PLUGIN_INSTALL_DIR)))
+	dirs.append(_(QT_PLUGIN_INSTALL_DIR));
+#endif /* QT_PLUGIN_INSTALL_DIR */
+    foreach (const QString &dir, dirs) {
+	const QChar sep = QDir::separator();
+	if (!dir.length()) continue;
+	QDir d(dir);
+	qDebug("searching for plugins in '%s'", DBG(dir));
+	QStringList f = d.entryList(
+	    QDir::Files | QDir::Readable | QDir::Executable, QDir::Name);
+	foreach (const QString &file, f) {
+	    if (file.startsWith(_("kwaveplugin_")))
+		files += d.path() + sep + file;
+	}
+    }
 
     foreach (const QString &file, files) {
 	QLibrary *module = new QLibrary(file);
@@ -626,17 +653,15 @@ void Kwave::PluginManager::searchPluginModules()
 
 	// get all required symbols from the plugin
 	const char **p_name    =
-	    static_cast<const char **>(module->resolve(sym_name));
+	    reinterpret_cast<const char **>(module->resolve(sym_name));
 	const char **p_version =
-	    static_cast<const char **>(module->resolve(sym_version));
+	    reinterpret_cast<const char **>(module->resolve(sym_version));
 	const char **p_description =
-	    static_cast<const char **>(module->resolve(sym_description));
+	    reinterpret_cast<const char **>(module->resolve(sym_description));
 	const char **p_author  =
-	    static_cast<const char **>(module->resolve(sym_author));
-
-	void *p = module->resolve(sym_loader);
-	plugin_ldr_func_t *p_loader = 0;
-	memcpy(&p_loader, &p, sizeof(p));
+	    reinterpret_cast<const char **>(module->resolve(sym_author));
+	plugin_ldr_func_t *p_loader =
+	    reinterpret_cast<plugin_ldr_func_t *>(module->resolve(sym_loader));
 
 	// skip the plugin if something is missing or null
 	if (!p_name || !p_version || !p_author ||
@@ -703,7 +728,5 @@ void Kwave::PluginManager::migratePluginToActiveContext(Kwave::Plugin *plugin)
     plugin->setPluginManager(new_mgr);
 }
 
-//***************************************************************************
-#include "PluginManager.moc"
 //***************************************************************************
 //***************************************************************************

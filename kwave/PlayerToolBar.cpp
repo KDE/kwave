@@ -18,12 +18,12 @@
 
 #include "config.h"
 
-#include <QtCore/QtGlobal>
-#include <QtGui/QAction>
+#include <QAction>
+#include <QtGlobal>
 
-#include <kiconloader.h>
-#include <klocale.h>
-#include <kmainwindow.h>
+#include <KLocalizedString>
+#include <KIconLoader>
+#include <KMainWindow>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/Parser.h"
@@ -556,7 +556,5 @@ void Kwave::PlayerToolBar::visibleRangeChanged(sample_index_t offset,
     updateState();
 }
 
-//***************************************************************************
-#include "PlayerToolBar.moc"
 //***************************************************************************
 //***************************************************************************

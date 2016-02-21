@@ -20,11 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/Qt>
-
-#include "kdemacros.h"
+#include <QtGlobal>
+#include <QObject>
+#include <QString>
 
 #include "libgui/ViewItem.h"
 
@@ -35,7 +33,7 @@ namespace Kwave
 
     class Label;
 
-    class KDE_EXPORT LabelItem: public Kwave::ViewItem
+    class Q_DECL_EXPORT LabelItem: public Kwave::ViewItem
     {
 	Q_OBJECT
     public:

@@ -20,15 +20,13 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QtGlobal>
+#include <QList>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
-#include <kdemacros.h>
-#include <kmimetype.h>
-
-class KMimeType;
+class QMimeType;
 class QMimeData;
 
 namespace Kwave
@@ -37,7 +35,7 @@ namespace Kwave
     class Decoder;
     class Encoder;
 
-    class KDE_EXPORT CodecManager: public QObject
+    class Q_DECL_EXPORT CodecManager: public QObject
     {
 	Q_OBJECT
     public:
@@ -79,7 +77,7 @@ namespace Kwave
 	 * @param mimetype mime type describing the audio format
 	 * @return true if format is supported, false if not
 	 */
-	static bool canDecode(const KMimeType &mimetype);
+	static bool canDecode(const QMimeType &mimetype);
 
 	/**
 	 * Returns true if a decoder for the given mime type is known.
@@ -93,7 +91,7 @@ namespace Kwave
 	 * @param mimetype mime type of the source
 	 * @return a new decoder for the mime type or null if none found.
 	 */
-	static Kwave::Decoder *decoder(const KMimeType &mimetype);
+	static Kwave::Decoder *decoder(const QMimeType &mimetype);
 
 	/**
 	 * Same as above, but takes the mime type as string.
@@ -135,10 +133,10 @@ namespace Kwave
 	/**
 	 * Tries to find the name of a mime type of a decoder by a URL.
 	 * If not found, it returns the default mime type, never an empty string.
-	 * @param url a KUrl, only the filename's extension will be inspected
+	 * @param url a QUrl, only the filename's extension will be inspected
 	 * @return name of the mime type or the default mime type
 	 */
-	static QString whatContains(const KUrl &url);
+	static QString whatContains(const QUrl &url);
 
 	/** Returns a list of supported mime types for encoding */
 	static QStringList encodingMimeTypes();

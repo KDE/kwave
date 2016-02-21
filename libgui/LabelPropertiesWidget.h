@@ -20,11 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QDialog>
-#include <QtCore/QString>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QDialog>
+#include <QObject>
+#include <QString>
 
 #include "libgui/ui_LabelPropertiesWidgetBase.h"
 #include "libkwave/Sample.h"
@@ -34,7 +33,7 @@ namespace Kwave
 
     class Label;
 
-    class KDE_EXPORT LabelPropertiesWidget
+    class Q_DECL_EXPORT LabelPropertiesWidget
 	:public QDialog,
 	 public Ui::LabelPropertiesWidgetBase
     {

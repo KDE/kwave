@@ -17,18 +17,17 @@
 
 #include "config.h"
 
-#include <QtCore/QLatin1Char>
-#include <QtGui/QPixmap>
+#include <QLatin1Char>
+#include <QPixmap>
 
-#include <kapplication.h>
-#include <kiconloader.h>
+#include <KIconLoader>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
+#include "libgui/MenuGroup.h"
 #include "libgui/MenuList.h"
 #include "libgui/MenuNode.h"
-#include "libgui/MenuGroup.h"
 #include "libgui/MenuRoot.h"
 #include "libgui/MenuSub.h"
 
@@ -289,7 +288,7 @@ void Kwave::MenuNode::insertNode(const QString &name,
 	if (sub) {
 	    // a leaf with this name already exists
 	    // -> maybe we want to set new properties
-	    if (shortcut) sub->setShortcut(shortcut);
+	    if (!shortcut.isEmpty()) sub->setShortcut(shortcut);
 
 	    if (uid.length()) sub->setUID(uid);
 
@@ -313,7 +312,7 @@ void Kwave::MenuNode::insertNode(const QString &name,
 	} else if ( (p[0] == QLatin1Char('#')) || (p[0] == 0) ) {
 	    // branch already exists and we are at the end of parsing
 	    // -> maybe we want to set new properties
-	    if (shortcut) sub->setShortcut(shortcut);
+	    if (!shortcut.isEmpty()) sub->setShortcut(shortcut);
 	    if (uid.length()) sub->setUID(uid);
 	}
 
@@ -483,7 +482,5 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
     return false;
 }
 
-//***************************************************************************
-#include "MenuNode.moc"
 //***************************************************************************
 //***************************************************************************

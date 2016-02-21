@@ -17,17 +17,17 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QCheckBox>
-#include <QtGui/QLabel>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtGui/QToolTip>
-#include <QtCore/QList>
-#include <QtGui/QWhatsThis>
+#include <QCheckBox>
+#include <QLabel>
+#include <QList>
+#include <QObject>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
+#include <QToolTip>
+#include <QWhatsThis>
 
-#include <klocale.h>
-#include <knuminput.h>
+#include <KLocalizedString>
 
 #include "libkwave/StandardBitrates.h"
 #include "libkwave/String.h"
@@ -100,8 +100,8 @@ void Kwave::CompressionWidget::initInfo(QLabel *label, QWidget *widget,
                                         Kwave::FileInfo &info)
 {
     Q_ASSERT(widget);
-    if (label) label->setText(i18n(info.name(property).toAscii()) + _(":"));
-    describeWidget(widget, i18n(info.name(property).toAscii()),
+    if (label) label->setText(i18n(info.name(property).toLatin1()) + _(":"));
+    describeWidget(widget, i18n(info.name(property).toLatin1()),
                    info.description(property));
 }
 
@@ -274,7 +274,5 @@ int Kwave::CompressionWidget::baseQuality()
     return sbBaseQuality->value();
 }
 
-//***************************************************************************
-#include "CompressionWidget.moc"
 //***************************************************************************
 //***************************************************************************

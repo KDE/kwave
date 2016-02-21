@@ -104,7 +104,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox_Help">
+      <widget class="QDialogButtonBox" name="buttonBox_Help">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>
@@ -127,7 +127,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -140,11 +140,6 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>Kwave::CurveWidget</class>
    <extends>QWidget</extends>
    <header location="global">libgui/CurveWidget.h</header>
@@ -156,7 +151,6 @@
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="global">klocale.h</include>
   <include location="local">libgui/CurveWidget.h</include>
   <include location="local">libgui/ScaleWidget.h</include>
  </includes>

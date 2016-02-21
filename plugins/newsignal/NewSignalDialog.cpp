@@ -21,20 +21,18 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtGui/QSpinBox>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
+#include <QLabel>
+#include <QLayout>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
+#include <QString>
+#include <QTimer>
 
-#include <kcombobox.h>
-#include <klocale.h>
-#include <knuminput.h>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KComboBox>
+#include <KHelpClient>
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -51,8 +49,8 @@ Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, sample_index_t samples,
     setupUi(this);
     setModal(true);
 
-    edSamples->setRange(0, INT_MAX, 1);
-    edSamples->setSliderEnabled(false);
+    edSamples->setRange(0, INT_MAX);
+    edSamples->setSingleStep(1);
 
     // connect the timer for the sample edit
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(checkNewSampleEdit()));
@@ -178,7 +176,7 @@ sample_index_t Kwave::NewSignalDialog::maxSamples()
     /*
      * NOTE: this limitation to INT_MAX instead of UINT_MAX is
      *       only needed because some gui elements like
-     *       KIntNumInput cannot handle more :-(
+     *       QSpinBox cannot handle more :-(
      */
     const sample_index_t max_file_size = INT_MAX;
 
@@ -374,10 +372,8 @@ void Kwave::NewSignalDialog::setHMS(sample_index_t &samples)
 //***************************************************************************
 void Kwave::NewSignalDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("newsignal"));
+    KHelpClient::invokeHelp(_("newsignal"));
 }
 
-//***************************************************************************
-#include "NewSignalDialog.moc"
 //***************************************************************************
 //***************************************************************************

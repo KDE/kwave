@@ -24,23 +24,23 @@
 #include "config.h"
 #ifdef HAVE_ALSA_SUPPORT
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <math.h>
 #include <errno.h>
+#include <math.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#include <QtCore/QLatin1Char>
-#include <QtCore/QString>
-#include <QtCore/QtGlobal>
+#include <QLatin1Char>
+#include <QString>
+#include <QtGlobal>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/Compression.h"
-#include "libkwave/memcpy.h"
 #include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 #include "PlayBack-ALSA.h"
 
@@ -554,7 +554,7 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
                                   unsigned int channels, unsigned int bits,
                                   unsigned int bufbase)
 {
-    qDebug("PlayBackALSA::open(device=%s,rate=%0.1f,channels=%u, bits=%u, "
+    qDebug("PlayBackALSA::open(device=%s, rate=%0.1f, channels=%u, bits=%u, "
            "bufbase=%u)", DBG(device), rate, channels, bits, bufbase);
 
     m_device_name = device;

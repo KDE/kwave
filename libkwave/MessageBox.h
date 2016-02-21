@@ -20,19 +20,19 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QSemaphore>
-#include <QtCore/QString>
+#include <QtGlobal>
+#include <QObject>
+#include <QSemaphore>
+#include <QString>
 
-#include <kdemacros.h>
-#include <kmessagebox.h>
+#include <KMessageBox>
 
 class QWidget;
 
 namespace Kwave
 {
 
-    class KDE_EXPORT MessageBox: public QObject
+    class Q_DECL_EXPORT MessageBox: public QObject
     {
     Q_OBJECT
 

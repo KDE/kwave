@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QTimer>
-#include <QtCore/QList>
-#include <QtCore/QMap>
+#include <QList>
+#include <QMap>
+#include <QString>
+#include <QStringList>
+#include <QTimer>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
@@ -39,6 +39,7 @@
 #include "ui_RecordDlg.h"
 
 class QDateTime;
+class QLabel;
 class QTreeWidgetItem;
 class QWidget;
 
@@ -337,6 +338,13 @@ namespace Kwave
 	/** widget with a icon in the status bar */
 	Kwave::StatusWidget *m_state_icon_widget;
 
+	struct {
+	    QLabel *m_state;           /**< status bar id: state text */
+	    QLabel *m_time;            /**< status bar id: recorded time */
+	    QLabel *m_sample_rate;     /**< status bar id: sample rate */
+	    QLabel *m_bits_per_sample; /**< status bar id: number of tracks */
+	    QLabel *m_tracks;          /**< status bar id: number of tracks */
+	} m_status_bar;
     };
 }
 

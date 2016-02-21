@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtGui/QAction>
-#include <QtCore/QString>
+#include <QAction>
+#include <QString>
 
 #include "libgui/MenuNode.h"
 
@@ -32,7 +32,7 @@ namespace Kwave
      * Base class for entries in a Menu. It is normally owned by a toplevel
      * menu or a submenu.
      */
-    class MenuItem : public Kwave::MenuNode
+    class MenuItem: public Kwave::MenuNode
     {
 	Q_OBJECT
 

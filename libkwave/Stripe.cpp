@@ -20,9 +20,9 @@
 #include <new>
 #include <string.h> // for some speed-ups like memmove, memcpy ...
 
-#include "libkwave/memcpy.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 // define this for using only slow Qt array functions
 #undef STRICTLY_QT
@@ -561,8 +561,8 @@ void Kwave::Stripe::minMax(unsigned int first, unsigned int last,
     if (!buffer || !m_data) return;
 
     // loop over the mapped storage to get min/max
-    register sample_t lo = min;
-    register sample_t hi = max;
+    sample_t lo = min;
+    sample_t hi = max;
     Q_ASSERT(first < m_data->m_length);
     Q_ASSERT(first <= last);
     Q_ASSERT(last < m_data->m_length);
@@ -573,14 +573,14 @@ void Kwave::Stripe::minMax(unsigned int first, unsigned int last,
     const unsigned int block = 8;
     while (Q_LIKELY(remaining >= block)) {
 	for (unsigned int count = 0; count < block; count++) {
-	    register sample_t s = *(buffer++);
+	    sample_t s = *(buffer++);
 	    if (Q_UNLIKELY(s < lo)) lo = s;
 	    if (Q_UNLIKELY(s > hi)) hi = s;
 	}
 	remaining -= block;
     }
     while (Q_LIKELY(remaining)) {
-	register sample_t s = *(buffer++);
+	sample_t s = *(buffer++);
 	if (Q_UNLIKELY(s < lo)) lo = s;
 	if (Q_UNLIKELY(s > hi)) hi = s;
 	remaining--;

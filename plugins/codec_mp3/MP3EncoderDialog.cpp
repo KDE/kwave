@@ -17,23 +17,23 @@
 
 #include "config.h"
 
-#include <QtCore/QBuffer>
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QPointer>
-#include <QtCore/QProcess>
-#include <QtCore/QtGlobal>
-#include <QtGui/QApplication>
-#include <QtGui/QAbstractButton>
-#include <QtGui/QPushButton>
-#include <QtGui/QCursor>
+#include <QAbstractButton>
+#include <QApplication>
+#include <QBuffer>
+#include <QCursor>
+#include <QDialogButtonBox>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QLatin1Char>
+#include <QPointer>
+#include <QProcess>
+#include <QPushButton>
+#include <QtGlobal>
+#include <QLineEdit>
 
-#include <kcombobox.h>
-#include <kdialogbuttonbox.h>
-#include <klineedit.h>
-#include <kprocess.h>
+#include <KHelpClient>
+#include <KProcess>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
@@ -217,32 +217,32 @@ const Kwave::MP3EncoderSettings g_predefined_settings[] =
 /**
  * load a text field with the content of the current settings
  * @param field member within m_settings
- * @param control the KLineEdit to fill with the value
+ * @param control the QLineEdit to fill with the value
  */
 #define LOAD(field, control) control->setText(m_settings.field)
 
 /**
- * take the content of a KLineEdit and save it back into m_settings
+ * take the content of a QLineEdit and save it back into m_settings
  * @param field member within m_settings
- * @param control the KLineEdit to fill with the value
+ * @param control the QLineEdit to fill with the value
  */
 #define SAVE(field, control) \
     m_settings.field = QString(control->text()).simplified()
 
 /**
- * connect the editingFinished() signal of a KLineEdit to our slot
+ * connect the editingFinished() signal of a QLineEdit to our slot
  * switchToUserDefined()
- * @param control the KLineEdit to handle
+ * @param control the QLineEdit to handle
  */
 #define CONNECT(control) \
     connect(control, SIGNAL(editingFinished()), \
     this, SLOT(switchToUserDefined()))
 
 /**
- * check if the content of a KLineEdit matches the corresponding member
+ * check if the content of a QLineEdit matches the corresponding member
  * of some "settings" record
  * @param field member within m_settings
- * @param control the KLineEdit to compare against
+ * @param control the QLineEdit to compare against
  * @return the bool variable "match" is updated (logical AND)
  */
 #define CHECK(field, control) match &= \
@@ -278,13 +278,15 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
 
     // connect the combo box of the program selection
     connect(cbProgram, SIGNAL(activated(int)),
-	    this, SLOT(selectProgram(int)));
+            this, SLOT(selectProgram(int)));
 
     // standard actions, reset / reset to defaults etc...
     connect(buttonBox, SIGNAL(clicked(QAbstractButton*)),
-	    this, SLOT(buttonClicked(QAbstractButton*)));
+            this, SLOT(buttonClicked(QAbstractButton*)));
+    connect(buttonBox_Help, SIGNAL(helpRequested()),
+            this, SLOT(invokeHelp()));
 
-    // auto-detec button
+    // auto-detect button
     connect(btDetect, SIGNAL(clicked()),      this, SLOT(autoDetect()));
 
     // locate file path button
@@ -566,15 +568,18 @@ void Kwave::MP3EncoderDialog::browseFile()
     mask += QString(EXECUTABLE_SUFFIX);
 #endif
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow)
-	Kwave::FileDialog (_("kfiledialog:///kwave_mp3_encoder"),
-	KFileDialog::Opening,
-	_(""), this, true, _("file:/") + edPath->text().simplified(), mask);
+	Kwave::FileDialog(
+	    _("kfiledialog:///kwave_mp3_encoder"),
+	    Kwave::FileDialog::OpenFile,
+	    _(""), this,
+	    QUrl::fromLocalFile(_("file:/") + edPath->text().simplified()),
+	    mask
+	);
     if (!dlg) return;
-    dlg->setKeepLocation(true);
-    dlg->setCaption(i18n("Select MP3 Encoder"));
-    dlg->setUrl(KUrl(_("file:/usr/bin/")));
+    dlg->setWindowTitle(i18n("Select MP3 Encoder"));
+    dlg->setDirectory(_("/usr/bin/"));
     if (dlg->exec() == QDialog::Accepted)
-	edPath->setText(dlg->selectedFile());
+	edPath->setText(dlg->selectedUrl().toLocalFile());
     delete dlg;
 }
 
@@ -746,7 +751,11 @@ void Kwave::MP3EncoderDialog::updateEncoderInfo()
     cbProgram->setItemText(index, title);
 }
 
-/***************************************************************************/
-#include "MP3EncoderDialog.moc"
+//***************************************************************************
+void Kwave::MP3EncoderDialog::invokeHelp()
+{
+    KHelpClient::invokeHelp(_("plugin_sect_codec_mp3"));
+}
+
 /***************************************************************************/
 /***************************************************************************/

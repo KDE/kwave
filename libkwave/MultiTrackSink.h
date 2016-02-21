@@ -22,8 +22,8 @@
 
 #include <new>
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
+#include <QList>
+#include <QObject>
 
 #include "libkwave/SampleSink.h"
 

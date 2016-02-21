@@ -17,14 +17,14 @@
 
 #include "config.h"
 
-#include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-#include <QtCore/QtGlobal>
-#include <QtGui/QFont>
-#include <QtGui/QPainter>
-#include <QtGui/QPaintEvent>
+#include <QFont>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QtGlobal>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"

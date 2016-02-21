@@ -18,9 +18,9 @@
 #include "config.h"
 #include <errno.h>
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/Connect.h"
 #include "libkwave/MultiTrackReader.h"
@@ -33,11 +33,12 @@
 
 #include "libgui/OverViewCache.h"
 
-#include "VolumePlugin.h"
 #include "VolumeDialog.h"
+#include "VolumePlugin.h"
 
 KWAVE_PLUGIN(Kwave::VolumePlugin, "volume", "2.3",
-             I18N_NOOP("Volume"), "Thomas Eschenbacher");
+             I18N_NOOP("Volume"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::VolumePlugin::VolumePlugin(Kwave::PluginManager &plugin_manager)
@@ -162,7 +163,5 @@ void Kwave::VolumePlugin::run(QStringList params)
     qDebug("VolumePlugin: filter done.");
 }
 
-//***************************************************************************
-#include "VolumePlugin.moc"
 //***************************************************************************
 //***************************************************************************

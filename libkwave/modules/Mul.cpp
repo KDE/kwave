@@ -17,12 +17,12 @@
 
 #include "config.h"
 
-#include <QtCore/QMutexLocker>
-#include <QtCore/QVariant>
+#include <QMutexLocker>
+#include <QVariant>
 
-#include "libkwave/modules/Mul.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
+#include "libkwave/modules/Mul.h"
 
 /***************************************************************************/
 Kwave::Mul::Mul()
@@ -174,7 +174,5 @@ void Kwave::Mul::set_b(const QVariant &b)
     m_b_is_const = true;
 }
 
-/***************************************************************************/
-#include "Mul.moc"
 /***************************************************************************/
 /***************************************************************************/

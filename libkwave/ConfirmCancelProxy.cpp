@@ -16,11 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtGui/QWidget>
+#include <QObject>
+#include <QString>
+#include <QWidget>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/MessageBox.h"
@@ -52,7 +52,5 @@ void Kwave::ConfirmCancelProxy::cancel()
     emit canceled();
 }
 
-//***************************************************************************
-#include "ConfirmCancelProxy.moc"
 //***************************************************************************
 //***************************************************************************

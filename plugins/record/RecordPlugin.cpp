@@ -19,20 +19,22 @@
 
 #include <errno.h>
 #include <math.h>
-#include <stdlib.h>
 #include <new>
+#include <stdlib.h>
 
-#include <QtCore/QtGlobal>
-#include <QtGui/QCursor>
-#include <QtCore/QDateTime>
-#include <QtCore/QStringList>
-#include <QtCore/QList>
-#include <QtCore/QVariant>
+#include <QApplication>
+#include <QCursor>
+#include <QDateTime>
+#include <QList>
+#include <QStringList>
+#include <QVariant>
+#include <QtGlobal>
 
-#include <kapplication.h>
-#include <kaboutdata.h>
-#include <kconfig.h>
-#include <kglobal.h>
+#include <KAboutData>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KSharedConfig>
+#include <kxmlgui_version.h>
 
 #include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"
@@ -47,17 +49,18 @@
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 
+#include "Record-ALSA.h"
+#include "Record-OSS.h"
+#include "Record-PulseAudio.h"
 #include "RecordDevice.h"
 #include "RecordDialog.h"
 #include "RecordPlugin.h"
 #include "RecordThread.h"
 #include "SampleDecoderLinear.h"
-#include "Record-ALSA.h"
-#include "Record-OSS.h"
-#include "Record-PulseAudio.h"
 
 KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.4",
-             I18N_NOOP("Record"), "Thomas Eschenbacher");
+             I18N_NOOP("Record"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::RecordPlugin::RecordPlugin(Kwave::PluginManager &plugin_manager)
@@ -245,7 +248,7 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 
 	// use the previous device
 	QString section = _("plugin ") + name();
-	KConfigGroup cfg = KGlobal::config()->group(section);
+	KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
 
 	// restore the previous device
 	QString device = cfg.readEntry(
@@ -363,7 +366,7 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
     // remember the device selection, just for the GUI
     // for the next change in the method
     QString section = _("plugin ") + name();
-    KConfigGroup cfg = KGlobal::config()->group(section);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
     cfg.writeEntry(_("last_device_%1").arg(
 	static_cast<int>(m_method)), m_device_name);
 //     qDebug(">>> %d -> '%s'", static_cast<int>(m_method), DBG(m_device_name));
@@ -977,12 +980,11 @@ void Kwave::RecordPlugin::startRecording()
 	fileInfo.set(Kwave::INF_COMPRESSION, m_dialog->params().compression);
 
 	// add our Kwave Software tag
-	const KAboutData *about_data =
-	    KGlobal::mainComponent().aboutData();
-	QString software = about_data->programName() + _("-") +
-			    about_data->version() +
-			    i18n(" for KDE ") +
-			    i18n(KDE_VERSION_STRING);
+	const KAboutData about_data = KAboutData::applicationData();
+	QString software = about_data.componentName() + _("-") +
+	                   about_data.version() + _(" ") +
+	                   i18n("(built for KDE Frameworks %1)",
+	                   _(KXMLGUI_VERSION_STRING));
 	qDebug("adding software tag: '%s'", DBG(software));
 	fileInfo.set(Kwave::INF_SOFTWARE, software);
 
@@ -1530,7 +1532,5 @@ void Kwave::RecordPlugin::prerecordingChanged(bool enable)
     InhibitRecordGuard _lock(*this); // activate the change
 }
 
-//***************************************************************************
-#include "RecordPlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -19,7 +19,7 @@
 
 #include <new>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoAction.h"
@@ -101,7 +101,5 @@ void Kwave::UndoInsertAction::dump(const QString &indent)
            static_cast<unsigned long int>(m_length));
 }
 
-//***************************************************************************
-#include "UndoInsertAction.moc"
 //***************************************************************************
 //***************************************************************************

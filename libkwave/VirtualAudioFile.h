@@ -20,14 +20,13 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
-
-#include <QtCore/QMap>
+#include <QtGlobal>
+#include <QMap>
 
 extern "C" {
-#include <audiofile.h>
-#include <af_vfs.h>
 }
+#include <af_vfs.h>
+#include <audiofile.h>
 
 class QIODevice;
 
@@ -38,7 +37,7 @@ namespace Kwave
      * This class builds an interface between a QIODevice and a virtual
      * file in libaudiofile.
      */
-    class KDE_EXPORT VirtualAudioFile
+    class Q_DECL_EXPORT VirtualAudioFile
     {
     public:
 	/**

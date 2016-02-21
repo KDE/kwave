@@ -17,11 +17,12 @@
 
 #include "config.h"
 
-#include <QtGui/QCheckBox>
+#include <QCheckBox>
+#include <QLineEdit>
 
-#include <kcombobox.h>
-#include <klineedit.h>
+#include <KComboBox>
 
+#include "libkwave/FileInfo.h"
 #include "libkwave/String.h"
 
 #include "SaveBlocksWidget.h"
@@ -36,16 +37,26 @@ Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
 {
     setupUi(this);
 
+    Kwave::FileInfo info;
+
     // the file name pattern combo box
+    cbPattern->addItem(_("[%2nr]-[%title]"));
+    cbPattern->addItem(_("[%filename] part [%nr] of [%total]"));
+    cbPattern->addItem(
+	_("[%fileinfo{") +
+	info.name(Kwave::INF_NAME) +
+	_("}] (part [%nr] of [%total])"));
+    cbPattern->addItem(_("[%filename] - [%04nr]"));
     cbPattern->addItem(_("[%2nr] [%filename]"));
     cbPattern->addItem(_("[%2nr]-[%filename]"));
     cbPattern->addItem(_("[%02nr]-[%filename]"));
     cbPattern->addItem(_("[%04nr]-[%filename]"));
     cbPattern->addItem(_("[%02nr] of [%count] [%filename]"));
     cbPattern->addItem(_("[%02nr] of [%total] [%filename]"));
-    cbPattern->addItem(_("[%filename] part [%nr] of [%total]"));
-    cbPattern->addItem(_("[%filename] - [%04nr]"));
-    cbPattern->setEditText(filename_pattern);
+    if (filename_pattern.length())
+	cbPattern->setEditText(filename_pattern);
+    else
+	cbPattern->setCurrentIndex(0);
 
     // the numbering mode combo box
     cbNumbering->setCurrentIndex(static_cast<int>(numbering_mode));
@@ -117,7 +128,5 @@ void Kwave::SaveBlocksWidget::setNewExample(const QString &example)
     if (txtExample) txtExample->setText(example);
 }
 
-//***************************************************************************
-#include "SaveBlocksWidget.moc"
 //***************************************************************************
 //***************************************************************************

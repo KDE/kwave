@@ -20,13 +20,12 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <klocale.h>
-#include <kmimetype.h>
-#include <kglobal.h>
+#include <KLocalizedString>
 
-#include <QtCore/QByteArray>
-#include <QtCore/QtEndian>
-#include <QtCore/QtGlobal>
+#include <QByteArray>
+#include <QMimeType>
+#include <QtEndian>
+#include <QtGlobal>
 
 #include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"

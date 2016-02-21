@@ -33,8 +33,8 @@ PROJECT(kwave)
 # OPTION(WITH_OGG_VORBIS "enable support for ogg/vorbis files [default=on]" ON)
 # OPTION(WITH_OSS        "enable playback/recording via OSS [default=on]" ON)
 # OPTION(WITH_OPTIMIZED_MEMCPY "enable optimized memcpy [default=on]" ON)
-# OPTION(WITH_PHONON     "enable playback via Phonon [default=off]" OFF)
 # OPTION(WITH_PULSEAUDIO "enable playback/recording via PulseAudio [default=on]" ON)
+# OPTION(WITH_QT_AUDIO   "enable playback via Qt Multimedia [default=on]" ON)
 
 #############################################################################
 ### toplevel build targets:                                               ###
@@ -46,6 +46,7 @@ PROJECT(kwave)
 # distfiles           - generate subdirectory with all files for distribution
 # html_doc            - generate HTML help (for the web)
 # install             - install the package, with support for DESTDIR
+# msgstats            - show the progress of translations
 # rpm                 - create a RPM package + a src.rpm file
 # src_rpm             - create the source RPM only
 # tarball             - create a tar.bz2 archive with the sources + specfile
@@ -55,9 +56,18 @@ PROJECT(kwave)
 # tarball             - create a tar.gz file with the sources
 
 #############################################################################
-### check for the proper cmake version                                    ###
+### required versions                                                     ###
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0 FATAL_ERROR)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
+
+# Honor visibility properties for all target types (since cmake 3.3)
+IF (POLICY CMP0063)
+    CMAKE_POLICY(SET CMP0063 NEW)
+ENDIF (POLICY CMP0063)
+
+SET(ECM_MIN_VERSION "1.7.0")
+SET(QT_MIN_VERSION  "5.4.0")
+SET(KF5_MIN_VERSION "5.2.0")
 
 #############################################################################
 ### path to additional cmake modules and includes                         ###
@@ -67,7 +77,8 @@ SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 #############################################################################
 ### Kwave version number                                                  ###
 
-FIND_PACKAGE(RequiredProgram REQUIRED)
+INCLUDE(FindRequiredProgram)
+
 FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
 INCLUDE(FindKwaveVersion)
 
@@ -125,6 +136,7 @@ ENDIF (WITH_OPTIMIZED_MEMCPY)
 ### cmake includes                                                        ###
 
 INCLUDE(CheckIncludeFiles)
+INCLUDE(CheckIncludeFilesCXX)
 INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
 INCLUDE(CheckTypeSize)
@@ -140,6 +152,10 @@ SET(CMAKE_VERBOSE_MAKEFILE OFF)
 ADD_DEFINITIONS(-DHAVE_CONFIG_H)
 ADD_DEFINITIONS(-DQT_NO_CAST_TO_ASCII)
 ADD_DEFINITIONS(-DQT_NO_CAST_FROM_ASCII)
+ADD_DEFINITIONS(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+ADD_DEFINITIONS(-DQT_NO_URL_CAST_FROM_STRING)
+ADD_DEFINITIONS(-DQT_DEPRECATED_WARNINGS)
+ADD_DEFINITIONS(-DKXMLGUI_NO_DEPRECATED)
 
 CHECK_C_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" C_HAVE_PIC)
 CHECK_CXX_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_CXX_FLAGS}" CXX_HAVE_PIC)
@@ -156,44 +172,68 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 
 #############################################################################
-### Qt 4 support                                                          ###
+### Qt 5 support                                                          ###
 
-SET(QT_USE_QT3SUPPORT OFF)
-SET(QT_USE_QTUITOOLS ON)
-SET(QT_USE_QTCORE ON)
-SET(QT_DONTUSE_QTGUI OFF)
-SET(QT_USE_QTMAIN ON)
+SET(CMAKE_AUTOMOC TRUE)
+SET(CMAKE_AUTOMOC_RELAXED_MODE FALSE)
 
-FIND_PACKAGE(Qt4 4.7.0 REQUIRED)
-MESSAGE(STATUS "Found Qt4 version ${QTVERSION}")
-MESSAGE(STATUS "Found Qt4 libraries in ${QT_LIBRARY_DIR}")
-MESSAGE(STATUS "Found Qt4 header files in ${QT_INCLUDE_DIR}")
-
-#############################################################################
-### KDE 4 support                                                         ###
-
-SET(KDE4_ENABLE_FPIE ON)
-
-FIND_PROGRAM(KDECONFIG_EXECUTABLE kde4-config)
-FIND_PACKAGE(KDE4 REQUIRED)
-IF(WIN32)
-  FIND_PACKAGE(KDEWIN32 REQUIRED)
-ENDIF(WIN32)
-INCLUDE(KDE4Defaults)
-ADD_DEFINITIONS(${KDE4_DEFINITIONS})
-
-SET(QT_AND_KDECORE_LIBS
-    ${QT_QTGUI_LIBRARY}
-    ${QT_LIBRARIES}
-    ${KDE4_KDECORE_LIBS}
-    ${KDE4_KDEUI_LIBRARY}
-    ${KDE4_KIO_LIBRARY}
-    pthread
+FIND_PACKAGE(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
+    Concurrent
+    Core
+    Multimedia
+    Widgets
 )
 
+# Qt Multimedia support
+OPTION(WITH_QT_AUDIO "enable playback via Qt Multimedia [default=on]" ON)
+IF (WITH_QT_AUDIO)
+    SET(HAVE_QT_AUDIO_SUPPORT on)
+ENDIF (WITH_QT_AUDIO)
+
+
+#############################################################################
+### KF5 support                                                           ###
+
+FIND_PACKAGE(ECM ${ECM_MIN_VERSION} REQUIRED NO_MODULE)
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} )
+
+INCLUDE(KDEInstallDirs)
+INCLUDE(KDECompilerSettings)
+INCLUDE(KDECMakeSettings)
+INCLUDE(GenerateExportHeader)
+INCLUDE(FeatureSummary)
+
+FIND_PACKAGE(KF5 REQUIRED COMPONENTS
+    Completion
+    Config
+    ConfigWidgets
+    CoreAddons
+    Crash
+    DBusAddons
+    DocTools
+    GuiAddons
+    I18n
+    IconThemes
+    Init
+    KIO
+    Notifications
+    Service
+    TextWidgets
+    XmlGui
+    WidgetsAddons
+)
+
+IF (NOT WITH_DOC)
+    SET_PACKAGE_PROPERTIES(KF5DocTools
+        PROPERTIES DESCRIPTION "Tools to generate documentation"
+        TYPE OPTIONAL
+    )
+ENDIF (NOT WITH_DOC)
+
+FEATURE_SUMMARY(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
 INCLUDE_DIRECTORIES(
-    ${KDE4_INCLUDE_DIR}
-    ${QT_INCLUDE_DIR}
+    ${INTERFACE_INCLUDE_DIRECTORIES}
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
 )
@@ -203,7 +243,7 @@ INCLUDE_DIRECTORIES(
 
 SET(CMAKE_SKIP_BUILD_RPATH TRUE)
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-SET(CMAKE_INSTALL_RPATH "${LIB_INSTALL_DIR}")
+SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}")
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 MESSAGE(STATUS "Using ${CMAKE_INSTALL_RPATH} as install RPATH")
 
@@ -213,14 +253,17 @@ MESSAGE(STATUS "Using ${CMAKE_INSTALL_RPATH} as install RPATH")
 CHECK_INCLUDE_FILES(sys/times.h HAVE_SYS_TIMES_H)
 CHECK_INCLUDE_FILES(signal.h HAVE_SIGNAL_H)
 
-SET(_inc errno.h limits.h math.h signal.h
-         stdint.h stdio.h stdlib.h string.h sys/types.h unistd.h pthread.h)
-CHECK_INCLUDE_FILES("${_inc}" REQUIRED_STD_HEADERS)
-IF (NOT REQUIRED_STD_HEADERS)
+SET(_inc_c errno.h limits.h math.h signal.h
+           stdint.h stdio.h stdlib.h string.h sys/types.h unistd.h pthread.h)
+CHECK_INCLUDE_FILES("${_inc_c}" HAVE_REQUIRED_STD_C_HEADERS)
+IF (NOT HAVE_REQUIRED_STD_C_HEADERS)
     MESSAGE(FATAL_ERROR "
-        unable to find one or more of the following header files:
-        ${_inc}")
-ENDIF (NOT REQUIRED_STD_HEADERS)
+        unable to find one or more of the following C header files:
+        ${_inc_c}")
+ENDIF (NOT HAVE_REQUIRED_STD_C_HEADERS)
+
+SET(_inc_cpp algorithm limits new)
+CHECK_INCLUDE_FILES_CXX("${_inc_cpp}")
 
 #############################################################################
 ### checks for some functions                                             ###
@@ -236,12 +279,11 @@ INCLUDE(KwaveLibaudiofileSupport)
 INCLUDE(KwaveLibsamplerateSupport)
 
 #############################################################################
-### optionally: OSS, ALSA, PulseAudio and Phonon support                  ###
+### optionally: OSS, ALSA and PulseAudio support                          ###
 ### for playback/recording                                                ###
 
 INCLUDE(KwaveOSSSupport)
 INCLUDE(KwaveALSASupport)
-INCLUDE(KwavePhononSupport)
 INCLUDE(KwavePulseAudioSupport)
 
 #############################################################################
@@ -254,11 +296,11 @@ INCLUDE(KwaveL10N)
 
 OPTION(DEBUG "build debug code [default=off]" OFF)
 IF (DEBUG)
-    SET(CMAKE_DEBUG_FLAGS "-O0 -fno-inline -g -Wall -W -Wextra -pedantic -fstack-protector-all")
+    SET(CMAKE_DEBUG_FLAGS "-Og -fno-inline -g -Wall -W -Wextra -pedantic -fstack-protector-all")
     SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${CMAKE_DEBUG_FLAGS}")
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_DEBUG_FLAGS} -Wold-style-cast -Wno-non-virtual-dtor")
     SET(CMAKE_SHARED_LINKER_FLAGS "$ENV{CMAKE_SHARED_LINKER_FLAGS}")
-    ADD_DEFINITIONS(-DDEBUG -D_DEBUG)
+    ADD_DEFINITIONS(-DDEBUG -D_DEBUG -DQT_DEBUG)
     SET(HAVE_DEBUG_PLUGIN  ON CACHE BOOL "enable debug plugin in the menu")
 ELSE(DEBUG)
     ADD_DEFINITIONS(-DNO_DEBUG -DQT_NO_DEBUG)
@@ -426,12 +468,6 @@ ENDIF (KWAVE_ADDITIONAL_CLEAN_FILES)
 #############################################################################
 ### "make wrapper"                                                        ###
 ### -> creates a wrapper script named "kw"                                ###
-
-EXECUTE_PROCESS(
-    COMMAND ${KDE4_KDECONFIG_EXECUTABLE} --prefix
-    OUTPUT_VARIABLE KDE4_PREFIX
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-)
 
 SET(WRAPPER_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/kw")
 

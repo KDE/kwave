@@ -23,9 +23,9 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QVector>
+#include <QString>
+#include <QStringList>
+#include <QVector>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/Sample.h"
@@ -33,6 +33,7 @@
 
 namespace Kwave
 {
+    class MultiTrackReader;
     class SampleReader;
 
     /**

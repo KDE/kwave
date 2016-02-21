@@ -24,7 +24,7 @@
 
 #include <id3/globals.h>
 
-#include <QtCore/QString>
+#include <QString>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
@@ -118,10 +118,10 @@ namespace Kwave
 	int m_buffer_size;
 
 	/** number of prepended bytes / id3v2 tag */
-	unsigned int m_prepended_bytes;
+	 size_t m_prepended_bytes;
 
 	/** number of appended bytes / id3v1 tag */
-	unsigned int m_appended_bytes;
+	size_t m_appended_bytes;
 
 	/** number of failures */
 	unsigned int m_failures;

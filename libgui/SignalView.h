@@ -20,18 +20,17 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QLabel>
-#include <QtCore/QList>
-#include <QtCore/QPointer>
-#include <QtCore/QSize>
-#include <QtGui/QPolygon>
-#include <QtCore/QSharedPointer>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
-#include <QtGui/QWidget>
-
-#include "kdemacros.h"
+#include <QtGlobal>
+#include <QLabel>
+#include <QList>
+#include <QObject>
+#include <QPointer>
+#include <QPolygon>
+#include <QSharedPointer>
+#include <QSize>
+#include <QString>
+#include <QTimer>
+#include <QWidget>
 
 #include "libkwave/Sample.h"
 
@@ -48,7 +47,7 @@ namespace Kwave
 
     class SignalManager; // forward declaration
 
-    class KDE_EXPORT SignalView: public QWidget
+    class Q_DECL_EXPORT SignalView: public QWidget
     {
 	Q_OBJECT
     public:

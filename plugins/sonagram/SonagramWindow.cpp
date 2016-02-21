@@ -17,22 +17,24 @@
 
 #include "config.h"
 
-#include <math.h>
 #include <limits.h>
+#include <math.h>
 #include <new>
 
-#include <QtGui/QBitmap>
-#include <QtGui/QImage>
-#include <QtGui/QLayout>
-#include <QtCore/QTimer>
+#include <QBitmap>
+#include <QImage>
+#include <QLabel>
+#include <QMenuBar>
+#include <QPointer>
+#include <QLayout>
+#include <QStatusBar>
+#include <QTimer>
 
-#include <kmenubar.h>
-#include <kfiledialog.h>
-#include <kstatusbar.h>
+#include <KIconLoader>
 
-#include "libkwave/WindowFunction.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+#include "libkwave/WindowFunction.h"
 
 #include "libgui/FileDialog.h"
 #include "libgui/ImageView.h"
@@ -83,7 +85,9 @@ static const char *background[] = {
 
 //****************************************************************************
 Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
-    :KMainWindow(parent), m_image(), m_color_mode(0), m_view(0), m_overview(0),
+    :KMainWindow(parent),
+     m_status_time(0), m_status_freq(0), m_status_ampl(0),
+     m_image(), m_color_mode(0), m_view(0), m_overview(0),
      m_points(0), m_rate(0), m_xscale(0), m_yscale(0), m_refresh_timer()
 {
     KIconLoader icon_loader;
@@ -99,7 +103,7 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     Q_ASSERT(top_layout);
     if (!top_layout) return;
 
-    KMenuBar *bar = menuBar();
+    QMenuBar *bar = menuBar();
     Q_ASSERT(bar);
     if (!bar) return ;
 
@@ -128,13 +132,19 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
 
 //    spectral->addAction (i18n("&Retransform to Signal"), this, SLOT(toSignal()));
 
-    KStatusBar *status = statusBar();
+    QStatusBar *status = statusBar();
     Q_ASSERT(status);
     if (!status) return ;
 
-    status->insertItem(i18n("Time: ------ ms"), 1);
-    status->insertItem(i18n("Frequency: ------ Hz"), 2);
-    status->insertItem(i18n("Amplitude: --- %"), 3);
+    m_status_time = new(std::nothrow)
+	QLabel(i18n("Time: ------ ms"), status);
+    m_status_freq = new(std::nothrow)
+	QLabel(i18n("Frequency: ------ Hz"), status);
+    m_status_ampl = new(std::nothrow)
+	QLabel(i18n("Amplitude: --- %"), status);
+    status->addPermanentWidget(m_status_time);
+    status->addPermanentWidget(m_status_freq);
+    status->addPermanentWidget(m_status_ampl);
 
     m_view = new(std::nothrow) Kwave::ImageView(mainwidget);
     Q_ASSERT(m_view);
@@ -180,9 +190,9 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     top_layout->setColumnStretch(1, 100);
     top_layout->activate();
 
-    status->changeItem(i18n("Time: 0 ms"), 1);
-    status->changeItem(i18n("Frequency: 0 Hz"), 2);
-    status->changeItem(i18n("Amplitude: 0 %"), 3);
+    if (m_status_time) m_status_time->setText(i18n("Time: 0 ms"));
+    if (m_status_freq) m_status_freq->setText(i18n("Frequency: 0 Hz"));
+    if (m_status_ampl) m_status_ampl->setText(i18n("Amplitude: 0 %"));
 
     // try to make 5:3 format (looks best)
     int w = sizeHint().width();
@@ -205,21 +215,25 @@ void Kwave::SonagramWindow::save()
 {
     if (m_image.isNull()) return;
 
-    Kwave::FileDialog dlg(_("kfiledialog:///kwave_sonagram"),
-        KFileDialog::Saving, QString(),
-        this, true, QString(), _("*.bmp"));
-    dlg.setCaption(i18n("Save Sonagram"));
-    if (dlg.exec() != QDialog::Accepted) return;
-    QString filename = dlg.selectedFile();
-
-    if (!filename.isEmpty()) m_image.save(filename, "BMP");
+    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+	_("kfiledialog:///kwave_sonagram"),
+	Kwave::FileDialog::SaveFile, QString(),
+	this, QUrl(), _("*.bmp")
+    );
+    if (!dlg) return;
+    dlg->setWindowTitle(i18n("Save Sonagram"));
+    if (dlg->exec() == QDialog::Accepted) {
+	QString filename = dlg->selectedUrl().toLocalFile();
+	if (!filename.isEmpty()) m_image.save(filename, "BMP");
+    }
+    delete dlg;
 }
 
 //****************************************************************************
 void Kwave::SonagramWindow::load()
 {
 //    if (image) {
-//	QString filename = KFileDialog::getOpenFileName("", "*.bmp", this);
+//	QString filename = QFileDialog::getOpenFileName(this, QString(), "", "*.bmp");
 //	printf ("loading %s\n", filename.local8Bit().data());
 //	if (!filename.isNull()) {
 //	    printf ("loading %s\n", filename.local8Bit().data());
@@ -497,7 +511,7 @@ void Kwave::SonagramWindow::setColorMode(int mode)
 //***************************************************************************
 void Kwave::SonagramWindow::setName(const QString &name)
 {
-    setCaption((name.length()) ?
+    setWindowTitle((name.length()) ?
 	i18n("Sonagram of %1", name) :
 	i18n("Sonagram")
     );
@@ -506,7 +520,7 @@ void Kwave::SonagramWindow::setName(const QString &name)
 //****************************************************************************
 void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
 {
-    KStatusBar *status = statusBar();
+    QStatusBar *status = statusBar();
     Q_ASSERT(status);
     Q_ASSERT(m_points);
     Q_ASSERT(!qFuzzyIsNull(m_rate));
@@ -521,11 +535,12 @@ void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
     translatePixels2TF(pos, &ms, &f);
 
     // item 1: time in milliseconds
-    status->changeItem(i18n("Time: %1", Kwave::ms2string(ms)), 1);
+    if (m_status_time)
+	m_status_time->setText(i18n("Time: %1", Kwave::ms2string(ms)));
 
     // item 2: frequency in Hz
-    QString text = i18n("Frequency: %1 Hz", Kwave::toInt(f));
-    status->changeItem(text, 2);
+    if (m_status_freq)
+	m_status_freq->setText(i18n("Frequency: %1 Hz", Kwave::toInt(f)));
 
     // item 3: amplitude in %
     if (m_image.valid(pos.x(), pos.y())) {
@@ -533,8 +548,8 @@ void Kwave::SonagramWindow::cursorPosChanged(const QPoint pos)
     } else {
 	a = 0.0;
     }
-    text = i18n("Amplitude: %1%", Kwave::toInt(a));
-    status->changeItem(text, 3);
+    if (m_status_ampl)
+	m_status_ampl->setText(i18n("Amplitude: %1%", Kwave::toInt(a)));
 }
 
 //****************************************************************************
@@ -551,7 +566,5 @@ void Kwave::SonagramWindow::setRate(double rate)
     updateScaleWidgets();
 }
 
-//***************************************************************************
-#include "SonagramWindow.moc"
 //***************************************************************************
 //***************************************************************************

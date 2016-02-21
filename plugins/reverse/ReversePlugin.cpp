@@ -19,14 +19,14 @@
 #include <math.h>
 #include <new>
 
-#include <klocale.h> // for the i18n macro
+#include <KLocalizedString> // for the i18n macro
 
-#include <QtCore/QFutureSynchronizer>
-#include <QtCore/QtConcurrentRun>
-#include <QtCore/QList>
-#include <QtCore/QSharedPointer>
-#include <QtCore/QStringList>
-#include <QtCore/QThread>
+#include <QFutureSynchronizer>
+#include <QList>
+#include <QSharedPointer>
+#include <QStringList>
+#include <QThread>
+#include <QtConcurrentRun>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/PluginManager.h"
@@ -42,7 +42,8 @@
 #include "UndoReverseAction.h"
 
 KWAVE_PLUGIN(Kwave::ReversePlugin, "reverse", "2.3",
-             I18N_NOOP("Reverse"), "Thomas Eschenbacher");
+             I18N_NOOP("Reverse"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 //***************************************************************************
@@ -211,7 +212,7 @@ void Kwave::ReversePlugin::reverse(Kwave::SampleArray &buffer)
     sample_t *a = buffer.data();
     sample_t *b = buffer.data() + (buffer.size() - 1);
     for (; count; count--) {
-	register sample_t h = *a;
+	sample_t h = *a;
 	*a++ = *b;
 	*b-- = h;
     }
@@ -223,7 +224,5 @@ void Kwave::ReversePlugin::updateProgress(qreal progress)
     Kwave::Plugin::updateProgress(progress + progress);
 }
 
-//***************************************************************************
-#include "ReversePlugin.moc"
 //***************************************************************************
 //***************************************************************************

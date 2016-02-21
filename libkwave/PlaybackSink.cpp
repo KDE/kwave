@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include "libkwave/SampleArray.h"
 #include "libkwave/PlaybackSink.h"
+#include "libkwave/SampleArray.h"
 
 //***************************************************************************
 Kwave::PlaybackSink::PlaybackSink(unsigned int track)
@@ -37,7 +37,5 @@ void Kwave::PlaybackSink::input(Kwave::SampleArray data)
     emit output(m_track, data);
 }
 
-//***************************************************************************
-#include "PlaybackSink.moc"
 //***************************************************************************
 //***************************************************************************

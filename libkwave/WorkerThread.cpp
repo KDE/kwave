@@ -20,14 +20,14 @@
 #include <signal.h>
 #include <stdio.h>
 
-#include <QtCore/QtGlobal> // for qWarning()
+#include <QtGlobal> // for qWarning()
 
 #undef DEBUG_FIND_DEADLOCKS
 #ifdef DEBUG_FIND_DEADLOCKS
 #include <execinfo.h> // for backtrace()
+#endif
 #include <errno.h>
 #include <error.h>   // for strerror()
-#endif
 
 #include "libkwave/Runnable.h"
 #include "libkwave/WorkerThread.h"
@@ -172,14 +172,11 @@ void Kwave::WorkerThread::cancel()
     m_should_stop = true;
 }
 
-
 //***************************************************************************
 bool Kwave::WorkerThread::shouldStop()
 {
     return (m_should_stop);
 }
 
-//***************************************************************************
-#include "WorkerThread.moc"
 //***************************************************************************
 //***************************************************************************

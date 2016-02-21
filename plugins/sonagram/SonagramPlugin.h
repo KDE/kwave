@@ -20,16 +20,19 @@
 
 #include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtCore/QBitArray>
-#include <QtCore/QFuture>
-#include <QtCore/QList>
-#include <QtCore/QMutex>
-#include <QtCore/QQueue>
-#include <QtCore/QReadWriteLock>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
-#include <QtCore/QUuid>
+#include <complex>
+#include <fftw3.h>
+
+#include <QBitArray>
+#include <QByteArray>
+#include <QFuture>
+#include <QList>
+#include <QMutex>
+#include <QQueue>
+#include <QReadWriteLock>
+#include <QString>
+#include <QTimer>
+#include <QUuid>
 
 #include "libkwave/FixedPool.h"
 #include "libkwave/Plugin.h"

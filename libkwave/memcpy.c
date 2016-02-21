@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2014 the xine project
+ * Copyright (C) 2001-2014 the xine project <xine-user@lists.sourceforge.net>
  *
  * This file is part of xine, a free video player.
  *
@@ -39,6 +39,9 @@
  *
  * 2014-05-26
  *   synced with latest hg version, xine-lib-1-2-02e5a69f56c9
+ *
+ * 2015-09-19
+ *   keyword "extern" was missing for probe_fast_memcpy()
  */
 
 #ifdef HAVE_CONFIG_H
@@ -67,7 +70,7 @@
 #define _(m) m
 #define xprintf printf
 
-void probe_fast_memcpy(void);
+extern void probe_fast_memcpy(void) ;
 extern void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 
 #define LOG_MODULE "memcpy"
@@ -153,7 +156,6 @@ quote of the day:
 
 #if defined(ARCH_X86) || defined(ARCH_X86_64)
 
-#ifndef _MSC_VER
 /* for small memory blocks (<256 bytes) this version is faster */
 #define small_memcpy(to,from,n)\
 {\
@@ -506,7 +508,6 @@ static void * mmx2_memcpy(void * to, const void * from, size_t len)
 static void *linux_kernel_memcpy(void *to, const void *from, size_t len) {
   return linux_kernel_memcpy_impl(to,from,len);
 }
-#endif /* _MSC_VER */
 #endif /* ARCH_X86 */
 
 static const struct {
@@ -518,7 +519,7 @@ static const struct {
 {
   { "", NULL, 0 },
   { "libc", memcpy, 0 },
-#if (defined(ARCH_X86) || defined(ARCH_X86_64)) && !defined(_MSC_VER)
+#if (defined(ARCH_X86) || defined(ARCH_X86_64))
   { "linux kernel", linux_kernel_memcpy, 0 },
   { "MMX ", mmx_memcpy, MM_MMX },
   { "MMXEXT", mmx2_memcpy, MM_MMXEXT },
@@ -620,7 +621,7 @@ void probe_fast_memcpy(void)
 
   static const char *const memcpy_methods[] = {
     "probe", "libc",
-#if (defined(ARCH_X86) || defined(ARCH_X86_64)) && !defined(_MSC_VER)
+#if (defined(ARCH_X86) || defined(ARCH_X86_64))
     "kernel", "mmx", "mmxext", "sse",
 # ifdef HAVE_AVX
     "avx",

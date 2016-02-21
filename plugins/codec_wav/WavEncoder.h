@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
+#include <QList>
 
 #include "libkwave/Encoder.h"
 #include "libkwave/MetaDataList.h"

@@ -1,5 +1,5 @@
 
-o recording via Phonon
+o use the KDE/Services interface for plugins
 
 o auto-detect song borders set markers, for splitting recorded stuff into several
   parts and then save them to disc as separate files
@@ -106,8 +106,6 @@ o adjustable playback speed (similar to what vlcplayer offers)
 o support for compressed wav files, like those found on www.montypython.net
   -> MPEG 3 is still not supported by libaudiofile
 
-o get Phonon playback support running correctly
-
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 
 o fileinfo plugin: auto-generate filename from "track - title"
@@ -153,8 +151,6 @@ o support for KDE's session management
 
 o macro recorder
 
-o documentation of the internal macro language
-
 o user selectable color scheme
   (feature requested by John David Thompson, 2006-12-20)
 
@@ -175,6 +171,8 @@ o about plugin: auto-scroll for contents
 o re-run cmake automatically when VERSION file has changed
 
 o no null pointer checks around "delete"
+
+o EBN: re-enable qclasses check when it is maintained again
 
 o license change to GPL v3 ?
 

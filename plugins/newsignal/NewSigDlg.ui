@@ -378,7 +378,7 @@
           </spacer>
          </item>
          <item row="3" column="1" colspan="3">
-          <widget class="KIntNumInput" name="edSamples">
+          <widget class="QSpinBox" name="edSamples">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -749,7 +749,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
        </property>
@@ -762,25 +762,11 @@
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntNumInput</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
+   <header>KComboBox</header>
   </customwidget>
  </customwidgets>
- <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

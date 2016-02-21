@@ -17,9 +17,10 @@
 
 #include "config.h"
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <ktoolinvocation.h>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KHelpClient>
+#include <KSharedConfig>
 
 #include "libkwave/String.h"
 
@@ -41,7 +42,7 @@ Kwave::StringEnterDialog::StringEnterDialog(QWidget *parent,
     setMaximumWidth(sizeHint().width() * 2);
 
     // restore the window width from the previous invocation
-    KConfigGroup cfg    = KGlobal::config()->group(CONFIG_GROUP);
+    KConfigGroup cfg    = KSharedConfig::openConfig()->group(CONFIG_GROUP);
     QString      result = cfg.readEntry(CONFIG_WIDTH);
     bool         ok     = false;
     int          w      = result.toUInt(&ok);
@@ -58,7 +59,7 @@ Kwave::StringEnterDialog::StringEnterDialog(QWidget *parent,
 Kwave::StringEnterDialog::~StringEnterDialog()
 {
     // save the window width for the next invocation
-    KConfigGroup cfg = KGlobal::config()->group(CONFIG_GROUP);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(CONFIG_GROUP);
     cfg.writeEntry(CONFIG_WIDTH, width());
 }
 
@@ -71,7 +72,7 @@ QString Kwave::StringEnterDialog::command()
 //***************************************************************************
 void Kwave::StringEnterDialog::accept()
 {
-    m_command = edCommand->userText().trimmed();
+    m_command = edCommand->text().trimmed();
     if (m_command.length())
 	QDialog::accept();
     else
@@ -81,11 +82,8 @@ void Kwave::StringEnterDialog::accept()
 //***************************************************************************
 void Kwave::StringEnterDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_stringenter"));
+    KHelpClient::invokeHelp(_("plugin_sect_stringenter"));
 }
 
 //***************************************************************************
-#include "StringEnterDialog.moc"
 //***************************************************************************
-//***************************************************************************
-

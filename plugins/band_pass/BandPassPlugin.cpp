@@ -17,19 +17,20 @@
 
 #include "config.h"
 
-#include <math.h>
 #include <errno.h>
+#include <math.h>
 
-#include <QtCore/QStringList>
-#include <klocale.h>
+#include <KLocalizedString>
+#include <QStringList>
 
-#include "libkwave/MultiTrackSource.h"
 #include "BandPass.h"
-#include "BandPassPlugin.h"
 #include "BandPassDialog.h"
+#include "BandPassPlugin.h"
+#include "libkwave/MultiTrackSource.h"
 
 KWAVE_PLUGIN(Kwave::BandPassPlugin, "band_pass", "2.3",
-             I18N_NOOP("Band Pass Filter"), "Dave Flogeras");
+             I18N_NOOP("Band Pass Filter"),
+             I18N_NOOP("Dave Flogeras"));
 
 //***************************************************************************
 Kwave::BandPassPlugin::BandPassPlugin(Kwave::PluginManager &plugin_manager)
@@ -135,7 +136,5 @@ void Kwave::BandPassPlugin::setBwValue(double bw)
     m_bw = bw;
 }
 
-//***************************************************************************
-#include "BandPassPlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtGui/QPixmap>
-#include <QtGui/QWidget>
+#include <QPixmap>
+#include <QWidget>
 
 class QPaintEvent;
 class QImage;
@@ -32,7 +32,7 @@ class QTimer;
 
 namespace Kwave
 {
-    class LogoWidget : public QWidget
+    class LogoWidget: public QWidget
     {
 	Q_OBJECT
 

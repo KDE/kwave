@@ -20,21 +20,20 @@
 
 #include "config.h"
 
-#include <QtGui/QGridLayout>
-#include <QtGui/QImage>
-#include <QtGui/QLabel>
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtGui/QPainter>
-#include <QtGui/QPixmap>
-#include <QtCore/QPointer>
-#include <QtGui/QPolygon>
-#include <QtCore/QQueue>
-#include <QtCore/QSize>
-#include <QtCore/QTimer>
-#include <QtGui/QWidget>
-
-#include "kdemacros.h"
+#include <QtGlobal>
+#include <QGridLayout>
+#include <QImage>
+#include <QLabel>
+#include <QList>
+#include <QObject>
+#include <QPainter>
+#include <QPixmap>
+#include <QPointer>
+#include <QPolygon>
+#include <QQueue>
+#include <QSize>
+#include <QTimer>
+#include <QWidget>
 
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
@@ -57,7 +56,7 @@ class QPoint;
 class QVBoxLayout;
 class QWheelEvent;
 
-class KUrl;
+class QUrl;
 
 class LabelType;
 class TimeOperation;
@@ -74,7 +73,8 @@ namespace Kwave
      * The SignalWidget class is responsible for displaying and managing the
      * views that belong to a signal.
      */
-    class KDE_EXPORT SignalWidget : public QWidget, public Kwave::ViewManager
+    class Q_DECL_EXPORT SignalWidget: public QWidget,
+                                      public Kwave::ViewManager
     {
 	Q_OBJECT
 

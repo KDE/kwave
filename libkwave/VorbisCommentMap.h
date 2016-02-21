@@ -20,16 +20,16 @@ VorbisCommentMap.h  -  map for translating properties to vorbis comments
 
 #include "config.h"
 
-#include <QtCore/QMap>
-#include <QtCore/QString>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QMap>
+#include <QString>
 
 #include "libkwave/FileInfo.h"
 
 namespace Kwave
 {
-    class KDE_EXPORT VorbisCommentMap :public QMap<QString, Kwave::FileProperty>
+    class Q_DECL_EXPORT VorbisCommentMap
+	:public QMap<QString, Kwave::FileProperty>
     {
     public:
 	/** Default constructor, with initializing */

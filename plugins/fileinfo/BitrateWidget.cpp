@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QtCore/QtGlobal>
-#include <QtGui/QSlider>
-#include <QtGui/QSpinBox>
+#include <QSlider>
+#include <QSpinBox>
+#include <QtGlobal>
 
 #include "libkwave/Utils.h"
 
@@ -129,7 +129,5 @@ void Kwave::BitrateWidget::snapInSlider()
     slider->setValue(m_rates[index]); // snap in
 }
 
-//***************************************************************************
-#include "BitrateWidget.moc"
 //***************************************************************************
 //***************************************************************************

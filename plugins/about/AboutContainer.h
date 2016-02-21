@@ -26,9 +26,9 @@
 
 #include "config.h"
 
-#include <QtGui/QFrame>
-#include <QtCore/QSize>
-#include <QtGui/QVBoxLayout>
+#include <QFrame>
+#include <QSize>
+#include <QVBoxLayout>
 
 class QString;
 class QLabel;
@@ -54,8 +54,6 @@ namespace Kwave
 
 	virtual QSize sizeHint() const;
 	virtual QSize minimumSizeHint() const;
-
-    protected:
 
 	void addWidget(QWidget *widget);
 

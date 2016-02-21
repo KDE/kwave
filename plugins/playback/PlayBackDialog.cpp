@@ -19,30 +19,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <QtCore/QPointer>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QStringList>
-#include <QtGui/QIcon>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTreeWidgetItem>
-#include <QtGui/QSlider>
+#include <QApplication>
+#include <QIcon>
+#include <QLabel>
+#include <QLatin1Char>
+#include <QPointer>
+#include <QPushButton>
+#include <QSlider>
+#include <QSpinBox>
+#include <QStringList>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 
-#include <kapplication.h>
-#include <kcombobox.h>
-#include <kconfig.h>
-#include <kfiledialog.h>
-#include <kiconloader.h>
-#include <kicontheme.h>
-#include <klocale.h>
-#include <knuminput.h>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KComboBox>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KHelpClient>
+#include <KLocalizedString>
+#include <KIconLoader>
+#include <KIconTheme>
+#include <KSharedConfig>
 
-#include "libkwave/PlaybackController.h"
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/PlayBackTypesMap.h"
+#include "libkwave/PlaybackController.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"
 
@@ -165,7 +165,7 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
     // the previous one
     QString device = _("");
     QString section = _("plugin playback");
-    KConfigGroup cfg = KGlobal::config()->group(section);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
 
     // save the current device
     cfg.writeEntry(
@@ -185,6 +185,10 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
 	       static_cast<int>(m_playback_params.method),
 	       static_cast<int>(method));
 	setMethod(method); // -> recursion
+
+	// remove hourglass
+	QApplication::restoreOverrideCursor();
+
 	return;
     }
 
@@ -199,6 +203,10 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
 	// oops, something has failed :-(
 	setSupportedDevices(QStringList());
 	setDevice(QString());
+
+	// remove hourglass
+	QApplication::restoreOverrideCursor();
+
 	return;
     }
 
@@ -630,17 +638,17 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
 
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
 	_("kfiledialog:///kwave_playback_device"),
-	KFileDialog::Opening, filter, this,
-	true, _("file:/dev"));
+	Kwave::FileDialog::OpenFile, filter, this,
+	QUrl(_("file:/dev"))
+    );
     if (!dlg) return;
-    dlg->setKeepLocation(true);
-    dlg->setCaption(i18n("Select Playback Device"));
+    dlg->setWindowTitle(i18n("Select Playback Device"));
     if (!m_playback_params.device.startsWith(_("#")))
-        dlg->setUrl(KUrl(_("file:") + m_playback_params.device));
+        dlg->selectUrl(QUrl(_("file:") + m_playback_params.device));
     else
-        dlg->setUrl(KUrl(_("file:/dev/*")));
+        dlg->selectUrl(QUrl(_("file:/dev/*")));
     if (dlg->exec() == QDialog::Accepted) {
-	QString new_device = dlg->selectedFile();
+	QString new_device = dlg->selectedUrl().fileName();
 	// selected new device
 	if (cbDevice) cbDevice->setEditText(new_device);
     }
@@ -650,10 +658,8 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
 //***************************************************************************
 void Kwave::PlayBackDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("playback"));
+    KHelpClient::invokeHelp(_("playback"));
 }
 
-//***************************************************************************
-#include "PlayBackDialog.moc"
 //***************************************************************************
 //***************************************************************************

@@ -19,7 +19,7 @@
 #define FILTER_H
 
 #include "config.h"
-#include <QtCore/QVector>
+#include <QVector>
 
 class QString;
 

@@ -17,15 +17,14 @@
 
 #include "config.h"
 
-#include <math.h>
 #include <limits.h>
+#include <math.h>
 
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtGui/QWidget>
+#include <QRadioButton>
+#include <QSlider>
+#include <QWidget>
 
-#include <klocale.h>
-#include <knuminput.h>
+#include <KLocalizedString>
 
 #include "libkwave/Utils.h"
 
@@ -66,8 +65,8 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
 	m_length = m_offset + INT_MAX;
 
     // set range of selection by sample
-    edSamples->setSliderEnabled(false);
-    edSamples->setRange(0, Kwave::toInt(m_length - m_offset), 1);
+    edSamples->setRange(0, Kwave::toInt(m_length - m_offset));
+    edSamples->setSingleStep(1);
 
     // set range of time controls
     {
@@ -421,11 +420,10 @@ void Kwave::SelectTimeWidget::setOffset(sample_index_t offset)
     sample_index_t samples = edSamples->value();
 
     // the range of the sample edit should always get updated
-    edSamples->setSliderEnabled(false);
-
     if (max_samples > INT_MAX)
 	max_samples = INT_MAX; // limit the length to INT_MAX
-    edSamples->setRange(0, Kwave::toInt(max_samples), 1);
+    edSamples->setRange(0, Kwave::toInt(max_samples));
+    edSamples->setSingleStep(1);
 
     // no range conflict -> nothing to do
     if (samples <= max_samples) return;
@@ -516,7 +514,5 @@ quint64 Kwave::SelectTimeWidget::samplesToTime(
     return time;
 }
 
-//***************************************************************************
-#include "SelectTimeWidget.moc"
 //***************************************************************************
 //***************************************************************************

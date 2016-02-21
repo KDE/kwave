@@ -17,32 +17,32 @@
 
 #include "config.h"
 
-#include <new>
 #include <errno.h>
 #include <math.h>
-#include <string.h>
+#include <new>
 #include <stdio.h>
+#include <string.h>
 
-#include <QtGui/QProgressDialog>
-#include <QtCore/QThread>
-#include <QtCore/QTime>
-#include <QtGui/QWidget>
+#include <QApplication>
+#include <QProgressDialog>
+#include <QThread>
+#include <QTime>
+#include <QWidget>
 
-#include <kapplication.h>
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/Plugin.h"
-#include "libkwave/Sample.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/Sample.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 #include "libkwave/WorkerThread.h"
 
 #ifdef DEBUG
-#include <execinfo.h> // for backtrace()
 #endif
+#include <execinfo.h> // for backtrace()
 
 /** number of updates of the progress bat per second */
 #define PROGRESS_UPDATES_PER_SECOND 4
@@ -211,7 +211,7 @@ int Kwave::Plugin::stop()
 	       reinterpret_cast<void *>(QThread::currentThread()),
 	       reinterpret_cast<void *>(m_thread));
 	void *buf[256];
-	size_t n = backtrace(buf, 256);
+	int n = backtrace(buf, 256);
 	backtrace_symbols_fd(buf, n, 2);
 #endif
 	return -EBUSY;
@@ -332,13 +332,13 @@ int Kwave::Plugin::execute(QStringList &params)
 }
 
 //***************************************************************************
-bool Kwave::Plugin::canClose()
+bool Kwave::Plugin::canClose() const
 {
     return !isRunning();
 }
 
 //***************************************************************************
-bool Kwave::Plugin::isRunning()
+bool Kwave::Plugin::isRunning() const
 {
     return (m_thread) && m_thread->isRunning();
 }
@@ -515,7 +515,5 @@ void Kwave::Plugin::setPluginManager(Kwave::PluginManager *new_plugin_manager)
 	m_confirm_cancel->setParent(m_plugin_manager->parentWidget());
 }
 
-//***************************************************************************
-#include "Plugin.moc"
 //***************************************************************************
 //***************************************************************************

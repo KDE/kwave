@@ -20,14 +20,14 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtGui/QWidget>
+#include <QObject>
+#include <QString>
+#include <QWidget>
 
-#include "libgui/FileDialog.h"
 #include "SaveBlocksPlugin.h"
+#include "libgui/FileDialog.h"
 
-class KURL;
+class QUrl;
 
 namespace Kwave
 {
@@ -45,7 +45,6 @@ namespace Kwave
 	 * @param startDir the start directory
 	 * @param filter string with a file type filter
 	 * @param parent the parent widget
-	 * @param modal if true, make the dialog modal
 	 * @param last_url the last used URL
 	 * @param last_ext the last used extension (preset only)
 	 * @param filename_pattern the pattern used for generating the file names
@@ -56,10 +55,9 @@ namespace Kwave
 	SaveBlocksDialog(const QString &startDir,
 	    const QString &filter,
 	    QWidget *parent,
-	    bool modal,
-	    const QString last_url,
-	    const QString last_ext,
-	    QString filename_pattern,
+	    const QUrl &last_url,
+	    const QString &last_ext,
+	    QString &filename_pattern,
 	    Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
 	    bool selection_only,
 	    bool have_selection
@@ -68,7 +66,7 @@ namespace Kwave
 	/** Destructor */
 	virtual ~SaveBlocksDialog();
 
-	/** returns the file name pattern */
+	/** returns the file name pattern (as is, not escaped) */
 	QString pattern();
 
 	/** returns the numbering mode */

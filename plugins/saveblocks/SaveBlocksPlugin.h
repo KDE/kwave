@@ -20,10 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-
-#include <kurl.h>
+#include <QObject>
+#include <QString>
+#include <QUrl>
 
 #include "libkwave/Plugin.h"
 
@@ -71,12 +70,12 @@ namespace Kwave
 	int interpreteParameters(QStringList &params);
 
 	/**
-	 * Returns the number of blocks to save, depending on whether
-	 * we save everything or only the selection
+	 * determines the blocks which should be saved, including
+	 * start position, length and title.
+	 * @param base the base name, without indices, extension etc...
 	 * @param selection_only if true, save only selected blocks
-	 * @return number of blocks, [0...N]
 	 */
-	unsigned int blocksToSave(bool selection_only);
+	void scanBlocksToSave(const QString &base, bool selection_only);
 
 	/**
 	 * create a filename (without extension) out of a given base name,
@@ -87,6 +86,7 @@ namespace Kwave
 	 * @param index the index of the current file
 	 * @param count the number of files to save
 	 * @param total the highest index to save (first + count - 1)
+	 * @return the name of the file, escaped
 	 */
 	QString createFileName(const QString &base, const QString &ext,
 	                       const QString &pattern,
@@ -126,6 +126,7 @@ namespace Kwave
 	 * @param pattern the selected filename pattern
 	 * @param mode the numbering mode
 	 * @param selection_only if true: save only the selection
+	 * @return name of the first file, escaped
 	 */
 	QString firstFileName(const QString &filename, const QString &pattern,
 	    numbering_mode_t mode, bool selection_only);
@@ -153,8 +154,28 @@ namespace Kwave
 
     private:
 
+	typedef struct {
+	    sample_index_t m_start;  /**< start of the block [samples] */
+	    sample_index_t m_length; /**< length of the block [samples] */
+	    QString        m_title;  /**< title of the block */
+	} BlockInfo;
+
+    private:
+
+	/**
+	 * internal helper to create a string that contains a HTML
+	 * formated list of file names or directories
+	 * @param list a list of file names or directories
+	 * @param max_entries maximum number of entries to render
+	 * @return the list as a single string, separated by "\<br\>"
+	 */
+	QString createDisplayList(const QStringList &list,
+                                  unsigned int max_entries) const;
+
+    private:
+
 	/** the URL of the first file (user selection) */
-	KUrl m_url;
+	QUrl m_url;
 
 	/** expression with the filename pattern */
 	QString m_pattern;
@@ -164,6 +185,9 @@ namespace Kwave
 
 	/** if true, only save stuff within the selection */
 	bool m_selection_only;
+
+	/** list of all blocks to save */
+	QList<BlockInfo> m_block_info;
 
     };
 }

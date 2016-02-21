@@ -21,18 +21,17 @@
 #include "config.h"
 #include <pthread.h>
 
-#include <QtCore/QMutex>
-#include <QtCore/QObject>
-#include <QtCore/QThread>
-#include <QtCore/QVariant>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QMutex>
+#include <QObject>
+#include <QThread>
+#include <QVariant>
 
 namespace Kwave
 {
     class Runnable;
 
-    class KDE_EXPORT WorkerThread : public QThread
+    class Q_DECL_EXPORT WorkerThread: public QThread
     {
 	Q_OBJECT
     public:

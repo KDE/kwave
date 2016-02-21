@@ -17,23 +17,23 @@
 
 #include "config.h"
 
-#include <QtCore/QListIterator>
+#include <QListIterator>
 
-#include <klocale.h>
-#include <kmenubar.h>
+#include <KLocalizedString>
+#include <QMenuBar>
 
 #include "libkwave/String.h"
 
 #include "libgui/MenuItem.h"
-#include "libgui/MenuSub.h"
 #include "libgui/MenuRoot.h"
+#include "libgui/MenuSub.h"
 
 //***************************************************************************
 /** garbage collector for menu nodes */
 QList<Kwave::MenuNode *> Kwave::MenuRoot::m_garbage;
 
 //***************************************************************************
-Kwave::MenuRoot::MenuRoot(KMenuBar &bar)
+Kwave::MenuRoot::MenuRoot(QMenuBar &bar)
     :Kwave::MenuNode(0, _("(root)"), QString(), 0, QString()),
      m_menu_bar(bar), m_group_list()
 {
@@ -177,7 +177,5 @@ void Kwave::MenuRoot::deleteLater(Kwave::MenuNode *node)
     if (node) m_garbage.append(node);
 }
 
-//***************************************************************************
-#include "MenuRoot.moc"
 //***************************************************************************
 //***************************************************************************

@@ -20,16 +20,16 @@
 #include "config.h"
 #include <math.h>
 
-#include <QtGui/QApplication>
-#include <QtGui/QBrush>
-#include <QtGui/QColor>
-#include <QtGui/QFont>
-#include <QtGui/QImage>
-#include <QtGui/QPainter>
-#include <QtGui/QPixmap>
-#include <QtCore/QTimer>
+#include <QApplication>
+#include <QBrush>
+#include <QColor>
+#include <QFont>
+#include <QImage>
+#include <QPainter>
+#include <QPixmap>
+#include <QTimer>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/Utils.h"
 
@@ -406,7 +406,5 @@ void Kwave::LevelMeter::drawContents()
     p.end();
 }
 
-//***************************************************************************
-#include "LevelMeter.moc"
 //***************************************************************************
 //***************************************************************************

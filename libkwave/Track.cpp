@@ -19,9 +19,9 @@
 
 #include <new>
 
-#include <QtCore/QMutexLocker>
-#include <QtCore/QReadLocker>
-#include <QtCore/QWriteLocker>
+#include <QMutexLocker>
+#include <QReadLocker>
+#include <QWriteLocker>
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/Stripe.h"
@@ -797,7 +797,5 @@ void Kwave::Track::dump()
     qDebug("------------------------------------");
 }
 
-//***************************************************************************
-#include "Track.moc"
 //***************************************************************************
 //***************************************************************************

@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QtCore/QByteArray>
+#include <QByteArray>
 
 #include "RecoverySource.h"
 

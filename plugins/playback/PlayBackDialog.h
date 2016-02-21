@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QMap>
+#include <QMap>
+#include <QString>
 
 #include "libkwave/PlayBackParam.h"
 #include "libkwave/PlayBackTypesMap.h"
@@ -39,8 +39,7 @@ namespace Kwave
     class PlayBackDevice;
     class Plugin;
 
-    class PlayBackDialog : public QDialog,
-                           public Ui::PlayBackDlg
+    class PlayBackDialog: public QDialog, public Ui::PlayBackDlg
     {
 	Q_OBJECT
 

@@ -20,16 +20,16 @@
 
 #include <audiofile.h>
 
-#include <QtCore/QtEndian>
-#include <QtCore/QtGlobal>
-#include <QtCore/QList>
-#include <QtCore/QVector>
+#include <QList>
+#include <QVector>
+#include <QtEndian>
+#include <QtGlobal>
 
-#include <QtGui/QApplication>
-#include <QtGui/QProgressDialog>
+#include <QApplication>
+#include <QMimeType>
+#include <QProgressDialog>
 
-#include <klocale.h>
-#include <kmimetype.h>
+#include <KLocalizedString>
 
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/Label.h"
@@ -44,12 +44,12 @@
 #include "libkwave/VirtualAudioFile.h"
 #include "libkwave/Writer.h"
 
+#include "RIFFChunk.h"
+#include "RIFFParser.h"
 #include "RecoveryBuffer.h"
 #include "RecoveryMapping.h"
 #include "RecoverySource.h"
 #include "RepairVirtualAudioFile.h"
-#include "RIFFChunk.h"
-#include "RIFFParser.h"
 #include "WavDecoder.h"
 #include "WavFileFormat.h"
 #include "WavFormatMap.h"

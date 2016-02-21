@@ -21,10 +21,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QObject>
 
 #include "libkwave/MultiTrackSink.h"
 #include "libkwave/Writer.h"
@@ -36,7 +35,7 @@ namespace Kwave
      * A MultiWriter encapsulates a set of <c>Writer</c>s for
      * easier use of multi-track signals.
      */
-    class KDE_EXPORT MultiWriter
+    class Q_DECL_EXPORT MultiWriter
 	:public Kwave::MultiTrackSink<Kwave::Writer, false>
     {
 	Q_OBJECT

@@ -20,13 +20,12 @@
 
 #include "config.h"
 
-#include <QtGui/QImage>
-#include <QtCore/QObject>
-#include <QtCore/QPoint>
-#include <QtCore/QPointer>
-#include <QtGui/QWidget>
-
-#include "kdemacros.h"
+#include <QtGlobal>
+#include <QImage>
+#include <QObject>
+#include <QPoint>
+#include <QPointer>
+#include <QWidget>
 
 #include "libkwave/Sample.h"
 
@@ -42,7 +41,7 @@ namespace Kwave
     class SignalManager; // forward declaration
     class Track;
 
-    class KDE_EXPORT TrackView: public SignalView
+    class Q_DECL_EXPORT TrackView: public SignalView
     {
 	Q_OBJECT
     public:

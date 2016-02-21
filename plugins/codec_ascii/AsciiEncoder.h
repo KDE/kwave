@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QTextStream>
+#include <QList>
+#include <QTextStream>
 
 #include "libkwave/Encoder.h"
 

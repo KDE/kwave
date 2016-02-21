@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtGui/QDialog>
-#include <QtCore/QString>
+#include <QDialog>
+#include <QString>
 
 #include "ui_StringEnterDlg.h"
 

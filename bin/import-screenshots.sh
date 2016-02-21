@@ -20,8 +20,15 @@
 # $1 = directory where the screenshots are stored
 #
 
+# example:
+# find /var/tmp/screenshots -maxdepth 1 -mindepth 1 -type d -exec bin/import-screenshots.sh \{\} \;
+
 LANG=`basename $1`
-DEST=l10n-kde4/${LANG}/docs/kdereview/kwave
+DEST=l10n-kf5/${LANG}/docs/kdereview/kwave
+if test ! -e l10n-kf5/${LANG} ; then
+    LANG=`echo ${LANG} | cut -d _ -f 1`
+    DEST=l10n-kf5/${LANG}/docs/kdereview/kwave
+fi
 
 OPTIONS="-dither none -colors 63"
 
@@ -37,9 +44,10 @@ convert -size 906x667 xc:transparent -background transparent \
 	-layers flatten \
 	"$1/kwave-gui-sdi.png"
 
+mkdir -p ${DEST}
+
 for file in `cd $1 ; find . -name kwave-\*.png | sed s+^\.\/++g `; do {
 	echo ${file}
-	mkdir -p ${DEST}
 	convert $1/${file} ${OPTIONS} ${DEST}/${file}
 } done
 

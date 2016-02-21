@@ -17,10 +17,10 @@
 
 #include "config.h"
 
-#include <QtCore/QDateTime>
+#include <QDateTime>
 
-#include <klocale.h>
-#include <kmimetype.h>
+#include <KLocalizedString>
+#include <QMimeType>
 
 #include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"
@@ -110,13 +110,13 @@ Kwave::Decoder *Kwave::FlacDecoder::instance()
 	Kwave::Writer *writer = (*m_dest)[track];
 	Q_ASSERT(writer);
 	if (!writer) continue;
-	register const FLAC__int32 *src = buffer[track];
-	register sample_t *d = dst.data();
+	const FLAC__int32 *src = buffer[track];
+	sample_t *d = dst.data();
 
 	for (unsigned int sample = 0; sample < samples; sample++) {
 	    // the following cast is only necessary if
 	    // sample_t is not equal to a quint32
-	    register sample_t s  = static_cast<sample_t>(*src++);
+	    sample_t s  = static_cast<sample_t>(*src++);
 
 	    // correct precision
 	    if (shift) s *= mul;
@@ -198,7 +198,7 @@ void Kwave::FlacDecoder::parseVorbisComments(
 	date = QDate::fromString(str_date, Qt::ISODate);
 	if (!date.isValid()) {
 	    int year = str_date.toInt();
-	    date.setYMD(year, 1, 1);
+	    date.setDate(year, 1, 1);
 	}
 	if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
      }

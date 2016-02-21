@@ -20,13 +20,13 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QMap>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 #include "libkwave/Triple.h"
@@ -129,7 +129,7 @@ namespace Kwave
 	{
 	    if (!m_list.contains(type)) return QString();
 	    QString s(m_list[type].third());
-	    return (localized) ? i18n(s.toAscii()) : s;
+	    return (localized) ? i18n(s.toLatin1()) : s;
 	}
 
 	/**

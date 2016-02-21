@@ -19,18 +19,16 @@
 
 #include <math.h>
 
-#include <QtGui/QApplication>
-#include <QtGui/QBitmap>
-#include <QtGui/QBrush>
-#include <QtCore/QEvent>
-#include <QtCore/QMimeData>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QPainter>
-#include <QtCore/QThread>
-#include <QtGui/QToolTip>
-#include <QtCore/QUrl>
-
-#include <kglobalsettings.h>
+#include <QApplication>
+#include <QBitmap>
+#include <QBrush>
+#include <QEvent>
+#include <QMimeData>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QThread>
+#include <QToolTip>
+#include <QUrl>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"
@@ -414,7 +412,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 	    setMouseMode(Kwave::MouseMark::MouseInSelection,
 	                 selection_first, selection_len);
 	    hidePosition();
-	    int dmin = KGlobalSettings::dndEventDelay();
+	    int dmin = QApplication::startDragDistance();
 	    if ((e->buttons() & Qt::LeftButton) &&
 		((mouse_x < m_mouse_down_x - dmin) ||
 		 (mouse_x > m_mouse_down_x + dmin)) )
@@ -542,7 +540,7 @@ void Kwave::SignalView::mouseReleaseEvent(QMouseEvent *e)
 	    break;
 	}
 	case Kwave::MouseMark::MouseInSelection: {
-	    int dmin = KGlobalSettings::dndEventDelay();
+	    int dmin = QApplication::startDragDistance();
 	    if ((e->button() & Qt::LeftButton) &&
 		    ((e->pos().x() >= m_mouse_down_x - dmin) ||
 		     (e->pos().x() <= m_mouse_down_x + dmin)) )
@@ -690,32 +688,35 @@ void Kwave::SignalView::dragLeaveEvent(QDragLeaveEvent *)
 void Kwave::SignalView::dropEvent(QDropEvent *event)
 {
     if (!event) return;
-    if (!event->mimeData()) return;
+    const QMimeData *mime_data = event->mimeData();
+    if (!mime_data) return;
 
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return;
 
-    if (Kwave::Drag::canDecode(event->mimeData())) {
+    if (Kwave::Drag::canDecode(mime_data)) {
 	Kwave::UndoTransactionGuard undo(*m_signal_manager,
 	                                 i18n("Drag and Drop"));
 	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
 	sample_index_t len = 0;
 
-	if ((len = Kwave::Drag::decode(this, event->mimeData(),
+	if ((len = Kwave::Drag::decode(this, mime_data,
 	    *m_signal_manager, pos)))
 	{
 	    // set selection to the new area where the drop was done
 	    m_signal_manager->selectRange(pos, len);
 	    event->acceptProposedAction();
 	} else {
-	    qWarning("SignalView::dropEvent(%s): failed !", event->format(0));
+	    QStringList formats = mime_data->formats();
+	    qWarning("SignalView::dropEvent(%s): failed !",
+		DBG(formats.join(_("; "))));
 	    event->ignore();
 	}
-    } else if (event->mimeData()->hasUrls()) {
+    } else if (mime_data->hasUrls()) {
 	bool first = true;
-	foreach (const QUrl &url, event->mimeData()->urls()) {
+	foreach (const QUrl &url, mime_data->urls()) {
 	    QString filename = url.toLocalFile();
-	    QString mimetype = Kwave::CodecManager::whatContains(filename);
+	    QString mimetype = Kwave::CodecManager::whatContains(url);
 	    if (Kwave::CodecManager::canDecode(mimetype)) {
 		if (first) {
 		    // first dropped URL -> open in this window
@@ -917,7 +918,5 @@ void Kwave::SignalView::PositionWidget::paintEvent(QPaintEvent *)
     p.drawPolygon(m_polygon);
 }
 
-//***************************************************************************
-#include "SignalView.moc"
 //***************************************************************************
 //***************************************************************************

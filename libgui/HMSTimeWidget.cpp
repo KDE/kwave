@@ -18,7 +18,6 @@
 #include "config.h"
 
 #include <limits.h>
-#include <knuminput.h>
 
 #include "libkwave/Utils.h"
 
@@ -131,7 +130,5 @@ void Kwave::HMSTimeWidget::disconnect()
                         this, SLOT(timeChanged(int)));
 }
 
-//***************************************************************************
-#include "HMSTimeWidget.moc"
 //***************************************************************************
 //***************************************************************************

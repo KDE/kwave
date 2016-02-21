@@ -21,8 +21,8 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QVector>
+#include <QString>
+#include <QVector>
 
 #include "libkwave/Plugin.h"
 

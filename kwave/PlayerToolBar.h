@@ -21,11 +21,11 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QPointer>
-#include <QtCore/QTimer>
+#include <QObject>
+#include <QPointer>
+#include <QTimer>
 
-#include "ktoolbar.h"
+#include <KToolBar>
 
 #include "libkwave/LabelList.h"
 #include "libkwave/MetaDataList.h"

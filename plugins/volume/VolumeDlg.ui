@@ -319,7 +319,7 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
       <number>0</number>
      </property>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
        </property>
@@ -330,11 +330,6 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
   <customwidget>
    <class>Kwave::InvertableSpinBox</class>
    <extends>QWidget</extends>
@@ -353,10 +348,6 @@ For example: &quot;+3 dB&quot;, &quot;+ 6 dB&quot;, &quot;-3 dB&quot;.</string>
   <tabstop>slider</tabstop>
   <tabstop>spinbox</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

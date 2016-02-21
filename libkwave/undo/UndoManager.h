@@ -20,10 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QPointer>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QPointer>
 
 namespace Kwave
 {
@@ -31,7 +30,7 @@ namespace Kwave
     class UndoHandler;
     class UndoTransaction;
 
-    class KDE_EXPORT UndoManager
+    class Q_DECL_EXPORT UndoManager
     {
     public:
 

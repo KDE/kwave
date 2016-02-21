@@ -18,14 +18,13 @@
 #include "config.h"
 #include "math.h"
 
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtGui/QSpinBox>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
 
-#include <klocale.h>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KHelpClient>
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -344,10 +343,8 @@ void Kwave::PitchShiftDialog::listenStopped()
 //***************************************************************************
 void Kwave::PitchShiftDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_pitch_shift"));
+    KHelpClient::invokeHelp(_("plugin_sect_pitch_shift"));
 }
 
-//***************************************************************************
-#include "PitchShiftDialog.moc"
 //***************************************************************************
 //***************************************************************************

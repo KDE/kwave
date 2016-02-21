@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QtCore/QMutex>
-#include <QtCore/QString>
+#include <QMutex>
+#include <QString>
 
-#include "libkwave/PlaybackDeviceFactory.h"
 #include "libkwave/PlayBackParam.h"
+#include "libkwave/PlaybackDeviceFactory.h"
 #include "libkwave/Plugin.h"
 #include "libkwave/Sample.h"
 

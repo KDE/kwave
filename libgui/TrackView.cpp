@@ -17,14 +17,14 @@
 
 #include "config.h"
 
-#include <QtGui/QMenu>
-#include <QtGui/QPainter>
-#include <QtGui/QPalette>
-#include <QtGui/QResizeEvent>
-#include <QtCore/QTime>
-#include <QtGui/QVBoxLayout>
+#include <QMenu>
+#include <QPainter>
+#include <QPalette>
+#include <QResizeEvent>
+#include <QTime>
+#include <QVBoxLayout>
 
-#include <kiconloader.h>
+#include <KIconLoader>
 
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
@@ -177,7 +177,7 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
     double offset    = m_offset + pixels2samples(pos.x()); // [samples]
     double tolerance = m_zoom * selectionTolerance();      // [samples]
 
-    // our display can contain labels -> find the nearest label
+    // our display could contain labels -> find the nearest label
     double d_min = tolerance;
     Kwave::Label nearest_label;
     int  nearest_index = 0;
@@ -469,7 +469,5 @@ void Kwave::TrackView::refreshPlaybackPointer(sample_index_t pos)
     emit sigNeedRepaint(this);
 }
 
-//***************************************************************************
-#include "TrackView.moc"
 //***************************************************************************
 //***************************************************************************

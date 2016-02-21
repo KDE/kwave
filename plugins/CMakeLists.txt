@@ -23,28 +23,37 @@ MACRO(KWAVE_PLUGIN _plugin)
     INCLUDE_DIRECTORIES(
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_BINARY_DIR}
-        ${QT_INCLUDE_DIR}
     )
-    KDE4_ADD_UI_FILES(plugin_${_plugin}_LIB_SRCS ${plugin_${_plugin}_LIB_UI})
-    QT4_AUTOMOC(${plugin_${_plugin}_LIB_SRCS})
+    KI18N_WRAP_UI(plugin_${_plugin}_LIB_SRCS ${plugin_${_plugin}_LIB_UI})
 
     #########################################################################
     ### link stage                                                        ###
 
-    KDE4_ADD_LIBRARY(plugin_${_plugin} SHARED ${plugin_${_plugin}_LIB_SRCS})
+    ADD_LIBRARY(plugin_${_plugin} SHARED ${plugin_${_plugin}_LIB_SRCS})
     TARGET_LINK_LIBRARIES(plugin_${_plugin}
         kwavegui
         kwave
         ${plugin_${_plugin}_LIBS}
         ${SAMPLERATE_LIBS}
-        ${QT_AND_KDECORE_LIBS}
+        Qt5::Core
+        Qt5::Concurrent
+        Qt5::Widgets
+        KF5::ConfigCore
+        KF5::CoreAddons
+        KF5::I18n
+        KF5::IconThemes
+        KF5::KIOFileWidgets
+        KF5::TextWidgets
+        KF5::WidgetsAddons
+        KF5::XmlGui
     )
 
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES PREFIX "")
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES SUFFIX "")
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES OUTPUT_NAME "${_plugin}")
-    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES LINK_FLAGS
-        "-Wl,--export-dynamic")
+    SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES
+        PREFIX "kwaveplugin_"
+        OUTPUT_NAME "${_plugin}"
+        LINK_FLAGS "-Wl,--export-dynamic"
+        ENABLE_EXPORTS TRUE
+    )
     SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
     #########################################################################
@@ -52,15 +61,13 @@ MACRO(KWAVE_PLUGIN _plugin)
 
     ADD_DEPENDENCIES(plugin_${_plugin} libkwave libkwavegui)
 
-    EXECUTE_PROCESS(COMMAND "${KDE4_KDECONFIG_EXECUTABLE}"
-        --expandvars --install module
-        OUTPUT_VARIABLE MODULE_INSTALL_DIR
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
-
     INSTALL(TARGETS
         plugin_${_plugin}
         LIBRARY
-        DESTINATION ${MODULE_INSTALL_DIR}/plugins/kwave
+        DESTINATION ${PLUGIN_INSTALL_DIR}
+        PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+                    GROUP_READ GROUP_EXECUTE
+                    WORLD_READ WORLD_EXECUTE
     )
 
 ENDMACRO(KWAVE_PLUGIN)
@@ -86,7 +93,7 @@ ADD_SUBDIRECTORY( noise )
 ADD_SUBDIRECTORY( normalize )
 ADD_SUBDIRECTORY( notch_filter )
 ADD_SUBDIRECTORY( pitch_shift )
-ADD_SUBDIRECTORY( playback )        # needs OSS and/or ALSA
+ADD_SUBDIRECTORY( playback )        # needs one of: OSS/ALSA/PulseAudio
 ADD_SUBDIRECTORY( record )          # needs OSS and/or ALSA
 ADD_SUBDIRECTORY( reverse )
 ADD_SUBDIRECTORY( samplerate )      # needs libsamplerate

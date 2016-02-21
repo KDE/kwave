@@ -20,14 +20,13 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QMap>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QMap>
+#include <QObject>
 
 class QString;
 class QWidget;
-class KMenuBar;
+class QMenuBar;
 
 namespace Kwave
 {
@@ -44,7 +43,7 @@ namespace Kwave
      *       the MenuNode class causes an action that deletes that menu
      *       node. <em>It took me one week to find that bug!</em>
      */
-    class KDE_EXPORT MenuManager: public QObject
+    class Q_DECL_EXPORT MenuManager: public QObject
     {
 	Q_OBJECT
     public:
@@ -53,7 +52,7 @@ namespace Kwave
 	 * @param parent the menu's parent widget
 	 * @param bar reference to the menu bar
 	 */
-	MenuManager(QWidget *parent, KMenuBar &bar);
+	MenuManager(QWidget *parent, QMenuBar &bar);
 
 	/** Destructor. */
 	virtual ~MenuManager();

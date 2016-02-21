@@ -24,7 +24,7 @@
 %define release @RPM_RELEASE@
 
 Summary:        @RPM_SUMMARY@
-License:        GPL
+License:        GPL-2.0+
 Group:          Productivity/Multimedia/Sound/Editors and Converters
 
 Name:           @RPM_NAME@
@@ -41,242 +41,165 @@ BuildArch:      i586
 BuildArch:      x86_64
 %endif
 
+%define kf5_min_version 5.2.0
+%define qt5_min_version 5.4.0
+
 # common for all distributions
-Requires:       %{name}-lang = %{version}
-Requires:       audiofile >= 0.3.0
+Requires:       %{name}-lang             = %{version}
+Requires:       audiofile               >= 0.3.0
+Requires:       fftw3                   >= 3.0
 Requires:       flac
-Requires:       libogg.so.0 >= 0.4.0
-Requires:       libsamplerate >= 0.1.3
-Requires:       libvorbis >= 1
-Requires:       libvorbisenc.so.2 >= 2.0.0
+Requires:       libogg.so.0             >= 0.4.0
+Requires:       libsamplerate           >= 0.1.3
+Requires:       libvorbis               >= 1
+Requires:       libvorbisenc.so.2       >= 2.0.0
+Requires:       pulseaudio              >= 0.9.16
+BuildRequires:  audiofile-devel         >= 0.3.0
+BuildRequires:  extra-cmake-modules     >= 1.7.0
 BuildRequires:  ImageMagick
-BuildRequires:  cmake >= 2.6.0
+BuildRequires:  cmake                   >= 2.8.12
+BuildRequires:  flac-devel
+BuildRequires:  fftw3-devel             >= 3.0
 BuildRequires:  gettext-devel
+BuildRequires:  libsamplerate-devel     >= 0.1.3
+BuildRequires:  libvorbis-devel         >= 1
 BuildRequires:  perl
 BuildRequires:  sed
 
 # SuSE specific:
 %if %{defined suse_version}
 Prefix:         /usr
-Requires:       %kde4_runtime_requires
 Requires:       alsa
-Requires:       fftw3 >= 3.0
-Requires:       libqt4 >= 4.7
+Requires:       kconfig                 >= %{kf5_min_version}
+Requires:       kconfigwidgets          >= %{kf5_min_version}
+Requires:       kcoreaddons             >= %{kf5_min_version}
+Requires:       kcrash                  >= %{kf5_min_version}
+Requires:       kdbusaddons             >= %{kf5_min_version}
+Requires:       kdoctools               >= %{kf5_min_version}
+Requires:       kguiaddons              >= %{kf5_min_version}
+Requires:       ki18n                   >= %{kf5_min_version}
+Requires:       kiconthemes             >= %{kf5_min_version}
+Requires:       kinit                   >= %{kf5_min_version}
+Requires:       kio                     >= %{kf5_min_version}
+Requires:       knotifications          >= %{kf5_min_version}
+Requires:       kservice                >= %{kf5_min_version}
+Requires:       ktextwidgets            >= %{kf5_min_version}
+Requires:       kxmlgui                 >= %{kf5_min_version}
+Requires:       kwidgetsaddons          >= %{kf5_min_version}
 Requires:       libopus
-Requires:       pulseaudio >= 0.9.16
+Requires:       libmad
+Requires:       qtcore                  >= %{qt5_min_version}
+Requires:       qtconcurrent            >= %{qt5_min_version}
+Requires:       qtnetwork               >= %{qt5_min_version}
+Requires:       qtgui                   >= %{qt5_min_version}
+Requires:       qtmultimedia            >= %{qt5_min_version}
+Requires:       qtwidgets               >= %{qt5_min_version}
+
 BuildRequires:  alsa-devel
-BuildRequires:  audiofile-devel >= 0.3.0
 BuildRequires:  fdupes
-BuildRequires:  fftw3-devel >= 3.0
-BuildRequires:  flac-devel
-BuildRequires:  kde4-l10n-devel
-%if %{suse_version} >= 1301
-BuildRequires:  kdemultimedia
-%else
-BuildRequires:  kdemultimedia4
-%endif
-BuildRequires:  libkde4-devel >= 4.0
-BuildRequires:  libogg-devel >= 1
+BuildRequires:  kconfig-devel           >= %{kf5_min_version}
+BuildRequires:  kconfigwidgets-devel    >= %{kf5_min_version}
+BuildRequires:  kcoreaddons-devel       >= %{kf5_min_version}
+BuildRequires:  kcrash-devel            >= %{kf5_min_version}
+BuildRequires:  kdbusaddons-devel       >= %{kf5_min_version}
+BuildRequires:  kdoctools-devel         >= %{kf5_min_version}
+BuildRequires:  kguiaddons-devel        >= %{kf5_min_version}
+BuildRequires:  ki18n-devel             >= %{kf5_min_version}
+BuildRequires:  kiconthemes-devel       >= %{kf5_min_version}
+BuildRequires:  kinit-devel             >= %{kf5_min_version}
+BuildRequires:  kio-devel               >= %{kf5_min_version}
+BuildRequires:  knotifications-devel    >= %{kf5_min_version}
+BuildRequires:  kservice-devel          >= %{kf5_min_version}
+BuildRequires:  ktextwidgets-devel      >= %{kf5_min_version}
+BuildRequires:  kxmlgui-devel           >= %{kf5_min_version}
+BuildRequires:  kwidgetsaddons-devel    >= %{kf5_min_version}
+BuildRequires:  libogg-devel            >= 1
 BuildRequires:  libopus-devel
-BuildRequires:  libqt4-devel > 4.7
-BuildRequires:  libsamplerate-devel
-BuildRequires:  libvorbis-devel
+BuildRequires:  libQt5Core-devel        >= %{qt5_min_version}
+BuildRequires:  libQt5Concurrent-devel  >= %{qt5_min_version}
+BuildRequires:  libQt5Network-devel     >= %{qt5_min_version}
+BuildRequires:  libQt5Gui-devel         >= %{qt5_min_version}
+BuildRequires:  libQt5Multimedia-devel  >= %{qt5_min_version}
+BuildRequires:  libQt5Widgets-devel     >= %{qt5_min_version}
 BuildRequires:  pulseaudio-devel
 BuildRequires:  rsvg-view
 BuildRequires:  update-desktop-files
 
 %define EXTRA_OPTS ""
+%define MP3ENABLED "-DWITH_MP3=OFF"
 %define FDUPES %fdupes -s %{buildroot}
+%define _kf5_modulesdir %{_libdir}/plugins
 %endif
 
-# CentOS specific:
-%if %{defined centos_version}
-Prefix:         /usr
-Requires:       alsa-lib
-Requires:       fftw3 >= 3.0
-Requires:       kdelibs >= 4.3
-Requires:       libopus
-BuildRequires:  alsa-lib-devel
-BuildRequires:  audiofile-devel >= 0.3.0
-BuildRequires:  fftw3-devel >= 3.0
-BuildRequires:  flac-devel
-BuildRequires:  gcc-c++
-BuildRequires:  kdemultimedia-devel >= 4.3
-BuildRequires:  kdesdk >= 4.3
-BuildRequires:  libogg-devel >= 1
-BuildRequires:  libopus-devel
-BuildRequires:  libsamplerate-devel
-BuildRequires:  libvorbis-devel
-BuildRequires:  pulseaudio-libs-devel
-%define _kde4_applicationsdir /usr/share/applications/kde4/
-%define _kde4_modulesdir %{_kde4_libdir}/kde4/plugins
-%define _kde4_htmldir /usr/share/doc/HTML/
-%ifarch x86_64
-%define EXTRA_OPTS "-DLIB_SUFFIX=64"
-%endif
-%endif
-
-# Fedora specific:
+# # Fedora specific:
 %if %{defined fedora}
 Prefix:         /usr
 Requires:       alsa-lib
-Requires:       fftw3 >= 3.0
-Requires:       kdelibs >= 4.0
-%if %{fedora_version} > 18
+Requires:       kf5-kconfig              >= %{kf5_min_version}
+Requires:       kf5-kconfigwidgets       >= %{kf5_min_version}
+Requires:       kf5-kcoreaddons          >= %{kf5_min_version}
+Requires:       kf5-kcrash               >= %{kf5_min_version}
+Requires:       kf5-kdbusaddons          >= %{kf5_min_version}
+Requires:       kf5-kdoctools            >= %{kf5_min_version}
+Requires:       kf5-kguiaddons           >= %{kf5_min_version}
+Requires:       kf5-ki18n                >= %{kf5_min_version}
+Requires:       kf5-kiconthemes          >= %{kf5_min_version}
+Requires:       kf5-kinit                >= %{kf5_min_version}
+Requires:       kf5-kio                  >= %{kf5_min_version}
+Requires:       kf5-knotifications       >= %{kf5_min_version}
+Requires:       kf5-kservice             >= %{kf5_min_version}
+Requires:       kf5-ktextwidgets         >= %{kf5_min_version}
+Requires:       kf5-kxmlgui              >= %{kf5_min_version}
+Requires:       kf5-kwidgetsaddons       >= %{kf5_min_version}
 Requires:       opus
-%else
-Requires:       libopus
-%endif
-Requires:       pulseaudio >= 0.9.16
-Requires:       qt4 >= 4.7
-Requires:       qt4-x11 >= 4.7
+Requires:       qt5-qtbase               >= %{qt5_min_version}
+Requires:       qt5-qtmultimedia         >= %{qt5_min_version}
+
 BuildRequires:  alsa-lib-devel
-BuildRequires:  audiofile-devel >= 0.3.0
 BuildRequires:  fdupes
-BuildRequires:  fftw3-devel >= 3.0
-BuildRequires:  flac-devel
-BuildRequires:  gcc-c++
-BuildRequires:  kdelibs-devel >= 4.0
-BuildRequires:  kdemultimedia-devel >= 4.0
-%if %{fedora_version} > 19
+BuildRequires:  kf5-kconfig-devel        >= %{kf5_min_version}
+BuildRequires:  kf5-kconfigwidgets-devel >= %{kf5_min_version}
+BuildRequires:  kf5-kcoreaddons-devel    >= %{kf5_min_version}
+BuildRequires:  kf5-kcrash-devel         >= %{kf5_min_version}
+BuildRequires:  kf5-kdbusaddons-devel    >= %{kf5_min_version}
+BuildRequires:  kf5-kdoctools-devel      >= %{kf5_min_version}
+BuildRequires:  kf5-kguiaddons-devel     >= %{kf5_min_version}
+BuildRequires:  kf5-ki18n-devel          >= %{kf5_min_version}
+BuildRequires:  kf5-kiconthemes-devel    >= %{kf5_min_version}
+BuildRequires:  kf5-kinit-devel          >= %{kf5_min_version}
+BuildRequires:  kf5-kio-devel            >= %{kf5_min_version}
+BuildRequires:  kf5-knotifications-devel >= %{kf5_min_version}
+BuildRequires:  kf5-kservice-devel       >= %{kf5_min_version}
+BuildRequires:  kf5-ktextwidgets-devel   >= %{kf5_min_version}
+BuildRequires:  kf5-kxmlgui-devel        >= %{kf5_min_version}
+BuildRequires:  kf5-kwidgetsaddons-devel >= %{kf5_min_version}
+BuildRequires:  opus-devel
+BuildRequires:  pulseaudio-libs-devel    >= 0.9.16
+BuildRequires:  qt5-qtbase-devel         >= %{qt5_min_version}
+BuildRequires:  qt5-qtmultimedia-devel   >= %{qt5_min_version}
 BuildRequires:  poxml
-%else
-BuildRequires:  kdesdk-utils >= 4.0
-%endif
-BuildRequires:  libogg-devel >= 1
-%if %{fedora_version} > 18
-BuildRequires:  opus-devel
-%else
-BuildRequires:  libopus-devel
-%endif
-BuildRequires:  libsamplerate-devel
-BuildRequires:  libvorbis-devel
-BuildRequires:  pulseaudio-libs-devel >= 0.9.16
-BuildRequires:  qt4-devel >= 4.7.0
+
 %define EXTRA_OPTS ""
-%define FDUPES fdupes -s %{buildroot}
-%define _kde4_applicationsdir /usr/share/applications/kde4/
-%define _kde4_modulesdir %{_kde4_libdir}/kde4/plugins
-%define _kde4_htmldir /usr/share/doc/HTML/
-%endif
-
-# RedHat specific:
-%if %{defined rhel_version}
-Requires:       alsa-lib
-Requires:       fftw3
-Requires:       flac-libs
-Requires:       libogg
-Requires:       libopus
-Requires:       libsamplerate
-Requires:       kdelibs >= 4.0
-Requires:       pulseaudio >= 0.9.16
-Requires:       pulseaudio-libs >= 0.9.16
-Requires:       qt4 >= 4.7
-Requires:       qt4-x11 >= 4.7
-BuildRequires:  alsa-lib-devel
-BuildRequires:  audiofile-devel >= 0.3.6
-BuildRequires:  fftw3
-BuildRequires:  fftw3-devel
-BuildRequires:  flac-devel
-BuildRequires:  gcc-c++
-BuildRequires:  kdelibs-devel >= 4.0
-BuildRequires:  kde4-l10n-devel
-BuildRequires:  libsndfile
-BuildRequires:  libogg-devel >= 1
-BuildRequires:  libopus-devel
-BuildRequires:  libsamplerate-devel
-BuildRequires:  libvorbis-devel
-BuildRequires:  pulseaudio-libs-devel
-BuildRequires:  qt-devel >= 4.7
-%ifarch x86_64
-%define EXTRA_OPTS "-DLIB_SUFFIX=64"
-%endif
-%define _kde4_applicationsdir /usr/share/applications/kde4/
-%define _kde4_modulesdir %{_kde4_libdir}/kde4/plugins
-%define _kde4_htmldir /usr/share/doc/HTML/
-%endif
-
-# ScientificLinux specific:
-%if %{defined scientificlinux_version}
-Prefix:         /usr
-Requires:       alsa-lib
-Requires:       fftw3 >= 3.0
-Requires:       libqt4 >= 4.6
-Requires:       opus >= 1.0.0
-Requires:       pulseaudio >= 0.9.16
-BuildRequires:  alsa-lib-devel
-BuildRequires:  audiofile-devel >= 0.3.0
-BuildRequires:  fftw3-devel >= 3.0
-BuildRequires:  flac-devel
-BuildRequires:  gcc-c++
-BuildRequires:  kde-l10n
-BuildRequires:  kdemultimedia
-BuildRequires:  kdelibs-devel >= 4.0
-BuildRequires:  kdesdk-poxml
-BuildRequires:  libogg-devel >= 1
-BuildRequires:  opus-devel
-BuildRequires:  qt4-devel > 4.7
-BuildRequires:  libsamplerate-devel
-BuildRequires:  libvorbis-devel
-BuildRequires:  pulseaudio-libs-devel
-%ifarch x86_64
-%define EXTRA_OPTS "-DLIB_SUFFIX=64"
-%endif
-%define _kde4_applicationsdir /usr/share/applications/kde4/
-%define _kde4_modulesdir %{_kde4_libdir}/kde4/plugins
-%define _kde4_htmldir /usr/share/doc/HTML/
-%endif
-
-# Mandriva specific:
-%if %{defined mandriva_version}
-Prefix:         /usr
-Requires:       alsa-lib
-Requires:       fftw3 >= 3.0
-Requires:       id3lib >= 3.8.1
-Requires:       kdelibs4 >= 4.0
-Requires:       kdemultimedia4 >= 4.0
-Requires:       libopus
-BuildRequires:  alsa-lib-devel
-BuildRequires:  aspell-cs
-BuildRequires:  aspell-de
-BuildRequires:  aspell-es
-BuildRequires:  aspell-fr
-BuildRequires:  audiofile-devel >= 0.3.0
-BuildRequires:  fftw3-devel >= 3.0
-BuildRequires:  gcc-c++
-BuildRequires:  id3lib-devel >= 3.8.1
-BuildRequires:  kde-l10n-cs >= 4.0
-BuildRequires:  kde-l10n-de >= 4.0
-BuildRequires:  kde-l10n-es >= 4.0
-BuildRequires:  kde-l10n-fr >= 4.0
-BuildRequires:  kdelibs4-devel
-BuildRequires:  kdemultimedia4-devel
-BuildRequires:  kdesdk4-po2xml
-BuildRequires:  libflac++-devel
-BuildRequires:  libmad >= 0.14
-BuildRequires:  libmad-devel >= 0.14
-BuildRequires:  libogg-devel >= 1
-BuildRequires:  libopus-devel
-BuildRequires:  libsamplerate-devel
-BuildRequires:  libvorbis-devel
-BuildRequires:  pulseaudio-devel >= 0.9.16
-%define _kde4_bindir /usr/bin
-%define _kde4_libdir /usr/lib*
-%define _kde4_appsdir /usr/share/apps
-%define _kde4_iconsdir /usr/share/icons
-%define _kde4_applicationsdir /usr/share/applications/kde4
-%define _kde4_modulesdir %{_kde4_libdir}/kde4/plugins
-%define _kde4_htmldir /usr/share/doc/HTML
-
-# Mandriva has paid for using patented MP3 code and therefore are
-# allowed to ship with MP3 support
-%define MP3ENABLED "-DWITH_MP3=ON"
-%define EXTRA_OPTS ""
-%else
-# all other distributions are not allowed to ship with MP3 support,
-# at least not in the USA
 %define MP3ENABLED "-DWITH_MP3=OFF"
+%define FDUPES fdupes -s %{buildroot}
+%define _kf5_applicationsdir /usr/share/applications/
+%define _kf5_appsdir /usr/share
+%define _kf5_htmldir /usr/share/doc/HTML
+%define _kf5_iconsdir /usr/share/icons
+%define _kf5_modulesdir %{_libdir}/plugins
 %endif
+
+# # CentOS specific:
+# {defined centos_version}
+
+# # Mandriva specific:
+# {defined mandriva_version}
+
+# # RedHat specific:
+# {defined rhel_version}
+
+# # ScientificLinux specific:
+# {defined scientificlinux_version}
 
 %description
 With Kwave you can record, play back, import and edit many
@@ -325,22 +248,22 @@ make -C build DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 %files
 %defattr(-,root,root)
 %doc GNU-LICENSE AUTHORS LICENSES CHANGES README TODO kwave.lsm
-%{_kde4_bindir}/%name
-%{_kde4_applicationsdir}/%{name}.desktop
+%{_bindir}/%name
+%{_kf5_applicationsdir}/%{name}.desktop
 %{_prefix}/share/appdata/kwave.appdata.xml
-%{_kde4_libdir}/libkwave*
-%{_kde4_appsdir}/%{name}
-%{_kde4_modulesdir}/*
-%{_kde4_iconsdir}/*
-%exclude %{_kde4_htmldir}/*/%{name}
+%{_libdir}/libkwave*
+%{_kf5_appsdir}/%{name}
+%{_kf5_iconsdir}/*
+%{_kf5_modulesdir}/kwaveplugin_*.so
+%exclude %{_kf5_htmldir}/*/%{name}
 
 %files doc
 %defattr(-,root,root,-)
-%doc %{_kde4_htmldir}/*/%{name}
+%doc %{_kf5_htmldir}/*/%{name}
 
 %files lang -f %{name}.lang
 %defattr(-,root,root,-)
-%exclude %{_kde4_htmldir}/*/%{name}
+%exclude %{_kf5_htmldir}/*/%{name}
 
 %clean
 rm -Rf "$RPM_BUILD_ROOT"

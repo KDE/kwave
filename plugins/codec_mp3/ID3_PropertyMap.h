@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QPair>
+#include <QList>
+#include <QPair>
 
 #include <id3/globals.h>
 

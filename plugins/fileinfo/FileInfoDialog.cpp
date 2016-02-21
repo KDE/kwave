@@ -17,35 +17,34 @@
 
 #include "config.h"
 
-#include <QtCore/QtGlobal>
-#include <QtGui/QCheckBox>
-#include <QtCore/QDateTime>
-#include <QtGui/QDialog>
-#include <QtCore/QFileInfo>
-#include <QtGui/QLabel>
-#include <QtGui/QListWidget>
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtGui/QSpinBox>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtGui/QToolTip>
-#include <QtGui/QWhatsThis>
+#include <QCheckBox>
+#include <QDateTime>
+#include <QDialog>
+#include <QFileInfo>
+#include <QLabel>
+#include <QListWidget>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
+#include <QString>
+#include <QStringList>
+#include <QToolTip>
+#include <QWhatsThis>
+#include <QtGlobal>
+#include <QUrl>
+#include <QLineEdit>
+#include <QLocale>
+#include <QSpinBox>
+#include <QDateEdit>
+#include <QMimeType>
 
-#include <kglobal.h>
-#include <kconfig.h>
-#include <kcombobox.h>
-#include <kdatewidget.h>
-#include <kglobal.h>
-#include <klineedit.h>
-#include <klistwidget.h>
-#include <klocale.h>
-#include <kmimetype.h>
-#include <knuminput.h>
-#include <kpushbutton.h>
-#include <ktabwidget.h>
-#include <ktoolinvocation.h>
+#include <KComboBox>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KHelpClient>
+#include <KLocalizedString>
+#include <KSharedConfig>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Compression.h"
@@ -83,7 +82,7 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
             this,   SLOT(invokeHelp()));
 
     // open config for reading default settings
-    KConfigGroup cfg = KGlobal::config()->group(CONFIG_DEFAULT_SECTION);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(CONFIG_DEFAULT_SECTION);
 
     setupFileInfoTab();
     setupCompressionTab(cfg);
@@ -117,12 +116,13 @@ void Kwave::FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
                                      Kwave::FileProperty property)
 {
     if (label) label->setText(i18n(UTF8(m_info.name(property))) + _(":"));
-    if (widget) describeWidget(widget, i18n(UTF8(m_info.name(property))),
-                               m_info.description(property));
+    if (widget) describeWidget(widget,
+                               i18n(UTF8(m_info.name(property))),
+                               i18n(UTF8(m_info.description(property))));
 }
 
 //***************************************************************************
-void Kwave::FileInfoDialog::initInfoText(QLabel *label, KLineEdit *edit,
+void Kwave::FileInfoDialog::initInfoText(QLabel *label, QLineEdit *edit,
                                          Kwave::FileProperty property)
 {
     initInfo(label, edit, property);
@@ -152,7 +152,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
      * the old file name
      */
     if (file_name.length()) {
-	QString mt = Kwave::CodecManager::whatContains(KUrl(file_name));
+	QString mt = Kwave::CodecManager::whatContains(QUrl(file_name));
 	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mt);
 	if (encoder) {
 	    // encoder does not support the file's mime type -> switch
@@ -209,15 +209,15 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     initInfo(lblFileSize, edFileSize, Kwave::INF_FILESIZE);
     if (m_info.contains(Kwave::INF_FILESIZE)) {
 	unsigned int size = QVariant(m_info.get(Kwave::INF_FILESIZE)).toUInt();
-	QString dotted = KGlobal::locale()->formatLong(size);
+	QString dotted = QLocale().toString(size);
 	if (size < 10*1024) {
 	    edFileSize->setText(i18n("%1 bytes", dotted));
 	} else if (size < 10*1024*1024) {
 	    edFileSize->setText(i18n("%1 kB (%2 byte)",
-		QString::number(size / 1024), dotted));
+		(size / 1024), dotted));
 	} else {
 	    edFileSize->setText(i18n("%1 MB (%2 byte)",
-		QString::number(size / (1024*1024)), dotted));
+		(size / (1024*1024)), dotted));
 	}
     } else {
 	edFileSize->setEnabled(false);
@@ -231,7 +231,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     /* sample rate */
     lblSampleRate->setText(i18n("Sample rate:"));
     describeWidget(cbSampleRate, lblSampleRate->text().left(
-        lblSampleRate->text().length()-1),
+        lblSampleRate->text().length() - 1),
         i18n("Here you can select one of the predefined\n"
              "well-known sample rates or you can enter\n"
              "any sample rate on your own."));
@@ -240,7 +240,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     /* bits per sample */
     lblResolution->setText(i18n("Resolution:"));
     describeWidget(sbResolution, lblResolution->text().left(
-        lblResolution->text().length()-1),
+        lblResolution->text().length() - 1),
         i18n("Select a resolution in bits in which the file\n"
              "will be saved."));
     sbResolution->setValue(m_info.bits());
@@ -248,7 +248,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
     /* number of tracks */
     lblChannels->setText(i18n("Tracks:"));
     describeWidget(sbChannels, lblChannels->text().left(
-        lblChannels->text().length()-1),
+        lblChannels->text().length() - 1),
         i18n("Shows the number of tracks of the signal.\n"
              "You can add or delete tracks via the Edit menu."));
     sbChannels->setMaximum(m_info.tracks());
@@ -547,9 +547,9 @@ void Kwave::FileInfoDialog::setupMiscellaneousTab()
     initInfoText(lblCommissioned, edCommissioned, Kwave::INF_COMMISSIONED);
 
     /* list of keywords */
-    lblKeywords->setText(i18n(m_info.name(Kwave::INF_KEYWORDS).toAscii()));
+    lblKeywords->setText(i18n(m_info.name(Kwave::INF_KEYWORDS).toLatin1()));
     lstKeywords->setWhatsThis(_("<b>") +
-	i18n(m_info.name(Kwave::INF_KEYWORDS).toAscii()) +
+	i18n(m_info.name(Kwave::INF_KEYWORDS).toLatin1()) +
 	_("</b><br>") + m_info.description(Kwave::INF_KEYWORDS));
     if (m_info.contains(Kwave::INF_KEYWORDS)) {
 	QString keywords = QVariant(m_info.get(Kwave::INF_KEYWORDS)).toString();
@@ -935,7 +935,7 @@ void Kwave::FileInfoDialog::acceptEdit(Kwave::FileProperty property,
 void Kwave::FileInfoDialog::accept()
 {
     // save defaults for next time...
-    KConfigGroup cfg = KGlobal::config()->group(CONFIG_DEFAULT_SECTION);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(CONFIG_DEFAULT_SECTION);
     cfg.sync();
     {
 	int nominal, upper, lower;
@@ -1116,10 +1116,8 @@ void Kwave::FileInfoDialog::accept()
 //***************************************************************************
 void Kwave::FileInfoDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("fileinfo"));
+    KHelpClient::invokeHelp(_("fileinfo"));
 }
 
-//***************************************************************************
-#include "FileInfoDialog.moc"
 //***************************************************************************
 //***************************************************************************

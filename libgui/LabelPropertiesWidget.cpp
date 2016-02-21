@@ -18,16 +18,18 @@
 #include "config.h"
 #include "math.h"
 
-#include <QtGui/QPushButton>
+#include <QApplication>
+#include <QPushButton>
 
-#include <kapplication.h>
-#include <kconfig.h>
-#include <klineedit.h>
+#include <KConfig>
+#include <KConfigGroup>
+#include <QLineEdit>
+#include <KSharedConfig>
 
 #include "libkwave/String.h"
 
-#include "libgui/SelectTimeWidget.h"
 #include "libgui/LabelPropertiesWidget.h"
+#include "libgui/SelectTimeWidget.h"
 
 /** name of the section in the config file */
 #define CONFIG_SECTION "LabelProperties"
@@ -73,7 +75,7 @@ void Kwave::LabelPropertiesWidget::setLabelPosition(sample_index_t pos,
     time->init(Kwave::SelectTimeWidget::bySamples, pos, rate, 0, length);
 
     // restore the previous selection mode and set it
-    const KConfigGroup cfg = KGlobal::config()->group(CONFIG_SECTION);
+    const KConfigGroup cfg = KSharedConfig::openConfig()->group(CONFIG_SECTION);
     bool ok;
     QString str = cfg.readEntry("mode");
     int m = str.toInt(&ok);
@@ -105,14 +107,12 @@ QString Kwave::LabelPropertiesWidget::labelName()
 void Kwave::LabelPropertiesWidget::saveSettings()
 {
     // restore the previous selection mode and set it
-    KConfigGroup cfg = KGlobal::config()->group(CONFIG_SECTION);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(CONFIG_SECTION);
     QString str;
     str.setNum(static_cast<int>(time->mode()));
     cfg.writeEntry("mode", str);
     cfg.sync();
 }
 
-//***************************************************************************
-#include "LabelPropertiesWidget.moc"
 //***************************************************************************
 //***************************************************************************

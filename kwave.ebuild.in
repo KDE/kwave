@@ -6,17 +6,17 @@ EAPI=5
 
 KDE_LINGUAS="@KWAVE_BUILD_LINGUAS_STRING@"
 KDE_HANDBOOK="optional"
-inherit kde4-base
+inherit kde5
 
-DESCRIPTION="A sound editor for KDE that can edit many types of audio files"
+DESCRIPTION="@RPM_DESCRIPTION@"
 HOMEPAGE="http://kwave.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}-1.tar.bz2"
 
 LICENSE="BSD GPL-2 LGPL-2
 	handbook? ( FDL-1.2 )"
-SLOT="4"
+SLOT="5"
 KEYWORDS="amd64 ~ppc x86"
-IUSE="alsa debug flac handbook mp3 opus oss phonon pulseaudio vorbis"
+IUSE="alsa debug flac handbook mp3 opus oss pulseaudio vorbis"
 
 RDEPEND="
 	media-libs/audiofile:=
@@ -33,7 +33,6 @@ RDEPEND="
 		media-libs/libogg
 		media-libs/opus
 	)
-	phonon? ( media-libs/phonon[qt4] )
 	pulseaudio? ( media-sound/pulseaudio )
 	vorbis? (
 		media-libs/libogg
@@ -41,8 +40,30 @@ RDEPEND="
 	)
 "
 DEPEND="${RDEPEND}
-	$(add_kdebase_dep poxml extras)
+	kde-apps/poxml
 	|| ( media-gfx/imagemagick[png,svg] media-gfx/graphicsmagick[imagemagick,png,svg] )
+	$(add_frameworks_dep kcompletion)
+	$(add_frameworks_dep kconfig)
+	$(add_frameworks_dep kconfigwidgets)
+	$(add_frameworks_dep kcoreaddons)
+	$(add_frameworks_dep kcrash)
+	$(add_frameworks_dep kdbusaddons)
+	$(add_frameworks_dep kdoctools)
+	$(add_frameworks_dep kguiaddons)
+	$(add_frameworks_dep ki18n)
+	$(add_frameworks_dep kiconthemes)
+	$(add_frameworks_dep kinit)
+	$(add_frameworks_dep kio)
+	$(add_frameworks_dep knotifications)
+	$(add_frameworks_dep kservice)
+	$(add_frameworks_dep ktextwidgets)
+	$(add_frameworks_dep kxmlgui)
+	$(add_frameworks_dep kwidgetsaddons)
+        dev-qt/qtconcurrent:5
+        dev-qt/qtcore:5
+        dev-qt/qtgui:5
+        dev-qt/qtmultimedia:5
+        dev-qt/qtwidgets:5
 "
 
 DOCS=( AUTHORS CHANGES LICENSES README TODO )
@@ -61,10 +82,9 @@ src_configure() {
 		$(cmake-utils_use_with vorbis OGG_VORBIS)
 		$(cmake-utils_use_with opus OGG_OPUS)
 		$(cmake-utils_use_with oss)
-		$(cmake-utils_use_with phonon)
 		$(cmake-utils_use_with pulseaudio)
 		$(cmake-utils_use debug)
 	)
 
-	kde4-base_src_configure
+	kde5_src_configure
 }

@@ -20,19 +20,18 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QSharedData>
-#include <QtCore/QSharedDataPointer>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QMap>
+#include <QSharedData>
+#include <QSharedDataPointer>
 
 #include "libkwave/SampleFormat.h"
 
 namespace Kwave
 {
 
-    class KDE_EXPORT Compression
+    class Q_DECL_EXPORT Compression
     {
     public:
 

@@ -19,12 +19,12 @@
 
 #include <math.h>
 
-#include <QtGui/QApplication>
-#include <QtGui/QPainter>
-#include <QtGui/QResizeEvent>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QPaintEvent>
-#include <QtGui/QVBoxLayout>
+#include <QApplication>
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QResizeEvent>
+#include <QVBoxLayout>
 
 #include "libkwave/Label.h"
 #include "libkwave/MetaDataList.h"
@@ -462,7 +462,5 @@ void Kwave::OverViewWidget::calculateBitmap()
     emit newImage(image);
 }
 
-//***************************************************************************
-#include "OverViewWidget.moc"
 //***************************************************************************
 //***************************************************************************

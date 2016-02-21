@@ -18,10 +18,10 @@
 #ifndef SAMPLE_DECODER_LINEAR_H
 #define SAMPLE_DECODER_LINEAR_H
 
+#include "SampleDecoder.h"
 #include "config.h"
 #include "libkwave/ByteOrder.h"
 #include "libkwave/SampleFormat.h"
-#include "SampleDecoder.h"
 
 namespace Kwave
 {

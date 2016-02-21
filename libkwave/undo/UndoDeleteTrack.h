@@ -21,8 +21,8 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QUuid>
+#include <QString>
+#include <QUuid>
 
 #include "libkwave/Sample.h"
 #include "libkwave/Stripe.h"

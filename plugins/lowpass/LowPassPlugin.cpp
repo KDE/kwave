@@ -17,20 +17,21 @@
 
 #include "config.h"
 
-#include <math.h>
 #include <errno.h>
+#include <math.h>
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
-#include "libkwave/MultiTrackSource.h"
+#include "LowPassDialog.h"
 #include "LowPassFilter.h"
 #include "LowPassPlugin.h"
-#include "LowPassDialog.h"
+#include "libkwave/MultiTrackSource.h"
 
 KWAVE_PLUGIN(Kwave::LowPassPlugin, "lowpass", "2.3",
-             I18N_NOOP("Low Pass Filter"), "Thomas Eschenbacher");
+             I18N_NOOP("Low Pass Filter"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::LowPassPlugin::LowPassPlugin(Kwave::PluginManager &plugin_manager)
@@ -115,7 +116,5 @@ void Kwave::LowPassPlugin::setValue(double frequency)
     m_frequency = frequency;
 }
 
-//***************************************************************************
-#include "LowPassPlugin.moc"
 //***************************************************************************
 //***************************************************************************

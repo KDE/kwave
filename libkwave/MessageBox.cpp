@@ -17,11 +17,11 @@
 
 #include "config.h"
 
-#include <QtGui/QApplication>
-#include <QtCore/QThread>
-#include <QtGui/QWidget>
+#include <QApplication>
+#include <QThread>
+#include <QWidget>
 
-#include <kmessagebox.h>
+#include <KMessageBox>
 
 #include "libkwave/MessageBox.h"
 
@@ -233,7 +233,5 @@ Kwave::MessageBox::Trigger::~Trigger()
     m_box.show();
 }
 
-//***************************************************************************
-#include "MessageBox.moc"
 //***************************************************************************
 //***************************************************************************

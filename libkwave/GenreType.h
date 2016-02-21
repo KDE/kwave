@@ -20,16 +20,15 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
-
-#include <QtCore/QMap>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QtGlobal>
+#include <QMap>
+#include <QString>
+#include <QStringList>
 
 namespace Kwave
 {
 
-    class KDE_EXPORT GenreType
+    class Q_DECL_EXPORT GenreType
     {
     private:
 

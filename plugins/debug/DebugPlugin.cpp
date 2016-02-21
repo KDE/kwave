@@ -21,25 +21,26 @@
 #include <math.h>
 #include <string.h>
 
-#include <klocale.h> // for the i18n macro
+#include <KLocalizedString> // for the i18n macro
 
-#include <QtCore/QByteArray>
-#include <QtCore/QCoreApplication>
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QList>
-#include <QtCore/QPoint>
-#include <QtCore/QRect>
-#include <QtCore/QStringList>
-#include <QtCore/QTimer>
+#include <QByteArray>
+#include <QCoreApplication>
+#include <QDir>
+#include <QFile>
+#include <QList>
+#include <QPoint>
+#include <QRect>
+#include <QScreen>
+#include <QStringList>
+#include <QTimer>
 
-#include <QtGui/QApplication>
-#include <QtGui/QKeyEvent>
-#include <QtGui/QKeySequence>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QDesktopWidget>
-#include <QtGui/QPixmap>
-#include <QtGui/QtEvents>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QKeyEvent>
+#include <QKeySequence>
+#include <QMouseEvent>
+#include <QPixmap>
+#include <QtEvents>
 
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -55,7 +56,8 @@
 #include "DebugPlugin.h"
 
 KWAVE_PLUGIN(Kwave::DebugPlugin, "debug", "2.3",
-             I18N_NOOP("Debug Functions"), "Thomas Eschenbacher");
+             I18N_NOOP("Debug Functions"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 /** size of the internal buffer */
 #define BUFFER_SIZE (64 * 1024)
@@ -440,7 +442,9 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
 
     // get the outer frame geometry, absolute coordinates
     QRect rect = widget->frameGeometry();
-    QPixmap pixmap = QPixmap::grabWindow(
+    QScreen *screen = QGuiApplication::primaryScreen();
+    if (!screen) return;
+    QPixmap pixmap = screen->grabWindow(
 	QApplication::desktop()->winId(),
 	rect.x(), rect.y(),
 	rect.width(), rect.height()
@@ -455,7 +459,5 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
     pixmap.save(filename, "PNG", 90);
 }
 
-//***************************************************************************
-#include "DebugPlugin.moc"
 //***************************************************************************
 //***************************************************************************

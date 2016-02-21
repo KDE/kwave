@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
+#include <QString>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/PlayBackTypesMap.h"
 #include "libkwave/String.h"
@@ -39,15 +39,15 @@ void Kwave::PlayBackTypesMap::fill()
 	   _(I18N_NOOP("OSS (Open Sound System)")) );
 #endif /* HAVE_OSS_SUPPORT */
 
-#ifdef HAVE_PHONON_SUPPORT
-    append(index++, Kwave::PLAYBACK_PHONON,     _("phonon"),
-	   _(I18N_NOOP("Phonon (KDE)")) );
-#endif /* HAVE_PHONON_SUPPORT */
-
 #ifdef HAVE_PULSEAUDIO_SUPPORT
     append(index++, Kwave::PLAYBACK_PULSEAUDIO, _("pulseaudio"),
 	   _(I18N_NOOP("Pulse Audio")) );
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
+
+#ifdef HAVE_QT_AUDIO_SUPPORT
+    append(index++, Kwave::PLAYBACK_QT_AUDIO, _("qt_audio"),
+	   _(I18N_NOOP("Qt Multimedia Audio")) );
+#endif /* HAVE_QT_AUDIO_SUPPORT */
 
     if (!index) qWarning("no playback method defined!");
 }

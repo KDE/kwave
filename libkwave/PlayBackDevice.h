@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"

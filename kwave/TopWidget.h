@@ -21,14 +21,14 @@
 
 #include "config.h"
 
-#include <QtCore/QMap>
-#include <QtCore/QPointer>
-#include <QtCore/QString>
-#include <QtGui/QMdiArea>
+#include <QtGlobal>
+#include <QMap>
+#include <QMdiArea>
+#include <QPointer>
+#include <QString>
+#include <QUrl>
 
-#include <kdemacros.h>
-#include <kmainwindow.h>
-#include <kurl.h>
+#include <KMainWindow>
 
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"
@@ -46,11 +46,6 @@ class QMdiSubWindow;
 class QTextStream;
 class QTimer;
 
-class KCombo;
-class KComboBox;
-class KDNDDropZone;
-class KStatusBar;
-
 namespace Kwave
 {
 
@@ -67,7 +62,7 @@ namespace Kwave
      * Toplevel widget of the Kwave application. Holds a main widget, a menu
      * bar, a status bar and a toolbar.
      */
-    class KDE_EXPORT TopWidget : public KMainWindow
+    class Q_DECL_EXPORT TopWidget: public KMainWindow
     {
 	Q_OBJECT
 
@@ -126,7 +121,7 @@ namespace Kwave
 	 * @param url URL of the file to be loaded
 	 * @return 0 if successful
 	 */
-	int loadFile(const KUrl &url);
+	int loadFile(const QUrl &url);
 
     public slots:
 
@@ -304,7 +299,7 @@ namespace Kwave
 	 * @retval  0 if succeeded and done (SDI mode)
 	 * @retval  1 if succeeded but window is still empty (MDI or TAB mode)
 	 */
-	int newWindow(Kwave::FileContext *&context, const KUrl &url);
+	int newWindow(Kwave::FileContext *&context, const QUrl &url);
 
 	/**
 	 * Closes the current file and creates a new empty signal.

@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QMap>
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QMap>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Plugin.h"

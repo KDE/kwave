@@ -18,29 +18,30 @@
 #ifndef KWAVE_SPLASH_H
 #define KWAVE_SPLASH_H
 
-#include <QtGui/QFrame>
-#include <QtCore/QObject>
-#include <QtGui/QPixmap>
-#include <QtCore/QPointer>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
+#include <QFrame>
+#include <QFont>
+#include <QObject>
+#include <QPixmap>
+#include <QPointer>
+#include <QString>
+#include <QTimer>
 
 class QMouseEvent;
 class QPaintEvent;
 
 namespace Kwave
 {
-    class Splash : public QFrame
+    class Splash: public QFrame
     {
     Q_OBJECT
 
     public:
 	/**
 	 * Constructor
-	 * @param PNGImageFileName name of a file to be shown as splashscreen,
+	 * @param PNGFile name of a file to be shown as splashscreen,
 	 *        should be found in one of the "appdata" directories.
 	 */
-	explicit Splash(const QString &PNGImageFileName);
+	explicit Splash(const QString &PNGFile);
 
 	/** Destructor */
 	virtual ~Splash();
@@ -58,6 +59,9 @@ namespace Kwave
 	void done();
 
     private:
+
+	/** font to use for the status text and version number */
+	QFont m_font;
 
 	/** pixmap with the Kwave logo */
 	QPixmap m_pixmap;

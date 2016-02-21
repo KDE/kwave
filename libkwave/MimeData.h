@@ -20,11 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtCore/QMimeData>
-#include <QtCore/QObject>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QByteArray>
+#include <QMimeData>
+#include <QObject>
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Sample.h"
@@ -38,7 +37,7 @@ namespace Kwave
     class MultiTrackReader;
     class SignalManager;
 
-    class KDE_EXPORT MimeData: public QMimeData
+    class Q_DECL_EXPORT MimeData: public QMimeData
     {
 	Q_OBJECT
 	public:

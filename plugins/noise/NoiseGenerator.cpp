@@ -18,8 +18,8 @@
 #include "config.h"
 #include <stdlib.h>
 
-#include "libkwave/Sample.h"
 #include "NoiseGenerator.h"
+#include "libkwave/Sample.h"
 
 //***************************************************************************
 Kwave::NoiseGenerator::NoiseGenerator(QObject *parent)
@@ -64,7 +64,5 @@ void Kwave::NoiseGenerator::setNoiseLevel(const QVariant fc)
     m_noise_level = QVariant(fc).toDouble();
 }
 
-//***************************************************************************
-#include "NoiseGenerator.moc"
 //***************************************************************************
 //***************************************************************************

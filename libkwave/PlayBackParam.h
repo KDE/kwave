@@ -18,8 +18,8 @@
 #ifndef PLAY_BACK_PARAM_H
 #define PLAY_BACK_PARAM_H
 
-#include <QtCore/QString>
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QString>
 
 namespace Kwave
 {
@@ -31,8 +31,8 @@ namespace Kwave
     typedef enum {
 	PLAYBACK_NONE = 0,   /**< none selected */
 	PLAYBACK_JACK,       /**< Jack sound daemon */
+	PLAYBACK_QT_AUDIO,   /**< Qt Multimedia */
 	PLAYBACK_PULSEAUDIO, /**< PulseAudio Sound Server */
-	PLAYBACK_PHONON,     /**< Phonon (KDE) */
 	PLAYBACK_ALSA,       /**< ALSA native */
 	PLAYBACK_OSS,        /**< OSS native or ALSA OSS emulation */
 	PLAYBACK_INVALID     /**< (keep this the last entry, EOL delimiter) */
@@ -48,7 +48,7 @@ namespace Kwave
      * A class that contains all necessary parameters for
      * setting up (initializing) a playback device.
      */
-    class KDE_EXPORT PlayBackParam
+    class Q_DECL_EXPORT PlayBackParam
     {
     public:
 	/** Default constructor */

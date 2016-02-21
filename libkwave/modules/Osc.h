@@ -20,17 +20,16 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QObject>
+#include <QVariant>
 
 #include "libkwave/SampleSource.h"
 
 namespace Kwave
 {
 
-    class KDE_EXPORT Osc: public Kwave::SampleSource
+    class Q_DECL_EXPORT Osc: public Kwave::SampleSource
     {
 	Q_OBJECT
 	public:

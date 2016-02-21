@@ -20,11 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
-#include <QtCore/QVarLengthArray>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QObject>
+#include <QVarLengthArray>
+#include <QVariant>
 
 #include <samplerate.h>
 
@@ -34,7 +33,7 @@
 namespace Kwave
 {
 
-    class KDE_EXPORT RateConverter: public Kwave::SampleSource
+    class Q_DECL_EXPORT RateConverter: public Kwave::SampleSource
     {
 	Q_OBJECT
     public:

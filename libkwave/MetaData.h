@@ -19,23 +19,22 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QMutex>
-#include <QtCore/QSharedData>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QVariant>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QMap>
+#include <QMutex>
+#include <QSharedData>
+#include <QSharedDataPointer>
+#include <QString>
+#include <QStringList>
+#include <QVariant>
 
 #include "libkwave/Sample.h"
 
 namespace Kwave
 {
 
-    class KDE_EXPORT MetaData
+    class Q_DECL_EXPORT MetaData
     {
     public:
 	/** standard property: type of the meta data object */

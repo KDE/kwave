@@ -20,21 +20,20 @@
 
 #include "config.h"
 
-#include <QtCore/QBitArray>
-#include <QtCore/QMutex>
-#include <QtCore/QVector>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QBitArray>
+#include <QMutex>
+#include <QVector>
 
 #include "libkwave/MultiTrackSink.h"
-#include "libkwave/PlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/PlaybackSink.h"
 #include "libkwave/SampleArray.h"
 
 namespace Kwave
 {
 
-    class KDE_EXPORT MultiPlaybackSink
+    class Q_DECL_EXPORT MultiPlaybackSink
 	:public Kwave::MultiTrackSink<Kwave::PlaybackSink, false>
     {
 	Q_OBJECT

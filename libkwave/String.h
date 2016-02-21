@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QLatin1String>
-#include <QtCore/QString>
+#include <QLatin1String>
+#include <QString>
 
 /*
  * This is a workaround for compiling Kwave with QT_NO_CAST_FROM_ASCII,

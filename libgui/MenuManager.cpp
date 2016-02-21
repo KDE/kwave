@@ -21,21 +21,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <QtCore/QLatin1Char>
-#include <QtGui/QKeySequence>
-#include <QtCore/QRegExp>
-#include <QtCore/QString>
-#include <QtGui/QWidget>
+#include <QKeySequence>
+#include <QLatin1Char>
+#include <QRegExp>
+#include <QString>
+#include <QWidget>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
-#include "libgui/MenuNode.h"
-#include "libgui/MenuRoot.h"
 #include "libgui/MenuGroup.h"
 #include "libgui/MenuManager.h"
+#include "libgui/MenuNode.h"
+#include "libgui/MenuRoot.h"
 
 //***************************************************************************
 /** static map with standard keys */
@@ -45,7 +45,7 @@ QMap<QString, QKeySequence> Kwave::MenuManager::m_standard_keys;
 #define INS(n,v) m_standard_keys.insert(_(n), v)
 
 //***************************************************************************
-Kwave::MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
+Kwave::MenuManager::MenuManager(QWidget *parent, QMenuBar &bar)
     :QObject(parent)
 {
     m_menu_root = new Kwave::MenuRoot(bar);
@@ -179,7 +179,7 @@ int Kwave::MenuManager::executeCommand(const QString &command)
 	}
 
 	// default case: direct specification of a key sequence
-	shortcut = QKeySequence::fromString(i18n(param.toAscii()));
+	shortcut = QKeySequence::fromString(i18n(param.toLatin1()));
     }
 
     // --- 4rth parameter: parse the string id of the node (optional) ---
@@ -332,7 +332,5 @@ Kwave::MenuManager::~MenuManager()
     m_menu_root = 0;
 }
 
-//***************************************************************************
-#include "MenuManager.moc"
 //***************************************************************************
 //***************************************************************************

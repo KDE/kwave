@@ -18,7 +18,7 @@
 
 #include "config.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"

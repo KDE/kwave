@@ -23,16 +23,16 @@
 #include <math.h>
 #include <new>
 
-#include <QtCore/QFutureSynchronizer>
-#include <QtCore/QtConcurrentRun>
-#include <QtCore/QList>
-#include <QtCore/QStringList>
-#include <QtCore/QThread>
+#include <QFutureSynchronizer>
+#include <QList>
+#include <QStringList>
+#include <QThread>
+#include <QtConcurrentRun>
 
-#include <klocale.h> // for the i18n macro
+#include <KLocalizedString> // for the i18n macro
 
-#include "libkwave/FileInfo.h"
 #include "libkwave/Connect.h"
+#include "libkwave/FileInfo.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
@@ -51,7 +51,8 @@
 #define TARGET_LEVEL -12
 
 KWAVE_PLUGIN(Kwave::NormalizePlugin, "normalize", "2.3",
-             I18N_NOOP("Normalizer"), "Thomas Eschenbacher");
+             I18N_NOOP("Normalizer"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 //***************************************************************************
@@ -238,7 +239,5 @@ void Kwave::NormalizePlugin::getMaxPowerOfTrack(
 //     qDebug("%p -> pos=%llu, max=%g", this, reader->pos(), average.max);
 }
 
-//***************************************************************************
-#include "NormalizePlugin.moc"
 //***************************************************************************
 //***************************************************************************

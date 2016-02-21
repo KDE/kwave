@@ -19,13 +19,13 @@
 #include <ctype.h>
 #include <string.h>
 
-#include <QtCore/QDateTime>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QLatin1String>
-#include <QtCore/QRegExp>
+#include <QDateTime>
+#include <QLatin1Char>
+#include <QLatin1String>
+#include <QMimeType>
+#include <QRegExp>
 
-#include <klocale.h>
-#include <kmimetype.h>
+#include <KLocalizedString>
 
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
@@ -114,13 +114,13 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
 	    if (v.length()) {
 		// remove quotes from the value
 		bool is_escaped = false;
-		char quote = v[0].toAscii();
+		char quote = v[0].toLatin1();
 		if ((quote != '\'') && (quote != '"'))
 		    quote = -1;
 
 		for (QString::ConstIterator it = v.begin(); it != v.end(); ++it)
 		{
-		    const char c = QChar(*it).toAscii();
+		    const char c = QChar(*it).toLatin1();
 
 		    if ((c == '\\') && !is_escaped) {
 			is_escaped = true;   // next char is escaped
@@ -249,7 +249,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
     // read in all remaining data until EOF or user cancel
     qDebug("AsciiDecoder::decode(...)");
     while (readNextLine() && !dst.isCanceled()) {
-	QByteArray d  = m_queue_input.dequeue().toAscii();
+	QByteArray d  = m_queue_input.dequeue().toLatin1();
 	char *line    = d.data();
 	char *saveptr = 0;
 

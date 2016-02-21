@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
+#include <QString>
 
 #include "libkwave/Sample.h"
 #include "libkwave/Stripe.h"

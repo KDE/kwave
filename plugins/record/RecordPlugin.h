@@ -20,14 +20,14 @@
 
 #include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtCore/QList>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QVector>
+#include <QByteArray>
+#include <QList>
+#include <QString>
+#include <QStringList>
+#include <QVector>
 
-#include "libkwave/Plugin.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/Plugin.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleFIFO.h"

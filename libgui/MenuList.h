@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include <QtGui/QAction>
-#include <QtGui/QIcon>
-#include <QtGui/QMenu>
-#include <QtCore/QString>
+#include <QAction>
+#include <QIcon>
+#include <QMenu>
+#include <QString>
 
 #include "libgui/MenuNode.h"
 
@@ -34,7 +34,7 @@ namespace Kwave
      * which contains a number of list entries. It is normally owned by a
      * sub menu.
      */
-    class MenuList : public Kwave::MenuNode
+    class MenuList: public Kwave::MenuNode
     {
 	Q_OBJECT
 

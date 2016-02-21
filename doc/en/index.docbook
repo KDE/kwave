@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY kwave "<application>Kwave</application>">
   <!ENTITY kappname "&kwave;">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.9.0">
-  <!ENTITY version_tag "0_9_0">
-  <!ENTITY version_year "2015">
+  <!ENTITY version "0.9.1">
+  <!ENTITY version_tag "0_9_1">
+  <!ENTITY version_year "2016">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
   <!ENTITY url_changelog "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/CHANGES">
@@ -17,6 +17,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_kde_project "http://projects.kde.org/projects/kdereview/kwave">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
@@ -29,8 +30,8 @@
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
-  <!ENTITY url_git_instructions "http://sourceforge.net/p/kwave/code/">
-  <!ENTITY url_git_web "http://sourceforge.net/p/kwave/code/commit_browser">
+  <!ENTITY url_git_web_kde "http://quickgit.kde.org/?p=kwave.git">
+  <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY url_git_list_tags "http://sourceforge.net/p/kwave/code/ref/master~/tags/">
   <!ENTITY url_git_master "git://git.code.sf.net/p/kwave/code">
   <!ENTITY i18n-cmd_syntax "Syntax: ">
@@ -319,13 +320,14 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2015-05-25</date>
+    <date>2016-02-21</date>
     <releaseinfo>&version;</releaseinfo>
 
-    <abstract><para>&kwave; is a simple sound editor for KDE.</para></abstract>
+    <abstract><para>&kwave; is a simple sound editor built on KDE Frameworks 5.</para></abstract>
 
     <keywordset>
 	<keyword>KDE</keyword>
+	<keyword>KF5</keyword>
 	<keyword>multimedia</keyword>
 	<keyword>sound</keyword>
 	<keyword>audio</keyword>
@@ -347,7 +349,7 @@
 <chapter id="introduction"><title>Introduction</title>
 
     <para>
-    	This is "&kwave;", a simple sound editor for KDE-4.
+    	This is "&kwave;", a simple sound editor built on KDE Frameworks 5.
 	Its features include:
 	<itemizedlist>
     	<listitem><para>
@@ -372,16 +374,16 @@
 	    Recording functionality, including pre-recording
 	</para></listitem>
     	<listitem><para>
-	    Playback via ALSA and OSS
+	    Playback via Qt, PulseAudio, ALSA and OSS
 	</para></listitem>
     	<listitem><para>
-	    Recording via ALSA and OSS
+	    Recording via PulseAudio, ALSA and OSS
 	</para></listitem>
     	<listitem><para>
 	    MP3 import/export
 	</para></listitem>
     	<listitem><para>
-	    Ogg/Vorbis import/export
+	    Ogg/Vorbis and Opus import/export
 	</para></listitem>
     	<listitem><para>
 	    FLAC import/export
@@ -400,7 +402,7 @@
 	</para></listitem>
     	<listitem><para>
 	    playback of multi channel audio files (audio output will be
-	    mixed down to mono or stereo)
+	    mixed down to mono or stereo if needed)
 	</para></listitem>
 	<listitem><para>
 	    extendible through an easy-to-use plugin interface
@@ -450,15 +452,15 @@
 	    GIT Repository<anchor id="git-repository"/>
 	</para>
 	<para>
-	    There also is a GIT repository, hosted by
+	    There also is a new GIT repository hosted on KDE servers, and a
+	    mirror repository hosted by
 	    <ulink url="&url_sourceforge;">SourceForge</ulink> where
 	    you can get the sources of the latest development version.
 	    For instructions on how to get access to the repository, read
 	    in the chapter about
-	    <link linkend="building_rpm_from_git">building from GIT</link>,
-	    or look at
-	    <ulink url="&url_git_instructions;">"&url_git_instructions;"</ulink>.
-	    There also is a nice <ulink url="&url_git_web;">web interface</ulink>
+	    <link linkend="building_rpm_from_git">building from GIT</link>.
+	    There also is a GIT web interface on <ulink url="&url_git_web_kde;">KDE</ulink>
+	    and on <ulink url="&url_git_web_sf;">SourceForge</ulink> where
 	    you can use to browse through the sources.
         </para></listitem>
     </itemizedlist>
@@ -488,7 +490,13 @@
 	you can find the full history here:
 	<ulink url="&url_changelog;"> &url_changelog;</ulink> or browse
 	through the sources on your own through the
-	<ulink url="&url_git_web;">GIT web interface</ulink>.
+	<ulink url="&url_git_web_kde;">GIT web interface</ulink>.
+    </para>
+
+    <para>
+	&kwave; version v0.9.0 is the first version hosted on KDE (kdereview)
+	and SourceForge servers, followed by v0.9.1, the first version for
+	KDE Frameworks 5.
     </para>
 
     <!-- changelog cut out, this gives a smaller online help
@@ -516,6 +524,11 @@
 	information about current stable and up-to-date development
 	versions.
     </para>
+    <para>
+	There also is a KDE project page
+	at <ulink url="&url_kde_project;">&url_kde_project;</ulink> which
+	is mostly interesting for developers.
+    </para>
 
     <para>
 	If you want to get a &kwave; release, you have the choice to visit
@@ -540,8 +553,8 @@
 
     <para>
 	Don't be afraid, compiling Kwave should be quite simple even if
-	you are not a programmer. It just needs some developer packages
-	to be installed.
+	you are not a software developer. It just needs some developer
+	packages to be installed and some time.
     </para>
 
     </sect1>
@@ -567,12 +580,12 @@
 		<emphasis>hear</emphasis> the result of your work?)
 	    </para></listitem>
 	    <listitem><para>
-		KDE-4.5 or higher (at least the libraries, if you are
-		a gnome fan, you can also run &kwave; if the proper
-		libs are installed).
+		KDE Frameworks 5.2 (KF5) or higher (at least the libraries,
+		if you are using a different desktop, you can also run &kwave;
+		if the proper libraries are installed).
 	    </para></listitem>
 	    <listitem><para>
-		Qt-4.7 or higher (normally comes with KDE4)
+		Qt-5.4 or higher (normally comes as a dependency of KF5)
 	    </para></listitem>
 	    <listitem><para>
 		ALSA 1.0.14 or higher (for record/playback)
@@ -607,11 +620,11 @@
     	If you intend to compile &kwave; from the sources, you will need at least:
 	<itemizedlist>
 	    <listitem><para>
-		<ulink url="&url_cmake;">cmake</ulink>-2.6.0 or newer
+		<ulink url="&url_cmake;">cmake</ulink>-2.8.12 or newer
 	    </para></listitem>
 	    <listitem><para>
 		A recent C/C++ compiler. GCC-4.x works fine, some older and any
-		newer version (like gcc-5.0) may work too.
+		newer version (like gcc-5.0) should work too.
 	    </para></listitem>
 	    <listitem><para>
 		The glibc2 (libc-6) development environment. On SuSE systems
@@ -619,12 +632,7 @@
 		called "libc-devel".
 	    </para></listitem>
 	    <listitem><para>
-		The KDE4 development environment: "kdelibs4-devel",
-		"kdemultimedia4-devel", "kdesdk4".
-	    </para></listitem>
-	    <listitem><para>
-		The Qt4 development environment,
-		the package is normally called "qt4-devel" or similar.
+		Qt5 and KF5 development packages
 	    </para></listitem>
 	    <listitem><para>
 		pulseaudio-0.9.16 or newer
@@ -765,14 +773,14 @@
 		    default=<literal>on</literal>]
 		</para></listitem>
 		<listitem><para>
-		    <literal>WITH_PHONON</literal>
-		    enable playback via Phonon (for testing only)
-		    [<literal>on</literal>/<literal>off</literal>,
-		    default=<literal>off</literal>]
-		</para></listitem>
-		<listitem><para>
 		    <literal>WITH_PULSEAUDIO</literal>
 		    enable playback/recording via PulseAudio
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_QT_AUDIO</literal>
+		    enable playback via Qt Multimedia
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>
@@ -1639,7 +1647,7 @@
 	    <para>
 	    For example, the following command starts a &kwave; and opens all sounds
 	    of the KDE window manager, each in a new window or sub window:
-	    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE_Window*.wav</filename></command></screen>
+	    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE-*.ogg</filename></command></screen>
 	    </para>
 	    <para>
 		It is also possible to pass &kwave; text commands, encoded as a
@@ -1984,7 +1992,7 @@
 	    </screeninfo>
 	    <mediaobject>
 		<imageobject>
-		    <imagedata fileref="kwave-record.png" format="PNG"/>
+		    <imagedata fileref="kwave-plugin-record.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		    <phrase>Screenshot of the Record Dialog</phrase>
@@ -3468,6 +3476,17 @@
 
 	<!-- @COMMAND@ edit_label(index) -->
 	<sect2 id="cmd_sect_edit_label"><title id="cmd_title_edit_label">&no-i18n-cmd_edit_label;</title>
+	<screenshot>
+	    <screeninfo>Screenshot</screeninfo>
+	    <mediaobject>
+		<imageobject>
+		    <imagedata fileref="kwave-edit-label.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		    <phrase>Screenshot of the label editing dialog</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_edit_label;</command>(<replaceable>index</replaceable>)</title>
 	    <para>
@@ -3499,7 +3518,7 @@
 
     <sect1 id="commands_f"><title>&no-i18n-tag;f</title>
 
-	<!-- @COMMAND@ fileinfo(keyword,value) -->
+	<!-- @COMMAND@ fileinfo() -->
 	<sect2 id="cmd_sect_fileinfo"><title id="cmd_title_fileinfo">&no-i18n-cmd_fileinfo;</title>
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_fileinfo;</command>(<replaceable>index</replaceable>)</title>
@@ -5741,7 +5760,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_ogg (TODO) -->
+    <!-- @PLUGIN@ codec_ogg -->
     <sect1 id="plugin_sect_codec_ogg"><title id="plugin_title_codec_ogg">&no-i18n-plugin_codec_ogg; (Ogg Codec)</title>
     <variablelist>
 	<varlistentry>
@@ -5823,7 +5842,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_wav () -->
+    <!-- @PLUGIN@ codec_wav -->
     <sect1 id="plugin_sect_codec_wav"><title id="plugin_title_codec_wav">&no-i18n-plugin_codec_wav; (WAV Codec)</title>
     <variablelist>
 	<varlistentry>
@@ -5932,7 +5951,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ fileinfo () -->
+    <!-- @PLUGIN@ fileinfo -->
     <sect1 id="plugin_sect_fileinfo"><title id="plugin_title_fileinfo">&no-i18n-plugin_fileinfo; (File Info)</title>
     <screenshot>
 	<screeninfo>Screenshot</screeninfo>
@@ -6058,7 +6077,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ insert_at () -->
+    <!-- @PLUGIN@ insert_at -->
     <sect1 id="plugin_sect_insert_at"><title id="plugin_title_insert_at">&no-i18n-plugin_insert_at; (Insert At)</title>
     <screenshot>
 	<screeninfo>Screenshot</screeninfo>
@@ -6915,6 +6934,14 @@
 		a pattern that can contain the original file name, an index
 		and the number of sections.
 	    </para>
+	    <para>
+		It is also allowed that the file name pattern contains forward
+		slashes as path separators, which allows saving the sections
+		into different sub directories. Please note that all whitespace
+		characters around such path separators are silently removed, to
+		avoid creation of directory names which begin or end with a
+		whitespace.
+	    </para>
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -6976,6 +7003,28 @@
 						<entry>
 						    Will be replaced with the base file name,
 						    without path and without extension.
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>[%fileinfo{<replaceable>keyword</replaceable>}]</command></entry>
+						<entry>
+						    Will be replaced with the content of a file information
+						    identified by <replaceable>keyword</replaceable>.
+						    See section <link linkend="file-info-list" endterm="file-info-list-title"/>
+						    for a list of all available keywords.
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>[%title]</command></entry>
+						<entry>
+						    Will be replaced with the title the block, which is taken
+						    from the descriptive text of the label at the
+						    <emphasis>start</emphasis> of the block.
+						    If that text is empty it will fall back to the title
+						    of the file (see file information item
+						    "<link linkend="INF_NAME">Name</link>").
+						    If this also does not exist, it will fall back to the
+						    base file name as described above.
 						</entry>
 					    </row>
 					</tbody>

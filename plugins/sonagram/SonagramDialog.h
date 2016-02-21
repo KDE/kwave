@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <QtGui/QDialog>
+#include <QDialog>
 
 #include "libkwave/Sample.h"
 #include "libkwave/WindowFunction.h"
@@ -33,8 +33,7 @@ namespace Kwave
 
     class Plugin;
 
-    class SonagramDialog : public QDialog,
-                           public Ui::SonagramDlg
+    class SonagramDialog: public QDialog, public Ui::SonagramDlg
     {
 	Q_OBJECT
 

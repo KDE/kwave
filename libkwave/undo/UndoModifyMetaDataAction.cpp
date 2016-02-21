@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
@@ -74,7 +74,7 @@ QString Kwave::UndoModifyMetaDataAction::description()
 	    "meta data objects of the same type: "
 	    "%1=number of elements, %2=name of one element in singular",
 	    "Modify %1 %2 objects",
-	    name
+	    m_saved_data.count(), name
 	);
     }
 

@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/GenreType.h"
 #include "libkwave/String.h"

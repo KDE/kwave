@@ -20,11 +20,11 @@
 
 #include <new>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/SignalManager.h"
-#include "libkwave/undo/UndoInsertTrack.h"
 #include "libkwave/undo/UndoDeleteTrack.h"
+#include "libkwave/undo/UndoInsertTrack.h"
 
 //***************************************************************************
 Kwave::UndoDeleteTrack::UndoDeleteTrack(Kwave::Signal &signal,

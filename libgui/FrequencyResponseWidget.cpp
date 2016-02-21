@@ -17,12 +17,12 @@
 
 #include "config.h"
 
-#include <stdlib.h>
 #include <math.h>
+#include <stdlib.h>
 
-#include <QtGui/QBrush>
-#include <QtGui/QPainter>
-#include <QtGui/QPixmap>
+#include <QBrush>
+#include <QPainter>
+#include <QPixmap>
 
 #include "libkwave/TransmissionFunction.h"
 #include "libkwave/Utils.h"
@@ -115,7 +115,5 @@ void Kwave::FrequencyResponseWidget::paintEvent(QPaintEvent*)
     p.drawLine(0, y, width-1, y);
 }
 
-//***************************************************************************
-#include "FrequencyResponseWidget.moc"
 //***************************************************************************
 //***************************************************************************

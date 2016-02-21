@@ -18,12 +18,12 @@
 
 #include "config.h"
 
+#include <algorithm>
 #include <new>
 
-#include <QtCore/QVariant>
-#include <QtCore/QtAlgorithms>
+#include <QVariant>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/MetaData.h"
 #include "libkwave/SignalManager.h"
@@ -85,7 +85,9 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
 	m_offset = first;
 	m_length = (last - first) + 1;
     }
-    qSort(m_tracks);
+    if (!m_tracks.isEmpty())
+	std::sort(m_tracks.begin(),
+	          m_tracks.end(), std::greater<unsigned int>());
 
     /*
      * determine the description of the action
@@ -126,8 +128,7 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
 		"name of the undo action for inserting multiple "
 		"meta data objects of the same type: "
 		"%1=number of elements, %2=name of one element in singular",
-		"Insert %1 %2 objects",
-		name
+		"Insert %1 %2 objects", meta_data.count(), name
 	    );
 	    break;
 	}

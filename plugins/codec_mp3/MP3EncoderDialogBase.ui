@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>708</width>
-    <height>493</height>
+    <width>678</width>
+    <height>564</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,8 +19,8 @@
   <property name="windowTitle">
    <string>MP3 Encoder Settings</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
+  <layout class="QGridLayout" name="gridLayout_7">
+   <item row="0" column="0">
     <widget class="QGroupBox" name="grpProgram">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -49,7 +49,7 @@
        </widget>
       </item>
       <item row="2" column="6">
-       <widget class="KPushButton" name="btSearch">
+       <widget class="QPushButton" name="btSearch">
         <property name="toolTip">
          <string>manually browse for the encoder</string>
         </property>
@@ -84,7 +84,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="btDetect">
+         <widget class="QPushButton" name="btDetect">
           <property name="toolTip">
            <string>auto-detect the installed encoder</string>
           </property>
@@ -96,7 +96,7 @@
        </layout>
       </item>
       <item row="2" column="4">
-       <widget class="KPushButton" name="btEncoderHelp">
+       <widget class="QPushButton" name="btEncoderHelp">
         <property name="toolTip">
          <string>show the usage information of the encoder</string>
         </property>
@@ -106,7 +106,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KLineEdit" name="edPath">
+       <widget class="QLineEdit" name="edPath">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>100</horstretch>
@@ -129,7 +129,7 @@
        </widget>
       </item>
       <item row="2" column="5">
-       <widget class="KPushButton" name="btLocate">
+       <widget class="QPushButton" name="btLocate">
         <property name="toolTip">
          <string>find the full path to the encoder</string>
         </property>
@@ -141,14 +141,14 @@
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="1" column="0">
     <widget class="QGroupBox" name="grpParameters">
      <property name="title">
       <string>Parameters</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="KTabWidget" name="tabWidget">
+       <widget class="QTabWidget" name="tabWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -156,7 +156,7 @@
          </sizepolicy>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>5</number>
         </property>
         <widget class="QWidget" name="tabInput">
          <attribute name="title">
@@ -171,7 +171,7 @@
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="KLineEdit" name="edByteOrder">
+           <widget class="QLineEdit" name="edByteOrder">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -193,7 +193,7 @@
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="KLineEdit" name="edRawFormat">
+           <widget class="QLineEdit" name="edRawFormat">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -242,7 +242,7 @@
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="KLineEdit" name="edSign">
+           <widget class="QLineEdit" name="edSign">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -278,7 +278,7 @@
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="KLineEdit" name="edSampleRate">
+           <widget class="QLineEdit" name="edSampleRate">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -308,7 +308,7 @@ or kHz (use [%khz] as placeholder)</string>
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="KLineEdit" name="edBitsPerSample">
+           <widget class="QLineEdit" name="edBitsPerSample">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -351,7 +351,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="KLineEdit" name="edMono">
+           <widget class="QLineEdit" name="edMono">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -386,7 +386,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="3" column="2">
-           <widget class="KLineEdit" name="edStereo">
+           <widget class="QLineEdit" name="edStereo">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -468,7 +468,7 @@ use %1 as placeholder</string>
            </spacer>
           </item>
           <item row="1" column="2">
-           <widget class="KLineEdit" name="edBitrateMin">
+           <widget class="QLineEdit" name="edBitrateMin">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -491,7 +491,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="KLineEdit" name="edBitrateMax">
+           <widget class="QLineEdit" name="edBitrateMax">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -534,7 +534,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="KLineEdit" name="edBitrateAvg">
+           <widget class="QLineEdit" name="edBitrateAvg">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -584,7 +584,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="KLineEdit" name="edEmphasisNone">
+           <widget class="QLineEdit" name="edEmphasisNone">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -625,7 +625,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="KLineEdit" name="edEmphasis5015ms">
+           <widget class="QLineEdit" name="edEmphasis5015ms">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -660,7 +660,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="KLineEdit" name="edEmphasisCCIT_J17">
+           <widget class="QLineEdit" name="edEmphasisCCIT_J17">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -689,7 +689,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="3" column="2">
-           <widget class="KLineEdit" name="edNoiseShaping">
+           <widget class="QLineEdit" name="edNoiseShaping">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -718,7 +718,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="4" column="2">
-           <widget class="KLineEdit" name="edCompatibility">
+           <widget class="QLineEdit" name="edCompatibility">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -773,7 +773,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="KLineEdit" name="edCopyright">
+           <widget class="QLineEdit" name="edCopyright">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -808,7 +808,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="KLineEdit" name="edOriginal">
+           <widget class="QLineEdit" name="edOriginal">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -843,7 +843,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="KLineEdit" name="edProtect">
+           <widget class="QLineEdit" name="edProtect">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -888,7 +888,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="KLineEdit" name="edPrepend">
+           <widget class="QLineEdit" name="edPrepend">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -911,7 +911,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="KLineEdit" name="edAppend">
+           <widget class="QLineEdit" name="edAppend">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -954,7 +954,7 @@ use %1 as placeholder</string>
            </widget>
           </item>
           <item row="0" column="1" rowspan="2">
-           <widget class="KLineEdit" name="edEncoderHelp">
+           <widget class="QLineEdit" name="edEncoderHelp">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -1002,7 +1002,7 @@ use %1 as placeholder</string>
            </spacer>
           </item>
           <item row="2" column="1">
-           <widget class="KLineEdit" name="edVersionInfo">
+           <widget class="QLineEdit" name="edVersionInfo">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>100</horstretch>
@@ -1036,7 +1036,7 @@ use %1 as placeholder</string>
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="2" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -1052,10 +1052,17 @@ use %1 as placeholder</string>
      </property>
     </spacer>
    </item>
-   <item>
+   <item row="3" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KPushButton" name="btTest">
+      <widget class="QDialogButtonBox" name="buttonBox_Help">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Help</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btTest">
        <property name="toolTip">
         <string>try to encode some short test signal with the current settings</string>
        </property>
@@ -1078,7 +1085,7 @@ use %1 as placeholder</string>
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -1099,34 +1106,12 @@ use %1 as placeholder</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
+   <header>KComboBox</header>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>buttonBox</tabstop>
   <tabstop>cbProgram</tabstop>
   <tabstop>btDetect</tabstop>
   <tabstop>edPath</tabstop>
@@ -1193,4 +1178,7 @@ use %1 as placeholder</string>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>invokeHelp()</slot>
+ </slots>
 </ui>

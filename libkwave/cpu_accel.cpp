@@ -91,7 +91,6 @@ static uint32_t arch_accel (void)
     ;
 #endif
 
-#ifndef _MSC_VER
   void (*old_sigill_handler)(int);
   uint32_t eax, ebx, ecx, edx;
 
@@ -229,7 +228,6 @@ static uint32_t arch_accel (void)
     }
   }
 #endif /* __x86_64__ */
-#endif /* _MSC_VER */
 
 #ifndef __x86_64__
   /* test OS support for SSE */

@@ -1952,10 +1952,10 @@ PREDEFINED             = DEBUG \
                          HAVE_MP3 \
                          HAVE_OPTIMIZED_MEMCPY \
                          HAVE_PULSEAUDIO_SUPPORT \
-                         HAVE_PHONON_SUPPORT \
                          HAVE_OSS_SUPPORT \
                          HAVE_OGG_OPUS \
                          HAVE_OGG_VORBIS \
+                         HAVE_QT_AUDIO_SUPPORT \
                          HAVE_SYSCONF \
                          HAVE_SYSINFO \
                          HAVE_SYSINFO_MEMUNIT

@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QMap>
-#include <QtCore/QString>
+#include <QMap>
+#include <QString>
 
 #include "WavFileFormat.h"
 

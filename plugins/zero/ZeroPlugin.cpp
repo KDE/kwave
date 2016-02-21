@@ -20,10 +20,10 @@
 #include <math.h>
 #include <new>
 
-#include <klocale.h> // for the i18n macro
+#include <KLocalizedString> // for the i18n macro
 
-#include <QtCore/QList>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QStringList>
 
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
@@ -36,7 +36,8 @@
 #include "ZeroPlugin.h"
 
 KWAVE_PLUGIN(Kwave::ZeroPlugin, "zero", "2.3",
-             I18N_NOOP("Zero Generator"), "Thomas Eschenbacher");
+             I18N_NOOP("Zero Generator"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 #define ZERO_COUNT (64 * 1024)
 
@@ -154,7 +155,5 @@ void Kwave::ZeroPlugin::run(QStringList params)
     delete writers;
 }
 
-//***************************************************************************
-#include "ZeroPlugin.moc"
 //***************************************************************************
 //***************************************************************************

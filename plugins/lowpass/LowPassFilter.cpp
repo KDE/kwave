@@ -19,8 +19,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <math.h>
 #include <complex>
+#include <math.h>
 
 #include "LowPassFilter.h"
 
@@ -211,7 +211,5 @@ void Kwave::LowPassFilter::setFrequency(const QVariant fc)
     normed_setfilter_shelvelowpass(m_f_cutoff);
 }
 
-//***************************************************************************
-#include "LowPassFilter.moc"
 //***************************************************************************
 //***************************************************************************

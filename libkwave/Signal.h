@@ -23,11 +23,10 @@
 #include <limits.h>
 #include <pthread.h>
 
-#include <QtCore/QReadWriteLock>
-#include <QtCore/QList>
-#include <QtCore/QUuid>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QReadWriteLock>
+#include <QUuid>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"
@@ -44,7 +43,7 @@ namespace Kwave
     class Track;
     class Writer;
 
-    class KDE_EXPORT Signal: public QObject
+    class Q_DECL_EXPORT Signal: public QObject
     {
 	Q_OBJECT
 

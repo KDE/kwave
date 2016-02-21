@@ -21,25 +21,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <QtGui/QButtonGroup>
-#include <QtGui/QCheckBox>
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QButtonGroup>
+#include <QCheckBox>
+#include <QLabel>
+#include <QLayout>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QString>
+#include <QStringList>
 
-#include <kcombobox.h>
-#include <klocale.h>
-#include <kpushbutton.h>
-#include <ktoolinvocation.h>
+#include <KComboBox>
+#include <KHelpClient>
+#include <KLocalizedString>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/String.h"
-#include "libkwave/WindowFunction.h"
 #include "libkwave/Utils.h"
+#include "libkwave/WindowFunction.h"
 
 #include "SonagramDialog.h"
 
@@ -205,10 +204,8 @@ Kwave::SonagramDialog::~SonagramDialog ()
 //***************************************************************************
 void Kwave::SonagramDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_sonagram"));
+    KHelpClient::invokeHelp(_("plugin_sect_sonagram"));
 }
 
-//***************************************************************************
-#include "SonagramDialog.moc"
 //***************************************************************************
 //***************************************************************************

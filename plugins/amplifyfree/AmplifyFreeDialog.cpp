@@ -17,10 +17,10 @@
 
 #include "config.h"
 
-#include <QtGui/QPushButton>
+#include <QPushButton>
 
-#include <klocale.h>
-#include <ktoolinvocation.h>
+#include <KHelpClient>
+#include <KLocalizedString>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
@@ -95,10 +95,8 @@ void Kwave::AmplifyFreeDialog::setParams(QStringList &params)
 //***************************************************************************
 void Kwave::AmplifyFreeDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_amplifyfree"));
+    KHelpClient::invokeHelp(_("plugin_sect_amplifyfree"));
 }
 
-//***************************************************************************
-#include "AmplifyFreeDialog.moc"
 //***************************************************************************
 //***************************************************************************

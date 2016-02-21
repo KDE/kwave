@@ -30,7 +30,7 @@
     <number>10</number>
    </property>
    <item>
-    <widget class="KTabWidget" name="InfoTab">
+    <widget class="QTabWidget" name="InfoTab">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -52,7 +52,7 @@
         <number>10</number>
        </property>
        <item row="0" column="2">
-        <widget class="KLineEdit" name="edFileName">
+        <widget class="QLineEdit" name="edFileName">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -427,7 +427,7 @@
         </widget>
        </item>
        <item row="7" column="2">
-        <widget class="KLineEdit" name="txtLength">
+        <widget class="QLineEdit" name="txtLength">
          <property name="sizePolicy">
           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -485,7 +485,7 @@
         </spacer>
        </item>
        <item row="1" column="2">
-        <widget class="KLineEdit" name="edFileSize">
+        <widget class="QLineEdit" name="edFileSize">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -518,7 +518,7 @@
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="KLineEdit" name="edFileFormat">
+        <widget class="QLineEdit" name="edFileFormat">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -1113,7 +1113,7 @@
         </spacer>
        </item>
        <item row="0" column="2">
-        <widget class="KLineEdit" name="edName"/>
+        <widget class="QLineEdit" name="edName"/>
        </item>
        <item row="3" column="2">
         <widget class="KComboBox" name="cbGenre"/>
@@ -1187,7 +1187,7 @@
         </spacer>
        </item>
        <item row="1" column="2">
-        <widget class="KLineEdit" name="edSubject"/>
+        <widget class="QLineEdit" name="edSubject"/>
        </item>
        <item row="2" column="1">
         <spacer name="Spacer95_3_3_3_10_2">
@@ -1216,7 +1216,7 @@
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="KLineEdit" name="edVersion"/>
+        <widget class="QLineEdit" name="edVersion"/>
        </item>
        <item row="10" column="2">
         <spacer name="Spacer16">
@@ -1253,10 +1253,10 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="KDateWidget" name="dateEdit"/>
+          <widget class="QDateEdit" name="dateEdit"/>
          </item>
          <item>
-          <widget class="KPushButton" name="btSelectDate">
+          <widget class="QPushButton" name="btSelectDate">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -1281,7 +1281,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="btSelectDateNow">
+          <widget class="QPushButton" name="btSelectDateNow">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -1373,7 +1373,7 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="KLineEdit" name="edSource"/>
+        <widget class="QLineEdit" name="edSource"/>
        </item>
        <item row="5" column="2">
         <layout class="QHBoxLayout">
@@ -1384,7 +1384,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="KIntSpinBox" name="sbTrack">
+          <widget class="QSpinBox" name="sbTrack">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1407,7 +1407,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KIntSpinBox" name="sbTracks">
+          <widget class="QSpinBox" name="sbTracks">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1443,7 +1443,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="KIntSpinBox" name="sbCD">
+          <widget class="QSpinBox" name="sbCD">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1466,7 +1466,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KIntSpinBox" name="sbCDs">
+          <widget class="QSpinBox" name="sbCDs">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1524,7 +1524,7 @@
         </widget>
        </item>
        <item row="3" column="2">
-        <widget class="KLineEdit" name="edAlbum"/>
+        <widget class="QLineEdit" name="edAlbum"/>
        </item>
        <item row="4" column="1">
         <spacer name="Spacer95_3_3_3_7_3">
@@ -1559,7 +1559,7 @@
         </spacer>
        </item>
        <item row="1" column="2">
-        <widget class="KLineEdit" name="edSourceForm"/>
+        <widget class="QLineEdit" name="edSourceForm"/>
        </item>
        <item row="1" column="1">
         <spacer name="Spacer95_3_3_3_7">
@@ -1646,7 +1646,7 @@
         </widget>
        </item>
        <item row="7" column="2">
-        <widget class="KLineEdit" name="edSoftware"/>
+        <widget class="QLineEdit" name="edSoftware"/>
        </item>
        <item row="9" column="1">
         <spacer name="Spacer95_3_3_3_16">
@@ -1665,7 +1665,7 @@
         </spacer>
        </item>
        <item row="8" column="2">
-        <widget class="KLineEdit" name="edEngineer"/>
+        <widget class="QLineEdit" name="edEngineer"/>
        </item>
        <item row="7" column="1">
         <spacer name="Spacer95_3_3_3_13">
@@ -1694,7 +1694,7 @@
         </widget>
        </item>
        <item row="9" column="2">
-        <widget class="KLineEdit" name="edTechnican"/>
+        <widget class="QLineEdit" name="edTechnican"/>
        </item>
        <item row="8" column="1">
         <spacer name="Spacer95_3_3_3_9">
@@ -1746,7 +1746,7 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="KLineEdit" name="edAuthor"/>
+        <widget class="QLineEdit" name="edAuthor"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="lblCopyright">
@@ -1785,13 +1785,13 @@
         </spacer>
        </item>
        <item row="1" column="2">
-        <widget class="KLineEdit" name="edOrganization"/>
+        <widget class="QLineEdit" name="edOrganization"/>
        </item>
        <item row="2" column="2">
-        <widget class="KLineEdit" name="edCopyright"/>
+        <widget class="QLineEdit" name="edCopyright"/>
        </item>
        <item row="3" column="2">
-        <widget class="KLineEdit" name="edLicense"/>
+        <widget class="QLineEdit" name="edLicense"/>
        </item>
        <item row="8" column="1">
         <spacer name="Spacer95_3_3_3_14_2">
@@ -1852,13 +1852,13 @@
         </widget>
        </item>
        <item row="7" column="2">
-        <widget class="KLineEdit" name="edArchival"/>
+        <widget class="QLineEdit" name="edArchival"/>
        </item>
        <item row="8" column="2">
-        <widget class="KLineEdit" name="edContact"/>
+        <widget class="QLineEdit" name="edContact"/>
        </item>
        <item row="6" column="2">
-        <widget class="KLineEdit" name="edProduct"/>
+        <widget class="QLineEdit" name="edProduct"/>
        </item>
        <item row="6" column="1">
         <spacer name="Spacer95_3_3_3_8">
@@ -1897,7 +1897,7 @@
         </widget>
        </item>
        <item row="4" column="2">
-        <widget class="KLineEdit" name="edISRC">
+        <widget class="QLineEdit" name="edISRC">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -2081,7 +2081,7 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="KLineEdit" name="edCommissioned"/>
+        <widget class="QLineEdit" name="edCommissioned"/>
        </item>
       </layout>
      </widget>
@@ -2090,7 +2090,7 @@
    <item>
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KDialogButtonBox" name="btHelp">
+      <widget class="QDialogButtonBox" name="btHelp">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>
@@ -2113,7 +2113,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -2126,40 +2126,9 @@
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KDateWidget</class>
-   <extends>QWidget</extends>
-   <header>kdatewidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
+   <header>KComboBox</header>
   </customwidget>
   <customwidget>
    <class>Kwave::KeywordWidget</class>
@@ -2220,12 +2189,7 @@
   <tabstop>edCommissioned</tabstop>
  </tabstops>
  <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
-  <include location="global">kcombobox.h</include>
-  <include location="global">kdatewidget.h</include>
-  <include location="global">klineedit.h</include>
-  <include location="global">klineedit.h</include>
+  <include location="global">KComboBox</include>
   <include location="local">CompressionWidget.h</include>
   <include location="local">KeywordWidget.h</include>
  </includes>

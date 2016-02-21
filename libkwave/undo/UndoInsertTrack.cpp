@@ -18,13 +18,13 @@
 
 #include "config.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include <new>
 
 #include "libkwave/SignalManager.h"
-#include "libkwave/undo/UndoInsertTrack.h"
 #include "libkwave/undo/UndoDeleteTrack.h"
+#include "libkwave/undo/UndoInsertTrack.h"
 
 //***************************************************************************
 Kwave::UndoInsertTrack::UndoInsertTrack(Kwave::Signal &signal,

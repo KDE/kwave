@@ -20,15 +20,14 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QListIterator>
-#include <QtCore/QMap>
-#include <QtCore/QMutableListIterator>
-#include <QtCore/QObject>
-#include <QtCore/QPointer>
-#include <QtGui/QWidget>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QList>
+#include <QListIterator>
+#include <QMap>
+#include <QMutableListIterator>
+#include <QObject>
+#include <QPointer>
+#include <QWidget>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
@@ -55,7 +54,7 @@ namespace Kwave
      * new instance of the PluginManager to be independent from other
      * toplevel widgets.
      */
-    class KDE_EXPORT PluginManager : public QObject
+    class Q_DECL_EXPORT PluginManager: public QObject
     {
 	Q_OBJECT
 

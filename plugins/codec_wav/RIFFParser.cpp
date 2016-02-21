@@ -22,16 +22,16 @@
 
 #include <limits>
 
-#include <QtCore/QIODevice>
-#include <QtCore/QLatin1String>
-#include <QtCore/QList>
-#include <QtCore/QMutableListIterator>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QtEndian>
-#include <QtCore/QtGlobal>
+#include <QIODevice>
+#include <QLatin1String>
+#include <QList>
+#include <QMutableListIterator>
+#include <QString>
+#include <QStringList>
+#include <QtEndian>
+#include <QtGlobal>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 
@@ -162,7 +162,7 @@ void Kwave::RIFFParser::detectEndianness()
     int index = 0;
     foreach (QString chunk_name, names) {
 	// scan all offsets where the name matches
-	QByteArray name = chunk_name.toAscii();
+	QByteArray name = chunk_name.toLatin1();
 	QList<quint32> offsets = scanForName(name,
 	    m_root.physStart(), m_root.physLength(),
 	    index, count);
@@ -818,7 +818,5 @@ void Kwave::RIFFParser::cancel()
     m_cancel = true;
 }
 
-//***************************************************************************
-#include "RIFFParser.moc"
 //***************************************************************************
 //***************************************************************************

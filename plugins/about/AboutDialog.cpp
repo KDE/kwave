@@ -17,28 +17,35 @@
 
 #include "config.h"
 
-#include <QtCore/QtAlgorithms>
-#include <QtCore/QList>
-#include <QtCore/QListIterator>
-#include <QtGui/QHBoxLayout>
-#include <QtCore/QString>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTreeWidgetItem>
-#include <QtGui/QVBoxLayout>
+#include <algorithm>
+#include <new>
 
-#include <kaboutdata.h>
-#include <kapplication.h>
-#include <kglobal.h>
-#include <klocale.h>
-#include <kurllabel.h>
-#include <kstandarddirs.h>
-#include <ktextedit.h>
+#include <QApplication>
+#include <QAbstractScrollArea>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QList>
+#include <QListIterator>
+#include <QString>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QVBoxLayout>
+#include <QtAlgorithms>
+
+#include <KAboutData>
+#include <KLocalizedString>
+#include <KTextEdit>
+#include <KUrlLabel>
+#include <kxmlgui_version.h>
 
 #include "libkwave/String.h"
 
-#include "AboutDialog.h"
 #include "AboutContainer.h"
+#include "AboutDialog.h"
 #include "LogoWidget.h"
+
+#define NAME_OF_TRANSLATORS  "Your names"
+#define EMAIL_OF_TRANSLATORS "Your emails"
 
 //***************************************************************************
 static bool pluginInfoDescriptionLessThan(
@@ -58,30 +65,38 @@ Kwave::AboutDialog::AboutDialog(
     setupUi(this);
 
     /* get the about data defined in main() */
-    const KAboutData *about_data = KGlobal::mainComponent().aboutData();
+    KAboutData about_data = KAboutData::applicationData();
 
     /* display version information in the header */
-    QString kde_version = QString::fromLatin1(KDE_VERSION_STRING);
-    QString kwave_version = about_data->programName()+
-        _(" ") + about_data->version() + _(" ");
+    QString kde_version = QString::fromLatin1(KXMLGUI_VERSION_STRING);
+    QString kwave_version = about_data.componentName()+
+        _(" ") + about_data.version() + _(" ");
     QString header_text = _("<h2>") + kwave_version +
-        i18n("(built for KDE %1)", kde_version) + _("</h2>");
+        i18n("(built for KDE Frameworks %1)", kde_version) + _("</h2>");
     header->setText(header_text);
 
     /* the frame containing the developer information */
     Kwave::AboutContainer *about = new Kwave::AboutContainer(this);
-    foreach (const KAboutPerson &author, about_data->authors()) {
-	about->addPerson(author.name(), author.emailAddress(),
-	    author.webAddress(), author.task());
+    foreach (const KAboutPerson &author, about_data.authors()) {
+	about->addPerson(
+	    i18n(author.name().toUtf8()),
+	    author.emailAddress(),
+	    i18n(author.webAddress().toUtf8()),
+	    i18n(author.task().toUtf8())
+	);
     }
     authorframe->setWidget(about);
     authorframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the thanks to ... */
     Kwave::AboutContainer *contrib = new Kwave::AboutContainer(this);
-    foreach (const KAboutPerson &credit, about_data->credits()) {
-	contrib->addPerson(credit.name(), credit.emailAddress(),
-	    credit.webAddress(), credit.task());
+    foreach (const KAboutPerson &credit, about_data.credits()) {
+	contrib->addPerson(
+	    i18n(credit.name().toUtf8()),
+	    credit.emailAddress(),
+	    i18n(credit.webAddress().toUtf8()),
+	    i18n(credit.task().toUtf8())
+	);
     }
     thanksframe->setWidget(contrib);
     thanksframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -106,14 +121,18 @@ Kwave::AboutDialog::AboutDialog(
     QList<QTreeWidgetItem *> plugins;
 
     QList<Kwave::PluginManager::PluginModule> list = plugin_info;
-    qSort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
-    foreach (const Kwave::PluginManager::PluginModule &info, list) {
-	QStringList item;
-	item << info.m_description << info.m_version << info.m_author;
-	plugins.append(new QTreeWidgetItem(
-	    static_cast<QTreeWidget *>(0), item));
+    if (!list.isEmpty()) {
+	std::sort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
+	foreach (const Kwave::PluginManager::PluginModule &info, list) {
+	    QStringList item;
+	    item << i18n(info.m_description.toUtf8())
+	         << info.m_version
+	         << i18n(info.m_author.toUtf8());
+	    plugins.append(new QTreeWidgetItem(
+		static_cast<QTreeWidget *>(0), item));
+	}
+	pluginsinfo->insertTopLevelItems(0, plugins);
     }
-    pluginsinfo->insertTopLevelItems(0, plugins);
     pluginsinfo->resizeColumnToContents(1);
     pluginsinfo->resizeColumnToContents(0);
 
@@ -123,16 +142,34 @@ Kwave::AboutDialog::AboutDialog(
 
     /* set the url of the kwave homepage */
     kwave_url_label->setText(_("<a href=\"") +
-	about_data->homepage() + _("\">") +
-	about_data->homepage() + _("</a>"));
+	about_data.homepage() + _("\">") +
+	about_data.homepage() + _("</a>"));
     kwave_url_label->setOpenExternalLinks(true);
     kwave_url_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 
     /* the frame containing the translators */
     Kwave::AboutContainer *trans = new Kwave::AboutContainer(this);
-    QList<KAboutPerson> translators = about_data->translators();
-    if ((translators.count() == 1) &&
-        (translators.first().name() == _("NAME OF TRANSLATORS"))) {
+    QList<KAboutPerson> translators = about_data.translators();
+
+    /* ----------- begin workaround KDE #345320 ----------- */
+    /*
+     * workaround for KF5 bug #345320:
+     * do the translation of the translator names on our own, as the
+     * code in kaboutdata.cpp uses QCoreApplication::translate(...) which
+     * relies on a Qt style translation file - that we do not have, we are
+     * using message catalogs.
+     */
+    if (translators.isEmpty()) {
+	about_data.setTranslator(
+	    ki18nc("NAME OF TRANSLATORS",  NAME_OF_TRANSLATORS).toString(),
+	    ki18nc("EMAIL OF TRANSLATORS", EMAIL_OF_TRANSLATORS).toString()
+	);
+	translators = about_data.translators();
+    }
+    /* ------------ end workaround KDE #345320 ------------ */
+
+    if (translators.isEmpty() || ((translators.count() == 1) &&
+        (translators.first().name() == _(NAME_OF_TRANSLATORS))) ) {
 	tabwidget->removeTab(4);
     } else {
 	foreach (const KAboutPerson &translator, translators) {
@@ -140,7 +177,7 @@ Kwave::AboutDialog::AboutDialog(
 
 	    // if the translator is already listed in the "authors" section,
 	    // give him the same web address
-	    foreach (const KAboutPerson &author, about_data->authors())
+	    foreach (const KAboutPerson &author, about_data.authors())
 		if (author.name() == translator.name()) {
 		    website = author.webAddress();
 		    break;
@@ -148,22 +185,37 @@ Kwave::AboutDialog::AboutDialog(
 
 	    // if the translator is already listed in the "credits" section,
 	    // give him the same web address
-	    foreach (const KAboutPerson &credit, about_data->credits())
+	    foreach (const KAboutPerson &credit, about_data.credits())
 		if (credit.name() == translator.name()) {
 		    website = credit.webAddress();
 		    break;
 		}
 
-	    trans->addPerson(translator.name(), translator.emailAddress(),
-		website, translator.task());
+	    trans->addPerson(
+		translator.name(),
+		translator.emailAddress(),
+		i18n(website.toUtf8()),
+		i18n(translator.task().toUtf8())
+	    );
 	}
+
+	QString about_team = about_data.aboutTranslationTeam();
+	if (!about_team.isEmpty()) {
+	    about_team.prepend(_("<br>"));
+	    trans->addWidget(new(std::nothrow) QLabel(about_team, trans));
+	}
+
 	translatorsframe->setWidget(trans);
 	translatorsframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     }
 
-    /* the frame containing the license */
+    /* the frame containing the license(s) */
     licenseframe->setReadOnly(true);
-    licenseframe->setText(about_data->license());
+    QString licenses;
+    foreach (const KAboutLicense &license, about_data.licenses()) {
+	licenses += license.text();
+    }
+    licenseframe->setText(licenses);
 
     // set the focus onto the "OK" button
     buttonBox->setFocus();
@@ -174,7 +226,5 @@ Kwave::AboutDialog::~AboutDialog()
 {
 }
 
-//***************************************************************************
-#include "AboutDialog.moc"
 //***************************************************************************
 //***************************************************************************

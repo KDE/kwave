@@ -20,11 +20,10 @@
 
 #include "config.h"
 
-#include <QtCore/QMutex>
-#include <QtCore/QQueue>
-#include <QtCore/QSemaphore>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QMutex>
+#include <QQueue>
+#include <QSemaphore>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleSink.h"
@@ -35,7 +34,7 @@ class QVariant;
 namespace Kwave
 {
 
-    class KDE_EXPORT Mul: public Kwave::SampleSource
+    class Q_DECL_EXPORT Mul: public Kwave::SampleSource
     {
 	Q_OBJECT
 	public:

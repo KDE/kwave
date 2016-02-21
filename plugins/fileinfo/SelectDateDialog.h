@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QDateTime>
-#include <QtCore/QObject>
+#include <QDateTime>
+#include <QObject>
 
 #include "ui_SelectDateDlg.h"
 

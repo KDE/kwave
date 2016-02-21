@@ -22,15 +22,15 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <QtCore/QDate>
-#include <QtCore/QDateTime>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QString>
-#include <QtCore/QThread>
+#include <QDate>
+#include <QDateTime>
+#include <QLatin1Char>
+#include <QLocale>
+#include <QString>
+#include <QThread>
+#include <QtGlobal>
 
-#include <kapplication.h>
-#include <kglobal.h>
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -97,9 +97,7 @@ QString Kwave::ms2string(double ms, int precision)
 //***************************************************************************
 QString Kwave::samples2string(sample_index_t samples)
 {
-    QString result;
-    result.setNum(samples);
-    return KGlobal::locale()->formatNumber(result);
+    return QLocale().toString(Kwave::toUint(samples));
 }
 
 //***************************************************************************

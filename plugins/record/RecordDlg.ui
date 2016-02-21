@@ -45,7 +45,7 @@
        <number>10</number>
       </property>
       <item>
-       <widget class="KTabWidget" name="tabRecord">
+       <widget class="QTabWidget" name="tabRecord">
         <property name="currentIndex">
          <number>0</number>
         </property>
@@ -139,7 +139,7 @@
              <item row="8" column="0" colspan="3">
               <layout class="QHBoxLayout">
                <item>
-                <widget class="KPushButton" name="btNew">
+                <widget class="QPushButton" name="btNew">
                  <property name="enabled">
                   <bool>true</bool>
                  </property>
@@ -158,7 +158,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btStop">
+                <widget class="QPushButton" name="btStop">
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
@@ -177,7 +177,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btPause">
+                <widget class="QPushButton" name="btPause">
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
@@ -196,7 +196,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btRecord">
+                <widget class="QPushButton" name="btRecord">
                  <property name="minimumSize">
                   <size>
                    <width>30</width>
@@ -271,7 +271,7 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="KIntSpinBox" name="sbRecordPre">
+              <widget class="QSpinBox" name="sbRecordPre">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -361,7 +361,7 @@
               </widget>
              </item>
              <item row="4" column="1" colspan="2">
-              <widget class="KDateTimeWidget" name="startTime">
+              <widget class="QDateTimeEdit" name="startTime">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -438,7 +438,7 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="KIntSpinBox" name="sbLevelAmplify">
+              <widget class="QSpinBox" name="sbLevelAmplify">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -463,7 +463,7 @@
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="KIntSpinBox" name="sbLevelAGC">
+              <widget class="QSpinBox" name="sbLevelAGC">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -548,7 +548,7 @@
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="KIntSpinBox" name="sbLevelFadeOut">
+              <widget class="QSpinBox" name="sbLevelFadeOut">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -564,7 +564,7 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="KIntSpinBox" name="sbLevelFadeIn">
+              <widget class="QSpinBox" name="sbLevelFadeIn">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -1061,7 +1061,7 @@ recording. Depending on the compilation options you can select one of the follow
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="btSourceSelect">
+                <widget class="QPushButton" name="btSourceSelect">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -1258,7 +1258,7 @@ recording. Depending on the compilation options you can select one of the follow
       <item>
        <layout class="QHBoxLayout">
         <item>
-         <widget class="KDialogButtonBox" name="buttonBox">
+         <widget class="QDialogButtonBox" name="buttonBox">
           <property name="standardButtons">
            <set>QDialogButtonBox::Help</set>
           </property>
@@ -1285,7 +1285,7 @@ recording. Depending on the compilation options you can select one of the follow
        <number>2</number>
       </property>
       <item>
-       <widget class="KStatusBar" name="lbl_state" native="true">
+       <widget class="QStatusBar" name="lbl_state" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -1308,35 +1308,9 @@ recording. Depending on the compilation options you can select one of the follow
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>KDateTimeWidget</class>
-   <extends>QWidget</extends>
-   <header>kdatetimewidget.h</header>
+   <header>KComboBox</header>
   </customwidget>
   <customwidget>
    <class>Kwave::TreeWidgetWrapper</class>
@@ -1354,11 +1328,6 @@ recording. Depending on the compilation options you can select one of the follow
    <class>Kwave::LevelMeter</class>
    <extends>QWidget</extends>
    <header>LevelMeter.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KStatusBar</class>
-   <extends>QWidget</extends>
-   <header location="global">kstatusbar.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1401,11 +1370,8 @@ recording. Depending on the compilation options you can select one of the follow
   <tabstop>slSourceBufferSize</tabstop>
  </tabstops>
  <includes>
-  <include location="global">klocale.h</include>
   <include location="local">libgui/HMSTimeWidget.h</include>
-  <include location="local">klineedit.h</include>
   <include location="local">LevelMeter.h</include>
-  <include location="local">kstatusbar.h</include>
  </includes>
  <resources/>
  <connections>

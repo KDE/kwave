@@ -21,8 +21,8 @@
 #include "config.h"
 #ifdef HAVE_OSS_SUPPORT
 
-#include <QtCore/QByteArray>
-#include <QtCore/QString>
+#include <QByteArray>
+#include <QString>
 
 #include "RecordDevice.h"
 

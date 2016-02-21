@@ -20,12 +20,11 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
-
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtCore/QPointer>
-#include <QtCore/QUuid>
+#include <QtGlobal>
+#include <QList>
+#include <QObject>
+#include <QPointer>
+#include <QUuid>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SignalManager.h"
@@ -38,7 +37,7 @@ namespace Kwave
     class Track;
     class UndoTransaction;
 
-    class KDE_EXPORT SelectionTracker : public Kwave::UndoHandler
+    class Q_DECL_EXPORT SelectionTracker: public Kwave::UndoHandler
     {
 	Q_OBJECT
     public:
@@ -206,7 +205,7 @@ namespace Kwave
 	/**
 	 * Undo action for tracking selection changes
 	 */
-	class KDE_EXPORT Undo: public Kwave::UndoAction
+	class Q_DECL_EXPORT Undo: public Kwave::UndoAction
 	{
 	public:
 

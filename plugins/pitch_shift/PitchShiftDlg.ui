@@ -45,14 +45,14 @@
    <item row="4" column="0" colspan="3">
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KDialogButtonBox" name="btHelp">
+      <widget class="QDialogButtonBox" name="btHelp">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="btListen">
+      <widget class="QPushButton" name="btListen">
        <property name="toolTip">
         <string>start/stop pre-listening</string>
        </property>
@@ -84,7 +84,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -248,16 +248,6 @@ For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>Kwave::InvertableSpinBox</class>
    <extends>QWidget</extends>
    <header>libgui/InvertableSpinBox.h</header>
@@ -271,7 +261,6 @@ For example: &quot;x1&quot;, &quot;x2&quot;, &quot;/ 4&quot;</string>
   <tabstop>rbPercentage</tabstop>
  </tabstops>
  <includes>
-  <include location="global">klocale.h</include>
   <include location="local">libgui/InvertableSpinBox.h</include>
  </includes>
  <resources/>

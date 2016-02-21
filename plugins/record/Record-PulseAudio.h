@@ -26,19 +26,19 @@
 #include <pulse/context.h>
 #include <pulse/error.h>
 #include <pulse/introspect.h>
+#include <pulse/mainloop.h>
 #include <pulse/proplist.h>
 #include <pulse/sample.h>
 #include <pulse/stream.h>
-#include <pulse/mainloop.h>
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QList>
-#include <QtCore/QMutex>
-#include <QtCore/QWaitCondition>
+#include <QList>
+#include <QMutex>
+#include <QString>
+#include <QStringList>
+#include <QWaitCondition>
 
-#include "libkwave/SampleFormat.h"
 #include "libkwave/Runnable.h"
+#include "libkwave/SampleFormat.h"
 #include "libkwave/WorkerThread.h"
 
 #include "RecordDevice.h"
@@ -46,8 +46,7 @@
 namespace Kwave
 {
 
-    class RecordPulseAudio : public Kwave::RecordDevice,
-                             public Kwave::Runnable
+    class RecordPulseAudio: public Kwave::RecordDevice, public Kwave::Runnable
     {
     public:
 

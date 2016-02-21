@@ -20,11 +20,11 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
+#include <QList>
 
 #include "libgui/MenuNode.h"
 
-class KMenuBar;
+class QMenuBar;
 
 namespace Kwave
 {
@@ -36,7 +36,7 @@ namespace Kwave
      * all toplevel menus of a menu hierarchy.
      * @author Thomas Eschenbacher
      */
-    class MenuRoot : public Kwave::MenuNode
+    class MenuRoot: public Kwave::MenuNode
     {
 	Q_OBJECT
 
@@ -44,9 +44,9 @@ namespace Kwave
 
 	/**
 	 * Constructor.
-	 * @param bar reference to a KMenuBar
+	 * @param bar reference to a QMenuBar
 	 */
-	explicit MenuRoot(KMenuBar &bar);
+	explicit MenuRoot(QMenuBar &bar);
 
 	/** Destructor */
 	virtual ~MenuRoot();
@@ -148,8 +148,8 @@ namespace Kwave
 
     private:
 
-	/** reference to a KMenuBar */
-	KMenuBar &m_menu_bar;
+	/** reference to a QMenuBar */
+	QMenuBar &m_menu_bar;
 
 	/** list of menu groups */
 	QHash<QString, Kwave::MenuGroup *> m_group_list;

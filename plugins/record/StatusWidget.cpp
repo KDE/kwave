@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QtGui/QPainter>
-#include <QtGui/QPixmap>
+#include <QPainter>
+#include <QPixmap>
 
 #include "libkwave/Utils.h"
 
@@ -78,7 +78,5 @@ void Kwave::StatusWidget::nextPixmap()
     repaint();
 }
 
-//***************************************************************************
-#include "StatusWidget.moc"
 //***************************************************************************
 //***************************************************************************

@@ -22,13 +22,13 @@
 #include <string.h>
 
 #include <id3/globals.h>
-#include <id3/tag.h>
 #include <id3/misc_support.h>
+#include <id3/tag.h>
 
-#include <QtCore/QDate>
-#include <QtCore/QDateTime>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QTime>
+#include <QDate>
+#include <QDateTime>
+#include <QLatin1Char>
+#include <QTime>
 
 #include "libkwave/Compression.h"
 #include "libkwave/GenreType.h"
@@ -40,9 +40,9 @@
 #include "libkwave/Utils.h"
 #include "libkwave/Writer.h"
 
+#include "ID3_QIODeviceReader.h"
 #include "MP3CodecPlugin.h"
 #include "MP3Decoder.h"
-#include "ID3_QIODeviceReader.h"
 
 //***************************************************************************
 Kwave::MP3Decoder::MP3Decoder()
@@ -212,7 +212,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
     int day   = -1;
 
     ID3_Tag::Iterator *it = tag.CreateIterator();
-    ID3_Frame *frame;
+    ID3_Frame *frame = 0;
     Kwave::FileInfo info(metaData());
     while (it && (frame = it->GetNext())) {
 	const ID3_FrameID id = frame->GetID();
@@ -431,7 +431,7 @@ bool Kwave::MP3Decoder::open(QWidget *widget, QIODevice &src)
 
     m_prepended_bytes = tag.GetPrependedBytes();
     m_appended_bytes  = tag.GetAppendedBytes();
-    qDebug("prepended=%u, appended=%u",m_prepended_bytes, m_appended_bytes);
+    qDebug("prepended=%lu, appended=%lu", m_prepended_bytes, m_appended_bytes);
 
     const Mp3_Headerinfo *mp3hdr = tag.GetMp3HeaderInfo();
     if (!mp3hdr) {
@@ -504,14 +504,14 @@ enum mad_flow Kwave::MP3Decoder::handleError(void */*data*/,
 	case MAD_ERROR_BUFLEN:
 	case MAD_ERROR_BUFPTR:
 	case MAD_ERROR_NOMEM:
-		error = i18n("Out of memory");
-		break;
+	    error = i18n("Out of memory");
+	    break;
 	case MAD_ERROR_BADCRC:
-		error = i18n("Checksum error");
-		break;
+	    error = i18n("Checksum error");
+	    break;
 	case MAD_ERROR_LOSTSYNC:
-		error = i18n("Synchronization lost");
-		break;
+	    error = i18n("Synchronization lost");
+	    break;
 	case MAD_ERROR_BADLAYER:
 	case MAD_ERROR_BADBITRATE:
 	case MAD_ERROR_BADSAMPLERATE:
@@ -527,14 +527,15 @@ enum mad_flow Kwave::MP3Decoder::handleError(void */*data*/,
 	case MAD_ERROR_BADHUFFTABLE:
 	case MAD_ERROR_BADHUFFDATA:
 	case MAD_ERROR_BADSTEREO:
-		error = i18n("File contains invalid data");
-		break;
+	    error = i18n("File contains invalid data");
+	    break;
 	default:
-		error = i18n("Unknown error 0x%X. Damaged file?",
-		static_cast<int>(stream->error));
+	    QString err_hex = QString::number(
+		static_cast<int>(stream->error), 16).toUpper();
+	    error = i18n("Unknown error 0x%1. Damaged file?", err_hex);
     }
 
-    unsigned int pos = stream->this_frame - m_buffer;
+    long unsigned int pos = stream->this_frame - m_buffer;
     int result = 0;
     error = i18n("An error occurred while decoding the file:\n'%1',\n"
 	         "at position %2.", error, pos);
@@ -564,11 +565,11 @@ enum mad_flow Kwave::MP3Decoder::fillInput(struct mad_stream *stream)
     if (m_dest->isCanceled()) return MAD_FLOW_STOP;
 
     // preserve the remaining bytes from the last pass
-    int rest = stream->bufend - stream->next_frame;
+    size_t rest = stream->bufend - stream->next_frame;
     if (rest) memmove(m_buffer, stream->next_frame, rest);
 
     // clip source at "eof-appended_bytes"
-    unsigned int bytes_to_read = m_buffer_size - rest;
+    size_t bytes_to_read = m_buffer_size - rest;
     if (m_source->pos() + bytes_to_read > m_source->size() - m_appended_bytes)
         bytes_to_read = Kwave::toUint(
 	    m_source->size() - m_appended_bytes - m_source->pos());
@@ -578,7 +579,7 @@ enum mad_flow Kwave::MP3Decoder::fillInput(struct mad_stream *stream)
     if (!bytes_to_read) return MAD_FLOW_STOP;
 
     // read from source to fill up the buffer
-    unsigned int size = rest;
+    size_t size = rest;
     if (bytes_to_read) size += m_source->read(
 	reinterpret_cast<char *>(m_buffer) + rest, bytes_to_read);
     if (!size) return MAD_FLOW_STOP; // no more data
@@ -605,7 +606,7 @@ namespace Kwave {
  * (copied from mpg231, mad.c)
  * @author Rob Leslie
  */
-static inline unsigned long prng(unsigned long state)
+static inline quint32 prng(quint32 state)
 {
     return (state * 0x0019660dL + 0x3c6ef35fL) & 0xffffffffL;
 }
@@ -633,13 +634,13 @@ static inline qint32 audio_linear_dither(unsigned int bits,
     dither->error[1] = dither->error[0] / 2;
 
     /* bias */
-    output = sample + (1L << (MAD_F_FRACBITS + 1 - bits - 1));
+    output = sample + mad_fixed_t(1L << (MAD_F_FRACBITS + 1 - bits - 1));
 
     scalebits = MAD_F_FRACBITS + 1 - bits;
-    mask = (1L << scalebits) - 1;
+    mask = mad_fixed_t(1L << scalebits) - 1;
 
     /* dither */
-    random  = prng(dither->random);
+    random  = static_cast<mad_fixed_t>(prng(dither->random));
     output += (random & mask) - (dither->random & mask);
 
     dither->random = random;

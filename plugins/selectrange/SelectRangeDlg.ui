@@ -46,7 +46,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="KDialogButtonBox" name="btHelp">
+      <widget class="QDialogButtonBox" name="btHelp">
        <property name="standardButtons">
         <set>QDialogButtonBox::Help</set>
        </property>
@@ -69,7 +69,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -98,11 +98,6 @@
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>Kwave::SelectTimeWidget</class>
    <extends>QWidget</extends>
    <header>libgui/SelectTimeWidget.h</header>
@@ -110,8 +105,6 @@
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="global">klocale.h</include>
-  <include location="global">knuminput.h</include>
   <include location="local">libgui/SelectTimeWidget.h</include>
   <include location="local">libgui/SelectTimeWidget.h</include>
  </includes>

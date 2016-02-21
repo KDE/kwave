@@ -18,19 +18,19 @@
 #include "config.h"
 #include <math.h>
 
-#include <QtGui/QBrush>
-#include <QtGui/QColor>
-#include <QtGui/QImage>
-#include <QtCore/QObject>
-#include <QtGui/QPainter>
-#include <QtGui/QPalette>
-#include <QtGui/QPolygon>
-#include <QtCore/QTimer>
+#include <QBrush>
+#include <QColor>
+#include <QImage>
+#include <QObject>
+#include <QPainter>
+#include <QPalette>
+#include <QPolygon>
+#include <QTimer>
 
 #include "libkwave/Utils.h"
 
-#include "logo.xpm"
 #include "LogoWidget.h"
+#include "logo.xpm"
 
 /** increment value of the "h" channel of the color of the sine waves */
 #define COLOR_INCREMENT (static_cast<double>(0.001))
@@ -38,10 +38,10 @@
 //***************************************************************************
 Kwave::LogoWidget::LogoWidget(QWidget *parent)
     :QWidget(parent), m_width(-1), m_height(-1), m_repaint(false),
-    m_image(0), m_logo(xpm_aboutlogo), m_timer(0),
-    m_color_h(0.0)
+     m_image(0), m_logo(xpm_aboutlogo), m_timer(0),
+     m_color_h(0.0)
 {
-    for (int i=0; i < MAXSIN; m_deg[i++] = 0) {}
+    for (int i = 0; i < MAXSIN; m_deg[i++] = 0) {}
 
     m_timer = new QTimer(this);
     Q_ASSERT(m_timer);
@@ -60,7 +60,7 @@ Kwave::LogoWidget::LogoWidget(QWidget *parent)
 //***************************************************************************
 void Kwave::LogoWidget::doAnim()
 {
-    double mul = 0.04131211+m_deg[MAXSIN-1] / 75;
+    double mul = 0.04131211 + m_deg[MAXSIN-1] / 75;
 
     for (int i = 0; i < MAXSIN; i++) {
 	m_deg[i] += mul;
@@ -97,7 +97,7 @@ void Kwave::LogoWidget::paintEvent(QPaintEvent *)
 
     if ((m_repaint) && (m_image)) {
 	QPainter p;
-	QPolygon si(20+3);
+	QPolygon si(20 + 3);
 
 	p.begin(m_image);
 
@@ -149,7 +149,5 @@ void Kwave::LogoWidget::paintEvent(QPaintEvent *)
 
 }
 
-//***************************************************************************
-#include "LogoWidget.moc"
 //***************************************************************************
 //***************************************************************************

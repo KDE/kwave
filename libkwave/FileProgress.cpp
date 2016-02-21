@@ -16,21 +16,24 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <math.h>
 
-#include <QtGui/QApplication>
-#include <QtGui/QCloseEvent>
-#include <QtGui/QGridLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QProgressBar>
-#include <QtCore/QThread>
-#include <QtCore/QTimer>
-#include <QtGui/QVBoxLayout>
+#include <QApplication>
+#include <QCloseEvent>
+#include <QGridLayout>
+#include <QLabel>
+#include <QLocale>
+#include <QProgressBar>
+#include <QPushButton>
+#include <QThread>
+#include <QTimer>
+#include <QVBoxLayout>
+#include <QtGlobal>
 
-#include <kpushbutton.h>
-#include <kglobal.h>
-#include <klocale.h>
-#include <kstandardguiitem.h>
+#include <KFormat>
+#include <KLocalizedString>
+#include <KStandardGuiItem>
 
 #include "libkwave/FileProgress.h"
 #include "libkwave/MessageBox.h"
@@ -155,10 +158,10 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
     m_stat_bytes->setMinimumWidth(m_stat_bytes->sizeHint().width());
 
     // right lower edge: the "cancel" button
-    KPushButton *bt_cancel =
-	new KPushButton(KStandardGuiItem::cancel(), this);
+    QPushButton *bt_cancel = new QPushButton(this);
     Q_ASSERT(bt_cancel);
     if (!bt_cancel) return;
+    KGuiItem::assign(bt_cancel, KStandardGuiItem::cancel());
     bt_cancel->setFixedSize(bt_cancel->sizeHint());
     bt_cancel->setFocus();
     bt_cancel->setShortcut(Qt::Key_Escape);
@@ -265,7 +268,7 @@ void Kwave::FileProgress::updateStatistics(double rate, double rest,
     QTime time;
     time = time.addSecs(Kwave::toInt(qMin(rest, (24.0 * 60.0 * 60.0) - 1.0)));
     text = i18n("%1 kB/s (%2 remaining)", num,
-                KGlobal::locale()->formatTime(time, true, true));
+	KFormat().formatDecimalDuration(time.msec()));
     m_stat_transfer->setText(text);
 
     // right: statistic over the transferred bytes
@@ -359,7 +362,5 @@ void Kwave::FileProgress::cancel()
     if (m_canceled) emit canceled();
 }
 
-//***************************************************************************
-#include "FileProgress.moc"
 //***************************************************************************
 //***************************************************************************

@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
+#include <QObject>
+#include <QString>
 
 #include "libkwave/SampleArray.h"
 #include "libkwave/modules/StreamObject.h"

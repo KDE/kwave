@@ -20,19 +20,18 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QtGlobal>
+#include <QList>
+#include <QString>
+#include <QStringList>
 
-#include <kdemacros.h>
-
-class KMimeType;
-class KUrl;
+class QMimeType;
+class QUrl;
 
 namespace Kwave
 {
 
-    class KDE_EXPORT CodecBase
+    class Q_DECL_EXPORT CodecBase
     {
     public:
 
@@ -50,7 +49,7 @@ namespace Kwave
 	virtual ~CodecBase();
 
 	/** Returns true if the given mime type is supported */
-	virtual bool supports(const KMimeType &mimetype);
+	virtual bool supports(const QMimeType &mimetype);
 
 	/** Returns true if the given mime type is supported */
 	virtual bool supports(const QString &mimetype_name);
@@ -89,10 +88,10 @@ namespace Kwave
 	/**
 	 * Tries to find the name of a mime type by a URL. If not found, it
 	 * returns the default mime type, never an empty string.
-	 * @param url a KUrl, only the filename's extension will be inspected
+	 * @param url a QUrl, only the filename's extension will be inspected
 	 * @return name of the mime type or the default mime type
 	 */
-	virtual QString whatContains(const KUrl &url);
+	virtual QString whatContains(const QUrl &url);
 
     private:
 

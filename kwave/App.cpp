@@ -19,26 +19,28 @@
 
 #include <errno.h>
 
-#include <QtCore/QFile>
-#include <QtCore/QString>
-#include <QtCore/QMetaType>
-#include <QtCore/QMutableListIterator>
+#include <QCommandLineParser>
+#include <QFile>
+#include <QMetaType>
+#include <QMutableListIterator>
+#include <QString>
 
-#include <kcmdlineargs.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <ktoolinvocation.h>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KHelpClient>
+#include <KLocalizedString>
+#include <KSharedConfig>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"
 #include "libkwave/MemoryManager.h"
 #include "libkwave/Parser.h"
+#include "libkwave/PluginManager.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
-#include "libkwave/PluginManager.h"
 #include "libkwave/Utils.h"
 
 #include "App.h"
@@ -50,12 +52,15 @@
 #define MAX_RECENT_FILES 20
 
 //***************************************************************************
-Kwave::App::App()
-   :KUniqueApplication(),
+Kwave::App::App(int &argc, char **argv, QCommandLineParser &cmdline)
+   :QApplication(argc, argv),
+    m_cmdline(cmdline),
     m_recent_files(),
     m_top_widgets(),
     m_gui_type(Kwave::App::GUI_TAB)
 {
+    m_cmdline.parse(arguments());
+
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
     qRegisterMetaType<Kwave::LabelList>("Kwave::LabelList");
     qRegisterMetaType<sample_index_t>("sample_index_t");
@@ -69,7 +74,7 @@ Kwave::App::App()
 
     // read the configured user interface type
     QString result;
-    KConfigGroup cfg = KGlobal::config()->group("Global");
+    KConfigGroup cfg = KSharedConfig::openConfig()->group("Global");
     result = cfg.readEntry("UI Type");
     if (result == _("SDI")) {
 	m_gui_type = Kwave::App::GUI_SDI;
@@ -81,9 +86,8 @@ Kwave::App::App()
     // else: use default
 
     // if user interface type is given as cmdline parameter: use that one
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    if (args && args->isSet("gui")) {
-	QString arg = args->getOption("gui").toUpper();
+    if (m_cmdline.isSet(_("gui"))) {
+	QString arg = m_cmdline.value(_("gui")).toUpper();
 	bool valid = false;
 	if (arg == _("SDI")) {
 	    m_gui_type = Kwave::App::GUI_SDI;
@@ -111,16 +115,20 @@ Kwave::App::~App()
 }
 
 //***************************************************************************
-int Kwave::App::newInstance()
+int Kwave::App::newInstance(const QStringList &args, const QString &dir)
 {
+    int retval = 0;
+    Q_UNUSED(dir);
+
+    m_cmdline.parse(args);
+
     static bool first_time = true;
     if (first_time) {
 	first_time = false;
 
 	// open the log file if given on the command line
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-	if (args && args->isSet("logfile")) {
-	    if (!Kwave::Logger::open(args->getOption("logfile")))
+	if (m_cmdline.isSet(_("logfile"))) {
+	    if (!Kwave::Logger::open(m_cmdline.value(_("logfile"))))
 		exit(-1);
 	}
 
@@ -131,23 +139,19 @@ int Kwave::App::newInstance()
 	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
     }
 
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    unsigned int argc = (args) ? args->count() : 0;
+    QStringList params = m_cmdline.positionalArguments();
 
     // only one parameter -> open with empty window
-    if (argc == 0) {
-	newWindow(KUrl(QString()));
+    if (params.isEmpty()) {
+	retval = newWindow(QUrl());
     } else {
 	// open a window for each file specified in the
 	// command line an load it
-	for (unsigned int i = 0; i < argc; i++) {
-	    QString name = args->arg(i);
-	    newWindow(KUrl(name));
+	foreach (const QString &name, params) {
+	    retval = newWindow(QUrl::fromUserInput(name));
 	}
     }
-    if (args) args->clear();
-
-    return 0;
+    return retval;
 }
 
 //***************************************************************************
@@ -161,19 +165,19 @@ int Kwave::App::executeCommand(const QString &command)
 {
     Kwave::Parser parser(command);
     if (parser.command() == _("newwindow")) {
-	bool ok;
+	int retval = 0;
 	if (parser.hasParams()) {
-	    ok = newWindow(KUrl(parser.params().at(0)));
+	    retval = newWindow(QUrl(parser.params().at(0)));
 	} else {
-	    ok = newWindow(KUrl(QString()));
+	    retval = newWindow(QUrl(QString()));
 	}
-	return (ok) ? 0 : -EIO;
+	return (retval == 0) ? 0 : -EIO;
     } else if (parser.command() == _("openrecent:clear")) {
 	m_recent_files.clear();
 	saveRecentFiles();
 	emit recentFilesChanged();
     } else if (parser.command() == _("help")) {
-	KToolInvocation::invokeHelp();
+	KHelpClient::invokeHelp();
     } else {
 	return ENOSYS; // command not implemented (here)
     }
@@ -203,8 +207,9 @@ void Kwave::App::addRecentFile(const QString &newfile)
 }
 
 //***************************************************************************
-bool Kwave::App::newWindow(const KUrl &url)
+int Kwave::App::newWindow(const QUrl &url)
 {
+    int retval = 0;
     Kwave::TopWidget *new_top_widget = 0;
 
     Kwave::Splash::showMessage(i18n("Opening main window..."));
@@ -230,14 +235,10 @@ bool Kwave::App::newWindow(const KUrl &url)
 	    // init failed
 	    qWarning("ERROR: initialization of TopWidget failed");
 	    delete new_top_widget;
-	    return false;
+	    return ECANCELED;
 	}
 
-	if (m_top_widgets.isEmpty()) {
-	    // the first widget is the main widget !
-	    setTopWidget(new_top_widget); // sets geometry and other properties
-	    setTopWidget(0);              // that's enough, don't quit on close!
-	} else {
+	if (!m_top_widgets.isEmpty()) {
 	    // create a new widget with the same geometry as
 	    // the last created one
 	    const QRect &geom = m_top_widgets.last()->geometry();
@@ -253,10 +254,12 @@ bool Kwave::App::newWindow(const KUrl &url)
 		new_top_widget, SLOT(updateRecentFiles()));
     }
 
-    if (!url.isEmpty()) new_top_widget->loadFile(url);
+    retval = (!url.isEmpty()) ? new_top_widget->loadFile(url) : 0;
+    if (retval == ECANCELED)
+	delete new_top_widget;
 
     Kwave::Splash::showMessage(i18n("Startup done"));
-    return true;
+    return retval;
 }
 
 //***************************************************************************
@@ -320,27 +323,40 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
 
 	    switch (m_gui_type) {
 		case GUI_SDI:
-		    if (first) {
-			// the context reuses the calling toplevel widget
-			top_widget = top;
-			first = false;
-		    } else {
-			// for all other contexts we have to create a new
-			// toplevel widget
-			top_widget = new(std::nothrow) Kwave::TopWidget(*this);
-			if (!top_widget || !top_widget->init()) {
-			    // init failed
-			    qWarning("ERROR: initialization of TopWidget failed");
-			    delete top_widget;
-			    delete context;
-			}
-			m_top_widgets.append(top_widget);
-			top_widget->show();
+		    if (!context->isEmpty() || (all_contexts.count() == 1)) {
+			// either the context contains some signal and is worth
+			// assigning it to a toplevel widget, or it is the one
+			// and only context
+			if (first) {
+			    // the context reuses the calling toplevel widget
+			    top_widget = top;
+			    first = false;
+			} else {
+			    // for all other contexts we have to create a new
+			    // toplevel widget
+			    top_widget = new(std::nothrow) Kwave::TopWidget(*this);
+			    if (!top_widget || !top_widget->init()) {
+				// init failed
+				qWarning("ERROR: initialization of TopWidget failed");
+				delete top_widget;
+				delete context;
+			    }
+			    m_top_widgets.append(top_widget);
+			    top_widget->show();
 
-			// inform the widget about changes in the list of recent
-			// files
-			connect(this, SIGNAL(recentFilesChanged()),
-				top_widget, SLOT(updateRecentFiles()));
+			    // inform the widget about changes in the list of
+			    // recent files
+			    connect(this, SIGNAL(recentFilesChanged()),
+				    top_widget, SLOT(updateRecentFiles()));
+			}
+		    } else {
+			// probably this context is only executing a script and
+			// has (no longer) any valid signal. We need to assign
+			// it to a toplevel widget for processing further
+			// commands but reduce the reference count to make it
+			// vanish as soon as the script terminates.
+			context->setParent(top);
+			context->release();
 		    }
 		    break;
 		case GUI_MDI: /* FALLTHROUGH */
@@ -350,7 +366,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
 		    break;
 	    }
 
-	    top_widget->insertContext(context);
+	    if (top_widget) top_widget->insertContext(context);
 	}
     } else {
 	// give our one and only toplevel widget a default context
@@ -361,7 +377,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
 //***************************************************************************
 void Kwave::App::saveRecentFiles()
 {
-    KConfigGroup cfg = KGlobal::config()->group("Recent Files");
+    KConfigGroup cfg = KSharedConfig::openConfig()->group("Recent Files");
 
     QString num;
     for (int i = 0 ; i < MAX_RECENT_FILES; i++) {
@@ -380,7 +396,7 @@ void Kwave::App::readConfig()
 {
     QString result;
     QString key;
-    const KConfigGroup cfg = KGlobal::config()->group("Recent Files");
+    const KConfigGroup cfg = KSharedConfig::openConfig()->group("Recent Files");
 
     for (unsigned int i = 0 ; i < MAX_RECENT_FILES; i++) {
 	key = QString::number(i);        // generate number
@@ -397,7 +413,5 @@ void Kwave::App::readConfig()
     }
 }
 
-//***************************************************************************
-#include "App.moc"
 //***************************************************************************
 //***************************************************************************

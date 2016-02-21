@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>645</width>
-    <height>493</height>
+    <width>734</width>
+    <height>586</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,7 +29,16 @@
    <property name="spacing">
     <number>10</number>
    </property>
-   <property name="margin">
+   <property name="leftMargin">
+    <number>10</number>
+   </property>
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
     <number>10</number>
    </property>
    <item>
@@ -52,7 +61,7 @@
     </widget>
    </item>
    <item>
-    <widget class="KTabWidget" name="tabwidget">
+    <widget class="QTabWidget" name="tabwidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -91,7 +100,16 @@
           <property name="spacing">
            <number>3</number>
           </property>
-          <property name="margin">
+          <property name="leftMargin">
+           <number>3</number>
+          </property>
+          <property name="topMargin">
+           <number>3</number>
+          </property>
+          <property name="rightMargin">
+           <number>3</number>
+          </property>
+          <property name="bottomMargin">
            <number>3</number>
           </property>
           <item>
@@ -144,16 +162,7 @@
           </size>
          </property>
          <property name="text">
-          <string>&lt;h2&gt;Kwave is a sound editor designed for the KDE Desktop Environment. &lt;/h2&gt;&lt;br&gt;
-With Kwave you can edit many sorts of
-audio files including multi track files.
-You are able to alter and play back each
-track on its own.&lt;br&gt;
-Kwave also includes many plugins (some
-are still under development) to transform
-the audio data in several ways and presents
-a graphical view with a complete zoom
-and scroll capability.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;Kwave is a sound editor designed for the KDE Desktop Environment. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;With Kwave you can edit many sorts of audio files including multi track files. You are able to alter and play back each track on its own.&lt;br/&gt;Kwave also includes many plugins  to transform the audio data in several ways and presents a graphical view with a complete zoom and scroll capability.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>
@@ -266,7 +275,16 @@ and scroll capability.</string>
      <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <item>
@@ -286,7 +304,7 @@ and scroll capability.</string>
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -324,20 +342,9 @@ and scroll capability.</string>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
+   <header>KTextEdit</header>
   </customwidget>
   <customwidget>
    <class>Kwave::LogoWidget</class>
@@ -350,10 +357,8 @@ and scroll capability.</string>
   <tabstop>licenseframe</tabstop>
  </tabstops>
  <includes>
-  <include location="global">klocale.h</include>
   <include location="global">kurllabel.h</include>
   <include location="local">LogoWidget.h</include>
-  <include location="global">QtGui/QScrollArea</include>
  </includes>
  <resources/>
  <connections>

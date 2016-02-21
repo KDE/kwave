@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QString>
+#include <QList>
+#include <QString>
 
 #include "libkwave/String.h"
 

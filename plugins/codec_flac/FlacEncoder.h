@@ -20,12 +20,12 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QVector>
+#include <QList>
+#include <QVector>
 
-#include <FLAC/format.h>
 #include <FLAC++/encoder.h>
 #include <FLAC++/metadata.h>
+#include <FLAC/format.h>
 
 #include <vorbis/vorbisenc.h>
 

@@ -17,13 +17,13 @@
 
 #include "config.h"
 
-#include <QtGui/QApplication>
+#include <QApplication>
 
-#include "libkwave/memcpy.h"
 #include "libkwave/InsertMode.h"
 #include "libkwave/Track.h"
 #include "libkwave/TrackWriter.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 /** minimum time between emitting the "progress()" signal [ms] */
 #define MIN_PROGRESS_INTERVAL 500
@@ -85,7 +85,5 @@ bool Kwave::TrackWriter::write(const Kwave::SampleArray &buffer,
     return true;
 }
 
-//***************************************************************************
-#include "TrackWriter.moc"
 //***************************************************************************
 //***************************************************************************

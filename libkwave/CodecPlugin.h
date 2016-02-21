@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
+#include <QtGlobal>
 
 #include "libkwave/Plugin.h"
 
@@ -29,7 +29,7 @@ namespace Kwave
     class Decoder;
     class Encoder;
 
-    class KDE_EXPORT CodecPlugin: public Kwave::Plugin
+    class Q_DECL_EXPORT CodecPlugin: public Kwave::Plugin
     {
     public:
 

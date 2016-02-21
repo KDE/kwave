@@ -20,15 +20,15 @@
 
 #include "config.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QObject>
+#include <QList>
+#include <QMap>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
-#include <FLAC/format.h>
 #include <FLAC++/decoder.h>
 #include <FLAC++/metadata.h>
+#include <FLAC/format.h>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"

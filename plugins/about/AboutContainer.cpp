@@ -21,13 +21,15 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <QtCore/qnamespace.h>
-#include <QtGui/QLabel>
+#include "config.h"
 
-#include <kapplication.h>
-#include <kdialog.h>
-#include <klocale.h>
-#include <ktoolinvocation.h>
+#include <QApplication>
+#include <QDialog>
+#include <QGridLayout>
+#include <QLabel>
+
+#include <KLocalizedString>
+#include <KHelpClient>
 
 #include "libkwave/String.h"
 
@@ -229,11 +231,11 @@ void Kwave::AboutContributor::updateLayout()
 	    if (!gbox) return;
 	    gbox->setMargin(frameWidth()+1);
 	    gbox->setSpacing(2);
-	    gbox->addItem(new QSpacerItem(KDialog::spacingHint() * 2, 0),0,0);
+	    gbox->addItem(new QSpacerItem(20, 0), 0, 0);
 	    gbox->setColumnStretch(1, 10);
 	}
 
-	for (int i=0, r=0; i<4; ++i) {
+	for (int i = 0, r = 0; i < 4; ++i) {
 	    if (!m_text[i]) continue;
 
 	    if (i != 3) {
@@ -258,7 +260,5 @@ void Kwave::AboutContributor::updateLayout()
     setMinimumSize(sizeHint());
 }
 
-//***************************************************************************
-#include "AboutContainer.moc"
 //***************************************************************************
 //***************************************************************************

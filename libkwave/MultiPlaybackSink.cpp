@@ -19,13 +19,13 @@
 
 #include <new>
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QMutexLocker>
+#include <QMutexLocker>
+#include <QtGlobal>
 
-#include "libkwave/memcpy.h"
 #include "libkwave/MultiPlaybackSink.h"
-#include "libkwave/PlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
+#include "libkwave/PlaybackSink.h"
+#include "libkwave/memcpy.h"
 
 //***************************************************************************
 Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
@@ -92,7 +92,7 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
     // all tracks have left their data, now we are ready
     // to convert the buffers into a big combined one
     Q_ASSERT(m_out_buffer.size() >= m_tracks);
-    for (unsigned int sample=0; sample < samples; sample++) {
+    for (unsigned int sample = 0; sample < samples; sample++) {
 	for (unsigned int t = 0; t < m_tracks; t++) {
 	    const Kwave::SampleArray &in = m_in_buffer[t];
 	    m_out_buffer[t] = in[sample];
@@ -105,7 +105,5 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
     m_in_buffer_filled.fill(false);
 }
 
-//***************************************************************************
-#include "MultiPlaybackSink.moc"
 //***************************************************************************
 //***************************************************************************

@@ -28,7 +28,7 @@ namespace Kwave
     /**
      * Abstract interface for registering a SignalView in the main widget
      */
-    class KDE_EXPORT ViewManager
+    class Q_DECL_EXPORT ViewManager
     {
     public:
 	/** Destructor */

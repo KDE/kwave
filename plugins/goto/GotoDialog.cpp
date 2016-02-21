@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QtGui/QPushButton>
+#include <QPushButton>
 
-#include <ktoolinvocation.h>
+#include <KHelpClient>
 
 #include "GotoDialog.h"
 
@@ -61,10 +61,8 @@ void Kwave::GotoDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
 //***************************************************************************
 void Kwave::GotoDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(m_help_section);
+    KHelpClient::invokeHelp(m_help_section);
 }
 
-//***************************************************************************
-#include "GotoDialog.moc"
 //***************************************************************************
 //***************************************************************************

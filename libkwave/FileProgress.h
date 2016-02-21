@@ -20,12 +20,12 @@
 
 #include "config.h"
 
-#include <QtGui/QDialog>
-#include <QtCore/QUrl>
-#include <QtGui/QLabel>
-#include <QtCore/QTime>
+#include <QtGlobal>
+#include <QDialog>
+#include <QLabel>
+#include <QTime>
+#include <QUrl>
 
-#include <kdemacros.h>
 #include "libkwave/Sample.h"
 
 class QCloseEvent;
@@ -38,7 +38,7 @@ class KProgress;
 namespace Kwave
 {
 
-    class KDE_EXPORT FileProgress: public QDialog
+    class Q_DECL_EXPORT FileProgress: public QDialog
     {
 	Q_OBJECT
     public:

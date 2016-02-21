@@ -54,16 +54,16 @@
 
 #include <opus/opus_defines.h>
 
-#include <QtGui/QApplication>
-#include <QtCore/QBuffer>
-#include <QtCore/QByteArray>
-#include <QtCore/qendian.h>
-#include <QtCore/QList>
-#include <QtCore/QtGlobal>
-#include <QtCore/QString>
-#include <QtCore/QTime>
+#include <QApplication>
+#include <QBuffer>
+#include <QByteArray>
+#include <QList>
+#include <QString>
+#include <QTime>
+#include <QtGlobal>
+#include <QtEndian>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/BitrateMode.h"
 #include "libkwave/Connect.h"
@@ -606,7 +606,7 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
 }
 
 /***************************************************************************/
-static inline void _writeInt(QBuffer &buffer, int value)
+static inline void _writeInt(QBuffer &buffer, quint32 value)
 {
     quint32 x = qToLittleEndian<quint32>(value);
     buffer.write(reinterpret_cast<const char *>(&x), sizeof(x));
@@ -671,7 +671,7 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
 
     // write the vendor string == name + version of the encoder library
     const char *opus_version = opus_get_version_string();
-    quint32 len = strlen(opus_version);
+    quint32 len = quint32(strlen(opus_version));
     _writeInt(buffer, len);
     buffer.write(opus_version, len);
 

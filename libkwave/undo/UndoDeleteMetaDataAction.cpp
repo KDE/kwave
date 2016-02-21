@@ -20,7 +20,7 @@
 
 #include <new>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/SignalManager.h"
 #include "libkwave/undo/UndoAddMetaDataAction.h"
@@ -76,8 +76,7 @@ QString Kwave::UndoDeleteMetaDataAction::description()
 	    "name of the undo action for deleting multiple "
 	    "meta data objects of the same type: "
 	    "%1=number of elements, %2=name of one element in singular",
-	    "Delete %1 %2 objects",
-	    name
+	    "Delete %1 %2 objects", m_meta_data.count(), name
 	);
     }
 

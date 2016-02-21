@@ -19,28 +19,29 @@
 #include "config.h"
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <math.h>
+#include <limits>
+
 #include <errno.h>
+#include <math.h>
 #include <signal.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#include <QtGui/QApplication>
-#include <QtGui/QCursor>
-#include <QtCore/QFileInfo>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QLocale>
-#include <QtCore/QString>
-#include <QtCore/QtGlobal>
+#include <QApplication>
+#include <QCursor>
+#include <QFileInfo>
+#include <QLatin1Char>
+#include <QLocale>
+#include <QString>
+#include <QtGlobal>
 
-#include <klocale.h>
-#include <kuser.h>
+#include <KLocalizedString>
+#include <KUser>
 
 #include "libkwave/FileInfo.h"
-#include "libkwave/memcpy.h"
-#include "libkwave/SampleEncoderLinear.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+#include "libkwave/memcpy.h"
 
 #include "PlayBack-PulseAudio.h"
 
@@ -450,8 +451,7 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
     m_rate = rate;
 
     if (channels > 255)
-	return i18n("%1 channels are not supported, maximum is 255").arg(
-	    channels);
+	return i18n("%1 channels are not supported, maximum is 255", channels);
 
     // close the previous device
     if (m_pa_stream) close();

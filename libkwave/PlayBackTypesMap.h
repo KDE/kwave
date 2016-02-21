@@ -19,14 +19,14 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
+#include <QtGlobal>
 
 #include "libkwave/PlayBackParam.h"
 #include "libkwave/TypesMap.h"
 
 namespace Kwave
 {
-    class KDE_EXPORT PlayBackTypesMap
+    class Q_DECL_EXPORT PlayBackTypesMap
 	:public Kwave::TypesMap<unsigned int, Kwave::playback_method_t>
     {
     public:

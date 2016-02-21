@@ -19,9 +19,8 @@
 
 #include <math.h>
 
+#include <algorithm>
 #include <limits>
-
-#include <QtCore/QtAlgorithms>
 
 #include "libkwave/Curve.h"
 #include "libkwave/Interpolation.h"
@@ -245,7 +244,7 @@ Kwave::Curve::Point Kwave::Curve::findPoint(double px, double py, double tol)
 }
 
 //***************************************************************************
-static bool compare_x(Kwave::Curve::Point &a, Kwave::Curve::Point &b)
+static bool cmp(const Kwave::Curve::Point &a, const Kwave::Curve::Point &b)
 {
     return (a.x() < b.x());
 }
@@ -253,7 +252,8 @@ static bool compare_x(Kwave::Curve::Point &a, Kwave::Curve::Point &b)
 //***************************************************************************
 void Kwave::Curve::sort()
 {
-    qSort(begin(), end(), compare_x);
+    if (!isEmpty())
+	std::sort(begin(), end(), cmp);
 }
 
 //***************************************************************************

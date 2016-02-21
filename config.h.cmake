@@ -39,8 +39,8 @@
 /* support playback/recording via PulseAudio */
 #cmakedefine HAVE_PULSEAUDIO_SUPPORT
 
-/* support playback via Phonon */
-#cmakedefine HAVE_PHONON_SUPPORT
+/* support playback via Qt */
+#cmakedefine HAVE_QT_AUDIO_SUPPORT
 
 /* support libsamplerate */
 #cmakedefine HAVE_LIBSAMPLERATE
@@ -98,6 +98,10 @@
 
 /* enable memory management debug code */
 #cmakedefine DEBUG_MEMORY
+
+/* install dirs of the plugins */
+#cmakedefine QT_PLUGIN_INSTALL_DIR "@CMAKE_INSTALL_PREFIX@/@QT_PLUGIN_INSTALL_DIR@"
+#cmakedefine PLUGIN_INSTALL_DIR "@CMAKE_INSTALL_PREFIX@/@PLUGIN_INSTALL_DIR@"
 
 /***************************************************************************/
 /***************************************************************************/

@@ -20,16 +20,15 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
-#include <QtCore/QPair>
-#include <QtCore/QStringList>
+#include <QApplication>
+#include <QList>
+#include <QObject>
+#include <QPair>
+#include <QStringList>
 
-#include <kuniqueapplication.h>
-#include <kapplication.h>
-
+class QCommandLineParser;
 class QString;
-class KUrl;
+class QUrl;
 
 namespace Kwave
 {
@@ -42,7 +41,7 @@ namespace Kwave
      * for opening and saving files, opening new windows and holds global
      * configuration data.
      */
-    class App :public KUniqueApplication
+    class App :public QApplication
     {
 	Q_OBJECT
     public:
@@ -60,8 +59,13 @@ namespace Kwave
 	 */
 	typedef QPair<QString,int> FileAndInstance;
 
-	/** Constructor */
-	App();
+	/**
+	 * Constructor
+	 * @param argc number of cmdline args, must be >= 1
+	 * @param argv list of cmdline args, must be static
+	 * @param cmdline reference to the command line parameters
+	 */
+	App(int &argc, char **argv, QCommandLineParser &cmdline);
 
 	/**
 	 * Returns true if this instance was successfully initialized, or
@@ -80,19 +84,17 @@ namespace Kwave
 	void addRecentFile(const QString &filename);
 
 	/**
-	 * Overwritten for unique application to open a new window.
-	 */
-	virtual int newInstance();
-
-	/**
 	 * Opens a new toplevel window. If a filename is specified the file
 	 * will be opened.
 	 * @param url URL of the file to be loaded, (optional, might be empty)
-	 * @return true if succeeded, false if failed
+	 * @retval 0 if succeeded
+	 * @retval ECANCELED if the application should shut down (e.g. when
+	 *                   a script was loaded and the script has called
+	 *                   quit() )
 	 * @see #toplevelWindowHasClosed()
 	 * @see TopWidget
 	 */
-	bool newWindow(const KUrl &url);
+	int newWindow(const QUrl &url);
 
 	/**
 	 * Called when a toplevel window has closed.
@@ -118,12 +120,27 @@ namespace Kwave
 	 */
 	void switchGuiType(Kwave::TopWidget *top, GuiType new_type);
 
+	/** Returns the command line parameters passed to the application */
+	inline const QCommandLineParser &cmdline() const { return m_cmdline; }
+
     signals:
 	/**
 	 * Will be emitted if the list of recent files has changed. Can
 	 * be used by toplevel widgets to update their menus.
 	 */
 	void recentFilesChanged();
+
+    public slots:
+
+	/**
+	 * Connected to the DBus service to open a new window.
+	 * @retval 0 if the new instance was successfully created and the
+	 *           application should run
+	 * @retval ECANCELED if the application should shut down (e.g. when
+	 *                   a script was loaded and the script has called
+	 *                   quit() )
+	 */
+	int newInstance(const QStringList &args, const QString &dir);
 
     protected:
 	friend class Kwave::TopWidget;
@@ -152,6 +169,9 @@ namespace Kwave
 
     private:
 
+	/** reference to a (static) command line parser */
+	QCommandLineParser &m_cmdline;
+
 	/**
 	 * Local list of recent files. This list will be synchronized
 	 * with the global list of recent files stored in the libkwave
@@ -167,7 +187,7 @@ namespace Kwave
     };
 }
 
-#endif // _KWAVE_APP_H_
+#endif // KWAVE_APP_H
 
 //***************************************************************************
 //***************************************************************************

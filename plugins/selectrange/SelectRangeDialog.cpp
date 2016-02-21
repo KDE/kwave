@@ -18,13 +18,13 @@
 #include "config.h"
 #include <math.h>
 
-#include <QtGui/QPushButton>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
 
-#include <klocale.h>
-#include <knuminput.h>
-#include <ktoolinvocation.h>
+#include <KHelpClient>
+#include <KLocalizedString>
 
 #include "libkwave/String.h"
 
@@ -77,10 +77,8 @@ void Kwave::SelectRangeDialog::setMode(Kwave::SelectTimeWidget::Mode new_mode)
 //***************************************************************************
 void Kwave::SelectRangeDialog::invokeHelp()
 {
-    KToolInvocation::invokeHelp(_("plugin_sect_selectrange"));
+    KHelpClient::invokeHelp(_("plugin_sect_selectrange"));
 }
 
-//***************************************************************************
-#include "SelectRangeDialog.moc"
 //***************************************************************************
 //***************************************************************************

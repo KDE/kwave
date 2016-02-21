@@ -17,15 +17,15 @@
 
 #include "config.h"
 
-#include <new>
 #include <errno.h>
+#include <new>
 #include <unistd.h>
 
-#include <QtGui/QApplication>
-#include <QtGui/QDialog>
-#include <QtCore/QStringList>
+#include <QApplication>
+#include <QDialog>
+#include <QStringList>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/Connect.h"
 #include "libkwave/MultiTrackReader.h"
@@ -52,7 +52,7 @@ Kwave::FilterPlugin::~FilterPlugin()
 //***************************************************************************
 QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
 {
-    // try to interprete and use the previous parameters
+    // try to interpret and use the previous parameters
     if (!interpreteParameters(previous_params))
 	m_params = previous_params;
 
@@ -230,7 +230,5 @@ QString Kwave::FilterPlugin::progressText()
     return i18n("Applying '%1'...", actionName());
 }
 
-//***************************************************************************
-#include "FilterPlugin.moc"
 //***************************************************************************
 //***************************************************************************

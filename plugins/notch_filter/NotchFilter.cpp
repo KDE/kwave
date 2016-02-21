@@ -19,8 +19,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <math.h>
 #include <complex>
+#include <math.h>
 
 #include "NotchFilter.h"
 
@@ -166,7 +166,5 @@ void Kwave::NotchFilter::setBandwidth(const QVariant bw)
     setfilter_peaknotch2(m_f_cutoff, m_f_bw);
 }
 
-//***************************************************************************
-#include "NotchFilter.moc"
 //***************************************************************************
 //***************************************************************************

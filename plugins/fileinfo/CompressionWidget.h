@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtGui/QWidget>
+#include <QObject>
+#include <QWidget>
 
 #include "libkwave/FileInfo.h"
 #include "ui_CompressionWidgetBase.h"

@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtGui/QDialog>
-#include <QtCore/QObject>
-#include <QtCore/QString>
+#include <QDialog>
+#include <QObject>
+#include <QString>
 
 #include "libkwave/PluginSetupDialog.h"
 #include "ui_PitchShiftDlg.h"

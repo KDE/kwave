@@ -20,11 +20,10 @@
 
 #include "config.h"
 
-#include <QtGui/QGroupBox>
-#include <QtCore/QObject>
-#include <QtCore/QTimer>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QGroupBox>
+#include <QObject>
+#include <QTimer>
 
 #include "libgui/ui_SelectTimeWidgetBase.h"
 #include "libkwave/Sample.h"
@@ -35,7 +34,7 @@ namespace Kwave
     /**
     * widget for selecting a time or range
     */
-    class KDE_EXPORT SelectTimeWidget
+    class Q_DECL_EXPORT SelectTimeWidget
 	:public QGroupBox, public Ui::SelectTimeWidgetBase
     {
 	Q_OBJECT

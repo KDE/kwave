@@ -17,13 +17,13 @@
 
 #include "config.h"
 
-#include <QtCore/QHash>
-#include <QtCore/QObject>
+#include <QHash>
+#include <QObject>
 
-#include <QtGui/QActionGroup>
+#include <QActionGroup>
 
-#include "libgui/MenuNode.h"
 #include "libgui/MenuGroup.h"
+#include "libgui/MenuNode.h"
 
 //*****************************************************************************
 Kwave::MenuGroup::MenuGroup(Kwave::MenuNode *parent,

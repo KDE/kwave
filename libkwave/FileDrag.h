@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QMimeData>
-#include <QtCore/QString>
-#include <QtCore/QUrl>
+#include <QMimeData>
+#include <QString>
+#include <QUrl>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/String.h"
@@ -37,9 +37,8 @@ namespace Kwave
 	    if (source->hasUrls()) {
 		// dropping URLs
 		foreach (QUrl url, source->urls()) {
-		    QString filename = url.toLocalFile();
 		    QString mimetype =
-			Kwave::CodecManager::whatContains(filename);
+			Kwave::CodecManager::whatContains(url);
 		    if (Kwave::CodecManager::canDecode(mimetype)) {
 			return true;
 		    }

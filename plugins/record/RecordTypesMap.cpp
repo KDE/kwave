@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <klocale.h>
+#include <KLocalizedString>
+#include <QString>
 
 #include "libkwave/String.h"
 

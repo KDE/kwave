@@ -22,10 +22,10 @@
 
 #include <new>
 
-#include <QtCore/QFutureSynchronizer>
-#include <QtCore/QtConcurrentRun>
-#include <QtCore/QObject>
-#include <QtCore/QList>
+#include <QFutureSynchronizer>
+#include <QList>
+#include <QObject>
+#include <QtConcurrentRun>
 
 #include "libkwave/SampleSource.h"
 
@@ -37,8 +37,8 @@ namespace Kwave
      * that consist of multiple independent tracks.
      */
     template <class SOURCE, const bool INITIALIZE>
-    class KDE_EXPORT MultiTrackSource: public Kwave::SampleSource,
-	                               private QList<SOURCE *>
+    class Q_DECL_EXPORT MultiTrackSource: public Kwave::SampleSource,
+	                                  private QList<SOURCE *>
     {
     public:
 	/**
@@ -148,7 +148,7 @@ namespace Kwave
      * by generating them through their default constructor.
      */
     template <class SOURCE>
-    class KDE_EXPORT MultiTrackSource<SOURCE, true>
+    class Q_DECL_EXPORT MultiTrackSource<SOURCE, true>
 	:public Kwave::MultiTrackSource<SOURCE, false>
     {
     public:

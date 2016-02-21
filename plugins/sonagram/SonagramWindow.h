@@ -20,9 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QTimer>
+#include <QTimer>
 
-#include <kmainwindow.h>
+#include <KMainWindow>
 
 class QBitmap;
 class QImage;
@@ -40,7 +40,7 @@ namespace Kwave
      * Window for displaying a sonagram with scale, status bar and
      * a small menu.
      */
-    class SonagramWindow : public KMainWindow
+    class SonagramWindow: public KMainWindow
     {
 	Q_OBJECT
 
@@ -157,6 +157,15 @@ namespace Kwave
 	void translatePixels2TF(const QPoint p, double *ms, double *f);
 
     private:
+
+	/** status bar label for time */
+	QLabel *m_status_time;
+
+	/** status bar label for frequency */
+	QLabel *m_status_freq;
+
+	/** status bar label for amplitude */
+	QLabel *m_status_ampl;
 
 	/** the QImage to be displayed */
 	QImage m_image;

@@ -19,8 +19,8 @@
 #define MEMORY_PLUGIN_H
 
 #include "config.h"
-#include <QtCore/QObject>
-#include <QtCore/QString>
+#include <QObject>
+#include <QString>
 
 #include "libkwave/Plugin.h"
 

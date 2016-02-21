@@ -60,16 +60,23 @@ SET(libkwavegui_LIB_UI
 
 #############################################################################
 
-KDE4_ADD_UI_FILES(libkwavegui_LIB_SRCS ${libkwavegui_LIB_UI} )
-QT4_AUTOMOC(${libkwavegui_LIB_SRCS})
-KDE4_ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
+KI18N_WRAP_UI(libkwavegui_LIB_SRCS ${libkwavegui_LIB_UI} )
+ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
 
 ADD_DEPENDENCIES(libkwavegui libkwave)
 
 TARGET_LINK_LIBRARIES(libkwavegui
     kwave
-    ${KDE4_KFILE_LIBS}
-    ${QT_AND_KDECORE_LIBS}
+    Qt5::Core
+    Qt5::Concurrent
+    Qt5::Widgets
+    KF5::ConfigCore
+    KF5::CoreAddons
+    KF5::I18n
+    KF5::IconThemes
+    KF5::KIOFileWidgets
+    KF5::WidgetsAddons
+    KF5::XmlGui
 )
 
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES OUTPUT_NAME "kwavegui")

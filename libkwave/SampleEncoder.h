@@ -20,16 +20,15 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
-
-#include <QtCore/QByteArray>
+#include <QtGlobal>
+#include <QByteArray>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 
 namespace Kwave
 {
-    class KDE_EXPORT SampleEncoder
+    class Q_DECL_EXPORT SampleEncoder
     {
     public:
 	/** Constructor */

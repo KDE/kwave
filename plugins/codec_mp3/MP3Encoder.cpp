@@ -20,25 +20,23 @@
 #include <math.h>
 
 #include <id3/globals.h>
-#include <id3/tag.h>
 #include <id3/misc_support.h>
+#include <id3/tag.h>
 
-#include <QtCore/QByteArray>
-#include <QtCore/QDate>
-#include <QtCore/QDateTime>
-#include <QtCore/QLatin1Char>
-#include <QtCore/QList>
-#include <QtCore/QMap>
+#include <QByteArray>
+#include <QDate>
+#include <QDateTime>
+#include <QLatin1Char>
+#include <QList>
+#include <QMap>
+#include <QMimeType>
 
-#include <klocale.h>
-#include <kmimetype.h>
-#include <kapplication.h>
-#include <kglobal.h>
+#include <KLocalizedString>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/GenreType.h"
-#include "libkwave/MetaDataList.h"
 #include "libkwave/MessageBox.h"
+#include "libkwave/MetaDataList.h"
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
@@ -159,7 +157,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		    str_val  = str_val.mid(5);
 		    frame->GetField(ID3FN_DESCRIPTION)->Set("");
 		    frame->GetField(ID3FN_LANGUAGE)->Set(
-			static_cast<const char *>(lang.toAscii().data()));
+			static_cast<const char *>(lang.toLatin1().data()));
 		}
 		/* frame->GetField(ID3FN_DESCRIPTION)->Set(""); */
 		field->SetEncoding(ID3TE_UTF16);
@@ -481,7 +479,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
 	    // sample conversion from 24bit to raw PCM, native endian
 	    for (y = 0; y < out_tracks; ++y) {
-		register sample_t s = *(src_buf++);
+		sample_t s = *(src_buf++);
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
 		// big endian
 		if (bits >= 8)
@@ -576,5 +574,4 @@ void Kwave::MP3Encoder::dataAvailable()
 }
 
 /***************************************************************************/
-#include "MP3Encoder.moc"
 /***************************************************************************/

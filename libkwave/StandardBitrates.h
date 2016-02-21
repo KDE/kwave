@@ -20,13 +20,12 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
-
-#include <QtCore/QList>
+#include <QtGlobal>
+#include <QList>
 
 namespace Kwave
 {
-    class KDE_EXPORT StandardBitrates: public QList<int>
+    class Q_DECL_EXPORT StandardBitrates: public QList<int>
     {
     public:
 	/** Constructor */

@@ -20,15 +20,14 @@
 
 #include "config.h"
 
-#include <QtGui/QImage>
-#include <QtCore/QHash>
-#include <QtCore/QList>
-#include <QtCore/QMutex>
-#include <QtCore/QObject>
-#include <QtCore/QUuid>
-#include <QtCore/QVector>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QHash>
+#include <QImage>
+#include <QList>
+#include <QMutex>
+#include <QObject>
+#include <QUuid>
+#include <QVector>
 
 #include "libkwave/Sample.h"
 
@@ -48,7 +47,7 @@ namespace Kwave
      * itself if data has been changed, inserted or deleted.
      * Optimized for speed!
      */
-    class KDE_EXPORT OverViewCache : public QObject
+    class Q_DECL_EXPORT OverViewCache: public QObject
     {
 	Q_OBJECT
     public:

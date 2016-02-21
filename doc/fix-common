@@ -17,7 +17,10 @@
 ############################################################################
 
 for file in *.html; do {
-	cat $file | sed s+help:/common+./common+g > $file.new
+	cat $file \
+	    | sed s+help:/common+./common+g \
+	    | sed s+help:/kdoctools5-common+./common+g \
+	    > $file.new
 	mv $file.new $file
 } done
 

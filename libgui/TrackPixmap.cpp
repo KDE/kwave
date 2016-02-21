@@ -20,10 +20,10 @@
 #include <math.h>
 #include <new>
 
-#include <QtCore/QMutexLocker>
-#include <QtGui/QPainter>
-#include <QtGui/QPolygon>
-#include <QtCore/QTime>
+#include <QMutexLocker>
+#include <QPainter>
+#include <QPolygon>
+#include <QTime>
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/Track.h"
@@ -554,7 +554,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     float *sig_buffer;
     float scale_y;
     int i;
-    register int k;
+    int k;
     int N;
     int sample;
     int x;
@@ -602,7 +602,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	    sig[x] = static_cast<float>(sample_buffer[sample] * scale_y);
 	}
 	sample++;
-	x = KDE_ISLIKELY(sample >= 0) ?
+	x = Q_LIKELY(sample >= 0) ?
 	    samples2pixels(sample) :
 	    (-1 * samples2pixels(-1 * sample));
     }
@@ -845,7 +845,5 @@ void Kwave::TrackPixmap::convertOverlap(sample_index_t &offset,
     Q_ASSERT(length);
 }
 
-//***************************************************************************
-#include "TrackPixmap.moc"
 //***************************************************************************
 //***************************************************************************

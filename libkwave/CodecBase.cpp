@@ -17,13 +17,15 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QtGlobal>
+#include <algorithm>
 
-#include <kmimetype.h>
-#include <kfile.h>
-#include <kurl.h>
+#include <QFileInfo>
+#include <QMimeDatabase>
+#include <QMimeType>
+#include <QString>
+#include <QStringList>
+#include <QtGlobal>
+#include <QUrl>
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/String.h"
@@ -50,28 +52,28 @@ void Kwave::CodecBase::addMimeType(const char *name,
     if (supports(_(name))) return;
 
     Kwave::CodecBase::MimeType type;
-    KMimeType::Ptr t = KMimeType::mimeType(_(name));
+    QMimeDatabase db;
+    QMimeType t = db.mimeTypeForName(_(name));
 
-    if (!t || (t && t->isDefault())) {
-// 	qWarning("mime type '%s' not registered, using built-in!",
-// 	         DBG(name));
+    if (t.isDefault() || t.name().isEmpty()) {
+// 	qWarning("mime type '%s' not registered, using built-in!", name);
 	type.name        = _(name);
 	type.description = description;
 	type.patterns    = _(patterns).split(_("; "), QString::SkipEmptyParts);
     } else {
-	type.description = t->comment();
-	type.patterns    = t->patterns();
+	type.description = t.comment();
+	type.patterns    = t.globPatterns();
 
-	if (t->name() != _(name)) {
+	if (t.name() != _(name)) {
 	    // type has been translated (maybe un-alias'ed)
 	    // manually add the original name
 	    type.name    = _(name);
 	    m_supported_mime_types.append(type);
 	}
 
-	if  (!supports(t->name())) {
+	if  (!supports(t.name())) {
 	    // new type or new alias
-	    type.name        = t->name();
+	    type.name        = t.name();
 	}
     }
     m_supported_mime_types.append(type);
@@ -83,11 +85,12 @@ void Kwave::CodecBase::addCompression(int compression)
     if (m_supported_compression_types.contains(compression)) return;
 
     m_supported_compression_types.append(compression);
-    qSort(m_supported_compression_types);
+    std::sort(m_supported_compression_types.begin(),
+              m_supported_compression_types.end(), std::greater<int>());
 }
 
 /***************************************************************************/
-bool Kwave::CodecBase::supports(const KMimeType &mimetype)
+bool Kwave::CodecBase::supports(const QMimeType &mimetype)
 {
     return supports(mimetype.name());
 }
@@ -125,12 +128,13 @@ const QList<int> Kwave::CodecBase::compressionTypes()
 }
 
 /***************************************************************************/
-QString Kwave::CodecBase::whatContains(const KUrl &url)
+QString Kwave::CodecBase::whatContains(const QUrl &url)
 {
     // get the extension of the file
     QFileInfo file(url.fileName());
     QString suffix = file.suffix();
-    if (!suffix.length()) return KMimeType::defaultMimeType();
+
+    if (!suffix.length()) return QMimeType().name();
     suffix = _("*.") + suffix;
 
     // try to find in the list of supported mime types
@@ -140,7 +144,7 @@ QString Kwave::CodecBase::whatContains(const KUrl &url)
 	if (mime_type.patterns.contains(suffix))
 	    return mime_type.name;
     }
-    return KMimeType::defaultMimeType();
+    return QMimeType().name();
 }
 
 /***************************************************************************/

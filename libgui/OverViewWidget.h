@@ -20,14 +20,13 @@
 
 #include "config.h"
 
-#include <QtGui/QBitmap>
-#include <QtGui/QColor>
-#include <QtCore/QSize>
-#include <QtCore/QThread>
-#include <QtCore/QTimer>
-#include <QtGui/QWidget>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QBitmap>
+#include <QColor>
+#include <QSize>
+#include <QThread>
+#include <QTimer>
+#include <QWidget>
 
 #include "libkwave/LabelList.h"
 #include "libkwave/MetaDataList.h"
@@ -45,7 +44,7 @@ namespace Kwave
     class SignalManager;
     class Track;
 
-    class KDE_EXPORT OverViewWidget : public Kwave::ImageView
+    class Q_DECL_EXPORT OverViewWidget: public Kwave::ImageView
     {
 	Q_OBJECT
     public:

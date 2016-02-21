@@ -20,9 +20,8 @@
 
 #include "config.h"
 
-#include <QtGui/QColor>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QColor>
 
 namespace Kwave
 {
@@ -47,10 +46,10 @@ namespace Kwave
 	} ColorSet;
 
 	/** color set for normal signal */
-	static KDE_EXPORT ColorSet Normal;
+	static Q_DECL_EXPORT ColorSet Normal;
 
 	/** color set for disabled signal */
-	static KDE_EXPORT ColorSet Disabled;
+	static Q_DECL_EXPORT ColorSet Disabled;
 
     };
 }

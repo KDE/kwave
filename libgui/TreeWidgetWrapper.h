@@ -20,16 +20,15 @@
 
 #include "config.h"
 
-#include <kdemacros.h>
-
-#include <QtCore/QObject>
-#include <QtGui/QTreeWidget>
+#include <QtGlobal>
+#include <QObject>
+#include <QTreeWidget>
 
 class QFocusEvent;
 
 namespace Kwave
 {
-    class KDE_EXPORT TreeWidgetWrapper: public QTreeWidget
+    class Q_DECL_EXPORT TreeWidgetWrapper: public QTreeWidget
     {
 	Q_OBJECT
     public:

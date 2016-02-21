@@ -70,7 +70,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KDialogButtonBox" name="buttonBox">
+      <widget class="QDialogButtonBox" name="buttonBox">
        <property name="standardButtons">
         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
@@ -83,11 +83,6 @@
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KDatePicker</class>
    <extends>QFrame</extends>
    <header>kdatepicker.h</header>
@@ -96,9 +91,6 @@
  <tabstops>
   <tabstop>buttonBox</tabstop>
  </tabstops>
- <includes>
-  <include location="global">klocale.h</include>
- </includes>
  <resources/>
  <connections>
   <connection>

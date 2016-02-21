@@ -20,9 +20,8 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QObject>
 
 #include "libkwave/CodecBase.h"
 #include "libkwave/MetaDataList.h"
@@ -35,7 +34,7 @@ namespace Kwave
 
     class MultiWriter;
 
-    class KDE_EXPORT Decoder: public QObject, public Kwave::CodecBase
+    class Q_DECL_EXPORT Decoder: public QObject, public Kwave::CodecBase
     {
 	Q_OBJECT
     public:

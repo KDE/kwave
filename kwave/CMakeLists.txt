@@ -15,6 +15,8 @@
 ##                                                                          #
 #############################################################################
 
+INCLUDE(ECMInstallIcons)
+
 #############################################################################
 
 SET(kwave_SRCS
@@ -53,27 +55,26 @@ SET(kwave_PIXMAPS
 ### scalable action icons to be installed in the icon dir                 ###
 
 SET(kwave_ACTION_ICONS
-    toolbar/kwave_player_end.svgz
-    toolbar/kwave_player_fwd.svgz
-    toolbar/kwave_player_pause.svgz
-    toolbar/kwave_player_pause_2.svgz
-    toolbar/kwave_player_play.svgz
-    toolbar/kwave_player_loop.svgz
-    toolbar/kwave_player_record.svgz
-    toolbar/kwave_player_rew.svgz
-    toolbar/kwave_player_start.svgz
-    toolbar/kwave_player_stop.svgz
-    toolbar/kwave_viewmagfit.svgz
-    toolbar/kwave_viewmag.svgz
-    toolbar/kwave_zoom_in.svgz
-    toolbar/kwave_zoom_original.svgz
-    toolbar/kwave_zoom_out.svgz
+    toolbar/sc-actions-kwave_player_end.svgz
+    toolbar/sc-actions-kwave_player_fwd.svgz
+    toolbar/sc-actions-kwave_player_pause.svgz
+    toolbar/sc-actions-kwave_player_pause_2.svgz
+    toolbar/sc-actions-kwave_player_play.svgz
+    toolbar/sc-actions-kwave_player_loop.svgz
+    toolbar/sc-actions-kwave_player_record.svgz
+    toolbar/sc-actions-kwave_player_rew.svgz
+    toolbar/sc-actions-kwave_player_start.svgz
+    toolbar/sc-actions-kwave_player_stop.svgz
+    toolbar/sc-actions-kwave_viewmagfit.svgz
+    toolbar/sc-actions-kwave_viewmag.svgz
+    toolbar/sc-actions-kwave_zoom_in.svgz
+    toolbar/sc-actions-kwave_zoom_original.svgz
+    toolbar/sc-actions-kwave_zoom_out.svgz
 )
 
 #############################################################################
 
-QT4_AUTOMOC( ${kwave_SRCS} )
-KDE4_ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
+ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
 
 #############################################################################
 
@@ -82,12 +83,25 @@ TARGET_LINK_LIBRARIES(kwave_core
     kwave
     audiofile
     ${SAMPLERATE_LIBS}
-    ${QT_AND_KDECORE_LIBS}
+    Qt5::Core
+    Qt5::Widgets
+    KF5::Completion
+    KF5::ConfigCore
+    KF5::Crash
+    KF5::DBusAddons
+    KF5::I18n
+    KF5::IconThemes
+    KF5::KIOFileWidgets
+    KF5::Service
+    KF5::XmlGui
 )
 
 ADD_DEPENDENCIES(kwave_core libkwavegui libkwave)
 
-SET_TARGET_PROPERTIES(kwave_core PROPERTIES OUTPUT_NAME "kwave")
+SET_TARGET_PROPERTIES(kwave_core PROPERTIES
+    OUTPUT_NAME "kwave"
+    ENABLE_EXPORTS TRUE
+)
 
 #############################################################################
 ### install files                                                         ###
@@ -104,15 +118,15 @@ INSTALL(
 )
 
 # action icons
-INSTALL(
-    FILES ${kwave_ACTION_ICONS}
-    DESTINATION ${ICON_INSTALL_DIR}/hicolor/scalable/actions
+ECM_INSTALL_ICONS(
+    ICONS ${kwave_ACTION_ICONS}
+    DESTINATION ${ICON_INSTALL_DIR}
 )
 
 # application icon
-INSTALL(
-    FILES ${CMAKE_CURRENT_SOURCE_DIR}/pics/kwave.svgz
-    DESTINATION ${ICON_INSTALL_DIR}/hicolor/scalable/apps
+ECM_INSTALL_ICONS(
+    ICONS ${CMAKE_CURRENT_SOURCE_DIR}/pics/sc-apps-kwave.svgz
+    DESTINATION ${ICON_INSTALL_DIR}
 )
 
 # AppData file

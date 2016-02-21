@@ -7,11 +7,20 @@
     <x>0</x>
     <y>0</y>
     <width>398</width>
-    <height>158</height>
+    <height>191</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -20,7 +29,16 @@
       <string/>
      </property>
      <layout class="QGridLayout">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <property name="spacing">
@@ -143,7 +161,7 @@ The bitrate is selected by an average quality.</string>
       <item row="4" column="2">
        <layout class="QHBoxLayout">
         <item>
-         <widget class="KIntSpinBox" name="sbBaseQuality">
+         <widget class="QSpinBox" name="sbBaseQuality">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -168,7 +186,7 @@ The bitrate is selected by an average quality.</string>
           <property name="value">
            <number>0</number>
           </property>
-          <property name="base">
+          <property name="base" stdset="0">
            <number>10</number>
           </property>
           <property name="maxValue" stdset="0">
@@ -230,11 +248,6 @@ The bitrate is selected by an average quality.</string>
  <layoutdefault spacing="10" margin="10"/>
  <customwidgets>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
    <class>Kwave::BitrateWidget</class>
    <extends>QWidget</extends>
    <header>BitrateWidget.h</header>
@@ -243,7 +256,6 @@ The bitrate is selected by an average quality.</string>
  </customwidgets>
  <includes>
   <include location="local">BitrateWidget.h</include>
-  <include location="local">knuminput.h</include>
  </includes>
  <resources/>
  <connections>

@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <QtGui/QCursor>
-#include <QtGui/QImage>
-#include <QtGui/QMouseEvent>
+#include <QCursor>
+#include <QImage>
+#include <QMouseEvent>
 
 #include "libgui/ImageView.h"
 #include "libkwave/Utils.h"
@@ -134,7 +134,5 @@ void Kwave::ImageView::paintEvent(QPaintEvent *)
     m_last_rect = imageRect();
 }
 
-//***************************************************************************
-#include "ImageView.moc"
 //***************************************************************************
 //***************************************************************************

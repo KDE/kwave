@@ -19,12 +19,12 @@
 
 #include <math.h>
 
-#include <QtGui/QAction>
-#include <QtCore/QList>
-#include <QtGui/QMenu>
+#include <QAction>
+#include <QList>
+#include <QMenu>
 
-#include "kiconloader.h"
-#include "klocalizedstring.h"
+#include <KIconLoader>
+#include <KLocalizedString>
 
 #include "libkwave/Label.h"
 #include "libkwave/String.h"
@@ -90,7 +90,7 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
     // locate the "label" menu
     QMenu *label_menu = 0;
     foreach (const QAction *action, parent->actions()) {
-	if (action->text() == i18n("&Label")) {
+	if (action->text() == i18n("Label")) {
 	    label_menu = action->menu();
 	    break;
 	}
@@ -102,7 +102,7 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
 
 	// find the "New" action and disable it
 	foreach (QAction *action, label_menu->actions()) {
-	    if (action->text() == i18n("&New")) {
+	    if (action->text() == i18n("New")) {
 		action->setEnabled(false);
 		break;
 	    }
@@ -135,7 +135,5 @@ void Kwave::LabelItem::contextMenuLabelProperties()
     emit sigCommand(_("nomacro:edit_label(%1)").arg(m_index));
 }
 
-//***************************************************************************
-#include "LabelItem.moc"
 //***************************************************************************
 //***************************************************************************

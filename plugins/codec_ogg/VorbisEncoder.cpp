@@ -20,10 +20,10 @@
 #include <math.h>
 #include <string.h>
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QTime>
+#include <QTime>
+#include <QtGlobal>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"

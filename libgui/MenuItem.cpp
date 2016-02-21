@@ -17,19 +17,18 @@
 
 #include "config.h"
 
-#include <QtGui/QPixmap>
-#include <QtGui/QMenu>
+#include <QMenu>
+#include <QPixmap>
 
-#include <kapplication.h>
-#include <kiconloader.h>
-#include <klocale.h>
+#include <KLocalizedString>
+#include <KIconLoader>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
-#include "libgui/MenuNode.h"
 #include "libgui/MenuGroup.h"
 #include "libgui/MenuItem.h"
+#include "libgui/MenuNode.h"
 
 //*****************************************************************************
 Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,
@@ -44,7 +43,7 @@ Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,
     if (!parent) return;
 
     m_action.setText(i18nc(UTF8(_("menu: ") + path()), UTF8(name)));
-    if (shortcut) m_action.setShortcut(shortcut);
+    if (!shortcut.isEmpty()) m_action.setShortcut(shortcut);
 
     connect(&m_action, SIGNAL(triggered(bool)),
 	    this, SLOT(actionTriggered(bool)));
@@ -162,6 +161,4 @@ void Kwave::MenuItem::setIcon(const QIcon &icon)
 }
 
 //***************************************************************************
-#include "MenuItem.moc"
-//*****************************************************************************
 //*****************************************************************************

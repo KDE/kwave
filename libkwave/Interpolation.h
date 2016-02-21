@@ -19,11 +19,10 @@
 
 #include "config.h"
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QVector>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QString>
+#include <QStringList>
+#include <QVector>
 
 #include "libkwave/TypesMap.h"
 
@@ -45,7 +44,7 @@ namespace Kwave
     /**
      * Interpolation types
      */
-    class KDE_EXPORT Interpolation
+    class Q_DECL_EXPORT Interpolation
     {
     public:
 	/** Constructor, initializes type by enum type */

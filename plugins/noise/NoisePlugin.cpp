@@ -21,24 +21,25 @@
 
 #include <errno.h>
 
-#include <klocale.h> // for the i18n macro
+#include <KLocalizedString> // for the i18n macro
 
+#include "libkwave/Connect.h"
 #include "libkwave/MultiTrackSource.h"
 #include "libkwave/MultiTrackWriter.h"
-#include "libkwave/Connect.h"
-#include "libkwave/SampleSource.h"
-#include "libkwave/SampleSink.h"
 #include "libkwave/PluginManager.h"
+#include "libkwave/SampleSink.h"
+#include "libkwave/SampleSource.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/OverViewCache.h"
 
 #include "NoiseDialog.h"
-#include "NoisePlugin.h"
 #include "NoiseGenerator.h"
+#include "NoisePlugin.h"
 
 KWAVE_PLUGIN(Kwave::NoisePlugin, "noise", "2.3",
-             I18N_NOOP("Noise Generator"), "Thomas Eschenbacher");
+             I18N_NOOP("Noise Generator"),
+             I18N_NOOP("Thomas Eschenbacher"));
 
 //***************************************************************************
 Kwave::NoisePlugin::NoisePlugin(Kwave::PluginManager &plugin_manager)
@@ -141,7 +142,5 @@ void Kwave::NoisePlugin::setNoiseLevel(double level)
     m_level = level;
 }
 
-//***************************************************************************
-#include "NoisePlugin.moc"
 //***************************************************************************
 //***************************************************************************

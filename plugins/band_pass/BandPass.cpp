@@ -20,8 +20,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <math.h>
 #include <complex>
+#include <math.h>
 
 #include "BandPass.h"
 
@@ -159,7 +159,5 @@ void Kwave::BandPass::setBandwidth(const QVariant bw)
     setfilter_2polebp(m_frequency, m_bandwidth);
 }
 
-//***************************************************************************
-#include "BandPass.moc"
 //***************************************************************************
 //***************************************************************************

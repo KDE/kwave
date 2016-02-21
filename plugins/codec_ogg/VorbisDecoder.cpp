@@ -22,11 +22,11 @@
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 
-#include <QtCore/QDate>
-#include <QtCore/QIODevice>
-#include <QtCore/QString>
+#include <QDate>
+#include <QIODevice>
+#include <QString>
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include "libkwave/Compression.h"
 #include "libkwave/MessageBox.h"
@@ -185,7 +185,7 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	date = QDate::fromString(str_date, Qt::ISODate);
 	if (!date.isValid()) {
 	    int year = str_date.toInt();
-	    date.setYMD(year, 1, 1);
+	    date.setDate(year, 1, 1);
 	}
 	if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
     }
@@ -292,7 +292,7 @@ int Kwave::VorbisDecoder::decode(Kwave::MultiWriter &dst)
     // whatever PCM format and write it out
     while ((samples = vorbis_synthesis_pcmout(&m_vd, &pcm)) > 0)
     {
-	register int bout = decodeFrame(pcm, samples, dst);
+	int bout = decodeFrame(pcm, samples, dst);
 
 	// tell libvorbis how many samples we
 	// actually consumed
@@ -347,7 +347,6 @@ void Kwave::VorbisDecoder::close(Kwave::FileInfo &info)
 	info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(bitrate));
     }
 }
-
 
 //***************************************************************************
 //***************************************************************************

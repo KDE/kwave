@@ -18,14 +18,17 @@
 #include "config.h"
 #include <errno.h>
 
+#include <KLocalizedString>
+
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
 
-#include "AboutPlugin.h"
 #include "AboutDialog.h"
+#include "AboutPlugin.h"
 
 KWAVE_PLUGIN(Kwave::AboutPlugin, "about", "2.3",
-             I18N_NOOP("About Kwave"), "Ralf Waspe & Gilles Caulier");
+             I18N_NOOP("About Kwave"),
+             I18N_NOOP("Ralf Waspe & Gilles Caulier"));
 
 //***************************************************************************
 Kwave::AboutPlugin::AboutPlugin(Kwave::PluginManager &plugin_manager)
@@ -51,7 +54,5 @@ int Kwave::AboutPlugin::start(QStringList& params)
     return 0;
 }
 
-//***************************************************************************
-#include "AboutPlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -17,14 +17,12 @@
 
 #include "config.h"
 
-#include <QtCore/QByteArray>
-#include <QtCore/QMetaObject>
-#include <QtCore/QMutexLocker>
-#include <QtCore/QObject>
-#include <QtCore/QtGlobal>
-#include <QtCore/QVarLengthArray>
-
-#include <kdemacros.h>
+#include <QtGlobal>
+#include <QByteArray>
+#include <QMetaObject>
+#include <QMutexLocker>
+#include <QObject>
+#include <QVarLengthArray>
 
 #include "libkwave/MixerMatrix.h"
 #include "libkwave/Sample.h"
@@ -119,44 +117,50 @@ static inline QByteArray _sig(const char *sig)
 //***************************************************************************
 unsigned int Kwave::ChannelMixer::tracksOfPort(const char *port) const
 {
+    unsigned int retval = 0;
     QMutexLocker _lock(const_cast<QMutex *>(&m_lock));
 
     if (_sig(port) == _sig(SLOT(input(Kwave::SampleArray)))) {
 	// input ports
-	return m_inputs; // init is done
+	retval = m_inputs; // init is done
     } else if (_sig(port) == _sig(SIGNAL(output(Kwave::SampleArray)))) {
 	// output ports
-	return m_outputs;
+	retval = m_outputs;
     } else if (_sig(port) ==
                _sig(SLOT(idxInput(uint,Kwave::SampleArray)))) {
-	return 1;
+	retval = 1;
+    } else {
+	qFatal("unknown port");
     }
-    qFatal("unknown port");
-    return 0;
+
+    return retval;
 }
 
 //***************************************************************************
 Kwave::StreamObject *Kwave::ChannelMixer::port(const char *port,
                                                unsigned int track)
 {
+    Kwave::StreamObject *retval = 0;
     QMutexLocker _lock(&m_lock);
 
     if (_sig(port) == _sig(SLOT(input(Kwave::SampleArray)))) {
 	// input proxy
 	Q_ASSERT(Kwave::toInt(track) < m_indexer.count());
 	if (Kwave::toInt(track) >= m_indexer.count()) return 0;
-	return m_indexer.at(track);
+	retval = m_indexer.at(track);
     } else if (_sig(port) == _sig(SIGNAL(output(Kwave::SampleArray)))) {
 	// output proxy
 	Q_ASSERT(Kwave::toInt(track) < m_output_buffer.count());
 	if (Kwave::toInt(track) >= m_output_buffer.count()) return 0;
-	return m_output_buffer[track];
+	retval = m_output_buffer[track];
     } else if (_sig(port) ==
 	       _sig(SLOT(idxInput(uint,Kwave::SampleArray)))) {
-	return this;
+	retval = this;
+    } else {
+	qFatal("unknown port");
     }
-    qFatal("unknown port");
-    return 0;
+
+    return retval;
 }
 
 //***************************************************************************
@@ -243,7 +247,7 @@ void Kwave::ChannelMixer::mix()
 
 	// emit the output
 	Kwave::SampleBuffer *out_buf = m_output_buffer[y];
-	if (KDE_ISUNLIKELY(out_buf->constData().size() > min_len)) {
+	if (Q_UNLIKELY(out_buf->constData().size() > min_len)) {
 	    bool ok = out_buf->data().resize(min_len);
 	    Q_ASSERT(ok);
 	    Q_UNUSED(ok);

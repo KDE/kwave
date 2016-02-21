@@ -20,11 +20,9 @@
 
 #include "config.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/Qt>
-
-#include "kdemacros.h"
+#include <QtGlobal>
+#include <QObject>
+#include <QString>
 
 #include "libkwave/Sample.h"
 
@@ -32,7 +30,7 @@ class QMenu;
 
 namespace Kwave
 {
-    class KDE_EXPORT ViewItem: public QObject
+    class Q_DECL_EXPORT ViewItem: public QObject
     {
 	Q_OBJECT
 

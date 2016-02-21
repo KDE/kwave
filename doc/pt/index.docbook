@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY kwave "<application
 >Kwave</application
 >">
@@ -7,9 +7,9 @@
   <!ENTITY % English "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.9.0">
-  <!ENTITY version_tag "0_9_0">
-  <!ENTITY version_year "2015">
+  <!ENTITY version "0.9.1">
+  <!ENTITY version_tag "0_9_1">
+  <!ENTITY version_year "2016">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
   <!ENTITY url_changelog "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/CHANGES">
@@ -20,6 +20,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_kde_project "http://projects.kde.org/projects/kdereview/kwave">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
@@ -32,8 +33,8 @@
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
-  <!ENTITY url_git_instructions "http://sourceforge.net/p/kwave/code/">
-  <!ENTITY url_git_web "http://sourceforge.net/p/kwave/code/commit_browser">
+  <!ENTITY url_git_web_kde "http://quickgit.kde.org/?p=kwave.git">
+  <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY url_git_list_tags "http://sourceforge.net/p/kwave/code/ref/master~/tags/">
   <!ENTITY url_git_master "git://git.code.sf.net/p/kwave/code">
   <!ENTITY i18n-cmd_syntax "Sintaxe: ">
@@ -354,18 +355,20 @@
 >&FDLNotice;</legalnotice>
 
     <date
->2015-01-02</date>
+>2016-02-21</date>
     <releaseinfo
 >&version;</releaseinfo>
 
     <abstract
 ><para
->O &kwave; é um editor de som simples para o KDE.</para
+>O &kwave; é um editor de som simples para as Plataformas do KDE 5.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
+	<keyword
+>KF5</keyword>
 	<keyword
 >multimédia</keyword>
 	<keyword
@@ -400,7 +403,7 @@
 >Introdução</title>
 
     <para
->Este é o "&kwave;", um editor de som simples para o KDE-4. As suas funcionalidades incluem: <itemizedlist>
+>Este é o "&kwave;", um editor de som simples para as Plataformas do KDE 5. As suas funcionalidades incluem: <itemizedlist>
     	<listitem
 ><para
 >uma interface de utilizador que pode mudar para SDI, MDI ou páginas </para
@@ -435,11 +438,11 @@
 ></listitem>
     	<listitem
 ><para
->Reprodução através do ALSA e OSS </para
+>Reprodução através do Qt, PulseAudio, ALSA e OSS </para
 ></listitem>
     	<listitem
 ><para
->Gravação através do ALSA e OSS </para
+>Gravação através do PulseAudio, ALSA e OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -447,7 +450,7 @@
 ></listitem>
     	<listitem
 ><para
->Importação/exportação para Ogg Vorbis </para
+>Importação/exportação para Ogg/Vorbis e Opus </para
 ></listitem>
     	<listitem
 ><para
@@ -471,7 +474,7 @@
 ></listitem>
     	<listitem
 ><para
->reprodução de ficheiros multi-canais (o resultado do áudio será misturado para mono ou estéreo) </para
+>reprodução de ficheiros de áudio multi-canais (o resultado do áudio será misturado para mono ou estéreo, se necessário) </para
 ></listitem>
 	<listitem
 ><para
@@ -525,14 +528,14 @@
 ><para
 >Repositório de GIT<anchor id="git-repository"/> </para>
 	<para
->Existe também um repositório de Git, alojado no <ulink url="&url_sourceforge;"
+>Existe também um novo repositório de Git alojado nos servidores do KDE, bem como uma réplica alojada no <ulink url="&url_sourceforge;"
 >SourceForge</ulink
 >, onde poderá obter o código da última versão em desenvolvimento. Para obter instruções de acesso ao repositório, veja o capítulo sobre a <link linkend="building_rpm_from_git"
 >compilação a partir do GIT</link
-> ou veja em <ulink url="&url_git_instructions;"
->"&url_git_instructions;"</ulink
->. Também existe uma boa <ulink url="&url_git_web;"
->interface Web</ulink
+>. Também existe uma boa interface Web do Git no <ulink url="&url_git_web_kde;"
+>KDE</ulink
+> e no <ulink url="&url_git_web_sf;"
+>SourceForge</ulink
 > que poderá usar para navegar pelo código. </para
 ></listitem>
     </itemizedlist>
@@ -553,9 +556,12 @@
     <para
 >Desde o &kwave; v0.8.0, o registo de alterações não vem mais incluído neste manual. Como tal, se estiver interessado numa lista de alterações, poderá ver o histórico completo aqui: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
-> ou navegar você mesmo pelo código, usando a <ulink url="&url_git_web;"
+> ou navegar você mesmo pelo código, usando a <ulink url="&url_git_web_kde;"
 >interface Web do GIT</ulink
 >. </para>
+
+    <para
+>A versão v0.9.0 do &kwave; é a primeira versão alojada no KDE (kdereview) e nos servidores da SourceForge, seguida pela v0.9.1, sendo a primeira versão para as Plataformas do KDE 5. </para>
 
     <!-- changelog cut out, this gives a smaller online help
          and *much* less work for the translators... -->
@@ -583,6 +589,10 @@
 >O &kwave; tem uma página Web própria em <ulink url="&url_homepage;"
 >&url_homepage;</ulink
 >. Aqui poderá encontrar mais informações sobre o projecto, assim como informações acerca das versões estáveis e actualizadas de desenvolvimento. </para>
+    <para
+>Também existe uma página do projecto KDE em <ulink url="&url_kde_project;"
+>&url_kde_project;</ulink
+>, a qual será principalmente interessante para os programadores. </para>
 
     <para
 >Se quiser obter uma dada versão do &kwave;, terá a hipótese de visitar <ulink url="&url_download;"
@@ -608,7 +618,7 @@
     </para>
 
     <para
->Não tenha medo; compilar o Kwave deverá ser bastante simples, mesmo que não seja um programador. Apenas precisa de instalar alguns pacotes de desenvolvimento. </para>
+>Não tenha medo; compilar o Kwave deverá ser bastante simples, mesmo que não seja um programador. Apenas precisa de instalar alguns pacotes de desenvolvimento e de algum tempo. </para>
 
     </sect1>
 
@@ -634,11 +644,11 @@
 ></listitem>
 	    <listitem
 ><para
->KDE-4.5 ou superior (pelo menos as bibliotecas; caso seja um fã do Gnome, poderá também executar o &kwave; se as bibliotecas adequadas estiverem instaladas). </para
+>As Plataformas do KDE 5.2 (KF5) ou superior (pelo menos as bibliotecas; caso utilize um outro ambiente de trabalho diferente, poderá também executar o &kwave; se as bibliotecas adequadas estiverem instaladas). </para
 ></listitem>
 	    <listitem
 ><para
->Qt-4.7 ou superior (normalmente vem com o KDE4) </para
+>Qt-5.4 ou superior (normalmente vem como uma dependência do KF5) </para
 ></listitem>
 	    <listitem
 ><para
@@ -678,7 +688,7 @@
 ><para
 ><ulink url="&url_cmake;"
 >cmake</ulink
->-2.6.0 ou posterior </para
+>-2.8.12 ou posterior </para
 ></listitem>
 	    <listitem
 ><para
@@ -690,11 +700,7 @@
 ></listitem>
 	    <listitem
 ><para
->O ambiente de desenvolvimento do KDE4: "kdelibs4-devel", "kdemultimedia4-devel", "kdesdk4". </para
-></listitem>
-	    <listitem
-><para
->O ambiente de desenvolvimento do Qt4, sendo que o pacote se chama normalmente "qt4-devel" ou algo do género. </para
+>Pacotes de desenvolvimento do Qt5 e KF5 </para
 ></listitem>
 	    <listitem
 ><para
@@ -907,20 +913,20 @@
 		<listitem
 ><para
 >O <literal
->WITH_PHONON</literal
-> activa a reprodução com o Phonon (apenas para testes) [<literal
+>WITH_PULSEAUDIO</literal
+> activa a reprodução/gravação com o PulseAudio [<literal
 >on</literal
 >/<literal
 >off</literal
 >, por omissão=<literal
->off</literal
+>on</literal
 >] </para
 ></listitem>
 		<listitem
 ><para
->O <literal
->WITH_PULSEAUDIO</literal
-> activa a reprodução/gravação com o PulseAudio [<literal
+><literal
+>WITH_QT_AUDIO</literal
+> activa a reprodução com o Qt Multimedia [<literal
 >on</literal
 >/<literal
 >off</literal
@@ -1894,7 +1900,7 @@
 >% </prompt
 ><command
 >kwave <filename
->/usr/share/sounds/KDE_Window*.wav</filename
+>/usr/share/sounds/KDE-*.ogg</filename
 ></command
 ></screen>
 	    </para>
@@ -2343,7 +2349,7 @@
 >Aqui está uma imagem da janela de gravação do &kwave; </screeninfo>
 	    <mediaobject>
 		<imageobject>
-		    <imagedata fileref="kwave-record.png" format="PNG"/>
+		    <imagedata fileref="kwave-plugin-record.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		    <phrase
@@ -5133,6 +5139,19 @@ Exemplo: <screen
 	<sect2 id="cmd_sect_edit_label"
 ><title id="cmd_title_edit_label"
 >&no-i18n-cmd_edit_label;</title>
+	<screenshot>
+	    <screeninfo
+>Imagem</screeninfo>
+	    <mediaobject>
+		<imageobject>
+		    <imagedata fileref="kwave-edit-label.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		    <phrase
+>Imagem da janela de edição de legendas</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
 	<simplesect>
 	    <title
 >&i18n-cmd_syntax;<command
@@ -5182,7 +5201,7 @@ Exemplo: <screen
 ><title
 >&no-i18n-tag;f</title>
 
-	<!-- @COMMAND@ fileinfo(keyword,value) -->
+	<!-- @COMMAND@ fileinfo() -->
 	<sect2 id="cmd_sect_fileinfo"
 ><title id="cmd_title_fileinfo"
 >&no-i18n-cmd_fileinfo;</title>
@@ -9119,7 +9138,7 @@ Exemplo: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_ogg (TODO) -->
+    <!-- @PLUGIN@ codec_ogg -->
     <sect1 id="plugin_sect_codec_ogg"
 ><title id="plugin_title_codec_ogg"
 >&no-i18n-plugin_codec_ogg; (Codificador de Ogg)</title>
@@ -9270,7 +9289,7 @@ Exemplo: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_wav () -->
+    <!-- @PLUGIN@ codec_wav -->
     <sect1 id="plugin_sect_codec_wav"
 ><title id="plugin_title_codec_wav"
 >&no-i18n-plugin_codec_wav; (Codificador de WAV)</title>
@@ -9468,7 +9487,7 @@ Exemplo: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ fileinfo () -->
+    <!-- @PLUGIN@ fileinfo -->
     <sect1 id="plugin_sect_fileinfo"
 ><title id="plugin_title_fileinfo"
 >&no-i18n-plugin_fileinfo; (Informação de Ficheiros)</title>
@@ -9656,7 +9675,7 @@ Exemplo: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ insert_at () -->
+    <!-- @PLUGIN@ insert_at -->
     <sect1 id="plugin_sect_insert_at"
 ><title id="plugin_title_insert_at"
 >&no-i18n-plugin_insert_at; (Inserir Em)</title>
@@ -10825,6 +10844,8 @@ Exemplo: <screen
 	    <listitem>
 	    <para
 >Grava cada uma das secções entre marcações num ficheiro separado. Cada ficheiro terá um nome que poderá ser personalizado através de um padrão que poderá conter o nome original do ficheiro, um índice e o número de secções. </para>
+	    <para
+>Também é permitido que o padrão de nomes de ficheiros contenha barras normais como separadores de ficheiros, o que permite gravar as secções em sub-pastas diferentes. Lembre-se que todos os caracteres de espaços em branco em torno desses separadores serão removidos de forma silenciosa, para evitar a criação de nomes de pastas que comecem ou terminem com espaços em branco. </para>
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -10895,6 +10916,32 @@ Exemplo: <screen
 ></entry>
 						<entry
 >Será substituído pelo nome de base do ficheiro, sem localização e sem extensão. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>[%fileinfo{<replaceable
+>palavra-chave</replaceable
+>}]</command
+></entry>
+						<entry
+>Será substituído pelo conteúdo da informação de um ficheiro identificado pela <replaceable
+>palavra-chave</replaceable
+>. Veja a secção <link linkend="file-info-list" endterm="file-info-list-title"
+></link
+> para obter uma lista de todas as palavras-chave disponíveis. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>[%title]</command
+></entry>
+						<entry
+>Será substituído pelo título do bloco, que é retirado do texto descritivo da legenda no <emphasis
+>início</emphasis
+> do bloco. Se esses texto estiver vazio, irá usar em alternativa o título do ficheiro (veja o item de informação do ficheiro "<link linkend="INF_NAME"
+>Name</link
+>"). Se este também não existir, irá usar como alternativa o nome do ficheiro de base descrito acima. </entry>
 					    </row>
 					</tbody>
 				    </tgroup>

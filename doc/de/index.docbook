@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY kwave "<application
 >Kwave</application
 >">
@@ -7,9 +7,9 @@
   <!ENTITY % English "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.9.0">
-  <!ENTITY version_tag "0_9_0">
-  <!ENTITY version_year "2015">
+  <!ENTITY version "0.9.1">
+  <!ENTITY version_tag "0_9_1">
+  <!ENTITY version_year "2016">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
   <!ENTITY url_changelog "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/CHANGES">
@@ -20,6 +20,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_kde_project "http://projects.kde.org/projects/kdereview/kwave">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
@@ -32,20 +33,20 @@
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
-  <!ENTITY url_git_instructions "http://sourceforge.net/p/kwave/code/">
-  <!ENTITY url_git_web "http://sourceforge.net/p/kwave/code/commit_browser">
+  <!ENTITY url_git_web_kde "http://quickgit.kde.org/?p=kwave.git">
+  <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY url_git_list_tags "http://sourceforge.net/p/kwave/code/ref/master~/tags/">
   <!ENTITY url_git_master "git://git.code.sf.net/p/kwave/code">
   <!ENTITY i18n-cmd_syntax "Syntax: ">
   <!ENTITY i18n-plugin_lbl_internal_name "Interner&nbsp;Name:">
-  <!ENTITY i18n-plugin_lbl_type "Plugin-Typ:">
+  <!ENTITY i18n-plugin_lbl_type "Modul-Typ:">
   <!ENTITY i18n-plugin_lbl_commands "Befehle:">
   <!ENTITY i18n-plugin_lbl_description "Beschreibung:">
   <!ENTITY i18n-plugin_lbl_parameters "Parameter:">
   <!ENTITY i18n-plugin_lbl_file_types "Unterstützte&nbsp;Dateitypen:">
   <!ENTITY i18n-plugin-lbl_file_type_description "Beschreibung:">
   <!ENTITY i18n-plugin-lbl_file_type_extensions "Datei-Erweiterungen:">
-  <!ENTITY i18n-plugin-lbl_file_type_mime_types "Mime-Typen:">
+  <!ENTITY i18n-plugin-lbl_file_type_mime_types "MIME-Typen:">
   <!ENTITY i18n-plugin_lbl_meta_data "Unterstützte&nbsp;Metadataten:">
   <!ENTITY no-i18n-tag "">
   <!-- @COMMAND_ENTITIES_START@ -->
@@ -368,18 +369,20 @@
 >&FDLNotice;</legalnotice>
 
     <date
->2015-01-02</date>
+>2016-02-21</date>
     <releaseinfo
 >&version;</releaseinfo>
 
     <abstract
 ><para
->&kwave; ist ein einfacher Sound-Editor für KDE.</para
+>&kwave; ist ein einfacher Sound-Editor für KDE Frameworks 5.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
+	<keyword
+>KF5</keyword>
 	<keyword
 >Multimedia</keyword>
 	<keyword
@@ -414,7 +417,7 @@
 >Einleitung</title>
 
     <para
->Dies ist "&kwave;", ein einfacher Sound-Editor für KDE-4. Er enthält folgende Funktionalität: <itemizedlist>
+>Dies ist "&kwave;", ein einfacher Sound-Editor für KDE Frameworks 5. Er enthält folgende Funktionalität: <itemizedlist>
     	<listitem
 ><para
 >eine Benutzerschnittstelle die zwischen SDI-, MDI- und Tab-Modus umgeschaltet werden kann </para
@@ -449,11 +452,11 @@
 ></listitem>
     	<listitem
 ><para
->Wiedergabe via ALSA und OSS </para
+>Wiedergabe via Qt, PulseAudio, ALSA und OSS </para
 ></listitem>
     	<listitem
 ><para
->Aufnahme via ALSA und OSS </para
+>Aufnahme via PulseAudio, ALSA und OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -461,7 +464,7 @@
 ></listitem>
     	<listitem
 ><para
->Ogg/Vorbis Import und Export </para
+>Ogg/Vorbis und Opus Import / Export </para
 ></listitem>
     	<listitem
 ><para
@@ -489,7 +492,7 @@
 ></listitem>
 	<listitem
 ><para
->erweiterbar durch eine einfach zu benutzende Plugin-Schnittstelle </para
+>erweiterbar durch eine einfach zu benutzende Modul-Schnittstelle </para
 ></listitem>
 	<listitem
 ><para
@@ -539,15 +542,15 @@
 ><para
 >GIT-Repository<anchor id="git-repository"/> </para>
 	<para
->Es gibt auch ein GIT-Repository, bereitgestellt auf <ulink url="&url_sourceforge;"
+>Es gibt auch ein GIT-Repository auf den KDE-Servern und eine Spiegelung auf <ulink url="&url_sourceforge;"
 >SourceForge</ulink
 >, von dem Sie die Quellcodes der jeweils aktuellen Entwicklerversionen beziehen können. Für Anweisungen wie Sie auf das GIT-Repository zugreifen können, lesen Sie bitte das entsprechende Kapitel zum Thema <link linkend="building_rpm_from_git"
 >Erstellen aus GIT</link
->, lesen unter <ulink url="&url_git_instructions;"
-> "&url_git_instructions;"</ulink
->. Sie können aber auch einfach die Quellen über das <ulink url="&url_git_web;"
->Web-Interface</ulink
-> ansehen. </para
+>, lesen. Sie können aber auch einfach die Quellen über das Web-Interface auf <ulink url="&url_git_web_kde;"
+>KDE</ulink
+> und auf <ulink url="&url_git_web_sf;"
+>SourceForge</ulink
+> einsehen. </para
 ></listitem>
     </itemizedlist>
 
@@ -567,9 +570,12 @@
     <para
 >Seit &kwave; v0.8.0 ist die Änderungshistorie nicht mehr im Benutzerhandbuch enthalten. Wenn Sie also an einer vollständigen Liste der Änderungen interessiert sind, finden Sie die vollständige Historie hier: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
->. Alternativ können Sie sich die Änderungen auch über das <ulink url="&url_git_web;"
+>. Alternativ können Sie sich auch über das <ulink url="&url_git_web_kde;"
 >GIT Web-Interface</ulink
-> ansehen. </para>
+> die Quellcodes einsehen. </para>
+
+    <para
+>&kwave; Version v0.9.0 ist die erste Version die auf KDE-Servern (kdereview) und auf SourceForge-Servern bereitgestellt wird, gefolgt von v0.9.1, der ersten Version für KDE Frameworks 5. </para>
 
     <!-- changelog cut out, this gives a smaller online help
          and *much* less work for the translators... -->
@@ -597,6 +603,10 @@
 >&kwave; hat eine eigene Homepage unter <ulink url="&url_homepage;"
 > &url_homepage;/</ulink
 >. Hier können Sie weitere Informationen über das Projekt, wie auch Informationen über die aktuelle stabile sowie neueste Entwicklerversionen finden. </para>
+    <para
+>Es existiert auch eine KDE Project-Seite auf <ulink url="&url_kde_project;"
+>&url_kde_project;</ulink
+> die für Entwickler interessant sein dürfte. </para>
 
     <para
 >Wenn Sie eine Release von &kwave; wollen können Sie die Seite <ulink url="&url_download;"
@@ -622,7 +632,7 @@
     </para>
 
     <para
->Schrecken Sie nicht davor zurück, Kwave selbst zu kompilieren, auch wenn Sie kein Programmierer sind. Es müssen nur einige Entwickler-Pakete installiert sein. </para>
+>Schrecken Sie nicht davor zurück, Kwave selbst zu kompilieren, auch wenn Sie kein Software-Entwickler sind. Es müssen nur einige Entwickler-Pakete installiert sein und Sie sollten etwas Zeit mitbringen. </para>
 
     </sect1>
 
@@ -648,11 +658,11 @@
 ></listitem>
 	    <listitem
 ><para
->KDE-4.5 oder höher (zumindest die Bibliotheken: &kwave; läuft auch unter gnome, wenn die richtigen Bibliotheken installiert sind). </para
+>KDE Frameworks 5.2 oder höher (zumindest die Bibliotheken: &kwave; läuft auch unter anderen Desktop-Umgebungen wenn die richtigen Bibliotheken installiert sind). </para
 ></listitem>
 	    <listitem
 ><para
->Qt-4.7 oder neuer (kommt normalerweise bei der Installation von KDE4 mit) </para
+>Qt-5.4 oder neuer (kommt normalerweise bei der Installation von KF5 mit) </para
 ></listitem>
 	    <listitem
 ><para
@@ -692,11 +702,11 @@
 ><para
 ><ulink url="&url_cmake;"
 >cmake</ulink
->-2.6.0 oder neuer </para
+>-2.8.12 oder neuer </para
 ></listitem>
 	    <listitem
 ><para
->Einen aktuellen C/C++ Compiler. GCC-4.x sollte funktionieren, einige ältere und jede neuere Versionen (beispielsweise gcc-5.0 und neuer) sollten ebenfalls funktionieren. </para
+>Einen aktuellen C/C++ Compiler. GCC-4.x funktioniert gut, einige ältere und jede neuere Versionen (beispielsweise gcc-5.0 und neuer) sollten ebenfalls funktionieren. </para
 ></listitem>
 	    <listitem
 ><para
@@ -704,11 +714,7 @@
 ></listitem>
 	    <listitem
 ><para
->Die KDE4-Entwicklungsumgebung: "kdelibs4-devel", "kdemultimedia4-devel", "kdesdk4". </para
-></listitem>
-	    <listitem
-><para
->Die Qt4-Entwicklungsumgebung, das Paket heisst normalerweise "qt4-devel" oder ähnlich. </para
+>Qt5 und KF5 Entwickler-Pakete </para
 ></listitem>
 	    <listitem
 ><para
@@ -809,12 +815,12 @@
 >Generier-Optionen</title>
 
 	<para
->Mit Hilfe von Generier-Optionen können Sie einige Funktionalitäten von &kwave; aktivieren oder deaktivieren, beispielsweise können Sie Plugins von der Generierung ausschliessen. Hier eine Auflistung der verfügbaren Optionen: <itemizedlist>
+>Mit Hilfe von Generier-Optionen können Sie einige Funktionalitäten von &kwave; aktivieren oder deaktivieren, beispielsweise können Sie Module von der Generierung ausschliessen. Hier eine Auflistung der verfügbaren Optionen: <itemizedlist>
 		<listitem
 ><para
 ><literal
 >WITH_ALSA</literal
-> aktiviere Wiedergabe / Aufnahme via ALSA [<literal
+> aktiviert Wiedergabe / Aufnahme via ALSA [<literal
 >on</literal
 >/<literal
 >off</literal
@@ -826,7 +832,7 @@
 ><para
 ><literal
 >WITH_DEBUG</literal
-> generiere eine Debug-Version [<literal
+> generiert eine Debug-Version [<literal
 >on</literal
 >/<literal
 >off</literal
@@ -838,7 +844,7 @@
 ><para
 ><literal
 >WITH_DOC</literal
-> generiere Online-Dokumentation [<literal
+> generiert Online-Dokumentation [<literal
 >on</literal
 >/<literal
 >off</literal
@@ -850,7 +856,7 @@
 ><para
 ><literal
 >WITH_FLAC</literal
-> aktiviere Unterstützung für FLAC-Dateien [<literal
+> aktiviert Unterstützung für FLAC-Dateien [<literal
 >on</literal
 >/<literal
 >off</literal
@@ -862,19 +868,19 @@
 ><para
 ><literal
 >WITH_MP3</literal
-> aktiviere Unterstützung für MP3-Dateien [<literal
+> aktiviert Unterstützung für MP3-Dateien [<literal
 >on</literal
 >/<literal
 >off</literal
 >, Vorgabe=<literal
 >off</literal
->] Bitte beachten Sie dass Sie die Erlaubnis haben müssen den Programm-Code zu verwenden der von den MP3 Software-Patenten abgedeckt wird! </para
+>] Bitte beachten Sie, dass Sie die Erlaubnis haben müssen, den Programm-Code zu verwenden, der von den MP3 Software-Patenten abgedeckt wird! </para
 ></listitem>
 		<listitem
 ><para
 ><literal
 >WITH_OGG_OPUS</literal
-> aktiviere Unterstützung für Ogg/Opus-Dateien [<literal
+> aktiviert Unterstützung für Ogg/Opus-Dateien [<literal
 >on</literal
 >/<literal
 >off</literal
@@ -886,7 +892,7 @@
 ><para
 ><literal
 >WITH_OGG_VORBIS</literal
-> aktiviere Unterstützung für Ogg/Vorbis-Dateien [<literal
+> aktiviert Unterstützung für Ogg/Vorbis-Dateien [<literal
 >on</literal
 >/<literal
 >off</literal
@@ -898,7 +904,7 @@
 ><para
 ><literal
 >WITH_OPTIMIZED_MEMCPY</literal
-> verwende eine optimierte Version der memcpy-Funktion, verfügbar for X86- X86_64 und PPC-Plattformen[<literal
+> verwendet eine optimierte Version der memcpy-Funktion, verfügbar for X86- X86_64 und PPC-Plattformen[<literal
 >on</literal
 >/<literal
 >off</literal
@@ -910,31 +916,31 @@
 ><para
 ><literal
 >WITH_OSS</literal
-> aktiviere Wiedergabe / Aufnahme via OSS [<literal
+> aktiviert Wiedergabe / Aufnahme via OSS [<literal
 >on</literal
 >/<literal
 >off</literal
 >, Vorgabe=<literal
 >on</literal
->] </para
-></listitem>
-		<listitem
-><para
-><literal
->WITH_PHONON</literal
-> aktiviere Wiedergabe Phonon (nur zu Testzwecken) [<literal
->on</literal
->/<literal
->off</literal
->, Vorgabe=<literal
->off</literal
 >] </para
 ></listitem>
 		<listitem
 ><para
 ><literal
 >WITH_PULSEAUDIO</literal
-> aktiviere Wiedergabe / Aufnahme via PulseAudio [<literal
+> aktiviert Wiedergabe / Aufnahme via PulseAudio [<literal
+>on</literal
+>/<literal
+>off</literal
+>, Vorgabe=<literal
+>on</literal
+>] </para
+></listitem>
+		<listitem
+><para
+><literal
+>WITH_QT_AUDIO</literal
+> aktiviert Wiedergabe via Qt Multimedia [<literal
 >on</literal
 >/<literal
 >off</literal
@@ -1916,7 +1922,7 @@
 >% </prompt
 ><command
 >kwave <filename
->/usr/share/sounds/KDE_Window*.wav</filename
+>/usr/share/sounds/KDE-*.ogg</filename
 ></command
 ></screen>
 	    </para>
@@ -2193,7 +2199,7 @@
 ><para
 >Zusätzlich unterstützt &kwave; viele andere Formate durch das <ulink url="&url_libaudiofile;"
 >audiofile</ulink
->-Plugin. Sie können Dateien wie <filename
+>-Modul. Sie können Dateien wie <filename
 >*.au</filename
 >, <filename
 >*.snd</filename
@@ -2365,7 +2371,7 @@
 >Das ist ein Screenshot von &kwave;'s Aufnahme-Dialog </screeninfo>
 	    <mediaobject>
 		<imageobject>
-		    <imagedata fileref="kwave-record.png" format="PNG"/>
+		    <imagedata fileref="kwave-plugin-record.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		    <phrase
@@ -2509,7 +2515,7 @@
 ><itemizedlist>
 	<listitem
 ><para
->ALSA (Advanced Linux Sound Architecture): Löst OSS ab, unterstützt mehr Features und mehr Hardware als OSS. Kann mit KDE oder anderen Sound-Applikationen kollidieren, hat aber ein Plugin namens "DMIX" als Ausweg. Diese Wiedergabe-Methode sollte für Sie die beste Wahl sein! </para
+>ALSA (Advanced Linux Sound Architecture): Löst OSS ab, unterstützt mehr Features und mehr Hardware als OSS. Kann mit KDE oder anderen Sound-Applikationen kollidieren, hat aber ein Modul namens „DMIX“ als Ausweg. Diese Wiedergabe-Methode sollte für Sie die beste Wahl sein! </para
 ></listitem>
 	<listitem
 ><para
@@ -5153,6 +5159,19 @@ Beispiel: <screen
 	<sect2 id="cmd_sect_edit_label"
 ><title id="cmd_title_edit_label"
 >&no-i18n-cmd_edit_label;</title>
+	<screenshot>
+	    <screeninfo
+>Bildschirmfoto</screeninfo>
+	    <mediaobject>
+		<imageobject>
+		    <imagedata fileref="kwave-edit-label.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		    <phrase
+>Bildschirmfoto des Dialogs zum Anlegen neuer Dateien</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
 	<simplesect>
 	    <title
 >&i18n-cmd_syntax;<command
@@ -5202,7 +5221,7 @@ Beispiel: <screen
 ><title
 >&no-i18n-tag;f</title>
 
-	<!-- @COMMAND@ fileinfo(keyword,value) -->
+	<!-- @COMMAND@ fileinfo() -->
 	<sect2 id="cmd_sect_fileinfo"
 ><title id="cmd_title_fileinfo"
 >&no-i18n-cmd_fileinfo;</title>
@@ -6161,8 +6180,8 @@ Beispiel: <screen
 >Parameter</replaceable
 > ...])</title>
 	    <para
->Führt eine Plugin aus, mit einer optionalen Liste von Parametern. Falls keine Parameterliste angegeben wurde, wird die Setup-Funktion des Plugins aufgerufen, unter Verwendung der Parameter des letzten Aufrufs oder der Default-Parameter (normalerweise wird je nach Plugin ein Setup-Dialog angezeigt). Für eine Beschreibung der diversen Plugins sei auf das Kapitel <link linkend="plugins"
->Plugins</link
+>Führt ein Modul aus, mit einer optionalen Liste von Parametern. Falls keine Parameterliste angegeben wurde, wird die Einrichtungs-Funktion des Moduls aufgerufen, unter Verwendung der Parameter des letzten Aufrufs oder der Standard-Parameter (normalerweise wird je nach Modul ein Einrichtungs-Dialog angezeigt). Für eine Beschreibung der diversen Module sei auf das Kapitel <link linkend="plugins"
+>Module</link
 > verwiesen. </para>
 	</simplesect>
 	<simplesect
@@ -6177,7 +6196,7 @@ Beispiel: <screen
 >Name</parameter
 >:</entry>
 		<entry
->der (interne) Name eines &kwave;-Plugins</entry
+>der (interne) Name eines &kwave;-Moduls</entry
 ></row>
 	    <row
 ><entry
@@ -6185,7 +6204,7 @@ Beispiel: <screen
 >Parameter</parameter
 >:</entry>
 		<entry
->eine Liste der vom Plugin unterstützten Parameter (optional)</entry
+>eine Liste der vom Modul unterstützten Parameter (optional)</entry
 ></row>
 	</tbody
 ></tgroup
@@ -6225,7 +6244,7 @@ Beispiel: <screen
 ><command
 >&no-i18n-cmd_plugin;</command
 >()</quote
->, führt jedoch nicht die Setup-Funktion des Plugins aus wenn keine Parameterliste übergeben wurde. </para>
+>, führt jedoch nicht die Setup-Funktion des Moduls aus wenn keine Parameterliste übergeben wurde. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -6239,7 +6258,7 @@ Beispiel: <screen
 >Name</parameter
 >:</entry>
 		<entry
->der (interne) Name eines &kwave;-Plugins</entry
+>der (interne) Name eines &kwave;-Moduls</entry
 ></row>
 	    <row
 ><entry
@@ -6247,7 +6266,7 @@ Beispiel: <screen
 >Parameter</parameter
 >:</entry>
 		<entry
->eine Liste von Parametern die vom Plugin unterstützt werden</entry
+>eine Liste von Parametern die vom Modul unterstützt werden</entry
 ></row>
 	</tbody
 ></tgroup
@@ -6271,8 +6290,8 @@ Beispiel: <screen
 	    <para
 >Ruft die <emphasis
 >Setup</emphasis
->-Funktion eines Plugins auf, mit einer optionalen Parameterliste. Wenn keine Parameter angegeben wurden werden die Parameter des letzten Aufrufs verwendet. Normalerweise wird je nach Plugin ein Setup-Dialog angezeigt. Für eine Beschreibung der diversen Plugins sei auf das Kapitel <link linkend="plugins"
->Plugins</link
+>-Funktion eines Moduls auf, mit einer optionalen Parameterliste. Wenn keine Parameter angegeben wurden werden die Parameter des letzten Aufrufs verwendet. Normalerweise wird je nach Modul ein Einrichtungs-Dialog angezeigt. Für eine Beschreibung der diversen Module sei auf das Kapitel <link linkend="plugins"
+>Module</link
 > verwiesen. </para>
 	</simplesect>
 	<simplesect
@@ -6287,7 +6306,7 @@ Beispiel: <screen
 >Name</parameter
 >:</entry>
 		<entry
->der (interne) Name eines &kwave;-Plugins</entry
+>der (interne) Name eines &kwave;-Moduls</entry
 ></row>
 	    <row
 ><entry
@@ -6295,7 +6314,7 @@ Beispiel: <screen
 >Parameter</parameter
 >:</entry>
 		<entry
->eine Liste der vom Plugin unterstützten Parameter (optional)</entry
+>eine Liste der vom Modul unterstützten Parameter (optional)</entry
 ></row>
 	</tbody
 ></tgroup
@@ -7933,11 +7952,11 @@ Beispiel: <screen
 
 <chapter id="plugins"
 ><title
->Plugins</title>
+>Module</title>
 
     <sect1 id="kwave_plugins"
 ><title
->Plugin-Referenz</title>
+>Modul-Referenz</title>
     <index
 ><title
 >Alphabetischer Index</title>
@@ -8246,7 +8265,7 @@ Beispiel: <screen
 ></listitem>
 		    <listitem
 ><para
->alle gefundenen Plugins einschließlich ihrer Versionsnummern und Autoren</para
+>alle gefundenen Module einschließlich ihrer Versionsnummern und Autoren</para
 ></listitem>
 		    <listitem
 ><para
@@ -8276,7 +8295,7 @@ Beispiel: <screen
 		</imageobject>
 		<textobject>
 	    	    <phrase
->Bildschirmfoto des Frei Verstärken-Plugins</phrase>
+>Bildschirmfoto des Frei Verstärken-Moduls</phrase>
 		</textobject>
 	    </mediaobject>
 	</screenshot>
@@ -8493,7 +8512,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto des Bandpassfilter-Plugins</phrase>
+>Bildschirmfoto des Bandpassfilter-Moduls</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -9139,7 +9158,7 @@ Beispiel: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_ogg (TODO) -->
+    <!-- @PLUGIN@ codec_ogg -->
     <sect1 id="plugin_sect_codec_ogg"
 ><title id="plugin_title_codec_ogg"
 >&no-i18n-plugin_codec_ogg; (Ogg Codec)</title>
@@ -9290,7 +9309,7 @@ Beispiel: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_wav () -->
+    <!-- @PLUGIN@ codec_wav -->
     <sect1 id="plugin_sect_codec_wav"
 ><title id="plugin_title_codec_wav"
 >&no-i18n-plugin_codec_wav; (WAV Codec)</title>
@@ -9488,7 +9507,7 @@ Beispiel: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ fileinfo () -->
+    <!-- @PLUGIN@ fileinfo -->
     <sect1 id="plugin_sect_fileinfo"
 ><title id="plugin_title_fileinfo"
 >&no-i18n-plugin_fileinfo; (Datei-Informationen)</title>
@@ -9556,7 +9575,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto des Plugins zum Springen an eine Position</phrase>
+>Bildschirmfoto des Moduls zum Springen an eine Position</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -9676,7 +9695,7 @@ Beispiel: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ insert_at () -->
+    <!-- @PLUGIN@ insert_at -->
     <sect1 id="plugin_sect_insert_at"
 ><title id="plugin_title_insert_at"
 >&no-i18n-plugin_insert_at; (Einfügen an)</title>
@@ -9723,7 +9742,7 @@ Beispiel: <screen
 ></term>
 	    <listitem>
 	    <para
->Ähnlich wie das Plugin <link linkend="plugin_sect_goto" endterm="plugin_title_goto"
+>Ähnlich wie das Modul <link linkend="plugin_sect_goto" endterm="plugin_title_goto"
 ></link
 >, zeigt jedoch einen Dialog mit der Möglichkeit den aktuellen Inhalt der Zwischenablage an einer angegebenen Stelle einzufügen, die als Zeit in Millisekunden, als Position in Samples oder als Prozentsatz der aktuellen Länge der Datei angegeben wird. </para>
 	    </listitem>
@@ -9824,7 +9843,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto des Tiefpass-Plugins</phrase>
+>Bildschirmfoto des Tiefpass-Moduls</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -10115,7 +10134,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto des Rauschgenerator-Plugins</phrase>
+>Bildschirmfoto des Rauschgenerator-Moduls</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -10280,7 +10299,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto des Kerbfilter-Plugins</phrase>
+>Bildschirmfoto des Kerbfilter-Moduls</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -10381,7 +10400,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto des Tonverschiebungs-Plugins</phrase>
+>Bildschirmfoto des Tonverschiebungs-Moduls</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -10526,7 +10545,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto des Wiedergabe-Plugins</phrase>
+>Bildschirmfoto des Wiedergabe-Moduls</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -10643,7 +10662,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto des Aufnahme-Plugins</phrase>
+>Bildschirmfoto des Aufnahme-Moduls</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -10810,7 +10829,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto des Blöcke-Speichern-Plugins</phrase>
+>Bildschirmfoto des Blöcke-Speichern-Moduls</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -10845,6 +10864,8 @@ Beispiel: <screen
 	    <listitem>
 	    <para
 >Speichert alle Bereiche zwischen Markierungen, jeden in eine eigene Datei. Der Name der einzelnen Dateien kann über ein Muster angepasst werden das den Original-Dateinamen, einen Index und die Anzahl der Abschnitte enthalten kann. </para>
+	    <para
+>Es ist auch zulässig im Dateinamens-Muster Schrägstriche als Pfad-Trennzeichen zu verwenden, wodurch es möglich wird die Abschnitte in verschiedene Unterverzeichnisse zu speichern. Bitte beachten Sie dass Leerzeichen vor und nach diesen Pfad-Trennzeichen stillschweigende entfernt werden um zu verhindern dass Verzeichnis-Namen erzeugt werden die mit Leerzeichen beginnen oder enden. </para>
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -10915,6 +10936,32 @@ Beispiel: <screen
 ></entry>
 						<entry
 >Wird durch den Basis-Dateinamen, ohne Pfad und ohne Erweiterung ersetzt. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>[%fileinfo{<replaceable
+>Schlüsselwort</replaceable
+>}]</command
+></entry>
+						<entry
+>Wird mit dem Inhalt einer Datei-Information ersetzt, die über das angegebene <replaceable
+>Schlüsselwort</replaceable
+> ausgewählt wird. Siehe Abschnitt <link linkend="file-info-list" endterm="file-info-list-title"
+></link
+> für eine Liste aller verfügbaren Schlüsselworte. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>[%title]</command
+></entry>
+						<entry
+>Wird mit dem Titel des Blocks ersetzt, der aus dem Beschreibungstext der Markierung am <emphasis
+>Anfang</emphasis
+> des Blocks entnommen wird. Falls dieser Text fehlt, wird auf den Titel der Datei ausgewichen (siehe Datei-Information <link linkend="INF_NAME"
+>Name</link
+>"). Sollte dieser ebenfalls fehlen, wird auf den oben beschriebenen Basis-Dateinamen ausgewichen. </entry>
 					    </row>
 					</tbody>
 				    </tgroup>
@@ -11188,7 +11235,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto des Sonagramm-Plugins</phrase>
+>Bildschirmfoto des Sonagramm-Moduls</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -11462,7 +11509,7 @@ Beispiel: <screen
 	    </imageobject>
 	    <textobject>
 		<phrase
->Bildschirmfoto  des Lautstärke-Plugins</phrase>
+>Bildschirmfoto  des Lautstärke-Moduls</phrase>
 	    </textobject>
 	</mediaobject>
     </screenshot>
@@ -11496,7 +11543,7 @@ Beispiel: <screen
 ></term>
 	    <listitem>
 	    <para
->Mit diesem Plugin können Sie die Lautstärke der aktuellen Auswahl um einen konstanten Faktor ändern. Im zugehörigen Dialogfenster kann man diesen Faktor als <emphasis
+>Mit diesem Modul können Sie die Lautstärke der aktuellen Auswahl um einen konstanten Faktor ändern. Im zugehörigen Dialogfenster kann man diesen Faktor als <emphasis
 >numerischen Faktor</emphasis
 > als Fließkommazahl zwischen 0,10 und 10,0, als <emphasis
 >Prozentsatz</emphasis
@@ -11613,7 +11660,7 @@ Beispiel: <screen
 ></term>
 	    <listitem>
 	    <para
->Dieses Plugin kann auf zwei verschiedene Arten verwendet werden. Wird es ohne Parameter aufgerufen, löscht es den aktuell ausgewählten Bereich durch Überschreiben mit Nullen. Wenn es mit zwei Parametern aufgerufen wird, fügt es am Anfang der aktuellen Auswahl Stille mit angegebener Länge ein. </para>
+>Dieses Modul kann auf zwei verschiedene Arten verwendet werden. Wird es ohne Parameter aufgerufen, löscht es den aktuell ausgewählten Bereich durch Überschreiben mit Nullen. Wenn es mit zwei Parametern aufgerufen wird, fügt es am Anfang der aktuellen Auswahl Stille mit angegebener Länge ein. </para>
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -11719,7 +11766,7 @@ Beispiel: <screen
 >doxygen</ulink
 >. Vielleicht werden wir eines Tages etwas Zeit erübrigen können, um ein Tool zu schreiben, dass die doxygen Ausgabe in etwas umwandelt, was man in irgendeiner Art und Weise in die Docbook-Quellen (die Quellen, aus denen diese Seite erzeugt wurde) einbinden könnte. </para>
     <para
->Wenn Sie ein Plugin schreiben und etwas zu diesem Projekt beitragen (oder vielleicht den oben erwähnten Konverter schreiben) wollen, dann scheuen Sie sich nicht, einem der Autoren direkt zu schreiben und / oder der &kwave; <link linkend="mailing-list"
+>Wenn Sie ein Modul schreiben und etwas zu diesem Projekt beitragen (oder vielleicht den oben erwähnten Konverter schreiben) wollen, dann scheuen Sie sich nicht, einem der Autoren direkt zu schreiben und / oder der &kwave; <link linkend="mailing-list"
 >Mailing-Liste</link
 > beizutreten. Hilfe ist immer willkommen! </para>
 
@@ -12113,7 +12160,7 @@ Beispiel: <screen
 > </emphasis
 ></para
 ><para
->Kerbfilter Plugin </para>
+>Kerbfilter-Modul </para>
 	    </listitem>
 	    <listitem>
 	    	<para
@@ -12143,7 +12190,7 @@ Beispiel: <screen
 > </emphasis
 ></para
 ><para
->Hilfe/Über-Plugin </para>
+>Hilfe/Über-Modul </para>
 	    </listitem>
 	    <listitem>
 	    	<para
@@ -12204,7 +12251,7 @@ Beispiel: <screen
 > </emphasis
 ></para
 ><para
->Codebasis des Normalisierer-Plugins </para>
+>Codebasis des Normalisierer-Moduls </para>
 	    </listitem>
 	    <listitem>
 	    	<para

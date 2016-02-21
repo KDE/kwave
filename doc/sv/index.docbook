@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY kwave "<application
 >Kwave</application
 >">
@@ -7,9 +7,9 @@
   <!ENTITY % English "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.9.0">
-  <!ENTITY version_tag "0_9_0">
-  <!ENTITY version_year "2015">
+  <!ENTITY version "0.9.1">
+  <!ENTITY version_tag "0_9_1">
+  <!ENTITY version_year "2016">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
   <!ENTITY url_changelog "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/CHANGES">
@@ -20,6 +20,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_kde_project "http://projects.kde.org/projects/kdereview/kwave">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
@@ -32,8 +33,8 @@
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
-  <!ENTITY url_git_instructions "http://sourceforge.net/p/kwave/code/">
-  <!ENTITY url_git_web "http://sourceforge.net/p/kwave/code/commit_browser">
+  <!ENTITY url_git_web_kde "http://quickgit.kde.org/?p=kwave.git">
+  <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY url_git_list_tags "http://sourceforge.net/p/kwave/code/ref/master~/tags/">
   <!ENTITY url_git_master "git://git.code.sf.net/p/kwave/code">
   <!ENTITY i18n-cmd_syntax "Syntax: ">
@@ -354,18 +355,20 @@
 >&FDLNotice;</legalnotice>
 
     <date
->2015-01-02</date>
+>2016-02-21</date>
     <releaseinfo
 >&version;</releaseinfo>
 
     <abstract
 ><para
->&kwave; är en enkel ljudeditor för KDE.</para
+>&kwave; är en enkel ljudeditor byggd på KDE Ramverk 5.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
+	<keyword
+>KF5</keyword>
 	<keyword
 >multimedia</keyword>
 	<keyword
@@ -400,7 +403,7 @@
 >Inledning</title>
 
     <para
->Detta är "&kwave;", en enkel ljudeditor för KDE-4. Dess funktioner omfattar: <itemizedlist>
+>Detta är "&kwave;", en enkel ljudeditor byggd på KDE Ramverk 5. Dess funktioner omfattar: <itemizedlist>
     	<listitem
 ><para
 >ett användargränssnitt som kan ändras mellan ett fönster, flera fönster eller flikar </para
@@ -435,11 +438,11 @@
 ></listitem>
     	<listitem
 ><para
->uppspelning via ALSA och OSS </para
+>uppspelning via Qt, PulseAudio, ALSA och OSS </para
 ></listitem>
     	<listitem
 ><para
->inspelning via ALSA och OSS </para
+>inspelning via PulseAudio, ALSA och OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -447,7 +450,7 @@
 ></listitem>
     	<listitem
 ><para
->Ogg Vorbis-import och export </para
+>Ogg Vorbis- och Opus-import och export </para
 ></listitem>
     	<listitem
 ><para
@@ -471,7 +474,7 @@
 ></listitem>
     	<listitem
 ><para
->uppspelning av ljudfiler med flera kanaler (ljud ut mixas till mono eller stereo) </para
+>uppspelning av ljudfiler med flera kanaler (ljud ut mixas till mono eller stereo vid behov) </para
 ></listitem>
 	<listitem
 ><para
@@ -529,10 +532,10 @@
 >SourceForge</ulink
 >, där källkoden för den senaste utvecklingsversionen kan hämtas. För instruktioner om hur man kan komma åt arkivet, läs kapitlet om att <link linkend="building_rpm_from_git"
 >bygga från GIT</link
->, eller titta på <ulink url="&url_git_instructions;"
->&url_git_instructions;</ulink
->. Det finns också ett trevligt <ulink url="&url_git_web;"
->webbgränssnitt</ulink
+>. Det finns också ett webbgränssnitt på <ulink url="&url_git_web_kde;"
+>KDE</ulink
+> och på <ulink url="&url_git_web_sf;"
+>SourceForge</ulink
 > som går att använda för att bläddra i källkoden. </para
 ></listitem>
     </itemizedlist>
@@ -553,9 +556,12 @@
     <para
 >Sedan &kwave; v0.8.0 ingår inte längre ändringsloggen i handboken. Om du är intresserad av en komplett lista över ändringar, hittar du den fullständiga historiken här: <ulink url="&url_changelog;"
 >&url_changelog;</ulink
->, eller bläddra igenom källkoden på egen hand via <ulink url="&url_git_web;"
+>, eller bläddra igenom källkoden på egen hand via <ulink url="&url_git_web_kde;"
 >GIT-webbgränssnittet</ulink
 >. </para>
+
+    <para
+>&kwave; version 0.9.0 är det första versionen som är tillgänglig på KDE:s server (kdereview) och på SourceForge, följd av 0.9.1, den första versionen för KDE Ramverk 5. </para>
 
     <!-- changelog cut out, this gives a smaller online help
          and *much* less work for the translators... -->
@@ -583,6 +589,10 @@
 >&kwave; har en egen hemsida på <ulink url="&url_homepage;"
 >&url_homepage;</ulink
 >. Här hittar du ytterligare information om projektet, samt information om den nuvarande stabila versionen och aktuella utvecklingsversioner. </para>
+    <para
+>Det finns också en KDE-projektsida på <ulink url="&url_kde_project;"
+>&url_kde_project;</ulink
+> som i huvudsak är intressant för utvecklare. </para>
 
     <para
 >Om du vill hämta en utgåva av &kwave;, har du valet att besöka <ulink url="&url_download;"
@@ -608,7 +618,7 @@
     </para>
 
     <para
->Bli inte förskräckt, det ska vara rätt enkelt att kompilera Kwave även om du inte är en programmerare. Det krävs bara att en del utvecklingspaket installeras. </para>
+>Bli inte förskräckt, det ska vara rätt enkelt att kompilera Kwave även om du inte är en programvaruutvecklare. Det krävs bara att en del utvecklingspaket installeras. </para>
 
     </sect1>
 
@@ -634,11 +644,11 @@
 ></listitem>
 	    <listitem
 ><para
->KDE 4.5 eller senare (åtminstone biblioteken, om du är förtjust i Gnome kan du också köra &kwave; om lämpliga bibliotek är installerade). </para
+>KDE Ramverk 5.2 (KF5) eller senare (åtminstone biblioteken, om du använder ett annat skrivbord kan du också köra &kwave; om lämpliga bibliotek är installerade). </para
 ></listitem>
 	    <listitem
 ><para
->Qt-4.7 eller senare (följer normalt med KDE4) </para
+>Qt-5.4 eller senare (följer normalt med som ett beroende för KF5) </para
 ></listitem>
 	    <listitem
 ><para
@@ -678,11 +688,11 @@
 ><para
 ><ulink url="&url_cmake;"
 >cmake</ulink
->-2.6.0 eller senare </para
+>-2.8.12 eller senare </para
 ></listitem>
 	    <listitem
 ><para
->En aktuell C/C++ kompilator. GCC-4.x fungerar bra, vissa äldre och alla senare versioner (som gcc-5.0) kan också fungera. </para
+>En aktuell C/C++ kompilator. GCC-4.x fungerar bra, vissa äldre och alla senare versioner (som gcc-5.0) ska också fungera. </para
 ></listitem>
 	    <listitem
 ><para
@@ -690,11 +700,7 @@
 ></listitem>
 	    <listitem
 ><para
->KDE-4 utvecklingsmiljö: "kdelibs4-devel", "kdemultimedia4-devel", "kdesdk4". </para
-></listitem>
-	    <listitem
-><para
->Qt-4 utvecklingsmiljö, paketet heter normalt "qt4-devel" eller liknande. </para
+>Qt5- och KF5-utvecklingspaket </para
 ></listitem>
 	    <listitem
 ><para
@@ -907,20 +913,20 @@
 		<listitem
 ><para
 ><literal
->WITH_PHONON</literal
-> aktivera uppspelning via Phonon (bara för test) [<literal
+>WITH_PULSEAUDIO</literal
+> aktivera uppspelning och inspelning via PulseAudio [<literal
 >on</literal
 >/<literal
 >off</literal
 >, förval=<literal
->off</literal
+>on</literal
 >] </para
 ></listitem>
 		<listitem
 ><para
 ><literal
->WITH_PULSEAUDIO</literal
-> aktivera uppspelning och inspelning via PulseAudio [<literal
+>WITH_QT_AUDIO</literal
+> aktivera uppspelning via Qt Multimedia [<literal
 >on</literal
 >/<literal
 >off</literal
@@ -1894,7 +1900,7 @@
 >% </prompt
 ><command
 >kwave <filename
->/usr/share/sounds/KDE_Window*.wav</filename
+>/usr/share/sounds/KDE-*.ogg</filename
 ></command
 ></screen>
 	    </para>
@@ -2341,7 +2347,7 @@
 >Här är en skärmbild av &kwave;s dialogruta för inspelning </screeninfo>
 	    <mediaobject>
 		<imageobject>
-		    <imagedata fileref="kwave-record.png" format="PNG"/>
+		    <imagedata fileref="kwave-plugin-record.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		    <phrase
@@ -5131,6 +5137,19 @@ Exempel: <screen
 	<sect2 id="cmd_sect_edit_label"
 ><title id="cmd_title_edit_label"
 >&no-i18n-cmd_edit_label;</title>
+	<screenshot>
+	    <screeninfo
+>Skärmbild</screeninfo>
+	    <mediaobject>
+		<imageobject>
+		    <imagedata fileref="kwave-edit-label.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		    <phrase
+>Skärmbild av dialogrutan för markörredigering</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
 	<simplesect>
 	    <title
 >&i18n-cmd_syntax;<command
@@ -5180,7 +5199,7 @@ Exempel: <screen
 ><title
 >&no-i18n-tag;f</title>
 
-	<!-- @COMMAND@ fileinfo(keyword,value) -->
+	<!-- @COMMAND@ fileinfo() -->
 	<sect2 id="cmd_sect_fileinfo"
 ><title id="cmd_title_fileinfo"
 >&no-i18n-cmd_fileinfo;</title>
@@ -9117,7 +9136,7 @@ Exempel: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_ogg (TODO) -->
+    <!-- @PLUGIN@ codec_ogg -->
     <sect1 id="plugin_sect_codec_ogg"
 ><title id="plugin_title_codec_ogg"
 >&no-i18n-plugin_codec_ogg; (Ogg Codec)</title>
@@ -9268,7 +9287,7 @@ Exempel: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_wav () -->
+    <!-- @PLUGIN@ codec_wav -->
     <sect1 id="plugin_sect_codec_wav"
 ><title id="plugin_title_codec_wav"
 >&no-i18n-plugin_codec_wav; (WAV Codec)</title>
@@ -9466,7 +9485,7 @@ Exempel: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ fileinfo () -->
+    <!-- @PLUGIN@ fileinfo -->
     <sect1 id="plugin_sect_fileinfo"
 ><title id="plugin_title_fileinfo"
 >&no-i18n-plugin_fileinfo; (File Info)</title>
@@ -9654,7 +9673,7 @@ Exempel: <screen
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ insert_at () -->
+    <!-- @PLUGIN@ insert_at -->
     <sect1 id="plugin_sect_insert_at"
 ><title id="plugin_title_insert_at"
 >&no-i18n-plugin_insert_at; (Insert At)</title>
@@ -10823,6 +10842,8 @@ Exempel: <screen
 	    <listitem>
 	    <para
 >Sparar alla sektioner mellan markörer, var och en i en separat fil. Varje fil ges ett namn som kan anpassas genom att använda ett mönster som kan innehålla originalets filnamn, ett index och antal sektioner. </para>
+	    <para
+>Det tillåts också att filens namnmönster innehåller snedstreck som sökvägsskiljetecken, vilket gör det möjligt att spara sektionerna i olika underkataloger. Observera att alla blanktecken omkring sådana skiljetecken tas bort utan att det nämns, för att undvika att skapa katalognamn som börjar eller slutar med ett blanktecken. </para>
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -10893,6 +10914,32 @@ Exempel: <screen
 ></entry>
 						<entry
 >Ersätts med basfilnamnet, utan sökväg och utan filändelse. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>[%fileinfo{<replaceable
+>nyckelord</replaceable
+>}]</command
+></entry>
+						<entry
+>Ersätts med innehållet i filinformation identiferad av <replaceable
+>nyckelord</replaceable
+>. Se avsnitt <link linkend="file-info-list" endterm="file-info-list-title"
+></link
+> för en lista över alla tillgängliga nyckelord. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>[%title]</command
+></entry>
+						<entry
+>Ersätts med blockets rubrik, som tas från den beskrivande texten från etiketten <emphasis
+>i början</emphasis
+> på blocket. Om texten är tom, återgår den till filens rubrik (se filinformationsobjektet "<link linkend="INF_NAME"
+>Namn</link
+>"). Om den inte heller finns, återgår den till basfilnamnet som beskrivs ovan. </entry>
 					    </row>
 					</tbody>
 				    </tgroup>

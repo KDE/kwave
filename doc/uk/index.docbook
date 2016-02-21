@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY kwave "<application
 >Kwave</application
 >">
@@ -7,9 +7,9 @@
   <!ENTITY % English "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.9.0">
-  <!ENTITY version_tag "0_9_0">
-  <!ENTITY version_year "2015">
+  <!ENTITY version "0.9.1">
+  <!ENTITY version_tag "0_9_1">
+  <!ENTITY version_year "2016">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
   <!ENTITY url_changelog "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/CHANGES">
@@ -20,6 +20,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_kde_project "http://projects.kde.org/projects/kdereview/kwave">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
@@ -32,8 +33,8 @@
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
-  <!ENTITY url_git_instructions "http://sourceforge.net/p/kwave/code/">
-  <!ENTITY url_git_web "http://sourceforge.net/p/kwave/code/commit_browser">
+  <!ENTITY url_git_web_kde "http://quickgit.kde.org/?p=kwave.git">
+  <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY url_git_list_tags "http://sourceforge.net/p/kwave/code/ref/master~/tags/">
   <!ENTITY url_git_master "git://git.code.sf.net/p/kwave/code">
   <!ENTITY i18n-cmd_syntax "Синтаксис: ">
@@ -354,18 +355,20 @@
 >&FDLNotice;</legalnotice>
 
     <date
->2 січня 2015 року</date>
+>21 лютого 2016 року</date>
     <releaseinfo
 >&version;</releaseinfo>
 
     <abstract
 ><para
->&kwave; — проста програма для редагування звукових даних у KDE.</para
+>&kwave; — проста програма для редагування звукових даних на основі KDE Frameworks 5.</para
 ></abstract>
 
     <keywordset>
 	<keyword
 >KDE</keyword>
+	<keyword
+>KF5</keyword>
 	<keyword
 >звук і відео</keyword>
 	<keyword
@@ -400,7 +403,7 @@
 >Вступ</title>
 
     <para
->Це «&kwave;», проста програма для редагування звукових даних у KDE 4. Серед можливостей програми: <itemizedlist>
+>Це «&kwave;», проста програма для редагування звукових даних на основі KDE Frameworks 5. Серед можливостей програми: <itemizedlist>
     	<listitem
 ><para
 >інтерфейс користувача, який може працювати у режимах одного вікна, декількох вікон або вкладок; </para
@@ -435,11 +438,11 @@
 ></listitem>
     	<listitem
 ><para
->відтворення звуку за допомогою ALSA та OSS; </para
+>відтворення звуку за допомогою Qt, PulseAudio, ALSA та OSS; </para
 ></listitem>
     	<listitem
 ><para
->запис звуку за допомогою ALSA і OSS </para
+>запис звуку за допомогою PulseAudio, ALSA і OSS </para
 ></listitem>
     	<listitem
 ><para
@@ -447,7 +450,7 @@
 ></listitem>
     	<listitem
 ><para
->імпортування та експортування даних у форматі Ogg/Vorbis; </para
+>імпортування та експортування даних у форматі Ogg/Vorbis та Opus; </para
 ></listitem>
     	<listitem
 ><para
@@ -471,7 +474,7 @@
 ></listitem>
     	<listitem
 ><para
->відтворення багатоканальних файлів звукових даних (виведений звук буде мікшовано до моно або стерео); </para
+>відтворення багатоканальних файлів звукових даних (виведений звук буде мікшовано до моно або стерео, якщо потрібно); </para
 ></listitem>
 	<listitem
 ><para
@@ -525,15 +528,15 @@
 ><para
 >Сховище GIT<anchor id="git-repository"/> </para>
 	<para
->Крім того, у програми є сховище GIT у системі <ulink url="&url_sourceforge;"
+>Крім того, у програми є нове сховище GIT на серверах KDE та сховище-дзеркало у системі <ulink url="&url_sourceforge;"
 >KDE</ulink
 >, за допомогою якого ви можете отримати початкові коди найсвіжішої версії, що перебуває у розробці. Інструкції щодо отримання доступу до сховища можна знайти у главі щодо <link linkend="building_rpm_from_git"
 >збирання з GIT</link
-> або на сторінці з адресою <ulink url="&url_git_instructions;"
->"&url_git_instructions;"</ulink
->. Крім того, є <ulink url="&url_git_web;"
->чудовий інтерфейс</ulink
->, яким ви можете скористатися для навігації кодом проекту. </para
+>. Крім того, є інтерфейси <ulink url="&url_git_web_kde;"
+>KDE</ulink
+> та <ulink url="&url_git_web_sf;"
+>SourceForge</ulink
+>, якими ви можете скористатися для навігації кодом проекту. </para
 ></listitem>
     </itemizedlist>
 
@@ -553,9 +556,12 @@
     <para
 >З версії &kwave; 0.8.0 до цього підручника більше не включається журнал змін у програмі. Отже, якщо вам потрібен повний список внесених змін, ви можете знайти його тут: <ulink url="&url_changelog;"
 > &url_changelog;</ulink
->, або можете просто ознайомитися із списком внесків за допомогою <ulink url="&url_git_web;"
+>, або можете просто ознайомитися із списком внесків за допомогою <ulink url="&url_git_web_kde;"
 >інтернет-інтерфейсу GIT</ulink
 >. </para>
+
+    <para
+>Версія &kwave; 0.9.0 є першою версією, коди якої зберігаються у системі KDE (kdereview) і на серверах SourceForge. За цією версією випущено версію 0.9.1, першу версію для KDE Frameworks 5. </para>
 
     <!-- changelog cut out, this gives a smaller online help
          and *much* less work for the translators... -->
@@ -583,6 +589,10 @@
 >&kwave; має власну домашню сторінку з адресою <ulink url="&url_homepage;"
 >&url_homepage;</ulink
 >. На ній можна знайти докладнішу інформацію щодо проекту, а також дані щодо поточних стабільної та тестової версії програми. </para>
+    <para
+>Крім того, існує сторінка проекту у системі KDE за адресою <ulink url="&url_kde_project;"
+>&url_kde_project;</ulink
+>, яка здебільшого може бути цікавою для розробників. </para>
 
     <para
 >Якщо вам потрібен певний випуск &kwave;, ви можете відвідати сторінку <ulink url="&url_download;"
@@ -608,7 +618,7 @@
     </para>
 
     <para
->Не хвилюйтеся, збирання Kwave є доволі простою справою, навіть для тих, хто не є програмістом. Для збирання достатньо встановити декілька пакунків для розробки програмного забезпечення. </para>
+>Не хвилюйтеся, збирання Kwave є доволі простою справою, навіть для тих, хто не є програмістом. Для збирання достатньо встановити декілька пакунків для розробки програмного забезпечення і мати певний запас часу. </para>
 
     </sect1>
 
@@ -634,11 +644,11 @@
 ></listitem>
 	    <listitem
 ><para
->KDE-4.5 або новішу версію (принаймні бібліотеки; якщо ви фанат gnome, ви також можете користуватися &kwave;, якщо встановлено відповідні бібліотеки). </para
+>KDE Frameworks 5.2 або новішу версію (принаймні бібліотеки; якщо ви фанат іншого стільничного середовища, ви також можете користуватися &kwave;, якщо встановлено відповідні бібліотеки). </para
 ></listitem>
 	    <listitem
 ><para
->Qt-4.7 або новішу версію (зазвичай, постачається разом з KDE4) </para
+>Qt-5.4 або новішу версію (зазвичай, постачається разом з KF5) </para
 ></listitem>
 	    <listitem
 ><para
@@ -678,11 +688,11 @@
 ><para
 ><ulink url="&url_cmake;"
 >cmake</ulink
->-2.6.0 або новішу версію </para
+>-2.8.12 або новішу версію </para
 ></listitem>
 	    <listitem
 ><para
->Новий компілятор C/C++. Можна скористатися GCC-4.x. Деякі старіші та усі новіші версії (зокрема gcc-5.0) можуть також працювати. </para
+>Новий компілятор C/C++. Можна скористатися GCC-4.x. Деякі старіші та усі новіші версії (зокрема gcc-5.0) мають також працювати. </para
 ></listitem>
 	    <listitem
 ><para
@@ -690,11 +700,7 @@
 ></listitem>
 	    <listitem
 ><para
->Середовище для розробки на основі KDE4: «kdelibs4-devel», «kdemultimedia4-devel», «kdesdk4». </para
-></listitem>
-	    <listitem
-><para
->Середовище для розробки на основі Qt4. Пакунок, зазвичай, має назву «qt4-devel» або подібну. </para
+>Пакунки для розробки для бібліотек Qt5 і KF5 </para
 ></listitem>
 	    <listitem
 ><para
@@ -907,18 +913,6 @@
 		<listitem
 ><para
 ><literal
->WITH_PHONON</literal
-> — увімкнути відтворення за допомогою Phonon (лише для тестування) [<literal
->on</literal
->/<literal
->off</literal
->, типове значення — <literal
->off</literal
->] </para
-></listitem>
-		<listitem
-><para
-><literal
 >WITH_PULSEAUDIO</literal
 > — увімкнути відтворення і запис за допомогою PulseAudio [<literal
 >on</literal
@@ -927,6 +921,18 @@
 >, типове значення — <literal
 >on</literal
 >] </para
+></listitem>
+		<listitem
+><para
+><literal
+>WITH_QT_AUDIO</literal
+> увімкнути відтворення за допомогою Qt Multimedia [<literal
+>on</literal
+>/<literal
+>off</literal
+>, типове значення — =<literal
+>on</literal
+> (увімкнено)] </para
 ></listitem>
 	    </itemizedlist>
 	</para>
@@ -1890,7 +1896,7 @@
 >% </prompt
 ><command
 >kwave <filename
->/usr/share/sounds/KDE_Window*.wav</filename
+>/usr/share/sounds/KDE-*.ogg</filename
 ></command
 ></screen>
 	    </para>
@@ -2331,7 +2337,7 @@
 >Знімок діалогового вікна запису звуку &kwave; </screeninfo>
 	    <mediaobject>
 		<imageobject>
-		    <imagedata fileref="kwave-record.png" format="PNG"/>
+		    <imagedata fileref="kwave-plugin-record.png" format="PNG"/>
 		</imageobject>
 		<textobject>
 		    <phrase
@@ -5075,6 +5081,19 @@
 	<sect2 id="cmd_sect_edit_label"
 ><title id="cmd_title_edit_label"
 >&no-i18n-cmd_edit_label;</title>
+	<screenshot>
+	    <screeninfo
+>Знімок вікна</screeninfo>
+	    <mediaobject>
+		<imageobject>
+		    <imagedata fileref="kwave-edit-label.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		    <phrase
+>Знімок діалогового вікна редагування міток</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
 	<simplesect>
 	    <title
 >&i18n-cmd_syntax;<command
@@ -5124,7 +5143,7 @@
 ><title
 >&no-i18n-tag;f</title>
 
-	<!-- @COMMAND@ fileinfo(keyword,value) -->
+	<!-- @COMMAND@ fileinfo() -->
 	<sect2 id="cmd_sect_fileinfo"
 ><title id="cmd_title_fileinfo"
 >&no-i18n-cmd_fileinfo;</title>
@@ -9005,7 +9024,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_ogg (TODO) -->
+    <!-- @PLUGIN@ codec_ogg -->
     <sect1 id="plugin_sect_codec_ogg"
 ><title id="plugin_title_codec_ogg"
 >&no-i18n-plugin_codec_ogg; (кодек Ogg)</title>
@@ -9156,7 +9175,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ codec_wav () -->
+    <!-- @PLUGIN@ codec_wav -->
     <sect1 id="plugin_sect_codec_wav"
 ><title id="plugin_title_codec_wav"
 >&no-i18n-plugin_codec_wav; (кодек WAV)</title>
@@ -9354,7 +9373,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ fileinfo () -->
+    <!-- @PLUGIN@ fileinfo -->
     <sect1 id="plugin_sect_fileinfo"
 ><title id="plugin_title_fileinfo"
 >&no-i18n-plugin_fileinfo; (відомості про файл)</title>
@@ -9542,7 +9561,7 @@
     </variablelist>
     </sect1>
 
-    <!-- @PLUGIN@ insert_at () -->
+    <!-- @PLUGIN@ insert_at -->
     <sect1 id="plugin_sect_insert_at"
 ><title id="plugin_title_insert_at"
 >&no-i18n-plugin_insert_at; (вставити до)</title>
@@ -10715,6 +10734,8 @@
 	    <listitem>
 	    <para
 >Зберігає усі розділи між позначками, кожен до окремого файла. Кожен файл задається назвою, налаштувати яку можна за допомогою взірця, у який можна включити назву початкового файла, індекс та кількість розділів. </para>
+	    <para
+>Також у зразку назви файла може бути використано похилі риски для відокремлення елементів шляху до файла. За їхньою допомогою можна зберігати розділи до окремих підкаталогів. Будь ласка, зауважте, що усі символи-пробіли навколо таких роздільників шляху буде без попередження вилучено для того, щоб уникнути створення каталогів із назвами, що починаються або завершуються пробілами. </para>
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -10785,6 +10806,32 @@
 ></entry>
 						<entry
 >Буде замінено основною назвою файла, без шляху і суфікса назви. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>[%fileinfo{<replaceable
+>ключове слово</replaceable
+>}]</command
+></entry>
+						<entry
+>Буде замінено на дані з файла, визначені <replaceable
+>ключовим словом</replaceable
+>. Список ключових слів можна знайти у розділі <link linkend="file-info-list" endterm="file-info-list-title"
+></link
+>. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>[%title]</command
+></entry>
+						<entry
+>Буде замінено заголовком блоку, який визначається описовим текстом мітки на <emphasis
+>початку</emphasis
+> блоку. Якщо текстовий фрагмент виявиться порожнім, буде використано резервне значення, назву файла (див. запис даних щодо файла «<link linkend="INF_NAME"
+>Name</link
+>»). Якщо такої назви також не існує, буде використано базову назву файла, описано вище. </entry>
 					    </row>
 					</tbody>
 				    </tgroup>

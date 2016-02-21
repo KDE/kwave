@@ -1,20 +1,20 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2015.
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2015-05-01 02:00+0000\n"
-"PO-Revision-Date: 2015-05-18 23:45+0200\n"
+"POT-Creation-Date: 2016-02-20 07:49+0000\n"
+"PO-Revision-Date: 2016-01-30 16:21+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 1.5\n"
 
 msgctxt "NAME OF TRANSLATORS"
@@ -25,41 +25,41 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "freekdekruijf@kde.nl"
 
-#: kwave/App.cpp:127
+#: kwave/App.cpp:135
 msgid "Reading configuration..."
 msgstr "Configuratie wordt gelezen..."
 
-#: kwave/App.cpp:210
+#: kwave/App.cpp:215
 msgid "Opening main window..."
 msgstr "Hoofdvenster wordt geopend..."
 
-#: kwave/App.cpp:258
+#: kwave/App.cpp:261
 msgid "Startup done"
 msgstr "Opstarten gereed"
 
-#: kwave/FileContext.cpp:208
+#: kwave/FileContext.cpp:210
 msgid "Scanning plugins..."
 msgstr "Plug-ins worden gescand..."
 
-#: kwave/FileContext.cpp:220 kwave/FileContext.cpp:221
+#: kwave/FileContext.cpp:225 kwave/FileContext.cpp:226
 msgid "Loading plugins..."
 msgstr "Plug-ins worden geladen..."
 
-#: kwave/FileContext.cpp:223
+#: kwave/FileContext.cpp:228
 msgid "Ready"
 msgstr "Gereed"
 
-#: kwave/FileContext.cpp:497
+#: kwave/FileContext.cpp:506
 #, kde-format
 msgid "Playback: %1"
 msgstr "Afspelen: %1"
 
-#: kwave/FileContext.cpp:499
+#: kwave/FileContext.cpp:508
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Afspelen: %1 samples"
 
-#: kwave/FileContext.cpp:832
+#: kwave/FileContext.cpp:852
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -67,17 +67,17 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:838
+#: kwave/FileContext.cpp:858
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (gewijzigd)"
 
-#: kwave/FileContext.cpp:943
+#: kwave/FileContext.cpp:964
 msgid "Save As"
 msgstr "Opslaan als"
 
-#: kwave/FileContext.cpp:975
+#: kwave/FileContext.cpp:999
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -86,7 +86,7 @@ msgstr ""
 "Het bestand '%1' bestaat al.\n"
 "Wilt u het overschrijven?"
 
-#: kwave/FileContext.cpp:1043
+#: kwave/FileContext.cpp:1067
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -94,195 +94,271 @@ msgstr ""
 "Dit bestand is gewijzigd.\n"
 "Wilt u het opslaan?"
 
-#: kwave/main.cpp:43
+#: kwave/main.cpp:47 plugins/amplifyfree/AmplifyFreePlugin.cpp:39
+#: plugins/codec_ascii/AsciiCodecPlugin.cpp:30
+#: plugins/codec_audiofile/AudiofileCodecPlugin.cpp:28
+#: plugins/codec_flac/FlacCodecPlugin.cpp:30
+#: plugins/codec_mp3/MP3CodecPlugin.cpp:30
+#: plugins/codec_ogg/OggCodecPlugin.cpp:30
+#: plugins/codec_wav/WavCodecPlugin.cpp:28 plugins/debug/DebugPlugin.cpp:60
+#: plugins/fileinfo/FileInfoPlugin.cpp:31 plugins/goto/GotoPlugin.cpp:30
+#: plugins/goto/InsertAtPlugin.cpp:29 plugins/lowpass/LowPassPlugin.cpp:34
+#: plugins/memory/MemoryPlugin.cpp:36 plugins/newsignal/NewSignalPlugin.cpp:33
+#: plugins/noise/NoisePlugin.cpp:42 plugins/normalize/NormalizePlugin.cpp:55
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:33
+#: plugins/playback/PlayBackPlugin.cpp:70 plugins/record/RecordPlugin.cpp:63
+#: plugins/reverse/ReversePlugin.cpp:46
+#: plugins/samplerate/SampleRatePlugin.cpp:43
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:45
+#: plugins/selectrange/SelectRangePlugin.cpp:36
+#: plugins/sonagram/SonagramPlugin.cpp:56
+#: plugins/stringenter/StringEnterPlugin.cpp:35
+#: plugins/volume/VolumePlugin.cpp:41 plugins/zero/ZeroPlugin.cpp:40
 msgid "Thomas Eschenbacher"
 msgstr "Thomas Eschenbacher"
 
-#: kwave/main.cpp:44
+#: kwave/main.cpp:48
 msgid "Project leader since 2000, core development"
 msgstr "Projectleider sinds 2000, kernontwikkeling"
 
-#: kwave/main.cpp:47
+#: kwave/main.cpp:50
+msgid "http://kwave.sourceforge.net"
+msgstr "http://kwave.sourceforge.net"
+
+#: kwave/main.cpp:53
 msgid "Martin Wilz"
 msgstr "Martin Wilz"
 
-#: kwave/main.cpp:48
+#: kwave/main.cpp:54
 msgid "Creator of the project, development 1998-2000"
 msgstr "Maker van het project, ontwikkeling 1998-2000"
 
-#: kwave/main.cpp:51
+#: kwave/main.cpp:56
+msgid "http://www.wilz.de"
+msgstr "http://www.wilz.de"
+
+#: kwave/main.cpp:58
 msgid "Ralf Waspe"
 msgstr "Ralf Waspe"
 
-#: kwave/main.cpp:52
+#: kwave/main.cpp:59
 msgid "Creator of the Help/About dialog"
 msgstr "Maker van de dialoog Help/Over"
 
-#: kwave/main.cpp:55
+#: kwave/main.cpp:63
 msgid "Caulier Gilles"
 msgstr "Caulier Gilles"
 
-#: kwave/main.cpp:56
-msgid "French translations, splashscreen, tests and bugfixes"
-msgstr "Franse vertaling, startscherm, testen en repareren van bugs"
+#: kwave/main.cpp:64
+msgid "splashscreen, tests and bugfixes"
+msgstr "startscherm, testen en repareren van bugs"
 
-#: kwave/main.cpp:59
+#: kwave/main.cpp:66
+msgid "http://caulier.gilles.free.fr"
+msgstr "http://caulier.gilles.free.fr"
+
+#: kwave/main.cpp:68 plugins/band_pass/BandPassPlugin.cpp:33
+#: plugins/notch_filter/NotchFilterPlugin.cpp:34
 msgid "Dave Flogeras"
 msgstr "Dave Flogeras"
 
-#: kwave/main.cpp:60
+#: kwave/main.cpp:69
 msgid "Notch filter plugin"
 msgstr "Plug-in voor Notch-filter"
 
-#: kwave/main.cpp:63
+#: kwave/main.cpp:73
 msgid "Rik Hemsley"
 msgstr "Rik Hemsley"
 
-#: kwave/main.cpp:64
+#: kwave/main.cpp:74
 msgid "Level meter"
 msgstr "Niveaumeter"
 
-#: kwave/main.cpp:67
+#: kwave/main.cpp:76
+msgid "http://rikkus.info/esoundlevelmeter.html"
+msgstr "http://rikkus.info/esoundlevelmeter.html"
+
+#: kwave/main.cpp:78
 msgid "Joerg-Christian Boehme"
 msgstr "Joerg-Christian Boehme"
 
-#: kwave/main.cpp:68
+#: kwave/main.cpp:79
 msgid "PulseAudio record plugin"
 msgstr "Plug-in voor met PulseAudio opnemen"
 
-#: kwave/main.cpp:73
+#: kwave/main.cpp:85
 msgid "Stefan Westerfeld"
 msgstr "Stefan Westerfeld"
 
-#: kwave/main.cpp:74
+#: kwave/main.cpp:86
 msgid "Author of aRts"
 msgstr "Auteur van aRts"
 
-#: kwave/main.cpp:77
+#: kwave/main.cpp:90
 msgid "Sven-Steffen Arndt"
 msgstr "Sven-Steffen Arndt"
 
-#: kwave/main.cpp:78
+#: kwave/main.cpp:91
 msgid "Kwave homepage and German online help"
 msgstr "Homepagina van Kwave en Duitse online help"
 
-#: kwave/main.cpp:81
+#: kwave/main.cpp:95
 msgid "Aurelien Jarno"
 msgstr "Aurelien Jarno"
 
-#: kwave/main.cpp:82
+#: kwave/main.cpp:96
 msgid "Debian packager"
 msgstr "Pakket maken voor Debian"
 
-#: kwave/main.cpp:85
+#: kwave/main.cpp:100
 msgid "Robert M. Stockmann"
 msgstr "Robert M. Stockmann"
 
-#: kwave/main.cpp:86
+#: kwave/main.cpp:101
 msgid "Packaging for Mandrake / X86_64"
 msgstr "Pakket maken voor Mandrake  / X86_64"
 
-#: kwave/main.cpp:97
+#: kwave/main.cpp:109
 msgid "Martin Kuball"
 msgstr "Martin Kuball"
 
-#: kwave/main.cpp:98
+#: kwave/main.cpp:110
 msgid "Tester"
 msgstr "Tester"
 
-#: kwave/main.cpp:101
+#: kwave/main.cpp:114
 msgid "Robert Leslie"
 msgstr "Robert Leslie"
 
-#: kwave/main.cpp:102
+#: kwave/main.cpp:115
 msgid "Author of the 'mad' MP3 decoder library"
 msgstr "Auteur van de 'mad' MP3-decodeerbibliotheek "
 
-#: kwave/main.cpp:105
+#: kwave/main.cpp:117
+msgid "http://www.mars.org/home/rob/proj/mpeg"
+msgstr "http://www.mars.org/home/rob/proj/mpeg"
+
+#: kwave/main.cpp:119
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr "T.H.F. Klok en Cedric Tefft"
 
-#: kwave/main.cpp:106
+#: kwave/main.cpp:120
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Onderhouders van de bibliotheek 'id3lib'"
 
-#: kwave/main.cpp:109
+#: kwave/main.cpp:122
+msgid "http://www.id3lib.org/"
+msgstr "http://www.id3lib.org/"
+
+#: kwave/main.cpp:124
 msgid "Michael Pruett"
 msgstr "Michael Pruett"
 
-#: kwave/main.cpp:110
+#: kwave/main.cpp:125
 msgid "Author of the 'audiofile' library"
 msgstr "Auteur van de bibliotheek 'audiofile'"
 
-#: kwave/main.cpp:113
+#: kwave/main.cpp:127
+msgid "http://www.68k.org/~michael/audiofile/"
+msgstr "http://www.68k.org/~michael/audiofile/"
+
+#: kwave/main.cpp:129
 msgid "Carlos R."
 msgstr "Carlos R."
 
-#: kwave/main.cpp:114
+#: kwave/main.cpp:130
 msgid "Spanish translation"
 msgstr "Spaanse vertaling"
 
-#: kwave/main.cpp:117
+#: kwave/main.cpp:134
 msgid "Erik de Castro Lopo"
 msgstr "Erik de Castro Lopo"
 
-#: kwave/main.cpp:118
+#: kwave/main.cpp:135
 msgid "Author of the 'sndfile' library"
 msgstr "Auteur van de bibliotheek 'sndfile'"
 
-#: kwave/main.cpp:121
+#: kwave/main.cpp:137
+msgid "http://www.mega-nerd.com/libsndfile/"
+msgstr "http://www.mega-nerd.com/libsndfile/"
+
+#: kwave/main.cpp:139
 msgid "Pavel Fric"
 msgstr "Pavel Fric"
 
-#: kwave/main.cpp:122
+#: kwave/main.cpp:140
 msgid "Czech translation"
 msgstr "Czech translation"
 
-#: kwave/main.cpp:125
+#: kwave/main.cpp:142
+msgid "http://fripohled.blogspot.com"
+msgstr "http://fripohled.blogspot.com"
+
+#: kwave/main.cpp:144
 msgid "Panagiotis Papadopoulos"
 msgstr "Panagiotis Papadopoulos"
 
-#: kwave/main.cpp:126
+#: kwave/main.cpp:145
 msgid "String and i18n updates"
 msgstr "Tekenreeks en i18n bijwerken"
 
-#: kwave/main.cpp:142
-msgid "Disable the Splash Screen"
-msgstr "Opstartscherm uitschakelen"
+#: kwave/main.cpp:165
+msgid "Disable the Splash Screen."
+msgstr "Opstartscherm uitschakelen."
 
-#: kwave/main.cpp:143
-msgid "Start Kwave iconified"
-msgstr "Kwave starten als pictogram"
+#: kwave/main.cpp:169
+msgid "Start Kwave iconified."
+msgstr "Kwave starten als pictogram."
 
-#: kwave/main.cpp:144
-msgid "Log all commands into a file"
-msgstr "Alle commando's in een bestand loggen"
+#: kwave/main.cpp:174
+msgctxt "description of command line parameter"
+msgid "Log all commands into a file <file>."
+msgstr "Alle commando's in een bestand loggen <file>."
 
-#: kwave/main.cpp:145
-msgid "GUI type: SDI, MDI or TAB mode"
-msgstr "GUI-type: SDI-, MDI- of TAB-modus"
+#: kwave/main.cpp:175
+msgctxt "placeholder of command line parameter"
+msgid "file"
+msgstr "bestand"
 
-#: kwave/main.cpp:146
-msgid "List of audio files"
-msgstr "Lijst met geluidsbestanden"
+#: kwave/main.cpp:180
+msgctxt "description of command line parameter"
+msgid "Select a GUI type: SDI, MDI or TAB mode."
+msgstr "Een GUI-type kiezen: SDI-, MDI- of TAB-modus."
 
-#: kwave/main.cpp:150
+#: kwave/main.cpp:181
+msgctxt "placeholder of command line parameter"
+msgid "sdi|mdi|tab"
+msgstr "sdi|mdi|tab"
+
+#: kwave/main.cpp:185
+msgid ""
+"List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
+msgstr ""
+"Lijst met geluidsbestanden, te openen Kwave macrobestanden of Kwave URL's "
+"(optioneel)"
+
+#: kwave/main.cpp:187
+msgctxt "placeholder of command line parameter"
+msgid "[files...]"
+msgstr "[bestanden...]"
+
+#: kwave/main.cpp:195
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:152
-msgid "A sound editor for KDE"
-msgstr "Een geluidsbewerker voor KDE"
+#: kwave/main.cpp:197
+msgid "A sound editor built on KDE Frameworks 5"
+msgstr "Een geluidsbewerker gebouwd op het KDE Frameworks 5"
 
-#: kwave/main.cpp:154
-msgid "(c) 2014, Thomas Eschenbacher"
-msgstr "(c) 2014, Thomas Eschenbacher"
+#: kwave/main.cpp:199
+msgid "(c) 2016, Thomas Eschenbacher"
+msgstr "(c) 2016, Thomas Eschenbacher"
 
-#: kwave/MainWidget.cpp:879 libkwave/SignalManager.cpp:1900
+#: kwave/MainWidget.cpp:883 libkwave/SignalManager.cpp:1894
 msgid "Add Label"
 msgstr "Label toevoegen"
 
-#: kwave/MainWidget.cpp:997
+#: kwave/MainWidget.cpp:1001
 msgid ""
 "There already is a label at the position you have chosen.\n"
 "Do you want to replace it?"
@@ -290,7 +366,7 @@ msgstr ""
 "Er is al een label op de positie die u hebt gekozen.\n"
 "Wilt u het vervangen?"
 
-#: kwave/MainWidget.cpp:1024
+#: kwave/MainWidget.cpp:1028
 msgid "Modify Label"
 msgstr "Label wijzigen"
 
@@ -803,9 +879,9 @@ msgid "Rewind"
 msgstr "Terugspoelen"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
-#. i18n: ectx: property (toolTip), widget (KPushButton, btRecord)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
 #: kwave/PlayerToolBar.cpp:91 plugins/record/RecordDlg.ui:17
-#: plugins/record/RecordDlg.ui:207 plugins/record/RecordPlugin.cpp:60
+#: plugins/record/RecordDlg.ui:207 plugins/record/RecordPlugin.cpp:62
 msgid "Record"
 msgstr "Opnemen"
 
@@ -837,74 +913,74 @@ msgstr "Verdergaan met afspelen"
 msgid "Pause playback"
 msgstr "Afspelen pauzeren"
 
-#: kwave/Splash.cpp:54
+#: kwave/Splash.cpp:57
 #, kde-format
 msgctxt "%1=Version number"
 msgid "v%1"
 msgstr "v%1"
 
-#: kwave/TopWidget.cpp:267
+#: kwave/TopWidget.cpp:274
 msgid "Loading main menu..."
 msgstr "Hoofdmenu wordt geladen..."
 
-#: kwave/TopWidget.cpp:343
+#: kwave/TopWidget.cpp:347
 msgid "Initializing toolbar..."
 msgstr "werkbalk wordt geïnitialiseerd..."
 
-#: kwave/TopWidget.cpp:352
+#: kwave/TopWidget.cpp:356
 msgid "Create a new empty file"
 msgstr "Een nieuw leeg bestand aanmaken"
 
-#: kwave/TopWidget.cpp:357
+#: kwave/TopWidget.cpp:361
 msgid "Open an existing file"
 msgstr "Een bestaand bestand openen"
 
-#: kwave/TopWidget.cpp:362
+#: kwave/TopWidget.cpp:366
 msgid "Save the current file"
 msgstr "Het huidige bestand opslaan"
 
-#: kwave/TopWidget.cpp:367
+#: kwave/TopWidget.cpp:371
 msgid "Save the current file under a different name or file format..."
 msgstr ""
 "Het huidige bestand met een andere naam of in een ander formaat opslaan..."
 
-#: kwave/TopWidget.cpp:372
+#: kwave/TopWidget.cpp:376
 msgid "Close the current file"
 msgstr "Het huidige bestand sluiten"
 
-#: kwave/TopWidget.cpp:383
+#: kwave/TopWidget.cpp:387
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: kwave/TopWidget.cpp:388
+#: kwave/TopWidget.cpp:392
 msgid "Redo"
 msgstr "Opnieuw"
 
-#: kwave/TopWidget.cpp:393 libkwave/SignalManager.cpp:684
+#: kwave/TopWidget.cpp:397 libkwave/SignalManager.cpp:680
 msgid "Cut"
 msgstr "Knippen"
 
-#: kwave/TopWidget.cpp:398
+#: kwave/TopWidget.cpp:402
 msgid "Copy"
 msgstr "Kopiëren"
 
-#: kwave/TopWidget.cpp:403 libkwave/undo/UndoInsertAction.cpp:44
+#: kwave/TopWidget.cpp:407 libkwave/undo/UndoInsertAction.cpp:44
 msgid "Insert"
 msgstr "Invoegen"
 
-#: kwave/TopWidget.cpp:411
+#: kwave/TopWidget.cpp:415
 msgid "Mute selection"
 msgstr "Selectie dempen"
 
-#: kwave/TopWidget.cpp:416
+#: kwave/TopWidget.cpp:420
 msgid "Delete selection"
 msgstr "Selectie verwijderen"
 
-#: kwave/TopWidget.cpp:752
+#: kwave/TopWidget.cpp:758
 msgid "Reset the toolbar to default settings?"
 msgstr "De werkbalk naar de standaardinstellingen herstellen?"
 
-#: kwave/TopWidget.cpp:776
+#: kwave/TopWidget.cpp:783
 msgid ""
 "Re-enable all disabled notifications?\n"
 "All messages that you previously turned off by activating the \"Do not ask "
@@ -914,65 +990,63 @@ msgstr ""
 "Alle meldingen die u eerder hebt uit gezet door het keuzevakje \"Niet "
 "opnieuw vragen\" te activeren zullen dan weer worden ingeschakeld."
 
-#: kwave/TopWidget.cpp:986
+#: kwave/TopWidget.cpp:1004
 #, kde-format
 msgid "Executing command '%1'..."
 msgstr "Commando '%1' wordt uitgevoerd..."
 
-#: kwave/TopWidget.cpp:1006
+#: kwave/TopWidget.cpp:1024
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
 msgstr "Kwave-script in bestand '%1' wordt uitgevoerd..."
 
-#: kwave/TopWidget.cpp:1016
+#: kwave/TopWidget.cpp:1034
 #, kde-format
 msgid "Loading file '%1'..."
 msgstr "Bezig met laden van bestand '%1'..."
 
-#: kwave/TopWidget.cpp:1030 plugins/codec_audiofile/AudiofileDecoder.cpp:104
+#: kwave/TopWidget.cpp:1048 plugins/codec_audiofile/AudiofileDecoder.cpp:104
 #: plugins/codec_flac/FlacEncoder.cpp:246
 #: plugins/codec_flac/FlacEncoder.cpp:264
 #: plugins/codec_flac/FlacEncoder.cpp:279 plugins/codec_mp3/MP3Decoder.cpp:507
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:388
 #: plugins/codec_ogg/OpusEncoder.cpp:381 plugins/codec_ogg/OpusEncoder.cpp:434
-#: plugins/codec_wav/WavDecoder.cpp:365 plugins/codec_wav/WavEncoder.cpp:428
+#: plugins/codec_wav/WavDecoder.cpp:365 plugins/codec_wav/WavEncoder.cpp:427
 #: plugins/playback/PlayBack-OSS.cpp:245 plugins/playback/PlayBack-OSS.cpp:253
-#: plugins/playback/PlayBack-Phonon.cpp:150
-#: plugins/playback/PlayBack-Phonon.cpp:181
-#: plugins/playback/PlayBack-Phonon.cpp:194
-#: plugins/record/RecordPlugin.cpp:876 plugins/record/RecordPlugin.cpp:892
-#: plugins/record/RecordPlugin.cpp:962
+#: plugins/playback/PlayBack-Qt.cpp:172 plugins/playback/PlayBack-Qt.cpp:177
+#: plugins/record/RecordPlugin.cpp:879 plugins/record/RecordPlugin.cpp:895
+#: plugins/record/RecordPlugin.cpp:965
 msgid "Out of memory"
 msgstr "Onvoldoende geheugen"
 
-#: kwave/TopWidget.cpp:1034
+#: kwave/TopWidget.cpp:1052
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
 msgstr "Kon '%1' niet openen"
 
-#: kwave/TopWidget.cpp:1038
+#: kwave/TopWidget.cpp:1056
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr "Ongeldig of onbekend bestandstype: '%1'"
 
-#: kwave/TopWidget.cpp:1074
+#: kwave/TopWidget.cpp:1094
 msgid "Open"
 msgstr "Openen"
 
-#: kwave/TopWidget.cpp:1124
+#: kwave/TopWidget.cpp:1148
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr "Lengte: %1 (%2 samples)"
 
-#: kwave/TopWidget.cpp:1135
+#: kwave/TopWidget.cpp:1159
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Modus: %1 kHz @ %2 Bit"
 
-#: kwave/TopWidget.cpp:1181
+#: kwave/TopWidget.cpp:1205
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -980,7 +1054,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Geselecteerd: %1...%2 (%3 samples)"
 
-#: kwave/TopWidget.cpp:1193
+#: kwave/TopWidget.cpp:1217
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -988,146 +1062,155 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr "Geselecteerd: %1...%2 (%3)"
 
-#: kwave/TopWidget.cpp:1212
+#: kwave/TopWidget.cpp:1236
 #, kde-format
 msgid "Position: %1"
 msgstr "Positie: %1"
 
-#: kwave/TopWidget.cpp:1238
+#: kwave/TopWidget.cpp:1262
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr "Ongedaan maken (%1)"
 
-#: kwave/TopWidget.cpp:1240
+#: kwave/TopWidget.cpp:1264
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: kwave/TopWidget.cpp:1249
+#: kwave/TopWidget.cpp:1273
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr "Opnieuw (%1)"
 
-#: kwave/TopWidget.cpp:1251
+#: kwave/TopWidget.cpp:1275
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Opnieuw"
 
-#: kwave/TopWidget.cpp:1261
+#: kwave/TopWidget.cpp:1285
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "Ongedaan maken (%1)"
 
-#: kwave/TopWidget.cpp:1262
+#: kwave/TopWidget.cpp:1286
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: kwave/TopWidget.cpp:1268
+#: kwave/TopWidget.cpp:1292
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "Opnieuw (%1)"
 
-#: kwave/TopWidget.cpp:1269
+#: kwave/TopWidget.cpp:1293
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr "Opnieuw"
 
-#: kwave/ZoomToolBar.cpp:66
+#: kwave/ZoomToolBar.cpp:67
 msgid "Zoom to selection"
 msgstr "Tot selectie inzoomen"
 
-#: kwave/ZoomToolBar.cpp:72
+#: kwave/ZoomToolBar.cpp:73
 msgid "Zoom in"
 msgstr "Inzoomen"
 
-#: kwave/ZoomToolBar.cpp:78
+#: kwave/ZoomToolBar.cpp:79
 msgid "Zoom out"
 msgstr "Uitzoomen"
 
-#: kwave/ZoomToolBar.cpp:84
+#: kwave/ZoomToolBar.cpp:85
 msgid "Zoom to 100%"
 msgstr "Zoomen naar 100%"
 
-#: kwave/ZoomToolBar.cpp:90
+#: kwave/ZoomToolBar.cpp:91
 msgid "Zoom to all"
 msgstr "Inzoomen tot alles"
 
-#: kwave/ZoomToolBar.cpp:98
+#: kwave/ZoomToolBar.cpp:99
 msgid "Select zoom factor"
 msgstr "Zoomfactor selecteren"
 
-#: kwave/ZoomToolBar.cpp:107 kwave/ZoomToolBar.cpp:108
-#: kwave/ZoomToolBar.cpp:109
+#: kwave/ZoomToolBar.cpp:108 kwave/ZoomToolBar.cpp:109
+#: kwave/ZoomToolBar.cpp:110
 #, kde-format
 msgid "%1 ms"
 msgstr "%1 ms"
 
-#: kwave/ZoomToolBar.cpp:110 kwave/ZoomToolBar.cpp:111
-#: kwave/ZoomToolBar.cpp:112
+#: kwave/ZoomToolBar.cpp:111 kwave/ZoomToolBar.cpp:112
+#: kwave/ZoomToolBar.cpp:113
 #, kde-format
 msgid "%1 sec"
 msgstr "%1 sec"
 
-#: kwave/ZoomToolBar.cpp:113 kwave/ZoomToolBar.cpp:114
-#: kwave/ZoomToolBar.cpp:115 kwave/ZoomToolBar.cpp:116
-#: kwave/ZoomToolBar.cpp:117 kwave/ZoomToolBar.cpp:118
+#: kwave/ZoomToolBar.cpp:114 kwave/ZoomToolBar.cpp:115
+#: kwave/ZoomToolBar.cpp:116 kwave/ZoomToolBar.cpp:117
+#: kwave/ZoomToolBar.cpp:118 kwave/ZoomToolBar.cpp:119
 #, kde-format
 msgid "%1 min"
 msgstr "%1 min"
 
-#: libgui/CurveWidget.cpp:76
+#: libgui/CurveWidget.cpp:80
 msgid "Interpolation"
 msgstr "interpolatie"
 
-#: libgui/CurveWidget.cpp:81
+#: libgui/CurveWidget.cpp:85
 msgid "Transform"
 msgstr "Transformeren"
 
-#: libgui/CurveWidget.cpp:84
+#: libgui/CurveWidget.cpp:88
 msgid "Flip horizontal"
 msgstr "Horizontaal omklappen"
 
-#: libgui/CurveWidget.cpp:86
+#: libgui/CurveWidget.cpp:90
 msgid "Flip vertical"
 msgstr "Vertikaal omklappen"
 
-#: libgui/CurveWidget.cpp:89
+#: libgui/CurveWidget.cpp:93
 msgid "Into first half"
 msgstr "Naar eerste helft"
 
-#: libgui/CurveWidget.cpp:91
+#: libgui/CurveWidget.cpp:95
 msgid "Into second half"
 msgstr "Naar tweede helft"
 
-#: libgui/CurveWidget.cpp:94 libkwave/SignalManager.cpp:711
+#: libgui/CurveWidget.cpp:98 libkwave/SignalManager.cpp:707
 #: libkwave/undo/UndoDeleteAction.cpp:56
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: libgui/CurveWidget.cpp:98
+#: libgui/CurveWidget.cpp:102
 msgid "Fit In"
 msgstr "Passend"
 
-#: libgui/CurveWidget.cpp:102
+#: libgui/CurveWidget.cpp:106
 msgid "Presets"
 msgstr "Voorinstellingen"
 
-#: libgui/CurveWidget.cpp:111
+#: libgui/CurveWidget.cpp:115
 msgid "Save Preset"
 msgstr "Voorinstelling opslaan"
 
-#: libgui/CurveWidget.cpp:116
+#: libgui/CurveWidget.cpp:120
 msgid "Currently Selected Point"
 msgstr "Nu geselecteerd punt"
 
-#: libgui/CurveWidget.cpp:119
+#: libgui/CurveWidget.cpp:123
 msgid "Every Second Point"
 msgstr "Elk tweede punt"
+
+#: libgui/CurveWidget.cpp:198
+msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
+msgid "Kwave curve preset (*.curve)"
+msgstr "Kwave kromme voorinstelling (*.curve)"
+
+#: libgui/CurveWidget.cpp:201
+msgid "Save Curve Preset"
+msgstr "Voorinstelling van kromme opslaan"
 
 #: libgui/FilterPlugin.cpp:230
 #, kde-format
@@ -1145,8 +1228,8 @@ msgid " min"
 msgstr " min"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbSeconds)
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, sbLevelFadeOut)
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, sbLevelFadeIn)
+#. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelFadeOut)
+#. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelFadeIn)
 #: libgui/HMSTimeWidgetBase.ui:55 plugins/record/RecordDlg.ui:556
 #: plugins/record/RecordDlg.ui:572
 msgid " sec"
@@ -1164,13 +1247,13 @@ msgctxt "tooltip of a label, without description, %1=index"
 msgid "Label #%1"
 msgstr "Label #%1"
 
-#: libgui/LabelItem.cpp:93
-msgid "&Label"
-msgstr "&Label"
+#: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:214
+msgid "Label"
+msgstr "Label"
 
-#: libgui/LabelItem.cpp:105
-msgid "&New"
-msgstr "&Nieuw"
+#: libgui/LabelItem.cpp:105 libgui/TrackView.cpp:221
+msgid "New"
+msgstr "Nieuw"
 
 #: libgui/LabelItem.cpp:113
 msgid "&Delete"
@@ -1203,12 +1286,12 @@ msgstr ""
 msgid "Description:"
 msgstr "Beschrijving:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edDescription)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edDescription)
 #: libgui/LabelPropertiesWidgetBase.ui:61
 msgid "some description of the label (optional)"
 msgstr "een beschrijving van het label (optioneel)"
 
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, edDescription)
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, edDescription)
 #: libgui/LabelPropertiesWidgetBase.ui:65
 msgid ""
 "<b>label description:</b><br>\n"
@@ -1227,12 +1310,12 @@ msgstr "Positie:"
 msgid "Index:"
 msgstr "Index:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, lblIndex)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, lblIndex)
 #: libgui/LabelPropertiesWidgetBase.ui:95
 msgid "index of the label"
 msgstr "index van het label"
 
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, lblIndex)
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, lblIndex)
 #: libgui/LabelPropertiesWidgetBase.ui:99
 msgid ""
 "<b>label index</b><br>\n"
@@ -1253,7 +1336,7 @@ msgstr "frmLength"
 
 #. i18n: ectx: property (title), widget (QGroupBox, SelectTimeWidgetBase)
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox1)
-#: libgui/SelectTimeWidgetBase.ui:23 libkwave/FileInfo.cpp:152
+#: libgui/SelectTimeWidgetBase.ui:23 libkwave/FileInfo.cpp:171
 #: plugins/newsignal/NewSigDlg.ui:323
 msgid "Length"
 msgstr "Lengte"
@@ -1334,7 +1417,7 @@ msgstr "100%"
 msgid "sets the selection by the percentage of the whole signal"
 msgstr "stelt de selectie in op het percentage van het gehele signaal"
 
-#: libgui/SignalView.cpp:335
+#: libgui/SignalView.cpp:333
 #, kde-format
 msgctxt ""
 "tooltip within the selection, %1=position in samples, %2=position as a time"
@@ -1347,75 +1430,67 @@ msgstr ""
 "%1\n"
 "%2"
 
-#: libgui/SignalView.cpp:391
+#: libgui/SignalView.cpp:389
 msgid "Selection, left border"
 msgstr "Selectie, linker grens"
 
-#: libgui/SignalView.cpp:395
+#: libgui/SignalView.cpp:393
 msgid "Selection, right border"
 msgstr "Selectie, rechter grens"
 
-#: libgui/SignalView.cpp:648 libgui/SignalView.cpp:700
+#: libgui/SignalView.cpp:646 libgui/SignalView.cpp:699
 msgid "Drag and Drop"
 msgstr "Slepen en neerzetten"
 
-#: libgui/SignalWidget.cpp:202
+#: libgui/SignalWidget.cpp:199
 msgid "&Undo"
 msgstr "&Ongedaan maken"
 
-#: libgui/SignalWidget.cpp:212
+#: libgui/SignalWidget.cpp:209
 msgid "&Redo"
 msgstr "Opnie&uw"
 
-#: libgui/SignalWidget.cpp:223
+#: libgui/SignalWidget.cpp:220
 msgid "Cu&t"
 msgstr "Kni&ppen"
 
-#: libgui/SignalWidget.cpp:227
+#: libgui/SignalWidget.cpp:224
 msgid "&Copy"
 msgstr "&Kopiëren"
 
-#: libgui/SignalWidget.cpp:231
+#: libgui/SignalWidget.cpp:228
 msgid "&Paste"
 msgstr "P&lakken"
 
-#: libgui/SignalWidget.cpp:247 libkwave/undo/UndoSelection.cpp:51
+#: libgui/SignalWidget.cpp:244 libkwave/undo/UndoSelection.cpp:51
 msgid "Selection"
 msgstr "Selectie"
 
-#: libgui/SignalWidget.cpp:254
+#: libgui/SignalWidget.cpp:251
 msgid "&Save..."
 msgstr "Op&slaan..."
 
-#: libgui/SignalWidget.cpp:261
+#: libgui/SignalWidget.cpp:258
 msgid "&Expand to Labels"
 msgstr "Naar labels &expanderen"
 
-#: libgui/SignalWidget.cpp:269
+#: libgui/SignalWidget.cpp:266
 msgid "To Next Labels"
 msgstr "Naar volgende labels"
 
-#: libgui/SignalWidget.cpp:278
+#: libgui/SignalWidget.cpp:275
 msgid "To Previous Labels"
 msgstr "Naar vorige labels"
 
-#: libgui/TrackView.cpp:214
-msgid "Label"
-msgstr "Label"
-
-#: libgui/TrackView.cpp:221
-msgid "New"
-msgstr "Nieuw"
-
-#: libkwave/CodecManager.cpp:220
+#: libkwave/CodecManager.cpp:224
 msgid "Kwave Macro Files"
 msgstr "Kwave macrobestanden"
 
-#: libkwave/CodecManager.cpp:224
+#: libkwave/CodecManager.cpp:228
 msgid "All Files"
 msgstr "Alle bestanden"
 
-#: libkwave/CodecManager.cpp:226
+#: libkwave/CodecManager.cpp:230
 msgid "All Supported Files"
 msgstr "Alle ondersteunde bestanden"
 
@@ -1507,11 +1582,11 @@ msgstr "Ogg Opus"
 msgid "Do you really want to abort the current action?"
 msgstr "Wilt u de huidige actie afbreken?"
 
-#: libkwave/FileInfo.cpp:44
+#: libkwave/FileInfo.cpp:37
 msgid "Album"
 msgstr "Album"
 
-#: libkwave/FileInfo.cpp:45
+#: libkwave/FileInfo.cpp:38
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more medias."
@@ -1519,11 +1594,11 @@ msgstr ""
 "Naam van het album als de bron een album is\n"
 "dat bestaat uit meerdere media."
 
-#: libkwave/FileInfo.cpp:48
+#: libkwave/FileInfo.cpp:42
 msgid "Annotation"
 msgstr "Annotatie"
 
-#: libkwave/FileInfo.cpp:50 libkwave/FileInfo.cpp:93
+#: libkwave/FileInfo.cpp:44 libkwave/FileInfo.cpp:98
 msgid ""
 "Provides general comments about the file or the subject of\n"
 "the file. If the comment is several sentences long, end\n"
@@ -1534,19 +1609,19 @@ msgstr ""
 "het bestand. Als de opmerking verschillende zinnen lang is, eindigt\n"
 "elke zin met  punt. Geen tekens nieuwe-regel toevoegen!"
 
-#: libkwave/FileInfo.cpp:55
+#: libkwave/FileInfo.cpp:50
 msgid "Archival location"
 msgstr "Locatie van archief"
 
-#: libkwave/FileInfo.cpp:56
+#: libkwave/FileInfo.cpp:51
 msgid "Indicates where the subject of the file is archived."
 msgstr "Geeft aan waar het onderwerp van het bestand is gearchiveerd."
 
-#: libkwave/FileInfo.cpp:58
+#: libkwave/FileInfo.cpp:54
 msgid "Author"
 msgstr "Auteur"
 
-#: libkwave/FileInfo.cpp:59
+#: libkwave/FileInfo.cpp:55
 msgid ""
 "Identifies the name of the author of the original\n"
 "subject of the file.\n"
@@ -1556,27 +1631,27 @@ msgstr ""
 "onderwerp van het bestand aan.\n"
 "Voorbeeld: 'van Beethoven, Ludwig'"
 
-#: libkwave/FileInfo.cpp:63
+#: libkwave/FileInfo.cpp:60
 msgid "Lower Bitrate"
 msgstr "Laagste bitrate"
 
-#: libkwave/FileInfo.cpp:64
+#: libkwave/FileInfo.cpp:61
 msgid "Specifies the lower limit in a VBR bitstream."
 msgstr "Geeft de onderste grens aan in een VBR-bitstream."
 
-#: libkwave/FileInfo.cpp:66
+#: libkwave/FileInfo.cpp:64
 msgid "Bitrate Mode"
 msgstr "Modus bitsnelheid"
 
-#: libkwave/FileInfo.cpp:67
+#: libkwave/FileInfo.cpp:65
 msgid "Bitrate Mode (ABR, VBR, CBR, etc...)"
 msgstr "Modus bitsnelheid (ABR, VBR, CBR, etc....)"
 
-#: libkwave/FileInfo.cpp:69
+#: libkwave/FileInfo.cpp:68
 msgid "Bitrate"
 msgstr "Bitsnelheid"
 
-#: libkwave/FileInfo.cpp:71
+#: libkwave/FileInfo.cpp:70
 msgid "Nominal bitrate of the audio stream in bits per second"
 msgstr "Nominale bitsnelheid van de audiostream in bits per seconde"
 
@@ -1588,35 +1663,35 @@ msgstr "Hoogste bitrate"
 msgid "Specifies the upper limit in a VBR bitstream."
 msgstr "Geeft de bovenste grens aan in een VBR-bitstream."
 
-#: libkwave/FileInfo.cpp:76
+#: libkwave/FileInfo.cpp:77
 msgid "Bits per Sample"
 msgstr "Bits per sample"
 
-#: libkwave/FileInfo.cpp:77
+#: libkwave/FileInfo.cpp:78
 msgid "Specifies the number of bits per sample."
 msgstr "Geeft het aantal bits per sample aan."
 
-#: libkwave/FileInfo.cpp:79
+#: libkwave/FileInfo.cpp:81
 msgid "CD"
 msgstr "cd"
 
-#: libkwave/FileInfo.cpp:81
+#: libkwave/FileInfo.cpp:83
 msgid "Number of the CD, if the source is an album of more CDROMs"
 msgstr "Nummer van de cd, als de bron een album is met meerdere cd-ROM's"
 
-#: libkwave/FileInfo.cpp:83
+#: libkwave/FileInfo.cpp:86
 msgid "CDS"
 msgstr "Cd's"
 
-#: libkwave/FileInfo.cpp:85
+#: libkwave/FileInfo.cpp:88
 msgid "Number of CDs, if the source is an album of more CDROMs"
 msgstr "Aantal cd's, als de bron een album is met meerdere cd-ROM's"
 
-#: libkwave/FileInfo.cpp:87
+#: libkwave/FileInfo.cpp:91
 msgid "Commissioned"
 msgstr "Ingesteld"
 
-#: libkwave/FileInfo.cpp:88
+#: libkwave/FileInfo.cpp:92
 msgid ""
 "Lists the name of the person or organization\n"
 "that commissioned the subject of the file."
@@ -1624,16 +1699,16 @@ msgstr ""
 "Geeft de naam van de persoon of organisatie\n"
 "die het onderwerp van het bestand heeft ingesteld."
 
-#: libkwave/FileInfo.cpp:91
+#: libkwave/FileInfo.cpp:96
 msgid "Comments"
 msgstr "Opmerkingen"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_compression)
-#: libkwave/FileInfo.cpp:98 plugins/fileinfo/FileInfoDlg.ui:611
+#: libkwave/FileInfo.cpp:104 plugins/fileinfo/FileInfoDlg.ui:611
 msgid "Compression"
 msgstr "Compressie"
 
-#: libkwave/FileInfo.cpp:99
+#: libkwave/FileInfo.cpp:105
 msgid ""
 "Sets a mode for compressing the audio\n"
 "data to reduce disk space."
@@ -1641,11 +1716,11 @@ msgstr ""
 "Stelt een modus in voor compressie van de\n"
 "audio-gegevens om schijfruimte te verminderen."
 
-#: libkwave/FileInfo.cpp:102
+#: libkwave/FileInfo.cpp:109
 msgid "Contact"
 msgstr "Contactpersoon"
 
-#: libkwave/FileInfo.cpp:103
+#: libkwave/FileInfo.cpp:110
 msgid ""
 "Contact information for the creators or distributors of\n"
 "the track. This could be a URL, an email address, the\n"
@@ -1655,11 +1730,11 @@ msgstr ""
 "de track. Dit zou een URL-adres, een e-mailadres, het\n"
 "fysieke adres van het productielabel kunnen zijn."
 
-#: libkwave/FileInfo.cpp:107
+#: libkwave/FileInfo.cpp:115
 msgid "Copyright"
 msgstr "Copyright"
 
-#: libkwave/FileInfo.cpp:108
+#: libkwave/FileInfo.cpp:116
 msgid ""
 "Records the copyright information for the file. If there are\n"
 "multiple copyrights, separate them by a semicolon followed\n"
@@ -1671,19 +1746,19 @@ msgstr ""
 "gevolgd door een spatie.\n"
 "Voorbeeld: 'Copyright Linux community 2002'"
 
-#: libkwave/FileInfo.cpp:114
+#: libkwave/FileInfo.cpp:123
 msgid "Copyrighted"
 msgstr "Auteursrechtelijk beschermd"
 
-#: libkwave/FileInfo.cpp:115
+#: libkwave/FileInfo.cpp:124
 msgid "Indicates whether the file is protected by copyright or not."
 msgstr "Geeft aan of het bestand is beschermd met copyright of niet."
 
-#: libkwave/FileInfo.cpp:118
+#: libkwave/FileInfo.cpp:128
 msgid "Date"
 msgstr "Datum"
 
-#: libkwave/FileInfo.cpp:119
+#: libkwave/FileInfo.cpp:129
 msgid ""
 "Specifies the date the subject of the file was created.\n"
 "Example: '2001-12-24'"
@@ -1691,11 +1766,11 @@ msgstr ""
 "Geeft de datum aan waarop het onderwerp van het bestand is gemaakt.\n"
 "Voorbeeld: '2001-12-24'"
 
-#: libkwave/FileInfo.cpp:122
+#: libkwave/FileInfo.cpp:133
 msgid "Engineer"
 msgstr "Technicus"
 
-#: libkwave/FileInfo.cpp:123
+#: libkwave/FileInfo.cpp:134
 msgid ""
 "Shows the name of the engineer who worked on the file.\n"
 "If there are multiple engineers, separate the names by\n"
@@ -1705,35 +1780,35 @@ msgstr ""
 "Als er meerdere technici zijn, scheidt de namen door\n"
 "een puntkomma en een spatie."
 
-#: libkwave/FileInfo.cpp:127
+#: libkwave/FileInfo.cpp:139
 msgid "Estimated Length"
 msgstr "Geschatte lengte"
 
-#: libkwave/FileInfo.cpp:128
+#: libkwave/FileInfo.cpp:140
 msgid "Estimated length of the file in samples"
 msgstr "Geschatte lengte van het bestand in samples"
 
-#: libkwave/FileInfo.cpp:130
+#: libkwave/FileInfo.cpp:143
 msgid "Filename"
 msgstr "Bestandsnaam"
 
-#: libkwave/FileInfo.cpp:131
+#: libkwave/FileInfo.cpp:144
 msgid "Name of the opened file"
 msgstr "Naam van het geopende bestand"
 
-#: libkwave/FileInfo.cpp:133
+#: libkwave/FileInfo.cpp:147
 msgid "File Size"
 msgstr "Bestandsgrootte"
 
-#: libkwave/FileInfo.cpp:134
+#: libkwave/FileInfo.cpp:148
 msgid "Size of the file in bytes"
 msgstr "Grootte van het bestand in bytes"
 
-#: libkwave/FileInfo.cpp:136
+#: libkwave/FileInfo.cpp:151
 msgid "Genre"
 msgstr "Genre"
 
-#: libkwave/FileInfo.cpp:137
+#: libkwave/FileInfo.cpp:152
 msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
@@ -1741,11 +1816,11 @@ msgstr ""
 "Beschrijft het genre of de stijl van het originele werk.\n"
 "Bijvoorbeeld: 'klassiek', 'pop'"
 
-#: libkwave/FileInfo.cpp:140
+#: libkwave/FileInfo.cpp:156
 msgid "ISRC"
 msgstr "ISRC"
 
-#: libkwave/FileInfo.cpp:141
+#: libkwave/FileInfo.cpp:157
 msgid ""
 "ISRC number for the track; see the ISRC intro page\n"
 "for more information on ISRC numbers.\n"
@@ -1756,11 +1831,11 @@ msgstr ""
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeywordWidgetBase)
-#: libkwave/FileInfo.cpp:145 plugins/fileinfo/KeywordWidgetBase.ui:14
+#: libkwave/FileInfo.cpp:162 plugins/fileinfo/KeywordWidgetBase.ui:14
 msgid "Keywords"
 msgstr "Trefwoorden"
 
-#: libkwave/FileInfo.cpp:146
+#: libkwave/FileInfo.cpp:163
 msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
@@ -1768,23 +1843,23 @@ msgstr ""
 "Biedt een lijst met trefwoorden die naar het\n"
 "bestand of onderwerp van het bestand verwijzen."
 
-#: libkwave/FileInfo.cpp:149
+#: libkwave/FileInfo.cpp:167
 msgid "Labels"
 msgstr "Labels"
 
-#: libkwave/FileInfo.cpp:150
+#: libkwave/FileInfo.cpp:168
 msgid "The list of labels/markers."
 msgstr "De lijst van labels/markers."
 
-#: libkwave/FileInfo.cpp:153
+#: libkwave/FileInfo.cpp:172
 msgid "Length of the file in samples."
 msgstr "Lengte van het bestand in samples."
 
-#: libkwave/FileInfo.cpp:155
+#: libkwave/FileInfo.cpp:175
 msgid "License"
 msgstr "Licentie"
 
-#: libkwave/FileInfo.cpp:156
+#: libkwave/FileInfo.cpp:176
 msgid ""
 "License information, e.g., 'All Rights Reserved',\n"
 "'Any Use Permitted', an URL to a license or the\n"
@@ -1800,11 +1875,11 @@ msgstr ""
 "See http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
 "voor details'), etc."
 
-#: libkwave/FileInfo.cpp:163
+#: libkwave/FileInfo.cpp:184
 msgid "Medium"
 msgstr "Medium"
 
-#: libkwave/FileInfo.cpp:164
+#: libkwave/FileInfo.cpp:185
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
@@ -1814,51 +1889,51 @@ msgstr ""
 "waar het voor het eerst is opgenomen.\n"
 "Voorbeeld: 'orkest'"
 
-#: libkwave/FileInfo.cpp:168
+#: libkwave/FileInfo.cpp:190
 msgid "Mime Type"
 msgstr "Mime-bestandstype"
 
-#: libkwave/FileInfo.cpp:169
+#: libkwave/FileInfo.cpp:191
 msgid "Mime type of the file format"
 msgstr "Mime-type van het bestandsformaat"
 
-#: libkwave/FileInfo.cpp:171
+#: libkwave/FileInfo.cpp:194
 msgid "Emphasis"
 msgstr "Accentuering"
 
-#: libkwave/FileInfo.cpp:172
+#: libkwave/FileInfo.cpp:195
 msgid "Audio emphasis mode"
 msgstr "Audio emphasis-modus"
 
-#: libkwave/FileInfo.cpp:174
+#: libkwave/FileInfo.cpp:198
 msgid "Layer"
 msgstr "Laag"
 
-#: libkwave/FileInfo.cpp:175
+#: libkwave/FileInfo.cpp:199
 msgid "MPEG Layer, I, II or III"
 msgstr "MPEG Layer, I, II or III"
 
-#: libkwave/FileInfo.cpp:177
+#: libkwave/FileInfo.cpp:202
 msgid "Mode Extension"
 msgstr "Extensie van modus"
 
-#: libkwave/FileInfo.cpp:178
+#: libkwave/FileInfo.cpp:203
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "Extensie van MPEG-modus (alleen bij verbonden stereo)"
 
-#: libkwave/FileInfo.cpp:180 libkwave/FileInfo.cpp:255
+#: libkwave/FileInfo.cpp:206 libkwave/FileInfo.cpp:300
 msgid "Version"
 msgstr "Versie"
 
-#: libkwave/FileInfo.cpp:181
+#: libkwave/FileInfo.cpp:207
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr "MPEG Versie, 1, 2 or 2.5"
 
-#: libkwave/FileInfo.cpp:183
+#: libkwave/FileInfo.cpp:210
 msgid "Name"
 msgstr "Naam"
 
-#: libkwave/FileInfo.cpp:184
+#: libkwave/FileInfo.cpp:211
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: \"Symphony No.6, Op.68 'Pastoral'\""
@@ -1866,22 +1941,22 @@ msgstr ""
 "Slaat de titel van het onderwerp van het bestand op.\n"
 "Voorbeeld: \"Symphony No.6, Op.68 'Pastoral'\""
 
-#: libkwave/FileInfo.cpp:187
+#: libkwave/FileInfo.cpp:215
 msgid "Opus Frame Length"
 msgstr "Framelengte van Opus"
 
-#: libkwave/FileInfo.cpp:188
+#: libkwave/FileInfo.cpp:216
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
 msgstr ""
 "Framelengte van Opus in ms (ondersteunde waarden zijn 2.5, 5, 10, 20, 40 of "
 "60 ms)"
 
-#: libkwave/FileInfo.cpp:191
+#: libkwave/FileInfo.cpp:220
 msgid "Organization"
 msgstr "Organisatie"
 
-#: libkwave/FileInfo.cpp:192
+#: libkwave/FileInfo.cpp:221
 msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
@@ -1889,19 +1964,19 @@ msgstr ""
 "Naam van de organisatie die de track heeft geproduceerd\n"
 "(bijv. het 'record label')"
 
-#: libkwave/FileInfo.cpp:195
+#: libkwave/FileInfo.cpp:225
 msgid "Original"
 msgstr "Origineel"
 
-#: libkwave/FileInfo.cpp:196
+#: libkwave/FileInfo.cpp:226
 msgid "Indicates whether the file is an original or a copy"
 msgstr "Geeft aan of het bestand een origineel of een kopie is"
 
-#: libkwave/FileInfo.cpp:198
+#: libkwave/FileInfo.cpp:229
 msgid "Performer"
 msgstr "Uitvoerders"
 
-#: libkwave/FileInfo.cpp:199
+#: libkwave/FileInfo.cpp:230
 msgid ""
 "The artist(s) who performed the work. In classical\n"
 "music this would be the conductor, orchestra, soloists.\n"
@@ -1911,19 +1986,19 @@ msgstr ""
 "music this would be the conductor, orchestra, soloists.\n"
 "In an audio book it would be the actor who did the reading."
 
-#: libkwave/FileInfo.cpp:203
+#: libkwave/FileInfo.cpp:235
 msgid "Private"
 msgstr "Privé"
 
-#: libkwave/FileInfo.cpp:204
+#: libkwave/FileInfo.cpp:236
 msgid "Indicates whether the subject is private"
 msgstr "Geeft aan of het onderwerp privé is"
 
-#: libkwave/FileInfo.cpp:206
+#: libkwave/FileInfo.cpp:239
 msgid "Product"
 msgstr "Product"
 
-#: libkwave/FileInfo.cpp:207
+#: libkwave/FileInfo.cpp:240
 msgid ""
 "Specifies the name or the title the\n"
 "file was originally intended for.\n"
@@ -1933,11 +2008,11 @@ msgstr ""
 "het bestand oorspronkelijk was bedoeld.\n"
 "Voorbeeld: 'Linux audio-verzameling'"
 
-#: libkwave/FileInfo.cpp:211
+#: libkwave/FileInfo.cpp:245
 msgid "Sample Format"
 msgstr "Formaat van sample"
 
-#: libkwave/FileInfo.cpp:212
+#: libkwave/FileInfo.cpp:246
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
@@ -1945,19 +2020,19 @@ msgstr ""
 "Gebruikt formaat voor opslag van de gedigitaliseerd audio-samples.\n"
 "Voorbeeld: '32-bit IEEE floating-point'"
 
-#: libkwave/FileInfo.cpp:215
+#: libkwave/FileInfo.cpp:250
 msgid "Sample Rate"
 msgstr "Samplesnelheid"
 
-#: libkwave/FileInfo.cpp:216
+#: libkwave/FileInfo.cpp:251
 msgid "Number of samples per second\n"
 msgstr "Aantal samples per seconde\n"
 
-#: libkwave/FileInfo.cpp:218
+#: libkwave/FileInfo.cpp:254
 msgid "Software"
 msgstr "Software"
 
-#: libkwave/FileInfo.cpp:219
+#: libkwave/FileInfo.cpp:255
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file.\n"
@@ -1969,12 +2044,12 @@ msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_source)
 #. i18n: ectx: property (title), widget (QGroupBox, grpSource)
-#: libkwave/FileInfo.cpp:223 plugins/fileinfo/FileInfoDlg.ui:1346
+#: libkwave/FileInfo.cpp:260 plugins/fileinfo/FileInfoDlg.ui:1346
 #: plugins/record/RecordDlg.ui:978 plugins/record/RecordDlg.ui:984
 msgid "Source"
 msgstr "Bron"
 
-#: libkwave/FileInfo.cpp:224
+#: libkwave/FileInfo.cpp:261
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
@@ -1984,11 +2059,11 @@ msgstr ""
 "die het originele onderwerp van het bestand leverde.\n"
 "Voorbeeld: 'Chaotic Sound Research'"
 
-#: libkwave/FileInfo.cpp:228
+#: libkwave/FileInfo.cpp:266
 msgid "Source form"
 msgstr "Vorm van bron"
 
-#: libkwave/FileInfo.cpp:229
+#: libkwave/FileInfo.cpp:267
 msgid ""
 "Identifies the original form of\n"
 "the material that was digitized.\n"
@@ -1998,11 +2073,11 @@ msgstr ""
 "het materiaal dat is gedigitaliseerd.\n"
 "Voorbeelden: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 
-#: libkwave/FileInfo.cpp:234
+#: libkwave/FileInfo.cpp:273
 msgid "Subject"
 msgstr "Onderwerp"
 
-#: libkwave/FileInfo.cpp:235
+#: libkwave/FileInfo.cpp:274
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
@@ -2010,11 +2085,11 @@ msgstr ""
 "Geeft het onderwerp van het bestand.\n"
 "Voorbeeld: 'Vogelgeluiden in de vroege morgen'"
 
-#: libkwave/FileInfo.cpp:238
+#: libkwave/FileInfo.cpp:278
 msgid "Technician"
 msgstr "Technicus"
 
-#: libkwave/FileInfo.cpp:240
+#: libkwave/FileInfo.cpp:280
 msgid ""
 "Identifies the technician who digitized the subject file.\n"
 "Example: 'Torvalds, Linus'"
@@ -2022,40 +2097,40 @@ msgstr ""
 "Geeft de technicus die het betreffende bestand digitaliseerde.\n"
 "Voorbeeld: 'Torvald, Linus'"
 
-#: libkwave/FileInfo.cpp:243
+#: libkwave/FileInfo.cpp:284
 msgid "Track"
 msgstr "Track"
 
-#: libkwave/FileInfo.cpp:244
+#: libkwave/FileInfo.cpp:285
 msgid "Track of the CD if the source was a CDROM."
 msgstr "Track van de cd als de bron een cd-ROM was."
 
-#: libkwave/FileInfo.cpp:246
+#: libkwave/FileInfo.cpp:288
 msgid "Tracks"
 msgstr "Tracks"
 
-#: libkwave/FileInfo.cpp:247
+#: libkwave/FileInfo.cpp:289
 msgid "Number of tracks of the CD if the source was a CDROM."
 msgstr "Aantal tracks van de cd als de bron een cd-ROM was."
 
-#: libkwave/FileInfo.cpp:249
+#: libkwave/FileInfo.cpp:292
 msgid "Channels"
 msgstr "Kanalen"
 
-#: libkwave/FileInfo.cpp:250
+#: libkwave/FileInfo.cpp:293
 msgid "Specifies the number of channels of the signal."
 msgstr "Geeft het aantal kanalen van het signaal aan."
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompressionBaseQuality)
-#: libkwave/FileInfo.cpp:252 plugins/fileinfo/CompressionWidgetBase.ui:218
+#: libkwave/FileInfo.cpp:296 plugins/fileinfo/CompressionWidgetBase.ui:236
 msgid "Base Quality"
 msgstr "Basiskwaliteit"
 
-#: libkwave/FileInfo.cpp:253
+#: libkwave/FileInfo.cpp:297
 msgid "Base quality of the compression in VBR mode"
 msgstr "Basiskwaliteit van de compressie in VBR=modus"
 
-#: libkwave/FileInfo.cpp:256
+#: libkwave/FileInfo.cpp:301
 msgid ""
 "May be used to differentiate multiple versions\n"
 "of the same track title in a single collection.\n"
@@ -2065,71 +2140,71 @@ msgstr ""
 "van dezelfde tracktitel in een enkele verzameling.\n"
 "(bijv. remix-info)"
 
-#: libkwave/FileProgress.cpp:87
+#: libkwave/FileProgress.cpp:90
 msgid "Source: "
 msgstr "Bron: "
 
-#: libkwave/FileProgress.cpp:93
+#: libkwave/FileProgress.cpp:96
 msgid "Length: "
 msgstr "Lengte: "
 
-#: libkwave/FileProgress.cpp:100
+#: libkwave/FileProgress.cpp:103
 msgid "Sample rate: "
 msgstr "Samplesnelheid: "
 
-#: libkwave/FileProgress.cpp:101
+#: libkwave/FileProgress.cpp:104
 #, kde-format
 msgid "%1 Samples per second"
 msgstr "%1 samples per seconde"
 
-#: libkwave/FileProgress.cpp:105
+#: libkwave/FileProgress.cpp:108
 msgid "Resolution: "
 msgstr "Resolutie: "
 
-#: libkwave/FileProgress.cpp:106
+#: libkwave/FileProgress.cpp:109
 #, kde-format
 msgid "%1 Bits per sample"
 msgstr "%1 bits per sample"
 
-#: libkwave/FileProgress.cpp:110
+#: libkwave/FileProgress.cpp:113
 msgid "Tracks: "
 msgstr "Tracks: "
 
-#: libkwave/FileProgress.cpp:113
+#: libkwave/FileProgress.cpp:116
 msgid "1 (mono)"
 msgstr "1 (mono)"
 
-#: libkwave/FileProgress.cpp:116
+#: libkwave/FileProgress.cpp:119
 msgid "2 (stereo)"
 msgstr "2 (stereo)"
 
-#: libkwave/FileProgress.cpp:119
+#: libkwave/FileProgress.cpp:122
 msgid "4 (quadro)"
 msgstr "4 (quadro)"
 
-#: libkwave/FileProgress.cpp:195
+#: libkwave/FileProgress.cpp:198
 msgid "Do you really want to abort the operation?"
 msgstr "Wilt u de bewerking afbreken?"
 
-#: libkwave/FileProgress.cpp:267
+#: libkwave/FileProgress.cpp:270
 #, kde-format
 msgid "%1 kB/s (%2 remaining)"
 msgstr "%1 kB/s (%2 resterend)"
 
-#: libkwave/FileProgress.cpp:273
+#: libkwave/FileProgress.cpp:276
 #, kde-format
 msgid "%1 MB of %2 MB done"
 msgstr "%1 MB van %2 MB gereed"
 
-#: libkwave/FileProgress.cpp:318
+#: libkwave/FileProgress.cpp:321
 #, kde-format
 msgctxt "%1=Progress in percentage, %2=path to file"
 msgid "(%1%) %2"
 msgstr "(%1%) %2"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
-#: libkwave/FileProgress.cpp:350 plugins/fileinfo/FileInfoDialog.cpp:275
-#: plugins/record/RecordDialog.cpp:578 plugins/record/RecordDlg.ui:1133
+#: libkwave/FileProgress.cpp:353 plugins/fileinfo/FileInfoDialog.cpp:275
+#: plugins/record/RecordDialog.cpp:590 plugins/record/RecordDlg.ui:1133
 #, no-c-format, kde-format
 msgid "%1 samples"
 msgstr "%1 samples"
@@ -2698,12 +2773,12 @@ msgstr "Polynoom, 7de graad"
 msgid "Sample and Hold"
 msgstr "Sample en vasthouden"
 
-#: libkwave/Logger.cpp:79
+#: libkwave/Logger.cpp:77
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
 msgstr "Openen van het logbestand '%1' voor schrijven is mislukt"
 
-#: libkwave/PlaybackController.cpp:652
+#: libkwave/PlaybackController.cpp:656
 #, kde-format
 msgid "Unable to open '%1'"
 msgstr "Kon '%1' niet openen"
@@ -2716,29 +2791,29 @@ msgstr "ALSA (Advanced Linux Sound Architecture)"
 msgid "OSS (Open Sound System)"
 msgstr "OSS (Open Sound System)"
 
-#: libkwave/PlayBackTypesMap.cpp:44
-msgid "Phonon (KDE)"
-msgstr "Phonon (KDE)"
-
-#: libkwave/PlayBackTypesMap.cpp:49 plugins/record/RecordTypesMap.cpp:47
+#: libkwave/PlayBackTypesMap.cpp:44 plugins/record/RecordTypesMap.cpp:47
 msgid "Pulse Audio"
 msgstr "Pulseaudio"
+
+#: libkwave/PlayBackTypesMap.cpp:49
+msgid "Qt Multimedia Audio"
+msgstr "Qt Multimedia Audio"
 
 #: libkwave/Plugin.cpp:194
 #, kde-format
 msgid "Running plugin '%1'..."
 msgstr "Plug-in '%1' uitvoeren..."
 
-#: libkwave/PluginManager.cpp:175
+#: libkwave/PluginManager.cpp:177
 #, kde-format
 msgid "The plugin '%1' is unknown or invalid."
 msgstr "De plug-in '%1' is onbekend of ongeldig."
 
-#: libkwave/PluginManager.cpp:176
+#: libkwave/PluginManager.cpp:178
 msgid "Error On Loading Plugin"
 msgstr "Fout tijdens laden van plug-in"
 
-#: libkwave/PluginManager.cpp:652
+#: libkwave/PluginManager.cpp:677
 #, kde-format
 msgid "Loading plugin %1..."
 msgstr "Bezig plug-in %1 te laden..."
@@ -2759,11 +2834,11 @@ msgstr "32-bit IEEE Floating-Point"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-bit IEEE Double Precision Floating-Point"
 
-#: libkwave/SignalManager.cpp:332
+#: libkwave/SignalManager.cpp:329
 msgid "Signal is empty, nothing to save."
 msgstr "Signaal is leeg, niets op te slaan."
 
-#: libkwave/SignalManager.cpp:368
+#: libkwave/SignalManager.cpp:365
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -2775,95 +2850,97 @@ msgstr ""
 "%1\n"
 "Wilt u toch doorgaan?"
 
-#: libkwave/SignalManager.cpp:406 plugins/record/RecordPlugin.cpp:984
-msgid " for KDE "
-msgstr " voor KDE "
+#: libkwave/SignalManager.cpp:402 plugins/about/AboutDialog.cpp:75
+#: plugins/record/RecordPlugin.cpp:986
+#, kde-format
+msgid "(built for KDE Frameworks %1)"
+msgstr "(gebouwd voor KDE Frameworks %1)"
 
-#: libkwave/SignalManager.cpp:466
+#: libkwave/SignalManager.cpp:462
 msgid "An error occurred while saving the file."
 msgstr "Fout opgetreden tijdens het opslaan van het bestand."
 
-#: libkwave/SignalManager.cpp:478
+#: libkwave/SignalManager.cpp:474
 msgid "The file has been truncated and might be corrupted."
 msgstr "Het bestand is ingekort en kan corrupt zijn."
 
-#: libkwave/SignalManager.cpp:487
+#: libkwave/SignalManager.cpp:483
 msgid "Sorry, the file type is not supported."
 msgstr "Helaas, dit bestandstype wordt niet ondersteund."
 
-#: libkwave/SignalManager.cpp:660
+#: libkwave/SignalManager.cpp:656
 msgid "Insert Clipboard at position"
 msgstr "Klembord op de positie invoegen"
 
-#: libkwave/SignalManager.cpp:670
+#: libkwave/SignalManager.cpp:666
 msgid "Paste"
 msgstr "Plakken"
 
-#: libkwave/SignalManager.cpp:692
+#: libkwave/SignalManager.cpp:688
 msgid "Crop"
 msgstr "Uitsnijden"
 
-#: libkwave/SignalManager.cpp:743
+#: libkwave/SignalManager.cpp:739
 msgid "Expand Selection to Label"
 msgstr "Selectie expanderen tot label"
 
-#: libkwave/SignalManager.cpp:772
+#: libkwave/SignalManager.cpp:768
 msgid "Select Next Labels"
 msgstr "Volgende labels selecteren"
 
-#: libkwave/SignalManager.cpp:810
+#: libkwave/SignalManager.cpp:806
 msgid "Select Previous Labels"
 msgstr "Vorige labels selecteren"
 
-#: libkwave/SignalManager.cpp:850
+#: libkwave/SignalManager.cpp:846
 msgid "Select All Tracks"
 msgstr "Selecteer alle tracks"
 
-#: libkwave/SignalManager.cpp:854
+#: libkwave/SignalManager.cpp:850
 msgid "Deselect all tracks"
 msgstr "Alle tracks deselecteren"
 
-#: libkwave/SignalManager.cpp:858
+#: libkwave/SignalManager.cpp:854
 msgid "Invert Track Selection"
 msgstr "Trackselectie omkeren"
 
-#: libkwave/SignalManager.cpp:864
+#: libkwave/SignalManager.cpp:860
 msgid "Select Track"
 msgstr "Track selecteren"
 
-#: libkwave/SignalManager.cpp:869
+#: libkwave/SignalManager.cpp:865
 msgid "Deselect Track"
 msgstr "Trackselectie opheffen"
 
-#: libkwave/SignalManager.cpp:874
+#: libkwave/SignalManager.cpp:870
 msgid "Toggle Track Selection"
 msgstr "Trackselectie omschakelen"
 
-#: libkwave/SignalManager.cpp:916
+#: libkwave/SignalManager.cpp:912
 msgid "Append Track"
 msgstr "Track achtervoegen"
 
-#: libkwave/SignalManager.cpp:923 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:919 libkwave/undo/UndoInsertTrack.cpp:44
 msgid "Insert Track"
 msgstr "Spoor invoegen"
 
-#: libkwave/SignalManager.cpp:965 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:961 libkwave/undo/UndoDeleteTrack.cpp:45
 msgid "Delete Track"
 msgstr "Verwijder markeerpunt"
 
-#: libkwave/SignalManager.cpp:1127
+#: libkwave/SignalManager.cpp:1123
 msgid "Insert Space"
 msgstr "Ruimte invoegen"
 
-#: libkwave/SignalManager.cpp:1400
+#: libkwave/SignalManager.cpp:1396
 msgid "Not enough memory for saving undo information."
 msgstr "Onvoldoende geheugen om informatie voor ongedaan maken op te slaan."
 
-#: libkwave/SignalManager.cpp:1402
+#: libkwave/SignalManager.cpp:1398
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Wilt u doorgaan zonder de mogelijk van ongedaan maken?"
 
-#: libkwave/SignalManager.cpp:1404
+#: libkwave/SignalManager.cpp:1400
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -2872,47 +2949,47 @@ msgstr ""
 "<b>Hint</b>: u kunt de hoeveelheid beschikbare<br>geheugen voor ongedaan "
 "maken instellen onder '%1'/'%2'."
 
-#: libkwave/SignalManager.cpp:1406
-#: plugins/stringenter/StringEnterPlugin.cpp:50
+#: libkwave/SignalManager.cpp:1402
+#: plugins/stringenter/StringEnterPlugin.cpp:54
 msgid "Settings"
 msgstr "Instellingen"
 
-#: libkwave/SignalManager.cpp:1408
+#: libkwave/SignalManager.cpp:1403
 msgid "Memory"
 msgstr "Geheugen"
 
-#: libkwave/SignalManager.cpp:1555 libkwave/SignalManager.cpp:1562
+#: libkwave/SignalManager.cpp:1549 libkwave/SignalManager.cpp:1556
 msgid "Last Action"
 msgstr "Laatste actie"
 
-#: libkwave/SignalManager.cpp:1852
+#: libkwave/SignalManager.cpp:1846
 msgid "Modify File Info"
 msgstr "Bestandsinformatie wijzigen"
 
-#: libkwave/SignalManager.cpp:1928
+#: libkwave/SignalManager.cpp:1922
 msgid "Delete Label"
 msgstr "Label verwijderen"
 
-#: libkwave/SignalManager.cpp:2011
+#: libkwave/SignalManager.cpp:2005
 msgid "Manual Track Selection"
 msgstr "Handmatige trackselectie"
 
-#: libkwave/SignalManager.cpp:2014
+#: libkwave/SignalManager.cpp:2008
 msgid "Manual Selection"
 msgstr "Handmatige invoer"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btNew)
-#: libkwave/SignalManager.h:47 plugins/record/RecordDlg.ui:153
+#. i18n: ectx: property (toolTip), widget (QPushButton, btNew)
+#: libkwave/SignalManager.h:46 plugins/record/RecordDlg.ui:153
 msgid "New File"
 msgstr "Nieuw bestand"
 
-#: libkwave/undo/UndoAddMetaDataAction.cpp:109
+#: libkwave/undo/UndoAddMetaDataAction.cpp:111
 #, kde-format
 msgctxt "name of the undo action for inserting a meta data object"
 msgid "Insert %1"
 msgstr "%1 invoegen"
 
-#: libkwave/undo/UndoAddMetaDataAction.cpp:129
+#: libkwave/undo/UndoAddMetaDataAction.cpp:131
 #, kde-format
 msgctxt ""
 "name of the undo action for inserting multiple meta data objects of the same "
@@ -2920,7 +2997,7 @@ msgctxt ""
 msgid "Insert %1 %2 objects"
 msgstr "%1 %2 objecten invoegen"
 
-#: libkwave/undo/UndoAddMetaDataAction.cpp:135
+#: libkwave/undo/UndoAddMetaDataAction.cpp:136
 msgid "Insert Meta Data"
 msgstr "Metagegevens invoegen"
 
@@ -2938,7 +3015,7 @@ msgctxt ""
 msgid "Delete %1 %2 objects"
 msgstr "Objecten %1 %2 verwijderen"
 
-#: libkwave/undo/UndoDeleteMetaDataAction.cpp:84
+#: libkwave/undo/UndoDeleteMetaDataAction.cpp:83
 msgid "Delete Meta Data"
 msgstr "Metagegevens verwijderen"
 
@@ -2964,11 +3041,11 @@ msgstr "%1 %2 objecten wijzigen"
 msgid "Modify Meta Data"
 msgstr "Metagegevens wijzigen"
 
-#: libkwave/Utils.cpp:120
+#: libkwave/Utils.cpp:118
 #, c-format
 msgctxt "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"
 msgid "%02u:%02u:%02u.%04u"
-msgstr ""
+msgstr "%02u:%02u:%02u.%04u"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
 #: libkwave/WindowFunction.cpp:32 plugins/fileinfo/FileInfoDlg.ui:987
@@ -2987,96 +3064,89 @@ msgstr "Hanning"
 msgid "Blackman"
 msgstr "Blackman"
 
-#: plugins/about/AboutDialog.cpp:68
-#, kde-format
-msgid "(built for KDE %1)"
-msgstr "(gebouwd voor KDE %1)"
-
-#: plugins/about/AboutDialog.cpp:100
+#: plugins/about/AboutDialog.cpp:115
 msgid "name"
 msgstr "naam"
 
-#: plugins/about/AboutDialog.cpp:100
+#: plugins/about/AboutDialog.cpp:115
 msgid "version"
 msgstr "versie"
 
-#: plugins/about/AboutDialog.cpp:100
+#: plugins/about/AboutDialog.cpp:115
 msgid "authors"
 msgstr "auteurs"
 
-#: plugins/about/AboutDialog.cpp:120
+#: plugins/about/AboutDialog.cpp:139
 #, kde-format
 msgid "Plugins found: %1"
 msgstr "Gevonden plug-ins: %1"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, AboutDialogBase)
-#: plugins/about/AboutDialogBase.ui:23 plugins/about/AboutPlugin.cpp:28
+#: plugins/about/AboutDialogBase.ui:23 plugins/about/AboutPlugin.cpp:30
 msgid "About Kwave"
 msgstr "Info over Kwave"
 
 #. i18n: ectx: property (text), widget (QLabel, header)
-#: plugins/about/AboutDialogBase.ui:47
+#: plugins/about/AboutDialogBase.ui:56
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr "<h1>Kwave - een geluidsbewerker voor KDE</h1>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, about_tab)
-#: plugins/about/AboutDialogBase.ui:61
+#: plugins/about/AboutDialogBase.ui:70
 msgid "About"
 msgstr "Info over"
 
 #. i18n: ectx: property (text), widget (QLabel, abouttext)
-#: plugins/about/AboutDialogBase.ui:156
+#: plugins/about/AboutDialogBase.ui:165
 msgid ""
-"<h2>Kwave is a sound editor designed for the KDE Desktop Environment. </"
-"h2><br>\n"
-"With Kwave you can edit many sorts of\n"
-"audio files including multi track files.\n"
-"You are able to alter and play back each\n"
-"track on its own.<br>\n"
-"Kwave also includes many plugins (some\n"
-"are still under development) to transform\n"
-"the audio data in several ways and presents\n"
-"a graphical view with a complete zoom\n"
-"and scroll capability."
+"<html><head/><body><p><span style=\" font-size:x-large; font-weight:600;"
+"\">Kwave is a sound editor designed for the KDE Desktop Environment. </"
+"span></p><p><br/>With Kwave you can edit many sorts of audio files including "
+"multi track files. You are able to alter and play back each track on its own."
+"<br/>Kwave also includes many plugins  to transform the audio data in "
+"several ways and presents a graphical view with a complete zoom and scroll "
+"capability.</p></body></html>"
 msgstr ""
-"<h2>Kwave is een geluidsbewerker ontworpen voor de KDE Desktop Environment.</"
-"h2><br>\n"
-"Met Kwave kunt u vele soorten geluidsbestanden\n"
-"bewerken inclusief multi-track bestanden.\n"
-"U kunt elke track apart veranderen en afslpelen.<br>\n"
-"Kwave bevat ook vele plug-ins (sommigen\n"
-"zijn nog steeds in ontwikkeling) om geluid\n"
-"op verschillende manieren om te vormen en biedt\n"
-"een grafische weergave met een complete mogelijkheid\n"
-"tot zoomen en schuiven."
+"<html><head/><body><p><span style=\" font-size:x-large; font-weight:600;"
+"\">Kwave is een geluidsbewerker ontworpen voor de KDE Desktop Environment.</"
+"span></p><p><br/>Met Kwave kunt u vele soorten geluidsbestanden bewerken "
+"inclusief multi-track bestanden. U kunt elke track apart veranderen en "
+"afspelen.<br/>Kwave bevat ook vele plug-ins (sommigen zijn nog steeds in "
+"ontwikkeling) om geluid op verschillende manieren om te vormen en biedt een "
+"grafische weergave met een complete mogelijkheid tot zoomen en schuiven.</"
+"p></body></html>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, authors_tab)
-#: plugins/about/AboutDialogBase.ui:176
+#: plugins/about/AboutDialogBase.ui:185
 msgid "Authors"
 msgstr "Auteurs"
 
 #. i18n: ectx: attribute (title), widget (QWidget, thanks_tab)
-#: plugins/about/AboutDialogBase.ui:193
+#: plugins/about/AboutDialogBase.ui:202
 msgid "Thanks To"
 msgstr "Met dank aan"
 
 #. i18n: ectx: attribute (title), widget (QWidget, plugins_tab)
-#: plugins/about/AboutDialogBase.ui:210
+#: plugins/about/AboutDialogBase.ui:219
 msgid "Plugins info"
 msgstr "Informatie over plug-ins"
 
 #. i18n: ectx: attribute (title), widget (QWidget, translations_tab)
-#: plugins/about/AboutDialogBase.ui:237
+#: plugins/about/AboutDialogBase.ui:246
 msgid "Translation"
 msgstr "Vertaling"
 
 #. i18n: ectx: attribute (title), widget (QWidget, license_tab)
-#: plugins/about/AboutDialogBase.ui:254
+#: plugins/about/AboutDialogBase.ui:263
 msgid "License agreement"
 msgstr "Licentieovereenkomst"
 
+#: plugins/about/AboutPlugin.cpp:31
+msgid "Ralf Waspe & Gilles Caulier"
+msgstr "Ralf Waspe & Gilles Caulier"
+
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:43
-#: plugins/sonagram/SonagramWindow.cpp:149
+#: plugins/sonagram/SonagramWindow.cpp:159
 msgid "ms"
 msgstr "ms"
 
@@ -3090,72 +3160,72 @@ msgstr "%"
 #. i18n: ectx: property (windowTitle), widget (QDialog, AmplifyFreeDlg)
 #: plugins/amplifyfree/AmplifyFreeDlg.ui:15
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:38
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:68
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:69
 msgid "Amplify Free"
 msgstr "Vrij versterken"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelFadeIn)
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:45
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:46
 #: plugins/record/RecordDlg.ui:530
 msgid "Fade In"
 msgstr "Fade in"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelFadeOut)
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:46
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:47
 #: plugins/record/RecordDlg.ui:543
 msgid "Fade Out"
 msgstr "Geleidelijk vervagen"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:47
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:48
 msgid "Fade Intro"
 msgstr "Intro geleidelijk aanzwellen"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:48
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:49
 msgid "Fade Leadout"
 msgstr "Einde geleidelijk vervagen"
 
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, spinbox_2)
-#: plugins/band_pass/BandPassDialog.cpp:61
-#: plugins/band_pass/BandPassDlg.ui:117 plugins/lowpass/LowPassDialog.cpp:60
-#: plugins/notch_filter/NotchFilterDialog.cpp:64
-#: plugins/sonagram/SonagramWindow.cpp:156
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinbox_2)
+#: plugins/band_pass/BandPassDialog.cpp:60
+#: plugins/band_pass/BandPassDlg.ui:117 plugins/lowpass/LowPassDialog.cpp:59
+#: plugins/notch_filter/NotchFilterDialog.cpp:63
+#: plugins/sonagram/SonagramWindow.cpp:166
 msgid "Hz"
 msgstr "Hz"
 
-#: plugins/band_pass/BandPassDialog.cpp:66
-#: plugins/lowpass/LowPassDialog.cpp:65 plugins/noise/NoiseDialog.cpp:276
-#: plugins/notch_filter/NotchFilterDialog.cpp:69
+#: plugins/band_pass/BandPassDialog.cpp:65
+#: plugins/lowpass/LowPassDialog.cpp:64 plugins/noise/NoiseDialog.cpp:276
+#: plugins/notch_filter/NotchFilterDialog.cpp:68
 #: plugins/volume/VolumeDialog.cpp:262
 msgid "dB"
 msgstr "dB"
 
-#: plugins/band_pass/BandPassDialog.cpp:195
-#: plugins/lowpass/LowPassDialog.cpp:171 plugins/noise/NoiseDialog.cpp:361
-#: plugins/notch_filter/NotchFilterDialog.cpp:199
-#: plugins/pitch_shift/PitchShiftDialog.cpp:326
+#: plugins/band_pass/BandPassDialog.cpp:194
+#: plugins/lowpass/LowPassDialog.cpp:170 plugins/noise/NoiseDialog.cpp:361
+#: plugins/notch_filter/NotchFilterDialog.cpp:198
+#: plugins/pitch_shift/PitchShiftDialog.cpp:325
 msgid "&Stop"
 msgstr "&Stoppen"
 
-#. i18n: ectx: property (text), widget (KPushButton, btListen)
-#: plugins/band_pass/BandPassDialog.cpp:199
-#: plugins/band_pass/BandPassDlg.ui:161 plugins/lowpass/LowPassDialog.cpp:175
+#. i18n: ectx: property (text), widget (QPushButton, btListen)
+#: plugins/band_pass/BandPassDialog.cpp:198
+#: plugins/band_pass/BandPassDlg.ui:161 plugins/lowpass/LowPassDialog.cpp:174
 #: plugins/lowpass/LowPassDlg.ui:154 plugins/noise/NoiseDialog.cpp:365
 #: plugins/noise/NoiseDlg.ui:238
-#: plugins/notch_filter/NotchFilterDialog.cpp:203
+#: plugins/notch_filter/NotchFilterDialog.cpp:202
 #: plugins/notch_filter/NotchFilterDlg.ui:193
-#: plugins/pitch_shift/PitchShiftDialog.cpp:330
+#: plugins/pitch_shift/PitchShiftDialog.cpp:329
 #: plugins/pitch_shift/PitchShiftDlg.ui:63
 msgid "&Listen"
 msgstr "&Luisteren"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, BandPassDlg)
 #: plugins/band_pass/BandPassDlg.ui:14
-#: plugins/band_pass/BandPassPlugin.cpp:123
+#: plugins/band_pass/BandPassPlugin.cpp:124
 msgid "Band Pass"
 msgstr "Banddoorlaatfilter"
 
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, spinbox)
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, spinbox_2)
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinbox)
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinbox_2)
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbFrequency)
 #: plugins/band_pass/BandPassDlg.ui:75 plugins/lowpass/LowPassDlg.ui:74
 #: plugins/notch_filter/NotchFilterDlg.ui:83
@@ -3164,14 +3234,14 @@ msgstr "Banddoorlaatfilter"
 msgid " Hz"
 msgstr " Hz"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btListen)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDlg.ui:155 plugins/lowpass/LowPassDlg.ui:148
 #: plugins/noise/NoiseDlg.ui:232 plugins/notch_filter/NotchFilterDlg.ui:187
 #: plugins/pitch_shift/PitchShiftDlg.ui:57
 msgid "start/stop pre-listening"
 msgstr "start/stop vooraf luisteren"
 
-#. i18n: ectx: property (whatsThis), widget (KPushButton, btListen)
+#. i18n: ectx: property (whatsThis), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDlg.ui:158 plugins/lowpass/LowPassDlg.ui:151
 #: plugins/noise/NoiseDlg.ui:235 plugins/notch_filter/NotchFilterDlg.ui:190
 #: plugins/pitch_shift/PitchShiftDlg.ui:60
@@ -3196,8 +3266,8 @@ msgstr "ASCII-codec"
 msgid "ASCII encoded audio"
 msgstr "Ascii gecodeerd geluid"
 
-#: plugins/codec_ascii/AsciiEncoder.cpp:94
-#: plugins/codec_flac/FlacEncoder.cpp:213 plugins/codec_ogg/OggEncoder.cpp:121
+#: plugins/codec_ascii/AsciiEncoder.cpp:92
+#: plugins/codec_flac/FlacEncoder.cpp:213 plugins/codec_ogg/OggEncoder.cpp:119
 msgid "Unable to open the file for saving."
 msgstr "Kan het bestand niet voor opslaan openen."
 
@@ -3222,37 +3292,37 @@ msgid "Berkeley, IRCAM, Carl Sound Format"
 msgstr "Berkeley, IRCAM, Carl Sound-formaat"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:101
-#: plugins/codec_wav/WavDecoder.cpp:361 plugins/codec_wav/WavEncoder.cpp:424
+#: plugins/codec_wav/WavDecoder.cpp:361 plugins/codec_wav/WavEncoder.cpp:423
 msgid "Format or function is not implemented"
 msgstr "Formaat of functie is niet geïmplementeerd"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:107
-#: plugins/codec_wav/WavEncoder.cpp:431
+#: plugins/codec_wav/WavEncoder.cpp:430
 msgid "File header is damaged"
 msgstr "Bestandsheader is beschadigd"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:110
-#: plugins/codec_wav/WavDecoder.cpp:371 plugins/codec_wav/WavEncoder.cpp:434
+#: plugins/codec_wav/WavDecoder.cpp:371 plugins/codec_wav/WavEncoder.cpp:433
 msgid "Invalid codec type"
 msgstr "Ongeldig type codec"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:113
-#: plugins/codec_wav/WavDecoder.cpp:375 plugins/codec_wav/WavEncoder.cpp:438
+#: plugins/codec_wav/WavDecoder.cpp:375 plugins/codec_wav/WavEncoder.cpp:437
 msgid "Opening the file failed"
 msgstr "Het bestand openen is mislukt"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:116
-#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:441
+#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:440
 msgid "Read access failed"
 msgstr "Toegang voor lezen is mislukt"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:119
-#: plugins/codec_wav/WavDecoder.cpp:381 plugins/codec_wav/WavEncoder.cpp:444
+#: plugins/codec_wav/WavDecoder.cpp:381 plugins/codec_wav/WavEncoder.cpp:443
 msgid "Invalid sample format"
 msgstr "Ongeldig formaat van sample"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:125
-#: plugins/codec_wav/WavDecoder.cpp:390 plugins/codec_wav/WavEncoder.cpp:450
+#: plugins/codec_wav/WavDecoder.cpp:390 plugins/codec_wav/WavEncoder.cpp:449
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -3286,7 +3356,7 @@ msgstr "Kon de FLAC-codeerder niet openen."
 msgid "MP3 Codec"
 msgstr "MP3-codec"
 
-#: plugins/codec_mp3/MP3CodecPlugin.cpp:49
+#: plugins/codec_mp3/MP3CodecPlugin.cpp:50
 msgid "MP3 Encoder Setup"
 msgstr "Instelling van MP3-codeerder"
 
@@ -3343,12 +3413,12 @@ msgstr "Synchronisatie is verloren"
 msgid "File contains invalid data"
 msgstr "Bestand bevat ongeldige gegevens"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:533
-#, c-format
-msgid "Unknown error 0x%X. Damaged file?"
-msgstr "Onbekende fout 0x%X. Beschadigd bestand?"
+#: plugins/codec_mp3/MP3Decoder.cpp:535
+#, kde-format
+msgid "Unknown error 0x%1. Damaged file?"
+msgstr "Onbekende fout 0x%1. Beschadigd bestand?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:539
+#: plugins/codec_mp3/MP3Decoder.cpp:540
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -3359,15 +3429,15 @@ msgstr ""
 "'%1',\n"
 "op positie %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:544
+#: plugins/codec_mp3/MP3Decoder.cpp:545
 msgid "Do you still want to continue?"
 msgstr "Wilt u nog steeds doorgaan?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:549
+#: plugins/codec_mp3/MP3Decoder.cpp:550
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Wilt u doorgaan en alle volgende fouten negeren?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:290
+#: plugins/codec_mp3/MP3Encoder.cpp:288
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
 "be mixed down to stereo when saving."
@@ -3375,11 +3445,11 @@ msgstr ""
 "Het bestandsformaat dat u hebt gekozen ondersteunt alleen mono of stereo. "
 "Dit bestand zal gemixt worden tot stereo bij opslaan."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:303 plugins/codec_wav/WavEncoder.cpp:397
+#: plugins/codec_mp3/MP3Encoder.cpp:301 plugins/codec_wav/WavEncoder.cpp:396
 msgid "Unable to open the file for saving!"
 msgstr "Kan het bestand niet voor opslaan openen!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:548
+#: plugins/codec_mp3/MP3Encoder.cpp:546
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -3395,11 +3465,11 @@ msgstr ""
 msgid "(user defined)"
 msgstr "(gebruikergedefinieerd)"
 
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:574
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:579
 msgid "Select MP3 Encoder"
 msgstr "MP3-codering selecteren"
 
-#: plugins/codec_mp3/MP3EncoderDialog.cpp:628
+#: plugins/codec_mp3/MP3EncoderDialog.cpp:633
 msgid "Congratulation, the test was successful!"
 msgstr "Gefeliciteerd, de test was succesvol!"
 
@@ -3413,14 +3483,14 @@ msgstr "Instellingen van MP3-codeerder"
 msgid "Program"
 msgstr "Programma"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btSearch)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btSearch)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:54
 msgid "manually browse for the encoder"
 msgstr "Handmatig bladeren naar codeerder"
 
-#. i18n: ectx: property (text), widget (KPushButton, btSearch)
-#. i18n: ectx: property (text), widget (KPushButton, btSelectDate)
-#. i18n: ectx: property (text), widget (KPushButton, btSelectDevice)
+#. i18n: ectx: property (text), widget (QPushButton, btSearch)
+#. i18n: ectx: property (text), widget (QPushButton, btSelectDate)
+#. i18n: ectx: property (text), widget (QPushButton, btSelectDevice)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:57
 #: plugins/fileinfo/FileInfoDlg.ui:1273 plugins/playback/PlayBackDlg.ui:98
 msgid "&Select..."
@@ -3431,27 +3501,27 @@ msgstr "&Selecteren..."
 msgid "select one of the predefined encoder setups"
 msgstr "selecteer een van de voorgedefinieerde instellingen voor een codeerder"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btDetect)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:89
 msgid "auto-detect the installed encoder"
 msgstr "Autodetecteren van de geïnstalleerde codeerder"
 
-#. i18n: ectx: property (text), widget (KPushButton, btDetect)
+#. i18n: ectx: property (text), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:92
 msgid "&Auto Detect..."
 msgstr "&Autodetecteren..."
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btEncoderHelp)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:101
 msgid "show the usage information of the encoder"
 msgstr "de gebruiksinformatie van de codeerder tonen"
 
-#. i18n: ectx: property (text), widget (KPushButton, btEncoderHelp)
+#. i18n: ectx: property (text), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:104
 msgid "&Usage"
 msgstr "Gebr&uik"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edPath)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edPath)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:117
 msgid "path to the encoder"
 msgstr "Pad naar de codeerder"
@@ -3461,12 +3531,12 @@ msgstr "Pad naar de codeerder"
 msgid "Path:"
 msgstr "Pad:"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btLocate)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btLocate)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:134
 msgid "find the full path to the encoder"
 msgstr "zoek het volledige pad naar de codeerder"
 
-#. i18n: ectx: property (text), widget (KPushButton, btLocate)
+#. i18n: ectx: property (text), widget (QPushButton, btLocate)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:137
 msgid "&Locate"
 msgstr "&Lokaliseren"
@@ -3486,12 +3556,12 @@ msgstr "Invoer"
 msgid "Sign:"
 msgstr "Ondertekenen:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edByteOrder)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edByteOrder)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:188
 msgid "parameter for switching the byte order"
 msgstr "parameter voor het omschakelen van de bytevolgorde"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edRawFormat)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edRawFormat)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:210
 msgid "parameter for telling the encoder to use raw data as input format"
 msgstr ""
@@ -3508,7 +3578,7 @@ msgstr "Ruw-formaat:"
 msgid "Byte Order:"
 msgstr "Bytevolgorde:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edSign)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edSign)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:259
 msgid "parameter to use signed sample format"
 msgstr "parameter om sampleformaat met teken te gebruiken"
@@ -3526,7 +3596,7 @@ msgstr "Formaat"
 msgid "Sample Rate:"
 msgstr "Samplesnelheid:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edSampleRate)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edSampleRate)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:296
 #, no-c-format, kde-format
 msgid ""
@@ -3541,7 +3611,7 @@ msgstr ""
 msgid "Bits per Sample:"
 msgstr "Bits per sample:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edBitsPerSample)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edBitsPerSample)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:326
 #, no-c-format, kde-format
 msgid ""
@@ -3563,7 +3633,7 @@ msgstr "Kanalen:"
 msgid "mono:"
 msgstr "mono:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edMono)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edMono)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:368
 msgid "parameter for single channel files (mono)"
 msgstr "parameter voor enkelkanaal-bestanden (mono)"
@@ -3573,7 +3643,7 @@ msgstr "parameter voor enkelkanaal-bestanden (mono)"
 msgid "stereo:"
 msgstr "stereo:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edStereo)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edStereo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:404
 msgid ""
 "parameter for multi channel files\n"
@@ -3597,7 +3667,7 @@ msgstr "max"
 msgid "min"
 msgstr "min"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edBitrateMin)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edBitrateMin)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:486
 #, no-c-format, kde-format
 msgid ""
@@ -3607,7 +3677,7 @@ msgstr ""
 "parameter voor minimale bitsnelheid in bits/sec\n"
 "(gebruik %1 als plaathouder)"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edBitrateMax)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edBitrateMax)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:509
 #, no-c-format, kde-format
 msgid ""
@@ -3627,7 +3697,7 @@ msgstr "Bitsnelheid:"
 msgid "avg"
 msgstr "avg"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edBitrateAvg)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edBitrateAvg)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:552
 #, no-c-format, kde-format
 msgid ""
@@ -3652,7 +3722,7 @@ msgstr "Accentuering:"
 msgid "none"
 msgstr "geen"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edEmphasisNone)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edEmphasisNone)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:607
 msgid "parameter for no emphasis"
 msgstr "parameter voor geen benadrukking"
@@ -3664,7 +3734,7 @@ msgstr "parameter voor geen benadrukking"
 msgid "50/15ms"
 msgstr "50/15ms"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edEmphasis5015ms)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edEmphasis5015ms)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:642
 msgid "parameter for 50/15ms emphasis"
 msgstr "parameter voor benadrukking van 50/15ms"
@@ -3674,7 +3744,7 @@ msgstr "parameter voor benadrukking van 50/15ms"
 msgid "CCIT J17"
 msgstr "CCIT J17"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edEmphasisCCIT_J17)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edEmphasisCCIT_J17)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:677
 msgid "parameter for CCIT J17 emphasis"
 msgstr "parameter voor CCIT J17 benadrukking"
@@ -3684,7 +3754,7 @@ msgstr "parameter voor CCIT J17 benadrukking"
 msgid "Noise Shaping:"
 msgstr "Noise Shaping:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edNoiseShaping)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edNoiseShaping)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:706
 msgid "parameters for configuring noise shaping"
 msgstr "parameters voor instellen van noise shaping"
@@ -3694,7 +3764,7 @@ msgstr "parameters voor instellen van noise shaping"
 msgid "Compatibility:"
 msgstr "Compatibiliteit:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edCompatibility)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edCompatibility)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:735
 msgid "parameters for compatibility settings"
 msgstr "parameters voor instellingen voor compatibiliteit"
@@ -3709,7 +3779,7 @@ msgstr "Vlaggen"
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edCopyright)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edCopyright)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:790
 msgid "parameter for marking the file as copyrighted"
 msgstr "parameter voor markering van het bestand met copyright"
@@ -3719,7 +3789,7 @@ msgstr "parameter voor markering van het bestand met copyright"
 msgid "Original:"
 msgstr "Origineel:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edOriginal)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edOriginal)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:825
 msgid "parameter for marking the signal as original (not a copy)"
 msgstr "parameter voor markering van het signaal als origineel (geen kopie)"
@@ -3729,7 +3799,7 @@ msgstr "parameter voor markering van het signaal als origineel (geen kopie)"
 msgid "Protect:"
 msgstr "Beschermen:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edProtect)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edProtect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:860
 msgid "parameter to enable CRC protection"
 msgstr "parameter om CRC-bescherming in te schakelen"
@@ -3739,7 +3809,7 @@ msgstr "parameter om CRC-bescherming in te schakelen"
 msgid "Prepend:"
 msgstr "Vooraan toevoegen:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edPrepend)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edPrepend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:899
 msgid "additional parameters to put at the start of the encoder command line"
 msgstr ""
@@ -3751,7 +3821,7 @@ msgstr ""
 msgid "Append:"
 msgstr "Achteraan toevoegen:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edAppend)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edAppend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:922
 msgid "additional parameters to append at the end of the encoder command line"
 msgstr ""
@@ -3768,7 +3838,7 @@ msgstr "Info"
 msgid "Encoder Help:"
 msgstr "Codeerder-help:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edEncoderHelp)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:977
 msgid "parameter for getting usage information of the encoder"
 msgstr "parameter voor het verkrijgen van gebruiksinformatie van de codeerder"
@@ -3778,22 +3848,22 @@ msgstr "parameter voor het verkrijgen van gebruiksinformatie van de codeerder"
 msgid "Version Info:"
 msgstr "Versie-informatie:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edVersionInfo)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edVersionInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1025
 msgid "parameter for getting the encoder version information"
 msgstr "parameter voor het verkrijgen van versie-informatie van de codeerder"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btTest)
-#: plugins/codec_mp3/MP3EncoderDialogBase.ui:1060
+#. i18n: ectx: property (toolTip), widget (QPushButton, btTest)
+#: plugins/codec_mp3/MP3EncoderDialogBase.ui:1067
 msgid "try to encode some short test signal with the current settings"
 msgstr "probeer een kort testsignaal met de huiduge instellingen te coderen"
 
-#. i18n: ectx: property (text), widget (KPushButton, btTest)
-#: plugins/codec_mp3/MP3EncoderDialogBase.ui:1063
+#. i18n: ectx: property (text), widget (QPushButton, btTest)
+#: plugins/codec_mp3/MP3EncoderDialogBase.ui:1070
 msgid "Test..."
 msgstr "Test..."
 
-#: plugins/codec_ogg/OggCodecPlugin.cpp:28
+#: plugins/codec_ogg/OggCodecPlugin.cpp:29
 msgid "Ogg Codec"
 msgstr "Ogg-codec"
 
@@ -3835,7 +3905,7 @@ msgstr "Fout: codec niet ondersteund"
 msgid "Corrupt or missing data in bitstream. Continuing."
 msgstr "Corrupte of ontbrekende gegevens in bitstream. Doorgaan."
 
-#: plugins/codec_ogg/OggEncoder.cpp:109
+#: plugins/codec_ogg/OggEncoder.cpp:107
 #, kde-format
 msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
@@ -3843,7 +3913,7 @@ msgctxt ""
 msgid "Error: No Codec for '%1' available"
 msgstr "Fout: geen codec voor '%1' beschikbaar"
 
-#: plugins/codec_ogg/OpusCommon.cpp:55
+#: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:126
 msgid "One or more invalid/out of range arguments."
 msgstr "Een of meer ongeldige/buiten bereik argumenten."
 
@@ -4063,7 +4133,7 @@ msgstr "bestandsheader is beschadigd"
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "interne fout in libaudiofile #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:343
+#: plugins/codec_wav/WavEncoder.cpp:342
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
@@ -4071,16 +4141,16 @@ msgstr ""
 "Het nu geselecteerde type compressie kan niet gebruikt worden voor opslaan. "
 "Wilt u G711 ULAW compressie in plaats daarvan gebruiken?"
 
-#: plugins/codec_wav/WavEncoder.cpp:346
+#: plugins/codec_wav/WavEncoder.cpp:345
 msgid "&Yes, use G711"
 msgstr "&Ja, G711 gebruiken"
 
-#: plugins/codec_wav/WavEncoder.cpp:347
+#: plugins/codec_wav/WavEncoder.cpp:346
 msgid "&No, store uncompressed"
 msgstr "&Nee, niet gecomprimeerd opslaan"
 
-#: plugins/codec_wav/WavEncoder.cpp:403
-#: plugins/sonagram/SonagramPlugin.cpp:207
+#: plugins/codec_wav/WavEncoder.cpp:402
+#: plugins/sonagram/SonagramPlugin.cpp:204
 msgid "File or selection too large"
 msgstr "Bestand of selectie is te groot"
 
@@ -4089,58 +4159,58 @@ msgstr "Bestand of selectie is te groot"
 msgid "WAV audio"
 msgstr "WAV-audio"
 
-#: plugins/debug/DebugPlugin.cpp:58
+#: plugins/debug/DebugPlugin.cpp:59
 msgid "Debug Functions"
 msgstr "Debugfuncties"
 
-#: plugins/debug/DebugPlugin.cpp:85
+#: plugins/debug/DebugPlugin.cpp:87
 msgid "Generate 50% DC Level"
 msgstr "50% DC-level genereren"
 
-#: plugins/debug/DebugPlugin.cpp:86
+#: plugins/debug/DebugPlugin.cpp:88
 msgid "Generate 100% DC Level"
 msgstr "100% DC-level genereren"
 
-#: plugins/debug/DebugPlugin.cpp:87
+#: plugins/debug/DebugPlugin.cpp:89
 msgid "MinMax Pattern"
 msgstr "MinMax-patroon"
 
-#: plugins/debug/DebugPlugin.cpp:88
+#: plugins/debug/DebugPlugin.cpp:90
 msgid "Generate Sawtooth Pattern"
 msgstr "Zaagtandpatroon genereren"
 
-#: plugins/debug/DebugPlugin.cpp:89
+#: plugins/debug/DebugPlugin.cpp:91
 msgid "Verify Sawtooth Pattern"
 msgstr "Verifieer zaagtandpatroon"
 
-#: plugins/debug/DebugPlugin.cpp:90
+#: plugins/debug/DebugPlugin.cpp:92
 msgid "FM Sweep"
 msgstr "FM-sweep"
 
-#: plugins/debug/DebugPlugin.cpp:95
+#: plugins/debug/DebugPlugin.cpp:97
 msgid "Labels at Stripe borders"
 msgstr "Labels op streepranden"
 
-#: plugins/debug/DebugPlugin.cpp:98
+#: plugins/debug/DebugPlugin.cpp:100
 msgid "Dump Window Hierarchy"
 msgstr "Vensterhiërarchie dumpen"
 
-#: plugins/debug/DebugPlugin.cpp:101
+#: plugins/debug/DebugPlugin.cpp:103
 msgid "Dump Meta Data"
 msgstr "Metagegevens dumpen"
 
-#: plugins/debug/DebugPlugin.cpp:111 plugins/debug/DebugPlugin.cpp:218
+#: plugins/debug/DebugPlugin.cpp:113 plugins/debug/DebugPlugin.cpp:220
 #, kde-format
 msgid "Debug (%1)"
 msgstr "Debuggen (%1)"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbABR)
-#: plugins/fileinfo/CompressionWidgetBase.ui:32
+#: plugins/fileinfo/CompressionWidgetBase.ui:50
 msgid "Average Bitrate Mode"
 msgstr "Modus gemiddelde bitsnelheid"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbABR)
-#: plugins/fileinfo/CompressionWidgetBase.ui:37
+#: plugins/fileinfo/CompressionWidgetBase.ui:55
 msgid ""
 "<b>Average Bitrate Mode</b><br>\n"
 "Bitrate is set to an average value,\n"
@@ -4151,24 +4221,24 @@ msgstr ""
 "met optioneel een boven- en ondergrens."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbABR)
-#: plugins/fileinfo/CompressionWidgetBase.ui:40
+#: plugins/fileinfo/CompressionWidgetBase.ui:58
 msgid "ABR:"
 msgstr "ABR:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLowestBitrate)
-#. i18n: ectx: property (specialValueText), widget (KIntSpinBox, sbBaseQuality)
-#: plugins/fileinfo/CompressionWidgetBase.ui:63
-#: plugins/fileinfo/CompressionWidgetBase.ui:163
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, sbBaseQuality)
+#: plugins/fileinfo/CompressionWidgetBase.ui:81
+#: plugins/fileinfo/CompressionWidgetBase.ui:181
 msgid "lowest"
 msgstr "laagste"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbVBR)
-#: plugins/fileinfo/CompressionWidgetBase.ui:70
+#: plugins/fileinfo/CompressionWidgetBase.ui:88
 msgid "Variable Bitrate Mode"
 msgstr "Modus variabele bitsnelheid"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbVBR)
-#: plugins/fileinfo/CompressionWidgetBase.ui:74
+#: plugins/fileinfo/CompressionWidgetBase.ui:92
 msgid ""
 "<b>Variable Bitrate Mode</b><br>\n"
 "The bitrate is selected by an average quality."
@@ -4177,22 +4247,22 @@ msgstr ""
 "gemiddelde kwaliteit."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbVBR)
-#: plugins/fileinfo/CompressionWidgetBase.ui:77
+#: plugins/fileinfo/CompressionWidgetBase.ui:95
 msgid "VBR:"
 msgstr "VBR:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighestBitrate)
-#: plugins/fileinfo/CompressionWidgetBase.ui:87
+#: plugins/fileinfo/CompressionWidgetBase.ui:105
 msgid "highest"
 msgstr "hoogste"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompressionNominalBitrate)
-#: plugins/fileinfo/CompressionWidgetBase.ui:97
+#: plugins/fileinfo/CompressionWidgetBase.ui:115
 msgid "Nominal Bitrate"
 msgstr "Nominale bitrate:"
 
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, sbBaseQuality)
-#: plugins/fileinfo/CompressionWidgetBase.ui:166
+#. i18n: ectx: property (suffix), widget (QSpinBox, sbBaseQuality)
+#: plugins/fileinfo/CompressionWidgetBase.ui:184
 #, no-c-format
 msgid " %"
 msgstr " %"
@@ -4274,17 +4344,17 @@ msgid "%1 (%2 samples)"
 msgstr "%1 (%2 samples)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:585
-#: plugins/newsignal/NewSignalDialog.cpp:302
+#: plugins/newsignal/NewSignalDialog.cpp:300
 msgid "(Mono)"
 msgstr "(Mono)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:588
-#: plugins/newsignal/NewSignalDialog.cpp:305
+#: plugins/newsignal/NewSignalDialog.cpp:303
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:591
-#: plugins/newsignal/NewSignalDialog.cpp:308
+#: plugins/newsignal/NewSignalDialog.cpp:306
 msgid "(Quadro)"
 msgstr "(Quadro)"
 
@@ -4524,23 +4594,23 @@ msgstr "Layer III"
 msgid "Content"
 msgstr "Inhoud"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btSelectDate)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btSelectDate)
 #: plugins/fileinfo/FileInfoDlg.ui:1267
 msgid "Select a date from the calendar."
 msgstr "Een datum uit de kalender selecteren."
 
-#. i18n: ectx: property (whatsThis), widget (KPushButton, btSelectDate)
+#. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDate)
 #: plugins/fileinfo/FileInfoDlg.ui:1270
 msgid "Opens a dialog for selecting a date from the calendar."
 msgstr "Opent een dialoog om een datum uit de kalender te selecteren."
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btSelectDateNow)
-#. i18n: ectx: property (whatsThis), widget (KPushButton, btSelectDateNow)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btSelectDateNow)
+#. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDateNow)
 #: plugins/fileinfo/FileInfoDlg.ui:1292 plugins/fileinfo/FileInfoDlg.ui:1295
 msgid "Set the date to today."
 msgstr "Stel de datum in op vandaag."
 
-#. i18n: ectx: property (text), widget (KPushButton, btSelectDateNow)
+#. i18n: ectx: property (text), widget (QPushButton, btSelectDateNow)
 #: plugins/fileinfo/FileInfoDlg.ui:1298
 msgid "&Today"
 msgstr "&Vandaag"
@@ -4561,7 +4631,7 @@ msgstr "Auteur/Copyright"
 msgid "Miscellaneous"
 msgstr "Diversen"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:81
+#: plugins/fileinfo/FileInfoPlugin.cpp:82
 msgid ""
 "You have changed the sample rate. Do you want to convert the whole file to "
 "the new sample rate or do you only want to set the rate information in order "
@@ -4573,30 +4643,30 @@ msgstr ""
 "instellen om een beschadigd bestand te repareren? Opmerking: alleen de "
 "samplesnelheid wijzigen kan \"mickey mouse\" effecten veroorzaken."
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:87
+#: plugins/fileinfo/FileInfoPlugin.cpp:88
 msgid "&Convert"
 msgstr "&Converteren"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:88
+#: plugins/fileinfo/FileInfoPlugin.cpp:89
 msgid "&Set Rate"
 msgstr "&Snelheid instellen"
 
-#. i18n: ectx: property (text), widget (KPushButton, btRemove)
+#. i18n: ectx: property (text), widget (QPushButton, btRemove)
 #: plugins/fileinfo/KeywordWidgetBase.ui:29
 msgid "&Remove"
 msgstr "Ve&rwijderen"
 
-#. i18n: ectx: property (text), widget (KPushButton, btAdd)
+#. i18n: ectx: property (text), widget (QPushButton, btAdd)
 #: plugins/fileinfo/KeywordWidgetBase.ui:52
 msgid "&Add"
 msgstr "&Toevoegen"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btAuto)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:62
 msgid "auto-generate keywords"
 msgstr "sleutelwoorden autogenereren"
 
-#. i18n: ectx: property (whatsThis), widget (KPushButton, btAuto)
+#. i18n: ectx: property (whatsThis), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:66
 msgid ""
 "<b>Auto-Generate Keywords</b><br>\n"
@@ -4607,12 +4677,12 @@ msgstr ""
 "Maak een lijst met sleutelwoorden door alle aanwezige bestandsinformatie "
 "langs te lopen en dit te mengen met de huidige lijst met sleutelwoorden."
 
-#. i18n: ectx: property (text), widget (KPushButton, btAuto)
+#. i18n: ectx: property (text), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:69
 msgid "A&uto"
 msgstr "A&utomatisch"
 
-#. i18n: ectx: property (toolTip), widget (KListWidget, lstKeywords)
+#. i18n: ectx: property (toolTip), widget (QListWidget, lstKeywords)
 #: plugins/fileinfo/KeywordWidgetBase.ui:82
 msgid "List of keywords."
 msgstr "Lijst met trefwoorden."
@@ -4631,7 +4701,7 @@ msgstr "Naar positie springen"
 msgid "Goto Position"
 msgstr "Ga naar positie"
 
-#: plugins/goto/GotoPlugin.cpp:51
+#: plugins/goto/GotoPlugin.cpp:52
 msgid "Goto..."
 msgstr "Ga naar..."
 
@@ -4639,23 +4709,23 @@ msgstr "Ga naar..."
 msgid "Insert At"
 msgstr "Invoegen op"
 
-#: plugins/goto/InsertAtPlugin.cpp:50
+#: plugins/goto/InsertAtPlugin.cpp:51
 msgid "Insert At..."
 msgstr "Invoegen op..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LowPassDlg)
-#: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:109
+#: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:110
 msgid "Low Pass"
 msgstr "Laag doorlaatfilter"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slider)
-#. i18n: ectx: property (toolTip), widget (KIntSpinBox, spinbox)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, spinbox)
 #: plugins/lowpass/LowPassDlg.ui:29 plugins/lowpass/LowPassDlg.ui:66
 msgid "cutoff frequency"
 msgstr "Afsnijfrequentie"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider)
-#. i18n: ectx: property (whatsThis), widget (KIntSpinBox, spinbox)
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox)
 #: plugins/lowpass/LowPassDlg.ui:34 plugins/lowpass/LowPassDlg.ui:71
 msgid ""
 "<b>cutoff frequency</b>\n"
@@ -4671,7 +4741,7 @@ msgid "Low Pass Filter"
 msgstr "Laagdoorlaatfilter"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, MemDlg)
-#: plugins/memory/MemDlg.ui:16 plugins/memory/MemoryPlugin.cpp:33
+#: plugins/memory/MemDlg.ui:16 plugins/memory/MemoryPlugin.cpp:35
 msgid "Memory Settings"
 msgstr "Geheugeninstellingen"
 
@@ -4752,22 +4822,22 @@ msgstr "Gebruik van virtueel geheugen &inschakelen"
 msgid "Directory:"
 msgstr "Map:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edDirectory)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edDirectory)
 #: plugins/memory/MemDlg.ui:141
 msgid "Directory for storing swap files"
 msgstr "Map voor opslaan van swap-bestanden"
 
-#. i18n: ectx: property (text), widget (KLineEdit, edDirectory)
+#. i18n: ectx: property (text), widget (QLineEdit, edDirectory)
 #: plugins/memory/MemDlg.ui:144
 msgid "/tmp"
 msgstr "/tmp"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btSearch)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btSearch)
 #: plugins/memory/MemDlg.ui:151
 msgid "Browse for a directory to hold page files"
 msgstr "Blader voor een map om paginabestanden te bevatten"
 
-#. i18n: ectx: property (text), widget (KPushButton, btSearch)
+#. i18n: ectx: property (text), widget (QPushButton, btSearch)
 #: plugins/memory/MemDlg.ui:154
 msgid "&Browse..."
 msgstr "&Bladeren..."
@@ -4797,8 +4867,12 @@ msgstr "Beperken tot"
 msgid "Megabytes of memory to be used for undo/redo"
 msgstr "Megabytes geheugen voor &ongedaan maken/opnieuw"
 
+#: plugins/memory/MemoryDialog.cpp:152
+msgid "Select Swap File Directory"
+msgstr "Map voor swapbestand selecteren"
+
 #. i18n: ectx: property (windowTitle), widget (QDialog, NewSigDlg)
-#: plugins/newsignal/NewSigDlg.ui:15 plugins/newsignal/NewSignalPlugin.cpp:30
+#: plugins/newsignal/NewSigDlg.ui:15 plugins/newsignal/NewSignalPlugin.cpp:32
 msgid "New Signal"
 msgstr "Nieuw signaal"
 
@@ -4884,13 +4958,13 @@ msgid "Sets the file size by the percentage of the possible maximum"
 msgstr ""
 "Stelt de bestandsgrootte in op het percentage van het mogelijke maximum"
 
-#: plugins/newsignal/NewSignalDialog.cpp:333
+#: plugins/newsignal/NewSignalDialog.cpp:331
 #, kde-format
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Resulterende bestandsgrootte: %1 MB)"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NoiseDlg)
-#: plugins/noise/NoiseDlg.ui:17 plugins/noise/NoisePlugin.cpp:135
+#: plugins/noise/NoiseDlg.ui:17 plugins/noise/NoisePlugin.cpp:136
 msgid "Add Noise"
 msgstr "Ruis toevoegen"
 
@@ -4947,7 +5021,7 @@ msgstr "&Logaritmisch"
 #. i18n: ectx: property (toolTip), widget (QSlider, slider)
 #: plugins/noise/NoiseDlg.ui:143 plugins/volume/VolumeDlg.ui:17
 #: plugins/volume/VolumeDlg.ui:208 plugins/volume/VolumeDlg.ui:269
-#: plugins/volume/VolumePlugin.cpp:40 plugins/volume/VolumePlugin.cpp:131
+#: plugins/volume/VolumePlugin.cpp:40 plugins/volume/VolumePlugin.cpp:132
 msgid "Volume"
 msgstr "Volume"
 
@@ -4964,15 +5038,15 @@ msgstr "Ruisgenerator"
 msgid "Normalizer"
 msgstr "Normalisator"
 
-#: plugins/normalize/NormalizePlugin.cpp:73
+#: plugins/normalize/NormalizePlugin.cpp:74
 msgid "Normalize"
 msgstr "Normaliseren"
 
-#: plugins/normalize/NormalizePlugin.cpp:94
+#: plugins/normalize/NormalizePlugin.cpp:95
 msgid "Analyzing volume level..."
 msgstr "Niveau van volume analyseren..."
 
-#: plugins/normalize/NormalizePlugin.cpp:132
+#: plugins/normalize/NormalizePlugin.cpp:133
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
 msgstr "Normaliseren (%1 dB) ..."
@@ -4980,18 +5054,18 @@ msgstr "Normaliseren (%1 dB) ..."
 #. i18n: ectx: property (windowTitle), widget (QDialog, NotchFilterDlg)
 #: plugins/notch_filter/NotchFilterDlg.ui:14
 #: plugins/notch_filter/NotchFilterPlugin.cpp:33
-#: plugins/notch_filter/NotchFilterPlugin.cpp:121
+#: plugins/notch_filter/NotchFilterPlugin.cpp:122
 msgid "Notch Filter"
 msgstr "Notch-filter"
 
-#. i18n: ectx: property (toolTip), widget (KIntSpinBox, spinbox)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, spinbox)
 #. i18n: ectx: property (toolTip), widget (QSlider, slider)
 #: plugins/notch_filter/NotchFilterDlg.ui:75
 #: plugins/notch_filter/NotchFilterDlg.ui:96
 msgid "center frequency"
 msgstr "middenfrequentie"
 
-#. i18n: ectx: property (whatsThis), widget (KIntSpinBox, spinbox)
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox)
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider)
 #: plugins/notch_filter/NotchFilterDlg.ui:80
 #: plugins/notch_filter/NotchFilterDlg.ui:101
@@ -5005,14 +5079,14 @@ msgstr ""
 "verwijdert zou moeten worden."
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slider_2)
-#. i18n: ectx: property (toolTip), widget (KIntSpinBox, spinbox_2)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, spinbox_2)
 #: plugins/notch_filter/NotchFilterDlg.ui:117
 #: plugins/notch_filter/NotchFilterDlg.ui:141
 msgid "bandwidth"
 msgstr "bandbreedte"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider_2)
-#. i18n: ectx: property (whatsThis), widget (KIntSpinBox, spinbox_2)
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox_2)
 #: plugins/notch_filter/NotchFilterDlg.ui:122
 #: plugins/notch_filter/NotchFilterDlg.ui:146
 msgid ""
@@ -5027,7 +5101,7 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QDialog, PitchShiftDlg)
 #: plugins/pitch_shift/PitchShiftDlg.ui:20
 #: plugins/pitch_shift/PitchShiftPlugin.cpp:32
-#: plugins/pitch_shift/PitchShiftPlugin.cpp:125
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:126
 msgid "Pitch Shift"
 msgstr "Pitch schuif"
 
@@ -5108,7 +5182,7 @@ msgstr ""
 msgid "by Factor"
 msgstr "op factor"
 
-#: plugins/playback/PlayBack-ALSA.cpp:50
+#: plugins/playback/PlayBack-ALSA.cpp:50 plugins/playback/PlayBack-Qt.cpp:41
 msgid "Default device"
 msgstr "Standaard-apparaat"
 
@@ -5175,17 +5249,17 @@ msgstr "DMIX-plug-in"
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr "Het apparaat '%1' kan niet in de juiste modus worden geopend."
 
-#: plugins/playback/PlayBack-OSS.cpp:185
+#: plugins/playback/PlayBack-OSS.cpp:185 plugins/playback/PlayBack-Qt.cpp:157
 #, kde-format
 msgid "%1 bits per sample are not supported"
 msgstr "%1 bits per sample wordt niet ondersteund"
 
-#: plugins/playback/PlayBack-OSS.cpp:191
+#: plugins/playback/PlayBack-OSS.cpp:191 plugins/playback/PlayBack-Qt.cpp:160
 #, kde-format
 msgid "%1 channels playback is not supported"
 msgstr "Afspelen met %1 kanalen wordt niet ondersteund"
 
-#: plugins/playback/PlayBack-OSS.cpp:198
+#: plugins/playback/PlayBack-OSS.cpp:198 plugins/playback/PlayBack-Qt.cpp:163
 #, kde-format
 msgid "Playback rate %1 Hz is not supported"
 msgstr "Afspelen met %1 Hz wordt niet ondersteund"
@@ -5204,16 +5278,11 @@ msgid "ALSA playback device (adsp*)"
 msgstr "ALSA-afspeelapparaat (adsp*)"
 
 #: plugins/playback/PlayBack-OSS.cpp:407 plugins/record/Record-OSS.cpp:297
-#: plugins/record/RecordDialog.cpp:598
+#: plugins/record/RecordDialog.cpp:610
 msgid "Any device (*)"
 msgstr "Elk apparaat (*)"
 
-#: plugins/playback/PlayBack-Phonon.cpp:164
-#, kde-format
-msgid "Opening the device '%1' failed."
-msgstr "Apparaat '%1' openen is mislukt."
-
-#: plugins/playback/PlayBack-PulseAudio.cpp:453
+#: plugins/playback/PlayBack-PulseAudio.cpp:454
 #, kde-format
 msgid "%1 channels are not supported, maximum is 255"
 msgstr "%1 kanalen wordt niet ondersteund, maximum is 255"
@@ -5245,35 +5314,53 @@ msgstr "Openen van een PulseAudio-stream voor afspelen is mislukt (%1)."
 msgid "(Use server default)"
 msgstr "(Standaard van server gebruiken)"
 
-#: plugins/playback/PlayBackDialog.cpp:506
+#: plugins/playback/PlayBack-Qt.cpp:138
+#, kde-format
+msgid "The audio device '%1' is unknown or no longer connected"
+msgstr "Het audio-apparaat '%1' is onbekend of niet langer verbonden"
+
+#: plugins/playback/PlayBack-Qt.cpp:154
+msgid "PCM playback is not supported"
+msgstr "PCM afspelen wordt niet ondersteund"
+
+#: plugins/playback/PlayBack-Qt.cpp:167
+msgid "Integer sample format is not supported"
+msgstr "Sampleformaat integer wordt niet ondersteund"
+
+#: plugins/playback/PlayBack-Qt.cpp:212
+#, kde-format
+msgid "Opening the Qt Multimedia device '%1' failed"
+msgstr "Het Qt Multimedia apparaat '%1' openen is mislukt"
+
+#: plugins/playback/PlayBackDialog.cpp:514
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 bytes"
 
-#: plugins/playback/PlayBackDialog.cpp:508
+#: plugins/playback/PlayBackDialog.cpp:516
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/playback/PlayBackDialog.cpp:605
+#: plugins/playback/PlayBackDialog.cpp:613
 msgid "(mono)"
 msgstr "(mono)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:606 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:614 plugins/playback/PlayBackDlg.ui:350
 msgid "(stereo)"
 msgstr "(stereo)"
 
-#: plugins/playback/PlayBackDialog.cpp:607
+#: plugins/playback/PlayBackDialog.cpp:615
 msgid "(quadro)"
 msgstr "(quadro)"
 
-#: plugins/playback/PlayBackDialog.cpp:637
+#: plugins/playback/PlayBackDialog.cpp:645
 msgid "Select Playback Device"
 msgstr "Afspeelapparaat selecteren"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PlayBackDlg)
-#: plugins/playback/PlayBackDlg.ui:20 plugins/playback/PlayBackPlugin.cpp:70
+#: plugins/playback/PlayBackDlg.ui:20 plugins/playback/PlayBackPlugin.cpp:69
 msgid "Playback"
 msgstr "Afspelen"
 
@@ -5299,14 +5386,14 @@ msgstr ""
 "hier niet in de lijst staat, dan kunt u zelf een apparaatnaam invoeren of "
 "zoeken in het bestandssysteem.</p>"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btSelectDevice)
-#. i18n: ectx: property (toolTip), widget (KPushButton, btSourceSelect)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btSelectDevice)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btSourceSelect)
 #: plugins/playback/PlayBackDlg.ui:92 plugins/record/RecordDlg.ui:1072
 msgid "Search on the filesystem for a device"
 msgstr "In het bestandssysteem zoeken naar een apparaat"
 
-#. i18n: ectx: property (whatsThis), widget (KPushButton, btSelectDevice)
-#. i18n: ectx: property (whatsThis), widget (KPushButton, btSourceSelect)
+#. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDevice)
+#. i18n: ectx: property (whatsThis), widget (QPushButton, btSourceSelect)
 #: plugins/playback/PlayBackDlg.ui:95 plugins/record/RecordDlg.ui:1075
 msgid ""
 "<b>Select...</b><p>Choose a device name on the harddisk, if your device is "
@@ -5419,12 +5506,12 @@ msgstr ""
 "interne resolutie (24 bits) naar de gespecificeerde instelling. Hogere "
 "resoluties betekenen betere geluidskwaliteit.</p>"
 
-#. i18n: ectx: property (toolTip), widget (KIntSpinBox, sbChannels)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, sbChannels)
 #: plugins/playback/PlayBackDlg.ui:325
 msgid "Number of channels: mono, stereo..."
 msgstr "Aantal kanalen: mono, stereo..."
 
-#. i18n: ectx: property (whatsThis), widget (KIntSpinBox, sbChannels)
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, sbChannels)
 #: plugins/playback/PlayBackDlg.ui:328
 #, no-c-format
 msgid ""
@@ -5436,18 +5523,25 @@ msgid ""
 "50% of the second track, the right channel will also contain 50% of the "
 "second track and the third track.</p>"
 msgstr ""
+"<b>Kanalen:</b><p>aantal gebruikte kanalen voor afspelen. Dit hoeft niet "
+"noodzakelijk hetzelfde te zijn als het aantal tracks in uw huidige bestand. "
+"Kwave mixt automatisch de tracks in uw bestand naar de kanalen die u hier "
+"specificeert.</p><p><i>Bijvoorbeeld:</i> als u drie tracks hebt en het "
+"afspelen instelt op \"stereo\", dan zal het linker kanaal de eerste track + "
+"50% van de tweede track bevatten, het rechter kanaal zal ook 50% van de "
+"tweede track en de derde track bevatten.</p>"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/playback/PlayBackDlg.ui:388
 msgid "1"
 msgstr "1"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btTest)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:458
 msgid "Play a short test sound"
 msgstr "Speel een kort testgeluid af"
 
-#. i18n: ectx: property (whatsThis), widget (KPushButton, btTest)
+#. i18n: ectx: property (whatsThis), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:461
 msgid ""
 "<b>Test</b><p>Try to play a short sound using the current settings.</p><p><i>"
@@ -5456,7 +5550,7 @@ msgstr ""
 "<b>Test</b><p>Probeer een kort geluid met de huidige instellingen af te "
 "spelen.</p><p><i>(Sorry, nog  niet geïmplementeerd!)</i></p>"
 
-#. i18n: ectx: property (text), widget (KPushButton, btTest)
+#. i18n: ectx: property (text), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:464
 msgid "&Test..."
 msgstr "&Testen..."
@@ -5472,11 +5566,11 @@ msgstr "Test van afspelen "
 #: plugins/playback/PlayBackPlugin.cpp:438
 #, kde-format
 msgid ""
-"You should now hear a %1 Hz test tone.<br><br>(If you hear clicks or "
-"dropouts, please increase<br>the buffer size and try again)"
+"You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "
+"dropouts, please increase<br/>the buffer size and try again)"
 msgstr ""
-"U zou nu een toon van %1 Hz moeten horen.<br><br>(Als u klikken hoort of "
-"verlies, Verhoog dan<br>de buffergrootte en probeer opnieuw)"
+"U zou nu een toon van %1 Hz moeten horen.<br/><br/>(Als u klikken hoort of "
+"verlies, Verhoog dan<br/>de buffergrootte en probeer opnieuw)"
 
 #: plugins/record/LevelMeter.cpp:276 plugins/record/LevelMeter.cpp:300
 #, kde-format
@@ -5499,135 +5593,135 @@ msgstr "OSS-opnameapparaat (dsp*)"
 msgid "ALSA recording device (adsp*)"
 msgstr "ALSA-opnameapparaat (adsp*)"
 
-#: plugins/record/Record-PulseAudio.cpp:211
+#: plugins/record/Record-PulseAudio.cpp:210
 msgid "Kwave record"
 msgstr "Kwave-opname"
 
-#: plugins/record/RecordDialog.cpp:300
+#: plugins/record/RecordDialog.cpp:311
 msgid "&Done"
 msgstr "Geree&d"
 
-#: plugins/record/RecordDialog.cpp:596
+#: plugins/record/RecordDialog.cpp:608
 msgid "OSS record device (dsp*)"
 msgstr "OSS-opnameapparaat (dsp*)"
 
-#: plugins/record/RecordDialog.cpp:597
+#: plugins/record/RecordDialog.cpp:609
 msgid "ALSA record device (adsp*)"
 msgstr "ALSA-opnameapparaat (adsp*)"
 
-#: plugins/record/RecordDialog.cpp:604
+#: plugins/record/RecordDialog.cpp:618
 msgid "Select Record Device"
 msgstr "Opnameapparaat selecteren"
 
-#: plugins/record/RecordDialog.cpp:697 plugins/record/RecordPlugin.cpp:464
-#: plugins/record/RecordPlugin.cpp:472
+#: plugins/record/RecordDialog.cpp:705 plugins/record/RecordPlugin.cpp:467
+#: plugins/record/RecordPlugin.cpp:475
 msgid "Mono"
 msgstr "Mono"
 
-#: plugins/record/RecordDialog.cpp:700 plugins/record/RecordPlugin.cpp:465
-#: plugins/record/RecordPlugin.cpp:473
+#: plugins/record/RecordDialog.cpp:708 plugins/record/RecordPlugin.cpp:468
+#: plugins/record/RecordPlugin.cpp:476
 msgid "Stereo"
 msgstr "Stereo"
 
-#: plugins/record/RecordDialog.cpp:703 plugins/record/RecordPlugin.cpp:466
-#: plugins/record/RecordPlugin.cpp:474
+#: plugins/record/RecordDialog.cpp:711 plugins/record/RecordPlugin.cpp:469
+#: plugins/record/RecordPlugin.cpp:477
 msgid "Quadro"
 msgstr "Quadro"
 
-#: plugins/record/RecordDialog.cpp:714
+#: plugins/record/RecordDialog.cpp:722
 #, kde-format
 msgid "%1 tracks"
 msgstr "%1 tracks"
 
-#: plugins/record/RecordDialog.cpp:769
+#: plugins/record/RecordDialog.cpp:778
 #, kde-format
 msgid "%1 Hz"
 msgstr "%1 Hz"
 
-#: plugins/record/RecordDialog.cpp:863
+#: plugins/record/RecordDialog.cpp:873
 #, kde-format
 msgid "%1 bit"
 msgstr "%1 bits"
 
-#: plugins/record/RecordDialog.cpp:976
+#: plugins/record/RecordDialog.cpp:989
 msgid "Please check the source device settings..."
 msgstr "De apparaatinstellingen van de bron controleren..."
 
-#: plugins/record/RecordDialog.cpp:988
+#: plugins/record/RecordDialog.cpp:1001
 msgid "(empty)"
 msgstr "(leeg)"
 
-#: plugins/record/RecordDialog.cpp:999
+#: plugins/record/RecordDialog.cpp:1012
 msgid "Buffering..."
 msgstr "Aan het bufferen..."
 
-#: plugins/record/RecordDialog.cpp:1010
+#: plugins/record/RecordDialog.cpp:1023
 msgid "Prerecording..."
 msgstr "Bezig vooraf opnemen..."
 
-#: plugins/record/RecordDialog.cpp:1021 plugins/record/RecordDialog.cpp:1175
+#: plugins/record/RecordDialog.cpp:1034 plugins/record/RecordDialog.cpp:1189
 msgid "Waiting for trigger..."
 msgstr "Wacht op startsignaal..."
 
-#: plugins/record/RecordDialog.cpp:1032
+#: plugins/record/RecordDialog.cpp:1045
 msgid "Recording..."
 msgstr "Bezig met opnemen..."
 
-#: plugins/record/RecordDialog.cpp:1050
+#: plugins/record/RecordDialog.cpp:1063
 msgid "Paused"
 msgstr "Gepauzeerd"
 
-#: plugins/record/RecordDialog.cpp:1061
+#: plugins/record/RecordDialog.cpp:1074
 msgid "Done"
 msgstr "Gereed"
 
-#: plugins/record/RecordDialog.cpp:1159
+#: plugins/record/RecordDialog.cpp:1173
 #, kde-format
 msgid "one day "
 msgid_plural "%1 days "
 msgstr[0] "één dag "
 msgstr[1] "%1 dagen "
 
-#: plugins/record/RecordDialog.cpp:1161
+#: plugins/record/RecordDialog.cpp:1175
 #, kde-format
 msgid "one hour "
 msgid_plural "%1 hours "
 msgstr[0] "één uur "
 msgstr[1] "%1 uren "
 
-#: plugins/record/RecordDialog.cpp:1163
+#: plugins/record/RecordDialog.cpp:1177
 #, kde-format
 msgid "one minute "
 msgid_plural "%1 minutes "
 msgstr[0] "één minuut"
 msgstr[1] "%1 minuten "
 
-#: plugins/record/RecordDialog.cpp:1166
+#: plugins/record/RecordDialog.cpp:1180
 #, kde-format
 msgid "and %1 second"
 msgid_plural "and %1 seconds"
 msgstr[0] "en %1 seconde"
 msgstr[1] "en %1 seconden"
 
-#: plugins/record/RecordDialog.cpp:1167
+#: plugins/record/RecordDialog.cpp:1181
 #, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
 msgstr[0] "%1 seconde"
 msgstr[1] "%1 seconden"
 
-#: plugins/record/RecordDialog.cpp:1171
+#: plugins/record/RecordDialog.cpp:1185
 #, kde-format
 msgctxt "%1=days; %2=hours; %3=minutes; %4=seconds"
 msgid "Waiting for start in %1%2%3%4..."
 msgstr "Wacht op het starten na %1%2%3%4..."
 
-#: plugins/record/RecordDialog.cpp:1190
+#: plugins/record/RecordDialog.cpp:1204
 #, kde-format
 msgid "Length: %1"
 msgstr "Lengte: %1"
 
-#: plugins/record/RecordDialog.cpp:1191
+#: plugins/record/RecordDialog.cpp:1205
 #, kde-format
 msgid "(%1 samples)"
 msgstr "(%1 samples)"
@@ -5703,17 +5797,17 @@ msgstr ""
 msgid "Record trigger:"
 msgstr "Opname-trigger:"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btStop)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btStop)
 #: plugins/record/RecordDlg.ui:172
 msgid "Stop Recording"
 msgstr "Opnemen stoppen"
 
-#. i18n: ectx: property (toolTip), widget (KPushButton, btPause)
+#. i18n: ectx: property (toolTip), widget (QPushButton, btPause)
 #: plugins/record/RecordDlg.ui:191
 msgid "Pause/Continue"
 msgstr "Pauzeren/doorgaan"
 
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, sbRecordPre)
+#. i18n: ectx: property (suffix), widget (QSpinBox, sbRecordPre)
 #: plugins/record/RecordDlg.ui:285
 msgid " s"
 msgstr " s"
@@ -5756,12 +5850,12 @@ msgstr "AGC:"
 msgid "Amplify:"
 msgstr "Versterken:"
 
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, sbLevelAmplify)
+#. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelAmplify)
 #: plugins/record/RecordDlg.ui:452
 msgid " dB"
 msgstr " dB"
 
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, sbLevelAGC)
+#. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelAGC)
 #: plugins/record/RecordDlg.ui:471
 msgid " ms"
 msgstr " ms"
@@ -5842,7 +5936,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
 #: plugins/record/RecordDlg.ui:1000
 msgid "Buffer count:"
-msgstr ""
+msgstr "Aantal buffers:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1022
@@ -5861,16 +5955,24 @@ msgid ""
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes OSS, "
 "supports more features and more hardware.</p>"
 msgstr ""
+"<b>Opnamemethode:</b><p>kies een methode of systeem voor opnemen.\n"
+"Afhankelijk van de opties bij compileren kunt u een van de volgende methoden "
+"selecteren:</p>\n"
+"<p><b><i>OSS (Open Sound System)</i></b>: De oudste linux implementatie, "
+"alleen in te gebruiken voor mono- en stereo-invoer. Verouderd sinds de linux "
+"kernel 2.6, maar nog steeds wijdverspreid.</p>\n"
+"<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Gaat boven OSS, "
+"ondersteunt meer mogelijkheden en meer hardware.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_5)
 #: plugins/record/RecordDlg.ui:1035
 msgid "Recording method:"
-msgstr ""
+msgstr "Opnamemethode:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1053
 msgid "Recording device"
-msgstr ""
+msgstr "Opnameapparaat"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1056
@@ -5879,8 +5981,12 @@ msgid ""
 "suitable for the chosen recording method. If your device is not listed here, "
 "you can enter a device name on your own or search through the filesystem.</p>"
 msgstr ""
+"<b>Apparaat:</b><p>deze lijst toont een selectie van enige bekende "
+"opnameapparaten geschikt voor de gekozen opnamemethode. Als uw apparaat hier "
+"niet in de lijst staat, dan kunt u zelf een apparaatnaam invoeren of zoeken "
+"in het bestandssysteem.</p>"
 
-#. i18n: ectx: property (text), widget (KPushButton, btSourceSelect)
+#. i18n: ectx: property (text), widget (QPushButton, btSourceSelect)
 #: plugins/record/RecordDlg.ui:1078
 msgid "Selec&t..."
 msgstr "Selec&teren..."
@@ -5900,103 +6006,111 @@ msgstr "Buffer:"
 msgid "Level:"
 msgstr "Niveau:"
 
-#: plugins/record/RecordPlugin.cpp:397
+#: plugins/record/RecordPlugin.cpp:400
 #, kde-format
 msgid ""
 "Kwave was unable to open the device '%1'.\n"
 "Maybe your system lacks support for the corresponding hardware or the "
 "hardware is not connected."
 msgstr ""
+"Kwave was niet in staat om het apparaat '%1' te openen.\n"
+"Misschien ontbreekt ondersteuning in uw systeem voor de overeenkomstige "
+"hardware of de hardware is niet verbonden."
 
-#: plugins/record/RecordPlugin.cpp:404
+#: plugins/record/RecordPlugin.cpp:407
 #, kde-format
 msgid ""
 "The device '%1' seems to be occupied by another application.\n"
 "Please try again later."
 msgstr ""
+"Het apparaat '%1' lijkt bezet te zijn door een andere toepassing.\n"
+"Probeer het later nog eens."
 
-#: plugins/record/RecordPlugin.cpp:412
+#: plugins/record/RecordPlugin.cpp:415
 msgid "Unable to open the recording device"
-msgstr ""
+msgstr "Opnameapparaat openen lukt niet"
 
-#: plugins/record/RecordPlugin.cpp:468 plugins/record/RecordPlugin.cpp:476
+#: plugins/record/RecordPlugin.cpp:471 plugins/record/RecordPlugin.cpp:479
 #, kde-format
 msgid "%1 channels"
 msgstr "%1 kanalen"
 
-#: plugins/record/RecordPlugin.cpp:479
+#: plugins/record/RecordPlugin.cpp:482
 #, kde-format
 msgid "%1 is not supported, using %2"
-msgstr ""
+msgstr "%1 wordt niet ondersteund, %2 wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:502
+#: plugins/record/RecordPlugin.cpp:505
 #, kde-format
 msgid "Recording with %1 channel(s) failed, using %2 channel(s)"
 msgstr ""
+"Opnemen met %1 kana(a)l(en) is mislukt, %2 kana(a)l(en) word(t)(en) gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:547
+#: plugins/record/RecordPlugin.cpp:550
 #, kde-format
 msgid "%1 Hz is not supported, using %2 Hz"
-msgstr ""
+msgstr "%1 Hz wordt niet ondersteund, %2 Hz wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:564
+#: plugins/record/RecordPlugin.cpp:567
 #, kde-format
 msgid "%1 Hz failed, using %2 Hz"
-msgstr ""
+msgstr "%1 Hz is mislukt, %2 Hz wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:607
+#: plugins/record/RecordPlugin.cpp:610
 #, kde-format
 msgid "Compression '%1' not supported, using '%2'"
-msgstr ""
+msgstr "Compressie '%1' wordt niet ondersteund, '%2' wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:619
+#: plugins/record/RecordPlugin.cpp:622
 #, kde-format
 msgid "Compression '%1' failed, using '%2'."
-msgstr ""
+msgstr "Compressie '%1' is mislukt, '%2' wordt gebruikt."
 
-#: plugins/record/RecordPlugin.cpp:658
+#: plugins/record/RecordPlugin.cpp:661
 #, kde-format
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
 msgstr ""
+"%1 bits per sample wordt niet ondersteund, %2 bits per sample wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:671
+#: plugins/record/RecordPlugin.cpp:674
 #, kde-format
 msgid "%1 bits per sample failed, using %2 bits per sample"
-msgstr ""
+msgstr "%1 bits per sample is mislukt, %2 bits per sample wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:714
+#: plugins/record/RecordPlugin.cpp:717
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
-msgstr ""
+msgstr "Sampleformaat '%1' wordt niet ondersteund, '%2' wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:730
+#: plugins/record/RecordPlugin.cpp:733
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
-msgstr ""
+msgstr "Sampleformaat '%1' is mislukt, '%2' wordt gebruikt"
 
-#: plugins/record/RecordPlugin.cpp:863
+#: plugins/record/RecordPlugin.cpp:866
 msgid "The current sample format is not supported!"
-msgstr ""
+msgstr "Het huidige sampleformaat wordt niet ondersteund!"
 
-#: plugins/record/RecordPlugin.cpp:869
+#: plugins/record/RecordPlugin.cpp:872
 msgid "The current compression type is not supported!"
-msgstr ""
+msgstr "Het huidige compressietype wordt niet ondersteund!"
 
-#: plugins/record/RecordPlugin.cpp:1012
+#: plugins/record/RecordPlugin.cpp:1014
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
+"Buffer-overrun. Verhoog het aantal en/of de grootte van de opnamebuffers."
 
-#: plugins/record/RecordPlugin.cpp:1016
+#: plugins/record/RecordPlugin.cpp:1018
 msgid "The recording device seems to be busy."
-msgstr ""
+msgstr "Het opnameapparaat lijkt bezet te zijn."
 
-#: plugins/record/RecordPlugin.cpp:1019
+#: plugins/record/RecordPlugin.cpp:1021
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
-msgstr ""
+msgstr "Lezen van het opnameapparaat is mislukt. Foutnummer = %1 (%2)"
 
-#: plugins/reverse/ReversePlugin.cpp:45 plugins/reverse/ReversePlugin.cpp:78
+#: plugins/reverse/ReversePlugin.cpp:45 plugins/reverse/ReversePlugin.cpp:79
 #: plugins/reverse/UndoReverseAction.cpp:44
 msgid "Reverse"
 msgstr "Omgekeerd"
@@ -6005,29 +6119,37 @@ msgstr "Omgekeerd"
 msgid "Sample Rate Conversion"
 msgstr "Samplesnelheid converteren"
 
-#: plugins/samplerate/SampleRatePlugin.cpp:99
+#: plugins/samplerate/SampleRatePlugin.cpp:100
 msgid "Change sample rate"
 msgstr "Samplesnelheid wijzigen"
 
-#: plugins/samplerate/SampleRatePlugin.cpp:147
+#: plugins/samplerate/SampleRatePlugin.cpp:148
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "Samplesnelheid wijzigen van  %1 kHz tot %2 kHz..."
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:43
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:97
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:44
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:104
 msgid "Save Blocks"
 msgstr "Blokken opslaan"
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:226
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:177
 msgid "..."
 msgstr "..."
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:231
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:266
 #, kde-format
 msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr ""
+"Dit zou het/de volgende bestand(en) overschrijven: %1. Wilt u doorgaan?"
+
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:279
+#, kde-format
+msgid ""
+"The following directories do not exist: %1Do you want to create them and "
+"continue?"
+msgstr "De volgende mappen bestaan niet: %1  Wilt u ze aanmaken en doorgaan?"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkSelectionOnly)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:32
@@ -6037,16 +6159,20 @@ msgid ""
 "disabled if nothing is selected or the selection already covers the whole "
 "file.</i>"
 msgstr ""
+"Als <b>alleen de blokken die met de huidie selectie overlappen</b> is "
+"geactiveerd, ander het gehele bestand. <br><i>Merk op dat deze optie is "
+"uitgeschakeld als niets is geselecteerd of de selectie al het gehele bestand "
+"dekt.</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:35
 msgid "Save selection only"
-msgstr ""
+msgstr "Alleen selectie opslaan"
 
 #. i18n: ectx: property (text), widget (QLabel, lblNumbering)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:45
 msgid "Numbering:"
-msgstr ""
+msgstr "Nummering:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:64
@@ -6058,23 +6184,31 @@ msgid ""
 "existing files</li>\n"
 "</ul>"
 msgstr ""
+"Bepaalt hoe de <b>nummering van de bestanden</b> gedaan moet worden:<ul>\n"
+"<li>Doorgaan na de <b>hoogste index</b> die gevonden kan worden, waarmee "
+"botsing met bestaande bestanden wordt vermeden</li>\n"
+"<li>Start nummering altijd vanaf <b>één</b>, met de mogelijkheid van botsen "
+"met al bestaande bestanden</li>\n"
+"</ul>"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:74
 msgid "Continue after highest index"
-msgstr ""
+msgstr "Doorgaan na de hoogste index"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:79
 msgid "Always start with 1, overwrite if necessary"
-msgstr ""
+msgstr "Altijd op 1 beginnen, overschrijven indien nodig"
 
-#. i18n: ectx: property (whatsThis), widget (KLineEdit, txtExample)
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, txtExample)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:96
 msgid ""
 "Example of the first file name that will be saved, using the file name "
 "pattern above and the numbering below"
 msgstr ""
+"Voorbeeld van de eerste bestandsnaam die opgeslagen zal worden, met gebruik "
+"van het bovenstaande bestandsnaampatroon en de onderstaande nummering"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:112
@@ -6098,6 +6232,19 @@ msgid ""
 "the files that will be saved</li>\n"
 "</ul>"
 msgstr ""
+"<p>Selecteer het patroon dat wordt gebruikt om de bestandsnaam van elk "
+"opgeslagen blok te maken. Op dit moment begrijpt het de volgende "
+"plaatshouders:</p>\n"
+"<ul>\n"
+"<li><tt><b>[%filename]</b></tt>naam van het bestand, zonder het pad</li>\n"
+"<li><tt><b>[</b>%<i>0</i></tt><i>N</i><tt><b>nr]</b></tt>de index van het "
+"bestand, optioneel met voorloopnullen (als <tt>'0</tt>' is voorgevoegd) en "
+"optioneel een vast aantal cijfers (<tt>N</tt>)</li>\n"
+"<li><tt><b>[%</b><i>0</i><i>N</i><b>count]</b></tt>het aantal bestanden dat "
+"zal worden opgeslagen</li>\n"
+"<li><tt><b>[%</b><i>0</i><i>N</i><b>total]</b></tt>de hoogste index in de "
+"bestanden die zal worden opgeslagen</li>\n"
+"</ul>"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPattern)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:147
@@ -6111,24 +6258,24 @@ msgstr "Starten"
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectRangeDlg)
 #: plugins/selectrange/SelectRangeDlg.ui:15
 #: plugins/selectrange/SelectRangePlugin.cpp:35
-#: plugins/selectrange/SelectRangePlugin.cpp:116
+#: plugins/selectrange/SelectRangePlugin.cpp:117
 msgid "Select Range"
 msgstr "Bereik selecteren"
 
-#: plugins/sonagram/SonagramDialog.cpp:150
+#: plugins/sonagram/SonagramDialog.cpp:149
 #, kde-format
 msgid "(resulting window size: %1)"
-msgstr ""
+msgstr "(resulterende venstergrootte: %1)"
 
-#: plugins/sonagram/SonagramDialog.cpp:153
+#: plugins/sonagram/SonagramDialog.cpp:152
 #, kde-format
 msgid "Size of bitmap: %1x%2"
-msgstr ""
+msgstr "Grootte van een bitmap: %1x%2"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SonagramDlg)
 #: plugins/sonagram/SonagramDlg.ui:20
 msgid "Set FFT/Time Resolution Parameters"
-msgstr ""
+msgstr "FFT/tijdsresolutie parameters instellen"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup1)
 #: plugins/sonagram/SonagramDlg.ui:49
@@ -6138,7 +6285,7 @@ msgstr "weergave"
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbColor)
 #: plugins/sonagram/SonagramDlg.ui:55
 msgid "Use different colors for amplitude"
-msgstr ""
+msgstr "Verschillende kleuren voor amplitude gebruiken"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbColor)
 #: plugins/sonagram/SonagramDlg.ui:58
@@ -6148,7 +6295,7 @@ msgstr "Kleuren gebruiken"
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbGreyScale)
 #: plugins/sonagram/SonagramDlg.ui:68
 msgid "Use grayscale only for amplitude"
-msgstr ""
+msgstr "Alleen grijswaarden voor amplitude gebruiken"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbGreyScale)
 #: plugins/sonagram/SonagramDlg.ui:71
@@ -6164,11 +6311,12 @@ msgstr "Bijwerken"
 #: plugins/sonagram/SonagramDlg.ui:87
 msgid "Automatically update the sonagram <br>if the signal data has changed"
 msgstr ""
+"Het sonagram automatisch bijwerken <br>als de signaalgegevens zijn gewijzigd"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbTrackChanges)
 #: plugins/sonagram/SonagramDlg.ui:90
 msgid "On modifications"
-msgstr ""
+msgstr "Bij wijzigingen"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, cbFollowSelection)
 #: plugins/sonagram/SonagramDlg.ui:100
@@ -6176,6 +6324,8 @@ msgid ""
 "Automatically update the sonagram if the selection<br>has been enlarged, "
 "reduced or moved"
 msgstr ""
+"Het sonagram automatisch bijwerken als de selectie<br> is vergroot, "
+"verkleind of verplaatst"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbFollowSelection)
 #: plugins/sonagram/SonagramDlg.ui:103
@@ -6204,6 +6354,8 @@ msgid ""
 "Choose windowing function here.<br>\n"
 "If the transformation should stay reversible, use the type \"None\"."
 msgstr ""
+"Windowingfunctie hier kiezen.<br>\n"
+"Als de transformatie omkeerbaar moet blijven, gebruik het type \"Geen\"."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, pointbox)
 #. i18n: ectx: property (whatsThis), widget (KComboBox, pointbox)
@@ -6214,6 +6366,10 @@ msgid ""
 "if choosing big window sizes.<br>\n"
 "The computation will be much faster!"
 msgstr ""
+"<b>Aantal FFT-punten:</b><p></p>probeer getallen te kiezen met kleine eerste "
+"factoren,<br>\n"
+"bij kiezen van grote venstergrootte.<br>\n"
+"Het berekenen zal veel sneller zijn!"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, pointbox)
 #: plugins/sonagram/SonagramDlg.ui:235
@@ -6256,68 +6412,68 @@ msgstr "4096"
 msgid "?:"
 msgstr "?:"
 
-#: plugins/sonagram/SonagramPlugin.cpp:58
-#: plugins/sonagram/SonagramPlugin.cpp:78
-#: plugins/sonagram/SonagramWindow.cpp:502
+#: plugins/sonagram/SonagramPlugin.cpp:55
+#: plugins/sonagram/SonagramPlugin.cpp:75
+#: plugins/sonagram/SonagramWindow.cpp:516
 msgid "Sonagram"
 msgstr "Sonagram"
 
-#: plugins/sonagram/SonagramWindow.cpp:110
+#: plugins/sonagram/SonagramWindow.cpp:114
 msgid "&Sonagram"
 msgstr "&Sonagram"
 
-#: plugins/sonagram/SonagramWindow.cpp:119
+#: plugins/sonagram/SonagramWindow.cpp:123
 msgid "&Export to Bitmap..."
-msgstr ""
+msgstr "Naar bitmap &exporteren..."
 
-#: plugins/sonagram/SonagramWindow.cpp:124
+#: plugins/sonagram/SonagramWindow.cpp:128
 msgid "&Close"
 msgstr "&Sluiten"
 
-#: plugins/sonagram/SonagramWindow.cpp:135
+#: plugins/sonagram/SonagramWindow.cpp:140
 msgid "Time: ------ ms"
-msgstr ""
+msgstr "Tijd: ------ ms"
 
-#: plugins/sonagram/SonagramWindow.cpp:136
+#: plugins/sonagram/SonagramWindow.cpp:142
 msgid "Frequency: ------ Hz"
-msgstr ""
+msgstr "Frequentie: ------ Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:137
+#: plugins/sonagram/SonagramWindow.cpp:144
 msgid "Amplitude: --- %"
 msgstr "Amplitude:  --- %"
 
-#: plugins/sonagram/SonagramWindow.cpp:183
+#: plugins/sonagram/SonagramWindow.cpp:193
 msgid "Time: 0 ms"
-msgstr ""
+msgstr "Tijd: 0 ms"
 
-#: plugins/sonagram/SonagramWindow.cpp:184
+#: plugins/sonagram/SonagramWindow.cpp:194
 msgid "Frequency: 0 Hz"
-msgstr ""
+msgstr "Frequentie: 0 Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:185
+#: plugins/sonagram/SonagramWindow.cpp:195
 msgid "Amplitude: 0 %"
 msgstr "Amplitude: 0 %"
 
-#: plugins/sonagram/SonagramWindow.cpp:211
+#: plugins/sonagram/SonagramWindow.cpp:224
 msgid "Save Sonagram"
-msgstr ""
+msgstr "Sonagram opslaan"
 
-#: plugins/sonagram/SonagramWindow.cpp:501
+#: plugins/sonagram/SonagramWindow.cpp:515
 #, kde-format
 msgid "Sonagram of %1"
-msgstr ""
+msgstr "Sonagram van %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:524
+#: plugins/sonagram/SonagramWindow.cpp:539
 #, kde-format
 msgid "Time: %1"
 msgstr "Tijd: %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:527
+#: plugins/sonagram/SonagramWindow.cpp:543
 #, kde-format
 msgid "Frequency: %1 Hz"
-msgstr ""
+msgstr "Frequentie: %1 Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:536
+#: plugins/sonagram/SonagramWindow.cpp:552
 #, kde-format
 msgid "Amplitude: %1%"
 msgstr "Amplitude: %1%"
@@ -6325,27 +6481,27 @@ msgstr "Amplitude: %1%"
 #. i18n: ectx: property (windowTitle), widget (QDialog, StringEnterDlg)
 #: plugins/stringenter/StringEnterDlg.ui:21
 msgid "Enter Command..."
-msgstr ""
+msgstr "Commando invoeren..."
 
 #. i18n: ectx: property (text), widget (QLabel, lblCommand)
 #: plugins/stringenter/StringEnterDlg.ui:36
 msgid "Enter Command:"
-msgstr ""
+msgstr "Commando invoeren:"
 
-#. i18n: ectx: property (toolTip), widget (KLineEdit, edCommand)
+#. i18n: ectx: property (toolTip), widget (QLineEdit, edCommand)
 #: plugins/stringenter/StringEnterDlg.ui:68
 msgid "please enter a text command here..."
-msgstr ""
+msgstr "voer hier een tekstcommando in..."
 
-#: plugins/stringenter/StringEnterPlugin.cpp:31
-#: plugins/stringenter/StringEnterPlugin.cpp:50
+#: plugins/stringenter/StringEnterPlugin.cpp:34
+#: plugins/stringenter/StringEnterPlugin.cpp:54
 msgid "Enter Command"
-msgstr ""
+msgstr "Commando invoeren"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:64
 msgid "change volume by factor"
-msgstr ""
+msgstr "volume wijzigen met een factor"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:68
@@ -6364,7 +6520,7 @@ msgstr "&Factor"
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbPercentage)
 #: plugins/volume/VolumeDlg.ui:84
 msgid "change volume by percentage"
-msgstr ""
+msgstr "volume wijzigen op basis van percentage"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/volume/VolumeDlg.ui:88
@@ -6379,7 +6535,7 @@ msgstr ""
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:104
 msgid "change volume in dB"
-msgstr ""
+msgstr "volume wijzigen in dB"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:108
@@ -6392,11 +6548,26 @@ msgstr ""
 
 #: plugins/zero/ZeroPlugin.cpp:39
 msgid "Zero Generator"
-msgstr ""
+msgstr "Nul-generator"
 
-#: plugins/zero/ZeroPlugin.cpp:62
+#: plugins/zero/ZeroPlugin.cpp:63
 msgid "Silence"
 msgstr "Stilte"
+
+#~ msgid " for KDE Frameworks "
+#~ msgstr " voor KDE Frameworks "
+
+#~ msgid "Phonon (KDE)"
+#~ msgstr "Phonon (KDE)"
+
+#~ msgid "&Label"
+#~ msgstr "&Label"
+
+#~ msgid "&New"
+#~ msgstr "&Nieuw"
+
+#~ msgid "List of audio files"
+#~ msgstr "Lijst met geluidsbestanden"
 
 #~ msgid "NAME OF TRANSLATORS"
 #~ msgstr "Bram Schoenmakers, Ronald Stroethoff, Michiel Zandbelt, Valenstijn"

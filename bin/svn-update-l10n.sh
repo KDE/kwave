@@ -22,7 +22,9 @@ set -e
 CWD=`dirname $0`
 CMAKE_SOURCE_DIR=$1
 
+# REMOTE="svn+ssh://svn@svn.kde.org/home/kde/trunk/l10n-kf5/"
 REMOTE="svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/"
+
 REPOSITORY="${CMAKE_SOURCE_DIR}/l10n-kf5"
 PO_DIR="${CMAKE_SOURCE_DIR}/po"
 DOC_DIR="${CMAKE_SOURCE_DIR}/doc"
@@ -91,11 +93,15 @@ for lang in ${LINGUAS}; do
 	FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
 	echo ${lang_team} >> ${LANG_NAMES_FILE}
     else
-	checkout "" "${lang}" "docmessages" "language"
+	checkout "" "${lang}" "docs" "${CATEGORY}"
+	svn update --quiet "${lang}/docs/${CATEGORY}/kwave"
 	checkout "" "${lang}" "docmessages" "${CATEGORY}" "${PO_FILE}"
 	if [ ${result} == 1 ] ; then
 	    FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
 	    echo ${lang_team} >> ${LANG_NAMES_FILE}
+	    if test -e "${lang}/docmessages/language" ; then
+		checkout "" "${lang}" "docmessages" "language"
+	    fi
 	fi
     fi
 
@@ -124,6 +130,9 @@ done
 # or update the existing ones if necessary
 cd "${REPOSITORY}"
 for lang in ${FOUND_HANDBOOKS}; do
+
+    svn update "${lang}/docs/${CATEGORY}/kwave"
+
     if ! test -e "${lang}/docs/${CATEGORY}/kwave/index.docbook" ; then
 	echo -n "${lang}: creating missing index.docbook... "
 	scripts/update_xml ${lang} kdereview kwave > /dev/null

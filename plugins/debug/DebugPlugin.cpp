@@ -21,8 +21,6 @@
 #include <math.h>
 #include <string.h>
 
-#include <KLocalizedString> // for the i18n macro
-
 #include <QByteArray>
 #include <QCoreApplication>
 #include <QDir>
@@ -32,7 +30,7 @@
 #include <QRect>
 #include <QScreen>
 #include <QStringList>
-#include <QTimer>
+#include <QWindow>
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -42,6 +40,9 @@
 #include <QPixmap>
 #include <QtEvents>
 
+#include <KLocalizedString> // for the i18n macro
+
+#include "libkwave/Logger.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
@@ -441,14 +442,22 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
     if (!widget) return;
 
     // get the outer frame geometry, absolute coordinates
-    QRect rect = widget->frameGeometry();
+    const QRect rect = widget->windowHandle()->frameGeometry();
     QScreen *screen = QGuiApplication::primaryScreen();
+    Q_ASSERT(screen);
     if (!screen) return;
     QPixmap pixmap = screen->grabWindow(
 	QApplication::desktop()->winId(),
 	rect.x(), rect.y(),
 	rect.width(), rect.height()
     );
+
+    QString str;
+    str = str.sprintf("screenshot of %s - [%p] %d/%d %dx%d",
+	DBG(filename), static_cast<void*>(widget),
+	rect.x(), rect.y(), rect.width(), rect.height()
+    );
+    Kwave::Logger::log(this, Logger::Info, str);
 
     // make sure the directory exists
     QFileInfo file(filename);

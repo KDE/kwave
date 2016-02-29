@@ -92,7 +92,6 @@ TARGET_LINK_LIBRARIES(kwave_core
     KF5::I18n
     KF5::IconThemes
     KF5::KIOFileWidgets
-    KF5::Service
     KF5::XmlGui
 )
 

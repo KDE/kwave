@@ -211,13 +211,9 @@ FIND_PACKAGE(KF5 REQUIRED COMPONENTS
     Crash
     DBusAddons
     DocTools
-    GuiAddons
     I18n
     IconThemes
-    Init
     KIO
-    Notifications
-    Service
     TextWidgets
     XmlGui
     WidgetsAddons

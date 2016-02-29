@@ -3,6 +3,7 @@
 
  * bugfix: screenshot function sometimes returned 1x1 image only (bug in Qt
    QWidget::frameGeometry is broken, but QWindow::frameGeometry works)
+ * removed unneeded build and runtime dependencies
 
 0.9.1 [2016-02-21]
 

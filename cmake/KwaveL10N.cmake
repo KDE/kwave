@@ -58,7 +58,6 @@ FOREACH(_po_file ${_existing_po_files})
 
     CHECK_LANG(_lang _take_it)
     IF (_take_it)
-	SET(KWAVE_BUILD_LINGUAS_STRING "${KWAVE_BUILD_LINGUAS_STRING} ${_lang}")
 	LIST(APPEND KWAVE_BUILD_LINGUAS "${_lang}")
 	LIST(APPEND _po_files "${_po_file}")
 	MESSAGE(STATUS "Enabled GUI translation for ${_lang}")

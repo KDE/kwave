@@ -16,7 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <stdlib.h>
+
+#include <QtGlobal>
 
 #include "NoiseGenerator.h"
 #include "libkwave/Sample.h"
@@ -53,7 +54,7 @@ void Kwave::NoiseGenerator::input(Kwave::SampleArray data)
 	const Kwave::SampleArray &in = data;
 	m_buffer[i] = double2sample(
 	    (sample2double(in[i]) * alpha) +
-	    ((rand() - (RAND_MAX / 2)) * scale)
+	    ((qrand() - (RAND_MAX / 2)) * scale)
 	);
     }
 }

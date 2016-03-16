@@ -216,6 +216,7 @@ FIND_PACKAGE(KF5 REQUIRED COMPONENTS
     I18n
     IconThemes
     KIO
+    Service
     TextWidgets
     XmlGui
     WidgetsAddons

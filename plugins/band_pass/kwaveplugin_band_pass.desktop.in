@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Band Pass Filter
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Dave Flogeras
+X-KDE-PluginInfo-Name=band_pass
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

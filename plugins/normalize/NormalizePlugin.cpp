@@ -50,15 +50,12 @@
 /** target volume level [dB] */
 #define TARGET_LEVEL -12
 
-KWAVE_PLUGIN(Kwave::NormalizePlugin, "normalize", "2.3",
-             I18N_NOOP("Normalizer"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(normalize, NormalizePlugin)
 
 //***************************************************************************
-//***************************************************************************
-
-Kwave::NormalizePlugin::NormalizePlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager)
+Kwave::NormalizePlugin::NormalizePlugin(QObject *parent,
+                                        const QVariantList &args)
+    :Kwave::Plugin(parent, args)
 {
 }
 
@@ -239,5 +236,7 @@ void Kwave::NormalizePlugin::getMaxPowerOfTrack(
 //     qDebug("%p -> pos=%llu, max=%g", this, reader->pos(), average.max);
 }
 
+//***************************************************************************
+#include "NormalizePlugin.moc"
 //***************************************************************************
 //***************************************************************************

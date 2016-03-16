@@ -58,13 +58,11 @@
 #include "RecordThread.h"
 #include "SampleDecoderLinear.h"
 
-KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.4",
-             I18N_NOOP("Record"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(record, RecordPlugin)
 
 //***************************************************************************
-Kwave::RecordPlugin::RecordPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager),
+Kwave::RecordPlugin::RecordPlugin(QObject *parent, const QVariantList &args)
+    :Kwave::Plugin(parent, args),
      m_method(), m_device_name(), m_controller(),
      m_state(Kwave::REC_EMPTY), m_device(0),
      m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),
@@ -1532,5 +1530,7 @@ void Kwave::RecordPlugin::prerecordingChanged(bool enable)
     InhibitRecordGuard _lock(*this); // activate the change
 }
 
+//***************************************************************************
+#include "RecordPlugin.moc"
 //***************************************************************************
 //***************************************************************************

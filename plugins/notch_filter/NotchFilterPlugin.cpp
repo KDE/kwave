@@ -29,13 +29,12 @@
 #include "NotchFilterPlugin.h"
 #include "libkwave/MultiTrackSource.h"
 
-KWAVE_PLUGIN(Kwave::NotchFilterPlugin, "notch_filter", "2.3",
-             I18N_NOOP("Notch Filter"),
-             I18N_NOOP("Dave Flogeras"));
+KWAVE_PLUGIN(notch_filter, NotchFilterPlugin)
 
 //***************************************************************************
-Kwave::NotchFilterPlugin::NotchFilterPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::FilterPlugin(plugin_manager),
+Kwave::NotchFilterPlugin::NotchFilterPlugin(QObject *parent,
+                                            const QVariantList &args)
+    :Kwave::FilterPlugin(parent, args),
      m_frequency(3500.0), m_last_freq(100), m_bw(100), m_last_bw(200)
 {
 }
@@ -134,5 +133,7 @@ void Kwave::NotchFilterPlugin::setBwValue(double bw)
     m_bw = bw;
 }
 
+//***************************************************************************
+#include "NotchFilterPlugin.moc"
 //***************************************************************************
 //***************************************************************************

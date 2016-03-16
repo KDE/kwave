@@ -28,14 +28,12 @@
 #include "PitchShiftPlugin.h"
 #include "libkwave/MultiTrackSource.h"
 
-KWAVE_PLUGIN(Kwave::PitchShiftPlugin, "pitch_shift", "2.3",
-             I18N_NOOP("Pitch Shift"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(pitch_shift, PitchShiftPlugin)
 
 //***************************************************************************
-Kwave::PitchShiftPlugin::PitchShiftPlugin(
-    Kwave::PluginManager &plugin_manager)
-    :Kwave::FilterPlugin(plugin_manager),
+Kwave::PitchShiftPlugin::PitchShiftPlugin(QObject *parent,
+                                          const QVariantList &args)
+    :Kwave::FilterPlugin(parent, args),
      m_speed(1.0), m_frequency(5.0), m_percentage_mode(false),
      m_last_speed(0), m_last_freq(0)
 {
@@ -133,5 +131,7 @@ void Kwave::PitchShiftPlugin::setValues(double speed, double frequency)
     m_speed     = speed;
 }
 
+//***************************************************************************
+#include "PitchShiftPlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -19,22 +19,20 @@
 #include <KLocalizedString>
 
 #include "libkwave/CodecManager.h"
+#include "libkwave/PluginManager.h"
 
 #include "AudiofileCodecPlugin.h"
 #include "AudiofileDecoder.h"
 
-KWAVE_PLUGIN(Kwave::AudiofileCodecPlugin, "codec_audiofile", "2.3",
-             I18N_NOOP("Audiofile Codec"),
-             I18N_NOOP("Thomas Eschenbacher"));
-
 // static instance of the codec container
 Kwave::CodecPlugin::Codec Kwave::AudiofileCodecPlugin::m_codec = {0, 0, 0};
 
+KWAVE_PLUGIN(codec_audiofile, AudiofileCodecPlugin)
+
 /***************************************************************************/
-Kwave::AudiofileCodecPlugin::AudiofileCodecPlugin(
-    Kwave::PluginManager &plugin_manager
-)
-    :Kwave::CodecPlugin(plugin_manager, m_codec)
+Kwave::AudiofileCodecPlugin::AudiofileCodecPlugin(QObject *parent,
+                                                  const QVariantList &args)
+    :Kwave::CodecPlugin(parent, args, m_codec)
 {
 }
 
@@ -55,5 +53,7 @@ Kwave::Encoder *Kwave::AudiofileCodecPlugin::createEncoder()
     return 0; /* not implemented */
 }
 
+/***************************************************************************/
+#include "AudiofileCodecPlugin.moc"
 /***************************************************************************/
 /***************************************************************************/

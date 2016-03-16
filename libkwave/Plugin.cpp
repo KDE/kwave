@@ -27,6 +27,7 @@
 #include <QProgressDialog>
 #include <QThread>
 #include <QTime>
+#include <QVariantList>
 #include <QWidget>
 
 #include <KLocalizedString>
@@ -41,8 +42,8 @@
 #include "libkwave/WorkerThread.h"
 
 #ifdef DEBUG
-#endif
 #include <execinfo.h> // for backtrace()
+#endif
 
 /** number of updates of the progress bat per second */
 #define PROGRESS_UPDATES_PER_SECOND 4
@@ -67,10 +68,11 @@
  */
 
 //***************************************************************************
-Kwave::Plugin::Plugin(Kwave::PluginManager &plugin_manager)
+Kwave::Plugin::Plugin(QObject *parent, const QVariantList &args)
     :QObject(0),
      Kwave::Runnable(),
-     m_plugin_manager(&plugin_manager),
+     m_plugin_manager(qobject_cast<Kwave::PluginManager *>(parent)),
+     m_name(args[0].toString()),
      m_thread(0),
      m_thread_lock(),
      m_progress_enabled(true),
@@ -83,6 +85,7 @@ Kwave::Plugin::Plugin(Kwave::PluginManager &plugin_manager)
      m_current_progress(-1),
      m_progress_lock(QMutex::Recursive)
 {
+    Q_ASSERT(m_plugin_manager);
     connect(&m_progress_timer, SIGNAL(timeout()),
             this, SLOT(updateProgressTick()),
             Qt::DirectConnection);
@@ -186,6 +189,12 @@ int Kwave::Plugin::start(QStringList &)
     }
 
     return 0;
+}
+
+//***************************************************************************
+QString Kwave::Plugin::name() const
+{
+    return m_name;
 }
 
 //***************************************************************************

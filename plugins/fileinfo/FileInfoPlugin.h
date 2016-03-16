@@ -29,14 +29,15 @@ namespace Kwave
 	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit FileInfoPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	FileInfoPlugin(QObject *parent, const QVariantList &args);
 
 	/** virtual Destructor */
 	virtual ~FileInfoPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/**
 	* Shows a dialog for editing file properties.

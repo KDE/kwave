@@ -25,13 +25,11 @@
 
 #include "GotoPlugin.h"
 
-KWAVE_PLUGIN(Kwave::GotoPlugin, "goto", "2.3",
-             I18N_NOOP("Goto Position"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(goto, GotoPlugin)
 
 //***************************************************************************
-Kwave::GotoPlugin::GotoPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::GotoPluginBase(plugin_manager)
+Kwave::GotoPlugin::GotoPlugin(QObject *parent, const QVariantList &args)
+    :Kwave::GotoPluginBase(parent, args)
 {
 }
 
@@ -52,5 +50,7 @@ QString Kwave::GotoPlugin::title() const
     return i18n("Goto...");
 }
 
+//***************************************************************************
+#include "GotoPlugin.moc"
 //***************************************************************************
 //***************************************************************************

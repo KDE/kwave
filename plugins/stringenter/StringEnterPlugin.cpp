@@ -30,13 +30,12 @@
 #include "StringEnterDialog.h"
 #include "StringEnterPlugin.h"
 
-KWAVE_PLUGIN(Kwave::StringEnterPlugin, "stringenter", "2.3",
-             I18N_NOOP("Enter Command"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(stringenter, StringEnterPlugin)
 
 //***************************************************************************
-Kwave::StringEnterPlugin::StringEnterPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager)
+Kwave::StringEnterPlugin::StringEnterPlugin(QObject *parent,
+                                            const QVariantList &args)
+    :Kwave::Plugin(parent, args)
 {
 }
 
@@ -84,5 +83,7 @@ QStringList *Kwave::StringEnterPlugin::setup(QStringList &previous_params)
     return list;
 }
 
+//***************************************************************************
+#include "StringEnterPlugin.moc"
 //***************************************************************************
 //***************************************************************************

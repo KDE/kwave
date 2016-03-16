@@ -27,6 +27,9 @@
 #include <QString>
 #include <QThread>
 #include <QTimer>
+#include <QVariantList>
+
+#include <KPluginFactory>
 
 #include "libkwave/Runnable.h"
 #include "libkwave/Sample.h"
@@ -36,29 +39,17 @@ class QProgressDialog;
 class QStringList;
 class QVariant;
 
-#define KWAVE_PLUGIN(__class__,__name__,__version__,                          \
-                     __description__,__author__)                              \
-                                                                              \
-    extern "C" Kwave::Plugin *load(                                           \
-                     Kwave::PluginManager &plugin_manager) Q_DECL_EXPORT;     \
-    extern "C" const char    *name                         Q_DECL_EXPORT;     \
-    extern "C" const char    *version                      Q_DECL_EXPORT;     \
-    extern "C" const char    *description                  Q_DECL_EXPORT;     \
-    extern "C" const char    *author                       Q_DECL_EXPORT;     \
-                                                                              \
-    extern "C" Kwave::Plugin *load(Kwave::PluginManager &plugin_manager) {    \
-	return new __class__(plugin_manager);                                 \
-    }                                                                         \
-                                                                              \
-    QString __class__::name() const                                           \
-    {                                                                         \
-	return _(__name__);                                                   \
-    }                                                                         \
-                                                                              \
-    const char *name        = __name__;                                       \
-    const char *version     = __version__;                                    \
-    const char *description = __description__;                                \
-    const char *author      = __author__
+/**
+ * @def KWAVE_PLUGIN(name,class)
+ * @param name short internal name of the plugin, used for the library
+ *             file name, in most cases identical to the directory name
+ * @param class name of the C++ class that implements the plugin, without
+ *              namespace
+ */
+#define KWAVE_PLUGIN(name,class)                               \
+    K_PLUGIN_FACTORY_WITH_JSON(kwaveplugin_##name##_factory,   \
+                               "kwaveplugin_"#name".json",     \
+                               registerPlugin<Kwave::class>();)
 
 namespace Kwave
 {
@@ -84,9 +75,10 @@ namespace Kwave
 
 	/**
 	 * Constructor
-	 * @param plugin_manager reference to our plugin manager
+	 * @param parent pointer to our plugin manager
+	 * @param args argument list for initializing the plugin
 	 */
-	explicit Plugin(Kwave::PluginManager &plugin_manager);
+	Plugin(QObject *parent, const QVariantList &args);
 
 	/**
 	 * Destructor.
@@ -94,7 +86,7 @@ namespace Kwave
 	virtual ~Plugin();
 
 	/** Returns the name of the plugin. */
-	virtual QString name() const = 0;
+	virtual QString name() const;
 
 	/**
 	 * Returns a text for the progress dialog if enabled.
@@ -344,6 +336,9 @@ namespace Kwave
 
 	/** reference to the plugin manager */
 	Kwave::PluginManager *m_plugin_manager;
+
+	/** name of the plugin, used for undo/redo */
+	QString m_name;
 
 	/**
 	 * Thread that executes the run() member function.

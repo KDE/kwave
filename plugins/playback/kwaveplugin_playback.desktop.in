@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Playback
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=playback
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.4
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

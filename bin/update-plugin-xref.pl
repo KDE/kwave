@@ -29,42 +29,38 @@ my @scanned_plugins;
 sub scan_file
 {
     local $file = shift;
-    # print "scanning file: '" . $file . "'\n";
+#     print "scanning file: '" . $file . "'\n";
+
+    local $name;
+    local $version;
+    local $description;
+    local $author;
 
     open(IN2, $file);
-    local $old_mode = $/;
-    undef $/;
     while (<IN2>) {
 	local $line = $_;
-	if ($line =~ m/KWAVE_PLUGIN\s*\(([^;]+)\)\;/) {
-	    local @params = split(/,/,$1);
-	    local $class_name  = @params[0];
-	    local $name        = @params[1];
-	    local $version     = @params[2];
-	    local $description = @params[3];
-	    local $author      = @params[4];
-	    $name        =~ m/[\s\n]*\"([\w_]+)\"[\s\n]*/;  $name    = $1;
-	    $version     =~ m/[\s\n]*\"([\d.]+)\"[\s\n]*/;  $version = $1;
-	    $description =~ m/[\s\n]*\"([\w\s]+)\"[\s\n]*/; $description = $1;
-	    $author      =~ m/[\s\n]*\"([\S\s]+)\"[\s\n]*/; $author = $1;
+	chomp $line;
 
-# 	    print "'" . $class_name;
-# 	    print "', '" . $name;
-# 	    print "', '" . $version;
-# 	    print "', '" . $description;
-# 	    print "', '" . $author;
-# 	    print "'\n";
-	    push(@scanned_plugins, {
-		name        => $name,
-		class_name  => $class_name,
-		version     => $version,
-		description => $description,
-		author      => $author
-	    }) if (! grep {$_->{name} eq $name} @scanned_plugin);
-	}
+	$name        = $1 if ($line =~ /^Name=([\w]+)\s*/ );
+        $version     = $1 if ($line =~ /^X-KDE-PluginInfo-Name=(\d+\.\d+)/ );
+        $description = $1 if ($line =~ /^Comment=(.+)\s*/ );
+        $author      = $1 if ($line =~ /^X-KDE-PluginInfo-Author=(.+)\s*/ );
     }
     close(IN2);
-    $/ = $old_mode;
+
+#     print "', '" . $name;
+#     print "', '" . $version;
+#     print "', '" . $description;
+#     print "', '" . $author;
+#     print "'\n";
+
+    push(@scanned_plugins, {
+	name        => $name,
+	version     => $version,
+	description => $description,
+	author      => $author
+    }) if (! grep {$_->{name} eq $name} @scanned_plugin);
+
 }
 
 sub scan_plugin_dir
@@ -86,7 +82,7 @@ sub scan_plugin_dir
 	    @files = sort { $a cmp $b } @files;
 	    for (@files) {
 		local $file = $_;
-		if ($file =~ /\.cpp$/) {
+		if ($file =~ /\.desktop.in$/) {
 		    scan_file $dir . '/' . $file;
 		}
 	    }

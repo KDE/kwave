@@ -31,16 +31,18 @@ namespace Kwave
 
     class InsertAtPlugin: public Kwave::GotoPluginBase
     {
+	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit InsertAtPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	InsertAtPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~InsertAtPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
     protected:
 

@@ -28,13 +28,12 @@
 #include "NewSignalDialog.h"
 #include "NewSignalPlugin.h"
 
-KWAVE_PLUGIN(Kwave::NewSignalPlugin, "newsignal", "2.3",
-             I18N_NOOP("New Signal"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(newsignal, NewSignalPlugin)
 
 //***************************************************************************
-Kwave::NewSignalPlugin::NewSignalPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_samples(2646000), m_rate(44100),
+Kwave::NewSignalPlugin::NewSignalPlugin(QObject *parent,
+                                        const QVariantList &args)
+    :Kwave::Plugin(parent, args), m_samples(2646000), m_rate(44100),
     m_bits(16), m_tracks(2), m_bytime(true)
 {
 }
@@ -119,5 +118,7 @@ QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
     return list;
 }
 
+//***************************************************************************
+#include "NewSignalPlugin.moc"
 //***************************************************************************
 //***************************************************************************

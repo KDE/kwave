@@ -27,11 +27,15 @@
 #include <QLibraryInfo>
 #include <QMutableListIterator>
 #include <QtGlobal>
+#include <QVariantList>
 
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMainWindow>
+#include <KPluginInfo>
+#include <KPluginFactory>
+#include <KPluginTrader>
 #include <KSharedConfig>
 
 #include "libkwave/MessageBox.h"
@@ -98,14 +102,14 @@ Kwave::PluginManager::~PluginManager()
 // 	       DBG(name), p.m_use_count);
 	if (p.m_use_count == 0) {
 	    // take out the pointer to the loadable module
-	    QLibrary *module = p.m_module;
-	    p.m_module = 0;
+	    KPluginFactory *factory = p.m_factory;
+	    p.m_factory = 0;
 
 	    // remove the module from the list
 	    m_plugin_modules.remove(name);
 
 	    // now the handle of the shared object can be released too
-	    if (module) delete module;
+	    if (factory) delete factory;
 	} else {
 	    // still in use
 	}
@@ -183,8 +187,13 @@ Kwave::Plugin *Kwave::PluginManager::createPluginInstance(const QString &name)
 //     qDebug("loadPlugin(%s) [module use count=%d]",
 //         DBG(name), info.m_use_count);
 
+    KPluginFactory *factory = info.m_factory;
+    Q_ASSERT(factory);
+
     // call the loader function to create an instance
-    Kwave::Plugin *plugin = info.m_loader(*this);
+    QVariantList args;
+    args << info.m_name;
+    Kwave::Plugin *plugin = factory->create<Kwave::Plugin>(this, args);
     Q_ASSERT(plugin);
     if (!plugin) {
 	qWarning("PluginManager::loadPlugin('%s'): out of memory", DBG(name));
@@ -595,14 +604,6 @@ void Kwave::PluginManager::setSignalName(const QString &name)
 //***************************************************************************
 void Kwave::PluginManager::searchPluginModules()
 {
-    // hardcoded, should always work when the
-    // symbols are declared as extern "C"
-    const char *sym_name        = "name";
-    const char *sym_version     = "version";
-    const char *sym_description = "description";
-    const char *sym_author      = "author";
-    const char *sym_loader      = "load";
-
     if (!m_plugin_modules.isEmpty()) {
 	// this is not the first call -> increment module use count only
 	foreach (const QString &name, m_plugin_modules.keys()) {
@@ -612,84 +613,62 @@ void Kwave::PluginManager::searchPluginModules()
 	return;
     }
 
-    QStringList files;
-    QStringList dirs(QLibraryInfo::location(QLibraryInfo::PluginsPath));
-    QString plugin_path = _(qgetenv("QT_PLUGIN_PATH").constData());
-    foreach (const QString &dir, plugin_path.split(_(":"))) {
-	if (!dirs.contains(dir)) dirs.append(dir);
-    }
-#ifdef PLUGIN_INSTALL_DIR
-    if (!dirs.contains(_(PLUGIN_INSTALL_DIR)))
-	dirs.append(_(PLUGIN_INSTALL_DIR));
-#endif /* PLUGIN_INSTALL_DIR */
-#ifdef QT_PLUGIN_INSTALL_DIR
-    if (!dirs.contains(_(QT_PLUGIN_INSTALL_DIR)))
-	dirs.append(_(QT_PLUGIN_INSTALL_DIR));
-#endif /* QT_PLUGIN_INSTALL_DIR */
-    foreach (const QString &dir, dirs) {
-	const QChar sep = QDir::separator();
-	if (!dir.length()) continue;
-	QDir d(dir);
-	qDebug("searching for plugins in '%s'", DBG(dir));
-	QStringList f = d.entryList(
-	    QDir::Files | QDir::Readable | QDir::Executable, QDir::Name);
-	foreach (const QString &file, f) {
-	    if (file.startsWith(_("kwaveplugin_")))
-		files += d.path() + sep + file;
+    KPluginInfo::List plugins = KPluginTrader::self()->query(
+	_("kwave"), _("Kwave/Plugin")
+    );
+    foreach (const KPluginInfo &i, plugins) {
+	QString library     = i.libraryPath();
+	QString description = i.name();
+	QString name        = i.pluginName();
+	QString version_raw = i.version();
+	QString version     = QString();
+	QString settings    = QString();
+	QString author      = i.author();
+
+	if (version_raw.contains(_(":"))) {
+	    version  = version_raw.split(_(":")).at(0);
+	    settings = version_raw.split(_(":")).at(1);
 	}
-    }
 
-    foreach (const QString &file, files) {
-	QLibrary *module = new QLibrary(file);
-	if (!module) continue;
+// 	qDebug("file='%s', name='%s', description='%s', binary_version='%s', "
+// 	       "settings_version='%s', author='%s'",
+// 	       DBG(library), DBG(name), DBG(description), DBG(version),
+// 	       DBG(settings), DBG(author)
+// 	);
 
-	module->setLoadHints(QLibrary::ResolveAllSymbolsHint);
-	if (!module->load()) {
-	    qWarning("error in '%s':\n\t %s",
-	             DBG(file), DBG(module->errorString()));
-	    delete module;
+	if ( library.isEmpty() || description.isEmpty() ||
+	     name.isEmpty() || version.isEmpty() ) {
+	    qWarning("plugin '%s' has no library, name or version", DBG(name));
 	    continue;
 	}
 
-	// get all required symbols from the plugin
-	const char **p_name    =
-	    reinterpret_cast<const char **>(module->resolve(sym_name));
-	const char **p_version =
-	    reinterpret_cast<const char **>(module->resolve(sym_version));
-	const char **p_description =
-	    reinterpret_cast<const char **>(module->resolve(sym_description));
-	const char **p_author  =
-	    reinterpret_cast<const char **>(module->resolve(sym_author));
-	plugin_ldr_func_t *p_loader =
-	    reinterpret_cast<plugin_ldr_func_t *>(module->resolve(sym_loader));
-
-	// skip the plugin if something is missing or null
-	if (!p_name || !p_version || !p_author ||
-	    !p_description || !p_loader ||
-	    !*p_name || !*p_version || !*p_author ||
-	    !*p_description || !*p_loader)
-	{
-	    qWarning("WARNING: plugin %s is broken", DBG(file));
-	    delete module;
+	if (version != _(PACKAGE_SHORT_VERSION)) {
+	    qWarning("plugin '%s' has wrong ABI version: '%s' (should be %s)",
+	             DBG(name), DBG(version), PACKAGE_SHORT_VERSION);
 	    continue;
 	}
 
-	emit sigProgress(i18n("Loading plugin %1...", _(*p_name)));
+	KPluginLoader loader(library);
+	KPluginFactory* factory = loader.factory();
+	if (!factory) {
+	    qWarning("plugin '%s': loading failed", DBG(name));
+	    continue;
+	}
+
+	emit sigProgress(i18n("Loading plugin %1...", name));
 	QApplication::processEvents();
 
 	PluginModule info;
-	info.m_name        = QString::fromUtf8(*p_name);
-	info.m_author      = QString::fromUtf8(*p_author);
-	info.m_description = i18n(*p_description);
-	info.m_version     = QString::fromUtf8(*p_version);
-	info.m_loader      = p_loader;
-
-	info.m_module      = module;
+	info.m_name        = name;
+	info.m_author      = author;
+	info.m_description = i18n(description.toUtf8());
+	info.m_version     = settings;
+	info.m_factory     = factory;
 	info.m_use_count   = 1;
 
 	m_plugin_modules.insert(info.m_name, info);
 
-	qDebug("%16s %5s written by %s", *p_name, *p_version, *p_author);
+	qDebug("%16s %5s written by %s", DBG(name), DBG(settings), DBG(author));
     }
 
     qDebug("--- \n found %d plugins\n", m_plugin_modules.count());

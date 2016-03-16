@@ -31,14 +31,12 @@
 #include "SelectRangeDialog.h"
 #include "SelectRangePlugin.h"
 
-KWAVE_PLUGIN(Kwave::SelectRangePlugin, "selectrange", "2.3",
-             I18N_NOOP("Select Range"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(selectrange, SelectRangePlugin)
 
 //***************************************************************************
-Kwave::SelectRangePlugin::SelectRangePlugin(
-    Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager),
+Kwave::SelectRangePlugin::SelectRangePlugin(QObject *parent,
+                                            const QVariantList &args)
+    :Kwave::Plugin(parent, args),
      m_start_mode(Kwave::SelectTimeWidget::bySamples),
      m_range_mode(Kwave::SelectTimeWidget::bySamples),
      m_start(0), m_range(0)
@@ -183,5 +181,7 @@ int Kwave::SelectRangePlugin::interpreteParameters(QStringList &params)
     return 0;
 }
 
+//***************************************************************************
+#include "SelectRangePlugin.moc"
 //***************************************************************************
 //***************************************************************************

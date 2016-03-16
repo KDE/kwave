@@ -34,14 +34,13 @@
 #include "AmplifyFreeDialog.h"
 #include "AmplifyFreePlugin.h"
 
-KWAVE_PLUGIN(Kwave::AmplifyFreePlugin, "amplifyfree", "2.3",
-             I18N_NOOP("Amplify Free"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(amplifyfree, AmplifyFreePlugin)
 
 //***************************************************************************
-Kwave::AmplifyFreePlugin::AmplifyFreePlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_action_name(), m_params(), m_curve(),
-     m_cmd_map()
+Kwave::AmplifyFreePlugin::AmplifyFreePlugin(QObject *parent,
+                                            const QVariantList &args)
+    :Kwave::Plugin(parent, args),
+     m_action_name(), m_params(), m_curve(), m_cmd_map()
 {
     m_cmd_map[_("fade in")]      = i18n("Fade In");
     m_cmd_map[_("fade out")]     = i18n("Fade Out");
@@ -189,5 +188,7 @@ void Kwave::AmplifyFreePlugin::run(QStringList params)
     qDebug("AmplifyFreePlugin: filter done.");
 }
 
+//***************************************************************************
+#include "AmplifyFreePlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -39,14 +39,15 @@ namespace Kwave
 
     public:
 
-	/** Constructor */
-	explicit MemoryPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	MemoryPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~MemoryPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/**
 	 * Gets called when the plugin is first loaded.

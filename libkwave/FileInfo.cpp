@@ -248,7 +248,7 @@ void Kwave::FileInfo::PropertyTypesMap::fill()
     append(Kwave::INF_SAMPLE_RATE,
 	FP_INTERNAL | FP_NO_LOAD_SAVE | FP_FORMAT_NUMERIC,
 	_(I18N_NOOP("Sample Rate")),
-	_(I18N_NOOP("Number of samples per second\n")));
+	_(I18N_NOOP("Number of samples per second")));
     append(Kwave::INF_SOFTWARE,
 	FP_NONE,
 	_(I18N_NOOP("Software")),

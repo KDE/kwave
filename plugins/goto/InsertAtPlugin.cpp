@@ -24,13 +24,12 @@
 
 #include "InsertAtPlugin.h"
 
-KWAVE_PLUGIN(Kwave::InsertAtPlugin, "insert_at", "2.3",
-             I18N_NOOP("Insert At"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(insert_at, InsertAtPlugin)
 
 //***************************************************************************
-Kwave::InsertAtPlugin::InsertAtPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::GotoPluginBase(plugin_manager)
+Kwave::InsertAtPlugin::InsertAtPlugin(QObject *parent,
+                                      const QVariantList &args)
+    :Kwave::GotoPluginBase(parent, args)
 {
 }
 
@@ -51,5 +50,7 @@ QString Kwave::InsertAtPlugin::title() const
     return i18n("Insert At...");
 }
 
+//***************************************************************************
+#include "InsertAtPlugin.moc"
 //***************************************************************************
 //***************************************************************************

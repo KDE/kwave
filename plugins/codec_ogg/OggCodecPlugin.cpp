@@ -25,16 +25,15 @@
 #include "OggDecoder.h"
 #include "OggEncoder.h"
 
-KWAVE_PLUGIN(Kwave::OggCodecPlugin, "codec_ogg", "2.3",
-             I18N_NOOP("Ogg Codec"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(codec_ogg, OggCodecPlugin)
 
 // static instance of the codec container
 Kwave::CodecPlugin::Codec Kwave::OggCodecPlugin::m_codec = {0, 0, 0};
 
 /***************************************************************************/
-Kwave::OggCodecPlugin::OggCodecPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::CodecPlugin(plugin_manager, m_codec)
+Kwave::OggCodecPlugin::OggCodecPlugin(QObject *parent,
+                                      const QVariantList &args)
+    :Kwave::CodecPlugin(parent, args, m_codec)
 {
 }
 
@@ -55,5 +54,7 @@ Kwave::Encoder *Kwave::OggCodecPlugin::createEncoder()
     return new Kwave::OggEncoder();
 }
 
+//***************************************************************************
+#include "OggCodecPlugin.moc"
 //***************************************************************************
 //***************************************************************************

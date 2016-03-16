@@ -23,8 +23,10 @@
 #include "libkwave/Encoder.h"
 
 /***************************************************************************/
-Kwave::CodecPlugin::CodecPlugin(PluginManager &plugin_manager, Codec &codec)
-    :Kwave::Plugin(plugin_manager), m_codec(codec)
+Kwave::CodecPlugin::CodecPlugin(QObject *parent,
+                                const QVariantList &args,
+                                Codec &codec)
+    :Kwave::Plugin(parent, args), m_codec(codec)
 {
 }
 

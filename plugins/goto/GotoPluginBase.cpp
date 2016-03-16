@@ -32,8 +32,9 @@
 #include "GotoPluginBase.h"
 
 //***************************************************************************
-Kwave::GotoPluginBase::GotoPluginBase(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager),
+Kwave::GotoPluginBase::GotoPluginBase(QObject *parent,
+                                      const QVariantList &args)
+    :Kwave::Plugin(parent, args),
      m_mode(Kwave::SelectTimeWidget::bySamples), m_position(0)
 {
 }

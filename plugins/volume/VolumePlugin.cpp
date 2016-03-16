@@ -36,13 +36,11 @@
 #include "VolumeDialog.h"
 #include "VolumePlugin.h"
 
-KWAVE_PLUGIN(Kwave::VolumePlugin, "volume", "2.3",
-             I18N_NOOP("Volume"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(volume, VolumePlugin)
 
 //***************************************************************************
-Kwave::VolumePlugin::VolumePlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_params(), m_factor(1.0)
+Kwave::VolumePlugin::VolumePlugin(QObject *parent, const QVariantList &args)
+    :Kwave::Plugin(parent, args), m_params(), m_factor(1.0)
 {
 }
 
@@ -163,5 +161,7 @@ void Kwave::VolumePlugin::run(QStringList params)
     qDebug("VolumePlugin: filter done.");
 }
 
+//***************************************************************************
+#include "VolumePlugin.moc"
 //***************************************************************************
 //***************************************************************************

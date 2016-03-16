@@ -34,15 +34,16 @@ namespace Kwave
 
 	/**
 	 * Constructor
-	 * @param plugin_manager reference to our plugin manager
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
 	 */
-	explicit AboutPlugin(Kwave::PluginManager &plugin_manager);
+ 	AboutPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~AboutPlugin() {}
 
 	/** Returns the name of the plugin. */
-	virtual QString name() const;
+	virtual QString name() const { return _("about"); }
 
 	/**
 	* shows the about dialog,

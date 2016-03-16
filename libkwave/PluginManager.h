@@ -37,6 +37,8 @@ class QLibrary;
 class QString;
 class QStringList;
 
+class KPluginFactory;
+
 namespace Kwave
 {
     class PlaybackController;
@@ -231,10 +233,8 @@ namespace Kwave
 	    QString            m_name;        /**< name of the plugin   */
 	    QString            m_author;      /**< name of the author   */
 	    QString            m_description; /**< short description    */
-	    QString            m_version;     /**< plugin API version   */
-	    plugin_ldr_func_t *m_loader;      /**< loader function      */
-
-	    QLibrary          *m_module;      /**< shared object        */
+	    QString            m_version;     /**< settings version     */
+	    KPluginFactory    *m_factory;     /**< plugin factory       */
 	    int                m_use_count;   /**< usage counter        */
 	} PluginModule;
 

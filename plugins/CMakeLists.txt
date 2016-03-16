@@ -29,7 +29,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     #########################################################################
     ### link stage                                                        ###
 
-    ADD_LIBRARY(plugin_${_plugin} SHARED ${plugin_${_plugin}_LIB_SRCS})
+    ADD_LIBRARY(plugin_${_plugin} MODULE ${plugin_${_plugin}_LIB_SRCS})
     TARGET_LINK_LIBRARIES(plugin_${_plugin}
         kwavegui
         kwave
@@ -43,6 +43,7 @@ MACRO(KWAVE_PLUGIN _plugin)
         KF5::I18n
         KF5::IconThemes
         KF5::KIOFileWidgets
+        KF5::Service
         KF5::TextWidgets
         KF5::WidgetsAddons
         KF5::XmlGui
@@ -56,6 +57,17 @@ MACRO(KWAVE_PLUGIN _plugin)
     )
     SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
+    CONFIGURE_FILE(
+        ${CMAKE_CURRENT_SOURCE_DIR}/kwaveplugin_${_plugin}.desktop.in
+        ${CMAKE_CURRENT_BINARY_DIR}/kwaveplugin_${_plugin}.desktop
+    )
+
+    KCOREADDONS_DESKTOP_TO_JSON(
+        plugin_${_plugin}
+        ${CMAKE_CURRENT_BINARY_DIR}/kwaveplugin_${_plugin}.desktop
+        DEFAULT_SERVICE_TYPE Kwave/Plugin
+    )
+
     #########################################################################
     ### install                                                           ###
 
@@ -64,13 +76,18 @@ MACRO(KWAVE_PLUGIN _plugin)
     INSTALL(TARGETS
         plugin_${_plugin}
         LIBRARY
-        DESTINATION ${PLUGIN_INSTALL_DIR}
+        DESTINATION ${PLUGIN_INSTALL_DIR}/kwave
         PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
                     GROUP_READ GROUP_EXECUTE
                     WORLD_READ WORLD_EXECUTE
     )
 
 ENDMACRO(KWAVE_PLUGIN)
+
+INSTALL(
+    FILES ${CMAKE_CURRENT_SOURCE_DIR}/kwave-plugin.desktop
+    DESTINATION ${SERVICETYPES_INSTALL_DIR}
+)
 
 #############################################################################
 

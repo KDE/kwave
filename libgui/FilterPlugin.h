@@ -41,8 +41,12 @@ namespace Kwave
 	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit FilterPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent pointer to the corresponding plugin manager
+	 * @param args argument list, containts internal meta data
+	 */
+	FilterPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~FilterPlugin();

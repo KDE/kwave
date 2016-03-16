@@ -90,8 +90,11 @@
 /* Name of package */
 #cmakedefine PACKAGE "@PACKAGE@"
 
-/* Define to the version of this package. */
+/* Define to the full version, including patch level */
 #cmakedefine PACKAGE_VERSION "@PACKAGE_VERSION@"
+
+/* Define to the version without patch level */
+#cmakedefine PACKAGE_SHORT_VERSION "@PACKAGE_SHORT_VERSION@"
 
 /* suffix of executable files */
 #cmakedefine EXECUTABLE_SUFFIX @CMAKE_EXECUTABLE_SUFFIX@

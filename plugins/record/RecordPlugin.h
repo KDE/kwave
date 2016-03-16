@@ -52,14 +52,15 @@ namespace Kwave
 	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit RecordPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	RecordPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~RecordPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/** @see Kwave::Plugin::setup() */
 	virtual QStringList *setup(QStringList &previous_params);

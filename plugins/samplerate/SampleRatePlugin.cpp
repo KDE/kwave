@@ -38,13 +38,12 @@
 
 #include "SampleRatePlugin.h"
 
-KWAVE_PLUGIN(Kwave::SampleRatePlugin, "samplerate", "2.3",
-             I18N_NOOP("Sample Rate Conversion"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(samplerate, SampleRatePlugin)
 
 //***************************************************************************
-Kwave::SampleRatePlugin::SampleRatePlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_params(), m_new_rate(0.0),
+Kwave::SampleRatePlugin::SampleRatePlugin(QObject *parent,
+                                          const QVariantList &args)
+    :Kwave::Plugin(parent, args), m_params(), m_new_rate(0.0),
      m_whole_signal(false)
 {
 }
@@ -247,5 +246,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 
 }
 
+//***************************************************************************
+#include "SampleRatePlugin.moc"
 //***************************************************************************
 //***************************************************************************

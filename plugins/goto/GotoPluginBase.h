@@ -35,11 +35,14 @@ namespace Kwave
     class GotoPluginBase: public Kwave::Plugin
     {
 	Q_OBJECT
-
     public:
 
-	/** Constructor */
-	explicit GotoPluginBase(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	GotoPluginBase(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~GotoPluginBase();

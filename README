@@ -174,6 +174,7 @@ packets should be sufficient for building:
   - ki18n
   - kiconthemes
   - kio
+  - kservice
   - ktextwidgets
   - kxmlgui
   - kwidgetsaddons

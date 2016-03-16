@@ -31,16 +31,18 @@ namespace Kwave
 
     class GotoPlugin: public Kwave::GotoPluginBase
     {
+	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit GotoPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	GotoPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~GotoPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
     protected:
 

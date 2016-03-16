@@ -5,6 +5,7 @@
    QWidget::frameGeometry is broken, but QWindow::frameGeometry works)
  * removed unneeded build and runtime dependencies
  * Gentoo ebuild updated to EAPI=6
+ * using KDE service API for loading plugins
 
 0.9.1 [2016-02-21]
 

@@ -25,16 +25,15 @@
 #include "MP3Encoder.h"
 #include "MP3EncoderDialog.h"
 
-KWAVE_PLUGIN(Kwave::MP3CodecPlugin, "codec_mp3", "2.3",
-             I18N_NOOP("MP3 Codec"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(codec_mp3, MP3CodecPlugin)
 
 // static instance of the codec container
 Kwave::CodecPlugin::Codec Kwave::MP3CodecPlugin::m_codec = {0, 0, 0};
 
 /***************************************************************************/
-Kwave::MP3CodecPlugin::MP3CodecPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::CodecPlugin(plugin_manager, m_codec)
+Kwave::MP3CodecPlugin::MP3CodecPlugin(QObject *parent,
+                                      const QVariantList &args)
+    :Kwave::CodecPlugin(parent, args, m_codec)
 {
 }
 
@@ -89,5 +88,7 @@ Kwave::Encoder *Kwave::MP3CodecPlugin::createEncoder()
     return new Kwave::MP3Encoder();
 }
 
+//***************************************************************************
+#include "MP3CodecPlugin.moc"
 //***************************************************************************
 //***************************************************************************

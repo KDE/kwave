@@ -37,14 +37,15 @@ namespace Kwave
 
     public:
 
-	/** Constructor */
-	explicit SelectRangePlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	SelectRangePlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~SelectRangePlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/**
 	 * Shows a dialog for selecting the range and emits a command

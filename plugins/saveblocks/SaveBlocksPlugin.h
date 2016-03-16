@@ -36,14 +36,15 @@ namespace Kwave
 
     public:
 
-	/** Constructor */
-	explicit SaveBlocksPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	SaveBlocksPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~SaveBlocksPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/**
 	 * Shows a file saving dialog and emits a command for saving the blocks

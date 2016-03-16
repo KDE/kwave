@@ -65,14 +65,16 @@ namespace Kwave
     {
 	Q_OBJECT
     public:
-	/** Constructor */
-	explicit SonagramPlugin(Kwave::PluginManager &plugin_manager);
+
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	SonagramPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~SonagramPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/** @see Kwave::Plugin::setup() */
 	virtual QStringList *setup(QStringList &previous_params);

@@ -23,16 +23,15 @@
 #include "WavDecoder.h"
 #include "WavEncoder.h"
 
-KWAVE_PLUGIN(Kwave::WavCodecPlugin, "codec_wav", "2.3",
-             I18N_NOOP("WAV Codec"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(codec_wav, WavCodecPlugin)
 
 // static instance of the codec container
 Kwave::CodecPlugin::Codec Kwave::WavCodecPlugin::m_codec = {0, 0, 0};
 
 /***************************************************************************/
-Kwave::WavCodecPlugin::WavCodecPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::CodecPlugin(plugin_manager, m_codec)
+Kwave::WavCodecPlugin::WavCodecPlugin(QObject *parent,
+                                      const QVariantList &args)
+    :Kwave::CodecPlugin(parent, args, m_codec)
 {
 }
 
@@ -53,5 +52,7 @@ Kwave::Encoder *Kwave::WavCodecPlugin::createEncoder()
     return new Kwave::WavEncoder();
 }
 
+//***************************************************************************
+#include "WavCodecPlugin.moc"
 //***************************************************************************
 //***************************************************************************

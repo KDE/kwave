@@ -56,9 +56,7 @@
 
 #include "DebugPlugin.h"
 
-KWAVE_PLUGIN(Kwave::DebugPlugin, "debug", "2.3",
-             I18N_NOOP("Debug Functions"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(debug, DebugPlugin)
 
 /** size of the internal buffer */
 #define BUFFER_SIZE (64 * 1024)
@@ -68,8 +66,9 @@ KWAVE_PLUGIN(Kwave::DebugPlugin, "debug", "2.3",
     emitCommand(entry.arg(_(cmd)).arg(txt));
 
 //***************************************************************************
-Kwave::DebugPlugin::DebugPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_buffer()
+Kwave::DebugPlugin::DebugPlugin(QObject *parent,
+                                const QVariantList &args)
+    :Kwave::Plugin(parent, args), m_buffer()
 {
 }
 
@@ -468,5 +467,7 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
     pixmap.save(filename, "PNG", 90);
 }
 
+//***************************************************************************
+#include "DebugPlugin.moc"
 //***************************************************************************
 //***************************************************************************

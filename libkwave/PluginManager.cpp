@@ -621,8 +621,8 @@ void Kwave::PluginManager::searchPluginModules()
 	QString description = i.name();
 	QString name        = i.pluginName();
 	QString version_raw = i.version();
-	QString version     = QString();
-	QString settings    = QString();
+	QString version;
+	QString settings;
 	QString author      = i.author();
 
 	if (version_raw.contains(_(":"))) {

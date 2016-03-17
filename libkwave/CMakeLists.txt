@@ -24,8 +24,7 @@ IF (WITH_OPTIMIZED_MEMCPY)
     # use "default" visibility for memcpy.c (which is our one and only C file)
     SET(CMAKE_C_VISIBILITY_PRESET default)
 
-    SET(libkwave_LIB_SRCS_memcpy cpu_accel.cpp memcpy.c ppcasm_string.S)
-    SET_SOURCE_FILES_PROPERTIES(ppcasm_string.S PROPERTIES LANGUAGE C)
+    SET(libkwave_LIB_SRCS_memcpy cpu_accel.cpp memcpy.c)
 
     SET(_try_src_dir "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp")
     SET(_try_avx_assembler "${_try_src_dir}/cmake_try_avx_assembler.c")

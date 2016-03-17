@@ -31,6 +31,7 @@ DOC_DIR="${CMAKE_SOURCE_DIR}/doc"
 
 CATEGORY="kdereview"
 PO_FILE="kwave.po"
+DESKTOP_PO_FILE="desktop_${CATEGORY}_kwave.po"
 LANG_NAMES_FILE="${DOC_DIR}/teamnames"
 
 function checkout() {
@@ -105,8 +106,15 @@ for lang in ${LINGUAS}; do
 	fi
     fi
 
+    # get translation of desktop files
+    if test ! -e "${lang}/messages/${CATEGORY}/${DESKTOP_PO_FILE}" ; then
+	checkout "" "${lang}" "messages"    "${CATEGORY}" "${DESKTOP_PO_FILE}"
+    fi
+
     # GUI translation is mandantory
-    checkout "" "${lang}" "messages"    "${CATEGORY}" "${PO_FILE}"
+    if test ! -e "${lang}/messages/${CATEGORY}/${PO_FILE}" ; then
+	checkout "" "${lang}" "messages"    "${CATEGORY}" "${PO_FILE}"
+    fi
     if test -e "${lang}/messages/${CATEGORY}/${PO_FILE}" ; then
 	FOUND_LINGUAS="${FOUND_LINGUAS} ${lang}"
 	cp "${lang}/messages/${CATEGORY}/${PO_FILE}" "${PO_DIR}/${lang}.po"

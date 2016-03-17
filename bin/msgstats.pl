@@ -76,9 +76,11 @@ while (<IN>) {
 
 	local $po_doc=$catalog . "/docmessages/" . $category . "/" . $app . ".po";
 	local $po_gui=$catalog . "/messages/" . $category . "/" . $app . ".po";
+	local $po_dsk=$catalog . "/messages/" . $category . "/desktop_" . $category . "_" . $app . ".po";
 
 	check_po($lang_name, $catalog, "DOC", $po_doc);
 	check_po($lang_name, $catalog, "GUI", $po_gui);
+	check_po($lang_name, $catalog, "DSK", $po_dsk);
 
 	if ((-e $top_dir . "/" . $po_doc) || (-e $top_dir . "/" . $po_gui)) {
 	    print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";

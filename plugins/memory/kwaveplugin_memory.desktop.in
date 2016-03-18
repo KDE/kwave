@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Memory Settings
+Name[de]=Speicher-Einstellungen
+Name[es]=Ajustes de memoria
+Name[nl]=Geheugeninstellingen
+Name[pt]=Configuração da Memória
+Name[pt_BR]=Configuração da memória
+Name[uk]=Параметри пам’яті
+Name[x-test]=xxMemory Settingsxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

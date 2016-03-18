@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=MP3 Codec
+Name[de]=MP3-Codec
+Name[es]=Códec MP3
+Name[nl]=MP3-codec
+Name[pt]=Codificação em MP3
+Name[pt_BR]=Codec MP3
+Name[uk]=Кодек MP3
+Name[x-test]=xxMP3 Codecxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

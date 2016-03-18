@@ -1,6 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Notch Filter
+Name[de]=Kerbfilter
+Name[nl]=Notch-filter
+Name[pt]=Filtro Corta-Banda
+Name[pt_BR]=Filtro rejeita-faixa
+Name[uk]=Фільтр розривів
+Name[x-test]=xxNotch Filterxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Dave Flogeras

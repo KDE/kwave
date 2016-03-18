@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Insert At
+Name[de]=Einfügen An
+Name[es]=Insertar en
+Name[nl]=Invoegen op
+Name[pt]=Inserir Em
+Name[pt_BR]=Inserir em
+Name[uk]=Вставити до
+Name[x-test]=xxInsert Atxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

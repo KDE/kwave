@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Reverse
+Name[de]=Umkehren
+Name[es]=Invertir
+Name[nl]=Omkeren
+Name[pt]=Inverter
+Name[pt_BR]=Inverter
+Name[uk]=Реверс
+Name[x-test]=xxReversexx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

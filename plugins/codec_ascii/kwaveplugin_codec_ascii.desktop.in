@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=ASCII Codec
+Name[de]=ASCII-Codec
+Name[es]=Códec ASCII
+Name[nl]=ASCII-codec
+Name[pt]=Codificação em ASCII
+Name[pt_BR]=Codificação ASCII
+Name[uk]=Кодек ASCII
+Name[x-test]=xxASCII Codecxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

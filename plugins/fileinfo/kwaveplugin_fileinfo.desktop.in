@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=File Info
+Name[de]=Datei-Informationen
+Name[es]=Información del archivo
+Name[nl]=Bestandsinformatie
+Name[pt]=Informação do Ficheiro
+Name[pt_BR]=Informações do arquivo
+Name[uk]=Відомості про файл
+Name[x-test]=xxFile Infoxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Goto Position
+Name[de]=Gehe zu Position
+Name[es]=Ir a posición
+Name[nl]=Ga naar positie
+Name[pt]=Ir para a Posição
+Name[pt_BR]=Ir para a posição
+Name[uk]=Позиція переходу
+Name[x-test]=xxGoto Positionxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

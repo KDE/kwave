@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Debug Functions
+Name[de]=Debug-Funktionen
+Name[es]=Funciones de depuración
+Name[nl]=Debugfuncties
+Name[pt]=Funções de Depuração
+Name[pt_BR]=Funções de depuração
+Name[uk]=Функції діагностики
+Name[x-test]=xxDebug Functionsxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

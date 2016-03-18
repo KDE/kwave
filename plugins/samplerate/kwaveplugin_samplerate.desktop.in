@@ -1,6 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Sample Rate Conversion
+Name[de]=Abtastrate ändern
+Name[nl]=Samplesnelheid converteren
+Name[pt]=Conversão da Taxa de Amostragem
+Name[pt_BR]=Conversão da taxa de amostragem
+Name[uk]=Зміна частоти дискретизації
+Name[x-test]=xxSample Rate Conversionxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

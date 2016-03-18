@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Ogg Codec
+Name[de]=Ogg-Codec
+Name[es]=Códec Ogg
+Name[nl]=Ogg-codec
+Name[pt]=Codificação em Ogg
+Name[pt_BR]=Codec Ogg
+Name[uk]=Кодек Ogg
+Name[x-test]=xxOgg Codecxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

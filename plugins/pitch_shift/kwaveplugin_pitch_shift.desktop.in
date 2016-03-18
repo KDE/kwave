@@ -1,6 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Pitch Shift
+Name[de]=Tonverschiebung
+Name[nl]=Pitch schuif
+Name[pt]=Desvio de Tom
+Name[pt_BR]=Desvio de tom
+Name[uk]=Зсув тону
+Name[x-test]=xxPitch Shiftxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

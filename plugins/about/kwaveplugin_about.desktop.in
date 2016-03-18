@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=About Kwave
+Name[de]=Über Kwave
+Name[es]=Acerca de Kwave
+Name[nl]=Info over Kwave
+Name[pt]=Acerca do Kwave
+Name[pt_BR]=Sobre o Kwave
+Name[uk]=Про Kwave
+Name[x-test]=xxAbout Kwavexx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Ralf Waspe & Gilles Caulier

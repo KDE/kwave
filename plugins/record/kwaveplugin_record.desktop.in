@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Record
+Name[de]=Aufnahme
+Name[es]=Grabación
+Name[nl]=Opnemen
+Name[pt]=Gravação
+Name[pt_BR]=Gravar
+Name[uk]=Запис
+Name[x-test]=xxRecordxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

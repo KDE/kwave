@@ -1,6 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Audiofile Codec
+Name[de]=Audiofile-Codec
+Name[es]=Códec Audiofile
+Name[nl]=Audiofile-codec
+Name[pt]=Codificação do Audiofile
+Name[pt_BR]=Codificação do Audiofile
+Name[uk]=Кодек Audiofile
+Name[x-test]=xxAudiofile Codecxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

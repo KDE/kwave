@@ -1,6 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Sonagram
+Name[de]=Sonagramm
+Name[nl]=Sonagram
+Name[pt]=Audiograma
+Name[pt_BR]=Audiograma
+Name[uk]=Сонаграма
+Name[x-test]=xxSonagramxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

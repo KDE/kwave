@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Band Pass Filter
+Name[ca]=Filtre passabanda
 Name[de]=Bandpass
 Name[nl]=Banddoorlaatfilter
+Name[pl]=Filtr przepuszczania pasma
 Name[pt]=Filtro Passa-Banda
 Name[pt_BR]=Filtro passa-faixa
 Name[uk]=Фільтр діапазону частот

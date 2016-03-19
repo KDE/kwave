@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Noise Generator
+Name[ca]=Generador de soroll
 Name[de]=Rauschgenerator
 Name[es]=Generador de ruido
 Name[nl]=Ruisgenerator
+Name[pl]=Generator szumu
 Name[pt]=Gerador de Ruído
 Name[pt_BR]=Gerador de ruído
 Name[uk]=Генератор шумів

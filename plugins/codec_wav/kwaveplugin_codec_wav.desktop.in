@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=WAV Codec
+Name[ca]=Còdec WAV
 Name[de]=WAV-Codec
 Name[es]=Códec WAV
 Name[nl]=WAV-codec
+Name[pl]=Kodek WAV
 Name[pt]=Codificação em WAV
 Name[pt_BR]=Codec de WAV
 Name[uk]=Кодек WAV

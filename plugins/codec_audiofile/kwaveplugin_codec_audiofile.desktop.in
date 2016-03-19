@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Audiofile Codec
+Name[ca]=Còdec Audiofile
 Name[de]=Audiofile-Codec
 Name[es]=Códec Audiofile
 Name[nl]=Audiofile-codec
+Name[pl]=Kodek pliku dźwiękowego
 Name[pt]=Codificação do Audiofile
 Name[pt_BR]=Codificação do Audiofile
 Name[uk]=Кодек Audiofile

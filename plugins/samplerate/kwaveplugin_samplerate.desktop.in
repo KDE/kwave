@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Sample Rate Conversion
+Name[ca]=Conversió de la freqüència de mostreig
 Name[de]=Abtastrate ändern
 Name[nl]=Samplesnelheid converteren
+Name[pl]=Przekształcanie próbkowania
 Name[pt]=Conversão da Taxa de Amostragem
 Name[pt_BR]=Conversão da taxa de amostragem
 Name[uk]=Зміна частоти дискретизації

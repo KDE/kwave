@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Record
+Name[ca]=Enregistra
 Name[de]=Aufnahme
 Name[es]=Grabación
 Name[nl]=Opnemen
+Name[pl]=Nagraj
 Name[pt]=Gravação
 Name[pt_BR]=Gravar
 Name[uk]=Запис

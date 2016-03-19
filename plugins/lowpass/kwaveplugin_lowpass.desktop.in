@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Low Pass Filter
+Name[ca]=Filtre passabaix
 Name[de]=Tiefpass-Filter
 Name[nl]=Laagdoorlaatfilter
+Name[pl]=Filtr przepuszczania niższych
 Name[pt]=Filtro Passa-Baixo
 Name[pt_BR]=Filtro passa-baixas
 Name[uk]=Низькочастотний фільтр

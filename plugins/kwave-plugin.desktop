@@ -2,9 +2,11 @@
 Type=ServiceType
 X-KDE-ServiceType=Kwave/Plugin
 Comment=Kwave Plugin
+Comment[ca]=Connector del Kwave
 Comment[de]=Kwave-Modul
 Comment[es]=Complemento de Kwave
 Comment[nl]=Kwave-plug-in
+Comment[pl]=Wtyczka Kwave
 Comment[pt]='Plugin' do Kwave
 Comment[pt_BR]=Plugin do Kwave
 Comment[uk]=Додаток до Kwave

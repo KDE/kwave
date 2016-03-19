@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Volume
+Name[ca]=Volum
 Name[de]=Lautstärke
 Name[es]=Volumen
 Name[nl]=Volume
+Name[pl]=Głośność
 Name[pt]=Volume
 Name[pt_BR]=Volume
 Name[uk]=Гучність

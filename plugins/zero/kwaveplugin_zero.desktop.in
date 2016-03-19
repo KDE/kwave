@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Zero Generator
+Name[ca]=Generador de zeros
 Name[de]=Nullen-Generator
 Name[es]=Generador de ceros
 Name[nl]=Nul-generator
+Name[pl]=Generator zera
 Name[pt]=Gerador de Zeros
 Name[pt_BR]=Gerador de zeros
 Name[uk]=Генератор нуля

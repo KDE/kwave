@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Select Range
+Name[ca]=Selecció de l'interval
 Name[de]=Bereich auswählen
 Name[es]=Seleccionar intervalo
 Name[nl]=Bereik selecteren
+Name[pl]=Zaznacz zakres
 Name[pt]=Selecção de Intervalos
 Name[pt_BR]=Selecionar intervalo
 Name[uk]=Вибір діапазону

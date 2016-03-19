@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Notch Filter
+Name[ca]=Filtre de supressió de la banda
 Name[de]=Kerbfilter
 Name[nl]=Notch-filter
+Name[pl]=Filtr prążka
 Name[pt]=Filtro Corta-Banda
 Name[pt_BR]=Filtro rejeita-faixa
 Name[uk]=Фільтр розривів

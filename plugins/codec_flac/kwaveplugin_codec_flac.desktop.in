@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=FLAC Codec
+Name[ca]=Còdec FLAC
 Name[de]=FLAC-Codec
 Name[es]=Códec FLAC
 Name[nl]=FLAC-codec
+Name[pl]=Kodek FLAC
 Name[pt]=Codificação em FLAC
 Name[pt_BR]=Codec FLAC
 Name[uk]=Кодек FLAC

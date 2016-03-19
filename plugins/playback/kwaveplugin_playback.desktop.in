@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Playback
+Name[ca]=Reproducció
 Name[de]=Wiedergabe
 Name[nl]=Afspelen
+Name[pl]=Odtwarzanie
 Name[pt]=Reprodução
 Name[pt_BR]=Reproduzir
 Name[uk]=Відтворення

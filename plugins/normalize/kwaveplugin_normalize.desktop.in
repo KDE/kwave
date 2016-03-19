@@ -1,9 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Normalizer
+Name[ca]=Normalitzador
 Name[de]=Normalisierer
 Name[es]=Normalizador
 Name[nl]=Normalisator
+Name[pl]=Normalizator
 Name[pt]=Normalizador
 Name[pt_BR]=Normalizador
 Name[uk]=Нормалізатор

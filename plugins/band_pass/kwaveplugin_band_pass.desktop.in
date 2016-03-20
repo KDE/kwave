@@ -7,6 +7,7 @@ Name[nl]=Banddoorlaatfilter
 Name[pl]=Filtr przepuszczania pasma
 Name[pt]=Filtro Passa-Banda
 Name[pt_BR]=Filtro passa-faixa
+Name[sv]=Bandpassfilter
 Name[uk]=Фільтр діапазону частот
 Name[x-test]=xxBand Pass Filterxx
 Type=Service

@@ -7,6 +7,7 @@ Name[nl]=Notch-filter
 Name[pl]=Filtr prążka
 Name[pt]=Filtro Corta-Banda
 Name[pt_BR]=Filtro rejeita-faixa
+Name[sv]=Bandspärrfilter
 Name[uk]=Фільтр розривів
 Name[x-test]=xxNotch Filterxx
 Type=Service

@@ -8,6 +8,7 @@ Name[nl]=Nul-generator
 Name[pl]=Generator zera
 Name[pt]=Gerador de Zeros
 Name[pt_BR]=Gerador de zeros
+Name[sv]=Nollgenerator
 Name[uk]=Генератор нуля
 Name[x-test]=xxZero Generatorxx
 Type=Service

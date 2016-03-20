@@ -123,6 +123,16 @@ for lang in ${LINGUAS}; do
     echo "done"
 done
 
+if test ! -e "templates/messages/${CATEGORY}/desktop_${CATEGORY}_kwave.pot" ; then
+    checkout "" "templates" "messages" "${CATEGORY}" "desktop_${CATEGORY}_kwave.pot"
+fi
+if test ! -e "templates/messages/${CATEGORY}/kwave.appdata.pot" ; then
+    checkout "" "templates" "messages" "${CATEGORY}" "kwave.appdata.pot"
+fi
+if test ! -e "templates/messages/${CATEGORY}/kwave.pot" ; then
+    checkout "" "templates" "messages" "${CATEGORY}" "kwave.pot"
+fi
+
 # update all existing files in the repository
 svn update
 

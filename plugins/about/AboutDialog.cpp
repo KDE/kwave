@@ -81,7 +81,7 @@ Kwave::AboutDialog::AboutDialog(
 	about->addPerson(
 	    i18n(author.name().toUtf8()),
 	    author.emailAddress(),
-	    i18n(author.webAddress().toUtf8()),
+	    author.webAddress(),
 	    i18n(author.task().toUtf8())
 	);
     }

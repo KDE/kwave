@@ -1,9 +1,9 @@
-/***************************************************************************
- *    Record-PulseAudio.h  -  device for audio recording via PulesAudio
- *                             -------------------
- *    begin                : Sun Okt 20 2013
- *    copyright            : (C) 2014 by Joerg-Christian Boehme
- *    email                : joerg@chaosdorf.de
+/*************************************************************************
+    Record-PulseAudio.h  -  device for audio recording via PulesAudio
+                             -------------------
+    begin                : Sun Okt 20 2013
+    copyright            : (C) 2014 by Joerg-Christian Boehme
+    email                : joerg@chaosdorf.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -59,9 +59,10 @@ namespace Kwave
 	/**
 	 * Open the record device.
 	 * @param dev path of the record device
-	 * @return file descriptor >= 0 or negative error code if failed
+	 * @return zero-length string if successful, or an error
+	 *         message if failed
 	 */
-	virtual int open(const QString& dev);
+	virtual QString open(const QString& dev);
 
 	/** Returns the current endianness (big/little) */
 	virtual Kwave::byte_order_t endianness();

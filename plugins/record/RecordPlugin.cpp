@@ -281,7 +281,7 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 		    qDebug("unsupported recording method (%d)",
 			static_cast<int>(method));
 		    if (!searching) {
-			// start trying out all other methods
+			// start trying all other methods
 			searching = true;
 			method = Kwave::RECORD_NONE;
 			++method;
@@ -355,7 +355,7 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
     }
 
     // open and initialize the device
-    int result = m_device->open(dev);
+    QString result = m_device->open(dev);
 
     // set the device in the dialog
     m_device_name = dev;
@@ -370,9 +370,10 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 //     qDebug(">>> %d -> '%s'", static_cast<int>(m_method), DBG(m_device_name));
     cfg.sync();
 
-    if (result < 0) {
+    if (!result.isNull()) {
 	qWarning("RecordPlugin::setDevice('%s'): "
-	         "opening the device failed. error=%d", DBG(device), result);
+	         "opening the device failed. error message='%s'",
+	         DBG(device), DBG(result));
 
 	m_controller.setInitialized(false);
 	m_dialog->showDevicePage();
@@ -382,35 +383,17 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 	    QString short_device_name = m_device_name;
 	    if (m_device_name.contains(_("|"))) {
 		// tree syntax: extract card + device
-		short_device_name = m_device_name.section(
-		    _("|"), 0, 0) + _(", ") +
-		    m_device_name.section(_("|"), 3, 3);
+		short_device_name = m_device_name.section(_("|"), 0, 0);
+		if (m_device_name.section(_("|"), 3, 3).length())
+		    short_device_name += _(", ") +
+			m_device_name.section(_("|"), 3, 3);
 	    }
 
-	    // show an error message box
-	    QString reason;
-	    switch (result) {
-		case -ENOENT:
-		case -ENODEV:
-		case -ENXIO:
-		case -EIO:
-		    reason = i18n(
-			"Kwave was unable to open the device '%1'.\n"\
-			"Maybe your system lacks support for the corresponding "\
-			"hardware or the hardware is not connected.",
-			short_device_name);
-		    break;
-		case -EBUSY:
-		    reason = i18n(
-			"The device '%1' seems to be occupied by another "\
-			"application.\n"\
-			"Please try again later.",
-			short_device_name);
-		    break;
-	    }
-
-	    if (reason.length()) Kwave::MessageBox::sorry(parentWidget(),
-		reason, i18n("Unable to open the recording device"));
+	    if (result.length())
+		Kwave::MessageBox::sorry(parentWidget(),
+		result, i18nc("%1 = a device name",
+			      "Unable to open the recording device (%1)",
+		              short_device_name));
 	}
 
 	m_device_name = QString();
@@ -531,7 +514,7 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
     foreach (const double &r, supported_rates)
 	if (qFuzzyCompare(new_rate, r)) { is_supported = true; break; }
     double rate = new_rate;
-    if (!is_supported) {
+    if (!is_supported && !supported_rates.isEmpty()) {
 	// find the nearest sample rate
 	double nearest = supported_rates.last();
 	foreach (double r, supported_rates) {

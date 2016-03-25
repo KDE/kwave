@@ -270,7 +270,7 @@ void Kwave::RecordALSA::detectSupportedFormats()
 }
 
 //***************************************************************************
-int Kwave::RecordALSA::open(const QString &device)
+QString Kwave::RecordALSA::open(const QString &device)
 {
 //     qDebug("RecordALSA::open(%s)", DBG(device));
 
@@ -278,17 +278,17 @@ int Kwave::RecordALSA::open(const QString &device)
     if (m_handle) close();
     m_initialized = false;
 
-    if (!device.length()) return -1; // no device name
+    if (!device.length()) return _(""); // no device name
 
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
     qDebug("RecordALSA::open -> '%s'", DBG(alsa_device));
 
-    if (!alsa_device.length()) return -ENOENT;
+    if (!alsa_device.length()) return _("");
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
-    if (alsa_device.endsWith(_(","))) return -ENOENT;
+    if (alsa_device.endsWith(_(","))) return _("");
 
     // open the device in case it's not already open
     m_open_result = snd_pcm_open(&m_handle, alsa_device.toLocal8Bit().data(),
@@ -299,13 +299,35 @@ int Kwave::RecordALSA::open(const QString &device)
 	qWarning("RecordALSA::openDevice('%s') - failed, err=%d (%s)",
 	         DBG(alsa_device),
 	         m_open_result, snd_strerror(m_open_result));
-	return m_open_result;
+
+	QString reason;
+	switch (m_open_result) {
+	    case -ENOENT:
+	    case -ENODEV:
+	    case -ENXIO:
+	    case -EIO:
+		reason = i18n(
+		    "Maybe your system lacks support for the corresponding "\
+		    "hardware or the hardware is not connected."
+		);
+		break;
+	    case -EBUSY:
+		reason = i18n(
+		    "The audio device seems to be occupied by another "\
+		    "application."
+		);
+		break;
+	    default:
+		reason = i18n(snd_strerror(m_open_result));
+		break;
+	}
+	return reason;
     }
 
     // now we can detect all supported formats
     detectSupportedFormats();
 
-    return 0;
+    return QString::null;
 }
 
 //***************************************************************************

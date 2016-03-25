@@ -44,9 +44,10 @@ namespace Kwave
 	/**
 	 * Open the record device.
 	 * @param dev path of the record device
-	 * @return file descriptor >= 0 or negative error code if failed
+	 * @return zero-length string if successful, or an error
+	 *         message if failed
 	 */
-	virtual int open(const QString &dev) = 0;
+	virtual QString open(const QString &dev) = 0;
 
 	/**
 	 * Read the raw audio data from the record device.

@@ -151,20 +151,20 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
 	format = info.nearestFormat(format);
 
     if (format.codec() != _("audio/pcm"))
-	return i18n("PCM playback is not supported");
+	return i18n("PCM encoding is not supported");
 
     if (format.sampleSize() != Kwave::toInt(bits))
 	return i18n("%1 bits per sample are not supported", bits);
 
     if (format.channelCount() != Kwave::toInt(channels))
-	return i18n("%1 channels playback is not supported", channels);
+	return i18n("playback with %1 channels is not supported", channels);
 
     if (format.sampleRate() != Kwave::toInt(rate))
-	return i18n("Playback rate %1 Hz is not supported", Kwave::toInt(rate));
+	return i18n("sample rate %1 Hz is not supported", Kwave::toInt(rate));
 
     if ( (format.sampleType() != QAudioFormat::SignedInt) &&
 	 (format.sampleType() != QAudioFormat::UnSignedInt) )
-	return i18n("Integer sample format is not supported");
+	return i18n("integer sample format is not supported");
 
     // create a sample encoder
     createEncoder(format);

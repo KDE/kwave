@@ -1,9 +1,9 @@
-/***************************************************************************
- *   Record-PulseAudio.cpp -  device for audio recording via PulesAudio
- *                             -------------------
- *    begin                : Sun Okt 20 2013
- *    copyright            : (C) 2014 by Joerg-Christian Boehme
- *    email                : joerg@chaosdorf.de
+/*************************************************************************
+  Record-PulseAudio.cpp  -  device for audio recording via PulesAudio
+                             -------------------
+    begin                : Sun Okt 20 2013
+    copyright            : (C) 2014 by Joerg-Christian Boehme
+    email                : joerg@chaosdorf.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -215,7 +215,6 @@ Kwave::RecordPulseAudio::RecordPulseAudio()
 //***************************************************************************
 Kwave::RecordPulseAudio::~RecordPulseAudio()
 {
-    close();
     disconnectFromServer();
     m_device_list.clear();
 }
@@ -298,13 +297,26 @@ void Kwave::RecordPulseAudio::notifyStreamState(pa_stream* stream)
     if (!stream || (stream != m_pa_stream)) return;
 
     pa_stream_state_t state = pa_stream_get_state(stream);
+
+#ifdef DEBUG
+    #define DBG_CASE(x) case x: qDebug("RecordPulseAudio -> " #x ); break
+    switch (state)
+    {
+	DBG_CASE(PA_STREAM_CREATING);
+	DBG_CASE(PA_STREAM_UNCONNECTED);
+	DBG_CASE(PA_STREAM_FAILED);
+	DBG_CASE(PA_STREAM_TERMINATED);
+	DBG_CASE(PA_STREAM_READY);
+    }
+    #undef DBG_CASE
+#endif /* DEBUG */
+
     switch (state) {
-	case PA_STREAM_UNCONNECTED:
-	    break;
+	case PA_STREAM_UNCONNECTED: /* FALLTHROUGH */
 	case PA_STREAM_CREATING:
 	    break;
-	case PA_STREAM_FAILED:
-	case PA_STREAM_TERMINATED:
+	case PA_STREAM_FAILED:      /* FALLTHROUGH */
+	case PA_STREAM_TERMINATED:  /* FALLTHROUGH */
 	case PA_STREAM_READY:
 	    m_mainloop_signal.wakeAll();
 	    break;
@@ -327,18 +339,31 @@ void Kwave::RecordPulseAudio::pa_context_notify_cb(pa_context* c, void* userdata
 void Kwave::RecordPulseAudio::notifyContext(pa_context *c)
 {
     Q_ASSERT(c == m_pa_context);
+
+#ifdef DEBUG
+    #define DBG_CASE(x) case x: qDebug("RecordPulseAudio -> " #x ); break
     switch (pa_context_get_state(c))
     {
-	case PA_CONTEXT_UNCONNECTED:
-	    break;
-	case PA_CONTEXT_CONNECTING:
-	    break;
-	case PA_CONTEXT_AUTHORIZING:
-	    break;
+	DBG_CASE(PA_CONTEXT_UNCONNECTED);
+	DBG_CASE(PA_CONTEXT_CONNECTING);
+	DBG_CASE(PA_CONTEXT_AUTHORIZING);
+	DBG_CASE(PA_CONTEXT_SETTING_NAME);
+	DBG_CASE(PA_CONTEXT_READY);
+	DBG_CASE(PA_CONTEXT_TERMINATED);
+	DBG_CASE(PA_CONTEXT_FAILED);
+    }
+    #undef DBG_CASE
+#endif /* DEBUG */
+
+    switch (pa_context_get_state(c))
+    {
+	case PA_CONTEXT_UNCONNECTED: /* FALLTHROUGH */
+	case PA_CONTEXT_CONNECTING:  /* FALLTHROUGH */
+	case PA_CONTEXT_AUTHORIZING: /* FALLTHROUGH */
 	case PA_CONTEXT_SETTING_NAME:
 	    break;
-	case PA_CONTEXT_READY:
-	case PA_CONTEXT_TERMINATED:
+	case PA_CONTEXT_READY:       /* FALLTHROUGH */
+	case PA_CONTEXT_TERMINATED:  /* FALLTHROUGH */
 	case PA_CONTEXT_FAILED:
 	    m_mainloop_signal.wakeAll();
 	    break;
@@ -770,20 +795,17 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 }
 
 //***************************************************************************
-int Kwave::RecordPulseAudio::open(const QString& device)
+QString Kwave::RecordPulseAudio::open(const QString& device)
 {
     // close the previous device
     if (m_pa_stream) close();
 
-    if (!m_device_list.contains(device)) {
-	qWarning(
-	    "The PulseAudio device '%s' is unknown or no longer connected!",
-	    DBG(device.section(QLatin1Char('|'), 0, 0)));
-	return -1;
-    }
+    QString pa_device;
+    if (m_device_list.contains(device))
+	pa_device = m_device_list[device].m_name;
 
-    QString pa_device = m_device_list[device].m_name;
-    if (!pa_device.length()) return -ENOENT;
+    if (!pa_device.length())
+	return i18n("The device is unknown or no longer connected!");
 
     m_pa_device = pa_device;
     m_device    = device;
@@ -791,7 +813,7 @@ int Kwave::RecordPulseAudio::open(const QString& device)
     // detect all formats the device knows
     detectSupportedFormats(device);
 
-    return 0;
+    return QString::null;
 }
 
 //***************************************************************************

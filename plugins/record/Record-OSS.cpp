@@ -87,18 +87,40 @@ Kwave::RecordOSS::~RecordOSS()
 }
 
 //***************************************************************************
-int Kwave::RecordOSS::open(const QString &dev)
+QString Kwave::RecordOSS::open(const QString &dev)
 {
     // close the device if it is still open
     if (m_fd >= 0) close();
-    if (!dev.length()) return -1; // no device name
+    if (!dev.length()) return _(""); // no device name
 
     // first of all: try to open the device itself
     int fd = ::open(dev.toLocal8Bit(), O_RDONLY | O_NONBLOCK);
     if (fd < 0) {
 	qWarning("open failed, fd=%d, errno=%d (%s)",
 	         fd, errno, strerror(errno));
-	return -errno;
+
+	QString reason;
+	switch (errno) {
+	    case ENOENT:
+	    case ENODEV:
+	    case ENXIO:
+	    case EIO:
+		reason = i18n(
+		    "Maybe your system lacks support for the corresponding "\
+		    "hardware or the hardware is not connected."
+		);
+		break;
+	    case EBUSY:
+		reason = i18n(
+		    "The audio device seems to be occupied by another "\
+		    "application."
+		);
+		break;
+	    default:
+		reason = i18n(strerror(errno));
+		break;
+	}
+	return reason;
     }
 
     // Query OSS driver version
@@ -107,7 +129,7 @@ int Kwave::RecordOSS::open(const QString &dev)
     ioctl(fd, OSS_GETVERSION, &m_oss_version);
 #endif
     m_fd = fd;
-    return m_fd;
+    return QString::null;
 }
 
 //***************************************************************************

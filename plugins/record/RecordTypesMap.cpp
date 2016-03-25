@@ -29,6 +29,7 @@ void Kwave::RecordTypesMap::fill()
 {
     unsigned int index = 0;
 
+
 #ifdef HAVE_ALSA_SUPPORT
     append(index++, Kwave::RECORD_ALSA,
         _("alsa"),
@@ -48,7 +49,7 @@ void Kwave::RecordTypesMap::fill()
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
    Q_ASSERT(index);
-   if (!index) qWarning("no playback method defined!");
+   if (!index) qWarning("no recording method defined!");
 }
 
 //***************************************************************************

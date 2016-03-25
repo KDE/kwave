@@ -172,7 +172,6 @@ namespace Kwave
 
 	/** return a string list with supported device names */
 	virtual QStringList supportedDevices();
-	virtual QString fileFilter();
 
 	/**
 	 * our own poll function, for timeout support

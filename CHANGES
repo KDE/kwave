@@ -8,6 +8,7 @@
  * removed unneeded build and runtime dependencies
  * removed optimized memcpy for PowerPC
  * record plugin: use more detailed error messages
+ * record plugin: added 5sec delay after closing connection to PulseAudio
 
 0.9.1 [2016-02-21]
 

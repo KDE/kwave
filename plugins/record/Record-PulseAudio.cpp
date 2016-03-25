@@ -25,6 +25,7 @@
 #include <limits>
 
 #include <pulse/thread-mainloop.h>
+#include <pulse/util.h>
 
 #include <QApplication>
 #include <QCursor>
@@ -62,10 +63,22 @@
 #define TIMEOUT_CONNECT_TO_SERVER 20000
 
 /**
+ * timeout to wait for the disconnect from the server [ms]
+ * @see disconnectFromServer()
+ */
+#define TIMEOUT_DISCONNECT_FROM_SERVER 5000
+
+/**
  * timeout to wait for record [ms]
  * @see open()
  */
 #define TIMEOUT_CONNECT_RECORD 10000
+
+/**
+ * timeout to wait for disconnecting the recording stream [ms]
+ * @see close()
+ */
+#define TIMEOUT_DISCONNECT_STREAM 10000
 
 /**
  * Global list of all known sample formats.
@@ -312,9 +325,9 @@ void Kwave::RecordPulseAudio::notifyStreamState(pa_stream* stream)
 #endif /* DEBUG */
 
     switch (state) {
-	case PA_STREAM_UNCONNECTED: /* FALLTHROUGH */
 	case PA_STREAM_CREATING:
 	    break;
+	case PA_STREAM_UNCONNECTED: /* FALLTHROUGH */
 	case PA_STREAM_FAILED:      /* FALLTHROUGH */
 	case PA_STREAM_TERMINATED:  /* FALLTHROUGH */
 	case PA_STREAM_READY:
@@ -339,10 +352,11 @@ void Kwave::RecordPulseAudio::pa_context_notify_cb(pa_context* c, void* userdata
 void Kwave::RecordPulseAudio::notifyContext(pa_context *c)
 {
     Q_ASSERT(c == m_pa_context);
+    const pa_context_state_t state = pa_context_get_state(c);
 
 #ifdef DEBUG
     #define DBG_CASE(x) case x: qDebug("RecordPulseAudio -> " #x ); break
-    switch (pa_context_get_state(c))
+    switch (state)
     {
 	DBG_CASE(PA_CONTEXT_UNCONNECTED);
 	DBG_CASE(PA_CONTEXT_CONNECTING);
@@ -355,7 +369,7 @@ void Kwave::RecordPulseAudio::notifyContext(pa_context *c)
     #undef DBG_CASE
 #endif /* DEBUG */
 
-    switch (pa_context_get_state(c))
+    switch (state)
     {
 	case PA_CONTEXT_UNCONNECTED: /* FALLTHROUGH */
 	case PA_CONTEXT_CONNECTING:  /* FALLTHROUGH */
@@ -631,7 +645,14 @@ int Kwave::RecordPulseAudio::close()
 {
     if (m_pa_stream) {
 	pa_stream_drop(m_pa_stream);
+
+	m_mainloop_lock.lock();
 	pa_stream_disconnect(m_pa_stream);
+	qDebug("RecordPulseAudio::close() - waiting for stream disconnect...");
+	m_mainloop_signal.wait(&m_mainloop_lock, TIMEOUT_DISCONNECT_STREAM);
+	m_mainloop_lock.unlock();
+	qDebug("RecordPulseAudio::close() - stream disconnect DONE");
+
 	pa_stream_unref(m_pa_stream);
     }
     m_pa_stream = 0;
@@ -833,12 +854,6 @@ QStringList Kwave::RecordPulseAudio::supportedDevices()
 }
 
 //***************************************************************************
-QString Kwave::RecordPulseAudio::fileFilter()
-{
-    return Kwave::RecordDevice::fileFilter();
-}
-
-//***************************************************************************
 void Kwave::RecordPulseAudio::run_wrapper(const QVariant &params)
 {
     Q_UNUSED(params);
@@ -985,6 +1000,10 @@ void Kwave::RecordPulseAudio::disconnectFromServer()
 	pa_context_unref(m_pa_context);
 	m_pa_context  = 0;
     }
+
+    qDebug("RecordPulseAudio::disconnectFromServer() - context disconnect...");
+    pa_msleep(TIMEOUT_DISCONNECT_FROM_SERVER);
+    qDebug("RecordPulseAudio::disconnectFromServer() - disconnect done");
 
     // stop and free the main loop
     if (m_pa_mainloop) {

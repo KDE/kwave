@@ -62,9 +62,7 @@ namespace Kwave
 	virtual int close() = 0;
 
 	/** return a string list with supported device names */
-	virtual QStringList supportedDevices() {
-	    return QStringList();
-	}
+	virtual QStringList supportedDevices() = 0;
 
 	/** return a string suitable for a "File Open..." dialog */
 	virtual QString fileFilter() { return _(""); }

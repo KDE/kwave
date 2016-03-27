@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=Select Range
 Name[ca]=Selecció de l'interval
 Name[de]=Bereich auswählen
+Name[en_GB]=Select Range
 Name[es]=Seleccionar intervalo
 Name[nl]=Bereik selecteren
 Name[pl]=Zaznacz zakres

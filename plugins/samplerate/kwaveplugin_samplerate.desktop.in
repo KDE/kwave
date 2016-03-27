@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=Sample Rate Conversion
 Name[ca]=Conversió de la freqüència de mostreig
 Name[de]=Abtastrate ändern
+Name[en_GB]=Sample Rate Conversion
 Name[nl]=Samplesnelheid converteren
 Name[pl]=Przekształcanie próbkowania
 Name[pt]=Conversão da Taxa de Amostragem

@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=Band Pass Filter
 Name[ca]=Filtre passabanda
 Name[de]=Bandpass
+Name[en_GB]=Band Pass Filter
 Name[nl]=Banddoorlaatfilter
 Name[pl]=Filtr przepuszczania pasma
 Name[pt]=Filtro Passa-Banda

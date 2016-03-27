@@ -53,8 +53,12 @@ namespace Kwave
 	/**
 	 * Open the record device.
 	 * @param dev path of the record device
-	 * @return zero-length string if successful, or an error
-	 *         message if failed
+	 * @retval QString::null if successful
+	 * @retval QString::number(ENODEV) if device not found
+	 * @retval QString::number(EBUSY) if device is busy
+	 * @retval QString::number(EINVAL) on invalid parameters
+	 * @retval QString(...) device specific error message
+	 *                      (already translated)
 	 */
 	virtual QString open(const QString &dev);
 

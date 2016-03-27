@@ -25,7 +25,6 @@
 #include <limits>
 
 #include <pulse/thread-mainloop.h>
-#include <pulse/util.h>
 
 #include <QApplication>
 #include <QCursor>
@@ -61,12 +60,6 @@
  * @see connectToServer()
  */
 #define TIMEOUT_CONNECT_TO_SERVER 20000
-
-/**
- * timeout to wait for the disconnect from the server [ms]
- * @see disconnectFromServer()
- */
-#define TIMEOUT_DISCONNECT_FROM_SERVER 5000
 
 /**
  * timeout to wait for record [ms]
@@ -826,7 +819,7 @@ QString Kwave::RecordPulseAudio::open(const QString& device)
 	pa_device = m_device_list[device].m_name;
 
     if (!pa_device.length())
-	return i18n("The device is unknown or no longer connected!");
+	return QString::number(ENODEV);
 
     m_pa_device = pa_device;
     m_device    = device;
@@ -860,6 +853,7 @@ void Kwave::RecordPulseAudio::run_wrapper(const QVariant &params)
     m_mainloop_lock.lock();
     pa_mainloop_run(m_pa_mainloop, 0);
     m_mainloop_lock.unlock();
+    qDebug("RecordPulseAudio::run_wrapper - done.");
 }
 
 //***************************************************************************
@@ -1000,10 +994,6 @@ void Kwave::RecordPulseAudio::disconnectFromServer()
 	pa_context_unref(m_pa_context);
 	m_pa_context  = 0;
     }
-
-    qDebug("RecordPulseAudio::disconnectFromServer() - context disconnect...");
-    pa_msleep(TIMEOUT_DISCONNECT_FROM_SERVER);
-    qDebug("RecordPulseAudio::disconnectFromServer() - disconnect done");
 
     // stop and free the main loop
     if (m_pa_mainloop) {

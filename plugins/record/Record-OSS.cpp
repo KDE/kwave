@@ -91,7 +91,7 @@ QString Kwave::RecordOSS::open(const QString &dev)
 {
     // close the device if it is still open
     if (m_fd >= 0) close();
-    if (!dev.length()) return _(""); // no device name
+    if (!dev.length()) return QString::number(EINVAL); // no device name
 
     // first of all: try to open the device itself
     int fd = ::open(dev.toLocal8Bit(), O_RDONLY | O_NONBLOCK);
@@ -105,16 +105,10 @@ QString Kwave::RecordOSS::open(const QString &dev)
 	    case ENODEV:
 	    case ENXIO:
 	    case EIO:
-		reason = i18n(
-		    "Maybe your system lacks support for the corresponding "\
-		    "hardware or the hardware is not connected."
-		);
+		reason = QString::number(ENODEV);
 		break;
 	    case EBUSY:
-		reason = i18n(
-		    "The audio device seems to be occupied by another "\
-		    "application."
-		);
+		reason = QString::number(EBUSY);
 		break;
 	    default:
 		reason = i18n(strerror(errno));

@@ -24,6 +24,7 @@
 #include <QList>
 #include <QString>
 #include <QStringList>
+#include <QTimer>
 #include <QVector>
 
 #include "libkwave/MultiTrackWriter.h"
@@ -165,6 +166,9 @@ namespace Kwave
 	/** the prerecording checkbox has changed */
 	void prerecordingChanged(bool enable);
 
+	/** try to open the record device, in case it was busy before */
+	void retryOpen();
+
     private:
 
 	/** close m_device and delete it */
@@ -273,6 +277,9 @@ namespace Kwave
 
 	/** buffer for trigger values */
 	QVector<float> m_trigger_value;
+
+	/** timer for retrying "open" */
+	QTimer m_retry_timer;
 
     };
 }

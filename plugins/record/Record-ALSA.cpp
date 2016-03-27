@@ -278,17 +278,17 @@ QString Kwave::RecordALSA::open(const QString &device)
     if (m_handle) close();
     m_initialized = false;
 
-    if (!device.length()) return _(""); // no device name
+    if (!device.length()) return QString::number(EINVAL); // no device name
 
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
     qDebug("RecordALSA::open -> '%s'", DBG(alsa_device));
 
-    if (!alsa_device.length()) return _("");
+    if (!alsa_device.length()) return QString::number(EINVAL);
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
-    if (alsa_device.endsWith(_(","))) return _("");
+    if (alsa_device.endsWith(_(","))) return QString::number(EINVAL);
 
     // open the device in case it's not already open
     m_open_result = snd_pcm_open(&m_handle, alsa_device.toLocal8Bit().data(),
@@ -306,16 +306,10 @@ QString Kwave::RecordALSA::open(const QString &device)
 	    case -ENODEV:
 	    case -ENXIO:
 	    case -EIO:
-		reason = i18n(
-		    "Maybe your system lacks support for the corresponding "\
-		    "hardware or the hardware is not connected."
-		);
+		reason = QString::number(ENODEV);
 		break;
 	    case -EBUSY:
-		reason = i18n(
-		    "The audio device seems to be occupied by another "\
-		    "application."
-		);
+		reason = QString::number(EBUSY);
 		break;
 	    default:
 		reason = i18n(snd_strerror(m_open_result));
@@ -580,7 +574,7 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
     // do not read more than one chunk at a time
     if (samples > m_chunk_size) samples = m_chunk_size;
 
-#if 0
+#ifdef DEBUG
     // just for debugging: detect state changes of the device
     static snd_pcm_state_t last_state = SND_PCM_STATE_DISCONNECTED;
     snd_pcm_state_t state = snd_pcm_state(m_handle);
@@ -616,7 +610,7 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
 	}
 	last_state = state;
     }
-#endif
+#endif /* DEBUG */
 
     // try to read as much as the device accepts
     Q_ASSERT(samples);

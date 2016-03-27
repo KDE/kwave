@@ -60,6 +60,8 @@
 
 KWAVE_PLUGIN(record, RecordPlugin)
 
+#define OPEN_RETRY_TIME 1000 /**< time interval for trying to open [ms] */
+
 //***************************************************************************
 Kwave::RecordPlugin::RecordPlugin(QObject *parent, const QVariantList &args)
     :Kwave::Plugin(parent, args),
@@ -67,8 +69,14 @@ Kwave::RecordPlugin::RecordPlugin(QObject *parent, const QVariantList &args)
      m_state(Kwave::REC_EMPTY), m_device(0),
      m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),
      m_writers(0), m_buffers_recorded(0), m_inhibit_count(0),
-     m_trigger_value()
+     m_trigger_value(),
+     m_retry_timer()
 {
+    m_retry_timer.setSingleShot(true);
+    connect(&m_retry_timer, SIGNAL(timeout()),
+	    this, SLOT(retryOpen()),
+	    Qt::QueuedConnection
+   	);
 }
 
 //***************************************************************************
@@ -222,6 +230,8 @@ void Kwave::RecordPlugin::notice(QString message)
 //***************************************************************************
 void Kwave::RecordPlugin::closeDevice()
 {
+    if (m_retry_timer.isActive()) m_retry_timer.stop();
+
     if (m_device) {
 	m_device->close();
 	delete m_device;
@@ -328,6 +338,13 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 }
 
 //***************************************************************************
+void Kwave::RecordPlugin::retryOpen()
+{
+    qDebug("RecordPlugin::retryOpen()");
+    setDevice(m_device_name);
+}
+
+//***************************************************************************
 void Kwave::RecordPlugin::setDevice(const QString &device)
 {
     Q_ASSERT(m_dialog);
@@ -336,6 +353,8 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
     qDebug("RecordPlugin::setDevice('%s')", DBG(device));
+
+    if (m_retry_timer.isActive()) m_retry_timer.stop();
 
     // select the default device if this one is not supported
     QString dev = device;
@@ -371,12 +390,13 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
     cfg.sync();
 
     if (!result.isNull()) {
+	bool shouldRetry = false;
+
 	qWarning("RecordPlugin::setDevice('%s'): "
 	         "opening the device failed. error message='%s'",
 	         DBG(device), DBG(result));
 
 	m_controller.setInitialized(false);
-	m_dialog->showDevicePage();
 
 	if (m_device_name.length()) {
 	    // build a short device name for showing to the user
@@ -389,15 +409,39 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 			m_device_name.section(_("|"), 3, 3);
 	    }
 
-	    if (result.length())
-		Kwave::MessageBox::sorry(parentWidget(),
-		result, i18nc("%1 = a device name",
-			      "Unable to open the recording device (%1)",
-		              short_device_name));
+	    if (result == QString::number(ENODEV)) {
+		result = i18n(
+		    "Maybe your system lacks support for the corresponding "\
+		    "hardware or the hardware is not connected."
+		);
+	    } else if (result == QString::number(EBUSY)) {
+		result = i18n(
+		    "The audio device seems to be occupied by another "\
+		    "application. Retrying..."
+		);
+		shouldRetry = true;
+	    }
+
+	    if (result.length()) {
+		if (shouldRetry) {
+		    notice(result);
+		} else {
+		    m_dialog->showDevicePage();
+		    Kwave::MessageBox::sorry(parentWidget(),
+		        result, i18nc("%1 = a device name",
+		        "Unable to open the recording device (%1)",
+		        short_device_name));
+		}
+	    }
 	}
 
-	m_device_name = QString();
-	changeTracks(0);
+	if (shouldRetry) {
+	    // retry later...
+	    m_retry_timer.start(OPEN_RETRY_TIME);
+	} else {
+	    m_device_name = QString();
+	    changeTracks(0);
+	}
     } else {
 	changeTracks(m_dialog->params().tracks);
     }

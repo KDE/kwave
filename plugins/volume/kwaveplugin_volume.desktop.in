@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=Volume
 Name[ca]=Volum
+Name[ca@valencia]=Volum
 Name[de]=Lautstärke
 Name[en_GB]=Volume
 Name[es]=Volumen

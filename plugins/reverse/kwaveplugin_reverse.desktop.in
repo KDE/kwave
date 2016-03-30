@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=Reverse
 Name[ca]=Inverteix
+Name[ca@valencia]=Inverteix
 Name[de]=Umkehren
 Name[en_GB]=Reverse
 Name[es]=Invertir

@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=Low Pass Filter
 Name[ca]=Filtre passabaix
+Name[ca@valencia]=Filtre passabaix
 Name[de]=Tiefpass-Filter
 Name[en_GB]=Low Pass Filter
 Name[nl]=Laagdoorlaatfilter

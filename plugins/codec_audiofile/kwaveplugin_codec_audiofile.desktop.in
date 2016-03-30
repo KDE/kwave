@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=Audiofile Codec
 Name[ca]=Còdec Audiofile
+Name[ca@valencia]=Còdec Audiofile
 Name[de]=Audiofile-Codec
 Name[en_GB]=Audiofile Codec
 Name[es]=Códec Audiofile

@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=Notch Filter
 Name[ca]=Filtre de supressió de la banda
+Name[ca@valencia]=Filtre de supressió de la banda
 Name[de]=Kerbfilter
 Name[en_GB]=Notch Filter
 Name[nl]=Notch-filter

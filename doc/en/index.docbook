@@ -17,7 +17,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
-  <!ENTITY url_kde_project "http://projects.kde.org/projects/kdereview/kwave">
+  <!ENTITY url_kde_project "https://quickgit.kde.org/?p=kwave.git">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">

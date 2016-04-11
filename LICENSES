@@ -759,8 +759,12 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/record/LevelMeter.h			GPL2+ / Rik Hemsley
 	plugins/record/Record-ALSA.cpp			GPL2+
 	plugins/record/Record-ALSA.h			GPL2+
+	plugins/record/Record-OSS.cpp			GPL2+
+	plugins/record/Record-OSS.h			GPL2+
 	plugins/record/Record-PulseAudio.cpp		GPL2+
 	plugins/record/Record-PulseAudio.h		GPL2+
+	plugins/record/Record-Qt.cpp			GPL2+
+	plugins/record/Record-Qt.h			GPL2+
 	plugins/record/RecordController.cpp		GPL2+
 	plugins/record/RecordController.h		GPL2+
 	plugins/record/RecordDevice.h			GPL2+
@@ -768,8 +772,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/record/RecordDialog.h			GPL2+
 	plugins/record/RecordDlg.ui			(should be GPL2+)
 	plugins/record/RecordingState.xmi		(should be GPL2+)
-	plugins/record/Record-OSS.cpp			GPL2+
-	plugins/record/Record-OSS.h			GPL2+
 	plugins/record/RecordParams.cpp			GPL2+
 	plugins/record/RecordParams.h			GPL2+
 	plugins/record/record_pause2.xpm		(should be GPL2+)

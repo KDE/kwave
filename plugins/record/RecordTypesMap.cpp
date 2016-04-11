@@ -29,6 +29,17 @@ void Kwave::RecordTypesMap::fill()
 {
     unsigned int index = 0;
 
+#ifdef HAVE_QT_AUDIO_SUPPORT
+    append(index++, Kwave::RECORD_QT,
+        _("qt"),
+        _(I18N_NOOP("Qt Multimedia Audio")));
+#endif /* HAVE_QT_AUDIO_SUPPORT */
+
+#ifdef HAVE_PULSEAUDIO_SUPPORT
+    append(index++, Kwave::RECORD_PULSEAUDIO,
+        _("pulseaudio"),
+        _(I18N_NOOP("Pulse Audio")));
+#endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
     append(index++, Kwave::RECORD_ALSA,
@@ -41,12 +52,6 @@ void Kwave::RecordTypesMap::fill()
         _("oss"),
         _(I18N_NOOP("OSS (Open Sound System)")));
 #endif /* HAVE_OSS_SUPPORT */
-
-#ifdef HAVE_PULSEAUDIO_SUPPORT
-    append(index++, Kwave::RECORD_PULSEAUDIO,
-        _("pulseaudio"),
-        _(I18N_NOOP("Pulse Audio")));
-#endif /* HAVE_PULSEAUDIO_SUPPORT */
 
    Q_ASSERT(index);
    if (!index) qWarning("no recording method defined!");

@@ -52,6 +52,7 @@
 #include "Record-ALSA.h"
 #include "Record-OSS.h"
 #include "Record-PulseAudio.h"
+#include "Record-Qt.h"
 #include "RecordDevice.h"
 #include "RecordDialog.h"
 #include "RecordPlugin.h"
@@ -287,6 +288,12 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 		    break;
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
+#ifdef HAVE_QT_AUDIO_SUPPORT
+		case Kwave::RECORD_QT:
+		    m_device = new Kwave::RecordQt();
+		    Q_ASSERT(m_device);
+		    break;
+#endif /* HAVE_QT_AUDIO_SUPPORT */
 		default:
 		    qDebug("unsupported recording method (%d)",
 			static_cast<int>(method));
@@ -476,7 +483,9 @@ void Kwave::RecordPlugin::changeTracks(unsigned int new_tracks)
     // check the supported tracks
     unsigned int min = 0;
     unsigned int max = 0;
-    m_device->detectTracks(min, max);
+    if ((m_device->detectTracks(min, max) < 0) || (max < 1))
+	min = max = 0;
+    if (min > max) min = max;
 
     unsigned int channels = new_tracks;
     if ((channels < min) || (channels > max)) {

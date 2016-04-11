@@ -1,4 +1,11 @@
 
+o record plugin: add popup menu to record button for direct recording,
+  record settings etc...
+
+o collapse/expand of track views
+
+o add views with meta data
+
 o auto-detect song borders set markers, for splitting recorded stuff into several
   parts and then save them to disc as separate files
 
@@ -31,9 +38,6 @@ o new plugin: "anti clipping"
 o use noise shaping globally in sample2float()
 
 o support for "raw" import/export
-
-o record plugin: add popup menu to record button for direct recording,
-  record settings etc...
 
 o record plugin: add menu entry
 

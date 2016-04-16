@@ -98,17 +98,21 @@ int Kwave::SelectRangePlugin::start(QStringList &params)
     int result = interpreteParameters(params);
     if (result) return result;
 
+    const sample_index_t signal_length = signalLength();
+
     // get current offset of the signal
     sample_index_t offset = Kwave::SelectTimeWidget::timeToSamples(
-	m_start_mode, m_start, signalRate(), signalLength());
+	m_start_mode, m_start, signalRate(), signal_length);
 
     // transform into offset and length [samples]
     sample_index_t length = Kwave::SelectTimeWidget::timeToSamples(
-	m_range_mode, m_range, signalRate(), signalLength());
+	m_range_mode, m_range, signalRate(), signal_length);
 
     // limit selection to end of signal
-    if ((offset + length) >= signalLength())
-	length = signalLength() - offset;
+    if (length > signal_length)
+	length = signal_length;
+    if ((offset + length) >= signal_length)
+	length = signal_length - offset;
 
     // change the selection through the signal manager
     {

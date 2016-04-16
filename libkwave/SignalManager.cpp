@@ -1147,7 +1147,8 @@ void Kwave::SignalManager::selectRange(sample_index_t offset,
     // first do some range checking
     sample_index_t len = this->length();
 
-    if (offset >= len) offset = len ? (len - 1) : 0;
+    if (length > len)  length = len;
+    if (offset >= len) offset = (len) ? (len - 1) : 0;
     if ((offset + length) > len) length = len - offset;
 
     m_selection.select(offset, length);

@@ -1810,6 +1810,7 @@
 	    Additionally you can import file formats like
 	    <filename>*.au</filename>  (NeXT, Sun Audio),
 	    <filename>*.aiff</filename> (Audio Interchange Format),
+	    <filename>*.avr</filename> (Audio Visual Research File Format),
 	    <filename>*.caf</filename> (Core Audio Format),
 	    <filename>*.nist</filename> (NIST SPHERE Audio File Format),
 	    <filename>*.sf</filename> (Berkeley, IRCAM, Carl Sound Format),
@@ -5560,6 +5561,23 @@
 		    <row>
 			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
 			<entry><literal>audio/x-aiff</literal></entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>Audio Visual Research File Format</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry>
+			    <filename>*.avr</filename>
+			</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry><literal>audio/x-avr</literal></entry>
 		    </row>
 		</tbody></tgroup></informaltable>
 

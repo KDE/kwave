@@ -52,6 +52,9 @@ Kwave::AudiofileDecoder::AudiofileDecoder()
     addMimeType("audio/x-aiff", /* included in KDE */
                 i18n("Audio Interchange Format"),
                 "*.aif; *.AIF; *.aiff; *.AIFF");
+    addMimeType("audio/x-avr",
+                i18n("Audio Visual Research File Format"),
+                "*.avr; *.AVR");
     addMimeType("audio/x-caf",
                 i18n("Core Audio File Format"),
                 "*.caf; *.CAF");

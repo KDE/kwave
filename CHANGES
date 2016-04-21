@@ -10,9 +10,10 @@
  * removed optimized memcpy for PowerPC
  * record plugin: improved handling of error messages
  * record plugin: added retry mechanism in case of device busy
- * decoding of Core Audio Format (*.caf), using ALAC, A-LAW, U-LAW and IMA
+ * import of Core Audio Format (*.caf), using ALAC, A-LAW, U-LAW and IMA
    compression
- * decoding of Creative Voice files (*.voc)
+ * import of Creative Voice files (*.voc)
+ * import of NIST SPHERE Audio File Format (*.nist)
 
 0.9.1 [2016-02-21]
 

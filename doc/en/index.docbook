@@ -1812,7 +1812,8 @@
 	    <filename>*.aiff</filename> (Audio Interchange Format),
 	    <filename>*.caf</filename> (Core Audio Format),
 	    <filename>*.sf</filename> (Berkeley, IRCAM, Carl Sound Format),
-	    <filename>*.snd</filename> (NeXT, Sun Audio)
+	    <filename>*.snd</filename> (NeXT, Sun Audio),
+	    <filename>*.voc</filename> (Creative Voice)
 	    and others through the <ulink url="&url_libaudiofile;">audiofile</ulink>
 	    plugin.
 	</para></listitem>
@@ -5589,6 +5590,22 @@
 			<entry><literal>audio/x-ircam</literal></entry>
 		    </row>
 		</tbody></tgroup></informaltable>
+
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>Creative Voice</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.voc</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry><literal>audio/x-voc</literal></entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+
 	    </listitem>
 	</varlistentry>
 	<varlistentry>

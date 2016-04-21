@@ -58,6 +58,9 @@ Kwave::AudiofileDecoder::AudiofileDecoder()
     addMimeType("audio/x-ircam",
                 i18n("Berkeley, IRCAM, Carl Sound Format"),
                 "*.sf; *.SF");
+    addMimeType("audio/x-voc",
+                i18n("Creative Voice"),
+                "*.voc; *.VOC");
 }
 
 //***************************************************************************

@@ -55,12 +55,15 @@ Kwave::AudiofileDecoder::AudiofileDecoder()
     addMimeType("audio/x-caf",
                 i18n("Core Audio File Format"),
                 "*.caf; *.CAF");
-    addMimeType("audio/x-nist",
-                i18n("NIST SPHERE Audio File Format"),
-                "*.nist; *.NIST");
     addMimeType("audio/x-ircam",
                 i18n("Berkeley, IRCAM, Carl Sound Format"),
                 "*.sf; *.SF");
+    addMimeType("audio/x-nist",
+                i18n("NIST SPHERE Audio File Format"),
+                "*.nist; *.NIST");
+    addMimeType("audio/x-smp",
+                i18n("Sample Vision Format"),
+                "*.smp; *.SMP");
     addMimeType("audio/x-voc",
                 i18n("Creative Voice"),
                 "*.voc; *.VOC");

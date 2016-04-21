@@ -12,8 +12,9 @@
  * record plugin: added retry mechanism in case of device busy
  * import of Core Audio Format (*.caf), using ALAC, A-LAW, U-LAW and IMA
    compression
- * import of Creative Voice files (*.voc)
+ * import of Sample Vision Format (*.smp)
  * import of NIST SPHERE Audio File Format (*.nist)
+ * import of Creative Voice files (*.voc)
 
 0.9.1 [2016-02-21]
 

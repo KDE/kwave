@@ -1813,6 +1813,7 @@
 	    <filename>*.caf</filename> (Core Audio Format),
 	    <filename>*.nist</filename> (NIST SPHERE Audio File Format),
 	    <filename>*.sf</filename> (Berkeley, IRCAM, Carl Sound Format),
+	    <filename>*.smp</filename> (Sample Vision Format),
 	    <filename>*.snd</filename> (NeXT, Sun Audio),
 	    <filename>*.voc</filename> (Creative Voice)
 	    and others through the <ulink url="&url_libaudiofile;">audiofile</ulink>
@@ -5604,6 +5605,21 @@
 		    <row>
 			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
 			<entry><literal>audio/x-nist</literal></entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>Sample Vision Format</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.smp</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry><literal>audio/x-smp</literal></entry>
 		    </row>
 		</tbody></tgroup></informaltable>
 

@@ -42,12 +42,13 @@ namespace Kwave
 	    G711_ALAW    = AF_COMPRESSION_G711_ALAW,
 	    MS_ADPCM     = AF_COMPRESSION_MS_ADPCM,
 	    GSM          = AF_COMPRESSION_GSM,
+	    FLAC         = AF_COMPRESSION_FLAC,
+	    ALAC         = AF_COMPRESSION_ALAC,
 	    MPEG_LAYER_I = 600,
 	    MPEG_LAYER_II,
 	    MPEG_LAYER_III,
 	    OGG_VORBIS,
-	    OGG_OPUS,
-	    FLAC
+	    OGG_OPUS
 	};
 
 	/**

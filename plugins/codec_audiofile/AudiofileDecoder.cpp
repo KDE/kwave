@@ -52,6 +52,9 @@ Kwave::AudiofileDecoder::AudiofileDecoder()
     addMimeType("audio/x-aiff", /* included in KDE */
                 i18n("Audio Interchange Format"),
                 "*.aif; *.AIF; *.aiff; *.AIFF");
+    addMimeType("audio/x-caf",
+                i18n("Core Audio File Format"),
+                "*.caf; *.CAF");
     addMimeType("audio/x-ircam",
                 i18n("Berkeley, IRCAM, Carl Sound Format"),
                 "*.sf; *.SF");
@@ -79,7 +82,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
     // try to open the source
     if (!src.open(QIODevice::ReadOnly)) {
-	qWarning("failed to open source !");
+	qWarning("AudiofileDecoder::open(), failed to open source !");
 	return false;
     }
 

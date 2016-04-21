@@ -161,7 +161,6 @@ void Kwave::Compression::fillMap()
 	sfmt_int, false, false));
 
     /* compression types from libaudiofile (for display only, not supported) */
-
     static const struct {
 	int compression;
 	const char *name;

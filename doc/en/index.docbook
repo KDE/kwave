@@ -1808,6 +1808,7 @@
 
 	<listitem><para>
 	    Additionally you can import file formats like
+	    <filename>*.8svx</filename> (Amiga IFF/8SVX Sound File Format),
 	    <filename>*.au</filename>  (NeXT, Sun Audio),
 	    <filename>*.aiff</filename> (Audio Interchange Format),
 	    <filename>*.avr</filename> (Audio Visual Research File Format),
@@ -5513,6 +5514,23 @@
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_file_types;</emphasis></term>
 	    <listitem>
+
+		<informaltable frame='none'><tgroup cols='2'><tbody>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry>Amiga IFF/8SVX Sound File Format</entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry><filename>*.8svx</filename></entry>
+			<entry><filename>*.iff</filename></entry>
+		    </row>
+		    <row>
+			<entry>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry><literal>audio/x-8svx</literal></entry>
+		    </row>
+		</tbody></tgroup></informaltable>
+
 		<informaltable frame='none'><tgroup cols='2'><tbody>
 		    <row>
 			<entry>&i18n-plugin-lbl_file_type_description;</entry>

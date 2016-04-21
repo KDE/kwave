@@ -16,6 +16,7 @@
  * import of NIST SPHERE Audio File Format (*.nist)
  * import of Creative Voice files (*.voc)
  * import Audio Visual Research File Format (*.avr)
+ * import of Amiga IFF/8SVX Sound File Format (*.8svx)
 
 0.9.1 [2016-02-21]
 

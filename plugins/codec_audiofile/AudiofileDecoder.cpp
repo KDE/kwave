@@ -46,6 +46,9 @@ Kwave::AudiofileDecoder::AudiofileDecoder()
                 "*.au; *.AU; *.snd; *.SND");
 
     /* some others, mime types might be wrong (I found no RFC or similar)  */
+    addMimeType("audio/x-8svx",
+                i18n("Amiga IFF/8SVX Sound File Format"),
+                "*.iff; *.IFF; *.8svx; *.8SVX");
     addMimeType("audio/x-aifc",
                 i18n("Compressed Audio Interchange Format"),
                 "*.aifc; *.AIFC");

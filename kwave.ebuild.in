@@ -13,8 +13,11 @@ if [[ ${KDE_BUILD_TYPE} != live ]]; then
 	SRC_URI="mirror://sourceforge/${PN}/${P}-1.tar.bz2"
 fi
 
-LICENSE="BSD GPL-2 LGPL-2
-	handbook? ( FDL-1.2 )"
+LICENSE="
+	CC-BY-SA-3.0 CC0-1.0 GPL-2+ LGPL-2+
+	handbook? ( FDL-1.2 )
+	opus? ( BSD-2 )
+"
 KEYWORDS="amd64 ~ppc x86"
 IUSE="alsa flac mp3 +qtmedia opus oss pulseaudio vorbis"
 
@@ -32,6 +35,8 @@ COMMON_DEPEND="
 	$(add_frameworks_dep ktextwidgets)
 	$(add_frameworks_dep kwidgetsaddons)
 	$(add_frameworks_dep kxmlgui)
+	$(add_qt_dep qtgui)
+	$(add_qt_dep qtwidgets)
 	media-libs/audiofile:=
 	>=sci-libs/fftw-3
 	media-libs/libsamplerate
@@ -54,20 +59,16 @@ COMMON_DEPEND="
 	)
 "
 DEPEND="${COMMON_DEPEND}
-	kde-apps/poxml
+	$(add_kdeapps_dep poxml)
+	$(add_qt_dep qtconcurrent)
 	|| ( media-gfx/imagemagick[png,svg] media-gfx/graphicsmagick[imagemagick,png,svg] )
+	sys-devel/gettext
 "
 RDEPEND="${COMMON_DEPEND}
 	!media-sound/kwave:4
 "
 
 DOCS=( AUTHORS CHANGES LICENSES README TODO )
-
-src_prepare() {
-       eapply_user
-       mkdir -p po
-       echo "# generated dummy file, do not edit" > po/CMakeLists.txt
-}
 
 src_configure() {
 	local mycmakeargs=(

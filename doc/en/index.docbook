@@ -5276,7 +5276,7 @@
 	    </listitem>
 	  </varlistentry>
 	  <varlistentry>
-	    <term><emphasis role="bold">Parameters</emphasis>:</term>
+	    <term><emphasis role="bold">Parameters</emphasis></term>
 	    <listitem>
 	      <variablelist>
 		<varlistentry>
@@ -5432,7 +5432,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -6131,7 +6131,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -6223,7 +6223,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -6317,7 +6317,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -6369,7 +6369,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -6526,7 +6526,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -6659,7 +6659,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -6745,7 +6745,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -6837,7 +6837,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -6929,6 +6929,203 @@
 	    </para>
 	    </listitem>
 	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>playback method</replaceable></term>
+			<listitem>
+			    <para>
+				The method used for recording, see
+				<filename>RecordParams.h</filename>.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>pre recording enabled</replaceable></term>
+			<listitem>
+			    <para>
+				Enable/disable pre recording (1 if enabled, 0 if disabled).
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>pre recording time</replaceable></term>
+			<listitem>
+			    <para>
+				Number of seconds for pre recording.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>limit recording time</replaceable></term>
+			<listitem>
+			    <para>
+				Enable/disable limiting of recording time (1 if limited, 0 if not limited).
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>recording time</replaceable></term>
+			<listitem>
+			    <para>
+				Duration of the recording in seconds.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>use starting time</replaceable></term>
+			<listitem>
+			    <para>
+				Enable/disable starting time (1 if used, 0 if not used).
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>starting time</replaceable></term>
+			<listitem>
+			    <para>
+				Date/time to start the recording, in ISO format.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>use trigger level</replaceable></term>
+			<listitem>
+			    <para>
+				Enable/disable trigger level (1 if used, 0 if not used).
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>trigger level</replaceable></term>
+			<listitem>
+			    <para>
+				Trigger level in percent.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>recording device</replaceable></term>
+			<listitem>
+			    <para>
+				A string that determines the recording device.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>channels</replaceable></term>
+			<listitem>
+			    <para>
+				The number of channels to use for recording.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>sample rate</replaceable></term>
+			<listitem>
+			    <para>
+				Sample rate in samples per second.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>compression</replaceable></term>
+			<listitem>
+			    <para>
+				Compression to use for storing the samples.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>sample format</replaceable></term>
+			<listitem>
+			    <para>
+				Sample format to use for storing the samples,
+				see <link linkend="sample-formats">section
+				about sample formats</link>.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>bits per sample</replaceable></term>
+			<listitem>
+			    <para>
+				The number of bits per sample for recording,
+				should be 8, 16, 24 or 32.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>buffer count</replaceable></term>
+			<listitem>
+			    <para>
+				Determines the number buffers used for recording.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term><replaceable>buffer size</replaceable></term>
+			<listitem>
+			    <para>
+				Determines the size of the recording buffer, used
+				as exponent for calculating the real buffer
+				size as 2^n, e.g. setting this to 16 gives a
+				buffer size of 2^16 = 64 kB.
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term><emphasis role="bold">Alternative Parameters:</emphasis></term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term><replaceable>record plugin direct mode</replaceable></term>
+			<listitem>
+			    <para>
+				Can be used as a single parameter for setting up the plugin.
+				The following values are possible:
+				<informaltable frame='all'>
+				    <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'>value</entry>
+						<entry align='left'>description</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry>&no-i18n-tag;<command>format</command></entry>
+						<entry>
+						    Open the recording dialog an select the <guilabel>Format</guilabel> tab.
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>source</command></entry>
+						<entry>
+						    Open the recording dialog an select the <guilabel>Source</guilabel> tab.
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>start_now</command></entry>
+						<entry>
+						    Open the recording dialog and directly start recording.
+						</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry>
     </variablelist>
     </sect1>
 
@@ -6975,7 +7172,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -7047,7 +7244,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -7254,7 +7451,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -7380,7 +7577,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -7518,7 +7715,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -7581,7 +7778,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -7654,7 +7851,7 @@
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis>:</term>
+	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>

@@ -166,6 +166,11 @@ ELSE (CXX_HAVE_PIC AND C_HAVE_PIC)
     MESSAGE(FATAL_ERROR "shared library support is missing")
 ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
 
+CHECK_CXX_COMPILER_FLAG("--std=c++11" CXX_HAVE_CXX11)
+IF (CXX_HAVE_CXX11)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11")
+ENDIF (CXX_HAVE_CXX11)
+
 #############################################################################
 
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)

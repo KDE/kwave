@@ -1,5 +1,5 @@
 
-0.9.2 [2016-xx-xx]
+0.9.2 [2016-06-25]
 
  * recording via Qt Multimedia
  * using KDE service API for loading plugins
@@ -10,6 +10,7 @@
  * removed optimized memcpy for PowerPC
  * record plugin: improved handling of error messages
  * record plugin: added retry mechanism in case of device busy
+ * added menu entries for recording and record setup
  * import of Core Audio Format (*.caf), using ALAC, A-LAW, U-LAW and IMA
    compression
  * import of Sample Vision Format (*.smp)

@@ -125,6 +125,17 @@ namespace Kwave
 	int setupPlugin(const QString &name, const QStringList &params);
 
 	/**
+	 * loads a plugin's default parameters from the user's
+	 * configuration file. If nothing is found in the config file,
+	 * the return value will be 0. If the current version number of
+	 * the plugin does not match the version number in the config file,
+	 * the return value will also be 0.
+	 * @param name the name of the plugin
+	 * @return list of strings
+	 */
+	QStringList defaultParams(const QString &name);
+
+	/**
 	 * Returns the length of the current signal in samples.
 	 * If no signal is present the return value will be 0.
 	 */
@@ -333,17 +344,6 @@ namespace Kwave
 	 *         plugin was not found or invalid
 	 */
 	Kwave::Plugin *createPluginInstance(const QString &name);
-
-	/**
-	 * loads a plugin's default parameters from the user's
-	 * configuration file. If nothing is found in the config file,
-	 * the return value will be 0. If the current version number of
-	 * the plugin does not match the version number in the config file,
-	 * the return value will also be 0.
-	 * @param name the name of the plugin
-	 * @return list of strings
-	 */
-	QStringList loadPluginDefaults(const QString &name);
 
 	/**
 	 * Saves a plugin's default parameters to the user's configuration

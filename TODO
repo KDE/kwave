@@ -1,7 +1,4 @@
 
-o record plugin: add popup menu to record button for direct recording,
-  record settings etc...
-
 o collapse/expand of track views
 
 o add views with meta data
@@ -39,7 +36,7 @@ o use noise shaping globally in sample2float()
 
 o support for "raw" import/export
 
-o record plugin: add menu entry
+o record plugin: implement amplify, AGC, fade in, fade out
 
 o file import from non-local URLs (e.g. fish://...)
 
@@ -115,11 +112,6 @@ o fileinfo plugin: auto-generate filename from "track - title"
 o use a MenuManager in the plugins (e.g. sonagram)
 
 o optimized cut/paste, at zero-crossing
-
-o document how to do an optimized build, for example:
-  CFLAGS="-march=athlon-xp -mcpu=athlon-xp \
-  -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_TRANSLATION" \
-  CXXFLAGS=${CFLAGS} cmake ...
 
 o speed up MP3 import by blockwise operation -> use Kwave::SampleBuffer
 

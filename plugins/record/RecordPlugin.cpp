@@ -102,11 +102,31 @@ Kwave::RecordPlugin::~RecordPlugin()
 //***************************************************************************
 QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
 {
-    qDebug("RecordPlugin::setup");
+    Kwave::RecordDialog::Mode mode = Kwave::RecordDialog::SETTINGS_DEFAULT;
+
+    qDebug("RecordPlugin::setup(%s)", DBG(previous_params.join(_(","))));;
+
+    // if we have only one parameter, then we got called with a specific
+    // mode, e.g. "show format settings only"
+    if (previous_params.count() == 1) {
+	const QString m = previous_params[0].toLower();
+
+	if (m == _("format"))
+	    mode = Kwave::RecordDialog::SETTINGS_FORMAT;
+	else if (m == _("source"))
+	    mode = Kwave::RecordDialog::SETTINGS_SOURCE;
+	else if (m == _("start_now"))
+	    mode = Kwave::RecordDialog::START_RECORDING;
+
+	// get previous parameters for the setup dialog
+	previous_params = manager().defaultParams(name());
+	qDebug("RecordPlugin::setup(%s) - MODE=%d",
+	       DBG(previous_params.join(_(","))), static_cast<int>(mode));
+    }
 
     // create the setup dialog
     m_dialog = new Kwave::RecordDialog(parentWidget(), previous_params,
-                                       &m_controller);
+                                       &m_controller,  mode);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return 0;
 
@@ -179,11 +199,12 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     // dummy init -> disable format settings
     m_dialog->setSupportedTracks(0, 0);
 
-    // activate the playback method
+    // activate the recording method
     setMethod(m_dialog->params().method);
 
-//     // select the record device
-//     setDevice(m_dialog->params().device_name);
+    // directly start recording if requested
+    if (mode == Kwave::RecordDialog::START_RECORDING)
+	m_controller.actionStart();
 
     QStringList *list = new QStringList();
     Q_ASSERT(list);

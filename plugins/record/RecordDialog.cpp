@@ -92,7 +92,8 @@
 
 //***************************************************************************
 Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
-                                  Kwave::RecordController *controller)
+                                  Kwave::RecordController *controller,
+                                  Kwave::RecordDialog::Mode mode)
     :QDialog(parent), Ui::RecordDlg(), m_methods_map(),
      m_file_filter(), m_devices_list_map(),
      m_state(Kwave::REC_EMPTY), m_params(),
@@ -313,8 +314,22 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     if (!bt_done) return;
     connect(bt_done, SIGNAL(clicked(bool)), this, SLOT(accept()));
 
-    // set the focus onto the "Record" button
-    btRecord->setFocus();
+    switch (mode)
+    {
+	case Kwave::RecordDialog::SETTINGS_FORMAT:
+	    tabRecord->setCurrentIndex(1);
+	    break;
+	case Kwave::RecordDialog::SETTINGS_SOURCE:
+	    tabRecord->setCurrentIndex(2);
+	    break;
+	case Kwave::RecordDialog::START_RECORDING:  /* FALLTHROUGH */
+	case Kwave::RecordDialog::SETTINGS_DEFAULT: /* FALLTHROUGH */
+	default:
+	    tabRecord->setCurrentIndex(0);
+	    // set the focus onto the "Record" button
+	    btRecord->setFocus();
+	    break;
+    }
 }
 
 //***************************************************************************

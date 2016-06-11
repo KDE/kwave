@@ -51,10 +51,17 @@ namespace Kwave
     Q_OBJECT
 
     public:
+	typedef enum {
+	    SETTINGS_DEFAULT = 0, /**< default page (setup, tab 0) */
+	    SETTINGS_FORMAT,      /**< format settings             */
+	    SETTINGS_SOURCE,      /**< source settings             */
+	    START_RECORDING       /**< directly start recording!   */
+	} Mode;
 
 	/** Constructor */
 	RecordDialog(QWidget *parent, QStringList &params,
-	             Kwave::RecordController *controller);
+	             Kwave::RecordController *controller,
+	             Mode mode);
 
 	/** Destructor */
 	virtual ~RecordDialog();

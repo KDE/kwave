@@ -135,7 +135,7 @@ void Kwave::PluginManager::loadAllPlugins()
 
 	    // get the last settings and call the "load" function
 	    // now the plugin is present and loaded
-	    QStringList last_params = loadPluginDefaults(name);
+	    QStringList last_params = defaultParams(name);
 	    plugin->load(last_params);
 
 	    // reduce use count again, we loaded the plugin only to give
@@ -245,7 +245,7 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 	}
     } else {
 	// load previous parameters from config
-	QStringList last_params = loadPluginDefaults(name);
+	QStringList last_params = defaultParams(name);
 
 	// call the plugin's setup function
 	params = plugin->setup(last_params);
@@ -340,8 +340,8 @@ int Kwave::PluginManager::setupPlugin(const QString &name,
     if (!plugin) return -ENOMEM;
 
     // now the plugin is present and loaded
-    QStringList prev_params = (!params.isEmpty()) ?
-	params : loadPluginDefaults(name);
+    QStringList prev_params = (params.isEmpty()) ?
+	defaultParams(name) : params;
 
     // call the plugins' setup function
     QStringList *new_params = plugin->setup(prev_params);
@@ -360,7 +360,7 @@ int Kwave::PluginManager::setupPlugin(const QString &name,
 }
 
 //***************************************************************************
-QStringList Kwave::PluginManager::loadPluginDefaults(const QString &name)
+QStringList Kwave::PluginManager::defaultParams(const QString &name)
 {
     QString def_version;
     QString section = _("plugin ");
@@ -383,7 +383,7 @@ QStringList Kwave::PluginManager::loadPluginDefaults(const QString &name)
 	return list;
     }
     if (!(def_version == version)) {
-	qDebug("PluginManager::loadPluginDefaults: "
+	qDebug("PluginManager::defaultParams: "
 	    "plugin '%s': defaults for version '%s' not loaded, found "
 	    "old ones of version '%s'.",
 	    DBG(name), DBG(version), DBG(def_version));

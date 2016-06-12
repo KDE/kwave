@@ -7101,13 +7101,13 @@
 					    <row>
 						<entry>&no-i18n-tag;<command>format</command></entry>
 						<entry>
-						    Open the recording dialog an select the <guilabel>Format</guilabel> tab.
+						    Open the recording dialog and select the <guilabel>Format</guilabel> tab.
 						</entry>
 					    </row>
 					    <row>
 						<entry>&no-i18n-tag;<command>source</command></entry>
 						<entry>
-						    Open the recording dialog an select the <guilabel>Source</guilabel> tab.
+						    Open the recording dialog and select the <guilabel>Source</guilabel> tab.
 						</entry>
 					    </row>
 					    <row>

@@ -6934,7 +6934,7 @@
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
-			<term><replaceable>playback method</replaceable></term>
+			<term><replaceable>recording method</replaceable></term>
 			<listitem>
 			    <para>
 				The method used for recording, see

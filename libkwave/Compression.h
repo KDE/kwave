@@ -20,6 +20,8 @@
 
 #include "config.h"
 
+#include <audiofile.h>
+
 #include <QtGlobal>
 #include <QList>
 #include <QMap>

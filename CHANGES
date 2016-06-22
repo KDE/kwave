@@ -20,6 +20,7 @@
  * import of Amiga IFF/8SVX Sound File Format (*.8svx)
  * handbook: description of parameters of the record plugin was missing
  * handbook: fixed duplicate ":" in header of plugin parameter descriptions
+ * made Kwave::SampleFormat independent from libaudiofile
 
 0.9.1 [2016-02-21]
 

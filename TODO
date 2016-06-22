@@ -88,9 +88,6 @@ o ALSA record/playback: also detect devices configured in the .asoundrc,
 o find a better solution for deadlock when closing the current file while
   a plugin is still running, instead of refusing the request to close
 
-o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
-  WavDecoder.cpp and PlayBack-OSS.cpp
-
 o more precise handling of the playback pointer
   -> latency handling
 

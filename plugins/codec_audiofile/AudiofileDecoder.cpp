@@ -154,6 +154,25 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     int af_sample_format;
     afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &af_sample_format,
 	reinterpret_cast<int *>(&bits));
+    Kwave::SampleFormat::Format fmt;
+    switch (af_sample_format)
+    {
+	case AF_SAMPFMT_TWOSCOMP:
+	    fmt = Kwave::SampleFormat::Signed;
+	    break;
+	case AF_SAMPFMT_UNSIGNED:
+	    fmt = Kwave::SampleFormat::Unsigned;
+	    break;
+	case AF_SAMPFMT_FLOAT:
+	    fmt = Kwave::SampleFormat::Float;
+	    break;
+	case AF_SAMPFMT_DOUBLE:
+	    fmt = Kwave::SampleFormat::Double;
+	    break;
+	default:
+	    fmt = Kwave::SampleFormat::Unknown;
+	    break;
+    }
 
     // get sample rate, with fallback to 8kHz
     rate = afGetRate(fh, AF_DEFAULT_TRACK);
@@ -165,10 +184,8 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 	rate = 8000.0;
     }
 
-    Kwave::SampleFormat fmt;
     Kwave::SampleFormat::Map sf;
-    fmt.fromInt(af_sample_format);
-    QString sample_format_name = sf.description(fmt, true);
+    QString sample_format_name = sf.description(Kwave::SampleFormat(fmt), true);
 
     if (static_cast<signed int>(bits) < 0) bits = 0;
 
@@ -179,7 +196,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     info.setBits(bits);
     info.setTracks(tracks);
     info.setLength(length);
-    info.set(INF_SAMPLE_FORMAT, af_sample_format);
+    info.set(INF_SAMPLE_FORMAT, Kwave::SampleFormat(fmt).toInt());
     metaData().replace(Kwave::MetaDataList(info));
     qDebug("-------------------------");
     qDebug("info:");

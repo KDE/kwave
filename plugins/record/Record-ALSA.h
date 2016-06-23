@@ -34,6 +34,7 @@
 #include <QMap>
 #include <QString>
 
+#include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
 
 #include "RecordDevice.h"
@@ -118,7 +119,7 @@ namespace Kwave
 	 * Gets a list of supported compression types. If no compression is
 	 * supported, the list might be empty.
 	 */
-	virtual QList<int> detectCompressions();
+	virtual QList<Kwave::Compression::Type> detectCompressions();
 
 	/**
 	 * Try to set a new compression type.
@@ -126,10 +127,10 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class Compression
 	 */
-	virtual int setCompression(int new_compression);
+	virtual int setCompression(Kwave::Compression::Type new_compression);
 
 	/** Returns the current compression type (0==none) */
-	virtual int compression();
+	virtual Kwave::Compression::Type compression();
 
 	/**
 	 * Detect a list of supported bits per sample.
@@ -197,7 +198,7 @@ namespace Kwave
 	 * @return the index of the best matching format within the list
 	 *         of known formats, or -1 if no match was found
 	 */
-	int mode2format(int compression, int bits,
+	int mode2format(Kwave::Compression::Type compression, int bits,
 	                Kwave::SampleFormat::Format sample_format);
 
 	/** scan all ALSA devices, re-creates m_device_list */
@@ -238,7 +239,7 @@ namespace Kwave
 	double m_rate;
 
 	/** compression mode */
-	int m_compression;
+	Kwave::Compression::Type m_compression;
 
 	/** resolution [bits per sample] */
 	unsigned int m_bits_per_sample;

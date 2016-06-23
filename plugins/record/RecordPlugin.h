@@ -149,7 +149,7 @@ namespace Kwave
 	void changeSampleRate(double new_rate);
 
 	/** change compression type */
-	void changeCompression(int new_compression);
+	void changeCompression(Kwave::Compression::Type new_compression);
 
 	/** select a new resolution [bits/sample] */
 	void changeBitsPerSample(unsigned int new_bits);

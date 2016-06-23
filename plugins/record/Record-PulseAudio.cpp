@@ -119,7 +119,7 @@ static Kwave::SampleFormat::Format sample_format_of(pa_sample_format_t fmt)
 {
     Kwave::SampleFormat::Format sampleFormat = Kwave::SampleFormat::Unknown;
     switch (fmt) {
-	case PA_SAMPLE_FLOAT32LE:
+	case PA_SAMPLE_FLOAT32LE: /* FALLTHROUGH */
 	case PA_SAMPLE_FLOAT32BE:
 	    sampleFormat = Kwave::SampleFormat::Float;
 	    break;
@@ -145,9 +145,9 @@ static Kwave::byte_order_t endian_of(pa_sample_format_t fmt)
 }
 
 //***************************************************************************
-static int compression_of(pa_sample_format_t fmt)
+static Kwave::Compression::Type compression_of(pa_sample_format_t fmt)
 {
-    int compression = Kwave::Compression::NONE;
+    Kwave::Compression::Type compression = Kwave::Compression::NONE;
     switch (fmt) {
 	case PA_SAMPLE_ULAW:
 	    compression = Kwave::Compression::G711_ULAW;
@@ -167,24 +167,24 @@ static int bits_of(pa_sample_format_t fmt)
 {
     int bits = 0;
     switch (fmt) {
-	case PA_SAMPLE_ULAW:
-	case PA_SAMPLE_ALAW:
+	case PA_SAMPLE_ULAW:    /* FALLTHROUGH */
+	case PA_SAMPLE_ALAW:    /* FALLTHROUGH */
 	case PA_SAMPLE_U8:
 	    bits = 8;
 	    break;
-	case PA_SAMPLE_S16LE:
+	case PA_SAMPLE_S16LE:    /* FALLTHROUGH */
 	case PA_SAMPLE_S16BE:
 	    bits = 16;
 	    break;
-	case PA_SAMPLE_S24LE:
-	case PA_SAMPLE_S24BE:
-	case PA_SAMPLE_S24_32LE:
+	case PA_SAMPLE_S24LE:    /* FALLTHROUGH */
+	case PA_SAMPLE_S24BE:    /* FALLTHROUGH */
+	case PA_SAMPLE_S24_32LE: /* FALLTHROUGH */
 	case PA_SAMPLE_S24_32BE:
 	    bits = 24;
 	    break;
-	case PA_SAMPLE_S32LE:
-	case PA_SAMPLE_S32BE:
-	case PA_SAMPLE_FLOAT32LE:
+	case PA_SAMPLE_S32LE:     /* FALLTHROUGH */
+	case PA_SAMPLE_S32BE:     /* FALLTHROUGH */
+	case PA_SAMPLE_FLOAT32LE: /* FALLTHROUGH */
 	case PA_SAMPLE_FLOAT32BE:
 	    bits = 32;
 	    break;
@@ -204,7 +204,7 @@ Kwave::RecordPulseAudio::RecordPulseAudio()
     m_sample_format(Kwave::SampleFormat::Unknown),
     m_tracks(0),
     m_rate(0.0),
-    m_compression(0),
+    m_compression(Kwave::Compression::NONE),
     m_bits_per_sample(0),
     m_supported_formats(),
     m_initialized(false),
@@ -493,30 +493,32 @@ QList< unsigned int > Kwave::RecordPulseAudio::supportedBits()
 }
 
 //***************************************************************************
-int Kwave::RecordPulseAudio::compression()
+Kwave::Compression::Type Kwave::RecordPulseAudio::compression()
 {
     return m_compression;
 }
 
 //***************************************************************************
-int Kwave::RecordPulseAudio::setCompression(int new_compression)
+int Kwave::RecordPulseAudio::setCompression(
+    Kwave::Compression::Type new_compression
+)
 {
-    if (m_compression == new_compression)
-	return 0;
-    close();
-    m_compression = new_compression;
+    if (m_compression != new_compression) {
+	close();
+	m_compression = new_compression;
+    }
     return 0;
 }
 
 //***************************************************************************
-QList< int > Kwave::RecordPulseAudio::detectCompressions()
+QList<Kwave::Compression::Type> Kwave::RecordPulseAudio::detectCompressions()
 {
-    QList<int> list;
+    QList<Kwave::Compression::Type> list;
 
     // try all known sample formats
     foreach (const pa_sample_format_t &fmt, m_supported_formats)
     {
-	int compression = compression_of(fmt);
+	Kwave::Compression::Type compression = compression_of(fmt);
 
 	// do not produce duplicates
 	if (list.contains(compression)) continue;

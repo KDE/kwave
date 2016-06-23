@@ -321,9 +321,10 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     if (info.contains(Kwave::INF_SAMPLE_FORMAT))
         format.fromInt(info.get(Kwave::INF_SAMPLE_FORMAT).toInt());
 
-    int compression = info.contains(Kwave::INF_COMPRESSION) ?
-                      info.get(Kwave::INF_COMPRESSION).toInt() :
-                      Kwave::Compression::NONE;
+    Kwave::Compression::Type compression =
+	info.contains(Kwave::INF_COMPRESSION) ?
+	Kwave::Compression::fromInt(info.get(Kwave::INF_COMPRESSION).toInt()) :
+	Kwave::Compression::NONE;
 
     // use default bit resolution if missing
     Q_ASSERT(bits);
@@ -339,7 +340,8 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
         (compression != Kwave::Compression::G711_ULAW) &&
         (compression != Kwave::Compression::G711_ALAW))
     {
-	qWarning("compression mode %d not supported!", compression);
+	qWarning("compression mode %d not supported!",
+	         Kwave::Compression(compression).toInt());
 	int what_now = Kwave::MessageBox::warningYesNoCancel(widget,
 	    i18n("Sorry, the currently selected compression type cannot "
 	         "be used for saving. Do you want to use "
@@ -422,7 +424,8 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     afInitFileFormat(setup, AF_FILE_WAVE);
     afInitChannels(setup, AF_DEFAULT_TRACK, tracks);
     afInitSampleFormat(setup, AF_DEFAULT_TRACK, af_sample_format, bits);
-    afInitCompression(setup, AF_DEFAULT_TRACK, compression);
+    afInitCompression(setup, AF_DEFAULT_TRACK,
+	Kwave::Compression::toAudiofile(compression));
     afInitRate(setup, AF_DEFAULT_TRACK, rate);
 
     Kwave::VirtualAudioFile outfile(dst);

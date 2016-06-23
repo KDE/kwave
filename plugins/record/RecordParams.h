@@ -24,6 +24,7 @@
 #include <QString>
 #include <QStringList>
 
+#include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
 
 namespace Kwave
@@ -100,7 +101,7 @@ namespace Kwave
 	QString device_name;		/**< name of the input device */
 	unsigned int tracks;		/**< number of tracks */
 	double sample_rate;		/**< sample rate in samples/second */
-	int compression;		/**< compression index or -1 */
+	Kwave::Compression::Type compression; /**< compression type        */
 	unsigned int bits_per_sample;	/**< resolution in bits per sample */
 	Kwave::SampleFormat::Format sample_format;  /**< sample format */
 

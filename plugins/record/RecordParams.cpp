@@ -36,7 +36,7 @@ Kwave::RecordParams::RecordParams()
     device_name(_("plug:dsnoop")),
     tracks(2),
     sample_rate(44100.0),
-    compression(0),
+    compression(Kwave::Compression::NONE),
     bits_per_sample(16),
     sample_format(Kwave::SampleFormat::Unknown),
     buffer_count(32),
@@ -118,7 +118,9 @@ int Kwave::RecordParams::fromList(const QStringList &list)
     // tracks, sample rate, compression, sample format, bits per sample
     GET(tracks, toUInt);
     GET(sample_rate, toDouble);
-    GET(compression, toUInt);
+    int ct;
+    GET(ct, toInt);
+    compression = Kwave::Compression::fromInt(ct);
     GET(bits_per_sample, toUInt);
 
     int sf;

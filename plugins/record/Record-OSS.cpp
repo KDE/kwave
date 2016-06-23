@@ -480,7 +480,9 @@ double Kwave::RecordOSS::sampleRate()
 }
 
 //***************************************************************************
-void Kwave::RecordOSS::format2mode(int format, int &compression, int &bits,
+void Kwave::RecordOSS::format2mode(int format,
+                                   Kwave::Compression::Type &compression,
+                                   int &bits,
                                    Kwave::SampleFormat::Format &sample_format)
 {
 
@@ -505,7 +507,7 @@ void Kwave::RecordOSS::format2mode(int format, int &compression, int &bits,
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 8;
 	    break;
-	case AFMT_S16_LE:
+	case AFMT_S16_LE: /* FALLTHROUGH */
 	case AFMT_S16_BE:
 	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
@@ -516,15 +518,14 @@ void Kwave::RecordOSS::format2mode(int format, int &compression, int &bits,
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 8;
 	    break;
-	case AFMT_U16_LE:
+	case AFMT_U16_LE: /* FALLTHROUGH */
 	case AFMT_U16_BE:
 	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Unsigned;
 	    bits          = 16;
 	    break;
 	case AFMT_MPEG:
-	    compression   = static_cast<int>(
-	                    Kwave::Compression::MPEG_LAYER_II);
+	    compression   = Kwave::Compression::MPEG_LAYER_II;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 16;
 	    break;
@@ -535,20 +536,20 @@ void Kwave::RecordOSS::format2mode(int format, int &compression, int &bits,
 	    bits          = 16;
 	    break;
 #endif
-	case AFMT_S24_LE:
+	case AFMT_S24_LE: /* FALLTHROUGH */
 	case AFMT_S24_BE:
 	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 24;
 	    break;
-	case AFMT_S32_LE:
+	case AFMT_S32_LE: /* FALLTHROUGH */
 	case AFMT_S32_BE:
 	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Signed;
 	    bits          = 32;
 	    break;
 	default:
-	    compression   = -1;
+	    compression   = Kwave::Compression::NONE;
 	    sample_format = Kwave::SampleFormat::Unknown;
 	    bits          = -1;
     }
@@ -556,7 +557,8 @@ void Kwave::RecordOSS::format2mode(int format, int &compression, int &bits,
 }
 
 //***************************************************************************
-int Kwave::RecordOSS::mode2format(int compression, int bits,
+int Kwave::RecordOSS::mode2format(Kwave::Compression::Type compression,
+                                  int bits,
                                   Kwave::SampleFormat::Format sample_format)
 {
     // first level: compression
@@ -626,18 +628,17 @@ int Kwave::RecordOSS::mode2format(int compression, int bits,
 }
 
 //***************************************************************************
-QList<int> Kwave::RecordOSS::detectCompressions()
+QList<Kwave::Compression::Type> Kwave::RecordOSS::detectCompressions()
 {
     Q_ASSERT(m_fd >= 0);
-    QList<int> compressions;
+    QList<Kwave::Compression::Type> compressions;
     int err = 0;
     int mask = AFMT_QUERY;
 
     err = ioctl(m_fd, SNDCTL_DSP_GETFMTS, &mask);
     if (err < 0) return compressions;
 
-    if (mask & AFMT_MPEG)
-        compressions += static_cast<int>(Kwave::Compression::MPEG_LAYER_II);
+    if (mask & AFMT_MPEG)    compressions += Kwave::Compression::MPEG_LAYER_II;
     if (mask & AFMT_A_LAW)   compressions += Kwave::Compression::G711_ALAW;
     if (mask & AFMT_MU_LAW)  compressions += Kwave::Compression::G711_ULAW;
     if (mask & AFMT_IMA_ADPCM) compressions += Kwave::Compression::MS_ADPCM;
@@ -650,15 +651,16 @@ QList<int> Kwave::RecordOSS::detectCompressions()
 }
 
 //***************************************************************************
-int Kwave::RecordOSS::setCompression(int new_compression)
+int Kwave::RecordOSS::setCompression(Kwave::Compression::Type new_compression)
 {
     Q_ASSERT(m_fd >= 0);
-    int compression, bits, format = AFMT_QUERY;
+    Kwave::Compression::Type compression;
+    int bits, format = AFMT_QUERY;
     Kwave::SampleFormat::Format sample_format;
 
     // read back current format
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
-    if (err < 0) return err;
+    if (err < 0) return -1;
     format2mode(format, compression, bits, sample_format);
 
     // modify the compression
@@ -668,21 +670,21 @@ int Kwave::RecordOSS::setCompression(int new_compression)
     format = mode2format(compression, bits, sample_format);
     int oldformat = format;
     err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
-    if (err < 0) return err;
-    if (oldformat != format) return -1;
+    if (err < 0) -1;
 
     return 0;
 }
 
 //***************************************************************************
-int Kwave::RecordOSS::compression()
+Kwave::Compression::Type Kwave::RecordOSS::compression()
 {
     Q_ASSERT(m_fd >= 0);
     int mask = AFMT_QUERY;
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
     if (err < 0) return Kwave::Compression::NONE;
 
-    int c, b;
+    Kwave::Compression::Type c;
+    int b;
     Kwave::SampleFormat::Format s;
     format2mode(mask, c, b, s);
     return c;
@@ -706,7 +708,8 @@ QList<unsigned int> Kwave::RecordOSS::supportedBits()
 	if (!(mask & (1 << bit))) continue;
 
 	// format is supported, split into compression, bits, sample format
-	int c, b;
+	Kwave::Compression::Type c(Kwave::Compression::NONE);
+	int b;
 	Kwave::SampleFormat::Format s;
 	format2mode(1 << bit, c, b, s);
 	if (b < 0) continue; // unknown -> skip
@@ -729,7 +732,8 @@ QList<unsigned int> Kwave::RecordOSS::supportedBits()
 int Kwave::RecordOSS::setBitsPerSample(unsigned int new_bits)
 {
     Q_ASSERT(m_fd >= 0);
-    int compression, bits, format = AFMT_QUERY;
+    Kwave::Compression::Type compression;
+    int bits, format = AFMT_QUERY;
     Kwave::SampleFormat::Format sample_format;
 
     // read back current format
@@ -758,7 +762,8 @@ int Kwave::RecordOSS::bitsPerSample()
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
     if (err < 0) return err;
 
-    int c, b;
+    Kwave::Compression::Type c;
+    int b;
     Kwave::SampleFormat::Format s;
     format2mode(mask, c, b, s);
     return b;
@@ -778,13 +783,14 @@ QList<Kwave::SampleFormat::Format> Kwave::RecordOSS::detectSampleFormats()
 
     // mask out all modes that do not match the current compression
     // and bits per sample
-    const int compression     = this->compression();
+    const Kwave::Compression::Type compression = this->compression();
     const int bits_per_sample = this->bitsPerSample();
     for (unsigned int bit = 0; bit < (sizeof(mask) << 3); bit++) {
 	if (!(mask & (1 << bit))) continue;
 
 	// format is supported, split into compression, bits, sample format
-	int c, b;
+	Kwave::Compression::Type c;
+	int b;
 	Kwave::SampleFormat::Format s;
 	format2mode(1 << bit, c, b, s);
 	if (c < 0) continue; // unknown -> skip
@@ -802,7 +808,8 @@ QList<Kwave::SampleFormat::Format> Kwave::RecordOSS::detectSampleFormats()
 int Kwave::RecordOSS::setSampleFormat(Kwave::SampleFormat::Format new_format)
 {
     Q_ASSERT(m_fd >= 0);
-    int compression, bits, format = AFMT_QUERY;
+    Kwave::Compression::Type compression;
+    int bits, format = AFMT_QUERY;
     Kwave::SampleFormat::Format sample_format;
 
     // read back current format
@@ -831,7 +838,8 @@ Kwave::SampleFormat::Format Kwave::RecordOSS::sampleFormat()
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &mask);
     if (err < 0) return Kwave::SampleFormat::Unknown;
 
-    int c, b;
+    Kwave::Compression::Type c;
+    int b;
     Kwave::SampleFormat::Format s;
     format2mode(mask, c, b, s);
     return s;

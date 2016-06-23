@@ -578,7 +578,7 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
 	m_dialog->setSampleRate(0);
-	changeCompression(-1);
+	changeCompression(Kwave::Compression::INVALID);
 	return;
     }
 
@@ -628,7 +628,9 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
 }
 
 //***************************************************************************
-void Kwave::RecordPlugin::changeCompression(int new_compression)
+void Kwave::RecordPlugin::changeCompression(
+    Kwave::Compression::Type new_compression
+)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -644,8 +646,9 @@ void Kwave::RecordPlugin::changeCompression(int new_compression)
     }
 
     // check the supported compressions
-    QList<int> supported_comps = m_device->detectCompressions();
-    int compression = new_compression;
+    QList<Kwave::Compression::Type> supported_comps =
+	m_device->detectCompressions();
+    Kwave::Compression::Type compression = new_compression;
     if (!supported_comps.contains(compression) &&
 	(compression != Kwave::Compression::NONE))
     {

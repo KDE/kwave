@@ -20,8 +20,6 @@
 
 #include "config.h"
 
-#include <audiofile.h>
-
 #include <QtGlobal>
 #include <QList>
 #include <QMap>
@@ -37,21 +35,36 @@ namespace Kwave
     {
     public:
 
-	/** supported compression types */
-	enum {
-	    NONE         = 0,
-	    G711_ULAW    = AF_COMPRESSION_G711_ULAW,
-	    G711_ALAW    = AF_COMPRESSION_G711_ALAW,
-	    MS_ADPCM     = AF_COMPRESSION_MS_ADPCM,
-	    GSM          = AF_COMPRESSION_GSM,
-	    FLAC         = AF_COMPRESSION_FLAC,
-	    ALAC         = AF_COMPRESSION_ALAC,
-	    MPEG_LAYER_I = 600,
+	/**
+	 * supported compression types
+	 * @note for compatibility with older settings these values are
+	 *       the same as defined in audiofile.h.
+	 */
+	typedef enum {
+	    INVALID         =  -1,
+	    NONE            =   0,
+	    G722            = 501,
+	    G711_ULAW       = 502,
+	    G711_ALAW       = 503,
+	    APPLE_ACE2      = 504,
+	    APPLE_ACE8      = 505,
+	    APPLE_MAC3      = 506,
+	    APPLE_MAC6      = 507,
+	    G726            = 517,
+	    G728            = 518,
+	    DVI_AUDIO       = 519,
+	    GSM             = 520,
+	    FS1016          = 521,
+	    DV              = 522,
+	    MS_ADPCM        = 523,
+	    FLAC            = 530,
+	    ALAC            = 540,
+	    MPEG_LAYER_I    = 600,
 	    MPEG_LAYER_II,
 	    MPEG_LAYER_III,
 	    OGG_VORBIS,
 	    OGG_OPUS
-	};
+	} Type;
 
 	/**
 	 * default constructor
@@ -59,37 +72,22 @@ namespace Kwave
 	Compression();
 
 	/**
-	 * Constructor, from "int"
-	 * @param value the integer representation of a compression
+	 * Constructor, from enum
+	 * @param value the enum of an already known compression type
 	 */
-	explicit Compression(int value);
+	explicit Compression(const Type value);
 
 	/**
 	 * Copy constructor
-	 *
 	 * @param other another compression to copy from
 	 */
 	explicit Compression(const Kwave::Compression &other);
 
-	/**
-	 * Complete constructor
-	 *
-	 * @param value numeric integer value
-	 * @param name descriptive name of the compression, non-localized
-	 * @param mime_type preferred mime types (optional)
-	 * @param sample_formats list of supported sample formats
-	 * @param has_abr whether average bitrate mode is supported
-	 * @param has_vbr whether variable bitrate mode is supported
-	 */
-	explicit Compression(int value,
-	                     const QString &name,
-	                     const QString &mime_type,
-	                     const QList<Kwave::SampleFormat> &sample_formats,
-	                     bool has_abr,
-	                     bool has_vbr);
-
 	/** destructor */
-	virtual ~Compression();
+	virtual ~Compression() {}
+
+	/** assignment operator from sample_format_t */
+	inline void assign(Type t) { m_type = t; }
 
 	/**
 	 * Returns the descriptive name of the compression, already localized
@@ -120,35 +118,61 @@ namespace Kwave
 	 */
 	bool hasVBR() const;
 
-	/**
-	 * Gets the integer representation of this compression type
-	 * @return integer value or -1 for "invalid"
-	 */
-	int toInt() const;
+	/** conversion to int (e.g. for use in plugin parameters) */
+	inline int toInt() const { return static_cast<int>(m_type); }
+
+	/** conversion from int  (e.g. for use in plugin parameters) */
+	static Kwave::Compression::Type fromInt(int i);
+
+	/** conversion to a numeric value from libaudiofile */
+	static int toAudiofile(Kwave::Compression::Type compression);
+
+	/** conversion from a numeric value from libaudiofile */
+	static Kwave::Compression::Type fromAudiofile(int af_compression);
 
     private:
 
-	/** fills the static map of known compression types on first use */
+	/** fills the map with known compression types (if empty) */
 	void fillMap();
 
     private:
 
+	/** internal storage of the compression type, see Type */
+	Type m_type;
+
+    private:
+
 	/** internal container class with meta data */
-	class CompressionInfo: public QSharedData
+	class Info
 	{
 	public:
 
-	    /** constructor */
-	    CompressionInfo();
+	    /** default constructor */
+	    Info();
 
 	    /** copy constructor */
-	    CompressionInfo(const CompressionInfo &other);
+	    Info(const Info &other);
+
+	    /**
+	     * Constructor
+	     *
+	     * @param name descriptive name of the compression, non-localized
+	     * @param mime_type preferred mime types (optional)
+	     * @param sample_formats list of supported sample formats
+	     * @param has_abr whether average bitrate mode is supported
+	     * @param has_vbr whether variable bitrate mode is supported
+	     */
+	    Info(const QString &name,
+	         const QString &mime_type,
+	         const QList<Kwave::SampleFormat> &sample_formats,
+	         bool has_abr,
+	         bool has_vbr
+	    );
 
 	    /** destructor */
-	    virtual ~CompressionInfo();
+	    virtual ~Info();
 
-	    /** integer representation */
-	    int m_as_int;
+	public:
 
 	    /** non-localized descriptive name */
 	    QString m_name;
@@ -168,11 +192,8 @@ namespace Kwave
 
     private:
 
-	/** pointer to the shared meta data */
-	QSharedDataPointer<CompressionInfo> m_data;
-
 	/** map with all known compression types */
-	static QMap<int, Kwave::Compression> m_map;
+	static QMap<int, Kwave::Compression::Info> m_map;
     };
 
 }

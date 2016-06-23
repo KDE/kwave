@@ -25,6 +25,7 @@
 
 #include <KLocalizedString>
 
+#include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
@@ -189,7 +190,10 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
     if (static_cast<signed int>(bits) < 0) bits = 0;
 
-    int compression = afGetCompression(fh, AF_DEFAULT_TRACK); // just for debug
+    int af_compression = afGetCompression(fh, AF_DEFAULT_TRACK);
+    const Kwave::Compression compression(
+	Kwave::Compression::fromAudiofile(af_compression)
+    );
 
     Kwave::FileInfo info(metaData());
     info.setRate(rate);
@@ -197,10 +201,11 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     info.setTracks(tracks);
     info.setLength(length);
     info.set(INF_SAMPLE_FORMAT, Kwave::SampleFormat(fmt).toInt());
+    info.set(Kwave::INF_COMPRESSION, compression.toInt());
     metaData().replace(Kwave::MetaDataList(info));
     qDebug("-------------------------");
     qDebug("info:");
-    qDebug("compression = %d", compression);
+    qDebug("compression = %d", af_compression);
     qDebug("channels    = %d", info.tracks());
     qDebug("rate        = %0.0f", info.rate());
     qDebug("bits/sample = %d", info.bits());

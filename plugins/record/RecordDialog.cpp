@@ -805,7 +805,9 @@ void Kwave::RecordDialog::sampleRateChanged(const QString &rate)
 }
 
 //***************************************************************************
-void Kwave::RecordDialog::setSupportedCompressions(const QList<int> &comps)
+void Kwave::RecordDialog::setSupportedCompressions(
+    const QList<Kwave::Compression::Type> &comps
+)
 {
     Q_ASSERT(cbFormatCompression);
     if (!cbFormatCompression) return;
@@ -817,7 +819,7 @@ void Kwave::RecordDialog::setSupportedCompressions(const QList<int> &comps)
 	const Kwave::Compression comp(Kwave::Compression::NONE);
 	cbFormatCompression->addItem(comp.name());
     } else {
-	foreach (int c, comps) {
+	foreach (Kwave::Compression::Type c, comps) {
 	    const Kwave::Compression comp(c);
 	    cbFormatCompression->addItem(comp.name(), comp.toInt());
 	}
@@ -839,10 +841,10 @@ void Kwave::RecordDialog::setCompression(int compression)
     } else {
 	bool have_choice = (cbFormatCompression->count() > 1);
 	cbFormatCompression->setEnabled(have_choice);
-	m_params.compression = compression;
+	m_params.compression = Kwave::Compression::fromInt(compression);
     }
 
-    const Kwave::Compression comp(compression);
+    const Kwave::Compression comp(Kwave::Compression::fromInt(compression));
     cbFormatCompression->setCurrentItem(comp.name(), true);
 }
 

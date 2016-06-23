@@ -28,6 +28,7 @@
 #include <QStringList>
 
 #include "libkwave/ByteOrder.h"
+#include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
 
@@ -115,7 +116,7 @@ namespace Kwave
 	 * Gets a list of supported compression types. If no compression is
 	 * supported, the list might be empty.
 	 */
-	virtual QList<int> detectCompressions() = 0;
+	virtual QList<Kwave::Compression::Type> detectCompressions() = 0;
 
 	/**
 	 * Try to set a new compression type.
@@ -123,10 +124,10 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class Kwave::Compression
 	 */
-	virtual int setCompression(int new_compression) = 0;
+	virtual int setCompression(Kwave::Compression::Type new_compression) = 0;
 
 	/** Returns the current compression type (0==none) */
-	virtual int compression() = 0;
+	virtual Kwave::Compression::Type compression() = 0;
 
 	/**
 	 * Detect a list of supported bits per sample.

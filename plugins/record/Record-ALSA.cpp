@@ -174,32 +174,33 @@ static Kwave::byte_order_t endian_of(snd_pcm_format_t fmt)
 }
 
 //***************************************************************************
-static int compression_of(snd_pcm_format_t fmt)
+static Kwave::Compression::Type compression_of(snd_pcm_format_t fmt)
 {
-    int f = Kwave::Compression::NONE;
+    Kwave::Compression::Type c = Kwave::Compression::NONE;
     switch (fmt) {
 	case SND_PCM_FORMAT_MU_LAW:
-	    f = Kwave::Compression::G711_ULAW;    break;
+	    c = Kwave::Compression::G711_ULAW;    break;
 	case SND_PCM_FORMAT_A_LAW:
-	    f = Kwave::Compression::G711_ALAW;    break;
+	    c = Kwave::Compression::G711_ALAW;    break;
 	case SND_PCM_FORMAT_IMA_ADPCM:
-	    f = Kwave::Compression::MS_ADPCM;     break;
+	    c = Kwave::Compression::MS_ADPCM;     break;
 	case SND_PCM_FORMAT_MPEG:
-	    f = Kwave::Compression::MPEG_LAYER_I; break;
+	    c = Kwave::Compression::MPEG_LAYER_I; break;
 	case SND_PCM_FORMAT_GSM:
-	    f = Kwave::Compression::GSM;          break;
+	    c = Kwave::Compression::GSM;          break;
 	default:
 	    break;
     }
-    return f;
+    return c;
 }
 
 //***************************************************************************
 Kwave::RecordALSA::RecordALSA()
     :Kwave::RecordDevice(), m_handle(0), m_hw_params(0),
      m_sw_params(0), m_open_result(0), m_tracks(0),
-     m_rate(0.0), m_compression(0), m_bits_per_sample(0),
-     m_bytes_per_sample(0), m_sample_format(Kwave::SampleFormat::Unknown),
+     m_rate(0.0), m_compression(Kwave::Compression::NONE),
+     m_bits_per_sample(0), m_bytes_per_sample(0),
+     m_sample_format(Kwave::SampleFormat::Unknown),
      m_supported_formats(), m_initialized(false), m_buffer_size(0),
      m_chunk_size(0)
 {
@@ -805,7 +806,8 @@ double Kwave::RecordALSA::sampleRate()
 }
 
 //***************************************************************************
-int Kwave::RecordALSA::mode2format(int compression, int bits,
+int Kwave::RecordALSA::mode2format(Kwave::Compression::Type compression,
+                                   int bits,
                                    Kwave::SampleFormat::Format sample_format)
 {
     // loop over all supported formats and keep only those that are
@@ -831,15 +833,15 @@ int Kwave::RecordALSA::mode2format(int compression, int bits,
 }
 
 //***************************************************************************
-QList<int> Kwave::RecordALSA::detectCompressions()
+QList<Kwave::Compression::Type> Kwave::RecordALSA::detectCompressions()
 {
-    QList<int> list;
+    QList<Kwave::Compression::Type> list;
 
     // try all known sample formats
     foreach(int it, m_supported_formats)
     {
 	const snd_pcm_format_t *fmt = &(_known_formats[it]);
-	int compression = compression_of(*fmt);
+	Kwave::Compression::Type compression = compression_of(*fmt);
 
 	// do not produce duplicates
 	if (list.contains(compression)) continue;
@@ -854,15 +856,15 @@ QList<int> Kwave::RecordALSA::detectCompressions()
 }
 
 //***************************************************************************
-int Kwave::RecordALSA::setCompression(int new_compression)
+int Kwave::RecordALSA::setCompression(Kwave::Compression::Type new_compression)
 {
     if (m_compression != new_compression) m_initialized = false;
     m_compression = new_compression;
-    return m_compression;
+    return 0;
 }
 
 //***************************************************************************
-int Kwave::RecordALSA::compression()
+Kwave::Compression::Type Kwave::RecordALSA::compression()
 {
     return m_compression;
 }

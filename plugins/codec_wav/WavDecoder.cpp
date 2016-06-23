@@ -31,6 +31,7 @@
 
 #include <KLocalizedString>
 
+#include "libkwave/Compression.h"
 #include "libkwave/ConfirmCancelProxy.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
@@ -39,6 +40,7 @@
 #include "libkwave/MetaDataList.h"
 #include "libkwave/MultiWriter.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 #include "libkwave/VirtualAudioFile.h"
@@ -397,19 +399,41 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     AFframecount length = afGetFrameCount(fh, AF_DEFAULT_TRACK);
     tracks = afGetVirtualChannels(fh, AF_DEFAULT_TRACK);
 
-    int sample_format;
-    afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &sample_format,
+    int af_sample_format;
+    afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &af_sample_format,
 	reinterpret_cast<int *>(&bits));
-
-    int compression = afGetCompression(fh, AF_DEFAULT_TRACK);
     if (static_cast<signed int>(bits) < 0) bits = 0;
+    Kwave::SampleFormat::Format fmt;
+    switch (af_sample_format)
+    {
+	case AF_SAMPFMT_TWOSCOMP:
+	    fmt = Kwave::SampleFormat::Signed;
+	    break;
+	case AF_SAMPFMT_UNSIGNED:
+	    fmt = Kwave::SampleFormat::Unsigned;
+	    break;
+	case AF_SAMPFMT_FLOAT:
+	    fmt = Kwave::SampleFormat::Float;
+	    break;
+	case AF_SAMPFMT_DOUBLE:
+	    fmt = Kwave::SampleFormat::Double;
+	    break;
+	default:
+	    fmt = Kwave::SampleFormat::Unknown;
+	    break;
+    }
+
+    int af_compression = afGetCompression(fh, AF_DEFAULT_TRACK);
+    const Kwave::Compression compression(
+	Kwave::Compression::fromAudiofile(af_compression)
+    );
 
     info.setRate(rate);
     info.setBits(bits);
     info.setTracks(tracks);
     info.setLength(length);
-    info.set(Kwave::INF_SAMPLE_FORMAT, sample_format);
-    info.set(Kwave::INF_COMPRESSION, compression);
+    info.set(Kwave::INF_SAMPLE_FORMAT, Kwave::SampleFormat(fmt).toInt());
+    info.set(Kwave::INF_COMPRESSION, compression.toInt());
 
     // read in all info from the LIST (INFO) chunk
     Kwave::RIFFChunk *info_chunk = parser.findChunk("/RIFF:WAVE/LIST:INFO");

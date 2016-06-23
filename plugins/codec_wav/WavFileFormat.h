@@ -20,6 +20,8 @@
 
 #include <QList>
 
+#include "libkwave/Compression.h"
+
 namespace Kwave
 {
 
@@ -194,7 +196,7 @@ namespace Kwave
     /**
      * Returns a list with all compression types supported by libaudiofile
      */
-    QList<int> audiofileCompressionTypes();
+    QList<Kwave::Compression::Type> audiofileCompressionTypes();
 
 }
 
@@ -208,8 +210,8 @@ namespace Kwave
 }
 
 #define REGISTER_COMPRESSION_TYPES \
-    foreach (int comp, Kwave::audiofileCompressionTypes()) \
-	addCompression(comp)
+    foreach (Kwave::Compression::Type c, Kwave::audiofileCompressionTypes()) \
+	addCompression(c)
 
 #endif /* WAV_FILE_FORMAT_H */
 

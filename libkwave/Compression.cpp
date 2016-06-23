@@ -20,104 +20,72 @@
 #include <new>
 #include <stdlib.h>
 
+#include <audiofile.h>
+
 #include "libkwave/Compression.h"
 
 /* static instance */
-QMap<int, Kwave::Compression> Kwave::Compression::m_map;
+QMap<int, Kwave::Compression::Info> Kwave::Compression::m_map;
 
 //***************************************************************************
 Kwave::Compression::Compression()
-    :m_data()
+    :m_type(Kwave::Compression::NONE)
 {
+    fillMap();
 }
 
 //***************************************************************************
-Kwave::Compression::Compression(int value)
-    :m_data()
+Kwave::Compression::Compression(const Type value)
+    :m_type(value)
 {
-    if (m_map.isEmpty()) fillMap();
-
-    if (m_map.contains(value)) {
-	Kwave::Compression known_comp(m_map[value]);
-	m_data = known_comp.m_data;
-    }
-}
-
-//***************************************************************************
-Kwave::Compression::Compression(const Kwave::Compression &other)
-    :m_data(other.m_data)
-{
-}
-
-//***************************************************************************
-Kwave::Compression::Compression(
-    int value,
-    const QString &name,
-    const QString &mime_type,
-    const QList<Kwave::SampleFormat> &sample_formats,
-    bool has_abr,
-    bool has_vbr
-)
-    :m_data()
-{
-    if (m_map.contains(value)) return; // ignore duplicates
-
-    m_data = new(std::nothrow) Kwave::Compression::CompressionInfo;
-    Q_ASSERT(m_data);
-    if (!m_data) return;
-
-    m_data->m_as_int         = value;
-    m_data->m_name           = name;
-    m_data->m_mime_type      = mime_type;
-    m_data->m_sample_formats = sample_formats;
-    m_data->m_has_abr        = has_abr;
-    m_data->m_has_vbr        = has_vbr;
-}
-
-//***************************************************************************
-Kwave::Compression::~Compression()
-{
+    fillMap();
 }
 
 //***************************************************************************
 QString Kwave::Compression::name() const
 {
-    return (m_data) ? i18n(UTF8(m_data->m_name)) : QString();
+    return (m_map.contains(m_type)) ?
+	i18n(UTF8(m_map[m_type].m_name)) : QString();
 }
 
 //***************************************************************************
 QString Kwave::Compression::preferredMimeType() const
 {
-    return (m_data) ? m_data->m_mime_type : QString();
+    return (m_map.contains(m_type)) ?
+	i18n(UTF8(m_map[m_type].m_mime_type)) : QString();
 }
 
 //***************************************************************************
 QList<Kwave::SampleFormat> Kwave::Compression::sampleFormats() const
 {
-    return (m_data) ? m_data->m_sample_formats : QList<Kwave::SampleFormat>();
+    return (m_map.contains(m_type)) ?
+	m_map[m_type].m_sample_formats : QList<Kwave::SampleFormat>();
 }
 
 //***************************************************************************
 bool Kwave::Compression::hasABR() const
 {
-    return (m_data) ? m_data->m_has_abr : false;
+    return (m_map.contains(m_type)) ? m_map[m_type].m_has_abr : false;
 }
 
 //***************************************************************************
 bool Kwave::Compression::hasVBR() const
 {
-    return (m_data) ? m_data->m_has_vbr : false;
+    return (m_map.contains(m_type)) ? m_map[m_type].m_has_vbr : false;
 }
 
 //***************************************************************************
-int Kwave::Compression::toInt() const
+Kwave::Compression::Type Kwave::Compression::fromInt(int i)
 {
-    return (m_data) ? m_data->m_as_int : -1;
+    return (m_map.contains(static_cast<Kwave::Compression::Type>(i))) ?
+	static_cast<Kwave::Compression::Type>(i) : Kwave::Compression::NONE;
 }
 
 //***************************************************************************
 void Kwave::Compression::fillMap()
 {
+    if (!m_map.isEmpty()) return; // bail out if already filled
+
     QList<Kwave::SampleFormat> sfmt_none;
 
     QList<Kwave::SampleFormat> sfmt_int;
@@ -131,74 +99,79 @@ void Kwave::Compression::fillMap()
 
     /* no compression */
 
-    m_map.insert(Kwave::Compression::NONE, Kwave::Compression(
-	Kwave::Compression::NONE,
+    m_map.insert(Kwave::Compression::NONE, Kwave::Compression::Info(
 	_(I18N_NOOP("No Compression")),
 	QString(),
 	sfmt_all, false, false));
 
     /* types supported by OSS+ALSA record plugin and WAV codec */
 
-    m_map.insert(Kwave::Compression::G711_ULAW, Kwave::Compression(
-	Kwave::Compression::G711_ULAW,
+    m_map.insert(Kwave::Compression::G711_ULAW, Kwave::Compression::Info(
 	_(I18N_NOOP("CCITT G.711 u-law")),
 	QString(),
 	sfmt_int, false, false));
-    m_map.insert(Kwave::Compression::G711_ALAW, Kwave::Compression(
-	Kwave::Compression::G711_ALAW,
+    m_map.insert(Kwave::Compression::G711_ALAW, Kwave::Compression::Info(
 	_(I18N_NOOP("CCITT G.711 A-law")),
 	QString(),
 	sfmt_int, false, false));
-    m_map.insert(Kwave::Compression::MS_ADPCM, Kwave::Compression(
-	Kwave::Compression::MS_ADPCM,
+    m_map.insert(Kwave::Compression::MS_ADPCM, Kwave::Compression::Info(
 	_(I18N_NOOP("MS ADPCM")),
 	QString(),
 	sfmt_int, false, false));
-    m_map.insert(Kwave::Compression::GSM, Kwave::Compression(
-	Kwave::Compression::GSM,
+    m_map.insert(Kwave::Compression::GSM, Kwave::Compression::Info(
 	_(I18N_NOOP("GSM")),
 	QString(),
 	sfmt_int, false, false));
 
     /* compression types from libaudiofile (for display only, not supported) */
-    static const struct {
-	int compression;
-	const char *name;
-    } af_list[] = {
-	{ AF_COMPRESSION_G722,       I18N_NOOP("G722")            },
-	{ AF_COMPRESSION_APPLE_ACE2, I18N_NOOP("Apple ACE2")      },
-	{ AF_COMPRESSION_APPLE_ACE8, I18N_NOOP("Apple ACE8")      },
-	{ AF_COMPRESSION_APPLE_MAC3, I18N_NOOP("Apple MAC3")      },
-	{ AF_COMPRESSION_APPLE_MAC6, I18N_NOOP("Apple MAC6")      },
-	{ AF_COMPRESSION_G726,       I18N_NOOP("G726")            },
-	{ AF_COMPRESSION_G728,       I18N_NOOP("G728")            },
-	{ AF_COMPRESSION_DVI_AUDIO,  I18N_NOOP("DVI Audio / IMA") },
-	{ AF_COMPRESSION_FS1016,     I18N_NOOP("FS1016")          },
-	{ AF_COMPRESSION_DV,         I18N_NOOP("DV")              }
-    };
-    unsigned int af_count = sizeof(af_list) / sizeof(af_list[0]);
-    for (unsigned int index = 0; index < af_count; ++index) {
-	int id = af_list[index].compression;
-	if (m_map.contains(id)) continue;
-	QString name = QString::fromLatin1(af_list[index].name);
-	m_map.insert(id, Kwave::Compression(
-	    id, name, QString(), sfmt_all, false, false));
-    }
+    m_map.insert(Kwave::Compression::G722, Kwave::Compression::Info(
+	_(I18N_NOOP("G722")),
+	QString(),
+	sfmt_none, true, false));
+    m_map.insert(Kwave::Compression::APPLE_ACE2, Kwave::Compression::Info(
+	_(I18N_NOOP("Apple ACE2")),
+	QString(),
+	sfmt_none, true, false));
+    m_map.insert(Kwave::Compression::APPLE_ACE8, Kwave::Compression::Info(
+	_(I18N_NOOP("Apple ACE8")),
+	QString(),
+	sfmt_none, true, false));
+    m_map.insert(Kwave::Compression::APPLE_MAC3, Kwave::Compression::Info(
+	_(I18N_NOOP("Apple MAC3")),
+	QString(),
+	sfmt_none, true, false));
+    m_map.insert(Kwave::Compression::APPLE_MAC6, Kwave::Compression::Info(
+	_(I18N_NOOP("Apple MAC6")),
+	QString(),
+	sfmt_none, true, false));
+    m_map.insert(Kwave::Compression::G726, Kwave::Compression::Info(
+	_(I18N_NOOP("G726")),
+	QString(),
+	sfmt_none, true, false));
+    m_map.insert(Kwave::Compression::DVI_AUDIO, Kwave::Compression::Info(
+	_(I18N_NOOP("DVI Audio / IMA")),
+	QString(),
+	sfmt_none, true, false));
+    m_map.insert(Kwave::Compression::FS1016, Kwave::Compression::Info(
+	_(I18N_NOOP("FS1016")),
+	QString(),
+	sfmt_none, true, false));
+    m_map.insert(Kwave::Compression::DV, Kwave::Compression::Info(
+	_(I18N_NOOP("DV")),
+	QString(),
+	sfmt_none, true, false));
 
     /* MPEG layer I/II/III */
 #ifdef HAVE_MP3
-    m_map.insert(Kwave::Compression::MPEG_LAYER_I, Kwave::Compression(
-	Kwave::Compression::MPEG_LAYER_I,
+    m_map.insert(Kwave::Compression::MPEG_LAYER_I, Kwave::Compression::Info(
 	_(I18N_NOOP("MPEG Layer I")),
 	_("audio/x-mp3"),
 	sfmt_none, true, false));
-    m_map.insert(Kwave::Compression::MPEG_LAYER_II, Kwave::Compression(
-	Kwave::Compression::MPEG_LAYER_II,
+    m_map.insert(Kwave::Compression::MPEG_LAYER_II, Kwave::Compression::Info(
 	_(I18N_NOOP("MPEG Layer II")),
 	_("audio/x-mp3"),
 	sfmt_none, true, false));
-    m_map.insert(Kwave::Compression::MPEG_LAYER_III, Kwave::Compression(
-	Kwave::Compression::MPEG_LAYER_III,
+    m_map.insert(Kwave::Compression::MPEG_LAYER_III, Kwave::Compression::Info(
 	_(I18N_NOOP("MPEG Layer III")),
 	_("audio/x-mp3"),
 	sfmt_none, true, false));
@@ -206,8 +179,7 @@ void Kwave::Compression::fillMap()
 
     /* FLAC */
 #ifdef HAVE_FLAC
-    m_map.insert(Kwave::Compression::FLAC, Kwave::Compression(
-	Kwave::Compression::FLAC,
+    m_map.insert(Kwave::Compression::FLAC, Kwave::Compression::Info(
 	_(I18N_NOOP("FLAC")),
 	_("audio/x-flac"),
 	sfmt_none, false, false));
@@ -215,8 +187,7 @@ void Kwave::Compression::fillMap()
 
     /* Ogg Vorbis */
 #ifdef HAVE_OGG_VORBIS
-    m_map.insert(Kwave::Compression::OGG_VORBIS, Kwave::Compression(
-	Kwave::Compression::OGG_VORBIS,
+    m_map.insert(Kwave::Compression::OGG_VORBIS, Kwave::Compression::Info(
 	_(I18N_NOOP("Ogg Vorbis")),
 	_("audio/ogg"),
 	sfmt_none, true, true));
@@ -224,8 +195,7 @@ void Kwave::Compression::fillMap()
 
     /* Ogg Opus */
 #ifdef HAVE_OGG_OPUS
-    m_map.insert(Kwave::Compression::OGG_OPUS, Kwave::Compression(
-	Kwave::Compression::OGG_OPUS,
+    m_map.insert(Kwave::Compression::OGG_OPUS, Kwave::Compression::Info(
 	_(I18N_NOOP("Ogg Opus")),
 	_("audio/opus"),
 	sfmt_none, true, false));
@@ -234,30 +204,164 @@ void Kwave::Compression::fillMap()
 }
 
 //***************************************************************************
+int Kwave::Compression::toAudiofile(Kwave::Compression::Type compression)
+{
+    int af_compression = AF_COMPRESSION_UNKNOWN;
+
+    switch (compression)
+    {
+	case Kwave::Compression::NONE:
+	    af_compression = AF_COMPRESSION_NONE;
+	    break;
+	case Kwave::Compression::G722:
+	    af_compression = AF_COMPRESSION_G722;
+	    break;
+	case Kwave::Compression::G711_ULAW:
+	    af_compression = AF_COMPRESSION_G711_ULAW;
+	    break;
+	case Kwave::Compression::G711_ALAW:
+	    af_compression = AF_COMPRESSION_G711_ALAW;
+	    break;
+	case Kwave::Compression::APPLE_ACE2:
+	    af_compression = AF_COMPRESSION_APPLE_ACE2;
+	    break;
+	case Kwave::Compression::APPLE_ACE8:
+	    af_compression = AF_COMPRESSION_APPLE_ACE8;
+	    break;
+	case Kwave::Compression::APPLE_MAC3:
+	    af_compression = AF_COMPRESSION_APPLE_MAC3;
+	    break;
+	case Kwave::Compression::APPLE_MAC6:
+	    af_compression = AF_COMPRESSION_APPLE_MAC6;
+	    break;
+	case Kwave::Compression::G726:
+	    af_compression = AF_COMPRESSION_G726;
+	    break;
+	case Kwave::Compression::G728:
+	    af_compression = AF_COMPRESSION_G728;
+	    break;
+	case Kwave::Compression::DVI_AUDIO:
+	    af_compression = AF_COMPRESSION_DVI_AUDIO;
+	    break;
+	case Kwave::Compression::GSM:
+	    af_compression = AF_COMPRESSION_GSM;
+	    break;
+	case Kwave::Compression::FS1016:
+	    af_compression = AF_COMPRESSION_FS1016;
+	    break;
+	case Kwave::Compression::DV:
+	    af_compression = AF_COMPRESSION_DV;
+	    break;
+	case Kwave::Compression::MS_ADPCM:
+	    af_compression = AF_COMPRESSION_MS_ADPCM;
+	    break;
+	default:
+	    af_compression = AF_COMPRESSION_UNKNOWN;
+	    break;
+    }
+
+    return af_compression;
+}
+
 //***************************************************************************
-Kwave::Compression::CompressionInfo::CompressionInfo()
-    :QSharedData(),
-     m_as_int(-1),
-     m_name(),
+Kwave::Compression::Type Kwave::Compression::fromAudiofile(int af_compression)
+{
+    Kwave::Compression::Type compression_type;
+
+    switch (af_compression)
+    {
+	case AF_COMPRESSION_NONE :
+	    compression_type = Kwave::Compression::NONE;
+	    break;
+	case AF_COMPRESSION_G722:
+	    compression_type = Kwave::Compression::G722;
+	    break;
+	case AF_COMPRESSION_G711_ULAW:
+	    compression_type = Kwave::Compression::G711_ULAW;
+	    break;
+	case AF_COMPRESSION_G711_ALAW:
+	    compression_type = Kwave::Compression::G711_ALAW;
+	    break;
+	case AF_COMPRESSION_APPLE_ACE2:
+	    compression_type = Kwave::Compression::APPLE_ACE2;
+	    break;
+	case AF_COMPRESSION_APPLE_ACE8:
+	    compression_type = Kwave::Compression::APPLE_ACE8;
+	    break;
+	case AF_COMPRESSION_APPLE_MAC3:
+	    compression_type = Kwave::Compression::APPLE_MAC3;
+	    break;
+	case AF_COMPRESSION_APPLE_MAC6:
+	    compression_type = Kwave::Compression::APPLE_MAC6;
+	    break;
+	case AF_COMPRESSION_G726:
+	    compression_type = Kwave::Compression::G726;
+	    break;
+	case AF_COMPRESSION_G728:
+	    compression_type = Kwave::Compression::G728;
+	    break;
+	case AF_COMPRESSION_DVI_AUDIO:
+	    compression_type = Kwave::Compression::DVI_AUDIO;
+	    break;
+	case AF_COMPRESSION_GSM:
+	    compression_type = Kwave::Compression::GSM;
+	    break;
+	case AF_COMPRESSION_FS1016:
+	    compression_type = Kwave::Compression::FS1016;
+	    break;
+	case AF_COMPRESSION_DV:
+	    compression_type = Kwave::Compression::DV;
+	    break;
+	case AF_COMPRESSION_MS_ADPCM:
+	    compression_type = Kwave::Compression::MS_ADPCM;
+	    break;
+	default:
+	    compression_type = Kwave::Compression::NONE;
+	    break;
+    }
+
+    return compression_type;
+}
+
+//***************************************************************************
+//***************************************************************************
+Kwave::Compression::Info::Info()
+    :m_name(),
+     m_mime_type(),
+     m_sample_formats(),
      m_has_abr(false),
      m_has_vbr(false)
 {
 }
 
 //***************************************************************************
-Kwave::Compression::CompressionInfo::CompressionInfo(
-    const CompressionInfo &other
-)
-    :QSharedData(other),
-     m_as_int(other.m_as_int),
-     m_name(other.m_name),
+Kwave::Compression::Info::Info(const Kwave::Compression::Info &other)
+    :m_name(other.m_name),
+     m_mime_type(other.m_mime_type),
+     m_sample_formats(other.m_sample_formats),
      m_has_abr(other.m_has_abr),
      m_has_vbr(other.m_has_vbr)
 {
 }
 
 //***************************************************************************
-Kwave::Compression::CompressionInfo::~CompressionInfo()
+Kwave::Compression::Info::~Info()
+{
+}
+
+//***************************************************************************
+Kwave::Compression::Info::Info(
+    const QString &name,
+    const QString &mime_type,
+    const QList<Kwave::SampleFormat> &sample_formats,
+    bool has_abr,
+    bool has_vbr
+)
+    :m_name(name),
+     m_mime_type(mime_type),
+     m_sample_formats(sample_formats),
+     m_has_abr(has_abr),
+     m_has_vbr(has_vbr)
 {
 }
 

@@ -26,6 +26,7 @@
 #include <QStringList>
 #include <QTimer>
 
+#include "libkwave/Compression.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SampleFormat.h"
@@ -97,7 +98,9 @@ namespace Kwave
 	 * sets the list of supported compressions
 	 * @param comps list of supported compressions, can be empty
 	 */
-	void setSupportedCompressions(const QList<int> &comps);
+	void setSupportedCompressions(
+	    const QList<Kwave::Compression::Type> &comps
+	);
 
 	/**
 	 * sets a new compression type

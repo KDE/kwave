@@ -121,8 +121,8 @@ void Kwave::Mul::multiply()
 	if (!m_a_is_const) { a = sample2float(*p_a); ++p_a; }
 	if (!m_b_is_const) { b = sample2float(*p_b); ++p_b; }
 	float y = a * b;
-	if (y >  1.0) y =  1.0;
-	if (y < -1.0) y = -1.0;
+	if (y > float( 1.0)) y = float( 1.0);
+	if (y < float(-1.0)) y = float(-1.0);
 	*(p_x++) = float2sample(y);
     }
 

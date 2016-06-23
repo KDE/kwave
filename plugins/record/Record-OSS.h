@@ -105,7 +105,7 @@ namespace Kwave
 	 * Gets a list of supported compression types. If no compression is
 	 * supported, the list might be empty.
 	 */
-	virtual QList<int> detectCompressions();
+	virtual QList<Kwave::Compression::Type> detectCompressions();
 
 	/**
 	 * Try to set a new compression type.
@@ -113,10 +113,10 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class Compression
 	 */
-	virtual int setCompression(int new_compression);
+	virtual int setCompression(Kwave::Compression::Type new_compression);
 
 	/** Returns the current compression type (0==none) */
-	virtual int compression();
+	virtual Kwave::Compression::Type compression();
 
 	/**
 	 * Detect a list of supported bits per sample.
@@ -169,7 +169,7 @@ namespace Kwave
 	 * @param sample_format receives the sample format, as defined in
 	 *        libaudiofile (signed or unsigned)
 	 */
-	void format2mode(int format, int &compression,
+	void format2mode(int format, Kwave::Compression::Type &compression,
 	                 int &bits,
 	                 Kwave::SampleFormat::Format &sample_format);
 
@@ -183,7 +183,7 @@ namespace Kwave
 	 *        libaudiofile (signed or unsigned)
 	 * @return the device specific format
 	 */
-	int mode2format(int compression, int bits,
+	int mode2format(Kwave::Compression::Type compression, int bits,
 	                Kwave::SampleFormat::Format sample_format);
 
     private:

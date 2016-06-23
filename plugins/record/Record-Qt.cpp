@@ -71,7 +71,7 @@ Kwave::RecordQt::RecordQt()
      m_sample_format(Kwave::SampleFormat::Unknown),
      m_tracks(0),
      m_rate(0.0),
-     m_compression(0),
+     m_compression(Kwave::Compression::NONE),
      m_bits_per_sample(0),
      m_device(),
      m_initialized(false),
@@ -201,25 +201,25 @@ QList< unsigned int > Kwave::RecordQt::supportedBits()
 }
 
 //***************************************************************************
-int Kwave::RecordQt::compression()
+Kwave::Compression::Type Kwave::RecordQt::compression()
 {
     return m_compression;
 }
 
 //***************************************************************************
-int Kwave::RecordQt::setCompression(int new_compression)
+int Kwave::RecordQt::setCompression(Kwave::Compression::Type new_compression)
 {
-    if (new_compression == m_compression) return 0;
-
-    close();
-    m_compression = new_compression;
+    if (new_compression != m_compression) {
+	close();
+	m_compression = new_compression;
+    }
     return 0;
 }
 
 //***************************************************************************
-QList< int > Kwave::RecordQt::detectCompressions()
+QList<Kwave::Compression::Type> Kwave::RecordQt::detectCompressions()
 {
-    QList<int> list;
+    QList<Kwave::Compression::Type> list;
     list.append(Kwave::Compression::NONE);
     return list;
 }

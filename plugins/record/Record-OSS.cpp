@@ -668,9 +668,8 @@ int Kwave::RecordOSS::setCompression(Kwave::Compression::Type new_compression)
 
     // activate new format
     format = mode2format(compression, bits, sample_format);
-    int oldformat = format;
     err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
-    if (err < 0) -1;
+    if (err < 0) return -1;
 
     return 0;
 }

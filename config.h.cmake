@@ -102,9 +102,8 @@
 /* enable memory management debug code */
 #cmakedefine DEBUG_MEMORY
 
-/* install dirs of the plugins */
-#cmakedefine QT_PLUGIN_INSTALL_DIR "@CMAKE_INSTALL_PREFIX@/@QT_PLUGIN_INSTALL_DIR@"
-#cmakedefine PLUGIN_INSTALL_DIR "@CMAKE_INSTALL_PREFIX@/@PLUGIN_INSTALL_DIR@"
+/* libaudiofile knows FLAC compression */
+#cmakedefine HAVE_AF_COMPRESSION_FLAC
 
 /***************************************************************************/
 /***************************************************************************/

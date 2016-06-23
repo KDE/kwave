@@ -255,6 +255,16 @@ int Kwave::Compression::toAudiofile(Kwave::Compression::Type compression)
 	case Kwave::Compression::MS_ADPCM:
 	    af_compression = AF_COMPRESSION_MS_ADPCM;
 	    break;
+#ifdef HAVE_AF_COMPRESSION_FLAC
+	case Kwave::Compression::FLAC:
+	    af_compression = AF_COMPRESSION_FLAC;
+	    break;
+#endif /* HAVE_AF_COMPRESSION_FLAC */
+#ifdef HAVE_AF_COMPRESSION_ALAC
+	case Kwave::Compression::ALAC:
+	    af_compression = AF_COMPRESSION_ALAC;
+	    break;
+#endif /* HAVE_AF_COMPRESSION_ALAC */
 	default:
 	    af_compression = AF_COMPRESSION_UNKNOWN;
 	    break;
@@ -315,6 +325,16 @@ Kwave::Compression::Type Kwave::Compression::fromAudiofile(int af_compression)
 	case AF_COMPRESSION_MS_ADPCM:
 	    compression_type = Kwave::Compression::MS_ADPCM;
 	    break;
+#ifdef HAVE_AF_COMPRESSION_FLAC
+	case AF_COMPRESSION_FLAC:
+	    compression_type = Kwave::Compression::FLAC;
+	    break;
+#endif /* HAVE_AF_COMPRESSION_FLAC */
+#ifdef HAVE_AF_COMPRESSION_ALAC
+	case AF_COMPRESSION_ALAC:
+	    compression_type = Kwave::Compression::ALAC;
+	    break;
+#endif /* HAVE_AF_COMPRESSION_ALAC */
 	default:
 	    compression_type = Kwave::Compression::NONE;
 	    break;

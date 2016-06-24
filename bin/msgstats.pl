@@ -82,7 +82,7 @@ while (<IN>) {
 	check_po($lang_name, $catalog, "GUI", $po_gui);
 	check_po($lang_name, $catalog, "DSK", $po_dsk);
 
-	if ((-e $top_dir . "/" . $po_doc) || (-e $top_dir . "/" . $po_gui)) {
+	if ((-e $top_dir . "/" . $po_doc) || (-e $top_dir . "/" . $po_gui) || (-e $top_dir . "/" . $po_dsk)) {
 	    print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";
 	}
 

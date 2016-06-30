@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Record
+Name[ca]=Enregistra
+Name[ca@valencia]=Enregistra
+Name[de]=Aufnahme
+Name[en_GB]=Record
+Name[es]=Grabación
+Name[gl]=Gravar
+Name[it]=Registra
+Name[nl]=Opnemen
+Name[pl]=Nagraj
+Name[pt]=Gravação
+Name[pt_BR]=Gravar
+Name[sv]=Spela in
+Name[uk]=Запис
+Name[x-test]=xxRecordxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=record
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.6
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

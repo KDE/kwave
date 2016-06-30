@@ -31,14 +31,15 @@ namespace Kwave
 	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit NewSignalPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	NewSignalPlugin(QObject *parent, const QVariantList &args);
 
 	/** virtual Destructor */
 	virtual ~NewSignalPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/**
 	 * Shows a dialog for creating a new signal and emits sigCommand if

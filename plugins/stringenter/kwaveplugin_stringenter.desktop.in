@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Enter Command
+Name[ca]=Introdueix una ordre
+Name[ca@valencia]=Introdueix una orde
+Name[de]=Befehl eingeben
+Name[en_GB]=Enter Command
+Name[es]=Introducir orden
+Name[gl]=Escriba unha orde
+Name[it]=Inserisci comando
+Name[nl]=Commando invoeren
+Name[pl]=Podaj polecenie
+Name[pt]=Introdução de Comando
+Name[pt_BR]=Insira o comando
+Name[sv]=Ange kommando
+Name[uk]=Введення команди
+Name[x-test]=xxEnter Commandxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=stringenter
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

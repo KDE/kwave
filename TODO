@@ -1,5 +1,7 @@
 
-o use the KDE/Services interface for plugins
+o collapse/expand of track views
+
+o add views with meta data
 
 o auto-detect song borders set markers, for splitting recorded stuff into several
   parts and then save them to disc as separate files
@@ -34,10 +36,7 @@ o use noise shaping globally in sample2float()
 
 o support for "raw" import/export
 
-o record plugin: add popup menu to record button for direct recording,
-  record settings etc...
-
-o record plugin: add menu entry
+o record plugin: implement amplify, AGC, fade in, fade out
 
 o file import from non-local URLs (e.g. fish://...)
 
@@ -55,7 +54,7 @@ o show sonagram as "signal view" below each track or below the whole signal
 
 o support for multi selection
 
-o support for recording via PULSE audio
+o support for recording via Qt Multimedia audio
 
 o debug aid: new plugin for adding a new track with test/debug info:
   - stripe number
@@ -89,9 +88,6 @@ o ALSA record/playback: also detect devices configured in the .asoundrc,
 o find a better solution for deadlock when closing the current file while
   a plugin is still running, instead of refusing the request to close
 
-o replace "AF_SAMPFMT_xxx" with enum "SampleFormat::yyy" in WavEncoder.cpp,
-  WavDecoder.cpp and PlayBack-OSS.cpp
-
 o more precise handling of the playback pointer
   -> latency handling
 
@@ -113,11 +109,6 @@ o fileinfo plugin: auto-generate filename from "track - title"
 o use a MenuManager in the plugins (e.g. sonagram)
 
 o optimized cut/paste, at zero-crossing
-
-o document how to do an optimized build, for example:
-  CFLAGS="-march=athlon-xp -mcpu=athlon-xp \
-  -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_TRANSLATION" \
-  CXXFLAGS=${CFLAGS} cmake ...
 
 o speed up MP3 import by blockwise operation -> use Kwave::SampleBuffer
 

@@ -35,15 +35,13 @@
 
 #include "ZeroPlugin.h"
 
-KWAVE_PLUGIN(Kwave::ZeroPlugin, "zero", "2.3",
-             I18N_NOOP("Zero Generator"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(zero, ZeroPlugin)
 
 #define ZERO_COUNT (64 * 1024)
 
 //***************************************************************************
-Kwave::ZeroPlugin::ZeroPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_zeroes()
+Kwave::ZeroPlugin::ZeroPlugin(QObject *parent, const QVariantList &args)
+    :Kwave::Plugin(parent, args), m_zeroes()
 {
 }
 
@@ -155,5 +153,7 @@ void Kwave::ZeroPlugin::run(QStringList params)
     delete writers;
 }
 
+//***************************************************************************
+#include "ZeroPlugin.moc"
 //***************************************************************************
 //***************************************************************************

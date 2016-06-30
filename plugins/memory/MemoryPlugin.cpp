@@ -31,9 +31,7 @@
 #include "MemoryDialog.h"
 #include "MemoryPlugin.h"
 
-KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.4",
-             I18N_NOOP("Memory Settings"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(memory, MemoryPlugin)
 
 /** default memory limit for physical memory [MB] */
 #define DEFAULT_PHYSICAL_LIMIT 2048
@@ -45,8 +43,9 @@ KWAVE_PLUGIN(Kwave::MemoryPlugin, "memory", "2.4",
 #define DEFAULT_UNDO_LIMIT 1024
 
 //***************************************************************************
-Kwave::MemoryPlugin::MemoryPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager),
+Kwave::MemoryPlugin::MemoryPlugin(QObject *parent,
+                                  const QVariantList &args)
+    :Kwave::Plugin(parent, args),
      m_physical_limited(true),
      m_physical_limit(DEFAULT_PHYSICAL_LIMIT),
      m_virtual_enabled(true),
@@ -164,5 +163,7 @@ QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
     return result;
 }
 
+//***************************************************************************
+#include "MemoryPlugin.moc"
 //***************************************************************************
 //***************************************************************************

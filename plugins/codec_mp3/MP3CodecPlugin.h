@@ -31,14 +31,15 @@ namespace Kwave
 	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit MP3CodecPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	MP3CodecPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~MP3CodecPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/** @see Kwave::Plugin::load() */
 	virtual void load(QStringList &params);

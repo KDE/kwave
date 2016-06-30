@@ -44,14 +44,15 @@ namespace Kwave
 	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit PlayBackPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	PlayBackPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~PlayBackPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/**
 	 * Gets called when the plugin is first loaded and connects itself

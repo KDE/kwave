@@ -418,10 +418,6 @@ uint32_t xine_mm_accel (void)
     accel |= arch_accel();
 #endif
 
-    if(getenv("XINE_NO_ACCEL")) {
-      accel = 0;
-    }
-
     initialized = 1;
   }
 

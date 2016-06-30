@@ -31,14 +31,15 @@ namespace Kwave
 	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit OggCodecPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	OggCodecPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~OggCodecPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/** Creates a new decoder instance */
 	virtual Kwave::Decoder *createDecoder();

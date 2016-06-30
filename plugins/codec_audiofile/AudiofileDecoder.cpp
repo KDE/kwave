@@ -25,6 +25,7 @@
 
 #include <KLocalizedString>
 
+#include "libkwave/Compression.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiWriter.h"
@@ -46,15 +47,33 @@ Kwave::AudiofileDecoder::AudiofileDecoder()
                 "*.au; *.AU; *.snd; *.SND");
 
     /* some others, mime types might be wrong (I found no RFC or similar)  */
+    addMimeType("audio/x-8svx",
+                i18n("Amiga IFF/8SVX Sound File Format"),
+                "*.iff; *.IFF; *.8svx; *.8SVX");
     addMimeType("audio/x-aifc",
                 i18n("Compressed Audio Interchange Format"),
                 "*.aifc; *.AIFC");
     addMimeType("audio/x-aiff", /* included in KDE */
                 i18n("Audio Interchange Format"),
                 "*.aif; *.AIF; *.aiff; *.AIFF");
+    addMimeType("audio/x-avr",
+                i18n("Audio Visual Research File Format"),
+                "*.avr; *.AVR");
+    addMimeType("audio/x-caf",
+                i18n("Core Audio File Format"),
+                "*.caf; *.CAF");
     addMimeType("audio/x-ircam",
                 i18n("Berkeley, IRCAM, Carl Sound Format"),
                 "*.sf; *.SF");
+    addMimeType("audio/x-nist",
+                i18n("NIST SPHERE Audio File Format"),
+                "*.nist; *.NIST");
+    addMimeType("audio/x-smp",
+                i18n("Sample Vision Format"),
+                "*.smp; *.SMP");
+    addMimeType("audio/x-voc",
+                i18n("Creative Voice"),
+                "*.voc; *.VOC");
 }
 
 //***************************************************************************
@@ -79,7 +98,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
     // try to open the source
     if (!src.open(QIODevice::ReadOnly)) {
-	qWarning("failed to open source !");
+	qWarning("AudiofileDecoder::open(), failed to open source !");
 	return false;
     }
 
@@ -136,6 +155,25 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     int af_sample_format;
     afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &af_sample_format,
 	reinterpret_cast<int *>(&bits));
+    Kwave::SampleFormat::Format fmt;
+    switch (af_sample_format)
+    {
+	case AF_SAMPFMT_TWOSCOMP:
+	    fmt = Kwave::SampleFormat::Signed;
+	    break;
+	case AF_SAMPFMT_UNSIGNED:
+	    fmt = Kwave::SampleFormat::Unsigned;
+	    break;
+	case AF_SAMPFMT_FLOAT:
+	    fmt = Kwave::SampleFormat::Float;
+	    break;
+	case AF_SAMPFMT_DOUBLE:
+	    fmt = Kwave::SampleFormat::Double;
+	    break;
+	default:
+	    fmt = Kwave::SampleFormat::Unknown;
+	    break;
+    }
 
     // get sample rate, with fallback to 8kHz
     rate = afGetRate(fh, AF_DEFAULT_TRACK);
@@ -147,25 +185,27 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 	rate = 8000.0;
     }
 
-    Kwave::SampleFormat fmt;
     Kwave::SampleFormat::Map sf;
-    fmt.fromInt(af_sample_format);
-    QString sample_format_name = sf.description(fmt, true);
+    QString sample_format_name = sf.description(Kwave::SampleFormat(fmt), true);
 
     if (static_cast<signed int>(bits) < 0) bits = 0;
 
-    int compression = afGetCompression(fh, AF_DEFAULT_TRACK); // just for debug
+    int af_compression = afGetCompression(fh, AF_DEFAULT_TRACK);
+    const Kwave::Compression compression(
+	Kwave::Compression::fromAudiofile(af_compression)
+    );
 
     Kwave::FileInfo info(metaData());
     info.setRate(rate);
     info.setBits(bits);
     info.setTracks(tracks);
     info.setLength(length);
-    info.set(INF_SAMPLE_FORMAT, af_sample_format);
+    info.set(INF_SAMPLE_FORMAT, Kwave::SampleFormat(fmt).toInt());
+    info.set(Kwave::INF_COMPRESSION, compression.toInt());
     metaData().replace(Kwave::MetaDataList(info));
     qDebug("-------------------------");
     qDebug("info:");
-    qDebug("compression = %d", compression);
+    qDebug("compression = %d", af_compression);
     qDebug("channels    = %d", info.tracks());
     qDebug("rate        = %0.0f", info.rate());
     qDebug("bits/sample = %d", info.bits());

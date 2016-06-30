@@ -316,12 +316,15 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     const sample_index_t length = info.length();
     unsigned int bits = info.bits();
     const double rate = info.rate();
-    int sample_format = info.contains(Kwave::INF_SAMPLE_FORMAT) ?
-                        info.get(Kwave::INF_SAMPLE_FORMAT).toInt() :
-                        AF_SAMPFMT_TWOSCOMP;
-    int compression = info.contains(Kwave::INF_COMPRESSION) ?
-                      info.get(Kwave::INF_COMPRESSION).toInt() :
-                      Kwave::Compression::NONE;
+
+    Kwave::SampleFormat format(Kwave::SampleFormat::Signed);
+    if (info.contains(Kwave::INF_SAMPLE_FORMAT))
+        format.fromInt(info.get(Kwave::INF_SAMPLE_FORMAT).toInt());
+
+    Kwave::Compression::Type compression =
+	info.contains(Kwave::INF_COMPRESSION) ?
+	Kwave::Compression::fromInt(info.get(Kwave::INF_COMPRESSION).toInt()) :
+	Kwave::Compression::NONE;
 
     // use default bit resolution if missing
     Q_ASSERT(bits);
@@ -337,7 +340,8 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
         (compression != Kwave::Compression::G711_ULAW) &&
         (compression != Kwave::Compression::G711_ALAW))
     {
-	qWarning("compression mode %d not supported!", compression);
+	qWarning("compression mode %d not supported!",
+	         Kwave::Compression(compression).toInt());
 	int what_now = Kwave::MessageBox::warningYesNoCancel(widget,
 	    i18n("Sorry, the currently selected compression type cannot "
 	         "be used for saving. Do you want to use "
@@ -366,27 +370,20 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     if ((compression == Kwave::Compression::G711_ULAW) ||
         (compression == Kwave::Compression::G711_ALAW))
     {
-	if ((sample_format != AF_SAMPFMT_TWOSCOMP) ||
-	    (bits          != 16))
-	{
-	    const Kwave::SampleFormat format(Kwave::SampleFormat::Signed);
+	if ((format != Kwave::SampleFormat::Signed) || (bits != 16)) {
+	    format.assign(Kwave::SampleFormat::Signed);
+	    bits = 16;
 	    info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(format.toInt()));
 	    info.setBits(16);
-	    sample_format = AF_SAMPFMT_TWOSCOMP;
-	    bits          = 16;
 	    qDebug("auto-switching to 16 bit signed format");
 	}
-    } else if ((bits <= 8) && (sample_format != AF_SAMPFMT_UNSIGNED)) {
-	const Kwave::SampleFormat format(Kwave::SampleFormat::Unsigned);
+    } else if ((bits <= 8) && (format != Kwave::SampleFormat::Unsigned)) {
+	format.assign(Kwave::SampleFormat::Unsigned);
 	info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(format.toInt()));
-
-	sample_format = AF_SAMPFMT_UNSIGNED;
 	qDebug("auto-switching to unsigned format");
-    } else if ((bits > 8) && (sample_format != AF_SAMPFMT_TWOSCOMP)) {
-	const Kwave::SampleFormat format(Kwave::SampleFormat::Signed);
+    } else if ((bits > 8) && (format != Kwave::SampleFormat::Signed)) {
+	format.assign(Kwave::SampleFormat::Signed);
 	info.set(Kwave::INF_SAMPLE_FORMAT, QVariant(format.toInt()));
-
-	sample_format = AF_SAMPFMT_TWOSCOMP;
 	qDebug("auto-switching to signed format");
     }
 
@@ -403,12 +400,32 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	return false;
     }
 
+    int af_sample_format = AF_SAMPFMT_TWOSCOMP;
+    Kwave::SampleFormat fmt(format);
+    switch (fmt)
+    {
+	case Kwave::SampleFormat::Unsigned:
+	    af_sample_format = AF_SAMPFMT_UNSIGNED;
+	    break;
+	case Kwave::SampleFormat::Float:
+	    af_sample_format = AF_SAMPFMT_FLOAT;
+	    break;
+	case Kwave::SampleFormat::Double:
+	    af_sample_format = AF_SAMPFMT_DOUBLE;
+	    break;
+	case Kwave::SampleFormat::Signed: /* FALLTHROUGH */
+	default:
+	    af_sample_format = AF_SAMPFMT_TWOSCOMP;
+	    break;
+    }
+
     AFfilesetup setup;
     setup = afNewFileSetup();
     afInitFileFormat(setup, AF_FILE_WAVE);
     afInitChannels(setup, AF_DEFAULT_TRACK, tracks);
-    afInitSampleFormat(setup, AF_DEFAULT_TRACK, sample_format, bits);
-    afInitCompression(setup, AF_DEFAULT_TRACK, compression);
+    afInitSampleFormat(setup, AF_DEFAULT_TRACK, af_sample_format, bits);
+    afInitCompression(setup, AF_DEFAULT_TRACK,
+	Kwave::Compression::toAudiofile(compression));
     afInitRate(setup, AF_DEFAULT_TRACK, rate);
 
     Kwave::VirtualAudioFile outfile(dst);

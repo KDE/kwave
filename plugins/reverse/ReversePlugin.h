@@ -40,14 +40,15 @@ namespace Kwave
 
     public:
 
-	/** Constructor */
-	explicit ReversePlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	ReversePlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~ReversePlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/**
 	 * reverses the selection

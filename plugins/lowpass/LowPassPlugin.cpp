@@ -29,13 +29,12 @@
 #include "LowPassPlugin.h"
 #include "libkwave/MultiTrackSource.h"
 
-KWAVE_PLUGIN(Kwave::LowPassPlugin, "lowpass", "2.3",
-             I18N_NOOP("Low Pass Filter"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(lowpass, LowPassPlugin)
 
 //***************************************************************************
-Kwave::LowPassPlugin::LowPassPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::FilterPlugin(plugin_manager),
+Kwave::LowPassPlugin::LowPassPlugin(QObject *parent,
+                                    const QVariantList &args)
+    :Kwave::FilterPlugin(parent, args),
      m_frequency(3500.0), m_last_freq(100)
 {
 }
@@ -116,5 +115,7 @@ void Kwave::LowPassPlugin::setValue(double frequency)
     m_frequency = frequency;
 }
 
+//***************************************************************************
+#include "LowPassPlugin.moc"
 //***************************************************************************
 //***************************************************************************

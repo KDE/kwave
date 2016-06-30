@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Reverse
+Name[ca]=Inverteix
+Name[ca@valencia]=Inverteix
+Name[de]=Umkehren
+Name[en_GB]=Reverse
+Name[es]=Invertir
+Name[gl]=Inverter
+Name[it]=Inverti
+Name[nl]=Omkeren
+Name[pl]=Odwróć
+Name[pt]=Inverter
+Name[pt_BR]=Inverter
+Name[sv]=Vänd
+Name[uk]=Реверс
+Name[x-test]=xxReversexx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=reverse
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

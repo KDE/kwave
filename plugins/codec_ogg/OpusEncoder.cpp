@@ -49,7 +49,6 @@
 #include "config.h"
 
 #include <math.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include <opus/opus_defines.h>
@@ -599,8 +598,8 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     // set up our packet->stream encoder
     // pick a random serial number; that way we can more likely build
     // chained streams just by concatenation
-    srand(QTime::currentTime().msec());
-    ogg_stream_init(&m_os, rand());
+    qsrand(QTime::currentTime().msec() ^ qrand());
+    ogg_stream_init(&m_os, qrand());
 
     return true;
 }

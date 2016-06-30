@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Audiofile Codec
+Name[ca]=Còdec Audiofile
+Name[ca@valencia]=Còdec Audiofile
+Name[de]=Audiofile-Codec
+Name[en_GB]=Audiofile Codec
+Name[es]=Códec Audiofile
+Name[gl]=Códec do ficheiro de son
+Name[it]=Codec Audiofile
+Name[nl]=Audiofile-codec
+Name[pl]=Kodek pliku dźwiękowego
+Name[pt]=Codificação do Audiofile
+Name[pt_BR]=Codificação do Audiofile
+Name[sv]=Audiofil-kodare
+Name[uk]=Кодек Audiofile
+Name[x-test]=xxAudiofile Codecxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=codec_audiofile
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

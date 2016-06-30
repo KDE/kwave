@@ -65,18 +65,17 @@
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
 
-KWAVE_PLUGIN(Kwave::PlayBackPlugin, "playback", "2.4",
-             I18N_NOOP("Playback"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(playback, PlayBackPlugin)
 
 /** test frequency [Hz] */
 #define PLAYBACK_TEST_FREQUENCY 440.0
 
 //***************************************************************************
-Kwave::PlayBackPlugin::PlayBackPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager),
+Kwave::PlayBackPlugin::PlayBackPlugin(QObject *parent,
+                                      const QVariantList &args)
+    :Kwave::Plugin(parent, args),
      m_dialog(0),
-     m_playback_controller(plugin_manager.playbackController()),
+     m_playback_controller(manager().playbackController()),
      m_playback_sink(0)
 {
 }
@@ -481,5 +480,7 @@ void Kwave::PlayBackPlugin::testPlayBack()
     QApplication::restoreOverrideCursor();
 }
 
+//***************************************************************************
+#include "PlayBackPlugin.moc"
 //***************************************************************************
 //***************************************************************************

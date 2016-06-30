@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Normalizer
+Name[ca]=Normalitzador
+Name[ca@valencia]=Normalitzador
+Name[de]=Normalisierer
+Name[en_GB]=Normaliser
+Name[es]=Normalizador
+Name[gl]=Normalizador
+Name[it]=Normalizza
+Name[nl]=Normalisator
+Name[pl]=Normalizator
+Name[pt]=Normalizador
+Name[pt_BR]=Normalizador
+Name[sv]=Normalisering
+Name[uk]=Нормалізатор
+Name[x-test]=xxNormalizerxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=normalize
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

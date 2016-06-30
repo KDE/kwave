@@ -37,13 +37,11 @@
 #include "NoiseGenerator.h"
 #include "NoisePlugin.h"
 
-KWAVE_PLUGIN(Kwave::NoisePlugin, "noise", "2.3",
-             I18N_NOOP("Noise Generator"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(noise, NoisePlugin)
 
 //***************************************************************************
-Kwave::NoisePlugin::NoisePlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::FilterPlugin(plugin_manager), m_level(1.0), m_last_level(0.0)
+Kwave::NoisePlugin::NoisePlugin(QObject *parent, const QVariantList &args)
+    :Kwave::FilterPlugin(parent, args), m_level(1.0), m_last_level(0.0)
 {
 }
 
@@ -142,5 +140,7 @@ void Kwave::NoisePlugin::setNoiseLevel(double level)
     m_level = level;
 }
 
+//***************************************************************************
+#include "NoisePlugin.moc"
 //***************************************************************************
 //***************************************************************************

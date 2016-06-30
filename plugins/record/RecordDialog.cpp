@@ -92,7 +92,8 @@
 
 //***************************************************************************
 Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
-                                  Kwave::RecordController *controller)
+                                  Kwave::RecordController *controller,
+                                  Kwave::RecordDialog::Mode mode)
     :QDialog(parent), Ui::RecordDlg(), m_methods_map(),
      m_file_filter(), m_devices_list_map(),
      m_state(Kwave::REC_EMPTY), m_params(),
@@ -313,8 +314,22 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     if (!bt_done) return;
     connect(bt_done, SIGNAL(clicked(bool)), this, SLOT(accept()));
 
-    // set the focus onto the "Record" button
-    btRecord->setFocus();
+    switch (mode)
+    {
+	case Kwave::RecordDialog::SETTINGS_FORMAT:
+	    tabRecord->setCurrentIndex(1);
+	    break;
+	case Kwave::RecordDialog::SETTINGS_SOURCE:
+	    tabRecord->setCurrentIndex(2);
+	    break;
+	case Kwave::RecordDialog::START_RECORDING:  /* FALLTHROUGH */
+	case Kwave::RecordDialog::SETTINGS_DEFAULT: /* FALLTHROUGH */
+	default:
+	    tabRecord->setCurrentIndex(0);
+	    // set the focus onto the "Record" button
+	    btRecord->setFocus();
+	    break;
+    }
 }
 
 //***************************************************************************
@@ -790,7 +805,9 @@ void Kwave::RecordDialog::sampleRateChanged(const QString &rate)
 }
 
 //***************************************************************************
-void Kwave::RecordDialog::setSupportedCompressions(const QList<int> &comps)
+void Kwave::RecordDialog::setSupportedCompressions(
+    const QList<Kwave::Compression::Type> &comps
+)
 {
     Q_ASSERT(cbFormatCompression);
     if (!cbFormatCompression) return;
@@ -802,7 +819,7 @@ void Kwave::RecordDialog::setSupportedCompressions(const QList<int> &comps)
 	const Kwave::Compression comp(Kwave::Compression::NONE);
 	cbFormatCompression->addItem(comp.name());
     } else {
-	foreach (int c, comps) {
+	foreach (Kwave::Compression::Type c, comps) {
 	    const Kwave::Compression comp(c);
 	    cbFormatCompression->addItem(comp.name(), comp.toInt());
 	}
@@ -824,10 +841,10 @@ void Kwave::RecordDialog::setCompression(int compression)
     } else {
 	bool have_choice = (cbFormatCompression->count() > 1);
 	cbFormatCompression->setEnabled(have_choice);
-	m_params.compression = compression;
+	m_params.compression = Kwave::Compression::fromInt(compression);
     }
 
-    const Kwave::Compression comp(compression);
+    const Kwave::Compression comp(Kwave::Compression::fromInt(compression));
     cbFormatCompression->setCurrentItem(comp.name(), true);
 }
 

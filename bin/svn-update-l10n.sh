@@ -22,13 +22,16 @@ set -e
 CWD=`dirname $0`
 CMAKE_SOURCE_DIR=$1
 
+# REMOTE="svn+ssh://svn@svn.kde.org/home/kde/trunk/l10n-kf5/"
 REMOTE="svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/"
+
 REPOSITORY="${CMAKE_SOURCE_DIR}/l10n-kf5"
 PO_DIR="${CMAKE_SOURCE_DIR}/po"
 DOC_DIR="${CMAKE_SOURCE_DIR}/doc"
 
 CATEGORY="kdereview"
 PO_FILE="kwave.po"
+DESKTOP_PO_FILE="desktop_${CATEGORY}_kwave.po"
 LANG_NAMES_FILE="${DOC_DIR}/teamnames"
 
 function checkout() {
@@ -91,16 +94,27 @@ for lang in ${LINGUAS}; do
 	FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
 	echo ${lang_team} >> ${LANG_NAMES_FILE}
     else
-	checkout "" "${lang}" "docmessages" "language"
+	checkout "" "${lang}" "docs" "${CATEGORY}"
+	svn update --quiet "${lang}/docs/${CATEGORY}/kwave"
 	checkout "" "${lang}" "docmessages" "${CATEGORY}" "${PO_FILE}"
 	if [ ${result} == 1 ] ; then
 	    FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
 	    echo ${lang_team} >> ${LANG_NAMES_FILE}
+	    if test -e "${lang}/docmessages/language" ; then
+		checkout "" "${lang}" "docmessages" "language"
+	    fi
 	fi
     fi
 
+    # get translation of desktop files
+    if test ! -e "${lang}/messages/${CATEGORY}/${DESKTOP_PO_FILE}" ; then
+	checkout "" "${lang}" "messages"    "${CATEGORY}" "${DESKTOP_PO_FILE}"
+    fi
+
     # GUI translation is mandantory
-    checkout "" "${lang}" "messages"    "${CATEGORY}" "${PO_FILE}"
+    if test ! -e "${lang}/messages/${CATEGORY}/${PO_FILE}" ; then
+	checkout "" "${lang}" "messages"    "${CATEGORY}" "${PO_FILE}"
+    fi
     if test -e "${lang}/messages/${CATEGORY}/${PO_FILE}" ; then
 	FOUND_LINGUAS="${FOUND_LINGUAS} ${lang}"
 	cp "${lang}/messages/${CATEGORY}/${PO_FILE}" "${PO_DIR}/${lang}.po"
@@ -108,6 +122,16 @@ for lang in ${LINGUAS}; do
     fi
     echo "done"
 done
+
+if test ! -e "templates/messages/${CATEGORY}/desktop_${CATEGORY}_kwave.pot" ; then
+    checkout "" "templates" "messages" "${CATEGORY}" "desktop_${CATEGORY}_kwave.pot"
+fi
+if test ! -e "templates/messages/${CATEGORY}/kwave.appdata.pot" ; then
+    checkout "" "templates" "messages" "${CATEGORY}" "kwave.appdata.pot"
+fi
+if test ! -e "templates/messages/${CATEGORY}/kwave.pot" ; then
+    checkout "" "templates" "messages" "${CATEGORY}" "kwave.pot"
+fi
 
 # update all existing files in the repository
 svn update
@@ -124,6 +148,9 @@ done
 # or update the existing ones if necessary
 cd "${REPOSITORY}"
 for lang in ${FOUND_HANDBOOKS}; do
+
+    svn update "${lang}/docs/${CATEGORY}/kwave"
+
     if ! test -e "${lang}/docs/${CATEGORY}/kwave/index.docbook" ; then
 	echo -n "${lang}: creating missing index.docbook... "
 	scripts/update_xml ${lang} kdereview kwave > /dev/null

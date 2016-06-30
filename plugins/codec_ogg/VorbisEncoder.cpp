@@ -115,7 +115,7 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
 	    i18n("You have not selected any bitrate for the encoding. "
 	         "Do you want to continue and encode with %1 kBit/s "
 	         "or cancel and choose a different bitrate?",
-	         DEFAULT_BITRATE/1000)) != KMessageBox::Continue)
+	         DEFAULT_BITRATE / 1000)) != KMessageBox::Continue)
 	    return false; // <- canceled
 
 	bitrate_nominal = DEFAULT_BITRATE;
@@ -187,8 +187,8 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     // set up our packet->stream encoder
     // pick a random serial number; that way we can more likely build
     // chained streams just by concatenation
-    srand(QTime::currentTime().msec());
-    ogg_stream_init(&m_os, rand());
+    qsrand(QTime::currentTime().msec() ^ qrand());
+    ogg_stream_init(&m_os, qrand());
 
     return true;
 }

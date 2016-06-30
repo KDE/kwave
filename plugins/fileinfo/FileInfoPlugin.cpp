@@ -26,13 +26,12 @@
 #include "FileInfoDialog.h"
 #include "FileInfoPlugin.h"
 
-KWAVE_PLUGIN(Kwave::FileInfoPlugin, "fileinfo", "2.3",
-             I18N_NOOP("File Info"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(fileinfo, FileInfoPlugin)
 
 //***************************************************************************
-Kwave::FileInfoPlugin::FileInfoPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager)
+Kwave::FileInfoPlugin::FileInfoPlugin(QObject *parent,
+                                      const QVariantList &args)
+    :Kwave::Plugin(parent, args)
 {
 }
 
@@ -118,5 +117,7 @@ void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
     }
 }
 
+//***************************************************************************
+#include "FileInfoPlugin.moc"
 //***************************************************************************
 //***************************************************************************

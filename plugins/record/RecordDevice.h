@@ -20,12 +20,15 @@
 
 #include "config.h"
 
+#include <errno.h>
+
 #include <QByteArray>
 #include <QList>
 #include <QString>
 #include <QStringList>
 
 #include "libkwave/ByteOrder.h"
+#include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/String.h"
 
@@ -44,9 +47,14 @@ namespace Kwave
 	/**
 	 * Open the record device.
 	 * @param dev path of the record device
-	 * @return file descriptor >= 0 or negative error code if failed
+	 * @retval QString::null if successful
+	 * @retval QString::number(ENODEV) if device not found
+	 * @retval QString::number(EBUSY) if device is busy
+	 * @retval QString::number(EINVAL) on invalid parameters
+	 * @retval QString(...) device specific error message
+	 *                      (already translated)
 	 */
-	virtual int open(const QString &dev) = 0;
+	virtual QString open(const QString &dev) = 0;
 
 	/**
 	 * Read the raw audio data from the record device.
@@ -61,9 +69,7 @@ namespace Kwave
 	virtual int close() = 0;
 
 	/** return a string list with supported device names */
-	virtual QStringList supportedDevices() {
-	    return QStringList();
-	}
+	virtual QStringList supportedDevices() = 0;
 
 	/** return a string suitable for a "File Open..." dialog */
 	virtual QString fileFilter() { return _(""); }
@@ -110,7 +116,7 @@ namespace Kwave
 	 * Gets a list of supported compression types. If no compression is
 	 * supported, the list might be empty.
 	 */
-	virtual QList<int> detectCompressions() = 0;
+	virtual QList<Kwave::Compression::Type> detectCompressions() = 0;
 
 	/**
 	 * Try to set a new compression type.
@@ -118,10 +124,10 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class Kwave::Compression
 	 */
-	virtual int setCompression(int new_compression) = 0;
+	virtual int setCompression(Kwave::Compression::Type new_compression) = 0;
 
 	/** Returns the current compression type (0==none) */
-	virtual int compression() = 0;
+	virtual Kwave::Compression::Type compression() = 0;
 
 	/**
 	 * Detect a list of supported bits per sample.

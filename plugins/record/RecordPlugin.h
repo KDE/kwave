@@ -24,6 +24,7 @@
 #include <QList>
 #include <QString>
 #include <QStringList>
+#include <QTimer>
 #include <QVector>
 
 #include "libkwave/MultiTrackWriter.h"
@@ -52,14 +53,15 @@ namespace Kwave
 	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit RecordPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	RecordPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~RecordPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/** @see Kwave::Plugin::setup() */
 	virtual QStringList *setup(QStringList &previous_params);
@@ -147,7 +149,7 @@ namespace Kwave
 	void changeSampleRate(double new_rate);
 
 	/** change compression type */
-	void changeCompression(int new_compression);
+	void changeCompression(Kwave::Compression::Type new_compression);
 
 	/** select a new resolution [bits/sample] */
 	void changeBitsPerSample(unsigned int new_bits);
@@ -163,6 +165,9 @@ namespace Kwave
 
 	/** the prerecording checkbox has changed */
 	void prerecordingChanged(bool enable);
+
+	/** try to open the record device, in case it was busy before */
+	void retryOpen();
 
     private:
 
@@ -272,6 +277,9 @@ namespace Kwave
 
 	/** buffer for trigger values */
 	QVector<float> m_trigger_value;
+
+	/** timer for retrying "open" */
+	QTimer m_retry_timer;
 
     };
 }

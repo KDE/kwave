@@ -81,8 +81,9 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
     // determine which codec (sub encoder) to use,
     // by examining the compression type
-    const int compression = info.contains(Kwave::INF_COMPRESSION) ?
-        info.get(Kwave::INF_COMPRESSION).toInt() : Kwave::Compression::NONE;
+    const Kwave::Compression::Type compression =
+	info.contains(Kwave::INF_COMPRESSION) ? Kwave::Compression::fromInt(
+	info.get(Kwave::INF_COMPRESSION).toInt()) : Kwave::Compression::NONE;
 
 #ifdef HAVE_OGG_OPUS
     if (compression == Compression::OGG_OPUS) {

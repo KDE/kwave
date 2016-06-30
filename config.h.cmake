@@ -90,8 +90,11 @@
 /* Name of package */
 #cmakedefine PACKAGE "@PACKAGE@"
 
-/* Define to the version of this package. */
+/* Define to the full version, including patch level */
 #cmakedefine PACKAGE_VERSION "@PACKAGE_VERSION@"
+
+/* Define to the version without patch level */
+#cmakedefine PACKAGE_SHORT_VERSION "@PACKAGE_SHORT_VERSION@"
 
 /* suffix of executable files */
 #cmakedefine EXECUTABLE_SUFFIX @CMAKE_EXECUTABLE_SUFFIX@
@@ -99,9 +102,8 @@
 /* enable memory management debug code */
 #cmakedefine DEBUG_MEMORY
 
-/* install dirs of the plugins */
-#cmakedefine QT_PLUGIN_INSTALL_DIR "@CMAKE_INSTALL_PREFIX@/@QT_PLUGIN_INSTALL_DIR@"
-#cmakedefine PLUGIN_INSTALL_DIR "@CMAKE_INSTALL_PREFIX@/@PLUGIN_INSTALL_DIR@"
+/* libaudiofile knows FLAC compression */
+#cmakedefine HAVE_AF_COMPRESSION_FLAC
 
 /***************************************************************************/
 /***************************************************************************/

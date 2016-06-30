@@ -128,7 +128,12 @@ BuildRequires:  update-desktop-files
 %define EXTRA_OPTS ""
 %define MP3ENABLED "-DWITH_MP3=OFF"
 %define FDUPES %fdupes -s %{buildroot}
+%if 0%{?suse_version} == 1315
+# Leap 42.1 still uses old plugin dir
 %define _kf5_modulesdir %{_libdir}/plugins
+%else
+%define _kf5_modulesdir %{_libdir}/qt5/plugins
+%endif
 %endif
 
 # # Fedora specific:
@@ -250,10 +255,12 @@ make -C build DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 %doc GNU-LICENSE AUTHORS LICENSES CHANGES README TODO kwave.lsm
 %{_bindir}/%name
 %{_kf5_applicationsdir}/%{name}.desktop
+%{_prefix}/share/appdata
 %{_prefix}/share/appdata/kwave.appdata.xml
 %{_libdir}/libkwave*
 %{_kf5_appsdir}/%{name}
 %{_kf5_iconsdir}/*
+%{_kf5_modulesdir}
 %{_kf5_modulesdir}/kwaveplugin_*.so
 %exclude %{_kf5_htmldir}/*/%{name}
 

@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Debug Functions
+Name[ca]=Funcions de depuració
+Name[ca@valencia]=Funcions de depuració
+Name[de]=Debug-Funktionen
+Name[en_GB]=Debug Functions
+Name[es]=Funciones de depuración
+Name[gl]=Funcións de depuración
+Name[it]=Funzioni di debug
+Name[nl]=Debugfuncties
+Name[pl]=Funkcje diagnostyczne
+Name[pt]=Funções de Depuração
+Name[pt_BR]=Funções de depuração
+Name[sv]=Felsökningsfunktioner
+Name[uk]=Функції діагностики
+Name[x-test]=xxDebug Functionsxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=debug
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

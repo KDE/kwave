@@ -40,13 +40,12 @@
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
 
-KWAVE_PLUGIN(Kwave::SaveBlocksPlugin, "saveblocks", "2.4",
-             I18N_NOOP("Save Blocks"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(saveblocks, SaveBlocksPlugin)
 
 //***************************************************************************
-Kwave::SaveBlocksPlugin::SaveBlocksPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager),
+Kwave::SaveBlocksPlugin::SaveBlocksPlugin(QObject *parent,
+                                          const QVariantList &args)
+    :Kwave::Plugin(parent, args),
      m_url(), m_pattern(), m_numbering_mode(CONTINUE),
      m_selection_only(true), m_block_info()
 {
@@ -697,5 +696,7 @@ void Kwave::SaveBlocksPlugin::updateExample(const QString &filename,
     emit sigNewExample(Kwave::Parser::unescape(example));
 }
 
+//***************************************************************************
+#include "SaveBlocksPlugin.moc"
 //***************************************************************************
 //***************************************************************************

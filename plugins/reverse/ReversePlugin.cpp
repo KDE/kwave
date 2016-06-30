@@ -41,14 +41,12 @@
 #include "ReversePlugin.h"
 #include "UndoReverseAction.h"
 
-KWAVE_PLUGIN(Kwave::ReversePlugin, "reverse", "2.3",
-             I18N_NOOP("Reverse"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(reverse, ReversePlugin)
 
 //***************************************************************************
-//***************************************************************************
-Kwave::ReversePlugin::ReversePlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager)
+Kwave::ReversePlugin::ReversePlugin(QObject *parent,
+                                    const QVariantList &args)
+    :Kwave::Plugin(parent, args)
 {
 }
 
@@ -224,5 +222,7 @@ void Kwave::ReversePlugin::updateProgress(qreal progress)
     Kwave::Plugin::updateProgress(progress + progress);
 }
 
+//***************************************************************************
+#include "ReversePlugin.moc"
 //***************************************************************************
 //***************************************************************************

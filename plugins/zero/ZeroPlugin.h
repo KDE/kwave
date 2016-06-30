@@ -40,14 +40,15 @@ namespace Kwave
 
     public:
 
-	/** Constructor */
-	explicit ZeroPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	ZeroPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~ZeroPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/**
 	 * Fills the selected area with zeroes

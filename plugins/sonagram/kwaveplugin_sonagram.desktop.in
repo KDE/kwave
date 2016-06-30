@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Sonagram
+Name[ca]=Sonograma
+Name[ca@valencia]=Sonograma
+Name[de]=Sonagramm
+Name[en_GB]=Sonagram
+Name[es]=Sonagrama
+Name[gl]=Sonograma
+Name[it]=Sonogramma
+Name[nl]=Sonagram
+Name[pl]=Sonagram
+Name[pt]=Audiograma
+Name[pt_BR]=Audiograma
+Name[sv]=Sonogram
+Name[uk]=Сонаграма
+Name[x-test]=xxSonagramxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=sonagram
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

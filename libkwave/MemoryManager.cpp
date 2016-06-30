@@ -29,13 +29,13 @@
 #include <QString>
 
 #ifdef HAVE_SYSINFO
-#endif
 #include <linux/kernel.h> // for struct sysinfo
 #include <sys/sysinfo.h>  // for sysinfo()
+#endif
 
 #ifdef HAVE_GETRLIMIT
-#endif
 #include <sys/resource.h> // for getrlimit()
+#endif
 
 #include "libkwave/MemoryManager.h"
 #include "libkwave/String.h"

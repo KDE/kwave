@@ -30,14 +30,15 @@ namespace Kwave
 	Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit WavCodecPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	WavCodecPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~WavCodecPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/** Creates a new decoder instance */
 	virtual Kwave::Decoder *createDecoder();

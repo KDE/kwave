@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=WAV Codec
+Name[ca]=Còdec WAV
+Name[ca@valencia]=Còdec WAV
+Name[de]=WAV-Codec
+Name[en_GB]=WAV Codec
+Name[es]=Códec WAV
+Name[gl]=Códec de WAV
+Name[it]=Codec WAV
+Name[nl]=WAV-codec
+Name[pl]=Kodek WAV
+Name[pt]=Codificação em WAV
+Name[pt_BR]=Codec de WAV
+Name[sv]=WAV-kodare
+Name[uk]=Кодек WAV
+Name[x-test]=xxWAV Codecxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=codec_wav
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

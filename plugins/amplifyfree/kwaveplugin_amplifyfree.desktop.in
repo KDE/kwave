@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Amplify Free
+Name[ca]=Amplifica amb llibertat
+Name[ca@valencia]=Amplifica amb llibertat
+Name[de]=Frei verstärken
+Name[en_GB]=Amplify Free
+Name[es]=Amplificación libre
+Name[gl]=Amplificar libremente
+Name[it]=Amplificazione libera
+Name[nl]=Vrij versterken
+Name[pl]=Dowolne wzmocnienie
+Name[pt]=Amplificação Livre
+Name[pt_BR]=Amplificação livre
+Name[sv]=Fri förstärkning
+Name[uk]=Довільне підсилення
+Name[x-test]=xxAmplify Freexx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=amplifyfree
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

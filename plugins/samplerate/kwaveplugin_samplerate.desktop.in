@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Sample Rate Conversion
+Name[ca]=Conversió de la freqüència de mostreig
+Name[ca@valencia]=Conversió de la freqüència de mostreig
+Name[de]=Abtastrate ändern
+Name[en_GB]=Sample Rate Conversion
+Name[es]=Conversión de la frecuencia de muestreo
+Name[gl]=Conversión da taxa de mostraxe
+Name[it]=Conversione frequenza
+Name[nl]=Samplesnelheid converteren
+Name[pl]=Przekształcanie próbkowania
+Name[pt]=Conversão da Taxa de Amostragem
+Name[pt_BR]=Conversão da taxa de amostragem
+Name[sv]=Konvertering av samplingsfrekvens
+Name[uk]=Зміна частоти дискретизації
+Name[x-test]=xxSample Rate Conversionxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=samplerate
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

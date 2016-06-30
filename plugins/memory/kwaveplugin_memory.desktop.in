@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Memory Settings
+Name[ca]=Ajustaments de la memòria
+Name[ca@valencia]=Ajustaments de la memòria
+Name[de]=Speicher-Einstellungen
+Name[en_GB]=Memory Settings
+Name[es]=Ajustes de memoria
+Name[gl]=Opcións de memoria
+Name[it]=Impostazioni memoria
+Name[nl]=Geheugeninstellingen
+Name[pl]=Ustawienia pamięci
+Name[pt]=Configuração da Memória
+Name[pt_BR]=Configuração da memória
+Name[sv]=Minnesinställningar
+Name[uk]=Параметри пам’яті
+Name[x-test]=xxMemory Settingsxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=memory
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.4
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

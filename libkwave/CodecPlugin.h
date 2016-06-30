@@ -42,17 +42,14 @@ namespace Kwave
 
 	/**
 	 * Constructor
-	 *
-	 * @param plugin_manager reference to the corresponding plugin manager
+	 * @param parent pointer to the corresponding plugin manager
+	 * @param args argument list, containts internal meta data
 	 * @param codec reference to a static container for the codec
 	 */
-	CodecPlugin(PluginManager &plugin_manager, Codec &codec);
+	CodecPlugin(QObject *parent, const QVariantList &args, Codec &codec);
 
 	/** Destructor */
 	virtual ~CodecPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const = 0;
 
 	/**
 	 * Gets called when the plugin is first loaded. Registers new encoder

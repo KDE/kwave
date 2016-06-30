@@ -37,14 +37,15 @@ namespace Kwave
 
     public:
 
-	/** Constructor */
-	explicit StringEnterPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	StringEnterPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~StringEnterPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/** @see Kwave::Plugin::load() */
 	virtual void load(QStringList &params);

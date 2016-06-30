@@ -38,8 +38,8 @@
 #include "libgui/FilterPlugin.h"
 
 //***************************************************************************
-Kwave::FilterPlugin::FilterPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager),
+Kwave::FilterPlugin::FilterPlugin(QObject *parent, const QVariantList &args)
+    :Kwave::Plugin(parent, args),
      m_params(), m_listen(false), m_pause(false), m_sink(0)
 {
 }

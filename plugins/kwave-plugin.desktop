@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=ServiceType
+X-KDE-ServiceType=Kwave/Plugin
+Comment=Kwave Plugin
+Comment[ca]=Connector del Kwave
+Comment[ca@valencia]=Connector del Kwave
+Comment[de]=Kwave-Modul
+Comment[en_GB]=Kwave Plugin
+Comment[es]=Complemento de Kwave
+Comment[gl]=Complemento de Kwave
+Comment[it]=Estensione Kwave
+Comment[nl]=Kwave-plug-in
+Comment[pl]=Wtyczka Kwave
+Comment[pt]='Plugin' do Kwave
+Comment[pt_BR]=Plugin do Kwave
+Comment[sv]=Kwave-insticksmodul
+Comment[uk]=Додаток до Kwave
+Comment[x-test]=xxKwave Pluginxx

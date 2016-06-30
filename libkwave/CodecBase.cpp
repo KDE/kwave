@@ -80,7 +80,7 @@ void Kwave::CodecBase::addMimeType(const char *name,
 }
 
 /***************************************************************************/
-void Kwave::CodecBase::addCompression(int compression)
+void Kwave::CodecBase::addCompression(Kwave::Compression::Type compression)
 {
     if (m_supported_compression_types.contains(compression)) return;
 
@@ -122,7 +122,7 @@ const QList<Kwave::CodecBase::MimeType> Kwave::CodecBase::mimeTypes()
 }
 
 /***************************************************************************/
-const QList<int> Kwave::CodecBase::compressionTypes()
+const QList<Kwave::Compression::Type> Kwave::CodecBase::compressionTypes()
 {
     return m_supported_compression_types;
 }

@@ -20,21 +20,21 @@
 #include <KLocalizedString>
 
 #include "libkwave/CodecManager.h"
+#include "libkwave/PluginManager.h"
 
 #include "AsciiCodecPlugin.h"
 #include "AsciiDecoder.h"
 #include "AsciiEncoder.h"
 
-KWAVE_PLUGIN(Kwave::AsciiCodecPlugin, "codec_ascii", "2.3",
-             I18N_NOOP("ASCII Codec"),
-             I18N_NOOP("Thomas Eschenbacher"));
-
 // static instance of the codec container
 Kwave::CodecPlugin::Codec Kwave::AsciiCodecPlugin::m_codec = {0, 0, 0};
 
+KWAVE_PLUGIN(codec_ascii, AsciiCodecPlugin)
+
 /***************************************************************************/
-Kwave::AsciiCodecPlugin::AsciiCodecPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::CodecPlugin(plugin_manager, m_codec)
+Kwave::AsciiCodecPlugin::AsciiCodecPlugin(QObject *parent,
+                                          const QVariantList &args)
+    :Kwave::CodecPlugin(parent, args, m_codec)
 {
 }
 
@@ -55,5 +55,7 @@ Kwave::Encoder *Kwave::AsciiCodecPlugin::createEncoder()
     return new Kwave::AsciiEncoder();
 }
 
+/***************************************************************************/
+#include "AsciiCodecPlugin.moc"
 /***************************************************************************/
 /***************************************************************************/

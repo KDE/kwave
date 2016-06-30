@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Pitch Shift
+Name[ca]=Desplaça el to
+Name[ca@valencia]=Desplaça el to
+Name[de]=Tonverschiebung
+Name[en_GB]=Pitch Shift
+Name[es]=Desplazamiento del tono
+Name[gl]=Cambio de ton
+Name[it]=Pitch shift
+Name[nl]=Pitch schuif
+Name[pl]=Przesunięcie tonu
+Name[pt]=Desvio de Tom
+Name[pt_BR]=Desvio de tom
+Name[sv]=Tonhöjdsändring
+Name[uk]=Зсув тону
+Name[x-test]=xxPitch Shiftxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=pitch_shift
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

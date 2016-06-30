@@ -24,6 +24,7 @@
 #include <QString>
 #include <QStringList>
 
+#include "libkwave/Compression.h"
 #include "libkwave/SampleFormat.h"
 
 namespace Kwave
@@ -36,9 +37,10 @@ namespace Kwave
     typedef enum {
 	RECORD_NONE = 0,   /**< none selected */
 	RECORD_JACK,       /**< Jack sound daemon */
+	RECORD_QT,         /**< Qt Multimedia Audio */
+	RECORD_PULSEAUDIO, /**< PulseAudio sound daemon */
 	RECORD_ALSA,       /**< ALSA native */
 	RECORD_OSS,        /**< OSS native or ALSA OSS emulation */
-	RECORD_PULSEAUDIO, /**< PulseAudio sound daemon */
 	RECORD_INVALID     /**< (keep this the last entry, EOL delimiter) */
     } record_method_t;
 
@@ -99,7 +101,7 @@ namespace Kwave
 	QString device_name;		/**< name of the input device */
 	unsigned int tracks;		/**< number of tracks */
 	double sample_rate;		/**< sample rate in samples/second */
-	int compression;		/**< compression index or -1 */
+	Kwave::Compression::Type compression; /**< compression type        */
 	unsigned int bits_per_sample;	/**< resolution in bits per sample */
 	Kwave::SampleFormat::Format sample_format;  /**< sample format */
 

@@ -21,8 +21,6 @@
 #include <math.h>
 #include <string.h>
 
-#include <KLocalizedString> // for the i18n macro
-
 #include <QByteArray>
 #include <QCoreApplication>
 #include <QDir>
@@ -32,7 +30,7 @@
 #include <QRect>
 #include <QScreen>
 #include <QStringList>
-#include <QTimer>
+#include <QWindow>
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -42,6 +40,9 @@
 #include <QPixmap>
 #include <QtEvents>
 
+#include <KLocalizedString> // for the i18n macro
+
+#include "libkwave/Logger.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/PluginManager.h"
@@ -55,9 +56,7 @@
 
 #include "DebugPlugin.h"
 
-KWAVE_PLUGIN(Kwave::DebugPlugin, "debug", "2.3",
-             I18N_NOOP("Debug Functions"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(debug, DebugPlugin)
 
 /** size of the internal buffer */
 #define BUFFER_SIZE (64 * 1024)
@@ -67,8 +66,9 @@ KWAVE_PLUGIN(Kwave::DebugPlugin, "debug", "2.3",
     emitCommand(entry.arg(_(cmd)).arg(txt));
 
 //***************************************************************************
-Kwave::DebugPlugin::DebugPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager), m_buffer()
+Kwave::DebugPlugin::DebugPlugin(QObject *parent,
+                                const QVariantList &args)
+    :Kwave::Plugin(parent, args), m_buffer()
 {
 }
 
@@ -441,14 +441,22 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
     if (!widget) return;
 
     // get the outer frame geometry, absolute coordinates
-    QRect rect = widget->frameGeometry();
+    const QRect rect = widget->windowHandle()->frameGeometry();
     QScreen *screen = QGuiApplication::primaryScreen();
+    Q_ASSERT(screen);
     if (!screen) return;
     QPixmap pixmap = screen->grabWindow(
 	QApplication::desktop()->winId(),
 	rect.x(), rect.y(),
 	rect.width(), rect.height()
     );
+
+    QString str;
+    str = str.sprintf("screenshot of %s - [%p] %d/%d %dx%d",
+	DBG(filename), static_cast<void*>(widget),
+	rect.x(), rect.y(), rect.width(), rect.height()
+    );
+    Kwave::Logger::log(this, Logger::Info, str);
 
     // make sure the directory exists
     QFileInfo file(filename);
@@ -459,5 +467,7 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
     pixmap.save(filename, "PNG", 90);
 }
 
+//***************************************************************************
+#include "DebugPlugin.moc"
 //***************************************************************************
 //***************************************************************************

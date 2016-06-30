@@ -26,13 +26,11 @@
 #include "AboutDialog.h"
 #include "AboutPlugin.h"
 
-KWAVE_PLUGIN(Kwave::AboutPlugin, "about", "2.3",
-             I18N_NOOP("About Kwave"),
-             I18N_NOOP("Ralf Waspe & Gilles Caulier"));
+KWAVE_PLUGIN(about, AboutPlugin)
 
 //***************************************************************************
-Kwave::AboutPlugin::AboutPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager)
+Kwave::AboutPlugin::AboutPlugin(QObject *parent, const QVariantList &args)
+    :Kwave::Plugin(parent, args)
 {
 }
 
@@ -54,5 +52,7 @@ int Kwave::AboutPlugin::start(QStringList& params)
     return 0;
 }
 
+//***************************************************************************
+#include "AboutPlugin.moc"
 //***************************************************************************
 //***************************************************************************

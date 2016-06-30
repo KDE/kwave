@@ -36,7 +36,7 @@ Kwave::RecordParams::RecordParams()
     device_name(_("plug:dsnoop")),
     tracks(2),
     sample_rate(44100.0),
-    compression(0),
+    compression(Kwave::Compression::NONE),
     bits_per_sample(16),
     sample_format(Kwave::SampleFormat::Unknown),
     buffer_count(32),
@@ -61,7 +61,7 @@ int Kwave::RecordParams::fromList(const QStringList &list)
     int index = 0;
 
     // check number of elements
-    if (list.count() != 25) return -EINVAL;
+    if (list.count() != 17) return -EINVAL;
 
     // recording method
     unsigned int method_index;
@@ -96,21 +96,21 @@ int Kwave::RecordParams::fromList(const QStringList &list)
     GET(record_trigger_enabled, toUInt);
     GET(record_trigger, toUInt);
 
-    // amplification
-    GET(amplification_enabled, toUInt);
-    GET(amplification, toInt);
-
-    // AGC
-    GET(agc_enabled, toUInt);
-    GET(agc_decay, toUInt);
-
-    // fade in
-    GET(fade_in_enabled, toUInt);
-    GET(fade_in_time, toUInt);
-
-    // fade out
-    GET(fade_out_enabled, toUInt);
-    GET(fade_out_time, toUInt);
+//     // amplification
+//     GET(amplification_enabled, toUInt);
+//     GET(amplification, toInt);
+//
+//     // AGC
+//     GET(agc_enabled, toUInt);
+//     GET(agc_decay, toUInt);
+//
+//     // fade in
+//     GET(fade_in_enabled, toUInt);
+//     GET(fade_in_time, toUInt);
+//
+//     // fade out
+//     GET(fade_out_enabled, toUInt);
+//     GET(fade_out_time, toUInt);
 
     // device name
     device_name = list[index++];
@@ -118,7 +118,9 @@ int Kwave::RecordParams::fromList(const QStringList &list)
     // tracks, sample rate, compression, sample format, bits per sample
     GET(tracks, toUInt);
     GET(sample_rate, toDouble);
-    GET(compression, toUInt);
+    int ct;
+    GET(ct, toInt);
+    compression = Kwave::Compression::fromInt(ct);
     GET(bits_per_sample, toUInt);
 
     int sf;
@@ -159,21 +161,21 @@ QStringList Kwave::RecordParams::toList() const
     PUT(record_trigger_enabled);
     PUT(record_trigger);
 
-    // amplification
-    PUT(amplification_enabled);
-    PUT(amplification);
-
-    // AGC
-    PUT(agc_enabled);
-    PUT(agc_decay);
-
-    // fade in
-    PUT(fade_in_enabled);
-    PUT(fade_in_time);
-
-    // fade out
-    PUT(fade_out_enabled);
-    PUT(fade_out_time);
+//     // amplification
+//     PUT(amplification_enabled);
+//     PUT(amplification);
+//
+//     // AGC
+//     PUT(agc_enabled);
+//     PUT(agc_decay);
+//
+//     // fade in
+//     PUT(fade_in_enabled);
+//     PUT(fade_in_time);
+//
+//     // fade out
+//     PUT(fade_out_enabled);
+//     PUT(fade_out_time);
 
     // device name
     list += device_name;

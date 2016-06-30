@@ -174,32 +174,33 @@ static Kwave::byte_order_t endian_of(snd_pcm_format_t fmt)
 }
 
 //***************************************************************************
-static int compression_of(snd_pcm_format_t fmt)
+static Kwave::Compression::Type compression_of(snd_pcm_format_t fmt)
 {
-    int f = Kwave::Compression::NONE;
+    Kwave::Compression::Type c = Kwave::Compression::NONE;
     switch (fmt) {
 	case SND_PCM_FORMAT_MU_LAW:
-	    f = Kwave::Compression::G711_ULAW;    break;
+	    c = Kwave::Compression::G711_ULAW;    break;
 	case SND_PCM_FORMAT_A_LAW:
-	    f = Kwave::Compression::G711_ALAW;    break;
+	    c = Kwave::Compression::G711_ALAW;    break;
 	case SND_PCM_FORMAT_IMA_ADPCM:
-	    f = Kwave::Compression::MS_ADPCM;     break;
+	    c = Kwave::Compression::MS_ADPCM;     break;
 	case SND_PCM_FORMAT_MPEG:
-	    f = Kwave::Compression::MPEG_LAYER_I; break;
+	    c = Kwave::Compression::MPEG_LAYER_I; break;
 	case SND_PCM_FORMAT_GSM:
-	    f = Kwave::Compression::GSM;          break;
+	    c = Kwave::Compression::GSM;          break;
 	default:
 	    break;
     }
-    return f;
+    return c;
 }
 
 //***************************************************************************
 Kwave::RecordALSA::RecordALSA()
     :Kwave::RecordDevice(), m_handle(0), m_hw_params(0),
      m_sw_params(0), m_open_result(0), m_tracks(0),
-     m_rate(0.0), m_compression(0), m_bits_per_sample(0),
-     m_bytes_per_sample(0), m_sample_format(Kwave::SampleFormat::Unknown),
+     m_rate(0.0), m_compression(Kwave::Compression::NONE),
+     m_bits_per_sample(0), m_bytes_per_sample(0),
+     m_sample_format(Kwave::SampleFormat::Unknown),
      m_supported_formats(), m_initialized(false), m_buffer_size(0),
      m_chunk_size(0)
 {
@@ -270,7 +271,7 @@ void Kwave::RecordALSA::detectSupportedFormats()
 }
 
 //***************************************************************************
-int Kwave::RecordALSA::open(const QString &device)
+QString Kwave::RecordALSA::open(const QString &device)
 {
 //     qDebug("RecordALSA::open(%s)", DBG(device));
 
@@ -278,17 +279,17 @@ int Kwave::RecordALSA::open(const QString &device)
     if (m_handle) close();
     m_initialized = false;
 
-    if (!device.length()) return -1; // no device name
+    if (!device.length()) return QString::number(EINVAL); // no device name
 
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
     qDebug("RecordALSA::open -> '%s'", DBG(alsa_device));
 
-    if (!alsa_device.length()) return -ENOENT;
+    if (!alsa_device.length()) return QString::number(EINVAL);
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
-    if (alsa_device.endsWith(_(","))) return -ENOENT;
+    if (alsa_device.endsWith(_(","))) return QString::number(EINVAL);
 
     // open the device in case it's not already open
     m_open_result = snd_pcm_open(&m_handle, alsa_device.toLocal8Bit().data(),
@@ -299,13 +300,29 @@ int Kwave::RecordALSA::open(const QString &device)
 	qWarning("RecordALSA::openDevice('%s') - failed, err=%d (%s)",
 	         DBG(alsa_device),
 	         m_open_result, snd_strerror(m_open_result));
-	return m_open_result;
+
+	QString reason;
+	switch (m_open_result) {
+	    case -ENOENT:
+	    case -ENODEV:
+	    case -ENXIO:
+	    case -EIO:
+		reason = QString::number(ENODEV);
+		break;
+	    case -EBUSY:
+		reason = QString::number(EBUSY);
+		break;
+	    default:
+		reason = i18n(snd_strerror(m_open_result));
+		break;
+	}
+	return reason;
     }
 
     // now we can detect all supported formats
     detectSupportedFormats();
 
-    return 0;
+    return QString::null;
 }
 
 //***************************************************************************
@@ -558,7 +575,7 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
     // do not read more than one chunk at a time
     if (samples > m_chunk_size) samples = m_chunk_size;
 
-#if 0
+#ifdef DEBUG
     // just for debugging: detect state changes of the device
     static snd_pcm_state_t last_state = SND_PCM_STATE_DISCONNECTED;
     snd_pcm_state_t state = snd_pcm_state(m_handle);
@@ -594,7 +611,7 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
 	}
 	last_state = state;
     }
-#endif
+#endif /* DEBUG */
 
     // try to read as much as the device accepts
     Q_ASSERT(samples);
@@ -789,7 +806,8 @@ double Kwave::RecordALSA::sampleRate()
 }
 
 //***************************************************************************
-int Kwave::RecordALSA::mode2format(int compression, int bits,
+int Kwave::RecordALSA::mode2format(Kwave::Compression::Type compression,
+                                   int bits,
                                    Kwave::SampleFormat::Format sample_format)
 {
     // loop over all supported formats and keep only those that are
@@ -815,15 +833,15 @@ int Kwave::RecordALSA::mode2format(int compression, int bits,
 }
 
 //***************************************************************************
-QList<int> Kwave::RecordALSA::detectCompressions()
+QList<Kwave::Compression::Type> Kwave::RecordALSA::detectCompressions()
 {
-    QList<int> list;
+    QList<Kwave::Compression::Type> list;
 
     // try all known sample formats
     foreach(int it, m_supported_formats)
     {
 	const snd_pcm_format_t *fmt = &(_known_formats[it]);
-	int compression = compression_of(*fmt);
+	Kwave::Compression::Type compression = compression_of(*fmt);
 
 	// do not produce duplicates
 	if (list.contains(compression)) continue;
@@ -838,15 +856,15 @@ QList<int> Kwave::RecordALSA::detectCompressions()
 }
 
 //***************************************************************************
-int Kwave::RecordALSA::setCompression(int new_compression)
+int Kwave::RecordALSA::setCompression(Kwave::Compression::Type new_compression)
 {
     if (m_compression != new_compression) m_initialized = false;
     m_compression = new_compression;
-    return m_compression;
+    return 0;
 }
 
 //***************************************************************************
-int Kwave::RecordALSA::compression()
+Kwave::Compression::Type Kwave::RecordALSA::compression()
 {
     return m_compression;
 }

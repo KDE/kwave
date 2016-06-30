@@ -44,13 +44,13 @@ ENDMACRO(GET_LSM)
 SET(PACKAGE "kwave")
 SET(PACKAGE_VERSION "${KWAVE_VERSION_FULL}")
 
-SET(RPM_SHORT_VERSION "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSION_RELEASE}")
+SET(PACKAGE_SHORT_VERSION "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSION_RELEASE}")
 IF (KWAVE_VERSION_PATCHLEVEL)
     SET(RPM_RELEASE ${KWAVE_VERSION_PATCHLEVEL})
 ELSE (KWAVE_VERSION_PATCHLEVEL)
     SET(RPM_RELEASE "1")
 ENDIF (KWAVE_VERSION_PATCHLEVEL)
-SET(RPM_FULL_VERSION "${RPM_SHORT_VERSION}-${RPM_RELEASE}")
+SET(RPM_FULL_VERSION "${PACKAGE_SHORT_VERSION}-${RPM_RELEASE}")
 
 SET(RPM_GROUP "X11/Applications/Sound")
 GET_LSM(RPM_DESCRIPTION "Description")
@@ -130,7 +130,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_tarball_bz2}
         -c
         --exclude=.git --exclude=testfiles --exclude=*~
         --transform=s+^./++g
-        --transform=s+^+kwave-${RPM_SHORT_VERSION}/+g
+        --transform=s+^+kwave-${PACKAGE_SHORT_VERSION}/+g
         --owner=root --group=root --mode=a+rX,go-w
         -C ${CMAKE_SOURCE_DIR}
         -f ${_tarball}
@@ -138,7 +138,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_tarball_bz2}
     COMMAND ${TAR_EXECUTABLE} --append -f ${_tarball}
         --owner=root --group=root --mode=a+rX,go-w
         -C ${DISTFILES_DIR}
-        --transform=s+^+kwave-${RPM_SHORT_VERSION}/+g
+        --transform=s+^+kwave-${PACKAGE_SHORT_VERSION}/+g
         kwave.spec
     COMMAND ${RM_EXECUTABLE} -f ${_tarball_bz2}
     COMMAND ${BZIP2_EXECUTABLE} ${_tarball}

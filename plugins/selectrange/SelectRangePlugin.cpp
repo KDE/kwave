@@ -31,14 +31,12 @@
 #include "SelectRangeDialog.h"
 #include "SelectRangePlugin.h"
 
-KWAVE_PLUGIN(Kwave::SelectRangePlugin, "selectrange", "2.3",
-             I18N_NOOP("Select Range"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(selectrange, SelectRangePlugin)
 
 //***************************************************************************
-Kwave::SelectRangePlugin::SelectRangePlugin(
-    Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager),
+Kwave::SelectRangePlugin::SelectRangePlugin(QObject *parent,
+                                            const QVariantList &args)
+    :Kwave::Plugin(parent, args),
      m_start_mode(Kwave::SelectTimeWidget::bySamples),
      m_range_mode(Kwave::SelectTimeWidget::bySamples),
      m_start(0), m_range(0)
@@ -100,17 +98,21 @@ int Kwave::SelectRangePlugin::start(QStringList &params)
     int result = interpreteParameters(params);
     if (result) return result;
 
+    const sample_index_t signal_length = signalLength();
+
     // get current offset of the signal
     sample_index_t offset = Kwave::SelectTimeWidget::timeToSamples(
-	m_start_mode, m_start, signalRate(), signalLength());
+	m_start_mode, m_start, signalRate(), signal_length);
 
     // transform into offset and length [samples]
     sample_index_t length = Kwave::SelectTimeWidget::timeToSamples(
-	m_range_mode, m_range, signalRate(), signalLength());
+	m_range_mode, m_range, signalRate(), signal_length);
 
     // limit selection to end of signal
-    if ((offset + length) >= signalLength())
-	length = signalLength() - offset;
+    if (length > signal_length)
+	length = signal_length;
+    if ((offset + length) >= signal_length)
+	length = signal_length - offset;
 
     // change the selection through the signal manager
     {
@@ -183,5 +185,7 @@ int Kwave::SelectRangePlugin::interpreteParameters(QStringList &params)
     return 0;
 }
 
+//***************************************************************************
+#include "SelectRangePlugin.moc"
 //***************************************************************************
 //***************************************************************************

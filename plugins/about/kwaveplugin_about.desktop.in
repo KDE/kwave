@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=About Kwave
+Name[ca]=Quant al Kwave
+Name[ca@valencia]=Quant al Kwave
+Name[de]=Über Kwave
+Name[en_GB]=About Kwave
+Name[es]=Acerca de Kwave
+Name[gl]=Acerca de Kwave
+Name[it]=Informazioni su Kwave
+Name[nl]=Info over Kwave
+Name[pl]=O Kwave
+Name[pt]=Acerca do Kwave
+Name[pt_BR]=Sobre o Kwave
+Name[sv]=Om Kwave
+Name[uk]=Про Kwave
+Name[x-test]=xxAbout Kwavexx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Ralf Waspe & Gilles Caulier
+X-KDE-PluginInfo-Name=about
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

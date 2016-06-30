@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Band Pass Filter
+Name[ca]=Filtre passabanda
+Name[ca@valencia]=Filtre passabanda
+Name[de]=Bandpass
+Name[en_GB]=Band Pass Filter
+Name[es]=Filtro paso banda
+Name[gl]=Filtro de paso de banda
+Name[it]=Filtro passa banda
+Name[nl]=Banddoorlaatfilter
+Name[pl]=Filtr przepuszczania pasma
+Name[pt]=Filtro Passa-Banda
+Name[pt_BR]=Filtro passa-faixa
+Name[sv]=Bandpassfilter
+Name[uk]=Фільтр діапазону частот
+Name[x-test]=xxBand Pass Filterxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Dave Flogeras
+X-KDE-PluginInfo-Name=band_pass
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

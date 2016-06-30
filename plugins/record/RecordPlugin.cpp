@@ -52,25 +52,32 @@
 #include "Record-ALSA.h"
 #include "Record-OSS.h"
 #include "Record-PulseAudio.h"
+#include "Record-Qt.h"
 #include "RecordDevice.h"
 #include "RecordDialog.h"
 #include "RecordPlugin.h"
 #include "RecordThread.h"
 #include "SampleDecoderLinear.h"
 
-KWAVE_PLUGIN(Kwave::RecordPlugin, "record", "2.4",
-             I18N_NOOP("Record"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(record, RecordPlugin)
+
+#define OPEN_RETRY_TIME 1000 /**< time interval for trying to open [ms] */
 
 //***************************************************************************
-Kwave::RecordPlugin::RecordPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager),
+Kwave::RecordPlugin::RecordPlugin(QObject *parent, const QVariantList &args)
+    :Kwave::Plugin(parent, args),
      m_method(), m_device_name(), m_controller(),
      m_state(Kwave::REC_EMPTY), m_device(0),
      m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),
      m_writers(0), m_buffers_recorded(0), m_inhibit_count(0),
-     m_trigger_value()
+     m_trigger_value(),
+     m_retry_timer()
 {
+    m_retry_timer.setSingleShot(true);
+    connect(&m_retry_timer, SIGNAL(timeout()),
+	    this, SLOT(retryOpen()),
+	    Qt::QueuedConnection
+   	);
 }
 
 //***************************************************************************
@@ -95,11 +102,31 @@ Kwave::RecordPlugin::~RecordPlugin()
 //***************************************************************************
 QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
 {
-    qDebug("RecordPlugin::setup");
+    Kwave::RecordDialog::Mode mode = Kwave::RecordDialog::SETTINGS_DEFAULT;
+
+    qDebug("RecordPlugin::setup(%s)", DBG(previous_params.join(_(","))));;
+
+    // if we have only one parameter, then we got called with a specific
+    // mode, e.g. "show format settings only"
+    if (previous_params.count() == 1) {
+	const QString m = previous_params[0].toLower();
+
+	if (m == _("format"))
+	    mode = Kwave::RecordDialog::SETTINGS_FORMAT;
+	else if (m == _("source"))
+	    mode = Kwave::RecordDialog::SETTINGS_SOURCE;
+	else if (m == _("start_now"))
+	    mode = Kwave::RecordDialog::START_RECORDING;
+
+	// get previous parameters for the setup dialog
+	previous_params = manager().defaultParams(name());
+	qDebug("RecordPlugin::setup(%s) - MODE=%d",
+	       DBG(previous_params.join(_(","))), static_cast<int>(mode));
+    }
 
     // create the setup dialog
     m_dialog = new Kwave::RecordDialog(parentWidget(), previous_params,
-                                       &m_controller);
+                                       &m_controller,  mode);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return 0;
 
@@ -172,11 +199,12 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     // dummy init -> disable format settings
     m_dialog->setSupportedTracks(0, 0);
 
-    // activate the playback method
+    // activate the recording method
     setMethod(m_dialog->params().method);
 
-//     // select the record device
-//     setDevice(m_dialog->params().device_name);
+    // directly start recording if requested
+    if (mode == Kwave::RecordDialog::START_RECORDING)
+	m_controller.actionStart();
 
     QStringList *list = new QStringList();
     Q_ASSERT(list);
@@ -224,6 +252,8 @@ void Kwave::RecordPlugin::notice(QString message)
 //***************************************************************************
 void Kwave::RecordPlugin::closeDevice()
 {
+    if (m_retry_timer.isActive()) m_retry_timer.stop();
+
     if (m_device) {
 	m_device->close();
 	delete m_device;
@@ -279,11 +309,17 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 		    break;
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
+#ifdef HAVE_QT_AUDIO_SUPPORT
+		case Kwave::RECORD_QT:
+		    m_device = new Kwave::RecordQt();
+		    Q_ASSERT(m_device);
+		    break;
+#endif /* HAVE_QT_AUDIO_SUPPORT */
 		default:
 		    qDebug("unsupported recording method (%d)",
 			static_cast<int>(method));
 		    if (!searching) {
-			// start trying out all other methods
+			// start trying all other methods
 			searching = true;
 			method = Kwave::RECORD_NONE;
 			++method;
@@ -330,6 +366,13 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 }
 
 //***************************************************************************
+void Kwave::RecordPlugin::retryOpen()
+{
+    qDebug("RecordPlugin::retryOpen()");
+    setDevice(m_device_name);
+}
+
+//***************************************************************************
 void Kwave::RecordPlugin::setDevice(const QString &device)
 {
     Q_ASSERT(m_dialog);
@@ -338,6 +381,8 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
     qDebug("RecordPlugin::setDevice('%s')", DBG(device));
+
+    if (m_retry_timer.isActive()) m_retry_timer.stop();
 
     // select the default device if this one is not supported
     QString dev = device;
@@ -357,7 +402,7 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
     }
 
     // open and initialize the device
-    int result = m_device->open(dev);
+    QString result = m_device->open(dev);
 
     // set the device in the dialog
     m_device_name = dev;
@@ -372,51 +417,59 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 //     qDebug(">>> %d -> '%s'", static_cast<int>(m_method), DBG(m_device_name));
     cfg.sync();
 
-    if (result < 0) {
+    if (!result.isNull()) {
+	bool shouldRetry = false;
+
 	qWarning("RecordPlugin::setDevice('%s'): "
-	         "opening the device failed. error=%d", DBG(device), result);
+	         "opening the device failed. error message='%s'",
+	         DBG(device), DBG(result));
 
 	m_controller.setInitialized(false);
-	m_dialog->showDevicePage();
 
 	if (m_device_name.length()) {
 	    // build a short device name for showing to the user
 	    QString short_device_name = m_device_name;
 	    if (m_device_name.contains(_("|"))) {
 		// tree syntax: extract card + device
-		short_device_name = m_device_name.section(
-		    _("|"), 0, 0) + _(", ") +
-		    m_device_name.section(_("|"), 3, 3);
+		short_device_name = m_device_name.section(_("|"), 0, 0);
+		if (m_device_name.section(_("|"), 3, 3).length())
+		    short_device_name += _(", ") +
+			m_device_name.section(_("|"), 3, 3);
 	    }
 
-	    // show an error message box
-	    QString reason;
-	    switch (result) {
-		case -ENOENT:
-		case -ENODEV:
-		case -ENXIO:
-		case -EIO:
-		    reason = i18n(
-			"Kwave was unable to open the device '%1'.\n"\
-			"Maybe your system lacks support for the corresponding "\
-			"hardware or the hardware is not connected.",
-			short_device_name);
-		    break;
-		case -EBUSY:
-		    reason = i18n(
-			"The device '%1' seems to be occupied by another "\
-			"application.\n"\
-			"Please try again later.",
-			short_device_name);
-		    break;
+	    if (result == QString::number(ENODEV)) {
+		result = i18n(
+		    "Maybe your system lacks support for the corresponding "\
+		    "hardware or the hardware is not connected."
+		);
+	    } else if (result == QString::number(EBUSY)) {
+		result = i18n(
+		    "The audio device seems to be occupied by another "\
+		    "application. Retrying..."
+		);
+		shouldRetry = true;
 	    }
 
-	    if (reason.length()) Kwave::MessageBox::sorry(parentWidget(),
-		reason, i18n("Unable to open the recording device"));
+	    if (result.length()) {
+		if (shouldRetry) {
+		    notice(result);
+		} else {
+		    m_dialog->showDevicePage();
+		    Kwave::MessageBox::sorry(parentWidget(),
+		        result, i18nc("%1 = a device name",
+		        "Unable to open the recording device (%1)",
+		        short_device_name));
+		}
+	    }
 	}
 
-	m_device_name = QString();
-	changeTracks(0);
+	if (shouldRetry) {
+	    // retry later...
+	    m_retry_timer.start(OPEN_RETRY_TIME);
+	} else {
+	    m_device_name = QString();
+	    changeTracks(0);
+	}
     } else {
 	changeTracks(m_dialog->params().tracks);
     }
@@ -451,7 +504,9 @@ void Kwave::RecordPlugin::changeTracks(unsigned int new_tracks)
     // check the supported tracks
     unsigned int min = 0;
     unsigned int max = 0;
-    m_device->detectTracks(min, max);
+    if ((m_device->detectTracks(min, max) < 0) || (max < 1))
+	min = max = 0;
+    if (min > max) min = max;
 
     unsigned int channels = new_tracks;
     if ((channels < min) || (channels > max)) {
@@ -523,7 +578,7 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
 	m_dialog->setSampleRate(0);
-	changeCompression(-1);
+	changeCompression(Kwave::Compression::INVALID);
 	return;
     }
 
@@ -533,7 +588,7 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
     foreach (const double &r, supported_rates)
 	if (qFuzzyCompare(new_rate, r)) { is_supported = true; break; }
     double rate = new_rate;
-    if (!is_supported) {
+    if (!is_supported && !supported_rates.isEmpty()) {
 	// find the nearest sample rate
 	double nearest = supported_rates.last();
 	foreach (double r, supported_rates) {
@@ -573,7 +628,9 @@ void Kwave::RecordPlugin::changeSampleRate(double new_rate)
 }
 
 //***************************************************************************
-void Kwave::RecordPlugin::changeCompression(int new_compression)
+void Kwave::RecordPlugin::changeCompression(
+    Kwave::Compression::Type new_compression
+)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
@@ -589,8 +646,9 @@ void Kwave::RecordPlugin::changeCompression(int new_compression)
     }
 
     // check the supported compressions
-    QList<int> supported_comps = m_device->detectCompressions();
-    int compression = new_compression;
+    QList<Kwave::Compression::Type> supported_comps =
+	m_device->detectCompressions();
+    Kwave::Compression::Type compression = new_compression;
     if (!supported_comps.contains(compression) &&
 	(compression != Kwave::Compression::NONE))
     {
@@ -1532,5 +1590,7 @@ void Kwave::RecordPlugin::prerecordingChanged(bool enable)
     InhibitRecordGuard _lock(*this); // activate the change
 }
 
+//***************************************************************************
+#include "RecordPlugin.moc"
 //***************************************************************************
 //***************************************************************************

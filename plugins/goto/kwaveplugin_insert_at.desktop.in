@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Insert At
+Name[ca]=Insereix a
+Name[ca@valencia]=Insereix a
+Name[de]=Einfügen An
+Name[en_GB]=Insert At
+Name[es]=Insertar en
+Name[gl]=Inserir en
+Name[it]=Inserisci a
+Name[nl]=Invoegen op
+Name[pl]=Wstaw w
+Name[pt]=Inserir Em
+Name[pt_BR]=Inserir em
+Name[sv]=Infoga vid
+Name[uk]=Вставити до
+Name[x-test]=xxInsert Atxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=insert_at
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

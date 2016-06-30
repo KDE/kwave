@@ -22,8 +22,6 @@
 
 #include <QtGlobal>
 
-#include <audiofile.h>
-
 #include "libkwave/TypesMap.h"
 
 namespace Kwave
@@ -32,12 +30,17 @@ namespace Kwave
     class Q_DECL_EXPORT SampleFormat
     {
     public:
+	/**
+	 * numeric representation of a sample format
+	 * @note for compatibility with older settings these values are
+	 *       the same as defined in audiofile.h.
+	 */
 	typedef enum {
-	    Unknown  = -1,                   /**< unknown/invalid format */
-	    Signed   = AF_SAMPFMT_TWOSCOMP,  /**< signed integer */
-	    Unsigned = AF_SAMPFMT_UNSIGNED,  /**< unsigned integer */
-	    Float    = AF_SAMPFMT_FLOAT,     /**< 32 bit floating point */
-	    Double   = AF_SAMPFMT_DOUBLE     /**< 64 bit floating point */
+	    Unknown  =  -1, /**< unknown/invalid format */
+	    Signed   = 401, /**< signed integer         */
+	    Unsigned = 402, /**< unsigned integer       */
+	    Float    = 403, /**< 32 bit floating point  */
+	    Double   = 404  /**< 64 bit floating point  */
 	} Format;
 
 	/** Default constructor */
@@ -52,10 +55,10 @@ namespace Kwave
 	/** Destructor */
 	virtual ~SampleFormat() {}
 
-	/** conversion operator to sample_format_t */
+	/** conversion operator to Format */
 	inline operator Format() const { return m_format; }
 
-	/** assignment operator from sample_format_t */
+	/** assignment operator from Format */
 	inline void assign(Format f) { m_format = f; }
 
 	/** compare operator */
@@ -63,15 +66,15 @@ namespace Kwave
 	    return (f == m_format);
 	}
 
-	/** conversion to int */
+	/** conversion to int (e.g. for use in plugin parameters) */
 	inline int toInt() const { return static_cast<int>(m_format); }
 
-	/** conversion from int */
+	/** conversion from int  (e.g. for use in plugin parameters) */
 	void fromInt(int i);
 
     private:
 
-	/** internal storage of the sample format, see sample_format_t */
+	/** internal storage of the sample format, see Format */
 	Format m_format;
 
     public:

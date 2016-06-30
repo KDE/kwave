@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=ASCII Codec
+Name[ca]=Còdec ASCII
+Name[ca@valencia]=Còdec ASCII
+Name[de]=ASCII-Codec
+Name[en_GB]=ASCII Codec
+Name[es]=Códec ASCII
+Name[gl]=Códec ASCII
+Name[it]=Codec ASCII
+Name[nl]=ASCII-codec
+Name[pl]=Kodek ASCII
+Name[pt]=Codificação em ASCII
+Name[pt_BR]=Codificação ASCII
+Name[sv]=ASCII-kodare
+Name[uk]=Кодек ASCII
+Name[x-test]=xxASCII Codecxx
+Type=Service
+ServiceTypes=Kwave/Plugin
+X-KDE-PluginInfo-Author=Thomas Eschenbacher
+X-KDE-PluginInfo-Name=codec_ascii
+X-KDE-PluginInfo-Version=@KWAVE_VERSION_FULL@:2.3
+X-KDE-PluginInfo-License=GPL-2.0+
+X-KDE-PluginInfo-EnabledByDefault=true

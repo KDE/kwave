@@ -46,14 +46,15 @@ namespace Kwave
 
     public:
 
-	/** Constructor */
-	explicit NormalizePlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	NormalizePlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~NormalizePlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/**
 	 * normalizes the volume

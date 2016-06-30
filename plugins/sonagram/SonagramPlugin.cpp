@@ -51,9 +51,7 @@
 #include "SonagramPlugin.h"
 #include "SonagramWindow.h"
 
-KWAVE_PLUGIN(Kwave::SonagramPlugin, "sonagram", "2.3",
-             I18N_NOOP("Sonagram"),
-             I18N_NOOP("Thomas Eschenbacher"));
+KWAVE_PLUGIN(sonagram, SonagramPlugin)
 
 /**
  * interval for limiting the number of repaints per second [ms]
@@ -61,8 +59,9 @@ KWAVE_PLUGIN(Kwave::SonagramPlugin, "sonagram", "2.3",
 #define REPAINT_INTERVAL 500
 
 //***************************************************************************
-Kwave::SonagramPlugin::SonagramPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::Plugin(plugin_manager),
+Kwave::SonagramPlugin::SonagramPlugin(QObject *parent,
+                                      const QVariantList &args)
+    :Kwave::Plugin(parent, args),
      m_sonagram_window(0),
      m_selection(0),
      m_slices(0), m_fft_points(0),
@@ -619,5 +618,7 @@ void Kwave::SonagramPlugin::windowDestroyed()
     release();
 }
 
+//***************************************************************************
+#include "SonagramPlugin.moc"
 //***************************************************************************
 //***************************************************************************

@@ -39,14 +39,15 @@ namespace Kwave
 
     public:
 
-	/** Constructor */
-	explicit SampleRatePlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	SampleRatePlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~SampleRatePlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/**
 	 * changes the sample rate

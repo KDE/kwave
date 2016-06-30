@@ -20,21 +20,21 @@
 #include <KLocalizedString>
 
 #include "libkwave/CodecManager.h"
+#include "libkwave/PluginManager.h"
 
 #include "FlacCodecPlugin.h"
 #include "FlacDecoder.h"
 #include "FlacEncoder.h"
 
-KWAVE_PLUGIN(Kwave::FlacCodecPlugin, "codec_flac", "2.3",
-             I18N_NOOP("FLAC Codec"),
-             I18N_NOOP("Thomas Eschenbacher"));
-
 // static instance of the codec container
 Kwave::CodecPlugin::Codec Kwave::FlacCodecPlugin::m_codec = {0, 0, 0};
 
+KWAVE_PLUGIN(codec_flac, FlacCodecPlugin)
+
 /***************************************************************************/
-Kwave::FlacCodecPlugin::FlacCodecPlugin(Kwave::PluginManager &plugin_manager)
-    :Kwave::CodecPlugin(plugin_manager, m_codec)
+Kwave::FlacCodecPlugin::FlacCodecPlugin(QObject *parent,
+                                        const QVariantList &args)
+    :Kwave::CodecPlugin(parent, args, m_codec)
 {
 }
 
@@ -55,5 +55,7 @@ Kwave::Encoder *Kwave::FlacCodecPlugin::createEncoder()
     return new Kwave::FlacEncoder();
 }
 
+/***************************************************************************/
+#include "FlacCodecPlugin.moc"
 /***************************************************************************/
 /***************************************************************************/

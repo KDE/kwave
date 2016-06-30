@@ -1,9 +1,9 @@
-/***************************************************************************
- *    Record-PulseAudio.h  -  device for audio recording via PulesAudio
- *                             -------------------
- *    begin                : Sun Okt 20 2013
- *    copyright            : (C) 2014 by Joerg-Christian Boehme
- *    email                : joerg@chaosdorf.de
+/*************************************************************************
+    Record-PulseAudio.h  -  device for audio recording via PulesAudio
+                             -------------------
+    begin                : Sun Okt 20 2013
+    copyright            : (C) 2014 by Joerg-Christian Boehme
+    email                : joerg@chaosdorf.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -59,9 +59,13 @@ namespace Kwave
 	/**
 	 * Open the record device.
 	 * @param dev path of the record device
-	 * @return file descriptor >= 0 or negative error code if failed
+	 * @retval QString::null if successful
+	 * @retval QString::number(ENODEV) if device not found
+	 * @retval QString::number(EBUSY) if device is busy
+	 * @retval QString(...) device specific error message
+	 *                      (already translated)
 	 */
-	virtual int open(const QString& dev);
+	virtual QString open(const QString& dev);
 
 	/** Returns the current endianness (big/little) */
 	virtual Kwave::byte_order_t endianness();
@@ -104,7 +108,7 @@ namespace Kwave
 	virtual QList< unsigned int > supportedBits();
 
 	/** Returns the current compression type (0==none) */
-	virtual int compression();
+	virtual Kwave::Compression::Type compression();
 
 	/**
 	 * Try to set a new compression type.
@@ -112,13 +116,13 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class Compression
 	 */
-	virtual int setCompression(int new_compression);
+	virtual int setCompression(Kwave::Compression::Type new_compression);
 
 	/**
 	 * Gets a list of supported compression types. If no compression is
 	 * supported, the list might be empty.
 	 */
-	virtual QList< int > detectCompressions();
+	virtual QList<Kwave::Compression::Type> detectCompressions();
 
 	/** Returns the current sample rate of the device */
 	virtual double sampleRate();
@@ -171,7 +175,6 @@ namespace Kwave
 
 	/** return a string list with supported device names */
 	virtual QStringList supportedDevices();
-	virtual QString fileFilter();
 
 	/**
 	 * our own poll function, for timeout support
@@ -335,7 +338,7 @@ namespace Kwave
 	double m_rate;
 
 	/** compression mode */
-	int m_compression;
+	Kwave::Compression::Type m_compression;
 
 	/** resolution [bits per sample] */
 	unsigned int m_bits_per_sample;

@@ -25,6 +25,8 @@
 #include <QString>
 #include <QStringList>
 
+#include "libkwave/Compression.h"
+
 class QMimeType;
 class QUrl;
 
@@ -61,7 +63,7 @@ namespace Kwave
 	virtual const QList<CodecBase::MimeType> mimeTypes();
 
 	/** Returns a list of supported compression types */
-	virtual const QList<int> compressionTypes();
+	virtual const QList<Kwave::Compression::Type> compressionTypes();
 
 	/**
 	 * Adds a new mime type to the internal list of supported mime
@@ -83,7 +85,7 @@ namespace Kwave
 	 * compression types.
 	 * @param compression the compression type
 	 */
-	virtual void addCompression(int compression);
+	virtual void addCompression(Kwave::Compression::Type compression);
 
 	/**
 	 * Tries to find the name of a mime type by a URL. If not found, it
@@ -99,7 +101,7 @@ namespace Kwave
 	QList<MimeType> m_supported_mime_types;
 
 	/** list of supported compression types */
-	QList<int> m_supported_compression_types;
+	QList<Kwave::Compression::Type> m_supported_compression_types;
 
     };
 }

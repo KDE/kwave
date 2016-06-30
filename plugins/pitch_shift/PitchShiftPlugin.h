@@ -40,14 +40,15 @@ namespace Kwave
 
     public:
 
-	/** Constructor */
-	explicit PitchShiftPlugin(Kwave::PluginManager &plugin_manager);
+	/**
+	 * Constructor
+	 * @param parent reference to our plugin manager
+	 * @param args argument list [unused]
+	 */
+	PitchShiftPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
 	virtual ~PitchShiftPlugin();
-
-	/** Returns the name of the plugin. */
-	virtual QString name() const;
 
 	/** Creates the setup dialog and connects it's signals */
 	virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);

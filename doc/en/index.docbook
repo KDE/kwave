@@ -1,7 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY kwave "<application>Kwave</application>">
-  <!ENTITY kappname "&kwave;">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY version "0.9.2">
@@ -17,7 +16,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
-  <!ENTITY url_kde_project "https://quickgit.kde.org/?p=kwave.git">
+  <!ENTITY url_kde_project "http://commits.kde.org/kwave">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
@@ -30,7 +29,7 @@
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
-  <!ENTITY url_git_web_kde "http://quickgit.kde.org/?p=kwave.git">
+  <!ENTITY url_git_web_kde "http://commits.kde.org/kwave">
   <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY url_git_list_tags "http://sourceforge.net/p/kwave/code/ref/master~/tags/">
   <!ENTITY url_git_master "git://git.code.sf.net/p/kwave/code">
@@ -321,9 +320,9 @@
     <legalnotice>&FDLNotice;</legalnotice>
 
     <date>2016-06-26</date>
-    <releaseinfo>&version;</releaseinfo>
+    <releaseinfo>&kwave; 0.9.2</releaseinfo>
 
-    <abstract><para>&kwave; is a simple sound editor built on KDE Frameworks 5.</para></abstract>
+    <abstract><para>&kwave; is a simple sound editor built on &kf5-full;.</para></abstract>
 
     <keywordset>
 	<keyword>KDE</keyword>
@@ -349,7 +348,7 @@
 <chapter id="introduction"><title>Introduction</title>
 
     <para>
-    	This is "&kwave;", a simple sound editor built on KDE Frameworks 5.
+    	This is "&kwave;", a simple sound editor built on &kf5-full;.
 	Its features include:
 	<itemizedlist>
     	<listitem><para>
@@ -496,7 +495,7 @@
     <para>
 	&kwave; version v0.9.0 is the first version hosted on KDE (kdereview)
 	and SourceForge servers, followed by v0.9.1, the first version for
-	KDE Frameworks 5.
+	&kf5-full;.
     </para>
 
     <!-- changelog cut out, this gives a smaller online help
@@ -1528,7 +1527,7 @@
 		<para>
 		    You can select a window from the <guimenu>Windows</guimenu>
 		    menu or cycle through the sub windows with
-		    <keycombo><keysym>Ctrl</keysym><keysym>Tab</keysym></keycombo>.
+		    <keycombo>&Ctrl;<keysym>Tab</keysym></keycombo>.
 		    <screenshot>
 			<screeninfo>
 			    screenshot of &kwave; in MDI mode
@@ -1554,7 +1553,7 @@
 		<para>
 		    You can activate a tab via the <guimenu>Windows</guimenu>
 		    menu or cycle through the tabs with
-		    <keycombo><keysym>Ctrl</keysym><keysym>Tab</keysym></keycombo>.
+		    <keycombo>&Ctrl;<keysym>Tab</keysym></keycombo>.
 		    <screenshot>
 			<screeninfo>
 			    screenshot of &kwave; in TAB mode
@@ -1721,7 +1720,7 @@
     <link linkend="command_line">command line</link> when starting &kwave;,</para></listitem>
     <listitem><para>open an empty &kwave; window (for example with
 	<menuchoice>
-	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Ctrl;<keycap>W</keycap></keycombo></shortcut>
 	<guimenu>File</guimenu><guimenuitem>New...</guimenuitem>
 	</menuchoice>
     ) and put a file into it via
@@ -1729,7 +1728,7 @@
       or you can </para></listitem>
     <listitem><para>open a file through the menu with
 	<menuchoice>
-	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Ctrl;<keycap>O</keycap></keycombo></shortcut>
 	<guimenu>File</guimenu><guimenuitem>Open</guimenuitem>
 	</menuchoice>
     </para></listitem>
@@ -1742,14 +1741,14 @@
     <listitem><para>
 	save the current file with
 	<menuchoice>
-	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Ctrl;<keycap>S</keycap></keycombo></shortcut>
 	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem>
 	</menuchoice>,
     </para></listitem>
     <listitem><para>
 	save under a different name with
 	<menuchoice>
-	<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Shift;&Ctrl;<keycap>S</keycap></keycombo></shortcut>
 	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem><guimenuitem>As...</guimenuitem>
 	</menuchoice>
     </para></listitem>
@@ -2332,7 +2331,7 @@
 	    <listitem><para>
 		menu entry / keyboard shortcut:
 		<menuchoice>
-		<shortcut><keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo></shortcut>
+		<shortcut><keycombo>&Ctrl;<keycap>+</keycap></keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Zoom In</guimenuitem>
 		</menuchoice>
 	    </para></listitem>
@@ -2352,7 +2351,7 @@
 	    <listitem><para>
 		menu entry / keyboard shortcut:
 		<menuchoice>
-		<shortcut><keycombo><keycap>Ctrl</keycap><keycap>-</keycap></keycombo></shortcut>
+		<shortcut><keycombo>&Ctrl;<keycap>-</keycap></keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Zoom Out</guimenuitem>
 		</menuchoice>
 	    </para></listitem>
@@ -2373,7 +2372,7 @@
 	    <listitem><para>
 		menu entry / keyboard shortcut:
 		<menuchoice>
-		<shortcut><keycombo><keycap>Ctrl</keycap><keycap>Space</keycap></keycombo></shortcut>
+		<shortcut><keycombo>&Ctrl;<keycap>Space</keycap></keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Zoom to Selection</guimenuitem>
 		</menuchoice>
 	    </para></listitem>
@@ -2526,7 +2525,7 @@
 	<!-- <shift> + <double click left> on overview widget -->
 	<listitem><para>
 	    <emphasis>double click with left mouse button, with
-		<keycap>shift</keycap> pressed</emphasis>:
+		&Shift; pressed</emphasis>:
 		directly move the current view to the clicked position
 		and additionally zoom out.
 	</para></listitem>
@@ -2622,7 +2621,7 @@
     <listitem><para>
 	select the whole signal:
 	<menuchoice>
-	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Ctrl;<keycap>A</keycap></keycombo></shortcut>
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>All</guimenuitem>
 	</menuchoice>
     </para></listitem>
@@ -2644,7 +2643,7 @@
 	the next block of samples, starting one sample after the end of the current
 	selection and with the same length:
 	<menuchoice>
-	<shortcut><keycombo><keycap>Shift</keycap><keycap>+</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Shift;<keycap>+</keycap></keycombo></shortcut>
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Next</guimenuitem>
 	</menuchoice>
     </para>
@@ -2655,7 +2654,7 @@
 	the previous block of samples, ending one sample before the start of the current
 	selection and with the same length:
 	<menuchoice>
-	<shortcut><keycombo><keycap>Shift</keycap><keycap>-</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Shift;<keycap>-</keycap></keycombo></shortcut>
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Previous</guimenuitem>
 	</menuchoice>
     </para>
@@ -2665,14 +2664,14 @@
     <listitem><para>
 	expand the selection to the start of the signal (first sample):
 	<menuchoice>
-	<shortcut><keycombo><keycap>Shift</keycap><keycap>Home</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Shift;<keycap>Home</keycap></keycombo></shortcut>
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to start</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <listitem><para>
 	expand the selection to the end of the signal (last sample):
 	<menuchoice>
-	<shortcut><keycombo><keycap>Shift</keycap><keycap>End</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Shift;<keycap>End</keycap></keycombo></shortcut>
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to end</guimenuitem>
 	</menuchoice>
     </para></listitem>
@@ -2691,7 +2690,7 @@
 	select the area between the next two labels that are right from the
 	current selection or up to the end of the signal:
 	<menuchoice>
-	<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Shift;&Ctrl;<keycap>N</keycap></keycombo></shortcut>
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to next labels</guimenuitem>
 	</menuchoice>
     </para></listitem>
@@ -2699,7 +2698,7 @@
 	select the area between the previous two labels that are left from the
 	current selection or up to the start of the signal:
 	<menuchoice>
-	<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>P</keycap></keycombo></shortcut>
+	<shortcut><keycombo>&Shift;&Ctrl;<keycap>P</keycap></keycombo></shortcut>
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to previous labels</guimenuitem>
 	</menuchoice>
     </para></listitem>
@@ -8671,7 +8670,7 @@
 	    <entry colname='c1'>&no-i18n-tag;Author</entry>
 	    <entry colname='c2'>
 		Identifies the name of the author of the original subject of
-		 the file. Example: &quot;van Beethoven, Ludwig&quot;
+		 the file. Example: <quote>van Beethoven, Ludwig</quote>
 	    </entry>
 	</row>
 	<row id="INF_BITRATE_LOWER">
@@ -8751,7 +8750,7 @@
 	    <entry colname='c2'>
 		Records the copyright information for the file. If there are
 		 multiple copyrights, separate them by a semicolon followed by
-		 a space. Example: &quot;Copyright Linux community 2002&quot;
+		 a space. Example: <quote>Copyright Linux community 2002</quote>
 	    </entry>
 	</row>
 	<row id="INF_COPYRIGHTED">
@@ -8764,7 +8763,7 @@
 	    <entry colname='c1'>&no-i18n-tag;Date</entry>
 	    <entry colname='c2'>
 		Specifies the date the subject of the file was created.
-		 Example: &quot;2001-12-24&quot;
+		 Example: <quote>2001-12-24</quote>
 	    </entry>
 	</row>
 	<row id="INF_ENGINEER">
@@ -8797,7 +8796,7 @@
 	    <entry colname='c1'>&no-i18n-tag;Genre</entry>
 	    <entry colname='c2'>
 		Describes the genre or style of the original work. Examples:
-		 &quot;classic&quot;, &quot;pop&quot;
+		 <quote>classic</quote>, <quote>pop</quote>
 	    </entry>
 	</row>
 	<row id="INF_ISRC">
@@ -8830,19 +8829,19 @@
 	<row id="INF_LICENSE">
 	    <entry colname='c1'>&no-i18n-tag;License</entry>
 	    <entry colname='c2'>
-		License information, e.g., &quot;All Rights Reserved&quot;,
-		 &quot;Any Use Permitted&quot;, an URL to a license or the EFF
-		 Open Audio License (&quot;distributed under the terms of the
+		License information, e.g., <quote>All Rights Reserved</quote>,
+		 <quote>Any Use Permitted</quote>, an URL to a license or the EFF
+		 Open Audio License (<quote>distributed under the terms of the
 		 Open Audio License. See
 		 http://www.eff.org/IP/Open_licenses/eff_oal.html for
-		 details&quot;), etc.
+		 details</quote>), etc.
 	    </entry>
 	</row>
 	<row id="INF_MEDIUM">
 	    <entry colname='c1'>&no-i18n-tag;Medium</entry>
 	    <entry colname='c2'>
 		Describes the original subject of the file, where it was first
-		 recorded. Example: &quot;orchestra&quot;
+		 recorded. Example: <quote>orchestra</quote>
 	    </entry>
 	</row>
 	<row id="INF_MIMETYPE">
@@ -8879,7 +8878,7 @@
 	    <entry colname='c1'>&no-i18n-tag;Name</entry>
 	    <entry colname='c2'>
 		Stores the title of the subject of the file. Example:
-		 &quot;Symphony No.6, Op.68 &quot;Pastoral&quot;&quot;
+		 <quote>Symphony No.6, Op.68 &quot;Pastoral&quot;</quote>
 	    </entry>
 	</row>
 	<row id="INF_OPUS_FRAME_LEN">
@@ -8893,7 +8892,7 @@
 	    <entry colname='c1'>&no-i18n-tag;Organization</entry>
 	    <entry colname='c2'>
 		Name of the organization producing the track (i.e. the
-		 &quot;record label&quot;)
+		 <quote>record label</quote>)
 	    </entry>
 	</row>
 	<row id="INF_ORIGINAL">
@@ -8920,14 +8919,14 @@
 	    <entry colname='c1'>&no-i18n-tag;Product</entry>
 	    <entry colname='c2'>
 		Specifies the name or the title the file was originally
-		 intended for. Example: &quot;Linux audio collection&quot;
+		 intended for. Example: <quote>Linux audio collection</quote>
 	    </entry>
 	</row>
 	<row id="INF_SAMPLE_FORMAT">
 	    <entry colname='c1'>&no-i18n-tag;Sample Format</entry>
 	    <entry colname='c2'>
 		Format used for storing the digitized audio samples. Example:
-		 &quot;32-bit IEEE floating-point&quot;
+		 <quote>32-bit IEEE floating-point</quote>
 	    </entry>
 	</row>
 	<row id="INF_SAMPLE_RATE">
@@ -8940,37 +8939,37 @@
 	    <entry colname='c1'>&no-i18n-tag;Software</entry>
 	    <entry colname='c2'>
 		Identifies the name of the software package used to create the
-		 file. Example: &quot;Kwave v0.6.4-1&quot;
+		 file. Example: <quote>Kwave v0.6.4-1</quote>
 	    </entry>
 	</row>
 	<row id="INF_SOURCE">
 	    <entry colname='c1'>&no-i18n-tag;Source</entry>
 	    <entry colname='c2'>
 		Identifies the name of the person or organization who supplied
-		 the original subject of the file. Example: &quot;Chaotic Sound
-		 Research&quot;
+		 the original subject of the file. Example: <quote>Chaotic Sound
+		 Research</quote>
 	    </entry>
 	</row>
 	<row id="INF_SOURCE_FORM">
 	    <entry colname='c1'>&no-i18n-tag;Source form</entry>
 	    <entry colname='c2'>
 		Identifies the original form of the material that was
-		 digitized. Examples: &quot;Record/Vinyl/90RPM&quot;,
-		 &quot;Audio DAT&quot;, &quot;tape/CrO2/60min&quot;
+		 digitized. Examples: <quote>Record/Vinyl/90RPM</quote>,
+		 <quote>Audio DAT</quote>, <quote>tape/CrO2/60min</quote>
 	    </entry>
 	</row>
 	<row id="INF_SUBJECT">
 	    <entry colname='c1'>&no-i18n-tag;Subject</entry>
 	    <entry colname='c2'>
-		Describes the subject of the file. Example: &quot;Bird voices
-		 at early morning&quot;
+		Describes the subject of the file. Example: <quote>Bird voices
+		 at early morning</quote>
 	    </entry>
 	</row>
 	<row id="INF_TECHNICAN">
 	    <entry colname='c1'>&no-i18n-tag;Technician</entry>
 	    <entry colname='c2'>
 		Identifies the technician who digitized the subject file.
-		 Example: &quot;Torvalds, Linus&quot;
+		 Example: <quote>Torvalds, Linus</quote>
 	    </entry>
 	</row>
 	<row id="INF_TRACK">

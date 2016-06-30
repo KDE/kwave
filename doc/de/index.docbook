@@ -4,11 +4,11 @@
 >Kwave</application
 >">
   <!ENTITY kappname "&kwave;">
-  <!ENTITY % English "INCLUDE"
+  <!ENTITY % German "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.9.1">
-  <!ENTITY version_tag "0_9_1">
+  <!ENTITY version "0.9.2">
+  <!ENTITY version_tag "0_9_2">
   <!ENTITY version_year "2016">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
@@ -20,7 +20,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
-  <!ENTITY url_kde_project "http://projects.kde.org/projects/kdereview/kwave">
+  <!ENTITY url_kde_project "https://quickgit.kde.org/?p=kwave.git">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
@@ -369,7 +369,7 @@
 >&FDLNotice;</legalnotice>
 
     <date
->2016-02-21</date>
+>2016-06-26</date>
     <releaseinfo
 >&version;</releaseinfo>
 
@@ -2197,17 +2197,29 @@
 
 	<listitem
 ><para
->Zusätzlich unterstützt &kwave; viele andere Formate durch das <ulink url="&url_libaudiofile;"
->audiofile</ulink
->-Modul. Sie können Dateien wie <filename
+>Zusätzlich können Sie Dateiformate wie <filename
+>*.8svx</filename
+> (Amiga IFF/8SVX Sound File Format), <filename
 >*.au</filename
->, <filename
->*.snd</filename
-> (NeXT,Sun Audio), <filename
+> (NeXT, Sun Audio), <filename
 >*.aiff</filename
-> (Audio Interchange Format) und <filename
+> (Audio Interchange Format), <filename
+>*.avr</filename
+> (Audio Visual Research File Format), <filename
+>*.caf</filename
+> (Core Audio Format), <filename
+>*.nist</filename
+> (NIST SPHERE Audio File Format), <filename
 >*.sf</filename
-> (Berkeley,IRCAM,Carl Sound Format) importieren. </para
+> (Berkeley, IRCAM, Carl Sound Format), <filename
+>*.smp</filename
+> (Sample Vision Format), <filename
+>*.snd</filename
+> (NeXT, Sun Audio), <filename
+>*.voc</filename
+> (Creative Voice) und andere mit Hilfe des <ulink url="&url_libaudiofile;"
+>audiofile</ulink
+> Plugins importieren. </para
 ></listitem>
 
     </itemizedlist>
@@ -8334,9 +8346,9 @@ Beispiel: <screen
 	  </varlistentry>
 	  <varlistentry>
 	    <term
-><emphasis
+><emphasis role="bold"
 >Paramter</emphasis
->:</term>
+></term>
 	    <listitem>
 	      <variablelist>
 		<varlistentry>
@@ -8569,7 +8581,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -8709,6 +8721,40 @@ Beispiel: <screen
 >&i18n-plugin_lbl_file_types;</emphasis
 ></term>
 	    <listitem>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
+>Amiga IFF/8SVX Sound File Format</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry
+><filename
+>*.8svx</filename
+></entry>
+			<entry
+><filename
+>*.iff</filename
+></entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-8svx</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
 		<informaltable frame='none'
 ><tgroup cols='2'
 ><tbody>
@@ -8807,6 +8853,64 @@ Beispiel: <screen
 			<entry
 >&i18n-plugin-lbl_file_type_description;</entry>
 			<entry
+>Audio Visual Research File Format</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry>
+			    <filename
+>*.avr</filename>
+			</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-avr</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
+>Core Audio File Format</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry
+><filename
+>*.caf</filename
+></entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-caf</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
 >Berkeley, IRCAM, Carl Sound Format</entry>
 		    </row>
 		    <row>
@@ -8828,6 +8932,94 @@ Beispiel: <screen
 		</tbody
 ></tgroup
 ></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
+>NIST SPHERE Audio File Format</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry
+><filename
+>*.nist</filename
+></entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-nist</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
+>Sample Vision Format</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry
+><filename
+>*.smp</filename
+></entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-smp</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
+>Creative Voice</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry
+><filename
+>*.voc</filename
+></entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-voc</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -9628,7 +9820,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -9763,7 +9955,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -9898,7 +10090,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -9973,7 +10165,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10175,7 +10367,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10358,7 +10550,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10465,7 +10657,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10588,7 +10780,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10701,6 +10893,253 @@ Beispiel: <screen
 > in diesem Handbuch für weitere Informationen. </para>
 	    </listitem>
 	</varlistentry>
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>&i18n-plugin_lbl_parameters;</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term
+><replaceable
+>Aufnahmemethode</replaceable
+></term>
+			<listitem>
+			    <para
+>Aufnahme-Methode, siehe <filename
+>RecordParams.h</filename
+>. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Vorab-Aufnahme aktiviert</replaceable
+></term>
+			<listitem>
+			    <para
+>Vorab-Aufnahme aktivieren/deaktivieren (1 wenn aktiviert, 0 wenn deaktiviert). </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Vorab-Aufnahme-Dauer</replaceable
+></term>
+			<listitem>
+			    <para
+>Anzahl der Sekunden für die Vorab-Aufnahme. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Aufnahmedauer begrenzen</replaceable
+></term>
+			<listitem>
+			    <para
+>Aktiviereb/Deaktivieren der Begrenzung der Aufnahmedauer (1 für begrenzt, 0 für unbegrenzt). </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Aufnahmedauer</replaceable
+></term>
+			<listitem>
+			    <para
+>Dauer der Aufnahme in Sekunden. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Startzeit verwenden</replaceable
+></term>
+			<listitem>
+			    <para
+>Aktivieren/Deaktivieren der Startzeit (1 wenn verwendet, 0 wenn nicht verwendet). </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Startzeit</replaceable
+></term>
+			<listitem>
+			    <para
+>Datum/Uhrzeit mit dem Startzeitpunkt, in ISO-Format. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Triggerpegel verwenden</replaceable
+></term>
+			<listitem>
+			    <para
+>Aktivieren/Deaktivieren des Triggerpegels (1 für aktiviert, 0 für deaktiviert) </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Triggerpegel</replaceable
+></term>
+			<listitem>
+			    <para
+>Triggerpegel in Prozent. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Aufnahmegerät</replaceable
+></term>
+			<listitem>
+			    <para
+>Ein String der das Aufnahmegerät identifiziert. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Kanäle</replaceable
+></term>
+			<listitem>
+			    <para
+>Anzahl der Spuren der Aufnahme. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Abtastrate</replaceable
+></term>
+			<listitem>
+			    <para
+>Abtastrate in Samples pro Sekunde. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Kompression</replaceable
+></term>
+			<listitem>
+			    <para
+>zum Speichern der Samples verwendete Kompression </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Sample-Format</replaceable
+></term>
+			<listitem>
+			    <para
+>Zum Speichern der Samples verwendetes Format , siehe <link linkend="sample-formats"
+>Abschnitt über die Sample-Formate</link
+>. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Bits pro Sample</replaceable
+></term>
+			<listitem>
+			    <para
+>Anzahl der Bits pro Sample, sollte 8 , 16, 24 oder 32 sein. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Anzahl der Puffer</replaceable
+></term>
+			<listitem>
+			    <para
+>Bestimmt die Anzahl der zu verwendenten Puffer. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>Puffer-Grösse</replaceable
+></term>
+			<listitem>
+			    <para
+>Legt den Exponenten für die Berechnung der Größe der Aufnahme-Puffer fest, als 2^n, z.B. ergibt der Wert 16 eine Puffergröße von 2^16 = 64 kB. </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>Alternative Parameter:</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term
+><replaceable
+>Aufnahme-Plugin Direktauswahl</replaceable
+></term>
+			<listitem>
+			    <para
+>Kann als einzelner Parameter verwendet werden um die Aufnahme einzurichten. Die folgenden Werte sind erlaubt: <informaltable frame='all'
+> <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'
+>Wert</entry>
+						<entry align='left'
+>Beschreibung</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>format</command
+></entry>
+						<entry
+>Öffnet das Aufnahme-Dialogfenster und wählt den Reiter <guilabel
+>Format</guilabel
+>. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>source</command
+></entry>
+						<entry
+>Öffnet das Aufnahme-Dialogfenster und wählt den Reiter <guilabel
+>Quelle</guilabel
+>. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>start_now</command
+></entry>
+						<entry
+>Öffnet das Aufnahme-Dialogfenster und startet direkt die Aufnahme. </entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry>
     </variablelist>
     </sect1>
 
@@ -10785,7 +11224,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10872,7 +11311,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -11122,7 +11561,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -11291,7 +11730,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -11477,7 +11916,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -11558,7 +11997,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -11667,7 +12106,7 @@ Beispiel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -12066,35 +12505,11 @@ Beispiel: <screen
 >thomas.eschenbacher@gmx.de</email
 > </para>
 <para
-><othercredit role="translator"
-><firstname
->Sven-Steffen</firstname
-><surname
->Arndt</surname
-><affiliation
-><address
-><email
+>Übersetzung Sven-Steffen Arndt <email
 >ssa29@gmx.de</email
-></address
-></affiliation
-><contrib
->Deutsche Übersetzung</contrib
-></othercredit
-><othercredit role="translator"
-><firstname
-></firstname
-><surname
-></surname
-><affiliation
-><address
-><email
+> und Thomas Eschenbacher<email
 >Thomas.Eschenbacher@gmx.de</email
-></address
-></affiliation
-><contrib
-></contrib
-></othercredit
-> </para
+></para
 > 
 &underFDL; &underGPL; <sect1 id="main_authors"
 ><title

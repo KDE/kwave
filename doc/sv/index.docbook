@@ -4,11 +4,11 @@
 >Kwave</application
 >">
   <!ENTITY kappname "&kwave;">
-  <!ENTITY % English "INCLUDE"
+  <!ENTITY % Swedish "INCLUDE"
 > <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.9.1">
-  <!ENTITY version_tag "0_9_1">
+  <!ENTITY version "0.9.2">
+  <!ENTITY version_tag "0_9_2">
   <!ENTITY version_year "2016">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
@@ -20,7 +20,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
-  <!ENTITY url_kde_project "http://projects.kde.org/projects/kdereview/kwave">
+  <!ENTITY url_kde_project "https://quickgit.kde.org/?p=kwave.git">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
@@ -355,7 +355,7 @@
 >&FDLNotice;</legalnotice>
 
     <date
->2016-02-21</date>
+>2016-06-26</date>
     <releaseinfo
 >&version;</releaseinfo>
 
@@ -2173,17 +2173,29 @@
 
 	<listitem
 ><para
->Dessutom stöder &kwave; många andra vanliga format via insticksmodulen <ulink url="&url_libaudiofile;"
->audiofile</ulink
->. Du kan importera filer som <filename
+>Dessutom går det att importera filformat som <filename
+>*.8svx</filename
+> (Amiga IFF/8SVX ljudfilformat), <filename
 >*.au</filename
-> och <filename
+> (NeXT, Sun Audio), <filename
+>*.aiff</filename
+> (ljudutbytesformat), <filename
+>*.avr</filename
+> (audiovisuellt forskningsfilformat), <filename
+>*.caf</filename
+> (kärnljudfilformat), <filename
+>*.nist</filename
+> (NIST SPHERE-ljudfilformat), <filename
+>*.sf</filename
+> (Berkeley, IRCAM, Carl-ljudformat), <filename
+>*.smp</filename
+> (samplingsvisuellt format), <filename
 >*.snd</filename
 > (NeXT, Sun audio), <filename
->*.aiff</filename
-> (audio interchange format) och <filename
->*.sf</filename
-> (Berkeley, IRCAM, Carl ljudformat). </para
+>*.voc</filename
+> (kreativ röst) och andra via insticksprogrammet <ulink url="&url_libaudiofile;"
+>audiofile</ulink
+>. </para
 ></listitem>
 
     </itemizedlist>
@@ -8314,7 +8326,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >Parametrar</emphasis
->:</term>
+></term>
 	    <listitem>
 	      <variablelist>
 		<varlistentry>
@@ -8547,7 +8559,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -8687,6 +8699,7 @@ Exempel: <screen
 >&i18n-plugin_lbl_file_types;</emphasis
 ></term>
 	    <listitem>
+
 		<informaltable frame='none'
 ><tgroup cols='2'
 ><tbody>
@@ -8694,7 +8707,40 @@ Exempel: <screen
 			<entry
 >&i18n-plugin-lbl_file_type_description;</entry>
 			<entry
->NeXT, Sun Audio</entry>
+>Amiga IFF/8SVX ljudfilformat</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry
+><filename
+>*.8svx</filename
+></entry>
+			<entry
+><filename
+>*.iff</filename
+></entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-8svx</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
+>NeXT, Sun audio</entry>
 		    </row>
 		    <row>
 			<entry
@@ -8785,6 +8831,64 @@ Exempel: <screen
 			<entry
 >&i18n-plugin-lbl_file_type_description;</entry>
 			<entry
+>Audiovisuellt forskningsfilformat</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry>
+			    <filename
+>*.avr</filename>
+			</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-avr</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
+>Kärnljudfilformat</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry
+><filename
+>*.caf</filename
+></entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-caf</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
 >Berkeley, IRCAM, Carl-ljudformat</entry>
 		    </row>
 		    <row>
@@ -8806,6 +8910,94 @@ Exempel: <screen
 		</tbody
 ></tgroup
 ></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
+>NIST SPHERE-ljudfilformat</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry
+><filename
+>*.nist</filename
+></entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-nist</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
+>Samplingsvisuellt format</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry
+><filename
+>*.smp</filename
+></entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-smp</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
+		<informaltable frame='none'
+><tgroup cols='2'
+><tbody>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_description;</entry>
+			<entry
+>Kreativ röst</entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_extensions;</entry>
+			<entry
+><filename
+>*.voc</filename
+></entry>
+		    </row>
+		    <row>
+			<entry
+>&i18n-plugin-lbl_file_type_mime_types;</entry>
+			<entry
+><literal
+>audio/x-voc</literal
+></entry>
+		    </row>
+		</tbody
+></tgroup
+></informaltable>
+
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -9606,7 +9798,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -9741,7 +9933,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -9876,7 +10068,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -9951,7 +10143,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10153,7 +10345,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10336,7 +10528,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10443,7 +10635,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10566,7 +10758,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10679,6 +10871,253 @@ Exempel: <screen
 > i handboken för mer information. </para>
 	    </listitem>
 	</varlistentry>
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>&i18n-plugin_lbl_parameters;</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term
+><replaceable
+>inspelningsmetod</replaceable
+></term>
+			<listitem>
+			    <para
+>Metod använd för inspelning, se <filename
+>RecordParams.h</filename
+>. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>förinspelning aktiverad</replaceable
+></term>
+			<listitem>
+			    <para
+>Aktivera eller inaktivera förinspelning (1 om aktiverad, 0 om inaktiverad). </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>förinspelningstid</replaceable
+></term>
+			<listitem>
+			    <para
+>Antal sekunder för förinspelning. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>begränsa inspelningstid</replaceable
+></term>
+			<listitem>
+			    <para
+>Aktivera eller inaktivera begränsning av inspelningstid (1 om begränsad, 0 om ej begränsad). </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>inspelningstid</replaceable
+></term>
+			<listitem>
+			    <para
+>Inspelningens längd i sekunder. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>använd starttid</replaceable
+></term>
+			<listitem>
+			    <para
+>Aktivera eller inaktivera starttid (1 om använd, 0 om ej använd). </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>starttid</replaceable
+></term>
+			<listitem>
+			    <para
+>Datum och tid då inspelningen ska startas på ISO-format. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>använd utlösningsnivå</replaceable
+></term>
+			<listitem>
+			    <para
+>Aktivera eller inaktivera utlösningsnivå (1 om använd, 0 om ej använd) </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>utlösningsnivå</replaceable
+></term>
+			<listitem>
+			    <para
+>Utlösningsnivå i procent. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>inspelningsenhet</replaceable
+></term>
+			<listitem>
+			    <para
+>En sträng som bestämmer inspelningsenheten. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>kanaler</replaceable
+></term>
+			<listitem>
+			    <para
+>Antal kanaler att använda för inspelning. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>samplingsfrekvens</replaceable
+></term>
+			<listitem>
+			    <para
+>Samplingsfrekvens i samplingar per sekund. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>komprimering</replaceable
+></term>
+			<listitem>
+			    <para
+>Komprimering att använda vid lagring av samplingar. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>samplingsformat</replaceable
+></term>
+			<listitem>
+			    <para
+>Samplingsformat att använda för att lagra samplingarna, se <link linkend="sample-formats"
+>avsnittet om samplingsformat</link
+>. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>bitar per sampling</replaceable
+></term>
+			<listitem>
+			    <para
+>Antal bitar per sampling för inspelning, ska vara 8, 16, 24 eller 32. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>buffertantal</replaceable
+></term>
+			<listitem>
+			    <para
+>Bestämmer antal buffertar använda för inspelning. </para>
+			</listitem>
+		    </varlistentry>
+		    <varlistentry>
+			<term
+><replaceable
+>buffertstorlek</replaceable
+></term>
+			<listitem>
+			    <para
+>Bestämmer storleken på inspelningsbufferten, och används som exponent för att beräkna den verkliga buffertstorleken som 2^n. Att exempelvis ställa in den till 16 ger en buffertstorlek på 2^16 = 64 kiB. </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry>
+	<varlistentry>
+	    <term
+><emphasis role="bold"
+>Alternativparametrar:</emphasis
+></term>
+	    <listitem>
+		<variablelist>
+		    <varlistentry>
+			<term
+><replaceable
+>direktläge för inspelningsmodul</replaceable
+></term>
+			<listitem>
+			    <para
+>Kan användas som en enda parameter för att ställa in insticksmodulen. Följande värden är möjliga: <informaltable frame='all'
+> <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'
+>värde</entry>
+						<entry align='left'
+>beskrivning</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>format</command
+></entry>
+						<entry
+>Visa inspelningsdialogrutan och välj fliken <guilabel
+>Format</guilabel
+>. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>source</command
+></entry>
+						<entry
+>Visa inspelningsdialogrutan och välj fliken <guilabel
+>Källa</guilabel
+>. </entry>
+					    </row>
+					    <row>
+						<entry
+>&no-i18n-tag;<command
+>start_now</command
+></entry>
+						<entry
+>Visa inspelningsdialogrutan och starta inspelningen direkt. </entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+
+			    </para>
+			</listitem>
+		    </varlistentry>
+		</variablelist>
+	    </listitem>
+	</varlistentry>
     </variablelist>
     </sect1>
 
@@ -10763,7 +11202,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -10850,7 +11289,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -11100,7 +11539,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -11269,7 +11708,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -11455,7 +11894,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -11536,7 +11975,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>
@@ -11645,7 +12084,7 @@ Exempel: <screen
 	    <term
 ><emphasis role="bold"
 >&i18n-plugin_lbl_parameters;</emphasis
->:</term>
+></term>
 	    <listitem>
 		<variablelist>
 		    <varlistentry>

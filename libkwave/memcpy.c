@@ -48,10 +48,6 @@
 #include "config.h"
 #endif
 
-#if defined (ARCH_PPC) && !defined (HOST_OS_DARWIN)
-#include "ppcasm_string.h"
-#endif
-
 #ifdef HAVE_SYS_TIMES_H
 #include <sys/times.h>
 #else
@@ -528,10 +524,6 @@ static const struct {
   { "AVX", avx_memcpy, MM_ACCEL_X86_AVX },
 # endif /* HAVE_AVX */
 #endif /* ARCH_X86 */
-#if defined (ARCH_PPC) && !defined (HOST_OS_DARWIN)
-  { "ppcasm", ppcasm_memcpy, 0 },
-  { "ppcasm_cached", ppcasm_cacheable_memcpy, MM_ACCEL_PPC_CACHE32 },
-#endif /* ARCH_PPC && !HOST_OS_DARWIN */
   { "", NULL, 0 }
 };
 
@@ -626,9 +618,6 @@ void probe_fast_memcpy(void)
 # ifdef HAVE_AVX
     "avx",
 # endif /* HAVE_AVX */
-#endif
-#if defined (ARCH_PPC) && !defined (HOST_OS_DARWIN)
-    "ppcasm_memcpy", "ppcasm_cacheable_memcpy",
 #endif
     NULL
   };

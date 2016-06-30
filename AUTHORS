@@ -114,11 +114,6 @@ Matthias Kretz, <kretz@kde.org>
 Miguel Freitas
 	* parts of libkwave/memcpy.c
 
-Paul Mackerras <paulus@samba.org>
-	* libkwave/ppcasm_string.h
-	* libkwave/ppcasm_string.S
-	* libkwave/ppc_asm.tmpl
-
 Richard Laerkaeng, <richard@goteborg.utfors.se>
 	* cmake/FindOggVorbis.cmake
 

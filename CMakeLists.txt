@@ -389,8 +389,8 @@ IF (WITH_OGG_OPUS)
 ENDIF (WITH_OGG_OPUS)
 
 CONFIGURE_FILE(
-    ${CMAKE_CURRENT_SOURCE_DIR}/kwave/kwave.desktop.in
-    ${CMAKE_CURRENT_BINARY_DIR}/kwave/kwave.desktop
+    ${CMAKE_CURRENT_SOURCE_DIR}/kwave/org.kde.kwave.desktop.in
+    ${CMAKE_CURRENT_BINARY_DIR}/kwave/org.kde.kwave.desktop
 )
 
 #############################################################################

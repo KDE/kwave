@@ -254,7 +254,7 @@ make -C build DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 %defattr(-,root,root)
 %doc GNU-LICENSE AUTHORS LICENSES CHANGES README TODO kwave.lsm
 %{_bindir}/%name
-%{_kf5_applicationsdir}/%{name}.desktop
+%{_kf5_applicationsdir}/org.kde.%{name}.desktop
 %{_prefix}/share/appdata
 %{_prefix}/share/appdata/kwave.appdata.xml
 %{_libdir}/libkwave*

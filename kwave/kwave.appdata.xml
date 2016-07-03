@@ -29,28 +29,6 @@
   <name xml:lang="zh-CN">Kwave</name>
   <name xml:lang="zh-TW">Kwave</name>
   <summary>Kwave is a sound editor built on KDE Frameworks 5</summary>
-  <summary xml:lang="ast">Kwave ye un editor de soníu diseñáu pal entornu d'escritoriu KDE</summary>
-  <summary xml:lang="bs">Kwave je uređivač zvuka dizajniran za KDE Desktop Environment</summary>
-  <summary xml:lang="ca">El Kwave és un editor de so dissenyat per a l'entorn d'escriptori KDE</summary>
-  <summary xml:lang="ca-valencia">El Kwave és un editor de so dissenyat per a l'entorn d'escriptori KDE</summary>
-  <summary xml:lang="de">KWave ist ein Sound-Editor für die KDE-Arbeitsumgebung</summary>
-  <summary xml:lang="en-GB">Kwave is a sound editor designed for the KDE Desktop Environment</summary>
-  <summary xml:lang="es">Kwave es un editor de sonido diseñado para el entorno de escritorio KDE</summary>
-  <summary xml:lang="fi">Kwave on KDE-työpöytäympäristöön suunniteltu äänimuokkain</summary>
-  <summary xml:lang="fr">KWave est un éditeur de son conçu pour l'environnement de bureau KDE</summary>
-  <summary xml:lang="gl">Kwave é un editor de sons deseñado para o ambiente de escritorio de KDE.</summary>
-  <summary xml:lang="it">Kwave è un editor per il suono progettato per l'ambiente desktop KDE</summary>
-  <summary xml:lang="nl">KWave is een geluidsbewerker ontworpen voor de KDE bureaubladomgeving</summary>
-  <summary xml:lang="pl">Kwave jest edytorem zbudowanym dla Środowiska Pulpitu KDE</summary>
-  <summary xml:lang="pt">O Kwave é um editor de som desenhado para o Ambiente de Trabalho KDE</summary>
-  <summary xml:lang="pt-BR">Kwave é um editor de som desenvolvido para o KDE</summary>
-  <summary xml:lang="ru">Kwave — аудиоредактор для рабочей среды KDE</summary>
-  <summary xml:lang="sk">Kwave je editor zvuku navrhnutý pre KDE pracovné prostredie</summary>
-  <summary xml:lang="sv">Kwave är en ljudeditor konstruerad för KDE:s skrivbordsmiljö</summary>
-  <summary xml:lang="uk">Kwave — звуковий редактор, створений для стільничного середовища KDE</summary>
-  <summary xml:lang="x-test">xxKwave is a sound editor designed for the KDE Desktop Environmentxx</summary>
-  <summary xml:lang="zh-CN">Kwave 是一个为 KDE 桌面环境设计的声音编辑器</summary>
-  <summary xml:lang="zh-TW">Kwave 是一套 KDE 上的音效編輯器</summary>
   <description>
     <p>
       With Kwave you can record, play back, import and edit many sorts of audio files including multi channel files.

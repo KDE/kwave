@@ -93,6 +93,9 @@ for lang in ${LINGUAS}; do
     if test -e "${lang}/docmessages/${CATEGORY}/kwave.po" ; then
 	FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
 	echo ${lang_team} >> ${LANG_NAMES_FILE}
+	if test -e "${lang}/docmessages/language" ; then
+	    checkout "" "${lang}" "docmessages" "language"
+	fi
     else
 	checkout "" "${lang}" "docs" "${CATEGORY}"
 	svn update --quiet "${lang}/docs/${CATEGORY}/kwave"

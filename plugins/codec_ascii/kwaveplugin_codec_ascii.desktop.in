@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=ASCII Codec
 Name[ca]=Còdec ASCII
 Name[ca@valencia]=Còdec ASCII
+Name[cs]=ASCII zakódovaný zvuk
 Name[de]=ASCII-Codec
 Name[en_GB]=ASCII Codec
 Name[es]=Códec ASCII

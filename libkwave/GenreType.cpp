@@ -220,7 +220,31 @@ void Kwave::GenreType::fill()
 	    I18N_NOOP("Drum Solo"),
 	    I18N_NOOP("Acapella"),
 	    I18N_NOOP("Euro-House"),
-	    I18N_NOOP("Dance Hall")
+	    I18N_NOOP("Dance Hall"),
+
+	    // Found in some MPEG4 containers
+	    I18N_NOOP("Goa"),
+	    I18N_NOOP("Drum & Bass"),
+	    I18N_NOOP("Club House"),
+	    I18N_NOOP("Hardcore"),
+	    I18N_NOOP("Terror"),
+	    I18N_NOOP("Indie"),
+	    I18N_NOOP("BritPop"),
+	    I18N_NOOP("NegerPunk"),
+	    I18N_NOOP("Polsk Punk"),
+	    I18N_NOOP("Beat"),
+	    I18N_NOOP("Christian Gangsta"),
+	    I18N_NOOP("Heavy Metal"),
+	    I18N_NOOP("Black Metal"),
+	    I18N_NOOP("Crossover"),
+	    I18N_NOOP("Contemporary C"),
+	    I18N_NOOP("Christian Rock"),
+	    I18N_NOOP("Merengue"),
+	    I18N_NOOP("Salsa"),
+	    I18N_NOOP("Trash Metal"),
+	    I18N_NOOP("Anima"),
+	    I18N_NOOP("JPop"),
+	    I18N_NOOP("SynthPop")
 	};
 
 	for (unsigned int i = 0; i < sizeof(map) / sizeof(map[0]); ++i)

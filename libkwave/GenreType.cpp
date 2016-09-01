@@ -283,7 +283,7 @@ void Kwave::GenreType::fill()
 	    I18N_NOOP("World Music"),
 	    I18N_NOOP("Neoclassical"),
 	    I18N_NOOP("Audiobook"),
-	    I18N_NOOP("Audit Theatre"),
+	    I18N_NOOP("Audio Theatre"),
 	    I18N_NOOP("Neue Deutsche Welle"), // 185
 	    I18N_NOOP("Podcast"),
 	    I18N_NOOP("Indie Rock"),

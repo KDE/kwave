@@ -133,7 +133,7 @@ ECM_INSTALL_ICONS(
 
 INSTALL(
     FILES org.kde.kwave.appdata.xml
-    DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/
+    DESTINATION ${KDE_INSTALL_METAINFODIR}
 )
 
 #############################################################################

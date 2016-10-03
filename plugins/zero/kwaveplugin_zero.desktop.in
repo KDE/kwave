@@ -1,21 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Zero Generator
-Name[ca]=Generador de zeros
-Name[ca@valencia]=Generador de zeros
-Name[cs]=Generátor nul
-Name[de]=Nullen-Generator
-Name[en_GB]=Zero Generator
-Name[es]=Generador de ceros
-Name[gl]=Xerador de ceros
-Name[it]=Generatore zero
-Name[nl]=Nul-generator
-Name[pl]=Generator zera
-Name[pt]=Gerador de Zeros
-Name[pt_BR]=Gerador de zeros
-Name[sv]=Nollgenerator
-Name[uk]=Генератор нуля
-Name[x-test]=xxZero Generatorxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

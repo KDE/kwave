@@ -1,21 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Enter Command
-Name[ca]=Introdueix una ordre
-Name[ca@valencia]=Introdueix una orde
-Name[cs]=Zadat příkaz
-Name[de]=Befehl eingeben
-Name[en_GB]=Enter Command
-Name[es]=Introducir orden
-Name[gl]=Escriba unha orde
-Name[it]=Inserisci comando
-Name[nl]=Commando invoeren
-Name[pl]=Podaj polecenie
-Name[pt]=Introdução de Comando
-Name[pt_BR]=Insira o comando
-Name[sv]=Ange kommando
-Name[uk]=Введення команди
-Name[x-test]=xxEnter Commandxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

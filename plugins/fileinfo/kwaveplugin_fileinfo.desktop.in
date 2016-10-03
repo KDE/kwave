@@ -1,22 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=File Info
-Name[ca]=Informació del fitxer
-Name[ca@valencia]=Informació del fitxer
-Name[cs]=Informace o souboru
-Name[da]=Filinfo
-Name[de]=Datei-Informationen
-Name[en_GB]=File Info
-Name[es]=Información del archivo
-Name[gl]=Información do ficheiro
-Name[it]=Informazioni sui file
-Name[nl]=Bestandsinformatie
-Name[pl]=Informacje o pliku
-Name[pt]=Informação do Ficheiro
-Name[pt_BR]=Informações do arquivo
-Name[sv]=Filinformation
-Name[uk]=Відомості про файл
-Name[x-test]=xxFile Infoxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

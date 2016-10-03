@@ -1,21 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Notch Filter
-Name[ca]=Filtre de supressió de la banda
-Name[ca@valencia]=Filtre de supressió de la banda
-Name[cs]=Vroubkový filtr
-Name[de]=Kerbfilter
-Name[en_GB]=Notch Filter
-Name[es]=Filtro de supresión de banda
-Name[gl]=Filtro notch
-Name[it]=Filtro elimina banda
-Name[nl]=Notch-filter
-Name[pl]=Filtr prążka
-Name[pt]=Filtro Corta-Banda
-Name[pt_BR]=Filtro rejeita-faixa
-Name[sv]=Bandspärrfilter
-Name[uk]=Фільтр розривів
-Name[x-test]=xxNotch Filterxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Dave Flogeras

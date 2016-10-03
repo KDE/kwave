@@ -1,21 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Volume
-Name[ca]=Volum
-Name[ca@valencia]=Volum
-Name[cs]=Hlasitost
-Name[de]=Lautstärke
-Name[en_GB]=Volume
-Name[es]=Volumen
-Name[gl]=Volume
-Name[it]=Volume
-Name[nl]=Volume
-Name[pl]=Głośność
-Name[pt]=Volume
-Name[pt_BR]=Volume
-Name[sv]=Volym
-Name[uk]=Гучність
-Name[x-test]=xxVolumexx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

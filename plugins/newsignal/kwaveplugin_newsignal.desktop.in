@@ -1,22 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=New Signal
-Name[ca]=Senyal nou
-Name[ca@valencia]=Senyal nou
-Name[cs]=Nový signál
-Name[de]=Neues Signal
-Name[en_GB]=New Signal
-Name[es]=Nueva señal
-Name[gl]=Novo sinal
-Name[it]=Nuovo segnale
-Name[nl]=Nieuw signaal
-Name[pl]=Nowy sygnał
-Name[pt]=Novo Sinal
-Name[pt_BR]=Novo sinal
-Name[sk]=Nový signál
-Name[sv]=Ny signal
-Name[uk]=Новий сигнал
-Name[x-test]=xxNew Signalxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

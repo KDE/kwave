@@ -1,22 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Playback
-Name[ca]=Reproducció
-Name[ca@valencia]=Reproducció
-Name[cs]=Přehrát
-Name[de]=Wiedergabe
-Name[en_GB]=Playback
-Name[es]=Reproducción
-Name[gl]=Reprodución
-Name[it]=Riproduci
-Name[nl]=Afspelen
-Name[pl]=Odtwarzanie
-Name[pt]=Reprodução
-Name[pt_BR]=Reproduzir
-Name[sk]=Prehrávanie
-Name[sv]=Uppspelning
-Name[uk]=Відтворення
-Name[x-test]=xxPlaybackxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

@@ -1,6 +1,21 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Normalizer
+Name[ca]=Normalitzador
+Name[ca@valencia]=Normalitzador
+Name[cs]=Normalizátor
+Name[de]=Normalisierer
+Name[en_GB]=Normaliser
+Name[es]=Normalizador
+Name[gl]=Normalizador
+Name[it]=Normalizza
+Name[nl]=Normalisator
+Name[pl]=Normalizator
+Name[pt]=Normalizador
+Name[pt_BR]=Normalizador
+Name[sv]=Normalisering
+Name[uk]=Нормалізатор
+Name[x-test]=xxNormalizerxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

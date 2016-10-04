@@ -1,6 +1,21 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=FLAC Codec
+Name[ca]=Còdec FLAC
+Name[ca@valencia]=Còdec FLAC
+Name[cs]=Kodek FLAC
+Name[de]=FLAC-Codec
+Name[en_GB]=FLAC Codec
+Name[es]=Códec FLAC
+Name[gl]=Códec de FLAC
+Name[it]=Codec FLAC
+Name[nl]=FLAC-codec
+Name[pl]=Kodek FLAC
+Name[pt]=Codificação em FLAC
+Name[pt_BR]=Codec FLAC
+Name[sv]=FLAC-kodare
+Name[uk]=Кодек FLAC
+Name[x-test]=xxFLAC Codecxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

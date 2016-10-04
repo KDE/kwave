@@ -1,6 +1,21 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Save Blocks
+Name[ca]=Desa els blocs
+Name[ca@valencia]=Guarda els blocs
+Name[cs]=Uložit bloky
+Name[de]=Blöcke speichern
+Name[en_GB]=Save Blocks
+Name[es]=Guardar bloques
+Name[gl]=Gardar os bloques
+Name[it]=Salva blocchi
+Name[nl]=Blokken opslaan
+Name[pl]=Zapisz bloki
+Name[pt]=Gravação de Blocos
+Name[pt_BR]=Salvar os blocos
+Name[sv]=Spara block
+Name[uk]=Зберегти блоки
+Name[x-test]=xxSave Blocksxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

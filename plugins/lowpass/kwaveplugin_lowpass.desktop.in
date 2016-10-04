@@ -1,6 +1,22 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Low Pass Filter
+Name[ca]=Filtre passabaix
+Name[ca@valencia]=Filtre passabaix
+Name[cs]=Filtr dolní pásmové propusti
+Name[de]=Tiefpass-Filter
+Name[en_GB]=Low Pass Filter
+Name[es]=Filtro paso bajo
+Name[gl]=Filtro de paso baixo
+Name[it]=Filtro passa basso
+Name[nl]=Laagdoorlaatfilter
+Name[pl]=Filtr przepuszczania niższych
+Name[pt]=Filtro Passa-Baixo
+Name[pt_BR]=Filtro passa-baixas
+Name[sk]=Dolnopriepustný filter
+Name[sv]=Lågpassfilter
+Name[uk]=Низькочастотний фільтр
+Name[x-test]=xxLow Pass Filterxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

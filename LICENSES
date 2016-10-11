@@ -42,8 +42,8 @@ LIST OF LICENSES FOUND IN THE SOURCES
 DIRECTLY USED EXTERNAL LIBRARIES
 ================================
 
-	* Qt-4.x			GPL2 or GPL3
-	* kdelibs-4.x			LGPL2
+	* Qt-5				GPL2 or GPL3
+	* KDE frameworks 5		LGPL2
 	* FFTW-3.x			GPL2+
 	* audiofile-0.2.6		LGPL2+ / GPL2+
 	* id3lib-3.8.3			LGPL2.1

@@ -243,15 +243,6 @@ INCLUDE_DIRECTORIES(
 )
 
 #############################################################################
-### RPATH settings                                                        ###
-
-SET(CMAKE_SKIP_BUILD_RPATH TRUE)
-SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}")
-SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-MESSAGE(STATUS "Using ${CMAKE_INSTALL_RPATH} as install RPATH")
-
-#############################################################################
 ### checks for needed header files                                        ###
 
 CHECK_INCLUDE_FILES(sys/times.h HAVE_SYS_TIMES_H)

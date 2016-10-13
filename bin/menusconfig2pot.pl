@@ -78,7 +78,7 @@ LINE: while (<IN>) {
 	$token =~ s/\"/\\\"/g;
 
 	$context = $context . "/" . $token;
-	if (not grep {$_->{"token"} eq $token} @all_tokens) {
+	if (not grep {$_->{"context"} eq $context} @all_tokens) {
 	    push @all_tokens, {
 		"token"   => $token,
 		"context" => $context,

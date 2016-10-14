@@ -21,6 +21,7 @@
 #include "config.h"
 #include <pthread.h>
 
+#include <QAtomicInt>
 #include <QtGlobal>
 #include <QMutex>
 #include <QObject>
@@ -87,8 +88,8 @@ namespace Kwave
 	/** Mutex for protecting SIGHUP <-> thread exit */
 	QMutex m_lock_sighup;
 
-	/** set to signal the thread that it should stop */
-	bool m_should_stop;
+	/** set to 1 to signal the thread that it should stop */
+	QAtomicInt m_should_stop;
 
 	/**
 	 * POSIX compatible thread ID of the worker thread.

@@ -76,7 +76,7 @@ Kwave::Plugin::Plugin(QObject *parent, const QVariantList &args)
      m_thread(0),
      m_thread_lock(),
      m_progress_enabled(true),
-     m_stop(false),
+     m_stop(0),
      m_progress(0),
      m_confirm_cancel(0),
      m_usage_count(1),

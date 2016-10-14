@@ -20,6 +20,7 @@
 #include <signal.h>
 #include <stdio.h>
 
+#include <QApplication>
 #include <QtGlobal> // for qWarning()
 
 #undef DEBUG_FIND_DEADLOCKS
@@ -32,6 +33,12 @@
 #include "libkwave/Runnable.h"
 #include "libkwave/WorkerThread.h"
 
+/** maximum number of attempts to stop the worker thread */
+#define MAX_ATTEMPTS_TO_STOP 8
+
+/** set to true once a handler for SIGHUP is in place */
+static bool g_signal_handler_is_in_place = false;
+
 //***************************************************************************
 extern "C" void _dummy_SIGHUP_handler(int);
 
@@ -42,17 +49,29 @@ void _dummy_SIGHUP_handler(int)
 }
 
 //***************************************************************************
-Kwave::WorkerThread::WorkerThread(Kwave::Runnable *runnable,
-                                              QVariant params)
+Kwave::WorkerThread::WorkerThread(Kwave::Runnable *runnable, QVariant params)
     :QThread(0),
      m_runnable(runnable),
      m_params(params),
      m_lock(), m_lock_sighup(),
-     m_should_stop(false),
+     m_should_stop(0),
      m_tid(pthread_self()),
      m_owner_tid(pthread_self())
 {
-    QMutexLocker lock(&m_lock);
+    /* NOTE: we assume that this gets called from the GUI thread only */
+    Q_ASSERT(this->thread() == QThread::currentThread());
+    Q_ASSERT(this->thread() == qApp->thread());
+
+    /* install handler for SIGHUP */
+    if (!g_signal_handler_is_in_place) {
+	/*
+	 * NOTE: the old signal handler is lost. But as long as we do not use
+	 *       SIGHUP in any other place of the application and we need to
+	 *       have a dummy handler only, that should not matter
+	 */
+	signal(SIGHUP, _dummy_SIGHUP_handler);
+	g_signal_handler_is_in_place = true;
+    }
 }
 
 //***************************************************************************
@@ -73,7 +92,7 @@ void Kwave::WorkerThread::start()
     QMutexLocker lock(&m_lock);
 
     // reset the "should stop" command flag
-    m_should_stop = false;
+    m_should_stop = 0;
 
     QThread::start();
 }
@@ -87,7 +106,7 @@ int Kwave::WorkerThread::stop(unsigned int timeout)
     if (timeout < 1000) timeout = 1000;
 
     // set the "should stop" flag
-    m_should_stop = true;
+    m_should_stop = 1;
 
     // send one SIGHUP in advance
     {
@@ -102,9 +121,9 @@ int Kwave::WorkerThread::stop(unsigned int timeout)
     wait(timeout/10);
     if (!isRunning()) return 0;
 
-    // try to interrupt by INT signal
+    // try to interrupt by HUP signal
     qWarning("WorkerThread::stop(): sending SIGHUP");
-    for (unsigned int i=0; i < 8; i++) {
+    for (unsigned int i = 0; i < MAX_ATTEMPTS_TO_STOP; i++) {
 	{
 	    QMutexLocker _lock(&m_lock_sighup);
 	    if (!isRunning()) return 0;
@@ -135,41 +154,29 @@ int Kwave::WorkerThread::stop(unsigned int timeout)
 //***************************************************************************
 void Kwave::WorkerThread::run()
 {
-    sighandler_t old_handler;
-
     Q_ASSERT(m_runnable);
     if (!m_runnable) return;
 
-    /* install a SIGHUP handler and allow sending SIGHUP */
+    /* get the POSIX thread ID, needed for sending SIGHUP */
     {
 	QMutexLocker _lock(&m_lock_sighup);
-
-	/* get the POSIX style thread ID, needed for sending SIGHUP */
 	m_tid = pthread_self();
-
-	/* install handler for SIGHUP */
-	old_handler = signal(SIGHUP, _dummy_SIGHUP_handler);
     }
 
     /* call the run(...) function */
     m_runnable->run_wrapper(m_params);
 
-    /* uninstall the SIGHUP handler and forbid sending SIGHUP */
+    /* avoid sending any SIGHUP by setting the m_tid to "invalid" */
     {
 	QMutexLocker _lock(&m_lock_sighup);
-
-	/* avoid sending any SIGHUP by setting the m_tid to "invalid" */
 	m_tid = m_owner_tid;
-
-	/* restore previous signal handler */
-	old_handler = signal(SIGHUP, old_handler);
     }
 }
 
 //***************************************************************************
 void Kwave::WorkerThread::cancel()
 {
-    m_should_stop = true;
+    m_should_stop = 1;
 }
 
 //***************************************************************************

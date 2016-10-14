@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <QAtomicInt>
 #include <QtGlobal>
 #include <QList>
 #include <QMutex>
@@ -351,8 +352,8 @@ namespace Kwave
 	/** determines whether a progress dialog should be used in run() */
 	bool m_progress_enabled;
 
-	/** flag for stopping the process */
-	bool m_stop;
+	/** flag for stopping the process (stop if set to non-zero) */
+	QAtomicInt m_stop;
 
 	/** a progress dialog, if the audio processing takes longer... */
 	QProgressDialog *m_progress;

@@ -154,8 +154,8 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
     m_lbl_status_size->setFrameStyle(frame_style);
 
     // start up iconified if requested
-    const QCommandLineParser &args = m_application.cmdline();
-    bool iconic = (args.isSet(_("iconic")));
+    const QCommandLineParser *args = m_application.cmdline();
+    bool iconic = (args && args->isSet(_("iconic")));
     if (iconic) {
 	showMinimized();
     }

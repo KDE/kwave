@@ -156,39 +156,47 @@ extern "C" void probe_fast_memcpy(void);
 int main(int argc, char **argv)
 {
     int retval = 0;
-    QCommandLineParser cmdline;
 
+    // create the application instance first
+    Kwave::App app(argc, argv);
+
+    // initialize the crash handler (only if KCrash >= 5.15 is available)
+#if KCrash_VERSION >= ((5 << 16) | (15 << 8) | (0))
+    KCrash::initialize();
+#endif
+
+    // manually connect the translation catalog, otherwise i18n will not work
+    KLocalizedString::setApplicationDomain(PACKAGE);
+
+    QCommandLineParser cmdline;
     cmdline.addHelpOption();
     cmdline.addVersionOption();
     cmdline.addOption(QCommandLineOption(
 	_("disable-splashscreen"),
-	_(I18N_NOOP("Disable the Splash Screen."))
+	i18n("Disable the Splash Screen.")
     ));
     cmdline.addOption(QCommandLineOption(
 	_("iconic"),
-	_(I18N_NOOP("Start Kwave iconified."))
+	i18n("Start Kwave iconified.")
     ));
     cmdline.addOption(QCommandLineOption(
 	_("logfile"),
-	_(I18N_NOOP2("description of command line parameter",
-	             "Log all commands into a file <file>.")),
-	_(I18N_NOOP2("placeholder of command line parameter", "file"))
+	i18nc("description of command line parameter",
+	      "Log all commands into a file <file>."),
+	i18nc("placeholder of command line parameter", "file")
     ));
     cmdline.addOption(QCommandLineOption(
 	_("gui"),
-	_(I18N_NOOP2("description of command line parameter",
-	             "Select a GUI type: SDI, MDI or TAB mode.")),
-	_(I18N_NOOP2("placeholder of command line parameter", "sdi|mdi|tab"))
+	i18nc("description of command line parameter",
+	      "Select a GUI type: SDI, MDI or TAB mode."),
+	i18nc("placeholder of command line parameter", "sdi|mdi|tab")
     ));
     cmdline.addPositionalArgument(
 	_("files"),
-	_(I18N_NOOP("List of audio files, Kwave macro files "
-	            "or Kwave URLs to open (optionally)")),
-	_(I18N_NOOP2("placeholder of command line parameter", "[files...]"))
+	i18nc("List of audio files, Kwave macro files ",
+	      "or Kwave URLs to open (optionally)"),
+	i18nc("placeholder of command line parameter", "[files...]")
     );
-
-    // manually connect the translation catalog, otherwise i18n will not work
-    KLocalizedString::setApplicationDomain(PACKAGE);
 
     KAboutData about(
 	_(PACKAGE),
@@ -213,16 +221,12 @@ int main(int argc, char **argv)
 	KXMLGUI_VERSION_STRING
     );
 
-    Kwave::App app(argc, argv, cmdline);
+    app.processCmdline(&cmdline);
     app.setApplicationName(_("kwave"));
     app.setApplicationVersion(_(PACKAGE_VERSION));
     app.setOrganizationDomain(_("kde.org"));
     cmdline.process(app);
-
-    // initialize the crash handler (only if KCrash >= 5.15 is available)
-#if KCrash_VERSION >= ((5 << 16) | (15 << 8) | (0))
-    KCrash::initialize();
-#endif
+    about.processCommandLine(&cmdline);
 
     /* let Kwave be a "unique" application, only one instance */
     KDBusService service(KDBusService::Unique);

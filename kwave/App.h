@@ -63,9 +63,15 @@ namespace Kwave
 	 * Constructor
 	 * @param argc number of cmdline args, must be >= 1
 	 * @param argv list of cmdline args, must be static
-	 * @param cmdline reference to the command line parameters
 	 */
-	App(int &argc, char **argv, QCommandLineParser &cmdline);
+	App(int &argc, char **argv);
+
+	/**
+	 * process the command line settings, after setting up the application,
+	 * command line parser and about data
+         * @param cmdline command line parser
+	 */
+	void processCmdline(QCommandLineParser *cmdline);
 
 	/**
 	 * Returns true if this instance was successfully initialized, or
@@ -121,7 +127,7 @@ namespace Kwave
 	void switchGuiType(Kwave::TopWidget *top, GuiType new_type);
 
 	/** Returns the command line parameters passed to the application */
-	inline const QCommandLineParser &cmdline() const { return m_cmdline; }
+	inline const QCommandLineParser *cmdline() const { return m_cmdline; }
 
     signals:
 	/**
@@ -170,7 +176,7 @@ namespace Kwave
     private:
 
 	/** reference to a (static) command line parser */
-	QCommandLineParser &m_cmdline;
+	QCommandLineParser *m_cmdline;
 
 	/**
 	 * Local list of recent files. This list will be synchronized

@@ -52,15 +52,13 @@
 #define MAX_RECENT_FILES 20
 
 //***************************************************************************
-Kwave::App::App(int &argc, char **argv, QCommandLineParser &cmdline)
+Kwave::App::App(int &argc, char **argv)
    :QApplication(argc, argv),
-    m_cmdline(cmdline),
+    m_cmdline(0),
     m_recent_files(),
     m_top_widgets(),
     m_gui_type(Kwave::App::GUI_TAB)
 {
-    m_cmdline.parse(arguments());
-
     qRegisterMetaType<Kwave::SampleArray>("Kwave::SampleArray");
     qRegisterMetaType<Kwave::LabelList>("Kwave::LabelList");
     qRegisterMetaType<sample_index_t>("sample_index_t");
@@ -68,9 +66,19 @@ Kwave::App::App(int &argc, char **argv, QCommandLineParser &cmdline)
 
     // connect the clipboard
     connect(QApplication::clipboard(),
-            SIGNAL(changed(QClipboard::Mode)),
-            &(Kwave::ClipBoard::instance()),
-            SLOT(slotChanged(QClipboard::Mode)));
+	    SIGNAL(changed(QClipboard::Mode)),
+	    &(Kwave::ClipBoard::instance()),
+	    SLOT(slotChanged(QClipboard::Mode)));
+}
+
+//***************************************************************************
+void Kwave::App::processCmdline(QCommandLineParser *cmdline)
+{
+    Q_ASSERT(cmdline);
+    if (!cmdline) return;
+
+    m_cmdline = cmdline;
+    m_cmdline->parse(arguments());
 
     // read the configured user interface type
     QString result;
@@ -86,8 +94,8 @@ Kwave::App::App(int &argc, char **argv, QCommandLineParser &cmdline)
     // else: use default
 
     // if user interface type is given as cmdline parameter: use that one
-    if (m_cmdline.isSet(_("gui"))) {
-	QString arg = m_cmdline.value(_("gui")).toUpper();
+    if (m_cmdline->isSet(_("gui"))) {
+	QString arg = m_cmdline->value(_("gui")).toUpper();
 	bool valid = false;
 	if (arg == _("SDI")) {
 	    m_gui_type = Kwave::App::GUI_SDI;
@@ -120,15 +128,18 @@ int Kwave::App::newInstance(const QStringList &args, const QString &dir)
     int retval = 0;
     Q_UNUSED(dir);
 
-    m_cmdline.parse(args);
+    Q_ASSERT(m_cmdline);
+    if (!m_cmdline) return -EINVAL;
+
+    m_cmdline->parse(args);
 
     static bool first_time = true;
     if (first_time) {
 	first_time = false;
 
 	// open the log file if given on the command line
-	if (m_cmdline.isSet(_("logfile"))) {
-	    if (!Kwave::Logger::open(m_cmdline.value(_("logfile"))))
+	if (m_cmdline->isSet(_("logfile"))) {
+	    if (!Kwave::Logger::open(m_cmdline->value(_("logfile"))))
 		exit(-1);
 	}
 
@@ -139,7 +150,7 @@ int Kwave::App::newInstance(const QStringList &args, const QString &dir)
 	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
     }
 
-    QStringList params = m_cmdline.positionalArguments();
+    QStringList params = m_cmdline->positionalArguments();
 
     // only one parameter -> open with empty window
     if (params.isEmpty()) {

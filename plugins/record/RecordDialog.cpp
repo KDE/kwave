@@ -851,7 +851,8 @@ void Kwave::RecordDialog::setCompression(int compression)
 //***************************************************************************
 void Kwave::RecordDialog::compressionChanged(int index)
 {
-    int compression = cbFormatCompression->itemData(index).toInt();
+    Kwave::Compression::Type compression = Kwave::Compression::fromInt(
+	cbFormatCompression->itemData(index).toInt());
     if (compression != m_params.compression)
 	emit sigCompressionChanged(compression);
 }

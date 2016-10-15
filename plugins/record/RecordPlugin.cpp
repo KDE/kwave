@@ -149,8 +149,8 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
             this,     SLOT(changeTracks(uint)));
     connect(m_dialog, SIGNAL(sampleRateChanged(double)),
             this,     SLOT(changeSampleRate(double)));
-    connect(m_dialog, SIGNAL(sigCompressionChanged(int)),
-            this,     SLOT(changeCompression(int)));
+    connect(m_dialog, SIGNAL(sigCompressionChanged(Kwave::Compression::Type)),
+	    this,     SLOT(changeCompression(Kwave::Compression::Type)));
     connect(m_dialog, SIGNAL(sigBitsPerSampleChanged(uint)),
             this,     SLOT(changeBitsPerSample(uint)));
     connect(m_dialog,
@@ -1043,7 +1043,6 @@ void Kwave::RecordPlugin::startRecording()
 	                   about_data.version() + _(" ") +
 	                   i18n("(built for KDE Frameworks %1)",
 	                   _(KXMLGUI_VERSION_STRING));
-	qDebug("adding software tag: '%s'", DBG(software));
 	fileInfo.set(Kwave::INF_SOFTWARE, software);
 
 	// add a date tag, ISO format

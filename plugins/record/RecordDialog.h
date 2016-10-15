@@ -174,7 +174,7 @@ namespace Kwave
 	void sampleRateChanged(double rate);
 
 	/** emitted when the compression has changed */
-	void sigCompressionChanged(int compression);
+	void sigCompressionChanged(Kwave::Compression::Type compression);
 
 	/** emitted when the resoluton in bits per sample changed */
 	void sigBitsPerSampleChanged(unsigned int bits);

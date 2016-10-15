@@ -76,7 +76,9 @@ svn update --quiet subdirs teamnames scripts
 mkdir -p "${PO_DIR}"
 
 # check out all missing directories and files (recursively)
-LINGUAS=`cat subdirs | grep -v x-test`
+if test -z ${LINGUAS} ; then
+    LINGUAS=`cat subdirs | grep -v x-test`
+fi
 FOUND_LINGUAS=""
 FOUND_POFILES=""
 FOUND_HANDBOOKS=""
@@ -97,8 +99,12 @@ for lang in ${LINGUAS}; do
 	    checkout "" "${lang}" "docmessages" "language"
 	fi
     else
-	checkout "" "${lang}" "docs" "${CATEGORY}"
-	svn update --quiet "${lang}/docs/${CATEGORY}/kwave"
+	if test ! -e "${lang}/docs/${CATEGORY}" ; then
+	    checkout "" "${lang}" "docs" "${CATEGORY}"
+	fi
+	if test -e "${lang}/docs/${CATEGORY}" ; then
+	    svn update --quiet "${lang}/docs/${CATEGORY}/kwave"
+	fi
 	checkout "" "${lang}" "docmessages" "${CATEGORY}" "${PO_FILE}"
 	if [ ${result} == 1 ] ; then
 	    FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
@@ -152,17 +158,22 @@ done
 cd "${REPOSITORY}"
 for lang in ${FOUND_HANDBOOKS}; do
 
-    svn update "${lang}/docs/${CATEGORY}/kwave"
+    if test -e "${lang}/docs/${CATEGORY}/kwave" ; then
+	svn update "${lang}/docs/${CATEGORY}/kwave"
+    else
+	mkdir -p "${lang}/docs/${CATEGORY}/kwave"
+    fi
+
 
     if ! test -e "${lang}/docs/${CATEGORY}/kwave/index.docbook" ; then
 	echo -n "${lang}: creating missing index.docbook... "
-	scripts/update_xml ${lang} kdereview kwave > /dev/null
+	scripts/update_xml ${lang} ${CATEGORY} kwave > /dev/null
 	echo "done"
     else
 	if test "${lang}/docs/${CATEGORY}/kwave/index.docbook" -ot \
 	         "${lang}/docmessages/${CATEGORY}/kwave.po" ; then
 	    echo -n "${lang}: index.docbook is out of date - updating... "
-	    scripts/update_xml ${lang} kdereview kwave > /dev/null
+	    scripts/update_xml ${lang} ${CATEGORY} kwave > /dev/null
 	    echo "done"
 	fi
     fi

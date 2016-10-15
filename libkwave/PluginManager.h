@@ -232,13 +232,6 @@ namespace Kwave
 	 */
 	void searchPluginModules();
 
-	/**
-	 * Signature of a loader function, must be provided by a plugin
-	 * to create an instance of a class derived from Kwave::Plugin
-	 */
-	typedef Kwave::Plugin *(plugin_ldr_func_t)(
-	    Kwave::PluginManager &plugin_manager);
-
 	/** structure with information about a plugin */
 	typedef struct  {
 	    QString            m_name;        /**< name of the plugin   */

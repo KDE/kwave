@@ -193,7 +193,8 @@ int main(int argc, char **argv)
     ));
     cmdline.addPositionalArgument(
 	_("files"),
-	i18nc("List of audio files, Kwave macro files ",
+	i18nc("description of command line parameter",
+	      "List of audio files, Kwave macro files "\
 	      "or Kwave URLs to open (optionally)"),
 	i18nc("placeholder of command line parameter", "[files...]")
     );

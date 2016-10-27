@@ -16,6 +16,7 @@
   * CMakeLists.txt: remove RPATH settings
   * fixed small memory leak in menu group handling
   * fixed i18n of application AboutData
+  * bugfix: internal name of "goto" plugin was wrong
 
 0.9.2 [2016-06-26]
 

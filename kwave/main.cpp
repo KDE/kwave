@@ -44,105 +44,105 @@ static void addDataStrings(KAboutData &aboutdata)
 {
     //Developers
     aboutdata.addAuthor(
-	_(I18N_NOOP("Thomas Eschenbacher")),
-	_(I18N_NOOP("Project leader since 2000, core development")),
+	i18n("Thomas Eschenbacher"),
+	i18n("Project leader since 2000, core development"),
 	_("Thomas.Eschenbacher@gmx.de"),
-	_(I18N_NOOP("http://kwave.sourceforge.net"))
+	i18n("http://kwave.sourceforge.net")
     );
     aboutdata.addAuthor(
-	_(I18N_NOOP("Martin Wilz")),
-	_(I18N_NOOP("Creator of the project, development 1998-2000")),
+	i18n("Martin Wilz"),
+	i18n("Creator of the project, development 1998-2000"),
 	_("martin@wilz.de"),
-	_(I18N_NOOP("http://www.wilz.de")));
+	i18n("http://www.wilz.de"));
     aboutdata.addAuthor(
-	_(I18N_NOOP("Ralf Waspe")),
-	_(I18N_NOOP("Creator of the Help/About dialog")),
+	i18n("Ralf Waspe"),
+	i18n("Creator of the Help/About dialog"),
 	_("rwaspe@web.de"),
 	QString());
     aboutdata.addAuthor(
-	_(I18N_NOOP("Caulier Gilles")),
-	_(I18N_NOOP("splashscreen, tests and bugfixes")),
+	i18n("Caulier Gilles"),
+	i18n("splashscreen, tests and bugfixes"),
 	_("caulier.gilles@free.fr"),
-	_(I18N_NOOP("http://caulier.gilles.free.fr")));
+	i18n("http://caulier.gilles.free.fr"));
     aboutdata.addAuthor(
-	_(I18N_NOOP("Dave Flogeras")),
-	_(I18N_NOOP("Notch filter plugin")),
+	i18n("Dave Flogeras"),
+	i18n("Notch filter plugin"),
 	_("d.flogeras@unb.ca"),
 	QString());
     aboutdata.addAuthor(
-	_(I18N_NOOP("Rik Hemsley")),
-	_(I18N_NOOP("Level meter")),
+	i18n("Rik Hemsley"),
+	i18n("Level meter"),
 	_("rik@kde.org"),
-	_(I18N_NOOP("http://rikkus.info/esoundlevelmeter.html")));
+	i18n("http://rikkus.info/esoundlevelmeter.html"));
     aboutdata.addAuthor(
-	_(I18N_NOOP("Joerg-Christian Boehme")),
-	_(I18N_NOOP("PulseAudio record plugin")),
+	i18n("Joerg-Christian Boehme"),
+	i18n("PulseAudio record plugin"),
 	_("joerg@chaosdorf.de"),
 	QString());
 
     // people who helped
     aboutdata.addCredit(
-	_(I18N_NOOP("Stefan Westerfeld")),
-	_(I18N_NOOP("Author of aRts")),
+	i18n("Stefan Westerfeld"),
+	i18n("Author of aRts"),
 	_("stefan@space.twc.de"),
 	QString());
     aboutdata.addCredit(
-	_(I18N_NOOP("Sven-Steffen Arndt")),
-	_(I18N_NOOP("Kwave homepage and German online help")),
+	i18n("Sven-Steffen Arndt"),
+	i18n("Kwave homepage and German online help"),
 	_("ssa29@gmx.de"),
 	QString());
     aboutdata.addCredit(
-	_(I18N_NOOP("Aurelien Jarno")),
-	_(I18N_NOOP("Debian packager")),
+	i18n("Aurelien Jarno"),
+	i18n("Debian packager"),
 	_("aurel32@debian.org"),
 	QString());
     aboutdata.addCredit(
-	_(I18N_NOOP("Robert M. Stockmann")),
-	_(I18N_NOOP("Packaging for Mandrake / X86_64")),
+	i18n("Robert M. Stockmann"),
+	i18n("Packaging for Mandrake / X86_64"),
 	_("stock@stokkie.net"),
 	QString());
-//     aboutdata.addCredit(I18N_NOOP("Diederick de Vries"),
-//                      I18N_NOOP("Packaging for Crux Linux"),
-//                      "diederick76@gmail.com",
-//                      "http://crux.nu/portdb/?command=viewport&repo=diederick&name=kwave");
+//     aboutdata.addCredit(i18n("Diederick de Vries"),
+//                      i18n("Packaging for Crux Linux"),
+//                      _("diederick76@gmail.com"),
+//                      _("http://crux.nu/portdb/?command=viewport&repo=diederick&name=kwave"));
     aboutdata.addCredit(
-	_(I18N_NOOP("Martin Kuball")),
-	_(I18N_NOOP("Tester")),
+	i18n("Martin Kuball"),
+	i18n("Tester"),
 	_("makube@user.sourceforge.net"),
 	QString());
     aboutdata.addCredit(
-	_(I18N_NOOP("Robert Leslie")),
-	_(I18N_NOOP("Author of the 'mad' MP3 decoder library")),
+	i18n("Robert Leslie"),
+	i18n("Author of the 'mad' MP3 decoder library"),
 	_("rob@mars.org"),
-	_(I18N_NOOP("http://www.mars.org/home/rob/proj/mpeg")));
+	i18n("http://www.mars.org/home/rob/proj/mpeg"));
     aboutdata.addCredit(
-	_(I18N_NOOP("T.H.F. Klok and Cedric Tefft")),
-	_(I18N_NOOP("Maintainers of the 'id3lib' library")),
+	i18n("T.H.F. Klok and Cedric Tefft"),
+	i18n("Maintainers of the 'id3lib' library"),
 	QString(),
-	_(I18N_NOOP("http://www.id3lib.org/")));
+	i18n("http://www.id3lib.org/"));
     aboutdata.addCredit(
-	_(I18N_NOOP("Michael Pruett")),
-	_(I18N_NOOP("Author of the 'audiofile' library")),
+	i18n("Michael Pruett"),
+	i18n("Author of the 'audiofile' library"),
 	_("mpruett@sgi.com"),
-	_(I18N_NOOP("http://www.68k.org/~michael/audiofile/")));
+	i18n("http://www.68k.org/~michael/audiofile/"));
     aboutdata.addCredit(
-	_(I18N_NOOP("Carlos R.")),
-	_(I18N_NOOP("Spanish translation")),
+	i18n("Carlos R."),
+	i18n("Spanish translation"),
 	_("pureacetone@gmail.com"),
 	QString());
     aboutdata.addCredit(
-	_(I18N_NOOP("Erik de Castro Lopo")),
-	_(I18N_NOOP("Author of the 'sndfile' library")),
+	i18n("Erik de Castro Lopo"),
+	i18n("Author of the 'sndfile' library"),
 	_("erikd@zip.com.au"),
-	_(I18N_NOOP("http://www.mega-nerd.com/libsndfile/")));
+	i18n("http://www.mega-nerd.com/libsndfile/"));
     aboutdata.addCredit(
-	_(I18N_NOOP("Pavel Fric")),
-	_(I18N_NOOP("Czech translation")),
+	i18n("Pavel Fric"),
+	i18n("Czech translation"),
 	_("pavelfric@seznam.cz"),
-	_(I18N_NOOP("http://fripohled.blogspot.com")));
+	i18n("http://fripohled.blogspot.com"));
     aboutdata.addCredit(
-	_(I18N_NOOP("Panagiotis Papadopoulos")),
-	_(I18N_NOOP("String and i18n updates")),
+	i18n("Panagiotis Papadopoulos"),
+	i18n("String and i18n updates"),
 	_("pano_90@gmx.net"),
 	QString());
 }
@@ -225,7 +225,7 @@ int main(int argc, char **argv)
     app.processCmdline(&cmdline);
     app.setApplicationName(_("kwave"));
     app.setApplicationVersion(_(PACKAGE_VERSION));
-    app.setOrganizationDomain(_("kde.org"));
+    app.setOrganizationDomain(_("sourceforge.net"));
     cmdline.process(app);
     about.processCommandLine(&cmdline);
 

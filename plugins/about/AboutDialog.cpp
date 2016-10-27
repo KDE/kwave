@@ -79,10 +79,10 @@ Kwave::AboutDialog::AboutDialog(
     Kwave::AboutContainer *about = new Kwave::AboutContainer(this);
     foreach (const KAboutPerson &author, about_data.authors()) {
 	about->addPerson(
-	    i18n(author.name().toUtf8()),
+	    author.name(),
 	    author.emailAddress(),
 	    author.webAddress(),
-	    i18n(author.task().toUtf8())
+	    author.task()
 	);
     }
     authorframe->setWidget(about);
@@ -92,10 +92,10 @@ Kwave::AboutDialog::AboutDialog(
     Kwave::AboutContainer *contrib = new Kwave::AboutContainer(this);
     foreach (const KAboutPerson &credit, about_data.credits()) {
 	contrib->addPerson(
-	    i18n(credit.name().toUtf8()),
+	    credit.name(),
 	    credit.emailAddress(),
-	    i18n(credit.webAddress().toUtf8()),
-	    i18n(credit.task().toUtf8())
+	    credit.webAddress(),
+	    credit.task()
 	);
     }
     thanksframe->setWidget(contrib);
@@ -125,9 +125,9 @@ Kwave::AboutDialog::AboutDialog(
 	std::sort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
 	foreach (const Kwave::PluginManager::PluginModule &info, list) {
 	    QStringList item;
-	    item << i18n(info.m_description.toUtf8())
+	    item << info.m_description
 	         << info.m_version
-	         << i18n(info.m_author.toUtf8());
+	         << info.m_author;
 	    plugins.append(new QTreeWidgetItem(
 		static_cast<QTreeWidget *>(0), item));
 	}
@@ -194,8 +194,8 @@ Kwave::AboutDialog::AboutDialog(
 	    trans->addPerson(
 		translator.name(),
 		translator.emailAddress(),
-		i18n(website.toUtf8()),
-		i18n(translator.task().toUtf8())
+		website,
+		translator.task()
 	    );
 	}
 

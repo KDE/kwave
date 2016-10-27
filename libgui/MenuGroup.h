@@ -82,6 +82,11 @@ namespace Kwave
 	virtual bool isEnabled() const { return m_enabled; }
 
 	/**
+	 * returns true if the group contains no members
+	 */
+	virtual bool isEmpty() const { return m_members.isEmpty(); }
+
+	/**
 	 * Resets all checkmarks of the group members except the one member
 	 * that will get the new selected one. If no new member id is given
 	 * no member will get selected. This method is useful for making

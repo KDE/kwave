@@ -409,7 +409,12 @@ void Kwave::MenuNode::leaveGroup(const QString &group)
     m_groups.removeAll(group);
 
     // remove ourself from the group
-    if (grp) grp->leave(this);
+    if (grp) {
+	grp->leave(this);
+
+	// clean up the group if nobody uses it any more
+	if (grp->isEmpty()) delete grp;
+    }
 }
 
 //*****************************************************************************

@@ -401,7 +401,6 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 	                       about_data.version() +
 	                       i18n("(built for KDE Frameworks %1)",
 	                            _(KXMLGUI_VERSION_STRING));
-	    qDebug("adding software tag: '%s'", DBG(software));
 	    file_info.set(Kwave::INF_SOFTWARE, software);
 	}
 

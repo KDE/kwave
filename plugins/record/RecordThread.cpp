@@ -18,9 +18,6 @@
 #include "config.h"
 
 #include <errno.h>
-#include <signal.h>
-#include <stdlib.h>
-#include <strings.h> // for bzero
 
 #include <QVariant>
 
@@ -54,7 +51,6 @@ void Kwave::RecordThread::setRecordDevice(Kwave::RecordDevice *device)
 //***************************************************************************
 int Kwave::RecordThread::setBuffers(unsigned int count, unsigned int size)
 {
-//     qDebug("RecordThread::setBuffers(%u,%u)", count, size);
     Q_ASSERT(!isRunning());
     if (isRunning()) return -EBUSY;
 
@@ -108,8 +104,6 @@ QByteArray Kwave::RecordThread::dequeue()
 //***************************************************************************
 void Kwave::RecordThread::run()
 {
-    qDebug("RecordThread::run() - started (buffers: %u x %u byte)",
-           m_buffer_count, m_buffer_size);
     int result = 0;
     bool interrupted = false;
     unsigned int offset = 0;
@@ -118,7 +112,6 @@ void Kwave::RecordThread::run()
     while (!shouldStop() && !interrupted) {
 	// dequeue a buffer from the "empty" queue
 
-//	qDebug(">>> %u <<<", m_empty_queue.count()); // ###
 	if (m_empty_queue.isEmpty()) {
 	    // we had a "buffer overflow"
 	    qWarning("RecordThread::run() -> NO EMPTY BUFFER FOUND !!!");
@@ -186,7 +179,6 @@ void Kwave::RecordThread::run()
 	result = 0;
 
     if (result) emit stopped(result);
-    qDebug("RecordThread::run() - done");
 }
 
 //***************************************************************************

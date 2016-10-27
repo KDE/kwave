@@ -2,6 +2,18 @@
 0.9.3 [2016-xx-xx]
 
   * added genre types 126..191
+  * record plugin: fixed crash when restarting record in MDI or tab mode
+  * record plugin: reset did not work when clicking the "New" button shortly
+    after starting the recording
+  * revised use of signal handler in WorkerThread
+  * WorkerThread: no longer use "bool" for signaling the wish to terminate,
+    use QAtomicInt instead (also applies to Plugin class)
+  * changed order of application object creation and setting up command line
+    parser + about data
+  * got rid of I18N_NOOP in main.cpp
+  * bugfix: untranslated strings in menu
+  * LICENSES file still mentioned Qt-4/KDE-4 libraries
+  * CMakeLists.txt: remove RPATH settings
 
 0.9.2 [2016-06-26]
 

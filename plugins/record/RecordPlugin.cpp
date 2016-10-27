@@ -747,7 +747,6 @@ void Kwave::RecordPlugin::changeSampleFormat(
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    qDebug("RecordPlugin::changeSampleFormat(%d)", static_cast<int>(new_format));
 
     if (!m_device || m_device_name.isNull()) {
 	// no device -> dummy/shortcut
@@ -874,11 +873,17 @@ void Kwave::RecordPlugin::resetRecording(bool &accepted)
 {
     InhibitRecordGuard _lock(*this);
 
+    if (m_writers) m_writers->clear();
+
     emitCommand(_("nomacro:close()"));
+    QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
     accepted = manager().signalManager().isEmpty();
     if (!accepted) return;
 
-    if (m_writers) m_writers->clear();
+    // the parent context might have changed, maybe we have to
+    // re-parent this plugin instance!
+    migrateToActiveContext();
+
     m_buffers_recorded = 0;
 
     m_controller.setEmpty(true);
@@ -977,7 +982,6 @@ void Kwave::RecordPlugin::startRecording()
     if (!m_dialog || !m_thread || !m_device) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    qDebug("RecordPlugin::startRecording()");
 
     if ((m_state != Kwave::REC_PAUSED) || !m_decoder) {
 	double rate = m_dialog->params().sample_rate;
@@ -998,6 +1002,7 @@ void Kwave::RecordPlugin::startRecording()
 	    // create a new and empty signal
 	    emitCommand(QString(_("newsignal(%1,%2,%3,%4)")).arg(
 		samples).arg(rate).arg(bits).arg(tracks));
+	    QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
 	    // the parent context might have changed, maybe we have to
 	    // re-parent this plugin instance!
@@ -1103,8 +1108,6 @@ void Kwave::RecordPlugin::recordStopped(int reason)
 //***************************************************************************
 void Kwave::RecordPlugin::stateChanged(Kwave::RecordState state)
 {
-    qDebug("RecordPlugin::stateChanged(%s)", m_controller.stateName(state));
-
     m_state = state;
     switch (m_state) {
 	case Kwave::REC_UNINITIALIZED:

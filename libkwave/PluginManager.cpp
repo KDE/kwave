@@ -90,8 +90,7 @@ Kwave::PluginManager::~PluginManager()
     }
 
     // this should make the cleanup handlers run (deferred delete)
-    qApp->processEvents();
-    qApp->flush();
+    QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
     // release all loaded modules
     foreach (const QString &name, m_plugin_modules.keys()) {

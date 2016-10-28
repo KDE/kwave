@@ -227,6 +227,7 @@ int main(int argc, char **argv)
     app.setApplicationVersion(_(PACKAGE_VERSION));
     app.setOrganizationDomain(_("sourceforge.net"));
     cmdline.process(app);
+    about.setupCommandLine(&cmdline);
     about.processCommandLine(&cmdline);
 
     /* let Kwave be a "unique" application, only one instance */

@@ -28,7 +28,6 @@
 #include <execinfo.h> // for backtrace()
 #endif
 #include <errno.h>
-#include <error.h>   // for strerror()
 
 #include "libkwave/Runnable.h"
 #include "libkwave/WorkerThread.h"

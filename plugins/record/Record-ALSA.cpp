@@ -313,7 +313,7 @@ QString Kwave::RecordALSA::open(const QString &device)
 		reason = QString::number(EBUSY);
 		break;
 	    default:
-		reason = i18n(snd_strerror(m_open_result));
+		reason = QString::fromLocal8Bit(snd_strerror(m_open_result));
 		break;
 	}
 	return reason;

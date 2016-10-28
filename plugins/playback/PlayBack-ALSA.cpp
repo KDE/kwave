@@ -543,7 +543,7 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     // prepare the device for playback
     if ((err = snd_pcm_prepare(m_handle)) < 0) {
 	snd_pcm_dump(m_handle, output);
-	qWarning("cannot prepare interface for use: %s",snd_strerror(err));
+	qWarning("cannot prepare interface for use: %s", snd_strerror(err));
     }
 
     return 0;

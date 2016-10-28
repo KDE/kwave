@@ -66,7 +66,7 @@ KWAVE_PLUGIN(record, RecordPlugin)
 //***************************************************************************
 Kwave::RecordPlugin::RecordPlugin(QObject *parent, const QVariantList &args)
     :Kwave::Plugin(parent, args),
-     m_method(), m_device_name(), m_controller(),
+     m_method(Kwave::RECORD_NONE), m_device_name(), m_controller(),
      m_state(Kwave::REC_EMPTY), m_device(0),
      m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),
      m_writers(0), m_buffers_recorded(0), m_inhibit_count(0),
@@ -437,17 +437,29 @@ void Kwave::RecordPlugin::setDevice(const QString &device)
 			m_device_name.section(_("|"), 3, 3);
 	    }
 
-	    if (result == QString::number(ENODEV)) {
-		result = i18n(
-		    "Maybe your system lacks support for the corresponding "\
-		    "hardware or the hardware is not connected."
-		);
-	    } else if (result == QString::number(EBUSY)) {
-		result = i18n(
-		    "The audio device seems to be occupied by another "\
-		    "application. Retrying..."
-		);
-		shouldRetry = true;
+	    bool errIsNumeric = false;
+	    int errNumber = result.toInt(&errIsNumeric);
+	    if (errIsNumeric) {
+		if (errNumber == ENODEV) {
+		    result = i18n(
+			"Maybe your system lacks support for the "\
+			"corresponding hardware or the hardware is not "\
+			"connected."
+		    );
+		} else if (errNumber == EBUSY) {
+		    result = i18n(
+			"The audio device seems to be occupied by another "\
+			"application. Retrying..."
+		    );
+		    shouldRetry = true;
+		} else {
+		    result = i18n(
+			"Some unexpected error happened (%1). "\
+			"You may try an other recording method or "\
+			"recording device.",
+			QString::fromLocal8Bit(strerror(errNumber))
+		    );
+		}
 	    }
 
 	    if (result.length()) {

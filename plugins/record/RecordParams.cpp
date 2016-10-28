@@ -24,7 +24,7 @@
 
 //***************************************************************************
 Kwave::RecordParams::RecordParams()
-   :method(Kwave::RECORD_ALSA),
+   :method(Kwave::RECORD_NONE),
     pre_record_enabled(false),     pre_record_time(20),
     record_time_limited(false),    record_time(5*60),
     start_time_enabled(false),     start_time(QDateTime::currentDateTime()),

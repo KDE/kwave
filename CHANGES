@@ -5,6 +5,7 @@
   * record plugin: fixed crash when restarting record in MDI or tab mode
   * record plugin: reset did not work when clicking the "New" button shortly
     after starting the recording
+  * record plugin: selection of default recording method did not work
   * revised use of signal handler in WorkerThread
   * WorkerThread: no longer use "bool" for signaling the wish to terminate,
     use QAtomicInt instead (also applies to Plugin class)
@@ -18,6 +19,7 @@
   * fixed i18n of application AboutData
   * bugfix: internal name of "goto" plugin was wrong
   * bugfix: wrapper script did not work
+  * fixed wrong encoding of error messages received via strerror and libs
 
 0.9.2 [2016-06-26]
 

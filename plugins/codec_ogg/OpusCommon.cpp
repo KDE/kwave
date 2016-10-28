@@ -73,7 +73,8 @@ QString Kwave::opus_error(int err)
 	    msg = i18n("Out of memory");
 	    break;
 	default:
-	    msg = i18n("Decoder error: %1", _(opus_strerror(err)));
+	    msg = i18n("Decoder error: %1",
+	               QString::fromLocal8Bit(opus_strerror(err)));
 	    break;
     }
     return msg;

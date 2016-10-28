@@ -149,7 +149,7 @@ QString Kwave::PlayBackOSS::open(const QString &device, double rate,
 		m_device_name.section(QLatin1Char('|'), 0, 0));
 		break;
 	    default:
-		reason = _(strerror(errno));
+		reason = QString::fromLocal8Bit(strerror(errno));
 	}
 	return reason;
     }

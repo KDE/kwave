@@ -525,7 +525,8 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
     if (!m_pa_stream) {
 	m_mainloop_lock.unlock();
 	return i18n("Failed to create a PulseAudio stream (%1).",
-	            _(pa_strerror(pa_context_errno(m_pa_context))));
+	            QString::fromLocal8Bit(
+	            pa_strerror(pa_context_errno(m_pa_context))));
     }
     qDebug("PlayBackPulseAudio::open(...) - stream created as %p",
            static_cast<void *>(m_pa_stream));
@@ -566,7 +567,8 @@ QString Kwave::PlayBackPulseAudio::open(const QString &device, double rate,
 	pa_stream_unref(m_pa_stream);
 	m_pa_stream = 0;
 	return i18n("Failed to open a PulseAudio stream for playback (%1).",
-	            _(pa_strerror(pa_context_errno(m_pa_context))));
+	            QString::fromLocal8Bit(
+	            pa_strerror(pa_context_errno(m_pa_context))));
     }
 
     return QString();

@@ -1,6 +1,4 @@
 
-o wrapper script currently does not work
-
 o Stripe: check detach() without lock
 
 o collapse/expand of track views

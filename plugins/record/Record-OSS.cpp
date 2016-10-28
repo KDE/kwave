@@ -111,7 +111,7 @@ QString Kwave::RecordOSS::open(const QString &dev)
 		reason = QString::number(EBUSY);
 		break;
 	    default:
-		reason = i18n(strerror(errno));
+		reason = QString::fromLocal8Bit(strerror(errno));
 		break;
 	}
 	return reason;

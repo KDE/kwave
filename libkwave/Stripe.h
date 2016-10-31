@@ -232,6 +232,8 @@ namespace Kwave
 	 * @return the length after the resize operation. Should be equal
 	 *         to the length that has been given as parameter. If not,
 	 *         something has failed.
+	 * @note called internally only, under lock. It is made sure that
+	 *       m_data is already detached and not null
 	 */
 	unsigned int resizeStorage(unsigned int length);
 

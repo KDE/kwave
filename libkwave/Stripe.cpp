@@ -288,18 +288,16 @@ sample_index_t Kwave::Stripe::end() const
 //***************************************************************************
 unsigned int Kwave::Stripe::resizeStorage(unsigned int length)
 {
-    if (!m_data) return 0;
-    m_data.detach();
-    if (!m_data) return 0; // OOM when detaching
+    Q_ASSERT(!m_data); // (just paranoia)
 
     if (m_data->m_length == length) return length; // nothing to do
 //     qDebug("Stripe::resizeStorage(%u)", length);
 
-    Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
-
     // check: must not be mapped!
     Q_ASSERT(!m_data->mapCount());
     if (m_data->mapCount()) return m_data->m_length;
+
+    Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
 
     // special case: zero length means delete
     if (length == 0) {
@@ -340,44 +338,40 @@ unsigned int Kwave::Stripe::resizeStorage(unsigned int length)
 //***************************************************************************
 unsigned int Kwave::Stripe::resize(unsigned int length, bool initialize)
 {
-    if (!m_data) return 0;
+    QMutexLocker lock(&m_lock);
     m_data.detach();
     if (!m_data) return 0; // OOM when detaching
 
-    {
-	QMutexLocker lock(&m_lock);
+    unsigned int old_length = m_data->m_length;
+    if (m_data->m_length == length) return old_length; // nothing to do
 
-	unsigned int old_length = m_data->m_length;
-	if (m_data->m_length == length) return old_length; // nothing to do
+//     qDebug("Stripe::resize() from %d to %d samples", old_length, length);
+    Q_ASSERT(!m_data->mapCount());
+    if (resizeStorage(length) != length) {
+	qWarning("Stripe::resize(%u) failed, out of memory ?", length);
+	return m_data->m_length;
+    }
 
-// 	qDebug("Stripe::resize() from %d to %d samples", old_length, length);
+    // fill new samples with zero
+    if (initialize && length) {
 	Q_ASSERT(!m_data->mapCount());
-	if (resizeStorage(length) != length) {
-	    qWarning("Stripe::resize(%u) failed, out of memory ?", length);
-	    return m_data->m_length;
-	}
-
-	// fill new samples with zero
-	if (initialize && length) {
-	    Q_ASSERT(!m_data->mapCount());
-	    unsigned int pos = old_length;
+	unsigned int pos = old_length;
 
 #ifdef STRICTLY_QT
-	    MappedArray _samples(*this);
-	    if (_samples.size() != m_data->m_length) return 0;
+	MappedArray _samples(*this);
+	if (_samples.size() != m_data->m_length) return 0;
 
-	    while (pos < length) {
-		_samples[pos++] = 0;
-	    }
-#else
-	    MappedArray _map(*this);
-	    sample_t *samples = _map.data();
-	    if (!samples) return 0;
-	    if (pos < length) {
-		memset(&(samples[pos]), 0, (length-pos)*sizeof(sample_t));
-	    }
-#endif
+	while (pos < length) {
+	    _samples[pos++] = 0;
 	}
+#else
+	MappedArray _map(*this);
+	sample_t *samples = _map.data();
+	if (!samples) return 0;
+	if (pos < length) {
+	    memset(&(samples[pos]), 0, (length - pos) * sizeof(sample_t));
+	}
+#endif
     }
 
     return length;
@@ -388,113 +382,103 @@ unsigned int Kwave::Stripe::append(const Kwave::SampleArray &samples,
 	unsigned int offset,
 	unsigned int count)
 {
-    unsigned int appended = 0;
+    if (!count) return 0; // nothing to do
+    Q_ASSERT(offset + count <= samples.size());
+    if (offset + count > samples.size()) return 0;
 
-    if (!count || !m_data) return 0; // nothing to do
+//     qDebug("Stripe::append: adding %d samples", count);
+    QMutexLocker lock(&m_lock);
     m_data.detach();
     if (!m_data) return 0; // OOM when detaching
 
-    {
-	QMutexLocker lock(&m_lock);
+    unsigned int old_length = m_data->m_length;
+    unsigned int new_length = old_length + count;
+    Q_ASSERT(!m_data->mapCount());
+    if (resizeStorage(new_length) != new_length)
+	return 0; // out of memory
 
-	Q_ASSERT(offset + count <= samples.size());
-	if (offset + count > samples.size()) return 0;
+    // append to the end of the area
+    unsigned int cnt = new_length - old_length;
+    Q_ASSERT(!m_data->mapCount());
+    int bytes_appended = Kwave::MemoryManager::instance().writeTo(
+	m_data->m_storage,
+	old_length * sizeof(sample_t),
+	&(samples[offset]), cnt * sizeof(sample_t)
+    );
 
-// 	qDebug("Stripe::append: adding %d samples", count);
-
-	unsigned int old_length = m_data->m_length;
-	unsigned int new_length = old_length + count;
-	Q_ASSERT(!m_data->mapCount());
-	if (resizeStorage(new_length) != new_length)
-	    return 0; // out of memory
-
-	// append to the end of the area
-	unsigned int cnt = new_length - old_length;
-	Q_ASSERT(!m_data->mapCount());
-	appended = Kwave::MemoryManager::instance().writeTo(m_data->m_storage,
-	    old_length * sizeof(sample_t),
-	    &(samples[offset]), cnt * sizeof(sample_t))
-	    / sizeof(sample_t);
-    }
 //     qDebug("Stripe::append(): resized to %d", m_length);
-    return appended;
+    return (bytes_appended > 0) ? (bytes_appended / sizeof(sample_t)) : 0;
 }
 
 //***************************************************************************
 void Kwave::Stripe::deleteRange(unsigned int offset, unsigned int length)
 {
 //     qDebug("    Stripe::deleteRange(offset=%u, length=%u)", offset, length);
-    if (!length || !m_data) return; // nothing to do
+    if (!length) return; // nothing to do
+
+    QMutexLocker lock(&m_lock);
     m_data.detach();
     if (!m_data) return; // OOM when detaching
 
-    {
-	QMutexLocker lock(&m_lock);
+    const unsigned int size = m_data->m_length;
+    if (!size) return;
 
-	const unsigned int size = m_data->m_length;
-	if (!size) return;
+    unsigned int first = offset;
+    unsigned int last  = offset + length - 1;
+//     qDebug("    Stripe::deleteRange, me=[%u ... %u] del=[%u ... %u]",
+// 	    m_start, m_start+size-1, m_start + first, m_start + last);
 
-	unsigned int first = offset;
-	unsigned int last  = offset + length - 1;
-// 	qDebug("    Stripe::deleteRange, me=[%u ... %u] del=[%u ... %u]",
-// 	       m_start, m_start+size-1, m_start + first, m_start + last);
+    Q_ASSERT(first < size);
+    if (first >= size) return;
 
-	Q_ASSERT(first < size);
-	if (first >= size) return;
+    // put first/last into our area
+    if (last >= size) last = size - 1;
+    Q_ASSERT(last >= first);
+    if (last < first) return;
 
-	// put first/last into our area
-	if (last >= size) last = size - 1;
-	Q_ASSERT(last >= first);
-	if (last < first) return;
+    // move all samples after the deleted area to the left
+    unsigned int dst = first;
+    unsigned int src = last+1;
+    unsigned int len = size - src;
+//     qDebug("    Stripe: deleting %u ... %u", dst, src-1);
+    if (len) {
+	MappedArray _samples(*this);
 
-	// move all samples after the deleted area to the left
-	unsigned int dst = first;
-	unsigned int src = last+1;
-	unsigned int len = size - src;
-// 	qDebug("    Stripe: deleting %u ... %u", dst, src-1);
-	if (len) {
-	    MappedArray _samples(*this);
-
-	    Q_ASSERT(src + len <= size);
-	    Q_ASSERT(dst + len <= size);
-	    if (!_samples.copy(dst, src, len)) return;
-	}
-
-	// resize the buffer to it's new size
-	resizeStorage(size - length);
+	Q_ASSERT(src + len <= size);
+	Q_ASSERT(dst + len <= size);
+	if (!_samples.copy(dst, src, len)) return;
     }
+
+    // resize the buffer to it's new size
+    resizeStorage(size - length);
 }
 
 //***************************************************************************
 bool Kwave::Stripe::combine(unsigned int offset, Kwave::Stripe &other)
 {
-    // detach the data and check for map count zero
-    if (!m_data) return false;
+    QMutexLocker lock(&m_lock);
     m_data.detach();
     if (!m_data) return false; // OOM when detaching
 
-    {
-	QMutexLocker lock(&m_lock);
-	if (m_data->mapCount()) return false; // data is mapped
+    if (m_data->mapCount()) return false; // data is mapped
 
-	const unsigned int old_len      = m_data->m_length;
-	const unsigned int combined_len = offset + other.length();
-	if (old_len < combined_len) {
-	    // resize the storage if necessary
-	    if (resizeStorage(combined_len) != combined_len)
-		return false; // resizing failed, maybe OOM ?
-	}
-
-	// copy the data from the other stripe
-	MappedArray _src(other);
-	MappedArray _dst(*this);
-	const sample_t *src = _src.constData();
-	sample_t       *dst = _dst.data();
-	unsigned int    len = _src.size() * sizeof(sample_t);
-	if (!src || !dst) return false; // mmap of src or dst failed
-
-	MEMCPY(dst + offset, src, len);
+    const unsigned int old_len      = m_data->m_length;
+    const unsigned int combined_len = offset + other.length();
+    if (old_len < combined_len) {
+	// resize the storage if necessary
+	if (resizeStorage(combined_len) != combined_len)
+	    return false; // resizing failed, maybe OOM ?
     }
+
+    // copy the data from the other stripe
+    MappedArray _src(other);
+    MappedArray _dst(*this);
+    const sample_t *src = _src.constData();
+    sample_t       *dst = _dst.data();
+    unsigned int    len = _src.size() * sizeof(sample_t);
+    if (!src || !dst) return false; // mmap of src or dst failed
+
+    MEMCPY(dst + offset, src, len);
 
     return true;
 }
@@ -505,7 +489,6 @@ void Kwave::Stripe::overwrite(unsigned int offset,
 	unsigned int srcoff, unsigned int srclen)
 {
     QMutexLocker lock(&m_lock);
-    if (!m_data) return;
     m_data.detach();
     if (!m_data) return; // OOM when detaching
 
@@ -521,9 +504,8 @@ unsigned int Kwave::Stripe::read(Kwave::SampleArray &buffer,
                                  unsigned int offset,
                                  unsigned int length)
 {
-    if (!length || !m_data) return 0; // nothing to do !?
-
     QMutexLocker lock(&m_lock);
+    if (!length || !m_data) return 0; // nothing to do !?
 
 //  for (unsigned int x=dstoff; (dstoff+x < length) && (x < buffer.size()); x++)
 //      buffer[x] = -(SAMPLE_MAX >> 2);
@@ -533,7 +515,7 @@ unsigned int Kwave::Stripe::read(Kwave::SampleArray &buffer,
 
     Q_ASSERT(offset < m_data->m_length);
     if (offset >= m_data->m_length) return 0;
-    if (offset+length > m_data->m_length)
+    if ((offset + length) > m_data->m_length)
 	length = m_data->m_length - offset;
     Q_ASSERT(length);
 //     if (!length) qDebug("--- [%u ... %u] (%u), offset=%u",
@@ -541,12 +523,14 @@ unsigned int Kwave::Stripe::read(Kwave::SampleArray &buffer,
     if (!length) return 0;
 
     // read directly through the memory manager, fastest path
-    length = Kwave::MemoryManager::instance().readFrom(m_data->m_storage,
+    int bytes_read = Kwave::MemoryManager::instance().readFrom(
+	m_data->m_storage,
         offset * sizeof(sample_t),
-        &buffer[dstoff], length * sizeof(sample_t)) / sizeof(sample_t);
+        &buffer[dstoff], length * sizeof(sample_t)
+    );
 
-//  qDebug("read done, length=%u", length);
-    return length;
+//  qDebug("read done, length=%u", read_len);
+    return (bytes_read > 0) ? (bytes_read / sizeof(sample_t)) : 0;
 }
 
 //***************************************************************************
@@ -554,11 +538,11 @@ void Kwave::Stripe::minMax(unsigned int first, unsigned int last,
                            sample_t &min, sample_t &max)
 {
     QMutexLocker lock(&m_lock);
-
     if (!m_data) return;
+
     MappedArray _samples(*this);
     const sample_t *buffer = _samples.constData();
-    if (!buffer || !m_data) return;
+    if (!buffer) return;
 
     // loop over the mapped storage to get min/max
     sample_t lo = min;
@@ -572,7 +556,7 @@ void Kwave::Stripe::minMax(unsigned int first, unsigned int last,
     // speedup: process a block of 8 samples at once, to allow loop unrolling
     const unsigned int block = 8;
     while (Q_LIKELY(remaining >= block)) {
-	for (unsigned int count = 0; count < block; count++) {
+	for (unsigned int count = 0; Q_LIKELY(count < block); count++) {
 	    sample_t s = *(buffer++);
 	    if (Q_UNLIKELY(s < lo)) lo = s;
 	    if (Q_UNLIKELY(s > hi)) hi = s;

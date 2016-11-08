@@ -82,7 +82,6 @@ Kwave::FileContext::FileContext(Kwave::App &app)
      m_last_status_message_ms(0),
      m_last_undo(QString()),
      m_last_redo(QString()),
-     m_last_modified(false),
      m_instance_nr(-1),
      m_delayed_command_timer(),
      m_delayed_command_queue()
@@ -193,8 +192,8 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     connect(m_signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
                                                      const QString&)),
             this, SLOT(setUndoRedoInfo(QString,QString)));
-    connect(m_signal_manager, SIGNAL(sigModified(bool)),
-            this,             SLOT(modifiedChanged(bool)));
+    connect(m_signal_manager, SIGNAL(sigModified()),
+            this,             SLOT(modifiedChanged()));
 
     // connect the plugin manager
     connect(m_plugin_manager, SIGNAL(sigCommand(QString)),
@@ -588,13 +587,11 @@ void Kwave::FileContext::visibleRangeChanged(sample_index_t offset,
 }
 
 //***************************************************************************
-void Kwave::FileContext::modifiedChanged(bool modified)
+void Kwave::FileContext::modifiedChanged()
 {
-    m_last_modified = modified;
-
     if (isActive()) {
 	// we are active -> emit the modified state immediately
-	emit sigModified(modified);
+	emit sigModified();
     } // else: we are inactive -> emit the modified state later, when activated
 
     // update the caption of our main widget
@@ -660,8 +657,8 @@ void Kwave::FileContext::activated()
 	emit sigVisibleRangeChanged(offset, visible, total);
     }
 
-    // emit the last "modified" state
-    emit sigModified(m_last_modified);
+    // force update of the "modified" state
+    emit sigModified();
 
     // emit last undo/redo info
     emit sigUndoRedoInfo(m_last_undo, m_last_redo);

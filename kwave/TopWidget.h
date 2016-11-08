@@ -251,9 +251,8 @@ namespace Kwave
 
 	/**
 	 * called if the signal now or no longer is modified
-	 * @param modified if true: signal now is "modified", otherwise not
 	 */
-	void modifiedChanged(bool modified);
+	void modifiedChanged();
 
 	/** shows a message/progress in the splash screen */
 	void showInSplashSreen(const QString &message);

@@ -484,9 +484,8 @@ namespace Kwave
 	/**
 	 * Emitted if the signal changes from non-modified to modified
 	 * state or vice-versa.
-	 * @param modified true if now modified, false if no longer
 	 */
-	void sigModified(bool modified);
+	void sigModified();
 
     public slots:
 

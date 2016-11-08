@@ -1826,7 +1826,7 @@ void Kwave::SignalManager::setModified(bool mod)
     if (m_modified != mod) {
 	m_modified = mod;
 // 	qDebug("SignalManager::setModified(%d)",mod);
-	emit sigModified(m_modified);
+	emit sigModified();
     }
 }
 

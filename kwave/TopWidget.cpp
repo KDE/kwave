@@ -178,8 +178,8 @@ void Kwave::TopWidget::connectContext(Kwave::FileContext *context)
             SLOT(selectionChanged(sample_index_t,sample_index_t)));
     connect(context, SIGNAL(sigUndoRedoInfo(QString,QString)),
             this,      SLOT(setUndoRedoInfo(QString,QString)));
-    connect(context, SIGNAL(sigModified(bool)),
-            this,  SLOT(modifiedChanged(bool)));
+    connect(context, SIGNAL(sigModified()),
+            this,      SLOT(modifiedChanged()));
 
     // connect the zoom toolbar
     connect(context,   SIGNAL(sigZoomChanged(Kwave::FileContext*,double)),
@@ -1422,9 +1422,18 @@ void Kwave::TopWidget::updateMenu()
     bool have_signal = (tracks != 0);
     m_menu_manager->setItemEnabled(_("@SIGNAL"), have_signal);
 
-    // revert is not possible if no signal at all is present
-    if (!have_signal)
-	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), false);
+    // revert is only possible if the signal exists, is modified and there
+    // is a file behind from which we could reload (which is not the case
+    // after File/New...).
+    bool enable_revert = false;
+    if (signal_manager) {
+	bool have_filename = Kwave::FileInfo(
+	    signal_manager->metaData()
+	).contains(Kwave::INF_FILENAME);
+	bool is_modified = signal_manager->isModified();
+	enable_revert = have_filename && is_modified;
+    }
+    m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"),	enable_revert);
 
     // enable/disable all items that depend on having something in the
     // clipboard
@@ -1506,12 +1515,10 @@ void Kwave::TopWidget::updateToolbar()
 }
 
 //***************************************************************************
-void Kwave::TopWidget::modifiedChanged(bool modified)
+void Kwave::TopWidget::modifiedChanged()
 {
     updateCaption();
-
-    if (m_menu_manager)
-	m_menu_manager->setItemEnabled(_("ID_FILE_REVERT"), modified);
+    updateMenu();
 }
 
 //***************************************************************************

@@ -234,9 +234,8 @@ namespace Kwave
 	/**
 	 * Emitted if the signal changes from non-modified to modified
 	 * state or vice-versa.
-	 * @param modified true if now modified, false if no longer
 	 */
-	void sigModified(bool modified);
+	void sigModified();
 
 	/**
 	 * emitted when the context is about to be destroyed
@@ -305,9 +304,8 @@ namespace Kwave
 
 	/**
 	 * called if the signal now or no longer is modified
-	 * @param modified if true: signal now is "modified", otherwise not
 	 */
-	void modifiedChanged(bool modified);
+	void modifiedChanged();
 
 	/** process the next delayed command from m_delayed_command_queue */
 	void processDelayedCommand();
@@ -428,9 +426,6 @@ namespace Kwave
 
 	/** name of the last redo action */
 	QString m_last_redo;
-
-	/** last "modified" state of the signal */
-	bool m_last_modified;
 
 	/** instance of the loaded file or -1 */
 	int m_instance_nr;

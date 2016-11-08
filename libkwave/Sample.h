@@ -24,13 +24,16 @@
 #include <limits>
 #include <sys/types.h>
 
-/** use a unsigned integer for sample offset/count calculations */
+/** use an unsigned integer for sample offset/count calculations */
 typedef quint64 sample_index_t;
 
 /** the highest possible sample index */
 #define SAMPLE_INDEX_MAX ( std::numeric_limits<sample_index_t>::max() )
 
-/** Currently a "sample" is defined as a 32 bit integer with 24 valid bits */
+/**
+ * Currently a "sample" is defined as a 32 bit integer
+ * with 24 significant bits
+ */
 typedef qint32 sample_t;
 
 /** native data type used for storing a sample_t */
@@ -52,7 +55,8 @@ typedef qint32 sample_storage_t;
  * Simple conversion from float to sample_t
  */
 static inline sample_t float2sample(const float f) {
-    return static_cast<sample_t>(f * static_cast<float>(1 << (SAMPLE_BITS-1)));
+    return static_cast<sample_t>(
+	f * static_cast<float>(1 << (SAMPLE_BITS - 1)));
 }
 
 /**
@@ -60,7 +64,7 @@ static inline sample_t float2sample(const float f) {
  */
 static inline float sample2float(const sample_t s) {
     return static_cast<float>(
-	static_cast<float>(s) / static_cast<float>(1 << (SAMPLE_BITS-1)));
+	static_cast<float>(s) / static_cast<float>(1 << (SAMPLE_BITS - 1)));
 }
 
 /**
@@ -68,7 +72,7 @@ static inline float sample2float(const sample_t s) {
  */
 static inline double sample2double(const sample_t s) {
     return static_cast<double>(
-	static_cast<double>(s) / static_cast<double>(1 << (SAMPLE_BITS-1)));
+	static_cast<double>(s) / static_cast<double>(1 << (SAMPLE_BITS - 1)));
 }
 
 /**
@@ -76,7 +80,7 @@ static inline double sample2double(const sample_t s) {
  */
 static inline sample_t double2sample(const double f) {
     return static_cast<sample_t>(
-	f * static_cast<double>(1 << (SAMPLE_BITS-1)));
+	f * static_cast<double>(1 << (SAMPLE_BITS - 1)));
 }
 
 #endif /* SAMPLE_H */

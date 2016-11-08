@@ -62,7 +62,7 @@ bool Kwave::RIFFChunk::isSane() const
 
     unsigned int datalen = dataLength();
     if (m_type == Main) datalen += 4;
-    if ((datalen+1 < m_phys_length) || (datalen > m_phys_length)) {
+    if (((datalen + 1) < m_phys_length) || (datalen > m_phys_length)) {
 	qWarning("%s: dataLength=%u, phys_length=%u",
 	         path().data(), datalen, m_phys_length);
 	return false;
@@ -201,19 +201,19 @@ void Kwave::RIFFChunk::fixSize()
 void Kwave::RIFFChunk::dumpStructure()
 {
     // translate the type into a user-readable string
-    QString t = _("?");
+    const char *t = "?";
     switch (m_type) {
-        case Root:    t = _("ROOT");    break;
-        case Main:    t = _("MAIN");    break;
-        case Sub:     t = _("SUB");     break;
-        case Garbage: t = _("GARBAGE"); break;
-        case Empty:   t = _("EMPTY");   break;
+        case Root:    t = "ROOT";    break;
+        case Main:    t = "MAIN";    break;
+        case Sub:     t = "SUB";     break;
+        case Garbage: t = "GARBAGE"; break;
+        case Empty:   t = "EMPTY";   break;
     }
 
     // dump this chunk
     qDebug("[0x%08X-0x%08X] (%10u/%10u) %7s, '%s'",
           m_phys_offset, physEnd(), physLength(), length(),
-          DBG(t), path().data()
+          t, path().data()
     );
 
     // recursively dump all sub-chunks

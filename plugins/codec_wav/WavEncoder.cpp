@@ -86,7 +86,7 @@ void Kwave::WavEncoder::fixAudiofileBrokenHeaderBug(QIODevice &dst,
     char chunk_name[5];
     memset(chunk_name, 0x00, sizeof(chunk_name));
     dst.read(&chunk_name[0], 4);
-    if (strcmp("data", chunk_name)) {
+    if (strncmp("data", chunk_name, sizeof(chunk_name))) {
 	qWarning("WARNING: unexpected wav header format, check disabled");
 	return;
     }
@@ -279,7 +279,7 @@ void Kwave::WavEncoder::writeLabels(QIODevice &dst,
 	     *     quint32 dwChunkID;    <- 'labl'
 	     *     quint32 dwChunkSize;  (without padding !)
 	     *     quint32 dwIdentifier; <- index
-	     *     char    dwText[];       <- label->name()
+	     *     char    dwText[];     <- label->name()
 	     * } label_list_entry_t;
 	     */
 	    if (name.size()) {

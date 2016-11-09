@@ -53,12 +53,14 @@ bool Kwave::RIFFChunk::isSane() const
     CHECK((m_type == Main) && m_sub_chunks.isEmpty());
     CHECK((m_type == Root) && m_sub_chunks.isEmpty());
 
+#ifdef DEBUG
     if (m_phys_length & 0x1) {
 	// size is not an even number: no criterium for insanity
 	// but worth a warning
 	qWarning("%s: physical length is not an even number: %u",
 	        path().data(), m_phys_length);
     }
+#endif /* DEBUG */
 
     unsigned int datalen = dataLength();
     if (m_type == Main) datalen += 4;

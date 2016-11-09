@@ -289,20 +289,9 @@ INCLUDE(KwaveL10N)
 #############################################################################
 ### flags for debugging                                                   ###
 
-OPTION(DEBUG "build debug code [default=off]" OFF)
+OPTION(DEBUG "enable the debug plugin in the menu [default=off]" OFF)
 IF (DEBUG)
-    SET(CMAKE_DEBUG_FLAGS "-fno-inline -g -Wall -W -Wextra -pedantic -fstack-protector-all")
-    CHECK_C_COMPILER_FLAG("-Og" C_HAVE_OG)
-    IF (C_HAVE_OG)
-        SET(CMAKE_DEBUG_FLAGS "-Og ${CMAKE_DEBUG_FLAGS}")
-    ENDIF (C_HAVE_OG)
-    SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${CMAKE_DEBUG_FLAGS}")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_DEBUG_FLAGS} -Wold-style-cast -Wno-non-virtual-dtor")
-    SET(CMAKE_SHARED_LINKER_FLAGS "$ENV{CMAKE_SHARED_LINKER_FLAGS}")
-    ADD_DEFINITIONS(-DDEBUG -D_DEBUG -DQT_DEBUG)
     SET(HAVE_DEBUG_PLUGIN  ON CACHE BOOL "enable debug plugin in the menu")
-ELSE(DEBUG)
-    ADD_DEFINITIONS(-DNO_DEBUG -DQT_NO_DEBUG)
 ENDIF (DEBUG)
 
 OPTION(DEBUG_MEMORY "enable memory management debug code [default=off]" OFF)

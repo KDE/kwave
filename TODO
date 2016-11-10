@@ -1,6 +1,4 @@
 
-o Stripe: check detach() without lock
-
 o collapse/expand of track views
 
 o add views with meta data

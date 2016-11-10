@@ -203,7 +203,7 @@ void Kwave::RIFFChunk::fixSize()
 void Kwave::RIFFChunk::dumpStructure()
 {
     // translate the type into a user-readable string
-    const char *t = "?";
+    const char *t = "?unknown?";
     switch (m_type) {
         case Root:    t = "ROOT";    break;
         case Main:    t = "MAIN";    break;

@@ -7,8 +7,10 @@
   <!ENTITY version_tag "0_9_2">
   <!ENTITY version_year "2016">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
-  <!ENTITY url_authors "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/AUTHORS">
-  <!ENTITY url_changelog "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/CHANGES">
+  <!ENTITY url_git_web_kde "http://projects.kde.org/?p=kwave.git">
+  <!ENTITY url_prefix_gitweb "&url_git_web_kde;&amp;a=blob&amp;o=plain&amp;f=">
+  <!ENTITY url_authors "&url_prefix_gitweb;AUTHORS">
+  <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_cmake "http://www.cmake.org">
   <!ENTITY url_debian "http://www.debian.org">
   <!ENTITY url_download "http://kwave.sourceforge.net/download.html">
@@ -16,23 +18,22 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
-  <!ENTITY url_kde_project "http://commits.kde.org/kwave">
+  <!ENTITY url_kde_project "http://www.kde.org/applications/multimedia/kwave/">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
   <!ENTITY url_libmad "http://www.underbit.com/products/mad/">
   <!ENTITY url_libsndfile "http://www.mega-nerd.com/libsndfile/">
-  <!ENTITY url_licenses "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/LICENSES">
+  <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
   <!ENTITY url_mailinglist "https://lists.sourceforge.net/lists/listinfo/kwave-devel">
   <!ENTITY url_ogg_vorbis "http://www.xiph.org">
-  <!ENTITY url_readme "http://sourceforge.net/p/kwave/code/ci/HEAD/tree/README">
+  <!ENTITY url_readme "&url_prefix_gitweb;README">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
-  <!ENTITY url_git_web_kde "http://commits.kde.org/kwave">
   <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
-  <!ENTITY url_git_list_tags "http://sourceforge.net/p/kwave/code/ref/master~/tags/">
-  <!ENTITY url_git_master "git://git.code.sf.net/p/kwave/code">
+  <!ENTITY url_git_list_tags "&url_git_web_kde;&amp;a=tags/">
+  <!ENTITY url_git_master "git://anongit.kde.org/kwave.git">
   <!ENTITY i18n-cmd_syntax "Syntax: ">
   <!ENTITY i18n-plugin_lbl_internal_name "Internal&nbsp;Name:">
   <!ENTITY i18n-plugin_lbl_type "Plugin&nbsp;Type:">
@@ -526,7 +527,7 @@
     <para>
 	There also is a KDE project page
 	at <ulink url="&url_kde_project;">&url_kde_project;</ulink> which
-	is mostly interesting for developers.
+	shows a short summary of the application.
     </para>
 
     <para>
@@ -1093,112 +1094,7 @@
 
     </sect1>
 
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: optimizations                                         +++ -->
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-    <sect1 id="compiler_optimizations">
-    <title>Building CPU optimized packages</title>
-
-    <para>
-	If you are owner of a Pentium, an AMD K6, Athlon or Athlon-XP CPU,
-	you might want to use compiler optimizations to compile your version of
-	&kwave; that is running some percents faster. The gain in speed will
-	be up to 30% on some systems, whereas the functions dealing with
-	signal manipulation and all functions that do complex time-frequency
-	operations (like FFT and Sonagram) will profit most from it.
-    </para>
-    <para>
-	You do not need to understand much about programming for using an
-	optimized compiler to compile &kwave;, but maybe you will need some
-	time to get the compiler itself working and installed.
-    </para>
-
-    <sect2 id="rpm_optimizations">
-    <title>RPM optimizations</title>
-
-    <para>
-	You can easily compile the RPM package optimized for Athlon,
-	Athlon-XP, Pentium and Pentium Pro
-	(and some other CPUs) by using some defines in your <filename>rpmrc</filename> file.
-	You can either modify your system's <filename>rpmrc</filename>
-	file in <filename>/usr/lib/rpm</filename> or the
-	<filename>.rpmrc</filename> file in your home directory.
-	There you can specify option lines like these:
-
-<screen width="70" format="linespecific">
-<userinput moreinfo="none">optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</userinput>
-<userinput moreinfo="none">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</userinput>
-<userinput moreinfo="none">optflags: athlon -O2 -march=athlon -DNDEBUG -fomit-frame-pointer</userinput>
-<userinput moreinfo="none">optflags: k6 -O3 -march=k6 -DNDEBUG -fomit-frame-pointer</userinput>
-<userinput moreinfo="none">optflags: k7 -O3 -march=athlon-xp -DNDEBUG -fomit-frame-pointer</userinput>
-</screen>
-
-	(I found those nice tricks at
-	<ulink url="http://www.keywarrior.net/duesti/rpmopt.en.html">
-	http://www.keywarrior.net/duesti/rpmopt.en.html</ulink>.
-	Thanks to Matthias Düsterhöft!).
-    </para>
-    <!-- german version:
-	http://www.keywarrior.net/duesti/rpmopt.de.html
-    -->
-
-    <para>
-	This means that on a <literal>k7</literal> architecture the
-	rpm package will be compiled using
-	<literal>-O3 -march=athlon-xp -DNDEBUG
-	-fomit-frame-pointer</literal>
-	as compiler option and so
-	on, you might extend or adapt these to your own needs.
-	The settings apply to all of the sections before in all
-	places where <command>rpmbuild -ta</command> is used or where a binary
-	RPM is to be created out of a source rpm using
-	<command>rpmbuild --rebuild</command>.
-    </para>
-
-    <note><para>
-	If <command>rpm</command> refuses to install
-	your package because it seems not to fit to your computer's
-	architecture, you can normally just install an optimized package
-	by specifying the additional parameter <command>--ignorearch</command>
-	and don't care.
-    </para></note>
-
-    </sect2>
-
-    <sect2 id="optimize_invocation">
-    <title>How to pass optimizer options to the compiler manually</title>
-    <para>
-	The invocation of the compiler is quite simple. It normally
-	is sufficient to set the environment variables
-	<literal><symbol>CFLAGS</symbol></literal> and <literal><symbol>CXXFLAGS</symbol></literal>
-	in the correct way and then compile as usual. For the best settings
-	please consult the documentation or homepage of the corresponding
-	compiler.
-    </para>
-    <para>
-	If you build &kwave; from a source tree (unpacked tar.bz2 or from GIT)
-	the flags need to be specified before the call. For example:
-
-	<screen width="70" format="linespecific">
-<prompt>% </prompt><command>CFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
-  CXXFLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" \
-  cmake <replaceable>[source directory]</replaceable></command>
-</screen>
-    </para>
-
-
-    <para>
-	If you re-build &kwave; from a source rpm package, please follow
-	the instruction in the
-	<link linkend="rpm_optimizations">previous section</link>.
-    </para>
-    </sect2>
-
-    </sect1>
-
 </chapter>
-
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Basics about digital audio                            ### -->
@@ -8526,9 +8422,9 @@
 
     <sect1 id="thanks_to"><title>Thanks To</title>
     <para>
-    	<itemizedlist>
+	<itemizedlist>
 	    <listitem>
-	    	<para><emphasis role="bold">
+		<para><emphasis role="bold">
 		    Martin Kuball
 		    <email>makube@user.sourceforge.net</email>
 		</emphasis></para><para>
@@ -8536,7 +8432,7 @@
 		</para>
 	    </listitem>
 	    <listitem>
-	    	<para><emphasis role="bold">
+		<para><emphasis role="bold">
 		    Jorge Luis Arzola
 		    <email>arzolacub@gmx.de</email>
 		</emphasis></para><para>
@@ -8544,24 +8440,15 @@
 		</para>
 	    </listitem>
 	    <listitem>
-	    	<para><emphasis role="bold">
+		<para><emphasis role="bold">
 		    Michael Favreau
 		    <email>michel.favreau@free.fr</email>
 		</emphasis></para><para>
 		    packaging for Arch Linux
 		</para>
 	    </listitem>
-
 	    <listitem>
-	    	<para><emphasis role="bold">
-		    Matthias Düsterhöft
-		    <email>duesti@gmx.de</email>
-		</emphasis></para><para>
-		    for information about RPM optimization
-		</para>
-	    </listitem>
-	    <listitem>
-	    	<para><emphasis role="bold">
+		<para><emphasis role="bold">
 		    T.H.F. Klok and Cedric Tefft
 		</emphasis></para><para>
 		    maintainers of the <ulink url="&url_id3lib;">
@@ -8569,7 +8456,7 @@
 		</para>
 	    </listitem>
 	    <listitem>
-	    	<para><emphasis role="bold">
+		<para><emphasis role="bold">
 		    Robert Leslie
 		    <email>rob@mars.org</email>
 		</emphasis></para><para>
@@ -8587,7 +8474,7 @@
 		</para>
 	    </listitem>
 	    <listitem>
-	    	<para><emphasis role="bold">
+		<para><emphasis role="bold">
 		    Erik de Castro Lopo
 		    <email>erikd@zip.com.au</email>
 		</emphasis></para><para>
@@ -8597,7 +8484,7 @@
 		</para>
 	    </listitem>
 	    <listitem>
-	    	<para><emphasis role="bold">
+		<para><emphasis role="bold">
 		    Michael Pruett
 		    <email>mpruett@sgi.com</email>
 		</emphasis></para><para>
@@ -8631,6 +8518,7 @@
     <listitem><para>Frank Christian Stoffel</para></listitem>
     <listitem><para>Achim Dahlhaus</para></listitem>
     <listitem><para>Klaus Hendrik Lorenz</para></listitem>
+    <listitem><para>Matthias Düsterhöft</listitem>
 -->
 
 </chapter>

@@ -143,10 +143,6 @@ INCLUDE(CheckTypeSize)
 INCLUDE(CheckFunctionExists)
 
 #############################################################################
-
-SET(CMAKE_VERBOSE_MAKEFILE OFF)
-
-#############################################################################
 ### toplevel compiler flags                                               ###
 
 ADD_DEFINITIONS(-DHAVE_CONFIG_H)

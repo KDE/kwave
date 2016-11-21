@@ -21,29 +21,20 @@ IF (WITH_FLAC)
     INCLUDE(CheckLibraryExists)
 
     PKG_CHECK_MODULES(FLAC REQUIRED flac>=1.2.0)
-    IF (NOT FLAC_FOUND)
-	MESSAGE(FATAL_ERROR "FLAC not found")
-    ENDIF(NOT FLAC_FOUND)
-
     MESSAGE(STATUS "Found FLAC version ${FLAC_VERSION}")
 
 #############################################################################
 ### check for FLAC header files                                           ###
 
     CHECK_INCLUDE_FILES(FLAC/format.h HAVE_FLAC_HEADERS)
-    IF (HAVE_FLAC_HEADERS)
-        MESSAGE(STATUS "Found FLAC include files")
-    ELSE (HAVE_FLAC_HEADERS)
+    IF (NOT HAVE_FLAC_HEADERS)
         MESSAGE(FATAL_ERROR "libFLAC not found, please install libflac !")
-    ENDIF (HAVE_FLAC_HEADERS)
+    ENDIF (NOT HAVE_FLAC_HEADERS)
 
 #############################################################################
 ### check for FLAC++ header files                                         ###
 
-    IF (HAVE_FLAC_HEADERS)
-        CHECK_INCLUDE_FILES_CXX("FLAC++/decoder.h;FLAC++/metadata.h")
-    ENDIF (HAVE_FLAC_HEADERS)
-    MESSAGE(STATUS "Found FLAC++ include files")
+    CHECK_INCLUDE_FILES_CXX("FLAC++/decoder.h;FLAC++/metadata.h")
 
     SET(HAVE_FLAC  ON CACHE BOOL "enable FLAC codec")
     SET(plugin_codec_flac_LIB_SRCS

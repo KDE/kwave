@@ -1,6 +1,7 @@
 
 0.9.3 [2016-xx-xx]
 
+  * project moved from kdereview to kdemultimedia
   * added genre types 126..191
   * record plugin: fixed crash when restarting record in MDI or tab mode
   * record plugin: reset did not work when clicking the "New" button shortly

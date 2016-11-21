@@ -29,7 +29,7 @@ REPOSITORY="${CMAKE_SOURCE_DIR}/l10n-kf5"
 PO_DIR="${CMAKE_SOURCE_DIR}/po"
 DOC_DIR="${CMAKE_SOURCE_DIR}/doc"
 
-CATEGORY="kdereview"
+CATEGORY="kdemultimedia"
 PO_FILE="kwave.po"
 DESKTOP_PO_FILE="desktop_${CATEGORY}_kwave.po"
 LANG_NAMES_FILE="${DOC_DIR}/teamnames"
@@ -46,7 +46,7 @@ function checkout() {
     part=${before}${part}
 
     if test ! -e "${part}"; then
-	svn update --quiet --depth empty "${part}@"
+	svn update --quiet --depth empty "${part}@" || true 2>/dev/null
 	if test ! -e "${part}"; then
 	    result=0
 	    return;

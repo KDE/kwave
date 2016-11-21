@@ -21,7 +21,7 @@
 #
 
 my $top_dir  = $ARGV[0] . "/l10n-kf5";
-my $category = "kdereview";
+my $category = "kdemultimedia";
 my $app      = "kwave";
 
 sub check_po

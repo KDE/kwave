@@ -24,10 +24,10 @@
 # find /var/tmp/screenshots -maxdepth 1 -mindepth 1 -type d -exec bin/import-screenshots.sh \{\} \;
 
 LANG=`basename $1`
-DEST=l10n-kf5/${LANG}/docs/kdereview/kwave
+DEST=l10n-kf5/${LANG}/docs/kdemultimedia/kwave
 if test ! -e l10n-kf5/${LANG} ; then
     LANG=`echo ${LANG} | cut -d _ -f 1`
-    DEST=l10n-kf5/${LANG}/docs/kdereview/kwave
+    DEST=l10n-kf5/${LANG}/docs/kdemultimedia/kwave
 fi
 
 OPTIONS="-dither none -colors 63"

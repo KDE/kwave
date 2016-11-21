@@ -7,8 +7,8 @@
   <!ENTITY version_tag "0_9_2">
   <!ENTITY version_year "2016">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
-  <!ENTITY url_git_web_kde "http://projects.kde.org/?p=kwave.git">
-  <!ENTITY url_prefix_gitweb "&url_git_web_kde;&amp;a=blob&amp;o=plain&amp;f=">
+  <!ENTITY url_git_web_kde "http://commits.kde.org/kwave">
+  <!ENTITY url_prefix_gitweb "&url_git_web_kde;?path=">
   <!ENTITY url_authors "&url_prefix_gitweb;AUTHORS">
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_cmake "http://www.cmake.org">
@@ -32,7 +32,7 @@
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
   <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
-  <!ENTITY url_git_list_tags "&url_git_web_kde;&amp;a=tags/">
+  <!ENTITY url_git_list_tags "http://commits.kde.org/kwave.git/refs/">
   <!ENTITY url_git_master "git://anongit.kde.org/kwave.git">
   <!ENTITY i18n-cmd_syntax "Syntax: ">
   <!ENTITY i18n-plugin_lbl_internal_name "Internal&nbsp;Name:">
@@ -321,7 +321,7 @@
     <legalnotice>&FDLNotice;</legalnotice>
 
     <date>2016-06-26</date>
-    <releaseinfo>&kwave; 0.9.2</releaseinfo>
+    <releaseinfo>0.9.2 (Applications 16.12)</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor built on &kf5-full;.</para></abstract>
 
@@ -1553,7 +1553,7 @@
 
 	<sect2><title>GUI Type</title>
 	    <para>
-	    The parameter <literal>--gui-type=<replaceable>SDI</replaceable>|<replaceable>MDI</replaceable>|<replaceable>TAB</replaceable></literal>
+	    The parameter <literal>--gui=<replaceable>SDI</replaceable>|<replaceable>MDI</replaceable>|<replaceable>TAB</replaceable></literal>
 	    lets &kwave; start in one of the three possible
 	    <abbrev>GUI</abbrev> modes:
 	    <link linkend="gui_sdi"><abbrev>SDI</abbrev></link>,
@@ -1562,10 +1562,10 @@
 	    </para>
 	</sect2>
 
-	<sect2><title>Xt Toolkit options</title>
+	<sect2><title>Qt Toolkit options</title>
 	    <para>
 	    In addition to a list of files, you can specify a list of
-	    <emphasis>Xt toolkit</emphasis> options like <literal>-geometry</literal>
+	    <emphasis>Qt toolkit</emphasis> options like <literal>-qwindowgeometry</literal>
 	    for specifying the size and/or position of the first opened &kwave;
 	    window and/or <literal>-display</literal> for starting the &kwave; on a
 	    different display.
@@ -1575,7 +1575,7 @@
 	    width of 600 pixels and a height of 400 pixels, with the right border
 	    positioned 30 pixels away from the right and 0 pixels away from the top
 	    of the screen.
-	    <screen><prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
+	    <screen><prompt>% </prompt><command>kwave <parameter>--disable-splashscreen</parameter> <parameter>-qwindowgeometry 600x400-30+0</parameter></command></screen>
 	    </para>
 	</sect2>
 
@@ -2611,10 +2611,10 @@
     <sect1 id="clipboard"><title>Clipboard</title>
 
     <para>
-    &kwave; since v0.8.1 uses the clipboard of KDE. This way it
+    &kwave; uses the clipboard of &plasma;. This way it
     is possible to exchange audio data between different &kwave; windows.
     It might be possible as well to exchange data between &kwave; and other
-    audio applications, depending on their ability to use the KDE
+    audio applications, depending on their ability to use the &plasma;
     clipboard.
     </para>
 
@@ -2639,7 +2639,7 @@
 
     <para>
     &kwave; supports the KDE Drag and Drop protocol. This enables you
-    to open files just by picking them up in a <command>konqueror</command>
+    to open files just by picking them up in a &dolphin; or &konqueror;
     window or the Desktop and let them drop into a window of &kwave;.
     </para>
 

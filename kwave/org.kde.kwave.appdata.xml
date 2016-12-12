@@ -13,6 +13,7 @@
   <name xml:lang="de">KWave</name>
   <name xml:lang="en-GB">Kwave</name>
   <name xml:lang="es">Kwave</name>
+  <name xml:lang="et">Kwave</name>
   <name xml:lang="fi">Kwave</name>
   <name xml:lang="fr">KWave</name>
   <name xml:lang="gl">Kwave</name>
@@ -35,6 +36,7 @@
   <summary xml:lang="de">KWave ist ein Sound-Editor für die KDE-Frameworks 5</summary>
   <summary xml:lang="en-GB">Kwave is a sound editor built on KDE Frameworks 5</summary>
   <summary xml:lang="es">Kwave es un editor de sonido construido sobre KDE Frameworks 5</summary>
+  <summary xml:lang="et">Kwave on KDE Frameworks 5 peale ehitatud heliredaktor</summary>
   <summary xml:lang="fi">Kwave on KDE Frameworks 5 -alustalle suunniteltu äänimuokkain</summary>
   <summary xml:lang="it">Kwave è un editor per il suono basato su KDE Frameworks 5</summary>
   <summary xml:lang="nl">Kwave is een geluidsbewerker gebouwd op KDE Frameworks 5</summary>
@@ -55,6 +57,7 @@
     <p xml:lang="de">Mit KWave können Sie aufnehmen, abspielen und viele Arten von Audio-Dateien importieren und bearbeiten, einschließlich Dateien mit mehreren Spuren.</p>
     <p xml:lang="en-GB">With Kwave you can record, play back, import and edit many sorts of audio files including multi channel files.</p>
     <p xml:lang="es">Con Kwave puede grabar, reproducir, importar y editar muchos tipos de archivos de sonido, incluidos los archivos multicanal.</p>
+    <p xml:lang="et">KWave võimaldab salvestada, esitada, importida ja muuta väga mitut laadi helifaile, kaasa arvatud mitme kanaliga faile.</p>
     <p xml:lang="fi">Kwavella voit äänittää, toistaa, tuoda ja muokata monenlaisia äänitiedostoja, myös useampikanavaisia.</p>
     <p xml:lang="fr">Avec KWave, nous pouvez enregistrer, lire, importer et éditer de nombreuses sortes de fichiers audio, y compris les fichiers multi-pistes.</p>
     <p xml:lang="gl">Kwave permítelle gravar, reproducir, importar e editar moitos tipos de ficheiros de son, incluídos ficheiros de varias canles.</p>
@@ -79,6 +82,7 @@
     <p xml:lang="de">KWave enthält einige Module zum Umwandeln von Audio-Dateien auf verschiedene Arten und bietet eine grafische Ansicht mit umfassenden Möglichkeiten zur Änderung von Größe und Ausschnitt.</p>
     <p xml:lang="en-GB">Kwave includes some plugins to transform audio files in several ways and presents a graphical view with a complete zoom- and scroll capability.</p>
     <p xml:lang="es">Kwave contiene algunos complementos para transformar archivos de sonido de varias formas y presenta una interfaz gráfica con completas funciones de ampliación y de desplazamiento.</p>
+    <p xml:lang="et">Kwave pakub mõningaid pluginad helifailide muutmiseks mitmel viisil, samuti graafilist vaadet igakülgse suurendamise ja kerimise toetusega.</p>
     <p xml:lang="fi">Kwavessa on liitännäisiä äänen erilaisiin muunnoksiin, ja sen käyttöliittymässä on täydelliset lähennys/loitonnus- ja vieritysominaisuudet.</p>
     <p xml:lang="fr">KWave inclut des modules externes pour transformer les fichiers audio de différentes façon et offre une vue graphique avec des possibilités de zoom et de défilement.</p>
     <p xml:lang="gl">Kwave inclúe algúns complementos para transformar ficheiros de son de varios xeitos, e fornece unha visualización gráfica que pode achegar e afastar.</p>

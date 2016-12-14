@@ -43,6 +43,7 @@
   <summary xml:lang="pl">Kwave jest edytorem dźwięku zbudowanym na Szkieletetach KDE 5</summary>
   <summary xml:lang="pt">O Kwave é um editor de som baseado nas Plataformas do KDE 5</summary>
   <summary xml:lang="pt-BR">Kwave é um editor de som construído no KDE Frameworks 5</summary>
+  <summary xml:lang="sk">Kwave je editor zvuku navrhnutý pre KDE Frameworks 5</summary>
   <summary xml:lang="sv">Kwave är en ljudeditor konstruerad med KDE Ramverk 5</summary>
   <summary xml:lang="uk">Kwave — звуковий редактор, створений на основі KDE Frameworks 5</summary>
   <summary xml:lang="x-test">xxKwave is a sound editor built on KDE Frameworks 5xx</summary>
@@ -67,6 +68,7 @@
     <p xml:lang="pt">Com o Kwave, poderá gravar, reproduzir, importar e editar diversos tipos de ficheiros de áudio, incluindo ficheiros multi-canais.</p>
     <p xml:lang="pt-BR">Com o Kwave, você pode gravar, reproduzir, importar e editar diversos tipos de arquivos de áudio, incluindo arquivos multicanais.</p>
     <p xml:lang="ru">Записывайте, проигрывайте, импортируйте и редактируйте различные типы звуковых файлов, включая многоканальные, с помощью Kwave.</p>
+    <p xml:lang="sk">Pomocou Kwave môžete nahrávať, prehrávať, importovať a editovať mnoho druhov audio súborov vrátane viackanálových súborov.</p>
     <p xml:lang="sv">Man kan spela in, spela upp, importera och redigera många sorters ljudfiler, inklusive filer med flera kanaler, med Kwave.</p>
     <p xml:lang="uk">За допомогою Kwave ви можете записувати, відтворювати, імпортувати та редагувати файли звукових даних багатьох типів, зокрема файли з багатоканальним звуком.</p>
     <p xml:lang="x-test">xxWith Kwave you can record, play back, import and edit many sorts of audio files including multi channel files.xx</p>
@@ -92,6 +94,7 @@
     <p xml:lang="pt">O Kwave inclui alguns 'plugins' para transformar os ficheiros de áudio de diversas formas e apresenta uma vista gráfica com uma capacidade completa de ampliação e deslocamento.</p>
     <p xml:lang="pt-BR">O Kwave inclui alguns plugins para transformar os arquivos de áudio de diversas formas e apresenta um visual gráfico com capacidade completa zoom e deslocamento.</p>
     <p xml:lang="ru">В Kwave включены модули для преобразования звуковых файлов различными способами, и возможен просмотр с полной поддержкой увеличения и прокрутки.</p>
+    <p xml:lang="sk">Kwave zahŕňa niektoré pluginy na transformáciu audio súborov v niekoľkých spôsoboch a má grafický pohľad s kompletnou schopnosťou priblíženia a rolovania.</p>
     <p xml:lang="sv">Kwave inkluderar några insticksmoduler för att omvandla ljudfiler på flera sätt, och visar en grafisk vy med fullständig zoom- och panoreringsförmåga.</p>
     <p xml:lang="uk">До складу Kwave включено декілька додатків для перетворення звукових даних. Передбачено графічне представлення дати із усіма можливостями масштабування та гортання.</p>
     <p xml:lang="x-test">xxKwave includes some plugins to transform audio files in several ways and presents a graphical view with a complete zoom- and scroll capability.xx</p>

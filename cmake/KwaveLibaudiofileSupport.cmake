@@ -35,7 +35,7 @@ FIND_PATH(HAVE_AFS_VFS_H   af_vfs.h)
 ### system libaudiofile can be used & header exists: check for functions  ###
 
 IF (HAVE_AUDIOFILE_H AND HAVE_AFS_VFS_H)
-    CHECK_LIBRARY_EXISTS(audiofile afOpenVirtualFile "" HAVE_AF_OPEN_VIRTUAL_FILE)
+    CHECK_LIBRARY_EXISTS(audiofile afOpenVirtualFile ${LIBAUDIOFILE_LIBDIR} HAVE_AF_OPEN_VIRTUAL_FILE)
 ENDIF (HAVE_AUDIOFILE_H AND HAVE_AFS_VFS_H)
 
 # check for compression types

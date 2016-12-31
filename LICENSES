@@ -36,7 +36,6 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	* BSD
 	  - cmake/FindOggVorbis.cmake
 	  - cmake/COPYING-CMAKE-SCRIPTS		(New BSD ?)
-	  - cmake/FindAlsa.cmake		{kretz,faure}@kde.org
 	  - plugins/codec_ogg/OpusEncoder.cpp   parts two clause BSD
 
 DIRECTLY USED EXTERNAL LIBRARIES

@@ -225,7 +225,7 @@ int main(int argc, char **argv)
     app.processCmdline(&cmdline);
     app.setApplicationName(_("kwave"));
     app.setApplicationVersion(_(PACKAGE_VERSION));
-    app.setOrganizationDomain(_("sourceforge.net"));
+    app.setOrganizationDomain(_("kde.org"));
     cmdline.process(app);
     about.setupCommandLine(&cmdline);
     about.processCommandLine(&cmdline);

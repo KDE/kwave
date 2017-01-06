@@ -3,9 +3,9 @@
   <!ENTITY kwave "<application>Kwave</application>">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.9.2">
-  <!ENTITY version_tag "0_9_2">
-  <!ENTITY version_year "2016">
+  <!ENTITY version "0.9.3">
+  <!ENTITY version_tag "0_9_3">
+  <!ENTITY version_year "2017">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_git_web_kde "http://commits.kde.org/kwave">
   <!ENTITY url_prefix_gitweb "&url_git_web_kde;?path=">
@@ -320,8 +320,8 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2016-06-26</date>
-    <releaseinfo>0.9.2 (Applications 16.12)</releaseinfo>
+    <date>2017-01-29</date>
+    <releaseinfo>0.9.3</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor built on &kf5-full;.</para></abstract>
 

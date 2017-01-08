@@ -321,7 +321,7 @@
     <legalnotice>&FDLNotice;</legalnotice>
 
     <date>2017-01-29</date>
-    <releaseinfo>0.9.3</releaseinfo>
+    <releaseinfo>0.9.3 (Applications 16.12)</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor built on &kf5-full;.</para></abstract>
 

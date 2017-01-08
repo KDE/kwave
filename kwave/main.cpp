@@ -166,7 +166,7 @@ int main(int argc, char **argv)
 #endif
 
     // manually connect the translation catalog, otherwise i18n will not work
-    KLocalizedString::setApplicationDomain(PACKAGE);
+    KLocalizedString::setApplicationDomain(PROJECT_NAME);
 
     QCommandLineParser cmdline;
     cmdline.addHelpOption();
@@ -200,14 +200,14 @@ int main(int argc, char **argv)
     );
 
     KAboutData about(
-	_(PACKAGE),
+	_(PROJECT_NAME),
 	i18n("Kwave"),
-	_(PACKAGE_VERSION),
+	_(KWAVE_VERSION),
 	i18n("A sound editor built on KDE Frameworks 5"),
 	KAboutLicense::GPL_V2,
         i18n("(c) 2016, Thomas Eschenbacher"),
 	QString(),
-	_("http://kwave.sourceforge.net"),
+	_("http://www.kde.org/applications/multimedia/kwave"),
 	_("Thomas.Eschenbacher@gmx.de")
     );
     addDataStrings(about);
@@ -224,7 +224,7 @@ int main(int argc, char **argv)
 
     app.processCmdline(&cmdline);
     app.setApplicationName(_("kwave"));
-    app.setApplicationVersion(_(PACKAGE_VERSION));
+    app.setApplicationVersion(_(KWAVE_VERSION));
     app.setOrganizationDomain(_("kde.org"));
     cmdline.process(app);
     about.setupCommandLine(&cmdline);

@@ -641,9 +641,9 @@ void Kwave::PluginManager::searchPluginModules()
 	    continue;
 	}
 
-	if (version != _(PACKAGE_SHORT_VERSION)) {
+	if (version != _(KWAVE_VERSION)) {
 	    qWarning("plugin '%s' has wrong ABI version: '%s' (should be %s)",
-	             DBG(name), DBG(version), PACKAGE_SHORT_VERSION);
+		     DBG(name), DBG(version), KWAVE_VERSION);
 	    continue;
 	}
 

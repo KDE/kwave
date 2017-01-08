@@ -26,40 +26,10 @@ FIND_PROGRAM(RPMBUILD_EXECUTABLE NAMES rpmbuild)
 FIND_PROGRAM(BZIP2_EXECUTABLE NAMES bzip2)
 
 #############################################################################
-### macro for extracting a field from the kwave.lsm file                  ###
-
-MACRO(GET_LSM _var _field)
-    SET(_get_lsm ${CMAKE_SOURCE_DIR}/bin/get_lsm_entry.pl)
-    SET(_lsm ${CMAKE_SOURCE_DIR}/kwave.lsm)
-    EXECUTE_PROCESS(
-        COMMAND ${_get_lsm} ${_lsm} ${_field}
-        OUTPUT_VARIABLE ${_var}
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-ENDMACRO(GET_LSM)
-
-#############################################################################
 ### determine all variables in the kwave.spec.in                          ###
 
-SET(PACKAGE "kwave")
-SET(PACKAGE_VERSION "${KWAVE_VERSION_FULL}")
-
-SET(PACKAGE_SHORT_VERSION "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSION_RELEASE}")
-IF (KWAVE_VERSION_PATCHLEVEL)
-    SET(RPM_RELEASE ${KWAVE_VERSION_PATCHLEVEL})
-ELSE (KWAVE_VERSION_PATCHLEVEL)
-    SET(RPM_RELEASE "1")
-ENDIF (KWAVE_VERSION_PATCHLEVEL)
-SET(RPM_FULL_VERSION "${PACKAGE_SHORT_VERSION}-${RPM_RELEASE}")
-
-SET(RPM_GROUP "X11/Applications/Sound")
-GET_LSM(RPM_DESCRIPTION "Description")
-GET_LSM(RPM_SUMMARY "Keywords")
-GET_LSM(RPM_NAME "Title")
-GET_LSM(RPM_COPYRIGHT "Copying-policy")
-GET_LSM(RPM_URL "Homepage")
-GET_LSM(RPM_VENDOR "Maintained-by")
-SET(RPM_VENDOR "Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>")
+SET(RPM_RELEASE "1")
+SET(RPM_FULL_VERSION "${KWAVE_VERSION}-${RPM_RELEASE}")
 
 #############################################################################
 ### generate the .changes file                                            ###
@@ -130,7 +100,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_tarball_bz2}
         -c
         --exclude=.git --exclude=testfiles --exclude=*~
         --transform=s+^./++g
-        --transform=s+^+kwave-${PACKAGE_SHORT_VERSION}/+g
+        --transform=s+^+kwave-${KWAVE_VERSION}/+g
         --owner=root --group=root --mode=a+rX,go-w
         -C ${CMAKE_SOURCE_DIR}
         -f ${_tarball}
@@ -138,7 +108,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_tarball_bz2}
     COMMAND ${TAR_EXECUTABLE} --append -f ${_tarball}
         --owner=root --group=root --mode=a+rX,go-w
         -C ${DISTFILES_DIR}
-        --transform=s+^+kwave-${PACKAGE_SHORT_VERSION}/+g
+        --transform=s+^+kwave-${KWAVE_VERSION}/+g
         kwave.spec
     COMMAND ${RM_EXECUTABLE} -f ${_tarball_bz2}
     COMMAND ${BZIP2_EXECUTABLE} ${_tarball}

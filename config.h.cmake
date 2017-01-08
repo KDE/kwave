@@ -88,13 +88,10 @@
 #cmakedefine HAVE_OGG_OPUS
 
 /* Name of package */
-#cmakedefine PACKAGE "@PACKAGE@"
+#cmakedefine PROJECT_NAME "@PROJECT_NAME@"
 
-/* Define to the full version, including patch level */
-#cmakedefine PACKAGE_VERSION "@PACKAGE_VERSION@"
-
-/* Define to the version without patch level */
-#cmakedefine PACKAGE_SHORT_VERSION "@PACKAGE_SHORT_VERSION@"
+/* version of the application */
+#cmakedefine KWAVE_VERSION "@KWAVE_VERSION@"
 
 /* suffix of executable files */
 #cmakedefine EXECUTABLE_SUFFIX @CMAKE_EXECUTABLE_SUFFIX@

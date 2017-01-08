@@ -106,7 +106,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	GNU-LICENSE					free
 	kwave.ebuild.in					GPL2+ / Gentoo
 	kwave.kdev4					GPL2+
-	kwave.lsm					GPL2+
 	kwave.spec.in					GPL2+
 	LICENSES					GPL2+
 	Messages.sh					GPL2+
@@ -116,12 +115,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	.krazy						GPL2+
 
 	bin/filter-pot.pl				GPL2+
-	bin/get_lsm_entry.pl				GPL2+
 	bin/import-screenshots.sh			GPL2+
 	bin/make-specfile-changelog.pl			GPL2+
 	bin/menusconfig2pot.pl				GPL2+
 	bin/msgstats.pl					GPL2+
-	bin/set_version.sh				GPL2+ / portions of Martin Wilz
 	bin/svn-update-l10n.sh				GPL2+
 	bin/update-command-xref.pl			GPL2+
 	bin/update-fileinfo-xref.pl			GPL2+

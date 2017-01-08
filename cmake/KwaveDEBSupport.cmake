@@ -21,30 +21,9 @@
 FIND_PROGRAM(CHECKINSTALL_EXECUTABLE NAMES checkinstall)
 
 #############################################################################
-### macro for extracting a field from the kwave.lsm file                  ###
+### set release number                                                    ###
 
-MACRO(GET_LSM _var _field)
-    SET(_get_lsm ${CMAKE_SOURCE_DIR}/bin/get_lsm_entry.pl)
-    SET(_lsm ${CMAKE_SOURCE_DIR}/kwave.lsm)
-    EXECUTE_PROCESS(
-        COMMAND ${_get_lsm} ${_lsm} ${_field}
-        OUTPUT_VARIABLE ${_var}
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-ENDMACRO(GET_LSM)
-
-#############################################################################
-### determine all variables in the kwave.spec.in                          ###
-
-SET(PACKAGE "kwave")
-SET(PACKAGE_VERSION "${KWAVE_VERSION_FULL}")
-
-SET(DEB_SHORT_VERSION "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSION_RELEASE}")
-IF (KWAVE_VERSION_PATCHLEVEL)
-    SET(DEB_RELEASE ${KWAVE_VERSION_PATCHLEVEL})
-ELSE (KWAVE_VERSION_PATCHLEVEL)
-    SET(DEB_RELEASE "1")
-ENDIF (KWAVE_VERSION_PATCHLEVEL)
+SET(DEB_RELEASE "1")
 
 #############################################################################
 ### binary DEB (for personal use only)                                    ###
@@ -52,8 +31,8 @@ ENDIF (KWAVE_VERSION_PATCHLEVEL)
 ADD_CUSTOM_TARGET(deb
     COMMAND ${CHECKINSTALL_EXECUTABLE}
         -y -D
-        --pkgname=${PACKAGE}
-        --pkgversion=${DEB_SHORT_VERSION}
+        --pkgname=${PROJECT_NAME}
+        --pkgversion=${KWAVE_VERSION}
         --pkgrelease=${DEB_RELEASE}
         --install=no --fstrans
     COMMAND echo    ""

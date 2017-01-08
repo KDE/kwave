@@ -16,9 +16,14 @@
 #############################################################################
 
 #############################################################################
-### project name                                                          ###
+### project name and version                                              ###
 
 PROJECT(kwave)
+
+# KDE Application Version, managed by release script
+set (KDE_APPLICATIONS_VERSION_MAJOR "16")
+set (KDE_APPLICATIONS_VERSION_MINOR "12")
+set (KDE_APPLICATIONS_VERSION_MICRO "0")
 
 #############################################################################
 ### build options:                                                        ###
@@ -83,7 +88,7 @@ FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
 INCLUDE(FindKwaveVersion)
 
 #############################################################################
-### show the compiler and it's version                                    ###
+### show the compiler name and version                                    ###
 
 EXECUTE_PROCESS(
     COMMAND ${CMAKE_C_COMPILER} -dumpversion
@@ -309,7 +314,7 @@ ENDIF (WITH_DOC)
 ### RPM support                                                           ###
 
 # directory that receives the files of the "distfiles" target
-SET(DISTFILES_DIR ${CMAKE_BINARY_DIR}/v${KWAVE_VERSION_FULL})
+SET(DISTFILES_DIR ${CMAKE_BINARY_DIR}/v${KWAVE_VERSION})
 FILE(MAKE_DIRECTORY ${DISTFILES_DIR})
 
 INCLUDE(KwaveRPMSupport)
@@ -378,7 +383,7 @@ INCLUDE(KwaveEbuild)
 ### collection of all files used for distribution                         ###
 
 FIND_PROGRAM(SED_EXECUTABLE NAMES sed)
-SET(_distfiles_md5sum ${DISTFILES_DIR}/MD5SUMS-${KWAVE_VERSION_FULL})
+SET(_distfiles_md5sum ${DISTFILES_DIR}/MD5SUMS-${KWAVE_VERSION})
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_distfiles_md5sum}
     COMMAND md5sum ${KWAVE_DISTFILES} |
@@ -399,16 +404,6 @@ CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/cmake/uninstall.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
     @ONLY
-)
-
-#############################################################################
-### "make version-labels"                                                 ###
-
-ADD_CUSTOM_TARGET(version-labels
-    ${CMAKE_SOURCE_DIR}/bin/set_version.sh
-        ${CMAKE_SOURCE_DIR}
-        ${KWAVE_VERSION_FULL}
-        ${KWAVE_VERSION_DATE_ISO}
 )
 
 #############################################################################

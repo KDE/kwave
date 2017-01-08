@@ -20,18 +20,18 @@
 
 # norootforbuild
 
-%define ver @RPM_SHORT_VERSION@
+%define ver @KWAVE_VERSION@
 %define release @RPM_RELEASE@
 
-Summary:        @RPM_SUMMARY@
+Summary:        KDE, Qt, WAV, Sound, Editor, Effects, playback, recording
 License:        GPL-2.0+
 Group:          Productivity/Multimedia/Sound/Editors and Converters
 
-Name:           @RPM_NAME@
-Version:        @RPM_SHORT_VERSION@
+Name:           @PROJECT_NAME@
+Version:        @KWAVE_VERSION@
 Release:        @RPM_RELEASE@
 Source0:        kwave-%{version}-1.tar.bz2
-Url:            @RPM_URL@
+Url:            http://kwave.sourceforge.net
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 # hack for SLE
 %ifarch i586
@@ -252,7 +252,7 @@ make -C build DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 
 %files
 %defattr(-,root,root)
-%doc GNU-LICENSE AUTHORS LICENSES CHANGES README TODO kwave.lsm
+%doc GNU-LICENSE AUTHORS LICENSES CHANGES README TODO
 %{_bindir}/%name
 %{_kf5_applicationsdir}/org.kde.%{name}.desktop
 %{_prefix}/share/appdata

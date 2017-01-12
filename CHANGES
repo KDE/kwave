@@ -23,7 +23,8 @@
   * fixed wrong encoding of error messages received via strerror and libs
   * bugfix: handling of File/Revert was wrong in case of newly created file
   * use KDE versioning scheme
-  * removed kwave.lsm, bin/get_lsm_entry.pl and bin/set_version.sh
+  * removed kwave.lsm and some now unneeded scripts (filter-pot.pl,
+    get_lsm_entry.pl and set_version.sh)
   * simplified version number handling
 
 0.9.2 [2016-06-26]

@@ -27,16 +27,15 @@ LIST OF LICENSES FOUND IN THE SOURCES
 
 	* Kitware (cmake)
 	  - cmake/Copyright.txt
-	  - cmake/FindGettext.cmake
 
 	* FDL - Free Documentation License
 	  - documentation in doc
 	  - screenshots
 
 	* BSD
-	  - cmake/FindOggVorbis.cmake
-	  - cmake/COPYING-CMAKE-SCRIPTS		(New BSD ?)
-	  - plugins/codec_ogg/OpusEncoder.cpp   parts two clause BSD
+	  - cmake/FindOggVorbis.cmake           3 clause BSD
+	  - cmake/COPYING-CMAKE-SCRIPTS         3 clause BSD
+	  - plugins/codec_ogg/OpusEncoder.cpp   2 clause BSD
 
 DIRECTLY USED EXTERNAL LIBRARIES
 ================================
@@ -114,7 +113,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	VERSION						GPL2+
 	.krazy						GPL2+
 
-	bin/filter-pot.pl				GPL2+
 	bin/import-screenshots.sh			GPL2+
 	bin/make-specfile-changelog.pl			GPL2+
 	bin/menusconfig2pot.pl				GPL2+
@@ -125,11 +123,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	bin/update-plugin-xref.pl			GPL2+
 
 	cmake/CheckIncludeFilesCXX.cmake		GPL2+
-	cmake/COPYING-CMAKE-SCRIPTS			New BSD
+	cmake/COPYING-CMAKE-SCRIPTS			3 clause BSD
 	cmake/Copyright.txt				Kitware (cmake)
-	cmake/FindAlsa.cmake				BSD / {kretz,faure}@kde.org
+	cmake/FindAlsa.cmake				2 clause BSD / {kretz,faure}@kde.org
 	cmake/FindKwaveVersion.cmake			GPL2+
-	cmake/FindOggVorbis.cmake			BSD
+	cmake/FindOggVorbis.cmake			3 clause BSD
 	cmake/FindRequiredProgram.cmake			GPL2+
 	cmake/KwaveALSASupport.cmake			GPL2+
 	cmake/KwaveDEBSupport.cmake			GPL2+

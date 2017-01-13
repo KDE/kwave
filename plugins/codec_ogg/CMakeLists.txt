@@ -7,39 +7,54 @@
 #############################################################################
 #
 #############################################################################
-##                                                                          #
-##    This program is free software; you can redistribute it and/or modify  #
-##    it under the terms of the GNU General Public License as published by  #
-##    the Free Software Foundation; either version 2 of the License, or     #
-##    (at your option) any later version.                                   #
-##                                                                          #
+#                                                                           #
+# Redistribution and use in source and binary forms, with or without        #
+# modification, are permitted provided that the following conditions        #
+# are met:                                                                  #
+#                                                                           #
+# 1. Redistributions of source code must retain the above copyright         #
+#    notice, this list of conditions and the following disclaimer.          #
+# 2. Redistributions in binary form must reproduce the above copyright      #
+#    notice, this list of conditions and the following disclaimer in the    #
+#    documentation and/or other materials provided with the distribution.   #
+#                                                                           #
+# For details see the accompanying cmake/COPYING-CMAKE-SCRIPTS file.        #
+#                                                                           #
 #############################################################################
 
 OPTION(WITH_OGG_VORBIS "enable support for Ogg/Vorbis files [default=on]" ON)
 OPTION(WITH_OGG_OPUS   "enable support for Ogg/Opus files [default=on]" ON)
 
-SET(WITH_OGG OFF)
 IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
-    SET(WITH_OGG ON)
-ENDIF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
-
-IF (WITH_OGG)
 
 #############################################################################
-### check for Ogg/Opus headers and library                                ###
+### check for Ogg headers and library                                     ###
+
+    INCLUDE(FindPkgConfig)
+    INCLUDE(UsePkgConfig)
+
+    PKG_CHECK_MODULES(OGG REQUIRED ogg>=1.0.0)
+    MESSAGE(STATUS "  Found Ogg library in ${OGG_LIBDIR}")
+    MESSAGE(STATUS "  Found Ogg headers in ${OGG_INCLUDEDIR}")
+    SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} ogg)
+
+#############################################################################
+### check for Opus headers and library                                    ###
 
     IF (WITH_OGG_OPUS)
 	PKG_CHECK_MODULES(OPUS REQUIRED opus>=1.0.0)
-	IF (NOT OPUS_FOUND)
-	    MESSAGE(FATAL_ERROR "Opus codec not found")
-	ENDIF(NOT OPUS_FOUND)
+	MESSAGE(STATUS "  Found opus codec library in ${OPUS_LIBDIR}")
+	MESSAGE(STATUS "  Found opus codec headers in ${OPUS_INCLUDEDIR}")
 
-	MESSAGE(STATUS "Found Opus codec version ${OPUS_VERSION}")
-# 	MESSAGE(STATUS "Found Opus codec library in ${OPUS_LIBDIR}")
-# 	MESSAGE(STATUS "Found Opus codec headers in ${OPUS_INCLUDEDIR}")
+	CHECK_LIBRARY_EXISTS(ogg ogg_stream_flush_fill ${OPUS_LIBDIR} HAVE_OGG_STREAM_FLUSH_FILL)
+	IF (NOT HAVE_OGG_STREAM_FLUSH_FILL)
+	    MESSAGE(FATAL_ERROR "
+	        libogg seems to be too old for use with opus codec,
+	        it lacks ogg_stream_flush_fill()
+	    ")
+	ENDIF (NOT HAVE_OGG_STREAM_FLUSH_FILL)
 
-	CHECK_LIBRARY_EXISTS(ogg ogg_stream_flush_fill "" HAVE_OGG_STREAM_FLUSH_FILL)
-
+	SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} opus)
 	SET(HAVE_OGG_OPUS  ON CACHE BOOL "enable Opus codec")
 	SET(OGG_OPUS_LIBS "opus")
 	SET(OGG_OPUS_SRCS
@@ -50,34 +65,31 @@ IF (WITH_OGG)
     ENDIF (WITH_OGG_OPUS)
 
 #############################################################################
-### check for Ogg/Vorbis headers and library                              ###
+### check for Vorbis headers and library                                  ###
 
     IF (WITH_OGG_VORBIS)
-	SET(OggVorbis_FIND_QUIETLY TRUE)
-	INCLUDE(FindOggVorbis)
+	PKG_CHECK_MODULES(VORBIS REQUIRED vorbis>=1.0.0)
+	MESSAGE(STATUS "  Found vorbis codec library in ${VORBIS_LIBDIR}")
+	MESSAGE(STATUS "  Found vorbis codec headers in ${VORBIS_INCLUDEDIR}")
+	CHECK_LIBRARY_EXISTS(vorbis vorbis_bitrate_addblock "${VORBIS_INCLUDEDIR}" HAVE_LIBVORBISENC_V2)
+	IF (NOT HAVE_LIBVORBISENC_V2)
+	    MESSAGE(FATAL_ERROR "libvorbis lacks the function vorbis_bitrate_addblock()")
+	ENDIF (NOT HAVE_LIBVORBISENC_V2)
+	SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} vorbis)
+
+	PKG_CHECK_MODULES(VORBISENC REQUIRED vorbisenc>=1.0.0)
+	MESSAGE(STATUS "  Found vorbisenc library in ${VORBISENC_LIBDIR}")
+	MESSAGE(STATUS "  Found vorbisenc headers in ${VORBISENC_INCLUDEDIR}")
+	SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} vorbisenc)
 
 	CHECK_INCLUDE_FILES("vorbis/codec.h;vorbis/vorbisenc.h" HAVE_OGG_VORBIS_HEADERS)
-	IF (HAVE_OGG_VORBIS_HEADERS)
-	    SET(CMAKE_REQUIRED_LIBRARIES "vorbisenc;vorbis;ogg")
-	    IF (OGGVORBIS_VERSION GREATER 1)
-		SET(HAVE_OGG_VORBIS TRUE)
-	    ENDIF (OGGVORBIS_VERSION GREATER 1)
-	ENDIF (HAVE_OGG_VORBIS_HEADERS)
+	IF (NOT HAVE_OGG_VORBIS_HEADERS)
+	    MESSAGE(FATAL_ERROR "ogg vorbis header files are missing")
+	ENDIF (NOT HAVE_OGG_VORBIS_HEADERS)
 
-	IF (HAVE_OGG_VORBIS)
-	    MESSAGE(STATUS "Found Ogg/Vorbis library v2.x or newer")
-	ELSE (HAVE_OGG_VORBIS)
-	    MESSAGE(FATAL_ERROR "
-
-	    your system lacks support for at least libvorbis-devel!
-	    please visit \"http://vorbis.com\" for obtainig a current version
-	    of libogg and libvorbis plus the -devel packages if your
-	    distribution does not include them.
-	    ")
-	ENDIF (HAVE_OGG_VORBIS)
 
 	SET(HAVE_OGG_VORBIS ON CACHE BOOL "enable Vorbis codec")
-	SET(OGG_VORBIS_LIBS vorbisenc vorbis)
+	SET(OGG_VORBIS_LIBS "vorbisenc" "vorbis")
 	SET(OGG_VORBIS_SRCS
 	    VorbisDecoder.cpp
 	    VorbisEncoder.cpp
@@ -103,7 +115,7 @@ IF (WITH_OGG)
 
     KWAVE_PLUGIN(codec_ogg)
 
-ENDIF (WITH_OGG)
+ENDIF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
 
 #############################################################################
 #############################################################################

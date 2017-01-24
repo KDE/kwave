@@ -113,10 +113,10 @@ void Kwave::ImageView::paintEvent(QPaintEvent *)
     QPixmap newmap = QPixmap::fromImage(m_image,
 	Qt::ColorOnly | Qt::ThresholdDither | Qt::AvoidDither);
 
-    m_scale_x = m_fit_width  ? static_cast<float>(width())  /
-                               static_cast<float>(m_image.width()) : 1.0f;
-    m_scale_y = m_fit_height ? static_cast<float>(height()) /
-                               static_cast<float>(m_image.height()) : 1.0f;
+    m_scale_x = m_fit_width  ? static_cast<double>(width())  /
+                               static_cast<double>(m_image.width()) : 1.0;
+    m_scale_y = m_fit_height ? static_cast<double>(height()) /
+                               static_cast<double>(m_image.height()) : 1.0;
 
     if (m_offset.x() + m_scale_x * m_image.width() > width())
 	m_offset.setX(Kwave::toInt(m_scale_x * m_image.width() - width()));

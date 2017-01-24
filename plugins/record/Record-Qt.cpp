@@ -44,9 +44,6 @@
 
 #include "Record-Qt.h"
 
-/** helper macro: returns the number of elements in an array */
-#define ELEMENTS_OF(__array__) (sizeof(__array__) / sizeof(__array__[0]))
-
 /** gui name of the default device */
 #define DEFAULT_DEVICE (i18n("Default device") + _("|sound_note"))
 
@@ -271,9 +268,10 @@ int Kwave::RecordQt::tracks()
 int Kwave::RecordQt::setTracks(unsigned int &tracks)
 {
     if (tracks == m_tracks) return 0;
+    if (tracks > 255) tracks = 255;
 
     close();
-    m_tracks = tracks;
+    m_tracks = static_cast<quint8>(tracks);
     return 0;
 }
 

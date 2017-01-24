@@ -529,7 +529,7 @@ void Kwave::MainWidget::refreshHorizontalScrollBar()
 	// calculate the scrollbar ranges in scrollbar's units
 	//
 	// NOTE: we must take care of possible numeric overflows
-	//       as the scrollbar works internally with "int" and
+	//       as the scrollbar internally works with "int" and
 	//       the offsets we use for the samples might be bigger!
 	//
 	// [-------------------------------------------##############]

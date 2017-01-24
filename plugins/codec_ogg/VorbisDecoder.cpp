@@ -234,33 +234,23 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 static inline int decodeFrame(float **pcm, unsigned int size,
                               Kwave::MultiWriter &dest)
 {
-//     bool clipped = false;
-    unsigned int track;
-    unsigned int tracks = dest.tracks();
+    const unsigned int tracks = dest.tracks();
 
     // convert floats to 16 bit signed ints
     // (host order) and interleave
-    for (track = 0; track < tracks; track++) {
-	float *mono = pcm[track];
-	int bout = size;
-	unsigned int ofs = 0;
+    for (unsigned int track = 0; track < tracks; track++) {
+	float       *mono = pcm[track];
+	int          bout = size;
+	unsigned int ofs  = 0;
 	Kwave::SampleArray buffer(size);
 
 	while (bout--) {
-	    // scale, use some primitive noise shaping
-	    sample_t s = static_cast<sample_t>(
-		*(mono++) *
-		static_cast<float>(SAMPLE_MAX) + drand48() - 0.5f);
-
-	    // might as well guard against clipping
-	    if (s > SAMPLE_MAX) {
-		s = SAMPLE_MAX;
-// 		clipped = true;
-	    }
-	    if (s < SAMPLE_MIN) {
-		s = SAMPLE_MIN;
-// 		clipped = true;
-	    }
+	    // scale, use some primitive noise shaping + clipping
+	    double   noise = (drand48() - double(0.5)) / double(SAMPLE_MAX);
+	    double   d     = static_cast<double>(*(mono++));
+	    sample_t s     = qBound<sample_t>(
+		SAMPLE_MIN, double2sample(d + noise), SAMPLE_MAX
+	    );
 
 	    // write the clipped sample to the stream
 	    buffer[ofs++] = s;
@@ -269,8 +259,6 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 	// write the buffer to the stream
 	*(dest[track]) << buffer;
     }
-
-//    if (clipped) qDebug("Clipping in frame %ld", (long)(m_vd.sequence));
 
     return size;
 }

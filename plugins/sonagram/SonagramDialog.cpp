@@ -57,8 +57,7 @@ Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     if (!pointslider) return;
     if (!windowtypebox) return;
 
-    /** @todo 64bit support */
-    pointslider->setMaximum(Kwave::toInt(m_length / 16)); // TODO
+    pointslider->setMaximum(Kwave::toInt(m_length / 16));
 
     Kwave::window_function_t wf = Kwave::WINDOW_FUNC_NONE;
     for (unsigned int i = 0; i < Kwave::WindowFunction::count(); i++) {

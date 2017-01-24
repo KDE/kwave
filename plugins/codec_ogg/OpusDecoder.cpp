@@ -184,7 +184,7 @@ int Kwave::OpusDecoder::parseOpusTags(QWidget *widget, Kwave::FileInfo &info)
 		// comment extends beyond end of packet
 		qWarning("OpusDecoder::parseHeader(): encoder name truncated "
 		         "(len=%u, max=%lu)", len, length);
-		len = length;
+		len = static_cast<quint32>(length);
 	    }
 	    QString encoder =
 		QString::fromUtf8(reinterpret_cast<const char *>(c), len);
@@ -216,7 +216,7 @@ int Kwave::OpusDecoder::parseOpusTags(QWidget *widget, Kwave::FileInfo &info)
 		// comment extends beyond end of packet
 		qWarning("OpusDecoder::parseHeader(): comment truncated "
 		         "(len=%u, max=%lu)", len, length);
-		len = length;
+		len = static_cast<quint32>(length);
 	    }
 	    QString comment =
 		QString::fromUtf8(reinterpret_cast<const char *>(c), len);
@@ -507,7 +507,10 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     // get some statistical data, for bitrate mode detection
     m_packet_count++;
 
-    int frames = opus_packet_get_nb_frames(m_op.packet, m_op.bytes);
+    int frames = opus_packet_get_nb_frames(
+	m_op.packet,
+	static_cast<opus_int32>(m_op.bytes)
+    );
     if(frames < 1 || frames > 48) {
 	qWarning("WARNING: Invalid packet TOC in packet #%llu",
 	         static_cast<unsigned long long int>(m_op.packetno));
@@ -521,8 +524,10 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 
     if (spp < m_packet_len_min) m_packet_len_min = spp;
     if (spp > m_packet_len_max) m_packet_len_max = spp;
-    if (m_op.bytes < m_packet_size_min) m_packet_size_min = m_op.bytes;
-    if (m_op.bytes > m_packet_size_max) m_packet_size_max = m_op.bytes;
+    if (m_op.bytes < m_packet_size_min)
+	m_packet_size_min = Kwave::toInt(m_op.bytes);
+    if (m_op.bytes > m_packet_size_max)
+	m_packet_size_max = Kwave::toInt(m_op.bytes);
 
     // total count of samples and bytes
     m_samples_raw += spp;
@@ -542,8 +547,9 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     // decode the audio data into a buffer with float values
     int length = opus_multistream_decode_float(
 	m_opus_decoder,
-	static_cast<unsigned char *>(m_op.packet),
-	m_op.bytes, m_raw_buffer, MAX_FRAME_SIZE, 0
+	static_cast<const unsigned char *>(m_op.packet),
+	static_cast<opus_int32>(m_op.bytes),
+	m_raw_buffer, MAX_FRAME_SIZE, 0
     );
     if (length <= 0) {
 	qWarning("OpusDecoder::decode() failed: '%s'",
@@ -608,12 +614,12 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 	Kwave::SampleBuffer *buffer = m_buffer->at(t);
 	float    *in  = p + t;
 	for (int frame = 0; frame < length; frame++) {
-	    // scale, use some primitive noise shaping
-	    sample_t s = static_cast<sample_t>(
-		(*in) * static_cast<float>(SAMPLE_MAX) + drand48() - 0.5f);
-	    if (s > SAMPLE_MAX) s = SAMPLE_MAX;
-	    if (s < SAMPLE_MIN) s = SAMPLE_MIN;
-
+	    // scale, use some primitive noise shaping + clipping
+	    double   noise = (drand48() - double(0.5)) / double(SAMPLE_MAX);
+	    double   d     = static_cast<double>(*in);
+	    sample_t s     = qBound<sample_t>(
+		SAMPLE_MIN, double2sample(d + noise), SAMPLE_MAX
+	    );
 	    buffer->put(s);
 	    in += tracks;
 	}

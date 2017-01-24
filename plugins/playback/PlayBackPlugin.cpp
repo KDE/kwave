@@ -290,7 +290,7 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::createDevice(
 //***************************************************************************
 void Kwave::PlayBackPlugin::run(QStringList params)
 {
-    const float t_sweep        =   1.0; /* seconds per speaker */
+    const double       t_sweep =   1.0; /* seconds per speaker */
     const unsigned int periods =     3; /* number of periods to play */
 
     qDebug("PlayBackPlugin::run()");
@@ -310,7 +310,7 @@ void Kwave::PlayBackPlugin::run(QStringList params)
 
     // settings are valid -> take them
 
-    float t_period = t_sweep * channels;
+    double t_period = t_sweep * channels;
     unsigned int curve_length = Kwave::toUint(t_period * rate);
 
     // create all objects
@@ -321,8 +321,8 @@ void Kwave::PlayBackPlugin::run(QStringList params)
 	curve.insert(0.5, 1.0);
     } else {
 	// all above
-	curve.insert(0.5 / static_cast<float>(channels), 1.0);
-	curve.insert(1.0 / static_cast<float>(channels), 0.0);
+	curve.insert(0.5 / static_cast<double>(channels), 1.0);
+	curve.insert(1.0 / static_cast<double>(channels), 0.0);
     }
     curve.insert(1.0, 0.0);
 

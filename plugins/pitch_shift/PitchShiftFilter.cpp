@@ -61,7 +61,7 @@ void Kwave::PitchShiftFilter::initFilter()
     m_dbpos = 0;
     m_lfopos = 0;
 
-    if (m_speed <= 1.0) {
+    if (m_speed <= float(1.0)) {
 	m_b1pos = m_b2pos = 0.0;
 	m_b1inc = m_b2inc = 1.0f - m_speed;
     } else {
@@ -92,9 +92,9 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 	m_dbuffer[m_dbpos] = sample2float(in[pos]);
 
 	m_lfopos += lfoposinc;
-	m_lfopos -= floor(m_lfopos);
+	m_lfopos -= floorf(m_lfopos);
 
-	if (m_lfopos < 0.25) {
+	if (m_lfopos < float(0.25)) {
 	    m_b1reset = m_b2reset = false;
 	}
 
@@ -107,20 +107,20 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 	 *
 	 *  start with a sample from long ago and slowly decrease delay
 	 */
-	if (!m_b1reset && m_lfopos > 0.25) {
-	    if (m_speed <= 1.0) {
+	if (!m_b1reset && m_lfopos > float(0.25)) {
+	    if (m_speed <= float(1.0)) {
 		m_b1pos = 0;
 		m_b1inc = 1.0f - m_speed;
 	    } else {
 		m_b1inc = 1.0f - m_speed;
-		m_b1pos = 10.0f + ((-m_b1inc) * (1.0f / lfoposinc));
+		m_b1pos = 10.0f + ((- m_b1inc) * (1.0f / lfoposinc));
 		/* 10+ are not strictly necessary */
 	    }
 	    m_b1reset = true;
 	}
 
 	if (!m_b2reset && (m_lfopos > 0.75f)) {
-	    if (m_speed <= 1.0) {
+	    if (m_speed <= float(1.0)) {
 		m_b2pos = 0;
 		m_b2inc = 1.0f - m_speed;
 	    } else{

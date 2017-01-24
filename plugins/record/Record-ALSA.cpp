@@ -554,7 +554,7 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
     Q_ASSERT(m_chunk_size);
     if (!m_chunk_size) return 0;
 
-    unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
+    unsigned int chunk_bytes = Kwave::toUint(m_chunk_size) * m_bytes_per_sample;
     Q_ASSERT(chunk_bytes);
     if (!chunk_bytes) return 0;
 
@@ -573,7 +573,8 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
     unsigned int samples = (length - offset) / m_bytes_per_sample;
 
     // do not read more than one chunk at a time
-    if (samples > m_chunk_size) samples = m_chunk_size;
+    if (samples > m_chunk_size)
+	samples = Kwave::toUint(m_chunk_size);
 
 #ifdef DEBUG
     // just for debugging: detect state changes of the device
@@ -616,7 +617,9 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
     // try to read as much as the device accepts
     Q_ASSERT(samples);
     Q_ASSERT(offset + samples <= Kwave::toUint(buffer.size()));
-    int r = snd_pcm_readi(m_handle, buffer.data() + offset, samples);
+    int r = Kwave::toInt(
+	snd_pcm_readi(m_handle, buffer.data() + offset, samples)
+    );
 
     // handle all negative result codes
     if (r == -EAGAIN) {

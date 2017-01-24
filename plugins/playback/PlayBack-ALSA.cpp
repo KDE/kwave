@@ -441,8 +441,8 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 	return err;
     }
     qDebug("   real rate = %u", rrate);
-    if (static_cast<float>(rate) * 1.05 < rrate ||
-	static_cast<float>(rate) * 0.95 > rrate)
+    if (static_cast<float>(rate) * 1.05f < rrate ||
+	static_cast<float>(rate) * 0.95f > rrate)
     {
 	qWarning("rate is not accurate (requested = %iHz, got = %iHz)",
 	          rate, rrate);
@@ -607,14 +607,14 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
     // resize our buffer and reset it
     Q_ASSERT(m_chunk_size);
     Q_ASSERT(m_bytes_per_sample);
-    unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
+    unsigned int chunk_bytes = Kwave::toUint(m_chunk_size) * m_bytes_per_sample;
     Q_ASSERT(chunk_bytes);
     if (!chunk_bytes) return QString();
     unsigned int n = Kwave::toUint(ceil(
-	static_cast<float>(1 << m_bufbase) /
-	static_cast<float>(chunk_bytes)));
+	static_cast<double>(1 << m_bufbase) /
+	static_cast<double>(chunk_bytes)));
     if (n < 1) n = 1;
-    m_buffer_size = n * m_chunk_size * m_bytes_per_sample;
+    m_buffer_size = n * chunk_bytes;
     m_buffer.resize(m_buffer_size);
     m_buffer_size = m_buffer.size();
 
@@ -659,7 +659,7 @@ int Kwave::PlayBackALSA::flush()
     if (!m_channels || !m_bytes_per_sample) return -EINVAL;
 
     if (m_handle) {
-	unsigned int samples = m_buffer_used / m_bytes_per_sample;
+	snd_pcm_uframes_t samples = m_buffer_used / m_bytes_per_sample;
 	unsigned int buffer_samples = m_buffer_size / m_bytes_per_sample;
 	unsigned int timeout = (m_rate > 0) ?
 	    3 * ((1000 * buffer_samples) /
@@ -670,14 +670,14 @@ int Kwave::PlayBackALSA::flush()
 	if (samples < m_chunk_size) {
 	    snd_pcm_format_set_silence(m_format,
 	        m_buffer.data() + samples * m_bytes_per_sample,
-	        (m_chunk_size - samples) * m_channels);
+	        Kwave::toUint((m_chunk_size - samples) * m_channels));
 	    samples = m_chunk_size;
 	    qDebug("--- added silence ---");
 	}
 
 	while (samples > 0) {
 	    // try to write as much as the device accepts
-	    int r = snd_pcm_writei(m_handle, p, samples);
+	    int r = Kwave::toInt(snd_pcm_writei(m_handle, p, samples));
 	    if ((r == -EAGAIN) || ((r >= 0) && (r < Kwave::toInt(samples))))
 	    {
 		snd_pcm_wait(m_handle, timeout);

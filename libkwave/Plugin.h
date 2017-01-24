@@ -40,6 +40,10 @@ class QProgressDialog;
 class QStringList;
 class QVariant;
 
+/* forward declarations, to make clang happy */
+Q_EXTERN_C Q_DECL_EXPORT const char *qt_plugin_query_metadata();
+Q_EXTERN_C Q_DECL_EXPORT QT_PREPEND_NAMESPACE(QObject) *qt_plugin_instance();
+
 /**
  * @def KWAVE_PLUGIN(name,class)
  * @param name short internal name of the plugin, used for the library
@@ -214,7 +218,7 @@ namespace Kwave
 	 *               (optional or null-pointer)
 	 * @param left receives the first selected sample
 	 *             (optional or null-pointer)
-	 * @param right receives the last seleted sample
+	 * @param right receives the last selected sample
 	 *              (optional or null-pointer)
 	 * @param expand_if_empty if set to true, the selection will be made
 	 *                        equal to the whole signal if left==right
@@ -370,7 +374,7 @@ namespace Kwave
 	/** Mutex for locking the usage counter */
 	QMutex m_usage_lock;
 
-	/** timer for updating the progres dialog */
+	/** timer for updating the progress dialog */
 	QTimer m_progress_timer;
 
 	/** latest progress value [percent] */

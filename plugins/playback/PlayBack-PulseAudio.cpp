@@ -647,7 +647,9 @@ int Kwave::PlayBackPulseAudio::flush()
 //             m_buffer, m_buffer_size);
 
     // calculate a reasonable time for the timeout (16 buffers)
-    int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
+    int samples_per_buffer = Kwave::toInt(
+	m_buffer_size / m_bytes_per_sample
+    );
     int ms = (!qFuzzyIsNull(m_rate)) ?
 	Kwave::toInt((samples_per_buffer * 1000.0) / m_rate) : 0;
     int timeout = (ms + 1) * 16;
@@ -738,7 +740,9 @@ int Kwave::PlayBackPulseAudio::close()
 	    pa_context_errno(m_pa_context)));
 
 	// calculate a reasonable time for the timeout (16 buffers)
-	int samples_per_buffer = (m_buffer_size / m_bytes_per_sample);
+	int samples_per_buffer = Kwave::toInt(
+	    m_buffer_size / m_bytes_per_sample
+	);
 	int ms = (!qFuzzyIsNull(m_rate)) ?
 	    Kwave::toInt((samples_per_buffer * 1000.0) / m_rate) : 0;
 	int timeout = (ms + 1) * 4;
@@ -888,7 +892,9 @@ QList<unsigned int> Kwave::PlayBackPulseAudio::supportedBits
     if (m_device_list.isEmpty() || !m_device_list.contains(device))
 	return list;
 
-    list.append(pa_sample_size(&m_device_list[device].m_sample_spec) * 8);
+    list.append(Kwave::toUint(
+	pa_sample_size(&m_device_list[device].m_sample_spec) * 8)
+    );
 
     return list;
 }

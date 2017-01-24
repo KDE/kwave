@@ -98,9 +98,7 @@ void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
 
 	    // NOTE: this command could be executed asynchronously, thus
 	    //       we cannot change the sample rate afterwards
-	    emitCommand(_("plugin:execute(samplerate,%1,all)").arg(new_rate)
-	    );
-
+	    emitCommand(_("plugin:execute(samplerate,%1,all)").arg(new_rate));
 	    return;
 	} else if (res == KMessageBox::No) {
 	    // No -> only change the rate in the file info

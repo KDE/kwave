@@ -122,7 +122,7 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
     qDebug("PlayBackQt::open(device='%s', rate=%0.1f,channels=%u, bits=%u, "
            "bufbase=%u)", DBG(device), rate, channels, bits, bufbase);
 
-    if ((rate < 1.0f)  || !channels || !bits || !bufbase)
+    if ((rate < double(1.0f))  || !channels || !bits || !bufbase)
 	return i18n("One or more invalid/out of range arguments.");
 
     // close the previous device
@@ -524,7 +524,10 @@ qint64 Kwave::PlayBackQt::Buffer::readData(char *data, qint64 len)
     if (len  < 0) return -1;
 
     while (len > 0) {
-	int count = qMin(qMax<qint64>(m_sem_filled.available(), 1), len);
+	int count = qMin<int>(
+	    qMax(m_sem_filled.available(), 1),
+	    Kwave::toInt(len)
+	);
 	if (Q_LIKELY(m_sem_filled.tryAcquire(count, m_timeout))) {
 // 	    qDebug("    read: locking...");
 	    QMutexLocker _lock(&m_lock); // context: qt streaming engine
@@ -560,7 +563,10 @@ qint64 Kwave::PlayBackQt::Buffer::writeData(const char *data, qint64 len)
 
     qint64 written_bytes = 0;
     while (len) {
-	int count = qMin(qMax<qint64>(m_sem_free.available(), 1), len);
+	int count = qMin<int>(
+	    qMax(m_sem_free.available(), 1),
+	    Kwave::toInt(len)
+	);
 	if (Q_LIKELY(m_sem_free.tryAcquire(count, m_timeout * 10))) {
 	    QMutexLocker _lock(&m_lock); // context: kwave worker thread
 	    m_sem_filled.release(count);

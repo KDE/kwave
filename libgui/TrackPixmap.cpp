@@ -615,7 +615,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	sig = sig_buffer + (i + N);
 	y = 0.0;
 	for (k = 0; k <= N; ++k, --sig)
-	    y += (*sig) * m_interpolation_alpha[k];
+	    y += (*sig) * static_cast<float>(m_interpolation_alpha[k]);
 	points.append(QPoint(i, middle - Kwave::toInt(y)));
     }
 

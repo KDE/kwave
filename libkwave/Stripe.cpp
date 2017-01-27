@@ -288,7 +288,7 @@ sample_index_t Kwave::Stripe::end() const
 //***************************************************************************
 unsigned int Kwave::Stripe::resizeStorage(unsigned int length)
 {
-    Q_ASSERT(!m_data); // (just paranoia)
+    Q_ASSERT(m_data); // (just paranoia)
 
     if (m_data->m_length == length) return length; // nothing to do
 //     qDebug("Stripe::resizeStorage(%u)", length);

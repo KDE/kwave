@@ -155,10 +155,10 @@ namespace Kwave
 	Kwave::StreamObject *m_rate_converter;
 
 	/**
-	 * if true, the output of the rate converter has been connected
-	 * to the decoder's sink
+	 * if true, the output of the rate converter or sample buffer has
+	 * been connected to the decoder's sink
 	 */
-	bool m_converter_connected;
+	bool m_output_is_connected;
 
 	/** total number of packets */
 	unsigned int m_packet_count;

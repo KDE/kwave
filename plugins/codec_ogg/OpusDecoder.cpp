@@ -61,7 +61,7 @@ Kwave::OpusDecoder::OpusDecoder(QIODevice *source,
      m_oy(oy), m_os(os), m_og(og), m_op(op), m_opus_decoder(0),
      m_comments_map(), m_raw_buffer(0), m_buffer(0),
      m_rate_converter(0),
-     m_converter_connected(false),
+     m_output_is_connected(false),
      m_packet_count(0), m_samples_raw(0), m_bytes_count(0),
      m_packet_len_min(0), m_packet_len_max(0),
      m_packet_size_min(0), m_packet_size_max(0),
@@ -367,7 +367,6 @@ int Kwave::OpusDecoder::parseOpusHead(QWidget *widget, Kwave::FileInfo &info)
     return 1;
 }
 
-
 //***************************************************************************
 int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 {
@@ -567,23 +566,23 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
 
     const unsigned int tracks = m_opus_header.channels;
 
-    bool ok = true;
-    if (m_rate_converter) {
-	if (!m_converter_connected) {
+    if (!m_output_is_connected) {
+	bool ok = true;
+	if (m_rate_converter) {
 	    ok = Kwave::connect(
 		*m_rate_converter, SIGNAL(output(Kwave::SampleArray)),
 		dst,               SLOT(input(Kwave::SampleArray)));
-	    m_converter_connected = true;
+	} else {
+	    ok = Kwave::connect(
+		*m_buffer, SIGNAL(output(Kwave::SampleArray)),
+		dst,       SLOT(input(Kwave::SampleArray))
+	    );
 	}
-    } else {
-	ok = Kwave::connect(
-	    *m_buffer, SIGNAL(output(Kwave::SampleArray)),
-	    dst,       SLOT(input(Kwave::SampleArray))
-	);
-    }
-    if (!ok) {
-	qWarning("OpusDecoder::decode() connecting converter failed");
-	return -1;
+	if (!ok) {
+	    qWarning("OpusDecoder::decode() connecting converter failed");
+	    return -1;
+	}
+	       m_output_is_connected = true;
     }
 
     // handle preskip
@@ -666,7 +665,7 @@ void Kwave::OpusDecoder::close(Kwave::FileInfo &info)
     delete m_rate_converter;
     m_rate_converter = 0;
 
-    m_converter_connected = false;
+    m_output_is_connected = false;
 
     qDebug("    OpusDecoder: packet count=%u", m_packet_count);
     qDebug("    OpusDecoder: packet length: %d...%d samples",

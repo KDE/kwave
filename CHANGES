@@ -29,6 +29,7 @@
   * eliminated cmake/FindOggVorbis.cmake
   * changed licenses of all cmake files to BSD license
   * bugfix: wrong assert in Stripe.cpp
+  * OggOpus decoder: fixed unwanted data duplication (may lead to out-of-memory)
 
 0.9.2 [2016-06-26]
 

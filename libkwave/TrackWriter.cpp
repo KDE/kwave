@@ -49,30 +49,32 @@ Kwave::TrackWriter::~TrackWriter()
 bool Kwave::TrackWriter::write(const Kwave::SampleArray &buffer,
                                unsigned int &count)
 {
+    if (count == 0) return true; // nothing to write
+
     if ((m_mode == Kwave::Overwrite) && (m_position + count > m_last + 1)) {
 	// need clipping
 	count = Kwave::toUint(m_last + 1 - m_position);
 // 	qDebug("TrackWriter::write() clipped to count=%u", count);
     }
 
-    if (count == 0) return true; // nothing to write
-
     Q_ASSERT(count <= buffer.size());
-//     qDebug("TrackWriter[%p,%u...%u]::write(%u ... %u) (total=%u)",
+//     qDebug("TrackWriter[%p,%llu...%llu]::write(%llu ... %llu) (total=%llu)",
 // 	   static_cast<void *>(this),
 // 	   m_first, m_last,
 // 	   m_position, m_position + count - 1,
 // 	   m_position + count - m_first);
 
-    if (!m_track.writeSamples(m_mode, m_position, buffer, 0, count))
+    if (!m_track.writeSamples(m_mode, m_position, buffer, 0, count)) {
+	count = 0;
 	return false; /* out of memory */
+    }
 
     m_position += count;
 
     // fix m_last, this might be needed in Append and Insert mode
     Q_ASSERT(m_position >= 1);
     if ((m_mode == Kwave::Append) || (m_mode == Kwave::Insert)) {
-	if (m_position - 1 > m_last) m_last = m_position - 1;
+	if ((m_position - 1) > m_last) m_last = (m_position - 1);
     }
     count = 0;
 

@@ -306,12 +306,14 @@ Kwave::Handle Kwave::MemoryManager::allocate(size_t size)
 	}
     }
 
+#ifdef DEBUG_MEMORY
     if (!handle) {
 	qWarning("Kwave::MemoryManager::allocate(%u) - out of memory!",
 	          Kwave::toUint(size));
     }
-
     dump("allocate");
+#endif /* DEBUG_MEMORY */
+
     return handle;
 }
 
@@ -393,6 +395,10 @@ QString Kwave::MemoryManager::nextSwapFileName(Kwave::Handle handle)
 //***************************************************************************
 Kwave::Handle Kwave::MemoryManager::allocateVirtual(size_t size)
 {
+    // shortcut, if virtual memory is disabled
+    if (!m_virtual_limit)
+	return 0;
+
     // check for limits
     quint64 limit = INT_MAX; // totalVirtual() in MB
     if (m_virtual_limit < limit) limit = m_virtual_limit;
@@ -593,9 +599,16 @@ bool Kwave::MemoryManager::resize(Kwave::Handle handle, size_t size)
 
 	    if (!physical_freed) {
 		// still too large -> move to virtual memory
-		qDebug("Kwave::MemoryManager[%9d] - resize(%uMB) -> moving to swap",
-		    handle, Kwave::toUint(size >> 20));
-		return convertToVirtual(handle, size);
+		if (m_virtual_limit) {
+		    qDebug("Kwave::MemoryManager[%9d] - resize(%uMB) "
+		           "-> moving to swap",
+		           handle, Kwave::toUint(size >> 20));
+		    return convertToVirtual(handle, size);
+		} else {
+		    qDebug("Kwave::MemoryManager[%9d] - resize(%uMB) "
+		           "-> OOM", handle, Kwave::toUint(size >> 20));
+		    return false;
+		}
 	    }
 	}
 

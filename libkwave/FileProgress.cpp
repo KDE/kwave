@@ -265,10 +265,9 @@ void Kwave::FileProgress::updateStatistics(double rate, double rest,
     // left: transfer rate and estimated time
     num = num.sprintf("%1.1f", rate / 1024.0);
 
-    QTime time;
-    time = time.addSecs(Kwave::toInt(qMin(rest, (24.0 * 60.0 * 60.0) - 1.0)));
+    quint64 ms = qMin(quint64(rest * 1000.0), 24ULL * 60ULL * 60ULL * 1000ULL);
     text = i18n("%1 kB/s (%2 remaining)", num,
-	KFormat().formatDecimalDuration(time.msec()));
+		KFormat().formatDecimalDuration(ms));
     m_stat_transfer->setText(text);
 
     // right: statistic over the transferred bytes
@@ -308,7 +307,7 @@ void Kwave::FileProgress::setBytePosition(quint64 pos)
 
     // the easiest part: the progress bar and the caption
     int percent = Kwave::toInt(
-	static_cast<double>(pos) / static_cast<double>(m_size) * 100.0);
+	(static_cast<double>(pos) / static_cast<double>(m_size)) * 100.0);
 
     // not enough progress not worth showing ?
     if (percent <= m_last_percent) return;

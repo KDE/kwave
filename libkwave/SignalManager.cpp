@@ -207,7 +207,7 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
 	bool use_src_size = (!resulting_size);
 	if (use_src_size) resulting_size = src.size();
 
-	//prepare and show the progress dialog
+	// prepare and show the progress dialog
 	dialog = new Kwave::FileProgress(m_parent_widget,
 	    QUrl(filename), resulting_size,
 	    info.length(), info.rate(), info.bits(), info.tracks());

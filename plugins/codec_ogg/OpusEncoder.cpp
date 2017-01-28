@@ -440,8 +440,8 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
 /***************************************************************************/
 bool Kwave::OpusEncoder::setupBitrateMode(QWidget *widget)
 {
+    const bool with_cvbr = false;
     int err;
-    bool with_cvbr = false;
 
     // determine a reasonable bitrate in case we still use "autodetect"
     if (m_bitrate < 0) {

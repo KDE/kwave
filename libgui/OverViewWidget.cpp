@@ -296,8 +296,8 @@ void Kwave::OverViewWidget::playbackPositionChanged(sample_index_t pos)
     if (old_pixel_pos == new_pixel_pos) return;
 
     // some update is required, start the repaint timer in quick mode
-    if (!m_repaint_timer.isActive() || (m_repaint_timer.isActive() &&
-	(m_repaint_timer.interval() != REPAINT_INTERVAL_FAST)))
+    if (!m_repaint_timer.isActive() ||
+	(m_repaint_timer.interval() != REPAINT_INTERVAL_FAST))
     {
 	m_repaint_timer.stop();
 	m_repaint_timer.setSingleShot(true);

@@ -154,7 +154,7 @@ int Kwave::OpusDecoder::parseOpusTags(QWidget *widget, Kwave::FileInfo &info)
 	ogg_sync_wrote(&m_oy, static_cast<long int>(bytes));
     }
 
-    unsigned int packet = 0;
+    bool first_packet = true;
     unsigned int fields = 0;
     while (ogg_stream_packetout(&m_os, &m_op) == 1) {
 	const unsigned char *c   = m_op.packet;
@@ -173,7 +173,7 @@ int Kwave::OpusDecoder::parseOpusTags(QWidget *widget, Kwave::FileInfo &info)
 	c      += 8;
 	length -= 8;
 
-	if (packet == 0) {
+	if (first_packet) {
 	    // the start of the first packet contains the software
 
 	    // read length of the comment
@@ -201,6 +201,8 @@ int Kwave::OpusDecoder::parseOpusTags(QWidget *widget, Kwave::FileInfo &info)
 	    fields = qFromLittleEndian<quint32>(c);
 	    c      += 4;
 	    length -= 4;
+
+	    first_packet = false;
 	}
 
 	while (fields && (length > 4)) {
@@ -567,26 +569,19 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     const unsigned int tracks = m_opus_header.channels;
 
     if (!m_output_is_connected) {
-	bool ok = true;
-	if (m_rate_converter) {
-	    ok = Kwave::connect(
-		*m_rate_converter, SIGNAL(output(Kwave::SampleArray)),
-		dst,               SLOT(input(Kwave::SampleArray)));
-	} else {
-	    ok = Kwave::connect(
-		*m_buffer, SIGNAL(output(Kwave::SampleArray)),
-		dst,       SLOT(input(Kwave::SampleArray))
-	    );
-	}
-	if (!ok) {
-	    qWarning("OpusDecoder::decode() connecting converter failed");
+	Kwave::StreamObject *src =
+	    (m_rate_converter) ? m_rate_converter : m_buffer;
+	if (!Kwave::connect(*src, SIGNAL(output(Kwave::SampleArray)),
+	                     dst, SLOT(input(Kwave::SampleArray))) )
+	{
+	    qWarning("OpusDecoder::decode() connecting output failed");
 	    return -1;
 	}
-	       m_output_is_connected = true;
+	m_output_is_connected = true;
     }
 
     // handle preskip
-    float *p = m_raw_buffer;
+    const float *p = m_raw_buffer;
     if (m_preskip) {
 	if (m_preskip >= length) {
 	    m_preskip -= length;
@@ -611,7 +606,7 @@ int Kwave::OpusDecoder::decode(Kwave::MultiWriter &dst)
     // convert the buffer from float to sample_t, blockwise...
     for (unsigned int t = 0; t < tracks; t++) {
 	Kwave::SampleBuffer *buffer = m_buffer->at(t);
-	float    *in  = p + t;
+	const float         *in     = p + t;
 	for (int frame = 0; frame < length; frame++) {
 	    // scale, use some primitive noise shaping + clipping
 	    double   noise = (drand48() - double(0.5)) / double(SAMPLE_MAX);

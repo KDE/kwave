@@ -60,11 +60,10 @@ void Kwave::Curve::fromCommand(const QString &command)
     QString t = parse.firstParam();
     setInterpolationType(m_interpolation.find(t));
 
-    double x, y;
     while (!parse.isDone()) {
-	x = parse.toDouble();
+	double x = parse.toDouble();
 	if (parse.isDone()) break; // half point ?
-	y = parse.toDouble();
+	double y = parse.toDouble();
 	append(Point(x, y));
     }
 }
@@ -227,14 +226,13 @@ void Kwave::Curve::scaleFit(unsigned int range)
 Kwave::Curve::Point Kwave::Curve::findPoint(double px, double py, double tol)
 {
     Point best = NoPoint;
-    double dist;
     double min_dist = tol;
 
     QMutableListIterator<Point> it(*this);
     while (it.hasNext()) {
 	Point &p = it.next();
 	// use the length of the difference vector as criterium
-	dist = hypot(px - p.x(), py - p.y());
+	double dist = hypot(px - p.x(), py - p.y());
 	if (dist < min_dist) {
 	    min_dist = dist;
 	    best = p;

@@ -707,7 +707,7 @@ void Kwave::Track::defragment()
 // 	qDebug("Track::defragment(), state before:");
 // 	dump();
 
-	unsigned int   index  = 0;
+// 	unsigned int   index  = 0;
 	Kwave::Stripe *before = 0;
 	Kwave::Stripe *stripe = 0;
 
@@ -718,7 +718,7 @@ void Kwave::Track::defragment()
 	    before = stripe;
 	    stripe = &(it.next());
 	    if (!before) continue; // skip the first entry
-	    index++;
+// 	    index++;
 
 // 	    qDebug("Track::defragment(), checking #%u [%llu..%llu] (%u)",
 // 		    index, stripe->start(), stripe->end(), stripe->length());
@@ -748,7 +748,7 @@ void Kwave::Track::defragment()
 		// remove the current stripe, to avoid an overlap
 		it.remove();
 		stripe = before;
-		index--;
+// 		index--;
 	    }
 	}
 

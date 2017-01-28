@@ -106,7 +106,6 @@ void Kwave::RecordThread::run()
 {
     int result = 0;
     bool interrupted = false;
-    unsigned int offset = 0;
 
     // read data until we receive a close signal
     while (!shouldStop() && !interrupted) {
@@ -128,7 +127,7 @@ void Kwave::RecordThread::run()
 	}
 
 	// read into the current buffer
-	offset = 0;
+	unsigned int offset = 0;
 	while (len && !interrupted && !shouldStop()) {
 	    // read raw data from the record device
 	    result =  (m_device) ?

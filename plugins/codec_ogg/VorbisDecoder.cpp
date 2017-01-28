@@ -212,7 +212,7 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     // estimate the length of the file from file size, bitrate, channels
     if (!m_source->isSequential()) {
 	long int br = -1;
-	if ((br < 0) && (m_vi.bitrate_nominal > 0)) br = m_vi.bitrate_nominal;
+	if (            (m_vi.bitrate_nominal > 0)) br = m_vi.bitrate_nominal;
 	if ((br < 0) && (m_vi.bitrate_upper   > 0)) br = m_vi.bitrate_upper;
 	if ((br < 0) && (m_vi.bitrate_lower   > 0)) br = m_vi.bitrate_lower;
 	qint64 file_size       = m_source->size();

@@ -36,15 +36,14 @@ Kwave::CurveStreamAdapter::~CurveStreamAdapter()
 void Kwave::CurveStreamAdapter::goOn()
 {
     unsigned int offset;
-    double x;
-    double y;
     double x_max = static_cast<double>(m_length);
     const unsigned int samples = blockSize();
 
     // fill with interpolated points
     for (offset = 0; offset < samples; ++offset) {
-	x = static_cast<double>(m_position) / x_max; // x is [0.0 ... 1.0]
-	y = m_interpolation.singleInterpolation(x);
+	// x is [0.0 ... 1.0]
+	const double x = static_cast<double>(m_position) / x_max;
+	const double y = m_interpolation.singleInterpolation(x);
 	m_buffer[offset] = double2sample(y);
 	m_position++;
 

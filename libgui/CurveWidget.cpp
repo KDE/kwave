@@ -447,7 +447,7 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
 {
 //    qDebug("CurveWidget::paintEvent (QPaintEvent *)");
     QPainter p;
-    int lx, ly;
+    int ly;
 
     m_height = rect().height();
     m_width  = rect().width();
@@ -469,17 +469,16 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
     p.setPen(palette().text().color());
 
     // draw the lines
-    int ay;
     ly = (m_height-1) - Kwave::toInt(y[0] * (m_height - 1));
     for (int i = 1; i < m_width; i++) {
-	ay = (m_height-1) - Kwave::toInt(y[i] * (m_height - 1));
+	int ay = (m_height-1) - Kwave::toInt(y[i] * (m_height - 1));
 	p.drawLine (i - 1, ly, i, ay);
 	ly = ay;
     }
 
     // draw the points (knobs)
     foreach (const Kwave::Curve::Point &pt, m_curve) {
-	lx = Kwave::toInt(pt.x() * (m_width - 1));
+	int lx = Kwave::toInt(pt.x() * (m_width - 1));
 	ly = (m_height - 1) - Kwave::toInt(pt.y() * (m_height - 1));
 
 	if ((pt == m_current) || (!m_down && (pt == m_last)) )

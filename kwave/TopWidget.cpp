@@ -1130,7 +1130,6 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 {
     Q_ASSERT(statusBar());
     if (!statusBar() || !m_menu_manager) return;
-    double ms;
     QString txt;
 
     const Kwave::FileInfo info(meta_data);
@@ -1141,7 +1140,7 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 
     // length in milliseconds
     if (length) {
-	ms = (rate > 0) ? (static_cast<double>(length) /
+	double ms = (rate > 0) ? (static_cast<double>(length) /
 	    static_cast<double>(rate) * 1E3) : 0;
 	txt = _(" ") + i18nc(
 	    "Length, as in total duration of loaded song",

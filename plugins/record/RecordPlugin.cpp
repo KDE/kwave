@@ -998,7 +998,6 @@ void Kwave::RecordPlugin::startRecording()
     if ((m_state != Kwave::REC_PAUSED) || !m_decoder) {
 	double rate = m_dialog->params().sample_rate;
 	unsigned int tracks = m_dialog->params().tracks;
-	unsigned int samples = 0;
 	unsigned int bits = m_dialog->params().bits_per_sample;
 
 	if (!tracks) return;
@@ -1012,8 +1011,8 @@ void Kwave::RecordPlugin::startRecording()
 	     Kwave::FileInfo(signalManager().metaData()).rate(), rate))
 	{
 	    // create a new and empty signal
-	    emitCommand(QString(_("newsignal(%1,%2,%3,%4)")).arg(
-		samples).arg(rate).arg(bits).arg(tracks));
+	    emitCommand(QString(_("newsignal(0,%1,%2,%3)")).arg(
+		rate).arg(bits).arg(tracks));
 	    QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
 	    // the parent context might have changed, maybe we have to

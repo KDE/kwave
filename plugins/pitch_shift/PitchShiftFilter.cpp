@@ -81,9 +81,8 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
     Q_ASSERT(ok);
     Q_UNUSED(ok);
 
-    float pi2 = 2 * float(M_PI);
-    float lfo, b1value, b2value;
-    float lfoposinc = static_cast<float>(m_frequency);
+    const float pi2 = 2 * float(M_PI);
+    const float lfoposinc = static_cast<float>(m_frequency);
 
     for (unsigned int pos = 0; pos < m_buffer.size(); pos++) {
 	/*
@@ -149,8 +148,8 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 	if (position1 < 0)
 	    position1 += MAXDELAY;
 
-	b1value = m_dbuffer[position] * (1 - error) +
-	          m_dbuffer[position1] * error;
+	const float b1value = m_dbuffer[position] * (1 - error) +
+	                      m_dbuffer[position1] * error;
 
 	/*
 	 * Interpolate value from buffer position 2
@@ -164,14 +163,14 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
 	if ( position1 < 0)
 	    position1 += MAXDELAY;
 
-	b2value = m_dbuffer[position] * (1 - error) +
-	          m_dbuffer[position1] * error;
+	const float b2value = m_dbuffer[position] * (1 - error) +
+	                      m_dbuffer[position1] * error;
 
 	/*
 	 * Calculate output signal from these two buffers
 	 */
 
-	lfo = (sinf(pi2 * m_lfopos) + 1.0f) / 2.0f;
+	const float lfo = (sinf(pi2 * m_lfopos) + 1.0f) / 2.0f;
 
 	/*             position    sin   lfo variable
 	 *------------------------------------------------------------------

@@ -352,10 +352,7 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     unsigned buffer_time = 0; // ring buffer length in us
     snd_pcm_uframes_t period_frames = 0;
     snd_pcm_uframes_t buffer_frames = 0;
-    size_t n = 0;
     snd_pcm_uframes_t start_threshold, stop_threshold;
-    const int start_delay = 0;
-    const int stop_delay = 0;
 
     m_chunk_size = 0;
     if (m_handle) snd_pcm_close(m_handle);
@@ -449,20 +446,14 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 	qWarning("         please, try the plug plugin (-Dplug:%s)",
 	         snd_pcm_name(m_handle));
     }
-    rate = rrate;
 
-    if ((buffer_time) == 0 && (buffer_frames) == 0) {
-	err = snd_pcm_hw_params_get_buffer_time_max(hw_params, &buffer_time, 0);
-	Q_ASSERT(err >= 0);
-	if (buffer_time > 500000) buffer_time = 500000;
-    }
-
-    if ((period_time == 0) && (period_frames == 0)) {
-	if (buffer_time > 0)
-	    period_time = buffer_time / 4;
-	else
-	    period_frames = buffer_frames / 4;
-    }
+    err = snd_pcm_hw_params_get_buffer_time_max(hw_params, &buffer_time, 0);
+    Q_ASSERT(err >= 0);
+    if (buffer_time > 500000) buffer_time = 500000;
+    if (buffer_time > 0)
+	period_time = buffer_time / 4;
+    else
+	period_frames = buffer_frames / 4;
 
     if (period_time > 0) {
 	err = snd_pcm_hw_params_set_period_time_near(m_handle, hw_params,
@@ -509,20 +500,14 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     }
 
     err = snd_pcm_sw_params_set_avail_min(m_handle, sw_params, m_chunk_size);
+    Q_ASSERT(err >= 0);
 
     /* round up to closest transfer boundary */
-    start_threshold = static_cast<snd_pcm_uframes_t>(
-	static_cast<double>(rate) * start_delay / 1000000);
-    if (start_delay <= 0) start_threshold += n;
-
-    if (start_threshold < 1) start_threshold = 1;
-    if (start_threshold > n) start_threshold = n;
+    start_threshold = 1;
     err = snd_pcm_sw_params_set_start_threshold(m_handle, sw_params,
                                                 start_threshold);
     Q_ASSERT(err >= 0);
-    stop_threshold = static_cast<snd_pcm_uframes_t>(
-	static_cast<double>(rate) * stop_delay / 1000000);
-    if (stop_delay <= 0) stop_threshold += buffer_size;
+    stop_threshold = buffer_size;
 
     err = snd_pcm_sw_params_set_stop_threshold(m_handle, sw_params,
                                                stop_threshold);

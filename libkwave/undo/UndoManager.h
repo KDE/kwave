@@ -22,7 +22,6 @@
 
 #include <QtGlobal>
 #include <QList>
-#include <QPointer>
 
 namespace Kwave
 {
@@ -84,7 +83,7 @@ namespace Kwave
     private:
 
 	/** list of all registered undo handlers */
-	QList<QPointer<Kwave::UndoHandler> > m_handlers;
+	QList<Kwave::UndoHandler *> m_handlers;
 
     };
 }

@@ -56,8 +56,9 @@ bool Kwave::UndoManager::startUndoTransaction(
 {
     if (!transaction) return false;
 
-    foreach (QPointer<Kwave::UndoHandler> handler, m_handlers) {
-	if (handler.isNull()) continue;
+    foreach (Kwave::UndoHandler *handler, m_handlers) {
+	Q_ASSERT(handler);
+	if (!handler) continue;
 	if (!(handler->saveUndoData(*transaction)))
 	    return false;
     }

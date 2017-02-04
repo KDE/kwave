@@ -20,20 +20,19 @@
 
 #include "config.h"
 
-#include <QObject>
+#include <QtGlobal>
 
 namespace Kwave
 {
 
     class UndoTransaction;
 
-    class UndoHandler: public QObject
+    class Q_DECL_EXPORT UndoHandler
     {
     public:
 
 	/** Default constructor */
 	UndoHandler()
-	    :QObject()
 	{}
 
 	/** Destructor */

@@ -37,7 +37,8 @@ namespace Kwave
     class Track;
     class UndoTransaction;
 
-    class Q_DECL_EXPORT SelectionTracker: public Kwave::UndoHandler
+    class Q_DECL_EXPORT SelectionTracker: public QObject,
+                                          private Kwave::UndoHandler
     {
 	Q_OBJECT
     public:

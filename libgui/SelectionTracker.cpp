@@ -63,7 +63,7 @@ Kwave::SelectionTracker::SelectionTracker(Kwave::SignalManager *signal,
 	SLOT(slotSamplesModified(uint,sample_index_t,sample_index_t))
     );
 
-    // register ourself at the undo manager
+    // register us at the undo manager
     Kwave::UndoManager &undo = signal->undoManager();
     undo.registerHandler(this);
 
@@ -87,6 +87,10 @@ Kwave::SelectionTracker::SelectionTracker(Kwave::SignalManager *signal,
 //***************************************************************************
 Kwave::SelectionTracker::~SelectionTracker()
 {
+    Q_ASSERT(m_signal);
+    // unregister us from the undo manager
+    Kwave::UndoManager &undo = m_signal->undoManager();
+    undo.unregisterHandler(this);
 }
 
 //***************************************************************************

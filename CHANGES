@@ -30,6 +30,10 @@
   * changed licenses of all cmake files to BSD license
   * bugfix: wrong assert in Stripe.cpp
   * OggOpus decoder: fixed unwanted data duplication (may lead to out-of-memory)
+  * saveblocks: special handling for slashes in parts of a generated file name,
+    e.g. title or meta data item - replace with similar unicode character
+  * saveblocks: special handling for (multiple) whitespaces in parts of a
+    generated file name - replace with single spaces
 
 0.9.2 [2016-06-26]
 

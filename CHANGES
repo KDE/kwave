@@ -36,6 +36,8 @@
     generated file name - replace with single spaces
   * saveblocks: do not ask on every file in case that not all file properties
     are supported by the chosen encoder
+  * saveblocks: use the block title (description of the left side label) as
+    tile of saved block
 
 0.9.2 [2016-06-26]
 

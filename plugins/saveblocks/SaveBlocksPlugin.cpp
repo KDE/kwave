@@ -232,8 +232,8 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     // remember the original file info and determine the list of unsupported
     // properties, we need that later to avoid that the signal manager
     // complains on saving each and every block, again and again...
-    const Kwave::FileInfo original_file_info(signalManager().metaData());
-    Kwave::FileInfo file_info(original_file_info);
+    const Kwave::FileInfo orig_file_info(signalManager().metaData());
+    Kwave::FileInfo file_info(orig_file_info);
     QList<Kwave::FileProperty> unsupported_properties;
     {
 	QString mimetype = Kwave::CodecManager::whatContains(m_url);
@@ -359,6 +359,20 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 	    QUrl url = m_url.adjusted(QUrl::RemoveFilename);
 	    url.setPath(url.path(QUrl::FullyEncoded) + name, QUrl::StrictMode);
 
+	    // enter the title of the block into the meta data if supported
+	    if (!unsupported_properties.contains(INF_NAME)) {
+		QString title = orig_file_info.get(INF_NAME).toString();
+		int idx = index - first;
+		if ((idx >= 0) && (idx < m_block_info.count())) {
+		    QString block_title = m_block_info[idx].m_title;
+		    if (block_title.length())
+			title = title + _(", ") + block_title;
+		}
+		file_info.set(INF_NAME, QVariant(title));
+		signalManager().metaData().replace(
+		    Kwave::MetaDataList(file_info));
+	    }
+
 	    qDebug("saving %9lu...%9lu -> '%s'",
 		   static_cast<unsigned long int>(left),
 		   static_cast<unsigned long int>(right),
@@ -388,7 +402,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 
     // restore the original file info
     signalManager().metaData().replace(
-	Kwave::MetaDataList(original_file_info));
+	Kwave::MetaDataList(orig_file_info));
 
     // restore the previous selection
     selectRange(saved_selection_left,

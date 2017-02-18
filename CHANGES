@@ -34,6 +34,8 @@
     e.g. title or meta data item - replace with similar unicode character
   * saveblocks: special handling for (multiple) whitespaces in parts of a
     generated file name - replace with single spaces
+  * saveblocks: do not ask on every file in case that not all file properties
+    are supported by the chosen encoder
 
 0.9.2 [2016-06-26]
 

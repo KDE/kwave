@@ -68,6 +68,15 @@ namespace Kwave
 	    return empty;
 	}
 
+	/**
+	 * Returns a list of all properties within a list of properties
+	 * which are not supported by this encoder
+	 * @param properties_to_check list of properties to check
+	 * @return list of unsupported properties (may be empty)
+	 */
+	virtual QList<Kwave::FileProperty> unsupportedProperties(
+	    const QList<Kwave::FileProperty> &properties_to_check
+	);
     };
 }
 

@@ -28,6 +28,7 @@
 #include <KLocalizedString>
 
 #include "libkwave/CodecManager.h"
+#include "libkwave/Encoder.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
@@ -100,7 +101,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     connect(this, SIGNAL(sigNewExample(QString)),
 	dialog, SLOT(setNewExample(QString)));
 
-    dialog->setWindowTitle(i18n("Save Blocks"));
+    dialog->setWindowTitle(description());
     dialog->emitUpdate();
     if (dialog->exec() != QDialog::Accepted) {
 	delete dialog;
@@ -228,6 +229,22 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 //     qDebug("selection_only   = %d", selection_only);
 //     qDebug("indices          = %u...%u (count=%u)", first, first+count-1,count);
 
+    // remember the original file info and determine the list of unsupported
+    // properties, we need that later to avoid that the signal manager
+    // complains on saving each and every block, again and again...
+    const Kwave::FileInfo original_file_info(signalManager().metaData());
+    Kwave::FileInfo file_info(original_file_info);
+    QList<Kwave::FileProperty> unsupported_properties;
+    {
+	QString mimetype = Kwave::CodecManager::whatContains(m_url);
+	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype);
+	if (encoder) {
+	    unsupported_properties = encoder->unsupportedProperties(
+		file_info.properties().keys());
+	    delete encoder;
+	}
+    }
+
     // iterate over all blocks to check for overwritten files and missing dirs
     QStringList  overwritten_files;
     QStringList  missing_dirs;
@@ -349,12 +366,29 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 	    if (signalManager().save(url, true) < 0)
 		break;
 
+	    // if there were unsupported properties, the user might have been
+	    // asked whether it is ok to continue or not. If he answered with
+	    // "Cancel", we do not reach this point, otherwise we can continue
+	    // and prevent any further annoying questions by removing all
+	    // unsupported file info before the next run...
+	    if ((index == first) && !unsupported_properties.isEmpty()) {
+		foreach (const Kwave::FileProperty &p, unsupported_properties) {
+		    file_info.set(p, QVariant());
+		}
+		signalManager().metaData().replace(
+		    Kwave::MetaDataList(file_info));
+	    }
+
 	    // increment the index for the next filename
 	    index++;
 	}
 	if (label.isNull()) break;
 	label = (it.hasNext()) ? it.next() : Kwave::Label();
     }
+
+    // restore the original file info
+    signalManager().metaData().replace(
+	Kwave::MetaDataList(original_file_info));
 
     // restore the previous selection
     selectRange(saved_selection_left,

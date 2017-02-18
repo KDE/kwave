@@ -343,30 +343,23 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 	file_info.set(Kwave::INF_MIMETYPE, mimetype_name);
 
 	// check if we lose information and ask the user if this would
-	// be acceptable if so
-	QList<Kwave::FileProperty> supported = encoder->supportedProperties();
-	QMap<Kwave::FileProperty, QVariant> properties(file_info.properties());
-	bool all_supported = true;
-	QMap<Kwave::FileProperty, QVariant>::Iterator it;
-	QString lost_properties;
-	for (it = properties.begin(); it != properties.end(); ++it) {
-	    if ( (! supported.contains(it.key())) &&
-                 (file_info.canLoadSave(it.key())) )
-	    {
-		qWarning("SignalManager::save(): unsupported property '%s'",
-		    DBG(file_info.name(it.key())));
-		all_supported = false;
-		lost_properties += i18n(UTF8(file_info.name(it.key()))) + _("\n");
+	// be acceptable
+	QList<Kwave::FileProperty> unsupported = encoder->unsupportedProperties(
+	    file_info.properties().keys());
+	if (!unsupported.isEmpty()) {
+	    QString list_of_lost_properties = _("\n");
+	    foreach (const Kwave::FileProperty &p, unsupported) {
+		list_of_lost_properties +=
+		    i18n(UTF8(file_info.name(p))) + _("\n");
 	    }
-	}
-	if (!all_supported) {
+
 	    // show a warning to the user and ask him if he wants to continue
 	    if (Kwave::MessageBox::warningContinueCancel(m_parent_widget,
 		i18n("Saving in this format will lose the following "
 		     "additional file attribute(s):\n"
 		     "%1\n"
 		     "Do you still want to continue?",
-		     lost_properties),
+		     list_of_lost_properties),
 		QString(),
 		QString(),
 		QString(),
@@ -1837,7 +1830,7 @@ void Kwave::SignalManager::enableModifiedChange(bool en)
 }
 
 //***************************************************************************
-void Kwave::SignalManager::setFileInfo(Kwave::FileInfo &new_info,
+void Kwave::SignalManager::setFileInfo(const Kwave::FileInfo &new_info,
                                        bool with_undo)
 {
     if (m_undo_enabled && with_undo) {

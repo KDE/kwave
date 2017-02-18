@@ -24,4 +24,20 @@ Kwave::Encoder::Encoder()
 }
 
 //***************************************************************************
+QList<Kwave::FileProperty> Kwave::Encoder::unsupportedProperties(
+    const QList<Kwave::FileProperty> &properties_to_check)
+{
+    QList<Kwave::FileProperty> unsupported;
+    const QList<Kwave::FileProperty> supported(supportedProperties());
+    const Kwave::FileInfo info;
+
+    foreach (const Kwave::FileProperty &s, properties_to_check) {
+	if (info.canLoadSave(s) && !supported.contains(s))
+	    unsupported.append(s);
+    }
+
+    return unsupported;
+}
+
+//***************************************************************************
 //***************************************************************************

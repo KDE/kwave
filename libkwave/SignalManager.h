@@ -337,7 +337,7 @@ namespace Kwave
 	 * @param new_info a new FileInfo
 	 * @param with_undo if true, store undo information
 	 */
-	void setFileInfo(Kwave::FileInfo &new_info, bool with_undo);
+	void setFileInfo(const Kwave::FileInfo &new_info, bool with_undo);
 
 	/**
 	 * add a new label, without undo

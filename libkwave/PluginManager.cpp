@@ -192,6 +192,7 @@ Kwave::Plugin *Kwave::PluginManager::createPluginInstance(const QString &name)
     // call the loader function to create an instance
     QVariantList args;
     args << info.m_name;
+    args << info.m_description;
     Kwave::Plugin *plugin = factory->create<Kwave::Plugin>(this, args);
     Q_ASSERT(plugin);
     if (!plugin) {

@@ -93,6 +93,9 @@ namespace Kwave
 	/** Returns the name of the plugin. */
 	virtual QString name() const;
 
+	/** Returns the description of the plugin (already translated). */
+	virtual QString description() const;
+
 	/**
 	 * Returns a text for the progress dialog if enabled.
 	 * (already be localized)
@@ -342,8 +345,11 @@ namespace Kwave
 	/** reference to the plugin manager */
 	Kwave::PluginManager *m_plugin_manager;
 
-	/** name of the plugin, used for undo/redo */
+	/** name of the plugin, for undo/redo */
 	QString m_name;
+
+	/** description of the plugin, for GUI purposes, captions etc */
+	QString m_description;
 
 	/**
 	 * Thread that executes the run() member function.

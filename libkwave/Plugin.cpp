@@ -73,6 +73,7 @@ Kwave::Plugin::Plugin(QObject *parent, const QVariantList &args)
      Kwave::Runnable(),
      m_plugin_manager(qobject_cast<Kwave::PluginManager *>(parent)),
      m_name(args[0].toString()),
+     m_description(args[1].toString()),
      m_thread(0),
      m_thread_lock(),
      m_progress_enabled(true),
@@ -195,6 +196,12 @@ int Kwave::Plugin::start(QStringList &)
 QString Kwave::Plugin::name() const
 {
     return m_name;
+}
+
+//***************************************************************************
+QString Kwave::Plugin::description() const
+{
+    return m_description;
 }
 
 //***************************************************************************

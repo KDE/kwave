@@ -309,7 +309,7 @@ void Kwave::MenuNode::insertNode(const QString &name,
 	    // remove the "leaf" and insert a branch with
 	    // the same properties
 	    sub = leafToBranch(sub);
-	} else if ( (p[0] == QLatin1Char('#')) || (p[0] == 0) ) {
+	} else if (!p.length() || (p[0] == QLatin1Char('#')) ) {
 	    // branch already exists and we are at the end of parsing
 	    // -> maybe we want to set new properties
 	    if (!shortcut.isEmpty()) sub->setShortcut(shortcut);

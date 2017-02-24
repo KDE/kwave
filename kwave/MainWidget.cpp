@@ -880,12 +880,17 @@ void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
     Q_ASSERT(signal_manager);
     if (!signal_manager) return;
 
+    // remember the last "modified" state, in case that we abort
+    bool was_modified = signal_manager->isModified();
+
+    // create an own undo transaction
     Kwave::UndoTransactionGuard undo(*signal_manager, i18n("Add Label"));
 
     // add a new label, with undo
     Kwave::Label label = signal_manager->addLabel(pos, description);
     if (label.isNull()) {
 	signal_manager->abortUndoTransaction();
+	if (!was_modified) signal_manager->setModified(false);
 	return;
     }
 
@@ -895,6 +900,7 @@ void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
 	int index = signal_manager->labelIndex(label);
 	signal_manager->deleteLabel(index, false);
 	signal_manager->abortUndoTransaction();
+	if (!was_modified) signal_manager->setModified(false);
     }
 }
 

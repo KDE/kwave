@@ -137,7 +137,6 @@ ECM_INSTALL_ICONS(
 )
 
 # AppData file
-
 INSTALL(
     FILES org.kde.kwave.appdata.xml
     DESTINATION ${KDE_INSTALL_METAINFODIR}

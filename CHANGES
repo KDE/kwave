@@ -38,6 +38,7 @@
     are supported by the chosen encoder
   * saveblocks: use the block title (description of the left side label) as
     tile of saved block
+  * bugfix: file was left in "modified" state after adding a label and canceling
 
 0.9.2 [2016-06-26]
 

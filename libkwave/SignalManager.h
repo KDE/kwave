@@ -343,7 +343,7 @@ namespace Kwave
 	 * add a new label, without undo
 	 * @param pos position of the label [samples]
 	 * @param name the name of the label
-	 * @return pointer to the new created label
+	 * @return a newly created label instance
 	 */
 	Kwave::Label addLabel(sample_index_t pos, const QString &name);
 

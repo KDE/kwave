@@ -722,7 +722,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 //	    }
 //	}
 
-    CASE_COMMAND("delete_label")
+    CASE_COMMAND("label:delete")
 	int index = parser.toInt();
 	deleteLabel(index, true);
 

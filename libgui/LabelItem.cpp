@@ -126,13 +126,13 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
 //***************************************************************************
 void Kwave::LabelItem::contextMenuLabelDelete()
 {
-    emit sigCommand(_("delete_label(%1)").arg(m_index));
+    emit sigCommand(_("label:delete(%1)").arg(m_index));
 }
 
 //***************************************************************************
 void Kwave::LabelItem::contextMenuLabelProperties()
 {
-    emit sigCommand(_("nomacro:edit_label(%1)").arg(m_index));
+    emit sigCommand(_("nomacro:label:edit(%1)").arg(m_index));
 }
 
 //***************************************************************************

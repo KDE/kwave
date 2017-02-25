@@ -229,7 +229,7 @@ void Kwave::TrackView::handleContextMenu(const QPoint &pos, QMenu *menu)
 //***************************************************************************
 void Kwave::TrackView::contextMenuLabelNew()
 {
-    emit sigCommand(_("add_label(%1)").arg(m_mouse_click_position));
+    emit sigCommand(_("label:add(%1)").arg(m_mouse_click_position));
 }
 
 //***************************************************************************

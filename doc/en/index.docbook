@@ -48,7 +48,6 @@
   <!ENTITY no-i18n-tag "">
   <!-- @COMMAND_ENTITIES_START@ -->
   <!ENTITY no-i18n-cmd_about_kde "about_kde">
-  <!ENTITY no-i18n-cmd_add_label "add_label">
   <!ENTITY no-i18n-cmd_add_track "add_track">
   <!ENTITY no-i18n-cmd_clipboard_flush "clipboard_flush">
   <!ENTITY no-i18n-cmd_close "close">
@@ -58,16 +57,17 @@
   <!ENTITY no-i18n-cmd_cut "cut">
   <!ENTITY no-i18n-cmd_delayed "delayed">
   <!ENTITY no-i18n-cmd_delete "delete">
-  <!ENTITY no-i18n-cmd_delete_label "delete_label">
   <!ENTITY no-i18n-cmd_delete_track "delete_track">
   <!ENTITY no-i18n-cmd_dump_metadata "dump_metadata">
-  <!ENTITY no-i18n-cmd_edit_label "edit_label">
   <!ENTITY no-i18n-cmd_expandtolabel "expandtolabel">
   <!ENTITY no-i18n-cmd_fileinfo "fileinfo">
   <!ENTITY no-i18n-cmd_forward "forward">
   <!ENTITY no-i18n-cmd_goto "goto">
   <!ENTITY no-i18n-cmd_insert_at "insert_at">
   <!ENTITY no-i18n-cmd_insert_track "insert_track">
+  <!ENTITY no-i18n-cmd_label_add "label:add">
+  <!ENTITY no-i18n-cmd_label_delete "label:delete">
+  <!ENTITY no-i18n-cmd_label_edit "label:edit">
   <!ENTITY no-i18n-cmd_loadbatch "loadbatch">
   <!ENTITY no-i18n-cmd_loop "loop">
   <!ENTITY no-i18n-cmd_menu "menu">
@@ -3014,7 +3014,6 @@
 	    <!-- @COMMAND_INDEX_START@ -->
 	    <indexdiv><title>a</title>
 		<indexentry><primaryie><link linkend="cmd_sect_about_kde" endterm="cmd_title_about_kde"/></primaryie></indexentry>
-		<indexentry><primaryie><link linkend="cmd_sect_add_label" endterm="cmd_title_add_label"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_add_track" endterm="cmd_title_add_track"/></primaryie></indexentry>
 	    </indexdiv>
 	    <indexdiv><title>c</title>
@@ -3028,12 +3027,11 @@
 	    <indexdiv><title>d</title>
 		<indexentry><primaryie><link linkend="cmd_sect_delayed" endterm="cmd_title_delayed"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_delete" endterm="cmd_title_delete"/></primaryie></indexentry>
-		<indexentry><primaryie><link linkend="cmd_sect_delete_label" endterm="cmd_title_delete_label"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_delete_track" endterm="cmd_title_delete_track"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_dump_metadata" endterm="cmd_title_dump_metadata"/></primaryie></indexentry>
 	    </indexdiv>
 	    <indexdiv><title>e</title>
-		<indexentry><primaryie><link linkend="cmd_sect_edit_label" endterm="cmd_title_edit_label"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_label_edit" endterm="cmd_title_label_edit"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_expandtolabel" endterm="cmd_title_expandtolabel"/></primaryie></indexentry>
 	    </indexdiv>
 	    <indexdiv><title>f</title>
@@ -3048,6 +3046,8 @@
 		<indexentry><primaryie><link linkend="cmd_sect_insert_track" endterm="cmd_title_insert_track"/></primaryie></indexentry>
 	    </indexdiv>
 	    <indexdiv><title>l</title>
+		<indexentry><primaryie><link linkend="cmd_sect_label_add" endterm="cmd_title_label_add"/></primaryie></indexentry>
+		<indexentry><primaryie><link linkend="cmd_sect_label_delete" endterm="cmd_title_label_delete"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_loadbatch" endterm="cmd_title_loadbatch"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="cmd_sect_loop" endterm="cmd_title_loop"/></primaryie></indexentry>
 	    </indexdiv>
@@ -3158,22 +3158,6 @@
 		version used by the computer &kwave; is running at.
 	    </para>
 	</simplesect>
-	</sect2>
-
-	<!-- @COMMAND@ add_label(pos,[text]) -->
-	<sect2 id="cmd_sect_add_label"><title id="cmd_title_add_label">&no-i18n-cmd_add_label;</title>
-	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_add_label;</command>(<replaceable>pos</replaceable>[,<replaceable>text</replaceable>])</title>
-	    <para>
-		Add a new label at a given position. If the given position already
-		contains a label, then this command does nothing. The label can
-		be given an optional description.
-	    </para>
-	</simplesect>
-	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
-	    <row><entry><parameter>pos</parameter>:</entry><entry>position in samples where to insert the label</entry></row>
-	    <row><entry><parameter>text</parameter>:</entry><entry>some descriptive text (optional)</entry></row>
-	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
 	<!-- @COMMAND@ add_track() -->
@@ -3333,24 +3317,10 @@
 	</simplesect>
 	</sect2>
 
-	<!-- @COMMAND@ delete_label(index) -->
-	<sect2 id="cmd_sect_delete_label"><title id="cmd_title_delete_label">&no-i18n-cmd_delete_label;</title>
-	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_delete_label;</command>(<replaceable>index</replaceable>)</title>
-	    <para>
-		Deletes a label, identified by its index (starting from zero).
-		If no label with the given index exists, this command does nothing.
-	    </para>
-	</simplesect>
-	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
-	    <row><entry><parameter>index</parameter>:</entry><entry>index of the label to delete, starting with 0</entry></row>
-	</tbody></tgroup></informaltable></simplesect>
-	</sect2>
-
 	<!-- @COMMAND@ delete_track(index) -->
 	<sect2 id="cmd_sect_delete_track"><title id="cmd_title_delete_track">&no-i18n-cmd_delete_track;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_delete_label;</command>(<replaceable>index</replaceable>)</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_label_delete;</command>(<replaceable>index</replaceable>)</title>
 	    <para>
 		Deletes a track, identified by its index (starting from zero).
 		If no track with the given index exists, this command exits with an error.
@@ -3375,33 +3345,6 @@
     </sect1>
 
     <sect1 id="commands_e"><title>&no-i18n-tag;e</title>
-
-	<!-- @COMMAND@ edit_label(index) -->
-	<sect2 id="cmd_sect_edit_label"><title id="cmd_title_edit_label">&no-i18n-cmd_edit_label;</title>
-	<screenshot>
-	    <screeninfo>Screenshot</screeninfo>
-	    <mediaobject>
-		<imageobject>
-		    <imagedata fileref="kwave-edit-label.png" format="PNG"/>
-		</imageobject>
-		<textobject>
-		    <phrase>Screenshot of the label editing dialog</phrase>
-		</textobject>
-	    </mediaobject>
-	</screenshot>
-	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_edit_label;</command>(<replaceable>index</replaceable>)</title>
-	    <para>
-		Opens a window in which the user can edit the position and the
-		description of a label, which is identified by its index
-		(starting from zero). If no label with the given index exists,
-		this command does nothing.
-	    </para>
-	</simplesect>
-	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
-	    <row><entry><parameter>index</parameter>:</entry><entry>index of the label to edit, starting with 0</entry></row>
-	</tbody></tgroup></informaltable></simplesect>
-	</sect2>
 
 	<!-- @COMMAND@ expandtolabel() -->
 	<sect2 id="cmd_sect_expandtolabel"><title id="cmd_title_expandtolabel">&no-i18n-cmd_expandtolabel;</title>
@@ -3518,6 +3461,63 @@
     </sect1>
 
     <sect1 id="commands_l"><title>&no-i18n-tag;l</title>
+
+	<!-- @COMMAND@ label:add(pos,[text]) -->
+	<sect2 id="cmd_sect_label_add"><title id="cmd_title_label_add">&no-i18n-cmd_label_add;</title>
+	    <simplesect>
+		<title>&i18n-cmd_syntax;<command>&no-i18n-cmd_label_add;</command>(<replaceable>pos</replaceable>[,<replaceable>text</replaceable>])</title>
+		<para>
+		    Add a new label at a given position. If the given position already
+		    contains a label, then this command does nothing. The label can
+		    be given an optional description.
+		</para>
+	    </simplesect>
+	    <simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+			    <row><entry><parameter>pos</parameter>:</entry><entry>position in samples where to insert the label</entry></row>
+			    <row><entry><parameter>text</parameter>:</entry><entry>some descriptive text (optional)</entry></row>
+			    </tbody></tgroup></informaltable></simplesect>
+	</sect2>
+
+	<!-- @COMMAND@ label:delete(index) -->
+	<sect2 id="cmd_sect_label_delete"><title id="cmd_title_label_delete">&no-i18n-cmd_label_delete;</title>
+	    <simplesect>
+		<title>&i18n-cmd_syntax;<command>&no-i18n-cmd_label_delete;</command>(<replaceable>index</replaceable>)</title>
+		<para>
+		    Deletes a label, identified by its index (starting from zero).
+		    If no label with the given index exists, this command does nothing.
+		</para>
+	    </simplesect>
+	    <simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+			    <row><entry><parameter>index</parameter>:</entry><entry>index of the label to delete, starting with 0</entry></row>
+			    </tbody></tgroup></informaltable></simplesect>
+	</sect2>
+
+	<!-- @COMMAND@ label:edit(index) -->
+	<sect2 id="cmd_sect_label_edit"><title id="cmd_title_label_edit">&no-i18n-cmd_label_edit;</title>
+	    <screenshot>
+		<screeninfo>Screenshot</screeninfo>
+		<mediaobject>
+		    <imageobject>
+			<imagedata fileref="kwave-edit-label.png" format="PNG"/>
+		    </imageobject>
+		    <textobject>
+			<phrase>Screenshot of the label editing dialog</phrase>
+		    </textobject>
+		</mediaobject>
+	    </screenshot>
+	    <simplesect>
+		<title>&i18n-cmd_syntax;<command>&no-i18n-cmd_label_edit;</command>(<replaceable>index</replaceable>)</title>
+		<para>
+		    Opens a window in which the user can edit the position and the
+		    description of a label, which is identified by its index
+		    (starting from zero). If no label with the given index exists,
+		    this command does nothing.
+		</para>
+	    </simplesect>
+	    <simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
+			    <row><entry><parameter>index</parameter>:</entry><entry>index of the label to edit, starting with 0</entry></row>
+			    </tbody></tgroup></informaltable></simplesect>
+	</sect2>
 
 	<!-- @COMMAND@ loadbatch(filename) -->
 	<sect2 id="cmd_sect_loadbatch"><title id="cmd_title_loadbatch">&no-i18n-cmd_loadbatch;</title>

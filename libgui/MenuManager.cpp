@@ -220,7 +220,8 @@ void Kwave::MenuManager::clearNumberedMenu(const QString &uid)
 
 //***************************************************************************
 void Kwave::MenuManager::addNumberedMenuEntry(const QString &uid,
-                                              const QString &entry)
+                                              const QString &entry,
+                                              const QString &param)
 {
     Q_ASSERT(entry.length());
     if (!entry.length()) return;
@@ -229,10 +230,12 @@ void Kwave::MenuManager::addNumberedMenuEntry(const QString &uid,
     Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     Kwave::MenuNode *parent = (node) ? node->parentNode() : 0;
     if (parent) {
-	QString cmd     = node->command();
-	QString command = cmd.contains(_("%1")) ?
-	    cmd.arg(Kwave::Parser::escape(entry)) : cmd;
-	node->insertLeaf(entry, command, 0, uid);
+	QString cmd = node->command();
+	if (cmd.contains(_("%1"))) {
+	    QString p = (param.length()) ? param : entry;
+	    cmd = cmd.arg(Kwave::Parser::escape(p));
+	}
+	node->insertLeaf(entry, cmd, 0, uid);
     } else
 	qWarning("MenuManager: could not find numbered Menu '%s'", DBG(uid));
 

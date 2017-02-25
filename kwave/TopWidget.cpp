@@ -1324,7 +1324,7 @@ void Kwave::TopWidget::updateRecentFiles()
 
     foreach (const QString &file, m_application.recentFiles())
 	m_menu_manager->addNumberedMenuEntry(
-	    _("ID_FILE_OPEN_RECENT"), file);
+	    _("ID_FILE_OPEN_RECENT"), file, QString());
 
     // enable/disable the "clear" menu entry in Files / Open Recent
     m_menu_manager->setItemEnabled(_("ID_FILE_OPEN_RECENT_CLEAR"),
@@ -1384,7 +1384,8 @@ void Kwave::TopWidget::updateMenu()
 	    if (!context) continue;
 	    QString caption = context->windowCaption(false);
 	    if (!caption.length()) continue;
-	    m_menu_manager->addNumberedMenuEntry(_("ID_WINDOW_LIST"), caption);
+	    m_menu_manager->addNumberedMenuEntry(_("ID_WINDOW_LIST"),
+	        caption, QString());
 	    ++win_count;
 	}
 
@@ -1401,10 +1402,27 @@ void Kwave::TopWidget::updateMenu()
     m_menu_manager->setItemEnabled(_("@NOT_CLOSED"), have_file);
 
     // enable/disable all items that depend on having a label
+    // and update the label menu
     bool have_labels = false;
     if (signal_manager) {
 	Kwave::LabelList labels(signal_manager->metaData());
 	have_labels = !labels.isEmpty();
+
+	m_menu_manager->clearNumberedMenu(_("ID_LABEL_DELETE"));
+	unsigned int index = 0;
+	foreach (const Kwave::Label &label, labels) {
+	    QString name = label.name();
+
+	    QString desc = (name.length()) ?
+	    i18nc("list menu entry of a label, %1=index, %2=description/name",
+		  "#%1 (%2)", index, name) :
+		  i18nc("list menue entry of a label, "
+		        "without description, %1=index",
+			"#%1", index);
+	    m_menu_manager->addNumberedMenuEntry(
+	        _("ID_LABEL_DELETE"), desc, name.setNum(index));
+	    index++;
+	}
     }
     m_menu_manager->setItemEnabled(_("@LABELS"), have_labels);
 
@@ -1414,7 +1432,7 @@ void Kwave::TopWidget::updateMenu()
     QString buf;
     for (unsigned int i = 0; i < tracks; i++) {
 	m_menu_manager->addNumberedMenuEntry(
-	    _("ID_EDIT_TRACK_DELETE"), buf.setNum(i));
+	    _("ID_EDIT_TRACK_DELETE"), buf.setNum(i), buf.setNum(i));
     }
 
     // enable/disable all items that depend on having a signal

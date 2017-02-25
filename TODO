@@ -76,8 +76,6 @@ o JACK audio support
 
 o maybe some effects from soundtouch
 
-o re-activate the "label" menu
-
 o use some xml file for the menu instead of a macro
 
 o support for Speex codec: http://www.speex.org/

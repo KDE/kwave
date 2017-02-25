@@ -75,8 +75,12 @@ namespace Kwave
 	 * Add an entry to a numbered menu
 	 * @param uid unique id string of the numbered menu
 	 * @param entry name of the new entry (non-localized)
+	 * @param param a parameter to use when the entry is
+	 *              activated (optional, pass QString() when using
+	 *              the text of the menu entry as parameter)
 	 */
-	void addNumberedMenuEntry(const QString &uid, const QString &entry);
+	void addNumberedMenuEntry(const QString &uid, const QString &entry,
+				  const QString &param);
 
 	/**
 	 * Selects an menu item within a group of menu items. All other

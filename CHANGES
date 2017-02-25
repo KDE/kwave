@@ -39,6 +39,10 @@
   * saveblocks: use the block title (description of the left side label) as
     tile of saved block
   * bugfix: file was left in "modified" state after adding a label and canceling
+  * re-activated the "label" menu
+  * renamed command "add_label"    -> "label:add"
+  * renamed command "delete_label" -> "label:delete"
+  * renamed command "edit_label"   -> "label:edit"
 
 0.9.2 [2016-06-26]
 

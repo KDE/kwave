@@ -462,7 +462,7 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 	signal_manager->selectRange(m_offset, 0);
 
     // label handling
-    CASE_COMMAND("add_label")
+    CASE_COMMAND("label:add")
 	sample_index_t pos = parser.toSampleIndex();
 	if (!parser.isDone()) {
 	    // 2 parameters: position + description
@@ -472,7 +472,7 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 	    // 1 parameter only: open dialog for editing the description
 	    addLabel(pos, QString());
 	}
-    CASE_COMMAND("edit_label")
+    CASE_COMMAND("label:edit")
 	int index = parser.toInt();
 	Kwave::LabelList labels(signal_manager->metaData());
 	if ((index >= labels.count()) || (index < 0))
@@ -480,23 +480,16 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 	Kwave::Label label = labels.at(index);
 	labelProperties(label);
 
-//    CASE_COMMAND("chooselabel")
-//	Kwave::Parser parser(command);
-//	markertype = globals.markertypes.at(parser.toInt());
-//    CASE_COMMAND("amptolabel")
-//	markSignal(command);
-//    CASE_COMMAND("pitch")
-//	markPeriods(command);
-//    CASE_COMMAND("labeltopitch")
-//      convertMarkstoPitch(command);
-//    CASE_COMMAND("loadlabel")  -> plugin
+//    CASE_COMMAND("label:load")
 //	loadLabel();
-//    CASE_COMMAND("savelabel")  -> plugin
+//    CASE_COMMAND("label:save")
 //	saveLabel(command);
-//    CASE_COMMAND("markperiod")
+//    CASE_COMMAND("label:by_intensity")
+//	markSignal(command);
+//    CASE_COMMAND("label:to_pitch")
+//      convertMarkstoPitch(command);
+//    CASE_COMMAND("label:by_period")
 //	markPeriods(command);
-//    CASE_COMMAND("saveperiods")
-//	savePeriods();
 
     } else {
 	return (signal_manager) ?
@@ -922,24 +915,6 @@ void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
 // //	Kwave::Parser parser (typestring);
 // //	Kwave::Label *tmp;
 // //	LabelType *act;
-// //
-// //	const char *actstring = parser.getFirstParam();
-// //
-// //	while (actstring) {
-// //	    printf ("selecting %s\n", actstring);
-// //	    for (act = globals.markertypes.first(); act; act = globals.markertypes.next())
-// //		if (strcmp(act->name, actstring) == 0) {
-// //		    printf ("selected\n");
-// //		    act->selected = true;
-// //		    break;
-// //		}
-// //	    actstring = parser.getNextParam();
-// //	}
-// //
-// //	for (act = globals.markertypes.first(); act; act = globals.markertypes.next())
-// //	    //write out all selected label types
-// //	    if (act->selected)
-// //		fprintf (out, "%s\n", act->getCommand());
 // //
 // //	//ended writing of types, so go on with the labels...
 // //

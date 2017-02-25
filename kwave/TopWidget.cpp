@@ -44,7 +44,6 @@
 #include <QSizePolicy>
 #include <QStatusBar>
 #include <QStringList>
-#include <QTextStream>
 #include <QtGlobal>
 
 #include <KComboBox>
@@ -1409,19 +1408,29 @@ void Kwave::TopWidget::updateMenu()
 	have_labels = !labels.isEmpty();
 
 	m_menu_manager->clearNumberedMenu(_("ID_LABEL_DELETE"));
-	unsigned int index = 0;
-	foreach (const Kwave::Label &label, labels) {
-	    QString name = label.name();
+	if (labels.count()) {
 
-	    QString desc = (name.length()) ?
-	    i18nc("list menu entry of a label, %1=index, %2=description/name",
-		  "#%1 (%2)", index, name) :
-		  i18nc("list menue entry of a label, "
-		        "without description, %1=index",
-			"#%1", index);
+	    // add special entry to delete all labels
 	    m_menu_manager->addNumberedMenuEntry(
-	        _("ID_LABEL_DELETE"), desc, name.setNum(index));
-	    index++;
+		_("ID_LABEL_DELETE"),
+		i18nc("special entry in the list of labels to delete all",
+		      "(All)"), _("-1"));
+
+	    // iterate over the list of labels
+	    unsigned int index = 0;
+	    foreach (const Kwave::Label &label, labels) {
+		QString name = label.name();
+		QString desc = (name.length()) ?
+		i18nc(
+		    "list menu entry of a label, %1=index, %2=description/name",
+		    "#%1 (%2)", index, name) :
+		    i18nc("list menue entry of a label, "
+			    "without description, %1=index",
+			    "#%1", index);
+		m_menu_manager->addNumberedMenuEntry(
+		    _("ID_LABEL_DELETE"), desc, name.setNum(index));
+		index++;
+	    }
 	}
     }
     m_menu_manager->setItemEnabled(_("@LABELS"), have_labels);

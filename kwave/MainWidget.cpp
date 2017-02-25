@@ -21,14 +21,20 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <new>
+
 #include <QApplication>
+#include <QFile>
+#include <QFileInfo>
 #include <QFrame>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QMimeType>
 #include <QPoint>
+#include <QPointer>
 #include <QResizeEvent>
 #include <QScrollBar>
+#include <QTextStream>
 #include <QWheelEvent>
 #include <QtGlobal>
 
@@ -41,6 +47,7 @@
 #include "libkwave/FileInfo.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
+#include "libkwave/Logger.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/Parser.h"
 #include "libkwave/SignalManager.h"
@@ -48,6 +55,7 @@
 #include "libkwave/Utils.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
+#include "libgui/FileDialog.h"
 #include "libgui/LabelPropertiesWidget.h"
 #include "libgui/OverViewWidget.h"
 #include "libgui/SignalWidget.h"
@@ -72,6 +80,19 @@
  * where no initial length information is available (guess: 5min)
  */
 #define DEFAULT_DISPLAY_TIME (5 * 60.0)
+
+/**
+ * File extension used for label lists
+ */
+#define LABEL_LIST_EXT _("*.label")
+
+/**
+ * Filter for file dialogs for loading/saving labels
+ */
+#define LABEL_LIST_FILTER \
+    LABEL_LIST_EXT + _("|") + \
+    i18n("Kwave label list") + \
+    _(" (") + LABEL_LIST_EXT + _(")")
 
 //***************************************************************************
 Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
@@ -479,11 +500,13 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 	    return -EINVAL;
 	Kwave::Label label = labels.at(index);
 	labelProperties(label);
+    CASE_COMMAND("label:load")
+	QString filename = parser.nextParam();
+	return loadLabels(filename);
+   CASE_COMMAND("label:save")
+	QString filename = parser.nextParam();
+	return saveLabels(filename);
 
-//    CASE_COMMAND("label:load")
-//	loadLabel();
-//    CASE_COMMAND("label:save")
-//	saveLabel(command);
 //    CASE_COMMAND("label:by_intensity")
 //	markSignal(command);
 //    CASE_COMMAND("label:to_pitch")
@@ -897,36 +920,111 @@ void Kwave::MainWidget::addLabel(sample_index_t pos, const QString &description)
     }
 }
 
-// ////****************************************************************************
-// //void MainWidget::loadLabel()
-// //{
-// //    labels().clear();    //remove old Labels...
-// //    appendLabel ();
-// //}
+//****************************************************************************
+int Kwave::MainWidget::loadLabels(const QString &filename)
+{
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return -1;
 
-// ////****************************************************************************
-// //void MainWidget::saveLabel (const char *typestring)
-// //{
-// //    QString name = QFileDialog::getSaveFileName(this, QString(), 0, "*.label");
-// //    if (!name.isNull()) {
-// //	FILE *out;
-// //	out = fopen (name.local8Bit(), "w");
-// //
-// //	Kwave::Parser parser (typestring);
-// //	Kwave::Label *tmp;
-// //	LabelType *act;
-// //
-// //	//ended writing of types, so go on with the labels...
-// //
-// //	for (tmp = labels().first(); tmp; tmp = labels().next())  //write out labels
-// //	{
-// //	    fprintf (out, tmp->getCommand());
-// //	    fprintf (out, "\n");
-// //	}
-// //
-// //	fclose (out);
-// //    }
-// //}
+    QUrl url;
+    if (!filename.length()) {
+	QString name(filename);
+
+	QPointer<Kwave::FileDialog> dlg = new (std::nothrow)Kwave::FileDialog(
+	_("kfiledialog:///kwave_label_dir"),
+	Kwave::FileDialog::OpenFile, LABEL_LIST_FILTER, this,
+	QUrl(), LABEL_LIST_EXT);
+	if (!dlg) return -1;
+	dlg->setWindowTitle(i18n("Load Labels"));
+	if (dlg->exec() != QDialog::Accepted) {
+	    delete dlg;
+	    return 0;
+	} else {
+	    url = dlg->selectedUrl();
+	    delete dlg;
+	}
+    } else {
+	url = QUrl::fromUserInput(filename);
+    }
+
+    // create an own undo transaction
+    Kwave::UndoTransactionGuard undo(*signal_manager, i18n("Load Labels"));
+
+    return m_context.loadBatch(url);
+}
+
+//****************************************************************************
+int Kwave::MainWidget::saveLabels(const QString &filename)
+{
+    Kwave::SignalManager *signal_manager = m_context.signalManager();
+    Q_ASSERT(signal_manager);
+    if (!signal_manager) return false;
+
+    QUrl url;
+    if (!filename.length()) {
+	QString name(filename);
+
+	QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
+	    _("kfiledialog:///kwave_label_dir"),
+	    Kwave::FileDialog::SaveFile, LABEL_LIST_FILTER,
+	    this, QUrl(), LABEL_LIST_EXT);
+	if (!dlg) return 0;
+	dlg->setWindowTitle(i18n("Save Labels"));
+	if (dlg->exec() != QDialog::Accepted) {
+	    delete dlg;
+	    return -1;
+	}
+	url = dlg->selectedUrl();
+	if (url.isEmpty()) {
+	    delete dlg;
+	    return 0;
+	}
+	delete dlg;
+
+	// add an extension if necessary
+	name = url.path();
+	if (!QFileInfo(name).suffix().length()) {
+	    url.setPath(name + _(".label"));
+	    name = url.path();
+	}
+
+	// check if the file exists and ask before overwriting it
+	// if it is not the old filename
+	if (QFileInfo(name).exists())
+	{
+	    if (Kwave::MessageBox::warningYesNo(this,
+		i18n("The file '%1' already exists.\n"
+		"Do you really want to overwrite it?", name)) !=
+		KMessageBox::Yes)
+	    {
+		return -1;
+	    }
+	}
+    } else {
+	url = QUrl::fromUserInput(filename);
+    }
+
+    // now we have a file name -> save all labels...
+    Kwave::Logger::log(this, Kwave::Logger::Info,
+	_("saving labels to '") + url.toDisplayString() + _("'"));
+
+    QFile file(url.path());
+    file.open(QIODevice::WriteOnly);
+    QTextStream out(&file);
+
+    Kwave::LabelList labels(signal_manager->metaData());
+    foreach (const Kwave::Label &label, labels) {
+	sample_index_t pos = label.pos();
+	const QString name = Kwave::Parser::escape(label.name());
+	out << _("label:add(") << pos;
+	if (name.length()) out << _(", ") << name;
+	out << _(")") << endl;
+    }
+
+    file.close();
+    return 0;
+}
 
 //***************************************************************************
 bool Kwave::MainWidget::labelProperties(Kwave::Label &label)

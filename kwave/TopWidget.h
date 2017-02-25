@@ -43,7 +43,6 @@ class QDragEnterEvent;
 class QDropEvent;
 class QLabel;
 class QMdiSubWindow;
-class QTextStream;
 class QTimer;
 
 namespace Kwave

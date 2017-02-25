@@ -158,7 +158,7 @@ done
 cd "${REPOSITORY}"
 for lang in ${FOUND_HANDBOOKS}; do
 
-    if test -e "${lang}/docs/${CATEGORY}/kwave" ; then
+    if test -e "${lang}/docs/${CATEGORY}/kwave/*" ; then
 	svn update "${lang}/docs/${CATEGORY}/kwave"
     else
 	mkdir -p "${lang}/docs/${CATEGORY}/kwave"

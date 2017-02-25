@@ -326,6 +326,22 @@ namespace Kwave
 	 */
 	bool labelProperties(Kwave::Label &label);
 
+	/**
+	 * load labels from a file
+	 * @param filename file name from which to load the labels,
+	 *                 a file open dialog will be shown if zero length
+	 * @return zero if succeeded or negative error code if failed
+	 */
+	int loadLabels(const QString &filename);
+
+	/**
+	 * save all labels to a file
+	 * @param filename file name from which to load the labels,
+	 *                 a file open dialog will be shown if zero length
+	 * @return zero if succeeded or negative error code if failed
+	 */
+	int saveLabels(const QString &filename);
+
     private:
 
 	/** context of the Kwave application instance */

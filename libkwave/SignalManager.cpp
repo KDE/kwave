@@ -1905,20 +1905,43 @@ Kwave::Label Kwave::SignalManager::addLabel(sample_index_t pos,
 void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
 {
     Kwave::LabelList labels(m_meta_data);
+    int count = Kwave::toInt(labels.count());
+    if (!count) return;
 
-    if ((index < 0) || (index >= Kwave::toInt(labels.count()))) return;
+    if (index == -1) {
+	// special handling for index == -1 -> delete all labels
 
-    Kwave::MetaData label(labels.at(index));
+	if (with_undo) startUndoTransaction(i18n("Delete All Labels"));
 
-    // register the undo action
-    if (with_undo) {
-	Kwave::UndoTransactionGuard undo(*this, i18n("Delete Label"));
-	if (!registerUndoAction(new(std::nothrow)
-	    UndoDeleteMetaDataAction(Kwave::MetaDataList(label))))
-	    return;
+	for (index = count - 1; index >= 0; index--) {
+	    Kwave::MetaData label(labels.at(index));
+	    if (with_undo) {
+		if (!registerUndoAction(new(std::nothrow)
+		    UndoDeleteMetaDataAction(Kwave::MetaDataList(label))))
+		    break;
+	    }
+	    m_meta_data.remove(label);
+	}
+    } else {
+	// delete a single label
+	if ((index < 0) || (index >= count)) return;
+
+	Kwave::MetaData label(labels.at(index));
+
+	// register the undo action
+	if (with_undo) {
+	    startUndoTransaction(i18n("Delete Label"));
+	    if (!registerUndoAction(new(std::nothrow)
+		UndoDeleteMetaDataAction(Kwave::MetaDataList(label)))) {
+		abortUndoTransaction();
+		return;
+	    }
+	}
+
+	m_meta_data.remove(label);
     }
 
-    m_meta_data.remove(label);
+    if (with_undo) closeUndoTransaction();
 
     // register this as a modification
     setModified(true);

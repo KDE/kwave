@@ -3320,7 +3320,7 @@
 	<!-- @COMMAND@ delete_track(index) -->
 	<sect2 id="cmd_sect_delete_track"><title id="cmd_title_delete_track">&no-i18n-cmd_delete_track;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_label_delete;</command>(<replaceable>index</replaceable>)</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_delete_track;</command>(<replaceable>index</replaceable>)</title>
 	    <para>
 		Deletes a track, identified by its index (starting from zero).
 		If no track with the given index exists, this command exits with an error.
@@ -3483,12 +3483,14 @@
 	    <simplesect>
 		<title>&i18n-cmd_syntax;<command>&no-i18n-cmd_label_delete;</command>(<replaceable>index</replaceable>)</title>
 		<para>
-		    Deletes a label, identified by its index (starting from zero).
+		    Deletes a label, identified by its index (starting from zero), or all
+		    labels when using the special value -1 as index.
 		    If no label with the given index exists, this command does nothing.
 		</para>
 	    </simplesect>
 	    <simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
-			    <row><entry><parameter>index</parameter>:</entry><entry>index of the label to delete, starting with 0</entry></row>
+			    <row><entry><parameter>index</parameter>:</entry><entry>index of the label to delete,
+			    starting with 0 or -1 to delete all labels</entry></row>
 			    </tbody></tgroup></informaltable></simplesect>
 	</sect2>
 

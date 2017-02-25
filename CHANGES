@@ -44,6 +44,7 @@
   * renamed command "delete_label" -> "label:delete"
   * renamed command "edit_label"   -> "label:edit"
   * implemented loading and saving of labels
+  * allow special value -1 as index for label:delete to delete _all_ labels
 
 0.9.2 [2016-06-26]
 

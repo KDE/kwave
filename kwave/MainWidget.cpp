@@ -962,13 +962,15 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
     if (!signal_manager) return false;
 
     QUrl url;
+    url = QUrl(m_context.signalName());
+
     if (!filename.length()) {
 	QString name(filename);
 
 	QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
 	    _("kfiledialog:///kwave_label_dir"),
 	    Kwave::FileDialog::SaveFile, LABEL_LIST_FILTER,
-	    this, QUrl(), LABEL_LIST_EXT);
+	    this, url, LABEL_LIST_EXT);
 	if (!dlg) return 0;
 	dlg->setWindowTitle(i18n("Save Labels"));
 	if (dlg->exec() != QDialog::Accepted) {

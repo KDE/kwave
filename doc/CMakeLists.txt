@@ -163,4 +163,28 @@ FOREACH(_file ${_files})
 ENDFOREACH(_file ${_files})
 
 #############################################################################
+### "make html_doc_devel"                                                 ###
+
+SET(_common_en_dir ${CMAKE_INSTALL_PREFIX}/${HTML_INSTALL_DIR}/en/kdoctools5-common)
+SET(_html_dir_devel ${CMAKE_CURRENT_BINARY_DIR}/devel)
+GET_TARGET_PROPERTY(MEINPROC_EXECUTABLE ${KDOCTOOLS_MEINPROC_EXECUTABLE} LOCATION)
+
+ADD_CUSTOM_TARGET(html_doc_devel
+    COMMENT "Generating HTML developer documentation"
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/devel.docbook
+    # start with an empty output (_html_dir)
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${_html_dir_devel}
+    COMMAND ${CMAKE_COMMAND} -E make_directory   ${_html_dir_devel}
+    # create the HTML pages from docbook
+    COMMAND cd ${_html_dir_devel} && ${MEINPROC_EXECUTABLE}
+            --check ${CMAKE_CURRENT_SOURCE_DIR}/devel.docbook
+    # copy files for the "common" directory
+    COMMAND ${CMAKE_COMMAND} -E make_directory      ${_html_dir_devel}/common
+    COMMAND ${CP_EXECUTABLE} -n ${_common_en_dir}/* ${_html_dir_devel}/common/
+    # fix wrong paths in the HTML pages
+    COMMAND cd ${_html_dir_devel} && ${CMAKE_SOURCE_DIR}/doc/fix-common
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+#############################################################################
 #############################################################################

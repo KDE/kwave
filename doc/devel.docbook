@@ -1,0 +1,776 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kwave "<application>Kwave</application>">
+  <!ENTITY % English "INCLUDE"> <!-- change language only here -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY version "0.9.3">
+  <!ENTITY version_tag "0_9_3">
+  <!ENTITY version_year "2017">
+  <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
+  <!ENTITY url_git_web_kde "http://commits.kde.org/kwave">
+  <!ENTITY url_prefix_gitweb "&url_git_web_kde;?path=">
+  <!ENTITY url_cmake "http://www.cmake.org">
+  <!ENTITY url_download "http://kwave.sourceforge.net/download.html">
+  <!ENTITY url_doxygen "http://www.stack.nl/~dimitri/doxygen">
+  <!ENTITY url_homepage "http://kwave.sourceforge.net/">
+  <!ENTITY url_kde_project "http://www.kde.org/applications/multimedia/kwave/">
+  <!ENTITY url_mailinglist "https://lists.sourceforge.net/lists/listinfo/kwave-devel">
+  <!ENTITY url_readme "&url_prefix_gitweb;README">
+  <!ENTITY url_sourceforge "http://sourceforge.net">
+  <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
+  <!ENTITY url_git_list_tags "http://commits.kde.org/kwave.git/refs/">
+  <!ENTITY url_git_master "git://anongit.kde.org/kwave.git">
+]>
+
+<book lang="&language;">
+
+<bookinfo>
+    <title>The &kwave; Developer Handbook</title>
+
+    <authorgroup>
+	<author>
+	    <firstname>Thomas</firstname>
+	    <surname>Eschenbacher</surname>
+	    <affiliation>
+	    <address><email>thomas.eschenbacher@gmx.de</email></address>
+	    </affiliation>
+	</author>
+
+	<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+    </authorgroup>
+
+    <copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
+    <copyright><year>&version_year;</year><holder>Thomas Eschenbacher</holder></copyright>
+
+    <legalnotice>&FDLNotice;</legalnotice>
+
+    <date>2017-01-29</date>
+    <releaseinfo>0.9.3 (Applications 16.12)</releaseinfo>
+
+    <abstract><para>&kwave; is a simple sound editor built on &kf5-full;.</para></abstract>
+
+    <keywordset>
+	<keyword>KDE</keyword>
+	<keyword>KF5</keyword>
+	<keyword>multimedia</keyword>
+	<keyword>sound</keyword>
+	<keyword>audio</keyword>
+	<keyword>Kwave</keyword>
+	<keyword>wav</keyword>
+	<keyword>editor</keyword>
+	<keyword>record</keyword>
+	<keyword>playback</keyword>
+	<keyword>sonagram</keyword>
+	<keyword>FFT</keyword>
+	<keyword>Linux</keyword>
+    </keywordset>
+</bookinfo>
+
+<!-- ###################################################################### -->
+<!-- ### Chapter: Installation                                          ### -->
+<!-- ###################################################################### -->
+
+<chapter id="installation"><title>Installation</title>
+    &underFDL;
+    &underGPL;
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Getting Kwave                                         +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="getting"><title>How to obtain &kwave;</title>
+
+    <para>
+    	&kwave; has an own homepage under
+    	<ulink url="&url_homepage;">&url_homepage;</ulink>. Here you can
+	find further information about the project, as well as
+	information about current stable and up-to-date development
+	versions.
+    </para>
+    <para>
+	There also is a KDE project page
+	at <ulink url="&url_kde_project;">&url_kde_project;</ulink> which
+	shows a short summary of the application.
+    </para>
+
+    <para>
+	If you want to get a &kwave; release, you have the choice to visit
+	<ulink url="&url_download;">&url_download;</ulink> and
+	<itemizedlist>
+	<listitem><para>
+	    download a binary package of the latest stable version, if
+	    there is one for your distribution,
+	</para></listitem>
+	<listitem><para>
+	    download a source RPM package of the latest stable version,
+	</para></listitem>
+	<listitem><para>
+	    compile on your own, from a .tar.bz2 archive with the source code
+	    of the latest stable version,
+	</para></listitem>
+	<listitem><para>
+	    compile on your own, from the latest GIT source.
+	</para></listitem>
+	</itemizedlist>
+    </para>
+
+    <para>
+	Don't be afraid, compiling Kwave should be quite simple even if
+	you are not a software developer. It just needs some developer
+	packages to be installed and some time.
+    </para>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Requirements                                          +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="requirements"><title>Requirements</title>
+
+    <para>
+    	In order to successfully use &kwave;, you need:
+	<itemizedlist>
+	    <listitem><para>
+		a computer running Linux (&kwave; might also run under
+		some other operating system, but we have never tested
+		this, please let us know if you get it working under
+		some other platform / operating system)
+	    </para></listitem>
+	    <listitem><para>
+		working sound playback (not really required for using but
+		what would you do with a sound editor if you cannot
+		<emphasis>hear</emphasis> the result of your work?)
+	    </para></listitem>
+	    <listitem><para>
+		KDE Frameworks 5.2 (KF5) or higher (at least the libraries,
+		if you are using a different desktop, you can also run &kwave;
+		if the proper libraries are installed).
+	    </para></listitem>
+	    <listitem><para>
+		Qt-5.4 or higher (normally comes as a dependency of KF5)
+	    </para></listitem>
+	    <listitem><para>
+		ALSA 1.0.14 or higher (for record/playback)
+	    </para></listitem>
+	    <listitem><para>
+		PulseAudio 4.0 or higher (for record/playback)
+	    </para></listitem>
+	    <listitem><para>
+		id3lib-3.8.1 or higher (for ID3 tags)
+	    </para></listitem>
+	    <listitem><para>
+		mad-0.15 or higher (optionally for MP3 import/export)
+	    </para></listitem>
+	    <listitem><para>
+		flac-1.2.0 or higher (for FLAC import/export)
+	    </para></listitem>
+            <listitem><para>
+                libsamplerate-0.1.3 or higher (sample rate conversion)
+            </para></listitem>
+	</itemizedlist>
+    </para>
+
+    <para>
+	For a more complete and up-to-date list, please consult the
+	<ulink url="&url_readme;">'README'</ulink> file that is included
+	in the source distribution.
+	This file also contains some special hints for getting &kwave; running and/or
+	building &kwave; under some distributions.
+    </para>
+
+    <para>
+    	If you intend to compile &kwave; from the sources, you will need at least:
+	<itemizedlist>
+	    <listitem><para>
+		<ulink url="&url_cmake;">cmake</ulink>-2.8.12 or newer
+	    </para></listitem>
+	    <listitem><para>
+		A recent C/C++ compiler. GCC-4.x works fine, some older and any
+		newer version (like gcc-5.0) should work too.
+	    </para></listitem>
+	    <listitem><para>
+		The glibc2 (libc-6) development environment. On SuSE systems
+		the package is called "libc", on other systems it might be
+		called "libc-devel".
+	    </para></listitem>
+	    <listitem><para>
+		Qt5 and KF5 development packages
+	    </para></listitem>
+	    <listitem><para>
+		pulseaudio-0.9.16 or newer
+	    </para></listitem>
+	    <listitem><para>
+		id3lib-devel-3.8.1 or newer
+	    </para></listitem>
+	    <listitem><para>
+		fftw-3.0 or newer
+	    </para></listitem>
+	    <listitem><para>
+		mad-devel-0.15 or newer
+		(if you have the permission to use MP3 code)
+	    </para></listitem>
+	    <listitem><para>
+		flac-devel-1.2.0 newer
+	    </para></listitem>
+	    <listitem><para>
+		If you intend to get the &kwave; sources via GIT, you will also
+		need a current git package.
+	    </para></listitem>
+	    <listitem><para>
+		...many other packages, please take a look at the
+		<ulink url="&url_readme;">'README'</ulink> file included in
+		the source package.
+	    </para></listitem>
+	</itemizedlist>
+    </para>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Manual Compilation                                    +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="manual_compilation"><title>Manual Compilation and installation</title>
+
+    <para>
+	Since version 0.7.10 &kwave; uses
+	<ulink url="&url_cmake;">cmake</ulink>, a make system
+	that is also used by KDE itself. So if you know how to build other KDE
+	applications, you should not have any difficulties in building &kwave;.
+	If you run into problems please report them to
+	the &kwave; <ulink url="&url_mailinglist;">mailing list</ulink>.
+    </para>
+
+    <para>
+	In order to compile and install &kwave; on your system, it is best
+	practice to do a <emphasis>out-of-tree</emphasis> build. This means
+	that you hold the sources of &kwave; in one directory and build the
+	package in another (temporary) directory.
+    </para>
+
+    <para>
+	For example, assuming that your sources are already
+	unpacked in <filename><replaceable>$HOME/src/kwave-&version;</replaceable></filename>, you
+	can do the following:
+<screen width="50" format="linespecific">
+<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
+<prompt>% </prompt><command>cd /tmp/kwave-build</command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-&version;</replaceable> <replaceable>[build options]</replaceable></command>
+<prompt>% </prompt><command>make</command>
+<prompt>% </prompt><command>su root -c "make install"</command>
+</screen>
+	(Specifying build options is a way to enable or disable specific features.
+	See the following section for descriptions)
+    </para>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Build options                                         +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="build_options"><title>Build options</title>
+
+	<para>
+	    By specifying build options, you can enable or disable some features
+	    of &kwave;, like excluding some components or plugins from the
+	    generated package. Here is a list of the available options:
+
+	    <itemizedlist>
+		<listitem><para>
+		    <literal>WITH_ALSA</literal>
+		    enable playback/recording via ALSA
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem id="CMAKE_WITH_DEBUG"><para>
+		    <literal>WITH_DEBUG</literal>
+		    build a debug version
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>off</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_DOC</literal>
+		    build online documentation
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_FLAC</literal>
+		    enable support for FLAC files
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_MP3</literal>
+		    enable support for mp3 files
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>off</literal>]
+		    Please note that you need the permission to use code
+		    covered by the MP3 software patents!
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_OGG_OPUS</literal>
+		    enable support for Ogg/Opus files
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_OGG_VORBIS</literal>
+		    enable support for Ogg/Vorbis files
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_OPTIMIZED_MEMCPY</literal>
+		    use an optimized version of memcpy, available for
+		    X86, X86_64 and PPC platforms
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_OSS</literal>
+		    enable playback/recording via OSS
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_PULSEAUDIO</literal>
+		    enable playback/recording via PulseAudio
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+		<listitem><para>
+		    <literal>WITH_QT_AUDIO</literal>
+		    enable playback via Qt Multimedia
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>on</literal>]
+		</para></listitem>
+	    </itemizedlist>
+	</para>
+
+	<para>
+	    These options can be passed to <literal><command>cmake</command></literal>
+	    with <command><literal>-D</literal><replaceable>option</replaceable><literal>=</literal><replaceable>value</replaceable></command>.
+	    For example, if you want to enable MP3 support,
+	    you can pass the corresponding option as follows:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></command>
+</screen>
+	</para>
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Building RPM packages from tar.bz2 archives           +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="building_rpm_from_tarbz2">
+    <title>Building RPM packages from tar.bz2 archives</title>
+
+    <sect2 id="building_with_rpm_ta">
+    <title>With working rpmbuild -ta</title>
+
+    <para>
+	If you are running a system with RPM support, the preferred way to
+	install &kwave; on your system will be the creation of a nice RPM
+	package. First you should get the current source of &kwave;, either
+	as a tar.bz2 archive from the &kwave; download page or
+	check out an up-to-date copy via the GIT repository hosted on KDE
+	servers, or the mirror repository hosted by
+	<ulink url="&url_sourceforge;">SourceForge</ulink> where
+	you can get the sources of the latest development version.
+    </para>
+    <para>
+	For instructions on how to get access to the repository, read
+	in the chapter about
+	<link linkend="building_rpm_from_git">building from git</link>.
+
+	There also is a GIT web interface on <ulink url="&url_git_web_kde;">KDE</ulink>
+	and on <ulink url="&url_git_web_sf;">SourceForge</ulink> where
+	you can use to browse through the sources.
+    </para>
+
+    <para>
+	If you have downloaded tar.bz2 archives of &kwave;,
+	create and install the RPMs just by doing the following steps
+	(where <replaceable>[arch]</replaceable> stands for the platform you
+	have built the package and might be something like
+	<literal>i586</literal>, <literal>i686</literal>,
+	<literal>sparc</literal> or whatever,
+	<replaceable>XXX</replaceable> stands for the version number
+	you have downloaded).
+    </para>
+
+    <para>
+    To build the &kwave; package and install it do:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.bz2</replaceable></command>
+<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+</screen>
+    </para>
+
+    <note><para>
+	<emphasis>Note for SuSE users: </emphasis>
+	you have to specify the directory
+	<filename>/usr/src/packages</filename> instead
+	of <filename>/usr/src/redhat</filename> !
+    </para></note>
+
+    <para>
+	If you haven't seen any errors, then that's it and you can skip the
+	rest of this chapter. If rpm was unable to build the packages
+	and says something like "spec file not found", then go on and
+	read the rest of this section.
+    </para>
+
+    </sect2>
+
+    <sect2 id="rpm_build_with_broken_rpm">
+    <title>With broken rpmbuild -ta support</title>
+
+    <para><anchor id="manual_rpm_creation"/>
+	If you cannot get <command>rpmbuild -ta</command> working, here are
+	the steps for making that manually (the hard way):
+    </para>
+
+    <orderedlist>
+	<listitem><para>
+	    Go to your RPM "topdir". This normally
+	    is <filename>/usr/src/redhat</filename>
+	    for the redhat distribution
+	    or <filename>/usr/src/packages</filename> if you
+	    have the SuSE distribution.
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></command>
+</screen>
+	</para></listitem>
+
+	<listitem><para>
+	    Put the tar.bz2 archive into the SOURCES subdirectory (you
+	    have to replace "somewhere" with the real directory where
+	    the files are, of course).
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.bz2</replaceable> SOURCES</command>
+</screen>
+	</para></listitem>
+
+	<listitem><para>
+	    Extract the spec file from the archives and put it into
+	    the SPEC subdirectory.
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>tar -xOjf SOURCES/<replaceable>kwave-XXX.tar.bz2</replaceable> \*.spec > SPECS/kwave.spec</command>
+</screen>
+	</para></listitem>
+
+	<listitem><para>
+	    Let rpm do the compile job and generate the rpm of &kwave;.
+	    If you only want to make a binary package, you
+	    can specify <literal>-bb</literal> instead of
+	    <literal>-ba</literal>, or just <literal>-bs</literal> to build
+	    only a source package.
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>
+</screen>
+	</para></listitem>
+
+	<listitem><para>
+	    If everything was ok, you can install the binary rpm of
+	    &kwave;, it will be in the BUILD directory.
+	    If you already have a version of &kwave; installed,
+	    please remove it first or use the parameter
+	    <literal>-U</literal> instead
+	    of <literal>-i</literal> for upgrading instead of installing.
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>rpm -ivh BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+</screen>
+	</para></listitem>
+
+    </orderedlist>
+
+    </sect2>
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Building RPM packages from GIT                        +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="building_rpm_from_git">
+    <title>Building RPM packages from GIT</title>
+
+    <sect2 id="git_checkout"><title>Checking out the sources</title>
+
+    <para>
+	For initially checking out the sources you will need some disk space
+	(about 25 megabytes) in a directory of your choice, the git package
+	of your favorite distribution and full access to the Internet. If you
+	get error messages about rejected connections you either have typed
+	something wrong or your provider doesn't give you full access.
+	A good place for the source files will be <filename>"$HOME/src"</filename>.
+    </para>
+
+    <orderedlist>
+    <listitem><para>
+	First create the directory that will receive the subdirectory with
+	&kwave; sources and change into it:
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></command>
+<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>
+</screen>
+    </para></listitem>
+    <listitem>
+	<para>
+	    Then check out the latest sources from the GIT server:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>git clone &url_git_master; kwave</command>
+</screen>
+	</para>
+	<para>
+	or you can check out a specific release with the following commands:
+<screen width="70" format="linespecific">
+    <prompt>% </prompt><command>git clone &url_git_master; kwave</command>
+    <prompt>% </prompt><command>cd kwave</command>
+    <prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]</replaceable> </command>
+</screen>
+	You can look up the names of the release tags in the git web page at
+	<ulink url="&url_git_list_tags;"> &url_git_list_tags;</ulink>.
+	The release tags are always built out of the word <literal>Release-</literal> and
+	the version number of the release, with underscores instead of dots.
+	For example "<literal>Release-&version_tag;</literal>" for v&version;.
+	</para>
+    </listitem>
+    </orderedlist>
+
+    <warning><para>
+	There <emphasis>must not</emphasis> be a directory named
+	<filename>kwave</filename> under
+	the directory you want to check out. Otherwise the git program will
+	complain about already existing files and the checkout will
+	not work.
+    </para></warning>
+
+    </sect2>
+
+    <sect2 id="git_update"><title>Updating fresh sources from GIT</title>
+    <para>
+	The procedure described in the previous section is only necessary
+	once. For further updates it is much easier. Just change into the
+	directory where you have the checked out sources and do the following
+	to update to the latest version:
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>git pull</command>
+</screen>
+	Then go on to the next section and compile as usual.
+    </para>
+    <note><para>
+	If you think that you have messed up your local source tree or if there
+	are conflicts during updating and you want to start through from a clean
+	state, you can do the following to discard all local changes and switch
+	back to the latest version from the master branch:
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>git clean --force -d</command>
+<prompt>% </prompt><command>git reset --hard</command>
+<prompt>% </prompt><command>git checkout <replaceable>master</replaceable></command>
+</screen>
+    </para></note>
+    </sect2>
+
+    <sect2 id="git_compiling"><title>Compiling</title>
+    <para>
+	Building rpm package from a GIT snapshot is quite simple. The procedure
+	is nearly the same as described in the last section, so it unhappily also
+	has the same problem with the <command>rpmbuild -ta</command> command
+	our method internally uses.
+	Like in the previous chapter, <replaceable>[arch]</replaceable> stands
+	for the platform you have built the package and might be something
+	like <literal>i386</literal>, <literal>i586</literal>,
+	<literal>sparc</literal> or whatever,
+	<replaceable>XXX</replaceable> stands
+	for the version number you have checked out.
+    </para>
+
+    <note><para>
+	<emphasis>Note for SuSE users: </emphasis>
+	here you have to specify the directory
+	<filename>/usr/src/packages</filename> instead
+	of <filename>/usr/src/redhat</filename> too!
+    </para></note>
+
+    <para>
+	Assuming that
+	you are in the root of where you checked out from GIT, do the
+	following to create a Makefile, the &kwave; package and
+	install it. If you already have a version of &kwave; installed,
+	please remove it first or use <command>rpm -U</command> instead
+	of <command>rpm -i</command> for updating instead of installing.
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
+<prompt>% </prompt><command>cd /tmp/kwave-build</command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave</replaceable></command>
+<prompt>% </prompt><command>make rpm</command>
+<prompt>% </prompt><command>rpm -ivh /usr/src/redhat/BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+</screen>
+    </para>
+
+    <note><para>
+	If you still have problems with <command>make rpm</command>,
+	you will find the tar.bz2
+	archive that was produced in <filename>/tmp</filename>.
+	Please follow the instructions in the
+	<link linkend="manual_rpm_creation">previous</link> chapter.
+    </para></note>
+
+    </sect2>
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Building DEB package from Source                      +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="building_deb_from_src">
+    <title>Building a DEB package for testing and personal use</title>
+
+    <para>
+	If you want to create a deb package of &kwave;, &eg; for testing a
+	version that is not yet available via official package repositories,
+	then you can create your own package quite easily. First of all, you
+	need to install some required tools:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>sudo apt-get install build-essential checkinstall</command>
+</screen>
+    </para>
+
+    <para>
+	Then you can install the required build dependencies by pretending to
+	install the dependencies of the official &kwave; version:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>sudo apt-get build-dep kwave</command>
+</screen>
+    </para>
+
+    <para>
+	After installing the required packages, you can build &kwave; as
+	described in the chapters before. After building you can type this
+	to get a .deb file in your current build directory:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>make deb</command>
+</screen>
+    </para>
+
+    <note><para>
+	The .deb file you get from this step will not have the quality that
+	a package from your official distribution has - it is just good enough
+	for installing and safely uninstalling &kwave; for testing purposes
+	and for personal use.
+    </para></note>
+
+    </sect1>
+
+</chapter>
+
+<!-- ###################################################################### -->
+<!-- ### Chapter: Developer's Guide to Kwave                            ### -->
+<!-- ###################################################################### -->
+
+<chapter id="developers"><title>Developer's Guide to &kwave;</title>
+
+    <para>
+	<inlinemediaobject>
+	<imageobject>
+	    <imagedata fileref="under-construction.png" format="PNG"/>
+	</imageobject>
+	<textobject> <phrase>under construction</phrase> </textobject>
+	</inlinemediaobject>
+     </para>
+    <para>
+	Sorry, this chapter is still to be written... At the moment the
+	source code is nearly completely documented with tags suitable with
+	the KDE documentation tools. We currently prefer using
+	<ulink url="&url_doxygen;">doxygen</ulink>. Maybe some day we will spend some time for
+	writing a tool that converts the doxygen output into something
+	we can include into the docbook source (the source this page has
+	been built of).
+    </para>
+    <para>
+        If you want to write a plugin, contribute something to this
+        project (or maybe write the converter mentioned above), please
+	feel free to contact one of the authors directly
+	and / or subscribe to the &kwave; mailing list:
+	<ulink url="&url_mailinglist;"> "&url_mailinglist;"</ulink>.
+	Help is always welcome!
+    </para>
+
+    <!-- @@@ most of this has still to be done ... @@@ -->
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: API documentation                                     +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="make_apidoc"><title>API documentation</title>
+
+    <para>
+	If you are interested in the internal of &kwave; and you have
+	<ulink url="&url_doxygen;">doxygen</ulink> installed, then you
+	can type:
+<screen width="50" format="linespecific">
+<prompt>% </prompt><command>make apidoc</command>
+</screen>
+    </para>
+    <para>
+	to get a directory
+	<filename><replaceable>doc/api/html</replaceable></filename>,
+	with documentation of the source and the internal API in your
+	current build directory.
+    </para>
+    <tip>
+	<para>
+	API documentation can be found <ulink url="../api/html/index.html">here...</ulink>.
+	</para>
+    </tip>
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Starting in a test environment                        +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="create_wrapper"><title>Starting in a test environment</title>
+
+    <para>
+	If you are developing or testing  &kwave;, then you do not necessarily
+	need to uninstall/install &kwave; after every build. Instead you can
+	use the application from where it is built by using a wrapper script.
+	This wrapper script can be built with the following command:
+<screen width="50" format="linespecific">
+<prompt>% </prompt><command>make wrapper</command>
+</screen>
+    </para>
+    <para>
+	The script will be named <filename><replaceable>kw</replaceable></filename>,
+	feel free to modify it to match your system if needed.
+    </para>
+    <warning><para>
+	For this to work, you must <emphasis>not</emphasis> have &kwave;
+	installed on your system. If so, please uninstall the package
+	before!
+    </para></warning>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Adding a new plugin                                   +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--
+    <sect1 id="add_new_plugin"><title>Adding a new Plugin</title>
+
+    <para>
+	to be written...
+    </para>
+
+    </sect1>
+-->
+
+</chapter>
+
+</book>

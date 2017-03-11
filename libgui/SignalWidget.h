@@ -39,7 +39,6 @@
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 
-#include "libgui/MouseMark.h"
 #include "libgui/SignalView.h"
 
 class QBitmap;
@@ -126,16 +125,6 @@ namespace Kwave
 
 	/** child views can connected to this signal to synchronize repaints */
 	void sigRepaint();
-
-	/**
-	 * Emits a change in the mouse cursor (forwarded from SignalView).
-	 * @see Kwave::SignalView
-	 * @param mode one of the modes in enum MouseMode
-	 * @param offset selection start (not valid if mode is MouseNormal)
-	 * @param length selection length (not valid if mode is MouseNormal)
-	 */
-	void sigMouseChanged(Kwave::MouseMark::Mode mode,
-	                     sample_index_t offset, sample_index_t length);
 
     public slots:
 

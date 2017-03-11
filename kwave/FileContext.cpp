@@ -153,13 +153,6 @@ bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
 	    this, SLOT(visibleRangeChanged(sample_index_t,
 	    sample_index_t, sample_index_t)) );
 
-    connect(m_main_widget,
-	    SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
-	                           sample_index_t, sample_index_t)),
-            m_top_widget,
-	    SLOT(mouseChanged(Kwave::MouseMark::Mode,
-	                      sample_index_t, sample_index_t)));
-
     return true;
 }
 

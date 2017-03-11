@@ -37,9 +37,6 @@ Kwave::Selection::~Selection()
 //***************************************************************************
 void Kwave::Selection::select(sample_index_t offset, sample_index_t length)
 {
-    if ((offset == m_offset) && (length == m_length))
-	return;
-
     m_offset = offset;
     m_length = length;
     emit changed(m_offset, m_length);

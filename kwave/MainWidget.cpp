@@ -196,12 +196,6 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     connect(&m_signal_widget, SIGNAL(sigCommand(QString)),
 	    this,             SIGNAL(sigCommand(QString)));
-    connect(&m_signal_widget,
-	    SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
-	                           sample_index_t, sample_index_t)),
-            this,
-	    SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
-	                           sample_index_t, sample_index_t)));
 
     // -- connect all signals from/to the signal manager --
 

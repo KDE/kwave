@@ -558,11 +558,6 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
     view->setZoomAndOffset(m_zoom, m_offset);
 
     // connect all signals
-    connect(view,       SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
-                                               sample_index_t, sample_index_t)),
-            this,       SIGNAL(sigMouseChanged(Kwave::MouseMark::Mode,
-                                               sample_index_t, sample_index_t)));
-
     connect(view,       SIGNAL(sigCommand(QString)),
 	    this,       SIGNAL(sigCommand(QString)),
 	    Qt::QueuedConnection);

@@ -33,8 +33,6 @@
 #include "libkwave/Sample.h"
 #include "libkwave/String.h"
 
-#include "libgui/MouseMark.h"
-
 #include "App.h"
 #include "FileContext.h"
 
@@ -187,16 +185,6 @@ namespace Kwave
 	 * available.
 	 */
 	void setUndoRedoInfo(const QString &undo, const QString &redo);
-
-	/**
-	 * Updates the status bar's content depending on the current status
-	 * or position of the mouse cursor.
-	 * @param mode one of the modes in enum MouseMode
-	 * @param offset selection start (not valid if mode is MouseNormal)
-	 * @param length selection length (not valid if mode is MouseNormal)
-	 */
-	void mouseChanged(Kwave::MouseMark::Mode mode,
-	                  sample_index_t offset, sample_index_t length);
 
 	/** updates the menus when the clipboard has become empty/full */
 	void clipboardChanged(bool data_available);

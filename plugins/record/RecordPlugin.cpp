@@ -1057,7 +1057,7 @@ void Kwave::RecordPlugin::startRecording()
 	const KAboutData about_data = KAboutData::applicationData();
 	QString software = about_data.componentName() + _("-") +
 	                   about_data.version() + _(" ") +
-	                   i18n("(built for KDE Frameworks %1)",
+	                   i18n("(built with KDE Frameworks %1)",
 	                   _(KXMLGUI_VERSION_STRING));
 	fileInfo.set(Kwave::INF_SOFTWARE, software);
 

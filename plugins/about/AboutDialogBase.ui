@@ -53,7 +53,7 @@
       <enum>QFrame::NoFrame</enum>
      </property>
      <property name="text">
-      <string>&lt;h1&gt;Kwave - a sound editor for KDE&lt;/h1&gt;</string>
+      <string>&lt;h1&gt;Kwave - a sound editor by KDE&lt;/h1&gt;</string>
      </property>
      <property name="wordWrap">
       <bool>false</bool>

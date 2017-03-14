@@ -216,7 +216,7 @@ int main(int argc, char **argv)
     KAboutData::setApplicationData(about);
 
     /* show some version info */
-    printf("\nThis is %s v%s (compiled for KDE Frameworks %s)\n",
+    printf("\nThis is %s v%s (compiled with KDE Frameworks %s)\n",
 	about.productName().toLatin1().data(),
 	about.version().toLatin1().data(),
 	KXMLGUI_VERSION_STRING

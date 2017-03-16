@@ -406,8 +406,9 @@ namespace Kwave
 
 	/** mode of the mouse cursor */
 	enum {
-	    MouseNormal = 0,        /**< over the signal [default]         */
-	    MouseMoveItem ,         /**< while moving an item              */
+	    MouseNormal = 0,   /**< over the signal [default]         */
+	    MouseMoveItem,     /**< while moving an item              */
+	    MouseDragItem      /**< while dragging an item            */
 	} m_mouse_mode;
 
 	/** selection handler */

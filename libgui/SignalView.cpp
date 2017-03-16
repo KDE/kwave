@@ -299,7 +299,7 @@ void Kwave::SignalView::findNewItem(const QPoint &mouse_pos, bool active)
 	// update the mouse cursor
 	Kwave::ViewItem::Flags flags = m_selected_item->flags();
 	if (flags & Kwave::ViewItem::CanDragAndDrop)
-	    setCursor(active ? Qt::ClosedHandCursor : Qt::OpenHandCursor);
+	    setCursor(active ? Qt::ClosedHandCursor : Qt::ArrowCursor);
 	else if (flags & Kwave::ViewItem::CanGrabAndMove)
 	    setCursor(m_selected_item->mouseCursor());
 	else
@@ -343,6 +343,7 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
     }
 
     switch (m_mouse_mode) {
+	case MouseDragItem: /* FALLTHROUGH */
 	case MouseMoveItem: {
 	    // move mode
 	    hidePosition();
@@ -474,8 +475,25 @@ void Kwave::SignalView::mouseReleaseEvent(QMouseEvent *e)
     );
 
     switch (m_mouse_mode) {
-	case MouseMoveItem:
+	case MouseDragItem:
+	    // released after dragging
 	    if (m_selected_item) m_selected_item->done();
+	    findNewItem(mouse_pos, false);
+	    break;
+	case MouseMoveItem:
+	    if (m_selected_item) {
+		// released after move
+		if (m_selected_item->flags() & Kwave::ViewItem::CanGrabAndMove)
+		    m_selected_item->done();
+		else if (canHandleSelection()) {
+		    // maybe started dragging, but released before reaching
+		    // the minimum drag distance -> start a new selection
+		    sample_index_t ofs = m_offset +
+			                 pixels2samples(mouse_pos.x());
+		    m_mouse_selection.set(ofs, ofs);
+		    m_signal_manager->selectRange(ofs, 0);
+		}
+	    }
 	    findNewItem(mouse_pos, false);
 	    break;
 	default:
@@ -639,6 +657,7 @@ void Kwave::SignalView::dragMoveEvent(QDragMoveEvent *event)
 	// current range (if it's outside our own selection)
 	event->acceptProposedAction();
 
+	// show a cursor at the possible drop location
 	sample_index_t item_pos  = m_offset + pixels2samples(x);
 	emit sigCursorChanged(item_pos);
     } else if (Kwave::FileDrag::canDecode(event->mimeData())) {

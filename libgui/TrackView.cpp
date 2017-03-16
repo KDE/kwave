@@ -62,7 +62,7 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
      m_img_selection_needs_refresh(true),
      m_img_markers_needs_refresh(true),
      m_mouse_click_position(0),
-     m_playback_pos(SAMPLE_INDEX_MAX)
+     m_cursor_pos(SAMPLE_INDEX_MAX)
 {
     setMinimumSize(400, MINIMUM_HEIGHT);
 
@@ -119,11 +119,11 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
     connect(&(signal_manager->playbackController()),
             SIGNAL(sigPlaybackPos(sample_index_t)),
             this,
-            SLOT(refreshPlaybackPointer(sample_index_t)));
+            SLOT(showCursor(sample_index_t)));
     connect(&(signal_manager->playbackController()),
             SIGNAL(sigPlaybackStopped()),
             this,
-            SLOT(refreshPlaybackPointer()));
+	    SLOT(showCursor()));
 
     // update when the track selection changed
     connect(track, SIGNAL(sigSelectionChanged(bool)),
@@ -490,18 +490,15 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
     p.setCompositionMode(QPainter::CompositionMode_Exclusion);
     p.drawImage(0, 0, m_img_markers);
 
-    // --- show the playback position ---
+    // --- show the cursor position ---
     do
     {
-	if (!m_signal_manager->playbackController().running() &&
-	    !m_signal_manager->playbackController().paused())
-	    break;
-	const sample_index_t pos = m_playback_pos;
-	if (pos < m_offset) break;
+	if (m_cursor_pos == SAMPLE_INDEX_MAX) break;
+	if (m_cursor_pos < m_offset) break;
 	const sample_index_t visible = pixels2samples(width);
-	if (pos >= m_offset + visible) break;
+	if (m_cursor_pos >= m_offset + visible) break;
 
-	int x = samples2pixels(pos - m_offset);
+	int x = samples2pixels(m_cursor_pos - m_offset);
 	if (x >= width) break;
 
 	p.setPen(Qt::yellow);
@@ -522,9 +519,9 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 }
 
 //***************************************************************************
-void Kwave::TrackView::refreshPlaybackPointer(sample_index_t pos)
+void Kwave::TrackView::showCursor(sample_index_t pos)
 {
-    m_playback_pos = pos;
+    m_cursor_pos = pos;
     emit sigNeedRepaint(this);
 }
 

@@ -140,6 +140,12 @@ void Kwave::SignalView::setVerticalZoom(double zoom)
 }
 
 //***************************************************************************
+void Kwave::SignalView::showCursor(sample_index_t pos)
+{
+    Q_UNUSED(pos);
+}
+
+//***************************************************************************
 int Kwave::SignalView::samples2pixels(sample_index_t samples) const
 {
     return Kwave::toInt((m_zoom > 0.0) ? (samples / m_zoom) : 0);
@@ -526,6 +532,7 @@ void Kwave::SignalView::dragEnterEvent(QDragEnterEvent *event)
 
     if (Kwave::FileDrag::canDecode(event->mimeData()))
 	event->acceptProposedAction();
+    emit sigCursorChanged(SAMPLE_INDEX_MAX);
 }
 
 //***************************************************************************
@@ -534,6 +541,7 @@ void Kwave::SignalView::dragLeaveEvent(QDragLeaveEvent *event)
     Q_UNUSED(event);
     m_mouse_mode = MouseNormal;
     setCursor(Qt::ArrowCursor);
+    emit sigCursorChanged(SAMPLE_INDEX_MAX);
 }
 
 //***************************************************************************
@@ -588,6 +596,7 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
     qDebug("SignalView::dropEvent(): done");
     m_mouse_mode = MouseNormal;
     setCursor(Qt::ArrowCursor);
+    emit sigCursorChanged(SAMPLE_INDEX_MAX);
 
     if (!event->isAccepted()) event->ignore();
 }
@@ -605,6 +614,7 @@ void Kwave::SignalView::dragMoveEvent(QDragMoveEvent *event)
 	Q_ASSERT(m_signal_manager);
 	if (!m_signal_manager) {
 	    event->ignore();
+	    emit sigCursorChanged(SAMPLE_INDEX_MAX);
 	    return;
 	}
 
@@ -623,14 +633,22 @@ void Kwave::SignalView::dragMoveEvent(QDragMoveEvent *event)
 	rect.setLeft(l);
 	rect.setRight(r);
 	event->ignore(rect);
+	emit sigCursorChanged(SAMPLE_INDEX_MAX);
     } else if (Kwave::Drag::canDecode(event->mimeData())) {
 	// accept if it is decodeable within the
 	// current range (if it's outside our own selection)
 	event->acceptProposedAction();
+
+	sample_index_t item_pos  = m_offset + pixels2samples(x);
+	emit sigCursorChanged(item_pos);
     } else if (Kwave::FileDrag::canDecode(event->mimeData())) {
 	// file drag
 	event->accept();
-    } else event->ignore();
+	emit sigCursorChanged(SAMPLE_INDEX_MAX);
+    } else {
+	event->ignore();
+	emit sigCursorChanged(SAMPLE_INDEX_MAX);
+    }
 }
 
 //***************************************************************************

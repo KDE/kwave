@@ -28,6 +28,7 @@
 
 #include "libkwave/Label.h"
 #include "libkwave/MetaDataList.h"
+#include "libkwave/Sample.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
@@ -75,8 +76,9 @@ Kwave::OverViewWidget::OverViewWidget(Kwave::SignalManager &signal,
                                       QWidget *parent)
     :Kwave::ImageView(parent), m_view_offset(0), m_view_width(0),
      m_signal_length(0), m_selection_start(0), m_selection_length(0),
-     m_playback_position(0), m_last_offset(0), m_cache(signal, 0, 0, 0),
-     m_repaint_timer(), m_labels(), m_worker_thread(this)
+     m_cursor_position(SAMPLE_INDEX_MAX), m_last_offset(0),
+     m_cache(signal, 0, 0, 0), m_repaint_timer(), m_labels(),
+     m_worker_thread(this)
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
@@ -268,32 +270,34 @@ void Kwave::OverViewWidget::metaDataChanged(Kwave::MetaDataList meta)
 }
 
 //***************************************************************************
-void Kwave::OverViewWidget::playbackPositionChanged(sample_index_t pos)
+void Kwave::OverViewWidget::showCursor(sample_index_t pos)
 {
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    const sample_index_t old_pos = m_playback_position;
+    const sample_index_t old_pos = m_cursor_position;
     const sample_index_t new_pos = pos;
 
     if (new_pos == old_pos) return; // no change
-    m_playback_position = new_pos;
+    m_cursor_position = new_pos;
 
-    // check for change in pixel units
-    sample_index_t length = m_signal_length;
-    if (m_view_offset + m_view_width > m_signal_length) {
-	// showing deleted space after signal
-	length = m_view_offset + m_view_width;
+    if (qMax(old_pos, new_pos) != SAMPLE_INDEX_MAX) {
+	// check for change in pixel units
+	sample_index_t length = m_signal_length;
+	if (m_view_offset + m_view_width > m_signal_length) {
+	    // showing deleted space after signal
+	    length = m_view_offset + m_view_width;
+	}
+	if (!length) return;
+	const double scale = static_cast<double>(width()) /
+			    static_cast<double>(length);
+	const int old_pixel_pos = Kwave::toInt(
+	    static_cast<double>(old_pos) * scale);
+	const int new_pixel_pos = Kwave::toInt(
+	    static_cast<double>(new_pos) * scale);
+	if (old_pixel_pos == new_pixel_pos) return;
     }
-    if (!length) return;
-    const double scale = static_cast<double>(width()) /
-                         static_cast<double>(length);
-    const int old_pixel_pos = Kwave::toInt(
-	static_cast<double>(old_pos) * scale);
-    const int new_pixel_pos = Kwave::toInt(
-	static_cast<double>(new_pos) * scale);
-    if (old_pixel_pos == new_pixel_pos) return;
 
     // some update is required, start the repaint timer in quick mode
     if (!m_repaint_timer.isActive() ||
@@ -303,12 +307,6 @@ void Kwave::OverViewWidget::playbackPositionChanged(sample_index_t pos)
 	m_repaint_timer.setSingleShot(true);
 	m_repaint_timer.start(REPAINT_INTERVAL_FAST);
     }
-}
-
-//***************************************************************************
-void Kwave::OverViewWidget::playbackStopped()
-{
-    playbackPositionChanged(0);
 }
 
 //***************************************************************************
@@ -420,8 +418,8 @@ void Kwave::OverViewWidget::calculateBitmap()
     }
 
     // draw playback position
-    if (m_playback_position) {
-	const sample_index_t pos = m_playback_position;
+    if (m_cursor_position != SAMPLE_INDEX_MAX) {
+	const sample_index_t pos = m_cursor_position;
 	int x = Kwave::toInt(static_cast<double>(pos) * scale);
 
 	// draw a line for the playback position

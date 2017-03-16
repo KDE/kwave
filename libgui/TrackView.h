@@ -105,13 +105,15 @@ namespace Kwave
 	 */
 	virtual void handleContextMenu(const QPoint &pos, QMenu *menu);
 
-    private slots:
+    public slots:
 
 	/**
 	 * requests a repaint, as soon as the repaint timer elapsed
-	 * @param pos current position of the playback pointer
+	 * @param pos current position of the cursor
 	 */
-	void refreshPlaybackPointer(sample_index_t pos = SAMPLE_INDEX_MAX);
+	virtual void showCursor(sample_index_t pos = SAMPLE_INDEX_MAX);
+
+    private slots:
 
 	/** requests a refresh of the signal layer */
 	void refreshSignalLayer();
@@ -167,7 +169,7 @@ namespace Kwave
 	sample_index_t m_mouse_click_position;
 
 	/** last known position of the playback pointer */
-	sample_index_t m_playback_pos;
+	sample_index_t m_cursor_pos;
     };
 }
 

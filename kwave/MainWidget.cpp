@@ -188,14 +188,16 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     Kwave::PlaybackController &playback = signal_manager->playbackController();
     connect(&playback, SIGNAL(sigPlaybackPos(sample_index_t)),
-	m_overview, SLOT(playbackPositionChanged(sample_index_t)));
+	m_overview, SLOT(showCursor(sample_index_t)));
     connect(&playback, SIGNAL(sigPlaybackStopped()),
-	m_overview, SLOT(playbackStopped()));
+	m_overview, SLOT(showCursor()));
 
     // -- connect all signals from/to the signal widget --
 
     connect(&m_signal_widget, SIGNAL(sigCommand(QString)),
 	    this,             SIGNAL(sigCommand(QString)));
+    connect(&m_signal_widget, SIGNAL(sigCursorChanged(sample_index_t)),
+	    m_overview,       SLOT(showCursor(sample_index_t)));
 
     // -- connect all signals from/to the signal manager --
 

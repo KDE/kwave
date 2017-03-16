@@ -207,6 +207,9 @@ namespace Kwave
 	/** emitted whenever the size of the content has changed */
 	void contentSizeChanged();
 
+	/** emitted to request update of the cursor */
+	void sigCursorChanged(sample_index_t pos);
+
 	/**
 	 * Can be emitted to signal that this view needs to be repainted,
 	 * probably after synchronizing with other views and additionally
@@ -238,6 +241,12 @@ namespace Kwave
 	 * @param zoom vertical zoom factor
 	 */
 	virtual void setVerticalZoom(double zoom);
+
+	/**
+	 * shows the cursor at a given position
+	 * @param pos current position of the cursor
+	 */
+	virtual void showCursor(sample_index_t pos = SAMPLE_INDEX_MAX);
 
     protected slots:
 

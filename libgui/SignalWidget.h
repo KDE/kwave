@@ -226,6 +226,9 @@ namespace Kwave
 	 */
 	void sigCommand(const QString &command);
 
+	/** emitted to request update of the cursor */
+	void sigCursorChanged(sample_index_t pos);
+
     protected:
 
 	/** slot for mouse wheel events, used for vertical zoom */

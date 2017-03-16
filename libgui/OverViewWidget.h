@@ -87,11 +87,11 @@ namespace Kwave
 	*/
 	void metaDataChanged(Kwave::MetaDataList meta);
 
-	/** should be called to update the current playback posiotion */
-	void playbackPositionChanged(sample_index_t pos);
-
-	/** should be called when playback has been stopped */
-	void playbackStopped();
+	/**
+	 * shows the cursor at a given position
+	 * @param pos current position of the cursor
+	 */
+	void showCursor(sample_index_t pos = SAMPLE_INDEX_MAX);
 
     protected:
 
@@ -209,8 +209,8 @@ namespace Kwave
 	/** length of the selection [samples] */
 	sample_index_t m_selection_length;
 
-	/** last playback position */
-	sample_index_t m_playback_position;
+	/** last cursor position */
+	sample_index_t m_cursor_position;
 
 	/** last emitted offset (for avoiding duplicate events) */
 	sample_index_t m_last_offset;

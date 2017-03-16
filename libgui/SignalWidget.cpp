@@ -569,6 +569,10 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
 	    this,       SLOT(updateMinimumHeight()));
     connect(view,       SIGNAL(destroyed(QObject*)),
 	    this,       SLOT(updateMinimumHeight()));
+    connect(view,       SIGNAL(sigCursorChanged(sample_index_t)),
+	    this,       SIGNAL(sigCursorChanged(sample_index_t)));
+    connect(this,       SIGNAL(sigCursorChanged(sample_index_t)),
+	    view,       SLOT(showCursor(sample_index_t)));
 
     updateMinimumHeight();
 }

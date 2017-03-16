@@ -81,9 +81,19 @@ namespace Kwave {
 	 */
 	bool registerUndoAction(UndoAction *action);
 
+	/**
+	 * Aborts the undo transaction, discards all undo data and restores
+	 * the previous "modified" state of the signal.
+	 */
+	void abort();
+
     private:
+
 	/** Reference to the responsible SignalManager */
 	Kwave::SignalManager &m_manager;
+
+	/** the initial "modified" state of the signal */
+	bool m_initial_modified;
 
     };
 

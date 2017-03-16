@@ -77,7 +77,7 @@
 #define VERTICAL_ZOOM_STEP_FACTOR 1.5
 
 /** interval for limiting the number of repaints per second [ms] */
-#define REPAINT_INTERVAL 125
+#define REPAINT_INTERVAL 50
 
 //***************************************************************************
 Kwave::SignalWidget::SignalWidget(QWidget *parent,

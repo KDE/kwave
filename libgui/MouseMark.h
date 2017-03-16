@@ -25,32 +25,19 @@
 namespace Kwave
 {
     /**
-     * @class MouseMark
      * Simple class that can be used whenever the user selects something
-     * with the mouse. Note that the coordinates within this class are
-     * not transformed from screen pixels to the user's favorite
-     * coordinate system. This must be done outside of here.
+     * with the mouse.
      */
     class MouseMark
     {
 
     public:
 
-	/** Mode of the mouse cursor */
-	typedef enum {
-	    MouseNormal = 0,        /**< over the signal [default] */
-	    MouseInSelection,       /**< within the selection */
-	    MouseAtSelectionBorder, /**< near the border of a selection */
-	    MouseSelect             /**< during selection */
-	} Mode;
-
 	/** Constructor */
 	MouseMark();
 
 	/** Destructor */
-	virtual ~MouseMark()
-	{
-	}
+	virtual ~MouseMark();
 
 	/**
 	 * Sets the selection to a new range.
@@ -100,7 +87,7 @@ namespace Kwave
     };
 }
 
-#endif /*MOUSE_MARK_H */
+#endif /* MOUSE_MARK_H */
 
 //***************************************************************************
 //***************************************************************************

@@ -31,7 +31,8 @@
 //***************************************************************************
 Kwave::UndoTransactionGuard::UndoTransactionGuard(Kwave::SignalManager &manager,
                                                   const QString &name)
-    :m_manager(manager)
+    :m_manager(manager),
+     m_initial_modified(m_manager.isModified())
 {
     m_manager.startUndoTransaction(name);
 }
@@ -39,7 +40,8 @@ Kwave::UndoTransactionGuard::UndoTransactionGuard(Kwave::SignalManager &manager,
 //***************************************************************************
 Kwave::UndoTransactionGuard::UndoTransactionGuard(Kwave::Plugin &plugin,
                                                   const QString &name)
-    :m_manager(plugin.manager().signalManager())
+    :m_manager(plugin.manager().signalManager()),
+     m_initial_modified(m_manager.isModified())
 {
     QString description = (name.length()) ?
 	name : i18n(UTF8(plugin.name()));
@@ -56,6 +58,14 @@ Kwave::UndoTransactionGuard::~UndoTransactionGuard()
 bool Kwave::UndoTransactionGuard::registerUndoAction(UndoAction *action)
 {
     return m_manager.registerUndoAction(action);
+}
+
+//***************************************************************************
+void Kwave::UndoTransactionGuard::abort()
+{
+    m_manager.abortUndoTransaction();
+    if (m_manager.isModified() != m_initial_modified)
+	m_manager.setModified(m_initial_modified);
 }
 
 //***************************************************************************

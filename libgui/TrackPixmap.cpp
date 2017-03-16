@@ -291,7 +291,6 @@ bool Kwave::TrackPixmap::validateBuffer()
 	Q_ASSERT(Kwave::toInt(m_sample_buffer.size()) == buflen);
     }
 
-    // ### FIXME:
     // work-around for missing extra buffer, delete the whole buffer
     // instead. this should not do any harm, in this mode we only
     // have few samples and redrawing will be fast

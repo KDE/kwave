@@ -180,11 +180,8 @@ namespace Kwave
 	/** slot when the mouse leaves the widget */
 	virtual void leaveEvent(QEvent *e);
 
-        /**
-	 * Sets the mode of the mouse cursor
-	 * @param mode the mouse mode, e.g. if in selection or border etc.
-	 */
-	virtual void setMouseMode(Kwave::MouseMark::Mode mode);
+	/** handles key press events (e.g. the Escape key) */
+	virtual void keyPressEvent(QKeyEvent *e);
 
 	/**
 	 * tolerance in pixel for snapping to a label or selection border
@@ -264,14 +261,11 @@ namespace Kwave
 
     protected:
 
-	/** Starts a drag & drop operation */
-	virtual void startDragging();
-
 	/** @see Qt XDND documentation */
 	virtual void dragEnterEvent(QDragEnterEvent *event);
 
 	/** @see Qt XDND documentation */
-	virtual void dragLeaveEvent(QDragLeaveEvent *);
+	virtual void dragLeaveEvent(QDragLeaveEvent *event);
 
 	/** @see Qt XDND documentation */
 	virtual void dropEvent(QDropEvent *event);
@@ -284,12 +278,13 @@ namespace Kwave
 	/**
 	 * Relationship between a screen position and the current selection.
 	 */
-	typedef enum {
+	enum SelectionPosEnum {
 	    None        = 0x0000, /**< not near a border           */
 	    LeftBorder  = 0x0001, /**< close to start of selection */
 	    RightBorder = 0x0002, /**< close to end of selection   */
 	    Selection   = 0x8000  /**< within the selection        */
-	} SelectionPos;
+	};
+	Q_DECLARE_FLAGS(SelectionPos, SelectionPosEnum)
 
 	/**
 	 * Determines the relationship between a screen position and
@@ -297,16 +292,7 @@ namespace Kwave
 	 * @param x screen position
 	 * @return a SelectionPos
 	 */
-	int selectionPosition(const int x);
-
-	/**
-	 * Checks if a pixel position is near to the left or right border
-	 * of a selection. The tolerance is 2% of the currently
-	 * visible area.
-	 * @param x pixel position to be tested
-	 * @return true if the position is within range
-	 */
-	bool isSelectionBorder(int x);
+	SelectionPos selectionPosition(int x);
 
 	/**
 	 * Checks if a pixel position is within the left and right border
@@ -316,6 +302,16 @@ namespace Kwave
 	 * @return true if the position is within range
 	 */
 	bool isInSelection(int x);
+
+	/**
+	 * Tries to find the nearest item that is visible in this view
+	 * at a given position and show or hide the corresponding tool tip.
+	 *
+	 * @param mouse_pos position to look at, relative to view [pixels]
+	 * @param active if true an operation (move or drag&drop) is active,
+	 *               otherwise it is only a hover over an item
+	 */
+	void findNewItem(const QPoint &mouse_pos, bool active);
 
     protected:
 
@@ -400,13 +396,16 @@ namespace Kwave
 	double m_vertical_zoom;
 
 	/** mode of the mouse cursor */
-	MouseMark::Mode m_mouse_mode;
+	enum {
+	    MouseNormal = 0,        /**< over the signal [default]         */
+	    MouseMoveItem ,         /**< while moving an item              */
+	} m_mouse_mode;
 
 	/** selection handler */
 	Kwave::MouseMark m_mouse_selection;
 
 	/**
-	 * x position where the user last clicked the last time, needed fo
+	 * x position where the user clicked the last time, needed for
 	 * finding out where to start a drag&drop operation [pixel]
 	 */
 	int m_mouse_down_x;
@@ -420,6 +419,8 @@ namespace Kwave
 	/** list of associated widgets, e.g. controls etc */
 	QList<QPointer<QWidget> > m_siblings;
 
+	/** currently selected view item or null */
+	QSharedPointer<Kwave::ViewItem> m_selected_item;
     };
 
 }

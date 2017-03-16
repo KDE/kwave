@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QtGlobal>
+#include <QCursor>
 #include <QObject>
 #include <QString>
 
@@ -32,6 +33,8 @@ namespace Kwave
 {
 
     class Label;
+    class SignalView;
+    class UndoTransactionGuard;
 
     class Q_DECL_EXPORT LabelItem: public Kwave::ViewItem
     {
@@ -39,40 +42,56 @@ namespace Kwave
     public:
 	/**
 	 * Constructor
+	 * @param view the owner (SignalView)
+	 * @param signal_manager the corresponding SignalManager
 	 * @param index the one-based index of the label
-	 * @param ms position of the label in ms
 	 * @param label reference to the label
 	 */
-	LabelItem(unsigned int index, double ms, const Kwave::Label &label);
+	LabelItem(Kwave::SignalView &view,
+	          Kwave::SignalManager &signal_manager,
+	          unsigned int index,
+	          const Kwave::Label &label);
 
 	/** Destructor */
 	virtual ~LabelItem();
 
 	/**
 	 * Returns flags describing the possible interactions with this object
-	 * @see Qt::ItemFlag
+	 * @see Kwave::ViewItem::Flags
 	 */
-	virtual Qt::ItemFlags flags();
-
-	/** Returns the index of the first visible sample */
-	virtual sample_index_t first();
-
-	/** Returns the index of the last visible sample */
-	virtual sample_index_t last();
+	virtual Kwave::ViewItem::Flags flags() const;
 
 	/**
 	 * Can be overwritten to return a tooltip.
 	 *
-	 * @param ofs offset within the object the tooltip should refer to
+	 * @param ofs sample index the tooltip should refer to (unused)
 	 * @return an already localized tooltip
 	 */
-	virtual QString toolTip(sample_index_t ofs);
+	virtual QString toolTip(sample_index_t &ofs);
 
 	/**
 	 * Called to append entries to a context menu.
 	 * @param parent context menu to add items
 	 */
 	virtual void appendContextMenu(QMenu *parent);
+
+	/**
+	 * Returns a mouse cursor used when moving the item
+	 */
+	virtual QCursor mouseCursor() const;
+
+	/**
+	 * handles updates when being moved with the mouse
+	 * @param mouse_pos position of the mouse, in pixel coordinates
+	 *                  relative to the parent widget
+	 */
+	virtual void moveTo(const QPoint &mouse_pos);
+
+	/**
+	 * Called when leaving the move mode, when the mouse button
+	 * has been released.
+	 */
+	virtual void done();
 
     private slots:
 
@@ -87,14 +106,18 @@ namespace Kwave
 	/** index of the label */
 	unsigned int m_index;
 
-	/** position of the label, sample index */
-	sample_index_t m_pos;
+	/** initial position of the label, in samples */
+	sample_index_t m_initial_pos;
 
-	/** position of the label, milliseconds */
-	double m_ms;
+	/** current position of the label, in samples */
+	sample_index_t m_current_pos;
 
 	/** description of the label */
 	QString m_description;
+
+	/** used when we are within a undo transaction (we started) */
+	Kwave::UndoTransactionGuard *m_undo_transaction;
+
     };
 
 }

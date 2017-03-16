@@ -17,13 +17,18 @@
 
 #include "config.h"
 
+#include <QCursor>
+#include <QObject>
+
 #include <KLocalizedString>
 
 #include "libgui/LabelItem.h"
+#include "libgui/SignalView.h"
 
 //***************************************************************************
-Kwave::ViewItem::ViewItem()
-    :QObject()
+Kwave::ViewItem::ViewItem(Kwave::SignalView &view,
+                          Kwave::SignalManager &signal_manager)
+    :QObject(&view), m_view(view), m_signal_manager(signal_manager)
 {
 }
 
@@ -33,13 +38,13 @@ Kwave::ViewItem::~ViewItem()
 }
 
 //***************************************************************************
-Qt::ItemFlags Kwave::ViewItem::flags()
+Kwave::ViewItem::Flags Kwave::ViewItem::flags() const
 {
-    return Qt::NoItemFlags;
+    return Kwave::ViewItem::None;
 }
 
 //***************************************************************************
-QString Kwave::ViewItem::toolTip(sample_index_t ofs)
+QString Kwave::ViewItem::toolTip(sample_index_t &ofs)
 {
     Q_UNUSED(ofs);
     return QString();
@@ -49,6 +54,28 @@ QString Kwave::ViewItem::toolTip(sample_index_t ofs)
 void Kwave::ViewItem::appendContextMenu(QMenu *parent)
 {
     Q_UNUSED(parent);
+}
+
+//***************************************************************************
+QCursor Kwave::ViewItem::mouseCursor() const
+{
+    return Qt::ArrowCursor;
+}
+
+//***************************************************************************
+void Kwave::ViewItem::moveTo(const QPoint &mouse_pos)
+{
+    Q_UNUSED(mouse_pos);
+}
+
+//***************************************************************************
+void Kwave::ViewItem::startDragging()
+{
+}
+
+//***************************************************************************
+void Kwave::ViewItem::done()
+{
 }
 
 //***************************************************************************

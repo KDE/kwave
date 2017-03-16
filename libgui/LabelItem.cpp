@@ -17,55 +17,56 @@
 
 #include "config.h"
 
-#include <math.h>
-
 #include <QAction>
-#include <QList>
 #include <QMenu>
 
 #include <KIconLoader>
 #include <KLocalizedString>
 
 #include "libkwave/Label.h"
+#include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
+#include "libkwave/undo/UndoModifyMetaDataAction.h"
+#include "libkwave/undo/UndoTransactionGuard.h"
 
 #include "libgui/LabelItem.h"
+#include "libgui/SignalView.h"
 
 //***************************************************************************
-Kwave::LabelItem::LabelItem(unsigned int index, double ms,
+Kwave::LabelItem::LabelItem(Kwave::SignalView &view,
+                            Kwave::SignalManager &signal_manager,
+                            unsigned int index,
                             const Kwave::Label &label)
-    :Kwave::ViewItem(),
-     m_index(index), m_pos(label.pos()), m_ms(ms),
-     m_description(label.name())
+    :Kwave::ViewItem(view, signal_manager),
+     m_index(index),
+     m_initial_pos(label.pos()),
+     m_current_pos(label.pos()),
+     m_description(label.name()),
+     m_undo_transaction(0)
 {
 }
 
 //***************************************************************************
 Kwave::LabelItem::~LabelItem()
 {
+    if (m_undo_transaction) {
+	// restore the previous data
+	qDebug("Kwave::LabelItem::~LabelItem() -> aborted -> reverting!");
+	m_undo_transaction->abort();
+	delete m_undo_transaction;
+	m_undo_transaction = 0;
+    }
 }
 
 //***************************************************************************
-Qt::ItemFlags Kwave::LabelItem::flags()
+Kwave::ViewItem::Flags Kwave::LabelItem::flags() const
 {
-    return Qt::ItemIsEditable;
+    return Kwave::ViewItem::CanGrabAndMove;
 }
 
 //***************************************************************************
-sample_index_t Kwave::LabelItem::first()
-{
-    return m_pos;
-}
-
-//***************************************************************************
-sample_index_t Kwave::LabelItem::last()
-{
-    return m_pos;
-}
-
-//***************************************************************************
-QString Kwave::LabelItem::toolTip(sample_index_t ofs)
+QString Kwave::LabelItem::toolTip(sample_index_t &ofs)
 {
     Q_UNUSED(ofs);
 
@@ -75,10 +76,10 @@ QString Kwave::LabelItem::toolTip(sample_index_t ofs)
 	i18nc("tooltip of a label, without description, %1=index",
 		"Label #%1", m_index);
 
-    QString hms  = Kwave::ms2hms(m_ms);
-    QString text = _("%1\n%2\n%3").arg(description).arg(m_pos).arg(hms);
+    QString hms = Kwave::ms2hms(m_view.samples2ms(m_current_pos));
+    QString tip = _("%1\n%2\n%3").arg(description).arg(m_current_pos).arg(hms);
 
-    return text;
+    return tip;
 }
 
 //***************************************************************************
@@ -133,6 +134,63 @@ void Kwave::LabelItem::contextMenuLabelDelete()
 void Kwave::LabelItem::contextMenuLabelProperties()
 {
     emit sigCommand(_("nomacro:label:edit(%1)").arg(m_index));
+}
+
+//***************************************************************************
+QCursor Kwave::LabelItem::mouseCursor() const
+{
+    return Qt::SizeHorCursor;
+}
+
+//***************************************************************************
+void Kwave::LabelItem::moveTo(const QPoint &mouse_pos)
+{
+    const sample_index_t new_pos = m_view.offset() +
+                                   m_view.pixels2samples(mouse_pos.x());
+
+    Kwave::Label label = m_signal_manager.findLabel(new_pos);
+    if (label.isNull()) {
+
+	// this is the first move ?
+	if (!m_undo_transaction) {
+	    // there probably will be something to undo later
+	    // create an undo transaction guard
+	    m_undo_transaction = new(std::nothrow)
+	        Kwave::UndoTransactionGuard(
+	            m_signal_manager, i18n("Move Label"));
+	    Q_ASSERT(m_undo_transaction);
+	    if (!m_undo_transaction) return;
+
+	    // save the previous label data for undo
+	    Kwave::Label label = m_signal_manager.findLabel(m_initial_pos);
+	    if (!m_undo_transaction->registerUndoAction(new(std::nothrow)
+		UndoModifyMetaDataAction(Kwave::MetaDataList(label)))) {
+		qWarning("Kwave::LabelItem::done(): saving undo data failed!");
+		return;
+	    }
+	}
+
+	if (m_signal_manager.modifyLabel(m_index, new_pos,
+	                                 m_description, false)) {
+	    Kwave::Label label = m_signal_manager.findLabel(new_pos);
+	    if (!label.isNull()) {
+		m_index       = m_signal_manager.labelIndex(label);
+		m_current_pos = label.pos();
+	    }
+	}
+    }
+}
+
+//***************************************************************************
+void Kwave::LabelItem::done()
+{
+    if (m_undo_transaction) {
+	// close the undo transaction (regularly, with undo action)
+	if (m_current_pos == m_initial_pos)
+	    m_undo_transaction->abort();
+	delete m_undo_transaction;
+	m_undo_transaction = 0;
+    }
 }
 
 //***************************************************************************

@@ -50,6 +50,7 @@
     (included in "apidoc")
   * label edit: avoid position from snapping too much away when adding a label
     in the gui while last edit was in percent mode
+  * implemented moving of labels per mouse
 
 0.9.2 [2016-06-26]
 

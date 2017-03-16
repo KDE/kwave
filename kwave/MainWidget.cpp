@@ -1110,7 +1110,7 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
 	}
 
 	// modify the label through the signal manager
-	if (!signal_manager->modifyLabel(index, new_pos, new_name)) {
+	if (!signal_manager->modifyLabel(index, new_pos, new_name, true)) {
 	    // position is already occupied
 	    signal_manager->abortUndoTransaction();
 	    return false;
@@ -1128,63 +1128,6 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
 
     return accepted;
 }
-
-// ////****************************************************************************
-// //void MainWidget::savePeriods ()
-// //{
-// //    if (signalmanage) {
-// //	Dialog *dialog =
-// //	    DynamicLoader::getDialog ("marksave", new DialogOperation(&globals, signalmanage->getRate(), 0, 0));
-// //
-// //	if ((dialog) && (dialog->exec())) {
-// //	    selectMarkers (dialog->getCommand());
-// //
-// //	    LabelType *act;
-// //	    Kwave::Label *tmp;
-// //	    int last = 0;
-// //	    int rate = signalmanage->getRate ();
-// //
-// //	    QString name = QFileDialog::getSaveFileName(this, QString(), 0, "*.dat");
-// //	    if (!name.isNull()) {
-// //		QFile out(name.local8Bit());
-// //		char buf[160];
-// //		float freq = 0, time, lastfreq = 0;
-// //		out.open (QIODevice::WriteOnly);
-// //		int first = true;
-// //
-// //		for (act = globals.markertypes.first(); act; act = globals.markertypes.next())
-// //		    //write only selected label type
-// //		    if (act->selected)
-// //			//traverse list of all labels
-// //			for (tmp = labels->first(); tmp; tmp = labels->next()) {
-// //			    if (tmp->getType() == act) {
-// //				freq = tmp->pos - last;
-// //				time = last * 1000 / rate;
-// //
-// //				if ((!first) && (freq != lastfreq)) {
-// //				    lastfreq = freq;
-// //				    freq = 1 / (freq / rate);
-// //				    snprintf (buf, sizeof(buf), "%f %f\n",
-// //					time, freq);
-// //				    out.writeBlock (&buf[0], strlen(buf));
-// //				} else lastfreq = freq;
-// //				first = false;
-// //				last = ms2samples(tmp->pos);
-// //			    }
-// //			}
-// //
-// //		if (!first) //make sure last tone gets its length
-// //		{
-// //		    time = last * 1000 / rate;
-// //		    snprintf (buf, sizeof(buf), "%f %f\n", time, freq);
-// //		    out.writeBlock (&buf[0], strlen(buf));
-// //		}
-// //
-// //		out.close ();
-// //	    }
-// //	}
-// //    }
-// //}
 
 // ////****************************************************************************
 // //void MainWidget::markSignal (const char *str)

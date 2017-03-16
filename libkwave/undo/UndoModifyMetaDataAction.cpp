@@ -125,7 +125,7 @@ Kwave::UndoAction *Kwave::UndoModifyMetaDataAction::undo(
 	}
 
 	// restore the saved meta data
-	manager.metaData().merge(m_saved_data);
+	manager.mergeMetaData(m_saved_data);
 
 	// take the previous values as new undo data
 	m_saved_data = old_data;
@@ -133,7 +133,7 @@ Kwave::UndoAction *Kwave::UndoModifyMetaDataAction::undo(
 	return this;
     } else {
 	// restore the saved meta data
-	manager.metaData().merge(m_saved_data);
+	manager.mergeMetaData(m_saved_data);
 	return 0;
     }
 }

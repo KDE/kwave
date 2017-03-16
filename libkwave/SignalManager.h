@@ -360,10 +360,12 @@ namespace Kwave
 	 * @param index the index of the label [0...N-1]
 	 * @param pos position of the label [samples]
 	 * @param name the name of the label
+	 * @param with_undo if true, create undo info
 	 * @return true if succeeded, false if the index is out of range or if
 	 *         the new position is already occupied by an existing label
 	 */
-	bool modifyLabel(int index, sample_index_t pos, const QString &name);
+	bool modifyLabel(int index, sample_index_t pos, const QString &name,
+	                 bool with_undo);
 
 	/**
 	 * Returns the index of a label, counting from zero
@@ -390,6 +392,12 @@ namespace Kwave
 	 * @return reference to the list of all MetaData objects
 	 */
 	const Kwave::MetaDataList &metaData() const { return m_meta_data; }
+
+	/**
+	 * Merges a list of meta data items
+	 * @param meta_data the meta data to merge
+	 */
+	void mergeMetaData(const Kwave::MetaDataList &meta_data);
 
 	/**
 	 * Returns the uuid of a track

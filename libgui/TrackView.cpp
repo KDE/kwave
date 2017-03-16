@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <QtGlobal>
 #include <QMenu>
 #include <QPainter>
 #include <QPalette>
@@ -35,6 +36,8 @@
 
 #include "libgui/LabelItem.h"
 #include "libgui/MultiStateWidget.h"
+#include "libgui/SelectionBorderItem.h"
+#include "libgui/SelectionItem.h"
 #include "libgui/TrackView.h"
 #include "libgui/ViewItem.h"
 
@@ -171,38 +174,94 @@ void Kwave::TrackView::setVerticalZoom(double zoom)
 //***************************************************************************
 QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
 {
+    QSharedPointer<Kwave::ViewItem> item = QSharedPointer<Kwave::ViewItem>(0);
     Q_ASSERT(m_signal_manager);
-    if (!m_signal_manager) return QSharedPointer<Kwave::ViewItem>(0);
+    if (!m_signal_manager) return item;
 
-    double offset    = m_offset + pixels2samples(pos.x()); // [samples]
-    double tolerance = m_zoom * selectionTolerance();      // [samples]
+    const double offset    = m_offset + pixels2samples(pos.x()); // [samples]
+    const double tolerance = m_zoom * selectionTolerance();      // [samples]
+    const double fine_pos  = static_cast<double>(m_offset) +
+	(static_cast<double>(pos.x()) * m_zoom);
 
-    // our display could contain labels -> find the nearest label
-    double d_min = tolerance;
+    // we support the following items (with this priority):
+    // 1. a label, which can be moved
+    // 2. the border of a selection (left or right), which can be moved
+    // 3. the body of a selection, which can be dragged
+
+    // find the nearest label
     Kwave::Label nearest_label;
-    int  nearest_index = 0;
-    int index = 0;
-    foreach (const Kwave::Label &label,
-	Kwave::LabelList(m_signal_manager->metaData()))
+    unsigned int nearest_label_index = 0;
+    double       d_label             = tolerance;
     {
-	double x = static_cast<double>(label.pos());
-	double d = (x > offset) ? (x - offset) : (offset - x);
-	if (d < d_min) {
-	    d_min = d;
-	    nearest_label = label;
-	    nearest_index = index;
+	unsigned int index = 0;
+	foreach (const Kwave::Label &label,
+	    Kwave::LabelList(m_signal_manager->metaData()))
+	{
+	    double d = qAbs(static_cast<double>(label.pos()) - fine_pos);
+	    if (d < qMin(d_label, tolerance)) {
+		d_label             = d;
+		nearest_label       = label;
+		nearest_label_index = index;
+	    }
+	    index++;
 	}
-	index++;
     }
 
-    // found something, get the return value
-    if (d_min < tolerance) {
-	double ms = samples2ms(nearest_label.pos());
-	return QSharedPointer<Kwave::ViewItem>(
-	    new Kwave::LabelItem(nearest_index, ms, nearest_label)
-	);
+    // get information about the current selection
+    double selection_first  = static_cast<double>(
+	m_signal_manager->selection().first());
+    double selection_last   = static_cast<double>(
+	m_signal_manager->selection().last());
+    bool selection_is_empty = (m_signal_manager->selection().length() == 0);
+    const double d_selection_left   = qAbs(selection_first - fine_pos);
+    const double d_selection_right  = qAbs(selection_last  - fine_pos);
+
+    // special case: label is near selection left and cursor is left
+    //               of selection -> take the label
+    //               (or vice versa at the right border)
+    bool prefer_the_label =
+	((d_selection_left  < tolerance) && (fine_pos < selection_first)) ||
+	((d_selection_right < tolerance) && (fine_pos > selection_last));
+    bool selection_is_nearer =
+	(d_selection_left <= d_label) || (d_selection_right <= d_label);
+    if (selection_is_nearer && !prefer_the_label) {
+	// one of the selection borders is nearer
+	d_label = d_selection_left + d_selection_right;
     }
 
+    if ( (d_label <= qMin(d_selection_left, d_selection_right)) &&
+	  !nearest_label.isNull() ) {
+	// found a label
+	return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
+	    Kwave::LabelItem(*this, *m_signal_manager,
+	                     nearest_label_index, nearest_label));
+    }
+
+    if ( (d_selection_left < qMin(tolerance, d_selection_right)) ||
+         ((d_selection_left < tolerance) && selection_is_empty) )
+    {
+	// found selection border (left) or empty selection
+	return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
+	    Kwave::SelectionBorderItem(
+	        *this, *m_signal_manager,
+		m_signal_manager->selection().first()));
+    }
+
+    if (d_selection_right < qMin(tolerance, d_selection_left)) {
+	// found selection border (right)
+	return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
+	    Kwave::SelectionBorderItem(
+		*this, *m_signal_manager,
+		m_signal_manager->selection().last()));
+    }
+
+    if ((offset >= selection_first) && (offset <= selection_last)) {
+	// found selection body
+	return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
+	    Kwave::SelectionItem(*this, *m_signal_manager));
+    }
+
+    // nothing found
     return QSharedPointer<Kwave::ViewItem>(0);
 }
 

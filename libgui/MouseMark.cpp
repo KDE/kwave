@@ -16,12 +16,19 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "libgui/MouseMark.h"
+
 #include <QtGlobal>
+
+#include "libgui/MouseMark.h"
 
 //****************************************************************************
 Kwave::MouseMark::MouseMark()
     :m_initial(0), m_last(0)
+{
+}
+
+//****************************************************************************
+Kwave::MouseMark::~MouseMark()
 {
 }
 
@@ -35,13 +42,13 @@ void Kwave::MouseMark::set(sample_index_t l, sample_index_t r)
 //****************************************************************************
 sample_index_t Kwave::MouseMark::left() const
 {
-    return (m_initial < m_last) ? m_initial : m_last;
+    return qMin(m_initial, m_last);
 }
 
 //****************************************************************************
 sample_index_t Kwave::MouseMark::right() const
 {
-    return (m_initial > m_last) ? m_initial : m_last;
+    return qMax(m_initial, m_last);
 }
 
 //****************************************************************************
@@ -51,9 +58,8 @@ void Kwave::MouseMark::grep(sample_index_t x)
 	(x > m_last)    ? (x - m_last)    : (m_last    - x);
     const sample_index_t d_first =
 	(x > m_initial) ? (x - m_initial) : (m_initial - x);
-    if (d_last > d_first) {
+    if (d_last > d_first)
 	m_initial = m_last;
-    }
     m_last = x;
 }
 

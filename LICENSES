@@ -288,6 +288,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libgui/OverViewWidget.h				GPL2+
 	libgui/ScaleWidget.cpp				GPL2+
 	libgui/ScaleWidget.h				GPL2+
+	libgui/SelectionBorderItem.h			GPL2+
+	libgui/SelectionBorderItem.cpp			GPL2+
+	libgui/SelectionItem.h				GPL2+
+	libgui/SelectionItem.cpp			GPL2+
 	libgui/SelectionTracker.h			GPL2+
 	libgui/SelectionTracker.cpp			GPL2+
 	libgui/SelectTimeWidgetBase.ui			(should be GPL2+)

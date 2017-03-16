@@ -556,7 +556,7 @@ void Kwave::SignalManager::close()
     m_selection.clear();
 
     m_empty = true;
-    while (tracks()) deleteTrack(tracks()-1);
+    while (tracks()) deleteTrack(tracks() - 1);
     m_signal.close();
 
     // clear all meta data
@@ -1329,7 +1329,9 @@ void Kwave::SignalManager::enableUndo()
 //***************************************************************************
 void Kwave::SignalManager::disableUndo()
 {
-    Q_ASSERT(m_undo_transaction_level == 0);
+    if (m_undo_transaction_level)
+	qWarning("SignalManager::disableUndo(): undo transaction level=%u",
+	    m_undo_transaction_level);
 
     flushUndoBuffers();
     m_undo_enabled = false;
@@ -1951,7 +1953,8 @@ void Kwave::SignalManager::deleteLabel(int index, bool with_undo)
 
 //***************************************************************************
 bool Kwave::SignalManager::modifyLabel(int index, sample_index_t pos,
-                                       const QString &name)
+                                       const QString &name,
+                                       bool with_undo)
 {
     Kwave::LabelList labels(m_meta_data);
     if ((index < 0) || (index >= Kwave::toInt(labels.count())))
@@ -1965,7 +1968,7 @@ bool Kwave::SignalManager::modifyLabel(int index, sample_index_t pos,
 	return false;
 
     // add a undo action
-    if (m_undo_enabled) {
+    if (with_undo && m_undo_enabled) {
 	Kwave::UndoModifyMetaDataAction *undo_modify =
 	    new(std::nothrow) Kwave::UndoModifyMetaDataAction(
 	            Kwave::MetaDataList(label));
@@ -1983,6 +1986,13 @@ bool Kwave::SignalManager::modifyLabel(int index, sample_index_t pos,
 
     emit sigMetaDataChanged(m_meta_data);
     return true;
+}
+
+//***************************************************************************
+void Kwave::SignalManager::mergeMetaData(const Kwave::MetaDataList &meta_data)
+{
+    m_meta_data.merge(meta_data);
+    emit sigMetaDataChanged(m_meta_data);
 }
 
 //***************************************************************************

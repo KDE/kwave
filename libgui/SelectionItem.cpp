@@ -99,7 +99,12 @@ void Kwave::SelectionItem::startDragging()
 	// the previous selection, the previous range has already
 	// been moved to the right !
 	sample_index_t src_pos = first;
-	if ((d->target() == this) && (f < src_pos)) src_pos += len;
+
+	SignalView *target = qobject_cast<Kwave::SignalView *>(d->target());
+	if ( (f < src_pos) && target &&
+	      (target->signalManager() == m_view.signalManager()) ) {
+	    src_pos += len;
+	}
 
 	m_signal_manager.deleteRange(src_pos, len,
 	                             m_signal_manager.selectedTracks());

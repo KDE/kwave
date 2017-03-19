@@ -96,6 +96,11 @@ namespace Kwave
 	    return m_preferred_location;
 	}
 
+	/** returns the associated signal manager */
+	inline Kwave::SignalManager *signalManager() const {
+	    return m_signal_manager;
+	}
+
 	/** returns the index of the associated track (or -1) */
 	inline int track() const {
 	    return m_track_index;

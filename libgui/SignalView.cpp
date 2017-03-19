@@ -365,6 +365,12 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 	    if (flags & Kwave::ViewItem::CanGrabAndMove) {
 		// update the position of the item
 		m_selected_item->moveTo(mouse_pos);
+
+		// show the position window, so that we see the coordinates
+		// where we move the item to
+		sample_index_t pos  = m_offset + pixels2samples(mouse_pos.x());
+		QString item_text = m_selected_item->toolTip(pos);
+		showPosition(item_text, pos, mouse_pos);
 	    }
 	    break;
 	}

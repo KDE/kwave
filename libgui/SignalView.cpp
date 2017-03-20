@@ -346,11 +346,13 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 	case MouseDragItem: /* FALLTHROUGH */
 	case MouseMoveItem: {
 	    // move mode
-	    hidePosition();
 
-	    if (m_selected_item.isNull())
+	    if (m_selected_item.isNull()) {
+		hidePosition();
 		break;
+	    }
 
+	    bool hide_position = true;
 	    Kwave::ViewItem::Flags flags = m_selected_item->flags();
 	    if (flags & Kwave::ViewItem::CanDragAndDrop) {
 		const int dmin = QApplication::startDragDistance();
@@ -371,7 +373,10 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
 		sample_index_t pos  = m_offset + pixels2samples(mouse_pos.x());
 		QString item_text = m_selected_item->toolTip(pos);
 		showPosition(item_text, pos, mouse_pos);
+		hide_position = false;
 	    }
+
+	    if (hide_position) hidePosition();
 	    break;
 	}
 	case MouseNormal: /* FALLTHROUGH */
@@ -526,11 +531,11 @@ void Kwave::SignalView::keyPressEvent(QKeyEvent *e)
 	// Cancel key (Escape) -> reset all view item operations
 	m_mouse_mode = MouseNormal;
 	setCursor(Qt::ArrowCursor);
-	hidePosition();
 	m_selected_item = QSharedPointer<Kwave::ViewItem>(0);
     } else {
 	QWidget::keyPressEvent(e);
     }
+    hidePosition();
 }
 
 //***************************************************************************

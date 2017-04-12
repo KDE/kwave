@@ -213,6 +213,7 @@ int main(int argc, char **argv)
     addDataStrings(about);
 
     about.setOrganizationDomain(QByteArray("kde.org"));
+    about.setDesktopFileName(QStringLiteral("org.kde.kwave"));
 
     /* use the about data above for this application */
     KAboutData::setApplicationData(about);

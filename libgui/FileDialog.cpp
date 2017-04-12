@@ -121,7 +121,8 @@ Kwave::FileDialog::FileDialog(
 	if (QFileInfo(file.path()).exists() || saving)
 	    m_file_widget.setUrl(m_last_url.adjusted(QUrl::RemoveFilename));
 	if (!file.isDir() && (file.exists() || saving))
-	    m_file_widget.setSelection(m_last_url.fileName());
+	    m_file_widget.setSelectedUrl(
+		QUrl::fromLocalFile(m_last_url.fileName()));
     }
 
     // parse the list of file filters and put the last extension on top

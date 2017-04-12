@@ -212,6 +212,8 @@ int main(int argc, char **argv)
     );
     addDataStrings(about);
 
+    about.setOrganizationDomain(QByteArray("kde.org"));
+
     /* use the about data above for this application */
     KAboutData::setApplicationData(about);
 
@@ -225,7 +227,6 @@ int main(int argc, char **argv)
     app.processCmdline(&cmdline);
     app.setApplicationName(_("kwave"));
     app.setApplicationVersion(_(KWAVE_VERSION));
-    app.setOrganizationDomain(_("kde.org"));
     cmdline.process(app);
     about.setupCommandLine(&cmdline);
     about.processCommandLine(&cmdline);

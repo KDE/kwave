@@ -108,7 +108,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	return 0;
     }
 
-    QStringList *list = new QStringList();
+    QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list) {
 	// user has pressed "OK"
@@ -117,6 +117,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	QUrl url = dialog->selectedUrl();
 	if (url.isEmpty()) {
 	    delete dialog;
+	    delete list;
 	    return 0;
 	}
 	QString name = url.path();
@@ -148,10 +149,6 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	    QString::number(mode) + _(",") +
 	    QString::number(selection_only) + _(")")
 	);
-    } else {
-	// user pressed "Cancel"
-	delete list;
-	list = 0;
     }
 
     if (dialog) delete dialog;

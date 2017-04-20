@@ -18,7 +18,9 @@
 
 #include "config.h"
 
+#include <QChar>
 #include <QLatin1Char>
+#include <QRegExp>
 #include <QString>
 
 #include "libkwave/Parser.h"
@@ -287,6 +289,25 @@ QString Kwave::Parser::escape(const QString &text)
     }
 
     return escaped;
+}
+
+//***************************************************************************
+QString Kwave::Parser::escapeForFileName(const QString &text)
+{
+    QString result = text;
+
+    // convert all kinds of (multiple) whitespaces, including tabs
+    // and newlines into single spaces
+    QRegExp rx(_("[\\s\\\t\\\r\\\n]+"));
+    result.replace(rx, QChar(0x0020));
+
+    // NOTE: this escapes any kind of special chars, but not a slash "/"
+    result = escape(result);
+
+    // special handling for slashes "/" -> replace with unicode FRACTION SLASH
+    result.replace(QChar(0x002F), QChar(0x2044));
+
+    return result;
 }
 
 //***************************************************************************

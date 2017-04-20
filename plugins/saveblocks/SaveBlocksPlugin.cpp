@@ -185,7 +185,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 {
     qDebug("SaveBlocksPlugin::start()");
 
-    // interprete the parameters
+    // interpret the parameters
     int result = interpreteParameters(params);
     if (result) return result;
 
@@ -498,25 +498,6 @@ void Kwave::SaveBlocksPlugin::scanBlocksToSave(const QString &base,
 }
 
 //***************************************************************************
-QString Kwave::SaveBlocksPlugin::escapeForFileName(const QString &text)
-{
-    QString result = text;
-
-    // convert all kinds of (multiple) whitespaces, including tabs
-    // and newlines into single spaces
-    QRegExp rx(_("[\\s\\\t\\\r\\\n]+"));
-    result.replace(rx, QChar(0x0020));
-
-    // NOTE: this escapes any kind of special chars, but not a slash "/"
-    result = Kwave::Parser::escape(result);
-
-    // special handling for slashes "/" -> replace with unicode FRACTION SLASH
-    result.replace(QChar(0x002F), QChar(0x2044));
-
-    return result;
-}
-
-//***************************************************************************
 QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     const QString &ext, const QString &pattern,
     unsigned int index, int count, int total)
@@ -605,7 +586,7 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
 			    value = value + _(" ");
 		    }
 		}
-		value = escapeForFileName(value);
+		value = Kwave::Parser::escapeForFileName(value);
 	    }
 	}
 
@@ -623,7 +604,7 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
 	if ((idx >= 0) && (idx < m_block_info.count()))
 	    title = m_block_info[idx].m_title;
 	if (title.length()) {
-	    title = escapeForFileName(title);
+	    title = Kwave::Parser::escapeForFileName(title);
 	    p.replace(rx_title, title);
 	}
     }

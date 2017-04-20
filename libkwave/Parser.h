@@ -145,6 +145,15 @@ namespace Kwave
 	static QString escape(const QString &text);
 
 	/**
+	 * Escape all parts of a string that might be dangerous for using
+	 * within a file name, like "/" and similar.
+	 *
+	 * @param text a unicode text to escape
+	 * @return escaped string, which should be safe to use in a file name
+	 */
+	static QString escapeForFileName(const QString &text);
+
+	/**
 	 * Un-escapes all characters in a string previously escaped with
 	 * escape()
 	 *

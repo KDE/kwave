@@ -173,14 +173,6 @@ namespace Kwave
 	QString createDisplayList(const QStringList &list,
                                   unsigned int max_entries) const;
 
-	/**
-	 * Escape all parts of a string that might be dangerous for using
-	 * within a file name, like "/" and similar.
-	 * @param text unescaped text
-	 * @return escaped string, which should be safe to use in a file name
-	 */
-	QString escapeForFileName(const QString &text);
-
     private:
 
 	/** the URL of the first file (user selection) */

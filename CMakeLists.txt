@@ -219,6 +219,7 @@ INCLUDE(GenerateExportHeader)
 INCLUDE(FeatureSummary)
 
 FIND_PACKAGE(KF5 REQUIRED COMPONENTS
+    Archive
     Completion
     Config
     ConfigWidgets

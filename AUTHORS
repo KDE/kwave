@@ -62,6 +62,11 @@ Sven-Steffen Arndt <ssa29@gmx.de>
 minor contributors, copyright holders and others
 ================================================
 
+Sebastian Trueg <trueg@k3b.org>,
+Gustavo Pichorim Boiko <gustavo.boiko@kdemail.net>
+Michal Malek <michalm@jabster.pl>
+	* parts of plugins/export_k3b/K3BExportPlugin.cpp
+
 Aaron Holtzman <aholtzma@ess.engr.uvic.ca>
 	* libkwave/cpu_accel.cpp
 

@@ -202,14 +202,11 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     selection(0, &selection_left, &selection_right, false);
 
     bool selected_something = (selection_left != selection_right);
-    bool selected_all = ((selection_left == 0) &&
-                         (selection_right+1 >= signalLength()));
+    bool selected_all = ( (selection_left == 0) &&
+                          ((selection_right + 1) >= signalLength()) );
     bool enable_selection_only = selected_something && !selected_all;
     bool selection_only = enable_selection_only && m_selection_only;
-
-    if (selection_only) {
-	selection(0, &selection_left, &selection_right, true);
-    } else {
+    if (!selection_only) {
 	selection_left  = 0;
 	selection_right = signalLength() - 1;
     }

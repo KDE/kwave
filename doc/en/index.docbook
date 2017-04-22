@@ -17,6 +17,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_k3b "http://www.k3b.org/">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
   <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
@@ -147,6 +148,7 @@
   <!ENTITY no-i18n-plugin_codec_ogg "codec_ogg">
   <!ENTITY no-i18n-plugin_codec_wav "codec_wav">
   <!ENTITY no-i18n-plugin_debug "debug">
+  <!ENTITY no-i18n-plugin_export_k3b "export_k3b">
   <!ENTITY no-i18n-plugin_fileinfo "fileinfo">
   <!ENTITY no-i18n-plugin_goto "goto">
   <!ENTITY no-i18n-plugin_insert_at "insert_at">
@@ -4456,6 +4458,9 @@
 	    <indexdiv><title>d</title>
 		<indexentry><primaryie><link linkend="plugin_sect_debug" endterm="plugin_title_debug"/></primaryie></indexentry>
 	    </indexdiv>
+	    <indexdiv><title>e</title>
+		<indexentry><primaryie><link linkend="plugin_sect_export_k3b" endterm="plugin_title_export_k3b"/></primaryie></indexentry>
+	    </indexdiv>
 	    <indexdiv><title>f</title>
 		<indexentry><primaryie><link linkend="plugin_sect_fileinfo" endterm="plugin_title_fileinfo"/></primaryie></indexentry>
 	    </indexdiv>
@@ -5353,6 +5358,227 @@
 	    </listitem>
 	</varlistentry>
     </variablelist>
+    </sect1>
+
+    <!-- @PLUGIN@ export_k3b -->
+    <sect1 id="plugin_sect_export_k3b"><title id="plugin_title_export_k3b">&no-i18n-plugin_export_k3b; (Export to K3B Project)</title>
+	<screenshot>
+	    <screeninfo>Screenshot</screeninfo>
+	    <mediaobject>
+		<imageobject>
+		    <imagedata fileref="kwave-plugin-export_k3b.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		    <phrase>Screenshot of the K3B Export Plugin</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
+	<variablelist>
+	    <varlistentry>
+		<term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
+		<listitem><para><literal>&no-i18n-plugin_export_k3b;</literal></para></listitem>
+	    </varlistentry>
+	    <varlistentry>
+		<term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
+		<listitem><para>function</para></listitem>
+	    </varlistentry>
+	    <varlistentry>
+		<term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
+		<listitem>
+		    <para>
+			Saves all sections between markers into a separate file and creates
+			a K3B project file. After having successfully written all files it
+			is possible to start <ulink url="&url_k3b;">K3B</ulink> and
+			burn the result to an audio CD.
+			This is useful for splitting a file with a recording that consists
+			of several parts, which are separated by labels, and then burn it
+			to an audio CD with multiple tracks, including CD text meta data
+			which is extracted from the descriptions of the labels.
+		    </para>
+		    <para>
+			(This plugin is internally using the
+			<link linkend="plugin_sect_saveblocks" endterm="plugin_title_saveblocks"/>
+			plugin.)
+		    </para>
+		</listitem>
+	    </varlistentry>
+	    <varlistentry>
+		<term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
+		<listitem>
+		    <variablelist>
+			<varlistentry>
+			    <term><replaceable>filename</replaceable></term>
+			    <listitem>
+				<para>
+				    The name of the K3B project file, will be used as
+				    base name for the exported file names.
+				</para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term><replaceable>pattern</replaceable></term>
+			    <listitem>
+				<para>
+				    A pattern that will be used for detecting
+				    title and artist from the label at the start
+				    of a section.
+				    It supports the following wildcards which
+				    will be replaced by the corresponding content
+				    when creating the CD text meta data:
+				</para>
+				<informaltable frame='all'>
+				    <tgroup cols='2'>
+					<thead>
+					    <row>
+						<entry align='left'>wildcard</entry>
+						<entry align='left'>description</entry>
+					    </row>
+					</thead>
+					<tbody>
+					    <row>
+						<entry>&no-i18n-tag;<command>[%artist]</command></entry>
+						<entry>
+						    Will be replaced with the artist that performed
+						    the corresponding block or alternatively the author.
+						</entry>
+					    </row>
+					    <row>
+						<entry>&no-i18n-tag;<command>[%title]</command></entry>
+						<entry>
+						    Will be replaced with the title of the block, which is taken
+						    from the descriptive text of the label at the
+						    <emphasis>start</emphasis> of the block.
+						    If that text is empty it will fall back to the title
+						    of the file (see file information item
+						    "<link linkend="INF_NAME">Name</link>").
+						    If this also does not exist, it will fall back to the
+						    base file name as described above.
+						</entry>
+					    </row>
+					</tbody>
+				    </tgroup>
+				</informaltable>
+				<para>
+				    Example: <quote><command><literal>[%title] ([%artist])</literal></command></quote>
+				    will detect author <quote><command><literal>Beethoven</literal></command></quote> and title
+				    <quote><command><literal>Symphony No. 5</literal></command></quote> from the string
+				    <quote><command><literal>Symphony No. 5 (Beethoven)</literal></command></quote>.
+				</para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term><replaceable>selection only</replaceable></term>
+			    <listitem>
+				<para>
+				    <informaltable frame='all'>
+					<tgroup cols='2'>
+					    <thead>
+						<row>
+						    <entry align='left'>value</entry>
+						    <entry align='left'>description</entry>
+						</row>
+					    </thead>
+					    <tbody>
+						<row>
+						    <entry>&no-i18n-tag;<command>0</command></entry>
+						    <entry>
+							Save all sections of the whole file.
+						    </entry>
+						</row>
+						<row>
+						    <entry>&no-i18n-tag;<command>1</command></entry>
+						    <entry>
+							Save only the sections that are within the
+							current selection. If nothing is selected,
+							the whole file will be saved.
+						    </entry>
+						</row>
+					    </tbody>
+					</tgroup>
+				    </informaltable>
+				</para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term><replaceable>export location</replaceable></term>
+			    <listitem>
+				<para>
+				    Determines where the blocks should be saved.
+				    <informaltable frame='all'>
+					<tgroup cols='2'>
+					    <thead>
+						<row>
+						    <entry align='left'>value</entry>
+						    <entry align='left'>description</entry>
+						</row>
+					    </thead>
+					    <tbody>
+						<row>
+						    <entry>&no-i18n-tag;<command>0</command></entry>
+						    <entry>
+							Save to the same directory as the
+							K3B project file.
+						    </entry>
+						</row>
+						<row>
+						    <entry>&no-i18n-tag;<command>1</command></entry>
+						    <entry>
+							Save into a sub directory of the directory
+							of the K3B project file, using the K3B
+							project file name as base and appending
+							<quote><command><literal>.dir</literal></command></quote>.
+						    </entry>
+						</row>
+					    </tbody>
+					</tgroup>
+				    </informaltable>
+				</para>
+			    </listitem>
+			</varlistentry>
+
+			<varlistentry>
+			    <term><replaceable>overwrite policy</replaceable></term>
+			    <listitem>
+				<para>
+				    Determines where the numbering should start.
+				    <informaltable frame='all'>
+					<tgroup cols='2'>
+					    <thead>
+						<row>
+						    <entry align='left'>value</entry>
+						    <entry align='left'>description</entry>
+						</row>
+					    </thead>
+					    <tbody>
+						<row>
+						    <entry>&no-i18n-tag;<command>0</command></entry>
+						    <entry>
+							Always start with index 1, with the risk
+							of overwriting existing files.
+						    </entry>
+						</row>
+						<row>
+						    <entry>&no-i18n-tag;<command>1</command></entry>
+						    <entry>
+							Continue after the index of the highest
+							index that already exists, this avoids
+							overwriting existing files.
+						    </entry>
+						</row>
+					    </tbody>
+					</tgroup>
+				    </informaltable>
+				</para>
+			    </listitem>
+			</varlistentry>
+
+		    </variablelist>
+		</listitem>
+	    </varlistentry>
+	</variablelist>
     </sect1>
 
     <!-- @PLUGIN@ fileinfo -->
@@ -6618,7 +6844,7 @@
 					    <row>
 						<entry>&no-i18n-tag;<command>[%title]</command></entry>
 						<entry>
-						    Will be replaced with the title the block, which is taken
+						    Will be replaced with the title of the block, which is taken
 						    from the descriptive text of the label at the
 						    <emphasis>start</emphasis> of the block.
 						    If that text is empty it will fall back to the title
@@ -7720,6 +7946,18 @@
 		</emphasis></para><para>
 			plugins/record/Record-PulseAudio.cpp
 			plugins/record/Record-PulseAudio.h
+		</para>
+	    </listitem>
+	    <listitem>
+		<para><emphasis role="bold">
+		    Sebastian Trueg <email>trueg@k3b.org</email>,
+
+		    Gustavo Pichorim Boiko <email>gustavo.boiko@kdemail.net</email>,
+
+		    Michal Malek <email>michalm@jabster.pl</email>
+		</emphasis></para>
+		<para>
+		    parts of plugins/export_k3b/K3BExportPlugin.cpp
 		</para>
 	    </listitem>
 	</itemizedlist>

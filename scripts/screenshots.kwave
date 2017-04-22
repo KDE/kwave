@@ -173,6 +173,18 @@ plugin-codec_mp3:
     sync()
 
 #
+# screenshot of the K3B export setup dialog
+#
+plugin-export_k3b:
+    selectall()
+    select_track:off(1)
+    delayed(500,window:screenshot(Kwave::K3BExportDialog, /var/tmp/screenshots/${LANG}/kwave-plugin-export_k3b.png))
+    delayed(100,window:close(Kwave::K3BExportDialog))
+    plugin:setup(export_k3b)
+    sync()
+    select_track:on(1)
+
+#
 # screenshot of the File Info dialog
 #
 plugin-fileinfo:

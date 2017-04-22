@@ -171,18 +171,20 @@ void Kwave::K3BExportPlugin::scanBlocksToSave(const QString &base,
 	    block.m_filename = QString();
 	    block.m_start    = block_start;
 	    block.m_length   = block_end - block_start;
-	    block.m_title    = block_title;
+	    block.m_title    = prev_title;
 	    block.m_artist   = file_artist;
 
 	    // detect title and artist
-	    detectBlockMetaData(block_title, m_pattern, block);
+	    detectBlockMetaData(prev_title, m_pattern, block);
 	    m_block_info.append(block);
 
-	    prev_title = block.m_title;
+	    prev_title = block_title;
 
 // 	    qDebug("#%d [%llu...%llu]", index, block_start, block_end);
 // 	    qDebug("    title  = '%s'", DBG(block.m_title));
 // 	    qDebug("    artist = '%s'", DBG(block.m_artist));
+	} else {
+	    prev_title = block_title;
 	}
 
 	if (label.isNull()) break;

@@ -2,6 +2,7 @@
 xx.xx.x [xxxx-xx-xx]
 
   * reduced flicker of position widget
+  * bugfix: deleting labels per menu did not work
 
 17.04.0 [2017-03-19]
 

@@ -87,10 +87,11 @@ Kwave::SelectionTracker::SelectionTracker(Kwave::SignalManager *signal,
 //***************************************************************************
 Kwave::SelectionTracker::~SelectionTracker()
 {
-    Q_ASSERT(m_signal);
-    // unregister us from the undo manager
-    Kwave::UndoManager &undo = m_signal->undoManager();
-    undo.unregisterHandler(this);
+    // unregister us from the undo manager (if it still exists)
+    if (m_signal) {
+	Kwave::UndoManager &undo = m_signal->undoManager();
+	undo.unregisterHandler(this);
+    }
 }
 
 //***************************************************************************

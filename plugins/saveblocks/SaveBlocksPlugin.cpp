@@ -261,8 +261,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 
 	// check for missing subdirectory
 	if (!file_info.dir().exists()) {
-	    QFileInfo inf(display_name);
-	    QString missing_dir = inf.path();
+	    QString missing_dir = file_info.absolutePath();
 	    if (!missing_dirs.contains(missing_dir))
 		missing_dirs += missing_dir;
 	}

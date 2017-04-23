@@ -86,40 +86,48 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
     info_layout->setColumnStretch(1, 100);
     top_layout->addLayout(info_layout);
 
-    // label with "source"
-    if (!addInfoLabel(info_layout, i18n("Source: "), 0, 0)) return;
+    // label with "file"
+    if (!addInfoLabel(info_layout,
+	i18nc("file progress dialog", "File: "), 0, 0)) return;
     text = _("?");
     m_lbl_url = addInfoLabel(info_layout, text, 0, 1);
     if (!m_lbl_url) return;
 
     // label with "length"
-    if (!addInfoLabel(info_layout, i18n("Length: "), 1, 0)) return;
+    if (!addInfoLabel(info_layout,
+	i18nc("file progress dialog", "Length: "), 1, 0)) return;
 
     m_lbl_length = addInfoLabel(info_layout, _(""), 1, 1);
     if (!m_lbl_length) return;
     setLength(quint64(samples) * quint64(tracks));
 
     // label with "rate:"
-    if (!addInfoLabel(info_layout, i18n("Sample rate: "), 2, 0)) return;
-    text = i18n("%1 Samples per second", rate);
+    if (!addInfoLabel(info_layout,
+	i18nc("file progress dialog", "Sample Rate: "), 2, 0)) return;
+    text = i18nc("file progress dialog, %1=number of samples per second",
+                 "%1 Samples per second", rate);
     if (!addInfoLabel(info_layout, text, 2, 1)) return;
 
     // label with "resolution:"
-    if (!addInfoLabel(info_layout, i18n("Resolution: "), 3, 0)) return;
-    text = i18n("%1 Bits per sample", bits);
+    if (!addInfoLabel(info_layout,
+	i18nc("file progress dialog", "Resolution: "), 3, 0)) return;
+    text = i18nc("file progress dialog, "
+                 "%1=number of bits per sample (8, 16, 24...)",
+                 "%1 Bits per sample", bits);
     if (!addInfoLabel(info_layout, text, 3, 1)) return;
 
     // label with "tracks:"
-    if (!addInfoLabel(info_layout, i18n("Tracks: "), 4, 0)) return;
+    if (!addInfoLabel(info_layout,
+	i18nc("file progress dialog", "Tracks: "), 4, 0)) return;
     switch (tracks) {
 	case 1:
-	    text = i18n("1 (mono)");
+	    text = i18nc("number of tracks", "1 (mono)");
 	    break;
 	case 2:
-	    text = i18n("2 (stereo)");
+	    text = i18nc("number of tracks", "2 (stereo)");
 	    break;
 	case 4:
-	    text = i18n("4 (quadro)");
+	    text = i18nc("number of tracks", "4 (quadro)");
 	    break;
 	default:
 	    text = text.setNum(tracks);
@@ -266,13 +274,18 @@ void Kwave::FileProgress::updateStatistics(double rate, double rest,
     num = num.sprintf("%1.1f", rate / 1024.0);
 
     quint64 ms = qMin(quint64(rest * 1000.0), 24ULL * 60ULL * 60ULL * 1000ULL);
-    text = i18n("%1 kB/s (%2 remaining)", num,
-		KFormat().formatDecimalDuration(ms));
+    text = i18nc("file progress dialog, "
+                 "%1=transfer rate, %2=remaining duration",
+                 "%1 kB/s (%2 remaining)", num,
+                 KFormat().formatDecimalDuration(ms));
     m_stat_transfer->setText(text);
 
     // right: statistic over the transferred bytes
     QString num1, num2;
-    text = i18n("%1 MB of %2 MB done",
+    text = i18nc("file progress dialog, "
+                 "%1=number of loaded/saved megabytes, "
+                 "%2=number of total megabytes to load or save",
+                  "%1 MB of %2 MB done",
 	num1.sprintf("%1.1f", pos / (1024.0 * 1024.0)),
 	num2.sprintf("%1.1f", m_size / (1024.0 * 1024.0)));
     m_stat_bytes->setText(text);
@@ -349,7 +362,8 @@ void Kwave::FileProgress::setLength(quint64 samples)
 	    qreal(m_sample_rate));
     } else {
 	// fallback if no rate: length in samples
-        text = i18n("%1 samples", samples);
+	text = i18nc("file progress dialog, %1=a number of samples",
+	             "%1 samples", samples);
     }
     m_lbl_length->setText(text);
 }

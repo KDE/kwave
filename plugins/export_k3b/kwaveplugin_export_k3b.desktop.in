@@ -1,6 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=K3B Project Export
+Name[de]=K3B Projekt-Export
+Name[nl]=Exporteren van K3B-project
+Name[pt]=Exportação para Projecto do K3B
+Name[sv]=K3B-projektexport
+Name[uk]=Експортування до проекту K3B
+Name[x-test]=xxK3B Project Exportxx
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

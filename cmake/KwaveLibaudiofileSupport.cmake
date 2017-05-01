@@ -28,9 +28,6 @@ INCLUDE(UsePkgConfig)
 INCLUDE(CheckTypeSize)
 
 PKG_CHECK_MODULES(LIBAUDIOFILE REQUIRED audiofile>=0.3.0)
-IF (NOT LIBAUDIOFILE_FOUND)
-    MESSAGE(FATAL_ERROR "audiofile library not found or too old")
-ENDIF(NOT LIBAUDIOFILE_FOUND)
 
 #############################################################################
 ### check if the system has audiofile.h                                   ###

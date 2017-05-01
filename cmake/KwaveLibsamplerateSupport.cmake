@@ -29,9 +29,6 @@ INCLUDE(UsePkgConfig)
 ### check for libsamplerate headers and library                           ###
 
 PKG_CHECK_MODULES(SAMPLERATE REQUIRED samplerate>=0.1.3)
-IF (NOT SAMPLERATE_FOUND)
-    MESSAGE(FATAL_ERROR "libsamplerate not found")
-ENDIF(NOT SAMPLERATE_FOUND)
 
 SET(SAMPLERATE_LIBS samplerate)
 SET(HAVE_LIBSAMPLERATE ON)

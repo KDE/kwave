@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef WAV_DECODER_H
-#define WAV_DECODER_H
+#ifndef AUDIOFILE_DECODER_H
+#define AUDIOFILE_DECODER_H
 
 #include "config.h"
 

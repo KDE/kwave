@@ -1,5 +1,5 @@
 /*************************************************************************
- *      K3BExportPlugin.h  -  export of K3B project files
+ *      K3BExportPlugin.h  -  export of K3b project files
  *                             -------------------
  *    begin                : Thu Apr 13 2017
  *    copyright            : (C) 2017 by Thomas Eschenbacher
@@ -72,7 +72,7 @@ namespace Kwave
 	virtual QStringList *setup(QStringList &params);
 
 	/**
-	 * Saves the K3B project file, using the settings made in "setup()"
+	 * Saves the K3b project file, using the settings made in "setup()"
 	 * @see Kwave::Plugin::start()
 	 */
 	virtual int start(QStringList &params);
@@ -129,7 +129,7 @@ namespace Kwave
 	/** save the "general" section */
 	void saveGeneralDocumentData(QDomElement *part);
 
-	/** save the K3B project document data */
+	/** save the K3b project document data */
 	void saveDocumentData(QDomElement *docElem);
 
 	/**

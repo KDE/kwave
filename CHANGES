@@ -1,7 +1,7 @@
 
 xx.xx.x [xxxx-xx-xx]
 
-  * new plugin: export to K3B project file
+  * new plugin: export to K3b project file
   * reduced flicker of position widget
   * bugfix: deleting labels per menu did not work
   * bugfix: wrong text in file progress dialog when saving

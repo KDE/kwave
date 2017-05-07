@@ -1,5 +1,5 @@
 /***************************************************************************
- * K3BExportWidget.cpp -  widget for K3B export options in the file open dlg
+ * K3BExportWidget.cpp -  widget for K3b export options in the file open dlg
  *                             -------------------
  *    begin                : Thu Apr 13 2017
  *    copyright            : (C) 2017 by Thomas Eschenbacher
@@ -41,7 +41,7 @@ Kwave::K3BExportWidget::K3BExportWidget(
 
     cbLabelPattern->addItem(i18nc(
 	"default entry of the list of placeholder patterns in "
-	"the K3B export plugin (used for detecting title and artist "
+	"the K3b export plugin (used for detecting title and artist "
 	"from a label description)",
 	"(auto detect)"
     ));

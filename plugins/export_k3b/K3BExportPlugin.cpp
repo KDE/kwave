@@ -1,5 +1,5 @@
 /*************************************************************************
- *     K3BExportPlugin.cpp -  export of K3B project files
+ *     K3BExportPlugin.cpp -  export of K3b project files
  *                             -------------------
  *    begin                : Thu Apr 13 2017
  *    copyright            : (C) 2017 by Thomas Eschenbacher
@@ -54,10 +54,10 @@
 
 KWAVE_PLUGIN(export_k3b, K3BExportPlugin)
 
-/** mime type of K3B project files */
+/** mime type of K3b project files */
 #define K3B_PROJECT_MIME_TYPE "application/x-k3b"
 
-/** file suffix of K3B project files */
+/** file suffix of K3b project files */
 #define K3B_FILE_SUFFIX _("*.k3b")
 
 /** number of digits to use for out files */
@@ -267,8 +267,8 @@ void Kwave::K3BExportPlugin::load(QStringList &params)
     Q_UNUSED(params);
 
     QString menu_path = _("File/Save/%1").arg(i18nc(
-	"menu: /File/Save/Export to K3B Project...",
-	"Export to K3B Project..."
+	"menu: /File/Save/Export to K3b Project...",
+	"Export to K3b Project..."
     ));
     emitCommand(_("menu(plugin:setup(export_k3b),%1%2)").arg(
 	menu_path).arg(_("/#group(@SIGNAL)")));
@@ -298,8 +298,8 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
 	new(std::nothrow) Kwave::K3BExportDialog(
 	    _("kfiledialog:///kwave_export_k3b"),
 	    K3B_FILE_SUFFIX + _("|") + i18nc(
-		"file type filter when exporting to K3B",
-		"K3B project file (*.k3b)"
+		"file type filter when exporting to K3b",
+		"K3b project file (*.k3b)"
 	    ),
 	    parentWidget(),
 	    QUrl::fromUserInput(signalName()),
@@ -366,7 +366,7 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
 
 //***************************************************************************
 /*
- * taken from K3B, libk3b/projects/k3bdoc.cpp
+ * taken from K3b, libk3b/projects/k3bdoc.cpp
  *
  * Copyright (C) 2003-2008 Sebastian Trueg <trueg@k3b.org>
  *
@@ -401,7 +401,7 @@ void Kwave::K3BExportPlugin::saveGeneralDocumentData(QDomElement *part)
 
 //***************************************************************************
 /*
- * taken from K3B, libk3b/projects/audiocd/k3baudiodoc.cpp
+ * taken from K3b, libk3b/projects/audiocd/k3baudiodoc.cpp
  *
  * Copyright (C) 2003-2008 Sebastian Trueg <trueg@k3b.org>
  * Copyright (C)      2009 Gustavo Pichorim Boiko <gustavo.boiko@kdemail.net>
@@ -603,7 +603,7 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
 
     // check: only mono or stereo files are supported
     if ((tracks.count() != 1) && (tracks.count() != 2)) {
-	qWarning("sorry, K3B can not handle %u tracks", tracks.count());
+	qWarning("sorry, K3b can not handle %u tracks", tracks.count());
 	Kwave::MessageBox::sorry(parentWidget(), i18n(
 	    "Only mono and stereo files can be used for an audio CD. "
 	    "You can either deselect some channels or export the file "
@@ -667,9 +667,9 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
 	return result; // aborted or failed -> do not ask about starting k3b
 
     if (Kwave::MessageBox::questionYesNo(parentWidget(), i18n(
-	"A K3B project file has been created and audio files have "
+	"A K3b project file has been created and audio files have "
 	"been exported.\n"
-	"Should I start K3B and open the audio CD project now?"
+	"Should I start K3b and open the audio CD project now?"
     )) == KMessageBox::Yes) {
 	// call k3b and pass the project file name (must be full path)
 	QStringList args;

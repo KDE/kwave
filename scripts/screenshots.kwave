@@ -173,7 +173,7 @@ plugin-codec_mp3:
     sync()
 
 #
-# screenshot of the K3B export setup dialog
+# screenshot of the K3b export setup dialog
 #
 plugin-export_k3b:
     selectall()

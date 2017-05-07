@@ -1,5 +1,5 @@
 /***************************************************************************
- * K3BExportWidget.h  -  widget for K3B export options in the file open dlg
+ * K3BExportWidget.h  -  widget for K3b export options in the file open dlg
  *                             -------------------
  *    begin                : Thu Apr 13 2017
  *    copyright            : (C) 2017 by Thomas Eschenbacher

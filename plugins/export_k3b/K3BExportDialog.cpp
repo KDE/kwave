@@ -1,5 +1,5 @@
 /***************************************************************************
- *    K3BExportDialog.cpp  -  Extended KwaveFileDialog for exporting to K3B
+ *    K3BExportDialog.cpp  -  Extended KwaveFileDialog for exporting to K3b
  *                             -------------------
  *    begin                : Thu Apr 13 2017
  *    copyright            : (C) 2017 by Thomas Eschenbacher

@@ -5361,7 +5361,7 @@
     </sect1>
 
     <!-- @PLUGIN@ export_k3b -->
-    <sect1 id="plugin_sect_export_k3b"><title id="plugin_title_export_k3b">&no-i18n-plugin_export_k3b; (Export to K3B Project)</title>
+    <sect1 id="plugin_sect_export_k3b"><title id="plugin_title_export_k3b">&no-i18n-plugin_export_k3b; (Export to K3b Project)</title>
 	<screenshot>
 	    <screeninfo>Screenshot</screeninfo>
 	    <mediaobject>
@@ -5369,7 +5369,7 @@
 		    <imagedata fileref="kwave-plugin-export_k3b.png" format="PNG"/>
 		</imageobject>
 		<textobject>
-		    <phrase>Screenshot of the K3B Export Plugin</phrase>
+		    <phrase>Screenshot of the K3b Export Plugin</phrase>
 		</textobject>
 	    </mediaobject>
 	</screenshot>
@@ -5387,8 +5387,8 @@
 		<listitem>
 		    <para>
 			Saves all sections between markers into a separate file and creates
-			a K3B project file. After having successfully written all files it
-			is possible to start <ulink url="&url_k3b;">K3B</ulink> and
+			a K3b project file. After having successfully written all files it
+			is possible to start <ulink url="&url_k3b;">K3b</ulink> and
 			burn the result to an audio CD.
 			This is useful for splitting a file with a recording that consists
 			of several parts, which are separated by labels, and then burn it
@@ -5410,7 +5410,7 @@
 			    <term><replaceable>filename</replaceable></term>
 			    <listitem>
 				<para>
-				    The name of the K3B project file, will be used as
+				    The name of the K3b project file, will be used as
 				    base name for the exported file names.
 				</para>
 			    </listitem>
@@ -5520,14 +5520,14 @@
 						    <entry>&no-i18n-tag;<command>0</command></entry>
 						    <entry>
 							Save to the same directory as the
-							K3B project file.
+							K3b project file.
 						    </entry>
 						</row>
 						<row>
 						    <entry>&no-i18n-tag;<command>1</command></entry>
 						    <entry>
 							Save into a sub directory of the directory
-							of the K3B project file, using the K3B
+							of the K3b project file, using the K3b
 							project file name as base and appending
 							<quote><command><literal>.dir</literal></command></quote>.
 						    </entry>

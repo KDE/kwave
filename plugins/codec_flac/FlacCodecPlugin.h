@@ -57,7 +57,7 @@ namespace Kwave
 
 #define REGISTER_MIME_TYPES { \
     /* included in KDE: */ \
-    addMimeType("audio/x-flac", i18n("FLAC audio"), "*.flac; *.FLAC"); \
+    addMimeType("audio/x-flac", i18n("FLAC audio"), "*.flac"); \
 }
 
 #define REGISTER_COMPRESSION_TYPES { \

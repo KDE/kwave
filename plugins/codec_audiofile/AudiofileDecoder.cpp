@@ -44,36 +44,36 @@ Kwave::AudiofileDecoder::AudiofileDecoder()
     /* defined in RFC 1521 */
     addMimeType("audio/basic",
                 i18n("NeXT, Sun Audio"),
-                "*.au; *.AU; *.snd; *.SND");
+                "*.au; *.snd");
 
     /* some others, mime types might be wrong (I found no RFC or similar)  */
     addMimeType("audio/x-8svx",
                 i18n("Amiga IFF/8SVX Sound File Format"),
-                "*.iff; *.IFF; *.8svx; *.8SVX");
+                "*.iff; *.8svx");
     addMimeType("audio/x-aifc",
                 i18n("Compressed Audio Interchange Format"),
-                "*.aifc; *.AIFC");
+                "*.aifc");
     addMimeType("audio/x-aiff", /* included in KDE */
                 i18n("Audio Interchange Format"),
-                "*.aif; *.AIF; *.aiff; *.AIFF");
+                "*.aif; *.aiff");
     addMimeType("audio/x-avr",
                 i18n("Audio Visual Research File Format"),
-                "*.avr; *.AVR");
+                "*.avr");
     addMimeType("audio/x-caf",
                 i18n("Core Audio File Format"),
-                "*.caf; *.CAF");
+                "*.caf");
     addMimeType("audio/x-ircam",
                 i18n("Berkeley, IRCAM, Carl Sound Format"),
-                "*.sf; *.SF");
+                "*.sf");
     addMimeType("audio/x-nist",
                 i18n("NIST SPHERE Audio File Format"),
-                "*.nist; *.NIST");
+                "*.nist");
     addMimeType("audio/x-smp",
                 i18n("Sample Vision Format"),
-                "*.smp; *.SMP");
+                "*.smp");
     addMimeType("audio/x-voc",
                 i18n("Creative Voice"),
-                "*.voc; *.VOC");
+                "*.voc");
 }
 
 //***************************************************************************

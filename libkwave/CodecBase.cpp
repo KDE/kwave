@@ -141,7 +141,7 @@ QString Kwave::CodecBase::whatContains(const QUrl &url)
     QListIterator<Kwave::CodecBase::MimeType> it(m_supported_mime_types);
     while (it.hasNext()) {
 	Kwave::CodecBase::MimeType mime_type = it.next();
-	if (mime_type.patterns.contains(suffix))
+	if (mime_type.patterns.contains(suffix.toLower()))
 	    return mime_type.name;
     }
     return QMimeType().name();

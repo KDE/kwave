@@ -55,7 +55,7 @@ namespace Kwave
 
 #define LOAD_MIME_TYPES { \
     addMimeType("audio/x-audio-ascii", \
-    i18n("ASCII encoded audio"), "*.ascii; *.ASCII"); \
+    i18n("ASCII encoded audio"), "*.ascii"); \
 }
 
 #define REGISTER_COMPRESSION_TYPES { \

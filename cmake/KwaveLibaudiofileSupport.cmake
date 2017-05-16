@@ -59,5 +59,7 @@ ELSE (HAVE_AF_OPEN_VIRTUAL_FILE)
     MESSAGE(FATAL_ERROR "system libaudiofile is missing or cannot be used")
 ENDIF (HAVE_AF_OPEN_VIRTUAL_FILE)
 
+SET(HAVE_LIBAUDIOFILE ON)
+
 #############################################################################
 #############################################################################

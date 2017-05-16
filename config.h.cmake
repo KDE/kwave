@@ -42,6 +42,9 @@
 /* support playback via Qt */
 #cmakedefine HAVE_QT_AUDIO_SUPPORT
 
+/* support libaudiofile */
+#cmakedefine HAVE_LIBAUDIOFILE
+
 /* support libsamplerate */
 #cmakedefine HAVE_LIBSAMPLERATE
 

@@ -63,8 +63,8 @@ Kwave::WavDecoder::WavDecoder()
     :Kwave::Decoder(), m_source(0), m_src_adapter(0), m_known_chunks(),
      m_property_map()
 {
-    REGISTER_MIME_TYPES;
-    REGISTER_COMPRESSION_TYPES;
+    REGISTER_MIME_TYPES
+    REGISTER_COMPRESSION_TYPES
 
     // native WAVE chunk names
     m_known_chunks.append(_("cue ")); /* Markers */

@@ -55,14 +55,11 @@ namespace Kwave
     };
 }
 
-#define REGISTER_MIME_TYPES { \
-    /* included in KDE: */ \
-    addMimeType("audio/x-flac", i18n("FLAC audio"), "*.flac"); \
-}
+#define REGISTER_MIME_TYPES \
+    addMimeType("audio/x-flac", i18n("FLAC audio"), "*.flac");
 
-#define REGISTER_COMPRESSION_TYPES { \
-    addCompression(Kwave::Compression::FLAC);   \
-}
+#define REGISTER_COMPRESSION_TYPES \
+    addCompression(Kwave::Compression::FLAC);
 
 #define DEFAULT_MIME_TYPE "audio/x-flac"
 

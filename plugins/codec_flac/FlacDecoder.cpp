@@ -37,8 +37,8 @@ Kwave::FlacDecoder::FlacDecoder()
     :Kwave::Decoder(), FLAC::Decoder::Stream(), m_source(0), m_dest(0),
      m_vorbis_comment_map()
 {
-    REGISTER_MIME_TYPES;
-    REGISTER_COMPRESSION_TYPES;
+    REGISTER_MIME_TYPES
+    REGISTER_COMPRESSION_TYPES
 }
 
 //***************************************************************************

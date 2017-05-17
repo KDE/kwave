@@ -53,14 +53,12 @@ namespace Kwave
     };
 }
 
-#define LOAD_MIME_TYPES { \
-    addMimeType("audio/x-audio-ascii", \
-    i18n("ASCII encoded audio"), "*.ascii"); \
-}
+#define LOAD_MIME_TYPES                          \
+    addMimeType("audio/x-audio-ascii",           \
+        i18n("ASCII encoded audio"), "*.ascii");
 
-#define REGISTER_COMPRESSION_TYPES { \
-    addCompression(Kwave::Compression::NONE);   \
-}
+#define REGISTER_COMPRESSION_TYPES               \
+    addCompression(Kwave::Compression::NONE);
 
 /** prefix used for encoding metadata / properties */
 #define META_PREFIX _("## ")

@@ -200,18 +200,17 @@ namespace Kwave
 
 }
 
-#define REGISTER_MIME_TYPES { \
-    /* included in KDE: */ \
-    addMimeType("audio/x-wav",    i18n("WAV audio"), "*.wav"); \
-    /* defined in RFC 2361 */ \
-    addMimeType("audio/vnd.wave", i18n("WAV audio"), "*.wav"); \
-    /* defined nowhere, but someone has used that */ \
-    addMimeType("audio/wav", i18n("WAV audio"), "*.wav"); \
-}
+/* defined in RFC 2361 and other places */
+#define REGISTER_MIME_TYPES                       \
+    addMimeType(                                  \
+        "audio/x-wav, audio/vnd.wave, audio/wav", \
+        i18n("WAV audio"),                        \
+        "*.wav"                                   \
+    );
 
 #define REGISTER_COMPRESSION_TYPES \
     foreach (Kwave::Compression::Type c, Kwave::audiofileCompressionTypes()) \
-	addCompression(c)
+	addCompression(c);
 
 #endif /* WAV_FILE_FORMAT_H */
 

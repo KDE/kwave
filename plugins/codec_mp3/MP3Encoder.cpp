@@ -54,8 +54,8 @@ Kwave::MP3Encoder::MP3Encoder()
     :Kwave::Encoder(), m_property_map(), m_lock(), m_dst(0), m_process(this),
      m_program(), m_params()
 {
-    REGISTER_MIME_TYPES;
-    REGISTER_COMPRESSION_TYPES;
+    REGISTER_MIME_TYPES
+    REGISTER_COMPRESSION_TYPES
 
     connect(&m_process, SIGNAL(readyReadStandardOutput()),
 	    this, SLOT(dataAvailable()));

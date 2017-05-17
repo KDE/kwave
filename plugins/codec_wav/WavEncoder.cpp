@@ -45,8 +45,8 @@
 Kwave::WavEncoder::WavEncoder()
     :Kwave::Encoder(), m_property_map()
 {
-    REGISTER_MIME_TYPES;
-    REGISTER_COMPRESSION_TYPES;
+    REGISTER_MIME_TYPES
+    REGISTER_COMPRESSION_TYPES
 }
 
 /***************************************************************************/

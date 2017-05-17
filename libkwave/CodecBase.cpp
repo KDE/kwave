@@ -48,32 +48,39 @@ void Kwave::CodecBase::addMimeType(const char *name,
                                    const QString &description,
                                    const char *patterns)
 {
-    // check for duplicates
-    if (supports(_(name))) return;
+    const QString type_name = _(name);
+    if (type_name.contains(_(","))) {
+        // list of mime types -> call recursively for each of them
+        QStringList types = type_name.split(_(","), QString::SkipEmptyParts);
+        foreach (const QString &mt, types) {
+            addMimeType(mt.trimmed().toUtf8().data(), description, patterns);
+        }
+        return;
+    }
 
     Kwave::CodecBase::MimeType type;
     QMimeDatabase db;
-    QMimeType t = db.mimeTypeForName(_(name));
+    QMimeType t = db.mimeTypeForName(type_name);
 
     if (t.isDefault() || t.name().isEmpty()) {
 // 	qWarning("mime type '%s' not registered, using built-in!", name);
-	type.name        = _(name);
+	type.name        = type_name;
 	type.description = description;
 	type.patterns    = _(patterns).split(_("; "), QString::SkipEmptyParts);
     } else {
 	type.description = t.comment();
 	type.patterns    = t.globPatterns();
 
-	if (t.name() != _(name)) {
+	if (t.name() != type_name) {
 	    // type has been translated (maybe un-alias'ed)
 	    // manually add the original name
-	    type.name    = _(name);
+	    type.name    = type_name;
 	    m_supported_mime_types.append(type);
 	}
 
 	if  (!supports(t.name())) {
 	    // new type or new alias
-	    type.name        = t.name();
+	    type.name    = t.name();
 	}
     }
     m_supported_mime_types.append(type);
@@ -107,12 +114,14 @@ bool Kwave::CodecBase::supports(const QString &mimetype_name)
 /***************************************************************************/
 QStringList Kwave::CodecBase::extensions(const QString &mimetype_name) const
 {
+    QStringList result;
     foreach (const Kwave::CodecBase::MimeType &mime, m_supported_mime_types) {
 	if (mime.name == mimetype_name) {
-	    return mime.patterns;
+	    foreach (const QString &ext, mime.patterns)
+                if (!result.contains(ext)) result.append(ext);
 	}
     }
-    return QStringList();
+    return result;
 }
 
 /***************************************************************************/

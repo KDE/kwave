@@ -48,8 +48,8 @@ Kwave::FlacEncoder::FlacEncoder()
     :Kwave::Encoder(), FLAC::Encoder::Stream(),
      m_vorbis_comment_map(), m_dst(0)
 {
-    REGISTER_MIME_TYPES;
-    REGISTER_COMPRESSION_TYPES;
+    REGISTER_MIME_TYPES
+    REGISTER_COMPRESSION_TYPES
 }
 
 /***************************************************************************/

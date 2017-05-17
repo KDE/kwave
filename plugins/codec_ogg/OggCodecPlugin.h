@@ -53,21 +53,20 @@ namespace Kwave
     };
 }
 
-#define REGISTER_OGG_OPUS_MIME_TYPES                                           \
-    /* Ogg audio, as per RFC5334 */                                            \
-    addMimeType("audio/ogg",         i18n("Ogg Opus audio"),   "*.opus");      \
-    addMimeType("application/ogg",   i18n("Ogg Opus audio"),   "*.opus");      \
-    /* Ogg audio, as per RFC4288 and RFC4855 */                                \
-    addMimeType("audio/opus",        i18n("Ogg Opus audio"),   "*.opus");      \
+#define REGISTER_OGG_OPUS_MIME_TYPES                                     \
+    /* Ogg audio, as per RFC5334, RFC4288 and RFC4855 */                 \
+    addMimeType(                                                         \
+        "audio/ogg, application/ogg, audio/opus",                        \
+        i18n("Ogg Opus audio"),                                          \
+        "*.opus"                                                         \
+    );
 
-#define REGISTER_OGG_VORBIS_MIME_TYPES                                         \
-    /* original from Ogg Vorbis documentation: */                              \
-    addMimeType("audio/ogg",         i18n("Ogg Vorbis audio"), "*.ogg");       \
-    addMimeType("audio/x-ogg",       i18n("Ogg Vorbis audio"), "*.ogg");       \
-    /* included in KDE: */                                                     \
-    addMimeType("application/x-ogg", i18n("Ogg Vorbis audio"), "*.ogg");       \
-    /* found in KDE 4: */                                                      \
-    addMimeType("audio/x-vorbis+ogg",i18n("Ogg Vorbis audio"), "*.ogg");
+#define REGISTER_OGG_VORBIS_MIME_TYPES                                   \
+    addMimeType(                                                         \
+        "audio/ogg, audio/x-ogg, application/x-ogg, audio/x-vorbis+ogg", \
+        i18n("Ogg Vorbis audio"),                                        \
+        "*.ogg"                                                          \
+    );
 
 #define REGISTER_COMPRESSION_TYPE_OGG_OPUS \
     addCompression(Kwave::Compression::OGG_OPUS);

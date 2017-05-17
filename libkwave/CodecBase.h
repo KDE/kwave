@@ -71,7 +71,7 @@ namespace Kwave
 	 * if none was found, a new mime type is created, using the
 	 * passed parameters. The system's mime types are always preferred
 	 * over the passed 'built-ins'.
-	 * @param name the mime type's name
+	 * @param name the mime type's name (may also be a comma separated list)
 	 * @param description verbose description
 	 * @param patterns list of file patterns, passed as a single string,
 	 *                 separated by "; "

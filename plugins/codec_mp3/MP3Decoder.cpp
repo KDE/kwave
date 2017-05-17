@@ -50,8 +50,8 @@ Kwave::MP3Decoder::MP3Decoder()
      m_buffer_size(0), m_prepended_bytes(0), m_appended_bytes(0),
      m_failures(0), m_parent_widget(0)
 {
-    REGISTER_MIME_TYPES;
-    REGISTER_COMPRESSION_TYPES;
+    REGISTER_MIME_TYPES
+    REGISTER_COMPRESSION_TYPES
 }
 
 //***************************************************************************

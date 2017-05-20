@@ -27,7 +27,7 @@
 #include "FlacEncoder.h"
 
 // static instance of the codec container
-Kwave::CodecPlugin::Codec Kwave::FlacCodecPlugin::m_codec = {0, 0, 0};
+Kwave::CodecPlugin::Codec Kwave::FlacCodecPlugin::m_codec = EMPTY_CODEC;
 
 KWAVE_PLUGIN(codec_flac, FlacCodecPlugin)
 
@@ -44,15 +44,15 @@ Kwave::FlacCodecPlugin::~FlacCodecPlugin()
 }
 
 /***************************************************************************/
-Kwave::Decoder *Kwave::FlacCodecPlugin::createDecoder()
+QList<Kwave::Decoder *> Kwave::FlacCodecPlugin::createDecoder()
 {
-    return new Kwave::FlacDecoder();
+    return singleDecoder<Kwave::FlacDecoder>();
 }
 
 /***************************************************************************/
-Kwave::Encoder *Kwave::FlacCodecPlugin::createEncoder()
+QList<Kwave::Encoder *> Kwave::FlacCodecPlugin::createEncoder()
 {
-    return new Kwave::FlacEncoder();
+    return singleEncoder<Kwave::FlacEncoder>();
 }
 
 /***************************************************************************/

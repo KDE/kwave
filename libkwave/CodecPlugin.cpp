@@ -44,12 +44,14 @@ void Kwave::CodecPlugin::load(QStringList &/* params */)
     if (m_codec.m_use_count == 1)
     {
 	m_codec.m_encoder = createEncoder();
-	if (m_codec.m_encoder)
-	    Kwave::CodecManager::registerEncoder(*m_codec.m_encoder);
+	if (!m_codec.m_encoder.isEmpty())
+            foreach (Kwave::Encoder *enc, m_codec.m_encoder)
+                if (enc) Kwave::CodecManager::registerEncoder(*enc);
 
 	m_codec.m_decoder = createDecoder();
-	if (m_codec.m_decoder)
-	    Kwave::CodecManager::registerDecoder(*m_codec.m_decoder);
+	if (!m_codec.m_decoder.isEmpty())
+            foreach (Kwave::Decoder *dec, m_codec.m_decoder)
+                Kwave::CodecManager::registerDecoder(*dec);
     }
 }
 
@@ -60,16 +62,16 @@ void Kwave::CodecPlugin::unload()
 
     if (m_codec.m_use_count < 1)
     {
-	if (m_codec.m_decoder) {
-	    Kwave::CodecManager::unregisterDecoder(m_codec.m_decoder);
-	    delete m_codec.m_decoder;
-	    m_codec.m_decoder = 0;
+	while (!m_codec.m_decoder.isEmpty()) {
+            Kwave::Decoder *dec = m_codec.m_decoder.takeLast();
+	    Kwave::CodecManager::unregisterDecoder(dec);
+	    delete dec;
 	}
 
-	if (m_codec.m_encoder) {
-	    Kwave::CodecManager::unregisterEncoder(m_codec.m_encoder);
-	    delete m_codec.m_encoder;
-	    m_codec.m_encoder = 0;
+	while (!m_codec.m_encoder.isEmpty()) {
+            Kwave::Encoder *enc = m_codec.m_encoder.takeLast();
+	    Kwave::CodecManager::unregisterEncoder(enc);
+	    delete enc;
 	}
     }
 

@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QtGlobal>
+#include <QList>
 
 #include "libkwave/Plugin.h"
 
@@ -35,9 +36,9 @@ namespace Kwave
 
 	/** container for codecs */
 	typedef struct {
-	    int             m_use_count; /**< use count */
-	    Kwave::Encoder *m_encoder;   /**< pointer to a Kwave::Encoder */
-	    Kwave::Decoder *m_decoder;   /**< pointer to a Kwave::Decoder */
+	    int                     m_use_count; /**< use count        */
+	    QList<Kwave::Encoder *> m_encoder;   /**< list of encoders */
+	    QList<Kwave::Decoder *> m_decoder;   /**< list of decoders */
 	} Codec;
 
 	/**
@@ -65,11 +66,41 @@ namespace Kwave
 	 */
 	virtual void unload();
 
-	/** Creates a new decoder instance */
-	virtual Kwave::Decoder *createDecoder() = 0;
+	/**
+         * Create a new set of decoders
+         * @return list of decoders, may be  empty
+         */
+	virtual QList<Kwave::Decoder *> createDecoder() = 0;
 
-	/** Creates a new encoder instance */
-	virtual Kwave::Encoder *createEncoder() = 0;
+	/**
+         * Create a new set of encoders
+         * @return list of encoders, may be  empty
+         */
+	virtual QList<Kwave::Encoder *> createEncoder() = 0;
+
+    protected:
+
+        /**
+         * helper template to return a list with a single decoder,
+         * for use within createDecoder()
+         */
+        template<class T> QList<Kwave::Decoder *> singleDecoder()
+        {
+            QList<Kwave::Decoder *> list;
+            list.append(new(std::nothrow) T);
+            return list;
+        }
+
+        /**
+         * helper template to return a list with a single encoder,
+         * for use within createEncoder()
+         */
+        template<class T> QList<Kwave::Encoder *> singleEncoder()
+        {
+            QList<Kwave::Encoder *> list;
+            list.append(new(std::nothrow) T);
+            return list;
+        }
 
     private:
 
@@ -77,6 +108,9 @@ namespace Kwave
 	Codec &m_codec;
     };
 }
+
+/** initializer for an empty Kwave::CodecPlugin::Codec */
+#define EMPTY_CODEC {0, QList<Kwave::Encoder *>(), QList<Kwave::Decoder *>() }
 
 #endif /* CODEC_PLUGIN_H */
 

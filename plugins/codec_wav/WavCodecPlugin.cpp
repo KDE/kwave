@@ -26,7 +26,7 @@
 KWAVE_PLUGIN(codec_wav, WavCodecPlugin)
 
 // static instance of the codec container
-Kwave::CodecPlugin::Codec Kwave::WavCodecPlugin::m_codec = {0, 0, 0};
+Kwave::CodecPlugin::Codec Kwave::WavCodecPlugin::m_codec = EMPTY_CODEC;
 
 /***************************************************************************/
 Kwave::WavCodecPlugin::WavCodecPlugin(QObject *parent,
@@ -41,15 +41,15 @@ Kwave::WavCodecPlugin::~WavCodecPlugin()
 }
 
 /***************************************************************************/
-Kwave::Decoder *Kwave::WavCodecPlugin::createDecoder()
+QList<Kwave::Decoder *> Kwave::WavCodecPlugin::createDecoder()
 {
-    return new Kwave::WavDecoder();
+    return singleDecoder<Kwave::WavDecoder>();
 }
 
 /***************************************************************************/
-Kwave::Encoder *Kwave::WavCodecPlugin::createEncoder()
+QList<Kwave::Encoder *> Kwave::WavCodecPlugin::createEncoder()
 {
-    return new Kwave::WavEncoder();
+    return singleEncoder<Kwave::WavEncoder>();
 }
 
 //***************************************************************************

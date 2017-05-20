@@ -28,7 +28,7 @@
 KWAVE_PLUGIN(codec_ogg, OggCodecPlugin)
 
 // static instance of the codec container
-Kwave::CodecPlugin::Codec Kwave::OggCodecPlugin::m_codec = {0, 0, 0};
+Kwave::CodecPlugin::Codec Kwave::OggCodecPlugin::m_codec = EMPTY_CODEC;
 
 /***************************************************************************/
 Kwave::OggCodecPlugin::OggCodecPlugin(QObject *parent,
@@ -43,15 +43,15 @@ Kwave::OggCodecPlugin::~OggCodecPlugin()
 }
 
 /***************************************************************************/
-Kwave::Decoder *Kwave::OggCodecPlugin::createDecoder()
+QList<Kwave::Decoder *> Kwave::OggCodecPlugin::createDecoder()
 {
-    return new Kwave::OggDecoder();
+    return singleDecoder<Kwave::OggDecoder>();
 }
 
 /***************************************************************************/
-Kwave::Encoder *Kwave::OggCodecPlugin::createEncoder()
+QList<Kwave::Encoder *> Kwave::OggCodecPlugin::createEncoder()
 {
-    return new Kwave::OggEncoder();
+    return singleEncoder<Kwave::OggEncoder>();
 }
 
 //***************************************************************************

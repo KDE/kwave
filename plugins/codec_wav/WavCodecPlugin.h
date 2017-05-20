@@ -40,11 +40,11 @@ namespace Kwave
 	/** Destructor */
 	virtual ~WavCodecPlugin();
 
-	/** Creates a new decoder instance */
-	virtual Kwave::Decoder *createDecoder();
+	/** Creates a new decoder */
+	virtual QList<Kwave::Decoder *> createDecoder();
 
-	/** Creates a new encoder instance */
-	virtual Kwave::Encoder *createEncoder();
+	/** Creates a new encoder */
+	virtual QList<Kwave::Encoder *> createEncoder();
 
     private:
 	/** static codec container */

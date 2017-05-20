@@ -25,7 +25,7 @@
 #include "AudiofileDecoder.h"
 
 // static instance of the codec container
-Kwave::CodecPlugin::Codec Kwave::AudiofileCodecPlugin::m_codec = {0, 0, 0};
+Kwave::CodecPlugin::Codec Kwave::AudiofileCodecPlugin::m_codec = EMPTY_CODEC;
 
 KWAVE_PLUGIN(codec_audiofile, AudiofileCodecPlugin)
 
@@ -42,15 +42,15 @@ Kwave::AudiofileCodecPlugin::~AudiofileCodecPlugin()
 }
 
 /***************************************************************************/
-Kwave::Decoder *Kwave::AudiofileCodecPlugin::createDecoder()
+QList<Kwave::Decoder *> Kwave::AudiofileCodecPlugin::createDecoder()
 {
-    return new Kwave::AudiofileDecoder();
+    return singleDecoder<Kwave::AudiofileDecoder>();
 }
 
 /***************************************************************************/
-Kwave::Encoder *Kwave::AudiofileCodecPlugin::createEncoder()
+QList<Kwave::Encoder *> Kwave::AudiofileCodecPlugin::createEncoder()
 {
-    return 0; /* not implemented */
+    return QList<Kwave::Encoder *>(); /* not implemented */
 }
 
 /***************************************************************************/

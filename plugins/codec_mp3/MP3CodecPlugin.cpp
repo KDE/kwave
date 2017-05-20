@@ -28,7 +28,7 @@
 KWAVE_PLUGIN(codec_mp3, MP3CodecPlugin)
 
 // static instance of the codec container
-Kwave::CodecPlugin::Codec Kwave::MP3CodecPlugin::m_codec = {0, 0, 0};
+Kwave::CodecPlugin::Codec Kwave::MP3CodecPlugin::m_codec = EMPTY_CODEC;
 
 /***************************************************************************/
 Kwave::MP3CodecPlugin::MP3CodecPlugin(QObject *parent,
@@ -77,15 +77,15 @@ QStringList *Kwave::MP3CodecPlugin::setup(QStringList &previous_params)
 }
 
 /***************************************************************************/
-Kwave::Decoder *Kwave::MP3CodecPlugin::createDecoder()
+QList<Kwave::Decoder *> Kwave::MP3CodecPlugin::createDecoder()
 {
-    return new Kwave::MP3Decoder();
+    return singleDecoder<Kwave::MP3Decoder>();
 }
 
 /***************************************************************************/
-Kwave::Encoder *Kwave::MP3CodecPlugin::createEncoder()
+QList<Kwave::Encoder *> Kwave::MP3CodecPlugin::createEncoder()
 {
-    return new Kwave::MP3Encoder();
+    return singleEncoder<Kwave::MP3Encoder>();
 }
 
 //***************************************************************************

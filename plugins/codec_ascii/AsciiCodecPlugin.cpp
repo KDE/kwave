@@ -27,7 +27,7 @@
 #include "AsciiEncoder.h"
 
 // static instance of the codec container
-Kwave::CodecPlugin::Codec Kwave::AsciiCodecPlugin::m_codec = {0, 0, 0};
+Kwave::CodecPlugin::Codec Kwave::AsciiCodecPlugin::m_codec = EMPTY_CODEC;
 
 KWAVE_PLUGIN(codec_ascii, AsciiCodecPlugin)
 
@@ -44,15 +44,15 @@ Kwave::AsciiCodecPlugin::~AsciiCodecPlugin()
 }
 
 /***************************************************************************/
-Kwave::Decoder *Kwave::AsciiCodecPlugin::createDecoder()
+QList<Kwave::Decoder *> Kwave::AsciiCodecPlugin::createDecoder()
 {
-    return new Kwave::AsciiDecoder();
+    return singleDecoder<Kwave::AsciiDecoder>();
 }
 
 /***************************************************************************/
-Kwave::Encoder *Kwave::AsciiCodecPlugin::createEncoder()
+QList<Kwave::Encoder *> Kwave::AsciiCodecPlugin::createEncoder()
 {
-    return new Kwave::AsciiEncoder();
+    return singleEncoder<Kwave::AsciiEncoder>();
 }
 
 /***************************************************************************/

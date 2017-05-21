@@ -20,6 +20,7 @@ Name[sk]=WAV kodek
 Name[sv]=WAV-kodare
 Name[uk]=Кодек WAV
 Name[x-test]=xxWAV Codecxx
+Name[zh_CN]=WAV 编解码器
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

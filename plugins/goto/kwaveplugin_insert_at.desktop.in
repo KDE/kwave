@@ -20,6 +20,7 @@ Name[sk]=Vložiť na
 Name[sv]=Infoga vid
 Name[uk]=Вставити до
 Name[x-test]=xxInsert Atxx
+Name[zh_CN]=插入于
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

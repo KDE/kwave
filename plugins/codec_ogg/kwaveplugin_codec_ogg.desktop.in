@@ -20,6 +20,7 @@ Name[sk]=Ogg kodek
 Name[sv]=Ogg-kodare
 Name[uk]=Кодек Ogg
 Name[x-test]=xxOgg Codecxx
+Name[zh_CN]=Ogg 编解码器
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

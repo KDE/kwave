@@ -20,6 +20,7 @@ Name[sk]=Prejsť na polohu
 Name[sv]=Gå till position
 Name[uk]=Позиція переходу
 Name[x-test]=xxGoto Positionxx
+Name[zh_CN]=转到位置
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

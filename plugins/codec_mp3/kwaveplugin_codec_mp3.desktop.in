@@ -20,6 +20,7 @@ Name[sk]=MP3 kodek
 Name[sv]=MP3-kodare
 Name[uk]=Кодек MP3
 Name[x-test]=xxMP3 Codecxx
+Name[zh_CN]=MP3 编码解码器
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

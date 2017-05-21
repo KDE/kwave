@@ -20,6 +20,7 @@ Name[sk]=Zosilniť voľne
 Name[sv]=Fri förstärkning
 Name[uk]=Довільне підсилення
 Name[x-test]=xxAmplify Freexx
+Name[zh_CN]=自由放大
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

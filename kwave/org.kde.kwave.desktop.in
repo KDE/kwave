@@ -65,6 +65,7 @@ Comment[sk]=Zvukový editor od KDE
 Comment[sv]=En ljudeditor av KDE
 Comment[uk]=Звуковий редактор від KDE
 Comment[x-test]=xxA sound editor by KDExx
+Comment[zh_CN]=KDE 推出的声音编辑器
 TryExec=kwave
 Exec=kwave %F
 Icon=kwave

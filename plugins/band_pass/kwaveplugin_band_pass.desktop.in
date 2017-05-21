@@ -20,6 +20,7 @@ Name[sk]=Filter pásmovej priepusti
 Name[sv]=Bandpassfilter
 Name[uk]=Фільтр діапазону частот
 Name[x-test]=xxBand Pass Filterxx
+Name[zh_CN]=带通滤波器
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Dave Flogeras

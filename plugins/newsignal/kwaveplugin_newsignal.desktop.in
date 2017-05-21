@@ -21,6 +21,7 @@ Name[sk]=Nový signál
 Name[sv]=Ny signal
 Name[uk]=Новий сигнал
 Name[x-test]=xxNew Signalxx
+Name[zh_CN]=新建信号
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

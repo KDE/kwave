@@ -20,6 +20,7 @@ Name[sk]=Zadať príkaz
 Name[sv]=Ange kommando
 Name[uk]=Введення команди
 Name[x-test]=xxEnter Commandxx
+Name[zh_CN]=输入命令
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

@@ -20,6 +20,7 @@ Name[sk]=Nahrať
 Name[sv]=Spela in
 Name[uk]=Запис
 Name[x-test]=xxRecordxx
+Name[zh_CN]=捕获
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

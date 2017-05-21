@@ -19,6 +19,7 @@ Name[sk]=Uložiť bloky
 Name[sv]=Spara block
 Name[uk]=Зберегти блоки
 Name[x-test]=xxSave Blocksxx
+Name[zh_CN]=保存区块
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

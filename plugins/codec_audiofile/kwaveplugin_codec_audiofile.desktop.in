@@ -20,6 +20,7 @@ Name[sk]=Audiofile kodek
 Name[sv]=Audiofil-kodare
 Name[uk]=Кодек Audiofile
 Name[x-test]=xxAudiofile Codecxx
+Name[zh_CN]=Audiofile 编解码器
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

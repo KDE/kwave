@@ -20,6 +20,7 @@ Name[sk]=Generátor šumu
 Name[sv]=Brusgenerator
 Name[uk]=Генератор шумів
 Name[x-test]=xxNoise Generatorxx
+Name[zh_CN]=噪声发生器
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

@@ -20,6 +20,7 @@ Name[sk]=Pamäťové nastavenia
 Name[sv]=Minnesinställningar
 Name[uk]=Параметри пам’яті
 Name[x-test]=xxMemory Settingsxx
+Name[zh_CN]=内存设置
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

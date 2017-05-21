@@ -20,6 +20,7 @@ Name[sk]=Nulový generátor
 Name[sv]=Nollgenerator
 Name[uk]=Генератор нуля
 Name[x-test]=xxZero Generatorxx
+Name[zh_CN]=零生成器
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

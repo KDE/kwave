@@ -21,6 +21,7 @@ Name[sk]=Informácie o súbore
 Name[sv]=Filinformation
 Name[uk]=Відомості про файл
 Name[x-test]=xxFile Infoxx
+Name[zh_CN]=文件信息
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

@@ -20,6 +20,7 @@ Name[sk]=Hlasitosť
 Name[sv]=Volym
 Name[uk]=Гучність
 Name[x-test]=xxVolumexx
+Name[zh_CN]=音量
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

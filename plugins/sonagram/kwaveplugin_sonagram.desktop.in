@@ -20,6 +20,7 @@ Name[sk]=Sonagram
 Name[sv]=Sonogram
 Name[uk]=Сонаграма
 Name[x-test]=xxSonagramxx
+Name[zh_CN]=声图
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

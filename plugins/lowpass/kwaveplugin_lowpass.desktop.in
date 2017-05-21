@@ -20,6 +20,7 @@ Name[sk]=Dolnopriepustný filter
 Name[sv]=Lågpassfilter
 Name[uk]=Низькочастотний фільтр
 Name[x-test]=xxLow Pass Filterxx
+Name[zh_CN]=低通滤波器
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

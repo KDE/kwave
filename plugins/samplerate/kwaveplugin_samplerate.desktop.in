@@ -20,6 +20,7 @@ Name[sk]=Konverzia vzorkovacej frekvencie
 Name[sv]=Konvertering av samplingsfrekvens
 Name[uk]=Зміна частоти дискретизації
 Name[x-test]=xxSample Rate Conversionxx
+Name[zh_CN]=采样率转换
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

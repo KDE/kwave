@@ -20,6 +20,7 @@ Name[sk]=ASCII kodek
 Name[sv]=ASCII-kodare
 Name[uk]=Кодек ASCII
 Name[x-test]=xxASCII Codecxx
+Name[zh_CN]=ASCII 编码解码器
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

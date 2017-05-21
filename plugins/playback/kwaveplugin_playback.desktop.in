@@ -20,6 +20,7 @@ Name[sk]=Prehrávanie
 Name[sv]=Uppspelning
 Name[uk]=Відтворення
 Name[x-test]=xxPlaybackxx
+Name[zh_CN]=播放
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

@@ -20,6 +20,7 @@ Name[sk]=Normalizátor
 Name[sv]=Normalisering
 Name[uk]=Нормалізатор
 Name[x-test]=xxNormalizerxx
+Name[zh_CN]=标准件
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

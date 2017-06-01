@@ -47,10 +47,10 @@ namespace Kwave
 	virtual ~LevelMeter();
 
 	/** @see QWidget::paintEvent */
-	virtual void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
 	/** @see QWidget::resizeEvent */
-	virtual void resizeEvent(QResizeEvent *);
+	void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
 
     public slots:
 

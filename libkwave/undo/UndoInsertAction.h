@@ -53,28 +53,28 @@ namespace Kwave
 	                 sample_index_t length);
 
 	/** @see UndoAction::description() */
-	virtual QString description();
+	QString description() Q_DECL_OVERRIDE;
 
 	/** @see UndoAction::undoSize() */
-	virtual qint64 undoSize();
+	qint64 undoSize() Q_DECL_OVERRIDE;
 
 	/** @see UndoAction::redoSize() */
-	virtual qint64 redoSize();
+	qint64 redoSize() Q_DECL_OVERRIDE;
 
 	/**
 	 * @see UndoAction::store()
 	 */
-	virtual bool store(Kwave::SignalManager &manager);
+	bool store(Kwave::SignalManager &manager) Q_DECL_OVERRIDE;
 
 	/**
 	 * Removes samples from the track.
 	 * @see UndoAction::undo()
 	 */
-	virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-	                                bool with_redo);
+	Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+	                                bool with_redo) Q_DECL_OVERRIDE;
 
 	/** dump, for debugging purposes */
-	virtual void dump(const QString &indent);
+	void dump(const QString &indent) Q_DECL_OVERRIDE;
 
     public slots:
 

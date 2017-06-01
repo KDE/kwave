@@ -51,10 +51,10 @@ namespace Kwave
 	 * Returns flags describing the possible interactions with this object
 	 * @see Kwave::ViewItem::Flags
 	 */
-	virtual Kwave::ViewItem::Flags flags() const;
+	Kwave::ViewItem::Flags flags() const Q_DECL_OVERRIDE;
 
 	/** Starts a drag & drop operation. */
-	virtual void startDragging();
+	void startDragging() Q_DECL_OVERRIDE;
 
     private:
 

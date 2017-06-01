@@ -47,7 +47,7 @@ namespace Kwave
 	virtual ~PitchShiftFilter();
 
 	/** does the calculation */
-	virtual void goOn();
+	void goOn() Q_DECL_OVERRIDE;
 
     signals:
 

@@ -50,7 +50,7 @@ namespace Kwave
 	virtual ~WavDecoder();
 
 	/** Returns a new instance of the decoder */
-	virtual Kwave::Decoder *instance();
+	Kwave::Decoder *instance() Q_DECL_OVERRIDE;
 
 	/**
 	 * Opens the source and decodes the header information.
@@ -59,7 +59,7 @@ namespace Kwave
 	 * @param source file or other source with a stream of bytes
 	 * @return true if succeeded, false on errors
 	 */
-	virtual bool open(QWidget *widget, QIODevice &source);
+	bool open(QWidget *widget, QIODevice &source) Q_DECL_OVERRIDE;
 
 	/**
 	 * Decodes a stream of bytes into a MultiWriter
@@ -68,12 +68,12 @@ namespace Kwave
 	 * @param dst MultiWriter that receives the audio data
 	 * @return true if succeeded, false on errors
 	 */
-	virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
+	bool decode(QWidget *widget, Kwave::MultiWriter &dst) Q_DECL_OVERRIDE;
 
 	/**
 	 * Closes the source.
 	 */
-	virtual void close();
+	void close() Q_DECL_OVERRIDE;
 
     protected:
 	/**

@@ -60,33 +60,33 @@ namespace Kwave
 	virtual ~TrackView();
 
 	/** refreshes the bitmap that displays the signal */
-	virtual void refresh();
+	void refresh() Q_DECL_OVERRIDE;
 
 	/**
 	 * sets new zoom factor and offset
 	 * @param zoom the new zoom factor in pixels/sample
 	 * @param offset the index of the first visible sample
 	 */
-	virtual void setZoomAndOffset(double zoom, sample_index_t offset);
+	void setZoomAndOffset(double zoom, sample_index_t offset) Q_DECL_OVERRIDE;
 
 	/**
 	 * sets new vertical zoom factor
 	 * @param zoom vertical zoom factor
 	 */
-	virtual void setVerticalZoom(double zoom);
+	void setVerticalZoom(double zoom) Q_DECL_OVERRIDE;
 
 	/** called when the widget has been resized */
-	virtual void resizeEvent(QResizeEvent *event);
+	void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 	/** slot for repainting the widget or portions of it */
-	virtual void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
 	/**
 	 * Should be overwritten by subclasses that can display the currently
 	 * selected range and allow the user to change the selection by mouse.
 	 * @return true if mouse selection is handled
 	 */
-	virtual bool canHandleSelection() const { return true; }
+	bool canHandleSelection() const Q_DECL_OVERRIDE { return true; }
 
 	/**
 	 * Tries to find the nearest item that is visible in this view
@@ -96,14 +96,14 @@ namespace Kwave
 	 * @return the nearest ViewObject in range
 	 *         or a null pointer if nothing found
 	 */
-	virtual QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos);
+	QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos) Q_DECL_OVERRIDE;
 
 	/**
 	 * Called when the context menu has been activated over this view
 	 * @param pos a position in pixel within this widget
 	 * @param menu pointer to the context menu
 	 */
-	virtual void handleContextMenu(const QPoint &pos, QMenu *menu);
+	void handleContextMenu(const QPoint &pos, QMenu *menu) Q_DECL_OVERRIDE;
 
     public slots:
 
@@ -111,7 +111,7 @@ namespace Kwave
 	 * requests a repaint, as soon as the repaint timer elapsed
 	 * @param pos current position of the cursor
 	 */
-	virtual void showCursor(sample_index_t pos = SAMPLE_INDEX_MAX);
+	void showCursor(sample_index_t pos = SAMPLE_INDEX_MAX) Q_DECL_OVERRIDE;
 
     private slots:
 

@@ -250,7 +250,7 @@ namespace Kwave
     protected:
 
 	/** wrapper for our run() function, called from worker thread */
-	virtual void run_wrapper(const QVariant &params);
+	void run_wrapper(const QVariant &params) Q_DECL_OVERRIDE;
 
     private:
 

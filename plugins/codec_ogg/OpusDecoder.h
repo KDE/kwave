@@ -69,23 +69,23 @@ namespace Kwave
 	 * @param info reference to a FileInfo to fill
 	 * @return -1 if failed or +1 if succeeded
 	 */
-	virtual int open(QWidget *widget, Kwave::FileInfo &info);
+	int open(QWidget *widget, Kwave::FileInfo &info) Q_DECL_OVERRIDE;
 
 	/**
 	 * decode received ogg data
 	 * @param dst a MultiWriter to be used as sink
 	 * @return -1 if failed or >= 0 if succeeded
 	 */
-	virtual int decode(Kwave::MultiWriter &dst);
+	int decode(Kwave::MultiWriter &dst) Q_DECL_OVERRIDE;
 
 	/** reset the stream info */
-	virtual void reset();
+	void reset() Q_DECL_OVERRIDE;
 
 	/**
 	 * finish the decoding, last chance to fix up some file info
 	 * @param info reference to a FileInfo to fill
 	 */
-	virtual void close(Kwave::FileInfo &info);
+	void close(Kwave::FileInfo &info) Q_DECL_OVERRIDE;
 
     protected:
 

@@ -43,7 +43,7 @@ namespace Kwave
 	/**
 	 * Returns a verbose short description of the action.
 	 */
-	virtual QString description();
+	QString description() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns the required amount of memory that is needed for storing
@@ -51,13 +51,13 @@ namespace Kwave
 	 * free memory to be reserved.
 	 * @note this is the first step (after the constructor)
 	 */
-	virtual qint64 undoSize();
+	qint64 undoSize() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns the difference of needed memory that is needed for
 	 * redo.
 	 */
-	virtual qint64 redoSize();
+	qint64 redoSize() Q_DECL_OVERRIDE;
 
 	/**
 	 * Stores the data needed for undo.
@@ -65,7 +65,7 @@ namespace Kwave
 	 * @note this is the second step, after size() has been called
 	 * @return true if successful, false if failed (e.g. out of memory)
 	 */
-	virtual bool store(Kwave::SignalManager &manager);
+	bool store(Kwave::SignalManager &manager) Q_DECL_OVERRIDE;
 
 	/**
 	 * Takes back an action by creating a new undo action (for further
@@ -77,7 +77,7 @@ namespace Kwave
 	 *       undo/redo. You have to check for this when deleting an
 	 *       UndoAction object after undo.
 	 */
-	virtual UndoAction *undo(Kwave::SignalManager &manager, bool with_redo);
+	UndoAction *undo(Kwave::SignalManager &manager, bool with_redo) Q_DECL_OVERRIDE;
 
     private:
 

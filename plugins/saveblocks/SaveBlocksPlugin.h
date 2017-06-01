@@ -51,13 +51,13 @@ namespace Kwave
 	 * when OK has been pressed.
 	 * @see Kwave::Plugin::setup
 	 */
-	virtual QStringList *setup(QStringList &previous_params);
+	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Saves the files, using the settings made in "setup()"
 	 * @see Kwave::Plugin::start()
 	 */
-	virtual int start(QStringList &params);
+	int start(QStringList &params) Q_DECL_OVERRIDE;
 
 	/** mode for numbering the output files */
 	typedef enum {

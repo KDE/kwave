@@ -56,13 +56,13 @@ namespace Kwave
 	virtual ~BandPassDialog();
 
 	/** Returns the parameters as string list */
-	virtual QStringList params();
+	QStringList params() Q_DECL_OVERRIDE;
 
 	/** Sets the from a list of parameters */
-	virtual void setParams(QStringList &params);
+	void setParams(QStringList &params) Q_DECL_OVERRIDE;
 
 	/** retruns a pointer to this as a QDialog */
-	virtual QDialog *dialog() { return this; }
+	QDialog *dialog() Q_DECL_OVERRIDE { return this; }
 
     signals:
 

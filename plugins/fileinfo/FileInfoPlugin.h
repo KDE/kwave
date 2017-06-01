@@ -43,7 +43,7 @@ namespace Kwave
 	* Shows a dialog for editing file properties.
 	* @see Kwave::Plugin::setup
 	*/
-	virtual QStringList *setup(QStringList &);
+	QStringList *setup(QStringList &) Q_DECL_OVERRIDE;
 
     protected:
 

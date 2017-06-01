@@ -59,7 +59,7 @@ namespace Kwave
 	 * A wrapper for the run() function, calls the run_wrapper(...)
 	 * of m_runnable with the parameters passed in the constructor.
 	 */
-	virtual void run();
+	void run() Q_DECL_OVERRIDE;
 
 	/**
 	 * Sets an internal flag that signals the worker thread to cancel,

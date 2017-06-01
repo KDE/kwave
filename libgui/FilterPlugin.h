@@ -70,13 +70,13 @@ namespace Kwave
 	 * Shows a dialog for setting up the filter plugin
 	 * @see Kwave::Plugin::setup
 	 */
-	virtual QStringList *setup(QStringList &previous_params);
+	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Does the filter operation and/or pre-listen
 	 * @param params list of strings with parameters
 	 */
-	virtual void run(QStringList params);
+	void run(QStringList params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns true if the parameters have changed during pre-listen.
@@ -105,7 +105,7 @@ namespace Kwave
 	 * Returns a text for the progress dialog if enabled.
 	 * (should already be localized)
 	 */
-	virtual QString progressText();
+	QString progressText() Q_DECL_OVERRIDE;
 
     signals:
 

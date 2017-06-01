@@ -50,10 +50,10 @@ namespace Kwave
 	static void showMessage(const QString &message);
 
 	/** handles the painting of this splash screen */
-	virtual void paintEvent(QPaintEvent *e);
+	void paintEvent(QPaintEvent *e) Q_DECL_OVERRIDE;
 
 	/** hides the splash screen on mouse click */
-	virtual void mousePressEvent(QMouseEvent *);
+	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 
 	/** should be called when the splashscreen is no longer needed */
 	void done();

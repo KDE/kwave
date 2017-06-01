@@ -40,7 +40,7 @@ namespace Kwave
 	    virtual ~Osc();
 
 	    /** does the calculation */
-	    virtual void goOn();
+	    void goOn() Q_DECL_OVERRIDE;
 
 	signals:
 	    /** emits a block with sine wave data */

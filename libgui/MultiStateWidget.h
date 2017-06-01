@@ -100,10 +100,10 @@ namespace Kwave
     private:
 
 	/** reacts to the mouse release (click) */
-	virtual void mouseReleaseEvent(QMouseEvent *);
+	void mouseReleaseEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 
 	/** repaints the pixmap */
-	virtual void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
     private:
 

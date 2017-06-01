@@ -47,10 +47,10 @@ namespace Kwave
     protected:
 
 	/** Returns the command to be emitted */
-	virtual QString command() const;
+	QString command() const Q_DECL_OVERRIDE;
 
 	/** Returns the title of the dialog */
-	virtual QString title() const;
+	QString title() const Q_DECL_OVERRIDE;
 
     };
 }

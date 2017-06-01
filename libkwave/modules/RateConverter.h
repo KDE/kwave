@@ -45,7 +45,7 @@ namespace Kwave
 	virtual ~RateConverter();
 
 	/** does nothing, processing is done in input() */
-	virtual void goOn();
+	void goOn() Q_DECL_OVERRIDE;
 
     signals:
 

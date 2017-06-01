@@ -52,8 +52,8 @@ namespace Kwave
 	void addPerson(const QString &name, const QString &email,
 		    const QString &url, const QString &task);
 
-	virtual QSize sizeHint() const;
-	virtual QSize minimumSizeHint() const;
+	QSize sizeHint() const Q_DECL_OVERRIDE;
+	QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 
 	void addWidget(QWidget *widget);
 
@@ -80,7 +80,7 @@ namespace Kwave
 
 	virtual ~AboutContributor();
 
-	virtual QSize sizeHint() const;
+	QSize sizeHint() const Q_DECL_OVERRIDE;
 
     protected:
 	virtual void fontChange( const QFont &oldFont );

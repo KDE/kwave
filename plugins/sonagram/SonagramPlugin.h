@@ -77,10 +77,10 @@ namespace Kwave
 	virtual ~SonagramPlugin();
 
 	/** @see Kwave::Plugin::setup() */
-	virtual QStringList *setup(QStringList &previous_params);
+	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
 	/** @see Kwave::Plugin::start() */
-	virtual int start(QStringList &params);
+	int start(QStringList &params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Runns once until all slices of the sonagram are
@@ -88,7 +88,7 @@ namespace Kwave
 	 * @param params list of strings with parameters
 	 * @see Kwave::Plugin::run()
 	 */
-	virtual void run(QStringList params);
+	void run(QStringList params) Q_DECL_OVERRIDE;
 
     private:
 

@@ -53,7 +53,7 @@ namespace Kwave
 
     protected:
 	/** repaint, see QWidget::paintEvent */
-	void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
     private slots:
 

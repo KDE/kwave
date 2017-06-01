@@ -59,7 +59,7 @@ namespace Kwave
 	virtual ~K3BExportPlugin();
 
 	/** @see Kwave::Plugin::load() */
-	virtual void load(QStringList &params);
+	void load(QStringList &params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Normally this method is used to set up all necessary parameters
@@ -69,13 +69,13 @@ namespace Kwave
 	 * @param params some parameters
 	 * @return string list with parameters or null pointer
 	 */
-	virtual QStringList *setup(QStringList &params);
+	QStringList *setup(QStringList &params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Saves the K3b project file, using the settings made in "setup()"
 	 * @see Kwave::Plugin::start()
 	 */
-	virtual int start(QStringList &params);
+	int start(QStringList &params) Q_DECL_OVERRIDE;
 
 	/** returns a list of all known detection patterns */
 	static QStringList knownPatterns();

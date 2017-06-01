@@ -45,10 +45,10 @@ namespace Kwave
 	virtual ~NotchFilter();
 
 	/** does the calculation */
-	virtual void goOn();
+	void goOn() Q_DECL_OVERRIDE;
 
 	/** @see TransmissionFunction::at() */
-	virtual double at(double f);
+	double at(double f) Q_DECL_OVERRIDE;
 
     signals:
 

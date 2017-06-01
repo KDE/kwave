@@ -48,14 +48,14 @@ namespace Kwave
 	virtual ~StringEnterPlugin();
 
 	/** @see Kwave::Plugin::load() */
-	virtual void load(QStringList &params);
+	void load(QStringList &params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Shows a dialog for a command that will be emitted through
 	 * sigCommand if OK has been pressed.
 	 * @see Kwave::Plugin::setup
 	 */
-	virtual QStringList *setup(QStringList &previous_params);
+	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
     };
 }

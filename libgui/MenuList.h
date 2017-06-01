@@ -56,12 +56,12 @@ namespace Kwave
 	/**
 	 * Always returns true, as the nodes of this type are no branches.
 	 */
-	virtual bool isBranch() const { return false; }
+	bool isBranch() const Q_DECL_OVERRIDE { return false; }
 
 	/**
 	 * Removes all entries from the list menu.
 	 */
-	virtual void clear();
+	void clear() Q_DECL_OVERRIDE;
 
 	/**
 	 * Inserts a new leaf node under the corresponding submenu.
@@ -73,10 +73,10 @@ namespace Kwave
 	 * @param uid unique id string (might be 0)
 	 * @return pointer to the new leaf node
 	 */
-	virtual Kwave::MenuNode *insertLeaf(const QString &name,
+	Kwave::MenuNode *insertLeaf(const QString &name,
 	                                    const QString &command,
 	                                    const QKeySequence &shortcut,
-	                                    const QString &uid);
+	                                    const QString &uid) Q_DECL_OVERRIDE;
 
     };
 }

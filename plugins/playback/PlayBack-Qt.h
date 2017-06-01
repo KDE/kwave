@@ -60,27 +60,27 @@ namespace Kwave
 	 * Opens the device for playback.
 	 * @see PlayBackDevice::open
 	 */
-	virtual QString open(const QString &device, double rate,
+	QString open(const QString &device, double rate,
 	                     unsigned int channels, unsigned int bits,
-	                     unsigned int bufbase);
+	                     unsigned int bufbase) Q_DECL_OVERRIDE;
 
 	/**
 	 * Writes an array of samples to the output device.
 	 * @see PlayBackDevice::write
 	 */
-	virtual int write(const Kwave::SampleArray &samples);
+	int write(const Kwave::SampleArray &samples) Q_DECL_OVERRIDE;
 
 	/**
 	 * Closes the output device.
 	 * @see PlayBackDevice::close
 	 */
-	virtual int close();
+	int close() Q_DECL_OVERRIDE;
 
 	/** return a string list with supported device names */
-	virtual QStringList supportedDevices();
+	QStringList supportedDevices() Q_DECL_OVERRIDE;
 
 	/** return a string suitable for a "File Open..." dialog */
-	virtual QString fileFilter();
+	QString fileFilter() Q_DECL_OVERRIDE;
 
 	/**
 	 * returns a list of supported bits per sample resolutions
@@ -89,7 +89,7 @@ namespace Kwave
 	 * @param device filename of the device
 	 * @return list of supported bits per sample, or empty on errors
 	 */
-	virtual QList<unsigned int> supportedBits(const QString &device);
+	QList<unsigned int> supportedBits(const QString &device) Q_DECL_OVERRIDE;
 
 	/**
 	 * Detect the minimum and maximum number of channels.
@@ -100,8 +100,8 @@ namespace Kwave
 	 * @param max receives the highest supported number of channels
 	 * @return zero or positive number if ok, negative error number if failed
 	 */
-	virtual int detectChannels(const QString &device,
-	                           unsigned int &min, unsigned int &max);
+	int detectChannels(const QString &device,
+	                           unsigned int &min, unsigned int &max) Q_DECL_OVERRIDE;
 
     private slots:
 
@@ -175,7 +175,7 @@ namespace Kwave
 	     * @param len number of bytes to read
 	     * @return number of bytes that have been read
 	     */
-	    virtual qint64 readData(char *data, qint64 len);
+	    qint64 readData(char *data, qint64 len) Q_DECL_OVERRIDE;
 
 	    /**
 	     * write data into the buffer, called from our own worker thread
@@ -183,10 +183,10 @@ namespace Kwave
 	     * @param len number of bytes to write
 	     * @return number of bytes written
 	     */
-	    virtual qint64 writeData(const char *data, qint64 len);
+	    qint64 writeData(const char *data, qint64 len) Q_DECL_OVERRIDE;
 
 	    /** returns the number of bytes available for reading */
-	    virtual qint64 bytesAvailable() const;
+	    qint64 bytesAvailable() const Q_DECL_OVERRIDE;
 
 	private:
 

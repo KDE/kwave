@@ -43,7 +43,7 @@ namespace Kwave
 	virtual ~RecoveryMapping() {}
 
 	/** implementation of Recoverysource::read */
-	virtual qint64 read(quint64 offset, char *data, unsigned int bytes);
+	qint64 read(quint64 offset, char *data, unsigned int bytes) Q_DECL_OVERRIDE;
 
     private:
 

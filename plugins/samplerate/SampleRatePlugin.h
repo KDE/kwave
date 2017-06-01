@@ -53,7 +53,7 @@ namespace Kwave
 	 * changes the sample rate
 	 * @param params list of strings with parameters
 	 */
-	virtual void run(QStringList params);
+	void run(QStringList params) Q_DECL_OVERRIDE;
 
     protected:
 

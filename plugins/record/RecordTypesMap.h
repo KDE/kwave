@@ -38,7 +38,7 @@ namespace Kwave
 	virtual ~RecordTypesMap() {}
 
 	/** fill function for the map */
-	virtual void fill();
+	void fill() Q_DECL_OVERRIDE;
     };
 }
 

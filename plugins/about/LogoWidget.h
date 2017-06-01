@@ -49,7 +49,7 @@ namespace Kwave
 
     protected:
 	/** repaints */
-	void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
     private:
 	/** width of the widget */

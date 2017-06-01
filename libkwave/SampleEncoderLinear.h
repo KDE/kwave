@@ -51,12 +51,12 @@ namespace Kwave
 	 * @param count number of samples
 	 * @param raw_data array with raw encoded audio data
 	 */
-	virtual void encode(const Kwave::SampleArray &samples,
+	void encode(const Kwave::SampleArray &samples,
 	                    unsigned int count,
-	                    QByteArray &raw_data);
+	                    QByteArray &raw_data) Q_DECL_OVERRIDE;
 
 	/** Returns the number of bytes per sample in raw (encoded) form */
-	virtual unsigned int rawBytesPerSample();
+	unsigned int rawBytesPerSample() Q_DECL_OVERRIDE;
 
     private:
 

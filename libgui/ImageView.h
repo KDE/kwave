@@ -81,11 +81,11 @@ namespace Kwave
 
     protected:
 
-	void mouseMoveEvent(QMouseEvent *e);
+	void mouseMoveEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 
-	void mousePressEvent(QMouseEvent *e);
+	void mousePressEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 
-	void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
     private:
 	/**

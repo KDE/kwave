@@ -114,10 +114,10 @@ namespace Kwave
 
     protected slots:
 
-	void mousePressEvent(QMouseEvent * );
-	void mouseReleaseEvent(QMouseEvent * );
-	void mouseMoveEvent(QMouseEvent * );
-	void paintEvent(QPaintEvent *);
+	void mousePressEvent(QMouseEvent * ) Q_DECL_OVERRIDE;
+	void mouseReleaseEvent(QMouseEvent * ) Q_DECL_OVERRIDE;
+	void mouseMoveEvent(QMouseEvent * ) Q_DECL_OVERRIDE;
+	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
     protected:
 

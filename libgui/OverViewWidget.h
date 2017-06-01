@@ -59,7 +59,7 @@ namespace Kwave
 	virtual QSize minimumSize() const;
 
 	/** optimal size for the widget, @see QWidget::sizeHint() */
-	virtual QSize sizeHint() const;
+	QSize sizeHint() const Q_DECL_OVERRIDE;
 
     public slots:
 
@@ -96,19 +96,19 @@ namespace Kwave
     protected:
 
 	/** refreshes the bitmap when resized */
-	void resizeEvent(QResizeEvent *);
+	void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
 
 	/**
 	 * On mouse move:
 	 * move the current viewport center to the clicked position.
 	 */
-	void mouseMoveEvent(QMouseEvent *);
+	void mouseMoveEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 
 	/**
 	 * On single-click with the left mouse button:
 	 * move the current viewport center to the clicked position.
 	 */
-	void mousePressEvent(QMouseEvent *);
+	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 
 	/**
 	 * On double click with the left mouse button, without shift:
@@ -119,7 +119,7 @@ namespace Kwave
 	 * The same as above, but zoom out instead of in
 	 * (by sending "view:zoom_out()").
 	 */
-	void mouseDoubleClickEvent(QMouseEvent *e);
+	void mouseDoubleClickEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 
     protected slots:
 
@@ -184,7 +184,7 @@ namespace Kwave
 	    virtual ~WorkerThread();
 
 	    /** thread function that calls calculateBitmap() */
-	    virtual void run();
+	    void run() Q_DECL_OVERRIDE;
 
 	private:
 

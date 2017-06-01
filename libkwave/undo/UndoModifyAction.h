@@ -47,18 +47,18 @@ namespace Kwave
 	virtual ~UndoModifyAction();
 
 	/** @see UndoAction::description() */
-	virtual QString description();
+	QString description() Q_DECL_OVERRIDE;
 
 	/** @see UndoAction::undoSize() */
-	virtual qint64 undoSize();
+	qint64 undoSize() Q_DECL_OVERRIDE;
 
 	/** @see UndoAction::redoSize() */
-	virtual qint64 redoSize() { return undoSize(); }
+	qint64 redoSize() Q_DECL_OVERRIDE { return undoSize(); }
 
 	/**
 	* @see UndoAction::store()
 	*/
-	virtual bool store(Kwave::SignalManager &manager);
+	bool store(Kwave::SignalManager &manager) Q_DECL_OVERRIDE;
 
 	/**
 	 * Exchange samples from the current signal and the internal undo
@@ -66,7 +66,7 @@ namespace Kwave
 	 * require any extra memory for redo.
 	 * @see UndoAction::undo()
 	 */
-	virtual UndoAction *undo(Kwave::SignalManager &manager, bool with_redo);
+	UndoAction *undo(Kwave::SignalManager &manager, bool with_redo) Q_DECL_OVERRIDE;
 
     protected:
 

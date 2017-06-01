@@ -58,21 +58,21 @@ namespace Kwave
 	 * Gets called when the plugin is first loaded and connects itself
 	 * to the playback controller and the current signal.
 	 */
-	virtual void load(QStringList &params);
+	void load(QStringList &params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Gets called before the plugin is unloaded.
 	 */
-	virtual void unload();
+	void unload() Q_DECL_OVERRIDE;
 
 	/** @see Kwave::Plugin::setup() */
-	virtual QStringList *setup(QStringList &previous_params);
+	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Starts a playback test sequence
 	 * @param params list of strings with parameters (unused)
 	 */
-	virtual void run(QStringList params);
+	void run(QStringList params) Q_DECL_OVERRIDE;
 
     signals:
 
@@ -101,14 +101,14 @@ namespace Kwave
 	 * @param method a playback_method_t (aRts, ALSA, OSS...)
 	 * @return a new PlayBackDevice or 0 if failed
 	 */
-	Kwave::PlayBackDevice *createDevice(Kwave::playback_method_t method);
+	Kwave::PlayBackDevice *createDevice(Kwave::playback_method_t method) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a list of supported playback methods.
 	 * @return list of all supported playback methods, should not contain
 	 *         "any" or "invalid"
 	 */
-	virtual QList<Kwave::playback_method_t> supportedMethods();
+	QList<Kwave::playback_method_t> supportedMethods() Q_DECL_OVERRIDE;
 
     private:
 

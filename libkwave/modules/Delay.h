@@ -42,7 +42,7 @@ namespace Kwave
 	    virtual ~Delay();
 
 	    /** does the calculation */
-	    virtual void goOn();
+	    void goOn() Q_DECL_OVERRIDE;
 
 	signals:
 	    /** emits a block with delayed wave data */

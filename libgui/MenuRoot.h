@@ -65,11 +65,11 @@ namespace Kwave
 	 * @param shortcut keyboard shortcut, 0 if unused
 	 * @param uid unique id string (might be 0)
 	 */
-	virtual void insertNode(const QString &name,
+	void insertNode(const QString &name,
 	                        const QString &position,
 	                        const QString &command,
 	                        const QKeySequence &shortcut,
-	                        const QString &uid);
+	                        const QString &uid) Q_DECL_OVERRIDE;
 
 	/**
 	 * Inserts a new branch node into the menu structure.
@@ -86,10 +86,10 @@ namespace Kwave
 	 * @param uid unique id string (might be 0)
 	 * @return pointer to the new branch node
 	 */
-	virtual Kwave::MenuSub *insertBranch(const QString &name,
+	Kwave::MenuSub *insertBranch(const QString &name,
 	                                     const QString &command,
 	                                     const QKeySequence &shortcut,
-	                                     const QString &uid);
+	                                     const QString &uid) Q_DECL_OVERRIDE;
 
 	/**
 	 * Inserts a new leaf node into the menu structure. The new node
@@ -101,29 +101,29 @@ namespace Kwave
 	 * @param uid unique id string (might be 0)
 	 * @return pointer to the new leaf node
 	 */
-	virtual Kwave::MenuNode *insertLeaf(const QString &name,
+	Kwave::MenuNode *insertLeaf(const QString &name,
 	                                    const QString &command,
 	                                    const QKeySequence &shortcut,
-	                                    const QString &uid);
+	                                    const QString &uid) Q_DECL_OVERRIDE;
 
 	/**
 	 * Removes a child node of the current node. If the child
 	 * was not found or is already removed this does nothing.
 	 * @param child pointer to the child node
 	 */
-	virtual void removeChild(Kwave::MenuNode *child);
+	void removeChild(Kwave::MenuNode *child) Q_DECL_OVERRIDE;
 
 	/**
 	 * Handles/interprets special menu commands.
 	 * @param command name of a menu node or command
 	 * @return true if the name was recognized as a command and handled
 	 */
-	virtual bool specialCommand(const QString &command);
+	bool specialCommand(const QString &command) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a pointer to the list of groups
 	 */
-	virtual QHash<QString, Kwave::MenuGroup *> &groupList();
+	QHash<QString, Kwave::MenuGroup *> &groupList() Q_DECL_OVERRIDE;
 
 	/**
 	 * replacement for QObject::deleteLater(...), which does not work

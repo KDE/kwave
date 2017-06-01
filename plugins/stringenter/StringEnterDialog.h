@@ -51,7 +51,7 @@ namespace Kwave
     private slots:
 
 	/** called when the dialog has been accepted (OK pressed) */
-	virtual void accept();
+	void accept() Q_DECL_OVERRIDE;
 
 	/** invoke the online help */
 	void invokeHelp();

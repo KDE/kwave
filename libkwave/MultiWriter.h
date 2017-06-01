@@ -54,10 +54,10 @@ namespace Kwave
 	virtual void flush();
 
 	/** @see Kwave::MultiTrackSink<Kwave::Writer>::clear() */
-	virtual void clear();
+	void clear() Q_DECL_OVERRIDE;
 
 	/** @see Kwave::MultiTrackSink<Kwave::Writer>::insert() */
-	virtual bool insert(unsigned int track, Kwave::Writer *writer);
+	bool insert(unsigned int track, Kwave::Writer *writer) Q_DECL_OVERRIDE;
 
 	/** returns true if the transfer has been canceled */
 	inline bool isCanceled() const { return m_canceled; }

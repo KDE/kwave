@@ -45,7 +45,7 @@ namespace Kwave
 	    virtual ~Mul();
 
 	    /** does nothing, work is done automatically in multiply() */
-	    virtual void goOn();
+	    void goOn() Q_DECL_OVERRIDE;
 
 	signals:
 	    /** emits a block with the interpolated curve */

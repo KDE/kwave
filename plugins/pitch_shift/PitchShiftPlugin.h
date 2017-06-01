@@ -51,19 +51,19 @@ namespace Kwave
 	virtual ~PitchShiftPlugin();
 
 	/** Creates the setup dialog and connects it's signals */
-	virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent);
+	Kwave::PluginSetupDialog *createDialog(QWidget *parent) Q_DECL_OVERRIDE;
 
 	/**
 	 * Creates a multi-track filter with the given number of tracks
 	 * @param tracks number of tracks that the filter should have
 	 * @return pointer to the filter or null if failed
 	 */
-	virtual Kwave::SampleSource *createFilter(unsigned int tracks);
+	Kwave::SampleSource *createFilter(unsigned int tracks) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns true if the parameters have changed during pre-listen.
 	 */
-	virtual bool paramsChanged();
+	bool paramsChanged() Q_DECL_OVERRIDE;
 
 	/**
 	 * Update the filter with new parameters if it has changed
@@ -72,19 +72,19 @@ namespace Kwave
 	 *               same one as created with createFilter()
 	 * @param force if true, even update if no settings have changed
 	 */
-	virtual void updateFilter(Kwave::SampleSource *filter,
-	                          bool force = false);
+	void updateFilter(Kwave::SampleSource *filter,
+	                          bool force = false) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a verbose name of the performed action. Used for giving
 	 * the undo action a readable name.
 	 */
-	virtual QString actionName();
+	QString actionName() Q_DECL_OVERRIDE;
 
     protected:
 
 	/** Reads values from the parameter list */
-	int interpreteParameters(QStringList &params);
+	int interpreteParameters(QStringList &params) Q_DECL_OVERRIDE;
 
     protected slots:
 

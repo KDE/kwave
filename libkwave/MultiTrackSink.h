@@ -56,7 +56,7 @@ namespace Kwave
 	}
 
 	/** Returns true when all sinks are done */
-	virtual bool done() const
+	bool done() const Q_DECL_OVERRIDE
 	{
 	    foreach (Kwave::SampleSink *s,
 		     static_cast< QList<SINK *> >(*this))
@@ -68,7 +68,7 @@ namespace Kwave
 	 * Returns the number of tracks that the sink provides
 	 * @return number of tracks
 	 */
-	virtual unsigned int tracks() const
+	unsigned int tracks() const Q_DECL_OVERRIDE
 	{
 	    return QList<SINK *>::size();
 	}
@@ -83,7 +83,7 @@ namespace Kwave
 	}
 
 	/** @see the Kwave::MultiTrackSink.at()... */
-	inline virtual SINK * operator [] (unsigned int track) {
+	inline virtual SINK * operator [] (unsigned int track) Q_DECL_OVERRIDE {
 	    return at(track);
 	}
 

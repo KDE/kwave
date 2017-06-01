@@ -174,19 +174,19 @@ namespace Kwave
 	virtual QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos);
 
 	/** slot for mouse moves, used for selection and drag&drop */
-	virtual void mouseMoveEvent(QMouseEvent *e);
+	void mouseMoveEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 
 	/** slot for mouse press, used for selection and drag&drop */
-	virtual void mousePressEvent(QMouseEvent *e);
+	void mousePressEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 
 	/** slot for mouse release, used for selection and drag&drop */
-	virtual void mouseReleaseEvent(QMouseEvent *e);
+	void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 
 	/** slot when the mouse leaves the widget */
-	virtual void leaveEvent(QEvent *e);
+	void leaveEvent(QEvent *e) Q_DECL_OVERRIDE;
 
 	/** handles key press events (e.g. the Escape key) */
-	virtual void keyPressEvent(QKeyEvent *e);
+	void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
 
 	/**
 	 * tolerance in pixel for snapping to a label or selection border
@@ -276,16 +276,16 @@ namespace Kwave
     protected:
 
 	/** @see Qt XDND documentation */
-	virtual void dragEnterEvent(QDragEnterEvent *event);
+	void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
 
 	/** @see Qt XDND documentation */
-	virtual void dragLeaveEvent(QDragLeaveEvent *event);
+	void dragLeaveEvent(QDragLeaveEvent *event) Q_DECL_OVERRIDE;
 
 	/** @see Qt XDND documentation */
-	virtual void dropEvent(QDropEvent *event);
+	void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
 
 	/** @see Qt XDND documentation */
-	virtual void dragMoveEvent(QDragMoveEvent *event);
+	void dragMoveEvent(QDragMoveEvent *event) Q_DECL_OVERRIDE;
 
     protected:
 
@@ -372,7 +372,7 @@ namespace Kwave
 	protected:
 
 	    /** paint event: draws the text and the arrow */
-	    virtual void paintEvent(QPaintEvent *);
+	    void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
 	    /**
 	     * re-creates the mask and the polygon when

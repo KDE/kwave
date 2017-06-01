@@ -50,7 +50,7 @@ namespace Kwave
 	virtual ~FlacDecoder();
 
 	/** Returns a new instance of the decoder */
-	virtual Kwave::Decoder *instance();
+	Kwave::Decoder *instance() Q_DECL_OVERRIDE;
 
 	/**
 	 * Opens the source and decodes the header information.
@@ -59,7 +59,7 @@ namespace Kwave
 	 * @param source file or other source with a stream of bytes
 	 * @return true if succeeded, false on errors
 	 */
-	virtual bool open(QWidget *widget, QIODevice &source);
+	bool open(QWidget *widget, QIODevice &source) Q_DECL_OVERRIDE;
 
 	/**
 	 * Decodes a stream of bytes into a MultiWriter
@@ -68,12 +68,12 @@ namespace Kwave
 	 * @param dst MultiWriter that receives the audio data
 	 * @return true if succeeded, false on errors
 	 */
-	virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst);
+	bool decode(QWidget *widget, Kwave::MultiWriter &dst) Q_DECL_OVERRIDE;
 
 	/**
 	 * Closes the source.
 	 */
-	virtual void close();
+	void close() Q_DECL_OVERRIDE;
 
     protected:
 
@@ -101,8 +101,8 @@ namespace Kwave
 	 *        can be modified
 	 * @return read state
 	 */
-	virtual ::FLAC__StreamDecoderReadStatus read_callback(
-	    FLAC__byte buffer[], size_t *bytes);
+	::FLAC__StreamDecoderReadStatus read_callback(
+	    FLAC__byte buffer[], size_t *bytes) Q_DECL_OVERRIDE;
 
 	/**
 	 * FLAC decoder interface: write callback.
@@ -111,23 +111,23 @@ namespace Kwave
 	 * @param buffer a buffer that contains the decoded samples
 	 * @return FLAC stream decoder write state
 	 */
-	virtual ::FLAC__StreamDecoderWriteStatus write_callback(
+	::FLAC__StreamDecoderWriteStatus write_callback(
 	    const ::FLAC__Frame *frame,
-	    const FLAC__int32 *const buffer[]);
+	    const FLAC__int32 *const buffer[]) Q_DECL_OVERRIDE;
 
 	/**
 	 * FLAC decoder interface: callback for processing meta data.
 	 *
 	 * @param metadata the FLAC meta data to be parsed
 	 */
-	virtual void metadata_callback(const ::FLAC__StreamMetadata *metadata);
+	void metadata_callback(const ::FLAC__StreamMetadata *metadata) Q_DECL_OVERRIDE;
 
 	/**
 	 * FLAC decoder interface: error callback.
 	 *
 	 * @param status the FLAC status
 	 */
-	virtual void error_callback(::FLAC__StreamDecoderErrorStatus status);
+	void error_callback(::FLAC__StreamDecoderErrorStatus status) Q_DECL_OVERRIDE;
 
     private:
 

@@ -59,31 +59,31 @@ namespace Kwave
 	/**
 	 * Called to notify the item that it has been selected.
 	 */
-	virtual void actionSelected();
+	void actionSelected() Q_DECL_OVERRIDE;
 
 	/**
 	 * Handles/interpretes special menu commands.
 	 * @param command name of a menu node or command
 	 * @return true if the name was recognized as a command and handled
 	 */
-	virtual bool specialCommand(const QString &command);
+	bool specialCommand(const QString &command) Q_DECL_OVERRIDE;
 
 	/**
 	 * Shows/hides the current menu node.
 	 * @param visible true to show the item, false to hide
 	 */
-	virtual void setVisible(bool visible);
+	void setVisible(bool visible) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns true if the node is enabled.
 	 */
-	virtual bool isEnabled();
+	bool isEnabled() Q_DECL_OVERRIDE;
 
 	/**
 	 * Enables/disables the current menu node.
 	 * @param enable true to enable the item, false to disable
 	 */
-	virtual void setEnabled(bool enable);
+	void setEnabled(bool enable) Q_DECL_OVERRIDE;
 
 	/**
 	 * Enables/disabled checking/selecting the item
@@ -98,28 +98,28 @@ namespace Kwave
 	 * Sets/removes the checkmark from the current menu item.
 	 * @param check true to set the mark, false to remove
 	 */
-	virtual void setChecked(bool check);
+	void setChecked(bool check) Q_DECL_OVERRIDE;
 
 	/**
 	 * Sets the visible text of an item to a new value. (Only useful
 	 * for a MenuItem)
 	 * @param text the new text
 	 */
-	virtual void setText(const QString &text);
+	void setText(const QString &text) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns the menu nodes' icon.
 	 */
-	virtual const QIcon icon();
+	const QIcon icon() Q_DECL_OVERRIDE;
 
 	/**
 	 * Sets a new icon of a menu node.
 	 * @param icon QPixmap with the icon
 	 */
-	virtual void setIcon(const QIcon &icon);
+	void setIcon(const QIcon &icon) Q_DECL_OVERRIDE;
 
 	/** Returns the corresponding menu action */
-	virtual QAction *action() { return &m_action; }
+	QAction *action() Q_DECL_OVERRIDE { return &m_action; }
 
     private slots:
 

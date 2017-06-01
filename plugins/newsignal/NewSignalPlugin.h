@@ -46,7 +46,7 @@ namespace Kwave
 	 * OK has been pressed.
 	 * @see Kwave::Plugin::setup
 	 */
-	virtual QStringList *setup(QStringList &previous_params);
+	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
     protected:
 

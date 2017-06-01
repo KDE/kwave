@@ -40,10 +40,10 @@ namespace Kwave
 	virtual ~AudiofileCodecPlugin();
 
 	/** Creates a new decoder */
-	virtual QList<Kwave::Decoder *> createDecoder();
+	QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;
 
 	/** Creates a new encoder */
-	virtual QList<Kwave::Encoder *> createEncoder();
+	QList<Kwave::Encoder *> createEncoder() Q_DECL_OVERRIDE;
 
     private:
 	/** static codec container */

@@ -44,7 +44,7 @@ namespace Kwave
 	virtual ~WavEncoder();
 
 	/** Returns a new instance of the encoder */
-	virtual Encoder *instance();
+	Encoder *instance() Q_DECL_OVERRIDE;
 
 	/**
 	 * Encodes a signal into a stream of bytes.
@@ -55,11 +55,11 @@ namespace Kwave
 	 * @param meta_data meta data of the file to save
 	 * @return true if succeeded, false on errors
 	 */
-	virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
-	                    QIODevice &dst, const Kwave::MetaDataList &meta_data);
+	bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
+	                    QIODevice &dst, const Kwave::MetaDataList &meta_data) Q_DECL_OVERRIDE;
 
 	/** Returns a list of supported file properties */
-	virtual QList<Kwave::FileProperty> supportedProperties();
+	QList<Kwave::FileProperty> supportedProperties() Q_DECL_OVERRIDE;
 
     private:
 

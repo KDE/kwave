@@ -69,7 +69,7 @@ namespace Kwave
 	 * Calls goOn() for each track.
 	 * @see Kwave::SampleSource::goOn()
 	 */
-	virtual void goOn()
+	void goOn() Q_DECL_OVERRIDE
 	{
 	    QFutureSynchronizer<void> synchronizer;
 
@@ -86,7 +86,7 @@ namespace Kwave
 	}
 
 	/** Returns true when all sources are done */
-	virtual bool done() const
+	bool done() const Q_DECL_OVERRIDE
 	{
 	    foreach (SOURCE *src, static_cast< QList<SOURCE *> >(*this))
 		if (src && !src->done()) return false;
@@ -97,7 +97,7 @@ namespace Kwave
 	 * Returns the number of tracks that the source provides
 	 * @return number of tracks
 	 */
-	virtual unsigned int tracks() const
+	unsigned int tracks() const Q_DECL_OVERRIDE
 	{
 	    return QList<SOURCE *>::size();
 	}
@@ -112,7 +112,7 @@ namespace Kwave
 	}
 
 	/** @see the Kwave::MultiTrackSource.at()... */
-	inline virtual SOURCE * operator [] (unsigned int track) {
+	inline virtual SOURCE * operator [] (unsigned int track) Q_DECL_OVERRIDE {
 	    return at(track);
 	}
 

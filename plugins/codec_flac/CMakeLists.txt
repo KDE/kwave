@@ -33,6 +33,7 @@ IF (WITH_FLAC)
 #############################################################################
 ### check for FLAC header files                                           ###
 
+    SET(CMAKE_REQUIRED_INCLUDES ${FLAC_INCLUDEDIR})
     CHECK_INCLUDE_FILES(FLAC/format.h HAVE_FLAC_HEADERS)
     IF (NOT HAVE_FLAC_HEADERS)
         MESSAGE(FATAL_ERROR "libFLAC not found, please install libflac !")

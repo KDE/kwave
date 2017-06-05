@@ -36,64 +36,80 @@ IF (WITH_OGG_OPUS OR WITH_OGG_VORBIS)
     PKG_CHECK_MODULES(OGG REQUIRED ogg>=1.0.0)
     MESSAGE(STATUS "  Found Ogg library in ${OGG_LIBDIR}")
     MESSAGE(STATUS "  Found Ogg headers in ${OGG_INCLUDEDIR}")
-    SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} ogg)
+    SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} ${OGG_LIBRARIES})
 
 #############################################################################
 ### check for Opus headers and library                                    ###
 
     IF (WITH_OGG_OPUS)
-	PKG_CHECK_MODULES(OPUS REQUIRED opus>=1.0.0)
-	MESSAGE(STATUS "  Found opus codec library in ${OPUS_LIBDIR}")
-	MESSAGE(STATUS "  Found opus codec headers in ${OPUS_INCLUDEDIR}")
+        PKG_CHECK_MODULES(OPUS REQUIRED opus>=1.0.0)
+        MESSAGE(STATUS "  Found opus codec library in ${OPUS_LIBDIR}")
+        MESSAGE(STATUS "  Found opus codec headers in ${OPUS_INCLUDEDIR}")
+        SET(CMAKE_REQUIRED_INCLUDES
+            ${CMAKE_REQUIRED_INCLUDES} ${OPUS_INCLUDEDIR}
+        )
 
-	CHECK_LIBRARY_EXISTS(ogg ogg_stream_flush_fill ${OPUS_LIBDIR} HAVE_OGG_STREAM_FLUSH_FILL)
-	IF (NOT HAVE_OGG_STREAM_FLUSH_FILL)
-	    MESSAGE(FATAL_ERROR "
-	        libogg seems to be too old for use with opus codec,
-	        it lacks ogg_stream_flush_fill()
-	    ")
-	ENDIF (NOT HAVE_OGG_STREAM_FLUSH_FILL)
+        CHECK_LIBRARY_EXISTS(ogg ogg_stream_flush_fill
+            ${OPUS_LIBDIR} HAVE_OGG_STREAM_FLUSH_FILL
+        )
+        IF (NOT HAVE_OGG_STREAM_FLUSH_FILL)
+            MESSAGE(FATAL_ERROR "
+                libogg seems to be too old for use with opus codec,
+                it lacks ogg_stream_flush_fill()
+            ")
+        ENDIF (NOT HAVE_OGG_STREAM_FLUSH_FILL)
 
-	SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} opus)
-	SET(HAVE_OGG_OPUS  ON CACHE BOOL "enable Opus codec")
-	SET(OGG_OPUS_LIBS "opus")
-	SET(OGG_OPUS_SRCS
-	    OpusCommon.cpp
-	    OpusDecoder.cpp
-	    OpusEncoder.cpp
-	)
+        SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES}
+            ${OPUS_LIBRARIES}
+        )
+        SET(HAVE_OGG_OPUS  ON CACHE BOOL "enable Opus codec")
+        SET(OGG_OPUS_LIBS "opus")
+        SET(OGG_OPUS_SRCS
+            OpusCommon.cpp
+            OpusDecoder.cpp
+            OpusEncoder.cpp
+        )
     ENDIF (WITH_OGG_OPUS)
 
 #############################################################################
 ### check for Vorbis headers and library                                  ###
 
     IF (WITH_OGG_VORBIS)
-	PKG_CHECK_MODULES(VORBIS REQUIRED vorbis>=1.0.0)
-	MESSAGE(STATUS "  Found vorbis codec library in ${VORBIS_LIBDIR}")
-	MESSAGE(STATUS "  Found vorbis codec headers in ${VORBIS_INCLUDEDIR}")
-	CHECK_LIBRARY_EXISTS(vorbis vorbis_bitrate_addblock "${VORBIS_INCLUDEDIR}" HAVE_LIBVORBISENC_V2)
-	IF (NOT HAVE_LIBVORBISENC_V2)
-	    MESSAGE(FATAL_ERROR "libvorbis lacks the function vorbis_bitrate_addblock()")
-	ENDIF (NOT HAVE_LIBVORBISENC_V2)
-	SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} vorbis)
+        PKG_CHECK_MODULES(VORBIS REQUIRED vorbis>=1.0.0)
+        MESSAGE(STATUS "  Found vorbis codec library in ${VORBIS_LIBDIR}")
+        MESSAGE(STATUS "  Found vorbis codec headers in ${VORBIS_INCLUDEDIR}")
+        CHECK_LIBRARY_EXISTS(vorbis vorbis_bitrate_addblock
+            "${VORBIS_LIBDIR}" HAVE_LIBVORBISENC_V2
+        )
+        IF (NOT HAVE_LIBVORBISENC_V2)
+            MESSAGE(FATAL_ERROR "libvorbis lacks vorbis_bitrate_addblock()")
+        ENDIF (NOT HAVE_LIBVORBISENC_V2)
+        SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES}
+            ${VORBIS_LIBRARIES}
+        )
 
-	PKG_CHECK_MODULES(VORBISENC REQUIRED vorbisenc>=1.0.0)
-	MESSAGE(STATUS "  Found vorbisenc library in ${VORBISENC_LIBDIR}")
-	MESSAGE(STATUS "  Found vorbisenc headers in ${VORBISENC_INCLUDEDIR}")
-	SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} vorbisenc)
+        PKG_CHECK_MODULES(VORBISENC REQUIRED vorbisenc>=1.0.0)
+        MESSAGE(STATUS "  Found vorbisenc library in ${VORBISENC_LIBDIR}")
+        MESSAGE(STATUS "  Found vorbisenc headers in ${VORBISENC_INCLUDEDIR}")
+        SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES}
+            ${VORBISENC_LIBRARIES}
+        )
 
-	CHECK_INCLUDE_FILES("vorbis/codec.h;vorbis/vorbisenc.h" HAVE_OGG_VORBIS_HEADERS)
-	IF (NOT HAVE_OGG_VORBIS_HEADERS)
-	    MESSAGE(FATAL_ERROR "ogg vorbis header files are missing")
-	ENDIF (NOT HAVE_OGG_VORBIS_HEADERS)
+        CHECK_INCLUDE_FILES(
+            "vorbis/codec.h;vorbis/vorbisenc.h"
+            HAVE_OGG_VORBIS_HEADERS
+        )
+        IF (NOT HAVE_OGG_VORBIS_HEADERS)
+            MESSAGE(FATAL_ERROR "ogg vorbis header files are missing")
+        ENDIF (NOT HAVE_OGG_VORBIS_HEADERS)
 
 
-	SET(HAVE_OGG_VORBIS ON CACHE BOOL "enable Vorbis codec")
-	SET(OGG_VORBIS_LIBS "vorbisenc" "vorbis")
-	SET(OGG_VORBIS_SRCS
-	    VorbisDecoder.cpp
-	    VorbisEncoder.cpp
-	)
+        SET(HAVE_OGG_VORBIS ON CACHE BOOL "enable Vorbis codec")
+        SET(OGG_VORBIS_LIBS "vorbisenc" "vorbis")
+        SET(OGG_VORBIS_SRCS
+            VorbisDecoder.cpp
+            VorbisEncoder.cpp
+        )
     ENDIF (WITH_OGG_VORBIS)
 
     #############################################################################

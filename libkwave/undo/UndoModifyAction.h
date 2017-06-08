@@ -66,7 +66,8 @@ namespace Kwave
 	 * require any extra memory for redo.
 	 * @see UndoAction::undo()
 	 */
-	UndoAction *undo(Kwave::SignalManager &manager, bool with_redo) Q_DECL_OVERRIDE;
+	UndoAction *undo(Kwave::SignalManager &manager, bool with_redo)
+            Q_DECL_OVERRIDE;
 
     protected:
 

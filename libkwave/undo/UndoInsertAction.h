@@ -71,7 +71,7 @@ namespace Kwave
 	 * @see UndoAction::undo()
 	 */
 	Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-	                                bool with_redo) Q_DECL_OVERRIDE;
+	                        bool with_redo) Q_DECL_OVERRIDE;
 
 	/** dump, for debugging purposes */
 	void dump(const QString &indent) Q_DECL_OVERRIDE;

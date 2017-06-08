@@ -64,8 +64,8 @@ namespace Kwave
 	 * @return true if succeeded, false if failed
 	 */
 	bool open(QWidget *widget,
-	                  const Kwave::FileInfo &info,
-	                  Kwave::MultiTrackReader &src) Q_DECL_OVERRIDE;
+	          const Kwave::FileInfo &info,
+	          Kwave::MultiTrackReader &src) Q_DECL_OVERRIDE;
 
 	/**
 	 * write the header information
@@ -81,7 +81,7 @@ namespace Kwave
 	 * @return true if succeeded, false if failed
 	 */
 	bool encode(Kwave::MultiTrackReader &src,
-	                    QIODevice &dst) Q_DECL_OVERRIDE;
+	            QIODevice &dst) Q_DECL_OVERRIDE;
 
 	/**
 	 * finished the encoding, clean up

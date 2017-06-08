@@ -76,7 +76,7 @@ namespace Kwave
 	     * @param track index of the track
 	     */
 	    Kwave::StreamObject *port(const char *port,
-	                                      unsigned int track) Q_DECL_OVERRIDE;
+	                              unsigned int track) Q_DECL_OVERRIDE;
 
 	    /** does nothing, work is done automatically in mix() */
 	    void goOn() Q_DECL_OVERRIDE

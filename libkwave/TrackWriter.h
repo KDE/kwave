@@ -72,7 +72,8 @@ namespace Kwave
 	 *              will be internally set to zero if successful
 	 * @return true if successful, false if failed (e.g. out of memory)
 	 */
-	 bool write(const Kwave::SampleArray &buffer, unsigned int &count) Q_DECL_OVERRIDE;
+	 bool write(const Kwave::SampleArray &buffer, unsigned int &count)
+            Q_DECL_OVERRIDE;
 
     private:
 

@@ -77,13 +77,15 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class SampleFormat
 	 */
-	int setSampleFormat(Kwave::SampleFormat::Format new_format) Q_DECL_OVERRIDE;
+	int setSampleFormat(Kwave::SampleFormat::Format new_format)
+            Q_DECL_OVERRIDE;
 
 	/**
 	 * Gets a list of supported sample formats.
 	 * @note this depends on the current setting of the compression!
 	 */
-	QList<Kwave::SampleFormat::Format> detectSampleFormats() Q_DECL_OVERRIDE;
+	QList<Kwave::SampleFormat::Format> detectSampleFormats()
+            Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns the current resolution in bits per sample or a negative
@@ -114,7 +116,8 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class Compression
 	 */
-	int setCompression(Kwave::Compression::Type new_compression) Q_DECL_OVERRIDE;
+	int setCompression(Kwave::Compression::Type new_compression)
+            Q_DECL_OVERRIDE;
 
 	/**
 	 * Gets a list of supported compression types. If no compression is
@@ -155,7 +158,7 @@ namespace Kwave
 	 * If the detection fails, minimum and maximum are set to zero.
 	 * @param min receives the lowest supported number of tracks
 	 * @param max receives the highest supported number of tracks
-	 * @return zero or positive number if ok, negative error number if failed
+	 * @return zero or positive if ok, negative error number if failed
 	 */
 	int detectTracks(unsigned int& min, unsigned int& max) Q_DECL_OVERRIDE;
 

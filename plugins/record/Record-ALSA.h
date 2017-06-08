@@ -127,7 +127,8 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class Compression
 	 */
-	int setCompression(Kwave::Compression::Type new_compression) Q_DECL_OVERRIDE;
+	int setCompression(Kwave::Compression::Type new_compression)
+            Q_DECL_OVERRIDE;
 
 	/** Returns the current compression type (0==none) */
 	Kwave::Compression::Type compression() Q_DECL_OVERRIDE;
@@ -155,7 +156,8 @@ namespace Kwave
 	 * Gets a list of supported sample formats.
 	 * @note this depends on the current setting of the compression!
 	 */
-	QList<Kwave::SampleFormat::Format> detectSampleFormats() Q_DECL_OVERRIDE;
+	QList<Kwave::SampleFormat::Format> detectSampleFormats()
+            Q_DECL_OVERRIDE;
 
 	/**
 	 * Try to set a new sample format (signed/unsigned)
@@ -163,7 +165,8 @@ namespace Kwave
 	 * @return zero on success, negative error code if failed
 	 * @see class SampleFormat
 	 */
-	int setSampleFormat(Kwave::SampleFormat::Format new_format) Q_DECL_OVERRIDE;
+	int setSampleFormat(Kwave::SampleFormat::Format new_format)
+            Q_DECL_OVERRIDE;
 
 	/** Returns the current sample format (signed/unsigned) */
 	Kwave::SampleFormat::Format sampleFormat() Q_DECL_OVERRIDE;

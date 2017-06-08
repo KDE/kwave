@@ -67,7 +67,8 @@ namespace Kwave
 	 * @param zoom the new zoom factor in pixels/sample
 	 * @param offset the index of the first visible sample
 	 */
-	void setZoomAndOffset(double zoom, sample_index_t offset) Q_DECL_OVERRIDE;
+	void setZoomAndOffset(double zoom, sample_index_t offset)
+            Q_DECL_OVERRIDE;
 
 	/**
 	 * sets new vertical zoom factor
@@ -96,7 +97,8 @@ namespace Kwave
 	 * @return the nearest ViewObject in range
 	 *         or a null pointer if nothing found
 	 */
-	QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos) Q_DECL_OVERRIDE;
+	QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos)
+            Q_DECL_OVERRIDE;
 
 	/**
 	 * Called when the context menu has been activated over this view

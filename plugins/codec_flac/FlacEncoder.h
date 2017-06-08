@@ -63,8 +63,8 @@ namespace Kwave
 	 * @return true if succeeded, false on errors
 	 */
 	bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
-	                    QIODevice &dst,
-	                    const Kwave::MetaDataList &meta_data) Q_DECL_OVERRIDE;
+	            QIODevice &dst,
+	            const Kwave::MetaDataList &meta_data) Q_DECL_OVERRIDE;
 
 	/** Returns a list of supported file properties */
 	QList<Kwave::FileProperty> supportedProperties() Q_DECL_OVERRIDE;
@@ -90,7 +90,8 @@ namespace Kwave
 	 * @param metadata pointer to a FLAC metadata structure that will
 	 *        be filled
 	 */
-	void metadata_callback(const ::FLAC__StreamMetadata *metadata) Q_DECL_OVERRIDE;
+	void metadata_callback(const ::FLAC__StreamMetadata *metadata)
+            Q_DECL_OVERRIDE;
 
 	/**
 	 * Encode all Kwave file info into FLAC meta data

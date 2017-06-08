@@ -112,7 +112,9 @@ namespace Kwave
 	}
 
 	/** @see the Kwave::MultiTrackSource.at()... */
-	inline virtual SOURCE * operator [] (unsigned int track) Q_DECL_OVERRIDE {
+	inline virtual SOURCE * operator [] (unsigned int track)
+            Q_DECL_OVERRIDE
+        {
 	    return at(track);
 	}
 

@@ -120,14 +120,16 @@ namespace Kwave
 	 *
 	 * @param metadata the FLAC meta data to be parsed
 	 */
-	void metadata_callback(const ::FLAC__StreamMetadata *metadata) Q_DECL_OVERRIDE;
+	void metadata_callback(const ::FLAC__StreamMetadata *metadata)
+            Q_DECL_OVERRIDE;
 
 	/**
 	 * FLAC decoder interface: error callback.
 	 *
 	 * @param status the FLAC status
 	 */
-	void error_callback(::FLAC__StreamDecoderErrorStatus status) Q_DECL_OVERRIDE;
+	void error_callback(::FLAC__StreamDecoderErrorStatus status)
+            Q_DECL_OVERRIDE;
 
     private:
 

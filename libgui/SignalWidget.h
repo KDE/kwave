@@ -119,7 +119,8 @@ namespace Kwave
 	 * @param view the signal view, must not be a null pointer
 	 * @param controls a widget with controls, optionally, can be null
 	 */
-	void insertView(Kwave::SignalView *view, QWidget *controls) Q_DECL_OVERRIDE;
+	void insertView(Kwave::SignalView *view, QWidget *controls)
+            Q_DECL_OVERRIDE;
 
     signals:
 

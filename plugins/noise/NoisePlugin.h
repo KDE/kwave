@@ -65,7 +65,7 @@ namespace Kwave
 	 * @param force if true, even update if no settings have changed
 	 */
 	void updateFilter(Kwave::SampleSource *filter,
-	                          bool force = false) Q_DECL_OVERRIDE;
+	                  bool force = false) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a verbose name of the performed action. Used for giving

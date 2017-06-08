@@ -53,9 +53,9 @@ namespace Kwave
 	 * @return true if succeeded, false on errors
 	 */
 	bool encode(QWidget *widget,
-	                    Kwave::MultiTrackReader &src,
-	                    QIODevice &dst,
-	                    const Kwave::MetaDataList &meta_data) Q_DECL_OVERRIDE;
+	            Kwave::MultiTrackReader &src,
+	            QIODevice &dst,
+	            const Kwave::MetaDataList &meta_data) Q_DECL_OVERRIDE;
 
 	/** Returns a list of supported file properties */
 	QList<Kwave::FileProperty> supportedProperties() Q_DECL_OVERRIDE;

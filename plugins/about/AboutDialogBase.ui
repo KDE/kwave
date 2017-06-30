@@ -162,7 +162,7 @@
           </size>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;Kwave is a sound editor designed for the KDE Desktop Environment. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;With Kwave you can edit many sorts of audio files including multi track files. You are able to alter and play back each track on its own.&lt;br/&gt;Kwave also includes many plugins  to transform the audio data in several ways and presents a graphical view with a complete zoom and scroll capability.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:x-large; font-weight:600;&quot;&gt;Kwave is a sound editor based on KDE Frameworks. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;With Kwave you can edit many sorts of audio files including multi track files. You are able to alter and play back each track on its own.&lt;br/&gt;Kwave also includes many plugins  to transform the audio data in several ways and presents a graphical view with a complete zoom and scroll capability.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>

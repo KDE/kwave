@@ -2561,8 +2561,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_about_kde;</command>()</title>
 	    <para>
-		Shows a dialog window with information about the KDE
-		version used by the computer &kwave; is running at.
+		Shows a dialog window with information about the KDE community.
 	    </para>
 	</simplesect>
 	</sect2>

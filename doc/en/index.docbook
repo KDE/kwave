@@ -948,8 +948,8 @@
 	    </para>
 	    <para>
 	    For example, the following command starts a &kwave; and opens all sounds
-	    of the KDE window manager, each in a new window or sub window:
-	    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/KDE-*.ogg</filename></command></screen>
+	    provided by the freedesktop XDG sound theme, each in a new window or sub window:
+	    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/freedesktop/stereo/*.ogg</filename></command></screen>
 	    </para>
 	    <para>
 		It is also possible to pass &kwave; text commands, encoded as a
@@ -1429,7 +1429,7 @@
 	<listitem><para>
 	ALSA (Advanced Linux Sound Architecture):
 	Supercedes OSS, supports more features and more hardware. Might
-	collide with KDE or other applications like OSS does, but has a
+	collide with other sound applications like OSS does, but has a
 	plugin called "dmix" as a way out. Newer versions of ALSA use a
 	dmix like plugin per default, so this should the best choice
 	for you!
@@ -1438,7 +1438,7 @@
 	OSS (Open Sound System):
 	The oldest linux implementation, capable of mono and stereo output.
 	Deprecated since linux kernel 2.6, but still wide spread.
-	Might collide with KDE or other sound applications, only
+	Might collide with other sound applications, only
 	one application at a time can use OSS playback !
 	</para></listitem>
     </itemizedlist></para>
@@ -3140,7 +3140,7 @@
 		    Assigns an <emphasis>icon</emphasis> to a menu entry. The
 		    icon <emphasis><replaceable>name</replaceable></emphasis>
 		    should correspond to an icon file (without
-		    path and file extension) that is installed with KDE or
+		    path and file extension) that is installed on the system or
 		    with &kwave;.
 		</entry>
 	    </row>
@@ -7472,8 +7472,7 @@
 		    The sound card only has to be supported by your
 		    operating system and &kwave; uses its interface to the
 		    operating system's sound driver through a OSS or ALSA
-		    interface. So &kwave; can play on any sound card that
-		    KDE is able to play on.
+		    interface.
 		</para>
 	    </answer>
 	</qandaentry>

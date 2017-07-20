@@ -17,6 +17,7 @@
   <!ENTITY url_flac "http://flac.sourceforge.net/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
+  <!ENTITY url_isrc "http://http://isrc.ifpi.org/">
   <!ENTITY url_k3b "http://www.k3b.org/">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
@@ -8234,7 +8235,7 @@
 	    <entry colname='c2'>
 		ISRC number for the track; see the ISRC intro page for more
 		 information on ISRC numbers.
-		 http://www.ifpi.org/site-content/online/isrc_intro.html
+                 &url_isrc;
 	    </entry>
 	</row>
 	<row id="INF_KEYWORDS">

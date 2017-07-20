@@ -7,6 +7,7 @@
   <!ENTITY version_tag "0_9_3">
   <!ENTITY version_year "2017">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
+  <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_building_rpm_from_git "http://kwave.sourceforge.net/doc/devel/building_rpm_from_git.html">
   <!ENTITY url_devel_requirements "http://kwave.sourceforge.net/doc/devel/requirements.html">
   <!ENTITY url_git_web_kde "http://commits.kde.org/kwave">
@@ -8260,12 +8261,12 @@
 	<row id="INF_LICENSE">
 	    <entry colname='c1'>&no-i18n-tag;License</entry>
 	    <entry colname='c2'>
-		License information, e.g., <quote>All Rights Reserved</quote>,
-		 <quote>Any Use Permitted</quote>, an URL to a license or the EFF
-		 Open Audio License (<quote>distributed under the terms of the
-		 Open Audio License. See
-		 http://www.eff.org/IP/Open_licenses/eff_oal.html for
-		 details</quote>), etc.
+                License information, e.g., <quote>All Rights Reserved</quote>,
+                <quote>Any Use Permitted</quote>, an URL to a license or the
+                Attribution-ShareAlike 4.0 International
+                (<quote>distributed under the terms of the
+                Attribution-ShareAlike 4.0 International License. See
+                &url_cc_by_sa_4; for details</quote>), etc.
 	    </entry>
 	</row>
 	<row id="INF_MEDIUM">

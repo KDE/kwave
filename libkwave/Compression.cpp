@@ -77,6 +77,7 @@ bool Kwave::Compression::hasVBR() const
 //***************************************************************************
 Kwave::Compression::Type Kwave::Compression::fromInt(int i)
 {
+    fillMap();
     return (m_map.contains(static_cast<Kwave::Compression::Type>(i))) ?
 	static_cast<Kwave::Compression::Type>(i) : Kwave::Compression::NONE;
 }
@@ -208,6 +209,7 @@ int Kwave::Compression::toAudiofile(Kwave::Compression::Type compression)
 {
     int af_compression = AF_COMPRESSION_UNKNOWN;
 
+    fillMap();
     switch (compression)
     {
 	case Kwave::Compression::NONE:
@@ -278,6 +280,7 @@ Kwave::Compression::Type Kwave::Compression::fromAudiofile(int af_compression)
 {
     Kwave::Compression::Type compression_type;
 
+    fillMap();
     switch (af_compression)
     {
 	case AF_COMPRESSION_NONE :

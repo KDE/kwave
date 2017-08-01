@@ -133,7 +133,7 @@ namespace Kwave
     private:
 
 	/** fills the map with known compression types (if empty) */
-	void fillMap();
+	static void fillMap();
 
     private:
 

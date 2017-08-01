@@ -130,6 +130,8 @@ int Kwave::OggDecoder::parseHeader(QWidget *widget)
 	m_sub_decoder = 0;
     }
 
+    Kwave::FileInfo info(metaData());
+
     // ---------------------------------
     // auto-detect the sub decoder
 #ifdef HAVE_OGG_OPUS
@@ -137,6 +139,7 @@ int Kwave::OggDecoder::parseHeader(QWidget *widget)
 	qDebug("    OggDecoder: detected Opus codec");
 	m_sub_decoder =
 	    new Kwave::OpusDecoder(m_source, m_oy, m_os, m_og, m_op);
+        info.set(Kwave::INF_MIMETYPE, _("audio/opus"));
     }
 #endif /* HAVE_OGG_OPUS */
 #ifdef HAVE_OGG_VORBIS
@@ -144,6 +147,7 @@ int Kwave::OggDecoder::parseHeader(QWidget *widget)
 	qDebug("    OggDecoder: detected Vorbis codec");
 	m_sub_decoder =
 	    new Kwave::VorbisDecoder(m_source, m_oy, m_os, m_og, m_op);
+        info.set(Kwave::INF_MIMETYPE, _("audio/x-vorbis+ogg"));
     }
 #endif /* HAVE_OGG_VORBIS */
 
@@ -157,10 +161,8 @@ int Kwave::OggDecoder::parseHeader(QWidget *widget)
 	return -1;
     }
 
-    Kwave::FileInfo info(metaData());
     info.setLength(0);         // use streaming
     info.setBits(SAMPLE_BITS); // use Kwave's internal resolution
-    info.set(Kwave::INF_MIMETYPE, _(DEFAULT_MIME_TYPE));
     if (m_sub_decoder->open(widget, info) < 0)
 	return -1;
 

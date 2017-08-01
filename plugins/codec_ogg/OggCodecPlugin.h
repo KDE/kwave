@@ -56,14 +56,14 @@ namespace Kwave
 #define REGISTER_OGG_OPUS_MIME_TYPES                                     \
     /* Ogg audio, as per RFC5334, RFC4288 and RFC4855 */                 \
     addMimeType(                                                         \
-        "audio/ogg, application/ogg, audio/opus",                        \
+        "audio/opus, audio/ogg, application/ogg",                        \
         i18n("Ogg Opus audio"),                                          \
         "*.opus"                                                         \
     );
 
 #define REGISTER_OGG_VORBIS_MIME_TYPES                                   \
     addMimeType(                                                         \
-        "audio/ogg, audio/x-ogg, application/x-ogg, audio/x-vorbis+ogg", \
+        "audio/x-vorbis+ogg, audio/ogg, audio/x-ogg, application/x-ogg", \
         i18n("Ogg Vorbis audio"),                                        \
         "*.ogg"                                                          \
     );
@@ -73,8 +73,6 @@ namespace Kwave
 
 #define REGISTER_COMPRESSION_TYPE_OGG_VORBIS \
     addCompression(Kwave::Compression::OGG_VORBIS);
-
-#define DEFAULT_MIME_TYPE "audio/ogg"
 
 #endif /* OGG_CODEC_PLUGIN_H */
 

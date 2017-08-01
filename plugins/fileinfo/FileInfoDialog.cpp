@@ -179,22 +179,20 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 	    }
 
 	    // mime type does not match compression -> switch
-	    bool found = false;
-	    Kwave::Compression::Type comp_found = Kwave::Compression::INVALID;
+	    QList<Kwave::Compression::Type> comps_found;
 	    foreach (Kwave::Compression::Type c, comps) {
 		Kwave::Compression cmp(c);
 		if ((cmp.preferredMimeType() == mimetype) &&
 		     comps.contains(c))
 		{
-		    found = true;
-		    comp_found = c;
+		    comps_found.append(c);
 		    break;
 		}
 	    }
-	    if (found && (comp_found != comp)) {
+	    if (!comps_found.isEmpty() && !comps_found.contains(comp)) {
 		Kwave::Compression::Type cn =
-		((comp_found == Kwave::Compression::INVALID) &&
-		    !comps.isEmpty()) ? comps.last() : comp_found;
+		(comps_found.isEmpty() && !comps.isEmpty()) ?
+                    comps.last() : comps_found.first();
 		Kwave::Compression comp_old(comp);
 		Kwave::Compression comp_new(cn);
 		qDebug("mime type/compression mismatch: "

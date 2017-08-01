@@ -18,8 +18,8 @@ LIST OF LICENSES FOUND IN THE SOURCES
 	  or the GNU Library General Public License 3.0
 	  - Oxygen icons
 
-	* Creative Commons Attribution-Share Alike 3.0 (CC BY-SA 3.0)
-	  http://creativecommons.org/licenses/by-sa/3.0/
+	* Creative Commons Attribution-Share Alike 4.0 (CC BY-SA 4.0)
+	  http://creativecommons.org/licenses/by-sa/4.0/
 	  - audio samples in samples/...
 
 	* Creative Commons Zero v1.0 Universal (CC0-1.0)
@@ -874,7 +874,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/zero/ZeroPlugin.h			GPL2+
 
 
-	samples/sample.opus				CC BY-SA 3.0
+	samples/sample.opus				CC BY-SA 4.0
 
 	scripts/create-testfile.kwave			GPL2+
 	scripts/screenshots.kwave			GPL2+

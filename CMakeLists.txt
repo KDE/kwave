@@ -218,7 +218,7 @@ INCLUDE(KDECMakeSettings)
 INCLUDE(GenerateExportHeader)
 INCLUDE(FeatureSummary)
 
-FIND_PACKAGE(KF5 REQUIRED COMPONENTS
+FIND_PACKAGE(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Archive
     Completion
     Config

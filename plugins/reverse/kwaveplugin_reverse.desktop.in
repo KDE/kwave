@@ -21,7 +21,6 @@ Name[sv]=Vänd
 Name[tr]=Ters
 Name[uk]=Реверс
 Name[x-test]=xxReversexx
-Name[zh_CN]=反向
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

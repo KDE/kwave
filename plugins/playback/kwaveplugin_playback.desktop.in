@@ -21,7 +21,6 @@ Name[sv]=Uppspelning
 Name[tr]=Çal
 Name[uk]=Відтворення
 Name[x-test]=xxPlaybackxx
-Name[zh_CN]=播放
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

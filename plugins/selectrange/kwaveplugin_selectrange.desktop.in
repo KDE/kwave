@@ -21,6 +21,7 @@ Name[sv]=Markera intervall
 Name[tr]=Aralık Seç
 Name[uk]=Вибір діапазону
 Name[x-test]=xxSelect Rangexx
+Name[zh_CN]=选择范围
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

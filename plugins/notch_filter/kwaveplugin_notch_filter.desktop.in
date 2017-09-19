@@ -20,6 +20,7 @@ Name[sk]=Zárezový filter
 Name[sv]=Bandspärrfilter
 Name[uk]=Фільтр розривів
 Name[x-test]=xxNotch Filterxx
+Name[zh_CN]=陷波滤波器
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Dave Flogeras

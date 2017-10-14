@@ -123,7 +123,7 @@ QString Kwave::RecordOSS::open(const QString &dev)
     ioctl(fd, OSS_GETVERSION, &m_oss_version);
 #endif
     m_fd = fd;
-    return QString::null;
+    return QString();
 }
 
 //***************************************************************************

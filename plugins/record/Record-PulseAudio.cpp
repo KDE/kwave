@@ -829,7 +829,7 @@ QString Kwave::RecordPulseAudio::open(const QString& device)
     // detect all formats the device knows
     detectSupportedFormats(device);
 
-    return QString::null;
+    return QString();
 }
 
 //***************************************************************************

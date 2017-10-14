@@ -405,7 +405,7 @@ QString Kwave::RecordQt::open(const QString& device)
     }
 
     m_device = device;
-    return QString::null;
+    return QString();
 }
 
 //***************************************************************************

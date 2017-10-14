@@ -322,7 +322,7 @@ QString Kwave::RecordALSA::open(const QString &device)
     // now we can detect all supported formats
     detectSupportedFormats();
 
-    return QString::null;
+    return QString();
 }
 
 //***************************************************************************

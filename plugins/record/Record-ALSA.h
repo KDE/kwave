@@ -54,7 +54,7 @@ namespace Kwave
 	/**
 	 * Open the record device.
 	 * @param dev path of the record device
-	 * @retval QString::null if successful
+	 * @retval QString() if successful
 	 * @retval QString::number(ENODEV) if device not found
 	 * @retval QString::number(EBUSY) if device is busy
 	 * @retval QString::number(EINVAL) on invalid parameters

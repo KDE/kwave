@@ -320,13 +320,11 @@ void Kwave::PluginManager::sync()
     // this triggers all kinds of garbage collector (objects queued for
     // deletion through obj->deleteLater()
     qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-    qApp->flush();
 
     // wait until all plugins have finished their work...
     while (onePluginRunning()) {
 	Kwave::yield();
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-	qApp->flush();
 	usleep(100000);
     }
 }

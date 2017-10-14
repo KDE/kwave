@@ -291,10 +291,6 @@
               <height>0</height>
              </size>
             </property>
-            <property name="toolTip">
-             <string>sample rate in Hz (use %1 as placeholder)
-or kHz (use [%khz] as placeholder)</string>
-            </property>
             <property name="text">
              <string/>
             </property>
@@ -320,10 +316,6 @@ or kHz (use [%khz] as placeholder)</string>
               <width>200</width>
               <height>0</height>
              </size>
-            </property>
-            <property name="toolTip">
-             <string>bits per sample,
-use %1 as placeholder</string>
             </property>
             <property name="text">
              <string/>
@@ -481,10 +473,6 @@ use %1 as placeholder</string>
               <height>0</height>
              </size>
             </property>
-            <property name="toolTip">
-             <string>parameter for minimum bitrate in bits/sec
-(use %1 as placeholder)</string>
-            </property>
             <property name="text">
              <string/>
             </property>
@@ -503,10 +491,6 @@ use %1 as placeholder</string>
               <width>100</width>
               <height>0</height>
              </size>
-            </property>
-            <property name="toolTip">
-             <string>parameter for maximum bitrate in bits/sec
-(use %1 as placeholder)</string>
             </property>
             <property name="text">
              <string/>
@@ -546,10 +530,6 @@ use %1 as placeholder</string>
               <width>100</width>
               <height>0</height>
              </size>
-            </property>
-            <property name="toolTip">
-             <string>parameter for average bitrate in bits/sec
-(use %1 as placeholder)</string>
             </property>
             <property name="text">
              <string/>

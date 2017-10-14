@@ -334,6 +334,30 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
     CONNECT(edEncoderHelp);
     CONNECT(edVersionInfo);
 
+    // set up all tool tips which contain a % character right here instead
+    // of the ui file, as they they would trigger errors during
+    // extraction (I18N_ARGUMENT_MISSING)
+    edSampleRate->setToolTip(i18n(
+        "sample rate in Hz (use %1 as placeholder)\n"
+        "or kHz (use %2 as placeholder)"
+    ).arg(_("%1")).arg(_("[%khz]")));
+    edBitsPerSample->setToolTip(i18n(
+        "bits per sample,\n"
+        "use %1 as placeholder"
+    ).arg(_("%1")));
+    edBitrateMin->setToolTip(i18n(
+        "parameter for minimum bitrate in bits/sec\n"
+        "(use %1 as placeholder)"
+    ).arg(_("%1")));
+    edBitrateMax->setToolTip(i18n(
+        "parameter for maximum bitrate in bits/sec\n"
+        "(use %1 as placeholder)"
+    ).arg(_("%1")));
+    edBitrateAvg->setToolTip(i18n(
+        "parameter for average bitrate in bits/sec\n"
+        "(use %1 as placeholder)"
+    ).arg(_("%1")));
+
     // set the focus onto the "OK" button
     buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }

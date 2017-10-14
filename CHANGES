@@ -8,6 +8,7 @@ xx.xx.x [xxxx-xx-xx]
   * bugfix: compression type lookup did not work when using static functions
   * bugfix: distinguish ogg/vorbis and ogg/opus by mime type
   * changed license of audio samples to CC BY-SA 4.0
+  * fixed some untranslated menu entries of plugins (missing context)
 
 17.04.0 [2017-03-19]
 

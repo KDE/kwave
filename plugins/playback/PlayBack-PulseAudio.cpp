@@ -889,7 +889,7 @@ QList<unsigned int> Kwave::PlayBackPulseAudio::supportedBits
 {
     QList<unsigned int> list;
 
-    if (m_device_list.isEmpty() || !m_device_list.contains(device))
+    if (m_device_list.isEmpty() || !m_device_list.contains(device) || !pa_sample_spec_valid(&m_device_list[device].m_sample_spec))
 	return list;
 
     list.append(Kwave::toUint(

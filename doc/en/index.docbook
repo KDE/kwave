@@ -1147,7 +1147,7 @@
 	    The plans for future include support for import and also export filters
 	    for more formats and maybe some filter that uses a user-definable script
 	    with a call to an external filter, so that even formats not supported
-	    by <literal>SoX</literal> (like MP3) can be read and/or written.
+	    by <literal>SoX</literal> can be read and/or written.
         </para>
     </sect2>
 
@@ -7637,24 +7637,6 @@
 	    	<para>
 		    This is possible through the ALSA interface,
 		    since v0.7.4.
-		</para>
-	    </answer>
-	</qandaentry>
-
-    	<qandaentry>
-	    <question>
-	    	<para>
-		    What about MP3 support?
-		</para>
-	    </question>
-    	    <answer>
-	    	<para>
-		    Well, as long as there are patent issues, we support only MP3
-		    import through the mad library and export via the external
-		    program <ulink url="&url_lame;">lame</ulink>.
-		    Additionally you need to have the permission to use code
-		    covered by the MP3 patents when generating a Kwave package
-		    for distributing!
 		</para>
 	    </answer>
 	</qandaentry>

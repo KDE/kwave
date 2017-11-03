@@ -126,7 +126,6 @@ BuildRequires:  rsvg-view
 BuildRequires:  update-desktop-files
 
 %define EXTRA_OPTS ""
-%define MP3ENABLED "-DWITH_MP3=OFF"
 %define FDUPES %fdupes -s %{buildroot}
 %if 0%{?suse_version} == 1315
 # Leap 42.1 still uses old plugin dir
@@ -185,7 +184,6 @@ BuildRequires:  qt5-qtmultimedia-devel   >= %{qt5_min_version}
 BuildRequires:  poxml
 
 %define EXTRA_OPTS ""
-%define MP3ENABLED "-DWITH_MP3=OFF"
 %define FDUPES fdupes -s %{buildroot}
 %define _kf5_applicationsdir /usr/share/applications/
 %define _kf5_appsdir /usr/share
@@ -238,7 +236,7 @@ mkdir build
 cd build
 CXXFLAGS="${CXXFLAGS} ${RPM_OPT_FLAGS}" CFLAGS="${CFLAGS} ${RPM_OPT_FLAGS}" \
     cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-    ${CONFIGURE_OPTS} %{MP3ENABLED} %{EXTRA_OPTS} ..
+    ${CONFIGURE_OPTS} %{EXTRA_OPTS} ..
 cd -
 
 make -C build %{?jobs:-j %jobs}

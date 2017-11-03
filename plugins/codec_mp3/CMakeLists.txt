@@ -22,7 +22,7 @@
 #                                                                           #
 #############################################################################
 
-OPTION(WITH_MP3 "enable support for mp3 files [default=off]" OFF)
+OPTION(WITH_MP3 "enable support for mp3 files [default=on]" ON)
 IF (WITH_MP3)
 
 #############################################################################

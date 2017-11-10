@@ -31,7 +31,7 @@ namespace Kwave
 {
     /**
      * @class ReversePlugin
-     * Reverts the current selection by exchanging blocks of samples
+     * Reverses the current selection by exchanging blocks of samples
      * from front and back and reversing their content
      */
     class ReversePlugin: public Kwave::Plugin

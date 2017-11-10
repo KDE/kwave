@@ -1,7 +1,13 @@
 
 xx.xx.x [xxxx-xx-xx]
 
+  * ask for confirmation (Continue/Cancel) before doing a revert
   * switched on MP3 support per default
+  * bugfix: crash in pulseaudio playback
+  * fixed some untranslated menu entries of plugins (missing context)
+
+17.08.2 [2017-10-08]
+
   * new plugin: export to K3b project file
   * reduced flicker of position widget
   * bugfix: deleting labels per menu did not work
@@ -9,7 +15,6 @@ xx.xx.x [xxxx-xx-xx]
   * bugfix: compression type lookup did not work when using static functions
   * bugfix: distinguish ogg/vorbis and ogg/opus by mime type
   * changed license of audio samples to CC BY-SA 4.0
-  * fixed some untranslated menu entries of plugins (missing context)
 
 17.04.0 [2017-03-19]
 

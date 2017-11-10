@@ -876,9 +876,16 @@ int Kwave::FileContext::revert()
     Kwave::FileContext::UsageGuard _keep(this);
 
     QUrl url(signalName());
-    if (!url.isValid()) return -EINVAL;
+    if (!url.isValid() || !m_signal_manager) return -EINVAL;
 
-    return (m_signal_manager) ? m_signal_manager->loadFile(url) : -EINVAL;
+    if (m_signal_manager->isModified()) {
+        int res =  Kwave::MessageBox::warningContinueCancel(m_top_widget,
+            i18n("This file has been modified, changes will be lost.\n"
+                 "Do you want to continue?"));
+        if (res == KMessageBox::Cancel) return ECANCELED;
+    }
+
+    return m_signal_manager->loadFile(url);
 }
 
 //***************************************************************************

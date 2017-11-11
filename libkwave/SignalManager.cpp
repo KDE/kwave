@@ -476,7 +476,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 	res = -EINVAL;
     }
 
-    if (!res) {
+    if (!res && !selection) {
 	// saved without error -> no longer modified
 	flushUndoBuffers();
 	enableModifiedChange(true);

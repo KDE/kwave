@@ -1,6 +1,7 @@
 
 xx.xx.x [xxxx-xx-xx]
 
+  * do not reset undo/redo information when saving blocks or selection only
   * ask for confirmation (Continue/Cancel) before doing a revert
   * switched on MP3 support per default
   * bugfix: crash in pulseaudio playback

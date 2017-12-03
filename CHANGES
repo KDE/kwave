@@ -1,5 +1,5 @@
 
-xx.xx.x [xxxx-xx-xx]
+18.03 [2017-11-13]
 
   * do not reset undo/redo information when saving blocks or selection only
   * ask for confirmation (Continue/Cancel) before doing a revert

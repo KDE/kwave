@@ -463,14 +463,17 @@ void Kwave::Interpolation::createPolynom(const Kwave::Curve &points,
 		x[count] = -1.5;
 		y[count++] = p.y();
 		pos++;
+                /* FALLTHROUGH */
 	   case -2:
 		x[count] = -1.0;
 		y[count++] = p.y();
 		pos++;
-	   case -1:
+                /* FALLTHROUGH */
+            case -1:
 		x[count] = -0.5;
 		y[count++] = p.y();
 		pos++;
+                break;
 	}
     }
 

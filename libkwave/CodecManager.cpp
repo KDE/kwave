@@ -93,15 +93,17 @@ bool Kwave::CodecManager::canDecode(const QString &mimetype_name)
 //***************************************************************************
 QString Kwave::CodecManager::whatContains(const QUrl &url)
 {
+    const QString default_mime_type = QMimeType().name();
+
     foreach (Kwave::Decoder *d, m_decoders) {
 	if (!d) continue;
 	QString mime_type = d->whatContains(url);
-	if (mime_type != QMimeType().name()) return mime_type;
+        if (mime_type != default_mime_type) return mime_type;
     }
     foreach (Kwave::Encoder *e, m_encoders) {
 	if (!e) continue;
 	QString mime_type = e->whatContains(url);
-	if (mime_type != QMimeType().name()) return mime_type;
+        if (mime_type != default_mime_type) return mime_type;
     }
 
     QMimeDatabase db;

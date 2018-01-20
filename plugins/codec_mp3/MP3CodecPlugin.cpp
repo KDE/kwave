@@ -17,7 +17,6 @@
 
 #include "config.h"
 
-#include "libkwave/CodecManager.h"
 #include "libkwave/String.h"
 
 #include "MP3CodecPlugin.h"

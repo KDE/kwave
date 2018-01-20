@@ -18,7 +18,6 @@
 #include "config.h"
 #include <KLocalizedString>
 
-#include "libkwave/CodecManager.h"
 #include "libkwave/PluginManager.h"
 
 #include "AudiofileCodecPlugin.h"

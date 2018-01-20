@@ -19,8 +19,6 @@
 
 #include <KLocalizedString>
 
-#include "libkwave/CodecManager.h"
-
 #include "OggCodecPlugin.h"
 #include "OggDecoder.h"
 #include "OggEncoder.h"

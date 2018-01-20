@@ -471,7 +471,7 @@ void Kwave::PlayBackOSS::format2mode(int format, int &compression,
 		sample_format = Kwave::SampleFormat::Signed;
 		bits          = 24;
 		break;
-	    }
+	    } /* FALLTHROUGH */
 	case AFMT_S32_LE:
 	case AFMT_S32_BE:
 	    if (m_oss_version >= 0x040000) {
@@ -479,7 +479,7 @@ void Kwave::PlayBackOSS::format2mode(int format, int &compression,
 		sample_format = Kwave::SampleFormat::Signed;
 		bits          = 32;
 		break;
-	    }
+            } /* FALLTHROUGH */
 	default:
 	    compression   = -1;
 	    sample_format = Kwave::SampleFormat::Unknown;

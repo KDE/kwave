@@ -41,7 +41,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#include "libkwave/CodecManager.h"
 #include "libkwave/Drag.h"
 #include "libkwave/FileDrag.h"
 #include "libkwave/FileInfo.h"

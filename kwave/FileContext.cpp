@@ -927,7 +927,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	QUrl current_url;
 	current_url = QUrl(signalName());
 
-	QString what  = Kwave::CodecManager::whatContains(current_url);
+        QString what  = Kwave::CodecManager::mimeTypeOf(current_url);
 	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
 	QString extension; // = "*.wav";
 	if (!encoder) {
@@ -1006,7 +1006,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	Kwave::FileInfo(m_signal_manager->metaData()).get(
 	    Kwave::INF_MIMETYPE).toString();
 
-    QString new_mimetype_name = Kwave::CodecManager::whatContains(url);
+    QString new_mimetype_name = Kwave::CodecManager::mimeTypeOf(url);
 
     if (new_mimetype_name != previous_mimetype_name) {
 	// saving to a different mime type

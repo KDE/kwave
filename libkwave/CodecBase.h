@@ -93,7 +93,7 @@ namespace Kwave
 	 * @param url a QUrl, only the filename's extension will be inspected
 	 * @return name of the mime type or the default mime type
 	 */
-	virtual QString whatContains(const QUrl &url);
+        virtual QString mimeTypeOf(const QUrl &url);
 
     private:
 

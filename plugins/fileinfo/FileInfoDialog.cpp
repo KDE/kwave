@@ -152,7 +152,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
      * the old file name
      */
     if (file_name.length()) {
-	QString mt = Kwave::CodecManager::whatContains(QUrl(file_name));
+        QString mt = Kwave::CodecManager::mimeTypeOf(QUrl(file_name));
 	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mt);
 	if (encoder) {
 	    // encoder does not support the file's mime type -> switch

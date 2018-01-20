@@ -696,7 +696,7 @@ int Kwave::K3BExportPlugin::saveBlocks(bool selection_only,
     Kwave::FileInfo file_info(orig_file_info);
     QList<Kwave::FileProperty> unsupported_properties;
     {
-	QString mimetype = Kwave::CodecManager::whatContains(m_url);
+        QString mimetype = Kwave::CodecManager::mimeTypeOf(m_url);
 	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype);
 	if (encoder) {
 	    unsupported_properties = encoder->unsupportedProperties(

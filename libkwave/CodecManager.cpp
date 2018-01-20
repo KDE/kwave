@@ -75,14 +75,6 @@ void Kwave::CodecManager::unregisterDecoder(Kwave::Decoder *decoder)
 }
 
 //***************************************************************************
-bool Kwave::CodecManager::canDecode(const QMimeType &mimetype)
-{
-    foreach (Kwave::Decoder *d, m_decoders)
-	if (d && d->supports(mimetype)) return true;
-    return false;
-}
-
-//***************************************************************************
 bool Kwave::CodecManager::canDecode(const QString &mimetype_name)
 {
     foreach (Kwave::Decoder *d, m_decoders)
@@ -91,18 +83,18 @@ bool Kwave::CodecManager::canDecode(const QString &mimetype_name)
 }
 
 //***************************************************************************
-QString Kwave::CodecManager::whatContains(const QUrl &url)
+QString Kwave::CodecManager::mimeTypeOf(const QUrl &url)
 {
     const QString default_mime_type = QMimeType().name();
 
     foreach (Kwave::Decoder *d, m_decoders) {
 	if (!d) continue;
-	QString mime_type = d->whatContains(url);
+        QString mime_type = d->mimeTypeOf(url);
         if (mime_type != default_mime_type) return mime_type;
     }
     foreach (Kwave::Encoder *e, m_encoders) {
 	if (!e) continue;
-	QString mime_type = e->whatContains(url);
+        QString mime_type = e->mimeTypeOf(url);
         if (mime_type != default_mime_type) return mime_type;
     }
 
@@ -130,24 +122,6 @@ Kwave::Decoder *Kwave::CodecManager::decoder(const QString &mimetype_name)
 {
     foreach (Kwave::Decoder *d, m_decoders)
 	if (d && d->supports(mimetype_name)) return d->instance();
-    return 0;
-}
-
-//***************************************************************************
-Kwave::Decoder *Kwave::CodecManager::decoder(const QMimeType &mimetype)
-{
-    return decoder(mimetype.name());
-}
-
-//***************************************************************************
-Kwave::Decoder *Kwave::CodecManager::decoder(const QMimeData *mime_data)
-{
-    if (!mime_data) return 0;
-
-    foreach (const QString &format, mime_data->formats()) {
-	Kwave::Decoder *d = decoder(format);
-	if (d) return d;
-    }
     return 0;
 }
 

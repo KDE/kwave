@@ -38,7 +38,7 @@ namespace Kwave
 		// dropping URLs
 		foreach (QUrl url, source->urls()) {
 		    QString mimetype =
-			Kwave::CodecManager::whatContains(url);
+			Kwave::CodecManager::mimeTypeOf(url);
 		    if (Kwave::CodecManager::canDecode(mimetype)) {
 			return true;
 		    }

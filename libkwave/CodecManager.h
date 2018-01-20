@@ -74,13 +74,6 @@ namespace Kwave
 
 	/**
 	 * Returns true if a decoder for the given mime type is known.
-	 * @param mimetype mime type describing the audio format
-	 * @return true if format is supported, false if not
-	 */
-	static bool canDecode(const QMimeType &mimetype);
-
-	/**
-	 * Returns true if a decoder for the given mime type is known.
 	 * @param mimetype_name name of the mime type
 	 * @return true if format is supported, false if not
 	 */
@@ -88,24 +81,10 @@ namespace Kwave
 
 	/**
 	 * Tries to find a decoder that matches to a given mime type.
-	 * @param mimetype mime type of the source
-	 * @return a new decoder for the mime type or null if none found.
-	 */
-	static Kwave::Decoder *decoder(const QMimeType &mimetype);
-
-	/**
-	 * Same as above, but takes the mime type as string.
 	 * @param mimetype_name name of the mime type
 	 * @return a new decoder for the mime type or null if none found.
 	 */
 	static Kwave::Decoder *decoder(const QString &mimetype_name);
-
-	/**
-	 * Same as above, but takes the mime info from a QMimeData.
-	 * @param mime_source source with a mime type (null pointer is allowed)
-	 * @return a new decoder for the mime type or null if none found.
-	 */
-	static Kwave::Decoder *decoder(const QMimeData *mime_source);
 
 	/**
 	 * Tries to find an encoder that matches to a given mime type.
@@ -136,7 +115,7 @@ namespace Kwave
 	 * @param url a QUrl, only the filename's extension will be inspected
 	 * @return name of the mime type or the default mime type
 	 */
-	static QString whatContains(const QUrl &url);
+        static QString mimeTypeOf(const QUrl &url);
 
 	/** Returns a list of supported mime types for encoding */
 	static QStringList encodingMimeTypes();

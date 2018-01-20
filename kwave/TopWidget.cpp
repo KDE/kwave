@@ -1618,7 +1618,7 @@ void Kwave::TopWidget::dropEvent(QDropEvent *event)
 	bool first = true;
 	foreach (const QUrl &url, event->mimeData()->urls()) {
 	    QString filename = url.toLocalFile();
-	    QString mimetype = Kwave::CodecManager::whatContains(url);
+            QString mimetype = Kwave::CodecManager::mimeTypeOf(url);
 	    if (Kwave::CodecManager::canDecode(mimetype)) {
 		if (first) {
 		    // first dropped URL -> open in this window

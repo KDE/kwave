@@ -146,7 +146,7 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
     // disable undo (discards all undo/redo data)
     disableUndo();
 
-    QString mimetype = Kwave::CodecManager::whatContains(url);
+    QString mimetype = Kwave::CodecManager::mimeTypeOf(url);
     qDebug("SignalManager::loadFile(%s) - [%s]",
            DBG(url.toDisplayString()), DBG(mimetype));
     Kwave::Decoder *decoder = Kwave::CodecManager::decoder(mimetype);
@@ -331,7 +331,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
     }
 
     QString mimetype_name;
-    mimetype_name = Kwave::CodecManager::whatContains(url);
+    mimetype_name = Kwave::CodecManager::mimeTypeOf(url);
     qDebug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
 	DBG(url.toDisplayString()), DBG(mimetype_name), bits, selection);
 

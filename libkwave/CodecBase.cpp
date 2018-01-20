@@ -137,7 +137,7 @@ const QList<Kwave::Compression::Type> Kwave::CodecBase::compressionTypes()
 }
 
 /***************************************************************************/
-QString Kwave::CodecBase::whatContains(const QUrl &url)
+QString Kwave::CodecBase::mimeTypeOf(const QUrl &url)
 {
     // get the extension of the file
     QFileInfo file(url.fileName());

@@ -37,7 +37,6 @@
 #include <QLocale>
 #include <QSpinBox>
 #include <QDateEdit>
-#include <QMimeType>
 
 #include <KComboBox>
 #include <KConfig>

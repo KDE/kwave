@@ -20,7 +20,6 @@
 
 #include <audiofile.h>
 
-#include <QMimeType>
 #include <QtGlobal>
 
 #include <KLocalizedString>

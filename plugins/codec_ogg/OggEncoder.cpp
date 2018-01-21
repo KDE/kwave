@@ -21,7 +21,6 @@
 #include <stdlib.h>
 
 #include <QList>
-#include <QMimeType>
 #include <QSharedPointer>
 
 #include <KLocalizedString>

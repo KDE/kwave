@@ -23,7 +23,6 @@
 #include <QApplication>
 #include <QByteArray>
 #include <QList>
-#include <QMimeType>
 #include <QVarLengthArray>
 
 #include <KLocalizedString>

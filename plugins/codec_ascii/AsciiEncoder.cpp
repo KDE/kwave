@@ -22,7 +22,6 @@
 
 #include <QApplication>
 #include <QList>
-#include <QMimeType>
 #include <QTextCodec>
 #include <QVariant>
 

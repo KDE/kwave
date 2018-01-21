@@ -26,9 +26,6 @@
 #include <QString>
 #include <QStringList>
 
-class QMimeType;
-class QMimeData;
-
 namespace Kwave
 {
 

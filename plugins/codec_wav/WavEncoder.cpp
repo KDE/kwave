@@ -23,7 +23,6 @@
 #include <KLocalizedString>
 
 #include <QByteArray>
-#include <QMimeType>
 #include <QtEndian>
 #include <QtGlobal>
 

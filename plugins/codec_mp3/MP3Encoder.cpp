@@ -29,7 +29,6 @@
 #include <QLatin1Char>
 #include <QList>
 #include <QMap>
-#include <QMimeType>
 
 #include <KLocalizedString>
 

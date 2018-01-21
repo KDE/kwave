@@ -29,7 +29,6 @@
 #include <QFrame>
 #include <QGridLayout>
 #include <QHBoxLayout>
-#include <QMimeType>
 #include <QPoint>
 #include <QPointer>
 #include <QResizeEvent>

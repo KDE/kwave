@@ -22,7 +22,6 @@
 #include <QDateTime>
 #include <QLatin1Char>
 #include <QLatin1String>
-#include <QMimeType>
 #include <QRegExp>
 
 #include <KLocalizedString>

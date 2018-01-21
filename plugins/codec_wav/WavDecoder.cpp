@@ -26,7 +26,6 @@
 #include <QtGlobal>
 
 #include <QApplication>
-#include <QMimeType>
 #include <QProgressDialog>
 
 #include <KLocalizedString>

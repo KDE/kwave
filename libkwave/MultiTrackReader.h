@@ -89,7 +89,7 @@ namespace Kwave
 	inline bool isCanceled() const { return m_canceled; }
 
 	/** @see QList::insert() */
-	bool insert(unsigned int track, Kwave::SampleReader *reader)
+        virtual bool insert(unsigned int track, Kwave::SampleReader *reader)
             Q_DECL_OVERRIDE;
 
 	/** Skips a number of samples. */

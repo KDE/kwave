@@ -52,25 +52,25 @@ namespace Kwave
 	 * for applying the curve if OK has been pressed.
 	 * @see Kwave::Plugin::setup
 	 */
-	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Does the fade operation
 	 * @param params list of strings with parameters
 	 */
-	void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
 	/**
 	 * @see Kwave::Plugin::start(),
 	 * overloaded to get the action name from the parameters
 	 */
-	int start(QStringList &params) Q_DECL_OVERRIDE;
+        virtual int start(QStringList &params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a text for the progress dialog if enabled.
 	 * (already be localized)
 	 */
-	QString progressText() Q_DECL_OVERRIDE;
+        virtual QString progressText() Q_DECL_OVERRIDE;
 
     protected:
 

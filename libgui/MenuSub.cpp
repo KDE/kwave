@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QPixmap>
 
 #include <KLocalizedString>
@@ -102,8 +104,8 @@ Kwave::MenuSub *Kwave::MenuSub::insertBranch(const QString &name,
     Q_ASSERT(menu);
     if (!menu) return 0;
 
-    Kwave::MenuSub *sub =
-	new Kwave::MenuSub(this, menu, name, command, shortcut, uid);
+    Kwave::MenuSub *sub = new(std::nothrow)
+        Kwave::MenuSub(this, menu, name, command, shortcut, uid);
     Q_ASSERT(sub);
     if (!sub) return 0;
 
@@ -122,8 +124,8 @@ Kwave::MenuNode *Kwave::MenuSub::insertLeaf(const QString &name,
     Q_ASSERT(m_menu);
     if (!name.length() || !m_menu) return 0;
 
-    Kwave::MenuItem *item =
-	new Kwave::MenuItem(this, name, command, shortcut, uid);
+    Kwave::MenuItem *item = new(std::nothrow)
+        Kwave::MenuItem(this, name, command, shortcut, uid);
     Q_ASSERT(item);
     if (!item) return 0;
 

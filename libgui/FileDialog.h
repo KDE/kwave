@@ -128,7 +128,7 @@ namespace Kwave
     protected slots:
 
 	/** overwritten to call accept() of the KFileWidget and saveConfig() */
-	void accept() Q_DECL_OVERRIDE;
+        virtual void accept() Q_DECL_OVERRIDE;
 
 	/** save current settings */
 	void saveConfig();

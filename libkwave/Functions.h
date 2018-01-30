@@ -74,7 +74,7 @@ namespace Kwave
 	    }
 
 	    /** fills the types map */
-	    void fill() Q_DECL_OVERRIDE;
+            virtual void fill() Q_DECL_OVERRIDE;
 	};
 
 	/** map of periodic functions */

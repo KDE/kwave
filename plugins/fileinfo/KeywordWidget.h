@@ -89,7 +89,8 @@ namespace Kwave
 	void update();
 
 	/** event filter for blocking the effect of pressing "return" */
-	bool eventFilter(QObject *sender, QEvent *event) Q_DECL_OVERRIDE;
+        virtual bool eventFilter(QObject *sender, QEvent *event)
+            Q_DECL_OVERRIDE;
 
     };
 }

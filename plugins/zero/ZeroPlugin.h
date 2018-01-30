@@ -54,7 +54,7 @@ namespace Kwave
 	 * Fills the selected area with zeroes
 	 * @param params list of strings with parameters
 	 */
-	void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     private:
 

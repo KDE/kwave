@@ -109,12 +109,12 @@ namespace Kwave
 	 * Fits again the URL label on resize events.
 	 * @see fitUrlLabel()
 	 */
-	void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
+        virtual void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
 
 	/**
 	 * Called if the window is to be closed.
 	 */
-	void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
+        virtual void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
 
 	/**
 	 * Fits the URL text into the available area, with

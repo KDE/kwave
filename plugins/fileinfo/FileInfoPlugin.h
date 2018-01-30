@@ -40,10 +40,10 @@ namespace Kwave
 	virtual ~FileInfoPlugin();
 
 	/**
-	* Shows a dialog for editing file properties.
-	* @see Kwave::Plugin::setup
-	*/
-	QStringList *setup(QStringList &) Q_DECL_OVERRIDE;
+	 * Shows a dialog for editing file properties.
+	 * @see Kwave::Plugin::setup
+	 */
+        virtual QStringList *setup(QStringList &) Q_DECL_OVERRIDE;
 
     protected:
 

@@ -133,7 +133,7 @@ namespace Kwave
 	    }
 
 	    /** filling function for the map. */
-	    void fill() Q_DECL_OVERRIDE;
+            virtual void fill() Q_DECL_OVERRIDE;
 	};
 
     private:

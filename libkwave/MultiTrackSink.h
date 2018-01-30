@@ -56,8 +56,8 @@ namespace Kwave
 	}
 
 	/** Returns true when all sinks are done */
-	bool done() const Q_DECL_OVERRIDE
-	{
+        virtual bool done() const Q_DECL_OVERRIDE
+        {
 	    foreach (Kwave::SampleSink *s,
 		     static_cast< QList<SINK *> >(*this))
 		if (s && !s->done()) return false;
@@ -68,7 +68,7 @@ namespace Kwave
 	 * Returns the number of tracks that the sink provides
 	 * @return number of tracks
 	 */
-	unsigned int tracks() const Q_DECL_OVERRIDE
+        virtual unsigned int tracks() const Q_DECL_OVERRIDE
 	{
 	    return QList<SINK *>::size();
 	}

@@ -42,7 +42,7 @@ namespace Kwave
 	virtual ~RecordThread();
 
 	/** does the recording */
-	void run() Q_DECL_OVERRIDE;
+        virtual void run() Q_DECL_OVERRIDE;
 
 	/**
 	 * Select a new record device.

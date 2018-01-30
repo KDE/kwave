@@ -60,7 +60,7 @@ namespace Kwave
 	 * sample data. It then should emit a signal like this:
 	 * "output(SampleArray &data)"
 	 */
-	void goOn() Q_DECL_OVERRIDE;
+        virtual void goOn() Q_DECL_OVERRIDE;
 
 	/** Checks if the last read operation has reached the end of input */
 	inline bool eof() const {
@@ -74,7 +74,7 @@ namespace Kwave
 	 * @return true if it can produce more sample data, otherwise false
 	 * @see eof()
 	 */
-	bool done() const Q_DECL_OVERRIDE { return eof(); }
+        virtual bool done() const Q_DECL_OVERRIDE { return eof(); }
 
 	/**
 	 * Reads samples into a buffer.

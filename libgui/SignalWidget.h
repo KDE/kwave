@@ -119,7 +119,7 @@ namespace Kwave
 	 * @param view the signal view, must not be a null pointer
 	 * @param controls a widget with controls, optionally, can be null
 	 */
-	void insertView(Kwave::SignalView *view, QWidget *controls)
+        virtual void insertView(Kwave::SignalView *view, QWidget *controls)
             Q_DECL_OVERRIDE;
 
     signals:
@@ -141,7 +141,7 @@ namespace Kwave
     protected slots:
 
 	/** Handler for context menus */
-	void contextMenuEvent(QContextMenuEvent *e) Q_DECL_OVERRIDE;
+        virtual void contextMenuEvent(QContextMenuEvent *e) Q_DECL_OVERRIDE;
 
     private slots:
 
@@ -233,7 +233,7 @@ namespace Kwave
     protected:
 
 	/** slot for mouse wheel events, used for vertical zoom */
-	void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
+        virtual void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
 
     private:
 

@@ -63,16 +63,16 @@ namespace Kwave
 	 * @param src MultiTrackReader used as source of the audio data
 	 * @return true if succeeded, false if failed
 	 */
-	bool open(QWidget *widget,
-	          const Kwave::FileInfo &info,
-	          Kwave::MultiTrackReader &src) Q_DECL_OVERRIDE;
+        virtual bool open(QWidget *widget,
+	                  const Kwave::FileInfo &info,
+	                  Kwave::MultiTrackReader &src) Q_DECL_OVERRIDE;
 
 	/**
 	 * write the header information
 	 * @param dst a QIODevice that receives the raw data
 	 * @return true if succeeded, false if failed
 	 */
-	bool writeHeader(QIODevice &dst) Q_DECL_OVERRIDE;
+        virtual bool writeHeader(QIODevice &dst) Q_DECL_OVERRIDE;
 
 	/**
 	 * encode received ogg data
@@ -80,13 +80,13 @@ namespace Kwave
 	 * @param dst a QIODevice that receives the raw data
 	 * @return true if succeeded, false if failed
 	 */
-	bool encode(Kwave::MultiTrackReader &src,
-	            QIODevice &dst) Q_DECL_OVERRIDE;
+        virtual bool encode(Kwave::MultiTrackReader &src,
+	                    QIODevice &dst) Q_DECL_OVERRIDE;
 
 	/**
 	 * finished the encoding, clean up
 	 */
-	void close() Q_DECL_OVERRIDE;
+        virtual void close() Q_DECL_OVERRIDE;
 
     private:
 

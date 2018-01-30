@@ -46,10 +46,10 @@ namespace Kwave
 	virtual ~BandPass();
 
 	/** does the calculation */
-	void goOn() Q_DECL_OVERRIDE;
+        virtual void goOn() Q_DECL_OVERRIDE;
 
 	/** @see TransmissionFunction::at() */
-	double at(double f) Q_DECL_OVERRIDE;
+        virtual double at(double f) Q_DECL_OVERRIDE;
 
     signals:
 

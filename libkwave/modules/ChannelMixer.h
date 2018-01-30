@@ -68,18 +68,19 @@ namespace Kwave
 	     * @return number of tracks of a input or output, default is
 	     *         the same as tracks()
 	     */
-	    unsigned int tracksOfPort(const char *port) const Q_DECL_OVERRIDE;
+            virtual unsigned int tracksOfPort(const char *port) const
+                Q_DECL_OVERRIDE;
 
 	    /**
 	     * Returns an indexed port, identified by name
 	     * @param port name of the port (name of signal or slot)
 	     * @param track index of the track
 	     */
-	    Kwave::StreamObject *port(const char *port,
-	                              unsigned int track) Q_DECL_OVERRIDE;
+            virtual Kwave::StreamObject *port(
+                const char *port, unsigned int track) Q_DECL_OVERRIDE;
 
 	    /** does nothing, work is done automatically in mix() */
-	    void goOn() Q_DECL_OVERRIDE
+            virtual void goOn() Q_DECL_OVERRIDE
 	    {
 	    }
 

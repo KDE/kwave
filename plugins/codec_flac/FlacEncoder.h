@@ -51,7 +51,7 @@ namespace Kwave
 	virtual ~FlacEncoder();
 
 	/** Returns a new instance of the encoder */
-	Kwave::Encoder *instance() Q_DECL_OVERRIDE;
+        virtual Kwave::Encoder *instance() Q_DECL_OVERRIDE;
 
 	/**
 	 * Encodes a signal into a stream of bytes.
@@ -62,12 +62,14 @@ namespace Kwave
 	 * @param meta_data meta data of the file to save
 	 * @return true if succeeded, false on errors
 	 */
-	bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
-	            QIODevice &dst,
-	            const Kwave::MetaDataList &meta_data) Q_DECL_OVERRIDE;
+        virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
+	                    QIODevice &dst,
+	                    const Kwave::MetaDataList &meta_data)
+            Q_DECL_OVERRIDE;
 
 	/** Returns a list of supported file properties */
-	QList<Kwave::FileProperty> supportedProperties() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::FileProperty> supportedProperties()
+            Q_DECL_OVERRIDE;
 
     protected:
 
@@ -80,7 +82,7 @@ namespace Kwave
 	 * @param current_frame index of the current frame
 	 * @return FLAC stream encoder write status
 	 */
-	::FLAC__StreamEncoderWriteStatus write_callback(
+        virtual ::FLAC__StreamEncoderWriteStatus write_callback(
 	    const FLAC__byte buffer[], size_t bytes,
 	    unsigned samples, unsigned current_frame) Q_DECL_OVERRIDE;
 
@@ -90,7 +92,7 @@ namespace Kwave
 	 * @param metadata pointer to a FLAC metadata structure that will
 	 *        be filled
 	 */
-	void metadata_callback(const ::FLAC__StreamMetadata *metadata)
+        virtual void metadata_callback(const ::FLAC__StreamMetadata *metadata)
             Q_DECL_OVERRIDE;
 
 	/**

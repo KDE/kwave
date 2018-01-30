@@ -61,7 +61,7 @@ namespace Kwave
 	/**
 	 * Always returns true, as the nodes of this type are branches.
 	 */
-	bool isBranch() const Q_DECL_OVERRIDE { return true; }
+	virtual bool isBranch() const Q_DECL_OVERRIDE { return true; }
 
 	/**
 	 * Inserts a new branch node under the submenu. The new node
@@ -78,7 +78,7 @@ namespace Kwave
 	 * @param uid unique id string (might be 0)
 	 * @return pointer to the new branch node
 	 */
-	Kwave::MenuSub *insertBranch(const QString &name,
+        virtual Kwave::MenuSub *insertBranch(const QString &name,
 	                                     const QString &command,
 	                                     const QKeySequence &shortcut,
 	                                     const QString &uid) Q_DECL_OVERRIDE;
@@ -93,13 +93,13 @@ namespace Kwave
 	 * @param uid unique id string (might be 0)
 	 * @return pointer to the new leaf node
 	 */
-	Kwave::MenuNode *insertLeaf(const QString &name,
+        virtual Kwave::MenuNode *insertLeaf(const QString &name,
 	                                    const QString &command,
 	                                    const QKeySequence &shortcut,
 	                                    const QString &uid) Q_DECL_OVERRIDE;
 
 	/** Returns the corresponding menu action */
-	QAction *action() Q_DECL_OVERRIDE {
+        virtual QAction *action() Q_DECL_OVERRIDE {
 	    return (m_menu) ? m_menu->menuAction() : 0;
 	}
 
@@ -108,40 +108,40 @@ namespace Kwave
 	 * was not found or is already removed this does nothing.
 	 * @param child pointer to the child node
 	 */
-	void removeChild(Kwave::MenuNode *child) Q_DECL_OVERRIDE;
+        virtual void removeChild(Kwave::MenuNode *child) Q_DECL_OVERRIDE;
 
 	/**
 	 * Handles/interpretes special menu commands.
 	 * @param command name of a menu node or command
 	 * @return true if the name was recognized as a command and handled
 	 */
-	bool specialCommand(const QString &command) Q_DECL_OVERRIDE;
+        virtual bool specialCommand(const QString &command) Q_DECL_OVERRIDE;
 
 	/**
 	 * Shows/hides the current sub menu.
 	 * @param visible true to show the sub menu, false to hide
 	 */
-	void setVisible(bool visible) Q_DECL_OVERRIDE;
+        virtual void setVisible(bool visible) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns true if the node is enabled.
 	 */
-	bool isEnabled() Q_DECL_OVERRIDE;
+        virtual bool isEnabled() Q_DECL_OVERRIDE;
 
 	/**
 	 * Enables/disables the current menu node.
 	 * @param enable true to enable the item, false to disable
 	 */
-	void setEnabled(bool enable) Q_DECL_OVERRIDE;
+        virtual void setEnabled(bool enable) Q_DECL_OVERRIDE;
 
 	/** Returns the menu nodes' icon. */
-	const QIcon icon() Q_DECL_OVERRIDE;
+        virtual const QIcon icon() Q_DECL_OVERRIDE;
 
 	/**
 	 * Sets a new icon of a menu node.
 	 * @param icon QPixmap with the icon
 	 */
-	void setIcon(const QIcon &icon) Q_DECL_OVERRIDE;
+        virtual void setIcon(const QIcon &icon) Q_DECL_OVERRIDE;
 
     protected:
 	friend class MenuRoot;

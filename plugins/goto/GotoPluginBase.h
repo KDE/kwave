@@ -52,13 +52,13 @@ namespace Kwave
 	 * for applying the selection if OK has been pressed.
 	 * @see Kwave::Plugin::setup
 	 */
-	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
 	/**
 	 * selects the position
 	 * @see Kwave::Plugin::start()
 	 */
-	int start(QStringList &params) Q_DECL_OVERRIDE;
+        virtual int start(QStringList &params) Q_DECL_OVERRIDE;
 
     protected:
 

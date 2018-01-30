@@ -41,10 +41,10 @@ namespace Kwave
 	virtual ~WavCodecPlugin();
 
 	/** Creates a new decoder */
-	QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;
 
 	/** Creates a new encoder */
-	QList<Kwave::Encoder *> createEncoder() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::Encoder *> createEncoder() Q_DECL_OVERRIDE;
 
     private:
 	/** static codec container */

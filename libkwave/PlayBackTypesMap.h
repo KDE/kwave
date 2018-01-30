@@ -41,7 +41,7 @@ namespace Kwave
 	virtual ~PlayBackTypesMap() {}
 
 	/** fill function for the map */
-	void fill() Q_DECL_OVERRIDE;
+        virtual void fill() Q_DECL_OVERRIDE;
     };
 }
 

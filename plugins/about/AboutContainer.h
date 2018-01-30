@@ -52,8 +52,9 @@ namespace Kwave
 	void addPerson(const QString &name, const QString &email,
 		    const QString &url, const QString &task);
 
-	QSize sizeHint() const Q_DECL_OVERRIDE;
-	QSize minimumSizeHint() const Q_DECL_OVERRIDE;
+        virtual QSize sizeHint() const Q_DECL_OVERRIDE;
+
+        virtual QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 
 	void addWidget(QWidget *widget);
 

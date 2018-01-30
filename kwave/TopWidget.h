@@ -153,16 +153,16 @@ namespace Kwave
     protected slots:
 
 	/** @see QWidget::closeEvent() */
-	void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
+        virtual void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
 
 	/** @see Qt XDND documentation */
-	void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
+        virtual void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
 
 	/**
 	 * For dropping data into an empty signal
 	 * @see Qt XDND documentation
 	 */
-	void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
+        virtual void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
 
     private slots:
 

@@ -59,7 +59,7 @@ namespace Kwave
 	 * Returns flags describing the possible interactions with this object
 	 * @see Kwave::ViewItem::Flags
 	 */
-	Kwave::ViewItem::Flags flags() const Q_DECL_OVERRIDE;
+        virtual Kwave::ViewItem::Flags flags() const Q_DECL_OVERRIDE;
 
 	/**
 	 * Can be overwritten to return a tooltip.
@@ -67,31 +67,31 @@ namespace Kwave
 	 * @param ofs sample index the tooltip should refer to (unused)
 	 * @return an already localized tooltip
 	 */
-	QString toolTip(sample_index_t &ofs) Q_DECL_OVERRIDE;
+        virtual QString toolTip(sample_index_t &ofs) Q_DECL_OVERRIDE;
 
 	/**
 	 * Called to append entries to a context menu.
 	 * @param parent context menu to add items
 	 */
-	void appendContextMenu(QMenu *parent) Q_DECL_OVERRIDE;
+        virtual void appendContextMenu(QMenu *parent) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a mouse cursor used when moving the item
 	 */
-	QCursor mouseCursor() const Q_DECL_OVERRIDE;
+        virtual QCursor mouseCursor() const Q_DECL_OVERRIDE;
 
 	/**
 	 * handles updates when being moved with the mouse
 	 * @param mouse_pos position of the mouse, in pixel coordinates
 	 *                  relative to the parent widget
 	 */
-	void moveTo(const QPoint &mouse_pos) Q_DECL_OVERRIDE;
+        virtual void moveTo(const QPoint &mouse_pos) Q_DECL_OVERRIDE;
 
 	/**
 	 * Called when leaving the move mode, when the mouse button
 	 * has been released.
 	 */
-	void done() Q_DECL_OVERRIDE;
+        virtual void done() Q_DECL_OVERRIDE;
 
     private slots:
 

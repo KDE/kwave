@@ -65,7 +65,7 @@ namespace Kwave
 	 * @param shortcut keyboard shortcut, 0 if unused
 	 * @param uid unique id string (might be 0)
 	 */
-	void insertNode(const QString &name,
+        virtual void insertNode(const QString &name,
 	                        const QString &position,
 	                        const QString &command,
 	                        const QKeySequence &shortcut,
@@ -86,7 +86,7 @@ namespace Kwave
 	 * @param uid unique id string (might be 0)
 	 * @return pointer to the new branch node
 	 */
-	Kwave::MenuSub *insertBranch(const QString &name,
+        virtual Kwave::MenuSub *insertBranch(const QString &name,
 	                                     const QString &command,
 	                                     const QKeySequence &shortcut,
 	                                     const QString &uid) Q_DECL_OVERRIDE;
@@ -101,7 +101,7 @@ namespace Kwave
 	 * @param uid unique id string (might be 0)
 	 * @return pointer to the new leaf node
 	 */
-	Kwave::MenuNode *insertLeaf(const QString &name,
+        virtual Kwave::MenuNode *insertLeaf(const QString &name,
 	                                    const QString &command,
 	                                    const QKeySequence &shortcut,
 	                                    const QString &uid) Q_DECL_OVERRIDE;
@@ -111,19 +111,19 @@ namespace Kwave
 	 * was not found or is already removed this does nothing.
 	 * @param child pointer to the child node
 	 */
-	void removeChild(Kwave::MenuNode *child) Q_DECL_OVERRIDE;
+        virtual void removeChild(Kwave::MenuNode *child) Q_DECL_OVERRIDE;
 
 	/**
 	 * Handles/interprets special menu commands.
 	 * @param command name of a menu node or command
 	 * @return true if the name was recognized as a command and handled
 	 */
-	bool specialCommand(const QString &command) Q_DECL_OVERRIDE;
+        virtual bool specialCommand(const QString &command) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a pointer to the list of groups
 	 */
-	QHash<QString, Kwave::MenuGroup *> &groupList() Q_DECL_OVERRIDE;
+        virtual QHash<QString, Kwave::MenuGroup *> &groupList() Q_DECL_OVERRIDE;
 
 	/**
 	 * replacement for QObject::deleteLater(...), which does not work

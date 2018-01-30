@@ -21,6 +21,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <new>
+
 #include <QKeySequence>
 #include <QLatin1Char>
 #include <QRegExp>
@@ -48,7 +50,7 @@ QMap<QString, QKeySequence> Kwave::MenuManager::m_standard_keys;
 Kwave::MenuManager::MenuManager(QWidget *parent, QMenuBar &bar)
     :QObject(parent)
 {
-    m_menu_root = new Kwave::MenuRoot(bar);
+    m_menu_root = new(std::nothrow) Kwave::MenuRoot(bar);
     Q_ASSERT(m_menu_root);
     if (m_menu_root) {
 	connect(

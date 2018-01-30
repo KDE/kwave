@@ -59,31 +59,31 @@ namespace Kwave
 	/**
 	 * Called to notify the item that it has been selected.
 	 */
-	void actionSelected() Q_DECL_OVERRIDE;
+	virtual void actionSelected() Q_DECL_OVERRIDE;
 
 	/**
 	 * Handles/interpretes special menu commands.
 	 * @param command name of a menu node or command
 	 * @return true if the name was recognized as a command and handled
 	 */
-	bool specialCommand(const QString &command) Q_DECL_OVERRIDE;
+        virtual bool specialCommand(const QString &command) Q_DECL_OVERRIDE;
 
 	/**
 	 * Shows/hides the current menu node.
 	 * @param visible true to show the item, false to hide
 	 */
-	void setVisible(bool visible) Q_DECL_OVERRIDE;
+        virtual void setVisible(bool visible) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns true if the node is enabled.
 	 */
-	bool isEnabled() Q_DECL_OVERRIDE;
+        virtual bool isEnabled() Q_DECL_OVERRIDE;
 
 	/**
 	 * Enables/disables the current menu node.
 	 * @param enable true to enable the item, false to disable
 	 */
-	void setEnabled(bool enable) Q_DECL_OVERRIDE;
+        virtual void setEnabled(bool enable) Q_DECL_OVERRIDE;
 
 	/**
 	 * Enables/disabled checking/selecting the item
@@ -98,28 +98,28 @@ namespace Kwave
 	 * Sets/removes the checkmark from the current menu item.
 	 * @param check true to set the mark, false to remove
 	 */
-	void setChecked(bool check) Q_DECL_OVERRIDE;
+        virtual void setChecked(bool check) Q_DECL_OVERRIDE;
 
 	/**
 	 * Sets the visible text of an item to a new value. (Only useful
 	 * for a MenuItem)
 	 * @param text the new text
 	 */
-	void setText(const QString &text) Q_DECL_OVERRIDE;
+        virtual void setText(const QString &text) Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns the menu nodes' icon.
 	 */
-	const QIcon icon() Q_DECL_OVERRIDE;
+        virtual const QIcon icon() Q_DECL_OVERRIDE;
 
 	/**
 	 * Sets a new icon of a menu node.
 	 * @param icon QPixmap with the icon
 	 */
-	void setIcon(const QIcon &icon) Q_DECL_OVERRIDE;
+        virtual void setIcon(const QIcon &icon) Q_DECL_OVERRIDE;
 
 	/** Returns the corresponding menu action */
-	QAction *action() Q_DECL_OVERRIDE { return &m_action; }
+        virtual QAction *action() Q_DECL_OVERRIDE { return &m_action; }
 
     private slots:
 

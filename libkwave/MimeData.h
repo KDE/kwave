@@ -96,7 +96,7 @@ namespace Kwave
 		virtual ~Buffer();
 
 		/** returns the number of bytes written */
-		qint64 size() const Q_DECL_OVERRIDE { return m_size; }
+                virtual qint64 size() const Q_DECL_OVERRIDE { return m_size; }
 
 		/**
 		 * Try to map the memory to a QByteArray
@@ -112,7 +112,7 @@ namespace Kwave
 		 * Closes the buffer and frees the memory
 		 * (calling multiple times is allowed)
 		 */
-		void close() Q_DECL_OVERRIDE;
+                virtual void close() Q_DECL_OVERRIDE;
 
 	    protected:
 		/**
@@ -122,7 +122,8 @@ namespace Kwave
 		 * @param maxlen maximum number of bytes to read
 		 * @return number of bytes read or -1 if failed
 		 */
-		qint64 readData(char *data, qint64 maxlen) Q_DECL_OVERRIDE;
+                virtual qint64 readData(char *data, qint64 maxlen)
+                    Q_DECL_OVERRIDE;
 
 		/**
 		 * write a block of data, internally increments the buffer
@@ -132,7 +133,8 @@ namespace Kwave
 		 * @param len number of bytes to write
 		 * @return number of bytes written or -1 if failed
 		 */
-		qint64 writeData(const char *data, qint64 len) Q_DECL_OVERRIDE;
+                virtual qint64 writeData(const char *data, qint64 len)
+                    Q_DECL_OVERRIDE;
 
 	    private:
 		/** handle of the block of memory (see MemoryManager) */

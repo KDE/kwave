@@ -51,7 +51,7 @@ namespace Kwave
 	virtual ~DebugPlugin();
 
 	/** @see Kwave::Plugin::load() */
-	void load(QStringList &params) Q_DECL_OVERRIDE;
+        virtual void load(QStringList &params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Normally this method is used to set up all necessary parameters
@@ -61,13 +61,13 @@ namespace Kwave
 	 * @param params some parameters
 	 * @return always a null pointer
 	 */
-	QStringList *setup(QStringList &params) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &params) Q_DECL_OVERRIDE;
 
 	/**
 	 * performs the special function
 	 * @param params list of strings with parameters
 	 */
-	void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     private slots:
 

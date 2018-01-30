@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QLatin1Char>
 #include <QPixmap>
 
@@ -52,7 +54,7 @@ Kwave::MenuNode::~MenuNode()
 	group = m_groups.begin();
     }
 
-    // remove all clients
+    // remove all childs
     clear();
 
     // de-register from our parent
@@ -387,7 +389,7 @@ void Kwave::MenuNode::joinGroup(const QString &group,
 	grp = group_list[group];
     } else {
 	// group does not already exist, create a new one
-	grp = new Kwave::MenuGroup(rootNode(), group, mode);
+        grp = new(std::nothrow) Kwave::MenuGroup(rootNode(), group, mode);
 	if (grp) group_list.insert(group, grp);
     }
 
@@ -454,7 +456,8 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	const QString uid = parser.firstParam();
 	const QString cmd = parser.nextParam();
 	if (!sub->findUID(uid)) {
-	    Kwave::MenuList *placeholder = new Kwave::MenuList(sub, cmd, uid);
+            Kwave::MenuList *placeholder =
+                new(std::nothrow) Kwave::MenuList(sub, cmd, uid);
 	    Q_ASSERT(placeholder);
 	    if (!placeholder) return false;
 

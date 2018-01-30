@@ -54,7 +54,7 @@ namespace Kwave
 	 * reverses the selection
 	 * @param params list of strings with parameters
 	 */
-	void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     private slots:
 
@@ -62,7 +62,7 @@ namespace Kwave
 	 * multiplies the progress by factor two and
 	 * calls Kwave::Plugin::updateProgress
 	 */
-	void updateProgress(qreal progress) Q_DECL_OVERRIDE;
+        virtual void updateProgress(qreal progress) Q_DECL_OVERRIDE;
 
     private:
 

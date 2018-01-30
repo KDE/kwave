@@ -102,7 +102,7 @@ namespace Kwave
 	virtual bool eof() const;
 
 	/** the same as eof(), needed for the Kwave::SampleSink interface */
-	bool done() const Q_DECL_OVERRIDE { return eof(); }
+        virtual bool done() const Q_DECL_OVERRIDE { return eof(); }
 
 	/** Returns the index of the first sample of the range. */
 	inline sample_index_t first() const { return m_first; }

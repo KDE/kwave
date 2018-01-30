@@ -48,11 +48,13 @@ namespace Kwave
 	void doAnim();
 
     protected:
-	/** repaints */
-	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+
+        /** repaints */
+        virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
     private:
-	/** width of the widget */
+
+        /** width of the widget */
 	int m_width;
 
 	/** height of the widget */

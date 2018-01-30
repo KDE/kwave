@@ -44,19 +44,20 @@ namespace Kwave
 	virtual ~RepairVirtualAudioFile();
 
 	/** reads a block of data */
-	qint64 read(char *data, unsigned int nbytes) Q_DECL_OVERRIDE;
+        virtual qint64 read(char *data, unsigned int nbytes) Q_DECL_OVERRIDE;
 
 	/** returns the length of the file */
-	qint64 length() Q_DECL_OVERRIDE;
+        virtual qint64 length() Q_DECL_OVERRIDE;
 
 	/** writes a block of data */
-	qint64 write(const char *data, unsigned int nbytes) Q_DECL_OVERRIDE;
+        virtual qint64 write(const char *data, unsigned int nbytes)
+            Q_DECL_OVERRIDE;
 
 	/** seek to a file position */
-	qint64 seek(qint64 offset, bool is_relative) Q_DECL_OVERRIDE;
+        virtual qint64 seek(qint64 offset, bool is_relative) Q_DECL_OVERRIDE;
 
 	/** returns the file position */
-	qint64 tell() Q_DECL_OVERRIDE;
+        virtual qint64 tell() Q_DECL_OVERRIDE;
 
     private:
 

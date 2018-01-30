@@ -338,7 +338,7 @@ namespace Kwave
 	friend class Kwave::WorkerThread;
 
 	/** Wrapper for run() that contains a call to release() */
-	void run_wrapper(const QVariant &params) Q_DECL_OVERRIDE;
+        virtual void run_wrapper(const QVariant &params) Q_DECL_OVERRIDE;
 
     private:
 

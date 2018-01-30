@@ -249,7 +249,7 @@ namespace Kwave
 	QList<FileProperty> allKnownProperties() const;
 
 	/** dumps all properties to stdout, useful for debugging */
-	void dump() const Q_DECL_OVERRIDE;
+        virtual void dump() const Q_DECL_OVERRIDE;
 
     private:
 
@@ -267,7 +267,7 @@ namespace Kwave
 	    }
 
 	    /** fills the list */
-	    void fill() Q_DECL_OVERRIDE;
+            virtual void fill() Q_DECL_OVERRIDE;
 
 	    /** returns a list of all properties */
 	    virtual QList<FileProperty> all() const;

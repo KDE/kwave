@@ -46,13 +46,13 @@ namespace Kwave
 	virtual ~PitchShiftDialog();
 
 	/** Returns the parameters as string list */
-	QStringList params() Q_DECL_OVERRIDE;
+        virtual QStringList params() Q_DECL_OVERRIDE;
 
 	/** Sets the from a list of parameters */
-	void setParams(QStringList &params) Q_DECL_OVERRIDE;
+        virtual void setParams(QStringList &params) Q_DECL_OVERRIDE;
 
 	/** retruns a pointer to this as a QDialog */
-	QDialog *dialog() Q_DECL_OVERRIDE { return this; }
+        virtual QDialog *dialog() Q_DECL_OVERRIDE { return this; }
 
     signals:
 

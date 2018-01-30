@@ -47,7 +47,7 @@ namespace Kwave
     public slots:
 
 	/** applies the settings and closes the dialog (OK button) */
-	void accept() Q_DECL_OVERRIDE;
+        virtual void accept() Q_DECL_OVERRIDE;
 
     private:
 

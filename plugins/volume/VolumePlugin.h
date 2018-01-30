@@ -48,13 +48,14 @@ namespace Kwave
 	 * Shows a dialog for selecting a volume.
 	 * @see Kwave::Plugin::setup
 	 */
-	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &previous_params)
+            Q_DECL_OVERRIDE;
 
 	/**
 	 * Does the amplification operation
 	 * @param params list of strings with parameters
 	 */
-	void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     protected:
 

@@ -39,7 +39,7 @@ namespace Kwave
 	virtual ~TreeWidgetWrapper();
 
 	/** catches the "lost focus" event */
-	void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
+        virtual void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
 
     signals:
 

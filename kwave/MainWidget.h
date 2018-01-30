@@ -108,42 +108,42 @@ namespace Kwave
 	virtual ~MainWidget();
 
 	/** Returns the current zoom factor [samples/pixel] */
-	double zoom() const Q_DECL_OVERRIDE;
+	virtual double zoom() const Q_DECL_OVERRIDE;
 
 	/** Returns the width of the current view in pixels */
-	int visibleWidth() const Q_DECL_OVERRIDE;
+        virtual int visibleWidth() const Q_DECL_OVERRIDE;
 
 	/** Returns the width of the current view in samples */
-	sample_index_t visibleSamples() const Q_DECL_OVERRIDE;
+        virtual sample_index_t visibleSamples() const Q_DECL_OVERRIDE;
 
 	/** Returns the current start position of the visible area [samples] */
 	virtual sample_index_t visibleOffset() { return m_offset; }
 
 	/** Returns the preferred size of the widget */
-	QSize sizeHint () const Q_DECL_OVERRIDE { return m_preferred_size; }
+        virtual QSize sizeHint () const Q_DECL_OVERRIDE { return m_preferred_size; }
 
     protected:
 
 	/** @see Qt XDND documentation */
-	void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
+        virtual void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
 
 	/**
 	 * For dropping data into an empty signal
 	 * @see Qt XDND documentation
 	 */
-	void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
+        virtual void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
 
 	/**
 	 * Called if the main widget has been resized and resizes/moves
 	 * the signal widget and the channel controls
 	 */
-	void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+        virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 	/** slot for mouse wheel events, for scrolling/zooming */
-	void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
+        virtual void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
 
 	/** @see QWidget::closeEvent() */
-	void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
+        virtual void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
 
     protected slots:
 
@@ -159,7 +159,7 @@ namespace Kwave
 	 * @retval -ENOSYS is returned if the command is unknown in this
 	 *                 component
 	 */
-	int executeCommand(const QString &command) Q_DECL_OVERRIDE;
+        virtual int executeCommand(const QString &command) Q_DECL_OVERRIDE;
 
 	/**
 	 * Sets the display offset [samples] and refreshes the screen.
@@ -172,7 +172,7 @@ namespace Kwave
 	 * Scrolls the display so that the given position gets visible,
 	 * centered within the display if possible.
 	 */
-	void scrollTo(sample_index_t pos) Q_DECL_OVERRIDE;
+        virtual void scrollTo(sample_index_t pos) Q_DECL_OVERRIDE;
 
 	/**
 	 * sets a new zoom factor [samples/pixel], does not refresh the screen
@@ -180,7 +180,7 @@ namespace Kwave
 	 *                 to [length/width...1/width] (from full display to
 	 *                 one visible sample only)
 	 */
-	void setZoom(double new_zoom) Q_DECL_OVERRIDE;
+        virtual void setZoom(double new_zoom) Q_DECL_OVERRIDE;
 
 	/**
 	 * Zooms into the selected range between the left and right marker.

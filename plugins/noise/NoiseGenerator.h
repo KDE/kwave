@@ -43,7 +43,7 @@ namespace Kwave
 	 * produces a block of noise,
 	 * @see Kwave::SampleSource::goOn()
 	 */
-	void goOn() Q_DECL_OVERRIDE;
+        virtual void goOn() Q_DECL_OVERRIDE;
 
     signals:
 

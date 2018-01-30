@@ -56,17 +56,17 @@ namespace Kwave
 	QString description() Q_DECL_OVERRIDE;
 
 	/** @see UndoAction::undoSize() */
-	qint64 undoSize() Q_DECL_OVERRIDE;
+        virtual qint64 undoSize() Q_DECL_OVERRIDE;
 
 	/** @see UndoAction::redoSize() */
-	qint64 redoSize() Q_DECL_OVERRIDE;
+        virtual qint64 redoSize() Q_DECL_OVERRIDE;
 
 	/** @see UndoAction::store() */
-	bool store(SignalManager &manager) Q_DECL_OVERRIDE;
+        virtual bool store(SignalManager &manager) Q_DECL_OVERRIDE;
 
 	/** @see UndoAction::undo() */
-	Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-	                        bool with_redo) Q_DECL_OVERRIDE;
+        virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+	                                bool with_redo) Q_DECL_OVERRIDE;
 
     protected:
 

@@ -57,14 +57,14 @@ namespace Kwave
 	 * and decoder on first call, all subsequenct calls only increment
 	 * the reference count of the existing encoder/decoder instances.
 	 */
-	void load(QStringList &/* params */) Q_DECL_OVERRIDE;
+        virtual void load(QStringList &/* params */) Q_DECL_OVERRIDE;
 
 	/**
 	 * Gets called before the plugin is unloaded. Decrements the use count
 	 * of existing encoder/decoder instances and removes them if zero
 	 * gets reached.
 	 */
-	void unload() Q_DECL_OVERRIDE;
+        virtual void unload() Q_DECL_OVERRIDE;
 
 	/**
          * Create a new set of decoders

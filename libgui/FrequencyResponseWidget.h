@@ -59,7 +59,7 @@ namespace Kwave
 	virtual void setFilter(Kwave::TransmissionFunction *func);
 
 	/** @see QWidget::paintEvent() */
-	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+        virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
     private:
 

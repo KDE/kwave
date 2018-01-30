@@ -174,19 +174,19 @@ namespace Kwave
 	virtual QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos);
 
 	/** slot for mouse moves, used for selection and drag&drop */
-	void mouseMoveEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
+        virtual void mouseMoveEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 
 	/** slot for mouse press, used for selection and drag&drop */
-	void mousePressEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
+        virtual void mousePressEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 
 	/** slot for mouse release, used for selection and drag&drop */
-	void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
+        virtual void mouseReleaseEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 
 	/** slot when the mouse leaves the widget */
-	void leaveEvent(QEvent *e) Q_DECL_OVERRIDE;
+        virtual void leaveEvent(QEvent *e) Q_DECL_OVERRIDE;
 
 	/** handles key press events (e.g. the Escape key) */
-	void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+        virtual void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
 
 	/**
 	 * tolerance in pixel for snapping to a label or selection border
@@ -276,16 +276,16 @@ namespace Kwave
     protected:
 
 	/** @see Qt XDND documentation */
-	void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
+        virtual void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
 
 	/** @see Qt XDND documentation */
-	void dragLeaveEvent(QDragLeaveEvent *event) Q_DECL_OVERRIDE;
+        virtual void dragLeaveEvent(QDragLeaveEvent *event) Q_DECL_OVERRIDE;
 
 	/** @see Qt XDND documentation */
-	void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
+        virtual void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
 
 	/** @see Qt XDND documentation */
-	void dragMoveEvent(QDragMoveEvent *event) Q_DECL_OVERRIDE;
+        virtual void dragMoveEvent(QDragMoveEvent *event) Q_DECL_OVERRIDE;
 
     protected:
 
@@ -372,7 +372,7 @@ namespace Kwave
 	protected:
 
 	    /** paint event: draws the text and the arrow */
-	    void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+            virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
 	    /**
 	     * re-creates the mask and the polygon when

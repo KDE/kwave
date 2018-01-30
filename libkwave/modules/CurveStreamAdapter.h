@@ -43,7 +43,7 @@ namespace Kwave
 	virtual ~CurveStreamAdapter();
 
 	/** @see Kwave::KwaveSampleSource */
-	void goOn() Q_DECL_OVERRIDE;
+        virtual void goOn() Q_DECL_OVERRIDE;
 
 
     signals:

@@ -60,7 +60,7 @@ namespace Kwave
 	 * normalizes the volume
 	 * @param params list of strings with parameters
 	 */
-	void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     private:
 	typedef struct {

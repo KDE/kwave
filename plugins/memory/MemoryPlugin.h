@@ -52,10 +52,11 @@ namespace Kwave
 	/**
 	 * Gets called when the plugin is first loaded.
 	 */
-	void load(QStringList &params) Q_DECL_OVERRIDE;
+        virtual void load(QStringList &params) Q_DECL_OVERRIDE;
 
 	/** @see Kwave::Plugin::setup() */
-	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &previous_params)
+            Q_DECL_OVERRIDE;
 
     protected:
 

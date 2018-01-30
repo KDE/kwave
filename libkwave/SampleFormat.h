@@ -90,7 +90,7 @@ namespace Kwave
 	    virtual ~Map();
 
 	    /** fills the list */
-	    void fill() Q_DECL_OVERRIDE;
+            virtual void fill() Q_DECL_OVERRIDE;
 	};
 
     };

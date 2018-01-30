@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QListIterator>
 
 #include <KLocalizedString>
@@ -77,8 +79,8 @@ Kwave::MenuSub *Kwave::MenuRoot::insertBranch(const QString &name,
     Q_ASSERT(menu);
     if (!menu) return 0;
 
-    Kwave::MenuSub *sub =
-	new Kwave::MenuSub(this, menu, name, command, shortcut, uid);
+    Kwave::MenuSub *sub = new(std::nothrow)
+        Kwave::MenuSub(this, menu, name, command, shortcut, uid);
     Q_ASSERT(sub);
     if (!sub) return 0;
 
@@ -93,8 +95,8 @@ Kwave::MenuNode *Kwave::MenuRoot::insertLeaf(const QString &name,
                                              const QKeySequence &shortcut,
                                              const QString &uid)
 {
-    Kwave::MenuItem *item =
-	new Kwave::MenuItem(this, name, command, shortcut, uid);
+    Kwave::MenuItem *item = new(std::nothrow)
+        Kwave::MenuItem(this, name, command, shortcut, uid);
     Q_ASSERT(item);
     if (!item) return 0;
 

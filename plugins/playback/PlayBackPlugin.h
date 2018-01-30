@@ -58,21 +58,22 @@ namespace Kwave
 	 * Gets called when the plugin is first loaded and connects itself
 	 * to the playback controller and the current signal.
 	 */
-	void load(QStringList &params) Q_DECL_OVERRIDE;
+        virtual void load(QStringList &params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Gets called before the plugin is unloaded.
 	 */
-	void unload() Q_DECL_OVERRIDE;
+        virtual void unload() Q_DECL_OVERRIDE;
 
 	/** @see Kwave::Plugin::setup() */
-	QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &previous_params)
+            Q_DECL_OVERRIDE;
 
 	/**
 	 * Starts a playback test sequence
 	 * @param params list of strings with parameters (unused)
 	 */
-	void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     signals:
 
@@ -101,7 +102,7 @@ namespace Kwave
 	 * @param method a playback_method_t (aRts, ALSA, OSS...)
 	 * @return a new PlayBackDevice or 0 if failed
 	 */
-	Kwave::PlayBackDevice *createDevice(Kwave::playback_method_t method)
+        virtual Kwave::PlayBackDevice *createDevice(Kwave::playback_method_t method)
             Q_DECL_OVERRIDE;
 
 	/**
@@ -109,7 +110,7 @@ namespace Kwave
 	 * @return list of all supported playback methods, should not contain
 	 *         "any" or "invalid"
 	 */
-	QList<Kwave::playback_method_t> supportedMethods() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::playback_method_t> supportedMethods() Q_DECL_OVERRIDE;
 
     private:
 

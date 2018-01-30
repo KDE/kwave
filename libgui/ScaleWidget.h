@@ -76,7 +76,7 @@ namespace Kwave
 	virtual QSize minimumSize() const;
 
 	/** optimal size for the widget, @see QWidget::sizeHint() */
-	QSize sizeHint() const Q_DECL_OVERRIDE;
+        virtual QSize sizeHint() const Q_DECL_OVERRIDE;
 
     protected:
 
@@ -84,7 +84,7 @@ namespace Kwave
 	 * Draws the widget.
 	 * @see QWidget::paintEvent
 	 */
-	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+        virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
 	/**
 	 * Draws a linear scale

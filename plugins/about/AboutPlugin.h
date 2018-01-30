@@ -43,13 +43,13 @@ namespace Kwave
 	virtual ~AboutPlugin() {}
 
 	/** Returns the name of the plugin. */
-	QString name() const Q_DECL_OVERRIDE { return _("about"); }
+        virtual QString name() const Q_DECL_OVERRIDE { return _("about"); }
 
 	/**
 	* shows the about dialog,
 	* @see Kwave::Plugin::start()
 	*/
-	int start(QStringList &params) Q_DECL_OVERRIDE;
+        virtual int start(QStringList &params) Q_DECL_OVERRIDE;
 
     };
 }

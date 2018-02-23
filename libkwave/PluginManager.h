@@ -292,12 +292,6 @@ namespace Kwave
 	void signalClosed();
 
 	/**
-	 * Will be connected to the plugin's "closed" signal.
-	 * @param p pointer to the plugin to be closed
-	 */
-	void pluginClosed(Kwave::Plugin *p);
-
-	/**
 	 * Called if the name of the current signal has changed. This will be
 	 * forwarded to all plugins by emitting the signal sigSignalNameChanged.
 	 * @see sigSignalNameChanged()
@@ -305,6 +299,12 @@ namespace Kwave
 	void setSignalName(const QString &name);
 
     private slots:
+
+        /**
+         * Will be connected to the plugin's "closed" signal.
+         * @param p pointer to the plugin to be closed
+         */
+        void pluginClosed(Kwave::Plugin *p);
 
 	/** called when a plugin has started (running) it's worker thread */
 	void pluginStarted(Kwave::Plugin *p);

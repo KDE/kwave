@@ -120,6 +120,9 @@ Kwave::App::~App()
 {
     saveRecentFiles();
     m_recent_files.clear();
+
+    // let remaining cleanup handlers run (deferred delete)
+    processEvents(QEventLoop::ExcludeUserInputEvents);
 }
 
 //***************************************************************************

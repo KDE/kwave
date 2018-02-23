@@ -45,7 +45,7 @@ namespace Kwave
 	NoiseDialog(QWidget *parent, Kwave::OverViewCache *overview_cache);
 
 	/** Destructor */
-	virtual ~NoiseDialog();
+        virtual ~NoiseDialog() Q_DECL_OVERRIDE;
 
 	/** Returns the parameters as string list */
         virtual QStringList params() Q_DECL_OVERRIDE;

@@ -42,7 +42,7 @@ namespace Kwave
 	NotchFilter();
 
 	/** Destructor */
-	virtual ~NotchFilter();
+        virtual ~NotchFilter() Q_DECL_OVERRIDE;
 
 	/** does the calculation */
         virtual void goOn() Q_DECL_OVERRIDE;

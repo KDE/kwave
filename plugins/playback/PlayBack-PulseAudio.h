@@ -57,7 +57,7 @@ namespace Kwave
 	explicit PlayBackPulseAudio(const Kwave::FileInfo &info);
 
 	/** Destructor */
-	virtual ~PlayBackPulseAudio();
+        virtual ~PlayBackPulseAudio() Q_DECL_OVERRIDE;
 
 	/**
 	 * Opens the device for playback.

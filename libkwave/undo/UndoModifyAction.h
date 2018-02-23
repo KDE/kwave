@@ -44,7 +44,7 @@ namespace Kwave
 	                 sample_index_t length);
 
 	/** Destructor */
-	virtual ~UndoModifyAction();
+        virtual ~UndoModifyAction() Q_DECL_OVERRIDE;
 
 	/** @see UndoAction::description() */
         virtual QString description() Q_DECL_OVERRIDE;

@@ -42,7 +42,7 @@ namespace Kwave
 	RecordDevice() {}
 
 	/** Destructor */
-	virtual ~RecordDevice() {}
+        virtual ~RecordDevice() {}
 
 	/**
 	 * Open the record device.

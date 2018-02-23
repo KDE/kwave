@@ -49,7 +49,7 @@ namespace Kwave
 	explicit MenuRoot(QMenuBar &bar);
 
 	/** Destructor */
-	virtual ~MenuRoot();
+        virtual ~MenuRoot() Q_DECL_OVERRIDE;
 
 	/**
 	 * overloaded version from MenuNode, which does a cleanup of

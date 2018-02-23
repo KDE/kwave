@@ -39,7 +39,7 @@ namespace Kwave
 	AsciiCodecPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~AsciiCodecPlugin();
+        virtual ~AsciiCodecPlugin() Q_DECL_OVERRIDE;
 
 	/** Creates a new decoder */
         virtual QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;

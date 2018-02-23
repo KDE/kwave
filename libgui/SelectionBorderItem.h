@@ -50,7 +50,7 @@ namespace Kwave
 	                    sample_index_t pos);
 
 	/** Destructor */
-	virtual ~SelectionBorderItem();
+        virtual ~SelectionBorderItem() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns flags describing the possible interactions with this object

@@ -49,7 +49,7 @@ namespace Kwave
 	FilterPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~FilterPlugin();
+        virtual ~FilterPlugin() Q_DECL_OVERRIDE;
 
 	/** Reads values from the parameter list */
 	virtual int interpreteParameters(QStringList & /* params */) = 0;

@@ -61,7 +61,7 @@ namespace Kwave
 	explicit PlaybackController(Kwave::SignalManager &signal_manager);
 
 	/** Destructor */
-	virtual ~PlaybackController();
+        virtual ~PlaybackController() Q_DECL_OVERRIDE;
 
     public:
 

@@ -55,7 +55,7 @@ namespace Kwave
 	                 const QList<unsigned int> *tracks);
 
 	/** Destructor */
-	virtual ~SelectionTracker();
+        virtual ~SelectionTracker() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns all currently selected tracks
@@ -217,7 +217,7 @@ namespace Kwave
 	    explicit Undo(Kwave::SelectionTracker *selection);
 
 	    /** Destructor */
-	    virtual ~Undo();
+            virtual ~Undo() Q_DECL_OVERRIDE;
 
 	    /**
 	     * Returns a verbose short description of the action.

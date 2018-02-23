@@ -50,7 +50,7 @@ namespace Kwave
 	PlayBackALSA();
 
 	/** Destructor */
-	virtual ~PlayBackALSA();
+        virtual ~PlayBackALSA() Q_DECL_OVERRIDE;
 
 	/**
 	 * Opens the device for playback.

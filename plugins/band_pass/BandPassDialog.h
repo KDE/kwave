@@ -53,7 +53,7 @@ namespace Kwave
 	BandPassDialog(QWidget *parent, double sample_rate);
 
 	/** Destructor */
-	virtual ~BandPassDialog();
+        virtual ~BandPassDialog() Q_DECL_OVERRIDE;
 
 	/** Returns the parameters as string list */
         virtual QStringList params() Q_DECL_OVERRIDE;

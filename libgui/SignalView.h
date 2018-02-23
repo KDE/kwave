@@ -81,7 +81,7 @@ namespace Kwave
 	           int track = -1);
 
 	/** Destructor */
-	virtual ~SignalView();
+        virtual ~SignalView() Q_DECL_OVERRIDE;
 
 	/**
 	 * refresh the content of the view.
@@ -359,7 +359,7 @@ namespace Kwave
 	    explicit PositionWidget(QWidget *parent);
 
 	    /** Destructor */
-	    virtual ~PositionWidget();
+            virtual ~PositionWidget() Q_DECL_OVERRIDE;
 
 	    /**
 	     * set a new label text and alignment

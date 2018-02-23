@@ -51,7 +51,7 @@ namespace Kwave
 	         const QString &uid);
 
 	/** Destructor */
-	virtual ~MenuList();
+        virtual ~MenuList() Q_DECL_OVERRIDE;
 
 	/**
 	 * Always returns true, as the nodes of this type are no branches.

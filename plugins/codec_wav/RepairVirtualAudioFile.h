@@ -41,7 +41,7 @@ namespace Kwave
 	                       QList<Kwave::RecoverySource *> *repair_list);
 
 	/** Destructor */
-	virtual ~RepairVirtualAudioFile();
+        virtual ~RepairVirtualAudioFile() Q_DECL_OVERRIDE;
 
 	/** reads a block of data */
         virtual qint64 read(char *data, unsigned int nbytes) Q_DECL_OVERRIDE;

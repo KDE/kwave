@@ -50,7 +50,7 @@ namespace Kwave
 	CodecPlugin(QObject *parent, const QVariantList &args, Codec &codec);
 
 	/** Destructor */
-	virtual ~CodecPlugin();
+        virtual ~CodecPlugin() Q_DECL_OVERRIDE;
 
 	/**
 	 * Gets called when the plugin is first loaded. Registers new encoder

@@ -37,7 +37,7 @@ namespace Kwave
 	explicit NoiseGenerator(QObject *parent = 0);
 
 	/** Destructor */
-	virtual ~NoiseGenerator();
+        virtual ~NoiseGenerator() Q_DECL_OVERRIDE;
 
 	/**
 	 * produces a block of noise,

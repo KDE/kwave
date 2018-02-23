@@ -42,7 +42,7 @@ namespace Kwave
 	GotoPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~GotoPlugin();
+        virtual ~GotoPlugin() Q_DECL_OVERRIDE;
 
     protected:
 

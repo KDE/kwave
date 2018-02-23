@@ -36,7 +36,7 @@ namespace Kwave
 	RecordOSS();
 
 	/** Destructor */
-	virtual ~RecordOSS();
+        virtual ~RecordOSS() Q_DECL_OVERRIDE;
 
 	/**
 	 * Open the record device.

@@ -51,7 +51,7 @@ namespace Kwave
 	/**
 	 * Destructor
 	 */
-	virtual ~ImageView();
+        virtual ~ImageView() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns the position and size of the current image, packed

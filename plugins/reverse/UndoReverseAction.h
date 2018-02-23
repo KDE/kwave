@@ -38,7 +38,7 @@ namespace Kwave
 	explicit UndoReverseAction(Kwave::PluginManager &plugin_manager);
 
 	/** Destructor */
-	virtual ~UndoReverseAction();
+        virtual ~UndoReverseAction() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a verbose short description of the action.

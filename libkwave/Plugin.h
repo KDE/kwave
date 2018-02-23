@@ -88,7 +88,7 @@ namespace Kwave
 	/**
 	 * Destructor.
 	 */
-	virtual ~Plugin();
+        virtual ~Plugin() Q_DECL_OVERRIDE;
 
 	/** Returns the name of the plugin. */
 	virtual QString name() const;

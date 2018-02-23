@@ -39,7 +39,7 @@ namespace Kwave
 	    Delay();
 
 	    /** Destructor */
-	    virtual ~Delay();
+            virtual ~Delay() Q_DECL_OVERRIDE;
 
 	    /** does the calculation */
             virtual void goOn() Q_DECL_OVERRIDE;

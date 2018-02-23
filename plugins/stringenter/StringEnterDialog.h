@@ -43,7 +43,7 @@ namespace Kwave
 	explicit StringEnterDialog(QWidget *parent, const QString &preset);
 
 	/** Destructor */
-	virtual ~StringEnterDialog();
+        virtual ~StringEnterDialog() Q_DECL_OVERRIDE;
 
 	/** Returns the string that has been entered */
 	QString command();

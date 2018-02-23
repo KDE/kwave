@@ -48,7 +48,7 @@ namespace Kwave
 	ZeroPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~ZeroPlugin();
+        virtual ~ZeroPlugin() Q_DECL_OVERRIDE;
 
 	/**
 	 * Fills the selected area with zeroes

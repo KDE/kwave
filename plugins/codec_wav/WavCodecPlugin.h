@@ -38,7 +38,7 @@ namespace Kwave
 	WavCodecPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~WavCodecPlugin();
+        virtual ~WavCodecPlugin() Q_DECL_OVERRIDE;
 
 	/** Creates a new decoder */
         virtual QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;

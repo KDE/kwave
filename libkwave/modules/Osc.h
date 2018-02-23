@@ -37,7 +37,7 @@ namespace Kwave
 	    Osc();
 
 	    /** Destructor */
-	    virtual ~Osc();
+            virtual ~Osc() Q_DECL_OVERRIDE;
 
 	    /** does the calculation */
             virtual void goOn() Q_DECL_OVERRIDE;

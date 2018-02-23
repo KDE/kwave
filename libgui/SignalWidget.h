@@ -91,7 +91,7 @@ namespace Kwave
 	             QVBoxLayout *upper_dock, QVBoxLayout *lower_dock);
 
 	/** Destructor */
-	virtual ~SignalWidget();
+        virtual ~SignalWidget() Q_DECL_OVERRIDE;
 
 	/**
 	 * sets new zoom factor and offset

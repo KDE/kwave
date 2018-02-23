@@ -41,7 +41,7 @@ namespace Kwave
 	explicit LogoWidget(QWidget *parent);
 
 	/** Destructor */
-	virtual ~LogoWidget();
+        virtual ~LogoWidget() Q_DECL_OVERRIDE;
 
     public slots:
 	/** animates the next step of the logo */

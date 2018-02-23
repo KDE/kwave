@@ -47,7 +47,7 @@ namespace Kwave
     public:
 	explicit AboutContainer(QWidget *parent = 0);
 
-	virtual ~AboutContainer();
+        virtual ~AboutContainer() Q_DECL_OVERRIDE;
 
 	void addPerson(const QString &name, const QString &email,
 		    const QString &url, const QString &task);
@@ -79,7 +79,7 @@ namespace Kwave
 	                 const QString &url,
 	                 const QString &work);
 
-	virtual ~AboutContributor();
+        virtual ~AboutContributor() Q_DECL_OVERRIDE;
 
 	QSize sizeHint() const Q_DECL_OVERRIDE;
 

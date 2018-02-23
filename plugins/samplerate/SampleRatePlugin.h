@@ -47,7 +47,7 @@ namespace Kwave
 	SampleRatePlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~SampleRatePlugin();
+        virtual ~SampleRatePlugin() Q_DECL_OVERRIDE;
 
 	/**
 	 * changes the sample rate

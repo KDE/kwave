@@ -57,7 +57,7 @@ namespace Kwave
 	          Kwave::Track *track);
 
 	/** Destructor */
-	virtual ~TrackView();
+        virtual ~TrackView() Q_DECL_OVERRIDE;
 
 	/** refreshes the bitmap that displays the signal */
         virtual void refresh() Q_DECL_OVERRIDE;

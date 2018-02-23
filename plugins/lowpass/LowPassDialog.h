@@ -52,7 +52,7 @@ namespace Kwave
 	LowPassDialog(QWidget *parent, double sample_rate);
 
 	/** Destructor */
-	virtual ~LowPassDialog();
+        virtual ~LowPassDialog() Q_DECL_OVERRIDE;
 
 	/** Returns the parameters as string list */
         virtual QStringList params() Q_DECL_OVERRIDE;

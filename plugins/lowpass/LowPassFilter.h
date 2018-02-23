@@ -39,7 +39,7 @@ namespace Kwave
 	LowPassFilter();
 
 	/** Destructor */
-	virtual ~LowPassFilter();
+        virtual ~LowPassFilter() Q_DECL_OVERRIDE;
 
 	/** @see TransmissionFunction::at() */
         virtual double at(double f) Q_DECL_OVERRIDE;

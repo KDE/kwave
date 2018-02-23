@@ -45,7 +45,7 @@ namespace Kwave
 	              Kwave::SignalManager &signal_manager);
 
 	/** Destructor */
-	virtual ~SelectionItem();
+        virtual ~SelectionItem() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns flags describing the possible interactions with this object

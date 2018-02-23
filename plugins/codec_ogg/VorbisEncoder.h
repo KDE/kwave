@@ -46,7 +46,7 @@ namespace Kwave
 	VorbisEncoder();
 
 	/** Destructor */
-	virtual ~VorbisEncoder();
+        virtual ~VorbisEncoder() Q_DECL_OVERRIDE;
 
 	/**
 	 * parse the header of the stream and initialize the decoder

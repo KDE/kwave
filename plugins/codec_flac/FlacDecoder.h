@@ -47,7 +47,7 @@ namespace Kwave
 	FlacDecoder();
 
 	/** Destructor */
-	virtual ~FlacDecoder();
+        virtual ~FlacDecoder() Q_DECL_OVERRIDE;
 
 	/** Returns a new instance of the decoder */
         virtual Kwave::Decoder *instance() Q_DECL_OVERRIDE;

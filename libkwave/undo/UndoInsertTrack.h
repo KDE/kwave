@@ -46,7 +46,7 @@ namespace Kwave
 	UndoInsertTrack(Kwave::Signal &signal, unsigned int track);
 
 	/** Destructor */
-	virtual ~UndoInsertTrack();
+        virtual ~UndoInsertTrack() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a verbose short description of the action.

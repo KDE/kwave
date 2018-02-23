@@ -40,7 +40,7 @@ namespace Kwave
  	AboutPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~AboutPlugin() {}
+        virtual ~AboutPlugin() Q_DECL_OVERRIDE {}
 
 	/** Returns the name of the plugin. */
         virtual QString name() const Q_DECL_OVERRIDE { return _("about"); }

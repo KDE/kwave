@@ -37,7 +37,7 @@ namespace Kwave
 	AudiofileDecoder();
 
 	/** Destructor */
-	virtual ~AudiofileDecoder();
+        virtual ~AudiofileDecoder() Q_DECL_OVERRIDE;
 
 	/** Returns a new instance of the decoder */
         virtual Kwave::Decoder *instance() Q_DECL_OVERRIDE;

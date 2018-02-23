@@ -54,7 +54,7 @@ namespace Kwave
 	RecordPulseAudio();
 
 	/** Destructor */
-	virtual ~RecordPulseAudio();
+        virtual ~RecordPulseAudio() Q_DECL_OVERRIDE;
 
 	/**
 	 * Open the record device.

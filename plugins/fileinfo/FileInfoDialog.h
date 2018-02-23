@@ -39,7 +39,7 @@ namespace Kwave
 	FileInfoDialog(QWidget *parent, Kwave::FileInfo &info);
 
 	/** Destructor */
-	virtual ~FileInfoDialog();
+        virtual ~FileInfoDialog() Q_DECL_OVERRIDE;
 
 	/** Returns the current file info */
 	Kwave::FileInfo &info() { return m_info; }

@@ -39,7 +39,7 @@ namespace Kwave
 	explicit StatusWidget(QWidget *parent = 0);
 
 	/** Destructor */
-	virtual ~StatusWidget();
+        virtual ~StatusWidget() Q_DECL_OVERRIDE;
 
 	/**
 	 * Set a new list of pixmaps

@@ -40,7 +40,7 @@ namespace Kwave
 	                    Kwave::byte_order_t endianness);
 
 	/** Destructor */
-	virtual ~SampleDecoderLinear();
+        virtual ~SampleDecoderLinear() Q_DECL_OVERRIDE;
 
 	/**
 	 * Decodes the given buffer (byte array) by splitting it into

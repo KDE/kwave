@@ -45,7 +45,7 @@ namespace Kwave
 	SelectRangePlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~SelectRangePlugin();
+        virtual ~SelectRangePlugin() Q_DECL_OVERRIDE;
 
 	/**
 	 * Shows a dialog for selecting the range and emits a command

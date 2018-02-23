@@ -56,7 +56,7 @@ namespace Kwave
 	K3BExportPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~K3BExportPlugin();
+        virtual ~K3BExportPlugin() Q_DECL_OVERRIDE;
 
 	/** @see Kwave::Plugin::load() */
         virtual void load(QStringList &params) Q_DECL_OVERRIDE;

@@ -47,7 +47,7 @@ namespace Kwave
 	explicit KeywordWidget(QWidget *parent);
 
 	/** Destructor */
-	virtual ~KeywordWidget();
+        virtual ~KeywordWidget() Q_DECL_OVERRIDE;
 
 	/** Returns the list of keywords (sorted) */
 	QStringList keywords();

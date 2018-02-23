@@ -44,7 +44,7 @@ namespace Kwave
 	explicit UndoDeleteMetaDataAction(const Kwave::MetaDataList &meta_data);
 
 	/** Destructor */
-	virtual ~UndoDeleteMetaDataAction();
+        virtual ~UndoDeleteMetaDataAction() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a verbose short description of the action.

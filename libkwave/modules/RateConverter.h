@@ -42,7 +42,7 @@ namespace Kwave
 	RateConverter();
 
 	/** Destructor */
-	virtual ~RateConverter();
+        virtual ~RateConverter() Q_DECL_OVERRIDE;
 
 	/** does nothing, processing is done in input() */
         virtual void goOn() Q_DECL_OVERRIDE;

@@ -54,7 +54,7 @@ namespace Kwave
 	OpusEncoder();
 
 	/** Destructor */
-	virtual ~OpusEncoder();
+        virtual ~OpusEncoder() Q_DECL_OVERRIDE;
 
 	/**
 	 * parse the header of the stream and initialize the decoder

@@ -53,7 +53,7 @@ namespace Kwave
 	          const Kwave::Label &label);
 
 	/** Destructor */
-	virtual ~LabelItem();
+        virtual ~LabelItem() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns flags describing the possible interactions with this object

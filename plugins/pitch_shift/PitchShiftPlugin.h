@@ -48,7 +48,7 @@ namespace Kwave
 	PitchShiftPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~PitchShiftPlugin();
+        virtual ~PitchShiftPlugin() Q_DECL_OVERRIDE;
 
 	/** Creates the setup dialog and connects it's signals */
         virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent)

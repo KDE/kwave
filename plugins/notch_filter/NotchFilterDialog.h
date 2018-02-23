@@ -50,7 +50,7 @@ namespace Kwave
 	NotchFilterDialog(QWidget *parent, double sample_rate);
 
 	/** Destructor */
-	virtual ~NotchFilterDialog();
+        virtual ~NotchFilterDialog() Q_DECL_OVERRIDE;
 
 	/** Returns the parameters as string list */
         virtual QStringList params() Q_DECL_OVERRIDE;

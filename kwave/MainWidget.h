@@ -105,7 +105,7 @@ namespace Kwave
 	virtual bool isOK();
 
 	/** Destructor. */
-	virtual ~MainWidget();
+        virtual ~MainWidget() Q_DECL_OVERRIDE;
 
 	/** Returns the current zoom factor [samples/pixel] */
 	virtual double zoom() const Q_DECL_OVERRIDE;

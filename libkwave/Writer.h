@@ -53,7 +53,7 @@ namespace Kwave
 	                sample_index_t left = 0, sample_index_t right = 0);
 
 	/** Destructor */
-	virtual ~Writer();
+        virtual ~Writer() Q_DECL_OVERRIDE;
 
 	/** operator for inserting an array of samples */
 	virtual Writer &operator << (const Kwave::SampleArray &samples);

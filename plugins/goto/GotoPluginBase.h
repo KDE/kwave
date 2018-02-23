@@ -45,7 +45,7 @@ namespace Kwave
 	GotoPluginBase(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~GotoPluginBase();
+        virtual ~GotoPluginBase() Q_DECL_OVERRIDE;
 
 	/**
 	 * Shows a dialog for selecting the range and emits a command

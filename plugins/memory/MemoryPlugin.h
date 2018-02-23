@@ -47,7 +47,7 @@ namespace Kwave
 	MemoryPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~MemoryPlugin();
+        virtual ~MemoryPlugin() Q_DECL_OVERRIDE;
 
 	/**
 	 * Gets called when the plugin is first loaded.

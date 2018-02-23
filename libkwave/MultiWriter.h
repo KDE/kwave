@@ -45,7 +45,7 @@ namespace Kwave
 	MultiWriter();
 
 	/** Destructor */
-	virtual ~MultiWriter();
+        virtual ~MultiWriter() Q_DECL_OVERRIDE;
 
 	/** Returns the last sample index of all streams */
 	virtual sample_index_t last() const;

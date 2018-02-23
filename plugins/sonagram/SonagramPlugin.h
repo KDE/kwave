@@ -74,7 +74,7 @@ namespace Kwave
 	SonagramPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~SonagramPlugin();
+        virtual ~SonagramPlugin() Q_DECL_OVERRIDE;
 
 	/** @see Kwave::Plugin::setup() */
         virtual QStringList *setup(QStringList &previous_params)

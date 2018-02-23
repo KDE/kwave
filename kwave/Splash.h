@@ -44,7 +44,7 @@ namespace Kwave
 	explicit Splash(const QString &PNGFile);
 
 	/** Destructor */
-	virtual ~Splash();
+        virtual ~Splash() Q_DECL_OVERRIDE;
 
 	/** wrapper for QSplashScreen::showMessage with only one parameter */
 	static void showMessage(const QString &message);

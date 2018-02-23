@@ -47,7 +47,7 @@ namespace Kwave
 	MultiStateWidget(QWidget *parent, int id);
 
 	/** Destructor */
-	virtual ~MultiStateWidget();
+        virtual ~MultiStateWidget() Q_DECL_OVERRIDE;
 
 	/**
 	 * Sets the number that will passed as argument to the

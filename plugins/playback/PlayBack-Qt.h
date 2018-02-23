@@ -54,7 +54,7 @@ namespace Kwave
 	PlayBackQt();
 
 	/** Destructor */
-	virtual ~PlayBackQt();
+        virtual ~PlayBackQt() Q_DECL_OVERRIDE;
 
 	/**
 	 * Opens the device for playback.
@@ -144,7 +144,7 @@ namespace Kwave
 	    Buffer();
 
 	    /** destructor */
-	    virtual ~Buffer();
+            virtual ~Buffer() Q_DECL_OVERRIDE;
 
 	    /**
 	     * start filling the buffer

@@ -45,7 +45,7 @@ namespace Kwave
 	StringEnterPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~StringEnterPlugin();
+        virtual ~StringEnterPlugin() Q_DECL_OVERRIDE;
 
 	/** @see Kwave::Plugin::load() */
         virtual void load(QStringList &params) Q_DECL_OVERRIDE;

@@ -39,7 +39,7 @@ namespace Kwave
 	RecordThread();
 
 	/** Destructor */
-	virtual ~RecordThread();
+        virtual ~RecordThread() Q_DECL_OVERRIDE;
 
 	/** does the recording */
         virtual void run() Q_DECL_OVERRIDE;

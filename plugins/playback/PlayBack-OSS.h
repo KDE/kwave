@@ -42,7 +42,7 @@ namespace Kwave
 	PlayBackOSS();
 
 	/** Destructor */
-	virtual ~PlayBackOSS();
+        virtual ~PlayBackOSS() Q_DECL_OVERRIDE;
 
 	/**
 	 * Opens the device for playback.

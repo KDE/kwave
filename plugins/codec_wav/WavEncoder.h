@@ -41,7 +41,7 @@ namespace Kwave
 	WavEncoder();
 
 	/** Destructor */
-	virtual ~WavEncoder();
+        virtual ~WavEncoder() Q_DECL_OVERRIDE;
 
 	/** Returns a new instance of the encoder */
         virtual Encoder *instance() Q_DECL_OVERRIDE;

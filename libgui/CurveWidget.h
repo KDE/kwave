@@ -43,7 +43,7 @@ namespace Kwave
 	explicit CurveWidget(QWidget *parent);
 
 	/** Destructor */
-	virtual ~CurveWidget();
+        virtual ~CurveWidget() Q_DECL_OVERRIDE;
 
 	/** Returns a command string for the curve. */
 	QString getCommand();

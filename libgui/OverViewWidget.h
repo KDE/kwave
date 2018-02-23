@@ -53,7 +53,7 @@ namespace Kwave
 	                        QWidget *parent = 0);
 
 	/** Destructor */
-	virtual ~OverViewWidget();
+        virtual ~OverViewWidget() Q_DECL_OVERRIDE;
 
 	/** minimum size of the widget, @see QWidget::minimumSize() */
 	virtual QSize minimumSize() const;
@@ -181,7 +181,7 @@ namespace Kwave
 	    explicit WorkerThread(Kwave::OverViewWidget *widget);
 
 	    /** destructor */
-	    virtual ~WorkerThread();
+            virtual ~WorkerThread() Q_DECL_OVERRIDE;
 
 	    /** thread function that calls calculateBitmap() */
             virtual void run() Q_DECL_OVERRIDE;

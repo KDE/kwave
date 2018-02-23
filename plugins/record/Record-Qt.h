@@ -52,7 +52,7 @@ namespace Kwave
 	RecordQt();
 
 	/** Destructor */
-	virtual ~RecordQt();
+        virtual ~RecordQt() Q_DECL_OVERRIDE;
 
 	/**
 	 * Open the record device.

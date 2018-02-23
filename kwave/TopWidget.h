@@ -83,7 +83,7 @@ namespace Kwave
 	/**
 	 * Destructor.
 	 */
-	virtual ~TopWidget();
+        virtual ~TopWidget() Q_DECL_OVERRIDE;
 
 	/**
 	 * Returns a list of currently opened files

@@ -49,7 +49,7 @@ namespace Kwave
 	RecordALSA();
 
 	/** Destructor */
-	virtual ~RecordALSA();
+        virtual ~RecordALSA() Q_DECL_OVERRIDE;
 
 	/**
 	 * Open the record device.

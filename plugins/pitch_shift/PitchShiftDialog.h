@@ -43,7 +43,7 @@ namespace Kwave
 	explicit PitchShiftDialog(QWidget *parent);
 
 	/** Destructor */
-	virtual ~PitchShiftDialog();
+        virtual ~PitchShiftDialog() Q_DECL_OVERRIDE;
 
 	/** Returns the parameters as string list */
         virtual QStringList params() Q_DECL_OVERRIDE;

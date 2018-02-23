@@ -50,7 +50,7 @@ namespace Kwave
 	}
 
 	/** Destructor */
-	virtual ~MultiTrackSink()
+        virtual ~MultiTrackSink() Q_DECL_OVERRIDE
 	{
 	    clear();
 	}

@@ -39,7 +39,7 @@ namespace Kwave
 	AsciiEncoder();
 
 	/** Destructor */
-	virtual ~AsciiEncoder();
+        virtual ~AsciiEncoder() Q_DECL_OVERRIDE;
 
 	/** Returns a new instance of the encoder */
         virtual Kwave::Encoder *instance() Q_DECL_OVERRIDE;

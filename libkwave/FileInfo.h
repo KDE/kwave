@@ -148,7 +148,7 @@ namespace Kwave
 	explicit FileInfo(const Kwave::MetaDataList &meta_data_list);
 
 	/** Destructor */
-	virtual ~FileInfo();
+	virtual ~FileInfo() Q_DECL_OVERRIDE;
 
 	/** returns the identifier of the "type" of this meta data object */
 	static QString metaDataType() {

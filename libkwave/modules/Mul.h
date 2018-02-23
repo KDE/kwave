@@ -42,7 +42,7 @@ namespace Kwave
 	    Mul();
 
 	    /** Destructor */
-	    virtual ~Mul();
+            virtual ~Mul() Q_DECL_OVERRIDE;
 
 	    /** does nothing, work is done automatically in multiply() */
             virtual void goOn() Q_DECL_OVERRIDE;

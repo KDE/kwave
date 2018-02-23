@@ -50,7 +50,7 @@ namespace Kwave
 	    ChannelMixer(unsigned int inputs, unsigned int outputs);
 
 	    /** Destructor */
-	    virtual ~ChannelMixer();
+            virtual ~ChannelMixer() Q_DECL_OVERRIDE;
 
 	    /**
 	     * Init function, you must call it once after creating and before

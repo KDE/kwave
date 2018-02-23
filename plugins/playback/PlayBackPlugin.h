@@ -52,7 +52,7 @@ namespace Kwave
 	PlayBackPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~PlayBackPlugin();
+        virtual ~PlayBackPlugin() Q_DECL_OVERRIDE;
 
 	/**
 	 * Gets called when the plugin is first loaded and connects itself

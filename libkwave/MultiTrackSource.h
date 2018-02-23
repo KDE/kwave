@@ -60,7 +60,7 @@ namespace Kwave
 	}
 
 	/** Destructor */
-	virtual ~MultiTrackSource()
+        virtual ~MultiTrackSource() Q_DECL_OVERRIDE
 	{
 	    clear();
 	}

@@ -136,9 +136,6 @@ namespace Kwave
 
     private:
 
-	/** reference to the signal manager */
-	QPointer<Kwave::SignalManager> m_signal_manager;
-
 	/** the track pixmap */
 	Kwave::TrackPixmap m_pixmap;
 

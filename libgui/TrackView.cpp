@@ -50,7 +50,6 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
                             Kwave::Track *track)
     :Kwave::SignalView(parent, controls, signal_manager,
                        Kwave::SignalView::AboveTrackTop),
-     m_signal_manager(signal_manager),
      m_pixmap(*track),
      m_last_width(-1),
      m_last_height(-1),

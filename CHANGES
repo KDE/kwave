@@ -6,6 +6,8 @@
   * switched on MP3 support per default
   * bugfix: crash in pulseaudio playback
   * fixed some untranslated menu entries of plugins (missing context)
+  * bugfix for sporadic fail of libaudiofile when seeking at EOF
+  * improved C++11 compatibility
 
 17.08.2 [2017-10-08]
 

@@ -170,6 +170,11 @@ void Kwave::VirtualAudioFile::open(Kwave::VirtualAudioFile *x,
     AFerrfunc old_handler;
     old_handler = afSetErrorHandler(_handle_audiofile_error);
 
+    // reset the file position when opening the device, otherwise libaudiofile
+    // might fail when seeking to the current position and the position of
+    // the device currently is at EOF (in libaudiofile, File::canSeek)
+    m_device.seek(0);
+
     // open the virtual file and get a handle for it
     m_file_handle     = afOpenVirtualFile(m_virtual_file, mode, setup);
     m_last_error      = _lastAudiofileError();
@@ -212,8 +217,7 @@ qint64 Kwave::VirtualAudioFile::length()
 }
 
 //***************************************************************************
-qint64 Kwave::VirtualAudioFile::write(const char *data,
-                                            unsigned int nbytes)
+qint64 Kwave::VirtualAudioFile::write(const char *data, unsigned int nbytes)
 {
     Q_ASSERT(data);
     if (!data) return 0;
@@ -230,7 +234,7 @@ qint64 Kwave::VirtualAudioFile::seek(qint64 offset, bool is_relative)
 {
     qint64 abs_pos = (is_relative) ? (m_device.pos() + offset) : offset;
     if (abs_pos >= m_device.size())
-	return -1; // avoid seek after EOF
+        return -1; // avoid seek after EOF
     bool ok = m_device.seek(abs_pos);
     return (ok) ? m_device.pos() : -1;
 }

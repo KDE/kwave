@@ -162,9 +162,9 @@ void Kwave::LabelItem::moveTo(const QPoint &mouse_pos)
 	    if (!m_undo_transaction) return;
 
 	    // save the previous label data for undo
-	    Kwave::Label label = m_signal_manager.findLabel(m_initial_pos);
+	    Kwave::Label lbl = m_signal_manager.findLabel(m_initial_pos);
 	    if (!m_undo_transaction->registerUndoAction(new(std::nothrow)
-		UndoModifyMetaDataAction(Kwave::MetaDataList(label)))) {
+		UndoModifyMetaDataAction(Kwave::MetaDataList(lbl)))) {
 		qWarning("Kwave::LabelItem::done(): saving undo data failed!");
 		return;
 	    }
@@ -172,10 +172,10 @@ void Kwave::LabelItem::moveTo(const QPoint &mouse_pos)
 
 	if (m_signal_manager.modifyLabel(m_index, new_pos,
 	                                 m_description, false)) {
-	    Kwave::Label label = m_signal_manager.findLabel(new_pos);
-	    if (!label.isNull()) {
-		m_index       = m_signal_manager.labelIndex(label);
-		m_current_pos = label.pos();
+	    Kwave::Label lbl = m_signal_manager.findLabel(new_pos);
+	    if (!lbl.isNull()) {
+		m_index       = m_signal_manager.labelIndex(lbl);
+		m_current_pos = lbl.pos();
 	    }
 	}
     }

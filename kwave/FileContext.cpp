@@ -404,9 +404,9 @@ int Kwave::FileContext::executeCommand(const QString &line)
     CASE_COMMAND("delayed")
 	if (parser.count() != 2)
 	    return -EINVAL;
-	unsigned int delay = parser.firstParam().toUInt();
-	QString      cmd   = parser.nextParam();
-	enqueueCommand(delay, cmd);
+	unsigned int delay         = parser.firstParam().toUInt();
+	QString      delayed_cmd   = parser.nextParam();
+	enqueueCommand(delay, delayed_cmd);
 	result = 0;
     CASE_COMMAND("loadbatch")
 	result = loadBatch(QUrl(parser.nextParam()));

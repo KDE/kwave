@@ -1365,9 +1365,9 @@ void Kwave::TopWidget::updateMenu()
 	// update the "Windows" menu
 	m_menu_manager->clearNumberedMenu(_("ID_WINDOW_LIST"));
 	unsigned int win_count = 0;
-	foreach (const Kwave::FileContext *context, m_context_map.values()) {
-	    if (!context) continue;
-	    QString caption = context->windowCaption(false);
+	foreach (const Kwave::FileContext *ctx, m_context_map.values()) {
+	    if (!ctx) continue;
+	    QString caption = ctx->windowCaption(false);
 	    if (!caption.length()) continue;
 	    m_menu_manager->addNumberedMenuEntry(_("ID_WINDOW_LIST"),
 	        caption, QString());

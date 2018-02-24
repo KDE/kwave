@@ -252,16 +252,16 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 	QUrl url = m_url.adjusted(QUrl::RemoveFilename);
 	url.setPath(url.path(QUrl::FullyEncoded) + name, QUrl::StrictMode);
 
-	QString filename = url.path();
-	QFileInfo file_info(filename);
+	QString p = url.path();
+	QFileInfo fi(p);
 
 	// check for potentially overwritten file
-	if (file_info.exists())
+	if (fi.exists())
 	    overwritten_files += Kwave::Parser::unescape(display_name);
 
 	// check for missing subdirectory
-	if (!file_info.dir().exists()) {
-	    QString missing_dir = file_info.absolutePath();
+	if (!fi.dir().exists()) {
+	    QString missing_dir = fi.absolutePath();
 	    if (!missing_dirs.contains(missing_dir))
 		missing_dirs += missing_dir;
 	}
@@ -306,10 +306,10 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 		QString::fromLatin1(QUrl::toPercentEncoding(missing)),
 		QUrl::StrictMode
 	    );
-	    QString path = url.path();
+	    QString p = url.path();
 	    QDir dir;
-	    if (!dir.mkpath(path))
-		qWarning("creating path '%s' failed", DBG(path));
+	    if (!dir.mkpath(p))
+		qWarning("creating path '%s' failed", DBG(p));
 	}
     }
 

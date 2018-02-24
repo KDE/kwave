@@ -22,8 +22,7 @@
 #                                                                           #
 #############################################################################
 
-SET(_ebuild_version "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSION_RELEASE}")
-SET(_ebuild ${DISTFILES_DIR}/kwave-${_ebuild_version}.ebuild)
+SET(_ebuild ${DISTFILES_DIR}/kwave-${KWAVE_VERSION}.ebuild)
 
 CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/kwave.ebuild.in" "${_ebuild}" @ONLY)
 

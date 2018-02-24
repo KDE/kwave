@@ -95,9 +95,12 @@ SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 ### Kwave version number                                                  ###
 
 INCLUDE(FindRequiredProgram)
-
 FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
-INCLUDE(FindKwaveVersion)
+SET(KWAVE_VERSION_MAJOR ${KDE_APPLICATIONS_VERSION_MAJOR})
+SET(KWAVE_VERSION_MINOR ${KDE_APPLICATIONS_VERSION_MINOR})
+SET(KWAVE_VERSION_MICRO ${KDE_APPLICATIONS_VERSION_MICRO})
+SET(KWAVE_VERSION "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSION_MICRO}")
+MESSAGE(STATUS "Building Kwave version ${KWAVE_VERSION}")
 
 #############################################################################
 ### show the compiler name and version                                    ###

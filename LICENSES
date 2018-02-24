@@ -109,7 +109,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	Messages.sh					GPL2+
 	README						GPL2+
 	TODO						GPL2+
-	VERSION						GPL2+
 	.krazy						GPL2+
 
 	bin/import-screenshots.sh			GPL2+
@@ -124,7 +123,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	cmake/CheckIncludeFilesCXX.cmake		BSD (3 clause)
 	cmake/COPYING-CMAKE-SCRIPTS			BSD (3 clause)
 	cmake/Copyright.txt				Kitware (cmake)
-	cmake/FindKwaveVersion.cmake			BSD (3 clause)
 	cmake/FindRequiredProgram.cmake			BSD (3 clause)
 	cmake/KwaveALSASupport.cmake			BSD (3 clause)
 	cmake/KwaveDEBSupport.cmake			BSD (3 clause)

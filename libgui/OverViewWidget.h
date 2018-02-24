@@ -50,7 +50,7 @@ namespace Kwave
     public:
 	/** Constructor */
 	explicit OverViewWidget(Kwave::SignalManager &signal,
-	                        QWidget *parent = 0);
+                                QWidget *parent = Q_NULLPTR);
 
 	/** Destructor */
         virtual ~OverViewWidget() Q_DECL_OVERRIDE;

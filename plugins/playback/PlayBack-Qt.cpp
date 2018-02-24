@@ -46,9 +46,9 @@ Kwave::PlayBackQt::PlayBackQt()
      m_lock(QMutex::Recursive),
      m_device_name_map(),
      m_available_devices(),
-     m_output(0),
+     m_output(Q_NULLPTR),
      m_buffer_size(0),
-     m_encoder(0)
+     m_encoder(Q_NULLPTR)
 {
 }
 
@@ -63,7 +63,7 @@ void Kwave::PlayBackQt::createEncoder(const QAudioFormat &format)
 {
     // discard the old encoder
     delete m_encoder;
-    m_encoder = 0;
+    m_encoder = Q_NULLPTR;
 
     // get the sample format
     Kwave::SampleFormat::Format sample_format = Kwave::SampleFormat::Unknown;
@@ -338,10 +338,10 @@ int Kwave::PlayBackQt::close()
     }
 
     delete m_output;
-    m_output = 0;
+    m_output = Q_NULLPTR;
 
     delete m_encoder;
-    m_encoder = 0;
+    m_encoder = Q_NULLPTR;
 
     m_device_name_map.clear();
     m_available_devices.clear();

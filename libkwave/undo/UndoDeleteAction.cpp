@@ -90,7 +90,7 @@ bool Kwave::UndoDeleteAction::store(Kwave::SignalManager &manager)
 Kwave::UndoAction *Kwave::UndoDeleteAction::undo(Kwave::SignalManager &manager,
                                                  bool with_redo)
 {
-    Kwave::UndoAction *redo_action = 0;
+    Kwave::UndoAction *redo_action = Q_NULLPTR;
 
     // store data for redo
     if (with_redo) {
@@ -99,7 +99,7 @@ Kwave::UndoAction *Kwave::UndoDeleteAction::undo(Kwave::SignalManager &manager,
 	    m_offset, m_length
 	);
 	Q_ASSERT(redo_action);
-	if (!redo_action) return 0;
+        if (!redo_action) return Q_NULLPTR;
 	redo_action->store(manager);
     }
 
@@ -109,14 +109,14 @@ Kwave::UndoAction *Kwave::UndoDeleteAction::undo(Kwave::SignalManager &manager,
     if (!manager.insertSpace(m_offset, m_length, m_track_list)) {
 	qWarning("UndoDeleteAction::undo() FAILED [insertSpace]");
 	delete redo_action;
-	return 0;
+        return Q_NULLPTR;
     }
 
     // merge the stripes back into the signal
     if (!manager.mergeStripes(m_stripes, m_track_list)) {
 	qWarning("UndoDeleteAction::undo() FAILED [mergeStripes]");
 	delete redo_action;
-	return 0;
+        return Q_NULLPTR;
     }
 
     // restore the saved meta data

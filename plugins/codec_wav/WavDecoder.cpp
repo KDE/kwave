@@ -59,7 +59,10 @@
 
 //***************************************************************************
 Kwave::WavDecoder::WavDecoder()
-    :Kwave::Decoder(), m_source(0), m_src_adapter(0), m_known_chunks(),
+    :Kwave::Decoder(),
+     m_source(Q_NULLPTR),
+     m_src_adapter(Q_NULLPTR),
+     m_known_chunks(),
      m_property_map()
 {
     REGISTER_MIME_TYPES
@@ -351,7 +354,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     Q_ASSERT(m_src_adapter);
     if (!m_src_adapter) return false;
 
-    m_src_adapter->open(m_src_adapter, 0);
+    m_src_adapter->open(m_src_adapter, Q_NULLPTR);
 
     AFfilehandle fh = m_src_adapter->handle();
     if (!fh || (m_src_adapter->lastError() >= 0)) {
@@ -524,7 +527,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 	    Kwave::RIFFChunk *adtl_chunk =
 		parser.findChunk("/RIFF:WAVE/LIST:adtl");
 	    if (adtl_chunk) {
-		Kwave::RIFFChunk *labl_chunk = 0;
+                Kwave::RIFFChunk *labl_chunk = Q_NULLPTR;
 		bool found = false;
 		QListIterator<Kwave::RIFFChunk *> it(adtl_chunk->subChunks());
 		while (it.hasNext()) {
@@ -676,7 +679,7 @@ bool Kwave::WavDecoder::repairChunk(
 
     char buffer[16];
     quint32 length;
-    Kwave::RecoverySource *repair = 0;
+    Kwave::RecoverySource *repair = Q_NULLPTR;
 
     // create buffer with header
     strncpy(buffer, chunk->name().data(), 4);
@@ -743,18 +746,20 @@ bool Kwave::WavDecoder::repair(QList<Kwave::RecoverySource *> *repair_list,
     // --- first create a chunk tree for the structure ---
 
     // make a new "RIFF" chunk as root
-    Kwave::RIFFChunk new_root(0, "RIFF", "WAVE", 0,0,0);
+    Kwave::RIFFChunk new_root(Q_NULLPTR, "RIFF", "WAVE", 0,0,0);
     new_root.setType(Kwave::RIFFChunk::Main);
 
     // create a new "fmt " chunk
-    Kwave::RIFFChunk *new_fmt = new Kwave::RIFFChunk(&new_root, "fmt ",0,0,
+    Kwave::RIFFChunk *new_fmt = new(std::nothrow)
+        Kwave::RIFFChunk(&new_root, "fmt ",Q_NULLPTR, 0,
 	fmt_chunk->physStart(), fmt_chunk->physLength());
     Q_ASSERT(new_fmt);
     if (!new_fmt) return false;
     new_root.subChunks().append(new_fmt);
 
     // create a new "data" chunk
-    Kwave::RIFFChunk *new_data = new Kwave::RIFFChunk(&new_root, "data",0,0,
+    Kwave::RIFFChunk *new_data =
+        new Kwave::RIFFChunk(&new_root, "data", Q_NULLPTR, 0,
 	data_chunk->physStart(), data_chunk->physLength());
     Q_ASSERT(new_data);
     if (!new_data) return false;
@@ -803,8 +808,8 @@ bool Kwave::WavDecoder::repair(QList<Kwave::RecoverySource *> *repair_list,
 void Kwave::WavDecoder::close()
 {
     if (m_src_adapter) delete m_src_adapter;
-    m_src_adapter = 0;
-    m_source = 0;
+    m_src_adapter = Q_NULLPTR;
+    m_source = Q_NULLPTR;
 }
 
 //***************************************************************************

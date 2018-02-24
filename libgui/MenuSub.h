@@ -100,7 +100,7 @@ namespace Kwave
 
 	/** Returns the corresponding menu action */
         virtual QAction *action() Q_DECL_OVERRIDE {
-	    return (m_menu) ? m_menu->menuAction() : 0;
+            return (m_menu) ? m_menu->menuAction() : Q_NULLPTR;
 	}
 
 	/**

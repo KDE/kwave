@@ -122,7 +122,7 @@ Kwave::Decoder *Kwave::CodecManager::decoder(const QString &mimetype_name)
 {
     foreach (Kwave::Decoder *d, m_decoders)
 	if (d && d->supports(mimetype_name)) return d->instance();
-    return 0;
+    return Q_NULLPTR;
 }
 
 //***************************************************************************
@@ -130,7 +130,7 @@ Kwave::Encoder *Kwave::CodecManager::encoder(const QString &mimetype_name)
 {
     foreach (Kwave::Encoder *e, m_encoders)
 	if (e && e->supports(mimetype_name)) return e->instance();
-    return 0;
+    return Q_NULLPTR;
 }
 
 //***************************************************************************

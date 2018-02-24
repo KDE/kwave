@@ -24,7 +24,7 @@
 
 //***************************************************************************
 Kwave::MultiTrackReader::MultiTrackReader()
-    :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, 0),
+:Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, Q_NULLPTR),
      m_first(0), m_last(0), m_canceled(false)
 {
 }

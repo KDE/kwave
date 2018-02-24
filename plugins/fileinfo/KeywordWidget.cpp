@@ -113,7 +113,7 @@ void Kwave::KeywordWidget::update()
     btAdd->setEnabled(edit.length() && !contained(edit));
 
     // "Remove" is only enabled if something out of the list has been selected
-    btRemove->setEnabled((lstKeywords->currentItem() != 0) &&
+    btRemove->setEnabled((lstKeywords->currentItem() != Q_NULLPTR) &&
                          (contained(edit) || !edit.length()));
 
     // the list is only enabled if it is not empty

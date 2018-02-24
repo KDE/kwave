@@ -776,7 +776,7 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
     QMutexLocker lock(&m_lock);
 
     Q_ASSERT(handle);
-    if (!handle) return 0; // object not found ?
+    if (!handle) return Q_NULLPTR; // object not found ?
 
     // try to convert to physical RAM
     tryToMakePhysical(handle);
@@ -832,7 +832,7 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
 		qDebug("Kwave::MemoryManager[%9d] - retry: %p", handle, mapped);
 	    }
 
-	    if (!mapped) return 0;
+	    if (!mapped) return Q_NULLPTR;
 	}
 
 	// remember that we have mapped it, move the entry from the
@@ -853,7 +853,7 @@ void *Kwave::MemoryManager::map(Kwave::Handle handle)
     }
 
     // nothing known about this object !?
-    return 0;
+    return Q_NULLPTR;
 }
 
 //***************************************************************************

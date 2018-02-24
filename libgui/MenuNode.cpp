@@ -202,11 +202,11 @@ Kwave::MenuNode *Kwave::MenuNode::findUID(const QString &uid)
     if (m_uid == uid) return this;    // found ourself
 
     foreach (Kwave::MenuNode *child, m_children) {
-	Kwave::MenuNode *node = (child) ? child->findUID(uid) : 0;
+        Kwave::MenuNode *node = (child) ? child->findUID(uid) : Q_NULLPTR;
 	if (node) return node;    // found in child
     }
 
-    return 0;    // nothing found :-(
+    return Q_NULLPTR;    // nothing found :-(
 }
 
 //*****************************************************************************
@@ -218,7 +218,7 @@ Kwave::MenuNode *Kwave::MenuNode::findChild(const QString &name)
 	if (child && (name == child->name()))
 	    return child;
     }
-    return 0;
+    return Q_NULLPTR;
 }
 
 //*****************************************************************************
@@ -238,7 +238,7 @@ Kwave::MenuSub *Kwave::MenuNode::insertBranch(const QString &name,
     Q_UNUSED(command);
     Q_UNUSED(shortcut);
     Q_UNUSED(uid);
-    return 0;
+    return Q_NULLPTR;
 }
 
 //*****************************************************************************
@@ -251,7 +251,7 @@ Kwave::MenuNode *Kwave::MenuNode::insertLeaf(const QString &name,
     Q_UNUSED(command);
     Q_UNUSED(shortcut);
     Q_UNUSED(uid);
-    return 0;
+    return Q_NULLPTR;
 }
 
 //*****************************************************************************
@@ -332,7 +332,7 @@ Kwave::MenuNode *Kwave::MenuNode::leafToBranch(Kwave::MenuNode *node)
     Q_ASSERT(node);
     Q_ASSERT(node != this);
 
-    if (!node || (node==this)) return 0;
+    if (!node || (node == this)) return Q_NULLPTR;
 
     // get the old properties
     bool old_enable           = node->isEnabled();
@@ -381,10 +381,10 @@ void Kwave::MenuNode::joinGroup(const QString &group,
                                 Kwave::MenuGroup::Mode mode)
 {
     if (m_groups.contains(group))
-	return ;    // already joined
+	return;    // already joined
 
     QHash<QString, Kwave::MenuGroup *> &group_list = groupList();
-    Kwave::MenuGroup *grp = 0;
+    Kwave::MenuGroup *grp = Q_NULLPTR;
     if (group_list.contains(group)) {
 	grp = group_list[group];
     } else {
@@ -405,7 +405,7 @@ void Kwave::MenuNode::leaveGroup(const QString &group)
 {
     QHash<QString, Kwave::MenuGroup *> &group_list = groupList();
     Kwave::MenuGroup *grp = (group_list.contains(group)) ?
-	group_list.value(group) : 0;
+	group_list.value(group) : Q_NULLPTR;
 
     // remove the group from our list
     m_groups.removeAll(group);
@@ -432,7 +432,7 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	    KIconLoader loader;
 	    QIcon icon = loader.loadIcon(filename,
 		KIconLoader::Small, 0, KIconLoader::DefaultState,
-		QStringList(), 0, true);
+                QStringList(), Q_NULLPTR, true);
 
 	    if (!icon.isNull()) {
 		setIcon(icon);
@@ -461,7 +461,7 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 	    Q_ASSERT(placeholder);
 	    if (!placeholder) return false;
 
-	    sub->insertChild(placeholder, 0);
+            sub->insertChild(placeholder, Q_NULLPTR);
 	}
 	return true;
     }

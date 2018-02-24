@@ -39,7 +39,7 @@ namespace Kwave
          * Constructor
          * @param parent a parent object, passed to QObject (optional)
          */
-	SampleBuffer(QObject *parent = 0);
+        SampleBuffer(QObject *parent = Q_NULLPTR);
 
 	/** Destructor */
 	virtual ~SampleBuffer();

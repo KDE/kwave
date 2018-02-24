@@ -72,7 +72,7 @@ Kwave::PluginSetupDialog *Kwave::NotchFilterPlugin::createDialog(QWidget *parent
     Kwave::NotchFilterDialog *dialog =
 	new Kwave::NotchFilterDialog(parent, signalRate());
     Q_ASSERT(dialog);
-    if (!dialog) return 0;
+    if (!dialog) return Q_NULLPTR;
 
     // connect the signals for detecting value changes in pre-listen mode
     connect(dialog, SIGNAL(freqChanged(double)),

@@ -162,7 +162,7 @@ template <class T, int (allocator)(T**), void (deleter)(T*)>
 public:
     /** constructor, creates an object using the allocator function */
     AlsaMallocWrapper()
-	:m_data(0)
+	:m_data(Q_NULLPTR)
     {
 	allocator(&m_data);
     }
@@ -171,7 +171,7 @@ public:
     virtual ~AlsaMallocWrapper()
     {
 	if (m_data) deleter(m_data);
-	m_data = 0;
+        m_data = Q_NULLPTR;
     }
 
     /** conversion operator, returns the ALSA object */
@@ -191,7 +191,7 @@ private:
 Kwave::PlayBackALSA::PlayBackALSA()
     :Kwave::PlayBackDevice(),
     m_device_name(),
-    m_handle(0),
+    m_handle(Q_NULLPTR),
     m_rate(0),
     m_channels(0),
     m_bits(0),
@@ -203,7 +203,7 @@ Kwave::PlayBackALSA::PlayBackALSA()
     m_format(),
     m_chunk_size(0),
     m_supported_formats(),
-    m_encoder(0)
+    m_encoder(Q_NULLPTR)
 {
 }
 
@@ -222,7 +222,7 @@ int Kwave::PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params,
     m_bits = 0;
     m_bytes_per_sample = 0;
     if (m_encoder) delete m_encoder;
-    m_encoder = 0;
+    m_encoder = Q_NULLPTR;
 
     // get a format that matches the number of bits
     int format_index = mode2format(bits);
@@ -313,7 +313,7 @@ QList<int> Kwave::PlayBackALSA::detectSupportedFormats(const QString &device)
 	foreach (int index, m_supported_formats) {
 	    const snd_pcm_format_t *f = &_known_formats[index];
 	    if (*f == *fmt) {
-		fmt = 0;
+                fmt = Q_NULLPTR;
 		break;
 	    }
 	}
@@ -344,7 +344,7 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
                                     unsigned int channels, unsigned int bits)
 {
     int err;
-    snd_output_t *output = NULL;
+    snd_output_t *output = Q_NULLPTR;
     ALSA_MALLOC_WRAPPER(snd_pcm_hw_params) hw_params;
     ALSA_MALLOC_WRAPPER(snd_pcm_sw_params) sw_params;
     snd_pcm_uframes_t buffer_size;
@@ -356,7 +356,7 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 
     m_chunk_size = 0;
     if (m_handle) snd_pcm_close(m_handle);
-    m_handle = 0;
+    m_handle = Q_NULLPTR;
 
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
@@ -431,7 +431,8 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     }
 
     unsigned int rrate = rate;
-    err = snd_pcm_hw_params_set_rate_near(m_handle, hw_params, &rrate, 0);
+    err = snd_pcm_hw_params_set_rate_near(m_handle, hw_params, &rrate,
+                                          Q_NULLPTR);
     if (err < 0) {
 	qWarning("Cannot set sample rate: %s", snd_strerror(err));
 	snd_output_close(output);
@@ -447,7 +448,8 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 	         snd_pcm_name(m_handle));
     }
 
-    err = snd_pcm_hw_params_get_buffer_time_max(hw_params, &buffer_time, 0);
+    err = snd_pcm_hw_params_get_buffer_time_max(hw_params, &buffer_time,
+                                                Q_NULLPTR);
     Q_ASSERT(err >= 0);
     if (buffer_time > 500000) buffer_time = 500000;
     if (buffer_time > 0)
@@ -457,15 +459,15 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 
     if (period_time > 0) {
 	err = snd_pcm_hw_params_set_period_time_near(m_handle, hw_params,
-	                                             &period_time, 0);
+                                                     &period_time, Q_NULLPTR);
     } else {
 	err = snd_pcm_hw_params_set_period_size_near(m_handle, hw_params,
-	                                             &period_frames, 0);
+                                                     &period_frames, Q_NULLPTR);
     }
     Q_ASSERT(err >= 0);
     if (buffer_time > 0) {
 	err = snd_pcm_hw_params_set_buffer_time_near(m_handle, hw_params,
-	                                             &buffer_time, 0);
+                                                     &buffer_time, Q_NULLPTR);
     } else {
 	err = snd_pcm_hw_params_set_buffer_size_near(m_handle, hw_params,
 	                                             &buffer_frames);
@@ -481,7 +483,7 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 	return err;
     }
 
-    snd_pcm_hw_params_get_period_size(hw_params, &m_chunk_size, 0);
+    snd_pcm_hw_params_get_period_size(hw_params, &m_chunk_size, Q_NULLPTR);
     snd_pcm_hw_params_get_buffer_size(hw_params, &buffer_size);
     if (m_chunk_size == buffer_size) {
 	qWarning("Can't use period equal to buffer size (%lu == %lu)",
@@ -549,13 +551,13 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
     m_bufbase     = bufbase;
     m_buffer_size = 0;
     m_buffer_used = 0;
-    m_handle      = 0;
+    m_handle      = Q_NULLPTR;
 
     // close the previous device
     if (m_handle) snd_pcm_close(m_handle);
-    m_handle = 0;
+    m_handle = Q_NULLPTR;
     if (m_encoder) delete m_encoder;
-    m_encoder = 0;
+    m_encoder = Q_NULLPTR;
 
     // initialize the list of supported formats
     m_supported_formats = detectSupportedFormats(device);
@@ -721,11 +723,11 @@ int Kwave::PlayBackALSA::close()
 
     // close the device handle
     if (m_handle) snd_pcm_close(m_handle);
-    m_handle = 0;
+    m_handle = Q_NULLPTR;
 
     // get rid of the old sample encoder
     if (m_encoder) delete m_encoder;
-    m_encoder = 0;
+    m_encoder = Q_NULLPTR;
 
     // clear the list of supported formats, nothing open -> nothing supported
     m_supported_formats.clear();
@@ -913,11 +915,11 @@ snd_pcm_t *Kwave::PlayBackALSA::openDevice(const QString &device)
     // translate verbose name to internal ALSA name
     QString alsa_device = alsaDeviceName(device);
 
-    if (!alsa_device.length()) return 0;
+    if (!alsa_device.length()) return Q_NULLPTR;
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
-    if (alsa_device.endsWith(_(","))) return 0;
+    if (alsa_device.endsWith(_(","))) return Q_NULLPTR;
 
     if (!pcm) {
 	// open the device in case it's not already open
@@ -925,7 +927,7 @@ snd_pcm_t *Kwave::PlayBackALSA::openDevice(const QString &device)
 	                       SND_PCM_STREAM_PLAYBACK,
 	                       SND_PCM_NONBLOCK);
 	if (err < 0) {
-	    pcm = 0;
+            pcm = Q_NULLPTR;
 	    qWarning("PlayBackALSA::openDevice('%s') - failed, err=%d (%s)",
 	             DBG(alsa_device), err, snd_strerror(err));
 	}

@@ -49,7 +49,7 @@ QStringList *Kwave::FileInfoPlugin::setup(QStringList &)
     Kwave::FileInfoDialog *dialog =
 	new Kwave::FileInfoDialog(parentWidget(), oldInfo);
     Q_ASSERT(dialog);
-    if (!dialog) return 0;
+    if (!dialog) return Q_NULLPTR;
 
     QStringList *list = new QStringList();
     Q_ASSERT(list);
@@ -59,7 +59,7 @@ QStringList *Kwave::FileInfoPlugin::setup(QStringList &)
     } else {
 	// user pressed "Cancel"
 	if (list) delete list;
-	list = 0;
+        list = Q_NULLPTR;
     }
 
     if (dialog) delete dialog;

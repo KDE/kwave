@@ -45,7 +45,8 @@
 //***************************************************************************
 Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     :QDialog(p.parentWidget()), Ui::SonagramDlg(),
-    m_length(p.selection(0, 0, 0,true)), m_rate(p.signalRate())
+     m_length(p.selection(Q_NULLPTR, Q_NULLPTR, Q_NULLPTR, true)),
+     m_rate(p.signalRate())
 {
     setupUi(this);
     setModal(true);

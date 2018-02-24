@@ -50,8 +50,13 @@
 
 /***************************************************************************/
 Kwave::MP3Encoder::MP3Encoder()
-    :Kwave::Encoder(), m_property_map(), m_lock(), m_dst(0), m_process(this),
-     m_program(), m_params()
+    :Kwave::Encoder(),
+     m_property_map(),
+     m_lock(),
+     m_dst(Q_NULLPTR),
+     m_process(this),
+     m_program(),
+     m_params()
 {
     REGISTER_MIME_TYPES
     REGISTER_COMPRESSION_TYPES
@@ -189,7 +194,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		    field->Set(static_cast<const unicode_t *>(str_val.utf16()));
 		} else {
 		    delete frame;
-		    frame = 0;
+                    frame = Q_NULLPTR;
 		}
 		break;
 	    }
@@ -223,7 +228,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 		    qWarning("MP3Encoder::encodeID3Tags(): invalid date: '%s'",
 			     DBG(str_val));
 		    delete frame;
-		    frame = 0;
+                    frame = Q_NULLPTR;
 		}
 		break;
 	    }
@@ -237,7 +242,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	    default:
 		// ignore
 		delete frame;
-		frame = 0;
+                frame = Q_NULLPTR;
 		break;
 	}
 
@@ -447,7 +452,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
 	unsigned int written = 0;
 	for (written = 0; written < count; written++) {
-	    const sample_t *src_buf = 0;
+            const sample_t *src_buf = Q_NULLPTR;
 
 	    // fill input buffer with samples
 	    for (x = 0; x < tracks; ++x) {
@@ -553,7 +558,7 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
     {
 	QMutexLocker _lock(&m_lock);
-	m_dst  = 0;
+        m_dst = Q_NULLPTR;
 	dst.close();
     }
 

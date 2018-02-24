@@ -58,13 +58,13 @@
 
 //***************************************************************************
 Kwave::RecordQt::RecordQt()
-    :QObject(0),
+    :QObject(Q_NULLPTR),
      Kwave::RecordDevice(),
      m_lock(QMutex::Recursive),
      m_device_name_map(),
      m_available_devices(),
-     m_input(0),
-     m_source(0),
+     m_input(Q_NULLPTR),
+     m_source(Q_NULLPTR),
      m_sample_format(Kwave::SampleFormat::Unknown),
      m_tracks(0),
      m_rate(0.0),
@@ -328,13 +328,13 @@ void Kwave::RecordQt::closeInMainThread()
 {
     if (m_source) {
 	m_source->close();
-	m_source = 0;
+        m_source = Q_NULLPTR;
     }
     if (m_input) {
 	m_input->stop();
 	m_input->reset();
 	delete m_input;
-	m_input = 0;
+        m_input = Q_NULLPTR;
     }
 
     m_initialized = false;

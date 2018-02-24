@@ -196,8 +196,8 @@ static Kwave::Compression::Type compression_of(snd_pcm_format_t fmt)
 
 //***************************************************************************
 Kwave::RecordALSA::RecordALSA()
-    :Kwave::RecordDevice(), m_handle(0), m_hw_params(0),
-     m_sw_params(0), m_open_result(0), m_tracks(0),
+    :Kwave::RecordDevice(), m_handle(Q_NULLPTR), m_hw_params(Q_NULLPTR),
+     m_sw_params(Q_NULLPTR), m_open_result(0), m_tracks(0),
      m_rate(0.0), m_compression(Kwave::Compression::NONE),
      m_bits_per_sample(0), m_bytes_per_sample(0),
      m_sample_format(Kwave::SampleFormat::Unknown),
@@ -245,7 +245,7 @@ void Kwave::RecordALSA::detectSupportedFormats()
 	foreach (int it, m_supported_formats) {
 	    const snd_pcm_format_t *f = &_known_formats[it];
 	    if (*f == *fmt) {
-		fmt = 0;
+                fmt = Q_NULLPTR;
 		break;
 	    }
 	}
@@ -296,7 +296,7 @@ QString Kwave::RecordALSA::open(const QString &device)
                                  SND_PCM_STREAM_CAPTURE,
                                  SND_PCM_NONBLOCK);
     if (m_open_result < 0) {
-	m_handle = 0;
+        m_handle = Q_NULLPTR;
 	qWarning("RecordALSA::openDevice('%s') - failed, err=%d (%s)",
 	         DBG(alsa_device),
 	         m_open_result, snd_strerror(m_open_result));
@@ -329,7 +329,7 @@ QString Kwave::RecordALSA::open(const QString &device)
 int Kwave::RecordALSA::initialize()
 {
     int err;
-    snd_output_t *output = NULL;
+    snd_output_t *output = Q_NULLPTR;
 
     snd_pcm_uframes_t buffer_size;
     unsigned period_time = 0; // period time in us
@@ -414,7 +414,8 @@ int Kwave::RecordALSA::initialize()
     }
 
     unsigned int rrate = (m_rate > 0) ? Kwave::toUint(rint(m_rate)) : 0;
-    err = snd_pcm_hw_params_set_rate_near(m_handle, m_hw_params, &rrate, 0);
+    err = snd_pcm_hw_params_set_rate_near(m_handle, m_hw_params, &rrate,
+                                          Q_NULLPTR);
     if (err < 0) {
 	qWarning("Cannot set sample rate: %s", snd_strerror(err));
 	snd_output_close(output);
@@ -427,7 +428,8 @@ int Kwave::RecordALSA::initialize()
     }
     m_rate = rrate;
 
-    err = snd_pcm_hw_params_get_buffer_time_max(m_hw_params, &buffer_time, 0);
+    err = snd_pcm_hw_params_get_buffer_time_max(m_hw_params, &buffer_time,
+                                                Q_NULLPTR);
     Q_ASSERT(err >= 0);
     if (buffer_time > 500000) buffer_time = 500000;
 
@@ -438,15 +440,15 @@ int Kwave::RecordALSA::initialize()
 
     if (period_time > 0) {
 	err = snd_pcm_hw_params_set_period_time_near(m_handle, m_hw_params,
-	                                             &period_time, 0);
+                                                     &period_time, Q_NULLPTR);
     } else {
 	err = snd_pcm_hw_params_set_period_size_near(m_handle, m_hw_params,
-	                                             &period_frames, 0);
+                                                     &period_frames, Q_NULLPTR);
     }
     Q_ASSERT(err >= 0);
     if (buffer_time > 0) {
 	err = snd_pcm_hw_params_set_buffer_time_near(m_handle, m_hw_params,
-	                                             &buffer_time, 0);
+                                                     &buffer_time, Q_NULLPTR);
     } else {
 	err = snd_pcm_hw_params_set_buffer_size_near(m_handle, m_hw_params,
 	                                             &buffer_frames);
@@ -462,7 +464,7 @@ int Kwave::RecordALSA::initialize()
 	return err;
     }
 
-    snd_pcm_hw_params_get_period_size(m_hw_params, &m_chunk_size, 0);
+    snd_pcm_hw_params_get_period_size(m_hw_params, &m_chunk_size, Q_NULLPTR);
     snd_pcm_hw_params_get_buffer_size(m_hw_params, &buffer_size);
     if (m_chunk_size == buffer_size) {
 	qWarning("Can't use period equal to buffer size (%lu == %lu)",
@@ -666,7 +668,7 @@ int Kwave::RecordALSA::close()
 	snd_pcm_hw_free(m_handle);
 	snd_pcm_close(m_handle);
     }
-    m_handle = 0;
+    m_handle = Q_NULLPTR;
     m_open_result = -EINVAL;
 
     // we need to re-initialize the next time
@@ -971,11 +973,11 @@ QStringList Kwave::RecordALSA::supportedDevices()
 //***************************************************************************
 void Kwave::RecordALSA::scanDevices()
 {
-    snd_ctl_t *handle = 0;
+    snd_ctl_t *handle = Q_NULLPTR;
     int card, err, dev;
     int idx;
-    snd_ctl_card_info_t *info    = 0;
-    snd_pcm_info_t      *pcminfo = 0;
+    snd_ctl_card_info_t *info    = Q_NULLPTR;
+    snd_pcm_info_t      *pcminfo = Q_NULLPTR;
 
     m_device_list.clear();
 

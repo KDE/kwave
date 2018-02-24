@@ -69,17 +69,17 @@
 
 //***************************************************************************
 Kwave::Plugin::Plugin(QObject *parent, const QVariantList &args)
-    :QObject(0),
+    :QObject(Q_NULLPTR),
      Kwave::Runnable(),
      m_plugin_manager(qobject_cast<Kwave::PluginManager *>(parent)),
      m_name(args[0].toString()),
      m_description(args[1].toString()),
-     m_thread(0),
+     m_thread(Q_NULLPTR),
      m_thread_lock(),
      m_progress_enabled(true),
      m_stop(0),
-     m_progress(0),
-     m_confirm_cancel(0),
+     m_progress(Q_NULLPTR),
+     m_confirm_cancel(Q_NULLPTR),
      m_usage_count(1),
      m_usage_lock(),
      m_progress_timer(),
@@ -112,7 +112,7 @@ Kwave::Plugin::~Plugin()
 		qWarning("Kwave::Plugin::stop(): stale thread !");
 	    }
 	    delete m_thread;
-	    m_thread = 0;
+            m_thread = Q_NULLPTR;
 	}
     }
 
@@ -175,7 +175,7 @@ int Kwave::Plugin::start(QStringList &)
 	// use a "proxy" that asks for confirmation of cancel
 	if (!m_confirm_cancel) {
 	    m_confirm_cancel = new Kwave::ConfirmCancelProxy(m_progress,
-		0, 0, this, SLOT(cancel()));
+                Q_NULLPTR, Q_NULLPTR, this, SLOT(cancel()));
 	    Q_ASSERT(m_confirm_cancel);
 	}
 	connect(m_progress,       SIGNAL(canceled()),
@@ -244,7 +244,7 @@ int Kwave::Plugin::stop()
 		qWarning("Kwave::Plugin::stop(): stale thread !");
 	    }
 	    delete m_thread;
-	    m_thread = 0;
+            m_thread = Q_NULLPTR;
 	}
     }
     return 0;
@@ -311,13 +311,13 @@ void Kwave::Plugin::closeProgressDialog(Kwave::Plugin *)
     //       => deleting this object should be done somewhere later...
     if (m_confirm_cancel) {
 	m_confirm_cancel->deleteLater();
-	m_confirm_cancel = 0;
+        m_confirm_cancel = Q_NULLPTR;
     }
 
     if (m_progress) {
 	m_progress->done(0);
 	m_progress->deleteLater();
-	m_progress = 0;
+        m_progress = Q_NULLPTR;
     }
 }
 

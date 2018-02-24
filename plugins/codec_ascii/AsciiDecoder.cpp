@@ -42,7 +42,11 @@
 
 //***************************************************************************
 Kwave::AsciiDecoder::AsciiDecoder()
-    :Kwave::Decoder(), m_source(), m_dest(0), m_queue_input(), m_line_nr(0)
+    :Kwave::Decoder(),
+     m_source(),
+     m_dest(Q_NULLPTR),
+     m_queue_input(),
+     m_line_nr(0)
 {
     LOAD_MIME_TYPES
     REGISTER_COMPRESSION_TYPES
@@ -250,14 +254,14 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
     while (readNextLine() && !dst.isCanceled()) {
 	QByteArray d  = m_queue_input.dequeue().toLatin1();
 	char *line    = d.data();
-	char *saveptr = 0;
+        char *saveptr = Q_NULLPTR;
 
 	frame.fill(0);
 	for (unsigned int channel = 0; channel < channels; channel++) {
 	    sample_t  s = 0;
 
 	    char *token = strtok_r(line, separators, &saveptr);
-	    line = 0;
+            line = Q_NULLPTR;
 	    if (token) {
 		// skip whitespace at the start
 		while (*token && isspace(*token)) ++token;
@@ -273,7 +277,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
 	}
     }
 
-    m_dest = 0;
+    m_dest = Q_NULLPTR;
     info.setLength(dst.last() ? (dst.last() + 1) : 0);
     metaData().replace(Kwave::MetaDataList(info));
 
@@ -285,7 +289,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
 void Kwave::AsciiDecoder::close()
 {
     m_source.reset();
-    m_source.setDevice(0);
+    m_source.setDevice(Q_NULLPTR);
 }
 
 //***************************************************************************

@@ -173,7 +173,7 @@ bool Kwave::UndoAddMetaDataAction::store(Kwave::SignalManager &)
 Kwave::UndoAction *Kwave::UndoAddMetaDataAction::undo(
     Kwave::SignalManager &manager, bool with_redo)
 {
-    Kwave::UndoAction *redo = 0;
+    Kwave::UndoAction *redo = Q_NULLPTR;
 
     Kwave::MetaDataList meta_data =
 	manager.metaData().copy(m_offset, m_length, m_tracks);

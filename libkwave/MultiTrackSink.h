@@ -40,7 +40,7 @@ namespace Kwave
 	 * @param tracks number of tracks
 	 * @param parent a parent object, passed to QObject (optional)
 	 */
-	MultiTrackSink(unsigned int tracks, QObject *parent = 0)
+        MultiTrackSink(unsigned int tracks, QObject *parent = Q_NULLPTR)
 	    :Kwave::SampleSink(parent),
 	    QList<SINK *>()
 	{
@@ -121,7 +121,7 @@ namespace Kwave
 	 * @param tracks number of tracks
 	 * @param parent a parent object, passed to QObject (optional)
 	 */
-	MultiTrackSink(unsigned int tracks, QObject *parent = 0)
+        MultiTrackSink(unsigned int tracks, QObject *parent = Q_NULLPTR)
 	    :Kwave::MultiTrackSink<SINK, false>(0, parent)
 	{
 	    for (unsigned int i = 0; i < tracks; i++)

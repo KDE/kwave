@@ -136,7 +136,7 @@ void Kwave::MemoryPlugin::applySettings()
 //***************************************************************************
 QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
 {
-    QStringList *result = 0;
+    QStringList *result = Q_NULLPTR;
 
     // try to interpret the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
@@ -146,7 +146,7 @@ QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
 	m_physical_limit, m_virtual_enabled, m_virtual_limited,
 	m_virtual_limit, m_virtual_directory, m_undo_limit);
     Q_ASSERT(dlg);
-    if (!dlg) return 0;
+    if (!dlg) return Q_NULLPTR;
 
     if (dlg->exec() == QDialog::Accepted) {
 	// get the new parameters and let them take effect

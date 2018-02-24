@@ -91,7 +91,7 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
     Kwave::AmplifyFreeDialog *dialog =
 	new Kwave::AmplifyFreeDialog(parentWidget());
     Q_ASSERT(dialog);
-    if (!dialog) return 0;
+    if (!dialog) return Q_NULLPTR;
 
     // remove the first list entry (action name), the rest is for the dialog
     if ((m_params.count() > 2) && !(m_params.count() & 1)) {
@@ -114,7 +114,7 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
     } else {
 	// user pressed "Cancel"
 	if (list) delete list;
-	list = 0;
+        list = Q_NULLPTR;
     }
 
     if (dialog) delete dialog;

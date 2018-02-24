@@ -36,7 +36,7 @@ const QString Kwave::MetaData::STDPROP_DESCRIPTION(_("STDPROP_DESCRIPTION"));
 
 //***************************************************************************
 Kwave::MetaData::MetaData()
-    :m_data(0)
+    :m_data(Q_NULLPTR)
 {
 }
 
@@ -56,19 +56,19 @@ Kwave::MetaData::MetaData(Scope scope)
 //***************************************************************************
 Kwave::MetaData::~MetaData()
 {
-    m_data = 0;
+    m_data = Q_NULLPTR;
 }
 
 //***************************************************************************
 void Kwave::MetaData::clear()
 {
-    if (m_data != 0) m_data->m_properties.clear();
+    if (m_data) m_data->m_properties.clear();
 }
 
 //***************************************************************************
 bool Kwave::MetaData::isNull() const
 {
-    return ((m_data == 0) || (m_data->m_properties.isEmpty()));
+    return (!m_data || (m_data->m_properties.isEmpty()));
 }
 
 //***************************************************************************

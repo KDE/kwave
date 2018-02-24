@@ -30,7 +30,7 @@
 //***************************************************************************
 //***************************************************************************
 Kwave::Stripe::MappedArray::MappedArray(Stripe &stripe)
-    :m_stripe(stripe), m_storage(0), m_length(stripe.length())
+    :m_stripe(stripe), m_storage(Q_NULLPTR), m_length(stripe.length())
 {
     m_storage = m_stripe.mapStorage();
     if (!m_storage) m_length = 0;
@@ -93,14 +93,14 @@ unsigned int Kwave::Stripe::MappedArray::read(Kwave::SampleArray &buffer,
 //***************************************************************************
 Kwave::Stripe::StripeStorage::StripeStorage()
     :QSharedData(), m_start(0), m_length(0), m_storage(0), m_lock(),
-     m_map_count(0), m_mapped_storage(0)
+     m_map_count(0), m_mapped_storage(Q_NULLPTR)
 {
 }
 
 //***************************************************************************
 Kwave::Stripe::StripeStorage::StripeStorage(const StripeStorage &other)
     :QSharedData(other), m_start(other.m_start), m_length(other.m_length),
-     m_storage(0), m_lock(), m_map_count(0), m_mapped_storage(0)
+     m_storage(0), m_lock(), m_map_count(0), m_mapped_storage(Q_NULLPTR)
 {
 //     qDebug("StripeStorage(%p) - DEEP COPY %u,%u from %p",
 // 	static_cast<void *>(this),
@@ -159,7 +159,7 @@ sample_t *Kwave::Stripe::StripeStorage::map()
 {
     QMutexLocker lock(&m_lock);
 
-    if (!m_storage) return 0;
+    if (!m_storage) return Q_NULLPTR;
 
     if (!m_map_count) {
 	Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
@@ -184,7 +184,7 @@ void Kwave::Stripe::StripeStorage::unmap()
     if (!m_map_count) {
 	Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
 	mem.unmap(m_storage);
-	m_mapped_storage = 0;
+        m_mapped_storage = Q_NULLPTR;
     }
 }
 
@@ -208,7 +208,7 @@ Kwave::Stripe::Stripe()
 
 //***************************************************************************
 Kwave::Stripe::Stripe(const Stripe &other)
-    :m_lock(), m_data(0)
+    :m_lock(), m_data(Q_NULLPTR)
 {
     m_data = other.m_data;
 }
@@ -600,7 +600,7 @@ Kwave::Stripe &Kwave::Stripe::operator = (const Kwave::Stripe &other)
 //***************************************************************************
 sample_t *Kwave::Stripe::mapStorage()
 {
-    return (m_data) ? m_data->map() : 0;
+    return (m_data) ? m_data->map() : Q_NULLPTR;
 }
 
 //***************************************************************************

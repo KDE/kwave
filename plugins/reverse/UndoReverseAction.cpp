@@ -71,7 +71,7 @@ Kwave::UndoAction *Kwave::UndoReverseAction::undo(Kwave::SignalManager &manager,
     m_plugin_manager.enqueueCommand(
 	_("nomacro:plugin:execute(reverse,noundo)")
     );
-    return (with_redo) ? this : 0;
+    return (with_redo) ? this : Q_NULLPTR;
 }
 
 //***************************************************************************

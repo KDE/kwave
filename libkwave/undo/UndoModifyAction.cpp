@@ -89,7 +89,7 @@ Kwave::UndoAction *Kwave::UndoModifyAction::undo(
     if (m_length && ok) {
 	if (!manager.mergeStripes(m_stripes, track_list)) {
 	    qWarning("UndoModifyAction::undo() FAILED [mergeStripes]");
-	    return 0;
+            return Q_NULLPTR;
 	}
     }
 
@@ -98,7 +98,7 @@ Kwave::UndoAction *Kwave::UndoModifyAction::undo(
 	m_stripes = redo_data;
     }
 
-    return (with_redo && ok) ? this : 0;
+    return (with_redo && ok) ? this : Q_NULLPTR;
 }
 
 //***************************************************************************

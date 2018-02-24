@@ -32,7 +32,7 @@ Kwave::MenuGroup::MenuGroup(Kwave::MenuNode *parent,
     :m_parent(parent),
      m_name(name),
      m_members(),
-     m_action_group((mode == EXCLUSIVE) ? new QActionGroup(parent) : 0),
+     m_action_group((mode == EXCLUSIVE) ? new QActionGroup(parent) : Q_NULLPTR),
      m_enabled(true)
 {
     Q_ASSERT(parent);
@@ -89,7 +89,7 @@ void Kwave::MenuGroup::setEnabled(bool enable)
 //*****************************************************************************
 void Kwave::MenuGroup::selectItem(const QString &uid)
 {
-    Kwave::MenuNode *new_selection = 0;
+    Kwave::MenuNode *new_selection = Q_NULLPTR;
 
     foreach (Kwave::MenuNode *member, m_members) {
 	if (member && (uid == member->uid()))

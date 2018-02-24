@@ -100,16 +100,16 @@ Kwave::MenuSub *Kwave::MenuSub::insertBranch(const QString &name,
                                              const QKeySequence &shortcut,
                                              const QString &uid)
 {
-    QMenu *menu = (m_menu) ? m_menu->addMenu(name) : 0;
+    QMenu *menu = (m_menu) ? m_menu->addMenu(name) : Q_NULLPTR;
     Q_ASSERT(menu);
-    if (!menu) return 0;
+    if (!menu) return Q_NULLPTR;
 
     Kwave::MenuSub *sub = new(std::nothrow)
         Kwave::MenuSub(this, menu, name, command, shortcut, uid);
     Q_ASSERT(sub);
-    if (!sub) return 0;
+    if (!sub) return Q_NULLPTR;
 
-    insertChild(sub, 0);
+    insertChild(sub, Q_NULLPTR);
 
     return sub;
 }
@@ -122,12 +122,12 @@ Kwave::MenuNode *Kwave::MenuSub::insertLeaf(const QString &name,
 {
     Q_ASSERT(name.length());
     Q_ASSERT(m_menu);
-    if (!name.length() || !m_menu) return 0;
+    if (!name.length() || !m_menu) return Q_NULLPTR;
 
     Kwave::MenuItem *item = new(std::nothrow)
         Kwave::MenuItem(this, name, command, shortcut, uid);
     Q_ASSERT(item);
-    if (!item) return 0;
+    if (!item) return Q_NULLPTR;
 
     /*
      * find out where to insert the leaf: if there is a placeholder
@@ -135,7 +135,7 @@ Kwave::MenuNode *Kwave::MenuSub::insertLeaf(const QString &name,
      * to the end
      */
     bool found = false;
-    Kwave::MenuNode *child_after = 0;
+    Kwave::MenuNode *child_after = Q_NULLPTR;
     QListIterator<Kwave::MenuNode *> it(m_children);
     it.toBack();
     while (!found && it.hasPrevious()) {
@@ -147,9 +147,10 @@ Kwave::MenuNode *Kwave::MenuSub::insertLeaf(const QString &name,
 	    child_after = child;
     }
 
-    insertChild(item, (found) ? child_after : 0);
+    insertChild(item, (found) ? child_after : Q_NULLPTR);
 
-    QAction *action_after = (found && child_after) ? child_after->action() : 0;
+    QAction *action_after = (found && child_after) ?
+        child_after->action() : Q_NULLPTR;
     if (action_after)
 	m_menu->insertAction(action_after, item->action());
     else
@@ -161,7 +162,7 @@ Kwave::MenuNode *Kwave::MenuSub::insertLeaf(const QString &name,
 //***************************************************************************
 void Kwave::MenuSub::removeChild(Kwave::MenuNode *child)
 {
-    QAction *act = (child) ? child->action() : 0;
+    QAction *act = (child) ? child->action() : Q_NULLPTR;
     if (act && m_menu) m_menu->removeAction(act);
 
     Kwave::MenuNode::removeChild(child);

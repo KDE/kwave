@@ -66,10 +66,18 @@ KWAVE_PLUGIN(record, RecordPlugin)
 //***************************************************************************
 Kwave::RecordPlugin::RecordPlugin(QObject *parent, const QVariantList &args)
     :Kwave::Plugin(parent, args),
-     m_method(Kwave::RECORD_NONE), m_device_name(), m_controller(),
-     m_state(Kwave::REC_EMPTY), m_device(0),
-     m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),
-     m_writers(0), m_buffers_recorded(0), m_inhibit_count(0),
+     m_method(Kwave::RECORD_NONE),
+     m_device_name(),
+     m_controller(),
+     m_state(Kwave::REC_EMPTY),
+     m_device(Q_NULLPTR),
+     m_dialog(Q_NULLPTR),
+     m_thread(Q_NULLPTR),
+     m_decoder(Q_NULLPTR),
+     m_prerecording_queue(),
+     m_writers(Q_NULLPTR),
+     m_buffers_recorded(0),
+     m_inhibit_count(0),
      m_trigger_value(),
      m_retry_timer()
 {
@@ -85,18 +93,18 @@ Kwave::RecordPlugin::~RecordPlugin()
 {
     Q_ASSERT(!m_dialog);
     if (m_dialog) delete m_dialog;
-    m_dialog = 0;
+    m_dialog = Q_NULLPTR;
 
     Q_ASSERT(!m_thread);
     if (m_thread) delete m_thread;
-    m_thread = 0;
+    m_thread = Q_NULLPTR;
 
     Q_ASSERT(!m_decoder);
     if (m_decoder) delete m_decoder;
-    m_decoder = 0;
+    m_decoder = Q_NULLPTR;
 
     if (m_device) delete m_device;
-    m_device = 0;
+    m_device = Q_NULLPTR;
 }
 
 //***************************************************************************
@@ -128,15 +136,15 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     m_dialog = new Kwave::RecordDialog(parentWidget(), previous_params,
                                        &m_controller,  mode);
     Q_ASSERT(m_dialog);
-    if (!m_dialog) return 0;
+    if (!m_dialog) return Q_NULLPTR;
 
     // create the lowlevel recording thread
     m_thread = new Kwave::RecordThread();
     Q_ASSERT(m_thread);
     if (!m_thread) {
 	delete m_dialog;
-	m_dialog = 0;
-	return 0;
+        m_dialog = Q_NULLPTR;
+        return Q_NULLPTR;
     }
 
     // connect some signals of the setup dialog
@@ -214,7 +222,7 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     } else {
 	// user pressed "Cancel"
 	if (list) delete list;
-	list = 0;
+        list = Q_NULLPTR;
     }
 
     /* de-queue all buffers that are pending and remove the record thread */
@@ -223,14 +231,14 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
 	while (m_thread->queuedBuffers())
 	    processBuffer();
 	delete m_thread;
-	m_thread = 0;
+        m_thread = Q_NULLPTR;
     }
 
     if (m_decoder) delete m_decoder;
-    m_decoder = 0;
+    m_decoder = Q_NULLPTR;
 
     delete m_dialog;
-    m_dialog = 0;
+    m_dialog = Q_NULLPTR;
 
     // flush away all prerecording buffers
     m_prerecording_queue.clear();
@@ -257,7 +265,7 @@ void Kwave::RecordPlugin::closeDevice()
     if (m_device) {
 	m_device->close();
 	delete m_device;
-	m_device = 0;
+        m_device = Q_NULLPTR;
     }
 }
 
@@ -273,7 +281,7 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
     // change the recording method (class RecordDevice)
     if ((method != m_method) || !m_device) {
 	if (m_device) delete m_device;
-	m_device = 0;
+        m_device = Q_NULLPTR;
 	bool searching = false;
 
 	// use the previous device
@@ -917,7 +925,7 @@ void Kwave::RecordPlugin::setupRecordThread()
 
     // delete the previous decoder
     if (m_decoder) delete m_decoder;
-    m_decoder = 0;
+    m_decoder = Q_NULLPTR;
 
     // our own reference to the record parameters
     const Kwave::RecordParams &params = m_dialog->params();
@@ -1129,10 +1137,10 @@ void Kwave::RecordPlugin::stateChanged(Kwave::RecordState state)
 	    if (m_writers) {
 		m_writers->flush();
 		delete m_writers;
-		m_writers = 0;
+                m_writers = Q_NULLPTR;
 	    }
 	    m_buffers_recorded = 0;
-	    m_dialog->updateBufferState(0,0);
+	    m_dialog->updateBufferState(0, 0);
 	    break;
 	default:
 	    ;

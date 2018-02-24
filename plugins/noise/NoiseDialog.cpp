@@ -105,7 +105,7 @@ Kwave::NoiseDialog::~NoiseDialog()
     listenToggled(false);
 
     delete m_overview_cache;
-    m_overview_cache = 0;
+    m_overview_cache = Q_NULLPTR;
 }
 
 //***************************************************************************

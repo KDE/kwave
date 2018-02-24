@@ -76,7 +76,7 @@ Kwave::PluginSetupDialog *Kwave::PitchShiftPlugin::createDialog(QWidget *parent)
 {
     Kwave::PitchShiftDialog *dialog = new Kwave::PitchShiftDialog(parent);
     Q_ASSERT(dialog);
-    if (!dialog) return 0;
+    if (!dialog) return Q_NULLPTR;
 
     // connect the signals for detecting value changes in pre-listen mode
     connect(dialog, SIGNAL(changed(double,double)),

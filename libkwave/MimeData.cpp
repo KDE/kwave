@@ -127,12 +127,12 @@ qint64 Kwave::MimeData::Buffer::writeData(const char *data, qint64 len)
 bool Kwave::MimeData::Buffer::mapToByteArray()
 {
     // reset our QByteArray
-    m_data.setRawData(0, 0);
+    m_data.setRawData(Q_NULLPTR, 0);
     m_data.clear();
 
     Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
     const char *raw = (m_block) ?
-	static_cast<const char *>(mem.map(m_block)) : 0;
+        static_cast<const char *>(mem.map(m_block)) : Q_NULLPTR;
     if (!raw) {
 	// mapping failed: free the block here to avoid trouble
 	// in close()
@@ -155,7 +155,7 @@ void Kwave::MimeData::Buffer::close()
     QIODevice::close();
 
     // reset the byte array and it's connection to the block of memory
-    m_data.setRawData(0, 0);
+    m_data.setRawData(Q_NULLPTR, 0);
     m_data.clear();
 
     // unmap and discard the mapped memory
@@ -307,7 +307,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	// if the track count does not match, then we need a channel mixer
 	Q_ASSERT(ok);
-	Kwave::ChannelMixer *mixer = 0;
+        Kwave::ChannelMixer *mixer = Q_NULLPTR;
 	if (ok && (decoded_tracks != dst_tracks)) {
 	    qDebug("Kwave::MimeData::decode(...) -> mixing channels: %u -> %u",
 	           decoded_tracks, dst_tracks);
@@ -320,7 +320,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	Q_ASSERT(ok);
 
 	// if the sample rates do not match, then we need a rate converter
-	Kwave::StreamObject *rate_converter = 0;
+        Kwave::StreamObject *rate_converter = Q_NULLPTR;
 	if (ok && !qFuzzyCompare(src_rate, dst_rate)) {
 	    // create a sample rate converter
 	    qDebug("Kwave::MimeData::decode(...) -> rate conversion: "\
@@ -340,7 +340,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	// set hourglass cursor
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-	if (ok && ((rate_converter != 0) || (mixer != 0))) {
+	if (ok && (rate_converter || mixer)) {
 	    // pass all data through a filter chain
 	    Kwave::MultiStreamWriter adapter(decoded_tracks);
 

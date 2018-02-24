@@ -60,7 +60,7 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
     Kwave::GotoDialog *dialog = new Kwave::GotoDialog(parentWidget(),
         m_mode, m_position, rate, length, help_section);
     Q_ASSERT(dialog);
-    if (!dialog) return 0;
+    if (!dialog) return Q_NULLPTR;
 
     // set the title of the dialog, depending on the derived class
     dialog->setWindowTitle(title());
@@ -80,7 +80,7 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
     } else {
 	// user pressed "Cancel"
 	if (list) delete list;
-	list = 0;
+        list = Q_NULLPTR;
     }
 
     if (dialog) delete dialog;

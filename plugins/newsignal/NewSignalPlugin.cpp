@@ -90,7 +90,7 @@ QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
     Kwave::NewSignalDialog *dialog = new Kwave::NewSignalDialog(
 	parentWidget(), m_samples, m_rate, m_bits, m_tracks, m_bytime);
     Q_ASSERT(dialog);
-    if (!dialog) return 0;
+    if (!dialog) return Q_NULLPTR;
 
     QStringList *list = new QStringList();
     Q_ASSERT(list);
@@ -111,7 +111,7 @@ QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
     } else {
 	// user pressed "Cancel"
 	if (list) delete list;
-	list = 0;
+        list = Q_NULLPTR;
     }
 
     if (dialog) delete dialog;

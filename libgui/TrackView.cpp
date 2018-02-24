@@ -76,7 +76,8 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
 	Q_ASSERT(layout);
 	if (!layout) return;
 
-	Kwave::MultiStateWidget *msw = new Kwave::MultiStateWidget(0, 0);
+        Kwave::MultiStateWidget *msw =
+            new(std::nothrow) Kwave::MultiStateWidget(Q_NULLPTR, 0);
 	Q_ASSERT(msw);
 	if (!msw) {
 	    delete layout;
@@ -173,7 +174,8 @@ void Kwave::TrackView::setVerticalZoom(double zoom)
 //***************************************************************************
 QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
 {
-    QSharedPointer<Kwave::ViewItem> item = QSharedPointer<Kwave::ViewItem>(0);
+    QSharedPointer<Kwave::ViewItem> item =
+        QSharedPointer<Kwave::ViewItem>(Q_NULLPTR);
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return item;
 
@@ -261,7 +263,7 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
     }
 
     // nothing found
-    return QSharedPointer<Kwave::ViewItem>(0);
+    return QSharedPointer<Kwave::ViewItem>(Q_NULLPTR);
 }
 
 //***************************************************************************

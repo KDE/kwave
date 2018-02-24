@@ -28,7 +28,7 @@
 
 //***************************************************************************
 Kwave::Normalizer::Normalizer()
-    :Kwave::SampleSource(0), m_gain(1.0), m_limit(0.5)
+    :Kwave::SampleSource(Q_NULLPTR), m_gain(1.0), m_limit(0.5)
 {
 }
 

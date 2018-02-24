@@ -500,7 +500,7 @@ void Kwave::FileInfoDialog::setupSourceTab()
 	QVariant(m_info.get(Kwave::INF_CD)).toInt() : 0;
     sbCD->setValue(cd);
 
-    initInfo(0, sbCDs, Kwave::INF_CDS);
+    initInfo(Q_NULLPTR, sbCDs, Kwave::INF_CDS);
     int cds = (m_info.contains(Kwave::INF_CDS)) ?
 	QVariant(m_info.get(Kwave::INF_CDS)).toInt() : 0;
     sbCDs->setValue(cds);
@@ -510,7 +510,7 @@ void Kwave::FileInfoDialog::setupSourceTab()
 	QVariant(m_info.get(Kwave::INF_TRACK)).toInt() : 0;
     sbTrack->setValue(track);
 
-    initInfo(0, sbTracks, Kwave::INF_TRACKS);
+    initInfo(Q_NULLPTR, sbTracks, Kwave::INF_TRACKS);
     int tracks = (m_info.contains(Kwave::INF_TRACKS)) ?
 	QVariant(m_info.get(Kwave::INF_TRACKS)).toInt() : 0;
     sbTracks->setValue(tracks);

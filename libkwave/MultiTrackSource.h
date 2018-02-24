@@ -50,7 +50,7 @@ namespace Kwave
 	 * @param tracks number of tracks
 	 * @param parent a parent object, passed to QObject (optional)
 	 */
-	MultiTrackSource(unsigned int tracks, QObject *parent = 0)
+        MultiTrackSource(unsigned int tracks, QObject *parent = Q_NULLPTR)
 	    :Kwave::SampleSource(parent),
 	     QList<SOURCE *>()
         {
@@ -161,7 +161,7 @@ namespace Kwave
 	 * @param parent a parent object, passed to QObject (optional)
 	 */
 	MultiTrackSource(unsigned int tracks,
-	                 QObject *parent = 0)
+                         QObject *parent = Q_NULLPTR)
 	    :Kwave::MultiTrackSource<SOURCE, false>(0, parent)
 	{
 	    for (unsigned int i = 0; i < tracks; i++)

@@ -129,7 +129,7 @@ Kwave::AboutDialog::AboutDialog(
 	         << info.m_version
 	         << info.m_author;
 	    plugins.append(new QTreeWidgetItem(
-		static_cast<QTreeWidget *>(0), item));
+                static_cast<QTreeWidget *>(Q_NULLPTR), item));
 	}
 	pluginsinfo->insertTopLevelItems(0, plugins);
     }

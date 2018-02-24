@@ -35,7 +35,7 @@ static unsigned int g_instances = 0;
 
 //***************************************************************************
 Kwave::SwapFile::SwapFile(const QString &name)
-    :m_file(name), m_address(0), m_size(0), m_pagesize(0), m_map_count(0)
+    :m_file(name), m_address(Q_NULLPTR), m_size(0), m_pagesize(0), m_map_count(0)
 {
     // determine the system's native page size
 #if defined(HAVE_GETPAGESIZE)
@@ -188,7 +188,7 @@ void Kwave::SwapFile::close()
 {
     Q_ASSERT(!m_map_count);
     if (m_address) m_file.unmap(static_cast<uchar *>(m_address));
-    m_address = 0;
+    m_address = Q_NULLPTR;
     m_size = 0;
 
     m_file.resize(0);
@@ -219,7 +219,7 @@ void *Kwave::SwapFile::map()
     m_address = m_file.map(0, m_size, QFile::NoOptions);
 
     // map -1 to null pointer
-    if (m_address == reinterpret_cast<void *>(-1)) m_address = 0;
+    if (m_address == reinterpret_cast<void *>(-1)) m_address = Q_NULLPTR;
 
     // if succeeded, increase map reference counter
     if (m_address) {
@@ -250,7 +250,7 @@ int Kwave::SwapFile::unmap()
 	}
     }
 
-    m_address = 0;
+    m_address = Q_NULLPTR;
     return m_map_count;
 }
 

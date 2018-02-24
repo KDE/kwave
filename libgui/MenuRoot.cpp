@@ -36,7 +36,7 @@ QList<Kwave::MenuNode *> Kwave::MenuRoot::m_garbage;
 
 //***************************************************************************
 Kwave::MenuRoot::MenuRoot(QMenuBar &bar)
-    :Kwave::MenuNode(0, _("(root)"), QString(), 0, QString()),
+    :Kwave::MenuNode(Q_NULLPTR, _("(root)"), QString(), 0, QString()),
      m_menu_bar(bar), m_group_list()
 {
 }
@@ -77,14 +77,14 @@ Kwave::MenuSub *Kwave::MenuRoot::insertBranch(const QString &name,
 {
     QMenu *menu = m_menu_bar.addMenu(name);
     Q_ASSERT(menu);
-    if (!menu) return 0;
+    if (!menu) return Q_NULLPTR;
 
     Kwave::MenuSub *sub = new(std::nothrow)
         Kwave::MenuSub(this, menu, name, command, shortcut, uid);
     Q_ASSERT(sub);
-    if (!sub) return 0;
+    if (!sub) return Q_NULLPTR;
 
-    insertChild(sub, 0);
+    insertChild(sub, Q_NULLPTR);
 
     return sub;
 }
@@ -98,9 +98,9 @@ Kwave::MenuNode *Kwave::MenuRoot::insertLeaf(const QString &name,
     Kwave::MenuItem *item = new(std::nothrow)
         Kwave::MenuItem(this, name, command, shortcut, uid);
     Q_ASSERT(item);
-    if (!item) return 0;
+    if (!item) return Q_NULLPTR;
 
-    insertChild(item, 0);
+    insertChild(item, Q_NULLPTR);
     m_menu_bar.addAction(item->action());
 
     return item;
@@ -127,7 +127,7 @@ void Kwave::MenuRoot::showChild(Kwave::MenuSub *child)
     if (groupList().contains(child->name())) return;
 
     // find the menu bar entry after which we can insert
-    QAction *action_before = 0;
+    QAction *action_before = Q_NULLPTR;
     QListIterator<Kwave::MenuNode *> it(m_children);
     it.toBack();
     while (it.hasPrevious()) {

@@ -144,7 +144,7 @@ void Kwave::OverViewCache::scaleDown()
     if (m_scale == new_scale) return;
 
     m_scale = new_scale;
-    invalidateCache(0, 0, CACHE_SIZE - 1);
+    invalidateCache(Q_NULLPTR, 0, CACHE_SIZE - 1);
 }
 
 //***************************************************************************

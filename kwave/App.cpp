@@ -54,7 +54,7 @@
 //***************************************************************************
 Kwave::App::App(int &argc, char **argv)
    :QApplication(argc, argv),
-    m_cmdline(0),
+    m_cmdline(Q_NULLPTR),
     m_recent_files(),
     m_top_widgets(),
     m_gui_type(Kwave::App::GUI_TAB)
@@ -224,7 +224,7 @@ void Kwave::App::addRecentFile(const QString &newfile)
 int Kwave::App::newWindow(const QUrl &url)
 {
     int retval = 0;
-    Kwave::TopWidget *new_top_widget = 0;
+    Kwave::TopWidget *new_top_widget = Q_NULLPTR;
 
     Kwave::Splash::showMessage(i18n("Opening main window..."));
 
@@ -333,7 +333,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
     if (!all_contexts.isEmpty()) {
 	bool first = true;
 	foreach (Kwave::FileContext *context, all_contexts) {
-	    Kwave::TopWidget *top_widget = 0;
+            Kwave::TopWidget *top_widget = Q_NULLPTR;
 
 	    switch (m_gui_type) {
 		case GUI_SDI:
@@ -384,7 +384,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
 	}
     } else {
 	// give our one and only toplevel widget a default context
-	top->insertContext(0);
+        top->insertContext(Q_NULLPTR);
     }
 }
 

@@ -26,7 +26,7 @@
 
 //***************************************************************************
 Kwave::LowPassFilter::LowPassFilter()
-    :Kwave::SampleSource(0), m_buffer(blockSize()),
+    :Kwave::SampleSource(Q_NULLPTR), m_buffer(blockSize()),
     m_f_cutoff(M_PI)
 {
     initFilter();

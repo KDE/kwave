@@ -30,7 +30,7 @@ Kwave::MessageBox::MessageBox(KMessageBox::DialogType mode, QWidget *parent,
     QString message, QString caption,
     const QString &button1, const QString &button2,
     const QString &dontAskAgainName)
-    :QObject(0), m_semaphore(0), m_retval(-1),
+    :QObject(Q_NULLPTR), m_semaphore(0), m_retval(-1),
      m_mode(mode), m_parent(parent), m_message(message), m_caption(caption),
      m_button1(button1), m_button2(button2),
      m_dont_ask_again_name(dontAskAgainName)
@@ -222,7 +222,7 @@ void Kwave::MessageBox::show()
 
 //***************************************************************************
 Kwave::MessageBox::Trigger::Trigger(Kwave::MessageBox &box)
-    :QObject(0), m_box(box)
+    :QObject(Q_NULLPTR), m_box(box)
 {
     moveToThread(QApplication::instance()->thread());
 }

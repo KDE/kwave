@@ -45,7 +45,7 @@ namespace Kwave
     Q_OBJECT
 
     public:
-	explicit AboutContainer(QWidget *parent = 0);
+        explicit AboutContainer(QWidget *parent = Q_NULLPTR);
 
         virtual ~AboutContainer() Q_DECL_OVERRIDE;
 

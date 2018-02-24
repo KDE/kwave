@@ -50,19 +50,19 @@
 Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
                                     Kwave::MenuManager &menu_manager)
     :KToolBar(name, parent, true),
-     m_context(0),
-     m_action_prev(0),
-     m_action_rewind(0),
-     m_action_record(0),
-     m_action_play(0),
-     m_action_loop(0),
-     m_action_pause(0),
-     m_action_stop(0),
-     m_action_forward(0),
-     m_action_next(0),
-     m_pause_timer(0),
+     m_context(Q_NULLPTR),
+     m_action_prev(),
+     m_action_rewind(Q_NULLPTR),
+     m_action_record(Q_NULLPTR),
+     m_action_play(Q_NULLPTR),
+     m_action_loop(Q_NULLPTR),
+     m_action_pause(Q_NULLPTR),
+     m_action_stop(Q_NULLPTR),
+     m_action_forward(Q_NULLPTR),
+     m_action_next(Q_NULLPTR),
+     m_pause_timer(Q_NULLPTR),
      m_blink_on(false),
-     m_playback(0),
+     m_playback(Q_NULLPTR),
      m_menu_manager(menu_manager),
      m_labels(),
      m_last_tracks(0),
@@ -135,8 +135,8 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
 Kwave::PlayerToolBar::~PlayerToolBar()
 {
     if (m_pause_timer) delete m_pause_timer;
-    m_pause_timer = 0;
-    m_context = 0;
+    m_pause_timer = Q_NULLPTR;
+    m_context = Q_NULLPTR;
 }
 
 //***************************************************************************
@@ -163,8 +163,9 @@ void Kwave::PlayerToolBar::contextSwitched(Kwave::FileContext *context)
     // use the new context
     m_context = context;
 
-    Kwave::SignalManager *signal = m_context ? m_context->signalManager() : 0;
-    m_playback = (signal) ? &signal->playbackController() : 0;
+    Kwave::SignalManager *signal =
+        (m_context) ? m_context->signalManager() : Q_NULLPTR;
+    m_playback = (signal) ? &signal->playbackController() : Q_NULLPTR;
 
     // connect the playback controller of the new context
     if (m_context && m_playback) {
@@ -189,7 +190,7 @@ void Kwave::PlayerToolBar::contextSwitched(Kwave::FileContext *context)
 void Kwave::PlayerToolBar::contextDestroyed(Kwave::FileContext *context)
 {
     if (context != m_context) return; // not of interest
-    contextSwitched(0);
+    contextSwitched(Q_NULLPTR);
 }
 
 //***************************************************************************
@@ -464,7 +465,7 @@ void Kwave::PlayerToolBar::updateState()
 	// stop blinking
 	m_pause_timer->stop();
 	delete m_pause_timer;
-	m_pause_timer = 0;
+        m_pause_timer = Q_NULLPTR;
 
 	m_blink_on = false;
 	blinkPause();

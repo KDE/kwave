@@ -46,9 +46,16 @@
 
 //***************************************************************************
 Kwave::MP3Decoder::MP3Decoder()
-    :Kwave::Decoder(), m_property_map(), m_source(0), m_dest(0), m_buffer(0),
-     m_buffer_size(0), m_prepended_bytes(0), m_appended_bytes(0),
-     m_failures(0), m_parent_widget(0)
+    :Kwave::Decoder(),
+     m_property_map(),
+     m_source(Q_NULLPTR),
+     m_dest(Q_NULLPTR),
+     m_buffer(Q_NULLPTR),
+     m_buffer_size(0),
+     m_prepended_bytes(0),
+     m_appended_bytes(0),
+     m_failures(0),
+     m_parent_widget(Q_NULLPTR)
 {
     REGISTER_MIME_TYPES
     REGISTER_COMPRESSION_TYPES
@@ -212,7 +219,7 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
     int day   = -1;
 
     ID3_Tag::Iterator *it = tag.CreateIterator();
-    ID3_Frame *frame = 0;
+    ID3_Frame *frame = Q_NULLPTR;
     Kwave::FileInfo info(metaData());
     while (it && (frame = it->GetNext())) {
 	const ID3_FrameID id = frame->GetID();
@@ -707,10 +714,11 @@ bool Kwave::MP3Decoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
     struct mad_decoder decoder;
     mad_decoder_init(&decoder, this,
                      _input_adapter,
-		     0 /* header */,
-		     0 /* filter */,
+                     Q_NULLPTR /* header */,
+                     Q_NULLPTR /* filter */,
                      _output_adapter,
-                     _error_adapter, 0 /* message */);
+                     _error_adapter,
+                     Q_NULLPTR /* message */);
 
     // decode through libmad...
     int result = mad_decoder_run(&decoder, MAD_DECODER_MODE_SYNC);
@@ -724,7 +732,7 @@ bool Kwave::MP3Decoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 //***************************************************************************
 void Kwave::MP3Decoder::close()
 {
-    m_source = 0;
+    m_source = Q_NULLPTR;
 }
 
 //***************************************************************************

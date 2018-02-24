@@ -68,14 +68,14 @@ bool Kwave::UndoInsertAction::store(SignalManager &)
 Kwave::UndoAction *Kwave::UndoInsertAction::undo(
     Kwave::SignalManager &manager, bool with_redo)
 {
-    Kwave::UndoAction *redo_action = 0;
+    Kwave::UndoAction *redo_action = Q_NULLPTR;
 
     // store data for redo
     if (with_redo) {
 	redo_action = new(std::nothrow) Kwave::UndoDeleteAction(
 	    m_parent_widget, m_track_list, m_offset, m_length);
 	Q_ASSERT(redo_action);
-	if (!redo_action) return 0;
+        if (!redo_action) return Q_NULLPTR;
 	redo_action->store(manager);
     }
 

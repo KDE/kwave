@@ -49,14 +49,14 @@
 //***************************************************************************
 Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
     :KToolBar(name, parent, true),
-     m_context(0),
-     m_action_zoomselection(0),
-     m_action_zoomin(0),
-     m_action_zoomout(0),
-     m_action_zoomnormal(0),
-     m_action_zoomall(0),
-     m_action_zoomselect(0),
-     m_zoomselect(0)
+     m_context(Q_NULLPTR),
+     m_action_zoomselection(Q_NULLPTR),
+     m_action_zoomin(Q_NULLPTR),
+     m_action_zoomout(Q_NULLPTR),
+     m_action_zoomnormal(Q_NULLPTR),
+     m_action_zoomall(Q_NULLPTR),
+     m_action_zoomselect(Q_NULLPTR),
+     m_zoomselect(Q_NULLPTR)
 {
     KIconLoader icon_loader;
     const int max_s = KIconLoader::SizeEnormous;
@@ -157,7 +157,7 @@ void Kwave::ZoomToolBar::contextSwitched(Kwave::FileContext *context)
 void Kwave::ZoomToolBar::contextDestroyed(Kwave::FileContext *context)
 {
     if (context != m_context) return; // not of interest
-    contextSwitched(0);
+    contextSwitched(Q_NULLPTR);
 }
 
 //***************************************************************************

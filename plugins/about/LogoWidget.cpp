@@ -38,7 +38,7 @@
 //***************************************************************************
 Kwave::LogoWidget::LogoWidget(QWidget *parent)
     :QWidget(parent), m_width(-1), m_height(-1), m_repaint(false),
-     m_image(0), m_logo(xpm_aboutlogo), m_timer(0),
+     m_image(Q_NULLPTR), m_logo(xpm_aboutlogo), m_timer(Q_NULLPTR),
      m_color_h(0.0)
 {
     for (int i = 0; i < MAXSIN; m_deg[i++] = 0) {}

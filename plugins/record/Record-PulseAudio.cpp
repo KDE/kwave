@@ -208,10 +208,10 @@ Kwave::RecordPulseAudio::RecordPulseAudio()
     m_bits_per_sample(0),
     m_supported_formats(),
     m_initialized(false),
-    m_pa_proplist(0),
-    m_pa_mainloop(0),
-    m_pa_context(0),
-    m_pa_stream(0),
+    m_pa_proplist(Q_NULLPTR),
+    m_pa_mainloop(Q_NULLPTR),
+    m_pa_context(Q_NULLPTR),
+    m_pa_stream(Q_NULLPTR),
     m_pa_device(),
     m_name(i18n("Kwave record")),
     m_device_list()
@@ -650,7 +650,7 @@ int Kwave::RecordPulseAudio::close()
 
 	pa_stream_unref(m_pa_stream);
     }
-    m_pa_stream = 0;
+    m_pa_stream = Q_NULLPTR;
 
     // we need to re-initialize the next time
     m_initialized = false;
@@ -682,7 +682,7 @@ int Kwave::RecordPulseAudio::read(QByteArray& buffer, unsigned int offset)
 
     size_t readLength = 0;
     if (readableSize > 0) {
-	const void *audioBuffer = 0;
+        const void *audioBuffer = Q_NULLPTR;
 	pa_stream_peek(m_pa_stream, &audioBuffer, &readLength);
 
 	if (offset + readLength > Kwave::toUint(buffer.length())) {
@@ -800,7 +800,7 @@ int Kwave::RecordPulseAudio::initialize(uint32_t buffer_size)
 
     if (result < 0) {
 	pa_stream_unref(m_pa_stream);
-	m_pa_stream = 0;
+        m_pa_stream = Q_NULLPTR;
 	qWarning("Failed to open a PulseAudio stream for record %s",
 	         pa_strerror(pa_context_errno(m_pa_context)));
 	return -1;
@@ -853,7 +853,7 @@ void Kwave::RecordPulseAudio::run_wrapper(const QVariant &params)
 {
     Q_UNUSED(params);
     m_mainloop_lock.lock();
-    pa_mainloop_run(m_pa_mainloop, 0);
+    pa_mainloop_run(m_pa_mainloop, Q_NULLPTR);
     m_mainloop_lock.unlock();
     qDebug("RecordPulseAudio::run_wrapper - done.");
 }
@@ -934,9 +934,9 @@ bool Kwave::RecordPulseAudio::connectToServer()
     bool failed = false;
     int error = pa_context_connect(
 	m_pa_context,                       // context
-	0,                                  // server
+        Q_NULLPTR,                          // server
 	static_cast<pa_context_flags_t>(0), // flags
-	0                                   // API
+	Q_NULLPTR                           // API
     );
     if (error < 0)
     {
@@ -994,19 +994,19 @@ void Kwave::RecordPulseAudio::disconnectFromServer()
     if (m_pa_context) {
 	pa_context_disconnect(m_pa_context);
 	pa_context_unref(m_pa_context);
-	m_pa_context  = 0;
+        m_pa_context  = Q_NULLPTR;
     }
 
     // stop and free the main loop
     if (m_pa_mainloop) {
 	pa_mainloop_free(m_pa_mainloop);
-	m_pa_mainloop = 0;
+        m_pa_mainloop = Q_NULLPTR;
     }
 
     // release the property list
     if (m_pa_proplist) {
 	pa_proplist_free(m_pa_proplist);
-	m_pa_proplist = 0;
+        m_pa_proplist = Q_NULLPTR;
     }
 
 }

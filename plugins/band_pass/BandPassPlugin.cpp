@@ -76,7 +76,7 @@ Kwave::PluginSetupDialog *Kwave::BandPassPlugin::createDialog(QWidget *parent)
     Kwave::BandPassDialog *dialog =
 	new Kwave::BandPassDialog(parent, signalRate());
     Q_ASSERT(dialog);
-    if (!dialog) return 0;
+    if (!dialog) return Q_NULLPTR;
 
     // connect the signals for detecting value changes in pre-listen mode
     connect(dialog, SIGNAL(freqChanged(double)),

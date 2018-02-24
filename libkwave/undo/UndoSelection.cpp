@@ -95,7 +95,7 @@ Kwave::UndoAction *Kwave::UndoSelection::undo(Kwave::SignalManager &manager,
 	m_selected_tracks = old_selected_tracks;
 	return this;
     } else {
-	return 0;
+        return Q_NULLPTR;
     }
 }
 

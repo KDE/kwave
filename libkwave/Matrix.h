@@ -40,7 +40,7 @@ namespace Kwave
 	 * @param rows number of rows
 	 */
 	Matrix(unsigned int cols, unsigned int rows)
-	    :m_rows(rows), m_cols(cols), m_data(0)
+            :m_rows(rows), m_cols(cols), m_data(Q_NULLPTR)
 	{
 	    m_data = new T[m_rows * m_cols];
 	    Q_ASSERT(m_data);
@@ -48,7 +48,7 @@ namespace Kwave
 
 	/** copy constructor */
 	Matrix(const Matrix &other)
-	    :m_rows(other.m_rows), m_cols(other.m_cols), m_data(0)
+            :m_rows(other.m_rows), m_cols(other.m_cols), m_data(Q_NULLPTR)
 	{
 	    m_data = new T[m_rows * m_cols];
 	    Q_ASSERT(m_data);

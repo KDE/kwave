@@ -49,8 +49,8 @@ void Kwave::SampleArray::setRawData(sample_t *data, unsigned int size)
     if (!m_storage) return;
     bool ok = resize(0);
     if (!ok) qWarning("Kwave::SampleArray::setRawData(...) - OOM?");
-    Q_ASSERT(m_storage->m_raw_data == 0);
-    Q_ASSERT(m_storage->m_data == 0);
+    Q_ASSERT(m_storage->m_raw_data == Q_NULLPTR);
+    Q_ASSERT(m_storage->m_data == Q_NULLPTR);
     Q_ASSERT(m_storage->m_size == 0);
     m_storage->m_raw_data = data;
     m_storage->m_size     = size;
@@ -60,7 +60,7 @@ void Kwave::SampleArray::setRawData(sample_t *data, unsigned int size)
 void Kwave::SampleArray::resetRawData()
 {
     if (!m_storage) return;
-    m_storage->m_raw_data = 0;
+    m_storage->m_raw_data = Q_NULLPTR;
     m_storage->m_size = 0;
 }
 
@@ -107,7 +107,7 @@ bool Kwave::SampleArray::resize(unsigned int size)
     if (!m_storage) return false;
     if (size == m_storage->m_size) return true;
 
-    Q_ASSERT(m_storage->m_raw_data == 0);
+    Q_ASSERT(m_storage->m_raw_data == Q_NULLPTR);
     m_storage->resize(size);
     if (size && (m_storage->m_size > size)) {
 	qWarning("Kwave::SampleArray::resize(): shrinking from %u to %u "
@@ -128,18 +128,18 @@ Kwave::SampleArray::SampleStorage::SampleStorage()
     :QSharedData()
 {
     m_size     = 0;
-    m_data     = 0;
-    m_raw_data = 0;
+    m_data     = Q_NULLPTR;
+    m_raw_data = Q_NULLPTR;
 }
 
 //***************************************************************************
 Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
     :QSharedData(other)
 {
-    m_data     = 0;
     m_size     = 0;
-    m_raw_data = 0;
-    Q_ASSERT(other.m_raw_data == 0);
+    m_data     = Q_NULLPTR;
+    m_raw_data = Q_NULLPTR;
+    Q_ASSERT(other.m_raw_data == Q_NULLPTR);
 
     if (other.m_size) {
 	m_data = static_cast<sample_t *>(
@@ -158,14 +158,14 @@ Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
 //***************************************************************************
 Kwave::SampleArray::SampleStorage::~SampleStorage()
 {
-    Q_ASSERT(m_raw_data == 0);
+    Q_ASSERT(m_raw_data == Q_NULLPTR);
     if (m_data) ::free(m_data);
 }
 
 //***************************************************************************
 void Kwave::SampleArray::SampleStorage::resize(unsigned int size)
 {
-    Q_ASSERT(m_raw_data == 0);
+    Q_ASSERT(m_raw_data == Q_NULLPTR);
 
     if (size) {
 	// resize using realloc, keep existing data
@@ -184,7 +184,7 @@ void Kwave::SampleArray::SampleStorage::resize(unsigned int size)
 	// resize to zero == delete/free memory
 	Q_ASSERT(m_data);
 	::free(m_data);
-	m_data = 0;
+        m_data = Q_NULLPTR;
 	m_size = 0;
     }
 }

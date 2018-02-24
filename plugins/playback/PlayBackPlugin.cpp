@@ -74,9 +74,9 @@ KWAVE_PLUGIN(playback, PlayBackPlugin)
 Kwave::PlayBackPlugin::PlayBackPlugin(QObject *parent,
                                       const QVariantList &args)
     :Kwave::Plugin(parent, args),
-     m_dialog(0),
+     m_dialog(Q_NULLPTR),
      m_playback_controller(manager().playbackController()),
-     m_playback_sink(0)
+     m_playback_sink(Q_NULLPTR)
 {
 }
 
@@ -85,7 +85,7 @@ Kwave::PlayBackPlugin::~PlayBackPlugin()
 {
     // make sure the dialog is gone
     if (m_dialog) delete m_dialog;
-    m_dialog = 0;
+    m_dialog = Q_NULLPTR;
 
     Q_ASSERT(!m_playback_sink);
 }
@@ -156,7 +156,7 @@ void Kwave::PlayBackPlugin::unload()
 //***************************************************************************
 QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
 {
-    QStringList *result = 0;
+    QStringList *result = Q_NULLPTR;
 
     // try to interpret the list of previous parameters, ignore errors
     Kwave::PlayBackParam playback_params =
@@ -171,7 +171,7 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
 	playback_params
     );
     Q_ASSERT(m_dialog);
-    if (!m_dialog) return 0;
+    if (!m_dialog) return Q_NULLPTR;
 
     connect(m_dialog, SIGNAL(sigTestPlayback()),
             this, SLOT(testPlayBack()));
@@ -220,7 +220,7 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
     }
 
     delete m_dialog;
-    m_dialog = 0;
+    m_dialog = Q_NULLPTR;
 
     return result;
 }
@@ -284,7 +284,7 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::createDevice(
 	    break;
     }
 
-    return 0; // nothing found :-(
+    return Q_NULLPTR; // nothing found :-(
 }
 
 //***************************************************************************
@@ -421,7 +421,7 @@ void Kwave::PlayBackPlugin::testPlayBack()
     m_playback_sink->setInteractive(true);
 
     // show a progress dialog
-    QProgressDialog *progress = 0;
+    QProgressDialog *progress = Q_NULLPTR;
     progress = new QProgressDialog(m_dialog);
     Q_ASSERT(progress);
     if (progress) {
@@ -468,7 +468,7 @@ void Kwave::PlayBackPlugin::testPlayBack()
     // close the playback sink again (here in main thread context)
     m_playback_sink->setInteractive(false);
     delete m_playback_sink;
-    m_playback_sink = 0;
+    m_playback_sink = Q_NULLPTR;
 
     // free the progress dialog
     delete progress;

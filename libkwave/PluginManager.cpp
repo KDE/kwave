@@ -57,7 +57,7 @@
 QMap<QString, Kwave::PluginManager::PluginModule>
     Kwave::PluginManager::m_plugin_modules;
 
-Kwave::PluginManager *Kwave::PluginManager::m_active_instance = 0;
+Kwave::PluginManager *Kwave::PluginManager::m_active_instance = Q_NULLPTR;
 
 //***************************************************************************
 Kwave::PluginManager::PluginManager(QWidget *parent,
@@ -66,7 +66,7 @@ Kwave::PluginManager::PluginManager(QWidget *parent,
      m_running_plugins(),
      m_parent_widget(parent),
      m_signal_manager(signal_manager),
-     m_view_manager(0)
+     m_view_manager(Q_NULLPTR)
 {
 }
 
@@ -102,7 +102,7 @@ Kwave::PluginManager::~PluginManager()
 	if (p.m_use_count == 0) {
 	    // take out the pointer to the loadable module
 	    KPluginFactory *factory = p.m_factory;
-	    p.m_factory = 0;
+            p.m_factory = Q_NULLPTR;
 
 	    // remove the module from the list
 	    m_plugin_modules.remove(name);
@@ -116,7 +116,7 @@ Kwave::PluginManager::~PluginManager()
 
     // we are no longer the active instance
     if (m_active_instance == this)
-	m_active_instance = 0;
+        m_active_instance = Q_NULLPTR;
 }
 
 //***************************************************************************
@@ -179,7 +179,7 @@ Kwave::Plugin *Kwave::PluginManager::createPluginInstance(const QString &name)
 	Kwave::MessageBox::error(m_parent_widget,
 	    i18n("The plugin '%1' is unknown or invalid.", name),
 	    i18n("Error On Loading Plugin"));
-	return 0;
+        return Q_NULLPTR;
     }
 
     PluginModule &info = m_plugin_modules[name];
@@ -197,7 +197,7 @@ Kwave::Plugin *Kwave::PluginManager::createPluginInstance(const QString &name)
     Q_ASSERT(plugin);
     if (!plugin) {
 	qWarning("PluginManager::loadPlugin('%s'): out of memory", DBG(name));
-	return 0;
+        return Q_NULLPTR;
     }
     // now we have a newly created plugin, the use count is 1
 
@@ -237,7 +237,7 @@ int Kwave::PluginManager::executePlugin(const QString &name,
 	if (!m_plugin_instances.contains(plugin)) {
 	    qDebug("PluginManager: plugin closed itself in start()");
 	    result = -1;
-	    plugin = 0;
+            plugin = Q_NULLPTR;
 	}
 
 	if (plugin && (result >= 0)) {
@@ -460,7 +460,7 @@ Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
     Kwave::PlayBackDevice *device =
 	m_signal_manager.playbackController().openDevice(
 	    tracks, playback_params);
-    if (!device) return 0;
+    if (!device) return Q_NULLPTR;
 
     // create the multi track playback sink
     Kwave::SampleSink *sink = new Kwave::MultiPlaybackSink(tracks, device);

@@ -22,7 +22,8 @@
 
 //***************************************************************************
 Kwave::MultiWriter::MultiWriter()
-    :Kwave::MultiTrackSink<Kwave::Writer, false>(0,0), m_canceled(false)
+    :Kwave::MultiTrackSink<Kwave::Writer, false>(0, Q_NULLPTR),
+     m_canceled(false)
 {
 }
 

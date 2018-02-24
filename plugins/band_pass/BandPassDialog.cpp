@@ -41,7 +41,7 @@
 Kwave::BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
     :QDialog(parent), Kwave::PluginSetupDialog(), Ui::BandPassDlg(),
      m_frequency(3500),m_bw(100),
-     m_sample_rate(sample_rate), m_filter(0)
+     m_sample_rate(sample_rate), m_filter(Q_NULLPTR)
 {
     setupUi(this);
     setModal(true);
@@ -115,7 +115,7 @@ Kwave::BandPassDialog::~BandPassDialog()
     // better stop pre-listen now
     listenToggled(false);
 
-    if (freq_response) freq_response->setFilter(0);
+    if (freq_response) freq_response->setFilter(Q_NULLPTR);
     if (m_filter) delete m_filter;
 }
 

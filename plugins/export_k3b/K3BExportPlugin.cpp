@@ -284,7 +284,7 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
 
     sample_index_t selection_left  = 0;
     sample_index_t selection_right = 0;
-    selection(0, &selection_left, &selection_right, false);
+    selection(Q_NULLPTR, &selection_left, &selection_right, false);
 
     // enable the "selection only" checkbox only if there is something
     // selected but not everything
@@ -310,19 +310,19 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
 	    m_export_location,
 	    m_overwrite_policy
 	);
-    if (!dialog) return 0;
+    if (!dialog) return Q_NULLPTR;
 
     dialog->setWindowTitle(description());
     if (dialog->exec() != QDialog::Accepted) {
 	delete dialog;
-	return 0;
+        return Q_NULLPTR;
     }
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (!list) {
 	delete dialog;
-	return 0;
+        return Q_NULLPTR;
     }
 
     // user has pressed "OK"
@@ -330,7 +330,7 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
     if (url.isEmpty()) {
 	delete dialog;
 	delete list;
-	return 0;
+        return Q_NULLPTR;
     }
 
     QString name = url.path();

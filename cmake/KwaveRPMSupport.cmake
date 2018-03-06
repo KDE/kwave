@@ -25,8 +25,6 @@
 #############################################################################
 ### some needed programs                                                  ###
 
-FIND_PROGRAM(MKDIR_EXECUTABLE NAMES mkdir)
-FIND_PROGRAM(RM_EXECUTABLE NAMES rm)
 FIND_PROGRAM(TAR_EXECUTABLE NAMES tar) # we need tar-1.16 or newer !
 FIND_PROGRAM(RPM_EXECUTABLE NAMES rpm)
 FIND_PROGRAM(RPMBUILD_EXECUTABLE NAMES rpmbuild)
@@ -117,7 +115,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_tarball_bz2}
         -C ${DISTFILES_DIR}
         --transform=s+^+kwave-${KWAVE_VERSION}/+g
         kwave.spec
-    COMMAND ${RM_EXECUTABLE} -f ${_tarball_bz2}
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${_tarball_bz2}
     COMMAND ${BZIP2_EXECUTABLE} ${_tarball}
     DEPENDS ${_specfile} ${files_lst}
 )
@@ -140,7 +138,7 @@ EXECUTE_PROCESS(
 SET(_src_rpm ${_rpm_topdir}/SRPMS/kwave-${RPM_FULL_VERSION}.src.rpm)
 
 ADD_CUSTOM_COMMAND(OUTPUT ${_src_rpm}
-    COMMAND ${MKDIR_EXECUTABLE} -p ${_rpm_topdir}/{SPECS,SOURCES,RPMS,SRPMS,BUILD}
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${_rpm_topdir}/{SPECS,SOURCES,RPMS,SRPMS,BUILD}
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${_specfile} ${_rpm_topdir}/SPECS/kwave-${RPM_FULL_VERSION}.spec
     COMMAND ${CMAKE_COMMAND} -E copy_if_different

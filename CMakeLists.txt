@@ -426,10 +426,9 @@ CONFIGURE_FILE(
 #############################################################################
 ### "make apidoc"                                                         ###
 
-FIND_PROGRAM(RM_EXECUTABLE rm)
 FIND_PROGRAM(DOXYGEN_EXECUTABLE doxygen)
 
-IF (DOXYGEN_EXECUTABLE AND RM_EXECUTABLE)
+IF (DOXYGEN_EXECUTABLE)
     SET(DOXYFILE ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
     SET(DOXYGEN_OUTPUT_DIR ${CMAKE_BINARY_DIR}/doc/api)
     SET(DOXYGEN_LOGFILE ${CMAKE_CURRENT_BINARY_DIR}/doxygen.log)
@@ -444,8 +443,8 @@ IF (DOXYGEN_EXECUTABLE AND RM_EXECUTABLE)
 
     ADD_CUSTOM_TARGET(apidoc
 	DEPENDS html_doc_devel
-	COMMAND "${RM_EXECUTABLE}" -R -f "${CMAKE_BINARY_DIR}/doc/api"
-	COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_BINARY_DIR}/doc/api"
+	COMMAND "${CMAKE_COMMAND}" -E remove_directory "${CMAKE_BINARY_DIR}/doc/api"
+	COMMAND "${CMAKE_COMMAND}" -E make_directory   "${CMAKE_BINARY_DIR}/doc/api"
 	COMMAND "${DOXYGEN_EXECUTABLE}" "${DOXYFILE}"
 	COMMAND "${CAT_EXECUTABLE}" "${DOXYGEN_LOGFILE}"
 	DEPENDS ${DOXYFILE}
@@ -457,7 +456,7 @@ IF (DOXYGEN_EXECUTABLE AND RM_EXECUTABLE)
 	${DOXYGEN_LOGFILE}
     )
 
-ENDIF (DOXYGEN_EXECUTABLE AND RM_EXECUTABLE)
+ENDIF (DOXYGEN_EXECUTABLE)
 
 #############################################################################
 ### additional files for "make clean"                                     ###

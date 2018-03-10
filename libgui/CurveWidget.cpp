@@ -111,12 +111,12 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
             this, SLOT(loadPreset(QAction*)));
 
     m_menu->addAction(
-	icon_loader.loadIcon(_("document-export"), KIconLoader::Small),
+        QIcon::fromTheme(_("document-export")),
 	i18n("Save Preset"),
 	this, SLOT(savePreset()));
 
     del->addAction(
-	icon_loader.loadIcon(_("edit-delete"), KIconLoader::Small),
+        QIcon::fromTheme(_("edit-delete")),
 	i18n("Currently Selected Point"),
 	this, SLOT(deleteLast()),
 	QKeySequence::Delete);

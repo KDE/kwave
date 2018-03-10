@@ -30,8 +30,6 @@
 #include <QStatusBar>
 #include <QTimer>
 
-#include <KIconLoader>
-
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"
 #include "libkwave/WindowFunction.h"
@@ -99,9 +97,8 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
      m_yscale(Q_NULLPTR),
      m_refresh_timer()
 {
-    KIconLoader icon_loader;
 
-    for (int i = 0; i < 256; ++i) { m_histogram[i] = 0; }
+    for (unsigned int i = 0; i < 256; ++i) { m_histogram[i] = 0; }
 
     QWidget *mainwidget = new(std::nothrow) QWidget(this);
     Q_ASSERT(mainwidget);
@@ -128,12 +125,12 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
 //    file->addAction(i18n("&Import from Bitmap..."), this, SLOT(load()));
 
     file->addAction(
-	icon_loader.loadIcon(_("document-export"), KIconLoader::Small),
+	QIcon::fromTheme(_("document-export")),
 	i18n("&Export to Bitmap..."),
 	this, SLOT(save())
     );
     file->addAction(
-	icon_loader.loadIcon(_("dialog-close"), KIconLoader::Small),
+        QIcon::fromTheme(_("dialog-close")),
 	i18n("&Close"),
 	this, SLOT(close()),
 	QKeySequence::Close

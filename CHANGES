@@ -1,4 +1,6 @@
 
+  * enabled support for high dpi displays (icon scaling)
+
 18.03 [2017-11-13]
 
   * do not reset undo/redo information when saving blocks or selection only

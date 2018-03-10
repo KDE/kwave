@@ -228,6 +228,7 @@ int main(int argc, char **argv)
     app.processCmdline(&cmdline);
     app.setApplicationName(_("kwave"));
     app.setApplicationVersion(_(KWAVE_VERSION));
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps, true); // enable high dpi support
     cmdline.process(app);
     about.setupCommandLine(&cmdline);
     about.processCommandLine(&cmdline);

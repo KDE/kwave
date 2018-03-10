@@ -197,7 +197,7 @@ namespace Kwave
 	/** timer used for refreshing the view from time to time */
 	QTimer m_refresh_timer;
 
-	/** histogram of color indizes, used for auto-contrast */
+	/** histogram of color indices, used for auto-contrast */
 	unsigned int m_histogram[256];
 
     };

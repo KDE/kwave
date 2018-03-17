@@ -18,9 +18,9 @@
 #include "config.h"
 
 #include <QAction>
+#include <QIcon>
 #include <QMenu>
 
-#include <KIconLoader>
 #include <KLocalizedString>
 
 #include "libkwave/Label.h"
@@ -99,7 +99,6 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
 
     // the context menu of a label has been activated
     if (label_menu) {
-	KIconLoader icon_loader;
 
 	// find the "New" action and disable it
 	foreach (QAction *action, label_menu->actions()) {
@@ -110,13 +109,13 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
 	}
 
 	QAction *action_label_delete = label_menu->addAction(
-	    icon_loader.loadIcon(_("list-remove"), KIconLoader::Toolbar),
+	    QIcon::fromTheme(_("list-remove")),
 	    i18n("&Delete"), this, SLOT(contextMenuLabelDelete()));
 	Q_ASSERT(action_label_delete);
 	if (!action_label_delete) return;
 
 	QAction *action_label_properties = label_menu->addAction(
-	    icon_loader.loadIcon(_("configure"), KIconLoader::Toolbar),
+	    QIcon::fromTheme(_("configure")),
 	    i18n("&Properties..."), this, SLOT(contextMenuLabelProperties()));
 	Q_ASSERT(action_label_properties);
 	if (!action_label_properties) return;

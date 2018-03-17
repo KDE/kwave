@@ -58,7 +58,7 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
      m_last(Kwave::Curve::NoPoint),
      m_down(false), m_knob(), m_selected_knob()
 {
-    KIconLoader icon_loader;
+    KIconLoader *icon_loader = KIconLoader::global();
 
     // set the default curve
     m_curve.fromCommand(_("curve(linear,0,0,1,1)"));
@@ -68,9 +68,11 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
     setPalette(pal);
 
     // create the pixmaps for the selected and non-selected knob
-    m_knob = icon_loader.loadIcon(_("knob.xpm"), KIconLoader::Small);
-    m_selected_knob = icon_loader.loadIcon(_("selectedknob.xpm"),
-                                           KIconLoader::Small);
+    if (icon_loader) {
+	m_knob = icon_loader->loadIcon(_("knob.xpm"), KIconLoader::Small);
+	m_selected_knob = icon_loader->loadIcon(_("selectedknob.xpm"),
+                                                KIconLoader::Small);
+    }
 
     // set up the context menu for the right mouse button
     m_menu = new QMenu(this);

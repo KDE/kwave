@@ -50,12 +50,10 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KHelpMenu>
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KToolBar>
-
 #include <KSharedConfig>
+#include <KToolBar>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/CodecManager.h"
@@ -268,8 +266,6 @@ Kwave::FileContext *Kwave::TopWidget::currentContext() const
 //***************************************************************************
 bool Kwave::TopWidget::init()
 {
-    KIconLoader icon_loader;
-
     showInSplashSreen(i18n("Loading main menu..."));
     QMenuBar *menubar = menuBar();
     Q_ASSERT(menubar);
@@ -351,27 +347,27 @@ bool Kwave::TopWidget::init()
     // --- file open and save ---
 
     toolbar_file->addAction(
-	icon_loader.loadIcon(_("document-new"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("document-new")),
 	i18n("Create a new empty file"),
 	this, SLOT(toolbarFileNew()));
 
     toolbar_file->addAction(
-	icon_loader.loadIcon(_("document-open"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("document-open")),
 	i18n("Open an existing file"),
 	this, SLOT(toolbarFileOpen()));
 
     m_action_save = toolbar_file->addAction(
-	icon_loader.loadIcon(_("document-save"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("document-save")),
 	i18n("Save the current file"),
 	this, SLOT(toolbarFileSave()));
 
     m_action_save_as = toolbar_file->addAction(
-	icon_loader.loadIcon(_("document-save-as"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("document-save-as")),
 	i18n("Save the current file under a different name or file format..."),
 	this, SLOT(toolbarFileSaveAs()));
 
     m_action_close = toolbar_file->addAction(
-	icon_loader.loadIcon(_("document-close"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("document-close")),
 	i18n("Close the current file"),
 	this, SLOT(toolbarFileClose()));
 
@@ -382,27 +378,27 @@ bool Kwave::TopWidget::init()
     if (!toolbar_edit) return false;
 
     m_action_undo = toolbar_edit->addAction(
-	icon_loader.loadIcon(_("edit-undo"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-undo")),
 	i18n("Undo"),
 	this, SLOT(toolbarEditUndo()));
 
     m_action_redo = toolbar_edit->addAction(
-	icon_loader.loadIcon(_("edit-redo"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-redo")),
 	i18n("Redo"),
 	this, SLOT(toolbarEditRedo()));
 
     m_action_cut = toolbar_edit->addAction(
-	icon_loader.loadIcon(_("edit-cut"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-cut")),
 	i18n("Cut"),
 	this, SLOT(toolbarEditCut()));
 
     m_action_copy = toolbar_edit->addAction(
-	icon_loader.loadIcon(_("edit-copy"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-copy")),
 	i18n("Copy"),
 	this, SLOT(toolbarEditCopy()));
 
     QAction *btPaste = toolbar_edit->addAction(
-	icon_loader.loadIcon(_("edit-paste"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-paste")),
 	i18n("Insert"),
 	this, SLOT(toolbarEditPaste()));
     btPaste->setEnabled(!Kwave::ClipBoard::instance().isEmpty());
@@ -410,12 +406,12 @@ bool Kwave::TopWidget::init()
             btPaste, SLOT(setEnabled(bool)));
 
     m_action_erase = toolbar_edit->addAction(
-	icon_loader.loadIcon(_("draw-eraser"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("draw-eraser")),
 	i18n("Mute selection"),
 	this, SLOT(toolbarEditErase()));
 
     m_action_delete = toolbar_edit->addAction(
-	icon_loader.loadIcon(_("edit-delete"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-delete")),
 	i18n("Delete selection"),
 	this, SLOT(toolbarEditDelete()));
 

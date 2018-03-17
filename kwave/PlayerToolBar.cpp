@@ -18,11 +18,11 @@
 
 #include "config.h"
 
-#include <QAction>
 #include <QtGlobal>
+#include <QAction>
+#include <QIcon>
 
 #include <KLocalizedString>
-#include <KIconLoader>
 #include <KMainWindow>
 
 #include "libkwave/FileInfo.h"
@@ -70,60 +70,48 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
      m_last_visible(0),
      m_last_length(0)
 {
-    KIconLoader icon_loader;
-    const int max_s = KIconLoader::SizeEnormous;
-
     m_action_prev = addAction(
-	icon_loader.loadIcon(_("kwave_player_start"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_player_start")),
 	i18n("Previous"),
 	this, SLOT(toolbarRewindPrev()));
 
     m_action_rewind = addAction(
-	icon_loader.loadIcon(_("kwave_player_rew"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_player_rew")),
 	i18n("Rewind"),
 	this, SLOT(toolbarRewind()));
 
     m_action_record = addAction(
-	icon_loader.loadIcon(_("kwave_player_record"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_player_record")),
 	i18n("Record"),
 	this, SLOT(toolbarRecord()));
 
     m_action_play = addAction(
-	icon_loader.loadIcon(_("kwave_player_play"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_player_play")),
 	i18n("Start playback"),
 	this, SLOT(toolbarStart()));
 
     m_action_loop = addAction(
-	icon_loader.loadIcon(_("kwave_player_loop"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_player_loop")),
 	i18n("Start playback and loop"),
 	this, SLOT(toolbarLoop()));
 
     m_action_pause = addAction(
-	icon_loader.loadIcon(_("kwave_player_pause"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_player_pause")),
 	QString(),
 	this, SLOT(toolbarPause()));
 
     m_action_stop = addAction(
-	icon_loader.loadIcon(_("kwave_player_stop"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_player_stop")),
 	i18n("Stop playback or loop"),
 	this, SLOT(toolbarStop()));
 
     m_action_forward = addAction(
-	icon_loader.loadIcon(_("kwave_player_fwd"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_player_fwd")),
 	i18n("Forward"),
 	this, SLOT(toolbarForward()));
 
     m_action_next = addAction(
-	icon_loader.loadIcon(_("kwave_player_end"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_player_end")),
 	i18n("Next"),
 	this, SLOT(toolbarForwardNext()));
 
@@ -316,18 +304,13 @@ void Kwave::PlayerToolBar::toolbarStop()
 //***************************************************************************
 void Kwave::PlayerToolBar::blinkPause()
 {
-    KIconLoader icon_loader;
-    const int max_s   = KIconLoader::SizeEnormous;
     const bool paused = m_playback && m_playback->paused();
 
     Q_ASSERT(m_action_pause);
     if (!m_action_pause) return;
 
-    m_action_pause->setIcon(icon_loader.loadIcon(
-	_((paused && m_blink_on) ?
-	    "kwave_player_pause_2" : "kwave_player_pause"),
-	KIconLoader::Toolbar, max_s)
-    );
+    m_action_pause->setIcon(QIcon::fromTheme(_((paused && m_blink_on) ?
+	"kwave_player_pause_2" : "kwave_player_pause")));
 
     m_blink_on = !m_blink_on;
 }

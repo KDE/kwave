@@ -52,10 +52,10 @@ SET(kwave_PIXMAPS
     pics/logo.xpm
     pics/noise.png
     pics/selectedknob.xpm
-    pics/sound_device.png
-    pics/sound_subdevice.png
     pics/sound_card.png
+    pics/sound_device.png
     pics/sound_note.png
+    pics/sound_subdevice.png
 )
 
 #############################################################################

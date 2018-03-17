@@ -21,10 +21,10 @@
 #include <math.h>
 
 #include <QAction>
+#include <QIcon>
 
 #include <KComboBox>
 #include <KLocalizedString>
-#include <KIconLoader>
 #include <KMainWindow>
 
 #include "libkwave/Selection.h"
@@ -58,36 +58,28 @@ Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
      m_action_zoomselect(Q_NULLPTR),
      m_zoomselect(Q_NULLPTR)
 {
-    KIconLoader icon_loader;
-    const int max_s = KIconLoader::SizeEnormous;
-
     m_action_zoomselection = addAction(
-	icon_loader.loadIcon(_("kwave_viewmag"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_viewmag")),
 	i18n("Zoom to selection"),
 	this, SLOT(zoomSelection()));
 
     m_action_zoomin = addAction(
-	icon_loader.loadIcon(_("kwave_zoom_in"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_zoom_in")),
 	i18n("Zoom in"),
 	this, SLOT(zoomIn()));
 
     m_action_zoomout = addAction(
-	icon_loader.loadIcon(_("kwave_zoom_out"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_zoom_out")),
 	i18n("Zoom out"),
 	this, SLOT(zoomOut()));
 
     m_action_zoomnormal = addAction(
-	icon_loader.loadIcon(_("kwave_zoom_original"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_zoom_original")),
 	i18n("Zoom to 100%"),
 	this, SLOT(zoomNormal()));
 
     m_action_zoomall = addAction(
-	icon_loader.loadIcon(_("kwave_viewmagfit"),
-	                     KIconLoader::Toolbar, max_s),
+	QIcon::fromTheme(_("kwave_viewmagfit")),
 	i18n("Zoom to all"),
 	this, SLOT(zoomAll()));
 

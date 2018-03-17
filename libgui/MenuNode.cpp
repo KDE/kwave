@@ -22,8 +22,6 @@
 #include <QLatin1Char>
 #include <QPixmap>
 
-#include <KIconLoader>
-
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
@@ -426,19 +424,15 @@ bool Kwave::MenuNode::specialCommand(const QString &command)
 
     if (parser.command() == _("#icon")) {
 	// --- give the item an icon ---
-	const QString &filename = parser.firstParam();
-	if (filename.length()) {
+	const QString &icon_name = parser.firstParam();
+	if ( icon_name.length()) {
 	    // try to load from standard dirs
-	    KIconLoader loader;
-	    QIcon icon = loader.loadIcon(filename,
-		KIconLoader::Small, 0, KIconLoader::DefaultState,
-                QStringList(), Q_NULLPTR, true);
-
+	    QIcon icon = QIcon::fromTheme( icon_name );
 	    if (!icon.isNull()) {
 		setIcon(icon);
 	    } else {
 		qWarning("MenuNode '%s': icon '%s' not found !",
-		    DBG(name()), DBG(filename));
+		    DBG(name()), DBG( icon_name ));
 	    }
 	}
 	return true;

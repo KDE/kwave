@@ -56,10 +56,6 @@
 #include "RecordParams.h"
 #include "RecordState.h"
 
-#include "krec_record.xpm"
-#include "record_pause.xpm"
-#include "record_stop.xpm"
-
 // status bar icons
 #include "ledgreen.xpm"
 #include "ledlightgreen.xpm"
@@ -114,12 +110,10 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     m_params.fromList(params);
 
     /* set the icons of the record control buttons */
-    KIconLoader icon_loader;
-    btNew->setIcon(   QIcon(icon_loader.loadIcon(_("document-new"),
-	              KIconLoader::Toolbar)));
-    btStop->setIcon(  QIcon(QPixmap(xpm_stop)));
-    btPause->setIcon( QIcon(QPixmap(xpm_pause)));
-    btRecord->setIcon(QIcon(QPixmap(xpm_krec_record)));
+    btNew->setIcon(   QIcon::fromTheme(_("document-new")));
+    btStop->setIcon(  QIcon::fromTheme(_("kwave_player_stop")));
+    btPause->setIcon( QIcon::fromTheme(_("kwave_player_pause")));
+    btRecord->setIcon(QIcon::fromTheme(_("kwave_player_record")));
 
     // fill the combo box with playback methods
     unsigned int index=0;
@@ -382,7 +376,7 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
     // device controls...
     m_enable_setDevice = false;
 
-    KIconLoader icon_loader;
+    KIconLoader *icon_loader = KIconLoader::global();
 
     cbDevice->clearEditText();
     cbDevice->clear();
@@ -474,8 +468,8 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 		    }
 		}
 
-		if (item && icon_name.length()) {
-		    QIcon icon = icon_loader.loadIcon(
+		if (item && icon_name.length() && icon_loader) {
+		    QIcon icon = icon_loader->loadIcon(
 			icon_name, KIconLoader::User);
 		    item->setIcon(0, icon);
 		}

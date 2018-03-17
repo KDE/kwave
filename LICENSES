@@ -211,7 +211,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	kwave/pics/knob.xpm				LGPL2 (crystal project) [derived from greenled.png]
 	kwave/pics/kwave-splash.png			(should be GPL2+ / Thomas Eschenbacher)
 	kwave/pics/kwave.svgz				(should be GPL2+ / Thomas Eschenbacher)
-	kwave/pics/krec_record.xpm			LGPL2 (crystal project) [converted from mix_record.png]
 	kwave/pics/light_off.xpm			LGPL2 (crystal project) [derived from greenled.png]
 	kwave/pics/light_on.xpm				LGPL2 (crystal project) [copied from greenled.png]
 	kwave/pics/logo.xpm				(should be GPL2+ / Martin Wilz)
@@ -758,7 +757,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/playback/PlayBackPlugin.h		GPL2+
 
 	plugins/record/CMakeLists.txt			BSD (3 clause)
-	plugins/record/krec_record.xpm			LGPL2 (crystal project) [converted from mix_record.png]
 	plugins/record/kwaveplugin_record.desktop.in	GPL2+
 	plugins/record/LevelMeter.cpp			GPL2+ / Rik Hemsley
 	plugins/record/LevelMeter.h			GPL2+ / Rik Hemsley
@@ -779,13 +777,10 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/record/RecordingState.xmi		(should be GPL2+)
 	plugins/record/RecordParams.cpp			GPL2+
 	plugins/record/RecordParams.h			GPL2+
-	plugins/record/record_pause2.xpm		(should be GPL2+)
-	plugins/record/record_pause.xpm			(should be GPL2+)
 	plugins/record/RecordPlugin.cpp			GPL2+
 	plugins/record/RecordPlugin.h			GPL2+
 	plugins/record/RecordPlugin.png			(should be GPL2+)
 	plugins/record/RecordState.h			GPL2+
-	plugins/record/record_stop.xpm			(should be GPL2+)
 	plugins/record/RecordThread.cpp			GPL2+
 	plugins/record/RecordThread.h			GPL2+
 	plugins/record/RecordTypesMap.cpp		GPL2+

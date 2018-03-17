@@ -21,7 +21,6 @@
 #include <QPixmap>
 
 #include <KLocalizedString>
-#include <KIconLoader>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"

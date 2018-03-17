@@ -29,6 +29,7 @@
 #include <QDropEvent>
 #include <QEvent>
 #include <QFrame>
+#include <QIcon>
 #include <QMenu>
 #include <QMouseEvent>
 #include <QPaintEvent>
@@ -38,7 +39,6 @@
 
 #include <KCursor>
 #include <KLocalizedString>
-#include <KIconLoader>
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
@@ -188,14 +188,12 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     Q_ASSERT(context_menu);
     if (!context_menu) return;
 
-    KIconLoader icon_loader;
-
     /* menu items common to all cases */
 
     // undo
     QAction *action;
     action = context_menu->addAction(
-	icon_loader.loadIcon(_("edit-undo"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-undo")),
 	i18n("&Undo"), this, SLOT(contextMenuEditUndo()),
 	Qt::CTRL + Qt::Key_Z);
     Q_ASSERT(action);
@@ -205,7 +203,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // redo
     action = context_menu->addAction(
-	icon_loader.loadIcon(_("edit-redo"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-redo")),
 	i18n("&Redo"), this, SLOT(contextMenuEditRedo()),
 	Qt::CTRL + Qt::Key_Y);
     Q_ASSERT(action);
@@ -216,15 +214,15 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // cut/copy/paste
     QAction *action_cut = context_menu->addAction(
-	icon_loader.loadIcon(_("edit-cut"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-cut")),
 	i18n("Cu&t"), this, SLOT(contextMenuEditCut()),
 	Qt::CTRL + Qt::Key_X);
     QAction *action_copy = context_menu->addAction(
-	icon_loader.loadIcon(_("edit-copy"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-copy")),
 	i18n("&Copy"), this, SLOT(contextMenuEditCopy()),
 	Qt::CTRL + Qt::Key_C);
     QAction *action_paste = context_menu->addAction(
-	icon_loader.loadIcon(_("edit-paste"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("edit-paste")),
 	i18n("&Paste"), this, SLOT(contextMenuEditPaste()),
 	Qt::CTRL + Qt::Key_V);
     context_menu->addSeparator();
@@ -247,7 +245,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // Selection / &Save
     QAction *action_select_save = submenu_select->addAction(
-	icon_loader.loadIcon(_("document-save"), KIconLoader::Toolbar),
+	QIcon::fromTheme(_("document-save")),
 	i18n("&Save..."), this, SLOT(contextMenuSaveSelection()));
     Q_ASSERT(action_select_save);
     if (!action_select_save) return;

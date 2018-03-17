@@ -48,7 +48,8 @@ Kwave::StringEnterPlugin::~StringEnterPlugin()
 void Kwave::StringEnterPlugin::load(QStringList &params)
 {
     Q_UNUSED(params);
-    QString entry = _("menu(plugin:setup(stringenter),%1/%2,F12)");
+    QString entry =
+	_("menu(plugin:setup(stringenter),%1/%2/#icon(editor),F12)");
     emitCommand(entry.arg(_("Settings")).arg(_(I18N_NOOP2(
         "menu: /Settings/Enter Command",
                         "Enter Command")

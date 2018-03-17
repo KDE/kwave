@@ -289,7 +289,7 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 
     if (devices.contains(_("#TREE#"))) {
 	// treeview mode
-	KIconLoader icon_loader;
+	KIconLoader *icon_loader = KIconLoader::global();
 
 	devices.removeAll((_("#TREE#")));
 	listDevices->setEnabled(true);
@@ -360,8 +360,8 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 		    }
 		}
 
-		if (item && icon_name.length()) {
-		    QIcon icon = icon_loader.loadIcon(
+		if (item && icon_name.length() && icon_loader) {
+		    QIcon icon = icon_loader->loadIcon(
 			icon_name, KIconLoader::User);
 		    item->setIcon(0, icon);
 		}

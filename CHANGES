@@ -1,5 +1,6 @@
 
   * enabled support for high dpi displays (icon scaling)
+  * show error message if no plugins were found and terminate
 
 18.03 [2017-11-13]
 

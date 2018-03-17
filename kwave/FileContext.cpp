@@ -216,7 +216,16 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     // now we are initialized, load all plugins
     Kwave::Splash::showMessage(i18n("Loading plugins..."));
     statusBarMessage(i18n("Loading plugins..."), 0);
-    m_plugin_manager->loadAllPlugins();
+    if (!m_plugin_manager->loadAllPlugins()) {
+	statusBarMessage(i18n("Failed"), 1000);
+	QApplication::restoreOverrideCursor();
+	Kwave::MessageBox::error(top_widget,
+	    i18n("Kwave has not been properly installed. "\
+	         "No plugins found!")
+	);
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	return false;
+    }
     statusBarMessage(i18n("Ready"), 1000);
 
     return true;

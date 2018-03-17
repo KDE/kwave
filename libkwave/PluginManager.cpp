@@ -120,7 +120,7 @@ Kwave::PluginManager::~PluginManager()
 }
 
 //***************************************************************************
-void Kwave::PluginManager::loadAllPlugins()
+bool Kwave::PluginManager::loadAllPlugins()
 {
     // Try to load all plugins. This has to be called only once per
     // instance of the main window!
@@ -150,6 +150,8 @@ void Kwave::PluginManager::loadAllPlugins()
 	    m_plugin_modules.remove(name);
 	}
     }
+
+    return !m_plugin_modules.isEmpty();
 }
 
 //***************************************************************************

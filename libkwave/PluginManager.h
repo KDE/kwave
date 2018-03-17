@@ -80,8 +80,9 @@ namespace Kwave
 	 * plugins will be unloaded afterwards. This also filters out
 	 * all plugins that do not correctly load.
 	 * @internal used once by each toplevel window at startup
+	 * @return true if at least one plugin was loaded, false if none
 	 */
-	void loadAllPlugins();
+	bool loadAllPlugins();
 
 	/**
 	 * Stops all currently running plugins

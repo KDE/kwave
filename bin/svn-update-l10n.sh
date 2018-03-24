@@ -87,6 +87,11 @@ touch ${LANG_NAMES_FILE}
 
 for lang in ${LINGUAS}; do
 
+    # skip languages which have no files (like "en")
+    if test ! -e ${lang} ; then
+        continue
+    fi
+
     lang_team=`cat teamnames | grep ^${lang}=`
 
     echo -n "processing ${lang} - `echo ${lang_team} | cut -d = -f 2`... "

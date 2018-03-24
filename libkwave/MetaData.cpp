@@ -28,9 +28,6 @@
 //***************************************************************************
 // initializers of the standard property names
 const QString Kwave::MetaData::STDPROP_TYPE(       _("STDPROP_TYPE"));
-const QString Kwave::MetaData::STDPROP_TRACKS(     _("STDPROP_TRACKS"));
-const QString Kwave::MetaData::STDPROP_START(      _("STDPROP_START"));
-const QString Kwave::MetaData::STDPROP_END(        _("STDPROP_END"));
 const QString Kwave::MetaData::STDPROP_POS(        _("STDPROP_POS"));
 const QString Kwave::MetaData::STDPROP_DESCRIPTION(_("STDPROP_DESCRIPTION"));
 
@@ -155,8 +152,6 @@ QStringList Kwave::MetaData::keys() const
 QStringList Kwave::MetaData::positionBoundPropertyNames()
 {
     QStringList list;
-    list << Kwave::MetaData::STDPROP_START;
-    list << Kwave::MetaData::STDPROP_END;
     list << Kwave::MetaData::STDPROP_POS;
     return list;
 }
@@ -171,15 +166,6 @@ sample_index_t Kwave::MetaData::firstSample() const
 	sample_index_t pos =
 	    property(Kwave::MetaData::STDPROP_POS).toULongLong(&ok);
 	if (ok) return pos;
-    }
-
-    // start sample index given
-    if ((scope() & Kwave::MetaData::Range) &&
-	hasProperty(Kwave::MetaData::STDPROP_START)) {
-	bool ok = false;
-	sample_index_t start = static_cast<sample_index_t>(
-	    property(Kwave::MetaData::STDPROP_START).toULongLong(&ok));
-	if (ok) return start;
     }
 
     // fallback: start at zero
@@ -198,43 +184,8 @@ sample_index_t Kwave::MetaData::lastSample() const
 	if (ok) return pos;
     }
 
-    // bound to a scope
-    if (scope() & Kwave::MetaData::Range) {
-	// end sample index given
-	if (hasProperty(Kwave::MetaData::STDPROP_END)) {
-	    bool ok = false;
-	    sample_index_t end = static_cast<sample_index_t>(
-		property(Kwave::MetaData::STDPROP_END).toULongLong(&ok));
-	    if (ok) return end;
-	}
-
-	// fallback: no end => use start
-	if (hasProperty(Kwave::MetaData::STDPROP_START)) {
-	    bool ok = false;
-	    sample_index_t start = static_cast<sample_index_t>(
-		property(Kwave::MetaData::STDPROP_START).toULongLong(&ok));
-	    if (ok) return start;
-	}
-    }
-
     // fallback: infinite
     return SAMPLE_INDEX_MAX;
-}
-
-//***************************************************************************
-QList<unsigned int> Kwave::MetaData::boundTracks() const
-{
-    QList<unsigned int> tracks;
-    if (hasProperty(Kwave::MetaData::STDPROP_TRACKS)) {
-	const QList<QVariant> v_track_list =
-	    property(Kwave::MetaData::STDPROP_TRACKS).toList();
-	foreach (const QVariant &v, v_track_list) {
-	    bool ok = false;
-	    unsigned int t = v.toUInt(&ok);
-	    if (ok) tracks += t;
-	}
-    }
-    return tracks;
 }
 
 //***************************************************************************
@@ -242,14 +193,10 @@ void Kwave::MetaData::dump() const
 {
     QString scope_list;
     const Scope s = scope();
-    if (s == All)
-	scope_list = _("all");
-    else {
-	if (s & Signal)   scope_list += _(" signal");
-	if (s & Track)    scope_list += _(" track");
-	if (s & Range)    scope_list += _(" range");
-	if (s & Position) scope_list += _(" position");
-    }
+
+    if (s & Signal)   scope_list += _(" signal");
+    if (s & Position) scope_list += _(" position");
+
     qDebug("    scope =%s", DBG(scope_list));
     const QStringList props = keys();
     foreach (const QString &p, props) {

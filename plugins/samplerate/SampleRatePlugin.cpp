@@ -186,7 +186,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
     }
 
     // adjust meta data locations
-    Kwave::MetaDataList meta = mgr.metaData().copy(first, last, tracks);
+    Kwave::MetaDataList meta = mgr.metaData().copy(first, last);
     if (!meta.isEmpty()) {
 	// adjust all positions in the originally selected range
 	// NOTE: if the ratio is > 1, work backwards, otherwise forward
@@ -217,8 +217,8 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 	    }
 	}
 
-	mgr.metaData().deleteRange(first, last, tracks);
-	mgr.metaData().merge(meta);
+	mgr.metaData().deleteRange(first, last);
+	mgr.metaData().add(meta);
     }
 
     // update the selection if it was not empty

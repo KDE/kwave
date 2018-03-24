@@ -36,8 +36,7 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
     :Kwave::UndoAction(),
      m_description(),
      m_offset(0),
-     m_length(SAMPLE_INDEX_MAX),
-     m_tracks()
+     m_length(SAMPLE_INDEX_MAX)
 {
     sample_index_t first = SAMPLE_INDEX_MAX;
     sample_index_t last  = 0;
@@ -62,19 +61,6 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
 	    if (ok && (pos < first)) first = pos;
 	    if (ok && (pos > last))  last  = pos;
 	}
-
-	// convert the track list into a usable list of unsigned int
-	const QList<QVariant> v_track_list =
-	    m[Kwave::MetaData::STDPROP_TRACKS].toList();
-	QList<unsigned int> bound_tracks;
-	foreach (const QVariant &v, v_track_list) {
-	    bool ok = false;
-	    unsigned int t = v.toUInt(&ok);
-	    if (ok) bound_tracks += t;
-	}
-
-	foreach (unsigned int t, bound_tracks)
-	    if (!m_tracks.contains(t)) m_tracks.append(t);;
     }
 
     // fix first/last in case that nothing was found, select everything
@@ -85,9 +71,6 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
 	m_offset = first;
 	m_length = (last - first) + 1;
     }
-    if (!m_tracks.isEmpty())
-	std::sort(m_tracks.begin(),
-	          m_tracks.end(), std::greater<unsigned int>());
 
     /*
      * determine the description of the action
@@ -176,7 +159,7 @@ Kwave::UndoAction *Kwave::UndoAddMetaDataAction::undo(
     Kwave::UndoAction *redo = Q_NULLPTR;
 
     Kwave::MetaDataList meta_data =
-	manager.metaData().copy(m_offset, m_length, m_tracks);
+	manager.metaData().copy(m_offset, m_length);
 
     // store data for redo
     if (with_redo && !meta_data.isEmpty()) {
@@ -186,7 +169,7 @@ Kwave::UndoAction *Kwave::UndoAddMetaDataAction::undo(
     }
 
     // remove the meta data from the signal manager
-    manager.metaData().deleteRange(m_offset, m_length, m_tracks);
+    manager.metaData().deleteRange(m_offset, m_length);
 
     return redo;
 }

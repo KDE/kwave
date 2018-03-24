@@ -201,7 +201,7 @@ bool Kwave::MimeData::encode(QWidget *widget,
     Kwave::MetaDataList new_meta_data = meta_data.selectByRange(first, last);
 
     // move all meta data left, to start at the beginning of the selection
-    new_meta_data.shiftLeft(first, first, QList<unsigned int>());
+    new_meta_data.shiftLeft(first, first);
 
     // fix the length information in the new file info
     // and change to uncompressed mode
@@ -410,9 +410,9 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
         // adjust meta data position in case of different sample rate
         if (!qFuzzyCompare(src_rate, dst_rate))
-	    meta_data.scalePositions(dst_rate / src_rate, tracks);
+	    meta_data.scalePositions(dst_rate / src_rate);
 
-	meta_data.shiftRight(0, left, tracks);
+	meta_data.shiftRight(0, left);
 
 	// remove the file info, this must not be handled here, otherwise
 	// this would overwrite the file info of the destination

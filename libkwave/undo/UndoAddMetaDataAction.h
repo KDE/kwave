@@ -79,9 +79,6 @@ namespace Kwave
 	/** number of affected samples */
 	sample_index_t m_length;
 
-	/** list of affected track inidices */
-	QList<unsigned int> m_tracks;
-
     };
 }
 

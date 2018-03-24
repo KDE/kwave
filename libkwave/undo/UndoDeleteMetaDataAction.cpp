@@ -113,7 +113,7 @@ Kwave::UndoAction *Kwave::UndoDeleteMetaDataAction::undo(
     Kwave::UndoAction *redo = Q_NULLPTR;
 
     // add the stored meta data to the signal managers' meta data
-    manager.metaData().merge(m_meta_data);
+    manager.metaData().add(m_meta_data);
 
     // store data for redo
     if (with_redo) {

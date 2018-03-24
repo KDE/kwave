@@ -40,15 +40,6 @@ namespace Kwave
 	/** standard property: type of the meta data object */
 	static const QString STDPROP_TYPE;
 
-	/** standard property: list of zero based track indices */
-	static const QString STDPROP_TRACKS;
-
-	/** standard property: start sample index (inclusive) */
-	static const QString STDPROP_START;
-
-	/** standard property: end sample index (inclusive) */
-	static const QString STDPROP_END;
-
 	/** standard property: position [zero based sample index] */
 	static const QString STDPROP_POS;
 
@@ -64,27 +55,10 @@ namespace Kwave
 	    Signal   = (1 << 0),
 
 	    /**
-	     * bound to a (list of) tracks, requires the property
-	     * "STDPROP_TRACKS" with a QVariant::List of track indices
-	     * encoded as QVariant::UInt
-	     */
-	    Track    = (1 << 1),
-
-	    /**
-	     * bound to a range of samples, requires the properties
-	     * "STDPROP_START" and "STDPROP_END" with data type
-	     * QVariant::ULongLong
-	     */
-	    Range    = (1 << 2),
-
-	    /**
 	     * bound to a single sample, requires the property
 	     * "STDPROP_POS" with data type "QVariant::ULongLong"
 	     */
-	    Position = (1 << 3),
-
-	    /** can be used for selecting all the scopes above */
-	    All      = ~0
+	    Position = (1 << 2),
 	} Scope;
 
 	/** List of metadata properties */
@@ -199,12 +173,6 @@ namespace Kwave
 	 * @return index of the last sample
 	 */
 	sample_index_t lastSample() const;
-
-	/**
-	 * Returns a list of tracks a meta data item is bound to
-	 * @return list of bound tracks or empty list if not bound
-	 */
-	QList<unsigned int> boundTracks() const;
 
 	/** dump all properties to stdout, for debugging */
 	virtual void dump() const;

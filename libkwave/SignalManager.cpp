@@ -433,9 +433,6 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 	    // we have to adjust all position aware meta data
 	    meta.cropByRange(ofs, ofs + len - 1);
 
-	    // filter out all the track bound meta data that is not selected
-	    meta.cropByTracks(selectedTracks());
-
 	    // set the filename in the copy of the fileinfo, the original
 	    // file which is currently open keeps it's name
 	    Kwave::FileInfo info(meta);
@@ -926,19 +923,6 @@ void Kwave::SignalManager::insertTrack(unsigned int index)
 	// do an "append"
         m_signal.appendTrack(len, Q_NULLPTR);
     } else {
-	if (m_undo_enabled) {
-	    // undo action for the corresponding meta data change
-	    QList<unsigned int> tracks;
-	    for (unsigned int t = index; t < count; t++) tracks.append(t);
-	    Kwave::MetaDataList list = m_meta_data.selectByTracks(tracks);
-	    if (!list.isEmpty() && !registerUndoAction(
-		new(std::nothrow) Kwave::UndoModifyMetaDataAction(list)))
-		    return;
-	}
-
-	// adjust the track bound meta data
-	m_meta_data.insertTrack(index);
-
 	// insert into the list
         m_signal.insertTrack(index, len, Q_NULLPTR);
     }
@@ -961,18 +945,7 @@ void Kwave::SignalManager::deleteTrack(unsigned int index)
 	if (!registerUndoAction(new(std::nothrow)
 	    UndoDeleteTrack(m_signal, index)))
 		return;
-
-	// undo action for the corresponding meta data change
-	QList<unsigned int> tracks;
-	for (unsigned int t = index; t < count; t++) tracks.append(t);
-	Kwave::MetaDataList list = m_meta_data.selectByTracks(tracks);
-	if (!list.isEmpty() && !registerUndoAction(
-	    new(std::nothrow) Kwave::UndoModifyMetaDataAction(list)))
-		return;
     }
-
-    // adjust the track bound meta data
-    m_meta_data.deleteTrack(index);
 
     setModified(true);
     m_signal.deleteTrack(index);
@@ -1017,8 +990,8 @@ void Kwave::SignalManager::slotSamplesInserted(unsigned int track,
 
     // only adjust the meta data once per operation
     QList<unsigned int> tracks = selectedTracks();
-    if (track == tracks[0]) {
-	m_meta_data.shiftRight(offset, length, tracks);
+    if (track == tracks.first()) {
+	m_meta_data.shiftRight(offset, length);
     }
 
     emit sigSamplesInserted(track, offset, length);
@@ -1040,8 +1013,8 @@ void Kwave::SignalManager::slotSamplesDeleted(unsigned int track,
 
     // only adjust the meta data once per operation
     QList<unsigned int> tracks = selectedTracks();
-    if (track == tracks[0]) {
-	m_meta_data.shiftLeft(offset, length, tracks);
+    if (track == tracks.first()) {
+	m_meta_data.shiftLeft(offset, length);
     }
 
     emit sigSamplesDeleted(track, offset, length);
@@ -1069,12 +1042,12 @@ bool Kwave::SignalManager::deleteRange(sample_index_t offset,
     // put the selected meta data into a undo action
     if (m_undo_enabled) {
 	if (!registerUndoAction(new(std::nothrow) UndoDeleteMetaDataAction(
-	    m_meta_data.copy(offset, length, track_list))))
+	    m_meta_data.copy(offset, length))))
 	{
 	    abortUndoTransaction();
 	    return false;
 	}
-	m_meta_data.deleteRange(offset, length, track_list);
+	m_meta_data.deleteRange(offset, length);
 
 	// store undo data for all audio data (without meta data)
 	if (!registerUndoAction(new(std::nothrow) UndoDeleteAction(
@@ -1085,7 +1058,7 @@ bool Kwave::SignalManager::deleteRange(sample_index_t offset,
 	}
     } else {
 	// delete without undo
-	m_meta_data.deleteRange(offset, length, track_list);
+	m_meta_data.deleteRange(offset, length);
     }
 
     // delete the ranges in all tracks
@@ -1991,7 +1964,7 @@ bool Kwave::SignalManager::modifyLabel(int index, sample_index_t pos,
 //***************************************************************************
 void Kwave::SignalManager::mergeMetaData(const Kwave::MetaDataList &meta_data)
 {
-    m_meta_data.merge(meta_data);
+    m_meta_data.add(meta_data);
     emit sigMetaDataChanged(m_meta_data);
 }
 

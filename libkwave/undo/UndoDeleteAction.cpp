@@ -81,7 +81,7 @@ bool Kwave::UndoDeleteAction::store(Kwave::SignalManager &manager)
 	return false; // retrieving the stripes failed
 
     // save the meta data
-    m_meta_data = manager.metaData().copy(m_offset, m_length, m_track_list);
+    m_meta_data = manager.metaData().copy(m_offset, m_length);
 
     return true;
 }
@@ -120,7 +120,7 @@ Kwave::UndoAction *Kwave::UndoDeleteAction::undo(Kwave::SignalManager &manager,
     }
 
     // restore the saved meta data
-    manager.metaData().merge(m_meta_data);
+    manager.metaData().add(m_meta_data);
 
     return redo_action;
 }

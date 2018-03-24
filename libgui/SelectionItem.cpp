@@ -71,8 +71,7 @@ void Kwave::SelectionItem::startDragging()
                                 m_signal_manager.selectedTracks(), first, last);
 
     // create the file info
-    Kwave::MetaDataList meta = m_signal_manager.metaData().selectByTracks(
-	m_signal_manager.selectedTracks());
+    Kwave::MetaDataList meta = m_signal_manager.metaData();
     Kwave::FileInfo info(meta);
     info.setLength(last - first + 1);
     info.setRate(rate);

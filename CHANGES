@@ -4,6 +4,8 @@
   * enabled support for high dpi displays (icon scaling)
   * show error message if no plugins were found and terminate
   * updated developer handbook
+  * cleanup: removed unused feature to attach meta data to lists
+    of tracks and ranges of samples
 
 18.03 [2017-11-13]
 

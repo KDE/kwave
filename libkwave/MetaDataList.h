@@ -76,24 +76,6 @@ namespace Kwave
 	virtual MetaDataList selectByType(const QString &type) const;
 
 	/**
-	 * select elements from the meta data list that have a specific scope
-	 *
-	 * @param scope the scope to select @see Kwave::MetaData::Scope
-	 * @return list with found meta data objects
-	 */
-	virtual MetaDataList selectByScope(MetaData::Scope scope) const;
-
-	/**
-	 * select elements from the meta data list that belong to
-	 * a given track.
-	 *
-	 * @param tracks list of track indices to select
-	 * @return list with found meta data objects
-	 */
-	virtual MetaDataList selectByTracks(
-	    const QList<unsigned int> &tracks) const;
-
-	/**
 	 * select elements from the meta data list that overlap a given
 	 * range of samples (selects elements with scope "Range" as well
 	 * as elements with scope "Position")
@@ -198,38 +180,18 @@ namespace Kwave
 	virtual void cropByRange(sample_index_t first, sample_index_t last);
 
 	/**
-	 * Crops this list to a given set of tracks. All elements that are
-	 * bound to a track or list of tracks which are not covered by the
-	 * given selection will be removed. The tracks of the remaining
-	 * elements will be re-numbered to start from zero and counted up
-	 * without gaps.
-	 *
-	 * @param tracks list of track indices
-	 */
-	virtual void cropByTracks(const QList<unsigned int> &tracks);
-
-	/**
 	 * copy elements from the meta data list that overlap a given
 	 * range of samples (selects elements with scope "Range" as well
-	 * as elements with scope "Position") and have a binding to a
-	 * track.
+	 * as elements with scope "Position")
 	 *
 	 * @param offset index of the first sample
 	 * @param length number of samples of the range
-	 * @param tracks list of track indices
 	 * @return list with a copy of found meta data objects
 	 */
 	virtual MetaDataList copy(
 	    sample_index_t offset,
-	    sample_index_t length,
-	    const QList<unsigned int> &tracks
+	    sample_index_t length
 	) const;
-
-	/**
-	 * Merges a list of other meta data items
-	 * @param meta_data list of meta data items
-	 */
-	void merge(const MetaDataList &meta_data);
 
 	/**
 	 * delete elements from the meta data list that overlap a given
@@ -239,14 +201,8 @@ namespace Kwave
 	 *
 	 * @param offset index of the first sample
 	 * @param length number of samples to delete
-	 * @param tracks list of track indices, will be filled
-	 *               with copies of found meta data objects
 	 */
-	virtual void deleteRange(
-	    sample_index_t offset,
-	    sample_index_t length,
-	    const QList<unsigned int> &tracks
-	);
+	virtual void deleteRange(sample_index_t offset, sample_index_t length);
 
 	/**
 	 * shift the positions or start/end of all elements that are after
@@ -254,13 +210,8 @@ namespace Kwave
 	 *
 	 * @param offset index of the first sample
 	 * @param shift number of samples to shift left
-	 * @param tracks list of track indices
 	 */
-	virtual void shiftLeft(
-	    sample_index_t offset,
-	    sample_index_t shift,
-	    const QList<unsigned int> &tracks
-	);
+	virtual void shiftLeft(sample_index_t offset, sample_index_t shift);
 
 	/**
 	 * shift the positions or start/end of all elements that are after
@@ -268,56 +219,18 @@ namespace Kwave
 	 *
 	 * @param offset index of the first sample
 	 * @param shift number of samples to shift right
-	 * @param tracks list of track indices
 	 */
-	virtual void shiftRight(
-	    sample_index_t offset,
-	    sample_index_t shift,
-	    const QList<unsigned int> &tracks
-	);
+	virtual void shiftRight(sample_index_t offset, sample_index_t shift);
 
 	/**
 	 * scale the positions or start/end of all elements by a given factor
 	 *
 	 * @param scale the factor that is applied to all positions
-	 * @param tracks list of track indices
 	 */
-	virtual void scalePositions(
-	    double scale,
-	    const QList<unsigned int> &tracks
-	);
-
-	/**
-	 * makes place for a new track by adjusting the track indices of all
-	 * meta data items after that track by plus one
-	 *
-	 * @param track index of the track that is inserted
-	 */
-	virtual void insertTrack(unsigned int track);
-
-	/**
-	 * delete all meta data that was bound to a specific track and
-	 * adjust the track indices of all meta data items after that
-	 * track by minus one
-	 *
-	 * @param track index of the track that is to be deleted
-	 */
-	virtual void deleteTrack(unsigned int track);
+	virtual void scalePositions(double scale);
 
 	/** dump all meta data to stdout (for debugging) */
 	virtual void dump() const;
-
-    protected:
-
-	/**
-	 * Splits the list at a given position. The given position will
-	 * be the start of the new fragment(s), so that splitting multiple
-	 * times at the same offset does not produce further fragments.
-	 * @param offset index of the sample position before which the
-	 *               list should be split
-	 * @param tracks list of track indices
-	 */
-	void split(sample_index_t offset, const QList<unsigned int> &tracks);
 
     };
 

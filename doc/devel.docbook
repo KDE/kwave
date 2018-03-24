@@ -3,7 +3,7 @@
   <!ENTITY kwave "<application>Kwave</application>">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "17.12.3">
+  <!ENTITY version "18.07.70">
   <!ENTITY version_year "2018">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_git_web_kde "http://commits.kde.org/kwave">

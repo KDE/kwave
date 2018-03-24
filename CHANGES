@@ -1,4 +1,6 @@
 
+18.07.70 [2018-03-24]
+
   * enabled support for high dpi displays (icon scaling)
   * show error message if no plugins were found and terminate
   * updated developer handbook

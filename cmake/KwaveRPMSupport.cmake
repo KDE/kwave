@@ -45,6 +45,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_changes}
         ${CMAKE_CURRENT_SOURCE_DIR}/CHANGES
         ${_changes}
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CHANGES
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/bin/make-specfile-changelog.pl
 )
 
 SET(KWAVE_ADDITIONAL_CLEAN_FILES ${KWAVE_ADDITIONAL_CLEAN_FILES} ${_changes})
@@ -85,6 +86,7 @@ IF (EXISTS ${_git})
 	    COMMAND find doc -type f -name \\*.txt ">>" ${files_lst}
 	    COMMAND find doc -type f -name index.docbook ">>" ${files_lst}
 	    COMMAND find doc -type f -name \\*.png ">>" ${files_lst}
+	    COMMAND find . -type f -name \\*.spec ">>" ${files_lst}
 	    COMMAND cat ${files_lst} | sort | uniq > ${files_lst}.tmp
 	    COMMAND mv ${files_lst}.tmp ${files_lst}
 	    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}

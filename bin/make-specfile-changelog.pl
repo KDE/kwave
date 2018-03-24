@@ -28,6 +28,7 @@ my $default_author = "Thomas Eschenbacher <Thomas.Eschenbacher\@gmx.de>";
 open(IN,  "<" . $in ) or die "cannot open input file "  . $in;
 open(OUT, ">" . $out) or die "cannot open output file " . $out;
 
+my $first = 1;
 while (<IN>) {
 
     $a = $_;
@@ -35,6 +36,15 @@ while (<IN>) {
 
     # remove trailing whitespaces
     $string =~ s/\s+$//;
+
+    if ($first and ($a)) {
+	my $date   = time2str("%a %b %e %Y", time);
+	my $author = $default_author;
+
+	print OUT "\n";
+	print OUT "# -------------------------------------------------------------------\n";
+	print OUT "* " . $date . " " . $author . "\n";
+    }
 
     # if the line has the format <version> [ "[" <date> "]" ], then it
     # is the start of a new package version
@@ -62,8 +72,8 @@ while (<IN>) {
 
 	# if description contains a ISO date, take it
 	if ($description =~ /\[(\d\d\d\d)\-(\d\d)\-(\d\d)\]/) {
-	    $timestamp = timelocal(0, 0, 0, $3, $2 - 1, $1);
-	    $date = time2str("%a %b %e %Y", $timestamp);;
+	    local $timestamp = timelocal(0, 0, 0, $3, $2 - 1, $1);
+	    $date = time2str("%a %b %e %Y", $timestamp);
 	}
 
 	print OUT "\n";
@@ -87,6 +97,7 @@ while (<IN>) {
 	$a =~ s+^\*+\-+g;
 
 	print OUT $a . "\n";
+	$first = 0;
     }
 
 }

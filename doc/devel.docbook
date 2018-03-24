@@ -3,9 +3,8 @@
   <!ENTITY kwave "<application>Kwave</application>">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.9.3">
-  <!ENTITY version_tag "0_9_3">
-  <!ENTITY version_year "2017">
+  <!ENTITY version "17.12.3">
+  <!ENTITY version_year "2018">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_git_web_kde "http://commits.kde.org/kwave">
   <!ENTITY url_prefix_gitweb "&url_git_web_kde;?path=">
@@ -45,8 +44,8 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2017-01-29</date>
-    <releaseinfo>0.9.3 (Applications 16.12)</releaseinfo>
+    <date>2018-03-23</date>
+    <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor built on &kf5-full;.</para></abstract>
 
@@ -228,11 +227,98 @@
 
     </sect1>
 
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- +++ Section: Fetching sources from GIT                             +++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="fetching_sources_from_git">
+	<title>Fetching sources from GIT</title>
+
+	<sect2 id="git_checkout"><title>Checking out the sources</title>
+
+	    <para>
+		For initially checking out the sources you will need some disk space
+		(about 25 megabytes) in a directory of your choice, the git package
+		of your favorite distribution and full access to the Internet. If you
+		get error messages about rejected connections you either have typed
+		something wrong or your provider doesn't give you full access.
+		A good place for the source files will be <filename>"$HOME/src"</filename>.
+	    </para>
+
+	    <orderedlist>
+		<listitem><para>
+			First create the directory that will receive the subdirectory with
+			&kwave; sources and change into it:
+<screen width="40" format="linespecific">
+    <prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></command>
+    <prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>
+</screen>
+			</para></listitem>
+		<listitem>
+		    <para>
+			Then check out the latest sources from the GIT server:
+<screen width="70" format="linespecific">
+    <prompt>% </prompt><command>git clone &url_git_master; kwave</command>
+</screen>
+		    </para>
+		    <para>
+			or you can check out a specific release with the following commands:
+<screen width="70" format="linespecific">
+    <prompt>% </prompt><command>git clone &url_git_master; kwave</command>
+    <prompt>% </prompt><command>cd kwave</command>
+    <prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]</replaceable> </command>
+</screen>
+			You can look up the names of the release tags in the git web page at
+			<ulink url="&url_git_list_tags;"> &url_git_list_tags;</ulink>.
+			Older release tags (until <literal>v0.9.2</literal>) are built out
+			of the word <literal>Release-</literal> and the version
+			number of the release, with underscores instead of dots.
+			Newer release tags consist only of a version number
+			(starting with <literal>v16.11.80</literal>).
+			For example "<literal>v&version;</literal>" for v&version;.
+		    </para>
+		</listitem>
+	    </orderedlist>
+
+	    <warning><para>
+		    There <emphasis>must not</emphasis> be a directory named
+		    <filename>kwave</filename> under
+		    the directory you want to check out. Otherwise the git program will
+		    complain about already existing files and the checkout will
+		    not work.
+		    </para></warning>
+
+	</sect2>
+
+	<sect2 id="git_update"><title>Updating fresh sources from GIT</title>
+	    <para>
+		The procedure described in the previous section is only necessary
+		once. For further updates it is much easier. Just change into the
+		directory where you have the checked out sources and do the following
+		to update to the latest version:
+<screen width="40" format="linespecific">
+    <prompt>% </prompt><command>git pull</command>
+</screen>
+	    </para>
+	    <note><para>
+		    If you think that you have messed up your local source tree or if there
+		    are conflicts during updating and you want to start through from a clean
+		    state, you can do the following to discard all local changes and switch
+		    back to the latest version from the master branch:
+<screen width="40" format="linespecific">
+    <prompt>% </prompt><command>git clean --force -d</command>
+    <prompt>% </prompt><command>git reset --hard</command>
+    <prompt>% </prompt><command>git checkout <replaceable>master</replaceable></command>
+</screen>
+		    </para></note>
+	</sect2>
+    </sect1>
+
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Manual Compilation                                    +++ -->
+<!-- +++ Section: Invokation of cmake                                   +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="manual_compilation"><title>Manual Compilation and installation</title>
+    <sect1 id="cmake_invocation"><title>Invocation of <literal>cmake</literal></title>
 
     <para>
 	Since version 0.7.10 &kwave; uses
@@ -252,26 +338,22 @@
 
     <para>
 	For example, assuming that your sources are already
-	unpacked in <filename><replaceable>$HOME/src/kwave-&version;</replaceable></filename>, you
+	unpacked in <filename><replaceable>$HOME/src/kwave</replaceable></filename>, you
 	can do the following:
 <screen width="50" format="linespecific">
 <prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
 <prompt>% </prompt><command>cd /tmp/kwave-build</command>
-<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave-&version;</replaceable> <replaceable>[build options]</replaceable></command>
-<prompt>% </prompt><command>make</command>
-<prompt>% </prompt><command>su root -c "make install"</command>
+<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave</replaceable> <replaceable>[build options]</replaceable></command>
 </screen>
-	(Specifying build options is a way to enable or disable specific features.
-	See the following section for descriptions)
+	Specifying build options is a way to enable or disable specific features.
+	Please see the following section for a list of options!
     </para>
-
-    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Build options                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="build_options"><title>Build options</title>
+    <sect2 id="build_options"><title>Build options</title>
 
 	<para>
 	    By specifying build options, you can enable or disable some features
@@ -279,6 +361,17 @@
 	    generated package. Here is a list of the available options:
 
 	    <itemizedlist>
+		<listitem><para>
+		    <literal>CMAKE_INSTALL_PREFIX</literal>
+		    installation prefix of your KF5 installation
+		    [<literal>on</literal>/<literal>off</literal>,
+		    default=<literal>/usr/local</literal>]
+		    </para><para>
+		    You can find out the correct value with the following command:
+<screen width="20" format="linespecific">
+    <prompt>% </prompt><command>kf5-config --prefix</command>
+</screen>
+		    </para></listitem>
 		<listitem><para>
 		    <literal>WITH_ALSA</literal>
 		    enable playback/recording via ALSA
@@ -307,9 +400,7 @@
 		    <literal>WITH_MP3</literal>
 		    enable support for mp3 files
 		    [<literal>on</literal>/<literal>off</literal>,
-		    default=<literal>off</literal>]
-		    Please note that you need the permission to use code
-		    covered by the MP3 software patents!
+		    default=<literal>on</literal>]
 		</para></listitem>
 		<listitem><para>
 		    <literal>WITH_OGG_OPUS</literal>
@@ -348,87 +439,127 @@
 		    [<literal>on</literal>/<literal>off</literal>,
 		    default=<literal>on</literal>]
 		</para></listitem>
-	    </itemizedlist>
+    </itemizedlist>
 	</para>
 
 	<para>
 	    These options can be passed to <literal><command>cmake</command></literal>
 	    with <command><literal>-D</literal><replaceable>option</replaceable><literal>=</literal><replaceable>value</replaceable></command>.
-	    For example, if you want to enable MP3 support,
+	    For example, if you want to disable MP3 support,
 	    you can pass the corresponding option as follows:
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DWITH_MP3=ON <replaceable>[other options...]</replaceable></command>
+    <prompt>% </prompt><command>cmake <replaceable>[source directory]</replaceable> -DCMAKE_INSTALL_PREFIX=`kf5-config --prefix` -DWITH_MP3=OFF <replaceable>[other options...]</replaceable></command>
 </screen>
 	</para>
-    </sect1>
+    </sect2>
+</sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Building RPM packages from tar.bz2 archives           +++ -->
+<!-- +++ Section: Building RPM packages from Sources                    +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <sect1 id="building_rpm_from_tarbz2">
-    <title>Building RPM packages from tar.bz2 archives</title>
-
-    <sect2 id="building_with_rpm_ta">
-    <title>With working rpmbuild -ta</title>
+    <title>Building RPM packages from Sources</title>
 
     <para>
 	If you are running a system with RPM support, the preferred way to
-	install &kwave; on your system will be the creation of a nice RPM
-	package. First you should get the current source of &kwave;, either
-	as a tar.bz2 archive from the &kwave; download page or
-	check out an up-to-date copy via the GIT repository hosted on KDE
-	servers, or the mirror repository hosted by
-	<ulink url="&url_sourceforge;">SourceForge</ulink> where
-	you can get the sources of the latest development version.
-    </para>
-    <para>
-	For instructions on how to get access to the repository, read
-	in the chapter about
-	<link linkend="building_rpm_from_git">building from git</link>.
-
-	There also is a GIT web interface on <ulink url="&url_git_web_kde;">KDE</ulink>
-	and on <ulink url="&url_git_web_sf;">SourceForge</ulink> where
-	you can use to browse through the sources.
+	get &kwave; on your system will be the creation and installation
+	of a RPM package, as described in the next chapters.
+	If you are running a Debian like system (dpkg based),
+	you should skip to [<link linkend="building_deb_from_src">here</link>].
     </para>
 
-    <para>
-	If you have downloaded tar.bz2 archives of &kwave;,
-	create and install the RPMs just by doing the following steps
-	(where <replaceable>[arch]</replaceable> stands for the platform you
-	have built the package and might be something like
-	<literal>i586</literal>, <literal>i686</literal>,
-	<literal>sparc</literal> or whatever,
-	<replaceable>XXX</replaceable> stands for the version number
-	you have downloaded).
-    </para>
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- +++ Section: Finding the RPM settings of your system           +++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect2 id="find_rpm_settings">
+    <title>Finding the RPM settings of your system</title>
 
     <para>
-    To build the &kwave; package and install it do:
+	You can find out the RPM top directory with the following command:
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.bz2</replaceable></command>
-<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+<prompt>% </prompt><command>rpm --eval '%_topdir'</command>
 </screen>
     </para>
-
-    <note><para>
-	<emphasis>Note for SuSE users: </emphasis>
-	you have to specify the directory
-	<filename>/usr/src/packages</filename> instead
-	of <filename>/usr/src/redhat</filename> !
-    </para></note>
-
     <para>
-	If you haven't seen any errors, then that's it and you can skip the
-	rest of this chapter. If rpm was unable to build the packages
-	and says something like "spec file not found", then go on and
-	read the rest of this section.
+	With this command you can find out your native system architecture:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>rpm --eval '%_arch'</command>
+</screen>
     </para>
 
     </sect2>
 
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- +++ Section: Building a RPM package from a source tree         +++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect2 id="building_rpm_from_source_tree">
+	<title>Building a RPM package from a source tree</title>
+
+	<para>
+	Assuming you have checked out git sources of &kwave;, and you
+	have successfully passed the cmake stage, you have two
+	possibilities to get a binary RPM package:
+	<orderedlist>
+	    <listitem><para>
+		Create a tarball with the command "<literal>make tarball</literal>"
+		and then continue in the <link linkend="building_with_rpm_ta">next section</link>.
+	    </para></listitem>
+	    <listitem><para>
+		Directly create a RPM package with the command
+		"<literal>make rpm</literal>" (which is the quicker way)
+		and then advance to the section
+		about <link linkend="rpm_install">installation of the RPM package</link>.
+	    </para></listitem>
+	</orderedlist>
+	</para>
+    </sect2>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- +++ Section: Building a RPM package with working rpmbuild -ta  +++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect2 id="building_with_rpm_ta">
+    <title>Building a RPM package with working <literal>rpmbuild -ta</literal></title>
+
+    <para>
+	Assuming you have a tar.bz2 archive of &kwave;, you can create
+	a RPM package just by doing the steps in this section
+	(where <replaceable>[arch]</replaceable> stands for the platform you
+	have built the package and might be something like
+	<literal>x86_64</literal>, <literal>i686</literal>,
+	<literal>sparc</literal> or whatever,
+	<replaceable>[topdir]</replaceable> stands for the RPM top directory,
+	and
+	<replaceable>[version]</replaceable> stands for the version number).
+    </para>
+
+    <para>
+    You can build the &kwave; package with this command:
+<screen width="70" format="linespecific">
+<prompt>% </prompt><command>rpmbuild -ta kwave-<replaceable>[version]</replaceable>.tar.bz2</command>
+</screen>
+    </para>
+
+    <para>
+	If you haven't seen any errors, then that's it - you can skip the
+	next section and
+	<link linkend="rpm_install">install the package</link>.
+	If rpm was unable to build the packages
+	and says something like "spec file not found", then please continue
+	with the next section.
+    </para>
+
+    </sect2>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- +++ Section: Building a RPM package with broken rpmbuild -ta   +++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
     <sect2 id="rpm_build_with_broken_rpm">
-    <title>With broken rpmbuild -ta support</title>
+    <title>Building a RPM package with broken <literal>rpmbuild -ta support</literal></title>
 
     <para><anchor id="manual_rpm_creation"/>
 	If you cannot get <command>rpmbuild -ta</command> working, here are
@@ -437,30 +568,27 @@
 
     <orderedlist>
 	<listitem><para>
-	    Go to your RPM "topdir". This normally
-	    is <filename>/usr/src/redhat</filename>
-	    for the redhat distribution
-	    or <filename>/usr/src/packages</filename> if you
-	    have the SuSE distribution.
+	    Go to your RPM "topdir".
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></command>
+<prompt>% </prompt><command>cd <replaceable>[topdir]</replaceable></command>
 </screen>
 	</para></listitem>
 
 	<listitem><para>
-	    Put the tar.bz2 archive into the SOURCES subdirectory (you
+	    Put the tar.bz2 archive into the <literal>SOURCES</literal> subdirectory (you
 	    have to replace "somewhere" with the real directory where
 	    the files are, of course).
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.bz2</replaceable> SOURCES</command>
+<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-[version].tar.bz2</replaceable> SOURCES</command>
 </screen>
 	</para></listitem>
 
 	<listitem><para>
 	    Extract the spec file from the archives and put it into
-	    the SPEC subdirectory.
+	    the <literal>SPEC</literal> subdirectory.
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>tar -xOjf SOURCES/<replaceable>kwave-XXX.tar.bz2</replaceable> \*.spec > SPECS/kwave.spec</command>
+<prompt>% </prompt><command>tar --wildcards -xOjf SOURCES/kwave-<replaceable
+	>[version]</replaceable>.tar.bz2 \*.spec > SPECS/kwave.spec</command>
 </screen>
 	</para></listitem>
 
@@ -474,162 +602,41 @@
 <prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>
 </screen>
 	</para></listitem>
+    </orderedlist>
 
-	<listitem><para>
+    </sect2>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- +++ Section: Installing the RPM package                        +++ -->
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect2 id="rpm_install">
+	<title>Installing the RPM package</title>
+
+	<para>
 	    If everything was ok, you can install the binary rpm of
-	    &kwave;, it will be in the BUILD directory.
+	    &kwave;, it should be available below the
+	    <literal>RPMS</literal> sub directory of the RPM top directory.
 	    If you already have a version of &kwave; installed,
 	    please remove it first or use the parameter
 	    <literal>-U</literal> instead
 	    of <literal>-i</literal> for upgrading instead of installing.
 <screen width="70" format="linespecific">
-<prompt>% </prompt><command>rpm -ivh BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
-</screen>
-	</para></listitem>
-
-    </orderedlist>
-
-    </sect2>
-    </sect1>
-
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Building RPM packages from GIT                        +++ -->
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-    <sect1 id="building_rpm_from_git">
-    <title>Building RPM packages from GIT</title>
-
-    <sect2 id="git_checkout"><title>Checking out the sources</title>
-
-    <para>
-	For initially checking out the sources you will need some disk space
-	(about 25 megabytes) in a directory of your choice, the git package
-	of your favorite distribution and full access to the Internet. If you
-	get error messages about rejected connections you either have typed
-	something wrong or your provider doesn't give you full access.
-	A good place for the source files will be <filename>"$HOME/src"</filename>.
-    </para>
-
-    <orderedlist>
-    <listitem><para>
-	First create the directory that will receive the subdirectory with
-	&kwave; sources and change into it:
-<screen width="40" format="linespecific">
-<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></command>
-<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>
-</screen>
-    </para></listitem>
-    <listitem>
-	<para>
-	    Then check out the latest sources from the GIT server:
-<screen width="70" format="linespecific">
-<prompt>% </prompt><command>git clone &url_git_master; kwave</command>
+<prompt>% </prompt><command>rpm -ivh <replaceable>[topdir]</replaceable>/RPMS/<replaceable
+	>[arch]</replaceable>/kwave-<replaceable>[version]</replaceable
+    >.<replaceable>[arch]</replaceable>.rpm</command>
 </screen>
 	</para>
-	<para>
-	or you can check out a specific release with the following commands:
-<screen width="70" format="linespecific">
-    <prompt>% </prompt><command>git clone &url_git_master; kwave</command>
-    <prompt>% </prompt><command>cd kwave</command>
-    <prompt>% </prompt><command>git checkout tags/<replaceable>[release-tag]</replaceable> </command>
-</screen>
-	You can look up the names of the release tags in the git web page at
-	<ulink url="&url_git_list_tags;"> &url_git_list_tags;</ulink>.
-	The release tags are always built out of the word <literal>Release-</literal> and
-	the version number of the release, with underscores instead of dots.
-	For example "<literal>Release-&version_tag;</literal>" for v&version;.
-	</para>
-    </listitem>
-    </orderedlist>
-
-    <warning><para>
-	There <emphasis>must not</emphasis> be a directory named
-	<filename>kwave</filename> under
-	the directory you want to check out. Otherwise the git program will
-	complain about already existing files and the checkout will
-	not work.
-    </para></warning>
-
     </sect2>
 
-    <sect2 id="git_update"><title>Updating fresh sources from GIT</title>
-    <para>
-	The procedure described in the previous section is only necessary
-	once. For further updates it is much easier. Just change into the
-	directory where you have the checked out sources and do the following
-	to update to the latest version:
-<screen width="40" format="linespecific">
-<prompt>% </prompt><command>git pull</command>
-</screen>
-	Then go on to the next section and compile as usual.
-    </para>
-    <note><para>
-	If you think that you have messed up your local source tree or if there
-	are conflicts during updating and you want to start through from a clean
-	state, you can do the following to discard all local changes and switch
-	back to the latest version from the master branch:
-<screen width="40" format="linespecific">
-<prompt>% </prompt><command>git clean --force -d</command>
-<prompt>% </prompt><command>git reset --hard</command>
-<prompt>% </prompt><command>git checkout <replaceable>master</replaceable></command>
-</screen>
-    </para></note>
-    </sect2>
-
-    <sect2 id="git_compiling"><title>Compiling</title>
-    <para>
-	Building rpm package from a GIT snapshot is quite simple. The procedure
-	is nearly the same as described in the last section, so it unhappily also
-	has the same problem with the <command>rpmbuild -ta</command> command
-	our method internally uses.
-	Like in the previous chapter, <replaceable>[arch]</replaceable> stands
-	for the platform you have built the package and might be something
-	like <literal>i386</literal>, <literal>i586</literal>,
-	<literal>sparc</literal> or whatever,
-	<replaceable>XXX</replaceable> stands
-	for the version number you have checked out.
-    </para>
-
-    <note><para>
-	<emphasis>Note for SuSE users: </emphasis>
-	here you have to specify the directory
-	<filename>/usr/src/packages</filename> instead
-	of <filename>/usr/src/redhat</filename> too!
-    </para></note>
-
-    <para>
-	Assuming that
-	you are in the root of where you checked out from GIT, do the
-	following to create a Makefile, the &kwave; package and
-	install it. If you already have a version of &kwave; installed,
-	please remove it first or use <command>rpm -U</command> instead
-	of <command>rpm -i</command> for updating instead of installing.
-<screen width="70" format="linespecific">
-<prompt>% </prompt><command>mkdir /tmp/kwave-build</command>
-<prompt>% </prompt><command>cd /tmp/kwave-build</command>
-<prompt>% </prompt><command>cmake <replaceable>$HOME/src/kwave</replaceable></command>
-<prompt>% </prompt><command>make rpm</command>
-<prompt>% </prompt><command>rpm -ivh /usr/src/redhat/BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
-</screen>
-    </para>
-
-    <note><para>
-	If you still have problems with <command>make rpm</command>,
-	you will find the tar.bz2
-	archive that was produced in <filename>/tmp</filename>.
-	Please follow the instructions in the
-	<link linkend="manual_rpm_creation">previous</link> chapter.
-    </para></note>
-
-    </sect2>
-    </sect1>
+</sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Building DEB package from Source                      +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <sect1 id="building_deb_from_src">
-    <title>Building a DEB package for testing and personal use</title>
+    <title>Building a DEB package (for testing and personal use)</title>
 
     <para>
 	If you want to create a deb package of &kwave;, &eg; for testing a
@@ -650,9 +657,11 @@
     </para>
 
     <para>
-	After installing the required packages, you can build &kwave; as
-	described in the chapters before. After building you can type this
-	to get a .deb file in your current build directory:
+	After installing the required packages, you should prepare the &kwave;
+	build as described in the chapter about
+	<link linkend="cmake_invocation">invocation of cmake</link>.
+	Then you should be able to produce a .deb file in your current
+	build directory with this command:
 <screen width="70" format="linespecific">
 <prompt>% </prompt><command>make deb</command>
 </screen>

@@ -6,6 +6,7 @@
   * updated developer handbook
   * cleanup: removed unused feature to attach meta data to lists
     of tracks and ranges of samples
+  * bugfix: label positions got messed up after sample rate conversion
 
 18.03 [2017-11-13]
 

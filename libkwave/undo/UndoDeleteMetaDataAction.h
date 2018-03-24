@@ -33,7 +33,7 @@ namespace Kwave
     /**
      * Undo action for deleting a list of meta data items.
      */
-    class UndoDeleteMetaDataAction: public Kwave::UndoAction
+    class Q_DECL_EXPORT UndoDeleteMetaDataAction: public Kwave::UndoAction
     {
     public:
 

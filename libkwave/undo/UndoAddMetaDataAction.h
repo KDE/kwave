@@ -37,7 +37,7 @@ namespace Kwave
     /**
      * Undo action for inserting meta data.
      */
-    class UndoAddMetaDataAction: public Kwave::UndoAction
+    class Q_DECL_EXPORT UndoAddMetaDataAction: public Kwave::UndoAction
     {
     public:
 

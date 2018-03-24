@@ -35,6 +35,8 @@
 #include "libkwave/Writer.h"
 #include "libkwave/modules/RateConverter.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
+#include "libkwave/undo/UndoAddMetaDataAction.h"
+#include "libkwave/undo/UndoDeleteMetaDataAction.h"
 
 #include "SampleRatePlugin.h"
 
@@ -116,6 +118,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 	    m_whole_signal = true;
 	}
     }
+
     qDebug("SampleRatePlugin: from %9lu - %9lu (%9lu)",
 	   static_cast<unsigned long int>(first),
 	   static_cast<unsigned long int>(last),
@@ -126,6 +129,17 @@ void Kwave::SampleRatePlugin::run(QStringList params)
     double ratio = m_new_rate / old_rate;
     sample_index_t new_length = static_cast<sample_index_t>(length * ratio);
     if ((new_length == length) || !new_length) return;
+
+    Kwave::MetaDataList meta = mgr.metaData().selectByRange(first, last);
+    if (!meta.isEmpty()) {
+	// delete the meta data from the original range
+	Kwave::UndoDeleteMetaDataAction *undo_del_meta = new(std::nothrow)
+	    Kwave::UndoDeleteMetaDataAction(meta);
+	if (!undo_guard.registerUndoAction(undo_del_meta))
+	    return;
+
+	mgr.metaData().deleteRange(first, last);
+    }
 
     // if the new length is bigger than the current length,
     // insert some space at the end
@@ -186,38 +200,20 @@ void Kwave::SampleRatePlugin::run(QStringList params)
     }
 
     // adjust meta data locations
-    Kwave::MetaDataList meta = mgr.metaData().copy(first, last);
     if (!meta.isEmpty()) {
-	// adjust all positions in the originally selected range
-	// NOTE: if the ratio is > 1, work backwards, otherwise forward
+	// adjust all meta data positions
+	meta.shiftLeft(first, first);
+	meta.scalePositions(ratio);
+	meta.shiftRight(0, first);
 
-	Kwave::MetaDataList::MutableIterator it(meta);
-	(ratio > 1) ? it.toBack() : it.toFront();
-	while ((ratio > 1) ? it.hasPrevious() : it.hasNext()) {
-	    Kwave::MetaData &m = (ratio > 1) ?
-		it.previous().value() : it.next().value();
-
-	    QStringList properties =
-	        Kwave::MetaData::positionBoundPropertyNames();
-	    foreach (const QString &property, properties) {
-		if (!m.hasProperty(property))
-		    continue;
-
-		sample_index_t pos = static_cast<sample_index_t>(
-		    m[property].toULongLong());
-		if (pos < first) continue;
-		if (pos > last)  continue;
-
-		// is in our range -> calculate new position
-		pos -= first;
-		pos *= ratio;
-		pos += first;
-
-		m[property] = pos;
-	    }
+	Kwave::UndoAddMetaDataAction *undo_add_meta = new(std::nothrow)
+	    Kwave::UndoAddMetaDataAction(meta);
+	if (!undo_guard.registerUndoAction(undo_add_meta)) {
+	    undo_guard.abort();
+	    return;
 	}
 
-	mgr.metaData().deleteRange(first, last);
+	// add the updated meta data items again
 	mgr.metaData().add(meta);
     }
 

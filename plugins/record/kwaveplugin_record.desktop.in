@@ -25,6 +25,7 @@ Name[tr]=Kaydet
 Name[uk]=Запис
 Name[x-test]=xxRecordxx
 Name[zh_CN]=捕获
+Name[zh_TW]=錄音
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

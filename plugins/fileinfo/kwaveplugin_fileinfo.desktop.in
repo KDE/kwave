@@ -25,6 +25,7 @@ Name[tr]=Dosya Bilgisi
 Name[uk]=Відомості про файл
 Name[x-test]=xxFile Infoxx
 Name[zh_CN]=文件信息
+Name[zh_TW]=檔案資訊
 Type=Service
 ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher

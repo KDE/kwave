@@ -81,6 +81,7 @@ Comment[tr]=KDE tarafından geliştirilmiş bir ses düzenleyicisi
 Comment[uk]=Звуковий редактор від KDE
 Comment[x-test]=xxA sound editor by KDExx
 Comment[zh_CN]=KDE 推出的声音编辑器
+Comment[zh_TW]=來自 KDE 的音效編輯器
 TryExec=kwave
 Exec=kwave %F
 Icon=kwave

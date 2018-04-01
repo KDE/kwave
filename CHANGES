@@ -1,5 +1,6 @@
 
  * fix for potential deadlock when canceling playback test dialog
+ * workaround for MP3 files with wrong length information
 
 18.07.70 [2018-03-24]
 

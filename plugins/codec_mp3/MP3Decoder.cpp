@@ -191,16 +191,13 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
     if (header.emphasis > 0)
         info.set(Kwave::INF_MPEG_EMPHASIS, header.emphasis);
 
-//  qDebug("framesize=%d", header.framesize);
-//  qDebug("frames = %u", header.frames);
-
     if (header.privatebit)  info.set(Kwave::INF_PRIVATE, header.privatebit);
     if (header.copyrighted) info.set(Kwave::INF_COPYRIGHTED, header.copyrighted);
     if (header.original)    info.set(Kwave::INF_ORIGINAL, header.original);
 
     info.setRate(header.frequency); // sample rate
     info.setBits(SAMPLE_BITS);      // fake Kwave's default resolution
-    info.setLength(header.time * header.frequency);
+    info.set(INF_ESTIMATED_LENGTH, header.time * header.frequency);
 
     metaData().replace(Kwave::MetaDataList(info));
 

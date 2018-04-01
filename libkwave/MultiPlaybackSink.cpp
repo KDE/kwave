@@ -99,7 +99,8 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
 	}
 
 	// play the output buffer
-	m_device->write(m_out_buffer);
+	int res = m_device->write(m_out_buffer);
+	if (res < 0) break;
     }
 
     m_in_buffer_filled.fill(false);

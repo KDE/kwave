@@ -1,4 +1,6 @@
 
+ * fix for potential deadlock when canceling playback test dialog
+
 18.07.70 [2018-03-24]
 
   * enabled support for high dpi displays (icon scaling)

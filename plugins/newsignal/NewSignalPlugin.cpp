@@ -16,7 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "errno.h"
+
+#include <errno.h>
+#include <new>
 
 #include <QStringList>
 
@@ -87,12 +89,12 @@ QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
     interpreteParameters(previous_params);
 
     // create the setup dialog
-    Kwave::NewSignalDialog *dialog = new Kwave::NewSignalDialog(
+    Kwave::NewSignalDialog *dialog = new(std::nothrow) Kwave::NewSignalDialog(
 	parentWidget(), m_samples, m_rate, m_bits, m_tracks, m_bytime);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
-    QStringList *list = new QStringList();
+    QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"

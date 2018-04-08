@@ -18,7 +18,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <math.h>
+#include <new>
 
 #include <QApplication>
 #include <QBrush>
@@ -61,7 +63,7 @@ Kwave::LevelMeter::LevelMeter(QWidget *parent)
     m_color_high(Qt::red)
 {
     setAttribute(Qt::WA_NoBackground);
-    m_timer = new QTimer(this);
+    m_timer = new(std::nothrow) QTimer(this);
     Q_ASSERT(m_timer);
     connect(m_timer, SIGNAL(timeout()),
             this, SLOT(timedUpdate()));

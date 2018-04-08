@@ -16,7 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <errno.h>
+#include <new>
 
 #include <KLocalizedString>
 
@@ -40,7 +42,7 @@ int Kwave::AboutPlugin::start(QStringList& params)
     Q_UNUSED(params);
 
     // create a new "about" dialog and show it
-    Kwave::AboutDialog *dlg = new Kwave::AboutDialog(
+    Kwave::AboutDialog *dlg = new(std::nothrow) Kwave::AboutDialog(
 	parentWidget(),
 	manager().pluginInfoList()
     );

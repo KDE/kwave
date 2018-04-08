@@ -16,7 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <errno.h>
+#include <new>
 
 #include <QStringList>
 
@@ -85,13 +87,15 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
     QList<unsigned int> tracks;
     sample_index_t first, last;
     sample_index_t length = selection(&tracks, &first, &last, true);
-    Kwave::OverViewCache *overview_cache = new Kwave::OverViewCache(mgr,
-        first, length, tracks.isEmpty() ? Q_NULLPTR : &tracks);
+    Kwave::OverViewCache *overview_cache = new(std::nothrow)
+	Kwave::OverViewCache(
+	    mgr, first, length, tracks.isEmpty() ? Q_NULLPTR : &tracks
+	);
     Q_ASSERT(overview_cache);
 
     // create the setup dialog
     Kwave::VolumeDialog *dialog =
-	new Kwave::VolumeDialog(parentWidget(), overview_cache);
+	new(std::nothrow) Kwave::VolumeDialog(parentWidget(), overview_cache);
     if (!dialog) {
 	if (overview_cache) delete overview_cache;
         return Q_NULLPTR;
@@ -100,7 +104,7 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
     if (!m_params.isEmpty()) dialog->setParams(m_params);
 
     // execute the dialog
-    QStringList *list = new QStringList();
+    QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"

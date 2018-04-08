@@ -50,6 +50,7 @@
 
 #include <math.h>
 #include <string.h>
+#include <new>
 
 #include <opus/opus_defines.h>
 
@@ -169,7 +170,8 @@ bool Kwave::OpusEncoder::setupDownMix(QWidget *widget, unsigned int tracks,
 
     if (m_encoder_channels != tracks) {
 	// create a channel mixer
-	m_channel_mixer = new Kwave::ChannelMixer(tracks, m_encoder_channels);
+	m_channel_mixer = new(std::nothrow)
+	    Kwave::ChannelMixer(tracks, m_encoder_channels);
 	Q_ASSERT(m_channel_mixer);
 	if (!m_channel_mixer || !m_channel_mixer->init()) {
 	    qWarning("creating channel mixer failed");
@@ -278,8 +280,8 @@ bool Kwave::OpusEncoder::setupCodingRate(QWidget *widget,
     }
 
     // create a new rate converter
-    m_rate_converter =
-	new Kwave::MultiTrackSource<Kwave::RateConverter, true>(tracks);
+    m_rate_converter = new(std::nothrow)
+	Kwave::MultiTrackSource<Kwave::RateConverter, true>(tracks);
     Q_ASSERT(m_rate_converter);
     if (!m_rate_converter)
 	return false;
@@ -541,9 +543,8 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
 	return false;
 
     // create a sample buffer at the end of the filter chain
-    m_buffer = new Kwave::MultiTrackSink<Kwave::SampleBuffer, true>(
-	m_encoder_channels
-    );
+    m_buffer = new(std::nothrow)
+	Kwave::MultiTrackSink<Kwave::SampleBuffer, true>(m_encoder_channels);
     Q_ASSERT(m_buffer);
     if (!m_buffer) {
 	qWarning("cannot create sample buffer");

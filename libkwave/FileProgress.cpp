@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <math.h>
+#include <new>
 
 #include <QApplication>
 #include <QCloseEvent>
@@ -71,14 +72,14 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
     setWindowTitle(m_url.toString());
 
     // toplevel uses a vbox layout
-    QVBoxLayout *top_layout = new QVBoxLayout(this);
+    QVBoxLayout *top_layout = new(std::nothrow) QVBoxLayout(this);
     Q_ASSERT(top_layout);
     if (!top_layout) return;
     top_layout->setMargin(10);
     top_layout->setSpacing(10);
 
     // sublayout for the lines with the file info
-    QGridLayout *info_layout = new QGridLayout();
+    QGridLayout *info_layout = new(std::nothrow) QGridLayout();
     Q_ASSERT(info_layout);
     if (!info_layout) return;
     info_layout->setSpacing(0);
@@ -135,7 +136,7 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
     if (!addInfoLabel(info_layout, text, 4, 1)) return;
 
     // progress bar
-    m_progress = new QProgressBar(this);
+    m_progress = new(std::nothrow) QProgressBar(this);
     Q_ASSERT(m_progress);
     if (!m_progress) return;
     top_layout->addWidget(m_progress, 0);
@@ -143,7 +144,7 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
     m_progress->setMaximum(100);
 
     // sublayout for the line with estimated time
-    QGridLayout *status_layout = new QGridLayout();
+    QGridLayout *status_layout = new(std::nothrow) QGridLayout();
     Q_ASSERT(status_layout);
     if (!status_layout) return;
     status_layout->setSpacing(1);
@@ -166,7 +167,7 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
     m_stat_bytes->setMinimumWidth(m_stat_bytes->sizeHint().width());
 
     // right lower edge: the "cancel" button
-    QPushButton *bt_cancel = new QPushButton(this);
+    QPushButton *bt_cancel = new(std::nothrow) QPushButton(this);
     Q_ASSERT(bt_cancel);
     if (!bt_cancel) return;
     KGuiItem::assign(bt_cancel, KStandardGuiItem::cancel());
@@ -246,7 +247,7 @@ void Kwave::FileProgress::fitUrlLabel()
 QLabel *Kwave::FileProgress::addInfoLabel(QGridLayout *layout,
                                           const QString text, int row, int col)
 {
-    QLabel *label = new QLabel(this);
+    QLabel *label = new(std::nothrow) QLabel(this);
     Q_ASSERT(label);
     if (!label) return Q_NULLPTR;
 

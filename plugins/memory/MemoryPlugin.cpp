@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <errno.h>
 #include <limits.h>
+#include <new>
 
 #include <QString>
 #include <QStringList>
@@ -141,7 +143,7 @@ QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
     // try to interpret the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
 
-    Kwave::MemoryDialog *dlg = new Kwave::MemoryDialog(
+    Kwave::MemoryDialog *dlg = new(std::nothrow) Kwave::MemoryDialog(
 	parentWidget(), m_physical_limited,
 	m_physical_limit, m_virtual_enabled, m_virtual_limited,
 	m_virtual_limit, m_virtual_directory, m_undo_limit);
@@ -150,7 +152,7 @@ QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
 
     if (dlg->exec() == QDialog::Accepted) {
 	// get the new parameters and let them take effect
-	result = new QStringList();
+	result = new(std::nothrow) QStringList();
 	Q_ASSERT(result);
 	if (result) {
 	    dlg->params(*result);

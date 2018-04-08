@@ -23,6 +23,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QApplication>
 #include <QDialog>
 #include <QGridLayout>
@@ -41,7 +43,7 @@ Kwave::AboutContainer::AboutContainer(QWidget *parent)
 {
     setFrameStyle(QFrame::NoFrame);
 
-    QGridLayout* const gbox = new QGridLayout(this);
+    QGridLayout* const gbox = new(std::nothrow) QGridLayout(this);
     Q_ASSERT(gbox);
     if (!gbox) return;
 
@@ -52,7 +54,7 @@ Kwave::AboutContainer::AboutContainer(QWidget *parent)
     gbox->setRowStretch(0, 10);
     gbox->setRowStretch(2, 10);
 
-    m_vbox = new QVBoxLayout();
+    m_vbox = new(std::nothrow) QVBoxLayout();
     Q_ASSERT(m_vbox);
     if (!m_vbox) return;
 
@@ -140,8 +142,10 @@ void Kwave::AboutContainer::addWidget(QWidget *widget)
 void Kwave::AboutContainer::addPerson(const QString &_name, const QString &_email,
 				      const QString &_url, const QString &_task)
 {
-    Kwave::AboutContributor * const cont = new Kwave::AboutContributor(this,
-	_name, _email, _url, _task);
+    Kwave::AboutContributor * const cont = new(std::nothrow)
+	Kwave::AboutContributor(this,
+	    _name, _email, _url, _task
+	);
     Q_ASSERT(cont);
     if (!cont) return;
 
@@ -157,7 +161,7 @@ Kwave::AboutContributor::AboutContributor(QWidget *_parent,
     :QFrame(_parent)
 {
     for (int i=0; i < 4; ++i) {
-	m_text[i] = new QLabel(this);
+	m_text[i] = new(std::nothrow) QLabel(this);
 	Q_ASSERT(m_text[i]);
 	if (!m_text[i]) return;
 	m_text[i]->setOpenExternalLinks(true);
@@ -210,9 +214,9 @@ void Kwave::AboutContributor::updateLayout()
     if (!m_text[2] || !m_text[2]->text().isEmpty()) { ++row; }
     if (!m_text[3] || !m_text[3]->text().isEmpty()) { ++row; }
 
-    QGridLayout *gbox;
+    QGridLayout *gbox = Q_NULLPTR;
     if (row == 0) {
-	gbox = new QGridLayout(this);
+	gbox = new(std::nothrow) QGridLayout(this);
 	Q_ASSERT(gbox);
 	if (!gbox) return;
 	gbox->setSpacing(1);
@@ -220,18 +224,18 @@ void Kwave::AboutContributor::updateLayout()
 	    if (m_text[i]) m_text[i]->hide();
     } else {
 	if (m_text[0] && m_text[0]->text().isEmpty()) {
-	    gbox = new QGridLayout(this);
+	    gbox = new(std::nothrow) QGridLayout(this);
 	    Q_ASSERT(gbox);
 	    if (!gbox) return;
 	    gbox->setMargin(frameWidth()+1);
 	    gbox->setSpacing(2);
 	} else {
-	    gbox = new QGridLayout(this);
+	    gbox = new(std::nothrow) QGridLayout(this);
 	    Q_ASSERT(gbox);
 	    if (!gbox) return;
 	    gbox->setMargin(frameWidth()+1);
 	    gbox->setSpacing(2);
-	    gbox->addItem(new QSpacerItem(20, 0), 0, 0);
+	    gbox->addItem(new(std::nothrow) QSpacerItem(20, 0), 0, 0);
 	    gbox->setColumnStretch(1, 10);
 	}
 

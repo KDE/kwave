@@ -19,6 +19,7 @@
 
 #include <errno.h>
 #include <math.h>
+#include <new>
 
 #include <KLocalizedString>
 #include <QStringList>
@@ -74,7 +75,7 @@ int Kwave::BandPassPlugin::interpreteParameters(QStringList &params)
 Kwave::PluginSetupDialog *Kwave::BandPassPlugin::createDialog(QWidget *parent)
 {
     Kwave::BandPassDialog *dialog =
-	new Kwave::BandPassDialog(parent, signalRate());
+	new(std::nothrow) Kwave::BandPassDialog(parent, signalRate());
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
@@ -89,7 +90,8 @@ Kwave::PluginSetupDialog *Kwave::BandPassPlugin::createDialog(QWidget *parent)
 //***************************************************************************
 Kwave::SampleSource *Kwave::BandPassPlugin::createFilter(unsigned int tracks)
 {
-    return new Kwave::MultiTrackSource<Kwave::BandPass, true>(tracks);
+    return new(std::nothrow)
+	Kwave::MultiTrackSource<Kwave::BandPass, true>(tracks);
 }
 
 //***************************************************************************

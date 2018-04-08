@@ -16,7 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <math.h>
+#include <new>
 
 #include <QBrush>
 #include <QColor>
@@ -43,7 +45,7 @@ Kwave::LogoWidget::LogoWidget(QWidget *parent)
 {
     for (int i = 0; i < MAXSIN; m_deg[i++] = 0) {}
 
-    m_timer = new QTimer(this);
+    m_timer = new(std::nothrow) QTimer(this);
     Q_ASSERT(m_timer);
     if (!m_timer) return;
     connect(m_timer, SIGNAL(timeout()), this, SLOT(doAnim()));
@@ -91,11 +93,14 @@ void Kwave::LogoWidget::paintEvent(QPaintEvent *)
 	m_width  = rect().width();
 
 	if (m_image) delete m_image;
-	m_image = new QImage(size(), QImage::Format_ARGB32_Premultiplied);
+	m_image = new(std::nothrow)
+	    QImage(size(), QImage::Format_ARGB32_Premultiplied);
 	m_repaint = true;
     }
 
-    if ((m_repaint) && (m_image)) {
+    if (!m_image) return;
+
+    if (m_repaint) {
 	QPainter p;
 	QPolygon si(20 + 3);
 
@@ -141,12 +146,9 @@ void Kwave::LogoWidget::paintEvent(QPaintEvent *)
     }
 
     // blit the result to the display
-    if (m_image) {
-	QPainter p(this);
-	p.drawImage(0, 0, *m_image);
-	p.end();
-    }
-
+    QPainter p(this);
+    p.drawImage(0, 0, *m_image);
+    p.end();
 }
 
 //***************************************************************************

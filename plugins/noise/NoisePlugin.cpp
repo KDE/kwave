@@ -90,7 +90,7 @@ Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
 
     // create the setup dialog
     Kwave::NoiseDialog *dialog =
-	new Kwave::NoiseDialog(parentWidget(), overview_cache);
+	new(std::nothrow) Kwave::NoiseDialog(parentWidget(), overview_cache);
     if (!dialog) {
 	if (overview_cache) delete overview_cache;
         return Q_NULLPTR;
@@ -106,7 +106,8 @@ Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
 //***************************************************************************
 Kwave::SampleSource *Kwave::NoisePlugin::createFilter(unsigned int tracks)
 {
-    return new Kwave::MultiTrackSource<Kwave::NoiseGenerator, true>(tracks);
+    return new(std::nothrow)
+	Kwave::MultiTrackSource<Kwave::NoiseGenerator, true>(tracks);
 }
 
 //***************************************************************************

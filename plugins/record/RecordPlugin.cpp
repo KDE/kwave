@@ -19,8 +19,9 @@
 
 #include <errno.h>
 #include <math.h>
-#include <new>
 #include <stdlib.h>
+
+#include <new>
 
 #include <QApplication>
 #include <QCursor>
@@ -133,13 +134,14 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     }
 
     // create the setup dialog
-    m_dialog = new Kwave::RecordDialog(parentWidget(), previous_params,
-                                       &m_controller,  mode);
+    m_dialog = new(std::nothrow) Kwave::RecordDialog(
+	parentWidget(), previous_params, &m_controller, mode
+    );
     Q_ASSERT(m_dialog);
     if (!m_dialog) return Q_NULLPTR;
 
     // create the lowlevel recording thread
-    m_thread = new Kwave::RecordThread();
+    m_thread = new(std::nothrow) Kwave::RecordThread();
     Q_ASSERT(m_thread);
     if (!m_thread) {
 	delete m_dialog;
@@ -214,7 +216,7 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
     if (mode == Kwave::RecordDialog::START_RECORDING)
 	m_controller.actionStart();
 
-    QStringList *list = new QStringList();
+    QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && (m_dialog->exec() == QDialog::Accepted)) {
 	// user has pressed "OK"
@@ -298,28 +300,28 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 	    switch (method) {
 #ifdef HAVE_OSS_SUPPORT
 		case Kwave::RECORD_OSS:
-		    m_device = new Kwave::RecordOSS();
+		    m_device = new(std::nothrow) Kwave::RecordOSS();
 		    Q_ASSERT(m_device);
 		    break;
 #endif /* HAVE_OSS_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
 		case Kwave::RECORD_ALSA:
-		    m_device = new Kwave::RecordALSA();
+		    m_device = new(std::nothrow) Kwave::RecordALSA();
 		    Q_ASSERT(m_device);
 		    break;
 #endif /* HAVE_ALSA_SUPPORT */
 
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 		case Kwave::RECORD_PULSEAUDIO:
-		    m_device = new Kwave::RecordPulseAudio();
+		    m_device = new(std::nothrow) Kwave::RecordPulseAudio();
 		    Q_ASSERT(m_device);
 		    break;
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 #ifdef HAVE_QT_AUDIO_SUPPORT
 		case Kwave::RECORD_QT:
-		    m_device = new Kwave::RecordQt();
+		    m_device = new(std::nothrow) Kwave::RecordQt();
 		    Q_ASSERT(m_device);
 		    break;
 #endif /* HAVE_QT_AUDIO_SUPPORT */
@@ -938,7 +940,7 @@ void Kwave::RecordPlugin::setupRecordThread()
 		case Kwave::SampleFormat::Unsigned: /* FALLTHROUGH */
 		case Kwave::SampleFormat::Signed:
 		    // decoder for all linear formats
-		    m_decoder = new Kwave::SampleDecoderLinear(
+		    m_decoder = new(std::nothrow) Kwave::SampleDecoderLinear(
 			m_device->sampleFormat(),
 			m_device->bitsPerSample(),
 			m_device->endianness()

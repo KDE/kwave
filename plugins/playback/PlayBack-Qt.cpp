@@ -19,8 +19,10 @@
 #ifdef HAVE_QT_AUDIO_SUPPORT
 
 #include <errno.h>
+
 #include <algorithm>
 #include <limits>
+#include <new>
 
 #include <QApplication>
 #include <QAudioDeviceInfo>
@@ -111,7 +113,8 @@ void Kwave::PlayBackQt::createEncoder(const QAudioFormat &format)
     }
 
     // create the sample encoder
-    m_encoder = new Kwave::SampleEncoderLinear(sample_format, bits, endian);
+    m_encoder = new(std::nothrow)
+	Kwave::SampleEncoderLinear(sample_format, bits, endian);
 }
 
 //***************************************************************************
@@ -172,7 +175,7 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
     if (!m_encoder) return i18n("Out of memory");
 
     // create a new Qt output device
-    m_output = new QAudioOutput(format, this);
+    m_output = new(std::nothrow) QAudioOutput(format, this);
     Q_ASSERT(m_output);
     if (!m_output) return i18n("Out of memory");
 

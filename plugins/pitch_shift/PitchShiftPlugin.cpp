@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <errno.h>
 #include <math.h>
+#include <new>
 
 #include <QStringList>
 
@@ -74,7 +76,8 @@ int Kwave::PitchShiftPlugin::interpreteParameters(QStringList &params)
 //***************************************************************************
 Kwave::PluginSetupDialog *Kwave::PitchShiftPlugin::createDialog(QWidget *parent)
 {
-    Kwave::PitchShiftDialog *dialog = new Kwave::PitchShiftDialog(parent);
+    Kwave::PitchShiftDialog *dialog = new(std::nothrow)
+	Kwave::PitchShiftDialog(parent);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
@@ -88,7 +91,8 @@ Kwave::PluginSetupDialog *Kwave::PitchShiftPlugin::createDialog(QWidget *parent)
 //***************************************************************************
 Kwave::SampleSource *Kwave::PitchShiftPlugin::createFilter(unsigned int tracks)
 {
-    return new Kwave::MultiTrackSource<Kwave::PitchShiftFilter, true>(tracks);
+    return new(std::nothrow)
+	Kwave::MultiTrackSource<Kwave::PitchShiftFilter, true>(tracks);
 }
 
 //***************************************************************************

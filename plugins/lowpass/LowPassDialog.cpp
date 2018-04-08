@@ -16,7 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <math.h>
+#include <new>
 
 #include <QObject>
 #include <QPainter>
@@ -67,7 +69,7 @@ Kwave::LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     freq_response->init(f_max, -24, +6);
 
     // set up the low pass filter dunction
-    m_filter = new Kwave::LowPassFilter();
+    m_filter = new(std::nothrow) Kwave::LowPassFilter();
     freq_response->setFilter(m_filter);
 
     // initialize the controls and the curve display

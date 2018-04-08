@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QtGlobal>
 #include <QIcon>
 #include <QMenu>
@@ -71,7 +73,7 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
     if (controls) {
 	// add the channel controls, for "enabled" / "disabled"
 
-	QVBoxLayout *layout = new QVBoxLayout(controls);
+	QVBoxLayout *layout = new(std::nothrow) QVBoxLayout(controls);
 	Q_ASSERT(layout);
 	if (!layout) return;
 

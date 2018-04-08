@@ -21,6 +21,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <new>
+
 #include <id3/globals.h>
 #include <id3/misc_support.h>
 #include <id3/tag.h>
@@ -71,7 +73,7 @@ Kwave::MP3Decoder::~MP3Decoder()
 //***************************************************************************
 Kwave::Decoder *Kwave::MP3Decoder::instance()
 {
-    return new MP3Decoder();
+    return new(std::nothrow) MP3Decoder();
 }
 
 //***************************************************************************

@@ -20,6 +20,8 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <new>
+
 #include <QApplication>
 #include <QList>
 #include <QTextCodec>
@@ -57,7 +59,7 @@ Kwave::AsciiEncoder::~AsciiEncoder()
 /***************************************************************************/
 Kwave::Encoder *Kwave::AsciiEncoder::instance()
 {
-    return new Kwave::AsciiEncoder();
+    return new(std::nothrow) Kwave::AsciiEncoder();
 }
 
 /***************************************************************************/

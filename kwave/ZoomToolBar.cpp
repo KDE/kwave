@@ -19,6 +19,7 @@
 #include "config.h"
 
 #include <math.h>
+#include <new>
 
 #include <QAction>
 #include <QIcon>
@@ -84,7 +85,7 @@ Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
 	this, SLOT(zoomAll()));
 
     // zoom selection combo box
-    m_zoomselect = new KComboBox(this);
+    m_zoomselect = new(std::nothrow) KComboBox(this);
     Q_ASSERT(m_zoomselect);
     if (!m_zoomselect) return;
 

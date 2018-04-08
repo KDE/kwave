@@ -17,14 +17,14 @@
 
 #include "config.h"
 
-#include <QLatin1Char>
-#include <QVector>
+#include <new>
 
 #include <QCheckBox>
 #include <QDateTimeEdit>
 #include <QGroupBox>
 #include <QIcon>
 #include <QLabel>
+#include <QLatin1Char>
 #include <QPixmap>
 #include <QProgressBar>
 #include <QPushButton>
@@ -35,6 +35,7 @@
 #include <QTreeView>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+#include <QVector>
 
 #include <KComboBox>
 #include <KHelpClient>
@@ -253,38 +254,38 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
             this,   SLOT(invokeHelp()));
 
     // status bar
-    m_state_icon_widget = new Kwave::StatusWidget(this);
+    m_state_icon_widget = new(std::nothrow) Kwave::StatusWidget(this);
     Q_ASSERT(m_state_icon_widget);
     if (!m_state_icon_widget) return;
 
     m_state_icon_widget->setFixedSize(16, 16);
     lbl_state->addWidget(m_state_icon_widget);
 
-    m_status_bar.m_state = new (std::nothrow) QLabel(_(" "));
+    m_status_bar.m_state = new(std::nothrow) QLabel(_(" "));
     Q_ASSERT(m_status_bar.m_state);
     if (!m_status_bar.m_state) return;
     m_status_bar.m_state->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     lbl_state->addWidget(m_status_bar.m_state);
 
-    m_status_bar.m_time = new (std::nothrow) QLabel(_(" "));
+    m_status_bar.m_time = new(std::nothrow) QLabel(_(" "));
     Q_ASSERT(m_status_bar.m_time);
     if (!m_status_bar.m_time) return;
     m_status_bar.m_time->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     lbl_state->addWidget(m_status_bar.m_time);
 
-    m_status_bar.m_sample_rate = new (std::nothrow) QLabel(_(" "));
+    m_status_bar.m_sample_rate = new(std::nothrow) QLabel(_(" "));
     Q_ASSERT(m_status_bar.m_sample_rate);
     if (!m_status_bar.m_sample_rate) return;
     m_status_bar.m_sample_rate->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lbl_state->addWidget(m_status_bar.m_sample_rate);
 
-    m_status_bar.m_bits_per_sample = new (std::nothrow) QLabel(_(" "));
+    m_status_bar.m_bits_per_sample = new(std::nothrow) QLabel(_(" "));
     Q_ASSERT(m_status_bar.m_bits_per_sample);
     if (!m_status_bar.m_bits_per_sample) return;
     m_status_bar.m_bits_per_sample->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lbl_state->addWidget(m_status_bar.m_bits_per_sample);
 
-    m_status_bar.m_tracks = new (std::nothrow) QLabel(_(" "));
+    m_status_bar.m_tracks = new(std::nothrow) QLabel(_(" "));
     Q_ASSERT(m_status_bar.m_tracks);
     if (!m_status_bar.m_tracks) return;
     m_status_bar.m_tracks->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -444,7 +445,7 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 		    parent = item;
 		} else if (parent) {
 		    // new leaf, add to the parent
-		    item = new QTreeWidgetItem(parent);
+		    item = new(std::nothrow) QTreeWidgetItem(parent);
 		    Q_ASSERT(item);
 		    if (item) {
 			item->setText(0, token);
@@ -460,7 +461,7 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 		    }
 		} else {
 		    // new root node
-		    item = new QTreeWidgetItem(listDevices);
+		    item = new(std::nothrow) QTreeWidgetItem(listDevices);
 		    Q_ASSERT(item);
 		    if (item) {
 			item->setText(0, token);

@@ -18,11 +18,14 @@
 #include "config.h"
 
 #include <errno.h>
+
 #include <limits.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+#include <new>
 
 #include <QApplication>
 #include <QCursor>
@@ -165,7 +168,7 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
     Q_ASSERT(!m_dialog);
     if (m_dialog) delete m_dialog;
 
-    m_dialog = new Kwave::PlayBackDialog(
+    m_dialog = new(std::nothrow) Kwave::PlayBackDialog(
 	*this,
 	manager().playbackController(),
 	playback_params
@@ -181,7 +184,7 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
 
     if (m_dialog->exec() == QDialog::Accepted) {
 	// get the new parameters and let them take effect
-	result = new QStringList();
+	result = new(std::nothrow) QStringList();
 	Q_ASSERT(result);
 	if (result) {
 	    QString param;
@@ -261,23 +264,23 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::createDevice(
     switch (method) {
 #ifdef HAVE_QT_AUDIO_SUPPORT
 	case Kwave::PLAYBACK_QT_AUDIO:
-	    return new Kwave::PlayBackQt();
+	    return new(std::nothrow) Kwave::PlayBackQt();
 #endif /* HAVE_QT_AUDIO_SUPPORT */
 
 #ifdef HAVE_PULSEAUDIO_SUPPORT
 	case Kwave::PLAYBACK_PULSEAUDIO:
-	    return new Kwave::PlayBackPulseAudio(
+	    return new(std::nothrow) Kwave::PlayBackPulseAudio(
 		Kwave::FileInfo(signalManager().metaData()));
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
 	case Kwave::PLAYBACK_ALSA:
-	    return new Kwave::PlayBackALSA();
+	    return new(std::nothrow) Kwave::PlayBackALSA();
 #endif /* HAVE_ALSA_SUPPORT */
 
 #ifdef HAVE_OSS_SUPPORT
 	case Kwave::PLAYBACK_OSS:
-	    return new Kwave::PlayBackOSS();
+	    return new(std::nothrow) Kwave::PlayBackOSS();
 #endif /* HAVE_OSS_SUPPORT */
 
 	default:
@@ -422,7 +425,7 @@ void Kwave::PlayBackPlugin::testPlayBack()
 
     // show a progress dialog
     QProgressDialog *progress = Q_NULLPTR;
-    progress = new QProgressDialog(m_dialog);
+    progress = new(std::nothrow) QProgressDialog(m_dialog);
     Q_ASSERT(progress);
     if (progress) {
 	progress->setWindowTitle(i18n("Playback Test"));

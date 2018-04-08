@@ -18,6 +18,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QtGlobal>
 #include <QAction>
 #include <QIcon>
@@ -266,7 +268,7 @@ void Kwave::PlayerToolBar::playbackPaused()
     updateState();
 
     if (!m_pause_timer) {
-	m_pause_timer = new QTimer(this);
+	m_pause_timer = new(std::nothrow) QTimer(this);
 	Q_ASSERT(m_pause_timer);
 	if (!m_pause_timer) return;
 

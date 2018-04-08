@@ -24,6 +24,7 @@
 #include "config.h"
 
 #include <string.h>
+#include <new>
 
 #include <QtGlobal>
 
@@ -42,7 +43,7 @@ namespace Kwave
 	Matrix(unsigned int cols, unsigned int rows)
             :m_rows(rows), m_cols(cols), m_data(Q_NULLPTR)
 	{
-	    m_data = new T[m_rows * m_cols];
+	    m_data = new(std::nothrow) T[m_rows * m_cols];
 	    Q_ASSERT(m_data);
 	}
 
@@ -50,7 +51,7 @@ namespace Kwave
 	Matrix(const Matrix &other)
             :m_rows(other.m_rows), m_cols(other.m_cols), m_data(Q_NULLPTR)
 	{
-	    m_data = new T[m_rows * m_cols];
+	    m_data = new(std::nothrow) T[m_rows * m_cols];
 	    Q_ASSERT(m_data);
 	    memcpy(m_data, other.m_data, m_rows * m_cols * sizeof(T));
 	}

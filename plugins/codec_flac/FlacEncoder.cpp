@@ -20,6 +20,8 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <new>
+
 #include <QApplication>
 #include <QByteArray>
 #include <QList>
@@ -59,7 +61,7 @@ Kwave::FlacEncoder::~FlacEncoder()
 /***************************************************************************/
 Kwave::Encoder *Kwave::FlacEncoder::instance()
 {
-    return new Kwave::FlacEncoder();
+    return new(std::nothrow) Kwave::FlacEncoder();
 }
 
 /***************************************************************************/

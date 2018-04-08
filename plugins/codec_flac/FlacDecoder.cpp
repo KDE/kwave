@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QDateTime>
 
 #include <KLocalizedString>
@@ -52,7 +54,7 @@ Kwave::FlacDecoder::~FlacDecoder()
 //***************************************************************************
 Kwave::Decoder *Kwave::FlacDecoder::instance()
 {
-    return new Kwave::FlacDecoder();
+    return new(std::nothrow) Kwave::FlacDecoder();
 }
 
 //***************************************************************************

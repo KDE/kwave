@@ -16,7 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "math.h"
+
+#include <math.h>
+#include <new>
 
 #include <QObject>
 #include <QPainter>
@@ -70,8 +72,10 @@ Kwave::NotchFilterDialog::NotchFilterDialog(QWidget *parent, double sample_rate)
     // initialize the frequency response widget
     freq_response->init(f_max, -24, +6);
 
-    // set up the low pass filter dunction
-    m_filter = new NotchFilter();
+    // set up the low pass filter function
+    m_filter = new(std::nothrow) NotchFilter();
+    Q_ASSERT(m_filter);
+    if (!m_filter) return;
     freq_response->setFilter(m_filter);
 
     // initialize the controls and the curve display

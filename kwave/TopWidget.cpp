@@ -125,7 +125,7 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
     Q_ASSERT(status_bar);
     if (!status_bar) return;
 
-    QLabel *spacer = new QLabel(this);
+    QLabel *spacer = new(std::nothrow) QLabel(this);
     const int frame_style = QFrame::StyledPanel | QFrame::Sunken;
     status_bar->addWidget(spacer);
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -135,17 +135,17 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
     spacer->setSizePolicy(policy);
     policy.setHorizontalStretch(0);
 
-    m_lbl_status_cursor = new QLabel(this);
+    m_lbl_status_cursor = new(std::nothrow) QLabel(this);
     status_bar->addWidget(m_lbl_status_cursor);
     m_lbl_status_cursor->setSizePolicy(policy);
     m_lbl_status_cursor->setFrameStyle(frame_style);
 
-    m_lbl_status_mode = new QLabel(this);
+    m_lbl_status_mode = new(std::nothrow) QLabel(this);
     status_bar->addWidget(m_lbl_status_mode);
     m_lbl_status_mode->setSizePolicy(policy);
     m_lbl_status_mode->setFrameStyle(frame_style);
 
-    m_lbl_status_size = new QLabel(this);
+    m_lbl_status_size = new(std::nothrow) QLabel(this);
     status_bar->addWidget(m_lbl_status_size);
     m_lbl_status_size->setSizePolicy(policy);
     m_lbl_status_size->setFrameStyle(frame_style);
@@ -724,7 +724,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     if (false) {
     CASE_COMMAND("about_kde")
 	// Help / About KDE
-	KHelpMenu *dlg = new KHelpMenu(this, _("Kwave"));
+	KHelpMenu *dlg = new(std::nothrow) KHelpMenu(this, _("Kwave"));
 	if (dlg) dlg->aboutKDE();
 	result = 0;
     CASE_COMMAND("menu")
@@ -1082,7 +1082,7 @@ int Kwave::TopWidget::openRecent(const QString &str)
 int Kwave::TopWidget::openFile()
 {
     QString filter = Kwave::CodecManager::decodingFilter();
-    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+    QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
 	_("kfiledialog:///kwave_open_dir"),
 	Kwave::FileDialog::OpenFile, filter, this
     );

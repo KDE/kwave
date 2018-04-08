@@ -1,5 +1,5 @@
 /***************************************************************************
-       PlayBack-ALSA.cpp  -  playback device for ALSA
+      PlayBack-ALSA.cpp  -  playback device for ALSA
 			     -------------------
     begin                : Sat Mar 05 2005
     copyright            : (C) 2005 by Thomas Eschenbacher
@@ -28,6 +28,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <new>
 
 #include <QLatin1Char>
 #include <QString>
@@ -236,7 +237,7 @@ int Kwave::PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params,
     m_bytes_per_sample =
 	((snd_pcm_format_physical_width(m_format) + 7) >> 3) * m_channels;
 
-    m_encoder = new Kwave::SampleEncoderLinear(
+    m_encoder = new(std::nothrow) Kwave::SampleEncoderLinear(
 	sample_format_of(m_format),
 	m_bits,
 	endian_of(m_format)

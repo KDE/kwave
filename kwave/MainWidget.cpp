@@ -129,7 +129,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
     // - lower dock
     // - overview
     // - horizontal scroll bar
-    QVBoxLayout *topLayout = new QVBoxLayout(this);
+    QVBoxLayout *topLayout = new(std::nothrow) QVBoxLayout(this);
     Q_ASSERT(topLayout);
     if (!topLayout) return;
 
@@ -156,7 +156,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     // -- overview widget --
 
-    m_overview = new Kwave::OverViewWidget(*signal_manager, this);
+    m_overview = new(std::nothrow) Kwave::OverViewWidget(*signal_manager, this);
     Q_ASSERT(m_overview);
     if (!m_overview) return;
     m_overview->setMinimumHeight(m_overview->sizeHint().height());
@@ -173,7 +173,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     // -- horizontal scrollbar --
 
-    m_horizontal_scrollbar = new QScrollBar(this);
+    m_horizontal_scrollbar = new(std::nothrow) QScrollBar(this);
     Q_ASSERT(m_horizontal_scrollbar);
     if (!m_horizontal_scrollbar) return;
     m_horizontal_scrollbar->setOrientation(Qt::Horizontal);
@@ -1045,7 +1045,7 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
     while (true) {
 	// create and prepare the dialog
 	Kwave::LabelPropertiesWidget *dlg =
-	    new Kwave::LabelPropertiesWidget(this);
+	    new(std::nothrow) Kwave::LabelPropertiesWidget(this);
 	Q_ASSERT(dlg);
 	if (!dlg) return false;
 	dlg->setLabelIndex(index);

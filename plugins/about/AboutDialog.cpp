@@ -76,7 +76,10 @@ Kwave::AboutDialog::AboutDialog(
     header->setText(header_text);
 
     /* the frame containing the developer information */
-    Kwave::AboutContainer *about = new Kwave::AboutContainer(this);
+    Kwave::AboutContainer *about =
+	new(std::nothrow) Kwave::AboutContainer(this);
+    Q_ASSERT(about);
+    if (!about) return;
     foreach (const KAboutPerson &author, about_data.authors()) {
 	about->addPerson(
 	    author.name(),
@@ -89,7 +92,11 @@ Kwave::AboutDialog::AboutDialog(
     authorframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the thanks to ... */
-    Kwave::AboutContainer *contrib = new Kwave::AboutContainer(this);
+    Kwave::AboutContainer *contrib =
+	new(std::nothrow) Kwave::AboutContainer(this);
+    Q_ASSERT(contrib);
+    if (!contrib) return;
+
     foreach (const KAboutPerson &credit, about_data.credits()) {
 	contrib->addPerson(
 	    credit.name(),
@@ -102,8 +109,15 @@ Kwave::AboutDialog::AboutDialog(
     thanksframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the plugins info */
-    QTreeWidget *pluginsinfo = new QTreeWidget(pluginsinfoframe);
-    QVBoxLayout *plugins_layout = new QVBoxLayout(pluginsinfoframe);
+    QTreeWidget *pluginsinfo = new(std::nothrow) QTreeWidget(pluginsinfoframe);
+    Q_ASSERT(pluginsinfo);
+    if (!pluginsinfo) return;
+
+    QVBoxLayout *plugins_layout =
+	new(std::nothrow) QVBoxLayout(pluginsinfoframe);
+    Q_ASSERT(plugins_layout);
+    if (!plugins_layout) return;
+
     plugins_layout->addWidget(pluginsinfo);
     pluginsinfoframe->setLayout(plugins_layout);
 
@@ -128,7 +142,7 @@ Kwave::AboutDialog::AboutDialog(
 	    item << info.m_description
 	         << info.m_version
 	         << info.m_author;
-	    plugins.append(new QTreeWidgetItem(
+	    plugins.append(new(std::nothrow) QTreeWidgetItem(
                 static_cast<QTreeWidget *>(Q_NULLPTR), item));
 	}
 	pluginsinfo->insertTopLevelItems(0, plugins);
@@ -148,7 +162,11 @@ Kwave::AboutDialog::AboutDialog(
     kwave_url_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 
     /* the frame containing the translators */
-    Kwave::AboutContainer *trans = new Kwave::AboutContainer(this);
+    Kwave::AboutContainer *trans =
+	new(std::nothrow) Kwave::AboutContainer(this);
+    Q_ASSERT(trans);
+    if (!trans) return;
+
     QList<KAboutPerson> translators = about_data.translators();
 
     /* ----------- begin workaround KDE #345320 ----------- */

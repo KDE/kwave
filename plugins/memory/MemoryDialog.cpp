@@ -18,8 +18,8 @@
 #include "config.h"
 
 #include <limits.h>
-#include <new>
 #include <unistd.h>
+#include <new>
 
 #include <QCheckBox>
 #include <QFileDialog>
@@ -146,7 +146,7 @@ void Kwave::MemoryDialog::virtualMemoryEnabled(bool enable)
 //***************************************************************************
 void Kwave::MemoryDialog::searchSwapDir()
 {
-    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+    QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
 	edDirectory->text(), Kwave::FileDialog::SelectDir, QString(), this);
     if (!dlg) return;
     dlg->setWindowTitle(i18n("Select Swap File Directory"));

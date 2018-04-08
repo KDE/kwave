@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <math.h>
 #include <string.h>
+#include <new>
 
 #include <QByteArray>
 #include <QCoreApplication>
@@ -126,18 +127,20 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
 	unsigned int y        = params[3].toUInt();
         if (!widget) return Q_NULLPTR;
 
-	QMouseEvent *press_event =
-	    new QMouseEvent(QEvent::MouseButtonPress,
+	QMouseEvent *press_event = new(std::nothrow)
+	    QMouseEvent(QEvent::MouseButtonPress,
 		QPoint(x, y),
 		widget->mapToGlobal(QPoint(x,y)),
-		Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+		Qt::LeftButton, Qt::LeftButton, Qt::NoModifier
+	    );
 	QCoreApplication::postEvent(widget, press_event);
 
-	QMouseEvent *release_event =
-	    new QMouseEvent(QEvent::MouseButtonRelease,
+	QMouseEvent *release_event = new(std::nothrow)
+	    QMouseEvent(QEvent::MouseButtonRelease,
 		QPoint(x, y),
 		widget->mapToGlobal(QPoint(x,y)),
-		Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+		Qt::LeftButton, Qt::LeftButton, Qt::NoModifier
+	    );
 	QCoreApplication::postEvent(widget, release_event);
     } else if (command == _("window:close")) {
         if (params.count() != 2) return Q_NULLPTR;
@@ -156,11 +159,12 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
 	unsigned int y        = params[3].toUInt();
         if (!widget) return Q_NULLPTR;
 
-	QMouseEvent *move_event =
-	    new QMouseEvent(QEvent::MouseMove,
+	QMouseEvent *move_event = new(std::nothrow)
+	    QMouseEvent(QEvent::MouseMove,
 		QPoint(x, y),
 		widget->mapToGlobal(QPoint(x,y)),
-		Qt::NoButton, Qt::NoButton, Qt::NoModifier);
+		Qt::NoButton, Qt::NoButton, Qt::NoModifier
+	    );
 	QCoreApplication::postEvent(widget, move_event);
     } else if (command == _("window:resize")) {
         if (params.count() != 4) return Q_NULLPTR;
@@ -193,17 +197,17 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
 	widget->raise();
 	widget->setFocus(Qt::OtherFocusReason);
 
-	QKeyEvent *press_event =
-	    new QKeyEvent(QEvent::KeyPress, key_code, key_modifiers);
+	QKeyEvent *press_event = new(std::nothrow)
+	    QKeyEvent(QEvent::KeyPress, key_code, key_modifiers);
 	QCoreApplication::postEvent(widget, press_event);
 
-	QKeyEvent *release_event =
-	    new QKeyEvent(QEvent::KeyRelease, key_code, key_modifiers);
+	QKeyEvent *release_event = new(std::nothrow)
+	    QKeyEvent(QEvent::KeyRelease, key_code, key_modifiers);
 	QCoreApplication::postEvent(widget, release_event);
 
     }
 
-    return new QStringList;
+    return new(std::nothrow) QStringList;
 }
 
 //***************************************************************************
@@ -257,8 +261,11 @@ void Kwave::DebugPlugin::run(QStringList params)
 	sig.metaData().dump();
 	return;
     } else if (command == _("sawtooth_verify")) {
-	Kwave::MultiTrackReader *readers = new Kwave::MultiTrackReader(
-	    Kwave::SinglePassForward, sig, sig.selectedTracks(), first, last);
+	Kwave::MultiTrackReader *readers = new(std::nothrow)
+	    Kwave::MultiTrackReader(
+		Kwave::SinglePassForward, sig, sig.selectedTracks(),
+		first, last
+	    );
 	Q_ASSERT(readers);
 	if (!readers) return;
 
@@ -310,11 +317,12 @@ void Kwave::DebugPlugin::run(QStringList params)
 	last = signalLength() - 1;
 	QList<unsigned int> track_list;
 	track_list.append(sig.tracks() - 1);
-	writers = new Kwave::MultiTrackWriter(sig, track_list,
-	                                      Kwave::Overwrite, 0, last);
+	writers = new(std::nothrow) Kwave::MultiTrackWriter(
+	    sig, track_list, Kwave::Overwrite, 0, last);
     } else {
 	// use all currently selected tracks
-	writers = new Kwave::MultiTrackWriter(sig, Kwave::Overwrite);
+	writers = new(std::nothrow)
+	    Kwave::MultiTrackWriter(sig, Kwave::Overwrite);
     }
 
     Q_ASSERT(writers);

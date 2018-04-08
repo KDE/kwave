@@ -75,7 +75,7 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
     }
 
     // set up the context menu for the right mouse button
-    m_menu = new QMenu(this);
+    m_menu = new(std::nothrow) QMenu(this);
     Q_ASSERT(m_menu);
     if (!m_menu) return;
 
@@ -128,7 +128,7 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
     QStringList types = Kwave::Interpolation::descriptions(true);
     int id = 0;
     foreach (const QString &text, types) {
-	QAction *action = new QAction(interpolation);
+	QAction *action = new(std::nothrow) QAction(interpolation);
 	action->setText(text);
 	action->setData(id++);
 	interpolation->addAction(action);
@@ -138,7 +138,7 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
 
     setMouseTracking(true);
 
-    QShortcut *delkey = new QShortcut(this);
+    QShortcut *delkey = new(std::nothrow) QShortcut(this);
     Q_ASSERT(delkey);
     if (!delkey) return;
     delkey->setKey(Qt::Key_Delete);
@@ -192,7 +192,7 @@ void Kwave::CurveWidget::savePreset()
 	QDir(presetPath).mkpath(presetPath);
     }
 
-    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+    QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
 	presetPath, Kwave::FileDialog::SaveFile,
 	_("*.curve *.CURVE|") +
 	i18nc("Filter description for Kwave curve presets, "
@@ -244,7 +244,7 @@ void Kwave::CurveWidget::loadPresetList()
     foreach (const QString &file, files) {
 	QFileInfo fi(file);
 	QString name = fi.baseName();
-	QAction *action = new (std::nothrow) QAction(name, m_preset_menu);
+	QAction *action = new(std::nothrow) QAction(name, m_preset_menu);
 	Q_ASSERT(action);
 	if (!action) continue;
 	action->setData(file);

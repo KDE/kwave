@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <math.h>
+#include <new>
 
 #include <QMutexLocker>
 
@@ -462,7 +463,8 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 		if (!mixer) {
 		    audible_tracks = m_signal_manager.selectedTracks();
 		    audible_count = audible_tracks.count();
-		    mixer = new Kwave::MixerMatrix(audible_count, out_channels);
+		    mixer = new(std::nothrow)
+			Kwave::MixerMatrix(audible_count, out_channels);
 		    Q_ASSERT(mixer);
 		    if (!mixer) break;
 		    seek_again = true; // re-synchronize all reader positions

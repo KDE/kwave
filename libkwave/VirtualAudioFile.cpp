@@ -20,6 +20,8 @@
 #include <stdlib.h> // for calloc()
 #include <unistd.h>
 
+#include <new>
+
 #include "libkwave/Utils.h"
 #include "libkwave/VirtualAudioFile.h"
 
@@ -250,7 +252,7 @@ Kwave::VirtualAudioFile *Kwave::VirtualAudioFile::adapter(AFvirtualfile *vfile)
 {
     // create a new empty map if necessary
     if (!_adapter_map) _adapter_map =
-        new QMap<AFvirtualfile*,VirtualAudioFile*>();
+        new(std::nothrow) QMap<AFvirtualfile*,VirtualAudioFile*>();
     Q_ASSERT(_adapter_map);
     if (!_adapter_map) return Q_NULLPTR;
 

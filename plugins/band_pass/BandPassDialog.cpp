@@ -16,7 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include "math.h"
+#include <new>
 
 #include <QPainter>
 #include <QPushButton>
@@ -68,7 +70,9 @@ Kwave::BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
     freq_response->init(f_max, -24, +6);
 
     // set up the low pass filter function
-    m_filter = new Kwave::BandPass();
+    m_filter = new(std::nothrow) Kwave::BandPass();
+    Q_ASSERT(m_filter);
+    if (!m_filter) return;
     freq_response->setFilter(m_filter);
 
     // initialize the controls and the curve display

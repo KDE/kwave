@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <errno.h>
 #include <math.h>
+#include <new>
 
 #include <KLocalizedString>
 #include <QString>
@@ -60,12 +62,12 @@ QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
     sample_index_t length = signalLength();
 
     Kwave::SelectRangeDialog *dialog =
-	new Kwave::SelectRangeDialog(parentWidget(),
+	new(std::nothrow) Kwave::SelectRangeDialog(parentWidget(),
 	    m_start_mode, m_range_mode, m_range, rate, offset, length);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
-    QStringList *list = new QStringList();
+    QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"

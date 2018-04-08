@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QtGlobal>
 #include <QByteArray>
 #include <QMetaObject>
@@ -57,7 +59,8 @@ bool Kwave::ChannelMixer::init()
     // create the buffers for the output data
     for (unsigned int index = 0; index < m_outputs; ++index) {
 	// create a buffer for the input
-	Kwave::SampleBuffer *out_buffer = new Kwave::SampleBuffer();
+	Kwave::SampleBuffer *out_buffer =
+	    new(std::nothrow) Kwave::SampleBuffer();
 	Q_ASSERT(out_buffer);
 	if (!out_buffer) return false;
 	m_output_buffer.append(out_buffer);
@@ -65,7 +68,8 @@ bool Kwave::ChannelMixer::init()
 
     // create indexing proxies and connect their output to this mixer
     for (unsigned int index = 0; index < m_inputs; ++index) {
-	Kwave::StreamObject *indexer = new Kwave::Indexer(index);
+	Kwave::StreamObject *indexer =
+	    new(std::nothrow) Kwave::Indexer(index);
 	Q_ASSERT(indexer);
 	if (!indexer) return false;
 
@@ -80,7 +84,7 @@ bool Kwave::ChannelMixer::init()
     // create the mixer matrix
     // create a translation matrix for mixing up/down to the desired
     // number of output channels
-    m_matrix = new Kwave::MixerMatrix(m_inputs, m_outputs);
+    m_matrix = new(std::nothrow) Kwave::MixerMatrix(m_inputs, m_outputs);
     Q_ASSERT(m_matrix);
     if (!m_matrix) return false;
 

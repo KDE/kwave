@@ -16,9 +16,12 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <errno.h>
 #include <math.h>
 #include <stdlib.h>
+
+#include <new>
 
 #include <QApplication>
 #include <QBitmap>
@@ -113,7 +116,7 @@ Kwave::SignalWidget::SignalWidget(QWidget *parent,
 //     // -- accelerator keys for 1...9 --
 //     for (int i = 0; i < 10; i++) {
 // 	Kwave::ShortcutWrapper *shortcut =
-// 	    new Kwave::ShortcutWrapper(this, tbl_keys[i], i);
+// 	    new(std::nothrow) Kwave::ShortcutWrapper(this, tbl_keys[i], i);
 // 	connect(shortcut, SIGNAL(activated(int)),
 // 	        this, SLOT(parseKey(int)));
 //     }
@@ -184,7 +187,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     bool have_labels =
 	!(Kwave::LabelList(m_signal_manager->metaData()).isEmpty());
 
-    QMenu *context_menu = new QMenu(this);
+    QMenu *context_menu = new(std::nothrow) QMenu(this);
     Q_ASSERT(context_menu);
     if (!context_menu) return;
 
@@ -583,12 +586,12 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
     if (!track) return;
 
     // create a container widget for the track controls
-    QWidget *controls = new QWidget(Q_NULLPTR);
+    QWidget *controls = new(std::nothrow) QWidget(Q_NULLPTR);
     Q_ASSERT(controls);
     if (!controls) return;
 
     // create a new view for the track's signal
-    Kwave::SignalView *new_view = new Kwave::TrackView(
+    Kwave::SignalView *new_view = new(std::nothrow) Kwave::TrackView(
 	this, controls, m_signal_manager, track);
     Q_ASSERT(new_view);
     if (!new_view) {

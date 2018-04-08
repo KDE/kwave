@@ -19,6 +19,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <new>
 
 #include <QDate>
 #include <QLatin1Char>
@@ -69,7 +70,7 @@ Kwave::OggDecoder::~OggDecoder()
 //***************************************************************************
 Kwave::Decoder *Kwave::OggDecoder::instance()
 {
-    return new Kwave::OggDecoder();
+    return new(std::nothrow) Kwave::OggDecoder();
 }
 
 //***************************************************************************
@@ -136,16 +137,16 @@ int Kwave::OggDecoder::parseHeader(QWidget *widget)
 #ifdef HAVE_OGG_OPUS
     if (memcmp(m_op.packet, "OpusHead", 8) == 0) {
 	qDebug("    OggDecoder: detected Opus codec");
-	m_sub_decoder =
-	    new Kwave::OpusDecoder(m_source, m_oy, m_os, m_og, m_op);
+	m_sub_decoder = new(std::nothrow)
+	    Kwave::OpusDecoder(m_source, m_oy, m_os, m_og, m_op);
         info.set(Kwave::INF_MIMETYPE, _("audio/opus"));
     }
 #endif /* HAVE_OGG_OPUS */
 #ifdef HAVE_OGG_VORBIS
     if (memcmp(m_op.packet + 1, "vorbis", 6) == 0) {
 	qDebug("    OggDecoder: detected Vorbis codec");
-	m_sub_decoder =
-	    new Kwave::VorbisDecoder(m_source, m_oy, m_os, m_og, m_op);
+	m_sub_decoder =	new(std::nothrow)
+	    Kwave::VorbisDecoder(m_source, m_oy, m_os, m_og, m_op);
         info.set(Kwave::INF_MIMETYPE, _("audio/x-vorbis+ogg"));
     }
 #endif /* HAVE_OGG_VORBIS */

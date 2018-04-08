@@ -18,6 +18,8 @@
 #include "config.h"
 #include <stdlib.h>
 
+#include <new>
+
 #include <audiofile.h>
 
 #include <QtGlobal>
@@ -85,7 +87,7 @@ Kwave::AudiofileDecoder::~AudiofileDecoder()
 //***************************************************************************
 Kwave::Decoder *Kwave::AudiofileDecoder::instance()
 {
-    return new Kwave::AudiofileDecoder();
+    return new(std::nothrow) Kwave::AudiofileDecoder();
 }
 
 //***************************************************************************
@@ -103,8 +105,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
     // source successfully opened
     m_source = &src;
-    m_src_adapter = new Kwave::VirtualAudioFile(*m_source);
-
+    m_src_adapter = new(std::nothrow) Kwave::VirtualAudioFile(*m_source);
     Q_ASSERT(m_src_adapter);
     if (!m_src_adapter) return false;
 

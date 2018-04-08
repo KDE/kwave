@@ -19,9 +19,9 @@
 
 #include <errno.h>
 #include <math.h>
-#include <new>
 #include <stdio.h>
 #include <string.h>
+#include <new>
 
 #include <QApplication>
 #include <QProgressDialog>
@@ -133,7 +133,7 @@ void Kwave::Plugin::unload()
 //***************************************************************************
 QStringList *Kwave::Plugin::setup(QStringList &)
 {
-    QStringList *result = new QStringList();
+    QStringList *result = new(std::nothrow) QStringList();
     Q_ASSERT(result);
     return result;
 }
@@ -150,7 +150,7 @@ int Kwave::Plugin::start(QStringList &)
 
     // create a progress dialog for processing mode (not used for pre-listen)
     if (m_progress_enabled && !m_progress) {
-	m_progress = new QProgressDialog(parentWidget());
+	m_progress = new(std::nothrow) QProgressDialog(parentWidget());
 	Q_ASSERT(m_progress);
     }
 
@@ -174,7 +174,8 @@ int Kwave::Plugin::start(QStringList &)
 
 	// use a "proxy" that asks for confirmation of cancel
 	if (!m_confirm_cancel) {
-	    m_confirm_cancel = new Kwave::ConfirmCancelProxy(m_progress,
+	    m_confirm_cancel = new(std::nothrow)
+	        Kwave::ConfirmCancelProxy(m_progress,
                 Q_NULLPTR, Q_NULLPTR, this, SLOT(cancel()));
 	    Q_ASSERT(m_confirm_cancel);
 	}

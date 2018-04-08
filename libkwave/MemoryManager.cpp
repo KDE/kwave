@@ -417,7 +417,8 @@ Kwave::Handle Kwave::MemoryManager::allocateVirtual(size_t size)
     if (!handle) return 0; // out of handles :-(
 
     // try to allocate
-    Kwave::SwapFile *swap = new Kwave::SwapFile(nextSwapFileName(handle));
+    Kwave::SwapFile *swap =
+	new(std::nothrow) Kwave::SwapFile(nextSwapFileName(handle));
     Q_ASSERT(swap);
     if (!swap) return 0; // out of memory :-(
 

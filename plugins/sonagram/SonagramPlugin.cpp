@@ -20,9 +20,10 @@
 #include <errno.h>
 #include <limits.h>
 #include <math.h>
-#include <new>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <new>
 
 #include <QApplication>
 #include <QColor>
@@ -113,7 +114,7 @@ QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
     dlg->setFollowSelection(m_follow_selection);
 
     if (dlg->exec() == QDialog::Accepted) {
-	result = new QStringList();
+	result = new(std::nothrow) QStringList();
 	Q_ASSERT(result);
 	if (result) dlg->parameters(*result);
     };

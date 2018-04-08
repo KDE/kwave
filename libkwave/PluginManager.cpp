@@ -19,6 +19,7 @@
 
 #include <errno.h>
 #include <unistd.h>
+#include <new>
 
 #include <QApplication>
 #include <QDir>
@@ -465,7 +466,8 @@ Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
     if (!device) return Q_NULLPTR;
 
     // create the multi track playback sink
-    Kwave::SampleSink *sink = new Kwave::MultiPlaybackSink(tracks, device);
+    Kwave::SampleSink *sink = new(std::nothrow)
+	Kwave::MultiPlaybackSink(tracks, device);
     Q_ASSERT(sink);
     return sink;
 }

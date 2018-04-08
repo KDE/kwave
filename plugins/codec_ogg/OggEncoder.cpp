@@ -19,6 +19,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <new>
 
 #include <QList>
 #include <QSharedPointer>
@@ -61,7 +62,7 @@ Kwave::OggEncoder::~OggEncoder()
 /***************************************************************************/
 Kwave::Encoder *Kwave::OggEncoder::instance()
 {
-    return new Kwave::OggEncoder();
+    return new(std::nothrow) Kwave::OggEncoder();
 }
 
 /***************************************************************************/
@@ -87,15 +88,17 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 #ifdef HAVE_OGG_OPUS
     if (compression == Compression::OGG_OPUS) {
 	qDebug("    OggEncoder: using Opus codec");
-	sub_encoder =
-	    QSharedPointer<Kwave::OpusEncoder>(new Kwave::OpusEncoder());
+	sub_encoder = QSharedPointer<Kwave::OpusEncoder>(
+	    new(std::nothrow) Kwave::OpusEncoder()
+	);
     }
 #endif /* HAVE_OGG_OPUS */
 #ifdef HAVE_OGG_VORBIS
     if (compression == Compression::OGG_VORBIS) {
 	qDebug("    OggEncoder: using Vorbis codec");
-	sub_encoder =
-	    QSharedPointer<Kwave::VorbisEncoder>(new Kwave::VorbisEncoder());
+	sub_encoder = QSharedPointer<Kwave::VorbisEncoder>(
+	    new(std::nothrow) Kwave::VorbisEncoder()
+	);
     }
 #endif /* HAVE_OGG_VORBIS */
 

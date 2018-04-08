@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QApplication>
 #include <QThread>
 #include <QWidget>
@@ -40,7 +42,9 @@ Kwave::MessageBox::MessageBox(KMessageBox::DialogType mode, QWidget *parent,
 	show();
     } else {
 	// schedule execution in the GUI thread ...
-	Trigger *trigger = new Trigger(*this);
+	Trigger *trigger = new(std::nothrow) Trigger(*this);
+	Q_ASSERT(trigger);
+	if (!trigger) return;
 	trigger->deleteLater();
 
 	// ... and wait

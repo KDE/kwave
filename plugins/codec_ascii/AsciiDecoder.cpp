@@ -19,6 +19,8 @@
 #include <ctype.h>
 #include <string.h>
 
+#include <new>
+
 #include <QDateTime>
 #include <QLatin1Char>
 #include <QLatin1String>
@@ -62,7 +64,7 @@ Kwave::AsciiDecoder::~AsciiDecoder()
 //***************************************************************************
 Kwave::Decoder *Kwave::AsciiDecoder::instance()
 {
-    return new Kwave::AsciiDecoder();
+    return new(std::nothrow) Kwave::AsciiDecoder();
 }
 
 //***************************************************************************

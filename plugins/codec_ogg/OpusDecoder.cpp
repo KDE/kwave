@@ -20,6 +20,7 @@
 #include <limits>
 #include <math.h>
 #include <stdlib.h>
+#include <new>
 
 #include <opus/opus_defines.h>
 
@@ -426,7 +427,8 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     int rate_supp = Kwave::opus_next_sample_rate(rate_orig);
 
     // create a multi track sample buffer
-    m_buffer = new Kwave::MultiTrackSink<Kwave::SampleBuffer, true>(tracks);
+    m_buffer = new(std::nothrow)
+	Kwave::MultiTrackSink<Kwave::SampleBuffer, true>(tracks);
     Q_ASSERT(m_buffer);
     if (!m_buffer) return -1;
 
@@ -437,8 +439,8 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	qDebug("    OpusDecoder::open(): converting sample rate: %d -> %d",
 	       rate_supp, rate_orig);
 
-	m_rate_converter =
-	    new Kwave::MultiTrackSource<Kwave::RateConverter, true>(tracks);
+	m_rate_converter = new(std::nothrow)
+	    Kwave::MultiTrackSource<Kwave::RateConverter, true>(tracks);
 	Q_ASSERT(m_rate_converter);
 	if (!m_rate_converter) ok = false;
 

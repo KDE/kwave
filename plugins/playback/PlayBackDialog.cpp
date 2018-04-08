@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <new>
 
 #include <QApplication>
 #include <QIcon>
@@ -336,7 +338,7 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 		    parent = item;
 		} else if (parent) {
 		    // new leaf, add to the parent
-		    item = new QTreeWidgetItem(parent);
+		    item = new(std::nothrow) QTreeWidgetItem(parent);
 		    Q_ASSERT(item);
 		    if (item) {
 			item->setText(0, token);
@@ -352,7 +354,7 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 		    }
 		} else {
 		    // new root node
-		    item = new QTreeWidgetItem(listDevices);
+		    item = new(std::nothrow) QTreeWidgetItem(listDevices);
 		    Q_ASSERT(item);
 		    if (item) {
 			item->setText(0, token);

@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <errno.h>
 #include <math.h>
+#include <new>
 
 #include <KLocalizedString>
 #include <QDialog>
@@ -57,15 +59,17 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
     // get the name of the help section
     QString help_section = _("plugin_sect_") + command();
 
-    Kwave::GotoDialog *dialog = new Kwave::GotoDialog(parentWidget(),
-        m_mode, m_position, rate, length, help_section);
+    Kwave::GotoDialog *dialog = new(std::nothrow)
+	Kwave::GotoDialog(parentWidget(),
+	    m_mode, m_position, rate, length, help_section
+	);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
     // set the title of the dialog, depending on the derived class
     dialog->setWindowTitle(title());
 
-    QStringList *list = new QStringList();
+    QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"

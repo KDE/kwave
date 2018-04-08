@@ -17,7 +17,9 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "errno.h"
+
+#include <errno.h>
+#include <new>
 
 #include <QPointer>
 #include <QStringList>
@@ -65,11 +67,11 @@ QStringList *Kwave::StringEnterPlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     QPointer<Kwave::StringEnterDialog> dialog =
-	new Kwave::StringEnterDialog(parentWidget(), preset);
+	new(std::nothrow) Kwave::StringEnterDialog(parentWidget(), preset);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
-    QStringList *list = new QStringList();
+    QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"

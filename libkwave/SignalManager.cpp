@@ -208,7 +208,7 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
 	if (use_src_size) resulting_size = src.size();
 
 	// prepare and show the progress dialog
-	dialog = new Kwave::FileProgress(m_parent_widget,
+	dialog = new(std::nothrow) Kwave::FileProgress(m_parent_widget,
 	    QUrl(filename), resulting_size,
 	    info.length(), info.rate(), info.bits(), info.tracks());
 	Q_ASSERT(dialog);
@@ -410,11 +410,13 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 	}
 
 	// prepare and show the progress dialog
-	Kwave::FileProgress *dialog = new Kwave::FileProgress(m_parent_widget,
-	    QUrl(filename), file_info.length() * file_info.tracks() *
-	    (file_info.bits() >> 3),
-	    file_info.length(), file_info.rate(), file_info.bits(),
-	    file_info.tracks());
+	Kwave::FileProgress *dialog = new(std::nothrow)
+	    Kwave::FileProgress(m_parent_widget, QUrl(filename),
+	        file_info.length() * file_info.tracks() *
+	        (file_info.bits() >> 3),
+	        file_info.length(), file_info.rate(), file_info.bits(),
+	        file_info.tracks()
+	    );
 	Q_ASSERT(dialog);
 	QObject::connect(&src,   SIGNAL(progress(qreal)),
 	                 dialog, SLOT(setValue(qreal)),

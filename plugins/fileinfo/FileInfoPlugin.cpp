@@ -16,7 +16,9 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "errno.h"
+
+#include <errno.h>
+#include <new>
 
 #include "libkwave/MessageBox.h"
 #include "libkwave/PluginManager.h"
@@ -47,11 +49,11 @@ QStringList *Kwave::FileInfoPlugin::setup(QStringList &)
 
     // create the setup dialog
     Kwave::FileInfoDialog *dialog =
-	new Kwave::FileInfoDialog(parentWidget(), oldInfo);
+	new(std::nothrow) Kwave::FileInfoDialog(parentWidget(), oldInfo);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
-    QStringList *list = new QStringList();
+    QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK" -> apply the new properties

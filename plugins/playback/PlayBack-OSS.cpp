@@ -28,6 +28,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include <new>
+
 #include <QDir>
 #include <QFile>
 #include <QLatin1Char>
@@ -217,26 +219,26 @@ QString Kwave::PlayBackOSS::open(const QString &device, double rate,
 
     switch (m_bits) {
 	case 8:
-	    m_encoder = new Kwave::SampleEncoderLinear(
+	    m_encoder = new(std::nothrow) Kwave::SampleEncoderLinear(
 		Kwave::SampleFormat::Unsigned, 8, Kwave::LittleEndian);
 	    break;
 	case 24:
 	    if (m_oss_version >= 0x040000) {
-		m_encoder = new Kwave::SampleEncoderLinear(
+		m_encoder = new(std::nothrow) Kwave::SampleEncoderLinear(
 		Kwave::SampleFormat::Signed, 24, Kwave::LittleEndian);
 		break;
 	    } // else:
 	    /* FALLTHROUGH */
 	case 32:
 	    if (m_oss_version >= 0x040000) {
-		m_encoder = new Kwave::SampleEncoderLinear(
+		m_encoder = new(std::nothrow) Kwave::SampleEncoderLinear(
 		    Kwave::SampleFormat::Signed, 32, Kwave::LittleEndian);
 		break;
 	    }
 	    // else:
 	    /* FALLTHROUGH */
 	default:
-	    m_encoder = new Kwave::SampleEncoderLinear(
+	    m_encoder = new(std::nothrow) Kwave::SampleEncoderLinear(
 		Kwave::SampleFormat::Signed, 16, Kwave::LittleEndian);
 	    break;
     }

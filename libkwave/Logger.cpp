@@ -67,7 +67,7 @@ bool Kwave::Logger::open(const QString& filename)
     qDebug("logging to file: '%s'", DBG(filename));
 
     QString name(filename);
-    m_logfile = new (std::nothrow) QFile(name);
+    m_logfile = new(std::nothrow) QFile(name);
     Q_ASSERT(m_logfile);
 
     if (m_logfile) m_logfile->open(

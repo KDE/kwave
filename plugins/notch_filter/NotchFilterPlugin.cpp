@@ -19,6 +19,7 @@
 
 #include <errno.h>
 #include <math.h>
+#include <new>
 
 #include <QStringList>
 
@@ -70,7 +71,7 @@ int Kwave::NotchFilterPlugin::interpreteParameters(QStringList &params)
 Kwave::PluginSetupDialog *Kwave::NotchFilterPlugin::createDialog(QWidget *parent)
 {
     Kwave::NotchFilterDialog *dialog =
-	new Kwave::NotchFilterDialog(parent, signalRate());
+	new(std::nothrow) Kwave::NotchFilterDialog(parent, signalRate());
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
@@ -85,7 +86,8 @@ Kwave::PluginSetupDialog *Kwave::NotchFilterPlugin::createDialog(QWidget *parent
 //***************************************************************************
 Kwave::SampleSource *Kwave::NotchFilterPlugin::createFilter(unsigned int tracks)
 {
-    return new Kwave::MultiTrackSource<Kwave::NotchFilter, true>(tracks);
+    return new(std::nothrow)
+	Kwave::MultiTrackSource<Kwave::NotchFilter, true>(tracks);
 }
 
 //***************************************************************************

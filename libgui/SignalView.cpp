@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <math.h>
+#include <new>
 
 #include <QApplication>
 #include <QBitmap>
@@ -690,7 +691,7 @@ Kwave::SignalView::PositionWidget::PositionWidget(QWidget *parent)
 {
     hide();
 
-    m_label = new QLabel(this);
+    m_label = new(std::nothrow) QLabel(this);
     Q_ASSERT(m_label);
     if (!m_label) return;
 

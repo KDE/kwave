@@ -17,8 +17,11 @@
 
 #include "config.h"
 
-#include <KLocalizedString>
+#include <new>
+
 #include <QStringList>
+
+#include <KLocalizedString>
 
 #include "libkwave/Connect.h"
 #include "libkwave/MultiTrackReader.h"
@@ -89,7 +92,7 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     Kwave::AmplifyFreeDialog *dialog =
-	new Kwave::AmplifyFreeDialog(parentWidget());
+	new(std::nothrow) Kwave::AmplifyFreeDialog(parentWidget());
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
@@ -100,7 +103,7 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
 	dialog->setParams(curve_params);
     }
 
-    QStringList *list = new QStringList();
+    QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"

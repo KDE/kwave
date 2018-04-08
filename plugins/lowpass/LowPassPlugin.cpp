@@ -19,6 +19,7 @@
 
 #include <errno.h>
 #include <math.h>
+#include <new>
 
 #include <QStringList>
 
@@ -65,7 +66,7 @@ int Kwave::LowPassPlugin::interpreteParameters(QStringList &params)
 Kwave::PluginSetupDialog *Kwave::LowPassPlugin::createDialog(QWidget *parent)
 {
     Kwave::LowPassDialog *dialog =
-	new Kwave::LowPassDialog(parent, signalRate());
+	new(std::nothrow) Kwave::LowPassDialog(parent, signalRate());
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
@@ -79,7 +80,8 @@ Kwave::PluginSetupDialog *Kwave::LowPassPlugin::createDialog(QWidget *parent)
 //***************************************************************************
 Kwave::SampleSource *Kwave::LowPassPlugin::createFilter(unsigned int tracks)
 {
-    return new Kwave::MultiTrackSource<Kwave::LowPassFilter, true>(tracks);
+    return new(std::nothrow)
+	Kwave::MultiTrackSource<Kwave::LowPassFilter, true>(tracks);
 }
 
 //***************************************************************************

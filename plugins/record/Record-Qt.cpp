@@ -20,6 +20,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <new>
 
 #include <QApplication>
 #include <QAudioDeviceInfo>
@@ -498,7 +499,7 @@ void Kwave::RecordQt::createInMainThread(QAudioFormat &format,
     m_sem.acquire(m_sem.available());
 
     // create a new audio device for the selected format
-    m_input = new QAudioInput(format, this);
+    m_input = new(std::nothrow) QAudioInput(format, this);
     Q_ASSERT(m_input);
     if (!m_input) return;
     connect(m_input, SIGNAL(notify()), this, SLOT(notified()));

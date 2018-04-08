@@ -221,7 +221,7 @@ void Kwave::SonagramWindow::save()
 {
     if (m_image.isNull()) return;
 
-    QPointer<Kwave::FileDialog> dlg = new (std::nothrow) Kwave::FileDialog(
+    QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
 	_("kfiledialog:///kwave_sonagram"),
 	Kwave::FileDialog::SaveFile, QString(),
 	this, QUrl(), _("*.bmp")

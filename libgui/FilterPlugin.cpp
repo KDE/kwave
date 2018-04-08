@@ -72,7 +72,7 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
 
     if (!m_params.isEmpty()) setup_dialog->setParams(m_params);
 
-    QStringList *list = new QStringList();
+    QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dlg->exec()) {
 	// user has pressed "OK"

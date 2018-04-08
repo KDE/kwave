@@ -19,6 +19,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <new>
 
 #include <KLocalizedString>
 
@@ -56,7 +57,7 @@ Kwave::WavEncoder::~WavEncoder()
 /***************************************************************************/
 Kwave::Encoder *Kwave::WavEncoder::instance()
 {
-    return new Kwave::WavEncoder();
+    return new(std::nothrow) Kwave::WavEncoder();
 }
 
 /***************************************************************************/

@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <stdlib.h>
+#include <new>
 
 #include <audiofile.h>
 
@@ -106,7 +107,7 @@ Kwave::WavDecoder::~WavDecoder()
 //***************************************************************************
 Kwave::Decoder *Kwave::WavDecoder::instance()
 {
-    return new Kwave::WavDecoder();
+    return new(std::nothrow) Kwave::WavDecoder();
 }
 
 //***************************************************************************
@@ -337,7 +338,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     // open the file through libaudiofile :)
     if (need_repair) {
 	QList<Kwave::RecoverySource *> *repair_list =
-	    new QList<Kwave::RecoverySource *>();
+	    new(std::nothrow) QList<Kwave::RecoverySource *>();
 	Q_ASSERT(repair_list);
 	if (!repair_list) return false;
 
@@ -346,9 +347,10 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 //	qDebug("riff chunk = %p, parser.findChunk('')=%p", riff_chunk,
 //	    parser.findChunk(""));
 	repair(repair_list, root, fmt_chunk, data_chunk);
-	m_src_adapter = new Kwave::RepairVirtualAudioFile(*m_source, repair_list);
+	m_src_adapter = new(std::nothrow)
+	    Kwave::RepairVirtualAudioFile(*m_source, repair_list);
     } else {
-	m_src_adapter = new Kwave::VirtualAudioFile(*m_source);
+	m_src_adapter = new(std::nothrow) Kwave::VirtualAudioFile(*m_source);
     }
 
     Q_ASSERT(m_src_adapter);
@@ -691,13 +693,13 @@ bool Kwave::WavDecoder::repairChunk(
     buffer[7] = (length >> 24) & 0xFF;
     if (chunk->type() == Kwave::RIFFChunk::Main) {
 	strncpy(&(buffer[8]), chunk->format().data(), 4);
-	repair = new Kwave::RecoveryBuffer(offset, 12, buffer);
+	repair = new(std::nothrow) Kwave::RecoveryBuffer(offset, 12, buffer);
 	qDebug("[0x%08X-0x%08X] - main header '%s' (%s), len=%u",
 	      offset, offset+11, chunk->name().data(),
 	      chunk->format().data(), length);
 	offset += 12;
     } else {
-	repair = new Kwave::RecoveryBuffer(offset, 8, buffer);
+	repair = new(std::nothrow) Kwave::RecoveryBuffer(offset, 8, buffer);
 	qDebug("[0x%08X-0x%08X] - sub header '%s', len=%u",
 	      offset, offset+7, chunk->name().data(), length);
 	offset += 8;
@@ -710,8 +712,10 @@ bool Kwave::WavDecoder::repairChunk(
     if ((chunk->type() != Kwave::RIFFChunk::Root) &&
         (chunk->type() != Kwave::RIFFChunk::Main))
     {
-	repair = new Kwave::RecoveryMapping(offset, chunk->physLength(),
-	                                    *m_source, chunk->dataStart());
+	repair = new(std::nothrow) Kwave::RecoveryMapping(
+	    offset, chunk->physLength(),
+	    *m_source, chunk->dataStart()
+	);
 	qDebug("[0x%08X-0x%08X] - restoring from offset 0x%08X (%u)",
 	      offset, offset+chunk->physLength()-1, chunk->dataStart(),
 	      chunk->physLength());
@@ -759,7 +763,7 @@ bool Kwave::WavDecoder::repair(QList<Kwave::RecoverySource *> *repair_list,
 
     // create a new "data" chunk
     Kwave::RIFFChunk *new_data =
-        new Kwave::RIFFChunk(&new_root, "data", Q_NULLPTR, 0,
+        new(std::nothrow) Kwave::RIFFChunk(&new_root, "data", Q_NULLPTR, 0,
 	data_chunk->physStart(), data_chunk->physLength());
     Q_ASSERT(new_data);
     if (!new_data) return false;

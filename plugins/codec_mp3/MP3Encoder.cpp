@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <math.h>
+#include <new>
 
 #include <id3/globals.h>
 #include <id3/misc_support.h>
@@ -73,7 +74,7 @@ Kwave::MP3Encoder::~MP3Encoder()
 /***************************************************************************/
 Kwave::Encoder *Kwave::MP3Encoder::instance()
 {
-    return new MP3Encoder();
+    return new(std::nothrow) MP3Encoder();
 }
 
 /***************************************************************************/
@@ -103,7 +104,7 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	if (info.contains(Kwave::INF_TRACK) && (property == Kwave::INF_TRACKS))
 	    continue; /* INF_TRACKS has already been handled by INF_TRACK */
 
-	ID3_Frame *frame = new ID3_Frame;
+	ID3_Frame *frame = new(std::nothrow) ID3_Frame;
 	Q_ASSERT(frame);
 	if (!frame) break;
 

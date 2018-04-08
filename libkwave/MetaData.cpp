@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <new>
+
 #include <QApplication>
 #include <QDateTime>
 #include <QMutexLocker>
@@ -45,7 +47,7 @@ Kwave::MetaData::MetaData(const Kwave::MetaData &other)
 
 //***************************************************************************
 Kwave::MetaData::MetaData(Scope scope)
-    :m_data(new MetaDataPriv)
+    :m_data(new(std::nothrow) MetaDataPriv)
 {
     setScope(scope);
 }

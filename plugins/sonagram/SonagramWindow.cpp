@@ -17,7 +17,6 @@
 
 #include "config.h"
 
-#include <limits.h>
 #include <math.h>
 #include <new>
 
@@ -105,7 +104,7 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     if (!mainwidget) return;
     setCentralWidget(mainwidget);
 
-    QGridLayout *top_layout = new(std::nothrow) QGridLayout(mainwidget/*, 3, 2*/);
+    QGridLayout *top_layout = new(std::nothrow) QGridLayout(mainwidget);
     Q_ASSERT(top_layout);
     if (!top_layout) return;
 

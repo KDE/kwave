@@ -17,8 +17,9 @@
 
 #include "config.h"
 
-#include <limits.h>
 #include <unistd.h>     // for unlink() and getpagesize()
+
+#include <limits>
 
 #include "libkwave/String.h"
 #include "libkwave/SwapFile.h"
@@ -264,7 +265,7 @@ int Kwave::SwapFile::read(unsigned int offset, void *buffer,
     // read into the buffer
     if (!m_file.flush()) return -1;
 
-    if (length > INT_MAX) length = INT_MAX;
+    qBound<qint64>(0, length, std::numeric_limits<qint64>::max());
     return Kwave::toInt(
 	m_file.read(reinterpret_cast<char *>(buffer), length)
     );
@@ -278,7 +279,7 @@ int Kwave::SwapFile::write(unsigned int offset, const void *buffer,
     if (!m_file.seek(offset)) return -1;
 
     // write data from the buffer
-    if (length > INT_MAX) length = INT_MAX;
+    qBound<qint64>(0, length, std::numeric_limits<qint64>::max());
     return Kwave::toInt(
 	m_file.write(reinterpret_cast<const char *>(buffer), length)
     );

@@ -16,8 +16,10 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <limits>
+
 #include "libkwave/StandardBitrates.h"
-#include <limits.h>
 
 /** the global static list of standard bitrates */
 static Kwave::StandardBitrates g_bitrates;
@@ -67,7 +69,7 @@ const Kwave::StandardBitrates &Kwave::StandardBitrates::instance()
 int Kwave::StandardBitrates::nearest(int rate) const
 {
     int best = rate;
-    int min_delta = INT_MAX;
+    int min_delta = std::numeric_limits<int>::max();
 
     foreach (int value, *this) {
 	int delta = (value > rate) ? (value-rate) : (rate-value);

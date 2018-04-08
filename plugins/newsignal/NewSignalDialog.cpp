@@ -17,9 +17,10 @@
 
 #include "config.h"
 
-#include <limits.h>
 #include <math.h>
 #include <stdlib.h>
+
+#include <limits>
 
 #include <QLabel>
 #include <QLayout>
@@ -49,7 +50,7 @@ Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, sample_index_t samples,
     setupUi(this);
     setModal(true);
 
-    edSamples->setRange(0, INT_MAX);
+    edSamples->setRange(0, std::numeric_limits<int>::max());
     edSamples->setSingleStep(1);
 
     // connect the timer for the sample edit
@@ -178,7 +179,7 @@ sample_index_t Kwave::NewSignalDialog::maxSamples()
      *       only needed because some gui elements like
      *       QSpinBox cannot handle more :-(
      */
-    const sample_index_t max_file_size = INT_MAX;
+    const sample_index_t max_file_size = std::numeric_limits<int>::max();
 
     return (max_file_size / tracks() / bytes_per_sample);
 }

@@ -21,6 +21,7 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <limits>
 #include <new>
 
 #include <QApplication>
@@ -552,9 +553,10 @@ void Kwave::MainWidget::refreshHorizontalScrollBar()
 	// max                            = length   / f - page
 	// pos  = (m_offset / length) * x = m_offset / f
 
+	const sample_index_t int_max = std::numeric_limits<int>::max();
 	const sample_index_t f = qMax(
 	    sample_index_t(1),
-	    sample_index_t((length + INT_MAX - 1) / INT_MAX)
+	    sample_index_t((length + int_max - 1) / int_max)
 	);
 	int page    = Kwave::toInt(visible  / f);
 	int min     = 0;
@@ -580,10 +582,11 @@ void Kwave::MainWidget::refreshHorizontalScrollBar()
 void Kwave::MainWidget::horizontalScrollBarMoved(int newval)
 {
     // new offset = pos * f
-    sample_index_t length  = m_context.signalManager()->length();
+    const sample_index_t length  = m_context.signalManager()->length();
+    const sample_index_t int_max = std::numeric_limits<int>::max();
     const sample_index_t f = qMax(
 	sample_index_t(1),
-	sample_index_t((length + INT_MAX - 1) / INT_MAX)
+	sample_index_t((length + int_max - 1) / int_max)
     );
     const sample_index_t pos = newval * f;
     setOffset(pos);
@@ -742,7 +745,8 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
                static_cast<double>(width);
 
     // ensure that pixel coordinates are within signed int range
-    min_zoom = qMax(min_zoom, static_cast<double>(length) / double(INT_MAX));
+    min_zoom = qMax(min_zoom, static_cast<double>(length) /
+                              double(std::numeric_limits<int>::max()));
 
     if (m_zoom < min_zoom) m_zoom = min_zoom;
     if (m_zoom > max_zoom) m_zoom = max_zoom;

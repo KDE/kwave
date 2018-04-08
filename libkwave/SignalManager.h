@@ -19,7 +19,7 @@
 #define SIGNAL_MANAGER_H
 
 #include "config.h"
-#include <limits.h>
+
 #include <stdio.h>
 
 #include <QtGlobal>
@@ -264,12 +264,12 @@ namespace Kwave
 
 	/**
 	 * Opens a stream for reading samples. If the last position
-	 * is omitted, the value UINT_MAX will be used.
+	 * is omitted, the value SAMPLE_INDEX_MAX will be used.
 	 * @param mode a reader mode, see SampleReader::Mode
 	 * @param track index of the track. If the track does not exist, this
 	 *        function will fail and return 0
 	 * @param left first offset to be read (default = 0)
-	 * @param right last position to read (default = UINT_MAX)
+	 * @param right last position to read (default = SAMPLE_INDEX_MAX)
 	 */
 	inline Kwave::SampleReader *openReader(Kwave::ReaderMode mode,
 	    unsigned int track,
@@ -283,7 +283,7 @@ namespace Kwave
 	 * Get a list of stripes that matches a given range of samples
 	 * @param track_list list with indices of tracks for selecting
 	 * @param left  offset of the first sample
-	 * @param right offset of the last sample
+	 * @param right offset of the last sample (default = SAMPLE_INDEX_MAX)
 	 * @return a list with lists of stripes that cover the given range
 	 *         between left and right
 	 */

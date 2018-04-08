@@ -19,6 +19,8 @@
 
 #include <math.h>
 #include <stdlib.h>
+
+#include <limits>
 #include <new>
 
 #include <KLocalizedString>
@@ -395,7 +397,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     }
 
     // check for proper size: WAV supports only 32bit addressing
-    if (length * ((bits + 7) / 8) >= UINT_MAX) {
+    if (length * ((bits + 7) / 8) >= std::numeric_limits<quint32>::max()) {
 	Kwave::MessageBox::error(widget, i18n("File or selection too large"));
 	return false;
     }

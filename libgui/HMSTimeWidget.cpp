@@ -17,7 +17,7 @@
 
 #include "config.h"
 
-#include <limits.h>
+#include <limits>
 
 #include "libkwave/Utils.h"
 
@@ -26,7 +26,7 @@
 //***************************************************************************
 Kwave::HMSTimeWidget::HMSTimeWidget(QWidget *parent)
     :QWidget(parent), Ui::HMSTimeWidgetBase(),
-     m_time(0), m_limit(INT_MAX)
+     m_time(0), m_limit(std::numeric_limits<int>::max())
 {
     setupUi(this);
     setValue(m_time);
@@ -63,8 +63,9 @@ void Kwave::HMSTimeWidget::setValue(int value)
 //***************************************************************************
 void Kwave::HMSTimeWidget::setLimit(unsigned int limit)
 {
-    Q_ASSERT(limit <= INT_MAX);
-    if (limit > INT_MAX) limit = INT_MAX;
+    Q_ASSERT(limit <= std::numeric_limits<int>::max());
+    if (limit > std::numeric_limits<int>::max())
+	limit = std::numeric_limits<int>::max();
     if (limit < m_limit) {
 	m_limit = limit;
 	setValue(m_limit);

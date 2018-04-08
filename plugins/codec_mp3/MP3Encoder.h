@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <limits.h>
+#include <climits>
 
 #include <QList>
 #include <QMutex>

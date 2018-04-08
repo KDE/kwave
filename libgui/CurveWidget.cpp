@@ -16,10 +16,12 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <limits.h>
+
 #include <math.h>
-#include <new>
 #include <stdio.h>
+
+#include <limits>
+#include <new>
 
 #include <QAction>
 #include <QCursor>

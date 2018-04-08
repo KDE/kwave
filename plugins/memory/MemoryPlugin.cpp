@@ -18,7 +18,8 @@
 #include "config.h"
 
 #include <errno.h>
-#include <limits.h>
+
+#include <limits>
 #include <new>
 
 #include <QString>
@@ -98,7 +99,7 @@ int Kwave::MemoryPlugin::interpreteParameters(QStringList &params)
 	m_virtual_limit = param.toUInt(&ok);
 	if (!ok) return -EINVAL;
     } else {
-	m_virtual_limit = INT_MAX;
+	m_virtual_limit = std::numeric_limits<int>::max();
     }
 
     // parameter #5: directory for virtual memory files
@@ -129,8 +130,9 @@ void Kwave::MemoryPlugin::applySettings()
     Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
     mem.setPhysicalLimit(m_physical_limited ? m_physical_limit : 4096);
     mem.setVirtualLimit(m_virtual_enabled ?
-                       (m_virtual_limited ? m_virtual_limit : INT_MAX) :
-		       0);
+	(m_virtual_limited ? m_virtual_limit :
+	                     std::numeric_limits<int>::max()) :
+	0);
     mem.setSwapDirectory(m_virtual_directory);
     mem.setUndoLimit(m_undo_limit);
 }

@@ -17,10 +17,11 @@
 
 #include "config.h"
 
-#include <limits.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include <limits>
 
 #include <QFile>
 #include <QFileInfo>
@@ -126,7 +127,7 @@ Kwave::MemoryManager::MemoryManager()
 
     // limit the total memory to a int value [MB]
     // (values go into the GUI)
-    total = qMin(total, static_cast<quint64>(INT_MAX));
+    total = qMin<quint64>(total, std::numeric_limits<int>::max());
 
 #ifdef DEBUG
     qDebug("Kwave::MemoryManager: => using up to %llu MB RAM", total);
@@ -227,7 +228,7 @@ quint64 Kwave::MemoryManager::totalPhysical()
 //***************************************************************************
 Kwave::Handle Kwave::MemoryManager::newHandle()
 {
-    for (unsigned int i = 0; i < INT_MAX; i++) {
+    for (unsigned int i = 0; i < std::numeric_limits<int>::max(); i++) {
 	// increment to get the next handle
 	m_last_handle++;
 
@@ -400,7 +401,7 @@ Kwave::Handle Kwave::MemoryManager::allocateVirtual(size_t size)
 	return 0;
 
     // check for limits
-    quint64 limit = INT_MAX; // totalVirtual() in MB
+    quint64 limit = std::numeric_limits<int>::max(); // totalVirtual() in MB
     if (m_virtual_limit < limit) limit = m_virtual_limit;
     quint64 used = virtualUsed(); // in MB
     quint64 available = (used < limit) ? (limit - used) : 0;

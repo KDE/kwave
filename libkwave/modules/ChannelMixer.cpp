@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <limits>
 #include <new>
 
 #include <QtGlobal>
@@ -200,7 +201,7 @@ void Kwave::ChannelMixer::mix()
     // and form an array of pointers to the raw data, for speeding up
     QVector<Kwave::SampleArray> v_input(m_inputs);
     QVarLengthArray<const sample_t *> input(m_inputs);
-    unsigned int min_len = UINT_MAX;
+    unsigned int min_len = std::numeric_limits<unsigned int>::max();
     for (unsigned int track = 0; track < m_inputs; track++) {
 	// dequeue the buffer with input data
 	QQueue<Kwave::SampleArray> &queue = m_input_queue[track];

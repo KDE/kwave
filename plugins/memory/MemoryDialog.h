@@ -40,7 +40,7 @@ namespace Kwave
 	 * @param virtual_enabled true if virtual memory is enabled
 	 * @param virtual_limited determines if the virtual memory is limited
 	 * @param virtual_limit limit of virtual memory [megabytes],
-	 *        0=disabled, UINT_MAX = no limit
+	 *        0 = disabled, UINT_MAX = no limit
 	 * @param virtual_dir directory for virtual memory files
 	 * @param undo_limit limit of memory for undo/redo [megabytes]
 	 */

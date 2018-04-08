@@ -20,7 +20,7 @@
 #define PROGRESS_SIZE (512 * 3 * 5)
 
 #include "config.h"
-#include <limits.h>
+
 #include <pthread.h>
 
 #include <QtGlobal>
@@ -125,11 +125,11 @@ namespace Kwave
 
 	/**
 	 * Opens a stream for reading samples. If the last position
-	 * is omitted, the value UINT_MAX will be used.
+	 * is omitted, the value SAMPLE_INDEX_MAX will be used.
 	 * @param mode a reader mode, see Kwave::ReaderMode
 	 * @param track index of the track
 	 * @param left first offset to be read (default = 0)
-	 * @param right last position to read (default = UINT_MAX)
+	 * @param right last position to read (default = SAMPLE_INDEX_MAX)
 	 * @return a SampleReader or null if the track does not exist
 	 */
 	Kwave::SampleReader *openReader(Kwave::ReaderMode mode,
@@ -141,7 +141,7 @@ namespace Kwave
 	 * Get a list of stripes that matches a given range of samples
 	 * @param track index of the track
 	 * @param left  offset of the first sample
-	 * @param right offset of the last sample
+	 * @param right offset of the last sample (default = SAMPLE_INDEX_MAX)
 	 * @return a list of stripes that cover the given range
 	 *         between left and right
 	 */

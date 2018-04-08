@@ -50,7 +50,7 @@
  * @return the value of x clipped to 0xFFFFFFFF
  */
 static inline quint32 toUint32(quint64 x) {
-    const quint64 max = std::numeric_limits<qint32>::max();
+    const quint64 max = std::numeric_limits<quint32>::max();
     return static_cast<quint32>(qMin(x, max));
 }
 

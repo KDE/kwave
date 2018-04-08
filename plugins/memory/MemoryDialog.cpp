@@ -17,8 +17,9 @@
 
 #include "config.h"
 
-#include <limits.h>
 #include <unistd.h>
+
+#include <limits>
 #include <new>
 
 #include <QCheckBox>
@@ -56,7 +57,9 @@ Kwave::MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
 
     Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
     int total_physical = Kwave::toInt(qMin(
-	mem.totalPhysical(), static_cast<quint64>(INT_MAX)));
+	mem.totalPhysical(),
+	static_cast<quint64>(std::numeric_limits<int>::max())
+    ));
 
     if (!isOK()) return;
 

@@ -18,11 +18,11 @@
 #include "config.h"
 
 #include <errno.h>
-#include <limits.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <limits>
 #include <new>
 
 #include <QApplication>
@@ -169,7 +169,7 @@ int Kwave::SonagramPlugin::start(QStringList &params)
 
     Kwave::SignalManager &sig_mgr = signalManager();
 
-    // interprete parameter list and abort if it contains invalid data
+    // interpret parameter list and abort if it contains invalid data
     int result = interpreteParameters(params);
     if (result) return result;
 
@@ -199,7 +199,7 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     if (m_slices > MAX_SLICES) m_slices = MAX_SLICES;
 
     /* limit selection to INT_MAX samples (limitation of the cache index) */
-    if ((length / m_fft_points) >= INT_MAX) {
+    if ((length / m_fft_points) >= std::numeric_limits<int>::max()) {
 	Kwave::MessageBox::error(parentWidget(),
 	                         i18n("File or selection too large"));
 	return -EFBIG;

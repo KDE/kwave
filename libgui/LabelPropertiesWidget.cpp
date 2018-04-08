@@ -16,7 +16,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "math.h"
+
+#include <math.h>
 
 #include <QApplication>
 #include <QPushButton>

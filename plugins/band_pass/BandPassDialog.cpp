@@ -17,7 +17,8 @@
 
 #include "config.h"
 
-#include "math.h"
+#include <math.h>
+
 #include <new>
 
 #include <QPainter>

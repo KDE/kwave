@@ -266,8 +266,8 @@ INCLUDE_DIRECTORIES(
 CHECK_INCLUDE_FILES(sys/times.h HAVE_SYS_TIMES_H)
 CHECK_INCLUDE_FILES(signal.h HAVE_SIGNAL_H)
 
-SET(_inc_c errno.h limits.h math.h signal.h
-           stdint.h stdio.h stdlib.h string.h sys/types.h unistd.h pthread.h)
+SET(_inc_c errno.h math.h signal.h
+           stdint.h stdio.h stdlib.h string.h unistd.h pthread.h)
 CHECK_INCLUDE_FILES("${_inc_c}" HAVE_REQUIRED_STD_C_HEADERS)
 IF (NOT HAVE_REQUIRED_STD_C_HEADERS)
     MESSAGE(FATAL_ERROR "
@@ -275,7 +275,7 @@ IF (NOT HAVE_REQUIRED_STD_C_HEADERS)
         ${_inc_c}")
 ENDIF (NOT HAVE_REQUIRED_STD_C_HEADERS)
 
-SET(_inc_cpp algorithm limits new)
+SET(_inc_cpp algorithm complex limits new)
 CHECK_INCLUDE_FILES_CXX("${_inc_cpp}")
 
 #############################################################################

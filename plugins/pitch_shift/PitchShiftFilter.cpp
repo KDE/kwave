@@ -22,7 +22,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <complex>
+
 #include <math.h>
 
 #include "libkwave/Sample.h"

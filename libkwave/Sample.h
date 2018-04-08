@@ -21,8 +21,8 @@
 //***************************************************************************
 
 #include <QtGlobal>
+
 #include <limits>
-#include <sys/types.h>
 
 /** use an unsigned integer for sample offset/count calculations */
 typedef quint64 sample_index_t;

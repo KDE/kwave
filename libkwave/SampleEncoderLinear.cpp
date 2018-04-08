@@ -17,9 +17,6 @@
 
 #include "config.h"
 
-#include <stdio.h>
-#include <sys/types.h>
-
 #include <QtGlobal>
 
 #include "libkwave/Sample.h"
@@ -55,7 +52,7 @@ void encode_linear(const sample_t *src, quint8 *dst, unsigned int count)
 
 	// convert to unsigned if necessary
 	if (!is_signed)
-	    s += 1 << (SAMPLE_BITS-1);
+	    s += 1 << (SAMPLE_BITS - 1);
 
 	// shrink 18/20 bits and similar down, otherwise it does not work
 	// with ALSA for some dubious reason !?

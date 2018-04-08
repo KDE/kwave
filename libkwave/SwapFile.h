@@ -19,7 +19,8 @@
 #define SWAP_FILE_H
 
 #include "config.h"
-#include <sys/types.h>  // for size_t
+
+#include <stdlib.h>  // for size_t
 
 #include <QFile>
 #include <QTemporaryFile>

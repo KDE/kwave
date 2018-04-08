@@ -20,8 +20,6 @@
 
 #include "config.h"
 
-#include <stdio.h>
-
 #include <QtGlobal>
 #include <QList>
 #include <QMap>

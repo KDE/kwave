@@ -18,7 +18,6 @@
 #include "config.h"
 
 #include <errno.h>
-#include <stdio.h>
 
 #include <QApplication>
 #include <QCommandLineParser>
@@ -219,7 +218,7 @@ int main(int argc, char **argv)
     KAboutData::setApplicationData(about);
 
     /* show some version info */
-    printf("\nThis is %s v%s (compiled with KDE Frameworks %s)\n",
+    qDebug("\nThis is %s v%s (compiled with KDE Frameworks %s)\n",
 	about.productName().toLatin1().data(),
 	about.version().toLatin1().data(),
 	KXMLGUI_VERSION_STRING
@@ -239,7 +238,7 @@ int main(int argc, char **argv)
      /* check for an optimized version of memcpy() */
 #ifdef WITH_OPTIMIZED_MEMCPY
     probe_fast_memcpy();
-    printf("\n");
+    qDebug("\n");
 #endif /* WITH_OPTIMIZED_MEMCPY */
 
     // check whether to start up without splash screen or in iconic mode

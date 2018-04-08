@@ -17,8 +17,6 @@
 
 #include "config.h"
 
-#include <stdio.h>
-
 #include <QtGlobal>
 
 #include "libkwave/Sample.h"
@@ -31,7 +29,7 @@
 static void decode_NULL(const quint8 *src, sample_t *dst, unsigned int count)
 {
     while (count--) {
-        printf("%02X ", Kwave::toInt(*src));
+        qWarning("%02X ", Kwave::toInt(*src));
         *(dst++) = count % (1 << (SAMPLE_BITS-1));
     }
 }

@@ -18,7 +18,6 @@
 #include "config.h"
 
 #include <signal.h>
-#include <stdio.h>
 
 #include <QApplication>
 #include <QtGlobal> // for qWarning()
@@ -44,7 +43,7 @@ extern "C" void _dummy_SIGHUP_handler(int);
 //***************************************************************************
 void _dummy_SIGHUP_handler(int)
 {
-    printf("\r\n--- SIGHUP ---\r\n");
+    qWarning("\r\n--- SIGHUP ---\r\n");
 }
 
 //***************************************************************************

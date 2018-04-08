@@ -208,7 +208,7 @@ int Kwave::RecordOSS::read(QByteArray &buffer, unsigned int offset)
 	    length -= res;
 	    buf += res;
 	} else {
-	    printf("No data within 5 seconds.\n");
+	    qWarning("No data within 5 seconds.\n");
 	    return -EIO;
         }
     }

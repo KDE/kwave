@@ -263,11 +263,9 @@ INCLUDE_DIRECTORIES(
 #############################################################################
 ### checks for needed header files                                        ###
 
-CHECK_INCLUDE_FILES(sys/times.h HAVE_SYS_TIMES_H)
 CHECK_INCLUDE_FILES(signal.h HAVE_SIGNAL_H)
 
-SET(_inc_c errno.h math.h signal.h
-           stdint.h stdio.h stdlib.h string.h unistd.h pthread.h)
+SET(_inc_c errno.h math.h signal.h stdlib.h string.h unistd.h pthread.h)
 CHECK_INCLUDE_FILES("${_inc_c}" HAVE_REQUIRED_STD_C_HEADERS)
 IF (NOT HAVE_REQUIRED_STD_C_HEADERS)
     MESSAGE(FATAL_ERROR "

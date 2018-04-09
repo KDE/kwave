@@ -29,6 +29,16 @@ IF (WITH_OPTIMIZED_MEMCPY)
     # use "default" visibility for memcpy.c (which is our one and only C file)
     SET(CMAKE_C_VISIBILITY_PRESET default)
 
+    CHECK_INCLUDE_FILES(sys/times.h HAVE_SYS_TIMES_H)
+
+    SET(_inc_c stdint.h stdio.h)
+    CHECK_INCLUDE_FILES("${_inc_c}" HAVE_REQUIRED_STD_C_HEADERS)
+    IF (NOT HAVE_REQUIRED_STD_C_HEADERS)
+	MESSAGE(FATAL_ERROR "
+	    unable to find one or more of the following C header files:
+	    ${_inc_c}")
+    ENDIF (NOT HAVE_REQUIRED_STD_C_HEADERS)
+
     SET(libkwave_LIB_SRCS_memcpy cpu_accel.cpp memcpy.c)
 
     SET(_try_src_dir "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp")

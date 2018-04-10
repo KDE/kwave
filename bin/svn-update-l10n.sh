@@ -76,7 +76,7 @@ svn update --quiet subdirs teamnames scripts
 mkdir -p "${PO_DIR}"
 
 # check out all missing directories and files (recursively)
-if test -z ${LINGUAS} ; then
+if test -z "${LINGUAS}" ; then
     LINGUAS=`cat subdirs | grep -v x-test`
 fi
 FOUND_LINGUAS=""
@@ -86,6 +86,10 @@ rm -f ${LANG_NAMES_FILE}
 touch ${LANG_NAMES_FILE}
 
 for lang in ${LINGUAS}; do
+
+    if test ! -e ${lang} ; then
+	checkout "" "${lang}"
+    fi
 
     # skip languages which have no files (like "en")
     if test ! -e ${lang} ; then
@@ -178,6 +182,7 @@ for lang in ${FOUND_HANDBOOKS}; do
 	if test "${lang}/docs/${CATEGORY}/kwave/index.docbook" -ot \
 	         "${lang}/docmessages/${CATEGORY}/kwave.po" ; then
 	    echo -n "${lang}: index.docbook is out of date - updating... "
+	    checkout "" "${lang}/docmessages/language"
 	    scripts/update_xml ${lang} ${CATEGORY} kwave > /dev/null
 	    echo "done"
 	fi

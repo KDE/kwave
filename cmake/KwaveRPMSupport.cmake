@@ -67,6 +67,10 @@ ADD_CUSTOM_COMMAND(OUTPUT ${_specfile}
     DEPENDS ${_specfile_without_changelog} ${_changes}
 )
 
+ADD_CUSTOM_TARGET(specfile
+    DEPENDS ${_specfile}
+)
+
 #############################################################################
 ### "make tarball"                                                        ###
 

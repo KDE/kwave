@@ -41,8 +41,25 @@ BuildArch:      i586
 BuildArch:      x86_64
 %endif
 
-%define kf5_min_version 5.2.0
-%define qt5_min_version 5.4.0
+%define kf5_min_version @KF5_MIN_VERSION@
+%define qt5_min_version @QT_MIN_VERSION@
+
+# set some defaults if they are missing in the current RPM setup
+%if 0%{!?_kf5_applicationsdir:1}
+%define _kf5_applicationsdir %{_prefix}/share/applications
+%endif
+%if 0%{!?_kf5_appsdir:1}
+%define _kf5_appsdir         %{_prefix}/share
+%endif
+%if 0%{!?_kf5_htmldir:1}
+%define _kf5_htmldir         %{_prefix}/share/doc/HTML
+%endif
+%if 0%{!?_kf5_iconsdir:1}
+%define _kf5_iconsdir        %{_prefix}/share/icons
+%endif
+%if 0%{!?_kf5_modulesdir:1}
+%define _kf5_modulesdir      @PLUGIN_INSTALL_DIR@/kwave
+%endif
 
 # common for all distributions
 Requires:       %{name}-lang             = %{version}
@@ -185,11 +202,6 @@ BuildRequires:  poxml
 
 %define EXTRA_OPTS ""
 %define FDUPES fdupes -s %{buildroot}
-%define _kf5_applicationsdir /usr/share/applications/
-%define _kf5_appsdir /usr/share
-%define _kf5_htmldir /usr/share/doc/HTML
-%define _kf5_iconsdir /usr/share/icons
-%define _kf5_modulesdir %{_libdir}/plugins
 %endif
 
 # # CentOS specific:
@@ -253,12 +265,11 @@ make -C build DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 %doc GNU-LICENSE AUTHORS LICENSES CHANGES README TODO
 %{_bindir}/%name
 %{_kf5_applicationsdir}/org.kde.%{name}.desktop
-%{_prefix}/share/appdata
-%{_prefix}/share/appdata/kwave.appdata.xml
+%{_prefix}/@KDE_INSTALL_METAINFODIR@/org.kde.kwave.appdata.xml
+%{_prefix}/@SERVICETYPES_INSTALL_DIR@/kwave-plugin.desktop
 %{_libdir}/libkwave*
 %{_kf5_appsdir}/%{name}
 %{_kf5_iconsdir}/*
-%{_kf5_modulesdir}
 %{_kf5_modulesdir}/kwaveplugin_*.so
 %exclude %{_kf5_htmldir}/*/%{name}
 

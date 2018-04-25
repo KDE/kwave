@@ -60,6 +60,7 @@
   <summary xml:lang="uk">Kwave — звуковий редактор, створений на основі KDE Frameworks 5</summary>
   <summary xml:lang="x-test">xxKwave is a sound editor built on KDE Frameworks 5xx</summary>
   <summary xml:lang="zh-CN">Kwave 是构建于 KDE Frameworks 5 之上的音频编辑器</summary>
+  <summary xml:lang="zh-TW">Kwave 是一套架構在 KDE Frameworks 5 上的音效編輯器</summary>
   <description>
     <p>
       With Kwave you can record, play back, import and edit many sorts of audio files including multi channel files.

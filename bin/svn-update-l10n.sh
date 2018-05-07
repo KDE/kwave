@@ -96,7 +96,10 @@ for lang in ${LINGUAS}; do
         continue
     fi
 
-    lang_team=`cat teamnames | grep ^${lang}=`
+    lang_team=`cat teamnames | grep ^${lang}=` || true
+    if test -z "${lang_team}" ; then
+	lang_team="${lang}"
+    fi
 
     echo -n "processing ${lang} - `echo ${lang_team} | cut -d = -f 2`... "
 

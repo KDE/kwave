@@ -19,6 +19,7 @@
 
 #include <errno.h>
 
+#include <QMutexLocker>
 #include <QVariant>
 
 #include "RecordDevice.h"
@@ -26,8 +27,13 @@
 
 //***************************************************************************
 Kwave::RecordThread::RecordThread()
-    :Kwave::WorkerThread(Q_NULLPTR, QVariant()), m_device(Q_NULLPTR),
-    m_empty_queue(), m_buffer_count(0), m_buffer_size(0)
+    :Kwave::WorkerThread(Q_NULLPTR, QVariant()),
+     m_lock(QMutex::Recursive),
+     m_device(Q_NULLPTR),
+     m_empty_queue(),
+     m_full_queue(),
+     m_buffer_count(0),
+     m_buffer_size(0)
 {
 }
 
@@ -35,8 +41,12 @@ Kwave::RecordThread::RecordThread()
 Kwave::RecordThread::~RecordThread()
 {
     stop();
-    m_full_queue.clear();
-    m_empty_queue.clear();
+
+    {
+        QMutexLocker lock(&m_lock);
+        m_full_queue.clear();
+        m_empty_queue.clear();
+    }
 }
 
 //***************************************************************************
@@ -51,6 +61,8 @@ void Kwave::RecordThread::setRecordDevice(Kwave::RecordDevice *device)
 //***************************************************************************
 int Kwave::RecordThread::setBuffers(unsigned int count, unsigned int size)
 {
+    QMutexLocker lock(&m_lock);
+
     Q_ASSERT(!isRunning());
     if (isRunning()) return -EBUSY;
 
@@ -74,18 +86,22 @@ int Kwave::RecordThread::setBuffers(unsigned int count, unsigned int size)
 //***************************************************************************
 unsigned int Kwave::RecordThread::remainingBuffers()
 {
+    QMutexLocker lock(&m_lock);
     return (m_empty_queue.count());
 }
 
 //***************************************************************************
 unsigned int Kwave::RecordThread::queuedBuffers()
 {
+    QMutexLocker lock(&m_lock);
     return (m_full_queue.count());
 }
 
 //***************************************************************************
 QByteArray Kwave::RecordThread::dequeue()
 {
+    QMutexLocker lock(&m_lock);
+
     if (m_full_queue.count()) {
 	// de-queue the buffer from the full list
 	QByteArray buf = m_full_queue.dequeue();
@@ -104,26 +120,32 @@ QByteArray Kwave::RecordThread::dequeue()
 //***************************************************************************
 void Kwave::RecordThread::run()
 {
-    int result = 0;
+    int  result      = 0;
     bool interrupted = false;
 
     // read data until we receive a close signal
     while (!shouldStop() && !interrupted) {
 	// dequeue a buffer from the "empty" queue
 
-	if (m_empty_queue.isEmpty()) {
-	    // we had a "buffer overflow"
-	    qWarning("RecordThread::run() -> NO EMPTY BUFFER FOUND !!!");
-	    result = -ENOBUFS;
-	    break;
-	}
+	QByteArray buffer;
+	int        len;
+	{
+	    QMutexLocker lock(&m_lock);
 
-	QByteArray buffer = m_empty_queue.dequeue();
-	int len = buffer.size();
-	Q_ASSERT(buffer.size());
-	if (!len) {
-	    result = -ENOBUFS;
-	    break;
+	    if (m_empty_queue.isEmpty()) {
+		// we had a "buffer overflow"
+		qWarning("RecordThread::run() -> NO EMPTY BUFFER FOUND !!!");
+		result = -ENOBUFS;
+		break;
+	    }
+
+	    buffer  = m_empty_queue.dequeue();
+	    len     = buffer.size();
+	    Q_ASSERT(buffer.size());
+	    if (!len) {
+		result = -ENOBUFS;
+		break;
+	    }
 	}
 
 	// read into the current buffer
@@ -163,12 +185,16 @@ void Kwave::RecordThread::run()
 	// return buffer into the empty queue and abort on errors
 	// do not use it
 	if (interrupted && (result < 0)) {
+	    QMutexLocker lock(&m_lock);
 	    m_empty_queue.enqueue(buffer);
 	    break;
 	}
 
 	// inform the application that there is something to dequeue
-	m_full_queue.enqueue(buffer);
+	{
+	    QMutexLocker lock(&m_lock);
+	    m_full_queue.enqueue(buffer);
+	}
 	emit bufferFull();
     }
 

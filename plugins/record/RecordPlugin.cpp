@@ -1545,7 +1545,7 @@ void Kwave::RecordPlugin::processBuffer()
 
     // use a copy of the state, in case it changes below ;-)
     Kwave::RecordState state = m_state;
-    for (unsigned int track=0; track < tracks; ++track) {
+    for (unsigned int track = 0; track < tracks; ++track) {
 	// decode and care for all special effects, meters and so on
 	// split off and decode buffer with current track
 	split(buffer, buf, bytes_per_sample, track, tracks);

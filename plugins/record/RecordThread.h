@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QByteArray>
+#include <QMutex>
 #include <QQueue>
 
 #include "libkwave/WorkerThread.h"
@@ -85,6 +86,9 @@ namespace Kwave
 	void stopped(int errorcode);
 
     private:
+
+	/** lock for protecting the queues */
+	QMutex m_lock;
 
 	/** the device used as source */
 	Kwave::RecordDevice *m_device;

@@ -27,9 +27,9 @@
 //***************************************************************************
 static void encode_NULL(const sample_t *src, quint8 *dst, unsigned int count)
 {
-    (void)src;
-    (void)dst;
-    (void)count;
+    Q_UNUSED(src);
+    Q_UNUSED(dst);
+    Q_UNUSED(count);
 //     qWarning("call to encode_NULL");
 }
 

@@ -1609,7 +1609,7 @@ void Kwave::RecordPlugin::processBuffer()
 //***************************************************************************
 void Kwave::RecordPlugin::prerecordingChanged(bool enable)
 {
-    (void)enable;
+    Q_UNUSED(enable);
     InhibitRecordGuard _lock(*this); // activate the change
 }
 

@@ -69,7 +69,7 @@ Kwave::AboutContainer::~AboutContainer()
 }
 
 //***************************************************************************
-QSize Kwave::AboutContainer::sizeHint(void) const
+QSize Kwave::AboutContainer::sizeHint() const
 {
     //
     // The size is computed by adding the sizeHint().height() of all
@@ -117,7 +117,7 @@ QSize Kwave::AboutContainer::sizeHint(void) const
 }
 
 //***************************************************************************
-QSize Kwave::AboutContainer::minimumSizeHint(void) const
+QSize Kwave::AboutContainer::minimumSizeHint() const
 {
     return sizeHint();
 }
@@ -198,7 +198,7 @@ void Kwave::AboutContributor::fontChange(const QFont &/*oldFont*/)
 }
 
 //***************************************************************************
-QSize Kwave::AboutContributor::sizeHint(void) const
+QSize Kwave::AboutContributor::sizeHint() const
 {
     return minimumSizeHint();
 }

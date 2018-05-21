@@ -50,9 +50,9 @@ namespace Kwave
         virtual ~AboutContainer() Q_DECL_OVERRIDE;
 
 	void addPerson(const QString &name, const QString &email,
-		    const QString &url, const QString &task);
+	               const QString &url,  const QString &task);
 
-        virtual QSize sizeHint() const Q_DECL_OVERRIDE;
+	virtual QSize sizeHint() const Q_DECL_OVERRIDE;
 
         virtual QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 

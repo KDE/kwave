@@ -227,7 +227,7 @@ void Kwave::SonagramWindow::save()
     );
     if (!dlg) return;
     dlg->setWindowTitle(i18n("Save Sonagram"));
-    if (dlg->exec() == QDialog::Accepted) {
+    if ((dlg->exec() == QDialog::Accepted) && dlg) {
 	QString filename = dlg->selectedUrl().toLocalFile();
 	if (!filename.isEmpty()) m_image.save(filename, "BMP");
     }

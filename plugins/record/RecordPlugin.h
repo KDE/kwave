@@ -22,6 +22,7 @@
 
 #include <QByteArray>
 #include <QList>
+#include <QPointer>
 #include <QString>
 #include <QStringList>
 #include <QTimer>
@@ -249,7 +250,7 @@ namespace Kwave
 	Kwave::RecordDevice *m_device;
 
 	/** setup dialog */
-	Kwave::RecordDialog *m_dialog;
+	QPointer<Kwave::RecordDialog> m_dialog;
 
 	/** the thread for recording */
 	Kwave::RecordThread *m_thread;

@@ -29,6 +29,7 @@
 #include <QFutureSynchronizer>
 #include <QImage>
 #include <QMutexLocker>
+#include <QPointer>
 #include <QString>
 #include <QtConcurrentRun>
 
@@ -103,7 +104,8 @@ QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
     // try to interprete the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
 
-    Kwave::SonagramDialog *dlg = new(std::nothrow) Kwave::SonagramDialog(*this);
+    QPointer<Kwave::SonagramDialog> dlg =
+	new(std::nothrow) Kwave::SonagramDialog(*this);
     Q_ASSERT(dlg);
     if (!dlg) return Q_NULLPTR;
 
@@ -112,7 +114,7 @@ QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
     dlg->setTrackChanges(m_track_changes);
     dlg->setFollowSelection(m_follow_selection);
 
-    if (dlg->exec() == QDialog::Accepted) {
+    if ((dlg->exec() == QDialog::Accepted) && dlg) {
 	result = new(std::nothrow) QStringList();
 	Q_ASSERT(result);
 	if (result) dlg->parameters(*result);

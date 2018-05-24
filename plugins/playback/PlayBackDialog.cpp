@@ -649,7 +649,7 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
         dlg->selectUrl(QUrl(_("file:") + m_playback_params.device));
     else
         dlg->selectUrl(QUrl(_("file:/dev/*")));
-    if (dlg->exec() == QDialog::Accepted) {
+    if ((dlg->exec() == QDialog::Accepted) && dlg) {
 	QString new_device = dlg->selectedUrl().fileName();
 	// selected new device
 	if (cbDevice) cbDevice->setEditText(new_device);

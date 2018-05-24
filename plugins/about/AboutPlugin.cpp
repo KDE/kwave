@@ -20,6 +20,8 @@
 #include <errno.h>
 #include <new>
 
+#include <QPointer>
+
 #include <KLocalizedString>
 
 #include "libkwave/Plugin.h"
@@ -42,7 +44,7 @@ int Kwave::AboutPlugin::start(QStringList& params)
     Q_UNUSED(params);
 
     // create a new "about" dialog and show it
-    Kwave::AboutDialog *dlg = new(std::nothrow) Kwave::AboutDialog(
+    QPointer<Kwave::AboutDialog> dlg = new(std::nothrow) Kwave::AboutDialog(
 	parentWidget(),
 	manager().pluginInfoList()
     );

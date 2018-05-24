@@ -935,7 +935,7 @@ int Kwave::MainWidget::loadLabels(const QString &filename)
 	QUrl(), LABEL_LIST_EXT);
 	if (!dlg) return -1;
 	dlg->setWindowTitle(i18n("Load Labels"));
-	if (dlg->exec() != QDialog::Accepted) {
+	if ((dlg->exec() != QDialog::Accepted) || !dlg) {
 	    delete dlg;
 	    return 0;
 	} else {
@@ -971,7 +971,7 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
 	    this, url, LABEL_LIST_EXT);
 	if (!dlg) return 0;
 	dlg->setWindowTitle(i18n("Save Labels"));
-	if (dlg->exec() != QDialog::Accepted) {
+	if ((dlg->exec() != QDialog::Accepted) || !dlg) {
 	    delete dlg;
 	    return -1;
 	}
@@ -1059,7 +1059,7 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
 
 	// execute the dialog
 	accepted = (dlg->exec() == QDialog::Accepted);
-	if (!accepted) {
+	if (!accepted || !dlg) {
 	    // user pressed "cancel"
 	    delete dlg;
 	    break;

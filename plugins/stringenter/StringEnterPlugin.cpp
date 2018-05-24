@@ -73,7 +73,7 @@ QStringList *Kwave::StringEnterPlugin::setup(QStringList &previous_params)
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
-    if (list && dialog->exec()) {
+    if (list && dialog->exec() && dialog) {
 	// user has pressed "OK"
 	QString command = dialog->command();
 	emitCommand(command);

@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <new>
 
+#include <QPointer>
 #include <QStringList>
 
 #include <KLocalizedString>
@@ -89,14 +90,15 @@ QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
     interpreteParameters(previous_params);
 
     // create the setup dialog
-    Kwave::NewSignalDialog *dialog = new(std::nothrow) Kwave::NewSignalDialog(
-	parentWidget(), m_samples, m_rate, m_bits, m_tracks, m_bytime);
+    QPointer<Kwave::NewSignalDialog> dialog = new(std::nothrow)
+	Kwave::NewSignalDialog(
+	    parentWidget(), m_samples, m_rate, m_bits, m_tracks, m_bytime);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
-    if (list && dialog->exec()) {
+    if (list && dialog->exec() && dialog) {
 	// user has pressed "OK"
 	*list << QString::number(dialog->samples());
 	*list << QString::number(dialog->rate());

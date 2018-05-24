@@ -1093,14 +1093,13 @@ bool Kwave::SignalManager::insertSpace(sample_index_t offset,
     if (!count) return true; // nothing to do
 
     // first store undo data for all tracks
-    unsigned int track;
     if (m_undo_enabled) {
 	if (!registerUndoAction(new(std::nothrow) Kwave::UndoInsertAction(
 	    m_parent_widget, track_list, offset, length))) return false;
     }
 
     // then insert space into all tracks
-    foreach (track, track_list) {
+    foreach (unsigned int track, track_list) {
 	m_signal.insertSpace(track, offset, length);
     }
 

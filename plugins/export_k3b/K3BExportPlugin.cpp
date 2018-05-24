@@ -27,6 +27,7 @@
 #include <QFileInfo>
 #include <QIODevice>
 #include <QMap>
+#include <QPointer>
 #include <QProcess>
 #include <QRegExp>
 #include <QTextStream>
@@ -313,7 +314,7 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
     if (!dialog) return Q_NULLPTR;
 
     dialog->setWindowTitle(description());
-    if (dialog->exec() != QDialog::Accepted) {
+    if ((dialog->exec() != QDialog::Accepted) || !dialog) {
 	delete dialog;
         return Q_NULLPTR;
     }

@@ -973,7 +973,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	    return -1;
 	}
 
-	url = dlg->selectedUrl();
+	if (dlg) url = dlg->selectedUrl();
 	if (url.isEmpty()) {
 	    delete dlg;
 	    return 0;

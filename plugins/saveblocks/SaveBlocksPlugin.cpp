@@ -22,6 +22,7 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QPointer>
 #include <QRegExp>
 #include <QStringList>
 
@@ -103,7 +104,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 
     dialog->setWindowTitle(description());
     dialog->emitUpdate();
-    if (dialog->exec() != QDialog::Accepted) {
+    if ((dialog->exec() != QDialog::Accepted) || !dialog) {
 	delete dialog;
         return Q_NULLPTR;
     }

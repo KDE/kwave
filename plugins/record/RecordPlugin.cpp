@@ -218,7 +218,7 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
-    if (list && (m_dialog->exec() == QDialog::Accepted)) {
+    if (list && (m_dialog->exec() == QDialog::Accepted) && m_dialog) {
 	// user has pressed "OK"
 	*list = m_dialog->params().toList();
     } else {

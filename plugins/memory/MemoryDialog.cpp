@@ -153,7 +153,7 @@ void Kwave::MemoryDialog::searchSwapDir()
 	edDirectory->text(), Kwave::FileDialog::SelectDir, QString(), this);
     if (!dlg) return;
     dlg->setWindowTitle(i18n("Select Swap File Directory"));
-    if (dlg->exec() == QDialog::Accepted) {
+    if ((dlg->exec() == QDialog::Accepted) && dlg) {
 	QString dir = dlg->selectedUrl().toLocalFile();
 	if (dir.length()) edDirectory->setText(dir);
     }

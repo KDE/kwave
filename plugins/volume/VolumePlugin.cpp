@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <new>
 
+#include <QPointer>
 #include <QStringList>
 
 #include <KLocalizedString>
@@ -94,7 +95,7 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
     Q_ASSERT(overview_cache);
 
     // create the setup dialog
-    Kwave::VolumeDialog *dialog =
+    QPointer<Kwave::VolumeDialog> dialog =
 	new(std::nothrow) Kwave::VolumeDialog(parentWidget(), overview_cache);
     if (!dialog) {
 	if (overview_cache) delete overview_cache;
@@ -106,7 +107,7 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
     // execute the dialog
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
-    if (list && dialog->exec()) {
+    if (list && dialog->exec() && dialog) {
 	// user has pressed "OK"
 	*list = dialog->params();
     } else {

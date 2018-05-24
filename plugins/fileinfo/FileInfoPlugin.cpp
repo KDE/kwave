@@ -20,6 +20,8 @@
 #include <errno.h>
 #include <new>
 
+#include <QPointer>
+
 #include "libkwave/MessageBox.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/SignalManager.h"
@@ -48,14 +50,14 @@ QStringList *Kwave::FileInfoPlugin::setup(QStringList &)
     Kwave::FileInfo oldInfo(signalManager().metaData());
 
     // create the setup dialog
-    Kwave::FileInfoDialog *dialog =
+    QPointer<Kwave::FileInfoDialog> dialog =
 	new(std::nothrow) Kwave::FileInfoDialog(parentWidget(), oldInfo);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
-    if (list && dialog->exec()) {
+    if (list && dialog->exec() && dialog) {
 	// user has pressed "OK" -> apply the new properties
 	apply(dialog->info());
     } else {

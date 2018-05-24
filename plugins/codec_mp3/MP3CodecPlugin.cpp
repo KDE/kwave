@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include <QPointer>
+
 #include "libkwave/String.h"
 
 #include "MP3CodecPlugin.h"
@@ -56,14 +58,14 @@ QStringList *Kwave::MP3CodecPlugin::setup(QStringList &previous_params)
     Q_UNUSED(previous_params);
 
     // create the setup dialog
-    MP3EncoderDialog *dialog =
+    QPointer<MP3EncoderDialog> dialog =
         new(std::nothrow) MP3EncoderDialog(parentWidget());
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
-    if (list && dialog->exec()) {
+    if (list && dialog->exec() && dialog) {
 	// user has pressed "OK"
 	dialog->save();
     } else {

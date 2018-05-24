@@ -19,6 +19,7 @@
 
 #include <new>
 
+#include <QPointer>
 #include <QStringList>
 
 #include <KLocalizedString>
@@ -91,7 +92,7 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
     interpreteParameters(previous_params);
 
     // create the setup dialog
-    Kwave::AmplifyFreeDialog *dialog =
+    QPointer<Kwave::AmplifyFreeDialog> dialog =
 	new(std::nothrow) Kwave::AmplifyFreeDialog(parentWidget());
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
@@ -105,7 +106,7 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
-    if (list && dialog->exec()) {
+    if (list && dialog->exec() && dialog) {
 	// user has pressed "OK"
 	*list << _("amplify free");
 	QString cmd = dialog->getCommand();

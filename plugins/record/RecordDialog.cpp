@@ -26,6 +26,7 @@
 #include <QLabel>
 #include <QLatin1Char>
 #include <QPixmap>
+#include <QPointer>
 #include <QProgressBar>
 #include <QPushButton>
 #include <QSlider>
@@ -630,7 +631,7 @@ void Kwave::RecordDialog::selectRecordDevice()
         dlg->selectUrl(QUrl(_("file:") + m_params.device_name));
     else
         dlg->selectUrl(QUrl(_("file:/dev/*")));
-    if (dlg->exec() == QDialog::Accepted) {
+    if ((dlg->exec() == QDialog::Accepted) && dlg) {
 	// selected new device
 	QString new_device = dlg->selectedUrl().path();
 	if (new_device != m_params.device_name)

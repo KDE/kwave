@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QMutex>
+#include <QPointer>
 #include <QString>
 
 #include "libkwave/PlayBackParam.h"
@@ -115,7 +116,7 @@ namespace Kwave
     private:
 
 	/** dialog for the playback setup */
-	Kwave::PlayBackDialog *m_dialog;
+	QPointer<Kwave::PlayBackDialog> m_dialog;
 
 	/** reference to the playback controller */
 	Kwave::PlaybackController &m_playback_controller;

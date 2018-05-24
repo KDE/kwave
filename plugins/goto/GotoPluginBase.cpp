@@ -21,9 +21,11 @@
 #include <math.h>
 #include <new>
 
-#include <KLocalizedString>
 #include <QDialog>
+#include <QPointer>
 #include <QString>
+
+#include <KLocalizedString>
 
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginManager.h"
@@ -59,7 +61,7 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
     // get the name of the help section
     QString help_section = _("plugin_sect_") + command();
 
-    Kwave::GotoDialog *dialog = new(std::nothrow)
+    QPointer<Kwave::GotoDialog> dialog = new(std::nothrow)
 	Kwave::GotoDialog(parentWidget(),
 	    m_mode, m_position, rate, length, help_section
 	);
@@ -71,7 +73,7 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
-    if (list && dialog->exec()) {
+    if (list && dialog->exec() && dialog) {
 	// user has pressed "OK"
 	*list << QString::number(dialog->mode());
 	*list << QString::number(dialog->pos());

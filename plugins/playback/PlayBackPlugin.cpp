@@ -180,7 +180,7 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
     // activate the playback method
     m_dialog->setMethod(playback_params.method);
 
-    if (m_dialog->exec() == QDialog::Accepted) {
+    if ((m_dialog->exec() == QDialog::Accepted) && m_dialog) {
 	// get the new parameters and let them take effect
 	result = new(std::nothrow) QStringList();
 	Q_ASSERT(result);

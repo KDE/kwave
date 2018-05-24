@@ -61,7 +61,7 @@ QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
     sample_index_t offset = manager().selectionStart();
     sample_index_t length = signalLength();
 
-    Kwave::SelectRangeDialog *dialog =
+    QPointer<Kwave::SelectRangeDialog> dialog =
 	new(std::nothrow) Kwave::SelectRangeDialog(parentWidget(),
 	    m_start_mode, m_range_mode, m_range, rate, offset, length);
     Q_ASSERT(dialog);
@@ -69,7 +69,7 @@ QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
-    if (list && dialog->exec()) {
+    if (list && dialog->exec() && dialog) {
 	// user has pressed "OK"
 	*list << QString::number(dialog->startMode());
 	*list << QString::number(dialog->rangeMode());

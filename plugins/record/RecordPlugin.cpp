@@ -1430,7 +1430,7 @@ void Kwave::RecordPlugin::flushPrerecordingQueue()
     Q_ASSERT(m_writers);
     if (!m_writers) return;
     Q_ASSERT(tracks == m_writers->tracks());
-    if (!tracks || (tracks != m_writers->tracks())) return;
+    if (tracks != m_writers->tracks()) return;
 
     for (unsigned int track=0; track < tracks; ++track) {
 	Kwave::SampleFIFO &fifo = m_prerecording_queue[track];

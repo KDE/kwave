@@ -482,7 +482,8 @@ int Kwave::RecordALSA::initialize()
 	return err;
     }
 
-    err = snd_pcm_sw_params_set_avail_min(m_handle, m_sw_params, m_chunk_size);
+    /* err =*/ snd_pcm_sw_params_set_avail_min(m_handle, m_sw_params,
+                                               m_chunk_size);
 
     /* round up to closest transfer boundary */
     start_threshold = qMax<snd_pcm_uframes_t>(1, buffer_size);

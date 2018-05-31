@@ -69,10 +69,11 @@ Kwave::MemoryManager::MemoryManager()
 
     // if sizeof(void *) == 4 -> 32 bit ->  1024 MB
     // if sizeof(void *) == 8 -> 64 bit -> 4.398E12 MB
-    quint64 total = (1ULL << ((sizeof(void *) * 8ULL) - 22ULL));
-
     // limit the total memory to a 32bit value [MB]
-    if (total > (1ULL << 32)) total = (1ULL << 32) - 1;
+    quint64 total = qMin<quint64>(
+	(1ULL << ((sizeof(void *) * 8ULL) - 22ULL)),
+	(1ULL << 32) - 1
+    );
 #ifdef DEBUG
     qDebug("Kwave::MemoryManager: theoretical limit: %llu MB", total);
 #endif /* DEBUG */

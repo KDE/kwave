@@ -422,8 +422,7 @@ void Kwave::PlayBackPlugin::testPlayBack()
     m_playback_sink->setInteractive(true);
 
     // show a progress dialog
-    QProgressDialog *progress = Q_NULLPTR;
-    progress = new(std::nothrow) QProgressDialog(m_dialog);
+    QProgressDialog *progress = new(std::nothrow) QProgressDialog(m_dialog);
     Q_ASSERT(progress);
     if (progress) {
 	progress->setWindowTitle(i18n("Playback Test"));

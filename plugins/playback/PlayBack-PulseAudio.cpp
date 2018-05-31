@@ -741,9 +741,9 @@ int Kwave::PlayBackPulseAudio::close()
 
     if (m_pa_mainloop && m_pa_stream) {
 
-        pa_operation *op = Q_NULLPTR;
 	m_mainloop_lock.lock();
-	op = pa_stream_drain(m_pa_stream, pa_stream_success_cb, this);
+	pa_operation *op = pa_stream_drain(m_pa_stream,
+	                                   pa_stream_success_cb, this);
 	Q_ASSERT(op);
 	if (!op) qWarning("pa_stream_drain() failed: '%s'", pa_strerror(
 	    pa_context_errno(m_pa_context)));

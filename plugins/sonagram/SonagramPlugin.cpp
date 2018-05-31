@@ -140,7 +140,6 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
 
     param = params[1];
     m_window_type = Kwave::WindowFunction::findFromName(param);
-    if (!ok) return -EINVAL;
 
     param = params[2];
     m_color = (param.toUInt(&ok) != 0);

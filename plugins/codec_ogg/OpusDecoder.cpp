@@ -172,7 +172,7 @@ int Kwave::OpusDecoder::parseOpusTags(QWidget *widget, Kwave::FileInfo &info)
 	    break;
 	}
 	c      += 8;
-	length -= 8;
+	length -= 8; // length is [0...8] now
 
 	if (first_packet) {
 	    // the start of the first packet contains the software
@@ -180,7 +180,7 @@ int Kwave::OpusDecoder::parseOpusTags(QWidget *widget, Kwave::FileInfo &info)
 	    // read length of the comment
 	    quint32 len = qFromLittleEndian<quint32>(c);
 	    c      += 4;
-	    length -= 4;
+	    length -= 4; // length is [0...4] now
 	    if (len > length) {
 		// comment extends beyond end of packet
 		qWarning("OpusDecoder::parseHeader(): encoder name truncated "
@@ -207,11 +207,6 @@ int Kwave::OpusDecoder::parseOpusTags(QWidget *widget, Kwave::FileInfo &info)
 	}
 
 	while (fields && (length > 4)) {
-	    if (length < 4) {
-		qWarning("OpusDecoder::parseHeader(): broken comment (%lu)",
-			    length);
-		break;
-	    }
 	    quint32 len = qFromLittleEndian<quint32>(c);
 	    c      += 4;
 	    length -= 4;

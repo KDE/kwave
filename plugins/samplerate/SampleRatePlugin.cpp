@@ -70,7 +70,6 @@ int Kwave::SampleRatePlugin::interpreteParameters(QStringList &params)
 
     param = params[0];
     m_new_rate = param.toDouble(&ok);
-    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // check whether we should change the whole signal (optional)
@@ -172,8 +171,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 	first, first + new_length - 1);
 
     // connect the objects
-    bool ok = true;
-    if (ok) ok = Kwave::connect(
+    bool ok = Kwave::connect(
 	source,    SIGNAL(output(Kwave::SampleArray)),
 	converter, SLOT(input(Kwave::SampleArray)));
     if (ok) ok = Kwave::connect(

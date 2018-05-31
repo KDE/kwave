@@ -163,8 +163,7 @@ void Kwave::AmplifyFreePlugin::run(QStringList params)
     if (!sink.tracks()) return;
 
     // connect them
-    bool ok = true;
-    if (ok) ok = Kwave::connect(
+    bool ok = Kwave::connect(
 	source, SIGNAL(output(Kwave::SampleArray)),
 	mul,    SLOT(input_a(Kwave::SampleArray)));
     if (ok) ok = Kwave::connect(

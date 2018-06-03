@@ -31,6 +31,7 @@
 #include <QLatin1Char>
 #include <QMutex>
 #include <QMutexLocker>
+#include <QPointer>
 #include <QProgressDialog>
 #include <QString>
 #include <QTimer>
@@ -422,7 +423,8 @@ void Kwave::PlayBackPlugin::testPlayBack()
     m_playback_sink->setInteractive(true);
 
     // show a progress dialog
-    QProgressDialog *progress = new(std::nothrow) QProgressDialog(m_dialog);
+    QPointer<QProgressDialog> progress =
+	new(std::nothrow) QProgressDialog(m_dialog);
     Q_ASSERT(progress);
     if (progress) {
 	progress->setWindowTitle(i18n("Playback Test"));

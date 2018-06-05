@@ -3053,25 +3053,23 @@
 	    <informaltable frame='none'><tgroup cols='2'><tbody>
 	    <row valign="top"><entry><command>&no-i18n-tag;#checkable</command>:</entry>
 		<entry>
-		    Makes a menu entry <emphasis>checkable</emphasis>, so that
+		    Makes the menu entry <emphasis>checkable</emphasis>, so that
 		    it can be switched on or off.
 		</entry>
 	    </row>
 	    <row valign="top"><entry><command>&no-i18n-tag;#disabled</command>:</entry>
 		<entry>
-		    Lets the menu entry or menu/sub menu be
-		    <emphasis>disabled</emphasis>.
+		    <emphasis>Disables</emphasis> the menu, sub menu or menu entry.
 		</entry>
 	    </row>
 	    <row valign="top"><entry><command>&no-i18n-tag;#enabled</command>:</entry>
 		<entry>
-		    Makes a menu entry or menu/sub menu that has been previously
-		    disabled <emphasis>enabled</emphasis> again.
+		    <emphasis>Enables</emphasis> the menu, sub menu or menu entry.
 		</entry>
 	    </row>
 	    <row valign="top"><entry><command>#exclusive</command>(<replaceable>group</replaceable>):</entry>
 		<entry>
-		    Makes a menu entry be part of an <emphasis>exclusive</emphasis>
+		    Adds the menu entry to an <emphasis>exclusive</emphasis>
 		    <emphasis><replaceable>group</replaceable></emphasis> (one
 		    of many selection). The group that is given as parameter
 		    should not be used for any other purpose. Only one entry
@@ -3080,14 +3078,14 @@
 	    </row>
 	    <row valign="top"><entry><command>#group</command>(<replaceable>list</replaceable>):</entry>
 		<entry><para>
-		    Adds the menu entry or menu/sub menu to one or more
+		    Adds the menu, sub menu or menu entry to one or more
 		    a <emphasis>groups</emphasis>, so that the application can
 		    enable/disable a bunch of menu entries without need to know
 		    all their unique ids. Multiple groups can be passed as a
 		    list with a <quote><literal>,</literal></quote> as
 		    separator. Group names have to start
 		    with a <quote><literal>@</literal></quote>.
-		    The following groups predefined:
+		    The following groups are predefined:
 		    <variablelist>
 		    <varlistentry>
 			<term><command>&no-i18n-tag;@CLIPBOARD</command>:</term>
@@ -3138,11 +3136,11 @@
 	    </row>
 	    <row valign="top"><entry><command>&no-i18n-tag;#hidden</command>:</entry>
 		<entry>
-		    <emphasis>Hides</emphasis> the menu entry or menu/sub menu.
+		    <emphasis>Hides</emphasis> the menu, sub menu or menu entry.
 		</entry></row>
 	    <row valign="top"><entry><command>#icon</command>(<replaceable>name</replaceable>):</entry>
 		<entry>
-		    Assigns an <emphasis>icon</emphasis> to a menu entry. The
+		    Assigns an <emphasis>icon</emphasis> to the menu entry. The
 		    icon <emphasis><replaceable>name</replaceable></emphasis>
 		    should correspond to an icon file (without
 		    path and file extension) that is installed on the system or
@@ -3160,8 +3158,8 @@
 		    parameter has to contain <quote><literal>%1</literal></quote>
 		    as parameter, which will be replaced with the text of the
 		    menu entry when it is activated.
-		    (This sub command is internally used for the list of
-		    recent files, list of tracks and window list).
+		    This sub command is internally used for the list of
+		    recent files, list of tracks and window list.
 		</entry>
 	    </row>
 	    <row valign="top"><entry><command>&no-i18n-tag;#separator</command>:</entry>

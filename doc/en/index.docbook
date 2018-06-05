@@ -438,12 +438,12 @@
         Project Homepage<anchor id="project-homepage"/></para><para>
             For information about new up-to-date releases or some other
 	    information about this project, take a look at
-	    the <ulink url="&url_homepage;">&kwave; homepage</ulink>
+	    the <ulink url="&url_homepage;">&kwave; homepage</ulink>.
         </para></listitem>
         <listitem><para>
         Mailing List<anchor id="mailing-list"/></para><para>
 	If you need some help on using &kwave; or want to get involved
-	    in the development, join the Kwave developer mailing list
+	    in the development, join the &kwave; developer mailing list
 	    by visiting
 	    <ulink url="&url_mailinglist;"> "&url_mailinglist;"</ulink>.
 	</para></listitem>
@@ -451,7 +451,7 @@
 	    GIT Repository<anchor id="git-repository"/>
 	</para>
 	<para>
-	    There also is a new GIT repository hosted on KDE servers, and a
+	    There also is a new GIT repository hosted on &kde; servers, and a
 	    mirror repository hosted by
 	    <ulink url="&url_sourceforge;">SourceForge</ulink> where
 	    you can get the sources of the latest development version.
@@ -459,8 +459,8 @@
 	    in the chapter about
 	    <ulink url="&url_devel_building_rpm_from_git;">building from GIT</ulink>
 	    in the developer documentation.
-	    There also is a GIT web interface on <ulink url="&url_git_web_kde;">KDE</ulink>
-	    and on <ulink url="&url_git_web_sf;">SourceForge</ulink> where
+	    There also is a GIT web interface on <ulink url="&url_git_web_kde;">&kde;</ulink>
+	    and on <ulink url="&url_git_web_sf;">SourceForge</ulink> that
 	    you can use to browse through the sources.
         </para></listitem>
     </itemizedlist>
@@ -494,10 +494,12 @@
     </para>
 
     <para>
-	&kwave; version v0.9.0 is the first version hosted on KDE (kdereview)
+	&kwave; version v0.9.0 is the first version hosted on &kde; (kdereview)
 	and SourceForge servers, followed by v0.9.1, the first version for
 	&kf5-full;.
     </para>
+
+    <!-- @TODO@ kdemultimedia -->
 
     <!-- changelog cut out, this gives a smaller online help
          and *much* less work for the translators... -->
@@ -519,7 +521,8 @@
 	literature.
     </para>
 
-<sect1 id="the-analogue-world"><title>The analogue world</title>
+    <sect1 id="the-analogue-world">
+    <title>The analogue world</title>
 
     <para>
 	First of all, one must know that the
@@ -826,12 +829,12 @@
 		<para><guimenuitem>Same Window (MDI)</guimenuitem>:
 		    When using the <emphasis>Multi Document Interface</emphasis>
 		    (MDI), there is only one &kwave; main window, but within this
-		    window you have an area which shows sub windows, which
+		    window you have an area which shows sub-windows, which
 		    can be resized, moved, tiled, cascaded or minimized.
 		</para>
 		<para>
 		    You can select a window from the <guimenu>Windows</guimenu>
-		    menu or cycle through the sub windows with
+		    menu or cycle through the sub-windows with
 		    <keycombo>&Ctrl;<keysym>Tab</keysym></keycombo>.
 		    <screenshot>
 			<screeninfo>
@@ -945,12 +948,12 @@
 	    If you start &kwave; from the command line, you can specify a list
 	    of files that should be opened. The first specified file will be opened
 	    first, then the other files. Each file will be opened in an own new
-	    window or sub window of the same &kwave; instance. If you specify
+	    window or sub-window of the same &kwave; instance. If you specify
 	    wildcards, you can open a large number of files at once.
 	    </para>
 	    <para>
 	    For example, the following command starts a &kwave; and opens all sounds
-	    provided by the freedesktop XDG sound theme, each in a new window or sub window:
+	    provided by the freedesktop XDG sound theme, each in a new window or sub-window:
 	    <screen><prompt>% </prompt><command>kwave <filename>/usr/share/sounds/freedesktop/stereo/*.ogg</filename></command></screen>
 	    </para>
 	    <para>
@@ -1084,7 +1087,7 @@
 	<listitem><para>
             The favourite file format of &kwave; is (like you can guess from the
             name) <filename>.wav</filename>. This format is very common to other
-	    "operating systems" and also is commonly used within the KDE environment.
+	    "operating systems" and also is commonly used within the &plasma; environment.
 	</para></listitem>
 	<listitem><para>
             The second format that &kwave; supports is "ASCII". You can export to
@@ -2047,7 +2050,7 @@
     <sect1 id="drag_and_drop"><title>Drag and Drop</title>
 
     <para>
-    &kwave; supports the KDE Drag and Drop protocol. This enables you
+    &kwave; supports the &kde-frameworks; Drag and Drop protocol. This enables you
     to open files just by picking them up in a &dolphin; or &konqueror;
     window or the Desktop and let them drop into a window of &kwave;.
     </para>
@@ -2563,7 +2566,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_about_kde;</command>()</title>
 	    <para>
-		Shows a dialog window with information about the KDE community.
+		Shows a dialog window with information about the &kde; community.
 	    </para>
 	</simplesect>
 	</sect2>
@@ -2603,7 +2606,7 @@
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_close;</command>()</title>
 	    <para>
 		Closes the current file. If the GUI is configured to MDI or Tab mode,
-		this also closes the corresponding sub window.
+		this also closes the corresponding sub-window.
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
@@ -3262,7 +3265,7 @@
 		Opens a file, which can be either a sound file or a &kwave; script.
 		If no file name is passed, then a dialog window will be opened that
 		allows to select an existing file. Depending on the GUI mode the
-		file will be opened in the context of a new sub window (MDI and
+		file will be opened in the context of a new sub-window (MDI and
 		tab) or in a new main window (SDI, if there was already something
 		loaded).
 	    </para>
@@ -3455,7 +3458,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_quit;</command>()</title>
 	    <para>
-		Closes the current main window, including all sub windows.
+		Closes the current main window, including all sub-windows.
 		In SDI mode this is the same as the command
 		<quote><command>&no-i18n-cmd_close;</command>()</quote>.
 	    </para>
@@ -4184,15 +4187,15 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_activate;</command>(<replaceable>title</replaceable>])</title>
 	    <para>
-		Activates a sub window, identified by its window <replaceable>title</replaceable>.
-		If the sub window is minimized it will be restored.
+		Activates a sub-window, identified by its window <replaceable>title</replaceable>.
+		If the sub-window is minimized it will be restored.
 		Only available if in MDI and tab mode.
 		This command is internally used by the <quote><guisubmenu>Window</guisubmenu></quote> menu.
 	    </para>
 	</simplesect>
 	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
 	    <row><entry><parameter>title</parameter>:</entry>
-		<entry>the title of the sub window that should be activated</entry></row>
+		<entry>the title of the sub-window that should be activated</entry></row>
 	</tbody></tgroup></informaltable></simplesect>
 	</sect2>
 
@@ -4201,7 +4204,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_cascade;</command>()</title>
 	    <para>
-		Cascades all sub windows when in MDI mode. All sub windows that are currently
+		Cascades all sub-windows when in MDI mode. All sub-windows that are currently
 		minimized stay minimized, they will not be restored.
 	    </para>
 	</simplesect>
@@ -4259,7 +4262,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_window_minimize;</command></title>
 	    <para>
-		Minimizes the currently active sub window when in MDI mode or
+		Minimizes the currently active sub-window when in MDI mode or
 		the current toplevel window when in SDI or Tab mode.
 	    </para>
 	</simplesect>
@@ -4297,8 +4300,8 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_next_sub;</command>()</title>
 	    <para>
-		Activates the <emphasis>next</emphasis> sub window when in MDI or tab mode. If the next
-		sub window is minimized it will be restored.
+		Activates the <emphasis>next</emphasis> sub-window when in MDI or tab mode. If the next
+		sub-window is minimized it will be restored.
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4308,8 +4311,8 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_prev_sub;</command>()</title>
 	    <para>
-		Activates the <emphasis>previous</emphasis> sub window when in MDI or tab mode. If the previous
-		sub window is minimized it will be restored.
+		Activates the <emphasis>previous</emphasis> sub-window when in MDI or tab mode. If the previous
+		sub-window is minimized it will be restored.
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4407,8 +4410,8 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_tile;</command>()</title>
 	    <para>
-		Tiles all sub windows when in MDI mode, using some scheme of
-		KDE. All sub windows that are currently minimized stay minimized,
+		Tiles all sub-windows when in MDI mode, using some scheme of
+		&plasma;. All sub-windows that are currently minimized stay minimized,
 		they will not be restored.
 	    </para>
 	</simplesect>
@@ -4419,7 +4422,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_tile_vertical;</command>()</title>
 	    <para>
-		Tiles all sub windows vertically when in MDI mode. All windows
+		Tiles all sub-windows vertically when in MDI mode. All windows
 		that are currently minimized stay minimized, they will not be
 		restored.
 	    </para>
@@ -5527,9 +5530,9 @@
 						<row>
 						    <entry>&no-i18n-tag;<command>1</command></entry>
 						    <entry>
-							Save into a sub directory of the directory
-							of the K3b project file, using the K3b
-							project file name as base and appending
+							Save into a subdirectory of the directory of the
+							K3b project file, using the K3b project file
+							name as base and appending
 							<quote><command><literal>.dir</literal></command></quote>.
 						    </entry>
 						</row>
@@ -6414,7 +6417,7 @@
 			    <para>
 				Determines the size of the playback buffer, used
 				as exponent for calculating the real buffer
-				size as 2^n, e.g. setting this to 16 gives a
+				size as 2^n, &eg; setting this to 16 gives a
 				buffer size of 2^16 = 64 kB.
 			    </para>
 			</listitem>
@@ -6600,7 +6603,7 @@
 			    <para>
 				Determines the size of the recording buffer, used
 				as exponent for calculating the real buffer
-				size as 2^n, e.g. setting this to 16 gives a
+				size as 2^n, &eg; setting this to 16 gives a
 				buffer size of 2^16 = 64 kB.
 			    </para>
 			</listitem>
@@ -7874,7 +7877,7 @@
 	    </listitem>
 	    <listitem>
 	    	<para><emphasis role="bold">
-		    Mark Donohoe (KDE) <email>donohoe@kde.org</email>
+		    Mark Donohoe (&kde;) <email>donohoe@kde.org</email>
 		</emphasis></para><para>
 		    some icons and bitmaps for toolbar and GUI
 		</para>
@@ -8096,7 +8099,7 @@
 	<row id="INF_BITRATE_MODE">
 	    <entry colname='c1'>&no-i18n-tag;Bitrate Mode</entry>
 	    <entry colname='c2'>
-		Bitrate Mode (ABR, VBR, CBR, etc...)
+		Bitrate Mode (ABR, VBR, CBR, &etc;)
 	    </entry>
 	</row>
 	<row id="INF_BITRATE_NOMINAL">
@@ -8243,12 +8246,12 @@
 	<row id="INF_LICENSE">
 	    <entry colname='c1'>&no-i18n-tag;License</entry>
 	    <entry colname='c2'>
-                License information, e.g., <quote>All Rights Reserved</quote>,
+                License information, &eg;, <quote>All Rights Reserved</quote>,
                 <quote>Any Use Permitted</quote>, an URL to a license or the
                 Attribution-ShareAlike 4.0 International
                 (<quote>distributed under the terms of the
                 Attribution-ShareAlike 4.0 International License. See
-                &url_cc_by_sa_4; for details</quote>), etc.
+                &url_cc_by_sa_4; for details</quote>), &etc;
 	    </entry>
 	</row>
 	<row id="INF_MEDIUM">
@@ -8414,7 +8417,7 @@
 	    <entry colname='c1'>&no-i18n-tag;Version</entry>
 	    <entry colname='c2'>
 		May be used to differentiate multiple versions of the same
-		 track title in a single collection. (e.g. remix info)
+		 track title in a single collection. (&eg; remix info)
 	    </entry>
 	</row>
 	<!-- @FILEINFO_TABLE_END@ -->

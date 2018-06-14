@@ -10,28 +10,28 @@
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
   <!ENTITY url_devel_building_rpm_from_git "http://kwave.sourceforge.net/doc/devel/building_rpm_from_git.html">
   <!ENTITY url_devel_requirements "http://kwave.sourceforge.net/doc/devel/requirements.html">
-  <!ENTITY url_git_web_kde "http://commits.kde.org/kwave">
+  <!ENTITY url_git_web_kde "https://commits.kde.org/kwave">
   <!ENTITY url_prefix_gitweb "&url_git_web_kde;?path=">
   <!ENTITY url_authors "&url_prefix_gitweb;AUTHORS">
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
-  <!ENTITY url_debian "http://www.debian.org">
-  <!ENTITY url_flac "http://flac.sourceforge.net/">
+  <!ENTITY url_debian "https://www.debian.org">
+  <!ENTITY url_flac "https://xiph.org/flac/">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_id3lib "http://id3lib.sourceforge.net/">
-  <!ENTITY url_isrc "http://http://isrc.ifpi.org/">
-  <!ENTITY url_k3b "http://www.k3b.org/">
+  <!ENTITY url_isrc "http://isrc.ifpi.org/">
+  <!ENTITY url_k3b "https://userbase.kde.org/K3b/">
   <!ENTITY url_lame "http://lame.sourceforge.net/">
   <!ENTITY url_levelmeter "https://web.archive.org/web/*/http://www.rikkus.info/esound-level-meter/">
-  <!ENTITY url_libaudiofile "http://www.68k.org/~michael/audiofile/">
-  <!ENTITY url_libmad "http://www.underbit.com/products/mad/">
+  <!ENTITY url_libaudiofile "https://audiofile.68k.org/">
+  <!ENTITY url_libmad "https://www.underbit.com/products/mad/">
   <!ENTITY url_libsndfile "http://www.mega-nerd.com/libsndfile/">
   <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
   <!ENTITY url_mailinglist "https://lists.sourceforge.net/lists/listinfo/kwave-devel">
-  <!ENTITY url_ogg_vorbis "http://www.xiph.org">
+  <!ENTITY url_ogg_vorbis "https://www.xiph.org">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
-  <!ENTITY url_sourceforge "http://sourceforge.net">
+  <!ENTITY url_sourceforge "https://sourceforge.net">
   <!ENTITY url_sox "http://sox.sourceforge.net/">
-  <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
+  <!ENTITY url_git_web_sf "https://sourceforge.net/p/kwave/code/commit_browser">
   <!ENTITY i18n-cmd_syntax "Syntax: ">
   <!ENTITY i18n-plugin_lbl_internal_name "Internal&nbsp;Name:">
   <!ENTITY i18n-plugin_lbl_type "Plugin&nbsp;Type:">

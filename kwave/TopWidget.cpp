@@ -570,6 +570,8 @@ QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
 //***************************************************************************
 void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 {
+    Kwave::FileContext *old_default_context = Q_NULLPTR;
+
     // if no context was given: create a new empty default context
     if (!context) {
 	context = newFileContext();
@@ -591,7 +593,8 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 	    if (!m_context_map.isEmpty()) {
                 Kwave::FileContext *ctx = m_context_map[Q_NULLPTR];
                 m_context_map.remove(Q_NULLPTR);
-		if (ctx) ctx->release();
+		Q_ASSERT(ctx != context);
+		old_default_context = ctx;
 	    }
 	    // take over the new context
 	    m_context_map[Q_NULLPTR] = context;
@@ -695,10 +698,13 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
     // update the menu bar, toolbar etc.
     emit sigFileContextSwitched(Q_NULLPTR);
     emit sigFileContextSwitched(context);
+
     updateMenu();
     updateToolbar();
     updateCaption();
 
+    if (old_default_context)
+	old_default_context->release();
 }
 
 //***************************************************************************

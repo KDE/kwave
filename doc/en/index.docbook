@@ -833,9 +833,9 @@
 		    can be resized, moved, tiled, cascaded or minimized.
 		</para>
 		<para>
-		    You can select a window from the <guimenu>Windows</guimenu>
+		    You can select a window from the <guimenu>Window</guimenu>
 		    menu or cycle through the sub-windows with
-		    <keycombo>&Ctrl;<keysym>Tab</keysym></keycombo>.
+		    <keycombo>&Ctrl;&Tab;</keycombo>.
 		    <screenshot>
 			<screeninfo>
 			    screenshot of &kwave; in MDI mode
@@ -859,9 +859,9 @@
 		    some popular Internet browsers.
 		</para>
 		<para>
-		    You can activate a tab via the <guimenu>Windows</guimenu>
+		    You can activate a tab via the <guimenu>Window</guimenu>
 		    menu or cycle through the tabs with
-		    <keycombo>&Ctrl;<keysym>Tab</keysym></keycombo>.
+		    <keycombo>&Ctrl;&Tab;</keycombo>.
 		    <screenshot>
 			<screeninfo>
 			    screenshot of &kwave; in TAB mode
@@ -958,16 +958,15 @@
 	    </para>
 	    <para>
 		It is also possible to pass &kwave; text commands, encoded as a
-		special <abbrev>URI</abbrev><footnote><para>universal resource identifier</para></footnote>,
+		special &URI;<footnote><para>universal resource identifier</para></footnote>,
 		this will be described in a <link linkend="kwave_uri">later section</link>.
 	    </para>
 	</sect2>
 
-	<sect2><title>GUI Type</title>
+	<sect2><title>&GUI; Type</title>
 	    <para>
 	    The parameter <literal>--gui=<replaceable>SDI</replaceable>|<replaceable>MDI</replaceable>|<replaceable>TAB</replaceable></literal>
-	    lets &kwave; start in one of the three possible
-	    <abbrev>GUI</abbrev> modes:
+	    lets &kwave; start in one of the three possible &GUI; modes:
 	    <link linkend="gui_sdi"><abbrev>SDI</abbrev></link>,
 	    <link linkend="gui_mdi"><abbrev>MDI</abbrev></link> or
 	    <link linkend="gui_tab"><abbrev>TAB</abbrev></link>.
@@ -1001,7 +1000,7 @@
 	    <para>
 	    The command line option <literal>--iconic</literal> lets &kwave;
 	    start up minimized (iconified). This might be useful when you want to
-	    start &kwave; without GUI interaction, &eg; when running from a script.
+	    start &kwave; without &GUI; interaction, &eg; when running from a script.
 	    This option also implicitly disables the splash screen!
 	    </para>
 
@@ -1515,14 +1514,14 @@
         </para></listitem>
         <listitem><para>
 	    <menuchoice>
-	    <shortcut><keycombo><keycap>Space</keycap></keycombo></shortcut>
+	    <shortcut><keycombo>&Space;</keycombo></shortcut>
 	    <guimenu>Play</guimenu><guimenuitem>Pause</guimenuitem>
 	    </menuchoice>: Pause the playback at the current position. Only
 	    available when the playback is running.
         </para></listitem>
         <listitem><para>
 	    <menuchoice>
-	    <shortcut><keycombo><keycap>Space</keycap></keycombo></shortcut>
+	    <shortcut><keycombo>&Space;</keycombo></shortcut>
 	    <guimenu>Play</guimenu><guimenuitem>Continue</guimenuitem>
 	    </menuchoice>: Continue the playback from the position where it
 	    has been paused. Only available if the playback is paused.
@@ -1591,46 +1590,6 @@
     <sect2 id="zooming"><title>Zooming in and out</title>
     <para>
         <itemizedlist>
-	<!-- zoom to all -->
-        <listitem><para>
-	    <emphasis>zoom to whole signal:</emphasis>
-	    selects a zoom factor that makes the whole signal visible in the
-	    current window.
-	    <itemizedlist>
-	    <listitem><para>
-		menu entry:
-		<menuchoice>
-		<guimenu>View</guimenu><guimenuitem>Zoom to whole signal</guimenuitem>
-		</menuchoice>
-	    </para></listitem>
-	    <listitem><para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
-		</imageobject><textobject><phrase>zoom all button</phrase></textobject>
-		</inlinemediaobject>
-	    </para></listitem>
-	    </itemizedlist>
-        </para></listitem>
-	<!-- zoom to 100% -->
-        <listitem><para>
-	    <emphasis>zoom to 100%:</emphasis>
-	    zooms in up to a scale where on sample is represented by on pixel
-	    on the screen.
-	    <itemizedlist>
-	    <listitem><para>
-		menu entry:
-		<menuchoice>
-		<guimenu>View</guimenu><guimenuitem>Zoom to 100%</guimenuitem>
-		</menuchoice>
-	    </para></listitem>
-	    <listitem><para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
-		</imageobject><textobject><phrase>zoom to 100% button</phrase></textobject>
-		</inlinemediaobject>
-	    </para></listitem>
-	    </itemizedlist>
-        </para></listitem>
 	<!-- zoom in -->
         <listitem><para>
 	    <emphasis>zoom in:</emphasis>
@@ -1646,7 +1605,7 @@
 	    <listitem><para>
 		toolbar button: <inlinemediaobject><imageobject>
 		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
-		</imageobject><textobject><phrase>zoom in button</phrase></textobject>
+		</imageobject><textobject><phrase><quote>zoom in</quote></phrase></textobject>
 		</inlinemediaobject>
 	    </para></listitem>
 	    </itemizedlist>
@@ -1666,7 +1625,7 @@
 	    <listitem><para>
 		toolbar button: <inlinemediaobject><imageobject>
 		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
-		</imageobject><textobject><phrase>zoom out button</phrase></textobject>
+		</imageobject><textobject><phrase><quote>zoom out</quote></phrase></textobject>
 		</inlinemediaobject>
 	    </para></listitem>
 	    </itemizedlist>
@@ -1680,14 +1639,54 @@
 	    <listitem><para>
 		menu entry / keyboard shortcut:
 		<menuchoice>
-		<shortcut><keycombo>&Ctrl;<keycap>Space</keycap></keycombo></shortcut>
+		<shortcut><keycombo>&Ctrl;&Space;</keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Zoom to Selection</guimenuitem>
 		</menuchoice>
 	    </para></listitem>
 	    <listitem><para>
 		toolbar button: <inlinemediaobject><imageobject>
 		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
-		</imageobject><textobject><phrase>zoom to selection button</phrase></textobject>
+		</imageobject><textobject><phrase><quote>zoom to selection</quote></phrase></textobject>
+		</inlinemediaobject>
+	    </para></listitem>
+	    </itemizedlist>
+        </para></listitem>
+	<!-- zoom to all -->
+        <listitem><para>
+	    <emphasis>zoom to whole signal:</emphasis>
+	    selects a zoom factor that makes the whole signal visible in the
+	    current window.
+	    <itemizedlist>
+	    <listitem><para>
+		menu entry:
+		<menuchoice>
+		<guimenu>View</guimenu><guimenuitem>Zoom to whole signal</guimenuitem>
+		</menuchoice>
+	    </para></listitem>
+	    <listitem><para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
+        </imageobject><textobject><phrase><quote>zoom all</quote></phrase></textobject>
+		</inlinemediaobject>
+	    </para></listitem>
+	    </itemizedlist>
+        </para></listitem>
+	<!-- zoom to 100% -->
+        <listitem><para>
+	    <emphasis>zoom to 100%:</emphasis>
+	    zooms in up to a scale where on sample is represented by on pixel
+	    on the screen.
+	    <itemizedlist>
+	    <listitem><para>
+		menu entry:
+		<menuchoice>
+		<guimenu>View</guimenu><guimenuitem>Zoom to 100%</guimenuitem>
+		</menuchoice>
+	    </para></listitem>
+	    <listitem><para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
+		</imageobject><textobject><phrase><quote>zoom to 100%</quote></phrase></textobject>
 		</inlinemediaobject>
 	    </para></listitem>
 	    </itemizedlist>
@@ -1705,80 +1704,17 @@
     <sect2 id="scrolling"><title>Scrolling left and right</title>
     <para>
         <itemizedlist>
-	<!-- scroll left -->
-        <listitem><para>
-	    <emphasis>scroll left:</emphasis>
-	    scrolls to the start of the signal by 1/3 of the current view.
-	    </para>
-	    <para>
-		menu entry / keyboard shortcut:
-		<menuchoice>
-		<shortcut><keycombo><keycap>cursor Left</keycap></keycombo></shortcut>
-		<guimenu>View</guimenu><guimenuitem>Scroll left</guimenuitem>
-		</menuchoice>
-	    </para>
-	    <para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
-		</imageobject><textobject><phrase>scroll left button</phrase></textobject>
-		</inlinemediaobject>
-	    </para>
-        </listitem>
-	<!-- scroll right -->
-        <listitem><para>
-	    <emphasis>scroll right:</emphasis>
-	    scrolls to the end of the signal by 1/3 of the current view.
-	    </para>
-	    <para>
-		menu entry / keyboard shortcut:
-		<menuchoice>
-		<shortcut><keycombo><keycap>cursor right</keycap></keycombo></shortcut>
-		<guimenu>View</guimenu><guimenuitem>Scroll right</guimenuitem>
-		</menuchoice>
-	    </para>
-	    <para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
-		</imageobject><textobject><phrase>scroll right button</phrase></textobject>
-		</inlinemediaobject>
-	    </para>
-        </listitem>
-	<!-- previous page -->
-        <listitem><para>
-	    <emphasis>previous page:</emphasis>
-	    scrolls to the position right before the current view (left).
-	    </para>
-	    <para>
-		menu entry / keyboard shortcut:
-		<menuchoice>
-		<shortcut><keycombo><keycap>Page up</keycap></keycombo></shortcut>
-		<guimenu>View</guimenu><guimenuitem>Previous Page</guimenuitem>
-		</menuchoice>
-	    </para>
-	    <para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
-		</imageobject><textobject><phrase>previous page button</phrase></textobject>
-		</inlinemediaobject>
-	    </para>
-        </listitem>
-	<!-- next page -->
+	<!-- goto position -->
        <listitem><para>
-	    <emphasis>next page:</emphasis>
-	    scrolls to the position right after the current view (right).
+	    <emphasis>goto position:</emphasis>
+		opens a dialog to enter the position where you want scrolls the current view.
 	    </para>
 	    <para>
 		menu entry / keyboard shortcut:
 		<menuchoice>
-		<shortcut><keycombo><keycap>Page down</keycap></keycombo></shortcut>
-		<guimenu>View</guimenu><guimenuitem>Next Page</guimenuitem>
+		<shortcut><keycombo>&Ctrl;<keycap>G</keycap></keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Go to Position...</guimenuitem>
 		</menuchoice>
-	    </para>
-	    <para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
-		</imageobject><textobject><phrase>next page button</phrase></textobject>
-		</inlinemediaobject>
 	    </para>
         </listitem>
 	<!-- to begin -->
@@ -1790,7 +1726,7 @@
 	    <para>
 		menu entry / keyboard shortcut:
 		<menuchoice>
-		<shortcut><keycombo>&Ctrl;<keycap>Home</keycap></keycombo></shortcut>
+		<shortcut><keycombo>&Ctrl;&Home;</keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Begin</guimenuitem>
 		</menuchoice>
 	    </para>
@@ -1803,9 +1739,85 @@
 	    <para>
 		menu entry / keyboard shortcut:
 		<menuchoice>
-		<shortcut><keycombo>&Ctrl;<keycap>End</keycap></keycombo></shortcut>
+		<shortcut><keycombo>&Ctrl;&End;</keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>End</guimenuitem>
 		</menuchoice>
+	    </para>
+        </listitem>
+	<!-- previous page -->
+        <listitem><para>
+	    <emphasis>previous page:</emphasis>
+	    scrolls to the position right before the current view (left).
+	    </para>
+	    <para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo>&PgUp;</keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Previous Page</guimenuitem>
+		</menuchoice>
+	    </para>
+	    <para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
+		</imageobject><textobject><phrase><quote>previous page</quote></phrase></textobject>
+		</inlinemediaobject>
+	    </para>
+        </listitem>
+	<!-- next page -->
+       <listitem><para>
+	    <emphasis>next page:</emphasis>
+	    scrolls to the position right after the current view (right).
+	    </para>
+	    <para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo>&PgDn;</keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Next Page</guimenuitem>
+		</menuchoice>
+	    </para>
+	    <para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
+		</imageobject><textobject><phrase><quote>next page</quote></phrase></textobject>
+		</inlinemediaobject>
+	    </para>
+        </listitem>
+	<!-- scroll right -->
+        <listitem><para>
+	    <emphasis>scroll right:</emphasis>
+	    scrolls to the end of the signal by 1/3 of the current view.
+	    </para>
+	    <para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo>&Right;</keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Scroll right</guimenuitem>
+		</menuchoice>
+	    </para>
+	    <para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
+		</imageobject><textobject><phrase><quote>scroll right</quote></phrase></textobject>
+		</inlinemediaobject>
+	    </para>
+        </listitem>
+	<!-- scroll left -->
+        <listitem><para>
+	    <emphasis>scroll left:</emphasis>
+	    scrolls to the start of the signal by 1/3 of the current view.
+	    </para>
+	    <para>
+		menu entry / keyboard shortcut:
+		<menuchoice>
+		<shortcut><keycombo>&Left;</keycombo></shortcut>
+		<guimenu>View</guimenu><guimenuitem>Scroll left</guimenuitem>
+		</menuchoice>
+	    </para>
+	    <para>
+		toolbar button: <inlinemediaobject><imageobject>
+		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
+		</imageobject><textobject><phrase><quote>scroll left</quote></phrase></textobject>
+		</inlinemediaobject>
 	    </para>
         </listitem>
 	</itemizedlist>
@@ -1821,18 +1833,18 @@
 	<itemizedlist>
 	<!-- <left click> on overview widget -->
 	<listitem><para>
-	    <emphasis>single click with left mouse button</emphasis>:
+	    <emphasis>single click with &LMB;</emphasis>:
 		directly move the current view to the clicked position.
 	</para></listitem>
 	<!-- <double click left> on overview widget -->
 	<listitem><para>
-	    <emphasis>double click with left mouse button</emphasis>:
+	    <emphasis>double click with &LMB;</emphasis>:
 		directly move the current view to the clicked position
 		and additionally zoom in.
 	</para></listitem>
 	<!-- <shift> + <double click left> on overview widget -->
 	<listitem><para>
-	    <emphasis>double click with left mouse button, with
+	    <emphasis>double click with &LMB;, with
 		&Shift; pressed</emphasis>:
 		directly move the current view to the clicked position
 		and additionally zoom out.
@@ -1845,7 +1857,7 @@
     <sect2 id="vertical_zoom"><title>Vertical zoom</title>
     <para>
 	You can zoom the current view vertically by pressing the
-	<keycap>Alt</keycap> key and scrolling with the mouse wheel.
+	&Alt; key and scrolling with the mouse wheel.
     </para>
     </sect2>
 
@@ -1907,20 +1919,21 @@
     <para>
     The easiest way of selecting a range of samples is just to do that
     with mouse. It works like you are used from other applications: just press
-    the left mouse button at the point you want to let the selection start
+    the &LMB; at the point you want to let the selection start
     and release the button where you want it to end.
     </para>
     <para>
     If you want to adjust or move the selection's start or end, you can move the
     mouse cursor near to the start or the end of the selection until it changes
     from the standard arrow cursor into the left-right arrow cursor and then
-    press the left mouse button and adjust.
+    press the &LMB; and adjust.
     </para>
     <para>
     You can also extend or shrink the selection to a specific point by holding
-    down the &Shift; key while clicking with the left mouse button. Depending
+    down the &Shift; key while clicking with the &LMB;. Depending
     on which border is nearer, the left or right border of the selection will
-    be set to a new position.
+    be set until the new position. If there was nothing selected, will be set
+    from the beginning.
     </para>
     <para>
     There are also some functions available via the menu and of course some
@@ -1934,17 +1947,17 @@
 	</menuchoice>
     </para></listitem>
     <listitem><para>
-	remove any selection and select "nothing":
+	select a range:
 	<menuchoice>
-	<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut>
-	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Nothing</guimenuitem>
+	<shortcut><keycombo><keycap>R</keycap></keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Range</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <listitem><para>
 	the currently visible area:
 	<menuchoice>
 	<shortcut><keycombo><keycap>V</keycap></keycombo></shortcut>
-	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Visible</guimenuitem>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Visible Area</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <listitem><para>
@@ -1970,17 +1983,24 @@
 	(Hint: use the "<keycap>-</keycap>" key from the numeric keypad!)
     </para></listitem>
     <listitem><para>
+	remove any selection and select "nothing":
+	<menuchoice>
+	<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Nothing</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
 	expand the selection to the start of the signal (first sample):
 	<menuchoice>
-	<shortcut><keycombo>&Shift;<keycap>Home</keycap></keycombo></shortcut>
-	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to start</guimenuitem>
+	<shortcut><keycombo>&Shift;&Home;</keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>To Start</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <listitem><para>
 	expand the selection to the end of the signal (last sample):
 	<menuchoice>
-	<shortcut><keycombo>&Shift;<keycap>End</keycap></keycombo></shortcut>
-	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to end</guimenuitem>
+	<shortcut><keycombo>&Shift;&End;</keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>To End</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <!-- expand to labels -->
@@ -1998,16 +2018,16 @@
 	select the area between the next two labels that are right from the
 	current selection or up to the end of the signal:
 	<menuchoice>
-	<shortcut><keycombo>&Shift;&Ctrl;<keycap>N</keycap></keycombo></shortcut>
-	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to next labels</guimenuitem>
+	<shortcut><keycombo>&Ctrl;&Shift;<keycap>N</keycap></keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>To Next Labels</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <listitem><para>
 	select the area between the previous two labels that are left from the
 	current selection or up to the start of the signal:
 	<menuchoice>
-	<shortcut><keycombo>&Shift;&Ctrl;<keycap>P</keycap></keycombo></shortcut>
-	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to previous labels</guimenuitem>
+	<shortcut><keycombo>&Ctrl;&Shift;<keycap>P</keycap></keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>To Previous Labels</guimenuitem>
 	</menuchoice>
     </para></listitem>
     </itemizedlist>
@@ -2067,8 +2087,8 @@
     a &kwave; window. Per default the drag operation is done in
     <emphasis>move</emphasis> mode where the selected range is deleted
     from the original place and inserted at the drop position.
-    By pressing the <keycap moreinfo="none">Ctrl</keycap> key you can
-    modify this and drag in <emphasis>copy</emphasis> mode instead.
+    By pressing the &Ctrl; key you can modify this and drag in
+    <emphasis>copy</emphasis> mode instead.
     </para>
 
     </sect1>
@@ -2162,7 +2182,7 @@
 <chapter id="automization"><title>Automization and Scripting with &kwave;</title>
     <para>
 	&kwave; since its first version uses an internal text command language.
-	This command language is used internally for menu handling, GUI control,
+	This command language is used internally for menu handling, &GUI; control,
 	builtin effects and plugin invocations. The commands will be described
 	later in the section
 	<link linkend="kwave_commands" endterm="title_kwave_commands" />.
@@ -2187,7 +2207,7 @@
 	    </para></listitem>
 	    <listitem><para>
 		Numerical parameters can be given as fixed point numbers or
-		as floating point numbers, using a dot as decimal separator.
+		as floating point numbers, <emphasis>using a dot as decimal separator</emphasis>.
 	    </para></listitem>
 	    <listitem><para>
 		String parameters are automatically trimmed (all white space
@@ -2208,8 +2228,7 @@
 	</itemizedlist>
 	Example:
 	<screen><command>fileinfo(<parameter>Comments</parameter><token>,</token><parameter>"This is an \"example\" comment."</parameter>)</command></screen>
-	This example consists of the command
-	<quote><command>fileinfo</command></quote> and has two
+	This example consists of the command <command>fileinfo</command>() and has two
 	parameters: the keyword <parameter>Comments</parameter> and the text
 	<quote><parameter>"This is an \"example\" comment."</parameter></quote>.
 	(These parameters are explained in the corresponding section in the command reference).
@@ -2226,18 +2245,18 @@
 	<link linkend="command_line">Command Line</link> which are used
 	to start &kwave; in iconified mode or without splash screen,
 	you can pass text commands on the command line, encoded in a
-	special URI format:
+	special &URI; format:
     </para>
     <para>
 	<literal>kwave:<replaceable>command</replaceable>[?<replaceable>parameter</replaceable>[,<replaceable>parameter</replaceable> ...] ]</literal>
     </para>
 
     <para>
-	The rules for transforming a &kwave; text command into a valid URI
+	The rules for transforming a &kwave; text command into a valid &URI;
 	are as follows:
 	<itemizedlist>
 	    <listitem><para>
-		The URI starts with the word <literal>kwave</literal>, followed
+		The &URI; starts with the word <literal>kwave</literal>, followed
 		by a <quote><token>:</token></quote> and the command name.
 	    </para></listitem>
 	    <listitem><para>
@@ -2250,8 +2269,8 @@
 	    </para></listitem>
 	    <listitem><para>
 		All special characters in command name and parameters have to
-		be URL encoded. Here a list of the translations:
-		<table frame='all'><title>URL Encoding Translation Table</title>
+		be &URL; encoded. Here a list of the translations:
+		<table frame='all'><title>&URL; Encoding Translation Table</title>
 		<tgroup cols='11' align='center' colsep='1' rowsep='1'>
 		<colspec colname='c1'/>
 		<colspec/>
@@ -2380,9 +2399,9 @@
 	of a script. If you want to implement a possibility for the user to
 	end a script, you can use the
 	command <quote><link linkend="cmd_sect_msgbox"><command>msgbox</command></link>(<parameter><replaceable>text</replaceable></parameter>)</quote>.
-	This shows a message box with the two
-	buttons <quote><guibutton>OK</guibutton></quote> (which lets the script
-	continue) and <quote><guibutton>Cancel</guibutton></quote> (which
+	This shows a message box with the two buttons 
+    <guibutton>OK</guibutton> (which lets the script
+	continue) and <guibutton>Cancel</guibutton> (which
 	returns an error code and stops the script).
     </para>
     </sect2>
@@ -2390,7 +2409,7 @@
     <para>
 	Lines that consist only of an identifier, followed by a <quote><token>:</token></quote>
 	are treated <emphasis>labels</emphasis>. They can be referenced
-	later in the script by the special keyword <quote><command>GOTO</command></quote>
+	later in the script by the special keyword <command>GOTO</command>
 	<footnote><para>Note:
 	    Please don't mix up the keyword <quote><command>GOTO</command></quote>
 	    with the text command
@@ -2605,7 +2624,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_close;</command>()</title>
 	    <para>
-		Closes the current file. If the GUI is configured to MDI or Tab mode,
+		Closes the current file. If the &GUI; is configured to MDI or Tab mode,
 		this also closes the corresponding sub-window.
 	    </para>
 	</simplesect>
@@ -2797,7 +2816,7 @@
 		button. If the playback is currently running, it skips forward
 		by 1/10 of the visible range. If the playback is not running,
 		this does the same as the command
-		<command>&no-i18n-cmd_view_scroll_right;</command>.
+		<command>&no-i18n-cmd_view_scroll_right;</command>().
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
@@ -2834,7 +2853,7 @@
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_insert_at;</command>(<replaceable>pos</replaceable>)</title>
 	    <para>
 		Inserts the content of the clipboard at the given position,
-		like the command <command>&no-i18n-cmd_paste;()</command>().
+		like the command <command>&no-i18n-cmd_paste;</command>().
 		If the clipboard is currently empty, this function does nothing.
 	    </para>
 	</simplesect>
@@ -2855,7 +2874,7 @@
 		and sample rate settings of the signal. If the index is
 		higher than or equal to the current number of tracks, it will
 		be appended as the last track, same as by the command
-		<command>&no-i18n-cmd_add_track;()</command>.
+		<command>&no-i18n-cmd_add_track;</command>().
 		The index of all existing tracks at and after the given
 		index will be incremented by one.
 	    </para>
@@ -2921,7 +2940,7 @@
 	    <simplesect>
 		<title>&i18n-cmd_syntax;<command>&no-i18n-cmd_label_edit;</command>(<replaceable>index</replaceable>)</title>
 		<para>
-		    Opens a window in which the user can edit the position and the
+		    Opens a dialog window in which the user can edit the position and the
 		    description of a label, which is identified by its index
 		    (starting from zero). If no label with the given index exists,
 		    this command does nothing.
@@ -3000,8 +3019,7 @@
 		    that will be executed when the menu entry gets activated.
 		    If a menu entry does not have a corresponding command
 		    (for example if it is a sub menu and not menu entry),
-		    you should use the special
-		    command <command>ignore()</command>.
+		    you should use the special command <command>ignore</command>().
 		</entry>
 	    </row>
 	    <row valign="top">
@@ -3178,18 +3196,16 @@
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_msgbox;</command>(<replaceable>text</replaceable>)</title>
 	    <para>
 		Shows a message box with some <emphasis><replaceable>text</replaceable></emphasis>
-		and the two buttons <quote><guibutton>OK</guibutton></quote>
-		(returns without error code) and
-		<quote><guibutton>Cancel</guibutton></quote> (returns and error
-		code). You can use this command to give the user a possibility
-		to abort a running script.
+		and the two buttons <guibutton>OK</guibutton> (returns without error code) and
+		<guibutton>Cancel</guibutton> (returns and error code). You can use this command
+        to give the user a possibility to abort a running script.
 	    </para>
 	</simplesect>
 	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
 	    <row><entry><parameter>text</parameter>:</entry>
 		<entry>A message that will be shown in the message box, should
-		    contain a question that can be answered with <quote>OK</quote>
-		    or <quote>Cancel</quote>
+		    contain a question that can be answered with <guibutton>OK</guibutton>
+            or <guibutton>Cancel</guibutton>.
 		</entry>
 	    </row>
 	</tbody></tgroup></informaltable></simplesect>
@@ -3241,7 +3257,7 @@
 		button. If the playback is currently running, it skips forward
 		to the next label. If the playback is not running,
 		this does the same as the command
-		<command>&no-i18n-cmd_view_scroll_next_label;</command>.
+		<command>&no-i18n-cmd_view_scroll_next_label;</command>().
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
@@ -3262,7 +3278,7 @@
 	    <para>
 		Opens a file, which can be either a sound file or a &kwave; script.
 		If no file name is passed, then a dialog window will be opened that
-		allows to select an existing file. Depending on the GUI mode the
+		allows to select an existing file. Depending on the &GUI; mode the
 		file will be opened in the context of a new sub-window (MDI and
 		tab) or in a new main window (SDI, if there was already something
 		loaded).
@@ -3285,7 +3301,7 @@
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_openrecent;</command>(<replaceable>filename</replaceable>)</title>
 	    <para>
 		Practically the same as the command
-		<command>&no-i18n-cmd_open;</command>, but intended to be used
+		<command>&no-i18n-cmd_open;</command>(), but intended to be used
 		internally for the list of recently opened files in the menu
 		<menuchoice>
 		    <guimenu>File</guimenu><guimenu>Open Recent</guimenu>
@@ -3300,7 +3316,7 @@
 	</tbody></tgroup></informaltable></simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		<link linkend="cmd_sect_open"><command>&no-i18n-tag;&no-i18n-cmd_open;</command></link>
+		<link linkend="cmd_sect_open"><command>&no-i18n-tag;&no-i18n-cmd_open;</command>()</link>
 	    </para>
 	</simplesect>
 	</sect2>
@@ -3393,7 +3409,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_plugin_execute;</command>(<replaceable>name</replaceable>, [<replaceable>parameter</replaceable> ...])</title>
 	    <para>
-		Similar to the command <quote><command>&no-i18n-cmd_plugin;</command>()</quote>,
+		Similar to the command <command>&no-i18n-cmd_plugin;</command>(),
 		but without calling the setup function of the plugin if no parameters
 		were passed.
 	    </para>
@@ -3437,7 +3453,7 @@
 		button. If the playback is currently running, it skips back
 		to the previous label or start of the selection. If the playback
 		is not running, this does the same as the command
-		<command>&no-i18n-cmd_view_scroll_prev_label;</command>.
+		<command>&no-i18n-cmd_view_scroll_prev_label;</command>().
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
@@ -3458,7 +3474,7 @@
 	    <para>
 		Closes the current main window, including all sub-windows.
 		In SDI mode this is the same as the command
-		<quote><command>&no-i18n-cmd_close;</command>()</quote>.
+		<command>&no-i18n-cmd_close;</command>().
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
@@ -3478,7 +3494,7 @@
 	    <para>
 		Corresponds to the <guibutton>Redo</guibutton> toolbar
 		button and repeats one operation that has been reverted with
-		<command>&no-i18n-cmd_undo;</command>.
+		<command>&no-i18n-cmd_undo;</command>().
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
@@ -3493,7 +3509,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_redo_all;</command>()</title>
 	    <para>
-		Similar to <command>&no-i18n-cmd_redo;</command>, but re-does
+		Similar to <command>&no-i18n-cmd_redo;</command>(), but re-does
 		as many operations as possible.
 	    </para>
 	</simplesect>
@@ -3547,7 +3563,7 @@
 		button. If the playback is currently running, it skips backward
 		by 1/10 of the visible range. If the playback is not running,
 		this does the same as the command
-		<command>&no-i18n-cmd_view_scroll_left;</command>.
+		<command>&no-i18n-cmd_view_scroll_left;</command>().
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
@@ -3570,7 +3586,7 @@
 		button. Saves the current file if it has modifications.
 		If the file does not already have a name (&eg; a file that has
 		just been created and does not yet have a file name), this
-		command does the same as <command>&no-i18n-cmd_saveas;</command>.
+		command does the same as <command>&no-i18n-cmd_saveas;</command>().
 	    </para>
 	</simplesect>
 	<simplesect><title>See also</title>
@@ -3601,7 +3617,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_saveselect;</command>()</title>
 	    <para>
-		This command does the same as <command>&no-i18n-cmd_save;</command>,
+		This command does the same as <command>&no-i18n-cmd_save;</command>(),
 		but saves only the currently selected range and the activated
 		tracks instead of the whole file.
 	    </para>
@@ -3616,9 +3632,9 @@
 	<!-- @COMMAND@ select_gui_type(mode) -->
 	<sect2 id="cmd_sect_select_gui_type"><title id="cmd_title_select_gui_type">&no-i18n-cmd_select_gui_type;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_gui_type;</command>(mode)</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_gui_type;</command>(<replaceable>mode</replaceable>)</title>
 	    <para>
-		Select a GUI mode, which can be either SDI, MDI or Tab mode.
+		Select a &GUI; mode, which can be either SDI, MDI or Tab mode.
 		Please be aware that this changes will immediately take
 		effect!
 	    </para>
@@ -3638,7 +3654,7 @@
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_select_track_all;</command>()</title>
 	    <para>
 		Mark all tracks <quote>enabled</quote>. This is the same as
-		calling the command <quote><command>&no-i18n-tag;&no-i18n-cmd_select_track_on;</command>()</quote>
+		calling the command <command>&no-i18n-tag;&no-i18n-cmd_select_track_on;</command>()
 		for all existing tracks.
 	    </para>
 	</simplesect>
@@ -3656,7 +3672,7 @@
 	    <para>
 		Invert the <quote>enabled</quote> state of all tracks.
 		This is the same as calling the command
-		<quote><command>&no-i18n-cmd_select_track_toggle;</command>()</quote>
+		<command>&no-i18n-cmd_select_track_toggle;</command>()
 		for all existing tracks.
 	    </para>
 	</simplesect>
@@ -3673,7 +3689,7 @@
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_select_track_none;</command>()</title>
 	    <para>
 		Mark all tracks <quote>disabled</quote>. This is the same as
-		calling the command <quote><command>&no-i18n-cmd_select_track_off;</command>()</quote>
+		calling the command <command>&no-i18n-cmd_select_track_off;</command>()
 		for all existing tracks.
 	    </para>
 	</simplesect>
@@ -3687,7 +3703,7 @@
 	<!-- @COMMAND@ select_track:off(index) -->
 	<sect2 id="cmd_sect_select_track_off"><title id="cmd_title_select_track_off">&no-i18n-cmd_select_track_off;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_off;</command>(index)</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_off;</command>(<replaceable>index</replaceable>)</title>
 	    <para>
 		Disables a single track, so that it does not get affected by
 		most operations.
@@ -3702,7 +3718,7 @@
 	<!-- @COMMAND@ select_track:on(index) -->
 	<sect2 id="cmd_sect_select_track_on"><title id="cmd_title_select_track_on">&no-i18n-cmd_select_track_on;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_on;</command>(index)</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_on;</command>(<replaceable>index</replaceable>)</title>
 	    <para>
 		Enables a single track, so that it gets affected by all operations.
 	    </para>
@@ -3716,7 +3732,7 @@
 	<!-- @COMMAND@ select_track:toggle(index) -->
 	<sect2 id="cmd_sect_select_track_toggle"><title id="cmd_title_select_track_toggle">&no-i18n-cmd_select_track_toggle;</title>
 	<simplesect>
-	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_toggle;</command>(index)</title>
+	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_track_toggle;</command>(<replaceable>index</replaceable>)</title>
 	    <para>
 		Enables a track if it is currently disabled, or disables it if
 		it is currently enabled.
@@ -3951,7 +3967,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_undo_all;</command>()</title>
 	    <para>
-		Similar to <command>&no-i18n-tag;&no-i18n-cmd_undo;</command>, but reverts
+		Similar to <command>&no-i18n-tag;&no-i18n-cmd_undo;</command>(), but reverts
 		as many operations as possible.
 	    </para>
 	</simplesect>
@@ -4187,8 +4203,8 @@
 	    <para>
 		Activates a sub-window, identified by its window <replaceable>title</replaceable>.
 		If the sub-window is minimized it will be restored.
-		Only available if in MDI and tab mode.
-		This command is internally used by the <quote><guisubmenu>Window</guisubmenu></quote> menu.
+		Only available if in MDI and Tab mode.
+		This command is internally used by the <guisubmenu>Window</guisubmenu> menu.
 	    </para>
 	</simplesect>
 	<simplesect><title>Parameters</title><informaltable frame='none'><tgroup cols='2'><tbody>
@@ -4298,7 +4314,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_next_sub;</command>()</title>
 	    <para>
-		Activates the <emphasis>next</emphasis> sub-window when in MDI or tab mode. If the next
+		Activates the <emphasis>next</emphasis> sub-window when in MDI or Tab mode. If the next
 		sub-window is minimized it will be restored.
 	    </para>
 	</simplesect>
@@ -4309,7 +4325,7 @@
 	<simplesect>
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-tag;&no-i18n-cmd_window_prev_sub;</command>()</title>
 	    <para>
-		Activates the <emphasis>previous</emphasis> sub-window when in MDI or tab mode. If the previous
+		Activates the <emphasis>previous</emphasis> sub-window when in MDI or Tab mode. If the previous
 		sub-window is minimized it will be restored.
 	    </para>
 	</simplesect>
@@ -4396,9 +4412,9 @@
 	</tbody></tgroup></informaltable></simplesect>
 	<simplesect><title>See also</title>
 	    <para>
-		description of the parameter
+		Description of the parameter
 		<link linkend="cmd_menu_param_hotkey"><parameter>hotkey</parameter></link>
-		of the <command>&no-i18n-cmd_menu;</command> command.
+		of the <command>&no-i18n-cmd_menu;</command>() command.
 	    </para>
 	</simplesect>
 	</sect2>
@@ -4530,7 +4546,7 @@
 	</varlistentry>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
-	    <listitem><para>gui</para></listitem>
+	    <listitem><para>&GUI;</para></listitem>
 	</varlistentry>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
@@ -5391,10 +5407,10 @@
 			Saves all sections between markers into a separate file and creates
 			a K3b project file. After having successfully written all files it
 			is possible to start <ulink url="&url_k3b;">K3b</ulink> and
-			burn the result to an audio CD.
+			burn the result to an audio &CD;.
 			This is useful for splitting a file with a recording that consists
 			of several parts, which are separated by labels, and then burn it
-			to an audio CD with multiple tracks, including CD text meta data
+			to an audio &CD; with multiple tracks, including &CD; text meta data
 			which is extracted from the descriptions of the labels.
 		    </para>
 		    <para>
@@ -5427,7 +5443,7 @@
 				    of a section.
 				    It supports the following wildcards which
 				    will be replaced by the corresponding content
-				    when creating the CD text meta data:
+				    when creating the &CD; text meta data:
 				</para>
 				<informaltable frame='all'>
 				    <tgroup cols='2'>
@@ -5603,7 +5619,7 @@
 	</varlistentry>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
-	    <listitem><para>gui</para></listitem>
+	    <listitem><para>&GUI;</para></listitem>
 	</varlistentry>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
@@ -5885,7 +5901,7 @@
 	</varlistentry>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
-	    <listitem><para>gui</para></listitem>
+	    <listitem><para>&GUI;</para></listitem>
 	</varlistentry>
 	<varlistentry>
 	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
@@ -6249,8 +6265,8 @@
 	    <para>
 		A speed factor below 1.0 pitches the signal down (lower voice,
 		makes voices sound older), factor 1.0 does no change and a
-		factor above 1.0 pitches the signal up (higher voice, mickey
-		mouse effect).
+		factor above 1.0 pitches the signal up (higher voice, Mickey
+        Mouse effect).
 	    </para>
 	    <para>
 		The implementation is based on the work of
@@ -7877,7 +7893,7 @@
 	    	<para><emphasis role="bold">
 		    Mark Donohoe (&kde;) <email>donohoe@kde.org</email>
 		</emphasis></para><para>
-		    some icons and bitmaps for toolbar and GUI
+		    some icons and bitmaps for toolbar and &GUI;
 		</para>
 	    </listitem>
 	    <listitem>

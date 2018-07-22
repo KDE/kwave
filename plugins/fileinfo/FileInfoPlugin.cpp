@@ -86,7 +86,7 @@ void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
 		 "the whole file to the new sample rate or do "
 		 "you only want to set the rate information in order "
 		 "to repair a damaged file? Note: changing only the sample "
-		 "rate can cause \"mickey mouse\" effects."),
+		 "rate can cause \"Mickey Mouse\" effects."),
 	    QString(),
 	    i18n("&Convert"),
 	    i18n("&Set Rate"));

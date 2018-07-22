@@ -26,7 +26,6 @@
   <!ENTITY url_libmad "https://www.underbit.com/products/mad/">
   <!ENTITY url_libsndfile "http://www.mega-nerd.com/libsndfile/">
   <!ENTITY url_licenses "&url_prefix_gitweb;LICENSES">
-  <!ENTITY url_mailinglist "https://lists.sourceforge.net/lists/listinfo/kwave-devel">
   <!ENTITY url_ogg_vorbis "https://www.xiph.org">
   <!ENTITY url_rfc2361 "http://www.ietf.org/rfc/rfc2361.txt">
   <!ENTITY url_sourceforge "https://sourceforge.net">
@@ -440,13 +439,6 @@
 	    information about this project, take a look at
 	    the <ulink url="&url_homepage;">&kwave; homepage</ulink>.
         </para></listitem>
-        <listitem><para>
-        Mailing List<anchor id="mailing-list"/></para><para>
-	If you need some help on using &kwave; or want to get involved
-	    in the development, join the &kwave; developer mailing list
-	    by visiting
-	    <ulink url="&url_mailinglist;"> "&url_mailinglist;"</ulink>.
-	</para></listitem>
 	<listitem><para>
 	    GIT Repository<anchor id="git-repository"/>
 	</para>
@@ -516,9 +508,6 @@
     <para>
 	This chapter should give a short introduction about the basics of
 	digital audio processing, without going too much into details.
-	Of course this might be a bit incomplete, but if you have questions,
-	you can ask at the &kwave; mailing list or consult some further
-	literature.
     </para>
 
     <sect1 id="the-analogue-world">
@@ -2399,7 +2388,7 @@
 	of a script. If you want to implement a possibility for the user to
 	end a script, you can use the
 	command <quote><link linkend="cmd_sect_msgbox"><command>msgbox</command></link>(<parameter><replaceable>text</replaceable></parameter>)</quote>.
-	This shows a message box with the two buttons 
+	This shows a message box with the two buttons
     <guibutton>OK</guibutton> (which lets the script
 	continue) and <guibutton>Cancel</guibutton> (which
 	returns an error code and stops the script).

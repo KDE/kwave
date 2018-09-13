@@ -23,6 +23,8 @@
 #include <QLabel>
 #include <QPainter>
 #include <QPixmap>
+#include <QRect>
+#include <QScreen>
 #include <QString>
 #include <QThread>
 
@@ -90,7 +92,12 @@ Kwave::Splash::Splash(const QString &PNGFile)
     // center on the screen
     rect = QRect(QPoint(), m_pixmap.size());
     resize(rect.size());
-    move(QApplication::desktop()->screenGeometry().center() - rect.center());
+
+    QScreen *screen = qApp->primaryScreen();
+    Q_ASSERT(screen);
+    QRect screen_rect;
+    screen_rect.setSize(screen->availableSize());
+    move(screen_rect.center() - rect.center());
 
     m_splash = this;
 }

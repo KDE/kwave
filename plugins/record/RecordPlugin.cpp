@@ -1338,7 +1338,7 @@ bool Kwave::RecordPlugin::checkTrigger(unsigned int track,
     // center frequency about 2Hz to get the amplitude
     float trigger = static_cast<float>(
 	m_dialog->params().record_trigger / 100.0);
-    const float rate = static_cast<const float>(
+    float rate = static_cast<float>(
 	m_dialog->params().sample_rate);
 
     /*
@@ -1495,9 +1495,9 @@ void Kwave::RecordPlugin::processBuffer()
 
     // check for reached recording time limit if enabled
     if (params.record_time_limited && m_writers) {
-	const sample_index_t last = m_writers->last();
-	const sample_index_t already_recorded = (last) ? (last + 1) : 0;
-	const sample_index_t limit = static_cast<const sample_index_t>(rint(
+	sample_index_t last = m_writers->last();
+	sample_index_t already_recorded = (last) ? (last + 1) : 0;
+	sample_index_t limit = static_cast<sample_index_t>(rint(
 	    params.record_time * params.sample_rate));
 	if (already_recorded + samples >= limit) {
 	    // reached end of recording time, we are full

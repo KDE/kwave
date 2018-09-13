@@ -85,7 +85,7 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     // get info: tracks, sample rate, bitrate(s)
     m_info = info;
     const unsigned int tracks = info.tracks();
-    const long int sample_rate = static_cast<const long int>(info.rate());
+    long int sample_rate = static_cast<long int>(info.rate());
 
     if (tracks > 2) {
 	Kwave::MessageBox::sorry(widget,

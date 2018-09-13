@@ -3624,7 +3624,7 @@
 	    <title>&i18n-cmd_syntax;<command>&no-i18n-cmd_select_gui_type;</command>(<replaceable>mode</replaceable>)</title>
 	    <para>
 		Select a &GUI; mode, which can be either SDI, MDI or Tab mode.
-		Please be aware that this changes will immediately take
+		Please be aware that this change will immediately take
 		effect!
 	    </para>
 	</simplesect>

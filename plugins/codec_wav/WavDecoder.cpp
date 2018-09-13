@@ -276,10 +276,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
 	    i18n("The WAV file seems to be damaged:\n"
 	         "Some chunks are duplicate or missing.\n\n"
 	         "Kwave will only use the first ones and ignore\n"
-	         "the rest. This might lead to loss of data.\n"
-	         "If you want to get your file repaired completely,\n"
-	         "please write an email to the Kwave mailing list\n"
-	         "and we will help you."),
+	         "the rest. This might lead to loss of data."),
 	    i18n("Kwave Auto Repair")
 	    ) != KMessageBox::Continue)
 	{

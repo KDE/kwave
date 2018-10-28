@@ -127,9 +127,10 @@
     <p xml:lang="zh-TW">Kwave 包含一些外掛程式，來用不同的方法轉換音效檔，並以圖形化方式呈現。</p>
   </description>
   <url type="homepage">http://kwave.sourceforge.net/</url>
-  <url type="bugtracker">http://sourceforge.net/bugs/?group_id=6478</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kwave</url>
   <screenshots>
     <screenshot type="default">
+      <caption>Kwave in action</caption>
       <image>http://kwave.sourceforge.net/screenshot/kwave-gui-tab.png</image>
     </screenshot>
   </screenshots>

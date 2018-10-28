@@ -1663,7 +1663,7 @@
 	<!-- zoom to 100% -->
         <listitem><para>
 	    <emphasis>zoom to 100%:</emphasis>
-	    zooms in up to a scale where on sample is represented by on pixel
+	    zooms in up to a scale where one sample is represented by one pixel
 	    on the screen.
 	    <itemizedlist>
 	    <listitem><para>

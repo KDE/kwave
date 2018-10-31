@@ -132,7 +132,9 @@
     <screenshot type="default">
       <caption>Kwave in action</caption>
       <caption xml:lang="ca">El Kwave en acció</caption>
+      <caption xml:lang="ca-valencia">El Kwave en acció</caption>
       <caption xml:lang="nl">Kwave in actie</caption>
+      <caption xml:lang="pt">O Kwave em acção</caption>
       <caption xml:lang="sv">Kwave i aktion</caption>
       <caption xml:lang="uk">Сеанс роботи у Kwave</caption>
       <caption xml:lang="x-test">xxKwave in actionxx</caption>

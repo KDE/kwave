@@ -392,7 +392,7 @@ bool Kwave::PlayBackPulseAudio::connectToServer()
 	m_mainloop_lock.unlock();
 
 	if (failed) {
-	    qWarning("PlayBackPulseAudio: context FAILED (%s):-(",
+	    qWarning("PlayBackPulseAudio: context FAILED (%s) :-(",
 	             pa_strerror(pa_context_errno(m_pa_context)));
 	}
     }
@@ -594,33 +594,14 @@ int Kwave::PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
     if (!m_bytes_per_sample || !m_pa_mainloop)
 	return -EINVAL;
 
-    // start with a new/empty buffer from PulseAudio
-    if (!m_buffer) {
-	m_mainloop_lock.lock();
+    // check buffer existence and size changes
+    size_t current_buffer_size = (1 << m_bufbase) * m_bytes_per_sample;
+    if (!m_buffer || (m_buffer_size != current_buffer_size)) {
 
-	// estimate buffer size and round to whole samples
-	size_t size = -1;
-	m_buffer_size = (1 << m_bufbase) * m_bytes_per_sample;
-
-	// get a buffer from PulseAudio
-	int result = pa_stream_begin_write(m_pa_stream, &m_buffer, &size);
-	size /= m_bytes_per_sample;
-	size *= m_bytes_per_sample;
-
-	// we don't use all of it to reduce latency, use only the
-	// minimum of our configured size and pulse audio's offer
-	if (size < m_buffer_size)
-	    m_buffer_size = size;
-
-	m_mainloop_lock.unlock();
-
-	if (result < 0) {
-	    qWarning("PlayBackPulseAudio: pa_stream_begin_write failed");
-	    return -EIO;
-	}
-
-// 	qDebug("PlayBackPulseAudio::write(): got buffer %p, size=%u bytes",
-// 	       m_buffer, m_buffer_size);
+	// get a buffer from heap (malloc once at the start is fast enough)
+	m_buffer      = (m_buffer) ? realloc(m_buffer, current_buffer_size) :
+	                             malloc(current_buffer_size);
+	m_buffer_size = current_buffer_size;
     }
 
     // abort with out-of-memory if failed
@@ -650,7 +631,7 @@ int Kwave::PlayBackPulseAudio::write(const Kwave::SampleArray &samples)
 //***************************************************************************
 int Kwave::PlayBackPulseAudio::flush()
 {
-    if (!m_buffer_used || !m_pa_mainloop || !m_buffer || !m_buffer_size)
+    if (!m_buffer || !m_buffer_size)
 	return 0;
 //     qDebug("PlayBackPulseAudio::flush(): using buffer %p (%u bytes)",
 //             m_buffer, m_buffer_size);
@@ -668,7 +649,10 @@ int Kwave::PlayBackPulseAudio::flush()
     // write out the buffer allocated before in "write"
     int result = 0;
 
-    while (m_buffer_used) {
+    // start with read pointer at the start of m_buffer
+    void *buffer_ptr = m_buffer;
+
+    while (m_buffer_used && m_pa_mainloop) {
 	size_t len;
 
 	m_mainloop_lock.lock();
@@ -688,16 +672,17 @@ int Kwave::PlayBackPulseAudio::flush()
 		break;
 	    }
         }
-	m_mainloop_lock.unlock();
-	if (result < 0) break;
+	if (result < 0) {
+	    m_mainloop_lock.unlock();
+	    break;
+	}
 
 	if (len > m_buffer_used) len = m_buffer_used;
 
 // 	qDebug("PlayBackPulseAudio::flush(): writing %u bytes...", len);
-	m_mainloop_lock.lock();
 	result = pa_stream_write(
 		m_pa_stream,
-		m_buffer,
+		buffer_ptr,
 		len,
                 Q_NULLPTR,
                 0,
@@ -710,7 +695,7 @@ int Kwave::PlayBackPulseAudio::flush()
 	    return -EIO;
 	}
 
-	m_buffer       = reinterpret_cast<quint8 *>(m_buffer) + len;
+	buffer_ptr     = reinterpret_cast<quint8 *>(buffer_ptr) + len;
 	m_buffer_used -= len;
     }
 
@@ -719,6 +704,7 @@ int Kwave::PlayBackPulseAudio::flush()
     // buffer is written out now
     m_buffer_used = 0;
     m_buffer      = Q_NULLPTR;
+
     return result;
 }
 
@@ -737,7 +723,14 @@ int Kwave::PlayBackPulseAudio::close()
     // set hourglass cursor, we are waiting...
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+    // flush the buffer
     if (m_buffer_used) flush();
+
+    // release the allocated memory
+    if (m_buffer) {
+	free(m_buffer);
+	m_buffer = 0;
+    }
 
     if (m_pa_mainloop && m_pa_stream) {
 

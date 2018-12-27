@@ -1,10 +1,13 @@
 
+ * bugfix for KDE #394358 (Kwave crashes when closing About dialog)
+ * bugfix: no longer use pa_write_start in PulseAudio playback (caused
+   invalid internal memory reuse in PulseAudio server + assert)
+
 19.03.70 [2018-11-10]
 
  * fix for potential deadlock when canceling playback test dialog
  * workaround for MP3 files with wrong length information
  * fixed race condition in RecordThread (queue handling)
- * bugfix for KDE #394358 (Kwave crashes when closing About dialog)
 
 18.07.70 [2018-03-24]
 

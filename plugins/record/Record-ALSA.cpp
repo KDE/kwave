@@ -598,6 +598,9 @@ int Kwave::RecordALSA::read(QByteArray &buffer, unsigned int offset)
 	    case SND_PCM_STATE_DISCONNECTED:
 		qDebug("SND_PCM_STATE_DISCONNECTED");
 		break;
+	    default:
+		qDebug("SND_PCM_STATE_<unknown>");
+		break;
 	}
 	last_state = state;
     }

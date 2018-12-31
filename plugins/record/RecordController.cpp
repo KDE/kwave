@@ -159,7 +159,7 @@ void Kwave::RecordController::actionStart()
 	case Kwave::REC_PAUSED:
 	    // interpret this as "continue"
 	    m_next_state = Kwave::REC_RECORDING;
-	    emit sigStartRecord();
+	    emit stateChanged(m_state = Kwave::REC_RECORDING);
 	    break;
 	case Kwave::REC_RECORDING:
 	    // already recording...

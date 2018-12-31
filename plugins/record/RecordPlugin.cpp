@@ -1131,9 +1131,11 @@ void Kwave::RecordPlugin::stateChanged(Kwave::RecordState state)
 {
     m_state = state;
     switch (m_state) {
+	case Kwave::REC_PAUSED:
+	    if (m_writers) m_writers->flush();
+	    break;
 	case Kwave::REC_UNINITIALIZED:
 	case Kwave::REC_EMPTY:
-	case Kwave::REC_PAUSED:
 	case Kwave::REC_DONE:
 	    // reset buffer status
 	    if (m_writers) {

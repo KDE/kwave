@@ -486,7 +486,7 @@ int Kwave::RecordQt::initialize(unsigned int buffer_size)
     else
 	emit sigCreateRequested(format, buffer_size);
 
-    return 0;
+    return (m_source && m_input) ? 0 : -EAGAIN;
 }
 
 //***************************************************************************

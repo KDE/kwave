@@ -31,7 +31,7 @@ DOC_DIR="${CMAKE_SOURCE_DIR}/doc"
 
 CATEGORY="kdemultimedia"
 PO_FILE="kwave.po"
-DESKTOP_PO_FILE="desktop_${CATEGORY}_kwave.po"
+DESKTOP_PO_FILE="kwave._desktop_.po"
 LANG_NAMES_FILE="${DOC_DIR}/teamnames"
 
 function checkout() {

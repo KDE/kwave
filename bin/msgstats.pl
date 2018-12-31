@@ -76,7 +76,7 @@ while (<IN>) {
 
 	local $po_doc=$catalog . "/docmessages/" . $category . "/" . $app . ".po";
 	local $po_gui=$catalog . "/messages/" . $category . "/" . $app . ".po";
-	local $po_dsk=$catalog . "/messages/" . $category . "/desktop_" . $category . "_" . $app . ".po";
+	local $po_dsk=$catalog . "/messages/" . $category . "/" . $app . "._desktop_.po";
 
 	check_po($lang_name, $catalog, "DOC", $po_doc);
 	check_po($lang_name, $catalog, "GUI", $po_gui);

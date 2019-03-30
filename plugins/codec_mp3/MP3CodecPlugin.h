@@ -42,7 +42,7 @@ namespace Kwave
 	virtual ~MP3CodecPlugin();
 
 	/** @see Kwave::Plugin::load() */
-	virtual void load(QStringList &params);
+	virtual void load(QStringList &params) Q_DECL_OVERRIDE;
 
 	/**
 	 * Shows a dialog to set up the plugin, configure all paths,
@@ -51,13 +51,13 @@ namespace Kwave
 	 * @return a string list with all parameters or null if the
 	 *         setup (dialog) has been canceled
 	 */
-	virtual QStringList *setup(QStringList &previous_params);
+	virtual QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
 	/** Creates a new decoder */
-	virtual QList<Kwave::Decoder *> createDecoder();
+	virtual QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;
 
 	/** Creates a new encoder */
-	virtual QList<Kwave::Encoder *> createEncoder();
+	virtual QList<Kwave::Encoder *> createEncoder() Q_DECL_OVERRIDE;
 
     private:
 	/** static codec container */

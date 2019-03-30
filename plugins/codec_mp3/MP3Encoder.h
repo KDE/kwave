@@ -50,7 +50,7 @@ namespace Kwave
 	virtual ~MP3Encoder();
 
 	/** Returns a new instance of the encoder */
-	virtual Kwave::Encoder *instance();
+	virtual Kwave::Encoder *instance() Q_DECL_OVERRIDE;
 
 	/**
 	 * Encodes a signal into a stream of bytes.
@@ -63,10 +63,12 @@ namespace Kwave
 	 */
 	virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
 			    QIODevice &dst,
-			    const Kwave::MetaDataList &meta_data);
+			    const Kwave::MetaDataList &meta_data)
+			    Q_DECL_OVERRIDE;
 
 	/** Returns a list of supported file properties */
-	virtual QList<Kwave::FileProperty> supportedProperties();
+	virtual QList<Kwave::FileProperty> supportedProperties()
+			    Q_DECL_OVERRIDE;
 
     private slots:
 

@@ -41,7 +41,7 @@ Kwave::AboutPlugin::AboutPlugin(QObject *parent, const QVariantList &args)
 //***************************************************************************
 int Kwave::AboutPlugin::start(QStringList& params)
 {
-    Q_UNUSED(params);
+    Q_UNUSED(params)
 
     // create a new "about" dialog and show it
     QPointer<Kwave::AboutDialog> dlg = new(std::nothrow) Kwave::AboutDialog(

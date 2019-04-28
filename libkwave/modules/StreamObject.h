@@ -71,7 +71,7 @@ namespace Kwave
 	 */
 	virtual unsigned int tracksOfPort(const char *port) const
 	{
-	    Q_UNUSED(port);
+	    Q_UNUSED(port)
 	    return tracks();
 	}
 
@@ -83,7 +83,7 @@ namespace Kwave
 	 */
 	virtual Kwave::StreamObject *port(const char *port, unsigned int track)
 	{
-	    Q_UNUSED(port);
+	    Q_UNUSED(port)
 	    return (*this)[track];
 	}
 

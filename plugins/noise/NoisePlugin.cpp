@@ -76,7 +76,7 @@ int Kwave::NoisePlugin::interpreteParameters(QStringList &params)
 //***************************************************************************
 Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
 {
-    Q_UNUSED(parent);
+    Q_UNUSED(parent)
 
     // initialize the overview cache
     Kwave::SignalManager &mgr = manager().signalManager();

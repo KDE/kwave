@@ -111,7 +111,7 @@ namespace Kwave
 	virtual int detectChannels(const QString &device,
 	                           unsigned int &min, unsigned int &max)
 	{
-	    Q_UNUSED(device);
+	    Q_UNUSED(device)
 	    return min = max = 0;
 	}
 

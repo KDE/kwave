@@ -1007,7 +1007,7 @@ void Kwave::FileInfoDialog::accept()
 	    m_info.set(Kwave::INF_MPEG_MODEEXT, modeext);
 	}
 
-	int emphasis = 0;;
+	int emphasis = 0;
 	switch (cbMpegEmphasis->currentIndex()) {
 	    case 1:  emphasis = 1; break; /* 1 -> 1 */
 	    case 2:  emphasis = 3; break; /* 2 -> 3 */

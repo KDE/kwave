@@ -111,7 +111,7 @@ void Kwave::Logger::log(const QObject *sender,
 
     // NOTE: it would be fine to have a way to find out the instance
     //       which this message belongs to (TopLevelWidget + MainWidget)
-    Q_UNUSED(sender);
+    Q_UNUSED(sender)
 
     // translate the log level into a text (syslog format)
     const char *x_status = str_level[qBound(

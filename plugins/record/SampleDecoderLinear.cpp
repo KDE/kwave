@@ -142,16 +142,16 @@ Kwave::SampleDecoderLinear::SampleDecoderLinear(
 
     switch (m_bytes_per_sample) {
 	case 1:
-	    MAKE_DECODER(8);
+	    MAKE_DECODER(8)
 	    break;
 	case 2:
-	    MAKE_DECODER(16);
+	    MAKE_DECODER(16)
 	    break;
 	case 3:
-	    MAKE_DECODER(24);
+	    MAKE_DECODER(24)
 	    break;
 	case 4:
-	    MAKE_DECODER(32);
+	    MAKE_DECODER(32)
 	    break;
     }
 }

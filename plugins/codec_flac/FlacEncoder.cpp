@@ -134,7 +134,7 @@ void Kwave::FlacEncoder::VorbisCommentContainer::add(const QString &tag,
 	m_vc, count, entry, true);
 
     Q_ASSERT(ok);
-    Q_UNUSED(ok);
+    Q_UNUSED(ok)
 }
 
 /***************************************************************************/

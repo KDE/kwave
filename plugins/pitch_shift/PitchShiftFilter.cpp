@@ -79,7 +79,7 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
     Q_ASSERT(Kwave::toInt(in.size()) <= m_dbuffer.size());
     bool ok = m_buffer.resize(in.size());
     Q_ASSERT(ok);
-    Q_UNUSED(ok);
+    Q_UNUSED(ok)
 
     const float pi2 = 2 * float(M_PI);
     const float lfoposinc = static_cast<float>(m_frequency);

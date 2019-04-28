@@ -1,5 +1,10 @@
 
- * bugfix for KDE #394358 (Kwave crashes when closing About dialog)
+ * fixed compiler warnings about "empty expression statement has no effect;
+    remove unnecessary ';'" (most of them from invocation of Q_UNUSED)
+
+19.07.70 [2019-03-16]
+
+* bugfix for KDE #394358 (Kwave crashes when closing About dialog)
  * bugfix: no longer use pa_write_start in PulseAudio playback (caused
    invalid internal memory reuse in PulseAudio server + assert)
  * bugfix for KDE #389159 (Recording Pause function does not work)

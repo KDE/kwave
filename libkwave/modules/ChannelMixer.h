@@ -95,7 +95,7 @@ namespace Kwave
 	     * dummy implementation, the real "input" is a multi-track slot
 	     * and available through the port(...) interface only
 	     */
-	    void input(Kwave::SampleArray data) { Q_UNUSED(data); }
+	    void input(Kwave::SampleArray data) { Q_UNUSED(data) }
 
 	private slots:
 

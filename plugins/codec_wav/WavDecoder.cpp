@@ -303,7 +303,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     src.seek(fmt_offset);
 
     // get the encoded block of data from the mime source
-    CHECK(src.size() > static_cast<qint64>(sizeof(Kwave::wav_header_t) + 8));
+    CHECK(src.size() > static_cast<qint64>(sizeof(Kwave::wav_header_t) + 8))
 
     // get the header
     src.read(reinterpret_cast<char *>(&header), sizeof(Kwave::wav_fmt_header_t));

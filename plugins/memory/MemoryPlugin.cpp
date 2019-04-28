@@ -162,7 +162,7 @@ QStringList *Kwave::MemoryPlugin::setup(QStringList &previous_params)
 	    interpreteParameters(*result);
 	    applySettings();
 	}
-    };
+    }
 
     delete dlg;
     return result;

@@ -469,7 +469,7 @@ void Kwave::PlayerToolBar::updateState()
 //***************************************************************************
 void Kwave::PlayerToolBar::updatePlaybackPos(sample_index_t pos)
 {
-    Q_UNUSED(pos);
+    Q_UNUSED(pos)
     updateState();
 }
 

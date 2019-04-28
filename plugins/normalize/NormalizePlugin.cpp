@@ -67,7 +67,7 @@ Kwave::NormalizePlugin::~NormalizePlugin()
 //***************************************************************************
 void Kwave::NormalizePlugin::run(QStringList params)
 {
-    Q_UNUSED(params);
+    Q_UNUSED(params)
     Kwave::UndoTransactionGuard undo_guard(*this, i18n("Normalize"));
 
     // get the current selection

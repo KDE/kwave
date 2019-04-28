@@ -68,7 +68,7 @@ Kwave::ViewItem::Flags Kwave::LabelItem::flags() const
 //***************************************************************************
 QString Kwave::LabelItem::toolTip(sample_index_t &ofs)
 {
-    Q_UNUSED(ofs);
+    Q_UNUSED(ofs)
 
     QString description = (m_description.length()) ?
 	i18nc("tooltip of a label, %1=index, %2=description/name",

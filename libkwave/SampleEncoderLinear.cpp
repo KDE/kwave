@@ -27,9 +27,9 @@
 //***************************************************************************
 static void encode_NULL(const sample_t *src, quint8 *dst, unsigned int count)
 {
-    Q_UNUSED(src);
-    Q_UNUSED(dst);
-    Q_UNUSED(count);
+    Q_UNUSED(src)
+    Q_UNUSED(dst)
+    Q_UNUSED(count)
 //     qWarning("call to encode_NULL");
 }
 
@@ -138,22 +138,22 @@ Kwave::SampleEncoderLinear::SampleEncoderLinear(
 
     switch (bits_per_sample) {
 	case 8:
-	    MAKE_ENCODER(8);
+	    MAKE_ENCODER(8)
 	    break;
 	case 16:
-	    MAKE_ENCODER(16);
+	    MAKE_ENCODER(16)
 	    break;
 	case 18:
-	    MAKE_ENCODER(18);
+	    MAKE_ENCODER(18)
 	    break;
 	case 20:
-	    MAKE_ENCODER(20);
+	    MAKE_ENCODER(20)
 	    break;
 	case 24:
-	    MAKE_ENCODER(24);
+	    MAKE_ENCODER(24)
 	    break;
 	case 32:
-	    MAKE_ENCODER(32);
+	    MAKE_ENCODER(32)
 	    break;
     }
 

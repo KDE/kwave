@@ -1100,7 +1100,7 @@ void Kwave::MemoryManager::dump(const char *function)
     qDebug("-----------------------------------------------------------------");
 
 #else /* DEBUG_MEMORY */
-    Q_UNUSED(function);
+    Q_UNUSED(function)
 #endif /* DEBUG_MEMORY */
 }
 

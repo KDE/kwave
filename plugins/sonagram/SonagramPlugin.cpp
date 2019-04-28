@@ -118,7 +118,7 @@ QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
 	result = new(std::nothrow) QStringList();
 	Q_ASSERT(result);
 	if (result) dlg->parameters(*result);
-    };
+    }
 
     delete dlg;
     return result;
@@ -387,7 +387,7 @@ void Kwave::SonagramPlugin::makeAllValid()
 void Kwave::SonagramPlugin::run(QStringList params)
 {
     qDebug("SonagramPlugin::run()");
-    Q_UNUSED(params);
+    Q_UNUSED(params)
     {
 	// invalidate all slices
 	QMutexLocker _lock(&m_lock_job_list);
@@ -541,7 +541,7 @@ void Kwave::SonagramPlugin::slotTrackInserted(const QUuid &track_id)
 {
     QMutexLocker _lock(&m_lock_job_list);
 
-    Q_UNUSED(track_id);
+    Q_UNUSED(track_id)
 
     // check for "track changes" mode
     if (!m_track_changes) return;
@@ -556,7 +556,7 @@ void Kwave::SonagramPlugin::slotTrackDeleted(const QUuid &track_id)
 {
     QMutexLocker _lock(&m_lock_job_list);
 
-    Q_UNUSED(track_id);
+    Q_UNUSED(track_id)
 
     // check for "track changes" mode
     if (!m_track_changes) return;
@@ -573,7 +573,7 @@ void Kwave::SonagramPlugin::slotInvalidated(const QUuid *track_id,
 {
     QMutexLocker lock(&m_lock_job_list);
 
-    Q_UNUSED(track_id);
+    Q_UNUSED(track_id)
 //     qDebug("SonagramPlugin[%p]::slotInvalidated(%s, %llu, %llu)",
 // 	    static_cast<void *>(this),
 // 	   (track_id) ? DBG(track_id->toString()) : "*", first, last);

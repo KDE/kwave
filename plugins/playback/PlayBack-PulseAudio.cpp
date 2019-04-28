@@ -188,7 +188,7 @@ void Kwave::PlayBackPulseAudio::notifySinkInfo(pa_context *c,
                                                const pa_sink_info *info,
                                                int eol)
 {
-    Q_UNUSED(c);
+    Q_UNUSED(c)
     Q_ASSERT(c == m_pa_context);
     if (eol == 0) {
 #if 0
@@ -265,7 +265,7 @@ void Kwave::PlayBackPulseAudio::notifyWrite(pa_stream *stream, size_t nbytes)
 {
 //     qDebug("PlayBackPulseAudio::notifyWrite(stream=%p, nbytes=%u)",
 // 	   static_cast<void *>(stream), nbytes);
-    Q_UNUSED(nbytes);
+    Q_UNUSED(nbytes)
 
     Q_ASSERT(stream);
     Q_ASSERT(stream == m_pa_stream);
@@ -279,7 +279,7 @@ void Kwave::PlayBackPulseAudio::notifySuccess(pa_stream* stream, int success)
 {
 //     qDebug("PlayBackPulseAudio::notifySuccess(stream=%p, success=%d)",
 // 	   static_cast<void *>(stream), success);
-    Q_UNUSED(success);
+    Q_UNUSED(success)
 
     Q_ASSERT(stream);
     Q_ASSERT(stream == m_pa_stream);
@@ -711,7 +711,7 @@ int Kwave::PlayBackPulseAudio::flush()
 //***************************************************************************
 void Kwave::PlayBackPulseAudio::run_wrapper(const QVariant &params)
 {
-    Q_UNUSED(params);
+    Q_UNUSED(params)
     m_mainloop_lock.lock();
     pa_mainloop_run(m_pa_mainloop, Q_NULLPTR);
     m_mainloop_lock.unlock();
@@ -729,7 +729,7 @@ int Kwave::PlayBackPulseAudio::close()
     // release the allocated memory
     if (m_buffer) {
 	free(m_buffer);
-	m_buffer = 0;
+	m_buffer = Q_NULLPTR;
     }
 
     if (m_pa_mainloop && m_pa_stream) {

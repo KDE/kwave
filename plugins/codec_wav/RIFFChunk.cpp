@@ -48,10 +48,10 @@ Kwave::RIFFChunk::~RIFFChunk()
 #define CHECK(x) if (x) return false;
 bool Kwave::RIFFChunk::isSane() const
 {
-    CHECK(m_type == Empty);
-    CHECK(m_type == Garbage);
-    CHECK((m_type == Main) && m_sub_chunks.isEmpty());
-    CHECK((m_type == Root) && m_sub_chunks.isEmpty());
+    CHECK(m_type == Empty)
+    CHECK(m_type == Garbage)
+    CHECK((m_type == Main) && m_sub_chunks.isEmpty())
+    CHECK((m_type == Root) && m_sub_chunks.isEmpty())
 
 #ifdef DEBUG
     if (m_phys_length & 0x1) {

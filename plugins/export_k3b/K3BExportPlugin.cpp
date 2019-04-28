@@ -265,7 +265,7 @@ bool Kwave::K3BExportPlugin::detectBlockMetaData(
 //***************************************************************************
 void Kwave::K3BExportPlugin::load(QStringList &params)
 {
-    Q_UNUSED(params);
+    Q_UNUSED(params)
 
     QString menu_path = _("File/Save/%1").arg(_(I18N_NOOP2(
 	"menu: /File/Save/Export to K3b Project...",

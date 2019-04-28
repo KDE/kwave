@@ -156,25 +156,25 @@ bool Kwave::MenuNode::isEnabled()
 //*****************************************************************************
 void Kwave::MenuNode::setVisible(bool visible)
 {
-    Q_UNUSED(visible);
+    Q_UNUSED(visible)
 }
 
 //*****************************************************************************
 void Kwave::MenuNode::setEnabled(bool enable)
 {
-    Q_UNUSED(enable);
+    Q_UNUSED(enable)
 }
 
 //*****************************************************************************
 void Kwave::MenuNode::setChecked(bool check)
 {
-    Q_UNUSED(check);
+    Q_UNUSED(check)
 }
 
 //*****************************************************************************
 void Kwave::MenuNode::setText(const QString &text)
 {
-    Q_UNUSED(text);
+    Q_UNUSED(text)
 }
 
 //*****************************************************************************
@@ -232,10 +232,10 @@ Kwave::MenuSub *Kwave::MenuNode::insertBranch(const QString &name,
                                               const QKeySequence &shortcut,
                                               const QString &uid)
 {
-    Q_UNUSED(name);
-    Q_UNUSED(command);
-    Q_UNUSED(shortcut);
-    Q_UNUSED(uid);
+    Q_UNUSED(name)
+    Q_UNUSED(command)
+    Q_UNUSED(shortcut)
+    Q_UNUSED(uid)
     return Q_NULLPTR;
 }
 
@@ -245,10 +245,10 @@ Kwave::MenuNode *Kwave::MenuNode::insertLeaf(const QString &name,
                                              const QKeySequence &shortcut,
                                              const QString &uid)
 {
-    Q_UNUSED(name);
-    Q_UNUSED(command);
-    Q_UNUSED(shortcut);
-    Q_UNUSED(uid);
+    Q_UNUSED(name)
+    Q_UNUSED(command)
+    Q_UNUSED(shortcut)
+    Q_UNUSED(uid)
     return Q_NULLPTR;
 }
 

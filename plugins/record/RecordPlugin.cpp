@@ -113,7 +113,7 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
 {
     Kwave::RecordDialog::Mode mode = Kwave::RecordDialog::SETTINGS_DEFAULT;
 
-    qDebug("RecordPlugin::setup(%s)", DBG(previous_params.join(_(","))));;
+    qDebug("RecordPlugin::setup(%s)", DBG(previous_params.join(_(","))));
 
     // if we have only one parameter, then we got called with a specific
     // mode, e.g. "show format settings only"
@@ -1611,7 +1611,7 @@ void Kwave::RecordPlugin::processBuffer()
 //***************************************************************************
 void Kwave::RecordPlugin::prerecordingChanged(bool enable)
 {
-    Q_UNUSED(enable);
+    Q_UNUSED(enable)
     InhibitRecordGuard _lock(*this); // activate the change
 }
 

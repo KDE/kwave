@@ -127,33 +127,33 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     /* --- set up all controls with their default/startup values --- */
 
     // pre-record
-    STD_SETUP_SLIDER(pre_record_enabled, pre_record_time, RecordPre);
+    STD_SETUP_SLIDER(pre_record_enabled, pre_record_time, RecordPre)
     connect(chkRecordPre, SIGNAL(toggled(bool)),
             this,         SLOT(preRecordingChecked(bool)));
     connect(sbRecordPre,  SIGNAL(valueChanged(int)),
             this,         SLOT(preRecordingTimeChanged(int)));
 
     // record time (duration)
-    STD_SETUP(record_time_limited, record_time, RecordTime);
+    STD_SETUP(record_time_limited, record_time, RecordTime)
 
     // start time (date & time)
     chkRecordStartTime->setChecked(m_params.start_time_enabled);
     startTime->setDateTime(m_params.start_time);
 
     // record trigger
-    STD_SETUP_SLIDER(record_trigger_enabled, record_trigger, RecordTrigger);
+    STD_SETUP_SLIDER(record_trigger_enabled, record_trigger, RecordTrigger)
 
     // amplification
-    STD_SETUP_SLIDER(amplification_enabled, amplification, LevelAmplify);
+    STD_SETUP_SLIDER(amplification_enabled, amplification, LevelAmplify)
 
     // AGC
-    STD_SETUP_SLIDER(agc_enabled, agc_decay, LevelAGC);
+    STD_SETUP_SLIDER(agc_enabled, agc_decay, LevelAGC)
 
     // fade in
-    STD_SETUP(fade_in_enabled, fade_in_time, LevelFadeIn);
+    STD_SETUP(fade_in_enabled, fade_in_time, LevelFadeIn)
 
     // fade out
-    STD_SETUP(fade_out_enabled, fade_out_time, LevelFadeOut);
+    STD_SETUP(fade_out_enabled, fade_out_time, LevelFadeOut)
 
     // sample rate, bits per sample, track
     // -> will be initialized later, by the plugin
@@ -514,7 +514,7 @@ void Kwave::RecordDialog::listEntrySelected(QTreeWidgetItem *current,
                                             QTreeWidgetItem *previous)
 {
     Q_ASSERT(listDevices);
-    Q_UNUSED(previous);
+    Q_UNUSED(previous)
     if (!current || !listDevices) return;
 
     if (m_devices_list_map.contains(current))
@@ -524,7 +524,7 @@ void Kwave::RecordDialog::listEntrySelected(QTreeWidgetItem *current,
 //***************************************************************************
 void Kwave::RecordDialog::listItemExpanded(QTreeWidgetItem *item)
 {
-    Q_UNUSED(item);
+    Q_UNUSED(item)
     updateListSelection();
 }
 

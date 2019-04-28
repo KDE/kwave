@@ -70,7 +70,7 @@ Kwave::Decoder *Kwave::AsciiDecoder::instance()
 //***************************************************************************
 bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
 {
-    Q_UNUSED(widget);
+    Q_UNUSED(widget)
 
     metaData().clear();
     Q_ASSERT(!m_source.device());
@@ -237,7 +237,7 @@ bool Kwave::AsciiDecoder::readNextLine()
 bool Kwave::AsciiDecoder::decode(QWidget *widget,
                                  Kwave::MultiWriter &dst)
 {
-    Q_UNUSED(widget);
+    Q_UNUSED(widget)
 
     Q_ASSERT(m_source.device());
     if (!m_source.device()) return false;

@@ -615,7 +615,7 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
 void Kwave::SignalWidget::slotTrackDeleted(unsigned int index,
                                            Kwave::Track *track)
 {
-    Q_UNUSED(track);
+    Q_UNUSED(track)
 
     // loop over all views, delete those that are bound to this track
     // and adjust the index of the following ones

@@ -143,7 +143,7 @@ void Kwave::SignalView::setVerticalZoom(double zoom)
 //***************************************************************************
 void Kwave::SignalView::showCursor(sample_index_t pos)
 {
-    Q_UNUSED(pos);
+    Q_UNUSED(pos)
 }
 
 //***************************************************************************
@@ -215,7 +215,7 @@ bool Kwave::SignalView::isInSelection(int x)
 //***************************************************************************
 QSharedPointer<Kwave::ViewItem> Kwave::SignalView::findItem(const QPoint &pos)
 {
-    Q_UNUSED(pos);
+    Q_UNUSED(pos)
     return QSharedPointer<Kwave::ViewItem>(Q_NULLPTR);
 }
 
@@ -548,8 +548,8 @@ int Kwave::SignalView::selectionTolerance() const
 //***************************************************************************
 void Kwave::SignalView::handleContextMenu(const QPoint &pos, QMenu *menu)
 {
-    Q_UNUSED(pos);
-    Q_UNUSED(menu);
+    Q_UNUSED(pos)
+    Q_UNUSED(menu)
 }
 
 //***************************************************************************
@@ -568,7 +568,7 @@ void Kwave::SignalView::dragEnterEvent(QDragEnterEvent *event)
 //***************************************************************************
 void Kwave::SignalView::dragLeaveEvent(QDragLeaveEvent *event)
 {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
     m_mouse_mode = MouseNormal;
     setCursor(Qt::ArrowCursor);
     emit sigCursorChanged(SAMPLE_INDEX_MAX);

@@ -54,7 +54,7 @@ Kwave::MenuNode *Kwave::MenuList::insertLeaf(const QString &name,
                                              const QKeySequence &shortcut,
                                              const QString &uid)
 {
-    Q_UNUSED(uid);
+    Q_UNUSED(uid)
 
     Kwave::MenuNode *parent = parentNode();
     Q_ASSERT(parent);

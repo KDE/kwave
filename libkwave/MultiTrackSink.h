@@ -44,7 +44,7 @@ namespace Kwave
 	    :Kwave::SampleSink(parent),
 	    QList<SINK *>()
 	{
-	    Q_UNUSED(tracks);
+	    Q_UNUSED(tracks)
 	    Q_ASSERT(INITIALIZE || (tracks == 0));
 	    Q_ASSERT(QList<SINK *>::size() == static_cast<int>(tracks));
 	}

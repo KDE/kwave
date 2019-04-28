@@ -105,7 +105,7 @@ void Kwave::Mul::multiply()
 
     bool ok = m_buffer_x.resize(count);
     Q_ASSERT(ok);
-    Q_UNUSED(ok);
+    Q_UNUSED(ok)
 
     // get pointers to the buffer's raw data
     p_a = m_a.constData();

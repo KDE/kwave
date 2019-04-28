@@ -29,7 +29,7 @@ bool Kwave::StreamObject::m_interactive = false;
 Kwave::StreamObject::StreamObject(QObject *parent)
     :QObject(Q_NULLPTR /*parent*/), m_lock_set_attribute(QMutex::Recursive)
 {
-    Q_UNUSED(parent);
+    Q_UNUSED(parent)
 }
 
 //***************************************************************************

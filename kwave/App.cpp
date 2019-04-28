@@ -129,7 +129,7 @@ Kwave::App::~App()
 int Kwave::App::newInstance(const QStringList &args, const QString &dir)
 {
     int retval = 0;
-    Q_UNUSED(dir);
+    Q_UNUSED(dir)
 
     Q_ASSERT(m_cmdline);
     if (!m_cmdline) return -EINVAL;

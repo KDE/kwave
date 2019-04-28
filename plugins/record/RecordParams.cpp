@@ -65,21 +65,21 @@ int Kwave::RecordParams::fromList(const QStringList &list)
 
     // recording method
     unsigned int method_index;
-    GET(method_index, toUInt);
+    GET(method_index, toUInt)
     method = (method_index < Kwave::RECORD_INVALID) ?
 		static_cast<Kwave::record_method_t>(method_index) :
 		Kwave::RECORD_INVALID;
 
     // pre-record
-    GET(pre_record_enabled, toUInt);
-    GET(pre_record_time, toUInt);
+    GET(pre_record_enabled, toUInt)
+    GET(pre_record_time, toUInt)
 
     // record time
-    GET(record_time_limited, toUInt);
-    GET(record_time, toUInt);
+    GET(record_time_limited, toUInt)
+    GET(record_time, toUInt)
 
     // record start time
-    GET(start_time_enabled, toUInt);
+    GET(start_time_enabled, toUInt)
     start_time = QDateTime::fromString(list[index++], Qt::ISODate);
 
     // auto-adjust to same hour as last time but not in past
@@ -93,8 +93,8 @@ int Kwave::RecordParams::fromList(const QStringList &list)
     start_time.setTime(t);
 
     // record trigger
-    GET(record_trigger_enabled, toUInt);
-    GET(record_trigger, toUInt);
+    GET(record_trigger_enabled, toUInt)
+    GET(record_trigger, toUInt)
 
 //     // amplification
 //     GET(amplification_enabled, toUInt);
@@ -116,20 +116,20 @@ int Kwave::RecordParams::fromList(const QStringList &list)
     device_name = list[index++];
 
     // tracks, sample rate, compression, sample format, bits per sample
-    GET(tracks, toUInt);
-    GET(sample_rate, toDouble);
+    GET(tracks, toUInt)
+    GET(sample_rate, toDouble)
     int ct;
-    GET(ct, toInt);
+    GET(ct, toInt)
     compression = Kwave::Compression::fromInt(ct);
-    GET(bits_per_sample, toUInt);
+    GET(bits_per_sample, toUInt)
 
     int sf;
-    GET(sf, toInt);
+    GET(sf, toInt)
     Kwave::SampleFormat(sample_format).fromInt(sf);
 
     // buffer count and power of buffer size
-    GET(buffer_count, toUInt);
-    GET(buffer_size, toUInt);
+    GET(buffer_count, toUInt)
+    GET(buffer_size, toUInt)
 
     return 0;
 }

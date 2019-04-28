@@ -356,8 +356,8 @@ void Kwave::MainWidget::slotTrackInserted(unsigned int index,
 {
 //     qDebug("MainWidget::slotTrackInserted(%u, %p)",
 // 	   index, static_cast<void *>(track));
-    Q_UNUSED(index);
-    Q_UNUSED(track);
+    Q_UNUSED(index)
+    Q_UNUSED(track)
 
     // when the first track has been inserted, set some reasonable zoom
     Kwave::SignalManager *signal_manager = m_context.signalManager();
@@ -374,8 +374,8 @@ void Kwave::MainWidget::slotTrackDeleted(unsigned int index,
                                          Kwave::Track *track)
 {
 //     qDebug("MainWidget::slotTrackDeleted(%u)", index);
-    Q_UNUSED(index);
-    Q_UNUSED(track);
+    Q_UNUSED(index)
+    Q_UNUSED(track)
 
     updateViewRange();
 }
@@ -734,7 +734,7 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
     if (!length) {
 	m_offset = 0;
 	return;
-    };
+    }
 
     // ensure that m_offset is [0...length-1]
     if (m_offset >= length) m_offset = (length - 1);

@@ -734,7 +734,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	    m_plugin_manager->sync();
 
 	// the "msgbox" command (useful for debugging)
-	if (false) { ;
+	if (false) {
 	CASE_COMMAND("msgbox")
 	    QApplication::restoreOverrideCursor();
 	    result = (Kwave::MessageBox::questionYesNo(mainWidget(),

@@ -255,7 +255,7 @@ void Kwave::ChannelMixer::mix()
 	if (Q_UNLIKELY(out_buf->constData().size() > min_len)) {
 	    bool ok = out_buf->data().resize(min_len);
 	    Q_ASSERT(ok);
-	    Q_UNUSED(ok);
+	    Q_UNUSED(ok)
 	}
 	out_buf->finished();
     }

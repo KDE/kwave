@@ -56,7 +56,7 @@ Kwave::MenuItem::~MenuItem()
 //*****************************************************************************
 void Kwave::MenuItem::actionTriggered(bool checked)
 {
-    Q_UNUSED(checked);
+    Q_UNUSED(checked)
     actionSelected();
 }
 

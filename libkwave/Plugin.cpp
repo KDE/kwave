@@ -367,7 +367,7 @@ bool Kwave::Plugin::isRunning() const
 //***************************************************************************
 void Kwave::Plugin::run(QStringList params)
 {
-    Q_UNUSED(params);
+    Q_UNUSED(params)
 }
 
 //***************************************************************************

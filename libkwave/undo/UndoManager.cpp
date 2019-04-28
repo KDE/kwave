@@ -70,7 +70,7 @@ bool Kwave::UndoManager::startUndoTransaction(
 bool Kwave::UndoManager::closeUndoTransaction(
     Kwave::UndoTransaction *transaction)
 {
-    Q_UNUSED(transaction);
+    Q_UNUSED(transaction)
     return true;
 }
 

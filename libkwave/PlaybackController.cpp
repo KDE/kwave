@@ -399,7 +399,7 @@ void Kwave::PlaybackController::trackSelectionChanged()
 //***************************************************************************
 void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 {
-    Q_UNUSED(params);
+    Q_UNUSED(params)
 
     Kwave::MixerMatrix *mixer = Q_NULLPTR;
     sample_index_t first      = m_playback_start;
@@ -482,7 +482,7 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 	    }
 
 	    if (seek_again) input.seek(pos);
-	    if (seek_done)  seekDone(pos);;
+	    if (seek_done)  seekDone(pos);
 
 	    // fill input buffer with samples
 	    for (x = 0; x < audible_count; ++x) {

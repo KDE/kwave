@@ -240,7 +240,7 @@ bool Kwave::OpusEncoder::setupBitrate(QWidget *widget, unsigned int tracks)
 bool Kwave::OpusEncoder::setupCodingRate(QWidget *widget,
                                          unsigned int tracks, double rate)
 {
-    Q_UNUSED(widget);
+    Q_UNUSED(widget)
 
     Q_ASSERT(!m_rate_converter);
 
@@ -844,7 +844,7 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
     Q_ASSERT(m_encoder);
     Q_ASSERT(m_encoder_input);
 
-    Q_UNUSED(dst);
+    Q_UNUSED(dst)
 
     /* Main encoding loop (one frame per iteration) */
     while (!m_op.e_o_s && !src.isCanceled()) {

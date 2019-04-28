@@ -297,7 +297,7 @@ void Kwave::PlayBackPlugin::run(QStringList params)
 
     qDebug("PlayBackPlugin::run()");
 
-    Q_UNUSED(params);
+    Q_UNUSED(params)
 
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_playback_sink);

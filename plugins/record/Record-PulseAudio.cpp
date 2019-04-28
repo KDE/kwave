@@ -279,7 +279,7 @@ void Kwave::RecordPulseAudio::pa_read_cb(pa_stream *p, size_t nbytes,
 //***************************************************************************
 void Kwave::RecordPulseAudio::notifyRead(pa_stream *stream, size_t nbytes)
 {
-    Q_UNUSED(nbytes);
+    Q_UNUSED(nbytes)
     Q_ASSERT(stream);
 
     if (!stream || (stream != m_pa_stream)) return;
@@ -851,7 +851,7 @@ QStringList Kwave::RecordPulseAudio::supportedDevices()
 //***************************************************************************
 void Kwave::RecordPulseAudio::run_wrapper(const QVariant &params)
 {
-    Q_UNUSED(params);
+    Q_UNUSED(params)
     m_mainloop_lock.lock();
     pa_mainloop_run(m_pa_mainloop, Q_NULLPTR);
     m_mainloop_lock.unlock();
@@ -1027,7 +1027,7 @@ void Kwave::RecordPulseAudio::notifySourceInfo(pa_context *c,
                                                const pa_source_info *info,
                                                int eol)
 {
-    Q_UNUSED(c);
+    Q_UNUSED(c)
     Q_ASSERT(c == m_pa_context);
 
     if (eol == 0) {

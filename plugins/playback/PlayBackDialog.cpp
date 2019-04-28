@@ -406,7 +406,7 @@ void Kwave::PlayBackDialog::listEntrySelected(QTreeWidgetItem *current,
                                               QTreeWidgetItem *previous)
 {
     Q_ASSERT(listDevices);
-    Q_UNUSED(previous);
+    Q_UNUSED(previous)
     if (!current || !listDevices) return;
 
     if (m_devices_list_map.contains(current))
@@ -416,7 +416,7 @@ void Kwave::PlayBackDialog::listEntrySelected(QTreeWidgetItem *current,
 //***************************************************************************
 void Kwave::PlayBackDialog::listItemExpanded(QTreeWidgetItem *item)
 {
-    Q_UNUSED(item);
+    Q_UNUSED(item)
     updateListSelection();
 }
 

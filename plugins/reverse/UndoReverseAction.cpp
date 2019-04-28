@@ -59,7 +59,7 @@ qint64 Kwave::UndoReverseAction::redoSize()
 //***************************************************************************
 bool Kwave::UndoReverseAction::store(Kwave::SignalManager &manager)
 {
-    Q_UNUSED(manager);
+    Q_UNUSED(manager)
     return true;
 }
 
@@ -67,7 +67,7 @@ bool Kwave::UndoReverseAction::store(Kwave::SignalManager &manager)
 Kwave::UndoAction *Kwave::UndoReverseAction::undo(Kwave::SignalManager &manager,
                                                   bool with_redo)
 {
-    Q_UNUSED(manager);
+    Q_UNUSED(manager)
     m_plugin_manager.enqueueCommand(
 	_("nomacro:plugin:execute(reverse,noundo)")
     );

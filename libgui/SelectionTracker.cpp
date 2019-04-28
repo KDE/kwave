@@ -161,7 +161,7 @@ void Kwave::SelectionTracker::slotTrackDeleted(unsigned int index,
 {
     QMutexLocker lock(&m_lock);
 
-    Q_UNUSED(index);
+    Q_UNUSED(index)
 
     Q_ASSERT(track);
     if (!track) return;
@@ -417,7 +417,7 @@ qint64 Kwave::SelectionTracker::Undo::redoSize()
 //***************************************************************************
 bool Kwave::SelectionTracker::Undo::store(Kwave::SignalManager &manager)
 {
-    Q_UNUSED(manager); // data has already been stored in the constructor
+    Q_UNUSED(manager) // data has already been stored in the constructor
     return true;
 }
 
@@ -425,7 +425,7 @@ bool Kwave::SelectionTracker::Undo::store(Kwave::SignalManager &manager)
 Kwave::UndoAction *Kwave::SelectionTracker::Undo::undo(
     Kwave::SignalManager &manager, bool with_redo)
 {
-    Q_UNUSED(manager);
+    Q_UNUSED(manager)
 
     if (!m_tracker.isNull()) {
 	QList<QUuid>   tracks = m_tracks;

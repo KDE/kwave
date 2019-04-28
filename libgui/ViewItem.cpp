@@ -46,14 +46,14 @@ Kwave::ViewItem::Flags Kwave::ViewItem::flags() const
 //***************************************************************************
 QString Kwave::ViewItem::toolTip(sample_index_t &ofs)
 {
-    Q_UNUSED(ofs);
+    Q_UNUSED(ofs)
     return QString();
 }
 
 //***************************************************************************
 void Kwave::ViewItem::appendContextMenu(QMenu *parent)
 {
-    Q_UNUSED(parent);
+    Q_UNUSED(parent)
 }
 
 //***************************************************************************
@@ -65,7 +65,7 @@ QCursor Kwave::ViewItem::mouseCursor() const
 //***************************************************************************
 void Kwave::ViewItem::moveTo(const QPoint &mouse_pos)
 {
-    Q_UNUSED(mouse_pos);
+    Q_UNUSED(mouse_pos)
 }
 
 //***************************************************************************

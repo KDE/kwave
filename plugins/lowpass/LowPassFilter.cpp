@@ -140,7 +140,7 @@ void Kwave::LowPassFilter::input(Kwave::SampleArray data)
     const Kwave::SampleArray &in = data;
     bool ok = m_buffer.resize(in.size());
     Q_ASSERT(ok);
-    Q_UNUSED(ok);
+    Q_UNUSED(ok)
 
     normed_setfilter_shelvelowpass(m_f_cutoff);
 

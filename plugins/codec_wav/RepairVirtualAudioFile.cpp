@@ -86,8 +86,8 @@ qint64 Kwave::RepairVirtualAudioFile::length()
 qint64 Kwave::RepairVirtualAudioFile::write(const char *data,
                                             unsigned int nbytes)
 {
-    Q_UNUSED(data);
-    Q_UNUSED(nbytes);
+    Q_UNUSED(data)
+    Q_UNUSED(nbytes)
     qWarning("RepairVirtualAudioFile::write() is forbidden !");
     return 0;
 }

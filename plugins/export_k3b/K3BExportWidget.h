@@ -54,7 +54,7 @@ namespace Kwave
 	/** @see KPreviewWidgetBase::showPreview() */
 	virtual void showPreview(const QUrl &url)
 	{
-	    Q_UNUSED(url);
+	    Q_UNUSED(url)
 	}
 
 	/** @see KPreviewWidgetBase::clearPreview */

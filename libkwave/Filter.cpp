@@ -198,7 +198,7 @@ void Kwave::Filter::load(const QString &filename)
 
 	int spacepos = line.indexOf(QLatin1Char(' '));
 	ok = true;
-	if (ok) m_delay[i] = line.left(spacepos).toUInt(&ok);
+	if (ok) m_delay[i] = line.leftRef(spacepos).toUInt(&ok);
 	line.remove(0, spacepos);
 	if (ok) m_coeff[i] = line.toDouble(&ok);
 

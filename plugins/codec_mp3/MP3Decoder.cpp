@@ -232,8 +232,8 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		int cds = 0;
 		if (s.contains(QLatin1Char('/'))) {
 		    int i = s.indexOf(QLatin1Char('/'));
-		    cd = s.left(i).toInt();
-		    cds = s.mid(i + 1).toInt();
+		    cd = s.leftRef(i).toInt();
+		    cds = s.midRef(i + 1).toInt();
 		} else {
 		    cd = s.toInt();
 		}
@@ -248,8 +248,8 @@ bool Kwave::MP3Decoder::parseID3Tags(ID3_Tag &tag)
 		int tracks = 0;
 		if (s.contains(QLatin1Char('/'))) {
 		    int i = s.indexOf(QLatin1Char('/'));
-		    track = s.left(i).toInt();
-		    tracks = s.mid(i + 1).toInt();
+		    track = s.leftRef(i).toInt();
+		    tracks = s.midRef(i + 1).toInt();
 		} else {
 		    track = s.toInt();
 		}

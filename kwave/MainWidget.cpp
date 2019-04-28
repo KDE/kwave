@@ -927,8 +927,6 @@ int Kwave::MainWidget::loadLabels(const QString &filename)
 
     QUrl url;
     if (!filename.length()) {
-	QString name(filename);
-
 	QPointer<Kwave::FileDialog> dlg = new (std::nothrow)Kwave::FileDialog(
 	_("kfiledialog:///kwave_label_dir"),
 	Kwave::FileDialog::OpenFile, LABEL_LIST_FILTER, this,
@@ -991,7 +989,7 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
 
 	// check if the file exists and ask before overwriting it
 	// if it is not the old filename
-	if (QFileInfo(name).exists())
+	if (QFileInfo::exists(name))
 	{
 	    if (Kwave::MessageBox::warningYesNo(this,
 		i18n("The file '%1' already exists.\n"

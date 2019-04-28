@@ -118,7 +118,7 @@ Kwave::FileDialog::FileDialog(
     // if a filename or directory URL was passed, try to re-use it
     if (!m_last_url.isEmpty() && (m_last_url.isLocalFile() || saving)) {
 	QFileInfo file(m_last_url.toLocalFile());
-	if (QFileInfo(file.path()).exists() || saving)
+	if (QFileInfo::exists(file.path()) || saving)
 	    m_file_widget.setUrl(m_last_url.adjusted(QUrl::RemoveFilename));
 	if (!file.isDir() && (file.exists() || saving))
 	    m_file_widget.setSelectedUrl(

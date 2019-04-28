@@ -123,7 +123,8 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
 		if ((quote != '\'') && (quote != '"'))
 		    quote = -1;
 
-		for (QString::ConstIterator it = v.begin(); it != v.end(); ++it)
+		for (QString::ConstIterator it = v.constBegin();
+		     it != v.constEnd(); ++it)
 		{
 		    const char c = QChar(*it).toLatin1();
 

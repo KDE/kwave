@@ -952,7 +952,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 		    if (ext.length()) {
 			extension = ext;
 			QString new_filename = current_url.fileName();
-			new_filename += extension.mid(1); // remove the "*"
+			new_filename += extension.midRef(1); // remove the "*"
 			current_url = current_url.adjusted(QUrl::RemoveFilename);
 			current_url.setPath(current_url.path() + new_filename);
 		    }
@@ -987,7 +987,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	    QString ext = dlg->selectedExtension();
 	    QStringList extensions = ext.split(_(" "));
 	    ext = extensions.first();
-	    new_name += ext.mid(1);
+	    new_name += ext.midRef(1);
 	    path = new_name;
 	    url.setPath(new_name);
 	}
@@ -999,7 +999,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
     // if it is not the old filename
     name = url.path();
     if ((url.toDisplayString() != QUrl(signalName()).toDisplayString()) &&
-	(QFileInfo(name).exists()))
+	QFileInfo::exists(name))
     {
 	if (Kwave::MessageBox::warningYesNo(m_top_widget,
 	    i18n("The file '%1' already exists.\n"

@@ -154,7 +154,6 @@
   <!ENTITY no-i18n-plugin_goto "goto">
   <!ENTITY no-i18n-plugin_insert_at "insert_at">
   <!ENTITY no-i18n-plugin_lowpass "lowpass">
-  <!ENTITY no-i18n-plugin_memory "memory">
   <!ENTITY no-i18n-plugin_newsignal "newsignal">
   <!ENTITY no-i18n-plugin_noise "noise">
   <!ENTITY no-i18n-plugin_normalize "normalize">
@@ -867,61 +866,6 @@
 	        </para>
 	    </listitem>
 	</itemizedlist>
-    </para>
-
-    </sect1>
-
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Memory Setup                                          +++ -->
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <sect1 id="memory-setup"><title id="sect_title_memory-setup">Memory Setup</title>
-
-    <para>
-       When using &kwave; for the first time, you should go to the memory
-       setup dialog and modify the settings to be suitable for your needs
-       and the installed memory of your computer. You can reach it under
-       <menuchoice>
-       <guimenu>Settings</guimenu><guimenuitem>Memory...</guimenuitem>
-       </menuchoice>.
-    </para>
-    <para>
-	<screenshot>
-    	    <screeninfo>
-		Here's a screenshot of &kwave;'s memory setup dialog
-	    </screeninfo>
-    	    <mediaobject>
-		<imageobject>
-	    	    <imagedata fileref="kwave-plugin-memory.png" format="PNG"/>
-		</imageobject>
-		<textobject>
-	    	    <phrase>Screenshot of the Memory Setup Dialog</phrase>
-		</textobject>
-	    </mediaobject>
-	</screenshot>
-    </para>
-    <para>
-	&kwave; is able to use two types of memory: <emphasis>physical</emphasis>
-	and <emphasis>virtual</emphasis> memory.
-    </para>
-    <para>
-	<emphasis>Physical memory</emphasis> is the memory (RAM) that is
-	installed in your computer.
-	You should limit the usage of physical memory to some reasonable
-	size, as a rule of thumb, half of the installed memory should be ok.
-	If you set the limit too high, Linux will take memory from other
-	applications, which means that it swaps out memory of other programs
-	to the hard disk (swap), which is rather slow. If you set the limit
-	too low, you might lose some performance when working with big files,
-	because you use less of the fast physical memory than you could.
-    </para>
-    <para>
-	If you enable <emphasis>virtual memory</emphasis>, &kwave; is able to
-	load and process files
-	that are bigger than the amount of real installed physical memory.
-	&kwave; does this by using temporary files in a configurable directory,
-	which is much faster and more cooperative to other applications than
-	using the operating system's swapping. The directory that you
-	configure should be on your local hard disk.
     </para>
 
     </sect1>
@@ -4480,9 +4424,6 @@
 	    <indexdiv><title>l</title>
 		<indexentry><primaryie><link linkend="plugin_sect_lowpass" endterm="plugin_title_lowpass"/></primaryie></indexentry>
 	    </indexdiv>
-	    <indexdiv><title>m</title>
-		<indexentry><primaryie><link linkend="plugin_sect_memory" endterm="plugin_title_memory"/></primaryie></indexentry>
-	    </indexdiv>
 	    <indexdiv><title>n</title>
 		<indexentry><primaryie><link linkend="plugin_sect_newsignal" endterm="plugin_title_newsignal"/></primaryie></indexentry>
 		<indexentry><primaryie><link linkend="plugin_sect_noise" endterm="plugin_title_noise"/></primaryie></indexentry>
@@ -5864,119 +5805,6 @@
 			    </para>
 			</listitem>
 		    </varlistentry>
-		</variablelist>
-	    </listitem>
-	</varlistentry>
-    </variablelist>
-    </sect1>
-
-    <!-- @PLUGIN@ memory -->
-    <sect1 id="plugin_sect_memory"><title id="plugin_title_memory">&no-i18n-plugin_memory; (Memory Settings)</title>
-    <screenshot>
-	<screeninfo>Screenshot</screeninfo>
-	<mediaobject>
-	    <imageobject>
-		<imagedata fileref="kwave-plugin-memory.png" format="PNG"/>
-	    </imageobject>
-	    <textobject>
-		<phrase>Screenshot of the Memory Setup Plugin</phrase>
-	    </textobject>
-	</mediaobject>
-    </screenshot>
-    <variablelist>
-	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_internal_name;</emphasis></term>
-	    <listitem><para><literal>&no-i18n-plugin_memory;</literal></para></listitem>
-	</varlistentry>
-	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_type;</emphasis></term>
-	    <listitem><para>&GUI;</para></listitem>
-	</varlistentry>
-	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_description;</emphasis></term>
-	    <listitem>
-	    <para>
-	        Provides a dialog to set up the memory usage of &kwave;.
-		Please refer to the section about the
-		<link linkend="memory-setup" endterm="sect_title_memory-setup"/>
-		in this manual for more information.
-	    </para>
-	    </listitem>
-	</varlistentry>
-	<varlistentry>
-	    <term><emphasis role="bold">&i18n-plugin_lbl_parameters;</emphasis></term>
-	    <listitem>
-		<variablelist>
-		    <varlistentry>
-			<term><replaceable>physical limited</replaceable></term>
-			<listitem>
-			    <para>
-				If zero, the use of physical memory will not
-				limited, otherwise the use of physical memory
-				will be limited.
-			    </para>
-			</listitem>
-		    </varlistentry>
-		    <varlistentry>
-			<term><replaceable>physical limit</replaceable></term>
-			<listitem>
-			    <para>
-				Limitation of the physical memory in units of
-				whole MB. Only has an effect when the parameter
-				<replaceable>physical limited</replaceable>
-				has been set to a non zero value.
-			    </para>
-			</listitem>
-		    </varlistentry>
-
-		    <varlistentry>
-			<term><replaceable>virtual enabled</replaceable></term>
-			<listitem>
-			    <para>
-				If zero, the use of virtual memory will be
-				disabled, otherwise the use of virtual memory
-				will be enabled.
-			    </para>
-			</listitem>
-		    </varlistentry>
-		    <varlistentry>
-			<term><replaceable>virtual limited</replaceable></term>
-			<listitem>
-			    <para>
-				If zero, the use of virtual memory will be not
-				limited, otherwise the use of virtual memory
-				will be limited. Only has an effect if the
-				parameter
-				<replaceable>virtual enabled</replaceable>
-				has been set to a non zero value.
-			    </para>
-			</listitem>
-		    </varlistentry>
-		    <varlistentry>
-			<term><replaceable>virtual limit</replaceable></term>
-			<listitem>
-			    <para>
-				Limitation of the virtual memory in units of
-				whole MB. Only has an effect if the parameters
-				<replaceable>virtual enabled</replaceable>
-				and <replaceable>virtual limited</replaceable>
-				have both been set to a non zero value.
-			    </para>
-			</listitem>
-		    </varlistentry>
-		    <varlistentry>
-			<term><replaceable>virtual directory</replaceable></term>
-			<listitem>
-			    <para>
-				Directory to use for storing swap files that
-				will be used for providing virtual memory.
-				Only has an effect if the parameter
-				<replaceable>virtual enabled</replaceable>
-				has been set to a non zero value.
-			    </para>
-			</listitem>
-		    </varlistentry>
-
 		</variablelist>
 	    </listitem>
 	</varlistentry>

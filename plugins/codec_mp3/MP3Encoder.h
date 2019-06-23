@@ -47,7 +47,7 @@ namespace Kwave
 	MP3Encoder();
 
 	/** Destructor */
-	virtual ~MP3Encoder();
+	virtual ~MP3Encoder() Q_DECL_OVERRIDE;
 
 	/** Returns a new instance of the encoder */
 	virtual Kwave::Encoder *instance() Q_DECL_OVERRIDE;

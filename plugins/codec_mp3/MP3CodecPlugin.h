@@ -39,7 +39,7 @@ namespace Kwave
 	MP3CodecPlugin(QObject *parent, const QVariantList &args);
 
 	/** Destructor */
-	virtual ~MP3CodecPlugin();
+	virtual ~MP3CodecPlugin() Q_DECL_OVERRIDE;
 
 	/** @see Kwave::Plugin::load() */
 	virtual void load(QStringList &params) Q_DECL_OVERRIDE;

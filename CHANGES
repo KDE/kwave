@@ -1,4 +1,9 @@
 
+ * dropped support for swap files, assuming that nowadays everyone has
+   much more than 4GB RAM and nobody really needs this. Additionally it
+   was a common pitfall that usage of physical memory was limited per
+   default settings to a too low value. Internally this also speeds up
+   allocation of memory and simplifies the code quite a bit.
  * fixed compiler warnings about "empty expression statement has no effect;
     remove unnecessary ';'" (most of them from invocation of Q_UNUSED)
 

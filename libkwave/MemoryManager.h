@@ -86,24 +86,6 @@ namespace Kwave
 	void free(Kwave::Handle &handle) Q_DECL_EXPORT;
 
 	/**
-	 * Sets the limit of physical memory that can be used.
-	 * @param mb number of whole megabytes of the limit
-	 */
-	void setPhysicalLimit(quint64 mb) Q_DECL_EXPORT;
-
-	/**
-	 * Sets the limit of virtual memory that can be used.
-	 * @param mb number of whole megabytes of the limit
-	 */
-	void setVirtualLimit(quint64 mb) Q_DECL_EXPORT;
-
-	/**
-	 * Sets the directory where swap files should be stored
-	 * @param dir directory
-	 */
-	void setSwapDirectory(const QString &dir) Q_DECL_EXPORT;
-
-	/**
 	 * Sets the limit of memory that can be used for undo/redo.
 	 * @param mb number of whole megabytes of the limit
 	 */
@@ -114,13 +96,6 @@ namespace Kwave
 	 * in units of whole megabytes
 	 */
 	quint64 undoLimit() const Q_DECL_EXPORT;
-
-	/**
-	 * Returns the total amount of theoretically available physical
-	 * memory, as the minimum of the totally installed memory and
-	 * ulimit settings.
-	 */
-	quint64 totalPhysical() Q_DECL_EXPORT;
 
 	/**
 	 * Returns the global instance of the memory manager from the
@@ -211,31 +186,8 @@ namespace Kwave
 	/** returns the currently allocated physical memory */
 	quint64 physicalUsed();
 
-	/** returns the currently allocated virtual memory */
-	quint64 virtualUsed();
-
-	/** returns a new swap file name */
-	QString nextSwapFileName(Kwave::Handle handle);
-
-	/** convert a physical memory block into a new larger pagefile */
-	bool convertToVirtual(Kwave::Handle handle, size_t new_size);
-
-	/** convert a swapfile into a physical memory block */
-	bool convertToPhysical(Kwave::Handle handle, size_t new_size);
-
 	/** tries to allocate physical memory */
 	Kwave::Handle allocatePhysical(size_t size);
-
-	/** tries to convert to physical RAM */
-	void tryToMakePhysical(Kwave::Handle handle);
-
-	/**
-	 * Tries to allocate virtual memory
-	 *
-	 * @param size number of bytes to allocate
-	 * @return handle of a SwapFile object or zero if failed
-	 */
-	Kwave::Handle allocateVirtual(size_t size);
 
     private:
 
@@ -245,23 +197,6 @@ namespace Kwave
 	 * @return a non-zero handle or zero if all handles are in use
 	 */
 	Kwave::Handle newHandle();
-
-	/**
-	 * try to make some room in the physical memory area by kicking
-	 * out the oldest entries to swap if possible.
-	 *
-	 * @param size number of bytes to free
-	 * @return true if successful, false if failed
-	 */
-	bool freePhysical(size_t size);
-
-	/**
-	 * Makes sure that the object is not a swapfile in cache. If so,
-	 * it will be unmapped and moved to the m_unmapped_swap list.
-	 *
-	 * @param handle handle of a block in m_cached_swap
-	 */
-	void unmapFromCache(Kwave::Handle handle);
 
 	/** dump current state (for debugging) */
 	void dump(const char *function);
@@ -276,36 +211,11 @@ namespace Kwave
 
     private:
 
-	/** limit of the physical memory */
-	quint64 m_physical_limit;
-
-	/** total maximum physical memory (system dependent) */
-	quint64 m_physical_max;
-
-	/** limit of the virtual memory, 0 = disabled */
-	quint64 m_virtual_limit;
-
-	/** path where to store swap files */
-	QDir m_swap_dir;
-
 	/** limit of memory available for undo/redo */
 	quint64 m_undo_limit;
 
 	/** map of objects in physical memory */
 	Kwave::LRU_Cache<Kwave::Handle, physical_memory_t> m_physical;
-
-	/** map of swapfile objects that are not mapped into memory */
-	QHash<Kwave::Handle, Kwave::SwapFile *> m_unmapped_swap;
-
-	/** map of swapfile objects that are already mapped into memory */
-	QHash<Kwave::Handle, Kwave::SwapFile *> m_mapped_swap;
-
-	/**
-	 * cache for swapfiles that have been recently used, are mapped
-	 * and get unmapped if the queue is full. The queue will be used
-	 * as a FIFO with fixed size.
-	 */
-	QHash<Kwave::Handle, Kwave::SwapFile *> m_cached_swap;
 
 	/** mutex for ensuring exclusive access */
 	QMutex m_lock;

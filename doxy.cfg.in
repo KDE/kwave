@@ -2018,8 +2018,6 @@ INCLUDE_FILE_PATTERNS  =
 PREDEFINED             = DEBUG \
                          HAVE_ALSA_SUPPORT \
                          HAVE_FLAC \
-                         HAVE_GETPAGESIZE \
-                         HAVE_GETRLIMIT \
                          HAVE_LIBSAMPLERATE \
                          HAVE_MP3 \
                          HAVE_OPTIMIZED_MEMCPY \
@@ -2027,10 +2025,7 @@ PREDEFINED             = DEBUG \
                          HAVE_OSS_SUPPORT \
                          HAVE_OGG_OPUS \
                          HAVE_OGG_VORBIS \
-                         HAVE_QT_AUDIO_SUPPORT \
-                         HAVE_SYSCONF \
-                         HAVE_SYSINFO \
-                         HAVE_SYSINFO_MEMUNIT
+                         HAVE_QT_AUDIO_SUPPORT
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The

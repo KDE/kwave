@@ -286,8 +286,6 @@ CHECK_INCLUDE_FILES_CXX("${_inc_cpp}")
 
 CHECK_FUNCTION_EXISTS(unlink HAVE_UNLINK)
 
-INCLUDE(KwaveSysinfo)
-
 #############################################################################
 ### libaudiofile and libsamplerate support                                ###
 

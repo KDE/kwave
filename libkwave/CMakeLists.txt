@@ -112,7 +112,6 @@ SET(libkwave_LIB_SRCS
     StandardBitrates.cpp
     StreamWriter.cpp
     Stripe.cpp
-    SwapFile.cpp
     Track.cpp
     TrackWriter.cpp
     Utils.cpp

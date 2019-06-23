@@ -48,21 +48,6 @@
 /* support libsamplerate */
 #cmakedefine HAVE_LIBSAMPLERATE
 
-/* resource limits for the memory manager */
-#cmakedefine HAVE_GETRLIMIT
-
-/* sysinfo is needed for the memory manager */
-#cmakedefine HAVE_SYSINFO
-
-/* sysinfo structure has the "mem_unit" field? */
-#cmakedefine HAVE_SYSINFO_MEMUNIT
-
-/* used for page size in context of swap files */
-#cmakedefine HAVE_GETPAGESIZE
-
-/* used for determining the page size in context of swap file handling */
-#cmakedefine HAVE_SYSCONF
-
 /* support playback/recording via OSS */
 #cmakedefine HAVE_OSS_SUPPORT
 

@@ -154,6 +154,13 @@ namespace Kwave
 	    return !(operator == (other));
 	}
 
+	/** assignment operator */
+	inline MetaData & operator = (const MetaData &other)
+	{
+	    m_data = other.m_data;
+	    return *this;
+	}
+
 	/** returns a list with all property names */
 	QStringList keys() const;
 

@@ -494,7 +494,7 @@ void Kwave::K3BExportPlugin::saveDocumentData(QDomElement *docElem)
     foreach (const Kwave::K3BExportPlugin::BlockInfo &block, m_block_info) {
 	QString title      = block.m_title;
 	QString artist     = block.m_artist;
-	QString songwriter = QString();
+	QString songwriter;
 	QString url        = block.m_filename;
 
 	QDomElement trackElem = doc.createElement(_("track"));

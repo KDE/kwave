@@ -63,9 +63,9 @@ void Kwave::HMSTimeWidget::setValue(int value)
 //***************************************************************************
 void Kwave::HMSTimeWidget::setLimit(unsigned int limit)
 {
-    Q_ASSERT(limit <= std::numeric_limits<int>::max());
-    if (limit > std::numeric_limits<int>::max())
-	limit = std::numeric_limits<int>::max();
+    Q_ASSERT(limit <= SAMPLE_INDEX_MAX);
+    if (limit > SAMPLE_INDEX_MAX)
+	limit = SAMPLE_INDEX_MAX;
     if (limit < m_limit) {
 	m_limit = limit;
 	setValue(m_limit);

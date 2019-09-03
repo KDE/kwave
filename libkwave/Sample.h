@@ -27,8 +27,9 @@
 /** use an unsigned integer for sample offset/count calculations */
 typedef quint64 sample_index_t;
 
-/** the highest possible sample index */
-#define SAMPLE_INDEX_MAX ( std::numeric_limits<sample_index_t>::max() )
+/** the highest possible sample index (currently limited to 32bit integer */
+#define SAMPLE_INDEX_MAX (static_cast<sample_index_t>( \
+	std::numeric_limits<qint32>::max()) )
 
 /**
  * Currently a "sample" is defined as a 32 bit integer

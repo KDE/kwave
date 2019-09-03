@@ -86,7 +86,7 @@ quint64 Kwave::MemoryManager::undoLimit() const
 //***************************************************************************
 Kwave::Handle Kwave::MemoryManager::newHandle()
 {
-    for (unsigned int i = 0; i < std::numeric_limits<int>::max(); i++) {
+    for (int i = 0; i < std::numeric_limits<int>::max(); i++) {
 	// increment to get the next handle
 	m_last_handle++;
 
@@ -112,21 +112,6 @@ Kwave::Handle Kwave::MemoryManager::allocate(size_t size)
 {
     QMutexLocker lock(&m_lock);
 
-    Kwave::Handle handle = allocatePhysical(size);
-#ifdef DEBUG_MEMORY
-    if (!handle) {
-	qWarning("Kwave::MemoryManager::allocate(%u) - out of memory!",
-	          Kwave::toUint(size));
-    }
-    dump("allocate");
-#endif /* DEBUG_MEMORY */
-
-    return handle;
-}
-
-//***************************************************************************
-Kwave::Handle Kwave::MemoryManager::allocatePhysical(size_t size)
-{
     // get a new handle
     Kwave::Handle handle = newHandle();
     if (!handle) return 0; // out of handles :-(
@@ -147,6 +132,14 @@ Kwave::Handle Kwave::MemoryManager::allocatePhysical(size_t size)
     m_stats.physical.allocs++;
     m_stats.physical.bytes += size;
 #endif /* DEBUG_MEMORY */
+
+    #ifdef DEBUG_MEMORY
+    if (!handle) {
+	qWarning("Kwave::MemoryManager::allocate(%u) - out of memory!",
+		 Kwave::toUint(size));
+    }
+    dump("allocate");
+    #endif /* DEBUG_MEMORY */
 
     return handle;
 }
@@ -337,18 +330,6 @@ void Kwave::MemoryManager::dump(const char *function)
 	   m_stats.physical.limit,
 	   m_stats.physical.allocs,
 	   m_stats.physical.frees);
-    qDebug("mapped swap: %12llu, %12llu / %12llu (%12llu : %12llu)",
-	   m_stats.swap.mapped.handles,
-	   m_stats.swap.mapped.bytes,
-	   m_stats.swap.limit,
-	   m_stats.swap.allocs,
-	   m_stats.swap.frees);
-    qDebug("cached:      %12llu, %12llu",
-	   m_stats.swap.cached.handles,
-	   m_stats.swap.cached.bytes);
-    qDebug("unmapped:    %12llu, %12llu",
-	   m_stats.swap.unmapped.handles,
-	   m_stats.swap.unmapped.bytes);
     qDebug("-----------------------------------------------------------------");
 
 #else /* DEBUG_MEMORY */

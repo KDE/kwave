@@ -199,7 +199,7 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     if (m_slices > MAX_SLICES) m_slices = MAX_SLICES;
 
     /* limit selection to INT_MAX samples (limitation of the cache index) */
-    if ((length / m_fft_points) >= std::numeric_limits<int>::max()) {
+    if ((length / m_fft_points) >= SAMPLE_INDEX_MAX) {
 	Kwave::MessageBox::error(parentWidget(),
 	                         i18n("File or selection too large"));
 	return -EFBIG;

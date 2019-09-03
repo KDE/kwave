@@ -62,8 +62,8 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
     if (!m_length) m_length = 1;
 
     // limit the length if necessary
-    if ((m_length - m_offset) > std::numeric_limits<int>::max())
-	m_length = m_offset + std::numeric_limits<int>::max();
+    if ((m_length - m_offset) > SAMPLE_INDEX_MAX)
+	m_length = m_offset + SAMPLE_INDEX_MAX;
 
     // set range of selection by sample
     edSamples->setRange(0, Kwave::toInt(m_length - m_offset));
@@ -422,8 +422,8 @@ void Kwave::SelectTimeWidget::setOffset(sample_index_t offset)
     sample_index_t samples = edSamples->value();
 
     // the range of the sample edit should always get updated
-    if (max_samples > std::numeric_limits<int>::max())
-	max_samples = std::numeric_limits<int>::max();
+    if (max_samples > SAMPLE_INDEX_MAX)
+	max_samples = SAMPLE_INDEX_MAX;
     edSamples->setRange(0, Kwave::toInt(max_samples));
     edSamples->setSingleStep(1);
 
@@ -445,9 +445,9 @@ void Kwave::SelectTimeWidget::setOffset(sample_index_t offset)
     t /= 60;
     sbHours->setValue(Kwave::toInt(t));
 
-    Q_ASSERT(samples <= std::numeric_limits<int>::max());
-    if (samples > std::numeric_limits<int>::max())
-	samples = std::numeric_limits<int>::max();
+    Q_ASSERT(samples <= SAMPLE_INDEX_MAX);
+    if (samples > SAMPLE_INDEX_MAX)
+	samples = SAMPLE_INDEX_MAX;
     edSamples->setValue(Kwave::toInt(samples));
 
     double percents = 100.0 * static_cast<double>(samples) /
@@ -486,8 +486,8 @@ sample_index_t Kwave::SelectTimeWidget::timeToSamples(
 	    break;
     }
 
-    if (pos > std::numeric_limits<int>::max())
-	pos = std::numeric_limits<int>::max();
+    if (pos > SAMPLE_INDEX_MAX)
+	pos = SAMPLE_INDEX_MAX;
     return pos;
 }
 

@@ -156,28 +156,6 @@ namespace Kwave
 		quint64 allocs;  /**< number of allocs */
 		quint64 frees;   /**< number of frees  */
 	    } physical;
-
-	    /** swap files */
-	    struct {
-		/** mapped swap files */
-		struct {
-		    quint64 handles; /**< used handles    */
-		    quint64 bytes;   /**< allocated bytes */
-		} mapped;
-		/** swap files mapped (cached) */
-		struct {
-		    quint64 handles; /**< used handles    */
-		    quint64 bytes;   /**< mapped bytes    */
-		} cached;
-		/** unmapped swap files */
-		struct {
-		    quint64 handles; /**< used handles    */
-		    quint64 bytes;   /**< allocated bytes */
-		} unmapped;
-		quint64 limit;  /**< maximum allowed  */
-		quint64 allocs; /**< number of allocs */
-		quint64 frees;  /**< number of frees  */
-	    } swap;
 	} statistic_t;
 #endif
 
@@ -185,9 +163,6 @@ namespace Kwave
 
 	/** returns the currently allocated physical memory */
 	quint64 physicalUsed();
-
-	/** tries to allocate physical memory */
-	Kwave::Handle allocatePhysical(size_t size);
 
     private:
 

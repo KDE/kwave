@@ -26,6 +26,7 @@
 #include <QVariant>
 #include <QWidget>
 
+#include "libkwave/memcpy.h"
 #include "libkwave/CodecManager.h"
 #include "libkwave/Compression.h"
 #include "libkwave/Connect.h"
@@ -71,19 +72,14 @@ qint64 Kwave::MimeData::Buffer::readData(char *data, qint64 maxlen)
     if (pos() + maxlen > size())
 	maxlen = size() - pos();
 
-    Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
-    return mem.readFrom(
-	m_block,
-	Kwave::toUint(pos()),
-	data,
-	Kwave::toUint(maxlen)
-    );
+    MEMCPY(data, m_block->constData() + Kwave::toUint(pos()),
+	   Kwave::toUint(maxlen));
+    return maxlen;
 }
 
 //***************************************************************************
 qint64 Kwave::MimeData::Buffer::writeData(const char *data, qint64 len)
 {
-    Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
     quint64 new_size = pos() + len;
 
     // clip the mime data buffer at the "unsigned int" border
@@ -98,29 +94,23 @@ qint64 Kwave::MimeData::Buffer::writeData(const char *data, qint64 len)
 
     if (!m_block) {
 	// first call: allocate a new memory object
-	m_block = mem.allocate(static_cast<size_t>(new_size));
+	m_block = new(std::nothrow) QByteArray(new_size, Qt::Uninitialized);
 	if (!m_block) return -1; // allocation failed
     }
 
-    if ((pos() + len) > static_cast<qint64>(mem.sizeOf(m_block))) {
-	if (!mem.resize(m_block, static_cast<size_t>(new_size)))
+    if ((pos() + len) > static_cast<qint64>(m_block->size())) {
+	m_block->resize(static_cast<int>(new_size));
+	if ((m_block->size()) != qint64(new_size))
 	    return -1; // resize failed
     }
 
-    // write to the memory block (may be physical or swap file)
-    qint64 written = mem.writeTo(
-	m_block,
-	static_cast<unsigned int>(pos()),
-	data,
-	static_cast<unsigned int>(len)
-    );
-    if (written < 0)
-	return -1; // write failed: disk full?
+    // write to the memory block
+    MEMCPY(m_block->data() + pos(), data, len);
 
-    if (pos() + written > m_size)
-	m_size = pos() + written ; // push the "m_size"
+    if (pos() + len > m_size)
+	m_size = pos() + len ; // push the "m_size"
 
-    return written; // write operation was successful
+    return len; // write operation was successful
 }
 
 //***************************************************************************
@@ -130,13 +120,11 @@ bool Kwave::MimeData::Buffer::mapToByteArray()
     m_data.setRawData(Q_NULLPTR, 0);
     m_data.clear();
 
-    Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
-    const char *raw = (m_block) ?
-        static_cast<const char *>(mem.map(m_block)) : Q_NULLPTR;
+    const char *raw = (m_block) ? ((m_block->data())) : Q_NULLPTR;
     if (!raw) {
 	// mapping failed: free the block here to avoid trouble
 	// in close()
-	mem.free(m_block);
+	delete m_block;
 	m_block = 0;
 	qWarning("Kwave::MimeData::Buffer::mapToByteArray() failed");
 	return false; // mmap failed
@@ -160,9 +148,7 @@ void Kwave::MimeData::Buffer::close()
 
     // unmap and discard the mapped memory
     if (m_block) {
-	Kwave::MemoryManager &mem = Kwave::MemoryManager::instance();
-	mem.unmap(m_block);
-	mem.free(m_block);
+	delete m_block;
 	m_block = 0;
     }
     m_size = 0;

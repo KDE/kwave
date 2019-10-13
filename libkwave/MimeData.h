@@ -22,11 +22,12 @@
 
 #include <QtGlobal>
 #include <QByteArray>
+#include <QIODevice>
 #include <QMimeData>
 #include <QObject>
 
-#include "libkwave/MemoryManager.h"
 #include "libkwave/Sample.h"
+#include "libkwave/Utils.h"
 
 class QWidget;
 
@@ -81,8 +82,7 @@ namespace Kwave
 
 	private:
 	    /**
-	     * interal class for buffering huge amounts of mime data with
-	     * support for swap files (using Kwave::MemoryManager).
+	     * interal class for buffering huge amounts of mime data.
 	     * Used as a "write only" stream, after writing the data can be
 	     * memory mapped and accessed through a QByteArray.
 	     */
@@ -137,8 +137,8 @@ namespace Kwave
                     Q_DECL_OVERRIDE;
 
 	    private:
-		/** handle of the block of memory (see MemoryManager) */
-		Kwave::Handle m_block;
+		/** block of memory */
+		QByteArray *m_block;
 
 		/** number of total bytes written */
 		qint64 m_size;

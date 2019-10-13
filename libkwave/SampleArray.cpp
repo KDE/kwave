@@ -44,27 +44,6 @@ Kwave::SampleArray::~SampleArray()
 }
 
 //***************************************************************************
-void Kwave::SampleArray::setRawData(sample_t *data, unsigned int size)
-{
-    if (!m_storage) return;
-    bool ok = resize(0);
-    if (!ok) qWarning("Kwave::SampleArray::setRawData(...) - OOM?");
-    Q_ASSERT(m_storage->m_raw_data == Q_NULLPTR);
-    Q_ASSERT(m_storage->m_data == Q_NULLPTR);
-    Q_ASSERT(m_storage->m_size == 0);
-    m_storage->m_raw_data = data;
-    m_storage->m_size     = size;
-}
-
-//***************************************************************************
-void Kwave::SampleArray::resetRawData()
-{
-    if (!m_storage) return;
-    m_storage->m_raw_data = Q_NULLPTR;
-    m_storage->m_size = 0;
-}
-
-//***************************************************************************
 void Kwave::SampleArray::fill(sample_t value)
 {
     if (!m_storage) return;
@@ -107,7 +86,6 @@ bool Kwave::SampleArray::resize(unsigned int size)
     if (!m_storage) return false;
     if (size == m_storage->m_size) return true;
 
-    Q_ASSERT(m_storage->m_raw_data == Q_NULLPTR);
     m_storage->resize(size);
     if (size && (m_storage->m_size > size)) {
 	qWarning("Kwave::SampleArray::resize(): shrinking from %u to %u "
@@ -129,7 +107,6 @@ Kwave::SampleArray::SampleStorage::SampleStorage()
 {
     m_size     = 0;
     m_data     = Q_NULLPTR;
-    m_raw_data = Q_NULLPTR;
 }
 
 //***************************************************************************
@@ -138,8 +115,6 @@ Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
 {
     m_size     = 0;
     m_data     = Q_NULLPTR;
-    m_raw_data = Q_NULLPTR;
-    Q_ASSERT(other.m_raw_data == Q_NULLPTR);
 
     if (other.m_size) {
 	m_data = static_cast<sample_t *>(
@@ -147,10 +122,7 @@ Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
 	);
 	if (m_data) {
 	    m_size = other.m_size;
-	    MEMCPY(m_data,
-		(other.m_raw_data) ? other.m_raw_data : other.m_data,
-		m_size * sizeof(sample_t)
-	    );
+	    MEMCPY(m_data, other.m_data, m_size * sizeof(sample_t));
 	}
     }
 }
@@ -158,15 +130,12 @@ Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
 //***************************************************************************
 Kwave::SampleArray::SampleStorage::~SampleStorage()
 {
-    Q_ASSERT(m_raw_data == Q_NULLPTR);
     if (m_data) ::free(m_data);
 }
 
 //***************************************************************************
 void Kwave::SampleArray::SampleStorage::resize(unsigned int size)
 {
-    Q_ASSERT(m_raw_data == Q_NULLPTR);
-
     if (size) {
 	// resize using realloc, keep existing data
 	sample_t *new_data = static_cast<sample_t *>(

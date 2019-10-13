@@ -140,6 +140,12 @@ namespace Kwave
     /** returns the URL scheme for encoding/decoding kwave:<*> URLs */
     QString Q_DECL_EXPORT urlScheme();
 
+    /**
+     * Returns the limit of memory that can be used for undo/redo
+     * in units of whole megabytes
+     */
+    quint64 undoLimit() Q_DECL_EXPORT;
+
 }
 
 #endif /* KWAVE_UTILS_H */

@@ -36,7 +36,6 @@ set (KDE_APPLICATIONS_VERSION_MICRO "70")
 ### build options:                                                        ###
 
 # OPTION(DEBUG           "build debug code [default=off]" OFF)
-# OPTION(DEBUG_MEMORY    "enable memory management debug code [default=off]" OFF)
 # OPTION(WITH_ALSA       "enable playback/recording via ALSA [default=on]" ON)
 # OPTION(WITH_DOC        "build online documentation [default=on]" ON)
 # OPTION(WITH_FLAC       "enable support for FLAC files [default=on]" ON)
@@ -312,8 +311,6 @@ OPTION(DEBUG "enable the debug plugin in the menu [default=off]" OFF)
 IF (DEBUG)
     SET(HAVE_DEBUG_PLUGIN  ON CACHE BOOL "enable debug plugin in the menu")
 ENDIF (DEBUG)
-
-OPTION(DEBUG_MEMORY "enable memory management debug code [default=off]" OFF)
 
 #############################################################################
 ### subdirs                                                               ###

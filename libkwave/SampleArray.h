@@ -54,7 +54,6 @@ namespace Kwave
 	inline const sample_t * constData() const
 	{
             if (Q_UNLIKELY(!m_storage)) return Q_NULLPTR;
-	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
 	    return m_storage->m_data;
 	}
 
@@ -62,22 +61,8 @@ namespace Kwave
 	inline sample_t *data() /* __attribute__((deprecated)) <- for debug */
 	{
             if (Q_UNLIKELY(!m_storage)) return Q_NULLPTR;
-	    if (m_storage->m_raw_data) return m_storage->m_raw_data;
 	    return m_storage->m_data;
 	}
-
-	/**
-	 * Sets a pointer to some raw data
-	 * @param data pointer to an array of sample_t
-	 * @param size number of samples in the array
-	 */
-	void setRawData(sample_t *data, unsigned int size);
-
-	/**
-	 * Resets the raw data set with setRawData() and resizes this
-	 * array to zero-size
-	 */
-	void resetRawData();
 
 	/** fills the array with a sample value */
 	void fill(sample_t value);
@@ -132,8 +117,7 @@ namespace Kwave
 	    virtual ~SampleStorage();
 
 	    /**
-	     * Resizes the array. Using raw data mode is not allowed and will
-	     * lead to an assert!
+	     * Resizes the array
 	     * @param size new number of samples
 	     */
 	    void resize(unsigned int size);
@@ -144,9 +128,6 @@ namespace Kwave
 
 	    /** pointer to the area with the samples (allocated) */
 	    sample_t *m_data;
-
-	    /** pointer to some raw data that has been set */
-	    sample_t *m_raw_data;
 	};
 
 	QSharedDataPointer<SampleStorage> m_storage;

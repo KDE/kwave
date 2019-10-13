@@ -84,9 +84,6 @@
 /* suffix of executable files */
 #cmakedefine EXECUTABLE_SUFFIX @CMAKE_EXECUTABLE_SUFFIX@
 
-/* enable memory management debug code */
-#cmakedefine DEBUG_MEMORY
-
 /* libaudiofile knows FLAC compression */
 #cmakedefine HAVE_AF_COMPRESSION_FLAC
 

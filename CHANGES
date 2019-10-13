@@ -7,6 +7,8 @@
  * fixed compiler warnings about "empty expression statement has no effect;
     remove unnecessary ';'" (most of them from invocation of Q_UNUSED)
  * changed SAMPLE_INDEX_MAX to maximum value of a 32bit int (2.147.483.647)
+ * removed class MemoryManager, use Kwave::SampleArray directly as backend
+   for Kwave::Stripe (which reduces complexity a lot)
 
 19.07.70 [2019-03-16]
 

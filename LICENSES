@@ -358,20 +358,18 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	libkwave/Logger.cpp				GPL2+
 	libkwave/Logger.h				GPL2+
 	libkwave/Matrix.h				GPL2+ (Martin Hinsch)
-	libkwave/MimeData.cpp				GPL2+
-	libkwave/MimeData.h				GPL2+
-	libkwave/MixerMatrix.cpp			GPL2+
-	libkwave/MixerMatrix.h				GPL2+
 	libkwave/memcpy.c				GPL2+ / xine
 	libkwave/memcpy.h				GPL2+
-	libkwave/MemoryManager.cpp			GPL2+
-	libkwave/MemoryManager.h			GPL2+
 	libkwave/MessageBox.h				GPL2+
 	libkwave/MessageBox.cpp				GPL2+
 	libkwave/MetaData.cpp				GPL2+
 	libkwave/MetaData.h				GPL2+
 	libkwave/MetaDataList.cpp			GPL2+
 	libkwave/MetaDataList.h				GPL2+
+	libkwave/MimeData.cpp				GPL2+
+	libkwave/MimeData.h				GPL2+
+	libkwave/MixerMatrix.cpp			GPL2+
+	libkwave/MixerMatrix.h				GPL2+
 	libkwave/MultiPlaybackSink.cpp			GPL2+
 	libkwave/MultiPlaybackSink.h			GPL2+
 	libkwave/MultiStreamWriter.cpp			GPL2+

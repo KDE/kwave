@@ -34,7 +34,6 @@
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
 #include "libkwave/Logger.h"
-#include "libkwave/MemoryManager.h"
 #include "libkwave/Parser.h"
 #include "libkwave/PluginManager.h"
 #include "libkwave/Sample.h"

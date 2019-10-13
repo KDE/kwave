@@ -25,9 +25,6 @@
 #include "libkwave/Utils.h"
 #include "libkwave/memcpy.h"
 
-// define this for using only slow Qt array functions
-// #define STRICTLY_QT
-
 /** minimum time between emitting the "progress()" signal [ms] */
 #define MIN_PROGRESS_INTERVAL 500
 
@@ -62,13 +59,8 @@ void Kwave::SampleReader::reset()
 static inline void padBuffer(Kwave::SampleArray &buffer,
                              unsigned int offset, unsigned int len)
 {
-#ifdef STRICTLY_QT
-    while (len--)
-	buffer[offset++] = 0;
-#else
     memset((&buffer[offset]), 0x00,
            len * sizeof(const_cast<const Kwave::SampleArray &>(buffer)[0]));
-#endif
 }
 
 //***************************************************************************
@@ -164,15 +156,10 @@ unsigned int Kwave::SampleReader::read(Kwave::SampleArray &buffer,
 	count  += cnt;
 	rest   -= cnt;
 	dstoff += cnt;
+
 	qDebug("filling from buffer dstoff=%u, cnt=%u",dstoff,cnt);
-#ifdef STRICTLY_QT
-	while (cnt--) {
-	    buffer[dst++] = m_buffer[src++];
-	}
-#else
 	const Kwave::SampleArray &in = m_buffer;
 	MEMCPY(&(buffer[dst]), &(in[src]), cnt * sizeof(sample_t));
-#endif
 
 	if (m_buffer_position >= m_buffer_used) {
 	    // buffer is empty now

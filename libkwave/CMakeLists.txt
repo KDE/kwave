@@ -82,7 +82,6 @@ SET(libkwave_LIB_SRCS
     Label.cpp
     LabelList.cpp
     Logger.cpp
-    MemoryManager.cpp
     MessageBox.cpp
     MetaData.cpp
     MetaDataList.cpp

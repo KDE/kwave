@@ -20,12 +20,12 @@
 
 #include "config.h"
 
+#include <QByteArray>
 #include <QtGlobal>
 #include <QExplicitlySharedDataPointer>
 #include <QMutex>
 #include <QSharedData>
 
-#include "libkwave/MemoryManager.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleArray.h"
 
@@ -91,7 +91,7 @@ namespace Kwave
 
 	/**
 	 * Returns the position of the last sample of the stripe,
-	 * same as (start() + length() ? (length() - 1))
+	 * or zero if the length is zero
 	 */
 	sample_index_t end() const;
 
@@ -101,12 +101,9 @@ namespace Kwave
 	 * the size is increased, samples with zero value will be added
 	 * to the end.
 	 * @param length new length of the array [samples]
-	 * @param initialize if true, initialize all new areas with
-	 *                   zeroes if the size has been increased
-	 *                   (default = true)
 	 * @return new length [samples]
 	 */
-	unsigned int resize(unsigned int length, bool initialize = true);
+	unsigned int resize(unsigned int length);
 
 	/**
 	 * Appends an array of samples to the end of the stripe.
@@ -226,136 +223,14 @@ namespace Kwave
 
     private:
 
-	/**
-	 * Resizes the internal storage.
-	 * @param length the new length in samples
-	 * @return the length after the resize operation. Should be equal
-	 *         to the length that has been given as parameter. If not,
-	 *         something has failed.
-	 * @note called internally only, under lock. It is made sure that
-	 *       m_data is already detached and not null
-	 */
-	unsigned int resizeStorage(unsigned int length);
-
-    private:
-
-	/**
-	 * Wrapper for mapping the storage into memory and accessing
-	 * it like a normal QMemArray<sample_t>. Should be used like
-	 * a guard, internally uses a MapStorageGuard.
-	 */
-	class MappedArray: public Kwave::SampleArray
-	{
-	public:
-	    /**
-	     * Constructor
-	     * @param stripe should be *this of the stripe
-	     */
-	    explicit MappedArray(Stripe &stripe);
-
-	    /** Destructor */
-	    virtual ~MappedArray();
-
-	    /**
-	     * Copy a portion of samples to another location,
-	     * within the same storage.
-	     *
-	     * @param dst destination index [samples]
-	     * @param src source index [samples]
-	     * @param cnt number of samples
-	     * @return cnt if succeeded or zero if the mapping has failed
-	     * @note this is optimized for speed, no range checks!
-	     */
-	    unsigned int copy(unsigned int dst, unsigned int src,
-	                      unsigned int cnt);
-
-	    /**
-	     * Read a portion of samples into an array of samples.
-	     *
-	     * @param buffer array for samples to be read (destination)
-	     * @param dstoff offset within the destination buffer
-	     * @param offset the offset within the stripe (source)
-	     * @param length number of samples to read
-	     * @return length if succeeded or zero if the mapping has failed
-	     * @warning this method is intended to be used only internally
-	     *          and lacks any error-checking in order to be fast!
-	     */
-	    unsigned int read(Kwave::SampleArray &buffer, unsigned int dstoff,
-	                      unsigned int offset, unsigned int length);
-
-	private:
-
-	    /** stripe which gets it's storage mapped */
-	    Stripe &m_stripe;
-
-	    /** pointer to the memory used for storage */
-	    sample_t *m_storage;
-
-	    /** length in samples */
-	    unsigned int m_length;
-	};
-
-    private:
-
-	/** maps the storage into memory */
-	sample_t *mapStorage();
-
-	/** unmaps the storage from memory */
-	void unmapStorage();
-
-    private:
-
-	class StripeStorage: public QSharedData
-	{
-	public:
-	    /** default constructor */
-	    StripeStorage();
-
-	    /** copy constructor */
-	    StripeStorage(const StripeStorage &other);
-
-	    /** destructor */
-	    virtual ~StripeStorage();
-
-	    /** maps the storage into memory */
-	    sample_t *map();
-
-	    /** unmaps the storage from memory */
-	    void unmap();
-
-	    /** returns the map count */
-	    inline int mapCount() const { return m_map_count; }
-
-	public:
-
-	    /** start position within the track */
-	    sample_index_t m_start;
-
-	    /** number of samples */
-	    unsigned int m_length;
-
-	    /** pointer/handle to a storage object */
-	    Kwave::Handle m_storage;
-
-	private:
-
-	    /** mutex for locking map/unmap */
-	    QMutex m_lock;
-
-	    /** usage count of mapped storage */
-	    int m_map_count;
-
-	    /** mapped storage */
-	    sample_t *m_mapped_storage;
-	};
-
-    private:
-
-	/** mutex for locking map/unmap */
+	/** mutex for locking some operations */
 	QMutex m_lock;
 
+	/** start position within the track */
+	sample_index_t m_start;
+
 	/** pointer to the shared data */
-	QExplicitlySharedDataPointer<StripeStorage> m_data;
+	Kwave::SampleArray m_data;
 
     };
 }

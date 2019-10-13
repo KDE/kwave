@@ -23,6 +23,7 @@
 #include <new>
 
 #include <QApplication>
+#include <QByteArray>
 #include <QCursor>
 #include <QFile>
 #include <QFileInfo>
@@ -41,7 +42,6 @@
 #include "libkwave/FileProgress.h"
 #include "libkwave/InsertMode.h"
 #include "libkwave/LabelList.h"
-#include "libkwave/MemoryManager.h"
 #include "libkwave/MessageBox.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -1410,7 +1410,7 @@ bool Kwave::SignalManager::registerUndoAction(Kwave::UndoAction *action)
     }
 
     // check if the undo action is too large
-    qint64 limit_mb     = Kwave::MemoryManager::instance().undoLimit();
+    qint64 limit_mb     = Kwave::undoLimit();
     qint64 needed_size  = action->undoSize();
     qint64 needed_mb    = needed_size  >> 20;
     if (needed_mb > limit_mb) {
@@ -1477,7 +1477,7 @@ qint64 Kwave::SignalManager::usedUndoRedoMemory()
 void Kwave::SignalManager::freeUndoMemory(qint64 needed)
 {
     qint64 size = usedUndoRedoMemory() + needed;
-    qint64 undo_limit = Kwave::MemoryManager::instance().undoLimit() << 20;
+    qint64 undo_limit = Kwave::undoLimit() << 20;
 
     // remove old undo actions if not enough free memory
     while (!m_undo_buffer.isEmpty() && (size > undo_limit)) {
@@ -1554,7 +1554,7 @@ void Kwave::SignalManager::undo()
     m_undo_enabled = false;
 
     // get free memory for redo
-    qint64 undo_limit = Kwave::MemoryManager::instance().undoLimit() << 20;
+    qint64 undo_limit = Kwave::undoLimit() << 20;
     qint64 redo_size = undo_transaction->redoSize();
     qint64 undo_size = undo_transaction->undoSize();
     Kwave::UndoTransaction *redo_transaction = Q_NULLPTR;
@@ -1695,7 +1695,7 @@ void Kwave::SignalManager::redo()
     m_undo_enabled = false;
 
     // get free memory for undo
-    qint64 undo_limit = Kwave::MemoryManager::instance().undoLimit() << 20;
+    qint64 undo_limit = Kwave::undoLimit() << 20;
     qint64 undo_size = redo_transaction->undoSize();
     qint64 redo_size = redo_transaction->redoSize();
     Kwave::UndoTransaction *undo_transaction = Q_NULLPTR;

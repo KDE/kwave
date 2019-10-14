@@ -31,7 +31,7 @@ Kwave::UndoSelection::UndoSelection(Kwave::SignalManager &manager)
 
 //***************************************************************************
 Kwave::UndoSelection::UndoSelection(Kwave::SignalManager &manager,
-                                    QList<unsigned int> selected_tracks,
+                                    QVector<unsigned int> selected_tracks,
                                     sample_index_t offset,
                                     sample_index_t length)
     :UndoAction(),
@@ -82,7 +82,7 @@ Kwave::UndoAction *Kwave::UndoSelection::undo(Kwave::SignalManager &manager,
     // store current selection for later redo
     sample_index_t old_offset = manager.selection().offset();
     sample_index_t old_length = manager.selection().length();
-    QList<unsigned int> old_selected_tracks = manager.selectedTracks();
+    QVector<unsigned int> old_selected_tracks = manager.selectedTracks();
 
     // restore the previous selection
     manager.selectRange(m_offset, m_length);

@@ -103,7 +103,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
     sample_index_t first = 0;
     sample_index_t last  = 0;
     sample_index_t length;
-    QList<unsigned int> tracks;
+    QVector<unsigned int> tracks;
     if (m_whole_signal) {
 	length = signalLength();
 	last   = (length) ? (length - 1) : 0;

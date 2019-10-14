@@ -96,7 +96,7 @@ void Kwave::FilterPlugin::run(QStringList params)
     if (!interpreteParameters(params)) m_params = params;
 
     sample_index_t first, last;
-    QList<unsigned int> tracks;
+    QVector<unsigned int> tracks;
     selection(&tracks, &first, &last, true);
 
     // switch to interactive mode in pre-listen mode

@@ -68,7 +68,7 @@ void Kwave::ClipBoard::slotChanged(QClipboard::Mode mode)
 //***************************************************************************
 void Kwave::ClipBoard::copy(QWidget *widget,
                             Kwave::SignalManager &signal_manager,
-                            const QList<unsigned int> &track_list,
+                            const QVector<unsigned int> &track_list,
                             sample_index_t offset, sample_index_t length)
 {
     // break if nothing to do

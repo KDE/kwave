@@ -53,7 +53,7 @@ Kwave::ZeroPlugin::~ZeroPlugin()
 //***************************************************************************
 void Kwave::ZeroPlugin::run(QStringList params)
 {
-    QList<unsigned int> tracks;
+    QVector<unsigned int> tracks;
     sample_index_t first = 0;
     sample_index_t last  = 0;
     bool succeeded = true;

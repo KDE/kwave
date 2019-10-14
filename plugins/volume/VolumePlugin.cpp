@@ -85,7 +85,7 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
 
     // initialize the overview cache
     Kwave::SignalManager &mgr = manager().signalManager();
-    QList<unsigned int> tracks;
+    QVector<unsigned int> tracks;
     sample_index_t first, last;
     sample_index_t length = selection(&tracks, &first, &last, true);
     Kwave::OverViewCache *overview_cache = new(std::nothrow)
@@ -125,7 +125,7 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
 //***************************************************************************
 void Kwave::VolumePlugin::run(QStringList params)
 {
-    QList<unsigned int> tracks;
+    QVector<unsigned int> tracks;
     sample_index_t first, last;
 
     interpreteParameters(params);

@@ -22,6 +22,7 @@
 
 #include <QList>
 #include <QString>
+#include <QVector>
 
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
@@ -48,7 +49,7 @@ namespace Kwave
 	 * @param length number of samples to delete
 	 */
 	UndoDeleteAction(QWidget *parent_widget,
-	                 const QList<unsigned int> &track_list,
+			 const QVector<unsigned int> &track_list,
 	                 sample_index_t offset, sample_index_t length);
 
 	/** Destructor */
@@ -93,7 +94,7 @@ namespace Kwave
 	Kwave::MetaDataList m_meta_data;
 
 	/** list of affected tracks */
-	QList<unsigned int> m_track_list;
+	QVector<unsigned int> m_track_list;
 
 	/** first deleted sample */
 	sample_index_t m_offset;

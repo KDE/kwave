@@ -63,7 +63,7 @@ namespace Kwave
 	 * @param length number of samples
 	 */
 	void copy(QWidget *widget, Kwave::SignalManager &signal_manager,
-	          const QList<unsigned int> &track_list,
+		  const QVector<unsigned int> &track_list,
 	          sample_index_t offset, sample_index_t length);
 
 	/**

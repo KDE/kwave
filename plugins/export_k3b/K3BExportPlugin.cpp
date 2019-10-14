@@ -599,7 +599,7 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
     // determine the selection settings
     sample_index_t selection_left  = 0;
     sample_index_t selection_right = 0;
-    QList<unsigned int> tracks;
+    QVector<unsigned int> tracks;
     selection(&tracks, &selection_left, &selection_right, false);
 
     // check: only mono or stereo files are supported

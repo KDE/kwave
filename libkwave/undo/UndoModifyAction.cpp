@@ -57,7 +57,7 @@ bool Kwave::UndoModifyAction::store(Kwave::SignalManager &manager)
     if (!m_length) return true; // shortcut: this is an empty action
 
     // fork off a multi track stripe list for the selected range
-    QList<unsigned int> track_list;
+    QVector<unsigned int> track_list;
     track_list.append(m_track);
     const sample_index_t left  = m_offset;
     const sample_index_t right = m_offset + m_length - 1;
@@ -75,7 +75,7 @@ Kwave::UndoAction *Kwave::UndoModifyAction::undo(
     const sample_index_t left  = m_offset;
     const sample_index_t right = m_offset + m_length - 1;
     QList<Kwave::Stripe::List> redo_data;
-    QList<unsigned int> track_list;
+    QVector<unsigned int> track_list;
     track_list.append(m_track);
     bool ok = true;
 

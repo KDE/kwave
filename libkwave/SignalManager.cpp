@@ -30,6 +30,7 @@
 #include <QMutableListIterator>
 #include <QMutexLocker>
 #include <QUrl>
+#include <QVector>
 
 #include <KAboutData>
 #include <KLocalizedString>
@@ -583,9 +584,9 @@ QString Kwave::SignalManager::signalName()
 }
 
 //***************************************************************************
-const QList<unsigned int> Kwave::SignalManager::selectedTracks()
+const QVector<unsigned int> Kwave::SignalManager::selectedTracks()
 {
-    QList<unsigned int> list;
+    QVector<unsigned int> list;
     const unsigned int tracks = this->tracks();
 
     for (unsigned int track = 0; track < tracks; track++) {
@@ -597,7 +598,7 @@ const QList<unsigned int> Kwave::SignalManager::selectedTracks()
 }
 
 //***************************************************************************
-const QList<unsigned int> Kwave::SignalManager::allTracks()
+const QVector<unsigned int> Kwave::SignalManager::allTracks()
 {
     return m_signal.allTracks();
 }
@@ -679,7 +680,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	    Kwave::UndoTransactionGuard undo(*this, i18n("Crop"));
 	    sample_index_t rest = this->length() - offset;
 	    rest = (rest > length) ? (rest-length) : 0;
-	    QList<unsigned int> tracks = selectedTracks();
+	    QVector<unsigned int> tracks = selectedTracks();
 	    if (saveUndoDelete(tracks, offset+length, rest) &&
 		saveUndoDelete(tracks, 0, offset))
 	    {
@@ -991,7 +992,7 @@ void Kwave::SignalManager::slotSamplesInserted(unsigned int track,
     setModified(true);
 
     // only adjust the meta data once per operation
-    QList<unsigned int> tracks = selectedTracks();
+    QVector<unsigned int> tracks = selectedTracks();
     if (track == tracks.first()) {
 	m_meta_data.shiftRight(offset, length);
     }
@@ -1014,7 +1015,7 @@ void Kwave::SignalManager::slotSamplesDeleted(unsigned int track,
     setModified(true);
 
     // only adjust the meta data once per operation
-    QList<unsigned int> tracks = selectedTracks();
+    QVector<unsigned int> tracks = selectedTracks();
     if (track == tracks.first()) {
 	m_meta_data.shiftLeft(offset, length);
     }
@@ -1037,7 +1038,8 @@ void Kwave::SignalManager::slotSamplesModified(unsigned int track,
 
 //***************************************************************************
 bool Kwave::SignalManager::deleteRange(sample_index_t offset,
-    sample_index_t length, const QList<unsigned int> &track_list)
+				       sample_index_t length,
+				       const QVector<unsigned int> &track_list)
 {
     if (!length || track_list.isEmpty()) return true; // nothing to do
 
@@ -1084,7 +1086,7 @@ bool Kwave::SignalManager::deleteRange(sample_index_t offset,
 //***************************************************************************
 bool Kwave::SignalManager::insertSpace(sample_index_t offset,
                                        sample_index_t length,
-                                       const QList<unsigned int> &track_list)
+				       const QVector<unsigned int> &track_list)
 {
     if (!length) return true; // nothing to do
     Kwave::UndoTransactionGuard undo(*this, i18n("Insert Space"));
@@ -1121,7 +1123,7 @@ void Kwave::SignalManager::selectRange(sample_index_t offset,
 }
 
 //***************************************************************************
-void Kwave::SignalManager::selectTracks(QList<unsigned int> &track_list)
+void Kwave::SignalManager::selectTracks(QVector<unsigned int> &track_list)
 {
     unsigned int track;
     unsigned int n_tracks = tracks();
@@ -1145,7 +1147,7 @@ void Kwave::SignalManager::selectTrack(unsigned int track, bool select)
 
 //***************************************************************************
 QList<Kwave::Stripe::List> Kwave::SignalManager::stripes(
-    const QList<unsigned int> &track_list,
+    const QVector<unsigned int> &track_list,
     sample_index_t left, sample_index_t right)
 {
     QList<Kwave::Stripe::List> stripes;
@@ -1165,17 +1167,17 @@ QList<Kwave::Stripe::List> Kwave::SignalManager::stripes(
 //***************************************************************************
 bool Kwave::SignalManager::mergeStripes(
     const QList<Kwave::Stripe::List> &stripes,
-    const QList<unsigned int> &track_list)
+    const QVector<unsigned int> &track_list)
 {
     Q_ASSERT(stripes.count() == track_list.count());
     if (stripes.count() != track_list.count())
 	return false;
 
     QListIterator<Kwave::Stripe::List> it_s(stripes);
-    QListIterator<unsigned int>        it_t(track_list);
-    while (it_s.hasNext() && it_t.hasNext()) {
+    QVector<unsigned int>::const_iterator it_t = track_list.constBegin();
+    while (it_s.hasNext() && (it_t != track_list.constEnd())) {
 	Kwave::Stripe::List s = it_s.next();
-	unsigned int        t = it_t.next();
+	unsigned int        t = *(it_t++);
 	if (!m_signal.mergeStripes(s, t))
 	    return false; // operation failed
     }
@@ -1444,7 +1446,7 @@ bool Kwave::SignalManager::registerUndoAction(Kwave::UndoAction *action)
 }
 
 //***************************************************************************
-bool Kwave::SignalManager::saveUndoDelete(QList<unsigned int> &track_list,
+bool Kwave::SignalManager::saveUndoDelete(QVector<unsigned int> &track_list,
                                           sample_index_t offset,
                                           sample_index_t length)
 {
@@ -1626,7 +1628,7 @@ void Kwave::SignalManager::undo()
     // for this selection change at the end of the redo transaction
     if (redo_transaction) {
 	bool range_modified = !(m_selection == m_last_selection);
-	QList<unsigned int> tracks = selectedTracks();
+	QVector<unsigned int> tracks = selectedTracks();
 	bool tracks_modified = !(tracks == m_last_track_selection);
 	if (range_modified || tracks_modified) {
 	    UndoAction *redo_action = new(std::nothrow) Kwave::UndoSelection(
@@ -1985,7 +1987,7 @@ void Kwave::SignalManager::checkSelectionChange()
     bool range_modified = !(m_selection == m_last_selection);
 
     // detect track selection change
-    QList<unsigned int> tracks = selectedTracks();
+    QVector<unsigned int> tracks = selectedTracks();
     bool tracks_modified = !(tracks == m_last_track_selection);
 
     if (range_modified || tracks_modified) {

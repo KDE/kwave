@@ -35,7 +35,7 @@ Kwave::MultiTrackWriter::MultiTrackWriter()
 
 //***************************************************************************
 Kwave::MultiTrackWriter::MultiTrackWriter(Kwave::SignalManager &signal_manager,
-                                          const QList<unsigned int> &track_list,
+					  const QVector<unsigned int> &track_list,
                                           Kwave::InsertMode mode,
                                           sample_index_t left,
                                           sample_index_t right)
@@ -52,7 +52,7 @@ Kwave::MultiTrackWriter::MultiTrackWriter(Kwave::SignalManager &signal_manager,
                                           Kwave::InsertMode mode)
     :Kwave::MultiWriter()
 {
-    QList<unsigned int> track_list = signal_manager.selectedTracks();
+    QVector<unsigned int> track_list = signal_manager.selectedTracks();
     sample_index_t left = 0;
     sample_index_t right = 0;
 
@@ -82,7 +82,7 @@ Kwave::MultiTrackWriter::~MultiTrackWriter()
 
 //***************************************************************************
 bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
-                                   const QList<unsigned int> &track_list,
+				   const QVector<unsigned int> &track_list,
                                    Kwave::InsertMode mode,
                                    sample_index_t left,
                                    sample_index_t right)

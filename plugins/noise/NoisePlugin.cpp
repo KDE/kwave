@@ -80,7 +80,7 @@ Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
 
     // initialize the overview cache
     Kwave::SignalManager &mgr = manager().signalManager();
-    QList<unsigned int> tracks;
+    QVector<unsigned int> tracks;
     sample_index_t first, last;
     sample_index_t length = selection(&tracks, &first, &last, true);
     Kwave::OverViewCache *overview_cache =

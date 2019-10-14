@@ -28,7 +28,7 @@
 Kwave::SelectionTracker::SelectionTracker(Kwave::SignalManager *signal,
                                           sample_index_t offset,
                                           sample_index_t length,
-                                          const QList<unsigned int> *tracks)
+					  const QVector<unsigned int> *tracks)
     :m_signal(signal),
      m_offset(offset),
      m_length((length || !signal) ? length : signal->length()),

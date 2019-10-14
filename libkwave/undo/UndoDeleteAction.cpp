@@ -29,10 +29,12 @@
 #include "libkwave/undo/UndoInsertAction.h"
 
 //***************************************************************************
-Kwave::UndoDeleteAction::UndoDeleteAction(QWidget *parent_widget,
-                                          const QList<unsigned int> &track_list,
-                                          sample_index_t offset,
-                                          sample_index_t length)
+Kwave::UndoDeleteAction::UndoDeleteAction(
+    QWidget *parent_widget,
+    const QVector<unsigned int> &track_list,
+    sample_index_t offset,
+    sample_index_t length
+)
     :Kwave::UndoAction(),
      m_parent_widget(parent_widget),
      m_stripes(), m_meta_data(),

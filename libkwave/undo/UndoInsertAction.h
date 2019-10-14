@@ -23,6 +23,7 @@
 #include <QList>
 #include <QObject>
 #include <QString>
+#include <QVector>
 
 #include "libkwave/Sample.h"
 #include "libkwave/undo/UndoAction.h"
@@ -48,7 +49,7 @@ namespace Kwave
 	 * @param length number of inserted samples
 	 */
 	UndoInsertAction(QWidget *parent_widget,
-	                 const QList<unsigned int> &track_list,
+			 const QVector<unsigned int> &track_list,
 	                 sample_index_t offset,
 	                 sample_index_t length);
 
@@ -93,7 +94,7 @@ namespace Kwave
 	QWidget *m_parent_widget;
 
 	/** list of affected tracks */
-	QList<unsigned int> m_track_list;
+	QVector<unsigned int> m_track_list;
 
 	/** first sample */
 	sample_index_t m_offset;

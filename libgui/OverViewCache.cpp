@@ -38,7 +38,7 @@
 Kwave::OverViewCache::OverViewCache(Kwave::SignalManager &signal,
                                     sample_index_t src_offset,
                                     sample_index_t src_length,
-                                    const QList<unsigned int> *src_tracks)
+				    const QVector<unsigned int> *src_tracks)
     :m_signal(signal),
      m_selection(&signal, src_offset, src_length, src_tracks),
      m_min(), m_max(), m_state(), m_minmax(),
@@ -273,7 +273,7 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
     if (minmax.count() < width) // truncated, OOM
 	width = minmax.count();
 
-    QList<unsigned int> track_list;
+    QVector<unsigned int> track_list;
     const QList<QUuid> selected_tracks = m_selection.allTracks();
     foreach (unsigned int track, m_signal.allTracks())
 	if (selected_tracks.contains(m_signal.uuidOfTrack(track)))

@@ -161,7 +161,7 @@ int Kwave::Plugin::start(QStringList &)
     // set up the progress dialog when in processing (not pre-listen) mode
     if (m_progress_enabled && m_progress) {
 	sample_index_t first, last;
-	QList<unsigned int> tracks;
+	QVector<unsigned int> tracks;
 
 	selection(&tracks, &first, &last, true);
 	m_progress->setModal(true);
@@ -476,13 +476,13 @@ double Kwave::Plugin::signalRate()
 }
 
 //***************************************************************************
-const QList<unsigned int> Kwave::Plugin::selectedTracks()
+const QVector<unsigned int> Kwave::Plugin::selectedTracks()
 {
     return signalManager().selectedTracks();
 }
 
 //***************************************************************************
-sample_index_t Kwave::Plugin::selection(QList<unsigned int> *tracks,
+sample_index_t Kwave::Plugin::selection(QVector<unsigned int> *tracks,
                                         sample_index_t *left,
                                         sample_index_t *right,
                                         bool expand_if_empty)

@@ -20,7 +20,7 @@
 #define UNDO_SELECTION_H
 
 #include "config.h"
-#include <QList>
+#include <QVector>
 
 #include "libkwave/Sample.h"
 #include "libkwave/undo/UndoAction.h"
@@ -53,7 +53,7 @@ namespace Kwave
 	 * @param length number of selected samples
 	 */
 	UndoSelection(Kwave::SignalManager &manager,
-	              QList<unsigned int> selected_tracks,
+	              QVector<unsigned int> selected_tracks,
 	              sample_index_t offset,
 	              sample_index_t length);
 
@@ -96,7 +96,7 @@ namespace Kwave
 	sample_index_t m_length;
 
 	/** Array with indices of selected tracks. */
-	QList<unsigned int> m_selected_tracks;
+	QVector<unsigned int> m_selected_tracks;
 
     };
 }

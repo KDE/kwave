@@ -63,7 +63,7 @@ void Kwave::ReversePlugin::run(QStringList params)
     QSharedPointer<Kwave::UndoTransactionGuard> undo_guard;
 
     // get the current selection and the list of affected tracks
-    QList<unsigned int> tracks;
+    QVector<unsigned int> tracks;
     sample_index_t first = 0;
     sample_index_t last  = 0;
     sample_index_t length = selection(&tracks, &first, &last, true);

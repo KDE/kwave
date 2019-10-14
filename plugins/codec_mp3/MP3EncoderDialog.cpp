@@ -637,7 +637,7 @@ void Kwave::MP3EncoderDialog::testSettings()
     meta_data.replace(Kwave::MetaDataList(info));
 
     // create a multi track reader
-    QList<unsigned int> track_list;
+    QVector<unsigned int> track_list;
     track_list.append(0);
     track_list.append(1);
     sample_index_t first = 0;

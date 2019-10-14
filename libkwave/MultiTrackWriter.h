@@ -23,6 +23,7 @@
 
 #include <QtGlobal>
 #include <QList>
+#include <QVector>
 #include <QObject>
 
 #include "libkwave/InsertMode.h"
@@ -55,7 +56,7 @@ namespace Kwave
 	 * @param right index of the last sample
 	 */
 	MultiTrackWriter(Kwave::SignalManager &signal_manager,
-	                 const QList<unsigned int> &track_list,
+	                 const QVector<unsigned int> &track_list,
 	                 Kwave::InsertMode mode,
 	                 sample_index_t left, sample_index_t right);
 
@@ -86,7 +87,7 @@ namespace Kwave
 	 * @internal
 	 */
 	bool init(Kwave::SignalManager &signal_manager,
-	          const QList<unsigned int> &track_list,
+	          const QVector<unsigned int> &track_list,
 	          Kwave::InsertMode mode,
 	          sample_index_t left, sample_index_t right);
 

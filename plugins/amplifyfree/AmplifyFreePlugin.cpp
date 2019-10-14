@@ -142,7 +142,7 @@ int Kwave::AmplifyFreePlugin::start(QStringList &params)
 void Kwave::AmplifyFreePlugin::run(QStringList params)
 {
     sample_index_t first, last;
-    QList<unsigned int> track_list;
+    QVector<unsigned int> track_list;
 
     interpreteParameters(params);
 

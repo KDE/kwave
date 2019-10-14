@@ -27,6 +27,7 @@
 #include <QList>
 #include <QReadWriteLock>
 #include <QUuid>
+#include <QVector>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"
@@ -105,7 +106,7 @@ namespace Kwave
 	/**
 	 * Returns an array of indices of all present tracks.
 	 */
-	QList<unsigned int> allTracks();
+	QVector<unsigned int> allTracks();
 
 	/**
 	 * Opens an output stream for a track, starting at a specified sample

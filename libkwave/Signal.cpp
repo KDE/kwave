@@ -86,17 +86,17 @@ Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
 	m_tracks.insert(index, t);
 
 	// connect to the new track's signals
-	connect(t, SIGNAL(sigSamplesDeleted(Kwave::Track *, sample_index_t,
+	connect(t, SIGNAL(sigSamplesDeleted(Kwave::Track*, sample_index_t,
 	    sample_index_t)),
-	    this, SLOT(slotSamplesDeleted(Kwave::Track *, sample_index_t,
+	    this, SLOT(slotSamplesDeleted(Kwave::Track*, sample_index_t,
 	    sample_index_t)));
-	connect(t, SIGNAL(sigSamplesInserted(Kwave::Track *, sample_index_t,
+	connect(t, SIGNAL(sigSamplesInserted(Kwave::Track*, sample_index_t,
 	    sample_index_t)),
-	    this, SLOT(slotSamplesInserted(Kwave::Track *, sample_index_t,
+	    this, SLOT(slotSamplesInserted(Kwave::Track*, sample_index_t,
 	    sample_index_t)));
-	connect(t, SIGNAL(sigSamplesModified(Kwave::Track *, sample_index_t,
+	connect(t, SIGNAL(sigSamplesModified(Kwave::Track*, sample_index_t,
 	    sample_index_t)),
-	    this, SLOT(slotSamplesModified(Kwave::Track *, sample_index_t,
+	    this, SLOT(slotSamplesModified(Kwave::Track*, sample_index_t,
 	    sample_index_t)));
 
 	connect(t, SIGNAL(sigSelectionChanged(bool)),
@@ -203,13 +203,13 @@ bool Kwave::Signal::mergeStripes(const Kwave::Stripe::List &stripes,
 }
 
 //***************************************************************************
-QList<unsigned int> Kwave::Signal::allTracks()
+QVector<unsigned int> Kwave::Signal::allTracks()
 {
     unsigned int track;
     unsigned int tracks = this->tracks();
-    QList<unsigned int> list;
+    QVector<unsigned int> list;
 
-    for (track=0; track < tracks; track++) {
+    for (track = 0; track < tracks; track++) {
 	list.append(track);
     }
 

@@ -406,9 +406,9 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
     sample_index_t last       = m_playback_end;
     unsigned int out_channels = m_playback_params.channels;
 
-    QList<unsigned int> all_tracks = m_signal_manager.allTracks();
+    QVector<unsigned int> all_tracks = m_signal_manager.allTracks();
     unsigned int tracks = all_tracks.count();
-    QList<unsigned int> audible_tracks = m_signal_manager.selectedTracks();
+    QVector<unsigned int> audible_tracks = m_signal_manager.selectedTracks();
     unsigned int audible_count = audible_tracks.count();
 
     // get the list of selected channels

@@ -29,6 +29,7 @@
 #include <QThread>
 #include <QTimer>
 #include <QVariantList>
+#include <QVector>
 
 #include <KPluginFactory>
 
@@ -208,7 +209,7 @@ namespace Kwave
 	/**
 	 * Returns an array of indices of currently selected channels.
 	 */
-	virtual const QList<unsigned int> selectedTracks();
+	virtual const QVector<unsigned int> selectedTracks();
 
 	/**
 	 * Returns the left and right sample index of the current selection
@@ -228,7 +229,7 @@ namespace Kwave
 	 * @return the number of selected samples (right-left+1) [1..length]
 	 */
 	virtual sample_index_t selection(
-            QList<unsigned int> *tracks = Q_NULLPTR,
+	    QVector<unsigned int> *tracks = Q_NULLPTR,
             sample_index_t *left = Q_NULLPTR,
             sample_index_t *right = Q_NULLPTR,
 	    bool expand_if_empty = false);

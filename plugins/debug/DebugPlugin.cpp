@@ -315,7 +315,7 @@ void Kwave::DebugPlugin::run(QStringList params)
 
 	// and use only the new track as target
 	last = signalLength() - 1;
-	QList<unsigned int> track_list;
+	QVector<unsigned int> track_list;
 	track_list.append(sig.tracks() - 1);
 	writers = new(std::nothrow) Kwave::MultiTrackWriter(
 	    sig, track_list, Kwave::Overwrite, 0, last);

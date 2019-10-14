@@ -55,7 +55,7 @@
 
 //***************************************************************************
 Kwave::MimeData::Buffer::Buffer()
-    :QIODevice(), m_block(0), m_size(0), m_data()
+    :QIODevice(), m_block(Q_NULLPTR), m_size(0), m_data()
 {
 }
 
@@ -125,7 +125,7 @@ bool Kwave::MimeData::Buffer::mapToByteArray()
 	// mapping failed: free the block here to avoid trouble
 	// in close()
 	delete m_block;
-	m_block = 0;
+	m_block = Q_NULLPTR;
 	qWarning("Kwave::MimeData::Buffer::mapToByteArray() failed");
 	return false; // mmap failed
     }
@@ -149,7 +149,7 @@ void Kwave::MimeData::Buffer::close()
     // unmap and discard the mapped memory
     if (m_block) {
 	delete m_block;
-	m_block = 0;
+	m_block = Q_NULLPTR;
     }
     m_size = 0;
 }
@@ -267,7 +267,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	sample_index_t left  = pos;
 	sample_index_t right = left + decoded_length - 1;
-	QList<unsigned int> tracks = sig.selectedTracks();
+	QVector<unsigned int> tracks = sig.selectedTracks();
 	if (tracks.isEmpty()) tracks = sig.allTracks();
 
 	// special case: destination is currently empty

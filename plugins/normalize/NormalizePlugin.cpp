@@ -71,7 +71,7 @@ void Kwave::NormalizePlugin::run(QStringList params)
     Kwave::UndoTransactionGuard undo_guard(*this, i18n("Normalize"));
 
     // get the current selection
-    QList<unsigned int> tracks;
+    QVector<unsigned int> tracks;
     sample_index_t first = 0;
     sample_index_t last  = 0;
     sample_index_t length = selection(&tracks, &first, &last, true);

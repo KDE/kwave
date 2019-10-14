@@ -63,7 +63,7 @@ bool Kwave::UndoDeleteTrack::store(Kwave::SignalManager &manager)
     if (!m_length) return true; // shortcut: this is an empty action
 
     // fork off a multi track stripe list for the selected range
-    QList<unsigned int> track_list;
+    QVector<unsigned int> track_list;
     track_list.append(m_track);
     m_stripes = manager.stripes(track_list, 0, m_length - 1);
     if (m_stripes.isEmpty())
@@ -90,7 +90,7 @@ Kwave::UndoAction *Kwave::UndoDeleteTrack::undo(Kwave::SignalManager &manager,
     m_signal.insertTrack(m_track, m_length, &m_uuid);
 
     // merge the stripes back into the signal
-    QList<unsigned int> track_list;
+    QVector<unsigned int> track_list;
     track_list.append(m_track);
     if (!manager.mergeStripes(m_stripes, track_list)) {
 	qWarning("UndoDeleteTrack::undo() FAILED [mergeStripes]");

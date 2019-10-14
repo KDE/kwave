@@ -153,12 +153,12 @@ namespace Kwave
 	/**
 	 * Returns an array of indices of currently selected tracks.
 	 */
-	const QList<unsigned int> selectedTracks();
+	const QVector<unsigned int> selectedTracks();
 
 	/**
 	 * Returns an array of indices of all present tracks.
 	 */
-	const QList<unsigned int> allTracks();
+	const QVector<unsigned int> allTracks();
 
 	/**
 	 * Saves the signal to a file with a given resolution. If the file
@@ -178,7 +178,7 @@ namespace Kwave
 	 *         memory for undo
 	 */
 	bool deleteRange(sample_index_t offset, sample_index_t length,
-	                 const QList<unsigned int> &track_list);
+			 const QVector<unsigned int> &track_list);
 
 	/**
 	 * Deletes a range of samples and creates an undo action. Same as
@@ -199,7 +199,7 @@ namespace Kwave
 	 *         memory for undo
 	 */
 	bool insertSpace(sample_index_t offset, sample_index_t length,
-	                 const QList<unsigned int> &track_list);
+			 const QVector<unsigned int> &track_list);
 
 	/**
 	 * Sets the current start and length of the selection to new values.
@@ -230,9 +230,9 @@ namespace Kwave
 
 	/**
 	 * Selects multiple tracks, all other tracks will be disabled.
-	 * @param track_list list od track indices
+	 * @param track_list list of track indices
 	 */
-	void selectTracks(QList<unsigned int> &track_list);
+	void selectTracks(QVector<unsigned int> &track_list);
 
 	/**
 	 * Sets the selection flag of a track.
@@ -286,7 +286,7 @@ namespace Kwave
 	 *         between left and right
 	 */
 	QList<Kwave::Stripe::List> stripes(
-	    const QList<unsigned int> &track_list,
+	    const QVector<unsigned int> &track_list,
 	    sample_index_t left = 0,
 	    sample_index_t right = SAMPLE_INDEX_MAX);
 
@@ -298,7 +298,7 @@ namespace Kwave
 	 * @return true if succeeded, false if failed
 	 */
 	bool mergeStripes(const QList<Kwave::Stripe::List> &stripes,
-	                  const QList<unsigned int> &track_list);
+			  const QVector<unsigned int> &track_list);
 
 	/** Returns a reference to the undo manager */
 	inline Kwave::UndoManager &undoManager() { return m_undo_manager; }
@@ -623,7 +623,7 @@ namespace Kwave
 	 * @param length number of samples to delete
 	 * @return true if successful, false if out of memory or aborted
 	 */
-	bool saveUndoDelete(QList<unsigned int> &track_list,
+	bool saveUndoDelete(QVector<unsigned int> &track_list,
 	                    sample_index_t offset, sample_index_t length);
 
 	/**
@@ -729,7 +729,7 @@ namespace Kwave
 	Kwave::Selection m_last_selection;
 
 	/** the last track selection (stored in undo) */
-	QList <unsigned int> m_last_track_selection;
+	QVector <unsigned int> m_last_track_selection;
 
 	/**
 	 * Last known length of the signal. This will be used if a track is

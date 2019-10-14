@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QPointer>
 #include <QUuid>
+#include <QVector>
 
 #include "libkwave/Sample.h"
 #include "libkwave/SignalManager.h"
@@ -52,7 +53,7 @@ namespace Kwave
 	SelectionTracker(Kwave::SignalManager *signal,
 	                 sample_index_t offset,
 	                 sample_index_t length,
-	                 const QList<unsigned int> *tracks);
+	                 const QVector<unsigned int> *tracks);
 
 	/** Destructor */
         virtual ~SelectionTracker() Q_DECL_OVERRIDE;

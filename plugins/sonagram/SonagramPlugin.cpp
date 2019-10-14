@@ -184,7 +184,7 @@ int Kwave::SonagramPlugin::start(QStringList &params)
                      m_sonagram_window, SLOT(close()));
 
     // get the current selection
-    QList<unsigned int> selected_channels;
+    QVector<unsigned int> selected_channels;
     sample_index_t offset = 0;
     sample_index_t length = 0;
     length = selection(&selected_channels, &offset, Q_NULLPTR, true);
@@ -277,7 +277,7 @@ void Kwave::SonagramPlugin::makeAllValid()
     sample_index_t           first_sample;
     sample_index_t           last_sample;
     QBitArray                valid;
-    QList<unsigned int>      track_list;
+    QVector<unsigned int>    track_list;
 
     {
 	QMutexLocker _lock(&m_lock_job_list);

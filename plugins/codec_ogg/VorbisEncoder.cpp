@@ -62,8 +62,11 @@ Kwave::VorbisEncoder::~VorbisEncoder()
 /***************************************************************************/
 void Kwave::VorbisEncoder::encodeProperties(const Kwave::FileInfo &info)
 {
-    foreach (const QString &key, m_comments_map.keys()) {
-	Kwave::FileProperty property = m_comments_map[key];
+    for (VorbisCommentMap::const_iterator it(m_comments_map.constBegin());
+         it != m_comments_map.constEnd(); ++it)
+    {
+	const QString       &key     = it.key();
+	Kwave::FileProperty property = it.value();
 	if (!info.contains(property)) continue; // skip if not present
 
 	// encode the property as string

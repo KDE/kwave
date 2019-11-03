@@ -22,7 +22,7 @@ CMake Executable=/usr/bin/cmake
 Environment Profile=
 Extra Arguments=
 Install Directory=/var/tmp/kwave-install/usr
-Runtime=Host System
+Runtime=Host-System
 
 [CustomDefinesAndIncludes][ProjectPath0]
 Path=.

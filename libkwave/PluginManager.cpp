@@ -94,8 +94,11 @@ Kwave::PluginManager::~PluginManager()
     QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
     // release all loaded modules
-    foreach (const QString &name, m_plugin_modules.keys()) {
-	PluginModule &p = m_plugin_modules[name];
+    for (QMap<QString, PluginModule>::iterator it(m_plugin_modules.begin());
+         it != m_plugin_modules.end(); ++it)
+    {
+	const QString &name = it.key();
+	PluginModule  &p    = it.value();
 	p.m_use_count--;
 
 // 	qDebug("PluginManager: releasing module '%s' [refcnt=%d]",
@@ -127,8 +130,11 @@ bool Kwave::PluginManager::loadAllPlugins()
     // instance of the main window!
     // NOTE: this also gives each plugin the chance to stay in memory
     //       if necessary (e.g. for codecs)
-    foreach (const QString &name, m_plugin_modules.keys()) {
-	KwavePluginPointer plugin = createPluginInstance(name);
+    for (QMap<QString, PluginModule>::iterator it(m_plugin_modules.begin());
+	 it != m_plugin_modules.end(); ++it)
+    {
+	const QString      &name   = it.key();
+	KwavePluginPointer  plugin = createPluginInstance(name);
 	if (plugin) {
 // 	    qDebug("PluginManager::loadAllPlugins(): plugin '%s'",
 // 		   DBG(plugin->name()));
@@ -608,9 +614,10 @@ void Kwave::PluginManager::searchPluginModules()
 {
     if (!m_plugin_modules.isEmpty()) {
 	// this is not the first call -> increment module use count only
-	foreach (const QString &name, m_plugin_modules.keys()) {
-	    PluginModule &p = m_plugin_modules[name];
-	    p.m_use_count++;
+	for (QMap<QString, PluginModule>::iterator it(m_plugin_modules.begin());
+	     it != m_plugin_modules.end(); ++it)
+	{
+	    it.value().m_use_count++;
 	}
 	return;
     }

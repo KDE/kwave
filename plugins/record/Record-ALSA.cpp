@@ -1116,8 +1116,12 @@ QString Kwave::RecordALSA::alsaDeviceName(const QString &name)
 
     if (!m_device_list.contains(name)) {
 	// maybe we already have a ALSA compatible name (like in init state)
-	foreach (QString n, m_device_list.values())
-	    if (n == name) return n;
+	for (QMap<QString, QString>::const_iterator
+	     it(m_device_list.constBegin());
+	     it != m_device_list.constEnd(); ++it)
+	{
+	     if (it.value() == name) return it.value();
+	}
 
 	qWarning("RecordALSA::alsaDeviceName('%s') - NOT FOUND", DBG(name));
 	return _("");

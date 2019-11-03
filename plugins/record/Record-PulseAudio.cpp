@@ -1068,24 +1068,32 @@ void Kwave::RecordPulseAudio::scanDevices()
 
     // create a list with final names
     QMap<QString, source_info_t> list;
-
-    foreach (QString source, m_device_list.keys()) {
-	QString name        = m_device_list[source].m_name;
-	QString description = m_device_list[source].m_description;
-	QString driver      = m_device_list[source].m_driver;
+    for (QMap<QString, source_info_t>::const_iterator it =
+         m_device_list.constBegin();
+         it != m_device_list.constEnd(); ++it)
+    {
+	const QString       &source     = it.key();
+	const source_info_t &inf        = it.value();
+	const QString       &name       = inf.m_name;
+	QString             description = inf.m_description;
+	QString             driver      = inf.m_driver;
 
 	// if the name is not unique, add the internal source name
-	int unique = true;
-	foreach (QString s, m_device_list.keys()) {
+	for (QMap<QString, source_info_t>::const_iterator it2 =
+	     m_device_list.constBegin();
+	     it2 != m_device_list.constEnd(); ++it2)
+	{
+	    const QString       &s = it2.key();
+	    const source_info_t &i = it2.value();
 	    if (s == source) continue;
-	    if ((m_device_list[s].m_description == description) &&
-		(m_device_list[s].m_driver      == driver))
+	    if ((i.m_description == description) &&
+		(i.m_driver      == driver))
 	    {
-		unique = false;
+		// not unique
+		description += _(" [") + name + _("]");
 		break;
 	    }
 	}
-	if (!unique) description += _(" [") + name + _("]");
 
 	// mangle the driver name, e.g.
 	// "module-alsa-sink.c" -> "alsa sink"
@@ -1093,17 +1101,17 @@ void Kwave::RecordPulseAudio::scanDevices()
 	driver = f.baseName();
 	driver.replace(_("-"), _(" "));
 	driver.replace(_("_"), _(" "));
-	if (driver.toLower().startsWith(_("module ")))
+	if (driver.startsWith(_("module "), Qt::CaseInsensitive))
 	    driver.remove(0, 7);
 	description.prepend(driver + _("|sound_card||"));
 
 	// add the leaf node
-	if (m_device_list[source].m_card != PA_INVALID_INDEX)
+	if (inf.m_card != PA_INVALID_INDEX)
 	    description.append(_("|sound_device"));
 	else
 	    description.append(_("|sound_note"));
 
-	list.insert(description, m_device_list[source]);
+	list.insert(description, *it);
     }
 
     m_device_list.clear();

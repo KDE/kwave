@@ -80,8 +80,11 @@ QStringList Kwave::GenreType::allTypes()
     fill();
 
     QStringList list;
-    foreach (const char *item, m_map.values())
-	list.append(i18n(item));
+    for (QMap<int, const char *>::const_iterator it = m_map.constBegin();
+         it != m_map.constEnd(); ++it)
+    {
+	list.append(i18n(it.value()));
+    }
 
     return list;
 }

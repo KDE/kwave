@@ -220,12 +220,12 @@ void Kwave::SampleRatePlugin::run(QStringList params)
     if (length) {
 	if (m_whole_signal) {
 	    // if whole signal selected -> adjust start and end
-	    first *= ratio;
-	    last  *= ratio;
+	    first = sample_index_t(first * ratio);
+	    last  = sample_index_t(last  * ratio);
 	    length = last - first + 1;
 	} else {
 	    // only a portion selected -> adjust only length
-	    length *= ratio;
+	    length = sample_index_t(length * ratio);
 	}
 
 	mgr.selectRange(first, length);

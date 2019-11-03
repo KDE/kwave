@@ -89,7 +89,10 @@ void Kwave::OverViewCache::scaleUp()
     if (shrink <= 1) return; // nothing to shrink, just ignore new scale
 
     // loop over all tracks
-    foreach (const QUuid &uuid, m_state.keys()) {
+    for (QHash<QUuid, QVector <CacheState> >::iterator
+	it(m_state.begin()); it != m_state.end(); ++it)
+    {
+	const QUuid &uuid = it.key();
 	unsigned int dst = 0;
 	unsigned int count = CACHE_SIZE / shrink;
         Q_ASSERT(count <= CACHE_SIZE);
@@ -97,7 +100,7 @@ void Kwave::OverViewCache::scaleUp()
 	// source pointers
 	sample_t *smin = m_min[uuid].data();
 	sample_t *smax = m_max[uuid].data();
-	CacheState *sstate = m_state[uuid].data();
+	CacheState *sstate = it.value().data();
 
 	// destination pointers
 	sample_t *dmin = smin;
@@ -168,8 +171,12 @@ void Kwave::OverViewCache::invalidateCache(const QUuid *track_id,
 	    m_state[*track_id][pos] = Invalid;
     } else {
 	// invalidate all tracks
-	foreach (const QUuid &uuid, m_state.keys())
+	for (QHash<QUuid, QVector <CacheState> >::const_iterator
+	    it(m_state.constBegin()); it != m_state.constEnd(); ++it)
+	{
+	    const QUuid &uuid = it.key();
 	    invalidateCache(&uuid, first, last);
+	}
     }
 }
 
@@ -301,7 +308,7 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 
 	// check: maybe slotTrackInserted has not yet been called
 	//        or slotTrackDeleted has just been called
-	if (!m_state.keys().contains(uuid))
+	if (!m_state.contains(uuid))
 	    continue;
 
 	sample_t *min = m_min[uuid].data();
@@ -343,10 +350,13 @@ int Kwave::OverViewCache::getMinMax(int width, MinMaxArray &minmax)
 	sample_t maximum = SAMPLE_MIN;
 	for (; index <= last_index; ++index) {
 	    // loop over all tracks
-	    foreach (const QUuid &uuid, m_state.keys()) {
+	    for (QHash<QUuid, QVector <CacheState> >::const_iterator
+	         it(m_state.constBegin()); it != m_state.constEnd(); ++it)
+	    {
+		const QUuid &uuid = it.key();
 		sample_t *min = m_min[uuid].data();
 		sample_t *max = m_max[uuid].data();
-		const CacheState *state = m_state[uuid].constData();
+		const CacheState *state = it.value().constData();
 		Q_ASSERT(state);
 		if (!state) continue;
 		if (state[index] != Valid) {

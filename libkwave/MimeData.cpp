@@ -80,17 +80,17 @@ qint64 Kwave::MimeData::Buffer::readData(char *data, qint64 maxlen)
 //***************************************************************************
 qint64 Kwave::MimeData::Buffer::writeData(const char *data, qint64 len)
 {
-    quint64 new_size = pos() + len;
 
-    // clip the mime data buffer at the "unsigned int" border
-    if (new_size > std::numeric_limits<unsigned int>::max())
+    // clip the mime data buffer at the "int" border
+    if ((pos() + len) > std::numeric_limits<int>::max())
 	return -1;
 
     // round up the block size if it can no longer be considered to be a
     // small block (~ half of block size), avoid wasting too much memory
     // if the needed size is very small.
+    int new_size = Kwave::toInt(pos() + len);
     if (new_size > (BUFFER_BLOCK_SIZE / 2))
-	new_size = Kwave::round_up<qint64>(new_size, BUFFER_BLOCK_SIZE);
+	new_size = Kwave::round_up<int>(new_size, BUFFER_BLOCK_SIZE);
 
     if (!m_block) {
 	// first call: allocate a new memory object
@@ -263,7 +263,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	// if the sample rate has to be converted, adjust the length
 	// right border
 	if (!qFuzzyCompare(src_rate, dst_rate) && (dst_rate > 1) && sig.tracks())
-	    decoded_length *= (dst_rate / src_rate);
+	    decoded_length = qRound(decoded_length * (dst_rate / src_rate));
 
 	sample_index_t left  = pos;
 	sample_index_t right = left + decoded_length - 1;
@@ -390,7 +390,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 	    continue;
 	}
 
-	// take care of the meta data, shift all it by "left" and
+	// take care of the meta data, shift all of it by "left" and
 	// add it to the signal
 	Kwave::MetaDataList meta_data = decoder->metaData();
 

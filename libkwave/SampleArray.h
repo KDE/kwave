@@ -82,12 +82,11 @@ namespace Kwave
 	const sample_t & operator [] (unsigned int index) const;
 
 	/**
-	 * Resizes the array. Using raw data mode is not allowed and will
-	 * lead to an assert!
+	 * Resizes the array
 	 * @param size new number of samples
 	 * @return true if succeeded, false if failed
 	 */
-	bool resize(unsigned int size) Q_REQUIRED_RESULT;
+	bool resize(unsigned int size);
 
 	/**
 	 * Returns the number of samples.

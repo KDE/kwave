@@ -490,11 +490,8 @@ Kwave::TopWidget::~TopWidget()
     delete m_menu_manager;
     m_menu_manager = Q_NULLPTR;
 
-    while (!m_context_map.isEmpty()) {
-	Kwave::FileContext *context = m_context_map.values().last();
-	m_context_map.remove(m_context_map.keys().last());
-	if (context) delete context;
-    }
+    while (!m_context_map.isEmpty())
+	delete m_context_map.take(m_context_map.lastKey());
 
     m_application.toplevelWindowHasClosed(this);
 }
@@ -504,7 +501,11 @@ QList<Kwave::App::FileAndInstance> Kwave::TopWidget::openFiles() const
 {
     QList<Kwave::App::FileAndInstance> all_files;
 
-    foreach (Kwave::FileContext *context, m_context_map.values()) {
+    for (QMap<QMdiSubWindow *, Kwave::FileContext *>::const_iterator
+         it(m_context_map.constBegin()); it != m_context_map.constEnd();
+         ++it)
+    {
+	const Kwave::FileContext *context = it.value();
 	if (!context) continue;
 	QString name = context->signalName();
 	if (!name.length()) continue;
@@ -844,10 +845,13 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("window:activate")
 	if (m_mdi_area) {
 	    QString title = parser.nextParam();
-	    foreach (QMdiSubWindow *sub, m_context_map.keys()) {
-		if (!sub) continue;
-		Kwave::FileContext *context = m_context_map[sub];
-		if (!context) continue;
+	    for (QMap<QMdiSubWindow *, Kwave::FileContext *>::const_iterator
+		it(m_context_map.constBegin()); it != m_context_map.constEnd();
+	        ++it)
+	    {
+		QMdiSubWindow            *sub     = it.key();
+		const Kwave::FileContext *context = it.value();
+		if (!sub  || !context) continue;
 
 		// identify the window by it's title
 		if (context->windowCaption(false) == title) {
@@ -1366,7 +1370,11 @@ void Kwave::TopWidget::updateMenu()
 	// update the "Windows" menu
 	m_menu_manager->clearNumberedMenu(_("ID_WINDOW_LIST"));
 	unsigned int win_count = 0;
-	foreach (const Kwave::FileContext *ctx, m_context_map.values()) {
+	for (QMap<QMdiSubWindow *, Kwave::FileContext *>::const_iterator
+	     it(m_context_map.constBegin()); it != m_context_map.constEnd();
+	     ++it)
+	{
+	    const Kwave::FileContext *ctx = it.value();
 	    if (!ctx) continue;
 	    QString caption = ctx->windowCaption(false);
 	    if (!caption.length()) continue;

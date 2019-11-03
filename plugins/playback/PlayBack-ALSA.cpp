@@ -872,8 +872,13 @@ QString Kwave::PlayBackALSA::alsaDeviceName(const QString &name)
 
     if (!m_device_list.contains(name)) {
 	// maybe we already have a ALSA compatible name (like in init state)
-	foreach (QString n, m_device_list.values())
+	for (QMap<QString, QString>::const_iterator
+	     it(m_device_list.constBegin()); it != m_device_list.constEnd();
+	     ++it)
+	{
+	    const QString &n = it.value();
 	    if (n == name) return n;
+	}
 
 	qWarning("PlayBackALSA::alsaDeviceName('%s') - NOT FOUND", DBG(name));
 	return _("");

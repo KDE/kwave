@@ -818,23 +818,27 @@ void Kwave::PlayBackPulseAudio::scanDevices()
     i.m_sample_spec = s;
     list[i18n("(Use server default)") + _("|sound_note")] = i;
 
-    foreach (QString sink, m_device_list.keys()) {
-	QString name        = m_device_list[sink].m_name;
-	QString description = m_device_list[sink].m_description;
-	QString driver      = m_device_list[sink].m_driver;
+    for (QMap<QString, sink_info_t>::const_iterator it =
+	 m_device_list.constBegin(); it != m_device_list.constEnd(); ++it)
+    {
+	const QString     &sink        = it.key();
+	const sink_info_t &si          = it.value();
+	const QString     &name        = si.m_name;
+	QString           description  = si.m_description;
+	QString           driver       = si.m_driver;
 
 	// if the name is not unique, add the internal sink name
-	int unique = true;
-	foreach (QString sn, m_device_list.keys()) {
-	    if (sn == sink) continue;
-	    if ((m_device_list[sn].m_description == description) &&
-		(m_device_list[sn].m_driver      == driver))
+	for (QMap<QString, sink_info_t>::const_iterator it2 =
+	    m_device_list.constBegin(); it2 != m_device_list.constEnd(); ++it2)
+	{
+	    if (it2.key() == sink) continue;
+	    if ((it2.value().m_description == description) &&
+		(it2.value().m_driver      == driver))
 	    {
-		unique = false;
+		description += _(" [") + name + _("]");
 		break;
 	    }
 	}
-	if (!unique) description += _(" [") + name + _("]");
 
 	// mangle the driver name, e.g.
 	// "module-alsa-sink.c" -> "alsa sink"
@@ -842,21 +846,22 @@ void Kwave::PlayBackPulseAudio::scanDevices()
 	driver = f.baseName();
 	driver.replace(_("-"), _(" "));
 	driver.replace(_("_"), _(" "));
-	if (driver.toLower().startsWith(_("module ")))
+	if (driver.startsWith(_("module "), Qt::CaseInsensitive))
 	    driver.remove(0, 7);
 	description.prepend(driver + _("|sound_card||"));
 
 	// add the leaf node
-	if (m_device_list[sink].m_card != PA_INVALID_INDEX)
+	if (si.m_card != PA_INVALID_INDEX)
 	    description.append(_("|sound_device"));
 	else
 	    description.append(_("|sound_note"));
 
 // 	qDebug("supported device: '%s'", DBG(description));
-	list.insert(description, m_device_list[sink]);
+	list.insert(description, *it);
     }
 //     qDebug("----------------------------------------");
 
+    m_device_list.clear();
     m_device_list = list;
     m_mainloop_lock.unlock();
 }

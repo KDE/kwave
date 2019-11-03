@@ -25,8 +25,9 @@
 # auto detect this language (to make this file re-usable)
 GET_FILENAME_COMPONENT(_lang ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
 
-SET(_common_dir ${CMAKE_INSTALL_PREFIX}/${HTML_INSTALL_DIR}/${_lang}/kdoctools5-common)
-SET(_common_en_dir ${CMAKE_INSTALL_PREFIX}/${HTML_INSTALL_DIR}/en/kdoctools5-common)
+# /usr/share/help/de/kdoctools5-common
+SET(_common_dir ${CMAKE_INSTALL_PREFIX}/share/help/${_lang}/kdoctools5-common)
+SET(_common_en_dir ${CMAKE_INSTALL_PREFIX}/share/help/en/kdoctools5-common)
 SET(_html_dir ${CMAKE_BINARY_DIR}/doc/html/${_lang})
 
 #############################################################################

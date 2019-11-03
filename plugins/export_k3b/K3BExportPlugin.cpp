@@ -227,8 +227,12 @@ bool Kwave::K3BExportPlugin::detectBlockMetaData(
     // try to find the placeholders within the pattern
     // NOTE: we use a map because it will automatically be sorted (by pos)
     QString pattern_esc = Kwave::Parser::escape(pattern);
-    QMap <int, QString *>   map_result;
-    foreach (const QString &placeholder, map_patterns.keys()) {
+    QMap <int, QString *> map_result;
+    for (QMap<QString, QString *>::const_iterator
+	 it(map_patterns.constBegin());
+         it != map_patterns.constEnd(); ++it)
+    {
+	const QString &placeholder = it.key();
 	QString placeholder_esc;
 	placeholder_esc = Kwave::Parser::escape(placeholder);
 	if (pattern_esc.contains(placeholder_esc)) {
@@ -251,10 +255,11 @@ bool Kwave::K3BExportPlugin::detectBlockMetaData(
 
     // we found a match
     // -> now map the results into the corresponding result strings
+    const QList<int> &result_keys = map_result.keys();
     for (int index = 0; index < map_result.count(); ++index) {
 	QString value = rx.cap(index + 1).trimmed();
 	if (value.length()) {
-	    QString *result = map_result[map_result.keys()[index]];
+	    QString *result = map_result[result_keys[index]];
 	    if (result) *result = value;
 	}
     }

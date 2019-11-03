@@ -47,7 +47,7 @@ QString Kwave::UndoDeleteMetaDataAction::description()
 
     QString name;
     {
-	const Kwave::MetaData &m = m_meta_data.values().first();
+	const Kwave::MetaData &m = m_meta_data.first();
 	if (m.hasProperty(Kwave::MetaData::STDPROP_TYPE))
 	    name = m[Kwave::MetaData::STDPROP_TYPE].toString();
     }

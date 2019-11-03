@@ -689,8 +689,12 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
     // iterate over all known properties and collect them in a list
     QList<QByteArray> tags;
     len = 0;
-    foreach (const QString &key, m_comments_map.keys()) {
-	Kwave::FileProperty property = m_comments_map[key];
+
+    for (VorbisCommentMap::const_iterator it(m_comments_map.constBegin());
+         it != m_comments_map.constEnd(); ++it)
+    {
+	const QString       &key     = it.key();
+	Kwave::FileProperty property = it.value();
 	if (!m_info.contains(property)) continue; // skip if not present
 
 	// convert the value into a byte array,  UTF-8 encoded

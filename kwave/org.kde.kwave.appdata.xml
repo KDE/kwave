@@ -108,7 +108,7 @@
     <p xml:lang="el">Το Kwave περιλαμβάνει κάποια πρόσθετα για το μετασχηματισμό των αρχείων ήχου με διάφορους τρόπους και παρουσιάζει μια γραφική προβολή με πλήρη δυνατότητα εστίασης και κύλισης.</p>
     <p xml:lang="en-GB">Kwave includes some plugins to transform audio files in several ways and presents a graphical view with a complete zoom- and scroll capability.</p>
     <p xml:lang="es">Kwave contiene algunos complementos para transformar archivos de sonido de varias formas y presenta una interfaz gráfica con completas funciones de ampliación y de desplazamiento.</p>
-    <p xml:lang="et">Kwave pakub mõningaid pluginad helifailide muutmiseks mitmel viisil, samuti graafilist vaadet igakülgse suurendamise ja kerimise toetusega.</p>
+    <p xml:lang="et">Kwave pakub mõningaid pluginaid helifailide muutmiseks mitmel viisil, samuti graafilist vaadet igakülgse suurendamise ja kerimise toetusega.</p>
     <p xml:lang="eu">Kwavek audio fitxategiak hainbat eratan transformatzeko plugin batzuk ditu eta ikuspegi grafiko bat aurkezten du zoom eta labaintzeko gaitasun osoak dituen.</p>
     <p xml:lang="fi">Kwavessa on liitännäisiä äänen erilaisiin muunnoksiin, ja sen käyttöliittymässä on täydelliset lähennys/loitonnus- ja vieritysominaisuudet.</p>
     <p xml:lang="fr">KWave comprend des modules externes pour transformer de différentes façons des fichiers audio ainsi qu'une interface graphique permettant le zoom et le défilement.</p>
@@ -142,6 +142,7 @@
       <caption xml:lang="el">Το Kwave σε δράση</caption>
       <caption xml:lang="en-GB">Kwave in action</caption>
       <caption xml:lang="es">Kwave en acción</caption>
+      <caption xml:lang="et">Kwave töös</caption>
       <caption xml:lang="eu">Kwave martxan</caption>
       <caption xml:lang="fi">Kwave toiminnassa</caption>
       <caption xml:lang="fr">KWave en action</caption>

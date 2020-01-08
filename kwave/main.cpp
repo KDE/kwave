@@ -168,8 +168,6 @@ int main(int argc, char **argv)
     KLocalizedString::setApplicationDomain(PROJECT_NAME);
 
     QCommandLineParser cmdline;
-    cmdline.addHelpOption();
-    cmdline.addVersionOption();
     cmdline.addOption(QCommandLineOption(
 	_("disable-splashscreen"),
 	i18n("Disable the Splash Screen.")

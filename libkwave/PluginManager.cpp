@@ -95,7 +95,7 @@ Kwave::PluginManager::~PluginManager()
 
     // release all loaded modules
     for (QMap<QString, PluginModule>::iterator it(m_plugin_modules.begin());
-         it != m_plugin_modules.end(); ++it)
+         it != m_plugin_modules.end(); )
     {
 	const QString &name = it.key();
 	PluginModule  &p    = it.value();
@@ -109,12 +109,13 @@ Kwave::PluginManager::~PluginManager()
             p.m_factory = Q_NULLPTR;
 
 	    // remove the module from the list
-	    m_plugin_modules.remove(name);
+	    it = m_plugin_modules.erase(it);
 
 	    // now the handle of the shared object can be released too
 	    if (factory) delete factory;
 	} else {
 	    // still in use
+	    ++it;
 	}
     }
 

@@ -25,6 +25,7 @@
 #include <QApplication>
 #include <QByteArray>
 #include <QCursor>
+#include <QDate>
 #include <QFile>
 #include <QFileInfo>
 #include <QMutableListIterator>

@@ -24,9 +24,9 @@
 #include <new>
 
 #include <QApplication>
+#include <QElapsedTimer>
 #include <QProgressDialog>
 #include <QThread>
-#include <QTime>
 #include <QVariantList>
 #include <QWidget>
 
@@ -377,7 +377,7 @@ void Kwave::Plugin::run_wrapper(const QVariant &params)
     emit sigRunning(this);
 
     // start time measurement
-    QTime t;
+    QElapsedTimer t;
     t.start();
 
     // call the plugin's run function in this worker thread context

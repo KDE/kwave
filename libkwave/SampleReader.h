@@ -22,9 +22,9 @@
 #include "config.h"
 
 #include <QtGlobal>
+#include <QElapsedTimer>
 #include <QList>
 #include <QObject>
-#include <QTime>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/ReaderMode.h"
@@ -196,7 +196,7 @@ namespace Kwave
 	unsigned int m_buffer_position;
 
 	/** timer for limiting the number of progress signals per second */
-	QTime m_progress_time;
+	QElapsedTimer m_progress_time;
 
 	/** last seek position, needed in SinglePassReverse mode */
 	sample_index_t m_last_seek_pos;

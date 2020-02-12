@@ -22,8 +22,8 @@
 
 #include <QtGlobal>
 #include <QDialog>
+#include <QElapsedTimer>
 #include <QLabel>
-#include <QTime>
 #include <QUrl>
 
 #include "libkwave/Sample.h"
@@ -168,7 +168,7 @@ namespace Kwave
 	QLabel *m_stat_bytes;
 
 	/** start time, set on initialization of this dialog */
-	QTime m_time;
+	QElapsedTimer m_time;
 
 	/** true if the dialog is unusable or canceled by the user */
 	bool m_canceled;

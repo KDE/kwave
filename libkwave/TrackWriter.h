@@ -21,8 +21,8 @@
 #include "config.h"
 
 #include <QtGlobal>
+#include <QElapsedTimer>
 #include <QObject>
-#include <QTime>
 
 #include "libkwave/Writer.h"
 
@@ -81,7 +81,7 @@ namespace Kwave
 	Kwave::Track &m_track;
 
 	/** timer for limiting the number of progress signals per second */
-	QTime m_progress_time;
+	QElapsedTimer m_progress_time;
 
     };
 

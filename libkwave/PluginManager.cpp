@@ -97,7 +97,7 @@ Kwave::PluginManager::~PluginManager()
     for (QMap<QString, PluginModule>::iterator it(m_plugin_modules.begin());
          it != m_plugin_modules.end(); )
     {
-	const QString &name = it.key();
+// 	const QString &name = it.key();
 	PluginModule  &p    = it.value();
 	p.m_use_count--;
 

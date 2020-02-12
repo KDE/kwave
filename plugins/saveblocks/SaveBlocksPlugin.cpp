@@ -510,7 +510,7 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
 	QString ex = _("(\\\\\\[") + format + _("nr\\\\\\])");
 	QRegExp rx(ex, Qt::CaseInsensitive);
 	format += _("u");
-	p.replace(rx, nr.sprintf(format.toLatin1(), index));
+	p.replace(rx, nr.asprintf(format.toLatin1(), index));
     }
 
     // format the "count" parameter
@@ -522,7 +522,7 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
 	    QString ex = _("(\\\\\\[") + format + _("count\\\\\\])");
 	    QRegExp rx(ex, Qt::CaseInsensitive);
 	    format += _("u");
-	    p.replace(rx, nr.sprintf(format.toLatin1(), count));
+	    p.replace(rx, nr.asprintf(format.toLatin1(), count));
 	} else {
 	    p.replace(rx_count, _("(\\d+)"));
 	}
@@ -537,7 +537,7 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
 	    QString ex = _("(\\\\\\[") + format + _("total\\\\\\])");
 	    QRegExp rx(ex, Qt::CaseInsensitive);
 	    format += _("u");
-	    p.replace(rx, nr.sprintf(format.toLatin1(), total));
+	    p.replace(rx, nr.asprintf(format.toLatin1(), total));
 	} else {
 	    p.replace(rx_total, _("(\\d+)"));
 	}

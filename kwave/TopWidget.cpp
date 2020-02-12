@@ -1158,8 +1158,8 @@ void Kwave::TopWidget::metaDataChanged(Kwave::MetaDataList meta_data)
 
     // sample rate and resolution
     if (bits) {
-	QString khz = _("%0.3f");
-	khz = khz.sprintf("%0.3f", static_cast<double>(rate) * 1E-3);
+	QString khz;
+	khz.setNum(static_cast<double>(rate) * 1E-3, 'f', 3);
 	txt = _(" ") + i18n("Mode: %1 kHz @ %2 Bit", khz, bits) +  _(" ");
     } else txt = _("");
     m_lbl_status_mode->setText(txt);

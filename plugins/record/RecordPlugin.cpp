@@ -1072,10 +1072,7 @@ void Kwave::RecordPlugin::startRecording()
 	fileInfo.set(Kwave::INF_SOFTWARE, software);
 
 	// add a date tag, ISO format
-	QDate now(QDate::currentDate());
-	QString date;
-	date = date.sprintf("%04d-%02d-%02d",
-		now.year(), now.month(), now.day());
+	QString date(QDate::currentDate().toString(_("yyyy-MM-dd")));
 	fileInfo.set(Kwave::INF_CREATION_DATE, date);
 	signalManager().setFileInfo(fileInfo, false);
     }

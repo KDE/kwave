@@ -102,7 +102,7 @@ bool Kwave::Logger::open(const QString& filename)
 //***************************************************************************
 void Kwave::Logger::log(const QObject *sender,
                         Kwave::Logger::LogLevel level,
-                        const QString& msg)
+                        const QString &msg)
 {
     static const char *str_level[] = {
 	"DBG", "INF", "WAR", "ERR", "FAT"
@@ -122,22 +122,22 @@ void Kwave::Logger::log(const QObject *sender,
 
     // get the time stamp
     QDateTime now = QDateTime::currentDateTime();
-    QString date_time = now.toString(_("yyyy-MM-dd hh:mm:ss.zzz"));
 
     // get the PID of the application
     long int x_pid = qApp ? static_cast<long int>(qApp->applicationPid()) : -1;
 
     // format the log log message
     // x-status date time x-pid x-message
-    QString line;
-    line.sprintf("<%s> %s %ld %s\n",
-	x_status,
-	UTF8(date_time),
-	x_pid,
-	UTF8(msg)
-    );
+    {
+	QTextStream out(m_logfile);
 
-    m_logfile->write(line.toUtf8().constData());
+	out << "<" << x_status << "> " <<
+	now.toString(_("yyyy-MM-dd hh:mm:ss.zzz")) << " " <<
+	x_pid << " " <<
+	msg <<
+	endl;
+    }
+
     m_logfile->flush();
 }
 

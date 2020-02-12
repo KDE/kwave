@@ -272,7 +272,7 @@ void Kwave::FileProgress::updateStatistics(double rate, double rest,
     if (!m_stat_bytes) return;
 
     // left: transfer rate and estimated time
-    num = num.sprintf("%1.1f", rate / 1024.0);
+    num.setNum(rate / 1024.0, 'f', 1);
 
     quint64 ms = qMin(quint64(rest * 1000.0), 24ULL * 60ULL * 60ULL * 1000ULL);
     text = i18nc("file progress dialog, "
@@ -287,8 +287,9 @@ void Kwave::FileProgress::updateStatistics(double rate, double rest,
                  "%1=number of loaded/saved megabytes, "
                  "%2=number of total megabytes to load or save",
                   "%1 MB of %2 MB done",
-	num1.sprintf("%1.1f", pos / (1024.0 * 1024.0)),
-	num2.sprintf("%1.1f", m_size / (1024.0 * 1024.0)));
+	num1.setNum(static_cast<double>(pos    / (1024.0 * 1024.0)), 'f', 1),
+	num2.setNum(static_cast<double>(m_size / (1024.0 * 1024.0)), 'f', 1)
+    );
     m_stat_bytes->setText(text);
 
     // process events for some short time, otherwise we would

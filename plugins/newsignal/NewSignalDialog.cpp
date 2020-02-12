@@ -323,12 +323,7 @@ void Kwave::NewSignalDialog::updateFileSize()
     mbytes /= 1024.0; // to megabytes
 
     QString str_bytes;
-    if (mbytes >= 10.0) {
-	str_bytes.sprintf("%0.1f", mbytes);
-    } else {
-	str_bytes.sprintf("%0.3f", mbytes);
-    }
-
+    str_bytes.setNum(mbytes, 'f', (mbytes >= 10.0) ? 1 : 3);
     lblFileSize->setText(i18n("(Resulting file size: %1 MB)", str_bytes));
 }
 

@@ -402,10 +402,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 	    encoder->supportedProperties().contains(Kwave::INF_CREATION_DATE))
 	{
 	    // add a date tag
-	    QDate now(QDate::currentDate());
-	    QString date;
-	    date = date.sprintf("%04d-%02d-%02d",
-		now.year(), now.month(), now.day());
+	    QString date(QDate::currentDate().toString(_("yyyy-MM-dd")));
 	    qDebug("adding date tag: '%s'", DBG(date));
 	    file_info.set(Kwave::INF_CREATION_DATE, date);
 	}

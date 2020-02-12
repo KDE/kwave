@@ -252,19 +252,7 @@ void Kwave::ZoomToolBar::setZoomInfo(Kwave::FileContext *context, double zoom)
     if ((signal_manager) && (signal_manager->tracks())) {
 	if (rate > 0) {
 	    // time display mode
-	    int s = Kwave::toInt(ms) / 1000;
-	    int m = s / 60;
-
-	    if (ms >= 60*1000) {
-		strZoom = strZoom.sprintf("%02d:%02d min", m, s % 60);
-	    } else if (ms >= 1000) {
-		strZoom = strZoom.sprintf("%d sec", s);
-	    } else if (ms >= 1) {
-		strZoom = strZoom.sprintf("%d ms",
-		    Kwave::toInt(round(ms)));
-	    } else if (ms >= 0.01) {
-		strZoom = strZoom.sprintf("%0.3g ms", ms);
-	    }
+	    strZoom = Kwave::ms2string(ms, 3);
 	} else {
 	    // percent mode
 	    double percent = 100.0 / zoom;

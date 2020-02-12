@@ -252,8 +252,10 @@ void Kwave::DebugPlugin::run(QStringList params)
 	unsigned int index = 0;
 	foreach (const Kwave::Stripe &stripe, stripes) {
 	    QString text;
-	    text = text.sprintf("stripe #%d [%llu .. %llu]",
-		index++, stripe.start(), stripe.end());
+	    text = _("stripe #%1 [%2 .. %3]").
+		arg(index++).
+		arg(stripe.start()).
+		arg(stripe.end());
 	    sig.addLabel(stripe.start(), text);
 	}
 	return;
@@ -460,7 +462,7 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
     );
 
     QString str;
-    str = str.sprintf("screenshot of %s - [%p] %d/%d %dx%d",
+    str = str.asprintf("screenshot of %s - [%p] %d/%d %dx%d",
 	DBG(filename), static_cast<void*>(widget),
 	rect.x(), rect.y(), rect.width(), rect.height()
     );

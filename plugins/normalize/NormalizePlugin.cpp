@@ -127,7 +127,7 @@ void Kwave::NormalizePlugin::run(QStringList params)
 
     QString db;
     emit setProgressText(i18n("Normalizing (%1 dB) ...",
-	db.sprintf("%+0.1f", 20 * log10(gain))));
+	db.asprintf("%+0.1f", 20 * log10(gain))));
 
     normalizer.setAttribute(SLOT(setGain(QVariant)), QVariant(gain));
     while (!shouldStop() && !source.eof()) {

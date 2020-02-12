@@ -719,7 +719,6 @@ void Kwave::MainWidget::fixZoomAndOffset(double zoom, sample_index_t offset)
 
     m_zoom   = zoom;
     m_offset = offset;
-    Q_ASSERT(m_zoom >= 0.0);
 
     Kwave::SignalManager *signal_manager = m_context.signalManager();
     Q_ASSERT(signal_manager);

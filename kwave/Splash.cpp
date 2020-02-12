@@ -73,14 +73,15 @@ Kwave::Splash::Splash(const QString &PNGFile)
     const int x  = w - 10 - tw;
     const int y  = h - 10 - th;
 
-    const QBrush brush(palette().background().color());
+    const QBrush brush(palette().window().color());
     p.setBrush(brush);
     p.setOpacity(0.50);
     p.setPen(Qt::NoPen);
-    p.drawRoundRect(
+    p.drawRoundedRect(
 	x - r, y - r,
 	tw + 2 * r, th + (2 * r),
-	(200 * r) / th, (200 * r) / th
+	(200 * r) / th, (200 * r) / th,
+	Qt::RelativeSize
     );
 
     p.setOpacity(1.0);

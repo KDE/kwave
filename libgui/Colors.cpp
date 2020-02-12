@@ -29,8 +29,8 @@ Kwave::Colors::ColorSet Kwave::Colors::Normal =
 Kwave::Colors::ColorSet Kwave::Colors::Disabled =
 {
     /* background   : */ QColor(Qt::darkGray).darker(300),
-    /* sample       : */ Kwave::Colors::Normal.sample.dark(),
-    /* interpolated : */ Kwave::Colors::Normal.interpolated.dark(),
+    /* sample       : */ Kwave::Colors::Normal.sample.darker(),
+    /* interpolated : */ Kwave::Colors::Normal.interpolated.darker(),
     /* zero         : */ Qt::darkGreen,
     /* zero_unused  : */ Qt::black
 };

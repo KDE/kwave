@@ -816,7 +816,7 @@ void Kwave::SignalView::PositionWidget::updateMask()
 void Kwave::SignalView::PositionWidget::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
-    p.setBrush(palette().background().color());
+    p.setBrush(palette().window().color());
     p.drawPolygon(m_polygon);
 }
 

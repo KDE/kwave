@@ -287,7 +287,7 @@ void Kwave::LevelMeter::drawScale(QPainter &p)
     int db       = 0;
     int right    = width();
     const QColor textcolor = palette().buttonText().color();
-    const QBrush brush(palette().background().color());
+    const QBrush brush(palette().window().color());
 
     Q_ASSERT(th);
     if (!th) return;
@@ -314,8 +314,12 @@ void Kwave::LevelMeter::drawScale(QPainter &p)
 	// dim the text background area
 	p.setOpacity(0.66);
 	p.setPen(Qt::NoPen);
-	p.drawRoundRect(x - r, y - r, text_width + 2 * r, th + 2 * r,
-	                (200 * r) / th, (200 * r) / th);
+	p.drawRoundedRect(
+	    x - r              , y - r,
+	    text_width + 2 * r , th + 2 * r,
+	    (200 * r) / th     , (200 * r) / th,
+	    Qt::RelativeSize
+	);
 
 	// draw the text, right/center aligned
 	p.setOpacity(1.0);
@@ -354,7 +358,7 @@ void Kwave::LevelMeter::drawContents()
     p.begin(this);
 
     // fill the background
-    p.fillRect(rect(), palette().background().color());
+    p.fillRect(rect(), palette().window().color());
 
     const unsigned int border = 4;
     const unsigned int cell = 3;
@@ -380,7 +384,7 @@ void Kwave::LevelMeter::drawContents()
 		border + cell + i,
 		border + (track * h),
 		cell, h-border,
-		(i > fast) ? color.dark() : color
+		(i > fast) ? color.darker() : color
 	    );
 	}
 
@@ -398,7 +402,7 @@ void Kwave::LevelMeter::drawContents()
 	    border + cell + peak,
 	    border + (track * h),
 	    cell, h - border,
-	    peak_color.light()
+	    peak_color.lighter()
 	);
     }
 

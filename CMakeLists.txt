@@ -201,13 +201,16 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 
 SET(CMAKE_AUTOMOC TRUE)
 SET(CMAKE_AUTOMOC_RELAXED_MODE FALSE)
-LIST(APPEND CMAKE_AUTOMOC_MACRO_NAMES "KWAVE_PLUGIN")
 
 FIND_PACKAGE(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     Concurrent
     Core
     Widgets
 )
+
+# NOTE: this must be *after* FIND_PACKAGE(Qt5 Core ...), otherwise it would
+#       be overwritten and produce many annoying build warnings
+LIST(APPEND CMAKE_AUTOMOC_MACRO_NAMES "KWAVE_PLUGIN")
 
 # Qt Multimedia support
 OPTION(WITH_QT_AUDIO "enable playback via Qt Multimedia [default=on]" ON)

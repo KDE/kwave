@@ -298,7 +298,8 @@ void Kwave::MenuNode::insertNode(const QString &name,
 	    if (!sub) return;
 	}
 
-	if (p[0] == QLatin1Char('#')) sub->specialCommand(p);
+	if (p.length() && (p[0] == QLatin1Char('#')))
+	    sub->specialCommand(p);
 
     } else {
 	// somewhere in the tree

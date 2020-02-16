@@ -47,6 +47,10 @@ Kwave::FilterPlugin::FilterPlugin(QObject *parent, const QVariantList &args)
 //***************************************************************************
 Kwave::FilterPlugin::~FilterPlugin()
 {
+    if (m_sink) {
+	delete m_sink;
+	m_sink = Q_NULLPTR;
+    }
 }
 
 //***************************************************************************
@@ -178,8 +182,10 @@ void Kwave::FilterPlugin::run(QStringList params)
 
     // cleanup
     if (filter)     delete filter;
-    if (m_sink)     delete m_sink;
-    m_sink = Q_NULLPTR;
+    if (!m_listen) {
+	delete m_sink;
+	m_sink = Q_NULLPTR;
+    }
     if (undo_guard) delete undo_guard;
 
     m_pause  = false;
@@ -222,6 +228,8 @@ void Kwave::FilterPlugin::stopPreListen()
     stop();
     m_listen = false;
     setProgressDialogEnabled(true);
+    if (m_sink) delete m_sink;
+    m_sink = Q_NULLPTR;
 }
 
 //***************************************************************************

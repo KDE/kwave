@@ -30,6 +30,7 @@
 #include <QAudioOutput>
 #include <QObject>
 #include <QSysInfo>
+#include <QThread>
 
 #include <KLocalizedString>
 
@@ -45,7 +46,7 @@
 //***************************************************************************
 Kwave::PlayBackQt::PlayBackQt()
     :QObject(), Kwave::PlayBackDevice(),
-     m_lock(QMutex::Recursive),
+     m_lock(QMutex::NonRecursive),
      m_device_name_map(),
      m_available_devices(),
      m_output(Q_NULLPTR),
@@ -175,7 +176,7 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
     if (!m_encoder) return i18n("Out of memory");
 
     // create a new Qt output device
-    m_output = new(std::nothrow) QAudioOutput(format, this);
+    m_output = new(std::nothrow) QAudioOutput(format, 0);
     Q_ASSERT(m_output);
     if (!m_output) return i18n("Out of memory");
 
@@ -340,8 +341,11 @@ int Kwave::PlayBackQt::close()
 	m_lock.lock();
     }
 
-    delete m_output;
-    m_output = Q_NULLPTR;
+    if (m_output) {
+	// WARNING: QAudioOutput::~QAudioOutput() calls processEvents() !!!
+	m_output->deleteLater();
+	m_output = Q_NULLPTR;
+    }
 
     delete m_encoder;
     m_encoder = Q_NULLPTR;

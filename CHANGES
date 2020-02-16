@@ -1,4 +1,10 @@
 
+ * bugfix: cleanup code in destructor of PluginManager caused crash when
+   closing the window due to broken iterator
+ * bugfix: Qt playback plugin crashed when stopping pre-listen
+
+20.03.70 [2020-02-16]
+
  * dropped support for swap files, assuming that nowadays everyone has
    much more than 4GB RAM and nobody really needs this. Additionally it
    was a common pitfall that usage of physical memory was limited per
@@ -9,8 +15,6 @@
  * changed SAMPLE_INDEX_MAX to maximum value of a 32bit int (2.147.483.647)
  * removed class MemoryManager, use Kwave::SampleArray directly as backend
    for Kwave::Stripe (which reduces complexity a lot)
- * bugfix: cleanup code in destructor of PluginManager caused crash when
-   closing the window due to broken iterator
 
 19.07.70 [2019-03-16]
 

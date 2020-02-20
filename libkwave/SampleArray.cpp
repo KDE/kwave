@@ -142,8 +142,14 @@ void Kwave::SampleArray::SampleStorage::resize(unsigned int size)
 	    ::realloc(m_data, size * sizeof(sample_t)));
 	if (new_data) {
 	    // successful
-	    // NOTE: if we grew, the additional memory is *not* initialized!
 	    m_data = new_data;
+	    if (size > m_size) {
+		// initialize the new data
+		unsigned int count = size - m_size;
+		sample_t *p = m_data + m_size;
+		while (count--)
+		    *(p++) = 0;
+	    }
 	    m_size = size;
 	} else {
 	    qWarning("Kwave::SampleArray::SampleStorage::resize(%u): OOM! "

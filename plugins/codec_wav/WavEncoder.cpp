@@ -501,7 +501,7 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 	    for (unsigned int track = 0; track < tracks; track++) {
 		Kwave::SampleReader *stream = src[track];
 		sample_t sample = 0;
-		if (!stream->eof()) (*stream) >> sample;
+		if (stream && !stream->eof()) (*stream) >> sample;
 
 		// the following cast is only necessary if
 		// sample_t is not equal to sample_storage_t

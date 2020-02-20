@@ -66,7 +66,7 @@ Kwave::Track::Track(sample_index_t length, QUuid *uuid)
     :m_lock(QMutex::Recursive), m_lock_usage(), m_stripes(), m_selected(true),
      m_uuid((uuid) ? *uuid : QUuid::createUuid())
 {
-    if (length < STRIPE_LENGTH_MAXIMUM) {
+    if (length <= STRIPE_LENGTH_MAXIMUM) {
 	if (length) appendStripe(length);
     } else {
 	Stripe s(length - STRIPE_LENGTH_OPTIMAL);

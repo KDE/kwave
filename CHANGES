@@ -3,6 +3,7 @@
    closing the window due to broken iterator
  * bugfix: Qt playback plugin crashed when stopping pre-listen
  * bugfix: new data was not initialized in SampleArray::resize()
+ * Qt playback: improved responsiveness
 
 20.03.70 [2020-02-16]
 

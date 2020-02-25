@@ -176,7 +176,7 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
     if (!m_encoder) return i18n("Out of memory");
 
     // create a new Qt output device
-    m_output = new(std::nothrow) QAudioOutput(format, 0);
+    m_output = new(std::nothrow) QAudioOutput(format, Q_NULLPTR);
     Q_ASSERT(m_output);
     if (!m_output) return i18n("Out of memory");
 
@@ -223,7 +223,6 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
 int Kwave::PlayBackQt::write(const Kwave::SampleArray &samples)
 {
     QByteArray frame;
-
     {
 	QMutexLocker _lock(&m_lock); // context: worker thread
 
@@ -237,8 +236,24 @@ int Kwave::PlayBackQt::write(const Kwave::SampleArray &samples)
 	m_encoder->encode(samples, samples.size(), frame);
     }
 
-    qint64 written = m_buffer.writeData(frame.constData(), frame.size());
-    if (written != frame.size()) {
+    int         retry     = 10;
+    qint64      written   = 0;
+    qint64      remaining = frame.size();
+    const char *p         = frame.constData();
+    while (retry-- && remaining)
+    {
+	if (QThread::currentThread()->isInterruptionRequested()) {
+	    remaining = 0;
+	    break;
+	}
+	qint64 len = m_buffer.writeData(p, remaining);
+	if (len < 1) continue;
+	written   += len;
+	remaining -= len;
+	p         += len;
+    }
+
+    if (remaining) {
 	qDebug("WARNING: Kwave::PlayBackQt::write: written=%lld/%d",
 	       written, frame.size());
 	return -EIO;
@@ -313,32 +328,26 @@ int Kwave::PlayBackQt::close()
     QMutexLocker _lock(&m_lock); // context: main thread
 
     if (m_output && m_encoder) {
-	unsigned int pad_bytes_cnt   = m_output->periodSize();
-	unsigned int bytes_per_frame = m_output->format().bytesPerFrame();
-	unsigned int pad_samples_cnt = pad_bytes_cnt / bytes_per_frame;
-	Kwave::SampleArray pad_samples(pad_samples_cnt);
-	QByteArray pad_bytes(pad_bytes_cnt, char(0));
-	m_encoder->encode(pad_samples, pad_samples_cnt, pad_bytes);
+	{
+	    unsigned int pad_bytes_cnt   = m_output->periodSize();
+	    unsigned int bytes_per_frame = m_output->format().bytesPerFrame();
+	    unsigned int pad_samples_cnt = pad_bytes_cnt / bytes_per_frame;
+	    Kwave::SampleArray pad_samples(pad_samples_cnt);
+	    QByteArray pad_bytes(pad_bytes_cnt, char(0));
+	    m_encoder->encode(pad_samples, pad_samples_cnt, pad_bytes);
 
-	m_buffer.drain(pad_bytes);
+	    m_buffer.drain(pad_bytes);
+	}
+	m_output->stop();
+	m_buffer.stop();
 
 	// stopping the engine might block, so we need to do this unlocked
 	qDebug("Kwave::PlayBackQt::close() - flushing..., state=%d",
 	       m_output->state());
-	while (
-	    m_output &&
-	    (m_output->state() == QAudio::ActiveState) &&
-	    m_buffer.bytesAvailable()
-	) {
-	    m_lock.unlock();
+	while (m_output && (m_output->state() != QAudio::StoppedState)) {
 	    qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-	    m_lock.lock();
 	}
 	qDebug("Kwave::PlayBackQt::close() - flushing done.");
-	m_lock.unlock();
-	m_output->stop();
-	m_buffer.stop();
-	m_lock.lock();
     }
 
     if (m_output) {
@@ -569,19 +578,15 @@ qint64 Kwave::PlayBackQt::Buffer::writeData(const char *data, qint64 len)
 {
 
     qint64 written_bytes = 0;
-    while (len) {
-	int count = qMin<int>(
-	    qMax(m_sem_free.available(), 1),
-	    Kwave::toInt(len)
-	);
-	if (Q_LIKELY(m_sem_free.tryAcquire(count, m_timeout * 10))) {
-	    QMutexLocker _lock(&m_lock); // context: kwave worker thread
-	    m_sem_filled.release(count);
-	    written_bytes += count;
-	    len           -= count;
-	    while (count--)
-		m_raw_buffer.enqueue(*(data++));
-	} else break;
+
+    int count = qMin<int>(qMax(m_sem_free.available(), 1), Kwave::toInt(len));
+    if (Q_LIKELY(m_sem_free.tryAcquire(count, m_timeout))) {
+	QMutexLocker _lock(&m_lock); // context: kwave worker thread
+	m_sem_filled.release(count);
+	written_bytes += count;
+	len           -= count;
+	while (count--)
+	    m_raw_buffer.enqueue(*(data++));
     }
 
     return written_bytes;

@@ -52,7 +52,6 @@ Kwave::WorkerThread::WorkerThread(Kwave::Runnable *runnable, QVariant params)
      m_runnable(runnable),
      m_params(params),
      m_lock(), m_lock_sighup(),
-     m_should_stop(0),
      m_tid(pthread_self()),
      m_owner_tid(pthread_self())
 {
@@ -87,11 +86,6 @@ Kwave::WorkerThread::~WorkerThread()
 //***************************************************************************
 void Kwave::WorkerThread::start()
 {
-    QMutexLocker lock(&m_lock);
-
-    // reset the "should stop" command flag
-    m_should_stop = 0;
-
     QThread::start();
 }
 
@@ -104,7 +98,7 @@ int Kwave::WorkerThread::stop(unsigned int timeout)
     if (timeout < 1000) timeout = 1000;
 
     // set the "should stop" flag
-    m_should_stop = 1;
+    requestInterruption();
 
     // send one SIGHUP in advance
     {
@@ -169,18 +163,6 @@ void Kwave::WorkerThread::run()
 	QMutexLocker _lock(&m_lock_sighup);
 	m_tid = m_owner_tid;
     }
-}
-
-//***************************************************************************
-void Kwave::WorkerThread::cancel()
-{
-    m_should_stop = 1;
-}
-
-//***************************************************************************
-bool Kwave::WorkerThread::shouldStop()
-{
-    return (m_should_stop);
 }
 
 //***************************************************************************

@@ -381,7 +381,7 @@ void Kwave::PlaybackController::startDevicePlayBack()
 //***************************************************************************
 void Kwave::PlaybackController::stopDevicePlayBack()
 {
-    m_thread.cancel();
+    m_thread.requestInterruption();
     if (!m_thread.isRunning()) {
 	qDebug("PlaybackController::stopDevicePlayBack() - not running");
 	emit sigDevicePlaybackDone();
@@ -444,7 +444,7 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 	// samples (this happens when resuming after a pause)
 	if (pos > first) input.skip(pos - first);
 
-	while ((pos++ <= last) && !m_thread.shouldStop()) {
+	while ((pos++ <= last) && !m_thread.isInterruptionRequested()) {
 	    unsigned int x;
 	    unsigned int y;
 	    bool seek_again = false;
@@ -512,7 +512,7 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 		    result = m_device->write(out_samples);
 	    }
 	    if (result) {
-		m_thread.cancel();
+		m_thread.requestInterruption();
 		pos = last;
 	    }
 
@@ -528,12 +528,12 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 
 	// maybe we loop. in this case the playback starts
 	// again from the left marker
-	if (m_loop_mode && !m_thread.shouldStop()) {
+	if (m_loop_mode && !m_thread.isInterruptionRequested()) {
 	    input.reset();
 	    pos = startPos();
 	}
 
-    } while (m_loop_mode && !m_thread.shouldStop());
+    } while (m_loop_mode && !m_thread.isInterruptionRequested());
 
     // playback is done
     emit sigDevicePlaybackDone();

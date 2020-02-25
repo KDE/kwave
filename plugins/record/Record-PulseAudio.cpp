@@ -982,7 +982,7 @@ void Kwave::RecordPulseAudio::disconnectFromServer()
     close();
 
     // stop the main loop
-    m_mainloop_thread.cancel();
+    m_mainloop_thread.isInterruptionRequested();
     if (m_pa_mainloop) {
 	m_mainloop_lock.lock();
 	pa_mainloop_quit(m_pa_mainloop, 0);

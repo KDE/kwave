@@ -124,7 +124,7 @@ void Kwave::RecordThread::run()
     bool interrupted = false;
 
     // read data until we receive a close signal
-    while (!shouldStop() && !interrupted) {
+    while (!isInterruptionRequested() && !interrupted) {
 	// dequeue a buffer from the "empty" queue
 
 	QByteArray buffer;
@@ -150,7 +150,7 @@ void Kwave::RecordThread::run()
 
 	// read into the current buffer
 	unsigned int offset = 0;
-	while (len && !interrupted && !shouldStop()) {
+	while (len && !interrupted && !isInterruptionRequested()) {
 	    // read raw data from the record device
 	    result =  (m_device) ?
 		m_device->read(buffer, offset) : -EBADF;
@@ -200,7 +200,7 @@ void Kwave::RecordThread::run()
 
     // do not evaluate the result of the last operation if there
     // was the external request to stop
-    if (shouldStop() || (interrupted && (result > 0)))
+    if (isInterruptionRequested() || (interrupted && (result > 0)))
 	result = 0;
 
     if (result) emit stopped(result);

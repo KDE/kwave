@@ -411,7 +411,7 @@ bool Kwave::PlayBackPulseAudio::connectToServer()
 void Kwave::PlayBackPulseAudio::disconnectFromServer()
 {
     // stop the main loop
-    m_mainloop_thread.cancel();
+    m_mainloop_thread.requestInterruption();
     if (m_pa_mainloop) {
 	m_mainloop_lock.lock();
 	pa_mainloop_quit(m_pa_mainloop, 0);

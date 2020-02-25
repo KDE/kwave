@@ -21,7 +21,6 @@
 #include "config.h"
 #include <pthread.h>
 
-#include <QAtomicInt>
 #include <QtGlobal>
 #include <QMutex>
 #include <QObject>
@@ -61,19 +60,6 @@ namespace Kwave
 	 */
         virtual void run() Q_DECL_OVERRIDE;
 
-	/**
-	 * Sets an internal flag that signals the worker thread to cancel,
-	 * so that the next call to "shouldStop()" returns true.
-	 */
-	virtual void cancel();
-
-	/**
-	 * Returns true if the thread should stop. Should be polled
-	 * by the thread's run() function to wait for a termination
-	 * signal.
-	 */
-	bool shouldStop();
-
     private:
 
 	/** pointer to the object that has a run() function */
@@ -87,9 +73,6 @@ namespace Kwave
 
 	/** Mutex for protecting SIGHUP <-> thread exit */
 	QMutex m_lock_sighup;
-
-	/** set to 1 to signal the thread that it should stop */
-	QAtomicInt m_should_stop;
 
 	/**
 	 * POSIX compatible thread ID of the worker thread.

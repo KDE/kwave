@@ -106,13 +106,13 @@ void Kwave::FilterPlugin::run(QStringList params)
     // switch to interactive mode in pre-listen mode
     Kwave::StreamObject::setInteractive(m_listen);
 
+    Kwave::SampleSource *filter = createFilter(tracks.count());
+    Q_ASSERT(filter);
+
     // create all objects
     Kwave::MultiTrackReader source(
 	(m_listen) ? Kwave::FullSnapshot : Kwave::SinglePassForward,
 	signalManager(), tracks, first, last);
-
-    Kwave::SampleSource *filter = createFilter(tracks.count());
-    Q_ASSERT(filter);
 
     if (m_listen) {
 	// pre-listen mode

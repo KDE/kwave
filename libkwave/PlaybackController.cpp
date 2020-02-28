@@ -507,9 +507,14 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 	    // write samples to the playback device
 	    int result = -1;
 	    {
-		QMutexLocker lock(&m_lock_device);
-		if (m_device)
-		    result = m_device->write(out_samples);
+		unsigned int retry = 10;
+		while (retry-- && !m_thread.isInterruptionRequested()) {
+		    QMutexLocker lock(&m_lock_device);
+		    if (m_device)
+			result = m_device->write(out_samples);
+		    if (result == 0)
+			break;
+		}
 	    }
 	    if (result) {
 		m_thread.requestInterruption();

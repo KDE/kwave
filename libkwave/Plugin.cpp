@@ -330,6 +330,7 @@ void Kwave::Plugin::closeProgressDialog(Kwave::Plugin *)
 void Kwave::Plugin::cancel()
 {
     m_stop = true;
+    if (m_thread) m_thread->requestInterruption();
 }
 
 //***************************************************************************
@@ -356,6 +357,12 @@ int Kwave::Plugin::execute(QStringList &params)
 bool Kwave::Plugin::canClose() const
 {
     return !isRunning();
+}
+
+//***************************************************************************
+bool Kwave::Plugin::shouldStop() const
+{
+    return (m_stop || (m_thread && m_thread->isInterruptionRequested()));
 }
 
 //***************************************************************************

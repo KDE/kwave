@@ -159,8 +159,10 @@ void Kwave::FilterPlugin::run(QStringList params)
     // transport the samples
     while (!shouldStop() && (!source.done() || m_listen)) {
 	// process one step
+	if (m_listen) QThread::yieldCurrentThread();
 	source.goOn();
 	filter->goOn();
+	if (m_listen) QThread::yieldCurrentThread();
 
 	// watch out for changed parameters when in
 	// pre-listen mode

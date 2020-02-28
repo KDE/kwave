@@ -236,30 +236,8 @@ int Kwave::PlayBackQt::write(const Kwave::SampleArray &samples)
 	m_encoder->encode(samples, samples.size(), frame);
     }
 
-    int         retry     = 10;
-    qint64      written   = 0;
-    qint64      remaining = frame.size();
-    const char *p         = frame.constData();
-    while (retry-- && remaining)
-    {
-	if (QThread::currentThread()->isInterruptionRequested()) {
-	    remaining = 0;
-	    break;
-	}
-	qint64 len = m_buffer.writeData(p, remaining);
-	if (len < 1) continue;
-	written   += len;
-	remaining -= len;
-	p         += len;
-    }
-
-    if (remaining) {
-	qDebug("WARNING: Kwave::PlayBackQt::write: written=%lld/%d",
-	       written, frame.size());
-	return -EIO;
-    }
-
-    return 0;
+    qint64 written = m_buffer.writeData(frame.constData(), frame.size());
+    return (written == frame.size()) ? 0 : -EAGAIN;
 }
 
 //***************************************************************************
@@ -579,7 +557,7 @@ qint64 Kwave::PlayBackQt::Buffer::writeData(const char *data, qint64 len)
 
     qint64 written_bytes = 0;
 
-    int count = qMin<int>(qMax(m_sem_free.available(), 1), Kwave::toInt(len));
+    int count = Kwave::toInt(len);
     if (Q_LIKELY(m_sem_free.tryAcquire(count, m_timeout))) {
 	QMutexLocker _lock(&m_lock); // context: kwave worker thread
 	m_sem_filled.release(count);

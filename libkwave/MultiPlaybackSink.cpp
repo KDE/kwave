@@ -21,6 +21,7 @@
 
 #include <QMutexLocker>
 #include <QtGlobal>
+#include <QThread>
 
 #include "libkwave/MultiPlaybackSink.h"
 #include "libkwave/PlayBackDevice.h"
@@ -99,8 +100,17 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
 	}
 
 	// play the output buffer
-	int res = m_device->write(m_out_buffer);
-	if (res < 0) break;
+	unsigned int retry = 5;
+	while (retry--) {
+	    // shortcut for more responsiveness when pressing cancel
+	    if (QThread::currentThread()->isInterruptionRequested())
+		break;
+
+	    int res = m_device->write(m_out_buffer);
+	    if (res != 0) {
+		QThread::yieldCurrentThread();
+	    } else break;
+	}
     }
 
     m_in_buffer_filled.fill(false);

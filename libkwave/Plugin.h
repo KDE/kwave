@@ -118,7 +118,7 @@ namespace Kwave
 	 * Returns true if the plugin should stop, e.g. when the
 	 * user has pressed "cancel"
 	 */
-	bool shouldStop() const { return m_stop; }
+	bool shouldStop() const;
 
 	/**
 	 * Called after the plugin has been loaded into memory. This is

@@ -110,6 +110,17 @@ namespace Kwave
 	 */
 	static void setInteractive(bool interactive);
 
+	/** returns true if the transfer has been canceled */
+	virtual bool isCanceled() const { return m_canceled; }
+
+    public slots:
+
+	/**
+	 * Can be connected to other stream objects to cancel the current
+	 * transfer.
+	 */
+	void cancel();
+
     signals:
 
 	/**
@@ -117,6 +128,12 @@ namespace Kwave
 	 * slot.
 	 */
 	void attributeChanged(const QVariant value);
+
+	/**
+	 * emitted when cancel() is called, can be connected
+	 * to the cancel() slot of child objects
+	 */
+	void sigCancel();
 
     private:
 
@@ -126,6 +143,11 @@ namespace Kwave
 	/** interactive mode: if enabled, use smaller block size */
 	static bool m_interactive;
 
+	/**
+	 * Initialized as false, will be true if the transfer has
+	 * been canceled
+	 */
+	bool m_canceled;
     };
 }
 

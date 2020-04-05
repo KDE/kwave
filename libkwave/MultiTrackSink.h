@@ -96,6 +96,8 @@ namespace Kwave
 	 */
 	virtual bool insert(unsigned int track, SINK *sink) {
 	    QList<SINK *>::insert(track, sink);
+	    QObject::connect(this, SIGNAL(sigCancel()),
+	                     sink, SLOT(cancel()), Qt::DirectConnection);
 	    return (at(track) == sink);
 	}
 
@@ -104,6 +106,27 @@ namespace Kwave
 	    while (!QList<SINK *>::isEmpty())
 		delete QList<SINK *>::takeLast();
 	}
+
+	/**
+	 * overloaded function, in most cases the sink objects are connected
+	 * to some sigCancel() signals of other stream objects, so that the
+	 * cancel() slot of this object is not called.
+	 */
+	virtual bool isCanceled() const Q_DECL_OVERRIDE
+	{
+	    if (Kwave::SampleSink::isCanceled())
+		return true;
+
+	    unsigned int tracks = this->tracks();
+	    for (unsigned int track = 0; track < tracks; track++) {
+		const SINK *sink = at(track);
+		if (sink && sink->isCanceled())
+		    return true;
+	    }
+
+	    return false;
+	}
+
     };
 
     /**

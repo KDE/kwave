@@ -1,9 +1,12 @@
 
+20.07.70 [2020-02-16]
+
  * bugfix: cleanup code in destructor of PluginManager caused crash when
    closing the window due to broken iterator
  * bugfix: Qt playback plugin crashed when stopping pre-listen
  * bugfix: new data was not initialized in SampleArray::resize()
- * Qt playback: improved responsiveness
+ * bugfix: improved stability and responsiveness when stopping/canceling
+   of streams (including playback), fixes some GUI hanging and crashes
 
 20.03.70 [2020-02-16]
 

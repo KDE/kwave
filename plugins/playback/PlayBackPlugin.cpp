@@ -295,8 +295,6 @@ void Kwave::PlayBackPlugin::run(QStringList params)
     const double       t_sweep =   1.0; /* seconds per speaker */
     const unsigned int periods =     3; /* number of periods to play */
 
-    qDebug("PlayBackPlugin::run()");
-
     Q_UNUSED(params)
 
     Q_ASSERT(m_dialog);
@@ -329,6 +327,8 @@ void Kwave::PlayBackPlugin::run(QStringList params)
     curve.insert(1.0, 0.0);
 
     Kwave::CurveStreamAdapter curve_adapter(curve, curve_length);
+    connect(this, SIGNAL(sigCancel()), &curve_adapter, SLOT(cancel()),
+            Qt::DirectConnection);
 
     Kwave::MultiTrackSource<Kwave::Delay, true> delay(channels);
     for (unsigned int i = 0; i < channels; i++) {
@@ -341,6 +341,8 @@ void Kwave::PlayBackPlugin::run(QStringList params)
     Kwave::Osc osc;
     osc.setAttribute(SLOT(setFrequency(QVariant)),
                      QVariant(rate / PLAYBACK_TEST_FREQUENCY));
+    connect(this, SIGNAL(sigCancel()), &osc, SLOT(cancel()),
+            Qt::DirectConnection);
 
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(channels);
 

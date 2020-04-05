@@ -43,14 +43,14 @@ namespace Kwave
     public:
 	/**
 	 * Default constructor, which does no initialization of the
-	 * objects themselfes. If you want to use this, you should
+	 * objects themselves. If you want to use this, you should
 	 * derive from this class, create all objects manually and
 	 * "insert" them from the constructor.
 	 *
 	 * @param tracks number of tracks
-	 * @param parent a parent object, passed to QObject (optional)
+	 * @param parent a parent object, passed to QObject
 	 */
-        MultiTrackSource(unsigned int tracks, QObject *parent = Q_NULLPTR)
+        MultiTrackSource(unsigned int tracks, QObject *parent)
 	    :Kwave::SampleSource(parent),
 	     QList<SOURCE *>()
         {
@@ -71,8 +71,9 @@ namespace Kwave
 	 */
         virtual void goOn() Q_DECL_OVERRIDE
 	{
-	    QFutureSynchronizer<void> synchronizer;
+	    if (isCanceled()) return;
 
+	    QFutureSynchronizer<void> synchronizer;
 	    foreach (SOURCE *src, static_cast< QList<SOURCE *> >(*this)) {
 		if (!src) continue;
 		synchronizer.addFuture(QtConcurrent::run(
@@ -81,7 +82,6 @@ namespace Kwave
 		    src)
 		);
 	    }
-
 	    synchronizer.waitForFinished();
 	}
 
@@ -127,6 +127,8 @@ namespace Kwave
 	 */
 	inline virtual bool insert(unsigned int track, SOURCE *source) {
 	    QList<SOURCE *>::insert(track, source);
+	    QObject::connect(this, SIGNAL(sigCancel()),
+	                     source, SLOT(cancel()), Qt::DirectConnection);
 	    return (at(track) == source);
 	}
 

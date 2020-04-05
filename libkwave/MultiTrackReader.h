@@ -86,9 +86,6 @@ namespace Kwave
 		(Kwave::MultiTrackSource<Kwave::SampleReader, false>::tracks() < 1);
 	}
 
-	/** returns true if the transfer has been canceled */
-	inline bool isCanceled() const { return m_canceled; }
-
 	/** @see QList::insert() */
         virtual bool insert(unsigned int track, Kwave::SampleReader *reader)
             Q_DECL_OVERRIDE;
@@ -108,12 +105,6 @@ namespace Kwave
 
     public slots:
 
-	/**
-	 * Can be connected to some progress dialog to cancel the current
-	 * transfer.
-	 */
-	void cancel();
-
 	/** Resets all readers to zero */
 	void reset();
 
@@ -131,12 +122,6 @@ namespace Kwave
 
 	/** index of the last sample to read */
 	sample_index_t m_last;
-
-	/**
-	 * Initialized as false, will be true if the transfer has
-	 * been canceled
-	 */
-	bool m_canceled;
 
     };
 }

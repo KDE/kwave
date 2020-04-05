@@ -27,7 +27,9 @@ bool Kwave::StreamObject::m_interactive = false;
 
 //***************************************************************************
 Kwave::StreamObject::StreamObject(QObject *parent)
-    :QObject(Q_NULLPTR /*parent*/), m_lock_set_attribute(QMutex::Recursive)
+    :QObject(Q_NULLPTR /*parent*/),
+     m_lock_set_attribute(QMutex::Recursive),
+     m_canceled(false)
 {
     Q_UNUSED(parent)
 }
@@ -71,6 +73,15 @@ unsigned int Kwave::StreamObject::blockSize() const
 void Kwave::StreamObject::setInteractive(bool interactive)
 {
     m_interactive = interactive;
+}
+
+//***************************************************************************
+void Kwave::StreamObject::cancel()
+{
+    if (!m_canceled) {
+	m_canceled = true;
+	emit sigCancel();
+    }
 }
 
 //***************************************************************************

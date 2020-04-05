@@ -523,9 +523,8 @@ qint64 Kwave::PlayBackQt::Buffer::readData(char *data, qint64 len)
 	    Kwave::toInt(len)
 	);
 	if (Q_LIKELY(m_sem_filled.tryAcquire(count, m_timeout))) {
-// 	    qDebug("    read: locking...");
 	    QMutexLocker _lock(&m_lock); // context: qt streaming engine
-// 	    qDebug("    read: locked, count=%lld", len);
+
 	    m_sem_free.release(count);
 	    if (read_bytes < 0) read_bytes = 0;
 	    read_bytes += count;

@@ -113,6 +113,8 @@ void Kwave::FilterPlugin::run(QStringList params)
     Kwave::MultiTrackReader source(
 	(m_listen) ? Kwave::FullSnapshot : Kwave::SinglePassForward,
 	signalManager(), tracks, first, last);
+    connect(this, SIGNAL(sigCancel()), &source, SLOT(cancel()),
+	    Qt::DirectConnection);
 
     if (m_listen) {
 	// pre-listen mode
@@ -162,13 +164,12 @@ void Kwave::FilterPlugin::run(QStringList params)
 	if (m_listen) QThread::yieldCurrentThread();
 	source.goOn();
 	filter->goOn();
-	if (m_listen) QThread::yieldCurrentThread();
 
 	// watch out for changed parameters when in
 	// pre-listen mode
 	if (m_listen && paramsChanged()) {
 	    updateFilter(filter);
-        }
+	}
 
 	if (m_listen && source.done()) {
 	    // start the next loop

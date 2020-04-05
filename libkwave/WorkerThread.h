@@ -60,6 +60,22 @@ namespace Kwave
 	 */
         virtual void run() Q_DECL_OVERRIDE;
 
+    public slots:
+
+	/**
+	 * Can be connected to a progress dialog to cancel the current
+	 * operation.
+	 */
+	virtual void cancel();
+
+    signals:
+
+	/**
+	 * emitted when cancel() is called, can be connected
+	 * to the cancel() slot of child objects
+	 */
+	void sigCancel();
+
     private:
 
 	/** pointer to the object that has a run() function */

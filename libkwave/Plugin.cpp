@@ -329,8 +329,13 @@ void Kwave::Plugin::closeProgressDialog(Kwave::Plugin *)
 //***************************************************************************
 void Kwave::Plugin::cancel()
 {
-    m_stop = true;
-    if (m_thread) m_thread->requestInterruption();
+    if (!m_stop)
+    {
+	QMutexLocker lock(&m_thread_lock);
+	m_stop = true;
+	if (m_thread) m_thread->cancel();
+    }
+    emit sigCancel();
 }
 
 //***************************************************************************
@@ -342,6 +347,8 @@ int Kwave::Plugin::execute(QStringList &params)
     m_thread = new(std::nothrow) Kwave::WorkerThread(this, QVariant(params));
     Q_ASSERT(m_thread);
     if (!m_thread) return -ENOMEM;
+    connect(this, SIGNAL(sigCancel()), m_thread, SLOT(cancel()),
+            Qt::QueuedConnection);
 
     // increment the use count, it is decremented at the end of
     // the run_wrapper when the thread is finished

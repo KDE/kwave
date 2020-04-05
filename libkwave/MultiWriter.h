@@ -60,9 +60,6 @@ namespace Kwave
         virtual bool insert(unsigned int track, Kwave::Writer *writer)
             Q_DECL_OVERRIDE;
 
-	/** returns true if the transfer has been canceled */
-	inline bool isCanceled() const { return m_canceled; }
-
     signals:
 
 	/**
@@ -79,28 +76,12 @@ namespace Kwave
 	 */
 	void written(quint64 samples);
 
-    public slots:
-
-	/**
-	 * Can be connected to some progress dialog to cancel the current
-	 * transfer.
-	 */
-	void cancel();
-
     private slots:
 
 	/**
 	 * Connected to each Writer to get informed about their progress.
 	 */
 	void proceeded();
-
-    protected:
-
-	/**
-	 * Initialized as false, will be true if the transfer has
-	 * been canceled
-	 */
-	bool m_canceled;
 
     };
 

@@ -22,8 +22,7 @@
 
 //***************************************************************************
 Kwave::MultiWriter::MultiWriter()
-    :Kwave::MultiTrackSink<Kwave::Writer, false>(0, Q_NULLPTR),
-     m_canceled(false)
+    :Kwave::MultiTrackSink<Kwave::Writer, false>(0, Q_NULLPTR)
 {
 }
 
@@ -73,12 +72,6 @@ void Kwave::MultiWriter::proceeded()
 	}
 	emit written(sum);
     }
-}
-
-//***************************************************************************
-void Kwave::MultiWriter::cancel()
-{
-    m_canceled = true;
 }
 
 //***************************************************************************

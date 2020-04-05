@@ -292,6 +292,12 @@ namespace Kwave
 	void sigCommand(const QString &command);
 
 	/**
+	 * emitted when cancel() is called, can be connected
+	 * to the cancel() slot of child objects
+	 */
+	void sigCancel();
+
+	/**
 	 * Sets the text of the progress dialog
 	 * @param text new progress bar text, already be localized
 	 */

@@ -90,6 +90,13 @@ void Kwave::WorkerThread::start()
 }
 
 //***************************************************************************
+void Kwave::WorkerThread::cancel()
+{
+    requestInterruption();
+    emit sigCancel();
+}
+
+//***************************************************************************
 int Kwave::WorkerThread::stop(unsigned int timeout)
 {
     QMutexLocker lock(&m_lock);

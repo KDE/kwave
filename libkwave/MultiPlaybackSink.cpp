@@ -75,6 +75,12 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
 {
     QMutexLocker lock(&m_lock);
 
+    // shortcut for more responsiveness when pressing cancel
+    if (isCanceled()) {
+	m_in_buffer_filled.fill(false);
+	return;
+    }
+
     Q_ASSERT(m_device);
     Q_ASSERT(m_tracks);
     if (!m_device || !m_tracks) return;
@@ -101,16 +107,14 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
 
 	// play the output buffer
 	unsigned int retry = 5;
-	while (retry--) {
-	    // shortcut for more responsiveness when pressing cancel
-	    if (QThread::currentThread()->isInterruptionRequested())
-		break;
-
+	while (retry-- && !isCanceled()) {
 	    int res = m_device->write(m_out_buffer);
 	    if (res != 0) {
 		QThread::yieldCurrentThread();
 	    } else break;
 	}
+	if (retry == 0)
+	    break; // give up
     }
 
     m_in_buffer_filled.fill(false);

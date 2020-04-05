@@ -25,7 +25,7 @@
 //***************************************************************************
 Kwave::MultiTrackReader::MultiTrackReader()
 :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, Q_NULLPTR),
-     m_first(0), m_last(0), m_canceled(false)
+     m_first(0), m_last(0)
 {
 }
 
@@ -35,8 +35,8 @@ Kwave::MultiTrackReader::MultiTrackReader(Kwave::ReaderMode mode,
 					  const QVector<unsigned int> &track_list,
                                           sample_index_t first,
                                           sample_index_t last)
-    :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0),
-     m_first(first), m_last(last), m_canceled(false)
+    :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, Q_NULLPTR),
+     m_first(first), m_last(last)
 {
     unsigned int index = 0;
 
@@ -145,12 +145,6 @@ void Kwave::MultiTrackReader::seek(sample_index_t pos)
 	Kwave::SampleReader *r = at(track);
 	if (r) r->seek(pos);
     }
-}
-
-//***************************************************************************
-void Kwave::MultiTrackReader::cancel()
-{
-    m_canceled = true;
 }
 
 //***************************************************************************

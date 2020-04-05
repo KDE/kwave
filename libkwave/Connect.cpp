@@ -41,6 +41,9 @@ namespace Kwave {
 
 	QObject::connect(s, output, d, input, Qt::DirectConnection);
 
+	QObject::connect(s, SIGNAL(sigCancel()), d, SLOT(cancel()),
+	                 Qt::DirectConnection);
+
 	return true;
     }
 

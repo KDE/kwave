@@ -26,7 +26,6 @@ Name[sl]=Pretvorba hitrosti vzorčenja
 Name[sv]=Konvertering av samplingsfrekvens
 Name[tr]=Örnekleme Hızı Dönüşümü
 Name[uk]=Зміна частоти дискретизації
-Name[x-test]=xxSample Rate Conversionxx
 Name[zh_CN]=采样率转换
 Name[zh_TW]=採樣率轉換
 Type=Service

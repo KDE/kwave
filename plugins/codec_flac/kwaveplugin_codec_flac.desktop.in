@@ -26,6 +26,7 @@ Name[sk]=FLAC kodek
 Name[sv]=FLAC-kodare
 Name[tr]=FLAC Kodek
 Name[uk]=Кодек FLAC
+Name[x-test]=xxFLAC Codecxx
 Name[zh_CN]=FLAC 编码解码器
 Name[zh_TW]=FLAC 解碼器
 Type=Service

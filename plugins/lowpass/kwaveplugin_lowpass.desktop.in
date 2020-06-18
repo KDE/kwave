@@ -24,6 +24,7 @@ Name[ru]=Фильтр низких частот
 Name[sk]=Dolnopriepustný filter
 Name[sv]=Lågpassfilter
 Name[uk]=Низькочастотний фільтр
+Name[x-test]=xxLow Pass Filterxx
 Name[zh_CN]=低通滤波器
 Name[zh_TW]=低通濾波器
 Type=Service

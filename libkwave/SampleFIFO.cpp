@@ -67,6 +67,20 @@ void Kwave::SampleFIFO::put(const Kwave::SampleArray &buffer)
 }
 
 //***************************************************************************
+QList<Kwave::SampleArray> Kwave::SampleFIFO::getAll()
+{
+    QMutexLocker _lock(&m_lock);
+
+    QList<Kwave::SampleArray> list;
+
+    while (!m_buffer.isEmpty())
+	list.push_front(m_buffer.dequeue());
+
+    m_read_offset = 0;
+    return list;
+}
+
+//***************************************************************************
 unsigned int Kwave::SampleFIFO::get(Kwave::SampleArray &buffer)
 {
     QMutexLocker _lock(&m_lock);

@@ -57,7 +57,7 @@ namespace Kwave
 	 * @param start position within the track
 	 * @param samples array with initial samples
 	 */
-	Stripe(sample_index_t start, const Kwave::SampleArray& samples);
+	Stripe(sample_index_t start, const Kwave::SampleArray &samples);
 
 	/**
 	 * Constructor. Creates a stripe that already contains samples,
@@ -67,7 +67,7 @@ namespace Kwave
 	 * @param stripe source stripe to copy from
 	 * @param offset offset within the source stripe
 	 */
-	Stripe(sample_index_t start, Stripe& stripe, unsigned int offset);
+	Stripe(sample_index_t start, Stripe &stripe, unsigned int offset);
 
 	/**
 	 * Destructor.

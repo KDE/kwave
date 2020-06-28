@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QtGlobal>
+#include <QList>
 #include <QMutex>
 #include <QQueue>
 
@@ -61,6 +62,13 @@ namespace Kwave
 	 * @return number of received samples
 	 */
 	virtual unsigned int get(Kwave::SampleArray &buffer);
+
+	/**
+	 * gets and removes all samples from the FIFO
+	 *
+	 * @return a list of sample arrays
+	 */
+	virtual QList<Kwave::SampleArray> getAll();
 
 	/**
 	 * Returns the number of samples that can be read out.

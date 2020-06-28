@@ -30,7 +30,7 @@ namespace Kwave
 {
 
     /**
-     * array with sample_t, for use in KwaveSampleSource, KwaveSampleSink
+     * array with sample_t, for use in Kwave::SampleSource, Kwave::SampleSink
      * and other streaming classes.
      */
     class Q_DECL_EXPORT SampleArray

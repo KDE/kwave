@@ -30,7 +30,7 @@ PROJECT(kwave)
 # KDE Application Version, managed by release script
 set (RELEASE_SERVICE_VERSION_MAJOR "20")
 set (RELEASE_SERVICE_VERSION_MINOR "04")
-set (RELEASE_SERVICE_VERSION_MICRO "2")
+set (RELEASE_SERVICE_VERSION_MICRO "3")
 
 #############################################################################
 ### build options:                                                        ###

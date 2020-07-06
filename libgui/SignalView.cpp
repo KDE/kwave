@@ -685,7 +685,7 @@ void Kwave::SignalView::dragMoveEvent(QDragMoveEvent *event)
 //***************************************************************************
 //***************************************************************************
 Kwave::SignalView::PositionWidget::PositionWidget(QWidget *parent)
-    :QWidget(parent), m_label(Q_NULLPTR), m_alignment(Q_NULLPTR),
+    :QWidget(parent), m_label(Q_NULLPTR), m_alignment(),
      m_radius(10), m_arrow_length(30), m_last_alignment(Qt::AlignHCenter),
      m_last_size(QSize(0,0)), m_polygon()
 {

@@ -720,7 +720,7 @@ QString Kwave::MP3EncoderDialog::searchPath(const QString &program)
     const QLatin1Char separator = QLatin1Char(':');
 #endif
     QStringList path =
-	_(qgetenv("PATH")).split(separator, QString::SkipEmptyParts);
+	_(qgetenv("PATH")).split(separator, Qt::SkipEmptyParts);
 
     QFileInfo f(program);
     QString d = f.path();

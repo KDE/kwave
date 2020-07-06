@@ -303,7 +303,7 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 	foreach (const QString &dev_id, devices) {
             QTreeWidgetItem *parent = Q_NULLPTR;
 
-	    QStringList list = dev_id.split(_("||"), QString::KeepEmptyParts);
+	    QStringList list = dev_id.split(_("||"), Qt::KeepEmptyParts);
 	    foreach (const QString &t, list) {
 		QString token(t);
                 QTreeWidgetItem *item = Q_NULLPTR;

@@ -51,7 +51,7 @@ void Kwave::CodecBase::addMimeType(const char *name,
     const QString type_name = _(name);
     if (type_name.contains(_(","))) {
         // list of mime types -> call recursively for each of them
-        QStringList types = type_name.split(_(","), QString::SkipEmptyParts);
+        QStringList types = type_name.split(_(","), Qt::SkipEmptyParts);
         foreach (const QString &mt, types) {
             addMimeType(mt.trimmed().toUtf8().data(), description, patterns);
         }
@@ -66,7 +66,7 @@ void Kwave::CodecBase::addMimeType(const char *name,
 // 	qWarning("mime type '%s' not registered, using built-in!", name);
 	type.name        = type_name;
 	type.description = description;
-	type.patterns    = _(patterns).split(_("; "), QString::SkipEmptyParts);
+	type.patterns    = _(patterns).split(_("; "), Qt::SkipEmptyParts);
     } else {
 	type.description = t.comment();
 	type.patterns    = t.globPatterns();

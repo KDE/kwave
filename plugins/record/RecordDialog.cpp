@@ -412,7 +412,7 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 	foreach (QString dev_id, devices) {
             QTreeWidgetItem *parent = Q_NULLPTR;
 
-	    QStringList list = dev_id.split(_("||"), QString::KeepEmptyParts);
+	    QStringList list = dev_id.split(_("||"), Qt::KeepEmptyParts);
 	    foreach (QString token, list) {
                 QTreeWidgetItem *item = Q_NULLPTR;
 

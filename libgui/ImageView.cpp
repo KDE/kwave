@@ -20,6 +20,7 @@
 #include <QCursor>
 #include <QImage>
 #include <QMouseEvent>
+#include <QTransform>
 
 #include "libgui/ImageView.h"
 #include "libkwave/Utils.h"
@@ -109,7 +110,6 @@ void Kwave::ImageView::paintEvent(QPaintEvent *)
     if (m_image.isNull() || !m_image.width() || !m_image.height()) return;
 
     QPainter p(this);
-    QMatrix matrix;
     QPixmap newmap = QPixmap::fromImage(m_image,
 	Qt::ColorOnly | Qt::ThresholdDither | Qt::AvoidDither);
 
@@ -124,8 +124,10 @@ void Kwave::ImageView::paintEvent(QPaintEvent *)
 	m_offset.setY(Kwave::toInt(
 	    m_scale_y * m_image.height() - height()));
 
-    matrix.scale(m_scale_x, m_scale_y);
-    QPixmap pixmap = newmap.transformed(matrix);
+    QPixmap pixmap = newmap.transformed(
+	QTransform::fromScale(m_scale_x, m_scale_y),
+	Qt::FastTransformation
+    );
 
     p.drawPixmap(0, 0, pixmap, m_offset.x(), m_offset.y(),
 	width(), height()

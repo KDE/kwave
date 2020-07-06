@@ -156,14 +156,14 @@ packets should be sufficient for building:
 
 [WARNING: this list might be a bit outdated]
 
-* the following Qt packages Qt >= 5.4.0
+* the following Qt packages Qt >= 5.14
   - qtcore
   - qtconcurrent
   - qtnetwork
   - qtgui
   - qtmultimedia
   - qtwidgets
-* the following KDE Frameworks packages, KF5 >= 5.2.0
+* the following KDE Frameworks packages, KF5 >= 5.33
   - extra-cmake-modules
   - kconfig
   - kconfigwidgets

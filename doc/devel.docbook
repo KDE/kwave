@@ -142,12 +142,12 @@
 		<emphasis>hear</emphasis> the result of your work?)
 	    </para></listitem>
 	    <listitem><para>
-		KDE Frameworks 5.2 (KF5) or higher (at least the libraries,
+		KDE Frameworks 5.33 (KF5) or higher (at least the libraries,
 		if you are using a different desktop, you can also run &kwave;
 		if the proper libraries are installed).
 	    </para></listitem>
 	    <listitem><para>
-		Qt-5.4 or higher (normally comes as a dependency of KF5)
+		Qt-5.14 or higher (normally comes as a dependency of KF5)
 	    </para></listitem>
 	    <listitem><para>
 		ALSA 1.0.14 or higher (for record/playback)

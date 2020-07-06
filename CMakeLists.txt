@@ -87,7 +87,7 @@ IF (POLICY CMP0075)
 ENDIF (POLICY CMP0075)
 
 SET(ECM_MIN_VERSION "1.7.0")
-SET(QT_MIN_VERSION  "5.4.0")
+SET(QT_MIN_VERSION  "5.14.0")
 SET(KF5_MIN_VERSION "5.33.0")
 
 #############################################################################

@@ -3,22 +3,21 @@
   <!ENTITY kwave "<application>Kwave</application>">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "18.07.70">
-  <!ENTITY version_year "2018">
+  <!ENTITY version "20.07.70">
+  <!ENTITY version_year "2020">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
-  <!ENTITY url_git_web_kde "http://commits.kde.org/kwave">
-  <!ENTITY url_prefix_gitweb "&url_git_web_kde;?path=">
+  <!ENTITY url_git_web_kde "https://invent.kde.org/multimedia/kwave/">
+  <!ENTITY url_prefix_gitweb "&url_git_web_kde;-/blob/master/">
   <!ENTITY url_cmake "http://www.cmake.org">
   <!ENTITY url_download "http://kwave.sourceforge.net/download.html">
   <!ENTITY url_doxygen "http://www.stack.nl/~dimitri/doxygen">
   <!ENTITY url_homepage "http://kwave.sourceforge.net/">
   <!ENTITY url_kde_project "http://www.kde.org/applications/multimedia/kwave/">
-  <!ENTITY url_mailinglist "https://lists.sourceforge.net/lists/listinfo/kwave-devel">
   <!ENTITY url_readme "&url_prefix_gitweb;README">
   <!ENTITY url_sourceforge "http://sourceforge.net">
   <!ENTITY url_git_web_sf "http://sourceforge.net/p/kwave/code/commit_browser">
-  <!ENTITY url_git_list_tags "http://commits.kde.org/kwave.git/refs/">
-  <!ENTITY url_git_master "git://anongit.kde.org/kwave.git">
+  <!ENTITY url_git_list_tags "&url_git_web_kde;-/tags/">
+  <!ENTITY url_git_master "https://invent.kde.org/multimedia/kwave.git">
 ]>
 
 <book lang="&language;">
@@ -44,7 +43,7 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2018-03-23</date>
+    <date>2020-07-06</date>
     <releaseinfo>&version;</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor built on &kf5-full;.</para></abstract>
@@ -325,8 +324,6 @@
 	<ulink url="&url_cmake;">cmake</ulink>, a make system
 	that is also used by KDE itself. So if you know how to build other KDE
 	applications, you should not have any difficulties in building &kwave;.
-	If you run into problems please report them to
-	the &kwave; <ulink url="&url_mailinglist;">mailing list</ulink>.
     </para>
 
     <para>
@@ -704,9 +701,7 @@
     <para>
         If you want to write a plugin, contribute something to this
         project (or maybe write the converter mentioned above), please
-	feel free to contact one of the authors directly
-	and / or subscribe to the &kwave; mailing list:
-	<ulink url="&url_mailinglist;"> "&url_mailinglist;"</ulink>.
+	feel free to contact one of the authors directly.
 	Help is always welcome!
     </para>
 

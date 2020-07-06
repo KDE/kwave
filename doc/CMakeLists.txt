@@ -165,7 +165,7 @@ ENDFOREACH(_file ${_files})
 #############################################################################
 ### "make html_doc_devel"                                                 ###
 
-SET(_common_en_dir ${CMAKE_INSTALL_PREFIX}/${HTML_INSTALL_DIR}/en/kdoctools5-common)
+SET(_common_en_dir ${CMAKE_INSTALL_PREFIX}/share/help/en/kdoctools5-common)
 SET(_html_dir_devel ${CMAKE_CURRENT_BINARY_DIR}/devel)
 GET_TARGET_PROPERTY(MEINPROC_EXECUTABLE ${KDOCTOOLS_MEINPROC_EXECUTABLE} LOCATION)
 

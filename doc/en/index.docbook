@@ -3,15 +3,14 @@
   <!ENTITY kwave "<application>Kwave</application>">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY version "0.9.3">
-  <!ENTITY version_tag "0_9_3">
-  <!ENTITY version_year "2017">
+  <!ENTITY version "20.07.70">
+  <!ENTITY version_year "2020">
   <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
   <!ENTITY url_cc_by_sa_4 "https://creativecommons.org/licenses/by-sa/4.0/">
-  <!ENTITY url_devel_building_rpm_from_git "http://kwave.sourceforge.net/doc/devel/building_rpm_from_git.html">
+  <!ENTITY url_devel_fetching_from_git "http://kwave.sourceforge.net/doc/devel/fetching_sources_from_git.html">
   <!ENTITY url_devel_requirements "http://kwave.sourceforge.net/doc/devel/requirements.html">
-  <!ENTITY url_git_web_kde "https://commits.kde.org/kwave">
-  <!ENTITY url_prefix_gitweb "&url_git_web_kde;?path=">
+  <!ENTITY url_git_web_kde "https://invent.kde.org/multimedia/kwave/">
+  <!ENTITY url_prefix_gitweb "&url_git_web_kde;-/blob/master/">
   <!ENTITY url_authors "&url_prefix_gitweb;AUTHORS">
   <!ENTITY url_changelog "&url_prefix_gitweb;CHANGES">
   <!ENTITY url_debian "https://www.debian.org">
@@ -317,8 +316,8 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2017-01-29</date>
-    <releaseinfo>0.9.3 (Applications 16.12)</releaseinfo>
+    <date>2020-07-06</date>
+    <releaseinfo>20.07.70</releaseinfo>
 
     <abstract><para>&kwave; is a simple sound editor built on &kf5-full;.</para></abstract>
 
@@ -448,7 +447,7 @@
 	    you can get the sources of the latest development version.
 	    For instructions on how to get access to the repository, read
 	    in the chapter about
-	    <ulink url="&url_devel_building_rpm_from_git;">building from GIT</ulink>
+	    <ulink url="&url_devel_fetching_from_git;">building from GIT</ulink>
 	    in the developer documentation.
 	    There also is a GIT web interface on <ulink url="&url_git_web_kde;">&kde;</ulink>
 	    and on <ulink url="&url_git_web_sf;">SourceForge</ulink> that

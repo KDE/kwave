@@ -1016,7 +1016,7 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
 	const QString name = Kwave::Parser::escape(label.name());
 	out << _("label:add(") << pos;
 	if (name.length()) out << _(", ") << name;
-	out << _(")") << endl;
+	out << _(")") << Qt::endl;
     }
 
     file.close();

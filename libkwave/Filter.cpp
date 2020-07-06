@@ -147,9 +147,9 @@ void Kwave::Filter::save(const QString &filename)
     file.open(QIODevice::WriteOnly);
     QTextStream out(&file);
 
-    out << ((m_fir) ? "FIR " : "IIR ") << count() << endl;
+    out << ((m_fir) ? "FIR " : "IIR ") << count() << Qt::endl;
     for (unsigned int i = 0; i < count(); i++) {
-	out << m_delay[i] << ' ' << m_coeff[i] << endl;
+	out << m_delay[i] << ' ' << m_coeff[i] << Qt::endl;
     }
 
     file.close();

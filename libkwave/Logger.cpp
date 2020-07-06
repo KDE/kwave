@@ -89,12 +89,14 @@ bool Kwave::Logger::open(const QString& filename)
     QTextStream out(m_logfile);
     const KAboutData about_data = KAboutData::applicationData();
 
-    out << "#Version: 1.0" << endl;
-    out << "#Fields: x-status date time x-pid x-message" << endl;
+    out << "#Version: 1.0" << Qt::endl;
+    out << "#Fields: x-status date time x-pid x-message" << Qt::endl;
     out << "#Software: " << about_data.displayName() << " "
-                         << about_data.version() << endl;
+    << about_data.version() << Qt::endl;
     QDateTime now = QDateTime::currentDateTime();
-    out << "#Start-Date: " << now.toString(_("yyyy-MM-dd hh:mm:ss")) << endl;
+    out << "#Start-Date: "
+        << now.toString(_("yyyy-MM-dd hh:mm:ss"))
+        << Qt::endl;
 
     return true;
 }
@@ -133,9 +135,7 @@ void Kwave::Logger::log(const QObject *sender,
 
 	out << "<" << x_status << "> " <<
 	now.toString(_("yyyy-MM-dd hh:mm:ss.zzz")) << " " <<
-	x_pid << " " <<
-	msg <<
-	endl;
+	x_pid << " " << msg << Qt::endl;
     }
 
     m_logfile->flush();

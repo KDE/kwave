@@ -100,10 +100,10 @@ bool Kwave::AsciiEncoder::encode(QWidget *widget,
 
 	// write out the default properties:
 	// sample rate, bits, tracks, length
-	m_dst << META_PREFIX << "'rate'="   << info.rate() << endl;
-	m_dst << META_PREFIX << "'tracks'=" << tracks << endl;
-	m_dst << META_PREFIX << "'bits'="   << bits   << endl;
-	m_dst << META_PREFIX << "'length'=" << length << endl;
+	m_dst << META_PREFIX << "'rate'="   << info.rate() << Qt::endl;
+	m_dst << META_PREFIX << "'tracks'=" << tracks << Qt::endl;
+	m_dst << META_PREFIX << "'bits'="   << bits   << Qt::endl;
+	m_dst << META_PREFIX << "'length'=" << length << Qt::endl;
 
 	// write out all other, non-standard properties that we have
 	QMap<Kwave::FileProperty, QVariant> properties = info.properties();
@@ -121,7 +121,7 @@ bool Kwave::AsciiEncoder::encode(QWidget *widget,
 	    // write the property
 	    m_dst << META_PREFIX << "'" << info.name(p) << "'='"
 	          << Kwave::Parser::escape(v.toString()).toUtf8()
-	          << "'" << endl;
+		  << "'" << Qt::endl;
 	}
 
 	// write out all labels
@@ -130,7 +130,7 @@ bool Kwave::AsciiEncoder::encode(QWidget *widget,
 	    m_dst << META_PREFIX << "'label["
 	    << QString::number(label.pos()) << "]'='"
 	    << Kwave::Parser::escape(label.name()).toUtf8()
-	    << "'" << endl;
+	    << "'" << Qt::endl;
 	}
 
 	sample_index_t rest = length;
@@ -162,13 +162,13 @@ bool Kwave::AsciiEncoder::encode(QWidget *widget,
 	    pos++;
 
 	    // end of line
-	    m_dst << endl;
+	    m_dst << Qt::endl;
 	}
 
     } while (false);
 
     // end of file
-    m_dst << "# EOF " << endl << endl;
+    m_dst << "# EOF " << Qt::endl << Qt::endl;
 
     m_dst.setDevice(Q_NULLPTR);
     dst.close();

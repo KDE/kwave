@@ -304,8 +304,8 @@ void Kwave::MainWidget::wheelEvent(QWheelEvent *event)
 
     // process only wheel events on the signal and overview frame,
     // not on the channel controls or scrollbars
-    if (!m_scroll_area.geometry().contains(event->pos()) &&
-	!m_overview->geometry().contains(event->pos()) )
+    if (!m_scroll_area.geometry().contains(event->position().toPoint()) &&
+	!m_overview->geometry().contains(event->position().toPoint()) )
     {
 	event->ignore();
 	return;
@@ -314,27 +314,28 @@ void Kwave::MainWidget::wheelEvent(QWheelEvent *event)
     switch (event->modifiers()) {
 	case Qt::NoModifier: {
 	    // no modifier + <WheelUp/Down> => scroll left/right
-	    if (event->delta() > 0)
+	    if (event->angleDelta().ry() > 0)
 		executeCommand(_("view:scroll_left()"));
-	    else if (event->delta() < 0)
+	    else if (event->angleDelta().ry() < 0)
 		executeCommand(_("view:scroll_right()"));
 	    event->accept();
 	    break;
 	}
 	case Qt::ShiftModifier:
 	    // <Shift> + <WheelUp/Down> => page up/down
-	    if (event->delta() > 0)
+	    if (event->angleDelta().ry() > 0)
 		executeCommand(_("view:scroll_prev()"));
-	    else if (event->delta() < 0)
+	    else if (event->angleDelta().ry() < 0)
 		executeCommand(_("view:scroll_next()"));
 	    event->accept();
 	    break;
 	case Qt::ControlModifier: {
 	    // <Ctrl> + <WheelUp/Down> => zoom in/out
-	    int x = qMax(m_signal_widget.mapToViewPort(event->globalPos()), 0);
-	    if (event->delta() > 0)
+	    int x = qMax(m_signal_widget.mapToViewPort(
+		event->globalPosition().toPoint()), 0);
+	    if (event->angleDelta().ry() > 0)
 		executeCommand(_("view:zoom_in(%1)").arg(x));
-	    else if (event->delta() < 0)
+	    else if (event->angleDelta().ry() < 0)
 		executeCommand(_("view:zoom_out(%1)").arg(x));
 	    event->accept();
 	    break;

@@ -326,11 +326,11 @@ void Kwave::SignalWidget::wheelEvent(QWheelEvent *event)
 	return;
     }
 
-    if (event->delta() > 0) {
+    if (event->angleDelta().ry() > 0) {
 	// zoom in
 	setVerticalZoom(m_vertical_zoom  * VERTICAL_ZOOM_STEP_FACTOR);
 	event->accept();
-    } else if (event->delta() < 0) {
+    } else if (event->angleDelta().ry() < 0) {
 	// zoom out
 	setVerticalZoom(m_vertical_zoom  / VERTICAL_ZOOM_STEP_FACTOR);
 	event->accept();

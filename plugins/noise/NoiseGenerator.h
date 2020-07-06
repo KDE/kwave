@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <QObject>
+#include <QRandomGenerator>
 #include <QVariant>
 
 #include "libkwave/SampleArray.h"
@@ -61,6 +62,9 @@ namespace Kwave
 	void setNoiseLevel(const QVariant fc);
 
     private:
+
+	/** random generator for the noise */
+	QRandomGenerator m_random;
 
 	/** buffer for input */
 	Kwave::SampleArray m_buffer;

@@ -24,7 +24,10 @@
 
 //***************************************************************************
 Kwave::NoiseGenerator::NoiseGenerator(QObject *parent)
-    :Kwave::SampleSource(parent), m_buffer(blockSize()), m_noise_level(1.0)
+    :Kwave::SampleSource(parent),
+     m_random(),
+     m_buffer(blockSize()),
+     m_noise_level(1.0)
 {
 }
 
@@ -48,13 +51,15 @@ void Kwave::NoiseGenerator::input(Kwave::SampleArray data)
 
     m_buffer = data;
 
+    const quint32 max  = m_random.max();
+    const quint32 m_2  = max / 2;
     const double alpha = (1.0 - m_noise_level);
-    const double scale = (m_noise_level * 2.0) / static_cast<double>(RAND_MAX);
+    const double scale = (m_noise_level * 2.0) / static_cast<double>(max);
     for (unsigned i = 0; i < data.size(); ++i) {
 	const Kwave::SampleArray &in = data;
 	m_buffer[i] = double2sample(
 	    (sample2double(in[i]) * alpha) +
-	    ((qrand() - (RAND_MAX / 2)) * scale)
+	    (qint32(m_random.generate() - m_2) * scale)
 	);
     }
 }

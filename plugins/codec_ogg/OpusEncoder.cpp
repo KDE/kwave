@@ -58,6 +58,7 @@
 #include <QBuffer>
 #include <QByteArray>
 #include <QList>
+#include <QRandomGenerator>
 #include <QString>
 #include <QTime>
 #include <QtGlobal>
@@ -606,12 +607,11 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     /* Extra samples that need to be read to compensate for the pre-skip */
     m_extra_out = lookahead;
 
-
     // set up our packet->stream encoder
     // pick a random serial number; that way we can more likely build
     // chained streams just by concatenation
-    qsrand(QTime::currentTime().msec() ^ qrand());
-    ogg_stream_init(&m_os, qrand());
+    QRandomGenerator rnd(QTime::currentTime().msec());
+    ogg_stream_init(&m_os, rnd.generate());
 
     return true;
 }

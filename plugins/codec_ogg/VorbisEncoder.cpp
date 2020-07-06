@@ -20,6 +20,7 @@
 #include <math.h>
 #include <string.h>
 
+#include <QRandomGenerator>
 #include <QTime>
 #include <QtGlobal>
 
@@ -190,8 +191,8 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     // set up our packet->stream encoder
     // pick a random serial number; that way we can more likely build
     // chained streams just by concatenation
-    qsrand(QTime::currentTime().msec() ^ qrand());
-    ogg_stream_init(&m_os, qrand());
+    QRandomGenerator rnd(QTime::currentTime().msec());
+    ogg_stream_init(&m_os, rnd.generate());
 
     return true;
 }

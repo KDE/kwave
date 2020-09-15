@@ -22,6 +22,7 @@
 #include <fcntl.h>
 #include <math.h>
 #include <sys/ioctl.h>
+#include <sys/select.h>
 #include <sys/soundcard.h>
 #include <sys/stat.h>
 #include <stdlib.h>

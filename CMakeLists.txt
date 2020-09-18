@@ -22,11 +22,6 @@
 #                                                                           #
 #############################################################################
 
-#############################################################################
-### project name and version                                              ###
-
-PROJECT(kwave)
-
 # KDE Application Version, managed by release script
 set (RELEASE_SERVICE_VERSION_MAJOR "20")
 set (RELEASE_SERVICE_VERSION_MINOR "11")
@@ -105,6 +100,11 @@ SET(KWAVE_VERSION_MINOR ${RELEASE_SERVICE_VERSION_MINOR})
 SET(KWAVE_VERSION_MICRO ${RELEASE_SERVICE_VERSION_MICRO})
 SET(KWAVE_VERSION "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSION_MICRO}")
 MESSAGE(STATUS "Building Kwave version ${KWAVE_VERSION}")
+
+#############################################################################
+### project name and version                                              ###
+
+PROJECT(Kwave VERSION ${KWAVE_VERSION})
 
 #############################################################################
 ### show the compiler name and version                                    ###

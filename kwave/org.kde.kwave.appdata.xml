@@ -27,6 +27,7 @@
   <name xml:lang="pl">Kwave</name>
   <name xml:lang="pt">Kwave</name>
   <name xml:lang="pt-BR">Kwave</name>
+  <name xml:lang="ro">Kwave</name>
   <name xml:lang="ru">Kwave</name>
   <name xml:lang="sk">Kwave</name>
   <name xml:lang="sl">Kwave</name>
@@ -59,6 +60,7 @@
   <summary xml:lang="pl">Kwave jest edytorem dźwięku zbudowanym na Szkieletetach KDE 5</summary>
   <summary xml:lang="pt">O Kwave é um editor de som baseado nas Plataformas do KDE 5</summary>
   <summary xml:lang="pt-BR">Kwave é um editor de som construído no KDE Frameworks 5</summary>
+  <summary xml:lang="ro">KWave e un redactor de sunet construit pe KDE Frameworks 5</summary>
   <summary xml:lang="ru">Kwave — аудиоредактор на основе KDE Frameworks 5</summary>
   <summary xml:lang="sk">Kwave je editor zvuku navrhnutý pre KDE Frameworks 5</summary>
   <summary xml:lang="sl">Kwave je urejevalnik zvoka, zgrajen na KDE Frameworks 5</summary>
@@ -164,6 +166,7 @@
       <caption xml:lang="pl">Kwave w działaniu</caption>
       <caption xml:lang="pt">O Kwave em acção</caption>
       <caption xml:lang="pt-BR">O Kwave em ação</caption>
+      <caption xml:lang="ro">Kwave în acțiune</caption>
       <caption xml:lang="ru">Работа в Kwave</caption>
       <caption xml:lang="sk">Kwave v akcií</caption>
       <caption xml:lang="sl">Kwave v akciji</caption>

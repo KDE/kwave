@@ -22,11 +22,6 @@
 #                                                                           #
 #############################################################################
 
-#############################################################################
-### project name and version                                              ###
-
-PROJECT(kwave)
-
 # KDE Application Version, managed by release script
 set (RELEASE_SERVICE_VERSION_MAJOR "20")
 set (RELEASE_SERVICE_VERSION_MINOR "11")
@@ -86,6 +81,11 @@ IF (POLICY CMP0075)
     CMAKE_POLICY(SET CMP0075 NEW)
 ENDIF (POLICY CMP0075)
 
+# Set policy for the VERSION inside PROJECT
+IF (POLICY CMP0048)
+    CMAKE_POLICY(SET CMP0048 NEW)
+ENDIF (POLICY CMP0048)
+
 SET(ECM_MIN_VERSION "1.7.0")
 SET(QT_MIN_VERSION  "5.14.0")
 SET(KF5_MIN_VERSION "5.33.0")
@@ -105,6 +105,11 @@ SET(KWAVE_VERSION_MINOR ${RELEASE_SERVICE_VERSION_MINOR})
 SET(KWAVE_VERSION_MICRO ${RELEASE_SERVICE_VERSION_MICRO})
 SET(KWAVE_VERSION "${KWAVE_VERSION_MAJOR}.${KWAVE_VERSION_MINOR}.${KWAVE_VERSION_MICRO}")
 MESSAGE(STATUS "Building Kwave version ${KWAVE_VERSION}")
+
+#############################################################################
+### project name and version                                              ###
+
+PROJECT(Kwave VERSION ${KWAVE_VERSION})
 
 #############################################################################
 ### show the compiler name and version                                    ###

@@ -44,7 +44,7 @@ QPointer<Kwave::Splash> Kwave::Splash::m_splash = Q_NULLPTR;
 Kwave::Splash::Splash(const QString &PNGFile)
     :QFrame(Q_NULLPTR, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
      m_font(),
-     m_pixmap(QStandardPaths::locate(QStandardPaths::DataLocation, PNGFile)),
+     m_pixmap(QStandardPaths::locate(QStandardPaths::AppDataLocation, PNGFile)),
      m_message(_("   "))
 {
     const int w = m_pixmap.width();

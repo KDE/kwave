@@ -91,15 +91,8 @@ SET(QT_MIN_VERSION  "5.14.0")
 SET(KF5_MIN_VERSION "5.33.0")
 
 #############################################################################
-### path to additional cmake modules and includes                         ###
-
-SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
-
-#############################################################################
 ### Kwave version number                                                  ###
 
-INCLUDE(FindRequiredProgram)
-FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
 SET(KWAVE_VERSION_MAJOR ${RELEASE_SERVICE_VERSION_MAJOR})
 SET(KWAVE_VERSION_MINOR ${RELEASE_SERVICE_VERSION_MINOR})
 SET(KWAVE_VERSION_MICRO ${RELEASE_SERVICE_VERSION_MICRO})
@@ -162,6 +155,11 @@ ELSE (WITH_OPTIMIZED_MEMCPY)
 ENDIF (WITH_OPTIMIZED_MEMCPY)
 
 #############################################################################
+### path to additional cmake modules and includes                         ###
+
+SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+
+#############################################################################
 ### cmake includes                                                        ###
 
 INCLUDE(CheckIncludeFiles)
@@ -170,6 +168,7 @@ INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
 INCLUDE(CheckTypeSize)
 INCLUDE(CheckFunctionExists)
+INCLUDE(FindRequiredProgram)
 
 #############################################################################
 ### toplevel compiler flags                                               ###
@@ -433,6 +432,7 @@ CONFIGURE_FILE(
 ### "make apidoc"                                                         ###
 
 FIND_PROGRAM(DOXYGEN_EXECUTABLE doxygen)
+FIND_REQUIRED_PROGRAM(CAT_EXECUTABLE cat)
 
 IF (DOXYGEN_EXECUTABLE)
     SET(DOXYFILE ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)

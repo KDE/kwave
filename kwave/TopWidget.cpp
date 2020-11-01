@@ -125,7 +125,8 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
     if (!status_bar) return;
 
     QLabel *spacer = new(std::nothrow) QLabel(this);
-    const int frame_style = QFrame::StyledPanel | QFrame::Sunken;
+    const int frame_style = static_cast<int>(QFrame::StyledPanel) |
+                            static_cast<int>(QFrame::Sunken);
     status_bar->addWidget(spacer);
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     spacer->setFrameStyle(frame_style);

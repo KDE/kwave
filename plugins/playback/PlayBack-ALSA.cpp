@@ -440,8 +440,8 @@ int Kwave::PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 	return err;
     }
     qDebug("   real rate = %u", rrate);
-    if (static_cast<float>(rate) * 1.05f < rrate ||
-	static_cast<float>(rate) * 0.95f > rrate)
+    if (static_cast<float>(rate) * 1.05f < static_cast<float>(rrate) ||
+	static_cast<float>(rate) * 0.95f > static_cast<float>(rrate))
     {
 	qWarning("rate is not accurate (requested = %iHz, got = %iHz)",
 	          rate, rrate);

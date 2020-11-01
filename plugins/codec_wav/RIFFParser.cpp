@@ -156,7 +156,7 @@ void Kwave::RIFFParser::detectEndianness()
     names += m_sub_chunk_names;
 
     // average length should be approx. half of file size
-    double half = (m_dev.size() >> 1);
+    double half = static_cast<double>(m_dev.size() >> 1);
 
     // loop over all chunk names
     int count = names.count();

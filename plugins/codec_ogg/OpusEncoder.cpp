@@ -940,7 +940,8 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
             sample_index_t length = m_info.length();
 	    double         rate   = m_info.rate();
 	    m_op.granulepos = static_cast<ogg_int64_t>(
-		ceil((length * 48000.0) / rate) + m_opus_header.preskip);
+		ceil((static_cast<double>(length) * 48000.0) / rate) +
+		m_opus_header.preskip);
         }
         ogg_stream_packetin(&m_os, &m_op);
         last_segments += size_segments;

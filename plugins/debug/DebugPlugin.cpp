@@ -360,7 +360,7 @@ void Kwave::DebugPlugin::run(QStringList params)
 	    const double f_max = rate / 2.0;
 	    const double f_min = 1;
 	    for (unsigned int i = 0; i < m_buffer.size(); ++i, ++pos) {
-		double t = static_cast<double>((pos - left) / rate);
+		double t = static_cast<double>(pos - left) / rate;
 		double f = f_min + (((f_max - f_min) *
 		    static_cast<double>(pos - left)) /
 		    static_cast<double>(length));

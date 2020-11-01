@@ -363,7 +363,8 @@ void Kwave::OverViewWidget::calculateBitmap()
 
     const double scale = static_cast<double>(width) /
 	                 static_cast<double>(length);
-    const int bitmap_width = Kwave::toInt(m_signal_length * scale);
+    const int bitmap_width = Kwave::toInt(
+	static_cast<double>(m_signal_length) * scale);
 
     // let the bitmap be updated from the cache
     QImage bitmap = m_cache.getOverView(bitmap_width, height,

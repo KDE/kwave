@@ -1338,7 +1338,8 @@ void Kwave::RecordDialog::updateRecordButton()
     // enabled if not disabled by status and also not limited or
     // less than the limit has been recorded
     new_enable = m_record_enabled && (!m_params.record_time_limited ||
-        (m_samples_recorded < m_params.record_time * m_params.sample_rate));
+	(static_cast<double>(m_samples_recorded) <
+         m_params.record_time * m_params.sample_rate));
 
     if (new_enable != old_enable) btRecord->setEnabled(new_enable);
 }

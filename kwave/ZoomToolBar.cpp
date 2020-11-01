@@ -246,7 +246,7 @@ void Kwave::ZoomToolBar::setZoomInfo(Kwave::FileContext *context, double zoom)
 
     double rate = (signal_manager) ? signal_manager->rate() : 0.0;
     double ms   = ((rate > 0) && (zoomable)) ?
-	(((zoomable->visibleSamples()) * 1E3) / rate) : 0.0;
+	((static_cast<double>(zoomable->visibleSamples()) * 1E3) / rate) : 0.0;
 
     QString strZoom;
     if ((signal_manager) && (signal_manager->tracks())) {

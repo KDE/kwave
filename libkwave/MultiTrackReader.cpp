@@ -90,8 +90,8 @@ void Kwave::MultiTrackReader::proceeded()
     for (track = 0; track < n_tracks; ++track) {
 	Kwave::SampleReader *r = at(track);
 	if (r) {
-	    sum   += (r->pos() - r->first());
-	    total += (r->last() - r->first() + 1);
+	    sum   += static_cast<qreal>(r->pos()  - r->first());
+	    total += static_cast<qreal>(r->last() - r->first() + 1);
 	}
     }
 

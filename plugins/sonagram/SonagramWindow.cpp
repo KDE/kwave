@@ -355,7 +355,8 @@ void Kwave::SonagramWindow::adjustBrightness()
 	sum += m_histogram[i];
 
     // cut off all parts below the cutoff ratio (e.g. 0.1%)
-    unsigned int cutoff = Kwave::toUint(sum * COLOR_CUTOFF_RATIO);
+    unsigned int cutoff = Kwave::toUint(
+	static_cast<double>(sum) * COLOR_CUTOFF_RATIO);
 
     // get the last used color from the histogram
     int last = 254;

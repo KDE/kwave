@@ -71,7 +71,8 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
 
     // set range of time controls
     {
-	quint64 t = static_cast<quint64>((m_length * 1E3) / m_rate);
+	quint64 t = static_cast<quint64>(
+	    (static_cast<double>(m_length) * 1E3) / m_rate);
 	sbMilliseconds->setMaximum(Kwave::toInt(qMax(t, quint64(999))));
 	t /= 1000;
 	sbSeconds->setMaximum(Kwave::toInt(qMax(t, quint64(59))));
@@ -295,7 +296,7 @@ void Kwave::SelectTimeWidget::timeChanged(int)
 
     // limit time
     quint64 max_ms = static_cast<quint64>(
-	ceil(((m_length - m_offset) * 1E3) / m_rate));
+	ceil((static_cast<double>(m_length - m_offset) * 1E3) / m_rate));
     if (ms > max_ms) ms = max_ms;
     quint64 t = ms;
 
@@ -482,7 +483,8 @@ sample_index_t Kwave::SelectTimeWidget::timeToSamples(
 	case Kwave::SelectTimeWidget::byPercents:
 	    // by percentage of whole signal
 	    pos = static_cast<unsigned int>(rint(
-		static_cast<double>(length * (time / 100.0))));
+		static_cast<double>(length) *
+		(static_cast<double>(time) / 100.0)));
 	    break;
     }
 

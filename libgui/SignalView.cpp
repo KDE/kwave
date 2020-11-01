@@ -149,7 +149,8 @@ void Kwave::SignalView::showCursor(sample_index_t pos)
 //***************************************************************************
 int Kwave::SignalView::samples2pixels(sample_index_t samples) const
 {
-    return Kwave::toInt((m_zoom > 0.0) ? (samples / m_zoom) : 0);
+    return Kwave::toInt((m_zoom > 0.0) ?
+	(static_cast<double>(samples) / m_zoom) : 0);
 }
 
 //***************************************************************************
@@ -179,10 +180,11 @@ Kwave::SignalView::SelectionPos Kwave::SignalView::selectionPosition(int x)
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return None;
 
-    const double p     = (m_zoom * x) + m_offset;
+    const Kwave::Selection &sel = m_signal_manager->selection();
+    const double p     = (m_zoom * x) + static_cast<double>(m_offset);
     const double tol   = m_zoom * selectionTolerance();
-    const double first = m_signal_manager->selection().first();
-    const double last  = m_signal_manager->selection().last();
+    const double first = static_cast<double>(sel.first());
+    const double last  = static_cast<double>(sel.last());
     Q_ASSERT(first <= last);
 
     // get distance to left/right selection border
@@ -695,7 +697,8 @@ Kwave::SignalView::PositionWidget::PositionWidget(QWidget *parent)
     Q_ASSERT(m_label);
     if (!m_label) return;
 
-    m_label->setFrameStyle(QFrame::Panel | QFrame::Plain);
+    m_label->setFrameStyle(static_cast<int>(QFrame::Panel) |
+                           static_cast<int>(QFrame::Plain));
     m_label->setPalette(QToolTip::palette()); // use same colors as a QToolTip
     m_label->setFocusPolicy(Qt::NoFocus);
     m_label->setMouseTracking(true);

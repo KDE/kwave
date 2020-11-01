@@ -256,9 +256,10 @@ void Kwave::NewSignalDialog::timeChanged(int)
 
     // update the other controls
     edSamples->setValue(Kwave::toInt(samples));
-    slideLength->setValue(Kwave::toInt(100.0 * samples / max_samples));
+    slideLength->setValue(Kwave::toInt(100.0 *
+	static_cast<double>(samples) / static_cast<double>(max_samples)));
     updateFileSize();
-    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0.0);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0);
 
     m_recursive = false;
 }
@@ -280,9 +281,10 @@ void Kwave::NewSignalDialog::samplesChanged(int)
 
     // update the other controls
     setHMS(samples);
-    slideLength->setValue(Kwave::toInt(100.0 * samples / max_samples));
+    slideLength->setValue(Kwave::toInt(100.0 *
+	static_cast<double>(samples) / static_cast<double>(max_samples)));
     updateFileSize();
-    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0.0);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(samples > 0);
 
     m_recursive = false;
 }
@@ -334,7 +336,8 @@ void Kwave::NewSignalDialog::setLengthPercentage(int percent)
     if (rate() <= 0) return;
     m_recursive = true;
 
-    sample_index_t samples = static_cast<sample_index_t>(maxSamples() *
+    sample_index_t samples = static_cast<sample_index_t>(
+	static_cast<double>(maxSamples()) *
 	static_cast<double>(percent) / 100.0);
 
     // update the other controls
@@ -355,7 +358,7 @@ void Kwave::NewSignalDialog::setHMS(sample_index_t &samples)
     // TODO: support for 64 bit
     if (samples > maxSamples()) samples = maxSamples();
 
-    int total_sec = Kwave::toInt(ceil(samples / rate));
+    int total_sec = Kwave::toInt(ceil(static_cast<double>(samples) / rate));
     int hours   = total_sec / (60*60);
     int minutes = (total_sec / 60) % 60;
     int seconds = total_sec % 60;

@@ -597,7 +597,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     sig = sig_buffer + (N / 2);
     while (x <= width + N / 2) {
 	if ((x >= -N / 2) && (sample > 0) && (sample < buflen)) {
-	    sig[x] = static_cast<float>(sample_buffer[sample] * scale_y);
+	    sig[x] = static_cast<float>(sample_buffer[sample]) * scale_y;
 	}
 	sample++;
 	x = Q_LIKELY(sample >= 0) ?
@@ -675,20 +675,20 @@ void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
     if (samples2pixels(sample - 1) <= width) {
 	int x1;
 	int x2;
-	float y1;
-	float y2;
+	double y1;
+	double y2;
 
 	x1 = samples2pixels(sample - 1);
 	x2 = samples2pixels(sample);
 
-	y1 = ((sample) && (sample <= buflen)) ?
-	    Kwave::toInt(scale_y * sample_buffer[sample - 1]) : 0.0;
-	y2 = (sample < buflen) ?
-	    Kwave::toInt(scale_y * sample_buffer[sample    ]) : 0.0;
+	y1 = ((sample) && (sample <= buflen)) ? (scale_y *
+	    static_cast<double>(sample_buffer[sample - 1])) : 0.0;
+	y2 = (sample < buflen) ? (scale_y *
+	    static_cast<double>(sample_buffer[sample    ])) : 0.0;
 
 	x = width - 1;
-	y = Kwave::toInt(static_cast<float>(x - x1) *
-	    static_cast<float>(y2 - y1) / static_cast<float>(x2 - x1));
+	y = Kwave::toInt(static_cast<double>(x - x1) * (y2 - y1) /
+	                 static_cast<double>(x2 - x1));
 
 	points.append(QPoint(x, middle - y));
     }
@@ -813,7 +813,8 @@ void Kwave::TrackPixmap::convertOverlap(sample_index_t &offset,
 	    length = 0; // out of view
 	    return;
 	} else {
-	    length = static_cast<sample_index_t>(ceil(length / m_zoom));
+	    length = static_cast<sample_index_t>(
+		ceil(static_cast<double>(length) / m_zoom));
 	}
     } else {
 	if (offset >= m_offset + buflen) {
@@ -826,10 +827,11 @@ void Kwave::TrackPixmap::convertOverlap(sample_index_t &offset,
     offset = (offset > m_offset) ? offset - m_offset : 0;
     if (m_minmax_mode) {
 	// attention: round down in this mode!
-	sample_index_t ofs = static_cast<sample_index_t>(floor(offset / m_zoom));
+	double         ofs_d = static_cast<double>(offset);
+	sample_index_t ofs = static_cast<sample_index_t>(floor(ofs_d / m_zoom));
 
 	// if offset was rounded down, increment length
-	if (ofs != static_cast<sample_index_t>(ceil(offset / m_zoom)))
+	if (ofs != static_cast<sample_index_t>(ceil(ofs_d / m_zoom)))
 	    length++;
 	offset = ofs;
     }

@@ -287,8 +287,8 @@ void Kwave::FileProgress::updateStatistics(double rate, double rest,
                  "%1=number of loaded/saved megabytes, "
                  "%2=number of total megabytes to load or save",
                   "%1 MB of %2 MB done",
-	num1.setNum(static_cast<double>(pos    / (1024.0 * 1024.0)), 'f', 1),
-	num2.setNum(static_cast<double>(m_size / (1024.0 * 1024.0)), 'f', 1)
+	num1.setNum(static_cast<double>(pos)    / (1024.0 * 1024.0), 'f', 1),
+	num2.setNum(static_cast<double>(m_size) / (1024.0 * 1024.0), 'f', 1)
     );
     m_stat_bytes->setText(text);
 
@@ -341,8 +341,8 @@ void Kwave::FileProgress::setBytePosition(quint64 pos)
     }
 
     // update the transfer statistics
-    double seconds = m_time.elapsed() / 1000.0; // [sec]
-    double rate = pos / seconds;                // [bytes/sec]
+    double seconds = static_cast<double>(m_time.elapsed()) / 1000.0; // [sec]
+    double rate = static_cast<double>(pos) / seconds;        // [bytes/sec]
     double rest = 0;
     if (rate > 10) {
 	rest = static_cast<double>(m_size - pos) / rate;     // [seconds]

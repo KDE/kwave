@@ -180,7 +180,8 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return item;
 
-    const double offset    = m_offset + pixels2samples(pos.x()); // [samples]
+    const double offset    = static_cast<double>(m_offset) +
+                             static_cast<double>(pixels2samples(pos.x()));
     const double tolerance = m_zoom * selectionTolerance();      // [samples]
     const double fine_pos  = static_cast<double>(m_offset) +
 	(static_cast<double>(pos.x()) * m_zoom);

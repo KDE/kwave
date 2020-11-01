@@ -361,7 +361,7 @@ void Kwave::LevelMeter::drawContents()
     p.fillRect(rect(), palette().window().color());
 
     const unsigned int border = 4;
-    const unsigned int cell = 3;
+    const unsigned int cell   = 3;
     const unsigned int w = width() - (border * 2) - (cell * 2);
     const unsigned int h = (height() - border) / (m_tracks ? m_tracks : 1);
 
@@ -370,7 +370,8 @@ void Kwave::LevelMeter::drawContents()
 
     for (track = 0; track < m_tracks; ++track) {
 	// show a bar up to the "fast" value
-	const unsigned int fast = Kwave::toUint(m_current_fast[track] * w);
+	const unsigned int fast = Kwave::toUint(m_current_fast[track] *
+	    static_cast<float>(w));
 	for (unsigned int i = 0; i < w; i += cell * 2) {
 	    QColor color;
 	    if (i >= w_high)
@@ -389,7 +390,8 @@ void Kwave::LevelMeter::drawContents()
 	}
 
 	// draw the peak value
-	unsigned int peak = Kwave::toUint(m_current_peak[track] * w);
+	unsigned int peak = Kwave::toUint(
+	    m_current_peak[track] * static_cast<float>(w));
 	QColor peak_color;
 	if (peak >= w_high)
 	    peak_color = m_color_high;

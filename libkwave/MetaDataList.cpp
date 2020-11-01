@@ -369,9 +369,11 @@ void Kwave::MetaDataList::scalePositions(double scale)
 		meta[Kwave::MetaData::STDPROP_POS].toULongLong(&ok));
 	    if (!ok) continue;
 
-	    if ((pos * scale) <= SAMPLE_INDEX_MAX) {
+	    sample_index_t scaled_pos = static_cast<sample_index_t>(
+		static_cast<double>(pos) * scale);
+	    if (scaled_pos <= SAMPLE_INDEX_MAX) {
 		// scale position
-		meta[Kwave::MetaData::STDPROP_POS] = (pos * scale);
+		meta[Kwave::MetaData::STDPROP_POS] = scaled_pos;
 	    } else  {
 		// do not produce a coordinate overflow
 		// -> moving outside range means deleting!

@@ -126,7 +126,8 @@ void Kwave::SampleRatePlugin::run(QStringList params)
 
     // calculate the new length
     double ratio = m_new_rate / old_rate;
-    sample_index_t new_length = static_cast<sample_index_t>(length * ratio);
+    sample_index_t new_length =
+	static_cast<sample_index_t>(double(length) * ratio);
     if ((new_length == length) || !new_length) return;
 
     Kwave::MetaDataList meta = mgr.metaData().selectByRange(first, last);
@@ -220,12 +221,12 @@ void Kwave::SampleRatePlugin::run(QStringList params)
     if (length) {
 	if (m_whole_signal) {
 	    // if whole signal selected -> adjust start and end
-	    first = sample_index_t(first * ratio);
-	    last  = sample_index_t(last  * ratio);
+	    first = sample_index_t(static_cast<double>(first) * ratio);
+	    last  = sample_index_t(static_cast<double>(last)  * ratio);
 	    length = last - first + 1;
 	} else {
 	    // only a portion selected -> adjust only length
-	    length = sample_index_t(length * ratio);
+	    length = sample_index_t(static_cast<double>(length) * ratio);
 	}
 
 	mgr.selectRange(first, length);

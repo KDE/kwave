@@ -470,7 +470,7 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	qint64 file_size       = m_source->size();
 	qreal bitrate          = 196000; // just guessed
 	qreal rate             = rate_orig;
-	qreal seconds          = file_size / (bitrate / 8);
+	qreal seconds          = static_cast<qreal>(file_size) / (bitrate / 8);
 	sample_index_t samples = static_cast<sample_index_t>(seconds * rate);
 
 	qDebug("    OpusDecoder: estimated length: %llu samples", samples);
@@ -688,8 +688,8 @@ void Kwave::OpusDecoder::close(Kwave::FileInfo &info)
     // n_seconds = n_samples / sample_rate
     // => bitrate = (n_bytes * 8) / (n_samples / sample_rate)
     const double sr = Kwave::opus_next_sample_rate(m_opus_header.sample_rate);
-    int bitrate = Kwave::toInt(
-	((m_bytes_count * 8) * sr) / m_samples_written);
+    int bitrate = Kwave::toInt((static_cast<double>(m_bytes_count * 8) * sr) /
+                                static_cast<double>(m_samples_written));
     qDebug("    OpusDecoder: average bitrate: %d bits/sec", bitrate);
     info.set(INF_BITRATE_NOMINAL, QVariant(bitrate));
 

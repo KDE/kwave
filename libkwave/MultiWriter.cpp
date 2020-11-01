@@ -57,8 +57,8 @@ void Kwave::MultiWriter::proceeded()
 	for (track = 0; track < tracks; ++track) {
 	    const Kwave::Writer *w = at(track);
 	    if (w) {
-		sum   += w->position() - w->first();
-		total += w->last()     - w->first();
+		sum   += static_cast<qreal>(w->position() - w->first());
+		total += static_cast<qreal>(w->last()     - w->first());
 	    }
 	}
 	emit progress(qreal(100.0) * sum / total);

@@ -149,7 +149,7 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 
     // get the standard properties
     info.setTracks(m_vi.channels);
-    info.setRate(m_vi.rate);
+    info.setRate(static_cast<double>(m_vi.rate));
     info.set(Kwave::INF_COMPRESSION, Kwave::Compression::OGG_VORBIS);
     info.set(Kwave::INF_SOURCE, _(m_vc.vendor));
     if ((m_vi.bitrate_nominal > 0) &&
@@ -216,9 +216,9 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	if ((br < 0) && (m_vi.bitrate_upper   > 0)) br = m_vi.bitrate_upper;
 	if ((br < 0) && (m_vi.bitrate_lower   > 0)) br = m_vi.bitrate_lower;
 	qint64 file_size       = m_source->size();
-	qreal rate             = m_vi.rate;
-	qreal seconds          = (br > 0) ? (file_size / (br / 8)) :
-	                                     DEFAULT_BITRATE;
+	qreal rate             = static_cast<qreal>(m_vi.rate);
+	qreal seconds          = (br > 0) ?
+	    static_cast<qreal>(file_size / (br / 8)) : DEFAULT_BITRATE;
 	sample_index_t samples = static_cast<sample_index_t>(seconds * rate);
 
 	qDebug("    estimated length: %llu samples", samples);

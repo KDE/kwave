@@ -198,7 +198,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     action = context_menu->addAction(
 	QIcon::fromTheme(_("edit-undo")),
 	i18n("&Undo"), this, SLOT(contextMenuEditUndo()),
-	Qt::CTRL + Qt::Key_Z);
+	QKeySequence::StandardKey::Undo);
     Q_ASSERT(action);
     if (!action) return;
     if (!m_signal_manager->canUndo())
@@ -208,7 +208,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     action = context_menu->addAction(
 	QIcon::fromTheme(_("edit-redo")),
 	i18n("&Redo"), this, SLOT(contextMenuEditRedo()),
-	Qt::CTRL + Qt::Key_Y);
+	QKeySequence::StandardKey::Redo);
     Q_ASSERT(action);
     if (!action) return;
     if (!m_signal_manager->canRedo())
@@ -219,15 +219,15 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     QAction *action_cut = context_menu->addAction(
 	QIcon::fromTheme(_("edit-cut")),
 	i18n("Cu&t"), this, SLOT(contextMenuEditCut()),
-	Qt::CTRL + Qt::Key_X);
+	QKeySequence::StandardKey::Cut);
     QAction *action_copy = context_menu->addAction(
 	QIcon::fromTheme(_("edit-copy")),
 	i18n("&Copy"), this, SLOT(contextMenuEditCopy()),
-	Qt::CTRL + Qt::Key_C);
+	QKeySequence::StandardKey::Copy);
     QAction *action_paste = context_menu->addAction(
 	QIcon::fromTheme(_("edit-paste")),
 	i18n("&Paste"), this, SLOT(contextMenuEditPaste()),
-	Qt::CTRL + Qt::Key_V);
+	QKeySequence::StandardKey::Paste);
     context_menu->addSeparator();
     if (action_cut)   action_cut->setEnabled(have_selection);
     if (action_copy)  action_copy->setEnabled(have_selection);

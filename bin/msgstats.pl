@@ -21,7 +21,6 @@
 #
 
 my $top_dir  = $ARGV[0] . "/l10n-kf5";
-my $category = "kdemultimedia";
 my $app      = "kwave";
 
 sub check_po
@@ -74,9 +73,9 @@ while (<IN>) {
 	local $lang_name=$2;
 	# print $lang_name . " [" . $catalog . "]\n";
 
-	local $po_doc=$catalog . "/docmessages/" . $category . "/" . $app . ".po";
-	local $po_gui=$catalog . "/messages/" . $category . "/" . $app . ".po";
-	local $po_dsk=$catalog . "/messages/" . $category . "/" . $app . "._desktop_.po";
+	local $po_doc=$catalog . "/docmessages/" . $app . "/" . $app . ".po";
+	local $po_gui=$catalog . "/messages/"    . $app . "/" . $app . ".po";
+	local $po_dsk=$catalog . "/messages/"    . $app . "/" . $app . "._desktop_.po";
 
 	check_po($lang_name, $catalog, "DOC", $po_doc);
 	check_po($lang_name, $catalog, "GUI", $po_gui);

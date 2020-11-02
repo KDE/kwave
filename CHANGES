@@ -1,5 +1,10 @@
 
-20.07.70 [2020-02-16]
+20.08.01 [2020-08-31]
+
+ * adapted make targets (scripts) for "update-translations" and "msgstats"
+   to new directory structure of translations
+
+20.07.70 [2020-04-05]
 
  * bugfix: cleanup code in destructor of PluginManager caused crash when
    closing the window due to broken iterator

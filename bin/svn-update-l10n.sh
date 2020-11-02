@@ -104,54 +104,48 @@ for lang in ${LINGUAS}; do
     echo -n "processing ${lang} - `echo ${lang_team} | cut -d = -f 2`... "
 
     # get handbook and screenshots
-    if test -e "${lang}/docmessages/${CATEGORY}/kwave.po" ; then
+    if test -e "${lang}/docmessages/kwave/kwave.po" ; then
 	FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
 	echo ${lang_team} >> ${LANG_NAMES_FILE}
-	if test -e "${lang}/docmessages/language" ; then
-	    checkout "" "${lang}" "docmessages" "language"
-	fi
     else
-	if test ! -e "${lang}/docs/${CATEGORY}" ; then
-	    checkout "" "${lang}" "docs" "${CATEGORY}"
+	if test ! -e "${lang}/docs/kwave" ; then
+	    checkout "" "${lang}" "docs" "kwave"
 	fi
-	if test -e "${lang}/docs/${CATEGORY}" ; then
-	    svn update --quiet "${lang}/docs/${CATEGORY}/kwave"
+	if test -e "${lang}/docs/kwave" ; then
+	    svn update --quiet "${lang}/docs/kwave"
 	fi
-	checkout "" "${lang}" "docmessages" "${CATEGORY}" "${PO_FILE}"
+	checkout "" "${lang}" "docmessages" "kwave" "${PO_FILE}"
 	if [ ${result} == 1 ] ; then
 	    FOUND_HANDBOOKS="${FOUND_HANDBOOKS} ${lang}"
 	    echo ${lang_team} >> ${LANG_NAMES_FILE}
-	    if test -e "${lang}/docmessages/language" ; then
-		checkout "" "${lang}" "docmessages" "language"
-	    fi
 	fi
     fi
 
     # get translation of desktop files
-    if test ! -e "${lang}/messages/${CATEGORY}/${DESKTOP_PO_FILE}" ; then
-	checkout "" "${lang}" "messages"    "${CATEGORY}" "${DESKTOP_PO_FILE}"
+    if test ! -e "${lang}/messages/kwave/${DESKTOP_PO_FILE}" ; then
+	checkout "" "${lang}" "messages"    "kwave" "${DESKTOP_PO_FILE}"
     fi
 
     # GUI translation is mandantory
-    if test ! -e "${lang}/messages/${CATEGORY}/${PO_FILE}" ; then
-	checkout "" "${lang}" "messages"    "${CATEGORY}" "${PO_FILE}"
+    if test ! -e "${lang}/messages/kwave/${PO_FILE}" ; then
+	checkout "" "${lang}" "messages"    "kwave" "${PO_FILE}"
     fi
-    if test -e "${lang}/messages/${CATEGORY}/${PO_FILE}" ; then
+    if test -e "${lang}/messages/kwave/${PO_FILE}" ; then
 	FOUND_LINGUAS="${FOUND_LINGUAS} ${lang}"
-	cp "${lang}/messages/${CATEGORY}/${PO_FILE}" "${PO_DIR}/${lang}.po"
+	cp "${lang}/messages/kwave/${PO_FILE}" "${PO_DIR}/${lang}.po"
 	FOUND_POFILES="${FOUND_POFILES} ${lang}.po"
     fi
     echo "done"
 done
 
-if test ! -e "templates/messages/${CATEGORY}/desktop_${CATEGORY}_kwave.pot" ; then
-    checkout "" "templates" "messages" "${CATEGORY}" "desktop_${CATEGORY}_kwave.pot"
+if test ! -e "templates/messages/kwave/kwave_.desktop_.pot" ; then
+    checkout "" "templates" "messages" "kwave" "kwave_.desktop_.pot"
 fi
-if test ! -e "templates/messages/${CATEGORY}/kwave.appdata.pot" ; then
-    checkout "" "templates" "messages" "${CATEGORY}" "kwave.appdata.pot"
+if test ! -e "templates/messages/kwave/org.kde.kwave.appdata.pot" ; then
+    checkout "" "templates" "messages" "kwave" "org.kde.kwave.appdata.pot"
 fi
-if test ! -e "templates/messages/${CATEGORY}/kwave.pot" ; then
-    checkout "" "templates" "messages" "${CATEGORY}" "kwave.pot"
+if test ! -e "templates/messages/kwave/kwave.pot" ; then
+    checkout "" "templates" "messages" "kwave" "kwave.pot"
 fi
 
 # update all existing files in the repository
@@ -182,8 +176,8 @@ for lang in ${FOUND_HANDBOOKS}; do
 	scripts/update_xml ${lang} ${CATEGORY} kwave > /dev/null
 	echo "done"
     else
-	if test "${lang}/docs/${CATEGORY}/kwave/index.docbook" -ot \
-	         "${lang}/docmessages/${CATEGORY}/kwave.po" ; then
+	if test "${lang}/docs/kwave/kwave/index.docbook" -ot \
+	         "${lang}/docmessages/kwave/kwave.po" ; then
 	    echo -n "${lang}: index.docbook is out of date - updating... "
 	    checkout "" "${lang}/docmessages/language"
 	    scripts/update_xml ${lang} ${CATEGORY} kwave > /dev/null
@@ -196,17 +190,17 @@ done
 for lang in ${FOUND_HANDBOOKS}; do
     rm -Rf "${DOC_DIR}/${lang}"
 
-    if test -e "${lang}/docs/${CATEGORY}/kwave/index.docbook" ; then
+    if test -e "${lang}/docs/kwave/kwave/index.docbook" ; then
 	mkdir -p "${DOC_DIR}/${lang}"
-	cp "${lang}/docs/${CATEGORY}/kwave/index.docbook" "${DOC_DIR}/${lang}/"
+	cp "${lang}/docs/kwave/kwave/index.docbook" "${DOC_DIR}/${lang}/"
 	cp "${DOC_DIR}/en/CMakeLists.txt" \
 	   "${DOC_DIR}/${lang}/CMakeLists.txt"
 
-	checkout "" "${lang}" "docs"        "${CATEGORY}" "kwave"
+	checkout "" "${lang}" "docs"        "kwave" "kwave"
 	if [ ${result} == 1 ]; then
-	    svn update --quiet --set-depth infinity ${lang}/docs/${CATEGORY}/kwave
+	    svn update --quiet --set-depth infinity ${lang}/docs/kwave/kwave
 	    mkdir -p "${DOC_DIR}/${lang}"
-	    cp -u "${lang}/docs/${CATEGORY}/kwave"/* "${DOC_DIR}/${lang}"/
+	    cp -u "${lang}/docs/kwave/kwave"/* "${DOC_DIR}/${lang}"/
 	fi
     fi
 done

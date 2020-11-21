@@ -36,7 +36,7 @@
 #include <KMainWindow>
 #include <KPluginInfo>
 #include <KPluginFactory>
-#include <KPluginTrader>
+#include <KPluginMetaData>
 #include <KSharedConfig>
 
 #include "libkwave/MessageBox.h"
@@ -623,9 +623,7 @@ void Kwave::PluginManager::searchPluginModules()
 	return;
     }
 
-    KPluginInfo::List plugins = KPluginTrader::self()->query(
-	_("kwave"), _("Kwave/Plugin")
-    );
+    KPluginInfo::List plugins = KPluginInfo::fromMetaData(KPluginLoader::findPlugins(_("kwave")));
     foreach (const KPluginInfo &i, plugins) {
 	QString library     = i.libraryPath();
 	QString description = i.name();

@@ -623,7 +623,9 @@ void Kwave::PluginManager::searchPluginModules()
 	return;
     }
 
-    KPluginInfo::List plugins = KPluginInfo::fromMetaData(KPluginLoader::findPlugins(_("kwave")));
+    KPluginInfo::List plugins = KPluginInfo::fromMetaData(
+	KPluginLoader::findPlugins(_("kwave"))
+    );
     foreach (const KPluginInfo &i, plugins) {
 	QString library     = i.libraryPath();
 	QString description = i.name();

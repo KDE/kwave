@@ -102,7 +102,7 @@ MESSAGE(STATUS "Building Kwave version ${KWAVE_VERSION}")
 #############################################################################
 ### project name and version                                              ###
 
-PROJECT(Kwave VERSION ${KWAVE_VERSION})
+PROJECT(kwave VERSION ${KWAVE_VERSION})
 
 #############################################################################
 ### show the compiler name and version                                    ###

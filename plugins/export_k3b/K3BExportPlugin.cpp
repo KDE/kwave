@@ -99,7 +99,7 @@ int Kwave::K3BExportPlugin::interpreteParameters(QStringList &params)
 	return -EINVAL;
 
     // the selected URL
-    m_url = QUrl::fromUserInput(Kwave::Parser::unescape(params[0]));
+    m_url = Kwave::URLfromUserInput(Kwave::Parser::unescape(params[0]));
     if (!m_url.isValid()) return -EINVAL;
 
     // label pattern
@@ -308,7 +308,7 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
 		"K3b project file (*.k3b)"
 	    ),
 	    parentWidget(),
-	    QUrl::fromUserInput(signalName()),
+	    Kwave::URLfromUserInput(signalName()),
 	    _("*.k3b"),
 	    m_pattern,
 	    m_selection_only,

@@ -24,6 +24,7 @@
 
 #include <QString>
 #include <QtGlobal>
+#include <QUrl>
 
 #include "libkwave/Sample.h" // for sample_index_t
 
@@ -137,8 +138,16 @@ namespace Kwave
 	return static_cast<int>(x);
     }
 
+    /**
+     * Wrapper around Kwave::URLfromUserInput that handles relative paths and
+     * prefers local file names
+     * @param path a file name, path, or other kind of string encoded URL
+     * @return a QUrl object
+     */
+    QUrl URLfromUserInput(const QString &path) Q_DECL_EXPORT;
+
     /** returns the URL scheme for encoding/decoding kwave:<*> URLs */
-    QString Q_DECL_EXPORT urlScheme();
+    QString urlScheme() Q_DECL_EXPORT;
 
     /**
      * Returns the limit of memory that can be used for undo/redo

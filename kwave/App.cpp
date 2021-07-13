@@ -161,7 +161,7 @@ int Kwave::App::newInstance(const QStringList &args, const QString &dir)
 	// open a window for each file specified in the
 	// command line an load it
 	foreach (const QString &name, params) {
-	    retval = newWindow(QUrl::fromUserInput(name));
+	    retval = newWindow(Kwave::URLfromUserInput(name));
 	}
     }
     return retval;

@@ -941,7 +941,7 @@ int Kwave::MainWidget::loadLabels(const QString &filename)
 	    delete dlg;
 	}
     } else {
-	url = QUrl::fromUserInput(filename);
+	url = Kwave::URLfromUserInput(filename);
     }
 
     // create an own undo transaction
@@ -1000,7 +1000,7 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
 	    }
 	}
     } else {
-	url = QUrl::fromUserInput(filename);
+	url = Kwave::URLfromUserInput(filename);
     }
 
     // now we have a file name -> save all labels...

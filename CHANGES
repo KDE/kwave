@@ -1,4 +1,9 @@
 
+21.11.70 [2021-07-13]
+
+ * introduced Kwave::URLfromUserInput to work around problems with QUrl
+   misinterpreting file names in cmdline parameters as http:// URLs
+
 20.08.01 [2020-08-31]
 
  * adapted make targets (scripts) for "update-translations" and "msgstats"

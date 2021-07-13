@@ -38,6 +38,7 @@
 #include "libkwave/Parser.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "SaveBlocksDialog.h"
 #include "SaveBlocksPlugin.h"
@@ -85,7 +86,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
 	    _("kfiledialog:///kwave_save_blocks"),
 	    Kwave::CodecManager::encodingFilter(),
 	    parentWidget(),
-	    QUrl::fromUserInput(signalName()),
+	    Kwave::URLfromUserInput(signalName()),
 	    _("*.wav"),
 	    m_pattern,
 	    m_numbering_mode,
@@ -418,7 +419,7 @@ int Kwave::SaveBlocksPlugin::interpreteParameters(QStringList &params)
     }
 
     // the selected URL
-    m_url = QUrl::fromUserInput(Kwave::Parser::unescape(params[0]));
+    m_url = Kwave::URLfromUserInput(Kwave::Parser::unescape(params[0]));
     if (!m_url.isValid()) return -EINVAL;
 
     // filename pattern

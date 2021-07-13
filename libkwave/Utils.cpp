@@ -23,6 +23,7 @@
 
 #include <QDate>
 #include <QDateTime>
+#include <QDir>
 #include <QLatin1Char>
 #include <QLocale>
 #include <QString>
@@ -173,6 +174,13 @@ QString Kwave::string2date(const QString &str)
     }
 
     return QString();
+}
+
+//***************************************************************************
+QUrl Kwave::URLfromUserInput(const QString &path)
+{
+    return QUrl::fromUserInput(path, QDir::currentPath(),
+                               QUrl::AssumeLocalFile);
 }
 
 //***************************************************************************

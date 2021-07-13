@@ -34,6 +34,7 @@
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "libgui/FileDialog.h"
 
@@ -48,7 +49,7 @@ Kwave::FileDialog::FileDialog(
 )
     :QDialog(parent),
      m_layout(this),
-     m_file_widget(QUrl::fromUserInput(startDir), this),
+     m_file_widget(Kwave::URLfromUserInput(startDir), this),
      m_config_group(),
      m_last_url(last_url),
      m_last_ext(last_ext)
@@ -177,10 +178,10 @@ void Kwave::FileDialog::loadConfig(const QString &section)
 	    // take last path, but user defined file name
 	    QString file_name = m_last_url.fileName();
 	    last_path = last_path.adjusted(QUrl::RemoveFilename);
-	    m_last_url = QUrl::fromUserInput(last_path.path() + file_name);
+	    m_last_url = Kwave::URLfromUserInput(last_path.path() + file_name);
 	}
     } else {
-	m_last_url = QUrl::fromUserInput(cfg.readEntry("last_url",
+	m_last_url = Kwave::URLfromUserInput(cfg.readEntry("last_url",
 	    m_last_url.toDisplayString()));
     }
     if (!m_last_ext.length())
@@ -264,7 +265,7 @@ QUrl Kwave::FileDialog::baseUrl() const
 //***************************************************************************
 void Kwave::FileDialog::setDirectory(const QString &directory)
 {
-    m_file_widget.setStartDir(QUrl::fromUserInput(directory));
+    m_file_widget.setStartDir(Kwave::URLfromUserInput(directory));
 }
 
 //***************************************************************************

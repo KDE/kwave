@@ -747,7 +747,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
 	QString filename = parser.nextParam();
 	if (!filename.isEmpty()) {
 	    // open the selected file
-	    result = loadFile(QUrl::fromUserInput(filename));
+	    result = loadFile(Kwave::URLfromUserInput(filename));
 	} else {
 	    // show file open dialog
 	    result = openFile();
@@ -1085,7 +1085,7 @@ int Kwave::TopWidget::loadFile(const QUrl &url)
 int Kwave::TopWidget::openRecent(const QString &str)
 {
     Kwave::Parser parser(str);
-    return loadFile(QUrl::fromUserInput(parser.firstParam()));
+    return loadFile(Kwave::URLfromUserInput(parser.firstParam()));
 }
 
 //***************************************************************************

@@ -34,7 +34,7 @@ Kwave::SelectionTracker::SelectionTracker(Kwave::SignalManager *signal,
      m_length((length || !signal) ? length : signal->length()),
      m_tracks(),
      m_selection_only((length != 0)),
-     m_lock(QMutex::Recursive)
+     m_lock()
 {
     Q_ASSERT(signal);
     if (!signal) return;

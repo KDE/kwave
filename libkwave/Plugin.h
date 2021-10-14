@@ -25,6 +25,7 @@
 #include <QList>
 #include <QMutex>
 #include <QObject>
+#include <QRecursiveMutex>
 #include <QString>
 #include <QThread>
 #include <QTimer>
@@ -395,7 +396,7 @@ namespace Kwave
 	qreal m_current_progress;
 
 	/** Mutex for locking the progress bar */
-	QMutex m_progress_lock;
+	QRecursiveMutex m_progress_lock;
 
     };
 

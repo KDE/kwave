@@ -28,7 +28,7 @@ bool Kwave::StreamObject::m_interactive = false;
 //***************************************************************************
 Kwave::StreamObject::StreamObject(QObject *parent)
     :QObject(Q_NULLPTR /*parent*/),
-     m_lock_set_attribute(QMutex::Recursive),
+     m_lock_set_attribute(),
      m_canceled(false)
 {
     Q_UNUSED(parent)

@@ -30,6 +30,7 @@
 #include <QMutex>
 #include <QObject>
 #include <QQueue>
+#include <QRecursiveMutex>
 #include <QSemaphore>
 #include <QString>
 
@@ -194,7 +195,7 @@ namespace Kwave
 	private:
 
 	    /** mutex for locking the queue */
-	    QMutex m_lock;
+	    QRecursiveMutex m_lock;
 
 	    /** semaphore with free buffer space */
 	    QSemaphore m_sem_free;

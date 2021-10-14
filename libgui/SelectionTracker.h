@@ -24,6 +24,7 @@
 #include <QList>
 #include <QObject>
 #include <QPointer>
+#include <QRecursiveMutex>
 #include <QUuid>
 #include <QVector>
 
@@ -308,7 +309,7 @@ namespace Kwave
 	bool m_selection_only;
 
 	/** mutex for threadsafe access to the selection */
-	QMutex m_lock;
+	QRecursiveMutex m_lock;
     };
 }
 

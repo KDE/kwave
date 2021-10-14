@@ -22,9 +22,9 @@
 
 #include <QtGlobal>
 #include <QList>
-#include <QMutex>
 #include <QObject>
 #include <QReadWriteLock>
+#include <QRecursiveMutex>
 #include <QUuid>
 
 #include "libkwave/InsertMode.h"
@@ -304,7 +304,7 @@ namespace Kwave
 
     private:
 	/** lock for access to the whole track */
-	QMutex m_lock;
+	QRecursiveMutex m_lock;
 
 	/** lock to protect against deletion while the track is in use */
 	QReadWriteLock m_lock_usage;

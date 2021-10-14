@@ -89,7 +89,7 @@ Kwave::SignalManager::SignalManager(QWidget *parent)
     m_redo_buffer(),
     m_undo_transaction(Q_NULLPTR),
     m_undo_transaction_level(0),
-    m_undo_transaction_lock(QMutex::Recursive),
+    m_undo_transaction_lock(),
     m_meta_data()
 {
     // connect to the track's signals

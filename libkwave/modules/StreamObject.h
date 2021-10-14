@@ -21,8 +21,8 @@
 #include "config.h"
 
 #include <QtGlobal>
-#include <QMutex>
 #include <QObject>
+#include <QRecursiveMutex>
 
 class QVariant;
 
@@ -138,7 +138,7 @@ namespace Kwave
     private:
 
 	/** Mutex for locking access to setAttribute (recursive) */
-	QMutex m_lock_set_attribute;
+	QRecursiveMutex m_lock_set_attribute;
 
 	/** interactive mode: if enabled, use smaller block size */
 	static bool m_interactive;

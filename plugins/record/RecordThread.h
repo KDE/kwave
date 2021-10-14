@@ -21,8 +21,8 @@
 #include "config.h"
 
 #include <QByteArray>
-#include <QMutex>
 #include <QQueue>
+#include <QRecursiveMutex>
 
 #include "libkwave/WorkerThread.h"
 
@@ -88,7 +88,7 @@ namespace Kwave
     private:
 
 	/** lock for protecting the queues */
-	QMutex m_lock;
+	QRecursiveMutex m_lock;
 
 	/** the device used as source */
 	Kwave::RecordDevice *m_device;

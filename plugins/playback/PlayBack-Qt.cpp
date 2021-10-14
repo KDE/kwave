@@ -46,7 +46,7 @@
 //***************************************************************************
 Kwave::PlayBackQt::PlayBackQt()
     :QObject(), Kwave::PlayBackDevice(),
-     m_lock(QMutex::NonRecursive),
+     m_lock(),
      m_device_name_map(),
      m_available_devices(),
      m_output(Q_NULLPTR),
@@ -457,7 +457,7 @@ int Kwave::PlayBackQt::detectChannels(const QString &device,
 //***************************************************************************
 Kwave::PlayBackQt::Buffer::Buffer()
     :QIODevice(),
-     m_lock(QMutex::Recursive),
+     m_lock(),
      m_sem_free(0),
      m_sem_filled(0),
      m_raw_buffer(),

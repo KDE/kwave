@@ -23,8 +23,8 @@
 #include <QtGlobal>
 #include <QList>
 #include <QMap>
-#include <QMutex>
 #include <QObject>
+#include <QRecursiveMutex>
 #include <QString>
 
 #include "libkwave/FileInfo.h"
@@ -757,7 +757,7 @@ namespace Kwave
 	unsigned int m_undo_transaction_level;
 
 	/** mutex for locking undo transactions */
-	QMutex m_undo_transaction_lock;
+	QRecursiveMutex m_undo_transaction_lock;
 
 	/** Manager for undo/redo actions */
 	Kwave::UndoManager m_undo_manager;

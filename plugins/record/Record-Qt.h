@@ -24,7 +24,7 @@
 #include <QAudio>
 #include <QAudioDeviceInfo>
 #include <QList>
-#include <QMutex>
+#include <QRecursiveMutex>
 #include <QSemaphore>
 #include <QString>
 #include <QStringList>
@@ -237,7 +237,7 @@ namespace Kwave
     private:
 
 	/** mutex for locking the streaming thread against main thread */
-	QMutex m_lock;
+	QRecursiveMutex m_lock;
 
 	/**
 	 * dictionary for translating verbose device names

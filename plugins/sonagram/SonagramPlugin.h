@@ -29,6 +29,7 @@
 #include <QMutex>
 #include <QQueue>
 #include <QReadWriteLock>
+#include <QRecursiveMutex>
 #include <QString>
 #include <QTimer>
 #include <QUuid>
@@ -250,7 +251,7 @@ namespace Kwave
 	QReadWriteLock m_pending_jobs;
 
 	/** lock to protect the job list (m_valid) */
-	QMutex m_lock_job_list;
+	QRecursiveMutex m_lock_job_list;
 
 	/** the currently running background job */
 	QFuture<void> m_future;

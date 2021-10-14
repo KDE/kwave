@@ -69,7 +69,7 @@ Kwave::SonagramPlugin::SonagramPlugin(QObject *parent,
      m_window_type(Kwave::WINDOW_FUNC_NONE), m_color(true),
      m_track_changes(true), m_follow_selection(false), m_image(),
      m_overview_cache(Q_NULLPTR), m_slice_pool(), m_valid(MAX_SLICES, false),
-     m_pending_jobs(), m_lock_job_list(QMutex::Recursive), m_future(),
+     m_pending_jobs(), m_lock_job_list(), m_future(),
      m_repaint_timer()
 {
     i18n("Sonagram");

@@ -43,7 +43,7 @@ Kwave::OverViewCache::OverViewCache(Kwave::SignalManager &signal,
      m_selection(&signal, src_offset, src_length, src_tracks),
      m_min(), m_max(), m_state(), m_minmax(),
      m_scale(1),
-     m_lock(QMutex::Recursive)
+     m_lock()
 {
 
     connect(&m_selection, SIGNAL(sigTrackInserted(QUuid)),

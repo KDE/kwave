@@ -22,8 +22,8 @@
 
 #include <QtGlobal>
 #include <QList>
-#include <QMutex>
 #include <QQueue>
+#include <QRecursiveMutex>
 
 #include "libkwave/SampleArray.h"
 
@@ -107,7 +107,7 @@ namespace Kwave
 	sample_index_t m_read_offset;
 
 	/** mutex for access to the FIFO (recursive) */
-	QMutex m_lock;
+	QRecursiveMutex m_lock;
 
     };
 }

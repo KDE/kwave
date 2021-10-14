@@ -84,7 +84,7 @@ Kwave::Plugin::Plugin(QObject *parent, const QVariantList &args)
      m_usage_lock(),
      m_progress_timer(),
      m_current_progress(-1),
-     m_progress_lock(QMutex::Recursive)
+     m_progress_lock()
 {
     // check: this must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());

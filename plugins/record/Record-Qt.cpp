@@ -61,7 +61,7 @@
 Kwave::RecordQt::RecordQt()
     :QObject(Q_NULLPTR),
      Kwave::RecordDevice(),
-     m_lock(QMutex::Recursive),
+     m_lock(),
      m_device_name_map(),
      m_available_devices(),
      m_input(Q_NULLPTR),

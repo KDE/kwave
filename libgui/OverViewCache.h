@@ -24,8 +24,8 @@
 #include <QHash>
 #include <QImage>
 #include <QList>
-#include <QMutex>
 #include <QObject>
+#include <QRecursiveMutex>
 #include <QUuid>
 #include <QVector>
 
@@ -194,7 +194,7 @@ namespace Kwave
 	quint64 m_scale;
 
 	/** mutex for threadsafe access to the cache */
-	QMutex m_lock;
+	QRecursiveMutex m_lock;
 
     };
 }

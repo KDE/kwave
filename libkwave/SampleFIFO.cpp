@@ -22,7 +22,7 @@
 
 //***************************************************************************
 Kwave::SampleFIFO::SampleFIFO()
-    :m_buffer(), m_size(0), m_read_offset(0), m_lock(QMutex::Recursive)
+    :m_buffer(), m_size(0), m_read_offset(0), m_lock()
 {
 }
 
@@ -30,7 +30,7 @@ Kwave::SampleFIFO::SampleFIFO()
 Kwave::SampleFIFO::SampleFIFO(const Kwave::SampleFIFO &other)
     :m_buffer(other.m_buffer), m_size(other.m_size),
      m_read_offset(other.m_read_offset),
-     m_lock(QMutex::Recursive)
+     m_lock()
 {
 }
 

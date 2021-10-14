@@ -64,7 +64,7 @@ set (RELEASE_SERVICE_VERSION_MICRO "70")
 #############################################################################
 ### required versions                                                     ###
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.16.0 FATAL_ERROR)
 
 # Honor visibility properties for all target types (since cmake 3.3)
 IF (POLICY CMP0063)

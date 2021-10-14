@@ -182,7 +182,7 @@
     	If you intend to compile &kwave; from the sources, you will need at least:
 	<itemizedlist>
 	    <listitem><para>
-		<ulink url="&url_cmake;">cmake</ulink>-2.8.12 or newer
+		<ulink url="&url_cmake;">cmake</ulink>-3.16.0 or newer
 	    </para></listitem>
 	    <listitem><para>
 		A recent C/C++ compiler. GCC-4.x works fine, some older and any

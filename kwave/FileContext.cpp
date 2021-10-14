@@ -209,6 +209,15 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     ));
     menufile.open(QIODevice::ReadOnly);
     QTextStream stream(&menufile);
+    if (stream.atEnd()) {
+	qWarning("menu file not found in:");
+	QStringList locations = QStandardPaths::standardLocations(
+	    QStandardPaths::GenericDataLocation);
+	foreach (const QString &location, locations)
+	{
+	    qWarning("    '%s'", DBG(location));
+	}
+    }
     Q_ASSERT(!stream.atEnd());
     if (!stream.atEnd()) parseCommands(stream);
     menufile.close();

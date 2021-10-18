@@ -3,7 +3,7 @@
 
  * introduced Kwave::URLfromUserInput to work around problems with QUrl
    misinterpreting file names in cmdline parameters as http:// URLs
- * fixed deprecation warnings: use QRecursiveMutex
+ * fixed deprecation warnings: QRecursiveMutex, KPluginFactory
 
 20.08.01 [2020-08-31]
 

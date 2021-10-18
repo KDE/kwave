@@ -30,6 +30,7 @@
 #include <QtGlobal>
 #include <QVariantList>
 
+#include <KAboutData>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -623,17 +624,16 @@ void Kwave::PluginManager::searchPluginModules()
 	return;
     }
 
-    KPluginInfo::List plugins = KPluginInfo::fromMetaData(
-	KPluginLoader::findPlugins(_("kwave"))
-    );
-    foreach (const KPluginInfo &i, plugins) {
-	QString library     = i.libraryPath();
+    QVector<KPluginMetaData> plugins_meta_data =
+	KPluginMetaData::findPlugins(_("kwave"));
+    foreach (const KPluginMetaData &i, plugins_meta_data) {
+	QString library     = i.fileName();
 	QString description = i.name();
-	QString name        = i.pluginName();
+	QString name        = i.pluginId();
 	QString version_raw = i.version();
 	QString version;
 	QString settings;
-	QString author      = i.author();
+	QString author      = i.authors().first().name();
 
 	if (version_raw.contains(_(":"))) {
 	    version  = version_raw.split(_(":")).at(0);
@@ -658,10 +658,12 @@ void Kwave::PluginManager::searchPluginModules()
 	    continue;
 	}
 
-	KPluginLoader loader(library);
-	KPluginFactory* factory = loader.factory();
-	if (!factory) {
-	    qWarning("plugin '%s': loading failed", DBG(name));
+	KPluginFactory::Result<KPluginFactory> result =
+	    KPluginFactory::loadFactory(i);
+
+	if (!result) {
+	    qWarning("plugin '%s': loading failed: '%s'", DBG(name),
+		     DBG(result.errorString));
 	    continue;
 	}
 
@@ -673,7 +675,7 @@ void Kwave::PluginManager::searchPluginModules()
 	info.m_author      = author;
 	info.m_description = i18n(description.toUtf8());
 	info.m_version     = settings;
-	info.m_factory     = factory;
+	info.m_factory     = result.plugin;
 	info.m_use_count   = 1;
 
 	m_plugin_modules.insert(info.m_name, info);

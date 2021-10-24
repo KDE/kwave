@@ -118,11 +118,12 @@ QString Kwave::ms2hms(double ms)
 
     return i18nc(
 	"time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds",
-	"%1:%2:%3.%4").
-	arg(  h, 2, 10, QLatin1Char('0')).
-	arg(  m, 2, 10, QLatin1Char('0')).
-	arg(  s, 2, 10, QLatin1Char('0')).
-	arg(tms, 4, 10, QLatin1Char('0'));
+	"%1:%2:%3.%4",
+	QString::asprintf("%02u", h),
+	QString::asprintf("%02u", m),
+	QString::asprintf("%02u", s),
+	QString::asprintf("%04u", tms)
+    );
 }
 
 //***************************************************************************

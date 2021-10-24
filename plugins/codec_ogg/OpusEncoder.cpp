@@ -786,7 +786,6 @@ unsigned int Kwave::OpusEncoder::fillInBuffer(Kwave::MultiTrackReader &src)
 	unsigned int count = 0;
 	unsigned int rest  = m_frame_size;
 	while (rest) {
-	    float *p = m_encoder_input + t;
 
 	    // while buffer is empty and source is not at eof:
 	    // trigger the start of the chain to produce some data
@@ -805,6 +804,7 @@ unsigned int Kwave::OpusEncoder::fillInBuffer(Kwave::MultiTrackReader &src)
 	    // fill the frame data
 	    rest  -= len;
 	    count += len;
+	    float *p = m_encoder_input + t;
 	    while (len--) {
 		*p = sample2float(*(s++));
 		p += m_encoder_channels;
@@ -818,12 +818,13 @@ unsigned int Kwave::OpusEncoder::fillInBuffer(Kwave::MultiTrackReader &src)
 
     // if we were not able to fill a complete frame, we probably are at eof
     // and have some space to pad with extra samples to compensate preskip
-    while ((n < m_frame_size) && m_extra_out) {
+    unsigned int extra_out = m_extra_out;
+    while ((n < m_frame_size) && extra_out) {
 	Q_ASSERT(src.eof());
 	for (unsigned int t = 0; t < m_encoder_channels; ++t) {
-	    m_encoder_input[(n + t) * m_encoder_channels] = 0.0;
+	    m_encoder_input[(n * m_encoder_channels) + t] = 0.0;
 	}
-	m_extra_out--;
+	extra_out--;
 	n++;
     }
 

@@ -1417,7 +1417,7 @@ void Kwave::TopWidget::updateMenu()
 	    foreach (const Kwave::Label &label, labels) {
 		QString name = label.name();
 		QString desc = (name.length()) ?
-		i18nc(
+		    i18nc(
 		    "list menu entry of a label, %1=index, %2=description/name",
 		    "#%1 (%2)", index, name) :
 		    i18nc("list menue entry of a label, "

@@ -5,6 +5,7 @@
    misinterpreting file names in cmdline parameters as http:// URLs
  * fixed deprecation warnings: QRecursiveMutex, KPluginFactory
  * bugfix: wrong tooltip translation for selection range (and other times)
+ * bugfix: wrong calculation on opus encoder, causing corrupted files
 
 20.08.01 [2020-08-31]
 

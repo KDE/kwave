@@ -50,7 +50,6 @@ MACRO(KWAVE_PLUGIN _plugin)
         KF5::I18n
         KF5::IconThemes
         KF5::KIOFileWidgets
-        KF5::Service
         KF5::TextWidgets
         KF5::WidgetsAddons
         KF5::XmlGui

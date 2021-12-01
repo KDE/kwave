@@ -35,7 +35,6 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMainWindow>
-#include <KPluginInfo>
 #include <KPluginFactory>
 #include <KPluginMetaData>
 #include <KSharedConfig>

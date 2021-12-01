@@ -250,7 +250,6 @@ FIND_PACKAGE(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     I18n
     IconThemes
     KIO
-    Service
     TextWidgets
     XmlGui
     WidgetsAddons

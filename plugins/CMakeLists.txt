@@ -82,7 +82,7 @@ MACRO(KWAVE_PLUGIN _plugin)
     INSTALL(TARGETS
         plugin_${_plugin}
         LIBRARY
-        DESTINATION ${PLUGIN_INSTALL_DIR}/kwave
+        DESTINATION ${KDE_INSTALL_PLUGINDIR}/kwave
     )
 
 ENDMACRO(KWAVE_PLUGIN)

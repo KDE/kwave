@@ -58,7 +58,7 @@ BuildArch:      x86_64
 %define _kf5_iconsdir        %{_prefix}/share/icons
 %endif
 %if 0%{!?_kf5_modulesdir:1}
-%define _kf5_modulesdir      @PLUGIN_INSTALL_DIR@/kwave
+%define _kf5_modulesdir      @KDE_INSTALL_PLUGINDIR@/kwave
 %endif
 
 # common for all distributions

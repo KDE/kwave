@@ -41,6 +41,7 @@ TARGET_LINK_LIBRARIES(plugin_goto_common
     Qt5::Core
     Qt5::Widgets
     KF5::ConfigWidgets
+    KF5::CoreAddons
     KF5::I18n
 )
 

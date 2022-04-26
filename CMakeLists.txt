@@ -88,7 +88,7 @@ ENDIF (POLICY CMP0048)
 
 SET(QT_MIN_VERSION  "5.15.0")
 SET(KF5_MIN_VERSION "5.90.0")
-
+set(KDE_COMPILERSETTINGS_LEVEL "5.82")
 #############################################################################
 ### Kwave version number                                                  ###
 
@@ -237,7 +237,6 @@ INCLUDE(KDECMakeSettings)
 INCLUDE(GenerateExportHeader)
 INCLUDE(FeatureSummary)
 
-set(KDE_COMPILERSETTINGS_LEVEL "5.82")
 FIND_PACKAGE(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Archive
     Completion

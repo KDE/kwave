@@ -1,0 +1,8 @@
+# Ignore the following files
+/build*/
+CMakeLists.txt.user*
+/compile_commands.json
+.clangd
+.idea
+/cmake-build*
+.cache

@@ -86,9 +86,8 @@ IF (POLICY CMP0048)
     CMAKE_POLICY(SET CMP0048 NEW)
 ENDIF (POLICY CMP0048)
 
-SET(ECM_MIN_VERSION "1.7.0")
-SET(QT_MIN_VERSION  "5.14.0")
-SET(KF5_MIN_VERSION "5.33.0")
+SET(QT_MIN_VERSION  "5.15.0")
+SET(KF5_MIN_VERSION "5.90.0")
 
 #############################################################################
 ### Kwave version number                                                  ###
@@ -229,7 +228,7 @@ ENDIF (WITH_QT_AUDIO)
 #############################################################################
 ### KF5 support                                                           ###
 
-FIND_PACKAGE(ECM ${ECM_MIN_VERSION} REQUIRED NO_MODULE)
+FIND_PACKAGE(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH}  )
 
 INCLUDE(KDEInstallDirs)

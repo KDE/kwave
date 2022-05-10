@@ -66,11 +66,6 @@ set (RELEASE_SERVICE_VERSION_MICRO "70")
 
 CMAKE_MINIMUM_REQUIRED(VERSION 3.16.0 FATAL_ERROR)
 
-# Honor visibility properties for all target types (since cmake 3.3)
-IF (POLICY CMP0063)
-    CMAKE_POLICY(SET CMP0063 NEW)
-ENDIF (POLICY CMP0063)
-
 # exclude generated automoc files per default (since cmake 3.10)
 IF (POLICY CMP0071)
     CMAKE_POLICY(SET CMP0071 NEW)
@@ -232,7 +227,7 @@ FIND_PACKAGE(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH}  )
 
 INCLUDE(KDEInstallDirs)
-INCLUDE(KDECompilerSettings)
+INCLUDE(KDECompilerSettings NO_POLICY_SCOPE)
 INCLUDE(KDECMakeSettings)
 INCLUDE(GenerateExportHeader)
 INCLUDE(FeatureSummary)

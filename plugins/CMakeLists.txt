@@ -38,8 +38,8 @@ MACRO(KWAVE_PLUGIN _plugin)
 
     ADD_LIBRARY(plugin_${_plugin} MODULE ${plugin_${_plugin}_LIB_SRCS})
     TARGET_LINK_LIBRARIES(plugin_${_plugin}
-        kwavegui
-        kwave
+        libkwavegui
+        libkwave
         ${plugin_${_plugin}_LIBS}
         ${SAMPLERATE_LIBS}
         Qt5::Core
@@ -76,8 +76,6 @@ MACRO(KWAVE_PLUGIN _plugin)
 
     #########################################################################
     ### install                                                           ###
-
-    ADD_DEPENDENCIES(plugin_${_plugin} libkwave libkwavegui)
 
     INSTALL(TARGETS
         plugin_${_plugin}

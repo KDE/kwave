@@ -72,10 +72,8 @@ SET(libkwavegui_LIB_UI
 KI18N_WRAP_UI(libkwavegui_LIB_SRCS ${libkwavegui_LIB_UI} )
 ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
 
-ADD_DEPENDENCIES(libkwavegui libkwave)
-
 TARGET_LINK_LIBRARIES(libkwavegui
-    kwave
+    libkwave
     Qt5::Core
     Qt5::Concurrent
     Qt5::Widgets

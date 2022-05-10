@@ -34,10 +34,9 @@ SET(plugin_goto_common_LIB_UI
 KI18N_WRAP_UI(plugin_goto_common_LIB_SRCS ${plugin_goto_common_LIB_UI})
 ADD_LIBRARY(plugin_goto_common STATIC ${plugin_goto_common_LIB_SRCS})
 SET_TARGET_PROPERTIES(plugin_goto_common PROPERTIES ENABLE_EXPORTS ON)
-ADD_DEPENDENCIES(plugin_goto_common libkwave libkwavegui)
 TARGET_LINK_LIBRARIES(plugin_goto_common
-    kwavegui
-    kwave
+    libkwavegui
+    libkwave
     Qt5::Core
     Qt5::Widgets
     KF5::ConfigWidgets

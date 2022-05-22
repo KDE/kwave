@@ -470,6 +470,12 @@ ADD_CUSTOM_TARGET(wrapper
 )
 
 #############################################################################
+### install translations                                                  ###
+
+ki18n_install(po)
+kdoctools_install(po)
+
+#############################################################################
 
 MESSAGE(STATUS "Using CFLAGS=${CMAKE_C_FLAGS}")
 MESSAGE(STATUS "Using CXXFLAGS=${CMAKE_CXX_FLAGS}")

@@ -68,7 +68,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.16.0 FATAL_ERROR)
 
 SET(QT_MIN_VERSION  "5.15.0")
 SET(KF5_MIN_VERSION "5.90.0")
-set(KDE_COMPILERSETTINGS_LEVEL "5.82")
+SET(KDE_COMPILERSETTINGS_LEVEL "5.82")
+
 #############################################################################
 ### Kwave version number                                                  ###
 
@@ -264,11 +265,6 @@ ENDIF (NOT HAVE_REQUIRED_STD_C_HEADERS)
 
 SET(_inc_cpp algorithm complex limits new)
 CHECK_INCLUDE_FILES_CXX("${_inc_cpp}")
-
-#############################################################################
-### checks for some functions                                             ###
-
-CHECK_FUNCTION_EXISTS(unlink HAVE_UNLINK)
 
 #############################################################################
 ### libaudiofile and libsamplerate support                                ###

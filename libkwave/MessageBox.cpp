@@ -175,7 +175,7 @@ void Kwave::MessageBox::show()
 	    break;
 	// Sorry
 	case KMessageBox::Sorry:
-	    KMessageBox::sorry(m_parent, m_message, m_caption);
+	    KMessageBox::error(m_parent, m_message, m_caption);
 	    break;
 	// WarningYesNoCancel
 	case KMessageBox::WarningYesNoCancel:

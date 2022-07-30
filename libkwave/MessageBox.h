@@ -52,7 +52,7 @@ namespace Kwave
 	    const QString buttonNo = QString(),
 	    const QString &dontAskAgainName = QString());
 
-	/** @see KMessageBox::sorry */
+	/** @see KMessageBox::error */
 	static int sorry(QWidget *widget,
 	    QString message, QString caption = QString());
 

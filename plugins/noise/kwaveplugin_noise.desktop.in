@@ -31,7 +31,6 @@ Name[x-test]=xxNoise Generatorxx
 Name[zh_CN]=噪声发生器
 Name[zh_TW]=噪音產生器
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=noise
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

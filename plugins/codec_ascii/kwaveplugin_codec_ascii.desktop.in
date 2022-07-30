@@ -31,7 +31,6 @@ Name[x-test]=xxASCII Codecxx
 Name[zh_CN]=ASCII 编码解码器
 Name[zh_TW]=ASCII 解碼器
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=codec_ascii
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

@@ -31,7 +31,6 @@ Name[x-test]=xxSave Blocksxx
 Name[zh_CN]=保存区块
 Name[zh_TW]=儲存區段
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=saveblocks
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.4

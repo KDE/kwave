@@ -31,7 +31,6 @@ Name[x-test]=xxNormalizerxx
 Name[zh_CN]=标准件
 Name[zh_TW]=一般化
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=normalize
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

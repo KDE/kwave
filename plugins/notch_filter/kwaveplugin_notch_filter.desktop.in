@@ -31,7 +31,6 @@ Name[x-test]=xxNotch Filterxx
 Name[zh_CN]=陷波滤波器
 Name[zh_TW]=陷波濾波器
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Dave Flogeras
 X-KDE-PluginInfo-Name=notch_filter
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

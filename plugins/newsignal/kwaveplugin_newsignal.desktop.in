@@ -31,7 +31,6 @@ Name[x-test]=xxNew Signalxx
 Name[zh_CN]=新建信号
 Name[zh_TW]=新訊號源
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=newsignal
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

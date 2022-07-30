@@ -31,7 +31,6 @@ Name[x-test]=xxSample Rate Conversionxx
 Name[zh_CN]=采样率转换
 Name[zh_TW]=採樣率轉換
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=samplerate
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

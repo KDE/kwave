@@ -31,7 +31,6 @@ Name[x-test]=xxInsert Atxx
 Name[zh_CN]=插入于
 Name[zh_TW]=插入在
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=insert_at
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

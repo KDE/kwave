@@ -31,7 +31,6 @@ Name[x-test]=xxAmplify Freexx
 Name[zh_CN]=自由放大
 Name[zh_TW]=放大音量
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=amplifyfree
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

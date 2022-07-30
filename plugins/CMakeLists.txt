@@ -71,7 +71,6 @@ MACRO(KWAVE_PLUGIN _plugin)
     KCOREADDONS_DESKTOP_TO_JSON(
         plugin_${_plugin}
         ${CMAKE_CURRENT_BINARY_DIR}/kwaveplugin_${_plugin}.desktop
-        DEFAULT_SERVICE_TYPE Kwave/Plugin
     )
 
     #########################################################################
@@ -84,11 +83,6 @@ MACRO(KWAVE_PLUGIN _plugin)
     )
 
 ENDMACRO(KWAVE_PLUGIN)
-
-INSTALL(
-    FILES ${CMAKE_CURRENT_SOURCE_DIR}/kwave-plugin.desktop
-    DESTINATION ${SERVICETYPES_INSTALL_DIR}
-)
 
 #############################################################################
 

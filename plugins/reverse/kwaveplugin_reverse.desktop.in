@@ -31,7 +31,6 @@ Name[x-test]=xxReversexx
 Name[zh_CN]=逆序
 Name[zh_TW]=反轉
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=reverse
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

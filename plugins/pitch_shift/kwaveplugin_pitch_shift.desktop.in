@@ -31,7 +31,6 @@ Name[x-test]=xxPitch Shiftxx
 Name[zh_CN]=音高位移
 Name[zh_TW]=音高偏移
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=pitch_shift
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

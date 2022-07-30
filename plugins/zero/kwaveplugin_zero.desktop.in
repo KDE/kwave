@@ -31,7 +31,6 @@ Name[x-test]=xxZero Generatorxx
 Name[zh_CN]=零生成器
 Name[zh_TW]=靜音 (Zero) 產生器
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=zero
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

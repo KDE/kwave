@@ -31,7 +31,6 @@ Name[x-test]=xxDebug Functionsxx
 Name[zh_CN]=调试功能
 Name[zh_TW]=偵錯函式
 Type=Service
-ServiceTypes=Kwave/Plugin
 X-KDE-PluginInfo-Author=Thomas Eschenbacher
 X-KDE-PluginInfo-Name=debug
 X-KDE-PluginInfo-Version=@KWAVE_VERSION@:2.3

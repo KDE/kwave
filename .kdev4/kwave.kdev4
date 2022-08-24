@@ -107,8 +107,7 @@ Remote GDB Config Script=
 Remote GDB Run Script=
 Remote GDB Shell Script=
 Start With=ApplicationOutput
-Use External Terminal=false
-Working Directory=
+Use External Working Directory=
 isExecutable=true
 
 [MakeBuilder]

@@ -21,6 +21,7 @@
   <name xml:lang="ia">Kwave</name>
   <name xml:lang="id">Kwave</name>
   <name xml:lang="it">Kwave</name>
+  <name xml:lang="ka">Kwave</name>
   <name xml:lang="ko">Kwave</name>
   <name xml:lang="nl">Kwave</name>
   <name xml:lang="nn">Kwave</name>
@@ -54,6 +55,7 @@
   <summary xml:lang="ia">Kwave es un editor e sono construite ur KDE Framework 5</summary>
   <summary xml:lang="id">Kwave adalah sebuah editor sound yang  dibangun pada KDE Framework 5</summary>
   <summary xml:lang="it">Kwave è un editor per il suono basato su KDE Frameworks 5</summary>
+  <summary xml:lang="ka">Kwave ხმის რედაქტორია, აგებული KDE Frameworks 5-ის გამოყენებით</summary>
   <summary xml:lang="ko">Kwave는 KDE 프레임워크 5를 사용하는 소리 편집기입니다</summary>
   <summary xml:lang="nl">Kwave is een geluidsbewerker gebouwd op KDE Frameworks 5</summary>
   <summary xml:lang="nn">Kwave er eit lydredigeringsprogram bygd på KDE Frameworks 5.</summary>
@@ -160,6 +162,7 @@
       <caption xml:lang="ia">Kwave in action</caption>
       <caption xml:lang="id">Kwave beraksi</caption>
       <caption xml:lang="it">Kwave in azione</caption>
+      <caption xml:lang="ka">Kwave -ის გამოყენება</caption>
       <caption xml:lang="ko">Kwave 사용 모습</caption>
       <caption xml:lang="nl">Kwave in actie</caption>
       <caption xml:lang="nn">Kwave i praksis</caption>

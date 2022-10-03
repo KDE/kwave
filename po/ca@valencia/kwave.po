@@ -1714,7 +1714,7 @@ msgstr "&Copia"
 #: libgui/SignalWidget.cpp:229
 #, kde-format
 msgid "&Paste"
-msgstr "&Apega"
+msgstr "A&pega"
 
 #: libgui/SignalWidget.cpp:245 libkwave/undo/UndoSelection.cpp:51
 #, kde-format

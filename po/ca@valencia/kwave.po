@@ -402,8 +402,8 @@ msgctxt "description of command line parameter"
 msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 msgstr ""
-"Llista dels fitxers d'àudio, fitxers de macro o els URL de Kwave a obrir "
-"(opcional)"
+"Llista dels fitxers d'àudio, fitxers de macro o els URL de Kwave que s'han "
+"d'obrir (opcional)"
 
 #: kwave/main.cpp:196
 #, kde-format
@@ -3726,7 +3726,7 @@ msgstr "IEEE de 64 bits en coma flotant de precisió doble"
 #: libkwave/SignalManager.cpp:331
 #, kde-format
 msgid "Signal is empty, nothing to save."
-msgstr "El senyal està buit. No hi ha res a guardar."
+msgstr "El senyal està buit. No hi ha res que s'haja de guardar."
 
 #: libkwave/SignalManager.cpp:360
 #, kde-format
@@ -7272,7 +7272,8 @@ msgid ""
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: Supercedes OSS, "
 "supports more features and more hardware.</p>"
 msgstr ""
-"<b>Mètode de gravació:</b><p>Seleccioneu un mètode o sistema a utilitzar\n"
+"<b>Mètode de gravació:</b><p>Seleccioneu un mètode o sistema que "
+"s'utilitzarà\n"
 "per a la gravació. Depenent de les opcions de compilació, podreu seleccionar "
 "un dels següents mètodes:</p>\n"
 "<p><b><i>OSS (sistema de so obert)</i></b>: La implementació més antiga de "

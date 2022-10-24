@@ -715,9 +715,9 @@
 >Formats per a la mostra</title>
 
     <para
->Les mostres es poden emmagatzemar en diferents formats i precisions. Els més comuns són formats sencers (coma fixa), els quals emmagatzemen valors amb <emphasis
+>Les mostres es poden emmagatzemar en diferents formats i precisions. Els més comuns són formats enters (coma fixa), els quals emmagatzemen valors amb <emphasis
 >quantificació fixa</emphasis
->. Segons on es defineixi la línia zero, s'ha de distingir entre formats sencers <emphasis
+>. Segons on es defineixi la línia zero, s'ha de distingir entre formats enters <emphasis
 >sense signar</emphasis
 > (només valors positius, la «línia zero» és a la meitat de l'interval numèric) i <emphasis
 >signats</emphasis
@@ -759,8 +759,8 @@
     <note
 ><para
 >El &kwave; utilitza internament un format <emphasis
->sencer signat</emphasis
-> amb precisió de 24 bits, emmagatzemat en sencers de 32 bits. Això té el desavantatge d'un consum més gran de memòria quan es processen fitxers amb menys precisió (&pex;, 8 bits), però el processament dels nombres de 32 bits és molt ràpid i també deixa algunes reserves per a càlculs interns, ja que només s'utilitzen 24 bits. </para
+>enter signat</emphasis
+> amb precisió de 24 bits, emmagatzemat en enters de 32 bits. Això té el desavantatge d'un consum més gran de memòria quan es processen fitxers amb menys precisió (&pex;, 8 bits), però el processament dels nombres de 32 bits és molt ràpid i també deixa algunes reserves per a càlculs interns, ja que només s'utilitzen 24 bits. </para
 ></note>
 </sect1>
 
@@ -1244,7 +1244,7 @@
 ></listitem>
 	    <listitem
 ><para
->Els valors s'han de donar en format sencer signat amb un interval de 24 bits, el qual és el format d'emmagatzematge intern del &kwave;. </para
+>Els valors s'han de donar en format enter signat amb un interval de 24 bits, el qual és el format d'emmagatzematge intern del &kwave;. </para
 ></listitem>
 	    <listitem
 ><para
@@ -11318,7 +11318,7 @@
 	    </question>
     	    <answer>
 	    	<para
->La raó per això, és que el &kwave; emmagatzema internament totes les mostres en sencers de 32 bits. Això va ser molt més fàcil de programar, va fer que l'aplicació fos més ràpida i una mica més fiable. De manera que si es carrega un fitxer de 8 bits d'un megabyte, consumirà sobre els 4 megabytes. Potser canviarem això en algun moment en el futur... </para>
+>La raó per això, és que el &kwave; emmagatzema internament totes les mostres en enters de 32 bits. Això va ser molt més fàcil de programar, va fer que l'aplicació fos més ràpida i una mica més fiable. De manera que si es carrega un fitxer de 8 bits d'un megabyte, consumirà sobre els 4 megabytes. Potser canviarem això en algun moment en el futur... </para>
 	    </answer>
 	</qandaentry>
 

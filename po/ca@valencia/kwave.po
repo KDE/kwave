@@ -388,7 +388,7 @@ msgstr "fitxer"
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
-msgstr "Selecciona un tipus d'IGU: mode SDI, MDI o en pestanyes."
+msgstr "Selecciona un tipus de la IGU: mode SDI, MDI o en pestanyes."
 
 #: kwave/main.cpp:189
 #, kde-format

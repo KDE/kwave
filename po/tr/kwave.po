@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2022-10-13 02:38+0300\n"
+"PO-Revision-Date: 2022-11-01 12:58+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -272,7 +272,7 @@ msgstr "Robert Leslie"
 #: kwave/main.cpp:114
 #, kde-format
 msgid "Author of the 'mad' MP3 decoder library"
-msgstr "'mad' MP3 kod çözücü kütüphanesinin yazarı"
+msgstr "'mad' MP3 kod çözücü kitaplığının yazarı"
 
 #: kwave/main.cpp:116
 #, kde-format
@@ -287,7 +287,7 @@ msgstr "T.H.F. Klok ve Cedric Tefft"
 #: kwave/main.cpp:119
 #, kde-format
 msgid "Maintainers of the 'id3lib' library"
-msgstr "'id3lib' kütüphanesinin bakıcıları"
+msgstr "'id3lib' kitaplığının bakıcıları"
 
 #: kwave/main.cpp:121
 #, kde-format
@@ -302,7 +302,7 @@ msgstr "Michael Pruett"
 #: kwave/main.cpp:124
 #, kde-format
 msgid "Author of the 'audiofile' library"
-msgstr "'audiofile' kütüphanesinin yazarı"
+msgstr "'audiofile' kitaplığının yazarı"
 
 #: kwave/main.cpp:126
 #, kde-format
@@ -327,7 +327,7 @@ msgstr "Erik de Castro Lopo"
 #: kwave/main.cpp:134
 #, kde-format
 msgid "Author of the 'sndfile' library"
-msgstr "'sndfile' kütüphanesinin yazarı"
+msgstr "'sndfile' kitaplığının yazarı"
 
 #: kwave/main.cpp:136
 #, kde-format

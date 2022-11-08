@@ -115,7 +115,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	bin/make-specfile-changelog.pl			GPL2+
 	bin/menusconfig2pot.pl				GPL2+
 	bin/msgstats.pl					GPL2+
-	bin/svn-update-l10n.sh				GPL2+
 	bin/update-command-xref.pl			GPL2+
 	bin/update-fileinfo-xref.pl			GPL2+
 	bin/update-plugin-xref.pl			GPL2+
@@ -864,6 +863,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
 	plugins/zero/ZeroPlugin.cpp			GPL2+
 	plugins/zero/ZeroPlugin.h			GPL2+
 
+	po/*...						?
 
 	samples/sample.opus				CC BY-SA 4.0
 

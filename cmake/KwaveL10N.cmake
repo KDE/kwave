@@ -89,13 +89,6 @@ FOREACH(_po_file ${_existing_po_files})
 ENDFOREACH(_po_file ${_existing_po_files})
 
 #############################################################################
-### update the local copy of the translations with files from kde svn     ###
-
-ADD_CUSTOM_TARGET(update-translations
-    COMMAND ${CMAKE_SOURCE_DIR}/bin/svn-update-l10n.sh "${CMAKE_SOURCE_DIR}"
-)
-
-#############################################################################
 ### processing of GUI translations if found                               ###
 
 IF (NOT "${KWAVE_BUILD_LINGUAS}" STREQUAL "")

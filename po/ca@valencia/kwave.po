@@ -4375,7 +4375,7 @@ msgid ""
 "No header information has been found."
 msgstr ""
 "El fitxer obert no és un fitxer MPEG o està malmés.\n"
-"No s'ha trobat cap informació a la capçalera."
+"No s'ha trobat cap informació en la capçalera."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:516
 #, kde-format

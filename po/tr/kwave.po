@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2022-11-14 13:51+0300\n"
+"PO-Revision-Date: 2022-11-15 05:07+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -5556,7 +5556,7 @@ msgid ""
 "You can add or delete tracks via the Edit menu."
 msgstr ""
 "Sinyaldeki parçaların sayısını göster.\n"
-"Düzenleme menüsü ile parça ekleyip çıkartabilirsiniz."
+"Düzenleme menüsü ile parça ekleyip çıkarabilirsiniz."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:260
 #, kde-format
@@ -6065,7 +6065,7 @@ msgid ""
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
 "<b>Kayıt sayısı</b><br>Yeni sinyaldeki kayıt sayısını seçin. Eğer şimdi emin "
-"değilseniz, programdan kayıt ekleyip çıkartabilirsiniz."
+"değilseniz, programdan kayıt ekleyip çıkarabilirsiniz."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbResolution)
 #: plugins/newsignal/NewSigDlg.ui:301
@@ -6248,7 +6248,7 @@ msgid ""
 "should be removed."
 msgstr ""
 "<b>Merkez Frekansı</b>\n"
-"Çıkartılması gereken merkezi frekans aralığını\n"
+"Çıkarılması gereken merkezi frekans aralığını\n"
 "belirler."
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slider_2)
@@ -6270,7 +6270,7 @@ msgid ""
 "should be removed."
 msgstr ""
 "<b>bant genişliği</b>\n"
-"Çıkartılması gereken frekans genişliğini\n"
+"Çıkarılması gereken frekans genişliğini\n"
 "belirler."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PitchShiftDlg)

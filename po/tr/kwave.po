@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2022-11-24 17:06+0300\n"
+"PO-Revision-Date: 2022-12-11 20:39+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2157,7 +2157,7 @@ msgstr ""
 #: libkwave/FileInfo.cpp:162 plugins/fileinfo/KeywordWidgetBase.ui:14
 #, kde-format
 msgid "Keywords"
-msgstr "Anahtar Kelimeler"
+msgstr "Anahtar Sözcükler"
 
 #: libkwave/FileInfo.cpp:163
 #, kde-format
@@ -2165,8 +2165,8 @@ msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
 msgstr ""
-"Dosyaya ya da dosyanın başlığına referans\n"
-"olan kelimelerin listesini getirir."
+"Dosyaya ya da dosyanın başlığına başvuran\n"
+"sözcüklerin listesini getirir."
 
 #: libkwave/FileInfo.cpp:167
 #, kde-format
@@ -5955,7 +5955,7 @@ msgstr "&Ekle"
 #: plugins/fileinfo/KeywordWidgetBase.ui:62
 #, kde-format
 msgid "auto-generate keywords"
-msgstr "Otomatik oluşturulmuş anahtar kelimeler"
+msgstr "Otomatik oluşturulmuş anahtar sözcükler"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:66
@@ -5965,9 +5965,9 @@ msgid ""
 "Create a list of keywords by going through all present file information and "
 "merge it with the current list of keywords."
 msgstr ""
-"<b>Otomatik-Oluşturulmuşl Anahtar Kelimeler</b><br>\n"
-"Var olan tüm dosya bilgilerinin üzerinden geçerek hepsini var olan abahtar "
-"kelimeler listesi ile birleştirerek oluşturur."
+"<b>Otomatik Oluşturulmuş Anahtar Sözcükler</b><br>\n"
+"Var olan tüm dosya bilgilerinin üzerinden geçerek hepsini var olan anahtar "
+"sözcükler listesi ile birleştirerek oluşturur."
 
 #. i18n: ectx: property (text), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:69
@@ -5979,7 +5979,7 @@ msgstr "&Otomaik"
 #: plugins/fileinfo/KeywordWidgetBase.ui:82
 #, kde-format
 msgid "List of keywords."
-msgstr "Anahtar kelimelerin listesi."
+msgstr "Anahtar sözcüklerin listesi."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectDateDlg)
 #: plugins/fileinfo/SelectDateDlg.ui:20

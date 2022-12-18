@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2022-12-11 20:39+0300\n"
+"PO-Revision-Date: 2022-12-17 18:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -5280,7 +5280,7 @@ msgid ""
 msgstr ""
 "Yalnızca tek veya iki kanallı dosyalar ses CD'si için kullanılabilir. Bazı "
 "kanalların seçimini kaldırabilir veya dosyayı yalnızca tek veya iki kanalı "
-"destekleyen bir biçimde dışarı aktarıp (örnek olarak FLAC) yeniden "
+"destekleyen bir biçimde dışa aktarıp (örnek olarak FLAC) yeniden "
 "deneyebilirsiniz."
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:676
@@ -5369,7 +5369,7 @@ msgstr "Çıkış Ayarları"
 #: plugins/export_k3b/K3BExportWidgetBase.ui:108
 #, kde-format
 msgid "Export Location:"
-msgstr "Dışarıya Aktarma Konumu:"
+msgstr "Dışa Aktarma Konumu:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:124
@@ -5378,7 +5378,7 @@ msgid ""
 "Specify where to place the exported sound files which are used for the "
 "tracks of the audio CD."
 msgstr ""
-"Ses CD'si için kullanılacak dışarıya aktarılmış parçaların bulunduğu konumu "
+"Ses CD'si için kullanılacak dışa aktarılmış parçaların bulunduğu konumu "
 "belirtin."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)

@@ -6427,7 +6427,7 @@ msgstr ""
 "El dispositiu està ocupat. Potser hi ha una altra aplicació que\n"
 "l'està utilitzant. Torneu-ho a intentar més avant.\n"
 "(Consell: trobareu el nom i l'ID del procés del programa\n"
-"escrivint «fuser -v %1» a la línia d'ordres)."
+"escrivint «fuser -v %1» en la línia d'ordres)."
 
 #: plugins/playback/PlayBack-ALSA.cpp:588
 #, kde-format
@@ -6936,7 +6936,7 @@ msgstr "S'està omplint la memòria intermèdia..."
 #: plugins/record/RecordDialog.cpp:1037
 #, kde-format
 msgid "Prerecording..."
-msgstr "S'està preenregistrant..."
+msgstr "S'està pregravant..."
 
 #: plugins/record/RecordDialog.cpp:1048 plugins/record/RecordDialog.cpp:1203
 #, kde-format
@@ -6946,7 +6946,7 @@ msgstr "S'està esperant l'activació..."
 #: plugins/record/RecordDialog.cpp:1059
 #, kde-format
 msgid "Recording..."
-msgstr "S'està enregistrant..."
+msgstr "S'està gravant..."
 
 #: plugins/record/RecordDialog.cpp:1077
 #, kde-format
@@ -7025,7 +7025,7 @@ msgstr "Control de la gravació"
 #: plugins/record/RecordDlg.ui:72
 #, kde-format
 msgid "Enable Pre-recording"
-msgstr "Habilita el preenregistrament"
+msgstr "Habilita la pregravació"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:75
@@ -7036,22 +7036,22 @@ msgid ""
 "already a few seconds before you press the record button. <i>(For example "
 "when recording from radio)</i>"
 msgstr ""
-"En utilitzar el <b>preenregistrament</b>, Kwave iniciarà internament la "
-"gravació abans que comence la gravació real. Esta característica és útil si "
-"voleu iniciar la gravació uns quants segons abans de prémer el botó "
-"d'enregistrar. <i>(Per exemple quan es grava des de la ràdio).</i>"
+"En utilitzar la <b>pregravació</b>, Kwave iniciarà internament la gravació "
+"abans que comence la gravació real. Esta característica és útil si voleu "
+"iniciar la gravació uns quants segons abans de prémer el botó de gravar. "
+"<i>(Per exemple quan es grava des de la ràdio).</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:78
 #, kde-format
 msgid "Pre-record:"
-msgstr "Preenregistrament:"
+msgstr "Pregravació:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:91
 #, kde-format
 msgid "Limit the recording time"
-msgstr "Limita el temps a enregistrar"
+msgstr "Limita el temps que s'ha de gravar"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:94
@@ -7060,14 +7060,14 @@ msgid ""
 "If checked, the <b>Record time</b> is limited and recording will "
 "automatically stop when the selected time is reached."
 msgstr ""
-"Si està marcada, el <b>Temps a enregistrar</b> estarà limitat i la gravació "
-"es pararà automàticament quan s'assolisca el temps seleccionat."
+"Si està marcada, el <b>Temps que s'ha de gravar</b> estarà limitat i la "
+"gravació es pararà automàticament quan s'assolisca el temps seleccionat."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:97
 #, kde-format
 msgid "Record &time:"
-msgstr "&Temps a enregistrar:"
+msgstr "&Temps que s'ha de gravar:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordTrigger)
 #: plugins/record/RecordDlg.ui:110
@@ -7194,7 +7194,7 @@ msgid ""
 "stereo recording."
 msgstr ""
 "<b>Nombre de canals</b><br>Seleccioneu el nombre de canals, p. ex., per a "
-"enregistrar en mono o en estèreo."
+"gravar en mono o en estèreo."
 
 #. i18n: ectx: property (text), widget (QLabel, lblTracksVerbose)
 #: plugins/record/RecordDlg.ui:755
@@ -7243,9 +7243,9 @@ msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "recorded. Higher values give better quality but also more system load."
 msgstr ""
-"<b>Resolució</b><br>Seleccioneu una resolució en bits en la qual "
-"s'enregistrarà el fitxer. Els valors més alts proporcionen una millor "
-"qualitat a canvi d'una càrrega superior en el sistema."
+"<b>Resolució</b><br>Seleccioneu una resolució en bits en la qual es gravarà "
+"el fitxer. Els valors més alts proporcionen una millor qualitat a canvi "
+"d'una càrrega superior en el sistema."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
 #: plugins/record/RecordDlg.ui:1000

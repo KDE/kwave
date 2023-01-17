@@ -3845,7 +3845,8 @@ msgstr "Inserix un espai"
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr ""
-"No hi ha prou memòria per a guardar la informació que permeta desfer l'acció."
+"No hi ha prou memòria per que es guardarà la informació que permeta desfer "
+"l'acció."
 
 #: libkwave/SignalManager.cpp:1367
 #, kde-format
@@ -4211,7 +4212,7 @@ msgstr "Àudio codificat en ASCII"
 #: plugins/codec_flac/FlacEncoder.cpp:214 plugins/codec_ogg/OggEncoder.cpp:122
 #, kde-format
 msgid "Unable to open the file for saving."
-msgstr "No s'ha pogut obrir el fitxer per a guardar-lo."
+msgstr "No s'ha pogut obrir el fitxer per que es guardarà-lo."
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:47
 #, kde-format
@@ -4333,7 +4334,7 @@ msgstr "No s'ha pogut obrir el codificador FLAC."
 #, kde-format
 msgctxt "menu: /Settings/MP3 Encoder Setup"
 msgid "MP3 Encoder Setup"
-msgstr "Configuració del codificador MP3"
+msgstr "Configureu el codificador MP3"
 
 #: plugins/codec_mp3/MP3CodecPlugin.h:73
 #, kde-format
@@ -4430,7 +4431,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3Encoder.cpp:306 plugins/codec_wav/WavEncoder.cpp:395
 #, kde-format
 msgid "Unable to open the file for saving!"
-msgstr "No s'ha pogut obrir el fitxer per a guardar-lo!"
+msgstr "No s'ha pogut obrir el fitxer per que es guardarà-lo!"
 
 #: plugins/codec_mp3/MP3Encoder.cpp:551
 #, kde-format
@@ -4508,7 +4509,7 @@ msgstr "Enhorabona! La prova ha sigut correcta."
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:20
 #, kde-format
 msgid "MP3 Encoder Settings"
-msgstr "Configuració del codificador MP3"
+msgstr "Configureu el codificador MP3"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpProgram)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:32
@@ -5205,8 +5206,8 @@ msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
 msgstr ""
-"Perdó, el tipus de compressió seleccionat no es pot utilitzar per a guardar. "
-"Voleu utilitzar la compressió G711 ULAW en el seu lloc?"
+"Perdó, el tipus de compressió seleccionat no es pot utilitzar per que es "
+"guardarà. Voleu utilitzar la compressió G711 ULAW en el seu lloc?"
 
 #: plugins/codec_wav/WavEncoder.cpp:351
 #, kde-format
@@ -5324,7 +5325,7 @@ msgstr "(detecta automàticament)"
 #: plugins/export_k3b/K3BExportWidgetBase.ui:29
 #, kde-format
 msgid "Input Settings"
-msgstr "Configuració de l'entrada"
+msgstr "Configureu l'entrada"
 
 #. i18n: ectx: property (text), widget (QLabel, lblLabelFormat)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:40
@@ -5385,7 +5386,7 @@ msgstr "Utilitza només la selecció"
 #: plugins/export_k3b/K3BExportWidgetBase.ui:93
 #, kde-format
 msgid "Output Settings"
-msgstr "Configuració de l'eixida"
+msgstr "Configureu l'eixida"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:108
@@ -6098,8 +6099,8 @@ msgid ""
 "saved. However, Kwave always uses 24 bits as its own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
-"<b>Resolució</b><br>Seleccioneu una resolució en bits que s'utilitzarà per a "
-"guardar el fitxer. Recordeu que Kwave sempre utilitza 24 bits com a "
+"<b>Resolució</b><br>Seleccioneu una resolució en bits que s'utilitzarà per "
+"que es guardarà el fitxer. Recordeu que Kwave sempre utilitza 24 bits com a "
 "resolució interna per a proporcionar els millors resultats en processar les "
 "dades de l'àudio."
 
@@ -6605,7 +6606,7 @@ msgstr "Reproducció"
 #: plugins/playback/PlayBackDlg.ui:38
 #, kde-format
 msgid "Playback Settings"
-msgstr "Configuració de la reproducció"
+msgstr "Configureu la reproducció"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbDevice)
 #: plugins/playback/PlayBackDlg.ui:64
@@ -7676,7 +7677,7 @@ msgstr "Seguix la selecció"
 #: plugins/sonagram/SonagramDlg.ui:119
 #, kde-format
 msgid "FFT settings"
-msgstr "Configuració de la transformada de Fourier ràpida (FFT)"
+msgstr "Configureu la transformada de Fourier ràpida (FFT)"
 
 #. i18n: ectx: property (text), widget (QLabel, m_pointlabel)
 #: plugins/sonagram/SonagramDlg.ui:127

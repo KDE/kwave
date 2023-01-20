@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2023-01-18 22:21+0300\n"
+"PO-Revision-Date: 2023-01-19 22:40+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2203,7 +2203,7 @@ msgstr ""
 "ya da EFF Açık Ses Lisansı (''Açık Ses Lisansı koşulları\n"
 "altında dağıtılır. Detaylar için\n"
 "bakınız http://www.eff.org/IP/Open_licenses/eff_oal.html')\n"
-", ve benzeri."
+" ve benzeri."
 
 #: libkwave/FileInfo.cpp:184
 #, kde-format
@@ -6357,7 +6357,7 @@ msgid ""
 "Increments or decrements the speed by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
-"Etkene göre hızı arttırır ya da azaltır.\n"
+"Etkene göre hızı artırır ya da azaltır.\n"
 "Örnek olarak: \"x1\", \"x2\", \"/ 4\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbFactor)
@@ -7843,7 +7843,7 @@ msgid ""
 "Increments or decrements the volume by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
-"Sesi çarpana göre azalt ya da arttır.\n"
+"Sesi çarpana göre azalt ya da artır.\n"
 "Örnek olarak: \"x1\", \"x2\", \"/ 4\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbFactor)
@@ -7881,7 +7881,7 @@ msgid ""
 "Increments or decrements the volume in logarithmic scale (decibel).\n"
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 msgstr ""
-"Sesi logaritmik ölçekte(decibel) arttır ya da azalt.\n"
+"Sesi logaritmik ölçekte(decibel) artır ya da azalt.\n"
 "Örnek olarak: +3 dB\", \"+ 6 dB\", \"-3 dB\"."
 
 #: plugins/zero/ZeroPlugin.cpp:61

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2022-09-30 09:01+0200\n"
+"PO-Revision-Date: 2023-01-19 16:16+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -871,7 +871,7 @@ msgstr ""
 #: kwave/menus.config:180
 msgctxt "menu: /Fx/Low Pass"
 msgid "Low Pass"
-msgstr ""
+msgstr "დაბალსიხშირული ფილტრი"
 
 #: kwave/menus.config:181
 msgctxt "menu: /Fx/Notch Filter"
@@ -2434,7 +2434,7 @@ msgstr ""
 #, kde-format
 msgctxt "file progress dialog"
 msgid "File: "
-msgstr "<file>"
+msgstr "ფაილი: "
 
 #: libkwave/FileProgress.cpp:99
 #, kde-format
@@ -3269,7 +3269,7 @@ msgstr "ქრისტიანული როკი"
 #: libkwave/GenreType.cpp:245
 #, kde-format
 msgid "Merengue"
-msgstr ""
+msgstr "მერენგა"
 
 #: libkwave/GenreType.cpp:246
 #, kde-format
@@ -3529,7 +3529,7 @@ msgstr "ხაზოვანი"
 #: libkwave/Interpolation.cpp:35
 #, kde-format
 msgid "Spline"
-msgstr ""
+msgstr "სპლაინი"
 
 #: libkwave/Interpolation.cpp:36
 #, kde-format
@@ -3648,7 +3648,7 @@ msgstr ""
 #: libkwave/SignalManager.cpp:452
 #, kde-format
 msgid "An error occurred while saving the file."
-msgstr ""
+msgstr "შეცდომა ფაილის შენახვისას."
 
 #: libkwave/SignalManager.cpp:464
 #, kde-format
@@ -3693,7 +3693,7 @@ msgstr ""
 #: libkwave/SignalManager.cpp:836
 #, kde-format
 msgid "Select All Tracks"
-msgstr ""
+msgstr "ყველა აუდიობილიკის მონიშვნა"
 
 #: libkwave/SignalManager.cpp:840
 #, kde-format
@@ -4257,7 +4257,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3Decoder.cpp:516
 #, kde-format
 msgid "Checksum error"
-msgstr ""
+msgstr "საკონტროლო ჯამის შეცდომა"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:519
 #, kde-format
@@ -4484,7 +4484,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:240
 #, kde-format
 msgid "Byte Order:"
-msgstr ""
+msgstr "ბაიტების რიგი:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edSign)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:259
@@ -4721,7 +4721,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:926
 #, kde-format
 msgid "Info"
-msgstr ""
+msgstr "ინფო"
 
 #. i18n: ectx: property (text), widget (QLabel, lblHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:932
@@ -4792,7 +4792,7 @@ msgstr ""
 #: plugins/codec_ogg/OggDecoder.cpp:123
 #, kde-format
 msgid "Error reading initial header packet."
-msgstr ""
+msgstr "შეცდომა საწყისი თავსართის პაკეტის წაკითხვისას."
 
 #: plugins/codec_ogg/OggDecoder.cpp:160
 #, kde-format
@@ -5575,7 +5575,7 @@ msgstr "სემპლი წამში"
 #: plugins/fileinfo/FileInfoDlg.ui:698
 #, kde-format
 msgid "Encoding Mode:"
-msgstr "კოდირების რეჟიმი"
+msgstr "კოდირების რეჟიმი:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_mpeg)
 #: plugins/fileinfo/FileInfoDlg.ui:738
@@ -5747,7 +5747,7 @@ msgstr "&წაშლა"
 #: plugins/fileinfo/KeywordWidgetBase.ui:52
 #, kde-format
 msgid "&Add"
-msgstr "დამატება…"
+msgstr "&დამატება"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:62
@@ -5802,7 +5802,7 @@ msgstr ""
 #: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:111
 #, kde-format
 msgid "Low Pass"
-msgstr ""
+msgstr "დაბალსიხშირული ფილტრი"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slider)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, spinbox)
@@ -6138,7 +6138,7 @@ msgstr ""
 #: plugins/record/Record-Qt.cpp:49
 #, kde-format
 msgid "Default device"
-msgstr ""
+msgstr "ნაგულისხმებ მოწყობილობა"
 
 #: plugins/playback/PlayBack-ALSA.cpp:54
 #, kde-format
@@ -6506,7 +6506,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:464
 #, kde-format
 msgid "&Test..."
-msgstr ""
+msgstr "&ტესტირება..."
 
 #: plugins/playback/PlayBackPlugin.cpp:404
 #, kde-format
@@ -6835,7 +6835,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:452
 #, kde-format
 msgid " dB"
-msgstr "დბ"
+msgstr " დბ"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelAGC)
 #: plugins/record/RecordDlg.ui:471
@@ -6847,7 +6847,7 @@ msgstr " მწმ"
 #: plugins/record/RecordDlg.ui:521
 #, kde-format
 msgid "Fading"
-msgstr ""
+msgstr "მინავლება"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_format)
 #: plugins/record/RecordDlg.ui:621
@@ -7014,7 +7014,7 @@ msgstr ""
 #: plugins/record/RecordPlugin.cpp:548 plugins/record/RecordPlugin.cpp:556
 #, kde-format
 msgid "%1 channels"
-msgstr ""
+msgstr "%1 არხი"
 
 #: plugins/record/RecordPlugin.cpp:559
 #, kde-format
@@ -7198,7 +7198,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:147
 #, kde-format
 msgid "Filename pattern:"
-msgstr ""
+msgstr "ფაილის სახელის შაბლონი:"
 
 #: plugins/selectrange/SelectRangeDialog.cpp:45
 #, kde-format

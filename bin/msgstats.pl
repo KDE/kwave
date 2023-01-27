@@ -20,7 +20,9 @@
 # $1 = project root directory
 #
 
-my $top_dir  = $ARGV[0] . "/l10n-kf5";
+use I18N::LangTags::List;
+
+my $top_dir  = $ARGV[0] . "/po";
 my $app      = "kwave";
 
 sub check_po
@@ -28,7 +30,7 @@ sub check_po
     local $name  = shift;
     local $lang  = shift;
     local $scope = shift;
-    local $file  = $top_dir . "/" . shift;
+    local $file  = shift;
 
     local $translated   = 0;
     local $fuzzy        = 0;
@@ -60,34 +62,44 @@ sub check_po
 
 }
 
-open (IN, $top_dir . "/teamnames") or die("open input file failed");
+opendir(DIR, $top_dir) or die "opendir $top_dir: $!";
+local @dirs = grep { !/(^\.{1,2}$)|(\.git)/ } readdir(DIR);
+closedir(DIR);
+
+local @catalogs;
+foreach $entry (@dirs)
+{
+	local $e = $top_dir . "/" . $entry;
+	if (-d $e)
+	{
+	    my $catalog = $entry;
+	    push(@catalogs, $catalog) if (not grep { /$catalog/ } @catalogs);
+	}
+	elsif ($entry =~ /(.*)\.po/)
+	{
+	    my $catalog = $entry;
+	    push(@catalogs, $catalog) if (not grep { /$catalog/ } @catalogs);
+	}
+}
 
 print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";
 print "| language name          | lang        | scope |   translated |        fuzzy | untranslated |\n";
 print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";
 
-while (<IN>) {
-    my $line = $_;
-    if ($line =~ /(.*)=(.*)/) {
-	local $catalog=$1;
-	local $lang_name=$2;
-	# print $lang_name . " [" . $catalog . "]\n";
+foreach $catalog (@catalogs)
+{
+    if ($catalog =~ /(..)[\_\@]*/) {
+	local $lang=$1;
+	local $lang_name = I18N::LangTags::List::name($lang);
+	local $po_gui=$top_dir . "/" . $catalog . "/" . $app . ".po";
 
-	local $po_doc=$catalog . "/docmessages/" . $app . "/" . $app . ".po";
-	local $po_gui=$catalog . "/messages/"    . $app . "/" . $app . ".po";
-	local $po_dsk=$catalog . "/messages/"    . $app . "/" . $app . "._desktop_.po";
-
-	check_po($lang_name, $catalog, "DOC", $po_doc);
 	check_po($lang_name, $catalog, "GUI", $po_gui);
-	check_po($lang_name, $catalog, "DSK", $po_dsk);
 
 	if ((-e $top_dir . "/" . $po_doc) || (-e $top_dir . "/" . $po_gui) || (-e $top_dir . "/" . $po_dsk)) {
 	    print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";
 	}
-
     }
 }
-close IN;
 
 #
 # end of file

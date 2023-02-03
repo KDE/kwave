@@ -3845,8 +3845,7 @@ msgstr "Inserix un espai"
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr ""
-"No hi ha prou memòria per que es guardarà la informació que permeta desfer "
-"l'acció."
+"No hi ha prou memòria per a guardar la informació que permeta desfer l'acció."
 
 #: libkwave/SignalManager.cpp:1367
 #, kde-format
@@ -4212,7 +4211,7 @@ msgstr "Àudio codificat en ASCII"
 #: plugins/codec_flac/FlacEncoder.cpp:214 plugins/codec_ogg/OggEncoder.cpp:122
 #, kde-format
 msgid "Unable to open the file for saving."
-msgstr "No s'ha pogut obrir el fitxer per que es guardarà-lo."
+msgstr "No s'ha pogut obrir el fitxer per a guardar-lo."
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:47
 #, kde-format
@@ -4431,7 +4430,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3Encoder.cpp:306 plugins/codec_wav/WavEncoder.cpp:395
 #, kde-format
 msgid "Unable to open the file for saving!"
-msgstr "No s'ha pogut obrir el fitxer per que es guardarà-lo!"
+msgstr "No s'ha pogut obrir el fitxer per a guardar-lo!"
 
 #: plugins/codec_mp3/MP3Encoder.cpp:551
 #, kde-format
@@ -5206,8 +5205,8 @@ msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
 msgstr ""
-"Perdó, el tipus de compressió seleccionat no es pot utilitzar per que es "
-"guardarà. Voleu utilitzar la compressió G711 ULAW en el seu lloc?"
+"Perdó, el tipus de compressió seleccionat no es pot utilitzar per a guardar. "
+"Voleu utilitzar la compressió G711 ULAW en el seu lloc?"
 
 #: plugins/codec_wav/WavEncoder.cpp:351
 #, kde-format
@@ -6099,8 +6098,8 @@ msgid ""
 "saved. However, Kwave always uses 24 bits as its own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
-"<b>Resolució</b><br>Seleccioneu una resolució en bits que s'utilitzarà per "
-"que es guardarà el fitxer. Recordeu que Kwave sempre utilitza 24 bits com a "
+"<b>Resolució</b><br>Seleccioneu una resolució en bits que s'utilitzarà per a "
+"guardar el fitxer. Recordeu que Kwave sempre utilitza 24 bits com a "
 "resolució interna per a proporcionar els millors resultats en processar les "
 "dades de l'àudio."
 

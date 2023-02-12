@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2023-02-08 12:08+0100\n"
+"PO-Revision-Date: 2023-02-11 07:08+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -511,7 +511,7 @@ msgstr "ბლოკები..."
 #: kwave/menus.config:41
 msgctxt "menu: /File/Close"
 msgid "Close"
-msgstr "დაკეტვა"
+msgstr "დახურვა"
 
 #: kwave/menus.config:45
 msgctxt "menu: /File/New Window"
@@ -7396,7 +7396,7 @@ msgstr ""
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
 msgid "&Close"
-msgstr "დაკე&ტვა"
+msgstr "&დახურვა"
 
 #: plugins/sonagram/SonagramWindow.cpp:145
 #, kde-format

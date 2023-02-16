@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2023-02-07 11:05\n"
+"PO-Revision-Date: 2023-02-15 11:07\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -3567,7 +3567,7 @@ msgstr "采样和保持"
 #: libkwave/Logger.cpp:77
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
-msgstr "无法打开日志文件“%1”以写入"
+msgstr "无法打开日志文件“%1”进行写入"
 
 #: libkwave/PlaybackController.cpp:663
 #, kde-format
@@ -4112,7 +4112,7 @@ msgstr "ASCII 编码音频"
 #: plugins/codec_flac/FlacEncoder.cpp:214 plugins/codec_ogg/OggEncoder.cpp:122
 #, kde-format
 msgid "Unable to open the file for saving."
-msgstr "无法打开文件以写入。"
+msgstr "无法打开文件进行保存。"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:47
 #, kde-format
@@ -4329,7 +4329,7 @@ msgstr "您选择的文件格式只支持单声道或立体声。保存时，此
 #: plugins/codec_mp3/MP3Encoder.cpp:306 plugins/codec_wav/WavEncoder.cpp:395
 #, kde-format
 msgid "Unable to open the file for saving!"
-msgstr "无法打开文件以写入！"
+msgstr "无法打开文件进行保存。"
 
 #: plugins/codec_mp3/MP3Encoder.cpp:551
 #, kde-format

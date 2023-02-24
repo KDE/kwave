@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2023-01-19 22:40+0300\n"
+"PO-Revision-Date: 2023-02-23 19:25+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4215,12 +4215,12 @@ msgstr "Amiga IFF/8SVX Ses Dosyası Biçimi"
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:55
 #, kde-format
 msgid "Compressed Audio Interchange Format"
-msgstr "Sıkıştırılmış Ses Takas Biçimi"
+msgstr "Sıkıştırılmış Ses Değişim Biçimi"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:58
 #, kde-format
 msgid "Audio Interchange Format"
-msgstr "Ses Takas Dosya Biçimi"
+msgstr "Ses Değişim Biçimi"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:61
 #, kde-format

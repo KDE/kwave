@@ -5282,7 +5282,7 @@ msgstr "Depuració (%1)"
 #, kde-format
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
-msgstr "Exporta a un projecte de K3b..."
+msgstr "Exporta cap a un projecte de K3b..."
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:308
 #, kde-format
@@ -7779,7 +7779,7 @@ msgstr "&Sonograma"
 #: plugins/sonagram/SonagramWindow.cpp:128
 #, kde-format
 msgid "&Export to Bitmap..."
-msgstr "&Exporta a un mapa de bits..."
+msgstr "&Exporta cap a un mapa de bits..."
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format

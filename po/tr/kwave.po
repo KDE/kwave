@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2023-02-23 19:25+0300\n"
+"PO-Revision-Date: 2023-03-07 20:40+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -400,7 +400,7 @@ msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 msgstr ""
 "Ses dosyalarının listesi, Kwave makro dosyaları ya da açılacak Kwave "
-"bağlantı adresleri (isteğe bağlı)"
+"URL'leri (isteğe bağlı)"
 
 #: kwave/main.cpp:196
 #, kde-format
@@ -2031,9 +2031,9 @@ msgid ""
 "the track. This could be a URL, an email address, the\n"
 "physical address of the producing label."
 msgstr ""
-"Kayıt için oluşturucuların ya da dağıtıcıların bağlantı\n"
-"bilgileri. Ürün etiketi için bir bağlantı adresi, bir eposta adresi,\n"
-"fiziksel bir ades olabilir."
+"Kayıt için oluşturucuların veya dağıtıcıların bağlantı\n"
+"bilgileri. Ürün etiketi için bir URL, bir e-posta adresi veya\n"
+"firmanın fiziksel bir adresi olabilir."
 
 #: libkwave/FileInfo.cpp:115
 #, kde-format

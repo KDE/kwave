@@ -128,6 +128,16 @@ namespace Kwave
 	    const QString &button2 = QString(),
 	    const QString &dontAskAgainName = QString());
 
+	/**
+	 * replacement for KStandardGuiItem::yes(), which has been deprecated
+	 */
+	static KGuiItem yes();
+
+	/**
+	 * replacement for KStandardGuiItem::no(), which has been deprecated
+	 */
+	static KGuiItem no();
+
     protected:
 	/**
 	 * shows the KMessageBox, always called in the GUI

@@ -149,27 +149,41 @@ int Kwave::MessageBox::exec(KMessageBox::DialogType mode, QWidget *parent,
 }
 
 //***************************************************************************
+KGuiItem Kwave::MessageBox::yes()
+{
+    return KGuiItem(QApplication::translate("KStandardGuiItem", "&Yes"),
+	            QStringLiteral("dialog-ok"));
+}
+
+//***************************************************************************
+KGuiItem Kwave::MessageBox::no()
+{
+    return KGuiItem(QApplication::translate("KStandardGuiItem", "&No"),
+	            QStringLiteral("dialog-cancel"));
+}
+
+//***************************************************************************
 void Kwave::MessageBox::show()
 {
     switch (m_mode) {
 	// QuestionYesNo
 	case KMessageBox::QuestionYesNo:
-	    m_retval = KMessageBox::questionYesNo(m_parent,
+	    m_retval = KMessageBox::questionTwoActions(m_parent,
 		m_message, m_caption,
 		(!m_button1.isEmpty()) ? KGuiItem(m_button1) :
-		                         KStandardGuiItem::yes(),
+		                         Kwave::MessageBox::yes(),
 		(!m_button2.isEmpty()) ? KGuiItem(m_button2) :
-		                         KStandardGuiItem::no(),
+		                         Kwave::MessageBox::no(),
 		m_dont_ask_again_name);
 	    break;
 	// QuestionYesNoCancel
 	case KMessageBox::QuestionYesNoCancel:
-	    m_retval = KMessageBox::questionYesNoCancel(m_parent,
+	    m_retval = KMessageBox::questionTwoActionsCancel(m_parent,
 		m_message, m_caption,
 		(!m_button1.isEmpty()) ? KGuiItem(m_button1) :
-		                         KStandardGuiItem::yes(),
+		                         Kwave::MessageBox::yes(),
 		(!m_button2.isEmpty()) ? KGuiItem(m_button2) :
-		                         KStandardGuiItem::no(),
+		                         Kwave::MessageBox::no(),
 		KStandardGuiItem::cancel(),
 		m_dont_ask_again_name);
 	    break;
@@ -179,23 +193,23 @@ void Kwave::MessageBox::show()
 	    break;
 	// WarningYesNoCancel
 	case KMessageBox::WarningYesNoCancel:
-	    m_retval = KMessageBox::warningYesNoCancel(m_parent,
+	    m_retval = KMessageBox::warningTwoActionsCancel(m_parent,
 		m_message, m_caption,
 		(!m_button1.isEmpty()) ? KGuiItem(m_button1) :
-		                         KStandardGuiItem::yes(),
+		                         Kwave::MessageBox::yes(),
 		(!m_button2.isEmpty()) ? KGuiItem(m_button2) :
-		                         KStandardGuiItem::no(),
+		                         Kwave::MessageBox::no(),
 		KStandardGuiItem::cancel(),
 		m_dont_ask_again_name);
 	    break;
 	// WarningYesNo
 	case KMessageBox::WarningYesNo:
-	    m_retval = KMessageBox::warningYesNo(m_parent,
+	    m_retval = KMessageBox::warningTwoActions(m_parent,
 		m_message, m_caption,
 		(!m_button1.isEmpty()) ? KGuiItem(m_button1) :
-		                         KStandardGuiItem::yes(),
+		                         Kwave::MessageBox::yes(),
 		(!m_button2.isEmpty()) ? KGuiItem(m_button2) :
-		                         KStandardGuiItem::no(),
+		                         Kwave::MessageBox::no(),
 		m_dont_ask_again_name);
 	    break;
 	// WarningContinueCancel

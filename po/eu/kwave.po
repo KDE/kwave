@@ -5,21 +5,21 @@
 # KDE Euskaratzeko proiektuko arduraduna <xalba@euskalnet.net>.
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2018, 2019, 2020.
+# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2018, 2019, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2020-03-19 13:34+0100\n"
-"Last-Translator: Iñigo Salvador Azurmendi <xalba@euskalnet.net>\n"
+"PO-Revision-Date: 2023-04-22 19:21+0200\n"
+"Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -175,7 +175,7 @@ msgstr "Caulier Gilles"
 #: kwave/main.cpp:63
 #, kde-format
 msgid "splashscreen, tests and bugfixes"
-msgstr "plast-pantaila, probak eta akats zuzenketak"
+msgstr "plasta pantaila, probak eta akats zuzenketak"
 
 #: kwave/main.cpp:65
 #, kde-format
@@ -365,7 +365,7 @@ msgstr "Kate eta i18n eguneraketak"
 #: kwave/main.cpp:173
 #, kde-format
 msgid "Disable the Splash Screen."
-msgstr "Desgaitu plast-pantaila."
+msgstr "Desgaitu plasta pantaila."
 
 #: kwave/main.cpp:177
 #, kde-format

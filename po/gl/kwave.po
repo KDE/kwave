@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2016, 2017.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019, 2020.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019, 2020, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2020-01-11 11:21+0100\n"
+"PO-Revision-Date: 2023-04-23 07:20+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.08.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -400,7 +400,7 @@ msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 msgstr ""
 "Lista de ficheiros de son, ficheiros de macro de Kwave ou enderezos URL para "
-"que Kwave abra (optionalmente)."
+"que Kwave abra (opcionalmente)."
 
 #: kwave/main.cpp:196
 #, kde-format
@@ -1175,7 +1175,7 @@ msgstr "Executando a orde «%1»…"
 #: kwave/TopWidget.cpp:1030
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
-msgstr "Executando o ficheiro de scripting de Kwave «%1»…"
+msgstr "Executando o ficheiro de script de Kwave «%1»…"
 
 #: kwave/TopWidget.cpp:1040
 #, kde-format
@@ -2000,7 +2000,7 @@ msgid ""
 "that commissioned the subject of the file."
 msgstr ""
 "Lista os nomes das persoas ou organizacións\n"
-"que engargaron o asunto do ficheiro."
+"que encargaron o asunto do ficheiro."
 
 #: libkwave/FileInfo.cpp:96
 #, kde-format
@@ -2338,7 +2338,7 @@ msgid ""
 "music this would be the conductor, orchestra, soloists.\n"
 "In an audio book it would be the actor who did the reading."
 msgstr ""
-"As persoas que interpretarion a obra. No caso da música\n"
+"As persoas que interpretaron a obra. No caso da música\n"
 "clásica serían o director, a orquestra e os solistas. Nun\n"
 "libro de son serían os narradores que leron o libro."
 
@@ -2468,7 +2468,7 @@ msgid ""
 "Identifies the technician who digitized the subject file.\n"
 "Example: 'Torvalds, Linus'"
 msgstr ""
-"Indica o técnico que dixitalizou o ficheiro do asunto.\n"
+"Indica o técnico que dixitalizou o ficheiro en cuestión.\n"
 "Por exemplo, «Torvalds, Linus»."
 
 #: libkwave/FileInfo.cpp:284
@@ -2579,6 +2579,7 @@ msgctxt "number of tracks"
 msgid "2 (stereo)"
 msgstr "2 (estéreo)"
 
+# well-spelled: cuadrafónico
 #: libkwave/FileProgress.cpp:131
 #, kde-format
 msgctxt "number of tracks"
@@ -2934,7 +2935,7 @@ msgstr "Dream"
 #: libkwave/GenreType.cpp:155
 #, kde-format
 msgid "Southern Rock"
-msgstr "Rock sureño"
+msgstr "Rock do sur"
 
 #: libkwave/GenreType.cpp:156
 #, kde-format
@@ -3269,7 +3270,7 @@ msgstr "Drum Solo"
 #: libkwave/GenreType.cpp:224
 #, kde-format
 msgid "A Cappella"
-msgstr "A capella"
+msgstr "A capela"
 
 #: libkwave/GenreType.cpp:225
 #, kde-format
@@ -3974,7 +3975,7 @@ msgstr "Modificar os metadatos"
 #, kde-format
 msgctxt "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"
 msgid "%1:%2:%3.%4"
-msgstr ""
+msgstr "%1:%2:%3,%4"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
 #: libkwave/WindowFunction.cpp:32 plugins/fileinfo/FileInfoDlg.ui:987
@@ -4237,7 +4238,7 @@ msgstr "Formato de intercambio de son"
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:61
 #, kde-format
 msgid "Audio Visual Research File Format"
-msgstr "Formato de ficheiro de investigación de son e vídeo (AVR)"
+msgstr "Formato de ficheiro de investigación de son e vídeo"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:64
 #, kde-format
@@ -4405,7 +4406,7 @@ msgid ""
 "'%1',\n"
 "at position %2."
 msgstr ""
-"Produciuse un erro ao decodificar o ficheiro:\n"
+"Produciuse un erro ao descodificar o ficheiro:\n"
 "«%1»,\n"
 "na posición %2."
 
@@ -4566,7 +4567,7 @@ msgstr "&Uso"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:117
 #, kde-format
 msgid "path to the encoder"
-msgstr "Ruta do encodificador."
+msgstr "ruta do codificador"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPath)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:127
@@ -4987,7 +4988,7 @@ msgstr "O número da solicitude é incorrecto ou non permitido."
 #: plugins/codec_ogg/OpusCommon.cpp:70
 #, kde-format
 msgid "A decoder structure is invalid or already freed."
-msgstr "A estrutura de decodificador é incorrecta ou xa se liberara."
+msgstr "A estrutura de descodificador é incorrecta ou xa se liberara."
 
 #: plugins/codec_ogg/OpusCommon.cpp:76
 #, kde-format
@@ -5017,7 +5018,7 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to mono."
 msgstr ""
-"A taxa de bits envolvente sería infedior a 32 kbit/s por canle, este "
+"A taxa de bits envolvente sería inferior a 32 kBit/s por canle, este "
 "ficheiro debería converterse en mono."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:153
@@ -5026,7 +5027,7 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to stereo."
 msgstr ""
-"A taxa de bits envolvente sería infedior a 32 kbit/s por canle, este "
+"A taxa de bits envolvente sería inferior a 32 kBit/s por canle, este "
 "ficheiro debería converterse en estéreo."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:223
@@ -5296,7 +5297,7 @@ msgid ""
 "supports mono and stereo only (for example FLAC) and then try again."
 msgstr ""
 "Só poden usarse ficheiros mono e estéreo para os CD de son. Pode deixar de "
-"selecionar algunhas canles ou exportar o ficheiro nun formato de ficheiro "
+"seleccionar algunhas canles ou exportar o ficheiro nun formato de ficheiro "
 "distinto compatíbel só con mono e estéreo (por exemplo, FLAC) e volvelo "
 "intentar."
 
@@ -5416,7 +5417,7 @@ msgstr "Subdirectorio"
 #: plugins/export_k3b/K3BExportWidgetBase.ui:150
 #, kde-format
 msgid "Overwrite Policy:"
-msgstr "Política de sobrescritura:"
+msgstr "Política de sobrescribir:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:166
@@ -5463,7 +5464,7 @@ msgstr ""
 #: plugins/fileinfo/CompressionWidgetBase.ui:58
 #, kde-format
 msgid "ABR:"
-msgstr "TBM:"
+msgstr "ABR:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLowestBitrate)
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, sbBaseQuality)
@@ -5617,6 +5618,7 @@ msgstr "(mono)"
 msgid "(Stereo)"
 msgstr "(estéreo)"
 
+# well-spelled: cuadrafónico
 #: plugins/fileinfo/FileInfoDialog.cpp:589
 #: plugins/newsignal/NewSignalDialog.cpp:309
 #, kde-format
@@ -6097,7 +6099,7 @@ msgid ""
 "saved. However, Kwave always uses 24 bits as its own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
-"<b>Resolución</b><br> Seleccione unha resolución en buts na que gardar o "
+"<b>Resolución</b><br> Seleccione unha resolución en bits na que gardar o "
 "ficheiro. Porén, Kwave sempre usa unha resolución de 24 bits internamente "
 "para dar os mellores resultados ao procesar datos de son."
 
@@ -6448,6 +6450,7 @@ msgstr "Carta %1: "
 msgid "Device %1: "
 msgstr "Dispositivo %1: "
 
+# well-spelled: Subdispositivo
 #: plugins/playback/PlayBack-ALSA.cpp:822 plugins/record/Record-ALSA.cpp:1063
 #, kde-format
 msgid "Subdevice %1: "
@@ -6589,6 +6592,7 @@ msgstr "(mono)"
 msgid "(stereo)"
 msgstr "(estéreo)"
 
+# well-spelled: cuadrafónico
 #: plugins/playback/PlayBackDialog.cpp:617
 #, kde-format
 msgid "(quadro)"
@@ -6834,7 +6838,7 @@ msgid ""
 "You should now hear a %1 Hz test tone.<br/><br/>(If you hear clicks or "
 "dropouts, please increase<br/>the buffer size and try again)"
 msgstr ""
-"Debería estar escoitando un tono de proba de %1 Hz.<br/> <br/> (Se escoita "
+"Debería estar escoitando un ton de proba de %1 Hz.<br/> <br/> (Se escoita "
 "clics ou o son se entrecorta, aumente<br/> o tamaño do búfer e vólvao "
 "intentar)"
 
@@ -6900,6 +6904,7 @@ msgstr "Mono"
 msgid "Stereo"
 msgstr "Estéreo"
 
+# well-spelled: Cuadrafónico
 #: plugins/record/RecordDialog.cpp:722 plugins/record/RecordPlugin.cpp:546
 #: plugins/record/RecordPlugin.cpp:554
 #, kde-format
@@ -7539,7 +7544,7 @@ msgid ""
 "pattern above and the numbering below"
 msgstr ""
 "Exemplo do primeiro nome que se gardará, usando o padrón do nome de ficheiro "
-"indicado arriba e o método de numenración indicado abaixo."
+"indicado arriba e o método de numeración indicado abaixo."
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:112
@@ -7652,7 +7657,8 @@ msgstr "Actualizar"
 #, kde-format
 msgid "Automatically update the sonagram <br>if the signal data has changed"
 msgstr ""
-"Actualizar automaticamente o sonograma<br> cando cambien os datos do sinal."
+"Actualizar automaticamente o espectrograma<br> cando cambien os datos do "
+"sinal."
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbTrackChanges)
 #: plugins/sonagram/SonagramDlg.ui:90
@@ -7667,7 +7673,7 @@ msgid ""
 "Automatically update the sonagram if the selection<br>has been enlarged, "
 "reduced or moved"
 msgstr ""
-"Actualizar automaticamente o sonograma se a<br> selección se ampliou, "
+"Actualizar automaticamente o espectrograma se a<br> selección se ampliou, "
 "reduciu ou moveu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbFollowSelection)
@@ -7773,12 +7779,12 @@ msgstr "?:"
 #: plugins/sonagram/SonagramWindow.cpp:522
 #, kde-format
 msgid "Sonagram"
-msgstr "Sonograma"
+msgstr "Espectrograma"
 
 #: plugins/sonagram/SonagramWindow.cpp:119
 #, kde-format
 msgid "&Sonagram"
-msgstr "&Sonograma"
+msgstr "E&spectrograma"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
 #, kde-format
@@ -7823,12 +7829,12 @@ msgstr "Amplitude: 0 %"
 #: plugins/sonagram/SonagramWindow.cpp:229
 #, kde-format
 msgid "Save Sonagram"
-msgstr "Gardar o sonograma"
+msgstr "Gardar o espectrograma"
 
 #: plugins/sonagram/SonagramWindow.cpp:521
 #, kde-format
 msgid "Sonagram of %1"
-msgstr "Sonograma de %1"
+msgstr "Espectrograma de %1"
 
 #: plugins/sonagram/SonagramWindow.cpp:545
 #, kde-format

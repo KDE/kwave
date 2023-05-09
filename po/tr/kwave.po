@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2023-03-31 21:32+0300\n"
+"PO-Revision-Date: 2023-05-08 11:33+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -61,7 +61,7 @@ msgstr "Başarısız"
 #: kwave/FileContext.cpp:232
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
-msgstr "Kwave düzgünce kurulmamış. Eklentiler bulunamadı!"
+msgstr "K Dalga düzgünce kurulmamış. Eklentiler bulunamadı!"
 
 #: kwave/FileContext.cpp:238
 #, kde-format
@@ -232,7 +232,7 @@ msgstr "Sven-Steffen Arndt"
 #: kwave/main.cpp:90
 #, kde-format
 msgid "Kwave homepage and German online help"
-msgstr "Kwave anasayfası ve Almanca çevrimiçi yardım"
+msgstr "K Dalga anasayfası ve Almanca çevrimiçi yardım"
 
 #: kwave/main.cpp:94
 #, kde-format
@@ -367,7 +367,7 @@ msgstr "Karşılama ekranını gösterme."
 #: kwave/main.cpp:177
 #, kde-format
 msgid "Start Kwave iconified."
-msgstr "Simgelendirilmiş Kwave'i başlat."
+msgstr "Simgelendirilmiş K Dalga'i başlat."
 
 #: kwave/main.cpp:182
 #, kde-format
@@ -399,7 +399,7 @@ msgctxt "description of command line parameter"
 msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 msgstr ""
-"Ses dosyalarının listesi, Kwave makro dosyaları ya da açılacak Kwave "
+"Ses dosyalarının listesi, K Dalga makro dosyaları ya da açılacak K Dalga "
 "URL'leri (isteğe bağlı)"
 
 #: kwave/main.cpp:196
@@ -411,7 +411,7 @@ msgstr "[dosya...]"
 #: kwave/main.cpp:201
 #, kde-format
 msgid "Kwave"
-msgstr "Kwave"
+msgstr "K Dalga"
 
 #: kwave/main.cpp:203
 #, kde-format
@@ -426,7 +426,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 #: kwave/MainWidget.cpp:93
 #, kde-format
 msgid "Kwave label list"
-msgstr "Kwave etiket listesi"
+msgstr "K Dalga etiket listesi"
 
 #: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1863
 #, kde-format
@@ -1015,7 +1015,7 @@ msgstr "Yardım"
 #: kwave/menus.config:253
 msgctxt "menu: /Help/About Kwave"
 msgid "About Kwave"
-msgstr "Kwave Hakkında"
+msgstr "K Dalga Hakkında"
 
 #: kwave/menus.config:254
 msgctxt "menu: /Help/About KDE"
@@ -1175,7 +1175,7 @@ msgstr "'%1' komutu çalıştırılıyor..."
 #: kwave/TopWidget.cpp:1030
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
-msgstr "'%1' Kwave betiği çalıştırılıyor..."
+msgstr "'%1' K Dalga betiği çalıştırılıyor..."
 
 #: kwave/TopWidget.cpp:1040
 #, kde-format
@@ -1426,7 +1426,7 @@ msgstr "Her Saniye Noktası"
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
-msgstr "Kwave eğri önayarı (*.curve)"
+msgstr "K Dalga eğri önayarı (*.curve)"
 
 #: libgui/CurveWidget.cpp:204
 #, kde-format
@@ -1513,8 +1513,8 @@ msgid ""
 msgstr ""
 "<b>Etiket konumu:</b><br>\n"
 "Buradan etiketin konumunu zaman göre, tüm dosyanın yüzdeliğine göre ya da "
-"kesin örnek konuma  ayarlayabilirsiniz. Bununla birlikte dahili olarak Kwave "
-"her zaman örnekler içindeki konumunu kullanacaktır."
+"kesin örnek konuma  ayarlayabilirsiniz. Bununla birlikte dahili olarak K "
+"Dalga her zaman örnekler içindeki konumunu kullanacaktır."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #: libgui/LabelPropertiesWidgetBase.ui:51
@@ -1740,7 +1740,7 @@ msgstr "Önceki Etiket"
 #: libkwave/CodecManager.cpp:200
 #, kde-format
 msgid "Kwave Macro Files"
-msgstr "Kwave Makro Dosyaları"
+msgstr "K Dalga Makro Dosyaları"
 
 #: libkwave/CodecManager.cpp:204
 #, kde-format
@@ -2402,7 +2402,7 @@ msgid ""
 msgstr ""
 "Dosyayı oluşturulurken kullanılan yazılım\n"
 "paketinin adını tanımlar.\n"
-"Örnek: 'Kwave v0.6.4-1'"
+"Örnek: 'K Dalga v0.6.4-1'"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_source)
 #. i18n: ectx: property (title), widget (QGroupBox, grpSource)
@@ -4011,13 +4011,13 @@ msgstr "Eklenti bulundu: %1"
 #: plugins/about/AboutDialogBase.ui:20
 #, kde-format
 msgid "About Kwave"
-msgstr "Kwave Hakkında"
+msgstr "K Dalga Hakkında"
 
 #. i18n: ectx: property (text), widget (QLabel, header)
 #: plugins/about/AboutDialogBase.ui:53
 #, kde-format
 msgid "<h1>Kwave - a sound editor by KDE</h1>"
-msgstr "<h1>Kwave - KDE ses düzenleyicisi</h1>"
+msgstr "<h1>K Dalga - KDE ses düzenleyicisi</h1>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, about_tab)
 #: plugins/about/AboutDialogBase.ui:67
@@ -4037,13 +4037,13 @@ msgid ""
 "presents a graphical view with a complete zoom and scroll capability.</p></"
 "body></html>"
 msgstr ""
-"<html><head/><body><p><span style=\" font-size:x-large; font-weight:600;"
-"\">Kwave, KDE Frameworks için tasarlanmış bir ses düzenleyicidir. </span></"
-"p><p><br/>Kwave ile birden çok parça dosyaları da dahil olmak üzere bir çok "
-"çeşit ses dosyasını düzenleyebilirsiniz. Her parçanın kendisini değiştirip "
-"yeniden çalabilirsiniz.<br/>Kwave bir çok eklenti ile ses dosyasını çeşitli "
-"yollarla değiştirebilir ve grafiksel görünüm ile birlikte tam bir yakınlaşma "
-"ve sarma kapasitesine sahiptir.</p></body></html>"
+"<html><head/><body><p><span style=\" font-size:x-large; font-weight:600;\">K "
+"Dalga, KDE Frameworks için tasarlanmış bir ses düzenleyicidir. </span></"
+"p><p><br/>K Dalga ile birden çok parça dosyaları da dahil olmak üzere bir "
+"çok çeşit ses dosyasını düzenleyebilirsiniz. Her parçanın kendisini "
+"değiştirip yeniden çalabilirsiniz.<br/>K Dalga bir çok eklenti ile ses "
+"dosyasını çeşitli yollarla değiştirebilir ve grafiksel görünüm ile birlikte "
+"tam bir yakınlaşma ve sarma kapasitesine sahiptir.</p></body></html>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, authors_tab)
 #: plugins/about/AboutDialogBase.ui:182
@@ -5130,12 +5130,12 @@ msgid ""
 "Should Kwave try to repair it?"
 msgstr ""
 "Bu dosya yapısal olarak hasarlı ya da WAV dosyası değil.\n"
-"Kwave onarmaya çalışsın mı?"
+"K Dalga onarmaya çalışsın mı?"
 
 #: plugins/codec_wav/WavDecoder.cpp:175 plugins/codec_wav/WavDecoder.cpp:280
 #, kde-format
 msgid "Kwave Auto Repair"
-msgstr "Kwave Otomatik Onar"
+msgstr "K Dalga Otomatik Onar"
 
 #: plugins/codec_wav/WavDecoder.cpp:176
 #, kde-format
@@ -5167,8 +5167,8 @@ msgstr ""
 "WAV dosyası hasarlı görünüyor:\n"
 "Bazı parçalar kopyalanmış veya kayıp.\n"
 "\n"
-"Kwave, yalnızca ilk olanları kullanacak ve gerisini yok\n"
-"sayacak. Bu veri kaybına neden olabilir."
+"K Dalga, yalnızca ilk olanları kullanır ve gerisini yok\n"
+"sayar. Bu veri kaybına neden olabilir."
 
 #: plugins/codec_wav/WavDecoder.cpp:371
 #, kde-format
@@ -6076,7 +6076,7 @@ msgid ""
 "give the best results when processing the audio data."
 msgstr ""
 "<b>Çözünürlük</b><br>Dosyada kaydedilecek bitlerin çözünürlüğünü seçin. "
-"Bununla birlikte, Kwave  herzaman ses dosyasını işlerken dahili çözünürlük "
+"Bununla birlikte, K Dalga  herzaman ses dosyasını işlerken dahili çözünürlük "
 "olarak en iyi sonuçları veren 24 biti kullanır."
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbTime)
@@ -6728,7 +6728,7 @@ msgid ""
 msgstr ""
 "<b>Örnekleme başına bit</b><p>Çalma aygıtınızın desteklediği bit "
 "çözünürlüklerinden birisini buradan seçebilirsiniz. Bu ses dosyanızdaki "
-"çözünürlükle aynı olmasının önemi yoktur, Kwave otomatik olarak dahili "
+"çözünürlükle aynı olmasının önemi yoktur, K Dalga otomatik olarak dahili "
 "çözünürlükten (24 bit) belirttiğiniz ayara çevirecektir. Daha yüksek "
 "çözünürlük daha iyi ses kalitesi demektir.</p>"
 
@@ -6751,7 +6751,7 @@ msgid ""
 "second track and the third track.</p>"
 msgstr ""
 "<b>Kanallar:</b><p>Çalmada kullanılacak kanal sayısı. Bu sayı, geçerli "
-"dosyanızdaki sayı ile aynı olmasının önemi yoktur. Kwave otomatik olarak "
+"dosyanızdaki sayı ile aynı olmasının önemi yoktur. K Dalga otomatik olarak "
 "belirttiğiniz kanallara karıştıracaktır. </p><p><i>Örnek olarak:</i> Eğer 3 "
 "kaydınız var ve çalma ayarı olarak \"iki kanal\" ayarladıysanız sol kanal "
 "ilk parçayı ve + %​50 ikinci parçayı, sağ kanal ise %​50 ikinci kaydı ve "
@@ -6833,7 +6833,7 @@ msgstr "ALSA kayıt aygıtı (adsp*)"
 #: plugins/record/Record-PulseAudio.cpp:216
 #, kde-format
 msgid "Kwave record"
-msgstr "Kwave kaydet"
+msgstr "K Dalga kaydı"
 
 #: plugins/record/RecordDialog.cpp:308
 #, kde-format
@@ -7006,7 +7006,7 @@ msgid ""
 "already a few seconds before you press the record button. <i>(For example "
 "when recording from radio)</i>"
 msgstr ""
-"<b>Ön-Kaydı</b> kullandığınız zaman, Kwave dahili olarak gerçek kayıt "
+"<b>Ön-Kaydı</b> kullandığınız zaman, K Dalga dahili olarak gerçek kayıt "
 "başlamadan önce kaydetmeye başlar. Bu özellik kayıt düğmesine basmadan bir "
 "kaç saniye önce başlamasını istiyorsanız yararlıdır. <i>(örneğin radyodan "
 "kayıt yapıyorsanız)</i>"

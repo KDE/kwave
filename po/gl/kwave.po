@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2023-04-23 07:20+0200\n"
+"PO-Revision-Date: 2023-06-05 15:15+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -710,12 +710,12 @@ msgstr "Seguinte páxina"
 #: kwave/menus.config:121
 msgctxt "menu: /View/Scroll Right"
 msgid "Scroll Right"
-msgstr "Desprazar cara a dereita"
+msgstr "Desprazar cara á dereita"
 
 #: kwave/menus.config:122
 msgctxt "menu: /View/Scroll Left"
 msgid "Scroll Left"
-msgstr "Desprazar cara a esquerda"
+msgstr "Desprazar cara á esquerda"
 
 #: kwave/menus.config:124
 msgctxt "menu: /View/Zoom In"
@@ -3045,7 +3045,7 @@ msgstr "Musical"
 #: libkwave/GenreType.cpp:177
 #, kde-format
 msgid "Rock 'n' Roll"
-msgstr "Rock 'n' Roll"
+msgstr "Rock and Roll"
 
 #: libkwave/GenreType.cpp:178
 #, kde-format
@@ -6186,7 +6186,7 @@ msgid ""
 msgstr ""
 "Engade un nivel de ruído indicado como unha porcentaxe do nivel de volume "
 "máximo.\n"
-"Por exemplo: «1 %», «15%» ou «100%»."
+"Por exemplo: «1%», «15%» ou «100%»."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:61 plugins/volume/VolumeDlg.ui:91
@@ -6329,9 +6329,9 @@ msgid ""
 "audio data are before they get processed by the pitch shift. If your audio "
 "data sounds interrupted, you might get better result with higher values."
 msgstr ""
-"<b>Frecuencia de corte</b><br> Esta opción determina o pequenas que son as "
-"pezas de datos de son antes de que o cambio de altura as procese. Se os "
-"datos de son teñen interrupcións, aumentar este valor podería darlle "
+"<b>Frecuencia de corte</b><br> Esta opción determina como de pequenas que "
+"son as pezas de datos de son antes de que o cambio de altura as procese. Se "
+"os datos de son teñen interrupcións, aumentar este valor podería darlle "
 "mellores resultados."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
@@ -6362,7 +6362,7 @@ msgid ""
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
 "Define a velocidade como unha porcentaxe relativa da velocidade orixinal.\n"
-"Por exemplo: «50 %», «75%» ou «125%»."
+"Por exemplo: «50%», «75%» ou «125%»."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:222
@@ -7824,7 +7824,7 @@ msgstr "Frecuencia: 0 Hz"
 #: plugins/sonagram/SonagramWindow.cpp:200
 #, kde-format
 msgid "Amplitude: 0 %"
-msgstr "Amplitude: 0 %"
+msgstr "Amplitude: 0%"
 
 #: plugins/sonagram/SonagramWindow.cpp:229
 #, kde-format
@@ -7911,7 +7911,7 @@ msgid ""
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
 "Define o volume como unha porcentaxe relativa do volume orixinal.\n"
-"Por exemplo: «50 %», «75%» ou «125%»."
+"Por exemplo: «50%», «75%» ou «125%»."
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:104

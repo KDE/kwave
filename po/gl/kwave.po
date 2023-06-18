@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2023-06-05 15:15+0200\n"
+"PO-Revision-Date: 2023-06-17 12:24+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2455,7 +2455,7 @@ msgid ""
 "Example: 'Bird voices at early morning'"
 msgstr ""
 "Describe o asunto do ficheiro.\n"
-"Por exemplo, «Sons de paxaros pola mañá cedo»."
+"Por exemplo, «Cantos de paxaros pola mañá cedo»."
 
 #: libkwave/FileInfo.cpp:278
 #, kde-format
@@ -3676,7 +3676,7 @@ msgstr "OSS (sistema de son aberto)"
 #: libkwave/PlayBackTypesMap.cpp:44 plugins/record/RecordTypesMap.cpp:41
 #, kde-format
 msgid "Pulse Audio"
-msgstr "Pulse Audio"
+msgstr "PulseAudio"
 
 # skip-rule: trasno-son
 #: libkwave/PlayBackTypesMap.cpp:49 plugins/record/RecordTypesMap.cpp:35
@@ -6839,8 +6839,7 @@ msgid ""
 "dropouts, please increase<br/>the buffer size and try again)"
 msgstr ""
 "Debería estar escoitando un ton de proba de %1 Hz.<br/> <br/> (Se escoita "
-"clics ou o son se entrecorta, aumente<br/> o tamaño do búfer e vólvao "
-"intentar)"
+"clics ou cortes, aumente<br/> o tamaño do búfer e vólvao intentar)"
 
 #: plugins/record/LevelMeter.cpp:278 plugins/record/LevelMeter.cpp:302
 #, kde-format

@@ -960,7 +960,7 @@ msgstr "Xanelas separadas (SDI)"
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in..."
 msgid "Show Files in..."
-msgstr "Mostrar os ficheiros en…"
+msgstr "Amosar os ficheiros en…"
 
 #: kwave/menus.config:239
 msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
@@ -4555,7 +4555,7 @@ msgstr "&Detectar automaticamente…"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:101
 #, kde-format
 msgid "show the usage information of the encoder"
-msgstr "Mostrar a información de uso do codificador."
+msgstr "Amosar a información de uso do codificador."
 
 #. i18n: ectx: property (text), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:104

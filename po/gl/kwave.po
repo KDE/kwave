@@ -1175,7 +1175,7 @@ msgstr "Executando a orde «%1»…"
 #: kwave/TopWidget.cpp:1030
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
-msgstr "Executando o ficheiro de script de Kwave «%1»…"
+msgstr "Executando o ficheiro de guión de Kwave «%1»…"
 
 #: kwave/TopWidget.cpp:1040
 #, kde-format
@@ -2092,7 +2092,7 @@ msgid ""
 "If there are multiple engineers, separate the names by\n"
 "a semicolon and a blank."
 msgstr ""
-"Mostra o nome do enxeñeiro que traballou no ficheiro.\n"
+"Amosa o nome do enxeñeiro que traballou no ficheiro.\n"
 "Se existe máis dun enxeñeiro, separe os nomes con\n"
 "punto e coma seguido dun espazo."
 
@@ -5576,7 +5576,7 @@ msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
-"Mostra o número de pistas do sinal.\n"
+"Amosa o número de pistas do sinal.\n"
 "Pode engadir ou eliminar pistas desde o menú\n"
 "«Editar»."
 
@@ -5591,7 +5591,7 @@ msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
-"Mostra o número de mostras do ficheiro\n"
+"Amosa o número de mostras do ficheiro\n"
 "e, de ser posíbel, a duración."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:269

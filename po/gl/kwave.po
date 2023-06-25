@@ -4061,7 +4061,7 @@ msgstr ""
 #: plugins/about/AboutDialogBase.ui:182
 #, kde-format
 msgid "Authors"
-msgstr "Autores"
+msgstr "Autoría"
 
 #. i18n: ectx: attribute (title), widget (QWidget, thanks_tab)
 #: plugins/about/AboutDialogBase.ui:199

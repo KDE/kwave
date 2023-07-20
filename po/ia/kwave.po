@@ -1019,7 +1019,7 @@ msgstr "A proposito de Kwave"
 #: kwave/menus.config:254
 msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
-msgstr "A proposio de KDE"
+msgstr "A proposito de KDE"
 
 #: kwave/PlayerToolBar.cpp:77
 #, kde-format

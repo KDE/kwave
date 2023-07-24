@@ -6376,10 +6376,10 @@ msgid ""
 "the program by calling: \"fuser -v %1\"\n"
 "on the command line.)"
 msgstr ""
-"장치가 사용 중입니다. 다른 프로그램에서\n"
+"장치가 사용 중입니다. 다른 앱에서\n"
 "사용 중일 수도 있습니다. 나중에 다시 시도하십시오.\n"
 "(힌트: 명령행에서 \"fuser -v %1\" 명령을 실행하여\n"
-"프로그램의 이름과 프로세스 ID를\n"
+"앱의 이름과 프로세스 ID를\n"
 "확인할 수 있습니다.)"
 
 #: plugins/playback/PlayBack-ALSA.cpp:588
@@ -6624,14 +6624,13 @@ msgstr ""
 "선택하십시오. 컴파일 옵션에 따라서 다음 중 선택할 수 있습니다:</p> \n"
 "<p><b><i>OSS(열린 사운드 시스템)</i></b>: 과거의 리눅스 구현이며, 모노와 스테"
 "레오 출력을 지원합니다. 리눅스 커널 2.6부터는 더 이상 지원하지 않지만 커널 외"
-"부에서 계속 개발되고 있습니다. 한 번에 한 프로그램에서만 OSS 재생을 사용할 "
-"수 있으므로 PulseAudio나 다른 소리를 사용하는 프로그램과 충돌할 수 있습니다."
-"</p> \n"
+"부에서 계속 개발되고 있습니다. 한 번에 한 앱에서만 OSS 재생을 사용할 수 있으"
+"므로 PulseAudio나 다른 소리를 사용하는 앱과 충돌할 수 있습니다.</p> \n"
 "<p><b><i>ALSA(고급 리눅스 사운드 구조)</i></b>: 리눅스에서 OSS를 대체하며, "
-"더 많은 기능과 하드웨어를 지원합니다. OSS와 같이 다른 프로그램과 충돌할 수도 "
-"있으나 <i>dmix</i> 플러그인을 지원합니다.</p> \n"
-"<p><b><i>PulseAudio</i></b>: KDE에서 재생할 때 선호하는 방법입니다. 여러 프로"
-"그램에서 동시에 재생할 수 있습니다.</p>"
+"더 많은 기능과 하드웨어를 지원합니다. OSS와 같이 다른 앱과 충돌할 수도 있으"
+"나 <i>dmix</i> 플러그인을 지원합니다.</p> \n"
+"<p><b><i>PulseAudio</i></b>: KDE에서 재생할 때 선호하는 방법입니다. 여러 앱에"
+"서 동시에 재생할 수 있습니다.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: plugins/playback/PlayBackDlg.ui:137
@@ -7274,7 +7273,7 @@ msgstr ""
 #, kde-format
 msgid ""
 "The audio device seems to be occupied by another application. Retrying..."
-msgstr "오디오 장치가 다른 프로그램에서 사용 중인 것 같습니다. 다시 시도 중..."
+msgstr "오디오 장치가 다른 앱에서 사용 중인 것 같습니다. 다시 시도 중..."
 
 #: plugins/record/RecordPlugin.cpp:467
 #, kde-format

@@ -7983,7 +7983,7 @@
 ></term>
 	    <listitem>
 		<para
->(Cap). </para>
+>(Cap) </para>
 	    </listitem>
 	</varlistentry>
     </variablelist>
@@ -8704,7 +8704,7 @@
 		    <para
 >(Aquest connector utilitza internament el connector <link linkend="plugin_sect_saveblocks" endterm="plugin_title_saveblocks"
 ></link
->. </para>
+>). </para>
 		</listitem>
 	    </varlistentry>
 	    <varlistentry>

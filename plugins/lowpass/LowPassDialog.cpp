@@ -180,7 +180,7 @@ void Kwave::LowPassDialog::listenToggled(bool listen)
 //***************************************************************************
 void Kwave::LowPassDialog::listenStopped()
 {
-    if (!btListen) btListen->setChecked(false);
+    if (btListen) btListen->setChecked(false);
 }
 
 //***************************************************************************

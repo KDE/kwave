@@ -53,7 +53,7 @@
   <summary xml:lang="eu">Kwave KDE Frameworks 5ekin eraikitako soinu editore bat da</summary>
   <summary xml:lang="fi">Kwave on KDE Frameworks 5 -alustalle suunniteltu äänimuokkain</summary>
   <summary xml:lang="fr">KWave est un éditeur de sons développé sous KDE Frameworks 5</summary>
-  <summary xml:lang="gl">Kwave é un editor de son construído coa versión 5 das infraestruturas de KDE</summary>
+  <summary xml:lang="gl">Kwave é un editor de son construído coa versión 5 das infraestruturas de KDE.</summary>
   <summary xml:lang="ia">Kwave es un editor e sono construite ur KDE Framework 5</summary>
   <summary xml:lang="id">Kwave adalah sebuah editor sound yang  dibangun pada KDE Framework 5</summary>
   <summary xml:lang="it">Kwave è un editor per il suono basato su KDE Frameworks 5</summary>
@@ -163,7 +163,7 @@
       <caption xml:lang="eu">Kwave martxan</caption>
       <caption xml:lang="fi">Kwave toiminnassa</caption>
       <caption xml:lang="fr">KWave en action</caption>
-      <caption xml:lang="gl">Kwave en acción</caption>
+      <caption xml:lang="gl">Kwave en acción.</caption>
       <caption xml:lang="ia">Kwave in action</caption>
       <caption xml:lang="id">Kwave beraksi</caption>
       <caption xml:lang="it">Kwave in azione</caption>

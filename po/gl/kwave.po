@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2023-06-17 12:24+0200\n"
+"PO-Revision-Date: 2023-08-06 05:51+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1250,25 +1250,25 @@ msgstr "Posición: %1"
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
-msgstr "Desfacer (%1)"
+msgstr "Desfacer (%1)."
 
 #: kwave/TopWidget.cpp:1269
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
-msgstr "Desfacer"
+msgstr "Desfacer."
 
 #: kwave/TopWidget.cpp:1278
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
-msgstr "Refacer (%1)"
+msgstr "Refacer (%1)."
 
 #: kwave/TopWidget.cpp:1280
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
-msgstr "Refacer"
+msgstr "Refacer."
 
 #: kwave/TopWidget.cpp:1290
 #, kde-format
@@ -1463,7 +1463,7 @@ msgstr " seg"
 #, kde-format
 msgctxt "tooltip of a label, %1=index, %2=description/name"
 msgid "Label #%1 (%2)"
-msgstr "Etiqueta %1 (%2)"
+msgstr "Etiqueta %1 (%2)."
 
 #: libgui/LabelItem.cpp:77
 #, kde-format
@@ -1554,7 +1554,7 @@ msgstr "Índice:"
 #: libgui/LabelPropertiesWidgetBase.ui:95
 #, kde-format
 msgid "index of the label"
-msgstr "Índice da etiqueta"
+msgstr "Índice da etiqueta."
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, lblIndex)
 #: libgui/LabelPropertiesWidgetBase.ui:99
@@ -1604,7 +1604,7 @@ msgstr "Duración"
 #: libgui/SelectTimeWidgetBase.ui:38
 #, kde-format
 msgid "select by number of samples"
-msgstr "Seleccionar por número de mostras"
+msgstr "Seleccionar por número de mostras."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbSamples)
 #: libgui/SelectTimeWidgetBase.ui:41
@@ -1616,7 +1616,7 @@ msgstr "&Mostras"
 #: libgui/SelectTimeWidgetBase.ui:54
 #, kde-format
 msgid "select by time"
-msgstr "Seleccionar por tempo"
+msgstr "Seleccionar por tempo."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbTime)
 #: libgui/SelectTimeWidgetBase.ui:57
@@ -1628,7 +1628,7 @@ msgstr "&Tempo"
 #: libgui/SelectTimeWidgetBase.ui:99
 #, kde-format
 msgid "select by percentage of the signal's length"
-msgstr "Seleccionar por porcentaxe do sinal"
+msgstr "Seleccionar por porcentaxe do sinal."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercents)
 #: libgui/SelectTimeWidgetBase.ui:102
@@ -3907,7 +3907,7 @@ msgstr "Selección manual"
 #: libkwave/SignalManager.h:44 plugins/record/RecordDlg.ui:153
 #, kde-format
 msgid "New File"
-msgstr "Novo ficheiro"
+msgstr "Novo ficheiro."
 
 #: libkwave/undo/UndoAddMetaDataAction.cpp:94
 #, kde-format
@@ -4110,13 +4110,13 @@ msgstr "Amplificar libremente"
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:49 plugins/record/RecordDlg.ui:530
 #, kde-format
 msgid "Fade In"
-msgstr "Aparecer"
+msgstr "Aparecer."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelFadeOut)
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:50 plugins/record/RecordDlg.ui:543
 #, kde-format
 msgid "Fade Out"
-msgstr "Esvaer"
+msgstr "Esvaer."
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:51
 #, kde-format
@@ -4188,7 +4188,7 @@ msgstr " Hz"
 #: plugins/pitch_shift/PitchShiftDlg.ui:57
 #, kde-format
 msgid "start/stop pre-listening"
-msgstr "Iniciar ou deter a escoita previa"
+msgstr "Iniciar ou deter a escoita previa."
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDlg.ui:158 plugins/lowpass/LowPassDlg.ui:151
@@ -4522,7 +4522,7 @@ msgstr "Programa"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:54
 #, kde-format
 msgid "manually browse for the encoder"
-msgstr "navegar manualmente ata o codificador"
+msgstr "Navegar manualmente ata o codificador."
 
 #. i18n: ectx: property (text), widget (QPushButton, btSearch)
 #. i18n: ectx: property (text), widget (QPushButton, btSelectDate)
@@ -4567,7 +4567,7 @@ msgstr "&Uso"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:117
 #, kde-format
 msgid "path to the encoder"
-msgstr "ruta do codificador"
+msgstr "Ruta do codificador."
 
 #. i18n: ectx: property (text), widget (QLabel, lblPath)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:127
@@ -5446,7 +5446,7 @@ msgstr "Usar novos nomes de ficheiro"
 #: plugins/fileinfo/CompressionWidgetBase.ui:50
 #, kde-format
 msgid "Average Bitrate Mode"
-msgstr "Modo de taxa de bits media"
+msgstr "Modo de taxa de bits media."
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:55
@@ -5478,7 +5478,7 @@ msgstr "a menor"
 #: plugins/fileinfo/CompressionWidgetBase.ui:88
 #, kde-format
 msgid "Variable Bitrate Mode"
-msgstr "Modo de taxa de bits variábel"
+msgstr "Modo de taxa de bits variábel."
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbVBR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:92
@@ -5496,6 +5496,7 @@ msgstr ""
 msgid "VBR:"
 msgstr "VBR:"
 
+# skip-rule: gl-punto-final
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighestBitrate)
 #: plugins/fileinfo/CompressionWidgetBase.ui:105
 #, kde-format
@@ -5808,14 +5809,15 @@ msgstr "MPEG"
 #: plugins/fileinfo/FileInfoDlg.ui:790
 #, kde-format
 msgid "Intensity Stereo"
-msgstr "Estéreo intensivo"
+msgstr "Estéreo intensivo."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegMSStereo)
 #: plugins/fileinfo/FileInfoDlg.ui:797
 #, kde-format
 msgid "MS Stereo"
-msgstr "Estéreo de MS"
+msgstr "Estéreo de MS."
 
+# skip-rule: gl-punto-final
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegOriginal)
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegCopyrighted)
 #: plugins/fileinfo/FileInfoDlg.ui:806 plugins/fileinfo/FileInfoDlg.ui:908
@@ -5978,7 +5980,7 @@ msgstr "Eng&adir"
 #: plugins/fileinfo/KeywordWidgetBase.ui:62
 #, kde-format
 msgid "auto-generate keywords"
-msgstr "Xerar palabras clave automaticamente"
+msgstr "Xerar palabras clave automaticamente."
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:66
@@ -6037,7 +6039,7 @@ msgstr "Pase baixo"
 #: plugins/lowpass/LowPassDlg.ui:29 plugins/lowpass/LowPassDlg.ui:66
 #, kde-format
 msgid "cutoff frequency"
-msgstr "Frecuencia de corte"
+msgstr "Frecuencia de corte."
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider)
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox)
@@ -6107,7 +6109,7 @@ msgstr ""
 #: plugins/newsignal/NewSigDlg.ui:347
 #, kde-format
 msgid "Select this to set the length of the file by time"
-msgstr "Seleccione isto para definir a duración do ficheiro"
+msgstr "Seleccione isto para definir a duración do ficheiro."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbTime)
 #: plugins/newsignal/NewSigDlg.ui:350
@@ -6174,7 +6176,7 @@ msgstr "Modo"
 #: plugins/noise/NoiseDlg.ui:54
 #, kde-format
 msgid "add a noise level by percentage"
-msgstr "Engadir un nivel de ruído en porcentaxe"
+msgstr "Engadir un nivel de ruído en porcentaxe."
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:58
@@ -6198,7 +6200,7 @@ msgstr "&Porcentaxe"
 #: plugins/noise/NoiseDlg.ui:77
 #, kde-format
 msgid "add a noise level in dB"
-msgstr "Engadir un nivel de ruído en dB"
+msgstr "Engadir un nivel de ruído en dB."
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbLogarithmic)
 #: plugins/noise/NoiseDlg.ui:81
@@ -6224,13 +6226,13 @@ msgstr "&Logarítmico"
 #: plugins/volume/VolumePlugin.cpp:135
 #, kde-format
 msgid "Volume"
-msgstr "Volume"
+msgstr "Volume."
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slider)
 #: plugins/noise/NoiseDlg.ui:156
 #, kde-format
 msgid "Noise Level"
-msgstr "Nivel de ruído"
+msgstr "Nivel de ruído."
 
 #: plugins/normalize/NormalizePlugin.cpp:71
 #, kde-format
@@ -6260,7 +6262,7 @@ msgstr "Supresión de banda"
 #: plugins/notch_filter/NotchFilterDlg.ui:96
 #, kde-format
 msgid "center frequency"
-msgstr "Centrar a frecuencia"
+msgstr "Centrar a frecuencia."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox)
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider)
@@ -6282,7 +6284,7 @@ msgstr ""
 #: plugins/notch_filter/NotchFilterDlg.ui:141
 #, kde-format
 msgid "bandwidth"
-msgstr "Largura de banda"
+msgstr "Largura de banda."
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider_2)
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox_2)
@@ -6317,7 +6319,7 @@ msgstr "Frecuencia:"
 #: plugins/pitch_shift/PitchShiftDlg.ui:146
 #, kde-format
 msgid "chopper frequency"
-msgstr "Frecuencia de corte"
+msgstr "Frecuencia de corte."
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slFrequency)
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFrequency)
@@ -6346,13 +6348,13 @@ msgstr "Velocidade:"
 #: plugins/pitch_shift/PitchShiftDlg.ui:196
 #, kde-format
 msgid "Speed"
-msgstr "Velocidade"
+msgstr "Velocidade."
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:215
 #, kde-format
 msgid "change speed by percentage"
-msgstr "Cambiar a velocidade por porcentaxe"
+msgstr "Cambiar a velocidade por porcentaxe."
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:219
@@ -6374,7 +6376,7 @@ msgstr "por porcentaxe"
 #: plugins/pitch_shift/PitchShiftDlg.ui:232
 #, kde-format
 msgid "change speed by a factor"
-msgstr "Cambiar a velocidade por factor"
+msgstr "Cambiar a velocidade por factor."
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:236
@@ -6619,7 +6621,7 @@ msgstr "Configuración da reprodución"
 #: plugins/playback/PlayBackDlg.ui:64
 #, kde-format
 msgid "Playback device"
-msgstr "Dispositivo de reprodución"
+msgstr "Dispositivo de reprodución."
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/playback/PlayBackDlg.ui:67
@@ -6639,7 +6641,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:92 plugins/record/RecordDlg.ui:1072
 #, kde-format
 msgid "Search on the filesystem for a device"
-msgstr "Buscar un dispositivo no sistema de ficheiros"
+msgstr "Buscar un dispositivo no sistema de ficheiros."
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDevice)
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSourceSelect)
@@ -6656,7 +6658,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:121
 #, kde-format
 msgid "Method or system used for playback"
-msgstr "Método ou sistema de reprodución"
+msgstr "Método ou sistema de reprodución."
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:128
@@ -6804,7 +6806,7 @@ msgstr "1"
 #: plugins/playback/PlayBackDlg.ui:458
 #, kde-format
 msgid "Play a short test sound"
-msgstr "Reproducir un son curto de proba"
+msgstr "Reproducir un son curto de proba."
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:461
@@ -7103,13 +7105,13 @@ msgstr "Iniciador da gravación:"
 #: plugins/record/RecordDlg.ui:172
 #, kde-format
 msgid "Stop Recording"
-msgstr "Deter a gravación"
+msgstr "Deter a gravación."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btPause)
 #: plugins/record/RecordDlg.ui:191
 #, kde-format
 msgid "Pause/Continue"
-msgstr "Deter ou continuar"
+msgstr "Deter ou continuar."
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbRecordPre)
 #: plugins/record/RecordDlg.ui:285
@@ -7266,7 +7268,7 @@ msgstr "Número de búferes:"
 #: plugins/record/RecordDlg.ui:1022
 #, kde-format
 msgid "Method or system used for recording"
-msgstr "Método ou sistema de gravación"
+msgstr "Método ou sistema de gravación."
 
 # skip-rule: trasno-son
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
@@ -7301,7 +7303,7 @@ msgstr "Método de gravación:"
 #: plugins/record/RecordDlg.ui:1053
 #, kde-format
 msgid "Recording device"
-msgstr "Dispositivo de gravación"
+msgstr "Dispositivo de gravación."
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1056
@@ -7663,7 +7665,7 @@ msgstr ""
 #: plugins/sonagram/SonagramDlg.ui:90
 #, kde-format
 msgid "On modifications"
-msgstr "Cando haxa modificacións"
+msgstr "Cando haxa modificacións."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, cbFollowSelection)
 #: plugins/sonagram/SonagramDlg.ui:100
@@ -7673,13 +7675,13 @@ msgid ""
 "reduced or moved"
 msgstr ""
 "Actualizar automaticamente o espectrograma se a<br> selección se ampliou, "
-"reduciu ou moveu"
+"reduciu ou moveu."
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbFollowSelection)
 #: plugins/sonagram/SonagramDlg.ui:103
 #, kde-format
 msgid "Follow selection"
-msgstr "Seguir a selección"
+msgstr "Seguir a selección."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox1)
 #: plugins/sonagram/SonagramDlg.ui:119

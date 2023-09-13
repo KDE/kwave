@@ -4416,7 +4416,7 @@ msgstr "Voleu continuar?"
 #: plugins/codec_mp3/MP3Decoder.cpp:556
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
-msgstr "Voleu continuar i ignorar tots els següents errors?"
+msgstr "Voleu continuar i ignorar tots els errors següents?"
 
 #: plugins/codec_mp3/MP3Encoder.cpp:293
 #, kde-format

@@ -1201,7 +1201,7 @@ msgstr "Esgotouse a memoria"
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
-msgstr "Non se pode abrir «%1»"
+msgstr "Non é posíbel abrir «%1»"
 
 #: kwave/TopWidget.cpp:1062
 #, kde-format
@@ -3660,7 +3660,7 @@ msgstr "A apertura do ficheiro de historial «%1» para escritura fallou."
 #: libkwave/PlaybackController.cpp:663
 #, kde-format
 msgid "Unable to open '%1'"
-msgstr "Non se pode abrir «%1»"
+msgstr "Non é posíbel abrir «%1»"
 
 #: libkwave/PlayBackTypesMap.cpp:34 plugins/record/RecordTypesMap.cpp:47
 #, kde-format
@@ -4213,7 +4213,7 @@ msgstr "Son codificado en ASCII."
 #: plugins/codec_flac/FlacEncoder.cpp:214 plugins/codec_ogg/OggEncoder.cpp:122
 #, kde-format
 msgid "Unable to open the file for saving."
-msgstr "Non se pode abrir o ficheiro para gardar."
+msgstr "Non é posíbel abrir o ficheiro para gardar."
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:47
 #, kde-format
@@ -4329,7 +4329,7 @@ msgstr "Produciuse un erro ao procesar os metadatos de FLAC (%s)."
 #: plugins/codec_flac/FlacEncoder.cpp:224
 #, kde-format
 msgid "Unable to open the FLAC encoder."
-msgstr "Non se pode abrir o codificador de FLAC."
+msgstr "Non é posíbel abrir o codificador de FLAC."
 
 #: plugins/codec_mp3/MP3CodecPlugin.cpp:51
 #, kde-format
@@ -4432,7 +4432,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3Encoder.cpp:306 plugins/codec_wav/WavEncoder.cpp:395
 #, kde-format
 msgid "Unable to open the file for saving!"
-msgstr "Non se pode abrir o ficheiro para gardar."
+msgstr "Non é posíbel abrir o ficheiro para gardar."
 
 #: plugins/codec_mp3/MP3Encoder.cpp:551
 #, kde-format
@@ -6466,7 +6466,7 @@ msgstr "Complemento de DMIX"
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
 msgid "The device '%1' cannot be opened in the correct mode."
-msgstr "Non se pode abrir o dispositivo «%1» no modo correcto."
+msgstr "Non é posíbel abrir o dispositivo «%1» no modo correcto."
 
 #: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:161
 #, kde-format
@@ -6529,12 +6529,12 @@ msgstr "reprodución…"
 #: plugins/playback/PlayBack-PulseAudio.cpp:536
 #, kde-format
 msgid "Failed to create a PulseAudio stream (%1)."
-msgstr "Non se puido crear un fluxo de PulseAudio (%1)."
+msgstr "Non foi posíbel crear un fluxo de PulseAudio (%1)."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:578
 #, kde-format
 msgid "Failed to open a PulseAudio stream for playback (%1)."
-msgstr "Non se puido abrir un fluxo de PulseAudio para reproducilo (%1)."
+msgstr "Non foi posíbel abrir un fluxo de PulseAudio para reproducilo (%1)."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:819
 #, kde-format
@@ -7372,7 +7372,7 @@ msgstr ""
 #, kde-format
 msgctxt "%1 = a device name"
 msgid "Unable to open the recording device (%1)"
-msgstr "Non se pode abrir o dispositivo de gravación (%1)."
+msgstr "Non é posíbel abrir o dispositivo de gravación (%1)."
 
 #: plugins/record/RecordPlugin.cpp:548 plugins/record/RecordPlugin.cpp:556
 #, kde-format

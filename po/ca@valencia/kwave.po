@@ -4322,7 +4322,8 @@ msgstr "No s'ha pogut obrir el flux de bits FLAC."
 #: plugins/codec_flac/FlacDecoder.cpp:291
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
-msgstr "S'ha produït un error en analitzar les metadades FLAC. (%s)"
+msgstr ""
+"S'ha produït un error en l'anàlisi sintàctica de les metadades FLAC. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:224
 #, kde-format

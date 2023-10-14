@@ -688,7 +688,7 @@ msgstr "Visualitza"
 #: kwave/menus.config:116
 msgctxt "menu: /View/Go to Position..."
 msgid "Go to Position..."
-msgstr "Ves a la posició..."
+msgstr "Ves fins a la posició..."
 
 #: kwave/menus.config:117
 msgctxt "menu: /View/Begin"
@@ -713,12 +713,12 @@ msgstr "Pàgina següent"
 #: kwave/menus.config:121
 msgctxt "menu: /View/Scroll Right"
 msgid "Scroll Right"
-msgstr "Desplaça a la dreta"
+msgstr "Desplaça cap a la dreta"
 
 #: kwave/menus.config:122
 msgctxt "menu: /View/Scroll Left"
 msgid "Scroll Left"
-msgstr "Desplaça a l'esquerra"
+msgstr "Desplaça cap a l'esquerra"
 
 #: kwave/menus.config:124
 msgctxt "menu: /View/Zoom In"
@@ -2203,7 +2203,7 @@ msgid ""
 "for details'), etc."
 msgstr ""
 "Informació de la llicència. Per exemple, «Reservats tots\n"
-"els drets d'autoria», «Es permet qualsevol ús», un URL a la\n"
+"els drets d'autoria», «Es permet qualsevol ús», un URL cap a la\n"
 "llicència o a la llicència EFF Open Audio («distribuïda davall\n"
 "les condicions de la llicència Open Audio.\n"
 "Per a més detalls, vegeu http://www.eff.org/IP/Open_licenses/eff_oal.html»), "
@@ -6014,12 +6014,12 @@ msgstr "Seleccioneu la data"
 #: plugins/goto/GotoDlg.ui:15
 #, kde-format
 msgid "Go to Position"
-msgstr "Ves a la posició"
+msgstr "Ves fins a la posició"
 
 #: plugins/goto/GotoPlugin.cpp:50
 #, kde-format
 msgid "Goto..."
-msgstr "Ves a..."
+msgstr "Ves fins a..."
 
 #: plugins/goto/InsertAtPlugin.cpp:50
 #, kde-format

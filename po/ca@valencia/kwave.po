@@ -245,7 +245,7 @@ msgstr "Aurelien Jarno"
 #: kwave/main.cpp:95
 #, kde-format
 msgid "Debian packager"
-msgstr "Empaquetador de Debian"
+msgstr "Empaquetador de la Debian"
 
 #: kwave/main.cpp:99
 #, kde-format

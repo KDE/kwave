@@ -29,7 +29,6 @@ Name[sl]=kodek MP3
 Name[sv]=MP3-kodare
 Name[tr]=MP3 Kodek
 Name[uk]=Кодек MP3
-Name[x-test]=xxMP3 Codecxx
 Name[zh_CN]=MP3 编码解码器
 Name[zh_TW]=MP3 解碼器
 Type=Service

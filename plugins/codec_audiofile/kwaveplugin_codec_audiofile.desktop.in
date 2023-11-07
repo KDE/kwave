@@ -29,6 +29,7 @@ Name[sl]=kodek Audiofile
 Name[sv]=Audiofil-kodare
 Name[tr]=Audiofile Kodek
 Name[uk]=Кодек Audiofile
+Name[x-test]=xxAudiofile Codecxx
 Name[zh_CN]=Audiofile 编解码器
 Name[zh_TW]=音樂檔案解碼器
 Type=Service

@@ -29,6 +29,7 @@ Name[sl]=kodek WAV
 Name[sv]=WAV-kodare
 Name[tr]=WAV Kodek
 Name[uk]=Кодек WAV
+Name[x-test]=xxWAV Codecxx
 Name[zh_CN]=WAV 编解码器
 Name[zh_TW]=WAV 解碼器
 Type=Service

@@ -29,6 +29,7 @@ Name[sl]=Generator ničel
 Name[sv]=Nollgenerator
 Name[tr]=Sıfır Üreteci
 Name[uk]=Генератор нуля
+Name[x-test]=xxZero Generatorxx
 Name[zh_CN]=零生成器
 Name[zh_TW]=靜音 (Zero) 產生器
 Type=Service

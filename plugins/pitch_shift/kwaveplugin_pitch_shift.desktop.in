@@ -28,6 +28,7 @@ Name[sl]=Premik tona
 Name[sv]=Tonhöjdsändring
 Name[tr]=Atım Kaydırma
 Name[uk]=Зсув тону
+Name[x-test]=xxPitch Shiftxx
 Name[zh_CN]=音高位移
 Name[zh_TW]=音高偏移
 Type=Service

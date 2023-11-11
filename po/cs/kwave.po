@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Pavel Fric <pavelfric@seznam.cz>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016.
-# Vít Pelčák <vit@pelcak.org>, 2015, 2016, 2017, 2018, 2019, 2020.
+# SPDX-FileCopyrightText: 2015, 2016, 2017, 2018, 2019, 2020, 2023 Vít Pelčák <vit@pelcak.org>
 # Vit Pelcak <vit@pelcak.org>, 2021, 2022, 2023.
 #
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-12-02 00:43+0000\n"
-"PO-Revision-Date: 2023-02-22 14:28+0100\n"
+"PO-Revision-Date: 2023-11-10 16:28+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -429,22 +429,22 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 #: kwave/MainWidget.cpp:93
 #, kde-format
 msgid "Kwave label list"
-msgstr "Seznam štítků KWave"
+msgstr "Seznam popisků KWave"
 
 #: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1863
 #, kde-format
 msgid "Add Label"
-msgstr "Přidat štítek"
+msgstr "Přidat popisek"
 
 #: kwave/MainWidget.cpp:935 kwave/MainWidget.cpp:948
 #, kde-format
 msgid "Load Labels"
-msgstr "Načíst štítky"
+msgstr "Načíst popisky"
 
 #: kwave/MainWidget.cpp:971
 #, kde-format
 msgid "Save Labels"
-msgstr "Uložit štítky"
+msgstr "Uložit popisky"
 
 #: kwave/MainWidget.cpp:1078
 #, kde-format
@@ -452,13 +452,13 @@ msgid ""
 "There already is a label at the position you have chosen.\n"
 "Do you want to replace it?"
 msgstr ""
-"V místě, které jste si vybral, již jeden štítek je.\n"
+"V místě, které jste si vybral, již jeden popisek je.\n"
 "Chcete jej nahradit?"
 
 #: kwave/MainWidget.cpp:1105
 #, kde-format
 msgid "Modify Label"
-msgstr "Upravit štítek"
+msgstr "Upravit popisek"
 
 #: kwave/menus.config:18
 msgctxt "menu: /File"
@@ -623,17 +623,17 @@ msgstr "Až po konec"
 #: kwave/menus.config:85
 msgctxt "menu: /Edit/Selection/Expand to Labels"
 msgid "Expand to Labels"
-msgstr "Rozvinout ke štítkům"
+msgstr "Rozvinout k popiskům"
 
 #: kwave/menus.config:86
 msgctxt "menu: /Edit/Selection/To Next Labels"
 msgid "To Next Labels"
-msgstr "K dalším štítkům"
+msgstr "K následujícím popiskům"
 
 #: kwave/menus.config:87
 msgctxt "menu: /Edit/Selection/To Previous Labels"
 msgid "To Previous Labels"
-msgstr "K předchozím štítkům"
+msgstr "K předchozím popiskům"
 
 #: kwave/menus.config:90
 msgctxt "menu: /Edit/Track/Add"
@@ -1503,7 +1503,7 @@ msgstr "Přesunout popisek"
 #: libgui/LabelPropertiesWidgetBase.ui:20
 #, kde-format
 msgid "Label Properties..."
-msgstr "Vlastnosti štítku..."
+msgstr "Vlastnosti popisku..."
 
 #. i18n: ectx: property (whatsThis), widget (Kwave::SelectTimeWidget, time)
 #: libgui/LabelPropertiesWidgetBase.ui:44
@@ -1514,8 +1514,8 @@ msgid ""
 "the whole file or by an absolute sample position. However, internally Kwave "
 "always uses the position in samples."
 msgstr ""
-"<b>Pozice štítku:</b><br>\n"
-"Zde můžete nastavit pozici štítku, podle času, podle procenta celého "
+"<b>Pozice popisku:</b><br>\n"
+"Zde můžete nastavit pozici popisku, podle času, podle procenta celého "
 "souboru, nebo podle absolutní pozice vzorku. Nicméně uvnitř Kwave vždy "
 "používá pozici ve vzorcích."
 
@@ -1529,7 +1529,7 @@ msgstr "Popis:"
 #: libgui/LabelPropertiesWidgetBase.ui:61
 #, kde-format
 msgid "some description of the label (optional)"
-msgstr "popis štítku (volitelný)"
+msgstr "nějaký popis popisku (volitelný)"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edDescription)
 #: libgui/LabelPropertiesWidgetBase.ui:65
@@ -1538,8 +1538,8 @@ msgid ""
 "<b>label description:</b><br>\n"
 "Here you can enter some short text to describe the label."
 msgstr ""
-"<b>Popis štítku:</b><br>\n"
-"Zde můžete zadat nějaký krátký text, abyste popsal tento štítek."
+"<b>Popis popisku:</b><br>\n"
+"Zde můžete zadat nějaký krátký text, abyste popsal tento popisek."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: libgui/LabelPropertiesWidgetBase.ui:72
@@ -1557,7 +1557,7 @@ msgstr "Rejstřík:"
 #: libgui/LabelPropertiesWidgetBase.ui:95
 #, kde-format
 msgid "index of the label"
-msgstr "Rejstřík štítků"
+msgstr "Rejstřík popisků"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, lblIndex)
 #: libgui/LabelPropertiesWidgetBase.ui:99
@@ -1568,10 +1568,10 @@ msgid ""
 "position. Lower index means 'left', higher index means 'right'. You cannot "
 "change the index itself, but change the label's position."
 msgstr ""
-"<b>Rejstřík štítků</b><br>\n"
-"Toto je pouze číselný rejstřík ke štítkům, který začíná nulou. Štítky jsou "
+"<b>Rejstřík popisků</b><br>\n"
+"Toto je pouze číselný rejstřík k popiskům, který začíná nulou. Popisky jsou "
 "roztříděny podle své pozice. Nižší index znamená 'levý', vyšší index znamená "
-"'pravý'. Nemůžete měnit samotný index, ale měníte pozici štítku."
+"'pravý'. Nemůžete měnit samotný index, ale měníte pozici popisku."
 
 #: libgui/SelectionBorderItem.cpp:66
 #, kde-format
@@ -1727,17 +1727,17 @@ msgstr "&Uložit..."
 #: libgui/SignalWidget.cpp:259
 #, kde-format
 msgid "&Expand to Labels"
-msgstr "&Rozvinout ke štítkům"
+msgstr "&Rozvinout k popiskům"
 
 #: libgui/SignalWidget.cpp:267
 #, kde-format
 msgid "To Next Labels"
-msgstr "K následujícím štítkům"
+msgstr "K následujícím popiskům"
 
 #: libgui/SignalWidget.cpp:276
 #, kde-format
 msgid "To Previous Labels"
-msgstr "K předchozím štítkům"
+msgstr "K předchozím popiskům"
 
 #: libkwave/CodecManager.cpp:200
 #, kde-format
@@ -2174,7 +2174,7 @@ msgstr "Popisky"
 #: libkwave/FileInfo.cpp:168
 #, kde-format
 msgid "The list of labels/markers."
-msgstr "Seznam štítků/značek."
+msgstr "Seznam popisků/značek."
 
 #: libkwave/FileInfo.cpp:172
 #, kde-format
@@ -3770,17 +3770,17 @@ msgstr "Oříznout"
 #: libkwave/SignalManager.cpp:729
 #, kde-format
 msgid "Expand Selection to Label"
-msgstr "Rozšířit výběr ke štítku"
+msgstr "Rozšířit výběr k popisku"
 
 #: libkwave/SignalManager.cpp:758
 #, kde-format
 msgid "Select Next Labels"
-msgstr "Vybrat další štítky"
+msgstr "Vybrat další popisky"
 
 #: libkwave/SignalManager.cpp:796
 #, kde-format
 msgid "Select Previous Labels"
-msgstr "Vybrat předchozí štítky"
+msgstr "Vybrat předchozí popisky"
 
 #: libkwave/SignalManager.cpp:836
 #, kde-format
@@ -3874,12 +3874,12 @@ msgstr "Upravit údaje o souboru"
 #: libkwave/SignalManager.cpp:1890
 #, kde-format
 msgid "Delete All Labels"
-msgstr "Smazat všechny štítky"
+msgstr "Smazat všechny popisky"
 
 #: libkwave/SignalManager.cpp:1909
 #, kde-format
 msgid "Delete Label"
-msgstr "Smazat štítek"
+msgstr "Smazat popisek"
 
 #: libkwave/SignalManager.cpp:2005
 #, kde-format

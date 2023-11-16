@@ -1168,8 +1168,8 @@ msgid ""
 "again\" checkbox will then be enabled again."
 msgstr ""
 "Voleu tornar a activar totes les notificacions desactivades?\n"
-"Es tornaran a activar tots els missatges desactivats en marcar la casella de "
-"selecció «No ho tornes a preguntar»."
+"Es tornaran a activar tots els missatges desactivats en seleccionar la "
+"casella de selecció «No ho tornes a preguntar»."
 
 #: kwave/TopWidget.cpp:1010
 #, kde-format
@@ -3586,7 +3586,7 @@ msgstr "Neue Deutsche Welle"
 #: libkwave/GenreType.cpp:291
 #, kde-format
 msgid "Podcast"
-msgstr "Podcast"
+msgstr "Pòdcast"
 
 #: libkwave/GenreType.cpp:292
 #, kde-format
@@ -5371,10 +5371,10 @@ msgid ""
 "disabled if nothing is selected or the selection already covers the whole "
 "file.</i>"
 msgstr ""
-"Si està marcada, <b>guarda només els blocs que se superposen amb la selecció "
-"actual</b>, d'altra manera guardarà tot el fitxer.<br><i>Recordeu que esta "
-"opció restarà desactivada si no s'ha seleccionat res o si la selecció "
-"compren tot el fitxer.</i>"
+"Si se selecciona, <b>només es guardaran els blocs que se superposen amb la "
+"selecció actual</b>, d'altra manera es guardarà tot el fitxer."
+"<br><i>Recordeu que esta opció restarà desactivada si no s'ha seleccionat "
+"res o si la selecció compren tot el fitxer.</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:80
@@ -7061,7 +7061,7 @@ msgid ""
 "If checked, the <b>Record time</b> is limited and recording will "
 "automatically stop when the selected time is reached."
 msgstr ""
-"Si està marcada, el <b>Temps que s'ha de gravar</b> estarà limitat i la "
+"Si se selecciona, el <b>Temps que s'ha de gravar</b> estarà limitat i la "
 "gravació es pararà automàticament quan s'assolisca el temps seleccionat."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordTime)
@@ -7124,7 +7124,7 @@ msgid ""
 "Please note that if the time is in the past, the recording will be started "
 "immediately or as soon as the defined trigger level is reached (if enabled)."
 msgstr ""
-"Si està marcada, la gravació començarà a la data i hora indicades. Cal "
+"Si se selecciona, la gravació començarà a la data i hora indicades. Cal "
 "tindre en compte que si l'hora ja ha passat, la gravació començarà "
 "immediatament o quan s'abaste el nivell de detecció (si està activada)."
 

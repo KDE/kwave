@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:31+0000\n"
-"PO-Revision-Date: 2023-10-21 13:54\n"
+"PO-Revision-Date: 2023-11-19 03:40\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -1369,12 +1369,12 @@ msgstr "变换"
 #: libgui/CurveWidget.cpp:91
 #, kde-format
 msgid "Flip horizontal"
-msgstr "水平翻转"
+msgstr "翻转 (水平)"
 
 #: libgui/CurveWidget.cpp:93
 #, kde-format
 msgid "Flip vertical"
-msgstr "垂直翻转"
+msgstr "翻转 (垂直)"
 
 #: libgui/CurveWidget.cpp:96
 #, kde-format

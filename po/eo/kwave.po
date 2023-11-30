@@ -79,11 +79,7 @@ msgid "Playback: %1 samples"
 msgstr "Reproduktado: %1 specimenoj"
 
 #: kwave/FileContext.cpp:860
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "for window title: %1 = Name of the file, %2 = Instance number when opened "
-#| "¦multiple times"
-#| msgid "%1 <%2>"
+#, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
 "multiple times"
@@ -1230,11 +1226,7 @@ msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Reĝimo: %1 kHz @ %2 Bito"
 
 #: kwave/TopWidget.cpp:1210
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "%1=first sample, %2=last sample, %3=number of samples, example: "
-#| "'Selected: ¦2000...3000 (1000 samples)'"
-#| msgid "Selected: %1...%2 (%3 samples)"
+#, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
 "2000...3000 (1000 samples)'"
@@ -1242,11 +1234,7 @@ msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Elektita: %1...%2 (%3 specimenoj)"
 
 #: kwave/TopWidget.cpp:1222
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "%1=start time, %2=end time, %3=time span, example: 'Selected: "
-#| "02:00...05:00 ¦(3 min)'"
-#| msgid "Selected: %1...%2 (%3)"
+#, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
 "(3 min)'"
@@ -2602,11 +2590,7 @@ msgid "%1 kB/s (%2 remaining)"
 msgstr "%1 kB/s (%2 ceteraj)"
 
 #: libkwave/FileProgress.cpp:289
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "file progress dialog, %1=number of loaded/saved megabytes, %2=number of "
-#| "¦total megabytes to load or save"
-#| msgid "%1 MB of %2 MB done"
+#, kde-format
 msgctxt ""
 "file progress dialog, %1=number of loaded/saved megabytes, %2=number of "
 "total megabytes to load or save"
@@ -3920,11 +3904,7 @@ msgid "Insert %1"
 msgstr "Enigi %1"
 
 #: libkwave/undo/UndoAddMetaDataAction.cpp:114
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "name of the undo action for inserting multiple meta data objects of the "
-#| "same ¦type: %1=number of elements, %2=name of one element in singular"
-#| msgid "Insert %1 %2 objects"
+#, kde-format
 msgctxt ""
 "name of the undo action for inserting multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
@@ -3943,11 +3923,7 @@ msgid "Delete %1"
 msgstr "Forigi %1"
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:79
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "name of the undo action for deleting multiple meta data objects of the "
-#| "same ¦type: %1=number of elements, %2=name of one element in singular"
-#| msgid "Delete %1 %2 objects"
+#, kde-format
 msgctxt ""
 "name of the undo action for deleting multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
@@ -3971,11 +3947,7 @@ msgid "Modify %1"
 msgstr "Modifi %1"
 
 #: libkwave/undo/UndoModifyMetaDataAction.cpp:76
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "name of the undo action for modifying multiple meta data objects of the "
-#| "same ¦type: %1=number of elements, %2=name of one element in singular"
-#| msgid "Modify %1 %2 objects"
+#, kde-format
 msgctxt ""
 "name of the undo action for modifying multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
@@ -4965,11 +4937,7 @@ msgid "Corrupt or missing data in bitstream. Continuing."
 msgstr "Koruptitaj aŭ mankantaj datumoj en bitfluo. Daŭrigante."
 
 #: plugins/codec_ogg/OggEncoder.cpp:110
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "error in Ogg encoder, no support for a compression type (e.g. opus, "
-#| "vorbis ¦etc)"
-#| msgid "Error: No Codec for '%1' available"
+#, kde-format
 msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
 "etc)"
@@ -5321,11 +5289,7 @@ msgstr ""
 "Ĉu mi lanĉu K3b kaj malfermu la son-KD-projekton nun?"
 
 #: plugins/export_k3b/K3BExportWidget.cpp:46
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "default entry of the list of placeholder patterns in the K3b export "
-#| "plugin ¦(used for detecting title and artist from a label description)"
-#| msgid "(auto detect)"
+#, kde-format
 msgctxt ""
 "default entry of the list of placeholder patterns in the K3b export plugin "
 "(used for detecting title and artist from a label description)"

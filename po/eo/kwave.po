@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:31+0000\n"
-"PO-Revision-Date: 2023-10-10 21:04+0100\n"
+"PO-Revision-Date: 2023-11-29 22:32+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -895,7 +895,7 @@ msgstr "Tonaltŝanĝo"
 #: kwave/menus.config:189
 msgctxt "menu: /Fx/Reverse"
 msgid "Reverse"
-msgstr "Renverso"
+msgstr "Renversi"
 
 #: kwave/menus.config:203
 msgctxt "menu: /Calculate"
@@ -1063,7 +1063,7 @@ msgstr "Antaŭen"
 #: kwave/PlayerToolBar.cpp:117
 #, kde-format
 msgid "Next"
-msgstr "Poste"
+msgstr "Sekva"
 
 #: kwave/PlayerToolBar.cpp:462
 #, kde-format
@@ -1129,7 +1129,7 @@ msgstr "Refari"
 #: kwave/TopWidget.cpp:392 libkwave/SignalManager.cpp:670
 #, kde-format
 msgid "Cut"
-msgstr "Tranĉi"
+msgstr "Tondi"
 
 #: kwave/TopWidget.cpp:397
 #, kde-format
@@ -3765,7 +3765,7 @@ msgstr "Alglui"
 #: libkwave/SignalManager.cpp:678
 #, kde-format
 msgid "Crop"
-msgstr "Rikolto"
+msgstr "Stuci"
 
 #: libkwave/SignalManager.cpp:729
 #, kde-format
@@ -4097,23 +4097,23 @@ msgstr "Amplifi Liberan"
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:49 plugins/record/RecordDlg.ui:530
 #, kde-format
 msgid "Fade In"
-msgstr "Fade In"
+msgstr "Maldissolvi"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelFadeOut)
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:50 plugins/record/RecordDlg.ui:543
 #, kde-format
 msgid "Fade Out"
-msgstr "Fade Out"
+msgstr "Dissolvi"
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:51
 #, kde-format
 msgid "Fade Intro"
-msgstr "Fade Enkonduko"
+msgstr "Maldissolvi Enkondukon"
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:52
 #, kde-format
 msgid "Fade Leadout"
-msgstr "Fade Leadoout"
+msgstr "Dissolvi Konkludon"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinbox_2)
 #: plugins/band_pass/BandPassDialog.cpp:63 plugins/band_pass/BandPassDlg.ui:117
@@ -4156,7 +4156,7 @@ msgstr "&Aŭskulti"
 #: plugins/band_pass/BandPassDlg.ui:14 plugins/band_pass/BandPassPlugin.cpp:127
 #, kde-format
 msgid "Band Pass"
-msgstr "Band Pass"
+msgstr "Bandpasilo"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinbox)
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinbox_2)
@@ -5999,7 +5999,7 @@ msgstr "Iri al..."
 #: plugins/goto/InsertAtPlugin.cpp:50
 #, kde-format
 msgid "Insert At..."
-msgstr "Enmeti Ĉe..."
+msgstr "Enmeti ĉe..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LowPassDlg)
 #: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:111

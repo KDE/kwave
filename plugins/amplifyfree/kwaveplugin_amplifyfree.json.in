@@ -1,0 +1,45 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Thomas Eschenbacher"
+            }
+        ],
+        "EnabledByDefault": true,
+        "Id": "amplifyfree",
+        "License": "GPL-2.0+",
+        "Name": "Amplify Free",
+        "Name[ca@valencia]": "Amplifica amb llibertat",
+        "Name[ca]": "Amplifica amb llibertat",
+        "Name[cs]": "Volně zesílit",
+        "Name[da]": "Amplify Free",
+        "Name[de]": "Frei verstärken",
+        "Name[el]": "Ελεύθερη ενίσχυση",
+        "Name[en_GB]": "Amplify Free",
+        "Name[eo]": "Amplifi Senpaga",
+        "Name[es]": "Amplificación libre",
+        "Name[et]": "Võimendamine",
+        "Name[eu]": "Anplifikatu askatasun osoz",
+        "Name[fi]": "Vapaa vahvistus",
+        "Name[fr]": "Amplification libre",
+        "Name[gl]": "Amplificar libremente",
+        "Name[ia]": "Amplifica libere",
+        "Name[it]": "Amplificazione libera",
+        "Name[ko]": "자유 증폭",
+        "Name[nl]": "Vrij versterken",
+        "Name[nn]": "Fri forsterking",
+        "Name[pl]": "Dowolne wzmocnienie",
+        "Name[pt]": "Amplificação Livre",
+        "Name[pt_BR]": "Amplificação livre",
+        "Name[ru]": "Усиление",
+        "Name[sk]": "Zosilniť voľne",
+        "Name[sl]": "Prosto ojačaj",
+        "Name[sv]": "Fri förstärkning",
+        "Name[tr]": "Boşu Yükselt",
+        "Name[uk]": "Довільне підсилення",
+        "Name[x-test]": "xxAmplify Freexx",
+        "Name[zh_CN]": "自由放大",
+        "Name[zh_TW]": "放大音量",
+        "Version": "@KWAVE_VERSION@:2.3"
+    }
+}

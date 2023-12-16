@@ -1,0 +1,46 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Ralf Waspe & Gilles Caulier"
+            }
+        ],
+        "EnabledByDefault": true,
+        "Id": "about",
+        "License": "GPL-2.0+",
+        "Name": "About Kwave",
+        "Name[ca@valencia]": "Quant a Kwave",
+        "Name[ca]": "Quant al Kwave",
+        "Name[cs]": "O aplikaci Kwave",
+        "Name[da]": "Om Kwave",
+        "Name[de]": "Über Kwave",
+        "Name[el]": "Σχετικά με το Kwave",
+        "Name[en_GB]": "About Kwave",
+        "Name[eo]": "Pri Kwave",
+        "Name[es]": "Acerca de Kwave",
+        "Name[et]": "Kwave'i teave",
+        "Name[eu]": "Kwave-ri buruz",
+        "Name[fi]": "Tietoa Kwavesta",
+        "Name[fr]": "À propos de KWave",
+        "Name[gl]": "Sobre Kwave",
+        "Name[ia]": "A proposito de Kwave",
+        "Name[it]": "Informazioni su Kwave",
+        "Name[ka]": "Kwave-ის შესახებ",
+        "Name[ko]": "Kwave 정보",
+        "Name[nl]": "Info over Kwave",
+        "Name[nn]": "Om Kwave",
+        "Name[pl]": "O Kwave",
+        "Name[pt]": "Acerca do Kwave",
+        "Name[pt_BR]": "Sobre o Kwave",
+        "Name[ru]": "О программе Kwave",
+        "Name[sk]": "O programe Kwave",
+        "Name[sl]": "O Kwave",
+        "Name[sv]": "Om Kwave",
+        "Name[tr]": "K Dalga Hakkında",
+        "Name[uk]": "Про Kwave",
+        "Name[x-test]": "xxAbout Kwavexx",
+        "Name[zh_CN]": "关于 Kwave",
+        "Name[zh_TW]": "關於 Kwave",
+        "Version": "@KWAVE_VERSION@:2.3"
+    }
+}

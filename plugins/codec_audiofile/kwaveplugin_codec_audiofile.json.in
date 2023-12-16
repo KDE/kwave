@@ -1,0 +1,46 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Thomas Eschenbacher"
+            }
+        ],
+        "EnabledByDefault": true,
+        "Id": "codec_audiofile",
+        "License": "GPL-2.0+",
+        "Name": "Audiofile Codec",
+        "Name[ca@valencia]": "Còdec Audiofile",
+        "Name[ca]": "Còdec Audiofile",
+        "Name[cs]": "Kodek Audiofile",
+        "Name[da]": "Audiofile-codec",
+        "Name[de]": "Audiofile-Codec",
+        "Name[el]": "Κωδικοποιητής Audiofile",
+        "Name[en_GB]": "Audiofile Codec",
+        "Name[eo]": "Aŭddosiero Kodeko",
+        "Name[es]": "Códec Audiofile",
+        "Name[et]": "Audiofile'i koodek",
+        "Name[eu]": "Audiofile kodek",
+        "Name[fi]": "Audiofile-koodekki",
+        "Name[fr]": "Codec Audiofile",
+        "Name[gl]": "Códec de AudioFile",
+        "Name[ia]": "Audiofile Codec",
+        "Name[it]": "Codec Audiofile",
+        "Name[ka]": "Audiofile -ის კოდეკი",
+        "Name[ko]": "오디오 파일 코덱",
+        "Name[nl]": "Audiobestand-codec",
+        "Name[nn]": "Lydfil-kodek",
+        "Name[pl]": "Kodek pliku dźwiękowego",
+        "Name[pt]": "Codificação do Audiofile",
+        "Name[pt_BR]": "Codificação do Audiofile",
+        "Name[ru]": "Кодек звукового файла",
+        "Name[sk]": "Audiofile kodek",
+        "Name[sl]": "kodek Audiofile",
+        "Name[sv]": "Audiofil-kodare",
+        "Name[tr]": "Audiofile Kodek",
+        "Name[uk]": "Кодек Audiofile",
+        "Name[x-test]": "xxAudiofile Codecxx",
+        "Name[zh_CN]": "Audiofile 编解码器",
+        "Name[zh_TW]": "音樂檔案解碼器",
+        "Version": "@KWAVE_VERSION@:2.3"
+    }
+}

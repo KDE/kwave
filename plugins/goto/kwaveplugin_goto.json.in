@@ -1,0 +1,46 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Thomas Eschenbacher"
+            }
+        ],
+        "EnabledByDefault": true,
+        "Id": "goto",
+        "License": "GPL-2.0+",
+        "Name": "Goto Position",
+        "Name[ca@valencia]": "Ves fins a la posició",
+        "Name[ca]": "Ves a la posició",
+        "Name[cs]": "Přejít na místo",
+        "Name[da]": "Gå til placering",
+        "Name[de]": "Gehe zu Position",
+        "Name[el]": "Μετάβαση στη θέση",
+        "Name[en_GB]": "Goto Position",
+        "Name[eo]": "Iri al Pozicio",
+        "Name[es]": "Ir a posición",
+        "Name[et]": "Asukohta liikumine",
+        "Name[eu]": "Joan kokalekura",
+        "Name[fi]": "Siirry sijaintiin",
+        "Name[fr]": "Aller à la position",
+        "Name[gl]": "Ir á posición",
+        "Name[ia]": "Position de Goto (vade a)",
+        "Name[it]": "Vai alla posizione",
+        "Name[ka]": "მდებარეობაზე გადასვლა",
+        "Name[ko]": "위치로 이동",
+        "Name[nl]": "Ga naar positie",
+        "Name[nn]": "Gå-til-posisjon",
+        "Name[pl]": "Idź do położenia",
+        "Name[pt]": "Ir para a Posição",
+        "Name[pt_BR]": "Ir para a posição",
+        "Name[ru]": "Перейти к позиции",
+        "Name[sk]": "Prejsť na polohu",
+        "Name[sl]": "Pojdi na mesto",
+        "Name[sv]": "Gå till position",
+        "Name[tr]": "Gidilecek Konum",
+        "Name[uk]": "Позиція переходу",
+        "Name[x-test]": "xxGoto Positionxx",
+        "Name[zh_CN]": "转到位置",
+        "Name[zh_TW]": "前往位置",
+        "Version": "@KWAVE_VERSION@:2.3"
+    }
+}

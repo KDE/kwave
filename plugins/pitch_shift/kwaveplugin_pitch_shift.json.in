@@ -1,0 +1,45 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Thomas Eschenbacher"
+            }
+        ],
+        "EnabledByDefault": true,
+        "Id": "pitch_shift",
+        "License": "GPL-2.0+",
+        "Name": "Pitch Shift",
+        "Name[ca@valencia]": "Desplaça el to",
+        "Name[ca]": "Desplaça el to",
+        "Name[cs]": "Posun výšky tónu",
+        "Name[da]": "Tonehøjdeforskydning",
+        "Name[de]": "Tonverschiebung",
+        "Name[el]": "Μετατόπιση τόνου",
+        "Name[en_GB]": "Pitch Shift",
+        "Name[eo]": "Tonaltŝanĝo",
+        "Name[es]": "Desplazamiento del tono",
+        "Name[et]": "Helikõrguse muutmine",
+        "Name[eu]": "Tonu Aldaketa",
+        "Name[fi]": "Äänenkorkeuden siirto",
+        "Name[fr]": "Modulation",
+        "Name[gl]": "Cambio de ton",
+        "Name[ia]": "Cambiamento de tono",
+        "Name[it]": "Pitch shift",
+        "Name[ko]": "음높이 조절",
+        "Name[nl]": "Pitch schuif",
+        "Name[nn]": "Tonehøgd-forskyving",
+        "Name[pl]": "Przesunięcie tonu",
+        "Name[pt]": "Desvio de Tom",
+        "Name[pt_BR]": "Desvio de tom",
+        "Name[ru]": "Изменение высоты тона",
+        "Name[sk]": "Posun výšky",
+        "Name[sl]": "Premik tona",
+        "Name[sv]": "Tonhöjdsändring",
+        "Name[tr]": "Atım Kaydırma",
+        "Name[uk]": "Зсув тону",
+        "Name[x-test]": "xxPitch Shiftxx",
+        "Name[zh_CN]": "音高位移",
+        "Name[zh_TW]": "音高偏移",
+        "Version": "@KWAVE_VERSION@:2.3"
+    }
+}

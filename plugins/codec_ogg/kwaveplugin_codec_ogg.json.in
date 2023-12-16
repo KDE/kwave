@@ -1,0 +1,46 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Thomas Eschenbacher"
+            }
+        ],
+        "EnabledByDefault": true,
+        "Id": "codec_ogg",
+        "License": "GPL-2.0+",
+        "Name": "Ogg Codec",
+        "Name[ca@valencia]": "Còdec Ogg",
+        "Name[ca]": "Còdec Ogg",
+        "Name[cs]": "Kodek Ogg",
+        "Name[da]": "Ogg-codec",
+        "Name[de]": "Ogg-Codec",
+        "Name[el]": "Κωδικοποιητής Ogg",
+        "Name[en_GB]": "Ogg Codec",
+        "Name[eo]": "Ogg Kodeko",
+        "Name[es]": "Códec Ogg",
+        "Name[et]": "Ogg'i koodek",
+        "Name[eu]": "Ogg kodek",
+        "Name[fi]": "Ogg-koodekki",
+        "Name[fr]": "Codec Ogg",
+        "Name[gl]": "Códec de Ogg",
+        "Name[ia]": "Ogg Codec",
+        "Name[it]": "Codec Ogg",
+        "Name[ka]": "Ogg -ის კოდეკი",
+        "Name[ko]": "Ogg 코덱",
+        "Name[nl]": "Ogg-codec",
+        "Name[nn]": "Ogg-kodek",
+        "Name[pl]": "Kodek Ogg",
+        "Name[pt]": "Codificação em Ogg",
+        "Name[pt_BR]": "Codec Ogg",
+        "Name[ru]": "Кодек Ogg",
+        "Name[sk]": "Ogg kodek",
+        "Name[sl]": "kodek Ogg",
+        "Name[sv]": "Ogg-kodare",
+        "Name[tr]": "Ogg Kodek",
+        "Name[uk]": "Кодек Ogg",
+        "Name[x-test]": "xxOgg Codecxx",
+        "Name[zh_CN]": "Ogg 编解码器",
+        "Name[zh_TW]": "Ogg 解碼器",
+        "Version": "@KWAVE_VERSION@:2.3"
+    }
+}

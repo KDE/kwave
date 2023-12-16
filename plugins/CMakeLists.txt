@@ -64,13 +64,8 @@ MACRO(KWAVE_PLUGIN _plugin)
     SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
     CONFIGURE_FILE(
-        ${CMAKE_CURRENT_SOURCE_DIR}/kwaveplugin_${_plugin}.desktop.in
-        ${CMAKE_CURRENT_BINARY_DIR}/kwaveplugin_${_plugin}.desktop
-    )
-
-    KCOREADDONS_DESKTOP_TO_JSON(
-        plugin_${_plugin}
-        ${CMAKE_CURRENT_BINARY_DIR}/kwaveplugin_${_plugin}.desktop
+        ${CMAKE_CURRENT_SOURCE_DIR}/kwaveplugin_${_plugin}.json.in
+        ${CMAKE_CURRENT_BINARY_DIR}/kwaveplugin_${_plugin}.json
     )
 
     #########################################################################

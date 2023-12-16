@@ -1,0 +1,46 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Thomas Eschenbacher"
+            }
+        ],
+        "EnabledByDefault": true,
+        "Id": "noise",
+        "License": "GPL-2.0+",
+        "Name": "Noise Generator",
+        "Name[ca@valencia]": "Generador de soroll",
+        "Name[ca]": "Generador de soroll",
+        "Name[cs]": "Generátor šumu",
+        "Name[da]": "Støjgenerator",
+        "Name[de]": "Rauschgenerator",
+        "Name[el]": "Γεννήτρια θορύβου",
+        "Name[en_GB]": "Noise Generator",
+        "Name[eo]": "Bruo Generatoro",
+        "Name[es]": "Generador de ruido",
+        "Name[et]": "Mürageneraator",
+        "Name[eu]": "Zarata sortzailea",
+        "Name[fi]": "Kohinageneraattori",
+        "Name[fr]": "Générateur de bruit",
+        "Name[gl]": "Xerador de ruído",
+        "Name[ia]": "Generator de ruito",
+        "Name[it]": "Generatore rumore",
+        "Name[ka]": "ხმაურის გენერატორი",
+        "Name[ko]": "잡음 생성기",
+        "Name[nl]": "Ruisgenerator",
+        "Name[nn]": "Støygenerator",
+        "Name[pl]": "Generator szumu",
+        "Name[pt]": "Gerador de Ruído",
+        "Name[pt_BR]": "Gerador de ruído",
+        "Name[ru]": "Генератор шума",
+        "Name[sk]": "Generátor šumu",
+        "Name[sl]": "Generator šuma",
+        "Name[sv]": "Brusgenerator",
+        "Name[tr]": "Ses Üreteci",
+        "Name[uk]": "Генератор шумів",
+        "Name[x-test]": "xxNoise Generatorxx",
+        "Name[zh_CN]": "噪声发生器",
+        "Name[zh_TW]": "噪音產生器",
+        "Version": "@KWAVE_VERSION@:2.3"
+    }
+}

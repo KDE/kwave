@@ -1,0 +1,46 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Thomas Eschenbacher"
+            }
+        ],
+        "EnabledByDefault": true,
+        "Id": "reverse",
+        "License": "GPL-2.0+",
+        "Name": "Reverse",
+        "Name[ca@valencia]": "Invertix",
+        "Name[ca]": "Inverteix",
+        "Name[cs]": "Obrátit směr",
+        "Name[da]": "Omvendt",
+        "Name[de]": "Umkehren",
+        "Name[el]": "Αντιστροφή",
+        "Name[en_GB]": "Reverse",
+        "Name[eo]": "Reverse",
+        "Name[es]": "Invertir",
+        "Name[et]": "Teistpidi",
+        "Name[eu]": "Alderantzikatu",
+        "Name[fi]": "Käänteinen",
+        "Name[fr]": "Inversement",
+        "Name[gl]": "Inverter",
+        "Name[ia]": "Revertite",
+        "Name[it]": "Inverti",
+        "Name[ka]": "პირიქით",
+        "Name[ko]": "반전",
+        "Name[nl]": "Omkeren",
+        "Name[nn]": "Snu",
+        "Name[pl]": "Odwróć",
+        "Name[pt]": "Inverter",
+        "Name[pt_BR]": "Inverter",
+        "Name[ru]": "Реверс",
+        "Name[sk]": "Otočiť",
+        "Name[sl]": "Nazaj",
+        "Name[sv]": "Vänd",
+        "Name[tr]": "Ters",
+        "Name[uk]": "Реверс",
+        "Name[x-test]": "xxReversexx",
+        "Name[zh_CN]": "逆序",
+        "Name[zh_TW]": "反轉",
+        "Version": "@KWAVE_VERSION@:2.3"
+    }
+}

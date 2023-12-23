@@ -47,8 +47,7 @@ Kwave::AboutContainer::AboutContainer(QWidget *parent)
     Q_ASSERT(gbox);
     if (!gbox) return;
 
-    gbox->setMargin(0);
-    gbox->setMargin(0);
+    gbox->setContentsMargins(0, 0, 0, 0);
     gbox->setColumnStretch(0, 10);
     gbox->setColumnStretch(2, 10);
     gbox->setRowStretch(0, 10);
@@ -109,7 +108,7 @@ QSize Kwave::AboutContainer::sizeHint() const
 	//
 	total_size.setHeight(total_size.height() +
 	    layout()->spacing() * (numChild - 1));
-	total_size += QSize(layout()->margin()*2, layout()->margin()*2 + 1);
+	total_size += QSize(layout()->contentsMargins().left()*2, layout()->contentsMargins().top()*2 + 1);
     } else {
 	total_size = QSize(1, 1);
     }
@@ -227,13 +226,13 @@ void Kwave::AboutContributor::updateLayout()
 	    gbox = new(std::nothrow) QGridLayout(this);
 	    Q_ASSERT(gbox);
 	    if (!gbox) return;
-	    gbox->setMargin(frameWidth()+1);
+	    gbox->setContentsMargins(frameWidth()+1, frameWidth()+1, frameWidth()+1, frameWidth()+1);
 	    gbox->setSpacing(2);
 	} else {
 	    gbox = new(std::nothrow) QGridLayout(this);
 	    Q_ASSERT(gbox);
 	    if (!gbox) return;
-	    gbox->setMargin(frameWidth()+1);
+	    gbox->setContentsMargins(frameWidth()+1, frameWidth()+1, frameWidth()+1, frameWidth()+1);
 	    gbox->setSpacing(2);
 	    gbox->addItem(new(std::nothrow) QSpacerItem(20, 0), 0, 0);
 	    gbox->setColumnStretch(1, 10);

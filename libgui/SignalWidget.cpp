@@ -125,7 +125,7 @@ Kwave::SignalWidget::SignalWidget(QWidget *parent,
 
     m_layout.setColumnStretch(0,   0);
     m_layout.setColumnStretch(1, 100);
-    m_layout.setMargin(0);
+    m_layout.setContentsMargins(0, 0, 0, 0);
     m_layout.setVerticalSpacing(3);
     setLayout(&m_layout);
     m_layout.activate();

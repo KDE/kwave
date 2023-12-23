@@ -75,7 +75,7 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
     QVBoxLayout *top_layout = new(std::nothrow) QVBoxLayout(this);
     Q_ASSERT(top_layout);
     if (!top_layout) return;
-    top_layout->setMargin(10);
+    top_layout->setContentsMargins(10, 10, 10, 10);
     top_layout->setSpacing(10);
 
     // sublayout for the lines with the file info

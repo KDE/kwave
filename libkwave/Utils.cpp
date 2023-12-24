@@ -132,10 +132,6 @@ QString Kwave::string2date(const QString &str)
     const Qt::DateFormat formats[] = {
 	Qt::ISODate,
 	Qt::TextDate,
-	Qt::SystemLocaleShortDate,
-	Qt::SystemLocaleLongDate,
-	Qt::DefaultLocaleShortDate,
-	Qt::DefaultLocaleLongDate
     };
     QString s;
     const unsigned int fmt_count =
@@ -153,6 +149,22 @@ QString Kwave::string2date(const QString &str)
 	return str; // already a valid date
 
     // try all date/time formats supported by Qt
+    dt = QLocale().toDateTime(str, QLocale::ShortFormat);
+    if (dt.isValid()) {
+	return dt.toString(_("yyyy-MM-ddThh:mm:ss"));
+    }
+    dt = QLocale().toDateTime(str, QLocale::LongFormat);
+    if (dt.isValid()) {
+	return dt.toString(_("yyyy-MM-ddThh:mm:ss"));
+    }
+    dt = QLocale::system().toDateTime(str, QLocale::ShortFormat);
+    if (dt.isValid()) {
+	return dt.toString(_("yyyy-MM-ddThh:mm:ss"));
+    }
+    dt = QLocale::system().toDateTime(str, QLocale::LongFormat);
+    if (dt.isValid()) {
+	return dt.toString(_("yyyy-MM-ddThh:mm:ss"));
+    }
     for (unsigned int i = 0; i < fmt_count; i++) {
 	Qt::DateFormat fmt = formats[i];
 	s = QString();

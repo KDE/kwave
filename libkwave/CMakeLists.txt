@@ -179,3 +179,7 @@ INSTALL(TARGETS libkwave LIBRARY DESTINATION ${LIB_INSTALL_DIR} NAMELINK_SKIP)
 
 #############################################################################
 #############################################################################
+
+if(BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()

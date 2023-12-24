@@ -251,6 +251,13 @@ INCLUDE_DIRECTORIES(
 )
 
 #############################################################################
+
+if(BUILD_TESTING)
+    find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Test)
+    include(ECMAddTests)
+endif()
+
+#############################################################################
 ### checks for needed header files                                        ###
 
 CHECK_INCLUDE_FILES(signal.h HAVE_SIGNAL_H)

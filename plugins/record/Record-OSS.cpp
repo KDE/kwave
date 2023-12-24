@@ -705,13 +705,13 @@ QList<unsigned int> Kwave::RecordOSS::supportedBits()
     // mask out all modes that do not match the current compression
     const int compression = this->compression();
     for (unsigned int bit=0; bit < (sizeof(mask) << 3); bit++) {
-	if (!(mask & (1 << bit))) continue;
+	if (!(mask & (1U << bit))) continue;
 
 	// format is supported, split into compression, bits, sample format
 	Kwave::Compression::Type c(Kwave::Compression::NONE);
 	int b;
 	Kwave::SampleFormat::Format s;
-	format2mode(1 << bit, c, b, s);
+	format2mode(1U << bit, c, b, s);
 	if (b < 0) continue; // unknown -> skip
 
 	// take the mode if compression matches and it is not already known

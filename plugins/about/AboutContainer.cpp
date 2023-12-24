@@ -107,8 +107,9 @@ QSize Kwave::AboutContainer::sizeHint() const
 	// of the last entry if layout()->margin() is 0
 	//
 	total_size.setHeight(total_size.height() +
-	    layout()->spacing() * (numChild - 1));
-	total_size += QSize(layout()->contentsMargins().left()*2, layout()->contentsMargins().top()*2 + 1);
+	        layout()->spacing() * (numChild - 1));
+	total_size += QSize(layout()->contentsMargins().left() * 2, 
+                       (layout()->contentsMargins().top() * 2) + 1);
     } else {
 	total_size = QSize(1, 1);
     }
@@ -138,8 +139,10 @@ void Kwave::AboutContainer::addWidget(QWidget *widget)
 }
 
 //***************************************************************************
-void Kwave::AboutContainer::addPerson(const QString &_name, const QString &_email,
-				      const QString &_url, const QString &_task)
+void Kwave::AboutContainer::addPerson(const QString &_name, 
+                                      const QString &_email,
+				                      const QString &_url,
+                                      const QString &_task)
 {
     Kwave::AboutContributor * const cont = new(std::nothrow)
 	Kwave::AboutContributor(this,
@@ -205,6 +208,7 @@ QSize Kwave::AboutContributor::sizeHint() const
 //***************************************************************************
 void Kwave::AboutContributor::updateLayout()
 {
+    const int fw1 = frameWidth() + 1;
     if (layout()) delete layout();
 
     int row = 0;
@@ -226,13 +230,13 @@ void Kwave::AboutContributor::updateLayout()
 	    gbox = new(std::nothrow) QGridLayout(this);
 	    Q_ASSERT(gbox);
 	    if (!gbox) return;
-	    gbox->setContentsMargins(frameWidth()+1, frameWidth()+1, frameWidth()+1, frameWidth()+1);
+	    gbox->setContentsMargins(fw1, fw1, fw1, fw1);
 	    gbox->setSpacing(2);
 	} else {
 	    gbox = new(std::nothrow) QGridLayout(this);
 	    Q_ASSERT(gbox);
 	    if (!gbox) return;
-	    gbox->setContentsMargins(frameWidth()+1, frameWidth()+1, frameWidth()+1, frameWidth()+1);
+	    gbox->setContentsMargins(fw1, fw1, fw1, fw1);
 	    gbox->setSpacing(2);
 	    gbox->addItem(new(std::nothrow) QSpacerItem(20, 0), 0, 0);
 	    gbox->setColumnStretch(1, 10);

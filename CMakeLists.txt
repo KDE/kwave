@@ -67,7 +67,7 @@ set (RELEASE_SERVICE_VERSION_MICRO "85")
 CMAKE_MINIMUM_REQUIRED(VERSION 3.16.0 FATAL_ERROR)
 
 SET(QT_MIN_VERSION  "5.15.0")
-SET(KF5_MIN_VERSION "5.90.0")
+SET(KF5_MIN_VERSION "5.91.0")
 SET(KDE_COMPILERSETTINGS_LEVEL "5.82")
 
 #############################################################################
@@ -217,6 +217,10 @@ INCLUDE(KDECompilerSettings NO_POLICY_SCOPE)
 INCLUDE(KDECMakeSettings)
 INCLUDE(GenerateExportHeader)
 INCLUDE(FeatureSummary)
+INCLUDE(ECMDeprecationSettings)
+ecm_set_disabled_deprecation_versions(
+  QT ${QT_MIN_VERSION}
+)
 
 FIND_PACKAGE(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Archive

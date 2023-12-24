@@ -23,6 +23,7 @@
 #include <QByteArray>
 #include <QtGlobal>
 #include <QExplicitlySharedDataPointer>
+#include <QList>
 #include <QMutex>
 #include <QSharedData>
 

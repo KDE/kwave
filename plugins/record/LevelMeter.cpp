@@ -62,7 +62,7 @@ Kwave::LevelMeter::LevelMeter(QWidget *parent)
     m_color_normal(Qt::yellow),
     m_color_high(Qt::red)
 {
-    setAttribute(Qt::WA_NoBackground);
+    setAttribute(Qt::WA_OpaquePaintEvent);
     m_timer = new(std::nothrow) QTimer(this);
     Q_ASSERT(m_timer);
     connect(m_timer, SIGNAL(timeout()),

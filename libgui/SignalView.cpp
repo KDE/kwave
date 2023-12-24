@@ -175,7 +175,7 @@ double Kwave::SignalView::samples2ms(sample_index_t samples)
 Kwave::SignalView::SelectionPos Kwave::SignalView::selectionPosition(int x)
 {
     // shortcut: if this view can't handle selection...
-    if (!canHandleSelection()) return Q_NULLPTR;
+    if (!canHandleSelection()) return None;
 
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return None;

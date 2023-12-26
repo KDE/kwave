@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <KLazyLocalizedString>
 #include <QtGlobal>
 #include <QMap>
 #include <QString>
@@ -65,7 +66,7 @@ namespace Kwave
     private:
 
 	/** map with numeric ids and names */
-	static QMap<int, const char*> m_map;
+	static QMap<int, KLazyLocalizedString> m_map;
 
     };
 }

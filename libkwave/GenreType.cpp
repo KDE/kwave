@@ -23,7 +23,7 @@
 #include "libkwave/String.h"
 
 //***************************************************************************
-QMap<int, const char *> Kwave::GenreType::m_map;
+QMap<int, KLazyLocalizedString> Kwave::GenreType::m_map;
 
 //***************************************************************************
 Kwave::GenreType::GenreType()
@@ -36,7 +36,7 @@ QString Kwave::GenreType::name(int id, bool localized)
     fill();
 
     if (m_map.contains(id))
-	return (localized) ? i18n(m_map[id]) : _(m_map[id]);
+	return (localized) ? m_map[id].toString() : _(m_map[id].untranslatedText());
     else
 	return QString::number(id);
 }
@@ -63,11 +63,11 @@ int Kwave::GenreType::fromID3(const QString &tag)
 int Kwave::GenreType::id(const QString &name)
 {
     fill();
-    QMap<int, const char *>::Iterator it;
+    QMap<int, KLazyLocalizedString>::Iterator it;
     for (it = m_map.begin(); it != m_map.end(); ++it) {
-	if (!_(it.value()).compare(name, Qt::CaseInsensitive))
+	if (!_(it.value().untranslatedText()).compare(name, Qt::CaseInsensitive))
 	    return it.key();
-	if (i18n(it.value()).compare(name, Qt::CaseInsensitive) == 0)
+	if (it.value().toString().compare(name, Qt::CaseInsensitive) == 0)
 	    return it.key();
     }
 
@@ -80,10 +80,10 @@ QStringList Kwave::GenreType::allTypes()
     fill();
 
     QStringList list;
-    for (QMap<int, const char *>::const_iterator it = m_map.constBegin();
+    for (QMap<int, KLazyLocalizedString>::const_iterator it = m_map.constBegin();
          it != m_map.constEnd(); ++it)
     {
-	list.append(i18n(it.value()));
+	list.append(it.value().toString());
     }
 
     return list;
@@ -94,212 +94,212 @@ void Kwave::GenreType::fill()
 {
     if (m_map.count()) return;
     {
-	static const char *map[] = {
+	static const KLazyLocalizedString map[] = {
 	    // The following genres are defined in ID3v1
-	    I18N_NOOP("Blues"),            //   0
-	    I18N_NOOP("Classic Rock"),
-	    I18N_NOOP("Country"),
-	    I18N_NOOP("Dance"),
-	    I18N_NOOP("Disco"),
-	    I18N_NOOP("Funk"),             //   5
-	    I18N_NOOP("Grunge"),
-	    I18N_NOOP("Hip-Hop"),
-	    I18N_NOOP("Jazz"),
-	    I18N_NOOP("Metal"),
-	    I18N_NOOP("New Age"),          //  10
-	    I18N_NOOP("Oldies"),
-	    I18N_NOOP("Other"),
-	    I18N_NOOP("Pop"),
-	    I18N_NOOP("Rhythm and Blues"),
-	    I18N_NOOP("Rap"),              //  15
-	    I18N_NOOP("Reggae"),
-	    I18N_NOOP("Rock"),
-	    I18N_NOOP("Techno"),
-	    I18N_NOOP("Industrial"),
-	    I18N_NOOP("Alternative"),      //  20
-	    I18N_NOOP("Ska"),
-	    I18N_NOOP("Death Metal"),
-	    I18N_NOOP("Pranks"),
-	    I18N_NOOP("Soundtrack"),
-	    I18N_NOOP("Euro-Techno"),      //  25
-	    I18N_NOOP("Ambient"),
-	    I18N_NOOP("Trip-Hop"),
-	    I18N_NOOP("Vocal"),
-	    I18N_NOOP("Jazz & Funk"),
-	    I18N_NOOP("Fusion"),           //  30
-	    I18N_NOOP("Trance"),
-	    I18N_NOOP("Classical"),
-	    I18N_NOOP("Instrumental"),
-	    I18N_NOOP("Acid"),
-	    I18N_NOOP("House"),            //  35
-	    I18N_NOOP("Game"),
-	    I18N_NOOP("Sound Clip"),
-	    I18N_NOOP("Gospel"),
-	    I18N_NOOP("Noise"),
-	    I18N_NOOP("Alternative Rock"), //  40
-	    I18N_NOOP("Bass"),
-	    I18N_NOOP("Soul"),
-	    I18N_NOOP("Punk"),
-	    I18N_NOOP("Space"),
-	    I18N_NOOP("Meditative"),       //  45
-	    I18N_NOOP("Instrumental Pop"),
-	    I18N_NOOP("Instrumental Rock"),
-	    I18N_NOOP("Ethnic"),
-	    I18N_NOOP("Gothic"),
-	    I18N_NOOP("Darkwave"),         //  50
-	    I18N_NOOP("Techno-Industrial"),
-	    I18N_NOOP("Electronic"),
-	    I18N_NOOP("Pop-Folk"),
-	    I18N_NOOP("Eurodance"),
-	    I18N_NOOP("Dream"),            //  55
-	    I18N_NOOP("Southern Rock"),
-	    I18N_NOOP("Comedy"),
-	    I18N_NOOP("Cult"),
-	    I18N_NOOP("Gangsta"),
-	    I18N_NOOP("Top 40"),           //  60
-	    I18N_NOOP("Christian Rap"),
-	    I18N_NOOP("Pop/Funk"),
-	    I18N_NOOP("Jungle"),
-	    I18N_NOOP("Native American"),
-	    I18N_NOOP("Cabaret"),          //  65
-	    I18N_NOOP("New Wave"),
-	    I18N_NOOP("Psychedelic"),
-	    I18N_NOOP("Rave"),
-	    I18N_NOOP("Showtunes"),
-	    I18N_NOOP("Trailer"),          //  70
-	    I18N_NOOP("Lo-Fi"),
-	    I18N_NOOP("Tribal"),
-	    I18N_NOOP("Acid Punk"),
-	    I18N_NOOP("Acid Jazz"),
-	    I18N_NOOP("Polka"),            //  75
-	    I18N_NOOP("Retro"),
-	    I18N_NOOP("Musical"),
-	    I18N_NOOP("Rock 'n' Roll"),
-	    I18N_NOOP("Hard Rock"),
+	    kli18n("Blues"),            //   0
+	    kli18n("Classic Rock"),
+	    kli18n("Country"),
+	    kli18n("Dance"),
+	    kli18n("Disco"),
+	    kli18n("Funk"),             //   5
+	    kli18n("Grunge"),
+	    kli18n("Hip-Hop"),
+	    kli18n("Jazz"),
+	    kli18n("Metal"),
+	    kli18n("New Age"),          //  10
+	    kli18n("Oldies"),
+	    kli18n("Other"),
+	    kli18n("Pop"),
+	    kli18n("Rhythm and Blues"),
+	    kli18n("Rap"),              //  15
+	    kli18n("Reggae"),
+	    kli18n("Rock"),
+	    kli18n("Techno"),
+	    kli18n("Industrial"),
+	    kli18n("Alternative"),      //  20
+	    kli18n("Ska"),
+	    kli18n("Death Metal"),
+	    kli18n("Pranks"),
+	    kli18n("Soundtrack"),
+	    kli18n("Euro-Techno"),      //  25
+	    kli18n("Ambient"),
+	    kli18n("Trip-Hop"),
+	    kli18n("Vocal"),
+	    kli18n("Jazz & Funk"),
+	    kli18n("Fusion"),           //  30
+	    kli18n("Trance"),
+	    kli18n("Classical"),
+	    kli18n("Instrumental"),
+	    kli18n("Acid"),
+	    kli18n("House"),            //  35
+	    kli18n("Game"),
+	    kli18n("Sound Clip"),
+	    kli18n("Gospel"),
+	    kli18n("Noise"),
+	    kli18n("Alternative Rock"), //  40
+	    kli18n("Bass"),
+	    kli18n("Soul"),
+	    kli18n("Punk"),
+	    kli18n("Space"),
+	    kli18n("Meditative"),       //  45
+	    kli18n("Instrumental Pop"),
+	    kli18n("Instrumental Rock"),
+	    kli18n("Ethnic"),
+	    kli18n("Gothic"),
+	    kli18n("Darkwave"),         //  50
+	    kli18n("Techno-Industrial"),
+	    kli18n("Electronic"),
+	    kli18n("Pop-Folk"),
+	    kli18n("Eurodance"),
+	    kli18n("Dream"),            //  55
+	    kli18n("Southern Rock"),
+	    kli18n("Comedy"),
+	    kli18n("Cult"),
+	    kli18n("Gangsta"),
+	    kli18n("Top 40"),           //  60
+	    kli18n("Christian Rap"),
+	    kli18n("Pop/Funk"),
+	    kli18n("Jungle"),
+	    kli18n("Native American"),
+	    kli18n("Cabaret"),          //  65
+	    kli18n("New Wave"),
+	    kli18n("Psychedelic"),
+	    kli18n("Rave"),
+	    kli18n("Showtunes"),
+	    kli18n("Trailer"),          //  70
+	    kli18n("Lo-Fi"),
+	    kli18n("Tribal"),
+	    kli18n("Acid Punk"),
+	    kli18n("Acid Jazz"),
+	    kli18n("Polka"),            //  75
+	    kli18n("Retro"),
+	    kli18n("Musical"),
+	    kli18n("Rock 'n' Roll"),
+	    kli18n("Hard Rock"),
 
 	    // The following genres are Winamp extensions
-	    I18N_NOOP("Folk"),             //  80
-	    I18N_NOOP("Folk-Rock"),
-	    I18N_NOOP("National Folk"),
-	    I18N_NOOP("Swing"),
-	    I18N_NOOP("Fast Fusion"),
-	    I18N_NOOP("Bebop"),            //  85
-	    I18N_NOOP("Latin"),
-	    I18N_NOOP("Revival"),
-	    I18N_NOOP("Celtic"),
-	    I18N_NOOP("Bluegrass"),
-	    I18N_NOOP("Avantgarde"),       //  90
-	    I18N_NOOP("Gothic Rock"),
-	    I18N_NOOP("Progressive Rock"),
-	    I18N_NOOP("Psychedelic Rock"),
-	    I18N_NOOP("Symphonic Rock"),
-	    I18N_NOOP("Slow Rock"),        //  95
-	    I18N_NOOP("Big Band"),
-	    I18N_NOOP("Chorus"),
-	    I18N_NOOP("Easy Listening"),
-	    I18N_NOOP("Acoustic"),
-	    I18N_NOOP("Humour"),           // 100
-	    I18N_NOOP("Speech"),
-	    I18N_NOOP("Chanson"),
-	    I18N_NOOP("Opera"),
-	    I18N_NOOP("Chamber Music"),
-	    I18N_NOOP("Sonata"),           // 105
-	    I18N_NOOP("Symphony"),
-	    I18N_NOOP("Booty Bass"),
-	    I18N_NOOP("Primus"),
-	    I18N_NOOP("Porn Groove"),
-	    I18N_NOOP("Satire"),           // 110
-	    I18N_NOOP("Slow Jam"),
-	    I18N_NOOP("Club"),
-	    I18N_NOOP("Tango"),
-	    I18N_NOOP("Samba"),
-	    I18N_NOOP("Folklore"),         // 115
-	    I18N_NOOP("Ballad"),
-	    I18N_NOOP("Power Ballad"),
-	    I18N_NOOP("Rhythmic Soul"),
-	    I18N_NOOP("Freestyle"),
-	    I18N_NOOP("Duet"),             // 120
-	    I18N_NOOP("Punk Rock"),
-	    I18N_NOOP("Drum Solo"),
-	    I18N_NOOP("A Cappella"),
-	    I18N_NOOP("Euro-House"),
-	    I18N_NOOP("Dance Hall"),       // 125
-	    I18N_NOOP("Goa"),
-	    I18N_NOOP("Drum & Bass"),
-	    I18N_NOOP("Club-House"),
-	    I18N_NOOP("Hardcore Techno"),
-	    I18N_NOOP("Terror"),           // 130
-	    I18N_NOOP("Indie"),
-	    I18N_NOOP("BritPop"),
-	    I18N_NOOP("Negerpunk"),
-	    I18N_NOOP("Polsk Punk"),
-	    I18N_NOOP("Beat"),             // 135
-	    I18N_NOOP("Christian Gangsta Rap"),
-	    I18N_NOOP("Heavy Metal"),
-	    I18N_NOOP("Black Metal"),
-	    I18N_NOOP("Crossover"),
-	    I18N_NOOP("Contemporary Christian"), // 140
-	    I18N_NOOP("Christian Rock"),
+	    kli18n("Folk"),             //  80
+	    kli18n("Folk-Rock"),
+	    kli18n("National Folk"),
+	    kli18n("Swing"),
+	    kli18n("Fast Fusion"),
+	    kli18n("Bebop"),            //  85
+	    kli18n("Latin"),
+	    kli18n("Revival"),
+	    kli18n("Celtic"),
+	    kli18n("Bluegrass"),
+	    kli18n("Avantgarde"),       //  90
+	    kli18n("Gothic Rock"),
+	    kli18n("Progressive Rock"),
+	    kli18n("Psychedelic Rock"),
+	    kli18n("Symphonic Rock"),
+	    kli18n("Slow Rock"),        //  95
+	    kli18n("Big Band"),
+	    kli18n("Chorus"),
+	    kli18n("Easy Listening"),
+	    kli18n("Acoustic"),
+	    kli18n("Humour"),           // 100
+	    kli18n("Speech"),
+	    kli18n("Chanson"),
+	    kli18n("Opera"),
+	    kli18n("Chamber Music"),
+	    kli18n("Sonata"),           // 105
+	    kli18n("Symphony"),
+	    kli18n("Booty Bass"),
+	    kli18n("Primus"),
+	    kli18n("Porn Groove"),
+	    kli18n("Satire"),           // 110
+	    kli18n("Slow Jam"),
+	    kli18n("Club"),
+	    kli18n("Tango"),
+	    kli18n("Samba"),
+	    kli18n("Folklore"),         // 115
+	    kli18n("Ballad"),
+	    kli18n("Power Ballad"),
+	    kli18n("Rhythmic Soul"),
+	    kli18n("Freestyle"),
+	    kli18n("Duet"),             // 120
+	    kli18n("Punk Rock"),
+	    kli18n("Drum Solo"),
+	    kli18n("A Cappella"),
+	    kli18n("Euro-House"),
+	    kli18n("Dance Hall"),       // 125
+	    kli18n("Goa"),
+	    kli18n("Drum & Bass"),
+	    kli18n("Club-House"),
+	    kli18n("Hardcore Techno"),
+	    kli18n("Terror"),           // 130
+	    kli18n("Indie"),
+	    kli18n("BritPop"),
+	    kli18n("Negerpunk"),
+	    kli18n("Polsk Punk"),
+	    kli18n("Beat"),             // 135
+	    kli18n("Christian Gangsta Rap"),
+	    kli18n("Heavy Metal"),
+	    kli18n("Black Metal"),
+	    kli18n("Crossover"),
+	    kli18n("Contemporary Christian"), // 140
+	    kli18n("Christian Rock"),
 
 	    // WinAmp 1.91
-	    I18N_NOOP("Merengue"),         // 142
-	    I18N_NOOP("Salsa"),
-	    I18N_NOOP("Thrash Metal"),
-	    I18N_NOOP("Anime"),            // 145
-	    I18N_NOOP("JPop"),
-	    I18N_NOOP("SynthPop"),
+	    kli18n("Merengue"),         // 142
+	    kli18n("Salsa"),
+	    kli18n("Thrash Metal"),
+	    kli18n("Anime"),            // 145
+	    kli18n("JPop"),
+	    kli18n("SynthPop"),
 
 	    // WinAmp 5.6
-	    I18N_NOOP("Abstract"),         // 148
-	    I18N_NOOP("Art Rock"),
-	    I18N_NOOP("Baroque"),          // 150
-	    I18N_NOOP("Bhangra"),
-	    I18N_NOOP("Big Beat"),
-	    I18N_NOOP("Breakbeat"),
-	    I18N_NOOP("Chillout"),
-	    I18N_NOOP("Downtempo"),        // 155
-	    I18N_NOOP("Dub"),
-	    I18N_NOOP("EBM"),
-	    I18N_NOOP("Eclectic"),
-	    I18N_NOOP("Electro"),
-	    I18N_NOOP("Electroclash"),     // 160
-	    I18N_NOOP("Emo"),
-	    I18N_NOOP("Experimental"),
-	    I18N_NOOP("Garage"),
-	    I18N_NOOP("Global"),
-	    I18N_NOOP("IDM"),              // 165
-	    I18N_NOOP("Illbient"),
-	    I18N_NOOP("Industro-Goth"),
-	    I18N_NOOP("Jam Band"),
-	    I18N_NOOP("Krautrock"),
-	    I18N_NOOP("Leftfield"),        // 170
-	    I18N_NOOP("Lounge"),
-	    I18N_NOOP("Math Rock"),
-	    I18N_NOOP("New Romantic"),
-	    I18N_NOOP("Nu-Breakz"),
-	    I18N_NOOP("Post-Punk"),        // 175
-	    I18N_NOOP("Post-Rock"),
-	    I18N_NOOP("Psytrance"),
-	    I18N_NOOP("Shoegaze"),
-	    I18N_NOOP("Space Rock"),
-	    I18N_NOOP("Trop Rock"),        // 180
-	    I18N_NOOP("World Music"),
-	    I18N_NOOP("Neoclassical"),
-	    I18N_NOOP("Audiobook"),
-	    I18N_NOOP("Audio Theatre"),
-	    I18N_NOOP("Neue Deutsche Welle"), // 185
-	    I18N_NOOP("Podcast"),
-	    I18N_NOOP("Indie Rock"),
-	    I18N_NOOP("G-Funk"),
-	    I18N_NOOP("Dubstep"),
-	    I18N_NOOP("Garage Rock"),      // 190
-	    I18N_NOOP("Psybient")
+	    kli18n("Abstract"),         // 148
+	    kli18n("Art Rock"),
+	    kli18n("Baroque"),          // 150
+	    kli18n("Bhangra"),
+	    kli18n("Big Beat"),
+	    kli18n("Breakbeat"),
+	    kli18n("Chillout"),
+	    kli18n("Downtempo"),        // 155
+	    kli18n("Dub"),
+	    kli18n("EBM"),
+	    kli18n("Eclectic"),
+	    kli18n("Electro"),
+	    kli18n("Electroclash"),     // 160
+	    kli18n("Emo"),
+	    kli18n("Experimental"),
+	    kli18n("Garage"),
+	    kli18n("Global"),
+	    kli18n("IDM"),              // 165
+	    kli18n("Illbient"),
+	    kli18n("Industro-Goth"),
+	    kli18n("Jam Band"),
+	    kli18n("Krautrock"),
+	    kli18n("Leftfield"),        // 170
+	    kli18n("Lounge"),
+	    kli18n("Math Rock"),
+	    kli18n("New Romantic"),
+	    kli18n("Nu-Breakz"),
+	    kli18n("Post-Punk"),        // 175
+	    kli18n("Post-Rock"),
+	    kli18n("Psytrance"),
+	    kli18n("Shoegaze"),
+	    kli18n("Space Rock"),
+	    kli18n("Trop Rock"),        // 180
+	    kli18n("World Music"),
+	    kli18n("Neoclassical"),
+	    kli18n("Audiobook"),
+	    kli18n("Audio Theatre"),
+	    kli18n("Neue Deutsche Welle"), // 185
+	    kli18n("Podcast"),
+	    kli18n("Indie Rock"),
+	    kli18n("G-Funk"),
+	    kli18n("Dubstep"),
+	    kli18n("Garage Rock"),      // 190
+	    kli18n("Psybient")
 	};
 
 	for (unsigned int i = 0; i < sizeof(map) / sizeof(map[0]); ++i)
 	    m_map.insert(i, map[i]);
 
-	m_map.insert(     -1, I18N_NOOP("Unknown"));
+	m_map.insert(     -1, kli18n("Unknown"));
     }
 
 }

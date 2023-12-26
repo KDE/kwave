@@ -45,7 +45,7 @@ Kwave::Compression::Compression(const Type value)
 QString Kwave::Compression::name() const
 {
     return (m_map.contains(m_type)) ?
-	i18n(UTF8(m_map[m_type].m_name)) : QString();
+	m_map[m_type].m_name.toString() : QString();
 }
 
 //***************************************************************************
@@ -101,79 +101,79 @@ void Kwave::Compression::fillMap()
     /* no compression */
 
     m_map.insert(Kwave::Compression::NONE, Kwave::Compression::Info(
-	_(I18N_NOOP("No Compression")),
+	kli18n("No Compression"),
 	QString(),
 	sfmt_all, false, false));
 
     /* types supported by OSS+ALSA record plugin and WAV codec */
 
     m_map.insert(Kwave::Compression::G711_ULAW, Kwave::Compression::Info(
-	_(I18N_NOOP("CCITT G.711 u-law")),
+	kli18n("CCITT G.711 u-law"),
 	QString(),
 	sfmt_int, false, false));
     m_map.insert(Kwave::Compression::G711_ALAW, Kwave::Compression::Info(
-	_(I18N_NOOP("CCITT G.711 A-law")),
+	kli18n("CCITT G.711 A-law"),
 	QString(),
 	sfmt_int, false, false));
     m_map.insert(Kwave::Compression::MS_ADPCM, Kwave::Compression::Info(
-	_(I18N_NOOP("MS ADPCM")),
+	kli18n("MS ADPCM"),
 	QString(),
 	sfmt_int, false, false));
     m_map.insert(Kwave::Compression::GSM, Kwave::Compression::Info(
-	_(I18N_NOOP("GSM")),
+	kli18n("GSM"),
 	QString(),
 	sfmt_int, false, false));
 
     /* compression types from libaudiofile (for display only, not supported) */
     m_map.insert(Kwave::Compression::G722, Kwave::Compression::Info(
-	_(I18N_NOOP("G722")),
+	kli18n("G722"),
 	QString(),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::APPLE_ACE2, Kwave::Compression::Info(
-	_(I18N_NOOP("Apple ACE2")),
+	kli18n("Apple ACE2"),
 	QString(),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::APPLE_ACE8, Kwave::Compression::Info(
-	_(I18N_NOOP("Apple ACE8")),
+	kli18n("Apple ACE8"),
 	QString(),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::APPLE_MAC3, Kwave::Compression::Info(
-	_(I18N_NOOP("Apple MAC3")),
+	kli18n("Apple MAC3"),
 	QString(),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::APPLE_MAC6, Kwave::Compression::Info(
-	_(I18N_NOOP("Apple MAC6")),
+	kli18n("Apple MAC6"),
 	QString(),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::G726, Kwave::Compression::Info(
-	_(I18N_NOOP("G726")),
+	kli18n("G726"),
 	QString(),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::DVI_AUDIO, Kwave::Compression::Info(
-	_(I18N_NOOP("DVI Audio / IMA")),
+	kli18n("DVI Audio / IMA"),
 	QString(),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::FS1016, Kwave::Compression::Info(
-	_(I18N_NOOP("FS1016")),
+	kli18n("FS1016"),
 	QString(),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::DV, Kwave::Compression::Info(
-	_(I18N_NOOP("DV")),
+	kli18n("DV"),
 	QString(),
 	sfmt_none, true, false));
 
     /* MPEG layer I/II/III */
 #ifdef HAVE_MP3
     m_map.insert(Kwave::Compression::MPEG_LAYER_I, Kwave::Compression::Info(
-	_(I18N_NOOP("MPEG Layer I")),
+	kli18n("MPEG Layer I"),
 	_("audio/x-mp3"),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::MPEG_LAYER_II, Kwave::Compression::Info(
-	_(I18N_NOOP("MPEG Layer II")),
+	kli18n("MPEG Layer II"),
 	_("audio/x-mp3"),
 	sfmt_none, true, false));
     m_map.insert(Kwave::Compression::MPEG_LAYER_III, Kwave::Compression::Info(
-	_(I18N_NOOP("MPEG Layer III")),
+	kli18n("MPEG Layer III"),
 	_("audio/x-mp3"),
 	sfmt_none, true, false));
 #endif /* HAVE_MP3 */
@@ -181,7 +181,7 @@ void Kwave::Compression::fillMap()
     /* FLAC */
 #ifdef HAVE_FLAC
     m_map.insert(Kwave::Compression::FLAC, Kwave::Compression::Info(
-	_(I18N_NOOP("FLAC")),
+	kli18n("FLAC"),
 	_("audio/x-flac"),
 	sfmt_none, false, false));
 #endif /* HAVE_FLAC */
@@ -189,7 +189,7 @@ void Kwave::Compression::fillMap()
     /* Ogg Vorbis */
 #ifdef HAVE_OGG_VORBIS
     m_map.insert(Kwave::Compression::OGG_VORBIS, Kwave::Compression::Info(
-	_(I18N_NOOP("Ogg Vorbis")),
+	kli18n("Ogg Vorbis"),
 	_("audio/ogg"),
 	sfmt_none, true, true));
 #endif /* HAVE_OGG_VORBIS */
@@ -197,7 +197,7 @@ void Kwave::Compression::fillMap()
     /* Ogg Opus */
 #ifdef HAVE_OGG_OPUS
     m_map.insert(Kwave::Compression::OGG_OPUS, Kwave::Compression::Info(
-	_(I18N_NOOP("Ogg Opus")),
+	kli18n("Ogg Opus"),
 	_("audio/opus"),
 	sfmt_none, true, false));
 #endif /* HAVE_OGG_OPUS */
@@ -374,7 +374,7 @@ Kwave::Compression::Info::~Info()
 
 //***************************************************************************
 Kwave::Compression::Info::Info(
-    const QString &name,
+    const KLazyLocalizedString &name,
     const QString &mime_type,
     const QList<Kwave::SampleFormat> &sample_formats,
     bool has_abr,

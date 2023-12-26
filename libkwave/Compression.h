@@ -20,6 +20,7 @@
 
 #include "config.h"
 
+#include <KLazyLocalizedString>
 #include <QtGlobal>
 #include <QList>
 #include <QMap>
@@ -162,7 +163,7 @@ namespace Kwave
 	     * @param has_abr whether average bitrate mode is supported
 	     * @param has_vbr whether variable bitrate mode is supported
 	     */
-	    Info(const QString &name,
+	    Info(const KLazyLocalizedString &name,
 	         const QString &mime_type,
 	         const QList<Kwave::SampleFormat> &sample_formats,
 	         bool has_abr,
@@ -175,7 +176,7 @@ namespace Kwave
 	public:
 
 	    /** non-localized descriptive name */
-	    QString m_name;
+	    KLazyLocalizedString m_name;
 
 	    /** preferred mime type (optional) */
 	    QString m_mime_type;

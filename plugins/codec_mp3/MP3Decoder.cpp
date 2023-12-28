@@ -542,16 +542,15 @@ enum mad_flow Kwave::MP3Decoder::handleError(void */*data*/,
     }
 
     long unsigned int pos = stream->this_frame - m_buffer;
-    int result = 0;
     error = i18n("An error occurred while decoding the file:\n'%1',\n"
 	         "at position %2.", error, pos);
     if (!m_failures) {
 	m_failures = 1;
-	result = Kwave::MessageBox::warningContinueCancel(m_parent_widget,
+	int result = Kwave::MessageBox::warningContinueCancel(m_parent_widget,
 	         error + _("\n") + i18n("Do you still want to continue?"));
 	if (result != KMessageBox::Continue) return MAD_FLOW_BREAK;
     } else if (m_failures == 1) {
-	result = Kwave::MessageBox::warningYesNo(m_parent_widget,
+	int result = Kwave::MessageBox::warningYesNo(m_parent_widget,
 	    error + _("\n") +
 	    i18n("Do you want to continue and ignore all following errors?"));
         m_failures++;
@@ -586,7 +585,7 @@ enum mad_flow Kwave::MP3Decoder::fillInput(struct mad_stream *stream)
 
     // read from source to fill up the buffer
     size_t size = rest;
-    if (bytes_to_read) size += m_source->read(
+    size += m_source->read(
 	reinterpret_cast<char *>(m_buffer) + rest, bytes_to_read);
     if (!size) return MAD_FLOW_STOP; // no more data
 

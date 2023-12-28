@@ -215,16 +215,19 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
 	    info.length(), info.rate(), info.bits(), info.tracks());
 	Q_ASSERT(dialog);
 
-	if (dialog && use_src_size) {
-	    // use source size for progress / stream mode
-	    QObject::connect(decoder, SIGNAL(sourceProcessed(quint64)),
-	                     dialog,  SLOT(setBytePosition(quint64)));
-	    QObject::connect(&writers, SIGNAL(written(quint64)),
-	                     dialog,   SLOT(setLength(quint64)));
-	} else {
-	    // use resulting size percentage for progress
-	    QObject::connect(&writers, SIGNAL(progress(qreal)),
-	                     dialog,   SLOT(setValue(qreal)));
+	if (dialog)
+	{
+	    if (use_src_size) {
+		// use source size for progress / stream mode
+		QObject::connect(decoder, SIGNAL(sourceProcessed(quint64)),
+		                 dialog,  SLOT(setBytePosition(quint64)));
+		QObject::connect(&writers, SIGNAL(written(quint64)),
+		                 dialog,   SLOT(setLength(quint64)));
+	    } else {
+		// use resulting size percentage for progress
+		QObject::connect(&writers, SIGNAL(progress(qreal)),
+		                 dialog,   SLOT(setValue(qreal)));
+	    }
 	}
 	QObject::connect(dialog,   SIGNAL(canceled()),
 	                 &writers, SLOT(cancel()));
@@ -417,11 +420,13 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
 	        file_info.tracks()
 	    );
 	Q_ASSERT(dialog);
-	QObject::connect(&src,   SIGNAL(progress(qreal)),
-	                 dialog, SLOT(setValue(qreal)),
-	                 Qt::QueuedConnection);
-	QObject::connect(dialog, SIGNAL(canceled()),
-	                 &src,   SLOT(cancel()));
+	if (dialog) {
+	    QObject::connect(&src,   SIGNAL(progress(qreal)),
+	                     dialog, SLOT(setValue(qreal)),
+	                     Qt::QueuedConnection);
+	    QObject::connect(dialog, SIGNAL(canceled()),
+	                     &src,   SLOT(cancel()));
+	}
 
 	// invoke the encoder...
 	bool encoded = false;
@@ -795,7 +800,6 @@ int Kwave::SignalManager::executeCommand(const QString &command)
     CASE_COMMAND("selectprevlabels")
 	Kwave::UndoTransactionGuard undo(*this, i18n("Select Previous Labels"));
 	sample_index_t selection_left  = selection().first();
-	sample_index_t selection_right = selection().last();
 	Kwave::Label label_left  = Kwave::Label();
 	Kwave::Label label_right = Kwave::Label();
 	Kwave::LabelList labels(m_meta_data);
@@ -814,7 +818,7 @@ int Kwave::SignalManager::executeCommand(const QString &command)
 	// default selection end = first label
 	if (label_right.isNull()) label_right = labels.first();
 	if (label_right.isNull()) return false; // no labels at all !?
-	selection_right = label_right.pos();
+	sample_index_t selection_right = label_right.pos();
 	sample_index_t len = selection_right - selection_left + 1;
 	selectRange(selection_left, len);
 

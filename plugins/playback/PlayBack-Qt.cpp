@@ -495,7 +495,7 @@ void Kwave::PlayBackQt::Buffer::setTimeout(int timeout)
 }
 
 //***************************************************************************
-void Kwave::PlayBackQt::Buffer::drain(QByteArray &padding)
+void Kwave::PlayBackQt::Buffer::drain(const QByteArray &padding)
 {
     m_pad_data = padding;
     m_pad_ofs  = 0;
@@ -561,7 +561,6 @@ qint64 Kwave::PlayBackQt::Buffer::writeData(const char *data, qint64 len)
 	QMutexLocker _lock(&m_lock); // context: kwave worker thread
 	m_sem_filled.release(count);
 	written_bytes += count;
-	len           -= count;
 	while (count--)
 	    m_raw_buffer.enqueue(*(data++));
     }

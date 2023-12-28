@@ -1200,7 +1200,7 @@ void Kwave::TopWidget::selectionChanged(sample_index_t offset,
 	// show offset and length
 	// Selected: 2000...3000 (1000 samples)
 	// Selected: 02:00...05:00 (3 min)
-	sample_index_t last = offset + ((length) ? length-1 : 0);
+	sample_index_t last = offset + length - 1;
 
 	QString txt = _(" ");
 	if (sample_mode) {

@@ -336,7 +336,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
 	    Kwave::StreamObject *last_output = &adapter;
 
-	    if (ok && mixer) {
+	    if (mixer) {
 		// connect the channel mixer
 		ok = Kwave::connect(
 		    *last_output, SIGNAL(output(Kwave::SampleArray)),

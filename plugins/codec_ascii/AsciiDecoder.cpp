@@ -272,7 +272,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
 		    char *p = token + 1;
 		    while (isdigit(*p) || (*p == '+') || (*p == '-')) ++p;
 		    *p = 0;
-		    if (*token) s = atoi(token);
+		    s = atoi(token);
 		    Kwave::Writer *w = dst[channel];
 		    if (w) (*w) << s;
 		}

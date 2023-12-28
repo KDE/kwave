@@ -312,10 +312,10 @@ QVector<double> Kwave::Interpolation::interpolation(
 	{
 	    if (!degree) degree = 7;
 	    const unsigned int count = points.count();
-	    QVector<double> x(7);
-	    QVector<double> y(7);
-
 	    if (count) {
+		QVector<double> x(7);
+		QVector<double> y(7);
+
 		for (unsigned int px = 0; px < count - 1; px++) {
 		    createPolynom (points, x, y, px - degree / 2, degree);
 		    const double start = points[px].x();

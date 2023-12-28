@@ -836,15 +836,15 @@ QList<Kwave::Compression::Type> Kwave::RecordALSA::detectCompressions()
     foreach(int it, m_supported_formats)
     {
 	const snd_pcm_format_t *fmt = &(_known_formats[it]);
-	Kwave::Compression::Type compression = compression_of(*fmt);
+	Kwave::Compression::Type comp = compression_of(*fmt);
 
 	// do not produce duplicates
-	if (list.contains(compression)) continue;
+	if (list.contains(comp)) continue;
 
 // 	Kwave::Compression t;
 // 	qDebug("found compression %d '%s'", compression,
 // 	       DBG(t.name(t.findFromData(compression))));
-	list.append(compression);
+	list.append(comp);
     }
 
     return list;

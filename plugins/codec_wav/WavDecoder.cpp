@@ -678,7 +678,7 @@ bool Kwave::WavDecoder::repairChunk(
 
     char buffer[16];
     quint32 length;
-    Kwave::RecoverySource *repair = Q_NULLPTR;
+    Kwave::RecoverySource *rec_buf = Q_NULLPTR;
 
     // create buffer with header
     strncpy(buffer, chunk->name().data(), 4);
@@ -690,35 +690,35 @@ bool Kwave::WavDecoder::repairChunk(
     buffer[7] = (length >> 24) & 0xFF;
     if (chunk->type() == Kwave::RIFFChunk::Main) {
 	strncpy(&(buffer[8]), chunk->format().data(), 4);
-	repair = new(std::nothrow) Kwave::RecoveryBuffer(offset, 12, buffer);
+	rec_buf = new(std::nothrow) Kwave::RecoveryBuffer(offset, 12, buffer);
 	qDebug("[0x%08X-0x%08X] - main header '%s' (%s), len=%u",
 	      offset, offset+11, chunk->name().data(),
 	      chunk->format().data(), length);
 	offset += 12;
     } else {
-	repair = new(std::nothrow) Kwave::RecoveryBuffer(offset, 8, buffer);
+	rec_buf = new(std::nothrow) Kwave::RecoveryBuffer(offset, 8, buffer);
 	qDebug("[0x%08X-0x%08X] - sub header '%s', len=%u",
 	      offset, offset+7, chunk->name().data(), length);
 	offset += 8;
     }
-    Q_ASSERT(repair);
-    if (!repair) return false;
-    repair_list->append(repair);
+    Q_ASSERT(rec_buf);
+    if (!rec_buf) return false;
+    repair_list->append(rec_buf);
 
     // map the chunk's data if not main or root
     if ((chunk->type() != Kwave::RIFFChunk::Root) &&
         (chunk->type() != Kwave::RIFFChunk::Main))
     {
-	repair = new(std::nothrow) Kwave::RecoveryMapping(
+	rec_buf = new(std::nothrow) Kwave::RecoveryMapping(
 	    offset, chunk->physLength(),
 	    *m_source, chunk->dataStart()
 	);
 	qDebug("[0x%08X-0x%08X] - restoring from offset 0x%08X (%u)",
 	      offset, offset+chunk->physLength()-1, chunk->dataStart(),
 	      chunk->physLength());
-	Q_ASSERT(repair);
-	if (!repair) return false;
-	repair_list->append(repair);
+	Q_ASSERT(rec_buf);
+	if (!rec_buf) return false;
+	repair_list->append(rec_buf);
 
 	offset += chunk->physLength();
     }

@@ -172,7 +172,7 @@ void Kwave::Filter::load(const QString &filename)
 	line = in.readLine().simplified();
 	linenr++;
 
-	if (line.isEmpty() || line.isNull()) continue;
+	if (line.isEmpty()) continue;
 	if ((line[0] == QLatin1Char('#')) || (line[0] == QLatin1Char('/')))
 	    continue;
 	break;
@@ -192,13 +192,13 @@ void Kwave::Filter::load(const QString &filename)
 	line = in.readLine().simplified();
 	linenr++;
 
-	if (line.isEmpty() || line.isNull()) continue;
+	if (line.isEmpty()) continue;
 	if ((line[0] == QLatin1Char('#')) || (line[0] == QLatin1Char('/')))
 	    continue;
 
 	int spacepos = line.indexOf(QLatin1Char(' '));
 	ok = true;
-	if (ok) m_delay[i] = line.leftRef(spacepos).toUInt(&ok);
+	m_delay[i] = line.leftRef(spacepos).toUInt(&ok);
 	line.remove(0, spacepos);
 	if (ok) m_coeff[i] = line.toDouble(&ok);
 

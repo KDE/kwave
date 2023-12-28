@@ -61,7 +61,8 @@ void Kwave::VorbisDecoder::parseTag(Kwave::FileInfo &info, const char *tag,
     if (count < 1) return;
     QString value;
     for (int i = 0; i < count; ++i) {
-	char *text = vorbis_comment_query(&m_vc, const_cast<char *>(tag), i);
+	const char *text = vorbis_comment_query(&m_vc,
+	    const_cast<char *>(tag), i);
 	if (i) value += _("; ");
 	value += QString::fromUtf8(text);
     }

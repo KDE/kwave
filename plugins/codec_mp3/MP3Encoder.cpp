@@ -155,11 +155,10 @@ void Kwave::MP3Encoder::encodeID3Tags(const Kwave::MetaDataList &meta_data,
 	    case ID3_PropertyMap::ENC_COMMENT:
 	    {
 		// detect language at the start "[xxx] "
-		QString lang;
 		if (str_val.startsWith(QLatin1Char('[')) &&
 		    (str_val.at(4) == QLatin1Char(']'))) {
-		    lang     = str_val.mid(1,3);
-		    str_val  = str_val.mid(5);
+		    QString lang = str_val.mid(1,3);
+		    str_val      = str_val.mid(5);
 		    frame->GetField(ID3FN_DESCRIPTION)->Set("");
 		    frame->GetField(ID3FN_LANGUAGE)->Set(
 			static_cast<const char *>(lang.toLatin1().data()));
@@ -419,7 +418,6 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     m_process.setReadChannel(QProcess::StandardOutput);
 
     m_process.start(m_program, m_params);
-    QString stdError;
     if (!m_process.waitForStarted()) {
 	qWarning("cannot start program '%s'", DBG(m_program));
 	m_process.waitForFinished();
@@ -543,7 +541,8 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     qDebug("exit code=%d", exit_code);
     if (!result || (exit_code != 0)) {
 	result = false;
-	stdError = QString::fromLocal8Bit(m_process.readAllStandardError());
+	QString stdError = QString::fromLocal8Bit(
+	    m_process.readAllStandardError());
 	qWarning("stderr output: %s", DBG(stdError));
 
 	Kwave::MessageBox::error(widget,

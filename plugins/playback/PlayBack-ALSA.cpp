@@ -552,7 +552,6 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
     m_bufbase     = bufbase;
     m_buffer_size = 0;
     m_buffer_used = 0;
-    m_handle      = Q_NULLPTR;
 
     // close the previous device
     if (m_handle) snd_pcm_close(m_handle);

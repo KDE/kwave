@@ -73,7 +73,7 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
-    if (list && dialog->exec() && dialog) {
+    if (list && dialog->exec()) {
 	// user has pressed "OK"
 	*list << QString::number(dialog->mode());
 	*list << QString::number(dialog->pos());
@@ -89,7 +89,7 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
         list = Q_NULLPTR;
     }
 
-    if (dialog) delete dialog;
+    delete dialog;
     return list;
 }
 

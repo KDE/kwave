@@ -133,7 +133,6 @@ QString Kwave::string2date(const QString &str)
 	Qt::ISODate,
 	Qt::TextDate,
     };
-    QString s;
     const unsigned int fmt_count =
 	sizeof(formats) / sizeof(formats[0]);
     QDateTime dt;
@@ -167,7 +166,7 @@ QString Kwave::string2date(const QString &str)
     }
     for (unsigned int i = 0; i < fmt_count; i++) {
 	Qt::DateFormat fmt = formats[i];
-	s = QString();
+	QString s;
 
 	dt = QDateTime::fromString(str, fmt);
 

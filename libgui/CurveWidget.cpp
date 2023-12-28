@@ -202,7 +202,7 @@ void Kwave::CurveWidget::savePreset()
 	 this, QUrl(), _("*.curve"));
     if (!dlg) return;
     dlg->setWindowTitle(i18n("Save Curve Preset"));
-    if ((dlg->exec() != QDialog::Accepted) || !dlg) {
+    if (dlg->exec() != QDialog::Accepted) {
 	delete dlg;
 	return;
     }

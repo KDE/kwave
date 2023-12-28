@@ -247,8 +247,9 @@ void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
 	Kwave::TopWidget *old = m_top_widget;
 
 	// disconnect all old signal/slot relationships
-	disconnect(m_plugin_manager, SIGNAL(sigProgress(QString)),
-	           old,              SLOT(showInSplashSreen(QString)));
+	if (m_plugin_manager)
+	    disconnect(m_plugin_manager, SIGNAL(sigProgress(QString)),
+	               old,              SLOT(showInSplashSreen(QString)));
 	disconnect(old,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
 	           this, SLOT(contextSwitched(Kwave::FileContext*)));
 
@@ -267,8 +268,9 @@ void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
 
 	connect(top,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
 	        this, SLOT(contextSwitched(Kwave::FileContext*)));
-	connect(m_plugin_manager, SIGNAL(sigProgress(QString)),
-	        top,              SLOT(showInSplashSreen(QString)));
+	if (m_plugin_manager)
+	    connect(m_plugin_manager, SIGNAL(sigProgress(QString)),
+	            top,              SLOT(showInSplashSreen(QString)));
 
 	if (m_signal_manager) m_signal_manager->setParentWidget(m_top_widget);
 	if (m_plugin_manager) m_plugin_manager->setParentWidget(m_top_widget);
@@ -760,7 +762,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 	// NOTE: this could theoretically also be a command that modifies
 	//       or even deletes the current context!
 	result = EAGAIN;
-	Kwave::FileContext *current_ctx = (m_top_widget) ?
+	const Kwave::FileContext *current_ctx = (m_top_widget) ?
 	    m_top_widget->currentContext() : Q_NULLPTR;
 	if (current_ctx && (current_ctx != this))
 	    result = m_top_widget->forwardCommand(line);
@@ -982,7 +984,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
 	    return -1;
 	}
 
-	if (dlg) url = dlg->selectedUrl();
+	url = dlg->selectedUrl();
 	if (url.isEmpty()) {
 	    delete dlg;
 	    return 0;

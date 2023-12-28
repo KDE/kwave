@@ -166,7 +166,7 @@ namespace Kwave
 	     * provide padding to provide data for a full period
 	     * @param padding array of bytes used for padding
 	     */
-	    void drain(QByteArray &padding);
+	    void drain(const QByteArray &padding);
 
 	    /** stop filling the buffer */
 	    void stop();

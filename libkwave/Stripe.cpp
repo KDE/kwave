@@ -161,11 +161,11 @@ void Kwave::Stripe::deleteRange(unsigned int offset, unsigned int length)
     if (last < first) return;
 
     // move all samples after the deleted area to the left
-    unsigned int dst = first;
     unsigned int src = last + 1;
     unsigned int len = size - src;
     if (len) {
-	sample_t *p = m_data.data();
+	unsigned int dst = first;
+	sample_t    *p   = m_data.data();
 	memmove(p + dst, p + src, len * sizeof(sample_t));
     }
 

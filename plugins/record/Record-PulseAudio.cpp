@@ -1054,7 +1054,7 @@ void Kwave::RecordPulseAudio::scanDevices()
     // fetch the device list from the PulseAudio server
     m_mainloop_lock.lock();
     m_device_list.clear();
-    pa_operation *op_source_info = pa_context_get_source_info_list(
+    const pa_operation *op_source_info = pa_context_get_source_info_list(
 	m_pa_context,
 	pa_source_info_cb,
 	this

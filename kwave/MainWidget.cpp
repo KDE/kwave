@@ -185,7 +185,7 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     // -- playback position update --
 
-    Kwave::PlaybackController &playback = signal_manager->playbackController();
+    const Kwave::PlaybackController &playback = signal_manager->playbackController();
     connect(&playback, SIGNAL(sigPlaybackPos(sample_index_t)),
 	m_overview, SLOT(showCursor(sample_index_t)));
     connect(&playback, SIGNAL(sigPlaybackStopped()),
@@ -510,10 +510,8 @@ int Kwave::MainWidget::executeCommand(const QString &command)
 //    CASE_COMMAND("label:by_period")
 //	markPeriods(command);
 
-    } else {
-	return (signal_manager) ?
-	    signal_manager->executeCommand(command) : -ENOSYS;
-    }
+    } else
+	return signal_manager->executeCommand(command);
 
     return 0;
 }
@@ -933,7 +931,7 @@ int Kwave::MainWidget::loadLabels(const QString &filename)
 	QUrl(), LABEL_LIST_EXT);
 	if (!dlg) return -1;
 	dlg->setWindowTitle(i18n("Load Labels"));
-	if ((dlg->exec() != QDialog::Accepted) || !dlg) {
+	if (dlg->exec() != QDialog::Accepted) {
 	    delete dlg;
 	    return 0;
 	} else {
@@ -969,7 +967,7 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
 	    this, url, LABEL_LIST_EXT);
 	if (!dlg) return 0;
 	dlg->setWindowTitle(i18n("Save Labels"));
-	if ((dlg->exec() != QDialog::Accepted) || !dlg) {
+	if (dlg->exec() != QDialog::Accepted) {
 	    delete dlg;
 	    return -1;
 	}
@@ -1057,7 +1055,7 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
 
 	// execute the dialog
 	accepted = (dlg->exec() == QDialog::Accepted);
-	if (!accepted || !dlg) {
+	if (!accepted) {
 	    // user pressed "cancel"
 	    delete dlg;
 	    break;

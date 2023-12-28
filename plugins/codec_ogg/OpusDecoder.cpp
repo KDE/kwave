@@ -438,6 +438,9 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	    Kwave::MultiTrackSource<Kwave::RateConverter, true>(tracks);
 	Q_ASSERT(m_rate_converter);
 	if (!m_rate_converter) ok = false;
+	if (!ok) {
+	    qWarning("OpusDecoder::open(): creating rate converter failed!");
+	}
 
 	if (ok) {
 	    double rate_from = static_cast<double>(rate_supp);
@@ -451,10 +454,6 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 		*m_buffer,         SIGNAL(output(Kwave::SampleArray)),
 		*m_rate_converter, SLOT(input(Kwave::SampleArray))
 	    );
-	}
-
-	if (!ok) {
-	    qWarning("OpusDecoder::open(): creating rate converter failed!");
 	}
 
 	if (!ok) {

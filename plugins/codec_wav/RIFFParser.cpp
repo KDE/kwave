@@ -329,7 +329,7 @@ bool Kwave::RIFFParser::parse(Kwave::RIFFChunk *parent,
 	// and one position can be reached in two or more ways)
 	// only exception: the root chunk, this always overlaps
 	// with the first chunk at start of search!
-	Kwave::RIFFChunk *prev = chunkAt(offset);
+	const Kwave::RIFFChunk *prev = chunkAt(offset);
 	if (prev && (m_root.subChunks().count())) break;
 
 	// chunks with less than 4 bytes are not possible
@@ -392,8 +392,8 @@ bool Kwave::RIFFParser::parse(Kwave::RIFFChunk *parent,
 	    "phys_len=0x%08X (next=0x%08X)",
 	    name.data(),
 	    len,offset,phys_len, offset+phys_len+8); */
-	Kwave::RIFFChunk *chunk = addChunk(parent, name, format, len, offset,
-	    phys_len, Kwave::RIFFChunk::Sub);
+	Kwave::RIFFChunk *chunk = addChunk(parent, name, format, len,
+	    offset, phys_len, Kwave::RIFFChunk::Sub);
 	if (!chunk) break;
 	found_chunks.append(chunk);
 
@@ -466,7 +466,7 @@ unsigned int Kwave::RIFFParser::chunkCount(const QByteArray &path)
     Kwave::RIFFChunkList chunks;
     listAllChunks(m_root, chunks);
 
-    foreach (Kwave::RIFFChunk *chunk, chunks) {
+    foreach (const Kwave::RIFFChunk *chunk, chunks) {
 	if (!chunk) continue;
 	if (path.contains("/")) {
 	    // search for full path
@@ -648,7 +648,7 @@ void Kwave::RIFFParser::collectGarbage()
 
 	    Kwave::RIFFChunkList &subchunks = chunk->subChunks();
 	    bool contains_only_garbage = true;
-	    foreach (Kwave::RIFFChunk *sub, subchunks) {
+	    foreach (const Kwave::RIFFChunk *sub, subchunks) {
 		if (m_cancel) break;
 		if (sub && (sub->type() != Kwave::RIFFChunk::Garbage)) {
 		    contains_only_garbage = false;

@@ -355,7 +355,7 @@ int Kwave::RecordQt::close()
 }
 
 //***************************************************************************
-int Kwave::RecordQt::read(QByteArray& buffer, unsigned int offset)
+int Kwave::RecordQt::read(QByteArray &buffer, unsigned int offset)
 {
     if (buffer.isNull() || buffer.isEmpty())
 	return 0; // no buffer, nothing to do

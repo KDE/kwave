@@ -167,7 +167,7 @@ void Kwave::RIFFChunk::fixSize()
 	m_phys_length = 0;
 	if (m_type == Main) m_phys_length += 4;
 
-        foreach (Kwave::RIFFChunk *chunk, subChunks()) {
+        foreach (const Kwave::RIFFChunk *chunk, subChunks()) {
             if (!chunk) continue;
 	    quint32 len = chunk->physEnd() - chunk->physStart() + 1;
 	    m_phys_length += len;

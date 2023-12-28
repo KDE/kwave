@@ -443,7 +443,7 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 
 		if (item) {
 		    // already in the list
-		    parent = item;
+		    /* parent = item; */
 		} else if (parent) {
 		    // new leaf, add to the parent
 		    item = new(std::nothrow) QTreeWidgetItem(parent);

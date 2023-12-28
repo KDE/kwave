@@ -293,7 +293,7 @@ bool Kwave::App::toplevelWindowHasClosed(Kwave::TopWidget *todel)
 QList<Kwave::App::FileAndInstance> Kwave::App::openFiles() const
 {
     QList<Kwave::App::FileAndInstance> all_files;
-    foreach (Kwave::TopWidget *topwidget, m_top_widgets) {
+    foreach (const Kwave::TopWidget *topwidget, m_top_widgets) {
 	if (!topwidget) continue;
 	QList<Kwave::App::FileAndInstance> files = topwidget->openFiles();
 	if (!files.isEmpty())
@@ -353,6 +353,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
 				qWarning("ERROR: initialization of TopWidget failed");
 				delete top_widget;
 				delete context;
+				break;
 			    }
 			    m_top_widgets.append(top_widget);
 			    top_widget->show();
@@ -407,15 +408,13 @@ void Kwave::App::saveRecentFiles()
 //***************************************************************************
 void Kwave::App::readConfig()
 {
-    QString result;
-    QString key;
     const KConfigGroup cfg = KSharedConfig::openConfig()->group("Recent Files");
 
     for (unsigned int i = 0 ; i < MAX_RECENT_FILES; i++) {
-	key = QString::number(i);        // generate number
+	QString key = QString::number(i);        // generate number
 
 	// read corresponding entry, which is stored in UTF-8
-	result = cfg.readEntry(key);
+	QString result = cfg.readEntry(key);
 	if (result.length()) {
 	    QFile file(result);
 

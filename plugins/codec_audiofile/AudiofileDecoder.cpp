@@ -264,7 +264,7 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
 	rest -= buffer_used;
 
 	// split into the tracks
-	sample_storage_t *p = buffer;
+	const sample_storage_t *p = buffer;
 	unsigned int count = buffer_used;
 	while (count) {
 	    for (unsigned int track = 0; track < tracks; track++) {

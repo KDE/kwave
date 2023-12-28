@@ -303,8 +303,9 @@ QString Kwave::RecordOSS::fileFilter()
 {
     QString filter;
 
-    if (filter.length()) filter += _("\n");
     filter += _("audio*|") + i18n("OSS recording device (audio*)");
+
+    if (filter.length()) filter += _("\n");
     filter += _("dsp*|")   + i18n("OSS recording device (dsp*)");
 
     if (filter.length()) filter += _("\n");
@@ -655,20 +656,20 @@ QList<Kwave::Compression::Type> Kwave::RecordOSS::detectCompressions()
 int Kwave::RecordOSS::setCompression(Kwave::Compression::Type new_compression)
 {
     Q_ASSERT(m_fd >= 0);
-    Kwave::Compression::Type compression;
+    Kwave::Compression::Type comp;
     int bits, format = AFMT_QUERY;
     Kwave::SampleFormat::Format sample_format;
 
     // read back current format
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return -1;
-    format2mode(format, compression, bits, sample_format);
+    format2mode(format, comp, bits, sample_format);
 
     // modify the compression
-    compression = new_compression;
+    comp = new_compression;
 
     // activate new format
-    format = mode2format(compression, bits, sample_format);
+    format = mode2format(comp, bits, sample_format);
     err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return -1;
 
@@ -703,7 +704,7 @@ QList<unsigned int> Kwave::RecordOSS::supportedBits()
     if (err < 0) return bits;
 
     // mask out all modes that do not match the current compression
-    const int compression = this->compression();
+    const int comp = this->compression();
     for (unsigned int bit=0; bit < (sizeof(mask) << 3); bit++) {
 	if (!(mask & (1U << bit))) continue;
 
@@ -715,7 +716,7 @@ QList<unsigned int> Kwave::RecordOSS::supportedBits()
 	if (b < 0) continue; // unknown -> skip
 
 	// take the mode if compression matches and it is not already known
-	if ((c == compression) && !(bits.contains(b))) {
+	if ((c == comp) && !(bits.contains(b))) {
 	    bits += b;
 	}
     }
@@ -732,21 +733,21 @@ QList<unsigned int> Kwave::RecordOSS::supportedBits()
 int Kwave::RecordOSS::setBitsPerSample(unsigned int new_bits)
 {
     Q_ASSERT(m_fd >= 0);
-    Kwave::Compression::Type compression;
+    Kwave::Compression::Type comp;
     int bits, format = AFMT_QUERY;
     Kwave::SampleFormat::Format sample_format;
 
     // read back current format
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return err;
-    format2mode(format, compression, bits, sample_format);
+    format2mode(format, comp, bits, sample_format);
 
     // modify the bits per sample
     bits = new_bits;
 
     // activate new format
     int oldformat = format;
-    format = mode2format(compression, bits, sample_format);
+    format = mode2format(comp, bits, sample_format);
     err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return err;
     if (oldformat != format) return -1;
@@ -783,19 +784,19 @@ QList<Kwave::SampleFormat::Format> Kwave::RecordOSS::detectSampleFormats()
 
     // mask out all modes that do not match the current compression
     // and bits per sample
-    const Kwave::Compression::Type compression = this->compression();
+    const Kwave::Compression::Type comp = this->compression();
     const int bits_per_sample = this->bitsPerSample();
-    for (unsigned int bit = 0; bit < (sizeof(mask) << 3); bit++) {
-	if (!(mask & (1 << bit))) continue;
+    for (unsigned int bit = 0; bit < (sizeof(mask) << 3U); bit++) {
+	if (!(mask & (1U << bit))) continue;
 
 	// format is supported, split into compression, bits, sample format
 	Kwave::Compression::Type c;
 	int b;
 	Kwave::SampleFormat::Format s;
-	format2mode(1 << bit, c, b, s);
+	format2mode(1U << bit, c, b, s);
 	if (c < 0) continue; // unknown -> skip
 
-	if ((c == compression) && (b == bits_per_sample)) {
+	if ((c == comp) && (b == bits_per_sample)) {
 	    // this mode matches -> append it if not already known
 	    if (!formats.contains(s)) formats += s;
 	}
@@ -808,21 +809,21 @@ QList<Kwave::SampleFormat::Format> Kwave::RecordOSS::detectSampleFormats()
 int Kwave::RecordOSS::setSampleFormat(Kwave::SampleFormat::Format new_format)
 {
     Q_ASSERT(m_fd >= 0);
-    Kwave::Compression::Type compression;
+    Kwave::Compression::Type comp;
     int bits, format = AFMT_QUERY;
     Kwave::SampleFormat::Format sample_format;
 
     // read back current format
     int err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return err;
-    format2mode(format, compression, bits, sample_format);
+    format2mode(format, comp, bits, sample_format);
 
     // modify the sample format
     sample_format = new_format;
 
     // activate new format
     int oldformat = format;
-    format = mode2format(compression, bits, sample_format);
+    format = mode2format(comp, bits, sample_format);
     err = ioctl(m_fd, SNDCTL_DSP_SETFMT, &format);
     if (err < 0) return err;
     if (oldformat != format) return -1;

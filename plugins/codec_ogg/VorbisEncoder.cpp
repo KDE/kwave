@@ -128,8 +128,8 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     }
 
     // some checks first
-    Q_ASSERT(tracks < 255);
-    if (tracks > 255) return false;
+    // Q_ASSERT(tracks < 255);
+    // if (tracks > 255) return false;
 
     /********** Encode setup ************/
     vorbis_info_init(&m_vi);

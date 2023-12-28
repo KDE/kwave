@@ -399,7 +399,6 @@ QString Kwave::PlayBackOSS::fileFilter()
 {
     QString filter;
 
-    if (filter.length()) filter += _("\n");
     filter += _("dsp*|") + i18n("OSS playback device (dsp*)");
 
     if (filter.length()) filter += _("\n");

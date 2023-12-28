@@ -165,7 +165,6 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
     // for the next time this method gets selected
     // change in method -> save the current device and use
     // the previous one
-    QString device = _("");
     QString section = _("plugin playback");
     KConfigGroup cfg = KSharedConfig::openConfig()->group(section);
 
@@ -213,7 +212,7 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
     }
 
     // restore the previous settings of the new method
-    device = cfg.readEntry(
+    QString device = cfg.readEntry(
 	_("last_device_%1").arg(static_cast<int>(method)));
     qDebug("RESTORE: '%s' (%d) -> '%s'",
 	    DBG(m_methods_map.name(m_methods_map.findFromData(method))),
@@ -649,7 +648,7 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
         dlg->selectUrl(QUrl(_("file:") + m_playback_params.device));
     else
         dlg->selectUrl(QUrl(_("file:/dev/*")));
-    if ((dlg->exec() == QDialog::Accepted) && dlg) {
+    if (dlg->exec() == QDialog::Accepted) {
 	QString new_device = dlg->selectedUrl().fileName();
 	// selected new device
 	if (cbDevice) cbDevice->setEditText(new_device);

@@ -93,7 +93,8 @@ void Kwave::MenuGroup::selectItem(const QString &uid)
     Kwave::MenuNode *new_selection = Q_NULLPTR;
 
     foreach (Kwave::MenuNode *member, m_members) {
-	if (member && (uid == member->uid()))
+        if (member == Q_NULLPTR) continue;
+	if (uid == member->uid())
 	    new_selection = member;    // new selected member found !
 	else
 	    member->setChecked(false); // remove check from others

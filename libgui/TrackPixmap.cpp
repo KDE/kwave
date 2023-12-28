@@ -629,7 +629,7 @@ void Kwave::TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     i = 0;
     points.clear();
     while (x < width) {
-	if ((x >= 0) && (x < width)) {
+	if (x >= 0) {
 	    // mark original samples
 	    points.append(QPoint(x, middle - Kwave::toInt(sig[x])));
 	}
@@ -660,7 +660,7 @@ void Kwave::TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
     // display the original samples
     sample = 0;
     int x = 0;
-    int y = 0;
+    int y;
     while (x < width) {
 	// mark original samples
 	sample_t value = (sample < buflen) ? sample_buffer[sample] : 0;

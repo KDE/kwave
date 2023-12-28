@@ -285,7 +285,7 @@ void Kwave::VolumeDialog::sliderChanged(int pos)
 //    qDebug("sliderChanged(%d), sv=%d",pos,sv); // ###
     switch (m_mode) {
 	case MODE_FACTOR: {
-	    double factor = m_factor;
+	    double factor;
 	    // -1 <=> /2
 	    //  0 <=> x1
 	    // +1 <=> x2

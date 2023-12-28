@@ -124,8 +124,8 @@ void Kwave::BitrateWidget::spinboxChanged(int value)
 //***************************************************************************
 void Kwave::BitrateWidget::snapInSlider()
 {
-    int value = slider->value();
-    int index = nearestIndex(value);
+    int slider_value = slider->value();
+    int index = nearestIndex(slider_value);
     slider->setValue(m_rates[index]); // snap in
 }
 

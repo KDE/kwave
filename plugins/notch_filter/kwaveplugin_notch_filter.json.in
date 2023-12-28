@@ -2,7 +2,16 @@
     "KPlugin": {
         "Authors": [
             {
-                "Name": "Dave Flogeras"
+                "Name": "Dave Flogeras",
+                "Name[ca@valencia]": "Dave Flogeras",
+                "Name[ca]": "Dave Flogeras",
+                "Name[eo]": "Dave Flogeras",
+                "Name[gl]": "Dave Flogeras",
+                "Name[nl]": "Dave Flogeras",
+                "Name[sl]": "Dave Flogeras",
+                "Name[tr]": "Dave Flogeras",
+                "Name[uk]": "Dave Flogeras",
+                "Name[x-test]": "xxDave Flogerasxx"
             }
         ],
         "EnabledByDefault": true,

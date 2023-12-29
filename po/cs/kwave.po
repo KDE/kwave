@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:31+0000\n"
+"POT-Creation-Date: 2023-12-29 00:41+0000\n"
 "PO-Revision-Date: 2023-11-10 16:28+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -69,17 +69,17 @@ msgstr ""
 msgid "Ready"
 msgstr "Připraven"
 
-#: kwave/FileContext.cpp:516
+#: kwave/FileContext.cpp:518
 #, kde-format
 msgid "Playback: %1"
 msgstr "Přehrávání: %1"
 
-#: kwave/FileContext.cpp:518
+#: kwave/FileContext.cpp:520
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Přehrávání: %1 vzorků"
 
-#: kwave/FileContext.cpp:860
+#: kwave/FileContext.cpp:862
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -87,13 +87,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:866
+#: kwave/FileContext.cpp:868
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (upraveno)"
 
-#: kwave/FileContext.cpp:901
+#: kwave/FileContext.cpp:903
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -102,12 +102,12 @@ msgstr ""
 "Tento soubor byl upraven. Změny budou ztraceny.\n"
 "Chcete pokračovat?"
 
-#: kwave/FileContext.cpp:979
+#: kwave/FileContext.cpp:981
 #, kde-format
 msgid "Save As"
 msgstr "Uložit jako"
 
-#: kwave/FileContext.cpp:1014 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1016 kwave/MainWidget.cpp:993
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -116,7 +116,7 @@ msgstr ""
 "Soubor '%1' již existuje.\n"
 "Opravdu si jej přejete přepsat?"
 
-#: kwave/FileContext.cpp:1082
+#: kwave/FileContext.cpp:1084
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -431,22 +431,22 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Seznam popisků KWave"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1863
+#: kwave/MainWidget.cpp:899 libkwave/SignalManager.cpp:1867
 #, kde-format
 msgid "Add Label"
 msgstr "Přidat popisek"
 
-#: kwave/MainWidget.cpp:935 kwave/MainWidget.cpp:948
+#: kwave/MainWidget.cpp:933 kwave/MainWidget.cpp:946
 #, kde-format
 msgid "Load Labels"
 msgstr "Načíst popisky"
 
-#: kwave/MainWidget.cpp:971
+#: kwave/MainWidget.cpp:969
 #, kde-format
 msgid "Save Labels"
 msgstr "Uložit popisky"
 
-#: kwave/MainWidget.cpp:1078
+#: kwave/MainWidget.cpp:1076
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -455,7 +455,7 @@ msgstr ""
 "V místě, které jste si vybral, již jeden popisek je.\n"
 "Chcete jej nahradit?"
 
-#: kwave/MainWidget.cpp:1105
+#: kwave/MainWidget.cpp:1103
 #, kde-format
 msgid "Modify Label"
 msgstr "Upravit popisek"
@@ -1129,7 +1129,7 @@ msgstr "Zpět"
 msgid "Redo"
 msgstr "Znovu"
 
-#: kwave/TopWidget.cpp:392 libkwave/SignalManager.cpp:670
+#: kwave/TopWidget.cpp:392 libkwave/SignalManager.cpp:675
 #, kde-format
 msgid "Cut"
 msgstr "Vyjmout"
@@ -1394,7 +1394,7 @@ msgstr "Do první poloviny"
 msgid "Into second half"
 msgstr "Do druhé poloviny"
 
-#: libgui/CurveWidget.cpp:101 libkwave/SignalManager.cpp:697
+#: libgui/CurveWidget.cpp:101 libkwave/SignalManager.cpp:702
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -3714,12 +3714,12 @@ msgstr "32-bitový IEEE s pohyblivou desetinnou čárkou"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-bitový IEEE s dvojnásobnou přesností pohyblivé desetinné čárky"
 
-#: libkwave/SignalManager.cpp:331
+#: libkwave/SignalManager.cpp:334
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "Bez signálu. Není co uložit."
 
-#: libkwave/SignalManager.cpp:360
+#: libkwave/SignalManager.cpp:363
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3731,118 +3731,118 @@ msgstr ""
 "%1\n"
 "Opravdu chcete pokračovat?"
 
-#: libkwave/SignalManager.cpp:397 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:400 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1070
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(sestaveno s KDE Frameworks %1)"
 
-#: libkwave/SignalManager.cpp:452
+#: libkwave/SignalManager.cpp:457
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "Při ukládání souboru se vyskytla chyba."
 
-#: libkwave/SignalManager.cpp:464
+#: libkwave/SignalManager.cpp:469
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "Soubor byl zkrácen a mohl by tedy být poškozen."
 
-#: libkwave/SignalManager.cpp:473
+#: libkwave/SignalManager.cpp:478
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Bohužel, tento souborový typ není podporován."
 
-#: libkwave/SignalManager.cpp:646
+#: libkwave/SignalManager.cpp:651
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Vložit obsah schránky v poloze"
 
-#: libkwave/SignalManager.cpp:656
+#: libkwave/SignalManager.cpp:661
 #, kde-format
 msgid "Paste"
 msgstr "Vložit"
 
-#: libkwave/SignalManager.cpp:678
+#: libkwave/SignalManager.cpp:683
 #, kde-format
 msgid "Crop"
 msgstr "Oříznout"
 
-#: libkwave/SignalManager.cpp:729
+#: libkwave/SignalManager.cpp:734
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Rozšířit výběr k popisku"
 
-#: libkwave/SignalManager.cpp:758
+#: libkwave/SignalManager.cpp:763
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Vybrat další popisky"
 
-#: libkwave/SignalManager.cpp:796
+#: libkwave/SignalManager.cpp:801
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Vybrat předchozí popisky"
 
-#: libkwave/SignalManager.cpp:836
+#: libkwave/SignalManager.cpp:840
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Vybrat všechny stopy"
 
-#: libkwave/SignalManager.cpp:840
+#: libkwave/SignalManager.cpp:844
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Zrušit výběr u všech stop"
 
-#: libkwave/SignalManager.cpp:844
+#: libkwave/SignalManager.cpp:848
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Obrátit výběr stopy"
 
-#: libkwave/SignalManager.cpp:850
+#: libkwave/SignalManager.cpp:854
 #, kde-format
 msgid "Select Track"
 msgstr "Vybrat stopu"
 
-#: libkwave/SignalManager.cpp:855
+#: libkwave/SignalManager.cpp:859
 #, kde-format
 msgid "Deselect Track"
 msgstr "Zrušit výběr stopy"
 
-#: libkwave/SignalManager.cpp:860
+#: libkwave/SignalManager.cpp:864
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Přepnout výběr stopy"
 
-#: libkwave/SignalManager.cpp:902
+#: libkwave/SignalManager.cpp:906
 #, kde-format
 msgid "Append Track"
 msgstr "Připojit stopu"
 
-#: libkwave/SignalManager.cpp:909 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:913 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Vložit stopu"
 
-#: libkwave/SignalManager.cpp:938 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Smazat stopu"
 
-#: libkwave/SignalManager.cpp:1090
+#: libkwave/SignalManager.cpp:1094
 #, kde-format
 msgid "Insert Space"
 msgstr "Vložit místo"
 
-#: libkwave/SignalManager.cpp:1365
+#: libkwave/SignalManager.cpp:1369
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "Pro uložení informace o zpětných krocích není dostatek paměti."
 
-#: libkwave/SignalManager.cpp:1367
+#: libkwave/SignalManager.cpp:1371
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Chcete pokračovat bez možnosti vrátit se zpět?"
 
-#: libkwave/SignalManager.cpp:1369
+#: libkwave/SignalManager.cpp:1373
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3851,42 +3851,42 @@ msgstr ""
 "<b>Rada</b>: můžete nastavit množství paměti<br>dostupné pro \"Zpět\" na "
 "'%1'/'%2'."
 
-#: libkwave/SignalManager.cpp:1371
+#: libkwave/SignalManager.cpp:1375
 #, kde-format
 msgid "Settings"
 msgstr "Nastavení"
 
-#: libkwave/SignalManager.cpp:1372
+#: libkwave/SignalManager.cpp:1376
 #, kde-format
 msgid "Memory"
 msgstr "Paměť"
 
-#: libkwave/SignalManager.cpp:1518 libkwave/SignalManager.cpp:1525
+#: libkwave/SignalManager.cpp:1522 libkwave/SignalManager.cpp:1529
 #, kde-format
 msgid "Last Action"
 msgstr "Poslední prováděný krok"
 
-#: libkwave/SignalManager.cpp:1815
+#: libkwave/SignalManager.cpp:1819
 #, kde-format
 msgid "Modify File Info"
 msgstr "Upravit údaje o souboru"
 
-#: libkwave/SignalManager.cpp:1890
+#: libkwave/SignalManager.cpp:1894
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Smazat všechny popisky"
 
-#: libkwave/SignalManager.cpp:1909
+#: libkwave/SignalManager.cpp:1913
 #, kde-format
 msgid "Delete Label"
 msgstr "Smazat popisek"
 
-#: libkwave/SignalManager.cpp:2005
+#: libkwave/SignalManager.cpp:2009
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Ruční výběr stopy"
 
-#: libkwave/SignalManager.cpp:2008
+#: libkwave/SignalManager.cpp:2012
 #, kde-format
 msgid "Manual Selection"
 msgstr "Ruční výběr"
@@ -4385,7 +4385,7 @@ msgstr "Soubor obsahuje neplatná data"
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "Neznámá chyba 0x%1. Není soubor poškozen?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:546
+#: plugins/codec_mp3/MP3Decoder.cpp:545
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4396,17 +4396,17 @@ msgstr ""
 "'%1',\n"
 "se vyskytla chyba na pozici %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:551
+#: plugins/codec_mp3/MP3Decoder.cpp:550
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "Stále ještě chcete pokračovat?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:556
+#: plugins/codec_mp3/MP3Decoder.cpp:555
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Chcete pokračovat a nevšímat si všech následujících chyb?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:293
+#: plugins/codec_mp3/MP3Encoder.cpp:292
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4415,12 +4415,12 @@ msgstr ""
 "Formát souboru, který jste zvolili, podporuje pouze mono nebo stereo. Tento "
 "soubor bude při uložení smíchán do sterea."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:306 plugins/codec_wav/WavEncoder.cpp:395
+#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:395
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Nelze otevřít soubor pro ukládáním"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:551
+#: plugins/codec_mp3/MP3Encoder.cpp:550
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -5053,17 +5053,17 @@ msgstr "Kodér pro Opus selhal při nastavování omezení VBR: '%1'"
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr ""
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:88
+#: plugins/codec_ogg/VorbisDecoder.cpp:89
 #, kde-format
 msgid "This Ogg bitstream does not contain any Vorbis audio data."
 msgstr "Tento datový proud Ogg neobsahuje zvuková data Vorbis."
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:121
+#: plugins/codec_ogg/VorbisDecoder.cpp:122
 #, kde-format
 msgid "Corrupt secondary header. Exiting."
 msgstr "Vedlejší hlavička je poškozena. Ukončuji."
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:135
+#: plugins/codec_ogg/VorbisDecoder.cpp:136
 #, kde-format
 msgid "End of file before finding all Vorbis headers."
 msgstr "Konec souboru před nalezením všech hlaviček Vorbis."
@@ -5572,19 +5572,19 @@ msgid "%1 samples"
 msgstr "%1 vzorky"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:583
-#: plugins/newsignal/NewSignalDialog.cpp:303
+#: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Mono)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:586
-#: plugins/newsignal/NewSignalDialog.cpp:306
+#: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:589
-#: plugins/newsignal/NewSignalDialog.cpp:309
+#: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(kvadrofonní zvuk)"
@@ -6117,7 +6117,7 @@ msgstr "Maximum"
 msgid "Sets the file size by the percentage of the possible maximum"
 msgstr "Nastavuje velikost souboru podle procentního podílu z možného maxima"
 
-#: plugins/newsignal/NewSignalDialog.cpp:329
+#: plugins/newsignal/NewSignalDialog.cpp:327
 #, kde-format
 msgid "(Resulting file size: %1 MB)"
 msgstr "(výsledná velikost souboru: %1 MB)"
@@ -6368,7 +6368,7 @@ msgstr "Výchozí zařízení"
 msgid "Null device"
 msgstr "Nulové zařízení"
 
-#: plugins/playback/PlayBack-ALSA.cpp:574 plugins/playback/PlayBack-OSS.cpp:140
+#: plugins/playback/PlayBack-ALSA.cpp:573 plugins/playback/PlayBack-OSS.cpp:140
 #, kde-format
 msgid ""
 "I/O error. Maybe the driver\n"
@@ -6379,7 +6379,7 @@ msgstr ""
 "v jádru přítomen ovladač, nebo není\n"
 "správně nastaven."
 
-#: plugins/playback/PlayBack-ALSA.cpp:580 plugins/playback/PlayBack-OSS.cpp:146
+#: plugins/playback/PlayBack-ALSA.cpp:579 plugins/playback/PlayBack-OSS.cpp:146
 #, kde-format
 msgid ""
 "The device is busy. Maybe some other application is\n"
@@ -6394,31 +6394,31 @@ msgstr ""
 "onoho programu tím, že si vyžádáte: \"fuser -v %1\" \n"
 "z příkazové řádky.)"
 
-#: plugins/playback/PlayBack-ALSA.cpp:588
+#: plugins/playback/PlayBack-ALSA.cpp:587
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
 msgstr "Otevření zařízení '%1' selhalo: %2"
 
-#: plugins/playback/PlayBack-ALSA.cpp:818
-#: plugins/playback/PlayBack-ALSA.cpp:832 plugins/record/Record-ALSA.cpp:1059
+#: plugins/playback/PlayBack-ALSA.cpp:817
+#: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
 #: plugins/record/Record-ALSA.cpp:1072
 #, kde-format
 msgid "Card %1: "
 msgstr "Karta %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:820
-#: plugins/playback/PlayBack-ALSA.cpp:834 plugins/record/Record-ALSA.cpp:1061
+#: plugins/playback/PlayBack-ALSA.cpp:819
+#: plugins/playback/PlayBack-ALSA.cpp:833 plugins/record/Record-ALSA.cpp:1061
 #: plugins/record/Record-ALSA.cpp:1074
 #, kde-format
 msgid "Device %1: "
 msgstr "Zařízení %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:822 plugins/record/Record-ALSA.cpp:1063
+#: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1063
 #, kde-format
 msgid "Subdevice %1: "
 msgstr "Podřízené zařízení %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:852
+#: plugins/playback/PlayBack-ALSA.cpp:851
 #, kde-format
 msgid "DMIX plugin"
 msgstr "Přídavný modul DMIX"
@@ -6448,17 +6448,17 @@ msgstr "Rychlost přehrávání %1 Hz není podporován"
 msgid "Unusable buffer size: %1"
 msgstr "Nepoužitelná velikost vyrovnávací paměti: %1"
 
-#: plugins/playback/PlayBack-OSS.cpp:403
+#: plugins/playback/PlayBack-OSS.cpp:402
 #, kde-format
 msgid "OSS playback device (dsp*)"
 msgstr "Přehrávací zařízení OSS (dsp*)"
 
-#: plugins/playback/PlayBack-OSS.cpp:406
+#: plugins/playback/PlayBack-OSS.cpp:405
 #, kde-format
 msgid "ALSA playback device (adsp*)"
 msgstr "Zařízení ALSA umožňující přehrávání (adsp*)"
 
-#: plugins/playback/PlayBack-OSS.cpp:409 plugins/record/Record-OSS.cpp:314
+#: plugins/playback/PlayBack-OSS.cpp:408 plugins/record/Record-OSS.cpp:315
 #: plugins/record/RecordDialog.cpp:621
 #, kde-format
 msgid "Any device (*)"
@@ -6529,33 +6529,33 @@ msgstr ""
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Otevření zařízení Qt Multimedia '%1' selhalo"
 
-#: plugins/playback/PlayBackDialog.cpp:516
+#: plugins/playback/PlayBackDialog.cpp:515
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 bajtů"
 
-#: plugins/playback/PlayBackDialog.cpp:518
+#: plugins/playback/PlayBackDialog.cpp:517
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/playback/PlayBackDialog.cpp:615
+#: plugins/playback/PlayBackDialog.cpp:614
 #, kde-format
 msgid "(mono)"
 msgstr "(mono)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:616 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:615 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
 msgstr "(stereo)"
 
-#: plugins/playback/PlayBackDialog.cpp:617
+#: plugins/playback/PlayBackDialog.cpp:616
 #, kde-format
 msgid "(quadro)"
 msgstr "(kvadrofonní zvuk)"
 
-#: plugins/playback/PlayBackDialog.cpp:647
+#: plugins/playback/PlayBackDialog.cpp:646
 #, kde-format
 msgid "Select Playback Device"
 msgstr "Vyberte přehrávací zařízení"
@@ -6809,17 +6809,17 @@ msgstr "%1 dB"
 msgid "DSNOOP plugin"
 msgstr "DSNOOP přídavný modul"
 
-#: plugins/record/Record-OSS.cpp:307
+#: plugins/record/Record-OSS.cpp:306
 #, kde-format
 msgid "OSS recording device (audio*)"
 msgstr "Nahrávací zařízení OSS (zvuk)"
 
-#: plugins/record/Record-OSS.cpp:308
+#: plugins/record/Record-OSS.cpp:309
 #, kde-format
 msgid "OSS recording device (dsp*)"
 msgstr "Nahrávací zařízení OSS (dsp*)"
 
-#: plugins/record/Record-OSS.cpp:311
+#: plugins/record/Record-OSS.cpp:312
 #, kde-format
 msgid "ALSA recording device (adsp*)"
 msgstr "Zařízení ALSA umožňující nahrávání (adsp*)"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:31+0000\n"
+"POT-Creation-Date: 2023-12-29 00:41+0000\n"
 "PO-Revision-Date: 2020-09-08 11:32+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -67,17 +67,17 @@ msgstr "Το Kwave δεν έχει εγκατασταθεί σωστά. Δεν �
 msgid "Ready"
 msgstr "Έτοιμο"
 
-#: kwave/FileContext.cpp:516
+#: kwave/FileContext.cpp:518
 #, kde-format
 msgid "Playback: %1"
 msgstr "Αναπαραγωγή: %1"
 
-#: kwave/FileContext.cpp:518
+#: kwave/FileContext.cpp:520
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Αναπαραγωγή: %1 δείγματα"
 
-#: kwave/FileContext.cpp:860
+#: kwave/FileContext.cpp:862
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -85,13 +85,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:866
+#: kwave/FileContext.cpp:868
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (τροποποιημένο)"
 
-#: kwave/FileContext.cpp:901
+#: kwave/FileContext.cpp:903
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -100,12 +100,12 @@ msgstr ""
 "Αυτό το αρχείο έχει τροποποιηθεί, οι αλλαγές θα χαθούν.\n"
 "Θέλετε να συνεχίσετε;"
 
-#: kwave/FileContext.cpp:979
+#: kwave/FileContext.cpp:981
 #, kde-format
 msgid "Save As"
 msgstr "Αποθήκευση ως"
 
-#: kwave/FileContext.cpp:1014 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1016 kwave/MainWidget.cpp:993
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -114,7 +114,7 @@ msgstr ""
 "Το αρχείο '%1' υπάρχει ήδη.\n"
 "Θέλετε πράγματι να το αντικαταστήσετε;"
 
-#: kwave/FileContext.cpp:1082
+#: kwave/FileContext.cpp:1084
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -427,22 +427,22 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Λιστα ετικετών Kwave"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1863
+#: kwave/MainWidget.cpp:899 libkwave/SignalManager.cpp:1867
 #, kde-format
 msgid "Add Label"
 msgstr "Προσθήκη ετικέτας"
 
-#: kwave/MainWidget.cpp:935 kwave/MainWidget.cpp:948
+#: kwave/MainWidget.cpp:933 kwave/MainWidget.cpp:946
 #, kde-format
 msgid "Load Labels"
 msgstr "Φόρτωση ετικετών"
 
-#: kwave/MainWidget.cpp:971
+#: kwave/MainWidget.cpp:969
 #, kde-format
 msgid "Save Labels"
 msgstr "Αποθήκευση ετικετών"
 
-#: kwave/MainWidget.cpp:1078
+#: kwave/MainWidget.cpp:1076
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -451,7 +451,7 @@ msgstr ""
 "Υπάρχει ήδη μια ετικέτα στη θέση που επιλέξατε.\n"
 "Θέλετε να την αντικαταστήσετε;"
 
-#: kwave/MainWidget.cpp:1105
+#: kwave/MainWidget.cpp:1103
 #, kde-format
 msgid "Modify Label"
 msgstr "Τροποποίηση ετικέτας"
@@ -1125,7 +1125,7 @@ msgstr "Αναίρεση"
 msgid "Redo"
 msgstr "Επανάληψη"
 
-#: kwave/TopWidget.cpp:392 libkwave/SignalManager.cpp:670
+#: kwave/TopWidget.cpp:392 libkwave/SignalManager.cpp:675
 #, kde-format
 msgid "Cut"
 msgstr "Αποκοπή"
@@ -1390,7 +1390,7 @@ msgstr "Στο πρώτο μισό"
 msgid "Into second half"
 msgstr "Στο δεύτερο μισό"
 
-#: libgui/CurveWidget.cpp:101 libkwave/SignalManager.cpp:697
+#: libgui/CurveWidget.cpp:101 libkwave/SignalManager.cpp:702
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -3716,12 +3716,12 @@ msgstr "32-bit IEEE κινητής υποδιαστολής"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-bit IEEE κινητής υποδιαστολής διπλής ακρίβειας"
 
-#: libkwave/SignalManager.cpp:331
+#: libkwave/SignalManager.cpp:334
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "Κενό σήμα, τίποτα για αποθήκευση."
 
-#: libkwave/SignalManager.cpp:360
+#: libkwave/SignalManager.cpp:363
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3732,118 +3732,118 @@ msgstr ""
 "ιδιοτήτων του αρχείου:%1\n"
 "Επιμένετε να συνεχίσετε;"
 
-#: libkwave/SignalManager.cpp:397 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:400 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1070
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(κατασκευάστηκε με το KDE Frameworks %1)"
 
-#: libkwave/SignalManager.cpp:452
+#: libkwave/SignalManager.cpp:457
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "Παρουσιάστηκε σφάλμα κατά την αποθήκευση του αρχείου."
 
-#: libkwave/SignalManager.cpp:464
+#: libkwave/SignalManager.cpp:469
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "Το αρχείο έχει αποκοπεί και ίσως να έχει καταστραφεί."
 
-#: libkwave/SignalManager.cpp:473
+#: libkwave/SignalManager.cpp:478
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Λυπούμαστε, ο τύπος αρχείου δεν υποστηρίζεται."
 
-#: libkwave/SignalManager.cpp:646
+#: libkwave/SignalManager.cpp:651
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Εισαγωγή προχείρου στη θέση"
 
-#: libkwave/SignalManager.cpp:656
+#: libkwave/SignalManager.cpp:661
 #, kde-format
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: libkwave/SignalManager.cpp:678
+#: libkwave/SignalManager.cpp:683
 #, kde-format
 msgid "Crop"
 msgstr "Περικοπή"
 
-#: libkwave/SignalManager.cpp:729
+#: libkwave/SignalManager.cpp:734
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Επέκταση επιλογής στην ετικέτα"
 
-#: libkwave/SignalManager.cpp:758
+#: libkwave/SignalManager.cpp:763
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Επιλογή επόμενων ετικετών"
 
-#: libkwave/SignalManager.cpp:796
+#: libkwave/SignalManager.cpp:801
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Επιλογή προηγούμενων ετικετών"
 
-#: libkwave/SignalManager.cpp:836
+#: libkwave/SignalManager.cpp:840
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Επιλογή όλων των κομματιών"
 
-#: libkwave/SignalManager.cpp:840
+#: libkwave/SignalManager.cpp:844
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Αναίρεση επιλογής όλων των κομματιών"
 
-#: libkwave/SignalManager.cpp:844
+#: libkwave/SignalManager.cpp:848
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Αντιστροφή επιλογής κομματιών"
 
-#: libkwave/SignalManager.cpp:850
+#: libkwave/SignalManager.cpp:854
 #, kde-format
 msgid "Select Track"
 msgstr "Επιλογή κομματιού"
 
-#: libkwave/SignalManager.cpp:855
+#: libkwave/SignalManager.cpp:859
 #, kde-format
 msgid "Deselect Track"
 msgstr "Αναίρεση επιλογής κομματιού"
 
-#: libkwave/SignalManager.cpp:860
+#: libkwave/SignalManager.cpp:864
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Εναλλαγή στην επιλογή κομματιού"
 
-#: libkwave/SignalManager.cpp:902
+#: libkwave/SignalManager.cpp:906
 #, kde-format
 msgid "Append Track"
 msgstr "Προσθήκη κομματιού"
 
-#: libkwave/SignalManager.cpp:909 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:913 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Εισαγωγή κομματιού"
 
-#: libkwave/SignalManager.cpp:938 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Διαγραφή κομματιού"
 
-#: libkwave/SignalManager.cpp:1090
+#: libkwave/SignalManager.cpp:1094
 #, kde-format
 msgid "Insert Space"
 msgstr "Εισαγωγή κενού"
 
-#: libkwave/SignalManager.cpp:1365
+#: libkwave/SignalManager.cpp:1369
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr "Ανεπαρκής μνήμη για αποθήκευση πληροφοριών αναίρεσης."
 
-#: libkwave/SignalManager.cpp:1367
+#: libkwave/SignalManager.cpp:1371
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Θέλετε να συνεχίσετε χωρίς τη δυνατότητα αναίρεσης;"
 
-#: libkwave/SignalManager.cpp:1369
+#: libkwave/SignalManager.cpp:1373
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3852,42 +3852,42 @@ msgstr ""
 "<b>Συμβουλή</b>: μπορείτε να διαμορφώσετε το μέγεθος της μνήμης<br>που είναι "
 "διαθέσιμη για αναίρεση στο '%1'/'%2'."
 
-#: libkwave/SignalManager.cpp:1371
+#: libkwave/SignalManager.cpp:1375
 #, kde-format
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: libkwave/SignalManager.cpp:1372
+#: libkwave/SignalManager.cpp:1376
 #, kde-format
 msgid "Memory"
 msgstr "Μνήμη"
 
-#: libkwave/SignalManager.cpp:1518 libkwave/SignalManager.cpp:1525
+#: libkwave/SignalManager.cpp:1522 libkwave/SignalManager.cpp:1529
 #, kde-format
 msgid "Last Action"
 msgstr "Τελευταία ενέργεια"
 
-#: libkwave/SignalManager.cpp:1815
+#: libkwave/SignalManager.cpp:1819
 #, kde-format
 msgid "Modify File Info"
 msgstr "Τροποποίηση πληροφοριών αρχείου"
 
-#: libkwave/SignalManager.cpp:1890
+#: libkwave/SignalManager.cpp:1894
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Διαγραφή όλων των ετικετών"
 
-#: libkwave/SignalManager.cpp:1909
+#: libkwave/SignalManager.cpp:1913
 #, kde-format
 msgid "Delete Label"
 msgstr "Διαγραφή ετικέτας"
 
-#: libkwave/SignalManager.cpp:2005
+#: libkwave/SignalManager.cpp:2009
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Χειροκίνητη επιλογή κομματιού"
 
-#: libkwave/SignalManager.cpp:2008
+#: libkwave/SignalManager.cpp:2012
 #, kde-format
 msgid "Manual Selection"
 msgstr "Χειροκίνητη επιλογή"
@@ -4388,7 +4388,7 @@ msgstr "Το αρχείο περιέχει μη έγκυρα δεδομένα"
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "Άγνωστο σφάλμα 0x%1. Κατεστραμμένο αρχείο;"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:546
+#: plugins/codec_mp3/MP3Decoder.cpp:545
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4399,17 +4399,17 @@ msgstr ""
 "'%1',\n"
 "στη θέση %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:551
+#: plugins/codec_mp3/MP3Decoder.cpp:550
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "Επιμένετε να συνεχίσετε;"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:556
+#: plugins/codec_mp3/MP3Decoder.cpp:555
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Θέλετε να συνεχίσετε αγνοώντας όλα τα ακόλουθα σφάλματα;"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:293
+#: plugins/codec_mp3/MP3Encoder.cpp:292
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4419,12 +4419,12 @@ msgstr ""
 "ήχο μόνο. Η εγγραφή του αρχείου αυτού θα γίνει με στερεοφωνικό ήχο κατά την "
 "αποθήκευση."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:306 plugins/codec_wav/WavEncoder.cpp:395
+#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:395
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Αδυναμία ανοίγματος του αρχείου για αποθήκευση!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:551
+#: plugins/codec_mp3/MP3Encoder.cpp:550
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -5063,17 +5063,17 @@ msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr ""
 "Αποτυχία του κωδικοποιητή Opus να ανακτήσει την τιμή βάθους αναζήτησης: '%1'"
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:88
+#: plugins/codec_ogg/VorbisDecoder.cpp:89
 #, kde-format
 msgid "This Ogg bitstream does not contain any Vorbis audio data."
 msgstr "Αυτή η ψηφιακή ροή Ogg δεν περιέχει ηχητικά δεδομένα Vorbis."
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:121
+#: plugins/codec_ogg/VorbisDecoder.cpp:122
 #, kde-format
 msgid "Corrupt secondary header. Exiting."
 msgstr "Κατεστραμμένη δευτερεύουσα επικεφαλίδα. Έξοδος."
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:135
+#: plugins/codec_ogg/VorbisDecoder.cpp:136
 #, kde-format
 msgid "End of file before finding all Vorbis headers."
 msgstr "Τέλος αρχείου πριν την εύρεση όλων των επικεφαλίδψν Vorbis."
@@ -5596,19 +5596,19 @@ msgid "%1 samples"
 msgstr "%1 δείγματα"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:583
-#: plugins/newsignal/NewSignalDialog.cpp:303
+#: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Μονοφωνικό)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:586
-#: plugins/newsignal/NewSignalDialog.cpp:306
+#: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Στερεοφωνικό)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:589
-#: plugins/newsignal/NewSignalDialog.cpp:309
+#: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Τετραφωνικό)"
@@ -6140,7 +6140,7 @@ msgid "Sets the file size by the percentage of the possible maximum"
 msgstr ""
 "Ρυθμίζει το μέγεθος του αρχείου με βάση το ποσοστό του δυνητικού μέγιστου"
 
-#: plugins/newsignal/NewSignalDialog.cpp:329
+#: plugins/newsignal/NewSignalDialog.cpp:327
 #, kde-format
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Αποτέλεσμα σε μέγεθος αρχείου: %1 MB)"
@@ -6391,7 +6391,7 @@ msgstr "Προκαθορισμένη συσκευή"
 msgid "Null device"
 msgstr "Null συσκευή"
 
-#: plugins/playback/PlayBack-ALSA.cpp:574 plugins/playback/PlayBack-OSS.cpp:140
+#: plugins/playback/PlayBack-ALSA.cpp:573 plugins/playback/PlayBack-OSS.cpp:140
 #, kde-format
 msgid ""
 "I/O error. Maybe the driver\n"
@@ -6402,7 +6402,7 @@ msgstr ""
 "δεν βρίσκεται στον πυρήνα ή δεν είναι\n"
 "κατάλληλα διαμορφωμένος."
 
-#: plugins/playback/PlayBack-ALSA.cpp:580 plugins/playback/PlayBack-OSS.cpp:146
+#: plugins/playback/PlayBack-ALSA.cpp:579 plugins/playback/PlayBack-OSS.cpp:146
 #, kde-format
 msgid ""
 "The device is busy. Maybe some other application is\n"
@@ -6417,31 +6417,31 @@ msgstr ""
 "διεργασίας του προγράμματος με την εντολή: \"fuser -v %1\"\n"
 "από τη γραμμή εντολών.)"
 
-#: plugins/playback/PlayBack-ALSA.cpp:588
+#: plugins/playback/PlayBack-ALSA.cpp:587
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
 msgstr "Αποτυχία ανοίγματος της συσκευής '%1': %2"
 
-#: plugins/playback/PlayBack-ALSA.cpp:818
-#: plugins/playback/PlayBack-ALSA.cpp:832 plugins/record/Record-ALSA.cpp:1059
+#: plugins/playback/PlayBack-ALSA.cpp:817
+#: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
 #: plugins/record/Record-ALSA.cpp:1072
 #, kde-format
 msgid "Card %1: "
 msgstr "Κάρτα %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:820
-#: plugins/playback/PlayBack-ALSA.cpp:834 plugins/record/Record-ALSA.cpp:1061
+#: plugins/playback/PlayBack-ALSA.cpp:819
+#: plugins/playback/PlayBack-ALSA.cpp:833 plugins/record/Record-ALSA.cpp:1061
 #: plugins/record/Record-ALSA.cpp:1074
 #, kde-format
 msgid "Device %1: "
 msgstr "Συσκευή %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:822 plugins/record/Record-ALSA.cpp:1063
+#: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1063
 #, kde-format
 msgid "Subdevice %1: "
 msgstr "Υποσυσκευή %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:852
+#: plugins/playback/PlayBack-ALSA.cpp:851
 #, kde-format
 msgid "DMIX plugin"
 msgstr "Πρόσθετο DMIX"
@@ -6471,17 +6471,17 @@ msgstr "Ο ρυθμός αναπαραγωγής %1 MHz δεν υποστηρί�
 msgid "Unusable buffer size: %1"
 msgstr "Μη έγκυρο μέγεθος ενδιάμεσης μνήμης: %1"
 
-#: plugins/playback/PlayBack-OSS.cpp:403
+#: plugins/playback/PlayBack-OSS.cpp:402
 #, kde-format
 msgid "OSS playback device (dsp*)"
 msgstr "OSS συσκευή αναπαραγωγής (dsp*)"
 
-#: plugins/playback/PlayBack-OSS.cpp:406
+#: plugins/playback/PlayBack-OSS.cpp:405
 #, kde-format
 msgid "ALSA playback device (adsp*)"
 msgstr "ALSA συσκευή αναπαραγωγής (adsp*)"
 
-#: plugins/playback/PlayBack-OSS.cpp:409 plugins/record/Record-OSS.cpp:314
+#: plugins/playback/PlayBack-OSS.cpp:408 plugins/record/Record-OSS.cpp:315
 #: plugins/record/RecordDialog.cpp:621
 #, kde-format
 msgid "Any device (*)"
@@ -6552,33 +6552,33 @@ msgstr "Ο τύπος ακέραιων δειγμάτων δεν υποστηρ�
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Αποτυχία ανοίγματος της Qt Multimedia συσκευής '%1'"
 
-#: plugins/playback/PlayBackDialog.cpp:516
+#: plugins/playback/PlayBackDialog.cpp:515
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 Bytes"
 
-#: plugins/playback/PlayBackDialog.cpp:518
+#: plugins/playback/PlayBackDialog.cpp:517
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/playback/PlayBackDialog.cpp:615
+#: plugins/playback/PlayBackDialog.cpp:614
 #, kde-format
 msgid "(mono)"
 msgstr "(μονοφωνική)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:616 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:615 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
 msgstr "(στερεοφωνική)"
 
-#: plugins/playback/PlayBackDialog.cpp:617
+#: plugins/playback/PlayBackDialog.cpp:616
 #, kde-format
 msgid "(quadro)"
 msgstr "(τετραφωνική)"
 
-#: plugins/playback/PlayBackDialog.cpp:647
+#: plugins/playback/PlayBackDialog.cpp:646
 #, kde-format
 msgid "Select Playback Device"
 msgstr "Επιλογή συσκευής αναπαραγωγής"
@@ -6833,17 +6833,17 @@ msgstr "%1 dB"
 msgid "DSNOOP plugin"
 msgstr "Πρόσθετο DSNOOP"
 
-#: plugins/record/Record-OSS.cpp:307
+#: plugins/record/Record-OSS.cpp:306
 #, kde-format
 msgid "OSS recording device (audio*)"
 msgstr "OSS συσκευή εγγραφής (audio*)"
 
-#: plugins/record/Record-OSS.cpp:308
+#: plugins/record/Record-OSS.cpp:309
 #, kde-format
 msgid "OSS recording device (dsp*)"
 msgstr "OSS συσκευή εγγραφής (dsp*)"
 
-#: plugins/record/Record-OSS.cpp:311
+#: plugins/record/Record-OSS.cpp:312
 #, kde-format
 msgid "ALSA recording device (adsp*)"
 msgstr "ALSA συσκευή εγγραφής (adsp*)"

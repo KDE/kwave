@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:31+0000\n"
+"POT-Creation-Date: 2023-12-29 00:41+0000\n"
 "PO-Revision-Date: 2023-08-07 21:17+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -72,17 +72,17 @@ msgstr ""
 msgid "Ready"
 msgstr "Llest"
 
-#: kwave/FileContext.cpp:516
+#: kwave/FileContext.cpp:518
 #, kde-format
 msgid "Playback: %1"
 msgstr "Reproducció: %1"
 
-#: kwave/FileContext.cpp:518
+#: kwave/FileContext.cpp:520
 #, kde-format
 msgid "Playback: %1 samples"
 msgstr "Reproducció: %1 mostres"
 
-#: kwave/FileContext.cpp:860
+#: kwave/FileContext.cpp:862
 #, kde-format
 msgctxt ""
 "for window title: %1 = Name of the file, %2 = Instance number when opened "
@@ -90,13 +90,13 @@ msgctxt ""
 msgid "%1 <%2>"
 msgstr "%1 <%2>"
 
-#: kwave/FileContext.cpp:866
+#: kwave/FileContext.cpp:868
 #, kde-format
 msgctxt "%1 = Path to modified file"
 msgid "* %1 (modified)"
 msgstr "* %1 (modificat)"
 
-#: kwave/FileContext.cpp:901
+#: kwave/FileContext.cpp:903
 #, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
@@ -105,12 +105,12 @@ msgstr ""
 "Aquest fitxer ha estat modificat, els canvis es perdran.\n"
 "Voleu desar-lo?"
 
-#: kwave/FileContext.cpp:979
+#: kwave/FileContext.cpp:981
 #, kde-format
 msgid "Save As"
 msgstr "Desa com a"
 
-#: kwave/FileContext.cpp:1014 kwave/MainWidget.cpp:995
+#: kwave/FileContext.cpp:1016 kwave/MainWidget.cpp:993
 #, kde-format
 msgid ""
 "The file '%1' already exists.\n"
@@ -119,7 +119,7 @@ msgstr ""
 "El fitxer «%1» ja existeix.\n"
 "Realment voleu sobreescriure'l?"
 
-#: kwave/FileContext.cpp:1082
+#: kwave/FileContext.cpp:1084
 #, kde-format
 msgid ""
 "This file has been modified.\n"
@@ -432,22 +432,22 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Llista d'etiquetes del Kwave"
 
-#: kwave/MainWidget.cpp:901 libkwave/SignalManager.cpp:1863
+#: kwave/MainWidget.cpp:899 libkwave/SignalManager.cpp:1867
 #, kde-format
 msgid "Add Label"
 msgstr "Afegeix una etiqueta"
 
-#: kwave/MainWidget.cpp:935 kwave/MainWidget.cpp:948
+#: kwave/MainWidget.cpp:933 kwave/MainWidget.cpp:946
 #, kde-format
 msgid "Load Labels"
 msgstr "Carrega les etiquetes"
 
-#: kwave/MainWidget.cpp:971
+#: kwave/MainWidget.cpp:969
 #, kde-format
 msgid "Save Labels"
 msgstr "Desa les etiquetes"
 
-#: kwave/MainWidget.cpp:1078
+#: kwave/MainWidget.cpp:1076
 #, kde-format
 msgid ""
 "There already is a label at the position you have chosen.\n"
@@ -456,7 +456,7 @@ msgstr ""
 "Ja hi ha una etiqueta a la posició que heu triat.\n"
 "Voleu substituir-la?"
 
-#: kwave/MainWidget.cpp:1105
+#: kwave/MainWidget.cpp:1103
 #, kde-format
 msgid "Modify Label"
 msgstr "Modifica l'etiqueta"
@@ -1130,7 +1130,7 @@ msgstr "Desfés"
 msgid "Redo"
 msgstr "Refés"
 
-#: kwave/TopWidget.cpp:392 libkwave/SignalManager.cpp:670
+#: kwave/TopWidget.cpp:392 libkwave/SignalManager.cpp:675
 #, kde-format
 msgid "Cut"
 msgstr "Retalla"
@@ -1395,7 +1395,7 @@ msgstr "En la primera meitat"
 msgid "Into second half"
 msgstr "En la segona meitat"
 
-#: libgui/CurveWidget.cpp:101 libkwave/SignalManager.cpp:697
+#: libgui/CurveWidget.cpp:101 libkwave/SignalManager.cpp:702
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
@@ -3723,12 +3723,12 @@ msgstr "IEEE de 32 bits en coma flotant"
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "IEEE de 64 bits en coma flotant de precisió doble"
 
-#: libkwave/SignalManager.cpp:331
+#: libkwave/SignalManager.cpp:334
 #, kde-format
 msgid "Signal is empty, nothing to save."
 msgstr "El senyal està buit. No hi ha res a desar."
 
-#: libkwave/SignalManager.cpp:360
+#: libkwave/SignalManager.cpp:363
 #, kde-format
 msgid ""
 "Saving in this format will lose the following additional file attribute(s):\n"
@@ -3740,119 +3740,119 @@ msgstr ""
 "%1\n"
 "Voleu continuar?"
 
-#: libkwave/SignalManager.cpp:397 plugins/about/AboutDialog.cpp:75
+#: libkwave/SignalManager.cpp:400 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1070
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
 msgstr "(construït amb els Frameworks %1 del KDE)"
 
-#: libkwave/SignalManager.cpp:452
+#: libkwave/SignalManager.cpp:457
 #, kde-format
 msgid "An error occurred while saving the file."
 msgstr "S'ha produït un error mentre es desava el fitxer."
 
-#: libkwave/SignalManager.cpp:464
+#: libkwave/SignalManager.cpp:469
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
 msgstr "El fitxer s'ha truncat i podria estar corrupte."
 
-#: libkwave/SignalManager.cpp:473
+#: libkwave/SignalManager.cpp:478
 #, kde-format
 msgid "Sorry, the file type is not supported."
 msgstr "Ho sento, el tipus de fitxer no està permès."
 
-#: libkwave/SignalManager.cpp:646
+#: libkwave/SignalManager.cpp:651
 #, kde-format
 msgid "Insert Clipboard at position"
 msgstr "Insereix el porta-retalls a la posició"
 
-#: libkwave/SignalManager.cpp:656
+#: libkwave/SignalManager.cpp:661
 #, kde-format
 msgid "Paste"
 msgstr "Enganxa"
 
-#: libkwave/SignalManager.cpp:678
+#: libkwave/SignalManager.cpp:683
 #, kde-format
 msgid "Crop"
 msgstr "Escapça"
 
-#: libkwave/SignalManager.cpp:729
+#: libkwave/SignalManager.cpp:734
 #, kde-format
 msgid "Expand Selection to Label"
 msgstr "Expandeix la selecció a l'etiqueta"
 
-#: libkwave/SignalManager.cpp:758
+#: libkwave/SignalManager.cpp:763
 #, kde-format
 msgid "Select Next Labels"
 msgstr "Selecciona les etiquetes següents"
 
-#: libkwave/SignalManager.cpp:796
+#: libkwave/SignalManager.cpp:801
 #, kde-format
 msgid "Select Previous Labels"
 msgstr "Selecciona les etiquetes anteriors"
 
-#: libkwave/SignalManager.cpp:836
+#: libkwave/SignalManager.cpp:840
 #, kde-format
 msgid "Select All Tracks"
 msgstr "Selecciona totes les pistes"
 
-#: libkwave/SignalManager.cpp:840
+#: libkwave/SignalManager.cpp:844
 #, kde-format
 msgid "Deselect all tracks"
 msgstr "Desselecciona totes les pistes"
 
-#: libkwave/SignalManager.cpp:844
+#: libkwave/SignalManager.cpp:848
 #, kde-format
 msgid "Invert Track Selection"
 msgstr "Inverteix la selecció de les pistes"
 
-#: libkwave/SignalManager.cpp:850
+#: libkwave/SignalManager.cpp:854
 #, kde-format
 msgid "Select Track"
 msgstr "Selecciona la pista"
 
-#: libkwave/SignalManager.cpp:855
+#: libkwave/SignalManager.cpp:859
 #, kde-format
 msgid "Deselect Track"
 msgstr "Desselecciona la pista"
 
-#: libkwave/SignalManager.cpp:860
+#: libkwave/SignalManager.cpp:864
 #, kde-format
 msgid "Toggle Track Selection"
 msgstr "Commuta la selecció de les pistes"
 
-#: libkwave/SignalManager.cpp:902
+#: libkwave/SignalManager.cpp:906
 #, kde-format
 msgid "Append Track"
 msgstr "Afegeix una pista"
 
-#: libkwave/SignalManager.cpp:909 libkwave/undo/UndoInsertTrack.cpp:44
+#: libkwave/SignalManager.cpp:913 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
 msgid "Insert Track"
 msgstr "Insereix una pista"
 
-#: libkwave/SignalManager.cpp:938 libkwave/undo/UndoDeleteTrack.cpp:45
+#: libkwave/SignalManager.cpp:942 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
 msgstr "Suprimeix la pista"
 
-#: libkwave/SignalManager.cpp:1090
+#: libkwave/SignalManager.cpp:1094
 #, kde-format
 msgid "Insert Space"
 msgstr "Insereix un espai"
 
-#: libkwave/SignalManager.cpp:1365
+#: libkwave/SignalManager.cpp:1369
 #, kde-format
 msgid "Not enough memory for saving undo information."
 msgstr ""
 "No hi ha prou memòria per a desar la informació que permeti desfer l'acció."
 
-#: libkwave/SignalManager.cpp:1367
+#: libkwave/SignalManager.cpp:1371
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
 msgstr "Voleu continuar sense la possibilitat de desfer?"
 
-#: libkwave/SignalManager.cpp:1369
+#: libkwave/SignalManager.cpp:1373
 #, kde-format
 msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
@@ -3861,42 +3861,42 @@ msgstr ""
 "<b>Consell</b>: podeu configurar la quantitat de memòria<br>disponible per a "
 "l'opció de desfer a «%1/%2»."
 
-#: libkwave/SignalManager.cpp:1371
+#: libkwave/SignalManager.cpp:1375
 #, kde-format
 msgid "Settings"
 msgstr "Arranjament"
 
-#: libkwave/SignalManager.cpp:1372
+#: libkwave/SignalManager.cpp:1376
 #, kde-format
 msgid "Memory"
 msgstr "Memòria"
 
-#: libkwave/SignalManager.cpp:1518 libkwave/SignalManager.cpp:1525
+#: libkwave/SignalManager.cpp:1522 libkwave/SignalManager.cpp:1529
 #, kde-format
 msgid "Last Action"
 msgstr "Última acció"
 
-#: libkwave/SignalManager.cpp:1815
+#: libkwave/SignalManager.cpp:1819
 #, kde-format
 msgid "Modify File Info"
 msgstr "Modifica la informació del fitxer"
 
-#: libkwave/SignalManager.cpp:1890
+#: libkwave/SignalManager.cpp:1894
 #, kde-format
 msgid "Delete All Labels"
 msgstr "Suprimeix totes les etiquetes"
 
-#: libkwave/SignalManager.cpp:1909
+#: libkwave/SignalManager.cpp:1913
 #, kde-format
 msgid "Delete Label"
 msgstr "Suprimeix l'etiqueta"
 
-#: libkwave/SignalManager.cpp:2005
+#: libkwave/SignalManager.cpp:2009
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "Selecció manual de les pistes"
 
-#: libkwave/SignalManager.cpp:2008
+#: libkwave/SignalManager.cpp:2012
 #, kde-format
 msgid "Manual Selection"
 msgstr "Selecció manual"
@@ -4397,7 +4397,7 @@ msgstr "El fitxer conté dades no vàlides"
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "Error desconegut 0x%1. El fitxer està malmès?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:546
+#: plugins/codec_mp3/MP3Decoder.cpp:545
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4408,17 +4408,17 @@ msgstr ""
 "«%1»,\n"
 "a la posició %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:551
+#: plugins/codec_mp3/MP3Decoder.cpp:550
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "Voleu continuar?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:556
+#: plugins/codec_mp3/MP3Decoder.cpp:555
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Voleu continuar i ignorar tots els següents errors?"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:293
+#: plugins/codec_mp3/MP3Encoder.cpp:292
 #, kde-format
 msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
@@ -4427,12 +4427,12 @@ msgstr ""
 "El format del fitxer que heu triat només permet mono o estèreo. Aquest "
 "fitxer serà transformat a estèreo quan el deseu."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:306 plugins/codec_wav/WavEncoder.cpp:395
+#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:395
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "No s'ha pogut obrir el fitxer per a desar-lo!"
 
-#: plugins/codec_mp3/MP3Encoder.cpp:551
+#: plugins/codec_mp3/MP3Encoder.cpp:550
 #, kde-format
 msgctxt "%1=name of the external program, %2=stderr of the program"
 msgid ""
@@ -5074,17 +5074,17 @@ msgstr "El codificador Opus ha fallat en configurar la restricció VBR: «%1»"
 msgid "Opus encoder failed getting lookahead value: '%1'"
 msgstr "El codificador Opus ha fallat en obtenir el valor d'anticipació: «%1»"
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:88
+#: plugins/codec_ogg/VorbisDecoder.cpp:89
 #, kde-format
 msgid "This Ogg bitstream does not contain any Vorbis audio data."
 msgstr "Aquest flux de bits Ogg no conté dades d'àudio Vorbis."
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:121
+#: plugins/codec_ogg/VorbisDecoder.cpp:122
 #, kde-format
 msgid "Corrupt secondary header. Exiting."
 msgstr "Capçalera secundària malmesa. S'està sortint."
 
-#: plugins/codec_ogg/VorbisDecoder.cpp:135
+#: plugins/codec_ogg/VorbisDecoder.cpp:136
 #, kde-format
 msgid "End of file before finding all Vorbis headers."
 msgstr ""
@@ -5607,19 +5607,19 @@ msgid "%1 samples"
 msgstr "%1 mostres"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:583
-#: plugins/newsignal/NewSignalDialog.cpp:303
+#: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(mono)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:586
-#: plugins/newsignal/NewSignalDialog.cpp:306
+#: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(estèreo)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:589
-#: plugins/newsignal/NewSignalDialog.cpp:309
+#: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(quadrifònica)"
@@ -6153,7 +6153,7 @@ msgid "Sets the file size by the percentage of the possible maximum"
 msgstr ""
 "Estableix la mida del fitxer mitjançant el percentatge del màxim possible"
 
-#: plugins/newsignal/NewSignalDialog.cpp:329
+#: plugins/newsignal/NewSignalDialog.cpp:327
 #, kde-format
 msgid "(Resulting file size: %1 MB)"
 msgstr "(mida del fitxer resultant: %1 MB)"
@@ -6405,7 +6405,7 @@ msgstr "Dispositiu per omissió"
 msgid "Null device"
 msgstr "Dispositiu nul"
 
-#: plugins/playback/PlayBack-ALSA.cpp:574 plugins/playback/PlayBack-OSS.cpp:140
+#: plugins/playback/PlayBack-ALSA.cpp:573 plugins/playback/PlayBack-OSS.cpp:140
 #, kde-format
 msgid ""
 "I/O error. Maybe the driver\n"
@@ -6417,7 +6417,7 @@ msgstr ""
 "configurat correctament."
 
 # skip-rule: punctuation-period-no
-#: plugins/playback/PlayBack-ALSA.cpp:580 plugins/playback/PlayBack-OSS.cpp:146
+#: plugins/playback/PlayBack-ALSA.cpp:579 plugins/playback/PlayBack-OSS.cpp:146
 #, kde-format
 msgid ""
 "The device is busy. Maybe some other application is\n"
@@ -6431,31 +6431,31 @@ msgstr ""
 "(Consell: trobareu el nom i l'ID del procés del programa\n"
 "escrivint «fuser -v %1» a la línia d'ordres)."
 
-#: plugins/playback/PlayBack-ALSA.cpp:588
+#: plugins/playback/PlayBack-ALSA.cpp:587
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
 msgstr "Ha fallat en obrir el dispositiu «%1»: %2"
 
-#: plugins/playback/PlayBack-ALSA.cpp:818
-#: plugins/playback/PlayBack-ALSA.cpp:832 plugins/record/Record-ALSA.cpp:1059
+#: plugins/playback/PlayBack-ALSA.cpp:817
+#: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
 #: plugins/record/Record-ALSA.cpp:1072
 #, kde-format
 msgid "Card %1: "
 msgstr "Targeta %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:820
-#: plugins/playback/PlayBack-ALSA.cpp:834 plugins/record/Record-ALSA.cpp:1061
+#: plugins/playback/PlayBack-ALSA.cpp:819
+#: plugins/playback/PlayBack-ALSA.cpp:833 plugins/record/Record-ALSA.cpp:1061
 #: plugins/record/Record-ALSA.cpp:1074
 #, kde-format
 msgid "Device %1: "
 msgstr "Dispositiu %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:822 plugins/record/Record-ALSA.cpp:1063
+#: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1063
 #, kde-format
 msgid "Subdevice %1: "
 msgstr "Subdispositiu %1: "
 
-#: plugins/playback/PlayBack-ALSA.cpp:852
+#: plugins/playback/PlayBack-ALSA.cpp:851
 #, kde-format
 msgid "DMIX plugin"
 msgstr "Connector DMIX"
@@ -6485,17 +6485,17 @@ msgstr "No es permet la reproducció amb una freqüència de %1 Hz"
 msgid "Unusable buffer size: %1"
 msgstr "La mida del cau no és usable: %1"
 
-#: plugins/playback/PlayBack-OSS.cpp:403
+#: plugins/playback/PlayBack-OSS.cpp:402
 #, kde-format
 msgid "OSS playback device (dsp*)"
 msgstr "Dispositiu de reproducció OSS (dsp*)"
 
-#: plugins/playback/PlayBack-OSS.cpp:406
+#: plugins/playback/PlayBack-OSS.cpp:405
 #, kde-format
 msgid "ALSA playback device (adsp*)"
 msgstr "Dispositiu de reproducció ALSA (adsp*)"
 
-#: plugins/playback/PlayBack-OSS.cpp:409 plugins/record/Record-OSS.cpp:314
+#: plugins/playback/PlayBack-OSS.cpp:408 plugins/record/Record-OSS.cpp:315
 #: plugins/record/RecordDialog.cpp:621
 #, kde-format
 msgid "Any device (*)"
@@ -6566,33 +6566,33 @@ msgstr "El format de mostreig d'enters no està permès"
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Ha fallat en obrir el dispositiu «%1» del Qt Multimedia"
 
-#: plugins/playback/PlayBackDialog.cpp:516
+#: plugins/playback/PlayBackDialog.cpp:515
 #, kde-format
 msgid "%1 Bytes"
 msgstr "%1 bytes"
 
-#: plugins/playback/PlayBackDialog.cpp:518
+#: plugins/playback/PlayBackDialog.cpp:517
 #, kde-format
 msgid "%1 kB"
 msgstr "%1 kB"
 
-#: plugins/playback/PlayBackDialog.cpp:615
+#: plugins/playback/PlayBackDialog.cpp:614
 #, kde-format
 msgid "(mono)"
 msgstr "(mono)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/playback/PlayBackDialog.cpp:616 plugins/playback/PlayBackDlg.ui:350
+#: plugins/playback/PlayBackDialog.cpp:615 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
 msgstr "(estèreo)"
 
-#: plugins/playback/PlayBackDialog.cpp:617
+#: plugins/playback/PlayBackDialog.cpp:616
 #, kde-format
 msgid "(quadro)"
 msgstr "(quadrifònica)"
 
-#: plugins/playback/PlayBackDialog.cpp:647
+#: plugins/playback/PlayBackDialog.cpp:646
 #, kde-format
 msgid "Select Playback Device"
 msgstr "Selecció del dispositiu de reproducció"
@@ -6847,17 +6847,17 @@ msgstr "%1 dB"
 msgid "DSNOOP plugin"
 msgstr "Connector DSNOOP"
 
-#: plugins/record/Record-OSS.cpp:307
+#: plugins/record/Record-OSS.cpp:306
 #, kde-format
 msgid "OSS recording device (audio*)"
 msgstr "Dispositiu d'enregistrament OSS (audio*)"
 
-#: plugins/record/Record-OSS.cpp:308
+#: plugins/record/Record-OSS.cpp:309
 #, kde-format
 msgid "OSS recording device (dsp*)"
 msgstr "Dispositiu d'enregistrament OSS (dsp*)"
 
-#: plugins/record/Record-OSS.cpp:311
+#: plugins/record/Record-OSS.cpp:312
 #, kde-format
 msgid "ALSA recording device (adsp*)"
 msgstr "Dispositiu d'enregistrament ALSA (adsp*)"

@@ -104,13 +104,13 @@ void Kwave::OpusDecoder::parseComment(Kwave::FileInfo &info,
     } else if ((tag == _("R128_TRACK_GAIN")) || (tag == _("R128_ALBUM_GAIN"))) {
 	// R128_... already is a 7.8 integer value
 	bool ok = false;
-	int q8gain = Kwave::toInt(rint(val.toDouble(&ok)));
+	int q8gain = val.toInt(&ok);
 	if (ok && q8gain) {
 	    m_opus_header.gain += q8gain;
-	    qDebug("    OpusDecoder: %s %+0.1g dB", DBG(tag),
+	    qDebug("    OpusDecoder: %s %+0.3f dB", DBG(tag),
 	           static_cast<double>(q8gain) / 256.0);
-	    return;
 	}
+	return;
     }
 
     // check for unknown properties
@@ -287,7 +287,7 @@ int Kwave::OpusDecoder::parseOpusHead(QWidget *widget, Kwave::FileInfo &info)
 // 	    _opus_next_sample_rate(m_opus_header.sample_rate);
 
 	// gain
-	m_opus_header.gain = qFromLittleEndian<quint16>(h->gain);
+	m_opus_header.gain = qFromLittleEndian<qint16>(h->gain);
 
 	// channel mapping
 	m_opus_header.channel_mapping = h->channel_mapping;
@@ -410,8 +410,8 @@ int Kwave::OpusDecoder::open(QWidget *widget, Kwave::FileInfo &info)
 	    m_opus_decoder, OPUS_SET_GAIN(m_opus_header.gain)
 	);
 	if (err == OPUS_OK) {
-	    qDebug("    OpusDecoder: gain adjusted to %d Q8dB",
-	           m_opus_header.gain);
+	    qDebug("    OpusDecoder: gain adjusted to %0.3f dB",
+	           static_cast<double>(m_opus_header.gain) / 256.0);
 	    m_opus_header.gain = 0;
 	}
     }

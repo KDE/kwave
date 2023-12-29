@@ -638,7 +638,7 @@ bool Kwave::OpusEncoder::writeOpusHeader(QIODevice &dst)
     header.channels    = m_opus_header.channels;
     header.preskip     = qToLittleEndian<quint16>(m_opus_header.preskip);
     header.sample_rate = qToLittleEndian<quint32>(m_opus_header.sample_rate);
-    header.gain        = qToLittleEndian<quint16>(m_opus_header.gain);
+    header.gain        = qToLittleEndian<qint16>(m_opus_header.gain);
     header.channel_mapping = m_opus_header.channel_mapping;
     len = 19; // bytes so far
     if (m_opus_header.channel_mapping) {

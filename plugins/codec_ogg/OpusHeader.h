@@ -30,7 +30,7 @@ namespace Kwave
 	quint8  channels;        /**< channels, 1...255                */
 	quint16 preskip;         /**< preskip                          */
 	quint32 sample_rate;     /**< sample rate [samples/sec]        */
-	quint16 gain;            /**< gain                             */
+	qint16  gain;            /**< gain in dB Q7.8 fixed point      */
 	quint8  channel_mapping; /**< channel mapping used, 0 or 1     */
 
 	/* only present if channel_mapping != 0 */

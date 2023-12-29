@@ -228,9 +228,9 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
 		QObject::connect(&writers, SIGNAL(progress(qreal)),
 		                 dialog,   SLOT(setValue(qreal)));
 	    }
+	    QObject::connect(dialog,   SIGNAL(canceled()),
+	                     &writers, SLOT(cancel()));
 	}
-	QObject::connect(dialog,   SIGNAL(canceled()),
-	                 &writers, SLOT(cancel()));
 
 	// now decode
 	res = 0;

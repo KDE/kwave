@@ -1043,10 +1043,8 @@ int Kwave::TopWidget::loadFile(const QUrl &url)
     // NOTE: the context may have changed, now we may have a different
     //       signal manager
     signal_manager = context->signalManager();
-    int res = -ENOMEM;
-    if (signal_manager && !(res = signal_manager->loadFile(url))) {
-	// succeeded
-    } else {
+    int res = (signal_manager) ? signal_manager->loadFile(url) : -ENOMEM;
+    if (res != 0) {
 	qWarning("TopWidget::loadFile() failed: result=%d", res);
 	QString reason;
 	switch (res) {

@@ -99,8 +99,8 @@ void Kwave::OpusDecoder::parseComment(Kwave::FileInfo &info,
 	    m_opus_header.gain += q8gain;
 	    qDebug("    OpusDecoder: %s %+0.1g dB", DBG(tag),
 	           static_cast<double>(q8gain) / 256.0);
-	    return;
 	}
+	return;
     } else if ((tag == _("R128_TRACK_GAIN")) || (tag == _("R128_ALBUM_GAIN"))) {
 	// R128_... already is a 7.8 integer value
 	bool ok = false;

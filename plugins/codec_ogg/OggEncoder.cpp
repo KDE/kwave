@@ -102,7 +102,7 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     }
 #endif /* HAVE_OGG_VORBIS */
 
-    if (!sub_encoder) {
+    if (sub_encoder.isNull()) {
 	qDebug("    OggEncoder: compression='%d'", compression);
 	Kwave::MessageBox::error(widget, i18nc(
 	    "error in Ogg encoder, no support for a compression type "

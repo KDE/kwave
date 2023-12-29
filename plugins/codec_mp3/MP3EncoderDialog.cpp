@@ -56,7 +56,7 @@
 #ifdef EXECUTABLE_SUFFIX
 #define EXE_SUFFIX EXECUTABLE_SUFFIX
 #else
-#define EXE_SUFFIX ""
+#define EXE_SUFFIX /* */
 #endif
 
 /**

@@ -631,7 +631,7 @@ void Kwave::RecordDialog::selectRecordDevice()
         dlg->selectUrl(QUrl(_("file:") + m_params.device_name));
     else
         dlg->selectUrl(QUrl(_("file:/dev/*")));
-    if ((dlg->exec() == QDialog::Accepted) && dlg) {
+    if (dlg->exec() == QDialog::Accepted) {
 	// selected new device
 	QString new_device = dlg->selectedUrl().path();
 	if (new_device != m_params.device_name)

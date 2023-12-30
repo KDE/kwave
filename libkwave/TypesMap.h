@@ -26,6 +26,7 @@
 #include <QString>
 #include <QStringList>
 
+#include <KLazyLocalizedString>
 #include <KLocalizedString>
 
 #include "libkwave/String.h"
@@ -37,7 +38,7 @@ namespace Kwave
     template <class IDX, class DATA> class TypesMap
     {
     private:
-	typedef QMap <IDX, Kwave::Triple <DATA, QString, QString> > TripleMap;
+	typedef QMap <IDX, Kwave::Triple <DATA, QString, KLazyLocalizedString> > TripleMap;
 
     public:
 	/**
@@ -70,9 +71,9 @@ namespace Kwave
 	 * @param description text for the user interface
 	 */
 	virtual void append(IDX index, DATA data,
-	    const QString &name, const QString &description)
+	    const QString &name, const KLazyLocalizedString &description)
 	{
-	    Kwave::Triple<DATA, QString, QString>
+	    Kwave::Triple<DATA, QString, KLazyLocalizedString>
 		triple(data, name, description);
 	    m_list.insert(index, triple);
 	}
@@ -128,8 +129,8 @@ namespace Kwave
 	QString description(IDX type, bool localized) const
 	{
 	    if (!m_list.contains(type)) return QString();
-	    QString s(m_list[type].third());
-	    return (localized) ? i18n(s.toLatin1()) : s;
+	    KLazyLocalizedString s(m_list[type].third());
+	    return (localized) ? s.toString() : _(s.untranslatedText());
 	}
 
 	/**

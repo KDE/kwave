@@ -32,25 +32,25 @@ void Kwave::RecordTypesMap::fill()
 #ifdef HAVE_QT_AUDIO_SUPPORT
     append(index++, Kwave::RECORD_QT,
         _("qt"),
-        _(I18N_NOOP("Qt Multimedia Audio")));
+        kli18n("Qt Multimedia Audio"));
 #endif /* HAVE_QT_AUDIO_SUPPORT */
 
 #ifdef HAVE_PULSEAUDIO_SUPPORT
     append(index++, Kwave::RECORD_PULSEAUDIO,
         _("pulseaudio"),
-        _(I18N_NOOP("Pulse Audio")));
+        kli18n("Pulse Audio"));
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
     append(index++, Kwave::RECORD_ALSA,
         _("alsa"),
-        _(I18N_NOOP("ALSA (Advanced Linux Sound Architecture)")));
+        kli18n("ALSA (Advanced Linux Sound Architecture)"));
 #endif /* HAVE_ALSA_SUPPORT */
 
 #ifdef HAVE_OSS_SUPPORT
     append(index++, Kwave::RECORD_OSS,
         _("oss"),
-        _(I18N_NOOP("OSS (Open Sound System)")));
+        kli18n("OSS (Open Sound System)"));
 #endif /* HAVE_OSS_SUPPORT */
 
    Q_ASSERT(index);

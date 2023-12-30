@@ -29,15 +29,15 @@
 void Kwave::WindowFunction::InitializedTypesMap::fill()
 {
     append(WINDOW_FUNC_NONE,       WINDOW_FUNC_NONE,
-           _("none"),       _(I18N_NOOP("None")));
+           _("none"),       kli18n("None"));
     append(WINDOW_FUNC_HAMMING,    WINDOW_FUNC_HAMMING,
-           _("hamming"),    _(I18N_NOOP("Hamming")));
+           _("hamming"),    kli18n("Hamming"));
     append(WINDOW_FUNC_HANNING,    WINDOW_FUNC_HANNING,
-           _("hanning"),    _(I18N_NOOP("Hanning")));
+           _("hanning"),    kli18n("Hanning"));
     append(WINDOW_FUNC_BLACKMAN,   WINDOW_FUNC_BLACKMAN,
-           _("blackman"),   _(I18N_NOOP("Blackman")));
+           _("blackman"),   kli18n("Blackman"));
     append(WINDOW_FUNC_TRIANGULAR, WINDOW_FUNC_TRIANGULAR,
-           _("triangular"), _(I18N_NOOP("Triangular")));
+           _("triangular"), kli18n("Triangular"));
 }
 
 //***************************************************************************

@@ -91,13 +91,13 @@ static double zero(double)
 //***************************************************************************
 void Kwave::Functions::FunctionTypesMap::fill()
 {
-    append(0, &sin,    _("sinus"),            _(I18N_NOOP("Sinus")));
-    append(1, &rect,   _("rectangular"),      _(I18N_NOOP("Rectangular")));
-    append(2, &saw,    _("sawtooth"),         _(I18N_NOOP("Sawtooth")));
-    append(3, &sawinv, _("inverse_sawtooth"), _(I18N_NOOP("Inverse Sawtooth")));
-    append(4, &tri,    _("triangular"),       _(I18N_NOOP("Triangular")));
-    append(5, &sin2,   _("square_sinus"),     _(I18N_NOOP("Square Sinus")));
-    append(6, &sin3,   _("cubic_sinus"),      _(I18N_NOOP("Cubic Sinus")));
+    append(0, &sin,    _("sinus"),            kli18n("Sinus"));
+    append(1, &rect,   _("rectangular"),      kli18n("Rectangular"));
+    append(2, &saw,    _("sawtooth"),         kli18n("Sawtooth"));
+    append(3, &sawinv, _("inverse_sawtooth"), kli18n("Inverse Sawtooth"));
+    append(4, &tri,    _("triangular"),       kli18n("Triangular"));
+    append(5, &sin2,   _("square_sinus"),     kli18n("Square Sinus"));
+    append(6, &sin3,   _("cubic_sinus"),      kli18n("Cubic Sinus"));
 }
 
 //***************************************************************************

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-29 00:41+0000\n"
+"POT-Creation-Date: 2023-12-30 00:41+0000\n"
 "PO-Revision-Date: 2023-02-03 17:10+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -1175,7 +1175,7 @@ msgstr "KWave-ის სკრიპტის ფაილის შესრუ
 msgid "Loading file '%1'..."
 msgstr "ფაილის ჩატვირთვა: '%1'..."
 
-#: kwave/TopWidget.cpp:1054 plugins/codec_audiofile/AudiofileDecoder.cpp:123
+#: kwave/TopWidget.cpp:1052 plugins/codec_audiofile/AudiofileDecoder.cpp:123
 #: plugins/codec_flac/FlacEncoder.cpp:247
 #: plugins/codec_flac/FlacEncoder.cpp:265
 #: plugins/codec_flac/FlacEncoder.cpp:280 plugins/codec_mp3/MP3Decoder.cpp:513
@@ -1190,35 +1190,35 @@ msgstr "ფაილის ჩატვირთვა: '%1'..."
 msgid "Out of memory"
 msgstr "არასაკმარისი მეხსიერება"
 
-#: kwave/TopWidget.cpp:1058
+#: kwave/TopWidget.cpp:1056
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
 msgstr "%1-ის გახსნა შეუძლებელია"
 
-#: kwave/TopWidget.cpp:1062
+#: kwave/TopWidget.cpp:1060
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr "ფაილის არასწორი ან უცნობი ტიპი: '%1'"
 
-#: kwave/TopWidget.cpp:1100
+#: kwave/TopWidget.cpp:1098
 #, kde-format
 msgid "Open"
 msgstr "გახსნა"
 
-#: kwave/TopWidget.cpp:1153
+#: kwave/TopWidget.cpp:1151
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr "სიგრძე: %1 (%2 სემპლი)"
 
-#: kwave/TopWidget.cpp:1164
+#: kwave/TopWidget.cpp:1162
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "რეჟიმი: %1 კჰც @ %2 ბიტი"
 
-#: kwave/TopWidget.cpp:1210
+#: kwave/TopWidget.cpp:1208
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -1226,7 +1226,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "მონიშნულია: %1...%2 (%3 სემპლი)"
 
-#: kwave/TopWidget.cpp:1222
+#: kwave/TopWidget.cpp:1220
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -1234,72 +1234,72 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr "მონიშნულია: %1...%2 (%3)"
 
-#: kwave/TopWidget.cpp:1241
+#: kwave/TopWidget.cpp:1239
 #, kde-format
 msgid "Position: %1"
 msgstr "მდებარეობა: %1"
 
-#: kwave/TopWidget.cpp:1267
+#: kwave/TopWidget.cpp:1265
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr "დაბრუნება (%1)"
 
-#: kwave/TopWidget.cpp:1269
+#: kwave/TopWidget.cpp:1267
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "დაბრუნება"
 
-#: kwave/TopWidget.cpp:1278
+#: kwave/TopWidget.cpp:1276
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr "გამეორება (%1)"
 
-#: kwave/TopWidget.cpp:1280
+#: kwave/TopWidget.cpp:1278
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "აღდგენა"
 
-#: kwave/TopWidget.cpp:1290
+#: kwave/TopWidget.cpp:1288
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "დაბრუნება (%1)"
 
-#: kwave/TopWidget.cpp:1291
+#: kwave/TopWidget.cpp:1289
 #, kde-format
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr "დაბრუნება"
 
-#: kwave/TopWidget.cpp:1297
+#: kwave/TopWidget.cpp:1295
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "გამეორება (%1)"
 
-#: kwave/TopWidget.cpp:1298
+#: kwave/TopWidget.cpp:1296
 #, kde-format
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr "აღდგენა"
 
-#: kwave/TopWidget.cpp:1413
+#: kwave/TopWidget.cpp:1411
 #, kde-format
 msgctxt "special entry in the list of labels to delete all"
 msgid "(All)"
 msgstr "(ყველა)"
 
-#: kwave/TopWidget.cpp:1422
+#: kwave/TopWidget.cpp:1420
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
 msgstr "#%1 (%2)"
 
-#: kwave/TopWidget.cpp:1425
+#: kwave/TopWidget.cpp:1423
 #, kde-format
 msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-29 00:41+0000\n"
+"POT-Creation-Date: 2023-12-30 00:41+0000\n"
 "PO-Revision-Date: 2020-02-13 16:59+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1183,7 +1183,7 @@ msgstr "Kör Kwave-skriptfil '%1'..."
 msgid "Loading file '%1'..."
 msgstr "Läser in filen '%1'..."
 
-#: kwave/TopWidget.cpp:1054 plugins/codec_audiofile/AudiofileDecoder.cpp:123
+#: kwave/TopWidget.cpp:1052 plugins/codec_audiofile/AudiofileDecoder.cpp:123
 #: plugins/codec_flac/FlacEncoder.cpp:247
 #: plugins/codec_flac/FlacEncoder.cpp:265
 #: plugins/codec_flac/FlacEncoder.cpp:280 plugins/codec_mp3/MP3Decoder.cpp:513
@@ -1198,35 +1198,35 @@ msgstr "Läser in filen '%1'..."
 msgid "Out of memory"
 msgstr "Slut på minne"
 
-#: kwave/TopWidget.cpp:1058
+#: kwave/TopWidget.cpp:1056
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
 msgstr "Kan inte öppna '%1'"
 
-#: kwave/TopWidget.cpp:1062
+#: kwave/TopWidget.cpp:1060
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr "Ogiltig eller okänd filtyp: '%1'"
 
-#: kwave/TopWidget.cpp:1100
+#: kwave/TopWidget.cpp:1098
 #, kde-format
 msgid "Open"
 msgstr "Öppna"
 
-#: kwave/TopWidget.cpp:1153
+#: kwave/TopWidget.cpp:1151
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr "Längd: %1 (%2 samplingar)"
 
-#: kwave/TopWidget.cpp:1164
+#: kwave/TopWidget.cpp:1162
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Läge: %1 kHz @ %2 bitar"
 
-#: kwave/TopWidget.cpp:1210
+#: kwave/TopWidget.cpp:1208
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -1234,7 +1234,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Markering: %1...%2 (%3 samplingar)"
 
-#: kwave/TopWidget.cpp:1222
+#: kwave/TopWidget.cpp:1220
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -1242,72 +1242,72 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr "Markering: %1...%2 (%3)"
 
-#: kwave/TopWidget.cpp:1241
+#: kwave/TopWidget.cpp:1239
 #, kde-format
 msgid "Position: %1"
 msgstr "Position: %1"
 
-#: kwave/TopWidget.cpp:1267
+#: kwave/TopWidget.cpp:1265
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr "Ångra (%1)"
 
-#: kwave/TopWidget.cpp:1269
+#: kwave/TopWidget.cpp:1267
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Ångra"
 
-#: kwave/TopWidget.cpp:1278
+#: kwave/TopWidget.cpp:1276
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr "Gör om (%1)"
 
-#: kwave/TopWidget.cpp:1280
+#: kwave/TopWidget.cpp:1278
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Gör om"
 
-#: kwave/TopWidget.cpp:1290
+#: kwave/TopWidget.cpp:1288
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "Ångra (%1)"
 
-#: kwave/TopWidget.cpp:1291
+#: kwave/TopWidget.cpp:1289
 #, kde-format
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr "Ångra"
 
-#: kwave/TopWidget.cpp:1297
+#: kwave/TopWidget.cpp:1295
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "Gör om (%1)"
 
-#: kwave/TopWidget.cpp:1298
+#: kwave/TopWidget.cpp:1296
 #, kde-format
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr "Gör om"
 
-#: kwave/TopWidget.cpp:1413
+#: kwave/TopWidget.cpp:1411
 #, kde-format
 msgctxt "special entry in the list of labels to delete all"
 msgid "(All)"
 msgstr "(alla)"
 
-#: kwave/TopWidget.cpp:1422
+#: kwave/TopWidget.cpp:1420
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
 msgstr "Nr. %1 (%2)"
 
-#: kwave/TopWidget.cpp:1425
+#: kwave/TopWidget.cpp:1423
 #, kde-format
 msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"

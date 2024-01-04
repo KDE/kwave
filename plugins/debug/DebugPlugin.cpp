@@ -41,6 +41,7 @@
 #include <QPixmap>
 #include <QtEvents>
 
+#include <KLazyLocalizedString>
 #include <KLocalizedString> // for the i18n macro
 
 #include "libkwave/Logger.h"
@@ -85,23 +86,23 @@ void Kwave::DebugPlugin::load(QStringList &params)
 #ifdef HAVE_DEBUG_PLUGIN
     QString entry = _("menu(plugin:execute(debug,%1),Calculate/Debug/%2)");
 
-    MENU_ENTRY("dc_50",             _(I18N_NOOP("Generate 50% DC Level")))
-    MENU_ENTRY("dc_100",            _(I18N_NOOP("Generate 100% DC Level")))
-    MENU_ENTRY("min_max",           _(I18N_NOOP("MinMax Pattern")))
-    MENU_ENTRY("sawtooth",          _(I18N_NOOP("Generate Sawtooth Pattern")))
-    MENU_ENTRY("sawtooth_verify",   _(I18N_NOOP("Verify Sawtooth Pattern")))
-    MENU_ENTRY("fm_sweep",          _(I18N_NOOP("FM Sweep")))
-//  MENU_ENTRY("stripe_index",      _(I18N_NOOP("Stripe Index")))
-//  MENU_ENTRY("hull_curve",        _(I18N_NOOP("Hull Curve")))
-//  MENU_ENTRY("offset_in_stripe",  _(I18N_NOOP("Offset in Stripe")))
-//  MENU_ENTRY("stripe_borders",    _(I18N_NOOP("Show Stripe Borders")))
-    MENU_ENTRY("labels_at_stripes", _(I18N_NOOP("Labels at Stripe borders")))
+    MENU_ENTRY("dc_50",             _(kli18n("Generate 50% DC Level").untranslatedText()))
+    MENU_ENTRY("dc_100",            _(kli18n("Generate 100% DC Level").untranslatedText()))
+    MENU_ENTRY("min_max",           _(kli18n("MinMax Pattern").untranslatedText()))
+    MENU_ENTRY("sawtooth",          _(kli18n("Generate Sawtooth Pattern").untranslatedText()))
+    MENU_ENTRY("sawtooth_verify",   _(kli18n("Verify Sawtooth Pattern").untranslatedText()))
+    MENU_ENTRY("fm_sweep",          _(kli18n("FM Sweep").untranslatedText()))
+//  MENU_ENTRY("stripe_index",      _(kli18n("Stripe Index").untranslatedText()))
+//  MENU_ENTRY("hull_curve",        _(kli18n("Hull Curve").untranslatedText()))
+//  MENU_ENTRY("offset_in_stripe",  _(kli18n("Offset in Stripe").untranslatedText()))
+//  MENU_ENTRY("stripe_borders",    _(kli18n("Show Stripe Borders").untranslatedText()))
+    MENU_ENTRY("labels_at_stripes", _(kli18n("Labels at Stripe borders").untranslatedText()))
 
     entry = _("menu(plugin:setup(debug,%1),Help/%2)");
-    MENU_ENTRY("dump_windows",      _(I18N_NOOP("Dump Window Hierarchy")))
+    MENU_ENTRY("dump_windows",      _(kli18n("Dump Window Hierarchy").untranslatedText()))
 
     entry = _("menu(%1,Help/%2)");
-    MENU_ENTRY("dump_metadata()",   _(I18N_NOOP("Dump Meta Data")))
+    MENU_ENTRY("dump_metadata()",   _(kli18n("Dump Meta Data").untranslatedText()))
 #endif /* HAVE_DEBUG_PLUGIN */
 }
 

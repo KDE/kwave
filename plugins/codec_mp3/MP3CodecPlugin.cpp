@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <KLazyLocalizedString>
 #include <QPointer>
 
 #include "libkwave/String.h"
@@ -47,8 +48,8 @@ Kwave::MP3CodecPlugin::~MP3CodecPlugin()
 void Kwave::MP3CodecPlugin::load(QStringList &params)
 {
     emitCommand(_("menu (plugin:setup(codec_mp3), Settings/%1)").arg(
-        _(I18N_NOOP2("menu: /Settings/MP3 Encoder Setup",
-                                     "MP3 Encoder Setup"))));
+        _(kli18nc("menu: /Settings/MP3 Encoder Setup",
+                                  "MP3 Encoder Setup").untranslatedText())));
     Kwave::CodecPlugin::load(params);
 }
 

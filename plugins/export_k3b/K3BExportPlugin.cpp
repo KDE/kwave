@@ -32,6 +32,7 @@
 #include <QRegExp>
 #include <QTextStream>
 
+#include <KLazyLocalizedString>
 #include <KLocalizedString> // for the i18n macro
 #include <KZip>
 
@@ -272,10 +273,10 @@ void Kwave::K3BExportPlugin::load(QStringList &params)
 {
     Q_UNUSED(params)
 
-    QString menu_path = _("File/Save/%1").arg(_(I18N_NOOP2(
+    QString menu_path = _("File/Save/%1").arg(_(kli18nc(
 	"menu: /File/Save/Export to K3b Project...",
-	                 "Export to K3b Project..."
-    )));
+	                 "Export to K3b Project...").untranslatedText()
+    ));
     emitCommand(_("menu(plugin:setup(export_k3b),%1%2)").arg(
 	menu_path).arg(_("/#group(@SIGNAL)")));
     emitCommand(_("menu(plugin:setup(export_k3b),%1%2)").arg(

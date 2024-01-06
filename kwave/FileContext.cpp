@@ -749,7 +749,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
         CASE_COMMAND("msgbox")
             QApplication::restoreOverrideCursor();
             result = (Kwave::MessageBox::questionYesNo(mainWidget(),
-                parser.firstParam()) == KMessageBox::Yes) ? 0 : 1;
+                parser.firstParam()) == KMessageBox::PrimaryAction) ? 0 : 1;
             QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
             continue;
         }
@@ -1015,7 +1015,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
         if (Kwave::MessageBox::warningYesNo(m_top_widget,
             i18n("The file '%1' already exists.\n"
                  "Do you really want to overwrite it?", name)) !=
-                 KMessageBox::Yes)
+                 KMessageBox::PrimaryAction)
         {
             return -1;
         }
@@ -1083,7 +1083,7 @@ bool Kwave::FileContext::closeFile()
         int res =  Kwave::MessageBox::warningYesNoCancel(m_top_widget,
             i18n("This file has been modified.\nDo you want to save it?"));
         if (res == KMessageBox::Cancel) return false;
-        if (res == KMessageBox::Yes) {
+        if (res == KMessageBox::PrimaryAction) {
             // user decided to save
             res = saveFile();
             qDebug("FileContext::closeFile()::saveFile, res=%d",res);

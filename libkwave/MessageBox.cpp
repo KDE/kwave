@@ -69,7 +69,7 @@ int Kwave::MessageBox::questionYesNo(QWidget *parent,
     const QString buttonYes, const QString buttonNo,
     const QString &dontAskAgainName)
 {
-    return Kwave::MessageBox::exec(KMessageBox::QuestionYesNo,
+    return Kwave::MessageBox::exec(KMessageBox::QuestionTwoActions,
         parent, message, caption, buttonYes, buttonNo,
         dontAskAgainName);
 }
@@ -80,7 +80,7 @@ int Kwave::MessageBox::questionYesNoCancel(QWidget *parent,
     const QString buttonYes, const QString buttonNo,
     const QString &dontAskAgainName)
 {
-    return Kwave::MessageBox::exec(KMessageBox::QuestionYesNoCancel,
+    return Kwave::MessageBox::exec(KMessageBox::QuestionTwoActionsCancel,
         parent, message, caption, buttonYes, buttonNo,
         dontAskAgainName);
 }
@@ -89,7 +89,7 @@ int Kwave::MessageBox::questionYesNoCancel(QWidget *parent,
 int Kwave::MessageBox::sorry(QWidget *parent,
     QString message, QString caption)
 {
-    return Kwave::MessageBox::exec(KMessageBox::Sorry,
+    return Kwave::MessageBox::exec(KMessageBox::Error,
         parent, message, caption);
 }
 
@@ -99,7 +99,7 @@ int Kwave::MessageBox::warningYesNo(QWidget *parent,
     const QString buttonYes, const QString buttonNo,
     const QString &dontAskAgainName)
 {
-    return Kwave::MessageBox::exec(KMessageBox::WarningYesNo,
+    return Kwave::MessageBox::exec(KMessageBox::WarningTwoActions,
         parent, message, caption, buttonYes, buttonNo,
         dontAskAgainName);
 }
@@ -110,7 +110,7 @@ int Kwave::MessageBox::warningYesNoCancel(QWidget *parent,
     const QString buttonYes, const QString buttonNo,
     const QString &dontAskAgainName)
 {
-    return Kwave::MessageBox::exec(KMessageBox::WarningYesNoCancel,
+    return Kwave::MessageBox::exec(KMessageBox::WarningTwoActionsCancel,
         parent, message, caption, buttonYes, buttonNo,
         dontAskAgainName);
 }
@@ -166,8 +166,7 @@ KGuiItem Kwave::MessageBox::no()
 void Kwave::MessageBox::show()
 {
     switch (m_mode) {
-        // QuestionYesNo
-        case KMessageBox::QuestionYesNo:
+        case KMessageBox::QuestionTwoActions:
             m_retval = KMessageBox::questionTwoActions(m_parent,
                 m_message, m_caption,
                 (!m_button1.isEmpty()) ? KGuiItem(m_button1) :
@@ -176,8 +175,7 @@ void Kwave::MessageBox::show()
                                          Kwave::MessageBox::no(),
                 m_dont_ask_again_name);
             break;
-        // QuestionYesNoCancel
-        case KMessageBox::QuestionYesNoCancel:
+        case KMessageBox::QuestionTwoActionsCancel:
             m_retval = KMessageBox::questionTwoActionsCancel(m_parent,
                 m_message, m_caption,
                 (!m_button1.isEmpty()) ? KGuiItem(m_button1) :
@@ -187,12 +185,7 @@ void Kwave::MessageBox::show()
                 KStandardGuiItem::cancel(),
                 m_dont_ask_again_name);
             break;
-        // Sorry
-        case KMessageBox::Sorry:
-            KMessageBox::error(m_parent, m_message, m_caption);
-            break;
-        // WarningYesNoCancel
-        case KMessageBox::WarningYesNoCancel:
+        case KMessageBox::WarningTwoActionsCancel:
             m_retval = KMessageBox::warningTwoActionsCancel(m_parent,
                 m_message, m_caption,
                 (!m_button1.isEmpty()) ? KGuiItem(m_button1) :
@@ -202,8 +195,7 @@ void Kwave::MessageBox::show()
                 KStandardGuiItem::cancel(),
                 m_dont_ask_again_name);
             break;
-        // WarningYesNo
-        case KMessageBox::WarningYesNo:
+        case KMessageBox::WarningTwoActions:
             m_retval = KMessageBox::warningTwoActions(m_parent,
                 m_message, m_caption,
                 (!m_button1.isEmpty()) ? KGuiItem(m_button1) :
@@ -212,7 +204,6 @@ void Kwave::MessageBox::show()
                                          Kwave::MessageBox::no(),
                 m_dont_ask_again_name);
             break;
-        // WarningContinueCancel
         case KMessageBox::WarningContinueCancel:
             m_retval = KMessageBox::warningContinueCancel(m_parent,
                 m_message, m_caption,
@@ -222,7 +213,6 @@ void Kwave::MessageBox::show()
                                          KStandardGuiItem::cancel(),
                 m_dont_ask_again_name);
             break;
-        // Error
         case KMessageBox::Error:
             KMessageBox::error(m_parent, m_message, m_caption);
             break;

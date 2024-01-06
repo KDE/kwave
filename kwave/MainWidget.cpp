@@ -992,7 +992,7 @@ int Kwave::MainWidget::saveLabels(const QString &filename)
             if (Kwave::MessageBox::warningYesNo(this,
                 i18n("The file '%1' already exists.\n"
                 "Do you really want to overwrite it?", name)) !=
-                KMessageBox::Yes)
+                KMessageBox::PrimaryAction)
             {
                 return -1;
             }
@@ -1075,13 +1075,13 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
             int res = Kwave::MessageBox::warningYesNoCancel(this, i18n(
                 "There already is a label at the position you have chosen.\n"\
                 "Do you want to replace it?"));
-            if (res == KMessageBox::Yes) {
+            if (res == KMessageBox::PrimaryAction) {
                 // delete the label at the target position (with undo)
                 Kwave::Label old = signal_manager->findLabel(new_pos);
                 old_index = signal_manager->labelIndex(old);
                 break;
             }
-            if (res == KMessageBox::No) {
+            if (res == KMessageBox::SecondaryAction) {
                 // make another try -> re-enter the dialog
                 continue;
             }

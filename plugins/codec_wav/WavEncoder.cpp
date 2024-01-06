@@ -352,12 +352,12 @@ bool Kwave::WavEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
             i18n("&No, store uncompressed")
         );
         switch (what_now) {
-            case (KMessageBox::Yes):
+            case (KMessageBox::PrimaryAction):
                 info.set(Kwave::INF_COMPRESSION,
                          Kwave::Compression::G711_ULAW);
                 compression = Kwave::Compression::G711_ULAW;
                 break;
-            case (KMessageBox::No):
+            case (KMessageBox::SecondaryAction):
                 info.set(Kwave::INF_COMPRESSION,
                          Kwave::Compression::NONE);
                 compression = Kwave::Compression::NONE;

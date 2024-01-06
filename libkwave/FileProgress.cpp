@@ -205,7 +205,7 @@ void Kwave::FileProgress::closeEvent(QCloseEvent *e)
     if (!m_canceled) {
         if (Kwave::MessageBox::warningYesNo(this,
             i18n("Do you really want to abort the operation?")) !=
-            KMessageBox::Yes)
+            KMessageBox::PrimaryAction)
         {
             // the user was wise and said "No"
             e->ignore();

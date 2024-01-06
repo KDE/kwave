@@ -48,7 +48,7 @@ void Kwave::ConfirmCancelProxy::cancel()
 {
     if (Kwave::MessageBox::questionYesNo(m_widget,
         i18n("Do you really want to abort the current action?"))
-        != KMessageBox::Yes) return; // no cancel
+        != KMessageBox::PrimaryAction) return; // no cancel
     emit canceled();
 }
 

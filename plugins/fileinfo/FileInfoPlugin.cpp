@@ -90,7 +90,7 @@ void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
             QString(),
             i18n("&Convert"),
             i18n("&Set Rate"));
-        if (res == KMessageBox::Yes) {
+        if (res == KMessageBox::PrimaryAction) {
             // Yes -> resample
 
             // take over all properties except the new sample rate, this will
@@ -104,7 +104,7 @@ void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
             //       we cannot change the sample rate afterwards
             emitCommand(_("plugin:execute(samplerate,%1,all)").arg(new_rate));
             return;
-        } else if (res == KMessageBox::No) {
+        } else if (res == KMessageBox::SecondaryAction) {
             // No -> only change the rate in the file info
             new_info.setRate(new_rate);
         } else {

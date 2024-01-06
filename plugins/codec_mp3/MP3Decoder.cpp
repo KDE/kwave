@@ -554,7 +554,7 @@ enum mad_flow Kwave::MP3Decoder::handleError(void */*data*/,
             error + _("\n") +
             i18n("Do you want to continue and ignore all following errors?"));
         m_failures++;
-        if (result != KMessageBox::Yes) return MAD_FLOW_BREAK;
+        if (result != KMessageBox::PrimaryAction) return MAD_FLOW_BREAK;
     }
 
     return MAD_FLOW_CONTINUE;

@@ -277,7 +277,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
             i18n("This would overwrite the following file(s): %1" \
             "Do you really want to continue?",
             createDisplayList(overwritten_files, 5)) +
-            _("</html>") ) != KMessageBox::Yes)
+            _("</html>") ) != KMessageBox::PrimaryAction)
         {
             return -1;
         }

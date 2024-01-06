@@ -677,7 +677,7 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
         "A K3b project file has been created and audio files have "
         "been exported.\n"
         "Should I start K3b and open the audio CD project now?"
-    )) == KMessageBox::Yes) {
+    )) == KMessageBox::PrimaryAction) {
         // call k3b and pass the project file name (must be full path)
         QStringList args;
         args << k3b_filename;

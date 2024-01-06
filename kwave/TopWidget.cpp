@@ -759,7 +759,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("reset_toolbars")
         if ((result = (Kwave::MessageBox::questionYesNo(this,
             i18n("Reset the toolbar to default settings?"))
-            == KMessageBox::Yes) ? 1 : 0))
+            == KMessageBox::PrimaryAction) ? 1 : 0))
         {
             resetToolbarToDefaults();
         }
@@ -787,7 +787,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
                  "All messages that you previously turned off by activating "
                  "the \"Do not ask again\" checkbox will then be enabled again."
             ))
-            == KMessageBox::Yes) ? 1 : 0))
+            == KMessageBox::PrimaryAction) ? 1 : 0))
         {
             KMessageBox::enableAllMessages();
         }

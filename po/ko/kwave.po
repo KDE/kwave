@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-30 00:41+0000\n"
+"POT-Creation-Date: 2024-01-07 00:41+0000\n"
 "PO-Revision-Date: 2021-06-09 23:29+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1747,102 +1747,82 @@ msgid "All Supported Files"
 msgstr "모든 지원하는 파일"
 
 #: libkwave/Compression.cpp:104
-#, kde-format
 msgid "No Compression"
 msgstr "압축 없음"
 
 #: libkwave/Compression.cpp:111
-#, kde-format
 msgid "CCITT G.711 u-law"
 msgstr "CCITT G.711 u-law"
 
 #: libkwave/Compression.cpp:115
-#, kde-format
 msgid "CCITT G.711 A-law"
 msgstr "CCITT G.711 A-law"
 
 #: libkwave/Compression.cpp:119
-#, kde-format
 msgid "MS ADPCM"
 msgstr "MS ADPCM"
 
 #: libkwave/Compression.cpp:123
-#, kde-format
 msgid "GSM"
 msgstr "GSM"
 
 #: libkwave/Compression.cpp:129
-#, kde-format
 msgid "G722"
 msgstr "G722"
 
 #: libkwave/Compression.cpp:133
-#, kde-format
 msgid "Apple ACE2"
 msgstr "애플 ACE2"
 
 #: libkwave/Compression.cpp:137
-#, kde-format
 msgid "Apple ACE8"
 msgstr "애플 ACE8"
 
 #: libkwave/Compression.cpp:141
-#, kde-format
 msgid "Apple MAC3"
 msgstr "애플 MAC3"
 
 #: libkwave/Compression.cpp:145
-#, kde-format
 msgid "Apple MAC6"
 msgstr "애플 MAC6"
 
 #: libkwave/Compression.cpp:149
-#, kde-format
 msgid "G726"
 msgstr "G726"
 
 #: libkwave/Compression.cpp:153
-#, kde-format
 msgid "DVI Audio / IMA"
 msgstr "DVI 오디오/IMA"
 
 #: libkwave/Compression.cpp:157
-#, kde-format
 msgid "FS1016"
 msgstr "FS1016"
 
 #: libkwave/Compression.cpp:161
-#, kde-format
 msgid "DV"
 msgstr "DV"
 
 #: libkwave/Compression.cpp:168
-#, kde-format
 msgid "MPEG Layer I"
 msgstr "MPEG 레이어 I"
 
 #: libkwave/Compression.cpp:172
-#, kde-format
 msgid "MPEG Layer II"
 msgstr "MPEG 레이어 II"
 
 #: libkwave/Compression.cpp:176
-#, kde-format
 msgid "MPEG Layer III"
 msgstr "MPEG 레이어 III"
 
 #: libkwave/Compression.cpp:184
-#, kde-format
 msgid "FLAC"
 msgstr "FLAC"
 
 #: libkwave/Compression.cpp:192
-#, kde-format
 msgid "Ogg Vorbis"
 msgstr "Ogg Vorbis"
 
 #: libkwave/Compression.cpp:200
-#, kde-format
 msgid "Ogg Opus"
 msgstr "Ogg Opus"
 
@@ -1852,12 +1832,10 @@ msgid "Do you really want to abort the current action?"
 msgstr "현재 동작을 중단하시겠습니까?"
 
 #: libkwave/FileInfo.cpp:37
-#, kde-format
 msgid "Album"
 msgstr "앨범"
 
 #: libkwave/FileInfo.cpp:38
-#, kde-format
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more medias."
@@ -1866,12 +1844,10 @@ msgstr ""
 "앨범의 이름입니다."
 
 #: libkwave/FileInfo.cpp:42
-#, kde-format
 msgid "Annotation"
 msgstr "추가 설명"
 
 #: libkwave/FileInfo.cpp:44 libkwave/FileInfo.cpp:98
-#, kde-format
 msgid ""
 "Provides general comments about the file or the subject of\n"
 "the file. If the comment is several sentences long, end\n"
@@ -1884,22 +1860,18 @@ msgstr ""
 "안 됩니다!"
 
 #: libkwave/FileInfo.cpp:50
-#, kde-format
 msgid "Archival location"
 msgstr "보관 위치"
 
 #: libkwave/FileInfo.cpp:51
-#, kde-format
 msgid "Indicates where the subject of the file is archived."
 msgstr "파일의 주제가 보관된 위치를 나타냅니다."
 
 #: libkwave/FileInfo.cpp:54
-#, kde-format
 msgid "Author"
 msgstr "작성자"
 
 #: libkwave/FileInfo.cpp:55
-#, kde-format
 msgid ""
 "Identifies the name of the author of the original\n"
 "subject of the file.\n"
@@ -1910,82 +1882,66 @@ msgstr ""
 "예: '루트비히 판 베토벤'"
 
 #: libkwave/FileInfo.cpp:60
-#, kde-format
 msgid "Lower Bitrate"
 msgstr "최소 비트 전송률"
 
 #: libkwave/FileInfo.cpp:61
-#, kde-format
 msgid "Specifies the lower limit in a VBR bitstream."
 msgstr "VBR 비트스트림의 최소 비트 전송률을 지정합니다."
 
 #: libkwave/FileInfo.cpp:64
-#, kde-format
 msgid "Bitrate Mode"
 msgstr "비트 전송률 모드"
 
 #: libkwave/FileInfo.cpp:65
-#, kde-format
 msgid "Bitrate Mode (ABR, VBR, CBR, etc...)"
 msgstr "비트 전송률 모드(ABR, VBR, CBR 등)"
 
 #: libkwave/FileInfo.cpp:68
-#, kde-format
 msgid "Bitrate"
 msgstr "비트 전송률"
 
 #: libkwave/FileInfo.cpp:70
-#, kde-format
 msgid "Nominal bitrate of the audio stream in bits per second"
 msgstr "초당 비트 단위의 오디오 스트림의 공칭 비트 전송률"
 
 #: libkwave/FileInfo.cpp:73
-#, kde-format
 msgid "Upper Bitrate"
 msgstr "최대 비트 전송률"
 
 #: libkwave/FileInfo.cpp:74
-#, kde-format
 msgid "Specifies the upper limit in a VBR bitstream."
 msgstr "VBR 비트스트림의 최대 비트 전송률을 지정합니다."
 
 #: libkwave/FileInfo.cpp:77
-#, kde-format
 msgid "Bits per Sample"
 msgstr "샘플당 비트 수"
 
 #: libkwave/FileInfo.cpp:78
-#, kde-format
 msgid "Specifies the number of bits per sample."
 msgstr "샘플당 비트 수를 지정합니다."
 
 #: libkwave/FileInfo.cpp:81
-#, kde-format
 msgid "CD"
 msgstr "CD"
 
 #: libkwave/FileInfo.cpp:83
-#, kde-format
 msgid "Number of the CD, if the source is an album of more CDROMs"
 msgstr "원본이 CD 여러 개로 구성된 앨범이라면 CD 번호입니다."
 
 #: libkwave/FileInfo.cpp:86
-#, kde-format
 msgid "CDS"
 msgstr "CD 개수"
 
 #: libkwave/FileInfo.cpp:88
-#, kde-format
 msgid "Number of CDs, if the source is an album of more CDROMs"
 msgstr "원본이 CD 여러 개로 구성된 앨범이라면 총 CD 개수입니다."
 
 #: libkwave/FileInfo.cpp:91
-#, kde-format
 msgid "Commissioned"
 msgstr "제작 책임자"
 
 #: libkwave/FileInfo.cpp:92
-#, kde-format
 msgid ""
 "Lists the name of the person or organization\n"
 "that commissioned the subject of the file."
@@ -1994,7 +1950,6 @@ msgstr ""
 "조직의 이름 목록입니다."
 
 #: libkwave/FileInfo.cpp:96
-#, kde-format
 msgid "Comments"
 msgstr "설명"
 
@@ -2005,7 +1960,6 @@ msgid "Compression"
 msgstr "압축"
 
 #: libkwave/FileInfo.cpp:105
-#, kde-format
 msgid ""
 "Sets a mode for compressing the audio\n"
 "data to reduce disk space."
@@ -2014,12 +1968,10 @@ msgstr ""
 "압축하는 모드를 설정합니다."
 
 #: libkwave/FileInfo.cpp:109
-#, kde-format
 msgid "Contact"
 msgstr "연락처"
 
 #: libkwave/FileInfo.cpp:110
-#, kde-format
 msgid ""
 "Contact information for the creators or distributors of\n"
 "the track. This could be a URL, an email address, the\n"
@@ -2030,12 +1982,10 @@ msgstr ""
 "주소일 수 있습니다."
 
 #: libkwave/FileInfo.cpp:115
-#, kde-format
 msgid "Copyright"
 msgstr "저작권"
 
 #: libkwave/FileInfo.cpp:116
-#, kde-format
 msgid ""
 "Records the copyright information for the file. If there are\n"
 "multiple copyrights, separate them by a semicolon followed\n"
@@ -2048,22 +1998,18 @@ msgstr ""
 "예: 'Copyright Linux community 2002'"
 
 #: libkwave/FileInfo.cpp:123
-#, kde-format
 msgid "Copyrighted"
 msgstr "저작권 보호됨"
 
 #: libkwave/FileInfo.cpp:124
-#, kde-format
 msgid "Indicates whether the file is protected by copyright or not."
 msgstr "파일이 저작권 보호되었는지 여부를 나타냅니다."
 
 #: libkwave/FileInfo.cpp:128
-#, kde-format
 msgid "Date"
 msgstr "날짜"
 
 #: libkwave/FileInfo.cpp:129
-#, kde-format
 msgid ""
 "Specifies the date the subject of the file was created.\n"
 "Example: '2001-12-24'"
@@ -2072,12 +2018,10 @@ msgstr ""
 "예: '2001-12-24'"
 
 #: libkwave/FileInfo.cpp:133
-#, kde-format
 msgid "Engineer"
 msgstr "엔지니어"
 
 #: libkwave/FileInfo.cpp:134
-#, kde-format
 msgid ""
 "Shows the name of the engineer who worked on the file.\n"
 "If there are multiple engineers, separate the names by\n"
@@ -2088,42 +2032,34 @@ msgstr ""
 "공백으로 구분하십시오."
 
 #: libkwave/FileInfo.cpp:139
-#, kde-format
 msgid "Estimated Length"
 msgstr "예상 길이"
 
 #: libkwave/FileInfo.cpp:140
-#, kde-format
 msgid "Estimated length of the file in samples"
 msgstr "샘플 단위의 파일 예상 길이"
 
 #: libkwave/FileInfo.cpp:143
-#, kde-format
 msgid "Filename"
 msgstr "파일 이름"
 
 #: libkwave/FileInfo.cpp:144
-#, kde-format
 msgid "Name of the opened file"
 msgstr "연 파일의 이름"
 
 #: libkwave/FileInfo.cpp:147
-#, kde-format
 msgid "File Size"
 msgstr "파일 크기"
 
 #: libkwave/FileInfo.cpp:148
-#, kde-format
 msgid "Size of the file in bytes"
 msgstr "바이트 단위의 파일 크기"
 
 #: libkwave/FileInfo.cpp:151
-#, kde-format
 msgid "Genre"
 msgstr "장르"
 
 #: libkwave/FileInfo.cpp:152
-#, kde-format
 msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
@@ -2132,12 +2068,10 @@ msgstr ""
 "예: '클래식', '팝'"
 
 #: libkwave/FileInfo.cpp:156
-#, kde-format
 msgid "ISRC"
 msgstr "ISRC"
 
 #: libkwave/FileInfo.cpp:157
-#, kde-format
 msgid ""
 "ISRC number for the track; see the ISRC intro page\n"
 "for more information on ISRC numbers.\n"
@@ -2154,7 +2088,6 @@ msgid "Keywords"
 msgstr "키워드"
 
 #: libkwave/FileInfo.cpp:163
-#, kde-format
 msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
@@ -2163,27 +2096,22 @@ msgstr ""
 "목록입니다."
 
 #: libkwave/FileInfo.cpp:167
-#, kde-format
 msgid "Labels"
 msgstr "이름표"
 
 #: libkwave/FileInfo.cpp:168
-#, kde-format
 msgid "The list of labels/markers."
 msgstr "이름표/마커 목록입니다."
 
 #: libkwave/FileInfo.cpp:172
-#, kde-format
 msgid "Length of the file in samples."
 msgstr "샘플 단위의 파일 길이입니다."
 
 #: libkwave/FileInfo.cpp:175
-#, kde-format
 msgid "License"
 msgstr "라이선스"
 
 #: libkwave/FileInfo.cpp:176
-#, kde-format
 msgid ""
 "License information, e.g., 'All Rights Reserved',\n"
 "'Any Use Permitted', an URL to a license or the\n"
@@ -2200,12 +2128,10 @@ msgstr ""
 "사이트를 참조하십시오') 등."
 
 #: libkwave/FileInfo.cpp:184
-#, kde-format
 msgid "Medium"
 msgstr "매체"
 
 #: libkwave/FileInfo.cpp:185
-#, kde-format
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
@@ -2216,62 +2142,50 @@ msgstr ""
 "예: '오케스트라'"
 
 #: libkwave/FileInfo.cpp:190
-#, kde-format
 msgid "Mime Type"
 msgstr "MIME 형식"
 
 #: libkwave/FileInfo.cpp:191
-#, kde-format
 msgid "Mime type of the file format"
 msgstr "파일 형식의 MIME 형식"
 
 #: libkwave/FileInfo.cpp:194
-#, kde-format
 msgid "Emphasis"
 msgstr "강조"
 
 #: libkwave/FileInfo.cpp:195
-#, kde-format
 msgid "Audio emphasis mode"
 msgstr "오디오 강조 모드"
 
 #: libkwave/FileInfo.cpp:198
-#, kde-format
 msgid "Layer"
 msgstr "레이어"
 
 #: libkwave/FileInfo.cpp:199
-#, kde-format
 msgid "MPEG Layer, I, II or III"
 msgstr "MPEG 레이어, I, II, III"
 
 #: libkwave/FileInfo.cpp:202
-#, kde-format
 msgid "Mode Extension"
 msgstr "모드 확장"
 
 #: libkwave/FileInfo.cpp:203
-#, kde-format
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "MPEG 모드 확장(조인트 스테레오일 때에만)"
 
 #: libkwave/FileInfo.cpp:206 libkwave/FileInfo.cpp:300
-#, kde-format
 msgid "Version"
 msgstr "버전"
 
 #: libkwave/FileInfo.cpp:207
-#, kde-format
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr "MPEG 버전, 1, 2, 2.5"
 
 #: libkwave/FileInfo.cpp:210
-#, kde-format
 msgid "Name"
 msgstr "이름"
 
 #: libkwave/FileInfo.cpp:211
-#, kde-format
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: \"Symphony No.6, Op.68 'Pastoral'\""
@@ -2280,23 +2194,19 @@ msgstr ""
 "예: \"교향곡 제6번, 작품 번호 68 '전원'\""
 
 #: libkwave/FileInfo.cpp:215
-#, kde-format
 msgid "Opus Frame Length"
 msgstr "Opus 프레임 길이"
 
 #: libkwave/FileInfo.cpp:216
-#, kde-format
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
 msgstr "밀리초 단위의 Opus 프레임 길이(지원하는 값: 2.5, 5, 10, 20, 40, 60 ms)"
 
 #: libkwave/FileInfo.cpp:220
-#, kde-format
 msgid "Organization"
 msgstr "조직"
 
 #: libkwave/FileInfo.cpp:221
-#, kde-format
 msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
@@ -2305,22 +2215,18 @@ msgstr ""
 "(또는 음반 회사)"
 
 #: libkwave/FileInfo.cpp:225
-#, kde-format
 msgid "Original"
 msgstr "원본"
 
 #: libkwave/FileInfo.cpp:226
-#, kde-format
 msgid "Indicates whether the file is an original or a copy"
 msgstr "파일이 원본인지 복사본인지 여부"
 
 #: libkwave/FileInfo.cpp:229
-#, kde-format
 msgid "Performer"
 msgstr "연주가"
 
 #: libkwave/FileInfo.cpp:230
-#, kde-format
 msgid ""
 "The artist(s) who performed the work. In classical\n"
 "music this would be the conductor, orchestra, soloists.\n"
@@ -2331,22 +2237,18 @@ msgstr ""
 "성우입니다."
 
 #: libkwave/FileInfo.cpp:235
-#, kde-format
 msgid "Private"
 msgstr "비밀"
 
 #: libkwave/FileInfo.cpp:236
-#, kde-format
 msgid "Indicates whether the subject is private"
 msgstr "주제가 비밀인지 여부"
 
 #: libkwave/FileInfo.cpp:239
-#, kde-format
 msgid "Product"
 msgstr "제품"
 
 #: libkwave/FileInfo.cpp:240
-#, kde-format
 msgid ""
 "Specifies the name or the title the\n"
 "file was originally intended for.\n"
@@ -2357,12 +2259,10 @@ msgstr ""
 "예: '리눅스 오디오 모음'"
 
 #: libkwave/FileInfo.cpp:245
-#, kde-format
 msgid "Sample Format"
 msgstr "샘플 형식"
 
 #: libkwave/FileInfo.cpp:246
-#, kde-format
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
@@ -2371,22 +2271,18 @@ msgstr ""
 "예: '32비트 IEEE 부동소수점'"
 
 #: libkwave/FileInfo.cpp:250
-#, kde-format
 msgid "Sample Rate"
 msgstr "샘플링 레이트"
 
 #: libkwave/FileInfo.cpp:251
-#, kde-format
 msgid "Number of samples per second"
 msgstr "초당 샘플 개수"
 
 #: libkwave/FileInfo.cpp:254
-#, kde-format
 msgid "Software"
 msgstr "소프트웨어"
 
 #: libkwave/FileInfo.cpp:255
-#, kde-format
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file.\n"
@@ -2405,7 +2301,6 @@ msgid "Source"
 msgstr "원본"
 
 #: libkwave/FileInfo.cpp:261
-#, kde-format
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
@@ -2416,12 +2311,10 @@ msgstr ""
 "예: 'Chaotic Sound Research'"
 
 #: libkwave/FileInfo.cpp:266
-#, kde-format
 msgid "Source form"
 msgstr "원본 형태"
 
 #: libkwave/FileInfo.cpp:267
-#, kde-format
 msgid ""
 "Identifies the original form of\n"
 "the material that was digitized.\n"
@@ -2432,12 +2325,10 @@ msgstr ""
 "예: '레코드/비닐/90RPM', '오디오 DAT', '테이프/CrO2/60min'"
 
 #: libkwave/FileInfo.cpp:273
-#, kde-format
 msgid "Subject"
 msgstr "주제"
 
 #: libkwave/FileInfo.cpp:274
-#, kde-format
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
@@ -2446,12 +2337,10 @@ msgstr ""
 "예: '이른 아침의 새소리'"
 
 #: libkwave/FileInfo.cpp:278
-#, kde-format
 msgid "Technician"
 msgstr "기술자"
 
 #: libkwave/FileInfo.cpp:280
-#, kde-format
 msgid ""
 "Identifies the technician who digitized the subject file.\n"
 "Example: 'Torvalds, Linus'"
@@ -2460,32 +2349,26 @@ msgstr ""
 "예: '리누스 토르발스'"
 
 #: libkwave/FileInfo.cpp:284
-#, kde-format
 msgid "Track"
 msgstr "트랙"
 
 #: libkwave/FileInfo.cpp:285
-#, kde-format
 msgid "Track of the CD if the source was a CDROM."
 msgstr "원본이 CD-ROM인 경우 CD의 트랙 번호입니다."
 
 #: libkwave/FileInfo.cpp:288
-#, kde-format
 msgid "Tracks"
 msgstr "총 트랙 수"
 
 #: libkwave/FileInfo.cpp:289
-#, kde-format
 msgid "Number of tracks of the CD if the source was a CDROM."
 msgstr "원본이 CD-ROM인 경우 CD의 총 트랙 개수입니다."
 
 #: libkwave/FileInfo.cpp:292
-#, kde-format
 msgid "Channels"
 msgstr "채널"
 
 #: libkwave/FileInfo.cpp:293
-#, kde-format
 msgid "Specifies the number of channels of the signal."
 msgstr "신호의 채널 개수입니다."
 
@@ -2496,12 +2379,10 @@ msgid "Base Quality"
 msgstr "기반 품질"
 
 #: libkwave/FileInfo.cpp:297
-#, kde-format
 msgid "Base quality of the compression in VBR mode"
 msgstr "VBR 모드에서의 압축 기반 품질"
 
 #: libkwave/FileInfo.cpp:301
-#, kde-format
 msgid ""
 "May be used to differentiate multiple versions\n"
 "of the same track title in a single collection.\n"
@@ -2603,1037 +2484,830 @@ msgid "%1 samples"
 msgstr "샘플 %1개"
 
 #: libkwave/Functions.cpp:94
-#, kde-format
 msgid "Sinus"
 msgstr "사인파"
 
 #: libkwave/Functions.cpp:95
-#, kde-format
 msgid "Rectangular"
 msgstr "직사각파"
 
 #: libkwave/Functions.cpp:96
-#, kde-format
 msgid "Sawtooth"
 msgstr "톱니파"
 
 #: libkwave/Functions.cpp:97
-#, kde-format
 msgid "Inverse Sawtooth"
 msgstr "반전 톱니파"
 
 #: libkwave/Functions.cpp:98 libkwave/WindowFunction.cpp:40
-#, kde-format
 msgid "Triangular"
 msgstr "삼각파"
 
 #: libkwave/Functions.cpp:99
-#, kde-format
 msgid "Square Sinus"
 msgstr "제곱 사인파"
 
 #: libkwave/Functions.cpp:100
-#, kde-format
 msgid "Cubic Sinus"
 msgstr "세제곱 사인파"
 
 #: libkwave/GenreType.cpp:99
-#, kde-format
 msgid "Blues"
 msgstr "블루스"
 
 #: libkwave/GenreType.cpp:100
-#, kde-format
 msgid "Classic Rock"
 msgstr "클래식 록"
 
 #: libkwave/GenreType.cpp:101
-#, kde-format
 msgid "Country"
 msgstr "컨트리"
 
 #: libkwave/GenreType.cpp:102
-#, kde-format
 msgid "Dance"
 msgstr "댄스"
 
 #: libkwave/GenreType.cpp:103
-#, kde-format
 msgid "Disco"
 msgstr "디스코"
 
 #: libkwave/GenreType.cpp:104
-#, kde-format
 msgid "Funk"
 msgstr "펑크"
 
 #: libkwave/GenreType.cpp:105
-#, kde-format
 msgid "Grunge"
 msgstr "그런지"
 
 #: libkwave/GenreType.cpp:106
-#, kde-format
 msgid "Hip-Hop"
 msgstr "힙합"
 
 #: libkwave/GenreType.cpp:107
-#, kde-format
 msgid "Jazz"
 msgstr "재즈"
 
 #: libkwave/GenreType.cpp:108
-#, kde-format
 msgid "Metal"
 msgstr "메탈"
 
 #: libkwave/GenreType.cpp:109
-#, kde-format
 msgid "New Age"
 msgstr "뉴 에이지"
 
 #: libkwave/GenreType.cpp:110
-#, kde-format
 msgid "Oldies"
 msgstr "고전"
 
 #: libkwave/GenreType.cpp:111
-#, kde-format
 msgid "Other"
 msgstr "기타"
 
 #: libkwave/GenreType.cpp:112
-#, kde-format
 msgid "Pop"
 msgstr "팝"
 
 #: libkwave/GenreType.cpp:113
-#, kde-format
 msgid "Rhythm and Blues"
 msgstr "리듬 앤 블루스"
 
 #: libkwave/GenreType.cpp:114
-#, kde-format
 msgid "Rap"
 msgstr "랩"
 
 #: libkwave/GenreType.cpp:115
-#, kde-format
 msgid "Reggae"
 msgstr "레게"
 
 #: libkwave/GenreType.cpp:116
-#, kde-format
 msgid "Rock"
 msgstr "록"
 
 #: libkwave/GenreType.cpp:117
-#, kde-format
 msgid "Techno"
 msgstr "테크노"
 
 #: libkwave/GenreType.cpp:118
-#, kde-format
 msgid "Industrial"
 msgstr "인더스트리얼"
 
 #: libkwave/GenreType.cpp:119
-#, kde-format
 msgid "Alternative"
 msgstr "얼터너티브"
 
 #: libkwave/GenreType.cpp:120
-#, kde-format
 msgid "Ska"
 msgstr "스카"
 
 #: libkwave/GenreType.cpp:121
-#, kde-format
 msgid "Death Metal"
 msgstr "데스 메탈"
 
 #: libkwave/GenreType.cpp:122
-#, kde-format
 msgid "Pranks"
 msgstr "프랭크"
 
 #: libkwave/GenreType.cpp:123
-#, kde-format
 msgid "Soundtrack"
 msgstr "사운드트랙"
 
 #: libkwave/GenreType.cpp:124
-#, kde-format
 msgid "Euro-Techno"
 msgstr "유로테크노"
 
 #: libkwave/GenreType.cpp:125
-#, kde-format
 msgid "Ambient"
 msgstr "앰비언트"
 
 #: libkwave/GenreType.cpp:126
-#, kde-format
 msgid "Trip-Hop"
 msgstr "트립합"
 
 #: libkwave/GenreType.cpp:127
-#, kde-format
 msgid "Vocal"
 msgstr "음성"
 
 #: libkwave/GenreType.cpp:128
-#, kde-format
 msgid "Jazz & Funk"
 msgstr "재즈 앤 펑크"
 
 #: libkwave/GenreType.cpp:129
-#, kde-format
 msgid "Fusion"
 msgstr "퓨전"
 
 #: libkwave/GenreType.cpp:130
-#, kde-format
 msgid "Trance"
 msgstr "트랜스"
 
 #: libkwave/GenreType.cpp:131
-#, kde-format
 msgid "Classical"
 msgstr "클래식"
 
 #: libkwave/GenreType.cpp:132
-#, kde-format
 msgid "Instrumental"
 msgstr "인스트루멘털"
 
 #: libkwave/GenreType.cpp:133
-#, kde-format
 msgid "Acid"
 msgstr "애시드"
 
 #: libkwave/GenreType.cpp:134
-#, kde-format
 msgid "House"
 msgstr "하우스"
 
 #: libkwave/GenreType.cpp:135
-#, kde-format
 msgid "Game"
 msgstr "게임"
 
 #: libkwave/GenreType.cpp:136
-#, kde-format
 msgid "Sound Clip"
 msgstr "소리 클립"
 
 #: libkwave/GenreType.cpp:137
-#, kde-format
 msgid "Gospel"
 msgstr "가스펠"
 
 #: libkwave/GenreType.cpp:138
-#, kde-format
 msgid "Noise"
 msgstr "잡음"
 
 #: libkwave/GenreType.cpp:139
-#, kde-format
 msgid "Alternative Rock"
 msgstr "얼터너티브 록"
 
 #: libkwave/GenreType.cpp:140
-#, kde-format
 msgid "Bass"
 msgstr "바스"
 
 #: libkwave/GenreType.cpp:141
-#, kde-format
 msgid "Soul"
 msgstr "소울"
 
 #: libkwave/GenreType.cpp:142
-#, kde-format
 msgid "Punk"
 msgstr "펑크"
 
 #: libkwave/GenreType.cpp:143
-#, kde-format
 msgid "Space"
 msgstr "스페이스"
 
 #: libkwave/GenreType.cpp:144
-#, kde-format
 msgid "Meditative"
 msgstr "명상"
 
 #: libkwave/GenreType.cpp:145
-#, kde-format
 msgid "Instrumental Pop"
 msgstr "인스트루멘털 팝"
 
 #: libkwave/GenreType.cpp:146
-#, kde-format
 msgid "Instrumental Rock"
 msgstr "인스트루멘털 록"
 
 #: libkwave/GenreType.cpp:147
-#, kde-format
 msgid "Ethnic"
 msgstr "민족 전통"
 
 #: libkwave/GenreType.cpp:148
-#, kde-format
 msgid "Gothic"
 msgstr "고딕"
 
 #: libkwave/GenreType.cpp:149
-#, kde-format
 msgid "Darkwave"
 msgstr "다크웨이브"
 
 #: libkwave/GenreType.cpp:150
-#, kde-format
 msgid "Techno-Industrial"
 msgstr "테크노인더스트리얼"
 
 #: libkwave/GenreType.cpp:151
-#, kde-format
 msgid "Electronic"
 msgstr "일렉트로닉"
 
 #: libkwave/GenreType.cpp:152
-#, kde-format
 msgid "Pop-Folk"
 msgstr "팝포크"
 
 #: libkwave/GenreType.cpp:153
-#, kde-format
 msgid "Eurodance"
 msgstr "유로댄스"
 
 #: libkwave/GenreType.cpp:154
-#, kde-format
 msgid "Dream"
 msgstr "드림"
 
 #: libkwave/GenreType.cpp:155
-#, kde-format
 msgid "Southern Rock"
 msgstr "남부 록"
 
 #: libkwave/GenreType.cpp:156
-#, kde-format
 msgid "Comedy"
 msgstr "코미디"
 
 #: libkwave/GenreType.cpp:157
-#, kde-format
 msgid "Cult"
 msgstr "컬트"
 
 #: libkwave/GenreType.cpp:158
-#, kde-format
 msgid "Gangsta"
 msgstr "갱스터"
 
 #: libkwave/GenreType.cpp:159
-#, kde-format
 msgid "Top 40"
 msgstr "톱 40"
 
 #: libkwave/GenreType.cpp:160
-#, kde-format
 msgid "Christian Rap"
 msgstr "크리스천 랩"
 
 #: libkwave/GenreType.cpp:161
-#, kde-format
 msgid "Pop/Funk"
 msgstr "팝/펑크"
 
 #: libkwave/GenreType.cpp:162
-#, kde-format
 msgid "Jungle"
 msgstr "정글"
 
 #: libkwave/GenreType.cpp:163
-#, kde-format
 msgid "Native American"
 msgstr "아메리카 원주민"
 
 #: libkwave/GenreType.cpp:164
-#, kde-format
 msgid "Cabaret"
 msgstr "카바레"
 
 #: libkwave/GenreType.cpp:165
-#, kde-format
 msgid "New Wave"
 msgstr "뉴 웨이브"
 
 #: libkwave/GenreType.cpp:166
-#, kde-format
 msgid "Psychedelic"
 msgstr "사이키델릭"
 
 #: libkwave/GenreType.cpp:167
-#, kde-format
 msgid "Rave"
 msgstr "레이브"
 
 #: libkwave/GenreType.cpp:168
-#, kde-format
 msgid "Showtunes"
 msgstr "쇼튠즈"
 
 #: libkwave/GenreType.cpp:169
-#, kde-format
 msgid "Trailer"
 msgstr "트레일러"
 
 #: libkwave/GenreType.cpp:170
-#, kde-format
 msgid "Lo-Fi"
 msgstr "로 파이"
 
 #: libkwave/GenreType.cpp:171
-#, kde-format
 msgid "Tribal"
 msgstr "부족 음악"
 
 #: libkwave/GenreType.cpp:172
-#, kde-format
 msgid "Acid Punk"
 msgstr "애시드 펑크"
 
 #: libkwave/GenreType.cpp:173
-#, kde-format
 msgid "Acid Jazz"
 msgstr "애시드 재즈"
 
 #: libkwave/GenreType.cpp:174
-#, kde-format
 msgid "Polka"
 msgstr "폴카"
 
 #: libkwave/GenreType.cpp:175
-#, kde-format
 msgid "Retro"
 msgstr "레트로"
 
 #: libkwave/GenreType.cpp:176
-#, kde-format
 msgid "Musical"
 msgstr "뮤지컬"
 
 #: libkwave/GenreType.cpp:177
-#, kde-format
 msgid "Rock 'n' Roll"
 msgstr "로큰롤"
 
 #: libkwave/GenreType.cpp:178
-#, kde-format
 msgid "Hard Rock"
 msgstr "하드 록"
 
 #: libkwave/GenreType.cpp:181
-#, kde-format
 msgid "Folk"
 msgstr "포크"
 
 #: libkwave/GenreType.cpp:182
-#, kde-format
 msgid "Folk-Rock"
 msgstr "포크록"
 
 #: libkwave/GenreType.cpp:183
-#, kde-format
 msgid "National Folk"
 msgstr "내셔널 포크"
 
 #: libkwave/GenreType.cpp:184
-#, kde-format
 msgid "Swing"
 msgstr "스윙"
 
 #: libkwave/GenreType.cpp:185
-#, kde-format
 msgid "Fast Fusion"
 msgstr "패스트 퓨전"
 
 #: libkwave/GenreType.cpp:186
-#, kde-format
 msgid "Bebop"
 msgstr "비밥"
 
 #: libkwave/GenreType.cpp:187
-#, kde-format
 msgid "Latin"
 msgstr "라틴"
 
 #: libkwave/GenreType.cpp:188
-#, kde-format
 msgid "Revival"
 msgstr "리바이벌"
 
 #: libkwave/GenreType.cpp:189
-#, kde-format
 msgid "Celtic"
 msgstr "켈트"
 
 #: libkwave/GenreType.cpp:190
-#, kde-format
 msgid "Bluegrass"
 msgstr "블루그래스"
 
 #: libkwave/GenreType.cpp:191
-#, kde-format
 msgid "Avantgarde"
 msgstr "아방가르드"
 
 #: libkwave/GenreType.cpp:192
-#, kde-format
 msgid "Gothic Rock"
 msgstr "고딕 록"
 
 #: libkwave/GenreType.cpp:193
-#, kde-format
 msgid "Progressive Rock"
 msgstr "프로그레시브 록"
 
 #: libkwave/GenreType.cpp:194
-#, kde-format
 msgid "Psychedelic Rock"
 msgstr "사이키델릭 록"
 
 #: libkwave/GenreType.cpp:195
-#, kde-format
 msgid "Symphonic Rock"
 msgstr "교향악 록"
 
 #: libkwave/GenreType.cpp:196
-#, kde-format
 msgid "Slow Rock"
 msgstr "슬로 록"
 
 #: libkwave/GenreType.cpp:197
-#, kde-format
 msgid "Big Band"
 msgstr "빅 밴드"
 
 #: libkwave/GenreType.cpp:198
-#, kde-format
 msgid "Chorus"
 msgstr "코러스"
 
 #: libkwave/GenreType.cpp:199
-#, kde-format
 msgid "Easy Listening"
 msgstr "이지 리스닝"
 
 #: libkwave/GenreType.cpp:200
-#, kde-format
 msgid "Acoustic"
 msgstr "어쿠스틱"
 
 #: libkwave/GenreType.cpp:201
-#, kde-format
 msgid "Humour"
 msgstr "유머"
 
 #: libkwave/GenreType.cpp:202
-#, kde-format
 msgid "Speech"
 msgstr "육성"
 
 #: libkwave/GenreType.cpp:203
-#, kde-format
 msgid "Chanson"
 msgstr "샹송"
 
 #: libkwave/GenreType.cpp:204
-#, kde-format
 msgid "Opera"
 msgstr "오페라"
 
 #: libkwave/GenreType.cpp:205
-#, kde-format
 msgid "Chamber Music"
 msgstr "실내악"
 
 #: libkwave/GenreType.cpp:206
-#, kde-format
 msgid "Sonata"
 msgstr "소나타"
 
 #: libkwave/GenreType.cpp:207
-#, kde-format
 msgid "Symphony"
 msgstr "교향곡"
 
 #: libkwave/GenreType.cpp:208
-#, kde-format
 msgid "Booty Bass"
 msgstr "부티 바스"
 
 #: libkwave/GenreType.cpp:209
-#, kde-format
 msgid "Primus"
 msgstr "프리머스"
 
 #: libkwave/GenreType.cpp:210
-#, kde-format
 msgid "Porn Groove"
 msgstr "포른 그루브"
 
 #: libkwave/GenreType.cpp:211
-#, kde-format
 msgid "Satire"
 msgstr "풍자"
 
 #: libkwave/GenreType.cpp:212
-#, kde-format
 msgid "Slow Jam"
 msgstr "슬로 잼"
 
 #: libkwave/GenreType.cpp:213
-#, kde-format
 msgid "Club"
 msgstr "클럽"
 
 #: libkwave/GenreType.cpp:214
-#, kde-format
 msgid "Tango"
 msgstr "탱고"
 
 #: libkwave/GenreType.cpp:215
-#, kde-format
 msgid "Samba"
 msgstr "삼바"
 
 #: libkwave/GenreType.cpp:216
-#, kde-format
 msgid "Folklore"
 msgstr "포크로어"
 
 #: libkwave/GenreType.cpp:217
-#, kde-format
 msgid "Ballad"
 msgstr "발라드"
 
 #: libkwave/GenreType.cpp:218
-#, kde-format
 msgid "Power Ballad"
 msgstr "파워 발라드"
 
 #: libkwave/GenreType.cpp:219
-#, kde-format
 msgid "Rhythmic Soul"
 msgstr "리드믹 소울"
 
 #: libkwave/GenreType.cpp:220
-#, kde-format
 msgid "Freestyle"
 msgstr "프리스타일"
 
 #: libkwave/GenreType.cpp:221
-#, kde-format
 msgid "Duet"
 msgstr "듀엣"
 
 #: libkwave/GenreType.cpp:222
-#, kde-format
 msgid "Punk Rock"
 msgstr "펑크 록"
 
 #: libkwave/GenreType.cpp:223
-#, kde-format
 msgid "Drum Solo"
 msgstr "드럼 솔로"
 
 #: libkwave/GenreType.cpp:224
-#, kde-format
 msgid "A Cappella"
 msgstr "아카펠라"
 
 #: libkwave/GenreType.cpp:225
-#, kde-format
 msgid "Euro-House"
 msgstr "유로하우스"
 
 #: libkwave/GenreType.cpp:226
-#, kde-format
 msgid "Dance Hall"
 msgstr "댄스 홀"
 
 #: libkwave/GenreType.cpp:227
-#, kde-format
 msgid "Goa"
 msgstr "고아"
 
 #: libkwave/GenreType.cpp:228
-#, kde-format
 msgid "Drum & Bass"
 msgstr "드럼 앤 바스"
 
 #: libkwave/GenreType.cpp:229
-#, kde-format
 msgid "Club-House"
 msgstr "클럽하우스"
 
 #: libkwave/GenreType.cpp:230
-#, kde-format
 msgid "Hardcore Techno"
 msgstr "하드코어 테크노"
 
 #: libkwave/GenreType.cpp:231
-#, kde-format
 msgid "Terror"
 msgstr "테러"
 
 #: libkwave/GenreType.cpp:232
-#, kde-format
 msgid "Indie"
 msgstr "인디"
 
 #: libkwave/GenreType.cpp:233
-#, kde-format
 msgid "BritPop"
 msgstr "브릿팝"
 
 #: libkwave/GenreType.cpp:234
-#, kde-format
 msgid "Negerpunk"
 msgstr "니거펑크"
 
 #: libkwave/GenreType.cpp:235
-#, kde-format
 msgid "Polsk Punk"
 msgstr "폴스크 펑크"
 
 #: libkwave/GenreType.cpp:236
-#, kde-format
 msgid "Beat"
 msgstr "비트"
 
 #: libkwave/GenreType.cpp:237
-#, kde-format
 msgid "Christian Gangsta Rap"
 msgstr "크리스천 갱스터 랩"
 
 #: libkwave/GenreType.cpp:238
-#, kde-format
 msgid "Heavy Metal"
 msgstr "헤비 메탈"
 
 #: libkwave/GenreType.cpp:239
-#, kde-format
 msgid "Black Metal"
 msgstr "블랙 메탈"
 
 #: libkwave/GenreType.cpp:240
-#, kde-format
 msgid "Crossover"
 msgstr "크로스오버"
 
 #: libkwave/GenreType.cpp:241
-#, kde-format
 msgid "Contemporary Christian"
 msgstr "현대 크리스천"
 
 #: libkwave/GenreType.cpp:242
-#, kde-format
 msgid "Christian Rock"
 msgstr "크리스천 록"
 
 #: libkwave/GenreType.cpp:245
-#, kde-format
 msgid "Merengue"
 msgstr "메렝게"
 
 #: libkwave/GenreType.cpp:246
-#, kde-format
 msgid "Salsa"
 msgstr "살사"
 
 #: libkwave/GenreType.cpp:247
-#, kde-format
 msgid "Thrash Metal"
 msgstr "스래시 메탈"
 
 #: libkwave/GenreType.cpp:248
-#, kde-format
 msgid "Anime"
 msgstr "애니메이션"
 
 #: libkwave/GenreType.cpp:249
-#, kde-format
 msgid "JPop"
 msgstr "일본 팝"
 
 #: libkwave/GenreType.cpp:250
-#, kde-format
 msgid "SynthPop"
 msgstr "신스팝"
 
 #: libkwave/GenreType.cpp:253
-#, kde-format
 msgid "Abstract"
 msgstr "추상"
 
 #: libkwave/GenreType.cpp:254
-#, kde-format
 msgid "Art Rock"
 msgstr "아트 록"
 
 #: libkwave/GenreType.cpp:255
-#, kde-format
 msgid "Baroque"
 msgstr "바로크"
 
 #: libkwave/GenreType.cpp:256
-#, kde-format
 msgid "Bhangra"
 msgstr "방그라"
 
 #: libkwave/GenreType.cpp:257
-#, kde-format
 msgid "Big Beat"
 msgstr "빅 비트"
 
 #: libkwave/GenreType.cpp:258
-#, kde-format
 msgid "Breakbeat"
 msgstr "브레이크비트"
 
 #: libkwave/GenreType.cpp:259
-#, kde-format
 msgid "Chillout"
 msgstr "칠아웃"
 
 #: libkwave/GenreType.cpp:260
-#, kde-format
 msgid "Downtempo"
 msgstr "다운템포"
 
 #: libkwave/GenreType.cpp:261
-#, kde-format
 msgid "Dub"
 msgstr "덥"
 
 #: libkwave/GenreType.cpp:262
-#, kde-format
 msgid "EBM"
 msgstr "EBM"
 
 #: libkwave/GenreType.cpp:263
-#, kde-format
 msgid "Eclectic"
 msgstr "에클레틱"
 
 #: libkwave/GenreType.cpp:264
-#, kde-format
 msgid "Electro"
 msgstr "일렉트로"
 
 #: libkwave/GenreType.cpp:265
-#, kde-format
 msgid "Electroclash"
 msgstr "일렉트로크래시"
 
 #: libkwave/GenreType.cpp:266
-#, kde-format
 msgid "Emo"
 msgstr "이모"
 
 #: libkwave/GenreType.cpp:267
-#, kde-format
 msgid "Experimental"
 msgstr "실험적"
 
 #: libkwave/GenreType.cpp:268
-#, kde-format
 msgid "Garage"
 msgstr "개러지"
 
 #: libkwave/GenreType.cpp:269
-#, kde-format
 msgid "Global"
 msgstr "글로벌"
 
 #: libkwave/GenreType.cpp:270
-#, kde-format
 msgid "IDM"
 msgstr "IDM"
 
 #: libkwave/GenreType.cpp:271
-#, kde-format
 msgid "Illbient"
 msgstr "일비언트"
 
 #: libkwave/GenreType.cpp:272
-#, kde-format
 msgid "Industro-Goth"
 msgstr "인더스트로고스"
 
 #: libkwave/GenreType.cpp:273
-#, kde-format
 msgid "Jam Band"
 msgstr "잼 밴드"
 
 #: libkwave/GenreType.cpp:274
-#, kde-format
 msgid "Krautrock"
 msgstr "크라우트록"
 
 #: libkwave/GenreType.cpp:275
-#, kde-format
 msgid "Leftfield"
 msgstr "레프트필드"
 
 #: libkwave/GenreType.cpp:276
-#, kde-format
 msgid "Lounge"
 msgstr "라운지"
 
 #: libkwave/GenreType.cpp:277
-#, kde-format
 msgid "Math Rock"
 msgstr "매스 록"
 
 #: libkwave/GenreType.cpp:278
-#, kde-format
 msgid "New Romantic"
 msgstr "뉴 로맨틱"
 
 #: libkwave/GenreType.cpp:279
-#, kde-format
 msgid "Nu-Breakz"
 msgstr "누브레이크즈"
 
 #: libkwave/GenreType.cpp:280
-#, kde-format
 msgid "Post-Punk"
 msgstr "포스트펑크"
 
 #: libkwave/GenreType.cpp:281
-#, kde-format
 msgid "Post-Rock"
 msgstr "포스트록"
 
 #: libkwave/GenreType.cpp:282
-#, kde-format
 msgid "Psytrance"
 msgstr "사이트랜스"
 
 #: libkwave/GenreType.cpp:283
-#, kde-format
 msgid "Shoegaze"
 msgstr "슈게이즈"
 
 #: libkwave/GenreType.cpp:284
-#, kde-format
 msgid "Space Rock"
 msgstr "스페이스 록"
 
 #: libkwave/GenreType.cpp:285
-#, kde-format
 msgid "Trop Rock"
 msgstr "트롭 록"
 
 #: libkwave/GenreType.cpp:286
-#, kde-format
 msgid "World Music"
 msgstr "월드 뮤직"
 
 #: libkwave/GenreType.cpp:287
-#, kde-format
 msgid "Neoclassical"
 msgstr "신고전주의"
 
 #: libkwave/GenreType.cpp:288
-#, kde-format
 msgid "Audiobook"
 msgstr "오디오북"
 
 #: libkwave/GenreType.cpp:289
-#, kde-format
 msgid "Audio Theatre"
 msgstr "오디오 드라마"
 
 #: libkwave/GenreType.cpp:290
-#, kde-format
 msgid "Neue Deutsche Welle"
 msgstr "노이에 도이체 벨레"
 
 #: libkwave/GenreType.cpp:291
-#, kde-format
 msgid "Podcast"
 msgstr "팟캐스트"
 
 #: libkwave/GenreType.cpp:292
-#, kde-format
 msgid "Indie Rock"
 msgstr "인디 록"
 
 #: libkwave/GenreType.cpp:293
-#, kde-format
 msgid "G-Funk"
 msgstr "G-펑크"
 
 #: libkwave/GenreType.cpp:294
-#, kde-format
 msgid "Dubstep"
 msgstr "덥스텝"
 
 #: libkwave/GenreType.cpp:295
-#, kde-format
 msgid "Garage Rock"
 msgstr "개러지 록"
 
 #: libkwave/GenreType.cpp:296
-#, kde-format
 msgid "Psybient"
 msgstr "사이비언트"
 
 #: libkwave/GenreType.cpp:302
-#, kde-format
 msgid "Unknown"
 msgstr "알 수 없음"
 
 #: libkwave/Interpolation.cpp:34
-#, kde-format
 msgid "Linear"
 msgstr "선형"
 
 #: libkwave/Interpolation.cpp:35
-#, kde-format
 msgid "Spline"
 msgstr "스플라인"
 
 #: libkwave/Interpolation.cpp:36
-#, kde-format
 msgid "Polynom, nth Degree"
 msgstr "n차 다항식"
 
 #: libkwave/Interpolation.cpp:37
-#, kde-format
 msgid "Polynom, 3rd Degree"
 msgstr "3차 다항식"
 
 #: libkwave/Interpolation.cpp:38
-#, kde-format
 msgid "Polynom, 5th Degree"
 msgstr "5차 다항식"
 
 #: libkwave/Interpolation.cpp:39
-#, kde-format
 msgid "Polynom, 7th Degree"
 msgstr "7차 다항식"
 
 #: libkwave/Interpolation.cpp:40
-#, kde-format
 msgid "Sample and Hold"
 msgstr "샘플 앤 홀드"
 
@@ -3648,22 +3322,18 @@ msgid "Unable to open '%1'"
 msgstr "'%1'을(를) 열 수 없음"
 
 #: libkwave/PlayBackTypesMap.cpp:34 plugins/record/RecordTypesMap.cpp:47
-#, kde-format
 msgid "ALSA (Advanced Linux Sound Architecture)"
 msgstr "ALSA(고급 Linux 사운드 구조)"
 
 #: libkwave/PlayBackTypesMap.cpp:39 plugins/record/RecordTypesMap.cpp:53
-#, kde-format
 msgid "OSS (Open Sound System)"
 msgstr "OSS(열린 사운드 시스템)"
 
 #: libkwave/PlayBackTypesMap.cpp:44 plugins/record/RecordTypesMap.cpp:41
-#, kde-format
 msgid "Pulse Audio"
 msgstr "PulseAudio"
 
 #: libkwave/PlayBackTypesMap.cpp:49 plugins/record/RecordTypesMap.cpp:35
-#, kde-format
 msgid "Qt Multimedia Audio"
 msgstr "Qt 멀티미디어 오디오"
 
@@ -3688,22 +3358,18 @@ msgid "Loading plugin %1..."
 msgstr "%1 플러그인 불러오는 중..."
 
 #: libkwave/SampleFormat.cpp:37
-#, kde-format
 msgid "Linear Two's Complement"
 msgstr "선형 2의 보수"
 
 #: libkwave/SampleFormat.cpp:39
-#, kde-format
 msgid "Unsigned Integer"
 msgstr "부호 없는 정수"
 
 #: libkwave/SampleFormat.cpp:41
-#, kde-format
 msgid "32-bit IEEE Floating-Point"
 msgstr "32비트 IEEE 부동 소수점"
 
 #: libkwave/SampleFormat.cpp:43
-#, kde-format
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64비트 IEEE 부동 소수점"
 
@@ -3964,17 +3630,14 @@ msgid "None"
 msgstr "없음"
 
 #: libkwave/WindowFunction.cpp:34
-#, kde-format
 msgid "Hamming"
 msgstr "해밍"
 
 #: libkwave/WindowFunction.cpp:36
-#, kde-format
 msgid "Hanning"
 msgstr "해닝"
 
 #: libkwave/WindowFunction.cpp:38
-#, kde-format
 msgid "Blackman"
 msgstr "블랙맨"
 
@@ -4308,8 +3971,7 @@ msgstr "FLAC 메타데이터를 처리하는 중 오류가 발생했습니다.(%
 msgid "Unable to open the FLAC encoder."
 msgstr "FLAC 인코더를 열 수 없습니다."
 
-#: plugins/codec_mp3/MP3CodecPlugin.cpp:51
-#, kde-format
+#: plugins/codec_mp3/MP3CodecPlugin.cpp:52
 msgctxt "menu: /Settings/MP3 Encoder Setup"
 msgid "MP3 Encoder Setup"
 msgstr "MP3 인코더 설정"
@@ -5193,69 +4855,63 @@ msgstr "파일이나 선택 영역이 너무 큼"
 msgid "WAV audio"
 msgstr "WAV 오디오"
 
-#: plugins/debug/DebugPlugin.cpp:88
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:89
 msgid "Generate 50% DC Level"
 msgstr "50% DC 레벨 생성"
 
-#: plugins/debug/DebugPlugin.cpp:89
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:90
 msgid "Generate 100% DC Level"
 msgstr "100% DC 레벨 생성"
 
-#: plugins/debug/DebugPlugin.cpp:90
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:91
 msgid "MinMax Pattern"
 msgstr "최소최대 패턴"
 
-#: plugins/debug/DebugPlugin.cpp:91
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:92
 msgid "Generate Sawtooth Pattern"
 msgstr "톱니파 패턴 생성"
 
-#: plugins/debug/DebugPlugin.cpp:92
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:93
 msgid "Verify Sawtooth Pattern"
 msgstr "톱니파 패턴 검증"
 
-#: plugins/debug/DebugPlugin.cpp:93
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:94
 msgid "FM Sweep"
 msgstr "FM 스윕"
 
-#: plugins/debug/DebugPlugin.cpp:98
-#, kde-format
+#. i18n("Stripe Index").untranslatedText()))
+#. MENU_ENTRY("hull_curve",        _(kli18n("Hull Curve").untranslatedText()))
+#. MENU_ENTRY("offset_in_stripe",  _(kli18n("Offset in Stripe").untranslatedText()))
+#. MENU_ENTRY("stripe_borders",    _(kli18n("Show Stripe Borders").untranslatedText()))
+#: plugins/debug/DebugPlugin.cpp:99
 msgid "Labels at Stripe borders"
 msgstr "줄무늬 경계선의 이름표"
 
-#: plugins/debug/DebugPlugin.cpp:101
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:102
 msgid "Dump Window Hierarchy"
 msgstr "창 계층 구조 덤프"
 
-#: plugins/debug/DebugPlugin.cpp:104
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:105
 msgid "Dump Meta Data"
 msgstr "메타데이터 덤프"
 
-#: plugins/debug/DebugPlugin.cpp:114 plugins/debug/DebugPlugin.cpp:224
+#: plugins/debug/DebugPlugin.cpp:115 plugins/debug/DebugPlugin.cpp:225
 #, kde-format
 msgid "Debug (%1)"
 msgstr "디버그(%1)"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:277
-#, kde-format
+#: plugins/export_k3b/K3BExportPlugin.cpp:278
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
 msgstr "K3b 프로젝트로 내보내기..."
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:308
+#: plugins/export_k3b/K3BExportPlugin.cpp:309
 #, kde-format
 msgctxt "file type filter when exporting to K3b"
 msgid "K3b project file (*.k3b)"
 msgstr "K3b 프로젝트 파일 (*.k3b)"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:614
+#: plugins/export_k3b/K3BExportPlugin.cpp:615
 #, kde-format
 msgid ""
 "Only mono and stereo files can be used for an audio CD. You can either "
@@ -5266,7 +4922,7 @@ msgstr ""
 "제하거나 모노와 스테레오만 지원하는 다른 파일 형식(FLAC 등)선택으로 내보낸 다"
 "음 다시 시도하십시오."
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:676
+#: plugins/export_k3b/K3BExportPlugin.cpp:677
 #, kde-format
 msgid ""
 "A K3b project file has been created and audio files have been exported.\n"
@@ -7774,8 +7430,7 @@ msgstr "명령 입력:"
 msgid "please enter a text command here..."
 msgstr "텍스트 명령을 입력하십시오..."
 
-#: plugins/stringenter/StringEnterPlugin.cpp:57
-#, kde-format
+#: plugins/stringenter/StringEnterPlugin.cpp:58
 msgctxt "menu: /Settings/Enter Command"
 msgid "Enter Command"
 msgstr "명령 입력"

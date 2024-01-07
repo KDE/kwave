@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-30 00:41+0000\n"
+"POT-Creation-Date: 2024-01-07 00:41+0000\n"
 "PO-Revision-Date: 2020-02-13 08:25+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -1755,102 +1755,82 @@ msgid "All Supported Files"
 msgstr "усі файли, що підтримуються"
 
 #: libkwave/Compression.cpp:104
-#, kde-format
 msgid "No Compression"
 msgstr "Без стиснення"
 
 #: libkwave/Compression.cpp:111
-#, kde-format
 msgid "CCITT G.711 u-law"
 msgstr "CCITT G.711 u-law"
 
 #: libkwave/Compression.cpp:115
-#, kde-format
 msgid "CCITT G.711 A-law"
 msgstr "CCITT G.711 A-law"
 
 #: libkwave/Compression.cpp:119
-#, kde-format
 msgid "MS ADPCM"
 msgstr "MS ADPCM"
 
 #: libkwave/Compression.cpp:123
-#, kde-format
 msgid "GSM"
 msgstr "GSM"
 
 #: libkwave/Compression.cpp:129
-#, kde-format
 msgid "G722"
 msgstr "G722"
 
 #: libkwave/Compression.cpp:133
-#, kde-format
 msgid "Apple ACE2"
 msgstr "Apple ACE2"
 
 #: libkwave/Compression.cpp:137
-#, kde-format
 msgid "Apple ACE8"
 msgstr "Apple ACE8"
 
 #: libkwave/Compression.cpp:141
-#, kde-format
 msgid "Apple MAC3"
 msgstr "Apple MAC3"
 
 #: libkwave/Compression.cpp:145
-#, kde-format
 msgid "Apple MAC6"
 msgstr "Apple MAC6"
 
 #: libkwave/Compression.cpp:149
-#, kde-format
 msgid "G726"
 msgstr "G726"
 
 #: libkwave/Compression.cpp:153
-#, kde-format
 msgid "DVI Audio / IMA"
 msgstr "DVI Audio / IMA"
 
 #: libkwave/Compression.cpp:157
-#, kde-format
 msgid "FS1016"
 msgstr "FS1016"
 
 #: libkwave/Compression.cpp:161
-#, kde-format
 msgid "DV"
 msgstr "DV"
 
 #: libkwave/Compression.cpp:168
-#, kde-format
 msgid "MPEG Layer I"
 msgstr "MPEG шар I"
 
 #: libkwave/Compression.cpp:172
-#, kde-format
 msgid "MPEG Layer II"
 msgstr "MPEG шар II"
 
 #: libkwave/Compression.cpp:176
-#, kde-format
 msgid "MPEG Layer III"
 msgstr "MPEG шар III"
 
 #: libkwave/Compression.cpp:184
-#, kde-format
 msgid "FLAC"
 msgstr "FLAC"
 
 #: libkwave/Compression.cpp:192
-#, kde-format
 msgid "Ogg Vorbis"
 msgstr "Ogg Vorbis"
 
 #: libkwave/Compression.cpp:200
-#, kde-format
 msgid "Ogg Opus"
 msgstr "Ogg Opus"
 
@@ -1860,12 +1840,10 @@ msgid "Do you really want to abort the current action?"
 msgstr "Ви справді хочете перервати виконання поточної дії?"
 
 #: libkwave/FileInfo.cpp:37
-#, kde-format
 msgid "Album"
 msgstr "Альбом"
 
 #: libkwave/FileInfo.cpp:38
-#, kde-format
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more medias."
@@ -1874,12 +1852,10 @@ msgstr ""
 "що складається з декількох композицій."
 
 #: libkwave/FileInfo.cpp:42
-#, kde-format
 msgid "Annotation"
 msgstr "Анотація"
 
 #: libkwave/FileInfo.cpp:44 libkwave/FileInfo.cpp:98
-#, kde-format
 msgid ""
 "Provides general comments about the file or the subject of\n"
 "the file. If the comment is several sentences long, end\n"
@@ -1892,22 +1868,18 @@ msgstr ""
 "символів розриву рядка!"
 
 #: libkwave/FileInfo.cpp:50
-#, kde-format
 msgid "Archival location"
 msgstr "Місце архівування"
 
 #: libkwave/FileInfo.cpp:51
-#, kde-format
 msgid "Indicates where the subject of the file is archived."
 msgstr "Визначає, куди архівується вміст файла."
 
 #: libkwave/FileInfo.cpp:54
-#, kde-format
 msgid "Author"
 msgstr "Автор"
 
 #: libkwave/FileInfo.cpp:55
-#, kde-format
 msgid ""
 "Identifies the name of the author of the original\n"
 "subject of the file.\n"
@@ -1917,86 +1889,70 @@ msgstr ""
 "Приклад: «ван Бетховен, Людвіг»"
 
 #: libkwave/FileInfo.cpp:60
-#, kde-format
 msgid "Lower Bitrate"
 msgstr "Нижня бітова швидкість"
 
 #: libkwave/FileInfo.cpp:61
-#, kde-format
 msgid "Specifies the lower limit in a VBR bitstream."
 msgstr "Вказує нижню межу у бітовому потоці зі змінною бітовою швидкістю."
 
 #: libkwave/FileInfo.cpp:64
-#, kde-format
 msgid "Bitrate Mode"
 msgstr "Режим бітової швидкості"
 
 #: libkwave/FileInfo.cpp:65
-#, kde-format
 msgid "Bitrate Mode (ABR, VBR, CBR, etc...)"
 msgstr "Режим бітової швидкості (ABR, VBR, CBR тощо)"
 
 #: libkwave/FileInfo.cpp:68
-#, kde-format
 msgid "Bitrate"
 msgstr "Бітова швидкість"
 
 #: libkwave/FileInfo.cpp:70
-#, kde-format
 msgid "Nominal bitrate of the audio stream in bits per second"
 msgstr "Номінальна бітова швидкість потоку звукових даних у бітах за секунду"
 
 #: libkwave/FileInfo.cpp:73
-#, kde-format
 msgid "Upper Bitrate"
 msgstr "Верхня бітова швидкість"
 
 #: libkwave/FileInfo.cpp:74
-#, kde-format
 msgid "Specifies the upper limit in a VBR bitstream."
 msgstr "Вказує верхню межу у бітовому потоці зі змінною бітовою швидкістю."
 
 #: libkwave/FileInfo.cpp:77
-#, kde-format
 msgid "Bits per Sample"
 msgstr "Бітів на фрагмент"
 
 #: libkwave/FileInfo.cpp:78
-#, kde-format
 msgid "Specifies the number of bits per sample."
 msgstr "Вказує кількість бітів на фрагмент."
 
 #: libkwave/FileInfo.cpp:81
-#, kde-format
 msgid "CD"
 msgstr "CD"
 
 #: libkwave/FileInfo.cpp:83
-#, kde-format
 msgid "Number of the CD, if the source is an album of more CDROMs"
 msgstr ""
 "Номер компакт-диска, якщо джерелом є альбом, що складається з декількох "
 "компакт-дисків"
 
 #: libkwave/FileInfo.cpp:86
-#, kde-format
 msgid "CDS"
 msgstr "CDS"
 
 #: libkwave/FileInfo.cpp:88
-#, kde-format
 msgid "Number of CDs, if the source is an album of more CDROMs"
 msgstr ""
 "Кількість компакт-дисків, якщо джерелом є альбом, що складається з декількох "
 "компакт-дисків"
 
 #: libkwave/FileInfo.cpp:91
-#, kde-format
 msgid "Commissioned"
 msgstr "Створено"
 
 #: libkwave/FileInfo.cpp:92
-#, kde-format
 msgid ""
 "Lists the name of the person or organization\n"
 "that commissioned the subject of the file."
@@ -2005,7 +1961,6 @@ msgstr ""
 "якою було створено вміст файла."
 
 #: libkwave/FileInfo.cpp:96
-#, kde-format
 msgid "Comments"
 msgstr "Коментарі"
 
@@ -2016,7 +1971,6 @@ msgid "Compression"
 msgstr "Стиснення"
 
 #: libkwave/FileInfo.cpp:105
-#, kde-format
 msgid ""
 "Sets a mode for compressing the audio\n"
 "data to reduce disk space."
@@ -2025,12 +1979,10 @@ msgstr ""
 "даних для економії місця на диску."
 
 #: libkwave/FileInfo.cpp:109
-#, kde-format
 msgid "Contact"
 msgstr "Контакт"
 
 #: libkwave/FileInfo.cpp:110
-#, kde-format
 msgid ""
 "Contact information for the creators or distributors of\n"
 "the track. This could be a URL, an email address, the\n"
@@ -2041,12 +1993,10 @@ msgstr ""
 "пошти, поштова адреса звукозаписувальної компанії."
 
 #: libkwave/FileInfo.cpp:115
-#, kde-format
 msgid "Copyright"
 msgstr "Авторські права"
 
 #: libkwave/FileInfo.cpp:116
-#, kde-format
 msgid ""
 "Records the copyright information for the file. If there are\n"
 "multiple copyrights, separate them by a semicolon followed\n"
@@ -2059,22 +2009,18 @@ msgstr ""
 "Приклад: «© Linux community, 2002»"
 
 #: libkwave/FileInfo.cpp:123
-#, kde-format
 msgid "Copyrighted"
 msgstr "Захищений авторським правом"
 
 #: libkwave/FileInfo.cpp:124
-#, kde-format
 msgid "Indicates whether the file is protected by copyright or not."
 msgstr "Визначає, захищено вміст файла авторським правом чи ні."
 
 #: libkwave/FileInfo.cpp:128
-#, kde-format
 msgid "Date"
 msgstr "Дата"
 
 #: libkwave/FileInfo.cpp:129
-#, kde-format
 msgid ""
 "Specifies the date the subject of the file was created.\n"
 "Example: '2001-12-24'"
@@ -2083,12 +2029,10 @@ msgstr ""
 "Приклад: «24.12.2014»"
 
 #: libkwave/FileInfo.cpp:133
-#, kde-format
 msgid "Engineer"
 msgstr "Інженер"
 
 #: libkwave/FileInfo.cpp:134
-#, kde-format
 msgid ""
 "Shows the name of the engineer who worked on the file.\n"
 "If there are multiple engineers, separate the names by\n"
@@ -2099,42 +2043,34 @@ msgstr ""
 "крапкою з комою з наступним пробілом."
 
 #: libkwave/FileInfo.cpp:139
-#, kde-format
 msgid "Estimated Length"
 msgstr "Оцінка довжини"
 
 #: libkwave/FileInfo.cpp:140
-#, kde-format
 msgid "Estimated length of the file in samples"
 msgstr "Оцінка довжини файла у фрагментах"
 
 #: libkwave/FileInfo.cpp:143
-#, kde-format
 msgid "Filename"
 msgstr "Назва файла"
 
 #: libkwave/FileInfo.cpp:144
-#, kde-format
 msgid "Name of the opened file"
 msgstr "Назва відкритого файла"
 
 #: libkwave/FileInfo.cpp:147
-#, kde-format
 msgid "File Size"
 msgstr "Розмір файла"
 
 #: libkwave/FileInfo.cpp:148
-#, kde-format
 msgid "Size of the file in bytes"
 msgstr "Розмір файла у байтах"
 
 #: libkwave/FileInfo.cpp:151
-#, kde-format
 msgid "Genre"
 msgstr "Жанр"
 
 #: libkwave/FileInfo.cpp:152
-#, kde-format
 msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
@@ -2143,12 +2079,10 @@ msgstr ""
 "Приклади: «класика», «поп»"
 
 #: libkwave/FileInfo.cpp:156
-#, kde-format
 msgid "ISRC"
 msgstr "ISRC"
 
 #: libkwave/FileInfo.cpp:157
-#, kde-format
 msgid ""
 "ISRC number for the track; see the ISRC intro page\n"
 "for more information on ISRC numbers.\n"
@@ -2165,7 +2099,6 @@ msgid "Keywords"
 msgstr "Ключові слова"
 
 #: libkwave/FileInfo.cpp:163
-#, kde-format
 msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
@@ -2174,27 +2107,22 @@ msgstr ""
 "файла або вмісту файла."
 
 #: libkwave/FileInfo.cpp:167
-#, kde-format
 msgid "Labels"
 msgstr "Позначки"
 
 #: libkwave/FileInfo.cpp:168
-#, kde-format
 msgid "The list of labels/markers."
 msgstr "Список міток/маркерів."
 
 #: libkwave/FileInfo.cpp:172
-#, kde-format
 msgid "Length of the file in samples."
 msgstr "Тривалість файла у фрагментах."
 
 #: libkwave/FileInfo.cpp:175
-#, kde-format
 msgid "License"
 msgstr "Ліцензія"
 
 #: libkwave/FileInfo.cpp:176
-#, kde-format
 msgid ""
 "License information, e.g., 'All Rights Reserved',\n"
 "'Any Use Permitted', an URL to a license or the\n"
@@ -2211,12 +2139,10 @@ msgstr ""
 "for details») тощо."
 
 #: libkwave/FileInfo.cpp:184
-#, kde-format
 msgid "Medium"
 msgstr "Спосіб"
 
 #: libkwave/FileInfo.cpp:185
-#, kde-format
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
@@ -2227,62 +2153,50 @@ msgstr ""
 "Приклад: «оркестр»"
 
 #: libkwave/FileInfo.cpp:190
-#, kde-format
 msgid "Mime Type"
 msgstr "Тип MIME"
 
 #: libkwave/FileInfo.cpp:191
-#, kde-format
 msgid "Mime type of the file format"
 msgstr "Тип MIME формату файлів"
 
 #: libkwave/FileInfo.cpp:194
-#, kde-format
 msgid "Emphasis"
 msgstr "Виокремлення"
 
 #: libkwave/FileInfo.cpp:195
-#, kde-format
 msgid "Audio emphasis mode"
 msgstr "Режим виокремлення звуку"
 
 #: libkwave/FileInfo.cpp:198
-#, kde-format
 msgid "Layer"
 msgstr "Шар"
 
 #: libkwave/FileInfo.cpp:199
-#, kde-format
 msgid "MPEG Layer, I, II or III"
 msgstr "Шар MPEG, I, II або III"
 
 #: libkwave/FileInfo.cpp:202
-#, kde-format
 msgid "Mode Extension"
 msgstr "Розширення режиму"
 
 #: libkwave/FileInfo.cpp:203
-#, kde-format
 msgid "MPEG Mode Extension (only if Joint Stereo)"
 msgstr "Розширення режиму MPEG (лише для з’єднаного стерео)"
 
 #: libkwave/FileInfo.cpp:206 libkwave/FileInfo.cpp:300
-#, kde-format
 msgid "Version"
 msgstr "Версія"
 
 #: libkwave/FileInfo.cpp:207
-#, kde-format
 msgid "MPEG Version, 1, 2 or 2.5"
 msgstr "Версія MPEG, 1, 2 або 2.5"
 
 #: libkwave/FileInfo.cpp:210
-#, kde-format
 msgid "Name"
 msgstr "Назва"
 
 #: libkwave/FileInfo.cpp:211
-#, kde-format
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: \"Symphony No.6, Op.68 'Pastoral'\""
@@ -2291,12 +2205,10 @@ msgstr ""
 "Приклад: «Симфонія №6, Оп.68 «Пасторальна»»"
 
 #: libkwave/FileInfo.cpp:215
-#, kde-format
 msgid "Opus Frame Length"
 msgstr "Тривалість фрагмента Opus"
 
 #: libkwave/FileInfo.cpp:216
-#, kde-format
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
 msgstr ""
@@ -2304,12 +2216,10 @@ msgstr ""
 "та 60 мс)"
 
 #: libkwave/FileInfo.cpp:220
-#, kde-format
 msgid "Organization"
 msgstr "Організація"
 
 #: libkwave/FileInfo.cpp:221
-#, kde-format
 msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
@@ -2318,22 +2228,18 @@ msgstr ""
 "(тобто «звукозаписувальна компанія»)"
 
 #: libkwave/FileInfo.cpp:225
-#, kde-format
 msgid "Original"
 msgstr "Оригінал"
 
 #: libkwave/FileInfo.cpp:226
-#, kde-format
 msgid "Indicates whether the file is an original or a copy"
 msgstr "Визначає, є файл оригіналом чи копією"
 
 #: libkwave/FileInfo.cpp:229
-#, kde-format
 msgid "Performer"
 msgstr "Виконавець"
 
 #: libkwave/FileInfo.cpp:230
-#, kde-format
 msgid ""
 "The artist(s) who performed the work. In classical\n"
 "music this would be the conductor, orchestra, soloists.\n"
@@ -2344,22 +2250,18 @@ msgstr ""
 "це актор, який прочитав текст."
 
 #: libkwave/FileInfo.cpp:235
-#, kde-format
 msgid "Private"
 msgstr "Закритий"
 
 #: libkwave/FileInfo.cpp:236
-#, kde-format
 msgid "Indicates whether the subject is private"
 msgstr "Визначає, чи є дані закритими"
 
 #: libkwave/FileInfo.cpp:239
-#, kde-format
 msgid "Product"
 msgstr "Продукт"
 
 #: libkwave/FileInfo.cpp:240
-#, kde-format
 msgid ""
 "Specifies the name or the title the\n"
 "file was originally intended for.\n"
@@ -2370,12 +2272,10 @@ msgstr ""
 "Приклад: «Звукова збірка Linux»"
 
 #: libkwave/FileInfo.cpp:245
-#, kde-format
 msgid "Sample Format"
 msgstr "Формат фрагмента"
 
 #: libkwave/FileInfo.cpp:246
-#, kde-format
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
@@ -2384,22 +2284,18 @@ msgstr ""
 "Приклад: «32-бітове дійсне значення IEEE»"
 
 #: libkwave/FileInfo.cpp:250
-#, kde-format
 msgid "Sample Rate"
 msgstr "Частота дискретизації"
 
 #: libkwave/FileInfo.cpp:251
-#, kde-format
 msgid "Number of samples per second"
 msgstr "Кількість фрагментів за секунду"
 
 #: libkwave/FileInfo.cpp:254
-#, kde-format
 msgid "Software"
 msgstr "Програмне забезпечення"
 
 #: libkwave/FileInfo.cpp:255
-#, kde-format
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file.\n"
@@ -2418,7 +2314,6 @@ msgid "Source"
 msgstr "Джерело"
 
 #: libkwave/FileInfo.cpp:261
-#, kde-format
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
@@ -2429,12 +2324,10 @@ msgstr ""
 "Приклад: «Chaotic Sound Research»"
 
 #: libkwave/FileInfo.cpp:266
-#, kde-format
 msgid "Source form"
 msgstr "Форма джерела"
 
 #: libkwave/FileInfo.cpp:267
-#, kde-format
 msgid ""
 "Identifies the original form of\n"
 "the material that was digitized.\n"
@@ -2446,12 +2339,10 @@ msgstr ""
 "CrO2/60хв»"
 
 #: libkwave/FileInfo.cpp:273
-#, kde-format
 msgid "Subject"
 msgstr "Вміст"
 
 #: libkwave/FileInfo.cpp:274
-#, kde-format
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
@@ -2460,12 +2351,10 @@ msgstr ""
 "Приклад: «Спів птахів на світанку»"
 
 #: libkwave/FileInfo.cpp:278
-#, kde-format
 msgid "Technician"
 msgstr "Технічний працівник"
 
 #: libkwave/FileInfo.cpp:280
-#, kde-format
 msgid ""
 "Identifies the technician who digitized the subject file.\n"
 "Example: 'Torvalds, Linus'"
@@ -2474,32 +2363,26 @@ msgstr ""
 "Приклад: «Torvalds, Linus»"
 
 #: libkwave/FileInfo.cpp:284
-#, kde-format
 msgid "Track"
 msgstr "Доріжка"
 
 #: libkwave/FileInfo.cpp:285
-#, kde-format
 msgid "Track of the CD if the source was a CDROM."
 msgstr "Доріжка компакт-диска, якщо джерелом є CDROM."
 
 #: libkwave/FileInfo.cpp:288
-#, kde-format
 msgid "Tracks"
 msgstr "Доріжки"
 
 #: libkwave/FileInfo.cpp:289
-#, kde-format
 msgid "Number of tracks of the CD if the source was a CDROM."
 msgstr "Кількість доріжок на компакт-диску, якщо джерелом є CDROM."
 
 #: libkwave/FileInfo.cpp:292
-#, kde-format
 msgid "Channels"
 msgstr "Канали"
 
 #: libkwave/FileInfo.cpp:293
-#, kde-format
 msgid "Specifies the number of channels of the signal."
 msgstr "Визначає, кількість каналів сигналу."
 
@@ -2510,12 +2393,10 @@ msgid "Base Quality"
 msgstr "Базова якість"
 
 #: libkwave/FileInfo.cpp:297
-#, kde-format
 msgid "Base quality of the compression in VBR mode"
 msgstr "Базова якість стискання у режимі змінної бітової швидкості"
 
 #: libkwave/FileInfo.cpp:301
-#, kde-format
 msgid ""
 "May be used to differentiate multiple versions\n"
 "of the same track title in a single collection.\n"
@@ -2617,1037 +2498,830 @@ msgid "%1 samples"
 msgstr "%1 фрагментів"
 
 #: libkwave/Functions.cpp:94
-#, kde-format
 msgid "Sinus"
 msgstr "Синус"
 
 #: libkwave/Functions.cpp:95
-#, kde-format
 msgid "Rectangular"
 msgstr "Прямокутна"
 
 #: libkwave/Functions.cpp:96
-#, kde-format
 msgid "Sawtooth"
 msgstr "Зубцеподібна"
 
 #: libkwave/Functions.cpp:97
-#, kde-format
 msgid "Inverse Sawtooth"
 msgstr "Зворотна зубцеподібна"
 
 #: libkwave/Functions.cpp:98 libkwave/WindowFunction.cpp:40
-#, kde-format
 msgid "Triangular"
 msgstr "Трикутна"
 
 #: libkwave/Functions.cpp:99
-#, kde-format
 msgid "Square Sinus"
 msgstr "Квадратний синус"
 
 #: libkwave/Functions.cpp:100
-#, kde-format
 msgid "Cubic Sinus"
 msgstr "Кубічний синус"
 
 #: libkwave/GenreType.cpp:99
-#, kde-format
 msgid "Blues"
 msgstr "Блюз"
 
 #: libkwave/GenreType.cpp:100
-#, kde-format
 msgid "Classic Rock"
 msgstr "Класичний рок"
 
 #: libkwave/GenreType.cpp:101
-#, kde-format
 msgid "Country"
 msgstr "Кантрі"
 
 #: libkwave/GenreType.cpp:102
-#, kde-format
 msgid "Dance"
 msgstr "Танцювальна"
 
 #: libkwave/GenreType.cpp:103
-#, kde-format
 msgid "Disco"
 msgstr "Диско"
 
 #: libkwave/GenreType.cpp:104
-#, kde-format
 msgid "Funk"
 msgstr "Фанк"
 
 #: libkwave/GenreType.cpp:105
-#, kde-format
 msgid "Grunge"
 msgstr "Ґрандж"
 
 #: libkwave/GenreType.cpp:106
-#, kde-format
 msgid "Hip-Hop"
 msgstr "Хіп-хоп"
 
 #: libkwave/GenreType.cpp:107
-#, kde-format
 msgid "Jazz"
 msgstr "Джаз"
 
 #: libkwave/GenreType.cpp:108
-#, kde-format
 msgid "Metal"
 msgstr "Метал"
 
 #: libkwave/GenreType.cpp:109
-#, kde-format
 msgid "New Age"
 msgstr "Нова епоха"
 
 #: libkwave/GenreType.cpp:110
-#, kde-format
 msgid "Oldies"
 msgstr "Ретро"
 
 #: libkwave/GenreType.cpp:111
-#, kde-format
 msgid "Other"
 msgstr "Інша"
 
 #: libkwave/GenreType.cpp:112
-#, kde-format
 msgid "Pop"
 msgstr "Поп"
 
 #: libkwave/GenreType.cpp:113
-#, kde-format
 msgid "Rhythm and Blues"
 msgstr "Ритм-енд-блюз"
 
 #: libkwave/GenreType.cpp:114
-#, kde-format
 msgid "Rap"
 msgstr "Реп"
 
 #: libkwave/GenreType.cpp:115
-#, kde-format
 msgid "Reggae"
 msgstr "Регі"
 
 #: libkwave/GenreType.cpp:116
-#, kde-format
 msgid "Rock"
 msgstr "Рок"
 
 #: libkwave/GenreType.cpp:117
-#, kde-format
 msgid "Techno"
 msgstr "Техно"
 
 #: libkwave/GenreType.cpp:118
-#, kde-format
 msgid "Industrial"
 msgstr "Індастріал"
 
 #: libkwave/GenreType.cpp:119
-#, kde-format
 msgid "Alternative"
 msgstr "Альтернативна"
 
 #: libkwave/GenreType.cpp:120
-#, kde-format
 msgid "Ska"
 msgstr "Ска"
 
 #: libkwave/GenreType.cpp:121
-#, kde-format
 msgid "Death Metal"
 msgstr "Деф-метал"
 
 #: libkwave/GenreType.cpp:122
-#, kde-format
 msgid "Pranks"
 msgstr "Жарти-розиграші"
 
 #: libkwave/GenreType.cpp:123
-#, kde-format
 msgid "Soundtrack"
 msgstr "Звукова доріжка"
 
 #: libkwave/GenreType.cpp:124
-#, kde-format
 msgid "Euro-Techno"
 msgstr "Євротехно"
 
 #: libkwave/GenreType.cpp:125
-#, kde-format
 msgid "Ambient"
 msgstr "Ембієнт"
 
 #: libkwave/GenreType.cpp:126
-#, kde-format
 msgid "Trip-Hop"
 msgstr "Тріп-хоп"
 
 #: libkwave/GenreType.cpp:127
-#, kde-format
 msgid "Vocal"
 msgstr "Вокал"
 
 #: libkwave/GenreType.cpp:128
-#, kde-format
 msgid "Jazz & Funk"
 msgstr "Джаз і фанк"
 
 #: libkwave/GenreType.cpp:129
-#, kde-format
 msgid "Fusion"
 msgstr "Ф’южн"
 
 #: libkwave/GenreType.cpp:130
-#, kde-format
 msgid "Trance"
 msgstr "Транс"
 
 #: libkwave/GenreType.cpp:131
-#, kde-format
 msgid "Classical"
 msgstr "Класика"
 
 #: libkwave/GenreType.cpp:132
-#, kde-format
 msgid "Instrumental"
 msgstr "Інструментальна"
 
 #: libkwave/GenreType.cpp:133
-#, kde-format
 msgid "Acid"
 msgstr "Ейсід"
 
 #: libkwave/GenreType.cpp:134
-#, kde-format
 msgid "House"
 msgstr "Хаус"
 
 #: libkwave/GenreType.cpp:135
-#, kde-format
 msgid "Game"
 msgstr "Гра"
 
 #: libkwave/GenreType.cpp:136
-#, kde-format
 msgid "Sound Clip"
 msgstr "Звуковий уривок"
 
 #: libkwave/GenreType.cpp:137
-#, kde-format
 msgid "Gospel"
 msgstr "Ґоспел"
 
 #: libkwave/GenreType.cpp:138
-#, kde-format
 msgid "Noise"
 msgstr "Шум"
 
 #: libkwave/GenreType.cpp:139
-#, kde-format
 msgid "Alternative Rock"
 msgstr "Альтернативний рок"
 
 #: libkwave/GenreType.cpp:140
-#, kde-format
 msgid "Bass"
 msgstr "Баси"
 
 #: libkwave/GenreType.cpp:141
-#, kde-format
 msgid "Soul"
 msgstr "Душа"
 
 #: libkwave/GenreType.cpp:142
-#, kde-format
 msgid "Punk"
 msgstr "Панк"
 
 #: libkwave/GenreType.cpp:143
-#, kde-format
 msgid "Space"
 msgstr "Простір"
 
 #: libkwave/GenreType.cpp:144
-#, kde-format
 msgid "Meditative"
 msgstr "Медитативна"
 
 #: libkwave/GenreType.cpp:145
-#, kde-format
 msgid "Instrumental Pop"
 msgstr "Інструментальний поп"
 
 #: libkwave/GenreType.cpp:146
-#, kde-format
 msgid "Instrumental Rock"
 msgstr "Інструментальний рок"
 
 #: libkwave/GenreType.cpp:147
-#, kde-format
 msgid "Ethnic"
 msgstr "Етнічна"
 
 #: libkwave/GenreType.cpp:148
-#, kde-format
 msgid "Gothic"
 msgstr "Готична"
 
 #: libkwave/GenreType.cpp:149
-#, kde-format
 msgid "Darkwave"
 msgstr "Дарквейв"
 
 #: libkwave/GenreType.cpp:150
-#, kde-format
 msgid "Techno-Industrial"
 msgstr "Техно-індастріал"
 
 #: libkwave/GenreType.cpp:151
-#, kde-format
 msgid "Electronic"
 msgstr "Електронна"
 
 #: libkwave/GenreType.cpp:152
-#, kde-format
 msgid "Pop-Folk"
 msgstr "Поп-фолк"
 
 #: libkwave/GenreType.cpp:153
-#, kde-format
 msgid "Eurodance"
 msgstr "Євроденс"
 
 #: libkwave/GenreType.cpp:154
-#, kde-format
 msgid "Dream"
 msgstr "Дрім"
 
 #: libkwave/GenreType.cpp:155
-#, kde-format
 msgid "Southern Rock"
 msgstr "Південний рок"
 
 #: libkwave/GenreType.cpp:156
-#, kde-format
 msgid "Comedy"
 msgstr "Комедія"
 
 #: libkwave/GenreType.cpp:157
-#, kde-format
 msgid "Cult"
 msgstr "Культова"
 
 #: libkwave/GenreType.cpp:158
-#, kde-format
 msgid "Gangsta"
 msgstr "Гангста"
 
 #: libkwave/GenreType.cpp:159
-#, kde-format
 msgid "Top 40"
 msgstr "Топ-40"
 
 #: libkwave/GenreType.cpp:160
-#, kde-format
 msgid "Christian Rap"
 msgstr "Християнський реп"
 
 #: libkwave/GenreType.cpp:161
-#, kde-format
 msgid "Pop/Funk"
 msgstr "Поп/фанк"
 
 #: libkwave/GenreType.cpp:162
-#, kde-format
 msgid "Jungle"
 msgstr "Джангл"
 
 #: libkwave/GenreType.cpp:163
-#, kde-format
 msgid "Native American"
 msgstr "Індіанська"
 
 #: libkwave/GenreType.cpp:164
-#, kde-format
 msgid "Cabaret"
 msgstr "Кабаре"
 
 #: libkwave/GenreType.cpp:165
-#, kde-format
 msgid "New Wave"
 msgstr "Нью-вейв"
 
 #: libkwave/GenreType.cpp:166
-#, kde-format
 msgid "Psychedelic"
 msgstr "Психоделіка"
 
 #: libkwave/GenreType.cpp:167
-#, kde-format
 msgid "Rave"
 msgstr "Рейв"
 
 #: libkwave/GenreType.cpp:168
-#, kde-format
 msgid "Showtunes"
 msgstr "Шоу-мелодії"
 
 #: libkwave/GenreType.cpp:169
-#, kde-format
 msgid "Trailer"
 msgstr "Трейлер"
 
 #: libkwave/GenreType.cpp:170
-#, kde-format
 msgid "Lo-Fi"
 msgstr "Лоу-фай"
 
 #: libkwave/GenreType.cpp:171
-#, kde-format
 msgid "Tribal"
 msgstr "Племенна"
 
 #: libkwave/GenreType.cpp:172
-#, kde-format
 msgid "Acid Punk"
 msgstr "Ейсід-панк"
 
 #: libkwave/GenreType.cpp:173
-#, kde-format
 msgid "Acid Jazz"
 msgstr "Ейсід-джаз"
 
 #: libkwave/GenreType.cpp:174
-#, kde-format
 msgid "Polka"
 msgstr "Полька"
 
 #: libkwave/GenreType.cpp:175
-#, kde-format
 msgid "Retro"
 msgstr "Ретро"
 
 #: libkwave/GenreType.cpp:176
-#, kde-format
 msgid "Musical"
 msgstr "Музична"
 
 #: libkwave/GenreType.cpp:177
-#, kde-format
 msgid "Rock 'n' Roll"
 msgstr "Рок-н-рол"
 
 #: libkwave/GenreType.cpp:178
-#, kde-format
 msgid "Hard Rock"
 msgstr "Хардрок"
 
 #: libkwave/GenreType.cpp:181
-#, kde-format
 msgid "Folk"
 msgstr "Фольклор"
 
 #: libkwave/GenreType.cpp:182
-#, kde-format
 msgid "Folk-Rock"
 msgstr "Фольк-рок"
 
 #: libkwave/GenreType.cpp:183
-#, kde-format
 msgid "National Folk"
 msgstr "Народний фольклор"
 
 #: libkwave/GenreType.cpp:184
-#, kde-format
 msgid "Swing"
 msgstr "Свінг"
 
 #: libkwave/GenreType.cpp:185
-#, kde-format
 msgid "Fast Fusion"
 msgstr "Фаст-ф’южн"
 
 #: libkwave/GenreType.cpp:186
-#, kde-format
 msgid "Bebop"
 msgstr "Бібоп"
 
 #: libkwave/GenreType.cpp:187
-#, kde-format
 msgid "Latin"
 msgstr "Латинська"
 
 #: libkwave/GenreType.cpp:188
-#, kde-format
 msgid "Revival"
 msgstr "Ривайвл"
 
 #: libkwave/GenreType.cpp:189
-#, kde-format
 msgid "Celtic"
 msgstr "Кельтська"
 
 #: libkwave/GenreType.cpp:190
-#, kde-format
 msgid "Bluegrass"
 msgstr "Блюграс"
 
 #: libkwave/GenreType.cpp:191
-#, kde-format
 msgid "Avantgarde"
 msgstr "Авангард"
 
 #: libkwave/GenreType.cpp:192
-#, kde-format
 msgid "Gothic Rock"
 msgstr "Готичний рок"
 
 #: libkwave/GenreType.cpp:193
-#, kde-format
 msgid "Progressive Rock"
 msgstr "Прогресивний рок"
 
 #: libkwave/GenreType.cpp:194
-#, kde-format
 msgid "Psychedelic Rock"
 msgstr "Психоделічний рок"
 
 #: libkwave/GenreType.cpp:195
-#, kde-format
 msgid "Symphonic Rock"
 msgstr "Симфонічний рок"
 
 #: libkwave/GenreType.cpp:196
-#, kde-format
 msgid "Slow Rock"
 msgstr "Повільний рок"
 
 #: libkwave/GenreType.cpp:197
-#, kde-format
 msgid "Big Band"
 msgstr "Біг-бенд"
 
 #: libkwave/GenreType.cpp:198
-#, kde-format
 msgid "Chorus"
 msgstr "Хор"
 
 #: libkwave/GenreType.cpp:199
-#, kde-format
 msgid "Easy Listening"
 msgstr "Легка музика"
 
 #: libkwave/GenreType.cpp:200
-#, kde-format
 msgid "Acoustic"
 msgstr "Акустична"
 
 #: libkwave/GenreType.cpp:201
-#, kde-format
 msgid "Humour"
 msgstr "Гумор"
 
 #: libkwave/GenreType.cpp:202
-#, kde-format
 msgid "Speech"
 msgstr "Мова"
 
 #: libkwave/GenreType.cpp:203
-#, kde-format
 msgid "Chanson"
 msgstr "Шансон"
 
 #: libkwave/GenreType.cpp:204
-#, kde-format
 msgid "Opera"
 msgstr "Опера"
 
 #: libkwave/GenreType.cpp:205
-#, kde-format
 msgid "Chamber Music"
 msgstr "Камерна музика"
 
 #: libkwave/GenreType.cpp:206
-#, kde-format
 msgid "Sonata"
 msgstr "Соната"
 
 #: libkwave/GenreType.cpp:207
-#, kde-format
 msgid "Symphony"
 msgstr "Симфонія"
 
 #: libkwave/GenreType.cpp:208
-#, kde-format
 msgid "Booty Bass"
 msgstr "Буті-бейс"
 
 #: libkwave/GenreType.cpp:209
-#, kde-format
 msgid "Primus"
 msgstr "Примас"
 
 #: libkwave/GenreType.cpp:210
-#, kde-format
 msgid "Porn Groove"
 msgstr "Порн-рів"
 
 #: libkwave/GenreType.cpp:211
-#, kde-format
 msgid "Satire"
 msgstr "Сатира"
 
 #: libkwave/GenreType.cpp:212
-#, kde-format
 msgid "Slow Jam"
 msgstr "Повільний джем"
 
 #: libkwave/GenreType.cpp:213
-#, kde-format
 msgid "Club"
 msgstr "Клуб"
 
 #: libkwave/GenreType.cpp:214
-#, kde-format
 msgid "Tango"
 msgstr "Танго"
 
 #: libkwave/GenreType.cpp:215
-#, kde-format
 msgid "Samba"
 msgstr "Самба"
 
 #: libkwave/GenreType.cpp:216
-#, kde-format
 msgid "Folklore"
 msgstr "Фольклор"
 
 #: libkwave/GenreType.cpp:217
-#, kde-format
 msgid "Ballad"
 msgstr "Балада"
 
 #: libkwave/GenreType.cpp:218
-#, kde-format
 msgid "Power Ballad"
 msgstr "Пауер-балада"
 
 #: libkwave/GenreType.cpp:219
-#, kde-format
 msgid "Rhythmic Soul"
 msgstr "Ритмічний соул"
 
 #: libkwave/GenreType.cpp:220
-#, kde-format
 msgid "Freestyle"
 msgstr "Вільний стиль"
 
 #: libkwave/GenreType.cpp:221
-#, kde-format
 msgid "Duet"
 msgstr "Дует"
 
 #: libkwave/GenreType.cpp:222
-#, kde-format
 msgid "Punk Rock"
 msgstr "Панк-рок"
 
 #: libkwave/GenreType.cpp:223
-#, kde-format
 msgid "Drum Solo"
 msgstr "Соло ударних"
 
 #: libkwave/GenreType.cpp:224
-#, kde-format
 msgid "A Cappella"
 msgstr "А капелла"
 
 #: libkwave/GenreType.cpp:225
-#, kde-format
 msgid "Euro-House"
 msgstr "Єврохаус"
 
 #: libkwave/GenreType.cpp:226
-#, kde-format
 msgid "Dance Hall"
 msgstr "Танцмайданчик"
 
 #: libkwave/GenreType.cpp:227
-#, kde-format
 msgid "Goa"
 msgstr "Ґоа"
 
 #: libkwave/GenreType.cpp:228
-#, kde-format
 msgid "Drum & Bass"
 msgstr "Драм-енд-бейс"
 
 #: libkwave/GenreType.cpp:229
-#, kde-format
 msgid "Club-House"
 msgstr "Клаб-хаус"
 
 #: libkwave/GenreType.cpp:230
-#, kde-format
 msgid "Hardcore Techno"
 msgstr "Хардкор-техно"
 
 #: libkwave/GenreType.cpp:231
-#, kde-format
 msgid "Terror"
 msgstr "Терор"
 
 #: libkwave/GenreType.cpp:232
-#, kde-format
 msgid "Indie"
 msgstr "Інді"
 
 #: libkwave/GenreType.cpp:233
-#, kde-format
 msgid "BritPop"
 msgstr "Бритпоп"
 
 #: libkwave/GenreType.cpp:234
-#, kde-format
 msgid "Negerpunk"
 msgstr "Негритянський панк"
 
 #: libkwave/GenreType.cpp:235
-#, kde-format
 msgid "Polsk Punk"
 msgstr "Польський панк"
 
 #: libkwave/GenreType.cpp:236
-#, kde-format
 msgid "Beat"
 msgstr "Біт"
 
 #: libkwave/GenreType.cpp:237
-#, kde-format
 msgid "Christian Gangsta Rap"
 msgstr "Християнський гангста-реп"
 
 #: libkwave/GenreType.cpp:238
-#, kde-format
 msgid "Heavy Metal"
 msgstr "Важкий метал"
 
 #: libkwave/GenreType.cpp:239
-#, kde-format
 msgid "Black Metal"
 msgstr "Блек-метал"
 
 #: libkwave/GenreType.cpp:240
-#, kde-format
 msgid "Crossover"
 msgstr "Перетин"
 
 #: libkwave/GenreType.cpp:241
-#, kde-format
 msgid "Contemporary Christian"
 msgstr "Сучасна християнська"
 
 #: libkwave/GenreType.cpp:242
-#, kde-format
 msgid "Christian Rock"
 msgstr "Християнський рок"
 
 #: libkwave/GenreType.cpp:245
-#, kde-format
 msgid "Merengue"
 msgstr "Меренга"
 
 #: libkwave/GenreType.cpp:246
-#, kde-format
 msgid "Salsa"
 msgstr "Сальса"
 
 #: libkwave/GenreType.cpp:247
-#, kde-format
 msgid "Thrash Metal"
 msgstr "Треш-метал"
 
 #: libkwave/GenreType.cpp:248
-#, kde-format
 msgid "Anime"
 msgstr "Аніме"
 
 #: libkwave/GenreType.cpp:249
-#, kde-format
 msgid "JPop"
 msgstr "Джей-поп"
 
 #: libkwave/GenreType.cpp:250
-#, kde-format
 msgid "SynthPop"
 msgstr "Синті-поп"
 
 #: libkwave/GenreType.cpp:253
-#, kde-format
 msgid "Abstract"
 msgstr "Абстрактна музика"
 
 #: libkwave/GenreType.cpp:254
-#, kde-format
 msgid "Art Rock"
 msgstr "Артрок"
 
 #: libkwave/GenreType.cpp:255
-#, kde-format
 msgid "Baroque"
 msgstr "Музика бароко"
 
 #: libkwave/GenreType.cpp:256
-#, kde-format
 msgid "Bhangra"
 msgstr "Бхангра"
 
 #: libkwave/GenreType.cpp:257
-#, kde-format
 msgid "Big Beat"
 msgstr "Біг-біт"
 
 #: libkwave/GenreType.cpp:258
-#, kde-format
 msgid "Breakbeat"
 msgstr "Брейкбіт"
 
 #: libkwave/GenreType.cpp:259
-#, kde-format
 msgid "Chillout"
 msgstr "Чилаут"
 
 #: libkwave/GenreType.cpp:260
-#, kde-format
 msgid "Downtempo"
 msgstr "Даунтемпо"
 
 #: libkwave/GenreType.cpp:261
-#, kde-format
 msgid "Dub"
 msgstr "Даб"
 
 #: libkwave/GenreType.cpp:262
-#, kde-format
 msgid "EBM"
 msgstr "EBM"
 
 #: libkwave/GenreType.cpp:263
-#, kde-format
 msgid "Eclectic"
 msgstr "Еклектична"
 
 #: libkwave/GenreType.cpp:264
-#, kde-format
 msgid "Electro"
 msgstr "Електро"
 
 #: libkwave/GenreType.cpp:265
-#, kde-format
 msgid "Electroclash"
 msgstr "Електроклеш"
 
 #: libkwave/GenreType.cpp:266
-#, kde-format
 msgid "Emo"
 msgstr "Емо"
 
 #: libkwave/GenreType.cpp:267
-#, kde-format
 msgid "Experimental"
 msgstr "Експериментальна"
 
 #: libkwave/GenreType.cpp:268
-#, kde-format
 msgid "Garage"
 msgstr "Гаражна музика"
 
 #: libkwave/GenreType.cpp:269
-#, kde-format
 msgid "Global"
 msgstr "Ґлобал"
 
 #: libkwave/GenreType.cpp:270
-#, kde-format
 msgid "IDM"
 msgstr "IDM"
 
 #: libkwave/GenreType.cpp:271
-#, kde-format
 msgid "Illbient"
 msgstr "Ілбієнт"
 
 #: libkwave/GenreType.cpp:272
-#, kde-format
 msgid "Industro-Goth"
 msgstr "Індастро-готична"
 
 #: libkwave/GenreType.cpp:273
-#, kde-format
 msgid "Jam Band"
 msgstr "Джем-бенд"
 
 #: libkwave/GenreType.cpp:274
-#, kde-format
 msgid "Krautrock"
 msgstr "Краут-рок"
 
 #: libkwave/GenreType.cpp:275
-#, kde-format
 msgid "Leftfield"
 msgstr "Лефтфілд"
 
 #: libkwave/GenreType.cpp:276
-#, kde-format
 msgid "Lounge"
 msgstr "Лаундж"
 
 #: libkwave/GenreType.cpp:277
-#, kde-format
 msgid "Math Rock"
 msgstr "Математичний рок"
 
 #: libkwave/GenreType.cpp:278
-#, kde-format
 msgid "New Romantic"
 msgstr "Нова романтика"
 
 #: libkwave/GenreType.cpp:279
-#, kde-format
 msgid "Nu-Breakz"
 msgstr "Ню-брейкз"
 
 #: libkwave/GenreType.cpp:280
-#, kde-format
 msgid "Post-Punk"
 msgstr "Пост-панк"
 
 #: libkwave/GenreType.cpp:281
-#, kde-format
 msgid "Post-Rock"
 msgstr "Пост-рок"
 
 #: libkwave/GenreType.cpp:282
-#, kde-format
 msgid "Psytrance"
 msgstr "Пситранс"
 
 #: libkwave/GenreType.cpp:283
-#, kde-format
 msgid "Shoegaze"
 msgstr "Шуґейз"
 
 #: libkwave/GenreType.cpp:284
-#, kde-format
 msgid "Space Rock"
 msgstr "Спейс-рок"
 
 #: libkwave/GenreType.cpp:285
-#, kde-format
 msgid "Trop Rock"
 msgstr "Троп-рок"
 
 #: libkwave/GenreType.cpp:286
-#, kde-format
 msgid "World Music"
 msgstr "Музика народів світу"
 
 #: libkwave/GenreType.cpp:287
-#, kde-format
 msgid "Neoclassical"
 msgstr "Неокласика"
 
 #: libkwave/GenreType.cpp:288
-#, kde-format
 msgid "Audiobook"
 msgstr "Аудіокнига"
 
 #: libkwave/GenreType.cpp:289
-#, kde-format
 msgid "Audio Theatre"
 msgstr "Аудіотеатр"
 
 #: libkwave/GenreType.cpp:290
-#, kde-format
 msgid "Neue Deutsche Welle"
 msgstr "Нова німецька хвиля"
 
 #: libkwave/GenreType.cpp:291
-#, kde-format
 msgid "Podcast"
 msgstr "Трансляція"
 
 #: libkwave/GenreType.cpp:292
-#, kde-format
 msgid "Indie Rock"
 msgstr "Інді-рок"
 
 #: libkwave/GenreType.cpp:293
-#, kde-format
 msgid "G-Funk"
 msgstr "Джі-фанк"
 
 #: libkwave/GenreType.cpp:294
-#, kde-format
 msgid "Dubstep"
 msgstr "Дабстеп"
 
 #: libkwave/GenreType.cpp:295
-#, kde-format
 msgid "Garage Rock"
 msgstr "Гаражний рок"
 
 #: libkwave/GenreType.cpp:296
-#, kde-format
 msgid "Psybient"
 msgstr "Псібієнт"
 
 #: libkwave/GenreType.cpp:302
-#, kde-format
 msgid "Unknown"
 msgstr "Невідомо"
 
 #: libkwave/Interpolation.cpp:34
-#, kde-format
 msgid "Linear"
 msgstr "Лінійна"
 
 #: libkwave/Interpolation.cpp:35
-#, kde-format
 msgid "Spline"
 msgstr "Сплайн"
 
 #: libkwave/Interpolation.cpp:36
-#, kde-format
 msgid "Polynom, nth Degree"
 msgstr "Поліноміальна, n-го степеня"
 
 #: libkwave/Interpolation.cpp:37
-#, kde-format
 msgid "Polynom, 3rd Degree"
 msgstr "Поліноміальна, 3-го степеня"
 
 #: libkwave/Interpolation.cpp:38
-#, kde-format
 msgid "Polynom, 5th Degree"
 msgstr "Поліноміальна, 5-го степеня"
 
 #: libkwave/Interpolation.cpp:39
-#, kde-format
 msgid "Polynom, 7th Degree"
 msgstr "Поліноміальна, 7-го степеня"
 
 #: libkwave/Interpolation.cpp:40
-#, kde-format
 msgid "Sample and Hold"
 msgstr "Дискретизація і екстраполяція"
 
@@ -3662,22 +3336,18 @@ msgid "Unable to open '%1'"
 msgstr "Неможливо відкрити «%1»"
 
 #: libkwave/PlayBackTypesMap.cpp:34 plugins/record/RecordTypesMap.cpp:47
-#, kde-format
 msgid "ALSA (Advanced Linux Sound Architecture)"
 msgstr "ALSA (Advanced Linux Sound Architecture)"
 
 #: libkwave/PlayBackTypesMap.cpp:39 plugins/record/RecordTypesMap.cpp:53
-#, kde-format
 msgid "OSS (Open Sound System)"
 msgstr "OSS (Open Sound System)"
 
 #: libkwave/PlayBackTypesMap.cpp:44 plugins/record/RecordTypesMap.cpp:41
-#, kde-format
 msgid "Pulse Audio"
 msgstr "Pulse Audio"
 
 #: libkwave/PlayBackTypesMap.cpp:49 plugins/record/RecordTypesMap.cpp:35
-#, kde-format
 msgid "Qt Multimedia Audio"
 msgstr "Звук Qt Multimedia"
 
@@ -3702,22 +3372,18 @@ msgid "Loading plugin %1..."
 msgstr "Завантажуємо додаток %1…"
 
 #: libkwave/SampleFormat.cpp:37
-#, kde-format
 msgid "Linear Two's Complement"
 msgstr "Лінійне дворозрядне доповнення"
 
 #: libkwave/SampleFormat.cpp:39
-#, kde-format
 msgid "Unsigned Integer"
 msgstr "Додатне ціле число"
 
 #: libkwave/SampleFormat.cpp:41
-#, kde-format
 msgid "32-bit IEEE Floating-Point"
 msgstr "32-бітове дійсне значення IEEE"
 
 #: libkwave/SampleFormat.cpp:43
-#, kde-format
 msgid "64-bit IEEE Double Precision Floating-Point"
 msgstr "64-бітове дійсне значення подвійної точності IEEE"
 
@@ -3979,17 +3645,14 @@ msgid "None"
 msgstr "Немає"
 
 #: libkwave/WindowFunction.cpp:34
-#, kde-format
 msgid "Hamming"
 msgstr "Гаммінґа"
 
 #: libkwave/WindowFunction.cpp:36
-#, kde-format
 msgid "Hanning"
 msgstr "Ганнінґа"
 
 #: libkwave/WindowFunction.cpp:38
-#, kde-format
 msgid "Blackman"
 msgstr "Блекмена"
 
@@ -4326,8 +3989,7 @@ msgstr "Помилка під час спроби обробити метада�
 msgid "Unable to open the FLAC encoder."
 msgstr "Не вдалося відкрити кодувальник FLAC."
 
-#: plugins/codec_mp3/MP3CodecPlugin.cpp:51
-#, kde-format
+#: plugins/codec_mp3/MP3CodecPlugin.cpp:52
 msgctxt "menu: /Settings/MP3 Encoder Setup"
 msgid "MP3 Encoder Setup"
 msgstr "Налаштування кодувальника MP3"
@@ -5227,69 +4889,63 @@ msgstr "Файл або позначений фрагмент є надто ве
 msgid "WAV audio"
 msgstr "звук WAV"
 
-#: plugins/debug/DebugPlugin.cpp:88
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:89
 msgid "Generate 50% DC Level"
 msgstr "Створити 50% рівень середнього"
 
-#: plugins/debug/DebugPlugin.cpp:89
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:90
 msgid "Generate 100% DC Level"
 msgstr "Створити 100% рівень середнього"
 
-#: plugins/debug/DebugPlugin.cpp:90
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:91
 msgid "MinMax Pattern"
 msgstr "Зразок мінімаксу"
 
-#: plugins/debug/DebugPlugin.cpp:91
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:92
 msgid "Generate Sawtooth Pattern"
 msgstr "Створити зубцеподібний зразок"
 
-#: plugins/debug/DebugPlugin.cpp:92
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:93
 msgid "Verify Sawtooth Pattern"
 msgstr "Перевірити зубцеподібний зразок"
 
-#: plugins/debug/DebugPlugin.cpp:93
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:94
 msgid "FM Sweep"
 msgstr "Пересування діапазоном"
 
-#: plugins/debug/DebugPlugin.cpp:98
-#, kde-format
+#. i18n("Stripe Index").untranslatedText()))
+#. MENU_ENTRY("hull_curve",        _(kli18n("Hull Curve").untranslatedText()))
+#. MENU_ENTRY("offset_in_stripe",  _(kli18n("Offset in Stripe").untranslatedText()))
+#. MENU_ENTRY("stripe_borders",    _(kli18n("Show Stripe Borders").untranslatedText()))
+#: plugins/debug/DebugPlugin.cpp:99
 msgid "Labels at Stripe borders"
 msgstr "Мітки на бічних смужках"
 
-#: plugins/debug/DebugPlugin.cpp:101
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:102
 msgid "Dump Window Hierarchy"
 msgstr "Створити дамп ієрархії вікон"
 
-#: plugins/debug/DebugPlugin.cpp:104
-#, kde-format
+#: plugins/debug/DebugPlugin.cpp:105
 msgid "Dump Meta Data"
 msgstr "Створити дамп метаданих"
 
-#: plugins/debug/DebugPlugin.cpp:114 plugins/debug/DebugPlugin.cpp:224
+#: plugins/debug/DebugPlugin.cpp:115 plugins/debug/DebugPlugin.cpp:225
 #, kde-format
 msgid "Debug (%1)"
 msgstr "Діагностика (%1)"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:277
-#, kde-format
+#: plugins/export_k3b/K3BExportPlugin.cpp:278
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
 msgstr "Експортувати до проєкту K3b…"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:308
+#: plugins/export_k3b/K3BExportPlugin.cpp:309
 #, kde-format
 msgctxt "file type filter when exporting to K3b"
 msgid "K3b project file (*.k3b)"
 msgstr "файл проєкту K3b (*.k3b)"
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:614
+#: plugins/export_k3b/K3BExportPlugin.cpp:615
 #, kde-format
 msgid ""
 "Only mono and stereo files can be used for an audio CD. You can either "
@@ -5301,7 +4957,7 @@ msgstr ""
 "експортувати дані до іншого формату файлів, у якому передбачено лише "
 "підтримку моно і стерео (наприклад, FLAC), а потім повторити спробу."
 
-#: plugins/export_k3b/K3BExportPlugin.cpp:676
+#: plugins/export_k3b/K3BExportPlugin.cpp:677
 #, kde-format
 msgid ""
 "A K3b project file has been created and audio files have been exported.\n"
@@ -7879,8 +7535,7 @@ msgstr "Введіть команду:"
 msgid "please enter a text command here..."
 msgstr "будь ласка, введіть сюди текстову команду…"
 
-#: plugins/stringenter/StringEnterPlugin.cpp:57
-#, kde-format
+#: plugins/stringenter/StringEnterPlugin.cpp:58
 msgctxt "menu: /Settings/Enter Command"
 msgid "Enter Command"
 msgstr "Ввести команду"

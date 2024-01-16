@@ -400,15 +400,13 @@ void Kwave::PlayBackPlugin::testPlayBack()
 
     // check if we really have selected a playback device
     if (!playback_params.device.length()) {
-	Kwave::MessageBox::sorry(m_dialog, i18n(
-	    "Please select a playback device first"));
-	return;
+        Kwave::MessageBox::sorry(m_dialog, i18n(
+            "Please select a playback device first"));
+        return;
     }
 
     unsigned int channels = playback_params.channels;
     double rate           = playback_params.rate;
-    Q_ASSERT(channels);
-    Q_ASSERT(rate > 1.0);
     if (!channels || (rate <= 1.0)) return;
 
     // settings are valid -> take them

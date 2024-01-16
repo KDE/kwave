@@ -306,32 +306,31 @@ int Kwave::PlayBackQt::close()
     QMutexLocker _lock(&m_lock); // context: main thread
 
     if (m_output && m_encoder) {
-	{
-	    unsigned int pad_bytes_cnt   = m_output->periodSize();
-	    unsigned int bytes_per_frame = m_output->format().bytesPerFrame();
-	    unsigned int pad_samples_cnt = pad_bytes_cnt / bytes_per_frame;
-	    Kwave::SampleArray pad_samples(pad_samples_cnt);
-	    QByteArray pad_bytes(pad_bytes_cnt, char(0));
-	    m_encoder->encode(pad_samples, pad_samples_cnt, pad_bytes);
+        int pad_bytes_cnt   = m_output->periodSize();
+        int bytes_per_frame = m_output->format().bytesPerFrame();
+        if ((pad_bytes_cnt > 0) && (bytes_per_frame > 0)) {
+            unsigned int pad_samples_cnt = pad_bytes_cnt / bytes_per_frame;
+            Kwave::SampleArray pad_samples(pad_samples_cnt);
+            QByteArray pad_bytes(pad_bytes_cnt, char(0));
+            m_encoder->encode(pad_samples, pad_samples_cnt, pad_bytes);
+            m_buffer.drain(pad_bytes);
+        }
+        m_output->stop();
+        m_buffer.stop();
 
-	    m_buffer.drain(pad_bytes);
-	}
-	m_output->stop();
-	m_buffer.stop();
-
-	// stopping the engine might block, so we need to do this unlocked
-	qDebug("Kwave::PlayBackQt::close() - flushing..., state=%d",
-	       m_output->state());
-	while (m_output && (m_output->state() != QAudio::StoppedState)) {
-	    qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-	}
-	qDebug("Kwave::PlayBackQt::close() - flushing done.");
+        // stopping the engine might block, so we need to do this unlocked
+        qDebug("Kwave::PlayBackQt::close() - flushing..., state=%d",
+            m_output->state());
+        while (m_output && (m_output->state() != QAudio::StoppedState)) {
+            qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+        }
+        qDebug("Kwave::PlayBackQt::close() - flushing done.");
     }
 
     if (m_output) {
-	// WARNING: QAudioOutput::~QAudioOutput() calls processEvents() !!!
-	m_output->deleteLater();
-	m_output = Q_NULLPTR;
+        // WARNING: QAudioOutput::~QAudioOutput() calls processEvents() !!!
+        m_output->deleteLater();
+        m_output = Q_NULLPTR;
     }
 
     delete m_encoder;

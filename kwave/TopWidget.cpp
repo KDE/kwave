@@ -438,7 +438,7 @@ bool Kwave::TopWidget::init()
     updateRecentFiles();
 
     // make sure that everything of our window is visible
-    QRect desk = qApp->desktop()->rect();
+    QRect desk = qApp->desktop()->availableGeometry(this);
     QRect g    = this->geometry();
     if (!desk.contains(g)) {
 	// KDE's stupid geometry management has failed ?

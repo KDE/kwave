@@ -52,7 +52,7 @@ QString Kwave::Compression::name() const
 QString Kwave::Compression::preferredMimeType() const
 {
     return (m_map.contains(m_type)) ?
-	i18n(UTF8(m_map[m_type].m_mime_type)) : QString();
+	m_map[m_type].m_mime_type : QString();
 }
 
 //***************************************************************************

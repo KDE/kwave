@@ -178,7 +178,7 @@ namespace Kwave
 	    /** non-localized descriptive name */
 	    KLazyLocalizedString m_name;
 
-	    /** preferred mime type (optional) */
+	    /** preferred mime type (optional, not localized) */
 	    QString m_mime_type;
 
 	    /** list of supported sample formats */

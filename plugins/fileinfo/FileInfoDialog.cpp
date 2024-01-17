@@ -189,9 +189,7 @@ void Kwave::FileInfoDialog::setupFileInfoTab()
 		}
 	    }
 	    if (!comps_found.isEmpty() && !comps_found.contains(comp)) {
-		Kwave::Compression::Type cn =
-		(comps_found.isEmpty() && !comps.isEmpty()) ?
-                    comps.last() : comps_found.first();
+		Kwave::Compression::Type cn = comps_found.first();
 		Kwave::Compression comp_old(comp);
 		Kwave::Compression comp_new(cn);
 		qDebug("mime type/compression mismatch: "

@@ -29,7 +29,7 @@ get along, please feel free to ask on the Kwave mailing list!
 
 >>> NOTE: You don't have to do this on an rpm based system, you can
           easily build a rpm package of Kwave. Please skip this and
-	  advance to section 2.
+          advance to section 2.
 
 It's quite simple. First get the source archive, unpack it in a driectory
 of your choice and then generate it in a separate build directory.

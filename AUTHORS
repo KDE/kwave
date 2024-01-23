@@ -24,39 +24,39 @@ Maintainers
 ===========
 
 Martin Wilz <martin@wilz.de> [historic]
-	* creator of the project, active development 1998-2000
+        * creator of the project, active development 1998-2000
 
 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
-	* maintainer since 2000, core development
+        * maintainer since 2000, core development
 
 
 Major Contributors
 ==================
 
 Aurelien Jarno <aurel32@debian.org>
-	* debian packager
+        * debian packager
 
 Carlos R <pureacetone@gmail.com>
-	* spanish translation
+        * spanish translation
 
 David Flogeras <d.flogeras@unb.ca>
-	* notch filter plugin
-	* band pass plugin
+        * notch filter plugin
+        * band pass plugin
 
 Gilles Caulier <caulier.gilles@free.fr>
-	* french translation
-	* splashscreen
-	* tests and minor bugfixes
+        * french translation
+        * splashscreen
+        * tests and minor bugfixes
 
 Pavel Fric <pavelfric@seznam.cz>
-	* czech translation
+        * czech translation
 
 Ralf Waspe <rwaspe@web.de>
-	* Help/About dialog
+        * Help/About dialog
 
 Sven-Steffen Arndt <ssa29@gmx.de>
-	* Kwave homepage
-	* german online help
+        * Kwave homepage
+        * german online help
 
 
 minor contributors, copyright holders and others
@@ -65,78 +65,78 @@ minor contributors, copyright holders and others
 Sebastian Trueg <trueg@k3b.org>,
 Gustavo Pichorim Boiko <gustavo.boiko@kdemail.net>
 Michal Malek <michalm@jabster.pl>
-	* parts of plugins/export_k3b/K3BExportPlugin.cpp
+        * parts of plugins/export_k3b/K3BExportPlugin.cpp
 
 Aaron Holtzman <aholtzma@ess.engr.uvic.ca>
-	* libkwave/cpu_accel.cpp
+        * libkwave/cpu_accel.cpp
 
 Bertrand Songis <bsongis@gmail.com>
-	* french translation fixes
-	* substitutes for patented libaudiofile code, debian bug 419124 [historic]
+        * french translation fixes
+        * substitutes for patented libaudiofile code, debian bug 419124 [historic]
 
 Carsten Lohrke <carlo@gentoo.org>
-	* svn r2163, patch for libaudiofile detection
+        * svn r2163, patch for libaudiofile detection
 
 Chris Vaill <chrisvaill at gmail>
-	* code base for the normalize plugin
+        * code base for the normalize plugin
 
 David Faure, <faure@kde.org>
-	* cmake/FindAlsa.cmake
+        * cmake/FindAlsa.cmake
 
 Diederick de Vries, <diederick76@gmail.com>
-	* packaging for Crux Linux
+        * packaging for Crux Linux
 
 Espen Sand (espen@kde.org) + Mirko Boehm (mirko@kde.org)
-	* K3AboutContainer (base of KwaveAboutContainer)
+        * K3AboutContainer (base of KwaveAboutContainer)
 
 Everaldo Coelho <contact@everaldo.com>
-	* the crystal icon theme
-	  http://www.everaldo.com/crystal/
+        * the crystal icon theme
+          http://www.everaldo.com/crystal/
 
 Jaroslav Kysela
-	* parts of plugins/playback/PlayBack-ALSA.cpp
+        * parts of plugins/playback/PlayBack-ALSA.cpp
 
 Jeff Tranter
-	* parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
+        * parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
 
 Juhana Sadeharju <kouhia@nic.funet.fi>
-	* plugins/band_pass/BandPass.{h,cpp}
-	* plugins/lowpass/LowPassFilter.cpp
-	* plugins/notch_filter/NotchFilter.{h,cpp}
+        * plugins/band_pass/BandPass.{h,cpp}
+        * plugins/lowpass/LowPassFilter.cpp
+        * plugins/notch_filter/NotchFilter.{h,cpp}
 
 Kurt Roeck <Q@ping.be>
-	* svn r1370, fix for debian bug#288781, compilation for amd64
+        * svn r1370, fix for debian bug#288781, compilation for amd64
 
 Mark Donohoe (KDE) <donohoe@kde.org>
-	* some icons and bitmaps for toolbar and GUI
+        * some icons and bitmaps for toolbar and GUI
 
 Martin Hinsch <vidas@sourceforge.net>
-	* Matrix.h
+        * Matrix.h
 
 Matthias Kretz, <kretz@kde.org>
-	* cmake/FindAlsa.cmake
+        * cmake/FindAlsa.cmake
 
 Miguel Freitas
-	* parts of libkwave/memcpy.c
+        * parts of libkwave/memcpy.c
 
 Richard Laerkaeng, <richard@goteborg.utfors.se>
-	* cmake/FindOggVorbis.cmake
+        * cmake/FindOggVorbis.cmake
 
 Rik Hemsley <rik@kde.org>
-	* plugins/record/LevelMeter.cpp
-	* plugins/record/LevelMeter.h
+        * plugins/record/LevelMeter.cpp
+        * plugins/record/LevelMeter.h
 
 Robert M. Stockmann <stock@stokkie.net>
-	* packaging for Mandrake / X86_64
+        * packaging for Mandrake / X86_64
 
 Stefan Westerfeld <stefan@space.twc.de>
-	* parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
+        * parts of plugins/pitch_shift/PitchShiftFilter.{h,cpp}
 
 Jean-Marc Valin / Xiph.Org Foundation / Gregory Maxwell
-	* base of plugins/codec_ogg/OpusDecoder.cpp
+        * base of plugins/codec_ogg/OpusDecoder.cpp
 
 Joerg-Christan Boehme <joerg@chaosdorf.de>
-	* plugins/record/Record-PulseAudio.cpp
-	* plugins/record/Record-PulseAudio.h
+        * plugins/record/Record-PulseAudio.cpp
+        * plugins/record/Record-PulseAudio.h
 
 ### EOF ###

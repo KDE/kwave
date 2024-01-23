@@ -48,10 +48,10 @@ MACRO(CHECK_LANG _lang _result)
     # take only languages that have been requested
     SET(${_result} TRUE)
     IF (NOT "${LINGUAS}" STREQUAL "*")
-	LIST(FIND LINGUAS "${${_lang}}" _found)
-	IF (_found LESS 0)
-	    SET(${_result} FALSE)
-	ENDIF (_found LESS 0)
+        LIST(FIND LINGUAS "${${_lang}}" _found)
+        IF (_found LESS 0)
+            SET(${_result} FALSE)
+        ENDIF (_found LESS 0)
     ENDIF (NOT "${LINGUAS}" STREQUAL "*")
 ENDMACRO(CHECK_LANG _lang _result)
 
@@ -64,26 +64,26 @@ FOREACH(_po_file ${_existing_po_files})
 
     CHECK_LANG(_lang _take_it)
     IF (_take_it)
-	LIST(APPEND KWAVE_BUILD_LINGUAS "${_lang}")
-	LIST(APPEND _po_files "${_po_file}")
-	MESSAGE(STATUS "Enabled GUI translation for ${_lang}")
+        LIST(APPEND KWAVE_BUILD_LINGUAS "${_lang}")
+        LIST(APPEND _po_files "${_po_file}")
+        MESSAGE(STATUS "Enabled GUI translation for ${_lang}")
 
-	# handle generation and installation of the message catalog (gmo)
-	SET(_gmo_file ${PO_BIN_DIR}/${_lang}.gmo)
+        # handle generation and installation of the message catalog (gmo)
+        SET(_gmo_file ${PO_BIN_DIR}/${_lang}.gmo)
 
-	ADD_CUSTOM_COMMAND(
-	    OUTPUT ${_gmo_file}
-	    COMMAND ${CMAKE_COMMAND} -E make_directory ${PO_BIN_DIR}
-	    COMMAND ${MSGFMT_EXECUTABLE} -o ${_gmo_file} ${_po_file}
-	    DEPENDS ${_po_file}
-	)
+        ADD_CUSTOM_COMMAND(
+            OUTPUT ${_gmo_file}
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${PO_BIN_DIR}
+            COMMAND ${MSGFMT_EXECUTABLE} -o ${_gmo_file} ${_po_file}
+            DEPENDS ${_po_file}
+        )
 
-	INSTALL(
-	    FILES ${_gmo_file}
-	    DESTINATION ${LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES
-	    RENAME kwave.mo
-	)
-	SET(_gmo_files ${_gmo_files} ${_gmo_file})
+        INSTALL(
+            FILES ${_gmo_file}
+            DESTINATION ${LOCALE_INSTALL_DIR}/${_lang}/LC_MESSAGES
+            RENAME kwave.mo
+        )
+        SET(_gmo_files ${_gmo_files} ${_gmo_file})
 
     ENDIF (_take_it)
 ENDFOREACH(_po_file ${_existing_po_files})
@@ -94,18 +94,18 @@ ENDFOREACH(_po_file ${_existing_po_files})
 IF (NOT "${KWAVE_BUILD_LINGUAS}" STREQUAL "")
 
     IF ("${LINGUAS}" STREQUAL "*")
-	MESSAGE(STATUS "LINGUAS not set, building for all supported languages")
+        MESSAGE(STATUS "LINGUAS not set, building for all supported languages")
     ENDIF ("${LINGUAS}" STREQUAL "*")
 
     IF (_existing_po_files)
 
-	# build target "package-messages"
-	ADD_CUSTOM_TARGET(package-messages ALL DEPENDS ${_gmo_files} )
+        # build target "package-messages"
+        ADD_CUSTOM_TARGET(package-messages ALL DEPENDS ${_gmo_files} )
 
-	SET_DIRECTORY_PROPERTIES(PROPERTIES
-	    ADDITIONAL_MAKE_CLEAN_FILES
-	    "${CMAKE_BINARY_DIR}/po"
-	)
+        SET_DIRECTORY_PROPERTIES(PROPERTIES
+            ADDITIONAL_MAKE_CLEAN_FILES
+            "${CMAKE_BINARY_DIR}/po"
+        )
     ENDIF (_existing_po_files)
 
 ELSE (NOT "${KWAVE_BUILD_LINGUAS}" STREQUAL "")

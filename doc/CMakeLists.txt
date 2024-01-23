@@ -47,25 +47,25 @@ SET(RSVG_AVAILABLE NO)
 IF (RSVG_EXECUTABLE)
     # try to convert one icon, to see if "rsvg" really works
     EXECUTE_PROCESS(
-	COMMAND ${RSVG_EXECUTABLE} -w 32 -h 32 -f png ${_test_icon} -o "${_png_file}"
-	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-	RESULT_VARIABLE RSVG_CONVERT_RESULT
-	OUTPUT_VARIABLE _stdout
-	ERROR_VARIABLE _stderr
+        COMMAND ${RSVG_EXECUTABLE} -w 32 -h 32 -f png ${_test_icon} -o "${_png_file}"
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        RESULT_VARIABLE RSVG_CONVERT_RESULT
+        OUTPUT_VARIABLE _stdout
+        ERROR_VARIABLE _stderr
     )
     IF (${RSVG_CONVERT_RESULT} EQUAL 0)
-	MESSAGE(STATUS "Converting svg to png with ${RSVG_EXECUTABLE}")
-	MACRO(SVG2PNG _infile _outfile _name)
-	    ADD_CUSTOM_COMMAND(OUTPUT ${_outfile}
-		COMMAND ${RSVG_EXECUTABLE} -w 32 -h 32 -f png ${_infile} -o ${_outfile}
-		DEPENDS ${_infile}
-		COMMENT STATUS "Converting ${_name}"
-	    )
-	ENDMACRO(SVG2PNG)
+        MESSAGE(STATUS "Converting svg to png with ${RSVG_EXECUTABLE}")
+        MACRO(SVG2PNG _infile _outfile _name)
+            ADD_CUSTOM_COMMAND(OUTPUT ${_outfile}
+                COMMAND ${RSVG_EXECUTABLE} -w 32 -h 32 -f png ${_infile} -o ${_outfile}
+                DEPENDS ${_infile}
+                COMMENT STATUS "Converting ${_name}"
+            )
+        ENDMACRO(SVG2PNG)
 
-	SET(RSVG_AVAILABLE YES)
+        SET(RSVG_AVAILABLE YES)
     ELSE (${RSVG_CONVERT_RESULT} EQUAL 0)
-	MESSAGE(STATUS "Found rsvg but conversion failed, falling back to convert from ImageMagick")
+        MESSAGE(STATUS "Found rsvg but conversion failed, falling back to convert from ImageMagick")
     ENDIF (${RSVG_CONVERT_RESULT} EQUAL 0)
 ENDIF (RSVG_EXECUTABLE)
 
@@ -73,28 +73,28 @@ IF (NOT RSVG_AVAILABLE)
     SET(CONVERT_AVAILABLE NO)
     FIND_PROGRAM(CONVERT_EXECUTABLE NAMES convert)
     IF (CONVERT_EXECUTABLE)
-	GET_FILENAME_COMPONENT(_basename ${CONVERT_EXECUTABLE} NAME_WE)
-	MESSAGE(STATUS "Found ${_basename}: ${CONVERT_EXECUTABLE}")
+        GET_FILENAME_COMPONENT(_basename ${CONVERT_EXECUTABLE} NAME_WE)
+        MESSAGE(STATUS "Found ${_basename}: ${CONVERT_EXECUTABLE}")
 
-	# try to convert one icon, to see if "convert" has proper svg support
-	EXECUTE_PROCESS(
-	    COMMAND ${CONVERT_EXECUTABLE} -resize 32x32 ${_test_icon} "${_png_file}"
-	    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-	    RESULT_VARIABLE SVG_CONVERT_RESULT
-	    OUTPUT_VARIABLE _stdout
-	    ERROR_VARIABLE _stderr
-	)
-	IF (${SVG_CONVERT_RESULT} EQUAL 0)
-	    MESSAGE(STATUS "Converting svg to png with ${CONVERT_EXECUTABLE}")
-	    MACRO(SVG2PNG _infile _outfile _name)
-		ADD_CUSTOM_COMMAND(OUTPUT ${_outfile}
-		    COMMAND ${CONVERT_EXECUTABLE} -resize 32x32 ${_infile} ${_outfile}
-		    DEPENDS ${_infile}
-		    COMMENT STATUS "Converting ${_name}"
-		)
-	    ENDMACRO(SVG2PNG)
-	    SET(CONVERT_AVAILABLE YES)
-	ENDIF (${SVG_CONVERT_RESULT} EQUAL 0)
+        # try to convert one icon, to see if "convert" has proper svg support
+        EXECUTE_PROCESS(
+            COMMAND ${CONVERT_EXECUTABLE} -resize 32x32 ${_test_icon} "${_png_file}"
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+            RESULT_VARIABLE SVG_CONVERT_RESULT
+            OUTPUT_VARIABLE _stdout
+            ERROR_VARIABLE _stderr
+        )
+        IF (${SVG_CONVERT_RESULT} EQUAL 0)
+            MESSAGE(STATUS "Converting svg to png with ${CONVERT_EXECUTABLE}")
+            MACRO(SVG2PNG _infile _outfile _name)
+                ADD_CUSTOM_COMMAND(OUTPUT ${_outfile}
+                    COMMAND ${CONVERT_EXECUTABLE} -resize 32x32 ${_infile} ${_outfile}
+                    DEPENDS ${_infile}
+                    COMMENT STATUS "Converting ${_name}"
+                )
+            ENDMACRO(SVG2PNG)
+            SET(CONVERT_AVAILABLE YES)
+        ENDIF (${SVG_CONVERT_RESULT} EQUAL 0)
     ENDIF (CONVERT_EXECUTABLE)
 
     IF (NOT CONVERT_AVAILABLE)
@@ -117,21 +117,21 @@ FILE(REMOVE "${CMAKE_BINARY_DIR}/${_png_file}")
 
 ADD_CUSTOM_TARGET(update-handbook
     COMMAND ${UPDATE_COMMAND_XREF}
-	${CMAKE_SOURCE_DIR}
-	${_index_docbook}
-	${_index_docbook_updated}
+        ${CMAKE_SOURCE_DIR}
+        ${_index_docbook}
+        ${_index_docbook_updated}
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_index_docbook_updated} ${_index_docbook}
 
     COMMAND ${UPDATE_FILEINFO_XREF}
-	${_index_docbook}
-	${CMAKE_SOURCE_DIR}/libkwave/FileInfo.cpp
-	${_index_docbook_updated}
+        ${_index_docbook}
+        ${CMAKE_SOURCE_DIR}/libkwave/FileInfo.cpp
+        ${_index_docbook_updated}
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_index_docbook_updated} ${_index_docbook}
 
     COMMAND ${UPDATE_PLUGIN_XREF}
-	${CMAKE_SOURCE_DIR}/plugins
-	${_index_docbook}
-	${_index_docbook_updated}
+        ${CMAKE_SOURCE_DIR}/plugins
+        ${_index_docbook}
+        ${_index_docbook_updated}
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_index_docbook_updated} ${_index_docbook}
 )
 
@@ -149,15 +149,15 @@ FOREACH(_file ${_files})
     # take only languages that have been requested
     SET(_take_it TRUE)
     IF (NOT "${LINGUAS}" STREQUAL "*")
-	LIST(FIND LINGUAS "${_lang}" _found)
-	IF (_found LESS 0)
-	    SET(_take_it FALSE)
-	ENDIF (_found LESS 0)
+        LIST(FIND LINGUAS "${_lang}" _found)
+        IF (_found LESS 0)
+            SET(_take_it FALSE)
+        ENDIF (_found LESS 0)
     ENDIF (NOT "${LINGUAS}" STREQUAL "*")
 
     IF (_take_it)
-	MESSAGE(STATUS "Enabled handbook for ${_lang}")
-	ADD_SUBDIRECTORY(${_lang})
+        MESSAGE(STATUS "Enabled handbook for ${_lang}")
+        ADD_SUBDIRECTORY(${_lang})
     ENDIF (_take_it)
 
 ENDFOREACH(_file ${_files})

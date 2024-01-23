@@ -28,16 +28,16 @@
 function Format_File() {
     echo indenting $1
     cat $1 | expand | astyle \
-	--style=kr \
-	--mode=c \
-	--brackets=attach \
-	--pad=oper \
-	--indent-switches \
-	--indent-cases \
-	--min-conditional=0 \
-	--max-instatement-indent=4 \
-	--indent=spaces=4  \
-	> /tmp/indent 2>/dev/null
+        --style=kr \
+        --mode=c \
+        --brackets=attach \
+        --pad=oper \
+        --indent-switches \
+        --indent-cases \
+        --min-conditional=0 \
+        --max-instatement-indent=4 \
+        --indent=spaces=4  \
+        > /tmp/indent 2>/dev/null
     cat /tmp/indent | unexpand > $1
 
 

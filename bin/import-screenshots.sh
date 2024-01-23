@@ -38,17 +38,17 @@ echo "importing screenshots into ${DEST}..."
 # into one single image
 echo kwave-gui-sdi.png
 convert -size 906x667 xc:transparent -background transparent \
-	-page +40+0   "$1/01-kwave-gui-sdi.png" \
-	-page +80+80  "$1/02-kwave-gui-sdi.png" \
-	-page  +0+200 "$1/03-kwave-gui-sdi.png" \
-	-layers flatten \
-	"$1/kwave-gui-sdi.png"
+        -page +40+0   "$1/01-kwave-gui-sdi.png" \
+        -page +80+80  "$1/02-kwave-gui-sdi.png" \
+        -page  +0+200 "$1/03-kwave-gui-sdi.png" \
+        -layers flatten \
+        "$1/kwave-gui-sdi.png"
 
 mkdir -p ${DEST}
 
 for file in `cd $1 ; find . -name kwave-\*.png | sed s+^\.\/++g `; do {
-	echo ${file}
-	convert $1/${file} ${OPTIONS} ${DEST}/${file}
+        echo ${file}
+        convert $1/${file} ${OPTIONS} ${DEST}/${file}
 } done
 
 #

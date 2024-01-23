@@ -38,10 +38,10 @@ sub scan_file
 
     open(IN2, $file);
     while (<IN2>) {
-	local $line = $_;
-	chomp $line;
+        local $line = $_;
+        chomp $line;
 
-	$name        = $1 if ($line =~ /^Name=([\w]+)\s*/ );
+        $name        = $1 if ($line =~ /^Name=([\w]+)\s*/ );
         $version     = $1 if ($line =~ /^X-KDE-PluginInfo-Name=(\d+\.\d+)/ );
         $description = $1 if ($line =~ /^Comment=(.+)\s*/ );
         $author      = $1 if ($line =~ /^X-KDE-PluginInfo-Author=(.+)\s*/ );
@@ -55,10 +55,10 @@ sub scan_file
 #     print "'\n";
 
     push(@scanned_plugins, {
-	name        => $name,
-	version     => $version,
-	description => $description,
-	author      => $author
+        name        => $name,
+        version     => $version,
+        description => $description,
+        author      => $author
     }) if (! grep {$_->{name} eq $name} @scanned_plugin);
 
 }
@@ -74,19 +74,19 @@ sub scan_plugin_dir
     @dirs = sort { $a cmp $b } @dirs;
 
     for (@dirs) {
-	local $dir = $path . '/' . $_;
-	if (-d $dir) {
-	    opendir(SUBDIR, $dir) or die "opendir $dir: $!";
-	    local @files = grep { !/(^\.)/ } readdir(SUBDIR);
-	    closedir(SUBDIR);
-	    @files = sort { $a cmp $b } @files;
-	    for (@files) {
-		local $file = $_;
-		if ($file =~ /\.desktop.in$/) {
-		    scan_file $dir . '/' . $file;
-		}
-	    }
-	}
+        local $dir = $path . '/' . $_;
+        if (-d $dir) {
+            opendir(SUBDIR, $dir) or die "opendir $dir: $!";
+            local @files = grep { !/(^\.)/ } readdir(SUBDIR);
+            closedir(SUBDIR);
+            @files = sort { $a cmp $b } @files;
+            for (@files) {
+                local $file = $_;
+                if ($file =~ /\.desktop.in$/) {
+                    scan_file $dir . '/' . $file;
+                }
+            }
+        }
     }
 }
 
@@ -99,7 +99,7 @@ sub make_stub
 
     print OUT "    <sect1 id=\"plugin_sect_" . $lbl . "\">" .
               "<title id=\"plugin_title_" . $lbl . "\">" .
-	      "&no-i18n-plugin_" . $lbl . "; (" . $plugin->{description} . ")</title>\n";
+              "&no-i18n-plugin_" . $lbl . "; (" . $plugin->{description} . ")</title>\n";
 
     print OUT "    <!-- <screenshot>\n";
     print OUT "\t<screeninfo>Screenshot</screeninfo>\n";
@@ -167,105 +167,105 @@ LINE: while (<IN>) {
 
     if ($mode eq "normal") {
 
-	if ($line =~ /\<\!\-\-\ \@PLUGIN_INDEX_START\@\ \-\-\>/) {
-	    print OUT $line;
-	    $mode = "index";
-	    next LINE;
-	}
+        if ($line =~ /\<\!\-\-\ \@PLUGIN_INDEX_START\@\ \-\-\>/) {
+            print OUT $line;
+            $mode = "index";
+            next LINE;
+        }
 
-	if ($line =~ /\<\!\-\-\ \@PLUGIN_ENTITIES_START\@\ \-\-\>/) {
-	    print OUT $line;
-	    $mode = "entities";
-	    next LINE;
-	}
+        if ($line =~ /\<\!\-\-\ \@PLUGIN_ENTITIES_START\@\ \-\-\>/) {
+            print OUT $line;
+            $mode = "entities";
+            next LINE;
+        }
 
-	if ($line =~ /\<\!\-\-\ \@PLUGIN\@\ ([\w\:]+)\ (\(TODO\)\ )?\-\-\>/) {
-	    my $plugin = $1;
-	    my $todo = $2;
-	    # print "### found plugin '" . $plugin . "'\n";
-	    if (not grep {$_->{name} eq $plugin} @scanned_plugins) {
-		print STDERR "WARNING: plugin '" . $plugin . "' is not supported / does not exist\n";
-	    } else {
-		while (@remaining_plugins) {
-		    my $next_plugin = shift @remaining_plugins;
+        if ($line =~ /\<\!\-\-\ \@PLUGIN\@\ ([\w\:]+)\ (\(TODO\)\ )?\-\-\>/) {
+            my $plugin = $1;
+            my $todo = $2;
+            # print "### found plugin '" . $plugin . "'\n";
+            if (not grep {$_->{name} eq $plugin} @scanned_plugins) {
+                print STDERR "WARNING: plugin '" . $plugin . "' is not supported / does not exist\n";
+            } else {
+                while (@remaining_plugins) {
+                    my $next_plugin = shift @remaining_plugins;
 
-		    # if plugin is next in list of remaining -> remove from list
-		    # print "next_plugin=".$next_plugin.", plugin=".$plugin."\n";
-		    if ($plugin eq $next_plugin->{name}) {
-			# print "(FOUND)\n";
-			# show a warning if there documentation is not finished
-			# for this plugin
-			if ($todo) {
-			    print STDERR "WARNING: plugin '" . $plugin . "': documentation is not finished (TODO)\n";
-			}
-			print OUT $line;
-			next LINE;
-		    }
+                    # if plugin is next in list of remaining -> remove from list
+                    # print "next_plugin=".$next_plugin.", plugin=".$plugin."\n";
+                    if ($plugin eq $next_plugin->{name}) {
+                        # print "(FOUND)\n";
+                        # show a warning if there documentation is not finished
+                        # for this plugin
+                        if ($todo) {
+                            print STDERR "WARNING: plugin '" . $plugin . "': documentation is not finished (TODO)\n";
+                        }
+                        print OUT $line;
+                        next LINE;
+                    }
 
-		    if ($plugin gt $next_plugin->{name}) {
-			print STDERR "WARNING: plugin '" . $next_plugin->{name} . "' is undocumented, adding stub\n";
-			make_stub $next_plugin;
-		    } else {
-			last;
-		    }
-		}
-	    }
-	    print OUT $line;
-	    next LINE;
-	}
+                    if ($plugin gt $next_plugin->{name}) {
+                        print STDERR "WARNING: plugin '" . $next_plugin->{name} . "' is undocumented, adding stub\n";
+                        make_stub $next_plugin;
+                    } else {
+                        last;
+                    }
+                }
+            }
+            print OUT $line;
+            next LINE;
+        }
 
-	if ($line =~ /\<\!\-\-\ \@PLUGIN_END_OF_LIST\@\ \-\-\>/) {
-	    # print "WARNING: some plugins left\n";
-	    while (@remaining_plugins) {
-		local $plugin = shift @remaining_plugins;
-		print STDERR "WARNING: plugin '" . $plugin->{name} . "' is undocumented, adding stub\n";
-		make_stub $plugin;
-	    }
-	}
+        if ($line =~ /\<\!\-\-\ \@PLUGIN_END_OF_LIST\@\ \-\-\>/) {
+            # print "WARNING: some plugins left\n";
+            while (@remaining_plugins) {
+                local $plugin = shift @remaining_plugins;
+                print STDERR "WARNING: plugin '" . $plugin->{name} . "' is undocumented, adding stub\n";
+                make_stub $plugin;
+            }
+        }
 
-	print OUT $line;
+        print OUT $line;
     }
 
     if ($line =~ /\<\!\-\-\ \@PLUGIN_ENTITIES_END\@\ \-\-\>/) {
-	foreach (@scanned_plugins) {
-	    local $plugin = $_->{name};
-	    local $lbl = $plugin;
-	    $lbl =~ s/[^\w]/_/g;
-	    print OUT "  \<\!ENTITY no-i18n-plugin_" . $lbl . " \"" . $plugin . "\"\>\n";
-	}
-	print OUT $line;
-	$mode = "normal";
-	next LINE;
+        foreach (@scanned_plugins) {
+            local $plugin = $_->{name};
+            local $lbl = $plugin;
+            $lbl =~ s/[^\w]/_/g;
+            print OUT "  \<\!ENTITY no-i18n-plugin_" . $lbl . " \"" . $plugin . "\"\>\n";
+        }
+        print OUT $line;
+        $mode = "normal";
+        next LINE;
     }
 
     if ($mode eq "index") {
-	if ($line =~ /\<\!\-\-\ \@PLUGIN_INDEX_END\@\ \-\-\>/) {
+        if ($line =~ /\<\!\-\-\ \@PLUGIN_INDEX_END\@\ \-\-\>/) {
 
-	    # create a new plugin index
-	    my $first_char = "*";
-	    foreach (@scanned_plugins) {
-		my $plugin = $_->{name};
-		my $first = substr($plugin, 0, 1);
-		if (not ($first eq $first_char)) {
-		    print OUT "\t    </indexdiv>\n" if (not ($first_char eq "*"));
-		    print OUT "\t    <indexdiv><title>" . $first . "</title>\n";
-		    $first_char = $first;
-		}
+            # create a new plugin index
+            my $first_char = "*";
+            foreach (@scanned_plugins) {
+                my $plugin = $_->{name};
+                my $first = substr($plugin, 0, 1);
+                if (not ($first eq $first_char)) {
+                    print OUT "\t    </indexdiv>\n" if (not ($first_char eq "*"));
+                    print OUT "\t    <indexdiv><title>" . $first . "</title>\n";
+                    $first_char = $first;
+                }
 
-		$plugin =~ s/[^\w]/_/g;
-		print OUT "\t\t<indexentry><primaryie>" .
-		    "<link linkend=\"plugin_sect_" . $plugin . "\" " .
-		    "endterm=\"plugin_title_" . $plugin . "\"/>" .
-		    "</primaryie></indexentry>\n";
+                $plugin =~ s/[^\w]/_/g;
+                print OUT "\t\t<indexentry><primaryie>" .
+                    "<link linkend=\"plugin_sect_" . $plugin . "\" " .
+                    "endterm=\"plugin_title_" . $plugin . "\"/>" .
+                    "</primaryie></indexentry>\n";
 
-	    }
-	    print OUT "\t    </indexdiv>\n";
+            }
+            print OUT "\t    </indexdiv>\n";
 
-	    # switch back to normal mode
-	    $mode = "normal";
-	    print OUT $line;
-	    next LINE;
-	}
+            # switch back to normal mode
+            $mode = "normal";
+            print OUT $line;
+            next LINE;
+        }
     }
 
 }

@@ -50,18 +50,18 @@ LINE: while (<IN>) {
     my $param_nr = 0;
     my $path = "";
     for (my $i = 0; $i < length($params); $i += 1) {
-	my $c = substr($params, $i, 1);
-	$nesting += 1 if ($c eq "(");
-	$nesting -= 1 if ($c eq ")");
-	if (($c eq ",") and ($nesting == 0)) {
-	    $param_nr += 1;
-	    $path = $param if ($param_nr == 2);
-	    $param = "";
-	}
-	else
-	{
-	    $param = $param . $c;
-	}
+        my $c = substr($params, $i, 1);
+        $nesting += 1 if ($c eq "(");
+        $nesting -= 1 if ($c eq ")");
+        if (($c eq ",") and ($nesting == 0)) {
+            $param_nr += 1;
+            $path = $param if ($param_nr == 2);
+            $param = "";
+        }
+        else
+        {
+            $param = $param . $c;
+        }
     }
     $param_nr += 1;
     $path = $param if ($param_nr == 2);
@@ -71,20 +71,20 @@ LINE: while (<IN>) {
     my $context = "";
     my @tokens = split(/\//, $path);
     TOKEN: foreach $token (@tokens) {
-	$token =~ s/\s+$//;
-	$token =~ s/^\s+|\s+$//g;
-	next TOKEN if (length($token) <= 1);
-	last       if ($token =~ /^\#/);
-	$token =~ s/\"/\\\"/g;
+        $token =~ s/\s+$//;
+        $token =~ s/^\s+|\s+$//g;
+        next TOKEN if (length($token) <= 1);
+        last       if ($token =~ /^\#/);
+        $token =~ s/\"/\\\"/g;
 
-	$context = $context . "/" . $token;
-	if (not grep {$_->{"context"} eq $context} @all_tokens) {
-	    push @all_tokens, {
-		"token"   => $token,
-		"context" => $context,
-		"line"    => $line_nr
-	    };
-	}
+        $context = $context . "/" . $token;
+        if (not grep {$_->{"context"} eq $context} @all_tokens) {
+            push @all_tokens, {
+                "token"   => $token,
+                "context" => $context,
+                "line"    => $line_nr
+            };
+        }
     }
 }
 

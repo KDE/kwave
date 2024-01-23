@@ -37,27 +37,27 @@ sub check_po
     local $untranslated = 0;
 
     if ( -e $file) {
-	local $state = `LC_ALL=C msgfmt --statistics $file 2>&1`;
-	if ($state =~ m/(\d+)\ translated/) {
-	    $translated = $1;
-	}
-	if ($state =~ m/(\d+)\ fuzzy/) {
-	    $fuzzy = $1;
-	}
-	if ($state =~ m/(\d+)\ untranslated/) {
-	    $untranslated = $1;
-	}
+        local $state = `LC_ALL=C msgfmt --statistics $file 2>&1`;
+        if ($state =~ m/(\d+)\ translated/) {
+            $translated = $1;
+        }
+        if ($state =~ m/(\d+)\ fuzzy/) {
+            $fuzzy = $1;
+        }
+        if ($state =~ m/(\d+)\ untranslated/) {
+            $untranslated = $1;
+        }
     }
 
     if (($translated + $fuzzy + $untranslated) != 0) {
-	printf(
-	    "| %-22s | %-11s | %s   |    %9s |    %9s |    %9s |",
-	    $name, $lang, $scope, $translated, $fuzzy, $untranslated
-	);
+        printf(
+            "| %-22s | %-11s | %s   |    %9s |    %9s |    %9s |",
+            $name, $lang, $scope, $translated, $fuzzy, $untranslated
+        );
 
-	print " <= " if (($fuzzy + $untranslated) == 0);
+        print " <= " if (($fuzzy + $untranslated) == 0);
 
-	print "\n";
+        print "\n";
     }
 
 }
@@ -69,17 +69,17 @@ closedir(DIR);
 local @catalogs;
 foreach $entry (@dirs)
 {
-	local $e = $top_dir . "/" . $entry;
-	if (-d $e)
-	{
-	    my $catalog = $entry;
-	    push(@catalogs, $catalog) if (not grep { /$catalog/ } @catalogs);
-	}
-	elsif ($entry =~ /(.*)\.po/)
-	{
-	    my $catalog = $entry;
-	    push(@catalogs, $catalog) if (not grep { /$catalog/ } @catalogs);
-	}
+        local $e = $top_dir . "/" . $entry;
+        if (-d $e)
+        {
+            my $catalog = $entry;
+            push(@catalogs, $catalog) if (not grep { /$catalog/ } @catalogs);
+        }
+        elsif ($entry =~ /(.*)\.po/)
+        {
+            my $catalog = $entry;
+            push(@catalogs, $catalog) if (not grep { /$catalog/ } @catalogs);
+        }
 }
 
 print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";
@@ -89,15 +89,15 @@ print "+------------------------+-------------+-------+--------------+----------
 foreach $catalog (@catalogs)
 {
     if ($catalog =~ /(..)[\_\@]*/) {
-	local $lang=$1;
-	local $lang_name = I18N::LangTags::List::name($lang);
-	local $po_gui=$top_dir . "/" . $catalog . "/" . $app . ".po";
+        local $lang=$1;
+        local $lang_name = I18N::LangTags::List::name($lang);
+        local $po_gui=$top_dir . "/" . $catalog . "/" . $app . ".po";
 
-	check_po($lang_name, $catalog, "GUI", $po_gui);
+        check_po($lang_name, $catalog, "GUI", $po_gui);
 
-	if ((-e $top_dir . "/" . $po_doc) || (-e $top_dir . "/" . $po_gui) || (-e $top_dir . "/" . $po_dsk)) {
-	    print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";
-	}
+        if ((-e $top_dir . "/" . $po_doc) || (-e $top_dir . "/" . $po_gui) || (-e $top_dir . "/" . $po_dsk)) {
+            print "+------------------------+-------------+-------+--------------+--------------+--------------+\n";
+        }
     }
 }
 

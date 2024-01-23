@@ -81,23 +81,23 @@ SET(_git "${CMAKE_SOURCE_DIR}/.git")
 IF (EXISTS ${_git})
     FIND_PROGRAM(GIT_EXECUTABLE NAMES git)
     IF (GIT_EXECUTABLE)
-	MESSAGE(STATUS "Found git: ${GIT_EXECUTABLE}")
-	SET(files_lst "${CMAKE_BINARY_DIR}/files.lst")
-	ADD_CUSTOM_COMMAND(OUTPUT ${files_lst}
-	    COMMENT "Building file list from local .git repository"
-	    COMMAND "${GIT_EXECUTABLE}" ls-tree -r --name-only HEAD ">" ${files_lst}
-	    COMMAND test -e po && find po -name \\*.po ">>" ${files_lst}
-	    COMMAND find doc -type f -name \\*.txt ">>" ${files_lst}
-	    COMMAND find doc -type f -name index.docbook ">>" ${files_lst}
-	    COMMAND find doc -type f -name \\*.png ">>" ${files_lst}
-	    COMMAND find . -type f -name \\*.spec ">>" ${files_lst}
-	    COMMAND cat ${files_lst} | sort | uniq > ${files_lst}.tmp
-	    COMMAND mv ${files_lst}.tmp ${files_lst}
-	    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-	)
-	SET(file_selection "--files-from=${files_lst}")
+        MESSAGE(STATUS "Found git: ${GIT_EXECUTABLE}")
+        SET(files_lst "${CMAKE_BINARY_DIR}/files.lst")
+        ADD_CUSTOM_COMMAND(OUTPUT ${files_lst}
+            COMMENT "Building file list from local .git repository"
+            COMMAND "${GIT_EXECUTABLE}" ls-tree -r --name-only HEAD ">" ${files_lst}
+            COMMAND test -e po && find po -name \\*.po ">>" ${files_lst}
+            COMMAND find doc -type f -name \\*.txt ">>" ${files_lst}
+            COMMAND find doc -type f -name index.docbook ">>" ${files_lst}
+            COMMAND find doc -type f -name \\*.png ">>" ${files_lst}
+            COMMAND find . -type f -name \\*.spec ">>" ${files_lst}
+            COMMAND cat ${files_lst} | sort | uniq > ${files_lst}.tmp
+            COMMAND mv ${files_lst}.tmp ${files_lst}
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        )
+        SET(file_selection "--files-from=${files_lst}")
     ELSE (GIT_EXECUTABLE)
-	MESSAGE(STATUS "Warning: .git exists but git program not found")
+        MESSAGE(STATUS "Warning: .git exists but git program not found")
     ENDIF (GIT_EXECUTABLE)
 ELSE (EXISTS ${_git})
     MESSAGE(STATUS "No git version control files")

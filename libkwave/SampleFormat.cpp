@@ -48,7 +48,7 @@ void Kwave::SampleFormat::fromInt(int i)
 {
     Kwave::SampleFormat::Map map;
     Kwave::SampleFormat::Format format =
-	static_cast<Kwave::SampleFormat::Format>(i);
+        static_cast<Kwave::SampleFormat::Format>(i);
     int index = map.findFromData(format);
     m_format = (index >= 0) ? format : Kwave::SampleFormat::Unknown;
 }

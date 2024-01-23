@@ -1,6 +1,6 @@
 /***************************************************************************
    UndoDeleteAction.cpp  -  UndoAction for deletion of a range of samples
-			     -------------------
+                             -------------------
     begin                : Jun 08 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -80,7 +80,7 @@ bool Kwave::UndoDeleteAction::store(Kwave::SignalManager &manager)
     const sample_index_t right = m_offset + m_length - 1;
     m_stripes = manager.stripes(m_track_list, left, right);
     if (m_stripes.isEmpty())
-	return false; // retrieving the stripes failed
+        return false; // retrieving the stripes failed
 
     // save the meta data
     m_meta_data = manager.metaData().copy(m_offset, m_length);
@@ -96,28 +96,28 @@ Kwave::UndoAction *Kwave::UndoDeleteAction::undo(Kwave::SignalManager &manager,
 
     // store data for redo
     if (with_redo) {
-	redo_action = new(std::nothrow) Kwave::UndoInsertAction(
-	    m_parent_widget, m_track_list,
-	    m_offset, m_length
-	);
-	Q_ASSERT(redo_action);
+        redo_action = new(std::nothrow) Kwave::UndoInsertAction(
+            m_parent_widget, m_track_list,
+            m_offset, m_length
+        );
+        Q_ASSERT(redo_action);
         if (!redo_action) return Q_NULLPTR;
-	redo_action->store(manager);
+        redo_action->store(manager);
     }
 
     if (!m_length) return redo_action; // shortcut: this is an empty action
 
     // insert space for the stripes
     if (!manager.insertSpace(m_offset, m_length, m_track_list)) {
-	qWarning("UndoDeleteAction::undo() FAILED [insertSpace]");
-	delete redo_action;
+        qWarning("UndoDeleteAction::undo() FAILED [insertSpace]");
+        delete redo_action;
         return Q_NULLPTR;
     }
 
     // merge the stripes back into the signal
     if (!manager.mergeStripes(m_stripes, m_track_list)) {
-	qWarning("UndoDeleteAction::undo() FAILED [mergeStripes]");
-	delete redo_action;
+        qWarning("UndoDeleteAction::undo() FAILED [mergeStripes]");
+        delete redo_action;
         return Q_NULLPTR;
     }
 

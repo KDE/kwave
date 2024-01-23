@@ -1,6 +1,6 @@
 /***************************************************************************
       LowPassFilter.cpp  - transmission function of a low pass filter
-			     -------------------
+                             -------------------
     begin                : Mar 15 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -125,8 +125,8 @@ void Kwave::LowPassFilter::normed_setfilter_shelvelowpass(double freq)
 
     gain = pow(10.0, boost / 20.0);
     shelve(freq / (2 * M_PI), boost,
-	&m_filter.cx, &m_filter.cx1, &m_filter.cx2,
-	&m_filter.cy1, &m_filter.cy2);
+        &m_filter.cx, &m_filter.cx1, &m_filter.cx2,
+        &m_filter.cy1, &m_filter.cy2);
     m_filter.cx  /= gain;
     m_filter.cx1 /= gain;
     m_filter.cx2 /= gain;
@@ -146,19 +146,19 @@ void Kwave::LowPassFilter::input(Kwave::SampleArray data)
 
     for (unsigned i = 0; i < in.size(); i++)
     {
-	// do the filtering
-	m_filter.x = sample2double(in[i]);
-	m_filter.y =
-	    m_filter.cx  * m_filter.x  +
-	    m_filter.cx1 * m_filter.x1 +
-	    m_filter.cx2 * m_filter.x2 +
-	    m_filter.cy1 * m_filter.y1 +
-	    m_filter.cy2 * m_filter.y2;
-	m_filter.x2 = m_filter.x1;
-	m_filter.x1 = m_filter.x;
-	m_filter.y2 = m_filter.y1;
-	m_filter.y1 = m_filter.y;
-	m_buffer[i] = double2sample(0.95 * m_filter.y);
+        // do the filtering
+        m_filter.x = sample2double(in[i]);
+        m_filter.y =
+            m_filter.cx  * m_filter.x  +
+            m_filter.cx1 * m_filter.x1 +
+            m_filter.cx2 * m_filter.x2 +
+            m_filter.cy1 * m_filter.y1 +
+            m_filter.cy2 * m_filter.y2;
+        m_filter.x2 = m_filter.x1;
+        m_filter.x1 = m_filter.x;
+        m_filter.y2 = m_filter.y1;
+        m_filter.y1 = m_filter.y;
+        m_buffer[i] = double2sample(0.95 * m_filter.y);
     }
 }
 

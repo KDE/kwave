@@ -117,19 +117,19 @@ QList<Kwave::SampleFormat::Format> Kwave::RecordQt::detectSampleFormats()
 
     // iterate over all supported bits per sample
     foreach (QAudioFormat::SampleType t, info.supportedSampleTypes()) {
-	switch (t) {
-	    case QAudioFormat::SignedInt:
-		list.append(Kwave::SampleFormat::Signed);
-		break;
-	    case QAudioFormat::UnSignedInt:
-		list.append(Kwave::SampleFormat::Unsigned);
-		break;
-	    case QAudioFormat::Float:
-		list.append(Kwave::SampleFormat::Float);
-		break;
-	    default:
-		break;
-	}
+        switch (t) {
+            case QAudioFormat::SignedInt:
+                list.append(Kwave::SampleFormat::Signed);
+                break;
+            case QAudioFormat::UnSignedInt:
+                list.append(Kwave::SampleFormat::Unsigned);
+                break;
+            case QAudioFormat::Float:
+                list.append(Kwave::SampleFormat::Float);
+                break;
+            default:
+                break;
+        }
     }
 
     return list;
@@ -148,14 +148,14 @@ Kwave::byte_order_t Kwave::RecordQt::endianness()
 
     // iterate over all supported bits per sample
     switch (info.preferredFormat().byteOrder()) {
-	case QAudioFormat::LittleEndian:
-	    byte_order = Kwave::LittleEndian;
-	    break;
-	case QAudioFormat::BigEndian:
-	    byte_order = Kwave::BigEndian;
-	    break;
-	default:
-	    break;
+        case QAudioFormat::LittleEndian:
+            byte_order = Kwave::LittleEndian;
+            break;
+        case QAudioFormat::BigEndian:
+            byte_order = Kwave::BigEndian;
+            break;
+        default:
+            break;
     }
 
     return byte_order;
@@ -190,8 +190,8 @@ QList< unsigned int > Kwave::RecordQt::supportedBits()
 
     // iterate over all supported bits per sample
     foreach (int bits, info.supportedSampleSizes()) {
-	if (bits <= 0) continue;
-	list.append(Kwave::toUint(bits));
+        if (bits <= 0) continue;
+        list.append(Kwave::toUint(bits));
     }
 
     std::sort(list.begin(), list.end(), std::less<unsigned int>());
@@ -208,8 +208,8 @@ Kwave::Compression::Type Kwave::RecordQt::compression()
 int Kwave::RecordQt::setCompression(Kwave::Compression::Type new_compression)
 {
     if (new_compression != m_compression) {
-	close();
-	m_compression = new_compression;
+        close();
+        m_compression = new_compression;
     }
     return 0;
 }
@@ -251,8 +251,8 @@ QList< double > Kwave::RecordQt::detectSampleRates()
 
     // iterate over all supported sample sizes
     foreach (int rate, info.supportedSampleRates()) {
-	if (rate <= 0) continue;
-	list.append(static_cast<double>(rate));
+        if (rate <= 0) continue;
+        list.append(static_cast<double>(rate));
     }
 
     std::sort(list.begin(), list.end(), std::less<double>());
@@ -291,11 +291,11 @@ int Kwave::RecordQt::detectTracks(unsigned int &min, unsigned int &max)
 
     // iterate over all supported sample sizes
     foreach (int channels, info.supportedChannelCounts()) {
-	if (channels <= 0) continue;
-	unsigned int c = Kwave::toUint(channels);
-	if (c < 1) continue;
-	if (c < min) min = c;
-	if (c > max) max = c;
+        if (channels <= 0) continue;
+        unsigned int c = Kwave::toUint(channels);
+        if (c < 1) continue;
+        if (c < min) min = c;
+        if (c > max) max = c;
     }
 
     return (max > 0) ? max : -1;
@@ -306,18 +306,18 @@ QAudioDeviceInfo Kwave::RecordQt::deviceInfo(const QString &device) const
 {
     // check for default device
     if (!device.length() || (device == DEFAULT_DEVICE))
-	return QAudioDeviceInfo::defaultInputDevice();
+        return QAudioDeviceInfo::defaultInputDevice();
 
     // check if the device name is known
     if (m_device_name_map.isEmpty() || !m_device_name_map.contains(device))
-	return QAudioDeviceInfo();
+        return QAudioDeviceInfo();
 
     // translate the path into a Qt audio output device name
     // iterate over all available devices
     const QString dev_name = m_device_name_map[device];
     foreach (const QAudioDeviceInfo &dev, m_available_devices) {
-	if (dev.deviceName() == dev_name)
-	    return QAudioDeviceInfo(dev);
+        if (dev.deviceName() == dev_name)
+            return QAudioDeviceInfo(dev);
     }
 
     // fallen through: return empty info
@@ -328,13 +328,13 @@ QAudioDeviceInfo Kwave::RecordQt::deviceInfo(const QString &device) const
 void Kwave::RecordQt::closeInMainThread()
 {
     if (m_source) {
-	m_source->close();
+        m_source->close();
         m_source = Q_NULLPTR;
     }
     if (m_input) {
-	m_input->stop();
-	m_input->reset();
-	delete m_input;
+        m_input->stop();
+        m_input->reset();
+        delete m_input;
         m_input = Q_NULLPTR;
     }
 
@@ -347,9 +347,9 @@ int Kwave::RecordQt::close()
     QMutexLocker _lock(&m_lock);
 
     if (QThread::currentThread() == qApp->thread())
-	closeInMainThread();
+        closeInMainThread();
     else
-	emit sigCloseRequested();
+        emit sigCloseRequested();
 
     return 0;
 }
@@ -358,25 +358,25 @@ int Kwave::RecordQt::close()
 int Kwave::RecordQt::read(QByteArray &buffer, unsigned int offset)
 {
     if (buffer.isNull() || buffer.isEmpty())
-	return 0; // no buffer, nothing to do
+        return 0; // no buffer, nothing to do
 
     int buffer_size = buffer.size();
 
     // we configure our device at a late stage, otherwise we would not
     // know the internal buffer size
     if (!m_initialized) {
-	int err = initialize(buffer_size);
-	if (err < 0) return -EAGAIN;
-	m_initialized = true;
+        int err = initialize(buffer_size);
+        if (err < 0) return -EAGAIN;
+        m_initialized = true;
     }
     Q_ASSERT(m_source);
     Q_ASSERT(m_input);
     if (!m_source || !m_input)
-	return -ENODEV;
+        return -ENODEV;
 
     // adjust the buffer size if is has been changed in the plugin
     if ((buffer_size > 0) && (m_input->bufferSize() != buffer_size))
-	m_input->setBufferSize(buffer_size * BUFFER_SIZE_OVERCOMMIT);
+        m_input->setBufferSize(buffer_size * BUFFER_SIZE_OVERCOMMIT);
 
     // wait until some data gets available (with timeout)
     m_sem.tryAcquire(1, RECORD_POLL_TIMEOUT);
@@ -402,7 +402,7 @@ QString Kwave::RecordQt::open(const QString& device)
 
     const QAudioDeviceInfo info(deviceInfo(device));
     if (info.isNull()) {
-	return QString::number(ENODEV);
+        return QString::number(ENODEV);
     }
 
     m_device = device;
@@ -416,13 +416,13 @@ QStringList Kwave::RecordQt::supportedDevices()
 
     // re-validate the list if necessary
     if (m_device_name_map.isEmpty() || m_available_devices.isEmpty())
-	scanDevices();
+        scanDevices();
 
     QStringList list = m_device_name_map.keys();
 
     // move the "default" device to the start of the list
     if (list.contains(DEFAULT_DEVICE))
-	list.move(list.indexOf(DEFAULT_DEVICE), 0);
+        list.move(list.indexOf(DEFAULT_DEVICE), 0);
 
     if (!list.isEmpty()) list.append(_("#TREE#"));
 
@@ -451,40 +451,40 @@ int Kwave::RecordQt::initialize(unsigned int buffer_size)
 
     // find a replacement format with matching codec, tracks, bits and rate
     if (!format.isValid() || !info.isFormatSupported(format))
-	format = info.nearestFormat(format);
+        format = info.nearestFormat(format);
 
     if (format.codec() != _("audio/pcm")) {
-	qWarning("PCM encoding is not supported");
-	return -EIO;
+        qWarning("PCM encoding is not supported");
+        return -EIO;
     }
 
     if (format.sampleSize() != Kwave::toInt(m_bits_per_sample)) {
-	qWarning("%d bits per sample are not supported", m_bits_per_sample);
-	return -EIO;
+        qWarning("%d bits per sample are not supported", m_bits_per_sample);
+        return -EIO;
     }
 
     if (format.channelCount() != Kwave::toInt(m_tracks)) {
-	qWarning("recording with %d channels is not supported", m_tracks);
-	return -EIO;
+        qWarning("recording with %d channels is not supported", m_tracks);
+        return -EIO;
     }
 
     if (format.sampleRate() != Kwave::toInt(m_rate)) {
-	qWarning("sample rate %d Hz is not supported", Kwave::toInt(m_rate));
-	return -EIO;
+        qWarning("sample rate %d Hz is not supported", Kwave::toInt(m_rate));
+        return -EIO;
     }
 
     if ( (format.sampleType() != QAudioFormat::SignedInt) &&
-	 (format.sampleType() != QAudioFormat::UnSignedInt) )
+         (format.sampleType() != QAudioFormat::UnSignedInt) )
     {
-	qWarning("integer sample format is not supported");
-	return -EIO;
+        qWarning("integer sample format is not supported");
+        return -EIO;
     }
 
     // create a new Qt output device
     if (QThread::currentThread() == qApp->thread())
-	createInMainThread(format, buffer_size);
+        createInMainThread(format, buffer_size);
     else
-	emit sigCreateRequested(format, buffer_size);
+        emit sigCreateRequested(format, buffer_size);
 
     return (m_source && m_input) ? 0 : -EAGAIN;
 }
@@ -525,29 +525,29 @@ void Kwave::RecordQt::scanDevices()
 
     // get the list of available audio output devices from Qt
     foreach (const QAudioDeviceInfo &device,
-	     QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+             QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
     {
-	QString qt_name = device.deviceName();
+        QString qt_name = device.deviceName();
 
-	// for debugging: list all devices
-// 	qDebug("    name='%s'", DBG(qt_name));
+        // for debugging: list all devices
+//      qDebug("    name='%s'", DBG(qt_name));
 
-	// device name not available ?
-	if (!qt_name.length()) {
-	    qWarning("RecordQt::supportedDevices() "
-		      "=> BUG: device with no name?");
-	    continue;
-	}
+        // device name not available ?
+        if (!qt_name.length()) {
+            qWarning("RecordQt::supportedDevices() "
+                      "=> BUG: device with no name?");
+            continue;
+        }
 
-	QString gui_name = qt_name + _("|sound_note");
-	if (m_device_name_map.contains(gui_name)) {
-	    qWarning("RecordQt::supportedDevices() "
-	    "=> BUG: duplicate device name: '%s'", DBG(gui_name));
-	    continue;
-	}
+        QString gui_name = qt_name + _("|sound_note");
+        if (m_device_name_map.contains(gui_name)) {
+            qWarning("RecordQt::supportedDevices() "
+            "=> BUG: duplicate device name: '%s'", DBG(gui_name));
+            continue;
+        }
 
-	m_available_devices.append(device);
-	m_device_name_map[gui_name] = qt_name;
+        m_available_devices.append(device);
+        m_device_name_map[gui_name] = qt_name;
     }
 }
 

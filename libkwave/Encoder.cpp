@@ -1,6 +1,6 @@
 /***************************************************************************
             Encoder.cpp  -  abstract base class of all encoders
-			     -------------------
+                             -------------------
     begin                : May 08 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -32,8 +32,8 @@ QList<Kwave::FileProperty> Kwave::Encoder::unsupportedProperties(
     const Kwave::FileInfo info;
 
     foreach (const Kwave::FileProperty &s, properties_to_check) {
-	if (info.canLoadSave(s) && !supported.contains(s))
-	    unsupported.append(s);
+        if (info.canLoadSave(s) && !supported.contains(s))
+            unsupported.append(s);
     }
 
     return unsupported;

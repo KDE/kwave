@@ -45,239 +45,239 @@ namespace Kwave
 
     class RecordQt: public QObject, public Kwave::RecordDevice
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	RecordQt();
+        /** Constructor */
+        RecordQt();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~RecordQt() Q_DECL_OVERRIDE;
 
-	/**
-	 * Open the record device.
-	 * @param dev path of the record device
-	 * @retval QString() if successful
-	 * @retval QString::number(ENODEV) if device not found
-	 * @retval QString::number(EBUSY) if device is busy
-	 * @retval QString(...) device specific error message
-	 *                      (already translated)
-	 */
+        /**
+         * Open the record device.
+         * @param dev path of the record device
+         * @retval QString() if successful
+         * @retval QString::number(ENODEV) if device not found
+         * @retval QString::number(EBUSY) if device is busy
+         * @retval QString(...) device specific error message
+         *                      (already translated)
+         */
         virtual QString open(const QString &dev) Q_DECL_OVERRIDE;
 
-	/** Returns the current endianness (big/little) */
+        /** Returns the current endianness (big/little) */
         virtual Kwave::byte_order_t endianness() Q_DECL_OVERRIDE;
 
-	/** Returns the current sample format (signed/unsigned) */
+        /** Returns the current sample format (signed/unsigned) */
         virtual Kwave::SampleFormat::Format sampleFormat() Q_DECL_OVERRIDE;
 
-	/**
-	 * Try to set a new sample format (signed/unsigned)
-	 * @param new_format the identifier for the new format
-	 * @return zero on success, negative error code if failed
-	 * @see class SampleFormat
-	 */
+        /**
+         * Try to set a new sample format (signed/unsigned)
+         * @param new_format the identifier for the new format
+         * @return zero on success, negative error code if failed
+         * @see class SampleFormat
+         */
         virtual int setSampleFormat(Kwave::SampleFormat::Format new_format)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Gets a list of supported sample formats.
-	 * @note this depends on the current setting of the compression!
-	 */
+        /**
+         * Gets a list of supported sample formats.
+         * @note this depends on the current setting of the compression!
+         */
         virtual QList<Kwave::SampleFormat::Format> detectSampleFormats()
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns the current resolution in bits per sample or a negative
-	 * error code if failed
-	 */
+        /**
+         * Returns the current resolution in bits per sample or a negative
+         * error code if failed
+         */
         virtual int bitsPerSample() Q_DECL_OVERRIDE;
 
-	/**
-	 * Set the resolution in bits per sample
-	 * @param new_bits resolution [bits/sample]
-	 * @return zero on success, negative error code if failed
-	 */
+        /**
+         * Set the resolution in bits per sample
+         * @param new_bits resolution [bits/sample]
+         * @return zero on success, negative error code if failed
+         */
         virtual int setBitsPerSample(unsigned int new_bits) Q_DECL_OVERRIDE;
 
-	/**
-	 * Detect a list of supported bits per sample.
-	 * @note this depends on the compression type
-	 * @return a list of bits per sample, empty if failed
-	 */
+        /**
+         * Detect a list of supported bits per sample.
+         * @note this depends on the compression type
+         * @return a list of bits per sample, empty if failed
+         */
         virtual QList< unsigned int > supportedBits() Q_DECL_OVERRIDE;
 
-	/** Returns the current compression type (0==none) */
+        /** Returns the current compression type (0==none) */
         virtual Kwave::Compression::Type compression() Q_DECL_OVERRIDE;
 
-	/**
-	 * Try to set a new compression type.
-	 * @param new_compression the identifier of the new compression
-	 * @return zero on success, negative error code if failed
-	 * @see class Compression
-	 */
+        /**
+         * Try to set a new compression type.
+         * @param new_compression the identifier of the new compression
+         * @return zero on success, negative error code if failed
+         * @see class Compression
+         */
         virtual int setCompression(Kwave::Compression::Type new_compression)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Gets a list of supported compression types. If no compression is
-	 * supported, the list might be empty.
-	 */
+        /**
+         * Gets a list of supported compression types. If no compression is
+         * supported, the list might be empty.
+         */
         virtual QList<Kwave::Compression::Type> detectCompressions()
             Q_DECL_OVERRIDE;
 
-	/** Returns the current sample rate of the device */
+        /** Returns the current sample rate of the device */
         virtual double sampleRate() Q_DECL_OVERRIDE;
 
-	/**
-	 * Try to set a new sample rate.
-	 * @param new_rate the sample rate to be set [samples/second], can
-	 *        be modified and rounded up/down to the nearest supported
-	 *        sample rate if the underlying driver supports that.
-	 * @return zero on success, negative error code if failed
-	 */
+        /**
+         * Try to set a new sample rate.
+         * @param new_rate the sample rate to be set [samples/second], can
+         *        be modified and rounded up/down to the nearest supported
+         *        sample rate if the underlying driver supports that.
+         * @return zero on success, negative error code if failed
+         */
         virtual int setSampleRate(double& new_rate) Q_DECL_OVERRIDE;
 
-	/** get a list of supported sample rates */
+        /** get a list of supported sample rates */
         virtual QList< double > detectSampleRates() Q_DECL_OVERRIDE;
 
-	/** Returns the current number of tracks */
+        /** Returns the current number of tracks */
         virtual int tracks() Q_DECL_OVERRIDE;
 
-	/**
-	 * Try to set a new number of tracks.
-	 * @note the device must be open
-	 * @param tracks the number of tracks to be set, can be modified and
-	 *        decreased to the next supported number of tracks if the
-	 *        underlying driver supports that.
-	 * @return zero on success, negative error code if failed
-	 */
+        /**
+         * Try to set a new number of tracks.
+         * @note the device must be open
+         * @param tracks the number of tracks to be set, can be modified and
+         *        decreased to the next supported number of tracks if the
+         *        underlying driver supports that.
+         * @return zero on success, negative error code if failed
+         */
         virtual int setTracks(unsigned int& tracks) Q_DECL_OVERRIDE;
 
-	/**
-	 * Detect the minimum and maximum number of tracks.
-	 * If the detection fails, minimum and maximum are set to zero.
-	 * @param min receives the lowest supported number of tracks
-	 * @param max receives the highest supported number of tracks
-	 * @return zero or positive if ok, negative error number if failed
-	 */
+        /**
+         * Detect the minimum and maximum number of tracks.
+         * If the detection fails, minimum and maximum are set to zero.
+         * @param min receives the lowest supported number of tracks
+         * @param max receives the highest supported number of tracks
+         * @return zero or positive if ok, negative error number if failed
+         */
         virtual int detectTracks(unsigned int& min, unsigned int& max)
             Q_DECL_OVERRIDE;
 
-	/** Close the device */
+        /** Close the device */
         virtual int close() Q_DECL_OVERRIDE;
 
-	/**
-	 * Read the raw audio data from the record device.
-	 * @param buffer array of bytes to receive the audio data
-	 *        might be resized for alignment
-	 * @param offset offset in bytes within the buffer
-	 * @return number of bytes read, zero or negative if failed
-	 */
+        /**
+         * Read the raw audio data from the record device.
+         * @param buffer array of bytes to receive the audio data
+         *        might be resized for alignment
+         * @param offset offset in bytes within the buffer
+         * @return number of bytes read, zero or negative if failed
+         */
         virtual int read(QByteArray& buffer, unsigned int offset)
             Q_DECL_OVERRIDE;
 
-	/** return a string list with supported device names */
+        /** return a string list with supported device names */
         virtual QStringList supportedDevices() Q_DECL_OVERRIDE;
 
     signals:
 
-	/**
-	 * request createInMainThread()
-	 * @param format reference to the audio format specification
-	 * @param buffer_size size of the audio buffer in bytes
-	 */
-	void sigCreateRequested(QAudioFormat &format, unsigned int buffer_size);
+        /**
+         * request createInMainThread()
+         * @param format reference to the audio format specification
+         * @param buffer_size size of the audio buffer in bytes
+         */
+        void sigCreateRequested(QAudioFormat &format, unsigned int buffer_size);
 
-	/** request closeInMainThread() */
-	void sigCloseRequested();
+        /** request closeInMainThread() */
+        void sigCloseRequested();
 
     private slots:
 
-	/**
-	 * handles the request to create the device, running in the context
-	 * of the main thread
-	 * @param format reference to the audio format specification
-	 * @param buffer_size size of the audio buffer in bytes
-	 */
-	void createInMainThread(QAudioFormat &format, unsigned int buffer_size);
+        /**
+         * handles the request to create the device, running in the context
+         * of the main thread
+         * @param format reference to the audio format specification
+         * @param buffer_size size of the audio buffer in bytes
+         */
+        void createInMainThread(QAudioFormat &format, unsigned int buffer_size);
 
-	/**
-	 * handles the request to close the device, running in the context
-	 * of the main thread
-	 */
-	void closeInMainThread();
+        /**
+         * handles the request to close the device, running in the context
+         * of the main thread
+         */
+        void closeInMainThread();
 
-	/** called when recorded data gets available */
-	void notified();
-
-    private:
-
-	/**
-	 * Initialize the audio device with current parameters and
-	 * prepare it for recording.
-	 * @param buffer_size size of the audio buffer in bytes
-	 * @return zero on success or negative error code
-	 *         -EINVAL or -EIO
-	 */
-	int initialize(unsigned int buffer_size);
-
-	/** scan all PulseAudio source, re-creates m_device_list */
-	void scanDevices();
-
-	/**
-	 * Gets the full device info of a playback device, identified by
-	 * the device name.
-	 *
-	 * @param device name of the device or empty string for default
-	 * @return a QAudioDeviceInfo
-	 */
-	QAudioDeviceInfo deviceInfo(const QString &device) const;
+        /** called when recorded data gets available */
+        void notified();
 
     private:
 
-	/** mutex for locking the streaming thread against main thread */
-	QRecursiveMutex m_lock;
+        /**
+         * Initialize the audio device with current parameters and
+         * prepare it for recording.
+         * @param buffer_size size of the audio buffer in bytes
+         * @return zero on success or negative error code
+         *         -EINVAL or -EIO
+         */
+        int initialize(unsigned int buffer_size);
 
-	/**
-	 * dictionary for translating verbose device names
-	 * into Qt audio output device names
-	 * (key = verbose name, data = Qt output device name)
-	 */
-	QMap<QString, QString> m_device_name_map;
+        /** scan all PulseAudio source, re-creates m_device_list */
+        void scanDevices();
 
-	/** list of available Qt output devices */
-	QList<QAudioDeviceInfo> m_available_devices;
+        /**
+         * Gets the full device info of a playback device, identified by
+         * the device name.
+         *
+         * @param device name of the device or empty string for default
+         * @return a QAudioDeviceInfo
+         */
+        QAudioDeviceInfo deviceInfo(const QString &device) const;
 
-	/** Qt audio input instance */
-	QAudioInput *m_input;
+    private:
 
-	/** QIODevice for reading the data */
-	QIODevice *m_source;
+        /** mutex for locking the streaming thread against main thread */
+        QRecursiveMutex m_lock;
 
-	/** sample format (signed int, unsigned int, float, ... */
-	Kwave::SampleFormat::Format m_sample_format;
+        /**
+         * dictionary for translating verbose device names
+         * into Qt audio output device names
+         * (key = verbose name, data = Qt output device name)
+         */
+        QMap<QString, QString> m_device_name_map;
 
-	/** number of tracks [0...N-1] */
-	quint8 m_tracks;
+        /** list of available Qt output devices */
+        QList<QAudioDeviceInfo> m_available_devices;
 
-	/** sample rate  */
-	double m_rate;
+        /** Qt audio input instance */
+        QAudioInput *m_input;
 
-	/** compression mode */
-	Kwave::Compression::Type m_compression;
+        /** QIODevice for reading the data */
+        QIODevice *m_source;
 
-	/** resolution [bits per sample] */
-	unsigned int m_bits_per_sample;
+        /** sample format (signed int, unsigned int, float, ... */
+        Kwave::SampleFormat::Format m_sample_format;
 
-	/** encoded name of the sink */
-	QString m_device;
+        /** number of tracks [0...N-1] */
+        quint8 m_tracks;
 
-	/** true if initialize() has been successfully been run */
-	bool m_initialized;
+        /** sample rate  */
+        double m_rate;
 
-	/** semaphore for signaling "data available" */
-	QSemaphore m_sem;
+        /** compression mode */
+        Kwave::Compression::Type m_compression;
+
+        /** resolution [bits per sample] */
+        unsigned int m_bits_per_sample;
+
+        /** encoded name of the sink */
+        QString m_device;
+
+        /** true if initialize() has been successfully been run */
+        bool m_initialized;
+
+        /** semaphore for signaling "data available" */
+        QSemaphore m_sem;
     };
 
 }

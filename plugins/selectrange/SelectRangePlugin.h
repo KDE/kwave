@@ -33,52 +33,52 @@ namespace Kwave
 {
     class SelectRangePlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	SelectRangePlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        SelectRangePlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~SelectRangePlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * Shows a dialog for selecting the range and emits a command
-	 * for applying the selection if OK has been pressed.
-	 * @see Kwave::Plugin::setup
-	 */
+        /**
+         * Shows a dialog for selecting the range and emits a command
+         * for applying the selection if OK has been pressed.
+         * @see Kwave::Plugin::setup
+         */
         virtual QStringList *setup(QStringList &previous_params)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * selects the range
-	 * @see Kwave::Plugin::start()
-	 */
+        /**
+         * selects the range
+         * @see Kwave::Plugin::start()
+         */
         virtual int start(QStringList &params) Q_DECL_OVERRIDE;
 
     protected:
 
-	/** Reads values from the parameter list */
-	int interpreteParameters(QStringList &params);
+        /** Reads values from the parameter list */
+        int interpreteParameters(QStringList &params);
 
     private:
 
-	/** selected mode for start: by time, samples, percentage */
-	Kwave::SelectTimeWidget::Mode m_start_mode;
+        /** selected mode for start: by time, samples, percentage */
+        Kwave::SelectTimeWidget::Mode m_start_mode;
 
-	/** selected mode for range: by time, samples, percentage */
-	Kwave::SelectTimeWidget::Mode m_range_mode;
+        /** selected mode for range: by time, samples, percentage */
+        Kwave::SelectTimeWidget::Mode m_range_mode;
 
-	/** start in milliseconds, samples or percents */
-	unsigned int m_start;
+        /** start in milliseconds, samples or percents */
+        unsigned int m_start;
 
-	/** range in milliseconds, samples or percents */
-	unsigned int m_range;
+        /** range in milliseconds, samples or percents */
+        unsigned int m_range;
 
     };
 }

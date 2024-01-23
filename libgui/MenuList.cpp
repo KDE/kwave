@@ -45,7 +45,7 @@ void Kwave::MenuList::clear()
     QString list_uid = name();
     Kwave::MenuNode *child;
     while ((child = parent->findUID(list_uid)) != Q_NULLPTR)
-	parent->removeChild(child);
+        parent->removeChild(child);
 }
 
 //*****************************************************************************
@@ -60,7 +60,7 @@ Kwave::MenuNode *Kwave::MenuList::insertLeaf(const QString &name,
     Q_ASSERT(parent);
     QString list_uid = this->name();
     return (parent) ?
-	parent->insertLeaf(name, command, shortcut, list_uid) : Q_NULLPTR;
+        parent->insertLeaf(name, command, shortcut, list_uid) : Q_NULLPTR;
 }
 
 //*****************************************************************************

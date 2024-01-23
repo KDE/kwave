@@ -35,58 +35,58 @@ namespace Kwave
 
     class SonagramDialog: public QDialog, public Ui::SonagramDlg
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
-	/** Constructor */
-	explicit SonagramDialog(Kwave::Plugin &p);
+        /** Constructor */
+        explicit SonagramDialog(Kwave::Plugin &p);
 
-	/** Destructor */
-	virtual ~SonagramDialog();
+        /** Destructor */
+        virtual ~SonagramDialog();
 
-	/**
-	 * Fills the current parameters into a parameter list.
-	 * The list always is cleared before it gets filled.
-	 * The first parameter will contain the number of fft points [1...n]
-	 * The second parameter will contain the id of a window function
-	 * or zero if no window function was selected ("<none>").
-	 */
-	void parameters(QStringList &list);
+        /**
+         * Fills the current parameters into a parameter list.
+         * The list always is cleared before it gets filled.
+         * The first parameter will contain the number of fft points [1...n]
+         * The second parameter will contain the id of a window function
+         * or zero if no window function was selected ("<none>").
+         */
+        void parameters(QStringList &list);
 
     public slots:
 
-	/** sets the number of fft points */
-	void setPoints(int points);
+        /** sets the number of fft points */
+        void setPoints(int points);
 
-	/** selects a window function */
-	void setWindowFunction(Kwave::window_function_t type);
+        /** selects a window function */
+        void setWindowFunction(Kwave::window_function_t type);
 
-	/**
-	 * sets the color mode. Currently only black/white (0) and
-	 * rainbow color (1) are supported.
-	 */
-	void setColorMode(int color);
+        /**
+         * sets the color mode. Currently only black/white (0) and
+         * rainbow color (1) are supported.
+         */
+        void setColorMode(int color);
 
-	/** enables/disables the "track changes" mode */
-	void setTrackChanges(bool track_changes);
+        /** enables/disables the "track changes" mode */
+        void setTrackChanges(bool track_changes);
 
-	/** enables/disables the "follow selection mode */
-	void setFollowSelection(bool follow_selection);
+        /** enables/disables the "follow selection mode */
+        void setFollowSelection(bool follow_selection);
 
-	void setBoxPoints(int num);
+        void setBoxPoints(int num);
 
     private slots:
 
-	/** invoke the online help */
-	void invokeHelp();
+        /** invoke the online help */
+        void invokeHelp();
 
     private:
 
-	/** length of the selection */
-	sample_index_t m_length;
+        /** length of the selection */
+        sample_index_t m_length;
 
-	/** sample rate of the signal */
-	double m_rate;
+        /** sample rate of the signal */
+        double m_rate;
     };
 }
 

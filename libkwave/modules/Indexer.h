@@ -32,31 +32,31 @@ namespace Kwave
 
     class Indexer :public Kwave::StreamObject
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
-	/**
-	 * Constructor
-	 * @param index an index that is attached to the input data
-	 */
-	Indexer(unsigned int index);
+        /**
+         * Constructor
+         * @param index an index that is attached to the input data
+         */
+        Indexer(unsigned int index);
 
-	/** Destructor */
-	virtual ~Indexer();
+        /** Destructor */
+        virtual ~Indexer();
 
     public slots:
 
-	/** receives input data */
-	void input(Kwave::SampleArray data);
+        /** receives input data */
+        void input(Kwave::SampleArray data);
 
     signals:
 
-	/** forwards index + data as output */
-	void output(unsigned int index, Kwave::SampleArray data);
+        /** forwards index + data as output */
+        void output(unsigned int index, Kwave::SampleArray data);
 
     private:
 
-	/** the index that is attached to each output data */
-	unsigned int m_index;
+        /** the index that is attached to each output data */
+        unsigned int m_index;
     };
 
 }

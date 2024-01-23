@@ -119,10 +119,10 @@ Kwave::LowPassDialog::~LowPassDialog()
 void Kwave::LowPassDialog::valueChanged(int pos)
 {
     if (Kwave::toInt(m_frequency) != pos) {
-	m_frequency = pos;
-	updateDisplay();
+        m_frequency = pos;
+        updateDisplay();
 
-	emit changed(m_frequency);
+        emit changed(m_frequency);
     }
 }
 
@@ -167,13 +167,13 @@ void Kwave::LowPassDialog::listenToggled(bool listen)
     if (!btListen) return;
 
     if (listen) {
-	// start pre-listen mode
-	emit startPreListen();
-	btListen->setText(i18n("&Stop"));
+        // start pre-listen mode
+        emit startPreListen();
+        btListen->setText(i18n("&Stop"));
     } else {
-	// stop pre-listen mode
-	emit stopPreListen();
-	btListen->setText(i18n("&Listen"));
+        // stop pre-listen mode
+        emit stopPreListen();
+        btListen->setText(i18n("&Listen"));
     }
 }
 

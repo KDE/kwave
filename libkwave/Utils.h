@@ -96,9 +96,9 @@ namespace Kwave
      */
     template<class T> T round_up(T x, const T s)
     {
-	T modulo = (x % s);
-	if (modulo) x += (s - modulo);
-	return x;
+        T modulo = (x % s);
+        if (modulo) x += (s - modulo);
+        return x;
     }
 
     /**
@@ -109,14 +109,14 @@ namespace Kwave
      */
     template <typename T> unsigned int toUint(T x)
     {
-	const unsigned int max = std::numeric_limits<unsigned int>::max();
-	Q_ASSERT(x >= 0);
-	Q_ASSERT(static_cast<quint64>(x) <= static_cast<quint64>(max));
+        const unsigned int max = std::numeric_limits<unsigned int>::max();
+        Q_ASSERT(x >= 0);
+        Q_ASSERT(static_cast<quint64>(x) <= static_cast<quint64>(max));
 
-	if (x <= 0) return 0;
-	if (static_cast<quint64>(x) > static_cast<quint64>(max)) return max;
+        if (x <= 0) return 0;
+        if (static_cast<quint64>(x) > static_cast<quint64>(max)) return max;
 
-	return static_cast<unsigned int>(x);
+        return static_cast<unsigned int>(x);
     }
 
     /**
@@ -127,15 +127,15 @@ namespace Kwave
      */
     template <typename T> int toInt(T x)
     {
-	const int min = std::numeric_limits<int>::min();
-	const int max = std::numeric_limits<int>::max();
-	Q_ASSERT(static_cast<qint64>(x) >= static_cast<qint64>(min));
-	Q_ASSERT(static_cast<qint64>(x) <= static_cast<qint64>(max));
+        const int min = std::numeric_limits<int>::min();
+        const int max = std::numeric_limits<int>::max();
+        Q_ASSERT(static_cast<qint64>(x) >= static_cast<qint64>(min));
+        Q_ASSERT(static_cast<qint64>(x) <= static_cast<qint64>(max));
 
-	if (static_cast<qint64>(x) < static_cast<qint64>(min)) return min;
-	if (static_cast<qint64>(x) > static_cast<qint64>(max)) return max;
+        if (static_cast<qint64>(x) < static_cast<qint64>(min)) return min;
+        if (static_cast<qint64>(x) > static_cast<qint64>(max)) return max;
 
-	return static_cast<int>(x);
+        return static_cast<int>(x);
     }
 
     /**

@@ -1,6 +1,6 @@
 /***************************************************************************
              SignalWidget.cpp  -  Widget for displaying the signal
-			     -------------------
+                             -------------------
     begin                : 1999
     copyright            : (C) 1999 by Martin Wilz
     email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
@@ -115,10 +115,10 @@ Kwave::SignalWidget::SignalWidget(QWidget *parent,
 
 //     // -- accelerator keys for 1...9 --
 //     for (int i = 0; i < 10; i++) {
-// 	Kwave::ShortcutWrapper *shortcut =
-// 	    new(std::nothrow) Kwave::ShortcutWrapper(this, tbl_keys[i], i);
-// 	connect(shortcut, SIGNAL(activated(int)),
-// 	        this, SLOT(parseKey(int)));
+//      Kwave::ShortcutWrapper *shortcut =
+//          new(std::nothrow) Kwave::ShortcutWrapper(this, tbl_keys[i], i);
+//      connect(shortcut, SIGNAL(activated(int)),
+//              this, SLOT(parseKey(int)));
 //     }
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -141,7 +141,7 @@ void Kwave::SignalWidget::setZoomAndOffset(double zoom, sample_index_t offset)
 {
     Q_ASSERT(zoom >= 0.0);
     foreach (QPointer<Kwave::SignalView> view, m_views)
-	view->setZoomAndOffset(zoom, offset);
+        view->setZoomAndOffset(zoom, offset);
 }
 
 //***************************************************************************
@@ -155,11 +155,11 @@ void Kwave::SignalWidget::requestRepaint(Kwave::SignalView *view)
 {
     // add the view to the repaint queue (if not already there)
     if (!m_repaint_queue.contains(view))
-	m_repaint_queue.enqueue(view);
+        m_repaint_queue.enqueue(view);
 
     if (!m_repaint_timer.isActive()) {
-	// start the repaint timer
-	m_repaint_timer.start(REPAINT_INTERVAL);
+        // start the repaint timer
+        m_repaint_timer.start(REPAINT_INTERVAL);
     }
     // else: repainting is inhibited -> wait until the
     // repaint timer is elapsed
@@ -170,9 +170,9 @@ void Kwave::SignalWidget::repaintTimerElapsed()
 {
     while (!m_repaint_queue.isEmpty())
     {
-	Kwave::SignalView *view = m_repaint_queue.dequeue();
-	if (!view) continue;
-	view->refresh();
+        Kwave::SignalView *view = m_repaint_queue.dequeue();
+        if (!view) continue;
+        view->refresh();
     }
 }
 
@@ -185,7 +185,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     if (!have_signal)return;
     bool have_selection = (m_signal_manager->selection().length() > 1);
     bool have_labels =
-	!(Kwave::LabelList(m_signal_manager->metaData()).isEmpty());
+        !(Kwave::LabelList(m_signal_manager->metaData()).isEmpty());
 
     QMenu *context_menu = new(std::nothrow) QMenu(this);
     Q_ASSERT(context_menu);
@@ -196,43 +196,43 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     // undo
     QAction *action;
     action = context_menu->addAction(
-	QIcon::fromTheme(_("edit-undo")),
-	i18n("&Undo"), this, SLOT(contextMenuEditUndo()),
-	QKeySequence::StandardKey::Undo);
+        QIcon::fromTheme(_("edit-undo")),
+        i18n("&Undo"), this, SLOT(contextMenuEditUndo()),
+        QKeySequence::StandardKey::Undo);
     Q_ASSERT(action);
     if (!action) return;
     if (!m_signal_manager->canUndo())
-	action->setEnabled(false);
+        action->setEnabled(false);
 
     // redo
     action = context_menu->addAction(
-	QIcon::fromTheme(_("edit-redo")),
-	i18n("&Redo"), this, SLOT(contextMenuEditRedo()),
-	QKeySequence::StandardKey::Redo);
+        QIcon::fromTheme(_("edit-redo")),
+        i18n("&Redo"), this, SLOT(contextMenuEditRedo()),
+        QKeySequence::StandardKey::Redo);
     Q_ASSERT(action);
     if (!action) return;
     if (!m_signal_manager->canRedo())
-	action->setEnabled(false);
+        action->setEnabled(false);
     context_menu->addSeparator();
 
     // cut/copy/paste
     QAction *action_cut = context_menu->addAction(
-	QIcon::fromTheme(_("edit-cut")),
-	i18n("Cu&t"), this, SLOT(contextMenuEditCut()),
-	QKeySequence::StandardKey::Cut);
+        QIcon::fromTheme(_("edit-cut")),
+        i18n("Cu&t"), this, SLOT(contextMenuEditCut()),
+        QKeySequence::StandardKey::Cut);
     QAction *action_copy = context_menu->addAction(
-	QIcon::fromTheme(_("edit-copy")),
-	i18n("&Copy"), this, SLOT(contextMenuEditCopy()),
-	QKeySequence::StandardKey::Copy);
+        QIcon::fromTheme(_("edit-copy")),
+        i18n("&Copy"), this, SLOT(contextMenuEditCopy()),
+        QKeySequence::StandardKey::Copy);
     QAction *action_paste = context_menu->addAction(
-	QIcon::fromTheme(_("edit-paste")),
-	i18n("&Paste"), this, SLOT(contextMenuEditPaste()),
-	QKeySequence::StandardKey::Paste);
+        QIcon::fromTheme(_("edit-paste")),
+        i18n("&Paste"), this, SLOT(contextMenuEditPaste()),
+        QKeySequence::StandardKey::Paste);
     context_menu->addSeparator();
     if (action_cut)   action_cut->setEnabled(have_selection);
     if (action_copy)  action_copy->setEnabled(have_selection);
     if (action_paste)
-	action_paste->setEnabled(!Kwave::ClipBoard::instance().isEmpty());
+        action_paste->setEnabled(!Kwave::ClipBoard::instance().isEmpty());
 
     int mouse_x = mapFromGlobal(e->globalPos()).x();
     int mouse_y = mapFromGlobal(e->globalPos()).y();
@@ -248,34 +248,34 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // Selection / &Save
     QAction *action_select_save = submenu_select->addAction(
-	QIcon::fromTheme(_("document-save")),
-	i18n("&Save..."), this, SLOT(contextMenuSaveSelection()));
+        QIcon::fromTheme(_("document-save")),
+        i18n("&Save..."), this, SLOT(contextMenuSaveSelection()));
     Q_ASSERT(action_select_save);
     if (!action_select_save) return;
     action_select_save->setEnabled(have_selection);
 
     // Selection / &Expand to labels
     QAction *action_select_expand_to_labels = submenu_select->addAction(
-	i18n("&Expand to Labels"), this,
-	SLOT(contextMenuSelectionExpandToLabels()), Qt::Key_E);
+        i18n("&Expand to Labels"), this,
+        SLOT(contextMenuSelectionExpandToLabels()), Qt::Key_E);
     Q_ASSERT(action_select_expand_to_labels);
     if (!action_select_expand_to_labels) return;
     action_select_expand_to_labels->setEnabled(have_labels);
 
     // Selection / to next labels
     QAction *action_select_next_labels = submenu_select->addAction(
-	i18n("To Next Labels"), this,
-	SLOT(contextMenuSelectionNextLabels()),
-	Qt::SHIFT + Qt::CTRL + Qt::Key_N);
+        i18n("To Next Labels"), this,
+        SLOT(contextMenuSelectionNextLabels()),
+        Qt::SHIFT + Qt::CTRL + Qt::Key_N);
     Q_ASSERT(action_select_next_labels);
     if (!action_select_next_labels) return;
     action_select_next_labels->setEnabled(have_labels);
 
     // Selection / to previous labels
     QAction *action_select_prev_labels = submenu_select->addAction(
-	i18n("To Previous Labels"), this,
-	SLOT(contextMenuSelectionPrevLabels()),
-	Qt::SHIFT + Qt::CTRL + Qt::Key_P);
+        i18n("To Previous Labels"), this,
+        SLOT(contextMenuSelectionPrevLabels()),
+        Qt::SHIFT + Qt::CTRL + Qt::Key_P);
     Q_ASSERT(action_select_prev_labels);
     if (!action_select_prev_labels) return;
     action_select_prev_labels->setEnabled(have_labels);
@@ -283,32 +283,32 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     // find out whether there was a click within a signal view
     QSharedPointer<Kwave::ViewItem> item(Q_NULLPTR);
     foreach (QPointer<Kwave::SignalView> view, m_views) {
-	// map the rect of the view to our coordinate system
-	const QRect view_rect = QRect(
-	    view->mapToParent(view->rect().topLeft()),
-	    view->mapToParent(view->rect().bottomRight()));
+        // map the rect of the view to our coordinate system
+        const QRect view_rect = QRect(
+            view->mapToParent(view->rect().topLeft()),
+            view->mapToParent(view->rect().bottomRight()));
 
-	// check: mouse click was into that view?
-	if (view_rect.contains(mouse_x, mouse_y)) {
-	    // map mouse click position to coordinate system of the view
-	    QPoint pos = view->mapFromParent(QPoint(mouse_x, mouse_y));
+        // check: mouse click was into that view?
+        if (view_rect.contains(mouse_x, mouse_y)) {
+            // map mouse click position to coordinate system of the view
+            QPoint pos = view->mapFromParent(QPoint(mouse_x, mouse_y));
 
-	    // give the view the chance to extend the context menu
-	    view->handleContextMenu(pos, context_menu);
+            // give the view the chance to extend the context menu
+            view->handleContextMenu(pos, context_menu);
 
-	    // try to find a view item at these coordinates
-	    item = view->findItem(pos);
+            // try to find a view item at these coordinates
+            item = view->findItem(pos);
 
-	    // if found, give the item the chance to extend the context menu
-	    if (!item.isNull()) {
-		connect(item.data(), SIGNAL(sigCommand(QString)),
-		        this,        SLOT(forwardCommand(QString)));
-		item->appendContextMenu(context_menu);
-	    }
+            // if found, give the item the chance to extend the context menu
+            if (!item.isNull()) {
+                connect(item.data(), SIGNAL(sigCommand(QString)),
+                        this,        SLOT(forwardCommand(QString)));
+                item->appendContextMenu(context_menu);
+            }
 
-	    // we process only one view, views cannot overlap!
-	    break;
-	}
+            // we process only one view, views cannot overlap!
+            break;
+        }
     }
 
     context_menu->exec(QCursor::pos());
@@ -322,21 +322,21 @@ void Kwave::SignalWidget::wheelEvent(QWheelEvent *event)
 
     // we currently are only interested in <Alt> + <WheelUp/Down>
     if (event->modifiers() != Qt::AltModifier) {
-	event->ignore();
-	return;
+        event->ignore();
+        return;
     }
 
     if (event->angleDelta().ry() > 0) {
-	// zoom in
-	setVerticalZoom(m_vertical_zoom  * VERTICAL_ZOOM_STEP_FACTOR);
-	event->accept();
+        // zoom in
+        setVerticalZoom(m_vertical_zoom  * VERTICAL_ZOOM_STEP_FACTOR);
+        event->accept();
     } else if (event->angleDelta().ry() < 0) {
-	// zoom out
-	setVerticalZoom(m_vertical_zoom  / VERTICAL_ZOOM_STEP_FACTOR);
-	event->accept();
+        // zoom out
+        setVerticalZoom(m_vertical_zoom  / VERTICAL_ZOOM_STEP_FACTOR);
+        event->accept();
     } else {
-	// no change
-	event->ignore();
+        // no change
+        event->ignore();
     }
 }
 
@@ -352,12 +352,12 @@ void Kwave::SignalWidget::setVerticalZoom(double zoom)
 
     // propagate the zoom to all views
     foreach (QPointer<Kwave::SignalView> view, m_views)
-	if (view) view->setVerticalZoom(m_vertical_zoom);
+        if (view) view->setVerticalZoom(m_vertical_zoom);
 
     // get back the maximum zoom set by the views
     foreach (QPointer<Kwave::SignalView> view, m_views)
-	if (view && view->verticalZoom() > m_vertical_zoom)
-	    m_vertical_zoom = view->verticalZoom();
+        if (view && view->verticalZoom() > m_vertical_zoom)
+            m_vertical_zoom = view->verticalZoom();
 }
 
 //***************************************************************************
@@ -383,35 +383,35 @@ void Kwave::SignalWidget::insertRow(int index, Kwave::SignalView *view,
 
     // update the layout: move all items from the index on to the next row
     for (int row = rows; row > index; row--) {
-	for (int col = 0; col < cols; col++) {
-	    QLayoutItem *item = m_layout.itemAtPosition(row - 1, col);
-	    if (item) {
-		m_layout.removeItem(item);
-		m_layout.addItem(item, row, col);
-	    }
-	}
+        for (int col = 0; col < cols; col++) {
+            QLayoutItem *item = m_layout.itemAtPosition(row - 1, col);
+            if (item) {
+                m_layout.removeItem(item);
+                m_layout.addItem(item, row, col);
+            }
+        }
     }
 
     // add the widget to the layout
     m_layout.addWidget(view, index, 1);
 
     if (controls) {
-	// add the controls to the layout
-	m_layout.addWidget(controls, index, 0);
+        // add the controls to the layout
+        m_layout.addWidget(controls, index, 0);
 
-	// associate the controls to the view, so that when the view
-	// gets removed/deleted, the controls get removed as well
-	view->addSibling(controls);
+        // associate the controls to the view, so that when the view
+        // gets removed/deleted, the controls get removed as well
+        view->addSibling(controls);
 
-	m_layout.activate();
-	// NOTE: QLayout::activate() does not really activate the layout
-	//       synchronously as expected. Instead it posts an event to
-	//       invalidate the layout of it's parent widget.
-	//       Unfortunately we need reliable geometry information
-	//       already *now*, which forces us to do the event loop
-	//       right here.
-	qApp->processEvents(QEventLoop::ExcludeUserInputEvents |
-	                    QEventLoop::ExcludeSocketNotifiers);
+        m_layout.activate();
+        // NOTE: QLayout::activate() does not really activate the layout
+        //       synchronously as expected. Instead it posts an event to
+        //       invalidate the layout of it's parent widget.
+        //       Unfortunately we need reliable geometry information
+        //       already *now*, which forces us to do the event loop
+        //       right here.
+        qApp->processEvents(QEventLoop::ExcludeUserInputEvents |
+                            QEventLoop::ExcludeSocketNotifiers);
     }
 }
 
@@ -422,17 +422,17 @@ void Kwave::SignalWidget::deleteRow(int index)
     const int cols = m_layout.columnCount();
 
     if (index >= rows)
-	return;
+        return;
 
     // update the layout: move all items from this row to the previous
     for (int row = index; row < (rows - 1); row++) {
-	for (int col = 0; col < cols; col++) {
-	    QLayoutItem *item = m_layout.itemAtPosition(row + 1, col);
-	    if (item) {
-		m_layout.removeItem(item);
-		m_layout.addItem(item, row, col);
-	    }
-	}
+        for (int col = 0; col < cols; col++) {
+            QLayoutItem *item = m_layout.itemAtPosition(row + 1, col);
+            if (item) {
+                m_layout.removeItem(item);
+                m_layout.addItem(item, row, col);
+            }
+        }
     }
 }
 
@@ -454,99 +454,99 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
     int track = (view) ? view->track() : -1;
     const Kwave::SignalView::Location where = view->preferredLocation();
     switch (where) {
-	case Kwave::SignalView::UpperDockTop: {
-	    // upper dock area, top
-	    index = 0;
-	    m_upper_dock->insertWidget(0, view);
-	    Q_ASSERT(!controls);
-	    break;
-	}
-	case Kwave::SignalView::UpperDockBottom: {
-	    // upper dock area, bottom
-	    index = m_upper_dock->count();
-	    m_upper_dock->addWidget(view);
-	    Q_ASSERT(!controls);
-	    break;
-	}
-	case Kwave::SignalView::Top: {
-	    // central layout, above all others
-	    index = m_upper_dock->count();
-	    int row = 0;
-	    insertRow(row, view, controls);
-	    break;
-	}
-	case Kwave::SignalView::AboveTrackTop: {
-	    // above the corresponding track, start of group
-	    index = m_upper_dock->count();
-	    int row = 0;
-	    for (;index < m_views.count(); ++row, ++index) {
-		if (m_views[index]->track() >= track) break; // reached top
-		if (m_views[index]->preferredLocation() >=
-		        Kwave::SignalView::Bottom) break;
-	    }
-	    insertRow(row, view, controls);
-	    break;
-	}
-	case Kwave::SignalView::AboveTrackBottom: {
-	    // above the corresponding track, end of group
-	    index = m_upper_dock->count();
-	    int row = 0;
-	    for (;index < m_views.count(); ++row, ++index) {
-		if (m_views[index]->track() < track) continue; // too early
-		if (m_views[index]->track() != track) break; // next track
-		if (m_views[index]->preferredLocation() !=
-		        Kwave::SignalView::AboveTrackTop) break;
-	    }
-	    insertRow(row, view, controls);
-	    break;
-	}
-	case Kwave::SignalView::BelowTrackTop: {
-	    // below the corresponding track, start of group
-	    index = m_upper_dock->count();
-	    int row = 0;
-	    for (;index < m_views.count(); ++row, ++index) {
-		if (m_views[index]->track() < track) continue; // too early
-		if (m_views[index]->track() != track) break; // next track
-		if (m_views[index]->preferredLocation() >=
-		        Kwave::SignalView::BelowTrackTop) break;
-	    }
-	    insertRow(row, view, controls);
-	    break;
-	}
-	case Kwave::SignalView::BelowTrackBottom: {
-	    // below the corresponding track, end of group
-	    index = m_upper_dock->count();
-	    int row = 0;
-	    for (;index < m_views.count(); ++row, ++index) {
-		if (m_views[index]->track() < track) continue; // too early
-		if (m_views[index]->track() != track) break; // next track
-		if (m_views[index]->preferredLocation() >=
-		        Kwave::SignalView::Bottom) break;
-	    }
-	    insertRow(row, view, controls);
-	    break;
-	}
-	case Kwave::SignalView::Bottom: {
-	    // below all others
-	    int row = m_layout.rowCount();
-	    index = m_upper_dock->count() + row;
-	    insertRow(row, view, controls);
-	    break;
-	}
-	case Kwave::SignalView::LowerDockTop: {
-	    // lower dock area, top
-	    index = m_upper_dock->count() + m_layout.rowCount();
-	    m_lower_dock->insertWidget(0, view);
-	    Q_ASSERT(!controls);
-	    break;
-	}
-	case Kwave::SignalView::LowerDockBottom:
-	    // lower dock area, bottom
-	    index = m_upper_dock->count() + m_layout.rowCount() +
-	            m_lower_dock->count();
-	    m_lower_dock->addWidget(view);
-	    Q_ASSERT(!controls);
-	    break;
+        case Kwave::SignalView::UpperDockTop: {
+            // upper dock area, top
+            index = 0;
+            m_upper_dock->insertWidget(0, view);
+            Q_ASSERT(!controls);
+            break;
+        }
+        case Kwave::SignalView::UpperDockBottom: {
+            // upper dock area, bottom
+            index = m_upper_dock->count();
+            m_upper_dock->addWidget(view);
+            Q_ASSERT(!controls);
+            break;
+        }
+        case Kwave::SignalView::Top: {
+            // central layout, above all others
+            index = m_upper_dock->count();
+            int row = 0;
+            insertRow(row, view, controls);
+            break;
+        }
+        case Kwave::SignalView::AboveTrackTop: {
+            // above the corresponding track, start of group
+            index = m_upper_dock->count();
+            int row = 0;
+            for (;index < m_views.count(); ++row, ++index) {
+                if (m_views[index]->track() >= track) break; // reached top
+                if (m_views[index]->preferredLocation() >=
+                        Kwave::SignalView::Bottom) break;
+            }
+            insertRow(row, view, controls);
+            break;
+        }
+        case Kwave::SignalView::AboveTrackBottom: {
+            // above the corresponding track, end of group
+            index = m_upper_dock->count();
+            int row = 0;
+            for (;index < m_views.count(); ++row, ++index) {
+                if (m_views[index]->track() < track) continue; // too early
+                if (m_views[index]->track() != track) break; // next track
+                if (m_views[index]->preferredLocation() !=
+                        Kwave::SignalView::AboveTrackTop) break;
+            }
+            insertRow(row, view, controls);
+            break;
+        }
+        case Kwave::SignalView::BelowTrackTop: {
+            // below the corresponding track, start of group
+            index = m_upper_dock->count();
+            int row = 0;
+            for (;index < m_views.count(); ++row, ++index) {
+                if (m_views[index]->track() < track) continue; // too early
+                if (m_views[index]->track() != track) break; // next track
+                if (m_views[index]->preferredLocation() >=
+                        Kwave::SignalView::BelowTrackTop) break;
+            }
+            insertRow(row, view, controls);
+            break;
+        }
+        case Kwave::SignalView::BelowTrackBottom: {
+            // below the corresponding track, end of group
+            index = m_upper_dock->count();
+            int row = 0;
+            for (;index < m_views.count(); ++row, ++index) {
+                if (m_views[index]->track() < track) continue; // too early
+                if (m_views[index]->track() != track) break; // next track
+                if (m_views[index]->preferredLocation() >=
+                        Kwave::SignalView::Bottom) break;
+            }
+            insertRow(row, view, controls);
+            break;
+        }
+        case Kwave::SignalView::Bottom: {
+            // below all others
+            int row = m_layout.rowCount();
+            index = m_upper_dock->count() + row;
+            insertRow(row, view, controls);
+            break;
+        }
+        case Kwave::SignalView::LowerDockTop: {
+            // lower dock area, top
+            index = m_upper_dock->count() + m_layout.rowCount();
+            m_lower_dock->insertWidget(0, view);
+            Q_ASSERT(!controls);
+            break;
+        }
+        case Kwave::SignalView::LowerDockBottom:
+            // lower dock area, bottom
+            index = m_upper_dock->count() + m_layout.rowCount() +
+                    m_lower_dock->count();
+            m_lower_dock->addWidget(view);
+            Q_ASSERT(!controls);
+            break;
     }
 
     // insert the view into the list of views
@@ -560,20 +560,20 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
 
     // connect all signals
     connect(view,       SIGNAL(sigCommand(QString)),
-	    this,       SIGNAL(sigCommand(QString)),
-	    Qt::QueuedConnection);
+            this,       SIGNAL(sigCommand(QString)),
+            Qt::QueuedConnection);
 
     connect(view,       SIGNAL(sigNeedRepaint(Kwave::SignalView*)),
-	    this,       SLOT(requestRepaint(Kwave::SignalView*)));
+            this,       SLOT(requestRepaint(Kwave::SignalView*)));
 
     connect(view,       SIGNAL(contentSizeChanged()),
-	    this,       SLOT(updateMinimumHeight()));
+            this,       SLOT(updateMinimumHeight()));
     connect(view,       SIGNAL(destroyed(QObject*)),
-	    this,       SLOT(updateMinimumHeight()));
+            this,       SLOT(updateMinimumHeight()));
     connect(view,       SIGNAL(sigCursorChanged(sample_index_t)),
-	    this,       SIGNAL(sigCursorChanged(sample_index_t)));
+            this,       SIGNAL(sigCursorChanged(sample_index_t)));
     connect(this,       SIGNAL(sigCursorChanged(sample_index_t)),
-	    view,       SLOT(showCursor(sample_index_t)));
+            view,       SLOT(showCursor(sample_index_t)));
 
     updateMinimumHeight();
 }
@@ -592,17 +592,17 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
 
     // create a new view for the track's signal
     Kwave::SignalView *new_view = new(std::nothrow) Kwave::TrackView(
-	this, controls, m_signal_manager, track);
+        this, controls, m_signal_manager, track);
     Q_ASSERT(new_view);
     if (!new_view) {
-	delete controls;
-	return;
+        delete controls;
+        return;
     }
 
     // loop over all views and adjust the track index of the following ones
     foreach (QPointer<Kwave::SignalView> view, m_views) {
-	if (view->track() >= Kwave::toInt(index))
-	    view->setTrack(view->track() + 1);
+        if (view->track() >= Kwave::toInt(index))
+            view->setTrack(view->track() + 1);
     }
 
     // assign the view to the new track
@@ -622,38 +622,38 @@ void Kwave::SignalWidget::slotTrackDeleted(unsigned int index,
     bool empty = true;
     QMutableListIterator<QPointer<Kwave::SignalView> > it(m_views);
     while (it.hasNext()) {
-	Kwave::SignalView *view = it.next();
-	if (view->track() == Kwave::toInt(index)) {
-	    it.remove();
-	    delete view;
-	} else if (view->track() > Kwave::toInt(index)) {
-	    view->setTrack(view->track() - 1);
-	    empty = false;
-	} else if (view->track() != -1) {
-	    empty = false;
-	}
+        Kwave::SignalView *view = it.next();
+        if (view->track() == Kwave::toInt(index)) {
+            it.remove();
+            delete view;
+        } else if (view->track() > Kwave::toInt(index)) {
+            view->setTrack(view->track() - 1);
+            empty = false;
+        } else if (view->track() != -1) {
+            empty = false;
+        }
     }
 
     // find out if there are any empty rows in the grid now
     const int rows = m_layout.rowCount();
     const int cols = m_layout.columnCount();
     for (int row = 0; row < rows; row++) {
-	bool row_is_empty = true;
-	for (int col = 0; col < cols; col++) {
-	    QLayoutItem *item = m_layout.itemAtPosition(row, col);
-	    if (item) {
-		row_is_empty = false;
-		break;
-	    }
-	}
-	if (row_is_empty) deleteRow(row);
+        bool row_is_empty = true;
+        for (int col = 0; col < cols; col++) {
+            QLayoutItem *item = m_layout.itemAtPosition(row, col);
+            if (item) {
+                row_is_empty = false;
+                break;
+            }
+        }
+        if (row_is_empty) deleteRow(row);
     }
 
     // if there are only views with track() == -1, we are empty,
     // in that case delete the rest (all views)
     if (empty) {
-	while (!m_views.isEmpty())
-	    delete m_views.takeFirst();
+        while (!m_views.isEmpty())
+            delete m_views.takeFirst();
     }
 }
 
@@ -665,16 +665,16 @@ void Kwave::SignalWidget::updateMinimumHeight()
     const int rows = m_layout.rowCount();
     const int cols = m_layout.columnCount();
     for (int row = 0; row < rows; row++) {
-	int h = 0;
-	for (int col = 0; col < cols; col++) {
-	    QLayoutItem *item = m_layout.itemAtPosition(row, col);
+        int h = 0;
+        for (int col = 0; col < cols; col++) {
+            QLayoutItem *item = m_layout.itemAtPosition(row, col);
             QWidget *widget = (item) ? item->widget() : Q_NULLPTR;
-	    if (widget) {
-		int min_height = widget->minimumSize().height();
-		if (min_height > h) h = min_height;
-	    }
-	}
-	height += h;
+            if (widget) {
+                int min_height = widget->minimumSize().height();
+                if (min_height > h) h = min_height;
+            }
+        }
+        height += h;
     }
     if (rows > 1) height += (rows - 1) * m_layout.verticalSpacing();
 
@@ -685,7 +685,7 @@ void Kwave::SignalWidget::updateMinimumHeight()
 // void Kwave::SignalWidget::parseKey(int key)
 // {
 //     if ((key < 0) || (key >= m_lamps.count()))
-// 	return;
+//      return;
 //     if (m_lamps.at(key)) m_lamps.at(key)->nextState();
 // }
 

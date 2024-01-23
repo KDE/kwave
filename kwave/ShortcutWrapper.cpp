@@ -1,6 +1,6 @@
 /***************************************************************************
           ShortcutWrapper.cpp  -  wrapper for keyboard shortcuts
-			     -------------------
+                             -------------------
     begin                : Sat Jan 12 2008
     copyright            : (C) 2008 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de

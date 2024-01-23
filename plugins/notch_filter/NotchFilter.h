@@ -1,6 +1,6 @@
 /***************************************************************************
         NotchFilter.h  - transmission function of a notch filter
-			     -------------------
+                             -------------------
     begin                : Thu Jun 19 2003
     copyright            : (C) 2003 by Dave Flogeras
     email                : d.flogeras@unb.ca
@@ -35,73 +35,73 @@ namespace Kwave
     class NotchFilter: public Kwave::SampleSource,
                        public Kwave::TransmissionFunction
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	NotchFilter();
+        /** Constructor */
+        NotchFilter();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~NotchFilter() Q_DECL_OVERRIDE;
 
-	/** does the calculation */
+        /** does the calculation */
         virtual void goOn() Q_DECL_OVERRIDE;
 
-	/** @see TransmissionFunction::at() */
+        /** @see TransmissionFunction::at() */
         virtual double at(double f) Q_DECL_OVERRIDE;
 
     signals:
 
-	/** emits a block with the filtered data */
-	void output(Kwave::SampleArray data);
+        /** emits a block with the filtered data */
+        void output(Kwave::SampleArray data);
 
     public slots:
 
-	/** receives input data */
-	void input(Kwave::SampleArray data);
+        /** receives input data */
+        void input(Kwave::SampleArray data);
 
-	/**
-	 * Sets the center frequency, normed to [0...2Pi]. The calculation is:
-	 * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
-	 * The default setting is 0.5.
-	 */
-	void setFrequency(const QVariant fc);
+        /**
+         * Sets the center frequency, normed to [0...2Pi]. The calculation is:
+         * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
+         * The default setting is 0.5.
+         */
+        void setFrequency(const QVariant fc);
 
-	/**
-	 * Sets the bandwidth, normed to [0...2Pi]. The calculation is:
-	 * bw = bandwidth [Hz] * 2 * Pi / f_sample [Hz].
-	 * The default setting is 0.1.
-	 */
-	void setBandwidth(const QVariant bw);
-
-    private:
-
-	/** reset/initialize the filter coefficients */
-	void initFilter();
-
-	/**
-	 * set the coefficients for a given frequency
-	 * @param freq normed frequency
-	 * @param bw normed bandwidth
-	 */
-	void setfilter_peaknotch2(double freq, double bw);
+        /**
+         * Sets the bandwidth, normed to [0...2Pi]. The calculation is:
+         * bw = bandwidth [Hz] * 2 * Pi / f_sample [Hz].
+         * The default setting is 0.1.
+         */
+        void setBandwidth(const QVariant bw);
 
     private:
 
-	/** buffer for input */
-	Kwave::SampleArray m_buffer;
+        /** reset/initialize the filter coefficients */
+        void initFilter();
 
-	/** cutoff frequency [0...PI] */
-	double m_f_cutoff;
+        /**
+         * set the coefficients for a given frequency
+         * @param freq normed frequency
+         * @param bw normed bandwidth
+         */
+        void setfilter_peaknotch2(double freq, double bw);
 
-	/** bandwidth of the notch */
-	double m_f_bw;
+    private:
 
-	/** structure with the filter coefficients */
-	struct {
-	    double cx,cx1,cx2,cy1,cy2;
-	    double x,x1,x2,y,y1,y2;
-	} m_filter;
+        /** buffer for input */
+        Kwave::SampleArray m_buffer;
+
+        /** cutoff frequency [0...PI] */
+        double m_f_cutoff;
+
+        /** bandwidth of the notch */
+        double m_f_bw;
+
+        /** structure with the filter coefficients */
+        struct {
+            double cx,cx1,cx2,cy1,cy2;
+            double x,x1,x2,y,y1,y2;
+        } m_filter;
 
     };
 }

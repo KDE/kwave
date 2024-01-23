@@ -1,6 +1,6 @@
 /***************************************************************************
      UndoDeleteAction.h  -  UndoAction for deletion of a range of samples
-			     -------------------
+                             -------------------
     begin                : Jun 08 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -40,70 +40,70 @@ namespace Kwave
     {
     public:
 
-	/**
-	 * Constructor.
-	 * @param parent_widget the widget used as parent for displaying
-	 *                      error messages
-	 * @param track_list list of affected tracks
-	 * @param offset index of the first deleted sample
-	 * @param length number of samples to delete
-	 */
-	UndoDeleteAction(QWidget *parent_widget,
-			 const QVector<unsigned int> &track_list,
-	                 sample_index_t offset, sample_index_t length);
+        /**
+         * Constructor.
+         * @param parent_widget the widget used as parent for displaying
+         *                      error messages
+         * @param track_list list of affected tracks
+         * @param offset index of the first deleted sample
+         * @param length number of samples to delete
+         */
+        UndoDeleteAction(QWidget *parent_widget,
+                         const QVector<unsigned int> &track_list,
+                         sample_index_t offset, sample_index_t length);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~UndoDeleteAction() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::description() */
+        /** @see UndoAction::description() */
         virtual QString description() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undoSize() */
+        /** @see UndoAction::undoSize() */
         virtual qint64 undoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::redoSize() */
+        /** @see UndoAction::redoSize() */
         virtual qint64 redoSize() Q_DECL_OVERRIDE;
 
-	/**
-	 * Stores the data needed for undo.
-	 * @param manager the SignalManager for modifying the signal
-	 * @note this is the second step, after size() has been called
-	 * @return true if successful, false if failed (e.g. out of memory)
-	 */
+        /**
+         * Stores the data needed for undo.
+         * @param manager the SignalManager for modifying the signal
+         * @note this is the second step, after size() has been called
+         * @return true if successful, false if failed (e.g. out of memory)
+         */
         virtual bool store(Kwave::SignalManager &manager) Q_DECL_OVERRIDE;
 
-	/**
-	 * Copies the samples to be deleted to the internal buffer.
-	 * @see UndoAction::undo()
-	 */
+        /**
+         * Copies the samples to be deleted to the internal buffer.
+         * @see UndoAction::undo()
+         */
         virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-	                                bool with_redo) Q_DECL_OVERRIDE;
+                                        bool with_redo) Q_DECL_OVERRIDE;
 
-	/** dump, for debugging purposes */
+        /** dump, for debugging purposes */
         virtual void dump(const QString &indent) Q_DECL_OVERRIDE;
 
     private:
 
-	/** parent widget for showing error messages */
-	QWidget *m_parent_widget;
+        /** parent widget for showing error messages */
+        QWidget *m_parent_widget;
 
-	/** storage for all deleted stripes */
-	QList<Kwave::Stripe::List> m_stripes;
+        /** storage for all deleted stripes */
+        QList<Kwave::Stripe::List> m_stripes;
 
-	/** storage for the affected meta data items */
-	Kwave::MetaDataList m_meta_data;
+        /** storage for the affected meta data items */
+        Kwave::MetaDataList m_meta_data;
 
-	/** list of affected tracks */
-	QVector<unsigned int> m_track_list;
+        /** list of affected tracks */
+        QVector<unsigned int> m_track_list;
 
-	/** first deleted sample */
-	sample_index_t m_offset;
+        /** first deleted sample */
+        sample_index_t m_offset;
 
-	/** number of deleted samples */
-	sample_index_t m_length;
+        /** number of deleted samples */
+        sample_index_t m_length;
 
-	/** memory needed for undo */
-	unsigned int m_undo_size;
+        /** memory needed for undo */
+        unsigned int m_undo_size;
 
     };
 }

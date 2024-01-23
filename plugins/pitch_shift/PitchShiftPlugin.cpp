@@ -77,7 +77,7 @@ int Kwave::PitchShiftPlugin::interpreteParameters(QStringList &params)
 Kwave::PluginSetupDialog *Kwave::PitchShiftPlugin::createDialog(QWidget *parent)
 {
     Kwave::PitchShiftDialog *dialog = new(std::nothrow)
-	Kwave::PitchShiftDialog(parent);
+        Kwave::PitchShiftDialog(parent);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
@@ -92,7 +92,7 @@ Kwave::PluginSetupDialog *Kwave::PitchShiftPlugin::createDialog(QWidget *parent)
 Kwave::SampleSource *Kwave::PitchShiftPlugin::createFilter(unsigned int tracks)
 {
     return new(std::nothrow)
-	Kwave::MultiTrackSource<Kwave::PitchShiftFilter, true>(tracks);
+        Kwave::MultiTrackSource<Kwave::PitchShiftFilter, true>(tracks);
 }
 
 //***************************************************************************
@@ -111,12 +111,12 @@ void Kwave::PitchShiftPlugin::updateFilter(Kwave::SampleSource *filter,
     if (!filter) return;
 
     if (!qFuzzyCompare(m_frequency, m_last_freq) || force)
-	filter->setAttribute(SLOT(setFrequency(QVariant)),
-	    QVariant((m_frequency * 2.0 * M_PI) / sr));
+        filter->setAttribute(SLOT(setFrequency(QVariant)),
+            QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     if (!qFuzzyCompare(m_speed, m_last_speed) || force)
-	filter->setAttribute(SLOT(setSpeed(QVariant)),
-	    QVariant(m_speed));
+        filter->setAttribute(SLOT(setSpeed(QVariant)),
+            QVariant(m_speed));
 
     m_last_freq  = m_frequency;
     m_last_speed = m_speed;

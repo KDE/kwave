@@ -1,6 +1,6 @@
 /***************************************************************************
           MixerMatrix.h  -  channel mixer matrix
-			     -------------------
+                             -------------------
     begin                : 2012-05-11
     copyright            : (C) 2012 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -31,15 +31,15 @@ namespace Kwave
     class Q_DECL_EXPORT MixerMatrix: public Kwave::Matrix<double>
     {
     public:
-	/**
-	 * Constructor
-	 * @param inputs number of inputs
-	 * @param outputs number of outputs
-	 */
-	MixerMatrix(unsigned int inputs, unsigned int outputs);
+        /**
+         * Constructor
+         * @param inputs number of inputs
+         * @param outputs number of outputs
+         */
+        MixerMatrix(unsigned int inputs, unsigned int outputs);
 
-	/** Destructor */
-	virtual ~MixerMatrix();
+        /** Destructor */
+        virtual ~MixerMatrix();
     };
 
 }

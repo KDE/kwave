@@ -90,9 +90,9 @@ Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
 
     // create the setup dialog
     Kwave::NoiseDialog *dialog =
-	new(std::nothrow) Kwave::NoiseDialog(parentWidget(), overview_cache);
+        new(std::nothrow) Kwave::NoiseDialog(parentWidget(), overview_cache);
     if (!dialog) {
-	if (overview_cache) delete overview_cache;
+        if (overview_cache) delete overview_cache;
         return Q_NULLPTR;
     }
 
@@ -107,7 +107,7 @@ Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
 Kwave::SampleSource *Kwave::NoisePlugin::createFilter(unsigned int tracks)
 {
     return new(std::nothrow)
-	Kwave::MultiTrackSource<Kwave::NoiseGenerator, true>(tracks);
+        Kwave::MultiTrackSource<Kwave::NoiseGenerator, true>(tracks);
 }
 
 //***************************************************************************
@@ -123,8 +123,8 @@ void Kwave::NoisePlugin::updateFilter(Kwave::SampleSource *filter,
     if (!filter) return;
 
     if (!qFuzzyCompare(m_level, m_last_level) || force)
-	filter->setAttribute(SLOT(setNoiseLevel(QVariant)),
-	                     QVariant(m_level));
+        filter->setAttribute(SLOT(setNoiseLevel(QVariant)),
+                             QVariant(m_level));
 
     m_last_level = m_level;
 }

@@ -1,6 +1,6 @@
 /***************************************************************************
       UndoSelection.cpp  -  Undo action for selection
-			     -------------------
+                             -------------------
     begin                : Tue Jun 05 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -55,14 +55,14 @@ QString Kwave::UndoSelection::description()
 qint64 Kwave::UndoSelection::undoSize()
 {
     return sizeof(*this) +
-	(m_selected_tracks.count() * sizeof(unsigned int));
+        (m_selected_tracks.count() * sizeof(unsigned int));
 }
 
 //***************************************************************************
 qint64 Kwave::UndoSelection::redoSize()
 {
     return sizeof(*this) +
-	(m_manager.selectedTracks().count() * sizeof(unsigned int));
+        (m_manager.selectedTracks().count() * sizeof(unsigned int));
 }
 
 //***************************************************************************
@@ -90,10 +90,10 @@ Kwave::UndoAction *Kwave::UndoSelection::undo(Kwave::SignalManager &manager,
 
     // store data for redo
     if (with_redo) {
-	m_offset = old_offset;
-	m_length = old_length;
-	m_selected_tracks = old_selected_tracks;
-	return this;
+        m_offset = old_offset;
+        m_length = old_length;
+        m_selected_tracks = old_selected_tracks;
+        return this;
     } else {
         return Q_NULLPTR;
     }

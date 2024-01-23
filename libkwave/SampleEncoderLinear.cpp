@@ -47,41 +47,41 @@ template<const unsigned int bits, const bool is_signed,
 void encode_linear(const sample_t *src, quint8 *dst, unsigned int count)
 {
     for ( ; count; --count) {
-	// read from source buffer
-	sample_t s = *(src++);
+        // read from source buffer
+        sample_t s = *(src++);
 
-	// convert to unsigned if necessary
-	if (!is_signed)
-	    s += 1 << (SAMPLE_BITS - 1);
+        // convert to unsigned if necessary
+        if (!is_signed)
+            s += 1 << (SAMPLE_BITS - 1);
 
-	// shrink 18/20 bits and similar down, otherwise it does not work
-	// with ALSA for some dubious reason !?
-	if (bits == 20)
-	    s >>= 4;
-	if (bits == 18) // don't ask me why... !!!???
-	    s >>= 6;
+        // shrink 18/20 bits and similar down, otherwise it does not work
+        // with ALSA for some dubious reason !?
+        if (bits == 20)
+            s >>= 4;
+        if (bits == 18) // don't ask me why... !!!???
+            s >>= 6;
 
-	if (is_little_endian) {
-	    // little endian
-	    if (bits > 24)
-		*(dst++) = 0x00;
-	    if (bits > 16)
-		*(dst++) = static_cast<quint8>(s & 0xFF);
-	    if (bits > 8)
-		*(dst++) = static_cast<quint8>(s >> 8);
-	    if (bits >= 8)
-		*(dst++) = static_cast<quint8>(s >> 16);
-	} else {
-	    // big endian
-	    if (bits >= 8)
-		*(dst++) = static_cast<quint8>(s >> 16);
-	    if (bits > 8)
-		*(dst++) = static_cast<quint8>(s >> 8);
-	    if (bits > 16)
-		*(dst++) = static_cast<quint8>(s & 0xFF);
-	    if (bits > 24)
-		*(dst++) = 0x00;
-	}
+        if (is_little_endian) {
+            // little endian
+            if (bits > 24)
+                *(dst++) = 0x00;
+            if (bits > 16)
+                *(dst++) = static_cast<quint8>(s & 0xFF);
+            if (bits > 8)
+                *(dst++) = static_cast<quint8>(s >> 8);
+            if (bits >= 8)
+                *(dst++) = static_cast<quint8>(s >> 16);
+        } else {
+            // big endian
+            if (bits >= 8)
+                *(dst++) = static_cast<quint8>(s >> 16);
+            if (bits > 8)
+                *(dst++) = static_cast<quint8>(s >> 8);
+            if (bits > 16)
+                *(dst++) = static_cast<quint8>(s & 0xFF);
+            if (bits > 24)
+                *(dst++) = 0x00;
+        }
     }
 }
 
@@ -89,15 +89,15 @@ void encode_linear(const sample_t *src, quint8 *dst, unsigned int count)
 #define MAKE_ENCODER(bits)                             \
 if (sample_format != Kwave::SampleFormat::Unsigned) {  \
     if (endianness != Kwave::BigEndian) {              \
-	m_encoder = encode_linear<bits, true, true>;   \
+        m_encoder = encode_linear<bits, true, true>;   \
     } else {                                           \
-	m_encoder = encode_linear<bits, true, false>;  \
+        m_encoder = encode_linear<bits, true, false>;  \
     }                                                  \
 } else {                                               \
     if (endianness != Kwave::BigEndian) {              \
-	m_encoder = encode_linear<bits, false, true>;  \
+        m_encoder = encode_linear<bits, false, true>;  \
     } else {                                           \
-	m_encoder = encode_linear<bits, false, false>; \
+        m_encoder = encode_linear<bits, false, false>; \
     }                                                  \
 }
 
@@ -137,24 +137,24 @@ Kwave::SampleEncoderLinear::SampleEncoderLinear(
 //            (endianness == Kwave::BigEndian) ? "BE" : "LE");
 
     switch (bits_per_sample) {
-	case 8:
-	    MAKE_ENCODER(8)
-	    break;
-	case 16:
-	    MAKE_ENCODER(16)
-	    break;
-	case 18:
-	    MAKE_ENCODER(18)
-	    break;
-	case 20:
-	    MAKE_ENCODER(20)
-	    break;
-	case 24:
-	    MAKE_ENCODER(24)
-	    break;
-	case 32:
-	    MAKE_ENCODER(32)
-	    break;
+        case 8:
+            MAKE_ENCODER(8)
+            break;
+        case 16:
+            MAKE_ENCODER(16)
+            break;
+        case 18:
+            MAKE_ENCODER(18)
+            break;
+        case 20:
+            MAKE_ENCODER(20)
+            break;
+        case 24:
+            MAKE_ENCODER(24)
+            break;
+        case 32:
+            MAKE_ENCODER(32)
+            break;
     }
 
     Q_ASSERT(m_encoder != encode_NULL);

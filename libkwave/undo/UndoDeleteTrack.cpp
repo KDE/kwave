@@ -1,6 +1,6 @@
 /***************************************************************************
     UndoDeleteTrack.cpp  -  Undo action for deletion of tracks
-			     -------------------
+                             -------------------
     begin                : Mon Jun 25 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -67,7 +67,7 @@ bool Kwave::UndoDeleteTrack::store(Kwave::SignalManager &manager)
     track_list.append(m_track);
     m_stripes = manager.stripes(track_list, 0, m_length - 1);
     if (m_stripes.isEmpty())
-	return false; // retrieving the stripes failed
+        return false; // retrieving the stripes failed
 
     return true;
 }
@@ -80,10 +80,10 @@ Kwave::UndoAction *Kwave::UndoDeleteTrack::undo(Kwave::SignalManager &manager,
 
     // create a redo action
     if (with_redo) {
-	redo_action =
-	    new(std::nothrow) Kwave::UndoInsertTrack(m_signal, m_track);
-	Q_ASSERT(redo_action);
-	if (redo_action) redo_action->store(manager);
+        redo_action =
+            new(std::nothrow) Kwave::UndoInsertTrack(m_signal, m_track);
+        Q_ASSERT(redo_action);
+        if (redo_action) redo_action->store(manager);
     }
 
     // insert an empty track into the signal
@@ -93,8 +93,8 @@ Kwave::UndoAction *Kwave::UndoDeleteTrack::undo(Kwave::SignalManager &manager,
     QVector<unsigned int> track_list;
     track_list.append(m_track);
     if (!manager.mergeStripes(m_stripes, track_list)) {
-	qWarning("UndoDeleteTrack::undo() FAILED [mergeStripes]");
-	delete redo_action;
+        qWarning("UndoDeleteTrack::undo() FAILED [mergeStripes]");
+        delete redo_action;
         return Q_NULLPTR;
     }
 

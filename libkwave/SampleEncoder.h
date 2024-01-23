@@ -31,24 +31,24 @@ namespace Kwave
     class Q_DECL_EXPORT SampleEncoder
     {
     public:
-	/** Constructor */
-	SampleEncoder() {}
+        /** Constructor */
+        SampleEncoder() {}
 
-	/** Destructor */
-	virtual ~SampleEncoder() {}
+        /** Destructor */
+        virtual ~SampleEncoder() {}
 
-	/**
-	 * Encodes a buffer with samples into a buffer with raw data.
-	 * @param samples array with samples
-	 * @param count number of samples
-	 * @param raw_data array with raw encoded audio data
-	 */
-	virtual void encode(const Kwave::SampleArray &samples,
-			    unsigned int count,
-			    QByteArray &raw_data) = 0;
+        /**
+         * Encodes a buffer with samples into a buffer with raw data.
+         * @param samples array with samples
+         * @param count number of samples
+         * @param raw_data array with raw encoded audio data
+         */
+        virtual void encode(const Kwave::SampleArray &samples,
+                            unsigned int count,
+                            QByteArray &raw_data) = 0;
 
-	/** Returns the number of bytes per sample in raw (not encoded) form */
-	virtual unsigned int rawBytesPerSample() = 0;
+        /** Returns the number of bytes per sample in raw (not encoded) form */
+        virtual unsigned int rawBytesPerSample() = 0;
 
     };
 }

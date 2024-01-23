@@ -36,77 +36,77 @@ namespace Kwave
 
     class Q_DECL_EXPORT Mul: public Kwave::SampleSource
     {
-	Q_OBJECT
-	public:
-	    /** Constructor */
-	    Mul();
+        Q_OBJECT
+        public:
+            /** Constructor */
+            Mul();
 
-	    /** Destructor */
+            /** Destructor */
             virtual ~Mul() Q_DECL_OVERRIDE;
 
-	    /** does nothing, work is done automatically in multiply() */
+            /** does nothing, work is done automatically in multiply() */
             virtual void goOn() Q_DECL_OVERRIDE;
 
-	signals:
-	    /** emits a block with the interpolated curve */
-	    void output(Kwave::SampleArray data);
+        signals:
+            /** emits a block with the interpolated curve */
+            void output(Kwave::SampleArray data);
 
-	public slots:
+        public slots:
 
-	    /** receives input data for input A */
-	    void input_a(Kwave::SampleArray data);
+            /** receives input data for input A */
+            void input_a(Kwave::SampleArray data);
 
-	    /** receives input data for input B */
-	    void input_b(Kwave::SampleArray data);
+            /** receives input data for input B */
+            void input_b(Kwave::SampleArray data);
 
-	    /** sets input A to a constant value (as float) */
-	    void set_a(const QVariant &a);
+            /** sets input A to a constant value (as float) */
+            void set_a(const QVariant &a);
 
-	    /** sets input B to a constant value (as float) */
-	    void set_b(const QVariant &b);
+            /** sets input B to a constant value (as float) */
+            void set_b(const QVariant &b);
 
-	private:
+        private:
 
-	    /** does the calculation */
-	    virtual void multiply();
+            /** does the calculation */
+            virtual void multiply();
 
-	private:
+        private:
 
-	    /** queue for input A */
-	    QQueue<Kwave::SampleArray> m_queue_a;
+            /** queue for input A */
+            QQueue<Kwave::SampleArray> m_queue_a;
 
-	    /** queue for input B */
-	    QQueue<Kwave::SampleArray> m_queue_b;
+            /** queue for input B */
+            QQueue<Kwave::SampleArray> m_queue_b;
 
-	    /** semaphore to wait for input on input A */
-	    QSemaphore m_sem_a;
+            /** semaphore to wait for input on input A */
+            QSemaphore m_sem_a;
 
-	    /** semaphore to wait for input on input B */
-	    QSemaphore m_sem_b;
+            /** semaphore to wait for input on input B */
+            QSemaphore m_sem_b;
 
-	    /** buffer for input A (currently in work) */
-	    Kwave::SampleArray m_a;
+            /** buffer for input A (currently in work) */
+            Kwave::SampleArray m_a;
 
-	    /** buffer for input B (currently in work) */
-	    Kwave::SampleArray m_b;
+            /** buffer for input B (currently in work) */
+            Kwave::SampleArray m_b;
 
-	    /** buffer for output data */
-	    Kwave::SampleArray m_buffer_x;
+            /** buffer for output data */
+            Kwave::SampleArray m_buffer_x;
 
-	    /** if true, input A is a constant */
-	    bool m_a_is_const;
+            /** if true, input A is a constant */
+            bool m_a_is_const;
 
-	    /** if true, input B is a constant */
-	    bool m_b_is_const;
+            /** if true, input B is a constant */
+            bool m_b_is_const;
 
-	    /** if m_a_is_const is set, the value of A */
-	    float m_value_a;
+            /** if m_a_is_const is set, the value of A */
+            float m_value_a;
 
-	    /** if m_b_is_const is set, the value of B */
-	    float m_value_b;
+            /** if m_b_is_const is set, the value of B */
+            float m_value_b;
 
-	    /** mutex for locking access to the queues */
-	    QMutex m_lock;
+            /** mutex for locking access to the queues */
+            QMutex m_lock;
     };
 }
 

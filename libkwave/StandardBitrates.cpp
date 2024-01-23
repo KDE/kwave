@@ -72,14 +72,14 @@ int Kwave::StandardBitrates::nearest(int rate) const
     int min_delta = std::numeric_limits<int>::max();
 
     foreach (int value, *this) {
-	int delta = (value > rate) ? (value-rate) : (rate-value);
-	if (!delta) return rate; // complete match, easy case
+        int delta = (value > rate) ? (value-rate) : (rate-value);
+        if (!delta) return rate; // complete match, easy case
 
-	if (delta < min_delta) {
-	    // found a better alternative
-	    min_delta = delta;
-	    best      = value;
-	}
+        if (delta < min_delta) {
+            // found a better alternative
+            min_delta = delta;
+            best      = value;
+        }
     }
 
     return best;

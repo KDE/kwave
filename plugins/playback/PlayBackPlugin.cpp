@@ -1,6 +1,6 @@
 /***************************************************************************
      PlayBackPlugin.cpp  -  plugin for playback and playback configuration
-			     -------------------
+                             -------------------
     begin                : Sun May 13 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -162,15 +162,15 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
 
     // try to interpret the list of previous parameters, ignore errors
     Kwave::PlayBackParam playback_params =
-	interpreteParameters(previous_params);
+        interpreteParameters(previous_params);
 
     Q_ASSERT(!m_dialog);
     if (m_dialog) delete m_dialog;
 
     m_dialog = new(std::nothrow) Kwave::PlayBackDialog(
-	*this,
-	manager().playbackController(),
-	playback_params
+        *this,
+        manager().playbackController(),
+        playback_params
     );
     Q_ASSERT(m_dialog);
     if (!m_dialog) return Q_NULLPTR;
@@ -182,43 +182,43 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
     m_dialog->setMethod(playback_params.method);
 
     if ((m_dialog->exec() == QDialog::Accepted) && m_dialog) {
-	// get the new parameters and let them take effect
-	result = new(std::nothrow) QStringList();
-	Q_ASSERT(result);
-	if (result) {
-	    QString param;
+        // get the new parameters and let them take effect
+        result = new(std::nothrow) QStringList();
+        Q_ASSERT(result);
+        if (result) {
+            QString param;
 
-	    playback_params = m_dialog->params();
+            playback_params = m_dialog->params();
 
-	    // parameter #0: playback method
-	    param = param.setNum(
-	        static_cast<unsigned int>(playback_params.method));
-	    result->append(param);
+            // parameter #0: playback method
+            param = param.setNum(
+                static_cast<unsigned int>(playback_params.method));
+            result->append(param);
 
-	    // parameter #1: playback device [/dev/dsp , ... ]
-	    param = playback_params.device;
-	    result->append(param);
+            // parameter #1: playback device [/dev/dsp , ... ]
+            param = playback_params.device;
+            result->append(param);
 
-	    // parameter #2: number of channels [1, 2, ... n]
-	    param = param.setNum(playback_params.channels);
-	    result->append(param);
+            // parameter #2: number of channels [1, 2, ... n]
+            param = param.setNum(playback_params.channels);
+            result->append(param);
 
-	    // parameter #3: bits per sample [8, 16, 24, ...]
-	    param = param.setNum(playback_params.bits_per_sample);
-	    result->append(param);
+            // parameter #3: bits per sample [8, 16, 24, ...]
+            param = param.setNum(playback_params.bits_per_sample);
+            result->append(param);
 
-	    // parameter #4: base of buffer size [8 ... 16]
-	    param = param.setNum(playback_params.bufbase);
-	    result->append(param);
+            // parameter #4: base of buffer size [8 ... 16]
+            param = param.setNum(playback_params.bufbase);
+            result->append(param);
 
-	    qDebug("new playback params: '%s",
-	           DBG(result->join(_("','")) + _("'")));
+            qDebug("new playback params: '%s",
+                   DBG(result->join(_("','")) + _("'")));
 
-	    // take over the new playback parameters
-	    signalManager().playbackController().setDefaultParams(
-		playback_params
-	    );
-	}
+            // take over the new playback parameters
+            signalManager().playbackController().setDefaultParams(
+                playback_params
+            );
+        }
     }
 
     delete m_dialog;
@@ -258,32 +258,32 @@ Kwave::PlayBackDevice *Kwave::PlayBackPlugin::createDevice(
     Kwave::PlayBackTypesMap methods;
     qDebug("PlayBackPlugin::createDevice('%s' [%d])",
            DBG(methods.name(methods.findFromData(method))),
-	   static_cast<int>(method) );
+           static_cast<int>(method) );
 
     switch (method) {
 #ifdef HAVE_QT_AUDIO_SUPPORT
-	case Kwave::PLAYBACK_QT_AUDIO:
-	    return new(std::nothrow) Kwave::PlayBackQt();
+        case Kwave::PLAYBACK_QT_AUDIO:
+            return new(std::nothrow) Kwave::PlayBackQt();
 #endif /* HAVE_QT_AUDIO_SUPPORT */
 
 #ifdef HAVE_PULSEAUDIO_SUPPORT
-	case Kwave::PLAYBACK_PULSEAUDIO:
-	    return new(std::nothrow) Kwave::PlayBackPulseAudio(
-		Kwave::FileInfo(signalManager().metaData()));
+        case Kwave::PLAYBACK_PULSEAUDIO:
+            return new(std::nothrow) Kwave::PlayBackPulseAudio(
+                Kwave::FileInfo(signalManager().metaData()));
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 #ifdef HAVE_ALSA_SUPPORT
-	case Kwave::PLAYBACK_ALSA:
-	    return new(std::nothrow) Kwave::PlayBackALSA();
+        case Kwave::PLAYBACK_ALSA:
+            return new(std::nothrow) Kwave::PlayBackALSA();
 #endif /* HAVE_ALSA_SUPPORT */
 
 #ifdef HAVE_OSS_SUPPORT
-	case Kwave::PLAYBACK_OSS:
-	    return new(std::nothrow) Kwave::PlayBackOSS();
+        case Kwave::PLAYBACK_OSS:
+            return new(std::nothrow) Kwave::PlayBackOSS();
 #endif /* HAVE_OSS_SUPPORT */
 
-	default:
-	    break;
+        default:
+            break;
     }
 
     return Q_NULLPTR; // nothing found :-(
@@ -317,12 +317,12 @@ void Kwave::PlayBackPlugin::run(QStringList params)
     Kwave::Curve curve;
     curve.insert(0.0, 0.0);
     if (channels < 2) {
-	// mono
-	curve.insert(0.5, 1.0);
+        // mono
+        curve.insert(0.5, 1.0);
     } else {
-	// all above
-	curve.insert(0.5 / static_cast<double>(channels), 1.0);
-	curve.insert(1.0 / static_cast<double>(channels), 0.0);
+        // all above
+        curve.insert(0.5 / static_cast<double>(channels), 1.0);
+        curve.insert(1.0 / static_cast<double>(channels), 0.0);
     }
     curve.insert(1.0, 0.0);
 
@@ -332,10 +332,10 @@ void Kwave::PlayBackPlugin::run(QStringList params)
 
     Kwave::MultiTrackSource<Kwave::Delay, true> delay(channels);
     for (unsigned int i = 0; i < channels; i++) {
-	Q_ASSERT(delay[i]);
-	if (!delay[i]) break;
-	delay[i]->setAttribute(SLOT(setDelay(QVariant)),
-	    QVariant(i * t_sweep * rate));
+        Q_ASSERT(delay[i]);
+        if (!delay[i]) break;
+        delay[i]->setAttribute(SLOT(setDelay(QVariant)),
+            QVariant(i * t_sweep * rate));
     }
 
     Kwave::Osc osc;
@@ -357,17 +357,17 @@ void Kwave::PlayBackPlugin::run(QStringList params)
     //            osc --'
 
     Kwave::connect(
-	curve_adapter,    SIGNAL(output(Kwave::SampleArray)),
-	delay,            SLOT(input(Kwave::SampleArray)));
+        curve_adapter,    SIGNAL(output(Kwave::SampleArray)),
+        delay,            SLOT(input(Kwave::SampleArray)));
     Kwave::connect(
-	delay,            SIGNAL(output(Kwave::SampleArray)),
-	mul,              SLOT(input_a(Kwave::SampleArray)));
+        delay,            SIGNAL(output(Kwave::SampleArray)),
+        mul,              SLOT(input_a(Kwave::SampleArray)));
     Kwave::connect(
-	osc,              SIGNAL(output(Kwave::SampleArray)),
-	mul,              SLOT(input_b(Kwave::SampleArray)));
+        osc,              SIGNAL(output(Kwave::SampleArray)),
+        mul,              SLOT(input_b(Kwave::SampleArray)));
     Kwave::connect(
-	mul,              SIGNAL(output(Kwave::SampleArray)),
-	*m_playback_sink, SLOT(input(Kwave::SampleArray)));
+        mul,              SIGNAL(output(Kwave::SampleArray)),
+        *m_playback_sink, SLOT(input(Kwave::SampleArray)));
 
     // show a progress dialog
 
@@ -376,16 +376,16 @@ void Kwave::PlayBackPlugin::run(QStringList params)
                                      periods * t_period * rate);
     sample_index_t samples_written = 0;
     while (!shouldStop() && (samples_written <= samples_max)) {
-	osc.goOn();
-	curve_adapter.goOn();
-	delay.goOn();
-	mul.goOn();
+        osc.goOn();
+        curve_adapter.goOn();
+        delay.goOn();
+        mul.goOn();
 
-	samples_written += osc.blockSize();
+        samples_written += osc.blockSize();
 
-	double percent = (static_cast<double>(samples_written) * 100.0) /
-	                  static_cast<double>(samples_max);
-	emit sigTestProgress(Kwave::toInt(percent));
+        double percent = (static_cast<double>(samples_written) * 100.0) /
+                          static_cast<double>(samples_max);
+        emit sigTestProgress(Kwave::toInt(percent));
     }
 }
 
@@ -416,43 +416,43 @@ void Kwave::PlayBackPlugin::testPlayBack()
     Q_ASSERT(!m_playback_sink);
     if (m_playback_sink) return;
     m_playback_sink = manager().openMultiTrackPlayback(
-	channels,
-	&playback_params
+        channels,
+        &playback_params
     );
     if (!m_playback_sink) return;
     m_playback_sink->setInteractive(true);
 
     // show a progress dialog
     QPointer<QProgressDialog> progress =
-	new(std::nothrow) QProgressDialog(m_dialog);
+        new(std::nothrow) QProgressDialog(m_dialog);
     Q_ASSERT(progress);
     if (progress) {
-	progress->setWindowTitle(i18n("Playback Test"));
-	progress->setModal(true);
-	progress->setMinimumDuration(0);
-	progress->setMinimum(0);
-	progress->setMaximum(100);
-	progress->setAutoClose(false);
-	progress->setValue(0);
-	progress->setLabelText(
-	    _("<html><p><br>") +
-	    i18n("You should now hear a %1 Hz test tone.<br/><br/>"
-		    "(If you hear clicks or dropouts, please increase<br/>"
-		    "the buffer size and try again)",
-		    Kwave::toInt(PLAYBACK_TEST_FREQUENCY)) +
-	    _("</p></html>")
-	);
-	connect(progress, SIGNAL(canceled()), this, SLOT(cancel()),
-		Qt::QueuedConnection);
-	connect(this, SIGNAL(sigDone(Kwave::Plugin*)), progress, SLOT(close()),
-		Qt::QueuedConnection);
-	connect(this, SIGNAL(sigTestProgress(int)), progress, SLOT(setValue(int)),
-		Qt::QueuedConnection);
+        progress->setWindowTitle(i18n("Playback Test"));
+        progress->setModal(true);
+        progress->setMinimumDuration(0);
+        progress->setMinimum(0);
+        progress->setMaximum(100);
+        progress->setAutoClose(false);
+        progress->setValue(0);
+        progress->setLabelText(
+            _("<html><p><br>") +
+            i18n("You should now hear a %1 Hz test tone.<br/><br/>"
+                    "(If you hear clicks or dropouts, please increase<br/>"
+                    "the buffer size and try again)",
+                    Kwave::toInt(PLAYBACK_TEST_FREQUENCY)) +
+            _("</p></html>")
+        );
+        connect(progress, SIGNAL(canceled()), this, SLOT(cancel()),
+                Qt::QueuedConnection);
+        connect(this, SIGNAL(sigDone(Kwave::Plugin*)), progress, SLOT(close()),
+                Qt::QueuedConnection);
+        connect(this, SIGNAL(sigTestProgress(int)), progress, SLOT(setValue(int)),
+                Qt::QueuedConnection);
 
-	QStringList params;
-	execute(params);
-	progress->exec();
-	cancel();
+        QStringList params;
+        execute(params);
+        progress->exec();
+        cancel();
     }
 
     // set hourglass cursor, waiting for shutdown could take some time...
@@ -461,9 +461,9 @@ void Kwave::PlayBackPlugin::testPlayBack()
     // wait through manual polling here, no timeout
     qDebug("waiting...");
     while (isRunning()) {
-	cancel();
-	sleep(1);
-	qDebug(".");
+        cancel();
+        sleep(1);
+        qDebug(".");
     }
     qDebug("done.");
 

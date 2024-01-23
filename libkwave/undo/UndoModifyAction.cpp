@@ -1,6 +1,6 @@
 /***************************************************************************
      UndoModifyAction.h  -  UndoAction for modifications on samples
-			     -------------------
+                             -------------------
     begin                : May 25 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -63,7 +63,7 @@ bool Kwave::UndoModifyAction::store(Kwave::SignalManager &manager)
     const sample_index_t right = m_offset + m_length - 1;
     m_stripes = manager.stripes(track_list, left, right);
     if (m_stripes.isEmpty())
-	return false; // retrieving the stripes failed
+        return false; // retrieving the stripes failed
 
     return true;
 }
@@ -80,22 +80,22 @@ Kwave::UndoAction *Kwave::UndoModifyAction::undo(
     bool ok = true;
 
     if (m_length && with_redo) {
-	// save the current stripes for later redo
-	redo_data = manager.stripes(track_list, left, right);
-	ok &= !redo_data.isEmpty();
+        // save the current stripes for later redo
+        redo_data = manager.stripes(track_list, left, right);
+        ok &= !redo_data.isEmpty();
     }
 
     // merge the stripes back into the signal
     if (m_length && ok) {
-	if (!manager.mergeStripes(m_stripes, track_list)) {
-	    qWarning("UndoModifyAction::undo() FAILED [mergeStripes]");
+        if (!manager.mergeStripes(m_stripes, track_list)) {
+            qWarning("UndoModifyAction::undo() FAILED [mergeStripes]");
             return Q_NULLPTR;
-	}
+        }
     }
 
     if (ok && with_redo) {
-	// now store the redo data in this object
-	m_stripes = redo_data;
+        // now store the redo data in this object
+        m_stripes = redo_data;
     }
 
     return (with_redo && ok) ? this : Q_NULLPTR;

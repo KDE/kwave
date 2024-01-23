@@ -88,7 +88,7 @@ Kwave::BandPassDialog::BandPassDialog(QWidget *parent, double sample_rate)
     connect(spinbox, SIGNAL(valueChanged(int)),
             this, SLOT(freqValueChanged(int)));
     connect(spinbox_2, SIGNAL(valueChanged(int)),
-    	    this, SLOT(bwValueChanged(int)));
+            this, SLOT(bwValueChanged(int)));
     // click to the "Listen" button
     connect(btListen, SIGNAL(toggled(bool)),
             this, SLOT(listenToggled(bool)));
@@ -128,20 +128,20 @@ Kwave::BandPassDialog::~BandPassDialog()
 void Kwave::BandPassDialog::freqValueChanged(int pos)
 {
     if (Kwave::toInt(m_frequency) != pos) {
-	m_frequency = pos;
-	updateDisplay();
+        m_frequency = pos;
+        updateDisplay();
 
-	emit freqChanged(m_frequency);
+        emit freqChanged(m_frequency);
     }
 }
 //***************************************************************************
 void Kwave::BandPassDialog::bwValueChanged(int pos)
 {
     if (Kwave::toInt(m_bw) != pos) {
-    	m_bw = pos;
-	updateDisplay();
+        m_bw = pos;
+        updateDisplay();
 
-	emit bwChanged(m_bw);
+        emit bwChanged(m_bw);
     }
 }
 //***************************************************************************
@@ -194,13 +194,13 @@ void Kwave::BandPassDialog::listenToggled(bool listen)
     if (!btListen) return;
 
     if (listen) {
-	// start pre-listen mode
-	emit startPreListen();
-	btListen->setText(i18n("&Stop"));
+        // start pre-listen mode
+        emit startPreListen();
+        btListen->setText(i18n("&Stop"));
     } else {
-	// stop pre-listen mode
-	emit stopPreListen();
-	btListen->setText(i18n("&Listen"));
+        // stop pre-listen mode
+        emit stopPreListen();
+        btListen->setText(i18n("&Listen"));
     }
 }
 

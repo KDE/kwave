@@ -1,6 +1,6 @@
 /***************************************************************************
          UndoManager.cpp -  manager class for undo/redo handling
-			     -------------------
+                             -------------------
     begin                : Sat Feb 01 2014
     copyright            : (C) 2014 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -57,10 +57,10 @@ bool Kwave::UndoManager::startUndoTransaction(
     if (!transaction) return false;
 
     foreach (Kwave::UndoHandler *handler, m_handlers) {
-	Q_ASSERT(handler);
-	if (!handler) continue;
-	if (!(handler->saveUndoData(*transaction)))
-	    return false;
+        Q_ASSERT(handler);
+        if (!handler) continue;
+        if (!(handler->saveUndoData(*transaction)))
+            return false;
     }
 
     return true;

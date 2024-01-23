@@ -1,6 +1,6 @@
 /***************************************************************************
  TransmissionFunction.h  - virtual base class for transmission functions
-			     -------------------
+                             -------------------
     begin                : Mar 14 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -26,18 +26,18 @@ namespace Kwave
     {
     public:
 
-	/** Destructor */
-	virtual ~TransmissionFunction() {}
+        /** Destructor */
+        virtual ~TransmissionFunction() {}
 
-	/**
-	 * Returns the value of the transmission function at a given
-	 * frequency.
-	 * @param f frequency, normed to be between 0 and PI
-	 * @return amplitude at the given frequency, normed to 1.0
-	 * @todo convert to a function that returns a complex value
-	 *       with phase info
-	 */
-	virtual double at(double f) = 0;
+        /**
+         * Returns the value of the transmission function at a given
+         * frequency.
+         * @param f frequency, normed to be between 0 and PI
+         * @return amplitude at the given frequency, normed to 1.0
+         * @todo convert to a function that returns a complex value
+         *       with phase info
+         */
+        virtual double at(double f) = 0;
     };
 }
 

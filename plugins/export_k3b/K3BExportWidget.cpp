@@ -40,30 +40,30 @@ Kwave::K3BExportWidget::K3BExportWidget(
     setupUi(this);
 
     cbLabelPattern->addItem(i18nc(
-	"default entry of the list of placeholder patterns in "
-	"the K3b export plugin (used for detecting title and artist "
-	"from a label description)",
-	"(auto detect)"
+        "default entry of the list of placeholder patterns in "
+        "the K3b export plugin (used for detecting title and artist "
+        "from a label description)",
+        "(auto detect)"
     ));
     foreach (const QString &p, Kwave::K3BExportPlugin::knownPatterns())
-	cbLabelPattern->addItem(p);
+        cbLabelPattern->addItem(p);
 
     Q_ASSERT(cbLabelPattern);
     if (pattern.trimmed().length())
-	cbLabelPattern->setCurrentText(pattern.trimmed());
+        cbLabelPattern->setCurrentText(pattern.trimmed());
     else
-	cbLabelPattern->setCurrentIndex(0);
+        cbLabelPattern->setCurrentIndex(0);
 
     // the "selection only" checkbox
     Q_ASSERT(chkSelectionOnly);
     if (have_selection) {
-	// we have a selection
-	chkSelectionOnly->setEnabled(true);
-	chkSelectionOnly->setChecked(selection_only);
+        // we have a selection
+        chkSelectionOnly->setEnabled(true);
+        chkSelectionOnly->setChecked(selection_only);
     } else {
-	// no selection -> force it to "off"
-	chkSelectionOnly->setEnabled(false);
-	chkSelectionOnly->setChecked(false);
+        // no selection -> force it to "off"
+        chkSelectionOnly->setEnabled(false);
+        chkSelectionOnly->setChecked(false);
     }
 
     Q_ASSERT(cbExportLocation);
@@ -105,8 +105,8 @@ Kwave::K3BExportPlugin::export_location_t
 {
     Q_ASSERT(cbExportLocation);
     return static_cast<Kwave::K3BExportPlugin::export_location_t>(
-	(cbExportLocation) ?
-	cbExportLocation->currentIndex() : 0
+        (cbExportLocation) ?
+        cbExportLocation->currentIndex() : 0
     );
 }
 
@@ -116,8 +116,8 @@ Kwave::K3BExportPlugin::overwrite_policy_t
 {
     Q_ASSERT(cbOverwritePolicy);
     return static_cast<Kwave::K3BExportPlugin::overwrite_policy_t>(
-	(cbOverwritePolicy) ?
-	cbOverwritePolicy->currentIndex() : 0
+        (cbOverwritePolicy) ?
+        cbOverwritePolicy->currentIndex() : 0
     );
 }
 

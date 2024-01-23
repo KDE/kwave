@@ -25,51 +25,51 @@ namespace Kwave
     typedef enum
     {
 
-	/** Settings are not valid yet, cannot open device etc... */
-	REC_UNINITIALIZED = 0,
+        /** Settings are not valid yet, cannot open device etc... */
+        REC_UNINITIALIZED = 0,
 
-	/** Empty, nothing recorded yet and no recording started */
-	REC_EMPTY,
+        /** Empty, nothing recorded yet and no recording started */
+        REC_EMPTY,
 
-	/**
-	 * Buffering data for pre-recording, if pre-recording is enabled.
-	 * Otherwise the state will advance to REC_WAITING_FOR_TRIGGER
-	 * immediately.
-	 */
-	REC_BUFFERING,
+        /**
+         * Buffering data for pre-recording, if pre-recording is enabled.
+         * Otherwise the state will advance to REC_WAITING_FOR_TRIGGER
+         * immediately.
+         */
+        REC_BUFFERING,
 
-	/**
-	 * Pre-recording data into a FIFO. If a trigger has been set, this
-	 * is equal to REC_WAITING_FOR_TRIGGER and the trigger will start
-	 * the recording.
-	 */
-	REC_PRERECORDING,
+        /**
+         * Pre-recording data into a FIFO. If a trigger has been set, this
+         * is equal to REC_WAITING_FOR_TRIGGER and the trigger will start
+         * the recording.
+         */
+        REC_PRERECORDING,
 
-	/**
-	 * Waiting for reaching the trigger if a trigger has been set and
-	 * enabled. Otherwise the state will advance to REC_RECORDING
-	 * immediately.
-	 */
-	REC_WAITING_FOR_TRIGGER,
+        /**
+         * Waiting for reaching the trigger if a trigger has been set and
+         * enabled. Otherwise the state will advance to REC_RECORDING
+         * immediately.
+         */
+        REC_WAITING_FOR_TRIGGER,
 
-	/**
-	 * Recording is in progress, producing real data. Can change to
-	 * REC_PAUSED or REC_DONE.
-	 */
-	REC_RECORDING,
+        /**
+         * Recording is in progress, producing real data. Can change to
+         * REC_PAUSED or REC_DONE.
+         */
+        REC_RECORDING,
 
-	/**
-	 * Recording is paused, normally for waiting until the user presses
-	 * "continue". After pause either the previous state will be set
-	 * again or the recording can be stopped (change to REC_DONE) or
-	 * canceled (change to REC_EMPTY).
-	 */
-	REC_PAUSED,
+        /**
+         * Recording is paused, normally for waiting until the user presses
+         * "continue". After pause either the previous state will be set
+         * again or the recording can be stopped (change to REC_DONE) or
+         * canceled (change to REC_EMPTY).
+         */
+        REC_PAUSED,
 
-	/**
-	 * Recording done, data was produced.
-	 */
-	REC_DONE
+        /**
+         * Recording done, data was produced.
+         */
+        REC_DONE
 
     } RecordState;
 }

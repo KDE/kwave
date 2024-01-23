@@ -42,8 +42,8 @@
 
 //***************************************************************************
 Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, sample_index_t samples,
-	unsigned int rate, unsigned int bits, unsigned int tracks,
-	bool by_time)
+        unsigned int rate, unsigned int bits, unsigned int tracks,
+        bool by_time)
     :QDialog(parent), Ui::NewSigDlg(), m_timer(this), m_recursive(false)
 {
 
@@ -95,22 +95,22 @@ Kwave::NewSignalDialog::NewSignalDialog(QWidget *parent, sample_index_t samples,
     sbResolution->setValue(bits);
     sbChannels->setValue(tracks);
     if (by_time) {
-	rbSamples->setChecked(false);
-	rbTime->setChecked(true);
-	setHMS(samples);
-	edSamples->setEnabled(false);
-	sbHours->setEnabled(true);
-	sbMinutes->setEnabled(true);
-	sbSeconds->setEnabled(true);
+        rbSamples->setChecked(false);
+        rbTime->setChecked(true);
+        setHMS(samples);
+        edSamples->setEnabled(false);
+        sbHours->setEnabled(true);
+        sbMinutes->setEnabled(true);
+        sbSeconds->setEnabled(true);
     } else {
-	// by samples
-	rbTime->setChecked(false);
-	rbSamples->setChecked(true);
-	edSamples->setValue(Kwave::toInt(samples));
-	edSamples->setEnabled(true);
-	sbHours->setEnabled(false);
-	sbMinutes->setEnabled(false);
-	sbSeconds->setEnabled(false);
+        // by samples
+        rbTime->setChecked(false);
+        rbSamples->setChecked(true);
+        edSamples->setValue(Kwave::toInt(samples));
+        edSamples->setEnabled(true);
+        sbHours->setEnabled(false);
+        sbMinutes->setEnabled(false);
+        sbSeconds->setEnabled(false);
     }
 
     tracksChanged(0);
@@ -144,8 +144,8 @@ void Kwave::NewSignalDialog::checkNewSampleEdit()
 {
     static int last_samples = -1;
     if (edSamples->value() != last_samples) {
-	last_samples = edSamples->value();
-	samplesChanged(last_samples);
+        last_samples = edSamples->value();
+        samplesChanged(last_samples);
     }
 }
 
@@ -188,11 +188,11 @@ sample_index_t Kwave::NewSignalDialog::maxSamples()
 void Kwave::NewSignalDialog::rbTimeToggled(bool)
 {
     if (rbTime->isChecked()) {
-	m_timer.stop();
+        m_timer.stop();
     } else {
-	// activate the sample edit timer
-	m_timer.setSingleShot(false);
-	m_timer.start(100);
+        // activate the sample edit timer
+        m_timer.setSingleShot(false);
+        m_timer.start(100);
     }
 }
 
@@ -215,25 +215,25 @@ void Kwave::NewSignalDialog::timeChanged(int)
     int minutes = sbMinutes->value();
     int hours   = sbHours->value();
     if ((seconds < 0) && ((minutes > 0) || (hours > 0)) ) {
-	sbSeconds->setValue(59);
-	sbMinutes->stepDown();
-	minutes--;
+        sbSeconds->setValue(59);
+        sbMinutes->stepDown();
+        minutes--;
     } else if (seconds < 0) {
-	sbSeconds->setValue(0);
+        sbSeconds->setValue(0);
     } else if (seconds > 59) {
-	sbSeconds->setValue(0);
-	sbMinutes->stepUp();
-	minutes++;
+        sbSeconds->setValue(0);
+        sbMinutes->stepUp();
+        minutes++;
     }
 
     if ((minutes < 0) && (hours > 0)) {
-	sbMinutes->setValue(59);
-	sbHours->stepDown();
+        sbMinutes->setValue(59);
+        sbHours->stepDown();
     } else if (minutes < 0) {
-	sbMinutes->setValue(0);
+        sbMinutes->setValue(0);
     } else if (minutes > 59) {
-	sbMinutes->setValue(0);
-	sbHours->stepUp();
+        sbMinutes->setValue(0);
+        sbHours->stepUp();
     }
     seconds = sbSeconds->value();
     minutes = sbMinutes->value();
@@ -244,18 +244,18 @@ void Kwave::NewSignalDialog::timeChanged(int)
     // limit the current number of samples
     sample_index_t max_samples = maxSamples();
     sample_index_t nr_samples  = static_cast<sample_index_t>(ceil(
-	static_cast<double>(seconds) * rate()));
+        static_cast<double>(seconds) * rate()));
 
     if (nr_samples > max_samples) {
-	// wrap down to the maximum allowed number of samples
-	nr_samples =  max_samples;
-	setHMS(nr_samples);
+        // wrap down to the maximum allowed number of samples
+        nr_samples =  max_samples;
+        setHMS(nr_samples);
     }
 
     // update the other controls
     edSamples->setValue(Kwave::toInt(nr_samples));
     slideLength->setValue(Kwave::toInt(100.0 *
-	static_cast<double>(nr_samples) / static_cast<double>(max_samples)));
+        static_cast<double>(nr_samples) / static_cast<double>(max_samples)));
     updateFileSize();
     buttonBox->button(QDialogButtonBox::Ok)->setEnabled(nr_samples > 0);
 
@@ -273,14 +273,14 @@ void Kwave::NewSignalDialog::samplesChanged(int)
     sample_index_t max_samples = maxSamples();
 
     if (nr_samples > max_samples) {
-	nr_samples = max_samples;
-	edSamples->setValue(Kwave::toInt(nr_samples));
+        nr_samples = max_samples;
+        edSamples->setValue(Kwave::toInt(nr_samples));
     }
 
     // update the other controls
     setHMS(nr_samples);
     slideLength->setValue(Kwave::toInt(100.0 *
-	static_cast<double>(nr_samples) / static_cast<double>(max_samples)));
+        static_cast<double>(nr_samples) / static_cast<double>(max_samples)));
     updateFileSize();
     buttonBox->button(QDialogButtonBox::Ok)->setEnabled(nr_samples > 0);
 
@@ -297,18 +297,18 @@ void Kwave::NewSignalDialog::sampleRateChanged(const QString&)
 void Kwave::NewSignalDialog::tracksChanged(int)
 {
     switch (tracks()) {
-	case 1:
-	    lblTracksVerbose->setText(i18n("(Mono)"));
-	    break;
-	case 2:
-	    lblTracksVerbose->setText(i18n("(Stereo)"));
-	    break;
-	case 4:
-	    lblTracksVerbose->setText(i18n("(Quadro)"));
-	    break;
-	default:
-	    lblTracksVerbose->setText(_(""));
-	    break;
+        case 1:
+            lblTracksVerbose->setText(i18n("(Mono)"));
+            break;
+        case 2:
+            lblTracksVerbose->setText(i18n("(Stereo)"));
+            break;
+        case 4:
+            lblTracksVerbose->setText(i18n("(Quadro)"));
+            break;
+        default:
+            lblTracksVerbose->setText(_(""));
+            break;
     }
     checkTimeAndLengthInfo(0);
 }
@@ -335,8 +335,8 @@ void Kwave::NewSignalDialog::setLengthPercentage(int percent)
     m_recursive = true;
 
     sample_index_t nr_samples = static_cast<sample_index_t>(
-	static_cast<double>(maxSamples()) *
-	static_cast<double>(percent) / 100.0);
+        static_cast<double>(maxSamples()) *
+        static_cast<double>(percent) / 100.0);
 
     // update the other controls
     setHMS(nr_samples);

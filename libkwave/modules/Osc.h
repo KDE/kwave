@@ -31,55 +31,55 @@ namespace Kwave
 
     class Q_DECL_EXPORT Osc: public Kwave::SampleSource
     {
-	Q_OBJECT
-	public:
-	    /** Constructor */
-	    Osc();
+        Q_OBJECT
+        public:
+            /** Constructor */
+            Osc();
 
-	    /** Destructor */
+            /** Destructor */
             virtual ~Osc() Q_DECL_OVERRIDE;
 
-	    /** does the calculation */
+            /** does the calculation */
             virtual void goOn() Q_DECL_OVERRIDE;
 
-	signals:
-	    /** emits a block with sine wave data */
-	    void output(Kwave::SampleArray data);
+        signals:
+            /** emits a block with sine wave data */
+            void output(Kwave::SampleArray data);
 
-	public slots:
-	    /**
-	     * Sets the frequency of the sine wave, normed to the
-	     * sample frequency. You should pass the frequency that
-	     * you want, divided through the sample frequency.
-	     * If you never call this, the frequency will be undefined!
-	     */
-	    void setFrequency(const QVariant &f);
+        public slots:
+            /**
+             * Sets the frequency of the sine wave, normed to the
+             * sample frequency. You should pass the frequency that
+             * you want, divided through the sample frequency.
+             * If you never call this, the frequency will be undefined!
+             */
+            void setFrequency(const QVariant &f);
 
-	    /**
-	     * Sets the phase of the sine wave in RAD [0...2*Pi].
-	     * The default setting is zero.
-	     */
-	    void setPhase(const QVariant &p);
+            /**
+             * Sets the phase of the sine wave in RAD [0...2*Pi].
+             * The default setting is zero.
+             */
+            void setPhase(const QVariant &p);
 
-	    /**
-	     * Sets the amplitude of the sine wave, normed to the
-	     * range of [0.0 ... 1.0]. The default is 1.0.
-	     */
-	    void setAmplitude(const QVariant &a);
+            /**
+             * Sets the amplitude of the sine wave, normed to the
+             * range of [0.0 ... 1.0]. The default is 1.0.
+             */
+            void setAmplitude(const QVariant &a);
 
-	private:
+        private:
 
-	    /** buffer for output data */
-	    Kwave::SampleArray m_buffer;
+            /** buffer for output data */
+            Kwave::SampleArray m_buffer;
 
-	    /** current time multiplied by 2*Pi*f */
-	    double m_omega_t;
+            /** current time multiplied by 2*Pi*f */
+            double m_omega_t;
 
-	    /** frequency [samples/period] */
-	    double m_f;
+            /** frequency [samples/period] */
+            double m_f;
 
-	    /** amplitude [0...1] */
-	    double m_a;
+            /** amplitude [0...1] */
+            double m_a;
     };
 }
 

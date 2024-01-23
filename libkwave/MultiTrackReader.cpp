@@ -1,6 +1,6 @@
 /***************************************************************************
     MultiTrackReader.cpp - reader for multi-track signals
-			     -------------------
+                             -------------------
     begin                : Sat Jun 30 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -32,7 +32,7 @@ Kwave::MultiTrackReader::MultiTrackReader()
 //***************************************************************************
 Kwave::MultiTrackReader::MultiTrackReader(Kwave::ReaderMode mode,
                                           Kwave::SignalManager &signal_manager,
-					  const QVector<unsigned int> &track_list,
+                                          const QVector<unsigned int> &track_list,
                                           sample_index_t first,
                                           sample_index_t last)
     :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, Q_NULLPTR),
@@ -41,11 +41,11 @@ Kwave::MultiTrackReader::MultiTrackReader(Kwave::ReaderMode mode,
     unsigned int index = 0;
 
     foreach(unsigned int track, track_list) {
-	Kwave::SampleReader *s = signal_manager.openReader(
-	    mode, track, first, last);
-	if (!s) break;
-	insert(index++, s);
-	Q_ASSERT(index == tracks());
+        Kwave::SampleReader *s = signal_manager.openReader(
+            mode, track, first, last);
+        if (!s) break;
+        insert(index++, s);
+        Q_ASSERT(index == tracks());
     }
 }
 
@@ -72,10 +72,10 @@ bool Kwave::MultiTrackReader::eof() const
 {
     const unsigned int c = tracks();
     for (unsigned int r = 0; r < c; r++) {
-	Kwave::SampleReader *reader = at(r);
-	Q_ASSERT(reader);
-	if (!reader) continue;
-	if (!reader->eof()) return false;
+        Kwave::SampleReader *reader = at(r);
+        Q_ASSERT(reader);
+        if (!reader) continue;
+        if (!reader->eof()) return false;
     }
     return true;
 }
@@ -88,11 +88,11 @@ void Kwave::MultiTrackReader::proceeded()
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track = 0; track < n_tracks; ++track) {
-	Kwave::SampleReader *r = at(track);
-	if (r) {
-	    sum   += static_cast<qreal>(r->pos()  - r->first());
-	    total += static_cast<qreal>(r->last() - r->first() + 1);
-	}
+        Kwave::SampleReader *r = at(track);
+        if (r) {
+            sum   += static_cast<qreal>(r->pos()  - r->first());
+            total += static_cast<qreal>(r->last() - r->first() + 1);
+        }
     }
 
     emit progress(qreal(100.0) * sum / total);
@@ -104,8 +104,8 @@ void Kwave::MultiTrackReader::reset()
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track=0; track < n_tracks; ++track) {
-	Kwave::SampleReader *r = at(track);
-	if (r) r->reset();
+        Kwave::SampleReader *r = at(track);
+        if (r) r->reset();
     }
     emit progress(0);
 }
@@ -116,10 +116,10 @@ bool Kwave::MultiTrackReader::insert(unsigned int track,
 {
     if (reader) {
         connect(
-	    reader, SIGNAL(proceeded()),
-	    this, SLOT(proceeded()),
-	    Qt::DirectConnection
-	);
+            reader, SIGNAL(proceeded()),
+            this, SLOT(proceeded()),
+            Qt::DirectConnection
+        );
     }
     return Kwave::MultiTrackSource<Kwave::SampleReader, false>::insert(
         track, reader);
@@ -131,8 +131,8 @@ void Kwave::MultiTrackReader::skip(sample_index_t count)
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track=0; track < n_tracks; ++track) {
-	Kwave::SampleReader *r = at(track);
-	if (r) r->skip(count);
+        Kwave::SampleReader *r = at(track);
+        if (r) r->skip(count);
     }
 }
 
@@ -142,8 +142,8 @@ void Kwave::MultiTrackReader::seek(sample_index_t pos)
     unsigned int track;
     const unsigned int n_tracks = tracks();
     for (track=0; track < n_tracks; ++track) {
-	Kwave::SampleReader *r = at(track);
-	if (r) r->seek(pos);
+        Kwave::SampleReader *r = at(track);
+        if (r) r->seek(pos);
     }
 }
 

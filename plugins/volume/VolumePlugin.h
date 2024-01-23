@@ -30,44 +30,44 @@ namespace Kwave
 {
     class VolumePlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	VolumePlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        VolumePlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~VolumePlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * Shows a dialog for selecting a volume.
-	 * @see Kwave::Plugin::setup
-	 */
+        /**
+         * Shows a dialog for selecting a volume.
+         * @see Kwave::Plugin::setup
+         */
         virtual QStringList *setup(QStringList &previous_params)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Does the amplification operation
-	 * @param params list of strings with parameters
-	 */
+        /**
+         * Does the amplification operation
+         * @param params list of strings with parameters
+         */
         virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     protected:
 
-	/** Reads values from the parameter list */
-	int interpreteParameters(QStringList &params);
+        /** Reads values from the parameter list */
+        int interpreteParameters(QStringList &params);
 
     private:
-	/** List of parameters */
-	QStringList m_params;
+        /** List of parameters */
+        QStringList m_params;
 
-	/** amplification factor */
-	float m_factor;
+        /** amplification factor */
+        float m_factor;
     };
 }
 

@@ -1,6 +1,6 @@
 /***************************************************************************
     TreeWidget.cpp  -  wrapper for QTreeWidget to get focus out information
-			     -------------------
+                             -------------------
     begin                : Mon May 12 2008
     copyright            : (C) 2008 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de

@@ -30,32 +30,32 @@ namespace Kwave
     class OggSubDecoder
     {
     public:
-	/** Destructor */
-	virtual ~OggSubDecoder() {}
+        /** Destructor */
+        virtual ~OggSubDecoder() {}
 
-	/**
-	 * parse the header of the stream and initialize the decoder
-	 * @param widget a QWidget to be used as parent for error messages
-	 * @param info reference to a FileInfo to fill
-	 * @return -1 if failed or +1 if succeeded
-	 */
-	virtual int open(QWidget *widget, Kwave::FileInfo &info) = 0;
+        /**
+         * parse the header of the stream and initialize the decoder
+         * @param widget a QWidget to be used as parent for error messages
+         * @param info reference to a FileInfo to fill
+         * @return -1 if failed or +1 if succeeded
+         */
+        virtual int open(QWidget *widget, Kwave::FileInfo &info) = 0;
 
-	/**
-	 * decode received ogg data
-	 * @param dst a MultiWriter to be used as sink
-	 * @return -1 if failed or >= 0 if succeeded
-	 */
-	virtual int decode(Kwave::MultiWriter &dst) = 0;
+        /**
+         * decode received ogg data
+         * @param dst a MultiWriter to be used as sink
+         * @return -1 if failed or >= 0 if succeeded
+         */
+        virtual int decode(Kwave::MultiWriter &dst) = 0;
 
-	/** reset the stream info */
-	virtual void reset() = 0;
+        /** reset the stream info */
+        virtual void reset() = 0;
 
-	/**
-	 * finish the decoding, last chance to fix up some file info
-	 * @param info reference to a FileInfo to fill
-	 */
-	virtual void close(Kwave::FileInfo &info) = 0;
+        /**
+         * finish the decoding, last chance to fix up some file info
+         * @param info reference to a FileInfo to fill
+         */
+        virtual void close(Kwave::FileInfo &info) = 0;
 
     };
 }

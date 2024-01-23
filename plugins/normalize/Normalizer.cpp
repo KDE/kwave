@@ -60,11 +60,11 @@ static inline double limiter(const double x, const double lmtr_lvl)
     double xp;
 
     if (x < -lmtr_lvl)
-	xp = tanh((x + lmtr_lvl) / (1-lmtr_lvl)) * (1-lmtr_lvl) - lmtr_lvl;
+        xp = tanh((x + lmtr_lvl) / (1-lmtr_lvl)) * (1-lmtr_lvl) - lmtr_lvl;
     else if (x <= lmtr_lvl)
-	xp = x;
+        xp = x;
     else
-	xp = tanh((x - lmtr_lvl) / (1-lmtr_lvl)) * (1-lmtr_lvl) + lmtr_lvl;
+        xp = tanh((x - lmtr_lvl) / (1-lmtr_lvl)) * (1-lmtr_lvl) + lmtr_lvl;
 
     return xp;
 }
@@ -76,10 +76,10 @@ void Kwave::Normalizer::input(Kwave::SampleArray data)
     const bool use_limiter = (m_gain > 1.0);
 
     for (unsigned int i = 0; i < len; i++) {
-	double s = sample2double(data[i]);
-	s *= m_gain;
-	if (use_limiter) s = limiter(s, m_limit);
-	data[i] = double2sample(s);
+        double s = sample2double(data[i]);
+        s *= m_gain;
+        if (use_limiter) s = limiter(s, m_limit);
+        data[i] = double2sample(s);
     }
 
     emit output(data);

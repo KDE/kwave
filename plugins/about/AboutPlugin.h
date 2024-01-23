@@ -28,27 +28,27 @@ namespace Kwave
 {
     class AboutPlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
- 	AboutPlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        AboutPlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~AboutPlugin() Q_DECL_OVERRIDE {}
 
-	/** Returns the name of the plugin. */
+        /** Returns the name of the plugin. */
         virtual QString name() const Q_DECL_OVERRIDE { return _("about"); }
 
-	/**
-	* shows the about dialog,
-	* @see Kwave::Plugin::start()
-	*/
+        /**
+        * shows the about dialog,
+        * @see Kwave::Plugin::start()
+        */
         virtual int start(QStringList &params) Q_DECL_OVERRIDE;
 
     };

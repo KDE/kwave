@@ -1,6 +1,6 @@
 /***************************************************************************
        FileProgress.cpp  -  progress window for loading/saving files
-			     -------------------
+                             -------------------
     begin                : Mar 11 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -43,9 +43,9 @@
 
 //***************************************************************************
 Kwave::FileProgress::FileProgress(QWidget *parent,
-	const QUrl &url, quint64 size,
-	sample_index_t samples, double rate, unsigned int bits,
-	unsigned int tracks)
+        const QUrl &url, quint64 size,
+        sample_index_t samples, double rate, unsigned int bits,
+        unsigned int tracks)
     :QDialog(parent),
      m_url(url),
      m_size(size),
@@ -89,14 +89,14 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
 
     // label with "file"
     if (!addInfoLabel(info_layout,
-	i18nc("file progress dialog", "File: "), 0, 0)) return;
+        i18nc("file progress dialog", "File: "), 0, 0)) return;
     text = _("?");
     m_lbl_url = addInfoLabel(info_layout, text, 0, 1);
     if (!m_lbl_url) return;
 
     // label with "length"
     if (!addInfoLabel(info_layout,
-	i18nc("file progress dialog", "Length: "), 1, 0)) return;
+        i18nc("file progress dialog", "Length: "), 1, 0)) return;
 
     m_lbl_length = addInfoLabel(info_layout, _(""), 1, 1);
     if (!m_lbl_length) return;
@@ -104,14 +104,14 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
 
     // label with "rate:"
     if (!addInfoLabel(info_layout,
-	i18nc("file progress dialog", "Sample Rate: "), 2, 0)) return;
+        i18nc("file progress dialog", "Sample Rate: "), 2, 0)) return;
     text = i18nc("file progress dialog, %1=number of samples per second",
                  "%1 Samples per second", rate);
     if (!addInfoLabel(info_layout, text, 2, 1)) return;
 
     // label with "resolution:"
     if (!addInfoLabel(info_layout,
-	i18nc("file progress dialog", "Resolution: "), 3, 0)) return;
+        i18nc("file progress dialog", "Resolution: "), 3, 0)) return;
     text = i18nc("file progress dialog, "
                  "%1=number of bits per sample (8, 16, 24...)",
                  "%1 Bits per sample", bits);
@@ -119,19 +119,19 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
 
     // label with "tracks:"
     if (!addInfoLabel(info_layout,
-	i18nc("file progress dialog", "Tracks: "), 4, 0)) return;
+        i18nc("file progress dialog", "Tracks: "), 4, 0)) return;
     switch (tracks) {
-	case 1:
-	    text = i18nc("number of tracks", "1 (mono)");
-	    break;
-	case 2:
-	    text = i18nc("number of tracks", "2 (stereo)");
-	    break;
-	case 4:
-	    text = i18nc("number of tracks", "4 (quadro)");
-	    break;
-	default:
-	    text = text.setNum(tracks);
+        case 1:
+            text = i18nc("number of tracks", "1 (mono)");
+            break;
+        case 2:
+            text = i18nc("number of tracks", "2 (stereo)");
+            break;
+        case 4:
+            text = i18nc("number of tracks", "4 (quadro)");
+            break;
+        default:
+            text = text.setNum(tracks);
     }
     if (!addInfoLabel(info_layout, text, 4, 1)) return;
 
@@ -203,17 +203,17 @@ void Kwave::FileProgress::closeEvent(QCloseEvent *e)
 
     // if not already cancelled -> ask user to confirm
     if (!m_canceled) {
-	if (Kwave::MessageBox::warningYesNo(this,
-	    i18n("Do you really want to abort the operation?")) !=
-	    KMessageBox::Yes)
-	{
-	    // the user was wise and said "No"
-	    e->ignore();
-	    return;
-	} else {
-	    // user pressed "Yes", he should know what he has done
-	    m_canceled = true;
-	}
+        if (Kwave::MessageBox::warningYesNo(this,
+            i18n("Do you really want to abort the operation?")) !=
+            KMessageBox::Yes)
+        {
+            // the user was wise and said "No"
+            e->ignore();
+            return;
+        } else {
+            // user pressed "Yes", he should know what he has done
+            m_canceled = true;
+        }
     }
 
     // default action: accept
@@ -230,14 +230,14 @@ void Kwave::FileProgress::fitUrlLabel()
     m_lbl_url->setText(url);
     int todel = 4;
     while (m_lbl_url->sizeHint().width() > width) {
-	// delete characters in the middle of the string
-	url = m_url.toString();
-	int len = url.length();
-	if (len <= todel) break;
-	url = url.left((len-todel)/2) + _("...") +
-	    url.right((len-todel)/2 + 4);
-	m_lbl_url->setText(url);
-	todel++;
+        // delete characters in the middle of the string
+        url = m_url.toString();
+        int len = url.length();
+        if (len <= todel) break;
+        url = url.left((len-todel)/2) + _("...") +
+            url.right((len-todel)/2 + 4);
+        m_lbl_url->setText(url);
+        todel++;
     }
 
     m_lbl_url->adjustSize();
@@ -287,8 +287,8 @@ void Kwave::FileProgress::updateStatistics(double rate, double rest,
                  "%1=number of loaded/saved megabytes, "
                  "%2=number of total megabytes to load or save",
                   "%1 MB of %2 MB done",
-	num1.setNum(static_cast<double>(pos)    / (1024.0 * 1024.0), 'f', 1),
-	num2.setNum(static_cast<double>(m_size) / (1024.0 * 1024.0), 'f', 1)
+        num1.setNum(static_cast<double>(pos)    / (1024.0 * 1024.0), 'f', 1),
+        num2.setNum(static_cast<double>(m_size) / (1024.0 * 1024.0), 'f', 1)
     );
     m_stat_bytes->setText(text);
 
@@ -301,8 +301,8 @@ void Kwave::FileProgress::updateStatistics(double rate, double rest,
     t.setSingleShot(true);
     t.start(5);
     while (t.isActive()) {
-	qApp->sendPostedEvents();
-	qApp->processEvents();
+        qApp->sendPostedEvents();
+        qApp->processEvents();
     }
 }
 
@@ -322,22 +322,22 @@ void Kwave::FileProgress::setBytePosition(quint64 pos)
 
     // the easiest part: the progress bar and the caption
     int percent = Kwave::toInt(
-	(static_cast<double>(pos) / static_cast<double>(m_size)) * 100.0);
+        (static_cast<double>(pos) / static_cast<double>(m_size)) * 100.0);
 
     // not enough progress not worth showing ?
     if (percent <= m_last_percent) return;
     m_last_percent = percent;
 
     if (m_progress->value() != percent) {
-	QString newcap;
-	newcap = i18nc(
-	    "%1=Progress in percentage, %2=path to file",
-	    "(%1%) %2",
-	    percent, m_url.toString()
-	);
-	setWindowTitle(newcap);
+        QString newcap;
+        newcap = i18nc(
+            "%1=Progress in percentage, %2=path to file",
+            "(%1%) %2",
+            percent, m_url.toString()
+        );
+        setWindowTitle(newcap);
 
-	m_progress->setValue(percent);
+        m_progress->setValue(percent);
     }
 
     // update the transfer statistics
@@ -345,7 +345,7 @@ void Kwave::FileProgress::setBytePosition(quint64 pos)
     double rate = static_cast<double>(pos) / seconds;        // [bytes/sec]
     double rest = 0;
     if (rate > 10) {
-	rest = static_cast<double>(m_size - pos) / rate;     // [seconds]
+        rest = static_cast<double>(m_size - pos) / rate;     // [seconds]
     }
     updateStatistics(rate, rest, pos);
 }
@@ -357,15 +357,15 @@ void Kwave::FileProgress::setLength(quint64 samples)
 
     // length in samples -> h:m:s
     if ((m_sample_rate > 0) && m_tracks) {
-	// length in ms
-	text = Kwave::ms2string(
-	    1000.0 *
-	    qreal(samples / m_tracks) /
-	    qreal(m_sample_rate));
+        // length in ms
+        text = Kwave::ms2string(
+            1000.0 *
+            qreal(samples / m_tracks) /
+            qreal(m_sample_rate));
     } else {
-	// fallback if no rate: length in samples
-	text = i18nc("file progress dialog, %1=a number of samples",
-	             "%1 samples", samples);
+        // fallback if no rate: length in samples
+        text = i18nc("file progress dialog, %1=a number of samples",
+                     "%1 samples", samples);
     }
     m_lbl_length->setText(text);
 }

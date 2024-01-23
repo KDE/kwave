@@ -1,6 +1,6 @@
 /***************************************************************************
       MultiTrackWriter.h - writer for multi-track signals
-			     -------------------
+                             -------------------
     begin                : Sat Jun 30 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -40,56 +40,56 @@ namespace Kwave
      */
     class Q_DECL_EXPORT MultiTrackWriter: public Kwave::MultiWriter
     {
-	Q_OBJECT
+        Q_OBJECT
 
     private:
-	/** Default constructor */
-	MultiTrackWriter();
+        /** Default constructor */
+        MultiTrackWriter();
 
     public:
-	/**
-	 * Constructor
-	 * @param signal_manager reference to a SignalManager
-	 * @param track_list list of track indices
-	 * @param mode specifies where and how to insert
-	 * @param left index of the first sample
-	 * @param right index of the last sample
-	 */
-	MultiTrackWriter(Kwave::SignalManager &signal_manager,
-	                 const QVector<unsigned int> &track_list,
-	                 Kwave::InsertMode mode,
-	                 sample_index_t left, sample_index_t right);
+        /**
+         * Constructor
+         * @param signal_manager reference to a SignalManager
+         * @param track_list list of track indices
+         * @param mode specifies where and how to insert
+         * @param left index of the first sample
+         * @param right index of the last sample
+         */
+        MultiTrackWriter(Kwave::SignalManager &signal_manager,
+                         const QVector<unsigned int> &track_list,
+                         Kwave::InsertMode mode,
+                         sample_index_t left, sample_index_t right);
 
-	/**
-	 * Constructor that opens a set of Writers using the currently
-	 * selected list of tracks and the current selection. If nothing is
-	 * selected, the whole signal will be selected.
-	 *
-	 * @param signal_manager reference to a SignalManager
-	 * @param mode specifies where and how to insert
-	 */
-	MultiTrackWriter(Kwave::SignalManager &signal_manager,
-	                 Kwave::InsertMode mode);
+        /**
+         * Constructor that opens a set of Writers using the currently
+         * selected list of tracks and the current selection. If nothing is
+         * selected, the whole signal will be selected.
+         *
+         * @param signal_manager reference to a SignalManager
+         * @param mode specifies where and how to insert
+         */
+        MultiTrackWriter(Kwave::SignalManager &signal_manager,
+                         Kwave::InsertMode mode);
 
-	/** Destructor */
-	virtual ~MultiTrackWriter();
+        /** Destructor */
+        virtual ~MultiTrackWriter();
 
     private:
 
-	/**
-	 * Intializer, see constructor...
-	 *
-	 * @param signal_manager reference to a SignalManager
-	 * @param track_list array of indices of tracks for reading
-	 * @param mode specifies where and how to insert
-	 * @param left index of the first sample
-	 * @param right index of the last sample
-	 * @internal
-	 */
-	bool init(Kwave::SignalManager &signal_manager,
-	          const QVector<unsigned int> &track_list,
-	          Kwave::InsertMode mode,
-	          sample_index_t left, sample_index_t right);
+        /**
+         * Intializer, see constructor...
+         *
+         * @param signal_manager reference to a SignalManager
+         * @param track_list array of indices of tracks for reading
+         * @param mode specifies where and how to insert
+         * @param left index of the first sample
+         * @param right index of the last sample
+         * @internal
+         */
+        bool init(Kwave::SignalManager &signal_manager,
+                  const QVector<unsigned int> &track_list,
+                  Kwave::InsertMode mode,
+                  sample_index_t left, sample_index_t right);
 
     };
 }

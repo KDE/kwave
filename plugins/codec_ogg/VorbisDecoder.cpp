@@ -61,10 +61,10 @@ void Kwave::VorbisDecoder::parseTag(Kwave::FileInfo &info, const char *tag,
     if (count < 1) return;
     QString value;
     for (int i = 0; i < count; ++i) {
-	const char *text = vorbis_comment_query(&m_vc,
-	    const_cast<char *>(tag), i);
-	if (i) value += _("; ");
-	value += QString::fromUtf8(text);
+        const char *text = vorbis_comment_query(&m_vc,
+            const_cast<char *>(tag), i);
+        if (i) value += _("; ");
+        value += QString::fromUtf8(text);
     }
 
     info.set(property, value);
@@ -84,10 +84,10 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     vorbis_comment_init(&m_vc);
 
     if (vorbis_synthesis_headerin(&m_vi, &m_vc, &m_op) < 0) {
-	// error case; not a vorbis header
-	Kwave::MessageBox::error(widget, i18n(
-	    "This Ogg bitstream does not contain any Vorbis audio data."));
-	return -1;
+        // error case; not a vorbis header
+        Kwave::MessageBox::error(widget, i18n(
+            "This Ogg bitstream does not contain any Vorbis audio data."));
+        return -1;
     }
 
     // At this point, we're sure we're Vorbis.  We've set up the logical
@@ -101,42 +101,42 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     // header page is the only place where missing data is fatal. */
     unsigned int counter = 0;
     while (counter < 2) {
-	while(counter < 2) {
-	    int result = ogg_sync_pageout(&m_oy, &m_og);
-	    if (result == 0) break; // Need more data
-	    // Don't complain about missing or corrupt data yet.  We'll
-	    // catch it at the packet output phase
-	    if (result == 1) {
-		// we can ignore any errors here
-		// as they'll also become apparent
-		// at packetout
-		ogg_stream_pagein(&m_os, &m_og);
-		while (counter < 2) {
-		    result = ogg_stream_packetout(&m_os, &m_op);
-		    if (result == 0) break;
-		    if (result < 0) {
-			// Uh oh; data at some point was corrupted or
-			// missing! We can't tolerate that in a header.
-			// Die.
-			Kwave::MessageBox::error(widget, i18n(
-			    "Corrupt secondary header. Exiting."));
-			return -1;
-		    }
-		    vorbis_synthesis_headerin(&m_vi, &m_vc, &m_op);
-		    counter++;
-		}
-	    }
-	}
+        while(counter < 2) {
+            int result = ogg_sync_pageout(&m_oy, &m_og);
+            if (result == 0) break; // Need more data
+            // Don't complain about missing or corrupt data yet.  We'll
+            // catch it at the packet output phase
+            if (result == 1) {
+                // we can ignore any errors here
+                // as they'll also become apparent
+                // at packetout
+                ogg_stream_pagein(&m_os, &m_og);
+                while (counter < 2) {
+                    result = ogg_stream_packetout(&m_os, &m_op);
+                    if (result == 0) break;
+                    if (result < 0) {
+                        // Uh oh; data at some point was corrupted or
+                        // missing! We can't tolerate that in a header.
+                        // Die.
+                        Kwave::MessageBox::error(widget, i18n(
+                            "Corrupt secondary header. Exiting."));
+                        return -1;
+                    }
+                    vorbis_synthesis_headerin(&m_vi, &m_vc, &m_op);
+                    counter++;
+                }
+            }
+        }
 
-	// no harm in not checking before adding more
-	char *buffer = ogg_sync_buffer(&m_oy, 4096);
-	qint64 bytes = m_source->read(buffer, 4096);
-	if (!bytes && counter < 2) {
-	    Kwave::MessageBox::error(widget, i18n(
-	        "End of file before finding all Vorbis headers."));
-	    return -1;
-	}
-	ogg_sync_wrote(&m_oy, static_cast<long int>(bytes));
+        // no harm in not checking before adding more
+        char *buffer = ogg_sync_buffer(&m_oy, 4096);
+        qint64 bytes = m_source->read(buffer, 4096);
+        if (!bytes && counter < 2) {
+            Kwave::MessageBox::error(widget, i18n(
+                "End of file before finding all Vorbis headers."));
+            return -1;
+        }
+        ogg_sync_wrote(&m_oy, static_cast<long int>(bytes));
     }
 
     // OK, got and parsed all three headers. Initialize the Vorbis
@@ -154,41 +154,41 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     info.set(Kwave::INF_COMPRESSION, Kwave::Compression::OGG_VORBIS);
     info.set(Kwave::INF_SOURCE, _(m_vc.vendor));
     if ((m_vi.bitrate_nominal > 0) &&
-	(m_vi.bitrate_nominal < std::numeric_limits<int>::max()))
-	info.set(Kwave::INF_BITRATE_NOMINAL,
-	QVariant(Kwave::toInt(m_vi.bitrate_nominal)));
+        (m_vi.bitrate_nominal < std::numeric_limits<int>::max()))
+        info.set(Kwave::INF_BITRATE_NOMINAL,
+        QVariant(Kwave::toInt(m_vi.bitrate_nominal)));
     if ((m_vi.bitrate_lower > 0) &&
-	(m_vi.bitrate_lower < std::numeric_limits<int>::max()))
-	info.set(Kwave::INF_BITRATE_LOWER,
-	QVariant(Kwave::toInt(m_vi.bitrate_lower)));
+        (m_vi.bitrate_lower < std::numeric_limits<int>::max()))
+        info.set(Kwave::INF_BITRATE_LOWER,
+        QVariant(Kwave::toInt(m_vi.bitrate_lower)));
     if ((m_vi.bitrate_upper > 0) &&
-	(m_vi.bitrate_upper < std::numeric_limits<int>::max()))
-	info.set(Kwave::INF_BITRATE_UPPER,
-	QVariant(Kwave::toInt(m_vi.bitrate_upper)));
+        (m_vi.bitrate_upper < std::numeric_limits<int>::max()))
+        info.set(Kwave::INF_BITRATE_UPPER,
+        QVariant(Kwave::toInt(m_vi.bitrate_upper)));
 
     // the first comment sometimes is used for the software version
     {
-	char **ptr = m_vc.user_comments;
-	QString s = _(*ptr);
-	if (s.length() && !s.contains(QLatin1Char('='))) {
-	    info.set(Kwave::INF_SOFTWARE, s);
-	    qDebug("Bitstream is %d channel, %ldHz", m_vi.channels, m_vi.rate);
-	    qDebug("Encoded by: %s\n\n", m_vc.vendor);
-	}
+        char **ptr = m_vc.user_comments;
+        QString s = _(*ptr);
+        if (s.length() && !s.contains(QLatin1Char('='))) {
+            info.set(Kwave::INF_SOFTWARE, s);
+            qDebug("Bitstream is %d channel, %ldHz", m_vi.channels, m_vi.rate);
+            qDebug("Encoded by: %s\n\n", m_vc.vendor);
+        }
     }
 
     /** convert the date property to a QDate */
     parseTag(info, "DATE",         Kwave::INF_CREATION_DATE);
     if (info.contains(Kwave::INF_CREATION_DATE)) {
-	QString str_date  = QVariant(info.get(
-	    Kwave::INF_CREATION_DATE)).toString();
-	QDate date;
-	date = QDate::fromString(str_date, Qt::ISODate);
-	if (!date.isValid()) {
-	    int year = str_date.toInt();
-	    date.setDate(year, 1, 1);
-	}
-	if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
+        QString str_date  = QVariant(info.get(
+            Kwave::INF_CREATION_DATE)).toString();
+        QDate date;
+        date = QDate::fromString(str_date, Qt::ISODate);
+        if (!date.isValid()) {
+            int year = str_date.toInt();
+            date.setDate(year, 1, 1);
+        }
+        if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
     }
 
     // parse all other (simple) properties
@@ -212,18 +212,18 @@ int Kwave::VorbisDecoder::open(QWidget *widget, Kwave::FileInfo &info)
     // estimate a length
     // estimate the length of the file from file size, bitrate, channels
     if (!m_source->isSequential()) {
-	long int br = -1;
-	if (            (m_vi.bitrate_nominal > 0)) br = m_vi.bitrate_nominal;
-	if ((br < 0) && (m_vi.bitrate_upper   > 0)) br = m_vi.bitrate_upper;
-	if ((br < 0) && (m_vi.bitrate_lower   > 0)) br = m_vi.bitrate_lower;
-	qint64 file_size       = m_source->size();
-	qreal rate             = static_cast<qreal>(m_vi.rate);
-	qreal seconds          = (br >= 8) ?
-	    static_cast<qreal>(file_size / (br / 8)) : DEFAULT_BITRATE;
-	sample_index_t samples = static_cast<sample_index_t>(seconds * rate);
+        long int br = -1;
+        if (            (m_vi.bitrate_nominal > 0)) br = m_vi.bitrate_nominal;
+        if ((br < 0) && (m_vi.bitrate_upper   > 0)) br = m_vi.bitrate_upper;
+        if ((br < 0) && (m_vi.bitrate_lower   > 0)) br = m_vi.bitrate_lower;
+        qint64 file_size       = m_source->size();
+        qreal rate             = static_cast<qreal>(m_vi.rate);
+        qreal seconds          = (br >= 8) ?
+            static_cast<qreal>(file_size / (br / 8)) : DEFAULT_BITRATE;
+        sample_index_t samples = static_cast<sample_index_t>(seconds * rate);
 
-	qDebug("    estimated length: %llu samples", samples);
-	info.set(Kwave::INF_ESTIMATED_LENGTH, samples);
+        qDebug("    estimated length: %llu samples", samples);
+        info.set(Kwave::INF_ESTIMATED_LENGTH, samples);
     }
 
     m_stream_start_pos = m_source->pos();
@@ -240,25 +240,25 @@ static inline int decodeFrame(float **pcm, unsigned int size,
     // convert floats to 16 bit signed ints
     // (host order) and interleave
     for (unsigned int track = 0; track < tracks; track++) {
-	float       *mono = pcm[track];
-	int          bout = size;
-	unsigned int ofs  = 0;
-	Kwave::SampleArray buffer(size);
+        float       *mono = pcm[track];
+        int          bout = size;
+        unsigned int ofs  = 0;
+        Kwave::SampleArray buffer(size);
 
-	while (bout--) {
-	    // scale, use some primitive noise shaping + clipping
-	    double   noise = (drand48() - double(0.5)) / double(SAMPLE_MAX);
-	    double   d     = static_cast<double>(*(mono++));
-	    sample_t s     = qBound<sample_t>(
-		SAMPLE_MIN, double2sample(d + noise), SAMPLE_MAX
-	    );
+        while (bout--) {
+            // scale, use some primitive noise shaping + clipping
+            double   noise = (drand48() - double(0.5)) / double(SAMPLE_MAX);
+            double   d     = static_cast<double>(*(mono++));
+            sample_t s     = qBound<sample_t>(
+                SAMPLE_MIN, double2sample(d + noise), SAMPLE_MAX
+            );
 
-	    // write the clipped sample to the stream
-	    buffer[ofs++] = s;
-	}
+            // write the clipped sample to the stream
+            buffer[ofs++] = s;
+        }
 
-	// write the buffer to the stream
-	*(dest[track]) << buffer;
+        // write the buffer to the stream
+        *(dest[track]) << buffer;
     }
 
     return size;
@@ -273,7 +273,7 @@ int Kwave::VorbisDecoder::decode(Kwave::MultiWriter &dst)
 
     // test for success!
     if (vorbis_synthesis(&m_vb, &m_op) == 0)
-	vorbis_synthesis_blockin(&m_vd, &m_vb);
+        vorbis_synthesis_blockin(&m_vd, &m_vb);
 
     // **pcm is a multichannel float vector. In stereo, for example,
     // pcm[0] is left, and pcm[1] is right.  samples is the size of
@@ -281,11 +281,11 @@ int Kwave::VorbisDecoder::decode(Kwave::MultiWriter &dst)
     // whatever PCM format and write it out
     while ((samples = vorbis_synthesis_pcmout(&m_vd, &pcm)) > 0)
     {
-	int bout = decodeFrame(pcm, samples, dst);
+        int bout = decodeFrame(pcm, samples, dst);
 
-	// tell libvorbis how many samples we
-	// actually consumed
-	vorbis_synthesis_read(&m_vd, bout);
+        // tell libvorbis how many samples we
+        // actually consumed
+        vorbis_synthesis_read(&m_vd, bout);
     }
 
     m_samples_written = dst.last();
@@ -310,30 +310,30 @@ void Kwave::VorbisDecoder::close(Kwave::FileInfo &info)
     if (!info.contains(Kwave::INF_BITRATE_NOMINAL) &&
         !info.contains(Kwave::INF_VBR_QUALITY))
     {
-	qWarning("file contains neither nominal bitrate (ABR mode) "
-	         "nor quality (VBR mode)");
+        qWarning("file contains neither nominal bitrate (ABR mode) "
+                 "nor quality (VBR mode)");
 
-	int bitrate = DEFAULT_BITRATE;
+        int bitrate = DEFAULT_BITRATE;
 
-	if (Kwave::toInt(info.rate()) && m_samples_written) {
-	    // guess bitrates from the stream
-	    const qint64 stream_end_pos = m_source->pos();
-	    const qint64 stream_read = stream_end_pos -
-	                                     m_stream_start_pos + 1;
-	    double bits = static_cast<double>(stream_read) * 8.0;
-	    double seconds = static_cast<double>(m_samples_written) /
-		static_cast<double>(info.rate());
-	    bitrate = Kwave::toUint(bits / seconds);
+        if (Kwave::toInt(info.rate()) && m_samples_written) {
+            // guess bitrates from the stream
+            const qint64 stream_end_pos = m_source->pos();
+            const qint64 stream_read = stream_end_pos -
+                                             m_stream_start_pos + 1;
+            double bits = static_cast<double>(stream_read) * 8.0;
+            double seconds = static_cast<double>(m_samples_written) /
+                static_cast<double>(info.rate());
+            bitrate = Kwave::toUint(bits / seconds);
 
-	    // round to nearest standard bitrate
-	    bitrate = Kwave::StandardBitrates::instance().nearest(bitrate);
-	    qDebug("-> using guessed bitrate %d bits/sec", bitrate);
-	} else {
-	    // guessing not possible -> use default
-	    qDebug("-> using default %d kBits/sec", bitrate);
-	}
+            // round to nearest standard bitrate
+            bitrate = Kwave::StandardBitrates::instance().nearest(bitrate);
+            qDebug("-> using guessed bitrate %d bits/sec", bitrate);
+        } else {
+            // guessing not possible -> use default
+            qDebug("-> using default %d kBits/sec", bitrate);
+        }
 
-	info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(bitrate));
+        info.set(Kwave::INF_BITRATE_NOMINAL, QVariant(bitrate));
     }
 }
 

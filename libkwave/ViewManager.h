@@ -31,16 +31,16 @@ namespace Kwave
     class Q_DECL_EXPORT ViewManager
     {
     public:
-	/** Destructor */
-	virtual ~ViewManager() {}
+        /** Destructor */
+        virtual ~ViewManager() {}
 
-	/**
-	 * Insert a new signal view into this widget (or the upper/lower
-	 * dock area.
-	 * @param view the signal view, must not be a null pointer
-	 * @param controls a widget with controls, optionally, can be null
-	 */
-	virtual void insertView(Kwave::SignalView *view, QWidget *controls) = 0;
+        /**
+         * Insert a new signal view into this widget (or the upper/lower
+         * dock area.
+         * @param view the signal view, must not be a null pointer
+         * @param controls a widget with controls, optionally, can be null
+         */
+        virtual void insertView(Kwave::SignalView *view, QWidget *controls) = 0;
     };
 }
 

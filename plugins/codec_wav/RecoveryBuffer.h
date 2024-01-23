@@ -29,25 +29,25 @@ namespace Kwave
     class RecoveryBuffer: public Kwave::RecoverySource
     {
     public:
-	/**
-	 * Constructor
-	 * @param offset position in the repaired file
-	 * @param length number of recovered bytes
-	 * @param buffer a buffer with 'length' bytes of data
-	 */
-	RecoveryBuffer(quint64 offset, quint64 length, char *buffer);
+        /**
+         * Constructor
+         * @param offset position in the repaired file
+         * @param length number of recovered bytes
+         * @param buffer a buffer with 'length' bytes of data
+         */
+        RecoveryBuffer(quint64 offset, quint64 length, char *buffer);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~RecoveryBuffer() Q_DECL_OVERRIDE {}
 
-	/** implementation of RecoverySource::read */
+        /** implementation of RecoverySource::read */
         virtual qint64 read(quint64 offset, char *data, unsigned int bytes)
             Q_DECL_OVERRIDE;
 
     private:
 
-	/** buffer with recovered data */
-	QByteArray m_buffer;
+        /** buffer with recovered data */
+        QByteArray m_buffer;
     };
 }
 

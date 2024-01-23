@@ -91,30 +91,30 @@ QStringList *Kwave::NewSignalPlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     QPointer<Kwave::NewSignalDialog> dialog = new(std::nothrow)
-	Kwave::NewSignalDialog(
-	    parentWidget(), m_samples, m_rate, m_bits, m_tracks, m_bytime);
+        Kwave::NewSignalDialog(
+            parentWidget(), m_samples, m_rate, m_bits, m_tracks, m_bytime);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec() && dialog) {
-	// user has pressed "OK"
-	*list << QString::number(dialog->samples());
-	*list << QString::number(dialog->rate());
-	*list << QString::number(dialog->bitsPerSample());
-	*list << QString::number(dialog->tracks());
-	*list << _(dialog->byTime() ? "1" : "0");
+        // user has pressed "OK"
+        *list << QString::number(dialog->samples());
+        *list << QString::number(dialog->rate());
+        *list << QString::number(dialog->bitsPerSample());
+        *list << QString::number(dialog->tracks());
+        *list << _(dialog->byTime() ? "1" : "0");
 
-	emitCommand(_("newsignal(") +
-	    QString::number(dialog->samples()) + _(",") +
-	    QString::number(dialog->rate()) + _(",") +
-	    QString::number(dialog->bitsPerSample()) + _(",") +
-	    QString::number(dialog->tracks()) + _(")")
-	);
+        emitCommand(_("newsignal(") +
+            QString::number(dialog->samples()) + _(",") +
+            QString::number(dialog->rate()) + _(",") +
+            QString::number(dialog->bitsPerSample()) + _(",") +
+            QString::number(dialog->tracks()) + _(")")
+        );
     } else {
-	// user pressed "Cancel"
-	if (list) delete list;
+        // user pressed "Cancel"
+        if (list) delete list;
         list = Q_NULLPTR;
     }
 

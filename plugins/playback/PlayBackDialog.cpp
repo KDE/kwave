@@ -1,6 +1,6 @@
 /***************************************************************************
      PlayBackDialog.cpp  -  dialog for configuring the playback
-			     -------------------
+                             -------------------
     begin                : Sun May 13 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -74,9 +74,9 @@ Kwave::PlayBackDialog::PlayBackDialog(
     // fill the combo box with playback methods
     unsigned int index=0;
     for (index = 0; index < m_methods_map.count(); index++) {
-	cbMethod->addItem(
-	    m_methods_map.description(index, true),
-	    static_cast<int>(m_methods_map.data(index)) );
+        cbMethod->addItem(
+            m_methods_map.description(index, true),
+            static_cast<int>(m_methods_map.data(index)) );
     }
     cbMethod->setEnabled(cbMethod->count() > 1);
 
@@ -146,13 +146,13 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
     // update the selection in the combo box if necessary
     int index = cbMethod->findData(static_cast<int>(method));
     if (cbMethod->currentIndex() != index) {
-	cbMethod->setCurrentIndex(index);
-	return; // we will get called again, through "methodSelected(...)"
+        cbMethod->setCurrentIndex(index);
+        return; // we will get called again, through "methodSelected(...)"
     }
 
     qDebug("PlayBackDialog::setMethod('%s' [%d])",
            DBG(m_methods_map.name(m_methods_map.findFromData(method))),
-	   static_cast<int>(method) );
+           static_cast<int>(method) );
 
     // set hourglass cursor
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -170,54 +170,54 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
 
     // save the current device
     cfg.writeEntry(
-	QString(_("last_device_%1")).arg(static_cast<int>(old_method)),
-	m_playback_params.device);
+        QString(_("last_device_%1")).arg(static_cast<int>(old_method)),
+        m_playback_params.device);
     qDebug("SAVE:    '%s' (%d) -> '%s'",
-	    DBG(m_methods_map.name(m_methods_map.findFromData(old_method))),
-	    static_cast<int>(old_method),
-	    DBG(m_playback_params.device.split(_("|")).at(0)));
+            DBG(m_methods_map.name(m_methods_map.findFromData(old_method))),
+            static_cast<int>(old_method),
+            DBG(m_playback_params.device.split(_("|")).at(0)));
     cfg.sync();
 
     // NOTE: the "method" may get modified here if not supported!
     m_playback_controller.checkMethod(method);
     if (method != m_playback_params.method) {
-	// method has been modified to some fallback -> start through
-	qDebug("    method has changed: %d -> %d",
-	       static_cast<int>(m_playback_params.method),
-	       static_cast<int>(method));
-	setMethod(method); // -> recursion
+        // method has been modified to some fallback -> start through
+        qDebug("    method has changed: %d -> %d",
+               static_cast<int>(m_playback_params.method),
+               static_cast<int>(method));
+        setMethod(method); // -> recursion
 
-	// remove hourglass
-	QApplication::restoreOverrideCursor();
+        // remove hourglass
+        QApplication::restoreOverrideCursor();
 
-	return;
+        return;
     }
 
     // if we found no playback method
     if (method == Kwave::PLAYBACK_INVALID) {
-	qWarning("found no valid playback method");
+        qWarning("found no valid playback method");
     }
 
     // create a new playback device (will fail if method is unsupported)
     m_device = m_playback_controller.createDevice(method);
     if (!m_device) {
-	// oops, something has failed :-(
-	setSupportedDevices(QStringList());
-	setDevice(QString());
+        // oops, something has failed :-(
+        setSupportedDevices(QStringList());
+        setDevice(QString());
 
-	// remove hourglass
-	QApplication::restoreOverrideCursor();
+        // remove hourglass
+        QApplication::restoreOverrideCursor();
 
-	return;
+        return;
     }
 
     // restore the previous settings of the new method
     QString device = cfg.readEntry(
-	_("last_device_%1").arg(static_cast<int>(method)));
+        _("last_device_%1").arg(static_cast<int>(method)));
     qDebug("RESTORE: '%s' (%d) -> '%s'",
-	    DBG(m_methods_map.name(m_methods_map.findFromData(method))),
-	    static_cast<int>(method),
-	   DBG(device.split(_("|")).at(0)));
+            DBG(m_methods_map.name(m_methods_map.findFromData(method))),
+            static_cast<int>(method),
+           DBG(device.split(_("|")).at(0)));
 
     m_playback_params.device = device;
 
@@ -240,11 +240,11 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
 void Kwave::PlayBackDialog::methodSelected(int index)
 {
     Kwave::playback_method_t method = static_cast<Kwave::playback_method_t>(
-	cbMethod->itemData(index).toInt());
+        cbMethod->itemData(index).toInt());
 
     qDebug("PlayBackDialog::methodSelected(%d) -> %s [%d]", index,
-	DBG(m_methods_map.name(m_methods_map.findFromData(method))),
-	static_cast<int>(method) );
+        DBG(m_methods_map.name(m_methods_map.findFromData(method))),
+        static_cast<int>(method) );
 
     if (method <= Kwave::PLAYBACK_NONE) return;
     if (method >= Kwave::PLAYBACK_INVALID) return;
@@ -266,134 +266,134 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 
 //     qDebug("PlayBackDialog::setSupportedDevices():");
 //     foreach (const QString &d, devices)
-// 	qDebug("    '%s'", DBG(d));
+//      qDebug("    '%s'", DBG(d));
 
     cbDevice->clearEditText();
     cbDevice->clear();
     listDevices->clear();
 
     if (devices.contains(_("#EDIT#"))) {
-	devices.removeAll(_("#EDIT#"));
-	cbDevice->setEditable(true);
+        devices.removeAll(_("#EDIT#"));
+        cbDevice->setEditable(true);
     } else {
-	cbDevice->setEditable(false);
+        cbDevice->setEditable(false);
     }
 
     if (devices.contains(_("#SELECT#"))) {
-	devices.removeAll(_("#SELECT#"));
-	btSelectDevice->setEnabled(true);
-	btSelectDevice->show();
+        devices.removeAll(_("#SELECT#"));
+        btSelectDevice->setEnabled(true);
+        btSelectDevice->show();
     } else {
-	btSelectDevice->setEnabled(false);
-	btSelectDevice->hide();
+        btSelectDevice->setEnabled(false);
+        btSelectDevice->hide();
     }
 
     if (devices.contains(_("#TREE#"))) {
-	// treeview mode
-	KIconLoader *icon_loader = KIconLoader::global();
+        // treeview mode
+        KIconLoader *icon_loader = KIconLoader::global();
 
-	devices.removeAll((_("#TREE#")));
-	listDevices->setEnabled(true);
-	cbDevice->setEnabled(false);
-	cbDevice->hide();
-	m_devices_list_map.clear();
+        devices.removeAll((_("#TREE#")));
+        listDevices->setEnabled(true);
+        cbDevice->setEnabled(false);
+        cbDevice->hide();
+        m_devices_list_map.clear();
 
-	// build a tree with all nodes in the list
-	foreach (const QString &dev_id, devices) {
+        // build a tree with all nodes in the list
+        foreach (const QString &dev_id, devices) {
             QTreeWidgetItem *parent = Q_NULLPTR;
 
-	    QStringList list = dev_id.split(_("||"), Qt::KeepEmptyParts);
-	    foreach (const QString &t, list) {
-		QString token(t);
+            QStringList list = dev_id.split(_("||"), Qt::KeepEmptyParts);
+            foreach (const QString &t, list) {
+                QString token(t);
                 QTreeWidgetItem *item = Q_NULLPTR;
 
-		// split the icon name from the token
-		QString icon_name;
-		int pos = token.indexOf(QLatin1Char('|'));
-		if (pos > 0) {
-		    icon_name = token.mid(pos+1);
-		    token     = token.left(pos);
-		}
+                // split the icon name from the token
+                QString icon_name;
+                int pos = token.indexOf(QLatin1Char('|'));
+                if (pos > 0) {
+                    icon_name = token.mid(pos+1);
+                    token     = token.left(pos);
+                }
 
-		// find the first item with the same text
-		// and the same root
-		if (parent) {
-		    for (int i = 0; i < parent->childCount(); i++) {
-			QTreeWidgetItem *node = parent->child(i);
-			if (node && node->text(0) == token) {
-			    item = node;
-			    break;
-			}
-		    }
-		} else {
-		    QList<QTreeWidgetItem *> matches =
-			listDevices->findItems(token, Qt::MatchExactly);
-		    if (matches.count())
-			item = matches.takeFirst();
-		}
+                // find the first item with the same text
+                // and the same root
+                if (parent) {
+                    for (int i = 0; i < parent->childCount(); i++) {
+                        QTreeWidgetItem *node = parent->child(i);
+                        if (node && node->text(0) == token) {
+                            item = node;
+                            break;
+                        }
+                    }
+                } else {
+                    QList<QTreeWidgetItem *> matches =
+                        listDevices->findItems(token, Qt::MatchExactly);
+                    if (matches.count())
+                        item = matches.takeFirst();
+                }
 
-		if (item) {
-		    // already in the list
-		    parent = item;
-		} else if (parent) {
-		    // new leaf, add to the parent
-		    item = new(std::nothrow) QTreeWidgetItem(parent);
-		    Q_ASSERT(item);
-		    if (item) {
-			item->setText(0, token);
-			m_devices_list_map.insert(item, dev_id);
-		    }
+                if (item) {
+                    // already in the list
+                    parent = item;
+                } else if (parent) {
+                    // new leaf, add to the parent
+                    item = new(std::nothrow) QTreeWidgetItem(parent);
+                    Q_ASSERT(item);
+                    if (item) {
+                        item->setText(0, token);
+                        m_devices_list_map.insert(item, dev_id);
+                    }
 
-		    parent->setExpanded(true);
-		    parent->setFlags(parent->flags() &
-			~(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable));
-		    if (m_devices_list_map.contains(parent)) {
-			// make the parent not selectable
-			m_devices_list_map.remove(parent);
-		    }
-		} else {
-		    // new root node
-		    item = new(std::nothrow) QTreeWidgetItem(listDevices);
-		    Q_ASSERT(item);
-		    if (item) {
-			item->setText(0, token);
-			m_devices_list_map.insert(item, dev_id);
-		    }
-		}
+                    parent->setExpanded(true);
+                    parent->setFlags(parent->flags() &
+                        ~(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable));
+                    if (m_devices_list_map.contains(parent)) {
+                        // make the parent not selectable
+                        m_devices_list_map.remove(parent);
+                    }
+                } else {
+                    // new root node
+                    item = new(std::nothrow) QTreeWidgetItem(listDevices);
+                    Q_ASSERT(item);
+                    if (item) {
+                        item->setText(0, token);
+                        m_devices_list_map.insert(item, dev_id);
+                    }
+                }
 
-		if (item && icon_name.length() && icon_loader) {
-		    QIcon icon = icon_loader->loadIcon(
-			icon_name, KIconLoader::User);
-		    item->setIcon(0, icon);
-		}
+                if (item && icon_name.length() && icon_loader) {
+                    QIcon icon = icon_loader->loadIcon(
+                        icon_name, KIconLoader::User);
+                    item->setIcon(0, icon);
+                }
 
-		// use the current item as parent for the next pass
-		parent = item;
-	    }
-	}
+                // use the current item as parent for the next pass
+                parent = item;
+            }
+        }
     } else {
-	// combo box mode
-	cbDevice->addItems(devices);
-	cbDevice->show();
-	listDevices->setEnabled(false);
+        // combo box mode
+        cbDevice->addItems(devices);
+        cbDevice->show();
+        listDevices->setEnabled(false);
 
-	if (devices.contains(current_device)) {
-	    // current device is in the list
-	    cbDevice->setCurrentIndex(cbDevice->findText(current_device));
-	} else {
-	    if (cbDevice->isEditable() && current_device.length()) {
-		// user defined device name
-		cbDevice->setEditText(current_device);
-	    } else if (devices.count()) {
-		// one or more other possibilities -> take the first one
-		cbDevice->setCurrentIndex(0);
-	    } else {
-		// empty list of possibilities
-		cbDevice->clearEditText();
-		cbDevice->clear();
-	    }
-	}
-	cbDevice->setEnabled(devices.count() > 1);
+        if (devices.contains(current_device)) {
+            // current device is in the list
+            cbDevice->setCurrentIndex(cbDevice->findText(current_device));
+        } else {
+            if (cbDevice->isEditable() && current_device.length()) {
+                // user defined device name
+                cbDevice->setEditText(current_device);
+            } else if (devices.count()) {
+                // one or more other possibilities -> take the first one
+                cbDevice->setCurrentIndex(0);
+            } else {
+                // empty list of possibilities
+                cbDevice->clearEditText();
+                cbDevice->clear();
+            }
+        }
+        cbDevice->setEnabled(devices.count() > 1);
     }
 
     // enable changes in the device controls again
@@ -409,7 +409,7 @@ void Kwave::PlayBackDialog::listEntrySelected(QTreeWidgetItem *current,
     if (!current || !listDevices) return;
 
     if (m_devices_list_map.contains(current))
-	setDevice(m_devices_list_map[current]);
+        setDevice(m_devices_list_map[current]);
 }
 
 //***************************************************************************
@@ -440,42 +440,42 @@ void Kwave::PlayBackDialog::setDevice(const QString &device)
        DBG(device.split(_("|")).at(0)));
 
     if (listDevices->isEnabled()) {
-	// treeview mode
+        // treeview mode
         QTreeWidgetItem *node = m_devices_list_map.key(device, Q_NULLPTR);
-	if (node) {
-	    node->setSelected(true);
-	    listDevices->scrollToItem(node);
-	    listDevices->setCurrentItem(node);
-	}
+        if (node) {
+            node->setSelected(true);
+            listDevices->scrollToItem(node);
+            listDevices->setCurrentItem(node);
+        }
     } else if (cbDevice->isEditable() && device.length()) {
-	// user defined device name
-	if (!device.isEmpty() && (cbDevice->currentText() != device)) {
-	    cbDevice->setCurrentIndex(cbDevice->findText(device));
-	    cbDevice->setEditText(device);
-	}
+        // user defined device name
+        if (!device.isEmpty() && (cbDevice->currentText() != device)) {
+            cbDevice->setCurrentIndex(cbDevice->findText(device));
+            cbDevice->setEditText(device);
+        }
     } else {
-	// just take one from the list
-	if (cbDevice->findText(device) >= 0) {
-	    cbDevice->setCurrentIndex(cbDevice->findText(device));
-	} else if (cbDevice->count()) {
-	    cbDevice->setCurrentIndex(0);
-	}
+        // just take one from the list
+        if (cbDevice->findText(device) >= 0) {
+            cbDevice->setCurrentIndex(cbDevice->findText(device));
+        } else if (cbDevice->count()) {
+            cbDevice->setCurrentIndex(0);
+        }
     }
 
     // select the default device if new one is not supported
     QString dev = device;
     if (m_device) {
-	QStringList supported = m_device->supportedDevices();
-	supported.removeAll(_("#EDIT#"));
-	supported.removeAll(_("#SELECT#"));
-	supported.removeAll(_("#TREE#"));
-	if (!supported.isEmpty() && !supported.contains(device)) {
-	    // use the first entry as default
-	    dev = supported.first();
-	    qDebug("PlayBackPlugin::setDevice(%s) -> fallback to '%s'",
-		DBG(device.split(_("|")).at(0)),
-		DBG(dev.split(_("|")).at(0)));
-	}
+        QStringList supported = m_device->supportedDevices();
+        supported.removeAll(_("#EDIT#"));
+        supported.removeAll(_("#SELECT#"));
+        supported.removeAll(_("#TREE#"));
+        if (!supported.isEmpty() && !supported.contains(device)) {
+            // use the first entry as default
+            dev = supported.first();
+            qDebug("PlayBackPlugin::setDevice(%s) -> fallback to '%s'",
+                DBG(device.split(_("|")).at(0)),
+                DBG(dev.split(_("|")).at(0)));
+        }
     }
 
     // take over the device, please note that this one might differ from
@@ -512,9 +512,9 @@ void Kwave::PlayBackDialog::setBufferSize(int exp)
     unsigned int buffer_size = (1 << exp);
     QString text;
     if (buffer_size < 1024) {
-	text = i18n("%1 Bytes", buffer_size);
+        text = i18n("%1 Bytes", buffer_size);
     } else {
-	text = i18n("%1 kB", buffer_size >> 10);
+        text = i18n("%1 kB", buffer_size >> 10);
     }
     txtBufferSize->setText(text);
 }
@@ -529,18 +529,18 @@ void Kwave::PlayBackDialog::setSupportedBits(const QList<unsigned int> &bits)
     cbBitsPerSample->clear();
     QString txt;
     foreach (unsigned int b, bits) {
-	txt.setNum(b);
-	cbBitsPerSample->addItem(txt);
+        txt.setNum(b);
+        cbBitsPerSample->addItem(txt);
     }
 
     // if possibilities are "unknown" -> use last known setting
     if (!bits.count()) {
-	txt.setNum(current_bits);
-	cbBitsPerSample->addItem(txt);
+        txt.setNum(current_bits);
+        cbBitsPerSample->addItem(txt);
     }
 
     if (!bits.contains(current_bits) && bits.count())
-	current_bits = bits.last();
+        current_bits = bits.last();
 
     setBitsPerSample(current_bits);
     cbBitsPerSample->setEnabled(bits.count() > 0);
@@ -568,8 +568,8 @@ void Kwave::PlayBackDialog::setBitsPerSample(unsigned int bits)
     QString txt;
     txt.setNum(bits);
     if (cbBitsPerSample->findText(txt) >= 0) {
-	cbBitsPerSample->setCurrentIndex(cbBitsPerSample->findText(txt));
-	m_playback_params.bits_per_sample = bits;
+        cbBitsPerSample->setCurrentIndex(cbBitsPerSample->findText(txt));
+        m_playback_params.bits_per_sample = bits;
     }
 }
 
@@ -583,7 +583,7 @@ void Kwave::PlayBackDialog::setSupportedChannels(unsigned int min, unsigned int 
 
     // if possibilities are "unknown" -> use last known setting
     if (!min && !max && current_channels)
-	min = max = current_channels;
+        min = max = current_channels;
 
     sbChannels->setMinimum(min);
     sbChannels->setMaximum(max);
@@ -599,10 +599,10 @@ void Kwave::PlayBackDialog::setChannels(int channels)
 
     if ((sbChannels->value() != channels) &&
         (sbChannels->minimum() != sbChannels->maximum()) &&
-	(sbChannels->maximum() > 0))
+        (sbChannels->maximum() > 0))
     {
-	sbChannels->setValue(channels);
-	channels = sbChannels->value();
+        sbChannels->setValue(channels);
+        channels = sbChannels->value();
     }
 
     qDebug("PlayBackDialog::setChannels(): %d -> %d",
@@ -611,10 +611,10 @@ void Kwave::PlayBackDialog::setChannels(int channels)
 
     QString txt;
     switch (channels) {
-	case 1: txt = i18n("(mono)");   break;
-	case 2: txt = i18n("(stereo)"); break;
-	case 4: txt = i18n("(quadro)"); break;
-	default: txt = _("");
+        case 1: txt = i18n("(mono)");   break;
+        case 2: txt = i18n("(stereo)"); break;
+        case 4: txt = i18n("(quadro)"); break;
+        default: txt = _("");
     }
     lblChannels->setText(txt);
 }
@@ -638,9 +638,9 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
     QString filter = m_file_filter;
 
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
-	_("kfiledialog:///kwave_playback_device"),
-	Kwave::FileDialog::OpenFile, filter, this,
-	QUrl(_("file:/dev"))
+        _("kfiledialog:///kwave_playback_device"),
+        Kwave::FileDialog::OpenFile, filter, this,
+        QUrl(_("file:/dev"))
     );
     if (!dlg) return;
     dlg->setWindowTitle(i18n("Select Playback Device"));
@@ -649,9 +649,9 @@ void Kwave::PlayBackDialog::selectPlaybackDevice()
     else
         dlg->selectUrl(QUrl(_("file:/dev/*")));
     if (dlg->exec() == QDialog::Accepted) {
-	QString new_device = dlg->selectedUrl().fileName();
-	// selected new device
-	if (cbDevice) cbDevice->setEditText(new_device);
+        QString new_device = dlg->selectedUrl().fileName();
+        // selected new device
+        if (cbDevice) cbDevice->setEditText(new_device);
     }
     delete dlg;
 }

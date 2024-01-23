@@ -59,7 +59,7 @@ ID3_Reader::pos_type Kwave::ID3_QIODeviceReader::getCur()
 ID3_Reader::pos_type Kwave::ID3_QIODeviceReader::setCur(ID3_Reader::pos_type pos)
 {
     if (!m_source.seek(static_cast<qint64>(pos)))
-	return static_cast<ID3_Reader::pos_type>(-1);
+        return static_cast<ID3_Reader::pos_type>(-1);
     return static_cast<ID3_Reader::pos_type>(m_source.pos());
 }
 
@@ -85,8 +85,8 @@ ID3_Reader::size_type Kwave::ID3_QIODeviceReader::readChars(
     char_type buf[], size_type len)
 {
      qint64 size = m_source.read(
-	reinterpret_cast<char *>(&(buf[0])),
-	static_cast<qint64>(len)
+        reinterpret_cast<char *>(&(buf[0])),
+        static_cast<qint64>(len)
     );
     return static_cast<ID3_Reader::size_type>(size);
 }

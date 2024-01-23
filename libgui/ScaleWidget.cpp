@@ -1,6 +1,6 @@
 /***************************************************************************
         ScaleWidget.cpp  -  widget for drawing a scale under an image
-			     -------------------
+                             -------------------
     begin                : Sep 18 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -90,16 +90,16 @@ void Kwave::ScaleWidget::paintText(QPainter &p, int x, int y,
     QFontMetrics fm(font);
 
     if (reverse) {
-	x += FONTSIZE + 2;
-	y -= FONTSIZE + 2;
+        x += FONTSIZE + 2;
+        y -= FONTSIZE + 2;
     }
 
     QRect rect = fm.boundingRect(text);
     const int th = rect.height();
     const int tw = rect.width();
     p.drawText(x, y, tw, th,
-	((reverse) ? Qt::AlignLeft : Qt::AlignRight) | Qt::AlignBottom,
-	text);
+        ((reverse) ? Qt::AlignLeft : Qt::AlignRight) | Qt::AlignBottom,
+        text);
 }
 
 //***************************************************************************
@@ -130,32 +130,32 @@ void Kwave::ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
     // check if we have enough space for the small lines within a decade
     int w1 = Kwave::toInt(w / decades); // pixels per decade
     bool small_lines = (w1 - Kwave::toInt(
-	static_cast<double>(w1) * log(base-1)/log(base))) > 1;
+        static_cast<double>(w1) * log(base-1)/log(base))) > 1;
 
     // print the lines
     for (a = 0; a < decades; ++a) {
-	// big line, for each decade
-	x = Kwave::toInt((w-1) * a / decades);
-	p.drawLine (dir * x, dir * 1, dir * x, dir * (h2 - 2));
+        // big line, for each decade
+        x = Kwave::toInt((w-1) * a / decades);
+        p.drawLine (dir * x, dir * 1, dir * x, dir * (h2 - 2));
 
-	w1 = Kwave::toInt((w - 1) * (a + 1) / decades) - x + 1;
-	if (small_lines) {
-	    // small lines, within the decade
-	    for (int i = 1; i < base; i++) {
-		int x1 = x + Kwave::toInt(static_cast<double>(w1) *
-		    log(i) / log(base));
-		p.drawLine (dir * x1, dir * 1, dir * x1, dir * ((h2 / 2) - 2));
-	    }
-	}
+        w1 = Kwave::toInt((w - 1) * (a + 1) / decades) - x + 1;
+        if (small_lines) {
+            // small lines, within the decade
+            for (int i = 1; i < base; i++) {
+                int x1 = x + Kwave::toInt(static_cast<double>(w1) *
+                    log(i) / log(base));
+                p.drawLine (dir * x1, dir * 1, dir * x1, dir * ((h2 / 2) - 2));
+            }
+        }
     }
 
     // print the text
     for (a = 0; a < decades; ++a) {
-	QString buf = _("%1 %2");
-	int value = Kwave::toInt(pow(base, dec_lo + a));
-	buf = buf.arg(value).arg(m_unittext);
-	x = ((w - 1) * a) / decades;
-	paintText(p, dir * (x + 4), dir * (h - FONTSIZE - 4), inverse, buf);
+        QString buf = _("%1 %2");
+        int value = Kwave::toInt(pow(base, dec_lo + a));
+        buf = buf.arg(value).arg(m_unittext);
+        x = ((w - 1) * a) / decades;
+        paintText(p, dir * (x + 4), dir * (h - FONTSIZE - 4), inverse, buf);
     }
 }
 
@@ -177,23 +177,23 @@ void Kwave::ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
 
     // print the lines
     while ((t / 10 > 1) && (h2 > 0)) {
-	for (ofs = 0; ofs < w - 1; ofs += t) {
-	    for (a = 0; a < 4; ++a) {
-		x = Kwave::toInt(ofs + (t * a / 4));
-		p.drawLine (dir * x, dir * 1, dir * x, dir * (h2 - 2));
-	    }
-	}
-	h2 >>= 1;
-	t /= 4;
+        for (ofs = 0; ofs < w - 1; ofs += t) {
+            for (a = 0; a < 4; ++a) {
+                x = Kwave::toInt(ofs + (t * a / 4));
+                p.drawLine (dir * x, dir * 1, dir * x, dir * (h2 - 2));
+            }
+        }
+        h2 >>= 1;
+        t /= 4;
     }
 
     // print the text
     for (a = 0; a < 4; ++a) {
-	QString buf = _("%1 %2");
-	int value = m_low + (((m_high - m_low)* (inverse ? (4 - a) : a)) / 4);
-	buf = buf.arg(value).arg(m_unittext);
-	x = ((w - 1) * a) / 4;
-	paintText(p, dir * (x + 4), dir * (h - FONTSIZE - 4), inverse, buf);
+        QString buf = _("%1 %2");
+        int value = m_low + (((m_high - m_low)* (inverse ? (4 - a) : a)) / 4);
+        buf = buf.arg(value).arg(m_unittext);
+        x = ((w - 1) * a) / 4;
+        paintText(p, dir * (x + 4), dir * (h - FONTSIZE - 4), inverse, buf);
     }
 
 }
@@ -212,12 +212,12 @@ void Kwave::ScaleWidget::paintEvent(QPaintEvent *)
 
     p.drawLine(0, 0, w, 0);
     if (h > w) {
-	p.setWindow(-w, 0, w, h);
-	p.rotate(-90);
-	h = width();
-	w = height();
+        p.setWindow(-w, 0, w, h);
+        p.rotate(-90);
+        h = width();
+        w = height();
 
-	inverse = true;
+        inverse = true;
     }
 
     (m_logmode) ? drawLog(p, w, h, inverse) : drawLinear(p, w, h, inverse);

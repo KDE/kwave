@@ -1,6 +1,6 @@
 /***************************************************************************
             ClipBoard.h  -  the Kwave clipboard
-			     -------------------
+                             -------------------
     begin                : Tue Jun 26, 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -40,79 +40,79 @@ namespace Kwave
      */
     class Q_DECL_EXPORT ClipBoard: public QObject
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor. */
-	ClipBoard();
+        /** Constructor. */
+        ClipBoard();
 
-	/** Destructor */
-	virtual ~ClipBoard();
+        /** Destructor */
+        virtual ~ClipBoard();
 
-	/** returns the static instance of the clipboard */
-	static ClipBoard &instance();
+        /** returns the static instance of the clipboard */
+        static ClipBoard &instance();
 
-	/**
-	 * Discards the current content of the clipboard and fills
-	 * it with a selected range of samples from a set of tracks.
-	 * @param widget the widget used as parent for displaying
-	 *               error messages
-	 * @param signal_manager the SignalManager with the tracks to read from
-	 * @param track_list a list of indices of tracks for reading
-	 * @param offset first sample to copy
-	 * @param length number of samples
-	 */
-	void copy(QWidget *widget, Kwave::SignalManager &signal_manager,
-		  const QVector<unsigned int> &track_list,
-	          sample_index_t offset, sample_index_t length);
+        /**
+         * Discards the current content of the clipboard and fills
+         * it with a selected range of samples from a set of tracks.
+         * @param widget the widget used as parent for displaying
+         *               error messages
+         * @param signal_manager the SignalManager with the tracks to read from
+         * @param track_list a list of indices of tracks for reading
+         * @param offset first sample to copy
+         * @param length number of samples
+         */
+        void copy(QWidget *widget, Kwave::SignalManager &signal_manager,
+                  const QVector<unsigned int> &track_list,
+                  sample_index_t offset, sample_index_t length);
 
-	/**
-	 * Transfers all stored data from the clipboard into a SignalManager.
-	 *
-	 * @param widget the widget used as parent for displaying
-	 *               error messages
-	 * @param signal_manager the SignalManager with the tracks to write to
-	 * @param offset sample position where to paste
-	 * @param length length of the current selection in samples
-	 * @return true if successful, false if failed
-	 */
-	bool paste(QWidget *widget, Kwave::SignalManager &signal_manager,
-	           sample_index_t offset, sample_index_t length);
+        /**
+         * Transfers all stored data from the clipboard into a SignalManager.
+         *
+         * @param widget the widget used as parent for displaying
+         *               error messages
+         * @param signal_manager the SignalManager with the tracks to write to
+         * @param offset sample position where to paste
+         * @param length length of the current selection in samples
+         * @return true if successful, false if failed
+         */
+        bool paste(QWidget *widget, Kwave::SignalManager &signal_manager,
+                   sample_index_t offset, sample_index_t length);
 
-	/**
-	 * Clears the internal buffers. The clipboard will be empty after this
-	 * function returns and the sample rate will be set to zero.
-	 */
-	void clear();
+        /**
+         * Clears the internal buffers. The clipboard will be empty after this
+         * function returns and the sample rate will be set to zero.
+         */
+        void clear();
 
-	/**
-	 * Returns true if the buffer is empty.
-	 */
-	bool isEmpty();
+        /**
+         * Returns true if the buffer is empty.
+         */
+        bool isEmpty();
 
     signals:
 
-	/**
-	 * Emitted whenever the clipboard has changed from empty
-	 * to non-empty (with decodeable data) or vice versa.
-	 * @param data_available if true: contains decodeable data,
-	 *                       if false: nothing decodeable or empty
-	 */
-	void clipboardChanged(bool data_available);
+        /**
+         * Emitted whenever the clipboard has changed from empty
+         * to non-empty (with decodeable data) or vice versa.
+         * @param data_available if true: contains decodeable data,
+         *                       if false: nothing decodeable or empty
+         */
+        void clipboardChanged(bool data_available);
 
     public slots:
 
-	/**
-	 * emits clipboardChanged() whenever the clipboard has changed
-	 * from empty to filled (with decodeable data) or vice versa
-	 * (connected to the Qt clipboard)
-	 */
-	void slotChanged(QClipboard::Mode mode);
+        /**
+         * emits clipboardChanged() whenever the clipboard has changed
+         * from empty to filled (with decodeable data) or vice versa
+         * (connected to the Qt clipboard)
+         */
+        void slotChanged(QClipboard::Mode mode);
 
     private:
 
-	/** number of tracks of the content */
-	unsigned int m_tracks;
+        /** number of tracks of the content */
+        unsigned int m_tracks;
 
     };
 }

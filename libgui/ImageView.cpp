@@ -1,6 +1,6 @@
 /***************************************************************************
            ImageView.cpp  -  simple widget class for displaying a QImage
-			     -------------------
+                             -------------------
     begin                : 1999
     copyright            : (C) 1999 by Martin Wilz
     email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
@@ -47,7 +47,7 @@ void Kwave::ImageView::mouseMoveEvent(QMouseEvent *e)
     if (!e) return;
 
     if (!m_image.width() || !m_image.height())
-	return; // image not yet loaded
+        return; // image not yet loaded
 
     int x = e->pos().x();
     int y = e->pos().y();
@@ -60,9 +60,9 @@ void Kwave::ImageView::mouseMoveEvent(QMouseEvent *e)
      * the original image coordinates and emit a cursor position signal
      */
     x = m_offset.x() + Kwave::toInt((!qFuzzyIsNull(m_scale_x)) ?
-	(static_cast<double>(x) / m_scale_x) : 0);
+        (static_cast<double>(x) / m_scale_x) : 0);
     y = m_offset.y() + Kwave::toInt((!qFuzzyIsNull(m_scale_y)) ?
-	(static_cast<double>(y) / m_scale_y) : 0);
+        (static_cast<double>(y) / m_scale_y) : 0);
     emit sigCursorPos(QPoint(x, y));
 }
 
@@ -83,15 +83,15 @@ void Kwave::ImageView::setImage(QImage image)
 QRect Kwave::ImageView::imageRect()
 {
     return QRect(m_offset.x(), m_offset.y(),
-	         m_image.width(), m_image.height());
+                 m_image.width(), m_image.height());
 }
 
 //****************************************************************************
 void Kwave::ImageView::setHorizOffset(int offset)
 {
     if (m_offset.x() != offset) {
-	m_offset.setX(offset);
-	repaint();
+        m_offset.setX(offset);
+        repaint();
     }
 }
 
@@ -99,8 +99,8 @@ void Kwave::ImageView::setHorizOffset(int offset)
 void Kwave::ImageView::setVertOffset(int offset)
 {
     if (m_offset.y() != offset) {
-	m_offset.setY(offset);
-	repaint();
+        m_offset.setY(offset);
+        repaint();
     }
 }
 
@@ -111,7 +111,7 @@ void Kwave::ImageView::paintEvent(QPaintEvent *)
 
     QPainter p(this);
     QPixmap newmap = QPixmap::fromImage(m_image,
-	Qt::ColorOnly | Qt::ThresholdDither | Qt::AvoidDither);
+        Qt::ColorOnly | Qt::ThresholdDither | Qt::AvoidDither);
 
     m_scale_x = m_fit_width  ? static_cast<double>(width())  /
                                static_cast<double>(m_image.width()) : 1.0;
@@ -119,18 +119,18 @@ void Kwave::ImageView::paintEvent(QPaintEvent *)
                                static_cast<double>(m_image.height()) : 1.0;
 
     if (m_offset.x() + m_scale_x * m_image.width() > width())
-	m_offset.setX(Kwave::toInt(m_scale_x * m_image.width() - width()));
+        m_offset.setX(Kwave::toInt(m_scale_x * m_image.width() - width()));
     if (m_offset.y() + m_scale_y * m_image.height() > height())
-	m_offset.setY(Kwave::toInt(
-	    m_scale_y * m_image.height() - height()));
+        m_offset.setY(Kwave::toInt(
+            m_scale_y * m_image.height() - height()));
 
     QPixmap pixmap = newmap.transformed(
-	QTransform::fromScale(m_scale_x, m_scale_y),
-	Qt::FastTransformation
+        QTransform::fromScale(m_scale_x, m_scale_y),
+        Qt::FastTransformation
     );
 
     p.drawPixmap(0, 0, pixmap, m_offset.x(), m_offset.y(),
-	width(), height()
+        width(), height()
     );
 
     m_last_rect = imageRect();

@@ -1,6 +1,6 @@
 /***************************************************************************
     SignalView.cpp  -  base class for widgets for views to a signal
-			     -------------------
+                             -------------------
     begin                : Mon Jan 18 2010
     copyright            : (C) 2010 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -88,13 +88,13 @@ Kwave::SignalView::~SignalView()
     m_selected_item.clear();
 
     if (!m_siblings.isEmpty()) {
-	QMutableListIterator<QPointer<QWidget> > it(m_siblings);
-	it.toBack();
-	while (it.hasPrevious()) {
-	    QWidget *widget = it.previous();
-	    it.remove();
-	    if (widget) delete widget;
-	}
+        QMutableListIterator<QPointer<QWidget> > it(m_siblings);
+        it.toBack();
+        while (it.hasPrevious()) {
+            QWidget *widget = it.previous();
+            it.remove();
+            if (widget) delete widget;
+        }
     }
 }
 
@@ -126,9 +126,9 @@ void Kwave::SignalView::setZoomAndOffset(double zoom, sample_index_t offset)
 //     sample_index_t visible = ((width() - 1) * zoom) + 1;
 //     sample_index_t last = offset + visible - 1;
 //     qDebug("SignalView::setZoomAndOffset(%g, %lu), last visible=%lu",
-// 	   zoom,
-// 	   static_cast<unsigned long int>(offset),
-// 	   static_cast<unsigned long int>(last));
+//         zoom,
+//         static_cast<unsigned long int>(offset),
+//         static_cast<unsigned long int>(last));
 
     // the relation to the position widget has become invalid
     hidePosition();
@@ -150,7 +150,7 @@ void Kwave::SignalView::showCursor(sample_index_t pos)
 int Kwave::SignalView::samples2pixels(sample_index_t samples) const
 {
     return Kwave::toInt((m_zoom > 0.0) ?
-	(static_cast<double>(samples) / m_zoom) : 0);
+        (static_cast<double>(samples) / m_zoom) : 0);
 }
 
 //***************************************************************************
@@ -198,11 +198,11 @@ Kwave::SignalView::SelectionPos Kwave::SignalView::selectionPosition(int x)
     if ((p >= first) && (p <= last))     pos |= Selection;
 
     if ((pos & LeftBorder) && (pos & RightBorder)) {
-	// special case: determine which border is nearer
-	if (d_left < d_right)
-	    pos &= ~RightBorder; // more on the left
-	else
-	    pos &= ~LeftBorder;  // more on the right
+        // special case: determine which border is nearer
+        if (d_left < d_right)
+            pos &= ~RightBorder; // more on the left
+        else
+            pos &= ~LeftBorder;  // more on the right
     }
 
     return pos;
@@ -234,50 +234,50 @@ void Kwave::SignalView::showPosition(const QString &text, sample_index_t pos,
 
     // x/y == -1/-1 or empty text -> reset/hide the position
     if (((x < 0) && (y < 0)) || !text.length()) {
-	m_position_widget_timer.stop();
-	m_position_widget.hide();
-	return;
+        m_position_widget_timer.stop();
+        m_position_widget.hide();
+        return;
     }
 
     setUpdatesEnabled(false);
     m_position_widget.hide();
 
     switch (selectionPosition(mouse.x()) & ~Selection) {
-	case LeftBorder:
-	    m_position_widget.setText(text, Qt::AlignRight);
-	    x = samples2pixels(pos - m_offset) - m_position_widget.width();
-	    if (x < 0) {
-		// switch to left aligned mode
-		m_position_widget.setText(text, Qt::AlignLeft);
-		x = samples2pixels(pos - m_offset);
-	    }
-	    break;
-	case RightBorder:
-	default:
-	    m_position_widget.setText(text, Qt::AlignLeft);
-	    x = samples2pixels(pos - m_offset);
-	    if (x + m_position_widget.width() > width()) {
-		// switch to right aligned mode
-		m_position_widget.setText(text, Qt::AlignRight);
-		x = samples2pixels(pos - m_offset) - m_position_widget.width();
-	    }
-	    break;
+        case LeftBorder:
+            m_position_widget.setText(text, Qt::AlignRight);
+            x = samples2pixels(pos - m_offset) - m_position_widget.width();
+            if (x < 0) {
+                // switch to left aligned mode
+                m_position_widget.setText(text, Qt::AlignLeft);
+                x = samples2pixels(pos - m_offset);
+            }
+            break;
+        case RightBorder:
+        default:
+            m_position_widget.setText(text, Qt::AlignLeft);
+            x = samples2pixels(pos - m_offset);
+            if (x + m_position_widget.width() > width()) {
+                // switch to right aligned mode
+                m_position_widget.setText(text, Qt::AlignRight);
+                x = samples2pixels(pos - m_offset) - m_position_widget.width();
+            }
+            break;
     }
 
     // adjust the position to avoid vertical clipping
     int lh = m_position_widget.height();
     if (y - lh/2 < 0) {
-	y = 0;
+        y = 0;
     } else if (y + lh/2 > height()) {
-	y = height() - lh;
+        y = height() - lh;
     } else {
-	y -= lh/2;
+        y -= lh/2;
     }
 
     m_position_widget.move(x, y);
 
     if (!m_position_widget.isVisible())
-	m_position_widget.show();
+        m_position_widget.show();
 
     m_position_widget_timer.stop();
     m_position_widget_timer.setSingleShot(true);
@@ -294,26 +294,26 @@ void Kwave::SignalView::findNewItem(const QPoint &mouse_pos, bool active)
 
     m_selected_item = findItem(mouse_pos);
     if (m_selected_item) {
-	// we have an item to show, activate the position window
-	sample_index_t item_pos  = m_offset + pixels2samples(mouse_pos.x());
-	QString        item_text = m_selected_item->toolTip(item_pos);
-	showPosition(item_text, item_pos, mouse_pos);
+        // we have an item to show, activate the position window
+        sample_index_t item_pos  = m_offset + pixels2samples(mouse_pos.x());
+        QString        item_text = m_selected_item->toolTip(item_pos);
+        showPosition(item_text, item_pos, mouse_pos);
 
-	// update the mouse cursor
-	Kwave::ViewItem::Flags flags = m_selected_item->flags();
-	if (flags & Kwave::ViewItem::CanDragAndDrop)
-	    setCursor(active ? Qt::ClosedHandCursor : Qt::ArrowCursor);
-	else if (flags & Kwave::ViewItem::CanGrabAndMove)
-	    setCursor(m_selected_item->mouseCursor());
-	else
-	    setCursor(Qt::ArrowCursor);
+        // update the mouse cursor
+        Kwave::ViewItem::Flags flags = m_selected_item->flags();
+        if (flags & Kwave::ViewItem::CanDragAndDrop)
+            setCursor(active ? Qt::ClosedHandCursor : Qt::ArrowCursor);
+        else if (flags & Kwave::ViewItem::CanGrabAndMove)
+            setCursor(m_selected_item->mouseCursor());
+        else
+            setCursor(Qt::ArrowCursor);
 
-	if (active) m_mouse_mode = MouseMoveItem;
+        if (active) m_mouse_mode = MouseMoveItem;
     } else {
-	// out of scope
-	hidePosition();
-	m_mouse_mode = MouseNormal;
-	setCursor(Qt::ArrowCursor);
+        // out of scope
+        hidePosition();
+        m_mouse_mode = MouseNormal;
+        setCursor(Qt::ArrowCursor);
     }
 }
 
@@ -326,66 +326,66 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
     // abort if no signal is loaded
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager || !m_signal_manager->length()) {
-	e->ignore();
-	return;
+        e->ignore();
+        return;
     }
 
     // there seems to be a BUG in Qt, sometimes e->pos() produces flicker/wrong
     // coordinates on the start of a fast move!?
     // globalPos() seems not to have this effect
     const QPoint mouse_pos(
-	qBound(0, mapFromGlobal(e->globalPos()).x(), width()  - 1),
-	qBound(0, mapFromGlobal(e->globalPos()).y(), height() - 1)
+        qBound(0, mapFromGlobal(e->globalPos()).x(), width()  - 1),
+        qBound(0, mapFromGlobal(e->globalPos()).y(), height() - 1)
     );
 
     // bail out if the position did not change
     static QPoint last_pos = QPoint(-1, -1);
     if (mouse_pos == last_pos) {
-	e->ignore();
-	return;
+        e->ignore();
+        return;
     }
 
     switch (m_mouse_mode) {
-	case MouseDragItem: /* FALLTHROUGH */
-	case MouseMoveItem: {
-	    // move mode
+        case MouseDragItem: /* FALLTHROUGH */
+        case MouseMoveItem: {
+            // move mode
 
-	    if (m_selected_item.isNull()) {
-		hidePosition();
-		break;
-	    }
+            if (m_selected_item.isNull()) {
+                hidePosition();
+                break;
+            }
 
-	    bool hide_position = true;
-	    Kwave::ViewItem::Flags flags = m_selected_item->flags();
-	    if (flags & Kwave::ViewItem::CanDragAndDrop) {
-		const int dmin = QApplication::startDragDistance();
-		if ((e->buttons() & Qt::LeftButton) &&
-		    ((mouse_pos.x() < (m_mouse_down_x - dmin)) ||
-		     (mouse_pos.x() > (m_mouse_down_x + dmin))) )
-		{
-		    m_selected_item->startDragging();
-		}
-	    }
+            bool hide_position = true;
+            Kwave::ViewItem::Flags flags = m_selected_item->flags();
+            if (flags & Kwave::ViewItem::CanDragAndDrop) {
+                const int dmin = QApplication::startDragDistance();
+                if ((e->buttons() & Qt::LeftButton) &&
+                    ((mouse_pos.x() < (m_mouse_down_x - dmin)) ||
+                     (mouse_pos.x() > (m_mouse_down_x + dmin))) )
+                {
+                    m_selected_item->startDragging();
+                }
+            }
 
-	    if (flags & Kwave::ViewItem::CanGrabAndMove) {
-		// update the position of the item
-		m_selected_item->moveTo(mouse_pos);
+            if (flags & Kwave::ViewItem::CanGrabAndMove) {
+                // update the position of the item
+                m_selected_item->moveTo(mouse_pos);
 
-		// show the position window, so that we see the coordinates
-		// where we move the item to
-		sample_index_t pos  = m_offset + pixels2samples(mouse_pos.x());
-		QString item_text = m_selected_item->toolTip(pos);
-		showPosition(item_text, pos, mouse_pos);
-		hide_position = false;
-	    }
+                // show the position window, so that we see the coordinates
+                // where we move the item to
+                sample_index_t pos  = m_offset + pixels2samples(mouse_pos.x());
+                QString item_text = m_selected_item->toolTip(pos);
+                showPosition(item_text, pos, mouse_pos);
+                hide_position = false;
+            }
 
-	    if (hide_position) hidePosition();
-	    break;
-	}
-	case MouseNormal: /* FALLTHROUGH */
-	default:
-	    findNewItem(mouse_pos, false);
-	    break;
+            if (hide_position) hidePosition();
+            break;
+        }
+        case MouseNormal: /* FALLTHROUGH */
+        default:
+            findNewItem(mouse_pos, false);
+            break;
     }
     e->accept();
 }
@@ -399,67 +399,67 @@ void Kwave::SignalView::mousePressEvent(QMouseEvent *e)
 
     // abort if no signal is loaded
     if (!m_signal_manager || !m_signal_manager->length()) {
-	e->ignore();
-	return;
+        e->ignore();
+        return;
     }
 
     // ignore all mouse press events in playback mode
     if (m_signal_manager->playbackController().running()) {
-	e->ignore();
-	return;
+        e->ignore();
+        return;
     }
 
     const QPoint mouse_pos(
-	qBound(0, mapFromGlobal(e->globalPos()).x(), width()  - 1),
-	qBound(0, mapFromGlobal(e->globalPos()).y(), height() - 1)
+        qBound(0, mapFromGlobal(e->globalPos()).x(), width()  - 1),
+        qBound(0, mapFromGlobal(e->globalPos()).y(), height() - 1)
     );
 
     findNewItem(mouse_pos, false);
 
     if (e->button() == Qt::LeftButton) {
-	sample_index_t ofs = m_offset + pixels2samples(mouse_pos.x());
-	sample_index_t selection_first = m_signal_manager->selection().first();
-	sample_index_t selection_last  = m_signal_manager->selection().last();
+        sample_index_t ofs = m_offset + pixels2samples(mouse_pos.x());
+        sample_index_t selection_first = m_signal_manager->selection().first();
+        sample_index_t selection_last  = m_signal_manager->selection().last();
 
-	switch (e->modifiers()) {
-	    case Qt::ShiftModifier: {
-		// expand the selection to "here"
-		m_mouse_selection.set(selection_first, selection_last);
-		m_mouse_selection.grep(ofs);
-		m_signal_manager->selectRange(
-		    m_mouse_selection.left(),
-		    m_mouse_selection.length()
-		);
+        switch (e->modifiers()) {
+            case Qt::ShiftModifier: {
+                // expand the selection to "here"
+                m_mouse_selection.set(selection_first, selection_last);
+                m_mouse_selection.grep(ofs);
+                m_signal_manager->selectRange(
+                    m_mouse_selection.left(),
+                    m_mouse_selection.length()
+                );
 
-		// this probably changes to "adjust selection border"
-		findNewItem(mouse_pos, true);
-		break;
-	    }
-	    case Qt::NoModifier: {
-		// check whether there is some object near this position
-		if (m_selected_item) {
-		    // we have an item here:
-		    m_mouse_mode = MouseMoveItem;
+                // this probably changes to "adjust selection border"
+                findNewItem(mouse_pos, true);
+                break;
+            }
+            case Qt::NoModifier: {
+                // check whether there is some object near this position
+                if (m_selected_item) {
+                    // we have an item here:
+                    m_mouse_mode = MouseMoveItem;
 
-		    Kwave::ViewItem::Flags flags = m_selected_item->flags();
-		    if (flags & Kwave::ViewItem::CanDragAndDrop) {
-			// store the x position for later drag&drop
- 			m_mouse_down_x = mouse_pos.x();
-			setCursor(Qt::DragMoveCursor);
-		    }
-		} else if (canHandleSelection()) {
-		    // start a new selection
-		    m_mouse_selection.set(ofs, ofs);
-		    m_signal_manager->selectRange(ofs, 0);
+                    Kwave::ViewItem::Flags flags = m_selected_item->flags();
+                    if (flags & Kwave::ViewItem::CanDragAndDrop) {
+                        // store the x position for later drag&drop
+                        m_mouse_down_x = mouse_pos.x();
+                        setCursor(Qt::DragMoveCursor);
+                    }
+                } else if (canHandleSelection()) {
+                    // start a new selection
+                    m_mouse_selection.set(ofs, ofs);
+                    m_signal_manager->selectRange(ofs, 0);
 
-		    // this probably changes to "adjust selection border"
-		    findNewItem(mouse_pos, true);
-		}
-		break;
-	    }
-	    default:
-		break;
-	}
+                    // this probably changes to "adjust selection border"
+                    findNewItem(mouse_pos, true);
+                }
+                break;
+            }
+            default:
+                break;
+        }
     }
     e->accept();
 }
@@ -473,45 +473,45 @@ void Kwave::SignalView::mouseReleaseEvent(QMouseEvent *e)
 
     // abort if no signal is loaded
     if (!m_signal_manager || !m_signal_manager->length()) {
-	e->ignore();
-	return;
+        e->ignore();
+        return;
     }
 
     // ignore all mouse release events in playback mode
     if (m_signal_manager->playbackController().running()) {
-	e->ignore();
-	return;
+        e->ignore();
+        return;
     }
 
     const QPoint mouse_pos(
-	qBound(0, mapFromGlobal(e->globalPos()).x(), width()  - 1),
-	qBound(0, mapFromGlobal(e->globalPos()).y(), height() - 1)
+        qBound(0, mapFromGlobal(e->globalPos()).x(), width()  - 1),
+        qBound(0, mapFromGlobal(e->globalPos()).y(), height() - 1)
     );
 
     switch (m_mouse_mode) {
-	case MouseDragItem:
-	    // released after dragging
-	    if (m_selected_item) m_selected_item->done();
-	    findNewItem(mouse_pos, false);
-	    break;
-	case MouseMoveItem:
-	    if (m_selected_item) {
-		// released after move
-		if (m_selected_item->flags() & Kwave::ViewItem::CanGrabAndMove)
-		    m_selected_item->done();
-		else if (canHandleSelection()) {
-		    // maybe started dragging, but released before reaching
-		    // the minimum drag distance -> start a new selection
-		    sample_index_t ofs = m_offset +
-			                 pixels2samples(mouse_pos.x());
-		    m_mouse_selection.set(ofs, ofs);
-		    m_signal_manager->selectRange(ofs, 0);
-		}
-	    }
-	    findNewItem(mouse_pos, false);
-	    break;
-	default:
-	    break;
+        case MouseDragItem:
+            // released after dragging
+            if (m_selected_item) m_selected_item->done();
+            findNewItem(mouse_pos, false);
+            break;
+        case MouseMoveItem:
+            if (m_selected_item) {
+                // released after move
+                if (m_selected_item->flags() & Kwave::ViewItem::CanGrabAndMove)
+                    m_selected_item->done();
+                else if (canHandleSelection()) {
+                    // maybe started dragging, but released before reaching
+                    // the minimum drag distance -> start a new selection
+                    sample_index_t ofs = m_offset +
+                                         pixels2samples(mouse_pos.x());
+                    m_mouse_selection.set(ofs, ofs);
+                    m_signal_manager->selectRange(ofs, 0);
+                }
+            }
+            findNewItem(mouse_pos, false);
+            break;
+        default:
+            break;
     }
 
     e->accept();
@@ -531,12 +531,12 @@ void Kwave::SignalView::keyPressEvent(QKeyEvent *e)
 {
     if (!e) return;
     if (e->matches(QKeySequence::Cancel)) {
-	// Cancel key (Escape) -> reset all view item operations
-	m_mouse_mode = MouseNormal;
-	setCursor(Qt::ArrowCursor);
+        // Cancel key (Escape) -> reset all view item operations
+        m_mouse_mode = MouseNormal;
+        setCursor(Qt::ArrowCursor);
         m_selected_item = QSharedPointer<Kwave::ViewItem>(Q_NULLPTR);
     } else {
-	QWidget::keyPressEvent(e);
+        QWidget::keyPressEvent(e);
     }
     hidePosition();
 }
@@ -563,7 +563,7 @@ void Kwave::SignalView::dragEnterEvent(QDragEnterEvent *event)
         return; /* unsupported action */
 
     if (Kwave::FileDrag::canDecode(event->mimeData()))
-	event->acceptProposedAction();
+        event->acceptProposedAction();
     emit sigCursorChanged(SAMPLE_INDEX_MAX);
 }
 
@@ -586,43 +586,43 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
     if (!m_signal_manager) return;
 
     if (Kwave::Drag::canDecode(mime_data)) {
-	Kwave::UndoTransactionGuard undo(*m_signal_manager,
-	                                 i18n("Drag and Drop"));
-	sample_index_t pos = m_offset + pixels2samples(event->pos().x());
-	sample_index_t len = 0;
+        Kwave::UndoTransactionGuard undo(*m_signal_manager,
+                                         i18n("Drag and Drop"));
+        sample_index_t pos = m_offset + pixels2samples(event->pos().x());
+        sample_index_t len = 0;
 
-	if ((len = Kwave::Drag::decode(this, mime_data,
-	    *m_signal_manager, pos)))
-	{
-	    // set selection to the new area where the drop was done
-	    m_signal_manager->selectRange(pos, len);
-	    event->acceptProposedAction();
-	} else {
-	    QStringList formats = mime_data->formats();
-	    qWarning("SignalView::dropEvent(%s): failed !",
-		DBG(formats.join(_("; "))));
-	}
+        if ((len = Kwave::Drag::decode(this, mime_data,
+            *m_signal_manager, pos)))
+        {
+            // set selection to the new area where the drop was done
+            m_signal_manager->selectRange(pos, len);
+            event->acceptProposedAction();
+        } else {
+            QStringList formats = mime_data->formats();
+            qWarning("SignalView::dropEvent(%s): failed !",
+                DBG(formats.join(_("; "))));
+        }
     } else if (mime_data->hasUrls()) {
-	bool first = true;
-	foreach (const QUrl &url, mime_data->urls()) {
-	    QString filename = url.toLocalFile();
+        bool first = true;
+        foreach (const QUrl &url, mime_data->urls()) {
+            QString filename = url.toLocalFile();
             QString mimetype = Kwave::CodecManager::mimeTypeOf(url);
-	    if (Kwave::CodecManager::canDecode(mimetype)) {
-		if (first) {
-		    // first dropped URL -> open in this window
-		    emit sigCommand(_("open(") +
-		                    Kwave::Parser::escape(filename) +
-		                    _(")"));
-		    first = false;
-		    event->acceptProposedAction();
-		} else {
-		    // all others -> open a new window
-		    emit sigCommand(_("newwindow(") +
-		                    Kwave::Parser::escape(filename) +
-		                    _(")"));
-		}
-	    }
-	}
+            if (Kwave::CodecManager::canDecode(mimetype)) {
+                if (first) {
+                    // first dropped URL -> open in this window
+                    emit sigCommand(_("open(") +
+                                    Kwave::Parser::escape(filename) +
+                                    _(")"));
+                    first = false;
+                    event->acceptProposedAction();
+                } else {
+                    // all others -> open a new window
+                    emit sigCommand(_("newwindow(") +
+                                    Kwave::Parser::escape(filename) +
+                                    _(")"));
+                }
+            }
+        }
     }
 
     qDebug("SignalView::dropEvent(): done");
@@ -640,47 +640,47 @@ void Kwave::SignalView::dragMoveEvent(QDragMoveEvent *event)
     const int x = event->pos().x();
 
     if ((event->source() == this) && isInSelection(x)) {
-	// disable drag&drop into the selection itself
-	// this would be nonsense
+        // disable drag&drop into the selection itself
+        // this would be nonsense
 
-	Q_ASSERT(m_signal_manager);
-	if (!m_signal_manager) {
-	    event->ignore();
-	    emit sigCursorChanged(SAMPLE_INDEX_MAX);
-	    return;
-	}
+        Q_ASSERT(m_signal_manager);
+        if (!m_signal_manager) {
+            event->ignore();
+            emit sigCursorChanged(SAMPLE_INDEX_MAX);
+            return;
+        }
 
-	sample_index_t left  = m_signal_manager->selection().first();
-	sample_index_t right = m_signal_manager->selection().last();
-	const sample_index_t w = pixels2samples(width());
-	QRect rect(this->rect());
+        sample_index_t left  = m_signal_manager->selection().first();
+        sample_index_t right = m_signal_manager->selection().last();
+        const sample_index_t w = pixels2samples(width());
+        QRect rect(this->rect());
 
-	// crop selection to widget borders
-	if (left < m_offset) left = m_offset;
-	if (right > m_offset + w) right = m_offset + w - 1;
+        // crop selection to widget borders
+        if (left < m_offset) left = m_offset;
+        if (right > m_offset + w) right = m_offset + w - 1;
 
-	// transform to pixel coordinates
-	int l = qMin(samples2pixels(left  - m_offset), width() - 1);
-	int r = qMin(samples2pixels(right - m_offset), l);
-	rect.setLeft(l);
-	rect.setRight(r);
-	event->ignore(rect);
-	emit sigCursorChanged(SAMPLE_INDEX_MAX);
+        // transform to pixel coordinates
+        int l = qMin(samples2pixels(left  - m_offset), width() - 1);
+        int r = qMin(samples2pixels(right - m_offset), l);
+        rect.setLeft(l);
+        rect.setRight(r);
+        event->ignore(rect);
+        emit sigCursorChanged(SAMPLE_INDEX_MAX);
     } else if (Kwave::Drag::canDecode(event->mimeData())) {
-	// accept if it is decodeable within the
-	// current range (if it's outside our own selection)
-	event->acceptProposedAction();
+        // accept if it is decodeable within the
+        // current range (if it's outside our own selection)
+        event->acceptProposedAction();
 
-	// show a cursor at the possible drop location
-	sample_index_t item_pos  = m_offset + pixels2samples(x);
-	emit sigCursorChanged(item_pos);
+        // show a cursor at the possible drop location
+        sample_index_t item_pos  = m_offset + pixels2samples(x);
+        emit sigCursorChanged(item_pos);
     } else if (Kwave::FileDrag::canDecode(event->mimeData())) {
-	// file drag
-	event->accept();
-	emit sigCursorChanged(SAMPLE_INDEX_MAX);
+        // file drag
+        event->accept();
+        emit sigCursorChanged(SAMPLE_INDEX_MAX);
     } else {
-	event->ignore();
-	emit sigCursorChanged(SAMPLE_INDEX_MAX);
+        event->ignore();
+        emit sigCursorChanged(SAMPLE_INDEX_MAX);
     }
 }
 
@@ -730,23 +730,23 @@ void Kwave::SignalView::PositionWidget::setText(const QString &text,
     m_label->resize(m_label->sizeHint());
 
     switch (m_alignment) {
-	case Qt::AlignLeft:
-	    resize(m_arrow_length + m_radius + m_label->width() + m_radius,
-	           m_radius + m_label->height() + m_radius);
-	    m_label->move(m_arrow_length + m_radius, m_radius);
-	    break;
-	case Qt::AlignRight:
-	    resize(m_radius + m_label->width() + m_radius + m_arrow_length,
-	           m_radius + m_label->height() + m_radius);
-	    m_label->move(m_radius, m_radius);
-	    break;
-	case Qt::AlignHCenter:
-	    resize(m_radius + m_label->width() + m_radius,
-	           m_arrow_length + m_radius + m_label->height() + m_radius);
-	    m_label->move(m_radius, m_arrow_length + m_radius);
-	    break;
-	default:
-	    ;
+        case Qt::AlignLeft:
+            resize(m_arrow_length + m_radius + m_label->width() + m_radius,
+                   m_radius + m_label->height() + m_radius);
+            m_label->move(m_arrow_length + m_radius, m_radius);
+            break;
+        case Qt::AlignRight:
+            resize(m_radius + m_label->width() + m_radius + m_arrow_length,
+                   m_radius + m_label->height() + m_radius);
+            m_label->move(m_radius, m_radius);
+            break;
+        case Qt::AlignHCenter:
+            resize(m_radius + m_label->width() + m_radius,
+                   m_arrow_length + m_radius + m_label->height() + m_radius);
+            m_label->move(m_radius, m_arrow_length + m_radius);
+            break;
+        default:
+            ;
     }
 
     updateMask();
@@ -757,7 +757,7 @@ void Kwave::SignalView::PositionWidget::updateMask()
 {
     // bail out if nothing has changed
     if ((size() == m_last_size) && (m_alignment == m_last_alignment))
-	return;
+        return;
 
     QPainter p;
     QBitmap bmp(size());
@@ -773,34 +773,34 @@ void Kwave::SignalView::PositionWidget::updateMask()
 
     // re-create the polygon, depending on alignment
     switch (m_alignment) {
-	case Qt::AlignLeft:
-	    m_polygon.setPoints(8,
-		m_arrow_length, 0,
-		w - 1, 0,
-		w - 1, h - 1,
-		m_arrow_length, h - 1,
-		m_arrow_length, (2 * h) / 3,
-		0, h / 2,
-		m_arrow_length, h / 3,
-		m_arrow_length, 0
-	    );
-	    break;
-	case Qt::AlignRight:
-	    m_polygon.setPoints(8,
-		0, 0,
-		w - 1 - m_arrow_length, 0,
-		w - 1 - m_arrow_length, h / 3,
-		w - 1, h/2,
-		w - 1 - m_arrow_length, (2 * h) / 3,
-		w - 1 - m_arrow_length, h - 1,
-		0, h - 1,
-		0, 0
-	    );
-	    break;
-	case Qt::AlignHCenter:
-	    break;
-	default:
-	    ;
+        case Qt::AlignLeft:
+            m_polygon.setPoints(8,
+                m_arrow_length, 0,
+                w - 1, 0,
+                w - 1, h - 1,
+                m_arrow_length, h - 1,
+                m_arrow_length, (2 * h) / 3,
+                0, h / 2,
+                m_arrow_length, h / 3,
+                m_arrow_length, 0
+            );
+            break;
+        case Qt::AlignRight:
+            m_polygon.setPoints(8,
+                0, 0,
+                w - 1 - m_arrow_length, 0,
+                w - 1 - m_arrow_length, h / 3,
+                w - 1, h/2,
+                w - 1 - m_arrow_length, (2 * h) / 3,
+                w - 1 - m_arrow_length, h - 1,
+                0, h - 1,
+                0, 0
+            );
+            break;
+        case Qt::AlignHCenter:
+            break;
+        default:
+            ;
     }
 
     p.drawPolygon(m_polygon);

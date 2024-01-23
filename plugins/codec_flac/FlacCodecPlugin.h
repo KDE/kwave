@@ -30,28 +30,28 @@ namespace Kwave
 
     class FlacCodecPlugin: public Kwave::CodecPlugin
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	FlacCodecPlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        FlacCodecPlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~FlacCodecPlugin() Q_DECL_OVERRIDE;
 
-	/** Creates a new decoder */
+        /** Creates a new decoder */
         virtual QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;
 
-	/** Creates a new encoder */
+        /** Creates a new encoder */
         virtual QList<Kwave::Encoder *> createEncoder() Q_DECL_OVERRIDE;
 
     private:
-	/** static codec container */
-	static CodecPlugin::Codec m_codec;
+        /** static codec container */
+        static CodecPlugin::Codec m_codec;
     };
 }
 

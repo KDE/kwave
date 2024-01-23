@@ -1,6 +1,6 @@
 /***************************************************************************
     PlaybackDeviceFactory.h  -  interface for playback device factories
-			     -------------------
+                             -------------------
     begin                : Mon May 19 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -30,23 +30,23 @@ namespace Kwave
     class PlaybackDeviceFactory
     {
     public:
-	/** virtual destructor */
-	virtual ~PlaybackDeviceFactory() { }
+        /** virtual destructor */
+        virtual ~PlaybackDeviceFactory() { }
 
-	/**
-	 * Create a playback device matching the given playback method.
-	 * @param method a playback_method_t (aRts, ALSA, OSS...)
-	 * @return a new PlayBackDevice or 0 if failed
-	 */
-	virtual Kwave::PlayBackDevice *createDevice(
-	    Kwave::playback_method_t method) = 0;
+        /**
+         * Create a playback device matching the given playback method.
+         * @param method a playback_method_t (aRts, ALSA, OSS...)
+         * @return a new PlayBackDevice or 0 if failed
+         */
+        virtual Kwave::PlayBackDevice *createDevice(
+            Kwave::playback_method_t method) = 0;
 
-	/**
-	 * Returns a list of supported playback methods.
-	 * @return list of all supported playback methods, should not contain
-	 *         "any" or "invalid"
-	 */
-	virtual QList<Kwave::playback_method_t> supportedMethods() = 0;
+        /**
+         * Returns a list of supported playback methods.
+         * @return list of all supported playback methods, should not contain
+         *         "any" or "invalid"
+         */
+        virtual QList<Kwave::playback_method_t> supportedMethods() = 0;
 
     };
 }

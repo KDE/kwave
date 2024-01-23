@@ -1,6 +1,6 @@
 /***************************************************************************
           KwaveDrag.cpp  -  Drag&Drop container for Kwave's audio data
-			     -------------------
+                             -------------------
     begin                : Jan 24 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -43,7 +43,7 @@ bool Kwave::Drag::canDecode(const QMimeData *data)
 {
     if (!data) return false;
     foreach (const QString &format, data->formats())
-	if (Kwave::CodecManager::canDecode(format)) return true;
+        if (Kwave::CodecManager::canDecode(format)) return true;
     return false;
 }
 
@@ -63,8 +63,8 @@ bool Kwave::Drag::encode(QWidget *widget, Kwave::MultiTrackReader &src,
 
     // encode into the mime data
     if (!mime_data->encode(widget, src, meta_data)) {
-	delete mime_data;
-	return false;
+        delete mime_data;
+        return false;
     }
 
     // use it for the drag container

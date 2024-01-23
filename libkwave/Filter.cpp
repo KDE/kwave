@@ -1,6 +1,6 @@
 /***************************************************************************
              Filter.cpp  -  parameters of a digital IIR or FIR filter
-			     -------------------
+                             -------------------
     begin                : Jan 20 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -38,8 +38,8 @@ Kwave::Filter::Filter(const QString &command)
     resize(parse.toInt());
 
     for (unsigned int i = 0; i < count(); i++) {
-	m_delay[i] = parse.toInt();
-	m_coeff[i] = parse.toDouble();
+        m_delay[i] = parse.toInt();
+        m_coeff[i] = parse.toDouble();
     }
 }
 
@@ -67,10 +67,10 @@ QString Kwave::Filter::command()
     s += QLatin1Char(',') + QString::number(count());
 
     for (unsigned int i = 0; i < count(); i++) {
-	s += QLatin1Char(',');
-	s += QString::number(m_delay[i]);
-	s += QLatin1Char(',');
-	s += QString::number(m_coeff[i]);
+        s += QLatin1Char(',');
+        s += QString::number(m_delay[i]);
+        s += QLatin1Char(',');
+        s += QString::number(m_coeff[i]);
     }
     return s;
 }
@@ -90,9 +90,9 @@ unsigned int Kwave::Filter::resize(unsigned int newnum)
 
     // initialize the new entries
     while (oldnum < newnum) {
-	m_delay[oldnum] = oldnum;
-	m_coeff[oldnum] = 0.0;
-	oldnum++;
+        m_delay[oldnum] = oldnum;
+        m_coeff[oldnum] = 0.0;
+        oldnum++;
     }
 
     return newnum;
@@ -141,7 +141,7 @@ void Kwave::Filter::save(const QString &filename)
     if (!name.length()) return;
 
     if (name.lastIndexOf(_(".filter")) != Kwave::toInt(name.length() - 7))
-	name.append(_(".filter"));
+        name.append(_(".filter"));
 
     QFile file(name);
     file.open(QIODevice::WriteOnly);
@@ -149,7 +149,7 @@ void Kwave::Filter::save(const QString &filename)
 
     out << ((m_fir) ? "FIR " : "IIR ") << count() << Qt::endl;
     for (unsigned int i = 0; i < count(); i++) {
-	out << m_delay[i] << ' ' << m_coeff[i] << Qt::endl;
+        out << m_delay[i] << ' ' << m_coeff[i] << Qt::endl;
     }
 
     file.close();
@@ -169,13 +169,13 @@ void Kwave::Filter::load(const QString &filename)
 
     // type of the filter (FIR/IIR)
     while (!in.atEnd()) {
-	line = in.readLine().simplified();
-	linenr++;
+        line = in.readLine().simplified();
+        linenr++;
 
-	if (line.isEmpty()) continue;
-	if ((line[0] == QLatin1Char('#')) || (line[0] == QLatin1Char('/')))
-	    continue;
-	break;
+        if (line.isEmpty()) continue;
+        if ((line[0] == QLatin1Char('#')) || (line[0] == QLatin1Char('/')))
+            continue;
+        break;
     }
     m_fir = line.startsWith(_("FIR "));
     qDebug("Filter::load(): fir = %d", m_fir);
@@ -189,25 +189,25 @@ void Kwave::Filter::load(const QString &filename)
     // read delays and coefficients
     i = 0;
     while (!in.atEnd()) {
-	line = in.readLine().simplified();
-	linenr++;
+        line = in.readLine().simplified();
+        linenr++;
 
-	if (line.isEmpty()) continue;
-	if ((line[0] == QLatin1Char('#')) || (line[0] == QLatin1Char('/')))
-	    continue;
+        if (line.isEmpty()) continue;
+        if ((line[0] == QLatin1Char('#')) || (line[0] == QLatin1Char('/')))
+            continue;
 
-	int spacepos = line.indexOf(QLatin1Char(' '));
-	ok = true;
-	m_delay[i] = line.leftRef(spacepos).toUInt(&ok);
-	line.remove(0, spacepos);
-	if (ok) m_coeff[i] = line.toDouble(&ok);
+        int spacepos = line.indexOf(QLatin1Char(' '));
+        ok = true;
+        m_delay[i] = line.leftRef(spacepos).toUInt(&ok);
+        line.remove(0, spacepos);
+        if (ok) m_coeff[i] = line.toDouble(&ok);
 
-	if (ok) {
-	    i++;
-	} else {
-	    qDebug("Filter::load(%s): syntax error in line %d",
-	           DBG(filename), linenr);
-	}
+        if (ok) {
+            i++;
+        } else {
+            qDebug("Filter::load(%s): syntax error in line %d",
+                   DBG(filename), linenr);
+        }
     }
 }
 

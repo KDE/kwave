@@ -1,6 +1,6 @@
 /***************************************************************************
     libgui/Zoomable.h  -  Interface for a GUI element that supports zooming
-			     -------------------
+                             -------------------
     begin                : 2014-09-21
     copyright            : (C) 2014 by Thomas.Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -28,35 +28,35 @@ namespace Kwave
     {
     public:
 
-	/** default constructor */
-	Zoomable() {}
+        /** default constructor */
+        Zoomable() {}
 
-	/** destructor */
-	virtual ~Zoomable() {}
+        /** destructor */
+        virtual ~Zoomable() {}
 
-	/**
-	 * Returns the width of the visible area
-	 * @return width of visible area in pixels
-	 */
-	virtual int visibleWidth() const = 0;
+        /**
+         * Returns the width of the visible area
+         * @return width of visible area in pixels
+         */
+        virtual int visibleWidth() const = 0;
 
-	/** Returns the width of the current view in samples */
-	virtual sample_index_t visibleSamples() const = 0;
+        /** Returns the width of the current view in samples */
+        virtual sample_index_t visibleSamples() const = 0;
 
-	/** Returns the current zoom factor [samples/pixel] */
-	virtual double zoom() const = 0;
+        /** Returns the current zoom factor [samples/pixel] */
+        virtual double zoom() const = 0;
 
-	/**
-	 * Set a new zoom factor [samples/pixel]
-	 * @param factor new zoom value
-	 */
-	virtual void setZoom(double factor) = 0;
+        /**
+         * Set a new zoom factor [samples/pixel]
+         * @param factor new zoom value
+         */
+        virtual void setZoom(double factor) = 0;
 
-	/**
-	 * Scrolls the display so that the given position gets visible,
-	 * centered within the display if possible.
-	 */
-	virtual void scrollTo(sample_index_t pos) = 0;
+        /**
+         * Scrolls the display so that the given position gets visible,
+         * centered within the display if possible.
+         */
+        virtual void scrollTo(sample_index_t pos) = 0;
 
     };
 }

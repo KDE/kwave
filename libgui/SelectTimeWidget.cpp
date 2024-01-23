@@ -63,7 +63,7 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
 
     // limit the length if necessary
     if ((m_length - m_offset) > SAMPLE_INDEX_MAX)
-	m_length = m_offset + SAMPLE_INDEX_MAX;
+        m_length = m_offset + SAMPLE_INDEX_MAX;
 
     // set range of selection by sample
     edSamples->setRange(0, Kwave::toInt(m_length - m_offset));
@@ -71,15 +71,15 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
 
     // set range of time controls
     {
-	quint64 t = static_cast<quint64>(
-	    (static_cast<double>(m_length) * 1E3) / m_rate);
-	sbMilliseconds->setMaximum(Kwave::toInt(qMax(t, quint64(999))));
-	t /= 1000;
-	sbSeconds->setMaximum(Kwave::toInt(qMax(t, quint64(59))));
-	t /= 60;
-	sbMinutes->setMaximum(Kwave::toInt(qMax(t, quint64(59))));
-	t /= 60;
-	sbHours->setMaximum(Kwave::toInt(t));
+        quint64 t = static_cast<quint64>(
+            (static_cast<double>(m_length) * 1E3) / m_rate);
+        sbMilliseconds->setMaximum(Kwave::toInt(qMax(t, quint64(999))));
+        t /= 1000;
+        sbSeconds->setMaximum(Kwave::toInt(qMax(t, quint64(59))));
+        t /= 60;
+        sbMinutes->setMaximum(Kwave::toInt(qMax(t, quint64(59))));
+        t /= 60;
+        sbHours->setMaximum(Kwave::toInt(t));
     }
 
     // activate the current mode
@@ -88,27 +88,27 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
 
     // set initial values
     switch (m_mode) {
-	case byTime: {
-	    quint64 t = m_range;
-	    sbMilliseconds->setValue(Kwave::toInt(t % 1000));
-	    t /= 1000;
-	    sbSeconds->setValue(Kwave::toInt(t % 60));
-	    t /= 60;
-	    sbMinutes->setValue(Kwave::toInt(t % 60));
-	    t /= 60;
-	    sbHours->setValue(Kwave::toInt(t));
-	    break;
-	}
-	case bySamples: {
-	    quint64 samples = qMin<quint64>(m_range,
-	                                    std::numeric_limits<int>::max());
-	    edSamples->setValue(Kwave::toInt(samples));
-	    break;
-	}
-	case byPercents: {
-	    sbPercents->setValue(Kwave::toInt(m_range));
-	    break;
-	}
+        case byTime: {
+            quint64 t = m_range;
+            sbMilliseconds->setValue(Kwave::toInt(t % 1000));
+            t /= 1000;
+            sbSeconds->setValue(Kwave::toInt(t % 60));
+            t /= 60;
+            sbMinutes->setValue(Kwave::toInt(t % 60));
+            t /= 60;
+            sbHours->setValue(Kwave::toInt(t));
+            break;
+        }
+        case bySamples: {
+            quint64 samples = qMin<quint64>(m_range,
+                                            std::numeric_limits<int>::max());
+            edSamples->setValue(Kwave::toInt(samples));
+            break;
+        }
+        case byPercents: {
+            sbPercents->setValue(Kwave::toInt(m_range));
+            break;
+        }
     }
 
     // connect mode controls
@@ -127,15 +127,15 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
 
     // update all controls
     switch (m_mode) {
-	case byTime:
-	    timeChanged(0);
-	    break;
-	case bySamples:
-	    samplesChanged(0);
-	    break;
-	case byPercents:
-	    percentsChanged(Kwave::toInt(m_range));
-	    break;
+        case byTime:
+            timeChanged(0);
+            break;
+        case bySamples:
+            samplesChanged(0);
+            break;
+        case byPercents:
+            percentsChanged(Kwave::toInt(m_range));
+            break;
     }
 
     adjustSize();
@@ -199,24 +199,24 @@ void Kwave::SelectTimeWidget::setMode(Mode new_mode)
 {
     // enable the selected mode
     switch (new_mode) {
-	case byTime:
-	    rbTime->setChecked(true);
-	    Q_ASSERT(rbTime->isChecked());
-	    Q_ASSERT(!rbSamples->isChecked());
-	    Q_ASSERT(!rbPercents->isChecked());
-	    break;
-	case bySamples:
-	    rbSamples->setChecked(true);
-	    Q_ASSERT(!rbTime->isChecked());
-	    Q_ASSERT(rbSamples->isChecked());
-	    Q_ASSERT(!rbPercents->isChecked());
-	    break;
-	case byPercents:
-	    rbPercents->setChecked(true);
-	    Q_ASSERT(!rbTime->isChecked());
-	    Q_ASSERT(!rbSamples->isChecked());
-	    Q_ASSERT(rbPercents->isChecked());
-	    break;
+        case byTime:
+            rbTime->setChecked(true);
+            Q_ASSERT(rbTime->isChecked());
+            Q_ASSERT(!rbSamples->isChecked());
+            Q_ASSERT(!rbPercents->isChecked());
+            break;
+        case bySamples:
+            rbSamples->setChecked(true);
+            Q_ASSERT(!rbTime->isChecked());
+            Q_ASSERT(rbSamples->isChecked());
+            Q_ASSERT(!rbPercents->isChecked());
+            break;
+        case byPercents:
+            rbPercents->setChecked(true);
+            Q_ASSERT(!rbTime->isChecked());
+            Q_ASSERT(!rbSamples->isChecked());
+            Q_ASSERT(rbPercents->isChecked());
+            break;
     }
     m_mode = new_mode;
 }
@@ -227,33 +227,33 @@ void Kwave::SelectTimeWidget::modeChanged(bool checked)
     if (!checked) return; // ignore disabling of radio buttons
 
     if (rbTime->isChecked()) {
-	m_mode = byTime;
-	rbSamples->setChecked(false);
-	rbPercents->setChecked(false);
-	timeChanged(0); // (sets m_range)
+        m_mode = byTime;
+        rbSamples->setChecked(false);
+        rbPercents->setChecked(false);
+        timeChanged(0); // (sets m_range)
     }
 
     if (rbSamples->isChecked()) {
-	m_mode = bySamples;
-	rbTime->setChecked(false);
-	rbPercents->setChecked(false);
-	samplesChanged(0); // (sets m_range)
+        m_mode = bySamples;
+        rbTime->setChecked(false);
+        rbPercents->setChecked(false);
+        samplesChanged(0); // (sets m_range)
 
-	if (rbTime->isChecked()) {
-	    m_timer.stop();
-	} else {
-	    // activate the sample edit timer
-	    m_timer.setSingleShot(false);
-	    m_timer.start(100);
-	}
+        if (rbTime->isChecked()) {
+            m_timer.stop();
+        } else {
+            // activate the sample edit timer
+            m_timer.setSingleShot(false);
+            m_timer.start(100);
+        }
 
     }
 
     if (rbPercents->isChecked()) {
-	m_mode = byPercents;
-	rbTime->setChecked(false);
-	rbSamples->setChecked(false);
-	percentsChanged(sbPercents->value()); // (sets m_range)
+        m_mode = byPercents;
+        rbTime->setChecked(false);
+        rbSamples->setChecked(false);
+        percentsChanged(sbPercents->value()); // (sets m_range)
     }
 
 }
@@ -271,32 +271,32 @@ void Kwave::SelectTimeWidget::timeChanged(int)
     int hours = sbHours->value();
 
     if (milliseconds < 0) {
-	milliseconds = 999;
-	seconds--;
+        milliseconds = 999;
+        seconds--;
     }
     if (seconds < 0) {
-	seconds = 59;
-	minutes--;
+        seconds = 59;
+        minutes--;
     }
     if (minutes < 0) {
-	minutes = 59;
-	hours--;
+        minutes = 59;
+        hours--;
     }
     if (hours < 0) {
-	hours = 0;
-	minutes = 0;
-	seconds = 0;
-	milliseconds = 0;
+        hours = 0;
+        minutes = 0;
+        seconds = 0;
+        milliseconds = 0;
     }
     Q_ASSERT((hours >= 0) && (minutes >= 0) && (seconds >= 0) &&
              (milliseconds >= 0));
 
     quint64 ms = milliseconds +
-	(seconds + (minutes + (hours * 60)) * 60) * 1000;
+        (seconds + (minutes + (hours * 60)) * 60) * 1000;
 
     // limit time
     quint64 max_ms = static_cast<quint64>(
-	ceil((static_cast<double>(m_length - m_offset) * 1E3) / m_rate));
+        ceil((static_cast<double>(m_length - m_offset) * 1E3) / m_rate));
     if (ms > max_ms) ms = max_ms;
     quint64 t = ms;
 
@@ -330,8 +330,8 @@ void Kwave::SelectTimeWidget::checkNewSampleEdit()
 {
     static int last_samples = -1;
     if (edSamples->value() != last_samples) {
-	last_samples = edSamples->value();
-	samplesChanged(last_samples);
+        last_samples = edSamples->value();
+        samplesChanged(last_samples);
     }
 }
 
@@ -381,9 +381,9 @@ void Kwave::SelectTimeWidget::percentsChanged(int p)
     // limit to rest of signal
     int max_percents = 100;
     if (m_length)
-	max_percents = Kwave::toInt(
-	    (100U * static_cast<quint64>(m_length - m_offset)) /
-	            static_cast<quint64>(m_length));
+        max_percents = Kwave::toInt(
+            (100U * static_cast<quint64>(m_length - m_offset)) /
+                    static_cast<quint64>(m_length));
     if (p > max_percents) p = max_percents;
 
     // update in byPercents mode [0...100]
@@ -424,7 +424,7 @@ void Kwave::SelectTimeWidget::setOffset(sample_index_t offset)
 
     // the range of the sample edit should always get updated
     if (max_samples > SAMPLE_INDEX_MAX)
-	max_samples = SAMPLE_INDEX_MAX;
+        max_samples = SAMPLE_INDEX_MAX;
     edSamples->setRange(0, Kwave::toInt(max_samples));
     edSamples->setSingleStep(1);
 
@@ -448,11 +448,11 @@ void Kwave::SelectTimeWidget::setOffset(sample_index_t offset)
 
     Q_ASSERT(samples <= SAMPLE_INDEX_MAX);
     if (samples > SAMPLE_INDEX_MAX)
-	samples = SAMPLE_INDEX_MAX;
+        samples = SAMPLE_INDEX_MAX;
     edSamples->setValue(Kwave::toInt(samples));
 
     double percents = 100.0 * static_cast<double>(samples) /
-	static_cast<double>(m_length);
+        static_cast<double>(m_length);
     sbPercents->setValue(Kwave::toInt(percents));
 
     connect();
@@ -471,25 +471,25 @@ sample_index_t Kwave::SelectTimeWidget::timeToSamples(
 {
     sample_index_t pos = 0;
     switch (mode) {
-	case Kwave::SelectTimeWidget::byTime:
-	    // convert from ms to samples
-	    pos = static_cast<sample_index_t>(ceil(
-		static_cast<double>(time) * (rate * 1E-3)));
-	    break;
-	case Kwave::SelectTimeWidget::bySamples:
-	    // simple case -> already in samples
-	    pos = time;
-	    break;
-	case Kwave::SelectTimeWidget::byPercents:
-	    // by percentage of whole signal
-	    pos = static_cast<unsigned int>(rint(
-		static_cast<double>(length) *
-		(static_cast<double>(time) / 100.0)));
-	    break;
+        case Kwave::SelectTimeWidget::byTime:
+            // convert from ms to samples
+            pos = static_cast<sample_index_t>(ceil(
+                static_cast<double>(time) * (rate * 1E-3)));
+            break;
+        case Kwave::SelectTimeWidget::bySamples:
+            // simple case -> already in samples
+            pos = time;
+            break;
+        case Kwave::SelectTimeWidget::byPercents:
+            // by percentage of whole signal
+            pos = static_cast<unsigned int>(rint(
+                static_cast<double>(length) *
+                (static_cast<double>(time) / 100.0)));
+            break;
     }
 
     if (pos > SAMPLE_INDEX_MAX)
-	pos = SAMPLE_INDEX_MAX;
+        pos = SAMPLE_INDEX_MAX;
     return pos;
 }
 
@@ -500,21 +500,21 @@ quint64 Kwave::SelectTimeWidget::samplesToTime(
     quint64 time = 0;
 
     switch (mode) {
-	case Kwave::SelectTimeWidget::byTime:
-	    // convert from samples to ms
-	    time = static_cast<quint64>(
-		rint(static_cast<double>(samples) * 1E3 / rate));
-	    break;
-	case Kwave::SelectTimeWidget::bySamples:
-	    // simple case -> already in samples
-	    time = samples;
-	    break;
-	case Kwave::SelectTimeWidget::byPercents:
-	    // by percentage of whole signal
-	    time = static_cast<quint64>(100.0 *
-		static_cast<double>(samples) /
-		static_cast<double>(length));
-	    break;
+        case Kwave::SelectTimeWidget::byTime:
+            // convert from samples to ms
+            time = static_cast<quint64>(
+                rint(static_cast<double>(samples) * 1E3 / rate));
+            break;
+        case Kwave::SelectTimeWidget::bySamples:
+            // simple case -> already in samples
+            time = samples;
+            break;
+        case Kwave::SelectTimeWidget::byPercents:
+            // by percentage of whole signal
+            time = static_cast<quint64>(100.0 *
+                static_cast<double>(samples) /
+                static_cast<double>(length));
+            break;
     }
 
     return time;

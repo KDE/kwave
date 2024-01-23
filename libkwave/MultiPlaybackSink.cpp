@@ -40,13 +40,13 @@ Kwave::MultiPlaybackSink::MultiPlaybackSink(unsigned int tracks,
     m_in_buffer_filled.fill(false);
 
     for (unsigned int track = 0; track < m_tracks; track++) {
-	// allocate a sink
-	Kwave::PlaybackSink *sink =
-	    new(std::nothrow) Kwave::PlaybackSink(track);
-	insert(track, sink);
-	connect(sink, SIGNAL(output(uint,Kwave::SampleArray)),
-	        this, SLOT(input(uint,Kwave::SampleArray)),
-	        Qt::DirectConnection);
+        // allocate a sink
+        Kwave::PlaybackSink *sink =
+            new(std::nothrow) Kwave::PlaybackSink(track);
+        insert(track, sink);
+        connect(sink, SIGNAL(output(uint,Kwave::SampleArray)),
+                this, SLOT(input(uint,Kwave::SampleArray)),
+                Qt::DirectConnection);
     }
 }
 
@@ -58,14 +58,14 @@ Kwave::MultiPlaybackSink::~MultiPlaybackSink()
 
     // close the device
     if (m_device) {
-	m_device->close();
-	delete m_device;
+        m_device->close();
+        delete m_device;
     }
     m_device = Q_NULLPTR;
 
     // discard the buffers
     while (!m_in_buffer.isEmpty())
-	m_in_buffer.erase(m_in_buffer.end() - 1);
+        m_in_buffer.erase(m_in_buffer.end() - 1);
     m_in_buffer.clear();
 }
 
@@ -77,8 +77,8 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
 
     // shortcut for more responsiveness when pressing cancel
     if (isCanceled()) {
-	m_in_buffer_filled.fill(false);
-	return;
+        m_in_buffer_filled.fill(false);
+        return;
     }
 
     Q_ASSERT(m_device);
@@ -94,27 +94,27 @@ void Kwave::MultiPlaybackSink::input(unsigned int track,
 
     // check if all buffers are filled
     for (unsigned int t = 0; t < m_tracks; t++)
-	if (!m_in_buffer_filled[t]) return;
+        if (!m_in_buffer_filled[t]) return;
 
     // all tracks have left their data, now we are ready
     // to convert the buffers into a big combined one
     Q_ASSERT(m_out_buffer.size() >= m_tracks);
     for (unsigned int sample = 0; sample < samples; sample++) {
-	for (unsigned int t = 0; t < m_tracks; t++) {
-	    const Kwave::SampleArray &in = m_in_buffer[t];
-	    m_out_buffer[t] = in[sample];
-	}
+        for (unsigned int t = 0; t < m_tracks; t++) {
+            const Kwave::SampleArray &in = m_in_buffer[t];
+            m_out_buffer[t] = in[sample];
+        }
 
-	// play the output buffer
-	unsigned int retry = 5;
-	while (retry-- && !isCanceled()) {
-	    int res = m_device->write(m_out_buffer);
-	    if (res != 0) {
-		QThread::yieldCurrentThread();
-	    } else break;
-	}
-	if (retry == 0)
-	    break; // give up
+        // play the output buffer
+        unsigned int retry = 5;
+        while (retry-- && !isCanceled()) {
+            int res = m_device->write(m_out_buffer);
+            if (res != 0) {
+                QThread::yieldCurrentThread();
+            } else break;
+        }
+        if (retry == 0)
+            break; // give up
     }
 
     m_in_buffer_filled.fill(false);

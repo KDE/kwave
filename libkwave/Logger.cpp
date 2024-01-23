@@ -50,8 +50,8 @@ Kwave::Logger::~Logger()
 {
     if (m_logfile) {
         log(Q_NULLPTR, Kwave::Logger::Info, _("--- CLOSED / APPLICATION SHUTDOWN ---"));
-	m_logfile->flush();
-	delete m_logfile;
+        m_logfile->flush();
+        delete m_logfile;
     }
 }
 
@@ -59,10 +59,10 @@ Kwave::Logger::~Logger()
 bool Kwave::Logger::open(const QString& filename)
 {
     if (m_logfile) {
-	qWarning("reopening log file");
+        qWarning("reopening log file");
         log(Q_NULLPTR, Kwave::Logger::Info, _("--- CLOSED / REOPEN ---"));
-	m_logfile->flush();
-	delete m_logfile;
+        m_logfile->flush();
+        delete m_logfile;
     }
     qDebug("logging to file: '%s'", DBG(filename));
 
@@ -71,14 +71,14 @@ bool Kwave::Logger::open(const QString& filename)
     Q_ASSERT(m_logfile);
 
     if (m_logfile) m_logfile->open(
-	QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
+        QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
     if (!m_logfile || (!m_logfile->isWritable())) {
         if (Kwave::MessageBox::warningContinueCancel(Q_NULLPTR,
-	    i18n("Failed opening the log file '%1' for writing",
-	    filename)) != KMessageBox::Continue)
-	{
-	    return false;
-	}
+            i18n("Failed opening the log file '%1' for writing",
+            filename)) != KMessageBox::Continue)
+        {
+            return false;
+        }
     }
 
     /*
@@ -107,7 +107,7 @@ void Kwave::Logger::log(const QObject *sender,
                         const QString &msg)
 {
     static const char *str_level[] = {
-	"DBG", "INF", "WAR", "ERR", "FAT"
+        "DBG", "INF", "WAR", "ERR", "FAT"
     };
     if (!m_logfile) return;
 
@@ -117,9 +117,9 @@ void Kwave::Logger::log(const QObject *sender,
 
     // translate the log level into a text (syslog format)
     const char *x_status = str_level[qBound(
-	Q_UINT64_C(0),
-	static_cast<quint64>(level),
-	static_cast<quint64>(ELEMENTS_OF(str_level)))
+        Q_UINT64_C(0),
+        static_cast<quint64>(level),
+        static_cast<quint64>(ELEMENTS_OF(str_level)))
     ];
 
     // get the time stamp
@@ -131,11 +131,11 @@ void Kwave::Logger::log(const QObject *sender,
     // format the log log message
     // x-status date time x-pid x-message
     {
-	QTextStream out(m_logfile);
+        QTextStream out(m_logfile);
 
-	out << "<" << x_status << "> " <<
-	now.toString(_("yyyy-MM-dd hh:mm:ss.zzz")) << " " <<
-	x_pid << " " << msg << Qt::endl;
+        out << "<" << x_status << "> " <<
+        now.toString(_("yyyy-MM-dd hh:mm:ss.zzz")) << " " <<
+        x_pid << " " << msg << Qt::endl;
     }
 
     m_logfile->flush();

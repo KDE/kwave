@@ -36,30 +36,30 @@ namespace Kwave
      */
     class ZeroPlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	ZeroPlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        ZeroPlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~ZeroPlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * Fills the selected area with zeroes
-	 * @param params list of strings with parameters
-	 */
+        /**
+         * Fills the selected area with zeroes
+         * @param params list of strings with parameters
+         */
         virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     private:
 
-	/** use an array with zeroes for faster filling */
-	Kwave::SampleArray m_zeroes;
+        /** use an array with zeroes for faster filling */
+        Kwave::SampleArray m_zeroes;
 
     };
 }

@@ -1,6 +1,6 @@
 /***************************************************************************
               Curve.cpp  -  curve consisting of points
-			     -------------------
+                             -------------------
     begin                : Jan 20 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -61,10 +61,10 @@ void Kwave::Curve::fromCommand(const QString &command)
     setInterpolationType(m_interpolation.find(t));
 
     while (!parse.isDone()) {
-	double x = parse.toDouble();
-	if (parse.isDone()) break; // half point ?
-	double y = parse.toDouble();
-	append(Point(x, y));
+        double x = parse.toDouble();
+        if (parse.isDone()) break; // half point ?
+        double y = parse.toDouble();
+        append(Point(x, y));
     }
 }
 
@@ -75,8 +75,8 @@ QString Kwave::Curve::getCommand()
     cmd += m_interpolation.name(m_interpolation.type());
 
     foreach (const Point &p, *this) {
-	QString par = _(",%1,%2");
-	cmd += par.arg(p.x()).arg(p.y());
+        QString par = _(",%1,%2");
+        cmd += par.arg(p.x()).arg(p.y());
     }
     cmd += _(")");
     return cmd;
@@ -114,7 +114,7 @@ void Kwave::Curve::deletePoint(Point p, bool check)
     Iterator it(*this);
     if (!it.findNext(p)) return;
     if ((!check) || (it.hasPrevious() && it.hasNext()))
-	it.remove();
+        it.remove();
 }
 
 //***************************************************************************
@@ -124,8 +124,8 @@ void Kwave::Curve::secondHalf()
 
     QMutableListIterator<Point> it(*this);
     while (it.hasNext()) {
-	Point &p = it.next();
-	p.setX(0.5 + p.x() / 2.0);
+        Point &p = it.next();
+        p.setX(0.5 + p.x() / 2.0);
     }
 
     insert(0.0, first().y());
@@ -138,8 +138,8 @@ void Kwave::Curve::deleteSecondPoint()
 
     Iterator it(*this);
     while (it.hasNext()) {
-	it.next();
-	it.remove();
+        it.next();
+        it.remove();
     }
 }
 
@@ -147,8 +147,8 @@ void Kwave::Curve::deleteSecondPoint()
 void Kwave::Curve::insert(double x, double y)
 {
     if ((x < 0.0) || (x > 1.0)) {
-	qWarning("Curve::insert(%0.2f,%0.2f): out of range !",x,y);
-	return;
+        qWarning("Curve::insert(%0.2f,%0.2f): out of range !",x,y);
+        return;
     }
 
     append(Point(x, y));
@@ -162,8 +162,8 @@ void Kwave::Curve::firstHalf()
 
     QMutableListIterator<Point> it(*this);
     while (it.hasNext()) {
-	Point &p = it.next();
-	p.setX(p.x() / 2.0);
+        Point &p = it.next();
+        p.setX(p.x() / 2.0);
     }
     append(Point(1.0, first().y()));
 }
@@ -175,8 +175,8 @@ void Kwave::Curve::VFlip()
 
     QMutableListIterator<Point> it(*this);
     while (it.hasNext()) {
-	Point &p = it.next();
-	p.setY(1.0 - p.y());
+        Point &p = it.next();
+        p.setY(1.0 - p.y());
     }
 }
 
@@ -188,8 +188,8 @@ void Kwave::Curve::HFlip()
     // flip all x coordinates
     QMutableListIterator<Point> it(*this);
     while (it.hasNext()) {
-	Point &p = it.next();
-	p.setX(1.0 - p.x());
+        Point &p = it.next();
+        p.setX(1.0 - p.x());
     }
 
     // reverse the order it the list
@@ -206,18 +206,18 @@ void Kwave::Curve::scaleFit(unsigned int range)
 
     QVector<double> y = interpolation.interpolation(*this, range);
     foreach (double yi, y) {
-	if (yi > max) max = yi;
-	if (yi < min) min = yi;
+        if (yi > max) max = yi;
+        if (yi < min) min = yi;
     }
 
     QMutableListIterator<Point> it(*this);
     while (it.hasNext()) {
-	Point &p = it.next();
-	p.ry() -= min;
-	if (!qFuzzyCompare(max, min))
-	    p.ry() /= (max - min);
-	else
-	    p.ry() = min;
+        Point &p = it.next();
+        p.ry() -= min;
+        if (!qFuzzyCompare(max, min))
+            p.ry() /= (max - min);
+        else
+            p.ry() = min;
     }
 
 }
@@ -230,13 +230,13 @@ Kwave::Curve::Point Kwave::Curve::findPoint(double px, double py, double tol)
 
     QMutableListIterator<Point> it(*this);
     while (it.hasNext()) {
-	Point &p = it.next();
-	// use the length of the difference vector as criterium
-	double dist = hypot(px - p.x(), py - p.y());
-	if (dist < min_dist) {
-	    min_dist = dist;
-	    best = p;
-	}
+        Point &p = it.next();
+        // use the length of the difference vector as criterium
+        double dist = hypot(px - p.x(), py - p.y());
+        if (dist < min_dist) {
+            min_dist = dist;
+            best = p;
+        }
     }
     return best;
 }
@@ -251,7 +251,7 @@ static bool cmp(const Kwave::Curve::Point &a, const Kwave::Curve::Point &b)
 void Kwave::Curve::sort()
 {
     if (!isEmpty())
-	std::sort(begin(), end(), cmp);
+        std::sort(begin(), end(), cmp);
 }
 
 //***************************************************************************

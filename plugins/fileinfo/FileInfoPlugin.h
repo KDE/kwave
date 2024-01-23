@@ -26,29 +26,29 @@ namespace Kwave
 {
     class FileInfoPlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	FileInfoPlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        FileInfoPlugin(QObject *parent, const QVariantList &args);
 
-	/** virtual Destructor */
+        /** virtual Destructor */
         virtual ~FileInfoPlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * Shows a dialog for editing file properties.
-	 * @see Kwave::Plugin::setup
-	 */
+        /**
+         * Shows a dialog for editing file properties.
+         * @see Kwave::Plugin::setup
+         */
         virtual QStringList *setup(QStringList &) Q_DECL_OVERRIDE;
 
     protected:
 
-	/** Applies the new settings */
-	void apply(Kwave::FileInfo &new_info);
+        /** Applies the new settings */
+        void apply(Kwave::FileInfo &new_info);
 
     };
 }

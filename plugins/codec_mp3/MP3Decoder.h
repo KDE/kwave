@@ -20,7 +20,7 @@
 
 #include "config.h"
 
-#include <mad.h>		// needs libmad-devel package
+#include <mad.h>                // needs libmad-devel package
 
 #include <id3/globals.h>
 
@@ -41,94 +41,94 @@ namespace Kwave
     {
     public:
 
-	/** Constructor */
-	MP3Decoder();
+        /** Constructor */
+        MP3Decoder();
 
-	/** Destructor */
-	virtual ~MP3Decoder() Q_DECL_OVERRIDE;
+        /** Destructor */
+        virtual ~MP3Decoder() Q_DECL_OVERRIDE;
 
-	/** Returns a new instance of the decoder */
-	virtual Kwave::Decoder *instance() Q_DECL_OVERRIDE;
+        /** Returns a new instance of the decoder */
+        virtual Kwave::Decoder *instance() Q_DECL_OVERRIDE;
 
-	/**
-	 * Opens the source and decodes the header information.
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param source file or other source with a stream of bytes
-	 * @return true if succeeded, false on errors
-	 */
-	virtual bool open(QWidget *widget, QIODevice &source) Q_DECL_OVERRIDE;
+        /**
+         * Opens the source and decodes the header information.
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param source file or other source with a stream of bytes
+         * @return true if succeeded, false on errors
+         */
+        virtual bool open(QWidget *widget, QIODevice &source) Q_DECL_OVERRIDE;
 
-	/**
-	 * Decodes a stream of bytes into a MultiWriter
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param dst MultiWriter that receives the audio data
-	 * @return true if succeeded, false on errors
-	 */
-	virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst)
-	    Q_DECL_OVERRIDE;
+        /**
+         * Decodes a stream of bytes into a MultiWriter
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param dst MultiWriter that receives the audio data
+         * @return true if succeeded, false on errors
+         */
+        virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst)
+            Q_DECL_OVERRIDE;
 
-	/**
-	* Closes the source.
-	*/
-	virtual void close() Q_DECL_OVERRIDE;
+        /**
+        * Closes the source.
+        */
+        virtual void close() Q_DECL_OVERRIDE;
 
-	/** Callback for filling libmad's input buffer */
-	enum mad_flow fillInput(struct mad_stream *stream);
+        /** Callback for filling libmad's input buffer */
+        enum mad_flow fillInput(struct mad_stream *stream);
 
-	/** Calback for processing libmad's output */
-	enum mad_flow processOutput(void *data,
-				    struct mad_header const *header,
-				    struct mad_pcm *pcm);
+        /** Calback for processing libmad's output */
+        enum mad_flow processOutput(void *data,
+                                    struct mad_header const *header,
+                                    struct mad_pcm *pcm);
 
-	/** Callback for handling stream errors */
-	enum mad_flow handleError(void *data, struct mad_stream *stream,
-				struct mad_frame *frame);
-
-    private:
-
-	/** parse MP3 headers */
-	bool parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget);
-
-	/** parse all known ID3 tags */
-	bool parseID3Tags(ID3_Tag &tag);
-
-	/**
-	 * parse a ID3 frame into a string
-	 * @param frame a ID3 frame
-	 * @return QString with the content
-	 */
-	QString parseId3Frame2String(const ID3_Frame *frame);
+        /** Callback for handling stream errors */
+        enum mad_flow handleError(void *data, struct mad_stream *stream,
+                                struct mad_frame *frame);
 
     private:
 
-	/** property - to - ID3 mapping */
-	ID3_PropertyMap m_property_map;
+        /** parse MP3 headers */
+        bool parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget);
 
-	/** source of the raw mp3 data */
-	QIODevice *m_source;
+        /** parse all known ID3 tags */
+        bool parseID3Tags(ID3_Tag &tag);
 
-	/** destination of the audio data */
-	Kwave::MultiWriter *m_dest;
+        /**
+         * parse a ID3 frame into a string
+         * @param frame a ID3 frame
+         * @return QString with the content
+         */
+        QString parseId3Frame2String(const ID3_Frame *frame);
 
-	/** buffer for libmad */
-	unsigned char *m_buffer;
+    private:
 
-	/** size of m_buffer in bytes */
-	int m_buffer_size;
+        /** property - to - ID3 mapping */
+        ID3_PropertyMap m_property_map;
 
-	/** number of prepended bytes / id3v2 tag */
-	 size_t m_prepended_bytes;
+        /** source of the raw mp3 data */
+        QIODevice *m_source;
 
-	/** number of appended bytes / id3v1 tag */
-	size_t m_appended_bytes;
+        /** destination of the audio data */
+        Kwave::MultiWriter *m_dest;
 
-	/** number of failures */
-	unsigned int m_failures;
+        /** buffer for libmad */
+        unsigned char *m_buffer;
 
-	/** widget used for displaying error messages */
-	QWidget *m_parent_widget;
+        /** size of m_buffer in bytes */
+        int m_buffer_size;
+
+        /** number of prepended bytes / id3v2 tag */
+         size_t m_prepended_bytes;
+
+        /** number of appended bytes / id3v1 tag */
+        size_t m_appended_bytes;
+
+        /** number of failures */
+        unsigned int m_failures;
+
+        /** widget used for displaying error messages */
+        QWidget *m_parent_widget;
 
     };
 }

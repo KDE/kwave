@@ -33,119 +33,119 @@ namespace Kwave
     class CompressionWidget: public QWidget,
                              public Ui::CompressionWidgetBase
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
-	/** Compression Mode: ABR or VBR */
-	typedef enum {
-	    ABR_MODE = 0, /**< average bitrate mode */
-	    VBR_MODE      /**< variable bitrate mode */
-	} Mode;
+        /** Compression Mode: ABR or VBR */
+        typedef enum {
+            ABR_MODE = 0, /**< average bitrate mode */
+            VBR_MODE      /**< variable bitrate mode */
+        } Mode;
 
-	/** Constructor */
-	explicit CompressionWidget(QWidget *parent);
+        /** Constructor */
+        explicit CompressionWidget(QWidget *parent);
 
-	/** Destructor */
-	virtual ~CompressionWidget();
+        /** Destructor */
+        virtual ~CompressionWidget();
 
-	/**
-	 * @param info the FileInfo used for getting the property descriptions
-	 */
-	virtual void init(Kwave::FileInfo &info);
+        /**
+         * @param info the FileInfo used for getting the property descriptions
+         */
+        virtual void init(Kwave::FileInfo &info);
 
-	/**
-	 * Enable or disable ABR mode controls
-	 * @param enable controls the global ABR mode setting enable/disable
-	 * @param lowest checks/unchecks the lowest bitrate setting checkbox
-	 * @param highest checks/unchecks the highest bitrate setting checkbox
-	 */
-	virtual void enableABR(bool enable, bool lowest, bool highest);
+        /**
+         * Enable or disable ABR mode controls
+         * @param enable controls the global ABR mode setting enable/disable
+         * @param lowest checks/unchecks the lowest bitrate setting checkbox
+         * @param highest checks/unchecks the highest bitrate setting checkbox
+         */
+        virtual void enableABR(bool enable, bool lowest, bool highest);
 
-	/** Enable or disable VBR mode */
-	virtual void enableVBR(bool enable);
+        /** Enable or disable VBR mode */
+        virtual void enableVBR(bool enable);
 
 
-	/**
-	 * Sets the bitrates in ABR mode
-	 * @param nominal the nominal bitrate or zero if not used
-	 * @param lower the lowest bitrate or zero if not used
-	 * @param upper the highest bitrate or zero if not used
-	 */
-	virtual void setBitrates(int nominal, int lower, int upper);
+        /**
+         * Sets the bitrates in ABR mode
+         * @param nominal the nominal bitrate or zero if not used
+         * @param lower the lowest bitrate or zero if not used
+         * @param upper the highest bitrate or zero if not used
+         */
+        virtual void setBitrates(int nominal, int lower, int upper);
 
-	/**
-	 * Sets the VBR base quality or zero if unused.
-	 */
-	virtual void setQuality(int quality);
+        /**
+         * Sets the VBR base quality or zero if unused.
+         */
+        virtual void setQuality(int quality);
 
-	/** Returns the current bitrate mode: ABR or VBR */
-	virtual Mode mode();
+        /** Returns the current bitrate mode: ABR or VBR */
+        virtual Mode mode();
 
-	/** Selects ABR or VBR mode */
-	virtual void setMode(Mode mode);
+        /** Selects ABR or VBR mode */
+        virtual void setMode(Mode mode);
 
-	/** Returns the state of the "use lowest" checkbox */
-	virtual bool lowestEnabled();
+        /** Returns the state of the "use lowest" checkbox */
+        virtual bool lowestEnabled();
 
-	/** Returns the state of the "use highest" checkbox */
-	virtual bool highestEnabled();
+        /** Returns the state of the "use highest" checkbox */
+        virtual bool highestEnabled();
 
-	/**
-	 * Returns the bitrate settings of ABR mode
-	 * @param nominal receives the nominal bitrate
-	 * @param lowest receives the lowest bitrate or null if unused
-	 * @param highest receives the highest bitrate or null if unused
-	 */
-	virtual void getABRrates(int &nominal, int &lowest, int &highest);
+        /**
+         * Returns the bitrate settings of ABR mode
+         * @param nominal receives the nominal bitrate
+         * @param lowest receives the lowest bitrate or null if unused
+         * @param highest receives the highest bitrate or null if unused
+         */
+        virtual void getABRrates(int &nominal, int &lowest, int &highest);
 
-	/**
-	 * Returns the base quality in VBR mode, as
-	 * percentage from 1...100
-	 */
-	virtual int baseQuality();
+        /**
+         * Returns the base quality in VBR mode, as
+         * percentage from 1...100
+         */
+        virtual int baseQuality();
 
     private slots:
 
-	/** called when the selection state of the ABR radio button changed */
-	virtual void selectABR(bool checked);
+        /** called when the selection state of the ABR radio button changed */
+        virtual void selectABR(bool checked);
 
-	/** called when the "lowest bitrate" checkbox has been toggled */
-	virtual void lowestToggled(bool on);
+        /** called when the "lowest bitrate" checkbox has been toggled */
+        virtual void lowestToggled(bool on);
 
-	/** called when the "average bitrate" slider has changed */
-	virtual void abrChanged(int value);
+        /** called when the "average bitrate" slider has changed */
+        virtual void abrChanged(int value);
 
-	/** called when the "lowest bitrate" slider has changed */
-	virtual void lowestChanged(int value);
+        /** called when the "lowest bitrate" slider has changed */
+        virtual void lowestChanged(int value);
 
-	/** called when the "highest bitrate" slider has changed */
-	virtual void highestChanged(int value);
+        /** called when the "highest bitrate" slider has changed */
+        virtual void highestChanged(int value);
 
-	/** called when the "highest bitrate" checkbox has been toggled */
-	virtual void highestToggled(bool on);
+        /** called when the "highest bitrate" checkbox has been toggled */
+        virtual void highestToggled(bool on);
 
     private:
 
-	/**
-	 * Sets the tooltip and "what's this" of a widget.
-	 * @param widget any QWidget derived widget
-	 * @param name of the setting, normally equal to it's label
-	 * @param description verbose descriptive text that says
-	 *        what can be set
-	 */
-	void describeWidget(QWidget *widget, const QString &name,
-	                    const QString &description);
+        /**
+         * Sets the tooltip and "what's this" of a widget.
+         * @param widget any QWidget derived widget
+         * @param name of the setting, normally equal to it's label
+         * @param description verbose descriptive text that says
+         *        what can be set
+         */
+        void describeWidget(QWidget *widget, const QString &name,
+                            const QString &description);
 
-	/**
-	 * Sets the text of the label to the name of a file property and
-	 * initializes the tool tip of the corresponding edit/display control.
-	 * @param label the label to be set
-	 * @param widget the control to get the tool tip
-	 * @param property the file property which it belongs to
-	 * @param info the FileInfo used for getting the property descriptions
-	 */
-	void initInfo(QLabel *label, QWidget *widget,
-	              Kwave::FileProperty property,
-	              Kwave::FileInfo &info);
+        /**
+         * Sets the text of the label to the name of a file property and
+         * initializes the tool tip of the corresponding edit/display control.
+         * @param label the label to be set
+         * @param widget the control to get the tool tip
+         * @param property the file property which it belongs to
+         * @param info the FileInfo used for getting the property descriptions
+         */
+        void initInfo(QLabel *label, QWidget *widget,
+                      Kwave::FileProperty property,
+                      Kwave::FileInfo &info);
     };
 }
 

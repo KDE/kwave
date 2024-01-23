@@ -40,11 +40,11 @@ Kwave::RecordController::~RecordController()
 void Kwave::RecordController::setInitialized(bool initialized)
 {
     if (initialized) {
-	m_next_state = (m_empty) ? Kwave::REC_EMPTY : Kwave::REC_DONE;
-	emit stateChanged(m_state = Kwave::REC_EMPTY);
+        m_next_state = (m_empty) ? Kwave::REC_EMPTY : Kwave::REC_DONE;
+        emit stateChanged(m_state = Kwave::REC_EMPTY);
     } else {
-	m_next_state = Kwave::REC_UNINITIALIZED;
-	emit stateChanged(Kwave::REC_UNINITIALIZED);
+        m_next_state = Kwave::REC_UNINITIALIZED;
+        emit stateChanged(Kwave::REC_UNINITIALIZED);
     }
 }
 
@@ -64,26 +64,26 @@ void Kwave::RecordController::enablePrerecording(bool enable)
 void Kwave::RecordController::actionReset()
 {
     switch (m_state) {
-	case Kwave::REC_UNINITIALIZED:
-	    // already empty, nothing to do
-	    break;
-	case Kwave::REC_RECORDING:
+        case Kwave::REC_UNINITIALIZED:
+            // already empty, nothing to do
+            break;
+        case Kwave::REC_RECORDING:
 #if 0
-	    // fall back to REC_WAITING_FOR_TRIGGER
-	    m_next_state = Kwave::REC_EMPTY;
-	    emit stateChanged(m_state = Kwave::REC_WAITING_FOR_TRIGGER);
-	    break;
+            // fall back to REC_WAITING_FOR_TRIGGER
+            m_next_state = Kwave::REC_EMPTY;
+            emit stateChanged(m_state = Kwave::REC_WAITING_FOR_TRIGGER);
+            break;
 #endif
-	case Kwave::REC_EMPTY:
-	case Kwave::REC_BUFFERING:
-	case Kwave::REC_WAITING_FOR_TRIGGER:
-	case Kwave::REC_PRERECORDING:
-	case Kwave::REC_PAUSED:
-	case Kwave::REC_DONE:
-	    bool accepted = true;
-	    emit sigReset(accepted);
-	    if (accepted) emit stateChanged(m_state = Kwave::REC_EMPTY);
-	    break;
+        case Kwave::REC_EMPTY:
+        case Kwave::REC_BUFFERING:
+        case Kwave::REC_WAITING_FOR_TRIGGER:
+        case Kwave::REC_PRERECORDING:
+        case Kwave::REC_PAUSED:
+        case Kwave::REC_DONE:
+            bool accepted = true;
+            emit sigReset(accepted);
+            if (accepted) emit stateChanged(m_state = Kwave::REC_EMPTY);
+            break;
     }
 }
 
@@ -91,23 +91,23 @@ void Kwave::RecordController::actionReset()
 void Kwave::RecordController::actionStop()
 {
     switch (m_state) {
-	case Kwave::REC_UNINITIALIZED:
-	case Kwave::REC_EMPTY:
-	case Kwave::REC_DONE:
-	    // already stopped, nothing to do
-	    break;
-	case Kwave::REC_BUFFERING:
-	case Kwave::REC_WAITING_FOR_TRIGGER:
-	case Kwave::REC_PRERECORDING:
-	    // abort, change to REC_EMPTY
-	    emit sigStopRecord(0);
-	    break;
-	case Kwave::REC_RECORDING:
-	case Kwave::REC_PAUSED:
-	    // abort, change to REC_DONE
-	    m_next_state = Kwave::REC_DONE;
-	    emit sigStopRecord(0);
-	    break;
+        case Kwave::REC_UNINITIALIZED:
+        case Kwave::REC_EMPTY:
+        case Kwave::REC_DONE:
+            // already stopped, nothing to do
+            break;
+        case Kwave::REC_BUFFERING:
+        case Kwave::REC_WAITING_FOR_TRIGGER:
+        case Kwave::REC_PRERECORDING:
+            // abort, change to REC_EMPTY
+            emit sigStopRecord(0);
+            break;
+        case Kwave::REC_RECORDING:
+        case Kwave::REC_PAUSED:
+            // abort, change to REC_DONE
+            m_next_state = Kwave::REC_DONE;
+            emit sigStopRecord(0);
+            break;
     }
 }
 
@@ -115,26 +115,26 @@ void Kwave::RecordController::actionStop()
 void Kwave::RecordController::actionPause()
 {
     switch (m_state) {
-	case Kwave::REC_UNINITIALIZED:
-	case Kwave::REC_EMPTY:
-	case Kwave::REC_DONE:
-	    // what do you want ?
-	    break;
-	case Kwave::REC_BUFFERING:
-	case Kwave::REC_WAITING_FOR_TRIGGER:
-	case Kwave::REC_PRERECORDING:
-	    // this should never happen
-	    qWarning("RecordController::actionPause(): "
-	             "state = %s ???", stateName(m_state));
-	    break;
-	case Kwave::REC_RECORDING:
-	    // pause recording
-	    emit stateChanged(m_state = Kwave::REC_PAUSED);
-	    break;
-	case Kwave::REC_PAUSED:
-	    // continue recording
-	    emit stateChanged(m_state = Kwave::REC_RECORDING);
-	    break;
+        case Kwave::REC_UNINITIALIZED:
+        case Kwave::REC_EMPTY:
+        case Kwave::REC_DONE:
+            // what do you want ?
+            break;
+        case Kwave::REC_BUFFERING:
+        case Kwave::REC_WAITING_FOR_TRIGGER:
+        case Kwave::REC_PRERECORDING:
+            // this should never happen
+            qWarning("RecordController::actionPause(): "
+                     "state = %s ???", stateName(m_state));
+            break;
+        case Kwave::REC_RECORDING:
+            // pause recording
+            emit stateChanged(m_state = Kwave::REC_PAUSED);
+            break;
+        case Kwave::REC_PAUSED:
+            // continue recording
+            emit stateChanged(m_state = Kwave::REC_RECORDING);
+            break;
     }
 }
 
@@ -142,29 +142,29 @@ void Kwave::RecordController::actionPause()
 void Kwave::RecordController::actionStart()
 {
     switch (m_state) {
-	case Kwave::REC_UNINITIALIZED:
-	    break; // impossible
-	case Kwave::REC_EMPTY:
-	case Kwave::REC_DONE:
-	    // interpret this as manual trigger
-	    emit sigStartRecord();
-	    break;
-	case Kwave::REC_BUFFERING:
-	case Kwave::REC_PRERECORDING:
-	case Kwave::REC_WAITING_FOR_TRIGGER:
-	    // interpret as "trigger now"
-	    m_next_state = Kwave::REC_EMPTY;
-	    emit stateChanged(m_state = Kwave::REC_RECORDING);
-	    break;
-	case Kwave::REC_PAUSED:
-	    // interpret this as "continue"
-	    m_next_state = Kwave::REC_RECORDING;
-	    emit stateChanged(m_state = Kwave::REC_RECORDING);
-	    break;
-	case Kwave::REC_RECORDING:
-	    // already recording...
-	    m_next_state = Kwave::REC_DONE;
-	    break;
+        case Kwave::REC_UNINITIALIZED:
+            break; // impossible
+        case Kwave::REC_EMPTY:
+        case Kwave::REC_DONE:
+            // interpret this as manual trigger
+            emit sigStartRecord();
+            break;
+        case Kwave::REC_BUFFERING:
+        case Kwave::REC_PRERECORDING:
+        case Kwave::REC_WAITING_FOR_TRIGGER:
+            // interpret as "trigger now"
+            m_next_state = Kwave::REC_EMPTY;
+            emit stateChanged(m_state = Kwave::REC_RECORDING);
+            break;
+        case Kwave::REC_PAUSED:
+            // interpret this as "continue"
+            m_next_state = Kwave::REC_RECORDING;
+            emit stateChanged(m_state = Kwave::REC_RECORDING);
+            break;
+        case Kwave::REC_RECORDING:
+            // already recording...
+            m_next_state = Kwave::REC_DONE;
+            break;
     }
 }
 
@@ -172,23 +172,23 @@ void Kwave::RecordController::actionStart()
 void Kwave::RecordController::deviceRecordStarted()
 {
     switch (m_state) {
-	case Kwave::REC_UNINITIALIZED:
-	    break; // impossible
-	case Kwave::REC_EMPTY:
-	case Kwave::REC_PAUSED:
-	case Kwave::REC_DONE:
-	    // continue, pre-recording or trigger
-	    m_next_state = (m_empty) ? Kwave::REC_EMPTY : Kwave::REC_DONE;
-	    emit stateChanged(m_state = Kwave::REC_BUFFERING);
-	    break;
-	case Kwave::REC_BUFFERING:
-	case Kwave::REC_WAITING_FOR_TRIGGER:
-	case Kwave::REC_PRERECORDING:
-	case Kwave::REC_RECORDING:
-	    // this should never happen
-	    qWarning("RecordController::deviceRecordStarted(): "
-	             "state = %s ???", stateName(m_state));
-	    break;
+        case Kwave::REC_UNINITIALIZED:
+            break; // impossible
+        case Kwave::REC_EMPTY:
+        case Kwave::REC_PAUSED:
+        case Kwave::REC_DONE:
+            // continue, pre-recording or trigger
+            m_next_state = (m_empty) ? Kwave::REC_EMPTY : Kwave::REC_DONE;
+            emit stateChanged(m_state = Kwave::REC_BUFFERING);
+            break;
+        case Kwave::REC_BUFFERING:
+        case Kwave::REC_WAITING_FOR_TRIGGER:
+        case Kwave::REC_PRERECORDING:
+        case Kwave::REC_RECORDING:
+            // this should never happen
+            qWarning("RecordController::deviceRecordStarted(): "
+                     "state = %s ???", stateName(m_state));
+            break;
     }
 }
 
@@ -196,40 +196,40 @@ void Kwave::RecordController::deviceRecordStarted()
 void Kwave::RecordController::deviceBufferFull()
 {
     switch (m_state) {
-	case Kwave::REC_UNINITIALIZED:
-	    break; // impossible
-	case Kwave::REC_EMPTY:
-	    // we are only "recording" for updating the level
-	    // meters and other effects -> no state change
-	    break;
-	case Kwave::REC_WAITING_FOR_TRIGGER:
-	case Kwave::REC_PRERECORDING:
-	case Kwave::REC_RECORDING:
-	    // this should never happen
-	    qWarning("RecordController::deviceBufferFull(): "
-	             "state = %s ???", stateName(m_state));
-	    break;
-	case Kwave::REC_PAUSED: /* == buffering again after pause */
-	    // -> will change to "REC_BUFFERING" soon...
-	    break;
-	case Kwave::REC_BUFFERING:
-	    if (m_enable_prerecording) {
-		// prerecording was set
-		m_state = Kwave::REC_PRERECORDING;
-	    } else if (m_trigger_set) {
-		// trigger was set
-		m_state = Kwave::REC_WAITING_FOR_TRIGGER;
-	    } else {
-		// default: just start recording
-		m_next_state = Kwave::REC_DONE;
-		m_state = Kwave::REC_RECORDING;
-	    }
-	    emit stateChanged(m_state);
-	    break;
-	case Kwave::REC_DONE:
-	    // might occur when the buffer content is flushed
-	    // after a stop
-	    break;
+        case Kwave::REC_UNINITIALIZED:
+            break; // impossible
+        case Kwave::REC_EMPTY:
+            // we are only "recording" for updating the level
+            // meters and other effects -> no state change
+            break;
+        case Kwave::REC_WAITING_FOR_TRIGGER:
+        case Kwave::REC_PRERECORDING:
+        case Kwave::REC_RECORDING:
+            // this should never happen
+            qWarning("RecordController::deviceBufferFull(): "
+                     "state = %s ???", stateName(m_state));
+            break;
+        case Kwave::REC_PAUSED: /* == buffering again after pause */
+            // -> will change to "REC_BUFFERING" soon...
+            break;
+        case Kwave::REC_BUFFERING:
+            if (m_enable_prerecording) {
+                // prerecording was set
+                m_state = Kwave::REC_PRERECORDING;
+            } else if (m_trigger_set) {
+                // trigger was set
+                m_state = Kwave::REC_WAITING_FOR_TRIGGER;
+            } else {
+                // default: just start recording
+                m_next_state = Kwave::REC_DONE;
+                m_state = Kwave::REC_RECORDING;
+            }
+            emit stateChanged(m_state);
+            break;
+        case Kwave::REC_DONE:
+            // might occur when the buffer content is flushed
+            // after a stop
+            break;
     }
 }
 
@@ -243,31 +243,31 @@ void Kwave::RecordController::enableTrigger(bool enable)
 void Kwave::RecordController::deviceTriggerReached()
 {
     switch (m_state) {
-	case Kwave::REC_UNINITIALIZED:
-	case Kwave::REC_EMPTY:
-	case Kwave::REC_BUFFERING:
-	case Kwave::REC_RECORDING:
-	case Kwave::REC_PAUSED:
-	case Kwave::REC_DONE:
-	    // this should never happen
-	    qWarning("RecordController::deviceTriggerReached(): "
-	             "state = %s ???", stateName(m_state));
-	    break;
-	case Kwave::REC_PRERECORDING:
-	case Kwave::REC_WAITING_FOR_TRIGGER:
-	    Q_ASSERT(m_trigger_set);
-	    if ((m_enable_prerecording) &&
-	        (m_state == Kwave::REC_WAITING_FOR_TRIGGER))
-	    {
-		// prerecording was set
-		m_state = Kwave::REC_PRERECORDING;
-	    } else {
-		// default: just start recording
-		m_state = Kwave::REC_RECORDING;
-		m_next_state = Kwave::REC_DONE;
-	    }
-	    emit stateChanged(m_state);
-	    break;
+        case Kwave::REC_UNINITIALIZED:
+        case Kwave::REC_EMPTY:
+        case Kwave::REC_BUFFERING:
+        case Kwave::REC_RECORDING:
+        case Kwave::REC_PAUSED:
+        case Kwave::REC_DONE:
+            // this should never happen
+            qWarning("RecordController::deviceTriggerReached(): "
+                     "state = %s ???", stateName(m_state));
+            break;
+        case Kwave::REC_PRERECORDING:
+        case Kwave::REC_WAITING_FOR_TRIGGER:
+            Q_ASSERT(m_trigger_set);
+            if ((m_enable_prerecording) &&
+                (m_state == Kwave::REC_WAITING_FOR_TRIGGER))
+            {
+                // prerecording was set
+                m_state = Kwave::REC_PRERECORDING;
+            } else {
+                // default: just start recording
+                m_state = Kwave::REC_RECORDING;
+                m_next_state = Kwave::REC_DONE;
+            }
+            emit stateChanged(m_state);
+            break;
     }
 }
 
@@ -275,48 +275,48 @@ void Kwave::RecordController::deviceTriggerReached()
 void Kwave::RecordController::deviceRecordStopped(int)
 {
     switch (m_state) {
-	case Kwave::REC_UNINITIALIZED:
-	case Kwave::REC_EMPTY:
-	case Kwave::REC_DONE:
-	    // this could happen when an abort occurs during buffering
-	    emit stateChanged(m_state);
-	    break;
-	case Kwave::REC_BUFFERING:
-	case Kwave::REC_PRERECORDING:
-	case Kwave::REC_WAITING_FOR_TRIGGER:
-	    // abort, no real data produced
-	    if (m_empty) {
-		emit stateChanged(m_state = Kwave::REC_EMPTY);
-	    } else {
-		emit stateChanged(m_state = Kwave::REC_DONE);
-	    }
-	    break;
-	case Kwave::REC_RECORDING:
-	    // recording -> pause or done
-	    switch (m_next_state) {
-		case Kwave::REC_EMPTY:
-		    // something went wrong when starting the recorder
-		    if (m_empty) {
-			emit stateChanged(m_state = Kwave::REC_EMPTY);
-		    } else {
-			emit stateChanged(m_state = Kwave::REC_DONE);
-		    }
-		    break;
-		case Kwave::REC_PAUSED:
-		    emit stateChanged(m_state = Kwave::REC_PAUSED);
-		    break;
-		case Kwave::REC_DONE:
-		    emit stateChanged(m_state = Kwave::REC_DONE);
-		    break;
-		default:
-		    qWarning("RecordController::deviceRecordStopped(): "
-		             "next state = %s ???", stateName(m_next_state));
-	    }
-	    break;
-	case Kwave::REC_PAUSED:
-	    // pause -> done
-	    emit stateChanged(m_state = Kwave::REC_DONE);
-	    break;
+        case Kwave::REC_UNINITIALIZED:
+        case Kwave::REC_EMPTY:
+        case Kwave::REC_DONE:
+            // this could happen when an abort occurs during buffering
+            emit stateChanged(m_state);
+            break;
+        case Kwave::REC_BUFFERING:
+        case Kwave::REC_PRERECORDING:
+        case Kwave::REC_WAITING_FOR_TRIGGER:
+            // abort, no real data produced
+            if (m_empty) {
+                emit stateChanged(m_state = Kwave::REC_EMPTY);
+            } else {
+                emit stateChanged(m_state = Kwave::REC_DONE);
+            }
+            break;
+        case Kwave::REC_RECORDING:
+            // recording -> pause or done
+            switch (m_next_state) {
+                case Kwave::REC_EMPTY:
+                    // something went wrong when starting the recorder
+                    if (m_empty) {
+                        emit stateChanged(m_state = Kwave::REC_EMPTY);
+                    } else {
+                        emit stateChanged(m_state = Kwave::REC_DONE);
+                    }
+                    break;
+                case Kwave::REC_PAUSED:
+                    emit stateChanged(m_state = Kwave::REC_PAUSED);
+                    break;
+                case Kwave::REC_DONE:
+                    emit stateChanged(m_state = Kwave::REC_DONE);
+                    break;
+                default:
+                    qWarning("RecordController::deviceRecordStopped(): "
+                             "next state = %s ???", stateName(m_next_state));
+            }
+            break;
+        case Kwave::REC_PAUSED:
+            // pause -> done
+            emit stateChanged(m_state = Kwave::REC_DONE);
+            break;
     }
 }
 
@@ -324,14 +324,14 @@ void Kwave::RecordController::deviceRecordStopped(int)
 const char *Kwave::RecordController::stateName(const Kwave::RecordState state)
 {
     switch (state) {
-	case Kwave::REC_UNINITIALIZED:       return "REC_UNINITIALIZED";
-	case Kwave::REC_EMPTY:               return "REC_EMPTY";
-	case Kwave::REC_BUFFERING:           return "REC_BUFFERING";
-	case Kwave::REC_WAITING_FOR_TRIGGER: return "REC_WAITING_FOR_TRIGGER";
-	case Kwave::REC_PRERECORDING:        return "REC_PRERECORDING";
-	case Kwave::REC_RECORDING:           return "REC_RECORDING";
-	case Kwave::REC_PAUSED:              return "REC_PAUSED";
-	case Kwave::REC_DONE:                return "REC_DONE";
+        case Kwave::REC_UNINITIALIZED:       return "REC_UNINITIALIZED";
+        case Kwave::REC_EMPTY:               return "REC_EMPTY";
+        case Kwave::REC_BUFFERING:           return "REC_BUFFERING";
+        case Kwave::REC_WAITING_FOR_TRIGGER: return "REC_WAITING_FOR_TRIGGER";
+        case Kwave::REC_PRERECORDING:        return "REC_PRERECORDING";
+        case Kwave::REC_RECORDING:           return "REC_RECORDING";
+        case Kwave::REC_PAUSED:              return "REC_PAUSED";
+        case Kwave::REC_DONE:                return "REC_DONE";
     }
     return "-INVALID-";
 }

@@ -31,7 +31,7 @@ Kwave::RateConverter::RateConverter()
     m_converter = src_new(SRC_SINC_MEDIUM_QUALITY, 1, &error);
     Q_ASSERT(m_converter);
     if (!m_converter) qWarning("creating converter failed: '%s",
-	src_strerror(error));
+        src_strerror(error));
 }
 
 //***************************************************************************
@@ -50,8 +50,8 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
 {
     // shortcut for ratio == 1:1
     if ((m_ratio == 1.0) || data.isEmpty()) {
-	emit output(data);
-	return;
+        emit output(data);
+        return;
     }
 
     // normal processing
@@ -69,14 +69,14 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
     unsigned int remaining = in_len;
     const unsigned int block_size = 16;
     while (remaining >= block_size) {
-	for (unsigned int i = 0; i < block_size; i++)
-	    f_in[i] = sample2float(s_in[i]);
-	f_in      += block_size;
-	s_in      += block_size;
-	remaining -= block_size;
+        for (unsigned int i = 0; i < block_size; i++)
+            f_in[i] = sample2float(s_in[i]);
+        f_in      += block_size;
+        s_in      += block_size;
+        remaining -= block_size;
     }
     for (; remaining; remaining--)
-	(*f_in++) = sample2float(*(s_in++));
+        (*f_in++) = sample2float(*(s_in++));
 
     // prepare the output buffer (estimated size, rounded up)
     // worst case would be factor 2, which means that there was a 100%
@@ -84,7 +84,7 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
     // just for safety we limit the extra output space to some
     // (hopefully) reasonable range between 4096 and 16384
     const unsigned int out_len = Kwave::toUint(
-	ceil(static_cast<double>(in_len) * m_ratio)
+        ceil(static_cast<double>(in_len) * m_ratio)
     );
     const unsigned int extra = qBound<unsigned int>(4096, out_len, 16384);
     m_converter_out.resize(out_len + extra);
@@ -114,14 +114,14 @@ void Kwave::RateConverter::input(Kwave::SampleArray data)
     // work blockwise to allow loop unrolling
     remaining = gen;
     while (remaining >= block_size) {
-	for (unsigned int i = 0; i < block_size; ++i)
-	    s_out[i] = float2sample(f_out[i]);
-	s_out     += block_size;
-	f_out     += block_size;
-	remaining -= block_size;
+        for (unsigned int i = 0; i < block_size; ++i)
+            s_out[i] = float2sample(f_out[i]);
+        s_out     += block_size;
+        f_out     += block_size;
+        remaining -= block_size;
     }
     for (; remaining; remaining--, ++s_out, ++f_out)
-	*s_out = float2sample(*f_out);
+        *s_out = float2sample(*f_out);
 
     emit output(out);
 }

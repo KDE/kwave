@@ -40,11 +40,11 @@ static void decode_NULL(const quint8 *src, sample_t *dst, unsigned int count)
 static inline quint32 shl(const quint32 v, const int s)
 {
     if (!s)
-	return v;
+        return v;
     else if (s > 0)
-	return (v << s);
+        return (v << s);
     else
-	return (v >> (-s));
+        return (v >> (-s));
 }
 
 //***************************************************************************
@@ -66,33 +66,33 @@ void decode_linear(const quint8 *src, sample_t *dst, unsigned int count)
     const quint32 bytes = (bits+7) >> 3;
 
     while (count) {
-	count--;
+        count--;
 
-	// read from source buffer
-	quint32 s = 0;
-	if (is_little_endian) {
-	    // little endian
-	    for (unsigned int byte = 0; byte < bytes; ++byte, ++src) {
-		s |= static_cast<quint8>(*src) << (byte << 3);
-	    }
-	} else {
-	    // big endian
-	    for (int byte = bytes - 1; byte >= 0; --byte, ++src) {
-		s |= static_cast<quint8>(*src) << (byte << 3);
-	    }
-	}
+        // read from source buffer
+        quint32 s = 0;
+        if (is_little_endian) {
+            // little endian
+            for (unsigned int byte = 0; byte < bytes; ++byte, ++src) {
+                s |= static_cast<quint8>(*src) << (byte << 3);
+            }
+        } else {
+            // big endian
+            for (int byte = bytes - 1; byte >= 0; --byte, ++src) {
+                s |= static_cast<quint8>(*src) << (byte << 3);
+            }
+        }
 
-	// convert to signed
-	if (!is_signed) s -= shl(1, bits-1)-1;
+        // convert to signed
+        if (!is_signed) s -= shl(1, bits-1)-1;
 
-	// shift up to Kwave's bit count
-	s = shl(s, shift);
+        // shift up to Kwave's bit count
+        s = shl(s, shift);
 
-	// sign correcture for negative values
-	if (is_signed && (s & sign)) s |= negative;
+        // sign correcture for negative values
+        if (is_signed && (s & sign)) s |= negative;
 
-	// write to destination buffer
-	*(dst++) = static_cast<sample_t>(s);
+        // write to destination buffer
+        *(dst++) = static_cast<sample_t>(s);
     }
 }
 
@@ -100,15 +100,15 @@ void decode_linear(const quint8 *src, sample_t *dst, unsigned int count)
 #define MAKE_DECODER(bits)                             \
 if (sample_format != Kwave::SampleFormat::Unsigned) {  \
     if (endianness != Kwave::BigEndian) {              \
-	m_decoder = decode_linear<bits, true, true>;   \
+        m_decoder = decode_linear<bits, true, true>;   \
     } else {                                           \
-	m_decoder = decode_linear<bits, true, false>;  \
+        m_decoder = decode_linear<bits, true, false>;  \
     }                                                  \
 } else {                                               \
     if (endianness != Kwave::BigEndian) {              \
-	m_decoder = decode_linear<bits, false, true>;  \
+        m_decoder = decode_linear<bits, false, true>;  \
     } else {                                           \
-	m_decoder = decode_linear<bits, false, false>; \
+        m_decoder = decode_linear<bits, false, false>; \
     }                                                  \
 }
 
@@ -141,18 +141,18 @@ Kwave::SampleDecoderLinear::SampleDecoderLinear(
 #endif
 
     switch (m_bytes_per_sample) {
-	case 1:
-	    MAKE_DECODER(8)
-	    break;
-	case 2:
-	    MAKE_DECODER(16)
-	    break;
-	case 3:
-	    MAKE_DECODER(24)
-	    break;
-	case 4:
-	    MAKE_DECODER(32)
-	    break;
+        case 1:
+            MAKE_DECODER(8)
+            break;
+        case 2:
+            MAKE_DECODER(16)
+            break;
+        case 3:
+            MAKE_DECODER(24)
+            break;
+        case 4:
+            MAKE_DECODER(32)
+            break;
     }
 }
 

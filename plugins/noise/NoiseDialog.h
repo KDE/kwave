@@ -38,97 +38,97 @@ namespace Kwave
                        public Kwave::PluginSetupDialog,
                        public Ui::NoiseDlg
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	NoiseDialog(QWidget *parent, Kwave::OverViewCache *overview_cache);
+        /** Constructor */
+        NoiseDialog(QWidget *parent, Kwave::OverViewCache *overview_cache);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~NoiseDialog() Q_DECL_OVERRIDE;
 
-	/** Returns the parameters as string list */
+        /** Returns the parameters as string list */
         virtual QStringList params() Q_DECL_OVERRIDE;
 
-	/** Sets the from a list of parameters */
+        /** Sets the from a list of parameters */
         virtual void setParams(QStringList &params) Q_DECL_OVERRIDE;
 
-	/** retruns a pointer to this as a QDialog */
+        /** retruns a pointer to this as a QDialog */
         virtual QDialog *dialog() Q_DECL_OVERRIDE { return this; }
 
     signals:
 
-	/**
-	 * Emitted whenever the noise level changes
-	 * @param level the noise level [0 .. 1.0]
-	 */
-	void levelChanged(double level);
+        /**
+         * Emitted whenever the noise level changes
+         * @param level the noise level [0 .. 1.0]
+         */
+        void levelChanged(double level);
 
-	/** Pre-listen mode has been started */
-	void startPreListen();
+        /** Pre-listen mode has been started */
+        void startPreListen();
 
-	/** Pre-listen mode has been stopped */
-	void stopPreListen();
+        /** Pre-listen mode has been stopped */
+        void stopPreListen();
 
     protected slots:
 
-	/** called when the mode radio buttons changed */
-	void modeChanged(bool);
+        /** called when the mode radio buttons changed */
+        void modeChanged(bool);
 
-	/** called when the slider's position has changed */
-	void sliderChanged(int pos);
+        /** called when the slider's position has changed */
+        void sliderChanged(int pos);
 
-	/** called when the spinbox value has changed */
-	void spinboxChanged(int pos);
+        /** called when the spinbox value has changed */
+        void spinboxChanged(int pos);
 
-	/**
-	 * called when the "Listen" button has been toggled,
-	 * to start or stop the pre-listen mode
-	 */
-	void listenToggled(bool listen);
+        /**
+         * called when the "Listen" button has been toggled,
+         * to start or stop the pre-listen mode
+         */
+        void listenToggled(bool listen);
 
-	/**
-	 * called when the pre-listen mode stopped/aborted
-	 */
-	void listenStopped();
+        /**
+         * called when the pre-listen mode stopped/aborted
+         */
+        void listenStopped();
 
     private slots:
 
-	/** invoke the online help */
-	void invokeHelp();
+        /** invoke the online help */
+        void invokeHelp();
 
     protected:
 
-	/**
-	 * Mode for amplification selection
-	 * by percentage or by decibel
-	 */
-	typedef enum {
-	    MODE_PERCENT = 0,
-	    MODE_DECIBEL = 1
-	} Mode;
+        /**
+         * Mode for amplification selection
+         * by percentage or by decibel
+         */
+        typedef enum {
+            MODE_PERCENT = 0,
+            MODE_DECIBEL = 1
+        } Mode;
 
-	/** Sets a new volume selection mode */
-	void setMode(Mode mode);
+        /** Sets a new volume selection mode */
+        void setMode(Mode mode);
 
-	/** Update the slider position and the spinbox value */
-	void updateDisplay(double value);
+        /** Update the slider position and the spinbox value */
+        void updateDisplay(double value);
 
     private:
 
-	/** noise level, as a linear factor [0...1] */
-	double m_noise;
+        /** noise level, as a linear factor [0...1] */
+        double m_noise;
 
-	/**
-	 * current mode for noise level selection
-	 */
-	Mode m_mode;
+        /**
+         * current mode for noise level selection
+         */
+        Mode m_mode;
 
-	/** if false, ignore the signals of slider and spinbox */
-	bool m_enable_updates;
+        /** if false, ignore the signals of slider and spinbox */
+        bool m_enable_updates;
 
-	/** overview cache for calculating the preview image */
-	Kwave::OverViewCache *m_overview_cache;
+        /** overview cache for calculating the preview image */
+        Kwave::OverViewCache *m_overview_cache;
 
     };
 }

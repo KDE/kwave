@@ -29,39 +29,39 @@ namespace Kwave
     {
     public:
 
-	/**
-	 * Constructor
-	 * @param sample_format index of the sample format (signed/unsigned)
-	 * @param bits_per_sample number of bits per sample in the raw data
-	 * @param endianness either SOURCE_LITTLE_ENDIAN or SOURCE_BIG_ENDIAN
-	 */
-	SampleDecoderLinear(Kwave::SampleFormat::Format sample_format,
-	                    unsigned int bits_per_sample,
-	                    Kwave::byte_order_t endianness);
+        /**
+         * Constructor
+         * @param sample_format index of the sample format (signed/unsigned)
+         * @param bits_per_sample number of bits per sample in the raw data
+         * @param endianness either SOURCE_LITTLE_ENDIAN or SOURCE_BIG_ENDIAN
+         */
+        SampleDecoderLinear(Kwave::SampleFormat::Format sample_format,
+                            unsigned int bits_per_sample,
+                            Kwave::byte_order_t endianness);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~SampleDecoderLinear() Q_DECL_OVERRIDE;
 
-	/**
-	 * Decodes the given buffer (byte array) by splitting it into
-	 * it's tracks, decoding all samples and writing the result to
-	 * the corresponding Writers.
-	 * @param raw_data array with raw undecoded audio data
-	 * @param decoded array with decoded samples
-	 */
+        /**
+         * Decodes the given buffer (byte array) by splitting it into
+         * it's tracks, decoding all samples and writing the result to
+         * the corresponding Writers.
+         * @param raw_data array with raw undecoded audio data
+         * @param decoded array with decoded samples
+         */
         virtual void decode(QByteArray &raw_data,
-	                    Kwave::SampleArray &decoded) Q_DECL_OVERRIDE;
+                            Kwave::SampleArray &decoded) Q_DECL_OVERRIDE;
 
-	/** Returns the number of bytes per sample in raw (not encoded) form */
+        /** Returns the number of bytes per sample in raw (not encoded) form */
         virtual unsigned int rawBytesPerSample() Q_DECL_OVERRIDE;
 
     private:
 
-	/** number of bytes per raw sample */
-	unsigned int m_bytes_per_sample;
+        /** number of bytes per raw sample */
+        unsigned int m_bytes_per_sample;
 
-	/** optimized function used for decoding the given format */
-	void(*m_decoder)(const quint8 *, sample_t*, unsigned int);
+        /** optimized function used for decoding the given format */
+        void(*m_decoder)(const quint8 *, sample_t*, unsigned int);
 
     };
 }

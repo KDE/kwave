@@ -28,59 +28,59 @@ namespace Kwave
     class SaveBlocksWidget: public QWidget,
                             public Ui::SaveBlocksWidgetBase
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor
-	 * @param widget pointer to the parent widget
-	 * @param filename_pattern the pattern used for generating the file names
-	 * @param numbering_mode the way the numbers are given
-	 * @param selection_only if true, save only the selection
-	 * @param have_selection if true, there is a selection
-	 */
-	SaveBlocksWidget(QWidget *widget,
-	    QString filename_pattern,
-	    Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
-	    bool selection_only,
-	    bool have_selection
-	);
+        /**
+         * Constructor
+         * @param widget pointer to the parent widget
+         * @param filename_pattern the pattern used for generating the file names
+         * @param numbering_mode the way the numbers are given
+         * @param selection_only if true, save only the selection
+         * @param have_selection if true, there is a selection
+         */
+        SaveBlocksWidget(QWidget *widget,
+            QString filename_pattern,
+            Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
+            bool selection_only,
+            bool have_selection
+        );
 
-	/** Destructor */
-	virtual ~SaveBlocksWidget();
+        /** Destructor */
+        virtual ~SaveBlocksWidget();
 
-	/** @see KPreviewWidgetBase::showPreview() */
-	virtual void showPreview(const QUrl &url)
-	{
-	    Q_UNUSED(url)
-	}
+        /** @see KPreviewWidgetBase::showPreview() */
+        virtual void showPreview(const QUrl &url)
+        {
+            Q_UNUSED(url)
+        }
 
-	/** @see KPreviewWidgetBase::clearPreview */
-	virtual void clearPreview()
-	{
-	}
+        /** @see KPreviewWidgetBase::clearPreview */
+        virtual void clearPreview()
+        {
+        }
 
-	/** returns the file name pattern */
-	QString pattern();
+        /** returns the file name pattern */
+        QString pattern();
 
-	/** returns the numbering mode */
-	Kwave::SaveBlocksPlugin::numbering_mode_t numberingMode();
+        /** returns the numbering mode */
+        Kwave::SaveBlocksPlugin::numbering_mode_t numberingMode();
 
-	/** returns true if only the selection should be saved */
-	bool selectionOnly();
+        /** returns true if only the selection should be saved */
+        bool selectionOnly();
 
     signals:
 
-	/** emitted whenever one of the input controls has changed */
-	void somethingChanged();
+        /** emitted whenever one of the input controls has changed */
+        void somethingChanged();
 
     public slots:
 
-	/**
-	 * update the filename preview
-	 * @param example the example filename
-	 */
-	void setNewExample(const QString &example);
+        /**
+         * update the filename preview
+         * @param example the example filename
+         */
+        void setNewExample(const QString &example);
 
     };
 }

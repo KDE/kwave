@@ -1,6 +1,6 @@
 /***************************************************************************
        RecordTypesMap.h  -  map for record methods
-			     -------------------
+                             -------------------
     begin                : Sun Jul 31 2005
     copyright            : (C) 2005 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -24,20 +24,20 @@
 namespace Kwave
 {
     class RecordTypesMap
-	:public Kwave::TypesMap<unsigned int, Kwave::record_method_t>
+        :public Kwave::TypesMap<unsigned int, Kwave::record_method_t>
     {
     public:
-	/** Constructor */
-	explicit RecordTypesMap()
-	    :Kwave::TypesMap<unsigned int, Kwave::record_method_t>()
-	{
-	    fill();
-	}
+        /** Constructor */
+        explicit RecordTypesMap()
+            :Kwave::TypesMap<unsigned int, Kwave::record_method_t>()
+        {
+            fill();
+        }
 
-	/** Destructor */
+        /** Destructor */
         virtual ~RecordTypesMap() Q_DECL_OVERRIDE {}
 
-	/** fill function for the map */
+        /** fill function for the map */
         virtual void fill() Q_DECL_OVERRIDE;
     };
 }

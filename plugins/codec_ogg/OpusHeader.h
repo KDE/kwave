@@ -25,18 +25,18 @@
 namespace Kwave
 {
     typedef struct {
-	quint8  magic[8];        /**< stream magic, must be "OpusHead" */
-	quint8  version;         /**< version number 2:6 bits          */
-	quint8  channels;        /**< channels, 1...255                */
-	quint16 preskip;         /**< preskip                          */
-	quint32 sample_rate;     /**< sample rate [samples/sec]        */
-	qint16  gain;            /**< gain in dB Q7.8 fixed point      */
-	quint8  channel_mapping; /**< channel mapping used, 0 or 1     */
+        quint8  magic[8];        /**< stream magic, must be "OpusHead" */
+        quint8  version;         /**< version number 2:6 bits          */
+        quint8  channels;        /**< channels, 1...255                */
+        quint16 preskip;         /**< preskip                          */
+        quint32 sample_rate;     /**< sample rate [samples/sec]        */
+        qint16  gain;            /**< gain in dB Q7.8 fixed point      */
+        quint8  channel_mapping; /**< channel mapping used, 0 or 1     */
 
-	/* only present if channel_mapping != 0 */
-	quint8 streams;          /**< number of streams                */
-	quint8 coupled;          /**< number of couplings              */
-	quint8 map[255];         /**< stream to channel map            */
+        /* only present if channel_mapping != 0 */
+        quint8 streams;          /**< number of streams                */
+        quint8 coupled;          /**< number of couplings              */
+        quint8 map[255];         /**< stream to channel map            */
     } Q_PACKED opus_header_t;
 }
 

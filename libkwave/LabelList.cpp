@@ -35,17 +35,17 @@ Kwave::LabelList::LabelList(const Kwave::MetaDataList &meta_data_list)
     :QList<Kwave::Label>()
 {
     if (!meta_data_list.isEmpty()) {
-	// get a list sorted by position
-	QList<Kwave::MetaData> list =
-	    meta_data_list.selectByType(Kwave::Label::metaDataType()).toSortedList();
+        // get a list sorted by position
+        QList<Kwave::MetaData> list =
+            meta_data_list.selectByType(Kwave::Label::metaDataType()).toSortedList();
 
-	if (!list.isEmpty()) {
-	    // append a label for each meta data object
-	    foreach (const Kwave::MetaData &meta_data, list)
-		append(Kwave::Label(meta_data));
-	}
+        if (!list.isEmpty()) {
+            // append a label for each meta data object
+            foreach (const Kwave::MetaData &meta_data, list)
+                append(Kwave::Label(meta_data));
+        }
 
-	sort();
+        sort();
     }
 }
 
@@ -64,7 +64,7 @@ static bool compare_labels(Kwave::Label a, Kwave::Label b)
 void Kwave::LabelList::sort()
 {
     if (!isEmpty())
-	std::sort(begin(), end(), compare_labels);
+        std::sort(begin(), end(), compare_labels);
 }
 
 //***************************************************************************
@@ -72,7 +72,7 @@ Kwave::MetaDataList Kwave::LabelList::toMetaDataList() const
 {
     Kwave::MetaDataList list;
     foreach (const Kwave::Label &label, *this)
-	list.add(label);
+        list.add(label);
     return list;
 }
 
@@ -82,12 +82,12 @@ sample_index_t Kwave::LabelList::nextLabelLeft(sample_index_t from)
     sample_index_t best  = 0;
     bool           found = false;
     if (!isEmpty()) {
-	foreach (const Kwave::Label &label, *this) {
-	    sample_index_t lp = label.pos();
-	    if (lp >= from) break;
-	    best  = lp;
-	    found = true;
-	}
+        foreach (const Kwave::Label &label, *this) {
+            sample_index_t lp = label.pos();
+            if (lp >= from) break;
+            best  = lp;
+            found = true;
+        }
     }
     return (found) ? best : 0;
 }
@@ -96,11 +96,11 @@ sample_index_t Kwave::LabelList::nextLabelLeft(sample_index_t from)
 sample_index_t Kwave::LabelList::nextLabelRight(sample_index_t from)
 {
     if (!isEmpty()) {
-	foreach (const Kwave::Label &label, *this) {
-	    sample_index_t lp = label.pos();
-	    if (lp  > from)
-		return lp; // found the first label after "from"
-	}
+        foreach (const Kwave::Label &label, *this) {
+            sample_index_t lp = label.pos();
+            if (lp  > from)
+                return lp; // found the first label after "from"
+        }
     }
     // nothing found: return "infinite"
     return SAMPLE_INDEX_MAX;

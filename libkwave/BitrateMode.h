@@ -23,12 +23,12 @@
 namespace Kwave
 {
     typedef enum {
-	BITRATE_MODE_NONE     = 0, /**< no preference */
-	BITRATE_MODE_ABR      = 1, /**< average bitrate */
-	BITRATE_MODE_VBR      = 2, /**< variable bitrage */
-	BITRATE_MODE_CVBR     = 3, /**< constant variable bitrage */
-	BITRATE_MODE_CBR      = 4, /**< constant bitrate */
-	BITRATE_MODE_CBR_HARD = 5  /**< hard constant bitrate */
+        BITRATE_MODE_NONE     = 0, /**< no preference */
+        BITRATE_MODE_ABR      = 1, /**< average bitrate */
+        BITRATE_MODE_VBR      = 2, /**< variable bitrage */
+        BITRATE_MODE_CVBR     = 3, /**< constant variable bitrage */
+        BITRATE_MODE_CBR      = 4, /**< constant bitrate */
+        BITRATE_MODE_CBR_HARD = 5  /**< hard constant bitrate */
     } bitrate_mode_t;
 }
 

@@ -39,50 +39,50 @@ namespace Kwave
     class SelectionBorderItem: public Kwave::ViewItem
     {
     public:
-	/**
-	 * Constructor
-	 * @param view the owner (SignalView)
-	 * @param signal_manager the corresponding SignalManager
-	 * @param pos start position, either left or right border
-	 */
-	SelectionBorderItem(SignalView &view,
-	                    Kwave::SignalManager &signal_manager,
-	                    sample_index_t pos);
+        /**
+         * Constructor
+         * @param view the owner (SignalView)
+         * @param signal_manager the corresponding SignalManager
+         * @param pos start position, either left or right border
+         */
+        SelectionBorderItem(SignalView &view,
+                            Kwave::SignalManager &signal_manager,
+                            sample_index_t pos);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~SelectionBorderItem() Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns flags describing the possible interactions with this object
-	 * @see Kwave::ViewItem::Flags
-	 */
+        /**
+         * Returns flags describing the possible interactions with this object
+         * @see Kwave::ViewItem::Flags
+         */
         virtual Kwave::ViewItem::Flags flags() const Q_DECL_OVERRIDE;
 
-	/**
-	 * Can be overwritten to return a tooltip. The default implementation
-	 * returns an empty string.
-	 *
-	 * @param ofs sample index the tooltip should refer to (unused)
-	 * @return an already localized tooltip
-	 */
+        /**
+         * Can be overwritten to return a tooltip. The default implementation
+         * returns an empty string.
+         *
+         * @param ofs sample index the tooltip should refer to (unused)
+         * @return an already localized tooltip
+         */
         virtual QString toolTip(sample_index_t &ofs) Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns a mouse cursor used when moving the item
-	 */
+        /**
+         * Returns a mouse cursor used when moving the item
+         */
         virtual QCursor mouseCursor() const Q_DECL_OVERRIDE;
 
-	/**
-	 * handles updates when being moved with the mouse
-	 * @param mouse_pos position of the mouse, in pixel coordinates
-	 *                  relative to the parent widget
-	 */
+        /**
+         * handles updates when being moved with the mouse
+         * @param mouse_pos position of the mouse, in pixel coordinates
+         *                  relative to the parent widget
+         */
         virtual void moveTo(const QPoint &mouse_pos) Q_DECL_OVERRIDE;
 
     private:
 
-	/** selection handler */
-	Kwave::MouseMark m_selection;
+        /** selection handler */
+        Kwave::MouseMark m_selection;
 
     };
 }

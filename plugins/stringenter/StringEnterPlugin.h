@@ -33,28 +33,28 @@ namespace Kwave
 
     class StringEnterPlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	StringEnterPlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        StringEnterPlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~StringEnterPlugin() Q_DECL_OVERRIDE;
 
-	/** @see Kwave::Plugin::load() */
+        /** @see Kwave::Plugin::load() */
         virtual void load(QStringList &params) Q_DECL_OVERRIDE;
 
-	/**
-	 * Shows a dialog for a command that will be emitted through
-	 * sigCommand if OK has been pressed.
-	 * @see Kwave::Plugin::setup
-	 */
+        /**
+         * Shows a dialog for a command that will be emitted through
+         * sigCommand if OK has been pressed.
+         * @see Kwave::Plugin::setup
+         */
         virtual QStringList *setup(QStringList &previous_params)
             Q_DECL_OVERRIDE;
 

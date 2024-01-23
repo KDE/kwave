@@ -61,8 +61,8 @@ Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
 
     Kwave::window_function_t wf = Kwave::WINDOW_FUNC_NONE;
     for (unsigned int i = 0; i < Kwave::WindowFunction::count(); i++) {
-	windowtypebox->addItem(Kwave::WindowFunction::description(wf, true));
-	++wf;
+        windowtypebox->addItem(Kwave::WindowFunction::description(wf, true));
+        ++wf;
     }
 
     setPoints(1);    // must set the minimum number of points to get
@@ -89,8 +89,8 @@ Kwave::SonagramDialog::SonagramDialog(Kwave::Plugin &p)
     setBoxPoints(0);
 
     connect(
-	buttonBox->button(QDialogButtonBox::Help), SIGNAL(clicked()),
-	this,                                      SLOT(invokeHelp())
+        buttonBox->button(QDialogButtonBox::Help), SIGNAL(clicked()),
+        this,                                      SLOT(invokeHelp())
     );
     connect(pointslider, SIGNAL(valueChanged(int)), SLOT(setPoints(int)));
     connect(pointbox,    SIGNAL(activated(int)),    SLOT(setBoxPoints(int)));
@@ -115,7 +115,7 @@ void Kwave::SonagramDialog::parameters(QStringList &list)
 
     // parameter #1: index of the window function
     Kwave::window_function_t wf = Kwave::WindowFunction::findFromIndex(
-    	(windowtypebox) ? windowtypebox->currentIndex() : 0);
+        (windowtypebox) ? windowtypebox->currentIndex() : 0);
     param = Kwave::WindowFunction::name(wf);
     list.append(param);
 
@@ -146,11 +146,11 @@ void Kwave::SonagramDialog::setPoints(int points)
     pointbox->setEditText(text);
 
     windowlabel->setText(i18n("(resulting window size: %1)",
-	Kwave::ms2string(points * 1.0E3 / m_rate)));
+        Kwave::ms2string(points * 1.0E3 / m_rate)));
 
     bitmaplabel->setText(i18n("Size of bitmap: %1x%2",
-	(m_length / points) + 1,
-	points/2));
+        (m_length / points) + 1,
+        points/2));
 }
 
 //***************************************************************************

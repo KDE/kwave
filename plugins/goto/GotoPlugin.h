@@ -31,25 +31,25 @@ namespace Kwave
 
     class GotoPlugin: public Kwave::GotoPluginBase
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	GotoPlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        GotoPlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~GotoPlugin() Q_DECL_OVERRIDE;
 
     protected:
 
-	/** Returns the command to be emitted */
+        /** Returns the command to be emitted */
         virtual QString command() const Q_DECL_OVERRIDE;
 
-	/** Returns the title of the dialog */
+        /** Returns the title of the dialog */
         virtual QString title() const Q_DECL_OVERRIDE;
 
     };

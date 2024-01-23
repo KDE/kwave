@@ -1,6 +1,6 @@
 /***************************************************************************
-	  MenuGroup.cpp  - controls a group of menu nodes
-			     -------------------
+          MenuGroup.cpp  - controls a group of menu nodes
+                             -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -33,7 +33,7 @@ Kwave::MenuGroup::MenuGroup(Kwave::MenuNode *parent,
      m_name(name),
      m_members(),
      m_action_group((mode == EXCLUSIVE) ?
-	new(std::nothrow) QActionGroup(parent) : Q_NULLPTR),
+        new(std::nothrow) QActionGroup(parent) : Q_NULLPTR),
      m_enabled(true)
 {
     Q_ASSERT(parent);
@@ -42,10 +42,10 @@ Kwave::MenuGroup::MenuGroup(Kwave::MenuNode *parent,
     // register this group in the top level group list
     QHash<QString, Kwave::MenuGroup *> &group_list = m_parent->groupList();
     if (!group_list.contains(m_name))
-	group_list[m_name] = this;
+        group_list[m_name] = this;
 
     if (m_action_group)
-	m_action_group->setExclusive(true);
+        m_action_group->setExclusive(true);
 }
 
 //*****************************************************************************
@@ -56,16 +56,16 @@ Kwave::MenuGroup::~MenuGroup()
     // de-register this group from the top level group list
     QHash<QString, Kwave::MenuGroup *> &group_list = m_parent->groupList();
     if (group_list.contains(m_name))
-	group_list.remove(m_name);
+        group_list.remove(m_name);
 }
 
 //*****************************************************************************
 void Kwave::MenuGroup::join(Kwave::MenuNode *node)
 {
     if (node && !m_members.contains(node)) {
-	m_members.append(node);
-	if (m_action_group && node->action())
-	    m_action_group->addAction(node->action());
+        m_members.append(node);
+        if (m_action_group && node->action())
+            m_action_group->addAction(node->action());
     }
 }
 
@@ -73,9 +73,9 @@ void Kwave::MenuGroup::join(Kwave::MenuNode *node)
 void Kwave::MenuGroup::leave(Kwave::MenuNode *node)
 {
     if (node && m_members.contains(node)) {
-	m_members.removeAll(node);
-	if (m_action_group && node->action())
-	    m_action_group->removeAction(node->action());
+        m_members.removeAll(node);
+        if (m_action_group && node->action())
+            m_action_group->removeAction(node->action());
     }
 }
 
@@ -83,7 +83,7 @@ void Kwave::MenuGroup::leave(Kwave::MenuNode *node)
 void Kwave::MenuGroup::setEnabled(bool enable)
 {
     foreach (Kwave::MenuNode *member, m_members) {
-	if (member) member->setEnabled(enable);
+        if (member) member->setEnabled(enable);
     }
 }
 
@@ -94,10 +94,10 @@ void Kwave::MenuGroup::selectItem(const QString &uid)
 
     foreach (Kwave::MenuNode *member, m_members) {
         if (member == Q_NULLPTR) continue;
-	if (uid == member->uid())
-	    new_selection = member;    // new selected member found !
-	else
-	    member->setChecked(false); // remove check from others
+        if (uid == member->uid())
+            new_selection = member;    // new selected member found !
+        else
+            member->setChecked(false); // remove check from others
     }
 
     // select the new one if found
@@ -110,7 +110,7 @@ void Kwave::MenuGroup::clear()
 {
     // de-register all member nodes from us
     while (!m_members.isEmpty())
-	leave(m_members.first());
+        leave(m_members.first());
 }
 
 //***************************************************************************

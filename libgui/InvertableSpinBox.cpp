@@ -37,13 +37,13 @@ void Kwave::InvertableSpinBox::setInverse(bool inverse)
     m_inverse = inverse;
 
     if (/* now */ inverse) {
-	// relax limits by 1
-	setMinimum(minimum() - 1);
-	setMaximum(maximum() + 1);
+        // relax limits by 1
+        setMinimum(minimum() - 1);
+        setMaximum(maximum() + 1);
     } else {
-	// reduce limits by 1
-	setMinimum(minimum() + 1);
-	setMaximum(maximum() - 1);
+        // reduce limits by 1
+        setMinimum(minimum() + 1);
+        setMaximum(maximum() - 1);
     }
 }
 
@@ -51,9 +51,9 @@ void Kwave::InvertableSpinBox::setInverse(bool inverse)
 void Kwave::InvertableSpinBox::checkValueChange(int value)
 {
     if (m_inverse) {
-	// in this case the real limits are tighter by 1
-	if (value <= minimum()) setValue(minimum() + 1);
-	if (value >= maximum()) setValue(maximum() - 1);
+        // in this case the real limits are tighter by 1
+        if (value <= minimum()) setValue(minimum() + 1);
+        if (value >= maximum()) setValue(maximum() - 1);
     }
 }
 
@@ -61,9 +61,9 @@ void Kwave::InvertableSpinBox::checkValueChange(int value)
 void Kwave::InvertableSpinBox::stepUp()
 {
     if (m_inverse) {
-	if (value() > minimum() + 1) QSpinBox::stepDown();
+        if (value() > minimum() + 1) QSpinBox::stepDown();
     } else {
-	QSpinBox::stepUp();
+        QSpinBox::stepUp();
     }
 }
 
@@ -71,9 +71,9 @@ void Kwave::InvertableSpinBox::stepUp()
 void Kwave::InvertableSpinBox::stepDown()
 {
     if (m_inverse) {
-	if (value() + 1 < maximum()) QSpinBox::stepUp();
+        if (value() + 1 < maximum()) QSpinBox::stepUp();
     } else {
-	QSpinBox::stepDown();
+        QSpinBox::stepDown();
     }
 }
 

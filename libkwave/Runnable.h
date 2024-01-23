@@ -26,11 +26,11 @@ namespace Kwave
     {
     public:
 
-	/** Destructor */
-	virtual ~Runnable() {}
+        /** Destructor */
+        virtual ~Runnable() {}
 
-	/** "run function" */
-	virtual void run_wrapper(const QVariant &params) = 0;
+        /** "run function" */
+        virtual void run_wrapper(const QVariant &params) = 0;
 
     };
 }

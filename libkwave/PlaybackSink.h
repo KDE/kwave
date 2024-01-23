@@ -30,28 +30,28 @@ namespace Kwave
 
     class PlaybackSink: public Kwave::SampleSink
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
-	/**
-	 * Constructor
-	 * @param track index of this playback channel
-	 */
-	explicit PlaybackSink(unsigned int track);
+        /**
+         * Constructor
+         * @param track index of this playback channel
+         */
+        explicit PlaybackSink(unsigned int track);
 
-	/** Destructor */
-	virtual ~PlaybackSink();
+        /** Destructor */
+        virtual ~PlaybackSink();
 
     signals:
-	/** emits back the sample data received through input(...) */
-	void output(unsigned int track, Kwave::SampleArray data);
+        /** emits back the sample data received through input(...) */
+        void output(unsigned int track, Kwave::SampleArray data);
 
     public slots:
-	/** receives sample data for this playback channel */
-	void input(Kwave::SampleArray data);
+        /** receives sample data for this playback channel */
+        void input(Kwave::SampleArray data);
 
     private:
-	/** index of the track of this playback channel */
-	unsigned int m_track;
+        /** index of the track of this playback channel */
+        unsigned int m_track;
     };
 }
 

@@ -40,127 +40,127 @@ namespace Kwave
      */
     class Q_DECL_EXPORT FileDialog: public QDialog
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
-	typedef enum {
-	    SaveFile = 0, /**< save a file */
-	    OpenFile,     /**< open a file */
-	    SelectDir     /**< select a directory */
-	} OperationMode;
+        typedef enum {
+            SaveFile = 0, /**< save a file */
+            OpenFile,     /**< open a file */
+            SelectDir     /**< select a directory */
+        } OperationMode;
 
-	/**
-	 * Constructor.
-	 * @see KFileWidget
-	 * @param startDir directory to start with, can start with the scheme
-	 *                 "kfiledialog://scope/path"
-	 * @param mode determines the mode in which the dialog is used, either
-	 *             to open a file, save a file or select a directory
-	 * @param filter a "\n" separated list of file filters, each filter
-	 *               consists of a space separated list of file patterns
-	 *               (including "*.") and a "|" as separator followed
-	 *               by a verbose description of the file type
-	 * @param parent the parent widget of the dialog
-	 * @param last_url URL used for the last call, optional
-	 * @param last_ext file extension (pattern) used for the last
-	 *                 call (optional), including a "*."
-	 */
-	FileDialog(const QString& startDir,
-	           OperationMode mode,
-	           const QString& filter,
-	           QWidget *parent,
-	           const QUrl last_url = QUrl(),
-	           const QString last_ext = QString());
+        /**
+         * Constructor.
+         * @see KFileWidget
+         * @param startDir directory to start with, can start with the scheme
+         *                 "kfiledialog://scope/path"
+         * @param mode determines the mode in which the dialog is used, either
+         *             to open a file, save a file or select a directory
+         * @param filter a "\n" separated list of file filters, each filter
+         *               consists of a space separated list of file patterns
+         *               (including "*.") and a "|" as separator followed
+         *               by a verbose description of the file type
+         * @param parent the parent widget of the dialog
+         * @param last_url URL used for the last call, optional
+         * @param last_ext file extension (pattern) used for the last
+         *                 call (optional), including a "*."
+         */
+        FileDialog(const QString& startDir,
+                   OperationMode mode,
+                   const QString& filter,
+                   QWidget *parent,
+                   const QUrl last_url = QUrl(),
+                   const QString last_ext = QString());
 
-	/** Destructor */
+        /** Destructor */
         virtual ~FileDialog() Q_DECL_OVERRIDE
-	{
-	}
+        {
+        }
 
-	/**
-	 * Returns the previously used extension, including "*."
-	 */
-	QString selectedExtension();
+        /**
+         * Returns the previously used extension, including "*."
+         */
+        QString selectedExtension();
 
-	/**
-	 * Returns the first selected URL (if any)
-	 */
-	QUrl selectedUrl() const;
+        /**
+         * Returns the first selected URL (if any)
+         */
+        QUrl selectedUrl() const;
 
-	/**
-	 * Returns the URL of the currently visible directory
-	 */
-	QUrl baseUrl() const;
+        /**
+         * Returns the URL of the currently visible directory
+         */
+        QUrl baseUrl() const;
 
-	/**
-	 * Sets the current directory
-	 * @param directory the new directory to show
-	 */
-	void setDirectory(const QString &directory);
+        /**
+         * Sets the current directory
+         * @param directory the new directory to show
+         */
+        void setDirectory(const QString &directory);
 
-	/**
-	 * Sets the currently selected URL
-	 * @param url the new URL to show
-	 */
-	void selectUrl(const QUrl &url);
+        /**
+         * Sets the currently selected URL
+         * @param url the new URL to show
+         */
+        void selectUrl(const QUrl &url);
 
-	/**
-	 * Add a custom widget to the dialog
-	 * @see KFileWidget
-	 */
-	void setCustomWidget(QWidget *widget);
+        /**
+         * Add a custom widget to the dialog
+         * @see KFileWidget
+         */
+        void setCustomWidget(QWidget *widget);
 
-	/**
-	 * Returns the combobox used to type the filename or full
-	 * location of the file.
-	 * @see KFileWidget
-	 */
-	KUrlComboBox *locationEdit() const;
+        /**
+         * Returns the combobox used to type the filename or full
+         * location of the file.
+         * @see KFileWidget
+         */
+        KUrlComboBox *locationEdit() const;
 
     protected:
 
-	/** load previous settings */
-	void loadConfig(const QString &section);
+        /** load previous settings */
+        void loadConfig(const QString &section);
 
     signals:
 
-	void filterChanged(const QString &filter);
+        void filterChanged(const QString &filter);
 
     protected slots:
 
-	/** overwritten to call accept() of the KFileWidget and saveConfig() */
+        /** overwritten to call accept() of the KFileWidget and saveConfig() */
         virtual void accept() Q_DECL_OVERRIDE;
 
-	/** save current settings */
-	void saveConfig();
+        /** save current settings */
+        void saveConfig();
 
     private:
 
-	/**
-	 * Try to guess a file filter from a given file extension
-	 * @param pattern a file extension, e.g. "*.wav *.snd"
-	 * @param mode determines the mode in which the dialog is used,
-	 *             see constructor
-	 * @return a filter string suitable for a KFileDialog
-	 */
-	QString guessFilterFromFileExt(const QString &pattern,
-	                               OperationMode mode);
+        /**
+         * Try to guess a file filter from a given file extension
+         * @param pattern a file extension, e.g. "*.wav *.snd"
+         * @param mode determines the mode in which the dialog is used,
+         *             see constructor
+         * @return a filter string suitable for a KFileDialog
+         */
+        QString guessFilterFromFileExt(const QString &pattern,
+                                       OperationMode mode);
 
     private:
 
-	/** layout for holding the KFileWidget */
-	QVBoxLayout m_layout;
+        /** layout for holding the KFileWidget */
+        QVBoxLayout m_layout;
 
-	/** the KFileWidget that we wrap */
-	KFileWidget m_file_widget;
+        /** the KFileWidget that we wrap */
+        KFileWidget m_file_widget;
 
-	/** name of the group in the config file */
-	QString m_config_group;
+        /** name of the group in the config file */
+        QString m_config_group;
 
-	/** URL of the previously opened file or directory */
-	QUrl m_last_url;
+        /** URL of the previously opened file or directory */
+        QUrl m_last_url;
 
-	/** extension of the last selected single URL or file */
-	QString m_last_ext;
+        /** extension of the last selected single URL or file */
+        QString m_last_ext;
 
     };
 }

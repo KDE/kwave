@@ -1,6 +1,6 @@
 /***************************************************************************
         Interpolation.h  -  Interpolation types
-			     -------------------
+                             -------------------
     begin                : Sat Feb 03 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -32,13 +32,13 @@ namespace Kwave
     class Curve;
 
     typedef enum {
-	INTPOL_LINEAR = 0,
-	INTPOL_SPLINE,
-	INTPOL_NPOLYNOMIAL,
-	INTPOL_POLYNOMIAL3,
-	INTPOL_POLYNOMIAL5,
-	INTPOL_POLYNOMIAL7,
-	INTPOL_SAH
+        INTPOL_LINEAR = 0,
+        INTPOL_SPLINE,
+        INTPOL_NPOLYNOMIAL,
+        INTPOL_POLYNOMIAL3,
+        INTPOL_POLYNOMIAL5,
+        INTPOL_POLYNOMIAL7,
+        INTPOL_SAH
     } interpolation_t;
 
     /**
@@ -47,162 +47,162 @@ namespace Kwave
     class Q_DECL_EXPORT Interpolation
     {
     public:
-	/** Constructor, initializes type by enum type */
-	explicit Interpolation(Kwave::interpolation_t type = INTPOL_LINEAR);
+        /** Constructor, initializes type by enum type */
+        explicit Interpolation(Kwave::interpolation_t type = INTPOL_LINEAR);
 
-	/** Destructor. */
-	virtual ~Interpolation();
+        /** Destructor. */
+        virtual ~Interpolation();
 
-	bool prepareInterpolation(const Kwave::Curve &points);
+        bool prepareInterpolation(const Kwave::Curve &points);
 
-	QVector<double> interpolation(const Kwave::Curve &points,
-	                              unsigned int len);
+        QVector<double> interpolation(const Kwave::Curve &points,
+                                      unsigned int len);
 
-	QVector<double> limitedInterpolation(const Kwave::Curve &points,
-	                                     unsigned int len);
+        QVector<double> limitedInterpolation(const Kwave::Curve &points,
+                                             unsigned int len);
 
-	/**
-	 * Returns a single point of the interpolation.
-	 */
-	double singleInterpolation(double pos);
+        /**
+         * Returns a single point of the interpolation.
+         */
+        double singleInterpolation(double pos);
 
-	/**
-	 * Same as getSingleInterpolation, but return value
-	 * will be limited to be [0...1]
-	 * @see #singleInterpolation
-	 * @param pos ???
-	 * @return interpolated value [0...1]
-	 */
-	double singleLimitedInterpolation(double pos);
+        /**
+         * Same as getSingleInterpolation, but return value
+         * will be limited to be [0...1]
+         * @see #singleInterpolation
+         * @param pos ???
+         * @return interpolated value [0...1]
+         */
+        double singleLimitedInterpolation(double pos);
 
-	/**
-	 * Returns the if of a type through it's name.
-	 * @param name the short name of the interpolation, like used in a command
-	 * @return the interpolation
-	 */
-	static Kwave::interpolation_t find(const QString &name)
-	{
-	    return m_interpolation_map.findFromName(name);
-	}
+        /**
+         * Returns the if of a type through it's name.
+         * @param name the short name of the interpolation, like used in a command
+         * @return the interpolation
+         */
+        static Kwave::interpolation_t find(const QString &name)
+        {
+            return m_interpolation_map.findFromName(name);
+        }
 
-	/**
-	 * Returns the name of an interpolation (non-localized).
-	 * @param type the type to get the name of
-	 */
-	static QString name(Kwave::interpolation_t type);
+        /**
+         * Returns the name of an interpolation (non-localized).
+         * @param type the type to get the name of
+         */
+        static QString name(Kwave::interpolation_t type);
 
-	/**
-	 * Returns an alphabetically sorted list of verbose
-	 * interpolation type names, useful for providing a list
-	 * of available types in the gui.
-	 * @param localized if true, the list will contain localized
-	 *        names (useful for filling combo boxes)
-	 */
-	static QStringList descriptions(bool localized = false);
+        /**
+         * Returns an alphabetically sorted list of verbose
+         * interpolation type names, useful for providing a list
+         * of available types in the gui.
+         * @param localized if true, the list will contain localized
+         *        names (useful for filling combo boxes)
+         */
+        static QStringList descriptions(bool localized = false);
 
-	/** Sets a new interpolation tpye */
-	inline void setType (Kwave::interpolation_t t) {
-	    m_type = t;
-	}
+        /** Sets a new interpolation tpye */
+        inline void setType (Kwave::interpolation_t t) {
+            m_type = t;
+        }
 
-	/** Returns the currently interpolation selected type */
-	inline Kwave::interpolation_t type() {
-	    return m_type;
-	}
+        /** Returns the currently interpolation selected type */
+        inline Kwave::interpolation_t type() {
+            return m_type;
+        }
 
-	/** Translates an index in an interpolation type */
-	static inline Kwave::interpolation_t findByIndex(int index) {
-	    return m_interpolation_map.findFromData(index);
-	}
+        /** Translates an index in an interpolation type */
+        static inline Kwave::interpolation_t findByIndex(int index) {
+            return m_interpolation_map.findFromData(index);
+        }
 
-	/**
-	 * Little private class for initialized map. Used
-	 * to translate interpolation_t into verbose name
-	 * and vice-versa.
-	 */
-	class InterpolationMap:
-	    public Kwave::TypesMap<Kwave::interpolation_t, int >
-	{
-	public:
+        /**
+         * Little private class for initialized map. Used
+         * to translate interpolation_t into verbose name
+         * and vice-versa.
+         */
+        class InterpolationMap:
+            public Kwave::TypesMap<Kwave::interpolation_t, int >
+        {
+        public:
 
-	    /** Constructor */
-	    explicit InterpolationMap()
-		:TypesMap<Kwave::interpolation_t, int >()
-	    {
-		fill();
-	    }
+            /** Constructor */
+            explicit InterpolationMap()
+                :TypesMap<Kwave::interpolation_t, int >()
+            {
+                fill();
+            }
 
-	    /** filling function for the map. */
+            /** filling function for the map. */
             virtual void fill() Q_DECL_OVERRIDE;
-	};
+        };
 
     private:
 
-	/** Returns the number of points **/
-	unsigned int count();
+        /** Returns the number of points **/
+        unsigned int count();
 
-	/**
-	 * ???
-	 * @param points curve with points for interpolation
-	 * @param x receives all x coordinates ???
-	 * @param y receives all y coordinates ???
-	 */
-	void createFullPolynom(const Kwave::Curve &points,
-	                       QVector<double> &x,
-	                       QVector<double> &y);
+        /**
+         * ???
+         * @param points curve with points for interpolation
+         * @param x receives all x coordinates ???
+         * @param y receives all y coordinates ???
+         */
+        void createFullPolynom(const Kwave::Curve &points,
+                               QVector<double> &x,
+                               QVector<double> &y);
 
-	/**
-	 * ???
-	 * @param x array of x coordinates
-	 * @param y array of y coordinates
-	 * @param ab array for return values
-	 * @param n ???
-	 */
-	void get2Derivate(const QVector<double> &x,
-	                  const QVector<double> &y,
-	                  QVector<double> &ab, unsigned int n);
+        /**
+         * ???
+         * @param x array of x coordinates
+         * @param y array of y coordinates
+         * @param ab array for return values
+         * @param n ???
+         */
+        void get2Derivate(const QVector<double> &x,
+                          const QVector<double> &y,
+                          QVector<double> &ab, unsigned int n);
 
-	/**
-	 * ???
-	 * @param points curve with points for interpolation
-	 * @param x array of x coordinates
-	 * @param y array of y coordinates
-	 * @param pos ???
-	 * @param degree ???
-	 */
-	void createPolynom (const Kwave::Curve &points,
-	                    QVector<double> &x,
-	                    QVector<double> &y,
-	                    int pos, unsigned int degree);
+        /**
+         * ???
+         * @param points curve with points for interpolation
+         * @param x array of x coordinates
+         * @param y array of y coordinates
+         * @param pos ???
+         * @param degree ???
+         */
+        void createPolynom (const Kwave::Curve &points,
+                            QVector<double> &x,
+                            QVector<double> &y,
+                            int pos, unsigned int degree);
 
     private:
 
-	/**  List of points to be interpolated. */
-	const Kwave::Curve *m_curve;
+        /**  List of points to be interpolated. */
+        const Kwave::Curve *m_curve;
 
-	/** ??? used for temporary purposes */
-	QVector<double> m_x;
+        /** ??? used for temporary purposes */
+        QVector<double> m_x;
 
-	/** ??? used for temporary purposes */
-	QVector<double> m_y;
+        /** ??? used for temporary purposes */
+        QVector<double> m_y;
 
-	/** ??? used for temporary purposes */
-	QVector<double> m_der;
+        /** ??? used for temporary purposes */
+        QVector<double> m_der;
 
-	/** Map with type and name of interpolations */
-	static InterpolationMap m_interpolation_map;
+        /** Map with type and name of interpolations */
+        static InterpolationMap m_interpolation_map;
 
-	/** Type of the interpolation. */
-	Kwave::interpolation_t m_type;
+        /** Type of the interpolation. */
+        Kwave::interpolation_t m_type;
 
     };
 
     //***********************************************************************
     static inline Kwave::interpolation_t &operator ++(Kwave::interpolation_t &i)
     {
-	return (i = (i == INTPOL_SAH) ?
-	    INTPOL_LINEAR :
-	    Kwave::interpolation_t(i + 1) );
+        return (i = (i == INTPOL_SAH) ?
+            INTPOL_LINEAR :
+            Kwave::interpolation_t(i + 1) );
     }
 
 }

@@ -1,6 +1,6 @@
 /***************************************************************************
         UndoSelection.h  -  Undo action for selection
-			     -------------------
+                             -------------------
     begin                : Tue Jun 05 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -39,64 +39,64 @@ namespace Kwave
 
     public:
 
-	/**
-	 * Constructor.
-	 * @param manager reference to the SignalManager
-	 */
-	explicit UndoSelection(Kwave::SignalManager &manager);
+        /**
+         * Constructor.
+         * @param manager reference to the SignalManager
+         */
+        explicit UndoSelection(Kwave::SignalManager &manager);
 
-	/**
-	 * Constructor.
-	 * @param manager reference to the SignalManager
-	 * @param selected_tracks list of selected tracks
-	 * @param offset start of the selection
-	 * @param length number of selected samples
-	 */
-	UndoSelection(Kwave::SignalManager &manager,
-	              QVector<unsigned int> selected_tracks,
-	              sample_index_t offset,
-	              sample_index_t length);
+        /**
+         * Constructor.
+         * @param manager reference to the SignalManager
+         * @param selected_tracks list of selected tracks
+         * @param offset start of the selection
+         * @param length number of selected samples
+         */
+        UndoSelection(Kwave::SignalManager &manager,
+                      QVector<unsigned int> selected_tracks,
+                      sample_index_t offset,
+                      sample_index_t length);
 
-	/** virtual destructor */
+        /** virtual destructor */
         virtual ~UndoSelection() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::description() */
+        /** @see UndoAction::description() */
         virtual QString description() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undoSize() */
+        /** @see UndoAction::undoSize() */
         virtual qint64 undoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::redoSize() */
+        /** @see UndoAction::redoSize() */
         virtual qint64 redoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::store() */
+        /** @see UndoAction::store() */
         virtual bool store(Kwave::SignalManager &manager) Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undo() */
+        /** @see UndoAction::undo() */
         virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-	                                bool with_redo) Q_DECL_OVERRIDE;
+                                        bool with_redo) Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::containsModification() */
+        /** @see UndoAction::containsModification() */
         virtual bool containsModification() const Q_DECL_OVERRIDE {
             return false;
         }
 
-	/** dump, for debugging purposes */
+        /** dump, for debugging purposes */
         virtual void dump(const QString &indent) Q_DECL_OVERRIDE;
 
     private:
 
-	/** reference to the SignalManager is needed in redoSize() */
-	Kwave::SignalManager &m_manager;
+        /** reference to the SignalManager is needed in redoSize() */
+        Kwave::SignalManager &m_manager;
 
-	/** First selected sample */
-	sample_index_t m_offset;
+        /** First selected sample */
+        sample_index_t m_offset;
 
-	/** Number of selected samples */
-	sample_index_t m_length;
+        /** Number of selected samples */
+        sample_index_t m_length;
 
-	/** Array with indices of selected tracks. */
-	QVector<unsigned int> m_selected_tracks;
+        /** Array with indices of selected tracks. */
+        QVector<unsigned int> m_selected_tracks;
 
     };
 }

@@ -37,7 +37,7 @@ Kwave::Label::Label(sample_index_t position, const QString &name)
     setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
     setProperty(Kwave::MetaData::STDPROP_POS, position);
     if (name.length())
-	setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
+        setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
 }
 
 //***************************************************************************
@@ -56,7 +56,7 @@ void Kwave::Label::moveTo(sample_index_t position)
 sample_index_t Kwave::Label::pos() const
 {
     return static_cast<sample_index_t>(
-	property(Kwave::MetaData::STDPROP_POS).toULongLong()
+        property(Kwave::MetaData::STDPROP_POS).toULongLong()
     );
 }
 
@@ -65,9 +65,9 @@ void Kwave::Label::rename(const QString &name)
 {
     if (isNull()) setProperty(Kwave::MetaData::STDPROP_TYPE, metaDataType());
     if (name.length())
-	setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
+        setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, name);
     else
-	setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, QVariant());
+        setProperty(Kwave::MetaData::STDPROP_DESCRIPTION, QVariant());
 }
 
 //***************************************************************************

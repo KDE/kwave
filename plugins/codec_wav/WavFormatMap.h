@@ -1,6 +1,6 @@
 /***************************************************************************
          WavFormatMap.h  -  list of known wav file formats
-			     -------------------
+                             -------------------
     begin                : Apr 28 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -33,14 +33,14 @@ namespace Kwave
     class WavFormatMap: public QMap<Kwave::wav_format_id, QString>
     {
     public:
-	/** Constructor, fills the map with all known types */
-	WavFormatMap();
+        /** Constructor, fills the map with all known types */
+        WavFormatMap();
 
-	/** Destructor */
-	virtual ~WavFormatMap() {}
+        /** Destructor */
+        virtual ~WavFormatMap() {}
 
-	/** Returns the name of an id, or "unknown" if not found. */
-	const QString &findName(unsigned int id);
+        /** Returns the name of an id, or "unknown" if not found. */
+        const QString &findName(unsigned int id);
 
     };
 }

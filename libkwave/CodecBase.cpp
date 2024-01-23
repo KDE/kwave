@@ -63,25 +63,25 @@ void Kwave::CodecBase::addMimeType(const char *name,
     QMimeType t = db.mimeTypeForName(type_name);
 
     if (t.isDefault() || t.name().isEmpty()) {
-// 	qWarning("mime type '%s' not registered, using built-in!", name);
-	type.name        = type_name;
-	type.description = description;
-	type.patterns    = _(patterns).split(_("; "), Qt::SkipEmptyParts);
+//      qWarning("mime type '%s' not registered, using built-in!", name);
+        type.name        = type_name;
+        type.description = description;
+        type.patterns    = _(patterns).split(_("; "), Qt::SkipEmptyParts);
     } else {
-	type.description = t.comment();
-	type.patterns    = t.globPatterns();
+        type.description = t.comment();
+        type.patterns    = t.globPatterns();
 
-	if (t.name() != type_name) {
-	    // type has been translated (maybe un-alias'ed)
-	    // manually add the original name
-	    type.name    = type_name;
-	    m_supported_mime_types.append(type);
-	}
+        if (t.name() != type_name) {
+            // type has been translated (maybe un-alias'ed)
+            // manually add the original name
+            type.name    = type_name;
+            m_supported_mime_types.append(type);
+        }
 
-	if  (!supports(t.name())) {
-	    // new type or new alias
-	    type.name    = t.name();
-	}
+        if  (!supports(t.name())) {
+            // new type or new alias
+            type.name    = t.name();
+        }
     }
     m_supported_mime_types.append(type);
 }
@@ -106,7 +106,7 @@ bool Kwave::CodecBase::supports(const QMimeType &mimetype)
 bool Kwave::CodecBase::supports(const QString &mimetype_name)
 {
     foreach (const Kwave::CodecBase::MimeType &mime, m_supported_mime_types) {
-	if (mime.name == mimetype_name) return true;
+        if (mime.name == mimetype_name) return true;
     }
     return false;
 }
@@ -116,10 +116,10 @@ QStringList Kwave::CodecBase::extensions(const QString &mimetype_name) const
 {
     QStringList result;
     foreach (const Kwave::CodecBase::MimeType &mime, m_supported_mime_types) {
-	if (mime.name == mimetype_name) {
-	    foreach (const QString &ext, mime.patterns)
+        if (mime.name == mimetype_name) {
+            foreach (const QString &ext, mime.patterns)
                 if (!result.contains(ext)) result.append(ext);
-	}
+        }
     }
     return result;
 }
@@ -149,9 +149,9 @@ QString Kwave::CodecBase::mimeTypeOf(const QUrl &url)
     // try to find in the list of supported mime types
     QListIterator<Kwave::CodecBase::MimeType> it(m_supported_mime_types);
     while (it.hasNext()) {
-	Kwave::CodecBase::MimeType mime_type = it.next();
-	if (mime_type.patterns.contains(suffix.toLower()))
-	    return mime_type.name;
+        Kwave::CodecBase::MimeType mime_type = it.next();
+        if (mime_type.patterns.contains(suffix.toLower()))
+            return mime_type.name;
     }
     return QMimeType().name();
 }

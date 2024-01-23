@@ -1,6 +1,6 @@
 /***************************************************************************
     FrequencyResponseWidget.h  -  displays a frequency response
-			     -------------------
+                             -------------------
     begin                : Mar 09 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -36,50 +36,50 @@ namespace Kwave
      */
     class Q_DECL_EXPORT FrequencyResponseWidget: public QWidget
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/** Constructor */
-	explicit FrequencyResponseWidget(QWidget *parent);
+        /** Constructor */
+        explicit FrequencyResponseWidget(QWidget *parent);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~FrequencyResponseWidget() Q_DECL_OVERRIDE;
 
-	/**
-	 * Initialize the widget dimensions.
-	 * @param freq highest frequency, will be internally rounded
-	 *             up to the next decade if necessary
-	 * @param db_min lowest amplitude in decibel
-	 * @param db_max highest amplitude in decibel
-	 */
-	virtual void init(double freq, int db_min, int db_max);
+        /**
+         * Initialize the widget dimensions.
+         * @param freq highest frequency, will be internally rounded
+         *             up to the next decade if necessary
+         * @param db_min lowest amplitude in decibel
+         * @param db_max highest amplitude in decibel
+         */
+        virtual void init(double freq, int db_min, int db_max);
 
-	/** Set a new transmission function and update the display */
-	virtual void setFilter(Kwave::TransmissionFunction *func);
+        /** Set a new transmission function and update the display */
+        virtual void setFilter(Kwave::TransmissionFunction *func);
 
-	/** @see QWidget::paintEvent() */
+        /** @see QWidget::paintEvent() */
         virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
     private:
 
-	/** highest frequency, rounded up to the next decade */
-	double m_f_max;
+        /** highest frequency, rounded up to the next decade */
+        double m_f_max;
 
-	/** lowest amplitude in decibel */
-	int m_db_min;
+        /** lowest amplitude in decibel */
+        int m_db_min;
 
-	/** highest amplitude in decibel */
-	int m_db_max;
+        /** highest amplitude in decibel */
+        int m_db_max;
 
-	/** number of decades, calculated from m_f_max */
-	int m_decades;
+        /** number of decades, calculated from m_f_max */
+        int m_decades;
 
-	/**
-	 * Pointer to a transmission function object, used for
-	 * painting the frequency response.
-	 */
-	Kwave::TransmissionFunction *m_function;
+        /**
+         * Pointer to a transmission function object, used for
+         * painting the frequency response.
+         */
+        Kwave::TransmissionFunction *m_function;
 
     };
 }

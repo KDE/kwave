@@ -1,6 +1,6 @@
 /***************************************************************************
    Signal.cpp - representation of a Kwave signal with multiple tracks
-			     -------------------
+                             -------------------
     begin                : Sat Feb 03 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -62,7 +62,7 @@ void Kwave::Signal::close()
 {
     unsigned int count;
     while ((count = tracks()))
-	deleteTrack(count - 1);
+        deleteTrack(count - 1);
 }
 
 //***************************************************************************
@@ -72,35 +72,35 @@ Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
 {
     Kwave::Track *t = Q_NULLPTR;
     {
-	QWriteLocker lock(&m_lock_tracks);
+        QWriteLocker lock(&m_lock_tracks);
 
-	t = new(std::nothrow) Kwave::Track(length, uuid);
-	Q_ASSERT(t);
+        t = new(std::nothrow) Kwave::Track(length, uuid);
+        Q_ASSERT(t);
         if (!t) return Q_NULLPTR;
 
-	// clip the track index
-	if (Kwave::toInt(index) > m_tracks.count())
-	    index = m_tracks.count();
+        // clip the track index
+        if (Kwave::toInt(index) > m_tracks.count())
+            index = m_tracks.count();
 
-	// insert / append to the list
-	m_tracks.insert(index, t);
+        // insert / append to the list
+        m_tracks.insert(index, t);
 
-	// connect to the new track's signals
-	connect(t, SIGNAL(sigSamplesDeleted(Kwave::Track*, sample_index_t,
-	    sample_index_t)),
-	    this, SLOT(slotSamplesDeleted(Kwave::Track*, sample_index_t,
-	    sample_index_t)));
-	connect(t, SIGNAL(sigSamplesInserted(Kwave::Track*, sample_index_t,
-	    sample_index_t)),
-	    this, SLOT(slotSamplesInserted(Kwave::Track*, sample_index_t,
-	    sample_index_t)));
-	connect(t, SIGNAL(sigSamplesModified(Kwave::Track*, sample_index_t,
-	    sample_index_t)),
-	    this, SLOT(slotSamplesModified(Kwave::Track*, sample_index_t,
-	    sample_index_t)));
+        // connect to the new track's signals
+        connect(t, SIGNAL(sigSamplesDeleted(Kwave::Track*, sample_index_t,
+            sample_index_t)),
+            this, SLOT(slotSamplesDeleted(Kwave::Track*, sample_index_t,
+            sample_index_t)));
+        connect(t, SIGNAL(sigSamplesInserted(Kwave::Track*, sample_index_t,
+            sample_index_t)),
+            this, SLOT(slotSamplesInserted(Kwave::Track*, sample_index_t,
+            sample_index_t)));
+        connect(t, SIGNAL(sigSamplesModified(Kwave::Track*, sample_index_t,
+            sample_index_t)),
+            this, SLOT(slotSamplesModified(Kwave::Track*, sample_index_t,
+            sample_index_t)));
 
-	connect(t, SIGNAL(sigSelectionChanged(bool)),
-	    this, SIGNAL(sigTrackSelectionChanged(bool)));
+        connect(t, SIGNAL(sigSelectionChanged(bool)),
+            this, SIGNAL(sigTrackSelectionChanged(bool)));
     }
 
     // track has been inserted
@@ -121,12 +121,12 @@ void Kwave::Signal::deleteTrack(unsigned int index)
     // remove the track from the list but do not delete it
     Kwave::Track *t = Q_NULLPTR;
     {
-	QWriteLocker lock(&m_lock_tracks);
-	if (Kwave::toInt(index) > m_tracks.count())
-	    return; // bail out if not in range
+        QWriteLocker lock(&m_lock_tracks);
+        if (Kwave::toInt(index) > m_tracks.count())
+            return; // bail out if not in range
 
-	t = m_tracks.at(index);
-	m_tracks.removeAt(index);
+        t = m_tracks.at(index);
+        m_tracks.removeAt(index);
     }
 
     // now emit a signal that the track has been deleted. Maybe
@@ -141,7 +141,7 @@ void Kwave::Signal::deleteTrack(unsigned int index)
 
 //***************************************************************************
 Kwave::Writer *Kwave::Signal::openWriter(Kwave::InsertMode mode,
-	unsigned int track, sample_index_t left, sample_index_t right)
+        unsigned int track, sample_index_t left, sample_index_t right)
 {
     QReadLocker lock(&m_lock_tracks);
 
@@ -179,9 +179,9 @@ Kwave::Stripe::List Kwave::Signal::stripes(unsigned int track,
     QReadLocker lock(&m_lock_tracks);
 
     if (Kwave::toInt(track) < m_tracks.count()) {
-	Kwave::Track *t = m_tracks.at(track);
-	Q_ASSERT(t);
-	if (t) return t->stripes(left, right);
+        Kwave::Track *t = m_tracks.at(track);
+        Q_ASSERT(t);
+        if (t) return t->stripes(left, right);
     }
     return Kwave::Stripe::List(); // track does not exist !
 }
@@ -193,7 +193,7 @@ bool Kwave::Signal::mergeStripes(const Kwave::Stripe::List &stripes,
     QReadLocker lock(&m_lock_tracks);
 
     if (Kwave::toInt(track) >= m_tracks.count())
-	return false;
+        return false;
 
     Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
@@ -210,7 +210,7 @@ QVector<unsigned int> Kwave::Signal::allTracks()
     QVector<unsigned int> list;
 
     for (track = 0; track < tracks; track++) {
-	list.append(track);
+        list.append(track);
     }
 
     return list;
@@ -225,7 +225,7 @@ void Kwave::Signal::deleteRange(unsigned int track,
 
     Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
     if (Kwave::toInt(track) >= m_tracks.count())
-	return; // track does not exist !
+        return; // track does not exist !
 
     Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
@@ -240,7 +240,7 @@ void Kwave::Signal::insertSpace(unsigned int track, sample_index_t offset,
 
     Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
     if (Kwave::toInt(track) >= m_tracks.count())
-	return; // track does not exist !
+        return; // track does not exist !
 
     Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
@@ -261,9 +261,9 @@ sample_index_t Kwave::Signal::length()
 
     sample_index_t max = 0;
     foreach (Kwave::Track *track, m_tracks) {
-	if (!track) continue;
-	sample_index_t len = track->length();
-	if (len > max) max = len;
+        if (!track) continue;
+        sample_index_t len = track->length();
+        if (len > max) max = len;
     }
     return max;
 }
@@ -310,7 +310,7 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //int Signal::getChannelMaximum () {
 //    int max = 0;
 //    for (int i = 0; i < length; i++)
-//	if (max < qAbs(sample[i])) max = qAbs(sample[i]);
+//      if (max < qAbs(sample[i])) max = qAbs(sample[i]);
 //
 //    return max;
 //}
@@ -323,17 +323,17 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //    //with small numbers, greater ones should not occur within this program...
 //
 //    if (((tst % 2)) == 0) {
-//	max = 2;
-//	tst /= 2;
-//	while ((tst % 2) == 0) tst /= 2;    //remove prime factor 2
+//      max = 2;
+//      tst /= 2;
+//      while ((tst % 2) == 0) tst /= 2;    //remove prime factor 2
 //    }
 //
 //
 //    for (int i = 3; i <= sqrt(tst); i += 2)
-//	if ((tst % i) == 0) {
-//	    if (i > max) max = i;
-//	    while ((tst % i) == 0) tst /= i;    //divide the current prime factor until it is not present any more
-//	}
+//      if ((tst % i) == 0) {
+//          if (i > max) max = i;
+//          while ((tst % i) == 0) tst /= i;    //divide the current prime factor until it is not present any more
+//      }
 //
 //
 //    if (tst > max) max = tst;
@@ -347,13 +347,13 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //    complex *data = 0;
 //
 //    if (!accurate) {
-//	int reduce = 1;
-//	int max = getMaxPrimeFactor (len);    //get biggest prime factor
+//      int reduce = 1;
+//      int max = getMaxPrimeFactor (len);    //get biggest prime factor
 //
-//	if (max > MAXPRIME) {
-//	    while ((len - reduce > MAXPRIME) && (getMaxPrimeFactor(len - reduce) > MAXPRIME)) reduce++;
-//	    len -= reduce;   //correct length of buffer to be transferred
-//	}
+//      if (max > MAXPRIME) {
+//          while ((len - reduce > MAXPRIME) && (getMaxPrimeFactor(len - reduce) > MAXPRIME)) reduce++;
+//          len -= reduce;   //correct length of buffer to be transferred
+//      }
 //
 //
 //    }
@@ -361,33 +361,33 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //    data = new complex[len];
 //
 //    if (data) {
-//	double rea, ima, max = 0;
+//      double rea, ima, max = 0;
 //
-//	for (int i = 0; i < len; i++) {
-//	    data[i].real = ((double)(sample[begin + i]) / (1 << 23));
-//	    data[i].imag = 0;
-//	}
+//      for (int i = 0; i < len; i++) {
+//          data[i].real = ((double)(sample[begin + i]) / (1 << 23));
+//          data[i].imag = 0;
+//      }
 //
-//	gsl_fft_complex_wavetable table;
+//      gsl_fft_complex_wavetable table;
 //
-//	gsl_fft_complex_wavetable_alloc (len, &table);
+//      gsl_fft_complex_wavetable_alloc (len, &table);
 //
-//	gsl_fft_complex_init (len, &table);
+//      gsl_fft_complex_init (len, &table);
 //
-//	gsl_fft_complex_forward (data, len, &table);
-//	gsl_fft_complex_wavetable_free (&table);
+//      gsl_fft_complex_forward (data, len, &table);
+//      gsl_fft_complex_wavetable_free (&table);
 //
-//	for (int i = 0; i < len; i++) {
-//	    rea = data[i].real;
-//	    ima = data[i].imag;
-//	    rea = sqrt(rea * rea + ima * ima);              //get amplitude
-//	    if (max < rea) max = rea;
-//	}
+//      for (int i = 0; i < len; i++) {
+//          rea = data[i].real;
+//          ima = data[i].imag;
+//          rea = sqrt(rea * rea + ima * ima);              //get amplitude
+//          if (max < rea) max = rea;
+//      }
 //
 //    } else {
-//	if (data) delete data;
-//	Kwave::MessageBox::error
-//	(0, i18n("Info"), i18n("No Memory for FFT-buffers available."), 2);
+//      if (data) delete data;
+//      Kwave::MessageBox::error
+//      (0, i18n("Info"), i18n("No Memory for FFT-buffers available."), 2);
 //    }
 //}
 //
@@ -402,63 +402,63 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 ////    int count = 0;
 ////
 ////    if (data && avgdata && windowfunction) {
-////	gsl_fft_complex_wavetable table;
-////	gsl_fft_complex_wavetable_alloc (points, &table);
-////	gsl_fft_complex_init (points, &table);
+////    gsl_fft_complex_wavetable table;
+////    gsl_fft_complex_wavetable_alloc (points, &table);
+////    gsl_fft_complex_init (points, &table);
 ////
-////	for (int i = 0; i < points; i++) {
-////	    avgdata[i].real = 0;
-////	    avgdata[i].imag = 0;
-////	}
+////    for (int i = 0; i < points; i++) {
+////        avgdata[i].real = 0;
+////        avgdata[i].imag = 0;
+////    }
 ////
-////	double rea, ima, max = 0;
-////	int page = 0;
+////    double rea, ima, max = 0;
+////    int page = 0;
 ////
-////	while (page < len) {
-////	    if (page + points < len)
-////		for (int i = 0; i < points; i++) {
-////		    data[i].real = (windowfunction[i] * (double)(sample[begin + i]) / (1 << 23));
-////		    data[i].imag = 0;
-////		}
-////	    else {
-////		int i = 0;
-////		for (; i < len - page; i++) {
-////		    data[i].real = (windowfunction[i] * (double)(sample[begin + i]) / (1 << 23));
-////		    data[i].imag = 0;
-////		}
-////		for (; i < points; i++) {
-////		    data[i].real = 0;
-////		    data[i].imag = 0;
-////		}
-////	    }
+////    while (page < len) {
+////        if (page + points < len)
+////            for (int i = 0; i < points; i++) {
+////                data[i].real = (windowfunction[i] * (double)(sample[begin + i]) / (1 << 23));
+////                data[i].imag = 0;
+////            }
+////        else {
+////            int i = 0;
+////            for (; i < len - page; i++) {
+////                data[i].real = (windowfunction[i] * (double)(sample[begin + i]) / (1 << 23));
+////                data[i].imag = 0;
+////            }
+////            for (; i < points; i++) {
+////                data[i].real = 0;
+////                data[i].imag = 0;
+////            }
+////        }
 ////
-////	    page += points;
-////	    count++;
-////	    gsl_fft_complex_forward (data, points, &table);
+////        page += points;
+////        count++;
+////        gsl_fft_complex_forward (data, points, &table);
 ////
-////	    for (int i = 0; i < points; i++) {
-////		rea = data[i].real;
-////		ima = data[i].imag;
-////		avgdata[i].real += sqrt(rea * rea + ima * ima);
-////	    }
-////	}
+////        for (int i = 0; i < points; i++) {
+////            rea = data[i].real;
+////            ima = data[i].imag;
+////            avgdata[i].real += sqrt(rea * rea + ima * ima);
+////        }
+////    }
 ////
-////	if (data) delete data;
-////	gsl_fft_complex_wavetable_free (&table);
+////    if (data) delete data;
+////    gsl_fft_complex_wavetable_free (&table);
 ////
-////	for (int i = 0; i < points; i++)        //find maximum
-////	{
-////	    avgdata[i].real /= count;
-////	    rea = avgdata[i].real;
-////	    if (max < rea) max = rea;
-////	}
+////    for (int i = 0; i < points; i++)        //find maximum
+////    {
+////        avgdata[i].real /= count;
+////        rea = avgdata[i].real;
+////        if (max < rea) max = rea;
+////    }
 ////
-////	//create window for object
+////    //create window for object
 ////    }
 ////    else {
-////	if (data) delete data;
-////	Kwave::MessageBox::error
-////	(0, i18n("Info"), i18n("No Memory for FFT-buffers available."), 2);
+////    if (data) delete data;
+////    Kwave::MessageBox::error
+////    (0, i18n("Info"), i18n("No Memory for FFT-buffers available."), 2);
 ////    }
 //}
 ////*********************************************************
@@ -469,68 +469,68 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //
 //    QMemArray<double> *move = interpolation.interpolation (points, len);
 //    if (move) {
-//	for (int i = 0; i < len; i++)
-//	    //rescale range of filtermovement...
-//	    move[i] = ((double)low) / 1000 + (((double)(high - low)) / 1000 * *move[i]);
+//      for (int i = 0; i < len; i++)
+//          //rescale range of filtermovement...
+//          move[i] = ((double)low) / 1000 + (((double)(high - low)) / 1000 * *move[i]);
 //
-//	double val;
-//	double addup = 0;
-//	unsigned int max = 0;
-//	unsigned int num = filter->count();
+//      double val;
+//      double addup = 0;
+//      unsigned int max = 0;
+//      unsigned int num = filter->count();
 //
-//	for (unsigned int j = 0; j < num; j++) {
-//	    addup += fabs(filter->coeff(j));
-//	    if (max < filter->delay(j)) max = filter->delay(j);   //find maximum offset
-//	}
+//      for (unsigned int j = 0; j < num; j++) {
+//          addup += fabs(filter->coeff(j));
+//          if (max < filter->delay(j)) max = filter->delay(j);   //find maximum offset
+//      }
 //
-//	if (filter->isFIR()) {
-//	    for (unsigned int i = begin + len - 1; i >= begin + max; i--) {
-//		filter->setCoeff(tap, (*move[i - begin]));
-//		val = filter->coeff(0) * sample[i];
-//		for (unsigned int j = 1; j < filter->count(); j++)
-//		    val += filter->coeff(j) * sample[i - filter->delay(j)];
-//		sample[i] = (int)(val / addup);      //renormalize
-//	    }
-//
-//
-//	    // slower routine because of check, needed only in this range...
-//	    for (unsigned int i = begin + max - 1; i >= begin; i--)
-//	    {
-//		filter->setCoeff(tap, *move[i - begin]);
-//		val = filter->coeff(0) * sample[i];
-//		for (unsigned int j = 1; j < filter->count(); j++)
-//		    if (i - filter->delay(j) > 0)
-//			val += filter->coeff(j) * sample[i - filter->delay(j)];
-//		sample[i] = (int)(val / addup);      //renormalize
-//	    }
+//      if (filter->isFIR()) {
+//          for (unsigned int i = begin + len - 1; i >= begin + max; i--) {
+//              filter->setCoeff(tap, (*move[i - begin]));
+//              val = filter->coeff(0) * sample[i];
+//              for (unsigned int j = 1; j < filter->count(); j++)
+//                  val += filter->coeff(j) * sample[i - filter->delay(j)];
+//              sample[i] = (int)(val / addup);      //renormalize
+//          }
 //
 //
-//	} else {
-//	    // basically the same,but the loops go viceversa
-//
-//	    //slower routine because of check, needed only in this range...
-//	    for (unsigned int i = begin; i < begin + max; i++) {
-//		filter->setCoeff(tap, *move[i - begin]);
-//		val = filter->coeff(0) * sample[i];
-//		for (unsigned int j = 1; j < filter->count(); j++)
-//		    if (i - filter->delay(j) > 0)
-//			val += filter->coeff(j) * sample[i - filter->delay(j)];
-//		sample[i] = (int)(val / addup);      //renormalize
-//	    }
+//          // slower routine because of check, needed only in this range...
+//          for (unsigned int i = begin + max - 1; i >= begin; i--)
+//          {
+//              filter->setCoeff(tap, *move[i - begin]);
+//              val = filter->coeff(0) * sample[i];
+//              for (unsigned int j = 1; j < filter->count(); j++)
+//                  if (i - filter->delay(j) > 0)
+//                      val += filter->coeff(j) * sample[i - filter->delay(j)];
+//              sample[i] = (int)(val / addup);      //renormalize
+//          }
 //
 //
-//	    for (unsigned int i = begin + max; i < begin + len; i++) {
-//		filter->setCoeff(tap, *move[i - begin]);
-//		val = filter->coeff(0) * sample[i];
-//		for (unsigned int j = 1; j < filter->count(); j++)
-//		    val += filter->coeff(j) * sample[i - filter->delay(j)];
-//		sample[i] = (int)(val / addup);      //renormalize
-//	    }
+//      } else {
+//          // basically the same,but the loops go viceversa
+//
+//          //slower routine because of check, needed only in this range...
+//          for (unsigned int i = begin; i < begin + max; i++) {
+//              filter->setCoeff(tap, *move[i - begin]);
+//              val = filter->coeff(0) * sample[i];
+//              for (unsigned int j = 1; j < filter->count(); j++)
+//                  if (i - filter->delay(j) > 0)
+//                      val += filter->coeff(j) * sample[i - filter->delay(j)];
+//              sample[i] = (int)(val / addup);      //renormalize
+//          }
 //
 //
-//	}
+//          for (unsigned int i = begin + max; i < begin + len; i++) {
+//              filter->setCoeff(tap, *move[i - begin]);
+//              val = filter->coeff(0) * sample[i];
+//              for (unsigned int j = 1; j < filter->count(); j++)
+//                  val += filter->coeff(j) * sample[i - filter->delay(j)];
+//              sample[i] = (int)(val / addup);      //renormalize
+//          }
 //
-//	delete move;
+//
+//      }
+//
+//      delete move;
 //    }
 //}
 //
@@ -541,9 +541,9 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //    int j;
 //    int i = len2;
 //    while (i < len - len1) {
-//	for (j = 0; j < len1; j++) sample[i + j] = 0;
-//	i += len1 + len2;
-//	counter = i;
+//      for (j = 0; j < len1; j++) sample[i + j] = 0;
+//      i += len1 + len2;
+//      counter = i;
 //    }
 //    counter = -1;
 //}
@@ -558,9 +558,9 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //
 //    int *sample = this->sample + lmarker;
 //    while (pastelength--) {
-//	*sample = (*paste + *sample) >> 1;
-//	sample++;
-//	paste++;
+//      *sample = (*paste + *sample) >> 1;
+//      sample++;
+//      paste++;
 //    }
 
 //***************************************************************************

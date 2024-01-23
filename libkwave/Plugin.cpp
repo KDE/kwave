@@ -106,18 +106,18 @@ Kwave::Plugin::~Plugin()
     // lock usage
     QMutexLocker lock_usage(&m_usage_lock);
     {
-	QMutexLocker lock_thread(&m_thread_lock);
-	if (m_thread) {
-	    if (m_thread->isRunning()) m_thread->wait(5000);
-	    if (m_thread->isRunning()) m_thread->stop();
-	    if (m_thread->isRunning()) m_thread->wait(1000);
-	    if (m_thread->isRunning()) {
-		// unable to stop the thread
-		qWarning("Kwave::Plugin::stop(): stale thread !");
-	    }
-	    delete m_thread;
+        QMutexLocker lock_thread(&m_thread_lock);
+        if (m_thread) {
+            if (m_thread->isRunning()) m_thread->wait(5000);
+            if (m_thread->isRunning()) m_thread->stop();
+            if (m_thread->isRunning()) m_thread->wait(1000);
+            if (m_thread->isRunning()) {
+                // unable to stop the thread
+                qWarning("Kwave::Plugin::stop(): stale thread !");
+            }
+            delete m_thread;
             m_thread = Q_NULLPTR;
-	}
+        }
     }
 
     // finally get rid of the confirm/cancel proxy and the progress dialog
@@ -154,44 +154,44 @@ int Kwave::Plugin::start(QStringList &)
 
     // create a progress dialog for processing mode (not used for pre-listen)
     if (m_progress_enabled && !m_progress) {
-	m_progress = new(std::nothrow) QProgressDialog(parentWidget());
-	Q_ASSERT(m_progress);
+        m_progress = new(std::nothrow) QProgressDialog(parentWidget());
+        Q_ASSERT(m_progress);
     }
 
     // set up the progress dialog when in processing (not pre-listen) mode
     if (m_progress_enabled && m_progress) {
-	sample_index_t first, last;
-	QVector<unsigned int> tracks;
+        sample_index_t first, last;
+        QVector<unsigned int> tracks;
 
-	selection(&tracks, &first, &last, true);
-	m_progress->setModal(true);
-	m_progress->setVisible(false);
-	m_progress->setMinimumDuration(2000);
-	m_progress->setAutoClose(false);
-	m_progress->setMaximum(PROGRESS_MAXIMUM);
-	m_progress->setValue(0);
-	m_progress->setLabelText(progressText());
-	int h = m_progress->sizeHint().height();
-	int w = m_progress->sizeHint().height();
-	if (w < 4 * h) w = 4 * h;
-	m_progress->setFixedSize(w, h);
+        selection(&tracks, &first, &last, true);
+        m_progress->setModal(true);
+        m_progress->setVisible(false);
+        m_progress->setMinimumDuration(2000);
+        m_progress->setAutoClose(false);
+        m_progress->setMaximum(PROGRESS_MAXIMUM);
+        m_progress->setValue(0);
+        m_progress->setLabelText(progressText());
+        int h = m_progress->sizeHint().height();
+        int w = m_progress->sizeHint().height();
+        if (w < 4 * h) w = 4 * h;
+        m_progress->setFixedSize(w, h);
 
-	// use a "proxy" that asks for confirmation of cancel
-	if (!m_confirm_cancel) {
-	    m_confirm_cancel = new(std::nothrow)
-	        Kwave::ConfirmCancelProxy(m_progress,
+        // use a "proxy" that asks for confirmation of cancel
+        if (!m_confirm_cancel) {
+            m_confirm_cancel = new(std::nothrow)
+                Kwave::ConfirmCancelProxy(m_progress,
                 Q_NULLPTR, Q_NULLPTR, this, SLOT(cancel()));
-	    Q_ASSERT(m_confirm_cancel);
-	}
-	connect(m_progress,       SIGNAL(canceled()),
-		m_confirm_cancel, SLOT(cancel()));
-	connect(this,             SIGNAL(setProgressText(QString)),
-	        m_progress,       SLOT(setLabelText(QString)),
-	        Qt::QueuedConnection);
-	connect(this, SIGNAL(sigDone(Kwave::Plugin*)),
-		this, SLOT(closeProgressDialog(Kwave::Plugin*)),
-		Qt::QueuedConnection);
-	m_progress->setVisible(true);
+            Q_ASSERT(m_confirm_cancel);
+        }
+        connect(m_progress,       SIGNAL(canceled()),
+                m_confirm_cancel, SLOT(cancel()));
+        connect(this,             SIGNAL(setProgressText(QString)),
+                m_progress,       SLOT(setLabelText(QString)),
+                Qt::QueuedConnection);
+        connect(this, SIGNAL(sigDone(Kwave::Plugin*)),
+                this, SLOT(closeProgressDialog(Kwave::Plugin*)),
+                Qt::QueuedConnection);
+        m_progress->setVisible(true);
     }
 
     return 0;
@@ -221,36 +221,36 @@ int Kwave::Plugin::stop()
     cancel();
 
     if (m_thread && m_thread->isRunning() &&
-	(QThread::currentThread() == m_thread)) {
-	qWarning("Kwave::Plugin::stop(): plugin '%s' called stop() from "
-	         "within it's own worker thread (from run() ?). "
-	         "This would produce a deadlock, PLEASE FIX THIS !",
-	         DBG(name()));
+        (QThread::currentThread() == m_thread)) {
+        qWarning("Kwave::Plugin::stop(): plugin '%s' called stop() from "
+                 "within it's own worker thread (from run() ?). "
+                 "This would produce a deadlock, PLEASE FIX THIS !",
+                 DBG(name()));
 
 #ifdef DEBUG
-	qDebug("pthread_self()=%p, tid=%p",
-	       reinterpret_cast<void *>(QThread::currentThread()),
-	       reinterpret_cast<void *>(m_thread));
-	void *buf[256];
-	int n = backtrace(buf, 256);
-	backtrace_symbols_fd(buf, n, 2);
+        qDebug("pthread_self()=%p, tid=%p",
+               reinterpret_cast<void *>(QThread::currentThread()),
+               reinterpret_cast<void *>(m_thread));
+        void *buf[256];
+        int n = backtrace(buf, 256);
+        backtrace_symbols_fd(buf, n, 2);
 #endif
-	return -EBUSY;
+        return -EBUSY;
     }
 
     {
-	QMutexLocker lock(&m_thread_lock);
-	if (m_thread) {
-	    if (m_thread->isRunning()) m_thread->wait(5000);
-	    if (m_thread->isRunning()) m_thread->stop();
-	    if (m_thread->isRunning()) m_thread->wait(1000);
-	    if (m_thread->isRunning()) {
-		// unable to stop the thread
-		qWarning("Kwave::Plugin::stop(): stale thread !");
-	    }
-	    delete m_thread;
+        QMutexLocker lock(&m_thread_lock);
+        if (m_thread) {
+            if (m_thread->isRunning()) m_thread->wait(5000);
+            if (m_thread->isRunning()) m_thread->stop();
+            if (m_thread->isRunning()) m_thread->wait(1000);
+            if (m_thread->isRunning()) {
+                // unable to stop the thread
+                qWarning("Kwave::Plugin::stop(): stale thread !");
+            }
+            delete m_thread;
             m_thread = Q_NULLPTR;
-	}
+        }
     }
     return 0;
 }
@@ -277,8 +277,8 @@ void Kwave::Plugin::updateProgress(qreal progress)
 
     // start the timer for updating the progress bar if it is not active
     if (!m_progress_timer.isActive() && m_progress) {
-	m_progress_timer.setSingleShot(true);
-	m_progress_timer.start(1000 / PROGRESS_UPDATES_PER_SECOND);
+        m_progress_timer.setSingleShot(true);
+        m_progress_timer.start(1000 / PROGRESS_UPDATES_PER_SECOND);
     }
 }
 
@@ -291,7 +291,7 @@ void Kwave::Plugin::updateProgressTick()
 
     QMutexLocker lock(&m_progress_lock);
     if (m_progress) m_progress->setValue(
-	Kwave::toInt(qBound<double>(0.0, m_current_progress, PROGRESS_MAXIMUM)));
+        Kwave::toInt(qBound<double>(0.0, m_current_progress, PROGRESS_MAXIMUM)));
 }
 
 //***************************************************************************
@@ -315,13 +315,13 @@ void Kwave::Plugin::closeProgressDialog(Kwave::Plugin *)
     //       loop that is provided by the progress dialog
     //       => deleting this object should be done somewhere later...
     if (m_confirm_cancel) {
-	m_confirm_cancel->deleteLater();
+        m_confirm_cancel->deleteLater();
         m_confirm_cancel = Q_NULLPTR;
     }
 
     if (m_progress) {
-	m_progress->done(0);
-	m_progress->deleteLater();
+        m_progress->done(0);
+        m_progress->deleteLater();
         m_progress = Q_NULLPTR;
     }
 }
@@ -331,9 +331,9 @@ void Kwave::Plugin::cancel()
 {
     if (!m_stop)
     {
-	QMutexLocker lock(&m_thread_lock);
-	m_stop = true;
-	if (m_thread) m_thread->cancel();
+        QMutexLocker lock(&m_thread_lock);
+        m_stop = true;
+        if (m_thread) m_thread->cancel();
     }
     emit sigCancel();
 }
@@ -416,14 +416,14 @@ void Kwave::Plugin::close()
     if (m_thread && m_thread->isRunning() &&
         (QThread::currentThread() != m_thread) )
     {
-	// check: this must be called from the GUI thread only!
-	Q_ASSERT(this->thread() == QThread::currentThread());
-	Q_ASSERT(this->thread() == qApp->thread());
+        // check: this must be called from the GUI thread only!
+        Q_ASSERT(this->thread() == QThread::currentThread());
+        Q_ASSERT(this->thread() == qApp->thread());
 
-	closeProgressDialog(this);
-	stop();
+        closeProgressDialog(this);
+        stop();
     } else if ((QThread::currentThread() == m_thread)) {
-	qWarning("Kwave::Plugin::close -> called from worker thread?");
+        qWarning("Kwave::Plugin::close -> called from worker thread?");
     }
 }
 
@@ -441,12 +441,12 @@ void Kwave::Plugin::release()
     bool finished = false;
 
     {
-	QMutexLocker lock(&m_usage_lock);
-	Q_ASSERT(m_usage_count);
-	if (m_usage_count) {
-	    m_usage_count--;
-	    if (!m_usage_count) finished = true;
-	}
+        QMutexLocker lock(&m_usage_lock);
+        Q_ASSERT(m_usage_count);
+        if (m_usage_count) {
+            m_usage_count--;
+            if (!m_usage_count) finished = true;
+        }
     }
 
     if (finished) emit sigClosed(this);
@@ -506,9 +506,9 @@ sample_index_t Kwave::Plugin::selection(QVector<unsigned int> *tracks,
 
     // expand to the whole signal if left==right and expand_if_empty is set
     if ((l == r) && (expand_if_empty)) {
-	l = 0;
-	r = manager().signalLength();
-	if (r) r--;
+        l = 0;
+        r = manager().signalLength();
+        if (r) r--;
     }
 
     // get the list of selected tracks
@@ -545,9 +545,9 @@ void Kwave::Plugin::setPluginManager(Kwave::PluginManager *new_plugin_manager)
     m_plugin_manager = new_plugin_manager;
 
     if (m_progress)
-	m_progress->setParent(m_plugin_manager->parentWidget());
+        m_progress->setParent(m_plugin_manager->parentWidget());
     if (m_confirm_cancel)
-	m_confirm_cancel->setParent(m_plugin_manager->parentWidget());
+        m_confirm_cancel->setParent(m_plugin_manager->parentWidget());
 }
 
 //***************************************************************************

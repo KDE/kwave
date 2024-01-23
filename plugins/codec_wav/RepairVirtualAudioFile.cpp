@@ -35,11 +35,11 @@ Kwave::RepairVirtualAudioFile::RepairVirtualAudioFile(QIODevice &device,
 Kwave::RepairVirtualAudioFile::~RepairVirtualAudioFile()
 {
     if (m_repair_list) {
-	while (!m_repair_list->isEmpty()) {
-	    Kwave::RecoverySource *src = m_repair_list->takeLast();
-	    if (src) delete src;
-	}
-	delete m_repair_list;
+        while (!m_repair_list->isEmpty()) {
+            Kwave::RecoverySource *src = m_repair_list->takeLast();
+            if (src) delete src;
+        }
+        delete m_repair_list;
     }
 }
 
@@ -55,16 +55,16 @@ qint64 Kwave::RepairVirtualAudioFile::read(char *data, unsigned int nbytes)
     bzero(data, nbytes);
     qint64 read_bytes = 0;
     foreach (Kwave::RecoverySource *src, *m_repair_list) {
-	Q_ASSERT(src);
-	if (!src) continue;
-	qint64 len = src->read(m_position, data, nbytes);
-	Q_ASSERT(len <= nbytes);
-	nbytes     -= len;
-	m_position += len;
-	data       += len;
-	read_bytes += len;
+        Q_ASSERT(src);
+        if (!src) continue;
+        qint64 len = src->read(m_position, data, nbytes);
+        Q_ASSERT(len <= nbytes);
+        nbytes     -= len;
+        m_position += len;
+        data       += len;
+        read_bytes += len;
 
-	if (!nbytes) break;
+        if (!nbytes) break;
     }
 
     return read_bytes;
@@ -96,9 +96,9 @@ qint64 Kwave::RepairVirtualAudioFile::write(const char *data,
 qint64 Kwave::RepairVirtualAudioFile::seek(qint64 offset, bool is_relative)
 {
     if (is_relative)
-	m_position += offset;
+        m_position += offset;
     else
-	m_position = offset;
+        m_position = offset;
 
     return (m_position < length()) ? m_position : -1;
 }

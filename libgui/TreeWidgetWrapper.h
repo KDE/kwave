@@ -1,6 +1,6 @@
 /***************************************************************************
     TreeWidget.h  -  wrapper for QTreeWidget to get focus out information
-			     -------------------
+                             -------------------
     begin                : Mon May 12 2008
     copyright            : (C) 2008 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -30,21 +30,21 @@ namespace Kwave
 {
     class Q_DECL_EXPORT TreeWidgetWrapper: public QTreeWidget
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
-	/** Constructor */
-	explicit TreeWidgetWrapper(QWidget *parent);
+        /** Constructor */
+        explicit TreeWidgetWrapper(QWidget *parent);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~TreeWidgetWrapper() Q_DECL_OVERRIDE;
 
-	/** catches the "lost focus" event */
+        /** catches the "lost focus" event */
         virtual void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
 
     signals:
 
-	/** emitted when the focus has been lost */
-	void focusLost();
+        /** emitted when the focus has been lost */
+        void focusLost();
 
     };
 }

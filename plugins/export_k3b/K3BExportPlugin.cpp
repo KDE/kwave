@@ -97,7 +97,7 @@ int Kwave::K3BExportPlugin::interpreteParameters(QStringList &params)
 
     // evaluate the parameter list
     if (params.count() != 5)
-	return -EINVAL;
+        return -EINVAL;
 
     // the selected URL
     m_url = Kwave::URLfromUserInput(Kwave::Parser::unescape(params[0]));
@@ -119,7 +119,7 @@ int Kwave::K3BExportPlugin::interpreteParameters(QStringList &params)
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
     if ((where != EXPORT_TO_SAME_DIR) &&
-	(where != EXPORT_TO_SUB_DIR)) return -EINVAL;
+        (where != EXPORT_TO_SUB_DIR)) return -EINVAL;
     m_export_location = static_cast<export_location_t>(where);
 
     // overwrite policy
@@ -128,7 +128,7 @@ int Kwave::K3BExportPlugin::interpreteParameters(QStringList &params)
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
     if ((overwrite != OVERWRITE_EXISTING_FILES) &&
-	(overwrite != USE_NEW_FILE_NAMES)) return -EINVAL;
+        (overwrite != USE_NEW_FILE_NAMES)) return -EINVAL;
     m_overwrite_policy = static_cast<overwrite_policy_t>(overwrite);
 
     return 0;
@@ -159,38 +159,38 @@ void Kwave::K3BExportPlugin::scanBlocksToSave(const QString &base,
     m_block_info.clear();
     QString prev_title = file_title;
     for (unsigned int index = 1; ; ++index) {
-	block_start = block_end;
-	block_end   = (label.isNull()) ? signalLength() : label.pos();
+        block_start = block_end;
+        block_end   = (label.isNull()) ? signalLength() : label.pos();
 
-	QString block_title = (!label.isNull() && label.name().length()) ?
-	    label.name() : prev_title;
+        QString block_title = (!label.isNull() && label.name().length()) ?
+            label.name() : prev_title;
 
-	if ((block_end > selection_left) && (block_start <= selection_right)) {
-	    BlockInfo block;
+        if ((block_end > selection_left) && (block_start <= selection_right)) {
+            BlockInfo block;
 
-	    // init and set reasonable defaults
-	    block.m_index    = index;
-	    block.m_filename = QString();
-	    block.m_start    = block_start;
-	    block.m_length   = block_end - block_start;
-	    block.m_title    = prev_title;
-	    block.m_artist   = file_artist;
+            // init and set reasonable defaults
+            block.m_index    = index;
+            block.m_filename = QString();
+            block.m_start    = block_start;
+            block.m_length   = block_end - block_start;
+            block.m_title    = prev_title;
+            block.m_artist   = file_artist;
 
-	    // detect title and artist
-	    detectBlockMetaData(prev_title, m_pattern, block);
-	    m_block_info.append(block);
+            // detect title and artist
+            detectBlockMetaData(prev_title, m_pattern, block);
+            m_block_info.append(block);
 
-	    prev_title = block_title;
+            prev_title = block_title;
 
-// 	    qDebug("#%d [%llu...%llu]", index, block_start, block_end);
-// 	    qDebug("    title  = '%s'", DBG(block.m_title));
-// 	    qDebug("    artist = '%s'", DBG(block.m_artist));
-	} else {
-	    prev_title = block_title;
-	}
+//          qDebug("#%d [%llu...%llu]", index, block_start, block_end);
+//          qDebug("    title  = '%s'", DBG(block.m_title));
+//          qDebug("    artist = '%s'", DBG(block.m_artist));
+        } else {
+            prev_title = block_title;
+        }
 
-	if (label.isNull()) break;
-	label = (it.hasNext()) ? it.next() : Kwave::Label();
+        if (label.isNull()) break;
+        label = (it.hasNext()) ? it.next() : Kwave::Label();
     }
 }
 
@@ -213,11 +213,11 @@ bool Kwave::K3BExportPlugin::detectBlockMetaData(
 )
 {
     if (!pattern.length()) {
-	// auto detect -> try all known patterns
-	foreach (const QString &p, knownPatterns())
-	    if (detectBlockMetaData(text, p, block))
-		return true;
-	return false;
+        // auto detect -> try all known patterns
+        foreach (const QString &p, knownPatterns())
+            if (detectBlockMetaData(text, p, block))
+                return true;
+        return false;
     }
 
     // list of placeholders and pointers to the resulting strings
@@ -230,21 +230,21 @@ bool Kwave::K3BExportPlugin::detectBlockMetaData(
     QString pattern_esc = Kwave::Parser::escape(pattern);
     QMap <int, QString *> map_result;
     for (QMap<QString, QString *>::const_iterator
-	 it(map_patterns.constBegin());
+         it(map_patterns.constBegin());
          it != map_patterns.constEnd(); ++it)
     {
-	const QString &placeholder = it.key();
-	QString placeholder_esc;
-	placeholder_esc = Kwave::Parser::escape(placeholder);
-	if (pattern_esc.contains(placeholder_esc)) {
-	    const QString rx_string = _("(.+)");
-	    int pos = pattern.indexOf(placeholder);
-	    pattern_esc.replace(placeholder_esc, rx_string);
-	    map_result.insert(pos, map_patterns[placeholder]);
-	}
+        const QString &placeholder = it.key();
+        QString placeholder_esc;
+        placeholder_esc = Kwave::Parser::escape(placeholder);
+        if (pattern_esc.contains(placeholder_esc)) {
+            const QString rx_string = _("(.+)");
+            int pos = pattern.indexOf(placeholder);
+            pattern_esc.replace(placeholder_esc, rx_string);
+            map_result.insert(pos, map_patterns[placeholder]);
+        }
     }
     if (map_result.isEmpty())
-	return false; // no placeholders found in the patterns
+        return false; // no placeholders found in the patterns
 
     // relax the pattern: turn single whitespace to one or more whitespaces
     pattern_esc.replace(QRegExp(_("(\\\\\\s)+")), _("\\s+"));
@@ -252,17 +252,17 @@ bool Kwave::K3BExportPlugin::detectBlockMetaData(
     // try to match the pattern on the given text
     QRegExp rx(pattern_esc, Qt::CaseInsensitive);
     if (!rx.exactMatch(text.trimmed()))
-	return false; // does not match :-(
+        return false; // does not match :-(
 
     // we found a match
     // -> now map the results into the corresponding result strings
     const QList<int> &result_keys = map_result.keys();
     for (int index = 0; index < map_result.count(); ++index) {
-	QString value = rx.cap(index + 1).trimmed();
-	if (value.length()) {
-	    QString *result = map_result[result_keys[index]];
-	    if (result) *result = value;
-	}
+        QString value = rx.cap(index + 1).trimmed();
+        if (value.length()) {
+            QString *result = map_result[result_keys[index]];
+            if (result) *result = value;
+        }
     }
 
     return true;
@@ -274,13 +274,13 @@ void Kwave::K3BExportPlugin::load(QStringList &params)
     Q_UNUSED(params)
 
     QString menu_path = _("File/Save/%1").arg(_(kli18nc(
-	"menu: /File/Save/Export to K3b Project...",
-	                 "Export to K3b Project...").untranslatedText()
+        "menu: /File/Save/Export to K3b Project...",
+                         "Export to K3b Project...").untranslatedText()
     ));
     emitCommand(_("menu(plugin:setup(export_k3b),%1%2)").arg(
-	menu_path).arg(_("/#group(@SIGNAL)")));
+        menu_path).arg(_("/#group(@SIGNAL)")));
     emitCommand(_("menu(plugin:setup(export_k3b),%1%2)").arg(
-	menu_path).arg(_("/#icon(application-x-k3b)")));
+        menu_path).arg(_("/#icon(application-x-k3b)")));
 }
 
 //***************************************************************************
@@ -302,41 +302,41 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
 
     // show a "File / Save As..." dialog for the *.k3b file
     QPointer<Kwave::K3BExportDialog> dialog =
-	new(std::nothrow) Kwave::K3BExportDialog(
-	    _("kfiledialog:///kwave_export_k3b"),
-	    K3B_FILE_SUFFIX + _("|") + i18nc(
-		"file type filter when exporting to K3b",
-		"K3b project file (*.k3b)"
-	    ),
-	    parentWidget(),
-	    Kwave::URLfromUserInput(signalName()),
-	    _("*.k3b"),
-	    m_pattern,
-	    m_selection_only,
-	    enable_selection_only,
-	    m_export_location,
-	    m_overwrite_policy
-	);
+        new(std::nothrow) Kwave::K3BExportDialog(
+            _("kfiledialog:///kwave_export_k3b"),
+            K3B_FILE_SUFFIX + _("|") + i18nc(
+                "file type filter when exporting to K3b",
+                "K3b project file (*.k3b)"
+            ),
+            parentWidget(),
+            Kwave::URLfromUserInput(signalName()),
+            _("*.k3b"),
+            m_pattern,
+            m_selection_only,
+            enable_selection_only,
+            m_export_location,
+            m_overwrite_policy
+        );
     if (!dialog) return Q_NULLPTR;
 
     dialog->setWindowTitle(description());
     if ((dialog->exec() != QDialog::Accepted) || !dialog) {
-	delete dialog;
+        delete dialog;
         return Q_NULLPTR;
     }
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (!list) {
-	delete dialog;
+        delete dialog;
         return Q_NULLPTR;
     }
 
     // user has pressed "OK"
     QUrl url = dialog->selectedUrl();
     if (url.isEmpty()) {
-	delete dialog;
-	delete list;
+        delete dialog;
+        delete list;
         return Q_NULLPTR;
     }
 
@@ -345,7 +345,7 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
 
     // add the correct extension if necessary
     if (path.suffix() != K3B_FILE_SUFFIX.mid(2))
-	url.setPath(name + K3B_FILE_SUFFIX.mid(1));
+        url.setPath(name + K3B_FILE_SUFFIX.mid(1));
 
     name                 = Kwave::Parser::escape(url.toString());
     QString pattern      = Kwave::Parser::escape(dialog->pattern());
@@ -361,10 +361,10 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
     *list << QString::number(overwrite_policy); // overwrite policy
 
     emitCommand(_("plugin:execute(export_k3b,") +
-	name + _(",") + pattern + _(",")  +
-	QString::number(selection_only)   + _(",") +
-	QString::number(export_location)  + _(",") +
-	QString::number(overwrite_policy) + _(")")
+        name + _(",") + pattern + _(",")  +
+        QString::number(selection_only)   + _(",") +
+        QString::number(export_location)  + _(",") +
+        QString::number(overwrite_policy) + _(")")
     );
 
     if (dialog) delete dialog;
@@ -498,73 +498,73 @@ void Kwave::K3BExportPlugin::saveDocumentData(QDomElement *docElem)
 
     unsigned int index = 1;
     foreach (const Kwave::K3BExportPlugin::BlockInfo &block, m_block_info) {
-	QString title      = block.m_title;
-	QString artist     = block.m_artist;
-	QString songwriter;
-	QString url        = block.m_filename;
+        QString title      = block.m_title;
+        QString artist     = block.m_artist;
+        QString songwriter;
+        QString url        = block.m_filename;
 
-	QDomElement trackElem = doc.createElement(_("track"));
+        QDomElement trackElem = doc.createElement(_("track"));
 
-	// add sources
-	QDomElement sourcesParent = doc.createElement(_("sources"));
-	QDomElement sourceElem = doc.createElement(_("file"));
-	sourceElem.setAttribute(_("url"), url);
-	sourceElem.setAttribute(_("start_offset"), _("00:00:00"));
-	sourceElem.setAttribute(_("end_offset"), _("00:00:00"));
-	sourcesParent.appendChild(sourceElem);
-	trackElem.appendChild(sourcesParent);
+        // add sources
+        QDomElement sourcesParent = doc.createElement(_("sources"));
+        QDomElement sourceElem = doc.createElement(_("file"));
+        sourceElem.setAttribute(_("url"), url);
+        sourceElem.setAttribute(_("start_offset"), _("00:00:00"));
+        sourceElem.setAttribute(_("end_offset"), _("00:00:00"));
+        sourcesParent.appendChild(sourceElem);
+        trackElem.appendChild(sourcesParent);
 
-	// index 0
-	QDomElement index0Elem = doc.createElement(_("index0"));
-	index0Elem.appendChild(doc.createTextNode(QString::number(index)));
-	trackElem.appendChild(index0Elem);
+        // index 0
+        QDomElement index0Elem = doc.createElement(_("index0"));
+        index0Elem.appendChild(doc.createTextNode(QString::number(index)));
+        trackElem.appendChild(index0Elem);
 
-	// add cd-text
-	cdTextMain = doc.createElement(_("cd-text"));
-	cdTextElem = doc.createElement(_("title"));
-	cdTextElem.appendChild(doc.createTextNode(title));
-	cdTextMain.appendChild(cdTextElem);
+        // add cd-text
+        cdTextMain = doc.createElement(_("cd-text"));
+        cdTextElem = doc.createElement(_("title"));
+        cdTextElem.appendChild(doc.createTextNode(title));
+        cdTextMain.appendChild(cdTextElem);
 
-	cdTextElem = doc.createElement(_("artist"));
-	cdTextElem.appendChild(doc.createTextNode(artist));
-	cdTextMain.appendChild(cdTextElem);
+        cdTextElem = doc.createElement(_("artist"));
+        cdTextElem.appendChild(doc.createTextNode(artist));
+        cdTextMain.appendChild(cdTextElem);
 
-	cdTextElem = doc.createElement(_("arranger"));
-	cdTextElem.appendChild(GET_INF(INF_TECHNICAN));
-	cdTextMain.appendChild(cdTextElem);
+        cdTextElem = doc.createElement(_("arranger"));
+        cdTextElem.appendChild(GET_INF(INF_TECHNICAN));
+        cdTextMain.appendChild(cdTextElem);
 
-	cdTextElem = doc.createElement(_("songwriter"));
-	cdTextElem.appendChild(doc.createTextNode(songwriter));
-	cdTextMain.appendChild(cdTextElem );
+        cdTextElem = doc.createElement(_("songwriter"));
+        cdTextElem.appendChild(doc.createTextNode(songwriter));
+        cdTextMain.appendChild(cdTextElem );
 
-	cdTextElem = doc.createElement(_("composer"));
-	cdTextElem.appendChild(GET_INF(INF_ORGANIZATION));
-	cdTextMain.appendChild(cdTextElem);
+        cdTextElem = doc.createElement(_("composer"));
+        cdTextElem.appendChild(GET_INF(INF_ORGANIZATION));
+        cdTextMain.appendChild(cdTextElem);
 
-	cdTextElem = doc.createElement(_("isrc"));
-	cdTextElem.appendChild(GET_INF(INF_ISRC));
-	cdTextMain.appendChild(cdTextElem);
+        cdTextElem = doc.createElement(_("isrc"));
+        cdTextElem.appendChild(GET_INF(INF_ISRC));
+        cdTextMain.appendChild(cdTextElem);
 
-	cdTextElem = doc.createElement(_("message"));
-	cdTextElem.appendChild(GET_INF(INF_COMMENTS));
-	cdTextMain.appendChild(cdTextElem);
+        cdTextElem = doc.createElement(_("message"));
+        cdTextElem.appendChild(GET_INF(INF_COMMENTS));
+        cdTextMain.appendChild(cdTextElem);
 
-	trackElem.appendChild(cdTextMain);
+        trackElem.appendChild(cdTextMain);
 
-	// add copy protection
-	QDomElement copyElem = doc.createElement(_("copy_protection"));
-	copyElem.appendChild(doc.createTextNode(
-	    info.get(INF_COPYRIGHTED).toInt() ? _("yes") : _("no")
-	));
-	trackElem.appendChild(copyElem);
+        // add copy protection
+        QDomElement copyElem = doc.createElement(_("copy_protection"));
+        copyElem.appendChild(doc.createTextNode(
+            info.get(INF_COPYRIGHTED).toInt() ? _("yes") : _("no")
+        ));
+        trackElem.appendChild(copyElem);
 
-	// add pre emphasis
-	copyElem = doc.createElement(_("pre_emphasis"));
-	copyElem.appendChild(doc.createTextNode(_("no")));
-	trackElem.appendChild(copyElem);
+        // add pre emphasis
+        copyElem = doc.createElement(_("pre_emphasis"));
+        copyElem.appendChild(doc.createTextNode(_("no")));
+        trackElem.appendChild(copyElem);
 
-	contentsElem.appendChild(trackElem);
-	index++;
+        contentsElem.appendChild(trackElem);
+        index++;
     }
     // -------------------------------------------------------------
 
@@ -582,7 +582,7 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
 
     // check the output file
     if (!m_url.isLocalFile())
-	return -EINVAL; // sorry, KZip supports only local files
+        return -EINVAL; // sorry, KZip supports only local files
 
     // determine output directory and file name pattern
     QString   k3b_filename = m_url.path();
@@ -591,13 +591,13 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
     QString   out_dir;
     QString   out_pattern;
     if (m_export_location == Kwave::K3BExportPlugin::EXPORT_TO_SUB_DIR) {
-	// export to a subdir with the name "<filename>.dir"
-	out_dir     = fi.absolutePath() + QDir::separator() + base + _(".dir");
-	out_pattern = _("track-") + OUTFILE_PATTERN;
+        // export to a subdir with the name "<filename>.dir"
+        out_dir     = fi.absolutePath() + QDir::separator() + base + _(".dir");
+        out_pattern = _("track-") + OUTFILE_PATTERN;
     } else {
-	// use the same directory as the *.k3b file
-	out_dir     = fi.absolutePath();
-	out_pattern = base + _("-track-") + OUTFILE_PATTERN;
+        // use the same directory as the *.k3b file
+        out_dir     = fi.absolutePath();
+        out_pattern = base + _("-track-") + OUTFILE_PATTERN;
     }
     qDebug("out_dir     = '%s'", DBG(out_dir));
     qDebug("out_pattern = '%s'", DBG(out_pattern));
@@ -610,14 +610,14 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
 
     // check: only mono or stereo files are supported
     if ((tracks.count() != 1) && (tracks.count() != 2)) {
-	qWarning("sorry, K3b can not handle %u tracks", tracks.count());
-	Kwave::MessageBox::sorry(parentWidget(), i18n(
-	    "Only mono and stereo files can be used for an audio CD. "
-	    "You can either deselect some channels or export the file "
-	    "in a different file format that supports mono and stereo "
-	    "only (for example FLAC) and then try again."
-	));
-	return -EINVAL;
+        qWarning("sorry, K3b can not handle %u tracks", tracks.count());
+        Kwave::MessageBox::sorry(parentWidget(), i18n(
+            "Only mono and stereo files can be used for an audio CD. "
+            "You can either deselect some channels or export the file "
+            "in a different file format that supports mono and stereo "
+            "only (for example FLAC) and then try again."
+        ));
+        return -EINVAL;
     }
 
     bool selected_something = (selection_left != selection_right);
@@ -626,64 +626,64 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
     bool enable_selection_only = selected_something && !selected_all;
     bool selection_only = enable_selection_only && m_selection_only;
     if (!selection_only) {
-	selection_left  = 0;
-	selection_right = signalLength() - 1;
+        selection_left  = 0;
+        selection_right = signalLength() - 1;
     }
 
     // create a list of blocks to save, but not yet the output file names
     scanBlocksToSave(base, selection_left, selection_right);
     unsigned int count = m_block_info.count();
     if (!count)
-	return -EINVAL;
+        return -EINVAL;
 
     // find the start index of the file numbering
     unsigned int first = 1;
     if (m_overwrite_policy == Kwave::K3BExportPlugin::USE_NEW_FILE_NAMES) {
-	// use new files, find out the highest existing index
-	QString pat = out_pattern;
-	pat.replace(OUTFILE_PATTERN, _("*"));
-	pat += OUTFILE_SUFFIX;
+        // use new files, find out the highest existing index
+        QString pat = out_pattern;
+        pat.replace(OUTFILE_PATTERN, _("*"));
+        pat += OUTFILE_SUFFIX;
 
-	QDir dir(out_dir, pat);
-	QStringList files;
-	files = dir.entryList();
+        QDir dir(out_dir, pat);
+        QStringList files;
+        files = dir.entryList();
 
-	for (unsigned int i = first; i < (first + count); ++i) {
-	    QString name = createFileName(out_pattern, i);
-	    QRegExp rx(_("^(") + name + _(")$"), Qt::CaseInsensitive);
-	    QStringList matches = files.filter(rx);
-	    if (matches.count() > 0) first = i + 1;
-	}
-	qDebug("found first usable index -> %d", first);
+        for (unsigned int i = first; i < (first + count); ++i) {
+            QString name = createFileName(out_pattern, i);
+            QRegExp rx(_("^(") + name + _(")$"), Qt::CaseInsensitive);
+            QStringList matches = files.filter(rx);
+            if (matches.count() > 0) first = i + 1;
+        }
+        qDebug("found first usable index -> %d", first);
     } else {
-	// overwrite mode, always start at 1
+        // overwrite mode, always start at 1
     }
 
     // create the complete file names
     for (unsigned int i = 0; i < count; ++i) {
-	m_block_info[i].m_filename = out_dir + QDir::separator() +
-	    createFileName(out_pattern, first + i);
+        m_block_info[i].m_filename = out_dir + QDir::separator() +
+            createFileName(out_pattern, first + i);
     }
 
     result = saveBlocks(selection_only, out_dir, out_pattern);
     if (result != 0)
-	return result; // aborted or failed -> do not create a k3b file
+        return result; // aborted or failed -> do not create a k3b file
 
     result = saveK3BFile(k3b_filename);
     if (result != 0)
-	return result; // aborted or failed -> do not ask about starting k3b
+        return result; // aborted or failed -> do not ask about starting k3b
 
     if (Kwave::MessageBox::questionYesNo(parentWidget(), i18n(
-	"A K3b project file has been created and audio files have "
-	"been exported.\n"
-	"Should I start K3b and open the audio CD project now?"
+        "A K3b project file has been created and audio files have "
+        "been exported.\n"
+        "Should I start K3b and open the audio CD project now?"
     )) == KMessageBox::Yes) {
-	// call k3b and pass the project file name (must be full path)
-	QStringList args;
-	args << k3b_filename;
-	if (!QProcess::startDetached(_("k3b"), args)) {
-	    return -EIO;
-	}
+        // call k3b and pass the project file name (must be full path)
+        QStringList args;
+        args << k3b_filename;
+        if (!QProcess::startDetached(_("k3b"), args)) {
+            return -EIO;
+        }
     }
 
     return result;
@@ -695,7 +695,7 @@ int Kwave::K3BExportPlugin::saveBlocks(bool selection_only,
                                        const QString &out_pattern)
 {
     QString first_filename = Kwave::Parser::escapeForFileName(
-	QUrl::fromLocalFile(createFileName(out_pattern, 1)).toString());
+        QUrl::fromLocalFile(createFileName(out_pattern, 1)).toString());
 
     // remember the original file info remove all unsupported/ properties,
     // to avoid that the saveblocks plugin complains...
@@ -704,17 +704,17 @@ int Kwave::K3BExportPlugin::saveBlocks(bool selection_only,
     QList<Kwave::FileProperty> unsupported_properties;
     {
         QString mimetype = Kwave::CodecManager::mimeTypeOf(m_url);
-	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype);
-	if (encoder) {
-	    unsupported_properties = encoder->unsupportedProperties(
-		file_info.properties().keys());
-	    delete encoder;
-	}
-	if (!unsupported_properties.isEmpty()) {
-	    foreach (const Kwave::FileProperty &p, unsupported_properties) {
-		file_info.set(p, QVariant());
-	    }
-	}
+        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype);
+        if (encoder) {
+            unsupported_properties = encoder->unsupportedProperties(
+                file_info.properties().keys());
+            delete encoder;
+        }
+        if (!unsupported_properties.isEmpty()) {
+            foreach (const Kwave::FileProperty &p, unsupported_properties) {
+                file_info.set(p, QVariant());
+            }
+        }
     }
 
     // make sure that the file uses 16 bits/sample only
@@ -762,7 +762,7 @@ int Kwave::K3BExportPlugin::saveK3BFile(const QString &k3b_filename)
     QDomDocument xmlDoc(_("k3b_audio_project"));
 
     xmlDoc.appendChild(xmlDoc.createProcessingInstruction(
-	_("xml"), _("version=\"1.0\" encoding=\"UTF-8\"")
+        _("xml"), _("version=\"1.0\" encoding=\"UTF-8\"")
     ));
     QDomElement docElem = xmlDoc.createElement(_("k3b_audio_project"));
     xmlDoc.appendChild(docElem);

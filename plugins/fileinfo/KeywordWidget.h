@@ -1,6 +1,6 @@
 /***************************************************************************
         KeywordWidget.h  -  widget for editing a list of keywords
-			     -------------------
+                             -------------------
     begin                : Fri 02 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -40,55 +40,55 @@ namespace Kwave
     class KeywordWidget: public QWidget,
                          Ui::KeywordWidgetBase
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit KeywordWidget(QWidget *parent);
+        /** Constructor */
+        explicit KeywordWidget(QWidget *parent);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~KeywordWidget() Q_DECL_OVERRIDE;
 
-	/** Returns the list of keywords (sorted) */
-	QStringList keywords();
+        /** Returns the list of keywords (sorted) */
+        QStringList keywords();
 
-	/** Sets/initializes the list of keywords */
-	void setKeywords(const QStringList &keywords);
+        /** Sets/initializes the list of keywords */
+        void setKeywords(const QStringList &keywords);
 
     signals:
 
-	/** emitted if the user pressed the "Auto" button */
-	void autoGenerate();
+        /** emitted if the user pressed the "Auto" button */
+        void autoGenerate();
 
     private slots:
 
-	/** updates the controls if the text edit changed */
-	void editChanged(const QString &);
+        /** updates the controls if the text edit changed */
+        void editChanged(const QString &);
 
-	/** called if the user pressed return in the edit line */
-	void returnPressed();
+        /** called if the user pressed return in the edit line */
+        void returnPressed();
 
-	/** add an entry to the list */
-	void add();
+        /** add an entry to the list */
+        void add();
 
-	/** remove the currently selected item from the list */
-	void remove();
+        /** remove the currently selected item from the list */
+        void remove();
 
-	/** called when a new list entry has been selected */
-	void listClicked(QListWidgetItem *item);
+        /** called when a new list entry has been selected */
+        void listClicked(QListWidgetItem *item);
 
-	/** forwards the click of the "Auto" button */
-	void autoClicked();
+        /** forwards the click of the "Auto" button */
+        void autoClicked();
 
     protected:
 
-	/** returns true if the given string is contained in the list */
-	bool contained(const QString &item);
+        /** returns true if the given string is contained in the list */
+        bool contained(const QString &item);
 
-	/** update the enable state of the buttons */
-	void update();
+        /** update the enable state of the buttons */
+        void update();
 
-	/** event filter for blocking the effect of pressing "return" */
+        /** event filter for blocking the effect of pressing "return" */
         virtual bool eventFilter(QObject *sender, QEvent *event)
             Q_DECL_OVERRIDE;
 

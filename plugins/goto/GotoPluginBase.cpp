@@ -62,9 +62,9 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
     QString help_section = _("plugin_sect_") + command();
 
     QPointer<Kwave::GotoDialog> dialog = new(std::nothrow)
-	Kwave::GotoDialog(parentWidget(),
-	    m_mode, m_position, rate, length, help_section
-	);
+        Kwave::GotoDialog(parentWidget(),
+            m_mode, m_position, rate, length, help_section
+        );
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
@@ -74,18 +74,18 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec()) {
-	// user has pressed "OK"
-	*list << QString::number(dialog->mode());
-	*list << QString::number(dialog->pos());
+        // user has pressed "OK"
+        *list << QString::number(dialog->mode());
+        *list << QString::number(dialog->pos());
 
-	emitCommand(_("plugin:execute(") + command() +
-	    _(",") +  QString::number(dialog->mode()) +
-	    _(",") +  QString::number(dialog->pos()) +
-	    _(")")
-	);
+        emitCommand(_("plugin:execute(") + command() +
+            _(",") +  QString::number(dialog->mode()) +
+            _(",") +  QString::number(dialog->pos()) +
+            _(")")
+        );
     } else {
-	// user pressed "Cancel"
-	if (list) delete list;
+        // user pressed "Cancel"
+        if (list) delete list;
         list = Q_NULLPTR;
     }
 
@@ -102,7 +102,7 @@ int Kwave::GotoPluginBase::start(QStringList &params)
 
     // get current offset of the signal
     sample_index_t offset = Kwave::SelectTimeWidget::timeToSamples(
-	m_mode, m_position, signalRate(), signalLength());
+        m_mode, m_position, signalRate(), signalLength());
 
     // change the selection through the signal manager
     QString cmd = _("nomacro:") + command() + _("(%1)");
@@ -120,7 +120,7 @@ int Kwave::GotoPluginBase::interpreteParameters(QStringList &params)
 
     // evaluate the parameter list
     if (params.count() != 2)
-	return -EINVAL;
+        return -EINVAL;
 
     // selection mode for start
     param = params[0];
@@ -136,7 +136,7 @@ int Kwave::GotoPluginBase::interpreteParameters(QStringList &params)
         (mode != static_cast<int>(Kwave::SelectTimeWidget::bySamples)) &&
         (mode != static_cast<int>(Kwave::SelectTimeWidget::byPercents)))
     {
-	return -EINVAL;
+        return -EINVAL;
     }
     m_mode = static_cast<Kwave::SelectTimeWidget::Mode>(mode);
 

@@ -30,51 +30,51 @@ namespace Kwave
     template<unsigned int SIZE, class T> class FixedPool
     {
     public:
-	/** Constructor */
-	FixedPool()
-	    :m_storage(), m_free_queue(), m_sem_free(0), m_lock()
-	{
-	    for (unsigned int i = 0; i < SIZE; ++i)
-		release(&(m_storage[i]));
-	}
+        /** Constructor */
+        FixedPool()
+            :m_storage(), m_free_queue(), m_sem_free(0), m_lock()
+        {
+            for (unsigned int i = 0; i < SIZE; ++i)
+                release(&(m_storage[i]));
+        }
 
-	/** Destructor */
-	virtual ~FixedPool() { }
+        /** Destructor */
+        virtual ~FixedPool() { }
 
-	/**
-	 * Allocate an element from the pool
-	 * @return pointer to an element
-	 */
-	T *allocate() {
-	    m_sem_free.acquire();
-	    {
-		QMutexLocker _lock(&m_lock);
-		return m_free_queue.dequeue();
-	    }
-	}
+        /**
+         * Allocate an element from the pool
+         * @return pointer to an element
+         */
+        T *allocate() {
+            m_sem_free.acquire();
+            {
+                QMutexLocker _lock(&m_lock);
+                return m_free_queue.dequeue();
+            }
+        }
 
-	/**
-	 * Release an element and put it back into the pool
-	 * @param element pointer to an element
-	 */
-	void release(T *element) {
-	    QMutexLocker _lock(&m_lock);
-	    m_free_queue.enqueue(element);
-	    m_sem_free.release();
-	}
+        /**
+         * Release an element and put it back into the pool
+         * @param element pointer to an element
+         */
+        void release(T *element) {
+            QMutexLocker _lock(&m_lock);
+            m_free_queue.enqueue(element);
+            m_sem_free.release();
+        }
 
     private:
-	/** array used as storage for the pool elements */
-	T m_storage[SIZE];
+        /** array used as storage for the pool elements */
+        T m_storage[SIZE];
 
-	/** queue with free elements */
-	QQueue<T *> m_free_queue;
+        /** queue with free elements */
+        QQueue<T *> m_free_queue;
 
-	/** semaphore for counting available elements */
-	QSemaphore m_sem_free;
+        /** semaphore for counting available elements */
+        QSemaphore m_sem_free;
 
-	/** lock for protecting the m_free_queue */
-	QMutex m_lock;
+        /** lock for protecting the m_free_queue */
+        QMutex m_lock;
     };
 }
 

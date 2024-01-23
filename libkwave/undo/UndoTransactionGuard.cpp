@@ -1,6 +1,6 @@
 /***************************************************************************
  UndoTransactionGuard.cpp  -  guard class for undo transactions
-			     -------------------
+                             -------------------
     begin                : Sat May 26, 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -44,7 +44,7 @@ Kwave::UndoTransactionGuard::UndoTransactionGuard(Kwave::Plugin &plugin,
      m_initial_modified(m_manager.isModified())
 {
     QString description = (name.length()) ?
-	name : i18n(UTF8(plugin.name()));
+        name : i18n(UTF8(plugin.name()));
     m_manager.startUndoTransaction(description);
 }
 
@@ -65,7 +65,7 @@ void Kwave::UndoTransactionGuard::abort()
 {
     m_manager.abortUndoTransaction();
     if (m_manager.isModified() != m_initial_modified)
-	m_manager.setModified(m_initial_modified);
+        m_manager.setModified(m_initial_modified);
 }
 
 //***************************************************************************

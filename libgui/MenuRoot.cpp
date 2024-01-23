@@ -1,6 +1,6 @@
 /***************************************************************************
-			  MenuRoot.cpp  -  root node of a menu structure
-			     -------------------
+                          MenuRoot.cpp  -  root node of a menu structure
+                             -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -64,8 +64,8 @@ void Kwave::MenuRoot::insertNode(const QString &name,
 
     // now delete all leafs that have been converted to branches
     while (!m_garbage.isEmpty()) {
-	Kwave::MenuNode *node = m_garbage.takeFirst();
-	if (node) delete node;
+        Kwave::MenuNode *node = m_garbage.takeFirst();
+        if (node) delete node;
     }
 }
 
@@ -131,15 +131,15 @@ void Kwave::MenuRoot::showChild(Kwave::MenuSub *child)
     QListIterator<Kwave::MenuNode *> it(m_children);
     it.toBack();
     while (it.hasPrevious()) {
-	Kwave::MenuNode *c = it.previous();
-	if (c == child) break;
-	if (c) action_before = c->action();
+        Kwave::MenuNode *c = it.previous();
+        if (c == child) break;
+        if (c) action_before = c->action();
     }
 
     if (action_before)
-	m_menu_bar.insertMenu(action_before, child->menu());
+        m_menu_bar.insertMenu(action_before, child->menu());
     else
-	m_menu_bar.addMenu(child->menu());
+        m_menu_bar.addMenu(child->menu());
 }
 
 //***************************************************************************
@@ -153,8 +153,8 @@ void Kwave::MenuRoot::removeChild(Kwave::MenuNode *child)
     if (!group_list.contains(child->name())) {
         // only remove what has been added to the menu bar,
         // but not menu groups
-	QAction *action = child->action();
-	if (action) m_menu_bar.removeAction(action);
+        QAction *action = child->action();
+        if (action) m_menu_bar.removeAction(action);
     }
     Kwave::MenuNode::removeChild(child);
 }
@@ -166,8 +166,8 @@ bool Kwave::MenuRoot::specialCommand(const QString &command)
     if (!command.length()) return false;
 
     if (command == _("#separator")) {
-	m_menu_bar.addSeparator();
-	return true;
+        m_menu_bar.addSeparator();
+        return true;
     }
 
     return Kwave::MenuNode::specialCommand(command);

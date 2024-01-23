@@ -32,25 +32,25 @@ namespace Kwave
 {
     class AmplifyFreeDialog: public QDialog, public Ui::AmplifyFreeDlg
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit AmplifyFreeDialog(QWidget *parent);
+        /** Constructor */
+        explicit AmplifyFreeDialog(QWidget *parent);
 
-	/** Destructor */
-	virtual ~AmplifyFreeDialog();
+        /** Destructor */
+        virtual ~AmplifyFreeDialog();
 
-	/** Returns a command string for the curve */
-	QString getCommand();
+        /** Returns a command string for the curve */
+        QString getCommand();
 
-	/** Sets the curve parameters and points from a list of parameters */
-	void setParams(QStringList &params);
+        /** Sets the curve parameters and points from a list of parameters */
+        void setParams(QStringList &params);
 
     private slots:
 
-	/** invoke the online help */
-	void invokeHelp();
+        /** invoke the online help */
+        void invokeHelp();
 
     };
 }

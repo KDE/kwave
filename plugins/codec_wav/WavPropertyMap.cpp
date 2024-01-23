@@ -77,11 +77,11 @@ void Kwave::WavPropertyMap::insert(const Kwave::FileProperty property,
 
 //***************************************************************************
 QByteArray Kwave::WavPropertyMap::findProperty(
-	const Kwave::FileProperty property) const
+        const Kwave::FileProperty property) const
 {
     foreach(const Pair &p, QList<Pair>(*this)) {
-	if (p.first == property)
-	    return p.second;
+        if (p.first == property)
+            return p.second;
     }
     return "";
 }
@@ -91,8 +91,8 @@ bool Kwave::WavPropertyMap::containsProperty(
     const Kwave::FileProperty property) const
 {
     foreach(const Pair &p, QList<Pair>(*this)) {
-	if (p.first == property)
-	    return true;
+        if (p.first == property)
+            return true;
     }
     return false;
 }
@@ -101,8 +101,8 @@ bool Kwave::WavPropertyMap::containsProperty(
 bool Kwave::WavPropertyMap::containsChunk(const QByteArray &chunk) const
 {
     foreach(const Pair &p, QList<Pair>(*this)) {
-	if (p.second == chunk)
-	    return true;
+        if (p.second == chunk)
+            return true;
     }
     return false;
 }
@@ -112,8 +112,8 @@ QList<QByteArray> Kwave::WavPropertyMap::chunks() const
 {
     QList<QByteArray> list;
     foreach(const Pair &p, QList<Pair>(*this)) {
-	if (!list.contains(p.second))
-	    list.append(p.second);
+        if (!list.contains(p.second))
+            list.append(p.second);
     }
     return list;
 }
@@ -123,7 +123,7 @@ Kwave::FileProperty Kwave::WavPropertyMap::property(
     const QByteArray &chunk) const
 {
     foreach(const Pair &p, QList<Pair>(*this)) {
-	if (p.second == chunk) return p.first;
+        if (p.second == chunk) return p.first;
     }
     return static_cast<Kwave::FileProperty>(-1);
 }
@@ -133,8 +133,8 @@ QList<Kwave::FileProperty> Kwave::WavPropertyMap::properties() const
 {
     QList<Kwave::FileProperty> list;
     foreach(const Pair &p, QList<Pair>(*this)) {
-	if (!list.contains(p.first))
-	    list.append(p.first);
+        if (!list.contains(p.first))
+            list.append(p.first);
     }
     return list;
 }

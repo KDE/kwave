@@ -79,13 +79,13 @@ QList<Kwave::FileProperty> Kwave::FlacEncoder::supportedProperties()
     if (!m_dst) return FLAC__STREAM_ENCODER_WRITE_STATUS_FATAL_ERROR;
 
     qint64 written = m_dst->write(
-	reinterpret_cast<const char *>(&(buffer[0])),
-	static_cast<qint64>(bytes)
+        reinterpret_cast<const char *>(&(buffer[0])),
+        static_cast<qint64>(bytes)
     );
 
     return (written == static_cast<qint64>(bytes)) ?
-	FLAC__STREAM_ENCODER_WRITE_STATUS_OK :
-	FLAC__STREAM_ENCODER_WRITE_STATUS_FATAL_ERROR;
+        FLAC__STREAM_ENCODER_WRITE_STATUS_OK :
+        FLAC__STREAM_ENCODER_WRITE_STATUS_FATAL_ERROR;
 }
 
 /***************************************************************************/
@@ -131,7 +131,7 @@ void Kwave::FlacEncoder::VorbisCommentContainer::add(const QString &tag,
     // insert the comment into the list
     unsigned int count = m_vc->data.vorbis_comment.num_comments;
     bool ok =  FLAC__metadata_object_vorbiscomment_insert_comment(
-	m_vc, count, entry, true);
+        m_vc, count, entry, true);
 
     Q_ASSERT(ok);
     Q_UNUSED(ok)
@@ -154,10 +154,10 @@ void Kwave::FlacEncoder::encodeMetaData(const Kwave::FileInfo &info,
          it != m_vorbis_comment_map.constEnd();
          ++it)
     {
-	if (!info.contains(it.value())) continue; // not present -> skip
+        if (!info.contains(it.value())) continue; // not present -> skip
 
-	QString value = info.get(it.value()).toString();
-	vc.add(it.key(), value);
+        QString value = info.get(it.value()).toString();
+        vc.add(it.key(), value);
     }
     flac_metadata.append(vc.data());
 
@@ -200,23 +200,23 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
     // convert container to a list of pointers
     unsigned int meta_count = flac_metadata.size();
     if (meta_count) {
-	// WARNING: this only stores the pointer, it does not copy!
-	if (!set_metadata(flac_metadata.data(), meta_count)) {
-	    qWarning("FlacEncoder: setting meta data failed !?");
-	}
+        // WARNING: this only stores the pointer, it does not copy!
+        if (!set_metadata(flac_metadata.data(), meta_count)) {
+            qWarning("FlacEncoder: setting meta data failed !?");
+        }
     }
 
     QVector<FLAC__int32 *> flac_buffer;
     do {
-	// open the output device
-	if (!dst.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
-	    Kwave::MessageBox::error(widget,
-		i18n("Unable to open the file for saving."));
-	    result = false;
-	    break;
-	}
+        // open the output device
+        if (!dst.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+            Kwave::MessageBox::error(widget,
+                i18n("Unable to open the file for saving."));
+            result = false;
+            break;
+        }
 
-	// initialize the FLAC stream, this already writes some meta info
+        // initialize the FLAC stream, this already writes some meta info
         FLAC__StreamEncoderInitStatus init_state = init();
         if (init_state != FLAC__STREAM_ENCODER_INIT_STATUS_OK) {
             qWarning("state = %d", static_cast<int>(init_state));
@@ -226,90 +226,90 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
             break;
         }
 
-	// allocate output buffers, with FLAC 32 bit format
-	unsigned int len = src.blockSize(); // samples
-	for (int track=0; track < tracks; track++)
-	{
-	    FLAC__int32 *buffer =
-		static_cast<FLAC__int32 *>(malloc(sizeof(FLAC__int32) * len));
-	    Q_ASSERT(buffer);
-	    if (!buffer) break;
-	    flac_buffer.append(buffer);
-	}
+        // allocate output buffers, with FLAC 32 bit format
+        unsigned int len = src.blockSize(); // samples
+        for (int track=0; track < tracks; track++)
+        {
+            FLAC__int32 *buffer =
+                static_cast<FLAC__int32 *>(malloc(sizeof(FLAC__int32) * len));
+            Q_ASSERT(buffer);
+            if (!buffer) break;
+            flac_buffer.append(buffer);
+        }
 
-	// allocate input buffer, with Kwave's sample_t
-	Kwave::SampleArray in_buffer(len);
-	Q_ASSERT(in_buffer.size() == len);
-	Q_ASSERT(flac_buffer.size() == tracks);
+        // allocate input buffer, with Kwave's sample_t
+        Kwave::SampleArray in_buffer(len);
+        Q_ASSERT(in_buffer.size() == len);
+        Q_ASSERT(flac_buffer.size() == tracks);
 
-	if ((in_buffer.size() < len) || (flac_buffer.size() < tracks))
-	{
-	    Kwave::MessageBox::error(widget, i18n("Out of memory"));
-	    result = false;
-	    break;
-	}
+        if ((in_buffer.size() < len) || (flac_buffer.size() < tracks))
+        {
+            Kwave::MessageBox::error(widget, i18n("Out of memory"));
+            result = false;
+            break;
+        }
 
-	// calculate divisor for reaching the proper resolution
-	int shift = SAMPLE_BITS - bits;
-	if (shift < 0) shift = 0;
-	FLAC__int32 div = (1 << shift);
-	if (div == 1) div = 0;
-	const FLAC__int32 clip_min = -(1 << bits);
-	const FLAC__int32 clip_max =  (1 << bits) - 1;
+        // calculate divisor for reaching the proper resolution
+        int shift = SAMPLE_BITS - bits;
+        if (shift < 0) shift = 0;
+        FLAC__int32 div = (1 << shift);
+        if (div == 1) div = 0;
+        const FLAC__int32 clip_min = -(1 << bits);
+        const FLAC__int32 clip_max =  (1 << bits) - 1;
 
-	sample_index_t rest = length;
-	while (rest && len && !src.isCanceled() && result) {
-	    // limit to rest of signal
-	    if (len > rest) len = Kwave::toUint(rest);
-	    if (!in_buffer.resize(len)) {
-		Kwave::MessageBox::error(widget, i18n("Out of memory"));
-		result = false;
-		break;
-	    }
+        sample_index_t rest = length;
+        while (rest && len && !src.isCanceled() && result) {
+            // limit to rest of signal
+            if (len > rest) len = Kwave::toUint(rest);
+            if (!in_buffer.resize(len)) {
+                Kwave::MessageBox::error(widget, i18n("Out of memory"));
+                result = false;
+                break;
+            }
 
-	    // add all samples to one single buffer
-	    for (int track = 0; track < tracks; track++) {
-		Kwave::SampleReader *reader = src[track];
-		Q_ASSERT(reader);
-		if (!reader) break;
+            // add all samples to one single buffer
+            for (int track = 0; track < tracks; track++) {
+                Kwave::SampleReader *reader = src[track];
+                Q_ASSERT(reader);
+                if (!reader) break;
 
-		(*reader) >> in_buffer;           // read samples into in_buffer
-		unsigned int l = in_buffer.size();// in_buffer might be empty!
-		if (l < len) {
-		    if (!in_buffer.resize(len)) {
-			Kwave::MessageBox::error(widget, i18n("Out of memory"));
-			result = false;
-			break;
-		    }
-		    while (l < len) in_buffer[l++] = 0;
-		}
+                (*reader) >> in_buffer;           // read samples into in_buffer
+                unsigned int l = in_buffer.size();// in_buffer might be empty!
+                if (l < len) {
+                    if (!in_buffer.resize(len)) {
+                        Kwave::MessageBox::error(widget, i18n("Out of memory"));
+                        result = false;
+                        break;
+                    }
+                    while (l < len) in_buffer[l++] = 0;
+                }
 
-		FLAC__int32 *buf = flac_buffer.at(track);
-		Q_ASSERT(buf);
-		if (!buf) break;
+                FLAC__int32 *buf = flac_buffer.at(track);
+                Q_ASSERT(buf);
+                if (!buf) break;
 
-		const Kwave::SampleArray &in = in_buffer;
-		for (unsigned int in_pos = 0; in_pos < len; in_pos++) {
-		    FLAC__int32 s = in[in_pos];
-		    if (div) s /= div;
-		    if (s > clip_max) s = clip_max;
-		    if (s < clip_min) s = clip_min;
-		    *buf = s;
-		    buf++;
-		}
-	    }
-	    if (!result) break; // error occurred?
+                const Kwave::SampleArray &in = in_buffer;
+                for (unsigned int in_pos = 0; in_pos < len; in_pos++) {
+                    FLAC__int32 s = in[in_pos];
+                    if (div) s /= div;
+                    if (s > clip_max) s = clip_max;
+                    if (s < clip_min) s = clip_min;
+                    *buf = s;
+                    buf++;
+                }
+            }
+            if (!result) break; // error occurred?
 
-	    // process all collected samples
-	    FLAC__int32 **buffer = flac_buffer.data();
-	    bool processed = process(buffer, static_cast<unsigned>(len));
-	    if (!processed) {
-		result = false;
-		break;
-	    }
+            // process all collected samples
+            FLAC__int32 **buffer = flac_buffer.data();
+            bool processed = process(buffer, static_cast<unsigned>(len));
+            if (!processed) {
+                result = false;
+                break;
+            }
 
-	    rest -= len;
-	}
+            rest -= len;
+        }
 
     } while (false);
 
@@ -318,18 +318,18 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
 
     // clean up all FLAC metadata
     while (!flac_metadata.isEmpty()) {
-	FLAC__StreamMetadata *m = flac_metadata[0];
-	if (m) FLAC__metadata_object_delete(m);
-	flac_metadata.remove(0);
+        FLAC__StreamMetadata *m = flac_metadata[0];
+        if (m) FLAC__metadata_object_delete(m);
+        flac_metadata.remove(0);
     }
 
     m_dst = Q_NULLPTR;
     dst.close();
 
     while (!flac_buffer.isEmpty()) {
-	FLAC__int32 *buf = flac_buffer.first();
-	if (buf) free(buf);
-	flac_buffer.remove(0);
+        FLAC__int32 *buf = flac_buffer.first();
+        if (buf) free(buf);
+        flac_buffer.remove(0);
     }
 
     return result;

@@ -30,15 +30,15 @@
 int Kwave::opus_next_sample_rate(int rate)
 {
     if (rate < 8000)
-	return 8000;
+        return 8000;
     else if (rate <= 12000)
-	return 12000;
+        return 12000;
     else if (rate <= 16000)
-	return 16000;
+        return 16000;
     else if (rate <= 24000)
-	return 24000;
+        return 24000;
     else
-	return 48000;
+        return 48000;
 }
 
 //***************************************************************************
@@ -48,34 +48,34 @@ QString Kwave::opus_error(int err)
 
     switch (err)
     {
-	case OPUS_OK:
-	    msg = QString();
-	    break;
-	case OPUS_BAD_ARG:
-	    msg = i18n("One or more invalid/out of range arguments.");
-	    break;
-	case OPUS_BUFFER_TOO_SMALL:
-	    msg = i18n("The mode struct passed is invalid.");
-	    break;
-	case OPUS_INTERNAL_ERROR:
-	    msg = i18n("An internal error was detected.");
-	    break;
-	case OPUS_INVALID_PACKET:
-	    msg = i18n("The compressed data passed is corrupted.");
-	    break;
-	case OPUS_UNIMPLEMENTED:
-	    msg = i18n("Invalid/unsupported request number.");
-	    break;
-	case OPUS_INVALID_STATE:
-	    msg = i18n("A decoder structure is invalid or already freed.");
-	    break;
-	case OPUS_ALLOC_FAIL:
-	    msg = i18n("Out of memory");
-	    break;
-	default:
-	    msg = i18n("Decoder error: %1",
-	               QString::fromLocal8Bit(opus_strerror(err)));
-	    break;
+        case OPUS_OK:
+            msg = QString();
+            break;
+        case OPUS_BAD_ARG:
+            msg = i18n("One or more invalid/out of range arguments.");
+            break;
+        case OPUS_BUFFER_TOO_SMALL:
+            msg = i18n("The mode struct passed is invalid.");
+            break;
+        case OPUS_INTERNAL_ERROR:
+            msg = i18n("An internal error was detected.");
+            break;
+        case OPUS_INVALID_PACKET:
+            msg = i18n("The compressed data passed is corrupted.");
+            break;
+        case OPUS_UNIMPLEMENTED:
+            msg = i18n("Invalid/unsupported request number.");
+            break;
+        case OPUS_INVALID_STATE:
+            msg = i18n("A decoder structure is invalid or already freed.");
+            break;
+        case OPUS_ALLOC_FAIL:
+            msg = i18n("Out of memory");
+            break;
+        default:
+            msg = i18n("Decoder error: %1",
+                       QString::fromLocal8Bit(opus_strerror(err)));
+            break;
     }
     return msg;
 }

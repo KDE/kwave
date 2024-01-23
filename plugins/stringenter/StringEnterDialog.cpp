@@ -47,11 +47,11 @@ Kwave::StringEnterDialog::StringEnterDialog(QWidget *parent,
     bool         ok     = false;
     int          w      = result.toUInt(&ok);
     if (ok && (w > sizeHint().width()))
-	resize(w, height());
+        resize(w, height());
 
     if (preset.length()) {
-	edCommand->setText(preset);
-	m_command = preset;
+        edCommand->setText(preset);
+        m_command = preset;
     }
 }
 
@@ -74,9 +74,9 @@ void Kwave::StringEnterDialog::accept()
 {
     m_command = edCommand->text().trimmed();
     if (m_command.length())
-	QDialog::accept();
+        QDialog::accept();
     else
-	QDialog::close();
+        QDialog::close();
 }
 
 //***************************************************************************

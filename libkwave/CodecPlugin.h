@@ -34,49 +34,49 @@ namespace Kwave
     {
     public:
 
-	/** container for codecs */
-	typedef struct {
-	    int                     m_use_count; /**< use count        */
-	    QList<Kwave::Encoder *> m_encoder;   /**< list of encoders */
-	    QList<Kwave::Decoder *> m_decoder;   /**< list of decoders */
-	} Codec;
+        /** container for codecs */
+        typedef struct {
+            int                     m_use_count; /**< use count        */
+            QList<Kwave::Encoder *> m_encoder;   /**< list of encoders */
+            QList<Kwave::Decoder *> m_decoder;   /**< list of decoders */
+        } Codec;
 
-	/**
-	 * Constructor
-	 * @param parent pointer to the corresponding plugin manager
-	 * @param args argument list, containts internal meta data
-	 * @param codec reference to a static container for the codec
-	 */
-	CodecPlugin(QObject *parent, const QVariantList &args, Codec &codec);
+        /**
+         * Constructor
+         * @param parent pointer to the corresponding plugin manager
+         * @param args argument list, containts internal meta data
+         * @param codec reference to a static container for the codec
+         */
+        CodecPlugin(QObject *parent, const QVariantList &args, Codec &codec);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~CodecPlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * Gets called when the plugin is first loaded. Registers new encoder
-	 * and decoder on first call, all subsequenct calls only increment
-	 * the reference count of the existing encoder/decoder instances.
-	 */
+        /**
+         * Gets called when the plugin is first loaded. Registers new encoder
+         * and decoder on first call, all subsequenct calls only increment
+         * the reference count of the existing encoder/decoder instances.
+         */
         virtual void load(QStringList &/* params */) Q_DECL_OVERRIDE;
 
-	/**
-	 * Gets called before the plugin is unloaded. Decrements the use count
-	 * of existing encoder/decoder instances and removes them if zero
-	 * gets reached.
-	 */
+        /**
+         * Gets called before the plugin is unloaded. Decrements the use count
+         * of existing encoder/decoder instances and removes them if zero
+         * gets reached.
+         */
         virtual void unload() Q_DECL_OVERRIDE;
 
-	/**
+        /**
          * Create a new set of decoders
          * @return list of decoders, may be  empty
          */
-	virtual QList<Kwave::Decoder *> createDecoder() = 0;
+        virtual QList<Kwave::Decoder *> createDecoder() = 0;
 
-	/**
+        /**
          * Create a new set of encoders
          * @return list of encoders, may be  empty
          */
-	virtual QList<Kwave::Encoder *> createEncoder() = 0;
+        virtual QList<Kwave::Encoder *> createEncoder() = 0;
 
     protected:
 
@@ -104,8 +104,8 @@ namespace Kwave
 
     private:
 
-	/** reference to the static container with encoder/decoder/usecount */
-	Codec &m_codec;
+        /** reference to the static container with encoder/decoder/usecount */
+        Codec &m_codec;
     };
 }
 

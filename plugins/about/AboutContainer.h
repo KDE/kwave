@@ -49,18 +49,18 @@ namespace Kwave
 
         virtual ~AboutContainer() Q_DECL_OVERRIDE;
 
-	void addPerson(const QString &name, const QString &email,
-	               const QString &url,  const QString &task);
+        void addPerson(const QString &name, const QString &email,
+                       const QString &url,  const QString &task);
 
-	virtual QSize sizeHint() const Q_DECL_OVERRIDE;
+        virtual QSize sizeHint() const Q_DECL_OVERRIDE;
 
         virtual QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 
-	void addWidget(QWidget *widget);
+        void addWidget(QWidget *widget);
 
     private:
 
-	QVBoxLayout *m_vbox;
+        QVBoxLayout *m_vbox;
     };
 
     /**
@@ -73,24 +73,24 @@ namespace Kwave
     Q_OBJECT
 
     public:
-	AboutContributor(QWidget *parent,
-	                 const QString &username,
-	                 const QString &email,
-	                 const QString &url,
-	                 const QString &work);
+        AboutContributor(QWidget *parent,
+                         const QString &username,
+                         const QString &email,
+                         const QString &url,
+                         const QString &work);
 
         virtual ~AboutContributor() Q_DECL_OVERRIDE;
 
-	QSize sizeHint() const Q_DECL_OVERRIDE;
+        QSize sizeHint() const Q_DECL_OVERRIDE;
 
     protected:
-	virtual void fontChange( const QFont &oldFont );
+        virtual void fontChange( const QFont &oldFont );
 
-	virtual void updateLayout();
+        virtual void updateLayout();
 
     private:
 
-	QLabel *m_text[4];
+        QLabel *m_text[4];
 
     };
 }

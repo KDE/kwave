@@ -35,7 +35,7 @@ Kwave::SampleArray::SampleArray(unsigned int size)
     m_storage = new(std::nothrow) SampleStorage;
     bool ok = resize(size);
     if (!ok)
-	qWarning("Kwave::SampleArray::SampleArray(%u) - FAILED, OOM?", size);
+        qWarning("Kwave::SampleArray::SampleArray(%u) - FAILED, OOM?", size);
 }
 
 //***************************************************************************
@@ -51,8 +51,8 @@ void Kwave::SampleArray::fill(sample_t value)
     Q_ASSERT(p);
     if (!p) return;
     for (unsigned int count = m_storage->m_size; Q_LIKELY(count); count--) {
-	*p = value;
-	p++;
+        *p = value;
+        p++;
     }
 }
 
@@ -88,9 +88,9 @@ bool Kwave::SampleArray::resize(unsigned int size)
 
     m_storage->resize(size);
     if (size && (m_storage->m_size > size)) {
-	qWarning("Kwave::SampleArray::resize(): shrinking from %u to %u "
-	         "failed, keeping old memory", m_storage->m_size, size);
-	return true;
+        qWarning("Kwave::SampleArray::resize(): shrinking from %u to %u "
+                 "failed, keeping old memory", m_storage->m_size, size);
+        return true;
     }
     return (m_storage->m_size == size);
 }
@@ -117,13 +117,13 @@ Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
     m_data     = Q_NULLPTR;
 
     if (other.m_size) {
-	m_data = static_cast<sample_t *>(
-	    ::malloc(other.m_size * sizeof(sample_t))
-	);
-	if (m_data) {
-	    m_size = other.m_size;
-	    MEMCPY(m_data, other.m_data, m_size * sizeof(sample_t));
-	}
+        m_data = static_cast<sample_t *>(
+            ::malloc(other.m_size * sizeof(sample_t))
+        );
+        if (m_data) {
+            m_size = other.m_size;
+            MEMCPY(m_data, other.m_data, m_size * sizeof(sample_t));
+        }
     }
 }
 
@@ -137,30 +137,30 @@ Kwave::SampleArray::SampleStorage::~SampleStorage()
 void Kwave::SampleArray::SampleStorage::resize(unsigned int size)
 {
     if (size) {
-	// resize using realloc, keep existing data
-	sample_t *new_data = static_cast<sample_t *>(
-	    ::realloc(m_data, size * sizeof(sample_t)));
-	if (new_data) {
-	    // successful
-	    m_data = new_data;
-	    if (size > m_size) {
-		// initialize the new data
-		unsigned int count = size - m_size;
-		sample_t *p = m_data + m_size;
-		while (count--)
-		    *(p++) = 0;
-	    }
-	    m_size = size;
-	} else {
-	    qWarning("Kwave::SampleArray::SampleStorage::resize(%u): OOM! "
-	             "- keeping old size %u", size, m_size);
-	}
+        // resize using realloc, keep existing data
+        sample_t *new_data = static_cast<sample_t *>(
+            ::realloc(m_data, size * sizeof(sample_t)));
+        if (new_data) {
+            // successful
+            m_data = new_data;
+            if (size > m_size) {
+                // initialize the new data
+                unsigned int count = size - m_size;
+                sample_t *p = m_data + m_size;
+                while (count--)
+                    *(p++) = 0;
+            }
+            m_size = size;
+        } else {
+            qWarning("Kwave::SampleArray::SampleStorage::resize(%u): OOM! "
+                     "- keeping old size %u", size, m_size);
+        }
     } else {
-	// resize to zero == delete/free memory
-	Q_ASSERT(m_data);
-	::free(m_data);
+        // resize to zero == delete/free memory
+        Q_ASSERT(m_data);
+        ::free(m_data);
         m_data = Q_NULLPTR;
-	m_size = 0;
+        m_size = 0;
     }
 }
 

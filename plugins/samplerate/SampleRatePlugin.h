@@ -35,45 +35,45 @@ namespace Kwave
      */
     class SampleRatePlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	SampleRatePlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        SampleRatePlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~SampleRatePlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * changes the sample rate
-	 * @param params list of strings with parameters
-	 */
+        /**
+         * changes the sample rate
+         * @param params list of strings with parameters
+         */
         virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     protected:
 
-	/**
-	 * reads values from the parameter list
-	 * @param params list of strings with parameters
-	 * @return 0 if succeeded or negative error code if failed
-	 */
-	int interpreteParameters(QStringList &params);
+        /**
+         * reads values from the parameter list
+         * @param params list of strings with parameters
+         * @return 0 if succeeded or negative error code if failed
+         */
+        int interpreteParameters(QStringList &params);
 
     private:
 
-	/** list of parameters */
-	QStringList m_params;
+        /** list of parameters */
+        QStringList m_params;
 
-	/** new sample rate */
-	double m_new_rate;
+        /** new sample rate */
+        double m_new_rate;
 
-	/** if true, ignore selection and change whole signal */
-	bool m_whole_signal;
+        /** if true, ignore selection and change whole signal */
+        bool m_whole_signal;
 
     };
 }

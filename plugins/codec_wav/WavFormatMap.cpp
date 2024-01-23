@@ -1,6 +1,6 @@
 /***************************************************************************
        WavFormatMap.cpp  -  list of known wav file formats
-			     -------------------
+                             -------------------
     begin                : Apr 28 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -82,7 +82,7 @@ Kwave::WavFormatMap::WavFormatMap()
 const QString &Kwave::WavFormatMap::findName(unsigned int id)
 {
     if (!contains(static_cast<Kwave::wav_format_id>(id)))
-	return (*this)[WAVE_FORMAT_UNKNOWN];
+        return (*this)[WAVE_FORMAT_UNKNOWN];
     return (*this)[static_cast<Kwave::wav_format_id>(id)];
 }
 

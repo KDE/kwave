@@ -30,25 +30,25 @@ namespace Kwave
     {
     public:
 
-	/** virtual destructor, really needed for proper shutdown */
-	virtual ~PluginSetupDialog() {}
+        /** virtual destructor, really needed for proper shutdown */
+        virtual ~PluginSetupDialog() {}
 
-	/**
-	 * Sets the parameters, from a string list representation
-	 */
-	virtual void setParams(QStringList &params) = 0;
+        /**
+         * Sets the parameters, from a string list representation
+         */
+        virtual void setParams(QStringList &params) = 0;
 
-	/**
-	 * Returns the current parameters as string list
-	 */
-	virtual QStringList params() = 0;
+        /**
+         * Returns the current parameters as string list
+         */
+        virtual QStringList params() = 0;
 
-	/**
-	 * Needed due to problems with inheritance.
-	 * @return a pointer to the derived dialog, as a QDialog
-	 * @see PitchShiftDialog::dialog()
-	 */
-	virtual QDialog *dialog() = 0;
+        /**
+         * Needed due to problems with inheritance.
+         * @return a pointer to the derived dialog, as a QDialog
+         * @see PitchShiftDialog::dialog()
+         */
+        virtual QDialog *dialog() = 0;
     };
 }
 

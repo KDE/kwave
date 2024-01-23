@@ -37,99 +37,99 @@ namespace Kwave
     {
     public:
 
-	/** Default constructor, creates an empty array */
-	SampleArray();
+        /** Default constructor, creates an empty array */
+        SampleArray();
 
-	/**
-	 * Constructor, creates an array with predefined size
-	 * (not initialized)
-	 * @param size number of samples to hold
-	 */
-	explicit SampleArray(unsigned int size);
+        /**
+         * Constructor, creates an array with predefined size
+         * (not initialized)
+         * @param size number of samples to hold
+         */
+        explicit SampleArray(unsigned int size);
 
-	/** Destructor */
-	virtual ~SampleArray();
+        /** Destructor */
+        virtual ~SampleArray();
 
-	/** returns a const pointer to the raw data (non-mutable) */
-	inline const sample_t * constData() const
-	{
+        /** returns a const pointer to the raw data (non-mutable) */
+        inline const sample_t * constData() const
+        {
             if (Q_UNLIKELY(!m_storage)) return Q_NULLPTR;
-	    return m_storage->m_data;
-	}
+            return m_storage->m_data;
+        }
 
-	/** returns a pointer to the raw data (mutable) */
-	inline sample_t *data() /* __attribute__((deprecated)) <- for debug */
-	{
+        /** returns a pointer to the raw data (mutable) */
+        inline sample_t *data() /* __attribute__((deprecated)) <- for debug */
+        {
             if (Q_UNLIKELY(!m_storage)) return Q_NULLPTR;
-	    return m_storage->m_data;
-	}
+            return m_storage->m_data;
+        }
 
-	/** fills the array with a sample value */
-	void fill(sample_t value);
+        /** fills the array with a sample value */
+        void fill(sample_t value);
 
-	/**
-	 * operator [], non-const.
-	 * @param index sample index [0...count()-1]
-	 * @return reference to the requested sample (read/write)
-	 */
-	sample_t & operator [] (unsigned int index);
+        /**
+         * operator [], non-const.
+         * @param index sample index [0...count()-1]
+         * @return reference to the requested sample (read/write)
+         */
+        sample_t & operator [] (unsigned int index);
 
-	/**
-	 * operator [], non-const.
-	 * @param index sample index [0...count()-1]
-	 * @return reference to the requested sample (read only)
-	 */
-	const sample_t & operator [] (unsigned int index) const;
+        /**
+         * operator [], non-const.
+         * @param index sample index [0...count()-1]
+         * @return reference to the requested sample (read only)
+         */
+        const sample_t & operator [] (unsigned int index) const;
 
-	/**
-	 * Resizes the array
-	 * @param size new number of samples
-	 * @return true if succeeded, false if failed
-	 */
-	bool resize(unsigned int size);
+        /**
+         * Resizes the array
+         * @param size new number of samples
+         * @return true if succeeded, false if failed
+         */
+        bool resize(unsigned int size);
 
-	/**
-	 * Returns the number of samples.
-	 * @return samples [0...N]
-	 */
-	unsigned int size() const;
+        /**
+         * Returns the number of samples.
+         * @return samples [0...N]
+         */
+        unsigned int size() const;
 
-	/**
-	 * Returns whether the array is empty.
-	 * The same as (size() == 0).
-	 * @return true if empty, false if not
-	 */
-	inline bool isEmpty() const { return (size() == 0); }
+        /**
+         * Returns whether the array is empty.
+         * The same as (size() == 0).
+         * @return true if empty, false if not
+         */
+        inline bool isEmpty() const { return (size() == 0); }
 
     private:
 
-	class SampleStorage: public QSharedData {
-	public:
+        class SampleStorage: public QSharedData {
+        public:
 
-	    /** default constructor */
-	    SampleStorage();
+            /** default constructor */
+            SampleStorage();
 
-	    /** copy constructor */
-	    SampleStorage(const SampleStorage &other);
+            /** copy constructor */
+            SampleStorage(const SampleStorage &other);
 
-	    /** destructor */
-	    virtual ~SampleStorage();
+            /** destructor */
+            virtual ~SampleStorage();
 
-	    /**
-	     * Resizes the array
-	     * @param size new number of samples
-	     */
-	    void resize(unsigned int size);
+            /**
+             * Resizes the array
+             * @param size new number of samples
+             */
+            void resize(unsigned int size);
 
-	public:
-	    /** size in samples */
-	    unsigned int m_size;
+        public:
+            /** size in samples */
+            unsigned int m_size;
 
-	    /** pointer to the area with the samples (allocated) */
-	    sample_t *m_data;
-	};
+            /** pointer to the area with the samples (allocated) */
+            sample_t *m_data;
+        };
 
-	QSharedDataPointer<SampleStorage> m_storage;
+        QSharedDataPointer<SampleStorage> m_storage;
     };
 }
 

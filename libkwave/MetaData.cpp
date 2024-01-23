@@ -92,10 +92,10 @@ void Kwave::MetaData::setScope(Kwave::MetaData::Scope scope)
 void Kwave::MetaData::setProperty(const QString &p, const QVariant &value)
 {
     if (m_data) {
-	if (value.isValid())
-	    m_data->m_properties[p] = value;
-	else
-	    m_data->m_properties.remove(p);
+        if (value.isValid())
+            m_data->m_properties[p] = value;
+        else
+            m_data->m_properties.remove(p);
     }
 }
 
@@ -109,20 +109,20 @@ bool Kwave::MetaData::hasProperty(const QString &property) const
 QVariant Kwave::MetaData::property(const QString &p) const
 {
     if (m_data && m_data->m_properties.contains(p))
-	return m_data->m_properties[p];
+        return m_data->m_properties[p];
     else
-	return QVariant();
+        return QVariant();
 }
 
 //***************************************************************************
 QVariant &Kwave::MetaData::property(const QString &p)
 {
     if (m_data && m_data->m_properties.contains(p))
-	return m_data->m_properties[p];
+        return m_data->m_properties[p];
     else {
-	static QVariant dummy;
-	dummy.clear();
-	return dummy;
+        static QVariant dummy;
+        dummy.clear();
+        return dummy;
     }
 }
 
@@ -130,16 +130,16 @@ QVariant &Kwave::MetaData::property(const QString &p)
 bool Kwave::MetaData::operator == (const Kwave::MetaData &other) const
 {
     if (!m_data && !other.m_data)
-	return true; // both are null objects
+        return true; // both are null objects
 
     if ((!m_data) ^ (!other.m_data))
-	return false; // only one is a null object
+        return false; // only one is a null object
 
     if (m_data->m_scope != other.m_data->m_scope)
-	return false; // different scope
+        return false; // different scope
 
     if (m_data->m_properties != other.m_data->m_properties)
-	return false; // properties differ
+        return false; // properties differ
 
     return true; // no mismatch found
 }
@@ -163,11 +163,11 @@ sample_index_t Kwave::MetaData::firstSample() const
 {
     // single position?
     if ((scope() & Kwave::MetaData::Position) &&
-	hasProperty(Kwave::MetaData::STDPROP_POS)) {
-	bool ok = false;
-	sample_index_t pos =
-	    property(Kwave::MetaData::STDPROP_POS).toULongLong(&ok);
-	if (ok) return pos;
+        hasProperty(Kwave::MetaData::STDPROP_POS)) {
+        bool ok = false;
+        sample_index_t pos =
+            property(Kwave::MetaData::STDPROP_POS).toULongLong(&ok);
+        if (ok) return pos;
     }
 
     // fallback: start at zero
@@ -179,11 +179,11 @@ sample_index_t Kwave::MetaData::lastSample() const
 {
     // single position?
     if ((scope() & Kwave::MetaData::Position) &&
-	hasProperty(Kwave::MetaData::STDPROP_POS)) {
-	bool ok = false;
-	sample_index_t pos =
-	    property(Kwave::MetaData::STDPROP_POS).toULongLong(&ok);
-	if (ok) return pos;
+        hasProperty(Kwave::MetaData::STDPROP_POS)) {
+        bool ok = false;
+        sample_index_t pos =
+            property(Kwave::MetaData::STDPROP_POS).toULongLong(&ok);
+        if (ok) return pos;
     }
 
     // fallback: infinite
@@ -202,17 +202,17 @@ void Kwave::MetaData::dump() const
     qDebug("    scope =%s", DBG(scope_list));
     const QStringList props = keys();
     foreach (const QString &p, props) {
-	QVariant prop = property(p);
-	const QList<QVariant> v_vals = prop.toList();
-	QString value;
-	if (!v_vals.isEmpty()) {
-	    foreach (QVariant v, v_vals)
-		value += _("{") + v.toString() + _("'} ");
-	} else {
-	    value += _("'") + prop.toString() + _("'");
-	}
+        QVariant prop = property(p);
+        const QList<QVariant> v_vals = prop.toList();
+        QString value;
+        if (!v_vals.isEmpty()) {
+            foreach (QVariant v, v_vals)
+                value += _("{") + v.toString() + _("'} ");
+        } else {
+            value += _("'") + prop.toString() + _("'");
+        }
 
-	qDebug("    '%s' = %s", DBG(p), DBG(value));
+        qDebug("    '%s' = %s", DBG(p), DBG(value));
     }
 }
 

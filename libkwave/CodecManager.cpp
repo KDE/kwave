@@ -1,6 +1,6 @@
 /***************************************************************************
        CodecManager.cpp  -  manager for Kwave's coders and decoders
-			     -------------------
+                             -------------------
     begin                : Mar 10 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -78,7 +78,7 @@ void Kwave::CodecManager::unregisterDecoder(Kwave::Decoder *decoder)
 bool Kwave::CodecManager::canDecode(const QString &mimetype_name)
 {
     foreach (Kwave::Decoder *d, m_decoders)
-	if (d && d->supports(mimetype_name)) return true;
+        if (d && d->supports(mimetype_name)) return true;
     return false;
 }
 
@@ -88,12 +88,12 @@ QString Kwave::CodecManager::mimeTypeOf(const QUrl &url)
     const QString default_mime_type = QMimeType().name();
 
     foreach (Kwave::Decoder *d, m_decoders) {
-	if (!d) continue;
+        if (!d) continue;
         QString mime_type = d->mimeTypeOf(url);
         if (mime_type != default_mime_type) return mime_type;
     }
     foreach (Kwave::Encoder *e, m_encoders) {
-	if (!e) continue;
+        if (!e) continue;
         QString mime_type = e->mimeTypeOf(url);
         if (mime_type != default_mime_type) return mime_type;
     }
@@ -107,12 +107,12 @@ QStringList Kwave::CodecManager::encodingMimeTypes()
 {
     QStringList list;
     foreach (Kwave::Encoder *e, m_encoders) {
-	if (!e) continue;
-	foreach (const Kwave::CodecBase::MimeType &mime_type, e->mimeTypes()) {
-	    QString name = mime_type.name;
-	    if (list.isEmpty() || !list.contains(name))
-		list.append(name);
-	}
+        if (!e) continue;
+        foreach (const Kwave::CodecBase::MimeType &mime_type, e->mimeTypes()) {
+            QString name = mime_type.name;
+            if (list.isEmpty() || !list.contains(name))
+                list.append(name);
+        }
     }
     return list;
 }
@@ -121,7 +121,7 @@ QStringList Kwave::CodecManager::encodingMimeTypes()
 Kwave::Decoder *Kwave::CodecManager::decoder(const QString &mimetype_name)
 {
     foreach (Kwave::Decoder *d, m_decoders)
-	if (d && d->supports(mimetype_name)) return d->instance();
+        if (d && d->supports(mimetype_name)) return d->instance();
     return Q_NULLPTR;
 }
 
@@ -129,7 +129,7 @@ Kwave::Decoder *Kwave::CodecManager::decoder(const QString &mimetype_name)
 Kwave::Encoder *Kwave::CodecManager::encoder(const QString &mimetype_name)
 {
     foreach (Kwave::Encoder *e, m_encoders)
-	if (e && e->supports(mimetype_name)) return e->instance();
+        if (e && e->supports(mimetype_name)) return e->instance();
     return Q_NULLPTR;
 }
 
@@ -138,30 +138,30 @@ QString Kwave::CodecManager::encodingFilter()
 {
     QStringList list;
     foreach (Kwave::Encoder *e, m_encoders) {
-	// loop over all mime types that the encoder supports
-	QList<Kwave::CodecBase::MimeType> types = e->mimeTypes();
-	QListIterator<Kwave::CodecBase::MimeType> ti(types);
-	while (ti.hasNext()) {
-	    Kwave::CodecBase::MimeType type = ti.next();
-	    QString extensions = type.patterns.join(_(" "));
+        // loop over all mime types that the encoder supports
+        QList<Kwave::CodecBase::MimeType> types = e->mimeTypes();
+        QListIterator<Kwave::CodecBase::MimeType> ti(types);
+        while (ti.hasNext()) {
+            Kwave::CodecBase::MimeType type = ti.next();
+            QString extensions = type.patterns.join(_(" "));
 
-	    // skip if extensions are already known/present
-	    if (!list.isEmpty() && list.join(_("\n")).contains(extensions))
-		continue;
+            // skip if extensions are already known/present
+            if (!list.isEmpty() && list.join(_("\n")).contains(extensions))
+                continue;
 
-	    // otherwise append to the list
-	    QString entry = extensions;
-	    QString comment = type.description.replace(
-		QRegExp(_("/")), _(","));
-	    entry += _("|") + comment;
-	    list.append(entry + _(" (") + extensions + _(")"));
-	}
+            // otherwise append to the list
+            QString entry = extensions;
+            QString comment = type.description.replace(
+                QRegExp(_("/")), _(","));
+            entry += _("|") + comment;
+            list.append(entry + _(" (") + extensions + _(")"));
+        }
     }
     list.sort();
     QString str_list = list.join(_("\n"));
     Q_ASSERT(!str_list.contains(QLatin1Char('/')));
     if (str_list.contains(QLatin1Char('/'))) {
-	qWarning("CodecManager::encodingFilter() -> '%s'", DBG(str_list));
+        qWarning("CodecManager::encodingFilter() -> '%s'", DBG(str_list));
     }
 
     return str_list;
@@ -174,25 +174,25 @@ QString Kwave::CodecManager::decodingFilter()
     QStringList all_extensions;
 
     foreach (Kwave::Decoder *d, m_decoders) {
-	// loop over all mime types that the decoder supports
-	QList<Kwave::CodecBase::MimeType> types = d->mimeTypes();
-	QListIterator<Kwave::CodecBase::MimeType> ti(types);
-	while (ti.hasNext()) {
-	    Kwave::CodecBase::MimeType type = ti.next();
-	    QString extensions = type.patterns.join(_(" "));
+        // loop over all mime types that the decoder supports
+        QList<Kwave::CodecBase::MimeType> types = d->mimeTypes();
+        QListIterator<Kwave::CodecBase::MimeType> ti(types);
+        while (ti.hasNext()) {
+            Kwave::CodecBase::MimeType type = ti.next();
+            QString extensions = type.patterns.join(_(" "));
 
-	    // skip if extensions are already known/present
-	    if (!list.isEmpty() && list.join(_("\n")).contains(extensions))
-		continue;
+            // skip if extensions are already known/present
+            if (!list.isEmpty() && list.join(_("\n")).contains(extensions))
+                continue;
 
-	    // otherwise append to the list
-	    all_extensions += type.patterns;
-	    QString entry = extensions;
-	    QString comment =
-		type.description.replace(QRegExp(_("/")), _(","));
-	    entry += _("|") + comment;
-	    list.append(entry +	_(" (") + extensions + _(")"));
-	}
+            // otherwise append to the list
+            all_extensions += type.patterns;
+            QString entry = extensions;
+            QString comment =
+                type.description.replace(QRegExp(_("/")), _(","));
+            entry += _("|") + comment;
+            list.append(entry + _(" (") + extensions + _(")"));
+        }
     }
 
     // builtin type for macro files
@@ -208,7 +208,7 @@ QString Kwave::CodecManager::decodingFilter()
     QString str_list = list.join(_("\n"));
     Q_ASSERT(!str_list.contains(QLatin1Char('/')));
     if (str_list.contains(QLatin1Char('/'))) {
-	qWarning("CodecManager::decodingFilter() -> '%s'", DBG(str_list));
+        qWarning("CodecManager::decodingFilter() -> '%s'", DBG(str_list));
     }
 
     return str_list;

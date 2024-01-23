@@ -103,7 +103,7 @@ void Kwave::SampleBuffer::finished()
     bool ok = true;
 
     if (m_buffered && (m_data.size() != m_buffered))
-	ok &= m_data.resize(m_buffered);
+        ok &= m_data.resize(m_buffered);
 
     enqueue(m_data);
     m_buffered = 0;
@@ -116,11 +116,11 @@ void Kwave::SampleBuffer::input(Kwave::SampleArray data)
 {
     // if we have buffered data, flush that first
     if (m_buffered) {
-	bool ok = m_data.resize(m_buffered);
-	Q_ASSERT(ok);
-	Q_UNUSED(ok)
-	m_buffered = 0;
-	enqueue(m_data);
+        bool ok = m_data.resize(m_buffered);
+        Q_ASSERT(ok);
+        Q_UNUSED(ok)
+        m_buffered = 0;
+        enqueue(m_data);
     }
 
     // take over the input array directly

@@ -45,8 +45,8 @@ int Kwave::AboutPlugin::start(QStringList& params)
 
     // create a new "about" dialog and show it
     QPointer<Kwave::AboutDialog> dlg = new(std::nothrow) Kwave::AboutDialog(
-	parentWidget(),
-	manager().pluginInfoList()
+        parentWidget(),
+        manager().pluginInfoList()
     );
     Q_ASSERT(dlg);
     if (!dlg) return ENOMEM;

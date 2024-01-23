@@ -1,6 +1,6 @@
 /***************************************************************************
-			  MenuItem.h  -  description
-			     -------------------
+                          MenuItem.h  -  description
+                             -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -45,7 +45,7 @@ Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,
     if (!shortcut.isEmpty()) m_action.setShortcut(shortcut);
 
     connect(&m_action, SIGNAL(triggered(bool)),
-	    this, SLOT(actionTriggered(bool)));
+            this, SLOT(actionTriggered(bool)));
 }
 
 //*****************************************************************************
@@ -64,7 +64,7 @@ void Kwave::MenuItem::actionTriggered(bool checked)
 void Kwave::MenuItem::actionSelected()
 {
     if (isCheckable() && !m_exclusive_group.length())
-	setChecked(true);
+        setChecked(true);
 
     Kwave::MenuNode::actionSelected();
 }
@@ -75,30 +75,30 @@ bool Kwave::MenuItem::specialCommand(const QString &command)
     Kwave::Parser parser(command);
 
     if (command == _("#checkable")) {
-	// checking/selecting of the item (non-exclusive)
-	setCheckable(true);
+        // checking/selecting of the item (non-exclusive)
+        setCheckable(true);
     }
     else if (parser.command() == _("#exclusive")) {
-	// join to a list of groups
-	QString group = parser.firstParam();
-	while (group.length()) {
-	    if (!m_exclusive_group.length()) {
-		m_exclusive_group = group;
-		joinGroup(group, Kwave::MenuGroup::EXCLUSIVE);
-	    } else if (m_exclusive_group != group) {
-		qWarning("menu item '%s' already member of "
-			"exclusive group '%s'",
-			DBG(name()), DBG(m_exclusive_group));
-	    }
-	    group = parser.nextParam();
-	}
+        // join to a list of groups
+        QString group = parser.firstParam();
+        while (group.length()) {
+            if (!m_exclusive_group.length()) {
+                m_exclusive_group = group;
+                joinGroup(group, Kwave::MenuGroup::EXCLUSIVE);
+            } else if (m_exclusive_group != group) {
+                qWarning("menu item '%s' already member of "
+                        "exclusive group '%s'",
+                        DBG(name()), DBG(m_exclusive_group));
+            }
+            group = parser.nextParam();
+        }
 
-	// make the item checkable
-	setCheckable(true);
-	return true;
+        // make the item checkable
+        setCheckable(true);
+        return true;
     }
     else if (command == _("#hidden")) {
-	setVisible(false);
+        setVisible(false);
     }
 
     return (Kwave::MenuNode::specialCommand(command));

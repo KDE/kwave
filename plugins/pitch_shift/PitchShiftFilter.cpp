@@ -56,18 +56,18 @@ void Kwave::PitchShiftFilter::initFilter()
 {
     m_dbuffer.resize(MAXDELAY);
     for (m_dbpos = 0; m_dbpos < MAXDELAY; m_dbpos++)
-	m_dbuffer[m_dbpos] = 0;
+        m_dbuffer[m_dbpos] = 0;
 
     m_dbpos = 0;
     m_lfopos = 0;
 
     if (m_speed <= float(1.0)) {
-	m_b1pos = m_b2pos = 0.0;
-	m_b1inc = m_b2inc = 1.0f - m_speed;
+        m_b1pos = m_b2pos = 0.0;
+        m_b1inc = m_b2inc = 1.0f - m_speed;
     } else {
-	/* not yet sure what would be a nice initialization here? */
-	m_b1pos = m_b2pos = 0.0;
-	m_b1inc = m_b2inc = 0.0;
+        /* not yet sure what would be a nice initialization here? */
+        m_b1pos = m_b2pos = 0.0;
+        m_b1inc = m_b2inc = 0.0;
     }
 }
 
@@ -85,107 +85,107 @@ void Kwave::PitchShiftFilter::input(Kwave::SampleArray data)
     const float lfoposinc = static_cast<float>(m_frequency);
 
     for (unsigned int pos = 0; pos < m_buffer.size(); pos++) {
-	/*
-	 * fill delay buffer with the input signal
-	 */
-	m_dbuffer[m_dbpos] = sample2float(in[pos]);
+        /*
+         * fill delay buffer with the input signal
+         */
+        m_dbuffer[m_dbpos] = sample2float(in[pos]);
 
-	m_lfopos += lfoposinc;
-	m_lfopos -= floorf(m_lfopos);
+        m_lfopos += lfoposinc;
+        m_lfopos -= floorf(m_lfopos);
 
-	if (m_lfopos < float(0.25)) {
-	    m_b1reset = m_b2reset = false;
-	}
+        if (m_lfopos < float(0.25)) {
+            m_b1reset = m_b2reset = false;
+        }
 
-	/*
-	 * _speed < 1.0 (downpitching)
-	 *
-	 *  start with current sample and increase delay slowly
-	 *
-	 * _speed > 1.0 (uppitching)
-	 *
-	 *  start with a sample from long ago and slowly decrease delay
-	 */
-	if (!m_b1reset && m_lfopos > float(0.25)) {
-	    if (m_speed <= float(1.0)) {
-		m_b1pos = 0;
-		m_b1inc = 1.0f - m_speed;
-	    } else {
-		m_b1inc = 1.0f - m_speed;
-		m_b1pos = 10.0f + ((- m_b1inc) * (1.0f / lfoposinc));
-		/* 10+ are not strictly necessary */
-	    }
-	    m_b1reset = true;
-	}
+        /*
+         * _speed < 1.0 (downpitching)
+         *
+         *  start with current sample and increase delay slowly
+         *
+         * _speed > 1.0 (uppitching)
+         *
+         *  start with a sample from long ago and slowly decrease delay
+         */
+        if (!m_b1reset && m_lfopos > float(0.25)) {
+            if (m_speed <= float(1.0)) {
+                m_b1pos = 0;
+                m_b1inc = 1.0f - m_speed;
+            } else {
+                m_b1inc = 1.0f - m_speed;
+                m_b1pos = 10.0f + ((- m_b1inc) * (1.0f / lfoposinc));
+                /* 10+ are not strictly necessary */
+            }
+            m_b1reset = true;
+        }
 
-	if (!m_b2reset && (m_lfopos > 0.75f)) {
-	    if (m_speed <= float(1.0)) {
-		m_b2pos = 0;
-		m_b2inc = 1.0f - m_speed;
-	    } else{
-		m_b2inc = 1.0f - m_speed;
-		m_b2pos = 10.0f + ((-m_b2inc) * (1.0f / lfoposinc));
-		/* 10+ are not strictly necessary */
-	    }
-	    m_b2reset = true;
-	}
+        if (!m_b2reset && (m_lfopos > 0.75f)) {
+            if (m_speed <= float(1.0)) {
+                m_b2pos = 0;
+                m_b2inc = 1.0f - m_speed;
+            } else{
+                m_b2inc = 1.0f - m_speed;
+                m_b2pos = 10.0f + ((-m_b2inc) * (1.0f / lfoposinc));
+                /* 10+ are not strictly necessary */
+            }
+            m_b2reset = true;
+        }
 
-	m_b1pos += m_b1inc;
-	m_b2pos += m_b2inc;
+        m_b1pos += m_b1inc;
+        m_b2pos += m_b2inc;
 
-	int position, position1;
-	float error, int_pos;
+        int position, position1;
+        float error, int_pos;
 
-	/*
-	 * Interpolate value from buffer position 1
-	 */
-	error = modff(m_b1pos, &int_pos);
+        /*
+         * Interpolate value from buffer position 1
+         */
+        error = modff(m_b1pos, &int_pos);
 
-	position = m_dbpos - Kwave::toInt(int_pos);
-	if (position < 0)
-	    position += MAXDELAY;
-	position1 = position - 1;
-	if (position1 < 0)
-	    position1 += MAXDELAY;
+        position = m_dbpos - Kwave::toInt(int_pos);
+        if (position < 0)
+            position += MAXDELAY;
+        position1 = position - 1;
+        if (position1 < 0)
+            position1 += MAXDELAY;
 
-	const float b1value = m_dbuffer[position] * (1 - error) +
-	                      m_dbuffer[position1] * error;
+        const float b1value = m_dbuffer[position] * (1 - error) +
+                              m_dbuffer[position1] * error;
 
-	/*
-	 * Interpolate value from buffer position 2
-	 */
-	error = modff(m_b2pos,&int_pos);
+        /*
+         * Interpolate value from buffer position 2
+         */
+        error = modff(m_b2pos,&int_pos);
 
-	position = m_dbpos - Kwave::toInt(int_pos);
-	if (position < 0)
-	    position += MAXDELAY;
-	position1 = position-1;
-	if ( position1 < 0)
-	    position1 += MAXDELAY;
+        position = m_dbpos - Kwave::toInt(int_pos);
+        if (position < 0)
+            position += MAXDELAY;
+        position1 = position-1;
+        if ( position1 < 0)
+            position1 += MAXDELAY;
 
-	const float b2value = m_dbuffer[position] * (1 - error) +
-	                      m_dbuffer[position1] * error;
+        const float b2value = m_dbuffer[position] * (1 - error) +
+                              m_dbuffer[position1] * error;
 
-	/*
-	 * Calculate output signal from these two buffers
-	 */
+        /*
+         * Calculate output signal from these two buffers
+         */
 
-	const float lfo = (sinf(pi2 * m_lfopos) + 1.0f) / 2.0f;
+        const float lfo = (sinf(pi2 * m_lfopos) + 1.0f) / 2.0f;
 
-	/*             position    sin   lfo variable
-	 *------------------------------------------------------------------
-	 * lfo value:    0.25       1         1        => buffer 2 is used
-	 *               0.75      -1         0        => buffer 1 is used
-	 */
+        /*             position    sin   lfo variable
+         *------------------------------------------------------------------
+         * lfo value:    0.25       1         1        => buffer 2 is used
+         *               0.75      -1         0        => buffer 1 is used
+         */
 
-	m_buffer[pos] = float2sample(b1value * (1.0f - lfo) + b2value * lfo);
+        m_buffer[pos] = float2sample(b1value * (1.0f - lfo) + b2value * lfo);
 
-	/*
-	 * increment delay buffer position
-	 */
-	m_dbpos++;
-	if (m_dbpos == MAXDELAY)
-	    m_dbpos = 0;
+        /*
+         * increment delay buffer position
+         */
+        m_dbpos++;
+        if (m_dbpos == MAXDELAY)
+            m_dbpos = 0;
     }
 
 }

@@ -1,6 +1,6 @@
 /***************************************************************************
              Stripe.cpp  -  continuous block of samples
-			     -------------------
+                             -------------------
     begin                : Feb 10 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -107,8 +107,8 @@ unsigned int Kwave::Stripe::resize(unsigned int length)
     if (old_length == length) return old_length; // nothing to do
 
     if (!m_data.resize(length)) {
-	qWarning("Stripe::resize(%u) failed, out of memory ?", length);
-	return m_data.size();
+        qWarning("Stripe::resize(%u) failed, out of memory ?", length);
+        return m_data.size();
     }
 
     return length;
@@ -116,8 +116,8 @@ unsigned int Kwave::Stripe::resize(unsigned int length)
 
 //***************************************************************************
 unsigned int Kwave::Stripe::append(const Kwave::SampleArray &samples,
-	unsigned int offset,
-	unsigned int count)
+        unsigned int offset,
+        unsigned int count)
 {
     if (!count) return 0; // nothing to do
     Q_ASSERT(offset + count <= samples.size());
@@ -128,13 +128,13 @@ unsigned int Kwave::Stripe::append(const Kwave::SampleArray &samples,
     unsigned int old_length = m_data.size();
     unsigned int new_length = old_length + count;
     if (!m_data.resize(new_length))
-	return 0; // out of memory
+        return 0; // out of memory
 
     // append to the end of the area
     unsigned int cnt = new_length - old_length;
     MEMCPY(m_data.data() + old_length,
-	   samples.constData() + offset,
-	   cnt * sizeof(sample_t)
+           samples.constData() + offset,
+           cnt * sizeof(sample_t)
     );
 
     return cnt;
@@ -164,9 +164,9 @@ void Kwave::Stripe::deleteRange(unsigned int offset, unsigned int length)
     unsigned int src = last + 1;
     unsigned int len = size - src;
     if (len) {
-	unsigned int dst = first;
-	sample_t    *p   = m_data.data();
-	memmove(p + dst, p + src, len * sizeof(sample_t));
+        unsigned int dst = first;
+        sample_t    *p   = m_data.data();
+        memmove(p + dst, p + src, len * sizeof(sample_t));
     }
 
     // resize the buffer to it's new size
@@ -179,7 +179,7 @@ bool Kwave::Stripe::combine(unsigned int offset, Kwave::Stripe &other)
     // resize the storage if necessary
     const unsigned int combined_len = offset + other.length();
     if (!resize(combined_len))
-	return false; // resizing failed, maybe OOM ?
+        return false; // resizing failed, maybe OOM ?
 
     // copy the data from the other stripe
     QMutexLocker lock(&m_lock);
@@ -194,8 +194,8 @@ bool Kwave::Stripe::combine(unsigned int offset, Kwave::Stripe &other)
 
 //***************************************************************************
 void Kwave::Stripe::overwrite(unsigned int offset,
-	const Kwave::SampleArray &source,
-	unsigned int srcoff, unsigned int srclen)
+        const Kwave::SampleArray &source,
+        unsigned int srcoff, unsigned int srclen)
 {
     QMutexLocker lock(&m_lock);
 
@@ -218,7 +218,7 @@ unsigned int Kwave::Stripe::read(Kwave::SampleArray &buffer,
     Q_ASSERT(offset < current_len);
     if (offset >= current_len) return 0;
     if ((offset + length) > current_len)
-	length = current_len - offset;
+        length = current_len - offset;
     Q_ASSERT(length);
     if (!length) return 0;
 
@@ -253,18 +253,18 @@ void Kwave::Stripe::minMax(unsigned int first, unsigned int last,
     // speedup: process a block of 8 samples at once, to allow loop unrolling
     const unsigned int block = 8;
     while (Q_LIKELY(remaining >= block)) {
-	for (unsigned int count = 0; Q_LIKELY(count < block); count++) {
-	    sample_t s = *(buffer++);
-	    if (Q_UNLIKELY(s < lo)) lo = s;
-	    if (Q_UNLIKELY(s > hi)) hi = s;
-	}
-	remaining -= block;
+        for (unsigned int count = 0; Q_LIKELY(count < block); count++) {
+            sample_t s = *(buffer++);
+            if (Q_UNLIKELY(s < lo)) lo = s;
+            if (Q_UNLIKELY(s > hi)) hi = s;
+        }
+        remaining -= block;
     }
     while (Q_LIKELY(remaining)) {
-	sample_t s = *(buffer++);
-	if (Q_UNLIKELY(s < lo)) lo = s;
-	if (Q_UNLIKELY(s > hi)) hi = s;
-	remaining--;
+        sample_t s = *(buffer++);
+        if (Q_UNLIKELY(s < lo)) lo = s;
+        if (Q_UNLIKELY(s > hi)) hi = s;
+        remaining--;
     }
     min = lo;
     max = hi;
@@ -275,7 +275,7 @@ Kwave::Stripe &Kwave::Stripe::operator << (const Kwave::SampleArray &samples)
 {
     unsigned int appended = append(samples, 0, samples.size());
     if (appended != samples.size()) {
-	qWarning("Stripe::operator << FAILED");
+        qWarning("Stripe::operator << FAILED");
     }
     return *this;
 }

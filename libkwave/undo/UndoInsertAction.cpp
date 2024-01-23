@@ -1,6 +1,6 @@
 /***************************************************************************
    UndoInsertAction.cpp  -  UndoAction for insertion of a range of samples
-			     -------------------
+                             -------------------
     begin                : Jun 14 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -56,7 +56,7 @@ qint64 Kwave::UndoInsertAction::undoSize()
 qint64 Kwave::UndoInsertAction::redoSize()
 {
     return sizeof(UndoDeleteAction) +
-	    (m_length * sizeof(sample_t) * m_track_list.count());
+            (m_length * sizeof(sample_t) * m_track_list.count());
 }
 
 //***************************************************************************
@@ -74,11 +74,11 @@ Kwave::UndoAction *Kwave::UndoInsertAction::undo(
 
     // store data for redo
     if (with_redo) {
-	redo_action = new(std::nothrow) Kwave::UndoDeleteAction(
-	    m_parent_widget, m_track_list, m_offset, m_length);
-	Q_ASSERT(redo_action);
+        redo_action = new(std::nothrow) Kwave::UndoDeleteAction(
+            m_parent_widget, m_track_list, m_offset, m_length);
+        Q_ASSERT(redo_action);
         if (!redo_action) return Q_NULLPTR;
-	redo_action->store(manager);
+        redo_action->store(manager);
     }
 
     // now delete the samples

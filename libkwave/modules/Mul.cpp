@@ -59,49 +59,49 @@ void Kwave::Mul::multiply()
 
     // get input A
     if (!m_a_is_const) {
-	m_sem_a.acquire();
-	{
-	    QMutexLocker lock(&m_lock);
-	    m_a = m_queue_a.dequeue();
-	}
-	if (m_a.size() < count) count = m_a.size();
+        m_sem_a.acquire();
+        {
+            QMutexLocker lock(&m_lock);
+            m_a = m_queue_a.dequeue();
+        }
+        if (m_a.size() < count) count = m_a.size();
     }
     else
     {
-	QMutexLocker lock(&m_lock);
-	a = m_value_a;
+        QMutexLocker lock(&m_lock);
+        a = m_value_a;
     }
 
     // get input B
     if (!m_b_is_const) {
-	m_sem_b.acquire();
-	{
-	    QMutexLocker lock(&m_lock);
-	    m_b = m_queue_b.dequeue();
-	}
-	if (m_b.size() < count) count = m_b.size();
+        m_sem_b.acquire();
+        {
+            QMutexLocker lock(&m_lock);
+            m_b = m_queue_b.dequeue();
+        }
+        if (m_b.size() < count) count = m_b.size();
     }
     else
     {
-	QMutexLocker lock(&m_lock);
-	b = m_value_b;
+        QMutexLocker lock(&m_lock);
+        b = m_value_b;
     }
 
     // check sizes of the buffers
     if (!m_a_is_const && (count > m_a.size()))
-	count = m_a.size();
+        count = m_a.size();
     if (!m_b_is_const && (count > m_b.size()))
-	count = m_b.size();
+        count = m_b.size();
 
     // special handling for zero length input
     if (!count) {
-	emit output(Kwave::SampleArray()); // emit zero length output
-	return;                            // and bail out
+        emit output(Kwave::SampleArray()); // emit zero length output
+        return;                            // and bail out
     }
 
 //     if (!m_a_is_const && !m_b_is_const && (m_a.size() != m_b.size()))
-// 	qWarning("Kwave::Mul: block sizes differ: %u x %u -> shrinked to %u",
-// 	    m_a.size(), m_b.size(), count);
+//      qWarning("Kwave::Mul: block sizes differ: %u x %u -> shrinked to %u",
+//          m_a.size(), m_b.size(), count);
 
     bool ok = m_buffer_x.resize(count);
     Q_ASSERT(ok);
@@ -113,17 +113,17 @@ void Kwave::Mul::multiply()
     p_x = m_buffer_x.data();
     Q_ASSERT((m_a_is_const || p_a) && (m_b_is_const || p_b) && p_x);
     if ((!m_a_is_const && !p_a) || (!m_b_is_const && !p_b) || !p_x)
-	return;
+        return;
 
     // do the multiplication of the whole buffer
     for (; count; count--)
     {
-	if (!m_a_is_const) { a = sample2float(*p_a); ++p_a; }
-	if (!m_b_is_const) { b = sample2float(*p_b); ++p_b; }
-	float y = a * b;
-	if (y > float( 1.0)) y = float( 1.0);
-	if (y < float(-1.0)) y = float(-1.0);
-	*(p_x++) = float2sample(y);
+        if (!m_a_is_const) { a = sample2float(*p_a); ++p_a; }
+        if (!m_b_is_const) { b = sample2float(*p_b); ++p_b; }
+        float y = a * b;
+        if (y > float( 1.0)) y = float( 1.0);
+        if (y < float(-1.0)) y = float(-1.0);
+        *(p_x++) = float2sample(y);
     }
 
     // emit the result
@@ -134,11 +134,11 @@ void Kwave::Mul::multiply()
 void Kwave::Mul::input_a(Kwave::SampleArray data)
 {
     {
-	QMutexLocker lock(&m_lock);
+        QMutexLocker lock(&m_lock);
 
-	m_queue_a.enqueue(data);
-	m_sem_a.release();
-	m_a_is_const = false;
+        m_queue_a.enqueue(data);
+        m_sem_a.release();
+        m_a_is_const = false;
     }
     if (m_b_is_const || !m_queue_b.isEmpty()) multiply();
 }
@@ -147,11 +147,11 @@ void Kwave::Mul::input_a(Kwave::SampleArray data)
 void Kwave::Mul::input_b(Kwave::SampleArray data)
 {
     {
-	QMutexLocker lock(&m_lock);
+        QMutexLocker lock(&m_lock);
 
-	m_queue_b.enqueue(data);
-	m_sem_b.release();
-	m_b_is_const = false;
+        m_queue_b.enqueue(data);
+        m_sem_b.release();
+        m_b_is_const = false;
     }
     if (m_a_is_const || !m_queue_a.isEmpty()) multiply();
 }

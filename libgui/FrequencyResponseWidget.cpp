@@ -1,6 +1,6 @@
 /***************************************************************************
     FrequencyResponseWidget.cpp  -  displays a frequency response
-			     -------------------
+                             -------------------
     begin                : Mar 09 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -77,36 +77,36 @@ void Kwave::FrequencyResponseWidget::paintEvent(QPaintEvent*)
     p.fillRect(rect(), QBrush(palette().dark()));
 
     double scale = static_cast<double>(height-1) /
-	static_cast<double>(m_db_max-m_db_min);
+        static_cast<double>(m_db_max-m_db_min);
     double min = pow(10.0, static_cast<double>(m_db_min) / 10.0);
     double max = pow(10.0, static_cast<double>(m_db_max) / 10.0);
     p.setPen(Qt::green);//colorGroup().text());
 
     for (int x=0; x < width; x++) {
-	// transform x coordinate to frequency
+        // transform x coordinate to frequency
 
-//	// logarithmic frequency scale, didn't look so good :-(
-//	double f = pow(base, (double)m_decades * (double)x / (double)width);
+//      // logarithmic frequency scale, didn't look so good :-(
+//      double f = pow(base, (double)m_decades * (double)x / (double)width);
 
-	// linear frequency scale
-	double f = (m_f_max * static_cast<double>(x) /
-	    static_cast<double>(width));
+        // linear frequency scale
+        double f = (m_f_max * static_cast<double>(x) /
+            static_cast<double>(width));
 
-	// calculate the filter function's output at the given frequency
-	f = (f / m_f_max) * M_PI;
-	double a = (m_function) ? m_function->at(f): 1.0;
+        // calculate the filter function's output at the given frequency
+        f = (f / m_f_max) * M_PI;
+        double a = (m_function) ? m_function->at(f): 1.0;
 
-	// limit to upper and lower margins
-	if (a < min) a = min;
-	if (a > max) a = max;
+        // limit to upper and lower margins
+        if (a < min) a = min;
+        if (a > max) a = max;
 
-	// convert to logarithmic scale
-	double db = 10.0 * log10(a);
+        // convert to logarithmic scale
+        double db = 10.0 * log10(a);
 
-	// draw one line
-	int y = height - Kwave::toInt((db - m_db_min) * scale);
+        // draw one line
+        int y = height - Kwave::toInt((db - m_db_min) * scale);
 
-	p.drawLine(x, y+1, x, height-1);
+        p.drawLine(x, y+1, x, height-1);
     }
 
     // draw the zero db line

@@ -73,7 +73,7 @@ int Kwave::RecordThread::setBuffers(unsigned int count, unsigned int size)
     // fill the "empty" queue again
     QByteArray buf(size, 0x00);
     for (unsigned int i = 0; i < count; i++)
-	m_empty_queue.enqueue(buf);
+        m_empty_queue.enqueue(buf);
 
     // take the new settings
     m_buffer_size  = size;
@@ -103,17 +103,17 @@ QByteArray Kwave::RecordThread::dequeue()
     QMutexLocker lock(&m_lock);
 
     if (m_full_queue.count()) {
-	// de-queue the buffer from the full list
-	QByteArray buf = m_full_queue.dequeue();
+        // de-queue the buffer from the full list
+        QByteArray buf = m_full_queue.dequeue();
 
-	// put the buffer back to the empty list
-	m_empty_queue.enqueue(buf);
+        // put the buffer back to the empty list
+        m_empty_queue.enqueue(buf);
 
-	// return the buffer
-	return buf;
+        // return the buffer
+        return buf;
     } else {
-	// return an empty buffer
-	return QByteArray();
+        // return an empty buffer
+        return QByteArray();
     }
 }
 
@@ -125,83 +125,83 @@ void Kwave::RecordThread::run()
 
     // read data until we receive a close signal
     while (!isInterruptionRequested() && !interrupted) {
-	// dequeue a buffer from the "empty" queue
+        // dequeue a buffer from the "empty" queue
 
-	QByteArray buffer;
-	int        len;
-	{
-	    QMutexLocker lock(&m_lock);
+        QByteArray buffer;
+        int        len;
+        {
+            QMutexLocker lock(&m_lock);
 
-	    if (m_empty_queue.isEmpty()) {
-		// we had a "buffer overflow"
-		qWarning("RecordThread::run() -> NO EMPTY BUFFER FOUND !!!");
-		result = -ENOBUFS;
-		break;
-	    }
+            if (m_empty_queue.isEmpty()) {
+                // we had a "buffer overflow"
+                qWarning("RecordThread::run() -> NO EMPTY BUFFER FOUND !!!");
+                result = -ENOBUFS;
+                break;
+            }
 
-	    buffer  = m_empty_queue.dequeue();
-	    len     = buffer.size();
-	    Q_ASSERT(buffer.size());
-	    if (!len) {
-		result = -ENOBUFS;
-		break;
-	    }
-	}
+            buffer  = m_empty_queue.dequeue();
+            len     = buffer.size();
+            Q_ASSERT(buffer.size());
+            if (!len) {
+                result = -ENOBUFS;
+                break;
+            }
+        }
 
-	// read into the current buffer
-	unsigned int offset = 0;
-	while (len && !interrupted && !isInterruptionRequested()) {
-	    // read raw data from the record device
-	    result =  (m_device) ?
-		m_device->read(buffer, offset) : -EBADF;
+        // read into the current buffer
+        unsigned int offset = 0;
+        while (len && !interrupted && !isInterruptionRequested()) {
+            // read raw data from the record device
+            result =  (m_device) ?
+                m_device->read(buffer, offset) : -EBADF;
 
-	    if ((result < 0) && (result != -EAGAIN))
-		qWarning("RecordThread: read result = %d (%s)",
-		         result, strerror(-result));
+            if ((result < 0) && (result != -EAGAIN))
+                qWarning("RecordThread: read result = %d (%s)",
+                         result, strerror(-result));
 
-	    if (result == -EAGAIN) {
-		continue;
-	    } else if (result == -EBADF) {
-		// file open has failed
-		interrupted = true;
-		break;
-	    } else if (result == -EINTR) {
-		// thread was interrupted, received signal?
-		interrupted = true;
-		break;
-	    } else if (result < 1) {
-		// something went wrong !?
-		interrupted = true;
-		qWarning("RecordThread::run(): read returned %d", result);
-		break;
-	    } else {
-		offset += result;
-		len = buffer.size() - offset;
-		Q_ASSERT(len >= 0);
-		if (len < 0) len = 0;
-	    }
-	}
+            if (result == -EAGAIN) {
+                continue;
+            } else if (result == -EBADF) {
+                // file open has failed
+                interrupted = true;
+                break;
+            } else if (result == -EINTR) {
+                // thread was interrupted, received signal?
+                interrupted = true;
+                break;
+            } else if (result < 1) {
+                // something went wrong !?
+                interrupted = true;
+                qWarning("RecordThread::run(): read returned %d", result);
+                break;
+            } else {
+                offset += result;
+                len = buffer.size() - offset;
+                Q_ASSERT(len >= 0);
+                if (len < 0) len = 0;
+            }
+        }
 
-	// return buffer into the empty queue and abort on errors
-	// do not use it
-	if (interrupted && (result < 0)) {
-	    QMutexLocker lock(&m_lock);
-	    m_empty_queue.enqueue(buffer);
-	    break;
-	}
+        // return buffer into the empty queue and abort on errors
+        // do not use it
+        if (interrupted && (result < 0)) {
+            QMutexLocker lock(&m_lock);
+            m_empty_queue.enqueue(buffer);
+            break;
+        }
 
-	// inform the application that there is something to dequeue
-	{
-	    QMutexLocker lock(&m_lock);
-	    m_full_queue.enqueue(buffer);
-	}
-	emit bufferFull();
+        // inform the application that there is something to dequeue
+        {
+            QMutexLocker lock(&m_lock);
+            m_full_queue.enqueue(buffer);
+        }
+        emit bufferFull();
     }
 
     // do not evaluate the result of the last operation if there
     // was the external request to stop
     if (isInterruptionRequested() || (interrupted && (result > 0)))
-	result = 0;
+        result = 0;
 
     if (result) emit stopped(result);
 }

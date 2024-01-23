@@ -2,7 +2,7 @@
   MultiStateWidget.cpp  -  provides methods of multistateWidget a Class that
                            switches the image it, displays on clicking, used
                            for the channel enable/disable lamps...
-			     -------------------
+                             -------------------
     begin                : Sun Jun 04 2000
     copyright            : (C) 2000 by Martin Wilz
     email                : martin@wilz.de
@@ -52,9 +52,9 @@ void Kwave::MultiStateWidget::addPixmap(const QString &filename)
 {
     QString pics_dir = _("pics");
     QString path = QStandardPaths::locate(
-	QStandardPaths::AppDataLocation,
-	pics_dir + QDir::separator() + filename,
-	QStandardPaths::LocateFile);
+        QStandardPaths::AppDataLocation,
+        pics_dir + QDir::separator() + filename,
+        QStandardPaths::LocateFile);
     QPixmap newpix(path);
     m_pixmaps.append(newpix);
 }
@@ -83,7 +83,7 @@ void Kwave::MultiStateWidget::nextState()
 void Kwave::MultiStateWidget::mouseReleaseEvent(QMouseEvent *e)
 {
     if (e && (e->button() == Qt::LeftButton)) {
-	nextState();
+        nextState();
     }
 }
 

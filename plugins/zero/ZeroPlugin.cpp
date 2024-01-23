@@ -67,47 +67,47 @@ void Kwave::ZeroPlugin::run(QStringList params)
      * -> usage: zero(<mode>, <range>)
      */
     if (params.count() == 2) {
-	// get the current selection
-	selection(&tracks, &first, &last, false);
+        // get the current selection
+        selection(&tracks, &first, &last, false);
 
-	// mode for the time (like in selectrange plugin)
-	bool ok = true;
-	int mode = params[0].toInt(&ok);
-	Q_ASSERT(ok);
-	if (!ok) return;
-	Q_ASSERT(
-	    (mode == static_cast<int>(Kwave::SelectTimeWidget::byTime)) ||
-	    (mode == static_cast<int>(Kwave::SelectTimeWidget::bySamples)) ||
-	    (mode == static_cast<int>(Kwave::SelectTimeWidget::byPercents))
-	);
-	if ((mode != static_cast<int>(Kwave::SelectTimeWidget::byTime)) &&
-	    (mode != static_cast<int>(Kwave::SelectTimeWidget::bySamples)) &&
-	    (mode != static_cast<int>(Kwave::SelectTimeWidget::byPercents)))
-	{
-	    return;
-	}
+        // mode for the time (like in selectrange plugin)
+        bool ok = true;
+        int mode = params[0].toInt(&ok);
+        Q_ASSERT(ok);
+        if (!ok) return;
+        Q_ASSERT(
+            (mode == static_cast<int>(Kwave::SelectTimeWidget::byTime)) ||
+            (mode == static_cast<int>(Kwave::SelectTimeWidget::bySamples)) ||
+            (mode == static_cast<int>(Kwave::SelectTimeWidget::byPercents))
+        );
+        if ((mode != static_cast<int>(Kwave::SelectTimeWidget::byTime)) &&
+            (mode != static_cast<int>(Kwave::SelectTimeWidget::bySamples)) &&
+            (mode != static_cast<int>(Kwave::SelectTimeWidget::byPercents)))
+        {
+            return;
+        }
 
-	// length of the range of zeroes to insert
-	unsigned int time = params[1].toUInt(&ok);
-	Q_ASSERT(ok);
-	if (!ok) return;
+        // length of the range of zeroes to insert
+        unsigned int time = params[1].toUInt(&ok);
+        Q_ASSERT(ok);
+        if (!ok) return;
 
-	// convert from time to samples
-	sample_index_t length = Kwave::SelectTimeWidget::timeToSamples(
-	    static_cast<Kwave::SelectTimeWidget::Mode>(mode),
-	    time, signalRate(), signalLength());
+        // convert from time to samples
+        sample_index_t length = Kwave::SelectTimeWidget::timeToSamples(
+            static_cast<Kwave::SelectTimeWidget::Mode>(mode),
+            time, signalRate(), signalLength());
 
-	// some sanity check
-	Q_ASSERT(length);
-	Q_ASSERT(!tracks.isEmpty());
-	if (!length || tracks.isEmpty()) return; // nothing to do
+        // some sanity check
+        Q_ASSERT(length);
+        Q_ASSERT(!tracks.isEmpty());
+        if (!length || tracks.isEmpty()) return; // nothing to do
 
-	last  = first + length - 1;
-	writers = new(std::nothrow) Kwave::MultiTrackWriter(signalManager(),
-	    tracks, Kwave::Insert, first, last);
+        last  = first + length - 1;
+        writers = new(std::nothrow) Kwave::MultiTrackWriter(signalManager(),
+            tracks, Kwave::Insert, first, last);
     } else {
-	writers = new(std::nothrow) Kwave::MultiTrackWriter(signalManager(),
-	    Kwave::Overwrite);
+        writers = new(std::nothrow) Kwave::MultiTrackWriter(signalManager(),
+            Kwave::Overwrite);
     }
 
     if (!writers) return; // out-of-memory
@@ -117,8 +117,8 @@ void Kwave::ZeroPlugin::run(QStringList params)
 
     // connect the progress dialog
     connect(writers, SIGNAL(progress(qreal)),
-	    this,    SLOT(updateProgress(qreal)),
-	    Qt::BlockingQueuedConnection);
+            this,    SLOT(updateProgress(qreal)),
+            Qt::BlockingQueuedConnection);
 
     first = (*writers)[0]->first();
     last  = (*writers)[0]->last();
@@ -126,28 +126,28 @@ void Kwave::ZeroPlugin::run(QStringList params)
 
     // get the buffer with zeroes for faster filling
     if (m_zeroes.size() != ZERO_COUNT) {
-	succeeded &= m_zeroes.resize(ZERO_COUNT);
-	Q_ASSERT(succeeded);
-	m_zeroes.fill(0);
+        succeeded &= m_zeroes.resize(ZERO_COUNT);
+        Q_ASSERT(succeeded);
+        m_zeroes.fill(0);
     }
     Q_ASSERT(m_zeroes.size() == ZERO_COUNT);
 
     // loop over the sample range
     while ((first <= last) && !shouldStop() && succeeded) {
-	sample_index_t rest = last - first + 1;
-	if (rest < m_zeroes.size()) {
-	    succeeded &= m_zeroes.resize(Kwave::toUint(rest));
-	    Q_ASSERT(succeeded);
-	    if (!succeeded) break;
-	}
+        sample_index_t rest = last - first + 1;
+        if (rest < m_zeroes.size()) {
+            succeeded &= m_zeroes.resize(Kwave::toUint(rest));
+            Q_ASSERT(succeeded);
+            if (!succeeded) break;
+        }
 
-	// loop over all writers
-	unsigned int w;
-	for (w = 0; w < count; w++) {
-	    *((*writers)[w]) << m_zeroes;
-	}
+        // loop over all writers
+        unsigned int w;
+        for (w = 0; w < count; w++) {
+            *((*writers)[w]) << m_zeroes;
+        }
 
-	first += m_zeroes.size();
+        first += m_zeroes.size();
     }
 
     delete writers;

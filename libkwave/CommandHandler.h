@@ -1,6 +1,6 @@
 /***************************************************************************
     libkwave/CommandHandler.h  -  Interface for a class with executeCommand(...)
-			     -------------------
+                             -------------------
     begin                : 2014-09-22
     copyright            : (C) 2014 by Thomas.Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -28,20 +28,20 @@ namespace Kwave
     {
     public:
 
-	/** default constructor */
-	CommandHandler() {}
+        /** default constructor */
+        CommandHandler() {}
 
-	/** destructor */
-	virtual ~CommandHandler() {}
+        /** destructor */
+        virtual ~CommandHandler() {}
 
-	/**
-	 * Execute a Kwave text command
-	 * @param command a text command
-	 * @return zero if succeeded or negative error code if failed
-	 * @retval -ENOSYS is returned if the command is unknown in this
-	 *                 component
-	 */
-	virtual int executeCommand(const QString &command) = 0;
+        /**
+         * Execute a Kwave text command
+         * @param command a text command
+         * @return zero if succeeded or negative error code if failed
+         * @retval -ENOSYS is returned if the command is unknown in this
+         *                 component
+         */
+        virtual int executeCommand(const QString &command) = 0;
 
     };
 }

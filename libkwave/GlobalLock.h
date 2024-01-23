@@ -1,6 +1,6 @@
 /***************************************************************************
            GlobalLock.h  -  application global lock
-			     -------------------
+                             -------------------
     begin                : Jan 02 2014
     copyright            : (C) 2014 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -33,15 +33,15 @@ namespace Kwave {
     class Q_DECL_EXPORT GlobalLock
     {
     public:
-	/** Constructor, acquires the global lock */
-	GlobalLock();
+        /** Constructor, acquires the global lock */
+        GlobalLock();
 
-	/** Destructor, releases the global lock */
-	virtual ~GlobalLock();
+        /** Destructor, releases the global lock */
+        virtual ~GlobalLock();
 
     private:
-	/** global lock, use with care! */
-	static QMutex m_global_lock;
+        /** global lock, use with care! */
+        static QMutex m_global_lock;
     };
 }
 

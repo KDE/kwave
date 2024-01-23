@@ -32,44 +32,44 @@ namespace Kwave
     */
     class StatusWidget: public QWidget
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
+        /** Constructor */
         explicit StatusWidget(QWidget *parent = Q_NULLPTR);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~StatusWidget() Q_DECL_OVERRIDE;
 
-	/**
-	 * Set a new list of pixmaps
-	 *
-	 * @param pixmaps a list of pixmaps (can also have only one element)
-	 * @param speed if multiple pixmaps are given, the time in milliseconds
-	 *              between the pixmaps, for animation
-	 */
-	void setPixmaps(const QVector<QPixmap> &pixmaps,
-	                unsigned int speed = 150);
+        /**
+         * Set a new list of pixmaps
+         *
+         * @param pixmaps a list of pixmaps (can also have only one element)
+         * @param speed if multiple pixmaps are given, the time in milliseconds
+         *              between the pixmaps, for animation
+         */
+        void setPixmaps(const QVector<QPixmap> &pixmaps,
+                        unsigned int speed = 150);
 
     protected:
-	/** repaint, see QWidget::paintEvent */
+        /** repaint, see QWidget::paintEvent */
         virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
 
     private slots:
 
-	/** switch to the next pixmap in the pixmaps list */
-	void nextPixmap();
+        /** switch to the next pixmap in the pixmaps list */
+        void nextPixmap();
 
     private:
 
-	/** the pixmap to show */
-	QVector<QPixmap> m_pixmaps;
+        /** the pixmap to show */
+        QVector<QPixmap> m_pixmaps;
 
-	/** index of the current pixmap */
-	unsigned int m_index;
+        /** index of the current pixmap */
+        unsigned int m_index;
 
-	/** timer for switching to the next pixmap */
-	QTimer m_timer;
+        /** timer for switching to the next pixmap */
+        QTimer m_timer;
 
     };
 }

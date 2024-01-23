@@ -75,7 +75,7 @@ int Kwave::BandPassPlugin::interpreteParameters(QStringList &params)
 Kwave::PluginSetupDialog *Kwave::BandPassPlugin::createDialog(QWidget *parent)
 {
     Kwave::BandPassDialog *dialog =
-	new(std::nothrow) Kwave::BandPassDialog(parent, signalRate());
+        new(std::nothrow) Kwave::BandPassDialog(parent, signalRate());
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
@@ -91,7 +91,7 @@ Kwave::PluginSetupDialog *Kwave::BandPassPlugin::createDialog(QWidget *parent)
 Kwave::SampleSource *Kwave::BandPassPlugin::createFilter(unsigned int tracks)
 {
     return new(std::nothrow)
-	Kwave::MultiTrackSource<Kwave::BandPass, true>(tracks);
+        Kwave::MultiTrackSource<Kwave::BandPass, true>(tracks);
 }
 
 //***************************************************************************
@@ -110,12 +110,12 @@ void Kwave::BandPassPlugin::updateFilter(Kwave::SampleSource *filter,
     if (!filter) return;
 
     if (!qFuzzyCompare(m_frequency, m_last_freq) || force)
-	filter->setAttribute(SLOT(setFrequency(QVariant)),
-	    QVariant((m_frequency * 2.0 * M_PI) / sr));
+        filter->setAttribute(SLOT(setFrequency(QVariant)),
+            QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     if (!qFuzzyCompare(m_bw, m_last_bw) || force)
-	filter->setAttribute(SLOT(setBandwidth(QVariant)),
-	    QVariant((m_bw * 2.0 * M_PI) / sr));
+        filter->setAttribute(SLOT(setBandwidth(QVariant)),
+            QVariant((m_bw * 2.0 * M_PI) / sr));
 
     m_last_freq  = m_frequency;
     m_last_bw    = m_bw;

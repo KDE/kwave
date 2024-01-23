@@ -1,6 +1,6 @@
 /***************************************************************************
-			  MenuSub.cpp  -  submenu
-			     -------------------
+                          MenuSub.cpp  -  submenu
+                             -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -56,16 +56,16 @@ void Kwave::MenuSub::setVisible(bool visible)
     Kwave::MenuRoot *root = qobject_cast<Kwave::MenuRoot *>(rootNode());
     Q_ASSERT(root);
     if (root && (parentNode() == root)) {
-	// special case: entries of the main menu can only be made
-	// visible/invisible by adding to/removing from the main menu
-	if (visible) {
-	    root->showChild(this);
-	}
-	else
-	    root->hideChild(this);
+        // special case: entries of the main menu can only be made
+        // visible/invisible by adding to/removing from the main menu
+        if (visible) {
+            root->showChild(this);
+        }
+        else
+            root->hideChild(this);
     } else {
-	// normal menu entry
-	m_menu->setVisible(visible);
+        // normal menu entry
+        m_menu->setVisible(visible);
     }
 }
 
@@ -139,12 +139,12 @@ Kwave::MenuNode *Kwave::MenuSub::insertLeaf(const QString &name,
     QListIterator<Kwave::MenuNode *> it(m_children);
     it.toBack();
     while (!found && it.hasPrevious()) {
-	Kwave::MenuNode *child = it.previous();
-	if (!child) continue;
-	if (uid.length() && ((uid == child->uid()) || (uid == child->name())))
-	    found = true;
-	else if (child->action())
-	    child_after = child;
+        Kwave::MenuNode *child = it.previous();
+        if (!child) continue;
+        if (uid.length() && ((uid == child->uid()) || (uid == child->name())))
+            found = true;
+        else if (child->action())
+            child_after = child;
     }
 
     insertChild(item, (found) ? child_after : Q_NULLPTR);
@@ -152,9 +152,9 @@ Kwave::MenuNode *Kwave::MenuSub::insertLeaf(const QString &name,
     QAction *action_after = (found && child_after) ?
         child_after->action() : Q_NULLPTR;
     if (action_after)
-	m_menu->insertAction(action_after, item->action());
+        m_menu->insertAction(action_after, item->action());
     else
-	m_menu->addAction(item->action());
+        m_menu->addAction(item->action());
 
     return item;
 }
@@ -175,10 +175,10 @@ bool Kwave::MenuSub::specialCommand(const QString &command)
     if (!command.length()) return false;
 
     if (command.startsWith(_("#exclusive"))) {
-	return true;
+        return true;
     } else if (command.startsWith(_("#separator"))) {
-	if (m_menu) m_menu->addSeparator();
-	return true;
+        if (m_menu) m_menu->addSeparator();
+        return true;
     }
 
     return Kwave::MenuNode::specialCommand(command);

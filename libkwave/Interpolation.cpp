@@ -1,6 +1,6 @@
 /***************************************************************************
       Kwave::.cpp  -  Interpolation types
-			     -------------------
+                             -------------------
     begin                : Sat Feb 03 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -65,8 +65,8 @@ QStringList Kwave::Interpolation::descriptions(bool localized)
     unsigned int count = m_interpolation_map.count();
     unsigned int i;
     for (i = 0; i < count; i++) {
-	interpolation_t index = m_interpolation_map.findFromData(i);
-	list.append(m_interpolation_map.description(index, localized));
+        interpolation_t index = m_interpolation_map.findFromData(i);
+        list.append(m_interpolation_map.description(index, localized));
     }
     return list;
 }
@@ -95,77 +95,77 @@ double Kwave::Interpolation::singleInterpolation(double input)
     if (input > 1.0) input = 1.0;
 
     switch (m_type) {
-	case INTPOL_LINEAR:
-	    {
-		unsigned int i = 1;
-		while ((i < count) && (m_x[i] < input))
-		    i++;
+        case INTPOL_LINEAR:
+            {
+                unsigned int i = 1;
+                while ((i < count) && (m_x[i] < input))
+                    i++;
 
-		double dif1 = m_x[i] - m_x[i-1];  //!=0 per definition
-		double dif2 = input - m_x[i-1];
+                double dif1 = m_x[i] - m_x[i-1];  //!=0 per definition
+                double dif2 = input - m_x[i-1];
 
-		return (m_y[i-1] + ((m_y[i] - m_y[i-1])*dif2 / dif1));
-	    }
-	case INTPOL_SPLINE:
-	    {
-		double a, b, diff;
-		unsigned int j = 1;
+                return (m_y[i-1] + ((m_y[i] - m_y[i-1])*dif2 / dif1));
+            }
+        case INTPOL_SPLINE:
+            {
+                double a, b, diff;
+                unsigned int j = 1;
 
-		while ((j < count) && (m_x[j] < input))
-		    j++;
+                while ((j < count) && (m_x[j] < input))
+                    j++;
 
-		diff = m_x[j] - m_x[j-1];
+                diff = m_x[j] - m_x[j-1];
 
-		a = (m_x[j] - input) / diff;    //div should not be 0
-		b = (input - m_x[j-1]) / diff;
+                a = (m_x[j] - input) / diff;    //div should not be 0
+                b = (input - m_x[j-1]) / diff;
 
-		return (a*m_y[j-1] + b*m_y[j] + ((a*a*a - a)*m_der[j - 1] +
-		       (b*b*b - b)*m_der[j])*(diff*diff) / 6);
-	    }
-	case INTPOL_NPOLYNOMIAL:
-	    {
-		double ny = m_y[0];
-		for (unsigned int j = 1; j < count; j++)
-		    ny = ny * (input - m_x[j]) + m_y[j];
-		return ny;
-	    }
-	case INTPOL_SAH:     //Sample and hold
-	    {
-		unsigned int i = 1;
-		while ((i < count) && (m_x[i] < input))
-		    i++;
-		return m_y[i-1];
-	    }
-	case INTPOL_POLYNOMIAL3:
-	    degree = 3;
-	    break;
-	case INTPOL_POLYNOMIAL5:
-	    degree = 5;
-	    break;
-	case INTPOL_POLYNOMIAL7:
-	    degree = 7;
-	    break;
+                return (a*m_y[j-1] + b*m_y[j] + ((a*a*a - a)*m_der[j - 1] +
+                       (b*b*b - b)*m_der[j])*(diff*diff) / 6);
+            }
+        case INTPOL_NPOLYNOMIAL:
+            {
+                double ny = m_y[0];
+                for (unsigned int j = 1; j < count; j++)
+                    ny = ny * (input - m_x[j]) + m_y[j];
+                return ny;
+            }
+        case INTPOL_SAH:     //Sample and hold
+            {
+                unsigned int i = 1;
+                while ((i < count) && (m_x[i] < input))
+                    i++;
+                return m_y[i-1];
+            }
+        case INTPOL_POLYNOMIAL3:
+            degree = 3;
+            break;
+        case INTPOL_POLYNOMIAL5:
+            degree = 5;
+            break;
+        case INTPOL_POLYNOMIAL7:
+            degree = 7;
+            break;
     }
 
     if (degree && (degree <= 7)) {
-	Q_ASSERT(m_curve);
-	if (!m_curve) return 0;
+        Q_ASSERT(m_curve);
+        if (!m_curve) return 0;
 
-	// use polynom
-	double ny;
-	QVector<double> ax(7);
-	QVector<double> ay(7);
+        // use polynom
+        double ny;
+        QVector<double> ax(7);
+        QVector<double> ay(7);
 
-	unsigned int i = 1;
-	while ((i < count) && (m_x[i] < input))
-	    i++;
+        unsigned int i = 1;
+        while ((i < count) && (m_x[i] < input))
+            i++;
 
-	createPolynom(*m_curve, ax, ay, i - 1 - degree/2, degree);
+        createPolynom(*m_curve, ax, ay, i - 1 - degree/2, degree);
 
-	ny = ay[0];
-	for (unsigned int j = 1; j < degree; j++)
-	    ny = ny * (input - ax[j]) + ay[j];
-	return ny;
+        ny = ay[0];
+        for (unsigned int j = 1; j < degree; j++)
+            ny = ny * (input - ax[j]) + ay[j];
+        return ny;
     }
 
     return 0;
@@ -184,23 +184,23 @@ bool Kwave::Interpolation::prepareInterpolation(const Kwave::Curve &points)
     unsigned int c = 0;
     Kwave::Curve::ConstIterator it(points);
     while (it.hasNext()) {
-	Kwave::Curve::Point p = it.next();
-	m_x[c] = p.x();
-	m_y[c] = p.y();
-	c++;
+        Kwave::Curve::Point p = it.next();
+        m_x[c] = p.x();
+        m_y[c] = p.y();
+        c++;
     }
     m_x[c] = m_y[c] = 0.0;
 
     switch (m_type) {
-	case INTPOL_NPOLYNOMIAL:
-	    createFullPolynom(points, m_x, m_y);
-	    break;
-	case INTPOL_SPLINE:
-	    m_der = QVector<double>((count() + 1), double(0.0));
-	    get2Derivate(m_x, m_y, m_der, count());
-	    break;
-	default:
-	    ;
+        case INTPOL_NPOLYNOMIAL:
+            createFullPolynom(points, m_x, m_y);
+            break;
+        case INTPOL_SPLINE:
+            m_der = QVector<double>((count() + 1), double(0.0));
+            get2Derivate(m_x, m_y, m_der, count());
+            break;
+        default:
+            ;
     }
     return true;
 }
@@ -211,8 +211,8 @@ QVector<double> Kwave::Interpolation::limitedInterpolation(
 {
     QVector<double> y = interpolation(points, len);
     for (unsigned int i = 0; i < len; i++) {
-	if (y[i] > 1) y[i] = 1;
-	if (y[i] < 0) y[i] = 0;
+        if (y[i] > 1) y[i] = 1;
+        if (y[i] < 0) y[i] = 0;
     }
     return y;
 }
@@ -228,161 +228,161 @@ QVector<double> Kwave::Interpolation::interpolation(
     QVector<double> y_out(len, 0.0);
 
     switch (m_type) {
-	case INTPOL_LINEAR:
-	{
-	    Kwave::Curve::ConstIterator it(points);
+        case INTPOL_LINEAR:
+        {
+            Kwave::Curve::ConstIterator it(points);
 
-	    if (it.hasNext()) {
-		Kwave::Curve::Point p = it.next();
-		double x0 = p.x();
-		double y0 = p.y();
+            if (it.hasNext()) {
+                Kwave::Curve::Point p = it.next();
+                double x0 = p.x();
+                double y0 = p.y();
 
-		while (it.hasNext()) {
-		    p = it.next();
-		    const double x1 = p.x();
-		    const double y1 = p.y();
+                while (it.hasNext()) {
+                    p = it.next();
+                    const double x1 = p.x();
+                    const double y1 = p.y();
 
-		    double dy = (y1 - y0);
-		    int dx  = Kwave::toInt((x1 - x0) * len);
-		    int min = Kwave::toInt(x0 * len);
+                    double dy = (y1 - y0);
+                    int dx  = Kwave::toInt((x1 - x0) * len);
+                    int min = Kwave::toInt(x0 * len);
 
-		    Q_ASSERT(x0 >= 0.0);
-		    Q_ASSERT(x1 <= 1.0);
-		    for (int i = Kwave::toInt(x0 * len);
-		         i < Kwave::toInt(x1 * len); i++) {
-			double h = dx ? ((double(i - min)) / dx) : 0.0;
-			y_out[i] = y0 + (h * dy);
-		    }
-		    x0 = x1;
-		    y0 = y1;
-		}
-	    }
-	    break;
-	}
-	case INTPOL_SPLINE:
-	{
-	    int t = 1;
-	    unsigned int count = points.count();
+                    Q_ASSERT(x0 >= 0.0);
+                    Q_ASSERT(x1 <= 1.0);
+                    for (int i = Kwave::toInt(x0 * len);
+                         i < Kwave::toInt(x1 * len); i++) {
+                        double h = dx ? ((double(i - min)) / dx) : 0.0;
+                        y_out[i] = y0 + (h * dy);
+                    }
+                    x0 = x1;
+                    y0 = y1;
+                }
+            }
+            break;
+        }
+        case INTPOL_SPLINE:
+        {
+            int t = 1;
+            unsigned int count = points.count();
 
-	    double ny = 0;
-	    QVector<double> der(count + 1);
-	    QVector<double> x(count + 1);
-	    QVector<double> y(count + 1);
+            double ny = 0;
+            QVector<double> der(count + 1);
+            QVector<double> x(count + 1);
+            QVector<double> y(count + 1);
 
-	    Kwave::Curve::ConstIterator it(points);
-	    while (it.hasNext()) {
-		Kwave::Curve::Point p = it.next();
-		x[t] = p.x();
-		y[t] = p.y();
-		t++;
-	    }
+            Kwave::Curve::ConstIterator it(points);
+            while (it.hasNext()) {
+                Kwave::Curve::Point p = it.next();
+                x[t] = p.x();
+                y[t] = p.y();
+                t++;
+            }
 
-	    get2Derivate(x, y, der, count);
+            get2Derivate(x, y, der, count);
 
-	    int start = Kwave::toInt(x[1] * len);
+            int start = Kwave::toInt(x[1] * len);
 
-	    for (unsigned int j = 2; j <= count; j++) {
-		const int ent = Kwave::toInt(x[j] * len);
-		for (int i = start; i < ent; i++) {
-		    const double xin = static_cast<double>(i) / len;
-		    const double h   = x[j] - x[j - 1];
+            for (unsigned int j = 2; j <= count; j++) {
+                const int ent = Kwave::toInt(x[j] * len);
+                for (int i = start; i < ent; i++) {
+                    const double xin = static_cast<double>(i) / len;
+                    const double h   = x[j] - x[j - 1];
 
-		    if (!qFuzzyIsNull(h)) {
-			const double a = (x[j] - xin) / h;
-			const double b = (xin - x[j - 1]) / h;
+                    if (!qFuzzyIsNull(h)) {
+                        const double a = (x[j] - xin) / h;
+                        const double b = (xin - x[j - 1]) / h;
 
-			ny = (a * y[j - 1] + b * y[j] +
-				((a * a * a - a) * der[j - 1] +
-				(b * b * b - b) * der[j]) * (h * h) / 6.0);
-		    }
+                        ny = (a * y[j - 1] + b * y[j] +
+                                ((a * a * a - a) * der[j - 1] +
+                                (b * b * b - b) * der[j]) * (h * h) / 6.0);
+                    }
 
-		    y_out[i] = ny;
-		    start = ent;
-		}
-	    }
-	    break;
-	}
-	case INTPOL_POLYNOMIAL3:
-	    if (!degree) degree = 3;
-	    /* FALLTHROUGH */
-	case INTPOL_POLYNOMIAL5:
-	    if (!degree) degree = 5;
-	    /* FALLTHROUGH */
-	case INTPOL_POLYNOMIAL7:
-	{
-	    if (!degree) degree = 7;
-	    const unsigned int count = points.count();
-	    if (count) {
-		QVector<double> x(7);
-		QVector<double> y(7);
+                    y_out[i] = ny;
+                    start = ent;
+                }
+            }
+            break;
+        }
+        case INTPOL_POLYNOMIAL3:
+            if (!degree) degree = 3;
+            /* FALLTHROUGH */
+        case INTPOL_POLYNOMIAL5:
+            if (!degree) degree = 5;
+            /* FALLTHROUGH */
+        case INTPOL_POLYNOMIAL7:
+        {
+            if (!degree) degree = 7;
+            const unsigned int count = points.count();
+            if (count) {
+                QVector<double> x(7);
+                QVector<double> y(7);
 
-		for (unsigned int px = 0; px < count - 1; px++) {
-		    createPolynom (points, x, y, px - degree / 2, degree);
-		    const double start = points[px].x();
+                for (unsigned int px = 0; px < count - 1; px++) {
+                    createPolynom (points, x, y, px - degree / 2, degree);
+                    const double start = points[px].x();
 
-		    double ent;
-		    if (px >= count - degree / 2 + 1)
-			ent = 1;
-		    else
-			ent = points[px + 1].x();
+                    double ent;
+                    if (px >= count - degree / 2 + 1)
+                        ent = 1;
+                    else
+                        ent = points[px + 1].x();
 
-		    for (int i = Kwave::toInt(start * len);
-			i < Kwave::toInt(ent * len); i++)
-		    {
-			double ny = y[0];
-			for (unsigned int j = 1; j < degree; j++)
-			    ny = ny * ((static_cast<double>(i)) / len - x[j])
-				+ y[j];
+                    for (int i = Kwave::toInt(start * len);
+                        i < Kwave::toInt(ent * len); i++)
+                    {
+                        double ny = y[0];
+                        for (unsigned int j = 1; j < degree; j++)
+                            ny = ny * ((static_cast<double>(i)) / len - x[j])
+                                + y[j];
 
-			y_out[i] = ny;
-		    }
-		}
-	    }
-	    break;
-	}
-	case INTPOL_NPOLYNOMIAL:
-	{
-	    const int count = points.count();
-	    if (count != 0) {
-		QVector<double> x(count+1);
-		QVector<double> y(count+1);
+                        y_out[i] = ny;
+                    }
+                }
+            }
+            break;
+        }
+        case INTPOL_NPOLYNOMIAL:
+        {
+            const int count = points.count();
+            if (count != 0) {
+                QVector<double> x(count+1);
+                QVector<double> y(count+1);
 
-		createFullPolynom(points, x, y);
+                createFullPolynom(points, x, y);
 
-		for (unsigned int i = 1; i < len; i++) {
-		    const double px = static_cast<double>(i) / len;
-		    double ny = y[0];
-		    for (int j = 1; j < count; j++)
-			ny = ny * (px - x[j]) + y[j];
+                for (unsigned int i = 1; i < len; i++) {
+                    const double px = static_cast<double>(i) / len;
+                    double ny = y[0];
+                    for (int j = 1; j < count; j++)
+                        ny = ny * (px - x[j]) + y[j];
 
-		    y_out[i] = ny;
-		}
-	    }
-	    break;
-	}
-	case INTPOL_SAH:
-	{
-	    Kwave::Curve::ConstIterator it(points);
-	    if (it.hasNext()) {
-		Kwave::Curve::Point p = it.next();
-		double x0 = p.x();
-		double y0 = p.y();
+                    y_out[i] = ny;
+                }
+            }
+            break;
+        }
+        case INTPOL_SAH:
+        {
+            Kwave::Curve::ConstIterator it(points);
+            if (it.hasNext()) {
+                Kwave::Curve::Point p = it.next();
+                double x0 = p.x();
+                double y0 = p.y();
 
-		while (it.hasNext()) {
-		    p = it.next();
-		    const double x1 = p.x();
-		    const double y1 = p.y();
+                while (it.hasNext()) {
+                    p = it.next();
+                    const double x1 = p.x();
+                    const double y1 = p.y();
 
-		    for (int i = Kwave::toInt(x0 * len);
-		         i < Kwave::toInt(x1 * len); i++)
-			y_out[i] = y0;
+                    for (int i = Kwave::toInt(x0 * len);
+                         i < Kwave::toInt(x1 * len); i++)
+                        y_out[i] = y0;
 
-		    x0 = x1;
-		    y0 = y1;
-		}
-	    }
-	    break;
-	}
+                    x0 = x1;
+                    y0 = y1;
+                }
+            }
+            break;
+        }
     }
 
     return y_out;
@@ -390,7 +390,7 @@ QVector<double> Kwave::Interpolation::interpolation(
 
 //***************************************************************************
 void Kwave::Interpolation::createFullPolynom(const Kwave::Curve &points,
-	QVector<double> &x, QVector<double> &y)
+        QVector<double> &x, QVector<double> &y)
 {
     Q_ASSERT(!points.isEmpty());
     Q_ASSERT(m_curve);
@@ -403,22 +403,22 @@ void Kwave::Interpolation::createFullPolynom(const Kwave::Curve &points,
     unsigned int count = 0;
     Kwave::Curve::ConstIterator it(points);
     while (it.hasNext()) {
-	Kwave::Curve::Point p = it.next();
-	x[count] = p.x();
-	y[count] = p.y();
-	count++;
+        Kwave::Curve::Point p = it.next();
+        x[count] = p.x();
+        y[count] = p.y();
+        count++;
     }
 
     for (unsigned int k = 0; k < count; k++)
-	for (unsigned int j = k; j; ) {
-	    j--;
-	    y[j] = (y[j] - y[j+1]) / (x[j] - x[k]);
-	}
+        for (unsigned int j = k; j; ) {
+            j--;
+            y[j] = (y[j] - y[j+1]) / (x[j] - x[k]);
+        }
 }
 
 //***************************************************************************
 void Kwave::Interpolation::get2Derivate(const QVector<double> &x,
-	const QVector<double> &y, QVector<double> &ab, unsigned int n)
+        const QVector<double> &y, QVector<double> &ab, unsigned int n)
 {
     Q_ASSERT(n);
     if (!n) return;
@@ -430,12 +430,12 @@ void Kwave::Interpolation::get2Derivate(const QVector<double> &x,
     u[0] = u[1] = 0;
 
     for (i = 2; i < n; ++i) {
-	const double sig = (x[i] - x[i-1]) / (x[i+1] - x[i-1]);
-	const double p   = sig * ab[i-1] + 2;
-	ab[i] = (sig-1) / p;
-	u[i] = (y[i+1] - y[i])   / (x[i+1] - x[i])
-	     - (y[i]   - y[i-1]) / (x[i]   - x[i-1]);
-	u[i] = (6 * u[i] / (x[i+1] - x[i-1]) - sig * u[i-1]) / p;
+        const double sig = (x[i] - x[i-1]) / (x[i+1] - x[i-1]);
+        const double p   = sig * ab[i-1] + 2;
+        ab[i] = (sig-1) / p;
+        u[i] = (y[i+1] - y[i])   / (x[i+1] - x[i])
+             - (y[i]   - y[i-1]) / (x[i]   - x[i-1]);
+        u[i] = (6 * u[i] / (x[i+1] - x[i-1]) - sig * u[i-1]) / p;
     }
 
     const double qn = 0;
@@ -443,7 +443,7 @@ void Kwave::Interpolation::get2Derivate(const QVector<double> &x,
     ab[n] = (un - qn * u[n - 1]) / (qn * ab[n - 1] + 1);
 
     for (k = n - 1; k > 0; --k)
-	ab[k] = ab[k] * ab[k + 1] + u[k];
+        ab[k] = ab[k] * ab[k + 1] + u[k];
 
 }
 
@@ -458,46 +458,46 @@ void Kwave::Interpolation::createPolynom(const Kwave::Curve &points,
     Kwave::Curve::Point p = it.next();
 
     if (pos < 0) {
-	switch (pos) {
-	   case -3:
-		x[count] = -1.5;
-		y[count++] = p.y();
-		pos++;
+        switch (pos) {
+           case -3:
+                x[count] = -1.5;
+                y[count++] = p.y();
+                pos++;
                 /* FALLTHROUGH */
-	   case -2:
-		x[count] = -1.0;
-		y[count++] = p.y();
-		pos++;
+           case -2:
+                x[count] = -1.0;
+                y[count++] = p.y();
+                pos++;
                 /* FALLTHROUGH */
             case -1:
-		x[count] = -0.5;
-		y[count++] = p.y();
-		pos++;
+                x[count] = -0.5;
+                y[count++] = p.y();
+                pos++;
                 break;
-	}
+        }
     }
 
     for (int i = 0; i < pos; i++)
-	p = it.next();
+        p = it.next();
 
     while ((count < degree) && it.hasNext()) {
-	p = it.next();
-	x[count]   = p.x();
-	y[count++] = p.y();
+        p = it.next();
+        x[count]   = p.x();
+        y[count++] = p.y();
     }
 
     int i = 1;
     it.toBack();
     p = it.previous();
     while (count < degree) {
-	x[count]   = 1.0 + 0.5 * (i++);
-	y[count++] = p.y();
+        x[count]   = 1.0 + 0.5 * (i++);
+        y[count++] = p.y();
     }
 
     // create coefficients in y[i] and x[i];
     for (unsigned int k = 0; k < degree; k++)
-	for (int j = k - 1; j >= 0; j--)
-	    y[j] = (y[j] - y[j + 1]) / (x[j] - x[k]);
+        for (int j = k - 1; j >= 0; j--)
+            y[j] = (y[j] - y[j + 1]) / (x[j] - x[k]);
 
 }
 

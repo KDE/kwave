@@ -23,10 +23,10 @@
 namespace Kwave
 {
     typedef enum byte_order_t {
-	UnknownEndian = -1, /**< unknown/invalid */
-	CpuEndian     = 0,  /**< default of the host system's CPU */
-	LittleEndian  = 1,  /**< little endian (Intel) */
-	BigEndian     = 2   /**< big endian (Motorola) */
+        UnknownEndian = -1, /**< unknown/invalid */
+        CpuEndian     = 0,  /**< default of the host system's CPU */
+        LittleEndian  = 1,  /**< little endian (Intel) */
+        BigEndian     = 2   /**< big endian (Motorola) */
     } byte_order_t;
 }
 

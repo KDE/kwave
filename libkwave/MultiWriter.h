@@ -1,6 +1,6 @@
 /***************************************************************************
            MultiWriter.h - writer for multi-track processing
-			     -------------------
+                             -------------------
     begin                : Sun Aug 23 2009
     copyright            : (C) 2009 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -36,52 +36,52 @@ namespace Kwave
      * easier use of multi-track signals.
      */
     class Q_DECL_EXPORT MultiWriter
-	:public Kwave::MultiTrackSink<Kwave::Writer, false>
+        :public Kwave::MultiTrackSink<Kwave::Writer, false>
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Default constructor */
-	MultiWriter();
+        /** Default constructor */
+        MultiWriter();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~MultiWriter() Q_DECL_OVERRIDE;
 
-	/** Returns the last sample index of all streams */
-	virtual sample_index_t last() const;
+        /** Returns the last sample index of all streams */
+        virtual sample_index_t last() const;
 
-	/** Flushes all streams */
-	virtual void flush();
+        /** Flushes all streams */
+        virtual void flush();
 
-	/** @see Kwave::MultiTrackSink<Kwave::Writer>::clear() */
+        /** @see Kwave::MultiTrackSink<Kwave::Writer>::clear() */
         virtual void clear() Q_DECL_OVERRIDE;
 
-	/** @see Kwave::MultiTrackSink<Kwave::Writer>::insert() */
+        /** @see Kwave::MultiTrackSink<Kwave::Writer>::insert() */
         virtual bool insert(unsigned int track, Kwave::Writer *writer)
             Q_DECL_OVERRIDE;
 
     signals:
 
-	/**
-	 * Emits the current progress in percent, if the writers
-	 * are in "overwrite" mode
-	 * @see written for insert and append mode
-	 */
-	void progress(qreal percent);
+        /**
+         * Emits the current progress in percent, if the writers
+         * are in "overwrite" mode
+         * @see written for insert and append mode
+         */
+        void progress(qreal percent);
 
-	/**
-	 * Emitts the currently written samples, summed up over all
-	 * tracks, if the writers are in "insert" or "append" mode
-	 * @see progress for overwrite mode
-	 */
-	void written(quint64 samples);
+        /**
+         * Emitts the currently written samples, summed up over all
+         * tracks, if the writers are in "insert" or "append" mode
+         * @see progress for overwrite mode
+         */
+        void written(quint64 samples);
 
     private slots:
 
-	/**
-	 * Connected to each Writer to get informed about their progress.
-	 */
-	void proceeded();
+        /**
+         * Connected to each Writer to get informed about their progress.
+         */
+        void proceeded();
 
     };
 

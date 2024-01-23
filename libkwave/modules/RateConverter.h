@@ -35,46 +35,46 @@ namespace Kwave
 
     class Q_DECL_EXPORT RateConverter: public Kwave::SampleSource
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	RateConverter();
+        /** Constructor */
+        RateConverter();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~RateConverter() Q_DECL_OVERRIDE;
 
-	/** does nothing, processing is done in input() */
+        /** does nothing, processing is done in input() */
         virtual void goOn() Q_DECL_OVERRIDE;
 
     signals:
 
-	/** emits a block with the filtered data */
-	void output(Kwave::SampleArray data);
+        /** emits a block with the filtered data */
+        void output(Kwave::SampleArray data);
 
     public slots:
 
-	/** receives input data and also directly does the calculation */
-	void input(Kwave::SampleArray data);
+        /** receives input data and also directly does the calculation */
+        void input(Kwave::SampleArray data);
 
-	/**
-	 * Sets the conversion ratio, ((new rate) / (old rate))
-	 */
-	void setRatio(const QVariant r);
+        /**
+         * Sets the conversion ratio, ((new rate) / (old rate))
+         */
+        void setRatio(const QVariant r);
 
     private:
 
-	/** conversion ratio, ((new rate) / (old rate)) */
-	double m_ratio;
+        /** conversion ratio, ((new rate) / (old rate)) */
+        double m_ratio;
 
-	/** sample rate converter context for libsamplerate */
-	SRC_STATE *m_converter;
+        /** sample rate converter context for libsamplerate */
+        SRC_STATE *m_converter;
 
-	/** input values for the sample rate converter */
-	QVarLengthArray<float, 65536> m_converter_in;
+        /** input values for the sample rate converter */
+        QVarLengthArray<float, 65536> m_converter_in;
 
-	/** output values for the sample rate converter */
-	QVarLengthArray<float, 65536> m_converter_out;
+        /** output values for the sample rate converter */
+        QVarLengthArray<float, 65536> m_converter_out;
 
     };
 }

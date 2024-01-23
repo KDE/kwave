@@ -67,11 +67,11 @@ QStringList *Kwave::MP3CodecPlugin::setup(QStringList &previous_params)
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec() && dialog) {
-	// user has pressed "OK"
-	dialog->save();
+        // user has pressed "OK"
+        dialog->save();
     } else {
-	// user pressed "Cancel"
-	if (list) delete list;
+        // user pressed "Cancel"
+        if (list) delete list;
         list = Q_NULLPTR;
     }
 

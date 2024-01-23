@@ -97,25 +97,25 @@ QString Kwave::RecordOSS::open(const QString &dev)
     // first of all: try to open the device itself
     int fd = ::open(dev.toLocal8Bit(), O_RDONLY | O_NONBLOCK);
     if (fd < 0) {
-	qWarning("open failed, fd=%d, errno=%d (%s)",
-	         fd, errno, strerror(errno));
+        qWarning("open failed, fd=%d, errno=%d (%s)",
+                 fd, errno, strerror(errno));
 
-	QString reason;
-	switch (errno) {
-	    case ENOENT:
-	    case ENODEV:
-	    case ENXIO:
-	    case EIO:
-		reason = QString::number(ENODEV);
-		break;
-	    case EBUSY:
-		reason = QString::number(EBUSY);
-		break;
-	    default:
-		reason = QString::fromLocal8Bit(strerror(errno));
-		break;
-	}
-	return reason;
+        QString reason;
+        switch (errno) {
+            case ENOENT:
+            case ENODEV:
+            case ENXIO:
+            case EIO:
+                reason = QString::number(ENODEV);
+                break;
+            case EBUSY:
+                reason = QString::number(EBUSY);
+                break;
+            default:
+                reason = QString::fromLocal8Bit(strerror(errno));
+                break;
+        }
+        return reason;
     }
 
     // Query OSS driver version
@@ -154,7 +154,7 @@ int Kwave::RecordOSS::read(QByteArray &buffer, unsigned int offset)
     Q_ASSERT(!err);
     qDebug("blocksize = %u", blocksize);
     if (err) {
-	blocksize = length;
+        blocksize = length;
     }
 
     blocksize = (127 << 16) + 6;
@@ -177,40 +177,40 @@ int Kwave::RecordOSS::read(QByteArray &buffer, unsigned int offset)
     Q_ASSERT(!retval);
 
     while (length) {
-	FD_ZERO(&rfds);
-	FD_SET(m_fd, &rfds);
+        FD_ZERO(&rfds);
+        FD_SET(m_fd, &rfds);
 
-	tv.tv_sec  = timeout;
-	tv.tv_usec = 0;
+        tv.tv_sec  = timeout;
+        tv.tv_usec = 0;
         retval = select(m_fd+1, &rfds, Q_NULLPTR, Q_NULLPTR, &tv);
 
-	if (retval == -1) {
-	    if (errno == EINTR)
-		return -errno; // return without warning
+        if (retval == -1) {
+            if (errno == EINTR)
+                return -errno; // return without warning
 
-	    qWarning("RecordOSS::read() - select() failed errno=%d (%s)",
-	             errno, strerror(errno));
-	    return -errno;
-	} else if (retval) {
-	    ssize_t res = ::read(m_fd, buf, length);
+            qWarning("RecordOSS::read() - select() failed errno=%d (%s)",
+                     errno, strerror(errno));
+            return -errno;
+        } else if (retval) {
+            ssize_t res = ::read(m_fd, buf, length);
 
-	    if ((res == -1) && (errno == EINTR))
-		return -errno; // interrupted, return without warning
+            if ((res == -1) && (errno == EINTR))
+                return -errno; // interrupted, return without warning
 
-	    if ((res == -1) && (errno == EAGAIN))
-		continue;
+            if ((res == -1) && (errno == EAGAIN))
+                continue;
 
-	    if (res < 0) {
-		qWarning("RecordOSS::read() - read error %d (%s)",
-		         errno, strerror(errno));
-		return read_bytes;
-	    }
-	    read_bytes += res;
-	    length -= res;
-	    buf += res;
-	} else {
-	    qWarning("No data within 5 seconds.\n");
-	    return -EIO;
+            if (res < 0) {
+                qWarning("RecordOSS::read() - read error %d (%s)",
+                         errno, strerror(errno));
+                return read_bytes;
+            }
+            read_bytes += res;
+            length -= res;
+            buf += res;
+        } else {
+            qWarning("No data within 5 seconds.\n");
+            return -EIO;
         }
     }
 
@@ -234,20 +234,20 @@ static bool addIfExists(QStringList &list, const QString &name)
     QFile file;
 
     if (name.contains(_("%1"))) {
-	// test for the name without suffix first
-	addIfExists(list, name.arg(_("")));
+        // test for the name without suffix first
+        addIfExists(list, name.arg(_("")));
 
-	// loop over the list and try until a suffix does not exist
-	for (unsigned int index=0; index < 64; index++)
-	    addIfExists(list, name.arg(index));
+        // loop over the list and try until a suffix does not exist
+        for (unsigned int index=0; index < 64; index++)
+            addIfExists(list, name.arg(index));
     } else {
-	// check a single name
-	file.setFileName(name);
-	if (!file.exists())
-	    return false;
+        // check a single name
+        file.setFileName(name);
+        if (!file.exists())
+            return false;
 
-	if (!list.contains(name))
-	    list.append(name);
+        if (!list.contains(name))
+            list.append(name);
     }
 
     return true;
@@ -267,8 +267,8 @@ static void scanFiles(QStringList &list, const QString &dirname,
     files = dir.entryList();
 
     for (QStringList::Iterator it = files.begin(); it != files.end(); ++it) {
-	QString devicename = dirname + QDir::separator() + (*it);
-	addIfExists(list, devicename);
+        QString devicename = dirname + QDir::separator() + (*it);
+        addIfExists(list, devicename);
     }
 }
 
@@ -291,7 +291,7 @@ QStringList Kwave::RecordOSS::supportedDevices()
     scanDirectory(list, _("/dev/sound"));
     scanFiles(dirlist, _("/dev/oss"), _("[^.]*"));
     foreach(QString dir, dirlist)
-	scanDirectory(list, dir);
+        scanDirectory(list, dir);
     list.append(_("#EDIT#"));
     list.append(_("#SELECT#"));
 
@@ -330,30 +330,30 @@ int Kwave::RecordOSS::detectTracks(unsigned int &min, unsigned int &max)
 
     // find the smalles number of tracks, limit to MAX_CHANNELS
     for (t = 1; t < MAX_CHANNELS; t++) {
-	int real_tracks = t;
-	err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
-	if ((err >= 0) && (real_tracks == Kwave::toInt(t))) {
-	    min = real_tracks;
-	    break;
-	}
+        int real_tracks = t;
+        err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
+        if ((err >= 0) && (real_tracks == Kwave::toInt(t))) {
+            min = real_tracks;
+            break;
+        }
     }
     if (t >= MAX_CHANNELS) {
-	// no minimum track number found :-o
-	qWarning("no minimum track number found, err=%d", err);
-	min = 0;
-	max = 0;
-	return err;
+        // no minimum track number found :-o
+        qWarning("no minimum track number found, err=%d", err);
+        min = 0;
+        max = 0;
+        return err;
     }
 
     // find the highest number of tracks, start from MAX_CHANNELS downwards
     max = min;
     for (t = MAX_CHANNELS; t >= min; t--) {
-	int real_tracks = t;
-	err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
-	if ((err >= 0) && (real_tracks == Kwave::toInt(t))) {
-	    max = real_tracks;
-	    break;
-	}
+        int real_tracks = t;
+        err = ioctl(m_fd, SNDCTL_DSP_CHANNELS, &real_tracks);
+        if ((err >= 0) && (real_tracks == Kwave::toInt(t))) {
+            max = real_tracks;
+            break;
+        }
     }
     m_tracks = max;
 
@@ -392,64 +392,64 @@ QList<double> Kwave::RecordOSS::detectSampleRates()
     Q_ASSERT(m_fd >= 0);
 
     static const int known_rates[] = {
-	  1000, // (just for testing)
-	  2000, // (just for testing)
-	  4000, // standard OSS
-	  5125, // seen in Harmony driver (HP712, 715/new)
-	  5510, // seen in AD1848 driver
-	  5512, // seen in ES1370 driver
-	  6215, // seen in ES188X driver
-	  6615, // seen in Harmony driver (HP712, 715/new)
-	  6620, // seen in AD1848 driver
-	  7350, // seen in AWACS and Burgundy sound driver
-	  8000, // standard OSS
-	  8820, // seen in AWACS and Burgundy sound driver
-	  9600, // seen in AD1848 driver
-	 11025, // soundblaster
-	 14700, // seen in AWACS and Burgundy sound driver
-	 16000, // standard OSS
-	 17640, // seen in AWACS and Burgundy sound driver
-	 18900, // seen in Harmony driver (HP712, 715/new)
-	 22050, // soundblaster
-	 24000, // seen in NM256 driver
-	 27428, // seen in Harmony driver (HP712, 715/new)
-	 29400, // seen in AWACS and Burgundy sound driver
-	 32000, // standard OSS
-	 32768, // seen in CS4299 driver
-	 33075, // seen in Harmony driver (HP712, 715/new)
-	 37800, // seen in Harmony driver (HP712, 715/new)
-	 44100, // soundblaster
-	 48000, // AC97
-	 64000, // AC97
-	 88200, // seen in RME96XX driver
-	 96000, // AC97
-	128000, // (just for testing)
-	176400, // Envy24ht
-	192000, // AC97
-	196000, // (just for testing)
-	200000, // Lynx2
-	256000  // (just for testing)
+          1000, // (just for testing)
+          2000, // (just for testing)
+          4000, // standard OSS
+          5125, // seen in Harmony driver (HP712, 715/new)
+          5510, // seen in AD1848 driver
+          5512, // seen in ES1370 driver
+          6215, // seen in ES188X driver
+          6615, // seen in Harmony driver (HP712, 715/new)
+          6620, // seen in AD1848 driver
+          7350, // seen in AWACS and Burgundy sound driver
+          8000, // standard OSS
+          8820, // seen in AWACS and Burgundy sound driver
+          9600, // seen in AD1848 driver
+         11025, // soundblaster
+         14700, // seen in AWACS and Burgundy sound driver
+         16000, // standard OSS
+         17640, // seen in AWACS and Burgundy sound driver
+         18900, // seen in Harmony driver (HP712, 715/new)
+         22050, // soundblaster
+         24000, // seen in NM256 driver
+         27428, // seen in Harmony driver (HP712, 715/new)
+         29400, // seen in AWACS and Burgundy sound driver
+         32000, // standard OSS
+         32768, // seen in CS4299 driver
+         33075, // seen in Harmony driver (HP712, 715/new)
+         37800, // seen in Harmony driver (HP712, 715/new)
+         44100, // soundblaster
+         48000, // AC97
+         64000, // AC97
+         88200, // seen in RME96XX driver
+         96000, // AC97
+        128000, // (just for testing)
+        176400, // Envy24ht
+        192000, // AC97
+        196000, // (just for testing)
+        200000, // Lynx2
+        256000  // (just for testing)
     };
 
     // try all known sample rates
     for (unsigned int i=0; i < sizeof(known_rates)/sizeof(int); i++) {
-	int rate = known_rates[i];
-	int err = ioctl(m_fd, SNDCTL_DSP_SPEED, &rate);
-	if (err < 0) {
-// 	    qDebug("RecordOSS::detectSampleRates(): "
-// 	           "sample rate %d Hz not supported", known_rates[i]);
-	    continue;
-	}
+        int rate = known_rates[i];
+        int err = ioctl(m_fd, SNDCTL_DSP_SPEED, &rate);
+        if (err < 0) {
+//          qDebug("RecordOSS::detectSampleRates(): "
+//                 "sample rate %d Hz not supported", known_rates[i]);
+            continue;
+        }
 
-	// do not produce duplicates
-	bool is_duplicate = false;
-	foreach (const double &r, list)
-	    if (qFuzzyCompare(rate, r)) { is_duplicate = true; break; }
-	if (is_duplicate) continue;
+        // do not produce duplicates
+        bool is_duplicate = false;
+        foreach (const double &r, list)
+            if (qFuzzyCompare(rate, r)) { is_duplicate = true; break; }
+        if (is_duplicate) continue;
 
-	// qDebug("found rate %d Hz", rate);
-	list.append(rate);
-	m_rate = rate;
+        // qDebug("found rate %d Hz", rate);
+        list.append(rate);
+        m_rate = rate;
     }
 
     return list;
@@ -489,71 +489,71 @@ void Kwave::RecordOSS::format2mode(int format,
 {
 
     switch (format) {
-	case AFMT_MU_LAW:
-	    compression   = Kwave::Compression::G711_ULAW;
-	    sample_format = Kwave::SampleFormat::Signed;
-	    bits          = 16;
-	    break;
-	case AFMT_A_LAW:
-	    compression   = Kwave::Compression::G711_ALAW;
-	    sample_format = Kwave::SampleFormat::Unsigned;
-	    bits          = 16;
-	    break;
-	case AFMT_IMA_ADPCM:
-	    compression   = Kwave::Compression::MS_ADPCM;
-	    sample_format = Kwave::SampleFormat::Signed;
-	    bits          = 16;
-	    break;
-	case AFMT_U8:
-	    compression   = Kwave::Compression::NONE;
-	    sample_format = Kwave::SampleFormat::Unsigned;
-	    bits          = 8;
-	    break;
-	case AFMT_S16_LE: /* FALLTHROUGH */
-	case AFMT_S16_BE:
-	    compression   = Kwave::Compression::NONE;
-	    sample_format = Kwave::SampleFormat::Signed;
-	    bits          = 16;
-	    break;
-	case AFMT_S8:
-	    compression   = Kwave::Compression::NONE;
-	    sample_format = Kwave::SampleFormat::Signed;
-	    bits          = 8;
-	    break;
-	case AFMT_U16_LE: /* FALLTHROUGH */
-	case AFMT_U16_BE:
-	    compression   = Kwave::Compression::NONE;
-	    sample_format = Kwave::SampleFormat::Unsigned;
-	    bits          = 16;
-	    break;
-	case AFMT_MPEG:
-	    compression   = Kwave::Compression::MPEG_LAYER_II;
-	    sample_format = Kwave::SampleFormat::Signed;
-	    bits          = 16;
-	    break;
+        case AFMT_MU_LAW:
+            compression   = Kwave::Compression::G711_ULAW;
+            sample_format = Kwave::SampleFormat::Signed;
+            bits          = 16;
+            break;
+        case AFMT_A_LAW:
+            compression   = Kwave::Compression::G711_ALAW;
+            sample_format = Kwave::SampleFormat::Unsigned;
+            bits          = 16;
+            break;
+        case AFMT_IMA_ADPCM:
+            compression   = Kwave::Compression::MS_ADPCM;
+            sample_format = Kwave::SampleFormat::Signed;
+            bits          = 16;
+            break;
+        case AFMT_U8:
+            compression   = Kwave::Compression::NONE;
+            sample_format = Kwave::SampleFormat::Unsigned;
+            bits          = 8;
+            break;
+        case AFMT_S16_LE: /* FALLTHROUGH */
+        case AFMT_S16_BE:
+            compression   = Kwave::Compression::NONE;
+            sample_format = Kwave::SampleFormat::Signed;
+            bits          = 16;
+            break;
+        case AFMT_S8:
+            compression   = Kwave::Compression::NONE;
+            sample_format = Kwave::SampleFormat::Signed;
+            bits          = 8;
+            break;
+        case AFMT_U16_LE: /* FALLTHROUGH */
+        case AFMT_U16_BE:
+            compression   = Kwave::Compression::NONE;
+            sample_format = Kwave::SampleFormat::Unsigned;
+            bits          = 16;
+            break;
+        case AFMT_MPEG:
+            compression   = Kwave::Compression::MPEG_LAYER_II;
+            sample_format = Kwave::SampleFormat::Signed;
+            bits          = 16;
+            break;
 #if 0
-	case AFMT_AC3: /* Dolby Digital AC3 */
-	    compression   = Kwave::Compression::NONE;
-	    sample_format = Kwave::SampleFormat::Unknown;
-	    bits          = 16;
-	    break;
+        case AFMT_AC3: /* Dolby Digital AC3 */
+            compression   = Kwave::Compression::NONE;
+            sample_format = Kwave::SampleFormat::Unknown;
+            bits          = 16;
+            break;
 #endif
-	case AFMT_S24_LE: /* FALLTHROUGH */
-	case AFMT_S24_BE:
-	    compression   = Kwave::Compression::NONE;
-	    sample_format = Kwave::SampleFormat::Signed;
-	    bits          = 24;
-	    break;
-	case AFMT_S32_LE: /* FALLTHROUGH */
-	case AFMT_S32_BE:
-	    compression   = Kwave::Compression::NONE;
-	    sample_format = Kwave::SampleFormat::Signed;
-	    bits          = 32;
-	    break;
-	default:
-	    compression   = Kwave::Compression::NONE;
-	    sample_format = Kwave::SampleFormat::Unknown;
-	    bits          = -1;
+        case AFMT_S24_LE: /* FALLTHROUGH */
+        case AFMT_S24_BE:
+            compression   = Kwave::Compression::NONE;
+            sample_format = Kwave::SampleFormat::Signed;
+            bits          = 24;
+            break;
+        case AFMT_S32_LE: /* FALLTHROUGH */
+        case AFMT_S32_BE:
+            compression   = Kwave::Compression::NONE;
+            sample_format = Kwave::SampleFormat::Signed;
+            bits          = 32;
+            break;
+        default:
+            compression   = Kwave::Compression::NONE;
+            sample_format = Kwave::SampleFormat::Unknown;
+            bits          = -1;
     }
 
 }
@@ -568,11 +568,11 @@ int Kwave::RecordOSS::mode2format(Kwave::Compression::Type compression,
     if (compression == Kwave::Compression::G711_ALAW) return AFMT_A_LAW;
     if (compression == Kwave::Compression::MS_ADPCM)  return AFMT_IMA_ADPCM;
     if (compression == static_cast<int>(Kwave::Compression::MPEG_LAYER_II))
-	return AFMT_MPEG;
+        return AFMT_MPEG;
 
     // non-compressed: switch by sample format
     if ((sample_format == Kwave::SampleFormat::Unsigned) && (bits == 8))
-	return AFMT_U8;
+        return AFMT_U8;
     if ((sample_format == Kwave::SampleFormat::Signed) && (bits == 8))
         return AFMT_S8;
 
@@ -584,43 +584,43 @@ int Kwave::RecordOSS::mode2format(Kwave::Compression::Type compression,
     // unsigned 16 bit mode
     // note: we prefer the machine's native endianness if both are supported !
     if ((sample_format == Kwave::SampleFormat::Unsigned) && (bits == 16)) {
-	mask &= (AFMT_U16_LE | AFMT_U16_BE);
-	if (mask != (AFMT_U16_LE | AFMT_U16_BE)) return mask;
+        mask &= (AFMT_U16_LE | AFMT_U16_BE);
+        if (mask != (AFMT_U16_LE | AFMT_U16_BE)) return mask;
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	return AFMT_U16_BE;
+        return AFMT_U16_BE;
 #else
-	return AFMT_U16_LE;
+        return AFMT_U16_LE;
 #endif
     }
 
     // signed 16 bit mode
     if ((sample_format == Kwave::SampleFormat::Signed) && (bits == 16)) {
-	mask &= (AFMT_S16_LE | AFMT_S16_BE);
-	if (mask != (AFMT_S16_LE | AFMT_S16_BE)) return mask;
+        mask &= (AFMT_S16_LE | AFMT_S16_BE);
+        if (mask != (AFMT_S16_LE | AFMT_S16_BE)) return mask;
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	return AFMT_S16_BE;
+        return AFMT_S16_BE;
 #else
-	return AFMT_S16_LE;
+        return AFMT_S16_LE;
 #endif
     }
 
     if ((sample_format == Kwave::SampleFormat::Signed) && (bits == 24)) {
-	mask &= (AFMT_S24_LE | AFMT_S24_BE);
-	if (mask != (AFMT_S24_LE | AFMT_S24_BE)) return mask;
+        mask &= (AFMT_S24_LE | AFMT_S24_BE);
+        if (mask != (AFMT_S24_LE | AFMT_S24_BE)) return mask;
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	return AFMT_S24_BE;
+        return AFMT_S24_BE;
 #else
-	return AFMT_S24_LE;
+        return AFMT_S24_LE;
 #endif
     }
 
     if ((sample_format == Kwave::SampleFormat::Signed) && (bits == 32)) {
-	mask &= (AFMT_S32_LE | AFMT_S32_BE);
-	if (mask != (AFMT_S32_LE | AFMT_S32_BE)) return mask;
+        mask &= (AFMT_S32_LE | AFMT_S32_BE);
+        if (mask != (AFMT_S32_LE | AFMT_S32_BE)) return mask;
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	return AFMT_S32_BE;
+        return AFMT_S32_BE;
 #else
-	return AFMT_S32_LE;
+        return AFMT_S32_LE;
 #endif
     }
 
@@ -706,25 +706,25 @@ QList<unsigned int> Kwave::RecordOSS::supportedBits()
     // mask out all modes that do not match the current compression
     const int comp = this->compression();
     for (unsigned int bit=0; bit < (sizeof(mask) << 3); bit++) {
-	if (!(mask & (1U << bit))) continue;
+        if (!(mask & (1U << bit))) continue;
 
-	// format is supported, split into compression, bits, sample format
-	Kwave::Compression::Type c(Kwave::Compression::NONE);
-	int b;
-	Kwave::SampleFormat::Format s;
-	format2mode(1U << bit, c, b, s);
-	if (b < 0) continue; // unknown -> skip
+        // format is supported, split into compression, bits, sample format
+        Kwave::Compression::Type c(Kwave::Compression::NONE);
+        int b;
+        Kwave::SampleFormat::Format s;
+        format2mode(1U << bit, c, b, s);
+        if (b < 0) continue; // unknown -> skip
 
-	// take the mode if compression matches and it is not already known
-	if ((c == comp) && !(bits.contains(b))) {
-	    bits += b;
-	}
+        // take the mode if compression matches and it is not already known
+        if ((c == comp) && !(bits.contains(b))) {
+            bits += b;
+        }
     }
 
 #if 0
     if (mask | AFMT_AC3)
-	qDebug("RecordOSS: your device supports AC3 which is not "\
-	       "yet supported, sorry :-(");
+        qDebug("RecordOSS: your device supports AC3 which is not "\
+               "yet supported, sorry :-(");
 #endif
     return bits;
 }
@@ -787,19 +787,19 @@ QList<Kwave::SampleFormat::Format> Kwave::RecordOSS::detectSampleFormats()
     const Kwave::Compression::Type comp = this->compression();
     const int bits_per_sample = this->bitsPerSample();
     for (unsigned int bit = 0; bit < (sizeof(mask) << 3U); bit++) {
-	if (!(mask & (1U << bit))) continue;
+        if (!(mask & (1U << bit))) continue;
 
-	// format is supported, split into compression, bits, sample format
-	Kwave::Compression::Type c;
-	int b;
-	Kwave::SampleFormat::Format s;
-	format2mode(1U << bit, c, b, s);
-	if (c < 0) continue; // unknown -> skip
+        // format is supported, split into compression, bits, sample format
+        Kwave::Compression::Type c;
+        int b;
+        Kwave::SampleFormat::Format s;
+        format2mode(1U << bit, c, b, s);
+        if (c < 0) continue; // unknown -> skip
 
-	if ((c == comp) && (b == bits_per_sample)) {
-	    // this mode matches -> append it if not already known
-	    if (!formats.contains(s)) formats += s;
-	}
+        if ((c == comp) && (b == bits_per_sample)) {
+            // this mode matches -> append it if not already known
+            if (!formats.contains(s)) formats += s;
+        }
     }
 
     return formats;
@@ -855,13 +855,13 @@ Kwave::byte_order_t Kwave::RecordOSS::endianness()
     if (err < 0) return Kwave::UnknownEndian;
 
     if (mask & (AFMT_U16_LE | AFMT_S16_LE | AFMT_S24_LE | AFMT_S32_LE))
-	return Kwave::LittleEndian;
+        return Kwave::LittleEndian;
 
     if (mask & (AFMT_U16_BE | AFMT_S16_BE | AFMT_S24_BE | AFMT_S32_BE))
-	return Kwave::BigEndian;
+        return Kwave::BigEndian;
 
     if (mask & (AFMT_S8 | AFMT_U8))
-	return Kwave::CpuEndian;
+        return Kwave::CpuEndian;
 
     return Kwave::UnknownEndian;
 }

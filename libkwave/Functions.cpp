@@ -1,6 +1,6 @@
 /***************************************************************************
           Functions.cpp  -  list of simple periodic functions
-			     -------------------
+                             -------------------
     begin                : Jan 21 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>

@@ -48,8 +48,8 @@ Kwave::FilterPlugin::FilterPlugin(QObject *parent, const QVariantList &args)
 Kwave::FilterPlugin::~FilterPlugin()
 {
     if (m_sink) {
-	delete m_sink;
-	m_sink = Q_NULLPTR;
+        delete m_sink;
+        m_sink = Q_NULLPTR;
     }
 }
 
@@ -58,7 +58,7 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
 {
     // try to interpret and use the previous parameters
     if (!interpreteParameters(previous_params))
-	m_params = previous_params;
+        m_params = previous_params;
 
     // create the setup dialog
     Kwave::PluginSetupDialog *setup_dialog = createDialog(parentWidget());
@@ -79,11 +79,11 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dlg->exec()) {
-	// user has pressed "OK"
-	*list = setup_dialog->params();
+        // user has pressed "OK"
+        *list = setup_dialog->params();
     } else {
-	// user pressed "Cancel"
-	if (list) delete list;
+        // user pressed "Cancel"
+        if (list) delete list;
         list = Q_NULLPTR;
     }
 
@@ -111,42 +111,42 @@ void Kwave::FilterPlugin::run(QStringList params)
 
     // create all objects
     Kwave::MultiTrackReader source(
-	(m_listen) ? Kwave::FullSnapshot : Kwave::SinglePassForward,
-	signalManager(), tracks, first, last);
+        (m_listen) ? Kwave::FullSnapshot : Kwave::SinglePassForward,
+        signalManager(), tracks, first, last);
     connect(this, SIGNAL(sigCancel()), &source, SLOT(cancel()),
-	    Qt::DirectConnection);
+            Qt::DirectConnection);
 
     if (m_listen) {
-	// pre-listen mode
-	Q_ASSERT(m_sink);
+        // pre-listen mode
+        Q_ASSERT(m_sink);
     } else {
-	// normal mode, with undo
-	undo_guard = new(std::nothrow)
-	    Kwave::UndoTransactionGuard(*this, actionName());
-	Q_ASSERT(undo_guard);
-	if (!undo_guard) {
-	    if (filter) delete filter;
-	    Kwave::StreamObject::setInteractive(false);
-	    return;
-	}
-	m_sink = new(std::nothrow) MultiTrackWriter(signalManager(), tracks,
-	    Kwave::Overwrite, first, last);
-	Q_ASSERT(m_sink);
+        // normal mode, with undo
+        undo_guard = new(std::nothrow)
+            Kwave::UndoTransactionGuard(*this, actionName());
+        Q_ASSERT(undo_guard);
+        if (!undo_guard) {
+            if (filter) delete filter;
+            Kwave::StreamObject::setInteractive(false);
+            return;
+        }
+        m_sink = new(std::nothrow) MultiTrackWriter(signalManager(), tracks,
+            Kwave::Overwrite, first, last);
+        Q_ASSERT(m_sink);
     }
     if (!filter || !m_sink || m_sink->done()) {
-	if (filter)     delete filter;
-	if (undo_guard) delete undo_guard;
-	if (m_sink)     delete m_sink;
+        if (filter)     delete filter;
+        if (undo_guard) delete undo_guard;
+        if (m_sink)     delete m_sink;
         m_sink = Q_NULLPTR;
-	Kwave::StreamObject::setInteractive(false);
-	return;
+        Kwave::StreamObject::setInteractive(false);
+        return;
     }
 
     // set up the progress dialog when in processing (not pre-listen) mode
     if (!m_listen) {
-	connect(&source, SIGNAL(progress(qreal)),
-		this,    SLOT(updateProgress(qreal)),
-		Qt::BlockingQueuedConnection);
+        connect(&source, SIGNAL(progress(qreal)),
+                this,    SLOT(updateProgress(qreal)),
+                Qt::BlockingQueuedConnection);
     }
 
     // force initial update of the filter settings
@@ -160,34 +160,34 @@ void Kwave::FilterPlugin::run(QStringList params)
 
     // transport the samples
     while (!shouldStop() && (!source.done() || m_listen)) {
-	// process one step
-	if (m_listen) QThread::yieldCurrentThread();
-	source.goOn();
-	filter->goOn();
+        // process one step
+        if (m_listen) QThread::yieldCurrentThread();
+        source.goOn();
+        filter->goOn();
 
-	// watch out for changed parameters when in
-	// pre-listen mode
-	if (m_listen && paramsChanged()) {
-	    updateFilter(filter);
-	}
+        // watch out for changed parameters when in
+        // pre-listen mode
+        if (m_listen && paramsChanged()) {
+            updateFilter(filter);
+        }
 
-	if (m_listen && source.done()) {
-	    // start the next loop
-	    source.reset();
-	    continue;
-	}
+        if (m_listen && source.done()) {
+            // start the next loop
+            source.reset();
+            continue;
+        }
 
-	// this lets the process wait if the user pressed cancel
-	// and the confirm_cancel dialog is active
-	while (m_pause && !shouldStop())
-	    sleep(1);
+        // this lets the process wait if the user pressed cancel
+        // and the confirm_cancel dialog is active
+        while (m_pause && !shouldStop())
+            sleep(1);
     }
 
     // cleanup
     if (filter)     delete filter;
     if (!m_listen) {
-	delete m_sink;
-	m_sink = Q_NULLPTR;
+        delete m_sink;
+        m_sink = Q_NULLPTR;
     }
     if (undo_guard) delete undo_guard;
 
@@ -218,10 +218,10 @@ void Kwave::FilterPlugin::startPreListen()
     m_sink = manager().openMultiTrackPlayback(selectedTracks().count());
 
     if (m_sink) {
-	m_listen = true;
-	setProgressDialogEnabled(false);
-	static QStringList empty_list;
-	execute(empty_list);
+        m_listen = true;
+        setProgressDialogEnabled(false);
+        static QStringList empty_list;
+        execute(empty_list);
     }
 }
 

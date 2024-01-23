@@ -40,78 +40,78 @@ namespace Kwave
     class Q_DECL_EXPORT VirtualAudioFile
     {
     public:
-	/**
-	 * Constructor
-	 * @param device QIODevice used as source/destination
-	 */
-	explicit VirtualAudioFile(QIODevice &device);
+        /**
+         * Constructor
+         * @param device QIODevice used as source/destination
+         */
+        explicit VirtualAudioFile(QIODevice &device);
 
-	/** Destructor */
-	virtual ~VirtualAudioFile();
+        /** Destructor */
+        virtual ~VirtualAudioFile();
 
-	/** opens the file through libaudiofile */
-	virtual void open(Kwave::VirtualAudioFile *x, AFfilesetup setup);
+        /** opens the file through libaudiofile */
+        virtual void open(Kwave::VirtualAudioFile *x, AFfilesetup setup);
 
-	/**
-	 * Closes the file from libaudiofile side. The associated
-	 * QIODevice will not be touched.
-	 * @note This has not necessarily to be called, it will closed
-	 *       automatically in the destructor.
-	 */
-	virtual void close();
+        /**
+         * Closes the file from libaudiofile side. The associated
+         * QIODevice will not be touched.
+         * @note This has not necessarily to be called, it will closed
+         *       automatically in the destructor.
+         */
+        virtual void close();
 
-	/** Returns the handle for use in libaudiofile */
-	inline AFfilehandle &handle() { return m_file_handle; }
+        /** Returns the handle for use in libaudiofile */
+        inline AFfilehandle &handle() { return m_file_handle; }
 
-	/** Returns the virtual file for use in libaudiofile */
-	inline AFvirtualfile *file() { return m_virtual_file; }
+        /** Returns the virtual file for use in libaudiofile */
+        inline AFvirtualfile *file() { return m_virtual_file; }
 
-	/** Returns the last error from libaudiofile (-1 means "no error") */
-	inline long int lastError() { return m_last_error; }
+        /** Returns the last error from libaudiofile (-1 means "no error") */
+        inline long int lastError() { return m_last_error; }
 
-	/**
-	 * returns the last error text from libaudiofile, not localized
-	 * @note this is only valid in case of lastError is not -1
-	 */
-	inline QString lastErrorText() { return m_last_error_text; }
+        /**
+         * returns the last error text from libaudiofile, not localized
+         * @note this is only valid in case of lastError is not -1
+         */
+        inline QString lastErrorText() { return m_last_error_text; }
 
-	/** reads a block of data */
-	virtual qint64 read(char *data, unsigned int nbytes);
+        /** reads a block of data */
+        virtual qint64 read(char *data, unsigned int nbytes);
 
-	/** returns the length of the file */
-	virtual qint64 length();
+        /** returns the length of the file */
+        virtual qint64 length();
 
-	/** writes a block of data */
-	virtual qint64 write(const char *data, unsigned int nbytes);
+        /** writes a block of data */
+        virtual qint64 write(const char *data, unsigned int nbytes);
 
-	/** called to close the source */
-	virtual void destroy();
+        /** called to close the source */
+        virtual void destroy();
 
-	/** seek to a file position */
-	virtual qint64 seek(qint64 offset, bool is_relative);
+        /** seek to a file position */
+        virtual qint64 seek(qint64 offset, bool is_relative);
 
-	/** returns the file position */
-	virtual qint64 tell();
+        /** returns the file position */
+        virtual qint64 tell();
 
-	/** returns a VirtualAudioFile for a libasound virtual file */
-	static Kwave::VirtualAudioFile *adapter(AFvirtualfile *vfile);
+        /** returns a VirtualAudioFile for a libasound virtual file */
+        static Kwave::VirtualAudioFile *adapter(AFvirtualfile *vfile);
 
     private:
 
-	/** i/o device to Qt */
-	QIODevice &m_device;
+        /** i/o device to Qt */
+        QIODevice &m_device;
 
-	/** file handle used in libaudiofile */
-	AFfilehandle m_file_handle;
+        /** file handle used in libaudiofile */
+        AFfilehandle m_file_handle;
 
-	/** virtual file, used in libaudiofile */
-	AFvirtualfile *m_virtual_file;
+        /** virtual file, used in libaudiofile */
+        AFvirtualfile *m_virtual_file;
 
-	/** last error code from libaudiofile */
-	long int m_last_error;
+        /** last error code from libaudiofile */
+        long int m_last_error;
 
-	/** last error text from libaudiofile */
-	QString m_last_error_text;
+        /** last error text from libaudiofile */
+        QString m_last_error_text;
 
     };
 }

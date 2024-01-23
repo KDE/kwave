@@ -33,48 +33,48 @@ namespace Kwave
 {
     class Normalizer: public Kwave::SampleSource
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	Normalizer();
+        /** Constructor */
+        Normalizer();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~Normalizer() Q_DECL_OVERRIDE;
 
-	/** does the calculation */
+        /** does the calculation */
         virtual void goOn() Q_DECL_OVERRIDE;
 
     signals:
 
-	/** emits a block with the filtered data */
-	void output(Kwave::SampleArray data);
+        /** emits a block with the filtered data */
+        void output(Kwave::SampleArray data);
 
     public slots:
 
-	/** receives input data */
-	void input(Kwave::SampleArray data);
+        /** receives input data */
+        void input(Kwave::SampleArray data);
 
-	/**
-	 * Sets the gain of the amplifier [0...1]
-	 */
-	void setGain(const QVariant g);
+        /**
+         * Sets the gain of the amplifier [0...1]
+         */
+        void setGain(const QVariant g);
 
-	/**
-	 * Sets the limiter level [linear, 0...1]
-	 */
-	void setLimiterLevel(const QVariant l);
+        /**
+         * Sets the limiter level [linear, 0...1]
+         */
+        void setLimiterLevel(const QVariant l);
 
     private:
 
-	/** buffer for input */
-	Kwave::SampleArray m_buffer;
+        /** buffer for input */
+        Kwave::SampleArray m_buffer;
 
-	/** gain */
-	double m_gain;
+        /** gain */
+        double m_gain;
 
-	/** limiter level */
-	double m_limit;
+        /** limiter level */
+        double m_limit;
 
     };
 }

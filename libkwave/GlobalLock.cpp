@@ -1,6 +1,6 @@
 /***************************************************************************
          GlobalLock.cpp  -  application global lock
-			     -------------------
+                             -------------------
     begin                : Jan 02 2014
     copyright            : (C) 2014 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>

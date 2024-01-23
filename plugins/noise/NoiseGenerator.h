@@ -31,46 +31,46 @@ namespace Kwave
 {
     class NoiseGenerator: public Kwave::SampleSource
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
+        /** Constructor */
         explicit NoiseGenerator(QObject *parent = Q_NULLPTR);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~NoiseGenerator() Q_DECL_OVERRIDE;
 
-	/**
-	 * produces a block of noise,
-	 * @see Kwave::SampleSource::goOn()
-	 */
+        /**
+         * produces a block of noise,
+         * @see Kwave::SampleSource::goOn()
+         */
         virtual void goOn() Q_DECL_OVERRIDE;
 
     signals:
 
-	/** emits a block with noise */
-	void output(Kwave::SampleArray data);
+        /** emits a block with noise */
+        void output(Kwave::SampleArray data);
 
     public slots:
 
-	/** receives input data */
-	void input(Kwave::SampleArray data);
+        /** receives input data */
+        void input(Kwave::SampleArray data);
 
-	/**
-	 * Sets the noise level as a factor [0 .. 1.0]
-	 */
-	void setNoiseLevel(const QVariant fc);
+        /**
+         * Sets the noise level as a factor [0 .. 1.0]
+         */
+        void setNoiseLevel(const QVariant fc);
 
     private:
 
-	/** random generator for the noise */
-	QRandomGenerator m_random;
+        /** random generator for the noise */
+        QRandomGenerator m_random;
 
-	/** buffer for input */
-	Kwave::SampleArray m_buffer;
+        /** buffer for input */
+        Kwave::SampleArray m_buffer;
 
-	/** noise level [0 .. 1.0] */
-	double m_noise_level;
+        /** noise level [0 .. 1.0] */
+        double m_noise_level;
 
     };
 }

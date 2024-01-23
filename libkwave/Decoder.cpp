@@ -1,6 +1,6 @@
 /***************************************************************************
             Decoder.cpp  -  abstract base class of all decoders
-			     -------------------
+                             -------------------
     begin                : Jun 01 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>

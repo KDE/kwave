@@ -77,33 +77,33 @@ Kwave::AboutDialog::AboutDialog(
 
     /* the frame containing the developer information */
     Kwave::AboutContainer *about =
-	new(std::nothrow) Kwave::AboutContainer(this);
+        new(std::nothrow) Kwave::AboutContainer(this);
     Q_ASSERT(about);
     if (!about) return;
     foreach (const KAboutPerson &author, about_data.authors()) {
-	about->addPerson(
-	    author.name(),
-	    author.emailAddress(),
-	    author.webAddress(),
-	    author.task()
-	);
+        about->addPerson(
+            author.name(),
+            author.emailAddress(),
+            author.webAddress(),
+            author.task()
+        );
     }
     authorframe->setWidget(about);
     authorframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     /* the frame containing the thanks to ... */
     Kwave::AboutContainer *contrib =
-	new(std::nothrow) Kwave::AboutContainer(this);
+        new(std::nothrow) Kwave::AboutContainer(this);
     Q_ASSERT(contrib);
     if (!contrib) return;
 
     foreach (const KAboutPerson &credit, about_data.credits()) {
-	contrib->addPerson(
-	    credit.name(),
-	    credit.emailAddress(),
-	    credit.webAddress(),
-	    credit.task()
-	);
+        contrib->addPerson(
+            credit.name(),
+            credit.emailAddress(),
+            credit.webAddress(),
+            credit.task()
+        );
     }
     thanksframe->setWidget(contrib);
     thanksframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -114,7 +114,7 @@ Kwave::AboutDialog::AboutDialog(
     if (!pluginsinfo) return;
 
     QVBoxLayout *plugins_layout =
-	new(std::nothrow) QVBoxLayout(pluginsinfoframe);
+        new(std::nothrow) QVBoxLayout(pluginsinfoframe);
     Q_ASSERT(plugins_layout);
     if (!plugins_layout) return;
 
@@ -136,16 +136,16 @@ Kwave::AboutDialog::AboutDialog(
 
     QList<Kwave::PluginManager::PluginModule> list = plugin_info;
     if (!list.isEmpty()) {
-	std::sort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
-	foreach (const Kwave::PluginManager::PluginModule &info, list) {
-	    QStringList item;
-	    item << info.m_description
-	         << info.m_version
-	         << info.m_author;
-	    plugins.append(new(std::nothrow) QTreeWidgetItem(
+        std::sort(list.begin(), list.end(), pluginInfoDescriptionLessThan);
+        foreach (const Kwave::PluginManager::PluginModule &info, list) {
+            QStringList item;
+            item << info.m_description
+                 << info.m_version
+                 << info.m_author;
+            plugins.append(new(std::nothrow) QTreeWidgetItem(
                 static_cast<QTreeWidget *>(Q_NULLPTR), item));
-	}
-	pluginsinfo->insertTopLevelItems(0, plugins);
+        }
+        pluginsinfo->insertTopLevelItems(0, plugins);
     }
     pluginsinfo->resizeColumnToContents(1);
     pluginsinfo->resizeColumnToContents(0);
@@ -156,14 +156,14 @@ Kwave::AboutDialog::AboutDialog(
 
     /* set the url of the kwave homepage */
     kwave_url_label->setText(_("<a href=\"") +
-	about_data.homepage() + _("\">") +
-	about_data.homepage() + _("</a>"));
+        about_data.homepage() + _("\">") +
+        about_data.homepage() + _("</a>"));
     kwave_url_label->setOpenExternalLinks(true);
     kwave_url_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 
     /* the frame containing the translators */
     Kwave::AboutContainer *trans =
-	new(std::nothrow) Kwave::AboutContainer(this);
+        new(std::nothrow) Kwave::AboutContainer(this);
     Q_ASSERT(trans);
     if (!trans) return;
 
@@ -178,60 +178,60 @@ Kwave::AboutDialog::AboutDialog(
      * using message catalogs.
      */
     if (translators.isEmpty()) {
-	about_data.setTranslator(
-	    ki18nc("NAME OF TRANSLATORS",  NAME_OF_TRANSLATORS).toString(),
-	    ki18nc("EMAIL OF TRANSLATORS", EMAIL_OF_TRANSLATORS).toString()
-	);
-	translators = about_data.translators();
+        about_data.setTranslator(
+            ki18nc("NAME OF TRANSLATORS",  NAME_OF_TRANSLATORS).toString(),
+            ki18nc("EMAIL OF TRANSLATORS", EMAIL_OF_TRANSLATORS).toString()
+        );
+        translators = about_data.translators();
     }
     /* ------------ end workaround KDE #345320 ------------ */
 
     if (translators.isEmpty() || ((translators.count() == 1) &&
         (translators.first().name() == _(NAME_OF_TRANSLATORS))) ) {
-	tabwidget->removeTab(4);
+        tabwidget->removeTab(4);
     } else {
-	foreach (const KAboutPerson &translator, translators) {
-	    QString website = translator.webAddress();
+        foreach (const KAboutPerson &translator, translators) {
+            QString website = translator.webAddress();
 
-	    // if the translator is already listed in the "authors" section,
-	    // give him the same web address
-	    foreach (const KAboutPerson &author, about_data.authors())
-		if (author.name() == translator.name()) {
-		    website = author.webAddress();
-		    break;
-		}
+            // if the translator is already listed in the "authors" section,
+            // give him the same web address
+            foreach (const KAboutPerson &author, about_data.authors())
+                if (author.name() == translator.name()) {
+                    website = author.webAddress();
+                    break;
+                }
 
-	    // if the translator is already listed in the "credits" section,
-	    // give him the same web address
-	    foreach (const KAboutPerson &credit, about_data.credits())
-		if (credit.name() == translator.name()) {
-		    website = credit.webAddress();
-		    break;
-		}
+            // if the translator is already listed in the "credits" section,
+            // give him the same web address
+            foreach (const KAboutPerson &credit, about_data.credits())
+                if (credit.name() == translator.name()) {
+                    website = credit.webAddress();
+                    break;
+                }
 
-	    trans->addPerson(
-		translator.name(),
-		translator.emailAddress(),
-		website,
-		translator.task()
-	    );
-	}
+            trans->addPerson(
+                translator.name(),
+                translator.emailAddress(),
+                website,
+                translator.task()
+            );
+        }
 
-	QString about_team = about_data.aboutTranslationTeam();
-	if (!about_team.isEmpty()) {
-	    about_team.prepend(_("<br>"));
-	    trans->addWidget(new(std::nothrow) QLabel(about_team, trans));
-	}
+        QString about_team = about_data.aboutTranslationTeam();
+        if (!about_team.isEmpty()) {
+            about_team.prepend(_("<br>"));
+            trans->addWidget(new(std::nothrow) QLabel(about_team, trans));
+        }
 
-	translatorsframe->setWidget(trans);
-	translatorsframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        translatorsframe->setWidget(trans);
+        translatorsframe->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     }
 
     /* the frame containing the license(s) */
     licenseframe->setReadOnly(true);
     QString licenses;
     foreach (const KAboutLicense &license, about_data.licenses()) {
-	licenses += license.text();
+        licenses += license.text();
     }
     licenseframe->setText(licenses);
 

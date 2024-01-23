@@ -118,28 +118,28 @@ void Kwave::NoiseDialog::setMode(Mode mode)
     m_enable_updates = false;
 
     switch (m_mode) {
-	case MODE_PERCENT: {
-	    rbPercentage->setChecked(true);
+        case MODE_PERCENT: {
+            rbPercentage->setChecked(true);
 
-	    slider->setMinimum(1);
-	    slider->setMaximum(100);
-	    slider->setPageStep(100);
-	    slider->setTickInterval(10);
-	    spinbox->setMinimum(1);
-	    spinbox->setMaximum(100);
-	    break;
-	}
-	case MODE_DECIBEL: {
-	    rbLogarithmic->setChecked(true);
+            slider->setMinimum(1);
+            slider->setMaximum(100);
+            slider->setPageStep(100);
+            slider->setTickInterval(10);
+            spinbox->setMinimum(1);
+            spinbox->setMaximum(100);
+            break;
+        }
+        case MODE_DECIBEL: {
+            rbLogarithmic->setChecked(true);
 
-	    slider->setMinimum(-21);
-	    slider->setMaximum(0);
-	    slider->setPageStep(6);
-	    slider->setTickInterval(3);
-	    spinbox->setMinimum(-21);
-	    spinbox->setMaximum(0);
-	    break;
-	}
+            slider->setMinimum(-21);
+            slider->setMaximum(0);
+            slider->setPageStep(6);
+            slider->setTickInterval(3);
+            spinbox->setMinimum(-21);
+            spinbox->setMaximum(0);
+            break;
+        }
     }
 
     // update the value in the display
@@ -171,113 +171,113 @@ void Kwave::NoiseDialog::updateDisplay(double value)
 
     if (!qFuzzyCompare(m_noise, value)) {
 
-	// take over the new factor
-	m_noise = value;
+        // take over the new factor
+        m_noise = value;
 
-	// update the preview widget
-	if (m_overview_cache && preview) {
-	    int width  = preview->width();
-	    int height = preview->height();
-	    QColor color_bg    = Kwave::Colors::Normal.background;
-	    QColor color_sig   = Kwave::Colors::Normal.interpolated;
-	    QColor color_noise = Kwave::Colors::Normal.sample;
+        // update the preview widget
+        if (m_overview_cache && preview) {
+            int width  = preview->width();
+            int height = preview->height();
+            QColor color_bg    = Kwave::Colors::Normal.background;
+            QColor color_sig   = Kwave::Colors::Normal.interpolated;
+            QColor color_noise = Kwave::Colors::Normal.sample;
 
-	    // get the min/max information
-	    int count = m_overview_cache->getMinMax(width, m_minmax);
+            // get the min/max information
+            int count = m_overview_cache->getMinMax(width, m_minmax);
 
-	    QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
-	    QPainter p;
-	    p.begin(&image);
-	    p.fillRect(image.rect(), color_bg);
+            QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
+            QPainter p;
+            p.begin(&image);
+            p.fillRect(image.rect(), color_bg);
 
-	    // calculate scaling factor and (noise level / 2) in pixel
-	    const int middle = height >> 1;
-	    const int noise_2 = Kwave::toInt(middle * m_noise);
+            // calculate scaling factor and (noise level / 2) in pixel
+            const int middle = height >> 1;
+            const int noise_2 = Kwave::toInt(middle * m_noise);
 
-	    /*
-	     * mixing of noise goes like this:
-	     *
-	     * y[t] = x[t] * (1 - n) + noise(t) * n;
-	     *
-	     * and has this effect on min/max:
-	     *
-	     * [---noise---]          [---noise---]
-	     *     [min -------------------max]
-	     * ^     ^    ^           ^     ^     ^
-	     * |     |    |           |     |     |
-	     * y1    y2   y3          y4    y5    y6
-	     */
+            /*
+             * mixing of noise goes like this:
+             *
+             * y[t] = x[t] * (1 - n) + noise(t) * n;
+             *
+             * and has this effect on min/max:
+             *
+             * [---noise---]          [---noise---]
+             *     [min -------------------max]
+             * ^     ^    ^           ^     ^     ^
+             * |     |    |           |     |     |
+             * y1    y2   y3          y4    y5    y6
+             */
 
-	    for (int x = 0; x < count; ++x) {
-		int y2 = Kwave::toInt((sample2double(m_minmax[x].min) *
-		    (1.0 - m_noise)) * middle);
-		int y5 = Kwave::toInt((sample2double(m_minmax[x].max) *
-		    (1.0 - m_noise)) * middle);
-		int y1 = y2 - noise_2;
-		int y3 = y2 + noise_2;
-		int y4 = y5 - noise_2;
-		int y6 = y5 + noise_2;
+            for (int x = 0; x < count; ++x) {
+                int y2 = Kwave::toInt((sample2double(m_minmax[x].min) *
+                    (1.0 - m_noise)) * middle);
+                int y5 = Kwave::toInt((sample2double(m_minmax[x].max) *
+                    (1.0 - m_noise)) * middle);
+                int y1 = y2 - noise_2;
+                int y3 = y2 + noise_2;
+                int y4 = y5 - noise_2;
+                int y6 = y5 + noise_2;
 
-		if (y4 > y3) {
-		    // noise around "min" [y1 ... y3]
-		    p.setPen(color_noise);
-		    p.drawLine(x, middle - y3, x, middle - y1);
+                if (y4 > y3) {
+                    // noise around "min" [y1 ... y3]
+                    p.setPen(color_noise);
+                    p.drawLine(x, middle - y3, x, middle - y1);
 
-		    // noise around "max" [y4 ... y6]
-		    p.drawLine(x, middle - y6, x, middle - y4);
+                    // noise around "max" [y4 ... y6]
+                    p.drawLine(x, middle - y6, x, middle - y4);
 
-		    // original signal [y3 ... y4 ]
-		    p.setPen(color_sig);
-		    p.drawLine(x, middle - y4, x, middle - y3);
-		} else {
-		    // only noise [y1 ... y6]
-		    p.setPen(color_noise);
-		    p.drawLine(x, middle - y6, x, middle - y1);
-		}
-	    }
+                    // original signal [y3 ... y4 ]
+                    p.setPen(color_sig);
+                    p.drawLine(x, middle - y4, x, middle - y3);
+                } else {
+                    // only noise [y1 ... y6]
+                    p.setPen(color_noise);
+                    p.drawLine(x, middle - y6, x, middle - y1);
+                }
+            }
 
-	    // zero line
-	    p.setCompositionMode(QPainter::CompositionMode_SourceOver);
-	    p.setPen(Kwave::Colors::Normal.zero);
-	    p.drawLine(0, middle, width - 1, middle);
+            // zero line
+            p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+            p.setPen(Kwave::Colors::Normal.zero);
+            p.drawLine(0, middle, width - 1, middle);
 
-	    p.end();
+            p.end();
 
-	    // update the image view
-	    preview->setImage(image);
-	}
+            // update the image view
+            preview->setImage(image);
+        }
 
-	// emit the noise level change to the plugin
-	emit levelChanged(m_noise);
+        // emit the noise level change to the plugin
+        emit levelChanged(m_noise);
     }
 
     switch (m_mode) {
-	case MODE_PERCENT: {
-	    // factor 1.0 means 100%
-	    new_spinbox_value = Kwave::toInt(rint(value * 100.0));
-	    new_slider_value = new_spinbox_value;
-	    spinbox->setPrefix(_(""));
-	    spinbox->setSuffix(_("%"));
-	    spinbox->setInverse(false);
-	    break;
-	}
-	case MODE_DECIBEL: {
-	    // factor 1.0 means 0dB
-	    if (!qFuzzyIsNull(value))
-		new_slider_value = Kwave::toInt(rint(20.0 * log10(value)));
-	    else
-		new_slider_value = 0;
-	    new_spinbox_value = new_slider_value;
-	    if (new_spinbox_value >= 0) {
-		spinbox->setPrefix(new_spinbox_value ? _("+") : _("+/- "));
-	    } else {
-		// negative value
-		spinbox->setPrefix(_(""));
-	    }
-	    spinbox->setSuffix(_(" ") + i18n("dB"));
-	    spinbox->setInverse(false);
-	    break;
-	}
+        case MODE_PERCENT: {
+            // factor 1.0 means 100%
+            new_spinbox_value = Kwave::toInt(rint(value * 100.0));
+            new_slider_value = new_spinbox_value;
+            spinbox->setPrefix(_(""));
+            spinbox->setSuffix(_("%"));
+            spinbox->setInverse(false);
+            break;
+        }
+        case MODE_DECIBEL: {
+            // factor 1.0 means 0dB
+            if (!qFuzzyIsNull(value))
+                new_slider_value = Kwave::toInt(rint(20.0 * log10(value)));
+            else
+                new_slider_value = 0;
+            new_spinbox_value = new_slider_value;
+            if (new_spinbox_value >= 0) {
+                spinbox->setPrefix(new_spinbox_value ? _("+") : _("+/- "));
+            } else {
+                // negative value
+                spinbox->setPrefix(_(""));
+            }
+            spinbox->setSuffix(_(" ") + i18n("dB"));
+            spinbox->setInverse(false);
+            break;
+        }
     }
 
     // update the spinbox
@@ -307,14 +307,14 @@ void Kwave::NoiseDialog::spinboxChanged(int pos)
     double factor = m_noise;
 
     switch (m_mode) {
-	case MODE_PERCENT:
-	    // percentage
-	    factor = static_cast<double>(pos) / 100.0;
-	    break;
-	case MODE_DECIBEL:
-	    // decibel
-	    factor = pow(10.0, pos / 20.0);
-	    break;
+        case MODE_PERCENT:
+            // percentage
+            factor = static_cast<double>(pos) / 100.0;
+            break;
+        case MODE_DECIBEL:
+            // decibel
+            factor = pow(10.0, pos / 20.0);
+            break;
     }
 
     updateDisplay(factor);
@@ -337,9 +337,9 @@ void Kwave::NoiseDialog::setParams(QStringList &params)
     factor = qBound<double>(0.0, factor, 1.0);
 
     switch (params[1].toUInt()) {
-	case 0:  m_mode = MODE_PERCENT; break;
-	case 1:  m_mode = MODE_DECIBEL; break;
-	default: m_mode = MODE_DECIBEL;
+        case 0:  m_mode = MODE_PERCENT; break;
+        case 1:  m_mode = MODE_DECIBEL; break;
+        default: m_mode = MODE_DECIBEL;
     }
 
     // update mode, using default factor 1.0
@@ -357,13 +357,13 @@ void Kwave::NoiseDialog::listenToggled(bool listen)
     if (!btListen) return;
 
     if (listen) {
-	// start pre-listen mode
-	emit startPreListen();
-	btListen->setText(i18n("&Stop"));
+        // start pre-listen mode
+        emit startPreListen();
+        btListen->setText(i18n("&Stop"));
     } else {
-	// stop pre-listen mode
-	emit stopPreListen();
-	btListen->setText(i18n("&Listen"));
+        // stop pre-listen mode
+        emit stopPreListen();
+        btListen->setText(i18n("&Listen"));
     }
 }
 

@@ -1,6 +1,6 @@
 /***************************************************************************
       MultiTrackReader.h - reader for multi-track signals
-			     -------------------
+                             -------------------
     begin                : Sat Jun 30 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -39,89 +39,89 @@ namespace Kwave
      * easier use of multi-track signals.
      */
     class Q_DECL_EXPORT MultiTrackReader
-	:public Kwave::MultiTrackSource<Kwave::SampleReader, false>
+        :public Kwave::MultiTrackSource<Kwave::SampleReader, false>
     {
-	Q_OBJECT
+        Q_OBJECT
     private:
 
-	/** Default constructor */
-	MultiTrackReader();
+        /** Default constructor */
+        MultiTrackReader();
 
     public:
 
-	/**
-	 * Constructor
-	 * @param mode a reader mode, see Kwave::ReaderMode
-	 * @param signal_manager reference to a SignalManager
-	 * @param track_list array of indices of tracks for writing
-	 * @param first index of the first sample (left)
-	 * @param last index of the last sample (right)
-	 */
-	MultiTrackReader(Kwave::ReaderMode mode,
-	                Kwave::SignalManager &signal_manager,
-	                const QVector<unsigned int> &track_list,
-	                sample_index_t first, sample_index_t last);
+        /**
+         * Constructor
+         * @param mode a reader mode, see Kwave::ReaderMode
+         * @param signal_manager reference to a SignalManager
+         * @param track_list array of indices of tracks for writing
+         * @param first index of the first sample (left)
+         * @param last index of the last sample (right)
+         */
+        MultiTrackReader(Kwave::ReaderMode mode,
+                        Kwave::SignalManager &signal_manager,
+                        const QVector<unsigned int> &track_list,
+                        sample_index_t first, sample_index_t last);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~MultiTrackReader() Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns the offset of the reader, as
-	 * passed to the constructor as "first"
-	 */
-	virtual sample_index_t first() const;
+        /**
+         * Returns the offset of the reader, as
+         * passed to the constructor as "first"
+         */
+        virtual sample_index_t first() const;
 
-	/**
-	 * Returns the last sample offset of the reader, as
-	 * passed to the constructor as "last"
-	 */
-	virtual sample_index_t last() const;
+        /**
+         * Returns the last sample offset of the reader, as
+         * passed to the constructor as "last"
+         */
+        virtual sample_index_t last() const;
 
-	/** Returns true if one of the readers has reached eof() */
-	virtual bool eof() const;
+        /** Returns true if one of the readers has reached eof() */
+        virtual bool eof() const;
 
-	/** @see QList::isEmpty() */
-	inline virtual bool isEmpty() const {
-	    return
-		(Kwave::MultiTrackSource<Kwave::SampleReader, false>::tracks() < 1);
-	}
+        /** @see QList::isEmpty() */
+        inline virtual bool isEmpty() const {
+            return
+                (Kwave::MultiTrackSource<Kwave::SampleReader, false>::tracks() < 1);
+        }
 
-	/** @see QList::insert() */
+        /** @see QList::insert() */
         virtual bool insert(unsigned int track, Kwave::SampleReader *reader)
             Q_DECL_OVERRIDE;
 
-	/** Skips a number of samples. */
-	virtual void skip(sample_index_t count);
+        /** Skips a number of samples. */
+        virtual void skip(sample_index_t count);
 
-	/** Seeks to a given position */
-	virtual void seek(sample_index_t pos);
+        /** Seeks to a given position */
+        virtual void seek(sample_index_t pos);
 
     signals:
 
-	/**
-	 * Emits the current progress in percent [0...100].
-	 */
-	void progress(qreal percent);
+        /**
+         * Emits the current progress in percent [0...100].
+         */
+        void progress(qreal percent);
 
     public slots:
 
-	/** Resets all readers to zero */
-	void reset();
+        /** Resets all readers to zero */
+        void reset();
 
     private slots:
 
-	/**
-	 * Connected to each SampleReader to get informed about their progress.
-	 */
-	void proceeded();
+        /**
+         * Connected to each SampleReader to get informed about their progress.
+         */
+        void proceeded();
 
     protected:
 
-	/** index of the first sample to read */
-	sample_index_t m_first;
+        /** index of the first sample to read */
+        sample_index_t m_first;
 
-	/** index of the last sample to read */
-	sample_index_t m_last;
+        /** index of the last sample to read */
+        sample_index_t m_last;
 
     };
 }

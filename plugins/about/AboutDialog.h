@@ -38,20 +38,20 @@ namespace Kwave
     class AboutDialog: public QDialog,
                        public Ui::AboutDialogBase
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	* Constructor
-	* @param parent the parent widget
-	* @param plugin_info list of plugin info structures (unsorted)
-	*/
-	AboutDialog(QWidget *parent,
-	    const QList<Kwave::PluginManager::PluginModule> &plugin_info);
+        /**
+        * Constructor
+        * @param parent the parent widget
+        * @param plugin_info list of plugin info structures (unsorted)
+        */
+        AboutDialog(QWidget *parent,
+            const QList<Kwave::PluginManager::PluginModule> &plugin_info);
 
-	/** Destructor */
-	virtual ~AboutDialog();
+        /** Destructor */
+        virtual ~AboutDialog();
 
     };
 }

@@ -1,6 +1,6 @@
 /***************************************************************************
                 main.cpp -  Kwave main program
-			     -------------------
+                             -------------------
     begin                : Wed Jul 15 1998
     copyright            : (C) 1998 by Martin Wilz
     email                : mwilz@ernie.mi.uni-koeln.de
@@ -43,107 +43,107 @@ static void addDataStrings(KAboutData &aboutdata)
 {
     //Developers
     aboutdata.addAuthor(
-	i18n("Thomas Eschenbacher"),
-	i18n("Project leader since 2000, core development"),
-	_("Thomas.Eschenbacher@gmx.de"),
-	i18n("http://kwave.sourceforge.net")
+        i18n("Thomas Eschenbacher"),
+        i18n("Project leader since 2000, core development"),
+        _("Thomas.Eschenbacher@gmx.de"),
+        i18n("http://kwave.sourceforge.net")
     );
     aboutdata.addAuthor(
-	i18n("Martin Wilz"),
-	i18n("Creator of the project, development 1998-2000"),
-	_("martin@wilz.de"),
-	i18n("http://www.wilz.de"));
+        i18n("Martin Wilz"),
+        i18n("Creator of the project, development 1998-2000"),
+        _("martin@wilz.de"),
+        i18n("http://www.wilz.de"));
     aboutdata.addAuthor(
-	i18n("Ralf Waspe"),
-	i18n("Creator of the Help/About dialog"),
-	_("rwaspe@web.de"),
-	QString());
+        i18n("Ralf Waspe"),
+        i18n("Creator of the Help/About dialog"),
+        _("rwaspe@web.de"),
+        QString());
     aboutdata.addAuthor(
-	i18n("Caulier Gilles"),
-	i18n("splashscreen, tests and bugfixes"),
-	_("caulier.gilles@free.fr"),
-	i18n("http://caulier.gilles.free.fr"));
+        i18n("Caulier Gilles"),
+        i18n("splashscreen, tests and bugfixes"),
+        _("caulier.gilles@free.fr"),
+        i18n("http://caulier.gilles.free.fr"));
     aboutdata.addAuthor(
-	i18n("Dave Flogeras"),
-	i18n("Notch filter plugin"),
-	_("d.flogeras@unb.ca"),
-	QString());
+        i18n("Dave Flogeras"),
+        i18n("Notch filter plugin"),
+        _("d.flogeras@unb.ca"),
+        QString());
     aboutdata.addAuthor(
-	i18n("Rik Hemsley"),
-	i18n("Level meter"),
-	_("rik@kde.org"),
-	i18n("http://rikkus.info/esoundlevelmeter.html"));
+        i18n("Rik Hemsley"),
+        i18n("Level meter"),
+        _("rik@kde.org"),
+        i18n("http://rikkus.info/esoundlevelmeter.html"));
     aboutdata.addAuthor(
-	i18n("Joerg-Christian Boehme"),
-	i18n("PulseAudio record plugin"),
-	_("joerg@chaosdorf.de"),
-	QString());
+        i18n("Joerg-Christian Boehme"),
+        i18n("PulseAudio record plugin"),
+        _("joerg@chaosdorf.de"),
+        QString());
 
     // people who helped
     aboutdata.addCredit(
-	i18n("Stefan Westerfeld"),
-	i18n("Author of aRts"),
-	_("stefan@space.twc.de"),
-	QString());
+        i18n("Stefan Westerfeld"),
+        i18n("Author of aRts"),
+        _("stefan@space.twc.de"),
+        QString());
     aboutdata.addCredit(
-	i18n("Sven-Steffen Arndt"),
-	i18n("Kwave homepage and German online help"),
-	_("ssa29@gmx.de"),
-	QString());
+        i18n("Sven-Steffen Arndt"),
+        i18n("Kwave homepage and German online help"),
+        _("ssa29@gmx.de"),
+        QString());
     aboutdata.addCredit(
-	i18n("Aurelien Jarno"),
-	i18n("Debian packager"),
-	_("aurel32@debian.org"),
-	QString());
+        i18n("Aurelien Jarno"),
+        i18n("Debian packager"),
+        _("aurel32@debian.org"),
+        QString());
     aboutdata.addCredit(
-	i18n("Robert M. Stockmann"),
-	i18n("Packaging for Mandrake / X86_64"),
-	_("stock@stokkie.net"),
-	QString());
+        i18n("Robert M. Stockmann"),
+        i18n("Packaging for Mandrake / X86_64"),
+        _("stock@stokkie.net"),
+        QString());
 //     aboutdata.addCredit(i18n("Diederick de Vries"),
 //                      i18n("Packaging for Crux Linux"),
 //                      _("diederick76@gmail.com"),
 //                      _("http://crux.nu/portdb/?command=viewport&repo=diederick&name=kwave"));
     aboutdata.addCredit(
-	i18n("Martin Kuball"),
-	i18n("Tester"),
-	_("makube@user.sourceforge.net"),
-	QString());
+        i18n("Martin Kuball"),
+        i18n("Tester"),
+        _("makube@user.sourceforge.net"),
+        QString());
     aboutdata.addCredit(
-	i18n("Robert Leslie"),
-	i18n("Author of the 'mad' MP3 decoder library"),
-	_("rob@mars.org"),
-	i18n("http://www.mars.org/home/rob/proj/mpeg"));
+        i18n("Robert Leslie"),
+        i18n("Author of the 'mad' MP3 decoder library"),
+        _("rob@mars.org"),
+        i18n("http://www.mars.org/home/rob/proj/mpeg"));
     aboutdata.addCredit(
-	i18n("T.H.F. Klok and Cedric Tefft"),
-	i18n("Maintainers of the 'id3lib' library"),
-	QString(),
-	i18n("http://www.id3lib.org/"));
+        i18n("T.H.F. Klok and Cedric Tefft"),
+        i18n("Maintainers of the 'id3lib' library"),
+        QString(),
+        i18n("http://www.id3lib.org/"));
     aboutdata.addCredit(
-	i18n("Michael Pruett"),
-	i18n("Author of the 'audiofile' library"),
-	_("mpruett@sgi.com"),
-	i18n("http://www.68k.org/~michael/audiofile/"));
+        i18n("Michael Pruett"),
+        i18n("Author of the 'audiofile' library"),
+        _("mpruett@sgi.com"),
+        i18n("http://www.68k.org/~michael/audiofile/"));
     aboutdata.addCredit(
-	i18n("Carlos R."),
-	i18n("Spanish translation"),
-	_("pureacetone@gmail.com"),
-	QString());
+        i18n("Carlos R."),
+        i18n("Spanish translation"),
+        _("pureacetone@gmail.com"),
+        QString());
     aboutdata.addCredit(
-	i18n("Erik de Castro Lopo"),
-	i18n("Author of the 'sndfile' library"),
-	_("erikd@zip.com.au"),
-	i18n("http://www.mega-nerd.com/libsndfile/"));
+        i18n("Erik de Castro Lopo"),
+        i18n("Author of the 'sndfile' library"),
+        _("erikd@zip.com.au"),
+        i18n("http://www.mega-nerd.com/libsndfile/"));
     aboutdata.addCredit(
-	i18n("Pavel Fric"),
-	i18n("Czech translation"),
-	_("pavelfric@seznam.cz"),
-	i18n("http://fripohled.blogspot.com"));
+        i18n("Pavel Fric"),
+        i18n("Czech translation"),
+        _("pavelfric@seznam.cz"),
+        i18n("http://fripohled.blogspot.com"));
     aboutdata.addCredit(
-	i18n("Panagiotis Papadopoulos"),
-	i18n("String and i18n updates"),
-	_("pano_90@gmx.net"),
-	QString());
+        i18n("Panagiotis Papadopoulos"),
+        i18n("String and i18n updates"),
+        _("pano_90@gmx.net"),
+        QString());
 }
 
 #ifdef WITH_OPTIMIZED_MEMCPY
@@ -169,43 +169,43 @@ int main(int argc, char **argv)
 
     QCommandLineParser cmdline;
     cmdline.addOption(QCommandLineOption(
-	_("disable-splashscreen"),
-	i18n("Disable the Splash Screen.")
+        _("disable-splashscreen"),
+        i18n("Disable the Splash Screen.")
     ));
     cmdline.addOption(QCommandLineOption(
-	_("iconic"),
-	i18n("Start Kwave iconified.")
+        _("iconic"),
+        i18n("Start Kwave iconified.")
     ));
     cmdline.addOption(QCommandLineOption(
-	_("logfile"),
-	i18nc("description of command line parameter",
-	      "Log all commands into a file <file>."),
-	i18nc("placeholder of command line parameter", "file")
+        _("logfile"),
+        i18nc("description of command line parameter",
+              "Log all commands into a file <file>."),
+        i18nc("placeholder of command line parameter", "file")
     ));
     cmdline.addOption(QCommandLineOption(
-	_("gui"),
-	i18nc("description of command line parameter",
-	      "Select a GUI type: SDI, MDI or TAB mode."),
-	i18nc("placeholder of command line parameter", "sdi|mdi|tab")
+        _("gui"),
+        i18nc("description of command line parameter",
+              "Select a GUI type: SDI, MDI or TAB mode."),
+        i18nc("placeholder of command line parameter", "sdi|mdi|tab")
     ));
     cmdline.addPositionalArgument(
-	_("files"),
-	i18nc("description of command line parameter",
-	      "List of audio files, Kwave macro files "\
-	      "or Kwave URLs to open (optionally)"),
-	i18nc("placeholder of command line parameter", "[files...]")
+        _("files"),
+        i18nc("description of command line parameter",
+              "List of audio files, Kwave macro files "\
+              "or Kwave URLs to open (optionally)"),
+        i18nc("placeholder of command line parameter", "[files...]")
     );
 
     KAboutData about(
-	_(PROJECT_NAME),
-	i18n("Kwave"),
-	_(KWAVE_VERSION),
-	i18n("A sound editor built on KDE Frameworks 5"),
-	KAboutLicense::GPL_V2,
+        _(PROJECT_NAME),
+        i18n("Kwave"),
+        _(KWAVE_VERSION),
+        i18n("A sound editor built on KDE Frameworks 5"),
+        KAboutLicense::GPL_V2,
         i18n("(c) 2016, Thomas Eschenbacher"),
-	QString(),
-	_("http://www.kde.org/applications/multimedia/kwave"),
-	_("Thomas.Eschenbacher@gmx.de")
+        QString(),
+        _("http://www.kde.org/applications/multimedia/kwave"),
+        _("Thomas.Eschenbacher@gmx.de")
     );
     addDataStrings(about);
 
@@ -217,9 +217,9 @@ int main(int argc, char **argv)
 
     /* show some version info */
     qDebug("\nThis is %s v%s (compiled with KDE Frameworks %s)\n",
-	about.productName().toLatin1().data(),
-	about.version().toLatin1().data(),
-	KXMLGUI_VERSION_STRING
+        about.productName().toLatin1().data(),
+        about.version().toLatin1().data(),
+        KXMLGUI_VERSION_STRING
     );
 
     app.processCmdline(&cmdline);
@@ -250,14 +250,14 @@ int main(int argc, char **argv)
     retval = app.newInstance(app.arguments(), QString());
 
     QObject::connect(
-	&service,
-	SIGNAL(activateRequested(QStringList,QString)),
-	&app,
-	SLOT(newInstance(QStringList,QString))
+        &service,
+        SIGNAL(activateRequested(QStringList,QString)),
+        &app,
+        SLOT(newInstance(QStringList,QString))
     );
 
     if (retval != ECANCELED)
-	retval = app.exec();
+        retval = app.exec();
 
     splash.done();
     splash.close();

@@ -1,6 +1,6 @@
 /***************************************************************************
       UndoInsertTrack.h  -  Undo action for insertion of tracks
-			     -------------------
+                             -------------------
     begin                : Sun Jun 24 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -38,41 +38,41 @@ namespace Kwave
 
     public:
 
-	/**
-	 * Constructor
-	 * @param signal reference to the signal
-	 * @param track index of the inserted track.
-	 */
-	UndoInsertTrack(Kwave::Signal &signal, unsigned int track);
+        /**
+         * Constructor
+         * @param signal reference to the signal
+         * @param track index of the inserted track.
+         */
+        UndoInsertTrack(Kwave::Signal &signal, unsigned int track);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~UndoInsertTrack() Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns a verbose short description of the action.
-	 */
+        /**
+         * Returns a verbose short description of the action.
+         */
         virtual QString description() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undoSize() */
+        /** @see UndoAction::undoSize() */
         virtual qint64 undoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::redoSize() */
+        /** @see UndoAction::redoSize() */
         virtual qint64 redoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::store() */
+        /** @see UndoAction::store() */
         virtual bool store(Kwave::SignalManager &manager) Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undo() */
+        /** @see UndoAction::undo() */
         virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-	                                bool with_redo) Q_DECL_OVERRIDE;
+                                        bool with_redo) Q_DECL_OVERRIDE;
 
     protected:
 
-	/** Reference to the signal */
-	Kwave::Signal &m_signal;
+        /** Reference to the signal */
+        Kwave::Signal &m_signal;
 
-	/** Index of the inserted track */
-	unsigned int m_track;
+        /** Index of the inserted track */
+        unsigned int m_track;
 
     };
 }

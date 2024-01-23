@@ -46,19 +46,19 @@ void Kwave::StreamObject::setAttribute(const char *attribute,
     QMutexLocker lock(&m_lock_set_attribute);
 
     for (unsigned int track = 0; track < tracks(); track++) {
-	Kwave::StreamObject *obj = (*this)[track];
-	if (!obj) continue;
+        Kwave::StreamObject *obj = (*this)[track];
+        if (!obj) continue;
 
-	// temporary establish a signal->slot connection
-	QObject::connect(this, SIGNAL(attributeChanged(QVariant)),
+        // temporary establish a signal->slot connection
+        QObject::connect(this, SIGNAL(attributeChanged(QVariant)),
                          obj, attribute,
                          Qt::DirectConnection);
 
-	// emit the new value through our own signal
-	emit attributeChanged(value);
+        // emit the new value through our own signal
+        emit attributeChanged(value);
 
-	// remove the temporary signal->slot connection
-	QObject::disconnect(this, SIGNAL(attributeChanged(QVariant)),
+        // remove the temporary signal->slot connection
+        QObject::disconnect(this, SIGNAL(attributeChanged(QVariant)),
                             obj, attribute);
     }
 }
@@ -79,8 +79,8 @@ void Kwave::StreamObject::setInteractive(bool interactive)
 void Kwave::StreamObject::cancel()
 {
     if (!m_canceled) {
-	m_canceled = true;
-	emit sigCancel();
+        m_canceled = true;
+        emit sigCancel();
     }
 }
 

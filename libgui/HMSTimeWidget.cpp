@@ -65,12 +65,12 @@ void Kwave::HMSTimeWidget::setLimit(unsigned int limit)
 {
     Q_ASSERT(limit <= SAMPLE_INDEX_MAX);
     if (limit > SAMPLE_INDEX_MAX)
-	limit = SAMPLE_INDEX_MAX;
+        limit = SAMPLE_INDEX_MAX;
     if (limit < m_limit) {
-	m_limit = limit;
-	setValue(m_limit);
+        m_limit = limit;
+        setValue(m_limit);
     } else {
-	m_limit = limit;
+        m_limit = limit;
     }
 }
 
@@ -83,17 +83,17 @@ void Kwave::HMSTimeWidget::timeChanged(int)
     int hours   = sbHours->value();
 
     if (seconds < 0) {
-	seconds = 59;
-	minutes--;
+        seconds = 59;
+        minutes--;
     }
     if (minutes < 0) {
-	minutes = 59;
-	hours--;
+        minutes = 59;
+        hours--;
     }
     if (hours < 0) {
-	hours = 0;
-	minutes = 0;
-	seconds = 0;
+        hours = 0;
+        minutes = 0;
+        seconds = 0;
     }
 
     Q_ASSERT((hours >= 0) && (minutes >= 0) && (seconds >= 0));

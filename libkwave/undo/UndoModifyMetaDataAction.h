@@ -1,6 +1,6 @@
 /***************************************************************************
     UndoModifyMetaDataAction.h  -  Undo action for modifying meta data
-			     -------------------
+                             -------------------
     begin                : Sun Apr 03 2011
     copyright            : (C) 2011 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -37,40 +37,40 @@ namespace Kwave
     {
     public:
 
-	/**
-	 * Constructor
-	 * @param meta_data list of meta data that has been changed
-	 */
-	explicit UndoModifyMetaDataAction(const Kwave::MetaDataList &meta_data);
+        /**
+         * Constructor
+         * @param meta_data list of meta data that has been changed
+         */
+        explicit UndoModifyMetaDataAction(const Kwave::MetaDataList &meta_data);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~UndoModifyMetaDataAction() Q_DECL_OVERRIDE;
 
-	/**
-	* Returns a verbose short description of the action.
-	*/
+        /**
+        * Returns a verbose short description of the action.
+        */
         virtual QString description() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undoSize() */
+        /** @see UndoAction::undoSize() */
         virtual qint64 undoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::redoSize() */
+        /** @see UndoAction::redoSize() */
         virtual qint64 redoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::store() */
+        /** @see UndoAction::store() */
         virtual bool store(Kwave::SignalManager &manager) Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undo() */
+        /** @see UndoAction::undo() */
         virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-	                                bool with_redo) Q_DECL_OVERRIDE;
+                                        bool with_redo) Q_DECL_OVERRIDE;
 
-	/** dump, for debugging purposes */
+        /** dump, for debugging purposes */
         virtual void dump(const QString &indent) Q_DECL_OVERRIDE;
 
     protected:
 
-	/** the unmodified metadata */
-	Kwave::MetaDataList m_saved_data;
+        /** the unmodified metadata */
+        Kwave::MetaDataList m_saved_data;
 
     };
 }

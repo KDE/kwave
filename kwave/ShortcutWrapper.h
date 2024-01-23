@@ -1,6 +1,6 @@
 /***************************************************************************
             ShortcutWrapper.h  -  wrapper for keyboard shortcuts
-			     -------------------
+                             -------------------
     begin                : Sat Jan 12 2008
     copyright            : (C) 2008 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -35,33 +35,33 @@ namespace Kwave
     {
     Q_OBJECT
     public:
-	/**
-	 * Constructor
-	 * @param parent a parent widget
-	 * @param key a keyboard shortcuts sequence
-	 * @param id numeric id that gets emitted
-	 */
-	ShortcutWrapper(QWidget *parent, const QKeySequence &key, int id);
+        /**
+         * Constructor
+         * @param parent a parent widget
+         * @param key a keyboard shortcuts sequence
+         * @param id numeric id that gets emitted
+         */
+        ShortcutWrapper(QWidget *parent, const QKeySequence &key, int id);
 
-	/** Destructor */
-	virtual ~ShortcutWrapper();
+        /** Destructor */
+        virtual ~ShortcutWrapper();
 
     signals:
-	/**
-	 * emitted when the shortcut is activated
-	 * @param id the numeric id passed in the constructor
-	 */
-	void activated(int id);
+        /**
+         * emitted when the shortcut is activated
+         * @param id the numeric id passed in the constructor
+         */
+        void activated(int id);
 
     private slots:
 
-	/** internally connected to the signal QShortcut::activated() */
-	void triggered();
+        /** internally connected to the signal QShortcut::activated() */
+        void triggered();
 
     private:
 
-	/** numeric id for the activated() signal */
-	int m_id;
+        /** numeric id for the activated() signal */
+        int m_id;
     };
 }
 

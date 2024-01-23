@@ -99,8 +99,8 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
     // try to open the source
     if (!src.open(QIODevice::ReadOnly)) {
-	qWarning("AudiofileDecoder::open(), failed to open source !");
-	return false;
+        qWarning("AudiofileDecoder::open(), failed to open source !");
+        return false;
     }
 
     // source successfully opened
@@ -113,39 +113,39 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
     AFfilehandle fh = m_src_adapter->handle();
     if (!fh || (m_src_adapter->lastError() >= 0)) {
-	QString reason;
+        QString reason;
 
-	switch (m_src_adapter->lastError()) {
-	    case AF_BAD_NOT_IMPLEMENTED:
-	        reason = i18n("Format or function is not implemented");
-	        break;
-	    case AF_BAD_MALLOC:
-	        reason = i18n("Out of memory");
-	        break;
-	    case AF_BAD_HEADER:
-	        reason = i18n("File header is damaged");
-	        break;
-	    case AF_BAD_CODEC_TYPE:
-	        reason = i18n("Invalid codec type");
-	        break;
-	    case AF_BAD_OPEN:
-	        reason = i18n("Opening the file failed");
-	        break;
-	    case AF_BAD_READ:
-	        reason = i18n("Read access failed");
-	        break;
-	    case AF_BAD_SAMPFMT:
-	        reason = i18n("Invalid sample format");
-	        break;
-	    default:
-		reason = reason.number(m_src_adapter->lastError());
-	}
+        switch (m_src_adapter->lastError()) {
+            case AF_BAD_NOT_IMPLEMENTED:
+                reason = i18n("Format or function is not implemented");
+                break;
+            case AF_BAD_MALLOC:
+                reason = i18n("Out of memory");
+                break;
+            case AF_BAD_HEADER:
+                reason = i18n("File header is damaged");
+                break;
+            case AF_BAD_CODEC_TYPE:
+                reason = i18n("Invalid codec type");
+                break;
+            case AF_BAD_OPEN:
+                reason = i18n("Opening the file failed");
+                break;
+            case AF_BAD_READ:
+                reason = i18n("Read access failed");
+                break;
+            case AF_BAD_SAMPFMT:
+                reason = i18n("Invalid sample format");
+                break;
+            default:
+                reason = reason.number(m_src_adapter->lastError());
+        }
 
-	QString text= i18n("An error occurred while opening the "\
-	    "file:\n'%1'", reason);
-	Kwave::MessageBox::error(widget, text);
+        QString text= i18n("An error occurred while opening the "\
+            "file:\n'%1'", reason);
+        Kwave::MessageBox::error(widget, text);
 
-	return false;
+        return false;
     }
 
     AFframecount length = afGetFrameCount(fh, AF_DEFAULT_TRACK);
@@ -154,35 +154,35 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     double       rate = 0.0;
     int af_sample_format;
     afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &af_sample_format,
-	reinterpret_cast<int *>(&bits));
+        reinterpret_cast<int *>(&bits));
     Kwave::SampleFormat::Format fmt;
     switch (af_sample_format)
     {
-	case AF_SAMPFMT_TWOSCOMP:
-	    fmt = Kwave::SampleFormat::Signed;
-	    break;
-	case AF_SAMPFMT_UNSIGNED:
-	    fmt = Kwave::SampleFormat::Unsigned;
-	    break;
-	case AF_SAMPFMT_FLOAT:
-	    fmt = Kwave::SampleFormat::Float;
-	    break;
-	case AF_SAMPFMT_DOUBLE:
-	    fmt = Kwave::SampleFormat::Double;
-	    break;
-	default:
-	    fmt = Kwave::SampleFormat::Unknown;
-	    break;
+        case AF_SAMPFMT_TWOSCOMP:
+            fmt = Kwave::SampleFormat::Signed;
+            break;
+        case AF_SAMPFMT_UNSIGNED:
+            fmt = Kwave::SampleFormat::Unsigned;
+            break;
+        case AF_SAMPFMT_FLOAT:
+            fmt = Kwave::SampleFormat::Float;
+            break;
+        case AF_SAMPFMT_DOUBLE:
+            fmt = Kwave::SampleFormat::Double;
+            break;
+        default:
+            fmt = Kwave::SampleFormat::Unknown;
+            break;
     }
 
     // get sample rate, with fallback to 8kHz
     rate = afGetRate(fh, AF_DEFAULT_TRACK);
     if (rate < 1.0) {
-	qWarning("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"\
-	         "WARNING: file has no sample rate!\n"\
-	         "         => using 8000 samples/sec as fallback\n"\
-	         "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
-	rate = 8000.0;
+        qWarning("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"\
+                 "WARNING: file has no sample rate!\n"\
+                 "         => using 8000 samples/sec as fallback\n"\
+                 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+        rate = 8000.0;
     }
 
     Kwave::SampleFormat::Map sf;
@@ -192,7 +192,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 
     int af_compression = afGetCompression(fh, AF_DEFAULT_TRACK);
     const Kwave::Compression compression(
-	Kwave::Compression::fromAudiofile(af_compression)
+        Kwave::Compression::fromAudiofile(af_compression)
     );
 
     Kwave::FileInfo info(metaData());
@@ -210,7 +210,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("rate        = %0.0f", info.rate());
     qDebug("bits/sample = %d", info.bits());
     qDebug("length      = %lu samples",
-	   static_cast<unsigned long int>(info.length()));
+           static_cast<unsigned long int>(info.length()));
     qDebug("format      = %d (%s)", af_sample_format,
                                     DBG(sample_format_name));
     qDebug("-------------------------");
@@ -222,7 +222,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_LITTLEENDIAN);
 #endif
     afSetVirtualSampleFormat(fh, AF_DEFAULT_TRACK,
-	AF_SAMPFMT_TWOSCOMP, SAMPLE_STORAGE_BITS);
+        AF_SAMPFMT_TWOSCOMP, SAMPLE_STORAGE_BITS);
 
     return true;
 }
@@ -241,12 +241,12 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
     if (!fh) return false;
 
     unsigned int frame_size = Kwave::toUint(
-	afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
+        afGetVirtualFrameSize(fh, AF_DEFAULT_TRACK, 1));
 
     // allocate a buffer for input data
     const unsigned int buffer_frames = (8 * 1024);
     sample_storage_t *buffer =
-	static_cast<sample_storage_t *>(malloc(buffer_frames * frame_size));
+        static_cast<sample_storage_t *>(malloc(buffer_frames * frame_size));
     Q_ASSERT(buffer);
     if (!buffer) return false;
 
@@ -254,36 +254,36 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
     const unsigned int tracks = Kwave::FileInfo(metaData()).tracks();
     sample_index_t rest = Kwave::FileInfo(metaData()).length();
     while (rest) {
-	unsigned int frames = buffer_frames;
-	if (frames > rest) frames = Kwave::toUint(rest);
-	int buffer_used = afReadFrames(fh,
-	    AF_DEFAULT_TRACK, reinterpret_cast<char *>(buffer), frames);
+        unsigned int frames = buffer_frames;
+        if (frames > rest) frames = Kwave::toUint(rest);
+        int buffer_used = afReadFrames(fh,
+            AF_DEFAULT_TRACK, reinterpret_cast<char *>(buffer), frames);
 
-	// break if eof reached
-	if (buffer_used <= 0) break;
-	rest -= buffer_used;
+        // break if eof reached
+        if (buffer_used <= 0) break;
+        rest -= buffer_used;
 
-	// split into the tracks
-	const sample_storage_t *p = buffer;
-	unsigned int count = buffer_used;
-	while (count) {
-	    for (unsigned int track = 0; track < tracks; track++) {
-		sample_storage_t s = *p++;
+        // split into the tracks
+        const sample_storage_t *p = buffer;
+        unsigned int count = buffer_used;
+        while (count) {
+            for (unsigned int track = 0; track < tracks; track++) {
+                sample_storage_t s = *p++;
 
-		// adjust precision
-		if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
-		    s /= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
-		}
+                // adjust precision
+                if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
+                    s /= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
+                }
 
-		// the following cast is only necessary if
-		// sample_t is not equal to a quint32
-		*(dst[track]) << static_cast<sample_t>(s);
-	    }
-	    --count;
-	}
+                // the following cast is only necessary if
+                // sample_t is not equal to a quint32
+                *(dst[track]) << static_cast<sample_t>(s);
+            }
+            --count;
+        }
 
-	// abort if the user pressed cancel
-	if (dst.isCanceled()) break;
+        // abort if the user pressed cancel
+        if (dst.isCanceled()) break;
     }
 
     // return with a valid Signal, even if the user pressed cancel !

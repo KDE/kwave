@@ -29,10 +29,10 @@
 
 //***************************************************************************
 Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
-	QString filename_pattern,
-	Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
-	bool selection_only,
-	bool have_selection)
+        QString filename_pattern,
+        Kwave::SaveBlocksPlugin::numbering_mode_t numbering_mode,
+        bool selection_only,
+        bool have_selection)
     :QWidget(parent), Ui::SaveBlocksWidgetBase()
 {
     setupUi(this);
@@ -43,9 +43,9 @@ Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
     cbPattern->addItem(_("[%2nr]-[%title]"));
     cbPattern->addItem(_("[%filename] part [%nr] of [%total]"));
     cbPattern->addItem(
-	_("[%fileinfo{") +
-	info.name(Kwave::INF_NAME) +
-	_("}] (part [%nr] of [%total])"));
+        _("[%fileinfo{") +
+        info.name(Kwave::INF_NAME) +
+        _("}] (part [%nr] of [%total])"));
     cbPattern->addItem(_("[%filename] - [%04nr]"));
     cbPattern->addItem(_("[%2nr] [%filename]"));
     cbPattern->addItem(_("[%2nr]-[%filename]"));
@@ -54,22 +54,22 @@ Kwave::SaveBlocksWidget::SaveBlocksWidget(QWidget *parent,
     cbPattern->addItem(_("[%02nr] of [%count] [%filename]"));
     cbPattern->addItem(_("[%02nr] of [%total] [%filename]"));
     if (filename_pattern.length())
-	cbPattern->setEditText(filename_pattern);
+        cbPattern->setEditText(filename_pattern);
     else
-	cbPattern->setCurrentIndex(0);
+        cbPattern->setCurrentIndex(0);
 
     // the numbering mode combo box
     cbNumbering->setCurrentIndex(static_cast<int>(numbering_mode));
 
     // the "selection only" checkbox
     if (have_selection) {
-	// we have a selection
-	chkSelectionOnly->setEnabled(true);
-	chkSelectionOnly->setChecked(selection_only);
+        // we have a selection
+        chkSelectionOnly->setEnabled(true);
+        chkSelectionOnly->setChecked(selection_only);
     } else {
-	// no selection -> force it to "off"
-	chkSelectionOnly->setEnabled(false);
-	chkSelectionOnly->setChecked(false);
+        // no selection -> force it to "off"
+        chkSelectionOnly->setEnabled(false);
+        chkSelectionOnly->setChecked(false);
     }
 
     // combo box with pattern
@@ -110,8 +110,8 @@ Kwave::SaveBlocksPlugin::numbering_mode_t Kwave::SaveBlocksWidget::numberingMode
 {
     Q_ASSERT(cbNumbering);
     return (cbNumbering) ?
-	static_cast<Kwave::SaveBlocksPlugin::numbering_mode_t>(
-	cbNumbering->currentIndex()) : Kwave::SaveBlocksPlugin::CONTINUE;
+        static_cast<Kwave::SaveBlocksPlugin::numbering_mode_t>(
+        cbNumbering->currentIndex()) : Kwave::SaveBlocksPlugin::CONTINUE;
 }
 
 //***************************************************************************

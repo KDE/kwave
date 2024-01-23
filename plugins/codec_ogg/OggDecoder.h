@@ -32,68 +32,68 @@ namespace Kwave
     class OggDecoder: public Kwave::Decoder
     {
     public:
-	/** Constructor */
-	OggDecoder();
+        /** Constructor */
+        OggDecoder();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~OggDecoder() Q_DECL_OVERRIDE;
 
-	/** Returns a new instance of the decoder */
+        /** Returns a new instance of the decoder */
         virtual Kwave::Decoder *instance() Q_DECL_OVERRIDE;
 
-	/**
-	 * Opens the source and decodes the header information.
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param source file or other source with a stream of bytes
-	 * @return true if succeeded, false on errors
-	 */
+        /**
+         * Opens the source and decodes the header information.
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param source file or other source with a stream of bytes
+         * @return true if succeeded, false on errors
+         */
         virtual bool open(QWidget *widget, QIODevice &source) Q_DECL_OVERRIDE;
 
-	/**
-	 * Decodes a stream of bytes into a MultiWriter
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param dst MultiWriter that receives the audio data
-	 * @return true if succeeded, false on errors
-	 */
+        /**
+         * Decodes a stream of bytes into a MultiWriter
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param dst MultiWriter that receives the audio data
+         * @return true if succeeded, false on errors
+         */
         virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Closes the source.
-	 */
+        /**
+         * Closes the source.
+         */
         virtual void close() Q_DECL_OVERRIDE;
 
     protected:
 
-	/**
-	 * Try to parse header frames.
-	 * @param widget a QWidget for displaying error messages
-	 * @return -1 for error (return false)
-	 *          1 if ready to continue
-	 */
-	int parseHeader(QWidget *widget);
+        /**
+         * Try to parse header frames.
+         * @param widget a QWidget for displaying error messages
+         * @return -1 for error (return false)
+         *          1 if ready to continue
+         */
+        int parseHeader(QWidget *widget);
 
     private:
 
-	/** sub decoder, can be Vorbis, Opus, Speex or whatever... */
-	Kwave::OggSubDecoder *m_sub_decoder;
+        /** sub decoder, can be Vorbis, Opus, Speex or whatever... */
+        Kwave::OggSubDecoder *m_sub_decoder;
 
-	/** source of the audio data */
-	QIODevice *m_source;
+        /** source of the audio data */
+        QIODevice *m_source;
 
-	/** sync and verify incoming physical bitstream */
-	ogg_sync_state m_oy;
+        /** sync and verify incoming physical bitstream */
+        ogg_sync_state m_oy;
 
-	/** take physical pages, weld into a logical stream of packets */
-	ogg_stream_state m_os;
+        /** take physical pages, weld into a logical stream of packets */
+        ogg_stream_state m_os;
 
-	/** one Ogg bitstream page.  Vorbis packets are inside */
-	ogg_page m_og;
+        /** one Ogg bitstream page.  Vorbis packets are inside */
+        ogg_page m_og;
 
-	/** one raw packet of data for decode */
-	ogg_packet m_op;
+        /** one raw packet of data for decode */
+        ogg_packet m_op;
 
     };
 }

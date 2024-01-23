@@ -34,41 +34,41 @@ namespace Kwave
     {
     public:
 
-	/** Default constructor */
-	LabelList();
+        /** Default constructor */
+        LabelList();
 
-	/**
-	 * Constructor, creates a label list from a list of meta data objects,
-	 * by filtering out all objects of label type (already sorted by position)
-	 * @param meta_data_list list of meta data
-	 */
-	explicit LabelList(const Kwave::MetaDataList &meta_data_list);
+        /**
+         * Constructor, creates a label list from a list of meta data objects,
+         * by filtering out all objects of label type (already sorted by position)
+         * @param meta_data_list list of meta data
+         */
+        explicit LabelList(const Kwave::MetaDataList &meta_data_list);
 
-	/** Destructor */
-	virtual ~LabelList();
+        /** Destructor */
+        virtual ~LabelList();
 
-	/** sorts the list by ascending position */
-	virtual void sort();
+        /** sorts the list by ascending position */
+        virtual void sort();
 
-	/**
-	* returns the content of this list as a list of Kwave::MetaData objects
-	* @return a meta data list
-	*/
-	Kwave::MetaDataList toMetaDataList() const;
+        /**
+        * returns the content of this list as a list of Kwave::MetaData objects
+        * @return a meta data list
+        */
+        Kwave::MetaDataList toMetaDataList() const;
 
-	/**
-	* returns the position of the next label left from a given position
-	* or zero (begin of signal) if there is none
-	* @return a sample index [0...length-1]
-	*/
-	sample_index_t nextLabelLeft(sample_index_t from);
+        /**
+        * returns the position of the next label left from a given position
+        * or zero (begin of signal) if there is none
+        * @return a sample index [0...length-1]
+        */
+        sample_index_t nextLabelLeft(sample_index_t from);
 
-	/**
-	* returns the position of the next label right from a given position
-	* or SAMPLE_INDEX_MAX if there is none
-	* @return a sample index [0...length-1] or SAMPLE_INDEX_MAX
-	*/
-	sample_index_t nextLabelRight(sample_index_t from);
+        /**
+        * returns the position of the next label right from a given position
+        * or SAMPLE_INDEX_MAX if there is none
+        * @return a sample index [0...length-1] or SAMPLE_INDEX_MAX
+        */
+        sample_index_t nextLabelRight(sample_index_t from);
 
     };
 

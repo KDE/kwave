@@ -67,8 +67,8 @@ Kwave::Decoder *Kwave::FlacDecoder::instance()
 
     // check for EOF
     if (m_source->atEnd()) {
-	*bytes = 0;
-	return FLAC__STREAM_DECODER_READ_STATUS_END_OF_STREAM;
+        *bytes = 0;
+        return FLAC__STREAM_DECODER_READ_STATUS_END_OF_STREAM;
     }
 
     // read into application buffer
@@ -111,32 +111,32 @@ Kwave::Decoder *Kwave::FlacDecoder::instance()
     // decode the samples into a temporary buffer and
     // flush it to the Writer(s), track by track
     for (unsigned int track=0; track < tracks; track++) {
-	Kwave::Writer *writer = (*m_dest)[track];
-	Q_ASSERT(writer);
-	if (!writer) continue;
-	const FLAC__int32 *src = buffer[track];
-	sample_t *d = dst.data();
+        Kwave::Writer *writer = (*m_dest)[track];
+        Q_ASSERT(writer);
+        if (!writer) continue;
+        const FLAC__int32 *src = buffer[track];
+        sample_t *d = dst.data();
 
-	for (unsigned int sample = 0; sample < samples; sample++) {
-	    // the following cast is only necessary if
-	    // sample_t is not equal to a quint32
-	    sample_t s  = static_cast<sample_t>(*src++);
+        for (unsigned int sample = 0; sample < samples; sample++) {
+            // the following cast is only necessary if
+            // sample_t is not equal to a quint32
+            sample_t s  = static_cast<sample_t>(*src++);
 
-	    // correct precision
-	    if (shift) s *= mul;
+            // correct precision
+            if (shift) s *= mul;
 
-	    // write to destination buffer
-	    *d++ = s;
-	}
+            // write to destination buffer
+            *d++ = s;
+        }
 
-	// flush the temporary buffer
-	(*writer) << dst;
+        // flush the temporary buffer
+        (*writer) << dst;
     }
 
     // at this point we check for a user-cancel
     return (m_dest->isCanceled()) ?
-	FLAC__STREAM_DECODER_WRITE_STATUS_ABORT :
-	FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
+        FLAC__STREAM_DECODER_WRITE_STATUS_ABORT :
+        FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
 }
 
 //***************************************************************************
@@ -158,7 +158,7 @@ void Kwave::FlacDecoder::parseStreamInfo(
 
     qDebug("Bitstream is %u channel, %uHz",
            stream_info.get_channels(),
-	   stream_info.get_sample_rate());
+           stream_info.get_sample_rate());
 }
 
 //***************************************************************************
@@ -169,42 +169,42 @@ void Kwave::FlacDecoder::parseVorbisComments(
 
     // first of all: the vendor string, specifying the software
     QString vendor = QString::fromUtf8(reinterpret_cast<const char *>(
-	vorbis_comments.get_vendor_string()));
+        vorbis_comments.get_vendor_string()));
     if (vendor.length()) {
-	info.set(Kwave::INF_SOFTWARE, vendor);
-	qDebug("Encoded by: '%s'\n\n", DBG(vendor));
+        info.set(Kwave::INF_SOFTWARE, vendor);
+        qDebug("Encoded by: '%s'\n\n", DBG(vendor));
     }
 
     // parse all vorbis comments into Kwave file properties
     for (unsigned int i = 0; i < vorbis_comments.get_num_comments(); i++) {
-	FLAC::Metadata::VorbisComment::Entry comment =
-	    vorbis_comments.get_comment(i);
-	Q_ASSERT(comment.is_valid());
-	if (!comment.is_valid()) continue;
+        FLAC::Metadata::VorbisComment::Entry comment =
+            vorbis_comments.get_comment(i);
+        Q_ASSERT(comment.is_valid());
+        if (!comment.is_valid()) continue;
 
-	QString name = QString::fromUtf8(
-	    comment.get_field_name(), comment.get_field_name_length());
-	QString value = QString::fromUtf8(
-	    comment.get_field_value(), comment.get_field_value_length());
+        QString name = QString::fromUtf8(
+            comment.get_field_name(), comment.get_field_name_length());
+        QString value = QString::fromUtf8(
+            comment.get_field_value(), comment.get_field_value_length());
 
-	if (!m_vorbis_comment_map.contains(name)) continue;
+        if (!m_vorbis_comment_map.contains(name)) continue;
 
-	// we have a known vorbis tag
-	Kwave::FileProperty prop = m_vorbis_comment_map[name];
-	info.set(prop, value);
+        // we have a known vorbis tag
+        Kwave::FileProperty prop = m_vorbis_comment_map[name];
+        info.set(prop, value);
     }
 
     // convert the date property to a QDate
     if (info.contains(Kwave::INF_CREATION_DATE)) {
-	QString str_date =
-	    QVariant(info.get(Kwave::INF_CREATION_DATE)).toString();
-	QDate date;
-	date = QDate::fromString(str_date, Qt::ISODate);
-	if (!date.isValid()) {
-	    int year = str_date.toInt();
-	    date.setDate(year, 1, 1);
-	}
-	if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
+        QString str_date =
+            QVariant(info.get(Kwave::INF_CREATION_DATE)).toString();
+        QDate date;
+        date = QDate::fromString(str_date, Qt::ISODate);
+        if (!date.isValid()) {
+            int year = str_date.toInt();
+            date.setDate(year, 1, 1);
+        }
+        if (date.isValid()) info.set(Kwave::INF_CREATION_DATE, date);
      }
 
      metaData().replace(Kwave::MetaDataList(info));
@@ -218,33 +218,33 @@ void Kwave::FlacDecoder::metadata_callback(
     if (!metadata) return;
 
     switch (metadata->type) {
-	case FLAC__METADATA_TYPE_STREAMINFO: {
-	    FLAC::Metadata::StreamInfo stream_info(
-	        const_cast< ::FLAC__StreamMetadata * >(metadata), true);
-	    parseStreamInfo(stream_info);
-	    break;
-	}
-	case FLAC__METADATA_TYPE_PADDING:
-	    // -> ignored
-	    break;
-	case FLAC__METADATA_TYPE_APPLICATION:
-	    qDebug("FLAC metadata: application data");
-	    break;
-	case FLAC__METADATA_TYPE_SEEKTABLE:
-	    qDebug("FLAC metadata: seektable - not supported yet");
-	    break;
-	case FLAC__METADATA_TYPE_VORBIS_COMMENT: {
-	    FLAC::Metadata::VorbisComment vorbis_comments(
-	        const_cast< ::FLAC__StreamMetadata * >(metadata), true);
-	    parseVorbisComments(vorbis_comments);
-	    break;
-	}
-	case FLAC__METADATA_TYPE_CUESHEET:
-	    qDebug("FLAC metadata: cuesheet - not supported yet");
-	    break;
-	case FLAC__METADATA_TYPE_UNDEFINED:
-	default:
-	    qDebug("FLAC metadata: unknown/undefined type");
+        case FLAC__METADATA_TYPE_STREAMINFO: {
+            FLAC::Metadata::StreamInfo stream_info(
+                const_cast< ::FLAC__StreamMetadata * >(metadata), true);
+            parseStreamInfo(stream_info);
+            break;
+        }
+        case FLAC__METADATA_TYPE_PADDING:
+            // -> ignored
+            break;
+        case FLAC__METADATA_TYPE_APPLICATION:
+            qDebug("FLAC metadata: application data");
+            break;
+        case FLAC__METADATA_TYPE_SEEKTABLE:
+            qDebug("FLAC metadata: seektable - not supported yet");
+            break;
+        case FLAC__METADATA_TYPE_VORBIS_COMMENT: {
+            FLAC::Metadata::VorbisComment vorbis_comments(
+                const_cast< ::FLAC__StreamMetadata * >(metadata), true);
+            parseVorbisComments(vorbis_comments);
+            break;
+        }
+        case FLAC__METADATA_TYPE_CUESHEET:
+            qDebug("FLAC metadata: cuesheet - not supported yet");
+            break;
+        case FLAC__METADATA_TYPE_UNDEFINED:
+        default:
+            qDebug("FLAC metadata: unknown/undefined type");
     }
 }
 
@@ -263,8 +263,8 @@ bool Kwave::FlacDecoder::open(QWidget *widget, QIODevice &src)
 
     // try to open the source
     if (!src.open(QIODevice::ReadOnly)) {
-	qWarning("failed to open source !");
-	return false;
+        qWarning("failed to open source !");
+        return false;
     }
 
     // take over the source
@@ -287,10 +287,10 @@ bool Kwave::FlacDecoder::open(QWidget *widget, QIODevice &src)
 
     FLAC::Decoder::Stream::State state = get_state();
     if (state >= FLAC__STREAM_DECODER_END_OF_STREAM) {
-	Kwave::MessageBox::error(widget, i18n(
-	   "Error while parsing the FLAC metadata. (%s)"),
-	   _(state.as_cstring()));
-	return false;
+        Kwave::MessageBox::error(widget, i18n(
+           "Error while parsing the FLAC metadata. (%s)"),
+           _(state.as_cstring()));
+        return false;
     }
 
     // set some more standard properties

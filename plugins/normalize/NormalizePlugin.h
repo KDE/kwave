@@ -42,50 +42,50 @@ namespace Kwave
      */
     class NormalizePlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	NormalizePlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        NormalizePlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~NormalizePlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * normalizes the volume
-	 * @param params list of strings with parameters
-	 */
+        /**
+         * normalizes the volume
+         * @param params list of strings with parameters
+         */
         virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     private:
-	typedef struct {
-	    QVector<double> fifo; /**< FIFO for power values */
-	    unsigned int    wp;   /**< FIFO write pointer */
-	    unsigned int    n;    /**< number of elements in the FIFO */
-	    double          sum;  /**< sum of queued power values */
-	    double          max;  /**< maximum power value */
-	} Average;
+        typedef struct {
+            QVector<double> fifo; /**< FIFO for power values */
+            unsigned int    wp;   /**< FIFO write pointer */
+            unsigned int    n;    /**< number of elements in the FIFO */
+            double          sum;  /**< sum of queued power values */
+            double          max;  /**< maximum power value */
+        } Average;
 
-	/**
-	 * get the maximum power level of the input
-	 */
-	double getMaxPower(Kwave::MultiTrackReader &source);
+        /**
+         * get the maximum power level of the input
+         */
+        double getMaxPower(Kwave::MultiTrackReader &source);
 
-	/**
-	 * calculate the maximum power of one track
-	 *
-	 * @param reader reference to a SampleReader to read from
-	 * @param average reference to smoothing information
-	 * @param window_size length of the sliding window for volume detection
-	 */
-	void getMaxPowerOfTrack(Kwave::SampleReader *reader,
-	                        Kwave::NormalizePlugin::Average *average,
-	                        unsigned int window_size);
+        /**
+         * calculate the maximum power of one track
+         *
+         * @param reader reference to a SampleReader to read from
+         * @param average reference to smoothing information
+         * @param window_size length of the sliding window for volume detection
+         */
+        void getMaxPowerOfTrack(Kwave::SampleReader *reader,
+                                Kwave::NormalizePlugin::Average *average,
+                                unsigned int window_size);
 
     };
 }

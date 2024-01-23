@@ -37,71 +37,71 @@ namespace Kwave
     {
     public:
 
-	/** simplified mime type: contains only name and list of patterns */
-	typedef struct {
-	    QString name;
-	    QString description;
-	    QStringList patterns;
-	} MimeType;
+        /** simplified mime type: contains only name and list of patterns */
+        typedef struct {
+            QString name;
+            QString description;
+            QStringList patterns;
+        } MimeType;
 
-	/** Constructor */
-	CodecBase();
+        /** Constructor */
+        CodecBase();
 
-	/** Destructor */
-	virtual ~CodecBase();
+        /** Destructor */
+        virtual ~CodecBase();
 
-	/** Returns true if the given mime type is supported */
-	virtual bool supports(const QMimeType &mimetype);
+        /** Returns true if the given mime type is supported */
+        virtual bool supports(const QMimeType &mimetype);
 
-	/** Returns true if the given mime type is supported */
-	virtual bool supports(const QString &mimetype_name);
+        /** Returns true if the given mime type is supported */
+        virtual bool supports(const QString &mimetype_name);
 
-	/** Returns a list of supported file extensions */
-	virtual QStringList extensions(const QString &mimetype_name) const;
+        /** Returns a list of supported file extensions */
+        virtual QStringList extensions(const QString &mimetype_name) const;
 
-	/** Returns a list of supported mime types */
-	virtual const QList<CodecBase::MimeType> mimeTypes();
+        /** Returns a list of supported mime types */
+        virtual const QList<CodecBase::MimeType> mimeTypes();
 
-	/** Returns a list of supported compression types */
-	virtual const QList<Kwave::Compression::Type> compressionTypes();
+        /** Returns a list of supported compression types */
+        virtual const QList<Kwave::Compression::Type> compressionTypes();
 
-	/**
-	 * Adds a new mime type to the internal list of supported mime
-	 * types. First it tries to find the mime type in the system,
-	 * if none was found, a new mime type is created, using the
-	 * passed parameters. The system's mime types are always preferred
-	 * over the passed 'built-ins'.
-	 * @param name the mime type's name (may also be a comma separated list)
-	 * @param description verbose description
-	 * @param patterns list of file patterns, passed as a single string,
-	 *                 separated by "; "
-	 */
-	virtual void addMimeType(const char *name,
-	                         const QString &description,
-	                         const char *patterns);
+        /**
+         * Adds a new mime type to the internal list of supported mime
+         * types. First it tries to find the mime type in the system,
+         * if none was found, a new mime type is created, using the
+         * passed parameters. The system's mime types are always preferred
+         * over the passed 'built-ins'.
+         * @param name the mime type's name (may also be a comma separated list)
+         * @param description verbose description
+         * @param patterns list of file patterns, passed as a single string,
+         *                 separated by "; "
+         */
+        virtual void addMimeType(const char *name,
+                                 const QString &description,
+                                 const char *patterns);
 
-	/**
-	 * Adds a new compression type to the internal list of supported
-	 * compression types.
-	 * @param compression the compression type
-	 */
-	virtual void addCompression(Kwave::Compression::Type compression);
+        /**
+         * Adds a new compression type to the internal list of supported
+         * compression types.
+         * @param compression the compression type
+         */
+        virtual void addCompression(Kwave::Compression::Type compression);
 
-	/**
-	 * Tries to find the name of a mime type by a URL. If not found, it
-	 * returns the default mime type, never an empty string.
-	 * @param url a QUrl, only the filename's extension will be inspected
-	 * @return name of the mime type or the default mime type
-	 */
+        /**
+         * Tries to find the name of a mime type by a URL. If not found, it
+         * returns the default mime type, never an empty string.
+         * @param url a QUrl, only the filename's extension will be inspected
+         * @return name of the mime type or the default mime type
+         */
         virtual QString mimeTypeOf(const QUrl &url);
 
     private:
 
-	/** list of supported mime types */
-	QList<MimeType> m_supported_mime_types;
+        /** list of supported mime types */
+        QList<MimeType> m_supported_mime_types;
 
-	/** list of supported compression types */
-	QList<Kwave::Compression::Type> m_supported_compression_types;
+        /** list of supported compression types */
+        QList<Kwave::Compression::Type> m_supported_compression_types;
 
     };
 }

@@ -76,17 +76,17 @@
 
 /* some macros, for laziness ;-) */
 #define SETUP(enabled,property,check,value) \
-	check->setChecked(m_params.enabled); \
-	value->setValue(m_params.property); \
+        check->setChecked(m_params.enabled); \
+        value->setValue(m_params.property); \
 
 #define STD_SETUP(enabled,property,control) \
-	SETUP(enabled,property,chk##control,sb##control); \
-	sb##control->setEnabled(chk##control->isEnabled() && \
-	                        chk##control->isChecked());
+        SETUP(enabled,property,chk##control,sb##control); \
+        sb##control->setEnabled(chk##control->isEnabled() && \
+                                chk##control->isChecked());
 
 #define STD_SETUP_SLIDER(enabled,property,control) \
-	STD_SETUP(enabled,property,control); \
-	sl##control->setEnabled(sb##control->isEnabled());
+        STD_SETUP(enabled,property,control); \
+        sl##control->setEnabled(sb##control->isEnabled());
 
 //***************************************************************************
 Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
@@ -120,7 +120,7 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     // fill the combo box with playback methods
     unsigned int index=0;
     for (index = 0; index < m_methods_map.count(); ++index) {
-	cbMethod->addItem(m_methods_map.description(index, true));
+        cbMethod->addItem(m_methods_map.description(index, true));
     }
     cbMethod->setEnabled(cbMethod->count() > 1);
 
@@ -305,26 +305,26 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     // add the "Done" button manually, otherwise it would have "Cancel" semantic
     QPushButton *bt_done =
-	buttonBox->addButton(i18n("&Done"), QDialogButtonBox::AcceptRole);
+        buttonBox->addButton(i18n("&Done"), QDialogButtonBox::AcceptRole);
     Q_ASSERT(bt_done);
     if (!bt_done) return;
     connect(bt_done, SIGNAL(clicked(bool)), this, SLOT(accept()));
 
     switch (mode)
     {
-	case Kwave::RecordDialog::SETTINGS_FORMAT:
-	    tabRecord->setCurrentIndex(1);
-	    break;
-	case Kwave::RecordDialog::SETTINGS_SOURCE:
-	    tabRecord->setCurrentIndex(2);
-	    break;
-	case Kwave::RecordDialog::START_RECORDING:  /* FALLTHROUGH */
-	case Kwave::RecordDialog::SETTINGS_DEFAULT: /* FALLTHROUGH */
-	default:
-	    tabRecord->setCurrentIndex(0);
-	    // set the focus onto the "Record" button
-	    btRecord->setFocus();
-	    break;
+        case Kwave::RecordDialog::SETTINGS_FORMAT:
+            tabRecord->setCurrentIndex(1);
+            break;
+        case Kwave::RecordDialog::SETTINGS_SOURCE:
+            tabRecord->setCurrentIndex(2);
+            break;
+        case Kwave::RecordDialog::START_RECORDING:  /* FALLTHROUGH */
+        case Kwave::RecordDialog::SETTINGS_DEFAULT: /* FALLTHROUGH */
+        default:
+            tabRecord->setCurrentIndex(0);
+            // set the focus onto the "Record" button
+            btRecord->setFocus();
+            break;
     }
 }
 
@@ -360,8 +360,8 @@ void Kwave::RecordDialog::methodSelected(int index)
     if (method >= Kwave::RECORD_INVALID) return;
 
     if (method != m_params.method) {
-	setMethod(method);
-	emit sigMethodChanged(method);
+        setMethod(method);
+        emit sigMethodChanged(method);
     }
 }
 
@@ -385,124 +385,124 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
     listDevices->clear();
 
     if (devices.contains(_("#EDIT#"))) {
-	devices.removeAll(_("#EDIT#"));
-	cbDevice->setEditable(true);
+        devices.removeAll(_("#EDIT#"));
+        cbDevice->setEditable(true);
     } else {
-	cbDevice->setEditable(false);
+        cbDevice->setEditable(false);
     }
 
     if (devices.contains(_("#SELECT#"))) {
-	devices.removeAll(_("#SELECT#"));
-	btSourceSelect->setEnabled(true);
-	btSourceSelect->show();
+        devices.removeAll(_("#SELECT#"));
+        btSourceSelect->setEnabled(true);
+        btSourceSelect->show();
     } else {
-	btSourceSelect->setEnabled(false);
-	btSourceSelect->hide();
+        btSourceSelect->setEnabled(false);
+        btSourceSelect->hide();
     }
 
     if (devices.contains(_("#TREE#"))) {
-	// treeview mode
-	devices.removeAll(_("#TREE#"));
-	listDevices->setEnabled(true);
-	cbDevice->setEnabled(false);
-	cbDevice->hide();
-	m_devices_list_map.clear();
+        // treeview mode
+        devices.removeAll(_("#TREE#"));
+        listDevices->setEnabled(true);
+        cbDevice->setEnabled(false);
+        cbDevice->hide();
+        m_devices_list_map.clear();
 
-	// build a tree with all nodes in the list
-	foreach (QString dev_id, devices) {
+        // build a tree with all nodes in the list
+        foreach (QString dev_id, devices) {
             QTreeWidgetItem *parent = Q_NULLPTR;
 
-	    QStringList list = dev_id.split(_("||"), Qt::KeepEmptyParts);
-	    foreach (QString token, list) {
+            QStringList list = dev_id.split(_("||"), Qt::KeepEmptyParts);
+            foreach (QString token, list) {
                 QTreeWidgetItem *item = Q_NULLPTR;
 
-		// split the icon name from the token
-		QString icon_name;
-		int pos = token.indexOf(QLatin1Char('|'));
-		if (pos > 0) {
-		    icon_name = token.mid(pos+1);
-		    token     = token.left(pos);
-		}
+                // split the icon name from the token
+                QString icon_name;
+                int pos = token.indexOf(QLatin1Char('|'));
+                if (pos > 0) {
+                    icon_name = token.mid(pos+1);
+                    token     = token.left(pos);
+                }
 
-		// find the first item with the same text
-		// and the same root
-		if (parent) {
-		    for (int i = 0; i < parent->childCount(); i++) {
-			QTreeWidgetItem *node = parent->child(i);
-			if (node && node->text(0) == token) {
-			    item = node;
-			    break;
-			}
-		    }
-		} else {
-		    QList<QTreeWidgetItem *> matches =
-			listDevices->findItems(token, Qt::MatchExactly);
-		    if (matches.count())
-			item = matches.takeFirst();
-		}
+                // find the first item with the same text
+                // and the same root
+                if (parent) {
+                    for (int i = 0; i < parent->childCount(); i++) {
+                        QTreeWidgetItem *node = parent->child(i);
+                        if (node && node->text(0) == token) {
+                            item = node;
+                            break;
+                        }
+                    }
+                } else {
+                    QList<QTreeWidgetItem *> matches =
+                        listDevices->findItems(token, Qt::MatchExactly);
+                    if (matches.count())
+                        item = matches.takeFirst();
+                }
 
-		if (item) {
-		    // already in the list
-		    /* parent = item; */
-		} else if (parent) {
-		    // new leaf, add to the parent
-		    item = new(std::nothrow) QTreeWidgetItem(parent);
-		    Q_ASSERT(item);
-		    if (item) {
-			item->setText(0, token);
-			m_devices_list_map.insert(item, dev_id);
-		    }
+                if (item) {
+                    // already in the list
+                    /* parent = item; */
+                } else if (parent) {
+                    // new leaf, add to the parent
+                    item = new(std::nothrow) QTreeWidgetItem(parent);
+                    Q_ASSERT(item);
+                    if (item) {
+                        item->setText(0, token);
+                        m_devices_list_map.insert(item, dev_id);
+                    }
 
-		    parent->setExpanded(true);
-		    parent->setFlags(parent->flags() &
-			~(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable));
-		    if (m_devices_list_map.contains(parent)) {
-			// make the parent not selectable
-			m_devices_list_map.remove(parent);
-		    }
-		} else {
-		    // new root node
-		    item = new(std::nothrow) QTreeWidgetItem(listDevices);
-		    Q_ASSERT(item);
-		    if (item) {
-			item->setText(0, token);
-			m_devices_list_map.insert(item, dev_id);
-		    }
-		}
+                    parent->setExpanded(true);
+                    parent->setFlags(parent->flags() &
+                        ~(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable));
+                    if (m_devices_list_map.contains(parent)) {
+                        // make the parent not selectable
+                        m_devices_list_map.remove(parent);
+                    }
+                } else {
+                    // new root node
+                    item = new(std::nothrow) QTreeWidgetItem(listDevices);
+                    Q_ASSERT(item);
+                    if (item) {
+                        item->setText(0, token);
+                        m_devices_list_map.insert(item, dev_id);
+                    }
+                }
 
-		if (item && icon_name.length() && icon_loader) {
-		    QIcon icon = icon_loader->loadIcon(
-			icon_name, KIconLoader::User);
-		    item->setIcon(0, icon);
-		}
+                if (item && icon_name.length() && icon_loader) {
+                    QIcon icon = icon_loader->loadIcon(
+                        icon_name, KIconLoader::User);
+                    item->setIcon(0, icon);
+                }
 
-		// use the current item as parent for the next pass
-		parent = item;
-	    }
-	}
+                // use the current item as parent for the next pass
+                parent = item;
+            }
+        }
     } else {
-	// combo box mode
-	cbDevice->addItems(devices);
-	cbDevice->show();
-	listDevices->setEnabled(false);
+        // combo box mode
+        cbDevice->addItems(devices);
+        cbDevice->show();
+        listDevices->setEnabled(false);
 
-	if (devices.contains(current_device)) {
-	    // current device is in the list
-	    cbDevice->setCurrentIndex(cbDevice->findText(current_device));
-	} else {
-	    if (cbDevice->isEditable() && current_device.length()) {
-		// user defined device name
-		cbDevice->setEditText(current_device);
-	    } else if (devices.count()) {
-		// one or more other possibilities -> take the first one
-		cbDevice->setCurrentIndex(0);
-	    } else {
-		// empty list of possibilities
-		cbDevice->clearEditText();
-		cbDevice->clear();
-	    }
-	}
-	cbDevice->setEnabled(devices.count() > 1);
+        if (devices.contains(current_device)) {
+            // current device is in the list
+            cbDevice->setCurrentIndex(cbDevice->findText(current_device));
+        } else {
+            if (cbDevice->isEditable() && current_device.length()) {
+                // user defined device name
+                cbDevice->setEditText(current_device);
+            } else if (devices.count()) {
+                // one or more other possibilities -> take the first one
+                cbDevice->setCurrentIndex(0);
+            } else {
+                // empty list of possibilities
+                cbDevice->clearEditText();
+                cbDevice->clear();
+            }
+        }
+        cbDevice->setEnabled(devices.count() > 1);
     }
 
     // enable changes in the device controls again
@@ -518,7 +518,7 @@ void Kwave::RecordDialog::listEntrySelected(QTreeWidgetItem *current,
     if (!current || !listDevices) return;
 
     if (m_devices_list_map.contains(current))
-	setDevice(m_devices_list_map[current]);
+        setDevice(m_devices_list_map[current]);
 }
 
 //***************************************************************************
@@ -547,26 +547,26 @@ void Kwave::RecordDialog::setDevice(const QString &device)
 //     qDebug("RecordDialog::setDevice(%s)", device.local8Bit().data());
 
     if (listDevices->isEnabled()) {
-	// treeview mode
+        // treeview mode
         QTreeWidgetItem *node = m_devices_list_map.key(device, Q_NULLPTR);
-	if (node) {
-	    node->setSelected(true);
-	    listDevices->scrollToItem(node);
-	    listDevices->setCurrentItem(node);
-	}
+        if (node) {
+            node->setSelected(true);
+            listDevices->scrollToItem(node);
+            listDevices->setCurrentItem(node);
+        }
     } else if (cbDevice->isEditable() && device.length()) {
-	// user defined device name
-	if (!device.isEmpty() && (cbDevice->currentText() != device)) {
-	    cbDevice->setCurrentIndex(cbDevice->findText(device));
-	    cbDevice->setEditText(device);
-	}
+        // user defined device name
+        if (!device.isEmpty() && (cbDevice->currentText() != device)) {
+            cbDevice->setCurrentIndex(cbDevice->findText(device));
+            cbDevice->setEditText(device);
+        }
     } else {
-	// just take one from the list
-	if (cbDevice->findText(device) >= 0) {
-	    cbDevice->setCurrentIndex(cbDevice->findText(device));
-	} else if (cbDevice->count()) {
-	    cbDevice->setCurrentIndex(0);
-	}
+        // just take one from the list
+        if (cbDevice->findText(device) >= 0) {
+            cbDevice->setCurrentIndex(cbDevice->findText(device));
+        } else if (cbDevice->count()) {
+            cbDevice->setCurrentIndex(0);
+        }
     }
 
     if (device_changed) emit sigDeviceChanged(device);
@@ -621,9 +621,9 @@ void Kwave::RecordDialog::selectRecordDevice()
     filter += _("\n*|")     + i18n("Any device (*)");
 
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
-	_("kfiledialog:///kwave_record_device"),
-	Kwave::FileDialog::OpenFile, filter, this,
-	QUrl(_("file:/dev"))
+        _("kfiledialog:///kwave_record_device"),
+        Kwave::FileDialog::OpenFile, filter, this,
+        QUrl(_("file:/dev"))
     );
     if (!dlg) return;
     dlg->setWindowTitle(i18n("Select Record Device"));
@@ -632,10 +632,10 @@ void Kwave::RecordDialog::selectRecordDevice()
     else
         dlg->selectUrl(QUrl(_("file:/dev/*")));
     if (dlg->exec() == QDialog::Accepted) {
-	// selected new device
-	QString new_device = dlg->selectedUrl().path();
-	if (new_device != m_params.device_name)
-	    emit sigDeviceChanged(new_device);
+        // selected new device
+        QString new_device = dlg->selectedUrl().path();
+        if (new_device != m_params.device_name)
+            emit sigDeviceChanged(new_device);
     }
     delete dlg;
 }
@@ -684,17 +684,17 @@ void Kwave::RecordDialog::setSupportedTracks(unsigned int min,
     if (!sbFormatTracks) return;
 
     if ((min == max) || (!max)) {
-	sbFormatTracks->setEnabled(false);
-	return;
+        sbFormatTracks->setEnabled(false);
+        return;
     } else
-	sbFormatTracks->setEnabled(true);
+        sbFormatTracks->setEnabled(true);
 
     if (sbFormatTracks->value() < sbFormatTracks->minimum()) {
-	sbFormatTracks->setMaximum(max);
-	sbFormatTracks->setMinimum(min);
+        sbFormatTracks->setMaximum(max);
+        sbFormatTracks->setMinimum(min);
     } else {
-	sbFormatTracks->setMinimum(min);
-	sbFormatTracks->setMaximum(max);
+        sbFormatTracks->setMinimum(min);
+        sbFormatTracks->setMaximum(max);
     }
 
 }
@@ -712,25 +712,25 @@ void Kwave::RecordDialog::setTracks(unsigned int tracks)
     QString tracks_str;
 
     switch (tracks) {
-	case 1:
-	    tracks_str = i18n("Mono");
-	    break;
-	case 2:
-	    tracks_str = i18n("Stereo");
-	    break;
-	case 4:
-	    tracks_str = i18n("Quadro");
-	    break;
-	default:
-	    tracks_str = _("");
+        case 1:
+            tracks_str = i18n("Mono");
+            break;
+        case 2:
+            tracks_str = i18n("Stereo");
+            break;
+        case 4:
+            tracks_str = i18n("Quadro");
+            break;
+        default:
+            tracks_str = _("");
     }
 
     if (tracks_str.length()) {
-	lblTracksVerbose->setText(_("(") + tracks_str + _(")"));
-	m_status_bar.m_tracks->setText(tracks_str);
+        lblTracksVerbose->setText(_("(") + tracks_str + _(")"));
+        m_status_bar.m_tracks->setText(tracks_str);
     } else {
-	lblTracksVerbose->setText(_(""));
-	m_status_bar.m_tracks->setText(i18n("%1 tracks", tracks));
+        lblTracksVerbose->setText(_(""));
+        m_status_bar.m_tracks->setText(i18n("%1 tracks", tracks));
     }
 
     sbFormatTracks->setValue(tracks);
@@ -757,10 +757,10 @@ void Kwave::RecordDialog::setSupportedSampleRates(const QList<double> &rates)
     cbFormatSampleRate->clear();
 
     foreach (double r, rates) {
-	QString rate = rate2string(r);
-	Q_ASSERT(rate.length());
-	if (!rate.length()) continue; // string was zero?
-	cbFormatSampleRate->addItem(rate);
+        QString rate = rate2string(r);
+        Q_ASSERT(rate.length());
+        if (!rate.length()) continue; // string was zero?
+        cbFormatSampleRate->addItem(rate);
     }
 
     bool have_choice = (cbFormatSampleRate->count() > 1);
@@ -775,12 +775,12 @@ void Kwave::RecordDialog::setSampleRate(double new_rate)
     if (!cbFormatSampleRate || !m_status_bar.m_sample_rate) return;
 
     if (new_rate <= 0) {
-	cbFormatSampleRate->setEnabled(false);
-	return;
+        cbFormatSampleRate->setEnabled(false);
+        return;
     } else {
-	bool have_choice = (cbFormatSampleRate->count() > 1);
-	cbFormatSampleRate->setEnabled(have_choice);
-	m_params.sample_rate = new_rate;
+        bool have_choice = (cbFormatSampleRate->count() > 1);
+        cbFormatSampleRate->setEnabled(have_choice);
+        m_params.sample_rate = new_rate;
     }
 
     QString rate;
@@ -811,14 +811,14 @@ void Kwave::RecordDialog::setSupportedCompressions(
     cbFormatCompression->clear();
 
     if (comps.isEmpty()) {
-	// no compressions -> add "none" manually
-	const Kwave::Compression comp(Kwave::Compression::NONE);
-	cbFormatCompression->addItem(comp.name());
+        // no compressions -> add "none" manually
+        const Kwave::Compression comp(Kwave::Compression::NONE);
+        cbFormatCompression->addItem(comp.name());
     } else {
-	foreach (Kwave::Compression::Type c, comps) {
-	    const Kwave::Compression comp(c);
-	    cbFormatCompression->addItem(comp.name(), comp.toInt());
-	}
+        foreach (Kwave::Compression::Type c, comps) {
+            const Kwave::Compression comp(c);
+            cbFormatCompression->addItem(comp.name(), comp.toInt());
+        }
     }
 
     bool have_choice = (cbFormatCompression->count() > 1);
@@ -832,12 +832,12 @@ void Kwave::RecordDialog::setCompression(int compression)
     if (!cbFormatCompression) return;
 
     if (compression < 0) {
-	cbFormatCompression->setEnabled(false);
-	return;
+        cbFormatCompression->setEnabled(false);
+        return;
     } else {
-	bool have_choice = (cbFormatCompression->count() > 1);
-	cbFormatCompression->setEnabled(have_choice);
-	m_params.compression = Kwave::Compression::fromInt(compression);
+        bool have_choice = (cbFormatCompression->count() > 1);
+        cbFormatCompression->setEnabled(have_choice);
+        m_params.compression = Kwave::Compression::fromInt(compression);
     }
 
     const Kwave::Compression comp(Kwave::Compression::fromInt(compression));
@@ -848,9 +848,9 @@ void Kwave::RecordDialog::setCompression(int compression)
 void Kwave::RecordDialog::compressionChanged(int index)
 {
     Kwave::Compression::Type compression = Kwave::Compression::fromInt(
-	cbFormatCompression->itemData(index).toInt());
+        cbFormatCompression->itemData(index).toInt());
     if (compression != m_params.compression)
-	emit sigCompressionChanged(compression);
+        emit sigCompressionChanged(compression);
 }
 
 //***************************************************************************
@@ -861,8 +861,8 @@ void Kwave::RecordDialog::setSupportedBits(const QList<unsigned int> &bits)
 
     m_supported_resolutions = bits;
     if (bits.count()) {
-	sbFormatResolution->setMinimum(bits.first());
-	sbFormatResolution->setMaximum(bits.last());
+        sbFormatResolution->setMinimum(bits.first());
+        sbFormatResolution->setMaximum(bits.last());
     }
 
     // enable only if there is a choice
@@ -877,11 +877,11 @@ void Kwave::RecordDialog::setBitsPerSample(unsigned int bits)
     if (!sbFormatResolution || !m_status_bar.m_bits_per_sample) return;
 
     if (!bits ) {
-	sbFormatResolution->setEnabled(false);
-	return;
+        sbFormatResolution->setEnabled(false);
+        return;
     } else {
-	sbFormatResolution->setEnabled(m_supported_resolutions.count() > 1);
-	m_params.bits_per_sample = bits;
+        sbFormatResolution->setEnabled(m_supported_resolutions.count() > 1);
+        m_params.bits_per_sample = bits;
     }
 
     m_status_bar.m_bits_per_sample->setText(i18n("%1 bit", bits));
@@ -897,24 +897,24 @@ void Kwave::RecordDialog::bitsPerSampleChanged(int bits)
 
     // round up or down to the next supported resolution in bits per sample
     if (!m_supported_resolutions.isEmpty()) {
-	if (bits > last) {
-	    // step up to the next supported value
-	    QListIterator<unsigned int> it(m_supported_resolutions);
-	    while (it.hasNext()) {
-		bits = it.next();
-		if (bits > last) break;
-	    }
-	    if (bits < last) bits = m_supported_resolutions.last();
-	} else {
-	    // step down to the next supported value
-	    QListIterator<unsigned int> it(m_supported_resolutions);
-	    it.toBack();
-	    while (it.hasPrevious()) {
-		bits = it.previous();
-		if (bits < last) break;
-	    }
-	    if (bits > last) bits = m_supported_resolutions.first();
-	}
+        if (bits > last) {
+            // step up to the next supported value
+            QListIterator<unsigned int> it(m_supported_resolutions);
+            while (it.hasNext()) {
+                bits = it.next();
+                if (bits > last) break;
+            }
+            if (bits < last) bits = m_supported_resolutions.last();
+        } else {
+            // step down to the next supported value
+            QListIterator<unsigned int> it(m_supported_resolutions);
+            it.toBack();
+            while (it.hasPrevious()) {
+                bits = it.previous();
+                if (bits < last) break;
+            }
+            if (bits > last) bits = m_supported_resolutions.first();
+        }
     }
 
     m_params.bits_per_sample = bits;
@@ -935,11 +935,11 @@ void Kwave::RecordDialog::setSupportedSampleFormats(
     cbFormatSampleFormat->clear();
     Kwave::SampleFormat::Map types;
     foreach (Kwave::SampleFormat::Format format, formats) {
-	int index = types.findFromData(format);
-	cbFormatSampleFormat->addItem(
-	    types.description(index, true),
-	    Kwave::SampleFormat(format).toInt()
-	);
+        int index = types.findFromData(format);
+        cbFormatSampleFormat->addItem(
+            types.description(index, true),
+            Kwave::SampleFormat(format).toInt()
+        );
     }
 
     bool have_choice = (cbFormatSampleFormat->count() > 1);
@@ -954,16 +954,16 @@ void Kwave::RecordDialog::setSampleFormat(
     if (!cbFormatSampleFormat) return;
 
     if (sample_format == Kwave::SampleFormat::Unknown) {
-	cbFormatSampleFormat->setEnabled(false);
-	return;
+        cbFormatSampleFormat->setEnabled(false);
+        return;
     } else {
-	bool have_choice = (cbFormatSampleFormat->count() > 1);
-	cbFormatSampleFormat->setEnabled(have_choice);
-	m_params.sample_format = sample_format;
+        bool have_choice = (cbFormatSampleFormat->count() > 1);
+        cbFormatSampleFormat->setEnabled(have_choice);
+        m_params.sample_format = sample_format;
     }
 
     int cb_index = cbFormatSampleFormat->findData(
-	Kwave::SampleFormat(sample_format).toInt());
+        Kwave::SampleFormat(sample_format).toInt());
     cbFormatSampleFormat->setCurrentIndex(cb_index);
 }
 
@@ -999,101 +999,101 @@ void Kwave::RecordDialog::setState(Kwave::RecordState state)
 
     m_state = state;
     switch (state) {
-	case Kwave::REC_UNINITIALIZED:
-	    state_text = i18n("Please check the source device settings...");
-	    enable_new      = true;
-	    enable_pause    = false;
-	    enable_stop     = false;
-	    enable_record   = false;
-	    enable_settings = true;
-	    enable_trigger  = true;
-	    pixmaps.push_back(QPixmap(stop_hand_xpm));
-	    pixmaps.push_back(QPixmap(ledred_xpm));
-	    m_status_bar.m_time->setText(_(""));
-	    break;
-	case Kwave::REC_EMPTY:
-	    state_text = i18n("(empty)");
-	    enable_new      = true;
-	    enable_pause    = false;
-	    enable_stop     = false;
-	    enable_record   = m_params.device_name.length();
-	    enable_settings = true;
-	    enable_trigger  = true;
-	    pixmaps.push_back(QPixmap(ledgreen_xpm));
-	    m_status_bar.m_time->setText(_(""));
-	    break;
-	case Kwave::REC_BUFFERING:
-	    state_text = i18n("Buffering...");
-	    enable_new      = true; /* throw away current FIFO content */
-	    enable_pause    = false;
-	    enable_stop     = true;
-	    enable_record   = true; /* acts as "trigger now" */
-	    enable_settings = false;
-	    enable_trigger  = true;
-	    pixmaps.push_back(QPixmap(ledgreen_xpm));
-	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
-	    break;
-	case Kwave::REC_PRERECORDING:
-	    state_text = i18n("Prerecording...");
-	    enable_new      = false;
-	    enable_pause    = false;
-	    enable_stop     = true;
-	    enable_record   = true;
-	    enable_settings = false;
-	    enable_trigger  = true;
-	    pixmaps.push_back(QPixmap(ledgreen_xpm));
-	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
-	    break;
-	case Kwave::REC_WAITING_FOR_TRIGGER:
-	    state_text = i18n("Waiting for trigger...");
-	    enable_new      = false;
-	    enable_pause    = false;
-	    enable_stop     = true;
-	    enable_record   = true; /* acts as "trigger now" */
-	    enable_settings = false;
-	    enable_trigger  = true;
-	    pixmaps.push_back(QPixmap(ledgreen_xpm));
-	    pixmaps.push_back(QPixmap(ledlightgreen_xpm));
-	    break;
-	case Kwave::REC_RECORDING:
-	    state_text = i18n("Recording...");
-	    enable_new      = false;
-	    enable_pause    = true;
-	    enable_stop     = true;
-	    enable_record   = false;
-	    enable_settings = false;
-	    enable_trigger  = false;
-	    pixmaps.push_back(QPixmap(walk_r1_xpm));
-	    pixmaps.push_back(QPixmap(walk_r2_xpm));
-	    pixmaps.push_back(QPixmap(walk_r3_xpm));
-	    pixmaps.push_back(QPixmap(walk_r4_xpm));
-	    pixmaps.push_back(QPixmap(walk_r5_xpm));
-	    pixmaps.push_back(QPixmap(walk_r6_xpm));
-	    pixmaps.push_back(QPixmap(walk_r7_xpm));
-	    pixmaps.push_back(QPixmap(walk_r8_xpm));
-	    animation_time = 100;
-	    break;
-	case Kwave::REC_PAUSED:
-	    state_text = i18n("Paused");
-	    enable_new      = true; /* start again */
-	    enable_pause    = true; /* used for "continue" */
-	    enable_stop     = true;
-	    enable_record   = true; /* used for "continue" */
-	    enable_settings = false;
-	    enable_trigger  = false;
-	    pixmaps.push_back(QPixmap(ledgreen_xpm));
-	    pixmaps.push_back(QPixmap(ledyellow_xpm));
-	    break;
-	case Kwave::REC_DONE:
-	    state_text = i18n("Done");
-	    enable_new      = true;
-	    enable_pause    = false;
-	    enable_stop     = false;
-	    enable_record   = true;
-	    enable_settings = true;
-	    enable_trigger  = true;
-	    pixmaps.push_back(QPixmap(ok_xpm));
-	    break;
+        case Kwave::REC_UNINITIALIZED:
+            state_text = i18n("Please check the source device settings...");
+            enable_new      = true;
+            enable_pause    = false;
+            enable_stop     = false;
+            enable_record   = false;
+            enable_settings = true;
+            enable_trigger  = true;
+            pixmaps.push_back(QPixmap(stop_hand_xpm));
+            pixmaps.push_back(QPixmap(ledred_xpm));
+            m_status_bar.m_time->setText(_(""));
+            break;
+        case Kwave::REC_EMPTY:
+            state_text = i18n("(empty)");
+            enable_new      = true;
+            enable_pause    = false;
+            enable_stop     = false;
+            enable_record   = m_params.device_name.length();
+            enable_settings = true;
+            enable_trigger  = true;
+            pixmaps.push_back(QPixmap(ledgreen_xpm));
+            m_status_bar.m_time->setText(_(""));
+            break;
+        case Kwave::REC_BUFFERING:
+            state_text = i18n("Buffering...");
+            enable_new      = true; /* throw away current FIFO content */
+            enable_pause    = false;
+            enable_stop     = true;
+            enable_record   = true; /* acts as "trigger now" */
+            enable_settings = false;
+            enable_trigger  = true;
+            pixmaps.push_back(QPixmap(ledgreen_xpm));
+            pixmaps.push_back(QPixmap(ledlightgreen_xpm));
+            break;
+        case Kwave::REC_PRERECORDING:
+            state_text = i18n("Prerecording...");
+            enable_new      = false;
+            enable_pause    = false;
+            enable_stop     = true;
+            enable_record   = true;
+            enable_settings = false;
+            enable_trigger  = true;
+            pixmaps.push_back(QPixmap(ledgreen_xpm));
+            pixmaps.push_back(QPixmap(ledlightgreen_xpm));
+            break;
+        case Kwave::REC_WAITING_FOR_TRIGGER:
+            state_text = i18n("Waiting for trigger...");
+            enable_new      = false;
+            enable_pause    = false;
+            enable_stop     = true;
+            enable_record   = true; /* acts as "trigger now" */
+            enable_settings = false;
+            enable_trigger  = true;
+            pixmaps.push_back(QPixmap(ledgreen_xpm));
+            pixmaps.push_back(QPixmap(ledlightgreen_xpm));
+            break;
+        case Kwave::REC_RECORDING:
+            state_text = i18n("Recording...");
+            enable_new      = false;
+            enable_pause    = true;
+            enable_stop     = true;
+            enable_record   = false;
+            enable_settings = false;
+            enable_trigger  = false;
+            pixmaps.push_back(QPixmap(walk_r1_xpm));
+            pixmaps.push_back(QPixmap(walk_r2_xpm));
+            pixmaps.push_back(QPixmap(walk_r3_xpm));
+            pixmaps.push_back(QPixmap(walk_r4_xpm));
+            pixmaps.push_back(QPixmap(walk_r5_xpm));
+            pixmaps.push_back(QPixmap(walk_r6_xpm));
+            pixmaps.push_back(QPixmap(walk_r7_xpm));
+            pixmaps.push_back(QPixmap(walk_r8_xpm));
+            animation_time = 100;
+            break;
+        case Kwave::REC_PAUSED:
+            state_text = i18n("Paused");
+            enable_new      = true; /* start again */
+            enable_pause    = true; /* used for "continue" */
+            enable_stop     = true;
+            enable_record   = true; /* used for "continue" */
+            enable_settings = false;
+            enable_trigger  = false;
+            pixmaps.push_back(QPixmap(ledgreen_xpm));
+            pixmaps.push_back(QPixmap(ledyellow_xpm));
+            break;
+        case Kwave::REC_DONE:
+            state_text = i18n("Done");
+            enable_new      = true;
+            enable_pause    = false;
+            enable_stop     = false;
+            enable_record   = true;
+            enable_settings = true;
+            enable_trigger  = true;
+            pixmaps.push_back(QPixmap(ok_xpm));
+            break;
     }
     m_status_bar.m_state->setText(state_text);
     m_state_icon_widget->setPixmaps(pixmaps, animation_time);
@@ -1140,87 +1140,87 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
     if (!progress_bar || !m_status_bar.m_state) return;
 
     if (total == 0) {
-	// we are done: stop update timer and reset buffer percentage
-	m_buffer_progress_timer.stop();
-	m_buffer_progress_count = 0;
-	m_buffer_progress_total = 0;
-	progress_bar->setTextVisible(false);
-	progress_bar->setMinimum(0);
-	progress_bar->setMaximum(100);
-	progress_bar->setValue(0);
-	progress_bar->reset();
+        // we are done: stop update timer and reset buffer percentage
+        m_buffer_progress_timer.stop();
+        m_buffer_progress_count = 0;
+        m_buffer_progress_total = 0;
+        progress_bar->setTextVisible(false);
+        progress_bar->setMinimum(0);
+        progress_bar->setMaximum(100);
+        progress_bar->setValue(0);
+        progress_bar->reset();
     } else {
-	m_buffer_progress_count = count;
-	m_buffer_progress_total = total;
+        m_buffer_progress_count = count;
+        m_buffer_progress_total = total;
 
-	if (!m_buffer_progress_timer.isActive())
-	    updateBufferProgressBar();
+        if (!m_buffer_progress_timer.isActive())
+            updateBufferProgressBar();
     }
 
     // update recording time
     QString txt;
     switch (m_state) {
-	case Kwave::REC_UNINITIALIZED:
-	case Kwave::REC_EMPTY:
-	case Kwave::REC_BUFFERING:
-	case Kwave::REC_PRERECORDING:
-	    txt = _("");
-	    break;
-	case Kwave::REC_WAITING_FOR_TRIGGER: {
-	    txt = _("");
-	    QString state_text;
-	    QDateTime now     = QDateTime::currentDateTime();
-	    QDateTime t_start = m_params.start_time;
+        case Kwave::REC_UNINITIALIZED:
+        case Kwave::REC_EMPTY:
+        case Kwave::REC_BUFFERING:
+        case Kwave::REC_PRERECORDING:
+            txt = _("");
+            break;
+        case Kwave::REC_WAITING_FOR_TRIGGER: {
+            txt = _("");
+            QString state_text;
+            QDateTime now     = QDateTime::currentDateTime();
+            QDateTime t_start = m_params.start_time;
 
-	    if (m_params.start_time_enabled && (now < t_start)) {
-		// waiting for start time to come...
+            if (m_params.start_time_enabled && (now < t_start)) {
+                // waiting for start time to come...
 
-		int s = Kwave::toInt(now.secsTo(t_start));
-		int m = s / 60;
-		s %= 60;
-		int h = m / 60;
-		m %= 60;
-		int d = h / 24;
-		h %= 24;
+                int s = Kwave::toInt(now.secsTo(t_start));
+                int m = s / 60;
+                s %= 60;
+                int h = m / 60;
+                m %= 60;
+                int d = h / 24;
+                h %= 24;
 
-		QString days    = (d) ?
-		    i18np("one day ",    "%1 days ",    d) : _("");
-		QString hours   = (h) ?
-		    i18np("one hour ",   "%1 hours ",   h) : _("");
-		QString minutes = (m) ?
-		    i18np("one minute ", "%1 minutes ", m) : _("");
-		QString seconds =
-		    (d | h | m) ?
-		    i18np("and %1 second", "and %1 seconds", s) :
-		    i18np("%1 second", "%1 seconds", s);
+                QString days    = (d) ?
+                    i18np("one day ",    "%1 days ",    d) : _("");
+                QString hours   = (h) ?
+                    i18np("one hour ",   "%1 hours ",   h) : _("");
+                QString minutes = (m) ?
+                    i18np("one minute ", "%1 minutes ", m) : _("");
+                QString seconds =
+                    (d | h | m) ?
+                    i18np("and %1 second", "and %1 seconds", s) :
+                    i18np("%1 second", "%1 seconds", s);
 
-		state_text = i18nc(
-		    "%1=days; %2=hours; %3=minutes; %4=seconds",
-		    "Waiting for start in %1%2%3%4...",
-		    days, hours, minutes, seconds);
-	    } else {
-		// waiting for trigger...
-		state_text = i18n("Waiting for trigger...");
-	    }
-	    m_status_bar.m_state->setText(state_text);
+                state_text = i18nc(
+                    "%1=days; %2=hours; %3=minutes; %4=seconds",
+                    "Waiting for start in %1%2%3%4...",
+                    days, hours, minutes, seconds);
+            } else {
+                // waiting for trigger...
+                state_text = i18n("Waiting for trigger...");
+            }
+            m_status_bar.m_state->setText(state_text);
 
-	    break;
-	}
-	case Kwave::REC_RECORDING:
-	case Kwave::REC_PAUSED:
-	case Kwave::REC_DONE: {
-	    if (m_samples_recorded > 1) {
-		double rate = m_params.sample_rate;
-		double ms = (rate > 0) ?
-		    ((static_cast<double>(m_samples_recorded) / rate) * 1E3)
-		    : 0;
-		txt = _(" ") +
-		    i18n("Length: %1", Kwave::ms2string(ms)) +
-		    _(" ") + i18n("(%1 samples)",
-		    Kwave::samples2string(m_samples_recorded));
-	    } else txt = _("");
-	    break;
-	}
+            break;
+        }
+        case Kwave::REC_RECORDING:
+        case Kwave::REC_PAUSED:
+        case Kwave::REC_DONE: {
+            if (m_samples_recorded > 1) {
+                double rate = m_params.sample_rate;
+                double ms = (rate > 0) ?
+                    ((static_cast<double>(m_samples_recorded) / rate) * 1E3)
+                    : 0;
+                txt = _(" ") +
+                    i18n("Length: %1", Kwave::ms2string(ms)) +
+                    _(" ") + i18n("(%1 samples)",
+                    Kwave::samples2string(m_samples_recorded));
+            } else txt = _("");
+            break;
+        }
     }
     m_status_bar.m_time->setText(txt);
 }
@@ -1314,9 +1314,9 @@ void Kwave::RecordDialog::updateEffects(unsigned int track,
     if (!buffer.size()) return;
 
     if (level_meter) {
-	level_meter->setTracks(m_params.tracks);
-	level_meter->setSampleRate(m_params.sample_rate);
-	level_meter->updateTrack(track, buffer);
+        level_meter->setTracks(m_params.tracks);
+        level_meter->setSampleRate(m_params.sample_rate);
+        level_meter->updateTrack(track, buffer);
     }
 
 }
@@ -1338,7 +1338,7 @@ void Kwave::RecordDialog::updateRecordButton()
     // enabled if not disabled by status and also not limited or
     // less than the limit has been recorded
     new_enable = m_record_enabled && (!m_params.record_time_limited ||
-	(static_cast<double>(m_samples_recorded) <
+        (static_cast<double>(m_samples_recorded) <
          m_params.record_time * m_params.sample_rate));
 
     if (new_enable != old_enable) btRecord->setEnabled(new_enable);

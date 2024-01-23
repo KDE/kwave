@@ -1,6 +1,6 @@
 /***************************************************************************
  PlaybackController.cpp  -  Interface for generic playback control
-			     -------------------
+                             -------------------
     begin                : Nov 15 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -59,7 +59,7 @@ Kwave::PlaybackController::PlaybackController(
             this, SLOT(closeDevice()),
             Qt::QueuedConnection);
     connect(&m_signal_manager, SIGNAL(sigTrackSelectionChanged(bool)),
-	    this,              SLOT(trackSelectionChanged()));
+            this,              SLOT(trackSelectionChanged()));
 
 }
 
@@ -76,9 +76,9 @@ void Kwave::PlaybackController::playbackStart()
     m_reload_mode = false;
 
     if (m_playing) {
-	// first stop playback
-	stopDevicePlayBack();
-	emit sigPlaybackStopped();
+        // first stop playback
+        stopDevicePlayBack();
+        emit sigPlaybackStopped();
     }
 
     // (re)start from beginning without loop mode
@@ -100,10 +100,10 @@ void Kwave::PlaybackController::playbackLoop()
     m_reload_mode = false;
 
     if (m_playing) {
-	// first stop playback
-	stopDevicePlayBack();
-	m_playing = false;
-	emit sigPlaybackStopped();
+        // first stop playback
+        stopDevicePlayBack();
+        m_playing = false;
+        emit sigPlaybackStopped();
     }
 
     // (re)start from beginning without loop mode
@@ -140,8 +140,8 @@ void Kwave::PlaybackController::playbackContinue()
 
     // if not paused, do the same as start
     if (!m_paused) {
-	playbackStart();
-	return;
+        playbackStart();
+        return;
     }
 
     // else reset the paused flag and start from current position
@@ -161,9 +161,9 @@ void Kwave::PlaybackController::playbackStop()
 
     // stopped in pause state
     if (m_paused) {
-	m_playing = false;
-	m_paused = false;
-	emit sigPlaybackStopped();
+        m_playing = false;
+        m_paused = false;
+        emit sigPlaybackStopped();
     }
     if (!m_playing) return; // already stopped
     stopDevicePlayBack();
@@ -176,18 +176,18 @@ void Kwave::PlaybackController::seekTo(sample_index_t pos)
     if (pos > m_playback_end)   pos = m_playback_end;
 
     {
-	QMutexLocker lock(&m_lock_playback);
-	qDebug("seekTo(%llu)", pos);
-	m_seek_pos    = pos;
-	m_should_seek = true;
+        QMutexLocker lock(&m_lock_playback);
+        qDebug("seekTo(%llu)", pos);
+        m_seek_pos    = pos;
+        m_should_seek = true;
     }
 
     if (m_paused) {
-	// if playback is paused, we want an update of the playback
-	// position anyway. as this will not come from the device layer,
-	// fake an update right here
-	updatePlaybackPos(pos);
-	seekDone(pos);
+        // if playback is paused, we want an update of the playback
+        // position anyway. as this will not come from the device layer,
+        // fake an update right here
+        updatePlaybackPos(pos);
+        seekDone(pos);
     }
 }
 
@@ -208,23 +208,23 @@ void Kwave::PlaybackController::updatePlaybackPos(sample_index_t pos)
 void Kwave::PlaybackController::playbackDone()
 {
     if (m_reload_mode) {
-	// if we were in the reload mode, reset the
-	// paused flag and start again from current position
-	startDevicePlayBack();
-	m_paused = false;
-	m_playing = true;
+        // if we were in the reload mode, reset the
+        // paused flag and start again from current position
+        startDevicePlayBack();
+        m_paused = false;
+        m_playing = true;
 
-	// leave the "reload" mode
-	m_reload_mode = false;
-	return;
+        // leave the "reload" mode
+        m_reload_mode = false;
+        return;
     }
 
     m_playing = false;
     if (m_paused)
-	emit sigPlaybackPaused();
+        emit sigPlaybackPaused();
     else {
-	emit sigPlaybackPos(m_playback_position);
-	emit sigPlaybackStopped();
+        emit sigPlaybackPos(m_playback_position);
+        emit sigPlaybackStopped();
     }
 
     m_old_first = 0;
@@ -316,9 +316,9 @@ void Kwave::PlaybackController::startDevicePlayBack()
 
     // remove the old device if still one exists
     if (m_device) {
-	qWarning("PlaybackController::startDevicePlayBack(): "
-	         "removing stale instance");
-	delete m_device;
+        qWarning("PlaybackController::startDevicePlayBack(): "
+                 "removing stale instance");
+        delete m_device;
         m_device = Q_NULLPTR;
     }
 
@@ -328,48 +328,48 @@ void Kwave::PlaybackController::startDevicePlayBack()
 //           DBG(m_playback_params.device));
     m_device = openDevice(-1, &m_playback_params);
     if (!m_device) {
-	// simulate a "playback done" on errors
-	emit sigDevicePlaybackDone();
-	return;
+        // simulate a "playback done" on errors
+        emit sigDevicePlaybackDone();
+        return;
     }
 
     sample_index_t first = m_signal_manager.selection().first();
     sample_index_t last  = m_signal_manager.selection().last();
 
     if (m_paused) {
-	// continue after pause
-	if ((m_old_first != first) || (m_old_last != last)) {
-	    // selection has changed
-	    if (first != last) {
-		// something selected -> set new range
-		setStartPos(first);
-		setEndPos(last);
+        // continue after pause
+        if ((m_old_first != first) || (m_old_last != last)) {
+            // selection has changed
+            if (first != last) {
+                // something selected -> set new range
+                setStartPos(first);
+                setEndPos(last);
 
-		sample_index_t pos = currentPos();
-		if ((pos < first) || (pos > last)) {
-		    // completely new area selected, or the right margin
-		    // has been moved before the current playback pointer
-		    // -> play from start of new selection
-		    updatePlaybackPos(first);
-		}
-	    } else {
-		// nothing selected -> select all and move to position
-		setStartPos(first);
-		setEndPos(m_signal_manager.length() - 1);
-	    }
-	}
+                sample_index_t pos = currentPos();
+                if ((pos < first) || (pos > last)) {
+                    // completely new area selected, or the right margin
+                    // has been moved before the current playback pointer
+                    // -> play from start of new selection
+                    updatePlaybackPos(first);
+                }
+            } else {
+                // nothing selected -> select all and move to position
+                setStartPos(first);
+                setEndPos(m_signal_manager.length() - 1);
+            }
+        }
     } else {
-	// determine first and last sample if not in paused mode"
-	if (first == last) {
-	    // nothing selected -> play from cursor position
-	    setStartPos(first);
-	    setEndPos(m_signal_manager.length() - 1);
-	} else {
-	    // play only in selection
-	    setStartPos(first);
-	    setEndPos(last);
-	}
-	updatePlaybackPos(first);
+        // determine first and last sample if not in paused mode"
+        if (first == last) {
+            // nothing selected -> play from cursor position
+            setStartPos(first);
+            setEndPos(m_signal_manager.length() - 1);
+        } else {
+            // play only in selection
+            setStartPos(first);
+            setEndPos(last);
+        }
+        updatePlaybackPos(first);
     }
 
     m_old_first = first;
@@ -383,8 +383,8 @@ void Kwave::PlaybackController::stopDevicePlayBack()
 {
     m_thread.requestInterruption();
     if (!m_thread.isRunning()) {
-	qDebug("PlaybackController::stopDevicePlayBack() - not running");
-	emit sigDevicePlaybackDone();
+        qDebug("PlaybackController::stopDevicePlayBack() - not running");
+        emit sigDevicePlaybackDone();
     }
     closeDevice();
 }
@@ -413,16 +413,16 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 
     // get the list of selected channels
     if (!tracks || !m_device) {
-	// not even one selected track or no (open) device
-	qDebug("PlaybackController::run(): no audible track(s) !");
-	emit sigDevicePlaybackDone();
-	return;
+        // not even one selected track or no (open) device
+        qDebug("PlaybackController::run(): no audible track(s) !");
+        emit sigDevicePlaybackDone();
+        return;
     }
 
     // set up a set of sample reader (streams)
     Kwave::MultiTrackReader input(
-	Kwave::FullSnapshot,
-	m_signal_manager, all_tracks, first, last);
+        Kwave::FullSnapshot,
+        m_signal_manager, all_tracks, first, last);
 
     // create a new translation matrix for mixing up/down to the desired
     // number of output channels
@@ -440,103 +440,103 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 
     do {
 
-	// if current position is after start -> skip the passed
-	// samples (this happens when resuming after a pause)
-	if (pos > first) input.skip(pos - first);
+        // if current position is after start -> skip the passed
+        // samples (this happens when resuming after a pause)
+        if (pos > first) input.skip(pos - first);
 
-	while ((pos++ <= last) && !m_thread.isInterruptionRequested()) {
-	    unsigned int x;
-	    unsigned int y;
-	    bool seek_again = false;
-	    bool seek_done  = false;
+        while ((pos++ <= last) && !m_thread.isInterruptionRequested()) {
+            unsigned int x;
+            unsigned int y;
+            bool seek_again = false;
+            bool seek_done  = false;
 
-	    {
-		QMutexLocker _lock(&m_lock_playback);
+            {
+                QMutexLocker _lock(&m_lock_playback);
 
-		// check for track selection change (need for new mixer)
-		if (m_track_selection_changed) {
-		    if (mixer) delete mixer;
+                // check for track selection change (need for new mixer)
+                if (m_track_selection_changed) {
+                    if (mixer) delete mixer;
                     mixer = Q_NULLPTR;
-		    m_track_selection_changed = false;
-		}
+                    m_track_selection_changed = false;
+                }
 
-		if (!mixer) {
-		    audible_tracks = m_signal_manager.selectedTracks();
-		    audible_count = audible_tracks.count();
-		    mixer = new(std::nothrow)
-			Kwave::MixerMatrix(audible_count, out_channels);
-		    Q_ASSERT(mixer);
-		    if (!mixer) break;
-		    seek_again = true; // re-synchronize all reader positions
-		}
+                if (!mixer) {
+                    audible_tracks = m_signal_manager.selectedTracks();
+                    audible_count = audible_tracks.count();
+                    mixer = new(std::nothrow)
+                        Kwave::MixerMatrix(audible_count, out_channels);
+                    Q_ASSERT(mixer);
+                    if (!mixer) break;
+                    seek_again = true; // re-synchronize all reader positions
+                }
 
-		// check for seek requests
-		if (m_should_seek && (m_seek_pos != pos)) {
-		    if (m_seek_pos < first) m_seek_pos = first;
-		    if (m_seek_pos > last)  { pos = last; break; }
-		    pos = m_seek_pos;
-		    m_should_seek = false;
-		    seek_again = true;
-		    seek_done  = true;
-		}
-	    }
+                // check for seek requests
+                if (m_should_seek && (m_seek_pos != pos)) {
+                    if (m_seek_pos < first) m_seek_pos = first;
+                    if (m_seek_pos > last)  { pos = last; break; }
+                    pos = m_seek_pos;
+                    m_should_seek = false;
+                    seek_again = true;
+                    seek_done  = true;
+                }
+            }
 
-	    if (seek_again) input.seek(pos);
-	    if (seek_done)  seekDone(pos);
+            if (seek_again) input.seek(pos);
+            if (seek_done)  seekDone(pos);
 
-	    // fill input buffer with samples
-	    for (x = 0; x < audible_count; ++x) {
-		in_samples[x] = 0;
-		Kwave::SampleReader *stream = input[audible_tracks[x]];
-		Q_ASSERT(stream);
-		if (!stream) continue;
+            // fill input buffer with samples
+            for (x = 0; x < audible_count; ++x) {
+                in_samples[x] = 0;
+                Kwave::SampleReader *stream = input[audible_tracks[x]];
+                Q_ASSERT(stream);
+                if (!stream) continue;
 
-		if (!stream->eof()) (*stream) >> in_samples[x];
-	    }
+                if (!stream->eof()) (*stream) >> in_samples[x];
+            }
 
-	    // multiply matrix with input to get output
-	    const Kwave::SampleArray &in = in_samples;
-	    for (y = 0; y < out_channels; ++y) {
-		double sum = 0;
-		for (x = 0; x < audible_count; ++x) {
-		    sum += static_cast<double>(in[x]) * (*mixer)[x][y];
-		}
-		out_samples[y] = static_cast<sample_t>(sum);
-	    }
+            // multiply matrix with input to get output
+            const Kwave::SampleArray &in = in_samples;
+            for (y = 0; y < out_channels; ++y) {
+                double sum = 0;
+                for (x = 0; x < audible_count; ++x) {
+                    sum += static_cast<double>(in[x]) * (*mixer)[x][y];
+                }
+                out_samples[y] = static_cast<sample_t>(sum);
+            }
 
-	    // write samples to the playback device
-	    int result = -1;
-	    {
-		unsigned int retry = 10;
-		while (retry-- && !m_thread.isInterruptionRequested()) {
-		    QMutexLocker lock(&m_lock_device);
-		    if (m_device)
-			result = m_device->write(out_samples);
-		    if (result == 0)
-			break;
-		}
-	    }
-	    if (result) {
-		m_thread.requestInterruption();
-		pos = last;
-	    }
+            // write samples to the playback device
+            int result = -1;
+            {
+                unsigned int retry = 10;
+                while (retry-- && !m_thread.isInterruptionRequested()) {
+                    QMutexLocker lock(&m_lock_device);
+                    if (m_device)
+                        result = m_device->write(out_samples);
+                    if (result == 0)
+                        break;
+                }
+            }
+            if (result) {
+                m_thread.requestInterruption();
+                pos = last;
+            }
 
-	    // update the playback position if timer elapsed
-	    if (!pos_countdown) {
-		pos_countdown = Kwave::toUint(ceil(
-		    m_playback_params.rate / SCREEN_REFRESHES_PER_SECOND));
-		updatePlaybackPos(pos);
-	    } else {
-		--pos_countdown;
-	    }
-	}
+            // update the playback position if timer elapsed
+            if (!pos_countdown) {
+                pos_countdown = Kwave::toUint(ceil(
+                    m_playback_params.rate / SCREEN_REFRESHES_PER_SECOND));
+                updatePlaybackPos(pos);
+            } else {
+                --pos_countdown;
+            }
+        }
 
-	// maybe we loop. in this case the playback starts
-	// again from the left marker
-	if (m_loop_mode && !m_thread.isInterruptionRequested()) {
-	    input.reset();
-	    pos = startPos();
-	}
+        // maybe we loop. in this case the playback starts
+        // again from the left marker
+        if (m_loop_mode && !m_thread.isInterruptionRequested()) {
+            input.reset();
+            pos = startPos();
+        }
 
     } while (m_loop_mode && !m_thread.isInterruptionRequested());
 
@@ -550,10 +550,10 @@ void Kwave::PlaybackController::closeDevice()
 {
     Kwave::PlayBackDevice *dev = Q_NULLPTR;
     if (m_device) {
-	// NOTE: we could get a recursion here if we delete with the lock
-	//       held, if the device calls processEvents during shutdown
-	QMutexLocker lock_for_delete(&m_lock_device);
-	dev = m_device;
+        // NOTE: we could get a recursion here if we delete with the lock
+        //       held, if the device calls processEvents during shutdown
+        QMutexLocker lock_for_delete(&m_lock_device);
+        dev = m_device;
         m_device = Q_NULLPTR;
     }
     delete dev;
@@ -566,29 +566,29 @@ void Kwave::PlaybackController::checkMethod(Kwave::playback_method_t &method)
 
     // create a list of all supported playback methods
     foreach (Kwave::PlaybackDeviceFactory *f, m_playback_factories) {
-	QList<Kwave::playback_method_t> methods = f->supportedMethods();
+        QList<Kwave::playback_method_t> methods = f->supportedMethods();
 
-	// return immediately on a direct match
-	if (methods.contains(method)) return;
+        // return immediately on a direct match
+        if (methods.contains(method)) return;
 
-	// otherwise accumulate all found methods
-	foreach (Kwave::playback_method_t m, methods)
-	    if (!all_methods.contains(m))
-		all_methods.append(m);
+        // otherwise accumulate all found methods
+        foreach (Kwave::playback_method_t m, methods)
+            if (!all_methods.contains(m))
+                all_methods.append(m);
     }
 
     // no direct match found: take the best match (lowest number)
     Kwave::playback_method_t best = Kwave::PLAYBACK_INVALID;
     foreach (Kwave::playback_method_t m, all_methods) {
-	if (m == Kwave::PLAYBACK_NONE) continue; // not a valid selection
-	if (m < best) best = m;
+        if (m == Kwave::PLAYBACK_NONE) continue; // not a valid selection
+        if (m < best) best = m;
     }
 
     Kwave::PlayBackTypesMap map;
     qDebug("playback method '%s' (%d) not supported "
            "-> falling back to '%s' (%d)",
-	   DBG(map.name(map.findFromData(method))), static_cast<int>(method),
-	   DBG(map.name(map.findFromData(best))),   static_cast<int>(best)
+           DBG(map.name(map.findFromData(method))), static_cast<int>(method),
+           DBG(map.name(map.findFromData(best))),   static_cast<int>(best)
     );
 
     method = best;
@@ -601,11 +601,11 @@ Kwave::PlayBackDevice *Kwave::PlaybackController::createDevice(
     // locate the corresponding playback device factory (plugin)
     Kwave::PlaybackDeviceFactory *factory = Q_NULLPTR;
     foreach (Kwave::PlaybackDeviceFactory *f, m_playback_factories) {
-	Q_ASSERT(f);
-	if (f && f->supportedMethods().contains(method)) {
-	    factory = f;
-	    break;
-	}
+        Q_ASSERT(f);
+        if (f && f->supportedMethods().contains(method)) {
+            factory = f;
+            break;
+        }
     }
     if (!factory) return Q_NULLPTR;
 
@@ -621,18 +621,18 @@ Kwave::PlayBackDevice *Kwave::PlaybackController::openDevice(
     // take playback parameters if given,
     // otherwise fall back to current defaults
     Kwave::PlayBackParam params = (playback_params) ?
-	*playback_params : m_playback_params;
+        *playback_params : m_playback_params;
 
     // if no playback parameters specified or no method selected:
     // -> auto-detect best
     if (!playback_params || (params.method == PLAYBACK_NONE))
-	checkMethod(params.method);
+        checkMethod(params.method);
 
     if (!playback_params) {
-	if (!m_signal_manager.isClosed() && !m_signal_manager.isEmpty()) {
-	    params.rate     = m_signal_manager.rate();
-	    params.channels = m_signal_manager.selectedTracks().count();
-	}
+        if (!m_signal_manager.isClosed() && !m_signal_manager.isEmpty()) {
+            params.rate     = m_signal_manager.rate();
+            params.channels = m_signal_manager.selectedTracks().count();
+        }
     }
 
     // try to create a new device, using the given playback method
@@ -645,23 +645,23 @@ Kwave::PlayBackDevice *Kwave::PlaybackController::openDevice(
     // open the playback device with it's default parameters
     // open and initialize the device
     QString result = device->open(
-	params.device,
-	params.rate,
-	params.channels,
-	params.bits_per_sample,
-	params.bufbase
+        params.device,
+        params.rate,
+        params.channels,
+        params.bits_per_sample,
+        params.bufbase
     );
     if (result.length()) {
-	qWarning("PlayBackPlugin::openDevice(): opening the device failed.");
+        qWarning("PlayBackPlugin::openDevice(): opening the device failed.");
 
-	// delete the device if it did not open
-	delete device;
+        // delete the device if it did not open
+        delete device;
         device = Q_NULLPTR;
 
-	// show an error message box
-	Kwave::MessageBox::error(m_signal_manager.parentWidget(), result,
-	    i18n("Unable to open '%1'",
-	    params.device.section(QLatin1Char('|'), 0, 0)));
+        // show an error message box
+        Kwave::MessageBox::error(m_signal_manager.parentWidget(), result,
+            i18n("Unable to open '%1'",
+            params.device.section(QLatin1Char('|'), 0, 0)));
     }
 
 

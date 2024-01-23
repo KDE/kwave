@@ -1,6 +1,6 @@
 /***************************************************************************
         LowPassFilter.h  - transmission function of a low pass filter
-			     -------------------
+                             -------------------
     begin                : Mar 15 2003
     copyright            : (C) 2003 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -32,59 +32,59 @@ namespace Kwave
     class LowPassFilter: public Kwave::SampleSource,
                          public Kwave::TransmissionFunction
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	LowPassFilter();
+        /** Constructor */
+        LowPassFilter();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~LowPassFilter() Q_DECL_OVERRIDE;
 
-	/** @see TransmissionFunction::at() */
+        /** @see TransmissionFunction::at() */
         virtual double at(double f) Q_DECL_OVERRIDE;
 
-	/** does the calculation */
+        /** does the calculation */
         virtual void goOn() Q_DECL_OVERRIDE;
 
     signals:
 
-	/** emits a block with the filtered data */
-	void output(Kwave::SampleArray data);
+        /** emits a block with the filtered data */
+        void output(Kwave::SampleArray data);
 
     public slots:
 
-	/** receives input data */
-	void input(Kwave::SampleArray data);
+        /** receives input data */
+        void input(Kwave::SampleArray data);
 
-	/**
-	 * Sets the cutoff frequency, normed to [0...2Pi]. The calculation is:
-	 * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
-	 * The default setting is 0.5.
-	 */
-	void setFrequency(const QVariant fc);
-
-    private:
-
-	/** reset/initialize the filter coefficients */
-	void initFilter();
-
-	/** calculate filter coefficients for a given frequency */
-	void normed_setfilter_shelvelowpass(double freq);
+        /**
+         * Sets the cutoff frequency, normed to [0...2Pi]. The calculation is:
+         * fc = frequency [Hz] * 2 * Pi / f_sample [Hz].
+         * The default setting is 0.5.
+         */
+        void setFrequency(const QVariant fc);
 
     private:
 
-	/** buffer for input */
-	Kwave::SampleArray m_buffer;
+        /** reset/initialize the filter coefficients */
+        void initFilter();
 
-	/** cutoff frequency [0...PI] */
-	double m_f_cutoff;
+        /** calculate filter coefficients for a given frequency */
+        void normed_setfilter_shelvelowpass(double freq);
 
-	/** structure with the filter coefficients */
-	struct {
-	    double cx,cx1,cx2,cy1,cy2;
-	    double x,x1,x2,y,y1,y2;
-	} m_filter;
+    private:
+
+        /** buffer for input */
+        Kwave::SampleArray m_buffer;
+
+        /** cutoff frequency [0...PI] */
+        double m_f_cutoff;
+
+        /** structure with the filter coefficients */
+        struct {
+            double cx,cx1,cx2,cy1,cy2;
+            double x,x1,x2,y,y1,y2;
+        } m_filter;
 
     };
 }

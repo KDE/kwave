@@ -34,8 +34,8 @@ Kwave::SelectionBorderItem::SelectionBorderItem(
      m_selection()
 {
     m_selection.set(
-	signal_manager.selection().first(),
-	signal_manager.selection().last()
+        signal_manager.selection().first(),
+        signal_manager.selection().last()
     );
     m_selection.grep(pos);
 }
@@ -63,11 +63,11 @@ QString Kwave::SelectionBorderItem::toolTip(sample_index_t &ofs)
 
     QString which;
     if (d_left <= d_right) {
-	which = i18n("Selection, left border");
-	ofs   = first;
+        which = i18n("Selection, left border");
+        ofs   = first;
     } else {
-	which = i18n("Selection, right border");
-	ofs   = last;
+        which = i18n("Selection, right border");
+        ofs   = last;
     }
 
     QString hms = Kwave::ms2hms(m_view.samples2ms(ofs));

@@ -1,6 +1,6 @@
 /***************************************************************************
            Selection.cpp - Simple class for a selection
-			     -------------------
+                             -------------------
     begin                : Tue May 08 2007
     copyright            : (C) 2007 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de

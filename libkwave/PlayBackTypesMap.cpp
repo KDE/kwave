@@ -1,6 +1,6 @@
 /***************************************************************************
     PlayBackTypesMap.cpp  -  map for playback methods
-			     -------------------
+                             -------------------
     begin                : Sat Feb 05 2005
     copyright            : (C) 2005 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -31,22 +31,22 @@ void Kwave::PlayBackTypesMap::fill()
 
 #ifdef HAVE_ALSA_SUPPORT
     append(index++, Kwave::PLAYBACK_ALSA,       _("alsa"),
-	   kli18n("ALSA (Advanced Linux Sound Architecture)"));
+           kli18n("ALSA (Advanced Linux Sound Architecture)"));
 #endif /* HAVE_ALSA_SUPPORT */
 
 #ifdef HAVE_OSS_SUPPORT
     append(index++, Kwave::PLAYBACK_OSS,        _("oss"),
-	   kli18n("OSS (Open Sound System)"));
+           kli18n("OSS (Open Sound System)"));
 #endif /* HAVE_OSS_SUPPORT */
 
 #ifdef HAVE_PULSEAUDIO_SUPPORT
     append(index++, Kwave::PLAYBACK_PULSEAUDIO, _("pulseaudio"),
-	   kli18n("Pulse Audio"));
+           kli18n("Pulse Audio"));
 #endif /* HAVE_PULSEAUDIO_SUPPORT */
 
 #ifdef HAVE_QT_AUDIO_SUPPORT
     append(index++, Kwave::PLAYBACK_QT_AUDIO, _("qt_audio"),
-	   kli18n("Qt Multimedia Audio"));
+           kli18n("Qt Multimedia Audio"));
 #endif /* HAVE_QT_AUDIO_SUPPORT */
 
     if (!index) qWarning("no playback method defined!");

@@ -1,6 +1,6 @@
 /***************************************************************************
         CurveWidget.cpp  -  widget for editing an interpolated curve
-			     -------------------
+                             -------------------
     begin                : Sep 16 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -70,8 +70,8 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
 
     // create the pixmaps for the selected and non-selected knob
     if (icon_loader) {
-	m_knob = icon_loader->loadIcon(_("knob.xpm"), KIconLoader::Small);
-	m_selected_knob = icon_loader->loadIcon(_("selectedknob.xpm"),
+        m_knob = icon_loader->loadIcon(_("knob.xpm"), KIconLoader::Small);
+        m_selected_knob = icon_loader->loadIcon(_("selectedknob.xpm"),
                                                 KIconLoader::Small);
     }
 
@@ -89,7 +89,7 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
     Q_ASSERT(transform);
     if (!transform) return;
     transform->addAction(i18n("Flip horizontal"),
-	                 this, SLOT(HFlip()));
+                         this, SLOT(HFlip()));
     transform->addAction(i18n("Flip vertical"),
                          this, SLOT(VFlip()));
     transform->addSeparator();
@@ -115,24 +115,24 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
 
     m_menu->addAction(
         QIcon::fromTheme(_("document-export")),
-	i18n("Save Preset"),
-	this, SLOT(savePreset()));
+        i18n("Save Preset"),
+        this, SLOT(savePreset()));
 
     del->addAction(
         QIcon::fromTheme(_("edit-delete")),
-	i18n("Currently Selected Point"),
-	this, SLOT(deleteLast()),
-	QKeySequence::Delete);
+        i18n("Currently Selected Point"),
+        this, SLOT(deleteLast()),
+        QKeySequence::Delete);
     del->addAction(i18n("Every Second Point"),
-	           this, SLOT(deleteSecond()));
+                   this, SLOT(deleteSecond()));
 
     QStringList types = Kwave::Interpolation::descriptions(true);
     int id = 0;
     foreach (const QString &text, types) {
-	QAction *action = new(std::nothrow) QAction(interpolation);
-	action->setText(text);
-	action->setData(id++);
-	interpolation->addAction(action);
+        QAction *action = new(std::nothrow) QAction(interpolation);
+        action->setText(text);
+        action->setData(id++);
+        interpolation->addAction(action);
     }
     connect(interpolation, SIGNAL(triggered(QAction*)),
             this,          SLOT(selectInterpolationType(QAction*)));
@@ -184,27 +184,27 @@ void Kwave::CurveWidget::savePreset()
 {
     QString presetSubDir = _("presets") + QDir::separator() + _("curves");
     QString presetPath = QStandardPaths::writableLocation(
-	QStandardPaths::AppDataLocation) +
-	QDir::separator() + presetSubDir;
+        QStandardPaths::AppDataLocation) +
+        QDir::separator() + presetSubDir;
     if (!QDir(presetPath).exists()) {
-	Kwave::Logger::log(this, Logger::Info,
-	    _("curve preset directory did not exist, creating '%1'").arg(
-	    presetPath));
-	QDir(presetPath).mkpath(presetPath);
+        Kwave::Logger::log(this, Logger::Info,
+            _("curve preset directory did not exist, creating '%1'").arg(
+            presetPath));
+        QDir(presetPath).mkpath(presetPath);
     }
 
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow) Kwave::FileDialog(
-	presetPath, Kwave::FileDialog::SaveFile,
-	_("*.curve *.CURVE|") +
-	i18nc("Filter description for Kwave curve presets, "
-	      "for use in a FileDialog",
-	      "Kwave curve preset (*.curve)"),
-	 this, QUrl(), _("*.curve"));
+        presetPath, Kwave::FileDialog::SaveFile,
+        _("*.curve *.CURVE|") +
+        i18nc("Filter description for Kwave curve presets, "
+              "for use in a FileDialog",
+              "Kwave curve preset (*.curve)"),
+         this, QUrl(), _("*.curve"));
     if (!dlg) return;
     dlg->setWindowTitle(i18n("Save Curve Preset"));
     if (dlg->exec() != QDialog::Accepted) {
-	delete dlg;
-	return;
+        delete dlg;
+        return;
     }
 
     QString name = dlg->selectedUrl().toLocalFile();
@@ -212,7 +212,7 @@ void Kwave::CurveWidget::savePreset()
 
     // append the extension if not given
     if (!name.endsWith(_(".curve")))
-	name.append(_(".curve"));
+        name.append(_(".curve"));
 
     QFile out(name);
     out.open(QIODevice::WriteOnly);
@@ -230,26 +230,26 @@ void Kwave::CurveWidget::loadPresetList()
     QString presetSubDir = s + _("kwave") + s + _("presets") + s + _("curves");
     QStringList files;
     QStringList presetPaths = QStandardPaths::standardLocations(
-	QStandardPaths::GenericDataLocation);
+        QStandardPaths::GenericDataLocation);
     foreach (const QString &path, presetPaths) {
-	QDir d(path + presetSubDir);
-	QStringList f = d.entryList(QDir::Files, QDir::Name);
-	foreach (const QString &file, f) {
-	    QString preset = d.path() + s + file;
-	    if (!files.contains(preset)) files.append(preset);
-	}
+        QDir d(path + presetSubDir);
+        QStringList f = d.entryList(QDir::Files, QDir::Name);
+        foreach (const QString &file, f) {
+            QString preset = d.path() + s + file;
+            if (!files.contains(preset)) files.append(preset);
+        }
     }
     files.sort();
 
     m_preset_menu->clear();
     foreach (const QString &file, files) {
-	QFileInfo fi(file);
-	QString name = fi.baseName();
-	QAction *action = new(std::nothrow) QAction(name, m_preset_menu);
-	Q_ASSERT(action);
-	if (!action) continue;
-	action->setData(file);
-	m_preset_menu->addAction(action);
+        QFileInfo fi(file);
+        QString name = fi.baseName();
+        QAction *action = new(std::nothrow) QAction(name, m_preset_menu);
+        Q_ASSERT(action);
+        if (!action) continue;
+        action->setData(file);
+        m_preset_menu->addAction(action);
     }
 }
 
@@ -273,8 +273,8 @@ void Kwave::CurveWidget::loadPreset(QAction *action)
     // load the file
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly)) {
-	qWarning("CurveWidget::loadPreset('%s') - FAILED", DBG(filename));
-	return;
+        qWarning("CurveWidget::loadPreset('%s') - FAILED", DBG(filename));
+        return;
     }
     QTextStream stream(&file);
     m_curve.fromCommand(stream.readLine());
@@ -311,9 +311,9 @@ void Kwave::CurveWidget::deleteSecond()
 void Kwave::CurveWidget::deleteLast()
 {
     if (m_last != Kwave::Curve::NoPoint) {
-	m_curve.deletePoint(m_last, true);
-	m_last = Kwave::Curve::NoPoint;
-	repaint();
+        m_curve.deletePoint(m_last, true);
+        m_last = Kwave::Curve::NoPoint;
+        repaint();
     }
 }
 
@@ -355,7 +355,7 @@ Kwave::Curve::Point Kwave::CurveWidget::findPoint(int sx, int sy)
     if ((m_width <= 1) || (m_height <= 1)) return Kwave::Curve::NoPoint;
 
     return m_curve.findPoint((static_cast<double>(sx)) / (m_width - 1),
-	(static_cast<double>(m_height) - sy) / (m_height - 1));
+        (static_cast<double>(m_height) - sy) / (m_height - 1));
 }
 
 //***************************************************************************
@@ -367,21 +367,21 @@ void Kwave::CurveWidget::mousePressEvent(QMouseEvent *e)
     if (!e || (m_width <= 1) || (m_height <= 1)) return;
 
     if (e->buttons() == Qt::RightButton) {
-	// right mouse button -> context menu
-	QPoint popup = QCursor::pos();
-	if (m_menu) m_menu->popup(popup);
+        // right mouse button -> context menu
+        QPoint popup = QCursor::pos();
+        if (m_menu) m_menu->popup(popup);
     } else if (e->buttons() == Qt::LeftButton) {
-	// left mouse button -> select existing or create new point
+        // left mouse button -> select existing or create new point
         m_down = true;
-	m_current = findPoint(e->pos().x(), e->pos().y());
-	if (m_current == Kwave::Curve::NoPoint) {
-	    // no matching point is found -> generate a new one !
-	    addPoint(static_cast<double>(e->pos().x()) / (m_width - 1),
-		     static_cast<double>(m_height - e->pos().y()) /
-		     (m_height - 1));
-	    m_current = findPoint(e->pos().x(), e->pos().y());
-	}
-	repaint();
+        m_current = findPoint(e->pos().x(), e->pos().y());
+        if (m_current == Kwave::Curve::NoPoint) {
+            // no matching point is found -> generate a new one !
+            addPoint(static_cast<double>(e->pos().x()) / (m_width - 1),
+                     static_cast<double>(m_height - e->pos().y()) /
+                     (m_height - 1));
+            m_current = findPoint(e->pos().x(), e->pos().y());
+        }
+        repaint();
     }
 }
 
@@ -407,41 +407,41 @@ void Kwave::CurveWidget::mouseMoveEvent(QMouseEvent *e )
 
     // if a point is selected...
     if (m_current != Kwave::Curve::NoPoint) {
-	if (m_current == m_curve.first()) x = 0;
-	if (m_current == m_curve.last())  x = m_width - 1;
+        if (m_current == m_curve.first()) x = 0;
+        if (m_current == m_curve.last())  x = m_width - 1;
 
-	m_curve.deletePoint(m_current, false);
+        m_curve.deletePoint(m_current, false);
 
-	m_current.setX(static_cast<double>(x) / (m_width - 1));
-	m_current.setY(static_cast<double>(m_height - y) / (m_height - 1));
+        m_current.setX(static_cast<double>(x) / (m_width - 1));
+        m_current.setY(static_cast<double>(m_height - y) / (m_height - 1));
 
-	if (m_current.x() < 0.0) m_current.setX(0.0);
-	if (m_current.y() < 0.0) m_current.setY(0.0);
-	if (m_current.x() > 1.0) m_current.setX(1.0);
-	if (m_current.y() > 1.0) m_current.setY(1.0);
+        if (m_current.x() < 0.0) m_current.setX(0.0);
+        if (m_current.y() < 0.0) m_current.setY(0.0);
+        if (m_current.x() > 1.0) m_current.setX(1.0);
+        if (m_current.y() > 1.0) m_current.setY(1.0);
 
-	double dx = (1.0 / static_cast<double>(m_width - 1));
-	do {
-	    Kwave::Curve::Point nearest = m_curve.findPoint(
-		m_current.x(), m_current.y(), 1.0);
-	    if (qFuzzyCompare(nearest.x(), m_current.x())) {
-		if (nearest == m_curve.last())
-		    m_current.setX(m_current.x() - dx);
-		else
-		    m_current.setX(m_current.x() + dx);
-	    }
-	    else
-		break;
-	} while (true);
+        double dx = (1.0 / static_cast<double>(m_width - 1));
+        do {
+            Kwave::Curve::Point nearest = m_curve.findPoint(
+                m_current.x(), m_current.y(), 1.0);
+            if (qFuzzyCompare(nearest.x(), m_current.x())) {
+                if (nearest == m_curve.last())
+                    m_current.setX(m_current.x() - dx);
+                else
+                    m_current.setX(m_current.x() + dx);
+            }
+            else
+                break;
+        } while (true);
 
-	m_curve.insert(m_current.x(), m_current.y());
+        m_curve.insert(m_current.x(), m_current.y());
 
-	repaint ();
+        repaint ();
     } else {
-	if (findPoint(x, y) != Kwave::Curve::NoPoint)
-	    setCursor(Qt::SizeAllCursor);
-	else
-	    setCursor(Qt::ArrowCursor);
+        if (findPoint(x, y) != Kwave::Curve::NoPoint)
+            setCursor(Qt::SizeAllCursor);
+        else
+            setCursor(Qt::ArrowCursor);
     }
 }
 
@@ -463,8 +463,8 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
     QVector<double> y = m_curve.interpolation(m_width);
     Q_ASSERT(Kwave::toInt(y.count()) == m_width);
     if (Kwave::toInt(y.count()) < m_width) {
-	qWarning("CurveWidget: unable to get interpolation !");
-	return;
+        qWarning("CurveWidget: unable to get interpolation !");
+        return;
     }
 
     p.begin(this);
@@ -474,20 +474,20 @@ void Kwave::CurveWidget::paintEvent(QPaintEvent *)
     // draw the lines
     ly = (m_height-1) - Kwave::toInt(y[0] * (m_height - 1));
     for (int i = 1; i < m_width; i++) {
-	int ay = (m_height-1) - Kwave::toInt(y[i] * (m_height - 1));
-	p.drawLine (i - 1, ly, i, ay);
-	ly = ay;
+        int ay = (m_height-1) - Kwave::toInt(y[i] * (m_height - 1));
+        p.drawLine (i - 1, ly, i, ay);
+        ly = ay;
     }
 
     // draw the points (knobs)
     foreach (const Kwave::Curve::Point &pt, m_curve) {
-	int lx = Kwave::toInt(pt.x() * (m_width - 1));
-	ly = (m_height - 1) - Kwave::toInt(pt.y() * (m_height - 1));
+        int lx = Kwave::toInt(pt.x() * (m_width - 1));
+        ly = (m_height - 1) - Kwave::toInt(pt.y() * (m_height - 1));
 
-	if ((pt == m_current) || (!m_down && (pt == m_last)) )
-	    p.drawPixmap(lx - (kw >> 1), ly - (kh >> 1), m_selected_knob);
-	else
-	    p.drawPixmap(lx - (kw >> 1), ly - (kh >> 1), m_knob);
+        if ((pt == m_current) || (!m_down && (pt == m_last)) )
+            p.drawPixmap(lx - (kw >> 1), ly - (kh >> 1), m_selected_knob);
+        else
+            p.drawPixmap(lx - (kw >> 1), ly - (kh >> 1), m_knob);
     }
     p.end();
 

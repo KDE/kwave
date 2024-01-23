@@ -28,28 +28,28 @@ namespace Kwave
     class Colors
     {
     public:
-	typedef struct {
-	    /** Background color */
-	    QColor background;
+        typedef struct {
+            /** Background color */
+            QColor background;
 
-	    /** Color for samples */
-	    QColor sample;
+            /** Color for samples */
+            QColor sample;
 
-	    /** Color for interpolated samples */
-	    QColor interpolated;
+            /** Color for interpolated samples */
+            QColor interpolated;
 
-	    /** Color for the zero line, used areas */
-	    QColor zero;
+            /** Color for the zero line, used areas */
+            QColor zero;
 
-	    /** Color of the zero line, unused areas */
-	    QColor zero_unused;
-	} ColorSet;
+            /** Color of the zero line, unused areas */
+            QColor zero_unused;
+        } ColorSet;
 
-	/** color set for normal signal */
-	static Q_DECL_EXPORT ColorSet Normal;
+        /** color set for normal signal */
+        static Q_DECL_EXPORT ColorSet Normal;
 
-	/** color set for disabled signal */
-	static Q_DECL_EXPORT ColorSet Disabled;
+        /** color set for disabled signal */
+        static Q_DECL_EXPORT ColorSet Disabled;
 
     };
 }

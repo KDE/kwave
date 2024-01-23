@@ -33,45 +33,45 @@ namespace Kwave
     class AudiofileDecoder: public Kwave::Decoder
     {
     public:
-	/** Constructor */
-	AudiofileDecoder();
+        /** Constructor */
+        AudiofileDecoder();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~AudiofileDecoder() Q_DECL_OVERRIDE;
 
-	/** Returns a new instance of the decoder */
+        /** Returns a new instance of the decoder */
         virtual Kwave::Decoder *instance() Q_DECL_OVERRIDE;
 
-	/**
-	 * Opens the source and decodes the header information.
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param source file or other source with a stream of bytes
-	 * @return true if succeeded, false on errors
-	 */
+        /**
+         * Opens the source and decodes the header information.
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param source file or other source with a stream of bytes
+         * @return true if succeeded, false on errors
+         */
         virtual bool open(QWidget *widget, QIODevice &source) Q_DECL_OVERRIDE;
 
-	/**
-	 * Decodes a stream of bytes into a MultiWriter
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param dst MultiWriter that receives the audio data
-	 * @return true if succeeded, false on errors
-	 */
+        /**
+         * Decodes a stream of bytes into a MultiWriter
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param dst MultiWriter that receives the audio data
+         * @return true if succeeded, false on errors
+         */
         virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst) Q_DECL_OVERRIDE;
 
-	/**
-	 * Closes the source.
-	 */
+        /**
+         * Closes the source.
+         */
         virtual void close() Q_DECL_OVERRIDE;
 
     private:
 
-	/** source of the audio data */
-	QIODevice *m_source;
+        /** source of the audio data */
+        QIODevice *m_source;
 
-	/** adapter for libaudiofile */
-	Kwave::VirtualAudioFile *m_src_adapter;
+        /** adapter for libaudiofile */
+        Kwave::VirtualAudioFile *m_src_adapter;
     };
 }
 

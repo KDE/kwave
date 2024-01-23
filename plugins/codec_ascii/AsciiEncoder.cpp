@@ -87,83 +87,83 @@ bool Kwave::AsciiEncoder::encode(QWidget *widget,
     sample_index_t length = info.length();
 
     do {
-	// open the output device
-	if (!dst.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
-	    Kwave::MessageBox::error(widget,
-		i18n("Unable to open the file for saving."));
-	    result = false;
-	    break;
-	}
+        // open the output device
+        if (!dst.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+            Kwave::MessageBox::error(widget,
+                i18n("Unable to open the file for saving."));
+            result = false;
+            break;
+        }
 
-	// output device successfully opened
-	m_dst.setDevice(&dst);
+        // output device successfully opened
+        m_dst.setDevice(&dst);
 
-	// write out the default properties:
-	// sample rate, bits, tracks, length
-	m_dst << META_PREFIX << "'rate'="   << info.rate() << Qt::endl;
-	m_dst << META_PREFIX << "'tracks'=" << tracks << Qt::endl;
-	m_dst << META_PREFIX << "'bits'="   << bits   << Qt::endl;
-	m_dst << META_PREFIX << "'length'=" << length << Qt::endl;
+        // write out the default properties:
+        // sample rate, bits, tracks, length
+        m_dst << META_PREFIX << "'rate'="   << info.rate() << Qt::endl;
+        m_dst << META_PREFIX << "'tracks'=" << tracks << Qt::endl;
+        m_dst << META_PREFIX << "'bits'="   << bits   << Qt::endl;
+        m_dst << META_PREFIX << "'length'=" << length << Qt::endl;
 
-	// write out all other, non-standard properties that we have
-	QMap<Kwave::FileProperty, QVariant> properties = info.properties();
-	QMap<Kwave::FileProperty, QVariant>::Iterator it;
-	QList<Kwave::FileProperty> supported = supportedProperties();
-	for (it=properties.begin(); it != properties.end(); ++it) {
-	    Kwave::FileProperty p = it.key();
-	    QVariant            v = it.value();
+        // write out all other, non-standard properties that we have
+        QMap<Kwave::FileProperty, QVariant> properties = info.properties();
+        QMap<Kwave::FileProperty, QVariant>::Iterator it;
+        QList<Kwave::FileProperty> supported = supportedProperties();
+        for (it=properties.begin(); it != properties.end(); ++it) {
+            Kwave::FileProperty p = it.key();
+            QVariant            v = it.value();
 
-	    if (!supported.contains(p))
-		continue;
-	    if (!info.canLoadSave(p))
-		continue;
+            if (!supported.contains(p))
+                continue;
+            if (!info.canLoadSave(p))
+                continue;
 
-	    // write the property
-	    m_dst << META_PREFIX << "'" << info.name(p) << "'='"
-	          << Kwave::Parser::escape(v.toString()).toUtf8()
-		  << "'" << Qt::endl;
-	}
+            // write the property
+            m_dst << META_PREFIX << "'" << info.name(p) << "'='"
+                  << Kwave::Parser::escape(v.toString()).toUtf8()
+                  << "'" << Qt::endl;
+        }
 
-	// write out all labels
-	Kwave::LabelList labels(meta_data);
-	foreach (const Kwave::Label &label, labels) {
-	    m_dst << META_PREFIX << "'label["
-	    << QString::number(label.pos()) << "]'='"
-	    << Kwave::Parser::escape(label.name()).toUtf8()
-	    << "'" << Qt::endl;
-	}
+        // write out all labels
+        Kwave::LabelList labels(meta_data);
+        foreach (const Kwave::Label &label, labels) {
+            m_dst << META_PREFIX << "'label["
+            << QString::number(label.pos()) << "]'='"
+            << Kwave::Parser::escape(label.name()).toUtf8()
+            << "'" << Qt::endl;
+        }
 
-	sample_index_t rest = length;
-	sample_index_t pos  = 0;
-	while (rest-- && !src.isCanceled()) {
-	    // write out one track per line
-	    for (unsigned int track=0; track < tracks; track++) {
-		Kwave::SampleReader *reader = src[track];
-		Q_ASSERT(reader);
-		if (!reader) break;
+        sample_index_t rest = length;
+        sample_index_t pos  = 0;
+        while (rest-- && !src.isCanceled()) {
+            // write out one track per line
+            for (unsigned int track=0; track < tracks; track++) {
+                Kwave::SampleReader *reader = src[track];
+                Q_ASSERT(reader);
+                if (!reader) break;
 
-		// read one single sample
-		sample_t sample = 0;
-		if (!reader->eof()) (*reader) >> sample;
+                // read one single sample
+                sample_t sample = 0;
+                if (!reader->eof()) (*reader) >> sample;
 
-		// print out the sample value
-		m_dst.setFieldWidth(9);
-		m_dst << sample;
+                // print out the sample value
+                m_dst.setFieldWidth(9);
+                m_dst << sample;
 
-		// comma as separator between the samples
-		if (track != tracks-1)
-		    m_dst << ", ";
-	    }
+                // comma as separator between the samples
+                if (track != tracks-1)
+                    m_dst << ", ";
+            }
 
-	    // as comment: current position [samples]
-	    m_dst << " # ";
-	    m_dst.setFieldWidth(12);
-	    m_dst << pos;
-	    pos++;
+            // as comment: current position [samples]
+            m_dst << " # ";
+            m_dst.setFieldWidth(12);
+            m_dst << pos;
+            pos++;
 
-	    // end of line
-	    m_dst << Qt::endl;
-	}
+            // end of line
+            m_dst << Qt::endl;
+        }
 
     } while (false);
 

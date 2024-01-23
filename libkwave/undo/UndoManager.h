@@ -1,6 +1,6 @@
 /***************************************************************************
            UndoManager.h -  manager class for undo/redo handling
-			     -------------------
+                             -------------------
     begin                : Sat Feb 01 2014
     copyright            : (C) 2014 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -33,57 +33,57 @@ namespace Kwave
     {
     public:
 
-	/**
-	 * Constructor
-	 */
-	UndoManager();
+        /**
+         * Constructor
+         */
+        UndoManager();
 
-	/**
-	 * Destructor
-	 */
-	virtual ~UndoManager();
+        /**
+         * Destructor
+         */
+        virtual ~UndoManager();
 
-	/**
-	 * Register an instance of an undo handler
-	 *
-	 * @param handler the undo handler to register
-	 * @return true if successful, false if failed
-	 *         (e.g. duplicate registration or null pointer)
-	 */
-	bool registerHandler(Kwave::UndoHandler *handler);
+        /**
+         * Register an instance of an undo handler
+         *
+         * @param handler the undo handler to register
+         * @return true if successful, false if failed
+         *         (e.g. duplicate registration or null pointer)
+         */
+        bool registerHandler(Kwave::UndoHandler *handler);
 
-	/**
-	 * Unregister an instance of an undo handler previously
-	 * registered through registerHandler()
-	 *
-	 * @param handler the undo handler to unregister
-	 * @return true if successful, false if failed
-	 *         (e.g. if not registered or null pointer)
-	 */
-	bool unregisterHandler(Kwave::UndoHandler *handler);
+        /**
+         * Unregister an instance of an undo handler previously
+         * registered through registerHandler()
+         *
+         * @param handler the undo handler to unregister
+         * @return true if successful, false if failed
+         *         (e.g. if not registered or null pointer)
+         */
+        bool unregisterHandler(Kwave::UndoHandler *handler);
 
-	/**
-	 * Should be called when a undo transaction has been started,
-	 * calls saveUndoData of all undo handlers
-	 *
-	 * @param transaction the newly created undo transaction (still empty)
-	 * @return true if successful, false if failed (e.g. one undo handler
-	 *         failed saving it's data)
-	 */
-	bool startUndoTransaction(Kwave::UndoTransaction *transaction);
+        /**
+         * Should be called when a undo transaction has been started,
+         * calls saveUndoData of all undo handlers
+         *
+         * @param transaction the newly created undo transaction (still empty)
+         * @return true if successful, false if failed (e.g. one undo handler
+         *         failed saving it's data)
+         */
+        bool startUndoTransaction(Kwave::UndoTransaction *transaction);
 
-	/**
-	 * Should be called when a undo transaction is completed
-	 *
-	 * @param transaction the undo transaction that has been closed
-	 * @return true if successful, false if failed
-	 */
-	bool closeUndoTransaction(Kwave::UndoTransaction *transaction);
+        /**
+         * Should be called when a undo transaction is completed
+         *
+         * @param transaction the undo transaction that has been closed
+         * @return true if successful, false if failed
+         */
+        bool closeUndoTransaction(Kwave::UndoTransaction *transaction);
 
     private:
 
-	/** list of all registered undo handlers */
-	QList<Kwave::UndoHandler *> m_handlers;
+        /** list of all registered undo handlers */
+        QList<Kwave::UndoHandler *> m_handlers;
 
     };
 }

@@ -80,45 +80,45 @@ void Kwave::NormalizePlugin::run(QStringList params)
     // get the current volume level
     double level = 0.0;
     {
-	Kwave::MultiTrackReader src(Kwave::SinglePassForward,
-	    signalManager(), tracks, first, last);
+        Kwave::MultiTrackReader src(Kwave::SinglePassForward,
+            signalManager(), tracks, first, last);
 
-	// connect the progress dialog
-	connect(&src, SIGNAL(progress(qreal)),
-		this,  SLOT(updateProgress(qreal)),
-		Qt::BlockingQueuedConnection);
+        // connect the progress dialog
+        connect(&src, SIGNAL(progress(qreal)),
+                this,  SLOT(updateProgress(qreal)),
+                Qt::BlockingQueuedConnection);
 
-	// detect the peak value
-	emit setProgressText(i18n("Analyzing volume level..."));
+        // detect the peak value
+        emit setProgressText(i18n("Analyzing volume level..."));
 //         qDebug("NormalizePlugin: getting peak...");
-	level = getMaxPower(src);
+        level = getMaxPower(src);
 //         qDebug("NormalizePlugin: level is %g", level);
     }
 
     Kwave::MultiTrackReader source(Kwave::SinglePassForward,
-	signalManager(), tracks, first, last);
+        signalManager(), tracks, first, last);
     Kwave::MultiTrackWriter sink(signalManager(), tracks, Kwave::Overwrite,
-	first, last);
+        first, last);
     Kwave::MultiTrackSource<Kwave::Normalizer, true> normalizer(
-	tracks.count(), this);
+        tracks.count(), this);
 
     // break if aborted
     if (!sink.tracks()) return;
 
     // connect the progress dialog
     connect(&source, SIGNAL(progress(qreal)),
-	    this,  SLOT(updateProgress(qreal)),
-	    Qt::BlockingQueuedConnection);
+            this,  SLOT(updateProgress(qreal)),
+            Qt::BlockingQueuedConnection);
 
     // connect them
     bool ok = Kwave::connect(
-	source,     SIGNAL(output(Kwave::SampleArray)),
-	normalizer, SLOT(input(Kwave::SampleArray)));
+        source,     SIGNAL(output(Kwave::SampleArray)),
+        normalizer, SLOT(input(Kwave::SampleArray)));
     if (ok) ok = Kwave::connect(
-	normalizer, SIGNAL(output(Kwave::SampleArray)),
-	sink,       SLOT(input(Kwave::SampleArray)));
+        normalizer, SIGNAL(output(Kwave::SampleArray)),
+        sink,       SLOT(input(Kwave::SampleArray)));
     if (!ok) {
-	return;
+        return;
     }
 
     double target = pow(10.0, (TARGET_LEVEL / 20.0));
@@ -127,11 +127,11 @@ void Kwave::NormalizePlugin::run(QStringList params)
 
     QString db;
     emit setProgressText(i18n("Normalizing (%1 dB) ...",
-	db.asprintf("%+0.1f", 20 * log10(gain))));
+        db.asprintf("%+0.1f", 20 * log10(gain))));
 
     normalizer.setAttribute(SLOT(setGain(QVariant)), QVariant(gain));
     while (!shouldStop() && !source.eof()) {
-	source.goOn();
+        source.goOn();
     }
 
     sink.flush();
@@ -149,43 +149,43 @@ double Kwave::NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
     // set up smoothing window buffer
     QVector<Kwave::NormalizePlugin::Average> average(tracks);
     for (unsigned int t = 0; t < tracks; t++) {
-	average[t].fifo = QVector<double>(SMOOTHLEN, double(0.0));
-	average[t].wp  = 0;
-	average[t].n   = 0;
-	average[t].sum = 0.0;
-	average[t].max = 0.0;
+        average[t].fifo = QVector<double>(SMOOTHLEN, double(0.0));
+        average[t].wp  = 0;
+        average[t].n   = 0;
+        average[t].sum = 0.0;
+        average[t].max = 0.0;
     }
 
     while (!shouldStop() && !source.eof()) {
-	QFutureSynchronizer<void> synchronizer;
+        QFutureSynchronizer<void> synchronizer;
 
-	for (unsigned int t = 0; t < tracks; t++) {
-	    Kwave::SampleReader *reader = source[t];
-	    if (!reader) continue;
-	    if (reader->eof()) continue;
+        for (unsigned int t = 0; t < tracks; t++) {
+            Kwave::SampleReader *reader = source[t];
+            if (!reader) continue;
+            if (reader->eof()) continue;
 
-	    synchronizer.addFuture(QtConcurrent::run(
-		this,
-		&Kwave::NormalizePlugin::getMaxPowerOfTrack,
-		reader, &(average[t]), window_size
-	    ));
-	}
-	synchronizer.waitForFinished();
+            synchronizer.addFuture(QtConcurrent::run(
+                this,
+                &Kwave::NormalizePlugin::getMaxPowerOfTrack,
+                reader, &(average[t]), window_size
+            ));
+        }
+        synchronizer.waitForFinished();
      }
 
     if (average[0].n < SMOOTHLEN) {
-	// if file was too short, calculate power out of what we have
-	for (unsigned int t = 0; t < tracks; t++) {
-	    Kwave::NormalizePlugin::Average &avg = average[t];
-	    double pow = avg.sum / static_cast<double>(avg.n);
-	    if (pow > maxpow) maxpow = pow;
-	}
+        // if file was too short, calculate power out of what we have
+        for (unsigned int t = 0; t < tracks; t++) {
+            Kwave::NormalizePlugin::Average &avg = average[t];
+            double pow = avg.sum / static_cast<double>(avg.n);
+            if (pow > maxpow) maxpow = pow;
+        }
     } else {
-	// get maximum among all tracks
-	for (unsigned int t = 0; t < tracks; t++) {
-	    double p = average[t].max;
-	    if (p > maxpow) maxpow = p;
-	}
+        // get maximum among all tracks
+        for (unsigned int t = 0; t < tracks; t++) {
+            double p = average[t].max;
+            if (p > maxpow) maxpow = p;
+        }
     }
 
     double level = sqrt(maxpow);
@@ -205,32 +205,32 @@ void Kwave::NormalizePlugin::getMaxPowerOfTrack(
     loops++;
 
     while ((round++ < loops) && !reader->eof()) {
-	unsigned int len = reader->read(data, 0, window_size);
+        unsigned int len = reader->read(data, 0, window_size);
 
-	// calculate power of one block
-	double sum = 0;
-	const Kwave::SampleArray &in = data;
-	for (unsigned int i = 0; i < len; i++) {
-	    sample_t s = in[i];
-	    double d   = sample2double(s);
-	    sum += (d * d);
-	}
-	double pow = sum / static_cast<double>(len);
+        // calculate power of one block
+        double sum = 0;
+        const Kwave::SampleArray &in = data;
+        for (unsigned int i = 0; i < len; i++) {
+            sample_t s = in[i];
+            double d   = sample2double(s);
+            sum += (d * d);
+        }
+        double pow = sum / static_cast<double>(len);
 
-	// collect all power values in a FIFO
-	unsigned int wp = average.wp;
-	average.sum -= average.fifo[wp];
-	average.sum += pow;
-	average.fifo[wp] = pow;
-	if (++wp >= SMOOTHLEN) wp = 0;
-	average.wp = wp;
-	if (average.n == SMOOTHLEN) {
-	    // detect power peak
-	    double p = average.sum / static_cast<double>(SMOOTHLEN);
-	    if (p > average.max) average.max = p;
-	} else {
-	    average.n++;
-	}
+        // collect all power values in a FIFO
+        unsigned int wp = average.wp;
+        average.sum -= average.fifo[wp];
+        average.sum += pow;
+        average.fifo[wp] = pow;
+        if (++wp >= SMOOTHLEN) wp = 0;
+        average.wp = wp;
+        if (average.n == SMOOTHLEN) {
+            // detect power peak
+            double p = average.sum / static_cast<double>(SMOOTHLEN);
+            if (p > average.max) average.max = p;
+        } else {
+            average.n++;
+        }
     }
 //     qDebug("%p -> pos=%llu, max=%g", this, reader->pos(), average.max);
 }

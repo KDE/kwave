@@ -32,34 +32,34 @@ namespace Kwave
     class StringEnterDialog: public QDialog,
                              public Ui::StringEnterDlg
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor.
-	 * @param parent the parent widget the dialog belongs to
-	 * @param preset initial text of the line edit field
-	 */
-	explicit StringEnterDialog(QWidget *parent, const QString &preset);
+        /**
+         * Constructor.
+         * @param parent the parent widget the dialog belongs to
+         * @param preset initial text of the line edit field
+         */
+        explicit StringEnterDialog(QWidget *parent, const QString &preset);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~StringEnterDialog() Q_DECL_OVERRIDE;
 
-	/** Returns the string that has been entered */
-	QString command();
+        /** Returns the string that has been entered */
+        QString command();
 
     private slots:
 
-	/** called when the dialog has been accepted (OK pressed) */
+        /** called when the dialog has been accepted (OK pressed) */
         virtual void accept() Q_DECL_OVERRIDE;
 
-	/** invoke the online help */
-	void invokeHelp();
+        /** invoke the online help */
+        void invokeHelp();
 
     private:
 
-	/** the command that has been entered */
-	QString m_command;
+        /** the command that has been entered */
+        QString m_command;
 
     };
 }

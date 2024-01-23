@@ -40,79 +40,79 @@ namespace Kwave
     {
     public:
 
-	/**
-	 * Constructor
-	 */
-	VorbisEncoder();
+        /**
+         * Constructor
+         */
+        VorbisEncoder();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~VorbisEncoder() Q_DECL_OVERRIDE;
 
-	/**
-	 * parse the header of the stream and initialize the decoder
-	 * @param widget a QWidget to be used as parent for error messages
-	 * @param info reference to a FileInfo to fill
-	 * @param src MultiTrackReader used as source of the audio data
-	 * @return true if succeeded, false if failed
-	 */
+        /**
+         * parse the header of the stream and initialize the decoder
+         * @param widget a QWidget to be used as parent for error messages
+         * @param info reference to a FileInfo to fill
+         * @param src MultiTrackReader used as source of the audio data
+         * @return true if succeeded, false if failed
+         */
         virtual bool open(QWidget *widget,
-	                  const Kwave::FileInfo &info,
-	                  Kwave::MultiTrackReader &src) Q_DECL_OVERRIDE;
+                          const Kwave::FileInfo &info,
+                          Kwave::MultiTrackReader &src) Q_DECL_OVERRIDE;
 
-	/**
-	 * write the header information
-	 * @param dst a QIODevice that receives the raw data
-	 * @return true if succeeded, false if failed
-	 */
+        /**
+         * write the header information
+         * @param dst a QIODevice that receives the raw data
+         * @return true if succeeded, false if failed
+         */
         virtual bool writeHeader(QIODevice &dst) Q_DECL_OVERRIDE;
 
-	/**
-	 * encode received ogg data
-	 * @param src MultiTrackReader used as source of the audio data
-	 * @param dst a QIODevice that receives the raw data
-	 * @return true if succeeded, false if failed
-	 */
+        /**
+         * encode received ogg data
+         * @param src MultiTrackReader used as source of the audio data
+         * @param dst a QIODevice that receives the raw data
+         * @return true if succeeded, false if failed
+         */
         virtual bool encode(Kwave::MultiTrackReader &src,
-	                    QIODevice &dst) Q_DECL_OVERRIDE;
+                            QIODevice &dst) Q_DECL_OVERRIDE;
 
-	/**
-	 * finished the encoding, clean up
-	 */
+        /**
+         * finished the encoding, clean up
+         */
         virtual void close() Q_DECL_OVERRIDE;
 
     private:
 
-	/** Encodes all file properties into a vorbis comment */
-	void encodeProperties(const Kwave::FileInfo &info);
+        /** Encodes all file properties into a vorbis comment */
+        void encodeProperties(const Kwave::FileInfo &info);
 
     private:
 
-	/** map for translating Vorbis comments to Kwave FileInfo */
-	Kwave::VorbisCommentMap m_comments_map;
+        /** map for translating Vorbis comments to Kwave FileInfo */
+        Kwave::VorbisCommentMap m_comments_map;
 
-	/** file info, set in open(...) */
-	Kwave::FileInfo m_info;
+        /** file info, set in open(...) */
+        Kwave::FileInfo m_info;
 
-	/** take physical pages, weld into a logical stream of packets */
-	ogg_stream_state m_os;
+        /** take physical pages, weld into a logical stream of packets */
+        ogg_stream_state m_os;
 
-	/** one Ogg bitstream page.  Vorbis packets are inside */
-	ogg_page         m_og;
+        /** one Ogg bitstream page.  Vorbis packets are inside */
+        ogg_page         m_og;
 
-	/** one raw packet of data for decode */
-	ogg_packet       m_op;
+        /** one raw packet of data for decode */
+        ogg_packet       m_op;
 
-	/** struct that stores all the static vorbis bitstream settings */
-	vorbis_info      m_vi;
+        /** struct that stores all the static vorbis bitstream settings */
+        vorbis_info      m_vi;
 
-	/** struct that stores all the user comments */
-	vorbis_comment   m_vc;
+        /** struct that stores all the user comments */
+        vorbis_comment   m_vc;
 
-	/** central working state for the packet->PCM decoder */
-	vorbis_dsp_state m_vd;
+        /** central working state for the packet->PCM decoder */
+        vorbis_dsp_state m_vd;
 
-	/** local working space for packet->PCM decode */
-	vorbis_block     m_vb;
+        /** local working space for packet->PCM decode */
+        vorbis_block     m_vb;
     };
 }
 

@@ -44,8 +44,8 @@ Kwave::K3BExportDialog::K3BExportDialog(
     :Kwave::FileDialog(startDir, Kwave::FileDialog::SaveFile, filter, parent,
                        last_url, last_ext),
      m_widget(new(std::nothrow) Kwave::K3BExportWidget(
-	 this, pattern, selection_only, have_selection,
-	 export_location, overwrite_policy
+         this, pattern, selection_only, have_selection,
+         export_location, overwrite_policy
      ))
 {
     Q_ASSERT(m_widget);

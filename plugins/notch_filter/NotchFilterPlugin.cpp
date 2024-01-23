@@ -71,7 +71,7 @@ int Kwave::NotchFilterPlugin::interpreteParameters(QStringList &params)
 Kwave::PluginSetupDialog *Kwave::NotchFilterPlugin::createDialog(QWidget *parent)
 {
     Kwave::NotchFilterDialog *dialog =
-	new(std::nothrow) Kwave::NotchFilterDialog(parent, signalRate());
+        new(std::nothrow) Kwave::NotchFilterDialog(parent, signalRate());
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
@@ -79,7 +79,7 @@ Kwave::PluginSetupDialog *Kwave::NotchFilterPlugin::createDialog(QWidget *parent
     connect(dialog, SIGNAL(freqChanged(double)),
             this, SLOT(setFreqValue(double)));
     connect(dialog, SIGNAL(bwChanged(double)),
-    	    this, SLOT(setBwValue(double)));
+            this, SLOT(setBwValue(double)));
     return dialog;
 }
 
@@ -87,7 +87,7 @@ Kwave::PluginSetupDialog *Kwave::NotchFilterPlugin::createDialog(QWidget *parent
 Kwave::SampleSource *Kwave::NotchFilterPlugin::createFilter(unsigned int tracks)
 {
     return new(std::nothrow)
-	Kwave::MultiTrackSource<Kwave::NotchFilter, true>(tracks);
+        Kwave::MultiTrackSource<Kwave::NotchFilter, true>(tracks);
 }
 
 //***************************************************************************
@@ -106,12 +106,12 @@ void Kwave::NotchFilterPlugin::updateFilter(Kwave::SampleSource *filter,
     if (!filter) return;
 
     if (!qFuzzyCompare(m_frequency, m_last_freq) || force)
-	filter->setAttribute(SLOT(setFrequency(QVariant)),
-	    QVariant((m_frequency * 2.0 * M_PI) / sr));
+        filter->setAttribute(SLOT(setFrequency(QVariant)),
+            QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     if (!qFuzzyCompare(m_bw, m_last_bw) || force)
-	filter->setAttribute(SLOT(setBandwidth(QVariant)),
-	    QVariant((m_bw * 2.0 * M_PI) / sr));
+        filter->setAttribute(SLOT(setBandwidth(QVariant)),
+            QVariant((m_bw * 2.0 * M_PI) / sr));
 
     m_last_freq  = m_frequency;
     m_last_bw    = m_bw;

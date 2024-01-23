@@ -74,7 +74,7 @@ void Kwave::StatusWidget::nextPixmap()
 {
     m_index++;
     if (Kwave::toInt(m_index) >= m_pixmaps.count())
-	m_index = 0;
+        m_index = 0;
     repaint();
 }
 

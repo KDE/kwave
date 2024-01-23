@@ -1,6 +1,6 @@
 /***************************************************************************
        SampleReader.cpp  -  stream for reading samples from a track
-			     -------------------
+                             -------------------
     begin                : Apr 25 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -74,7 +74,7 @@ void Kwave::SampleReader::fillBuffer()
 
     unsigned int rest = m_buffer.size();/* - m_buffer_used (is 0) */
     if (m_src_position + rest > m_last)
-	rest = Kwave::toUint(m_last - m_src_position + 1);
+        rest = Kwave::toUint(m_last - m_src_position + 1);
     Q_ASSERT(rest <= m_buffer.size());
     if (rest > m_buffer.size()) rest = m_buffer.size();
     Q_ASSERT(rest);
@@ -85,9 +85,9 @@ void Kwave::SampleReader::fillBuffer()
 
     // inform others that we proceeded
     if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
-	m_progress_time.restart();
-	emit proceeded();
-	QApplication::sendPostedEvents();
+        m_progress_time.restart();
+        emit proceeded();
+        QApplication::sendPostedEvents();
     }
 }
 
@@ -100,28 +100,28 @@ void Kwave::SampleReader::minMax(sample_index_t first, sample_index_t last,
     max = SAMPLE_MIN;
 
     foreach (Kwave::Stripe s, m_stripes) {
-	if (!s.length()) continue;
-	sample_index_t start = s.start();
-	sample_index_t end   = s.end();
+        if (!s.length()) continue;
+        sample_index_t start = s.start();
+        sample_index_t end   = s.end();
 
-	if (end < first) continue; // not yet in range
-	if (start > last)  break;  // done
+        if (end < first) continue; // not yet in range
+        if (start > last)  break;  // done
 
-	// overlap -> not empty
-	empty = false;
+        // overlap -> not empty
+        empty = false;
 
-	// get min/max from the stripe
-	unsigned int s1 = Kwave::toUint(
-	    (first > start) ? (first - start) : 0);
-	unsigned int s2 = Kwave::toUint(
-	    (last < end) ? (last - start) : (end - start));
-	s.minMax(s1, s2, min, max);
+        // get min/max from the stripe
+        unsigned int s1 = Kwave::toUint(
+            (first > start) ? (first - start) : 0);
+        unsigned int s2 = Kwave::toUint(
+            (last < end) ? (last - start) : (end - start));
+        s.minMax(s1, s2, min, max);
     }
 
     // special case: no signal in that range -> set to zero
     if (empty) {
-	min = 0;
-	max = 0;
+        min = 0;
+        max = 0;
     }
 }
 
@@ -145,43 +145,43 @@ unsigned int Kwave::SampleReader::read(Kwave::SampleArray &buffer,
 
     // first try to read from the current buffer
     if (m_buffer_position < m_buffer_used) {
-	unsigned int cnt = rest;
-	unsigned int src = m_buffer_position;
-	unsigned int dst = dstoff;
+        unsigned int cnt = rest;
+        unsigned int src = m_buffer_position;
+        unsigned int dst = dstoff;
 
-	if (m_buffer_position + cnt > m_buffer_used)
-	    cnt = m_buffer_used - m_buffer_position;
+        if (m_buffer_position + cnt > m_buffer_used)
+            cnt = m_buffer_used - m_buffer_position;
 
-	m_buffer_position += cnt;
-	count  += cnt;
-	rest   -= cnt;
-	dstoff += cnt;
+        m_buffer_position += cnt;
+        count  += cnt;
+        rest   -= cnt;
+        dstoff += cnt;
 
-	qDebug("filling from buffer dstoff=%u, cnt=%u",dstoff,cnt);
-	const Kwave::SampleArray &in = m_buffer;
-	MEMCPY(&(buffer[dst]), &(in[src]), cnt * sizeof(sample_t));
+        qDebug("filling from buffer dstoff=%u, cnt=%u",dstoff,cnt);
+        const Kwave::SampleArray &in = m_buffer;
+        MEMCPY(&(buffer[dst]), &(in[src]), cnt * sizeof(sample_t));
 
-	if (m_buffer_position >= m_buffer_used) {
-	    // buffer is empty now
-	    m_buffer_position = m_buffer_used = 0;
-	}
+        if (m_buffer_position >= m_buffer_used) {
+            // buffer is empty now
+            m_buffer_position = m_buffer_used = 0;
+        }
 
-	if (!rest) {
-	    // inform others that we proceeded
-	    if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
-		m_progress_time.restart();
-		emit proceeded();
-		QApplication::sendPostedEvents();
-	    }
-	    return count; // done
-	}
+        if (!rest) {
+            // inform others that we proceeded
+            if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
+                m_progress_time.restart();
+                emit proceeded();
+                QApplication::sendPostedEvents();
+            }
+            return count; // done
+        }
     }
 
     // take the rest directly out of the stripe(s)
     if (m_src_position + rest > (m_last + 1)) // clip to end of reader range
-	rest = Kwave::toUint((m_last + 1) - m_src_position);
+        rest = Kwave::toUint((m_last + 1) - m_src_position);
     if (dstoff + rest > buffer.size()) // clip to end of buffer
-	rest = buffer.size() - dstoff;
+        rest = buffer.size() - dstoff;
     Q_ASSERT(dstoff + rest <= buffer.size());
     unsigned int len = readSamples(m_src_position, buffer, dstoff, rest);
     Q_ASSERT(len == rest);
@@ -189,9 +189,9 @@ unsigned int Kwave::SampleReader::read(Kwave::SampleArray &buffer,
 
     // inform others that we proceeded
     if (m_progress_time.elapsed() > MIN_PROGRESS_INTERVAL) {
-	m_progress_time.restart();
-	emit proceeded();
-	QApplication::sendPostedEvents();
+        m_progress_time.restart();
+        emit proceeded();
+        QApplication::sendPostedEvents();
     }
     return count;
 }
@@ -200,23 +200,23 @@ unsigned int Kwave::SampleReader::read(Kwave::SampleArray &buffer,
 void Kwave::SampleReader::skip(sample_index_t count)
 {
     if (m_buffer_position + count < m_buffer_used) {
-	// skip within the buffer
-	m_buffer_position += count;
+        // skip within the buffer
+        m_buffer_position += count;
     } else {
-	// skip out of the buffer
-	count -= m_buffer_used;
-	m_src_position += count;
-	m_buffer_position = m_buffer_used = 0;
+        // skip out of the buffer
+        count -= m_buffer_used;
+        m_src_position += count;
+        m_buffer_position = m_buffer_used = 0;
     }
 
     // if this reader is of "single pass forward only" type: remove all
     // stripes that we have passed -> there is no way back!
     if (m_mode == Kwave::SinglePassForward) {
-	while (!m_stripes.isEmpty() &&
-	       (m_stripes.first().end() < m_src_position))
-	{
-	    m_stripes.removeFirst();
-	}
+        while (!m_stripes.isEmpty() &&
+               (m_stripes.first().end() < m_src_position))
+        {
+            m_stripes.removeFirst();
+        }
     }
 }
 
@@ -224,38 +224,38 @@ void Kwave::SampleReader::skip(sample_index_t count)
 void Kwave::SampleReader::seek(sample_index_t pos)
 {
     const sample_index_t current_pos = m_src_position +
-	m_buffer_position - m_buffer_used;
+        m_buffer_position - m_buffer_used;
 
     if (pos == current_pos) return; // nothing to do
 
     if (pos < current_pos) {
-	// if we are in SinglePassReverse mode, discard all stripes
-	// that we already have passed, up to the end
-	if (m_mode == Kwave::SinglePassReverse) {
-	    while (!m_stripes.isEmpty() &&
-		(m_stripes.last().start() > m_last_seek_pos))
-	    {
-// 		qDebug("SampleReader: removing stripe [%9u ... %9u] (end=%9u)",
-// 			m_stripes.last().start(),
-// 			m_stripes.last().end(),
-// 			m_last_seek_pos);
-		m_stripes.removeLast();
-	    }
-	}
+        // if we are in SinglePassReverse mode, discard all stripes
+        // that we already have passed, up to the end
+        if (m_mode == Kwave::SinglePassReverse) {
+            while (!m_stripes.isEmpty() &&
+                (m_stripes.last().start() > m_last_seek_pos))
+            {
+//              qDebug("SampleReader: removing stripe [%9u ... %9u] (end=%9u)",
+//                      m_stripes.last().start(),
+//                      m_stripes.last().end(),
+//                      m_last_seek_pos);
+                m_stripes.removeLast();
+            }
+        }
 
-	// seek backwards
-	const sample_index_t count = current_pos - pos;
-	if (count <= m_buffer_position) {
-	    // go back within the buffer
-	    m_buffer_position -= count;
-	} else {
-	    // skip out of the buffer
-	    m_src_position = pos;
-	    m_buffer_position = m_buffer_used = 0;
-	}
+        // seek backwards
+        const sample_index_t count = current_pos - pos;
+        if (count <= m_buffer_position) {
+            // go back within the buffer
+            m_buffer_position -= count;
+        } else {
+            // skip out of the buffer
+            m_src_position = pos;
+            m_buffer_position = m_buffer_used = 0;
+        }
     } else {
-	// seek forward
-	skip(pos - current_pos);
+        // seek forward
+        skip(pos - current_pos);
     }
 
     m_last_seek_pos = m_src_position;
@@ -279,11 +279,11 @@ Kwave::SampleReader &Kwave::SampleReader::operator >> (
     unsigned int size = buffer.size();
     unsigned int count = read(buffer, 0, size);
     if (count != size) {
-	bool ok = buffer.resize(count);
-	Q_ASSERT(ok); // shrinking should always be possible
-	if (!ok) {
-	    qWarning("Kwave::SampleReader::operator >> - OOM?");
-	}
+        bool ok = buffer.resize(count);
+        Q_ASSERT(ok); // shrinking should always be possible
+        if (!ok) {
+            qWarning("Kwave::SampleReader::operator >> - OOM?");
+        }
     }
     return *this;
 }
@@ -311,36 +311,36 @@ unsigned int Kwave::SampleReader::readSamples(sample_index_t offset,
     sample_index_t right = offset + length - 1;
 
     foreach (Kwave::Stripe s, m_stripes) {
-	if (!s.length()) continue;
-	sample_index_t start = s.start();
-	sample_index_t end   = s.end();
+        if (!s.length()) continue;
+        sample_index_t start = s.start();
+        sample_index_t end   = s.end();
 
-	if (left < start) {
-	    // gap before the stripe -> pad
-	    sample_index_t pad = Kwave::toUint(start - left);
-	    if (pad > rest) pad = rest;
-	    padBuffer(buffer, buf_offset, Kwave::toUint(pad));
-	    buf_offset += pad;
-	    rest       -= pad;
-	    left       += pad;
-	    if (!rest) break;
-	}
+        if (left < start) {
+            // gap before the stripe -> pad
+            sample_index_t pad = Kwave::toUint(start - left);
+            if (pad > rest) pad = rest;
+            padBuffer(buffer, buf_offset, Kwave::toUint(pad));
+            buf_offset += pad;
+            rest       -= pad;
+            left       += pad;
+            if (!rest) break;
+        }
 
-	if (start > right) break; // done, we are after the range
+        if (start > right) break; // done, we are after the range
 
-	if (left <= end) {
-	    // some kind of overlap
-	    Q_ASSERT(left >= start);
-	    unsigned int ofs = Kwave::toUint(left - start);
-	    unsigned int len = Kwave::toUint(end - left + 1);
-	    if (len > rest) len = rest;
-	    unsigned int count = s.read(buffer, buf_offset, ofs, len);
-	    Q_ASSERT(count == len);
-	    buf_offset += count;
-	    rest       -= count;
-	    left       += count;
-	    if (!rest) break;
-	}
+        if (left <= end) {
+            // some kind of overlap
+            Q_ASSERT(left >= start);
+            unsigned int ofs = Kwave::toUint(left - start);
+            unsigned int len = Kwave::toUint(end - left + 1);
+            if (len > rest) len = rest;
+            unsigned int count = s.read(buffer, buf_offset, ofs, len);
+            Q_ASSERT(count == len);
+            buf_offset += count;
+            rest       -= count;
+            left       += count;
+            if (!rest) break;
+        }
     }
 
     // pad at the end
@@ -351,11 +351,11 @@ unsigned int Kwave::SampleReader::readSamples(sample_index_t offset,
     // if this reader is of "single pass forward only" type: remove all
     // stripes that we have passed -> there is no way back!
     if (m_mode == Kwave::SinglePassForward) {
-	while (!m_stripes.isEmpty() &&
-	       (m_stripes.first().end() < m_src_position))
-	{
-	    m_stripes.removeFirst();
-	}
+        while (!m_stripes.isEmpty() &&
+               (m_stripes.first().end() < m_src_position))
+        {
+            m_stripes.removeFirst();
+        }
     }
 
     return length;

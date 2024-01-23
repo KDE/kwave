@@ -59,15 +59,15 @@ static QString sanitized(const QString &in)
     QString str = in.simplified();
 
     for (int i = 0; i < str.length(); i++) {
-	QCharRef c = str[i];
-	if ( c.isLetterOrNumber() || c.isSpace() ||
-	     (c == QLatin1Char('-')) || (c == QLatin1Char('%')) ||
-	     (c == QLatin1Char('=')) || (c == QLatin1Char('.')) ||
-	     (c == QLatin1Char('[')) || (c == QLatin1Char(']')) ||
-	     (c == QDir::separator()) )
-	{
-	    out += c;
-	}
+        QCharRef c = str[i];
+        if ( c.isLetterOrNumber() || c.isSpace() ||
+             (c == QLatin1Char('-')) || (c == QLatin1Char('%')) ||
+             (c == QLatin1Char('=')) || (c == QLatin1Char('.')) ||
+             (c == QLatin1Char('[')) || (c == QLatin1Char(']')) ||
+             (c == QDir::separator()) )
+        {
+            out += c;
+        }
     }
     return out;
 }

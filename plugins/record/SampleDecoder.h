@@ -30,24 +30,24 @@ namespace Kwave
     class SampleDecoder
     {
     public:
-	/** Constructor */
-	SampleDecoder() {}
+        /** Constructor */
+        SampleDecoder() {}
 
-	/** Destructor */
-	virtual ~SampleDecoder() {}
+        /** Destructor */
+        virtual ~SampleDecoder() {}
 
-	/**
-	 * Decodes the given buffer (byte array) by splitting it into
-	 * it's tracks, decoding all samples and writing the result to
-	 * the corresponding Writers.
-	 * @param raw_data array with raw undecoded audio data
-	 * @param decoded array with decoded samples
-	 */
-	virtual void decode(QByteArray &raw_data,
-	                    Kwave::SampleArray &decoded) = 0;
+        /**
+         * Decodes the given buffer (byte array) by splitting it into
+         * it's tracks, decoding all samples and writing the result to
+         * the corresponding Writers.
+         * @param raw_data array with raw undecoded audio data
+         * @param decoded array with decoded samples
+         */
+        virtual void decode(QByteArray &raw_data,
+                            Kwave::SampleArray &decoded) = 0;
 
-	/** Returns the number of bytes per sample in raw (not encoded) form */
-	virtual unsigned int rawBytesPerSample() = 0;
+        /** Returns the number of bytes per sample in raw (not encoded) form */
+        virtual unsigned int rawBytesPerSample() = 0;
 
     };
 }

@@ -63,7 +63,7 @@ void Kwave::SampleFIFO::put(const Kwave::SampleArray &buffer)
 
     // crop away whole unneeded buffers
     while ((unlockedLength() - m_buffer.head().size()) > m_size)
-	m_buffer.dequeue();
+        m_buffer.dequeue();
 }
 
 //***************************************************************************
@@ -74,7 +74,7 @@ QList<Kwave::SampleArray> Kwave::SampleFIFO::getAll()
     QList<Kwave::SampleArray> list;
 
     while (!m_buffer.isEmpty())
-	list.push_front(m_buffer.dequeue());
+        list.push_front(m_buffer.dequeue());
 
     m_read_offset = 0;
     return list;
@@ -94,30 +94,30 @@ unsigned int Kwave::SampleFIFO::get(Kwave::SampleArray &buffer)
     sample_t *dst = buffer.data();
     unsigned int read = 0;
     while (rest && !m_buffer.isEmpty()) {
-	const Kwave::SampleArray head = m_buffer.head();
-	const sample_t *src     = head.constData();
-	unsigned int    src_len = head.size();
-	Q_ASSERT(src_len > m_read_offset);
+        const Kwave::SampleArray head = m_buffer.head();
+        const sample_t *src     = head.constData();
+        unsigned int    src_len = head.size();
+        Q_ASSERT(src_len > m_read_offset);
 
-	if (m_read_offset + rest >= src_len) {
-	    // use the whole buffer up to it's end
-	    size_t len = static_cast<size_t>(src_len - m_read_offset);
-	    MEMCPY(dst, src + m_read_offset, len * sizeof(sample_t));
-	    rest  -= len;
-	    read  += len;
-	    dst   += len;
-	    m_read_offset = 0;
+        if (m_read_offset + rest >= src_len) {
+            // use the whole buffer up to it's end
+            size_t len = static_cast<size_t>(src_len - m_read_offset);
+            MEMCPY(dst, src + m_read_offset, len * sizeof(sample_t));
+            rest  -= len;
+            read  += len;
+            dst   += len;
+            m_read_offset = 0;
 
-	    // remove the buffer from the queue
-	    m_buffer.dequeue();
-	} else {
-	    // use only a portion of the buffer
-	    MEMCPY(dst, src + m_read_offset, rest * sizeof(sample_t));
-	    read          += rest;
-	    m_read_offset += rest;
-	    Q_ASSERT(m_read_offset < src_len);
-	    rest = 0;
-	}
+            // remove the buffer from the queue
+            m_buffer.dequeue();
+        } else {
+            // use only a portion of the buffer
+            MEMCPY(dst, src + m_read_offset, rest * sizeof(sample_t));
+            read          += rest;
+            m_read_offset += rest;
+            Q_ASSERT(m_read_offset < src_len);
+            rest = 0;
+        }
     }
 
     return read;
@@ -128,7 +128,7 @@ unsigned int Kwave::SampleFIFO::unlockedLength()
 {
     unsigned int len = 0;
     foreach (const Kwave::SampleArray &buf, m_buffer)
-	len += buf.size();
+        len += buf.size();
     return len;
 }
 
@@ -156,7 +156,7 @@ void Kwave::SampleFIFO::crop()
 
     // we have to throw away some samples
     while ((unlockedLength() - m_buffer.head().size()) > m_size)
-	m_buffer.dequeue();
+        m_buffer.dequeue();
     m_read_offset = 0;
     if (unlockedLength() <= m_size) return; // nothing more to do
 

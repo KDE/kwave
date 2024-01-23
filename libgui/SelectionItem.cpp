@@ -80,8 +80,8 @@ void Kwave::SelectionItem::startDragging()
     meta.replace(Kwave::MetaDataList(info));
 
     if (!d->encode(&m_view, src, meta)) {
-	delete d;
-	return;
+        delete d;
+        return;
     }
 
     // start drag&drop, mode is determined automatically
@@ -89,27 +89,27 @@ void Kwave::SelectionItem::startDragging()
     Qt::DropAction drop = d->exec(Qt::CopyAction | Qt::MoveAction);
 
     if (drop == Qt::MoveAction) {
-	// deleting also affects the selection !
-	const sample_index_t f = m_signal_manager.selection().first();
-	const sample_index_t l = m_signal_manager.selection().last();
-	const sample_index_t len = l - f + 1;
+        // deleting also affects the selection !
+        const sample_index_t f = m_signal_manager.selection().first();
+        const sample_index_t l = m_signal_manager.selection().last();
+        const sample_index_t len = l - f + 1;
 
-	// special case: when dropping into the same widget, before
-	// the previous selection, the previous range has already
-	// been moved to the right !
-	sample_index_t src_pos = first;
+        // special case: when dropping into the same widget, before
+        // the previous selection, the previous range has already
+        // been moved to the right !
+        sample_index_t src_pos = first;
 
-	SignalView *target = qobject_cast<Kwave::SignalView *>(d->target());
-	if ( (f < src_pos) && target &&
-	      (target->signalManager() == m_view.signalManager()) ) {
-	    src_pos += len;
-	}
+        SignalView *target = qobject_cast<Kwave::SignalView *>(d->target());
+        if ( (f < src_pos) && target &&
+              (target->signalManager() == m_view.signalManager()) ) {
+            src_pos += len;
+        }
 
-	m_signal_manager.deleteRange(src_pos, len,
-	                             m_signal_manager.selectedTracks());
+        m_signal_manager.deleteRange(src_pos, len,
+                                     m_signal_manager.selectedTracks());
 
-	// restore the new selection
-	m_signal_manager.selectRange((first < f) ? (f - len) : f, len);
+        // restore the new selection
+        m_signal_manager.selectRange((first < f) ? (f - len) : f, len);
     }
 }
 

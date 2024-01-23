@@ -34,18 +34,18 @@ namespace Kwave
 {
     class LogoWidget: public QWidget
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
-	/** Constructor */
-	explicit LogoWidget(QWidget *parent);
+        /** Constructor */
+        explicit LogoWidget(QWidget *parent);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~LogoWidget() Q_DECL_OVERRIDE;
 
     public slots:
-	/** animates the next step of the logo */
-	void doAnim();
+        /** animates the next step of the logo */
+        void doAnim();
 
     protected:
 
@@ -55,28 +55,28 @@ namespace Kwave
     private:
 
         /** width of the widget */
-	int m_width;
+        int m_width;
 
-	/** height of the widget */
-	int m_height;
+        /** height of the widget */
+        int m_height;
 
-	/** set to true for repaint */
-	bool m_repaint;
+        /** set to true for repaint */
+        bool m_repaint;
 
-	/** phase of sinus for animation */
-	double m_deg[MAXSIN];
+        /** phase of sinus for animation */
+        double m_deg[MAXSIN];
 
-	/** QImage for drawing */
-	QImage *m_image;
+        /** QImage for drawing */
+        QImage *m_image;
 
-	/** image with the logo */
-	QPixmap m_logo;
+        /** image with the logo */
+        QPixmap m_logo;
 
-	/** timer for refresh */
-	QTimer *m_timer;
+        /** timer for refresh */
+        QTimer *m_timer;
 
-	/** "H" channel of the sine wave color */
-	double m_color_h;
+        /** "H" channel of the sine wave color */
+        double m_color_h;
     };
 }
 

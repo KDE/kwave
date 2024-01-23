@@ -69,13 +69,13 @@ int Kwave::AmplifyFreePlugin::interpreteParameters(QStringList &params)
 
     // first list entry == name of operation
     m_action_name = (params[0].length() && m_cmd_map.contains(params[0])) ?
-	 m_cmd_map[params[0]] : i18n("Amplify Free");
+         m_cmd_map[params[0]] : i18n("Amplify Free");
 
     // convert string list into command again...
     QString cmd = _("curve(");
     for (int i = 1; i < params.count(); ++i) {
-	cmd += params[i];
-	if ((i + 1) < params.count()) cmd += _(",");
+        cmd += params[i];
+        if ((i + 1) < params.count()) cmd += _(",");
     }
     cmd += _(")");
 
@@ -93,31 +93,31 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     QPointer<Kwave::AmplifyFreeDialog> dialog =
-	new(std::nothrow) Kwave::AmplifyFreeDialog(parentWidget());
+        new(std::nothrow) Kwave::AmplifyFreeDialog(parentWidget());
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
     // remove the first list entry (action name), the rest is for the dialog
     if ((m_params.count() > 2) && !(m_params.count() & 1)) {
-	QStringList curve_params = m_params;
-	curve_params.takeFirst(); // ignore action name
-	dialog->setParams(curve_params);
+        QStringList curve_params = m_params;
+        curve_params.takeFirst(); // ignore action name
+        dialog->setParams(curve_params);
     }
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec() && dialog) {
-	// user has pressed "OK"
-	*list << _("amplify free");
-	QString cmd = dialog->getCommand();
-	Kwave::Parser p(cmd);
-	while (!p.isDone()) *list << p.nextParam();
+        // user has pressed "OK"
+        *list << _("amplify free");
+        QString cmd = dialog->getCommand();
+        Kwave::Parser p(cmd);
+        while (!p.isDone()) *list << p.nextParam();
 
-	qDebug("setup -> emitCommand('%s')", DBG(cmd));
-	emitCommand(cmd);
+        qDebug("setup -> emitCommand('%s')", DBG(cmd));
+        emitCommand(cmd);
     } else {
-	// user pressed "Cancel"
-	if (list) delete list;
+        // user pressed "Cancel"
+        if (list) delete list;
         list = Q_NULLPTR;
     }
 
@@ -153,10 +153,10 @@ void Kwave::AmplifyFreePlugin::run(QStringList params)
 
     // create all objects
     Kwave::MultiTrackReader source(Kwave::SinglePassForward,
-	signalManager(), selectedTracks(), first, last);
+        signalManager(), selectedTracks(), first, last);
     Kwave::CurveStreamAdapter curve(m_curve, input_length);
     Kwave::MultiTrackWriter sink(signalManager(), track_list, Kwave::Overwrite,
-	first, last);
+        first, last);
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks, this);
 
     // break if aborted
@@ -164,29 +164,29 @@ void Kwave::AmplifyFreePlugin::run(QStringList params)
 
     // connect them
     bool ok = Kwave::connect(
-	source, SIGNAL(output(Kwave::SampleArray)),
-	mul,    SLOT(input_a(Kwave::SampleArray)));
+        source, SIGNAL(output(Kwave::SampleArray)),
+        mul,    SLOT(input_a(Kwave::SampleArray)));
     if (ok) ok = Kwave::connect(
-	curve,  SIGNAL(output(Kwave::SampleArray)),
-	mul,    SLOT(input_b(Kwave::SampleArray)));
+        curve,  SIGNAL(output(Kwave::SampleArray)),
+        mul,    SLOT(input_b(Kwave::SampleArray)));
     if (ok) ok = Kwave::connect(
-	mul,    SIGNAL(output(Kwave::SampleArray)),
-	sink,   SLOT(input(Kwave::SampleArray)));
+        mul,    SIGNAL(output(Kwave::SampleArray)),
+        sink,   SLOT(input(Kwave::SampleArray)));
     if (!ok) {
-	return;
+        return;
     }
 
     // connect the progress dialog
     connect(&sink, SIGNAL(progress(qreal)),
-	    this,  SLOT(updateProgress(qreal)),
-	    Qt::BlockingQueuedConnection);
+            this,  SLOT(updateProgress(qreal)),
+            Qt::BlockingQueuedConnection);
 
     // transport the samples
     qDebug("AmplifyFreePlugin: filter started...");
     while (!shouldStop() && !source.done()) {
-	source.goOn();
-	curve.goOn();
-	/* mul.goOn(); */
+        source.goOn();
+        curve.goOn();
+        /* mul.goOn(); */
     }
     qDebug("AmplifyFreePlugin: filter done.");
 }

@@ -37,67 +37,67 @@ namespace Kwave
 
     class PitchShiftFilter: public Kwave::SampleSource
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	PitchShiftFilter();
+        /** Constructor */
+        PitchShiftFilter();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~PitchShiftFilter() Q_DECL_OVERRIDE;
 
-	/** does the calculation */
+        /** does the calculation */
         virtual void goOn() Q_DECL_OVERRIDE;
 
     signals:
 
-	/** emits a block with the filtered data */
-	void output(Kwave::SampleArray data);
+        /** emits a block with the filtered data */
+        void output(Kwave::SampleArray data);
 
     public slots:
 
-	/** receives input data */
-	void input(Kwave::SampleArray data);
+        /** receives input data */
+        void input(Kwave::SampleArray data);
 
-	/**
-	 * Sets the speed factor
-	 * @param speed factor as a double
-	 */
-	void setSpeed(const QVariant speed);
+        /**
+         * Sets the speed factor
+         * @param speed factor as a double
+         */
+        void setSpeed(const QVariant speed);
 
-	/**
-	 * Sets the frequency parameter
-	 * @param freq the normed frequency
-	 */
-	void setFrequency(const QVariant freq);
-
-    private:
-
-	/** reset/initialize the filter and buffer */
-	void initFilter();
+        /**
+         * Sets the frequency parameter
+         * @param freq the normed frequency
+         */
+        void setFrequency(const QVariant freq);
 
     private:
 
-	/** buffer for input */
-	Kwave::SampleArray m_buffer;
+        /** reset/initialize the filter and buffer */
+        void initFilter();
 
-	/** speed factor */
-	float m_speed;
+    private:
 
-	/** base frequency */
-	float m_frequency;
+        /** buffer for input */
+        Kwave::SampleArray m_buffer;
 
-	enum { MAXDELAY = 1000000 };
+        /** speed factor */
+        float m_speed;
 
-	QVector<float> m_dbuffer;
-	float m_lfopos;
-	float m_b1pos;
-	float m_b2pos;
-	float m_b1inc;
-	float m_b2inc;
-	bool m_b1reset;
-	bool m_b2reset;
-	int m_dbpos;
+        /** base frequency */
+        float m_frequency;
+
+        enum { MAXDELAY = 1000000 };
+
+        QVector<float> m_dbuffer;
+        float m_lfopos;
+        float m_b1pos;
+        float m_b2pos;
+        float m_b1inc;
+        float m_b2inc;
+        bool m_b1reset;
+        bool m_b2reset;
+        int m_dbpos;
     };
 }
 

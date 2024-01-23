@@ -82,75 +82,75 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     scanBlocksToSave(base, m_selection_only && enable_selection_only);
 
     QPointer<Kwave::SaveBlocksDialog> dialog =
-	new(std::nothrow) Kwave::SaveBlocksDialog(
-	    _("kfiledialog:///kwave_save_blocks"),
-	    Kwave::CodecManager::encodingFilter(),
-	    parentWidget(),
-	    Kwave::URLfromUserInput(signalName()),
-	    _("*.wav"),
-	    m_pattern,
-	    m_numbering_mode,
-	    m_selection_only,
-	    enable_selection_only
-	);
+        new(std::nothrow) Kwave::SaveBlocksDialog(
+            _("kfiledialog:///kwave_save_blocks"),
+            Kwave::CodecManager::encodingFilter(),
+            parentWidget(),
+            Kwave::URLfromUserInput(signalName()),
+            _("*.wav"),
+            m_pattern,
+            m_numbering_mode,
+            m_selection_only,
+            enable_selection_only
+        );
         if (!dialog) return Q_NULLPTR;
 
     // connect the signals/slots from the plugin and the dialog
     connect(dialog, SIGNAL(sigSelectionChanged(QString,
-	QString,Kwave::SaveBlocksPlugin::numbering_mode_t,bool)),
-	this, SLOT(updateExample(QString,QString,
-	Kwave::SaveBlocksPlugin::numbering_mode_t,bool)));
+        QString,Kwave::SaveBlocksPlugin::numbering_mode_t,bool)),
+        this, SLOT(updateExample(QString,QString,
+        Kwave::SaveBlocksPlugin::numbering_mode_t,bool)));
     connect(this, SIGNAL(sigNewExample(QString)),
-	dialog, SLOT(setNewExample(QString)));
+        dialog, SLOT(setNewExample(QString)));
 
     dialog->setWindowTitle(description());
     dialog->emitUpdate();
     if ((dialog->exec() != QDialog::Accepted) || !dialog) {
-	delete dialog;
+        delete dialog;
         return Q_NULLPTR;
     }
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list) {
-	// user has pressed "OK"
-	QString pattern;
+        // user has pressed "OK"
+        QString pattern;
 
-	QUrl url = dialog->selectedUrl();
-	if (url.isEmpty()) {
-	    delete dialog;
-	    delete list;
+        QUrl url = dialog->selectedUrl();
+        if (url.isEmpty()) {
+            delete dialog;
+            delete list;
             return Q_NULLPTR;
-	}
-	QString name = url.path();
-	QFileInfo path(name);
+        }
+        QString name = url.path();
+        QFileInfo path(name);
 
-	// add the correct extension if necessary
-	if (!path.suffix().length()) {
-	    QString ext = dialog->selectedExtension();
-	    QStringList extensions = ext.split(_(" "));
-	    ext = extensions.first();
-	    name += ext.midRef(1);
-	    path = name;
-	    url.setPath(name);
-	}
+        // add the correct extension if necessary
+        if (!path.suffix().length()) {
+            QString ext = dialog->selectedExtension();
+            QStringList extensions = ext.split(_(" "));
+            ext = extensions.first();
+            name += ext.midRef(1);
+            path = name;
+            url.setPath(name);
+        }
 
-	name     = Kwave::Parser::escape(name);
-	pattern  = Kwave::Parser::escape(dialog->pattern());
-	int mode = static_cast<int>(dialog->numberingMode());
-	bool selection_only = (enable_selection_only) ?
-	    dialog->selectionOnly() : m_selection_only;
+        name     = Kwave::Parser::escape(name);
+        pattern  = Kwave::Parser::escape(dialog->pattern());
+        int mode = static_cast<int>(dialog->numberingMode());
+        bool selection_only = (enable_selection_only) ?
+            dialog->selectionOnly() : m_selection_only;
 
-	*list << name;
-	*list << pattern;
-	*list << QString::number(mode);
-	*list << QString::number(selection_only);
+        *list << name;
+        *list << pattern;
+        *list << QString::number(mode);
+        *list << QString::number(selection_only);
 
-	emitCommand(_("plugin:execute(saveblocks,") +
-	    name + _(",") + pattern + _(",") +
-	    QString::number(mode) + _(",") +
-	    QString::number(selection_only) + _(")")
-	);
+        emitCommand(_("plugin:execute(saveblocks,") +
+            name + _(",") + pattern + _(",") +
+            QString::number(mode) + _(",") +
+            QString::number(selection_only) + _(")")
+        );
     }
 
     if (dialog) delete dialog;
@@ -168,15 +168,15 @@ QString Kwave::SaveBlocksPlugin::createDisplayList(
     unsigned int count = 0;
 
     foreach (const QString &entry, list) {
-	if (count == 0) // first entry
-	    retval = _("<br><br>");
-	if (count < max_entries)
-	    retval += entry + _("<br>");
-	else if (count == max_entries)
-	    retval += i18n("...") + _("<br>");
+        if (count == 0) // first entry
+            retval = _("<br><br>");
+        if (count < max_entries)
+            retval += entry + _("<br>");
+        else if (count == max_entries)
+            retval += i18n("...") + _("<br>");
 
-	if (++count > max_entries)
-	    break;
+        if (++count > max_entries)
+            break;
     }
 
     return retval;
@@ -209,8 +209,8 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     bool enable_selection_only = selected_something && !selected_all;
     bool selection_only = enable_selection_only && m_selection_only;
     if (!selection_only) {
-	selection_left  = 0;
-	selection_right = signalLength() - 1;
+        selection_left  = 0;
+        selection_right = signalLength() - 1;
     }
 
     // get the index range
@@ -232,87 +232,87 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     Kwave::FileInfo file_info(orig_file_info);
     QList<Kwave::FileProperty> unsupported_properties;
     {
-	QString mimetype = Kwave::CodecManager::mimeTypeOf(m_url);
-	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype);
-	if (encoder) {
-	    unsupported_properties = encoder->unsupportedProperties(
-		file_info.properties().keys());
-	    delete encoder;
-	}
+        QString mimetype = Kwave::CodecManager::mimeTypeOf(m_url);
+        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(mimetype);
+        if (encoder) {
+            unsupported_properties = encoder->unsupportedProperties(
+                file_info.properties().keys());
+            delete encoder;
+        }
     }
 
     // iterate over all blocks to check for overwritten files and missing dirs
     QStringList  overwritten_files;
     QStringList  missing_dirs;
     for (unsigned int i = first; i < (first + count); i++) {
-	QString name = createFileName(base, ext, m_pattern, i, count,
-	                              first + count - 1);
-	QString display_name = Kwave::Parser::unescape(name);
+        QString name = createFileName(base, ext, m_pattern, i, count,
+                                      first + count - 1);
+        QString display_name = Kwave::Parser::unescape(name);
 
-	// split the name into directory and file name
-	name = QString::fromLatin1(QUrl::toPercentEncoding(display_name, sep));
-	QUrl url = m_url.adjusted(QUrl::RemoveFilename);
-	url.setPath(url.path(QUrl::FullyEncoded) + name, QUrl::StrictMode);
+        // split the name into directory and file name
+        name = QString::fromLatin1(QUrl::toPercentEncoding(display_name, sep));
+        QUrl url = m_url.adjusted(QUrl::RemoveFilename);
+        url.setPath(url.path(QUrl::FullyEncoded) + name, QUrl::StrictMode);
 
-	QString p = url.path();
-	QFileInfo fi(p);
+        QString p = url.path();
+        QFileInfo fi(p);
 
-	// check for potentially overwritten file
-	if (fi.exists())
-	    overwritten_files += Kwave::Parser::unescape(display_name);
+        // check for potentially overwritten file
+        if (fi.exists())
+            overwritten_files += Kwave::Parser::unescape(display_name);
 
-	// check for missing subdirectory
-	if (!fi.dir().exists()) {
-	    QString missing_dir = fi.absolutePath();
-	    if (!missing_dirs.contains(missing_dir))
-		missing_dirs += missing_dir;
-	}
+        // check for missing subdirectory
+        if (!fi.dir().exists()) {
+            QString missing_dir = fi.absolutePath();
+            if (!missing_dirs.contains(missing_dir))
+                missing_dirs += missing_dir;
+        }
     }
 
     // inform about overwritten files
     if (!overwritten_files.isEmpty()) {
-	// ask the user for confirmation if he really wants to overwrite...
-	if (Kwave::MessageBox::warningYesNo(parentWidget(),
-	    _("<html>") +
-	    i18n("This would overwrite the following file(s): %1" \
-	    "Do you really want to continue?",
-	    createDisplayList(overwritten_files, 5)) +
-	    _("</html>") ) != KMessageBox::Yes)
-	{
-	    return -1;
-	}
+        // ask the user for confirmation if he really wants to overwrite...
+        if (Kwave::MessageBox::warningYesNo(parentWidget(),
+            _("<html>") +
+            i18n("This would overwrite the following file(s): %1" \
+            "Do you really want to continue?",
+            createDisplayList(overwritten_files, 5)) +
+            _("</html>") ) != KMessageBox::Yes)
+        {
+            return -1;
+        }
     }
 
     // handle missing directories
     if (!missing_dirs.isEmpty()) {
-	// ask the user if he wants to continue and create the directory
-	if (Kwave::MessageBox::warningContinueCancel(parentWidget(),
-	    i18n("The following directories do not exist: %1"
-	         "Do you want to create them and continue?",
-	         createDisplayList(missing_dirs, 5)),
-	    QString(),
-	    QString(),
-	    QString(),
-	    _("saveblocks_create_missing_dirs")
-	    ) != KMessageBox::Continue)
-	{
-	    return -1;
-	}
+        // ask the user if he wants to continue and create the directory
+        if (Kwave::MessageBox::warningContinueCancel(parentWidget(),
+            i18n("The following directories do not exist: %1"
+                 "Do you want to create them and continue?",
+                 createDisplayList(missing_dirs, 5)),
+            QString(),
+            QString(),
+            QString(),
+            _("saveblocks_create_missing_dirs")
+            ) != KMessageBox::Continue)
+        {
+            return -1;
+        }
 
-	// create all missing directories
-	QUrl base_url = m_url.adjusted(QUrl::RemoveFilename);
-	foreach (const QString &missing, missing_dirs) {
-	    QUrl url(base_url);
-	    url.setPath(
-		base_url.path(QUrl::FullyEncoded) +
-		QString::fromLatin1(QUrl::toPercentEncoding(missing)),
-		QUrl::StrictMode
-	    );
-	    QString p = url.path();
-	    QDir dir;
-	    if (!dir.mkpath(p))
-		qWarning("creating path '%s' failed", DBG(p));
-	}
+        // create all missing directories
+        QUrl base_url = m_url.adjusted(QUrl::RemoveFilename);
+        foreach (const QString &missing, missing_dirs) {
+            QUrl url(base_url);
+            url.setPath(
+                base_url.path(QUrl::FullyEncoded) +
+                QString::fromLatin1(QUrl::toPercentEncoding(missing)),
+                QUrl::StrictMode
+            );
+            QString p = url.path();
+            QDir dir;
+            if (!dir.mkpath(p))
+                qWarning("creating path '%s' failed", DBG(p));
+        }
     }
 
     // save the current selection, we have to restore it afterwards!
@@ -328,81 +328,81 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     Kwave::Label label = it.hasNext() ? it.next() : Kwave::Label();
 
     for (unsigned int index = first;;) {
-	block_start = block_end;
-	block_end   = (label.isNull()) ? signalLength() : label.pos();
+        block_start = block_end;
+        block_end   = (label.isNull()) ? signalLength() : label.pos();
 
-	if ((selection_left < block_end) && (selection_right > block_start)) {
-	    // found a block to save...
-	    Q_ASSERT(index < first + count);
+        if ((selection_left < block_end) && (selection_right > block_start)) {
+            // found a block to save...
+            Q_ASSERT(index < first + count);
 
-	    sample_index_t left  = block_start;
-	    sample_index_t right = block_end - 1;
-	    if (left  < selection_left)  left  = selection_left;
-	    if (right > selection_right) right = selection_right;
-	    Q_ASSERT(right > left);
-	    if (right <= left) break; // zero-length ?
+            sample_index_t left  = block_start;
+            sample_index_t right = block_end - 1;
+            if (left  < selection_left)  left  = selection_left;
+            if (right > selection_right) right = selection_right;
+            Q_ASSERT(right > left);
+            if (right <= left) break; // zero-length ?
 
-	    // select the range of samples
-	    selectRange(left, right - left + 1);
+            // select the range of samples
+            selectRange(left, right - left + 1);
 
-	    // determine the filename
-	    QString name = createFileName(base, ext, m_pattern, index, count,
+            // determine the filename
+            QString name = createFileName(base, ext, m_pattern, index, count,
                                           first + count - 1);
-	    name = Kwave::Parser::unescape(name);
-	    // use URL encoding for the filename
-	    name = QString::fromLatin1(QUrl::toPercentEncoding(name, sep));
-	    QUrl url = m_url.adjusted(QUrl::RemoveFilename);
-	    url.setPath(url.path(QUrl::FullyEncoded) + name, QUrl::StrictMode);
+            name = Kwave::Parser::unescape(name);
+            // use URL encoding for the filename
+            name = QString::fromLatin1(QUrl::toPercentEncoding(name, sep));
+            QUrl url = m_url.adjusted(QUrl::RemoveFilename);
+            url.setPath(url.path(QUrl::FullyEncoded) + name, QUrl::StrictMode);
 
-	    // enter the title of the block into the meta data if supported
-	    if (!unsupported_properties.contains(INF_NAME)) {
-		QString title = orig_file_info.get(INF_NAME).toString();
-		int idx = index - first;
-		if ((idx >= 0) && (idx < m_block_info.count())) {
-		    QString block_title = m_block_info[idx].m_title;
-		    if (block_title.length())
-			title = title + _(", ") + block_title;
-		}
-		file_info.set(INF_NAME, QVariant(title));
-		signalManager().metaData().replace(
-		    Kwave::MetaDataList(file_info));
-	    }
+            // enter the title of the block into the meta data if supported
+            if (!unsupported_properties.contains(INF_NAME)) {
+                QString title = orig_file_info.get(INF_NAME).toString();
+                int idx = index - first;
+                if ((idx >= 0) && (idx < m_block_info.count())) {
+                    QString block_title = m_block_info[idx].m_title;
+                    if (block_title.length())
+                        title = title + _(", ") + block_title;
+                }
+                file_info.set(INF_NAME, QVariant(title));
+                signalManager().metaData().replace(
+                    Kwave::MetaDataList(file_info));
+            }
 
-	    qDebug("saving %9lu...%9lu -> '%s'",
-		   static_cast<unsigned long int>(left),
-		   static_cast<unsigned long int>(right),
-		   DBG(url.toDisplayString()));
-	    if (signalManager().save(url, true) < 0)
-		break;
+            qDebug("saving %9lu...%9lu -> '%s'",
+                   static_cast<unsigned long int>(left),
+                   static_cast<unsigned long int>(right),
+                   DBG(url.toDisplayString()));
+            if (signalManager().save(url, true) < 0)
+                break;
 
-	    // if there were unsupported properties, the user might have been
-	    // asked whether it is ok to continue or not. If he answered with
-	    // "Cancel", we do not reach this point, otherwise we can continue
-	    // and prevent any further annoying questions by removing all
-	    // unsupported file info before the next run...
-	    if ((index == first) && !unsupported_properties.isEmpty()) {
-		foreach (const Kwave::FileProperty &p, unsupported_properties) {
-		    file_info.set(p, QVariant());
-		}
-		signalManager().metaData().replace(
-		    Kwave::MetaDataList(file_info));
-	    }
+            // if there were unsupported properties, the user might have been
+            // asked whether it is ok to continue or not. If he answered with
+            // "Cancel", we do not reach this point, otherwise we can continue
+            // and prevent any further annoying questions by removing all
+            // unsupported file info before the next run...
+            if ((index == first) && !unsupported_properties.isEmpty()) {
+                foreach (const Kwave::FileProperty &p, unsupported_properties) {
+                    file_info.set(p, QVariant());
+                }
+                signalManager().metaData().replace(
+                    Kwave::MetaDataList(file_info));
+            }
 
-	    // increment the index for the next filename
-	    index++;
-	}
-	if (label.isNull()) break;
-	label = (it.hasNext()) ? it.next() : Kwave::Label();
+            // increment the index for the next filename
+            index++;
+        }
+        if (label.isNull()) break;
+        label = (it.hasNext()) ? it.next() : Kwave::Label();
     }
 
     // restore the original file info
     signalManager().metaData().replace(
-	Kwave::MetaDataList(orig_file_info));
+        Kwave::MetaDataList(orig_file_info));
 
     // restore the previous selection
     selectRange(saved_selection_left,
-	(saved_selection_left != saved_selection_right) ?
-	(saved_selection_right - saved_selection_left + 1) : 0);
+        (saved_selection_left != saved_selection_right) ?
+        (saved_selection_right - saved_selection_left + 1) : 0);
 
     return result;
 }
@@ -415,7 +415,7 @@ int Kwave::SaveBlocksPlugin::interpreteParameters(QStringList &params)
 
     // evaluate the parameter list
     if (params.count() != 4) {
-	return -EINVAL;
+        return -EINVAL;
     }
 
     // the selected URL
@@ -460,8 +460,8 @@ void Kwave::SaveBlocksPlugin::scanBlocksToSave(const QString &base,
     if (selection_only) {
         selection(Q_NULLPTR, &selection_left, &selection_right, true);
     } else {
-	selection_left  = 0;
-	selection_right = signalLength() - 1;
+        selection_left  = 0;
+        selection_right = signalLength() - 1;
     }
 
     // get the title of the whole file, in case that a block does not have
@@ -476,22 +476,22 @@ void Kwave::SaveBlocksPlugin::scanBlocksToSave(const QString &base,
     m_block_info.clear();
     QString prev_title;
     for (;;) {
-	block_start = block_end;
-	block_end   = (label.isNull()) ? signalLength() : label.pos();
-	block_title = prev_title;
-	prev_title  = (label.isNull()) ? file_title     : label.name();
+        block_start = block_end;
+        block_end   = (label.isNull()) ? signalLength() : label.pos();
+        block_title = prev_title;
+        prev_title  = (label.isNull()) ? file_title     : label.name();
 
-	if ((block_end > selection_left) && (block_start <= selection_right)) {
-	    BlockInfo block;
-	    block.m_start  = block_start;
-	    block.m_length = block_end - block_start;
-	    block.m_title  = block_title;
-	    if (!block.m_title.length()) block.m_title = file_title;
-	    m_block_info.append(block);
-	}
+        if ((block_end > selection_left) && (block_start <= selection_right)) {
+            BlockInfo block;
+            block.m_start  = block_start;
+            block.m_length = block_end - block_start;
+            block.m_title  = block_title;
+            if (!block.m_title.length()) block.m_title = file_title;
+            m_block_info.append(block);
+        }
 
-	if (label.isNull()) break;
-	label = (it.hasNext()) ? it.next() : Kwave::Label();
+        if (label.isNull()) break;
+        label = (it.hasNext()) ? it.next() : Kwave::Label();
     }
 }
 
@@ -506,105 +506,105 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     // format the "index" parameter
     QRegExp rx_nr(_("(\\\\\\[%(\\d*)nr\\\\\\])"), Qt::CaseInsensitive);
     while (rx_nr.indexIn(p) >= 0) {
-	QString format = rx_nr.cap(1);
-	format = format.mid(2, format.length() - 6);
-	QString ex = _("(\\\\\\[") + format + _("nr\\\\\\])");
-	QRegExp rx(ex, Qt::CaseInsensitive);
-	format += _("u");
-	p.replace(rx, nr.asprintf(format.toLatin1(), index));
+        QString format = rx_nr.cap(1);
+        format = format.mid(2, format.length() - 6);
+        QString ex = _("(\\\\\\[") + format + _("nr\\\\\\])");
+        QRegExp rx(ex, Qt::CaseInsensitive);
+        format += _("u");
+        p.replace(rx, nr.asprintf(format.toLatin1(), index));
     }
 
     // format the "count" parameter
     QRegExp rx_count(_("(\\\\\\[%\\d*count\\\\\\])"), Qt::CaseInsensitive);
     while (rx_count.indexIn(p) >= 0) {
-	if (count >= 0) {
-	    QString format = rx_count.cap(1);
-	    format = format.mid(2, format.length() - 9);
-	    QString ex = _("(\\\\\\[") + format + _("count\\\\\\])");
-	    QRegExp rx(ex, Qt::CaseInsensitive);
-	    format += _("u");
-	    p.replace(rx, nr.asprintf(format.toLatin1(), count));
-	} else {
-	    p.replace(rx_count, _("(\\d+)"));
-	}
+        if (count >= 0) {
+            QString format = rx_count.cap(1);
+            format = format.mid(2, format.length() - 9);
+            QString ex = _("(\\\\\\[") + format + _("count\\\\\\])");
+            QRegExp rx(ex, Qt::CaseInsensitive);
+            format += _("u");
+            p.replace(rx, nr.asprintf(format.toLatin1(), count));
+        } else {
+            p.replace(rx_count, _("(\\d+)"));
+        }
     }
 
     // format the "total" parameter
     QRegExp rx_total(_("(\\\\\\[%\\d*total\\\\\\])"), Qt::CaseInsensitive);
     while (rx_total.indexIn(p) >= 0) {
-	if (total >= 0) {
-	    QString format = rx_total.cap(1);
-	    format = format.mid(2, format.length() - 9);
-	    QString ex = _("(\\\\\\[") + format + _("total\\\\\\])");
-	    QRegExp rx(ex, Qt::CaseInsensitive);
-	    format += _("u");
-	    p.replace(rx, nr.asprintf(format.toLatin1(), total));
-	} else {
-	    p.replace(rx_total, _("(\\d+)"));
-	}
+        if (total >= 0) {
+            QString format = rx_total.cap(1);
+            format = format.mid(2, format.length() - 9);
+            QString ex = _("(\\\\\\[") + format + _("total\\\\\\])");
+            QRegExp rx(ex, Qt::CaseInsensitive);
+            format += _("u");
+            p.replace(rx, nr.asprintf(format.toLatin1(), total));
+        } else {
+            p.replace(rx_total, _("(\\d+)"));
+        }
     }
 
     // format the "filename" parameter
     QRegExp rx_filename(_("\\\\\\[%filename\\\\\\]"), Qt::CaseInsensitive);
     if (rx_filename.indexIn(p) >= 0) {
-	p.replace(rx_filename, QRegExp::escape(base));
+        p.replace(rx_filename, QRegExp::escape(base));
     }
 
     // support for file info
     QRegExp rx_fileinfo(
-	_("\\\\\\[%(\\d*)fileinfo\\\\\\{([\\w\\s]+)\\\\\\}\\\\\\]"),
-	Qt::CaseInsensitive
+        _("\\\\\\[%(\\d*)fileinfo\\\\\\{([\\w\\s]+)\\\\\\}\\\\\\]"),
+        Qt::CaseInsensitive
     );
     Kwave::FileInfo info(signalManager().metaData());
     while (rx_fileinfo.indexIn(p) >= 0) {
-	const QString format = rx_fileinfo.cap(1);
-	const QString id     = rx_fileinfo.cap(2);
-	QString value;
-	FileProperty property = info.fromName(id);
-	if (property != Kwave::INF_UNKNOWN) {
-	    QVariant val = info.get(property);
-	    if (!val.isNull()) {
-		// we have a property value
-		value = val.toString();
+        const QString format = rx_fileinfo.cap(1);
+        const QString id     = rx_fileinfo.cap(2);
+        QString value;
+        FileProperty property = info.fromName(id);
+        if (property != Kwave::INF_UNKNOWN) {
+            QVariant val = info.get(property);
+            if (!val.isNull()) {
+                // we have a property value
+                value = val.toString();
 
-		// check for format (desired minimum string length)
-		bool ok  = false;
-		int  len = format.toUInt(&ok);
-		if ((len > 0) && ok) {
-		    Kwave::FileInfo::Flags flags = info.flags(property);
-		    if (flags & Kwave::FileInfo::FP_FORMAT_NUMERIC) {
-			// numeric format, pad with leading zeros or spaces
-			QString pad = (format.startsWith(QLatin1Char('0'))) ?
-			    _("0") : _(" ");
-			while (value.length() < len)
-			    value = pad + value;
-		    } else {
-			// string format, pad with trailing spaces
-			while (value.length() < len)
-			    value = value + _(" ");
-		    }
-		}
-		value = Kwave::Parser::escapeForFileName(value);
-	    }
-	}
+                // check for format (desired minimum string length)
+                bool ok  = false;
+                int  len = format.toUInt(&ok);
+                if ((len > 0) && ok) {
+                    Kwave::FileInfo::Flags flags = info.flags(property);
+                    if (flags & Kwave::FileInfo::FP_FORMAT_NUMERIC) {
+                        // numeric format, pad with leading zeros or spaces
+                        QString pad = (format.startsWith(QLatin1Char('0'))) ?
+                            _("0") : _(" ");
+                        while (value.length() < len)
+                            value = pad + value;
+                    } else {
+                        // string format, pad with trailing spaces
+                        while (value.length() < len)
+                            value = value + _(" ");
+                    }
+                }
+                value = Kwave::Parser::escapeForFileName(value);
+            }
+        }
 
-	QString ex(_("(\\\\\\[%") + format + _("fileinfo\\\\\\{") + id +
-	           _("\\\\\\}\\\\\\])"));
-	QRegExp rx(ex, Qt::CaseInsensitive);
-	p.replace(rx, value);
+        QString ex(_("(\\\\\\[%") + format + _("fileinfo\\\\\\{") + id +
+                   _("\\\\\\}\\\\\\])"));
+        QRegExp rx(ex, Qt::CaseInsensitive);
+        p.replace(rx, value);
     }
 
     // format the "title" parameter
     QRegExp rx_title(_("\\\\\\[%title\\\\\\]"), Qt::CaseInsensitive);
     if (rx_title.indexIn(p) >= 0) {
-	QString title;
-	int idx = (index - 1) - (total - count);
-	if ((idx >= 0) && (idx < m_block_info.count()))
-	    title = m_block_info[idx].m_title;
-	if (title.length()) {
-	    title = Kwave::Parser::escapeForFileName(title);
-	    p.replace(rx_title, title);
-	}
+        QString title;
+        int idx = (index - 1) - (total - count);
+        if ((idx >= 0) && (idx < m_block_info.count()))
+            title = m_block_info[idx].m_title;
+        if (title.length()) {
+            title = Kwave::Parser::escapeForFileName(title);
+            p.replace(rx_title, title);
+        }
     }
 
     if (ext.length()) p += _(".") + ext;
@@ -625,22 +625,22 @@ unsigned int Kwave::SaveBlocksPlugin::firstIndex(const QString &path,
 {
     unsigned int first = 1;
     switch (mode) {
-	case START_AT_ONE:
-	    first = 1;
-	    break;
-	case CONTINUE: {
-	    QDir dir(path, _("*"));
-	    QStringList files;
-	    files = dir.entryList();
-	    for (unsigned int i = first; i < (first + count); i++) {
-		QString name = createFileName(base, ext, pattern, i, -1, -1);
-		QRegExp rx(_("^(") + name + _(")$"),
-		           Qt::CaseInsensitive);
-		QStringList matches = files.filter(rx);
-		if (matches.count() > 0) first = i + 1;
-	    }
-	    break;
-	}
+        case START_AT_ONE:
+            first = 1;
+            break;
+        case CONTINUE: {
+            QDir dir(path, _("*"));
+            QStringList files;
+            files = dir.entryList();
+            for (unsigned int i = first; i < (first + count); i++) {
+                QString name = createFileName(base, ext, pattern, i, -1, -1);
+                QRegExp rx(_("^(") + name + _(")$"),
+                           Qt::CaseInsensitive);
+                QStringList matches = files.filter(rx);
+                if (matches.count() > 0) first = i + 1;
+            }
+            break;
+        }
     }
 
     return first;
@@ -686,26 +686,26 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
 
     int max = 0;
     for (int i = 0; i < pattern.length(); i++) {
-	if (idx_nr       == max) max++;
-	if (idx_count    == max) max++;
-	if (idx_total    == max) max++;
-	if (idx_filename == max) max++;
-	if (idx_fileinfo == max) max++;
-	if (idx_title    == max) max++;
+        if (idx_nr       == max) max++;
+        if (idx_count    == max) max++;
+        if (idx_total    == max) max++;
+        if (idx_filename == max) max++;
+        if (idx_fileinfo == max) max++;
+        if (idx_title    == max) max++;
 
-	if (idx_nr       > max) idx_nr--;
-	if (idx_count    > max) idx_count--;
-	if (idx_total    > max) idx_total--;
-	if (idx_filename > max) idx_filename--;
-	if (idx_fileinfo > max) idx_fileinfo--;
-	if (idx_title    > max) idx_title--;
+        if (idx_nr       > max) idx_nr--;
+        if (idx_count    > max) idx_count--;
+        if (idx_total    > max) idx_total--;
+        if (idx_filename > max) idx_filename--;
+        if (idx_fileinfo > max) idx_fileinfo--;
+        if (idx_title    > max) idx_title--;
     }
 
     if (ext.length()) p += _(".") + ext;
     QRegExp rx_current(p, Qt::CaseInsensitive);
     if (rx_current.indexIn(name) >= 0) {
-	// filename already produced by this pattern
-	base = rx_current.cap(idx_filename + 1);
+        // filename already produced by this pattern
+        base = rx_current.cap(idx_filename + 1);
     }
 
     return base;

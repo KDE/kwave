@@ -1,6 +1,6 @@
 /***************************************************************************
        PluginManager.cpp -  manager class for Kwave's plugins
-			     -------------------
+                             -------------------
     begin                : Sun Aug 27 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -85,9 +85,9 @@ Kwave::PluginManager::~PluginManager()
     // of these remaining plugins, so that afterwards we have no more
     // plugin instances left.
     while (!m_plugin_instances.isEmpty()) {
-	KwavePluginPointer p = m_plugin_instances.takeLast();
-	Q_ASSERT(p);
-	if (p) p->unload();
+        KwavePluginPointer p = m_plugin_instances.takeLast();
+        Q_ASSERT(p);
+        if (p) p->unload();
     }
 
     // this should make the cleanup handlers run (deferred delete)
@@ -97,26 +97,26 @@ Kwave::PluginManager::~PluginManager()
     for (QMap<QString, PluginModule>::iterator it(m_plugin_modules.begin());
          it != m_plugin_modules.end(); )
     {
-// 	const QString &name = it.key();
-	PluginModule  &p    = it.value();
-	p.m_use_count--;
+//      const QString &name = it.key();
+        PluginModule  &p    = it.value();
+        p.m_use_count--;
 
-// 	qDebug("PluginManager: releasing module '%s' [refcnt=%d]",
-// 	       DBG(name), p.m_use_count);
-	if (p.m_use_count == 0) {
-	    // take out the pointer to the loadable module
-	    KPluginFactory *factory = p.m_factory;
+//      qDebug("PluginManager: releasing module '%s' [refcnt=%d]",
+//             DBG(name), p.m_use_count);
+        if (p.m_use_count == 0) {
+            // take out the pointer to the loadable module
+            KPluginFactory *factory = p.m_factory;
             p.m_factory = Q_NULLPTR;
 
-	    // remove the module from the list
-	    it = m_plugin_modules.erase(it);
+            // remove the module from the list
+            it = m_plugin_modules.erase(it);
 
-	    // now the handle of the shared object can be released too
-	    if (factory) delete factory;
-	} else {
-	    // still in use
-	    ++it;
-	}
+            // now the handle of the shared object can be released too
+            if (factory) delete factory;
+        } else {
+            // still in use
+            ++it;
+        }
     }
 
     // we are no longer the active instance
@@ -132,31 +132,31 @@ bool Kwave::PluginManager::loadAllPlugins()
     // NOTE: this also gives each plugin the chance to stay in memory
     //       if necessary (e.g. for codecs)
     for (QMap<QString, PluginModule>::iterator it(m_plugin_modules.begin());
-	 it != m_plugin_modules.end(); ++it)
+         it != m_plugin_modules.end(); ++it)
     {
-	const QString      &name   = it.key();
-	KwavePluginPointer  plugin = createPluginInstance(name);
-	if (plugin) {
-// 	    qDebug("PluginManager::loadAllPlugins(): plugin '%s'",
-// 		   DBG(plugin->name()));
+        const QString      &name   = it.key();
+        KwavePluginPointer  plugin = createPluginInstance(name);
+        if (plugin) {
+//          qDebug("PluginManager::loadAllPlugins(): plugin '%s'",
+//                 DBG(plugin->name()));
 
-	    // get the last settings and call the "load" function
-	    // now the plugin is present and loaded
-	    QStringList last_params = defaultParams(name);
-	    plugin->load(last_params);
+            // get the last settings and call the "load" function
+            // now the plugin is present and loaded
+            QStringList last_params = defaultParams(name);
+            plugin->load(last_params);
 
-	    // reduce use count again, we loaded the plugin only to give
-	    // it a chance to register some service if necessary (e.g. a
-	    // codec)
-	    // Most plugins fall back to use count zero and will be
-	    // deleted again.
-	    plugin->release();
-	} else {
-	    // loading failed => remove it from the list
-	    qWarning("PluginManager::loadAllPlugins(): removing '%s' "
-	            "from list", DBG(name));
-	    m_plugin_modules.remove(name);
-	}
+            // reduce use count again, we loaded the plugin only to give
+            // it a chance to register some service if necessary (e.g. a
+            // codec)
+            // Most plugins fall back to use count zero and will be
+            // deleted again.
+            plugin->release();
+        } else {
+            // loading failed => remove it from the list
+            qWarning("PluginManager::loadAllPlugins(): removing '%s' "
+                    "from list", DBG(name));
+            m_plugin_modules.remove(name);
+        }
     }
 
     return !m_plugin_modules.isEmpty();
@@ -170,9 +170,9 @@ void Kwave::PluginManager::stopAllPlugins()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty())
-	foreach (const KwavePluginPointer &plugin, m_plugin_instances)
-	    if (plugin && plugin->isRunning())
-		plugin->stop() ;
+        foreach (const KwavePluginPointer &plugin, m_plugin_instances)
+            if (plugin && plugin->isRunning())
+                plugin->stop() ;
 
     sync();
 }
@@ -186,9 +186,9 @@ Kwave::Plugin *Kwave::PluginManager::createPluginInstance(const QString &name)
 
     // show an error message and abort if the plugin is unknown
     if (!(m_plugin_modules.contains(name))) {
-	Kwave::MessageBox::error(m_parent_widget,
-	    i18n("The plugin '%1' is unknown or invalid.", name),
-	    i18n("Error On Loading Plugin"));
+        Kwave::MessageBox::error(m_parent_widget,
+            i18n("The plugin '%1' is unknown or invalid.", name),
+            i18n("Error On Loading Plugin"));
         return Q_NULLPTR;
     }
 
@@ -206,7 +206,7 @@ Kwave::Plugin *Kwave::PluginManager::createPluginInstance(const QString &name)
     Kwave::Plugin *plugin = factory->create<Kwave::Plugin>(this, args);
     Q_ASSERT(plugin);
     if (!plugin) {
-	qWarning("PluginManager::loadPlugin('%s'): out of memory", DBG(name));
+        qWarning("PluginManager::loadPlugin('%s'): out of memory", DBG(name));
         return Q_NULLPTR;
     }
     // now we have a newly created plugin, the use count is 1
@@ -239,47 +239,47 @@ int Kwave::PluginManager::executePlugin(const QString &name,
     if (!plugin) return -ENOMEM;
 
     if (params) {
-	// parameters were specified -> call directly
-	// without setup dialog
-	result = plugin->start(*params);
+        // parameters were specified -> call directly
+        // without setup dialog
+        result = plugin->start(*params);
 
-	// maybe the start() function has called close() ?
-	if (!m_plugin_instances.contains(plugin)) {
-	    qDebug("PluginManager: plugin closed itself in start()");
-	    result = -1;
+        // maybe the start() function has called close() ?
+        if (!m_plugin_instances.contains(plugin)) {
+            qDebug("PluginManager: plugin closed itself in start()");
+            result = -1;
             plugin = Q_NULLPTR;
-	}
+        }
 
-	if (plugin && (result >= 0)) {
-	    plugin->execute(*params);
-	}
+        if (plugin && (result >= 0)) {
+            plugin->execute(*params);
+        }
     } else {
-	// load previous parameters from config
-	QStringList last_params = defaultParams(name);
+        // load previous parameters from config
+        QStringList last_params = defaultParams(name);
 
-	// call the plugin's setup function
-	params = plugin->setup(last_params);
-	if (params) {
-	    // we have a non-zero parameter list, so
-	    // the setup function has not been aborted.
-	    // Now we can create a command string and
-	    // emit a new command.
+        // call the plugin's setup function
+        params = plugin->setup(last_params);
+        if (params) {
+            // we have a non-zero parameter list, so
+            // the setup function has not been aborted.
+            // Now we can create a command string and
+            // emit a new command.
 
-	    // store parameters for the next time
-	    savePluginDefaults(name, *params);
+            // store parameters for the next time
+            savePluginDefaults(name, *params);
 
-	    // We DO NOT call the plugin's "execute"
-	    // function directly, as it should be possible
-	    // to record all function calls in the
-	    // macro recorder
-	    command = _("plugin:execute(");
-	    command += name;
-	    foreach (const QString &p, *params)
-		command += _(", ") + p;
-	    delete params;
-	    command += _(")");
-//	    qDebug("PluginManager: command='%s'",command.data());
-	}
+            // We DO NOT call the plugin's "execute"
+            // function directly, as it should be possible
+            // to record all function calls in the
+            // macro recorder
+            command = _("plugin:execute(");
+            command += name;
+            foreach (const QString &p, *params)
+                command += _(", ") + p;
+            delete params;
+            command += _(")");
+//          qDebug("PluginManager: command='%s'",command.data());
+        }
     }
 
     // now the plugin is no longer needed here, release it
@@ -300,8 +300,8 @@ bool Kwave::PluginManager::canClose()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty())
-	foreach (const KwavePluginPointer &plugin, m_plugin_instances)
-	    if (plugin && !plugin->canClose()) return false;
+        foreach (const KwavePluginPointer &plugin, m_plugin_instances)
+            if (plugin && !plugin->canClose()) return false;
 
     return true;
 }
@@ -314,8 +314,8 @@ bool Kwave::PluginManager::onePluginRunning()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (!m_plugin_instances.isEmpty())
-	foreach (const KwavePluginPointer &plugin, m_plugin_instances)
-	    if (plugin && plugin->isRunning()) return true;
+        foreach (const KwavePluginPointer &plugin, m_plugin_instances)
+            if (plugin && plugin->isRunning()) return true;
 
     return false;
 }
@@ -333,9 +333,9 @@ void Kwave::PluginManager::sync()
 
     // wait until all plugins have finished their work...
     while (onePluginRunning()) {
-	Kwave::yield();
-	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-	usleep(100000);
+        Kwave::yield();
+        qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+        usleep(100000);
     }
 }
 
@@ -349,18 +349,18 @@ int Kwave::PluginManager::setupPlugin(const QString &name,
 
     // now the plugin is present and loaded
     QStringList prev_params = (params.isEmpty()) ?
-	defaultParams(name) : params;
+        defaultParams(name) : params;
 
     // call the plugins' setup function
     QStringList *new_params = plugin->setup(prev_params);
     if (new_params) {
-	// we have a non-zero parameter list, so
-	// the setup function has not been aborted.
-	savePluginDefaults(name, *new_params);
-	delete new_params;
+        // we have a non-zero parameter list, so
+        // the setup function has not been aborted.
+        savePluginDefaults(name, *new_params);
+        delete new_params;
     } else {
-	plugin->release();
-	return 1;
+        plugin->release();
+        return 1;
     }
 
     plugin->release();
@@ -388,19 +388,19 @@ QStringList Kwave::PluginManager::defaultParams(const QString &name)
 
     def_version = cfg.readEntry("version");
     if (!def_version.length()) {
-	return list;
+        return list;
     }
     if (!(def_version == version)) {
-	qDebug("PluginManager::defaultParams: "
-	    "plugin '%s': defaults for version '%s' not loaded, found "
-	    "old ones of version '%s'.",
-	    DBG(name), DBG(version), DBG(def_version));
+        qDebug("PluginManager::defaultParams: "
+            "plugin '%s': defaults for version '%s' not loaded, found "
+            "old ones of version '%s'.",
+            DBG(name), DBG(version), DBG(def_version));
 
-	// delete the old settings
-	cfg.deleteEntry("version");
-	cfg.deleteEntry("defaults");
+        // delete the old settings
+        cfg.deleteEntry("version");
+        cfg.deleteEntry("defaults");
 
-	return list;
+        return list;
     }
 
     list = cfg.readEntry("defaults").split(QLatin1Char(','));
@@ -468,13 +468,13 @@ Kwave::SampleSink *Kwave::PluginManager::openMultiTrackPlayback(
 )
 {
     Kwave::PlayBackDevice *device =
-	m_signal_manager.playbackController().openDevice(
-	    tracks, playback_params);
+        m_signal_manager.playbackController().openDevice(
+            tracks, playback_params);
     if (!device) return Q_NULLPTR;
 
     // create the multi track playback sink
     Kwave::SampleSink *sink = new(std::nothrow)
-	Kwave::MultiPlaybackSink(tracks, device);
+        Kwave::MultiPlaybackSink(tracks, device);
     Q_ASSERT(sink);
     return sink;
 }
@@ -489,7 +489,7 @@ Kwave::PlaybackController &Kwave::PluginManager::playbackController()
 void Kwave::PluginManager::insertView(Kwave::SignalView *view, QWidget *controls)
 {
     if (m_view_manager)
-	m_view_manager->insertView(view, controls);
+        m_view_manager->insertView(view, controls);
 }
 
 //***************************************************************************
@@ -569,19 +569,19 @@ void Kwave::PluginManager::connectPlugin(Kwave::Plugin *plugin)
     if (!plugin) return;
 
     connect(this, SIGNAL(sigClosed()),
-	    plugin, SLOT(close()));
+            plugin, SLOT(close()));
 
     connect(plugin, SIGNAL(sigClosed(Kwave::Plugin*)),
-	    this, SLOT(pluginClosed(Kwave::Plugin*)),
-	    Qt::QueuedConnection);
+            this, SLOT(pluginClosed(Kwave::Plugin*)),
+            Qt::QueuedConnection);
 
     connect(plugin, SIGNAL(sigRunning(Kwave::Plugin*)),
-	    this, SLOT(pluginStarted(Kwave::Plugin*)),
-	    Qt::DirectConnection);
+            this, SLOT(pluginStarted(Kwave::Plugin*)),
+            Qt::DirectConnection);
 
     connect(plugin, SIGNAL(sigDone(Kwave::Plugin*)),
-	    this, SLOT(pluginDone(Kwave::Plugin*)),
-	    Qt::QueuedConnection);
+            this, SLOT(pluginDone(Kwave::Plugin*)),
+            Qt::QueuedConnection);
 }
 
 //***************************************************************************
@@ -591,16 +591,16 @@ void Kwave::PluginManager::disconnectPlugin(Kwave::Plugin *plugin)
     if (!plugin) return;
 
     disconnect(plugin, SIGNAL(sigDone(Kwave::Plugin*)),
-	       this, SLOT(pluginDone(Kwave::Plugin*)));
+               this, SLOT(pluginDone(Kwave::Plugin*)));
 
     disconnect(plugin, SIGNAL(sigRunning(Kwave::Plugin*)),
-	       this, SLOT(pluginStarted(Kwave::Plugin*)));
+               this, SLOT(pluginStarted(Kwave::Plugin*)));
 
     disconnect(this, SIGNAL(sigClosed()),
-	       plugin, SLOT(close()));
+               plugin, SLOT(close()));
 
     disconnect(plugin, SIGNAL(sigClosed(Kwave::Plugin*)),
-	       this, SLOT(pluginClosed(Kwave::Plugin*)));
+               this, SLOT(pluginClosed(Kwave::Plugin*)));
 
 }
 
@@ -614,72 +614,72 @@ void Kwave::PluginManager::setSignalName(const QString &name)
 void Kwave::PluginManager::searchPluginModules()
 {
     if (!m_plugin_modules.isEmpty()) {
-	// this is not the first call -> increment module use count only
-	for (QMap<QString, PluginModule>::iterator it(m_plugin_modules.begin());
-	     it != m_plugin_modules.end(); ++it)
-	{
-	    it.value().m_use_count++;
-	}
-	return;
+        // this is not the first call -> increment module use count only
+        for (QMap<QString, PluginModule>::iterator it(m_plugin_modules.begin());
+             it != m_plugin_modules.end(); ++it)
+        {
+            it.value().m_use_count++;
+        }
+        return;
     }
 
     QVector<KPluginMetaData> plugins_meta_data =
-	KPluginMetaData::findPlugins(_("kwave"));
+        KPluginMetaData::findPlugins(_("kwave"));
     foreach (const KPluginMetaData &i, plugins_meta_data) {
-	QString library     = i.fileName();
-	QString description = i.name();
-	QString name        = i.pluginId();
-	QString version_raw = i.version();
-	QString version;
-	QString settings;
-	QString author      = i.authors().first().name();
+        QString library     = i.fileName();
+        QString description = i.name();
+        QString name        = i.pluginId();
+        QString version_raw = i.version();
+        QString version;
+        QString settings;
+        QString author      = i.authors().first().name();
 
-	if (version_raw.contains(_(":"))) {
-	    version  = version_raw.split(_(":")).at(0);
-	    settings = version_raw.split(_(":")).at(1);
-	}
+        if (version_raw.contains(_(":"))) {
+            version  = version_raw.split(_(":")).at(0);
+            settings = version_raw.split(_(":")).at(1);
+        }
 
-// 	qDebug("file='%s', name='%s', description='%s', binary_version='%s', "
-// 	       "settings_version='%s', author='%s'",
-// 	       DBG(library), DBG(name), DBG(description), DBG(version),
-// 	       DBG(settings), DBG(author)
-// 	);
+//      qDebug("file='%s', name='%s', description='%s', binary_version='%s', "
+//             "settings_version='%s', author='%s'",
+//             DBG(library), DBG(name), DBG(description), DBG(version),
+//             DBG(settings), DBG(author)
+//      );
 
-	if ( library.isEmpty() || description.isEmpty() ||
-	     name.isEmpty() || version.isEmpty() ) {
-	    qWarning("plugin '%s' has no library, name or version", DBG(name));
-	    continue;
-	}
+        if ( library.isEmpty() || description.isEmpty() ||
+             name.isEmpty() || version.isEmpty() ) {
+            qWarning("plugin '%s' has no library, name or version", DBG(name));
+            continue;
+        }
 
-	if (version != _(KWAVE_VERSION)) {
-	    qWarning("plugin '%s' has wrong ABI version: '%s' (should be %s)",
-		     DBG(name), DBG(version), KWAVE_VERSION);
-	    continue;
-	}
+        if (version != _(KWAVE_VERSION)) {
+            qWarning("plugin '%s' has wrong ABI version: '%s' (should be %s)",
+                     DBG(name), DBG(version), KWAVE_VERSION);
+            continue;
+        }
 
-	KPluginFactory::Result<KPluginFactory> result =
-	    KPluginFactory::loadFactory(i);
+        KPluginFactory::Result<KPluginFactory> result =
+            KPluginFactory::loadFactory(i);
 
-	if (!result) {
-	    qWarning("plugin '%s': loading failed: '%s'", DBG(name),
-		     DBG(result.errorString));
-	    continue;
-	}
+        if (!result) {
+            qWarning("plugin '%s': loading failed: '%s'", DBG(name),
+                     DBG(result.errorString));
+            continue;
+        }
 
-	emit sigProgress(i18n("Loading plugin %1...", name));
-	QApplication::processEvents();
+        emit sigProgress(i18n("Loading plugin %1...", name));
+        QApplication::processEvents();
 
-	PluginModule info;
-	info.m_name        = name;
-	info.m_author      = author;
-	info.m_description = i18n(description.toUtf8());
-	info.m_version     = settings;
-	info.m_factory     = result.plugin;
-	info.m_use_count   = 1;
+        PluginModule info;
+        info.m_name        = name;
+        info.m_author      = author;
+        info.m_description = i18n(description.toUtf8());
+        info.m_version     = settings;
+        info.m_factory     = result.plugin;
+        info.m_use_count   = 1;
 
-	m_plugin_modules.insert(info.m_name, info);
+        m_plugin_modules.insert(info.m_name, info);
 
-	qDebug("%16s %5s written by %s", DBG(name), DBG(settings), DBG(author));
+        qDebug("%16s %5s written by %s", DBG(name), DBG(settings), DBG(author));
     }
 
     qDebug("--- \n found %d plugins\n", m_plugin_modules.count());

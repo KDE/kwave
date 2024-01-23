@@ -55,17 +55,17 @@ void Kwave::Delay::setDelay(const QVariant &d)
     Kwave::SampleArray zeroes(blockSize());
     Q_ASSERT(zeroes.size() == blockSize());
     for (unsigned int pos=0; pos < blockSize(); ++pos)
-	zeroes[pos] = 0;
+        zeroes[pos] = 0;
     unsigned int rest = new_delay;
     while (rest) {
-	bool ok = true;
-	unsigned int len = blockSize();
-	if (rest < len) {
-	    ok = zeroes.resize(rest);
-	    Q_ASSERT(ok);
-	}
-	if (ok) m_fifo.put(zeroes);
-	rest -= zeroes.size();
+        bool ok = true;
+        unsigned int len = blockSize();
+        if (rest < len) {
+            ok = zeroes.resize(rest);
+            Q_ASSERT(ok);
+        }
+        if (ok) m_fifo.put(zeroes);
+        rest -= zeroes.size();
     }
 }
 

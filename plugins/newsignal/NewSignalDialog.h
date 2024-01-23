@@ -35,96 +35,96 @@ namespace Kwave
     class NewSignalDialog: public QDialog,
                            public Ui::NewSigDlg
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
-	/**
-	 * Constructor.
-	 * @param parent the parent widget the dialog belongs to
-	 * @param samples default resolution in bits per sample
-	 * @param rate default sample rate
-	 * @param bits default resolution
-	 * @param tracks default tracks
-	 * @param by_time if true: select by time, if false: select by samples
-	 */
-	NewSignalDialog(QWidget *parent, sample_index_t samples,
-	                unsigned int rate, unsigned int bits,
-	                unsigned int tracks, bool by_time);
+        /**
+         * Constructor.
+         * @param parent the parent widget the dialog belongs to
+         * @param samples default resolution in bits per sample
+         * @param rate default sample rate
+         * @param bits default resolution
+         * @param tracks default tracks
+         * @param by_time if true: select by time, if false: select by samples
+         */
+        NewSignalDialog(QWidget *parent, sample_index_t samples,
+                        unsigned int rate, unsigned int bits,
+                        unsigned int tracks, bool by_time);
 
-	/** Destructor */
-	virtual ~NewSignalDialog() {}
+        /** Destructor */
+        virtual ~NewSignalDialog() {}
 
-	/** Returns the number of samples */
-	sample_index_t samples();
+        /** Returns the number of samples */
+        sample_index_t samples();
 
-	/** Returns the selected sample rate [samples/second] */
-	double rate();
+        /** Returns the selected sample rate [samples/second] */
+        double rate();
 
-	/** Returns the selected resolution [bits per sample] */
-	unsigned int bitsPerSample();
+        /** Returns the selected resolution [bits per sample] */
+        unsigned int bitsPerSample();
 
-	/** Returns the selected number of tracks */
-	unsigned int tracks();
+        /** Returns the selected number of tracks */
+        unsigned int tracks();
 
-	/** Returns true if the selection was made by time */
-	bool byTime();
+        /** Returns true if the selection was made by time */
+        bool byTime();
 
     private slots:
 
-	/**
-	 * Checks for modifications of the sample number edit.
-	 * That stupid QSpinBox doesn't notify us about changes :-[
-	 */
-	void checkNewSampleEdit();
+        /**
+         * Checks for modifications of the sample number edit.
+         * That stupid QSpinBox doesn't notify us about changes :-[
+         */
+        void checkNewSampleEdit();
 
-	/** Checks for changes in the samples or time info */
-	void checkTimeAndLengthInfo(int);
+        /** Checks for changes in the samples or time info */
+        void checkTimeAndLengthInfo(int);
 
-	/** starts/stops the sample edit's timer if rbTime has been toggled */
-	void rbTimeToggled(bool);
+        /** starts/stops the sample edit's timer if rbTime has been toggled */
+        void rbTimeToggled(bool);
 
-	/** updates the number of samples if the time changed */
-	void timeChanged(int);
+        /** updates the number of samples if the time changed */
+        void timeChanged(int);
 
-	/** called when the sample rate has been edited or changed */
-	void sampleRateChanged(const QString&);
+        /** called when the sample rate has been edited or changed */
+        void sampleRateChanged(const QString&);
 
-	/** called when the sample rate has been changed */
-	void tracksChanged(int);
+        /** called when the sample rate has been changed */
+        void tracksChanged(int);
 
-	/** number of samples changed */
-	void samplesChanged(int);
+        /** number of samples changed */
+        void samplesChanged(int);
 
-	/** updates the file size */
-	void updateFileSize();
+        /** updates the file size */
+        void updateFileSize();
 
-	/** called if the slider for the length has been moved */
-	void setLengthPercentage(int percent);
+        /** called if the slider for the length has been moved */
+        void setLengthPercentage(int percent);
 
-	/** invoke the online help */
-	void invokeHelp();
-
-    private:
-
-	/**
-	 * Returns the maximum number of samples per track that can be created
-	 * with the current settings, based on the maximum file size of a .wav
-	 * file and the header sizes.
-	 */
-	sample_index_t maxSamples();
-
-	/**
-	 * Sets hours, minutes and seconds according to a given
-	 * number of samples.
-	 */
-	void setHMS(sample_index_t &samples);
+        /** invoke the online help */
+        void invokeHelp();
 
     private:
 
-	/** Timer that checks for changes in the sample edit field */
-	QTimer m_timer;
+        /**
+         * Returns the maximum number of samples per track that can be created
+         * with the current settings, based on the maximum file size of a .wav
+         * file and the header sizes.
+         */
+        sample_index_t maxSamples();
 
-	/** flag to avoid recursion */
-	bool m_recursive;
+        /**
+         * Sets hours, minutes and seconds according to a given
+         * number of samples.
+         */
+        void setHMS(sample_index_t &samples);
+
+    private:
+
+        /** Timer that checks for changes in the sample edit field */
+        QTimer m_timer;
+
+        /** flag to avoid recursion */
+        bool m_recursive;
     };
 }
 

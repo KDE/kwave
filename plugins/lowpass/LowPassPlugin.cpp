@@ -66,7 +66,7 @@ int Kwave::LowPassPlugin::interpreteParameters(QStringList &params)
 Kwave::PluginSetupDialog *Kwave::LowPassPlugin::createDialog(QWidget *parent)
 {
     Kwave::LowPassDialog *dialog =
-	new(std::nothrow) Kwave::LowPassDialog(parent, signalRate());
+        new(std::nothrow) Kwave::LowPassDialog(parent, signalRate());
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
@@ -81,7 +81,7 @@ Kwave::PluginSetupDialog *Kwave::LowPassPlugin::createDialog(QWidget *parent)
 Kwave::SampleSource *Kwave::LowPassPlugin::createFilter(unsigned int tracks)
 {
     return new(std::nothrow)
-	Kwave::MultiTrackSource<Kwave::LowPassFilter, true>(tracks);
+        Kwave::MultiTrackSource<Kwave::LowPassFilter, true>(tracks);
 }
 
 //***************************************************************************
@@ -99,8 +99,8 @@ void Kwave::LowPassPlugin::updateFilter(Kwave::SampleSource *filter,
     if (!filter) return;
 
     if (!qFuzzyCompare(m_frequency, m_last_freq) || force)
-	filter->setAttribute(SLOT(setFrequency(QVariant)),
-	    QVariant((m_frequency * 2.0 * M_PI) / sr));
+        filter->setAttribute(SLOT(setFrequency(QVariant)),
+            QVariant((m_frequency * 2.0 * M_PI) / sr));
 
     m_last_freq  = m_frequency;
 }

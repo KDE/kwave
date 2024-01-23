@@ -147,11 +147,11 @@ void Kwave::CompressionWidget::selectABR(bool checked)
 void Kwave::CompressionWidget::lowestToggled(bool on)
 {
     if (on) {
-	// if previous state was off: transition off->on
-	// make sure that the lowest ABR is below the current ABR
-	int abr = abrBitrate->value();
-	if (abrLowestBitrate->value() > abr)
-	    abrLowestBitrate->setValue(abr);
+        // if previous state was off: transition off->on
+        // make sure that the lowest ABR is below the current ABR
+        int abr = abrBitrate->value();
+        if (abrLowestBitrate->value() > abr)
+            abrLowestBitrate->setValue(abr);
     }
     abrLowestBitrate->setEnabled(chkLowestBitrate->isEnabled() && on);
 }
@@ -161,11 +161,11 @@ void Kwave::CompressionWidget::lowestToggled(bool on)
 void Kwave::CompressionWidget::highestToggled(bool on)
 {
     if (on) {
-	// if previous state was off: transition off->on
-	// make sure that the highest ABR is above the current ABR
-	int abr = abrBitrate->value();
-	if (abrHighestBitrate->value() < abr)
-	    abrHighestBitrate->setValue(abr);
+        // if previous state was off: transition off->on
+        // make sure that the highest ABR is above the current ABR
+        int abr = abrBitrate->value();
+        if (abrHighestBitrate->value() < abr)
+            abrHighestBitrate->setValue(abr);
     }
     abrHighestBitrate->setEnabled(chkHighestBitrate->isEnabled() && on);
 }
@@ -175,27 +175,27 @@ void Kwave::CompressionWidget::highestToggled(bool on)
 void Kwave::CompressionWidget::abrChanged(int value)
 {
     if (value < abrLowestBitrate->value())
-	abrLowestBitrate->setValue(value);
+        abrLowestBitrate->setValue(value);
     if (value > abrHighestBitrate->value())
-	abrHighestBitrate->setValue(value);
+        abrHighestBitrate->setValue(value);
 }
 
 //***************************************************************************
 void Kwave::CompressionWidget::lowestChanged(int value)
 {
     if (value > abrBitrate->value())
-	abrBitrate->setValue(value);
+        abrBitrate->setValue(value);
     if (value > abrHighestBitrate->value())
-	abrHighestBitrate->setValue(value);
+        abrHighestBitrate->setValue(value);
 }
 
 //***************************************************************************
 void Kwave::CompressionWidget::highestChanged(int value)
 {
     if (value < abrLowestBitrate->value())
-	abrLowestBitrate->setValue(value);
+        abrLowestBitrate->setValue(value);
     if (value < abrBitrate->value())
-	abrBitrate->setValue(value);
+        abrBitrate->setValue(value);
 }
 
 //***************************************************************************
@@ -224,26 +224,26 @@ void Kwave::CompressionWidget::setMode(Kwave::CompressionWidget::Mode mode)
     bool abr = rbABR->isEnabled();
     bool vbr = rbVBR->isEnabled();
     switch (mode) {
-	case ABR_MODE:
-	    rbVBR->setChecked(false);
-	    rbVBR->setChecked(true);
-	    rbVBR->setChecked(false);
+        case ABR_MODE:
+            rbVBR->setChecked(false);
+            rbVBR->setChecked(true);
+            rbVBR->setChecked(false);
 
-	    rbABR->setChecked(true);
-	    rbABR->setChecked(false);
-	    rbABR->setChecked(true);
-	    rbABR->setChecked(abr);
-	    break;
-	case VBR_MODE:
-	    rbABR->setChecked(false);
-	    rbABR->setChecked(true);
-	    rbABR->setChecked(false);
+            rbABR->setChecked(true);
+            rbABR->setChecked(false);
+            rbABR->setChecked(true);
+            rbABR->setChecked(abr);
+            break;
+        case VBR_MODE:
+            rbABR->setChecked(false);
+            rbABR->setChecked(true);
+            rbABR->setChecked(false);
 
-	    rbVBR->setChecked(true);
-	    rbVBR->setChecked(false);
-	    rbVBR->setChecked(true);
-	    rbVBR->setChecked(vbr);
-	    break;
+            rbVBR->setChecked(true);
+            rbVBR->setChecked(false);
+            rbVBR->setChecked(true);
+            rbVBR->setChecked(vbr);
+            break;
     }
 }
 

@@ -1,6 +1,6 @@
 /***************************************************************************
     kwave/FileContext.cpp  -  Context of a Loaded File
-			     -------------------
+                             -------------------
     begin                : 2010-01-02
     copyright            : (C) 2010 by Thomas.Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -60,8 +60,8 @@
  */
 namespace Kwave {
     typedef struct {
-	qint64       pos;  /**< position within the stream      */
-	unsigned int hits; /**< number of "goto"s to this label */
+        qint64       pos;  /**< position within the stream      */
+        unsigned int hits; /**< number of "goto"s to this label */
     } label_t;
 }
 
@@ -118,8 +118,8 @@ void Kwave::FileContext::release()
 {
     Q_ASSERT(int(m_use_count) > 0);
     if (m_use_count.deref() == false) {
-	disconnect();
-	deleteLater();
+        disconnect();
+        deleteLater();
     }
 }
 
@@ -130,14 +130,14 @@ bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
 
     // create the main widget
     m_main_widget = new(std::nothrow) Kwave::MainWidget(
-	m_top_widget, *this, preferred_size
+        m_top_widget, *this, preferred_size
     );
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return false;
     if (!(m_main_widget->isOK())) {
-	delete m_main_widget;
+        delete m_main_widget;
         m_main_widget = Q_NULLPTR;
-	return false;
+        return false;
     }
 
     // connect the main widget
@@ -149,9 +149,9 @@ bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
     connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
             this,          SLOT(forwardZoomChanged(double)));
     connect(m_main_widget, SIGNAL(sigVisibleRangeChanged(sample_index_t,
-	    sample_index_t, sample_index_t)),
-	    this, SLOT(visibleRangeChanged(sample_index_t,
-	    sample_index_t, sample_index_t)) );
+            sample_index_t, sample_index_t)),
+            this, SLOT(visibleRangeChanged(sample_index_t,
+            sample_index_t, sample_index_t)) );
 
     return true;
 }
@@ -166,12 +166,12 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     if (!m_top_widget) return false;
 
     m_signal_manager = new(std::nothrow)
-	Kwave::SignalManager(m_top_widget);
+        Kwave::SignalManager(m_top_widget);
     Q_ASSERT(m_signal_manager);
     if (!m_signal_manager) return false;
 
     m_plugin_manager = new(std::nothrow)
-	Kwave::PluginManager(m_top_widget, *m_signal_manager);
+        Kwave::PluginManager(m_top_widget, *m_signal_manager);
     Q_ASSERT(m_plugin_manager);
     if (!m_plugin_manager) return false;
 
@@ -204,19 +204,19 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 
     // load the menu from file
     QFile menufile(QStandardPaths::locate(
-	QStandardPaths::GenericDataLocation,
-	_("kwave/menus.config")
+        QStandardPaths::GenericDataLocation,
+        _("kwave/menus.config")
     ));
     menufile.open(QIODevice::ReadOnly);
     QTextStream stream(&menufile);
     if (stream.atEnd()) {
-	qWarning("menu file not found in:");
-	QStringList locations = QStandardPaths::standardLocations(
-	    QStandardPaths::GenericDataLocation);
-	foreach (const QString &location, locations)
-	{
-	    qWarning("    '%s'", DBG(location));
-	}
+        qWarning("menu file not found in:");
+        QStringList locations = QStandardPaths::standardLocations(
+            QStandardPaths::GenericDataLocation);
+        foreach (const QString &location, locations)
+        {
+            qWarning("    '%s'", DBG(location));
+        }
     }
     Q_ASSERT(!stream.atEnd());
     if (!stream.atEnd()) parseCommands(stream);
@@ -226,14 +226,14 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
     Kwave::Splash::showMessage(i18n("Loading plugins..."));
     statusBarMessage(i18n("Loading plugins..."), 0);
     if (!m_plugin_manager->loadAllPlugins()) {
-	statusBarMessage(i18n("Failed"), 1000);
-	QApplication::restoreOverrideCursor();
-	Kwave::MessageBox::error(top_widget,
-	    i18n("Kwave has not been properly installed. "\
-	         "No plugins found!")
-	);
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-	return false;
+        statusBarMessage(i18n("Failed"), 1000);
+        QApplication::restoreOverrideCursor();
+        Kwave::MessageBox::error(top_widget,
+            i18n("Kwave has not been properly installed. "\
+                 "No plugins found!")
+        );
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+        return false;
     }
     statusBarMessage(i18n("Ready"), 1000);
 
@@ -244,37 +244,37 @@ bool Kwave::FileContext::init(Kwave::TopWidget *top_widget)
 void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
 {
     if (m_top_widget) {
-	Kwave::TopWidget *old = m_top_widget;
+        Kwave::TopWidget *old = m_top_widget;
 
-	// disconnect all old signal/slot relationships
-	if (m_plugin_manager)
-	    disconnect(m_plugin_manager, SIGNAL(sigProgress(QString)),
-	               old,              SLOT(showInSplashSreen(QString)));
-	disconnect(old,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
-	           this, SLOT(contextSwitched(Kwave::FileContext*)));
+        // disconnect all old signal/slot relationships
+        if (m_plugin_manager)
+            disconnect(m_plugin_manager, SIGNAL(sigProgress(QString)),
+                       old,              SLOT(showInSplashSreen(QString)));
+        disconnect(old,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
+                   this, SLOT(contextSwitched(Kwave::FileContext*)));
 
         if (m_signal_manager) m_signal_manager->setParentWidget(Q_NULLPTR);
         if (m_plugin_manager) m_plugin_manager->setParentWidget(Q_NULLPTR);
         if (m_main_widget)    m_main_widget->setParent(Q_NULLPTR);
 
-	m_active = false;
+        m_active = false;
     }
 
     // set the new top widget
     m_top_widget = top_widget;
 
     if (m_top_widget) {
-	QWidget *top = m_top_widget;
+        QWidget *top = m_top_widget;
 
-	connect(top,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
-	        this, SLOT(contextSwitched(Kwave::FileContext*)));
-	if (m_plugin_manager)
-	    connect(m_plugin_manager, SIGNAL(sigProgress(QString)),
-	            top,              SLOT(showInSplashSreen(QString)));
+        connect(top,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
+                this, SLOT(contextSwitched(Kwave::FileContext*)));
+        if (m_plugin_manager)
+            connect(m_plugin_manager, SIGNAL(sigProgress(QString)),
+                    top,              SLOT(showInSplashSreen(QString)));
 
-	if (m_signal_manager) m_signal_manager->setParentWidget(m_top_widget);
-	if (m_plugin_manager) m_plugin_manager->setParentWidget(m_top_widget);
-	if (m_main_widget)    m_main_widget->setParent(m_top_widget);
+        if (m_signal_manager) m_signal_manager->setParentWidget(m_top_widget);
+        if (m_plugin_manager) m_plugin_manager->setParentWidget(m_top_widget);
+        if (m_main_widget)    m_main_widget->setParent(m_top_widget);
     }
 }
 
@@ -336,43 +336,43 @@ int Kwave::FileContext::executeCommand(const QString &line)
 
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.trimmed().startsWith(_("#")))
-	return 0; // only a comment
+        return 0; // only a comment
 
     // special case: if the command contains ";" it is a list of
     // commands -> macro !
     Kwave::Parser parse_list(command);
     if (parse_list.hasMultipleCommands()) {
-	QStringList macro = parse_list.commandList();
-	foreach (const QString &it, macro) {
-	    result = executeCommand(_("nomacro:") + it);
-	    Q_ASSERT(!result);
-	    if (result) {
-		qWarning("macro execution of '%s' failed: %d",
-		         DBG(it), result);
-		return result; // macro failed :-(
-	    }
+        QStringList macro = parse_list.commandList();
+        foreach (const QString &it, macro) {
+            result = executeCommand(_("nomacro:") + it);
+            Q_ASSERT(!result);
+            if (result) {
+                qWarning("macro execution of '%s' failed: %d",
+                         DBG(it), result);
+                return result; // macro failed :-(
+            }
 
-	    // wait until the command has completed !
-	    m_plugin_manager->sync();
-	}
-	return result;
+            // wait until the command has completed !
+            m_plugin_manager->sync();
+        }
+        return result;
     }
 
     // check if the macro recorder has to be disabled for this command
     if (command.startsWith(_("nomacro:"))) {
-	use_recorder = false;
-	command = command.mid(QString(_("nomacro:")).length());
+        use_recorder = false;
+        command = command.mid(QString(_("nomacro:")).length());
     }
 
     // expand variables
     if (command.contains(_("${"))) {
-	// current language
-	if (command.contains(_("${LANG}"))) {
-	    QLocale locale;
-	    if (!m_main_widget.isNull()) locale = m_main_widget->locale();
-	    QString lang = locale.name().split(_("-")).at(0);
-	    command.replace(_("${LANG}"), lang);
-	}
+        // current language
+        if (command.contains(_("${LANG}"))) {
+            QLocale locale;
+            if (!m_main_widget.isNull()) locale = m_main_widget->locale();
+            QString lang = locale.name().split(_("-")).at(0);
+            command.replace(_("${LANG}"), lang);
+        }
     }
 
     // log all commands to the log file if enabled
@@ -391,91 +391,91 @@ int Kwave::FileContext::executeCommand(const QString &line)
     // let through all commands that handle zoom/view or playback like fwd/rew
     bool allow_always =
         (cmd == _("playback")) ||
-	cmd.startsWith(_("view:")) ||
-	cmd.startsWith(_("playback:")) ||
-	cmd.startsWith(_("select_track:")) ||
-	(cmd == _("close")) ||
-	(cmd == _("quit")) ||
-	(cmd == _("window:screenshot")) ||
-	(cmd == _("window:sendkey"))
-	;
+        cmd.startsWith(_("view:")) ||
+        cmd.startsWith(_("playback:")) ||
+        cmd.startsWith(_("select_track:")) ||
+        (cmd == _("close")) ||
+        (cmd == _("quit")) ||
+        (cmd == _("window:screenshot")) ||
+        (cmd == _("window:sendkey"))
+        ;
 
     // all others only if no plugin is currently running
     if (!allow_always && m_plugin_manager->onePluginRunning())
     {
-	qWarning("FileContext::executeCommand('%s') - currently not possible, "
-		 "a plugin is running :-(",
-		 DBG(cmd));
-	return -1;
+        qWarning("FileContext::executeCommand('%s') - currently not possible, "
+                 "a plugin is running :-(",
+                 DBG(cmd));
+        return -1;
     }
 
     if (use_recorder) {
-	// append the command to the macro recorder
-	// @TODO macro recording...
-	qDebug("# %s ", DBG(command));
+        // append the command to the macro recorder
+        // @TODO macro recording...
+        qDebug("# %s ", DBG(command));
     }
 
     if ((result = m_top_widget->executeCommand(command)) != ENOSYS)
-	return result;
+        return result;
 
     if (false) {
     CASE_COMMAND("close")
-	result = closeFile() ? 0 : 1;
+        result = closeFile() ? 0 : 1;
     CASE_COMMAND("delayed")
-	if (parser.count() != 2)
-	    return -EINVAL;
-	unsigned int delay         = parser.firstParam().toUInt();
-	QString      delayed_cmd   = parser.nextParam();
-	enqueueCommand(delay, delayed_cmd);
-	result = 0;
+        if (parser.count() != 2)
+            return -EINVAL;
+        unsigned int delay         = parser.firstParam().toUInt();
+        QString      delayed_cmd   = parser.nextParam();
+        enqueueCommand(delay, delayed_cmd);
+        result = 0;
     CASE_COMMAND("loadbatch")
-	result = loadBatch(QUrl(parser.nextParam()));
+        result = loadBatch(QUrl(parser.nextParam()));
     CASE_COMMAND("plugin")
-	QString name(parser.firstParam());
-	QStringList params(parser.remainingParams());
-	qDebug("FileContext::executeCommand(): loading plugin '%s'", DBG(name));
-	qDebug("FileContext::executeCommand(): with %d parameter(s)",
-		params.count());
-	result = m_plugin_manager->executePlugin(
+        QString name(parser.firstParam());
+        QStringList params(parser.remainingParams());
+        qDebug("FileContext::executeCommand(): loading plugin '%s'", DBG(name));
+        qDebug("FileContext::executeCommand(): with %d parameter(s)",
+                params.count());
+        result = m_plugin_manager->executePlugin(
             name, params.count() ? &params : Q_NULLPTR);
     CASE_COMMAND("plugin:execute")
-	QString name(parser.firstParam());
-	QStringList params(parser.remainingParams());
-	result = m_plugin_manager->executePlugin(name, &params);
+        QString name(parser.firstParam());
+        QStringList params(parser.remainingParams());
+        result = m_plugin_manager->executePlugin(name, &params);
     CASE_COMMAND("plugin:setup")
-	QString name(parser.firstParam());
-	QStringList params(parser.remainingParams());
-	result = m_plugin_manager->setupPlugin(name, params);
-	if (result > 0) result = 0;
+        QString name(parser.firstParam());
+        QStringList params(parser.remainingParams());
+        result = m_plugin_manager->setupPlugin(name, params);
+        if (result > 0) result = 0;
     CASE_COMMAND("revert")
-	result = revert();
+        result = revert();
     CASE_COMMAND("save")
-	result = saveFile();
+        result = saveFile();
     CASE_COMMAND("saveas")
-	result = saveFileAs(parser.nextParam(), false);
+        result = saveFileAs(parser.nextParam(), false);
     CASE_COMMAND("saveselect")
-	result = saveFileAs(QString(), true);
+        result = saveFileAs(QString(), true);
     CASE_COMMAND("sync")
-	while (!m_delayed_command_queue.isEmpty()) {
-	    qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-	}
-	result = 0;
+        while (!m_delayed_command_queue.isEmpty()) {
+            qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+        }
+        result = 0;
     CASE_COMMAND("window:click")
-	result = delegateCommand("debug", parser, 3);
+        result = delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:close")
-	result = delegateCommand("debug", parser, 1);
+        result = delegateCommand("debug", parser, 1);
     CASE_COMMAND("window:mousemove")
-	result = delegateCommand("debug", parser, 3);
+        result = delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:resize")
-	result = delegateCommand("debug", parser, 3);
+        result = delegateCommand("debug", parser, 3);
     CASE_COMMAND("window:sendkey")
-	result = delegateCommand("debug", parser, 2);
+        result = delegateCommand("debug", parser, 2);
     CASE_COMMAND("window:screenshot")
-	result = delegateCommand("debug", parser, 2);
+        result = delegateCommand("debug", parser, 2);
     } else {
-	// pass the command to the layer below (main widget)
-	Kwave::CommandHandler *layer_below = m_main_widget;
-	result = (layer_below) ? layer_below->executeCommand(command) : -ENOSYS;
+        // pass the command to the layer below (main widget)
+        Kwave::CommandHandler *layer_below = m_main_widget;
+        result = (layer_below) ? layer_below->executeCommand(command) : -ENOSYS;
     }
 
     return result;
@@ -494,12 +494,12 @@ void Kwave::FileContext::statusBarMessage(const QString &msg, unsigned int ms)
     m_last_status_message_text = msg;
     m_last_status_message_ms   = ms;
     if (ms)
-	m_last_status_message_timer.start();
+        m_last_status_message_timer.start();
     else
-	m_last_status_message_timer.invalidate();
+        m_last_status_message_timer.invalidate();
 
     if (isActive())
-	emit sigStatusBarMessage(msg, ms);
+        emit sigStatusBarMessage(msg, ms);
 }
 
 //***************************************************************************
@@ -514,10 +514,10 @@ void Kwave::FileContext::updatePlaybackPos(sample_index_t offset)
     QString txt;
     double rate = m_plugin_manager->signalRate();
     if (rate > 0) {
-	double ms = static_cast<double>(offset) * 1E3 / rate;
-	txt = i18n("Playback: %1", Kwave::ms2string(ms));
+        double ms = static_cast<double>(offset) * 1E3 / rate;
+        txt = i18n("Playback: %1", Kwave::ms2string(ms));
     } else {
-	txt = i18n("Playback: %1 samples", Kwave::samples2string(offset));
+        txt = i18n("Playback: %1 samples", Kwave::samples2string(offset));
     }
 
     statusBarMessage(txt, 2000);
@@ -533,36 +533,36 @@ void Kwave::FileContext::metaDataChanged(Kwave::MetaDataList meta_data)
 {
     // find out the instance ID
     if (m_instance_nr == -1) {
-	// build a list of all currently open files/instances (including this)
-	QList<Kwave::App::FileAndInstance> files = m_application.openFiles();
+        // build a list of all currently open files/instances (including this)
+        QList<Kwave::App::FileAndInstance> files = m_application.openFiles();
 
-	// filter out all instances of our file name
-	QString our_name = signalName();
-	QList<int> existing_instances;
-	foreach (const Kwave::App::FileAndInstance &it, files) {
-	    const QString &name = it.first;
-	    int            inst = it.second;
-	    if (name == our_name) existing_instances.append(inst);
-	}
+        // filter out all instances of our file name
+        QString our_name = signalName();
+        QList<int> existing_instances;
+        foreach (const Kwave::App::FileAndInstance &it, files) {
+            const QString &name = it.first;
+            int            inst = it.second;
+            if (name == our_name) existing_instances.append(inst);
+        }
 
-	// remove our own entry
-	if (existing_instances.contains(m_instance_nr))
-	    existing_instances.removeOne(m_instance_nr);
+        // remove our own entry
+        if (existing_instances.contains(m_instance_nr))
+            existing_instances.removeOne(m_instance_nr);
 
-	// find an empty slot
-	if (!existing_instances.isEmpty())
-	    while (existing_instances.contains(m_instance_nr))
-		m_instance_nr = (m_instance_nr != -1) ? (m_instance_nr + 1) : 2;
+        // find an empty slot
+        if (!existing_instances.isEmpty())
+            while (existing_instances.contains(m_instance_nr))
+                m_instance_nr = (m_instance_nr != -1) ? (m_instance_nr + 1) : 2;
     }
 
     if (isActive()) {
-	// we are active -> emit the meta data immediately
-	emit sigMetaDataChanged(meta_data);
+        // we are active -> emit the meta data immediately
+        emit sigMetaDataChanged(meta_data);
     } // else: we are inactive -> emit the meta data later, when activated
 
     // update the caption of the sub window
     if (m_main_widget && (m_application.guiType() != Kwave::App::GUI_SDI))
-	m_main_widget->setWindowTitle(windowCaption(true));
+        m_main_widget->setWindowTitle(windowCaption(true));
 }
 
 //***************************************************************************
@@ -570,8 +570,8 @@ void Kwave::FileContext::selectionChanged(sample_index_t offset,
                                           sample_index_t length)
 {
     if (isActive()) {
-	// we are active -> emit the selection change immediately
-	emit sigSelectionChanged(offset, length);
+        // we are active -> emit the selection change immediately
+        emit sigSelectionChanged(offset, length);
     } // else: we are inactive -> not of interest / ignore
 }
 
@@ -583,8 +583,8 @@ void Kwave::FileContext::setUndoRedoInfo(const QString &undo,
     m_last_redo = redo;
 
     if (isActive()) {
-	// we are active -> emit the undo/redo info immediately
-	emit sigUndoRedoInfo(undo, redo);
+        // we are active -> emit the undo/redo info immediately
+        emit sigUndoRedoInfo(undo, redo);
     } // else: we are inactive -> emit the undo/redo info later, when activated
 }
 
@@ -594,8 +594,8 @@ void Kwave::FileContext::visibleRangeChanged(sample_index_t offset,
                                              sample_index_t total)
 {
     if (isActive()) {
-	// we are active -> emit the view info immediately
-	emit sigVisibleRangeChanged(offset, visible, total);
+        // we are active -> emit the view info immediately
+        emit sigVisibleRangeChanged(offset, visible, total);
     } // else: we are inactive -> emit the view info later, when activated
 }
 
@@ -603,13 +603,13 @@ void Kwave::FileContext::visibleRangeChanged(sample_index_t offset,
 void Kwave::FileContext::modifiedChanged()
 {
     if (isActive()) {
-	// we are active -> emit the modified state immediately
-	emit sigModified();
+        // we are active -> emit the modified state immediately
+        emit sigModified();
     } // else: we are inactive -> emit the modified state later, when activated
 
     // update the caption of our main widget
     if (m_main_widget && (m_application.guiType() != Kwave::App::GUI_SDI))
-	m_main_widget->setWindowTitle(windowCaption(true));
+        m_main_widget->setWindowTitle(windowCaption(true));
 }
 
 //***************************************************************************
@@ -618,12 +618,12 @@ void Kwave::FileContext::contextSwitched(Kwave::FileContext *context)
     Kwave::FileContext::UsageGuard _keep(this);
 
     if (context == this) {
-	if (!m_active) {
-	    m_active = true;
-	    activated();
-	}
+        if (!m_active) {
+            m_active = true;
+            activated();
+        }
     } else
-	m_active = false;
+        m_active = false;
 }
 
 //***************************************************************************
@@ -634,7 +634,7 @@ void Kwave::FileContext::activated()
 
     // emit last playback position if playback is running
     if (m_signal_manager && m_signal_manager->playbackController().running())
-	updatePlaybackPos(m_last_playback_pos);
+        updatePlaybackPos(m_last_playback_pos);
 
     // emit last zoom factor
     forwardZoomChanged(m_last_zoom);
@@ -644,30 +644,30 @@ void Kwave::FileContext::activated()
 
     // emit our last status bar message if it has not expired
     if (m_last_status_message_timer.isValid()) {
-	quint64 elapsed = m_last_status_message_timer.elapsed();
-	if (elapsed < m_last_status_message_ms) {
-	    unsigned int remaining =
-		Kwave::toUint(m_last_status_message_ms - elapsed);
-	    emit sigStatusBarMessage(m_last_status_message_text, remaining);
-	} else
-	    m_last_status_message_timer.invalidate();
+        quint64 elapsed = m_last_status_message_timer.elapsed();
+        if (elapsed < m_last_status_message_ms) {
+            unsigned int remaining =
+                Kwave::toUint(m_last_status_message_ms - elapsed);
+            emit sigStatusBarMessage(m_last_status_message_text, remaining);
+        } else
+            m_last_status_message_timer.invalidate();
     } else if (m_last_status_message_ms == 0) {
-	// static message without expiration
-	if (m_last_status_message_text.length()) {
-	    emit sigStatusBarMessage(m_last_status_message_text, 0);
-	}
+        // static message without expiration
+        if (m_last_status_message_text.length()) {
+            emit sigStatusBarMessage(m_last_status_message_text, 0);
+        }
     }
 
     // emit latest meta data
     if (m_signal_manager)
-	emit sigMetaDataChanged(m_signal_manager->metaData());
+        emit sigMetaDataChanged(m_signal_manager->metaData());
 
     // emit latest view range change
     if (m_main_widget && m_signal_manager) {
-	sample_index_t offset  = m_main_widget->visibleOffset();
-	sample_index_t visible = m_main_widget->visibleSamples();
-	sample_index_t total   = m_signal_manager->length();
-	emit sigVisibleRangeChanged(offset, visible, total);
+        sample_index_t offset  = m_main_widget->visibleOffset();
+        sample_index_t visible = m_main_widget->visibleSamples();
+        sample_index_t total   = m_signal_manager->length();
+        emit sigVisibleRangeChanged(offset, visible, total);
     }
 
     // force update of the "modified" state
@@ -691,109 +691,109 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
 
     QString label; // label, jump target of a "GOTO"
     while (!stream.atEnd() && !result) {
-	QString line = stream.readLine().simplified();
-	if (line.startsWith(_("#"))) continue; // skip comments
-	if (!line.length()) continue;          // skip empty lines
+        QString line = stream.readLine().simplified();
+        if (line.startsWith(_("#"))) continue; // skip comments
+        if (!line.length()) continue;          // skip empty lines
 
-	if (line.endsWith(QLatin1Char(':'))) {
-	    // this line seems to be a "label"
-	    QString name = line.left(line.length() - 1).simplified();
-	    if (!labels.contains(name)) {
-		// qDebug("new label '%s' at %llu", DBG(name), stream.pos());
-		label_t label_pos;
-		label_pos.pos  = stream.pos();
-		label_pos.hits = 0;
-		labels[name] = label_pos;
-	    }
+        if (line.endsWith(QLatin1Char(':'))) {
+            // this line seems to be a "label"
+            QString name = line.left(line.length() - 1).simplified();
+            if (!labels.contains(name)) {
+                // qDebug("new label '%s' at %llu", DBG(name), stream.pos());
+                label_t label_pos;
+                label_pos.pos  = stream.pos();
+                label_pos.hits = 0;
+                labels[name] = label_pos;
+            }
 
-	    // special handling for a label at the end of the file
-	    if (label.length() && (label == name)) {
-		// label found
-		label = QString();
-	    }
-	    continue;
-	}
+            // special handling for a label at the end of the file
+            if (label.length() && (label == name)) {
+                // label found
+                label = QString();
+            }
+            continue;
+        }
 
-	Kwave::Parser parser(line);
+        Kwave::Parser parser(line);
 
-	// the "GOTO" command
-	if ( !label.length() &&
-	    (line.split(QLatin1Char(' ')).at(0) == _("GOTO")) ) {
-	    label = line.split(QLatin1Char(' ')).at(1).simplified();
-	}
+        // the "GOTO" command
+        if ( !label.length() &&
+            (line.split(QLatin1Char(' ')).at(0) == _("GOTO")) ) {
+            label = line.split(QLatin1Char(' ')).at(1).simplified();
+        }
 
-	// jump to a label, scan/seek mode
-	if (label.length()) {
-	    if (labels.contains(label)) {
-		labels[label].hits++;
-		qDebug(">>> GOTO '%s' @ offset %llu (pass #%d)", DBG(label),
-		       labels[label].pos,
-		       labels[label].hits
-		    );
-		stream.seek(labels[label].pos);
+        // jump to a label, scan/seek mode
+        if (label.length()) {
+            if (labels.contains(label)) {
+                labels[label].hits++;
+                qDebug(">>> GOTO '%s' @ offset %llu (pass #%d)", DBG(label),
+                       labels[label].pos,
+                       labels[label].hits
+                    );
+                stream.seek(labels[label].pos);
 
-		// reset the label to search for
-		label = QString();
-	    }
-	    // else: maybe the label will follow somewhere below,
-	    //       scan forward...
-	    continue;
-	}
+                // reset the label to search for
+                label = QString();
+            }
+            // else: maybe the label will follow somewhere below,
+            //       scan forward...
+            continue;
+        }
 
-	// synchronize before the command
-	if (m_plugin_manager)
-	    m_plugin_manager->sync();
+        // synchronize before the command
+        if (m_plugin_manager)
+            m_plugin_manager->sync();
 
-	// the "msgbox" command (useful for debugging)
-	if (false) {
-	CASE_COMMAND("msgbox")
-	    QApplication::restoreOverrideCursor();
-	    result = (Kwave::MessageBox::questionYesNo(mainWidget(),
-		parser.firstParam()) == KMessageBox::Yes) ? 0 : 1;
-	    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-	    continue;
-	}
+        // the "msgbox" command (useful for debugging)
+        if (false) {
+        CASE_COMMAND("msgbox")
+            QApplication::restoreOverrideCursor();
+            result = (Kwave::MessageBox::questionYesNo(mainWidget(),
+                parser.firstParam()) == KMessageBox::Yes) ? 0 : 1;
+            QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+            continue;
+        }
 
-	// prevent this command from being re-added to the macro recorder
-	if (!line.startsWith(_("nomacro:"), Qt::CaseInsensitive))
-	    line.prepend(_("nomacro:"));
+        // prevent this command from being re-added to the macro recorder
+        if (!line.startsWith(_("nomacro:"), Qt::CaseInsensitive))
+            line.prepend(_("nomacro:"));
 
-	// process the command in the current context
-	// NOTE: this could theoretically also be a command that modifies
-	//       or even deletes the current context!
-	result = EAGAIN;
-	const Kwave::FileContext *current_ctx = (m_top_widget) ?
-	    m_top_widget->currentContext() : Q_NULLPTR;
-	if (current_ctx && (current_ctx != this))
-	    result = m_top_widget->forwardCommand(line);
+        // process the command in the current context
+        // NOTE: this could theoretically also be a command that modifies
+        //       or even deletes the current context!
+        result = EAGAIN;
+        const Kwave::FileContext *current_ctx = (m_top_widget) ?
+            m_top_widget->currentContext() : Q_NULLPTR;
+        if (current_ctx && (current_ctx != this))
+            result = m_top_widget->forwardCommand(line);
 
-	// If the call returned with EAGAIN, then the context in duty is
-	// different from this instance but not yet completely set up.
-	// In that case this context is still responsible for executing the
-	// current command.
-	if (result == EAGAIN)
-	    result = executeCommand(line);
+        // If the call returned with EAGAIN, then the context in duty is
+        // different from this instance but not yet completely set up.
+        // In that case this context is still responsible for executing the
+        // current command.
+        if (result == EAGAIN)
+            result = executeCommand(line);
 
-	if (result)
-	    qDebug(">>> '%s' - result=%d", DBG(line), result);
+        if (result)
+            qDebug(">>> '%s' - result=%d", DBG(line), result);
 
-	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+        qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	// synchronize after the command
-	if (m_plugin_manager)
-	    m_plugin_manager->sync();
+        // synchronize after the command
+        if (m_plugin_manager)
+            m_plugin_manager->sync();
 
-	// special handling of the "quit" command
-	if (parser.command() == _("quit")) {
-	    result = ECANCELED;
-	    break;
-	}
+        // special handling of the "quit" command
+        if (parser.command() == _("quit")) {
+            result = ECANCELED;
+            break;
+        }
     }
 
     if (label.length()) {
-	// oops, if we get here then we have searched for a non-exising label
-	qWarning("label '%s' not found", DBG(label));
-	result = -ENOENT;
+        // oops, if we get here then we have searched for a non-exising label
+        qWarning("label '%s' not found", DBG(label));
+        result = -ENOENT;
     }
 
     // remove hourglass
@@ -809,10 +809,10 @@ void Kwave::FileContext::enqueueCommand(unsigned int delay,
     use();
 
     m_delayed_command_queue.append(
-	QPair<unsigned int, QString>(delay, command)
+        QPair<unsigned int, QString>(delay, command)
     );
     if (!m_delayed_command_timer.isActive())
-	m_delayed_command_timer.start(delay);
+        m_delayed_command_timer.start(delay);
 }
 
 //***************************************************************************
@@ -854,20 +854,20 @@ QString Kwave::FileContext::windowCaption(bool with_modified) const
     // if not in SDI mode we have to take care of multiple instances on our
     // own and append a " <n>" manually !
     if (m_application.guiType() != Kwave::App::GUI_SDI)
-	if (m_instance_nr != -1)
-	    name = i18nc(
-	        "for window title: "
-	        "%1 = Name of the file, "
-	        "%2 = Instance number when opened multiple times",
-	        "%1 <%2>", name, m_instance_nr);
+        if (m_instance_nr != -1)
+            name = i18nc(
+                "for window title: "
+                "%1 = Name of the file, "
+                "%2 = Instance number when opened multiple times",
+                "%1 <%2>", name, m_instance_nr);
 
     if (with_modified) {
-	bool modified = (m_signal_manager) ?
-	    m_signal_manager->isModified() : false;
-	if (modified)
-	    return i18nc("%1 = Path to modified file", "* %1 (modified)", name);
+        bool modified = (m_signal_manager) ?
+            m_signal_manager->isModified() : false;
+        if (modified)
+            return i18nc("%1 = Path to modified file", "* %1 (modified)", name);
     }
-	return name;
+        return name;
 }
 
 //***************************************************************************
@@ -878,8 +878,8 @@ int Kwave::FileContext::loadBatch(const QUrl &url)
     // open the URL, read-only mode is enough
     QFile file(url.path());
     if (!file.open(QIODevice::ReadOnly)) {
-	qWarning("unable to open source in read-only mode!");
-	return -EIO;
+        qWarning("unable to open source in read-only mode!");
+        return -EIO;
     }
 
     // use a text stream for parsing the commands
@@ -916,13 +916,13 @@ int Kwave::FileContext::saveFile()
     int res = 0;
 
     if (signalName() != NEW_FILENAME) {
-	QUrl url;
-	url = QUrl(signalName());
-	res = m_signal_manager->save(url, false);
+        QUrl url;
+        url = QUrl(signalName());
+        res = m_signal_manager->save(url, false);
 
-	// if saving in current format is not possible (no encoder),
-	// then try to "save/as" instead...
-	if (res == -EINVAL) res = saveFileAs(QString(), false);
+        // if saving in current format is not possible (no encoder),
+        // then try to "save/as" instead...
+        if (res == -EINVAL) res = saveFileAs(QString(), false);
     } else res = saveFileAs(QString(), false);
 
     return res;
@@ -938,124 +938,124 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
     int res = 0;
 
     if (name.length()) {
-	/* name given -> take it */
-	url = QUrl(name);
+        /* name given -> take it */
+        url = QUrl(name);
     } else {
-	/*
-	 * no name given -> show the File/SaveAs dialog...
-	 */
-	QUrl current_url;
-	current_url = QUrl(signalName());
+        /*
+         * no name given -> show the File/SaveAs dialog...
+         */
+        QUrl current_url;
+        current_url = QUrl(signalName());
 
         QString what  = Kwave::CodecManager::mimeTypeOf(current_url);
-	Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
-	QString extension; // = "*.wav";
-	if (!encoder) {
-	    // no extension selected yet, use mime type from file info
-	    QString mime_type = Kwave::FileInfo(
-		m_signal_manager->metaData()).get(
-		    Kwave::INF_MIMETYPE).toString();
-	    encoder = Kwave::CodecManager::encoder(mime_type);
-	    if (encoder) {
-		QStringList extensions = encoder->extensions(mime_type);
-		if (!extensions.isEmpty()) {
-		    QString ext = extensions.first().split(_(" ")).first();
-		    if (ext.length()) {
-			extension = ext;
-			QString new_filename = current_url.fileName();
-			new_filename += extension.midRef(1); // remove the "*"
-			current_url = current_url.adjusted(QUrl::RemoveFilename);
-			current_url.setPath(current_url.path() + new_filename);
-		    }
-		}
-	    }
-	}
+        Kwave::Encoder *encoder = Kwave::CodecManager::encoder(what);
+        QString extension; // = "*.wav";
+        if (!encoder) {
+            // no extension selected yet, use mime type from file info
+            QString mime_type = Kwave::FileInfo(
+                m_signal_manager->metaData()).get(
+                    Kwave::INF_MIMETYPE).toString();
+            encoder = Kwave::CodecManager::encoder(mime_type);
+            if (encoder) {
+                QStringList extensions = encoder->extensions(mime_type);
+                if (!extensions.isEmpty()) {
+                    QString ext = extensions.first().split(_(" ")).first();
+                    if (ext.length()) {
+                        extension = ext;
+                        QString new_filename = current_url.fileName();
+                        new_filename += extension.midRef(1); // remove the "*"
+                        current_url = current_url.adjusted(QUrl::RemoveFilename);
+                        current_url.setPath(current_url.path() + new_filename);
+                    }
+                }
+            }
+        }
 
-	QString filter = Kwave::CodecManager::encodingFilter();
-	QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
-	    _("kfiledialog:///kwave_save_as"),
-	    Kwave::FileDialog::SaveFile,
-	    filter, m_top_widget, current_url, extension
-	);
-	if (!dlg) return 0;
-	dlg->setWindowTitle(i18n("Save As"));
-	if (dlg->exec() != QDialog::Accepted) {
-	    delete dlg;
-	    return -1;
-	}
+        QString filter = Kwave::CodecManager::encodingFilter();
+        QPointer<Kwave::FileDialog> dlg = new(std::nothrow)Kwave::FileDialog(
+            _("kfiledialog:///kwave_save_as"),
+            Kwave::FileDialog::SaveFile,
+            filter, m_top_widget, current_url, extension
+        );
+        if (!dlg) return 0;
+        dlg->setWindowTitle(i18n("Save As"));
+        if (dlg->exec() != QDialog::Accepted) {
+            delete dlg;
+            return -1;
+        }
 
-	url = dlg->selectedUrl();
-	if (url.isEmpty()) {
-	    delete dlg;
-	    return 0;
-	}
+        url = dlg->selectedUrl();
+        if (url.isEmpty()) {
+            delete dlg;
+            return 0;
+        }
 
-	QString new_name = url.path();
-	QFileInfo path(new_name);
+        QString new_name = url.path();
+        QFileInfo path(new_name);
 
-	// add the correct extension if necessary
-	if (!path.suffix().length()) {
-	    QString ext = dlg->selectedExtension();
-	    QStringList extensions = ext.split(_(" "));
-	    ext = extensions.first();
-	    new_name += ext.midRef(1);
-	    path = new_name;
-	    url.setPath(new_name);
-	}
+        // add the correct extension if necessary
+        if (!path.suffix().length()) {
+            QString ext = dlg->selectedExtension();
+            QStringList extensions = ext.split(_(" "));
+            ext = extensions.first();
+            new_name += ext.midRef(1);
+            path = new_name;
+            url.setPath(new_name);
+        }
 
-	delete dlg;
+        delete dlg;
     }
 
     // check if the file exists and ask before overwriting it
     // if it is not the old filename
     name = url.path();
     if ((url.toDisplayString() != QUrl(signalName()).toDisplayString()) &&
-	QFileInfo::exists(name))
+        QFileInfo::exists(name))
     {
-	if (Kwave::MessageBox::warningYesNo(m_top_widget,
-	    i18n("The file '%1' already exists.\n"
-	         "Do you really want to overwrite it?", name)) !=
-	         KMessageBox::Yes)
-	{
-	    return -1;
-	}
+        if (Kwave::MessageBox::warningYesNo(m_top_widget,
+            i18n("The file '%1' already exists.\n"
+                 "Do you really want to overwrite it?", name)) !=
+                 KMessageBox::Yes)
+        {
+            return -1;
+        }
     }
 
     // maybe we now have a new mime type
     QString previous_mimetype_name =
-	Kwave::FileInfo(m_signal_manager->metaData()).get(
-	    Kwave::INF_MIMETYPE).toString();
+        Kwave::FileInfo(m_signal_manager->metaData()).get(
+            Kwave::INF_MIMETYPE).toString();
 
     QString new_mimetype_name = Kwave::CodecManager::mimeTypeOf(url);
 
     if (new_mimetype_name != previous_mimetype_name) {
-	// saving to a different mime type
-	// now we have to do as if the mime type and file name
-	// has already been selected to satisfy the fileinfo
-	// plugin
-	qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
-	    DBG(url.toDisplayString()), DBG(new_mimetype_name),
-	    DBG(previous_mimetype_name) );
+        // saving to a different mime type
+        // now we have to do as if the mime type and file name
+        // has already been selected to satisfy the fileinfo
+        // plugin
+        qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
+            DBG(url.toDisplayString()), DBG(new_mimetype_name),
+            DBG(previous_mimetype_name) );
 
-	// set the new mimetype
-	Kwave::FileInfo info(m_signal_manager->metaData());
-	info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
+        // set the new mimetype
+        Kwave::FileInfo info(m_signal_manager->metaData());
+        info.set(Kwave::INF_MIMETYPE, new_mimetype_name);
 
-	// set the new filename
-	info.set(Kwave::INF_FILENAME, url.toDisplayString());
-	m_signal_manager->setFileInfo(info, false);
+        // set the new filename
+        info.set(Kwave::INF_FILENAME, url.toDisplayString());
+        m_signal_manager->setFileInfo(info, false);
 
-	// now call the fileinfo plugin with the new filename and
-	// mimetype
-	res = (m_plugin_manager) ?
-	       m_plugin_manager->setupPlugin(_("fileinfo"), QStringList())
-	       : -1;
+        // now call the fileinfo plugin with the new filename and
+        // mimetype
+        res = (m_plugin_manager) ?
+               m_plugin_manager->setupPlugin(_("fileinfo"), QStringList())
+               : -1;
 
-	// restore the mime type and the filename
-	info = Kwave::FileInfo(m_signal_manager->metaData());
-	info.set(Kwave::INF_MIMETYPE, previous_mimetype_name);
-	info.set(Kwave::INF_FILENAME, url.toDisplayString());
-	m_signal_manager->setFileInfo(info, false);
+        // restore the mime type and the filename
+        info = Kwave::FileInfo(m_signal_manager->metaData());
+        info.set(Kwave::INF_MIMETYPE, previous_mimetype_name);
+        info.set(Kwave::INF_FILENAME, url.toDisplayString());
+        m_signal_manager->setFileInfo(info, false);
     }
 
     // now we have a file name -> do the "save" operation
@@ -1074,39 +1074,39 @@ bool Kwave::FileContext::closeFile()
 
     if (m_plugin_manager && !m_plugin_manager->canClose())
     {
-	qWarning("FileContext::closeFile() - currently not possible, "\
-	         "a plugin is running :-(");
-	return false;
+        qWarning("FileContext::closeFile() - currently not possible, "\
+                 "a plugin is running :-(");
+        return false;
     }
 
     if (m_signal_manager && m_signal_manager->isModified()) {
-	int res =  Kwave::MessageBox::warningYesNoCancel(m_top_widget,
-	    i18n("This file has been modified.\nDo you want to save it?"));
-	if (res == KMessageBox::Cancel) return false;
-	if (res == KMessageBox::Yes) {
-	    // user decided to save
-	    res = saveFile();
-	    qDebug("FileContext::closeFile()::saveFile, res=%d",res);
-	    if (res) return false;
-	}
+        int res =  Kwave::MessageBox::warningYesNoCancel(m_top_widget,
+            i18n("This file has been modified.\nDo you want to save it?"));
+        if (res == KMessageBox::Cancel) return false;
+        if (res == KMessageBox::Yes) {
+            // user decided to save
+            res = saveFile();
+            qDebug("FileContext::closeFile()::saveFile, res=%d",res);
+            if (res) return false;
+        }
     }
 
     // close all plugins that still might use the current signal
     if (m_plugin_manager) {
-	m_plugin_manager->stopAllPlugins();
-	m_plugin_manager->signalClosed();
+        m_plugin_manager->stopAllPlugins();
+        m_plugin_manager->signalClosed();
     }
 
     if (m_signal_manager) m_signal_manager->close();
 
     switch (m_application.guiType()) {
-	case Kwave::App::GUI_MDI: /* FALLTHROUGH */
-	case Kwave::App::GUI_TAB:
-	    // close the main widget
-	    if (m_main_widget) delete m_main_widget;
-	    break;
-	case Kwave::App::GUI_SDI:
-	    break;
+        case Kwave::App::GUI_MDI: /* FALLTHROUGH */
+        case Kwave::App::GUI_TAB:
+            // close the main widget
+            if (m_main_widget) delete m_main_widget;
+            break;
+        case Kwave::App::GUI_SDI:
+            break;
     }
 
     return true;

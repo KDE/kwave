@@ -82,52 +82,52 @@ bool Kwave::OggEncoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     // determine which codec (sub encoder) to use,
     // by examining the compression type
     const Kwave::Compression::Type compression =
-	info.contains(Kwave::INF_COMPRESSION) ? Kwave::Compression::fromInt(
-	info.get(Kwave::INF_COMPRESSION).toInt()) : Kwave::Compression::NONE;
+        info.contains(Kwave::INF_COMPRESSION) ? Kwave::Compression::fromInt(
+        info.get(Kwave::INF_COMPRESSION).toInt()) : Kwave::Compression::NONE;
 
 #ifdef HAVE_OGG_OPUS
     if (compression == Compression::OGG_OPUS) {
-	qDebug("    OggEncoder: using Opus codec");
-	sub_encoder = QSharedPointer<Kwave::OpusEncoder>(
-	    new(std::nothrow) Kwave::OpusEncoder()
-	);
+        qDebug("    OggEncoder: using Opus codec");
+        sub_encoder = QSharedPointer<Kwave::OpusEncoder>(
+            new(std::nothrow) Kwave::OpusEncoder()
+        );
     }
 #endif /* HAVE_OGG_OPUS */
 #ifdef HAVE_OGG_VORBIS
     if (compression == Compression::OGG_VORBIS) {
-	qDebug("    OggEncoder: using Vorbis codec");
-	sub_encoder = QSharedPointer<Kwave::VorbisEncoder>(
-	    new(std::nothrow) Kwave::VorbisEncoder()
-	);
+        qDebug("    OggEncoder: using Vorbis codec");
+        sub_encoder = QSharedPointer<Kwave::VorbisEncoder>(
+            new(std::nothrow) Kwave::VorbisEncoder()
+        );
     }
 #endif /* HAVE_OGG_VORBIS */
 
     if (sub_encoder.isNull()) {
-	qDebug("    OggEncoder: compression='%d'", compression);
-	Kwave::MessageBox::error(widget, i18nc(
-	    "error in Ogg encoder, no support for a compression type "
-	    "(e.g. opus, vorbis etc)",
-	    "Error: No Codec for '%1' available",
-	    Kwave::Compression(compression).name()
-	));
-	return false;
+        qDebug("    OggEncoder: compression='%d'", compression);
+        Kwave::MessageBox::error(widget, i18nc(
+            "error in Ogg encoder, no support for a compression type "
+            "(e.g. opus, vorbis etc)",
+            "Error: No Codec for '%1' available",
+            Kwave::Compression(compression).name()
+        ));
+        return false;
     }
 
     if (!sub_encoder->open(widget, info, src))
-	return false;
+        return false;
 
     // open the output device
     if (!dst.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
-	Kwave::MessageBox::error(widget,
-	    i18n("Unable to open the file for saving."));
-	return false;
+        Kwave::MessageBox::error(widget,
+            i18n("Unable to open the file for saving."));
+        return false;
     }
 
     if (!sub_encoder->writeHeader(dst))
-	return false;
+        return false;
 
     if (!sub_encoder->encode(src, dst))
-	return false;
+        return false;
 
     // clean up and exit.
     sub_encoder->close();

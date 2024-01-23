@@ -34,50 +34,50 @@ namespace Kwave
 
     class GotoPluginBase: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	GotoPluginBase(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        GotoPluginBase(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~GotoPluginBase() Q_DECL_OVERRIDE;
 
-	/**
-	 * Shows a dialog for selecting the range and emits a command
-	 * for applying the selection if OK has been pressed.
-	 * @see Kwave::Plugin::setup
-	 */
+        /**
+         * Shows a dialog for selecting the range and emits a command
+         * for applying the selection if OK has been pressed.
+         * @see Kwave::Plugin::setup
+         */
         virtual QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
-	/**
-	 * selects the position
-	 * @see Kwave::Plugin::start()
-	 */
+        /**
+         * selects the position
+         * @see Kwave::Plugin::start()
+         */
         virtual int start(QStringList &params) Q_DECL_OVERRIDE;
 
     protected:
 
-	/** Returns the command to be emitted */
-	virtual QString command() const = 0;
+        /** Returns the command to be emitted */
+        virtual QString command() const = 0;
 
-	/** Returns the title of the dialog */
-	virtual QString title() const = 0;
+        /** Returns the title of the dialog */
+        virtual QString title() const = 0;
 
-	/** Reads values from the parameter list */
-	int interpreteParameters(QStringList &params);
+        /** Reads values from the parameter list */
+        int interpreteParameters(QStringList &params);
 
     private:
 
-	/** selected mode for position: by time, samples, percentage */
-	Kwave::SelectTimeWidget::Mode m_mode;
+        /** selected mode for position: by time, samples, percentage */
+        Kwave::SelectTimeWidget::Mode m_mode;
 
-	/** position in milliseconds, samples or percents */
-	unsigned int m_position;
+        /** position in milliseconds, samples or percents */
+        unsigned int m_position;
     };
 }
 

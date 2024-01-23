@@ -1,6 +1,6 @@
 /***************************************************************************
   UndoReverseAction.cpp  -  undo action for the "reverse" effect
-			     -------------------
+                             -------------------
     begin                : Wed Jun 24 2009
     copyright            : (C) 2009 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -69,7 +69,7 @@ Kwave::UndoAction *Kwave::UndoReverseAction::undo(Kwave::SignalManager &manager,
 {
     Q_UNUSED(manager)
     m_plugin_manager.enqueueCommand(
-	_("nomacro:plugin:execute(reverse,noundo)")
+        _("nomacro:plugin:execute(reverse,noundo)")
     );
     return (with_redo) ? this : Q_NULLPTR;
 }

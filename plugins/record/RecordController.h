@@ -28,101 +28,101 @@ namespace Kwave
 {
     class RecordController: public QObject
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	RecordController();
+        /** Constructor */
+        RecordController();
 
-	/** Destructor */
-	virtual ~RecordController();
+        /** Destructor */
+        virtual ~RecordController();
 
-	/** returns the name of a state */
-	const char *stateName(const Kwave::RecordState state);
+        /** returns the name of a state */
+        const char *stateName(const Kwave::RecordState state);
 
     public slots:
 
-	/**
-	 * Informs the controller whether the recording engine has been
-	 * successfully been initialized or recording cannot be started.
-	 * @param initialized if true, recording can be started
-	 */
-	void setInitialized(bool initialized);
+        /**
+         * Informs the controller whether the recording engine has been
+         * successfully been initialized or recording cannot be started.
+         * @param initialized if true, recording can be started
+         */
+        void setInitialized(bool initialized);
 
-	/**
-	 *Informs the controller whether the signal is empty or not
-	 * @param empty if true, nothing has been recorded
-	 */
-	void setEmpty(bool empty);
+        /**
+         *Informs the controller whether the signal is empty or not
+         * @param empty if true, nothing has been recorded
+         */
+        void setEmpty(bool empty);
 
-	/**
-	 * Enable the prerecording. Has to be called before any status
-	 * change to enable/disable the prerecording mode
-	 *
-	 * @param enable if true, enable prerecording
-	 */
-	void enablePrerecording(bool enable);
+        /**
+         * Enable the prerecording. Has to be called before any status
+         * change to enable/disable the prerecording mode
+         *
+         * @param enable if true, enable prerecording
+         */
+        void enablePrerecording(bool enable);
 
-	/** Clear all recorded data and prepare for new recording */
-	void actionReset();
+        /** Clear all recorded data and prepare for new recording */
+        void actionReset();
 
-	/** Stop the recording */
-	void actionStop();
+        /** Stop the recording */
+        void actionStop();
 
-	/** Pause the recording */
-	void actionPause();
+        /** Pause the recording */
+        void actionPause();
 
-	/** Start the recording */
-	void actionStart();
+        /** Start the recording */
+        void actionStart();
 
-	/** The device has started recording */
-	void deviceRecordStarted();
+        /** The device has started recording */
+        void deviceRecordStarted();
 
-	/** The device buffer contains data */
-	void deviceBufferFull();
+        /** The device buffer contains data */
+        void deviceBufferFull();
 
-	/** The record trigger has been reached */
-	void deviceTriggerReached();
+        /** The record trigger has been reached */
+        void deviceTriggerReached();
 
-	/** The device has stopped recording */
-	void deviceRecordStopped(int);
+        /** The device has stopped recording */
+        void deviceRecordStopped(int);
 
-	/** The recording trigger has been enabled/disabled */
-	void enableTrigger(bool enable);
+        /** The recording trigger has been enabled/disabled */
+        void enableTrigger(bool enable);
 
     signals:
 
-	/** emitted when the state of the recording changed */
-	void stateChanged(Kwave::RecordState state);
+        /** emitted when the state of the recording changed */
+        void stateChanged(Kwave::RecordState state);
 
-	/** All recorded data has to be cleared */
-	void sigReset(bool &accepted);
+        /** All recorded data has to be cleared */
+        void sigReset(bool &accepted);
 
-	/** Recording should start */
-	void sigStartRecord();
+        /** Recording should start */
+        void sigStartRecord();
 
-	/** Recording should stop */
-	void sigStopRecord(int errorcode);
+        /** Recording should stop */
+        void sigStopRecord(int errorcode);
 
     private:
 
-	/** current state of the recording engine */
-	Kwave::RecordState m_state;
+        /** current state of the recording engine */
+        Kwave::RecordState m_state;
 
-	/**
-	 * state of the recording engine after finishing the last action, not
-	 * needed for all state changes.
-	 */
-	Kwave::RecordState m_next_state;
+        /**
+         * state of the recording engine after finishing the last action, not
+         * needed for all state changes.
+         */
+        Kwave::RecordState m_next_state;
 
-	/** use a trigger */
-	bool m_trigger_set;
+        /** use a trigger */
+        bool m_trigger_set;
 
-	/** use prerecording */
-	bool m_enable_prerecording;
+        /** use prerecording */
+        bool m_enable_prerecording;
 
-	/** if true the current file is empty */
-	bool m_empty;
+        /** if true the current file is empty */
+        bool m_empty;
 
     };
 }

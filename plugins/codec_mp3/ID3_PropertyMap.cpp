@@ -182,19 +182,19 @@ ID3_FrameID Kwave::ID3_PropertyMap::findProperty(
     const Kwave::FileProperty property) const
 {
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
-	if ((m.m_property == property) && supported(m.m_frame_id))
-	    return m.m_frame_id;
+        if ((m.m_property == property) && supported(m.m_frame_id))
+            return m.m_frame_id;
     }
     return ID3FID_NOFRAME;
 }
 
 //***************************************************************************
 bool Kwave::ID3_PropertyMap::containsProperty(
-	const Kwave::FileProperty property) const
+        const Kwave::FileProperty property) const
 {
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
-	if ((m.m_property == property) && supported(m.m_frame_id))
-	    return true;
+        if ((m.m_property == property) && supported(m.m_frame_id))
+            return true;
     }
     return false;
 }
@@ -203,11 +203,11 @@ bool Kwave::ID3_PropertyMap::containsProperty(
 bool Kwave::ID3_PropertyMap::containsID(const ID3_FrameID id) const
 {
     if (!supported(id))
-	return false;
+        return false;
 
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
-	if (m.m_frame_id == id)
-	    return true;
+        if (m.m_frame_id == id)
+            return true;
     }
     return false;
 }
@@ -217,8 +217,8 @@ Kwave::ID3_PropertyMap::Encoding Kwave::ID3_PropertyMap::encoding(
     const ID3_FrameID id) const
 {
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
-	if (m.m_frame_id == id)
-	    return m.m_encoding;
+        if (m.m_frame_id == id)
+            return m.m_encoding;
     }
     return ID3_PropertyMap::ENC_NONE;
 }
@@ -228,8 +228,8 @@ QList<ID3_FrameID> Kwave::ID3_PropertyMap::knownIDs() const
 {
     QList<ID3_FrameID> list;
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
-	if (!list.contains(m.m_frame_id))
-	    list.append(m.m_frame_id);
+        if (!list.contains(m.m_frame_id))
+            list.append(m.m_frame_id);
     }
     return list;
 }
@@ -238,7 +238,7 @@ QList<ID3_FrameID> Kwave::ID3_PropertyMap::knownIDs() const
 Kwave::FileProperty Kwave::ID3_PropertyMap::property(const ID3_FrameID id) const
 {
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
-	if (m.m_frame_id == id) return m.m_property;
+        if (m.m_frame_id == id) return m.m_property;
     }
     return Kwave::INF_UNKNOWN;
 }
@@ -248,8 +248,8 @@ QList<Kwave::FileProperty> Kwave::ID3_PropertyMap::properties() const
 {
     QList<Kwave::FileProperty> list;
     foreach(const Kwave::ID3_PropertyMap::Mapping &m, m_list) {
-	if (!list.contains(m.m_property))
-	    list.append(m.m_property);
+        if (!list.contains(m.m_property))
+            list.append(m.m_property);
     }
     return list;
 }

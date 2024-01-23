@@ -1,6 +1,6 @@
 /***************************************************************************
    UndoAddMetaDataAction.h  -  Undo action for insertion of meta data
-			     -------------------
+                             -------------------
     begin                : Wed Aug 16 2006
     copyright            : (C) 2006 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -41,43 +41,43 @@ namespace Kwave
     {
     public:
 
-	/**
-	 * Constructor
-	 * @param meta_data reference to the meta data that has been inserted
-	 */
-	explicit UndoAddMetaDataAction(const Kwave::MetaDataList &meta_data);
+        /**
+         * Constructor
+         * @param meta_data reference to the meta data that has been inserted
+         */
+        explicit UndoAddMetaDataAction(const Kwave::MetaDataList &meta_data);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~UndoAddMetaDataAction() Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns a verbose short description of the action.
-	 */
-	QString description() Q_DECL_OVERRIDE;
+        /**
+         * Returns a verbose short description of the action.
+         */
+        QString description() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undoSize() */
+        /** @see UndoAction::undoSize() */
         virtual qint64 undoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::redoSize() */
+        /** @see UndoAction::redoSize() */
         virtual qint64 redoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::store() */
+        /** @see UndoAction::store() */
         virtual bool store(SignalManager &manager) Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undo() */
+        /** @see UndoAction::undo() */
         virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-	                                bool with_redo) Q_DECL_OVERRIDE;
+                                        bool with_redo) Q_DECL_OVERRIDE;
 
     protected:
 
-	/** description of the action */
-	QString m_description;
+        /** description of the action */
+        QString m_description;
 
-	/** index of the first sample position */
-	sample_index_t m_offset;
+        /** index of the first sample position */
+        sample_index_t m_offset;
 
-	/** number of affected samples */
-	sample_index_t m_length;
+        /** number of affected samples */
+        sample_index_t m_length;
 
     };
 }

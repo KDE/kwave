@@ -36,41 +36,41 @@ namespace Kwave
     Q_OBJECT
 
     public:
-	/**
-	 * Constructor
-	 * @param PNGFile name of a file to be shown as splashscreen,
-	 *        should be found in one of the "appdata" directories.
-	 */
-	explicit Splash(const QString &PNGFile);
+        /**
+         * Constructor
+         * @param PNGFile name of a file to be shown as splashscreen,
+         *        should be found in one of the "appdata" directories.
+         */
+        explicit Splash(const QString &PNGFile);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~Splash() Q_DECL_OVERRIDE;
 
-	/** wrapper for QSplashScreen::showMessage with only one parameter */
-	static void showMessage(const QString &message);
+        /** wrapper for QSplashScreen::showMessage with only one parameter */
+        static void showMessage(const QString &message);
 
-	/** handles the painting of this splash screen */
+        /** handles the painting of this splash screen */
         virtual void paintEvent(QPaintEvent *e) Q_DECL_OVERRIDE;
 
-	/** hides the splash screen on mouse click */
+        /** hides the splash screen on mouse click */
         virtual void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 
-	/** should be called when the splashscreen is no longer needed */
-	void done();
+        /** should be called when the splashscreen is no longer needed */
+        void done();
 
     private:
 
-	/** font to use for the status text and version number */
-	QFont m_font;
+        /** font to use for the status text and version number */
+        QFont m_font;
 
-	/** pixmap with the Kwave logo */
-	QPixmap m_pixmap;
+        /** pixmap with the Kwave logo */
+        QPixmap m_pixmap;
 
-	/** last status message */
-	QString  m_message;
+        /** last status message */
+        QString  m_message;
 
-	/** static instance */
-	static QPointer<Kwave::Splash> m_splash;
+        /** static instance */
+        static QPointer<Kwave::Splash> m_splash;
     };
 }
 

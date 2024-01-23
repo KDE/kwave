@@ -42,7 +42,7 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
     :Kwave::FileDialog(startDir, Kwave::FileDialog::SaveFile, filter, parent,
                        last_url, last_ext),
      m_widget(new(std::nothrow) Kwave::SaveBlocksWidget(this, filename_pattern,
-	numbering_mode, selection_only, have_selection))
+        numbering_mode, selection_only, have_selection))
 {
     Q_ASSERT(m_widget);
     setCustomWidget(m_widget);
@@ -100,15 +100,15 @@ void Kwave::SaveBlocksDialog::emitUpdate()
     QFileInfo file(filename);
 
     if (!file.suffix().length()) {
-	// append the currently selected extension if missing
-	QString extension = selectedExtension();
-	if (extension.contains(_(" ")))
-	    extension = extension.section(_(" "), 0, 0);
-	filename += extension.remove(0, 1);
+        // append the currently selected extension if missing
+        QString extension = selectedExtension();
+        if (extension.contains(_(" ")))
+            extension = extension.section(_(" "), 0, 0);
+        filename += extension.remove(0, 1);
     }
 
     emit sigSelectionChanged(filename, pattern(),
-	numberingMode(), selectionOnly());
+        numberingMode(), selectionOnly());
 }
 
 //***************************************************************************

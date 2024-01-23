@@ -66,15 +66,15 @@ void Kwave::VorbisEncoder::encodeProperties(const Kwave::FileInfo &info)
     for (VorbisCommentMap::const_iterator it(m_comments_map.constBegin());
          it != m_comments_map.constEnd(); ++it)
     {
-	const QString       &key     = it.key();
-	Kwave::FileProperty property = it.value();
-	if (!info.contains(property)) continue; // skip if not present
+        const QString       &key     = it.key();
+        Kwave::FileProperty property = it.value();
+        if (!info.contains(property)) continue; // skip if not present
 
-	// encode the property as string
-	vorbis_comment_add_tag(&m_vc,
-	    UTF8(key),
-	    UTF8(info.get(property).toString())
-	);
+        // encode the property as string
+        vorbis_comment_add_tag(&m_vc,
+            UTF8(key),
+            UTF8(info.get(property).toString())
+        );
     }
 }
 
@@ -92,10 +92,10 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     long int sample_rate = static_cast<long int>(info.rate());
 
     if (tracks > 2) {
-	Kwave::MessageBox::sorry(widget,
-	    i18n("This codec supports only mono or stereo files, "
-	         "%1 channels are not supported.", tracks));
-	return false;
+        Kwave::MessageBox::sorry(widget,
+            i18n("This codec supports only mono or stereo files, "
+                 "%1 channels are not supported.", tracks));
+        return false;
     }
 
     // ABR bitrates
@@ -114,17 +114,17 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
            bitrate_lower,bitrate_nominal,bitrate_upper,vbr_quality);
 
     if ((vbr_quality < 0) && (bitrate_nominal <= 0)) {
-	// no quality and no bitrate given -> complain !
-	if (Kwave::MessageBox::warningContinueCancel(widget,
-	    i18n("You have not selected any bitrate for the encoding. "
-	         "Do you want to continue and encode with %1 kBit/s "
-	         "or cancel and choose a different bitrate?",
-	         DEFAULT_BITRATE / 1000)) != KMessageBox::Continue)
-	    return false; // <- canceled
+        // no quality and no bitrate given -> complain !
+        if (Kwave::MessageBox::warningContinueCancel(widget,
+            i18n("You have not selected any bitrate for the encoding. "
+                 "Do you want to continue and encode with %1 kBit/s "
+                 "or cancel and choose a different bitrate?",
+                 DEFAULT_BITRATE / 1000)) != KMessageBox::Continue)
+            return false; // <- canceled
 
-	bitrate_nominal = DEFAULT_BITRATE;
-	bitrate_lower = -1;
-	bitrate_upper = -1;
+        bitrate_nominal = DEFAULT_BITRATE;
+        bitrate_lower = -1;
+        bitrate_upper = -1;
     }
 
     // some checks first
@@ -135,48 +135,48 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     vorbis_info_init(&m_vi);
 
     if ((bitrate_lower > 0) || (bitrate_upper > 0)) {
-	// Encoding using ABR mode.
-	bitrate_nominal = (bitrate_upper + bitrate_lower) / 2;
-	ret = vorbis_encode_init(&m_vi, tracks, sample_rate,
-	                         bitrate_upper,
-	                         bitrate_nominal,
-	                         bitrate_lower);
-	qDebug("VorbisEncoder: ABR with %d...%d...%d Bits/s",
-	       bitrate_lower, bitrate_nominal, bitrate_upper);
+        // Encoding using ABR mode.
+        bitrate_nominal = (bitrate_upper + bitrate_lower) / 2;
+        ret = vorbis_encode_init(&m_vi, tracks, sample_rate,
+                                 bitrate_upper,
+                                 bitrate_nominal,
+                                 bitrate_lower);
+        qDebug("VorbisEncoder: ABR with %d...%d...%d Bits/s",
+               bitrate_lower, bitrate_nominal, bitrate_upper);
     } else if ((vbr_quality < 0) && (bitrate_nominal > 0)) {
-	// Encoding using constant bitrate in ABR mode
-	ret = vorbis_encode_setup_managed(&m_vi, tracks, sample_rate,
-	      -1, bitrate_nominal, -1);
+        // Encoding using constant bitrate in ABR mode
+        ret = vorbis_encode_setup_managed(&m_vi, tracks, sample_rate,
+              -1, bitrate_nominal, -1);
 
-	// If OV_ECTL_RATEMANAGE2_SET is not defined, then your
-	// libvorbis is just too old.
-	if (!ret) ret =
-	      vorbis_encode_ctl(&m_vi, OV_ECTL_RATEMANAGE2_SET, Q_NULLPTR) ||
-	      vorbis_encode_setup_init(&m_vi);
+        // If OV_ECTL_RATEMANAGE2_SET is not defined, then your
+        // libvorbis is just too old.
+        if (!ret) ret =
+              vorbis_encode_ctl(&m_vi, OV_ECTL_RATEMANAGE2_SET, Q_NULLPTR) ||
+              vorbis_encode_setup_init(&m_vi);
 
-	qDebug("VorbisEncoder: CBR with %d Bits/s", bitrate_nominal);
+        qDebug("VorbisEncoder: CBR with %d Bits/s", bitrate_nominal);
     } else if (vbr_quality >= 0) {
-	// Encoding using VBR mode.
-	ret = vorbis_encode_init_vbr(&m_vi, tracks, sample_rate,
-	    static_cast<float>(vbr_quality) / 100.0f);
-	qDebug("OggEncoder: VBR with %d%%", vbr_quality);
+        // Encoding using VBR mode.
+        ret = vorbis_encode_init_vbr(&m_vi, tracks, sample_rate,
+            static_cast<float>(vbr_quality) / 100.0f);
+        qDebug("OggEncoder: VBR with %d%%", vbr_quality);
     } else {
-	// unknown setup !?
-	qWarning("unknown Ogg/Vorbis setup: VBR quality=%d%%, "
-	         "ABR lower=%d, ABR highest=%d, ABR nominal=%d",
-	         vbr_quality, bitrate_lower, bitrate_upper,
-	         bitrate_nominal);
-	return false;
+        // unknown setup !?
+        qWarning("unknown Ogg/Vorbis setup: VBR quality=%d%%, "
+                 "ABR lower=%d, ABR highest=%d, ABR nominal=%d",
+                 vbr_quality, bitrate_lower, bitrate_upper,
+                 bitrate_nominal);
+        return false;
     }
 
     /* do not continue if setup failed; this can happen if we ask for a
        mode that libVorbis does not support (eg, too low a bitrate, etc,
        will return 'OV_EIMPL') */
     if (ret) {
-	Kwave::MessageBox::sorry(widget, i18n("One or more encoding "
-	    "parameters are not supported. Please change the "
-	    "settings and try again."));
-	return false;
+        Kwave::MessageBox::sorry(widget, i18n("One or more encoding "
+            "parameters are not supported. Please change the "
+            "settings and try again."));
+        return false;
     }
 
     // add all supported properties as file comments
@@ -220,10 +220,10 @@ bool Kwave::VorbisEncoder::writeHeader(QIODevice &dst)
     // This ensures the actual audio data will start on a
     // new page, as per spec
     while (ogg_stream_flush(&m_os, &m_og)) {
-	dst.write(reinterpret_cast<char *>(m_og.header),
-	          m_og.header_len);
-	dst.write(reinterpret_cast<char *>(m_og.body),
-	          m_og.body_len);
+        dst.write(reinterpret_cast<char *>(m_og.header),
+                  m_og.header_len);
+        dst.write(reinterpret_cast<char *>(m_og.body),
+                  m_og.body_len);
     }
 
     return true;
@@ -239,72 +239,72 @@ bool Kwave::VorbisEncoder::encode(Kwave::MultiTrackReader &src,
 
     sample_index_t rest = length;
     while (!eos && !src.isCanceled()) {
-	if (src.eof()) {
-	    // end of file.  this can be done implicitly in the mainline,
-	    // but it's easier to see here in non-clever fashion.
-	    // Tell the library we're at end of stream so that it can handle
-	    // the last frame and mark end of stream in the output properly
-	    vorbis_analysis_wrote(&m_vd, 0);
-	} else {
-	    // data to encode
+        if (src.eof()) {
+            // end of file.  this can be done implicitly in the mainline,
+            // but it's easier to see here in non-clever fashion.
+            // Tell the library we're at end of stream so that it can handle
+            // the last frame and mark end of stream in the output properly
+            vorbis_analysis_wrote(&m_vd, 0);
+        } else {
+            // data to encode
 
-	    // expose the buffer to submit data
-	    float **buffer = vorbis_analysis_buffer(&m_vd, BUFFER_SIZE);
-	    unsigned int pos = 0;
-	    unsigned int len = (rest > BUFFER_SIZE) ? BUFFER_SIZE :
-		                                      Kwave::toUint(rest);
-	    Kwave::SampleArray samples(BUFFER_SIZE);
-	    for (unsigned int track = 0; track < tracks; ++track) {
-		float *p = buffer[track];
-		unsigned int l = src[track]->read(samples, 0, len);
-		const sample_t *s = samples.constData();
+            // expose the buffer to submit data
+            float **buffer = vorbis_analysis_buffer(&m_vd, BUFFER_SIZE);
+            unsigned int pos = 0;
+            unsigned int len = (rest > BUFFER_SIZE) ? BUFFER_SIZE :
+                                                      Kwave::toUint(rest);
+            Kwave::SampleArray samples(BUFFER_SIZE);
+            for (unsigned int track = 0; track < tracks; ++track) {
+                float *p = buffer[track];
+                unsigned int l = src[track]->read(samples, 0, len);
+                const sample_t *s = samples.constData();
 
-		const unsigned int block = 8;
-		pos = 0;
-		while (pos + block < l) {
-		    for (unsigned int i = 0; i < block; ++i, ++pos)
-			p[pos] = sample2float(s[pos]);
-		}
-		while (pos < l) {
-		    p[pos] = sample2float(s[pos]);
-		    pos++;
-		}
-		while (pos < len)
-		    p[pos++] = 0;
-	    }
+                const unsigned int block = 8;
+                pos = 0;
+                while (pos + block < l) {
+                    for (unsigned int i = 0; i < block; ++i, ++pos)
+                        p[pos] = sample2float(s[pos]);
+                }
+                while (pos < l) {
+                    p[pos] = sample2float(s[pos]);
+                    pos++;
+                }
+                while (pos < len)
+                    p[pos++] = 0;
+            }
 
-	    // tell the library how much we actually submitted
-	    vorbis_analysis_wrote(&m_vd, pos);
-	}
+            // tell the library how much we actually submitted
+            vorbis_analysis_wrote(&m_vd, pos);
+        }
 
-	// vorbis does some data preanalysis, then divvies up blocks for
-	// more involved (potentially parallel) processing.  Get a single
-	// block for encoding now
-	while (vorbis_analysis_blockout(&m_vd, &m_vb) == 1) {
-	    // analysis, assume we want to use bitrate management
+        // vorbis does some data preanalysis, then divvies up blocks for
+        // more involved (potentially parallel) processing.  Get a single
+        // block for encoding now
+        while (vorbis_analysis_blockout(&m_vd, &m_vb) == 1) {
+            // analysis, assume we want to use bitrate management
             vorbis_analysis(&m_vb, Q_NULLPTR);
-	    vorbis_bitrate_addblock(&m_vb);
+            vorbis_bitrate_addblock(&m_vb);
 
-	    while (vorbis_bitrate_flushpacket(&m_vd, &m_op)) {
-		// weld the packet into the bitstream
-		ogg_stream_packetin(&m_os, &m_op);
+            while (vorbis_bitrate_flushpacket(&m_vd, &m_op)) {
+                // weld the packet into the bitstream
+                ogg_stream_packetin(&m_os, &m_op);
 
-		// write out pages (if any)
-		while (!eos) {
-		    int result = ogg_stream_pageout(&m_os, &m_og);
-		    if (!result) break;
-		    dst.write(reinterpret_cast<char*>(m_og.header),
-		              m_og.header_len);
-		    dst.write(reinterpret_cast<char *>(m_og.body),
-		              m_og.body_len);
+                // write out pages (if any)
+                while (!eos) {
+                    int result = ogg_stream_pageout(&m_os, &m_og);
+                    if (!result) break;
+                    dst.write(reinterpret_cast<char*>(m_og.header),
+                              m_og.header_len);
+                    dst.write(reinterpret_cast<char *>(m_og.body),
+                              m_og.body_len);
 
-		    // this could be set above, but for illustrative
-		    // purposes, I do it here (to show that vorbis
-		    // does know where the stream ends)
-		    if (ogg_page_eos(&m_og)) eos = true;
-		}
-	    }
-	}
+                    // this could be set above, but for illustrative
+                    // purposes, I do it here (to show that vorbis
+                    // does know where the stream ends)
+                    if (ogg_page_eos(&m_og)) eos = true;
+                }
+            }
+        }
     }
 
     return true;

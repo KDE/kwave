@@ -31,43 +31,43 @@ namespace Kwave
 
     class Q_DECL_EXPORT ConfirmCancelProxy: public QObject
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor.
-	 * @param widget a QWidget used as parent for the confirmation
-	 *        message box
-	 * @param sender object that emits a cancelled signal, normally
-	 *        something like a QProgressDialog. Can be null, in this
-	 *        case the signal parameter is ignored and the cancel()
-	 *        method has to be called manually.
-	 * @param signal emitted signal, e.g. SIGNAL(cancelled())
-	 * @param receiver object that receives the cancel signal if
-	 *        a cancel has been received and the user confirmed
-	 * @param slot receiver's cancel slot, e.g. SLOT(cancel())
-	 */
-	ConfirmCancelProxy(QWidget *widget,
-	                   QObject *sender,   const char *signal,
-	                   QObject *receiver, const char *slot);
+        /**
+         * Constructor.
+         * @param widget a QWidget used as parent for the confirmation
+         *        message box
+         * @param sender object that emits a cancelled signal, normally
+         *        something like a QProgressDialog. Can be null, in this
+         *        case the signal parameter is ignored and the cancel()
+         *        method has to be called manually.
+         * @param signal emitted signal, e.g. SIGNAL(cancelled())
+         * @param receiver object that receives the cancel signal if
+         *        a cancel has been received and the user confirmed
+         * @param slot receiver's cancel slot, e.g. SLOT(cancel())
+         */
+        ConfirmCancelProxy(QWidget *widget,
+                           QObject *sender,   const char *signal,
+                           QObject *receiver, const char *slot);
 
-	/** Destructor */
-	virtual ~ConfirmCancelProxy();
+        /** Destructor */
+        virtual ~ConfirmCancelProxy();
 
     public slots:
 
-	/** will be connected to the sender of the cancel */
-	void cancel();
+        /** will be connected to the sender of the cancel */
+        void cancel();
 
     signals:
 
-	/** emitted if cancel was received and user confirmed */
-	void canceled();
+        /** emitted if cancel was received and user confirmed */
+        void canceled();
 
     private:
 
-	/** widget used for the confirm message */
-	QWidget *m_widget;
+        /** widget used for the confirm message */
+        QWidget *m_widget;
 
     };
 }

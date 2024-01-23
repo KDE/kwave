@@ -81,37 +81,37 @@ QSize Kwave::AboutContainer::sizeHint() const
     int numChild = 0;
     const QList<QObject*> l = children(); // silence please
     foreach (QObject *o, l) {
-	if (o->isWidgetType()) {
-	    ++numChild;
-	    QWidget * const w = static_cast<QWidget *>(o);
+        if (o->isWidgetType()) {
+            ++numChild;
+            QWidget * const w = static_cast<QWidget *>(o);
 
-	    QSize s = w->minimumSize();
-	    if (s.isEmpty()) {
-		s = w->minimumSizeHint();
-		if (s.isEmpty()) {
-		    s = w->sizeHint();
-		    if (s.isEmpty())
-			s = QSize(100, 100); // Default size
-		}
-	    }
-	    total_size.setHeight(total_size.height() + s.height());
-	    if (s.width() > total_size.width()) {
-		total_size.setWidth(s.width());
-	    }
-	}
+            QSize s = w->minimumSize();
+            if (s.isEmpty()) {
+                s = w->minimumSizeHint();
+                if (s.isEmpty()) {
+                    s = w->sizeHint();
+                    if (s.isEmpty())
+                        s = QSize(100, 100); // Default size
+                }
+            }
+            total_size.setHeight(total_size.height() + s.height());
+            if (s.width() > total_size.width()) {
+                total_size.setWidth(s.width());
+            }
+        }
     }
 
     if (numChild > 0) {
-	//
-	// Seems I have to add 1 to the height to properly show the border
-	// of the last entry if layout()->margin() is 0
-	//
-	total_size.setHeight(total_size.height() +
-	        layout()->spacing() * (numChild - 1));
-	total_size += QSize(layout()->contentsMargins().left() * 2, 
+        //
+        // Seems I have to add 1 to the height to properly show the border
+        // of the last entry if layout()->margin() is 0
+        //
+        total_size.setHeight(total_size.height() +
+                layout()->spacing() * (numChild - 1));
+        total_size += QSize(layout()->contentsMargins().left() * 2, 
                        (layout()->contentsMargins().top() * 2) + 1);
     } else {
-	total_size = QSize(1, 1);
+        total_size = QSize(1, 1);
     }
     return total_size;
 }
@@ -133,21 +133,21 @@ void Kwave::AboutContainer::addWidget(QWidget *widget)
 
     const QList<QObject *> l = children(); // silence please
     foreach (QObject *o, l) {
-	if (o->isWidgetType())
-	    static_cast<QWidget *>(o)->setMinimumWidth(s.width());
+        if (o->isWidgetType())
+            static_cast<QWidget *>(o)->setMinimumWidth(s.width());
     }
 }
 
 //***************************************************************************
 void Kwave::AboutContainer::addPerson(const QString &_name, 
                                       const QString &_email,
-				                      const QString &_url,
+                                                      const QString &_url,
                                       const QString &_task)
 {
     Kwave::AboutContributor * const cont = new(std::nothrow)
-	Kwave::AboutContributor(this,
-	    _name, _email, _url, _task
-	);
+        Kwave::AboutContributor(this,
+            _name, _email, _url, _task
+        );
     Q_ASSERT(cont);
     if (!cont) return;
 
@@ -163,11 +163,11 @@ Kwave::AboutContributor::AboutContributor(QWidget *_parent,
     :QFrame(_parent)
 {
     for (int i=0; i < 4; ++i) {
-	m_text[i] = new(std::nothrow) QLabel(this);
-	Q_ASSERT(m_text[i]);
-	if (!m_text[i]) return;
-	m_text[i]->setOpenExternalLinks(true);
-	m_text[i]->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
+        m_text[i] = new(std::nothrow) QLabel(this);
+        Q_ASSERT(m_text[i]);
+        if (!m_text[i]) return;
+        m_text[i]->setOpenExternalLinks(true);
+        m_text[i]->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
     }
 
     // set name
@@ -175,11 +175,11 @@ Kwave::AboutContributor::AboutContributor(QWidget *_parent,
 
     // set email
     if (!_email.isEmpty())
-	m_text[1]->setText(_("<a href=\"mailto:%1\">%1</a>").arg(_email));
+        m_text[1]->setText(_("<a href=\"mailto:%1\">%1</a>").arg(_email));
 
     // set url
     if (!_url.isEmpty())
-	m_text[2]->setText(_("<a href=\"%1\">%1</a>").arg(_url));
+        m_text[2]->setText(_("<a href=\"%1\">%1</a>").arg(_url));
 
     // set work
     m_text[3]->setText(_work);
@@ -219,48 +219,48 @@ void Kwave::AboutContributor::updateLayout()
 
     QGridLayout *gbox = Q_NULLPTR;
     if (row == 0) {
-	gbox = new(std::nothrow) QGridLayout(this);
-	Q_ASSERT(gbox);
-	if (!gbox) return;
-	gbox->setSpacing(1);
-	for (int i=0; i<4; ++i)
-	    if (m_text[i]) m_text[i]->hide();
+        gbox = new(std::nothrow) QGridLayout(this);
+        Q_ASSERT(gbox);
+        if (!gbox) return;
+        gbox->setSpacing(1);
+        for (int i=0; i<4; ++i)
+            if (m_text[i]) m_text[i]->hide();
     } else {
-	if (m_text[0] && m_text[0]->text().isEmpty()) {
-	    gbox = new(std::nothrow) QGridLayout(this);
-	    Q_ASSERT(gbox);
-	    if (!gbox) return;
-	    gbox->setContentsMargins(fw1, fw1, fw1, fw1);
-	    gbox->setSpacing(2);
-	} else {
-	    gbox = new(std::nothrow) QGridLayout(this);
-	    Q_ASSERT(gbox);
-	    if (!gbox) return;
-	    gbox->setContentsMargins(fw1, fw1, fw1, fw1);
-	    gbox->setSpacing(2);
-	    gbox->addItem(new(std::nothrow) QSpacerItem(20, 0), 0, 0);
-	    gbox->setColumnStretch(1, 10);
-	}
+        if (m_text[0] && m_text[0]->text().isEmpty()) {
+            gbox = new(std::nothrow) QGridLayout(this);
+            Q_ASSERT(gbox);
+            if (!gbox) return;
+            gbox->setContentsMargins(fw1, fw1, fw1, fw1);
+            gbox->setSpacing(2);
+        } else {
+            gbox = new(std::nothrow) QGridLayout(this);
+            Q_ASSERT(gbox);
+            if (!gbox) return;
+            gbox->setContentsMargins(fw1, fw1, fw1, fw1);
+            gbox->setSpacing(2);
+            gbox->addItem(new(std::nothrow) QSpacerItem(20, 0), 0, 0);
+            gbox->setColumnStretch(1, 10);
+        }
 
-	for (int i = 0, r = 0; i < 4; ++i) {
-	    if (!m_text[i]) continue;
+        for (int i = 0, r = 0; i < 4; ++i) {
+            if (!m_text[i]) continue;
 
-	    if (i != 3) {
-		m_text[i]->setFixedHeight(fontMetrics().lineSpacing());
-	    }
+            if (i != 3) {
+                m_text[i]->setFixedHeight(fontMetrics().lineSpacing());
+            }
 
-	    if (!m_text[i]->text().isEmpty()) {
-		if (!i) {
-		    gbox->addWidget(m_text[i], r, 0, 1, 2, Qt::AlignLeft);
-		} else {
-		    gbox->addWidget(m_text[i], r, 1, Qt::AlignLeft );
-		}
-		m_text[i]->show();
-		++r;
-	    } else {
-		m_text[i]->hide();
-	    }
-	}
+            if (!m_text[i]->text().isEmpty()) {
+                if (!i) {
+                    gbox->addWidget(m_text[i], r, 0, 1, 2, Qt::AlignLeft);
+                } else {
+                    gbox->addWidget(m_text[i], r, 1, Qt::AlignLeft );
+                }
+                m_text[i]->show();
+                ++r;
+            } else {
+                m_text[i]->hide();
+            }
+        }
     }
 
     gbox->activate();

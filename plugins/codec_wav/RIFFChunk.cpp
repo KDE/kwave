@@ -55,19 +55,19 @@ bool Kwave::RIFFChunk::isSane() const
 
 #ifdef DEBUG
     if (m_phys_length & 0x1) {
-	// size is not an even number: no criterium for insanity
-	// but worth a warning
-	qWarning("%s: physical length is not an even number: %u",
-	        path().data(), m_phys_length);
+        // size is not an even number: no criterium for insanity
+        // but worth a warning
+        qWarning("%s: physical length is not an even number: %u",
+                path().data(), m_phys_length);
     }
 #endif /* DEBUG */
 
     unsigned int datalen = dataLength();
     if (m_type == Main) datalen += 4;
     if (((datalen + 1) < m_phys_length) || (datalen > m_phys_length)) {
-	qWarning("%s: dataLength=%u, phys_length=%u",
-	         path().data(), datalen, m_phys_length);
-	return false;
+        qWarning("%s: dataLength=%u, phys_length=%u",
+                 path().data(), datalen, m_phys_length);
+        return false;
     }
 
     foreach (const Kwave::RIFFChunk *chunk, subChunks())
@@ -94,33 +94,33 @@ const QByteArray Kwave::RIFFChunk::path() const
     if (m_type == Main) p += ':' + m_format;
 
     if (m_parent) {
-	QListIterator<Kwave::RIFFChunk *> it(m_parent->subChunks());
-	unsigned int before = 0;
-	unsigned int after  = 0;
+        QListIterator<Kwave::RIFFChunk *> it(m_parent->subChunks());
+        unsigned int before = 0;
+        unsigned int after  = 0;
         const Kwave::RIFFChunk *chunk = Q_NULLPTR;
-	while (it.hasNext()) {
+        while (it.hasNext()) {
             chunk = it.next();
             if (!chunk) continue;
             if (chunk == this) break;
-	    if (chunk->name() != m_name) continue;
-	    if (chunk->type() != m_type) continue;
-	    if ((m_type == Main) && (chunk->format() != m_format)) continue;
-	    before++;
-	}
-	if ((chunk == this) && (it.hasNext())) chunk = it.next();
-	while ((chunk != this) && (it.hasNext())) {
+            if (chunk->name() != m_name) continue;
+            if (chunk->type() != m_type) continue;
+            if ((m_type == Main) && (chunk->format() != m_format)) continue;
+            before++;
+        }
+        if ((chunk == this) && (it.hasNext())) chunk = it.next();
+        while ((chunk != this) && (it.hasNext())) {
             chunk = it.next();
             if (!chunk) continue;
-	    if (chunk->name() != m_name) continue;
-	    if (chunk->type() != m_type) continue;
-	    if ((m_type == Main) && (chunk->format() != m_format)) continue;
-	    after++;
-	}
-	if (before + after != 0) {
-	    QByteArray index;
-	    index.setNum(before);
-	    p += '(' + index + ')';
-	}
+            if (chunk->name() != m_name) continue;
+            if (chunk->type() != m_type) continue;
+            if ((m_type == Main) && (chunk->format() != m_format)) continue;
+            after++;
+        }
+        if (before + after != 0) {
+            QByteArray index;
+            index.setNum(before);
+            p += '(' + index + ')';
+        }
     }
 
     return p;
@@ -163,37 +163,37 @@ void Kwave::RIFFChunk::fixSize()
 
     // pass two: sum up sub-chunks if type is main or root.
     if ((m_type == Main) || (m_type == Root)) {
-	quint32 old_length = m_phys_length;
-	m_phys_length = 0;
-	if (m_type == Main) m_phys_length += 4;
+        quint32 old_length = m_phys_length;
+        m_phys_length = 0;
+        if (m_type == Main) m_phys_length += 4;
 
         foreach (const Kwave::RIFFChunk *chunk, subChunks()) {
             if (!chunk) continue;
-	    quint32 len = chunk->physEnd() - chunk->physStart() + 1;
-	    m_phys_length += len;
-	}
-	if (m_phys_length != old_length) {
-	    qDebug("%s: setting size from %u to %u",
-	        path().data(), old_length, m_phys_length);
-	}
-	// chunk length is always equal to physical length for
-	// main and root !
-	m_chunk_length = m_phys_length;
+            quint32 len = chunk->physEnd() - chunk->physStart() + 1;
+            m_phys_length += len;
+        }
+        if (m_phys_length != old_length) {
+            qDebug("%s: setting size from %u to %u",
+                path().data(), old_length, m_phys_length);
+        }
+        // chunk length is always equal to physical length for
+        // main and root !
+        m_chunk_length = m_phys_length;
     } else {
-	// just round up if no main or root chunk
-	if (m_phys_length & 0x1) {
-	    m_phys_length++;
-	    qDebug("%s: rounding up size to %u", path().data(), m_phys_length);
-	}
+        // just round up if no main or root chunk
+        if (m_phys_length & 0x1) {
+            m_phys_length++;
+            qDebug("%s: rounding up size to %u", path().data(), m_phys_length);
+        }
 
-	// adjust chunk size to physical size if not long enough
-	if ((m_chunk_length+1 != m_phys_length) &&
-	    (m_chunk_length != m_phys_length))
-	{
-	    qDebug("%s: resizing chunk from %u to %u",
-	        path().data(), m_chunk_length, m_phys_length);
-	    m_chunk_length = m_phys_length;
-	}
+        // adjust chunk size to physical size if not long enough
+        if ((m_chunk_length+1 != m_phys_length) &&
+            (m_chunk_length != m_phys_length))
+        {
+            qDebug("%s: resizing chunk from %u to %u",
+                path().data(), m_chunk_length, m_phys_length);
+            m_chunk_length = m_phys_length;
+        }
 
     }
 

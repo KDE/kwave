@@ -1,6 +1,6 @@
 /***************************************************************************
     TrackView.cpp  -  signal views that shows the track in time space
-			     -------------------
+                             -------------------
     begin                : Sat Jan 30 2010
     copyright            : (C) 2010 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -71,37 +71,37 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
             this,      SLOT(refreshSignalLayer()));
 
     if (controls) {
-	// add the channel controls, for "enabled" / "disabled"
+        // add the channel controls, for "enabled" / "disabled"
 
-	QVBoxLayout *layout = new(std::nothrow) QVBoxLayout(controls);
-	Q_ASSERT(layout);
-	if (!layout) return;
+        QVBoxLayout *layout = new(std::nothrow) QVBoxLayout(controls);
+        Q_ASSERT(layout);
+        if (!layout) return;
 
         Kwave::MultiStateWidget *msw =
             new(std::nothrow) Kwave::MultiStateWidget(Q_NULLPTR, 0);
-	Q_ASSERT(msw);
-	if (!msw) {
-	    delete layout;
-	    return;
-	}
+        Q_ASSERT(msw);
+        if (!msw) {
+            delete layout;
+            return;
+        }
 
-	// add a bitmap for off (0 and on (1)
-	msw->addPixmap(_("light_off.xpm"));
-	msw->addPixmap(_("light_on.xpm"));
+        // add a bitmap for off (0 and on (1)
+        msw->addPixmap(_("light_off.xpm"));
+        msw->addPixmap(_("light_on.xpm"));
 
-	// connect widget <-> track
-	connect(
-	    msw,   SIGNAL(clicked(int)),
-	    track, SLOT(toggleSelection())
-	);
-	connect(
-	    track, SIGNAL(sigSelectionChanged(bool)),
-	    msw,   SLOT(switchState(bool))
-	);
+        // connect widget <-> track
+        connect(
+            msw,   SIGNAL(clicked(int)),
+            track, SLOT(toggleSelection())
+        );
+        connect(
+            track, SIGNAL(sigSelectionChanged(bool)),
+            msw,   SLOT(switchState(bool))
+        );
 
-	msw->setMinimumSize(20, 20);
-	msw->switchState(track->selected());
-	layout->addWidget(msw);
+        msw->setMinimumSize(20, 20);
+        msw->switchState(track->selected());
+        layout->addWidget(msw);
    }
 
     // get informed about meta data changes
@@ -124,7 +124,7 @@ Kwave::TrackView::TrackView(QWidget *parent, QWidget *controls,
     connect(&(signal_manager->playbackController()),
             SIGNAL(sigPlaybackStopped()),
             this,
-	    SLOT(showCursor()));
+            SLOT(showCursor()));
 
     // update when the track selection changed
     connect(track, SIGNAL(sigSelectionChanged(bool)),
@@ -152,7 +152,7 @@ void Kwave::TrackView::setZoomAndOffset(double zoom, sample_index_t offset)
     m_pixmap.setZoom(zoom);
     m_pixmap.setOffset(offset);
     if (m_pixmap.isModified()) {
-	refreshAllLayers();
+        refreshAllLayers();
     }
 }
 
@@ -163,8 +163,8 @@ void Kwave::TrackView::setVerticalZoom(double zoom)
     const double old_zoom   = verticalZoom();
 
     if (old_height > MINIMUM_HEIGHT * old_zoom) {
-	// stretched mode
-	zoom *= double(old_height) / (old_zoom * double(MINIMUM_HEIGHT));
+        // stretched mode
+        zoom *= double(old_height) / (old_zoom * double(MINIMUM_HEIGHT));
     }
 
     Kwave::SignalView::setVerticalZoom(zoom);
@@ -184,7 +184,7 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
                              static_cast<double>(pixels2samples(pos.x()));
     const double tolerance = m_zoom * selectionTolerance();      // [samples]
     const double fine_pos  = static_cast<double>(m_offset) +
-	(static_cast<double>(pos.x()) * m_zoom);
+        (static_cast<double>(pos.x()) * m_zoom);
 
     // we support the following items (with this priority):
     // 1. a label, which can be moved
@@ -196,25 +196,25 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
     unsigned int nearest_label_index = 0;
     double       d_label             = tolerance;
     {
-	unsigned int index = 0;
-	foreach (const Kwave::Label &label,
-	    Kwave::LabelList(m_signal_manager->metaData()))
-	{
-	    double d = qAbs(static_cast<double>(label.pos()) - fine_pos);
-	    if (d < qMin(d_label, tolerance)) {
-		d_label             = d;
-		nearest_label       = label;
-		nearest_label_index = index;
-	    }
-	    index++;
-	}
+        unsigned int index = 0;
+        foreach (const Kwave::Label &label,
+            Kwave::LabelList(m_signal_manager->metaData()))
+        {
+            double d = qAbs(static_cast<double>(label.pos()) - fine_pos);
+            if (d < qMin(d_label, tolerance)) {
+                d_label             = d;
+                nearest_label       = label;
+                nearest_label_index = index;
+            }
+            index++;
+        }
     }
 
     // get information about the current selection
     double selection_first  = static_cast<double>(
-	m_signal_manager->selection().first());
+        m_signal_manager->selection().first());
     double selection_last   = static_cast<double>(
-	m_signal_manager->selection().last());
+        m_signal_manager->selection().last());
     bool selection_is_empty = (m_signal_manager->selection().length() == 0);
     const double d_selection_left   = qAbs(selection_first - fine_pos);
     const double d_selection_right  = qAbs(selection_last  - fine_pos);
@@ -223,45 +223,45 @@ QSharedPointer<Kwave::ViewItem> Kwave::TrackView::findItem(const QPoint &pos)
     //               of selection -> take the label
     //               (or vice versa at the right border)
     bool prefer_the_label =
-	((d_selection_left  < tolerance) && (fine_pos < selection_first)) ||
-	((d_selection_right < tolerance) && (fine_pos > selection_last));
+        ((d_selection_left  < tolerance) && (fine_pos < selection_first)) ||
+        ((d_selection_right < tolerance) && (fine_pos > selection_last));
     bool selection_is_nearer =
-	(d_selection_left <= d_label) || (d_selection_right <= d_label);
+        (d_selection_left <= d_label) || (d_selection_right <= d_label);
     if (selection_is_nearer && !prefer_the_label) {
-	// one of the selection borders is nearer
-	d_label = d_selection_left + d_selection_right;
+        // one of the selection borders is nearer
+        d_label = d_selection_left + d_selection_right;
     }
 
     if ( (d_label <= qMin(d_selection_left, d_selection_right)) &&
-	  !nearest_label.isNull() ) {
-	// found a label
-	return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
-	    Kwave::LabelItem(*this, *m_signal_manager,
-	                     nearest_label_index, nearest_label));
+          !nearest_label.isNull() ) {
+        // found a label
+        return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
+            Kwave::LabelItem(*this, *m_signal_manager,
+                             nearest_label_index, nearest_label));
     }
 
     if ( (d_selection_left < qMin(tolerance, d_selection_right)) ||
          ((d_selection_left < tolerance) && selection_is_empty) )
     {
-	// found selection border (left) or empty selection
-	return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
-	    Kwave::SelectionBorderItem(
-	        *this, *m_signal_manager,
-		m_signal_manager->selection().first()));
+        // found selection border (left) or empty selection
+        return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
+            Kwave::SelectionBorderItem(
+                *this, *m_signal_manager,
+                m_signal_manager->selection().first()));
     }
 
     if (d_selection_right < qMin(tolerance, d_selection_left)) {
-	// found selection border (right)
-	return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
-	    Kwave::SelectionBorderItem(
-		*this, *m_signal_manager,
-		m_signal_manager->selection().last()));
+        // found selection border (right)
+        return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
+            Kwave::SelectionBorderItem(
+                *this, *m_signal_manager,
+                m_signal_manager->selection().last()));
     }
 
     if ((offset >= selection_first) && (offset <= selection_last)) {
-	// found selection body
-	return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
-	    Kwave::SelectionItem(*this, *m_signal_manager));
+        // found selection body
+        return QSharedPointer<Kwave::ViewItem>(new(std::nothrow)
+            Kwave::SelectionItem(*this, *m_signal_manager));
     }
 
     // nothing found
@@ -277,8 +277,8 @@ void Kwave::TrackView::handleContextMenu(const QPoint &pos, QMenu *menu)
 
     // add label
     QAction *action_label_new = submenu_label->addAction(
-	QIcon::fromTheme(_("list-add")),
-	i18n("New"), this, SLOT(contextMenuLabelNew()));
+        QIcon::fromTheme(_("list-add")),
+        i18n("New"), this, SLOT(contextMenuLabelNew()));
     Q_ASSERT(action_label_new);
     if (!action_label_new) return;
 
@@ -300,9 +300,9 @@ void Kwave::TrackView::resizeEvent(QResizeEvent *event)
 
     // request a repaint on all size changes, but not on horizontal shrink
     if ((event->size().width()   > m_last_width) ||
-	(event->size().height() != m_last_height))
+        (event->size().height() != m_last_height))
     {
-	refreshAllLayers();
+        refreshAllLayers();
     }
 }
 
@@ -357,122 +357,122 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
 
     // --- detect size changes and refresh the whole image ---
     if ((width > m_last_width) || (height != m_last_height)) {
-// 	qDebug("TrackView::paintEvent(): window size changed from "
-// 	      "%dx%d to %dx%d", m_last_width, m_last_height, width, height);
+//      qDebug("TrackView::paintEvent(): window size changed from "
+//            "%dx%d to %dx%d", m_last_width, m_last_height, width, height);
 
-	// create new images for the layers
-	const QImage::Format format = QImage::Format_ARGB32_Premultiplied;
-	m_img_signal    = QImage(width, height, format);
-	m_img_selection = QImage(width, height, format);
-	m_img_markers   = QImage(width, height, format);
+        // create new images for the layers
+        const QImage::Format format = QImage::Format_ARGB32_Premultiplied;
+        m_img_signal    = QImage(width, height, format);
+        m_img_selection = QImage(width, height, format);
+        m_img_markers   = QImage(width, height, format);
 
-	// create a new target image
-	m_image         = QImage(width, height, format);
+        // create a new target image
+        m_image         = QImage(width, height, format);
 
-	// mark all images as "need refresh"
-	m_img_signal_needs_refresh    = true;
-	m_img_selection_needs_refresh = true;
-	m_img_markers_needs_refresh   = true;
+        // mark all images as "need refresh"
+        m_img_signal_needs_refresh    = true;
+        m_img_selection_needs_refresh = true;
+        m_img_markers_needs_refresh   = true;
 
-	// remember the last width
-	m_last_width  = width;
-	m_last_height = height;
+        // remember the last width
+        m_last_width  = width;
+        m_last_height = height;
     }
 
     // --- repaint of the signal layer ---
     if (m_img_signal_needs_refresh) {
-// 	qDebug("TrackView::paintEvent(): - redraw of signal layer -");
+//      qDebug("TrackView::paintEvent(): - redraw of signal layer -");
 
-	p.begin(&m_img_signal);
+        p.begin(&m_img_signal);
 
-	// fix the width and height of the track pixmap
-	if ((m_pixmap.width() < width) || (m_pixmap.height() != height))
-	    m_pixmap.resize(width, height);
+        // fix the width and height of the track pixmap
+        if ((m_pixmap.width() < width) || (m_pixmap.height() != height))
+            m_pixmap.resize(width, height);
 
-	// refresh the pixmap
-	if (m_pixmap.isModified())
-	    m_pixmap.repaint();
+        // refresh the pixmap
+        if (m_pixmap.isModified())
+            m_pixmap.repaint();
 
-	p.setCompositionMode(QPainter::CompositionMode_Source);
-	p.drawPixmap(0, 0, m_pixmap.pixmap());
-	p.end();
+        p.setCompositionMode(QPainter::CompositionMode_Source);
+        p.drawPixmap(0, 0, m_pixmap.pixmap());
+        p.end();
 
-	m_img_signal_needs_refresh = false;
+        m_img_signal_needs_refresh = false;
     }
 
     // --- repaint of the markers layer ---
     if (m_img_markers_needs_refresh) {
-// 	qDebug("TrackView::paintEvent(): - redraw of markers layer -");
+//      qDebug("TrackView::paintEvent(): - redraw of markers layer -");
 
-	p.begin(&m_img_markers);
-	p.fillRect(0, 0, width, height, Qt::black);
+        p.begin(&m_img_markers);
+        p.fillRect(0, 0, width, height, Qt::black);
 
-	int last_marker = -1;
-	const sample_index_t last_visible = lastVisible();
-	foreach (const Kwave::Label &label,
-	         Kwave::LabelList(m_signal_manager->metaData()))
-	{
-	    sample_index_t pos = label.pos();
-	    if (pos < m_offset)     continue; // outside left
-	    if (pos > last_visible) break;    // far outside right, done
-	    int x = samples2pixels(pos - m_offset);
-	    if (x >= width) break; // outside right, done
+        int last_marker = -1;
+        const sample_index_t last_visible = lastVisible();
+        foreach (const Kwave::Label &label,
+                 Kwave::LabelList(m_signal_manager->metaData()))
+        {
+            sample_index_t pos = label.pos();
+            if (pos < m_offset)     continue; // outside left
+            if (pos > last_visible) break;    // far outside right, done
+            int x = samples2pixels(pos - m_offset);
+            if (x >= width) break; // outside right, done
 
-	    // position must differ from the last one, otherwise we
-	    // would wipe out the last one with XOR mode
-	    if (x == last_marker) continue;
+            // position must differ from the last one, otherwise we
+            // would wipe out the last one with XOR mode
+            if (x == last_marker) continue;
 
-	    p.setPen(Qt::cyan);
-	    p.setCompositionMode(QPainter::CompositionMode_Exclusion);
-	    p.drawLine(x, 0, x, height);
+            p.setPen(Qt::cyan);
+            p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+            p.drawLine(x, 0, x, height);
 
-	    last_marker = x;
-	}
+            last_marker = x;
+        }
 
-	p.end();
+        p.end();
 
-	m_img_markers_needs_refresh = false;
+        m_img_markers_needs_refresh = false;
     }
 
     // --- repaint of the selection layer ---
     if (m_img_selection_needs_refresh) {
-// 	qDebug("TrackView::paintEvent(): - redraw of selection layer -");
+//      qDebug("TrackView::paintEvent(): - redraw of selection layer -");
 
-	p.begin(&m_img_selection);
-	p.fillRect(0, 0, width, height, Qt::black);
+        p.begin(&m_img_selection);
+        p.fillRect(0, 0, width, height, Qt::black);
 
-	sample_index_t left  = m_signal_manager->selection().first();
-	sample_index_t right = m_signal_manager->selection().last();
-	const sample_index_t visible = pixels2samples(width);
+        sample_index_t left  = m_signal_manager->selection().first();
+        sample_index_t right = m_signal_manager->selection().last();
+        const sample_index_t visible = pixels2samples(width);
 
-	if ((right > 0) && (right >= m_offset)) {
+        if ((right > 0) && (right >= m_offset)) {
 
-	    // shift and clip the selection, relative to m_offset
-	    left  = (left > m_offset) ? (left - m_offset) : 0;
-	    if (left <= visible) {
-		right -= m_offset;
-		if (right > visible) right = visible + 1;
+            // shift and clip the selection, relative to m_offset
+            left  = (left > m_offset) ? (left - m_offset) : 0;
+            if (left <= visible) {
+                right -= m_offset;
+                if (right > visible) right = visible + 1;
 
-		// transform to pixel coordinates
-		int l = samples2pixels(left);
-		int r = samples2pixels(right);
+                // transform to pixel coordinates
+                int l = samples2pixels(left);
+                int r = samples2pixels(right);
 
-		// clip to the widget's size
-		if (r >= width) r = width - 1;
-		if (l > r)      l = r;
+                // clip to the widget's size
+                if (r >= width) r = width - 1;
+                if (l > r)      l = r;
 
-		p.setPen(Qt::yellow);
-		if (l == r) {
-		    p.drawLine(l, 0, l, height);
-		} else {
-		    p.setBrush(Qt::yellow);
-		    p.drawRect(l, 0, r - l + 1, height);
-		}
-	    }
-	}
-	p.end();
+                p.setPen(Qt::yellow);
+                if (l == r) {
+                    p.drawLine(l, 0, l, height);
+                } else {
+                    p.setBrush(Qt::yellow);
+                    p.drawRect(l, 0, r - l + 1, height);
+                }
+            }
+        }
+        p.end();
 
-	m_img_selection_needs_refresh = false;
+        m_img_selection_needs_refresh = false;
     }
 
     // bitBlt all layers together
@@ -494,17 +494,17 @@ void Kwave::TrackView::paintEvent(QPaintEvent *)
     // --- show the cursor position ---
     do
     {
-	if (m_cursor_pos == SAMPLE_INDEX_MAX) break;
-	if (m_cursor_pos < m_offset) break;
-	const sample_index_t visible = pixels2samples(width);
-	if (m_cursor_pos >= m_offset + visible) break;
+        if (m_cursor_pos == SAMPLE_INDEX_MAX) break;
+        if (m_cursor_pos < m_offset) break;
+        const sample_index_t visible = pixels2samples(width);
+        if (m_cursor_pos >= m_offset + visible) break;
 
-	int x = samples2pixels(m_cursor_pos - m_offset);
-	if (x >= width) break;
+        int x = samples2pixels(m_cursor_pos - m_offset);
+        if (x >= width) break;
 
-	p.setPen(Qt::yellow);
-	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
-	p.drawLine(x, 0, x, height);
+        p.setPen(Qt::yellow);
+        p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+        p.drawLine(x, 0, x, height);
     } while (0);
 
     p.end();

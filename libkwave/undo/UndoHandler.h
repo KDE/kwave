@@ -1,6 +1,6 @@
 /***************************************************************************
            UndoHandler.h -  abstract base class for undo saving
-			     -------------------
+                             -------------------
     begin                : Sat Feb 01 2014
     copyright            : (C) 2014 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -31,23 +31,23 @@ namespace Kwave
     {
     public:
 
-	/** Default constructor */
-	UndoHandler()
-	{}
+        /** Default constructor */
+        UndoHandler()
+        {}
 
-	/** Destructor */
-	virtual ~UndoHandler() {}
+        /** Destructor */
+        virtual ~UndoHandler() {}
 
-	/**
-	 * Called by an undo manager to notify the handler that
-	 * it is time to save data for undo.
-	 *
-	 * @param undo an undo transaction to append some undo data
-	 * @retval true if successful
-	 * @retval false if saving undo data failed, e.g. out of memory
-	 *               or aborted
-	 */
-	virtual bool saveUndoData(Kwave::UndoTransaction &undo) = 0;
+        /**
+         * Called by an undo manager to notify the handler that
+         * it is time to save data for undo.
+         *
+         * @param undo an undo transaction to append some undo data
+         * @retval true if successful
+         * @retval false if saving undo data failed, e.g. out of memory
+         *               or aborted
+         */
+        virtual bool saveUndoData(Kwave::UndoTransaction &undo) = 0;
 
     };
 }

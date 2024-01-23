@@ -32,38 +32,38 @@ namespace Kwave
     {
         Q_OBJECT
     public:
-	/**
-	* Constructor.
-	* @param curve the curve from which we take the interpolation
-	* @param length number of samples of the interpolated range
-	*/
-	CurveStreamAdapter(Kwave::Curve &curve, sample_index_t length);
+        /**
+        * Constructor.
+        * @param curve the curve from which we take the interpolation
+        * @param length number of samples of the interpolated range
+        */
+        CurveStreamAdapter(Kwave::Curve &curve, sample_index_t length);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~CurveStreamAdapter() Q_DECL_OVERRIDE;
 
-	/** @see Kwave::KwaveSampleSource */
+        /** @see Kwave::KwaveSampleSource */
         virtual void goOn() Q_DECL_OVERRIDE;
 
 
     signals:
 
-	/** emits a block with the interpolated curve */
-	void output(Kwave::SampleArray data);
+        /** emits a block with the interpolated curve */
+        void output(Kwave::SampleArray data);
 
     private:
 
-	/** position within the interpolation */
-	sample_index_t m_position;
+        /** position within the interpolation */
+        sample_index_t m_position;
 
-	/** number of samples of the interpolated area */
-	sample_index_t m_length;
+        /** number of samples of the interpolated area */
+        sample_index_t m_length;
 
-	/** the interpolation */
-	Kwave::Interpolation &m_interpolation;
+        /** the interpolation */
+        Kwave::Interpolation &m_interpolation;
 
-	/** array with the interpolated curve data */
-	Kwave::SampleArray m_buffer;
+        /** array with the interpolated curve data */
+        Kwave::SampleArray m_buffer;
 
     };
 

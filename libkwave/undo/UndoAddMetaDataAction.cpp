@@ -1,6 +1,6 @@
 /***************************************************************************
  UndoAddMetaDataAction.cpp  -  Undo action for insertion of labels
-			     -------------------
+                             -------------------
     begin                : Wed Aug 16 2006
     copyright            : (C) 2006 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -51,25 +51,25 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
      */
     foreach (const Kwave::MetaData &m, meta_data)
     {
-	// search over a list of known properties which contain range/position
-	QStringList properties = Kwave::MetaData::positionBoundPropertyNames();
-	foreach (const QString &tag, properties) {
-	    // check for a "start" property
-	    QVariant v = m[tag];
-	    bool ok = false;
-	    sample_index_t pos = static_cast<sample_index_t>(v.toULongLong(&ok));
-	    if (ok && (pos < first)) first = pos;
-	    if (ok && (pos > last))  last  = pos;
-	}
+        // search over a list of known properties which contain range/position
+        QStringList properties = Kwave::MetaData::positionBoundPropertyNames();
+        foreach (const QString &tag, properties) {
+            // check for a "start" property
+            QVariant v = m[tag];
+            bool ok = false;
+            sample_index_t pos = static_cast<sample_index_t>(v.toULongLong(&ok));
+            if (ok && (pos < first)) first = pos;
+            if (ok && (pos > last))  last  = pos;
+        }
     }
 
     // fix first/last in case that nothing was found, select everything
     if (first > last) {
-	m_offset = SAMPLE_INDEX_MAX;
-	m_length = 0;
+        m_offset = SAMPLE_INDEX_MAX;
+        m_length = 0;
     } else {
-	m_offset = first;
-	m_length = (last - first) + 1;
+        m_offset = first;
+        m_length = (last - first) + 1;
     }
 
     /*
@@ -77,47 +77,47 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
      */
 
     for (;;) {
-	QString name;
-	QList<Kwave::MetaData> values = meta_data.values();
-	Q_ASSERT(!values.isEmpty());
-	if (!values.isEmpty()) {
-	    const Kwave::MetaData &m = values.first();
-	    if (m.hasProperty(Kwave::MetaData::STDPROP_TYPE))
-		name = m[Kwave::MetaData::STDPROP_TYPE].toString();
-	}
+        QString name;
+        QList<Kwave::MetaData> values = meta_data.values();
+        Q_ASSERT(!values.isEmpty());
+        if (!values.isEmpty()) {
+            const Kwave::MetaData &m = values.first();
+            if (m.hasProperty(Kwave::MetaData::STDPROP_TYPE))
+                name = m[Kwave::MetaData::STDPROP_TYPE].toString();
+        }
 
-	// if the meta data list contains only one object: try to find
-	// out the object's name
-	if ((meta_data.count() == 1) && name.length()) {
-	    m_description = i18nc(
-		"name of the undo action for inserting a meta data object",
-		"Insert %1",
-		name
-	    );
-	    break;
-	}
+        // if the meta data list contains only one object: try to find
+        // out the object's name
+        if ((meta_data.count() == 1) && name.length()) {
+            m_description = i18nc(
+                "name of the undo action for inserting a meta data object",
+                "Insert %1",
+                name
+            );
+            break;
+        }
 
-	// check if the list contains only objects of the same type
-	bool all_same_type = true;
-	foreach (const Kwave::MetaData &m, meta_data) {
-	    QString n = m[Kwave::MetaData::STDPROP_TYPE].toString();
-	    if (!n.length() || (n != name)) {
-		all_same_type = false;
-		break;
-	    }
-	}
-	if (all_same_type) {
-	    m_description = i18nc(
-		"name of the undo action for inserting multiple "
-		"meta data objects of the same type: "
-		"%1=number of elements, %2=name of one element in singular",
-		"Insert %1 %2 objects", meta_data.count(), name
-	    );
-	    break;
-	}
+        // check if the list contains only objects of the same type
+        bool all_same_type = true;
+        foreach (const Kwave::MetaData &m, meta_data) {
+            QString n = m[Kwave::MetaData::STDPROP_TYPE].toString();
+            if (!n.length() || (n != name)) {
+                all_same_type = false;
+                break;
+            }
+        }
+        if (all_same_type) {
+            m_description = i18nc(
+                "name of the undo action for inserting multiple "
+                "meta data objects of the same type: "
+                "%1=number of elements, %2=name of one element in singular",
+                "Insert %1 %2 objects", meta_data.count(), name
+            );
+            break;
+        }
 
-	m_description = i18n("Insert Meta Data");
-	break;
+        m_description = i18n("Insert Meta Data");
+        break;
     }
 }
 
@@ -159,13 +159,13 @@ Kwave::UndoAction *Kwave::UndoAddMetaDataAction::undo(
     Kwave::UndoAction *redo = Q_NULLPTR;
 
     Kwave::MetaDataList meta_data =
-	manager.metaData().copy(m_offset, m_length);
+        manager.metaData().copy(m_offset, m_length);
 
     // store data for redo
     if (with_redo && !meta_data.isEmpty()) {
-	redo = new(std::nothrow) Kwave::UndoDeleteMetaDataAction(meta_data);
-	Q_ASSERT(redo);
-	if (redo) redo->store(manager);
+        redo = new(std::nothrow) Kwave::UndoDeleteMetaDataAction(meta_data);
+        Q_ASSERT(redo);
+        if (redo) redo->store(manager);
     }
 
     // remove the meta data from the signal manager

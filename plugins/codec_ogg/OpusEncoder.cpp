@@ -132,63 +132,63 @@ bool Kwave::OpusEncoder::setupDownMix(QWidget *widget, unsigned int tracks,
     m_downmix = DOWNMIX_AUTO; // currently not user configurable
 
     if ((m_downmix == DOWNMIX_AUTO) &&
-	(bitrate > 0) && (bitrate < (32000 * Kwave::toInt(tracks))))
+        (bitrate > 0) && (bitrate < (32000 * Kwave::toInt(tracks))))
     {
-	if (tracks > 8) {
-	    // downmix from more than 8 channels to mono
-	    if (Kwave::MessageBox::warningContinueCancel(
-		widget,
-		i18n("Surround bitrate would be less than 32kBit/sec per "
-		      "channel, this file should be mixed down to mono."),
-		QString(), QString(), QString(),
-		_("opus_accept_down_mix_on_export")) != KMessageBox::Continue)
-	    {
-		return false;
-	    }
-	    m_downmix = DOWNMIX_MONO;
-	} else if (tracks > 2) {
-	    // downmix from more than stereo to stereo
-	    if (Kwave::MessageBox::warningContinueCancel(
-		widget,
-		i18n("Surround bitrate would be less than 32kBit/sec per "
-		      "channel, this file should be mixed down to stereo."),
-		QString(), QString(), QString(),
-		_("opus_accept_down_mix_on_export")) != KMessageBox::Continue)
-	    {
-		return false;
-	    }
-	    m_downmix = DOWNMIX_STEREO;
-	}
+        if (tracks > 8) {
+            // downmix from more than 8 channels to mono
+            if (Kwave::MessageBox::warningContinueCancel(
+                widget,
+                i18n("Surround bitrate would be less than 32kBit/sec per "
+                      "channel, this file should be mixed down to mono."),
+                QString(), QString(), QString(),
+                _("opus_accept_down_mix_on_export")) != KMessageBox::Continue)
+            {
+                return false;
+            }
+            m_downmix = DOWNMIX_MONO;
+        } else if (tracks > 2) {
+            // downmix from more than stereo to stereo
+            if (Kwave::MessageBox::warningContinueCancel(
+                widget,
+                i18n("Surround bitrate would be less than 32kBit/sec per "
+                      "channel, this file should be mixed down to stereo."),
+                QString(), QString(), QString(),
+                _("opus_accept_down_mix_on_export")) != KMessageBox::Continue)
+            {
+                return false;
+            }
+            m_downmix = DOWNMIX_STEREO;
+        }
     }
     if (m_downmix == DOWNMIX_AUTO) // if still "auto"
-	m_downmix = DOWNMIX_OFF;   // then switch it off
+        m_downmix = DOWNMIX_OFF;   // then switch it off
 
     switch (m_downmix) {
-	case DOWNMIX_MONO:   m_encoder_channels = 1;      break;
-	case DOWNMIX_STEREO: m_encoder_channels = 2;      break;
-	default:             m_encoder_channels = tracks; break;
+        case DOWNMIX_MONO:   m_encoder_channels = 1;      break;
+        case DOWNMIX_STEREO: m_encoder_channels = 2;      break;
+        default:             m_encoder_channels = tracks; break;
     }
 
     if (m_encoder_channels != tracks) {
-	// create a channel mixer
-	m_channel_mixer = new(std::nothrow)
-	    Kwave::ChannelMixer(tracks, m_encoder_channels);
-	Q_ASSERT(m_channel_mixer);
-	if (!m_channel_mixer || !m_channel_mixer->init()) {
-	    qWarning("creating channel mixer failed");
-	    return false;
-	}
+        // create a channel mixer
+        m_channel_mixer = new(std::nothrow)
+            Kwave::ChannelMixer(tracks, m_encoder_channels);
+        Q_ASSERT(m_channel_mixer);
+        if (!m_channel_mixer || !m_channel_mixer->init()) {
+            qWarning("creating channel mixer failed");
+            return false;
+        }
 
-	// connect it to the end of the current preprocessing queue
-	// (normally this is the original sample source)
-	if (!Kwave::connect(
-	    *m_last_queue_element, SIGNAL(output(Kwave::SampleArray)),
-	    *m_channel_mixer,      SLOT(input(Kwave::SampleArray))))
-	{
-	    qWarning("connecting the channel mixer failed");
-	    return false;
-	}
-	m_last_queue_element = m_channel_mixer;
+        // connect it to the end of the current preprocessing queue
+        // (normally this is the original sample source)
+        if (!Kwave::connect(
+            *m_last_queue_element, SIGNAL(output(Kwave::SampleArray)),
+            *m_channel_mixer,      SLOT(input(Kwave::SampleArray))))
+        {
+            qWarning("connecting the channel mixer failed");
+            return false;
+        }
+        m_last_queue_element = m_channel_mixer;
     }
 
     return true;
@@ -214,25 +214,25 @@ bool Kwave::OpusEncoder::setupBitrate(QWidget *widget, unsigned int tracks)
     if ((bitrate > 0) && ((bitrate > (BITRATE_MAX * Kwave::toInt(tracks)))
         || (bitrate < BITRATE_MIN)))
     {
-	int bitrate_new =
-	    qBound<int>(BITRATE_MIN, bitrate, BITRATE_MAX * tracks);
+        int bitrate_new =
+            qBound<int>(BITRATE_MIN, bitrate, BITRATE_MAX * tracks);
 
-	if (Kwave::MessageBox::warningContinueCancel(
-	    widget,
-	    i18nc("%1=original bitrate, %2=new/limited bitrate",
-	          "Bitrate %1 kBit/sec is out of range, "
-	          "limited to %2 kBit/sec",
-	           bitrate / 1000,
-	           bitrate_new / 1000),
-	    QString(), QString(), QString(),
-	    _("opus_bitrate_limit"))  != KMessageBox::Continue)
-	{
-	    return false;
-	}
+        if (Kwave::MessageBox::warningContinueCancel(
+            widget,
+            i18nc("%1=original bitrate, %2=new/limited bitrate",
+                  "Bitrate %1 kBit/sec is out of range, "
+                  "limited to %2 kBit/sec",
+                   bitrate / 1000,
+                   bitrate_new / 1000),
+            QString(), QString(), QString(),
+            _("opus_bitrate_limit"))  != KMessageBox::Continue)
+        {
+            return false;
+        }
     }
 
     if (bitrate > 0)
-	qDebug("    OpusEncoder: bitrate %d bits/sec (configured)", bitrate);
+        qDebug("    OpusEncoder: bitrate %d bits/sec (configured)", bitrate);
     m_bitrate = bitrate;
     return true;
 }
@@ -251,8 +251,8 @@ bool Kwave::OpusEncoder::setupCodingRate(QWidget *widget,
     m_coding_rate = rate_supp;
 
     if (rate_orig == rate_supp) {
-   	qDebug("    OpusEncoder: using sample rate %d", rate_orig);
-	return true; // no conversion needed :-)
+        qDebug("    OpusEncoder: using sample rate %d", rate_orig);
+        return true; // no conversion needed :-)
     }
 
     double rate_from = static_cast<double>(rate_orig);
@@ -264,43 +264,43 @@ bool Kwave::OpusEncoder::setupCodingRate(QWidget *widget,
 
     // range check: conversion ration must be between 1/256 and 256
     if ((ratio < (1.0 / 256.0)) || (ratio > 256.0)) {
-	int lowest  = qMin<int>(SAMPLE_RATE_MIN,
-	                        Kwave::toInt(ceil( rate_to / 256.0)));
-	int highest = qMax<int>(Kwave::toInt(floor(rate_to * 256.0)),
-	                        SAMPLE_RATE_MAX);
-	Kwave::MessageBox::sorry(
-	    widget,
-	    i18nc("%1=requested sample rate, "
-	          "%2=lowest supported, %3=highest supported",
-	          "Sample rate %1 samples/sec is out of range,\n"
-	          "supported are %2 ... %3 samples/sec.",
-	           rate_supp, lowest, highest),
-	    QString()
-	);
-	return false;
+        int lowest  = qMin<int>(SAMPLE_RATE_MIN,
+                                Kwave::toInt(ceil( rate_to / 256.0)));
+        int highest = qMax<int>(Kwave::toInt(floor(rate_to * 256.0)),
+                                SAMPLE_RATE_MAX);
+        Kwave::MessageBox::sorry(
+            widget,
+            i18nc("%1=requested sample rate, "
+                  "%2=lowest supported, %3=highest supported",
+                  "Sample rate %1 samples/sec is out of range,\n"
+                  "supported are %2 ... %3 samples/sec.",
+                   rate_supp, lowest, highest),
+            QString()
+        );
+        return false;
     }
 
     // create a new rate converter
     m_rate_converter = new(std::nothrow)
-	Kwave::MultiTrackSource<Kwave::RateConverter, true>(tracks);
+        Kwave::MultiTrackSource<Kwave::RateConverter, true>(tracks);
     Q_ASSERT(m_rate_converter);
     if (!m_rate_converter)
-	return false;
+        return false;
 
     m_rate_converter->setAttribute(
-	SLOT(setRatio(QVariant)),
-	QVariant(ratio)
+        SLOT(setRatio(QVariant)),
+        QVariant(ratio)
     );
 
     // connect the rate converter to the end of the current preprocessing
     // queue/ (normally this is either the original sample source or
     // a channel mixer)
     if (!Kwave::connect(
-	*m_last_queue_element, SIGNAL(output(Kwave::SampleArray)),
-	*m_rate_converter,     SLOT(input(Kwave::SampleArray))))
+        *m_last_queue_element, SIGNAL(output(Kwave::SampleArray)),
+        *m_rate_converter,     SLOT(input(Kwave::SampleArray))))
     {
-	qWarning("connecting the rate converter failed");
-	return false;
+        qWarning("connecting the rate converter failed");
+        return false;
     }
     m_last_queue_element = m_rate_converter;
 
@@ -316,31 +316,31 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
     // (supported values are 2.5, 5, 10, 20, 40, or 60 ms)
     qreal ms_per_frame = 20.0; // default is 20ms
     if (m_info.contains(INF_OPUS_FRAME_LEN)) {
-	double len = m_info.get(INF_OPUS_FRAME_LEN).toDouble();
-	if (len >= 60)
-	    ms_per_frame = 60.0;
-	else if (len >= 40)
-	    ms_per_frame = 40.0;
-	else if (len >= 20)
-	    ms_per_frame = 20.0;
-	else if (len >= 5)
-	    ms_per_frame = 5;
-	else
-	    ms_per_frame = 2.5;
-   	qDebug("    OpusEncoder: %0.1f ms/frame", ms_per_frame);
+        double len = m_info.get(INF_OPUS_FRAME_LEN).toDouble();
+        if (len >= 60)
+            ms_per_frame = 60.0;
+        else if (len >= 40)
+            ms_per_frame = 40.0;
+        else if (len >= 20)
+            ms_per_frame = 20.0;
+        else if (len >= 5)
+            ms_per_frame = 5;
+        else
+            ms_per_frame = 2.5;
+        qDebug("    OpusEncoder: %0.1f ms/frame", ms_per_frame);
     } else {
-	ms_per_frame = 20.0; // <- default
-   	qDebug("    OpusEncoder: %0.1f ms/frame (default)", ms_per_frame);
+        ms_per_frame = 20.0; // <- default
+        qDebug("    OpusEncoder: %0.1f ms/frame (default)", ms_per_frame);
     }
 
     // calculate the frame size in samples from the frame duration in ms
     // = frame_length [ms] * bitrate [bits/sec] / 1000 [ms/sec]
     m_frame_size = Kwave::toUint(
-	(ms_per_frame * m_coding_rate) / 1000);
+        (ms_per_frame * m_coding_rate) / 1000);
 
     if (tracks > 255) {
-	qWarning("too many tracks: %u, supported: 255", tracks);
-	return false; // more than 255 tracks are not supported
+        qWarning("too many tracks: %u, supported: 255", tracks);
+        return false; // more than 255 tracks are not supported
     }
 
     // fill out all header fields
@@ -355,34 +355,34 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
     // determine channel mapping and coupling
     quint8 force_narrow = 0x00;
     if (tracks <= 8) {
-	/* apply a mapping as done in opusenc.c from opus-tools-0.1.5 */
-	static const quint8 opusenc_streams[8][10]= {
-	    /*       Coupled,   NB_bitmap, mapping...*/
-	    /* 1 */ {0,         0,         0                      },
-	    /* 2 */ {1,         0,         0, 1                   },
-	    /* 3 */ {1,         0,         0, 2, 1                },
-	    /* 4 */ {2,         0,         0, 1, 2, 3             },
-	    /* 5 */ {2,         0,         0, 4, 1, 2, 3          },
-	    /* 6 */ {2,    1 << 3,         0, 4, 1, 2, 3, 5       },
-	    /* 7 */ {2,    1 << 4,         0, 4, 1, 2, 3, 5, 6    },
-	    /* 8 */ {3,    1 << 4,         0, 6, 1, 2, 3, 4, 5, 7 }
-	};
-	for (unsigned int i = 0; i < tracks; i++)
-	    m_opus_header.map[i] = opusenc_streams[tracks - 1][i + 2];
-	force_narrow = opusenc_streams[tracks - 1][1];
-	m_opus_header.coupled         = opusenc_streams[tracks - 1][0];
-	m_opus_header.streams         = static_cast<quint8>(
-	    tracks - m_opus_header.coupled);
-	m_opus_header.channel_mapping = (m_opus_header.streams > 1);
+        /* apply a mapping as done in opusenc.c from opus-tools-0.1.5 */
+        static const quint8 opusenc_streams[8][10]= {
+            /*       Coupled,   NB_bitmap, mapping...*/
+            /* 1 */ {0,         0,         0                      },
+            /* 2 */ {1,         0,         0, 1                   },
+            /* 3 */ {1,         0,         0, 2, 1                },
+            /* 4 */ {2,         0,         0, 1, 2, 3             },
+            /* 5 */ {2,         0,         0, 4, 1, 2, 3          },
+            /* 6 */ {2,    1 << 3,         0, 4, 1, 2, 3, 5       },
+            /* 7 */ {2,    1 << 4,         0, 4, 1, 2, 3, 5, 6    },
+            /* 8 */ {3,    1 << 4,         0, 6, 1, 2, 3, 4, 5, 7 }
+        };
+        for (unsigned int i = 0; i < tracks; i++)
+            m_opus_header.map[i] = opusenc_streams[tracks - 1][i + 2];
+        force_narrow = opusenc_streams[tracks - 1][1];
+        m_opus_header.coupled         = opusenc_streams[tracks - 1][0];
+        m_opus_header.streams         = static_cast<quint8>(
+            tracks - m_opus_header.coupled);
+        m_opus_header.channel_mapping = (m_opus_header.streams > 1);
 
-   	qDebug("    OpusEncoder: %d stream(s) / %d coupled (mapping=%d)",
-	       m_opus_header.streams, m_opus_header.coupled,
-	       m_opus_header.channel_mapping);
+        qDebug("    OpusEncoder: %d stream(s) / %d coupled (mapping=%d)",
+               m_opus_header.streams, m_opus_header.coupled,
+               m_opus_header.channel_mapping);
     } else {
-	/* map all channels 1:1 */
-	for (quint8 i = 0; i < m_opus_header.channels; ++i)
-	    m_opus_header.map[i] = i;
-   	qDebug("    OpusEncoder: mapping channels 1:1");
+        /* map all channels 1:1 */
+        for (quint8 i = 0; i < m_opus_header.channels; ++i)
+            m_opus_header.map[i] = i;
+        qDebug("    OpusEncoder: mapping channels 1:1");
     }
 
     // allocate a packet buffer
@@ -391,8 +391,8 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
     Q_ASSERT(!m_packet_buffer);
     m_packet_buffer = static_cast<unsigned char *>(malloc(m_max_frame_bytes));
     if (!m_packet_buffer) {
-	Kwave::MessageBox::error(widget, i18n("Out of memory"));
-	return false;
+        Kwave::MessageBox::error(widget, i18n("Out of memory"));
+        return false;
     }
 
     // initialize the Opus encoder:
@@ -403,49 +403,49 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
     int err = OPUS_ALLOC_FAIL;
     Q_ASSERT(!m_encoder);
     m_encoder = opus_multistream_encoder_create(
-	m_coding_rate,
-	tracks,
-	m_opus_header.streams,
-	m_opus_header.coupled,
-	m_opus_header.map,
-	(ms_per_frame < 10.0) ? OPUS_APPLICATION_RESTRICTED_LOWDELAY :
-	                        OPUS_APPLICATION_AUDIO,
-	&err
+        m_coding_rate,
+        tracks,
+        m_opus_header.streams,
+        m_opus_header.coupled,
+        m_opus_header.map,
+        (ms_per_frame < 10.0) ? OPUS_APPLICATION_RESTRICTED_LOWDELAY :
+                                OPUS_APPLICATION_AUDIO,
+        &err
     );
     if (err != OPUS_OK) {
-	Kwave::MessageBox::error(widget, Kwave::opus_error(err),
-	     i18n("Opus encoder failed"));
-	return false;
+        Kwave::MessageBox::error(widget, Kwave::opus_error(err),
+             i18n("Opus encoder failed"));
+        return false;
     }
 
     if (force_narrow) {
-	for (unsigned int i = 0; i < m_opus_header.streams; i++ ) {
-	    if (force_narrow & (1 << i)) {
+        for (unsigned int i = 0; i < m_opus_header.streams; i++ ) {
+            if (force_narrow & (1 << i)) {
                 ::OpusEncoder *oe = Q_NULLPTR;
 
-		opus_multistream_encoder_ctl(
-		    m_encoder,
-		    OPUS_MULTISTREAM_GET_ENCODER_STATE_REQUEST, i, &oe
-		);
+                opus_multistream_encoder_ctl(
+                    m_encoder,
+                    OPUS_MULTISTREAM_GET_ENCODER_STATE_REQUEST, i, &oe
+                );
 
-		int err_ctl = opus_encoder_ctl(oe,
-		    OPUS_SET_MAX_BANDWIDTH_REQUEST, OPUS_BANDWIDTH_NARROWBAND);
+                int err_ctl = opus_encoder_ctl(oe,
+                    OPUS_SET_MAX_BANDWIDTH_REQUEST, OPUS_BANDWIDTH_NARROWBAND);
 
-		if (err_ctl != OPUS_OK) {
-		    Kwave::MessageBox::error(widget, Kwave::opus_error(err_ctl),
-			i18n("Opus encoder failed"));
-		    return false;
-		}
-	    }
-	}
+                if (err_ctl != OPUS_OK) {
+                    Kwave::MessageBox::error(widget, Kwave::opus_error(err_ctl),
+                        i18n("Opus encoder failed"));
+                    return false;
+                }
+            }
+        }
     }
 
     // allocate a buffer to be used as input of the encoder
     m_encoder_input = static_cast<float *>(
-	malloc(sizeof(float) * m_frame_size * tracks));
+        malloc(sizeof(float) * m_frame_size * tracks));
     if (!m_encoder_input) {
-	Kwave::MessageBox::error(widget, i18n("Out of memory"));
-	return false;
+        Kwave::MessageBox::error(widget, i18n("Out of memory"));
+        return false;
     }
 
     return true;
@@ -459,42 +459,42 @@ bool Kwave::OpusEncoder::setupBitrateMode(QWidget *widget)
 
     // determine a reasonable bitrate in case we still use "autodetect"
     if (m_bitrate < 0) {
-	m_bitrate = (64000 * m_opus_header.streams) +
-	            (32000 * m_opus_header.coupled);
-	m_bitrate = qBound<int>(500, m_bitrate, 256000);
-	qDebug("    OpusEncoder: bitrate %d bits/sec (auto)", m_bitrate);
+        m_bitrate = (64000 * m_opus_header.streams) +
+                    (32000 * m_opus_header.coupled);
+        m_bitrate = qBound<int>(500, m_bitrate, 256000);
+        qDebug("    OpusEncoder: bitrate %d bits/sec (auto)", m_bitrate);
     }
 
     err = opus_multistream_encoder_ctl(m_encoder, OPUS_SET_BITRATE(
-	static_cast<opus_int32>(m_bitrate)));
+        static_cast<opus_int32>(m_bitrate)));
     if (err != OPUS_OK) {
-	Kwave::MessageBox::error(widget,
-	    i18n("Opus encoder failed setting bitrate: '%1'",
-	         Kwave::opus_error(err)));
-	return false;
+        Kwave::MessageBox::error(widget,
+            i18n("Opus encoder failed setting bitrate: '%1'",
+                 Kwave::opus_error(err)));
+        return false;
     }
 
     int bitrate_mode = m_info.get(INF_BITRATE_MODE).toInt();
     bool with_hard_cbr = (bitrate_mode == BITRATE_MODE_CBR_HARD);
 
     err = opus_multistream_encoder_ctl(m_encoder, OPUS_SET_VBR(
-	static_cast<opus_int32>(with_hard_cbr ? 0 : 1)));
+        static_cast<opus_int32>(with_hard_cbr ? 0 : 1)));
     if (err != OPUS_OK) {
-	Kwave::MessageBox::error(widget,
-	    i18n("Opus encoder failed configuring VBR mode: '%1'",
-	         Kwave::opus_error(err)));
-	return false;
+        Kwave::MessageBox::error(widget,
+            i18n("Opus encoder failed configuring VBR mode: '%1'",
+                 Kwave::opus_error(err)));
+        return false;
     }
 
     if (!with_hard_cbr ) {
         err = opus_multistream_encoder_ctl(m_encoder, OPUS_SET_VBR_CONSTRAINT(
-	    static_cast<opus_int32>(with_cvbr ? 1 : 0)));
-	if (err != OPUS_OK) {
-	    Kwave::MessageBox::error(widget,
-		i18n("Opus encoder failed configuring VBR constraint: '%1'",
-		    Kwave::opus_error(err)));
-	    return false;
-	}
+            static_cast<opus_int32>(with_cvbr ? 1 : 0)));
+        if (err != OPUS_OK) {
+            Kwave::MessageBox::error(widget,
+                i18n("Opus encoder failed configuring VBR constraint: '%1'",
+                    Kwave::opus_error(err)));
+            return false;
+        }
     }
 
     return true;
@@ -523,58 +523,58 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
 
     // get the desired bitrate
     if (!setupBitrate(widget, src_tracks))
-	return false;
+        return false;
 
     // determine the down mixing mode
     // and set up the mixer if necessary
     if (!setupDownMix(widget, src_tracks, m_bitrate))
-	return false;
+        return false;
 
     // determine the decoding sample rate
     // and set up the rate converter if necessary
     if (!setupCodingRate(widget, m_encoder_channels, sample_rate))
-	return false;
+        return false;
 
     // set up mapping, packet size and encoder
     if (!setupEncoder(widget, m_encoder_channels, sample_rate))
-	return false;
+        return false;
 
     // set up bitrate mode (e.g. VBR, ABR, ...)
     if (!setupBitrateMode(widget))
-	return false;
+        return false;
 
     // create a sample buffer at the end of the filter chain
     m_buffer = new(std::nothrow)
-	Kwave::MultiTrackSink<Kwave::SampleBuffer, true>(m_encoder_channels);
+        Kwave::MultiTrackSink<Kwave::SampleBuffer, true>(m_encoder_channels);
     Q_ASSERT(m_buffer);
     if (!m_buffer) {
-	qWarning("cannot create sample buffer");
-	return false;
+        qWarning("cannot create sample buffer");
+        return false;
     }
     if (!Kwave::connect(
-	*m_last_queue_element, SIGNAL(output(Kwave::SampleArray)),
-	*m_buffer,             SLOT(input(Kwave::SampleArray))) )
+        *m_last_queue_element, SIGNAL(output(Kwave::SampleArray)),
+        *m_buffer,             SLOT(input(Kwave::SampleArray))) )
     {
-	qWarning("failed to connect sample buffer");
-	return false;
+        qWarning("failed to connect sample buffer");
+        return false;
     }
 
     // set up the encoder complexity (ignore errors)
     opus_int32 complexity = DEFAULT_COMPLEXITY;
     err = opus_multistream_encoder_ctl(m_encoder,
-	OPUS_SET_COMPLEXITY(complexity));
+        OPUS_SET_COMPLEXITY(complexity));
     if (err != OPUS_OK) {
-	qWarning("OpusEncoder: failed setting encoder complexity: '%s'",
-	         DBG(Kwave::opus_error(err)));
+        qWarning("OpusEncoder: failed setting encoder complexity: '%s'",
+                 DBG(Kwave::opus_error(err)));
     }
 
     // set up the expected loss [percent] (ignore errors)
     opus_int32 expect_loss = 0;
     err = opus_multistream_encoder_ctl(m_encoder,
-	OPUS_SET_PACKET_LOSS_PERC(expect_loss));
+        OPUS_SET_PACKET_LOSS_PERC(expect_loss));
     if (err != OPUS_OK) {
-	qWarning("OpusEncoder: failed setting expected loss: '%s'",
-	         DBG(Kwave::opus_error(err)));
+        qWarning("OpusEncoder: failed setting expected loss: '%s'",
+                 DBG(Kwave::opus_error(err)));
     }
 
 #ifdef OPUS_SET_LSB_DEPTH
@@ -582,26 +582,26 @@ bool Kwave::OpusEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
     opus_int32 bits = qBound<unsigned int>(8, m_info.bits(), 24);
     err = opus_multistream_encoder_ctl(m_encoder, OPUS_SET_LSB_DEPTH(bits));
     if (err != OPUS_OK) {
-	qWarning("OpusEncoder: failed setting LSB depth loss: '%s'",
-	         DBG(Kwave::opus_error(err)));
+        qWarning("OpusEncoder: failed setting LSB depth loss: '%s'",
+                 DBG(Kwave::opus_error(err)));
     }
 #endif /* OPUS_SET_LSB_DEPTH */
 
     // get the lookahead value
     opus_int32 lookahead;
     err = opus_multistream_encoder_ctl(m_encoder,
-	OPUS_GET_LOOKAHEAD(&lookahead));
+        OPUS_GET_LOOKAHEAD(&lookahead));
     if (err != OPUS_OK) {
-	Kwave::MessageBox::error(widget,
-	    i18n("Opus encoder failed getting lookahead value: '%1'",
-	         Kwave::opus_error(err)));
-	return false;
+        Kwave::MessageBox::error(widget,
+            i18n("Opus encoder failed getting lookahead value: '%1'",
+                 Kwave::opus_error(err)));
+        return false;
     }
 
     // regardless of the rate we're coding at the ogg timestamping/skip is
     //  always timed at 48000 kBit/s
     m_opus_header.preskip = static_cast<quint16>(
-	lookahead * (48000.0 / m_coding_rate));
+        lookahead * (48000.0 / m_coding_rate));
     qDebug("    OpusEncoder: preskip=%d", m_opus_header.preskip);
 
     /* Extra samples that need to be read to compensate for the pre-skip */
@@ -642,13 +642,13 @@ bool Kwave::OpusEncoder::writeOpusHeader(QIODevice &dst)
     header.channel_mapping = m_opus_header.channel_mapping;
     len = 19; // bytes so far
     if (m_opus_header.channel_mapping) {
-	header.streams = m_opus_header.streams;
-	header.coupled = m_opus_header.coupled;
-	len += 2;
+        header.streams = m_opus_header.streams;
+        header.coupled = m_opus_header.coupled;
+        len += 2;
 
-	for (quint8 i = 0; i < m_opus_header.channels; ++i)
-	    header.map[i] = m_opus_header.map[i];
-	len += m_opus_header.channels;
+        for (quint8 i = 0; i < m_opus_header.channels; ++i)
+            header.map[i] = m_opus_header.map[i];
+        len += m_opus_header.channels;
     }
 
     // write the header into the ogg stream
@@ -661,10 +661,10 @@ bool Kwave::OpusEncoder::writeOpusHeader(QIODevice &dst)
     ogg_stream_packetin(&m_os, &m_op);
 
     while (ogg_stream_flush(&m_os, &m_og)) {
-	dst.write(reinterpret_cast<char *>(m_og.header),
-	          m_og.header_len);
-	dst.write(reinterpret_cast<char *>(m_og.body),
-	          m_og.body_len);
+        dst.write(reinterpret_cast<char *>(m_og.header),
+                  m_og.header_len);
+        dst.write(reinterpret_cast<char *>(m_og.body),
+                  m_og.body_len);
     }
 
     return true;
@@ -693,21 +693,21 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
     for (VorbisCommentMap::const_iterator it(m_comments_map.constBegin());
          it != m_comments_map.constEnd(); ++it)
     {
-	const QString       &key     = it.key();
-	Kwave::FileProperty property = it.value();
-	if (!m_info.contains(property)) continue; // skip if not present
+        const QString       &key     = it.key();
+        Kwave::FileProperty property = it.value();
+        if (!m_info.contains(property)) continue; // skip if not present
 
-	// convert the value into a byte array,  UTF-8 encoded
-	QString str = key + _("=") + m_info.get(property).toString();
-	QByteArray v = str.toUtf8();
+        // convert the value into a byte array,  UTF-8 encoded
+        QString str = key + _("=") + m_info.get(property).toString();
+        QByteArray v = str.toUtf8();
 
-	// make sure that the "ENCODER" tag is at the start of the list
-	if ((property == INF_SOFTWARE) && (!tags.isEmpty()))
-	    tags.prepend(v);
-	else
-	    tags.append(v);
+        // make sure that the "ENCODER" tag is at the start of the list
+        if ((property == INF_SOFTWARE) && (!tags.isEmpty()))
+            tags.prepend(v);
+        else
+            tags.append(v);
 
-	len += (4 + v.size()); // sum up the data length
+        len += (4 + v.size()); // sum up the data length
     }
 
     // write the number of user tags
@@ -715,8 +715,8 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
 
     // serialize the tags into the buffer
     foreach (const QByteArray &tag, tags) {
-	_writeInt(buffer, tag.size());
-	buffer.write(tag);
+        _writeInt(buffer, tag.size());
+        buffer.write(tag);
     }
 
     m_op.packet     = reinterpret_cast<unsigned char *>(buffer.buffer().data());
@@ -728,7 +728,7 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
     ogg_stream_packetin(&m_os, &m_op);
 
     while (ogg_stream_flush(&m_os, &m_og)) {
-	if (!writeOggPage(dst)) return false;
+        if (!writeOggPage(dst)) return false;
     }
 
     return true;
@@ -738,10 +738,10 @@ bool Kwave::OpusEncoder::writeOpusTags(QIODevice &dst)
 bool Kwave::OpusEncoder::writeHeader(QIODevice &dst)
 {
     if (!writeOpusHeader(dst))
-	return false;
+        return false;
 
     if (!writeOpusTags(dst))
-	return false;
+        return false;
 
     return true;
 }
@@ -753,18 +753,18 @@ bool Kwave::OpusEncoder::writeOggPage(QIODevice &dst)
 
     n = dst.write(reinterpret_cast<char *>(m_og.header), m_og.header_len);
     if (n != m_og.header_len) {
-	qWarning("OpusEncoder: I/O error writing header, len=%u, written=%u",
-	          static_cast<unsigned int>(n),
-	          static_cast<unsigned int>(m_og.header_len));
-	return false; // write error ?
+        qWarning("OpusEncoder: I/O error writing header, len=%u, written=%u",
+                  static_cast<unsigned int>(n),
+                  static_cast<unsigned int>(m_og.header_len));
+        return false; // write error ?
     }
 
     n = dst.write(reinterpret_cast<char *>(m_og.body),   m_og.body_len);
     if (n != m_og.body_len) {
-	qWarning("OpusEncoder: I/O error writing body, len=%u, written=%u",
-	          static_cast<unsigned int>(n),
-	          static_cast<unsigned int>(m_og.body_len));
-	return false; // write error ?
+        qWarning("OpusEncoder: I/O error writing body, len=%u, written=%u",
+                  static_cast<unsigned int>(n),
+                  static_cast<unsigned int>(m_og.body_len));
+        return false; // write error ?
     }
 
     // update the progress bar
@@ -779,38 +779,38 @@ unsigned int Kwave::OpusEncoder::fillInBuffer(Kwave::MultiTrackReader &src)
     unsigned int min_count = m_frame_size + 1; // will be used as "invalid"
 
     for (unsigned int t = 0; t < m_encoder_channels; ++t) {
-	Kwave::SampleBuffer *buf = m_buffer->at(t);
-	Q_ASSERT(buf);
-	if (!buf) return 0;
+        Kwave::SampleBuffer *buf = m_buffer->at(t);
+        Q_ASSERT(buf);
+        if (!buf) return 0;
 
-	unsigned int count = 0;
-	unsigned int rest  = m_frame_size;
-	while (rest) {
+        unsigned int count = 0;
+        unsigned int rest  = m_frame_size;
+        while (rest) {
 
-	    // while buffer is empty and source is not at eof:
-	    // trigger the start of the chain to produce some data
-	    while (!buf->available() && !src.eof())
-		src.goOn();
-	    const unsigned int avail = buf->available();
-	    if (!avail) break; // reached EOF
+            // while buffer is empty and source is not at eof:
+            // trigger the start of the chain to produce some data
+            while (!buf->available() && !src.eof())
+                src.goOn();
+            const unsigned int avail = buf->available();
+            if (!avail) break; // reached EOF
 
-	    // while there is something in the current buffer
-	    // and some rest is still to do
-	    unsigned int len = qMin<unsigned int>(rest, avail);
-	    const sample_t *s = buf->get(len);
-	    Q_ASSERT(s);
-	    if (!s) break;
+            // while there is something in the current buffer
+            // and some rest is still to do
+            unsigned int len = qMin<unsigned int>(rest, avail);
+            const sample_t *s = buf->get(len);
+            Q_ASSERT(s);
+            if (!s) break;
 
-	    // fill the frame data
-	    rest  -= len;
-	    count += len;
-	    float *p = m_encoder_input + t;
-	    while (len--) {
-		*p = sample2float(*(s++));
-		p += m_encoder_channels;
-	    }
-	}
-	if (count < min_count) min_count = count;
+            // fill the frame data
+            rest  -= len;
+            count += len;
+            float *p = m_encoder_input + t;
+            while (len--) {
+                *p = sample2float(*(s++));
+                p += m_encoder_channels;
+            }
+        }
+        if (count < min_count) min_count = count;
     }
 
     // take the minimum number of samples if valid, otherwise zero (eof?)
@@ -820,12 +820,12 @@ unsigned int Kwave::OpusEncoder::fillInBuffer(Kwave::MultiTrackReader &src)
     // and have some space to pad with extra samples to compensate preskip
     unsigned int extra_out = m_extra_out;
     while ((n < m_frame_size) && extra_out) {
-	Q_ASSERT(src.eof());
-	for (unsigned int t = 0; t < m_encoder_channels; ++t) {
-	    m_encoder_input[(n * m_encoder_channels) + t] = 0.0;
-	}
-	extra_out--;
-	n++;
+        Q_ASSERT(src.eof());
+        for (unsigned int t = 0; t < m_encoder_channels; ++t) {
+            m_encoder_input[(n * m_encoder_channels) + t] = 0.0;
+        }
+        extra_out--;
+        n++;
     }
 
     return n;
@@ -853,67 +853,67 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
 
     /* Main encoding loop (one frame per iteration) */
     while (!m_op.e_o_s && !src.isCanceled()) {
-	int size_segments = 0;
+        int size_segments = 0;
 
-	packet_id++;
+        packet_id++;
 
-	if (nb_samples < 0) {
-	    nb_samples = fillInBuffer(src);
-	    total_samples += nb_samples;
-	    m_op.e_o_s = (nb_samples < m_frame_size) ? 1 : 0;
-	}
-	m_op.e_o_s |= eos; // eof from last pass
+        if (nb_samples < 0) {
+            nb_samples = fillInBuffer(src);
+            total_samples += nb_samples;
+            m_op.e_o_s = (nb_samples < m_frame_size) ? 1 : 0;
+        }
+        m_op.e_o_s |= eos; // eof from last pass
 
-	// pad the rest of the frame with zeroes if necessary
-	if (nb_samples < m_frame_size ) {
-	    const unsigned int pad_from =
-		Kwave::toUint(nb_samples * m_encoder_channels);
-	    const unsigned int pad_to   =
-		Kwave::toUint(m_frame_size * m_encoder_channels);
-	    for (unsigned int pos = pad_from; pos < pad_to; pos++ )
-		m_encoder_input[pos] = 0;
-	}
+        // pad the rest of the frame with zeroes if necessary
+        if (nb_samples < m_frame_size ) {
+            const unsigned int pad_from =
+                Kwave::toUint(nb_samples * m_encoder_channels);
+            const unsigned int pad_to   =
+                Kwave::toUint(m_frame_size * m_encoder_channels);
+            for (unsigned int pos = pad_from; pos < pad_to; pos++ )
+                m_encoder_input[pos] = 0;
+        }
 
-	/* encode current frame */
-	int nbBytes = opus_multistream_encode_float(
-	    m_encoder,
-	    m_encoder_input,
-	    m_frame_size,
-	    m_packet_buffer,
-	    m_max_frame_bytes
-	);
-	if (nbBytes < 0 ) {
-	    qWarning("Opus encoder failed: '%s'",
-		    DBG(Kwave::opus_error(nbBytes)));
-	    return false;
-	}
+        /* encode current frame */
+        int nbBytes = opus_multistream_encode_float(
+            m_encoder,
+            m_encoder_input,
+            m_frame_size,
+            m_packet_buffer,
+            m_max_frame_bytes
+        );
+        if (nbBytes < 0 ) {
+            qWarning("Opus encoder failed: '%s'",
+                    DBG(Kwave::opus_error(nbBytes)));
+            return false;
+        }
 
-	nb_encoded     += m_frame_size;
-	enc_granulepos += m_frame_size * 48000 / m_coding_rate;
-	total_bytes    += nbBytes;
-	size_segments   = (nbBytes + 255) / 255;
+        nb_encoded     += m_frame_size;
+        enc_granulepos += m_frame_size * 48000 / m_coding_rate;
+        total_bytes    += nbBytes;
+        size_segments   = (nbBytes + 255) / 255;
 
-	// flush early if adding this packet would make us end up with a
-	// continued page which we wouldn't have otherwise
-	while (( ((size_segments <= 255) &&
-		(last_segments + size_segments > 255)) ||
-		(enc_granulepos - last_granulepos > max_ogg_delay)) &&
+        // flush early if adding this packet would make us end up with a
+        // continued page which we wouldn't have otherwise
+        while (( ((size_segments <= 255) &&
+                (last_segments + size_segments > 255)) ||
+                (enc_granulepos - last_granulepos > max_ogg_delay)) &&
 #ifdef HAVE_OGG_STREAM_FLUSH_FILL
-		ogg_stream_flush_fill(&m_os, &m_og, 255 * 255))
+                ogg_stream_flush_fill(&m_os, &m_og, 255 * 255))
 #else /* HAVE_OGG_STREAM_FLUSH_FILL */
-		ogg_stream_flush(&m_os, &m_og))
+                ogg_stream_flush(&m_os, &m_og))
 #endif /* HAVE_OGG_STREAM_FLUSH_FILL */
-	{
-	    if (ogg_page_packets(&m_og) != 0)
-		last_granulepos = ogg_page_granulepos(&m_og);
+        {
+            if (ogg_page_packets(&m_og) != 0)
+                last_granulepos = ogg_page_granulepos(&m_og);
 
-	    last_segments -= m_og.header[26];
+            last_segments -= m_og.header[26];
 
-	    if (!writeOggPage(dst)) {
-		qWarning("Opus encoder: I/O error");
-		return false;
-	    }
-	}
+            if (!writeOggPage(dst)) {
+                qWarning("Opus encoder: I/O error");
+                return false;
+            }
+        }
 
         // the downside of early reading is if the input is an exact
         // multiple of the frame_size you'll get an extra frame that needs
@@ -939,10 +939,10 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
             // resampling decoder does the matching floor(len*input/48k)
             // conversion the length will be exactly the same as the input.
             sample_index_t length = m_info.length();
-	    double         rate   = m_info.rate();
-	    m_op.granulepos = static_cast<ogg_int64_t>(
-		ceil((static_cast<double>(length) * 48000.0) / rate) +
-		m_opus_header.preskip);
+            double         rate   = m_info.rate();
+            m_op.granulepos = static_cast<ogg_int64_t>(
+                ceil((static_cast<double>(length) * 48000.0) / rate) +
+                m_opus_header.preskip);
         }
         ogg_stream_packetin(&m_os, &m_op);
         last_segments += size_segments;
@@ -950,8 +950,8 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
         // If the stream is over or we're sure that the delayed flush will
         // fire, go ahead and flush now to avoid adding delay.
         while ((m_op.e_o_s || (enc_granulepos +
-	        ((m_frame_size * 48000) / m_coding_rate ) -
-	         last_granulepos > max_ogg_delay) || (last_segments >= 255)) ?
+                ((m_frame_size * 48000) / m_coding_rate ) -
+                 last_granulepos > max_ogg_delay) || (last_segments >= 255)) ?
 #ifdef HAVE_OGG_STREAM_FLUSH_FILL
                 ogg_stream_flush_fill(&m_os, &m_og, 255 * 255) :
                 ogg_stream_pageout_fill(&m_os, &m_og, 255 * 255))
@@ -962,15 +962,15 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
                 ogg_stream_flush(&m_os, &m_og) :
                 ogg_stream_pageout(&m_os, &m_og))
 #endif /* HAVE_OGG_STREAM_FLUSH_FILL */
-	{
+        {
             if (ogg_page_packets(&m_og) != 0)
                 last_granulepos = ogg_page_granulepos(&m_og);
 
             last_segments -= m_og.header[26];
-	    if (!writeOggPage(dst)) {
-		qWarning("Opus encoder: I/O error");
-		return false;
-	    }
+            if (!writeOggPage(dst)) {
+                qWarning("Opus encoder: I/O error");
+                return false;
+            }
         }
     }
 

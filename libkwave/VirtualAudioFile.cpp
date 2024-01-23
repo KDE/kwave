@@ -70,10 +70,10 @@ static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
 {
     Kwave::VirtualAudioFile *adapter = Kwave::VirtualAudioFile::adapter(vfile);
     return (adapter) ?
-	static_cast<ssize_t>(adapter->read(
-	    static_cast<char *>(data),
-	    Kwave::toUint(nbytes)
-	)) : 0;
+        static_cast<ssize_t>(adapter->read(
+            static_cast<char *>(data),
+            Kwave::toUint(nbytes)
+        )) : 0;
 }
 
 //***************************************************************************
@@ -85,14 +85,14 @@ static AFfileoffset af_file_length(AFvirtualfile *vfile)
 
 //***************************************************************************
 static ssize_t af_file_write(AFvirtualfile *vfile, const void *data,
-	                     size_t nbytes)
+                             size_t nbytes)
 {
     Kwave::VirtualAudioFile *adapter = Kwave::VirtualAudioFile::adapter(vfile);
     return (adapter) ?
-	static_cast<ssize_t>(adapter->write(
-	    static_cast<const char *>(data),
-	    Kwave::toUint(nbytes)
-	)) : 0;
+        static_cast<ssize_t>(adapter->write(
+            static_cast<const char *>(data),
+            Kwave::toUint(nbytes)
+        )) : 0;
 }
 
 //***************************************************************************
@@ -106,10 +106,10 @@ static AFfileoffset af_file_seek(AFvirtualfile *vfile, AFfileoffset offset,
 {
     Kwave::VirtualAudioFile *adapter = Kwave::VirtualAudioFile::adapter(vfile);
     return (adapter) ?
-	static_cast<AFfileoffset>(adapter->seek(
-	    static_cast<qint64>(offset),
-	    (is_relative != 0)
-	)) : -1;
+        static_cast<AFfileoffset>(adapter->seek(
+            static_cast<qint64>(offset),
+            (is_relative != 0)
+        )) : -1;
 }
 
 //***************************************************************************

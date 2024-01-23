@@ -1,6 +1,6 @@
 /***************************************************************************
             MainWidget.h  -  main widget of the Kwave TopWidget
-			     -------------------
+                             -------------------
     begin                : 1999
     copyright            : (C) 1999 by Martin Wilz
     email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
@@ -84,291 +84,291 @@ namespace Kwave
                       public CommandHandler,
                       public Zoomable
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor.
-	 * @param parent parent widget
-	 * @param context reference to the context of this instance
-	 * @param preferred_size preferred size of the widget,
-	 *                       needed in MDI mode, otherwise ignored
-	 */
-	MainWidget(QWidget *parent,
-	           Kwave::FileContext &context,
-	           const QSize &preferred_size);
+        /**
+         * Constructor.
+         * @param parent parent widget
+         * @param context reference to the context of this instance
+         * @param preferred_size preferred size of the widget,
+         *                       needed in MDI mode, otherwise ignored
+         */
+        MainWidget(QWidget *parent,
+                   Kwave::FileContext &context,
+                   const QSize &preferred_size);
 
-	/**
-	 * Returns true if this instance was successfully initialized, or
-	 * false if something went wrong during initialization.
-	 */
-	virtual bool isOK();
+        /**
+         * Returns true if this instance was successfully initialized, or
+         * false if something went wrong during initialization.
+         */
+        virtual bool isOK();
 
-	/** Destructor. */
+        /** Destructor. */
         virtual ~MainWidget() Q_DECL_OVERRIDE;
 
-	/** Returns the current zoom factor [samples/pixel] */
-	virtual double zoom() const Q_DECL_OVERRIDE;
+        /** Returns the current zoom factor [samples/pixel] */
+        virtual double zoom() const Q_DECL_OVERRIDE;
 
-	/** Returns the width of the current view in pixels */
+        /** Returns the width of the current view in pixels */
         virtual int visibleWidth() const Q_DECL_OVERRIDE;
 
-	/** Returns the width of the current view in samples */
+        /** Returns the width of the current view in samples */
         virtual sample_index_t visibleSamples() const Q_DECL_OVERRIDE;
 
-	/** Returns the current start position of the visible area [samples] */
-	virtual sample_index_t visibleOffset() { return m_offset; }
+        /** Returns the current start position of the visible area [samples] */
+        virtual sample_index_t visibleOffset() { return m_offset; }
 
-	/** Returns the preferred size of the widget */
+        /** Returns the preferred size of the widget */
         virtual QSize sizeHint () const Q_DECL_OVERRIDE { return m_preferred_size; }
 
     protected:
 
-	/** @see Qt XDND documentation */
+        /** @see Qt XDND documentation */
         virtual void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
 
-	/**
-	 * For dropping data into an empty signal
-	 * @see Qt XDND documentation
-	 */
+        /**
+         * For dropping data into an empty signal
+         * @see Qt XDND documentation
+         */
         virtual void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
 
-	/**
-	 * Called if the main widget has been resized and resizes/moves
-	 * the signal widget and the channel controls
-	 */
+        /**
+         * Called if the main widget has been resized and resizes/moves
+         * the signal widget and the channel controls
+         */
         virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
-	/** slot for mouse wheel events, for scrolling/zooming */
+        /** slot for mouse wheel events, for scrolling/zooming */
         virtual void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
 
-	/** @see QWidget::closeEvent() */
+        /** @see QWidget::closeEvent() */
         virtual void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
 
     protected slots:
 
-	/** updates all widgets that depend on the current view range */
-	void updateViewRange();
+        /** updates all widgets that depend on the current view range */
+        void updateViewRange();
 
     public slots:
 
-	/**
-	 * Execute a Kwave text command
-	 * @param command a text command
-	 * @return zero if succeeded or negative error code if failed
-	 * @retval -ENOSYS is returned if the command is unknown in this
-	 *                 component
-	 */
+        /**
+         * Execute a Kwave text command
+         * @param command a text command
+         * @return zero if succeeded or negative error code if failed
+         * @retval -ENOSYS is returned if the command is unknown in this
+         *                 component
+         */
         virtual int executeCommand(const QString &command) Q_DECL_OVERRIDE;
 
-	/**
-	 * Sets the display offset [samples] and refreshes the screen.
-	 * @param new_offset new value for the offset in samples, will be
-	 *                   internally limited to [0...length-1]
-	 */
-	void setOffset(sample_index_t new_offset);
+        /**
+         * Sets the display offset [samples] and refreshes the screen.
+         * @param new_offset new value for the offset in samples, will be
+         *                   internally limited to [0...length-1]
+         */
+        void setOffset(sample_index_t new_offset);
 
-	/**
-	 * Scrolls the display so that the given position gets visible,
-	 * centered within the display if possible.
-	 */
+        /**
+         * Scrolls the display so that the given position gets visible,
+         * centered within the display if possible.
+         */
         virtual void scrollTo(sample_index_t pos) Q_DECL_OVERRIDE;
 
-	/**
-	 * sets a new zoom factor [samples/pixel], does not refresh the screen
-	 * @param new_zoom new zoom value, will be internally limited
-	 *                 to [length/width...1/width] (from full display to
-	 *                 one visible sample only)
-	 */
+        /**
+         * sets a new zoom factor [samples/pixel], does not refresh the screen
+         * @param new_zoom new zoom value, will be internally limited
+         *                 to [length/width...1/width] (from full display to
+         *                 one visible sample only)
+         */
         virtual void setZoom(double new_zoom) Q_DECL_OVERRIDE;
 
-	/**
-	 * Zooms into the selected range between the left and right marker.
-	 */
-	void zoomSelection();
+        /**
+         * Zooms into the selected range between the left and right marker.
+         */
+        void zoomSelection();
 
-	/**
-	 * Zooms the signal to be fully visible.
-	 * @see #setZoom()
-	 */
-	void zoomAll();
+        /**
+         * Zooms the signal to be fully visible.
+         * @see #setZoom()
+         */
+        void zoomAll();
 
-	/**
-	 * Zooms the signal to one-pixel-per-sample. Equivalent to
-	 * setZoom(1.0).
-	 * @see #setZoom()
-	 */
-	void zoomNormal();
+        /**
+         * Zooms the signal to one-pixel-per-sample. Equivalent to
+         * setZoom(1.0).
+         * @see #setZoom()
+         */
+        void zoomNormal();
 
-	/**
-	 * Zooms into the signal, the new display will show the signal
-	 * zoomed at the position given as parameter (if >= 0) or centered
-	 * if a position < 0 is given.
-	 */
-	void zoomIn(int pos = -1);
+        /**
+         * Zooms into the signal, the new display will show the signal
+         * zoomed at the position given as parameter (if >= 0) or centered
+         * if a position < 0 is given.
+         */
+        void zoomIn(int pos = -1);
 
-	/**
-	 * Zooms out the signal, the new display will show the signal
-	 * zoomed at the position given as parameter (if >= 0) or centered
-	 * if a position < 0 is given.
-	 */
-	void zoomOut(int pos = -1);
+        /**
+         * Zooms out the signal, the new display will show the signal
+         * zoomed at the position given as parameter (if >= 0) or centered
+         * if a position < 0 is given.
+         */
+        void zoomOut(int pos = -1);
 
     private slots:
 
-	/**
-	 * Called if a track has been added. Updates the display by
-	 * resizing/re-positioning the signal views.
-	 * @param index the index of the inserted track [0...tracks-1]
-	 * @param track pointer to the track object (ignored here)
-	 * @see SignalManager::sigTrackInserted
-	 * @internal
-	 */
-	void slotTrackInserted(unsigned int index, Kwave::Track *track);
+        /**
+         * Called if a track has been added. Updates the display by
+         * resizing/re-positioning the signal views.
+         * @param index the index of the inserted track [0...tracks-1]
+         * @param track pointer to the track object (ignored here)
+         * @see SignalManager::sigTrackInserted
+         * @internal
+         */
+        void slotTrackInserted(unsigned int index, Kwave::Track *track);
 
-	/**
-	 * Called if a track has been deleted. Updates the display by
-	 * resizing/re-positioning the signal views.
-	 * @param index the index of the inserted track [0...tracks-1]
-	 * @param track pointer to the track object (ignored here)
-	 * @see SignalManager::sigTrackDeleted
-	 * @internal
-	 */
-	void slotTrackDeleted(unsigned int index, Kwave::Track *track);
+        /**
+         * Called if a track has been deleted. Updates the display by
+         * resizing/re-positioning the signal views.
+         * @param index the index of the inserted track [0...tracks-1]
+         * @param track pointer to the track object (ignored here)
+         * @see SignalManager::sigTrackDeleted
+         * @internal
+         */
+        void slotTrackDeleted(unsigned int index, Kwave::Track *track);
 
-	/** refresh the scale and position of the horizontal scrollbar */
-	void refreshHorizontalScrollBar();
+        /** refresh the scale and position of the horizontal scrollbar */
+        void refreshHorizontalScrollBar();
 
-	/** Connected to the horizontal scrollbar for scrolling left/right */
-	void horizontalScrollBarMoved(int newval);
+        /** Connected to the horizontal scrollbar for scrolling left/right */
+        void horizontalScrollBarMoved(int newval);
 
     signals:
 
-	/**
-	 * Will be emitted if the zoom factor of the
-	 * view has changed.
-	 */
-	void sigZoomChanged(double zoom);
+        /**
+         * Will be emitted if the zoom factor of the
+         * view has changed.
+         */
+        void sigZoomChanged(double zoom);
 
-	/** forward a sigCommand to the next layer */
-	void sigCommand(const QString &command);
+        /** forward a sigCommand to the next layer */
+        void sigCommand(const QString &command);
 
-	/** emitted when the visible range has changed */
-	void sigVisibleRangeChanged(sample_index_t offset,
-	                            sample_index_t visible,
-	                            sample_index_t total);
-
-    private:
-
-	/**
-	 * Converts a time in milliseconds to a number of samples, based
-	 * on the current signal rate.
-	 * @param ms time in milliseconds
-	 * @return number of samples (rounded)
-	 */
-	sample_index_t ms2samples(double ms);
-
-	/**
-	 * Converts a sample index into a pixel offset using the current zoom
-	 * value. Always rounds up or downwards. If the number of pixels or the
-	 * current zoom is less than zero, the return value will be zero.
-	 * @param pixels pixel offset
-	 * @return index of the sample
-	 */
-	sample_index_t pixels2samples(unsigned int pixels) const;
-
-	/**
-	 * Converts a pixel offset into a sample index using the current zoom
-	 * value. Always rounds op or downwards.
-	 * @param samples number of samples to be converted
-	 * @return pixel offset
-	 */
-	int samples2pixels(sample_index_t samples) const;
-
-	/**
-	 * Returns the zoom value that will be used to fit the whole signal
-	 * into the current window.
-	 * @return zoom value [samples/pixel]
-	 */
-	double fullZoom() const;
-
-	/**
-	 * Fixes the zoom and the offset of the display so that no non-existing
-	 * samples (index < 0 or index >= length) have to be displayed and the
-	 * current display window of the signal fits into the screen.
-	 * @param zoom new zoom value [samples/pixel]
-	 * @param offset new offset value [samples]
-	 */
-	void fixZoomAndOffset(double zoom, sample_index_t offset);
-
-	/**
-	 * add a new label
-	 * @param pos position of the label [samples]
-	 * @param description optional label description
-	 */
-	void addLabel(sample_index_t pos, const QString &description);
-
-	/**
-	 * Opens a dialog for editing the properties of a label
-	 * @param label a Label that should be edited
-	 * @return true if the dialog has been accepted,
-	 *         otherwise false (canceled)
-	 */
-	bool labelProperties(Kwave::Label &label);
-
-	/**
-	 * load labels from a file
-	 * @param filename file name from which to load the labels,
-	 *                 a file open dialog will be shown if zero length
-	 * @return zero if succeeded or negative error code if failed
-	 */
-	int loadLabels(const QString &filename);
-
-	/**
-	 * save all labels to a file
-	 * @param filename file name from which to load the labels,
-	 *                 a file open dialog will be shown if zero length
-	 * @return zero if succeeded or negative error code if failed
-	 */
-	int saveLabels(const QString &filename);
+        /** emitted when the visible range has changed */
+        void sigVisibleRangeChanged(sample_index_t offset,
+                                    sample_index_t visible,
+                                    sample_index_t total);
 
     private:
 
-	/** context of the Kwave application instance */
-	Kwave::FileContext &m_context;
+        /**
+         * Converts a time in milliseconds to a number of samples, based
+         * on the current signal rate.
+         * @param ms time in milliseconds
+         * @return number of samples (rounded)
+         */
+        sample_index_t ms2samples(double ms);
 
-	/** upper docking area, managed by the signal widget */
-	QVBoxLayout m_upper_dock;
+        /**
+         * Converts a sample index into a pixel offset using the current zoom
+         * value. Always rounds up or downwards. If the number of pixels or the
+         * current zoom is less than zero, the return value will be zero.
+         * @param pixels pixel offset
+         * @return index of the sample
+         */
+        sample_index_t pixels2samples(unsigned int pixels) const;
 
-	/** lower docking area, managed by the signal widget */
-	QVBoxLayout m_lower_dock;
+        /**
+         * Converts a pixel offset into a sample index using the current zoom
+         * value. Always rounds op or downwards.
+         * @param samples number of samples to be converted
+         * @return pixel offset
+         */
+        int samples2pixels(sample_index_t samples) const;
 
-	/** container widget that contains the signal widget. */
-	QScrollArea m_scroll_area;
+        /**
+         * Returns the zoom value that will be used to fit the whole signal
+         * into the current window.
+         * @return zoom value [samples/pixel]
+         */
+        double fullZoom() const;
 
-	/** horizontal scrollbar */
-	QScrollBar *m_horizontal_scrollbar;
+        /**
+         * Fixes the zoom and the offset of the display so that no non-existing
+         * samples (index < 0 or index >= length) have to be displayed and the
+         * current display window of the signal fits into the screen.
+         * @param zoom new zoom value [samples/pixel]
+         * @param offset new offset value [samples]
+         */
+        void fixZoomAndOffset(double zoom, sample_index_t offset);
 
-	/** the widget that shows the signal, scrolled within the view port */
-	Kwave::SignalWidget m_signal_widget;
+        /**
+         * add a new label
+         * @param pos position of the label [samples]
+         * @param description optional label description
+         */
+        void addLabel(sample_index_t pos, const QString &description);
 
-	/** overview widget */
-	Kwave::OverViewWidget *m_overview;
+        /**
+         * Opens a dialog for editing the properties of a label
+         * @param label a Label that should be edited
+         * @return true if the dialog has been accepted,
+         *         otherwise false (canceled)
+         */
+        bool labelProperties(Kwave::Label &label);
 
-	/**
-	* Offset from which signal is being displayed. This is equal to
-	* the index of the first visible sample.
-	*/
-	sample_index_t m_offset;
+        /**
+         * load labels from a file
+         * @param filename file name from which to load the labels,
+         *                 a file open dialog will be shown if zero length
+         * @return zero if succeeded or negative error code if failed
+         */
+        int loadLabels(const QString &filename);
 
-	/** number of samples per pixel */
-	double m_zoom;
+        /**
+         * save all labels to a file
+         * @param filename file name from which to load the labels,
+         *                 a file open dialog will be shown if zero length
+         * @return zero if succeeded or negative error code if failed
+         */
+        int saveLabels(const QString &filename);
 
-	/** preferred size of the widget */
-	QSize m_preferred_size;
+    private:
 
-	/** timer for delayed update */
-	QTimer m_delayed_update_timer;
+        /** context of the Kwave application instance */
+        Kwave::FileContext &m_context;
+
+        /** upper docking area, managed by the signal widget */
+        QVBoxLayout m_upper_dock;
+
+        /** lower docking area, managed by the signal widget */
+        QVBoxLayout m_lower_dock;
+
+        /** container widget that contains the signal widget. */
+        QScrollArea m_scroll_area;
+
+        /** horizontal scrollbar */
+        QScrollBar *m_horizontal_scrollbar;
+
+        /** the widget that shows the signal, scrolled within the view port */
+        Kwave::SignalWidget m_signal_widget;
+
+        /** overview widget */
+        Kwave::OverViewWidget *m_overview;
+
+        /**
+        * Offset from which signal is being displayed. This is equal to
+        * the index of the first visible sample.
+        */
+        sample_index_t m_offset;
+
+        /** number of samples per pixel */
+        double m_zoom;
+
+        /** preferred size of the widget */
+        QSize m_preferred_size;
+
+        /** timer for delayed update */
+        QTimer m_delayed_update_timer;
     };
 }
 

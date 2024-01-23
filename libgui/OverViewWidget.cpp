@@ -134,17 +134,17 @@ void Kwave::OverViewWidget::mousePressEvent(QMouseEvent *e)
     Q_ASSERT(e);
     if (!e) return;
     if (e->buttons() != Qt::LeftButton) {
-	e->ignore();
-	return;
+        e->ignore();
+        return;
     }
 
     // move the clicked position to the center of the viewport
     sample_index_t offset = pixels2offset(e->x());
     if (offset != m_last_offset) {
-	sample_index_t half = (m_view_width / 2);
-	offset = (offset > half) ? (offset - half) : 0;
-	m_last_offset = offset;
-	emit valueChanged(offset);
+        sample_index_t half = (m_view_width / 2);
+        offset = (offset > half) ? (offset - half) : 0;
+        m_last_offset = offset;
+        emit valueChanged(offset);
     }
     e->accept();
 }
@@ -155,23 +155,23 @@ void Kwave::OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
     Q_ASSERT(e);
     if (!e) return;
     if (e->button() != Qt::LeftButton) {
-	e->ignore();
-	return;
+        e->ignore();
+        return;
     }
 
     // move the clicked position to the center of the viewport
     sample_index_t offset = pixels2offset(e->x());
     if (offset != m_last_offset) {
-	m_last_offset = offset;
-	emit valueChanged(offset);
+        m_last_offset = offset;
+        emit valueChanged(offset);
     }
 
     if (e->modifiers() == Qt::NoModifier) {
-	// double click without shift => zoom in
-	emit sigCommand(_("view:zoom_in()"));
+        // double click without shift => zoom in
+        emit sigCommand(_("view:zoom_in()"));
     } else if (e->modifiers() == Qt::ShiftModifier) {
-	// double click with shift => zoom out
-	emit sigCommand(_("view:zoom_out()"));
+        // double click with shift => zoom out
+        emit sigCommand(_("view:zoom_out()"));
     }
 
     e->accept();
@@ -239,16 +239,16 @@ void Kwave::OverViewWidget::overviewChanged()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (m_repaint_timer.isActive()) {
-	// repainting is inhibited -> wait until the
-	// repaint timer is elapsed
-	return;
+        // repainting is inhibited -> wait until the
+        // repaint timer is elapsed
+        return;
     } else {
-	// repaint once and once later...
-	refreshBitmap();
+        // repaint once and once later...
+        refreshBitmap();
 
-	// start the repaint timer
-	m_repaint_timer.setSingleShot(true);
-	m_repaint_timer.start(REPAINT_INTERVAL);
+        // start the repaint timer
+        m_repaint_timer.setSingleShot(true);
+        m_repaint_timer.start(REPAINT_INTERVAL);
     }
 }
 
@@ -263,9 +263,9 @@ void Kwave::OverViewWidget::metaDataChanged(Kwave::MetaDataList meta)
 
     // only re-start the repaint timer, this hides some GUI update artifacts
     if (!m_repaint_timer.isActive()) {
-	m_repaint_timer.stop();
-	m_repaint_timer.setSingleShot(true);
-	m_repaint_timer.start(REPAINT_INTERVAL);
+        m_repaint_timer.stop();
+        m_repaint_timer.setSingleShot(true);
+        m_repaint_timer.start(REPAINT_INTERVAL);
     }
 }
 
@@ -283,29 +283,29 @@ void Kwave::OverViewWidget::showCursor(sample_index_t pos)
     m_cursor_position = new_pos;
 
     if (qMax(old_pos, new_pos) != SAMPLE_INDEX_MAX) {
-	// check for change in pixel units
-	sample_index_t length = m_signal_length;
-	if (m_view_offset + m_view_width > m_signal_length) {
-	    // showing deleted space after signal
-	    length = m_view_offset + m_view_width;
-	}
-	if (!length) return;
-	const double scale = static_cast<double>(width()) /
-			    static_cast<double>(length);
-	const int old_pixel_pos = Kwave::toInt(
-	    static_cast<double>(old_pos) * scale);
-	const int new_pixel_pos = Kwave::toInt(
-	    static_cast<double>(new_pos) * scale);
-	if (old_pixel_pos == new_pixel_pos) return;
+        // check for change in pixel units
+        sample_index_t length = m_signal_length;
+        if (m_view_offset + m_view_width > m_signal_length) {
+            // showing deleted space after signal
+            length = m_view_offset + m_view_width;
+        }
+        if (!length) return;
+        const double scale = static_cast<double>(width()) /
+                            static_cast<double>(length);
+        const int old_pixel_pos = Kwave::toInt(
+            static_cast<double>(old_pos) * scale);
+        const int new_pixel_pos = Kwave::toInt(
+            static_cast<double>(new_pos) * scale);
+        if (old_pixel_pos == new_pixel_pos) return;
     }
 
     // some update is required, start the repaint timer in quick mode
     if (!m_repaint_timer.isActive() ||
-	(m_repaint_timer.interval() != REPAINT_INTERVAL_FAST))
+        (m_repaint_timer.interval() != REPAINT_INTERVAL_FAST))
     {
-	m_repaint_timer.stop();
-	m_repaint_timer.setSingleShot(true);
-	m_repaint_timer.start(REPAINT_INTERVAL_FAST);
+        m_repaint_timer.stop();
+        m_repaint_timer.setSingleShot(true);
+        m_repaint_timer.start(REPAINT_INTERVAL_FAST);
     }
 }
 
@@ -336,14 +336,14 @@ void Kwave::OverViewWidget::refreshBitmap()
     Q_ASSERT(this->thread() == qApp->thread());
 
     if (m_worker_thread.isRunning()) {
-	// (re)start the repaint timer if the worker thread is still
-	// running, try again later...
-	m_repaint_timer.stop();
-	m_repaint_timer.setSingleShot(true);
-	m_repaint_timer.start(REPAINT_INTERVAL);
+        // (re)start the repaint timer if the worker thread is still
+        // running, try again later...
+        m_repaint_timer.stop();
+        m_repaint_timer.setSingleShot(true);
+        m_repaint_timer.start(REPAINT_INTERVAL);
     } else {
-	// start the calculation in a background thread
-	m_worker_thread.start(QThread::IdlePriority);
+        // start the calculation in a background thread
+        m_worker_thread.start(QThread::IdlePriority);
     }
 }
 
@@ -352,23 +352,23 @@ void Kwave::OverViewWidget::calculateBitmap()
 {
     sample_index_t length = m_signal_length;
     if (m_view_offset + m_view_width > m_signal_length) {
-	// showing deleted space after signal
-	length = m_view_offset + m_view_width;
+        // showing deleted space after signal
+        length = m_view_offset + m_view_width;
     }
 
     int width  = this->width();
     int height = this->height();
     if (!width || !height || !m_view_width || !length)
-	return;
+        return;
 
     const double scale = static_cast<double>(width) /
-	                 static_cast<double>(length);
+                         static_cast<double>(length);
     const int bitmap_width = Kwave::toInt(
-	static_cast<double>(m_signal_length) * scale);
+        static_cast<double>(m_signal_length) * scale);
 
     // let the bitmap be updated from the cache
     QImage bitmap = m_cache.getOverView(bitmap_width, height,
-	BAR_FOREGROUND ,BAR_BACKGROUND);
+        BAR_FOREGROUND ,BAR_BACKGROUND);
 
     // draw the bitmap (converted to QImage)
     QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
@@ -380,79 +380,79 @@ void Kwave::OverViewWidget::calculateBitmap()
     // highlight the selection
     if ((m_selection_length > 1) && m_signal_length)
     {
-	int first = Kwave::toInt(
-	    static_cast<double>(m_selection_start) * scale);
-	int len   = Kwave::toInt(
-	    static_cast<double>(m_selection_length) * scale);
-	if (len < 1) len = 1;
+        int first = Kwave::toInt(
+            static_cast<double>(m_selection_start) * scale);
+        int len   = Kwave::toInt(
+            static_cast<double>(m_selection_length) * scale);
+        if (len < 1) len = 1;
 
-	// draw the selection as rectangle
-	QBrush hilight(Qt::yellow);
-	hilight.setStyle(Qt::SolidPattern);
-	p.setBrush(hilight);
-	p.setPen(QPen(Qt::yellow));
-	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
-	p.drawRect(first, 0, len, height);
+        // draw the selection as rectangle
+        QBrush hilight(Qt::yellow);
+        hilight.setStyle(Qt::SolidPattern);
+        p.setBrush(hilight);
+        p.setPen(QPen(Qt::yellow));
+        p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+        p.drawRect(first, 0, len, height);
 
-	// marks at start and end of selection
-	drawMark(p, first, height, Qt::blue);
-	drawMark(p, first + len, height, Qt::blue);
+        // marks at start and end of selection
+        drawMark(p, first, height, Qt::blue);
+        drawMark(p, first + len, height, Qt::blue);
     }
 
     // draw labels
     int last_label_pos = width + 1;
     foreach (const Kwave::Label &label, m_labels) {
-	sample_index_t pos = label.pos();
-	int x = Kwave::toInt(static_cast<double>(pos) * scale);
+        sample_index_t pos = label.pos();
+        int x = Kwave::toInt(static_cast<double>(pos) * scale);
 
-	// position must differ from the last one, otherwise we
-	// would wipe out the last one with XOR mode
-	if (x == last_label_pos) continue;
+        // position must differ from the last one, otherwise we
+        // would wipe out the last one with XOR mode
+        if (x == last_label_pos) continue;
 
-	// draw a line for each label
-	p.setPen(QPen(Qt::cyan));
-	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
-	p.drawLine(x, 0, x, height);
-	drawMark(p, x, height, Qt::cyan);
+        // draw a line for each label
+        p.setPen(QPen(Qt::cyan));
+        p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+        p.drawLine(x, 0, x, height);
+        drawMark(p, x, height, Qt::cyan);
 
-	last_label_pos = x;
+        last_label_pos = x;
     }
 
     // draw playback position
     if (m_cursor_position != SAMPLE_INDEX_MAX) {
-	const sample_index_t pos = m_cursor_position;
-	int x = Kwave::toInt(static_cast<double>(pos) * scale);
+        const sample_index_t pos = m_cursor_position;
+        int x = Kwave::toInt(static_cast<double>(pos) * scale);
 
-	// draw a line for the playback position
-	QPen pen(Qt::yellow);
-	pen.setWidth(5);
-	p.setPen(pen);
-	p.setCompositionMode(QPainter::CompositionMode_Exclusion);
-	p.drawLine(x, 0, x, height);
-	drawMark(p, x, height, Qt::cyan);
+        // draw a line for the playback position
+        QPen pen(Qt::yellow);
+        pen.setWidth(5);
+        p.setPen(pen);
+        p.setCompositionMode(QPainter::CompositionMode_Exclusion);
+        p.drawLine(x, 0, x, height);
+        drawMark(p, x, height, Qt::cyan);
     }
 
     // dim the currently invisible parts
     if ((m_view_offset > 0) || (m_view_offset + m_view_width < m_signal_length))
     {
-	QColor color = BAR_BACKGROUND;
-	color.setAlpha(128);
-	QBrush out_of_view(color);
-	out_of_view.setStyle(Qt::SolidPattern);
-	p.setBrush(out_of_view);
-	p.setPen(QPen(color));
-	p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        QColor color = BAR_BACKGROUND;
+        color.setAlpha(128);
+        QBrush out_of_view(color);
+        out_of_view.setStyle(Qt::SolidPattern);
+        p.setBrush(out_of_view);
+        p.setPen(QPen(color));
+        p.setCompositionMode(QPainter::CompositionMode_SourceOver);
 
-	if (m_view_offset > 0) {
-	    int x = Kwave::toInt(static_cast<double>(m_view_offset) * scale);
-	    p.drawRect(0, 0, x, height);
-	}
+        if (m_view_offset > 0) {
+            int x = Kwave::toInt(static_cast<double>(m_view_offset) * scale);
+            p.drawRect(0, 0, x, height);
+        }
 
-	if (m_view_offset + m_view_width < m_signal_length) {
-	    int x = Kwave::toInt(
-		static_cast<double>(m_view_offset + m_view_width) * scale);
-	    p.drawRect(x, 0, width - x, height);
-	}
+        if (m_view_offset + m_view_width < m_signal_length) {
+            int x = Kwave::toInt(
+                static_cast<double>(m_view_offset + m_view_width) * scale);
+            p.drawRect(x, 0, width - x, height);
+        }
     }
 
     p.end();

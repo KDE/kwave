@@ -44,15 +44,15 @@ void Kwave::Osc::goOn()
 
     double omega = two_pi / m_f;
     for (unsigned int sample = 0; sample < samples; sample++) {
-	// calculate one sample as sin(w * t)
-	m_buffer[sample] = double2sample(m_a * sin(m_omega_t));
+        // calculate one sample as sin(w * t)
+        m_buffer[sample] = double2sample(m_a * sin(m_omega_t));
 
-	// next time, t++
-	m_omega_t += omega;
+        // next time, t++
+        m_omega_t += omega;
 
-	// limit the argument of sin() to [0 ... 4*Pi]
-	while (m_omega_t > two_pi)
-	    m_omega_t -= two_pi;
+        // limit the argument of sin() to [0 ... 4*Pi]
+        while (m_omega_t > two_pi)
+            m_omega_t -= two_pi;
     }
 
     emit output(m_buffer);

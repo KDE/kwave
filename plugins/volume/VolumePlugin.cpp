@@ -89,16 +89,16 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
     sample_index_t first, last;
     sample_index_t length = selection(&tracks, &first, &last, true);
     Kwave::OverViewCache *overview_cache = new(std::nothrow)
-	Kwave::OverViewCache(
-	    mgr, first, length, tracks.isEmpty() ? Q_NULLPTR : &tracks
-	);
+        Kwave::OverViewCache(
+            mgr, first, length, tracks.isEmpty() ? Q_NULLPTR : &tracks
+        );
     Q_ASSERT(overview_cache);
 
     // create the setup dialog
     QPointer<Kwave::VolumeDialog> dialog =
-	new(std::nothrow) Kwave::VolumeDialog(parentWidget(), overview_cache);
+        new(std::nothrow) Kwave::VolumeDialog(parentWidget(), overview_cache);
     if (!dialog) {
-	if (overview_cache) delete overview_cache;
+        if (overview_cache) delete overview_cache;
         return Q_NULLPTR;
     }
 
@@ -108,11 +108,11 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec() && dialog) {
-	// user has pressed "OK"
-	*list = dialog->params();
+        // user has pressed "OK"
+        *list = dialog->params();
     } else {
-	// user pressed "Cancel"
-	if (list) delete list;
+        // user pressed "Cancel"
+        if (list) delete list;
         list = Q_NULLPTR;
     }
 
@@ -130,38 +130,38 @@ void Kwave::VolumePlugin::run(QStringList params)
 
     interpreteParameters(params);
     if (!selection(&tracks, &first, &last, true) || tracks.isEmpty())
-	return;
+        return;
 
     Kwave::UndoTransactionGuard undo_guard(*this, i18n("Volume"));
 
     // create all objects
     Kwave::MultiTrackReader source(Kwave::SinglePassForward,
-	signalManager(), selectedTracks(), first, last);
+        signalManager(), selectedTracks(), first, last);
     Kwave::MultiTrackWriter sink(signalManager(), tracks, Kwave::Overwrite,
-	first, last);
+        first, last);
     Kwave::MultiTrackSource<Kwave::Mul, true> mul(tracks.count());
 
     // connect the progress dialog
     connect(&source, SIGNAL(progress(qreal)),
-	    this,  SLOT(updateProgress(qreal)),
-	     Qt::BlockingQueuedConnection);
+            this,  SLOT(updateProgress(qreal)),
+             Qt::BlockingQueuedConnection);
 
     // connect them
     Kwave::connect(
-	source, SIGNAL(output(Kwave::SampleArray)),
-	mul,    SLOT(input_a(Kwave::SampleArray)));
+        source, SIGNAL(output(Kwave::SampleArray)),
+        mul,    SLOT(input_a(Kwave::SampleArray)));
 
     mul.setAttribute(SLOT(set_b(QVariant)),
                      QVariant(m_factor));
     Kwave::connect(
-	mul,    SIGNAL(output(Kwave::SampleArray)),
-	sink,   SLOT(input(Kwave::SampleArray)));
+        mul,    SIGNAL(output(Kwave::SampleArray)),
+        sink,   SLOT(input(Kwave::SampleArray)));
 
     // transport the samples
     qDebug("VolumePlugin: filter started...");
     while (!shouldStop() && !source.done()) {
-	source.goOn();
-	mul.goOn();
+        source.goOn();
+        mul.goOn();
     }
     qDebug("VolumePlugin: filter done.");
 }

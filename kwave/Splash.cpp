@@ -78,10 +78,10 @@ Kwave::Splash::Splash(const QString &PNGFile)
     p.setOpacity(0.50);
     p.setPen(Qt::NoPen);
     p.drawRoundedRect(
-	x - r, y - r,
-	tw + 2 * r, th + (2 * r),
-	(200 * r) / th, (200 * r) / th,
-	Qt::RelativeSize
+        x - r, y - r,
+        tw + 2 * r, th + (2 * r),
+        (200 * r) / th, (200 * r) / th,
+        Qt::RelativeSize
     );
 
     p.setOpacity(1.0);
@@ -134,17 +134,17 @@ void Kwave::Splash::paintEvent(QPaintEvent *)
     // special handling: a null message tells us to hide
     if (!m_message.length()) {
         m_splash = Q_NULLPTR;
-	hide();
-	return;
+        hide();
+        return;
     }
 
     QRect rect(this->rect());
     const int border = 5;
     rect.setRect(
-	rect.x() + border,
-	rect.y() + border,
-	rect.width()  - (2 * border),
-	rect.height() - (2 * border)
+        rect.x() + border,
+        rect.y() + border,
+        rect.width()  - (2 * border),
+        rect.height() - (2 * border)
     );
 
     QPainter p(this);

@@ -36,60 +36,60 @@ namespace Kwave
      */
     class ReversePlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	ReversePlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        ReversePlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~ReversePlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * reverses the selection
-	 * @param params list of strings with parameters
-	 */
+        /**
+         * reverses the selection
+         * @param params list of strings with parameters
+         */
         virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     private slots:
 
-	/**
-	 * multiplies the progress by factor two and
-	 * calls Kwave::Plugin::updateProgress
-	 */
+        /**
+         * multiplies the progress by factor two and
+         * calls Kwave::Plugin::updateProgress
+         */
         virtual void updateProgress(qreal progress) Q_DECL_OVERRIDE;
 
     private:
 
-	/**
-	 * common slice parameters, which can be passed to all worker
-	 * threads
-	 */
-	typedef struct {
-	    sample_index_t m_first;      /**< index of the first sample */
-	    sample_index_t m_last;       /**< index of the last sample  */
-	    unsigned int   m_block_size; /**< block size [samples]      */
-	} SliceParams;
+        /**
+         * common slice parameters, which can be passed to all worker
+         * threads
+         */
+        typedef struct {
+            sample_index_t m_first;      /**< index of the first sample */
+            sample_index_t m_last;       /**< index of the last sample  */
+            unsigned int   m_block_size; /**< block size [samples]      */
+        } SliceParams;
 
-	/**
-	 * reverse a slice of samples
-	 * @param track index of the track
-	 * @param src_a reader for reading from the start (forward)
-	 * @param src_b reader fro reading from the end (backwards)
-	 * @param params common slice parameters (first/last/block size)
-	 */
-	void reverseSlice(unsigned int track,
-	                  Kwave::SampleReader *src_a,
-	                  Kwave::SampleReader *src_b,
-	                  const Kwave::ReversePlugin::SliceParams &params);
+        /**
+         * reverse a slice of samples
+         * @param track index of the track
+         * @param src_a reader for reading from the start (forward)
+         * @param src_b reader fro reading from the end (backwards)
+         * @param params common slice parameters (first/last/block size)
+         */
+        void reverseSlice(unsigned int track,
+                          Kwave::SampleReader *src_a,
+                          Kwave::SampleReader *src_b,
+                          const Kwave::ReversePlugin::SliceParams &params);
 
-	/** reverses the content of an array of samples */
-	void reverse(Kwave::SampleArray &buffer);
+        /** reverses the content of an array of samples */
+        void reverse(Kwave::SampleArray &buffer);
 
     };
 }

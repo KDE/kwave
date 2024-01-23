@@ -28,47 +28,47 @@ namespace Kwave
 {
     class NewSignalPlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	NewSignalPlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        NewSignalPlugin(QObject *parent, const QVariantList &args);
 
-	/** virtual Destructor */
+        /** virtual Destructor */
         virtual ~NewSignalPlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * Shows a dialog for creating a new signal and emits sigCommand if
-	 * OK has been pressed.
-	 * @see Kwave::Plugin::setup
-	 */
+        /**
+         * Shows a dialog for creating a new signal and emits sigCommand if
+         * OK has been pressed.
+         * @see Kwave::Plugin::setup
+         */
         virtual QStringList *setup(QStringList &previous_params)
             Q_DECL_OVERRIDE;
 
     protected:
 
-	/** Reads values from the parameter list */
-	int interpreteParameters(QStringList &params);
+        /** Reads values from the parameter list */
+        int interpreteParameters(QStringList &params);
 
     private:
-	/** number of samples */
-	unsigned int m_samples;
+        /** number of samples */
+        unsigned int m_samples;
 
-	/** samples rate */
-	unsigned int m_rate;
+        /** samples rate */
+        unsigned int m_rate;
 
-	/** bits per sample */
-	unsigned int m_bits;
+        /** bits per sample */
+        unsigned int m_bits;
 
-	/** number of tracks */
-	unsigned int m_tracks;
+        /** number of tracks */
+        unsigned int m_tracks;
 
-	/** select by time or by samples */
-	bool m_bytime;
+        /** select by time or by samples */
+        bool m_bytime;
 
     };
 }

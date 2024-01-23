@@ -35,37 +35,37 @@ namespace Kwave
     class AsciiEncoder: public Kwave::Encoder
     {
     public:
-	/** Constructor */
-	AsciiEncoder();
+        /** Constructor */
+        AsciiEncoder();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~AsciiEncoder() Q_DECL_OVERRIDE;
 
-	/** Returns a new instance of the encoder */
+        /** Returns a new instance of the encoder */
         virtual Kwave::Encoder *instance() Q_DECL_OVERRIDE;
 
-	/**
-	 * Encodes a signal into a stream of bytes.
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param src MultiTrackReader used as source of the audio data
-	 * @param dst file or other source to receive a stream of bytes
-	 * @param meta_data meta information about the file to be saved
-	 * @return true if succeeded, false on errors
-	 */
+        /**
+         * Encodes a signal into a stream of bytes.
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param src MultiTrackReader used as source of the audio data
+         * @param dst file or other source to receive a stream of bytes
+         * @param meta_data meta information about the file to be saved
+         * @return true if succeeded, false on errors
+         */
         virtual bool encode(QWidget *widget, Kwave::MultiTrackReader &src,
-	                    QIODevice &dst,
-	                    const Kwave::MetaDataList &meta_data)
+                            QIODevice &dst,
+                            const Kwave::MetaDataList &meta_data)
             Q_DECL_OVERRIDE;
 
-	/** Returns a list of supported file properties */
+        /** Returns a list of supported file properties */
         virtual QList<Kwave::FileProperty> supportedProperties()
             Q_DECL_OVERRIDE;
 
     private:
 
-	/** pointer to the QIODevice for storing, used while encoding */
-	QTextStream m_dst;
+        /** pointer to the QIODevice for storing, used while encoding */
+        QTextStream m_dst;
 
     };
 }

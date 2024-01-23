@@ -33,63 +33,63 @@ namespace Kwave
     /** @todo add support for logarithmic scale */
     class AmplifyFreePlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	AmplifyFreePlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        AmplifyFreePlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~AmplifyFreePlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * Shows a dialog for editing the amplification curve and emits a command
-	 * for applying the curve if OK has been pressed.
-	 * @see Kwave::Plugin::setup
-	 */
+        /**
+         * Shows a dialog for editing the amplification curve and emits a command
+         * for applying the curve if OK has been pressed.
+         * @see Kwave::Plugin::setup
+         */
         virtual QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
-	/**
-	 * Does the fade operation
-	 * @param params list of strings with parameters
-	 */
+        /**
+         * Does the fade operation
+         * @param params list of strings with parameters
+         */
         virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
-	/**
-	 * @see Kwave::Plugin::start(),
-	 * overloaded to get the action name from the parameters
-	 */
+        /**
+         * @see Kwave::Plugin::start(),
+         * overloaded to get the action name from the parameters
+         */
         virtual int start(QStringList &params) Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns a text for the progress dialog if enabled.
-	 * (already be localized)
-	 */
+        /**
+         * Returns a text for the progress dialog if enabled.
+         * (already be localized)
+         */
         virtual QString progressText() Q_DECL_OVERRIDE;
 
     protected:
 
-	/** Reads values from the parameter list */
-	int interpreteParameters(QStringList &params);
+        /** Reads values from the parameter list */
+        int interpreteParameters(QStringList &params);
 
     private:
 
-	/** name of the action (untranslated) */
-	QString m_action_name;
+        /** name of the action (untranslated) */
+        QString m_action_name;
 
-	/** List of parameters */
-	QStringList m_params;
+        /** List of parameters */
+        QStringList m_params;
 
-	/** curve used for interpolation */
-	Kwave::Curve m_curve;
+        /** curve used for interpolation */
+        Kwave::Curve m_curve;
 
-	/** map for command name <-> description */
-	QMap<QString, QString> m_cmd_map;
+        /** map for command name <-> description */
+        QMap<QString, QString> m_cmd_map;
     };
 }
 

@@ -33,123 +33,123 @@ namespace Kwave
     class FileInfoDialog: public QDialog,
                           public Ui::FileInfoDlg
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
-	/** Constructor */
-	FileInfoDialog(QWidget *parent, Kwave::FileInfo &info);
+        /** Constructor */
+        FileInfoDialog(QWidget *parent, Kwave::FileInfo &info);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~FileInfoDialog() Q_DECL_OVERRIDE;
 
-	/** Returns the current file info */
-	Kwave::FileInfo &info() { return m_info; }
+        /** Returns the current file info */
+        Kwave::FileInfo &info() { return m_info; }
 
     public slots:
 
-	/** applies the settings and closes the dialog (OK button) */
+        /** applies the settings and closes the dialog (OK button) */
         virtual void accept() Q_DECL_OVERRIDE;
 
     private slots:
 
-	/** select a date for the "creation date" setting */
-	void selectDate();
+        /** select a date for the "creation date" setting */
+        void selectDate();
 
-	/** sets the "creation date" to today */
-	void setDateNow();
+        /** sets the "creation date" to today */
+        void setDateNow();
 
-	/** updates the verbose description of the number of tracks */
-	void tracksChanged(int tracks);
+        /** updates the verbose description of the number of tracks */
+        void tracksChanged(int tracks);
 
-	/**
-	 * update the combo box with the list of available compressions,
-	 * according to the current mime type
-	 */
-	void updateAvailableCompressions();
+        /**
+         * update the combo box with the list of available compressions,
+         * according to the current mime type
+         */
+        void updateAvailableCompressions();
 
-	/** called when the compression mode has changed */
-	void compressionChanged();
+        /** called when the compression mode has changed */
+        void compressionChanged();
 
-	/** called when the MPEG layer combo box has changed */
-	void mpegLayerChanged();
+        /** called when the MPEG layer combo box has changed */
+        void mpegLayerChanged();
 
-	/** called when the MPEG "copyrighted" check box has changed */
-	void mpegCopyrightedChanged(bool checked);
+        /** called when the MPEG "copyrighted" check box has changed */
+        void mpegCopyrightedChanged(bool checked);
 
-	/** called when the MPEG "original" check box has changed */
-	void mpegOriginalChanged(bool checked);
+        /** called when the MPEG "original" check box has changed */
+        void mpegOriginalChanged(bool checked);
 
-	/** auto-generate the list of keywords */
-	void autoGenerateKeywords();
+        /** auto-generate the list of keywords */
+        void autoGenerateKeywords();
 
-	/** invoke the online help */
-	void invokeHelp();
+        /** invoke the online help */
+        void invokeHelp();
 
     protected:
 
-	/**
-	 * Sets the tooltip and "what's this" of a widget.
-	 * @param widget any QWidget derived widget
-	 * @param name of the setting, normally equal to it's label
-	 * @param description verbose descriptive text that says
-	 *        what can be set
-	 */
-	void describeWidget(QWidget *widget, const QString &name,
-	                    const QString &description);
+        /**
+         * Sets the tooltip and "what's this" of a widget.
+         * @param widget any QWidget derived widget
+         * @param name of the setting, normally equal to it's label
+         * @param description verbose descriptive text that says
+         *        what can be set
+         */
+        void describeWidget(QWidget *widget, const QString &name,
+                            const QString &description);
 
-	/**
-	 * Sets the text of the label to the name of a file property and
-	 * initializes the tool tip of the corresponding edit/display control.
-	 * @param label the label to be set
-	 * @param widget the control to get the tool tip
-	 * @param property the file property which it belongs to
-	 */
-	void initInfo(QLabel *label, QWidget *widget,
-	              Kwave::FileProperty property);
+        /**
+         * Sets the text of the label to the name of a file property and
+         * initializes the tool tip of the corresponding edit/display control.
+         * @param label the label to be set
+         * @param widget the control to get the tool tip
+         * @param property the file property which it belongs to
+         */
+        void initInfo(QLabel *label, QWidget *widget,
+                      Kwave::FileProperty property);
 
-	/**
-	 * Same as initInfo, but works only for text edit controls and sets
-	 * the current text
-	 */
-	void initInfoText(QLabel *label, QLineEdit *edit,
-	                  Kwave::FileProperty property);
-
-    private:
-
-	/**
-	 * takes the content of an edit field or similar into the current
-	 * info ore removes it if the text is zero-length
-	 */
-	void acceptEdit(Kwave::FileProperty property, QString value);
-
-	/** initializes the "File" tab */
-	void setupFileInfoTab();
-
-	/** initialize the "Compression" tab */
-	void setupCompressionTab(KConfigGroup &cfg);
-
-	/** returns true if the current compression is MPEG I/II/III */
-	bool isMpeg() const;
-
-	/** initialize the "MPEG" tab */
-	void setupMpegTab();
-
-	/** initializes the "Content" tab */
-	void setupContentTab();
-
-	/** initialize the "Source" tab */
-	void setupSourceTab();
-
-	/** initialize the "Author/Copyright" tab */
-	void setupAuthorCopyrightTab();
-
-	/** initialize the "Miscellaneous" tab */
-	void setupMiscellaneousTab();
-
+        /**
+         * Same as initInfo, but works only for text edit controls and sets
+         * the current text
+         */
+        void initInfoText(QLabel *label, QLineEdit *edit,
+                          Kwave::FileProperty property);
 
     private:
 
-	/** FileInfo to be edited */
-	Kwave::FileInfo m_info;
+        /**
+         * takes the content of an edit field or similar into the current
+         * info ore removes it if the text is zero-length
+         */
+        void acceptEdit(Kwave::FileProperty property, QString value);
+
+        /** initializes the "File" tab */
+        void setupFileInfoTab();
+
+        /** initialize the "Compression" tab */
+        void setupCompressionTab(KConfigGroup &cfg);
+
+        /** returns true if the current compression is MPEG I/II/III */
+        bool isMpeg() const;
+
+        /** initialize the "MPEG" tab */
+        void setupMpegTab();
+
+        /** initializes the "Content" tab */
+        void setupContentTab();
+
+        /** initialize the "Source" tab */
+        void setupSourceTab();
+
+        /** initialize the "Author/Copyright" tab */
+        void setupAuthorCopyrightTab();
+
+        /** initialize the "Miscellaneous" tab */
+        void setupMiscellaneousTab();
+
+
+    private:
+
+        /** FileInfo to be edited */
+        Kwave::FileInfo m_info;
 
     };
 }

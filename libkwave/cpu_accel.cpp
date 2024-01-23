@@ -204,7 +204,7 @@ static uint32_t arch_accel (void)
       /* Get value of extended control register 0 */
       __asm__ (".byte 0x0f, 0x01, 0xd0" : "=a"(eax), "=d"(edx) : "c" (0));
       if ((eax & 0x6) == 0x6) {
-	caps |= MM_ACCEL_X86_AVX;
+        caps |= MM_ACCEL_X86_AVX;
       }
 
     }
@@ -237,8 +237,8 @@ static uint32_t arch_accel (void)
     if (setjmp(sigill_return)) {
       lprintf("OS doesn't support SSE instructions.\n");
       caps &= ~(MM_ACCEL_X86_SSE|MM_ACCEL_X86_SSE2|
-		MM_ACCEL_X86_SSE3|MM_ACCEL_X86_SSSE3|
-		MM_ACCEL_X86_SSE4|MM_ACCEL_X86_SSE42);
+                MM_ACCEL_X86_SSE3|MM_ACCEL_X86_SSSE3|
+                MM_ACCEL_X86_SSE4|MM_ACCEL_X86_SSE42);
     } else {
       __asm__ volatile ("xorps %xmm0, %xmm0");
     }

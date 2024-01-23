@@ -34,48 +34,48 @@ namespace Kwave
 {
 
     class Q_DECL_EXPORT MultiPlaybackSink
-	:public Kwave::MultiTrackSink<Kwave::PlaybackSink, false>
+        :public Kwave::MultiTrackSink<Kwave::PlaybackSink, false>
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
-	/**
-	 * Constructor
-	 * @param tracks number of tracks for playback
-	 * @param device a PlayBackDevice
-	 */
-	MultiPlaybackSink(unsigned int tracks, Kwave::PlayBackDevice *device);
+        /**
+         * Constructor
+         * @param tracks number of tracks for playback
+         * @param device a PlayBackDevice
+         */
+        MultiPlaybackSink(unsigned int tracks, Kwave::PlayBackDevice *device);
 
-	/** Destructor */
-	virtual ~MultiPlaybackSink();
+        /** Destructor */
+        virtual ~MultiPlaybackSink();
 
     private slots:
 
-	/**
-	 * receives data from one of the tracks
-	 * @param track index of the track [0...tracks-1]
-	 * @param data sample data for the given track
-	 */
-	void input(unsigned int track, Kwave::SampleArray data);
+        /**
+         * receives data from one of the tracks
+         * @param track index of the track [0...tracks-1]
+         * @param data sample data for the given track
+         */
+        void input(unsigned int track, Kwave::SampleArray data);
 
     private:
 
-	/** number of tracks */
-	unsigned int m_tracks;
+        /** number of tracks */
+        unsigned int m_tracks;
 
-	/** device used for playback */
-	Kwave::PlayBackDevice *m_device;
+        /** device used for playback */
+        Kwave::PlayBackDevice *m_device;
 
-	/** list of input buffers */
-	QVector< Kwave::SampleArray > m_in_buffer;
+        /** list of input buffers */
+        QVector< Kwave::SampleArray > m_in_buffer;
 
-	/** "filled"-flags for input buffers */
-	QBitArray m_in_buffer_filled;
+        /** "filled"-flags for input buffers */
+        QBitArray m_in_buffer_filled;
 
-	/** output buffer for all samples */
-	Kwave::SampleArray m_out_buffer;
+        /** output buffer for all samples */
+        Kwave::SampleArray m_out_buffer;
 
-	/** mutex for locking against reentrance */
-	QMutex m_lock;
+        /** mutex for locking against reentrance */
+        QMutex m_lock;
 
     };
 }

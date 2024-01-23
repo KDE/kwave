@@ -51,18 +51,18 @@ QStringList *Kwave::FileInfoPlugin::setup(QStringList &)
 
     // create the setup dialog
     QPointer<Kwave::FileInfoDialog> dialog =
-	new(std::nothrow) Kwave::FileInfoDialog(parentWidget(), oldInfo);
+        new(std::nothrow) Kwave::FileInfoDialog(parentWidget(), oldInfo);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec() && dialog) {
-	// user has pressed "OK" -> apply the new properties
-	apply(dialog->info());
+        // user has pressed "OK" -> apply the new properties
+        apply(dialog->info());
     } else {
-	// user pressed "Cancel"
-	if (list) delete list;
+        // user pressed "Cancel"
+        if (list) delete list;
         list = Q_NULLPTR;
     }
 
@@ -79,43 +79,43 @@ void Kwave::FileInfoPlugin::apply(Kwave::FileInfo &new_info)
     /* sample rate */
     if (!qFuzzyCompare(old_info.rate(), new_info.rate())) {
 
-	// sample rate changed -> only change rate or resample ?
-	double new_rate = new_info.rate();
-	int res = Kwave::MessageBox::questionYesNoCancel(parentWidget(),
-	    i18n("You have changed the sample rate. Do you want to convert "
-		 "the whole file to the new sample rate or do "
-		 "you only want to set the rate information in order "
-		 "to repair a damaged file? Note: changing only the sample "
-		 "rate can cause \"Mickey Mouse\" effects."),
-	    QString(),
-	    i18n("&Convert"),
-	    i18n("&Set Rate"));
-	if (res == KMessageBox::Yes) {
-	    // Yes -> resample
+        // sample rate changed -> only change rate or resample ?
+        double new_rate = new_info.rate();
+        int res = Kwave::MessageBox::questionYesNoCancel(parentWidget(),
+            i18n("You have changed the sample rate. Do you want to convert "
+                 "the whole file to the new sample rate or do "
+                 "you only want to set the rate information in order "
+                 "to repair a damaged file? Note: changing only the sample "
+                 "rate can cause \"Mickey Mouse\" effects."),
+            QString(),
+            i18n("&Convert"),
+            i18n("&Set Rate"));
+        if (res == KMessageBox::Yes) {
+            // Yes -> resample
 
-	    // take over all properties except the new sample rate, this will
-	    // be detected and changed in the sample rate plugin
-	    new_info.setRate(old_info.rate());
-	    if (new_info != old_info) {
-		signalManager().setFileInfo(new_info, true);
-	    } // else: nothing except sample rate changed
+            // take over all properties except the new sample rate, this will
+            // be detected and changed in the sample rate plugin
+            new_info.setRate(old_info.rate());
+            if (new_info != old_info) {
+                signalManager().setFileInfo(new_info, true);
+            } // else: nothing except sample rate changed
 
-	    // NOTE: this command could be executed asynchronously, thus
-	    //       we cannot change the sample rate afterwards
-	    emitCommand(_("plugin:execute(samplerate,%1,all)").arg(new_rate));
-	    return;
-	} else if (res == KMessageBox::No) {
-	    // No -> only change the rate in the file info
-	    new_info.setRate(new_rate);
-	} else {
-	    // canceled -> use old sample rate
-	    new_info.setRate(old_info.rate());
-	}
+            // NOTE: this command could be executed asynchronously, thus
+            //       we cannot change the sample rate afterwards
+            emitCommand(_("plugin:execute(samplerate,%1,all)").arg(new_rate));
+            return;
+        } else if (res == KMessageBox::No) {
+            // No -> only change the rate in the file info
+            new_info.setRate(new_rate);
+        } else {
+            // canceled -> use old sample rate
+            new_info.setRate(old_info.rate());
+        }
     }
 
     // just copy all other properties
     if (new_info != old_info) {
-	signalManager().setFileInfo(new_info, true);
+        signalManager().setFileInfo(new_info, true);
     }
 }
 

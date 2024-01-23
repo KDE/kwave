@@ -31,39 +31,39 @@ namespace Kwave
     class OggSubEncoder
     {
     public:
-	/** Destructor */
-	virtual ~OggSubEncoder() {}
+        /** Destructor */
+        virtual ~OggSubEncoder() {}
 
-	/**
-	 * parse the header of the stream and initialize the decoder
-	 * @param widget a QWidget to be used as parent for error messages
-	 * @param info reference to a FileInfo to fill
-	 * @param src MultiTrackReader used as source of the audio data
-	 * @return true if succeeded, false if failed
-	 */
-	virtual bool open(QWidget *widget, const Kwave::FileInfo &info,
-	                  Kwave::MultiTrackReader &src) = 0;
+        /**
+         * parse the header of the stream and initialize the decoder
+         * @param widget a QWidget to be used as parent for error messages
+         * @param info reference to a FileInfo to fill
+         * @param src MultiTrackReader used as source of the audio data
+         * @return true if succeeded, false if failed
+         */
+        virtual bool open(QWidget *widget, const Kwave::FileInfo &info,
+                          Kwave::MultiTrackReader &src) = 0;
 
-	/**
-	 * write the header information
-	 * @param dst a QIODevice that receives the raw data
-	 * @return true if succeeded, false if failed
-	 */
-	virtual bool writeHeader(QIODevice &dst) = 0;
+        /**
+         * write the header information
+         * @param dst a QIODevice that receives the raw data
+         * @return true if succeeded, false if failed
+         */
+        virtual bool writeHeader(QIODevice &dst) = 0;
 
-	/**
-	 * encode received ogg data
-	 * @param src MultiTrackReader used as source of the audio data
-	 * @param dst a QIODevice that receives the raw data
-	 * @return true if succeeded, false if failed
-	 */
-	virtual bool encode(Kwave::MultiTrackReader &src,
-	                    QIODevice &dst) = 0;
+        /**
+         * encode received ogg data
+         * @param src MultiTrackReader used as source of the audio data
+         * @param dst a QIODevice that receives the raw data
+         * @return true if succeeded, false if failed
+         */
+        virtual bool encode(Kwave::MultiTrackReader &src,
+                            QIODevice &dst) = 0;
 
-	/**
-	 * finish the decoding, last chance to fix up some file info
-	 */
-	virtual void close() = 0;
+        /**
+         * finish the decoding, last chance to fix up some file info
+         */
+        virtual void close() = 0;
 
     };
 }

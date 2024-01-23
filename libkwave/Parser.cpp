@@ -1,6 +1,6 @@
 /***************************************************************************
              Parser.cpp  -  parser for Kwave's internal commands
-			     -------------------
+                             -------------------
     begin                : Sat Feb  3 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -42,65 +42,65 @@ Kwave::Parser::Parser (const QString &init)
     // --- parse the command ---
     pos = line.indexOf(QLatin1Char('('));
     if (pos >= 0) {
-	// command present
-	m_command = line.left(pos).simplified();
-	line.remove(0, pos+1);
+        // command present
+        m_command = line.left(pos).simplified();
+        line.remove(0, pos+1);
     } else {
-	m_command.clear();
+        m_command.clear();
     }
 
     // --- parse the list of parameters ---
     QString param;
     while (line.length()) {
-	QChar c = line[0];
-	line.remove(0,1);
+        QChar c = line[0];
+        line.remove(0,1);
 
-	// the next character is escaped
-	if (!escaped && (c.toLatin1() == '\\')) {
-	    escaped = true;
-	    param += c;
-	    continue;
-	}
+        // the next character is escaped
+        if (!escaped && (c.toLatin1() == '\\')) {
+            escaped = true;
+            param += c;
+            continue;
+        }
 
-	// escaped character
-	if (escaped) {
-	    escaped = false;
-	    param += c;
-	    continue;
-	}
+        // escaped character
+        if (escaped) {
+            escaped = false;
+            param += c;
+            continue;
+        }
 
-	switch (c.toLatin1()) {
-	    case ',':
-		if (!level) {
-		    m_param.append(unescape(param.trimmed()));
-		    param.clear();
-	        } else param += c;
-	        break;
+        switch (c.toLatin1()) {
+            case ',':
+                if (!level) {
+                    m_param.append(unescape(param.trimmed()));
+                    param.clear();
+                } else param += c;
+                break;
 
-	    case '(':
-		level++;
-		param += c;
-		break;
-	    case ')':
-		if (!level) {
-		    param = unescape(param.trimmed());
-		    if (param.length())
-			m_param.append(param);
-		    // break, belongs to command, end of line
-		    line.clear();
-		}
-		else
-		    level--;
-		param += c;
-		break;
-	    default:
-		param += c;
-	}
+            case '(':
+                level++;
+                param += c;
+                break;
+            case ')':
+                if (!level) {
+                    param = unescape(param.trimmed());
+                    if (param.length())
+                        m_param.append(param);
+                    // break, belongs to command, end of line
+                    line.clear();
+                }
+                else
+                    level--;
+                param += c;
+                break;
+            default:
+                param += c;
+        }
     }
 
     line = line.trimmed();
     if (line.length()) {
-	qWarning("Parser: trailing garbage after command: '%s'", DBG(line));
+        qWarning("Parser: trailing garbage after command: '%s'", DBG(line));
     }
 }
 
@@ -119,46 +119,46 @@ QStringList Kwave::Parser::splitCommands(QString &line)
     bool escaped = false;
 
     while (line.length()) {
-	QChar c = line[0];
-	line.remove(0,1);
+        QChar c = line[0];
+        line.remove(0,1);
 
-	// the next character is escaped
-	if (!escaped && (c.toLatin1() == '\\')) {
-	    escaped = true;
-	    cmd += c;
-	    continue;
-	}
+        // the next character is escaped
+        if (!escaped && (c.toLatin1() == '\\')) {
+            escaped = true;
+            cmd += c;
+            continue;
+        }
 
-	// escaped character
-	if (escaped) {
-	    escaped = false;
-	    cmd += c;
-	    continue;
-	}
+        // escaped character
+        if (escaped) {
+            escaped = false;
+            cmd += c;
+            continue;
+        }
 
-	switch (c.toLatin1()) {
-	    case ';':
-		if (!level) {
-		    // next command in the list
-		    commands.append(cmd.trimmed());
-		    cmd = _("");
-	        } else cmd += c;
-	        break;
-	    case '(':
-		level++;
-		cmd += c;
-		break;
-	    case ')':
-		level--;
-		cmd += c;
-		break;
-	    default:
-		cmd += c;
-	}
+        switch (c.toLatin1()) {
+            case ';':
+                if (!level) {
+                    // next command in the list
+                    commands.append(cmd.trimmed());
+                    cmd = _("");
+                } else cmd += c;
+                break;
+            case '(':
+                level++;
+                cmd += c;
+                break;
+            case ')':
+                level--;
+                cmd += c;
+                break;
+            default:
+                cmd += c;
+        }
     }
 
     if (cmd.length()) {
-	commands.append(cmd.trimmed());
+        commands.append(cmd.trimmed());
     }
 
     return commands;
@@ -190,7 +190,7 @@ QStringList Kwave::Parser::remainingParams()
 {
     QStringList list;
     while (!isDone())
-	list.append(nextParam());
+        list.append(nextParam());
     return list;
 }
 
@@ -220,8 +220,8 @@ int Kwave::Parser::toInt ()
     int value = p.toInt(&ok);
 
     if (!ok) {
-	qWarning("Parser: unable to parse int from '%s'", DBG(p));
-	value = 0;
+        qWarning("Parser: unable to parse int from '%s'", DBG(p));
+        value = 0;
     }
 
     return value;
@@ -235,8 +235,8 @@ unsigned int Kwave::Parser::toUInt()
     unsigned int value = p.toUInt(&ok);
 
     if (!ok) {
-	qWarning("Parser: unable to parse unsigned int from '%s'", DBG(p));
-	value = 0;
+        qWarning("Parser: unable to parse unsigned int from '%s'", DBG(p));
+        value = 0;
     }
 
     return value;
@@ -250,8 +250,8 @@ sample_index_t Kwave::Parser::toSampleIndex()
     sample_index_t value = p.toULongLong(&ok);
 
     if (!ok) {
-	qWarning("Parser: unable to parse unsigned int from '%s'", DBG(p));
-	value = 0;
+        qWarning("Parser: unable to parse unsigned int from '%s'", DBG(p));
+        value = 0;
     }
 
     return value;
@@ -266,8 +266,8 @@ double Kwave::Parser::toDouble()
     double value = p.toDouble(&ok);
 
     if (!ok) {
-	qWarning("Parser: unable to parse double from '%s'", DBG(p));
-	value = 0.0;
+        qWarning("Parser: unable to parse double from '%s'", DBG(p));
+        value = 0.0;
     }
 
     return value;
@@ -280,12 +280,12 @@ QString Kwave::Parser::escape(const QString &text)
     QString escaped;
 
     for (QString::ConstIterator it = text.begin(); it != text.end(); ++it) {
-	const QChar c(*it);
+        const QChar c(*it);
 
-	if ((c.toLatin1() < '.') || (c.toLatin1() > 'z') || special.contains(c))
-	    escaped += _("\\");
+        if ((c.toLatin1() < '.') || (c.toLatin1() > 'z') || special.contains(c))
+            escaped += _("\\");
 
-	escaped += c;
+        escaped += c;
     }
 
     return escaped;
@@ -317,16 +317,16 @@ QString Kwave::Parser::unescape(const QString &text)
 
     bool esc = false;
     for (QString::ConstIterator it = text.begin(); it != text.end(); ++it) {
-	const QChar c(*it);
+        const QChar c(*it);
 
-	if (!esc && (c.toLatin1() == '\\')) {
-	    // this is the leading escape character -> skip it
-	    esc = true;
-	    continue;
-	}
+        if (!esc && (c.toLatin1() == '\\')) {
+            // this is the leading escape character -> skip it
+            esc = true;
+            continue;
+        }
 
-	esc = false;
-	unescaped += c;
+        esc = false;
+        unescaped += c;
     }
 
     return unescaped;
@@ -347,9 +347,9 @@ QUrl Kwave::Parser::toUrl(const QString &command)
     unsigned int count = parser.count();
     QByteArray params;
     for (unsigned int i = 0; i < count; ++i) {
-	QString param = parser.nextParam();
-	if (params.length()) params += ',';
-	params += QUrl::toPercentEncoding(param);
+        QString param = parser.nextParam();
+        if (params.length()) params += ',';
+        params += QUrl::toPercentEncoding(param);
     }
     url.setQuery(QString::fromLatin1(params));
 
@@ -368,12 +368,12 @@ QString Kwave::Parser::fromUrl(const QUrl &url)
     command += _("(");
     QStringList params = url.query().split(_(","));
     if (!params.isEmpty()) {
-	bool first = true;
-	foreach (const QString &param, params) {
-	    if (!first) command += _(",");
-	    command += QUrl::fromPercentEncoding(param.toLatin1());
-	    first = false;
-	}
+        bool first = true;
+        foreach (const QString &param, params) {
+            if (!first) command += _(",");
+            command += QUrl::fromPercentEncoding(param.toLatin1());
+            first = false;
+        }
     }
     command += _(")");
 

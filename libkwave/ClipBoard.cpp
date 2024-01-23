@@ -1,6 +1,6 @@
 /***************************************************************************
           ClipBoard.cpp  -  the Kwave clipboard
-			     -------------------
+                             -------------------
     begin                : Tue Jun 26, 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -60,7 +60,7 @@ void Kwave::ClipBoard::slotChanged(QClipboard::Mode mode)
     bool data_available = !isEmpty();
 
 //     qDebug("=> ClipBoard::clipboardChanged(%s)",
-// 	data_available ? "FULL" : "EMPTY");
+//      data_available ? "FULL" : "EMPTY");
 
     emit clipboardChanged(data_available);
 }
@@ -81,13 +81,13 @@ void Kwave::ClipBoard::copy(QWidget *widget,
 
     // encode into the mime data container
     Kwave::MultiTrackReader src(Kwave::SinglePassForward, signal_manager,
-	track_list, offset, offset + length - 1);
+        track_list, offset, offset + length - 1);
 
     if (!buffer->encode(widget, src, signal_manager.metaData())) {
-	// encoding failed, reset to empty
-	buffer->clear();
-	delete buffer;
-	return;
+        // encoding failed, reset to empty
+        buffer->clear();
+        delete buffer;
+        return;
     }
 
     // give the buffer to the KDE clipboard
@@ -106,13 +106,13 @@ bool Kwave::ClipBoard::paste(QWidget *widget,
     // delete the current selection (with undo)
     if (length <= 1) length = 0; // do not paste single samples !
     if (length && !signal_manager.deleteRange(offset, length))
-	return false;
+        return false;
 
     sample_index_t decoded_samples = Kwave::MimeData::decode(
-	widget,
-	QApplication::clipboard()->mimeData(QClipboard::Clipboard),
-	signal_manager,
-	offset);
+        widget,
+        QApplication::clipboard()->mimeData(QClipboard::Clipboard),
+        signal_manager,
+        offset);
     if (!decoded_samples) return false;
 
     // set the selection to the inserted range
@@ -130,14 +130,14 @@ void Kwave::ClipBoard::clear()
 bool Kwave::ClipBoard::isEmpty()
 {
     const QMimeData *mime_data =
-	QApplication::clipboard()->mimeData(QClipboard::Clipboard);
+        QApplication::clipboard()->mimeData(QClipboard::Clipboard);
 
     // no mime data -> empty
     if (!mime_data) return true;
 
     // there is a format that we can decode -> not empty
     foreach (const QString &format, mime_data->formats())
-	if (Kwave::CodecManager::canDecode(format)) return false;
+        if (Kwave::CodecManager::canDecode(format)) return false;
 
     // nothing to decode -> empty
     return true;

@@ -36,33 +36,33 @@ namespace Kwave
     class SelectionItem: public Kwave::ViewItem
     {
     public:
-	/**
-	 * Constructor
-	 * @param view the parent signal view
-	 * @param signal_manager the signal manager
-	 */
-	SelectionItem(SignalView &view,
-	              Kwave::SignalManager &signal_manager);
+        /**
+         * Constructor
+         * @param view the parent signal view
+         * @param signal_manager the signal manager
+         */
+        SelectionItem(SignalView &view,
+                      Kwave::SignalManager &signal_manager);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~SelectionItem() Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns flags describing the possible interactions with this object
-	 * @see Kwave::ViewItem::Flags
-	 */
+        /**
+         * Returns flags describing the possible interactions with this object
+         * @see Kwave::ViewItem::Flags
+         */
         virtual Kwave::ViewItem::Flags flags() const Q_DECL_OVERRIDE;
 
-	/** Starts a drag & drop operation. */
+        /** Starts a drag & drop operation. */
         virtual void startDragging() Q_DECL_OVERRIDE;
 
     private:
 
-	/** start of the selection */
-	sample_index_t m_first;
+        /** start of the selection */
+        sample_index_t m_first;
 
-	/** end of the selection */
-	sample_index_t m_last;
+        /** end of the selection */
+        sample_index_t m_last;
 
     };
 }

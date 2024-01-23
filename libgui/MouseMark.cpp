@@ -1,6 +1,6 @@
 /***************************************************************************
            MouseMark.cpp -  Handling of mouse selection
-			     -------------------
+                             -------------------
     begin                : Sun Nov 12 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -55,11 +55,11 @@ sample_index_t Kwave::MouseMark::right() const
 void Kwave::MouseMark::grep(sample_index_t x)
 {
     const sample_index_t d_last  =
-	(x > m_last)    ? (x - m_last)    : (m_last    - x);
+        (x > m_last)    ? (x - m_last)    : (m_last    - x);
     const sample_index_t d_first =
-	(x > m_initial) ? (x - m_initial) : (m_initial - x);
+        (x > m_initial) ? (x - m_initial) : (m_initial - x);
     if (d_last > d_first)
-	m_initial = m_last;
+        m_initial = m_last;
     m_last = x;
 }
 

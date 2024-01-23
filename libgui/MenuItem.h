@@ -1,6 +1,6 @@
 /***************************************************************************
-			  MenuItem.h  -  selectable and checkable menu item
-			     -------------------
+                          MenuItem.h  -  selectable and checkable menu item
+                             -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -34,107 +34,107 @@ namespace Kwave
      */
     class MenuItem: public Kwave::MenuNode
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor.
-	 * @param parent pointer to the node's parent (might be 0)
-	 * @param name the non-localized name of the node
-	 * @param command the command to be sent when the node is
-	 *                selected (optional, default=0)
-	 * @param shortcut keyboard shortcut (optional, default=0)
-	 * @param uid unique id string (optional, default=0)
-	 */
-	MenuItem(Kwave::MenuNode *parent,
-	         const QString &name,
-	         const QString &command,
-	         const QKeySequence &shortcut,
-	         const QString &uid);
+        /**
+         * Constructor.
+         * @param parent pointer to the node's parent (might be 0)
+         * @param name the non-localized name of the node
+         * @param command the command to be sent when the node is
+         *                selected (optional, default=0)
+         * @param shortcut keyboard shortcut (optional, default=0)
+         * @param uid unique id string (optional, default=0)
+         */
+        MenuItem(Kwave::MenuNode *parent,
+                 const QString &name,
+                 const QString &command,
+                 const QKeySequence &shortcut,
+                 const QString &uid);
 
-	/** virtual destructor */
+        /** virtual destructor */
         virtual ~MenuItem() Q_DECL_OVERRIDE;
 
-	/**
-	 * Called to notify the item that it has been selected.
-	 */
-	virtual void actionSelected() Q_DECL_OVERRIDE;
+        /**
+         * Called to notify the item that it has been selected.
+         */
+        virtual void actionSelected() Q_DECL_OVERRIDE;
 
-	/**
-	 * Handles/interpretes special menu commands.
-	 * @param command name of a menu node or command
-	 * @return true if the name was recognized as a command and handled
-	 */
+        /**
+         * Handles/interpretes special menu commands.
+         * @param command name of a menu node or command
+         * @return true if the name was recognized as a command and handled
+         */
         virtual bool specialCommand(const QString &command) Q_DECL_OVERRIDE;
 
-	/**
-	 * Shows/hides the current menu node.
-	 * @param visible true to show the item, false to hide
-	 */
+        /**
+         * Shows/hides the current menu node.
+         * @param visible true to show the item, false to hide
+         */
         virtual void setVisible(bool visible) Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns true if the node is enabled.
-	 */
+        /**
+         * Returns true if the node is enabled.
+         */
         virtual bool isEnabled() Q_DECL_OVERRIDE;
 
-	/**
-	 * Enables/disables the current menu node.
-	 * @param enable true to enable the item, false to disable
-	 */
+        /**
+         * Enables/disables the current menu node.
+         * @param enable true to enable the item, false to disable
+         */
         virtual void setEnabled(bool enable) Q_DECL_OVERRIDE;
 
-	/**
-	 * Enables/disabled checking/selecting the item
-	 * @param checkable true to enable checking, false for disabling
-	 */
-	virtual void setCheckable(bool checkable);
+        /**
+         * Enables/disabled checking/selecting the item
+         * @param checkable true to enable checking, false for disabling
+         */
+        virtual void setCheckable(bool checkable);
 
-	/** Returns true if the node is checkable/selectable */
-	virtual bool isCheckable();
+        /** Returns true if the node is checkable/selectable */
+        virtual bool isCheckable();
 
-	/**
-	 * Sets/removes the checkmark from the current menu item.
-	 * @param check true to set the mark, false to remove
-	 */
+        /**
+         * Sets/removes the checkmark from the current menu item.
+         * @param check true to set the mark, false to remove
+         */
         virtual void setChecked(bool check) Q_DECL_OVERRIDE;
 
-	/**
-	 * Sets the visible text of an item to a new value. (Only useful
-	 * for a MenuItem)
-	 * @param text the new text
-	 */
+        /**
+         * Sets the visible text of an item to a new value. (Only useful
+         * for a MenuItem)
+         * @param text the new text
+         */
         virtual void setText(const QString &text) Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns the menu nodes' icon.
-	 */
+        /**
+         * Returns the menu nodes' icon.
+         */
         virtual const QIcon icon() Q_DECL_OVERRIDE;
 
-	/**
-	 * Sets a new icon of a menu node.
-	 * @param icon QPixmap with the icon
-	 */
+        /**
+         * Sets a new icon of a menu node.
+         * @param icon QPixmap with the icon
+         */
         virtual void setIcon(const QIcon &icon) Q_DECL_OVERRIDE;
 
-	/** Returns the corresponding menu action */
+        /** Returns the corresponding menu action */
         virtual QAction *action() Q_DECL_OVERRIDE { return &m_action; }
 
     private slots:
 
-	virtual void actionTriggered(bool checked);
+        virtual void actionTriggered(bool checked);
 
     private:
 
-	/**
-	 * name of a group for exclusive selection
-	 * (optional, set by special command, default=0)
-	 */
-	QString m_exclusive_group;
+        /**
+         * name of a group for exclusive selection
+         * (optional, set by special command, default=0)
+         */
+        QString m_exclusive_group;
 
-	/** the QAction behind this menu entry */
-	QAction m_action;
+        /** the QAction behind this menu entry */
+        QAction m_action;
 
     };
 }

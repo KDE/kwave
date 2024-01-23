@@ -69,7 +69,7 @@ QString Kwave::AmplifyFreeDialog::getCommand()
     cmd = _("amplifyfree(");
     if (p.hasParams()) cmd += p.nextParam();
     while (!p.isDone()) {
-	cmd += _(",") + p.nextParam();
+        cmd += _(",") + p.nextParam();
     }
     cmd += _(")");
 
@@ -86,7 +86,7 @@ void Kwave::AmplifyFreeDialog::setParams(QStringList &params)
     if (it != params.end()) cmd += *(it++);
 
     for (; it != params.end(); ++it)
-	cmd += _(",") + *it;
+        cmd += _(",") + *it;
     cmd += _(")");
 
     if (curveWidget) curveWidget->setCurve(cmd);

@@ -52,7 +52,7 @@ void Kwave::StringEnterPlugin::load(QStringList &params)
 {
     Q_UNUSED(params)
     QString entry =
-	_("menu(plugin:setup(stringenter),%1/%2/#icon(editor),F12)");
+        _("menu(plugin:setup(stringenter),%1/%2/#icon(editor),F12)");
     emitCommand(entry.arg(_("Settings")).arg(_(kli18nc(
         "menu: /Settings/Enter Command",
                         "Enter Command").untranslatedText()
@@ -64,23 +64,23 @@ QStringList *Kwave::StringEnterPlugin::setup(QStringList &previous_params)
 {
     QString preset;
     if (previous_params.count() == 1)
-	preset = previous_params[0];
+        preset = previous_params[0];
 
     // create the setup dialog
     QPointer<Kwave::StringEnterDialog> dialog =
-	new(std::nothrow) Kwave::StringEnterDialog(parentWidget(), preset);
+        new(std::nothrow) Kwave::StringEnterDialog(parentWidget(), preset);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec() && dialog) {
-	// user has pressed "OK"
-	QString command = dialog->command();
-	emitCommand(command);
+        // user has pressed "OK"
+        QString command = dialog->command();
+        emitCommand(command);
     } else {
-	// user pressed "Cancel"
-	if (list) delete list;
+        // user pressed "Cancel"
+        if (list) delete list;
         list = Q_NULLPTR;
     }
 

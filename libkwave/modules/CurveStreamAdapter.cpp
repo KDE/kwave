@@ -41,15 +41,15 @@ void Kwave::CurveStreamAdapter::goOn()
 
     // fill with interpolated points
     for (offset = 0; offset < samples; ++offset) {
-	// x is [0.0 ... 1.0]
-	const double x = static_cast<double>(m_position) / x_max;
-	const double y = m_interpolation.singleInterpolation(x);
-	m_buffer[offset] = double2sample(y);
-	m_position++;
+        // x is [0.0 ... 1.0]
+        const double x = static_cast<double>(m_position) / x_max;
+        const double y = m_interpolation.singleInterpolation(x);
+        m_buffer[offset] = double2sample(y);
+        m_position++;
 
-	// wrap-around, for periodic signals
-	if (m_position > m_length)
-	    m_position = 0;
+        // wrap-around, for periodic signals
+        if (m_position > m_length)
+            m_position = 0;
     }
 
     emit output(m_buffer);

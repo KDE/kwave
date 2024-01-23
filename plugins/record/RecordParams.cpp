@@ -50,9 +50,9 @@ Kwave::RecordParams::~RecordParams()
 }
 
 #define GET(value,func) \
-	value = list[index++].func(&ok); \
-	Q_ASSERT(ok); \
-	if (!ok) return -EINVAL;
+        value = list[index++].func(&ok); \
+        Q_ASSERT(ok); \
+        if (!ok) return -EINVAL;
 
 //***************************************************************************
 int Kwave::RecordParams::fromList(const QStringList &list)
@@ -67,8 +67,8 @@ int Kwave::RecordParams::fromList(const QStringList &list)
     unsigned int method_index;
     GET(method_index, toUInt)
     method = (method_index < Kwave::RECORD_INVALID) ?
-		static_cast<Kwave::record_method_t>(method_index) :
-		Kwave::RECORD_INVALID;
+                static_cast<Kwave::record_method_t>(method_index) :
+                Kwave::RECORD_INVALID;
 
     // pre-record
     GET(pre_record_enabled, toUInt)
@@ -84,9 +84,9 @@ int Kwave::RecordParams::fromList(const QStringList &list)
 
     // auto-adjust to same hour as last time but not in past
     if (start_time.date() < QDate::currentDate())
-	start_time.setDate(QDate::currentDate());
+        start_time.setDate(QDate::currentDate());
     if (start_time < QDateTime::currentDateTime())
-	start_time = start_time.addDays(1);
+        start_time = start_time.addDays(1);
     // set seconds to zero
     QTime t = start_time.time();
     t.setHMS(t.hour(), t.minute(), 0, 0);

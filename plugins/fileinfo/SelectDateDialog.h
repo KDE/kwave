@@ -33,26 +33,26 @@ namespace Kwave
     class SelectDateDialog: public QDialog,
                             public Ui::SelectDateDlg
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
-	/** Constructor */
-	SelectDateDialog(QWidget *parent, QDate &date);
+        /** Constructor */
+        SelectDateDialog(QWidget *parent, QDate &date);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~SelectDateDialog() Q_DECL_OVERRIDE;
 
-	/** Returns the selected date */
-	virtual QDate date();
+        /** Returns the selected date */
+        virtual QDate date();
 
     public slots:
 
-	/** applies the settings and closes the dialog (OK button) */
+        /** applies the settings and closes the dialog (OK button) */
         virtual void accept() Q_DECL_OVERRIDE;
 
     private:
 
-	/** stores the last known date */
-	QDate m_date;
+        /** stores the last known date */
+        QDate m_date;
 
     };
 }

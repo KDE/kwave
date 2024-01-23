@@ -28,40 +28,40 @@ namespace Kwave
 
     class MP3CodecPlugin: public Kwave::CodecPlugin
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	MP3CodecPlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        MP3CodecPlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
-	virtual ~MP3CodecPlugin() Q_DECL_OVERRIDE;
+        /** Destructor */
+        virtual ~MP3CodecPlugin() Q_DECL_OVERRIDE;
 
-	/** @see Kwave::Plugin::load() */
-	virtual void load(QStringList &params) Q_DECL_OVERRIDE;
+        /** @see Kwave::Plugin::load() */
+        virtual void load(QStringList &params) Q_DECL_OVERRIDE;
 
-	/**
-	 * Shows a dialog to set up the plugin, configure all paths,
-	 * presets and other parameters...
-	 * @param previous_params the parameters of a previous call
-	 * @return a string list with all parameters or null if the
-	 *         setup (dialog) has been canceled
-	 */
-	virtual QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
+        /**
+         * Shows a dialog to set up the plugin, configure all paths,
+         * presets and other parameters...
+         * @param previous_params the parameters of a previous call
+         * @return a string list with all parameters or null if the
+         *         setup (dialog) has been canceled
+         */
+        virtual QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
 
-	/** Creates a new decoder */
-	virtual QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;
+        /** Creates a new decoder */
+        virtual QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;
 
-	/** Creates a new encoder */
-	virtual QList<Kwave::Encoder *> createEncoder() Q_DECL_OVERRIDE;
+        /** Creates a new encoder */
+        virtual QList<Kwave::Encoder *> createEncoder() Q_DECL_OVERRIDE;
 
     private:
-	/** static codec container */
-	static CodecPlugin::Codec m_codec;
+        /** static codec container */
+        static CodecPlugin::Codec m_codec;
     };
 
 }

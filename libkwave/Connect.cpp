@@ -28,57 +28,57 @@ namespace Kwave {
 
     //***********************************************************************
     static bool _connect_one_by_one(
-	Kwave::StreamObject &src, const char *output, unsigned int src_idx,
-	Kwave::StreamObject &dst, const char *input,  unsigned int dst_idx)
+        Kwave::StreamObject &src, const char *output, unsigned int src_idx,
+        Kwave::StreamObject &dst, const char *input,  unsigned int dst_idx)
     {
-	Kwave::StreamObject *s = src.port(output, src_idx);
-	Kwave::StreamObject *d = dst.port(input,  dst_idx);
-	Q_ASSERT(s);
-	Q_ASSERT(d);
-	Q_ASSERT(input);
-	Q_ASSERT(output);
-	if (!s || !d || !input || !output) return false;
+        Kwave::StreamObject *s = src.port(output, src_idx);
+        Kwave::StreamObject *d = dst.port(input,  dst_idx);
+        Q_ASSERT(s);
+        Q_ASSERT(d);
+        Q_ASSERT(input);
+        Q_ASSERT(output);
+        if (!s || !d || !input || !output) return false;
 
-	QObject::connect(s, output, d, input, Qt::DirectConnection);
+        QObject::connect(s, output, d, input, Qt::DirectConnection);
 
-	QObject::connect(s, SIGNAL(sigCancel()), d, SLOT(cancel()),
-	                 Qt::DirectConnection);
+        QObject::connect(s, SIGNAL(sigCancel()), d, SLOT(cancel()),
+                         Qt::DirectConnection);
 
-	return true;
+        return true;
     }
 
     //***********************************************************************
     bool connect(Kwave::StreamObject &source, const char *output,
-	         Kwave::StreamObject &sink,   const char *input)
+                 Kwave::StreamObject &sink,   const char *input)
     {
-	unsigned int src_tracks = source.tracksOfPort(output);
-	unsigned int dst_tracks = sink.tracksOfPort(input);
+        unsigned int src_tracks = source.tracksOfPort(output);
+        unsigned int dst_tracks = sink.tracksOfPort(input);
 
-	Q_ASSERT(output);
-	Q_ASSERT(input);
-	if (!src_tracks || !dst_tracks || !output || !input)
-	    return false;
+        Q_ASSERT(output);
+        Q_ASSERT(input);
+        if (!src_tracks || !dst_tracks || !output || !input)
+            return false;
 
-	if ((src_tracks == 1) && (dst_tracks > 1)) {
-	    // 1 output -> N inputs
-	    for (unsigned int track = 0; track < dst_tracks; track++) {
-		if (!_connect_one_by_one(
-		    source, output, 0,
-		    sink,   input,  track)) return false;
-	    }
-	} else if (src_tracks == dst_tracks) {
-	    // N outputs -> N inputs
-	    for (unsigned int track=0; track < dst_tracks; track++) {
-		if (!_connect_one_by_one(
-		    source, output, track,
-		    sink,   input,  track)) return false;
-	    }
-	} else {
-	    qWarning("invalid source/sink combination, %d:%d tracks",
-		src_tracks, dst_tracks);
-	    return false;
-	}
-	return true;
+        if ((src_tracks == 1) && (dst_tracks > 1)) {
+            // 1 output -> N inputs
+            for (unsigned int track = 0; track < dst_tracks; track++) {
+                if (!_connect_one_by_one(
+                    source, output, 0,
+                    sink,   input,  track)) return false;
+            }
+        } else if (src_tracks == dst_tracks) {
+            // N outputs -> N inputs
+            for (unsigned int track=0; track < dst_tracks; track++) {
+                if (!_connect_one_by_one(
+                    source, output, track,
+                    sink,   input,  track)) return false;
+            }
+        } else {
+            qWarning("invalid source/sink combination, %d:%d tracks",
+                src_tracks, dst_tracks);
+            return false;
+        }
+        return true;
     }
 }
 

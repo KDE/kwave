@@ -1,6 +1,6 @@
 /***************************************************************************
       UndoDeleteTrack.h  -  Undo action for deletion of tracks
-			     -------------------
+                             -------------------
     begin                : Mon Jun 25 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -40,50 +40,50 @@ namespace Kwave
     {
     public:
 
-	/**
-	 * Constructor
-	 * @param signal reference to the signal
-	 * @param track index of the deleted track.
-	 */
-	UndoDeleteTrack(Kwave::Signal &signal, unsigned int track);
+        /**
+         * Constructor
+         * @param signal reference to the signal
+         * @param track index of the deleted track.
+         */
+        UndoDeleteTrack(Kwave::Signal &signal, unsigned int track);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~UndoDeleteTrack() Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns a verbose short description of the action.
-	 */
+        /**
+         * Returns a verbose short description of the action.
+         */
         virtual QString description() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undoSize() */
+        /** @see UndoAction::undoSize() */
         virtual qint64 undoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::redoSize() */
+        /** @see UndoAction::redoSize() */
         virtual qint64 redoSize() Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::store() */
+        /** @see UndoAction::store() */
         virtual bool store(SignalManager &manager) Q_DECL_OVERRIDE;
 
-	/** @see UndoAction::undo() */
+        /** @see UndoAction::undo() */
         virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-	                                bool with_redo) Q_DECL_OVERRIDE;
+                                        bool with_redo) Q_DECL_OVERRIDE;
 
     protected:
 
-	/** Reference to the signal */
-	Kwave::Signal &m_signal;
+        /** Reference to the signal */
+        Kwave::Signal &m_signal;
 
-	/** Index of the deleted track */
-	unsigned int m_track;
+        /** Index of the deleted track */
+        unsigned int m_track;
 
-	/** Length of the track in samples */
-	sample_index_t m_length;
+        /** Length of the track in samples */
+        sample_index_t m_length;
 
-	/** storage for all deleted stripes */
-	QList<Kwave::Stripe::List> m_stripes;
+        /** storage for all deleted stripes */
+        QList<Kwave::Stripe::List> m_stripes;
 
-	/** unique ID of the deleted track */
-	QUuid m_uuid;
+        /** unique ID of the deleted track */
+        QUuid m_uuid;
 
     };
 }

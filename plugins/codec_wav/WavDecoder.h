@@ -43,75 +43,75 @@ namespace Kwave
     class WavDecoder: public Kwave::Decoder
     {
     public:
-	/** Constructor */
-	WavDecoder();
+        /** Constructor */
+        WavDecoder();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~WavDecoder() Q_DECL_OVERRIDE;
 
-	/** Returns a new instance of the decoder */
+        /** Returns a new instance of the decoder */
         virtual Kwave::Decoder *instance() Q_DECL_OVERRIDE;
 
-	/**
-	 * Opens the source and decodes the header information.
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param source file or other source with a stream of bytes
-	 * @return true if succeeded, false on errors
-	 */
+        /**
+         * Opens the source and decodes the header information.
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param source file or other source with a stream of bytes
+         * @return true if succeeded, false on errors
+         */
         virtual bool open(QWidget *widget, QIODevice &source) Q_DECL_OVERRIDE;
 
-	/**
-	 * Decodes a stream of bytes into a MultiWriter
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param dst MultiWriter that receives the audio data
-	 * @return true if succeeded, false on errors
-	 */
+        /**
+         * Decodes a stream of bytes into a MultiWriter
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param dst MultiWriter that receives the audio data
+         * @return true if succeeded, false on errors
+         */
         virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Closes the source.
-	 */
+        /**
+         * Closes the source.
+         */
         virtual void close() Q_DECL_OVERRIDE;
 
     protected:
-	/**
-	 * Fix all inconsistencies and create a repar list.
-	 * @internal
-	 */
-	bool repair(QList<Kwave::RecoverySource *> *repair_list,
-	            Kwave::RIFFChunk *riff_chunk,
-	            Kwave::RIFFChunk *fmt_chunk,
-	            Kwave::RIFFChunk *data_chunk);
+        /**
+         * Fix all inconsistencies and create a repar list.
+         * @internal
+         */
+        bool repair(QList<Kwave::RecoverySource *> *repair_list,
+                    Kwave::RIFFChunk *riff_chunk,
+                    Kwave::RIFFChunk *fmt_chunk,
+                    Kwave::RIFFChunk *data_chunk);
 
-	/**
-	 * Adds a chunk to a repair list
-	 * @internal
-	 */
-	bool repairChunk(QList<Kwave::RecoverySource *> *repair_list,
-	                 Kwave::RIFFChunk *chunk, quint32 &offset);
-
-    private:
-
-	/** adds an entry to m_known_chunks and to m_property_map */
-	void addPropertyChunk(const Kwave::FileProperty property,
-	                      const QByteArray &chunk_name);
+        /**
+         * Adds a chunk to a repair list
+         * @internal
+         */
+        bool repairChunk(QList<Kwave::RecoverySource *> *repair_list,
+                         Kwave::RIFFChunk *chunk, quint32 &offset);
 
     private:
 
-	/** source of the audio data */
-	QIODevice *m_source;
+        /** adds an entry to m_known_chunks and to m_property_map */
+        void addPropertyChunk(const Kwave::FileProperty property,
+                              const QByteArray &chunk_name);
 
-	/** adapter for libaudiofile */
-	Kwave::VirtualAudioFile *m_src_adapter;
+    private:
 
-	/** list of all known chunk names */
-	QStringList m_known_chunks;
+        /** source of the audio data */
+        QIODevice *m_source;
 
-	/** map for translating chunk names to FileInfo properties */
-	Kwave::WavPropertyMap m_property_map;
+        /** adapter for libaudiofile */
+        Kwave::VirtualAudioFile *m_src_adapter;
+
+        /** list of all known chunk names */
+        QStringList m_known_chunks;
+
+        /** map for translating chunk names to FileInfo properties */
+        Kwave::WavPropertyMap m_property_map;
 
     };
 }

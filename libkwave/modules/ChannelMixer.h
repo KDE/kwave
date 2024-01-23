@@ -40,94 +40,94 @@ namespace Kwave
 
     class Q_DECL_EXPORT ChannelMixer: public Kwave::SampleSource
     {
-	Q_OBJECT
-	public:
-	    /**
-	     * Constructor
-	     * @param inputs number of input channels
-	     * @param outputs number of output channels
-	     */
-	    ChannelMixer(unsigned int inputs, unsigned int outputs);
+        Q_OBJECT
+        public:
+            /**
+             * Constructor
+             * @param inputs number of input channels
+             * @param outputs number of output channels
+             */
+            ChannelMixer(unsigned int inputs, unsigned int outputs);
 
-	    /** Destructor */
+            /** Destructor */
             virtual ~ChannelMixer() Q_DECL_OVERRIDE;
 
-	    /**
-	     * Init function, you must call it once after creating and before
-	     * using this object. If the return value is false, you should
-	     * delete this object.
-	     * @return true if succeeded, false if failed
-	     */
-	    virtual bool init();
+            /**
+             * Init function, you must call it once after creating and before
+             * using this object. If the return value is false, you should
+             * delete this object.
+             * @return true if succeeded, false if failed
+             */
+            virtual bool init();
 
-	    /**
-	     * Returns the number of tracks of a input or output port.
-	     * Can be overwritten for objects that have a different count
-	     * of inputs and outputs.
-	     * @param port name of the port (name of signal or slot)
-	     * @return number of tracks of a input or output, default is
-	     *         the same as tracks()
-	     */
+            /**
+             * Returns the number of tracks of a input or output port.
+             * Can be overwritten for objects that have a different count
+             * of inputs and outputs.
+             * @param port name of the port (name of signal or slot)
+             * @return number of tracks of a input or output, default is
+             *         the same as tracks()
+             */
             virtual unsigned int tracksOfPort(const char *port) const
                 Q_DECL_OVERRIDE;
 
-	    /**
-	     * Returns an indexed port, identified by name
-	     * @param port name of the port (name of signal or slot)
-	     * @param track index of the track
-	     */
+            /**
+             * Returns an indexed port, identified by name
+             * @param port name of the port (name of signal or slot)
+             * @param track index of the track
+             */
             virtual Kwave::StreamObject *port(
                 const char *port, unsigned int track) Q_DECL_OVERRIDE;
 
-	    /** does nothing, work is done automatically in mix() */
+            /** does nothing, work is done automatically in mix() */
             virtual void goOn() Q_DECL_OVERRIDE
-	    {
-	    }
+            {
+            }
 
-	signals:
+        signals:
 
-	    /** emits a block with output data */
-	    void output(Kwave::SampleArray data);
+            /** emits a block with output data */
+            void output(Kwave::SampleArray data);
 
-	public slots:
+        public slots:
 
-	    /**
-	     * dummy implementation, the real "input" is a multi-track slot
-	     * and available through the port(...) interface only
-	     */
-	    void input(Kwave::SampleArray data) { Q_UNUSED(data) }
+            /**
+             * dummy implementation, the real "input" is a multi-track slot
+             * and available through the port(...) interface only
+             */
+            void input(Kwave::SampleArray data) { Q_UNUSED(data) }
 
-	private slots:
+        private slots:
 
-	    /** receives a block with index + input data */
-	    void idxInput(unsigned int index, Kwave::SampleArray data);
+            /** receives a block with index + input data */
+            void idxInput(unsigned int index, Kwave::SampleArray data);
 
-	private:
+        private:
 
-	    /** does the calculation */
-	    virtual void mix();
+            /** does the calculation */
+            virtual void mix();
 
-	private:
+        private:
 
-	    /** mixer matrix */
-	    Kwave::MixerMatrix *m_matrix;
+            /** mixer matrix */
+            Kwave::MixerMatrix *m_matrix;
 
-	    /** number of inputs */
-	    unsigned int m_inputs;
+            /** number of inputs */
+            unsigned int m_inputs;
 
-	    /** number of outputs */
-	    unsigned int m_outputs;
+            /** number of outputs */
+            unsigned int m_outputs;
 
-	    QVector< QPointer<Kwave::StreamObject> > m_indexer;
+            QVector< QPointer<Kwave::StreamObject> > m_indexer;
 
-	    /** queues for input data */
-	    QVector< QQueue<Kwave::SampleArray> > m_input_queue;
+            /** queues for input data */
+            QVector< QQueue<Kwave::SampleArray> > m_input_queue;
 
-	    /** buffers with output data */
-	    QVector< QPointer<Kwave::SampleBuffer> > m_output_buffer;
+            /** buffers with output data */
+            QVector< QPointer<Kwave::SampleBuffer> > m_output_buffer;
 
-	    /** mutex for locking access to the queues */
-	    QMutex m_lock;
+            /** mutex for locking access to the queues */
+            QMutex m_lock;
     };
 
 

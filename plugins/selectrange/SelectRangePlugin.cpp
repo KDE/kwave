@@ -62,30 +62,30 @@ QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
     sample_index_t length = signalLength();
 
     QPointer<Kwave::SelectRangeDialog> dialog =
-	new(std::nothrow) Kwave::SelectRangeDialog(parentWidget(),
-	    m_start_mode, m_range_mode, m_range, rate, offset, length);
+        new(std::nothrow) Kwave::SelectRangeDialog(parentWidget(),
+            m_start_mode, m_range_mode, m_range, rate, offset, length);
     Q_ASSERT(dialog);
     if (!dialog) return Q_NULLPTR;
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
     if (list && dialog->exec() && dialog) {
-	// user has pressed "OK"
-	*list << QString::number(dialog->startMode());
-	*list << QString::number(dialog->rangeMode());
-	*list << QString::number(dialog->start());
-	*list << QString::number(dialog->range());
+        // user has pressed "OK"
+        *list << QString::number(dialog->startMode());
+        *list << QString::number(dialog->rangeMode());
+        *list << QString::number(dialog->start());
+        *list << QString::number(dialog->range());
 
-	emitCommand(_("plugin:execute(selectrange,") +
-	    QString::number(dialog->startMode()) + _(",") +
-	    QString::number(dialog->rangeMode()) + _(",") +
-	    QString::number(dialog->start()) + _(",") +
-	    QString::number(dialog->range())+
-	    _(")")
-	);
+        emitCommand(_("plugin:execute(selectrange,") +
+            QString::number(dialog->startMode()) + _(",") +
+            QString::number(dialog->rangeMode()) + _(",") +
+            QString::number(dialog->start()) + _(",") +
+            QString::number(dialog->range())+
+            _(")")
+        );
     } else {
-	// user pressed "Cancel"
-	if (list) delete list;
+        // user pressed "Cancel"
+        if (list) delete list;
         list = Q_NULLPTR;
     }
 
@@ -104,22 +104,22 @@ int Kwave::SelectRangePlugin::start(QStringList &params)
 
     // get current offset of the signal
     sample_index_t offset = Kwave::SelectTimeWidget::timeToSamples(
-	m_start_mode, m_start, signalRate(), signal_length);
+        m_start_mode, m_start, signalRate(), signal_length);
 
     // transform into offset and length [samples]
     sample_index_t length = Kwave::SelectTimeWidget::timeToSamples(
-	m_range_mode, m_range, signalRate(), signal_length);
+        m_range_mode, m_range, signalRate(), signal_length);
 
     // limit selection to end of signal
     if (length > signal_length)
-	length = signal_length;
+        length = signal_length;
     if ((offset + length) >= signal_length)
-	length = signal_length - offset;
+        length = signal_length - offset;
 
     // change the selection through the signal manager
     {
-	Kwave::UndoTransactionGuard undo_guard(*this, i18n("Select Range"));
-	selectRange(offset, length);
+        Kwave::UndoTransactionGuard undo_guard(*this, i18n("Select Range"));
+        selectRange(offset, length);
     }
 
     return result;
@@ -134,7 +134,7 @@ int Kwave::SelectRangePlugin::interpreteParameters(QStringList &params)
 
     // evaluate the parameter list
     if (params.count() != 4) {
-	return -EINVAL;
+        return -EINVAL;
     }
 
     // selection mode for start
@@ -151,7 +151,7 @@ int Kwave::SelectRangePlugin::interpreteParameters(QStringList &params)
         (mode != static_cast<int>(Kwave::SelectTimeWidget::bySamples)) &&
         (mode != static_cast<int>(Kwave::SelectTimeWidget::byPercents)))
     {
-	return -EINVAL;
+        return -EINVAL;
     }
     m_start_mode = static_cast<Kwave::SelectTimeWidget::Mode>(mode);
 
@@ -170,7 +170,7 @@ int Kwave::SelectRangePlugin::interpreteParameters(QStringList &params)
         (mode != static_cast<int>(Kwave::SelectTimeWidget::bySamples)) &&
         (mode != static_cast<int>(Kwave::SelectTimeWidget::byPercents)))
     {
-	return -EINVAL;
+        return -EINVAL;
     }
     m_range_mode = static_cast<Kwave::SelectTimeWidget::Mode>(mode);
 

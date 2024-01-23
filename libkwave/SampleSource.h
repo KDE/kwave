@@ -33,32 +33,32 @@ namespace Kwave
         Q_OBJECT
     public:
 
-	/**
-	 * Constructor
-	 *
-	 * @param parent a parent object, passed to QObject (optional)
-	 */
+        /**
+         * Constructor
+         *
+         * @param parent a parent object, passed to QObject (optional)
+         */
         explicit SampleSource(QObject *parent = Q_NULLPTR);
 
-	/** Destructor */
-	virtual ~SampleSource();
+        /** Destructor */
+        virtual ~SampleSource();
 
-	/**
-	 * Each KwaveSampleSource has to derive this method for producing
-	 * sample data. It then should emit a signal like this:
-	 * "output(SampleArray data)"
-	 */
-	virtual void goOn() = 0;
+        /**
+         * Each KwaveSampleSource has to derive this method for producing
+         * sample data. It then should emit a signal like this:
+         * "output(SampleArray data)"
+         */
+        virtual void goOn() = 0;
 
-	/**
-	 * Returns true if the end of the source has been reached,
-	 * e.g. at EOF of an input stream. The default implementation
-	 * always returns false, which means that the source is always
-	 * able to produce data (useful for signal generators).
-	 *
-	 * @return true if it can produce more sample data, otherwise false
-	 */
-	virtual bool done() const { return false; }
+        /**
+         * Returns true if the end of the source has been reached,
+         * e.g. at EOF of an input stream. The default implementation
+         * always returns false, which means that the source is always
+         * able to produce data (useful for signal generators).
+         *
+         * @return true if it can produce more sample data, otherwise false
+         */
+        virtual bool done() const { return false; }
 
     };
 }

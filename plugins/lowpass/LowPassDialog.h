@@ -39,80 +39,80 @@ namespace Kwave
                          public Ui::LowPassDlg,
                          public Kwave::PluginSetupDialog
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor.
-	 * @param parent parent widget
-	 * @param sample_rate sample rate of the audio data to be processed,
-	 *                    needed for determining the allowed range of
-	 *                    the cutoff frequency
-	 */
-	LowPassDialog(QWidget *parent, double sample_rate);
+        /**
+         * Constructor.
+         * @param parent parent widget
+         * @param sample_rate sample rate of the audio data to be processed,
+         *                    needed for determining the allowed range of
+         *                    the cutoff frequency
+         */
+        LowPassDialog(QWidget *parent, double sample_rate);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~LowPassDialog() Q_DECL_OVERRIDE;
 
-	/** Returns the parameters as string list */
+        /** Returns the parameters as string list */
         virtual QStringList params() Q_DECL_OVERRIDE;
 
-	/** Sets the from a list of parameters */
+        /** Sets the from a list of parameters */
         virtual void setParams(QStringList &params) Q_DECL_OVERRIDE;
 
-	/** retruns a pointer to this as a QDialog */
+        /** retruns a pointer to this as a QDialog */
         virtual QDialog *dialog() Q_DECL_OVERRIDE { return this; }
 
     signals:
 
-	/**
-	 * Emitted whenever the frequency changes
-	 * @param freq the frequency parameter in Hz
-	 */
-	void changed(double freq);
+        /**
+         * Emitted whenever the frequency changes
+         * @param freq the frequency parameter in Hz
+         */
+        void changed(double freq);
 
-	/** Pre-listen mode has been started */
-	void startPreListen();
+        /** Pre-listen mode has been started */
+        void startPreListen();
 
-	/** Pre-listen mode has been stopped */
-	void stopPreListen();
+        /** Pre-listen mode has been stopped */
+        void stopPreListen();
 
     protected slots:
 
-	/** called when the spinbox or spinbox value has changed */
-	void valueChanged(int pos);
+        /** called when the spinbox or spinbox value has changed */
+        void valueChanged(int pos);
 
-	/**
-	 * called when the "Listen" button has been toggled,
-	 * to start or stop the pre-listen mode
-	 */
-	void listenToggled(bool listen);
+        /**
+         * called when the "Listen" button has been toggled,
+         * to start or stop the pre-listen mode
+         */
+        void listenToggled(bool listen);
 
-	/**
-	* called when the pre-listen mode stopped/aborted
-	*/
-	void listenStopped();
+        /**
+        * called when the pre-listen mode stopped/aborted
+        */
+        void listenStopped();
 
     private slots:
 
-	/** invoke the online help */
-	void invokeHelp();
+        /** invoke the online help */
+        void invokeHelp();
 
     protected:
 
-	/** Update the graphic display */
-	void updateDisplay();
+        /** Update the graphic display */
+        void updateDisplay();
 
     private:
 
-	/** the cutoff frequency in Hz */
-	double m_frequency;
+        /** the cutoff frequency in Hz */
+        double m_frequency;
 
-	/** sample rate of the signal in samples/sec */
-	double m_sample_rate;
+        /** sample rate of the signal in samples/sec */
+        double m_sample_rate;
 
-	/** filter function for calculating the frequency response */
-	Kwave::LowPassFilter *m_filter;
+        /** filter function for calculating the frequency response */
+        Kwave::LowPassFilter *m_filter;
 
     };
 }

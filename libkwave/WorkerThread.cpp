@@ -61,13 +61,13 @@ Kwave::WorkerThread::WorkerThread(Kwave::Runnable *runnable, QVariant params)
 
     /* install handler for SIGHUP */
     if (!g_signal_handler_is_in_place) {
-	/*
-	 * NOTE: the old signal handler is lost. But as long as we do not use
-	 *       SIGHUP in any other place of the application and we need to
-	 *       have a dummy handler only, that should not matter
-	 */
-	signal(SIGHUP, _dummy_SIGHUP_handler);
-	g_signal_handler_is_in_place = true;
+        /*
+         * NOTE: the old signal handler is lost. But as long as we do not use
+         *       SIGHUP in any other place of the application and we need to
+         *       have a dummy handler only, that should not matter
+         */
+        signal(SIGHUP, _dummy_SIGHUP_handler);
+        g_signal_handler_is_in_place = true;
     }
 }
 
@@ -75,10 +75,10 @@ Kwave::WorkerThread::WorkerThread(Kwave::Runnable *runnable, QVariant params)
 Kwave::WorkerThread::~WorkerThread()
 {
     if (isRunning()) {
-	qDebug("WorkerThread::~WorkerThread(): waiting for normal shutdown");
-	wait(2000);
-	qDebug("WorkerThread::~WorkerThread(): stopping");
-	stop(2000);
+        qDebug("WorkerThread::~WorkerThread(): waiting for normal shutdown");
+        wait(2000);
+        qDebug("WorkerThread::~WorkerThread(): stopping");
+        stop(2000);
     }
     Q_ASSERT(!isRunning());
 }
@@ -109,10 +109,10 @@ int Kwave::WorkerThread::stop(unsigned int timeout)
 
     // send one SIGHUP in advance
     {
-	QMutexLocker _lock(&m_lock_sighup);
-	if (!pthread_equal(m_tid, m_owner_tid))
-	    pthread_kill(m_tid, SIGHUP);
-	if (!isRunning()) return 0;
+        QMutexLocker _lock(&m_lock_sighup);
+        if (!pthread_equal(m_tid, m_owner_tid))
+            pthread_kill(m_tid, SIGHUP);
+        if (!isRunning()) return 0;
     }
 
     // try to stop cooperatively
@@ -123,24 +123,24 @@ int Kwave::WorkerThread::stop(unsigned int timeout)
     // try to interrupt by HUP signal
     qWarning("WorkerThread::stop(): sending SIGHUP");
     for (unsigned int i = 0; i < MAX_ATTEMPTS_TO_STOP; i++) {
-	{
-	    QMutexLocker _lock(&m_lock_sighup);
-	    if (!isRunning()) return 0;
-	    if (!pthread_equal(m_tid, m_owner_tid))
-		pthread_kill(m_tid, SIGHUP);
-	}
-	if (!isRunning()) return 0;
-	wait(timeout/10);
-	if (!isRunning()) return 0;
+        {
+            QMutexLocker _lock(&m_lock_sighup);
+            if (!isRunning()) return 0;
+            if (!pthread_equal(m_tid, m_owner_tid))
+                pthread_kill(m_tid, SIGHUP);
+        }
+        if (!isRunning()) return 0;
+        wait(timeout/10);
+        if (!isRunning()) return 0;
     }
 
 #ifdef DEBUG_FIND_DEADLOCKS
     if (running()) {
-	qDebug("WorkerThread::stop(): pthread_self()=%08X",
-	       (unsigned int)pthread_self());
-	void *buf[256];
-	size_t n = backtrace(buf, 256);
-	backtrace_symbols_fd(buf, n, 2);
+        qDebug("WorkerThread::stop(): pthread_self()=%08X",
+               (unsigned int)pthread_self());
+        void *buf[256];
+        size_t n = backtrace(buf, 256);
+        backtrace_symbols_fd(buf, n, 2);
     }
 #endif
 
@@ -158,8 +158,8 @@ void Kwave::WorkerThread::run()
 
     /* get the POSIX thread ID, needed for sending SIGHUP */
     {
-	QMutexLocker _lock(&m_lock_sighup);
-	m_tid = pthread_self();
+        QMutexLocker _lock(&m_lock_sighup);
+        m_tid = pthread_self();
     }
 
     /* call the run(...) function */
@@ -167,8 +167,8 @@ void Kwave::WorkerThread::run()
 
     /* avoid sending any SIGHUP by setting the m_tid to "invalid" */
     {
-	QMutexLocker _lock(&m_lock_sighup);
-	m_tid = m_owner_tid;
+        QMutexLocker _lock(&m_lock_sighup);
+        m_tid = m_owner_tid;
     }
 }
 

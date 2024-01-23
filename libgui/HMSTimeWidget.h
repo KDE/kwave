@@ -31,51 +31,51 @@ namespace Kwave
     class Q_DECL_EXPORT HMSTimeWidget
         :public QWidget, public Ui::HMSTimeWidgetBase
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/** Constructor */
-	explicit HMSTimeWidget(QWidget *parent);
+        /** Constructor */
+        explicit HMSTimeWidget(QWidget *parent);
 
-	/** Destructor */
-	virtual ~HMSTimeWidget();
+        /** Destructor */
+        virtual ~HMSTimeWidget();
 
-	/** get the time as a number of seconds */
-	virtual int value();
+        /** get the time as a number of seconds */
+        virtual int value();
 
     signals:
 
-	/** emitted when the time value has changed */
-	void valueChanged(int value);
+        /** emitted when the time value has changed */
+        void valueChanged(int value);
 
     public slots:
 
-	/** set the time, given as a number in seconds */
-	virtual void setValue(int value);
+        /** set the time, given as a number in seconds */
+        virtual void setValue(int value);
 
-	/** sets the maximum time in seconds */
-	virtual void setLimit(unsigned int limit);
+        /** sets the maximum time in seconds */
+        virtual void setLimit(unsigned int limit);
 
     protected slots:
 
-	/** called whenever one of the time controls has changed */
-	void timeChanged(int);
+        /** called whenever one of the time controls has changed */
+        void timeChanged(int);
 
     private:
 
-	/** connect all signals to avoid loops @internal */
-	void connect();
+        /** connect all signals to avoid loops @internal */
+        void connect();
 
-	/** disconnect all signals to avoid loops @internal */
-	void disconnect();
+        /** disconnect all signals to avoid loops @internal */
+        void disconnect();
 
     private:
 
-	/** the currently selected time in seconds */
-	unsigned int m_time;
+        /** the currently selected time in seconds */
+        unsigned int m_time;
 
-	/** the maximum time in seconds, for limiting m_time */
-	unsigned int m_limit;
+        /** the maximum time in seconds, for limiting m_time */
+        unsigned int m_limit;
 
     };
 }

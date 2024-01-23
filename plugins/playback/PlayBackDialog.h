@@ -1,6 +1,6 @@
 /***************************************************************************
        PlayBackDialog.h  -  dialog for configuring the playback
-			     -------------------
+                             -------------------
     begin                : Sun May 13 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -41,124 +41,124 @@ namespace Kwave
 
     class PlayBackDialog: public QDialog, public Ui::PlayBackDlg
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
-	/** Constructor */
-	PlayBackDialog(Kwave::Plugin &p,
-	               Kwave::PlaybackController &playback_controller,
-	               const Kwave::PlayBackParam &params);
+        /** Constructor */
+        PlayBackDialog(Kwave::Plugin &p,
+                       Kwave::PlaybackController &playback_controller,
+                       const Kwave::PlayBackParam &params);
 
-	/** Destructor */
-	virtual ~PlayBackDialog();
+        /** Destructor */
+        virtual ~PlayBackDialog();
 
-	/** Returns the current set of parameters */
-	const Kwave::PlayBackParam &params();
+        /** Returns the current set of parameters */
+        const Kwave::PlayBackParam &params();
 
-	/**
-	 * Selects a new playback method.
-	 */
-	void setMethod(Kwave::playback_method_t method);
+        /**
+         * Selects a new playback method.
+         */
+        void setMethod(Kwave::playback_method_t method);
 
-	/**
-	 * Sets the list of supported devices, just entries
-	 * for the device selection combo box.
-	 */
-	void setSupportedDevices(QStringList devices);
+        /**
+         * Sets the list of supported devices, just entries
+         * for the device selection combo box.
+         */
+        void setSupportedDevices(QStringList devices);
 
-	/** return the file filter used for the "Select..." dialog */
-	inline QString fileFilter() {
-	    return m_file_filter;
-	}
+        /** return the file filter used for the "Select..." dialog */
+        inline QString fileFilter() {
+            return m_file_filter;
+        }
 
-	/** Sets the list of supported bits per sample */
-	void setSupportedBits(const QList<unsigned int> &bits);
+        /** Sets the list of supported bits per sample */
+        void setSupportedBits(const QList<unsigned int> &bits);
 
-	/**
-	 * Sets the lowest and highest number of playback channels
-	 * @param min lowest supported number of channels
-	 * @param max highest supported number of channels
-	 */
-	void setSupportedChannels(unsigned int min, unsigned int max);
+        /**
+         * Sets the lowest and highest number of playback channels
+         * @param min lowest supported number of channels
+         * @param max highest supported number of channels
+         */
+        void setSupportedChannels(unsigned int min, unsigned int max);
 
     signals:
 
-	/** emits changes in the currently selected playback method */
-	void sigMethodChanged(Kwave::playback_method_t method);
+        /** emits changes in the currently selected playback method */
+        void sigMethodChanged(Kwave::playback_method_t method);
 
-	/** emitted when the user clicked on the "Test..." button */
-	void sigTestPlayback();
+        /** emitted when the user clicked on the "Test..." button */
+        void sigTestPlayback();
 
     public slots:
 
-	/** set the file filter used for the "Select..." dialog */
-	void setFileFilter(const QString &filter);
+        /** set the file filter used for the "Select..." dialog */
+        void setFileFilter(const QString &filter);
 
-	/** set a new device name */
-	void setDevice(const QString &device);
+        /** set a new device name */
+        void setDevice(const QString &device);
 
-	/** sets the new value for bits per sample */
-	void setBitsPerSample(unsigned int bits);
+        /** sets the new value for bits per sample */
+        void setBitsPerSample(unsigned int bits);
 
-	/** Sets the number of channels */
-	void setChannels(int channels);
+        /** Sets the number of channels */
+        void setChannels(int channels);
 
     private slots:
 
-	/**
-	 * called when a new playback method has been selected
-	 * from the combo box
-	 * @param index the position within the combo box
-	 */
-	void methodSelected(int index);
+        /**
+         * called when a new playback method has been selected
+         * from the combo box
+         * @param index the position within the combo box
+         */
+        void methodSelected(int index);
 
-	/** Selects a buffer size exponent */
-	void setBufferSize(int exp);
+        /** Selects a buffer size exponent */
+        void setBufferSize(int exp);
 
-	/** Select a playback device through a File/Open dialog */
-	void selectPlaybackDevice();
+        /** Select a playback device through a File/Open dialog */
+        void selectPlaybackDevice();
 
-	/** selection in the device list view has changed */
-	void listEntrySelected(QTreeWidgetItem *current,
-	                       QTreeWidgetItem *previous);
+        /** selection in the device list view has changed */
+        void listEntrySelected(QTreeWidgetItem *current,
+                               QTreeWidgetItem *previous);
 
-	/** selection in the device list view has changed */
-	void listItemExpanded(QTreeWidgetItem *item);
+        /** selection in the device list view has changed */
+        void listItemExpanded(QTreeWidgetItem *item);
 
-	/**
-	 * updates/fixes the device selection when the tree view has
-	 * lost focus, to avoid that nothing is selected
-	 */
-	void updateListSelection();
+        /**
+         * updates/fixes the device selection when the tree view has
+         * lost focus, to avoid that nothing is selected
+         */
+        void updateListSelection();
 
-	/** selection in the bits per sample combo box has changed */
-	void bitsPerSampleSelected(const QString &text);
+        /** selection in the bits per sample combo box has changed */
+        void bitsPerSampleSelected(const QString &text);
 
-	/** invoke the online help */
-	void invokeHelp();
+        /** invoke the online help */
+        void invokeHelp();
 
     private:
 
-	/** reference to the playback controller */
-	Kwave::PlaybackController &m_playback_controller;
+        /** reference to the playback controller */
+        Kwave::PlaybackController &m_playback_controller;
 
-	/** The playback device used for configuring and testing playback */
-	Kwave::PlayBackDevice *m_device;
+        /** The playback device used for configuring and testing playback */
+        Kwave::PlayBackDevice *m_device;
 
-	/** all parameters needed for playback */
-	Kwave::PlayBackParam m_playback_params;
+        /** all parameters needed for playback */
+        Kwave::PlayBackParam m_playback_params;
 
-	/** map of playback methods/types */
-	Kwave::PlayBackTypesMap m_methods_map;
+        /** map of playback methods/types */
+        Kwave::PlayBackTypesMap m_methods_map;
 
-	/** file filter for the "Select..." dialog (optional) */
-	QString m_file_filter;
+        /** file filter for the "Select..." dialog (optional) */
+        QString m_file_filter;
 
-	/** map for items in the list view */
-	QMap<QTreeWidgetItem *, QString> m_devices_list_map;
+        /** map for items in the list view */
+        QMap<QTreeWidgetItem *, QString> m_devices_list_map;
 
-	/** if false, do nothing in setDevice */
-	bool m_enable_setDevice;
+        /** if false, do nothing in setDevice */
+        bool m_enable_setDevice;
     };
 }
 

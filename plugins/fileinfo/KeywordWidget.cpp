@@ -1,6 +1,6 @@
 /***************************************************************************
       KeywordWidget.cpp  -  widget for editing a list of keywords
-			     -------------------
+                             -------------------
     begin                : Fri 02 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -77,9 +77,9 @@ QStringList Kwave::KeywordWidget::keywords()
     QStringList list;
     unsigned int count = lstKeywords->count();
     for (unsigned int index=0; index < count; ++index) {
-	QListWidgetItem *item = lstKeywords->item(index);
-	if (item && item->text().length())
-	    list.append(item->text());
+        QListWidgetItem *item = lstKeywords->item(index);
+        if (item && item->text().length())
+            list.append(item->text());
     }
     return list;
 }
@@ -91,9 +91,9 @@ void Kwave::KeywordWidget::setKeywords(const QStringList &keywords)
     edKeyword->clear();
 
     foreach (const QString &it, keywords) {
-	QString item = it.simplified();
-	if (contained(item)) continue; // skip duplicate
-	lstKeywords->addItem(item);
+        QString item = it.simplified();
+        if (contained(item)) continue; // skip duplicate
+        lstKeywords->addItem(item);
     }
     lstKeywords->setSortingEnabled(true);
     lstKeywords->sortItems();
@@ -121,7 +121,7 @@ void Kwave::KeywordWidget::update()
 
     // the current item should always be visible
     lstKeywords->scrollToItem(lstKeywords->currentItem(),
-	                      QAbstractItemView::EnsureVisible);
+                              QAbstractItemView::EnsureVisible);
 }
 
 //***************************************************************************
@@ -129,13 +129,13 @@ void Kwave::KeywordWidget::editChanged(const QString &edit)
 {
     QString text = edit.simplified();
     QList<QListWidgetItem *> matches =
-	lstKeywords->findItems(text, Qt::MatchStartsWith);
+        lstKeywords->findItems(text, Qt::MatchStartsWith);
     if (edit.length() && !matches.isEmpty()) {
-	lstKeywords->setCurrentItem(matches.takeFirst());
-	update();
-	edKeyword->setText(edit);
+        lstKeywords->setCurrentItem(matches.takeFirst());
+        update();
+        edKeyword->setText(edit);
     } else {
-	update();
+        update();
     }
 }
 
@@ -158,9 +158,9 @@ void Kwave::KeywordWidget::add()
 
     // find the new item again and make it the current selection
     QList<QListWidgetItem *> matches =
-	lstKeywords->findItems(text, Qt::MatchStartsWith);
+        lstKeywords->findItems(text, Qt::MatchStartsWith);
     if (!matches.isEmpty())
-	lstKeywords->setCurrentItem(matches.takeFirst());
+        lstKeywords->setCurrentItem(matches.takeFirst());
     edKeyword->clear();
 
     // now we do no longer need the edit
@@ -180,7 +180,7 @@ void Kwave::KeywordWidget::remove()
     // set the previous item as current
     if (index) --index;
     if (lstKeywords->item(index))
-	lstKeywords->item(index)->setSelected(true);
+        lstKeywords->item(index)->setSelected(true);
 
     edKeyword->clear();
     update();
@@ -206,11 +206,11 @@ bool Kwave::KeywordWidget::eventFilter(QObject *sender, QEvent *event)
     if (!event) return false;
 
     if ((sender == edKeyword) && (event->type() == QEvent::KeyPress)) {
-	QKeyEvent *k = static_cast<QKeyEvent *>(event);
-	if ((k->key() == Qt::Key_Return) || (k->key() == Qt::Key_Enter)) {
-	    add();
-	    return true;
-	}
+        QKeyEvent *k = static_cast<QKeyEvent *>(event);
+        if ((k->key() == Qt::Key_Return) || (k->key() == Qt::Key_Enter)) {
+            add();
+            return true;
+        }
     }
     return QObject::eventFilter(sender, event);
 }

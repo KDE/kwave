@@ -36,79 +36,79 @@ namespace Kwave
      */
     class DebugPlugin: public Kwave::Plugin
     {
-	Q_OBJECT
+        Q_OBJECT
 
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	DebugPlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        DebugPlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~DebugPlugin() Q_DECL_OVERRIDE;
 
-	/** @see Kwave::Plugin::load() */
+        /** @see Kwave::Plugin::load() */
         virtual void load(QStringList &params) Q_DECL_OVERRIDE;
 
-	/**
-	 * Normally this method is used to set up all necessary parameters
-	 * for executing the plugin. This plugin uses it for performing
-	 * actions in the context of the GUI thread.
-	 *
-	 * @param params some parameters
-	 * @return always a null pointer
-	 */
+        /**
+         * Normally this method is used to set up all necessary parameters
+         * for executing the plugin. This plugin uses it for performing
+         * actions in the context of the GUI thread.
+         *
+         * @param params some parameters
+         * @return always a null pointer
+         */
         virtual QStringList *setup(QStringList &params) Q_DECL_OVERRIDE;
 
-	/**
-	 * performs the special function
-	 * @param params list of strings with parameters
-	 */
+        /**
+         * performs the special function
+         * @param params list of strings with parameters
+         */
         virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     private slots:
 
-	/**
-	 * makes a screenshot, using the information from m_screenshot
-	 * @param class_name class name of the widget to capture
-	 * @param filename path to the file to save the screenshot
-	 */
-	void screenshot(const QByteArray &class_name,
-	                const QString &filename);
+        /**
+         * makes a screenshot, using the information from m_screenshot
+         * @param class_name class name of the widget to capture
+         * @param filename path to the file to save the screenshot
+         */
+        void screenshot(const QByteArray &class_name,
+                        const QString &filename);
 
     private:
 
-	/**
-	 * Dump a tree with all child objects (for debugging)
-	 * @param obj parent object to start the dump
-	 * @param indent string for indenting the console output
-	 */
-	void dump_children(const QObject *obj, const QString &indent) const;
+        /**
+         * Dump a tree with all child objects (for debugging)
+         * @param obj parent object to start the dump
+         * @param indent string for indenting the console output
+         */
+        void dump_children(const QObject *obj, const QString &indent) const;
 
-	/**
-	 * Find a widget with a given class name
-	 * @param class_name name of the class to search
-	 * @return pointer to the QWidget if found or null
-	 *         if not found or no QWidget
-	 */
-	QWidget *findWidget(const char *class_name) const;
+        /**
+         * Find a widget with a given class name
+         * @param class_name name of the class to search
+         * @return pointer to the QWidget if found or null
+         *         if not found or no QWidget
+         */
+        QWidget *findWidget(const char *class_name) const;
 
-	/**
-	 * Find a (child) object with a given class name
-	 * @param obj object to start the search at
-	 * @param class_name name of the class to search
-	 * @return pointer to the QObject if found or null if not found
-	 */
-	QObject *findObject(QObject *obj,
-	                    const char *class_name) const;
+        /**
+         * Find a (child) object with a given class name
+         * @param obj object to start the search at
+         * @param class_name name of the class to search
+         * @return pointer to the QObject if found or null if not found
+         */
+        QObject *findObject(QObject *obj,
+                            const char *class_name) const;
 
     private:
 
-	/** use an intermediate buffer for faster filling */
-	Kwave::SampleArray m_buffer;
+        /** use an intermediate buffer for faster filling */
+        Kwave::SampleArray m_buffer;
 
     };
 }

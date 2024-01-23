@@ -144,29 +144,29 @@ void Kwave::LevelMeter::updateTrack(unsigned int track,
     float yp = m_yp[track];
     float last_x = yf;
     for (unsigned int t = 0; t < samples; ++t) {
-	float x = fabsf(sample2float(buffer[t])); /* rectifier */
+        float x = fabsf(sample2float(buffer[t])); /* rectifier */
 
-	/* fast value */
-	if (x > yf) yf = (a0_fr * x) + (a0_fr * last_x) - (b1_fr * yf); // rise
-	yf = (a0_fd * x) + (a0_fd * last_x) - (b1_fd * yf); // decay
+        /* fast value */
+        if (x > yf) yf = (a0_fr * x) + (a0_fr * last_x) - (b1_fr * yf); // rise
+        yf = (a0_fd * x) + (a0_fd * last_x) - (b1_fd * yf); // decay
 
-	/* peak value */
-	if (x > yp) yp = (a0_pr * x) + (a0_pr * last_x) - (b1_pr * yp); // rise
-	yp = (a0_pd * x) + (a0_pd * last_x) - (b1_pd * yp); // decay
+        /* peak value */
+        if (x > yp) yp = (a0_pr * x) + (a0_pr * last_x) - (b1_pr * yp); // rise
+        yp = (a0_pd * x) + (a0_pd * last_x) - (b1_pd * yp); // decay
 
-	// remember x[t-1]
-	last_x = x;
+        // remember x[t-1]
+        last_x = x;
 
-	// enqueue new values if limit reached
-	if ((t > next_fraction) || (t == samples-1)) {
-	    next_fraction += samples_per_update;
+        // enqueue new values if limit reached
+        if ((t > next_fraction) || (t == samples-1)) {
+            next_fraction += samples_per_update;
 
-	    // merge the last fractional part to the last normal part
-	    if ((next_fraction + samples_per_update) > samples)
-	       next_fraction = samples-1;
+            // merge the last fractional part to the last normal part
+            if ((next_fraction + samples_per_update) > samples)
+               next_fraction = samples-1;
 
-	    enqueue(track, yf, yp, queue_depth);
-	}
+            enqueue(track, yf, yp, queue_depth);
+        }
     }
     m_yf[track] = yf;
     m_yp[track] = yp;
@@ -199,17 +199,17 @@ void Kwave::LevelMeter::enqueue(unsigned int track, float fast, float peak,
     Q_ASSERT(m_fast_queue.size() >= m_tracks);
     Q_ASSERT(m_peak_queue.size() >= m_tracks);
     if ((Kwave::toInt(track) >= m_tracks) ||
-	(m_fast_queue.size() < Kwave::toInt(m_tracks)) ||
-	(m_peak_queue.size() < m_tracks)) return;
+        (m_fast_queue.size() < Kwave::toInt(m_tracks)) ||
+        (m_peak_queue.size() < m_tracks)) return;
     Q_ASSERT(m_peak_queue[track].size() == m_fast_queue[track].size());
     if (m_peak_queue[track].size() != m_fast_queue[track].size()) return;
 
     // remove old entries
     while (m_fast_queue[track].size() > Kwave::toInt(queue_depth)) {
-//	qDebug("LevelMeter::enqueue(): purging old entry (%u/%u)",
-//	       m_fast_queue.size(), queue_depth);
-	m_fast_queue[track].dequeue();
-	m_peak_queue[track].dequeue();
+//      qDebug("LevelMeter::enqueue(): purging old entry (%u/%u)",
+//             m_fast_queue.size(), queue_depth);
+        m_fast_queue[track].dequeue();
+        m_peak_queue[track].dequeue();
     }
 
     // put into the queue
@@ -218,9 +218,9 @@ void Kwave::LevelMeter::enqueue(unsigned int track, float fast, float peak,
 
     // restart the timer if necessary
     if (m_timer && !m_timer->isActive()) {
-	m_timer->setInterval(Kwave::toInt(1000 / UPDATES_PER_SECOND));
-	m_timer->setSingleShot(false);
-	m_timer->start();
+        m_timer->setInterval(Kwave::toInt(1000 / UPDATES_PER_SECOND));
+        m_timer->setSingleShot(false);
+        m_timer->start();
     }
 }
 
@@ -231,8 +231,8 @@ bool Kwave::LevelMeter::dequeue(unsigned int track, float &fast, float &peak)
     Q_ASSERT(m_fast_queue.size() >= m_tracks);
     Q_ASSERT(m_peak_queue.size() >= m_tracks);
     if ((Kwave::toInt(track) >= m_tracks) ||
-	(m_fast_queue.size() < m_tracks) ||
-	(m_peak_queue.size() < m_tracks)) return false;
+        (m_fast_queue.size() < m_tracks) ||
+        (m_peak_queue.size() < m_tracks)) return false;
     Q_ASSERT(m_peak_queue[track].size() == m_fast_queue[track].size());
     if (m_peak_queue[track].size() != m_fast_queue[track].size())
         return false;
@@ -256,14 +256,14 @@ void Kwave::LevelMeter::timedUpdate()
     bool need_update = false;
 
     for (int track=0; track < m_tracks; track++) {
-	if (dequeue(track, fast, peak)) {
-	    // set the new "current" values
-	    m_current_fast[track] = fast;
-	    m_current_peak[track] = peak;
+        if (dequeue(track, fast, peak)) {
+            // set the new "current" values
+            m_current_fast[track] = fast;
+            m_current_peak[track] = peak;
 
-	    // remember that we have to update the display
-	    need_update = true;
-	}
+            // remember that we have to update the display
+            need_update = true;
+        }
     }
 
     // refresh the display if needed
@@ -294,40 +294,40 @@ void Kwave::LevelMeter::drawScale(QPainter &p)
 
     p.setBrush(brush);
     while (right > tw + border) {
-	// find the first position in dB which is not overlapping
-	// the last output position
-	QString txt;
-	int x;
-	do {
-	    txt = i18n("%1 dB", db);
-	    x = Kwave::toInt(static_cast<double>(w) *
-		pow(10.0, static_cast<double>(db) / 20.0));
-	    db -= 3; // one step left == -3dB
-	} while ((x > right) && (x >= tw));
-	if (x < tw) break;
+        // find the first position in dB which is not overlapping
+        // the last output position
+        QString txt;
+        int x;
+        do {
+            txt = i18n("%1 dB", db);
+            x = Kwave::toInt(static_cast<double>(w) *
+                pow(10.0, static_cast<double>(db) / 20.0));
+            db -= 3; // one step left == -3dB
+        } while ((x > right) && (x >= tw));
+        if (x < tw) break;
 
-	// calculate the text position
-	int text_width = fm.boundingRect(txt).width();
-	x += border;
-	x -= text_width + 3;
+        // calculate the text position
+        int text_width = fm.boundingRect(txt).width();
+        x += border;
+        x -= text_width + 3;
 
-	// dim the text background area
-	p.setOpacity(0.66);
-	p.setPen(Qt::NoPen);
-	p.drawRoundedRect(
-	    x - r              , y - r,
-	    text_width + 2 * r , th + 2 * r,
-	    (200 * r) / th     , (200 * r) / th,
-	    Qt::RelativeSize
-	);
+        // dim the text background area
+        p.setOpacity(0.66);
+        p.setPen(Qt::NoPen);
+        p.drawRoundedRect(
+            x - r              , y - r,
+            text_width + 2 * r , th + 2 * r,
+            (200 * r) / th     , (200 * r) / th,
+            Qt::RelativeSize
+        );
 
-	// draw the text, right/center aligned
-	p.setOpacity(1.0);
-	p.setPen(textcolor);
-	p.drawText(x, 1, text_width, h, Qt::AlignCenter, txt);
+        // draw the text, right/center aligned
+        p.setOpacity(1.0);
+        p.setPen(textcolor);
+        p.drawText(x, 1, text_width, h, Qt::AlignCenter, txt);
 
-	// new right border == one character left from last one
-	right = x - th;
+        // new right border == one character left from last one
+        right = x - th;
     }
 
 }
@@ -369,43 +369,43 @@ void Kwave::LevelMeter::drawContents()
     const unsigned int w_high = Kwave::toUint(w * 0.85); // -1.5dB
 
     for (track = 0; track < m_tracks; ++track) {
-	// show a bar up to the "fast" value
-	const unsigned int fast = Kwave::toUint(m_current_fast[track] *
-	    static_cast<float>(w));
-	for (unsigned int i = 0; i < w; i += cell * 2) {
-	    QColor color;
-	    if (i >= w_high)
-		color = m_color_high;
-	    else if (i >= w_low)
-		color = m_color_normal;
-	    else
-		color = m_color_low;
+        // show a bar up to the "fast" value
+        const unsigned int fast = Kwave::toUint(m_current_fast[track] *
+            static_cast<float>(w));
+        for (unsigned int i = 0; i < w; i += cell * 2) {
+            QColor color;
+            if (i >= w_high)
+                color = m_color_high;
+            else if (i >= w_low)
+                color = m_color_normal;
+            else
+                color = m_color_low;
 
-	    p.fillRect(
-		border + cell + i,
-		border + (track * h),
-		cell, h-border,
-		(i > fast) ? color.darker() : color
-	    );
-	}
+            p.fillRect(
+                border + cell + i,
+                border + (track * h),
+                cell, h-border,
+                (i > fast) ? color.darker() : color
+            );
+        }
 
-	// draw the peak value
-	unsigned int peak = Kwave::toUint(
-	    m_current_peak[track] * static_cast<float>(w));
-	QColor peak_color;
-	if (peak >= w_high)
-	    peak_color = m_color_high;
-	else if (peak >= w_low)
-	    peak_color = m_color_normal;
-	else
-	    peak_color = m_color_low;
+        // draw the peak value
+        unsigned int peak = Kwave::toUint(
+            m_current_peak[track] * static_cast<float>(w));
+        QColor peak_color;
+        if (peak >= w_high)
+            peak_color = m_color_high;
+        else if (peak >= w_low)
+            peak_color = m_color_normal;
+        else
+            peak_color = m_color_low;
 
-	p.fillRect(
-	    border + cell + peak,
-	    border + (track * h),
-	    cell, h - border,
-	    peak_color.lighter()
-	);
+        p.fillRect(
+            border + cell + peak,
+            border + (track * h),
+            cell, h - border,
+            peak_color.lighter()
+        );
     }
 
     // draw the scale / dB numbers

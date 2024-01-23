@@ -35,62 +35,62 @@ namespace Kwave
     class AsciiDecoder: public Kwave::Decoder
     {
     public:
-	/** Constructor */
-	AsciiDecoder();
+        /** Constructor */
+        AsciiDecoder();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~AsciiDecoder() Q_DECL_OVERRIDE;
 
-	/** Returns a new instance of the decoder */
+        /** Returns a new instance of the decoder */
         virtual Kwave::Decoder *instance() Q_DECL_OVERRIDE;
 
-	/**
-	 * Opens the source and decodes the header information.
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param source file or other source with a stream of bytes
-	 * @return true if succeeded, false on errors
-	 */
+        /**
+         * Opens the source and decodes the header information.
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param source file or other source with a stream of bytes
+         * @return true if succeeded, false on errors
+         */
         virtual bool open(QWidget *widget, QIODevice &source) Q_DECL_OVERRIDE;
 
-	/**
-	 * Decodes a stream of bytes into a MultiWriter
-	 * @param widget a widget that can be used for displaying
-	 *        message boxes or dialogs
-	 * @param dst MultiWriter that receives the audio data
-	 * @return true if succeeded, false on errors
-	 */
+        /**
+         * Decodes a stream of bytes into a MultiWriter
+         * @param widget a widget that can be used for displaying
+         *        message boxes or dialogs
+         * @param dst MultiWriter that receives the audio data
+         * @return true if succeeded, false on errors
+         */
         virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Closes the source.
-	 */
+        /**
+         * Closes the source.
+         */
         virtual void close() Q_DECL_OVERRIDE;
 
     private:
 
-	/**
-	 * try to read a complete line from the source, skip empty lines
-	 * and comments
-	 * @return true if one line was read, false if EOF was reached
-	 *         before one line was complete
-	 */
-	bool readNextLine();
+        /**
+         * try to read a complete line from the source, skip empty lines
+         * and comments
+         * @return true if one line was read, false if EOF was reached
+         *         before one line was complete
+         */
+        bool readNextLine();
 
     private:
 
-	/** source of the audio data */
-	QTextStream m_source;
+        /** source of the audio data */
+        QTextStream m_source;
 
-	/** destination of the audio data */
-	Kwave::MultiWriter *m_dest;
+        /** destination of the audio data */
+        Kwave::MultiWriter *m_dest;
 
-	/** queue for buffering strings read from the file */
-	QQueue<QString> m_queue_input;
+        /** queue for buffering strings read from the file */
+        QQueue<QString> m_queue_input;
 
-	/** last read line number, starting with 1 */
-	quint64 m_line_nr;
+        /** last read line number, starting with 1 */
+        quint64 m_line_nr;
 
     };
 }

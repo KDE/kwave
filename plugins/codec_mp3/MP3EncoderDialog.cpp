@@ -65,150 +65,150 @@
 const Kwave::MP3EncoderSettings g_predefined_settings[] =
 {
     {
-	_("LAME"),                        // name
-	_("lame" EXE_SUFFIX),             // path
-	{
-	    _("-r"),                      // raw format
+        _("LAME"),                        // name
+        _("lame" EXE_SUFFIX),             // path
+        {
+            _("-r"),                      // raw format
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	    _("--big-endian"),            // byte order
+            _("--big-endian"),            // byte order
 #else
-	    _("--little-endian"),         // byte order
+            _("--little-endian"),         // byte order
 #endif
-	    _("--signed")                 // signed
-	},
-	{
-	    _("-s %1"),                   // sample rate
-	    _("--bitwidth %1"),           // bits per sample
-	    {
-		_("-mm"),                 // mono
-		_("-mj")                  // stereo
-	    }
-	},
-	{
-	    {
-		_("--abr %1"),            // average bitrate
-		_("-b %1"),               // minimum bitrate
-		_("-B %1")                // maximum bitrate
-	    }
-	},
-	{
-	    {
-		_("-en"),                 // no emphasis
-		_("-e5"),                 // 50/15ms
-		_("-ec")                  // CCIT J17
-	    },
-	    _("-q 2"),                    // noise shaping
-	    _("--strictly-enforce-ISO")   // compatibility
-	},
-	{
-	    _("-c"),                      // copyrighted
-	    _("-o"),                      // original
-	    _("-p"),                      // protect
-	    _(""),                        // prepended
-	    _("--silent")                 // appended
-	},
-	{
-	    _("--longhelp"),              // encoder help
-	    _("--version")                // encoder version
-	}
+            _("--signed")                 // signed
+        },
+        {
+            _("-s %1"),                   // sample rate
+            _("--bitwidth %1"),           // bits per sample
+            {
+                _("-mm"),                 // mono
+                _("-mj")                  // stereo
+            }
+        },
+        {
+            {
+                _("--abr %1"),            // average bitrate
+                _("-b %1"),               // minimum bitrate
+                _("-B %1")                // maximum bitrate
+            }
+        },
+        {
+            {
+                _("-en"),                 // no emphasis
+                _("-e5"),                 // 50/15ms
+                _("-ec")                  // CCIT J17
+            },
+            _("-q 2"),                    // noise shaping
+            _("--strictly-enforce-ISO")   // compatibility
+        },
+        {
+            _("-c"),                      // copyrighted
+            _("-o"),                      // original
+            _("-p"),                      // protect
+            _(""),                        // prepended
+            _("--silent")                 // appended
+        },
+        {
+            _("--longhelp"),              // encoder help
+            _("--version")                // encoder version
+        }
     },
     /***********************************************************************/
     {
-	_("TwoLAME"),                     // name
-	_("twolame" EXE_SUFFIX),          // path
-	{
-	    _("--raw-input"),             // raw format
+        _("TwoLAME"),                     // name
+        _("twolame" EXE_SUFFIX),          // path
+        {
+            _("--raw-input"),             // raw format
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	    _("--byte-swap"),             // byte order
+            _("--byte-swap"),             // byte order
 #else
-	    _(""),                        // byte order
+            _(""),                        // byte order
 #endif
-	    _("")                         // signed
-	},
-	{
-	    _("--samplerate=%1"),         // sample rate
-	    _("--samplesize=16"),         // bits per sample (supports only 16)
-	    {
-		_("--channels=1 --mode=mono"),  // mono
-		_("--channels=2 --mode=joint")  // stereo
-	    }
-	},
-	{
-	    {
-		_("--bitrate=%1"),        // average bitrate
-		_(""),                    // minimum bitrate
-		_("--max-bitrate=%1")     // maximum bitrate
-	    }
-	},
-	{
-	    {
-		_("--deemphasis=n"),      // no emphasis
-		_("--deemphasis=5"),      // 50/15ms
-		_("--deemphasis=c")       // CCIT J17
-	    },
-	    _(""),                        // noise shaping
-	    _("")                         // compatibility
-	},
-	{
-	    _("--copyright"),             // copyrighted
-	    _("--original"),              // original
-	    _("--protect"),               // protect
-	    _(""),                        // prepended
-	    _("--quiet")                  // appended
-	},
-	{
-	    _("--help"),                  // encoder help
-	    _("--help")                   // encoder version
-	}
+            _("")                         // signed
+        },
+        {
+            _("--samplerate=%1"),         // sample rate
+            _("--samplesize=16"),         // bits per sample (supports only 16)
+            {
+                _("--channels=1 --mode=mono"),  // mono
+                _("--channels=2 --mode=joint")  // stereo
+            }
+        },
+        {
+            {
+                _("--bitrate=%1"),        // average bitrate
+                _(""),                    // minimum bitrate
+                _("--max-bitrate=%1")     // maximum bitrate
+            }
+        },
+        {
+            {
+                _("--deemphasis=n"),      // no emphasis
+                _("--deemphasis=5"),      // 50/15ms
+                _("--deemphasis=c")       // CCIT J17
+            },
+            _(""),                        // noise shaping
+            _("")                         // compatibility
+        },
+        {
+            _("--copyright"),             // copyrighted
+            _("--original"),              // original
+            _("--protect"),               // protect
+            _(""),                        // prepended
+            _("--quiet")                  // appended
+        },
+        {
+            _("--help"),                  // encoder help
+            _("--help")                   // encoder version
+        }
     },
     /***********************************************************************/
     {
-	_("tooLAME"),                     // name
-	_("toolame" EXE_SUFFIX),          // path
-	{
-	    _(""),                        // raw format
+        _("tooLAME"),                     // name
+        _("toolame" EXE_SUFFIX),          // path
+        {
+            _(""),                        // raw format
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	    _("-x"),                      // byte order
+            _("-x"),                      // byte order
 #else
-	    _(""),                        // byte order
+            _(""),                        // byte order
 #endif
-	    _("")                         // signed
-	},
-	{
-	    _("-s [%khz]"),               // sample rate
-	    _(""),                        // bits per sample (supports only 16)
-	    {
-		_("-mm"),                 // mono
-		_("-mj")                  // stereo
-	    }
-	},
-	{
-	    {
-		_("-b %1"),               // average bitrate
-		_(""),                    // minimum bitrate
-		_("")                     // maximum bitrate
-	    }
-	},
-	{
-	    {
-		_("-dn"),                 // no emphasis
-		_("-d5"),                 // 50/15ms
-		_("-dc")                  // CCIT J17
-	    },
-	    _(""),                        // noise shaping
-	    _("")                         // compatibility
-	},
-	{
-	    _("-c"),                      // copyrighted
-	    _("-o"),                      // original
-	    _("-e"),                      // protect
-	    _(""),                        // prepended
-	    _("-t 0")                     // appended
-	},
-	{
-	    _("-help"),                   // encoder help
-	    _("-version")                 // encoder version
-	}
+            _("")                         // signed
+        },
+        {
+            _("-s [%khz]"),               // sample rate
+            _(""),                        // bits per sample (supports only 16)
+            {
+                _("-mm"),                 // mono
+                _("-mj")                  // stereo
+            }
+        },
+        {
+            {
+                _("-b %1"),               // average bitrate
+                _(""),                    // minimum bitrate
+                _("")                     // maximum bitrate
+            }
+        },
+        {
+            {
+                _("-dn"),                 // no emphasis
+                _("-d5"),                 // 50/15ms
+                _("-dc")                  // CCIT J17
+            },
+            _(""),                        // noise shaping
+            _("")                         // compatibility
+        },
+        {
+            _("-c"),                      // copyrighted
+            _("-o"),                      // original
+            _("-e"),                      // protect
+            _(""),                        // prepended
+            _("-t 0")                     // appended
+        },
+        {
+            _("-help"),                   // encoder help
+            _("-version")                 // encoder version
+        }
     }
 };
 
@@ -261,14 +261,14 @@ Kwave::MP3EncoderDialog::MP3EncoderDialog(QWidget *parent)
     // set up the combo box with all presets
     cbProgram->clear();
     for (unsigned int i = 0; i < ELEMENTS_OF(g_predefined_settings); i++) {
-	QString name    = g_predefined_settings[i].m_name;
-	QString path    = searchPath(g_predefined_settings[i].m_path);
-	QString param   = g_predefined_settings[i].m_info.m_version;
-	QString version = encoderVersion(path, param);
-	if (version.length() >= name.length())
-	    cbProgram->addItem(version);
-	else
-	    cbProgram->addItem(name);
+        QString name    = g_predefined_settings[i].m_name;
+        QString path    = searchPath(g_predefined_settings[i].m_path);
+        QString param   = g_predefined_settings[i].m_info.m_version;
+        QString version = encoderVersion(path, param);
+        if (version.length() >= name.length())
+            cbProgram->addItem(version);
+        else
+            cbProgram->addItem(name);
     }
     cbProgram->addItem(PRESET_NAME_USER_DEFINED);
 
@@ -374,18 +374,18 @@ void Kwave::MP3EncoderDialog::load()
     unsigned int i = 0;
     bool use_preset = false;
     for (i = 0; i < ELEMENTS_OF(g_predefined_settings); i++) {
-	if (g_predefined_settings[i].m_name == m_settings.m_name) {
-	    QString path = m_settings.m_path;
-	    m_settings = g_predefined_settings[i];
-	    m_settings.m_path = path;
-	    cbProgram->setCurrentIndex(i);
-	    use_preset = true;
-	    break;
-	}
+        if (g_predefined_settings[i].m_name == m_settings.m_name) {
+            QString path = m_settings.m_path;
+            m_settings = g_predefined_settings[i];
+            m_settings.m_path = path;
+            cbProgram->setCurrentIndex(i);
+            use_preset = true;
+            break;
+        }
     }
     if ((!use_preset) && (cbProgram->currentIndex() != Kwave::toInt(i))) {
-	// set the combo box to "user defined" and load the rest from the config
-	cbProgram->setCurrentIndex(i);
+        // set the combo box to "user defined" and load the rest from the config
+        cbProgram->setCurrentIndex(i);
     }
 
     // set all other dialog content according to the loaded settings
@@ -429,9 +429,9 @@ void Kwave::MP3EncoderDialog::save()
     // get the content of the combo box
     int index = cbProgram->currentIndex();
     if (index < Kwave::toInt(ELEMENTS_OF(g_predefined_settings))) {
-	m_settings.m_name = g_predefined_settings[index].m_name;
+        m_settings.m_name = g_predefined_settings[index].m_name;
     } else {
-	m_settings.m_name = _("*");
+        m_settings.m_name = _("*");
     }
 
     // fetch all settings from the dialog content
@@ -485,50 +485,50 @@ void Kwave::MP3EncoderDialog::switchToUserDefined()
     int index = cbProgram->currentIndex();
 
     for (unsigned i = 0; i < ELEMENTS_OF(g_predefined_settings); i++) {
-	const Kwave::MP3EncoderSettings &settings =
-	    g_predefined_settings[i];
-	bool match = true;
+        const Kwave::MP3EncoderSettings &settings =
+            g_predefined_settings[i];
+        bool match = true;
 
-	match &= bool(edPath->text().simplified().contains(settings.m_path,
-	    Qt::CaseInsensitive));
+        match &= bool(edPath->text().simplified().contains(settings.m_path,
+            Qt::CaseInsensitive));
 
-	CHECK(m_input.m_raw_format,             edRawFormat);
-	CHECK(m_input.m_byte_order,             edByteOrder);
-	CHECK(m_input.m_signed,                 edSign);
+        CHECK(m_input.m_raw_format,             edRawFormat);
+        CHECK(m_input.m_byte_order,             edByteOrder);
+        CHECK(m_input.m_signed,                 edSign);
 
-	CHECK(m_format.m_sample_rate,           edSampleRate);
-	CHECK(m_format.m_bits_per_sample,       edBitsPerSample);
-	CHECK(m_format.m_channels.m_mono,       edMono);
-	CHECK(m_format.m_channels.m_stereo,     edStereo);
+        CHECK(m_format.m_sample_rate,           edSampleRate);
+        CHECK(m_format.m_bits_per_sample,       edBitsPerSample);
+        CHECK(m_format.m_channels.m_mono,       edMono);
+        CHECK(m_format.m_channels.m_stereo,     edStereo);
 
-	CHECK(m_quality.m_bitrate.m_avg,        edBitrateAvg);
-	CHECK(m_quality.m_bitrate.m_min,        edBitrateMin);
-	CHECK(m_quality.m_bitrate.m_max,        edBitrateMax);
+        CHECK(m_quality.m_bitrate.m_avg,        edBitrateAvg);
+        CHECK(m_quality.m_bitrate.m_min,        edBitrateMin);
+        CHECK(m_quality.m_bitrate.m_max,        edBitrateMax);
 
-	CHECK(m_encoding.m_emphasis.m_none,     edEmphasisNone);
-	CHECK(m_encoding.m_emphasis.m_50_15ms,  edEmphasis5015ms);
-	CHECK(m_encoding.m_emphasis.m_ccit_j17, edEmphasisCCIT_J17);
+        CHECK(m_encoding.m_emphasis.m_none,     edEmphasisNone);
+        CHECK(m_encoding.m_emphasis.m_50_15ms,  edEmphasis5015ms);
+        CHECK(m_encoding.m_emphasis.m_ccit_j17, edEmphasisCCIT_J17);
 
-	CHECK(m_encoding.m_noise_shaping,       edNoiseShaping);
-	CHECK(m_encoding.m_compatibility,       edCompatibility);
+        CHECK(m_encoding.m_noise_shaping,       edNoiseShaping);
+        CHECK(m_encoding.m_compatibility,       edCompatibility);
 
-	CHECK(m_flags.m_copyright,              edCopyright);
-	CHECK(m_flags.m_original,               edOriginal);
-	CHECK(m_flags.m_protect,                edProtect);
-	CHECK(m_flags.m_prepend,                edPrepend);
-	CHECK(m_flags.m_append,                 edAppend);
+        CHECK(m_flags.m_copyright,              edCopyright);
+        CHECK(m_flags.m_original,               edOriginal);
+        CHECK(m_flags.m_protect,                edProtect);
+        CHECK(m_flags.m_prepend,                edPrepend);
+        CHECK(m_flags.m_append,                 edAppend);
 
-	CHECK(m_info.m_help,                    edEncoderHelp);
-	CHECK(m_info.m_version,                 edVersionInfo);
+        CHECK(m_info.m_help,                    edEncoderHelp);
+        CHECK(m_info.m_version,                 edVersionInfo);
 
-	if (match) {
-	    // found a match against known preset
-	    if (Kwave::toInt(i) != index) {
-		cbProgram->setCurrentIndex(i);
-		updateEncoderInfo();
-	    }
-	    return;
-	}
+        if (match) {
+            // found a match against known preset
+            if (Kwave::toInt(i) != index) {
+                cbProgram->setCurrentIndex(i);
+                updateEncoderInfo();
+            }
+            return;
+        }
     }
 
     // fallback: "user defined"
@@ -541,20 +541,20 @@ void Kwave::MP3EncoderDialog::buttonClicked(QAbstractButton *button)
 {
     if (!button || !buttonBox) return;
     switch (buttonBox->standardButton(button)) {
-	case QDialogButtonBox::Ok:
-	    // save settings and accept
-	    save();
-	    break;
-	case QDialogButtonBox::Reset:
-	    // reset to last saved state
-	    load();
-	    break;
-	case QDialogButtonBox::RestoreDefaults:
-	    // reset to default settings == entry #0 in the combo box
-	    selectProgram(0);
-	    break;
-	default:
-	    break;
+        case QDialogButtonBox::Ok:
+            // save settings and accept
+            save();
+            break;
+        case QDialogButtonBox::Reset:
+            // reset to last saved state
+            load();
+            break;
+        case QDialogButtonBox::RestoreDefaults:
+            // reset to default settings == entry #0 in the combo box
+            selectProgram(0);
+            break;
+        default:
+            break;
     }
 }
 
@@ -562,14 +562,14 @@ void Kwave::MP3EncoderDialog::buttonClicked(QAbstractButton *button)
 void Kwave::MP3EncoderDialog::autoDetect()
 {
     for (unsigned i = 0; i < ELEMENTS_OF(g_predefined_settings); ++i) {
-	QFile f(searchPath(g_predefined_settings[i].m_path));
-	if (f.exists()) {
-	    // found it :)
-	    cbProgram->setCurrentIndex(i);
-	    selectProgram(i);
-	    locatePath();
-	    return;
-	}
+        QFile f(searchPath(g_predefined_settings[i].m_path));
+        if (f.exists()) {
+            // found it :)
+            cbProgram->setCurrentIndex(i);
+            selectProgram(i);
+            locatePath();
+            return;
+        }
     }
 }
 
@@ -579,8 +579,8 @@ void Kwave::MP3EncoderDialog::locatePath()
     const QString prog_orig = edPath->text().simplified();
     const QString prog      = searchPath(prog_orig);
     if (prog != prog_orig) {
-	edPath->setText(prog);
-	updateEncoderInfo();
+        edPath->setText(prog);
+        updateEncoderInfo();
     }
 }
 
@@ -592,18 +592,18 @@ void Kwave::MP3EncoderDialog::browseFile()
     mask += QString(EXECUTABLE_SUFFIX);
 #endif
     QPointer<Kwave::FileDialog> dlg = new(std::nothrow)
-	Kwave::FileDialog(
-	    _("kfiledialog:///kwave_mp3_encoder"),
-	    Kwave::FileDialog::OpenFile,
-	    _(""), this,
-	    QUrl::fromLocalFile(_("file:/") + edPath->text().simplified()),
-	    mask
-	);
+        Kwave::FileDialog(
+            _("kfiledialog:///kwave_mp3_encoder"),
+            Kwave::FileDialog::OpenFile,
+            _(""), this,
+            QUrl::fromLocalFile(_("file:/") + edPath->text().simplified()),
+            mask
+        );
     if (!dlg) return;
     dlg->setWindowTitle(i18n("Select MP3 Encoder"));
     dlg->setDirectory(_("/usr/bin/"));
     if (dlg->exec() == QDialog::Accepted)
-	edPath->setText(dlg->selectedUrl().toLocalFile());
+        edPath->setText(dlg->selectedUrl().toLocalFile());
     delete dlg;
 }
 
@@ -643,7 +643,7 @@ void Kwave::MP3EncoderDialog::testSettings()
     sample_index_t first = 0;
     sample_index_t last  = test_length - 1;
     Kwave::MultiTrackReader src(Kwave::SinglePassForward,
-	manager, track_list, first, last);
+        manager, track_list, first, last);
 
     // create an encoder
     MP3Encoder encoder;
@@ -653,8 +653,8 @@ void Kwave::MP3EncoderDialog::testSettings()
 
     // check return code
     if (succeeded) {
-	KMessageBox::information(this, i18n(
-	    "Congratulation, the test was successful!"));
+        KMessageBox::information(this, i18n(
+            "Congratulation, the test was successful!"));
     } // else: the plugin has already shown an error message
 }
 
@@ -704,7 +704,7 @@ QString Kwave::MP3EncoderDialog::encoderVersion(const QString &path,
 
     // take the first non-zero line
     while (lines.count() && !lines.first().simplified().length())
-	lines.removeFirst();
+        lines.removeFirst();
 
     return (!lines.isEmpty()) ? lines.first().simplified() : QString();
 }
@@ -713,31 +713,31 @@ QString Kwave::MP3EncoderDialog::encoderVersion(const QString &path,
 QString Kwave::MP3EncoderDialog::searchPath(const QString &program)
 {
     const QFile::Permissions executable =
-	(QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
+        (QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
 #ifdef Q_OS_WIN
     const QLatin1Char separator = QLatin1Char(';');
 #else
     const QLatin1Char separator = QLatin1Char(':');
 #endif
     QStringList path =
-	_(qgetenv("PATH")).split(separator, Qt::SkipEmptyParts);
+        _(qgetenv("PATH")).split(separator, Qt::SkipEmptyParts);
 
     QFileInfo f(program);
     QString d = f.path();
     if (d.length()) path.prepend(d);
 
     foreach (const QString &dir, path) {
-	QString p = dir;
-	if (!p.endsWith(QDir::separator()))
-	    p += QDir::separator();
-	p += f.fileName();
+        QString p = dir;
+        if (!p.endsWith(QDir::separator()))
+            p += QDir::separator();
+        p += f.fileName();
 
-	QFile file(p);
-	qDebug("testing '%s'", DBG(p));
-	if (file.exists() && (file.permissions() & executable)) {
-	    // found it :)
-	    return p;
-	}
+        QFile file(p);
+        qDebug("testing '%s'", DBG(p));
+        if (file.exists() && (file.permissions() & executable)) {
+            // found it :)
+            return p;
+        }
     }
 
     return program;
@@ -750,26 +750,26 @@ void Kwave::MP3EncoderDialog::updateEncoderInfo()
     QString title;
 
     if (index >= Kwave::toInt(ELEMENTS_OF(g_predefined_settings))) {
-	title = PRESET_NAME_USER_DEFINED;
+        title = PRESET_NAME_USER_DEFINED;
     }
 
     // detect by using the currently selected path
     if (!title.length()) {
-	// first try with user defined full path
-	QString name    = g_predefined_settings[index].m_name;
-	QString program = QFileInfo(edPath->text().simplified()).filePath();
-	QString param   = edVersionInfo->text().simplified();
-	QString version = encoderVersion(program, param);
-	if (version.length() >= name.length()) {
-	    title = version;
-	} else {
-	    // fallback: detect by using list of predefined settings
-	    QString p  = g_predefined_settings[index].m_info.m_version;
-	    program    = searchPath(g_predefined_settings[index].m_path);
-	    version    = encoderVersion(program, p);
-	    if (version.length() >= name.length())
-		title = version;
-	}
+        // first try with user defined full path
+        QString name    = g_predefined_settings[index].m_name;
+        QString program = QFileInfo(edPath->text().simplified()).filePath();
+        QString param   = edVersionInfo->text().simplified();
+        QString version = encoderVersion(program, param);
+        if (version.length() >= name.length()) {
+            title = version;
+        } else {
+            // fallback: detect by using list of predefined settings
+            QString p  = g_predefined_settings[index].m_info.m_version;
+            program    = searchPath(g_predefined_settings[index].m_path);
+            version    = encoderVersion(program, p);
+            if (version.length() >= name.length())
+                title = version;
+        }
     }
 
     cbProgram->setItemText(index, title);

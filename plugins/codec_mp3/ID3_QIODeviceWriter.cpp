@@ -74,19 +74,19 @@ ID3_Writer::size_type Kwave::ID3_QIODeviceWriter::getMaxSize()
 
 //***************************************************************************
 ID3_Writer::size_type Kwave::ID3_QIODeviceWriter::writeChars(
-	    const ID3_Writer::char_type buf[], ID3_Writer::size_type len)
+            const ID3_Writer::char_type buf[], ID3_Writer::size_type len)
 {
     return this->writeChars(reinterpret_cast<const char *>(buf), len);
 }
 
 //***************************************************************************
 ID3_Writer::size_type Kwave::ID3_QIODeviceWriter::writeChars(
-	    const char buf[], ID3_Writer::size_type len)
+            const char buf[], ID3_Writer::size_type len)
 {
     ID3_Writer::size_type bytes =  static_cast<ID3_Writer::size_type>(
-	m_dest.write(&(buf[0]), static_cast<qint64>(len)));
+        m_dest.write(&(buf[0]), static_cast<qint64>(len)));
     if (bytes > 0)
-	m_written += bytes;
+        m_written += bytes;
     return bytes;
 }
 

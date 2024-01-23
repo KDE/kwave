@@ -31,41 +31,41 @@ namespace Kwave
     class RepairVirtualAudioFile: public Kwave::VirtualAudioFile
     {
     public:
-	/**
-	 * Constructor
-	 * @param device QIODevice used as source
-	 * @param repair_list list of RecoverySource objects for
-	 *                    building the new file
-	 */
-	RepairVirtualAudioFile(QIODevice &device,
-	                       QList<Kwave::RecoverySource *> *repair_list);
+        /**
+         * Constructor
+         * @param device QIODevice used as source
+         * @param repair_list list of RecoverySource objects for
+         *                    building the new file
+         */
+        RepairVirtualAudioFile(QIODevice &device,
+                               QList<Kwave::RecoverySource *> *repair_list);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~RepairVirtualAudioFile() Q_DECL_OVERRIDE;
 
-	/** reads a block of data */
+        /** reads a block of data */
         virtual qint64 read(char *data, unsigned int nbytes) Q_DECL_OVERRIDE;
 
-	/** returns the length of the file */
+        /** returns the length of the file */
         virtual qint64 length() Q_DECL_OVERRIDE;
 
-	/** writes a block of data */
+        /** writes a block of data */
         virtual qint64 write(const char *data, unsigned int nbytes)
             Q_DECL_OVERRIDE;
 
-	/** seek to a file position */
+        /** seek to a file position */
         virtual qint64 seek(qint64 offset, bool is_relative) Q_DECL_OVERRIDE;
 
-	/** returns the file position */
+        /** returns the file position */
         virtual qint64 tell() Q_DECL_OVERRIDE;
 
     private:
 
-	/** position within the virtual file */
-	qint64 m_position;
+        /** position within the virtual file */
+        qint64 m_position;
 
-	/** list of sources for the recovered files */
-	QList<Kwave::RecoverySource *> *m_repair_list;
+        /** list of sources for the recovered files */
+        QList<Kwave::RecoverySource *> *m_repair_list;
     };
 }
 

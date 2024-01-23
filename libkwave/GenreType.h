@@ -33,40 +33,40 @@ namespace Kwave
     {
     private:
 
-	/** private constructor */
-	GenreType();
+        /** private constructor */
+        GenreType();
 
     public:
 
-	/** Destructor */
-	virtual ~GenreType() {}
+        /** Destructor */
+        virtual ~GenreType() {}
 
-	/**
-	 * get the localized name from the id
-	 * @param id the numeric id of the genre type
-	 * @param localized if true, return a localized name, otherwise raw (en)
-	 * @return name of the genre
-	 */
-	static QString name(int id, bool localized);
+        /**
+         * get the localized name from the id
+         * @param id the numeric id of the genre type
+         * @param localized if true, return a localized name, otherwise raw (en)
+         * @return name of the genre
+         */
+        static QString name(int id, bool localized);
 
-	/** parse the numeric id from an ID3 tag */
-	static int fromID3(const QString &tag);
+        /** parse the numeric id from an ID3 tag */
+        static int fromID3(const QString &tag);
 
-	/** try to find the numeric id from the name */
-	static int id(const QString &name);
+        /** try to find the numeric id from the name */
+        static int id(const QString &name);
 
-	/** returns a list with all known genre types (localized) */
-	static QStringList allTypes();
+        /** returns a list with all known genre types (localized) */
+        static QStringList allTypes();
 
     protected:
 
-	/** fills the map if it is empty */
-	static void fill();
+        /** fills the map if it is empty */
+        static void fill();
 
     private:
 
-	/** map with numeric ids and names */
-	static QMap<int, KLazyLocalizedString> m_map;
+        /** map with numeric ids and names */
+        static QMap<int, KLazyLocalizedString> m_map;
 
     };
 }

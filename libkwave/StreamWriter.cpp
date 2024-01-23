@@ -1,6 +1,6 @@
 /***************************************************************************
         StreamWriter.cpp - adapter between writers and sample source
-			     -------------------
+                             -------------------
     begin                : Sun Aug 23 2009
     copyright            : (C) 2009 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -45,16 +45,16 @@ bool Kwave::StreamWriter::write(const Kwave::SampleArray &buffer,
     // NOTE: even zero length input has to be passed, needed for flushing!
 
     if (count < buffer.size()) {
-	// have to work with a resized copy - slow :-(
-	Kwave::SampleArray data = buffer;
-	if (!data.resize(count))
-	    return false; // out-of-memory ?
+        // have to work with a resized copy - slow :-(
+        Kwave::SampleArray data = buffer;
+        if (!data.resize(count))
+            return false; // out-of-memory ?
 
-	// emit the resized copy
-	emit output(data);
+        // emit the resized copy
+        emit output(data);
     } else {
-	// directly emit the buffer - fast :-)
-	emit output(buffer);
+        // directly emit the buffer - fast :-)
+        emit output(buffer);
     }
 
     count = 0;

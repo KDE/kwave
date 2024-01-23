@@ -1,6 +1,6 @@
 /***************************************************************************
      RecordTypesMap.cpp  -  map for record methods
-			     -------------------
+                             -------------------
     begin                : Sun Jul 31 2005
     copyright            : (C) 2005 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de

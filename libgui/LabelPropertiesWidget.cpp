@@ -63,7 +63,7 @@ void Kwave::LabelPropertiesWidget::setLabelIndex(unsigned int index)
 
 //***************************************************************************
 void Kwave::LabelPropertiesWidget::setLabelPosition(sample_index_t pos,
-	sample_index_t length, double rate)
+        sample_index_t length, double rate)
 {
     Q_ASSERT(time);
     if (!time) return;
@@ -82,16 +82,16 @@ void Kwave::LabelPropertiesWidget::setLabelPosition(sample_index_t pos,
     unsigned int m = str.toUInt(&ok);
     if (!ok) return;
     Kwave::SelectTimeWidget::Mode mode =
-	static_cast<Kwave::SelectTimeWidget::Mode>(m);
+        static_cast<Kwave::SelectTimeWidget::Mode>(m);
 
     // check if we stay on the requested location when switching to percent
     // mode. If the position would change, give the position precedence and
     // switch the mode back to "samples"
     if (mode == Kwave::SelectTimeWidget::byPercents) {
-	quint64 p = time->samplesToTime(
-	    Kwave::SelectTimeWidget::bySamples, pos, rate, length);
-	sample_index_t s = time->timeToSamples(mode, p, rate, length);
-	if (s != pos) return;
+        quint64 p = time->samplesToTime(
+            Kwave::SelectTimeWidget::bySamples, pos, rate, length);
+        sample_index_t s = time->timeToSamples(mode, p, rate, length);
+        if (s != pos) return;
     }
 
     // else: precise enough, use the previous mode

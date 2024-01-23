@@ -60,29 +60,29 @@ Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
      m_zoomselect(Q_NULLPTR)
 {
     m_action_zoomselection = addAction(
-	QIcon::fromTheme(_("kwave_viewmag")),
-	i18n("Zoom to selection"),
-	this, SLOT(zoomSelection()));
+        QIcon::fromTheme(_("kwave_viewmag")),
+        i18n("Zoom to selection"),
+        this, SLOT(zoomSelection()));
 
     m_action_zoomin = addAction(
-	QIcon::fromTheme(_("kwave_zoom_in")),
-	i18n("Zoom in"),
-	this, SLOT(zoomIn()));
+        QIcon::fromTheme(_("kwave_zoom_in")),
+        i18n("Zoom in"),
+        this, SLOT(zoomIn()));
 
     m_action_zoomout = addAction(
-	QIcon::fromTheme(_("kwave_zoom_out")),
-	i18n("Zoom out"),
-	this, SLOT(zoomOut()));
+        QIcon::fromTheme(_("kwave_zoom_out")),
+        i18n("Zoom out"),
+        this, SLOT(zoomOut()));
 
     m_action_zoomnormal = addAction(
-	QIcon::fromTheme(_("kwave_zoom_original")),
-	i18n("Zoom to 100%"),
-	this, SLOT(zoomNormal()));
+        QIcon::fromTheme(_("kwave_zoom_original")),
+        i18n("Zoom to 100%"),
+        this, SLOT(zoomNormal()));
 
     m_action_zoomall = addAction(
-	QIcon::fromTheme(_("kwave_viewmagfit")),
-	i18n("Zoom to all"),
-	this, SLOT(zoomAll()));
+        QIcon::fromTheme(_("kwave_viewmagfit")),
+        i18n("Zoom to all"),
+        this, SLOT(zoomAll()));
 
     // zoom selection combo box
     m_zoomselect = new(std::nothrow) KComboBox(this);
@@ -95,29 +95,29 @@ Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
 
     /** Initialized list of zoom factors */
     struct {
-	const QString text;
-	unsigned int ms;
+        const QString text;
+        unsigned int ms;
     } zoom_factors[] = {
-	{ i18n("%1 ms",   1),            1L},
-	{ i18n("%1 ms",  10),           10L},
-	{ i18n("%1 ms", 100),          100L},
-	{ i18n("%1 sec",  1),         1000L},
-	{ i18n("%1 sec", 10),     10L*1000L},
-	{ i18n("%1 sec", 30),     30L*1000L},
-	{ i18n("%1 min",  1),  1L*60L*1000L},
-	{ i18n("%1 min",  3),  3L*60L*1000L},
-	{ i18n("%1 min",  5),  5L*60L*1000L},
-	{ i18n("%1 min", 10), 10L*60L*1000L},
-	{ i18n("%1 min", 30), 30L*60L*1000L},
-	{ i18n("%1 min", 60), 60L*60L*1000L},
+        { i18n("%1 ms",   1),            1L},
+        { i18n("%1 ms",  10),           10L},
+        { i18n("%1 ms", 100),          100L},
+        { i18n("%1 sec",  1),         1000L},
+        { i18n("%1 sec", 10),     10L*1000L},
+        { i18n("%1 sec", 30),     30L*1000L},
+        { i18n("%1 min",  1),  1L*60L*1000L},
+        { i18n("%1 min",  3),  3L*60L*1000L},
+        { i18n("%1 min",  5),  5L*60L*1000L},
+        { i18n("%1 min", 10), 10L*60L*1000L},
+        { i18n("%1 min", 30), 30L*60L*1000L},
+        { i18n("%1 min", 60), 60L*60L*1000L},
     };
 
     for (unsigned int i = 0; i < ELEMENTS_OF(zoom_factors); i++) {
-	m_zoomselect->addItem(zoom_factors[i].text);
-	int index = m_zoomselect->count() - 1;
-	unsigned int time = zoom_factors[i].ms;
-	m_zoomselect->setItemData(index, QVariant(true), ZOOM_DATA_PREDEFINED);
-	m_zoomselect->setItemData(index, QVariant(time), ZOOM_DATA_TIME);
+        m_zoomselect->addItem(zoom_factors[i].text);
+        int index = m_zoomselect->count() - 1;
+        unsigned int time = zoom_factors[i].ms;
+        m_zoomselect->setItemData(index, QVariant(true), ZOOM_DATA_PREDEFINED);
+        m_zoomselect->setItemData(index, QVariant(time), ZOOM_DATA_TIME);
     }
 
     m_action_zoomselect = addWidget(m_zoomselect);
@@ -161,16 +161,16 @@ void Kwave::ZoomToolBar::updateToolbar()
     bool is_closed      = true;
 
     if (m_context) {
-	Kwave::SignalManager *signal_manager = m_context->signalManager();
-	Q_ASSERT(signal_manager);
-	if (!signal_manager) return;
-	have_signal    = (signal_manager->tracks() != 0);
-	have_selection = (signal_manager->selection().length() != 0);
-	is_closed      = signal_manager->isClosed();
+        Kwave::SignalManager *signal_manager = m_context->signalManager();
+        Q_ASSERT(signal_manager);
+        if (!signal_manager) return;
+        have_signal    = (signal_manager->tracks() != 0);
+        have_selection = (signal_manager->selection().length() != 0);
+        is_closed      = signal_manager->isClosed();
     }
 
     if (m_action_zoomselection)
-	m_action_zoomselection->setEnabled(have_signal  && have_selection);
+        m_action_zoomselection->setEnabled(have_signal  && have_selection);
     if (m_action_zoomin)
         m_action_zoomin->setEnabled(have_signal);
     if (m_action_zoomout)
@@ -183,15 +183,15 @@ void Kwave::ZoomToolBar::updateToolbar()
         m_action_zoomselect->setEnabled(have_signal);
 
     if (m_zoomselect && is_closed) {
-	for (int i = 0; i < m_zoomselect->count(); i++) {
-	    QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_PREDEFINED);
-	    if (!v.isValid() || !v.toBool()) {
-		m_zoomselect->removeItem(i);
-		break;
-	    }
-	}
-	m_zoomselect->insertItem(-1, _(" "));
-	m_zoomselect->setCurrentIndex(0);
+        for (int i = 0; i < m_zoomselect->count(); i++) {
+            QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_PREDEFINED);
+            if (!v.isValid() || !v.toBool()) {
+                m_zoomselect->removeItem(i);
+                break;
+            }
+        }
+        m_zoomselect->insertItem(-1, _(" "));
+        m_zoomselect->setCurrentIndex(0);
     }
 }
 
@@ -223,7 +223,7 @@ void Kwave::ZoomToolBar::selectZoom(int index)
     Q_ASSERT(width > 1);
     if (width <= 1) width = 2;
     const double new_zoom = rint(((rate * ms) / 1.0E3) -1 ) /
-	static_cast<double>(width - 1);
+        static_cast<double>(width - 1);
     zoomable->setZoom(new_zoom);
 
     // force the zoom factor to be set, maybe the current selection
@@ -246,66 +246,66 @@ void Kwave::ZoomToolBar::setZoomInfo(Kwave::FileContext *context, double zoom)
 
     double rate = (signal_manager) ? signal_manager->rate() : 0.0;
     double ms   = ((rate > 0) && (zoomable)) ?
-	((static_cast<double>(zoomable->visibleSamples()) * 1E3) / rate) : 0.0;
+        ((static_cast<double>(zoomable->visibleSamples()) * 1E3) / rate) : 0.0;
 
     QString strZoom;
     if ((signal_manager) && (signal_manager->tracks())) {
-	if (rate > 0) {
-	    // time display mode
-	    strZoom = Kwave::ms2string(ms, 3);
-	} else {
-	    // percent mode
-	    double percent = 100.0 / zoom;
-	    strZoom = Kwave::zoom2string(percent);
-	}
+        if (rate > 0) {
+            // time display mode
+            strZoom = Kwave::ms2string(ms, 3);
+        } else {
+            // percent mode
+            double percent = 100.0 / zoom;
+            strZoom = Kwave::zoom2string(percent);
+        }
     }
 
     m_zoomselect->blockSignals(true);
 
     // if the text is equal to an entry in the current list -> keep it
     if (m_zoomselect->contains(strZoom)) {
-	// select existing entry, string match
-	m_zoomselect->setCurrentIndex(m_zoomselect->findText(strZoom));
+        // select existing entry, string match
+        m_zoomselect->setCurrentIndex(m_zoomselect->findText(strZoom));
     } else {
-	// remove user defined entries and scan for more or less exact match
-	int i = 0;
-	int match = -1;
-	while (i < m_zoomselect->count()) {
-	    QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_PREDEFINED);
-	    if (!v.isValid() || !v.toBool()) {
-		m_zoomselect->removeItem(i);
-	    } else {
-		QVariant vz = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
-		bool ok = false;
-		double t = vz.toDouble(&ok);
-		if (ok && (t > 0) && fabs(1 - (t / ms)) < (1.0 / 60.0)) {
-		    match = i;
-		}
-		i++;
-	    }
-	}
+        // remove user defined entries and scan for more or less exact match
+        int i = 0;
+        int match = -1;
+        while (i < m_zoomselect->count()) {
+            QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_PREDEFINED);
+            if (!v.isValid() || !v.toBool()) {
+                m_zoomselect->removeItem(i);
+            } else {
+                QVariant vz = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
+                bool ok = false;
+                double t = vz.toDouble(&ok);
+                if (ok && (t > 0) && fabs(1 - (t / ms)) < (1.0 / 60.0)) {
+                    match = i;
+                }
+                i++;
+            }
+        }
 
-	if (match >= 0) {
-	    // use an exact match from the list
-	    i = match;
-	} else if (rate > 0) {
-	    // time mode:
-	    // find the best index where to insert the new user defined value
-	    for (i = 0; i < m_zoomselect->count(); ++i) {
-		QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
-		bool ok = false;
-		double t = v.toDouble(&ok);
-		if (!ok) continue;
-		if (t > ms) break;
-	    }
-	    m_zoomselect->insertItem(i, strZoom);
-	    m_zoomselect->setItemData(i, QVariant(ms), ZOOM_DATA_TIME);
-	} else {
-	    // percent mode -> just insert at top
-	    m_zoomselect->insertItem(-1, strZoom);
-	    i = 0;
-	}
-	m_zoomselect->setCurrentIndex(i);
+        if (match >= 0) {
+            // use an exact match from the list
+            i = match;
+        } else if (rate > 0) {
+            // time mode:
+            // find the best index where to insert the new user defined value
+            for (i = 0; i < m_zoomselect->count(); ++i) {
+                QVariant v = m_zoomselect->itemData(i, ZOOM_DATA_TIME);
+                bool ok = false;
+                double t = v.toDouble(&ok);
+                if (!ok) continue;
+                if (t > ms) break;
+            }
+            m_zoomselect->insertItem(i, strZoom);
+            m_zoomselect->setItemData(i, QVariant(ms), ZOOM_DATA_TIME);
+        } else {
+            // percent mode -> just insert at top
+            m_zoomselect->insertItem(-1, strZoom);
+            i = 0;
+        }
+        m_zoomselect->setCurrentIndex(i);
     }
 
     m_zoomselect->blockSignals(false);

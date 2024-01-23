@@ -50,342 +50,342 @@ namespace Kwave
     {
     public:
 
-	/** Constructor */
-	RecordPulseAudio();
+        /** Constructor */
+        RecordPulseAudio();
 
-	/** Destructor */
+        /** Destructor */
         virtual ~RecordPulseAudio() Q_DECL_OVERRIDE;
 
-	/**
-	 * Open the record device.
-	 * @param dev path of the record device
-	 * @retval QString() if successful
-	 * @retval QString::number(ENODEV) if device not found
-	 * @retval QString::number(EBUSY) if device is busy
-	 * @retval QString(...) device specific error message
-	 *                      (already translated)
-	 */
+        /**
+         * Open the record device.
+         * @param dev path of the record device
+         * @retval QString() if successful
+         * @retval QString::number(ENODEV) if device not found
+         * @retval QString::number(EBUSY) if device is busy
+         * @retval QString(...) device specific error message
+         *                      (already translated)
+         */
         virtual QString open(const QString& dev) Q_DECL_OVERRIDE;
 
-	/** Returns the current endianness (big/little) */
+        /** Returns the current endianness (big/little) */
         virtual Kwave::byte_order_t endianness() Q_DECL_OVERRIDE;
 
-	/** Returns the current sample format (signed/unsigned) */
+        /** Returns the current sample format (signed/unsigned) */
         virtual Kwave::SampleFormat::Format sampleFormat() Q_DECL_OVERRIDE;
 
-	/**
-	 * Try to set a new sample format (signed/unsigned)
-	 * @param new_format the identifier for the new format
-	 * @return zero on success, negative error code if failed
-	 * @see class SampleFormat
-	 */
+        /**
+         * Try to set a new sample format (signed/unsigned)
+         * @param new_format the identifier for the new format
+         * @return zero on success, negative error code if failed
+         * @see class SampleFormat
+         */
         virtual int setSampleFormat(Kwave::SampleFormat::Format new_format)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Gets a list of supported sample formats.
-	 * @note this depends on the current setting of the compression!
-	 */
+        /**
+         * Gets a list of supported sample formats.
+         * @note this depends on the current setting of the compression!
+         */
         virtual QList<Kwave::SampleFormat::Format> detectSampleFormats()
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns the current resolution in bits per sample or a negative
-	 * error code if failed
-	 */
+        /**
+         * Returns the current resolution in bits per sample or a negative
+         * error code if failed
+         */
         virtual int bitsPerSample() Q_DECL_OVERRIDE;
 
-	/**
-	 * Set the resolution in bits per sample
-	 * @param new_bits resolution [bits/sample]
-	 * @return zero on success, negative error code if failed
-	 */
+        /**
+         * Set the resolution in bits per sample
+         * @param new_bits resolution [bits/sample]
+         * @return zero on success, negative error code if failed
+         */
         virtual int setBitsPerSample(unsigned int new_bits) Q_DECL_OVERRIDE;
 
-	/**
-	 * Detect a list of supported bits per sample.
-	 * @note this depends on the compression type
-	 * @return a list of bits per sample, empty if failed
-	 */
+        /**
+         * Detect a list of supported bits per sample.
+         * @note this depends on the compression type
+         * @return a list of bits per sample, empty if failed
+         */
         virtual QList< unsigned int > supportedBits() Q_DECL_OVERRIDE;
 
-	/** Returns the current compression type (0==none) */
+        /** Returns the current compression type (0==none) */
         virtual Kwave::Compression::Type compression() Q_DECL_OVERRIDE;
 
-	/**
-	 * Try to set a new compression type.
-	 * @param new_compression the identifier of the new compression
-	 * @return zero on success, negative error code if failed
-	 * @see class Compression
-	 */
+        /**
+         * Try to set a new compression type.
+         * @param new_compression the identifier of the new compression
+         * @return zero on success, negative error code if failed
+         * @see class Compression
+         */
         virtual int setCompression(Kwave::Compression::Type new_compression)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Gets a list of supported compression types. If no compression is
-	 * supported, the list might be empty.
-	 */
+        /**
+         * Gets a list of supported compression types. If no compression is
+         * supported, the list might be empty.
+         */
         virtual QList<Kwave::Compression::Type> detectCompressions()
             Q_DECL_OVERRIDE;
 
-	/** Returns the current sample rate of the device */
+        /** Returns the current sample rate of the device */
         virtual double sampleRate() Q_DECL_OVERRIDE;
 
-	/**
-	 * Try to set a new sample rate.
-	 * @param new_rate the sample rate to be set [samples/second], can
-	 *        be modified and rounded up/down to the nearest supported
-	 *        sample rate if the underlying driver supports that.
-	 * @return zero on success, negative error code if failed
-	 */
+        /**
+         * Try to set a new sample rate.
+         * @param new_rate the sample rate to be set [samples/second], can
+         *        be modified and rounded up/down to the nearest supported
+         *        sample rate if the underlying driver supports that.
+         * @return zero on success, negative error code if failed
+         */
         virtual int setSampleRate(double& new_rate) Q_DECL_OVERRIDE;
 
-	/** get a list of supported sample rates */
+        /** get a list of supported sample rates */
         virtual QList< double > detectSampleRates() Q_DECL_OVERRIDE;
 
-	/** Returns the current number of tracks */
+        /** Returns the current number of tracks */
         virtual int tracks() Q_DECL_OVERRIDE;
 
-	/**
-	 * Try to set a new number of tracks.
-	 * @note the device must be open
-	 * @param tracks the number of tracks to be set, can be modified and
-	 *        decreased to the next supported number of tracks if the
-	 *        underlying driver supports that.
-	 * @return zero on success, negative error code if failed
-	 */
+        /**
+         * Try to set a new number of tracks.
+         * @note the device must be open
+         * @param tracks the number of tracks to be set, can be modified and
+         *        decreased to the next supported number of tracks if the
+         *        underlying driver supports that.
+         * @return zero on success, negative error code if failed
+         */
         virtual int setTracks(unsigned int& tracks) Q_DECL_OVERRIDE;
 
-	/**
-	 * Detect the minimum and maximum number of tracks.
-	 * If the detection fails, minimum and maximum are set to zero.
-	 * @param min receives the lowest supported number of tracks
-	 * @param max receives the highest supported number of tracks
-	 * @return zero or positive number if ok, negative error number if failed
-	 */
+        /**
+         * Detect the minimum and maximum number of tracks.
+         * If the detection fails, minimum and maximum are set to zero.
+         * @param min receives the lowest supported number of tracks
+         * @param max receives the highest supported number of tracks
+         * @return zero or positive number if ok, negative error number if failed
+         */
         virtual int detectTracks(unsigned int& min, unsigned int& max)
             Q_DECL_OVERRIDE;
 
-	/** Close the device */
+        /** Close the device */
         virtual int close() Q_DECL_OVERRIDE;
 
-	/**
-	 * Read the raw audio data from the record device.
-	 * @param buffer array of bytes to receive the audio data
-	 *        might be resized for alignment
-	 * @param offset offset in bytes within the buffer
-	 * @return number of bytes read, zero or negative if failed
-	 */
+        /**
+         * Read the raw audio data from the record device.
+         * @param buffer array of bytes to receive the audio data
+         *        might be resized for alignment
+         * @param offset offset in bytes within the buffer
+         * @return number of bytes read, zero or negative if failed
+         */
         virtual int read(QByteArray& buffer, unsigned int offset)
             Q_DECL_OVERRIDE;
 
-	/** return a string list with supported device names */
+        /** return a string list with supported device names */
         virtual QStringList supportedDevices() Q_DECL_OVERRIDE;
 
-	/**
-	 * our own poll function, for timeout support
-	 * @internal
-	 */
-	int mainloopPoll(struct pollfd *ufds, unsigned long int nfds,
+        /**
+         * our own poll function, for timeout support
+         * @internal
+         */
+        int mainloopPoll(struct pollfd *ufds, unsigned long int nfds,
                          int timeout);
 
     protected:
 
-	/** re-implementation of the threaded mainloop of PulseAudio */
+        /** re-implementation of the threaded mainloop of PulseAudio */
         virtual void run_wrapper(const QVariant &params) Q_DECL_OVERRIDE;
 
     private:
 
-	/**
-	 * Walk through the list of all known formats and collect the
-	 * ones that are supported into "m_supported_formats".
-	 * @param device name of the device
-	 */
-	void detectSupportedFormats(const QString &device);
+        /**
+         * Walk through the list of all known formats and collect the
+         * ones that are supported into "m_supported_formats".
+         * @param device name of the device
+         */
+        void detectSupportedFormats(const QString &device);
 
-	/**
-	 * called from pulse audio to inform about state changes of the
-	 * server context.
-	 *
-	 * @param c pulse server context
-	 * @param userdata user data, pointer to a RecordPulseAudio object
-	 */
-	static void pa_context_notify_cb(pa_context *c, void *userdata);
+        /**
+         * called from pulse audio to inform about state changes of the
+         * server context.
+         *
+         * @param c pulse server context
+         * @param userdata user data, pointer to a RecordPulseAudio object
+         */
+        static void pa_context_notify_cb(pa_context *c, void *userdata);
 
-	/**
-	 * called from pulse audio to inform about state changes of the
-	 * server context.
-	 *
-	 * @param c pulse server context
-	 * @param info pointer to a source info object
-	 * @param eol if negative: error occurred, zero: more data follows,
-	 *            positive: end of info, done.
-	 * @param userdata pointer to a RecordPulseAudio object
-	 */
-	static void pa_source_info_cb(pa_context *c, const pa_source_info *info,
-	                              int eol, void *userdata);
+        /**
+         * called from pulse audio to inform about state changes of the
+         * server context.
+         *
+         * @param c pulse server context
+         * @param info pointer to a source info object
+         * @param eol if negative: error occurred, zero: more data follows,
+         *            positive: end of info, done.
+         * @param userdata pointer to a RecordPulseAudio object
+         */
+        static void pa_source_info_cb(pa_context *c, const pa_source_info *info,
+                                      int eol, void *userdata);
 
-	/**
-	 * called from pulse audio to inform about state changes of a
-	 * stream.
-	 *
-	 * @param p pulse audio stream
-	 * @param userdata user data, pointer to a RecordPulseAudio object
-	 */
-	static void pa_stream_state_cb(pa_stream *p, void *userdata);
+        /**
+         * called from pulse audio to inform about state changes of a
+         * stream.
+         *
+         * @param p pulse audio stream
+         * @param userdata user data, pointer to a RecordPulseAudio object
+         */
+        static void pa_stream_state_cb(pa_stream *p, void *userdata);
 
-	/**
-	 * called from pulse audio after data has been read
-	 *
-	 * @param p pulse audio stream
-	 * @param nbytes number of read bytes, maybe (unused)
-	 * @param userdata user data, pointer to a RecordPulseAudio object
-	 */
-	static void pa_read_cb(pa_stream *p, size_t nbytes, void *userdata);
+        /**
+         * called from pulse audio after data has been read
+         *
+         * @param p pulse audio stream
+         * @param nbytes number of read bytes, maybe (unused)
+         * @param userdata user data, pointer to a RecordPulseAudio object
+         */
+        static void pa_read_cb(pa_stream *p, size_t nbytes, void *userdata);
 
-	/**
-	 * Callback for pulse sink info.
-	 *
-	 * @param c pulse server context
-	 * @param info pointer to a source info object
-	 * @param eol if negative: error occurred, zero: more data follows,
-	 *            positive: end of info, done.
-	 */
-	void notifySourceInfo(pa_context *c, const pa_source_info *info, int eol);
+        /**
+         * Callback for pulse sink info.
+         *
+         * @param c pulse server context
+         * @param info pointer to a source info object
+         * @param eol if negative: error occurred, zero: more data follows,
+         *            positive: end of info, done.
+         */
+        void notifySourceInfo(pa_context *c, const pa_source_info *info, int eol);
 
-	/**
-	 * Callback for pulse audio context state changes
-	 *
-	 * @param c pulse server context
-	 */
-	void notifyContext(pa_context *c);
+        /**
+         * Callback for pulse audio context state changes
+         *
+         * @param c pulse server context
+         */
+        void notifyContext(pa_context *c);
 
-	/**
-	 * Callback for pulse stream state changes
-	 *
-	 * @param stream pulse audio stream
-	 */
-	void notifyStreamState(pa_stream *stream);
+        /**
+         * Callback for pulse stream state changes
+         *
+         * @param stream pulse audio stream
+         */
+        void notifyStreamState(pa_stream *stream);
 
-	/**
-	 * Callback after reading data.
-	 *
-	 * @param stream pulse audio stream
-	 * @param nbytes number of read bytes, maybe (unused)
-	 */
-	void notifyRead(pa_stream *stream, size_t nbytes);
+        /**
+         * Callback after reading data.
+         *
+         * @param stream pulse audio stream
+         * @param nbytes number of read bytes, maybe (unused)
+         */
+        void notifyRead(pa_stream *stream, size_t nbytes);
 
-	/**
-	 * Try to connect to the PulseAudio server and create a valid context
-	 */
-	bool connectToServer();
+        /**
+         * Try to connect to the PulseAudio server and create a valid context
+         */
+        bool connectToServer();
 
-	/**
-	 * Disconnect from the PulseAudio server and clean up
-	 */
-	void disconnectFromServer();
+        /**
+         * Disconnect from the PulseAudio server and clean up
+         */
+        void disconnectFromServer();
 
-	/** scan all PulseAudio source, re-creates m_device_list */
-	void scanDevices();
+        /** scan all PulseAudio source, re-creates m_device_list */
+        void scanDevices();
 
-	/**
-	 * create a PulseAudio device format (enum) from parameters.
-	 * @param compression the compression type
-	 * @see Compression
-	 * @param bits the number of bits per sample, related
-	 *        to the decoded stream
-	 * @param sample_format the sample format
-	 *        (signed or unsigned)
-	 * @return the best matching format within the list of known formats,
-	 *         or PA_SAMPLE_INVALID if no match was found
-	 */
-	pa_sample_format_t mode2format(int compression, int bits,
-	    Kwave::SampleFormat::Format sample_format);
+        /**
+         * create a PulseAudio device format (enum) from parameters.
+         * @param compression the compression type
+         * @see Compression
+         * @param bits the number of bits per sample, related
+         *        to the decoded stream
+         * @param sample_format the sample format
+         *        (signed or unsigned)
+         * @return the best matching format within the list of known formats,
+         *         or PA_SAMPLE_INVALID if no match was found
+         */
+        pa_sample_format_t mode2format(int compression, int bits,
+            Kwave::SampleFormat::Format sample_format);
 
-	/**
-	 * Initialize the PulseAudio device with current parameters and
-	 * prepare it for recording.
-	 * @param buffer_size buffer size
-	 * @return zero on success or negative error code
-	 *         -EINVAL or -EIO
-	 */
-	int initialize(uint32_t buffer_size);
-
-    private:
-
-	/** relevant information about a PulseAudio source */
-	typedef struct
-	{
-	    QString m_name;               /**< internal name of the source */
-	    QString m_description;        /**< verbose name of the source  */
-	    QString m_driver;             /**< internal driver name        */
-	    quint32 m_card;               /**< index of the card           */
-	    pa_sample_spec m_sample_spec; /**< accepted sample format      */
-	} source_info_t;
+        /**
+         * Initialize the PulseAudio device with current parameters and
+         * prepare it for recording.
+         * @param buffer_size buffer size
+         * @return zero on success or negative error code
+         *         -EINVAL or -EIO
+         */
+        int initialize(uint32_t buffer_size);
 
     private:
 
-	/** worker thread, running the event loop */
-	Kwave::WorkerThread m_mainloop_thread;
+        /** relevant information about a PulseAudio source */
+        typedef struct
+        {
+            QString m_name;               /**< internal name of the source */
+            QString m_description;        /**< verbose name of the source  */
+            QString m_driver;             /**< internal driver name        */
+            quint32 m_card;               /**< index of the card           */
+            pa_sample_spec m_sample_spec; /**< accepted sample format      */
+        } source_info_t;
 
-	/** lock for the main loop */
-	QMutex m_mainloop_lock;
+    private:
 
-	/** wait condition for mainloopWait/mainloopSignal */
-	QWaitCondition m_mainloop_signal;
+        /** worker thread, running the event loop */
+        Kwave::WorkerThread m_mainloop_thread;
 
-	/** sample format (signed int, unsigned int, float, ... */
-	Kwave::SampleFormat::Format m_sample_format;
+        /** lock for the main loop */
+        QMutex m_mainloop_lock;
 
-	/** number of tracks [0...N-1] */
-	quint8 m_tracks;
+        /** wait condition for mainloopWait/mainloopSignal */
+        QWaitCondition m_mainloop_signal;
 
-	/** sample rate  */
-	double m_rate;
+        /** sample format (signed int, unsigned int, float, ... */
+        Kwave::SampleFormat::Format m_sample_format;
 
-	/** compression mode */
-	Kwave::Compression::Type m_compression;
+        /** number of tracks [0...N-1] */
+        quint8 m_tracks;
 
-	/** resolution [bits per sample] */
-	unsigned int m_bits_per_sample;
+        /** sample rate  */
+        double m_rate;
 
-	/**
-	 * list of supported formats of the current device, indices in
-	 * the global list of known formats.
-	 * Only valid after a successful call to "open()",
-	 * otherwise empty
-	 */
-	QList<pa_sample_format_t> m_supported_formats;
+        /** compression mode */
+        Kwave::Compression::Type m_compression;
 
-	/** true if initialize() has been successfully been run */
-	bool m_initialized;
+        /** resolution [bits per sample] */
+        unsigned int m_bits_per_sample;
 
-	/** pulse: property list of the context */
-	pa_proplist *m_pa_proplist;
+        /**
+         * list of supported formats of the current device, indices in
+         * the global list of known formats.
+         * Only valid after a successful call to "open()",
+         * otherwise empty
+         */
+        QList<pa_sample_format_t> m_supported_formats;
 
-	/** pulse: main loop */
-	pa_mainloop *m_pa_mainloop;
+        /** true if initialize() has been successfully been run */
+        bool m_initialized;
 
-	/** pulse: context of the connection to the server */
-	pa_context *m_pa_context;
+        /** pulse: property list of the context */
+        pa_proplist *m_pa_proplist;
 
-	/** pulse: playback stream */
-	pa_stream *m_pa_stream;
+        /** pulse: main loop */
+        pa_mainloop *m_pa_mainloop;
 
-	/** pulse: device */
-	QString m_pa_device;
+        /** pulse: context of the connection to the server */
+        pa_context *m_pa_context;
 
-	/** record plugin name */
-	QString m_name;
+        /** pulse: playback stream */
+        pa_stream *m_pa_stream;
 
-	/** encoded name of the sink */
-	QString m_device;
+        /** pulse: device */
+        QString m_pa_device;
 
-	/**
-	 * list of available devices
-	 * key=full encoded name of the sink, data=info about the sink
-	 */
-	QMap<QString, source_info_t> m_device_list;
+        /** record plugin name */
+        QString m_name;
+
+        /** encoded name of the sink */
+        QString m_device;
+
+        /**
+         * list of available devices
+         * key=full encoded name of the sink, data=info about the sink
+         */
+        QMap<QString, source_info_t> m_device_list;
     };
 
 }

@@ -1,6 +1,6 @@
 /***************************************************************************
     UndoInsertTrack.cpp  -  Undo action for insertion of tracks
-			     -------------------
+                             -------------------
     begin                : Sun Jun 24 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
@@ -72,9 +72,9 @@ Kwave::UndoAction *Kwave::UndoInsertTrack::undo(
 
     // store data for redo
     if (with_redo) {
-	redo = new(std::nothrow) Kwave::UndoDeleteTrack(m_signal, m_track);
-	Q_ASSERT(redo);
-	if (redo) redo->store(manager);
+        redo = new(std::nothrow) Kwave::UndoDeleteTrack(m_signal, m_track);
+        Q_ASSERT(redo);
+        if (redo) redo->store(manager);
     }
 
     // remove the track from the signal

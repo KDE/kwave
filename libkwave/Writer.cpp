@@ -1,6 +1,6 @@
 /***************************************************************************
     Writer.cpp - base class for writers, providing a C++ stream interface
-			     -------------------
+                             -------------------
     begin                : Sun Aug 23 2009
     copyright            : (C) 2009 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -70,23 +70,23 @@ Kwave::Writer &Kwave::Writer::operator << (const Kwave::SampleArray &samples)
     unsigned int count = samples.size();
 
     if ( (m_buffer_used || (count < MIN_DIRECT_IO_BLOCK_SIZE)) &&
-	 (m_buffer_used + count <= m_buffer_size) )
+         (m_buffer_used + count <= m_buffer_size) )
     {
-	// append to the internal buffer if it is already in use
-	// and if there is still some room,
-	// or if the buffer so small that it would make too much overhead
-	// to process it by block operation
-	MEMCPY(&(m_buffer[m_buffer_used]), &(samples[0]),
-	       count * sizeof(sample_t));
-	m_buffer_used += count;
-	if (m_buffer_used >= m_buffer_size) flush();
+        // append to the internal buffer if it is already in use
+        // and if there is still some room,
+        // or if the buffer so small that it would make too much overhead
+        // to process it by block operation
+        MEMCPY(&(m_buffer[m_buffer_used]), &(samples[0]),
+               count * sizeof(sample_t));
+        m_buffer_used += count;
+        if (m_buffer_used >= m_buffer_size) flush();
     } else {
-	// first flush the single-sample buffer before doing block operation
-	if (m_buffer_used) flush();
+        // first flush the single-sample buffer before doing block operation
+        if (m_buffer_used) flush();
 
-	// now flush the block that we received as parameter (pass-through)
-	write(samples, count);
-	Q_ASSERT(!count);
+        // now flush the block that we received as parameter (pass-through)
+        write(samples, count);
+        Q_ASSERT(!count);
     }
 
     return *this;
@@ -109,27 +109,27 @@ Kwave::Writer &Kwave::Writer::operator << (Kwave::SampleReader &reader)
     unsigned int buflen = m_buffer_size;
     while (!reader.eof() && !eof()) {
 
-	// overwrite mode -> clip at right border
-	if (m_mode == Kwave::Overwrite) {
-	    if (m_position + buflen - 1 > m_last)
-		buflen = Kwave::toUint(m_last - m_position + 1);
-	}
+        // overwrite mode -> clip at right border
+        if (m_mode == Kwave::Overwrite) {
+            if (m_position + buflen - 1 > m_last)
+                buflen = Kwave::toUint(m_last - m_position + 1);
+        }
 
-	m_buffer_used = reader.read(m_buffer, 0, buflen);
-	Q_ASSERT(m_buffer_used);
-	if (!m_buffer_used) break;
+        m_buffer_used = reader.read(m_buffer, 0, buflen);
+        Q_ASSERT(m_buffer_used);
+        if (!m_buffer_used) break;
 
-	if (!flush()) return *this; // out of memory
+        if (!flush()) return *this; // out of memory
     }
 
     // pad the rest with zeroes
     if (m_mode == Kwave::Overwrite) {
-	Q_ASSERT(m_position <= m_last + 1);
-	while (m_buffer_used + m_position <= m_last) {
-	    *this << static_cast<sample_t>(0);
-	    m_position++;
-	}
-	Q_ASSERT(m_position <= m_last + 1);
+        Q_ASSERT(m_position <= m_last + 1);
+        while (m_buffer_used + m_position <= m_last) {
+            *this << static_cast<sample_t>(0);
+            m_position++;
+        }
+        Q_ASSERT(m_position <= m_last + 1);
     }
 
     return *this;

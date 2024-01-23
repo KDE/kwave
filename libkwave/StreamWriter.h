@@ -1,6 +1,6 @@
 /***************************************************************************
           StreamWriter.h - adapter between writers and sample source
-			     -------------------
+                             -------------------
     begin                : Sun Aug 23 2009
     copyright            : (C) 2009 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -41,37 +41,37 @@ namespace Kwave
      */
     class Q_DECL_EXPORT StreamWriter: public Kwave::Writer
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor
-	 */
-	StreamWriter();
+        /**
+         * Constructor
+         */
+        StreamWriter();
 
-	/**
-	 * Destructor.
-	 */
+        /**
+         * Destructor.
+         */
         virtual ~StreamWriter() Q_DECL_OVERRIDE;
 
-	/**
-	 * Flush the content of a buffer. Normally the buffer is the
-	 * internal intermediate buffer used for single-sample writes.
-	 * When using block transfers, the internal buffer is bypassed
-	 * and the written block is passed instead.
-	 * @internal
-	 * @param buffer reference to the buffer to be flushed
-	 * @param count number of samples in the buffer to be flushed,
-	 *              will be internally set to zero if successful
-	 * @return true if successful, false if failed (e.g. out of memory)
-	 */
+        /**
+         * Flush the content of a buffer. Normally the buffer is the
+         * internal intermediate buffer used for single-sample writes.
+         * When using block transfers, the internal buffer is bypassed
+         * and the written block is passed instead.
+         * @internal
+         * @param buffer reference to the buffer to be flushed
+         * @param count number of samples in the buffer to be flushed,
+         *              will be internally set to zero if successful
+         * @return true if successful, false if failed (e.g. out of memory)
+         */
         virtual bool write(const Kwave::SampleArray &buffer,
-	                    unsigned int &count) Q_DECL_OVERRIDE;
+                            unsigned int &count) Q_DECL_OVERRIDE;
 
     signals:
 
-	/** emits a block with sine wave data */
-	void output(Kwave::SampleArray data);
+        /** emits a block with sine wave data */
+        void output(Kwave::SampleArray data);
 
     };
 

@@ -29,30 +29,30 @@ namespace Kwave
     class RecoveryMapping: public Kwave::RecoverySource
     {
     public:
-	/**
-	 * Constructor
-	 * @param offset position in the repaired file
-	 * @param length number of recovered bytes
-	 * @param dev damaged source/file
-	 * @param dev_offset offset within dev
-	 */
-	RecoveryMapping(quint64 offset, quint64 length,
-	                QIODevice &dev, quint64 dev_offset);
+        /**
+         * Constructor
+         * @param offset position in the repaired file
+         * @param length number of recovered bytes
+         * @param dev damaged source/file
+         * @param dev_offset offset within dev
+         */
+        RecoveryMapping(quint64 offset, quint64 length,
+                        QIODevice &dev, quint64 dev_offset);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~RecoveryMapping() Q_DECL_OVERRIDE {}
 
-	/** implementation of Recoverysource::read */
+        /** implementation of Recoverysource::read */
         virtual qint64 read(quint64 offset, char *data, unsigned int bytes)
             Q_DECL_OVERRIDE;
 
     private:
 
-	/** source with the damaged file */
-	QIODevice &m_dev;
+        /** source with the damaged file */
+        QIODevice &m_dev;
 
-	/** start offset in the damaged file */
-	quint64 m_dev_offset;
+        /** start offset in the damaged file */
+        quint64 m_dev_offset;
     };
 }
 

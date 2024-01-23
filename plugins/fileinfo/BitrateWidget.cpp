@@ -1,6 +1,6 @@
 /***************************************************************************
       BitrateWidget.cpp  -  widget selecting a bitrate for MP3 or Ogg/Vorbis
-			     -------------------
+                             -------------------
     begin                : Thu Oct 24 2002
     copyright            : (C) 2002 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
@@ -92,16 +92,16 @@ int Kwave::BitrateWidget::nearestIndex(int rate)
     // find the nearest value
     int nearest = 0;
     foreach(int i, m_rates)
-	if (qAbs(i - rate) < qAbs(nearest - rate)) nearest = i;
+        if (qAbs(i - rate) < qAbs(nearest - rate)) nearest = i;
 
     // find the index
     int index = m_rates.contains(nearest) ? m_rates.indexOf(nearest) : 0;
 
     // limit the index into a reasonable range
     if (index < 0)
-	index = 0;
+        index = 0;
     if (index >= Kwave::toInt(m_rates.size()))
-	index = m_rates.size()-1;
+        index = m_rates.size()-1;
 
     return index;
 }

@@ -1,6 +1,6 @@
 /***************************************************************************
        PlayBackPlugin.h  -  plugin for playback and playback configuration
-			     -------------------
+                             -------------------
     begin                : Sun May 13 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -42,87 +42,87 @@ namespace Kwave
     class PlayBackPlugin :public Kwave::Plugin,
                           public Kwave::PlaybackDeviceFactory
     {
-	Q_OBJECT
+        Q_OBJECT
     public:
 
-	/**
-	 * Constructor
-	 * @param parent reference to our plugin manager
-	 * @param args argument list [unused]
-	 */
-	PlayBackPlugin(QObject *parent, const QVariantList &args);
+        /**
+         * Constructor
+         * @param parent reference to our plugin manager
+         * @param args argument list [unused]
+         */
+        PlayBackPlugin(QObject *parent, const QVariantList &args);
 
-	/** Destructor */
+        /** Destructor */
         virtual ~PlayBackPlugin() Q_DECL_OVERRIDE;
 
-	/**
-	 * Gets called when the plugin is first loaded and connects itself
-	 * to the playback controller and the current signal.
-	 */
+        /**
+         * Gets called when the plugin is first loaded and connects itself
+         * to the playback controller and the current signal.
+         */
         virtual void load(QStringList &params) Q_DECL_OVERRIDE;
 
-	/**
-	 * Gets called before the plugin is unloaded.
-	 */
+        /**
+         * Gets called before the plugin is unloaded.
+         */
         virtual void unload() Q_DECL_OVERRIDE;
 
-	/** @see Kwave::Plugin::setup() */
+        /** @see Kwave::Plugin::setup() */
         virtual QStringList *setup(QStringList &previous_params)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Starts a playback test sequence
-	 * @param params list of strings with parameters (unused)
-	 */
+        /**
+         * Starts a playback test sequence
+         * @param params list of strings with parameters (unused)
+         */
         virtual void run(QStringList params) Q_DECL_OVERRIDE;
 
     signals:
 
-	/** emits the progress of the playback test, from thread context */
-	void sigTestProgress(int percent);
+        /** emits the progress of the playback test, from thread context */
+        void sigTestProgress(int percent);
 
     public slots:
 
-	/**
-	 * Plays a sample sound for testing the playback
-	 */
-	void testPlayBack();
+        /**
+         * Plays a sample sound for testing the playback
+         */
+        void testPlayBack();
 
     protected:
 
-	/**
-	 * Interpretes a given parameter list and sets up internal
-	 * parameters accordingly.
-	 * @param params reference to a QStringList with parameters
-	 * @return the detected playback parameters
-	 */
-	Kwave::PlayBackParam interpreteParameters(QStringList &params);
+        /**
+         * Interpretes a given parameter list and sets up internal
+         * parameters accordingly.
+         * @param params reference to a QStringList with parameters
+         * @return the detected playback parameters
+         */
+        Kwave::PlayBackParam interpreteParameters(QStringList &params);
 
-	/**
-	 * Create a playback device matching the given playback method.
-	 * @param method a playback_method_t (aRts, ALSA, OSS...)
-	 * @return a new PlayBackDevice or 0 if failed
-	 */
+        /**
+         * Create a playback device matching the given playback method.
+         * @param method a playback_method_t (aRts, ALSA, OSS...)
+         * @return a new PlayBackDevice or 0 if failed
+         */
         virtual Kwave::PlayBackDevice *createDevice(Kwave::playback_method_t method)
             Q_DECL_OVERRIDE;
 
-	/**
-	 * Returns a list of supported playback methods.
-	 * @return list of all supported playback methods, should not contain
-	 *         "any" or "invalid"
-	 */
+        /**
+         * Returns a list of supported playback methods.
+         * @return list of all supported playback methods, should not contain
+         *         "any" or "invalid"
+         */
         virtual QList<Kwave::playback_method_t> supportedMethods() Q_DECL_OVERRIDE;
 
     private:
 
-	/** dialog for the playback setup */
-	QPointer<Kwave::PlayBackDialog> m_dialog;
+        /** dialog for the playback setup */
+        QPointer<Kwave::PlayBackDialog> m_dialog;
 
-	/** reference to the playback controller */
-	Kwave::PlaybackController &m_playback_controller;
+        /** reference to the playback controller */
+        Kwave::PlaybackController &m_playback_controller;
 
-	/** sample sink, for playback test */
-	Kwave::SampleSink *m_playback_sink;
+        /** sample sink, for playback test */
+        Kwave::SampleSink *m_playback_sink;
     };
 }
 

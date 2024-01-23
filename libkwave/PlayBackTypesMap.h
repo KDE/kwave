@@ -1,6 +1,6 @@
 /***************************************************************************
      PlayBackTypesMap.h  -  map for playback methods
-			     -------------------
+                             -------------------
     begin                : Sat Feb 05 2005
     copyright            : (C) 2005 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -27,20 +27,20 @@
 namespace Kwave
 {
     class Q_DECL_EXPORT PlayBackTypesMap
-	:public Kwave::TypesMap<unsigned int, Kwave::playback_method_t>
+        :public Kwave::TypesMap<unsigned int, Kwave::playback_method_t>
     {
     public:
-	/** Constructor */
-	explicit PlayBackTypesMap()
-	    :Kwave::TypesMap<unsigned int, Kwave::playback_method_t>()
-	{
-	    fill();
-	}
+        /** Constructor */
+        explicit PlayBackTypesMap()
+            :Kwave::TypesMap<unsigned int, Kwave::playback_method_t>()
+        {
+            fill();
+        }
 
-	/** Destructor */
+        /** Destructor */
         virtual ~PlayBackTypesMap() Q_DECL_OVERRIDE {}
 
-	/** fill function for the map */
+        /** fill function for the map */
         virtual void fill() Q_DECL_OVERRIDE;
     };
 }

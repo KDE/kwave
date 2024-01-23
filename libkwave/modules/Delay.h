@@ -33,42 +33,42 @@ namespace Kwave
 
     class Q_DECL_EXPORT Delay: public Kwave::SampleSource
     {
-	Q_OBJECT
-	public:
-	    /** Constructor */
-	    Delay();
+        Q_OBJECT
+        public:
+            /** Constructor */
+            Delay();
 
-	    /** Destructor */
+            /** Destructor */
             virtual ~Delay() Q_DECL_OVERRIDE;
 
-	    /** does the calculation */
+            /** does the calculation */
             virtual void goOn() Q_DECL_OVERRIDE;
 
-	signals:
-	    /** emits a block with delayed wave data */
-	    void output(Kwave::SampleArray data);
+        signals:
+            /** emits a block with delayed wave data */
+            void output(Kwave::SampleArray data);
 
-	public slots:
+        public slots:
 
-	    /** receives input data */
-	    void input(Kwave::SampleArray data);
+            /** receives input data */
+            void input(Kwave::SampleArray data);
 
-	    /**
-	     * Sets the delay time, normed to samples.
-	     * The default setting is zero.
-	     */
-	    void setDelay(const QVariant &d);
+            /**
+             * Sets the delay time, normed to samples.
+             * The default setting is zero.
+             */
+            void setDelay(const QVariant &d);
 
-	private:
+        private:
 
-	    /** buffer for delaying data */
-	    Kwave::SampleFIFO m_fifo;
+            /** buffer for delaying data */
+            Kwave::SampleFIFO m_fifo;
 
-	    /** buffer for output data */
-	    Kwave::SampleArray m_out_buffer;
+            /** buffer for output data */
+            Kwave::SampleArray m_out_buffer;
 
-	    /** delay [samples] */
-	    unsigned int m_delay;
+            /** delay [samples] */
+            unsigned int m_delay;
     };
 }
 

@@ -65,7 +65,8 @@ namespace Kwave
 
         /**
          * Returns the window function id through it's numeric index. If
-         * the index is out of range, the return value will be "WINDOW_FUNC_NONE".
+         * the index is out of range, the return value will be
+         * "WINDOW_FUNC_NONE".
          * @param index numeric index to be searched [0...count-1]
          */
         static window_function_t findFromIndex(unsigned int index) {
@@ -102,8 +103,8 @@ namespace Kwave
         /**
          * Returns the description of a window function.
          * @param type the type of the window function
-         * @param localized if true, the localized description will be returned
-         *        instead of the non-localized one
+         * @param localized if true, the localized description will be
+         *        returned instead of the non-localized one
          */
         static QString description(window_function_t type,
             bool localized)
@@ -143,7 +144,7 @@ namespace Kwave
         static InitializedTypesMap m_types_map;
     };
 
-    //***************************************************************************
+    //***********************************************************************
     static inline window_function_t &operator++(window_function_t &f)
     {
         return (f = (f == WINDOW_FUNC_TRIANGULAR) ?

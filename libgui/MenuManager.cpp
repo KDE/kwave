@@ -229,7 +229,8 @@ void Kwave::MenuManager::addNumberedMenuEntry(const QString &uid,
     if (!entry.length()) return;
 
     Q_ASSERT(m_menu_root);
-    Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : Q_NULLPTR;
+    Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) :
+                                            Q_NULLPTR;
     Kwave::MenuNode *parent = (node) ? node->parentNode() : Q_NULLPTR;
     if (parent) {
         QString cmd = node->command();

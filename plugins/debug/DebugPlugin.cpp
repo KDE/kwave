@@ -86,23 +86,36 @@ void Kwave::DebugPlugin::load(QStringList &params)
 #ifdef HAVE_DEBUG_PLUGIN
     QString entry = _("menu(plugin:execute(debug,%1),Calculate/Debug/%2)");
 
-    MENU_ENTRY("dc_50",             _(kli18n("Generate 50% DC Level").untranslatedText()))
-    MENU_ENTRY("dc_100",            _(kli18n("Generate 100% DC Level").untranslatedText()))
-    MENU_ENTRY("min_max",           _(kli18n("MinMax Pattern").untranslatedText()))
-    MENU_ENTRY("sawtooth",          _(kli18n("Generate Sawtooth Pattern").untranslatedText()))
-    MENU_ENTRY("sawtooth_verify",   _(kli18n("Verify Sawtooth Pattern").untranslatedText()))
-    MENU_ENTRY("fm_sweep",          _(kli18n("FM Sweep").untranslatedText()))
-//  MENU_ENTRY("stripe_index",      _(kli18n("Stripe Index").untranslatedText()))
-//  MENU_ENTRY("hull_curve",        _(kli18n("Hull Curve").untranslatedText()))
-//  MENU_ENTRY("offset_in_stripe",  _(kli18n("Offset in Stripe").untranslatedText()))
-//  MENU_ENTRY("stripe_borders",    _(kli18n("Show Stripe Borders").untranslatedText()))
-    MENU_ENTRY("labels_at_stripes", _(kli18n("Labels at Stripe borders").untranslatedText()))
+    MENU_ENTRY("dc_50",
+               _(kli18n("Generate 50% DC Level").untranslatedText()))
+    MENU_ENTRY("dc_100",
+               _(kli18n("Generate 100% DC Level").untranslatedText()))
+    MENU_ENTRY("min_max",
+               _(kli18n("MinMax Pattern").untranslatedText()))
+    MENU_ENTRY("sawtooth",
+               _(kli18n("Generate Sawtooth Pattern").untranslatedText()))
+    MENU_ENTRY("sawtooth_verify",
+               _(kli18n("Verify Sawtooth Pattern").untranslatedText()))
+    MENU_ENTRY("fm_sweep",
+               _(kli18n("FM Sweep").untranslatedText()))
+//  MENU_ENTRY("stripe_index",
+//             _(kli18n("Stripe Index").untranslatedText()))
+//  MENU_ENTRY("hull_curve",
+//              _(kli18n("Hull Curve").untranslatedText()))
+//  MENU_ENTRY("offset_in_stripe",
+//             _(kli18n("Offset in Stripe").untranslatedText()))
+//  MENU_ENTRY("stripe_borders",
+//             _(kli18n("Show Stripe Borders").untranslatedText()))
+    MENU_ENTRY("labels_at_stripes",
+               _(kli18n("Labels at Stripe borders").untranslatedText()))
 
     entry = _("menu(plugin:setup(debug,%1),Help/%2)");
-    MENU_ENTRY("dump_windows",      _(kli18n("Dump Window Hierarchy").untranslatedText()))
+    MENU_ENTRY("dump_windows",
+               _(kli18n("Dump Window Hierarchy").untranslatedText()))
 
     entry = _("menu(%1,Help/%2)");
-    MENU_ENTRY("dump_metadata()",   _(kli18n("Dump Meta Data").untranslatedText()))
+    MENU_ENTRY("dump_metadata()",
+               _(kli18n("Dump Meta Data").untranslatedText()))
 #endif /* HAVE_DEBUG_PLUGIN */
 }
 

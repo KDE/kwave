@@ -64,9 +64,9 @@ namespace Kwave
     public slots:
 
         /**
-         * Sets new range parameters of the slider, using a scale that is calculated
-         * out of the slider's maximum position. All parameters are given in the
-         * user's coordinates/units (e.g. samples).
+         * Sets new range parameters of the slider, using a scale that is
+         * calculated* out of the slider's maximum position. All parameters
+         * are given in the user's coordinates/units (e.g. samples).
          * @param offset index of the first visible sample
          * @param viewport width of the visible area
          * @param total width of the whole signal

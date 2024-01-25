@@ -214,7 +214,8 @@ void Kwave::PlayerToolBar::toolbarRewindPrev()
 //***************************************************************************
 void Kwave::PlayerToolBar::toolbarRewind()
 {
-    if (!m_action_rewind || !m_action_rewind->isEnabled() || !m_playback) return;
+    if (!m_action_rewind || !m_action_rewind->isEnabled() || !m_playback)
+        return;
 
     const bool play = m_playback->running() || m_playback->paused();
     if (play) {

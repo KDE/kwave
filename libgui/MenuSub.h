@@ -30,8 +30,8 @@
 namespace Kwave
 {
     /**
-     * This is the class for submenu entries in a Menu. It is normally owned by a
-     * root menu node, a toplevel menu or another submenu.
+     * This is the class for submenu entries in a Menu. It is normally
+     * owned by a root menu node, a toplevel menu or another submenu.
      */
     class MenuSub: public Kwave::MenuNode
     {
@@ -81,7 +81,8 @@ namespace Kwave
         virtual Kwave::MenuSub *insertBranch(const QString &name,
                                              const QString &command,
                                              const QKeySequence &shortcut,
-                                             const QString &uid) Q_DECL_OVERRIDE;
+                                             const QString &uid)
+                                             Q_DECL_OVERRIDE;
 
         /**
          * Inserts a new leaf node under the submenu. The new node

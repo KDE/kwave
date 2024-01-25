@@ -262,9 +262,9 @@ namespace Kwave
         Kwave::SignalManager *m_signal_manager;
 
         /**
-         * list of signal views. Contains one entry for each signal view, starting
-         * with the ones in m_upper_dock, then the ones in m_layout, and at
-         * the end the ones from m_lower_dock.
+         * list of signal views. Contains one entry for each signal view,
+         * starting with the ones in m_upper_dock, then the ones in m_layout,
+         * and at the end the ones from m_lower_dock.
          * The list is sorted in the order of the appearance in the GUI.
          */
         QList< QPointer<Kwave::SignalView> > m_views;

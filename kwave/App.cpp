@@ -347,10 +347,12 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
                         } else {
                             // for all other contexts we have to create a new
                             // toplevel widget
-                            top_widget = new(std::nothrow) Kwave::TopWidget(*this);
+                            top_widget = new(std::nothrow)
+                                Kwave::TopWidget(*this);
                             if (!top_widget || !top_widget->init()) {
                                 // init failed
-                                qWarning("ERROR: initialization of TopWidget failed");
+                                qWarning("ERROR: initialization of "
+                                         "TopWidget failed");
                                 delete top_widget;
                                 delete context;
                                 break;

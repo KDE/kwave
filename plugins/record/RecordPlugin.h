@@ -65,7 +65,8 @@ namespace Kwave
         virtual ~RecordPlugin() Q_DECL_OVERRIDE;
 
         /** @see Kwave::Plugin::setup() */
-        virtual QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &previous_params)
+            Q_DECL_OVERRIDE;
 
     signals:
 
@@ -104,7 +105,10 @@ namespace Kwave
         /** inhibits recording, stopping the recorder if necessary */
         void enterInhibit();
 
-        /** leave the area with recording inhibited, restart recorder if needed */
+        /**
+         * leave the area with recording inhibited, restart recorder
+         * if needed
+         */
         void leaveInhibit();
 
     protected slots:

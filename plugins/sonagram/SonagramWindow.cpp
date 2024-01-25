@@ -135,7 +135,8 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
         QKeySequence::Close
     );
 
-//    spectral->addAction (i18n("&Retransform to Signal"), this, SLOT(toSignal()));
+//    spectral->addAction(i18n("&Retransform to Signal"), this,
+//                        SLOT(toSignal()));
 
     QStatusBar *status = statusBar();
     Q_ASSERT(status);
@@ -238,7 +239,8 @@ void Kwave::SonagramWindow::save()
 void Kwave::SonagramWindow::load()
 {
 //    if (image) {
-//      QString filename = QFileDialog::getOpenFileName(this, QString(), "", "*.bmp");
+//      QString filename = QFileDialog::getOpenFileName(this, QString(),
+//                                                      "", "*.bmp");
 //      printf ("loading %s\n", filename.local8Bit().data());
 //      if (!filename.isNull()) {
 //          printf ("loading %s\n", filename.local8Bit().data());
@@ -427,8 +429,10 @@ void Kwave::SonagramWindow::toSignal()
 //
 //          win->show();
 //
-//          int *output = newsig->getSample();      //sample data
-//          complex *tmp = new complex [points];   //this window holds the data for ifft and after that part of the signal
+//          int *output = newsig->getSample();     // sample data
+//          // this window holds the data for ifft and after that
+//          // part of the signal
+//          complex *tmp = new complex [points];
 //
 //          if (output && tmp && data) {
 //              for (int i = 0; i < x; i++) {
@@ -436,7 +440,8 @@ void Kwave::SonagramWindow::toSignal()
 //                  gsl_fft_complex_inverse (tmp, points, &table);
 //
 //                  for (int j = 0; j < points; j++)
-//                      output[i*points + j] = (int)(tmp[j].real * ((1 << 23)-1));
+//                      output[i*points + j] =
+//                          (int)(tmp[j].real * ((1 << 23)-1));
 //              }
 //              int dif ;
 //              int max;
@@ -446,7 +451,8 @@ void Kwave::SonagramWindow::toSignal()
 //                  if (max > length - i*points) max = length - i * points;
 //                  dif = output[i * points] - output[i * points - 1];
 //                  if (dif < 2)
-//                      for (int j = 0; j < max; j++) output[i*points + j] += (int) (slope[j] * dif );
+//                      for (int j = 0; j < max; j++)
+//                          output[i*points + j] += (int) (slope[j] * dif );
 //              }
 //
 //              win->setSignal (new SignalManager (newsig));
@@ -455,7 +461,8 @@ void Kwave::SonagramWindow::toSignal()
 //          } else {
 //              if (newsig) delete newsig;
 //              if (win) delete win;
-//              KMsgBox::message (this, i18n("Error"), i18n("Out of memory !"), 2);
+//              KMsgBox::message(this, i18n("Error"),
+//                               i18n("Out of memory !"), 2);
 //          }
 //      }
 //      if (slope) delete[] slope;

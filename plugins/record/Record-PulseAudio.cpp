@@ -333,7 +333,8 @@ void Kwave::RecordPulseAudio::notifyStreamState(pa_stream* stream)
 }
 
 //***************************************************************************
-void Kwave::RecordPulseAudio::pa_context_notify_cb(pa_context* c, void* userdata)
+void Kwave::RecordPulseAudio::pa_context_notify_cb(pa_context *c,
+                                                   void       *userdata)
 {
     Kwave::RecordPulseAudio *record_plugin =
         reinterpret_cast<Kwave::RecordPulseAudio *>(userdata);
@@ -427,7 +428,8 @@ int Kwave::RecordPulseAudio::setSampleFormat(
 }
 
 //***************************************************************************
-QList<Kwave::SampleFormat::Format> Kwave::RecordPulseAudio::detectSampleFormats()
+QList<Kwave::SampleFormat::Format>
+    Kwave::RecordPulseAudio::detectSampleFormats()
 {
     QList<Kwave::SampleFormat::Format> list;
 

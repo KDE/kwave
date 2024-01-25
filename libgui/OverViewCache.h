@@ -164,7 +164,8 @@ namespace Kwave
          * Marks a range of cache entries of a track as invalid
          * @param uuid ID of the track to invalidate or null for "all tracks"
          * @param first index of the first entry
-         * @param last index of the last entry (will be truncated to CACHE_SIZE-1)
+         * @param last index of the last entry
+         *             (will be truncated to CACHE_SIZE-1)
          */
         void invalidateCache(const QUuid *uuid,
                              unsigned int first,

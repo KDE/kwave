@@ -365,7 +365,8 @@ namespace Kwave
              * set a new label text and alignment
              * @param text the text of the label, can be multiline and rtf/html
              * @param alignment the alignment of the label and the widget,
-             *                  can be Qt::AlignLeft, Qt::AlignRight or Qt::AlignHCenter
+             *                  can be Qt::AlignLeft, Qt::AlignRight or
+             *                  Qt::AlignHCenter
              */
             virtual void setText(const QString &text, Qt::Alignment alignment);
 

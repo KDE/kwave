@@ -25,144 +25,197 @@
 Kwave::ID3_PropertyMap::ID3_PropertyMap()
     :m_list()
 {
-    // NOTE #1: the left column is allowed to have multiple entries with the
+    // NOTE #1: the first column is allowed to have multiple entries with the
     //          same property, when encoding the first one is used, when
     //          decoding, the other ones serve as alternatives
-    // NOTE #2: the ID3 tag names in the right column must be *unique* !
+    // NOTE #2: the ID3 tag names in the secondt column must be *unique* !
 
     // Album/Movie/Show title
-    insert(Kwave::INF_ALBUM,         ID3FID_ALBUM              , ENC_TEXT);
+    insert(Kwave::INF_ALBUM,         ID3FID_ALBUM,
+           ENC_TEXT);
     // Original album/movie/show title
-    insert(Kwave::INF_ALBUM,         ID3FID_ORIGALBUM          , ENC_TEXT);
+    insert(Kwave::INF_ALBUM,         ID3FID_ORIGALBUM,
+           ENC_TEXT);
     // Subtitle/Description refinement
-    insert(Kwave::INF_ANNOTATION,    ID3FID_SUBTITLE           , ENC_TEXT);
+    insert(Kwave::INF_ANNOTATION,    ID3FID_SUBTITLE,
+           ENC_TEXT);
     // User defined text information
-    insert(Kwave::INF_ANNOTATION,    ID3FID_USERTEXT           , ENC_TEXT);
+    insert(Kwave::INF_ANNOTATION,    ID3FID_USERTEXT,
+           ENC_TEXT);
     //     Kwave::INF_ARCHIVAL
     // Original artist(s)/performer(s)
-    insert(Kwave::INF_AUTHOR,        ID3FID_ORIGARTIST         , ENC_TEXT_SLASH);
+    insert(Kwave::INF_AUTHOR,        ID3FID_ORIGARTIST,
+           ENC_TEXT_SLASH);
     // Involved people list
-    insert(Kwave::INF_AUTHOR,        ID3FID_INVOLVEDPEOPLE     , ENC_TEXT_LIST);
+    insert(Kwave::INF_AUTHOR,        ID3FID_INVOLVEDPEOPLE,
+           ENC_TEXT_LIST);
     // Involved people list
-    insert(Kwave::INF_AUTHOR,        ID3FID_INVOLVEDPEOPLE2    , ENC_TEXT_LIST);
+    insert(Kwave::INF_AUTHOR,        ID3FID_INVOLVEDPEOPLE2,
+           ENC_TEXT_LIST);
     // Band/orchestra/accompaniment
-    insert(Kwave::INF_AUTHOR,        ID3FID_BAND               , ENC_TEXT);
+    insert(Kwave::INF_AUTHOR,        ID3FID_BAND,
+           ENC_TEXT);
     // Original lyricist(s)/text writer(s)
-    insert(Kwave::INF_AUTHOR,        ID3FID_ORIGLYRICIST       , ENC_TEXT_SLASH);
+    insert(Kwave::INF_AUTHOR,        ID3FID_ORIGLYRICIST,
+           ENC_TEXT_SLASH);
     // Official artist/performer webpage
-    insert(Kwave::INF_AUTHOR,        ID3FID_WWWARTIST          , ENC_TEXT_URL);
+    insert(Kwave::INF_AUTHOR,        ID3FID_WWWARTIST,
+           ENC_TEXT_URL);
     // Official publisher webpage
-    insert(Kwave::INF_AUTHOR,        ID3FID_WWWPUBLISHER       , ENC_TEXT_URL);
+    insert(Kwave::INF_AUTHOR,        ID3FID_WWWPUBLISHER,
+           ENC_TEXT_URL);
     //     Kwave::INF_BITRATE_LOWER
     //     Kwave::INF_BITRATE_NOMINAL
     //     Kwave::INF_BITRATE_UPPER
     //     Kwave::INF_BITS_PER_SAMPLE
     // Part of a set
-    insert(Kwave::INF_CD,            ID3FID_PARTINSET          , ENC_TEXT_PARTINSET);
-    insert(Kwave::INF_CDS,           ID3FID_PARTINSET          , ENC_TEXT_PARTINSET);
+    insert(Kwave::INF_CD,            ID3FID_PARTINSET,
+           ENC_TEXT_PARTINSET);
+    insert(Kwave::INF_CDS,           ID3FID_PARTINSET,
+           ENC_TEXT_PARTINSET);
     // Internet radio station name
-    insert(Kwave::INF_COMMISSIONED,  ID3FID_NETRADIOSTATION    , ENC_TEXT);
+    insert(Kwave::INF_COMMISSIONED,  ID3FID_NETRADIOSTATION,
+           ENC_TEXT);
     // Internet radio station owner
-    insert(Kwave::INF_COMMISSIONED,  ID3FID_NETRADIOOWNER      , ENC_TEXT);
+    insert(Kwave::INF_COMMISSIONED,  ID3FID_NETRADIOOWNER,
+           ENC_TEXT);
     // Comments
-    insert(Kwave::INF_COMMENTS,      ID3FID_COMMENT            , ENC_COMMENT);
+    insert(Kwave::INF_COMMENTS,      ID3FID_COMMENT,
+           ENC_COMMENT);
     // Official audio source webpage
-    insert(Kwave::INF_CONTACT,       ID3FID_WWWAUDIOSOURCE     , ENC_TEXT_SLASH);
+    insert(Kwave::INF_CONTACT,       ID3FID_WWWAUDIOSOURCE,
+           ENC_TEXT_SLASH);
     // Official internet radio station homepage
-    insert(Kwave::INF_CONTACT,       ID3FID_WWWRADIOPAGE       , ENC_TEXT_SLASH);
+    insert(Kwave::INF_CONTACT,       ID3FID_WWWRADIOPAGE,
+           ENC_TEXT_SLASH);
     // Official audio file webpage
-    insert(Kwave::INF_CONTACT,       ID3FID_WWWAUDIOFILE       , ENC_TEXT_SLASH);
+    insert(Kwave::INF_CONTACT,       ID3FID_WWWAUDIOFILE,
+           ENC_TEXT_SLASH);
     // Ownership (not supported by id3lib)
-    //    (Kwave::INF_CONTACT,       ID3FID_OWNERSHIP          , ENC_OWNERSHIP?);
+    //    (Kwave::INF_CONTACT,       ID3FID_OWNERSHIP,
+    //     ENC_OWNERSHIP?);
     // Copyright message.
-    insert(Kwave::INF_COPYRIGHT,     ID3FID_COPYRIGHT          , ENC_TEXT);
+    insert(Kwave::INF_COPYRIGHT,     ID3FID_COPYRIGHT,
+           ENC_TEXT);
     // Copyright/Legal infromation
-    insert(Kwave::INF_COPYRIGHT,     ID3FID_WWWCOPYRIGHT       , ENC_TEXT_URL);
+    insert(Kwave::INF_COPYRIGHT,     ID3FID_WWWCOPYRIGHT,
+           ENC_TEXT_URL);
     // Terms of use
-    insert(Kwave::INF_COPYRIGHT,     ID3FID_TERMSOFUSE         , ENC_TERMS_OF_USE);
+    insert(Kwave::INF_COPYRIGHT,     ID3FID_TERMSOFUSE,
+           ENC_TERMS_OF_USE);
     //     Kwave::INF_COPYRIGHTED
 
     // Recording dates
-    insert(Kwave::INF_CREATION_DATE, ID3FID_RECORDINGDATES     , ENC_TEXT_TIMESTAMP);
+    insert(Kwave::INF_CREATION_DATE, ID3FID_RECORDINGDATES,
+           ENC_TEXT_TIMESTAMP);
     // Recording time (not supported by id3lib)
-    //    (Kwave::INF_CREATION_DATE, ID3FID_RECORDINGTIME      , ENC_TEXT_TIMESTAMP);
+    //    (Kwave::INF_CREATION_DATE, ID3FID_RECORDINGTIME,
+    //     ENC_TEXT_TIMESTAMP);
     // Date
-    insert(Kwave::INF_CREATION_DATE, ID3FID_DATE               , ENC_TEXT_TIMESTAMP);
+    insert(Kwave::INF_CREATION_DATE, ID3FID_DATE,
+           ENC_TEXT_TIMESTAMP);
     // Year
-    insert(Kwave::INF_CREATION_DATE, ID3FID_YEAR               , ENC_TEXT_TIMESTAMP);
+    insert(Kwave::INF_CREATION_DATE, ID3FID_YEAR,
+           ENC_TEXT_TIMESTAMP);
     // Time
-    insert(Kwave::INF_CREATION_DATE, ID3FID_TIME               , ENC_TEXT_TIMESTAMP);
+    insert(Kwave::INF_CREATION_DATE, ID3FID_TIME,
+           ENC_TEXT_TIMESTAMP);
     // Release time (not supported by id3lib)
-    //    (Kwave::INF_CREATION_DATE, ID3FID_RELEASETIME        , ENC_TEXT_TIMESTAMP);
+    //    (Kwave::INF_CREATION_DATE, ID3FID_RELEASETIME,
+    //     ENC_TEXT_TIMESTAMP);
     // Original release year
-    insert(Kwave::INF_CREATION_DATE, ID3FID_ORIGYEAR           , ENC_TEXT_TIMESTAMP);
+    insert(Kwave::INF_CREATION_DATE, ID3FID_ORIGYEAR,
+           ENC_TEXT_TIMESTAMP);
     // Original release time (not supported by id3lib)
-    //    (Kwave::INF_CREATION_DATE, ID3FID_ORIGRELEASETIME    , ENC_TEXT_TIMESTAMP);
+    //    (Kwave::INF_CREATION_DATE, ID3FID_ORIGRELEASETIME,
+    //     ENC_TEXT_TIMESTAMP);
     // Tagging time (not supported by id3lib)
-    //    (Kwave::INF_CREATION_DATE, ID3FID_TAGGINGTIME        , ENC_TEXT_TIMESTAMP);
+    //    (Kwave::INF_CREATION_DATE, ID3FID_TAGGINGTIME,
+    //     ENC_TEXT_TIMESTAMP);
     // Encoding time (not supported by id3lib)
-    //    (Kwave::INF_CREATION_DATE, ID3FID_ENCODINGTIME       , ENC_TEXT_TIMESTAMP);
+    //    (Kwave::INF_CREATION_DATE, ID3FID_ENCODINGTIME,
+    //     ENC_TEXT_TIMESTAMP);
 
     //     Kwave::INF_ENGINEER
     //     Kwave::INF_FILENAME
     //     Kwave::INF_FILESIZE
     // Content type (Genre)
-    insert(Kwave::INF_GENRE,         ID3FID_CONTENTTYPE        , ENC_GENRE_TYPE);
+    insert(Kwave::INF_GENRE,         ID3FID_CONTENTTYPE,
+           ENC_GENRE_TYPE);
     // ISRC
-    insert(Kwave::INF_ISRC,          ID3FID_ISRC               , ENC_TEXT);
+    insert(Kwave::INF_ISRC,          ID3FID_ISRC,
+           ENC_TEXT);
     //     Kwave::INF_KEYWORDS
     //     Kwave::INF_LABELS
     // Length
-    insert(Kwave::INF_LENGTH,        ID3FID_SONGLEN            , ENC_LENGTH);
+    insert(Kwave::INF_LENGTH,        ID3FID_SONGLEN,
+           ENC_LENGTH);
     // File owner/licensee
-    insert(Kwave::INF_LICENSE,       ID3FID_FILEOWNER          , ENC_TEXT);
+    insert(Kwave::INF_LICENSE,       ID3FID_FILEOWNER,
+           ENC_TEXT);
     // Medium type
-    insert(Kwave::INF_MEDIUM,        ID3FID_MEDIATYPE          , ENC_TEXT);
+    insert(Kwave::INF_MEDIUM,        ID3FID_MEDIATYPE,
+           ENC_TEXT);
     //     Kwave::INF_MIMETYPE
     //     Kwave::INF_MPEG_EMPHASIS
     //     Kwave::INF_MPEG_LAYER
     //     Kwave::INF_MPEG_MODEEXT
     //     Kwave::INF_MPEG_VERSION
     // Title/songname/content description
-    insert(Kwave::INF_NAME,          ID3FID_TITLE              , ENC_TEXT);
+    insert(Kwave::INF_NAME,          ID3FID_TITLE,
+           ENC_TEXT);
     // Composer
-    insert(Kwave::INF_ORGANIZATION,  ID3FID_COMPOSER           , ENC_TEXT_SLASH);
+    insert(Kwave::INF_ORGANIZATION,  ID3FID_COMPOSER,
+           ENC_TEXT_SLASH);
     // Publisher
-    insert(Kwave::INF_ORGANIZATION,  ID3FID_PUBLISHER          , ENC_TEXT_SLASH);
+    insert(Kwave::INF_ORGANIZATION,  ID3FID_PUBLISHER,
+           ENC_TEXT_SLASH);
     // Produced notice
-    insert(Kwave::INF_ORGANIZATION,  ID3FID_PRODUCEDNOTICE     , ENC_TEXT_SLASH);
+    insert(Kwave::INF_ORGANIZATION,  ID3FID_PRODUCEDNOTICE,
+           ENC_TEXT_SLASH);
     //     Kwave::INF_ORIGINAL
     // Lyricist/Text writer
-    insert(Kwave::INF_PERFORMER,     ID3FID_LYRICIST           , ENC_TEXT_SLASH);
+    insert(Kwave::INF_PERFORMER,     ID3FID_LYRICIST,
+           ENC_TEXT_SLASH);
     // Lead performer(s)/Soloist(s).
-    insert(Kwave::INF_PERFORMER,     ID3FID_LEADARTIST         , ENC_TEXT_SLASH);
+    insert(Kwave::INF_PERFORMER,     ID3FID_LEADARTIST,
+           ENC_TEXT_SLASH);
     // Musician credits list
-    insert(Kwave::INF_PERFORMER,     ID3FID_MUSICIANCREDITLIST , ENC_TEXT_SLASH);
+    insert(Kwave::INF_PERFORMER,     ID3FID_MUSICIANCREDITLIST,
+           ENC_TEXT_SLASH);
     // Conductor/performer refinement
-    insert(Kwave::INF_PERFORMER,     ID3FID_CONDUCTOR          , ENC_TEXT);
+    insert(Kwave::INF_PERFORMER,     ID3FID_CONDUCTOR,
+           ENC_TEXT);
     // Private frame
     //     Kwave::INF_PRIVATE
     //     Kwave::INF_PRODUCT
     //     Kwave::INF_SAMPLE_FORMAT
     //     Kwave::INF_SAMPLE_RATE
-    insert(Kwave::INF_SOFTWARE,      ID3FID_ENCODERSETTINGS    , ENC_TEXT);
+    insert(Kwave::INF_SOFTWARE,      ID3FID_ENCODERSETTINGS,
+           ENC_TEXT);
     //     Kwave::INF_SOURCE
     //     Kwave::INF_SOURCE_FORM
     //     Kwave::INF_SUBJECT
     // Encoded by.
-    insert(Kwave::INF_TECHNICAN,     ID3FID_ENCODEDBY          , ENC_TEXT);
+    insert(Kwave::INF_TECHNICAN,     ID3FID_ENCODEDBY,
+           ENC_TEXT);
     // Track number/Position in set
-    insert(Kwave::INF_TRACK,         ID3FID_TRACKNUM           , ENC_TRACK_NUM);
+    insert(Kwave::INF_TRACK,         ID3FID_TRACKNUM,
+           ENC_TRACK_NUM);
     // Number of Tracks
-    insert(Kwave::INF_TRACKS,        ID3FID_TRACKNUM           , ENC_TRACK_NUM);
+    insert(Kwave::INF_TRACKS,        ID3FID_TRACKNUM,
+           ENC_TRACK_NUM);
     //     Kwave::INF_VBR_QUALITY
     // Interpreted, remixed / modified by
-    insert(Kwave::INF_VERSION,       ID3FID_MIXARTIST          , ENC_TEXT);
+    insert(Kwave::INF_VERSION,       ID3FID_MIXARTIST,
+           ENC_TEXT);
     // Set subtitle
-    insert(Kwave::INF_VERSION,       ID3FID_SETSUBTITLE        , ENC_TEXT);
+    insert(Kwave::INF_VERSION,       ID3FID_SETSUBTITLE,
+           ENC_TEXT);
     //                               ID3FID_PRIVATE => user defined data
 
-    insert(Kwave::INF_UNKNOWN,       ID3FID_NOFRAME            , ENC_NONE);
+    insert(Kwave::INF_UNKNOWN,       ID3FID_NOFRAME,
+           ENC_NONE);
 }
 
 //***************************************************************************

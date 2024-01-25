@@ -68,7 +68,8 @@ int Kwave::NotchFilterPlugin::interpreteParameters(QStringList &params)
 }
 
 //***************************************************************************
-Kwave::PluginSetupDialog *Kwave::NotchFilterPlugin::createDialog(QWidget *parent)
+Kwave::PluginSetupDialog *Kwave::NotchFilterPlugin::createDialog(
+    QWidget *parent)
 {
     Kwave::NotchFilterDialog *dialog =
         new(std::nothrow) Kwave::NotchFilterDialog(parent, signalRate());

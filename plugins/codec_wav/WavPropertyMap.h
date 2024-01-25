@@ -54,7 +54,8 @@ namespace Kwave
          * @param property a Kwave FileProperty
          * @param chunk a 4-byte chunk name
          */
-        void insert(const Kwave::FileProperty property, const QByteArray &chunk);
+        void insert(const Kwave::FileProperty property,
+                    const QByteArray &chunk);
 
         /**
          * returns true if a given chunk is in the list

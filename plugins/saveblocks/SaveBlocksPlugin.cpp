@@ -223,7 +223,8 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
 //     qDebug("m_pattern        = '%s'", m_pattern.local8Bit().data());
 //     qDebug("m_numbering_mode = %d", (int)m_numbering_mode);
 //     qDebug("selection_only   = %d", selection_only);
-//     qDebug("indices          = %u...%u (count=%u)", first, first+count-1,count);
+//     qDebug("indices          = %u...%u (count=%u)", first,
+//             first + count - 1, count);
 
     // remember the original file info and determine the list of unsupported
     // properties, we need that later to avoid that the signal manager

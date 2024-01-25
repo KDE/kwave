@@ -57,7 +57,8 @@ Kwave::UndoAddMetaDataAction::UndoAddMetaDataAction(
             // check for a "start" property
             QVariant v = m[tag];
             bool ok = false;
-            sample_index_t pos = static_cast<sample_index_t>(v.toULongLong(&ok));
+            sample_index_t pos = static_cast<sample_index_t>(
+                v.toULongLong(&ok));
             if (ok && (pos < first)) first = pos;
             if (ok && (pos > last))  last  = pos;
         }

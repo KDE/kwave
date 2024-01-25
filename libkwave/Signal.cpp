@@ -325,14 +325,16 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //    if (((tst % 2)) == 0) {
 //      max = 2;
 //      tst /= 2;
-//      while ((tst % 2) == 0) tst /= 2;    //remove prime factor 2
+//      while ((tst % 2) == 0) tst /= 2;    // remove prime factor 2
 //    }
 //
 //
 //    for (int i = 3; i <= sqrt(tst); i += 2)
 //      if ((tst % i) == 0) {
 //          if (i > max) max = i;
-//          while ((tst % i) == 0) tst /= i;    //divide the current prime factor until it is not present any more
+//          while ((tst % i) == 0)
+//              tst /= i; // divide the current prime factor until
+//                        // it is not present any more
 //      }
 //
 //
@@ -351,7 +353,8 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //      int max = getMaxPrimeFactor (len);    //get biggest prime factor
 //
 //      if (max > MAXPRIME) {
-//          while ((len - reduce > MAXPRIME) && (getMaxPrimeFactor(len - reduce) > MAXPRIME)) reduce++;
+//          while ((len - reduce > MAXPRIME) && (
+//                 getMaxPrimeFactor(len - reduce) > MAXPRIME)) reduce++;
 //          len -= reduce;   //correct length of buffer to be transferred
 //      }
 //
@@ -417,13 +420,15 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 ////    while (page < len) {
 ////        if (page + points < len)
 ////            for (int i = 0; i < points; i++) {
-////                data[i].real = (windowfunction[i] * (double)(sample[begin + i]) / (1 << 23));
+////                data[i].real = (windowfunction[i] *
+////                    (double)(sample[begin + i]) / (1 << 23));
 ////                data[i].imag = 0;
 ////            }
 ////        else {
 ////            int i = 0;
 ////            for (; i < len - page; i++) {
-////                data[i].real = (windowfunction[i] * (double)(sample[begin + i]) / (1 << 23));
+////                data[i].real = (windowfunction[i] *
+////                    (double)(sample[begin + i]) / (1 << 23));
 ////                data[i].imag = 0;
 ////            }
 ////            for (; i < points; i++) {
@@ -471,7 +476,8 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //    if (move) {
 //      for (int i = 0; i < len; i++)
 //          //rescale range of filtermovement...
-//          move[i] = ((double)low) / 1000 + (((double)(high - low)) / 1000 * *move[i]);
+//          move[i] = ((double)low) / 1000 + (((double)(high - low)) / 1000 *
+//                    *move[i]);
 //
 //      double val;
 //      double addup = 0;
@@ -480,7 +486,8 @@ QUuid Kwave::Signal::uuidOfTrack(unsigned int track)
 //
 //      for (unsigned int j = 0; j < num; j++) {
 //          addup += fabs(filter->coeff(j));
-//          if (max < filter->delay(j)) max = filter->delay(j);   //find maximum offset
+//          if (max < filter->delay(j))
+//              max = filter->delay(j);   // find maximum offset
 //      }
 //
 //      if (filter->isFIR()) {

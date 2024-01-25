@@ -100,7 +100,8 @@ namespace Kwave
          * @param device filename of the device
          * @param min receives the lowest supported number of channels
          * @param max receives the highest supported number of channels
-         * @return zero or positive number if ok, negative error number if failed
+         * @return zero or positive number if ok,
+         *         negative error number if failed
          */
         virtual int detectChannels(const QString &device,
                                    unsigned int &min, unsigned int &max)

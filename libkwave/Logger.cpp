@@ -49,7 +49,8 @@ Kwave::Logger::Logger()
 Kwave::Logger::~Logger()
 {
     if (m_logfile) {
-        log(Q_NULLPTR, Kwave::Logger::Info, _("--- CLOSED / APPLICATION SHUTDOWN ---"));
+        log(Q_NULLPTR, Kwave::Logger::Info,
+            _("--- CLOSED / APPLICATION SHUTDOWN ---"));
         m_logfile->flush();
         delete m_logfile;
     }

@@ -34,7 +34,7 @@ namespace Kwave
         /**
          * Constructor
          * @param widget pointer to the parent widget
-         * @param filename_pattern the pattern used for generating the file names
+         * @param filename_pattern pattern used for generating the file names
          * @param numbering_mode the way the numbers are given
          * @param selection_only if true, save only the selection
          * @param have_selection if true, there is a selection

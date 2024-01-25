@@ -132,7 +132,9 @@ namespace Kwave
          */
         void sigSamplesWritten(sample_index_t);
 
-        /** Emitted when the internal buffer is flushed or the writer is closed */
+        /**
+         * Emitted when the internal buffer is flushed or the writer is closed
+         */
         void proceeded();
 
     public slots:

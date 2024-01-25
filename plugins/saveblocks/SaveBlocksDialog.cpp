@@ -71,7 +71,8 @@ QString Kwave::SaveBlocksDialog::pattern()
 }
 
 //***************************************************************************
-Kwave::SaveBlocksPlugin::numbering_mode_t Kwave::SaveBlocksDialog::numberingMode()
+Kwave::SaveBlocksPlugin::numbering_mode_t
+    Kwave::SaveBlocksDialog::numberingMode()
 {
     Q_ASSERT(m_widget);
     return (m_widget) ? m_widget->numberingMode() :

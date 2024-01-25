@@ -120,7 +120,8 @@ namespace Kwave
         virtual sample_index_t visibleOffset() { return m_offset; }
 
         /** Returns the preferred size of the widget */
-        virtual QSize sizeHint () const Q_DECL_OVERRIDE { return m_preferred_size; }
+        virtual QSize sizeHint () const Q_DECL_OVERRIDE
+            { return m_preferred_size; }
 
     protected:
 

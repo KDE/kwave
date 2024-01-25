@@ -103,15 +103,16 @@ namespace Kwave
          * @param method a playback_method_t (aRts, ALSA, OSS...)
          * @return a new PlayBackDevice or 0 if failed
          */
-        virtual Kwave::PlayBackDevice *createDevice(Kwave::playback_method_t method)
-            Q_DECL_OVERRIDE;
+        virtual Kwave::PlayBackDevice *createDevice(
+            Kwave::playback_method_t method) Q_DECL_OVERRIDE;
 
         /**
          * Returns a list of supported playback methods.
          * @return list of all supported playback methods, should not contain
          *         "any" or "invalid"
          */
-        virtual QList<Kwave::playback_method_t> supportedMethods() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::playback_method_t> supportedMethods()
+            Q_DECL_OVERRIDE;
 
     private:
 

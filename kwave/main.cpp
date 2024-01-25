@@ -100,10 +100,6 @@ static void addDataStrings(KAboutData &aboutdata)
         i18n("Packaging for Mandrake / X86_64"),
         _("stock@stokkie.net"),
         QString());
-//     aboutdata.addCredit(i18n("Diederick de Vries"),
-//                      i18n("Packaging for Crux Linux"),
-//                      _("diederick76@gmail.com"),
-//                      _("http://crux.nu/portdb/?command=viewport&repo=diederick&name=kwave"));
     aboutdata.addCredit(
         i18n("Martin Kuball"),
         i18n("Tester"),

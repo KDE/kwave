@@ -62,8 +62,8 @@ Kwave::WavPropertyMap::WavPropertyMap()
     insert(Kwave::INF_CD            ,"IPTR"); // part (?)
 
     // non-standard, probably only known by Kwave
-    insert(Kwave::INF_CONTACT       ,"cnt "); // contact information for creator
-    insert(Kwave::INF_ISRC          ,"isrc"); // International Standard Recording Code
+    insert(Kwave::INF_CONTACT       ,"cnt "); // contact inf. for creator
+    insert(Kwave::INF_ISRC          ,"isrc"); // Int. Standard Recording Code
     insert(Kwave::INF_LICENSE       ,"lic "); // license information
 }
 

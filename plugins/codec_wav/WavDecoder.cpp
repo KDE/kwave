@@ -306,7 +306,8 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
     CHECK(src.size() > static_cast<qint64>(sizeof(Kwave::wav_header_t) + 8))
 
     // get the header
-    src.read(reinterpret_cast<char *>(&header), sizeof(Kwave::wav_fmt_header_t));
+    src.read(reinterpret_cast<char *>(&header),
+             sizeof(Kwave::wav_fmt_header_t));
     header.min.format      = qFromLittleEndian<quint16>(header.min.format);
     header.min.channels    = qFromLittleEndian<quint16>(header.min.channels);
     header.min.samplerate  = qFromLittleEndian<quint32>(header.min.samplerate);
@@ -339,7 +340,8 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
         Q_ASSERT(repair_list);
         if (!repair_list) return false;
 
-        Kwave::RIFFChunk *root = (riff_chunk) ? riff_chunk : parser.findChunk("");
+        Kwave::RIFFChunk *root = (riff_chunk) ? riff_chunk :
+                                                parser.findChunk("");
 //      parser.dumpStructure();
 //      qDebug("riff chunk = %p, parser.findChunk('')=%p", riff_chunk,
 //          parser.findChunk(""));
@@ -542,9 +544,10 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
                      */
                     if (labl_chunk->name() != "labl") continue;
 
+                    /* dwIdentifier */
                     data = 0;
                     src.seek(labl_chunk->dataStart());
-                    src.read(reinterpret_cast<char *>(&data), 4); /* dwIdentifier */
+                    src.read(reinterpret_cast<char *>(&data), 4);
                     labl_index = qFromLittleEndian<quint32>(data);
                     if (labl_index == index) {
                         found = true;

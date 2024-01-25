@@ -27,62 +27,146 @@ namespace Kwave
 
     typedef enum /* Here is the list of known format tags */
     {
-        WAVE_FORMAT_UNKNOWN             = 0x0000, /* Microsoft Corporation */
-        WAVE_FORMAT_PCM                 = 0x0001, /* Microsoft PCM format */
+        /* Microsoft Corporation */
+        WAVE_FORMAT_UNKNOWN             = 0x0000,
 
-        WAVE_FORMAT_MS_ADPCM            = 0x0002, /* Microsoft ADPCM */
-        WAVE_FORMAT_IEEE_FLOAT          = 0x0003, /* Micrososft 32 bit float format */
+        /* Microsoft PCM format */
+        WAVE_FORMAT_PCM                 = 0x0001,
 
-        WAVE_FORMAT_IBM_CVSD            = 0x0005, /* IBM Corporation */
-        WAVE_FORMAT_ALAW                = 0x0006, /* Microsoft Corporation */
-        WAVE_FORMAT_MULAW               = 0x0007, /* Microsoft Corporation */
-        WAVE_FORMAT_OKI_ADPCM           = 0x0010, /* OKI */
-        WAVE_FORMAT_IMA_ADPCM           = 0x0011, /* Intel Corporation */
-        WAVE_FORMAT_MEDIASPACE_ADPCM    = 0x0012, /* Videologic */
-        WAVE_FORMAT_SIERRA_ADPCM        = 0x0013, /* Sierra Semiconductor Corp */
-        WAVE_FORMAT_G723_ADPCM          = 0x0014, /* Antex Electronics Corporation */
-        WAVE_FORMAT_DIGISTD             = 0x0015, /* DSP Solutions, Inc. */
-        WAVE_FORMAT_DIGIFIX             = 0x0016, /* DSP Solutions, Inc. */
-        WAVE_FORMAT_DIALOGIC_OKI_ADPCM  = 0x0017, /* Dialogic Corporation  */
-        WAVE_FORMAT_MEDIAVISION_ADPCM   = 0x0018, /* Media Vision, Inc. */
+        /* Microsoft ADPCM */
+        WAVE_FORMAT_MS_ADPCM            = 0x0002,
 
-        WAVE_FORMAT_YAMAHA_ADPCM        = 0x0020, /* Yamaha Corporation of America */
-        WAVE_FORMAT_SONARC              = 0x0021, /* Speech Compression */
-        WAVE_FORMAT_DSPGROUP_TRUESPEECH = 0x0022, /* DSP Group, Inc */
-        WAVE_FORMAT_ECHOSC1             = 0x0023, /* Echo Speech Corporation */
-        WAVE_FORMAT_AUDIOFILE_AF18      = 0x0024, /* Audiofile, Inc. */
-        WAVE_FORMAT_APTX                = 0x0025, /* Audio Processing Technology */
-        WAVE_FORMAT_AUDIOFILE_AF10      = 0x0026, /* Audiofile, Inc. */
+        /* Micrososft 32 bit float format */
+        WAVE_FORMAT_IEEE_FLOAT          = 0x0003,
 
-        WAVE_FORMAT_DOLBY_AC2           = 0x0030, /* Dolby Laboratories */
-        WAVE_FORMAT_GSM610              = 0x0031, /* Microsoft Corporation */
-        WAVE_FORMAT_MSNAUDIO            = 0x0032, /* Microsoft Corporation */
-        WAVE_FORMAT_ANTEX_ADPCME        = 0x0033, /* Antex Electronics Corporation */
-        WAVE_FORMAT_CONTROL_RES_VQLPC   = 0x0034, /* Control Resources Limited */
-        WAVE_FORMAT_DIGIREAL            = 0x0035, /* DSP Solutions, Inc. */
-        WAVE_FORMAT_DIGIADPCM           = 0x0036, /* DSP Solutions, Inc. */
-        WAVE_FORMAT_CONTROL_RES_CR10    = 0x0037, /* Control Resources Limited */
-        WAVE_FORMAT_NMS_VBXADPCM        = 0x0038, /* Natural MicroSystems */
-        WAVE_FORMAT_ROCKWELL_ADPCM      = 0x003B, /* Rockwell International */
-        WAVE_FORMAT_ROCKWELL_DIGITALK   = 0x003C, /* Rockwell International */
+        /* IBM Corporation */
+        WAVE_FORMAT_IBM_CVSD            = 0x0005,
 
-        WAVE_FORMAT_G721_ADPCM          = 0x0040, /* Antex Electronics Corporation */
-        WAVE_FORMAT_MPEG                = 0x0050, /* Microsoft Corporation */
+        /* Microsoft Corporation */
+        WAVE_FORMAT_ALAW                = 0x0006,
 
-        WAVE_FORMAT_MPEGLAYER3          = 0x0055, /* MPEG 3 Layer 1 */
+        /* Microsoft Corporation */
+        WAVE_FORMAT_MULAW               = 0x0007,
 
-        WAVE_FORMAT_IBM_MULAW           = 0x0101, /* IBM mu-law format */
-        WAVE_FORMAT_IBM_ALAW            = 0x0102, /* IBM a-law format */
-        WAVE_FORMAT_IBM_ADPCM           = 0x0103, /* IBM AVC Adaptive Differential PCM format */
+        /* OKI */
+        WAVE_FORMAT_OKI_ADPCM           = 0x0010,
 
-        WAVE_FORMAT_CREATIVE_ADPCM      = 0x0200, /* Creative Labs, Inc */
+        /* Intel Corporation */
+        WAVE_FORMAT_IMA_ADPCM           = 0x0011,
 
-        WAVE_FORMAT_FM_TOWNS_SND        = 0x0300, /* Fujitsu Corp. */
-        WAVE_FORMAT_OLIGSM              = 0x1000, /* Ing C. Olivetti & C., S.p.A. */
-        WAVE_FORMAT_OLIADPCM            = 0x1001, /* Ing C. Olivetti & C., S.p.A. */
-        WAVE_FORMAT_OLICELP             = 0x1002, /* Ing C. Olivetti & C., S.p.A. */
-        WAVE_FORMAT_OLISBC              = 0x1003, /* Ing C. Olivetti & C., S.p.A. */
-        WAVE_FORMAT_OLIOPR              = 0x1004, /* Ing C. Olivetti & C., S.p.A. */
+        /* Videologic */
+        WAVE_FORMAT_MEDIASPACE_ADPCM    = 0x0012,
+
+        /* Sierra Semiconductor Corp */
+        WAVE_FORMAT_SIERRA_ADPCM        = 0x0013,
+
+        /* Antex Electronics Corporation */
+        WAVE_FORMAT_G723_ADPCM          = 0x0014,
+
+        /* DSP Solutions, Inc. */
+        WAVE_FORMAT_DIGISTD             = 0x0015,
+
+        /* DSP Solutions, Inc. */
+        WAVE_FORMAT_DIGIFIX             = 0x0016,
+
+        /* Dialogic Corporation  */
+        WAVE_FORMAT_DIALOGIC_OKI_ADPCM  = 0x0017,
+
+        /* Media Vision, Inc. */
+        WAVE_FORMAT_MEDIAVISION_ADPCM   = 0x0018,
+
+        /* Yamaha Corporation of America */
+        WAVE_FORMAT_YAMAHA_ADPCM        = 0x0020,
+
+        /* Speech Compression */
+        WAVE_FORMAT_SONARC              = 0x0021,
+
+        /* DSP Group, Inc */
+        WAVE_FORMAT_DSPGROUP_TRUESPEECH = 0x0022,
+
+        /* Echo Speech Corporation */
+        WAVE_FORMAT_ECHOSC1             = 0x0023,
+
+        /* Audiofile, Inc. */
+        WAVE_FORMAT_AUDIOFILE_AF18      = 0x0024,
+
+        /* Audio Processing Technology */
+        WAVE_FORMAT_APTX                = 0x0025,
+
+        /* Audiofile, Inc. */
+        WAVE_FORMAT_AUDIOFILE_AF10      = 0x0026,
+
+        /* Dolby Laboratories */
+        WAVE_FORMAT_DOLBY_AC2           = 0x0030,
+
+        /* Microsoft Corporation */
+        WAVE_FORMAT_GSM610              = 0x0031,
+
+        /* Microsoft Corporation */
+        WAVE_FORMAT_MSNAUDIO            = 0x0032,
+
+        /* Antex Electronics Corporation */
+        WAVE_FORMAT_ANTEX_ADPCME        = 0x0033,
+
+        /* Control Resources Limited */
+        WAVE_FORMAT_CONTROL_RES_VQLPC   = 0x0034,
+
+        /* DSP Solutions, Inc. */
+        WAVE_FORMAT_DIGIREAL            = 0x0035,
+
+        /* DSP Solutions, Inc. */
+        WAVE_FORMAT_DIGIADPCM           = 0x0036,
+
+        /* Control Resources Limited */
+        WAVE_FORMAT_CONTROL_RES_CR10    = 0x0037,
+
+        /* Natural MicroSystems */
+        WAVE_FORMAT_NMS_VBXADPCM        = 0x0038,
+
+        /* Rockwell International */
+        WAVE_FORMAT_ROCKWELL_ADPCM      = 0x003B,
+
+        /* Rockwell International */
+        WAVE_FORMAT_ROCKWELL_DIGITALK   = 0x003C,
+
+        /* Antex Electronics Corporation */
+        WAVE_FORMAT_G721_ADPCM          = 0x0040,
+
+        /* Microsoft Corporation */
+        WAVE_FORMAT_MPEG                = 0x0050,
+
+        /* MPEG 3 Layer 1 */
+        WAVE_FORMAT_MPEGLAYER3          = 0x0055,
+
+        /* IBM mu-law format */
+        WAVE_FORMAT_IBM_MULAW           = 0x0101,
+
+        /* IBM a-law format */
+        WAVE_FORMAT_IBM_ALAW            = 0x0102,
+
+        /* IBM AVC Adaptive Differential PCM format */
+        WAVE_FORMAT_IBM_ADPCM           = 0x0103,
+
+        /* Creative Labs, Inc */
+        WAVE_FORMAT_CREATIVE_ADPCM      = 0x0200,
+
+        /* Fujitsu Corp. */
+        WAVE_FORMAT_FM_TOWNS_SND        = 0x0300,
+
+        /* Ing C. Olivetti & C., S.p.A. */
+        WAVE_FORMAT_OLIGSM              = 0x1000,
+
+        /* Ing C. Olivetti & C., S.p.A. */
+        WAVE_FORMAT_OLIADPCM            = 0x1001,
+
+        /* Ing C. Olivetti & C., S.p.A. */
+        WAVE_FORMAT_OLICELP             = 0x1002,
+
+        /* Ing C. Olivetti & C., S.p.A. */
+        WAVE_FORMAT_OLISBC              = 0x1003,
+
+        /* Ing C. Olivetti & C., S.p.A. */
+        WAVE_FORMAT_OLIOPR              = 0x1004,
 
         WAVE_FORMAT_EXTENSIBLE          = 0xFFFE
     } wav_format_id;

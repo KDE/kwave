@@ -38,7 +38,8 @@ namespace Kwave
     template <class IDX, class DATA> class TypesMap
     {
     private:
-        typedef QMap <IDX, Kwave::Triple <DATA, QString, KLazyLocalizedString> > TripleMap;
+        typedef QMap <IDX, Kwave::Triple <DATA, QString,
+                      KLazyLocalizedString> > TripleMap;
 
     public:
         /**

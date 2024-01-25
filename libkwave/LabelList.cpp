@@ -37,7 +37,8 @@ Kwave::LabelList::LabelList(const Kwave::MetaDataList &meta_data_list)
     if (!meta_data_list.isEmpty()) {
         // get a list sorted by position
         QList<Kwave::MetaData> list =
-            meta_data_list.selectByType(Kwave::Label::metaDataType()).toSortedList();
+            meta_data_list.selectByType(
+                Kwave::Label::metaDataType()).toSortedList();
 
         if (!list.isEmpty()) {
             // append a label for each meta data object

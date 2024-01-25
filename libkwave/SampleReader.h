@@ -136,7 +136,9 @@ namespace Kwave
 
     signals:
 
-        /** Emitted when the internal buffer is filled or the reader is closed */
+        /**
+         * Emitted when the internal buffer is filled or the reader is closed
+         */
         void proceeded();
 
         /**

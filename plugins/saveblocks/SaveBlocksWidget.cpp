@@ -106,7 +106,8 @@ QString Kwave::SaveBlocksWidget::pattern()
 }
 
 //***************************************************************************
-Kwave::SaveBlocksPlugin::numbering_mode_t Kwave::SaveBlocksWidget::numberingMode()
+Kwave::SaveBlocksPlugin::numbering_mode_t
+    Kwave::SaveBlocksWidget::numberingMode()
 {
     Q_ASSERT(cbNumbering);
     return (cbNumbering) ?

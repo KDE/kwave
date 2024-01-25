@@ -964,8 +964,10 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
                         extension = ext;
                         QString new_filename = current_url.fileName();
                         new_filename += extension.midRef(1); // remove the "*"
-                        current_url = current_url.adjusted(QUrl::RemoveFilename);
-                        current_url.setPath(current_url.path() + new_filename);
+                        current_url = current_url.adjusted(
+                            QUrl::RemoveFilename);
+                        current_url.setPath(current_url.path() +
+                            new_filename);
                     }
                 }
             }

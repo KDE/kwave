@@ -766,8 +766,9 @@ bool Kwave::RIFFParser::joinGarbageToEmpty()
                 (!isKnownName(next->name())) )
             {
                 quint32 len = next->physLength() + 4;
-                qDebug("joining garbage to empty chunk '%s' at 0x%08X, %u bytes",
-                    chunk->name().data(), chunk->physStart(), len);
+                qDebug("joining garbage to empty chunk '%s' "
+                       "at 0x%08X, %u bytes",
+                       chunk->name().data(), chunk->physStart(), len);
                 chunk->setLength(len);
                 chunk->setType(guessType(chunk->name()));
 

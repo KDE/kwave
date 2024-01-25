@@ -82,8 +82,8 @@ namespace Kwave
 
         /** @see QList::isEmpty() */
         inline virtual bool isEmpty() const {
-            return
-                (Kwave::MultiTrackSource<Kwave::SampleReader, false>::tracks() < 1);
+            return (Kwave::MultiTrackSource<Kwave::SampleReader,
+                    false>::tracks() < 1);
         }
 
         /** @see QList::insert() */

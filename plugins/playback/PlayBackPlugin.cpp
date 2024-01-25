@@ -446,7 +446,8 @@ void Kwave::PlayBackPlugin::testPlayBack()
                 Qt::QueuedConnection);
         connect(this, SIGNAL(sigDone(Kwave::Plugin*)), progress, SLOT(close()),
                 Qt::QueuedConnection);
-        connect(this, SIGNAL(sigTestProgress(int)), progress, SLOT(setValue(int)),
+        connect(this, SIGNAL(sigTestProgress(int)),
+                progress, SLOT(setValue(int)),
                 Qt::QueuedConnection);
 
         QStringList params;

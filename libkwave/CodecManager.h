@@ -108,7 +108,8 @@ namespace Kwave
 
         /**
          * Tries to find the name of a mime type of a decoder by a URL.
-         * If not found, it returns the default mime type, never an empty string.
+         * If not found, it returns the default mime type, never an empty
+         * string.
          * @param url a QUrl, only the filename's extension will be inspected
          * @return name of the mime type or the default mime type
          */

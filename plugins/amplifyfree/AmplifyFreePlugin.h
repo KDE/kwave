@@ -48,11 +48,12 @@ namespace Kwave
         virtual ~AmplifyFreePlugin() Q_DECL_OVERRIDE;
 
         /**
-         * Shows a dialog for editing the amplification curve and emits a command
-         * for applying the curve if OK has been pressed.
+         * Shows a dialog for editing the amplification curve and emits a
+         * command for applying the curve if OK has been pressed.
          * @see Kwave::Plugin::setup
          */
-        virtual QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &previous_params)
+        Q_DECL_OVERRIDE;
 
         /**
          * Does the fade operation

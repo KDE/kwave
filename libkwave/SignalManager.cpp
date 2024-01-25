@@ -576,7 +576,8 @@ QString Kwave::SignalManager::signalName()
 {
     // if a file is loaded -> path of the URL if it has one
     QUrl url;
-    url = QUrl(Kwave::FileInfo(m_meta_data).get(Kwave::INF_FILENAME).toString());
+    url = QUrl(Kwave::FileInfo(m_meta_data).get(
+               Kwave::INF_FILENAME).toString());
     if (url.isValid()) return url.path();
 
     // we have something, but no name yet
@@ -1994,9 +1995,11 @@ void Kwave::SignalManager::checkSelectionChange()
 
     if (range_modified || tracks_modified) {
         // selection has changed since last undo/redo operation
-//      qDebug("SignalManager::checkSelectionChange() => manually modified");
-//      qDebug("    before: [%8u...%8u]", m_last_selection.first(), m_last_selection.last());
-//      qDebug("    after : [%8u...%8u]", m_selection.first(),      m_selection.last());
+        // qDebug("SignalManager::checkSelectionChange() => manually modified");
+        // qDebug("    before: [%8u...%8u]", m_last_selection.first(),
+        //                                   m_last_selection.last());
+        // qDebug("    after : [%8u...%8u]", m_selection.first(),
+        //                                   m_selection.last());
 
         // temporarily activate the previous selection (last stored)
         Kwave::Selection new_selection(m_selection);

@@ -194,7 +194,8 @@ bool Kwave::MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header,
         info.set(Kwave::INF_MPEG_EMPHASIS, header.emphasis);
 
     if (header.privatebit)  info.set(Kwave::INF_PRIVATE, header.privatebit);
-    if (header.copyrighted) info.set(Kwave::INF_COPYRIGHTED, header.copyrighted);
+    if (header.copyrighted) info.set(Kwave::INF_COPYRIGHTED,
+                                     header.copyrighted);
     if (header.original)    info.set(Kwave::INF_ORIGINAL, header.original);
 
     info.setRate(header.frequency); // sample rate

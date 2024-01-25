@@ -283,7 +283,8 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     m_status_bar.m_bits_per_sample = new(std::nothrow) QLabel(_(" "));
     Q_ASSERT(m_status_bar.m_bits_per_sample);
     if (!m_status_bar.m_bits_per_sample) return;
-    m_status_bar.m_bits_per_sample->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    m_status_bar.m_bits_per_sample->setAlignment(
+        Qt::AlignRight | Qt::AlignVCenter);
     lbl_state->addWidget(m_status_bar.m_bits_per_sample);
 
     m_status_bar.m_tracks = new(std::nothrow) QLabel(_(" "));

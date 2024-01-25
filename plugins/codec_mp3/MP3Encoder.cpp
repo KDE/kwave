@@ -395,11 +395,13 @@ bool Kwave::MP3Encoder::encode(QWidget *widget, Kwave::MultiTrackReader &src,
     OPTION(m_encoding.m_noise_shaping); // noise shaping settings
     OPTION(m_encoding.m_compatibility); // compatibility options
 
-    if (info.contains(Kwave::INF_COPYRIGHTED) && info.get(Kwave::INF_COPYRIGHTED).toBool()) {
+    if (info.contains(Kwave::INF_COPYRIGHTED) &&
+        info.get(Kwave::INF_COPYRIGHTED).toBool()) {
         OPTION(m_flags.m_copyright);     // copyrighted
     }
 
-    if (info.contains(Kwave::INF_ORIGINAL) && !info.get(Kwave::INF_ORIGINAL).toBool()) {
+    if ( info.contains(Kwave::INF_ORIGINAL) &&
+        !info.get(Kwave::INF_ORIGINAL).toBool()) {
         OPTION(m_flags.m_original);     // original
     }
 

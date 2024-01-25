@@ -75,7 +75,8 @@ static QString sanitized(const QString &in)
 /***************************************************************************/
 void Kwave::MP3EncoderSettings::load()
 {
-    KConfigGroup cfg = KSharedConfig::openConfig()->group(MP3_ENCODER_CONFIG_GROUP);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(
+        MP3_ENCODER_CONFIG_GROUP);
 
     LOAD(m_name,                           "name_______________________");
     LOAD(m_path,                           "path_______________________");
@@ -113,7 +114,8 @@ void Kwave::MP3EncoderSettings::load()
 /***************************************************************************/
 void Kwave::MP3EncoderSettings::save()
 {
-    KConfigGroup cfg = KSharedConfig::openConfig()->group(MP3_ENCODER_CONFIG_GROUP);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(
+        MP3_ENCODER_CONFIG_GROUP);
 
     SAVE(m_name,                           "name_______________________");
     SAVE(m_path,                           "path_______________________");

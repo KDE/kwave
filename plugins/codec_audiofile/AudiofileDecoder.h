@@ -58,7 +58,8 @@ namespace Kwave
          * @param dst MultiWriter that receives the audio data
          * @return true if succeeded, false on errors
          */
-        virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst) Q_DECL_OVERRIDE;
+        virtual bool decode(QWidget *widget, Kwave::MultiWriter &dst)
+            Q_DECL_OVERRIDE;
 
         /**
          * Closes the source.

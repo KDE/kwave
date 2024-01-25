@@ -30,11 +30,12 @@ Kwave::MultiTrackReader::MultiTrackReader()
 }
 
 //***************************************************************************
-Kwave::MultiTrackReader::MultiTrackReader(Kwave::ReaderMode mode,
-                                          Kwave::SignalManager &signal_manager,
-                                          const QVector<unsigned int> &track_list,
-                                          sample_index_t first,
-                                          sample_index_t last)
+Kwave::MultiTrackReader::MultiTrackReader(
+    Kwave::ReaderMode mode,
+    Kwave::SignalManager &signal_manager,
+    const QVector<unsigned int> &track_list,
+    sample_index_t first,
+    sample_index_t last)
     :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, Q_NULLPTR),
      m_first(first), m_last(last)
 {

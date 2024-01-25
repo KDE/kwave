@@ -262,7 +262,8 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
         // if the sample rate has to be converted, adjust the length
         // right border
-        if (!qFuzzyCompare(src_rate, dst_rate) && (dst_rate > 1) && sig.tracks())
+        if ( !qFuzzyCompare(src_rate, dst_rate) && (dst_rate > 1) &&
+             sig.tracks() )
             decoded_length = qRound(static_cast<double>(decoded_length) *
                 (dst_rate / src_rate));
 

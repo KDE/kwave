@@ -84,7 +84,8 @@ static uint32_t arch_accel (void)
   ( defined(__SSE__) && defined(__SSE2__) && defined(__MMX__) )
   /* No need to test for this on AMD64, we know what the
      platform has.  */
-  caps = MM_ACCEL_X86_MMX | MM_ACCEL_X86_SSE | MM_ACCEL_X86_MMXEXT | MM_ACCEL_X86_SSE2
+  caps = MM_ACCEL_X86_MMX | MM_ACCEL_X86_SSE | MM_ACCEL_X86_MMXEXT |
+         MM_ACCEL_X86_SSE2
 #  if defined(__3dNOW__)
     | MM_ACCEL_X86_3DNOW
 #  endif
@@ -405,7 +406,8 @@ uint32_t xine_mm_accel (void)
 #ifdef MLIB_LAZYLOAD
     void *hndl;
 
-    if ((hndl = dlopen("libmlib.so.2", RTLD_LAZY | RTLD_GLOBAL | RTLD_NODELETE)) != NULL) {
+    if ((hndl = dlopen("libmlib.so.2", RTLD_LAZY | RTLD_GLOBAL |
+                                       RTLD_NODELETE)) != NULL) {
       dlclose(hndl);
       accel |= MM_ACCEL_MLIB;
     }
@@ -414,7 +416,9 @@ uint32_t xine_mm_accel (void)
 #endif
 #endif
 
-#if defined(__i386__) || defined(__x86_64__) || (defined(ARCH_PPC) && defined(ENABLE_ALTIVEC)) || (defined(ARCH_SPARC) && defined(ENABLE_VIS))
+#if defined(__i386__) || defined(__x86_64__) || \
+    (defined(ARCH_PPC) && defined(ENABLE_ALTIVEC)) || \
+    (defined(ARCH_SPARC) && defined(ENABLE_VIS))
     accel |= arch_accel();
 #endif
 

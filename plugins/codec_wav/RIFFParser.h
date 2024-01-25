@@ -147,7 +147,9 @@ namespace Kwave
         /** Returns true if the given chunk name is valid */
         bool isValidName(const char *name);
 
-        /** Returns true if the given chunk name is known as main or sub chunk */
+        /**
+         * Returns true if the given chunk name is known as main or sub chunk
+         */
         bool isKnownName(const QByteArray &name);
 
         /**
@@ -240,8 +242,8 @@ namespace Kwave
         void collectGarbage();
 
         /**
-         * joins garbage to previous empty chunks. If a chunk follows a previously
-         * empty chunk with an unknown name it will be joined too.
+         * joins garbage to previous empty chunks. If a chunk follows a
+         * previously empty chunk with an unknown name it will be joined too.
          * @return true if it needs an additional pass
          */
         bool joinGarbageToEmpty();

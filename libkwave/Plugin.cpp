@@ -291,7 +291,8 @@ void Kwave::Plugin::updateProgressTick()
 
     QMutexLocker lock(&m_progress_lock);
     if (m_progress) m_progress->setValue(
-        Kwave::toInt(qBound<double>(0.0, m_current_progress, PROGRESS_MAXIMUM)));
+        Kwave::toInt(qBound<double>(0.0, m_current_progress,
+                                    PROGRESS_MAXIMUM)));
 }
 
 //***************************************************************************

@@ -698,7 +698,8 @@ void Kwave::RecordPlugin::changeCompression(
         // revert to the current device setting if failed
         if (compression != m_device->compression()) {
             const QString c1(Kwave::Compression(compression).name());
-            const QString c2(Kwave::Compression(m_device->compression()).name());
+            const QString c2(Kwave::Compression(m_device->compression()
+                             ).name());
             notice(i18n("Compression '%1' failed, using '%2'.", c1 ,c2));
         }
         compression = m_device->compression();
@@ -1523,8 +1524,10 @@ void Kwave::RecordPlugin::processBuffer()
     // note: this might change the state, which affects the
     //       processing of all tracks !
     if ((m_state == Kwave::REC_WAITING_FOR_TRIGGER) ||
-        ((m_state == Kwave::REC_PRERECORDING) && params.record_trigger_enabled) ||
-        ((m_state == Kwave::REC_PRERECORDING) && params.start_time_enabled))
+        ((m_state == Kwave::REC_PRERECORDING) &&
+          params.record_trigger_enabled) ||
+        ((m_state == Kwave::REC_PRERECORDING) &&
+          params.start_time_enabled))
     {
         for (unsigned int track=0; track < tracks; ++track) {
             // split off and decode buffer with current track

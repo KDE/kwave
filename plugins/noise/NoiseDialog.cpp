@@ -281,7 +281,8 @@ void Kwave::NoiseDialog::updateDisplay(double value)
     }
 
     // update the spinbox
-    if (spinbox->value() != new_spinbox_value) spinbox->setValue(new_spinbox_value);
+    if (spinbox->value() != new_spinbox_value)
+        spinbox->setValue(new_spinbox_value);
 
     // update the slider, it's inverse => top=maximum, bottom=minimum !
     int sv = slider->maximum() + slider->minimum() - new_slider_value;

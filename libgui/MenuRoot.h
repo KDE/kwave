@@ -89,7 +89,8 @@ namespace Kwave
         virtual Kwave::MenuSub *insertBranch(const QString &name,
                                              const QString &command,
                                              const QKeySequence &shortcut,
-                                             const QString &uid) Q_DECL_OVERRIDE;
+                                             const QString &uid)
+                                             Q_DECL_OVERRIDE;
 
         /**
          * Inserts a new leaf node into the menu structure. The new node
@@ -104,7 +105,8 @@ namespace Kwave
         virtual Kwave::MenuNode *insertLeaf(const QString &name,
                                             const QString &command,
                                             const QKeySequence &shortcut,
-                                            const QString &uid) Q_DECL_OVERRIDE;
+                                            const QString &uid)
+                                            Q_DECL_OVERRIDE;
 
         /**
          * Removes a child node of the current node. If the child

@@ -36,7 +36,8 @@ QString Kwave::GenreType::name(int id, bool localized)
     fill();
 
     if (m_map.contains(id))
-        return (localized) ? m_map[id].toString() : _(m_map[id].untranslatedText());
+        return (localized) ? m_map[id].toString() :
+                           _(m_map[id].untranslatedText());
     else
         return QString::number(id);
 }
@@ -65,8 +66,9 @@ int Kwave::GenreType::id(const QString &name)
     fill();
     QMap<int, KLazyLocalizedString>::Iterator it;
     for (it = m_map.begin(); it != m_map.end(); ++it) {
-        if (!_(it.value().untranslatedText()).compare(name, Qt::CaseInsensitive))
-            return it.key();
+        if (!_(it.value().untranslatedText()).compare(name,
+            Qt::CaseInsensitive))
+                return it.key();
         if (it.value().toString().compare(name, Qt::CaseInsensitive) == 0)
             return it.key();
     }
@@ -80,7 +82,8 @@ QStringList Kwave::GenreType::allTypes()
     fill();
 
     QStringList list;
-    for (QMap<int, KLazyLocalizedString>::const_iterator it = m_map.constBegin();
+    for (QMap<int, KLazyLocalizedString>::const_iterator
+         it = m_map.constBegin();
          it != m_map.constEnd(); ++it)
     {
         list.append(it.value().toString());

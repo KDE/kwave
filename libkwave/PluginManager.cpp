@@ -486,7 +486,8 @@ Kwave::PlaybackController &Kwave::PluginManager::playbackController()
 }
 
 //***************************************************************************
-void Kwave::PluginManager::insertView(Kwave::SignalView *view, QWidget *controls)
+void Kwave::PluginManager::insertView(Kwave::SignalView *view,
+                                      QWidget *controls)
 {
     if (m_view_manager)
         m_view_manager->insertView(view, controls);

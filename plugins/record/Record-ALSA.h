@@ -84,7 +84,8 @@ namespace Kwave
          * If the detection fails, minimum and maximum are set to zero.
          * @param min receives the lowest supported number of tracks
          * @param max receives the highest supported number of tracks
-         * @return zero or positive number if ok, negative error number if failed
+         * @return zero or positive number if ok,
+         *         negative error number if failed
          */
         virtual int detectTracks(unsigned int &min, unsigned int &max)
             Q_DECL_OVERRIDE;

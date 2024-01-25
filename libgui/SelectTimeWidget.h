@@ -64,7 +64,8 @@ namespace Kwave
          *                      for converting samples to percentage
          */
         virtual void init(Mode mode, quint64 range, double sample_rate,
-                          sample_index_t offset, sample_index_t signal_length);
+                          sample_index_t offset,
+                          sample_index_t signal_length);
 
         /** Destructor */
         virtual ~SelectTimeWidget();
@@ -72,7 +73,9 @@ namespace Kwave
         /** Sets a new selection mode */
         void setMode(Mode new_mode);
 
-        /** Returns the current selection mode (byTime, bySamples, byPercents) */
+        /**
+         * Returns the current selection mode (byTime, bySamples, byPercents)
+         */
         Mode mode() const { return m_mode; }
 
         /** Returns the number of ms, samples or percents */

@@ -574,7 +574,8 @@ void Kwave::PlayBackDialog::setBitsPerSample(unsigned int bits)
 }
 
 //***************************************************************************
-void Kwave::PlayBackDialog::setSupportedChannels(unsigned int min, unsigned int max)
+void Kwave::PlayBackDialog::setSupportedChannels(unsigned int min,
+                                                 unsigned int max)
 {
     Q_ASSERT(sbChannels);
     if (!sbChannels) return;

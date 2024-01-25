@@ -77,7 +77,8 @@ namespace Kwave
 
         /**
          * Returns the if of a type through it's name.
-         * @param name the short name of the interpolation, like used in a command
+         * @param name the short name of the interpolation,
+         *             like used in a command
          * @return the interpolation
          */
         static Kwave::interpolation_t find(const QString &name)

@@ -39,7 +39,8 @@ namespace Kwave
 
         /**
          * Constructor, creates a label list from a list of meta data objects,
-         * by filtering out all objects of label type (already sorted by position)
+         * by filtering out all objects of label type (already sorted by
+         * position)
          * @param meta_data_list list of meta data
          */
         explicit LabelList(const Kwave::MetaDataList &meta_data_list);

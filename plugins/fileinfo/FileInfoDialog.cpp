@@ -81,7 +81,8 @@ Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)
             this,   SLOT(invokeHelp()));
 
     // open config for reading default settings
-    KConfigGroup cfg = KSharedConfig::openConfig()->group(CONFIG_DEFAULT_SECTION);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(
+        CONFIG_DEFAULT_SECTION);
 
     setupFileInfoTab();
     setupCompressionTab(cfg);
@@ -463,7 +464,8 @@ void Kwave::FileInfoDialog::setupContentTab()
     /* date widget */
     initInfo(lblDate, dateEdit, Kwave::INF_CREATION_DATE);
     QDate date;
-    QString date_str = QVariant(m_info.get(Kwave::INF_CREATION_DATE)).toString();
+    QString date_str =
+        QVariant(m_info.get(Kwave::INF_CREATION_DATE)).toString();
     if (m_info.contains(Kwave::INF_CREATION_DATE)) {
         if (date_str.length())
             date = QDate::fromString(date_str, Qt::ISODate);
@@ -546,9 +548,11 @@ void Kwave::FileInfoDialog::setupMiscellaneousTab()
     lblKeywords->setText(i18n(m_info.name(Kwave::INF_KEYWORDS).toLatin1()));
     lstKeywords->setWhatsThis(_("<b>") +
         i18n(m_info.name(Kwave::INF_KEYWORDS).toLatin1()) +
-        _("</b><br>") + i18n(m_info.description(Kwave::INF_KEYWORDS).toLatin1()));
+        _("</b><br>") +
+        i18n(m_info.description(Kwave::INF_KEYWORDS).toLatin1()));
     if (m_info.contains(Kwave::INF_KEYWORDS)) {
-        QString keywords = QVariant(m_info.get(Kwave::INF_KEYWORDS)).toString();
+        QString keywords =
+            QVariant(m_info.get(Kwave::INF_KEYWORDS)).toString();
         lstKeywords->setKeywords(keywords.split(_(";")));
     }
     connect(lstKeywords, SIGNAL(autoGenerate()),
@@ -613,7 +617,8 @@ void Kwave::FileInfoDialog::updateAvailableCompressions()
         foreach (QString m, mime_types) {
             Kwave::Encoder *encoder = Kwave::CodecManager::encoder(m);
             if (!encoder) continue;
-            QList<Kwave::Compression::Type> comps = encoder->compressionTypes();
+            QList<Kwave::Compression::Type> comps =
+                encoder->compressionTypes();
             foreach (Kwave::Compression::Type c, comps)
                 if (!supported_compressions.contains(c))
                     supported_compressions.append(c);
@@ -935,7 +940,8 @@ void Kwave::FileInfoDialog::acceptEdit(Kwave::FileProperty property,
 void Kwave::FileInfoDialog::accept()
 {
     // save defaults for next time...
-    KConfigGroup cfg = KSharedConfig::openConfig()->group(CONFIG_DEFAULT_SECTION);
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(
+        CONFIG_DEFAULT_SECTION);
     cfg.sync();
     {
         int nominal, upper, lower;
@@ -1084,14 +1090,15 @@ void Kwave::FileInfoDialog::accept()
     acceptEdit(Kwave::INF_ALBUM,       edAlbum->text());
 
     /* CD and track */
+    QVariant empty;
     int cd     = sbCD->value();
     int cds    = sbCDs->value();
     int track  = sbTrack->value();
     int tracks = sbTracks->value();
-    m_info.set(Kwave::INF_CD,     (cd     != 0) ? QVariant(cd)     : QVariant());
-    m_info.set(Kwave::INF_CDS,    (cds    != 0) ? QVariant(cds)    : QVariant());
-    m_info.set(Kwave::INF_TRACK,  (track  != 0) ? QVariant(track)  : QVariant());
-    m_info.set(Kwave::INF_TRACKS, (tracks != 0) ? QVariant(tracks) : QVariant());
+    m_info.set(Kwave::INF_CD,     (cd     != 0) ? QVariant(cd)     : empty);
+    m_info.set(Kwave::INF_CDS,    (cds    != 0) ? QVariant(cds)    : empty);
+    m_info.set(Kwave::INF_TRACK,  (track  != 0) ? QVariant(track)  : empty);
+    m_info.set(Kwave::INF_TRACKS, (tracks != 0) ? QVariant(tracks) : empty);
 
     /* product, archival, contact */
     acceptEdit(Kwave::INF_PRODUCT,     edProduct->text());

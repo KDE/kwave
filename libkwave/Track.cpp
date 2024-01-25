@@ -123,7 +123,8 @@ Kwave::Stripe Kwave::Track::splitStripe(Kwave::Stripe &stripe,
     // shrink the old stripe
     stripe.resize(offset);
 
-//     qDebug("Kwave::Track::splitStripe(%p, %u): new stripe at [%u ... %u] (%u)",
+//     qDebug("Kwave::Track::splitStripe(%p, %u): new stripe at "
+//            "[%u ... %u] (%u)",
 //            stripe, offset, s->start(), s->end(), s->length());
 
     return s;
@@ -331,7 +332,8 @@ bool Kwave::Track::insertSpace(sample_index_t offset, sample_index_t shift)
                 sample_index_t start  = s.start();
                 if (start >= offset) break; // not "within" the stripe
 
-//              qDebug("Kwave::Track::insertSpace => splitting [%u...%u]",start,end);
+//              qDebug("Kwave::Track::insertSpace => splitting [%u...%u]",
+//                     start,end);
                 Stripe new_stripe = splitStripe(s,
                     Kwave::toUint(offset - start)
                 );
@@ -344,7 +346,8 @@ bool Kwave::Track::insertSpace(sample_index_t offset, sample_index_t shift)
 //          qDebug("Kwave::Track::insertSpace => moving right");
             moveRight(offset, shift);
         } else {
-//          qDebug("Kwave::Track::insertSpace => appending stripe at %u", offset + shift - 1);
+//          qDebug("Kwave::Track::insertSpace => appending stripe at %u",
+//                  offset + shift - 1);
             Stripe s(offset + shift - 1);
             s.resize(1);
             if (s.length()) m_stripes.append(s);

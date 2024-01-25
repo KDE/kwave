@@ -69,7 +69,8 @@ namespace Kwave
          * @param info reference to a FileInfo to fill
          * @return -1 if failed or +1 if succeeded
          */
-        virtual int open(QWidget *widget, Kwave::FileInfo &info) Q_DECL_OVERRIDE;
+        virtual int open(QWidget *widget, Kwave::FileInfo &info)
+            Q_DECL_OVERRIDE;
 
         /**
          * decode received ogg data

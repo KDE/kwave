@@ -57,7 +57,7 @@ namespace Kwave
         /**
          * Creates a setup dialog an returns a pointer to it.
          */
-        virtual Kwave::PluginSetupDialog *createDialog(QWidget * /*parent*/) = 0;
+        virtual Kwave::PluginSetupDialog *createDialog(QWidget *) = 0;
 
         /**
          * Creates a multi-track filter with the given number of tracks
@@ -70,7 +70,8 @@ namespace Kwave
          * Shows a dialog for setting up the filter plugin
          * @see Kwave::Plugin::setup
          */
-        virtual QStringList *setup(QStringList &previous_params) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &previous_params)
+            Q_DECL_OVERRIDE;
 
         /**
          * Does the filter operation and/or pre-listen

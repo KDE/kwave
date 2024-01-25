@@ -185,7 +185,8 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
 
     // -- playback position update --
 
-    const Kwave::PlaybackController &playback = signal_manager->playbackController();
+    const Kwave::PlaybackController &playback =
+        signal_manager->playbackController();
     connect(&playback, SIGNAL(sigPlaybackPos(sample_index_t)),
         m_overview, SLOT(showCursor(sample_index_t)));
     connect(&playback, SIGNAL(sigPlaybackStopped()),
@@ -1129,220 +1130,230 @@ bool Kwave::MainWidget::labelProperties(Kwave::Label &label)
     return accepted;
 }
 
-// ////****************************************************************************
-// //void MainWidget::markSignal (const char *str)
-// //{
-// //    if (signalmanage) {
-// //   Kwave::Label *newmark;
-// //
-// //   Kwave::Parser parser (str);
-// //
-// //   int level = (int) (parser.toDouble() / 100 * (1 << 23));
-// //
-// //   int len = signalmanage->getLength();
-// //   int *sam = signalmanage->getSignal(0)->getSample();    // ### @@@ ###
-// //   LabelType *start = findMarkerType(parser.getNextParam());
-// //   LabelType *stop = findMarkerType (parser.getNextParam());
-// //   int time = (int) (parser.toDouble () * signalmanage->getRate() / 1000);
-// //
-// //   printf ("%d %d\n", level, time);
-// //   printf ("%s %s\n", start->name, stop->name);
-// //
-// //   ProgressDialog *dialog =
-// //       new ProgressDialog (len, "Searching for Signal portions...");
-// //
-// //   if (dialog && start && stop) {
-// //       dialog->show();
-// //
-// //       newmark = new Kwave::Label(0, start);     //generate initial Kwave::Label
-// //
-// //       labels->inSort (newmark);
-// //
-// //       for (int i = 0; i < len; i++) {
-// //           if (qAbs(sam[i]) < level) {
-// //               int j = i;
-// //               while ((i < len) && (qAbs(sam[i]) < level)) i++;
-// //
-// //               if (i - j > time) {
-// //                   //insert labels...
-// //                   newmark = new Kwave::Label(i, start);
-// //                   labels->inSort (newmark);
-// //
-// //                   if (start != stop) {
-// //                       newmark = new Kwave::Label(j, stop);
-// //                       labels->inSort (newmark);
-// //                   }
-// //               }
-// //           }
-// //           dialog->setProgress (i);
-// //       }
-// //
-// //       newmark = new Kwave::Label(len - 1, stop);
-// //       labels->inSort (newmark);
-// //
-// //       refresh ();
-// //       delete dialog;
-// //   }
-// //    }
-// //}
+////****************************************************************************
+//void MainWidget::markSignal (const char *str)
+//{
+//    if (signalmanage) {
+//   Kwave::Label *newmark;
+//
+//   Kwave::Parser parser (str);
+//
+//   int level = (int) (parser.toDouble() / 100 * (1 << 23));
+//
+//   int len = signalmanage->getLength();
+//   int *sam = signalmanage->getSignal(0)->getSample();    // ### @@@ ###
+//   LabelType *start = findMarkerType(parser.getNextParam());
+//   LabelType *stop = findMarkerType (parser.getNextParam());
+//   int time = (int) (parser.toDouble () * signalmanage->getRate() / 1000);
+//
+//   printf ("%d %d\n", level, time);
+//   printf ("%s %s\n", start->name, stop->name);
+//
+//   ProgressDialog *dialog =
+//       new ProgressDialog (len, "Searching for Signal portions...");
+//
+//   if (dialog && start && stop) {
+//       dialog->show();
+//
+//       newmark = new Kwave::Label(0, start); // generate initial label
+//
+//       labels->inSort (newmark);
+//
+//       for (int i = 0; i < len; i++) {
+//           if (qAbs(sam[i]) < level) {
+//               int j = i;
+//               while ((i < len) && (qAbs(sam[i]) < level)) i++;
+//
+//               if (i - j > time) {
+//                   //insert labels...
+//                   newmark = new Kwave::Label(i, start);
+//                   labels->inSort (newmark);
+//
+//                   if (start != stop) {
+//                       newmark = new Kwave::Label(j, stop);
+//                       labels->inSort (newmark);
+//                   }
+//               }
+//           }
+//           dialog->setProgress (i);
+//       }
+//
+//       newmark = new Kwave::Label(len - 1, stop);
+//       labels->inSort (newmark);
+//
+//       refresh ();
+//       delete dialog;
+//   }
+//    }
+//}
 
-// ////****************************************************************************
-// //void MainWidget::markPeriods (const char *str)
-// //{
-// //    if (signalmanage) {
-// //   Kwave::Parser parser (str);
-// //
-// //   int high = signalmanage->getRate() / parser.toInt();
-// //   int low = signalmanage->getRate() / parser.toInt();
-// //   int octave = parser.toBool ("true");
-// //   double adjust = parser.toDouble ();
-// //
-// //   for (int i = 0; i < AUTOKORRWIN; i++)
-// //       autotable[i] = 1 - (((double)i * i * i) / (AUTOKORRWIN * AUTOKORRWIN * AUTOKORRWIN));    //generate static weighting function
-// //
-// //   if (octave) for (int i = 0; i < AUTOKORRWIN; i++) weighttable[i] = 1;    //initialise moving weight table
-// //
-// //   Kwave::Label *newmark;
-// //   int next;
-// //   int len = signalmanage->getLength();
-// //   int *sam = signalmanage->getSignal(0)->getSample();    // ### @@@ ###
-// //   LabelType *start = markertype;
-// //   int cnt = findFirstMark (sam, len);
-// //
-// //   ProgressDialog *dialog = new ProgressDialog (len - AUTOKORRWIN, "Correlating Signal to find Periods:");
-// //   if (dialog) {
-// //       dialog->show();
-// //
-// //       newmark = new Kwave::Label(cnt, start);
-// //       labels->inSort (newmark);
-// //
-// //       while (cnt < len - 2*AUTOKORRWIN) {
-// //           if (octave)
-// //               next = findNextRepeatOctave (&sam[cnt], high, adjust);
-// //           else
-// //               next = findNextRepeat (&sam[cnt], high);
-// //
-// //           if ((next < low) && (next > high)) {
-// //               newmark = new Kwave::Label(cnt, start);
-// //
-// //               labels->inSort (newmark);
-// //           }
-// //           if (next < AUTOKORRWIN) cnt += next;
-// //           else
-// //               if (cnt < len - AUTOKORRWIN) {
-// //                   int a = findFirstMark (&sam[cnt], len - cnt);
-// //                   if (a > 0) cnt += a;
-// //                   else cnt += high;
-// //               } else cnt = len;
-// //
-// //           dialog->setProgress (cnt);
-// //       }
-// //
-// //       delete dialog;
-// //
-// //       refresh ();
-// //   }
-// //    }
-// //}
+////****************************************************************************
+//void MainWidget::markPeriods (const char *str)
+//{
+//    if (signalmanage) {
+//   Kwave::Parser parser (str);
+//
+//   int high = signalmanage->getRate() / parser.toInt();
+//   int low = signalmanage->getRate() / parser.toInt();
+//   int octave = parser.toBool ("true");
+//   double adjust = parser.toDouble ();
+//
+//   generate static weighting function
+//   for (int i = 0; i < AUTOKORRWIN; i++)
+//       autotable[i] = 1 - (((double)i * i * i) / (
+//           AUTOKORRWIN * AUTOKORRWIN * AUTOKORRWIN));
+//
+//   if (octave)
+//         for (int i = 0; i < AUTOKORRWIN; i++)
+//             weighttable[i] = 1;    //initialise moving weight table
+//
+//   Kwave::Label *newmark;
+//   int next;
+//   int len = signalmanage->getLength();
+//   int *sam = signalmanage->getSignal(0)->getSample();    // ### @@@ ###
+//   LabelType *start = markertype;
+//   int cnt = findFirstMark (sam, len);
+//
+//   ProgressDialog *dialog = new ProgressDialog (len - AUTOKORRWIN,
+//       "Correlating Signal to find Periods:");
+//   if (dialog) {
+//       dialog->show();
+//
+//       newmark = new Kwave::Label(cnt, start);
+//       labels->inSort (newmark);
+//
+//       while (cnt < len - 2*AUTOKORRWIN) {
+//           if (octave)
+//               next = findNextRepeatOctave (&sam[cnt], high, adjust);
+//           else
+//               next = findNextRepeat (&sam[cnt], high);
+//
+//           if ((next < low) && (next > high)) {
+//               newmark = new Kwave::Label(cnt, start);
+//
+//               labels->inSort (newmark);
+//           }
+//           if (next < AUTOKORRWIN) cnt += next;
+//           else
+//               if (cnt < len - AUTOKORRWIN) {
+//                   int a = findFirstMark (&sam[cnt], len - cnt);
+//                   if (a > 0) cnt += a;
+//                   else cnt += high;
+//               } else cnt = len;
+//
+//           dialog->setProgress (cnt);
+//       }
+//
+//       delete dialog;
+//
+//       refresh ();
+//   }
+//    }
+//}
 
-// ////*****************************************************************************
-// //int findNextRepeat (int *sample, int high)
-// ////autocorellation of a windowed part of the sample
-// ////returns length of period, if found
-// //{
-// //    int i, j;
-// //    double gmax = 0, max, c;
-// //    int maxpos = AUTOKORRWIN;
-// //    int down, up;         //flags
-// //
-// //    max = 0;
-// //    for (j = 0; j < AUTOKORRWIN; j++)
-// //   gmax += ((double)sample[j]) * sample [j];
-// //
-// //    //correlate signal with itself for finding maximum integral
-// //
-// //    down = 0;
-// //    up = 0;
-// //    i = high;
-// //    max = 0;
-// //    while (i < AUTOKORRWIN) {
-// //   c = 0;
-// //   for (j = 0; j < AUTOKORRWIN; j++) c += ((double)sample[j]) * sample [i + j];
-// //   c = c * autotable[i];    //multiply window with weight for preference of high frequencies
-// //   if (c > max) max = c, maxpos = i;
-// //   i++;
-// //    }
-// //    return maxpos;
-// //}
+//*****************************************************************************
+//int findNextRepeat (int *sample, int high)
+////autocorellation of a windowed part of the sample
+////returns length of period, if found
+//{
+//    int i, j;
+//    double gmax = 0, max, c;
+//    int maxpos = AUTOKORRWIN;
+//    int down, up;         //flags
+//
+//    max = 0;
+//    for (j = 0; j < AUTOKORRWIN; j++)
+//   gmax += ((double)sample[j]) * sample [j];
+//
+//    //correlate signal with itself for finding maximum integral
+//
+//    down = 0;
+//    up = 0;
+//    i = high;
+//    max = 0;
+//    while (i < AUTOKORRWIN) {
+//   c = 0;
+//   for (j = 0; j < AUTOKORRWIN; j++)
+//       c += ((double)sample[j]) * sample [i + j];
+//   // multiply window with weight for preference of high frequencies
+//   c = c * autotable[i];
+//   if (c > max) max = c, maxpos = i;
+//   i++;
+//    }
+//    return maxpos;
+//}
 
-// ////*****************************************************************************
-// //int findNextRepeatOctave (int *sample, int high, double adjust = 1.005)
-// ////autocorellation of a windowed part of the sample
-// ////same as above only with an adaptive weighting to decrease fast period changes
-// //{
-// //    int i, j;
-// //    double gmax = 0, max, c;
-// //    int maxpos = AUTOKORRWIN;
-// //    int down, up;         //flags
-// //
-// //    max = 0;
-// //    for (j = 0; j < AUTOKORRWIN; j++)
-// //   gmax += ((double)sample[j]) * sample [j];
-// //
-// //    //correlate signal with itself for finding maximum integral
-// //
-// //    down = 0;
-// //    up = 0;
-// //    i = high;
-// //    max = 0;
-// //    while (i < AUTOKORRWIN) {
-// //   c = 0;
-// //   for (j = 0; j < AUTOKORRWIN; j++) c += ((double)sample[j]) * sample [i + j];
-// //   c = c * autotable[i] * weighttable[i];
-// //   //multiply window with weight for preference of high frequencies
-// //   if (c > max) max = c, maxpos = i;
-// //   i++;
-// //    }
-// //
-// //    for (int i = 0; i < AUTOKORRWIN; i++) weighttable[i] /= adjust;
-// //
-// //    weighttable[maxpos] = 1;
-// //    weighttable[maxpos + 1] = .9;
-// //    weighttable[maxpos - 1] = .9;
-// //    weighttable[maxpos + 2] = .8;
-// //    weighttable[maxpos - 2] = .8;
-// //
-// //    float buf[7];
-// //
-// //    for (int i = 0; i < 7; buf[i++] = .1)
-// //
-// //   //low pass filter
-// //   for (int i = high; i < AUTOKORRWIN - 3; i++) {
-// //       buf[i % 7] = weighttable[i + 3];
-// //       weighttable[i] = (buf[0] + buf[1] + buf[2] + buf[3] + buf[4] + buf[5] + buf[6]) / 7;
-// //   }
-// //
-// //    return maxpos;
-// //}
+//*****************************************************************************
+//int findNextRepeatOctave (int *sample, int high, double adjust = 1.005)
+// // autocorellation of a windowed part of the sample
+// // same as above only with an adaptive weighting to decrease fast
+// // period changes
+//{
+//    int i, j;
+//    double gmax = 0, max, c;
+//    int maxpos = AUTOKORRWIN;
+//    int down, up;         //flags
+//
+//    max = 0;
+//    for (j = 0; j < AUTOKORRWIN; j++)
+//   gmax += ((double)sample[j]) * sample [j];
+//
+//    //correlate signal with itself for finding maximum integral
+//
+//    down = 0;
+//    up = 0;
+//    i = high;
+//    max = 0;
+//    while (i < AUTOKORRWIN) {
+//   c = 0;
+//   for (j = 0; j < AUTOKORRWIN; j++)
+//       c += ((double)sample[j]) * sample[i + j];
+//   c = c * autotable[i] * weighttable[i];
+//   //multiply window with weight for preference of high frequencies
+//   if (c > max) max = c, maxpos = i;
+//   i++;
+//    }
+//
+//    for (int i = 0; i < AUTOKORRWIN; i++) weighttable[i] /= adjust;
+//
+//    weighttable[maxpos] = 1;
+//    weighttable[maxpos + 1] = .9;
+//    weighttable[maxpos - 1] = .9;
+//    weighttable[maxpos + 2] = .8;
+//    weighttable[maxpos - 2] = .8;
+//
+//    float buf[7];
+//
+//    for (int i = 0; i < 7; buf[i++] = .1)
+//
+//   //low pass filter
+//   for (int i = high; i < AUTOKORRWIN - 3; i++) {
+//       buf[i % 7] = weighttable[i + 3];
+//       weighttable[i] = (buf[0] + buf[1] + buf[2] + buf[3] +
+//                         buf[4] + buf[5] + buf[6]) / 7;
+//   }
+//
+//    return maxpos;
+//}
 
-// //*****************************************************************************
-// //int findFirstMark (int *sample, int len)
-// ////finds first sample that is non-zero, or one that preceeds a zero crossing
-// //{
-// //    int i = 1;
-// //    int last = sample[0];
-// //    int act = last;
-// //    if ((last < 100) && (last > -100)) i = 0;
-// //    else
-// //   while (i < len) {
-// //       act = sample[i];
-// //       if ((act < 0) && (last >= 0)) break;
-// //       if ((act > 0) && (last <= 0)) break;
-// //       last = act;
-// //       i++;
-// //   }
-// //    return i;
-// //}
+//*****************************************************************************
+//int findFirstMark (int *sample, int len)
+// finds first sample that is non-zero, or one that preceeds a zero crossing
+//{
+//    int i = 1;
+//    int last = sample[0];
+//    int act = last;
+//    if ((last < 100) && (last > -100)) i = 0;
+//    else
+//   while (i < len) {
+//       act = sample[i];
+//       if ((act < 0) && (last >= 0)) break;
+//       if ((act > 0) && (last <= 0)) break;
+//       last = act;
+//       i++;
+//   }
+//    return i;
+//}
 
 //***************************************************************************
 //***************************************************************************

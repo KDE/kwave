@@ -107,14 +107,15 @@ namespace Kwave
         /**
         * Execute a Kwave text command
          * @param command a text command
-         * @return zero if succeeded or negative error code if failed
-         * @retval -ENOSYS is returned if the command is unknown in this component
+         * @retval zero if succeeded
+         * @retval negative error code if failed
+         * @retval -ENOSYS if the command is unknown in this component
          */
         int executeCommand(const QString &command);
 
         /**
-         * Returns a reference to the current name of the signal. If no signal is
-         * loaded the string is zero-length.
+         * Returns a reference to the current name of the signal. If no
+         * signal is loaded the string is zero-length.
          */
         QString signalName();
 

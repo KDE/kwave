@@ -47,7 +47,7 @@ namespace Kwave
          * @param parent the parent widget
          * @param last_url the last used URL
          * @param last_ext the last used extension (preset only)
-         * @param filename_pattern the pattern used for generating the file names
+         * @param filename_pattern pattern used for generating the file names
          * @param numbering_mode the way the numbers are given
          * @param selection_only if true, save only the selection
          * @param have_selection if true, there is a selection

@@ -373,10 +373,12 @@ void Kwave::SelectionTracker::selectRange(QList<QUuid> tracks,
         emit sigInvalidated(Q_NULLPTR, m_offset, SAMPLE_INDEX_MAX);
     } else if (length > old_len) {
         // length has changed and increased -> invalidate new area
-        emit sigInvalidated(Q_NULLPTR, m_offset + old_len - 1, SAMPLE_INDEX_MAX);
+        emit sigInvalidated(Q_NULLPTR, m_offset + old_len - 1,
+                            SAMPLE_INDEX_MAX);
     } else if (length < old_len) {
         // length was reduced -> invalidate shrinked area at end
-        emit sigInvalidated(Q_NULLPTR, m_offset + length - 1, SAMPLE_INDEX_MAX);
+        emit sigInvalidated(Q_NULLPTR, m_offset + length - 1,
+                            SAMPLE_INDEX_MAX);
     }
 }
 

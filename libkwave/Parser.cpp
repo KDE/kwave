@@ -20,7 +20,7 @@
 
 #include <QChar>
 #include <QLatin1Char>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QString>
 
 #include "libkwave/Parser.h"
@@ -298,7 +298,7 @@ QString Kwave::Parser::escapeForFileName(const QString &text)
 
     // convert all kinds of (multiple) whitespaces, including tabs
     // and newlines into single spaces
-    QRegExp rx(_("[\\s\\\t\\\r\\\n]+"));
+    QRegularExpression rx(_("[\\s\\\t\\\r\\\n]+"));
     result.replace(rx, QChar(0x0020));
 
     // NOTE: this escapes any kind of special chars, but not a slash "/"

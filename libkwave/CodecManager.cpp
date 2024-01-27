@@ -19,9 +19,9 @@
 
 #include <QLatin1Char>
 #include <QMimeData>
-#include <QRegExp>
 #include <QMimeDatabase>
 #include <QMimeType>
+#include <QRegularExpression>
 
 #include "libkwave/CodecManager.h"
 #include "libkwave/Decoder.h"
@@ -152,7 +152,7 @@ QString Kwave::CodecManager::encodingFilter()
             // otherwise append to the list
             QString entry = extensions;
             QString comment = type.description.replace(
-                QRegExp(_("/")), _(","));
+                QRegularExpression(_("/")), _(","));
             entry += _("|") + comment;
             list.append(entry + _(" (") + extensions + _(")"));
         }
@@ -188,8 +188,8 @@ QString Kwave::CodecManager::decodingFilter()
             // otherwise append to the list
             all_extensions += type.patterns;
             QString entry = extensions;
-            QString comment =
-                type.description.replace(QRegExp(_("/")), _(","));
+            QString comment = type.description.replace(
+                QRegularExpression(_("/")), _(","));
             entry += _("|") + comment;
             list.append(entry + _(" (") + extensions + _(")"));
         }

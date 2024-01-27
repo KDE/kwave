@@ -29,7 +29,7 @@
 #include <QMap>
 #include <QPointer>
 #include <QProcess>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QTextStream>
 
 #include <KLazyLocalizedString>
@@ -247,18 +247,20 @@ bool Kwave::K3BExportPlugin::detectBlockMetaData(
         return false; // no placeholders found in the patterns
 
     // relax the pattern: turn single whitespace to one or more whitespaces
-    pattern_esc.replace(QRegExp(_("(\\\\\\s)+")), _("\\s+"));
+    pattern_esc.replace(QRegularExpression(_("(\\\\\\s)+")), _("\\s+"));
 
     // try to match the pattern on the given text
-    QRegExp rx(pattern_esc, Qt::CaseInsensitive);
-    if (!rx.exactMatch(text.trimmed()))
+    QRegularExpression rx(QRegularExpression::anchoredPattern(pattern_esc),
+                          QRegularExpression::CaseInsensitiveOption);
+    QRegularExpressionMatch rx_match{rx.match(text.trimmed())};
+    if (!rx_match.hasMatch())
         return false; // does not match :-(
 
     // we found a match
     // -> now map the results into the corresponding result strings
     const QList<int> &result_keys = map_result.keys();
     for (int index = 0; index < map_result.count(); ++index) {
-        QString value = rx.cap(index + 1).trimmed();
+        QString value = rx_match.captured(index + 1).trimmed();
         if (value.length()) {
             QString *result = map_result[result_keys[index]];
             if (result) *result = value;
@@ -650,7 +652,7 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
 
         for (unsigned int i = first; i < (first + count); ++i) {
             QString name = createFileName(out_pattern, i);
-            QRegExp rx(_("^(") + name + _(")$"), Qt::CaseInsensitive);
+            QRegularExpression rx(_("^(") + name + _(")$"), QRegularExpression::CaseInsensitiveOption);
             QStringList matches = files.filter(rx);
             if (matches.count() > 0) first = i + 1;
         }

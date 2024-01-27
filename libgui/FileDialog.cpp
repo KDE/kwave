@@ -21,7 +21,7 @@
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QPushButton>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QString>
 #include <QStringList>
 #include <QUrl>
@@ -223,8 +223,8 @@ void Kwave::FileDialog::saveConfig()
         }
         m_last_ext = _("");
         foreach (const QString &mask, pattern.split(_(" "))) {
-            QRegExp regex(mask, Qt::CaseSensitive, QRegExp::Wildcard);
-            if (regex.indexIn(file_name) >= 0) {
+            QRegularExpression regex{QRegularExpression::wildcardToRegularExpression(mask)};
+            if (file_name.indexOf(regex) >= 0) {
                 m_last_ext = mask;
                 break;
             }

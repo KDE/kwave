@@ -24,7 +24,7 @@
 
 #include <QKeySequence>
 #include <QLatin1Char>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QString>
 #include <QWidget>
 
@@ -162,10 +162,11 @@ int Kwave::MenuManager::executeCommand(const QString &command)
     param = parser.nextParam();
     if (param.length()) {
         // replace "::<StandardKeyName>" with the key sequence as string
-        QRegExp rx(_("::(\\w+)"), Qt::CaseInsensitive);
+        QRegularExpression rx{_("::(\\w+)"), QRegularExpression::CaseInsensitiveOption};
+        QRegularExpressionMatch match;
         int p = 0;
-        while ((p = rx.indexIn(param, 0)) >= 0) {
-            QString stdname = rx.cap(1);
+        while ((p = param.indexOf(rx, 0, &match)) >= 0) {
+            QString stdname = match.captured(1);
             if (m_standard_keys.contains(stdname)) {
                 // translate into a key sequence
                 QKeySequence sequence = m_standard_keys[stdname];

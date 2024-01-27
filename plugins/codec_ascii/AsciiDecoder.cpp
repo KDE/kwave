@@ -24,7 +24,7 @@
 #include <QDateTime>
 #include <QLatin1Char>
 #include <QLatin1String>
-#include <QRegExp>
+#include <QRegularExpression>
 
 #include <KLocalizedString>
 
@@ -101,7 +101,7 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
         if (!line.length())
             continue; // skip empty line
 
-        QRegExp regex(_(
+        QRegularExpression regex(QRegularExpression::anchoredPattern(_(
             "(^##\\s*)"                  // 1 start of meta data line
             "([\\'\\\"])?"               // 2 property, quote start (' or ")
             "\\s*(\\w+[\\s\\w]*\\w)\\s*" // 3 property
@@ -109,11 +109,12 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
             "(\\2)"                      // 5 property, quote end
             "(\\s*=\\s*)"                // 6 assignment '='
             "(.*)"                       // 7 rest, up to end of line
-        ));
-        if (regex.exactMatch(line)) {
+        )));
+        QRegularExpressionMatch regex_match{regex.match(line)};
+        if (regex_match.hasMatch()) {
             // meta data entry: "## 'Name' = value"
-            QString name = Kwave::Parser::unescape(regex.cap(3) + regex.cap(4));
-            QString v    = regex.cap(7);
+            QString name = Kwave::Parser::unescape(regex_match.captured(3) + regex_match.captured(4));
+            QString v    = regex_match.captured(7);
 
             QString value;
             if (v.length()) {
@@ -162,10 +163,11 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
             if (name == _("bits")) name = info.name(INF_BITS_PER_SAMPLE);
 
             // handle labels
-            QRegExp regex_label(_("label\\[(\\d*)\\]"));
-            if (regex_label.exactMatch(name)) {
+            QRegularExpression regex_label(QRegularExpression::anchoredPattern(_("label\\[(\\d*)\\]")));
+            QRegularExpressionMatch regex_label_match{regex_label.match(name)};
+            if (regex_label_match.hasMatch()) {
                 bool ok = false;
-                sample_index_t pos = regex_label.cap(1).toULongLong(&ok);
+                sample_index_t pos = regex_label_match.captured(1).toULongLong(&ok);
                 if (!ok) {
                     qWarning("line %llu: malformed label position: '%s'",
                               m_line_nr, DBG(name));

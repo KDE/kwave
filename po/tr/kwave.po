@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Volkan Gezer <volkangezer@gmail.com>, 2017.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-07 00:41+0000\n"
-"PO-Revision-Date: 2023-11-26 01:27+0300\n"
+"PO-Revision-Date: 2024-02-09 19:17+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 24.01.95\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1933,7 +1933,7 @@ msgstr "CD"
 
 #: libkwave/FileInfo.cpp:83
 msgid "Number of the CD, if the source is an album of more CDROMs"
-msgstr "Kaynak albüm birden daha çok CD'den oluşuyorsa CD numarası"
+msgstr "Kaynak albüm birden daha çok CD’den oluşuyorsa CD numarası"
 
 #: libkwave/FileInfo.cpp:86
 msgid "CDS"
@@ -1941,7 +1941,7 @@ msgstr "CDS"
 
 #: libkwave/FileInfo.cpp:88
 msgid "Number of CDs, if the source is an album of more CDROMs"
-msgstr "Kaynak albüm birden daha çok CD'den oluşuyorsa CD'lerin numarası"
+msgstr "Kaynak albüm birden daha çok CD’den oluşuyorsa CD’lerin numarası"
 
 #: libkwave/FileInfo.cpp:91
 msgid "Commissioned"
@@ -2362,7 +2362,7 @@ msgstr "Kayıt"
 
 #: libkwave/FileInfo.cpp:285
 msgid "Track of the CD if the source was a CDROM."
-msgstr "Kaynak CDROM ise CD'deki kayıt."
+msgstr "Kaynak CDROM ise CD’deki kayıt."
 
 #: libkwave/FileInfo.cpp:288
 msgid "Tracks"
@@ -2370,7 +2370,7 @@ msgstr "Kayıtlar"
 
 #: libkwave/FileInfo.cpp:289
 msgid "Number of tracks of the CD if the source was a CDROM."
-msgstr "Kaynak CDROM ise CD'deki kayıtların sayısı."
+msgstr "Kaynak CDROM ise CD’deki kayıtların sayısı."
 
 #: libkwave/FileInfo.cpp:292
 msgid "Channels"
@@ -4935,7 +4935,7 @@ msgid ""
 "deselect some channels or export the file in a different file format that "
 "supports mono and stereo only (for example FLAC) and then try again."
 msgstr ""
-"Yalnızca tek veya iki kanallı dosyalar ses CD'si için kullanılabilir. Bazı "
+"Yalnızca tek veya iki kanallı dosyalar ses CD’si için kullanılabilir. Bazı "
 "kanalların seçimini kaldırabilir veya dosyayı yalnızca tek veya iki kanalı "
 "destekleyen bir biçimde dışa aktarıp (örnek olarak FLAC) yeniden "
 "deneyebilirsiniz."
@@ -5035,7 +5035,7 @@ msgid ""
 "Specify where to place the exported sound files which are used for the "
 "tracks of the audio CD."
 msgstr ""
-"Ses CD'si için kullanılacak dışa aktarılmış parçaların bulunduğu konumu "
+"Ses CD’si için kullanılacak dışa aktarılmış parçaların bulunduğu konumu "
 "belirtin."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
@@ -5063,7 +5063,7 @@ msgid ""
 "Select whether existing files are overwritten or new file names are used "
 "when exporting the files to use as tracks of the audio CD."
 msgstr ""
-"Ses CD'sindeki parçaları dışa aktarırken var olan dosyaların üzerine mi "
+"Ses CD’sindeki parçaları dışa aktarırken var olan dosyaların üzerine mi "
 "yazılacağını yoksa yeni dosya adı mı kullanılacağını seçin."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
@@ -7446,7 +7446,7 @@ msgstr "Sonagramı kaydet"
 #: plugins/sonagram/SonagramWindow.cpp:521
 #, kde-format
 msgid "Sonagram of %1"
-msgstr "%1'in sonagramı"
+msgstr "%1 sonagramı"
 
 #: plugins/sonagram/SonagramWindow.cpp:545
 #, kde-format

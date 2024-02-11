@@ -223,7 +223,8 @@ void Kwave::FileDialog::saveConfig()
         }
         m_last_ext = _("");
         foreach (const QString &mask, pattern.split(_(" "))) {
-            QRegularExpression regex{QRegularExpression::wildcardToRegularExpression(mask)};
+            QRegularExpression regex{
+                QRegularExpression::wildcardToRegularExpression(mask)};
             if (file_name.indexOf(regex) >= 0) {
                 m_last_ext = mask;
                 break;

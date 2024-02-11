@@ -505,7 +505,8 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     QString nr;
 
     // format the "index" parameter
-    QRegularExpression rx_nr(_("(\\\\\\[\\\\%(\\d*)nr\\\\\\])"), QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_nr(_("(\\\\\\[\\\\%(\\d*)nr\\\\\\])"),
+                             QRegularExpression::CaseInsensitiveOption);
     QRegularExpressionMatchIterator i = rx_nr.globalMatch(p);
     while (i.hasNext()) {
         QRegularExpressionMatch match = i.next();
@@ -518,7 +519,8 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     }
 
     // format the "count" parameter
-    QRegularExpression rx_count(_("(\\\\\\[\\\\%\\d*count\\\\\\])"), QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_count(_("(\\\\\\[\\\\%\\d*count\\\\\\])"),
+                                QRegularExpression::CaseInsensitiveOption);
     i = rx_count.globalMatch(p);
     while (i.hasNext()) {
         QRegularExpressionMatch match = i.next();
@@ -526,7 +528,8 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
             QString format = match.captured(1);
             format = format.mid(3, format.length() - 10);
             QString ex = _("(\\\\\\[\\\\") + format + _("count\\\\\\])");
-            QRegularExpression rx(ex, QRegularExpression::CaseInsensitiveOption);
+            QRegularExpression rx(ex,
+                QRegularExpression::CaseInsensitiveOption);
             format += _("u");
             p.replace(rx, nr.asprintf(format.toLatin1(), count));
         } else {
@@ -535,7 +538,8 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     }
 
     // format the "total" parameter
-    QRegularExpression rx_total(_("(\\\\\\[\\\\%\\d*total\\\\\\])"), QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_total(_("(\\\\\\[\\\\%\\d*total\\\\\\])"),
+                                QRegularExpression::CaseInsensitiveOption);
     i = rx_total.globalMatch(p);
     while (i.hasNext()) {
         QRegularExpressionMatch match = i.next();
@@ -543,7 +547,8 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
             QString format = match.captured(1);
             format = format.mid(3, format.length() - 10);
             QString ex = _("(\\\\\\[\\\\") + format + _("total\\\\\\])");
-            QRegularExpression rx(ex, QRegularExpression::CaseInsensitiveOption);
+            QRegularExpression rx(ex,
+                                  QRegularExpression::CaseInsensitiveOption);
             format += _("u");
             p.replace(rx, nr.asprintf(format.toLatin1(), total));
         } else {
@@ -552,7 +557,8 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     }
 
     // format the "filename" parameter
-    QRegularExpression rx_filename(_("\\\\\\[\\\\%filename\\\\\\]"), QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_filename(_("\\\\\\[\\\\%filename\\\\\\]"),
+                                   QRegularExpression::CaseInsensitiveOption);
     if (p.indexOf(rx_filename) >= 0) {
         p.replace(rx_filename, QRegularExpression::escape(base));
     }
@@ -604,7 +610,8 @@ QString Kwave::SaveBlocksPlugin::createFileName(const QString &base,
     }
 
     // format the "title" parameter
-    QRegularExpression rx_title(_("\\\\\\[\\\\%title\\\\\\]"), QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_title(_("\\\\\\[\\\\%title\\\\\\]"),
+                                QRegularExpression::CaseInsensitiveOption);
     if (p.indexOf(rx_title) >= 0) {
         QString title;
         int idx = (index - 1) - (total - count);
@@ -672,12 +679,18 @@ QString Kwave::SaveBlocksPlugin::findBase(const QString &filename,
     // \[%filename\]      -> base
     // \[%fileinfo\]      -> .
     // \[%title\]         -> .
-    QRegularExpression rx_nr(_("\\\\\\[\\\\%\\d*nr\\\\\\]"), QRegularExpression::CaseInsensitiveOption);
-    QRegularExpression rx_count(_("\\\\\\[\\\\%\\d*count\\\\\\]"), QRegularExpression::CaseInsensitiveOption);
-    QRegularExpression rx_total(_("\\\\\\[\\\\%\\d*total\\\\\\]"), QRegularExpression::CaseInsensitiveOption);
-    QRegularExpression rx_filename(_("\\\\\\[\\\\%filename\\\\\\]"), QRegularExpression::CaseInsensitiveOption);
-    QRegularExpression rx_fileinfo(_("\\\\\\[\\\\%fileinfo\\\\\\]"), QRegularExpression::CaseInsensitiveOption);
-    QRegularExpression rx_title(_("\\\\\\[\\\\%title\\\\\\]"), QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_nr(_("\\\\\\[\\\\%\\d*nr\\\\\\]"),
+                             QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_count(_("\\\\\\[\\\\%\\d*count\\\\\\]"),
+                                QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_total(_("\\\\\\[\\\\%\\d*total\\\\\\]"),
+                                QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_filename(_("\\\\\\[\\\\%filename\\\\\\]"),
+                                   QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_fileinfo(_("\\\\\\[\\\\%fileinfo\\\\\\]"),
+                                   QRegularExpression::CaseInsensitiveOption);
+    QRegularExpression rx_title(_("\\\\\\[\\\\%title\\\\\\]"),
+                                QRegularExpression::CaseInsensitiveOption);
 
     QString p = QRegularExpression::escape(pattern);
     int idx_nr       = p.indexOf(rx_nr);

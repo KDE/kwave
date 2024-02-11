@@ -113,7 +113,8 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
         QRegularExpressionMatch regex_match{regex.match(line)};
         if (regex_match.hasMatch()) {
             // meta data entry: "## 'Name' = value"
-            QString name = Kwave::Parser::unescape(regex_match.captured(3) + regex_match.captured(4));
+            QString name = Kwave::Parser::unescape(regex_match.captured(3) +
+                                                   regex_match.captured(4));
             QString v    = regex_match.captured(7);
 
             QString value;
@@ -163,11 +164,13 @@ bool Kwave::AsciiDecoder::open(QWidget *widget, QIODevice &src)
             if (name == _("bits")) name = info.name(INF_BITS_PER_SAMPLE);
 
             // handle labels
-            QRegularExpression regex_label(QRegularExpression::anchoredPattern(_("label\\[(\\d*)\\]")));
+            QRegularExpression regex_label(
+                QRegularExpression::anchoredPattern(_("label\\[(\\d*)\\]")));
             QRegularExpressionMatch regex_label_match{regex_label.match(name)};
             if (regex_label_match.hasMatch()) {
                 bool ok = false;
-                sample_index_t pos = regex_label_match.captured(1).toULongLong(&ok);
+                sample_index_t pos =
+                    regex_label_match.captured(1).toULongLong(&ok);
                 if (!ok) {
                     qWarning("line %llu: malformed label position: '%s'",
                               m_line_nr, DBG(name));

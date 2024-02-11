@@ -162,7 +162,8 @@ int Kwave::MenuManager::executeCommand(const QString &command)
     param = parser.nextParam();
     if (param.length()) {
         // replace "::<StandardKeyName>" with the key sequence as string
-        QRegularExpression rx{_("::(\\w+)"), QRegularExpression::CaseInsensitiveOption};
+        QRegularExpression rx{_("::(\\w+)"),
+            QRegularExpression::CaseInsensitiveOption};
         QRegularExpressionMatch match;
         int p = 0;
         while ((p = param.indexOf(rx, 0, &match)) >= 0) {

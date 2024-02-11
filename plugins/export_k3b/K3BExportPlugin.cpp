@@ -652,7 +652,8 @@ int Kwave::K3BExportPlugin::start(QStringList &params)
 
         for (unsigned int i = first; i < (first + count); ++i) {
             QString name = createFileName(out_pattern, i);
-            QRegularExpression rx(_("^(") + name + _(")$"), QRegularExpression::CaseInsensitiveOption);
+            QRegularExpression rx(_("^(") + name + _(")$"),
+                QRegularExpression::CaseInsensitiveOption);
             QStringList matches = files.filter(rx);
             if (matches.count() > 0) first = i + 1;
         }

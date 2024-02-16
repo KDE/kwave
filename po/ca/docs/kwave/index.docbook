@@ -428,7 +428,7 @@
 ></listitem>
     	<listitem
 ><para
->importació/exportació de MP3 </para
+>importació/exportació d'MP3 </para
 ></listitem>
     	<listitem
 ><para
@@ -472,7 +472,7 @@
     </para>
 
     <para
->Si esteu interessat en el que s'ha fet i en el que encara s'ha de fer, consulteu els fitxers <filename
+>Si esteu interessat en què s'ha fet i en el que encara s'ha de fer, consulteu els fitxers <filename
 >CHANGES</filename
 > i <filename
 >TODO</filename
@@ -487,14 +487,14 @@
 >Recursos del &kwave;</title>
 
     <para
->Per tant, si voleu posar-vos en contacte amb els desenvolupadors, necessiteu més ajuda per utilitzar el &kwave;, enviar pedaços, informes d'error o altres coses, els següents recursos poden ser d'interès per a vosaltres: </para>
+>Per tant, si voleu posar-vos en contacte amb els desenvolupadors, necessiteu més ajuda per a utilitzar el &kwave;, enviar pedaços, informes d'error o altres coses, els recursos següents poden ser d'interès per a vosaltres: </para>
 
     <itemizedlist>
         <listitem
 ><para
 >Pàgina web del projecte<anchor id="project-homepage"/></para
 ><para
->Per obtenir informació sobre nous llançaments o sobre qualsevulla altra informació sobre aquest projecte, doneu un cop d'ull a la <ulink url="&url_homepage;"
+>Per a obtenir informació sobre llançaments nous o sobre qualsevulla altra informació sobre aquest projecte, doneu un cop d'ull a la <ulink url="&url_homepage;"
 >pàgina web del &kwave;</ulink
 >. </para
 ></listitem>
@@ -504,7 +504,7 @@
 	<para
 >També hi ha un repositori de GIT nou allotjat als servidors del &kde;, i una rèplica del repositori allotjada per <ulink url="&url_sourceforge;"
 >SourceForge</ulink
->, on podreu obtenir les fonts de la versió en desenvolupament més recent. Per obtenir les instruccions sobre com obtenir accés al repositori, llegiu al capítol sobre <ulink url="&url_devel_fetching_from_git;"
+>, on podreu obtenir les fonts de la versió en desenvolupament més recent. Per a obtenir les instruccions sobre com obtenir accés al repositori, llegiu al capítol sobre <ulink url="&url_devel_fetching_from_git;"
 >construir des de GIT</ulink
 > que hi ha a la documentació del desenvolupador. També hi ha una interfície web de GIT al <ulink url="&url_git_web_kde;"
 >&kde;</ulink
@@ -581,7 +581,7 @@
 >Convertir el so a bits</para>
 
     <para
->Abans de continuar, l'àudio analògic s'haurà de transformar en senyals electrònics per trobar el seu camí cap a un ordinador. Una manera comuna de fer-ho és mitjançant un micròfon i un amplificador. Aquesta combinació emet sons (canvis en la pressió de l'aire) a l'entrada i una tensió a la sortida. L'amplitud més alta dels canvis de pressió es representarà mitjançant voltatges alts a la sortida de l'amplificador. Aquesta sortida també s'anomena «<emphasis
+>Abans de continuar, l'àudio analògic s'haurà de transformar en senyals electrònics per a trobar el seu camí cap a un ordinador. Una manera comuna de fer-ho és mitjançant un micròfon i un amplificador. Aquesta combinació emet sons (canvis en la pressió de l'aire) a l'entrada i una tensió a la sortida. L'amplitud més alta dels canvis de pressió es representarà mitjançant voltatges alts a la sortida de l'amplificador. Aquesta sortida també s'anomena «<emphasis
 >senyal</emphasis
 >». A més d'un micròfon, per descomptat, també podeu imaginar altres fonts d'àudio. I l'«amplificador» pot ser el que hi ha integrat a la targeta de so, on normalment no es pot veure. </para>
     <para>
@@ -658,7 +658,7 @@
 >freqüència de mostreig</emphasis
 >-. Les freqüències de mostreig habituals són de 8000, 11025, 22050 i 44100 mostres per segon. A la pràctica, les freqüències de mostreig també es donen com a freqüències, en Hz o kHz. </para>
     <para
->La freqüència de mostreig limita la freqüència més alta que un senyal digitalitzat pot representar. A causa del teorema de Shannon, la freqüència d'ús màxima és la meitat de la freqüència de mostreig, de manera que amb una freqüència de mostreig de 44,1 kHz no es poden mostrar senyals amb més de 22 kHz. Per evitar una violació d'aquesta regla de la meitat de la freqüència de mostreig, la vostra targeta de so ja té filtres integrats que filtren les freqüències que superen la meitat de la freqüència de mostreig emprada. </para>
+>La freqüència de mostreig limita la freqüència més alta que un senyal digitalitzat pot representar. A causa del teorema de Shannon, la freqüència d'ús màxima és la meitat de la freqüència de mostreig, de manera que amb una freqüència de mostreig de 44,1 kHz no es poden mostrar senyals amb més de 22 kHz. Per a evitar una violació d'aquesta regla de la meitat de la freqüència de mostreig, la vostra targeta de so ja té filtres integrats que filtren les freqüències que superen la meitat de la freqüència de mostreig emprada. </para>
     <para>
 	<inlinemediaobject>
 	<imageobject>
@@ -906,7 +906,7 @@
 	    <para
 >Si inicieu el &kwave; des de la línia d'ordres, podeu especificar una llista dels fitxers que s'han d'obrir. El primer fitxer especificat s'obrirà primer i després els altres. Cada fitxer s'obrirà en una finestra nova o subfinestra de la mateixa instància del &kwave;. Si especifiqueu algun comodí, podreu obrir una gran quantitat de fitxers alhora. </para>
 	    <para
->Per exemple, la següent ordre inicia un &kwave; i obre tots els sons proporcionats pel tema de so XDG de freedesktop, cadascun d'ells en una finestra o subfinestra nova: <screen
+>Per exemple, l'ordre següent inicia un &kwave; i obre tots els sons proporcionats pel tema de so XDG de freedesktop, cadascun d'ells en una finestra o subfinestra nova: <screen
 ><prompt
 >% </prompt
 ><command
@@ -948,11 +948,11 @@
 >Qt toolkit</emphasis
 > com <literal
 >-qwindowgeometry</literal
-> per especificar la mida i/o la posició de la primera finestra oberta del &kwave; i/o <literal
+> per a especificar la mida i/o la posició de la primera finestra oberta del &kwave; i/o <literal
 >-display</literal
-> per iniciar el &kwave; en una pantalla diferent. </para>
+> per a iniciar el &kwave; en una pantalla diferent. </para>
 	    <para
->Per exemple, la següent ordre inicia una finestra del &kwave; amb una amplada inicial de 600 píxels i una alçada de 400 píxels, amb la vora dreta ubicada a 30 píxels de la dreta i 0 píxels de la part superior de la pantalla. <screen
+>Per exemple, l'ordre següent inicia una finestra del &kwave; amb una amplada inicial de 600 píxels i una alçada de 400 píxels, amb la vora dreta ubicada a 30 píxels de la dreta i 0 píxels de la part superior de la pantalla. <screen
 ><prompt
 >% </prompt
 ><command
@@ -1113,7 +1113,7 @@
 >Formats de fitxer admesos</title>
 
         <para
->El &kwave; admet els següents formats de fitxer: </para>
+>El &kwave; admet els formats de fitxer següents: </para>
 
     <para>
     <itemizedlist>
@@ -1137,7 +1137,7 @@
 >.mp2</filename
 > està disponible a través de la <ulink url="&url_libmad;"
 >libmad</ulink
-> per a la descodificació de MP3 en combinació amb la <ulink url="&url_id3lib;"
+> per a la descodificació d'MP3 en combinació amb la <ulink url="&url_id3lib;"
 >id3lib</ulink
 > per a la descodificació de les etiquetes ID3 i el <ulink url="&url_lame;"
 >lame</ulink
@@ -1214,10 +1214,10 @@
 	<para
 >El format ASCII és molt útil per a finalitats científiques i educatives. A causa del seu format senzill, podeu escriure els fitxers amb un editor de text o utilitzar la sortida d'alguna altra aplicació i convertir-lo en ASCII. Com que el format és <emphasis
 >realment</emphasis
-> senzill, no hauríeu de tenir gaires problemes per escriure un convertidor i la majoria de les aplicacions científiques utilitzen algun tipus del seu propi format ASCII per a l'exportació. </para>
+> senzill, no hauríeu de tenir gaires problemes per a escriure un convertidor i la majoria de les aplicacions científiques utilitzen algun tipus del seu propi format ASCII per a l'exportació. </para>
 
         <para
->El format d'un fitxer ASCII és força senzill i té les següents regles: <orderedlist>
+>El format d'un fitxer ASCII és força senzill i té les regles següents: <orderedlist>
 	    <listitem
 ><para
 >Al començament del fitxer ve un bloc de propietats, amb una propietat per línia. </para
@@ -1465,7 +1465,7 @@
 ></listitem>
 	    <listitem
 ><para
->Si no s'utilitza el preenregistrament i s'estableix un nivell de detecció, la primera vegada que el premeu permetrà al &kwave; esperar fins arribar al nivell de detecció. Mentre s'espera una detecció, podeu forçar l'enregistrament perquè comenci immediatament després de prémer el botó d'enregistrament de nou, altrament, l'enregistrament s'iniciarà automàticament quan s'hagi assolit el nivell de detecció. </para
+>Si no s'utilitza el preenregistrament i s'estableix un nivell de detecció, la primera vegada que el premeu permetrà al &kwave; esperar fins a arribar al nivell de detecció. Mentre s'espera una detecció, podeu forçar l'enregistrament perquè comenci immediatament després de prémer el botó d'enregistrament de nou, altrament, l'enregistrament s'iniciarà automàticament quan s'hagi assolit el nivell de detecció. </para
 ></listitem>
 	    <listitem
 ><para
@@ -1487,7 +1487,7 @@
 >Reproducció</title>
 
     <para
->Segons les opcions de compilació, el &kwave; pot reproduir sons a través d'un dels següents mètodes de reproducció: </para>
+>Segons les opcions de compilació, el &kwave; pot reproduir sons a través d'un dels mètodes de reproducció següents: </para>
     <para
 ><itemizedlist>
 	<listitem
@@ -1524,7 +1524,7 @@
     <para
 >Si el vostre fitxer de so utilitza més o menys canals que els permesos per la reproducció, durant la reproducció es barrejaran tots els canals. Per exemple, si teniu un fitxer amb tres canals i utilitzeu la reproducció estèreo, el canal esquerre reproduirà el canal 0 (superior) i la meitat del canal 1 (mig), el canal dret reproduirà la meitat del canal 1 (mig) i el canal 2 (inferior). </para>
     <para
->Per obtenir una reproducció suau sense interrupcions, també hauríeu d'establir la mida de la memòria intermèdia a un valor adequat. Si teniu problemes amb interrupcions de la reproducció, augmenteu aquí la mida de la memòria intermèdia. Però com més gran sigui, més gran serà la latència entre el so audible i la visualització de la posició de reproducció a la presentació del senyal. </para>
+>Per a obtenir una reproducció suau sense interrupcions, també hauríeu d'establir la mida de la memòria intermèdia a un valor adequat. Si teniu problemes amb interrupcions de la reproducció, augmenteu aquí la mida de la memòria intermèdia. Però com més gran sigui, més gran serà la latència entre el so audible i la visualització de la posició de reproducció a la presentació del senyal. </para>
     <para
 >El diàleg de configuració de la reproducció també proporciona un botó per a reproduir un senzill so de prova. Escoltareu un to de 440 Hz que anirà per tots els altaveus, des d'un a l'altre. </para>
     <para
@@ -1650,7 +1650,7 @@
 >Zoom i navegar</title>
 
     <para
->El &kwave; proporciona diverses maneres de fer zoom i navegar, utilitzant les dreceres de teclat, ordres de menú, botons de la barra d'eines i fent servir el ratolí. Les següents seccions haurien de donar una visió general sobre com utilitzar totes aquestes funcions. </para>
+>El &kwave; proporciona diverses maneres de fer zoom i navegar, utilitzant les dreceres de teclat, ordres de menú, botons de la barra d'eines i fent servir el ratolí. Les seccions següents haurien de donar una visió general sobre com utilitzar totes aquestes funcions. </para>
 
     <sect2 id="zooming"
 ><title
@@ -2148,7 +2148,7 @@
     <para
 >Si seleccioneu un interval de mostres al &kwave;, aquest interval serà <emphasis
 >inclusiu</emphasis
->. Això significa que la primera i última mostra seleccionades pertanyen a la selecció i s'utilitzaran per a les següents accions. De manera que, fins i tot si no heu seleccionat un <emphasis
+>. Això significa que la primera i última mostra seleccionades pertanyen a la selecció i s'utilitzaran per a les accions següents. De manera que, fins i tot si no heu seleccionat un <emphasis
 >interval</emphasis
 >, només una mostra, la selecció mai no estarà «buida». Així, per exemple, si no veieu un interval seleccionat, la funció «suprimeix» s'aplicarà a aquesta mostra individual. </para>
 
@@ -2157,7 +2157,7 @@
     <para
 >Si voleu ajustar o moure el començament o el final de la selecció, podeu moure el cursor del ratolí a prop del començament o del final de la selecció fins que el cursor canviï de la fletxa estàndard a una fletxa cap a l'esquerra o dreta i, a continuació, premeu el &BER; i ajusteu la selecció. </para>
     <para
->També podeu ampliar o reduir la selecció a un punt concret mantenint premuda la tecla &Maj; mentre feu clic amb el &BER;. Depenent de quina vora sigui més propera, la vora esquerra o dreta de la selecció s'establirà fins a la nova posició. Si no hi havia res seleccionat, s'establirà des del començament. </para>
+>També podeu ampliar o reduir la selecció a un punt concret mantenint premuda la tecla &Maj; mentre feu clic amb el &BER;. Depenent de quina vora sigui més propera, la vora esquerra o dreta de la selecció s'establirà fins a la posició nova. Si no hi havia res seleccionat, s'establirà des del començament. </para>
     <para
 >També hi ha algunes funcions disponibles a través del menú i, per descomptat, algunes dreceres de teclat: <itemizedlist>
     <listitem
@@ -2216,7 +2216,7 @@
 ></listitem>
     <listitem
 ><para
->el següent bloc de mostres, començant una mostra després del final de la selecció actual i amb la mateixa longitud: <menuchoice
+>el bloc de mostres següent, començant una mostra després del final de la selecció actual i amb la mateixa longitud: <menuchoice
 > <shortcut
 ><keycombo
 >&Maj;<keycap
@@ -2311,7 +2311,7 @@
     <!-- expand to labels -->
     <listitem
 ><para
->expandir la selecció actual esquerra i dreta fins a la següent etiqueta (o començament/final del senyal si no n'hi ha cap), començant a la posició actual del cursor: <menuchoice
+>expandir la selecció actual esquerra i dreta fins a l'etiqueta següent (o començament/final del senyal si no n'hi ha cap), començant a la posició actual del cursor: <menuchoice
 > <shortcut
 ><keycombo
 ><keycap
@@ -2379,7 +2379,7 @@
 >Porta-retalls</title>
 
     <para
->El &kwave; utilitza el porta-retalls del &plasma;. D'aquesta manera és possible intercanviar dades d'àudio entre les diferents finestres del &kwave;. També es podrien intercanviar dades entre el &kwave; i altres aplicacions d'àudio, depenent de la seva capacitat per utilitzar el porta-retalls del &plasma;. </para>
+>El &kwave; utilitza el porta-retalls del &plasma;. D'aquesta manera és possible intercanviar dades d'àudio entre les diferents finestres del &kwave;. També es podrien intercanviar dades entre el &kwave; i altres aplicacions d'àudio, depenent de la seva capacitat per a utilitzar el porta-retalls del &plasma;. </para>
 
     <para
 >Quan copieu dades al porta-retalls a través de la característica <literal
@@ -2406,7 +2406,7 @@
 >El &kwave; admet el protocol d'arrossegar i deixar anar dels &kde-frameworks;. Aquest permet obrir fitxers només escollint-los en una finestra del &dolphin; o &konqueror;, o a l'escriptori i deixar-los anar en una finestra del &kwave;. </para>
 
     <para
->Tingueu en compte que si deixeu anar un fitxer dins d'una finestra del &kwave; que ja conté un fitxer obert, primer es tancarà el fitxer actualment obert i s'obrirà el fitxer que voleu obrir. Si no voleu això, primer haureu d'obrir una nova finestra buida del &kwave;. </para>
+>Tingueu en compte que si deixeu anar un fitxer dins d'una finestra del &kwave; que ja conté un fitxer obert, primer es tancarà el fitxer actualment obert i s'obrirà el fitxer que voleu obrir. Si no voleu això, primer haureu d'obrir una finestra nova buida del &kwave;. </para>
 
     <para
 >També podeu seleccionar un interval de mostres i arrossegar-les o deixar-les en una finestra del &kwave;. Per omissió, l'operació d'arrossegament es realitzarà en el mode <emphasis
@@ -3054,7 +3054,7 @@
 >)</quote
 >!</para
 ></footnote
->, la qual cosa farà que l'execució de l'script continuï a la ubicació d'aquesta etiqueta (vegeu el següent exemple). </para>
+>, la qual cosa farà que l'execució de l'script continuï a la ubicació d'aquesta etiqueta (vegeu l'exemple següent). </para>
     <para
 >Una línia que contingui una etiqueta no haurà de contenir cap altre contingut (excepte els comentaris o espais en blanc) després del caràcter de <quote
 ><token
@@ -4497,7 +4497,7 @@
 >id</replaceable
 >]) </title>
 	    <para
->Es tracta d'una ordre molt potent, la qual s'utilitza per afegir una entrada nova al menú o per a modificar una entrada existent. Determina quina <emphasis
+>Es tracta d'una ordre molt potent, la qual s'utilitza per a afegir una entrada nova al menú o per a modificar una entrada existent. Determina quina <emphasis
 >ordre</emphasis
 > s'executarà quan s'activi l'entrada del menú, quina <emphasis
 >icona</emphasis
@@ -4597,7 +4597,7 @@
 >id</parameter
 >:</entry>
 		<entry
->Un id únic que es pot utilitzar internament per identificar aquesta entrada del menú o menú/submenú. Només s'han d'utilitzar lletres majúscules, dígits i el caràcter <quote
+>Un id únic que es pot utilitzar internament per a identificar aquesta entrada del menú o menú/submenú. Només s'han d'utilitzar lletres majúscules, dígits i el caràcter <quote
 ><literal
 >_</literal
 ></quote
@@ -4682,7 +4682,7 @@
 ><literal
 >@</literal
 ></quote
->. Hi ha predefinits els següents grups: <variablelist>
+>. Hi ha predefinits els grups següents: <variablelist>
 		    <varlistentry>
 			<term
 ><command
@@ -4777,7 +4777,7 @@
 ><replaceable
 >id</replaceable
 ></emphasis
-> únic especificat en aquesta subordre s'utilitzarà per afegir/treure o esborrar la llista d'entrades del menú. El paràmetre <emphasis
+> únic especificat en aquesta subordre s'utilitzarà per a afegir/treure o esborrar la llista d'entrades del menú. El paràmetre <emphasis
 ><replaceable
 >ordre</replaceable
 ></emphasis
@@ -4822,7 +4822,7 @@
 >D'acord</guibutton
 > (retorna sense codi d'error) i <guibutton
 >Cancel·la</guibutton
-> (retorna amb un codi d'error). Podeu utilitzar aquesta ordre per donar a l'usuari la possibilitat d'interrompre un script en execució. </para>
+> (retorna amb un codi d'error). Podeu utilitzar aquesta ordre per a donar a l'usuari la possibilitat d'interrompre un script en execució. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -4983,7 +4983,7 @@
 >nom_de_fitxer</replaceable
 >])</title>
 	    <para
->Obre un fitxer, el qual pot ser un fitxer de so o un script del &kwave;. Si no es passa cap nom de fitxer, s'obrirà un diàleg que permeti seleccionar un fitxer existent. Segons el mode de la &IGU;, el fitxer s'obrirà en el context d'una subfinestra nova (MDI i Pestanyes) o en una nova finestra principal (SDI, si ja hi havia quelcom carregat). </para>
+>Obre un fitxer, el qual pot ser un fitxer de so o un script del &kwave;. Si no es passa cap nom de fitxer, s'obrirà un diàleg que permeti seleccionar un fitxer existent. Segons el mode de la &IGU;, el fitxer s'obrirà en el context d'una subfinestra nova (MDI i Pestanyes) o en una finestra principal nova (SDI, si ja hi havia quelcom carregat). </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -5156,7 +5156,7 @@
 	    <para
 >Executa un connector, amb una llista opcional de paràmetres. Si no s'indica cap llista de paràmetres, llavors es cridarà la funció de configuració del connector, utilitzant els paràmetres de la crida anterior o amb els paràmetres predeterminats com a entrada (normalment es mostrarà un diàleg de configuració, depenent del connector). Consulteu el capítol sobre els <link linkend="plugins"
 >connectors</link
-> per obtenir una descripció dels diferents connectors. </para>
+> per a obtenir una descripció dels diferents connectors. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -5264,7 +5264,7 @@
 >configuració</emphasis
 > d'un connector, amb una llista opcional de paràmetres. Si no s'indica cap llista de paràmetres, s'utilitzaran els paràmetres de la crida anterior o amb els paràmetres predeterminats. Normalment, es mostrarà un diàleg de configuració, depenent del connector. Consulteu el capítol sobre els <link linkend="plugins"
 >connectors</link
-> per obtenir una descripció dels diferents connectors. </para>
+> per a obtenir una descripció dels diferents connectors. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -5537,7 +5537,7 @@
 >nom_de_fitxer</replaceable
 >])</title>
 	    <para
->Desa el fitxer obert sota un nom de fitxer indicat. Si no s'indica cap nom de fitxer com a paràmetre, es mostrarà un diàleg per a seleccionar el directori i per introduir un nom de fitxer. </para>
+>Desa el fitxer obert sota un nom de fitxer indicat. Si no s'indica cap nom de fitxer com a paràmetre, es mostrarà un diàleg per a seleccionar el directori i per a introduir un nom de fitxer. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -5551,7 +5551,7 @@
 >nom_de_fitxer</parameter
 >:</entry>
 		<entry
->nom del fitxer per desar (opcional)</entry
+>nom del fitxer per a desar (opcional)</entry
 ></row>
 	</tbody
 ></tgroup
@@ -5859,7 +5859,7 @@
 >&no-i18n-tag;&no-i18n-cmd_selectnextlabels;</command
 >()</title>
 	    <para
->Selecciona un interval de mostres entre les dues etiquetes següents després de la selecció actual. Si no se selecciona res, això seleccionarà des del començament del senyal fins a la primera etiqueta. En cas contrari, la vora esquerra de la nova selecció serà la posició de la primera etiqueta després de la selecció (o l'última etiqueta si no hi ha més etiquetes a la dreta de la selecció), i la vora dreta de la nova selecció serà la primera etiqueta després de la vora esquerra de la nova selecció (o el final del senyal si no n'hi ha cap). Aquesta ordre retornarà un error quan no hi hagi cap etiqueta. </para>
+>Selecciona un interval de mostres entre les dues etiquetes següents després de la selecció actual. Si no se selecciona res, això seleccionarà des del començament del senyal fins a la primera etiqueta. En cas contrari, la vora esquerra de la selecció nova serà la posició de la primera etiqueta després de la selecció (o l'última etiqueta si no hi ha més etiquetes a la dreta de la selecció), i la vora dreta de la selecció nova serà la primera etiqueta després de la vora esquerra de la selecció nova (o el final del senyal si no n'hi ha cap). Aquesta ordre retornarà un error quan no hi hagi cap etiqueta. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -5921,7 +5921,7 @@
 >&no-i18n-tag;&no-i18n-cmd_selectprevlabels;</command
 >()</title>
 	    <para
->Selecciona un interval de mostres entre les dues etiquetes anteriors abans de la selecció actual. Si no se selecciona res, això seleccionarà des del començament del senyal fins a la primera etiqueta. En cas contrari, la vora dreta de la nova selecció serà la posició de la primera etiqueta abans de la selecció (o la primera etiqueta si no hi ha més etiquetes a la selecció), i la vora esquerra de la nova selecció serà la primera etiqueta abans de la vora dreta de la nova selecció (o el començament del senyal si no n'hi ha cap). Aquesta ordre retornarà un error quan no hi hagi cap etiqueta. </para>
+>Selecciona un interval de mostres entre les dues etiquetes anteriors abans de la selecció actual. Si no se selecciona res, això seleccionarà des del començament del senyal fins a la primera etiqueta. En cas contrari, la vora dreta de la selecció nova serà la posició de la primera etiqueta abans de la selecció (o la primera etiqueta si no hi ha més etiquetes a la selecció), i la vora esquerra de la selecció nova serà la primera etiqueta abans de la vora dreta de la selecció nova (o el començament del senyal si no n'hi ha cap). Aquesta ordre retornarà un error quan no hi hagi cap etiqueta. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -6220,7 +6220,7 @@
 >&no-i18n-tag;&no-i18n-cmd_view_scroll_next_label;</command
 >()</title>
 	    <para
->Desplaça cap a la dreta i intenta mostrar la següent etiqueta centrada a la vista. Si no hi ha cap etiqueta a la dreta des de la posició actual, es desplaçarà fins al final del senyal. </para>
+>Desplaça cap a la dreta i intenta mostrar l'etiqueta següent centrada a la vista. Si no hi ha cap etiqueta a la dreta des de la posició actual, es desplaçarà fins al final del senyal. </para>
 	</simplesect>
 	<simplesect
 ><title
@@ -7312,7 +7312,7 @@
 		  </term>
 		  <listitem>
 		    <para
->Nom intern, per desfer/refer manualment. Els valors possibles són: </para>
+>Nom intern, per a desfer/refer manualment. Els valors possibles són: </para>
 			<informaltable frame='all'>
 			    <tgroup cols='2'>
 				<thead>
@@ -8732,7 +8732,7 @@
 ></term>
 			    <listitem>
 				<para
->Un patró que s'utilitzarà per a detectar el títol i l'artista a partir de l'etiqueta al començament d'una secció. Això admet els següents comodins que se substituiran pel contingut corresponent quan es creïn les metadades de text del &CD;: </para>
+>Un patró que s'utilitzarà per a detectar el títol i l'artista a partir de l'etiqueta al començament d'una secció. Això admet els comodins següents que se substituiran pel contingut corresponent quan es creïn les metadades de text del &CD;: </para>
 				<informaltable frame='all'>
 				    <tgroup cols='2'>
 					<thead>
@@ -9033,7 +9033,7 @@
 ></term>
 	    <listitem>
 	    <para
->Mostra un diàleg amb la possibilitat d'establir la posició actual de la selecció a un nou valor, ja sigui en mil·lisegons, en una posició en mostres o en un percentatge de la longitud del fitxer actual. </para>
+>Mostra un diàleg amb la possibilitat d'establir la posició actual de la selecció a un valor nou, ja sigui en mil·lisegons, en una posició en mostres o en un percentatge de la longitud del fitxer actual. </para>
 	    </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -9388,7 +9388,7 @@
 ></term>
 	    <listitem>
 	    <para
->Proporciona un diàleg per a crear un fitxer nou. Per obtenir més informació, consulteu la secció <link linkend="newsignal" endterm="sect_title_newsignal"
+>Proporciona un diàleg per a crear un fitxer nou. Per a obtenir més informació, consulteu la secció <link linkend="newsignal" endterm="sect_title_newsignal"
 ></link
 > que hi ha en aquest manual. </para>
 	    </listitem>
@@ -9983,7 +9983,7 @@
 ></term>
 	    <listitem>
 	    <para
->Proporciona un diàleg per a configurar els paràmetres de l'enregistrament i fer un enregistrament. Per obtenir més informació, consulteu la secció <link linkend="recording" endterm="sect_title_recording"
+>Proporciona un diàleg per a configurar els paràmetres de l'enregistrament i fer un enregistrament. Per a obtenir més informació, consulteu la secció <link linkend="recording" endterm="sect_title_recording"
 ></link
 > que hi ha en aquest manual. </para>
 	    </listitem>
@@ -10014,7 +10014,7 @@
 ></term>
 			<listitem>
 			    <para
->Habilita/inhabilita el preenregistrament (1 per estar habilitat, 0 per estar inhabilitat). </para>
+>Habilita/inhabilita el preenregistrament (1 si està habilitat, 0 si està inhabilitat). </para>
 			</listitem>
 		    </varlistentry>
 		    <varlistentry>
@@ -10034,7 +10034,7 @@
 ></term>
 			<listitem>
 			    <para
->Habilita/inhabilita la limitació del temps a enregistrar (1 per estar limitat, 0 per no estar-ho). </para>
+>Habilita/inhabilita la limitació del temps a enregistrar (1 si està limitat, 0 si no ho està). </para>
 			</listitem>
 		    </varlistentry>
 		    <varlistentry>
@@ -10104,7 +10104,7 @@
 ></term>
 			<listitem>
 			    <para
->El nombre de canals que s'utilitzaran per enregistrar. </para>
+>El nombre de canals que s'utilitzaran per a enregistrar. </para>
 			</listitem>
 		    </varlistentry>
 		    <varlistentry>
@@ -10124,7 +10124,7 @@
 ></term>
 			<listitem>
 			    <para
->Compressió a utilitzar per emmagatzemar les mostres. </para>
+>Compressió a utilitzar per a emmagatzemar les mostres. </para>
 			</listitem>
 		    </varlistentry>
 		    <varlistentry>
@@ -10134,7 +10134,7 @@
 ></term>
 			<listitem>
 			    <para
->El format de la mostra que s'utilitzarà per emmagatzemar les mostres, vegeu la <link linkend="sample-formats"
+>El format de la mostra que s'utilitzarà per a emmagatzemar les mostres, vegeu la <link linkend="sample-formats"
 >secció sobre formats de mostra</link
 >. </para>
 			</listitem>
@@ -10186,7 +10186,7 @@
 ></term>
 			<listitem>
 			    <para
->Es pot utilitzar com un paràmetre únic per a configurar el connector. Es permeten els següents valors: <informaltable frame='all'
+>Es pot utilitzar com un paràmetre únic per a configurar el connector. Es permeten els valors següents: <informaltable frame='all'
 > <tgroup cols='2'>
 					<thead>
 					    <row>
@@ -10329,7 +10329,7 @@
 ></term>
 			<listitem>
 			    <para
->La nova freqüència de mostreig en mostres per segon (valor en coma flotant). </para>
+>La freqüència nova de mostreig en mostres per segon (valor en coma flotant). </para>
 			</listitem>
 		    </varlistentry>
 		    <varlistentry>
@@ -10427,7 +10427,7 @@
 ></term>
 			<listitem>
 			    <para
->Un patró que s'utilitzarà per crear els noms dels fitxers. Pot contenir els següents comodins que seran substituïts pel contingut corresponent en crear el nom final dels fitxers: </para>
+>Un patró que s'utilitzarà per a crear els noms dels fitxers. Pot contenir els comodins següents que seran substituïts pel contingut corresponent en crear el nom final dels fitxers: </para>
 				<informaltable frame='all'>
 				    <tgroup cols='2'>
 					<thead>
@@ -11866,7 +11866,7 @@
 ><para
 >Autor de la biblioteca descodificadora <ulink url="&url_libmad;"
 >mad</ulink
-> de MP3 </para>
+> d'MP3 </para>
 	    </listitem>
 	    <listitem>
 	    	<para
@@ -12096,7 +12096,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Compressió</entry>
 	    <entry colname='c2'
->Estableix un mode per comprimir l'àudio per a reduir l'espai usat en el disc. </entry>
+>Estableix un mode per a comprimir l'àudio per a reduir l'espai usat en el disc. </entry>
 	</row>
 	<row id="INF_CONTACT">
 	    <entry colname='c1'
@@ -12286,7 +12286,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Format de la mostra</entry>
 	    <entry colname='c2'
->Format utilitzat per emmagatzemar les mostres d'àudio digitalitzades. Exemple: <quote
+>Format utilitzat per a emmagatzemar les mostres d'àudio digitalitzades. Exemple: <quote
 >IEEE de 32 bits amb decimals</quote
 > </entry>
 	</row>
@@ -12300,7 +12300,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Programari</entry>
 	    <entry colname='c2'
->Identifica el nom del paquet de programari usat per crear el fitxer. Exemple: <quote
+>Identifica el nom del paquet de programari usat per a crear el fitxer. Exemple: <quote
 >Kwave v0.6.4-1</quote
 > </entry>
 	</row>

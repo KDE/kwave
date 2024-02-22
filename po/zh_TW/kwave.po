@@ -2,35 +2,36 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Franklin Weng <franklin@goodhorse.idv.tw>, 2015.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-07 00:41+0000\n"
-"PO-Revision-Date: 2018-03-29 13:07+0800\n"
-"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
-"Language-Team: Chinese Traditional <kde-tw@googlegroups.com>\n"
+"PO-Revision-Date: 2024-02-22 06:09+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Lokalize 23.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Franklin Weng"
+msgstr "Franklin Weng, Kisaragi Hiu"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "franklin@goodhorse.idv.tw"
+msgstr "franklin@goodhorse.idv.tw, mail@kisaragi-hiu.com"
 
 #: kwave/App.cpp:148
 #, kde-format
 msgid "Reading configuration..."
-msgstr "讀取組態..."
+msgstr "讀取設定中..."
 
 #: kwave/App.cpp:228
 #, kde-format
@@ -53,15 +54,14 @@ msgid "Loading plugins..."
 msgstr "載入外掛程式中..."
 
 #: kwave/FileContext.cpp:229
-#, fuzzy, kde-format
-#| msgid "Trailer"
+#, kde-format
 msgid "Failed"
-msgstr "拖車"
+msgstr "已失敗"
 
 #: kwave/FileContext.cpp:232
 #, kde-format
 msgid "Kwave has not been properly installed. No plugins found!"
-msgstr ""
+msgstr "Kwave 未被正確安裝。沒有找到外掛程式！"
 
 #: kwave/FileContext.cpp:238
 #, kde-format
@@ -93,16 +93,13 @@ msgid "* %1 (modified)"
 msgstr "* %1（已修改）"
 
 #: kwave/FileContext.cpp:903
-#, fuzzy, kde-format
-#| msgid ""
-#| "This file has been modified.\n"
-#| "Do you want to save it?"
+#, kde-format
 msgid ""
 "This file has been modified, changes will be lost.\n"
 "Do you want to continue?"
 msgstr ""
-"檔案已被變更。\n"
-"您要儲存嗎？"
+"這個檔案已被變更，這些變更都會喪失。\n"
+"您還是要繼續嗎？"
 
 #: kwave/FileContext.cpp:981
 #, kde-format
@@ -140,7 +137,7 @@ msgstr "2000 年起成為專案領導者，核心開發者"
 #: kwave/main.cpp:49
 #, kde-format
 msgid "http://kwave.sourceforge.net"
-msgstr ""
+msgstr "http://kwave.sourceforge.net"
 
 #: kwave/main.cpp:52
 #, kde-format
@@ -155,7 +152,7 @@ msgstr "專案建立者，1998-2000 年間的開發者"
 #: kwave/main.cpp:55
 #, kde-format
 msgid "http://www.wilz.de"
-msgstr ""
+msgstr "http://www.wilz.de"
 
 #: kwave/main.cpp:57
 #, kde-format
@@ -173,15 +170,14 @@ msgid "Caulier Gilles"
 msgstr "Caulier Gilles"
 
 #: kwave/main.cpp:63
-#, fuzzy, kde-format
-#| msgid "French translations, splashscreen, tests and bugfixes"
+#, kde-format
 msgid "splashscreen, tests and bugfixes"
-msgstr "法文翻譯，啟動畫面，測試與問題修正"
+msgstr "啟動畫面、測試與問題修正"
 
 #: kwave/main.cpp:65
 #, kde-format
 msgid "http://caulier.gilles.free.fr"
-msgstr ""
+msgstr "http://caulier.gilles.free.fr"
 
 #: kwave/main.cpp:67
 #, kde-format
@@ -199,14 +195,14 @@ msgid "Rik Hemsley"
 msgstr "Rik Hemsley"
 
 #: kwave/main.cpp:73
-#, kde-format
+#, fuzzy, kde-format
 msgid "Level meter"
 msgstr "等級量尺"
 
 #: kwave/main.cpp:75
 #, kde-format
 msgid "http://rikkus.info/esoundlevelmeter.html"
-msgstr ""
+msgstr "http://rikkus.info/esoundlevelmeter.html"
 
 #: kwave/main.cpp:77
 #, kde-format
@@ -216,7 +212,7 @@ msgstr "Joerg-Christian Boehme"
 #: kwave/main.cpp:78
 #, kde-format
 msgid "PulseAudio record plugin"
-msgstr "PulseAudio 紀錄外掛程式"
+msgstr "PulseAudio 錄製外掛程式"
 
 #: kwave/main.cpp:84
 #, kde-format
@@ -364,42 +360,40 @@ msgid "String and i18n updates"
 msgstr "字串與 i18n 更新"
 
 #: kwave/main.cpp:173
-#, fuzzy, kde-format
-#| msgid "Disable the Splash Screen"
+#, kde-format
 msgid "Disable the Splash Screen."
-msgstr "停用 Splash 畫面"
+msgstr "停用啟動畫面。"
 
 #: kwave/main.cpp:177
-#, fuzzy, kde-format
-#| msgid "Start Kwave iconified"
+#, kde-format
 msgid "Start Kwave iconified."
-msgstr "以最小化模式啟動 Kwave"
+msgstr "以最小化模式啟動 Kwave。"
 
 #: kwave/main.cpp:182
-#, fuzzy, kde-format
-#| msgid "Log all commands into a file"
+#, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
-msgstr "將所有的指令紀錄到檔案"
+msgstr "將所有的指令記錄到檔案 <file> 中。"
 
 #: kwave/main.cpp:183
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
-msgstr ""
+msgstr "檔案"
 
 #: kwave/main.cpp:188
-#, fuzzy, kde-format
-#| msgid "GUI type: SDI, MDI or TAB mode"
+#, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
-msgstr "圖形介面型態：SDI, MDI 或 TAB 模式"
+msgstr ""
+"選擇圖形介面類型：sdi（一個視窗一個檔案）、mdi（一個視窗多個檔案）或 tab（一"
+"個視窗多個檔案在分頁內）模式。"
 
 #: kwave/main.cpp:189
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
-msgstr ""
+msgstr "sdi|mdi|tab"
 
 #: kwave/main.cpp:194
 #, kde-format
@@ -412,7 +406,7 @@ msgstr ""
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
-msgstr ""
+msgstr "[檔案...]"
 
 #: kwave/main.cpp:201
 #, kde-format
@@ -420,38 +414,34 @@ msgid "Kwave"
 msgstr "Kwave"
 
 #: kwave/main.cpp:203
-#, fuzzy, kde-format
-#| msgid "A sound editor for KDE"
+#, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
-msgstr "KDE 音效編輯器"
+msgstr "一個建構於 KDE Frameworks 5 之上的音訊編輯器。"
 
 #: kwave/main.cpp:205
-#, fuzzy, kde-format
-#| msgid "(c) 2014, Thomas Eschenbacher"
+#, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
-msgstr "(c) 2014, Thomas Eschenbacher"
+msgstr "(c) 2016, Thomas Eschenbacher"
 
 #: kwave/MainWidget.cpp:93
 #, kde-format
 msgid "Kwave label list"
-msgstr ""
+msgstr "Kwave 標記清單"
 
 #: kwave/MainWidget.cpp:899 libkwave/SignalManager.cpp:1867
 #, kde-format
 msgid "Add Label"
-msgstr "新增標籤"
+msgstr "新增標記"
 
 #: kwave/MainWidget.cpp:933 kwave/MainWidget.cpp:946
-#, fuzzy, kde-format
-#| msgid "Labels"
+#, kde-format
 msgid "Load Labels"
-msgstr "標籤"
+msgstr "載入標記"
 
 #: kwave/MainWidget.cpp:969
-#, fuzzy, kde-format
-#| msgid "Labels"
+#, kde-format
 msgid "Save Labels"
-msgstr "標籤"
+msgstr "儲存標記"
 
 #: kwave/MainWidget.cpp:1076
 #, kde-format
@@ -459,11 +449,13 @@ msgid ""
 "There already is a label at the position you have chosen.\n"
 "Do you want to replace it?"
 msgstr ""
+"您所選擇的位置上已經有一個標記了。\n"
+"您要取代它嗎？"
 
 #: kwave/MainWidget.cpp:1103
 #, kde-format
 msgid "Modify Label"
-msgstr ""
+msgstr "修改標記"
 
 #: kwave/menus.config:18
 msgctxt "menu: /File"
@@ -493,7 +485,7 @@ msgstr "清除清單"
 #: kwave/menus.config:29
 msgctxt "menu: /File/Record"
 msgid "Record"
-msgstr "紀錄"
+msgstr "錄製"
 
 #: kwave/menus.config:33
 msgctxt "menu: /File/&Save"
@@ -628,17 +620,17 @@ msgstr "結束點"
 #: kwave/menus.config:85
 msgctxt "menu: /Edit/Selection/Expand to Labels"
 msgid "Expand to Labels"
-msgstr "擴展到標籤"
+msgstr "擴展到標記"
 
 #: kwave/menus.config:86
 msgctxt "menu: /Edit/Selection/To Next Labels"
 msgid "To Next Labels"
-msgstr "到下一個標籤"
+msgstr "到下一個標記"
 
 #: kwave/menus.config:87
 msgctxt "menu: /Edit/Selection/To Previous Labels"
 msgid "To Previous Labels"
-msgstr "到前一個標籤"
+msgstr "到前一個標記"
 
 #: kwave/menus.config:90
 msgctxt "menu: /Edit/Track/Add"
@@ -663,7 +655,7 @@ msgstr "全部選取"
 #: kwave/menus.config:98
 msgctxt "menu: /Edit/Track/Invert Selection"
 msgid "Invert Selection"
-msgstr "反相選擇"
+msgstr "反轉選取"
 
 #: kwave/menus.config:101
 msgctxt "menu: /Edit/Clipboard"
@@ -693,7 +685,7 @@ msgstr "檢視"
 #: kwave/menus.config:116
 msgctxt "menu: /View/Go to Position..."
 msgid "Go to Position..."
-msgstr "跳到位置..."
+msgstr "前往位置..."
 
 #: kwave/menus.config:117
 msgctxt "menu: /View/Begin"
@@ -773,7 +765,7 @@ msgstr "開始"
 #: kwave/menus.config:135
 msgctxt "menu: /Play/Loop"
 msgid "Loop"
-msgstr "重複播放"
+msgstr "循環播放"
 
 #: kwave/menus.config:136
 msgctxt "menu: /Play/Pause"
@@ -803,28 +795,27 @@ msgstr "下一個"
 #: kwave/menus.config:142
 msgctxt "menu: /Record"
 msgid "Record"
-msgstr "紀錄"
+msgstr "錄製"
 
 #: kwave/menus.config:143
 msgctxt "menu: /Record/Prepare..."
 msgid "Prepare..."
-msgstr ""
+msgstr "準備..."
 
 #: kwave/menus.config:144
-#, fuzzy
 msgctxt "menu: /Record/Start Now!"
 msgid "Start Now!"
-msgstr "開始"
+msgstr "現在開始！"
 
 #: kwave/menus.config:146
 msgctxt "menu: /Labels"
 msgid "Labels"
-msgstr "標籤"
+msgstr "標記"
 
 #: kwave/menus.config:147
 msgctxt "menu: /Labels/Add..."
 msgid "Add..."
-msgstr ""
+msgstr "新增..."
 
 #: kwave/menus.config:148
 msgctxt "menu: /Labels/Delete"
@@ -834,19 +825,17 @@ msgstr "刪除"
 #: kwave/menus.config:153
 msgctxt "menu: /Labels/Load..."
 msgid "Load..."
-msgstr ""
+msgstr "載入..."
 
 #: kwave/menus.config:154
-#, fuzzy
-#| msgid "&Save..."
 msgctxt "menu: /Labels/Save..."
 msgid "Save..."
-msgstr "儲存(&S)..."
+msgstr "儲存..."
 
 #: kwave/menus.config:161
 msgctxt "menu: /Fx"
 msgid "Fx"
-msgstr "Fx"
+msgstr "效果"
 
 #: kwave/menus.config:163
 msgctxt "menu: /Fx/Volume"
@@ -856,7 +845,7 @@ msgstr "音量"
 #: kwave/menus.config:164
 msgctxt "menu: /Fx/Normalize"
 msgid "Normalize"
-msgstr "標準化"
+msgstr "正規化"
 
 #: kwave/menus.config:165
 msgctxt "menu: /Fx/Fade In"
@@ -876,12 +865,12 @@ msgstr ""
 #: kwave/menus.config:176
 msgctxt "menu: /Fx/Fade Intro"
 msgid "Fade Intro"
-msgstr ""
+msgstr "淡入開頭"
 
 #: kwave/menus.config:177
 msgctxt "menu: /Fx/Fade Leadout"
 msgid "Fade Leadout"
-msgstr ""
+msgstr "淡出結尾"
 
 #: kwave/menus.config:180
 msgctxt "menu: /Fx/Low Pass"
@@ -946,17 +935,17 @@ msgstr "前一個視窗"
 #: kwave/menus.config:230
 msgctxt "menu: /Window/Cascade Sub Windows"
 msgid "Cascade Sub Windows"
-msgstr ""
+msgstr "收起子視窗"
 
 #: kwave/menus.config:231
 msgctxt "menu: /Window/Tile Sub Windows"
 msgid "Tile Sub Windows"
-msgstr ""
+msgstr "排列子視窗"
 
 #: kwave/menus.config:232
 msgctxt "menu: /Window/Arrange Sub Windows Vertically"
 msgid "Arrange Sub Windows Vertically"
-msgstr ""
+msgstr "垂直排列子視窗"
 
 #: kwave/menus.config:237
 msgctxt "menu: /Settings"
@@ -966,17 +955,17 @@ msgstr "設定"
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in.../Separate Windows (SDI)"
 msgid "Separate Windows (SDI)"
-msgstr ""
+msgstr "多重視窗"
 
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in..."
 msgid "Show Files in..."
-msgstr ""
+msgstr "檔案顯示方式..."
 
 #: kwave/menus.config:239
 msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
 msgid "Same Window (MDI)"
-msgstr ""
+msgstr "單一視窗"
 
 #: kwave/menus.config:240
 msgctxt "menu: /Settings/Show Files in.../Tabs"
@@ -991,10 +980,9 @@ msgstr "播放"
 #: kwave/menus.config:244
 msgctxt "menu: /Settings/Record"
 msgid "Record"
-msgstr "紀錄"
+msgstr "錄製"
 
 #: kwave/menus.config:245
-#, fuzzy
 msgctxt "menu: /Settings/Record/Format"
 msgid "Format"
 msgstr "格式"
@@ -1007,12 +995,12 @@ msgstr "來源"
 #: kwave/menus.config:248
 msgctxt "menu: /Settings/Reset Toolbar"
 msgid "Reset Toolbar"
-msgstr ""
+msgstr "重設工具列"
 
 #: kwave/menus.config:249
 msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
 msgid "Re-enable all \"Do not ask again\" messages"
-msgstr ""
+msgstr "重新打開所有「不要再問我」的訊息"
 
 #: kwave/menus.config:252
 msgctxt "menu: /Help/Contents"
@@ -1027,7 +1015,7 @@ msgstr "說明"
 #: kwave/menus.config:253
 msgctxt "menu: /Help/About Kwave"
 msgid "About Kwave"
-msgstr ""
+msgstr "關於 Kwave"
 
 #: kwave/menus.config:254
 msgctxt "menu: /Help/About KDE"
@@ -1050,7 +1038,7 @@ msgstr "倒轉"
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
-msgstr "紀錄"
+msgstr "錄製"
 
 #: kwave/PlayerToolBar.cpp:92
 #, kde-format
@@ -1060,12 +1048,12 @@ msgstr "開始播放"
 #: kwave/PlayerToolBar.cpp:97
 #, kde-format
 msgid "Start playback and loop"
-msgstr ""
+msgstr "開始播放並循環"
 
 #: kwave/PlayerToolBar.cpp:107
 #, kde-format
 msgid "Stop playback or loop"
-msgstr ""
+msgstr "停止播放或循環"
 
 #: kwave/PlayerToolBar.cpp:112
 #, kde-format
@@ -1080,7 +1068,7 @@ msgstr "下一個"
 #: kwave/PlayerToolBar.cpp:462
 #, kde-format
 msgid "Continue playback"
-msgstr ""
+msgstr "繼續播放"
 
 #: kwave/PlayerToolBar.cpp:464
 #, kde-format
@@ -1106,7 +1094,7 @@ msgstr "初始化工具列中..."
 #: kwave/TopWidget.cpp:351
 #, kde-format
 msgid "Create a new empty file"
-msgstr ""
+msgstr "開啟新的空白檔案"
 
 #: kwave/TopWidget.cpp:356
 #, kde-format
@@ -1116,17 +1104,17 @@ msgstr "開啟現有的檔案"
 #: kwave/TopWidget.cpp:361
 #, kde-format
 msgid "Save the current file"
-msgstr ""
+msgstr "儲存目前檔案"
 
 #: kwave/TopWidget.cpp:366
 #, kde-format
 msgid "Save the current file under a different name or file format..."
-msgstr ""
+msgstr "以另一個名稱或檔案格式儲存目前檔案..."
 
 #: kwave/TopWidget.cpp:371
 #, kde-format
 msgid "Close the current file"
-msgstr ""
+msgstr "關閉目前檔案"
 
 #: kwave/TopWidget.cpp:382
 #, kde-format
@@ -1156,7 +1144,7 @@ msgstr "插入"
 #: kwave/TopWidget.cpp:410
 #, kde-format
 msgid "Mute selection"
-msgstr ""
+msgstr "將選取範圍靜音"
 
 #: kwave/TopWidget.cpp:415
 #, kde-format
@@ -1166,7 +1154,7 @@ msgstr "刪除選擇的區域"
 #: kwave/TopWidget.cpp:761
 #, kde-format
 msgid "Reset the toolbar to default settings?"
-msgstr ""
+msgstr "要將工具列重設到預設設定嗎？"
 
 #: kwave/TopWidget.cpp:786
 #, kde-format
@@ -1175,16 +1163,18 @@ msgid ""
 "All messages that you previously turned off by activating the \"Do not ask "
 "again\" checkbox will then be enabled again."
 msgstr ""
+"要重新打開已停用的通知嗎？\n"
+"所有您之前勾選「不要再問我」而停用的訊息都會被重新打開。"
 
 #: kwave/TopWidget.cpp:1010
 #, kde-format
 msgid "Executing command '%1'..."
-msgstr ""
+msgstr "正在執行命令 '%1'..."
 
 #: kwave/TopWidget.cpp:1030
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
-msgstr ""
+msgstr "正在執行 Kwave 文稿檔案 '%1'..."
 
 #: kwave/TopWidget.cpp:1040
 #, kde-format
@@ -1216,7 +1206,7 @@ msgstr "無法開啟 %1。"
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
-msgstr ""
+msgstr "無效或未知的檔案型態：'%1'"
 
 #: kwave/TopWidget.cpp:1098
 #, kde-format
@@ -1227,12 +1217,12 @@ msgstr "開啟"
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
-msgstr ""
+msgstr "長度：%1（%2 個樣本）"
 
 #: kwave/TopWidget.cpp:1162
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
-msgstr ""
+msgstr "模式：%1 kHz @ %2 位元"
 
 #: kwave/TopWidget.cpp:1208
 #, kde-format
@@ -1240,7 +1230,7 @@ msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
 "2000...3000 (1000 samples)'"
 msgid "Selected: %1...%2 (%3 samples)"
-msgstr ""
+msgstr "已選取：%1...%2（%3 個樣本）"
 
 #: kwave/TopWidget.cpp:1220
 #, kde-format
@@ -1248,7 +1238,7 @@ msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
 "(3 min)'"
 msgid "Selected: %1...%2 (%3)"
-msgstr "已選取：%1... %2 (%3)"
+msgstr "已選取：%1...%2（%3）"
 
 #: kwave/TopWidget.cpp:1239
 #, kde-format
@@ -1307,23 +1297,19 @@ msgstr "重做"
 #, kde-format
 msgctxt "special entry in the list of labels to delete all"
 msgid "(All)"
-msgstr ""
+msgstr "（全部）"
 
 #: kwave/TopWidget.cpp:1420
-#, fuzzy, kde-format
-#| msgctxt "tooltip of a label, %1=index, %2=description/name"
-#| msgid "Label #%1 (%2)"
+#, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
-msgstr "標籤 #%1 (%2)"
+msgstr "#%1 (%2)"
 
 #: kwave/TopWidget.cpp:1423
-#, fuzzy, kde-format
-#| msgctxt "%1=Version number"
-#| msgid "v%1"
+#, kde-format
 msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"
-msgstr "v%1"
+msgstr "#%1"
 
 #: kwave/ZoomToolBar.cpp:64
 #, kde-format
@@ -1353,7 +1339,7 @@ msgstr "縮放到全部"
 #: kwave/ZoomToolBar.cpp:92
 #, kde-format
 msgid "Select zoom factor"
-msgstr ""
+msgstr "選擇縮放係數"
 
 #: kwave/ZoomToolBar.cpp:101 kwave/ZoomToolBar.cpp:102
 #: kwave/ZoomToolBar.cpp:103
@@ -1418,17 +1404,17 @@ msgstr "配合"
 #: libgui/CurveWidget.cpp:109
 #, kde-format
 msgid "Presets"
-msgstr "預設定"
+msgstr "預設檔"
 
 #: libgui/CurveWidget.cpp:118
 #, kde-format
 msgid "Save Preset"
-msgstr ""
+msgstr "儲存預設檔"
 
 #: libgui/CurveWidget.cpp:123
 #, kde-format
 msgid "Currently Selected Point"
-msgstr ""
+msgstr "目前選取的點"
 
 #: libgui/CurveWidget.cpp:126
 #, kde-format
@@ -1439,17 +1425,17 @@ msgstr ""
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
-msgstr ""
+msgstr "Kwave 曲線預設檔 (*.curve)"
 
 #: libgui/CurveWidget.cpp:204
 #, kde-format
 msgid "Save Curve Preset"
-msgstr ""
+msgstr "儲存曲線預設檔"
 
 #: libgui/FilterPlugin.cpp:241
 #, kde-format
 msgid "Applying '%1'..."
-msgstr ""
+msgstr "正在套用「%1」..."
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbHours)
 #: libgui/HMSTimeWidgetBase.ui:23
@@ -1476,18 +1462,18 @@ msgstr " 秒"
 #, kde-format
 msgctxt "tooltip of a label, %1=index, %2=description/name"
 msgid "Label #%1 (%2)"
-msgstr "標籤 #%1 (%2)"
+msgstr "標記 #%1 (%2)"
 
 #: libgui/LabelItem.cpp:77
 #, kde-format
 msgctxt "tooltip of a label, without description, %1=index"
 msgid "Label #%1"
-msgstr "標籤 #%1"
+msgstr "標記 #%1"
 
 #: libgui/LabelItem.cpp:94 libgui/TrackView.cpp:274
 #, kde-format
 msgid "Label"
-msgstr "標籤"
+msgstr "標記"
 
 #: libgui/LabelItem.cpp:105 libgui/TrackView.cpp:281
 #, kde-format
@@ -1505,16 +1491,15 @@ msgid "&Properties..."
 msgstr "屬性(&P)..."
 
 #: libgui/LabelItem.cpp:159
-#, fuzzy, kde-format
-#| msgid "Labels"
+#, kde-format
 msgid "Move Label"
-msgstr "標籤"
+msgstr "移動標記"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LabelPropertiesWidgetBase)
 #: libgui/LabelPropertiesWidgetBase.ui:20
 #, kde-format
 msgid "Label Properties..."
-msgstr "標籤屬性..."
+msgstr "標記屬性..."
 
 #. i18n: ectx: property (whatsThis), widget (Kwave::SelectTimeWidget, time)
 #: libgui/LabelPropertiesWidgetBase.ui:44
@@ -1668,21 +1653,21 @@ msgstr "小時"
 #: libgui/SelectTimeWidgetBase.ui:314 plugins/newsignal/NewSigDlg.ui:601
 #, no-c-format, kde-format
 msgid "0%"
-msgstr ""
+msgstr "0%"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel3_2)
 #. i18n: ectx: property (text), widget (QLabel, TextLabel3)
 #: libgui/SelectTimeWidgetBase.ui:340 plugins/newsignal/NewSigDlg.ui:627
 #, no-c-format, kde-format
 msgid "50%"
-msgstr ""
+msgstr "50%"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2_2)
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2)
 #: libgui/SelectTimeWidgetBase.ui:366 plugins/newsignal/NewSigDlg.ui:653
 #, no-c-format, kde-format
 msgid "100%"
-msgstr ""
+msgstr "100%"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slidePercents)
 #: libgui/SelectTimeWidgetBase.ui:387
@@ -1733,12 +1718,12 @@ msgstr ""
 #: libgui/SignalWidget.cpp:267
 #, kde-format
 msgid "To Next Labels"
-msgstr ""
+msgstr "到下一個標記"
 
 #: libgui/SignalWidget.cpp:276
 #, kde-format
 msgid "To Previous Labels"
-msgstr ""
+msgstr "到前一個標記"
 
 #: libkwave/CodecManager.cpp:200
 #, kde-format
@@ -1838,7 +1823,7 @@ msgstr "Ogg Opus"
 #: libkwave/ConfirmCancelProxy.cpp:50
 #, kde-format
 msgid "Do you really want to abort the current action?"
-msgstr ""
+msgstr "您確定要中止目前動作嗎？"
 
 #: libkwave/FileInfo.cpp:37
 msgid "Album"
@@ -1914,8 +1899,9 @@ msgid "Specifies the upper limit in a VBR bitstream."
 msgstr ""
 
 #: libkwave/FileInfo.cpp:77
+#, fuzzy
 msgid "Bits per Sample"
-msgstr ""
+msgstr "樣本位元數："
 
 #: libkwave/FileInfo.cpp:78
 msgid "Specifies the number of bits per sample."
@@ -1923,7 +1909,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:81
 msgid "CD"
-msgstr "光碟"
+msgstr "CD"
 
 #: libkwave/FileInfo.cpp:83
 msgid "Number of the CD, if the source is an album of more CDROMs"
@@ -2078,7 +2064,7 @@ msgstr "標籤"
 
 #: libkwave/FileInfo.cpp:168
 msgid "The list of labels/markers."
-msgstr ""
+msgstr "標記的清單。"
 
 #: libkwave/FileInfo.cpp:172
 msgid "Length of the file in samples."
@@ -2218,7 +2204,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:245
 msgid "Sample Format"
-msgstr ""
+msgstr "樣本格式"
 
 #: libkwave/FileInfo.cpp:246
 msgid ""
@@ -2228,11 +2214,11 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:250
 msgid "Sample Rate"
-msgstr "取樣頻率"
+msgstr "取樣率"
 
 #: libkwave/FileInfo.cpp:251
 msgid "Number of samples per second"
-msgstr ""
+msgstr "每秒樣本數"
 
 #: libkwave/FileInfo.cpp:254
 msgid "Software"
@@ -2333,10 +2319,10 @@ msgid ""
 msgstr ""
 
 #: libkwave/FileProgress.cpp:92
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "file progress dialog"
 msgid "File: "
-msgstr "檔案"
+msgstr "檔案："
 
 #: libkwave/FileProgress.cpp:99
 #, kde-format
@@ -2345,17 +2331,16 @@ msgid "Length: "
 msgstr "長度： "
 
 #: libkwave/FileProgress.cpp:107
-#, fuzzy, kde-format
-#| msgid "Sample Rate:"
+#, kde-format
 msgctxt "file progress dialog"
 msgid "Sample Rate: "
-msgstr "取樣頻率："
+msgstr "取樣率："
 
 #: libkwave/FileProgress.cpp:109
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "file progress dialog, %1=number of samples per second"
 msgid "%1 Samples per second"
-msgstr "1 秒鐘"
+msgstr "每秒 %1 個樣本"
 
 #: libkwave/FileProgress.cpp:114
 #, kde-format
@@ -2506,12 +2491,10 @@ msgid "Oldies"
 msgstr "老歌"
 
 #: libkwave/GenreType.cpp:111
-#, fuzzy
 msgid "Other"
 msgstr "其他"
 
 #: libkwave/GenreType.cpp:112
-#, fuzzy
 msgid "Pop"
 msgstr "流行"
 
@@ -2592,7 +2575,6 @@ msgid "Trance"
 msgstr "恍惚"
 
 #: libkwave/GenreType.cpp:131
-#, fuzzy
 msgid "Classical"
 msgstr "古典"
 
@@ -2621,7 +2603,6 @@ msgid "Gospel"
 msgstr "福音"
 
 #: libkwave/GenreType.cpp:138
-#, fuzzy
 msgid "Noise"
 msgstr "雜訊"
 
@@ -2632,7 +2613,6 @@ msgid "Alternative Rock"
 msgstr "另類的"
 
 #: libkwave/GenreType.cpp:140
-#, fuzzy
 msgid "Bass"
 msgstr "低音"
 
@@ -3036,10 +3016,8 @@ msgid "Christian Gangsta Rap"
 msgstr "基督饒舌歌"
 
 #: libkwave/GenreType.cpp:238
-#, fuzzy
-#| msgid "Death Metal"
 msgid "Heavy Metal"
-msgstr "死亡金屬"
+msgstr "重金屬"
 
 #: libkwave/GenreType.cpp:239
 #, fuzzy
@@ -3155,7 +3133,7 @@ msgstr ""
 
 #: libkwave/GenreType.cpp:267
 msgid "Experimental"
-msgstr ""
+msgstr "實驗性"
 
 #: libkwave/GenreType.cpp:268
 msgid "Garage"
@@ -3251,9 +3229,8 @@ msgid "World Music"
 msgstr ""
 
 #: libkwave/GenreType.cpp:287
-#, fuzzy
 msgid "Neoclassical"
-msgstr "古典"
+msgstr "現代古典"
 
 #: libkwave/GenreType.cpp:288
 msgid "Audiobook"
@@ -3294,9 +3271,8 @@ msgid "Garage Rock"
 msgstr "硬式搖滾"
 
 #: libkwave/GenreType.cpp:296
-#, fuzzy
 msgid "Psybient"
-msgstr "環繞(Ambient)"
+msgstr ""
 
 #: libkwave/GenreType.cpp:302
 #, fuzzy
@@ -3344,24 +3320,24 @@ msgstr "無法開啟 %1。"
 
 #: libkwave/PlayBackTypesMap.cpp:34 plugins/record/RecordTypesMap.cpp:47
 msgid "ALSA (Advanced Linux Sound Architecture)"
-msgstr ""
+msgstr "ALSA (Advanced Linux Sound Architecture)"
 
 #: libkwave/PlayBackTypesMap.cpp:39 plugins/record/RecordTypesMap.cpp:53
 msgid "OSS (Open Sound System)"
-msgstr ""
+msgstr "OSS (Open Sound System)"
 
 #: libkwave/PlayBackTypesMap.cpp:44 plugins/record/RecordTypesMap.cpp:41
 msgid "Pulse Audio"
-msgstr ""
+msgstr "PulseAudio"
 
 #: libkwave/PlayBackTypesMap.cpp:49 plugins/record/RecordTypesMap.cpp:35
 msgid "Qt Multimedia Audio"
-msgstr ""
+msgstr "Qt 多媒體音效"
 
 #: libkwave/Plugin.cpp:215
 #, kde-format
 msgid "Running plugin '%1'..."
-msgstr ""
+msgstr "正在執行外掛程式 '%1'..."
 
 #: libkwave/PluginManager.cpp:190
 #, kde-format
@@ -3374,31 +3350,30 @@ msgid "Error On Loading Plugin"
 msgstr ""
 
 #: libkwave/PluginManager.cpp:669
-#, fuzzy, kde-format
+#, kde-format
 msgid "Loading plugin %1..."
-msgstr "載入外掛程式 %1/%2：%3..."
+msgstr "正在載入外掛程式 %1..."
 
 #: libkwave/SampleFormat.cpp:37
 msgid "Linear Two's Complement"
 msgstr ""
 
 #: libkwave/SampleFormat.cpp:39
-#, fuzzy
 msgid "Unsigned Integer"
 msgstr "無號整數"
 
 #: libkwave/SampleFormat.cpp:41
 msgid "32-bit IEEE Floating-Point"
-msgstr ""
+msgstr "32 位元 IEEE 浮點數"
 
 #: libkwave/SampleFormat.cpp:43
 msgid "64-bit IEEE Double Precision Floating-Point"
-msgstr ""
+msgstr "64 位元 IEEE 雙倍精確浮點數"
 
 #: libkwave/SignalManager.cpp:334
 #, kde-format
 msgid "Signal is empty, nothing to save."
-msgstr ""
+msgstr "訊號為空，沒有能儲存的東西。"
 
 #: libkwave/SignalManager.cpp:363
 #, kde-format
@@ -3410,10 +3385,9 @@ msgstr ""
 
 #: libkwave/SignalManager.cpp:400 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1070
-#, fuzzy, kde-format
-#| msgid "A sound editor for KDE"
+#, kde-format
 msgid "(built with KDE Frameworks %1)"
-msgstr "KDE 音效編輯器"
+msgstr "（編譯時使用 KDE Frameworks %1）"
 
 #: libkwave/SignalManager.cpp:457
 #, kde-format
@@ -3441,49 +3415,49 @@ msgid "Paste"
 msgstr "貼上"
 
 #: libkwave/SignalManager.cpp:683
-#, fuzzy, kde-format
+#, kde-format
 msgid "Crop"
-msgstr "裁剪"
+msgstr "裁切"
 
 #: libkwave/SignalManager.cpp:734
 #, kde-format
 msgid "Expand Selection to Label"
-msgstr ""
+msgstr "擴展選取到標記"
 
 #: libkwave/SignalManager.cpp:763
 #, kde-format
 msgid "Select Next Labels"
-msgstr ""
+msgstr "選取下一個標記"
 
 #: libkwave/SignalManager.cpp:801
 #, kde-format
 msgid "Select Previous Labels"
-msgstr ""
+msgstr "選取前一個標記"
 
 #: libkwave/SignalManager.cpp:840
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select All Tracks"
-msgstr "選擇所有音軌(&A)"
+msgstr "選取所有音軌"
 
 #: libkwave/SignalManager.cpp:844
-#, fuzzy, kde-format
+#, kde-format
 msgid "Deselect all tracks"
-msgstr "取消選擇所有音軌(&A)"
+msgstr "取消選取所有音軌"
 
 #: libkwave/SignalManager.cpp:848
 #, kde-format
 msgid "Invert Track Selection"
-msgstr ""
+msgstr "反轉音軌選取"
 
 #: libkwave/SignalManager.cpp:854
 #, kde-format
 msgid "Select Track"
-msgstr ""
+msgstr "選取音軌"
 
 #: libkwave/SignalManager.cpp:859
 #, kde-format
 msgid "Deselect Track"
-msgstr ""
+msgstr "取消選取音軌"
 
 #: libkwave/SignalManager.cpp:864
 #, kde-format
@@ -3503,7 +3477,7 @@ msgstr "新增軌道"
 #: libkwave/SignalManager.cpp:942 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
-msgstr "移除軌道"
+msgstr "刪除軌道"
 
 #: libkwave/SignalManager.cpp:1094
 #, kde-format
@@ -3528,7 +3502,7 @@ msgid ""
 msgstr ""
 
 #: libkwave/SignalManager.cpp:1375
-#, fuzzy, kde-format
+#, kde-format
 msgid "Settings"
 msgstr "設定"
 
@@ -3545,33 +3519,33 @@ msgstr ""
 #: libkwave/SignalManager.cpp:1819
 #, kde-format
 msgid "Modify File Info"
-msgstr ""
+msgstr "修改檔案資訊"
 
 #: libkwave/SignalManager.cpp:1894
-#, fuzzy, kde-format
+#, kde-format
 msgid "Delete All Labels"
-msgstr "選擇所有音軌(&A)"
+msgstr "刪除所有標記"
 
 #: libkwave/SignalManager.cpp:1913
 #, kde-format
 msgid "Delete Label"
-msgstr ""
+msgstr "刪除標記"
 
 #: libkwave/SignalManager.cpp:2009
 #, kde-format
 msgid "Manual Track Selection"
-msgstr ""
+msgstr "手動選擇音軌"
 
 #: libkwave/SignalManager.cpp:2012
-#, fuzzy, kde-format
+#, kde-format
 msgid "Manual Selection"
 msgstr "手動選擇"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btNew)
 #: libkwave/SignalManager.h:44 plugins/record/RecordDlg.ui:153
-#, fuzzy, kde-format
+#, kde-format
 msgid "New File"
-msgstr "新增檔案"
+msgstr "新檔案"
 
 #: libkwave/undo/UndoAddMetaDataAction.cpp:94
 #, kde-format
@@ -3590,26 +3564,26 @@ msgstr ""
 #: libkwave/undo/UndoAddMetaDataAction.cpp:119
 #, kde-format
 msgid "Insert Meta Data"
-msgstr ""
+msgstr "插入中繼資料"
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:60
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "name of the undo action for deleting a meta data object"
 msgid "Delete %1"
 msgstr "刪除 %1"
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:79
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "name of the undo action for deleting multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Delete %1 %2 objects"
-msgstr "刪除物件(&D)"
+msgstr ""
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:83
 #, kde-format
 msgid "Delete Meta Data"
-msgstr ""
+msgstr "刪除中繼資料"
 
 #: libkwave/undo/UndoModifyAction.cpp:45
 #, kde-format
@@ -3633,7 +3607,7 @@ msgstr ""
 #: libkwave/undo/UndoModifyMetaDataAction.cpp:81
 #, kde-format
 msgid "Modify Meta Data"
-msgstr ""
+msgstr "修改中繼資料"
 
 #: libkwave/Utils.cpp:121
 #, kde-format
@@ -3643,7 +3617,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
 #: libkwave/WindowFunction.cpp:32 plugins/fileinfo/FileInfoDlg.ui:987
-#, fuzzy, kde-format
+#, kde-format
 msgid "None"
 msgstr "無"
 
@@ -3660,30 +3634,30 @@ msgid "Blackman"
 msgstr ""
 
 #: plugins/about/AboutDialog.cpp:129
-#, fuzzy, kde-format
+#, kde-format
 msgid "name"
 msgstr "名稱"
 
 #: plugins/about/AboutDialog.cpp:129
-#, fuzzy, kde-format
+#, kde-format
 msgid "version"
 msgstr "版本"
 
 #: plugins/about/AboutDialog.cpp:129
-#, fuzzy, kde-format
+#, kde-format
 msgid "authors"
 msgstr "作者"
 
 #: plugins/about/AboutDialog.cpp:153
 #, kde-format
 msgid "Plugins found: %1"
-msgstr ""
+msgstr "找到外掛程式：%1"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, AboutDialogBase)
 #: plugins/about/AboutDialogBase.ui:20
 #, kde-format
 msgid "About Kwave"
-msgstr ""
+msgstr "關於 Kwave"
 
 #. i18n: ectx: property (text), widget (QLabel, header)
 #: plugins/about/AboutDialogBase.ui:53
@@ -3693,7 +3667,7 @@ msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, about_tab)
 #: plugins/about/AboutDialogBase.ui:67
-#, fuzzy, kde-format
+#, kde-format
 msgid "About"
 msgstr "關於"
 
@@ -3718,15 +3692,15 @@ msgstr "作者"
 
 #. i18n: ectx: attribute (title), widget (QWidget, thanks_tab)
 #: plugins/about/AboutDialogBase.ui:199
-#, fuzzy, kde-format
+#, kde-format
 msgid "Thanks To"
-msgstr "感謝(&T)"
+msgstr "鳴謝"
 
 #. i18n: ectx: attribute (title), widget (QWidget, plugins_tab)
 #: plugins/about/AboutDialogBase.ui:216
 #, kde-format
 msgid "Plugins info"
-msgstr ""
+msgstr "外掛程式資訊"
 
 #. i18n: ectx: attribute (title), widget (QWidget, translations_tab)
 #: plugins/about/AboutDialogBase.ui:243
@@ -3736,9 +3710,9 @@ msgstr "翻譯"
 
 #. i18n: ectx: attribute (title), widget (QWidget, license_tab)
 #: plugins/about/AboutDialogBase.ui:260
-#, fuzzy, kde-format
+#, kde-format
 msgid "License agreement"
-msgstr "授權協議"
+msgstr "授權條款"
 
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:43
 #: plugins/sonagram/SonagramWindow.cpp:164
@@ -3761,25 +3735,25 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelFadeIn)
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:49 plugins/record/RecordDlg.ui:530
-#, fuzzy, kde-format
+#, kde-format
 msgid "Fade In"
 msgstr "淡入"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelFadeOut)
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:50 plugins/record/RecordDlg.ui:543
-#, fuzzy, kde-format
+#, kde-format
 msgid "Fade Out"
 msgstr "淡出"
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:51
 #, kde-format
 msgid "Fade Intro"
-msgstr ""
+msgstr "淡入開頭"
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:52
 #, kde-format
 msgid "Fade Leadout"
-msgstr ""
+msgstr "淡出結尾"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinbox_2)
 #: plugins/band_pass/BandPassDialog.cpp:63 plugins/band_pass/BandPassDlg.ui:117
@@ -3935,9 +3909,9 @@ msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:132
 #: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:456
-#, fuzzy, kde-format
+#, kde-format
 msgid "Opening the file failed"
-msgstr "列印檔案"
+msgstr "開啟檔案失敗"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:135
 #: plugins/codec_wav/WavDecoder.cpp:381 plugins/codec_wav/WavEncoder.cpp:459
@@ -3949,7 +3923,7 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:384 plugins/codec_wav/WavEncoder.cpp:462
 #, kde-format
 msgid "Invalid sample format"
-msgstr ""
+msgstr "無效的樣本格式"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:144
 #: plugins/codec_wav/WavDecoder.cpp:393 plugins/codec_wav/WavEncoder.cpp:468
@@ -3982,7 +3956,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3CodecPlugin.cpp:52
 msgctxt "menu: /Settings/MP3 Encoder Setup"
 msgid "MP3 Encoder Setup"
-msgstr ""
+msgstr "MP3 編碼器設定"
 
 #: plugins/codec_mp3/MP3CodecPlugin.h:73
 #, kde-format
@@ -4019,6 +3993,8 @@ msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
 "No header information has been found."
 msgstr ""
+"開啟的檔案不是 MPEG 檔案或已受損。\n"
+"沒有找到標頭資訊。"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:516
 #, kde-format
@@ -4090,6 +4066,8 @@ msgid ""
 "sample rate in Hz (use %1 as placeholder)\n"
 "or kHz (use %2 as placeholder)"
 msgstr ""
+"取樣率，單位為 Hz（使用 %1 作為佔位符）\n"
+"或是 kHz（使用 %2 作為佔位符）"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:345
 #, kde-format
@@ -4122,18 +4100,18 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:603
 #, kde-format
 msgid "Select MP3 Encoder"
-msgstr ""
+msgstr "選取 MP3 編碼器"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:657
 #, kde-format
 msgid "Congratulation, the test was successful!"
-msgstr ""
+msgstr "恭喜，測試成功！"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, MP3EncoderDialogBase)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:20
 #, kde-format
 msgid "MP3 Encoder Settings"
-msgstr ""
+msgstr "MP3 編碼器設定"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpProgram)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:32
@@ -4166,35 +4144,35 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:89
 #, kde-format
 msgid "auto-detect the installed encoder"
-msgstr ""
+msgstr "自動偵測已安裝的編碼器"
 
 #. i18n: ectx: property (text), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:92
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Auto Detect..."
-msgstr "自動偵測"
+msgstr "自動偵測(&A)..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:101
 #, kde-format
 msgid "show the usage information of the encoder"
-msgstr ""
+msgstr "顯示編碼器的用法資訊"
 
 #. i18n: ectx: property (text), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:104
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Usage"
-msgstr "用法："
+msgstr "用法(&U)："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edPath)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:117
 #, kde-format
 msgid "path to the encoder"
-msgstr ""
+msgstr "編碼器的路徑"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPath)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:127
-#, fuzzy, kde-format
+#, kde-format
 msgid "Path:"
 msgstr "路徑："
 
@@ -4202,23 +4180,23 @@ msgstr "路徑："
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:134
 #, kde-format
 msgid "find the full path to the encoder"
-msgstr ""
+msgstr "尋找編碼器的完整路徑"
 
 #. i18n: ectx: property (text), widget (QPushButton, btLocate)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:137
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Locate"
-msgstr "clucene:/ \\\\{@}"
+msgstr "尋找(&L)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpParameters)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:147
-#, fuzzy, kde-format
+#, kde-format
 msgid "Parameters"
 msgstr "參數"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabInput)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:163
-#, fuzzy, kde-format
+#, kde-format
 msgid "Input"
 msgstr "輸入"
 
@@ -4244,7 +4222,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:233
 #, kde-format
 msgid "Raw Format:"
-msgstr ""
+msgstr "原始格式："
 
 #. i18n: ectx: property (text), widget (QLabel, lblByteOrder)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:240
@@ -4263,7 +4241,7 @@ msgstr ""
 #. i18n: ectx: property (title), widget (QGroupBox, grpFormat)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:270
 #: plugins/newsignal/NewSigDlg.ui:27 plugins/record/RecordDlg.ui:627
-#, fuzzy, kde-format
+#, kde-format
 msgid "Format"
 msgstr "格式"
 
@@ -4271,7 +4249,7 @@ msgstr "格式"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:276
 #, kde-format
 msgid "Sample Rate:"
-msgstr "取樣頻率："
+msgstr "取樣率："
 
 #. i18n: ectx: property (text), widget (QLabel, lblBitsPerSample)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:302
@@ -4419,21 +4397,21 @@ msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabFlags)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:739
-#, fuzzy, kde-format
+#, kde-format
 msgid "Flags"
 msgstr "旗標"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCopyright)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:751
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copyright:"
-msgstr "版權所有："
+msgstr "著作權："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCopyright)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:770
 #, kde-format
 msgid "parameter for marking the file as copyrighted"
-msgstr ""
+msgstr "標記檔案著作權資訊用的參數"
 
 #. i18n: ectx: property (text), widget (QLabel, lblOriginal)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:786
@@ -4445,25 +4423,25 @@ msgstr "原始："
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:805
 #, kde-format
 msgid "parameter for marking the signal as original (not a copy)"
-msgstr ""
+msgstr "標記訊號為原始而非複製品用的參數"
 
 #. i18n: ectx: property (text), widget (QLabel, lblProtect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:821
 #, kde-format
 msgid "Protect:"
-msgstr ""
+msgstr "保護："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edProtect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:840
 #, kde-format
 msgid "parameter to enable CRC protection"
-msgstr ""
+msgstr "啟用 CRC 保護用的參數"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPrepend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:866
 #, kde-format
 msgid "Prepend:"
-msgstr ""
+msgstr "前綴："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edPrepend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:879
@@ -4473,9 +4451,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lblAppend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:889
-#, fuzzy, kde-format
+#, kde-format
 msgid "Append:"
-msgstr "附加"
+msgstr "後綴："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edAppend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:902
@@ -4485,7 +4463,7 @@ msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:926
-#, fuzzy, kde-format
+#, kde-format
 msgid "Info"
 msgstr "資訊"
 
@@ -4493,25 +4471,25 @@ msgstr "資訊"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:932
 #, kde-format
 msgid "Encoder Help:"
-msgstr ""
+msgstr "編碼器說明："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:957
 #, kde-format
 msgid "parameter for getting usage information of the encoder"
-msgstr ""
+msgstr "要傳遞給編碼器以取得用法資訊的參數"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEncoderInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:967
 #, kde-format
 msgid "Version Info:"
-msgstr ""
+msgstr "版本資訊："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edVersionInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1005
 #, kde-format
 msgid "parameter for getting the encoder version information"
-msgstr ""
+msgstr "要傳遞給編碼器以取得版本資訊的參數"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btTest)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1047
@@ -4669,7 +4647,7 @@ msgstr ""
 #: plugins/codec_ogg/OpusEncoder.cpp:484
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
-msgstr ""
+msgstr "Opus 編碼器設定 VBR 模式時失敗：'%1'"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:494
 #, kde-format
@@ -4734,12 +4712,12 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:141
 #, kde-format
 msgid "Auto Repair"
-msgstr ""
+msgstr "自動修復"
 
 #: plugins/codec_wav/WavDecoder.cpp:147
-#, fuzzy, kde-format
+#, kde-format
 msgid "Reading..."
-msgstr "Reading"
+msgstr "讀取中..."
 
 #: plugins/codec_wav/WavDecoder.cpp:172
 #, kde-format
@@ -4747,16 +4725,18 @@ msgid ""
 "The file has been structurally damaged or it is no WAV file.\n"
 "Should Kwave try to repair it?"
 msgstr ""
+"這個檔案結構上已經毀損，或者它不是 WAV 檔。\n"
+"要讓 Kwave 嘗試修復它嗎？"
 
 #: plugins/codec_wav/WavDecoder.cpp:175 plugins/codec_wav/WavDecoder.cpp:280
 #, kde-format
 msgid "Kwave Auto Repair"
-msgstr ""
+msgstr "Kwave 自動修復"
 
 #: plugins/codec_wav/WavDecoder.cpp:176
 #, kde-format
 msgid "&Repair"
-msgstr ""
+msgstr "修復(&R)"
 
 #: plugins/codec_wav/WavDecoder.cpp:241
 #, kde-format
@@ -4780,7 +4760,7 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:371
 #, kde-format
 msgid "file header is damaged"
-msgstr ""
+msgstr "檔案標頭已損毀"
 
 #: plugins/codec_wav/WavDecoder.cpp:387
 #, kde-format
@@ -4807,7 +4787,7 @@ msgstr ""
 #: plugins/codec_wav/WavEncoder.cpp:401 plugins/sonagram/SonagramPlugin.cpp:204
 #, kde-format
 msgid "File or selection too large"
-msgstr ""
+msgstr "檔案或選取範圍太大"
 
 #: plugins/codec_wav/WavFileFormat.h:207
 #, kde-format
@@ -4868,7 +4848,7 @@ msgstr ""
 #, kde-format
 msgctxt "file type filter when exporting to K3b"
 msgid "K3b project file (*.k3b)"
-msgstr ""
+msgstr "K3b 專案檔 (*.k3b)"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:615
 #, kde-format
@@ -4886,25 +4866,24 @@ msgid ""
 msgstr ""
 
 #: plugins/export_k3b/K3BExportWidget.cpp:46
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "default entry of the list of placeholder patterns in the K3b export plugin "
 "(used for detecting title and artist from a label description)"
 msgid "(auto detect)"
-msgstr "自動偵測"
+msgstr "（自動偵測）"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:29
-#, fuzzy, kde-format
+#, kde-format
 msgid "Input Settings"
-msgstr "設定"
+msgstr "輸入設定"
 
 #. i18n: ectx: property (text), widget (QLabel, lblLabelFormat)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:40
-#, fuzzy, kde-format
-#| msgid "Labels"
+#, kde-format
 msgid "Format of Labels:"
-msgstr "標籤"
+msgstr "標記格式："
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbLabelPattern)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:56
@@ -4943,15 +4922,15 @@ msgstr "選擇"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpOutputSettings)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:93
-#, fuzzy, kde-format
+#, kde-format
 msgid "Output Settings"
-msgstr "設定"
+msgstr "輸出設定"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:108
 #, kde-format
 msgid "Export Location:"
-msgstr ""
+msgstr "匯出位置："
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:124
@@ -4965,13 +4944,13 @@ msgstr ""
 #: plugins/export_k3b/K3BExportWidgetBase.ui:131
 #, kde-format
 msgid "Same Directory as K3b File"
-msgstr ""
+msgstr "與 K3b 檔案同目錄"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:136
-#, fuzzy, kde-format
+#, kde-format
 msgid "Sub Directory"
-msgstr "目錄"
+msgstr "子目錄"
 
 #. i18n: ectx: property (text), widget (QLabel, lblOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:150
@@ -4989,16 +4968,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:173
-#, fuzzy, kde-format
-#| msgid "Open an existing file"
+#, kde-format
 msgid "Overwrite Existing Files"
-msgstr "開啟現有的檔案"
+msgstr "覆寫現有檔案"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:178
 #, kde-format
 msgid "Use new File Names"
-msgstr ""
+msgstr "使用新的檔案名稱"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:50
@@ -5085,9 +5063,9 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
 #: plugins/fileinfo/FileInfoDialog.cpp:230 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
-#, fuzzy, kde-format
+#, kde-format
 msgid "Sample rate:"
-msgstr "取樣頻率："
+msgstr "取樣率："
 
 #: plugins/fileinfo/FileInfoDialog.cpp:233
 #, kde-format
@@ -5114,9 +5092,9 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
 #: plugins/fileinfo/FileInfoDialog.cpp:247 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
-#, fuzzy, kde-format
+#, kde-format
 msgid "Tracks:"
-msgstr "%1 個曲目"
+msgstr "音軌："
 
 #: plugins/fileinfo/FileInfoDialog.cpp:250
 #, kde-format
@@ -5126,7 +5104,7 @@ msgid ""
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDialog.cpp:260
-#, fuzzy, kde-format
+#, kde-format
 msgid "Length:"
 msgstr "長度："
 
@@ -5175,7 +5153,7 @@ msgstr "是"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:812
 #: plugins/fileinfo/FileInfoDialog.cpp:818
-#, fuzzy, kde-format
+#, kde-format
 msgid "No"
 msgstr "否"
 
@@ -5187,7 +5165,7 @@ msgstr "檔案資訊"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_file)
 #: plugins/fileinfo/FileInfoDlg.ui:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "File"
 msgstr "檔案"
 
@@ -5264,87 +5242,87 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lblBits_2)
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
 #: plugins/fileinfo/FileInfoDlg.ui:283 plugins/record/RecordDlg.ui:946
-#, fuzzy, kde-format
+#, kde-format
 msgid "bit"
-msgstr "32 位元"
+msgstr "位元"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:335 plugins/newsignal/NewSigDlg.ui:49
 #, kde-format
 msgid "8000"
-msgstr ""
+msgstr "8000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:340 plugins/newsignal/NewSigDlg.ui:54
 #, kde-format
 msgid "10000"
-msgstr ""
+msgstr "10000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:345 plugins/newsignal/NewSigDlg.ui:59
 #, kde-format
 msgid "11025"
-msgstr ""
+msgstr "11025"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:350 plugins/newsignal/NewSigDlg.ui:64
 #, kde-format
 msgid "12000"
-msgstr ""
+msgstr "12000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:355 plugins/newsignal/NewSigDlg.ui:69
 #, kde-format
 msgid "16000"
-msgstr ""
+msgstr "16000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:360 plugins/newsignal/NewSigDlg.ui:74
 #, kde-format
 msgid "22050"
-msgstr ""
+msgstr "22050"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:365 plugins/newsignal/NewSigDlg.ui:79
 #, kde-format
 msgid "32000"
-msgstr ""
+msgstr "32000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:370 plugins/newsignal/NewSigDlg.ui:84
 #, kde-format
 msgid "44100"
-msgstr ""
+msgstr "44100"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:375 plugins/newsignal/NewSigDlg.ui:89
 #, kde-format
 msgid "48000"
-msgstr ""
+msgstr "48000"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSampleRate)
 #: plugins/fileinfo/FileInfoDlg.ui:380 plugins/newsignal/NewSigDlg.ui:94
 #, kde-format
 msgid "96000"
-msgstr ""
+msgstr "96000"
 
 #. i18n: ectx: property (text), widget (QLabel, lblSamplesPerSecond_2)
 #: plugins/fileinfo/FileInfoDlg.ui:388
 #, kde-format
 msgid "samples per second"
-msgstr ""
+msgstr "赫茲"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompression_2)
 #: plugins/fileinfo/FileInfoDlg.ui:698
 #, kde-format
 msgid "Encoding Mode:"
-msgstr ""
+msgstr "編碼模式："
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_mpeg)
 #: plugins/fileinfo/FileInfoDlg.ui:738
-#, fuzzy, kde-format
+#, kde-format
 msgid "MPEG"
-msgstr "MPEG1"
+msgstr "MPEG"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegIntensityStereo)
 #: plugins/fileinfo/FileInfoDlg.ui:790
@@ -5361,7 +5339,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegOriginal)
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegCopyrighted)
 #: plugins/fileinfo/FileInfoDlg.ui:806 plugins/fileinfo/FileInfoDlg.ui:908
-#, fuzzy, kde-format
+#, kde-format
 msgid "yes"
 msgstr "是"
 
@@ -5433,7 +5411,7 @@ msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_content)
 #: plugins/fileinfo/FileInfoDlg.ui:1080
-#, fuzzy, kde-format
+#, kde-format
 msgid "Content"
 msgstr "內容"
 
@@ -5473,11 +5451,11 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDlg.ui:1719
 #, kde-format
 msgid "Author/Copyright"
-msgstr ""
+msgstr "作者/著作權"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: plugins/fileinfo/FileInfoDlg.ui:2000
-#, fuzzy, kde-format
+#, kde-format
 msgid "Miscellaneous"
 msgstr "雜項"
 
@@ -5489,11 +5467,14 @@ msgid ""
 "to repair a damaged file? Note: changing only the sample rate can cause "
 "\"Mickey Mouse\" effects."
 msgstr ""
+"您已變更取樣率。您要將整個檔案轉換至新的取樣率，還是要只設定取樣率資訊（或許"
+"來修復一個受損的檔案）呢？請注意：只變更取樣率而不轉換會造成播放速度及音高改"
+"變。"
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:91
 #, kde-format
 msgid "&Convert"
-msgstr "反相(&I)"
+msgstr "轉換(&C)"
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:92
 #, kde-format
@@ -5508,7 +5489,7 @@ msgstr "移除(&R)"
 
 #. i18n: ectx: property (text), widget (QPushButton, btAdd)
 #: plugins/fileinfo/KeywordWidgetBase.ui:52
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Add"
 msgstr "新增(&A)"
 
@@ -5516,7 +5497,7 @@ msgstr "新增(&A)"
 #: plugins/fileinfo/KeywordWidgetBase.ui:62
 #, kde-format
 msgid "auto-generate keywords"
-msgstr ""
+msgstr "自動產生關鍵字"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:66
@@ -5529,37 +5510,37 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:69
-#, fuzzy, kde-format
+#, kde-format
 msgid "A&uto"
-msgstr "自動"
+msgstr "自動(&U)"
 
 #. i18n: ectx: property (toolTip), widget (QListWidget, lstKeywords)
 #: plugins/fileinfo/KeywordWidgetBase.ui:82
 #, kde-format
 msgid "List of keywords."
-msgstr ""
+msgstr "關鍵字清單。"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectDateDlg)
 #: plugins/fileinfo/SelectDateDlg.ui:20
 #, kde-format
 msgid "Select Date"
-msgstr ""
+msgstr "選擇日期"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, GotoDlg)
 #: plugins/goto/GotoDlg.ui:15
 #, kde-format
 msgid "Go to Position"
-msgstr ""
+msgstr "前往位置"
 
 #: plugins/goto/GotoPlugin.cpp:50
-#, fuzzy, kde-format
+#, kde-format
 msgid "Goto..."
-msgstr "移至"
+msgstr "前往..."
 
 #: plugins/goto/InsertAtPlugin.cpp:50
 #, kde-format
 msgid "Insert At..."
-msgstr ""
+msgstr "插入於..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LowPassDlg)
 #: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:111
@@ -5586,9 +5567,9 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NewSigDlg)
 #: plugins/newsignal/NewSigDlg.ui:15
-#, fuzzy, kde-format
+#, kde-format
 msgid "New Signal"
-msgstr "新信號"
+msgstr "新訊號"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbSampleRate)
 #: plugins/newsignal/NewSigDlg.ui:39
@@ -5606,9 +5587,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
 #: plugins/newsignal/NewSigDlg.ui:224
-#, fuzzy, kde-format
+#, kde-format
 msgid "Bit"
-msgstr "32 位元"
+msgstr "位元"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbChannels)
 #: plugins/newsignal/NewSigDlg.ui:288
@@ -5635,7 +5616,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbTime)
 #: plugins/newsignal/NewSigDlg.ui:350
-#, fuzzy, kde-format
+#, kde-format
 msgid "Time"
 msgstr "時間"
 
@@ -5647,9 +5628,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbSamples)
 #: plugins/newsignal/NewSigDlg.ui:360
-#, fuzzy, kde-format
+#, kde-format
 msgid "Samples"
-msgstr "範例"
+msgstr "樣本"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMaximumSize_2_2)
 #: plugins/newsignal/NewSigDlg.ui:492
@@ -5659,9 +5640,9 @@ msgstr "最小"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2_2)
 #: plugins/newsignal/NewSigDlg.ui:521
-#, fuzzy, kde-format
+#, kde-format
 msgid "(File Size)"
-msgstr "檔案大小"
+msgstr "（檔案大小）"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMaximumSize_3)
 #: plugins/newsignal/NewSigDlg.ui:550
@@ -5678,7 +5659,7 @@ msgstr ""
 #: plugins/newsignal/NewSignalDialog.cpp:327
 #, kde-format
 msgid "(Resulting file size: %1 MB)"
-msgstr ""
+msgstr "（最終檔案大小：%1 MB）"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NoiseDlg)
 #: plugins/noise/NoiseDlg.ui:17 plugins/noise/NoisePlugin.cpp:135
@@ -5690,7 +5671,7 @@ msgstr "加入雜訊"
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup3)
 #: plugins/noise/NoiseDlg.ui:33 plugins/pitch_shift/PitchShiftDlg.ui:209
 #: plugins/volume/VolumeDlg.ui:43
-#, fuzzy, kde-format
+#, kde-format
 msgid "Mode"
 msgstr "模式"
 
@@ -5711,9 +5692,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:61 plugins/volume/VolumeDlg.ui:91
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Percentage"
-msgstr "百分比"
+msgstr "百分比(&P)"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/noise/NoiseDlg.ui:77
@@ -5741,7 +5722,7 @@ msgstr "對數(&L)"
 #: plugins/noise/NoiseDlg.ui:143 plugins/volume/VolumeDlg.ui:17
 #: plugins/volume/VolumeDlg.ui:208 plugins/volume/VolumeDlg.ui:269
 #: plugins/volume/VolumePlugin.cpp:135
-#, fuzzy, kde-format
+#, kde-format
 msgid "Volume"
 msgstr "音量"
 
@@ -5749,17 +5730,17 @@ msgstr "音量"
 #: plugins/noise/NoiseDlg.ui:156
 #, kde-format
 msgid "Noise Level"
-msgstr ""
+msgstr "雜訊等級"
 
 #: plugins/normalize/NormalizePlugin.cpp:71
-#, fuzzy, kde-format
+#, kde-format
 msgid "Normalize"
-msgstr "標準化"
+msgstr "正規化"
 
 #: plugins/normalize/NormalizePlugin.cpp:92
 #, kde-format
 msgid "Analyzing volume level..."
-msgstr ""
+msgstr "正在分析音量等級..."
 
 #: plugins/normalize/NormalizePlugin.cpp:129
 #, kde-format
@@ -5777,9 +5758,9 @@ msgstr ""
 #. i18n: ectx: property (toolTip), widget (QSlider, slider)
 #: plugins/notch_filter/NotchFilterDlg.ui:75
 #: plugins/notch_filter/NotchFilterDlg.ui:96
-#, fuzzy, kde-format
+#, kde-format
 msgid "center frequency"
-msgstr "頻率"
+msgstr "中央頻率"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox)
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider)
@@ -5796,9 +5777,9 @@ msgstr ""
 #. i18n: ectx: property (toolTip), widget (QSpinBox, spinbox_2)
 #: plugins/notch_filter/NotchFilterDlg.ui:117
 #: plugins/notch_filter/NotchFilterDlg.ui:141
-#, fuzzy, kde-format
+#, kde-format
 msgid "bandwidth"
-msgstr "頻寬："
+msgstr "頻寬"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider_2)
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox_2)
@@ -5845,7 +5826,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: plugins/pitch_shift/PitchShiftDlg.ui:136
-#, fuzzy, kde-format
+#, kde-format
 msgid "Speed:"
 msgstr "速度："
 
@@ -5941,9 +5922,9 @@ msgstr "PC 插卡"
 #: plugins/playback/PlayBack-ALSA.cpp:819
 #: plugins/playback/PlayBack-ALSA.cpp:833 plugins/record/Record-ALSA.cpp:1061
 #: plugins/record/Record-ALSA.cpp:1074
-#, fuzzy, kde-format
+#, kde-format
 msgid "Device %1: "
-msgstr "裝置"
+msgstr "裝置 %1："
 
 #: plugins/playback/PlayBack-ALSA.cpp:821 plugins/record/Record-ALSA.cpp:1063
 #, kde-format
@@ -5983,18 +5964,18 @@ msgstr ""
 #: plugins/playback/PlayBack-OSS.cpp:402
 #, kde-format
 msgid "OSS playback device (dsp*)"
-msgstr ""
+msgstr "OSS 回放裝置 (dsp*)"
 
 #: plugins/playback/PlayBack-OSS.cpp:405
 #, kde-format
 msgid "ALSA playback device (adsp*)"
-msgstr ""
+msgstr "ALSA 回放裝置 (adsp*)"
 
 #: plugins/playback/PlayBack-OSS.cpp:408 plugins/record/Record-OSS.cpp:315
 #: plugins/record/RecordDialog.cpp:621
 #, kde-format
 msgid "Any device (*)"
-msgstr ""
+msgstr "任何裝置 (*)"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:463
 #, kde-format
@@ -6012,9 +5993,9 @@ msgid "The PulseAudio device '%1' is unknown or no longer connected"
 msgstr ""
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:520
-#, fuzzy, kde-format
+#, kde-format
 msgid "playback..."
-msgstr "播放"
+msgstr "播放..."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:536
 #, kde-format
@@ -6029,7 +6010,7 @@ msgstr ""
 #: plugins/playback/PlayBack-PulseAudio.cpp:819
 #, kde-format
 msgid "(Use server default)"
-msgstr ""
+msgstr "（使用伺服器預設值）"
 
 #: plugins/playback/PlayBack-Qt.cpp:142
 #, kde-format
@@ -6049,7 +6030,7 @@ msgstr ""
 #: plugins/playback/PlayBack-Qt.cpp:167
 #, kde-format
 msgid "sample rate %1 Hz is not supported"
-msgstr ""
+msgstr "不支援 %1 Hz 取樣率"
 
 #: plugins/playback/PlayBack-Qt.cpp:171
 #, kde-format
@@ -6057,14 +6038,14 @@ msgid "integer sample format is not supported"
 msgstr ""
 
 #: plugins/playback/PlayBack-Qt.cpp:216
-#, fuzzy, kde-format
+#, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
-msgstr "列印檔案"
+msgstr "開啟 Qt 多媒體裝置「%1」時失敗"
 
 #: plugins/playback/PlayBackDialog.cpp:515
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 Bytes"
-msgstr " 位元組"
+msgstr "%1 位元組"
 
 #: plugins/playback/PlayBackDialog.cpp:517
 #, kde-format
@@ -6090,7 +6071,7 @@ msgstr ""
 #: plugins/playback/PlayBackDialog.cpp:646
 #, kde-format
 msgid "Select Playback Device"
-msgstr ""
+msgstr "選擇回放裝置"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PlayBackDlg)
 #: plugins/playback/PlayBackDlg.ui:20
@@ -6108,7 +6089,7 @@ msgstr "播放設定"
 #: plugins/playback/PlayBackDlg.ui:64
 #, kde-format
 msgid "Playback device"
-msgstr ""
+msgstr "回放裝置"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/playback/PlayBackDlg.ui:67
@@ -6164,7 +6145,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:137
 #, kde-format
 msgid "Playback method:"
-msgstr ""
+msgstr "播放方法："
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
@@ -6175,9 +6156,9 @@ msgstr "裝置："
 
 #. i18n: ectx: property (text), widget (QLabel, txtBufferSize)
 #: plugins/playback/PlayBackDlg.ui:165
-#, fuzzy, kde-format
+#, kde-format
 msgid "256 Bytes"
-msgstr " 位元組"
+msgstr "256 位元組"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slBufferSize)
 #: plugins/playback/PlayBackDlg.ui:187
@@ -6255,7 +6236,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:458
 #, kde-format
 msgid "Play a short test sound"
-msgstr ""
+msgstr "播放簡短的測試音效"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:461
@@ -6267,9 +6248,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:464
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Test..."
-msgstr "測試"
+msgstr "測試(&T)..."
 
 #: plugins/playback/PlayBackPlugin.cpp:404
 #, kde-format
@@ -6279,7 +6260,7 @@ msgstr ""
 #: plugins/playback/PlayBackPlugin.cpp:432
 #, kde-format
 msgid "Playback Test"
-msgstr ""
+msgstr "播放測試"
 
 #: plugins/playback/PlayBackPlugin.cpp:441
 #, kde-format
@@ -6301,22 +6282,22 @@ msgstr ""
 #: plugins/record/Record-OSS.cpp:306
 #, kde-format
 msgid "OSS recording device (audio*)"
-msgstr ""
+msgstr "OSS 錄製裝置 (audio*)"
 
 #: plugins/record/Record-OSS.cpp:309
 #, kde-format
 msgid "OSS recording device (dsp*)"
-msgstr ""
+msgstr "OSS 錄製裝置 (dsp*)"
 
 #: plugins/record/Record-OSS.cpp:312
 #, kde-format
 msgid "ALSA recording device (adsp*)"
-msgstr ""
+msgstr "ALSA 錄製裝置 (adsp*)"
 
 #: plugins/record/Record-PulseAudio.cpp:216
 #, kde-format
 msgid "Kwave record"
-msgstr ""
+msgstr "Kwave 錄製"
 
 #: plugins/record/RecordDialog.cpp:308
 #, kde-format
@@ -6326,17 +6307,17 @@ msgstr "完成(&D)"
 #: plugins/record/RecordDialog.cpp:619
 #, kde-format
 msgid "OSS record device (dsp*)"
-msgstr ""
+msgstr "OSS 錄製裝置 (dsp*)"
 
 #: plugins/record/RecordDialog.cpp:620
 #, kde-format
 msgid "ALSA record device (adsp*)"
-msgstr ""
+msgstr "ALSA 錄製裝置 (adsp*)"
 
 #: plugins/record/RecordDialog.cpp:629
 #, kde-format
 msgid "Select Record Device"
-msgstr ""
+msgstr "選擇錄製裝置"
 
 #: plugins/record/RecordDialog.cpp:716 plugins/record/RecordPlugin.cpp:544
 #: plugins/record/RecordPlugin.cpp:552
@@ -6354,22 +6335,22 @@ msgstr "立體聲"
 #: plugins/record/RecordPlugin.cpp:554
 #, kde-format
 msgid "Quadro"
-msgstr ""
+msgstr "四聲道"
 
 #: plugins/record/RecordDialog.cpp:733
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 tracks"
-msgstr "%1 個曲目"
+msgstr "%1 個音軌"
 
 #: plugins/record/RecordDialog.cpp:789
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 Hz"
 msgstr "%1 Hz"
 
 #: plugins/record/RecordDialog.cpp:887
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 bit"
-msgstr "32 位元"
+msgstr "%1 位元"
 
 #: plugins/record/RecordDialog.cpp:1003
 #, kde-format
@@ -6377,29 +6358,29 @@ msgid "Please check the source device settings..."
 msgstr ""
 
 #: plugins/record/RecordDialog.cpp:1015
-#, fuzzy, kde-format
+#, kde-format
 msgid "(empty)"
-msgstr "空白"
+msgstr "（空白）"
 
 #: plugins/record/RecordDialog.cpp:1026
-#, fuzzy, kde-format
+#, kde-format
 msgid "Buffering..."
-msgstr "緩衝中"
+msgstr "緩衝中..."
 
 #: plugins/record/RecordDialog.cpp:1037
 #, kde-format
 msgid "Prerecording..."
-msgstr ""
+msgstr "預錄中..."
 
 #: plugins/record/RecordDialog.cpp:1048 plugins/record/RecordDialog.cpp:1203
 #, kde-format
 msgid "Waiting for trigger..."
-msgstr ""
+msgstr "正在等待觸發..."
 
 #: plugins/record/RecordDialog.cpp:1059
-#, fuzzy, kde-format
+#, kde-format
 msgid "Recording..."
-msgstr "紀錄"
+msgstr "錄製中..."
 
 #: plugins/record/RecordDialog.cpp:1077
 #, kde-format
@@ -6436,10 +6417,10 @@ msgid_plural "and %1 seconds"
 msgstr[0] ""
 
 #: plugins/record/RecordDialog.cpp:1195
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
-msgstr[0] "1 秒鐘"
+msgstr[0] "%1 秒"
 
 #: plugins/record/RecordDialog.cpp:1199
 #, kde-format
@@ -6459,9 +6440,9 @@ msgstr "範例"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_record)
 #: plugins/record/RecordDlg.ui:54
-#, fuzzy, kde-format
+#, kde-format
 msgid "Recording"
-msgstr "紀錄"
+msgstr "錄製"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpRecording)
 #: plugins/record/RecordDlg.ui:66
@@ -6473,7 +6454,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:72
 #, kde-format
 msgid "Enable Pre-recording"
-msgstr ""
+msgstr "啟用預先錄製"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:75
@@ -6484,12 +6465,15 @@ msgid ""
 "already a few seconds before you press the record button. <i>(For example "
 "when recording from radio)</i>"
 msgstr ""
+"使用<b>預先錄製</b>時，Kwave 會在實際開始錄製之前就一直在進行錄製。這個功能在"
+"您希望將按下錄製按鈕前幾秒的聲音也錄下來的時候很有用，例如在從廣播錄製音訊的"
+"時候。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:78
 #, kde-format
 msgid "Pre-record:"
-msgstr ""
+msgstr "預先錄製："
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:91
@@ -6504,18 +6488,19 @@ msgid ""
 "If checked, the <b>Record time</b> is limited and recording will "
 "automatically stop when the selected time is reached."
 msgstr ""
+"勾選時，會限制<b>錄製時間</b>，當錄製長度抵達選取時間長度時就會自動停止錄製。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:97
 #, kde-format
 msgid "Record &time:"
-msgstr ""
+msgstr "錄製時間(&T)："
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordTrigger)
 #: plugins/record/RecordDlg.ui:110
 #, kde-format
 msgid "Trigger level"
-msgstr ""
+msgstr "觸發等級"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordTrigger)
 #: plugins/record/RecordDlg.ui:113
@@ -6524,24 +6509,25 @@ msgid ""
 "If the <b>Record trigger</b> is enabled, recording will start as soon as the "
 "volume of the input signal goes over the selected level."
 msgstr ""
+"如果啟用<b>錄製觸發</b>，輸入訊號的音量大於所選等級時便會馬上開始錄製。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordTrigger)
 #: plugins/record/RecordDlg.ui:116
 #, kde-format
 msgid "Record trigger:"
-msgstr ""
+msgstr "錄製觸發"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btStop)
 #: plugins/record/RecordDlg.ui:172
-#, fuzzy, kde-format
+#, kde-format
 msgid "Stop Recording"
-msgstr "停止錄音(&R)"
+msgstr "停止錄製"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btPause)
 #: plugins/record/RecordDlg.ui:191
 #, kde-format
 msgid "Pause/Continue"
-msgstr ""
+msgstr "暫停/繼續"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbRecordPre)
 #: plugins/record/RecordDlg.ui:285
@@ -6563,17 +6549,19 @@ msgid ""
 "Please note that if the time is in the past, the recording will be started "
 "immediately or as soon as the defined trigger level is reached (if enabled)."
 msgstr ""
+"勾選時，會在指定的日期時間開始錄製。請注意，如果時間實際上在過去，錄製會馬上"
+"開始（或是在啟用觸發等級的時候一抵達觸發等級就開始）。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordStartTime)
 #: plugins/record/RecordDlg.ui:359
-#, fuzzy, kde-format
+#, kde-format
 msgid "Start &at:"
-msgstr "開始於："
+msgstr "開始時間(&A)："
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_level)
 #. i18n: ectx: property (title), widget (QGroupBox, grpLevel)
 #: plugins/record/RecordDlg.ui:380 plugins/record/RecordDlg.ui:389
-#, fuzzy, kde-format
+#, kde-format
 msgid "Level"
 msgstr "等級"
 
@@ -6591,27 +6579,27 @@ msgstr ""
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelAmplify)
 #: plugins/record/RecordDlg.ui:452
-#, fuzzy, kde-format
+#, kde-format
 msgid " dB"
-msgstr "0dB"
+msgstr " dB"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelAGC)
 #: plugins/record/RecordDlg.ui:471
-#, fuzzy, kde-format
+#, kde-format
 msgid " ms"
-msgstr " 毫秒"
+msgstr " ms"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpFading)
 #: plugins/record/RecordDlg.ui:521
 #, kde-format
 msgid "Fading"
-msgstr "淡出"
+msgstr "淡化"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_format)
 #: plugins/record/RecordDlg.ui:621
-#, fuzzy, kde-format
+#, kde-format
 msgid "For&mat"
-msgstr "格式"
+msgstr "格式(&M)"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbFormatSampleRate)
 #: plugins/record/RecordDlg.ui:655
@@ -6637,9 +6625,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lblFormatCompression)
 #: plugins/record/RecordDlg.ui:783
-#, fuzzy, kde-format
+#, kde-format
 msgid "Compression:"
-msgstr "壓縮"
+msgstr "壓縮："
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbFormatCompression)
 #: plugins/record/RecordDlg.ui:799
@@ -6662,7 +6650,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:883
 #, kde-format
 msgid "Sample format:"
-msgstr ""
+msgstr "樣本格式："
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFormatResolution)
 #: plugins/record/RecordDlg.ui:893
@@ -6676,7 +6664,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1000
 #, kde-format
 msgid "Buffer count:"
-msgstr ""
+msgstr "緩衝區計數："
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1022
@@ -6702,13 +6690,13 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1035
 #, kde-format
 msgid "Recording method:"
-msgstr ""
+msgstr "錄製方法："
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1053
 #, kde-format
 msgid "Recording device"
-msgstr ""
+msgstr "錄製裝置"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1056
@@ -6721,9 +6709,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, btSourceSelect)
 #: plugins/record/RecordDlg.ui:1078
-#, fuzzy, kde-format
+#, kde-format
 msgid "Selec&t..."
-msgstr "選擇"
+msgstr "選擇(&T)..."
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -6733,13 +6721,13 @@ msgstr "裝置"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #: plugins/record/RecordDlg.ui:1204
-#, fuzzy, kde-format
+#, kde-format
 msgid "Buffer:"
-msgstr "緩衝器"
+msgstr "緩衝區："
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_level_meter)
 #: plugins/record/RecordDlg.ui:1236
-#, fuzzy, kde-format
+#, kde-format
 msgid "Level:"
 msgstr "等級："
 
@@ -6852,14 +6840,14 @@ msgstr ""
 
 #: plugins/reverse/ReversePlugin.cpp:77
 #: plugins/reverse/UndoReverseAction.cpp:44
-#, fuzzy, kde-format
+#, kde-format
 msgid "Reverse"
 msgstr "反轉"
 
 #: plugins/samplerate/SampleRatePlugin.cpp:100
 #, kde-format
 msgid "Change sample rate"
-msgstr ""
+msgstr "變更取樣率"
 
 #: plugins/samplerate/SampleRatePlugin.cpp:161
 #, kde-format
@@ -6959,16 +6947,16 @@ msgid "Filename pattern:"
 msgstr "檔名樣式："
 
 #: plugins/selectrange/SelectRangeDialog.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "Start"
 msgstr "開始"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectRangeDlg)
 #: plugins/selectrange/SelectRangeDlg.ui:15
 #: plugins/selectrange/SelectRangePlugin.cpp:121
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select Range"
-msgstr "選擇範圍(&S)..."
+msgstr "選擇範圍"
 
 #: plugins/sonagram/SonagramDialog.cpp:148
 #, kde-format
@@ -7000,7 +6988,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbColor)
 #: plugins/sonagram/SonagramDlg.ui:58
-#, fuzzy, kde-format
+#, kde-format
 msgid "Use colors"
 msgstr "使用顏色"
 
@@ -7018,7 +7006,7 @@ msgstr "灰階"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
 #: plugins/sonagram/SonagramDlg.ui:81
-#, fuzzy, kde-format
+#, kde-format
 msgid "Update"
 msgstr "更新"
 
@@ -7152,14 +7140,14 @@ msgid "&Export to Bitmap..."
 msgstr ""
 
 #: plugins/sonagram/SonagramWindow.cpp:133
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Close"
 msgstr "關閉(&C)"
 
 #: plugins/sonagram/SonagramWindow.cpp:145
 #, kde-format
 msgid "Time: ------ ms"
-msgstr ""
+msgstr "時間：------ ms"
 
 #: plugins/sonagram/SonagramWindow.cpp:147
 #, kde-format
@@ -7167,14 +7155,14 @@ msgid "Frequency: ------ Hz"
 msgstr ""
 
 #: plugins/sonagram/SonagramWindow.cpp:149
-#, fuzzy, kde-format
+#, kde-format
 msgid "Amplitude: --- %"
-msgstr "振幅"
+msgstr "振幅：--- %"
 
 #: plugins/sonagram/SonagramWindow.cpp:198
 #, kde-format
 msgid "Time: 0 ms"
-msgstr ""
+msgstr "時間：0 ms"
 
 #: plugins/sonagram/SonagramWindow.cpp:199
 #, kde-format
@@ -7182,9 +7170,9 @@ msgid "Frequency: 0 Hz"
 msgstr ""
 
 #: plugins/sonagram/SonagramWindow.cpp:200
-#, fuzzy, kde-format
+#, kde-format
 msgid "Amplitude: 0 %"
-msgstr "振幅"
+msgstr "振幅：0 %"
 
 #: plugins/sonagram/SonagramWindow.cpp:229
 #, kde-format
@@ -7197,42 +7185,42 @@ msgid "Sonagram of %1"
 msgstr ""
 
 #: plugins/sonagram/SonagramWindow.cpp:545
-#, fuzzy, kde-format
+#, kde-format
 msgid "Time: %1"
 msgstr "時間：%1"
 
 #: plugins/sonagram/SonagramWindow.cpp:549
 #, kde-format
 msgid "Frequency: %1 Hz"
-msgstr ""
+msgstr "頻率：%1 Hz"
 
 #: plugins/sonagram/SonagramWindow.cpp:558
-#, fuzzy, kde-format
+#, kde-format
 msgid "Amplitude: %1%"
-msgstr "振幅"
+msgstr "振幅：%1%"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, StringEnterDlg)
 #: plugins/stringenter/StringEnterDlg.ui:21
 #, kde-format
 msgid "Enter Command..."
-msgstr ""
+msgstr "輸入命令..."
 
 #. i18n: ectx: property (text), widget (QLabel, lblCommand)
 #: plugins/stringenter/StringEnterDlg.ui:36
 #, kde-format
 msgid "Enter Command:"
-msgstr ""
+msgstr "輸入命令："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCommand)
 #: plugins/stringenter/StringEnterDlg.ui:68
 #, kde-format
 msgid "please enter a text command here..."
-msgstr ""
+msgstr "請在此輸入文字命令..."
 
 #: plugins/stringenter/StringEnterPlugin.cpp:58
 msgctxt "menu: /Settings/Enter Command"
 msgid "Enter Command"
-msgstr ""
+msgstr "輸入命令"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:64

@@ -22,7 +22,8 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx"
+                "Name[x-test]": "xxThomas Eschenbacherxx",
+                "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
         "EnabledByDefault": true,
@@ -60,7 +61,7 @@
         "Name[uk]": "Нормалізатор",
         "Name[x-test]": "xxNormalizerxx",
         "Name[zh_CN]": "标准件",
-        "Name[zh_TW]": "一般化",
+        "Name[zh_TW]": "正規化",
         "Version": "@KWAVE_VERSION@:2.3"
     }
 }

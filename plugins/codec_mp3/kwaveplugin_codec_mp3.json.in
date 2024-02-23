@@ -22,7 +22,8 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx"
+                "Name[x-test]": "xxThomas Eschenbacherxx",
+                "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
         "EnabledByDefault": true,
@@ -60,7 +61,7 @@
         "Name[uk]": "Кодек MP3",
         "Name[x-test]": "xxMP3 Codecxx",
         "Name[zh_CN]": "MP3 编码解码器",
-        "Name[zh_TW]": "MP3 解碼器",
+        "Name[zh_TW]": "MP3 編碼器",
         "Version": "@KWAVE_VERSION@:2.3"
     }
 }

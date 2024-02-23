@@ -22,7 +22,8 @@
                 "Name[sv]": "Ralf Waspe och Gilles Caulier",
                 "Name[tr]": "Ralf Waspe ve Gilles Caulier",
                 "Name[uk]": "Ralf Waspe і Gilles Caulier",
-                "Name[x-test]": "xxRalf Waspe & Gilles Caulierxx"
+                "Name[x-test]": "xxRalf Waspe & Gilles Caulierxx",
+                "Name[zh_TW]": "Ralf Waspe & Gilles Caulier"
             }
         ],
         "EnabledByDefault": true,

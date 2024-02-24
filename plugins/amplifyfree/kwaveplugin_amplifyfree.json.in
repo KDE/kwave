@@ -22,7 +22,8 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx"
+                "Name[x-test]": "xxThomas Eschenbacherxx",
+                "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
         "EnabledByDefault": true,
@@ -59,7 +60,7 @@
         "Name[uk]": "Довільне підсилення",
         "Name[x-test]": "xxAmplify Freexx",
         "Name[zh_CN]": "自由放大",
-        "Name[zh_TW]": "放大音量",
+        "Name[zh_TW]": "自由增幅",
         "Version": "@KWAVE_VERSION@:2.3"
     }
 }

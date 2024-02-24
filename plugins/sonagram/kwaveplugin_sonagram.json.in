@@ -22,7 +22,8 @@
                 "Name[sv]": "Thomas Eschenbacher",
                 "Name[tr]": "Thomas Eschenbacher",
                 "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx"
+                "Name[x-test]": "xxThomas Eschenbacherxx",
+                "Name[zh_TW]": "Thomas Eschenbacher"
             }
         ],
         "EnabledByDefault": true,
@@ -60,7 +61,7 @@
         "Name[uk]": "Сонаграма",
         "Name[x-test]": "xxSonagramxx",
         "Name[zh_CN]": "声图",
-        "Name[zh_TW]": "Sonagram",
+        "Name[zh_TW]": "聲譜圖",
         "Version": "@KWAVE_VERSION@:2.3"
     }
 }

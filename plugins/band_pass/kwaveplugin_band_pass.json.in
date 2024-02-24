@@ -22,7 +22,8 @@
                 "Name[sv]": "Dave Flogeras",
                 "Name[tr]": "Dave Flogeras",
                 "Name[uk]": "Dave Flogeras",
-                "Name[x-test]": "xxDave Flogerasxx"
+                "Name[x-test]": "xxDave Flogerasxx",
+                "Name[zh_TW]": "Dave Flogeras"
             }
         ],
         "EnabledByDefault": true,

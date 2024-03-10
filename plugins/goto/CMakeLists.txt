@@ -37,11 +37,11 @@ SET_TARGET_PROPERTIES(plugin_goto_common PROPERTIES ENABLE_EXPORTS ON)
 TARGET_LINK_LIBRARIES(plugin_goto_common
     libkwavegui
     libkwave
-    Qt5::Core
-    Qt5::Widgets
-    KF5::ConfigWidgets
-    KF5::CoreAddons
-    KF5::I18n
+    Qt::Core
+    Qt::Widgets
+    KF6::ConfigWidgets
+    KF6::CoreAddons
+    KF6::I18n
 )
 
 #############################################################################

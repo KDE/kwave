@@ -6,6 +6,6 @@ ecm_add_test(
     Utils.test.cpp
     LINK_LIBRARIES
     Qt::Test
-    KF5::I18n
+    KF6::I18n
     TEST_NAME test_Utils
 )

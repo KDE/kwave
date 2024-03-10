@@ -86,7 +86,7 @@ ADD_CUSTOM_TARGET(generate_icons_${_lang}
 )
 INSTALL(FILES
     ${_toolbar_pngs}
-    DESTINATION ${HTML_INSTALL_DIR}/${_lang}/kwave/
+    DESTINATION ${KDE_INSTALL_DOCBUNDLEDIR}/${_lang}/kwave/
 )
 
 #############################################################################
@@ -94,7 +94,7 @@ INSTALL(FILES
 
 KDOCTOOLS_CREATE_HANDBOOK(
     index.docbook
-    INSTALL_DESTINATION ${HTML_INSTALL_DIR}/${_lang}
+    INSTALL_DESTINATION ${KDE_INSTALL_DOCBUNDLEDIR}/${_lang}
     SUBDIR kwave
 )
 

@@ -154,13 +154,13 @@ ADD_LIBRARY(libkwave SHARED ${libkwave_LIB_SRCS})
 TARGET_LINK_LIBRARIES(libkwave
     audiofile
     ${SAMPLERATE_LIBS}
-    Qt5::Core
-    Qt5::Concurrent
-    KF5::ConfigCore
-    KF5::CoreAddons
-    KF5::I18n
-    KF5::WidgetsAddons
-    KF5::XmlGui
+    Qt::Core
+    Qt::Concurrent
+    KF6::ConfigCore
+    KF6::CoreAddons
+    KF6::I18n
+    KF6::WidgetsAddons
+    KF6::XmlGui
     pthread
 )
 
@@ -175,7 +175,7 @@ SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 #############################################################################
 ### install files                                                         ###
 
-INSTALL(TARGETS libkwave LIBRARY DESTINATION ${LIB_INSTALL_DIR} NAMELINK_SKIP)
+INSTALL(TARGETS libkwave LIBRARY DESTINATION ${KDE_INSTALL_LIBDIR} NAMELINK_SKIP)
 
 #############################################################################
 #############################################################################

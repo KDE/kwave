@@ -42,17 +42,17 @@ MACRO(KWAVE_PLUGIN _plugin)
         libkwave
         ${plugin_${_plugin}_LIBS}
         ${SAMPLERATE_LIBS}
-        Qt5::Core
-        Qt5::Concurrent
-        Qt5::Widgets
-        KF5::ConfigCore
-        KF5::CoreAddons
-        KF5::I18n
-        KF5::IconThemes
-        KF5::KIOFileWidgets
-        KF5::TextWidgets
-        KF5::WidgetsAddons
-        KF5::XmlGui
+        Qt::Core
+        Qt::Concurrent
+        Qt::Widgets
+        KF6::ConfigCore
+        KF6::CoreAddons
+        KF6::I18n
+        KF6::IconThemes
+        KF6::KIOFileWidgets
+        KF6::TextWidgets
+        KF6::WidgetsAddons
+        KF6::XmlGui
     )
 
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES

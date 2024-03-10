@@ -90,16 +90,16 @@ TARGET_LINK_LIBRARIES(kwave_core
     libkwave
     audiofile
     ${SAMPLERATE_LIBS}
-    Qt5::Core
-    Qt5::Widgets
-    KF5::Completion
-    KF5::ConfigCore
-    KF5::Crash
-    KF5::DBusAddons
-    KF5::I18n
-    KF5::IconThemes
-    KF5::KIOFileWidgets
-    KF5::XmlGui
+    Qt::Core
+    Qt::Widgets
+    KF6::Completion
+    KF6::ConfigCore
+    KF6::Crash
+    KF6::DBusAddons
+    KF6::I18n
+    KF6::IconThemes
+    KF6::KIOFileWidgets
+    KF6::XmlGui
 )
 
 SET_TARGET_PROPERTIES(kwave_core PROPERTIES
@@ -111,26 +111,26 @@ SET_TARGET_PROPERTIES(kwave_core PROPERTIES
 ### install files                                                         ###
 
 # the main program
-INSTALL(TARGETS kwave_core     DESTINATION ${BIN_INSTALL_DIR})
+INSTALL(TARGETS kwave_core     DESTINATION ${KDE_INSTALL_BINDIR})
 
 # other files
-INSTALL(FILES menus.config     DESTINATION ${DATA_INSTALL_DIR}/kwave)
-INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${DATA_INSTALL_DIR}/kwave/pics)
+INSTALL(FILES menus.config     DESTINATION ${KDE_INSTALL_DATADIR}/kwave)
+INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${KDE_INSTALL_DATADIR}/kwave/pics)
 INSTALL(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/org.kde.kwave.desktop
-    DESTINATION ${XDG_APPS_INSTALL_DIR}
+    DESTINATION ${KDE_INSTALL_APPDIR}
 )
 
 # action icons
 ECM_INSTALL_ICONS(
     ICONS ${kwave_ACTION_ICONS}
-    DESTINATION ${ICON_INSTALL_DIR}
+    DESTINATION ${KDE_INSTALL_ICONDIR}
 )
 
 # application icon
 ECM_INSTALL_ICONS(
     ICONS ${CMAKE_CURRENT_SOURCE_DIR}/pics/sc-apps-kwave.svgz
-    DESTINATION ${ICON_INSTALL_DIR}
+    DESTINATION ${KDE_INSTALL_ICONDIR}
 )
 
 # AppData file

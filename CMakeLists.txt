@@ -66,8 +66,8 @@ set (RELEASE_SERVICE_VERSION_MICRO "70")
 
 CMAKE_MINIMUM_REQUIRED(VERSION 3.16.0 FATAL_ERROR)
 
-SET(QT_MIN_VERSION  "5.15.0")
-SET(KF5_MIN_VERSION "5.114.0")
+SET(QT_MIN_VERSION "6.6.0")
+SET(KF_MIN_VERSION "6.0.0")
 SET(KDE_COMPILERSETTINGS_LEVEL "5.82")
 
 #############################################################################
@@ -181,12 +181,12 @@ LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libgui)
 LINK_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/libkwave)
 
 #############################################################################
-### Qt 5 support                                                          ###
+### Qt support                                                            ###
 
 SET(CMAKE_AUTOMOC TRUE)
 SET(CMAKE_AUTOMOC_RELAXED_MODE FALSE)
 
-FIND_PACKAGE(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
+FIND_PACKAGE(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     Concurrent
     Core
     Widgets
@@ -200,16 +200,16 @@ LIST(APPEND CMAKE_AUTOMOC_MACRO_NAMES "KWAVE_PLUGIN")
 OPTION(WITH_QT_AUDIO "enable playback via Qt Multimedia [default=on]" ON)
 IF (WITH_QT_AUDIO)
     SET(HAVE_QT_AUDIO_SUPPORT on)
-    FIND_PACKAGE(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
+    FIND_PACKAGE(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
         Multimedia
     )
 ENDIF (WITH_QT_AUDIO)
 
 
 #############################################################################
-### KF5 support                                                           ###
+### KF support                                                            ###
 
-FIND_PACKAGE(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
+FIND_PACKAGE(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH}  )
 
 INCLUDE(KDEInstallDirs)
@@ -220,10 +220,10 @@ INCLUDE(FeatureSummary)
 INCLUDE(ECMDeprecationSettings)
 ecm_set_disabled_deprecation_versions(
   QT ${QT_MIN_VERSION}
-  KF ${KF5_MIN_VERSION}
+  KF ${KF_MIN_VERSION}
 )
 
-FIND_PACKAGE(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
+FIND_PACKAGE(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     Archive
     Completion
     Config
@@ -241,7 +241,7 @@ FIND_PACKAGE(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
 )
 
 IF (NOT WITH_DOC)
-    SET_PACKAGE_PROPERTIES(KF5DocTools
+    SET_PACKAGE_PROPERTIES(KF6DocTools
         PROPERTIES DESCRIPTION "Tools to generate documentation"
         TYPE OPTIONAL
     )
@@ -258,7 +258,7 @@ INCLUDE_DIRECTORIES(
 #############################################################################
 
 if(BUILD_TESTING)
-    find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Test)
+    find_package(Qt6 ${QT_MIN_VERSION} REQUIRED Test)
     include(ECMAddTests)
 endif()
 

@@ -33,7 +33,7 @@ SET(plugin_export_k3b_LIB_UI
 )
 
 SET(plugin_export_k3b_LIBS
-    KF5::Archive
+    KF6::Archive
 )
 
 KWAVE_PLUGIN(export_k3b)

@@ -74,16 +74,16 @@ ADD_LIBRARY(libkwavegui SHARED ${libkwavegui_LIB_SRCS})
 
 TARGET_LINK_LIBRARIES(libkwavegui
     libkwave
-    Qt5::Core
-    Qt5::Concurrent
-    Qt5::Widgets
-    KF5::ConfigCore
-    KF5::CoreAddons
-    KF5::I18n
-    KF5::IconThemes
-    KF5::KIOFileWidgets
-    KF5::WidgetsAddons
-    KF5::XmlGui
+    Qt::Core
+    Qt::Concurrent
+    Qt::Widgets
+    KF6::ConfigCore
+    KF6::CoreAddons
+    KF6::I18n
+    KF6::IconThemes
+    KF6::KIOFileWidgets
+    KF6::WidgetsAddons
+    KF6::XmlGui
 )
 
 SET_TARGET_PROPERTIES(libkwavegui PROPERTIES OUTPUT_NAME "kwavegui")
@@ -96,7 +96,7 @@ SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 #############################################################################
 ### install files                                                         ###
 
-INSTALL(TARGETS libkwavegui LIBRARY DESTINATION ${LIB_INSTALL_DIR} NAMELINK_SKIP)
+INSTALL(TARGETS libkwavegui LIBRARY DESTINATION ${KDE_INSTALL_LIBDIR} NAMELINK_SKIP)
 
 #############################################################################
 #############################################################################

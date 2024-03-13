@@ -2635,7 +2635,7 @@
     <para
 >A més de les opcions de la línia d'ordres que apareixen a la secció <link linkend="command_line"
 >Línia d'ordres</link
->, les quals s'utilitzen per iniciar el &kwave; en el mode com una icona o sense pantalla de presentació, podeu passar ordres de text sobre la línia d'ordres, codificades en un format &URI; especial: </para>
+>, les quals s'utilitzen per a iniciar el &kwave; en el mode com una icona o sense pantalla de presentació, podeu passar ordres de text sobre la línia d'ordres, codificades en un format &URI; especial: </para>
     <para>
 	<literal
 >kwave:<replaceable
@@ -9866,7 +9866,7 @@
 ></term>
 	    <listitem>
 	    <para
->Proporciona un diàleg per a configurar els paràmetres de la reproducció. Per obtenir més informació, consulteu la secció <link linkend="playback" endterm="sect_title_playback"
+>Proporciona un diàleg per a configurar els paràmetres de la reproducció. Per a obtenir més informació, consulteu la secció <link linkend="playback" endterm="sect_title_playback"
 ></link
 > que hi ha en aquest manual. </para>
 	    </listitem>
@@ -11386,7 +11386,7 @@
 	    </question>
     	    <answer>
 	    	<para
->Hauríeu d'incrementar la mida de la memòria intermèdia de la reproducció per obtenir una reproducció més «suau» (això també farà que els controls de la reproducció responguin una mica més lentament). </para>
+>Hauríeu d'incrementar la mida de la memòria intermèdia de la reproducció per a obtenir una reproducció més «suau» (això també farà que els controls de la reproducció responguin una mica més lentament). </para>
 	    </answer>
 	</qandaentry>
 

@@ -28,8 +28,6 @@
 
 #include "ui_LowPassDlg.h"
 
-class QStringList;
-
 namespace Kwave
 {
 

@@ -22,8 +22,6 @@
 #include "libkwave/Plugin.h"
 #include <QObject>
 
-class QStringList;
-
 namespace Kwave
 {
     class NewSignalPlugin: public Kwave::Plugin

@@ -39,7 +39,6 @@
 #include "libkwave/WindowFunction.h"
 
 class QImage;
-class QStringList;
 
 /** maximum number of FFT points */
 #define MAX_FFT_POINTS 32767

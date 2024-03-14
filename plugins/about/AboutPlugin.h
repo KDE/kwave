@@ -22,8 +22,6 @@
 
 #include "libkwave/Plugin.h"
 
-class QStringList;
-
 namespace Kwave
 {
     class AboutPlugin: public Kwave::Plugin

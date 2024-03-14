@@ -29,8 +29,6 @@
 #include "libkwave/Plugin.h"
 #include "libkwave/Sample.h"
 
-class QStringList;
-
 namespace Kwave
 {
     class PlaybackController;

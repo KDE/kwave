@@ -26,8 +26,6 @@
 
 #include "ui_NotchFilterDlg.h"
 
-class QStringList;
-
 namespace Kwave
 {
 

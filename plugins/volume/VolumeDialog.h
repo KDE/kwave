@@ -26,8 +26,6 @@
 
 #include "ui_VolumeDlg.h"
 
-class QStringList;
-
 namespace Kwave
 {
 

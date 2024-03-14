@@ -27,7 +27,6 @@
 #include "libkwave/Plugin.h"
 #include "libkwave/PluginSetupDialog.h"
 
-class QStringList;
 class QWidget;
 
 namespace Kwave

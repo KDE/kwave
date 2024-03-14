@@ -27,8 +27,6 @@
 #include "libgui/SelectTimeWidget.h"
 #include "libkwave/Plugin.h"
 
-class QStringList;
-
 namespace Kwave
 {
 

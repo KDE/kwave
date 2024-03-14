@@ -39,12 +39,7 @@
 #include "libkwave/String.h"
 
 class QProgressDialog;
-class QStringList;
 class QVariant;
-
-/* forward declarations, to make clang happy */
-Q_EXTERN_C Q_DECL_EXPORT const char *qt_plugin_query_metadata();
-Q_EXTERN_C Q_DECL_EXPORT QT_PREPEND_NAMESPACE(QObject) *qt_plugin_instance();
 
 /**
  * @def KWAVE_PLUGIN(name,class)

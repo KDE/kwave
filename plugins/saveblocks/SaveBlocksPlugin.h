@@ -26,8 +26,6 @@
 
 #include "libkwave/Plugin.h"
 
-class QStringList;
-
 namespace Kwave
 {
     class SaveBlocksPlugin: public Kwave::Plugin

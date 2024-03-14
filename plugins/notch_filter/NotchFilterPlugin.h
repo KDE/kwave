@@ -28,7 +28,6 @@
 
 #include "libgui/FilterPlugin.h"
 
-class QStringList;
 namespace Kwave
 {
 

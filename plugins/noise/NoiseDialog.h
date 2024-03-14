@@ -27,8 +27,6 @@
 #include "libkwave/PluginSetupDialog.h"
 #include "ui_NoiseDlg.h"
 
-class QStringList;
-
 namespace Kwave
 {
 

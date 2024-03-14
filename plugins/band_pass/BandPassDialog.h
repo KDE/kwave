@@ -28,7 +28,6 @@
 #include "libkwave/PluginSetupDialog.h"
 #include "ui_BandPassDlg.h"
 
-class QStringList;
 class QWidget;
 
 namespace Kwave

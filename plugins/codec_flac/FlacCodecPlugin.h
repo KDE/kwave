@@ -23,8 +23,6 @@
 #include "libkwave/CodecPlugin.h"
 #include "libkwave/Compression.h"
 
-class QStringList;
-
 namespace Kwave
 {
 

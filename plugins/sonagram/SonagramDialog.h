@@ -26,8 +26,6 @@
 #include "libkwave/WindowFunction.h"
 #include "ui_SonagramDlg.h"
 
-class QStringList;
-
 namespace Kwave
 {
 

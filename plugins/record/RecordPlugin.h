@@ -39,8 +39,6 @@
 #include "RecordParams.h"
 #include "RecordState.h"
 
-class QStringList;
-
 namespace Kwave
 {
 

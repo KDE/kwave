@@ -35,7 +35,6 @@
 
 class QLibrary;
 class QString;
-class QStringList;
 
 class KPluginFactory;
 

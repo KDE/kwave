@@ -27,8 +27,6 @@
 #include "libkwave/PluginSetupDialog.h"
 #include "ui_PitchShiftDlg.h"
 
-class QStringList;
-
 namespace Kwave
 {
 

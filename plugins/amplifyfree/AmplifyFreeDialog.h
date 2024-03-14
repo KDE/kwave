@@ -26,8 +26,6 @@
 
 #include "ui_AmplifyFreeDlg.h"
 
-class QStringList;
-
 namespace Kwave
 {
     class AmplifyFreeDialog: public QDialog, public Ui::AmplifyFreeDlg

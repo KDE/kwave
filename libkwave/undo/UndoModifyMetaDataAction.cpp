@@ -149,7 +149,7 @@ void Kwave::UndoModifyMetaDataAction::dump(const QString &indent)
         foreach (const QString &key, m.keys()) {
             QVariant v = m[key];
             QString value;
-            if (v.type() == QVariant::List) {
+            if (v.typeId() == QMetaType::QVariantList) {
                 foreach (const QVariant &v1, v.toList())
                     value += _("'") + v1.toString() + _("' ");
             } else {

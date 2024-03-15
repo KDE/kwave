@@ -130,7 +130,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
             QString ext = dialog->selectedExtension();
             QStringList extensions = ext.split(_(" "));
             ext = extensions.first();
-            name += ext.midRef(1);
+            name += ext.mid(1);
             path = name;
             url.setPath(name);
         }

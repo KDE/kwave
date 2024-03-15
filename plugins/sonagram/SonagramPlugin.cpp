@@ -359,7 +359,7 @@ void Kwave::SonagramPlugin::makeAllValid()
 
             // run the FFT in a background thread
             synchronizer.addFuture(QtConcurrent::run(
-                this, &Kwave::SonagramPlugin::calculateSlice, slice)
+                &Kwave::SonagramPlugin::calculateSlice, this, slice)
             );
         } else {
             // range has been deleted -> fill with "empty"
@@ -533,7 +533,7 @@ void Kwave::SonagramPlugin::validate()
     }
 
     // queue a background thread for updates
-    m_future = QtConcurrent::run(this, &Kwave::SonagramPlugin::makeAllValid);
+    m_future = QtConcurrent::run(&Kwave::SonagramPlugin::makeAllValid, this);
 }
 
 //***************************************************************************

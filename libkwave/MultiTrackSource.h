@@ -77,8 +77,8 @@ namespace Kwave
             foreach (SOURCE *src, static_cast< QList<SOURCE *> >(*this)) {
                 if (!src) continue;
                 synchronizer.addFuture(QtConcurrent::run(
-                    this,
                     &Kwave::MultiTrackSource<SOURCE, INITIALIZE>::runSource,
+                    this,
                     src)
                 );
             }

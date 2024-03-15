@@ -114,8 +114,8 @@ void Kwave::ReversePlugin::run(QStringList params)
         // loop over all tracks
         for (int i = 0; i < tracks.count(); i++) {
             synchronizer.addFuture(QtConcurrent::run(
-                this,
                 &Kwave::ReversePlugin::reverseSlice,
+                this,
                 tracks[i], source_a[i], source_b[i],
                 slice_params)
             );

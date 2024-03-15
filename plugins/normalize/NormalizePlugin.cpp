@@ -165,8 +165,8 @@ double Kwave::NormalizePlugin::getMaxPower(Kwave::MultiTrackReader &source)
             if (reader->eof()) continue;
 
             synchronizer.addFuture(QtConcurrent::run(
-                this,
                 &Kwave::NormalizePlugin::getMaxPowerOfTrack,
+                this,
                 reader, &(average[t]), window_size
             ));
         }

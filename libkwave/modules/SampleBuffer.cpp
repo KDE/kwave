@@ -133,7 +133,7 @@ void Kwave::SampleBuffer::input(Kwave::SampleArray data)
 void Kwave::SampleBuffer::enqueue(Kwave::SampleArray data)
 {
     m_sema.acquire();
-    QtConcurrent::run(this, &Kwave::SampleBuffer::emitData, data);
+    auto discard = QtConcurrent::run(&Kwave::SampleBuffer::emitData, this, data);
 }
 
 //***************************************************************************

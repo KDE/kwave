@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-16 01:39+0000\n"
-"PO-Revision-Date: 2024-02-04 17:21+0100\n"
+"PO-Revision-Date: 2024-03-28 08:18+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1905,7 +1905,7 @@ msgstr "Bitrate Mode (ABR, VBR, CBR, ktp...)"
 
 #: libkwave/FileInfo.cpp:68
 msgid "Bitrate"
-msgstr "Bitrate"
+msgstr "Bitrapideco"
 
 #: libkwave/FileInfo.cpp:70
 msgid "Nominal bitrate of the audio stream in bits per second"

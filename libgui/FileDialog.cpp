@@ -38,6 +38,8 @@
 
 #include "libgui/FileDialog.h"
 
+using namespace Qt::StringLiterals;
+
 //***************************************************************************
 Kwave::FileDialog::FileDialog(
     const QString &startDir,
@@ -60,8 +62,8 @@ Kwave::FileDialog::FileDialog(
     m_layout.addWidget(&m_file_widget);
     setMinimumSize(m_file_widget.dialogSizeHint());
     setModal(true);
-    connect(&m_file_widget, SIGNAL(filterChanged(QString)),
-            this, SIGNAL(filterChanged(QString)));
+    connect(&m_file_widget, SIGNAL(filterChanged(KFileFilter)),
+            this, SIGNAL(filterChanged(KFileFilter)));
 
     // connect the Cancel button
     QPushButton *button;
@@ -129,40 +131,38 @@ Kwave::FileDialog::FileDialog(
     // parse the list of file filters and put the last extension on top
     if (file_filter.length()) {
         QStringList filter_list = file_filter.split(_("\n"));
-        QStringList name_filters;
-        QString best_filter;
-        QString best_pattern;
+        QList<KFileFilter> name_filters;
+        KFileFilter best_filter;
         foreach (const QString &filter_item, filter_list) {
             QString f(filter_item);
-            QString p(_("*"));
+            QStringList p(u"*"_s);
             if (f.contains(_("|"))) {
                 int i = f.indexOf(_("|"));
-                p = f.left(i);
+                p = f.left(i).split(u" "_s);
                 f = f.mid(i + 1);
             }
             if (!f.length()) continue;
 
+            KFileFilter file_filter = KFileFilter(f, p, QStringList());
             // put the last extension to the top of the list
             // and thus make it selected
             if (m_last_ext.length()) {
-                QStringList extensions = p.split(_(" "));
-                if (extensions.contains(m_last_ext)) {
-                    if (!best_filter.length() ||
-                        (p.length() <= best_pattern.length())) {
-                        best_filter  = filter_item;
-                        best_pattern = p;
+                if (p.contains(m_last_ext)) {
+                    if (!best_filter.isValid() ||
+                        (p.length() <= best_filter.filePatterns().length())) {
+                        best_filter = file_filter;
                     }
                 }
             }
 
-            name_filters.append(filter_item);
+            name_filters.append(file_filter);
         }
-        if (best_filter.length()) {
+        if (best_filter.isValid()) {
             name_filters.removeAll(best_filter);
             name_filters.prepend(best_filter);
         }
 
-        m_file_widget.setFilter(name_filters.join(QChar::fromLatin1('\n')));
+        m_file_widget.setFilters(name_filters, best_filter);
     }
 }
 
@@ -188,7 +188,7 @@ void Kwave::FileDialog::loadConfig(const QString &section)
         m_last_ext = cfg.readEntry("last_ext", m_last_ext);
 
     // get last dialog size (Kwave global config)
-    cfg = KSharedConfig::openConfig()->group("FileDialog");
+    cfg = KSharedConfig::openConfig()->group(u"FileDialog"_s);
     int w = cfg.readEntry("dialog_width",  sizeHint().width());
     int h = cfg.readEntry("dialog_height", sizeHint().height());
     if (w < minimumWidth())  w = sizeHint().width();
@@ -216,7 +216,7 @@ void Kwave::FileDialog::saveConfig()
         m_last_ext = _("*.") + extension;
     } else {
         // tricky case: filename mask
-        QString pattern = m_file_widget.currentFilter();
+        QString pattern = m_file_widget.currentFilter().toFilterString();
         if (pattern.contains(_("|"))) {
             int i = pattern.indexOf(_("|"));
             pattern = pattern.left(i);
@@ -238,7 +238,7 @@ void Kwave::FileDialog::saveConfig()
     cfg.sync();
 
     // save the geometry of the dialog (Kwave global config)
-    cfg = KSharedConfig::openConfig()->group("FileDialog");
+    cfg = KSharedConfig::openConfig()->group(u"FileDialog"_s);
     cfg.writeEntry("dialog_width",  width());
     cfg.writeEntry("dialog_height", height());
     cfg.sync();
@@ -247,7 +247,7 @@ void Kwave::FileDialog::saveConfig()
 //***************************************************************************
 QString Kwave::FileDialog::selectedExtension()
 {
-    QStringList ext_list = m_file_widget.currentFilter().split(_(" "));
+    QStringList ext_list = m_file_widget.currentFilter().toFilterString().split(u" "_s);
     return *(ext_list.begin());
 }
 

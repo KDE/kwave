@@ -123,7 +123,7 @@ namespace Kwave
 
     signals:
 
-        void filterChanged(const QString &filter);
+        void filterChanged(const KFileFilter &filter);
 
     protected slots:
 

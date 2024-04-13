@@ -47,6 +47,8 @@
 #include "Splash.h"
 #include "TopWidget.h"
 
+using namespace Qt::StringLiterals;
+
 /** maximum number of recent files */
 #define MAX_RECENT_FILES 20
 
@@ -81,7 +83,7 @@ void Kwave::App::processCmdline(QCommandLineParser *cmdline)
 
     // read the configured user interface type
     QString result;
-    KConfigGroup cfg = KSharedConfig::openConfig()->group("Global");
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(u"Global"_s);
     result = cfg.readEntry("UI Type");
     if (result == _("SDI")) {
         m_gui_type = Kwave::App::GUI_SDI;
@@ -393,7 +395,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
 //***************************************************************************
 void Kwave::App::saveRecentFiles()
 {
-    KConfigGroup cfg = KSharedConfig::openConfig()->group("Recent Files");
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(u"Recent Files"_s);
 
     QString num;
     for (int i = 0 ; i < MAX_RECENT_FILES; i++) {
@@ -410,7 +412,7 @@ void Kwave::App::saveRecentFiles()
 //***************************************************************************
 void Kwave::App::readConfig()
 {
-    const KConfigGroup cfg = KSharedConfig::openConfig()->group("Recent Files");
+    const KConfigGroup cfg = KSharedConfig::openConfig()->group(u"Recent Files"_s);
 
     for (unsigned int i = 0 ; i < MAX_RECENT_FILES; i++) {
         QString key = QString::number(i);        // generate number

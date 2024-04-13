@@ -32,8 +32,10 @@
 #include "libgui/LabelPropertiesWidget.h"
 #include "libgui/SelectTimeWidget.h"
 
+using namespace Qt::StringLiterals;
+
 /** name of the section in the config file */
-#define CONFIG_SECTION "LabelProperties"
+#define CONFIG_SECTION u"LabelProperties"_s
 
 //***************************************************************************
 Kwave::LabelPropertiesWidget::LabelPropertiesWidget(QWidget *parent)

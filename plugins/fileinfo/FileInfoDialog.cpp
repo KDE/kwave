@@ -60,8 +60,10 @@
 #include "KeywordWidget.h"
 #include "SelectDateDialog.h"
 
+using namespace Qt::StringLiterals;
+
 /** section in the config file for storing default settings */
-#define CONFIG_DEFAULT_SECTION "plugin fileinfo - setup dialog"
+#define CONFIG_DEFAULT_SECTION u"plugin fileinfo - setup dialog"_s
 
 //***************************************************************************
 Kwave::FileInfoDialog::FileInfoDialog(QWidget *parent, Kwave::FileInfo &info)

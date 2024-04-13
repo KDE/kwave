@@ -27,8 +27,10 @@
 
 #include "MP3EncoderSettings.h"
 
+using namespace Qt::StringLiterals;
+
 /** name of the section in the config file */
-#define MP3_ENCODER_CONFIG_GROUP "MP3_Encoder_Settings"
+#define MP3_ENCODER_CONFIG_GROUP u"MP3_Encoder_Settings"_s
 
 /**
  * load from config file

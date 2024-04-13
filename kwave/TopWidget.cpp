@@ -79,6 +79,8 @@
 #include "TopWidget.h"
 #include "ZoomToolBar.h"
 
+using namespace Qt::StringLiterals;
+
 /**
  * useful macro for command parsing
  */
@@ -454,7 +456,7 @@ bool Kwave::TopWidget::init()
 
     // workaround for KDE4: detect first startup and set all toolbars
     // to "only symbols" mode
-    KConfigGroup cfg = KSharedConfig::openConfig()->group("MainWindow");
+    KConfigGroup cfg = KSharedConfig::openConfig()->group(u"MainWindow"_s);
     QString magic = _("3");
     if (cfg.readEntry("toolbars") != magic) {
         qDebug("toolbar layout changed => resetting toolbars to defaults");
@@ -777,7 +779,7 @@ int Kwave::TopWidget::executeCommand(const QString &line)
         else
             return -1;
 
-        KConfigGroup cfg = KSharedConfig::openConfig()->group("Global");
+        KConfigGroup cfg = KSharedConfig::openConfig()->group(u"Global"_s);
         cfg.writeEntry(_("UI Type"), gui_type);
         m_application.switchGuiType(this, new_type);
         result = 0;

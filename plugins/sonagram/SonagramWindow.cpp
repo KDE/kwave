@@ -131,8 +131,8 @@ Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     file->addAction(
         QIcon::fromTheme(_("dialog-close")),
         i18n("&Close"),
-        this, SLOT(close()),
-        QKeySequence::Close
+        QKeySequence::Close,
+        this, SLOT(close())
     );
 
 //    spectral->addAction(i18n("&Retransform to Signal"), this,

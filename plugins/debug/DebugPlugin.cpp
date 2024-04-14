@@ -196,9 +196,8 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
         QString    key_name   = params[2];
         QWidget   *widget     = findWidget(class_name.toUtf8().constData());
 
-        unsigned int          shortcut = QKeySequence::fromString(key_name)[0];
-        int                   key_code = shortcut & Qt::Key_unknown;
-        Qt::KeyboardModifiers key_modifiers(shortcut & ~Qt::Key_unknown);
+        int                   key_code = QKeySequence::fromString(key_name)[0].key();
+        Qt::KeyboardModifiers key_modifiers(QKeySequence::fromString(key_name)[0].keyboardModifiers());
 
         qDebug("send key '%s' [0x%08X:0x%08X] to '%s' [%p]",
                DBG(key_name), static_cast<int>(key_modifiers), key_code,

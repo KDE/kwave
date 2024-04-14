@@ -61,7 +61,7 @@ static QString sanitized(const QString &in)
     QString str = in.simplified();
 
     for (int i = 0; i < str.length(); i++) {
-        QCharRef c = str[i];
+        QChar c = str.at(i);
         if ( c.isLetterOrNumber() || c.isSpace() ||
              (c == QLatin1Char('-')) || (c == QLatin1Char('%')) ||
              (c == QLatin1Char('=')) || (c == QLatin1Char('.')) ||

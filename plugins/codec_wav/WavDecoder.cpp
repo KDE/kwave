@@ -563,7 +563,7 @@ bool Kwave::WavDecoder::open(QWidget *widget, QIODevice &src)
                         name.resize(len);
                         src.seek(labl_chunk->dataStart() + 4);
                         src.read(static_cast<char *>(name.data()), len);
-                        if (name[name.count() - 1] != '\0')
+                        if (name[name.size() - 1] != '\0')
                             name += '\0';
                     }
                 }

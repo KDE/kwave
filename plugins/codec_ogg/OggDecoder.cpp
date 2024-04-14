@@ -22,6 +22,7 @@
 #include <new>
 
 #include <QDate>
+#include <QIODevice>
 #include <QLatin1Char>
 
 #include <KLocalizedString>

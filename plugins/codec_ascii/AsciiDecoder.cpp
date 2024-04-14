@@ -22,6 +22,7 @@
 #include <new>
 
 #include <QDateTime>
+#include <QIODevice>
 #include <QLatin1Char>
 #include <QLatin1String>
 #include <QRegularExpression>

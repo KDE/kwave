@@ -21,6 +21,7 @@
 
 #include <audiofile.h>
 
+#include <QIODevice>
 #include <QList>
 #include <QVector>
 #include <QtEndian>

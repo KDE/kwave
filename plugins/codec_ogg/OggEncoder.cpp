@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <new>
 
+#include <QIODevice>
 #include <QList>
 #include <QSharedPointer>
 

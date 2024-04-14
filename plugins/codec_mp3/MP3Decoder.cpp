@@ -29,6 +29,7 @@
 
 #include <QDate>
 #include <QDateTime>
+#include <QIODevice>
 #include <QLatin1Char>
 #include <QTime>
 

@@ -23,6 +23,7 @@
 #include <new>
 
 #include <QApplication>
+#include <QIODevice>
 #include <QList>
 #include <QTextCodec>
 #include <QVariant>

@@ -20,6 +20,7 @@
 #include <math.h>
 #include <string.h>
 
+#include <QIODevice>
 #include <QRandomGenerator>
 #include <QTime>
 #include <QtGlobal>

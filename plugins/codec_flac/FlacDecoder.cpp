@@ -20,6 +20,7 @@
 #include <new>
 
 #include <QDateTime>
+#include <QIODevice>
 
 #include <KLocalizedString>
 

@@ -22,6 +22,7 @@
 
 #include <audiofile.h>
 
+#include <QIODevice>
 #include <QtGlobal>
 
 #include <KLocalizedString>

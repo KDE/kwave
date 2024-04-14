@@ -26,6 +26,7 @@
 #include <KLocalizedString>
 
 #include <QByteArray>
+#include <QIODevice>
 #include <QtEndian>
 #include <QtGlobal>
 

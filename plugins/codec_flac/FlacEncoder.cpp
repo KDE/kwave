@@ -24,6 +24,7 @@
 
 #include <QApplication>
 #include <QByteArray>
+#include <QIODevice>
 #include <QList>
 #include <QVarLengthArray>
 

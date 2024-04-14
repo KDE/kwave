@@ -34,7 +34,6 @@
 #include <QWindow>
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QMouseEvent>
@@ -470,8 +469,7 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
     Q_ASSERT(screen);
     if (!screen) return;
     QPixmap pixmap = screen->grabWindow(
-        QApplication::desktop()->winId(),
-        rect.x(), rect.y(),
+        0, rect.x(), rect.y(),
         rect.width(), rect.height()
     );
 

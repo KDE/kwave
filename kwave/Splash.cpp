@@ -18,7 +18,6 @@
 #include "config.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QFont>
 #include <QLabel>
 #include <QPainter>

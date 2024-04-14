@@ -29,7 +29,6 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QCommandLineParser>
-#include <QDesktopWidget>
 #include <QFile>
 #include <QFrame>
 #include <QLabel>
@@ -440,7 +439,7 @@ bool Kwave::TopWidget::init()
     updateRecentFiles();
 
     // make sure that everything of our window is visible
-    QRect desk = qApp->desktop()->availableGeometry(this);
+    QRect desk = qApp->primaryScreen()->availableGeometry();
     QRect g    = this->geometry();
     if (!desk.contains(g)) {
         // KDE's stupid geometry management has failed ?

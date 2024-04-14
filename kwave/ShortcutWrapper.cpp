@@ -19,6 +19,7 @@
 
 #include <QKeySequence>
 #include <QObject>
+#include <QWidget>
 
 #include "ShortcutWrapper.h"
 

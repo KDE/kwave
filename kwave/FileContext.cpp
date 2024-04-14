@@ -1001,7 +1001,7 @@ int Kwave::FileContext::saveFileAs(const QString &filename, bool selection)
             QStringList extensions = ext.split(_(" "));
             ext = extensions.first();
             new_name += ext.mid(1);
-            path = new_name;
+            path.setFile(new_name);
             url.setPath(new_name);
         }
 

@@ -197,8 +197,10 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     QAction *action;
     action = context_menu->addAction(
         QIcon::fromTheme(_("edit-undo")),
-        i18n("&Undo"), this, SLOT(contextMenuEditUndo()),
-        QKeySequence::StandardKey::Undo);
+        i18n("&Undo"),
+        QKeySequence::StandardKey::Undo,
+        this,
+        SLOT(contextMenuEditUndo()));
     Q_ASSERT(action);
     if (!action) return;
     if (!m_signal_manager->canUndo())
@@ -207,8 +209,10 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     // redo
     action = context_menu->addAction(
         QIcon::fromTheme(_("edit-redo")),
-        i18n("&Redo"), this, SLOT(contextMenuEditRedo()),
-        QKeySequence::StandardKey::Redo);
+        i18n("&Redo"),
+        QKeySequence::StandardKey::Redo,
+        this,
+        SLOT(contextMenuEditRedo()));
     Q_ASSERT(action);
     if (!action) return;
     if (!m_signal_manager->canRedo())
@@ -218,16 +222,22 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     // cut/copy/paste
     QAction *action_cut = context_menu->addAction(
         QIcon::fromTheme(_("edit-cut")),
-        i18n("Cu&t"), this, SLOT(contextMenuEditCut()),
-        QKeySequence::StandardKey::Cut);
+        i18n("Cu&t"),
+        QKeySequence::StandardKey::Cut,
+        this,
+        SLOT(contextMenuEditCut()));
     QAction *action_copy = context_menu->addAction(
         QIcon::fromTheme(_("edit-copy")),
-        i18n("&Copy"), this, SLOT(contextMenuEditCopy()),
-        QKeySequence::StandardKey::Copy);
+        i18n("&Copy"),
+        QKeySequence::StandardKey::Copy,
+        this,
+        SLOT(contextMenuEditCopy()));
     QAction *action_paste = context_menu->addAction(
         QIcon::fromTheme(_("edit-paste")),
-        i18n("&Paste"), this, SLOT(contextMenuEditPaste()),
-        QKeySequence::StandardKey::Paste);
+        i18n("&Paste"),
+        QKeySequence::StandardKey::Paste,
+        this,
+        SLOT(contextMenuEditPaste()));
     context_menu->addSeparator();
     if (action_cut)   action_cut->setEnabled(have_selection);
     if (action_copy)  action_copy->setEnabled(have_selection);
@@ -256,26 +266,30 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
 
     // Selection / &Expand to labels
     QAction *action_select_expand_to_labels = submenu_select->addAction(
-        i18n("&Expand to Labels"), this,
-        SLOT(contextMenuSelectionExpandToLabels()), Qt::Key_E);
+        i18n("&Expand to Labels"),
+        Qt::Key_E,
+        this,
+        SLOT(contextMenuSelectionExpandToLabels()));
     Q_ASSERT(action_select_expand_to_labels);
     if (!action_select_expand_to_labels) return;
     action_select_expand_to_labels->setEnabled(have_labels);
 
     // Selection / to next labels
     QAction *action_select_next_labels = submenu_select->addAction(
-        i18n("To Next Labels"), this,
-        SLOT(contextMenuSelectionNextLabels()),
-        Qt::SHIFT + Qt::CTRL + Qt::Key_N);
+        i18n("To Next Labels"),
+        Qt::SHIFT | Qt::CTRL | Qt::Key_N,
+        this,
+        SLOT(contextMenuSelectionNextLabels()));
     Q_ASSERT(action_select_next_labels);
     if (!action_select_next_labels) return;
     action_select_next_labels->setEnabled(have_labels);
 
     // Selection / to previous labels
     QAction *action_select_prev_labels = submenu_select->addAction(
-        i18n("To Previous Labels"), this,
-        SLOT(contextMenuSelectionPrevLabels()),
-        Qt::SHIFT + Qt::CTRL + Qt::Key_P);
+        i18n("To Previous Labels"),
+        Qt::SHIFT | Qt::CTRL | Qt::Key_P,
+        this,
+        SLOT(contextMenuSelectionPrevLabels()));
     Q_ASSERT(action_select_prev_labels);
     if (!action_select_prev_labels) return;
     action_select_prev_labels->setEnabled(have_labels);

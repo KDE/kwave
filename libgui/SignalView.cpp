@@ -334,8 +334,8 @@ void Kwave::SignalView::mouseMoveEvent(QMouseEvent *e)
     // coordinates on the start of a fast move!?
     // globalPos() seems not to have this effect
     const QPoint mouse_pos(
-        qBound(0, mapFromGlobal(e->globalPos()).x(), width()  - 1),
-        qBound(0, mapFromGlobal(e->globalPos()).y(), height() - 1)
+        qBound(0, mapFromGlobal(e->globalPosition().toPoint()).x(), width()  - 1),
+        qBound(0, mapFromGlobal(e->globalPosition().toPoint()).y(), height() - 1)
     );
 
     // bail out if the position did not change
@@ -410,8 +410,8 @@ void Kwave::SignalView::mousePressEvent(QMouseEvent *e)
     }
 
     const QPoint mouse_pos(
-        qBound(0, mapFromGlobal(e->globalPos()).x(), width()  - 1),
-        qBound(0, mapFromGlobal(e->globalPos()).y(), height() - 1)
+        qBound(0, mapFromGlobal(e->globalPosition().toPoint()).x(), width()  - 1),
+        qBound(0, mapFromGlobal(e->globalPosition().toPoint()).y(), height() - 1)
     );
 
     findNewItem(mouse_pos, false);
@@ -484,8 +484,8 @@ void Kwave::SignalView::mouseReleaseEvent(QMouseEvent *e)
     }
 
     const QPoint mouse_pos(
-        qBound(0, mapFromGlobal(e->globalPos()).x(), width()  - 1),
-        qBound(0, mapFromGlobal(e->globalPos()).y(), height() - 1)
+        qBound(0, mapFromGlobal(e->globalPosition().toPoint()).x(), width()  - 1),
+        qBound(0, mapFromGlobal(e->globalPosition().toPoint()).y(), height() - 1)
     );
 
     switch (m_mouse_mode) {
@@ -588,7 +588,7 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
     if (Kwave::Drag::canDecode(mime_data)) {
         Kwave::UndoTransactionGuard undo(*m_signal_manager,
                                          i18n("Drag and Drop"));
-        sample_index_t pos = m_offset + pixels2samples(event->pos().x());
+        sample_index_t pos = m_offset + pixels2samples(event->position().toPoint().x());
         sample_index_t len = 0;
 
         if ((len = Kwave::Drag::decode(this, mime_data,
@@ -637,7 +637,7 @@ void Kwave::SignalView::dropEvent(QDropEvent *event)
 void Kwave::SignalView::dragMoveEvent(QDragMoveEvent *event)
 {
     if (!event) return;
-    const int x = event->pos().x();
+    const int x = event->position().toPoint().x();
 
     if ((event->source() == this) && isInSelection(x)) {
         // disable drag&drop into the selection itself

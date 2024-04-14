@@ -121,8 +121,9 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
     del->addAction(
         QIcon::fromTheme(_("edit-delete")),
         i18n("Currently Selected Point"),
-        this, SLOT(deleteLast()),
-        QKeySequence::Delete);
+        QKeySequence::Delete,
+        this,
+        SLOT(deleteLast()));
     del->addAction(i18n("Every Second Point"),
                    this, SLOT(deleteSecond()));
 

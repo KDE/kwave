@@ -84,7 +84,7 @@ void Kwave::ScaleWidget::paintText(QPainter &p, int x, int y,
     font.setStyleHint(QFont::SansSerif);
     font.setFixedPitch(true);
     font.setPixelSize(FONTSIZE);
-    font.setWeight(0);
+    font.setWeight(QFont::Thin);
     font.setStyle(QFont::StyleNormal);
     p.setFont(font);
     QFontMetrics fm(font);

@@ -25,7 +25,6 @@
 #include <QApplication>
 #include <QIODevice>
 #include <QList>
-#include <QTextCodec>
 #include <QVariant>
 
 #include <KLocalizedString>
@@ -47,7 +46,6 @@
 Kwave::AsciiEncoder::AsciiEncoder()
     :Kwave::Encoder(), m_dst()
 {
-    m_dst.setCodec(QTextCodec::codecForName("UTF-8"));
     LOAD_MIME_TYPES
     REGISTER_COMPRESSION_TYPES
 }

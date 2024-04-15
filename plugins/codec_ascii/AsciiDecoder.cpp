@@ -53,7 +53,6 @@ Kwave::AsciiDecoder::AsciiDecoder()
 {
     LOAD_MIME_TYPES
     REGISTER_COMPRESSION_TYPES
-    m_source.setCodec("UTF-8");
 }
 
 //***************************************************************************

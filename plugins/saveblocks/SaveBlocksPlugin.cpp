@@ -131,8 +131,6 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
             QStringList extensions = ext.split(_(" "));
             ext = extensions.first();
             name += ext.mid(1);
-            path = name;
-            url.setPath(name);
         }
 
         name     = Kwave::Parser::escape(name);

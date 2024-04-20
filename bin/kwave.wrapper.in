@@ -3,11 +3,11 @@
 set -e
 
 export PREFIX=@CMAKE_BINARY_DIR@/install
-make install DESTDIR=${PREFIX}
+cmake --install . --prefix ${PREFIX}
 
-export LD_LIBRARY_PATH=${PREFIX}@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@:${LD_LIBRARY_PATH}
-export XDG_DATA_DIRS=${PREFIX}/@CMAKE_INSTALL_PREFIX@/@DATA_INSTALL_DIR@:${XDG_DATA_DIRS}
-export PATH=${PREFIX}@CMAKE_INSTALL_PREFIX@/@BIN_INSTALL_DIR@:${PATH}
+export LD_LIBRARY_PATH=${PREFIX}/@KDE_INSTALL_LIBDIR@:${LD_LIBRARY_PATH}
+export XDG_DATA_DIRS=${PREFIX}/@KDE_INSTALL_DATADIR@:${XDG_DATA_DIRS}
+export PATH=${PREFIX}/@KDE_INSTALL_BINDIR@:${PATH}
 export QT_PLUGIN_PATH=${PREFIX}/@KDE_INSTALL_PLUGINDIR@:${QT_PLUGIN_PATH}
 export KDESYCOCA=${PREFIX}/var/tmp/kde-${USER}/ksycoca5
 
@@ -25,6 +25,6 @@ export KDESYCOCA=${PREFIX}/var/tmp/kde-${USER}/ksycoca5
 # when using new icons:
 # rm -f /var/tmp/kdecache-$USER/icon-cache.kcache
 
-time ${PREFIX}@CMAKE_INSTALL_PREFIX@/@BIN_INSTALL_DIR@/kwave --logfile=/var/tmp/kwave.log "$@"
+time ${PREFIX}/@KDE_INSTALL_BINDIR@/kwave --logfile=/var/tmp/kwave.log "$@"
 
 ### EOF ###

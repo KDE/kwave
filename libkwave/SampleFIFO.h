@@ -39,6 +39,9 @@ namespace Kwave
         /** copy constructor */
         SampleFIFO(const SampleFIFO &other);
 
+        /** copy assignment operator */
+        SampleFIFO& operator=(const SampleFIFO &other);
+
         /** Destructor */
         virtual ~SampleFIFO();
 

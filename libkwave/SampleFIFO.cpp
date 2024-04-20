@@ -35,6 +35,15 @@ Kwave::SampleFIFO::SampleFIFO(const Kwave::SampleFIFO &other)
 }
 
 //***************************************************************************
+Kwave::SampleFIFO& Kwave::SampleFIFO::operator=(const Kwave::SampleFIFO &other)
+{
+    m_buffer      = other.m_buffer;
+    m_size        = other.m_size;
+    m_read_offset = other.m_read_offset;
+    return *this;
+}
+
+//***************************************************************************
 Kwave::SampleFIFO::~SampleFIFO()
 {
     QMutexLocker _lock(&m_lock);

@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "sonagram",
         "License": "GPL-2.0+",
         "Name": "Sonagram",
         "Name[ca@valencia]": "Sonograma",

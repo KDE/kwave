@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "noise",
         "License": "GPL-2.0+",
         "Name": "Noise Generator",
         "Name[ca@valencia]": "Generador de soroll",

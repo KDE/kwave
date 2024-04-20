@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "lowpass",
         "License": "GPL-2.0+",
         "Name": "Low Pass Filter",
         "Name[ca@valencia]": "Filtre passabaix",

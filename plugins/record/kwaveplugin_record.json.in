@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "record",
         "License": "GPL-2.0+",
         "Name": "Record",
         "Name[ca@valencia]": "Grava",

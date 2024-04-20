@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "normalize",
         "License": "GPL-2.0+",
         "Name": "Normalizer",
         "Name[ca@valencia]": "Normalitzador",

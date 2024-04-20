@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "codec_ascii",
         "License": "GPL-2.0+",
         "Name": "ASCII Codec",
         "Name[ca@valencia]": "Còdec ASCII",

@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "volume",
         "License": "GPL-2.0+",
         "Name": "Volume",
         "Name[ca@valencia]": "Volum",

@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "reverse",
         "License": "GPL-2.0+",
         "Name": "Reverse",
         "Name[ca@valencia]": "Invertix",

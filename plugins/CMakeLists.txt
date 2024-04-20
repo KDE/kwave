@@ -56,7 +56,6 @@ MACRO(KWAVE_PLUGIN _plugin)
     )
 
     SET_TARGET_PROPERTIES(plugin_${_plugin} PROPERTIES
-        PREFIX "kwaveplugin_"
         OUTPUT_NAME "${_plugin}"
         LINK_FLAGS "-Wl,--export-dynamic"
         ENABLE_EXPORTS TRUE

@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "fileinfo",
         "License": "GPL-2.0+",
         "Name": "File Info",
         "Name[ca@valencia]": "Informació del fitxer",

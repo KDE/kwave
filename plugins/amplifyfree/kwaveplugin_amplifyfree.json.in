@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "amplifyfree",
         "License": "GPL-2.0+",
         "Name": "Amplify Free",
         "Name[ca@valencia]": "Amplifica amb llibertat",

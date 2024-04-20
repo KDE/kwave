@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "pitch_shift",
         "License": "GPL-2.0+",
         "Name": "Pitch Shift",
         "Name[ca@valencia]": "Desplaça el to",

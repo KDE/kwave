@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "samplerate",
         "License": "GPL-2.0+",
         "Name": "Sample Rate Conversion",
         "Name[ca@valencia]": "Conversió de la freqüència de mostreig",

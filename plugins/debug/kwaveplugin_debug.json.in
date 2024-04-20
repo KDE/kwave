@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "debug",
         "License": "GPL-2.0+",
         "Name": "Debug Functions",
         "Name[ca@valencia]": "Funcions de depuració",

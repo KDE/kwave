@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "export_k3b",
         "License": "GPL-2.0+",
         "Name": "K3b Project Export",
         "Name[ca@valencia]": "Exporta un projecte de K3b",

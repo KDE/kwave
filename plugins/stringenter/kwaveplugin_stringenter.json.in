@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "stringenter",
         "License": "GPL-2.0+",
         "Name": "Enter Command",
         "Name[ca@valencia]": "Introduïx una ordre",

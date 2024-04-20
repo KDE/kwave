@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "codec_wav",
         "License": "GPL-2.0+",
         "Name": "WAV Codec",
         "Name[ca@valencia]": "Còdec WAV",

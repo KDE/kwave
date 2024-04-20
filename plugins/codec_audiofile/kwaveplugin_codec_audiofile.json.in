@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "codec_audiofile",
         "License": "GPL-2.0+",
         "Name": "Audiofile Codec",
         "Name[ca@valencia]": "Còdec Audiofile",

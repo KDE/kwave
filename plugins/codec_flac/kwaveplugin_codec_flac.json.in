@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "codec_flac",
         "License": "GPL-2.0+",
         "Name": "FLAC Codec",
         "Name[ca@valencia]": "Còdec FLAC",

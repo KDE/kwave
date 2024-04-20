@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "saveblocks",
         "License": "GPL-2.0+",
         "Name": "Save Blocks",
         "Name[ca@valencia]": "Guarda els blocs",

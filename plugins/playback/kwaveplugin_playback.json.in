@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "playback",
         "License": "GPL-2.0+",
         "Name": "Playback",
         "Name[ca@valencia]": "Reproduïu",

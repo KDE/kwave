@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "notch_filter",
         "License": "GPL-2.0+",
         "Name": "Notch Filter",
         "Name[ca@valencia]": "Filtre de supressió de la banda",

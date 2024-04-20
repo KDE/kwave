@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "goto",
         "License": "GPL-2.0+",
         "Name": "Goto Position",
         "Name[ca@valencia]": "Ves fins a la posició",

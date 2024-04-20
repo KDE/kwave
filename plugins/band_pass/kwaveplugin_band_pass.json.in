@@ -7,7 +7,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "band_pass",
         "License": "GPL-2.0+",
         "Name": "Band Pass Filter",
         "Name[ca@valencia]": "Filtre passabanda",

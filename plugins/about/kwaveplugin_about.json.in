@@ -19,7 +19,6 @@
             }
         ],
         "EnabledByDefault": true,
-        "Id": "about",
         "License": "GPL-2.0+",
         "Name": "About Kwave",
         "Name[ca@valencia]": "Quant a Kwave",

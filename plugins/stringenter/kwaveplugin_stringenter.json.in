@@ -3,29 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
-                "Name[ca@valencia]": "Thomas Eschenbacher",
-                "Name[ca]": "Thomas Eschenbacher",
-                "Name[cs]": "Thomas Eschenbacher",
-                "Name[en_GB]": "Thomas Eschenbacher",
-                "Name[eo]": "Thomas Eschenbacher",
-                "Name[es]": "Thomas Eschenbacher",
-                "Name[eu]": "Thomas Eschenbacher",
-                "Name[fi]": "Thomas Eschenbacher",
-                "Name[fr]": "Thomas Eschenbacher",
-                "Name[gl]": "Thomas Eschenbacher",
-                "Name[ia]": "Thomas Eschenbacher",
-                "Name[it]": "Thomas Eschenbacher",
-                "Name[ko]": "Thomas Eschenbacher",
-                "Name[nl]": "Thomas Eschenbacher",
-                "Name[pl]": "Thomas Eschenbacher",
-                "Name[pt_BR]": "Thomas Eschenbacher",
-                "Name[ru]": "Thomas Eschenbacher",
-                "Name[sl]": "Thomas Eschenbacher",
-                "Name[sv]": "Thomas Eschenbacher",
-                "Name[tr]": "Thomas Eschenbacher",
-                "Name[uk]": "Thomas Eschenbacher",
-                "Name[x-test]": "xxThomas Eschenbacherxx",
-                "Name[zh_TW]": "Thomas Eschenbacher"
+                "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
         "EnabledByDefault": true,
@@ -38,7 +16,6 @@
         "Name[da]": "Indtast kommando",
         "Name[de]": "Befehl eingeben",
         "Name[el]": "Εισαγωγή εντολής",
-        "Name[en_GB]": "Enter Command",
         "Name[eo]": "Enigi Komandon",
         "Name[es]": "Introducir orden",
         "Name[et]": "Käsu sisestamine",

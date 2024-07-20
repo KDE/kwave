@@ -84,11 +84,11 @@ Kwave::PlayBackDialog::PlayBackDialog(
             SLOT(methodSelected(int)));
     connect(cbDevice, SIGNAL(editTextChanged(QString)),
             SLOT(setDevice(QString)));
-    connect(cbDevice, SIGNAL(activated(QString)),
+    connect(cbDevice, SIGNAL(textActivated(QString)),
             SLOT(setDevice(QString)));
     connect(cbBitsPerSample, SIGNAL(editTextChanged(QString)),
             SLOT(bitsPerSampleSelected(QString)));
-    connect(cbBitsPerSample, SIGNAL(activated(QString)),
+    connect(cbBitsPerSample, SIGNAL(textActivated(QString)),
             SLOT(bitsPerSampleSelected(QString)));
     connect(sbChannels, SIGNAL(valueChanged(int)),
             SLOT(setChannels(int)));

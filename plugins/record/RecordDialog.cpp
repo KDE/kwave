@@ -192,7 +192,7 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     // "select device..." button
     connect(btSourceSelect, SIGNAL(clicked()),
             this, SLOT(selectRecordDevice()));
-    connect(cbDevice, SIGNAL(activated(QString)),
+    connect(cbDevice, SIGNAL(textActivated(QString)),
             this, SLOT(setDevice(QString)));
 
     // setup controls
@@ -213,7 +213,7 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     connect(cbFormatSampleRate, SIGNAL(editTextChanged(QString)),
             this, SLOT(sampleRateChanged(QString)));
-    connect(cbFormatSampleRate, SIGNAL(activated(QString)),
+    connect(cbFormatSampleRate, SIGNAL(textActivated(QString)),
             this, SLOT(sampleRateChanged(QString)));
 
     connect(sbFormatTracks, SIGNAL(valueChanged(int)),

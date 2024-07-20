@@ -21,8 +21,8 @@
 #include "config.h"
 #ifdef HAVE_QT_AUDIO_SUPPORT
 
-#include <QAudio>
-#include <QAudioDeviceInfo>
+#include <QtAudio>
+#include <QAudioDevice>
 #include <QList>
 #include <QRecursiveMutex>
 #include <QSemaphore>
@@ -30,13 +30,11 @@
 #include <QStringList>
 #include <QWaitCondition>
 
-#include "libkwave/Runnable.h"
 #include "libkwave/SampleFormat.h"
-#include "libkwave/WorkerThread.h"
 
 #include "RecordDevice.h"
 
-class QAudioInput;
+class QAudioSource;
 class QAudioFormat;
 class QIODevice;
 
@@ -208,9 +206,6 @@ namespace Kwave
          */
         void closeInMainThread();
 
-        /** called when recorded data gets available */
-        void notified();
-
     private:
 
         /**
@@ -226,13 +221,12 @@ namespace Kwave
         void scanDevices();
 
         /**
-         * Gets the full device info of a playback device, identified by
-         * the device name.
+         * Gets a playback device, identified by the device name.
          *
          * @param device name of the device or empty string for default
-         * @return a QAudioDeviceInfo
+         * @return a QAudioDevice
          */
-        QAudioDeviceInfo deviceInfo(const QString &device) const;
+        QAudioDevice getDevice(const QString &device) const;
 
     private:
 
@@ -241,16 +235,16 @@ namespace Kwave
 
         /**
          * dictionary for translating verbose device names
-         * into Qt audio output device names
-         * (key = verbose name, data = Qt output device name)
+         * into Qt audio output device ids
+         * (key = verbose name, data = Qt output device id)
          */
-        QMap<QString, QString> m_device_name_map;
+        QMap<QString, QByteArray> m_device_name_map;
 
         /** list of available Qt output devices */
-        QList<QAudioDeviceInfo> m_available_devices;
+        QList<QAudioDevice> m_available_devices;
 
         /** Qt audio input instance */
-        QAudioInput *m_input;
+        QAudioSource *m_input;
 
         /** QIODevice for reading the data */
         QIODevice *m_source;
@@ -276,8 +270,6 @@ namespace Kwave
         /** true if initialize() has been successfully been run */
         bool m_initialized;
 
-        /** semaphore for signaling "data available" */
-        QSemaphore m_sem;
     };
 
 }

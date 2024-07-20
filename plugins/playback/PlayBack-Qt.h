@@ -21,8 +21,8 @@
 #include "config.h"
 #ifdef HAVE_QT_AUDIO_SUPPORT
 
-#include <QAudio>
-#include <QAudioDeviceInfo>
+#include <QtAudio>
+#include <QAudioDevice>
 #include <QByteArray>
 #include <QIODevice>
 #include <QList>
@@ -37,7 +37,7 @@
 #include "libkwave/PlayBackDevice.h"
 #include "libkwave/SampleArray.h"
 
-class QAudioOutput;
+class QAudioSink;
 class QIODevice;
 
 namespace Kwave
@@ -129,13 +129,12 @@ namespace Kwave
         void scanDevices();
 
         /**
-         * Gets the full device info of a playback device, identified by
-         * the device name.
+         * Gets an audio device, identified by the device name.
          *
          * @param device name of the device or empty string for default
-         * @return a QAudioDeviceInfo
+         * @return a QAudioDevice
          */
-        QAudioDeviceInfo deviceInfo(const QString &device) const;
+        QAudioDevice getDevice(const QString &device) const;
 
     private:
 
@@ -227,13 +226,13 @@ namespace Kwave
          * into Qt audio output device names
          * (key = verbose name, data = Qt output device name)
          */
-        QMap<QString, QString> m_device_name_map;
+        QMap<QString, QByteArray> m_device_name_map;
 
         /** list of available Qt output devices */
-        QList<QAudioDeviceInfo> m_available_devices;
+        QList<QAudioDevice> m_available_devices;
 
         /** Qt audio output instance */
-        QAudioOutput *m_output;
+        QAudioSink *m_output;
 
         /** buffer size in bytes */
         unsigned int m_buffer_size;

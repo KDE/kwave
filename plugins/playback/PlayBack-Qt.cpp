@@ -21,13 +21,13 @@
 #include <errno.h>
 
 #include <algorithm>
-#include <limits>
 #include <new>
 
 #include <QApplication>
-#include <QAudioDeviceInfo>
+#include <QAudioDevice>
 #include <QAudioFormat>
-#include <QAudioOutput>
+#include <QAudioSink>
+#include <QMediaDevices>
 #include <QObject>
 #include <QSysInfo>
 #include <QThread>
@@ -70,12 +70,23 @@ void Kwave::PlayBackQt::createEncoder(const QAudioFormat &format)
 
     // get the sample format
     Kwave::SampleFormat::Format sample_format = Kwave::SampleFormat::Unknown;
-    switch (format.sampleType()) {
-        case QAudioFormat::SignedInt:
-            sample_format = Kwave::SampleFormat::Signed;
-            break;
-        case QAudioFormat::UnSignedInt:
+    unsigned int bits = 0;
+    switch (format.sampleFormat()) {
+        case QAudioFormat::UInt8:
             sample_format = Kwave::SampleFormat::Unsigned;
+            bits = 8;
+            break;
+        case QAudioFormat::Int16:
+            sample_format = Kwave::SampleFormat::Signed;
+            bits = 16;
+            break;
+        case QAudioFormat::Int32:
+            sample_format = Kwave::SampleFormat::Signed;
+            bits = 32;
+            break;
+        case QAudioFormat::Float:
+            sample_format = Kwave::SampleFormat::Float;
+            bits = 32;
             break;
         default:
             sample_format = Kwave::SampleFormat::Unknown;
@@ -83,39 +94,13 @@ void Kwave::PlayBackQt::createEncoder(const QAudioFormat &format)
     }
     if (sample_format == Kwave::SampleFormat::Unknown) {
         qWarning("PlayBackQt: unsupported sample format %d",
-                 static_cast<int>(format.sampleType()));
-        return;
-    }
-
-    unsigned int bits = 0;
-    switch (format.sampleSize()) {
-        case  8: bits =  8; break;
-        case 16: bits = 16; break;
-        case 24: bits = 24; break;
-        case 32: bits = 32; break;
-        default: bits =  0; break;
-    }
-    if (bits == 0) {
-        qWarning("PlayBackQt: unsupported bits per sample: %d",
-                 static_cast<int>(format.sampleSize()));
-        return;
-    }
-
-    Kwave::byte_order_t endian = Kwave::UnknownEndian;
-    switch (format.byteOrder()) {
-        case QAudioFormat::BigEndian:    endian = Kwave::BigEndian;     break;
-        case QAudioFormat::LittleEndian: endian = Kwave::LittleEndian;  break;
-        default:                         endian = Kwave::UnknownEndian; break;
-    }
-    if (endian == Kwave::UnknownEndian) {
-        qWarning("PlayBackQt: unsupported byte order in audio format: %d",
-                 static_cast<int>(format.byteOrder()));
+                 static_cast<int>(format.sampleFormat()));
         return;
     }
 
     // create the sample encoder
     m_encoder = new(std::nothrow)
-        Kwave::SampleEncoderLinear(sample_format, bits, endian);
+        Kwave::SampleEncoderLinear(sample_format, bits, Kwave::CpuEndian);
 }
 
 //***************************************************************************
@@ -137,38 +122,36 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
     // make sure we have a valid list of devices
     scanDevices();
 
-    const QAudioDeviceInfo info(deviceInfo(device));
+    const QAudioDevice info(getDevice(device));
     if (info.isNull()) {
         return i18n("The audio device '%1' is unknown or no longer connected",
                     device.section(QLatin1Char('|'), 0, 0));
     }
 
     // find a supported sample format
-    const QAudioFormat preferred_format(info.preferredFormat());
-    QAudioFormat format(preferred_format);
-    format.setSampleSize(Kwave::toInt(bits));
+    QAudioFormat format(info.preferredFormat());
+    switch (Kwave::toInt(bits)) {
+        case 8:
+            format.setSampleFormat(QAudioFormat::UInt8);
+            break;
+        case 16:
+            format.setSampleFormat(QAudioFormat::Int16);
+            break;
+        case 32:
+            if (format.sampleFormat() == QAudioFormat::Float) {
+                break;
+            } else {
+                format.setSampleFormat(QAudioFormat::Int32);
+            }
+            break;
+        default:
+            return i18n("%1 bits per sample are not supported", bits);
+    }
     format.setChannelCount(Kwave::toInt(channels));
     format.setSampleRate(Kwave::toInt(rate));
 
-    // find a replacement format with matching codec, channels, bits and rate
     if (!format.isValid() || !info.isFormatSupported(format))
-        format = info.nearestFormat(format);
-
-    if (format.codec() != _("audio/pcm"))
-        return i18n("PCM encoding is not supported");
-
-    if (format.sampleSize() != Kwave::toInt(bits))
-        return i18n("%1 bits per sample are not supported", bits);
-
-    if (format.channelCount() != Kwave::toInt(channels))
-        return i18n("playback with %1 channels is not supported", channels);
-
-    if (format.sampleRate() != Kwave::toInt(rate))
-        return i18n("sample rate %1 Hz is not supported", Kwave::toInt(rate));
-
-    if ( (format.sampleType() != QAudioFormat::SignedInt) &&
-         (format.sampleType() != QAudioFormat::UnSignedInt) )
-        return i18n("integer sample format is not supported");
+        return i18n("format not supported");
 
     // create a sample encoder
     createEncoder(format);
@@ -176,7 +159,7 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
     if (!m_encoder) return i18n("Out of memory");
 
     // create a new Qt output device
-    m_output = new(std::nothrow) QAudioOutput(format, Q_NULLPTR);
+    m_output = new(std::nothrow) QAudioSink(format, Q_NULLPTR);
     Q_ASSERT(m_output);
     if (!m_output) return i18n("Out of memory");
 
@@ -190,21 +173,14 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
     m_buffer_size = (1U << bufbase);
     qDebug("    buffer size = %u", m_buffer_size);
 
-    // in the rare case that out backend already gives us a period size,
-    // check out buffer size against it
-    m_buffer_size = qMax(m_buffer_size, Kwave::toUint(m_output->periodSize()));
-
     m_buffer.start(m_buffer_size, 0);
 
     // open the output device for writing
     m_output->start(&m_buffer);
 
-    // calculate an appropriate timeout, based on the period and buffer sizes
-    const int period_size = m_output->periodSize();
-    qDebug("    period_size = %d", period_size);
+    // calculate an appropriate timeout, based on the buffer size
     unsigned int bytes_per_frame = m_encoder->rawBytesPerSample() * channels;
-    unsigned int buffer_size = qMax(qMax<int>(period_size, m_buffer_size),
-                                    m_output->bufferSize());
+    unsigned int buffer_size = qMax<int>(m_buffer_size, m_output->bufferSize());
     unsigned int buffer_frames =
         ((buffer_size * 2) + (bytes_per_frame - 1)) / bytes_per_frame;
     int timeout = qMax(Kwave::toInt((1000 * buffer_frames) / rate), 100);
@@ -248,7 +224,7 @@ void Kwave::PlayBackQt::stateChanged(QAudio::State state)
 
     if (m_output->error() != QAudio::NoError) {
         qDebug("PlaybBackQt::stateChanged(%d), ERROR=%d, "
-               "buffer free=%d",
+               "buffer free=%lld",
                static_cast<int>(state),
                static_cast<int>(m_output->error()),
                m_output->bytesFree()
@@ -276,26 +252,26 @@ void Kwave::PlayBackQt::stateChanged(QAudio::State state)
 }
 
 //***************************************************************************
-QAudioDeviceInfo Kwave::PlayBackQt::deviceInfo(const QString &device) const
+QAudioDevice Kwave::PlayBackQt::getDevice(const QString &device) const
 {
     // check for default device
     if (!device.length() || (device == DEFAULT_DEVICE))
-        return QAudioDeviceInfo::defaultOutputDevice();
+        return QMediaDevices::defaultAudioOutput();
 
     // check if the device name is known
     if (m_device_name_map.isEmpty() || !m_device_name_map.contains(device))
-        return QAudioDeviceInfo();
+        return QAudioDevice();
 
-    // translate the path into a Qt audio output device name
+    // translate the path into a Qt audio output device id
     // iterate over all available devices
-    const QString dev_name = m_device_name_map[device];
-    foreach (const QAudioDeviceInfo &dev, m_available_devices) {
-        if (dev.deviceName() == dev_name)
-            return QAudioDeviceInfo(dev);
+    const QByteArray dev_id = m_device_name_map[device];
+    for (const QAudioDevice &dev : m_available_devices) {
+        if (dev.id() == dev_id)
+            return QAudioDevice(dev);
     }
 
-    // fallen through: return empty info
-    return QAudioDeviceInfo();
+    // fallen through: return null device
+    return QAudioDevice();
 }
 
 //***************************************************************************
@@ -306,7 +282,7 @@ int Kwave::PlayBackQt::close()
     QMutexLocker _lock(&m_lock); // context: main thread
 
     if (m_output && m_encoder) {
-        int pad_bytes_cnt   = m_output->periodSize();
+        int pad_bytes_cnt   = m_output->bufferSize();
         int bytes_per_frame = m_output->format().bytesPerFrame();
         if ((pad_bytes_cnt > 0) && (bytes_per_frame > 0)) {
             unsigned int pad_samples_cnt = pad_bytes_cnt / bytes_per_frame;
@@ -366,14 +342,13 @@ QStringList Kwave::PlayBackQt::supportedDevices()
 //***************************************************************************
 void Kwave::PlayBackQt::scanDevices()
 {
-    m_available_devices.clear();
     m_device_name_map.clear();
 
     // get the list of available audio output devices from Qt
-    foreach (const QAudioDeviceInfo &device,
-             QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
+    m_available_devices = QMediaDevices::audioOutputs();
+    for (const QAudioDevice &device : m_available_devices)
     {
-        QString qt_name = device.deviceName();
+        QByteArray qt_name = device.id();
 
         // for debugging: list all devices
 //      qDebug("name='%s'", DBG(qt_name));
@@ -385,14 +360,13 @@ void Kwave::PlayBackQt::scanDevices()
             continue;
         }
 
-        QString gui_name = qt_name + _("|sound_note");
+        QString gui_name = device.description() + _("|sound_note");
         if (m_device_name_map.contains(gui_name)) {
             qWarning("PlayBackQt::supportedDevices() "
             "=> BUG: duplicate device name: '%s'", DBG(gui_name));
             continue;
         }
 
-        m_available_devices.append(device);
         m_device_name_map[gui_name] = qt_name;
     }
 }
@@ -409,13 +383,31 @@ QList<unsigned int> Kwave::PlayBackQt::supportedBits(const QString &device)
     QMutexLocker _lock(&m_lock); // context: main thread
 
     QList<unsigned int> list;
-    const QAudioDeviceInfo info(deviceInfo(device));
+    const QAudioDevice info(getDevice(device));
 
     // no devices at all -> empty list
     if (info.isNull()) return list;
 
     // iterate over all supported sample sizes
-    foreach (int bits, info.supportedSampleSizes()) {
+    unsigned int bits = 0;
+    for (QAudioFormat::SampleFormat format : info.supportedSampleFormats()) {
+        switch (format) {
+        case QAudioFormat::UInt8:
+            bits = 8;
+            break;
+        case QAudioFormat::Int16:
+            bits = 16;
+            break;
+        case QAudioFormat::Int32:
+            bits = 32;
+            break;
+        case QAudioFormat::Float:
+            bits = 32;
+            break;
+        default:
+            bits = 0;
+            break;
+        }
         if (!list.contains(bits) && (bits > 0))
             list <<  Kwave::toUint(bits);
     }
@@ -430,22 +422,13 @@ int Kwave::PlayBackQt::detectChannels(const QString &device,
 {
     QMutexLocker _lock(&m_lock); // context: main thread
 
-    const QAudioDeviceInfo info(deviceInfo(device));
-
-    max = std::numeric_limits<unsigned int>::min();
-    min = std::numeric_limits<unsigned int>::max();
+    const QAudioDevice info(getDevice(device));
 
     // no devices at all -> empty
     if (info.isNull()) return -1;
 
-    // iterate over all supported sample sizes
-    foreach (int channels, info.supportedChannelCounts()) {
-        if (channels <= 0) continue;
-        unsigned int c = Kwave::toUint(channels);
-        if (c < 1) continue;
-        if (c < min) min = c;
-        if (c > max) max = c;
-    }
+    max = info.maximumChannelCount();
+    min = info.minimumChannelCount();
 
     return (max > 0) ? max : -1;
 }

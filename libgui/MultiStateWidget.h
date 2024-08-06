@@ -47,7 +47,7 @@ namespace Kwave
         MultiStateWidget(QWidget *parent, int id);
 
         /** Destructor */
-        virtual ~MultiStateWidget() Q_DECL_OVERRIDE;
+        virtual ~MultiStateWidget() override;
 
         /**
          * Sets the number that will passed as argument to the
@@ -100,10 +100,10 @@ namespace Kwave
     private:
 
         /** reacts to the mouse release (click) */
-        virtual void mouseReleaseEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+        virtual void mouseReleaseEvent(QMouseEvent *) override;
 
         /** repaints the pixmap */
-        virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+        virtual void paintEvent(QPaintEvent *) override;
 
     private:
 

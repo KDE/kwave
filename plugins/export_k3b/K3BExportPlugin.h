@@ -56,10 +56,10 @@ namespace Kwave
         K3BExportPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~K3BExportPlugin() Q_DECL_OVERRIDE;
+        virtual ~K3BExportPlugin() override;
 
         /** @see Kwave::Plugin::load() */
-        virtual void load(QStringList &params) Q_DECL_OVERRIDE;
+        virtual void load(QStringList &params) override;
 
         /**
          * Normally this method is used to set up all necessary parameters
@@ -69,13 +69,13 @@ namespace Kwave
          * @param params some parameters
          * @return string list with parameters or null pointer
          */
-        virtual QStringList *setup(QStringList &params) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &params) override;
 
         /**
          * Saves the K3b project file, using the settings made in "setup()"
          * @see Kwave::Plugin::start()
          */
-        virtual int start(QStringList &params) Q_DECL_OVERRIDE;
+        virtual int start(QStringList &params) override;
 
         /** returns a list of all known detection patterns */
         static QStringList knownPatterns();

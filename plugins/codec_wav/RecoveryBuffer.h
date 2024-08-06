@@ -38,11 +38,11 @@ namespace Kwave
         RecoveryBuffer(quint64 offset, quint64 length, char *buffer);
 
         /** Destructor */
-        virtual ~RecoveryBuffer() Q_DECL_OVERRIDE {}
+        virtual ~RecoveryBuffer() override {}
 
         /** implementation of RecoverySource::read */
         virtual qint64 read(quint64 offset, char *data, unsigned int bytes)
-            Q_DECL_OVERRIDE;
+            override;
 
     private:
 

@@ -63,7 +63,7 @@ namespace Kwave
                         sample_index_t first, sample_index_t last);
 
         /** Destructor */
-        virtual ~MultiTrackReader() Q_DECL_OVERRIDE;
+        virtual ~MultiTrackReader() override;
 
         /**
          * Returns the offset of the reader, as
@@ -88,7 +88,7 @@ namespace Kwave
 
         /** @see QList::insert() */
         virtual bool insert(unsigned int track, Kwave::SampleReader *reader)
-            Q_DECL_OVERRIDE;
+            override;
 
         /** Skips a number of samples. */
         virtual void skip(sample_index_t count);

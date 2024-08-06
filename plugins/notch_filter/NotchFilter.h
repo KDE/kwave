@@ -42,13 +42,13 @@ namespace Kwave
         NotchFilter();
 
         /** Destructor */
-        virtual ~NotchFilter() Q_DECL_OVERRIDE;
+        virtual ~NotchFilter() override;
 
         /** does the calculation */
-        virtual void goOn() Q_DECL_OVERRIDE;
+        virtual void goOn() override;
 
         /** @see TransmissionFunction::at() */
-        virtual double at(double f) Q_DECL_OVERRIDE;
+        virtual double at(double f) override;
 
     signals:
 

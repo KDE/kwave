@@ -59,7 +59,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        virtual ~TrackWriter() Q_DECL_OVERRIDE;
+        virtual ~TrackWriter() override;
 
         /**
          * Flush the content of a buffer. Normally the buffer is the
@@ -74,7 +74,7 @@ namespace Kwave
          */
         virtual bool write(const Kwave::SampleArray &buffer,
                            unsigned int &count)
-            Q_DECL_OVERRIDE;
+            override;
 
     private:
 

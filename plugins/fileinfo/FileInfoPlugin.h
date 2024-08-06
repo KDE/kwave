@@ -37,13 +37,13 @@ namespace Kwave
         FileInfoPlugin(QObject *parent, const QVariantList &args);
 
         /** virtual Destructor */
-        virtual ~FileInfoPlugin() Q_DECL_OVERRIDE;
+        virtual ~FileInfoPlugin() override;
 
         /**
          * Shows a dialog for editing file properties.
          * @see Kwave::Plugin::setup
          */
-        virtual QStringList *setup(QStringList &) Q_DECL_OVERRIDE;
+        virtual QStringList *setup(QStringList &) override;
 
     protected:
 

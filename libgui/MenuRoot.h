@@ -49,7 +49,7 @@ namespace Kwave
         explicit MenuRoot(QMenuBar &bar);
 
         /** Destructor */
-        virtual ~MenuRoot() Q_DECL_OVERRIDE;
+        virtual ~MenuRoot() override;
 
         /**
          * overloaded version from MenuNode, which does a cleanup of
@@ -69,7 +69,7 @@ namespace Kwave
                                 const QString &position,
                                 const QString &command,
                                 const QKeySequence &shortcut,
-                                const QString &uid) Q_DECL_OVERRIDE;
+                                const QString &uid) override;
 
         /**
          * Inserts a new branch node into the menu structure.
@@ -90,7 +90,7 @@ namespace Kwave
                                              const QString &command,
                                              const QKeySequence &shortcut,
                                              const QString &uid)
-                                             Q_DECL_OVERRIDE;
+                                             override;
 
         /**
          * Inserts a new leaf node into the menu structure. The new node
@@ -106,26 +106,26 @@ namespace Kwave
                                             const QString &command,
                                             const QKeySequence &shortcut,
                                             const QString &uid)
-                                            Q_DECL_OVERRIDE;
+                                            override;
 
         /**
          * Removes a child node of the current node. If the child
          * was not found or is already removed this does nothing.
          * @param child pointer to the child node
          */
-        virtual void removeChild(Kwave::MenuNode *child) Q_DECL_OVERRIDE;
+        virtual void removeChild(Kwave::MenuNode *child) override;
 
         /**
          * Handles/interprets special menu commands.
          * @param command name of a menu node or command
          * @return true if the name was recognized as a command and handled
          */
-        virtual bool specialCommand(const QString &command) Q_DECL_OVERRIDE;
+        virtual bool specialCommand(const QString &command) override;
 
         /**
          * Returns a pointer to the list of groups
          */
-        virtual QHash<QString, Kwave::MenuGroup *> &groupList() Q_DECL_OVERRIDE;
+        virtual QHash<QString, Kwave::MenuGroup *> &groupList() override;
 
         /**
          * replacement for QObject::deleteLater(...), which does not work

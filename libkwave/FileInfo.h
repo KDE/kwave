@@ -148,7 +148,7 @@ namespace Kwave
         explicit FileInfo(const Kwave::MetaDataList &meta_data_list);
 
         /** Destructor */
-        virtual ~FileInfo() Q_DECL_OVERRIDE;
+        virtual ~FileInfo() override;
 
         /** returns the identifier of the "type" of this meta data object */
         static QString metaDataType() {
@@ -249,7 +249,7 @@ namespace Kwave
         QList<FileProperty> allKnownProperties() const;
 
         /** dumps all properties to stdout, useful for debugging */
-        virtual void dump() const Q_DECL_OVERRIDE;
+        virtual void dump() const override;
 
     private:
 
@@ -267,7 +267,7 @@ namespace Kwave
             }
 
             /** fills the list */
-            virtual void fill() Q_DECL_OVERRIDE;
+            virtual void fill() override;
 
             /** returns a list of all properties */
             virtual QList<FileProperty> all() const;

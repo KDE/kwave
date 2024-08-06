@@ -42,7 +42,7 @@ namespace Kwave
         SaveBlocksPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~SaveBlocksPlugin() Q_DECL_OVERRIDE;
+        virtual ~SaveBlocksPlugin() override;
 
         /**
          * Shows a file saving dialog and emits a command for saving the blocks
@@ -50,13 +50,13 @@ namespace Kwave
          * @see Kwave::Plugin::setup
          */
         virtual QStringList *setup(QStringList &previous_params)
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * Saves the files, using the settings made in "setup()"
          * @see Kwave::Plugin::start()
          */
-        virtual int start(QStringList &params) Q_DECL_OVERRIDE;
+        virtual int start(QStringList &params) override;
 
         /** mode for numbering the output files */
         typedef enum {

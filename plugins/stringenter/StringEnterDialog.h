@@ -43,7 +43,7 @@ namespace Kwave
         explicit StringEnterDialog(QWidget *parent, const QString &preset);
 
         /** Destructor */
-        virtual ~StringEnterDialog() Q_DECL_OVERRIDE;
+        virtual ~StringEnterDialog() override;
 
         /** Returns the string that has been entered */
         QString command();
@@ -51,7 +51,7 @@ namespace Kwave
     private slots:
 
         /** called when the dialog has been accepted (OK pressed) */
-        virtual void accept() Q_DECL_OVERRIDE;
+        virtual void accept() override;
 
         /** invoke the online help */
         void invokeHelp();

@@ -45,7 +45,7 @@ namespace Kwave
         MultiWriter();
 
         /** Destructor */
-        virtual ~MultiWriter() Q_DECL_OVERRIDE;
+        virtual ~MultiWriter() override;
 
         /** Returns the last sample index of all streams */
         virtual sample_index_t last() const;
@@ -54,11 +54,11 @@ namespace Kwave
         virtual void flush();
 
         /** @see Kwave::MultiTrackSink<Kwave::Writer>::clear() */
-        virtual void clear() Q_DECL_OVERRIDE;
+        virtual void clear() override;
 
         /** @see Kwave::MultiTrackSink<Kwave::Writer>::insert() */
         virtual bool insert(unsigned int track, Kwave::Writer *writer)
-            Q_DECL_OVERRIDE;
+            override;
 
     signals:
 

@@ -42,15 +42,15 @@ namespace Kwave
         GotoPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~GotoPlugin() Q_DECL_OVERRIDE;
+        virtual ~GotoPlugin() override;
 
     protected:
 
         /** Returns the command to be emitted */
-        virtual QString command() const Q_DECL_OVERRIDE;
+        virtual QString command() const override;
 
         /** Returns the title of the dialog */
-        virtual QString title() const Q_DECL_OVERRIDE;
+        virtual QString title() const override;
 
     };
 }

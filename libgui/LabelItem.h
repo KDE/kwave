@@ -53,13 +53,13 @@ namespace Kwave
                   const Kwave::Label &label);
 
         /** Destructor */
-        virtual ~LabelItem() Q_DECL_OVERRIDE;
+        virtual ~LabelItem() override;
 
         /**
          * Returns flags describing the possible interactions with this object
          * @see Kwave::ViewItem::Flags
          */
-        virtual Kwave::ViewItem::Flags flags() const Q_DECL_OVERRIDE;
+        virtual Kwave::ViewItem::Flags flags() const override;
 
         /**
          * Can be overwritten to return a tooltip.
@@ -67,31 +67,31 @@ namespace Kwave
          * @param ofs sample index the tooltip should refer to (unused)
          * @return an already localized tooltip
          */
-        virtual QString toolTip(sample_index_t &ofs) Q_DECL_OVERRIDE;
+        virtual QString toolTip(sample_index_t &ofs) override;
 
         /**
          * Called to append entries to a context menu.
          * @param parent context menu to add items
          */
-        virtual void appendContextMenu(QMenu *parent) Q_DECL_OVERRIDE;
+        virtual void appendContextMenu(QMenu *parent) override;
 
         /**
          * Returns a mouse cursor used when moving the item
          */
-        virtual QCursor mouseCursor() const Q_DECL_OVERRIDE;
+        virtual QCursor mouseCursor() const override;
 
         /**
          * handles updates when being moved with the mouse
          * @param mouse_pos position of the mouse, in pixel coordinates
          *                  relative to the parent widget
          */
-        virtual void moveTo(const QPoint &mouse_pos) Q_DECL_OVERRIDE;
+        virtual void moveTo(const QPoint &mouse_pos) override;
 
         /**
          * Called when leaving the move mode, when the mouse button
          * has been released.
          */
-        virtual void done() Q_DECL_OVERRIDE;
+        virtual void done() override;
 
     private slots:
 

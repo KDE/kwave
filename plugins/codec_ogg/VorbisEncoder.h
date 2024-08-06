@@ -46,7 +46,7 @@ namespace Kwave
         VorbisEncoder();
 
         /** Destructor */
-        virtual ~VorbisEncoder() Q_DECL_OVERRIDE;
+        virtual ~VorbisEncoder() override;
 
         /**
          * parse the header of the stream and initialize the decoder
@@ -57,14 +57,14 @@ namespace Kwave
          */
         virtual bool open(QWidget *widget,
                           const Kwave::FileInfo &info,
-                          Kwave::MultiTrackReader &src) Q_DECL_OVERRIDE;
+                          Kwave::MultiTrackReader &src) override;
 
         /**
          * write the header information
          * @param dst a QIODevice that receives the raw data
          * @return true if succeeded, false if failed
          */
-        virtual bool writeHeader(QIODevice &dst) Q_DECL_OVERRIDE;
+        virtual bool writeHeader(QIODevice &dst) override;
 
         /**
          * encode received ogg data
@@ -73,12 +73,12 @@ namespace Kwave
          * @return true if succeeded, false if failed
          */
         virtual bool encode(Kwave::MultiTrackReader &src,
-                            QIODevice &dst) Q_DECL_OVERRIDE;
+                            QIODevice &dst) override;
 
         /**
          * finished the encoding, clean up
          */
-        virtual void close() Q_DECL_OVERRIDE;
+        virtual void close() override;
 
     private:
 

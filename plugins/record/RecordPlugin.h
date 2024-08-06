@@ -60,11 +60,11 @@ namespace Kwave
         RecordPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~RecordPlugin() Q_DECL_OVERRIDE;
+        virtual ~RecordPlugin() override;
 
         /** @see Kwave::Plugin::setup() */
         virtual QStringList *setup(QStringList &previous_params)
-            Q_DECL_OVERRIDE;
+            override;
 
     signals:
 

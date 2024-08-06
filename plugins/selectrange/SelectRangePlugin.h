@@ -43,7 +43,7 @@ namespace Kwave
         SelectRangePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~SelectRangePlugin() Q_DECL_OVERRIDE;
+        virtual ~SelectRangePlugin() override;
 
         /**
          * Shows a dialog for selecting the range and emits a command
@@ -51,13 +51,13 @@ namespace Kwave
          * @see Kwave::Plugin::setup
          */
         virtual QStringList *setup(QStringList &previous_params)
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * selects the range
          * @see Kwave::Plugin::start()
          */
-        virtual int start(QStringList &params) Q_DECL_OVERRIDE;
+        virtual int start(QStringList &params) override;
 
     protected:
 

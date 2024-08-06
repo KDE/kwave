@@ -37,10 +37,10 @@ namespace Kwave
             Osc();
 
             /** Destructor */
-            virtual ~Osc() Q_DECL_OVERRIDE;
+            virtual ~Osc() override;
 
             /** does the calculation */
-            virtual void goOn() Q_DECL_OVERRIDE;
+            virtual void goOn() override;
 
         signals:
             /** emits a block with sine wave data */

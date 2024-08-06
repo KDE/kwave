@@ -48,13 +48,13 @@ namespace Kwave
         ZeroPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~ZeroPlugin() Q_DECL_OVERRIDE;
+        virtual ~ZeroPlugin() override;
 
         /**
          * Fills the selected area with zeroes
          * @param params list of strings with parameters
          */
-        virtual void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) override;
 
     private:
 

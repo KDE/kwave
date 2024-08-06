@@ -73,14 +73,14 @@ namespace Kwave
         SonagramPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~SonagramPlugin() Q_DECL_OVERRIDE;
+        virtual ~SonagramPlugin() override;
 
         /** @see Kwave::Plugin::setup() */
         virtual QStringList *setup(QStringList &previous_params)
-            Q_DECL_OVERRIDE;
+            override;
 
         /** @see Kwave::Plugin::start() */
-        virtual int start(QStringList &params) Q_DECL_OVERRIDE;
+        virtual int start(QStringList &params) override;
 
         /**
          * Runns once until all slices of the sonagram are
@@ -88,7 +88,7 @@ namespace Kwave
          * @param params list of strings with parameters
          * @see Kwave::Plugin::run()
          */
-        virtual void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) override;
 
     private:
 

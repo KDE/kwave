@@ -40,11 +40,11 @@ namespace Kwave
         NoisePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~NoisePlugin() Q_DECL_OVERRIDE;
+        virtual ~NoisePlugin() override;
 
         /** Creates the setup dialog and connects it's signals */
         virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent)
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * Creates a multi-track filter with the given number of tracks
@@ -52,12 +52,12 @@ namespace Kwave
          * @return pointer to the filter or null if failed
          */
         virtual Kwave::SampleSource *createFilter(unsigned int tracks)
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * Returns true if the parameters have changed during pre-listen.
          */
-        virtual bool paramsChanged() Q_DECL_OVERRIDE;
+        virtual bool paramsChanged() override;
 
         /**
          * Update the filter with new parameters if it has changed
@@ -67,18 +67,18 @@ namespace Kwave
          * @param force if true, even update if no settings have changed
          */
         virtual void updateFilter(Kwave::SampleSource *filter,
-                                  bool force = false) Q_DECL_OVERRIDE;
+                                  bool force = false) override;
 
         /**
          * Returns a verbose name of the performed action. Used for giving
          * the undo action a readable name.
          */
-        virtual QString actionName() Q_DECL_OVERRIDE;
+        virtual QString actionName() override;
 
     protected:
 
         /** Reads values from the parameter list */
-        virtual int interpreteParameters(QStringList &params) Q_DECL_OVERRIDE;
+        virtual int interpreteParameters(QStringList &params) override;
 
     protected slots:
 

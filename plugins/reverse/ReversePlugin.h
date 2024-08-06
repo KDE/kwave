@@ -48,13 +48,13 @@ namespace Kwave
         ReversePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~ReversePlugin() Q_DECL_OVERRIDE;
+        virtual ~ReversePlugin() override;
 
         /**
          * reverses the selection
          * @param params list of strings with parameters
          */
-        virtual void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) override;
 
     private slots:
 
@@ -62,7 +62,7 @@ namespace Kwave
          * multiplies the progress by factor two and
          * calls Kwave::Plugin::updateProgress
          */
-        virtual void updateProgress(qreal progress) Q_DECL_OVERRIDE;
+        virtual void updateProgress(qreal progress) override;
 
     private:
 

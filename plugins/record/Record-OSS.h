@@ -36,7 +36,7 @@ namespace Kwave
         RecordOSS();
 
         /** Destructor */
-        virtual ~RecordOSS() Q_DECL_OVERRIDE;
+        virtual ~RecordOSS() override;
 
         /**
          * Open the record device.
@@ -44,7 +44,7 @@ namespace Kwave
          * @return zero-length string if successful, or an error
          *         message if failed
          */
-        virtual QString open(const QString &dev) Q_DECL_OVERRIDE;
+        virtual QString open(const QString &dev) override;
 
         /**
          * Read the raw audio data from the record device.
@@ -54,16 +54,16 @@ namespace Kwave
          * @return number of bytes read, zero or negative if failed
          */
         virtual int read(QByteArray &buffer, unsigned int offset)
-            Q_DECL_OVERRIDE;
+            override;
 
         /** Close the device */
-        virtual int close() Q_DECL_OVERRIDE;
+        virtual int close() override;
 
         /** return a string list with supported device names */
-        virtual QStringList supportedDevices() Q_DECL_OVERRIDE;
+        virtual QStringList supportedDevices() override;
 
         /** return a string suitable for a "File Open..." dialog */
-        virtual QString fileFilter() Q_DECL_OVERRIDE;
+        virtual QString fileFilter() override;
 
         /**
          * Detect the minimum and maximum number of tracks.
@@ -74,7 +74,7 @@ namespace Kwave
          *         negative error number if failed
          */
         virtual int detectTracks(unsigned int &min, unsigned int &max)
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * Try to set a new number of tracks.
@@ -84,13 +84,13 @@ namespace Kwave
          *        underlying driver supports that.
          * @return zero on success, negative error code if failed
          */
-        virtual int setTracks(unsigned int &tracks) Q_DECL_OVERRIDE;
+        virtual int setTracks(unsigned int &tracks) override;
 
         /** Returns the current number of tracks */
-        virtual int tracks() Q_DECL_OVERRIDE;
+        virtual int tracks() override;
 
         /** get a list of supported sample rates */
-        virtual QList<double> detectSampleRates() Q_DECL_OVERRIDE;
+        virtual QList<double> detectSampleRates() override;
 
         /**
          * Try to set a new sample rate.
@@ -99,17 +99,17 @@ namespace Kwave
          *        sample rate if the underlying driver supports that.
          * @return zero on success, negative error code if failed
          */
-        virtual int setSampleRate(double &new_rate) Q_DECL_OVERRIDE;
+        virtual int setSampleRate(double &new_rate) override;
 
         /** Returns the current sample rate of the device */
-        virtual double sampleRate() Q_DECL_OVERRIDE;
+        virtual double sampleRate() override;
 
         /**
          * Gets a list of supported compression types. If no compression is
          * supported, the list might be empty.
          */
         virtual QList<Kwave::Compression::Type> detectCompressions()
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * Try to set a new compression type.
@@ -118,36 +118,36 @@ namespace Kwave
          * @see class Compression
          */
         virtual int setCompression(Kwave::Compression::Type new_compression)
-            Q_DECL_OVERRIDE;
+            override;
 
         /** Returns the current compression type (0==none) */
-        virtual Kwave::Compression::Type compression() Q_DECL_OVERRIDE;
+        virtual Kwave::Compression::Type compression() override;
 
         /**
          * Detect a list of supported bits per sample.
          * @note this depends on the compression type
          * @return a list of bits per sample, empty if failed
          */
-        virtual QList <unsigned int> supportedBits() Q_DECL_OVERRIDE;
+        virtual QList <unsigned int> supportedBits() override;
 
         /**
          * Set the resolution in bits per sample
          * @param new_bits resolution [bits/sample]
          */
-        virtual int setBitsPerSample(unsigned int new_bits) Q_DECL_OVERRIDE;
+        virtual int setBitsPerSample(unsigned int new_bits) override;
 
         /**
          * Returns the current resolution in bits per sample or a negative
          * error code if failed
          */
-        virtual int bitsPerSample() Q_DECL_OVERRIDE;
+        virtual int bitsPerSample() override;
 
         /**
          * Gets a list of supported sample formats.
          * @note this depends on the current setting of the compression!
          */
         virtual QList<Kwave::SampleFormat::Format> detectSampleFormats()
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * Try to set a new sample format (signed/unsigned)
@@ -156,13 +156,13 @@ namespace Kwave
          * @see class SampleFormat
          */
         virtual int setSampleFormat(Kwave::SampleFormat::Format new_format)
-            Q_DECL_OVERRIDE;
+            override;
 
         /** Returns the current sample format (signed/unsigned) */
-        virtual Kwave::SampleFormat::Format sampleFormat() Q_DECL_OVERRIDE;
+        virtual Kwave::SampleFormat::Format sampleFormat() override;
 
         /** Returns the current endianness (big/little/cpu) */
-        virtual Kwave::byte_order_t endianness() Q_DECL_OVERRIDE;
+        virtual Kwave::byte_order_t endianness() override;
 
     private:
 

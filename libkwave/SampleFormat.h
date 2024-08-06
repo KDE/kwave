@@ -87,10 +87,10 @@ namespace Kwave
             explicit Map();
 
             /** Destructor */
-            virtual ~Map() Q_DECL_OVERRIDE;
+            virtual ~Map() override;
 
             /** fills the list */
-            virtual void fill() Q_DECL_OVERRIDE;
+            virtual void fill() override;
         };
 
     };

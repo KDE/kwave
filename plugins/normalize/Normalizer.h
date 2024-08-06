@@ -40,10 +40,10 @@ namespace Kwave
         Normalizer();
 
         /** Destructor */
-        virtual ~Normalizer() Q_DECL_OVERRIDE;
+        virtual ~Normalizer() override;
 
         /** does the calculation */
-        virtual void goOn() Q_DECL_OVERRIDE;
+        virtual void goOn() override;
 
     signals:
 

@@ -38,10 +38,10 @@ namespace Kwave
         OggEncoder();
 
         /** Destructor */
-        virtual ~OggEncoder() Q_DECL_OVERRIDE;
+        virtual ~OggEncoder() override;
 
         /** Returns a new instance of the encoder */
-        virtual Kwave::Encoder *instance() Q_DECL_OVERRIDE;
+        virtual Kwave::Encoder *instance() override;
 
         /**
          * Encodes a signal into a stream of bytes.
@@ -56,11 +56,11 @@ namespace Kwave
                             Kwave::MultiTrackReader &src,
                             QIODevice &dst,
                             const Kwave::MetaDataList &meta_data)
-            Q_DECL_OVERRIDE;
+            override;
 
         /** Returns a list of supported file properties */
         virtual QList<Kwave::FileProperty> supportedProperties()
-            Q_DECL_OVERRIDE;
+            override;
 
     private:
 

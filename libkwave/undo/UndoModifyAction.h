@@ -44,21 +44,21 @@ namespace Kwave
                          sample_index_t length);
 
         /** Destructor */
-        virtual ~UndoModifyAction() Q_DECL_OVERRIDE;
+        virtual ~UndoModifyAction() override;
 
         /** @see UndoAction::description() */
-        virtual QString description() Q_DECL_OVERRIDE;
+        virtual QString description() override;
 
         /** @see UndoAction::undoSize() */
-        virtual qint64 undoSize() Q_DECL_OVERRIDE;
+        virtual qint64 undoSize() override;
 
         /** @see UndoAction::redoSize() */
-        virtual qint64 redoSize() Q_DECL_OVERRIDE { return undoSize(); }
+        virtual qint64 redoSize() override { return undoSize(); }
 
         /**
         * @see UndoAction::store()
         */
-        virtual bool store(Kwave::SignalManager &manager) Q_DECL_OVERRIDE;
+        virtual bool store(Kwave::SignalManager &manager) override;
 
         /**
          * Exchange samples from the current signal and the internal undo
@@ -67,7 +67,7 @@ namespace Kwave
          * @see UndoAction::undo()
          */
         virtual UndoAction *undo(Kwave::SignalManager &manager, bool with_redo)
-            Q_DECL_OVERRIDE;
+            override;
 
     protected:
 

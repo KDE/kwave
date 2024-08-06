@@ -58,31 +58,31 @@ namespace Kwave
                       sample_index_t length);
 
         /** virtual destructor */
-        virtual ~UndoSelection() Q_DECL_OVERRIDE;
+        virtual ~UndoSelection() override;
 
         /** @see UndoAction::description() */
-        virtual QString description() Q_DECL_OVERRIDE;
+        virtual QString description() override;
 
         /** @see UndoAction::undoSize() */
-        virtual qint64 undoSize() Q_DECL_OVERRIDE;
+        virtual qint64 undoSize() override;
 
         /** @see UndoAction::redoSize() */
-        virtual qint64 redoSize() Q_DECL_OVERRIDE;
+        virtual qint64 redoSize() override;
 
         /** @see UndoAction::store() */
-        virtual bool store(Kwave::SignalManager &manager) Q_DECL_OVERRIDE;
+        virtual bool store(Kwave::SignalManager &manager) override;
 
         /** @see UndoAction::undo() */
         virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-                                        bool with_redo) Q_DECL_OVERRIDE;
+                                        bool with_redo) override;
 
         /** @see UndoAction::containsModification() */
-        virtual bool containsModification() const Q_DECL_OVERRIDE {
+        virtual bool containsModification() const override {
             return false;
         }
 
         /** dump, for debugging purposes */
-        virtual void dump(const QString &indent) Q_DECL_OVERRIDE;
+        virtual void dump(const QString &indent) override;
 
     private:
 

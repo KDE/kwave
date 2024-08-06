@@ -47,7 +47,7 @@ namespace Kwave
         explicit KeywordWidget(QWidget *parent);
 
         /** Destructor */
-        virtual ~KeywordWidget() Q_DECL_OVERRIDE;
+        virtual ~KeywordWidget() override;
 
         /** Returns the list of keywords (sorted) */
         QStringList keywords();
@@ -90,7 +90,7 @@ namespace Kwave
 
         /** event filter for blocking the effect of pressing "return" */
         virtual bool eventFilter(QObject *sender, QEvent *event)
-            Q_DECL_OVERRIDE;
+            override;
 
     };
 }

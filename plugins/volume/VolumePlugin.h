@@ -42,20 +42,20 @@ namespace Kwave
         VolumePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~VolumePlugin() Q_DECL_OVERRIDE;
+        virtual ~VolumePlugin() override;
 
         /**
          * Shows a dialog for selecting a volume.
          * @see Kwave::Plugin::setup
          */
         virtual QStringList *setup(QStringList &previous_params)
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * Does the amplification operation
          * @param params list of strings with parameters
          */
-        virtual void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) override;
 
     protected:
 

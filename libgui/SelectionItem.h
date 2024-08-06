@@ -45,16 +45,16 @@ namespace Kwave
                       Kwave::SignalManager &signal_manager);
 
         /** Destructor */
-        virtual ~SelectionItem() Q_DECL_OVERRIDE;
+        virtual ~SelectionItem() override;
 
         /**
          * Returns flags describing the possible interactions with this object
          * @see Kwave::ViewItem::Flags
          */
-        virtual Kwave::ViewItem::Flags flags() const Q_DECL_OVERRIDE;
+        virtual Kwave::ViewItem::Flags flags() const override;
 
         /** Starts a drag & drop operation. */
-        virtual void startDragging() Q_DECL_OVERRIDE;
+        virtual void startDragging() override;
 
     private:
 

@@ -42,32 +42,32 @@ namespace Kwave
         virtual ~ID3_QIODeviceReader();
 
         /** Close the source. Not implemented. */
-        virtual void close() Q_DECL_OVERRIDE;
+        virtual void close() override;
 
         /** Get the start position, always zero */
-        virtual ID3_Reader::pos_type getBeg() Q_DECL_OVERRIDE;
+        virtual ID3_Reader::pos_type getBeg() override;
 
         /** Get the end position, identical to size()-1 */
-        virtual ID3_Reader::pos_type getEnd() Q_DECL_OVERRIDE;
+        virtual ID3_Reader::pos_type getEnd() override;
 
         /** Returns the current position */
-        virtual ID3_Reader::pos_type getCur() Q_DECL_OVERRIDE;
+        virtual ID3_Reader::pos_type getCur() override;
 
         /** Sets a new position and returns the new one */
         virtual ID3_Reader::pos_type setCur(ID3_Reader::pos_type pos = 0)
-            Q_DECL_OVERRIDE;
+            override;
 
         /** Reads out one single character */
-        virtual ID3_Reader::int_type readChar() Q_DECL_OVERRIDE;
+        virtual ID3_Reader::int_type readChar() override;
 
         /** Reads one character without advancing the current position */
-        virtual ID3_Reader::int_type peekChar() Q_DECL_OVERRIDE;
+        virtual ID3_Reader::int_type peekChar() override;
 
         /** Read out a block of characters */
         virtual size_type readChars(char_type buf[], size_type len)
-            Q_DECL_OVERRIDE;
+            override;
         virtual size_type readChars(char buf[], size_type len)
-            Q_DECL_OVERRIDE;
+            override;
 
     private:
 

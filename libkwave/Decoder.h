@@ -43,7 +43,7 @@ namespace Kwave
         Decoder();
 
         /** Destructor */
-        virtual ~Decoder() Q_DECL_OVERRIDE;
+        virtual ~Decoder() override;
 
         /** Returns a new instance of the decoder */
         virtual Decoder *instance() = 0;

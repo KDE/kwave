@@ -51,7 +51,7 @@ namespace Kwave
         /**
          * Destructor
          */
-        virtual ~ImageView() Q_DECL_OVERRIDE;
+        virtual ~ImageView() override;
 
         /**
          * Returns the position and size of the current image, packed
@@ -81,11 +81,11 @@ namespace Kwave
 
     protected:
 
-        virtual void mouseMoveEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
+        virtual void mouseMoveEvent(QMouseEvent *e) override;
 
-        virtual void mousePressEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
+        virtual void mousePressEvent(QMouseEvent *e) override;
 
-        virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+        virtual void paintEvent(QPaintEvent *) override;
 
     private:
         /**

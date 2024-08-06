@@ -42,10 +42,10 @@ namespace Kwave
             Mul();
 
             /** Destructor */
-            virtual ~Mul() Q_DECL_OVERRIDE;
+            virtual ~Mul() override;
 
             /** does nothing, work is done automatically in multiply() */
-            virtual void goOn() Q_DECL_OVERRIDE;
+            virtual void goOn() override;
 
         signals:
             /** emits a block with the interpolated curve */

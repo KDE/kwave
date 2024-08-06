@@ -57,7 +57,7 @@ namespace Kwave
         explicit PlayBackPulseAudio(const Kwave::FileInfo &info);
 
         /** Destructor */
-        virtual ~PlayBackPulseAudio() Q_DECL_OVERRIDE;
+        virtual ~PlayBackPulseAudio() override;
 
         /**
          * Opens the device for playback.
@@ -65,25 +65,25 @@ namespace Kwave
          */
         virtual QString open(const QString &device, double rate,
                              unsigned int channels, unsigned int bits,
-                             unsigned int bufbase) Q_DECL_OVERRIDE;
+                             unsigned int bufbase) override;
 
         /**
          * Writes an array of samples to the output device.
          * @see PlayBackDevice::write
          */
-        virtual int write(const Kwave::SampleArray &samples) Q_DECL_OVERRIDE;
+        virtual int write(const Kwave::SampleArray &samples) override;
 
         /**
          * Closes the output device.
          * @see PlayBackDevice::close
          */
-        virtual int close() Q_DECL_OVERRIDE;
+        virtual int close() override;
 
         /** return a string list with supported device names */
-        virtual QStringList supportedDevices() Q_DECL_OVERRIDE;
+        virtual QStringList supportedDevices() override;
 
         /** return a string suitable for a "File Open..." dialog */
-        virtual QString fileFilter() Q_DECL_OVERRIDE;
+        virtual QString fileFilter() override;
 
         /**
          * returns a list of supported bits per sample resolutions
@@ -93,7 +93,7 @@ namespace Kwave
          * @return list of supported bits per sample, or empty on errors
          */
         virtual QList<unsigned int> supportedBits(const QString &device)
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * Detect the minimum and maximum number of channels.
@@ -107,7 +107,7 @@ namespace Kwave
          */
         virtual int detectChannels(const QString &device,
                                    unsigned int &min, unsigned int &max)
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * our own poll function, for timeout support
@@ -122,7 +122,7 @@ namespace Kwave
         int flush();
 
         /** re-implementation of the threaded mainloop of PulseAudio */
-        virtual void run_wrapper(const QVariant &params) Q_DECL_OVERRIDE;
+        virtual void run_wrapper(const QVariant &params) override;
 
     private:
 

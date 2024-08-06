@@ -42,25 +42,25 @@ namespace Kwave
         virtual ~ID3_QIODeviceWriter();
 
         /** Close the destination. Not implemented. */
-        virtual void close() Q_DECL_OVERRIDE;
+        virtual void close() override;
 
         /** Flush the destination, not implemented (not needed) */
-        virtual void flush() Q_DECL_OVERRIDE;
+        virtual void flush() override;
 
         /** Get the start position, always zero */
-        virtual ID3_Writer::pos_type getBeg() Q_DECL_OVERRIDE;
+        virtual ID3_Writer::pos_type getBeg() override;
 
         /** Get the end position, identical to size()-1 */
-        virtual ID3_Writer::pos_type getEnd() Q_DECL_OVERRIDE;
+        virtual ID3_Writer::pos_type getEnd() override;
 
         /** Returns the current position */
-        virtual ID3_Writer::pos_type getCur() Q_DECL_OVERRIDE;
+        virtual ID3_Writer::pos_type getCur() override;
 
         /** Returns the number of bytes written */
-        virtual ID3_Writer::size_type getSize() Q_DECL_OVERRIDE;
+        virtual ID3_Writer::size_type getSize() override;
 
         /** Returns the maximum number of bytes written */
-        virtual ID3_Writer::size_type getMaxSize() Q_DECL_OVERRIDE;
+        virtual ID3_Writer::size_type getMaxSize() override;
 
         /**
          * Write up to len characters into buf and advance the internal position
@@ -68,14 +68,14 @@ namespace Kwave
          */
         virtual ID3_Writer::size_type writeChars(
             const ID3_Writer::char_type buf[], ID3_Writer::size_type len)
-            Q_DECL_OVERRIDE;
+            override;
 
         virtual ID3_Writer::size_type writeChars(
             const char buf[], ID3_Writer::size_type len)
-            Q_DECL_OVERRIDE;
+            override;
 
         /** returns true if the writer has readed eof (always false) */
-        virtual bool atEnd() Q_DECL_OVERRIDE;
+        virtual bool atEnd() override;
 
     private:
 

@@ -50,7 +50,7 @@ namespace Kwave
         SampleReader(Kwave::ReaderMode mode, Kwave::Stripe::List stripes);
 
         /** Destructor */
-        virtual ~SampleReader() Q_DECL_OVERRIDE;
+        virtual ~SampleReader() override;
 
         /** Resets the stream to it's start */
         void reset();
@@ -60,7 +60,7 @@ namespace Kwave
          * sample data. It then should emit a signal like this:
          * "output(SampleArray &data)"
          */
-        virtual void goOn() Q_DECL_OVERRIDE;
+        virtual void goOn() override;
 
         /** Checks if the last read operation has reached the end of input */
         inline bool eof() const {
@@ -74,7 +74,7 @@ namespace Kwave
          * @return true if it can produce more sample data, otherwise false
          * @see eof()
          */
-        virtual bool done() const Q_DECL_OVERRIDE { return eof(); }
+        virtual bool done() const override { return eof(); }
 
         /**
          * Reads samples into a buffer.

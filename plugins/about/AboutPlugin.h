@@ -38,16 +38,16 @@ namespace Kwave
         AboutPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~AboutPlugin() Q_DECL_OVERRIDE {}
+        virtual ~AboutPlugin() override {}
 
         /** Returns the name of the plugin. */
-        virtual QString name() const Q_DECL_OVERRIDE { return _("about"); }
+        virtual QString name() const override { return _("about"); }
 
         /**
         * shows the about dialog,
         * @see Kwave::Plugin::start()
         */
-        virtual int start(QStringList &params) Q_DECL_OVERRIDE;
+        virtual int start(QStringList &params) override;
 
     };
 }

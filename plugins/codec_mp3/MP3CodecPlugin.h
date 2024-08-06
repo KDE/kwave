@@ -39,10 +39,10 @@ namespace Kwave
         MP3CodecPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~MP3CodecPlugin() Q_DECL_OVERRIDE;
+        virtual ~MP3CodecPlugin() override;
 
         /** @see Kwave::Plugin::load() */
-        virtual void load(QStringList &params) Q_DECL_OVERRIDE;
+        virtual void load(QStringList &params) override;
 
         /**
          * Shows a dialog to set up the plugin, configure all paths,
@@ -52,13 +52,13 @@ namespace Kwave
          *         setup (dialog) has been canceled
          */
         virtual QStringList *setup(QStringList &previous_params)
-            Q_DECL_OVERRIDE;
+            override;
 
         /** Creates a new decoder */
-        virtual QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::Decoder *> createDecoder() override;
 
         /** Creates a new encoder */
-        virtual QList<Kwave::Encoder *> createEncoder() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::Encoder *> createEncoder() override;
 
     private:
         /** static codec container */

@@ -72,7 +72,7 @@ namespace Kwave
                    const QString last_ext = QString());
 
         /** Destructor */
-        virtual ~FileDialog() Q_DECL_OVERRIDE
+        virtual ~FileDialog() override
         {
         }
 
@@ -128,7 +128,7 @@ namespace Kwave
     protected slots:
 
         /** overwritten to call accept() of the KFileWidget and saveConfig() */
-        virtual void accept() Q_DECL_OVERRIDE;
+        virtual void accept() override;
 
         /** save current settings */
         void saveConfig();

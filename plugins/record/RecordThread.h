@@ -40,10 +40,10 @@ namespace Kwave
         RecordThread();
 
         /** Destructor */
-        virtual ~RecordThread() Q_DECL_OVERRIDE;
+        virtual ~RecordThread() override;
 
         /** does the recording */
-        virtual void run() Q_DECL_OVERRIDE;
+        virtual void run() override;
 
         /**
          * Select a new record device.

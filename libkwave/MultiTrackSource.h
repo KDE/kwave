@@ -60,7 +60,7 @@ namespace Kwave
         }
 
         /** Destructor */
-        virtual ~MultiTrackSource() Q_DECL_OVERRIDE
+        virtual ~MultiTrackSource() override
         {
             clear();
         }
@@ -69,7 +69,7 @@ namespace Kwave
          * Calls goOn() for each track.
          * @see Kwave::SampleSource::goOn()
          */
-        virtual void goOn() Q_DECL_OVERRIDE
+        virtual void goOn() override
         {
             if (isCanceled()) return;
 
@@ -86,7 +86,7 @@ namespace Kwave
         }
 
         /** Returns true when all sources are done */
-        virtual bool done() const Q_DECL_OVERRIDE
+        virtual bool done() const override
         {
             foreach (SOURCE *src, static_cast< QList<SOURCE *> >(*this))
                 if (src && !src->done()) return false;
@@ -97,7 +97,7 @@ namespace Kwave
          * Returns the number of tracks that the source provides
          * @return number of tracks
          */
-        virtual unsigned int tracks() const Q_DECL_OVERRIDE
+        virtual unsigned int tracks() const override
         {
             return QList<SOURCE *>::size();
         }
@@ -113,7 +113,7 @@ namespace Kwave
 
         /** @see the Kwave::MultiTrackSource.at()... */
         inline virtual SOURCE * operator [] (unsigned int track)
-            Q_DECL_OVERRIDE
+            override
         {
             return at(track);
         }

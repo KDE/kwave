@@ -37,13 +37,13 @@ namespace Kwave
         AudiofileCodecPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~AudiofileCodecPlugin() Q_DECL_OVERRIDE;
+        virtual ~AudiofileCodecPlugin() override;
 
         /** Creates a new decoder */
-        virtual QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::Decoder *> createDecoder() override;
 
         /** Creates a new encoder */
-        virtual QList<Kwave::Encoder *> createEncoder() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::Encoder *> createEncoder() override;
 
     private:
         /** static codec container */

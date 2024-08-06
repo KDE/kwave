@@ -39,13 +39,13 @@ namespace Kwave
         OggCodecPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~OggCodecPlugin() Q_DECL_OVERRIDE;
+        virtual ~OggCodecPlugin() override;
 
         /** Creates a new decoder */
-        virtual QList<Kwave::Decoder *> createDecoder() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::Decoder *> createDecoder() override;
 
         /** Creates a new encoder */
-        virtual QList<Kwave::Encoder *> createEncoder() Q_DECL_OVERRIDE;
+        virtual QList<Kwave::Encoder *> createEncoder() override;
 
     private:
         /** static codec container */

@@ -50,7 +50,7 @@ namespace Kwave
         ScaleWidget(QWidget *parent, int low, int high, const QString &unit);
 
         /** Destructor */
-        virtual ~ScaleWidget() Q_DECL_OVERRIDE;
+        virtual ~ScaleWidget() override;
 
         /**
          * Sets the border values.
@@ -76,7 +76,7 @@ namespace Kwave
         virtual QSize minimumSize() const;
 
         /** optimal size for the widget, @see QWidget::sizeHint() */
-        virtual QSize sizeHint() const Q_DECL_OVERRIDE;
+        virtual QSize sizeHint() const override;
 
     protected:
 
@@ -84,7 +84,7 @@ namespace Kwave
          * Draws the widget.
          * @see QWidget::paintEvent
          */
-        virtual void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+        virtual void paintEvent(QPaintEvent *) override;
 
         /**
          * Draws a linear scale

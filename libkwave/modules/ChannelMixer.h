@@ -50,7 +50,7 @@ namespace Kwave
             ChannelMixer(unsigned int inputs, unsigned int outputs);
 
             /** Destructor */
-            virtual ~ChannelMixer() Q_DECL_OVERRIDE;
+            virtual ~ChannelMixer() override;
 
             /**
              * Init function, you must call it once after creating and before
@@ -69,7 +69,7 @@ namespace Kwave
              *         the same as tracks()
              */
             virtual unsigned int tracksOfPort(const char *port) const
-                Q_DECL_OVERRIDE;
+                override;
 
             /**
              * Returns an indexed port, identified by name
@@ -77,10 +77,10 @@ namespace Kwave
              * @param track index of the track
              */
             virtual Kwave::StreamObject *port(
-                const char *port, unsigned int track) Q_DECL_OVERRIDE;
+                const char *port, unsigned int track) override;
 
             /** does nothing, work is done automatically in mix() */
-            virtual void goOn() Q_DECL_OVERRIDE
+            virtual void goOn() override
             {
             }
 

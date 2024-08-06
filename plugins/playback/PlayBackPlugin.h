@@ -51,28 +51,28 @@ namespace Kwave
         PlayBackPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~PlayBackPlugin() Q_DECL_OVERRIDE;
+        virtual ~PlayBackPlugin() override;
 
         /**
          * Gets called when the plugin is first loaded and connects itself
          * to the playback controller and the current signal.
          */
-        virtual void load(QStringList &params) Q_DECL_OVERRIDE;
+        virtual void load(QStringList &params) override;
 
         /**
          * Gets called before the plugin is unloaded.
          */
-        virtual void unload() Q_DECL_OVERRIDE;
+        virtual void unload() override;
 
         /** @see Kwave::Plugin::setup() */
         virtual QStringList *setup(QStringList &previous_params)
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * Starts a playback test sequence
          * @param params list of strings with parameters (unused)
          */
-        virtual void run(QStringList params) Q_DECL_OVERRIDE;
+        virtual void run(QStringList params) override;
 
     signals:
 
@@ -102,7 +102,7 @@ namespace Kwave
          * @return a new PlayBackDevice or 0 if failed
          */
         virtual Kwave::PlayBackDevice *createDevice(
-            Kwave::playback_method_t method) Q_DECL_OVERRIDE;
+            Kwave::playback_method_t method) override;
 
         /**
          * Returns a list of supported playback methods.
@@ -110,7 +110,7 @@ namespace Kwave
          *         "any" or "invalid"
          */
         virtual QList<Kwave::playback_method_t> supportedMethods()
-            Q_DECL_OVERRIDE;
+            override;
 
     private:
 

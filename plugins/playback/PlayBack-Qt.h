@@ -55,7 +55,7 @@ namespace Kwave
         PlayBackQt();
 
         /** Destructor */
-        virtual ~PlayBackQt() Q_DECL_OVERRIDE;
+        virtual ~PlayBackQt() override;
 
         /**
          * Opens the device for playback.
@@ -63,25 +63,25 @@ namespace Kwave
          */
         virtual QString open(const QString &device, double rate,
                              unsigned int channels, unsigned int bits,
-                             unsigned int bufbase) Q_DECL_OVERRIDE;
+                             unsigned int bufbase) override;
 
         /**
          * Writes an array of samples to the output device.
          * @see PlayBackDevice::write
          */
-        virtual int write(const Kwave::SampleArray &samples) Q_DECL_OVERRIDE;
+        virtual int write(const Kwave::SampleArray &samples) override;
 
         /**
          * Closes the output device.
          * @see PlayBackDevice::close
          */
-        virtual int close() Q_DECL_OVERRIDE;
+        virtual int close() override;
 
         /** return a string list with supported device names */
-        virtual QStringList supportedDevices() Q_DECL_OVERRIDE;
+        virtual QStringList supportedDevices() override;
 
         /** return a string suitable for a "File Open..." dialog */
-        virtual QString fileFilter() Q_DECL_OVERRIDE;
+        virtual QString fileFilter() override;
 
         /**
          * returns a list of supported bits per sample resolutions
@@ -91,7 +91,7 @@ namespace Kwave
          * @return list of supported bits per sample, or empty on errors
          */
         virtual QList<unsigned int> supportedBits(const QString &device)
-            Q_DECL_OVERRIDE;
+            override;
 
         /**
          * Detect the minimum and maximum number of channels.
@@ -105,7 +105,7 @@ namespace Kwave
          */
         virtual int detectChannels(const QString &device,
                                    unsigned int &min, unsigned int &max)
-            Q_DECL_OVERRIDE;
+            override;
 
     private slots:
 
@@ -145,7 +145,7 @@ namespace Kwave
             Buffer();
 
             /** destructor */
-            virtual ~Buffer() Q_DECL_OVERRIDE;
+            virtual ~Buffer() override;
 
             /**
              * start filling the buffer
@@ -178,7 +178,7 @@ namespace Kwave
              * @param len number of bytes to read
              * @return number of bytes that have been read
              */
-            virtual qint64 readData(char *data, qint64 len) Q_DECL_OVERRIDE;
+            virtual qint64 readData(char *data, qint64 len) override;
 
             /**
              * write data into the buffer, called from our own worker thread
@@ -187,10 +187,10 @@ namespace Kwave
              * @return number of bytes written
              */
             virtual qint64 writeData(const char *data, qint64 len)
-                Q_DECL_OVERRIDE;
+                override;
 
             /** returns the number of bytes available for reading */
-            virtual qint64 bytesAvailable() const Q_DECL_OVERRIDE;
+            virtual qint64 bytesAvailable() const override;
 
         private:
 

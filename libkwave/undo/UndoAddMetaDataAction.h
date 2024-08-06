@@ -48,25 +48,25 @@ namespace Kwave
         explicit UndoAddMetaDataAction(const Kwave::MetaDataList &meta_data);
 
         /** Destructor */
-        virtual ~UndoAddMetaDataAction() Q_DECL_OVERRIDE;
+        virtual ~UndoAddMetaDataAction() override;
 
         /**
          * Returns a verbose short description of the action.
          */
-        QString description() Q_DECL_OVERRIDE;
+        QString description() override;
 
         /** @see UndoAction::undoSize() */
-        virtual qint64 undoSize() Q_DECL_OVERRIDE;
+        virtual qint64 undoSize() override;
 
         /** @see UndoAction::redoSize() */
-        virtual qint64 redoSize() Q_DECL_OVERRIDE;
+        virtual qint64 redoSize() override;
 
         /** @see UndoAction::store() */
-        virtual bool store(SignalManager &manager) Q_DECL_OVERRIDE;
+        virtual bool store(SignalManager &manager) override;
 
         /** @see UndoAction::undo() */
         virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
-                                        bool with_redo) Q_DECL_OVERRIDE;
+                                        bool with_redo) override;
 
     protected:
 

@@ -52,7 +52,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        virtual ~StreamWriter() Q_DECL_OVERRIDE;
+        virtual ~StreamWriter() override;
 
         /**
          * Flush the content of a buffer. Normally the buffer is the
@@ -66,7 +66,7 @@ namespace Kwave
          * @return true if successful, false if failed (e.g. out of memory)
          */
         virtual bool write(const Kwave::SampleArray &buffer,
-                            unsigned int &count) Q_DECL_OVERRIDE;
+                            unsigned int &count) override;
 
     signals:
 

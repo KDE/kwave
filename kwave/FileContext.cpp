@@ -434,7 +434,7 @@ int Kwave::FileContext::executeCommand(const QString &line)
         QString name(parser.firstParam());
         QStringList params(parser.remainingParams());
         qDebug("FileContext::executeCommand(): loading plugin '%s'", DBG(name));
-        qDebug("FileContext::executeCommand(): with %d parameter(s)",
+        qDebug("FileContext::executeCommand(): with %lld parameter(s)",
                 params.count());
         result = m_plugin_manager->executePlugin(
             name, params.count() ? &params : Q_NULLPTR);

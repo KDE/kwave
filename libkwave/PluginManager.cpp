@@ -683,7 +683,7 @@ void Kwave::PluginManager::searchPluginModules()
         qDebug("%16s %5s written by %s", DBG(name), DBG(settings), DBG(author));
     }
 
-    qDebug("--- \n found %d plugins\n", m_plugin_modules.count());
+    qDebug("--- \n found %lld plugins\n", m_plugin_modules.count());
 }
 
 //***************************************************************************

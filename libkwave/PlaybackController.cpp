@@ -691,3 +691,5 @@ void Kwave::PlaybackController::unregisterPlaybackDeviceFactory(
 
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_PlaybackController.cpp"

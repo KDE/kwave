@@ -58,3 +58,5 @@ QList<Kwave::Encoder *> Kwave::AsciiCodecPlugin::createEncoder()
 #include "AsciiCodecPlugin.moc"
 /***************************************************************************/
 /***************************************************************************/
+
+#include "moc_AsciiCodecPlugin.cpp"

@@ -239,3 +239,5 @@ void Kwave::NormalizePlugin::getMaxPowerOfTrack(
 #include "NormalizePlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_NormalizePlugin.cpp"

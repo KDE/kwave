@@ -191,3 +191,5 @@ int Kwave::SelectRangePlugin::interpreteParameters(QStringList &params)
 #include "SelectRangePlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_SelectRangePlugin.cpp"

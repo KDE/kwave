@@ -171,3 +171,5 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
 
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_MultiTrackWriter.cpp"

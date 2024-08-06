@@ -170,3 +170,5 @@ void Kwave::VolumePlugin::run(QStringList params)
 #include "VolumePlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_VolumePlugin.cpp"

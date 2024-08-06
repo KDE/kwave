@@ -721,3 +721,5 @@ void Kwave::PluginManager::migratePluginToActiveContext(Kwave::Plugin *plugin)
 
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_PluginManager.cpp"

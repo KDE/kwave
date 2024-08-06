@@ -766,3 +766,5 @@ void Kwave::SaveBlocksPlugin::updateExample(const QString &filename,
 #include "SaveBlocksPlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_SaveBlocksPlugin.cpp"

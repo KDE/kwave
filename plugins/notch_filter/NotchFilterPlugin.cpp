@@ -140,3 +140,5 @@ void Kwave::NotchFilterPlugin::setBwValue(double bw)
 #include "NotchFilterPlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_NotchFilterPlugin.cpp"

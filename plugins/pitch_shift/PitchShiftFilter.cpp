@@ -212,3 +212,5 @@ void Kwave::PitchShiftFilter::setFrequency(const QVariant freq)
 
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_PitchShiftFilter.cpp"

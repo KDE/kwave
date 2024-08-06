@@ -799,3 +799,5 @@ QStringList Kwave::K3BExportPlugin::knownPatterns()
 #include "K3BExportPlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_K3BExportPlugin.cpp"

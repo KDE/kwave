@@ -54,3 +54,5 @@ QList<Kwave::Encoder *> Kwave::WavCodecPlugin::createEncoder()
 #include "WavCodecPlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_WavCodecPlugin.cpp"

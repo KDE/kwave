@@ -314,3 +314,5 @@ void Kwave::ZoomToolBar::setZoomInfo(Kwave::FileContext *context, double zoom)
 
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_ZoomToolBar.cpp"

@@ -492,3 +492,5 @@ void Kwave::DebugPlugin::screenshot(const QByteArray &class_name,
 #include "DebugPlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_DebugPlugin.cpp"

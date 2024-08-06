@@ -487,3 +487,5 @@ void Kwave::PlayBackPlugin::testPlayBack()
 #include "PlayBackPlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_PlayBackPlugin.cpp"

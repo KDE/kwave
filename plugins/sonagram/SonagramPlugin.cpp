@@ -623,3 +623,5 @@ void Kwave::SonagramPlugin::windowDestroyed()
 #include "SonagramPlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_SonagramPlugin.cpp"

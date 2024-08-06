@@ -1619,3 +1619,5 @@ void Kwave::RecordPlugin::prerecordingChanged(bool enable)
 #include "RecordPlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_RecordPlugin.cpp"

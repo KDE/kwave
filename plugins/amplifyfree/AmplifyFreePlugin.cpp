@@ -195,3 +195,5 @@ void Kwave::AmplifyFreePlugin::run(QStringList params)
 #include "AmplifyFreePlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_AmplifyFreePlugin.cpp"

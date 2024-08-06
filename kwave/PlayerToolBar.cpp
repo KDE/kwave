@@ -545,3 +545,5 @@ void Kwave::PlayerToolBar::visibleRangeChanged(sample_index_t offset,
 
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_PlayerToolBar.cpp"

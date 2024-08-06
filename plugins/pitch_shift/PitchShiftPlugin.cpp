@@ -139,3 +139,5 @@ void Kwave::PitchShiftPlugin::setValues(double speed, double frequency)
 #include "PitchShiftPlugin.moc"
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_PitchShiftPlugin.cpp"

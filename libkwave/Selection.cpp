@@ -44,3 +44,5 @@ void Kwave::Selection::select(sample_index_t offset, sample_index_t length)
 
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_Selection.cpp"

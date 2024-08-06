@@ -38,3 +38,5 @@ void Kwave::TreeWidgetWrapper::focusOutEvent(QFocusEvent *event)
 
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_TreeWidgetWrapper.cpp"

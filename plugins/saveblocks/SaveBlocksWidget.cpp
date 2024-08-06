@@ -131,3 +131,5 @@ void Kwave::SaveBlocksWidget::setNewExample(const QString &example)
 
 //***************************************************************************
 //***************************************************************************
+
+#include "moc_SaveBlocksWidget.cpp"

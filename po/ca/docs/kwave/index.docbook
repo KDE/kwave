@@ -2571,35 +2571,23 @@
 ><para
 >Els paràmetres de cadena es retallen automàticament (tot l'espai en blanc al començament i al final serà eliminat). Si no es vol això, es poden envoltar amb cometes dobles (<token
 >&quot;</token
->). Si un paràmetre de cadena conté caràcters especials (com <quote
-><token
+>). Si un paràmetre de cadena conté caràcters especials (com «<token
 >,</token
-></quote
->, <quote
-><token
+>», «<token
 >;</token
-></quote
->, <quote
-><token
+>», «<token
 >#</token
-></quote
-> o una <quote
-><token
+>» o una «<token
 >&bsol;</token
-></quote
->), aquests caràcters especials s'hauran d'escapar precedint un caràcter de <quote
-><token
+>»), aquests caràcters especials s'hauran d'escapar precedint un caràcter de «<token
 >&bsol;</token
-></quote
->. </para
+>». </para
 ></listitem>
 	    <listitem
 ><para
 >Es poden concatenar múltiples ordres a una <emphasis
 >llista d'ordres</emphasis
-> utilitzant un <quote
->;</quote
-> com a separador. </para
+> utilitzant un «;» com a separador. </para
 ></listitem>
 	</itemizedlist
 >Exemple: <screen
@@ -2612,17 +2600,13 @@
 >"Aquest és un \"exemple\" de comentari."</parameter
 >)</command
 ></screen
-> Aquest exemple consisteix en l'ordre <quote
-><command
+> Aquest exemple consisteix en l'ordre «<command
 >fileinfo</command
-></quote
-> i té dos paràmetres: la paraula clau <parameter
+>» i té dos paràmetres: la paraula clau <parameter
 >Comments</parameter
-> i el text <quote
-><parameter
+> i el text «<parameter
 >"Aquest és un \"exemple\" de comentari."</parameter
-></quote
->. (Aquests paràmetres s'expliquen a la secció corresponent de la referència d'ordres). </para>
+>». (Aquests paràmetres s'expliquen a la secció corresponent de la referència d'ordres). </para>
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -2653,27 +2637,21 @@
 ><para
 >L'&URI; començarà amb la paraula <literal
 >kwave</literal
->, seguida d'un caràcter de <quote
-><token
+>, seguida d'un caràcter de «<token
 >:</token
-></quote
-> i el nom de l'ordre. </para
+>» i el nom de l'ordre. </para
 ></listitem>
 	    <listitem
 ><para
->Si l'ordre té paràmetres, s'hauran d'afegir després del nom de l'ordre, utilitzant un caràcter de <quote
-><token
+>Si l'ordre té paràmetres, s'hauran d'afegir després del nom de l'ordre, utilitzant un caràcter de «<token
 >?</token
-></quote
-> com a separador. </para
+>» com a separador. </para
 ></listitem>
 	    <listitem
 ><para
->Es poden annexar múltiples paràmetres utilitzant un caràcter de <quote
-><token
+>Es poden annexar múltiples paràmetres utilitzant un caràcter de «<token
 >,</token
-></quote
-> com a separador. </para
+>» com a separador. </para
 ></listitem>
 	    <listitem
 ><para
@@ -2965,11 +2943,9 @@
 		    <para
 >una <emphasis
 >llista d'ordres</emphasis
->, amb dues o més ordres concatenades per un caràcter de <quote
-><token
+>, amb dues o més ordres concatenades per un caràcter de «<token
 >;</token
-></quote
->. </para>
+>». </para>
 		</listitem>
 		<listitem>
 		    <para
@@ -2996,11 +2972,9 @@
 ><title
 >Comentaris i línies buides</title>
 	<para
->Tots els caràcters que segueixin un caràcter de <quote
-><token
+>Tots els caràcters que segueixin un caràcter de «<token
 >#</token
-></quote
-> (excepte quan s'utilitzen entre cometes o quan s'escapen) es tractaran com a comentaris, se'ls ignorarà silenciosament. </para>
+>» (excepte quan s'utilitzen entre cometes o quan s'escapen) es tractaran com a comentaris, se'ls ignorarà silenciosament. </para>
 	<para
 >Les línies que només contenen espais en blanc o comentaris, s'ignoraran. </para>
     </sect2>
@@ -3008,8 +2982,7 @@
 ><title
 >Finalització</title>
     <para
->Un script del &kwave; finalitzarà quan totes les ordres s'hagin executat correctament sense cap error o quan una ordre hagi retornat un codi d'error. No hi ha cap ordre especial per a cancel·lar l'execució d'un script. Si voleu implementar una possibilitat perquè l'usuari finalitzi un script, podeu utilitzar l'ordre <quote
-><link linkend="cmd_sect_msgbox"
+>Un script del &kwave; finalitzarà quan totes les ordres s'hagin executat correctament sense cap error o quan una ordre hagi retornat un codi d'error. No hi ha cap ordre especial per a cancel·lar l'execució d'un script. Si voleu implementar una possibilitat perquè l'usuari finalitzi un script, podeu utilitzar l'ordre «<link linkend="cmd_sect_msgbox"
 ><command
 >msgbox</command
 ></link
@@ -3017,8 +2990,7 @@
 ><replaceable
 >text</replaceable
 ></parameter
->)</quote
->. Això mostrarà un quadre de missatge amb dos botons <guibutton
+>)». Això mostrarà un quadre de missatge amb dos botons <guibutton
 >D'acord</guibutton
 > (permet continuar l'script) i <guibutton
 >Cancel·la</guibutton
@@ -3028,22 +3000,17 @@
 ><title
 >Etiquetes</title>
     <para
->Les línies que només consten d'un identificador, seguides d'un caràcter de <quote
-><token
+>Les línies que només consten d'un identificador, seguides d'un caràcter de «<token
 >:</token
-></quote
-> seran tractades com a <emphasis
+>» seran tractades com a <emphasis
 >etiquetes</emphasis
 >. A l'script es pot fer una referència posterior amb la paraula clau especial <command
 >GOTO</command
 > <footnote
 ><para
->Nota: no confondre la paraula clau <quote
-><command
+>Nota: no confondre la paraula clau «<command
 >GOTO</command
-></quote
-> amb l'ordre de text <quote
-><link linkend="cmd_sect_goto"
+>» amb l'ordre de text «<link linkend="cmd_sect_goto"
 ><command
 >goto</command
 ></link
@@ -3051,16 +3018,13 @@
 ><replaceable
 >posició</replaceable
 ></parameter
->)</quote
->!</para
+>)»!</para
 ></footnote
 >, la qual cosa farà que l'execució de l'script continuï a la ubicació d'aquesta etiqueta (vegeu l'exemple següent). </para>
     <para
->Una línia que contingui una etiqueta no haurà de contenir cap altre contingut (excepte els comentaris o espais en blanc) després del caràcter de <quote
-><token
+>Una línia que contingui una etiqueta no haurà de contenir cap altre contingut (excepte els comentaris o espais en blanc) després del caràcter de «<token
 >:</token
-></quote
->. </para>
+>». </para>
     <para
 >Exemple: <screen
 ><replaceable
@@ -4537,11 +4501,9 @@
 >camí</parameter
 >:</entry>
 		<entry
->El camí dins del menú, utilitzant un caràcter de <quote
-><token
+>El camí dins del menú, utilitzant un caràcter de «<token
 >/</token
-></quote
-> com a separador. L'última part del camí podrà ser una <emphasis
+>» com a separador. L'última part del camí podrà ser una <emphasis
 >subordre</emphasis
 >, la qual modificarà algunes propietats de l'entrada del menú (vegeu a <link linkend="menu_sub_commands"
 >continuació</link
@@ -4557,39 +4519,23 @@
 >tecles</emphasis
 > i <emphasis
 >modificadors</emphasis
-> predefinits, concatenats amb un caràcter de <quote
-><token
+> predefinits, concatenats amb un caràcter de «<token
 >+</token
-></quote
->. La <emphasis
+>». La <emphasis
 >tecla</emphasis
-> pot ser un dígit, una lletra majúscula, una tecla de funció (<quote
->F1</quote
-> fins a la <quote
->F12</quote
->) o qualsevol altre nom de tecla entès per la classe <quote
-><literal
+> pot ser un dígit, una lletra majúscula, una tecla de funció («F1» fins a la «F12») o qualsevol altre nom de tecla entès per la classe «<literal
 >QKeySequence</literal
-></quote
-> de les Qt, inclosos els noms de tecla per a accions predefinides (com per exemple <quote
-><literal
+>» de les Qt, inclosos els noms de tecla per a accions predefinides (com per exemple «<literal
 >::Copy</literal
-></quote
->). Els <emphasis
+>»). Els <emphasis
 >modificadors</emphasis
-> típics són <quote
-><literal
+> típics són «<literal
 >SHIFT</literal
-></quote
->, <quote
-><literal
+>», «<literal
 >ALT</literal
-></quote
-> i <quote
-><literal
+>» i «<literal
 >CTRL</literal
-></quote
->. </entry>
+>». </entry>
 	    </row>
 	    <row valign="top">
 		<entry
@@ -4597,15 +4543,11 @@
 >id</parameter
 >:</entry>
 		<entry
->Un id únic que es pot utilitzar internament per a identificar aquesta entrada del menú o menú/submenú. Només s'han d'utilitzar lletres majúscules, dígits i el caràcter <quote
-><literal
+>Un id únic que es pot utilitzar internament per a identificar aquesta entrada del menú o menú/submenú. Només s'han d'utilitzar lletres majúscules, dígits i el caràcter «<literal
 >_</literal
-></quote
->, i hauria de començar amb <quote
-><literal
+>», i hauria de començar amb «<literal
 >ID_</literal
-></quote
->. És responsabilitat vostra assegurar-vos que el mateix id no s'utilitza dues vegades. </entry>
+>». És responsabilitat vostra assegurar-vos que el mateix id no s'utilitza dues vegades. </entry>
 	    </row>
 	</tbody
 ></tgroup
@@ -4674,15 +4616,11 @@
 ><para
 >Afegeix el menú, l'entrada del menú o submenú a un o més <emphasis
 >grups</emphasis
->, de manera que l'aplicació pot habilitar/inhabilitar un munt d'entrades del menú sense necessitat de conèixer tots els seus id únics. Es poden passar múltiples grups com una llista amb un caràcter de <quote
-><literal
+>, de manera que l'aplicació pot habilitar/inhabilitar un munt d'entrades del menú sense necessitat de conèixer tots els seus id únics. Es poden passar múltiples grups com una llista amb un caràcter de «<literal
 >,</literal
-></quote
-> com a separador. Els noms de grup hauran de començar amb un caràcter de <quote
-><literal
+>» com a separador. Els noms de grup hauran de començar amb un caràcter de «<literal
 >@</literal
-></quote
->. Hi ha predefinits els grups següents: <variablelist>
+>». Hi ha predefinits els grups següents: <variablelist>
 		    <varlistentry>
 			<term
 ><command
@@ -4781,11 +4719,9 @@
 ><replaceable
 >ordre</replaceable
 ></emphasis
-> haurà de contenir <quote
-><literal
+> haurà de contenir «<literal
 >%1</literal
-></quote
-> com a paràmetre, el qual serà substituït pel text de l'entrada del menú quan sigui activada. Aquesta subordre s'utilitza internament per a la llista de fitxers recents, llista de pistes i llista de finestres. </entry>
+>» com a paràmetre, el qual serà substituït pel text de l'entrada del menú quan sigui activada. Aquesta subordre s'utilitza internament per a la llista de fitxers recents, llista de pistes i llista de finestres. </entry>
 	    </row>
 	    <row valign="top"
 ><entry
@@ -5426,9 +5362,7 @@
 >&no-i18n-tag;&no-i18n-cmd_reenable_dna;</command
 >()</title>
 	    <para
->Alguns quadres de missatge ofereixen la possibilitat d'evitar que tornin a aparèixer (<quote
->No ho tornis a preguntar</quote
->). Aquesta ordre farà que tots tornin a aparèixer. </para>
+>Alguns quadres de missatge ofereixen la possibilitat d'evitar que tornin a aparèixer («No ho tornis a preguntar»). Aquesta ordre farà que tots tornin a aparèixer. </para>
 	</simplesect>
 	</sect2>
 
@@ -5611,13 +5545,7 @@
 >nom_de_fitxer</parameter
 >:</entry>
 		<entry
->nom del mode, haurà de ser <quote
->SDI</quote
->, <quote
->MDI</quote
-> o <quote
->Tab</quote
-> (Pestanyes). </entry
+>nom del mode, haurà de ser «SDI», «MDI» o «Tab» (Pestanyes). </entry
 ></row>
 	</tbody
 ></tgroup
@@ -5635,9 +5563,7 @@
 >&no-i18n-tag;&no-i18n-cmd_select_track_all;</command
 >()</title>
 	    <para
->Marca totes les pistes <quote
->habilitades</quote
->. Això és el mateix que cridar a l'ordre <command
+>Marca totes les pistes «habilitades». Això és el mateix que cridar a l'ordre <command
 >&no-i18n-tag;&no-i18n-cmd_select_track_on;</command
 >() per a totes les pistes existents. </para>
 	</simplesect>
@@ -5663,9 +5589,7 @@
 >&no-i18n-tag;&no-i18n-cmd_select_track_all;</command
 >()</title>
 	    <para
->Inverteix l'estat <quote
->habilitada</quote
-> de totes les pistes. Això és el mateix que cridar a l'ordre <command
+>Inverteix l'estat «habilitada» de totes les pistes. Això és el mateix que cridar a l'ordre <command
 >&no-i18n-cmd_select_track_toggle;</command
 >() per a totes les pistes existents. </para>
 	</simplesect>
@@ -5691,9 +5615,7 @@
 >&no-i18n-tag;&no-i18n-cmd_select_track_none;</command
 >()</title>
 	    <para
->Marca totes les pistes <quote
->inhabilitades</quote
->. Això és el mateix que cridar a l'ordre <command
+>Marca totes les pistes «inhabilitades». Això és el mateix que cridar a l'ordre <command
 >&no-i18n-cmd_select_track_off;</command
 >() per a totes les pistes existents. </para>
 	</simplesect>
@@ -8768,31 +8690,23 @@
 				    </tgroup>
 				</informaltable>
 				<para
->Exemple: <quote
-><command
+>Exemple: «<command
 ><literal
 >[%title] ([%artist])</literal
 ></command
-></quote
-> detectarà a l'autor <quote
-><command
+>» detectarà a l'autor «<command
 ><literal
 >Beethoven</literal
 ></command
-></quote
-> i el títol <quote
-><command
+>» i el títol «<command
 ><literal
 >Simfonia núm. 5</literal
 ></command
-></quote
-> a partir de la cadena <quote
-><command
+>» a partir de la cadena «<command
 ><literal
 >Simfonia núm. 5 (Beethoven)</literal
 ></command
-></quote
->. </para>
+>». </para>
 			    </listitem>
 			</varlistentry>
 
@@ -8869,13 +8783,11 @@
 >1</command
 ></entry>
 						    <entry
->Desa a dins d'un subdirectori del directori del fitxer de projecte del K3b, utilitzant el nom del fitxer de projecte del K3b com a base i annexant <quote
-><command
+>Desa a dins d'un subdirectori del directori del fitxer de projecte del K3b, utilitzant el nom del fitxer de projecte del K3b com a base i annexant «<command
 ><literal
 >.dir</literal
 ></command
-></quote
->. </entry>
+>». </entry>
 						</row>
 					    </tbody>
 					</tgroup>
@@ -12034,9 +11946,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Autor</entry>
 	    <entry colname='c2'
->Identifica el nom de l'autor del tema original del fitxer. Exemple: <quote
->van Beethoven, Ludwig</quote
-> </entry>
+>Identifica el nom de l'autor del tema original del fitxer. Exemple: «van Beethoven, Ludwig» </entry>
 	</row>
 	<row id="INF_BITRATE_LOWER">
 	    <entry colname='c1'
@@ -12108,9 +12018,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Copyright</entry>
 	    <entry colname='c2'
->Registra la informació sobre els drets d'autor pel fitxer. Si hi ha diferents drets d'autor, separeu-los amb un punt i coma seguit d'un espai. Exemple: <quote
->Copyright Linux community 2002</quote
-> </entry>
+>Registra la informació sobre els drets d'autor pel fitxer. Si hi ha diferents drets d'autor, separeu-los amb un punt i coma seguit d'un espai. Exemple: «Copyright Linux community 2002» </entry>
 	</row>
 	<row id="INF_COPYRIGHTED">
 	    <entry colname='c1'
@@ -12122,9 +12030,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Data</entry>
 	    <entry colname='c2'
->Especifica la data de creació del tema del fitxer. Exemple: <quote
->2001-12-24</quote
-> </entry>
+>Especifica la data de creació del tema del fitxer. Exemple: «2001-12-24» </entry>
 	</row>
 	<row id="INF_ENGINEER">
 	    <entry colname='c1'
@@ -12154,11 +12060,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Gènere</entry>
 	    <entry colname='c2'
->Descriu el gènere o estil del treball original. Exemples: <quote
->clàssica</quote
->, <quote
->pop</quote
-> </entry>
+>Descriu el gènere o estil del treball original. Exemples: «clàssica», «pop» </entry>
 	</row>
 	<row id="INF_ISRC">
 	    <entry colname='c1'
@@ -12188,21 +12090,13 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Llicència</entry>
 	    <entry colname='c2'
->Informació sobre la llicència, &pex;, <quote
->Tots els drets reservats</quote
->, <quote
->Es permet qualsevol ús</quote
->, un &URL; a la llicència o Attribution-ShareAlike 4.0 International (<quote
->distribuïda sota els termes de la llicència Attribution-ShareAlike 4.0 International. Per a més detalls, vegeu &url_cc_by_sa_4;</quote
->), &etc; </entry>
+>Informació sobre la llicència, &pex;, «Tots els drets reservats», «Es permet qualsevol ús», un &URL; a la llicència o Attribution-ShareAlike 4.0 International («distribuïda sota els termes de la llicència Attribution-ShareAlike 4.0 International. Per a més detalls, vegeu &url_cc_by_sa_4;»), &etc; </entry>
 	</row>
 	<row id="INF_MEDIUM">
 	    <entry colname='c1'
 >&no-i18n-tag;Suport</entry>
 	    <entry colname='c2'
->Descriu el tema original del fitxer, on fou gravat inicialment. Exemple: <quote
->orquestra</quote
-> </entry>
+>Descriu el tema original del fitxer, on fou gravat inicialment. Exemple: «orquestra» </entry>
 	</row>
 	<row id="INF_MIMETYPE">
 	    <entry colname='c1'
@@ -12238,9 +12132,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Nom</entry>
 	    <entry colname='c2'
->Emmagatzema el títol del tema del fitxer. Exemple: <quote
->Simfonia núm. 6, Op. 68 &quot;Pastoral&quot;</quote
-> </entry>
+>Emmagatzema el títol del tema del fitxer. Exemple: «Simfonia núm. 6, Op. 68 &quot;Pastoral&quot;» </entry>
 	</row>
 	<row id="INF_OPUS_FRAME_LEN">
 	    <entry colname='c1'
@@ -12252,9 +12144,7 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Organització</entry>
 	    <entry colname='c2'
->Nom de l'organització que produeix la pista (&ead;, la <quote
->discogràfica</quote
->). </entry>
+>Nom de l'organització que produeix la pista (&ead;, la «discogràfica»). </entry>
 	</row>
 	<row id="INF_ORIGINAL">
 	    <entry colname='c1'
@@ -12278,17 +12168,13 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Producte</entry>
 	    <entry colname='c2'
->Especifica el nom o el títol previst inicialment pel fitxer. Exemple: <quote
->Col·lecció d'àudio per a Linux</quote
-> </entry>
+>Especifica el nom o el títol previst inicialment pel fitxer. Exemple: «Col·lecció d'àudio per a Linux» </entry>
 	</row>
 	<row id="INF_SAMPLE_FORMAT">
 	    <entry colname='c1'
 >&no-i18n-tag;Format de la mostra</entry>
 	    <entry colname='c2'
->Format utilitzat per a emmagatzemar les mostres d'àudio digitalitzades. Exemple: <quote
->IEEE de 32 bits amb decimals</quote
-> </entry>
+>Format utilitzat per a emmagatzemar les mostres d'àudio digitalitzades. Exemple: «IEEE de 32 bits amb decimals» </entry>
 	</row>
 	<row id="INF_SAMPLE_RATE">
 	    <entry colname='c1'
@@ -12300,45 +12186,31 @@
 	    <entry colname='c1'
 >&no-i18n-tag;Programari</entry>
 	    <entry colname='c2'
->Identifica el nom del paquet de programari usat per a crear el fitxer. Exemple: <quote
->Kwave v0.6.4-1</quote
-> </entry>
+>Identifica el nom del paquet de programari usat per a crear el fitxer. Exemple: «Kwave v0.6.4-1» </entry>
 	</row>
 	<row id="INF_SOURCE">
 	    <entry colname='c1'
 >&no-i18n-tag;Origen</entry>
 	    <entry colname='c2'
->Identifica el nom de la persona o organització que va proporcionar el tema original del fitxer. Exemple: <quote
->Chaotic Sound Research</quote
-> </entry>
+>Identifica el nom de la persona o organització que va proporcionar el tema original del fitxer. Exemple: «Chaotic Sound Research» </entry>
 	</row>
 	<row id="INF_SOURCE_FORM">
 	    <entry colname='c1'
 >&no-i18n-tag;Format de l'origen</entry>
 	    <entry colname='c2'
->Identifica el format original del material que s'ha digitalitzat. Exemples: <quote
->disc/vinil/90 RPM</quote
->, <quote
->àudio DAT</quote
->, <quote
->cinta/CrO2/60 min</quote
-> </entry>
+>Identifica el format original del material que s'ha digitalitzat. Exemples: «disc/vinil/90 RPM», «àudio DAT», «cinta/CrO2/60 min» </entry>
 	</row>
 	<row id="INF_SUBJECT">
 	    <entry colname='c1'
 >&no-i18n-tag;Tema</entry>
 	    <entry colname='c2'
->Descriu el tema del fitxer. Exemple: <quote
->Càntics d'ocells a la matinada</quote
-> </entry>
+>Descriu el tema del fitxer. Exemple: «Càntics d'ocells a la matinada» </entry>
 	</row>
 	<row id="INF_TECHNICAN">
 	    <entry colname='c1'
 >&no-i18n-tag;Tècnic</entry>
 	    <entry colname='c2'
->Identifica al tècnic que ha digitalitzat el tema del fitxer. Exemple: <quote
->Torvalds, Linus</quote
-> </entry>
+>Identifica al tècnic que ha digitalitzat el tema del fitxer. Exemple: «Torvalds, Linus» </entry>
 	</row>
 	<row id="INF_TRACK">
 	    <entry colname='c1'

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-16 01:39+0000\n"
+"POT-Creation-Date: 2024-08-07 00:39+0000\n"
 "PO-Revision-Date: 2020-10-01 21:36+0200\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -26,17 +26,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "wizzardsk@gmail.com,galko.ferdinand@gmail.com"
 
-#: kwave/App.cpp:148
+#: kwave/App.cpp:150
 #, kde-format
 msgid "Reading configuration..."
 msgstr "Načítavanie konfigurácie..."
 
-#: kwave/App.cpp:228
+#: kwave/App.cpp:230
 #, kde-format
 msgid "Opening main window..."
 msgstr "Otváram hlavné okno..."
 
-#: kwave/App.cpp:274
+#: kwave/App.cpp:276
 #, kde-format
 msgid "Startup done"
 msgstr "Spustenie hotové"
@@ -1075,88 +1075,88 @@ msgstr "Pokračovať v prehrávaní"
 msgid "Pause playback"
 msgstr "Pozastaviť prehrávanie"
 
-#: kwave/Splash.cpp:59
+#: kwave/Splash.cpp:58
 #, kde-format
 msgctxt "%1=Version number"
 msgid "v%1"
 msgstr "v%1"
 
-#: kwave/TopWidget.cpp:269
+#: kwave/TopWidget.cpp:270
 #, kde-format
 msgid "Loading main menu..."
 msgstr "Načítavanie hlavnej ponuky..."
 
-#: kwave/TopWidget.cpp:342
+#: kwave/TopWidget.cpp:343
 #, kde-format
 msgid "Initializing toolbar..."
 msgstr "Inicializuje sa panel nástrojov..."
 
-#: kwave/TopWidget.cpp:351
+#: kwave/TopWidget.cpp:352
 #, kde-format
 msgid "Create a new empty file"
 msgstr "Vytvoriť nový prázdny súbor"
 
-#: kwave/TopWidget.cpp:356
+#: kwave/TopWidget.cpp:357
 #, kde-format
 msgid "Open an existing file"
 msgstr "Otvorí existujúci súbor"
 
-#: kwave/TopWidget.cpp:361
+#: kwave/TopWidget.cpp:362
 #, kde-format
 msgid "Save the current file"
 msgstr "Uložiť aktuálny súbor"
 
-#: kwave/TopWidget.cpp:366
+#: kwave/TopWidget.cpp:367
 #, kde-format
 msgid "Save the current file under a different name or file format..."
 msgstr "Uložiť aktuálny súbor pod iným názvom alebo súborovým formátom..."
 
-#: kwave/TopWidget.cpp:371
+#: kwave/TopWidget.cpp:372
 #, kde-format
 msgid "Close the current file"
 msgstr "Zatvoriť aktuálny súbor"
 
-#: kwave/TopWidget.cpp:382
+#: kwave/TopWidget.cpp:383
 #, kde-format
 msgid "Undo"
 msgstr "Späť"
 
-#: kwave/TopWidget.cpp:387
+#: kwave/TopWidget.cpp:388
 #, kde-format
 msgid "Redo"
 msgstr "Znovu"
 
-#: kwave/TopWidget.cpp:392 libkwave/SignalManager.cpp:676
+#: kwave/TopWidget.cpp:393 libkwave/SignalManager.cpp:676
 #, kde-format
 msgid "Cut"
 msgstr "Vystrihnúť"
 
-#: kwave/TopWidget.cpp:397
+#: kwave/TopWidget.cpp:398
 #, kde-format
 msgid "Copy"
 msgstr "Kopírovať"
 
-#: kwave/TopWidget.cpp:402 libkwave/undo/UndoInsertAction.cpp:46
+#: kwave/TopWidget.cpp:403 libkwave/undo/UndoInsertAction.cpp:46
 #, kde-format
 msgid "Insert"
 msgstr "Vložiť"
 
-#: kwave/TopWidget.cpp:410
+#: kwave/TopWidget.cpp:411
 #, kde-format
 msgid "Mute selection"
 msgstr "Stlmiť výber"
 
-#: kwave/TopWidget.cpp:415
+#: kwave/TopWidget.cpp:416
 #, kde-format
 msgid "Delete selection"
 msgstr "Vymazať výber"
 
-#: kwave/TopWidget.cpp:761
+#: kwave/TopWidget.cpp:762
 #, kde-format
 msgid "Reset the toolbar to default settings?"
 msgstr "Obnoviť predvolené nastavenia panela nástrojov?"
 
-#: kwave/TopWidget.cpp:786
+#: kwave/TopWidget.cpp:787
 #, kde-format
 msgid ""
 "Re-enable all disabled notifications?\n"
@@ -1167,65 +1167,65 @@ msgstr ""
 "Všetky správy, ktoré ste predtým vypli aktiváciou zaškrtávacieho pola "
 "\"Znovu sa už nepýtať\", sa potom znova povolia."
 
-#: kwave/TopWidget.cpp:1010
+#: kwave/TopWidget.cpp:1011
 #, kde-format
 msgid "Executing command '%1'..."
 msgstr "Vykonávanie príkazu '%1'..."
 
-#: kwave/TopWidget.cpp:1030
+#: kwave/TopWidget.cpp:1031
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
 msgstr "Vykonávanie súbor skriptu Kwave '%1'..."
 
-#: kwave/TopWidget.cpp:1040
+#: kwave/TopWidget.cpp:1041
 #, kde-format
 msgid "Loading file '%1'..."
 msgstr "Načítavam súbor '%1'..."
 
-#: kwave/TopWidget.cpp:1052 plugins/codec_audiofile/AudiofileDecoder.cpp:123
-#: plugins/codec_flac/FlacEncoder.cpp:247
-#: plugins/codec_flac/FlacEncoder.cpp:265
-#: plugins/codec_flac/FlacEncoder.cpp:280 plugins/codec_mp3/MP3Decoder.cpp:514
+#: kwave/TopWidget.cpp:1053 plugins/codec_audiofile/AudiofileDecoder.cpp:124
+#: plugins/codec_flac/FlacEncoder.cpp:248
+#: plugins/codec_flac/FlacEncoder.cpp:266
+#: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:515
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
-#: plugins/codec_wav/WavDecoder.cpp:370 plugins/codec_wav/WavEncoder.cpp:446
+#: plugins/codec_wav/WavDecoder.cpp:371 plugins/codec_wav/WavEncoder.cpp:447
 #: plugins/playback/PlayBack-OSS.cpp:247 plugins/playback/PlayBack-OSS.cpp:255
-#: plugins/playback/PlayBack-Qt.cpp:176 plugins/playback/PlayBack-Qt.cpp:181
+#: plugins/playback/PlayBack-Qt.cpp:159 plugins/playback/PlayBack-Qt.cpp:164
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
 #: plugins/record/RecordPlugin.cpp:1050
 #, kde-format
 msgid "Out of memory"
 msgstr "Nedostatok pamäte"
 
-#: kwave/TopWidget.cpp:1056
+#: kwave/TopWidget.cpp:1057
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
 msgstr "Nepodarilo sa otvoriť '%1'"
 
-#: kwave/TopWidget.cpp:1060
+#: kwave/TopWidget.cpp:1061
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr "Neplatný alebo neznámy typ súboru: '%1'"
 
-#: kwave/TopWidget.cpp:1098
+#: kwave/TopWidget.cpp:1099
 #, kde-format
 msgid "Open"
 msgstr "Otvoriť"
 
-#: kwave/TopWidget.cpp:1151
+#: kwave/TopWidget.cpp:1152
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr "Dĺžka: %1 (%2 vzoriek)"
 
-#: kwave/TopWidget.cpp:1162
+#: kwave/TopWidget.cpp:1163
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Režim: %1 kHz @ %2 Bit"
 
-#: kwave/TopWidget.cpp:1208
+#: kwave/TopWidget.cpp:1209
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -1233,7 +1233,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Vybrané: %1...%2 (%3 vzoriek)"
 
-#: kwave/TopWidget.cpp:1220
+#: kwave/TopWidget.cpp:1221
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -1241,72 +1241,72 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr "Vybrané: %1...%2 (%3)"
 
-#: kwave/TopWidget.cpp:1239
+#: kwave/TopWidget.cpp:1240
 #, kde-format
 msgid "Position: %1"
 msgstr "Pozícia: %1"
 
-#: kwave/TopWidget.cpp:1265
+#: kwave/TopWidget.cpp:1266
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr "Späť (%1)"
 
-#: kwave/TopWidget.cpp:1267
+#: kwave/TopWidget.cpp:1268
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Späť"
 
-#: kwave/TopWidget.cpp:1276
+#: kwave/TopWidget.cpp:1277
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr "Znovu (%1)"
 
-#: kwave/TopWidget.cpp:1278
+#: kwave/TopWidget.cpp:1279
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Znovu"
 
-#: kwave/TopWidget.cpp:1288
+#: kwave/TopWidget.cpp:1289
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "Späť (%1)"
 
-#: kwave/TopWidget.cpp:1289
+#: kwave/TopWidget.cpp:1290
 #, kde-format
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr "Späť"
 
-#: kwave/TopWidget.cpp:1295
+#: kwave/TopWidget.cpp:1296
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "Znovu (%1)"
 
-#: kwave/TopWidget.cpp:1296
+#: kwave/TopWidget.cpp:1297
 #, kde-format
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr "Znovu"
 
-#: kwave/TopWidget.cpp:1411
+#: kwave/TopWidget.cpp:1412
 #, kde-format
 msgctxt "special entry in the list of labels to delete all"
 msgid "(All)"
 msgstr "(Všetko)"
 
-#: kwave/TopWidget.cpp:1420
+#: kwave/TopWidget.cpp:1421
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
 msgstr "#%1 (%2)"
 
-#: kwave/TopWidget.cpp:1423
+#: kwave/TopWidget.cpp:1424
 #, kde-format
 msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"
@@ -1417,18 +1417,18 @@ msgstr "Uložiť predvoľbu"
 msgid "Currently Selected Point"
 msgstr "Aktuálne vybraný bod"
 
-#: libgui/CurveWidget.cpp:126
+#: libgui/CurveWidget.cpp:127
 #, kde-format
 msgid "Every Second Point"
 msgstr "Každý druhý bod"
 
-#: libgui/CurveWidget.cpp:201
+#: libgui/CurveWidget.cpp:202
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
 msgstr "predvoľba kriviek Kwave (*.curve)"
 
-#: libgui/CurveWidget.cpp:204
+#: libgui/CurveWidget.cpp:205
 #, kde-format
 msgid "Save Curve Preset"
 msgstr "Uložiť predvoľbu kriviek"
@@ -1691,47 +1691,47 @@ msgstr "nastaví výber podľa percenta celého signálu"
 msgid "&Undo"
 msgstr "&Späť"
 
-#: libgui/SignalWidget.cpp:210
+#: libgui/SignalWidget.cpp:212
 #, kde-format
 msgid "&Redo"
 msgstr "Zn&ovu"
 
-#: libgui/SignalWidget.cpp:221
+#: libgui/SignalWidget.cpp:225
 #, kde-format
 msgid "Cu&t"
 msgstr "Vys&trihnúť"
 
-#: libgui/SignalWidget.cpp:225
+#: libgui/SignalWidget.cpp:231
 #, kde-format
 msgid "&Copy"
 msgstr "&Kopírovať"
 
-#: libgui/SignalWidget.cpp:229
+#: libgui/SignalWidget.cpp:237
 #, kde-format
 msgid "&Paste"
 msgstr "V&ložiť"
 
-#: libgui/SignalWidget.cpp:245 libkwave/undo/UndoSelection.cpp:51
+#: libgui/SignalWidget.cpp:255 libkwave/undo/UndoSelection.cpp:51
 #, kde-format
 msgid "Selection"
 msgstr "Výber"
 
-#: libgui/SignalWidget.cpp:252
+#: libgui/SignalWidget.cpp:262
 #, kde-format
 msgid "&Save..."
 msgstr "Uložiť..."
 
-#: libgui/SignalWidget.cpp:259
+#: libgui/SignalWidget.cpp:269
 #, kde-format
 msgid "&Expand to Labels"
 msgstr "Roztiahnuť na štítky"
 
-#: libgui/SignalWidget.cpp:267
+#: libgui/SignalWidget.cpp:279
 #, kde-format
 msgid "To Next Labels"
 msgstr "Na nasledujúce štítky"
 
-#: libgui/SignalWidget.cpp:276
+#: libgui/SignalWidget.cpp:289
 #, kde-format
 msgid "To Previous Labels"
 msgstr "Na predchádzajúce štítky"
@@ -3856,100 +3856,100 @@ msgstr ""
 msgid "ASCII encoded audio"
 msgstr "Zvuk kódovaný v ASCII"
 
-#: plugins/codec_ascii/AsciiEncoder.cpp:93
-#: plugins/codec_flac/FlacEncoder.cpp:214 plugins/codec_ogg/OggEncoder.cpp:122
+#: plugins/codec_ascii/AsciiEncoder.cpp:92
+#: plugins/codec_flac/FlacEncoder.cpp:215 plugins/codec_ogg/OggEncoder.cpp:123
 #, kde-format
 msgid "Unable to open the file for saving."
 msgstr "Nepodarilo sa otvoriť súbor na uloženie."
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:47
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:48
 #, kde-format
 msgid "NeXT, Sun Audio"
 msgstr "NeXT, Sun Audio"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:52
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:53
 #, kde-format
 msgid "Amiga IFF/8SVX Sound File Format"
 msgstr "Zvukový súborový formát Amiga IFF/8SVX"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:55
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:56
 #, kde-format
 msgid "Compressed Audio Interchange Format"
 msgstr "Komprimovaný zvukový výmenný formát"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:58
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:59
 #, kde-format
 msgid "Audio Interchange Format"
 msgstr "Zvukový výmenný formát"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:61
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:62
 #, kde-format
 msgid "Audio Visual Research File Format"
 msgstr "Súborový formát Audio Visual Research"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:64
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:65
 #, kde-format
 msgid "Core Audio File Format"
 msgstr "Zvukový súborový formát Core"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:67
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:68
 #, kde-format
 msgid "Berkeley, IRCAM, Carl Sound Format"
 msgstr "Berkeley, IRCAM, Zvukový formát Carl"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:70
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:71
 #, kde-format
 msgid "NIST SPHERE Audio File Format"
 msgstr "Zvukový súborový formát NIST SPHERE"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:73
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:74
 #, kde-format
 msgid "Sample Vision Format"
 msgstr "Sample Vision formát"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:76
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:77
 #, kde-format
 msgid "Creative Voice"
 msgstr "Creative Voice"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:120
-#: plugins/codec_wav/WavDecoder.cpp:366 plugins/codec_wav/WavEncoder.cpp:442
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:121
+#: plugins/codec_wav/WavDecoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:443
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "Formát alebo funkcia nie je implementovaná"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:126
-#: plugins/codec_wav/WavEncoder.cpp:449
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:127
+#: plugins/codec_wav/WavEncoder.cpp:450
 #, kde-format
 msgid "File header is damaged"
 msgstr "Hlavička súboru je poškodená"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:129
-#: plugins/codec_wav/WavDecoder.cpp:376 plugins/codec_wav/WavEncoder.cpp:452
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:130
+#: plugins/codec_wav/WavDecoder.cpp:377 plugins/codec_wav/WavEncoder.cpp:453
 #, kde-format
 msgid "Invalid codec type"
 msgstr "Neplatný typ kodeku"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:132
-#: plugins/codec_wav/WavDecoder.cpp:380 plugins/codec_wav/WavEncoder.cpp:456
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:133
+#: plugins/codec_wav/WavDecoder.cpp:381 plugins/codec_wav/WavEncoder.cpp:457
 #, kde-format
 msgid "Opening the file failed"
 msgstr "Otvorenie súboru zlyhalo"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:135
-#: plugins/codec_wav/WavDecoder.cpp:383 plugins/codec_wav/WavEncoder.cpp:459
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:136
+#: plugins/codec_wav/WavDecoder.cpp:384 plugins/codec_wav/WavEncoder.cpp:460
 #, kde-format
 msgid "Read access failed"
 msgstr "Prístup na čítanie zlyhal"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:138
-#: plugins/codec_wav/WavDecoder.cpp:386 plugins/codec_wav/WavEncoder.cpp:462
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:139
+#: plugins/codec_wav/WavDecoder.cpp:387 plugins/codec_wav/WavEncoder.cpp:463
 #, kde-format
 msgid "Invalid sample format"
 msgstr "Neplatný formát vzorky"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:144
-#: plugins/codec_wav/WavDecoder.cpp:395 plugins/codec_wav/WavEncoder.cpp:468
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:145
+#: plugins/codec_wav/WavDecoder.cpp:396 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -3958,22 +3958,22 @@ msgstr ""
 "Pri otváraní súboru sa vyskytla chyba:\n"
 "'%1'"
 
-#: plugins/codec_flac/FlacCodecPlugin.h:59
+#: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
 msgid "FLAC audio"
 msgstr "FLAC audio"
 
-#: plugins/codec_flac/FlacDecoder.cpp:281
+#: plugins/codec_flac/FlacDecoder.cpp:282
 #, kde-format
 msgid "Opening the FLAC bitstream failed."
 msgstr "Otvorenie bitového toku FLAC zlyhalo."
 
-#: plugins/codec_flac/FlacDecoder.cpp:291
+#: plugins/codec_flac/FlacDecoder.cpp:292
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
 msgstr "Chyba pri analýze metadát FLAC. (%s)"
 
-#: plugins/codec_flac/FlacEncoder.cpp:224
+#: plugins/codec_flac/FlacEncoder.cpp:225
 #, kde-format
 msgid "Unable to open the FLAC encoder."
 msgstr "Nepodarilo sa otvoriť kódovač FLAC."
@@ -3998,7 +3998,7 @@ msgstr "MPEG layer II audio"
 msgid "MPEG layer I audio"
 msgstr "MPEG layer I audio"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:94
+#: plugins/codec_mp3/MP3Decoder.cpp:95
 #, kde-format
 msgid ""
 "The file has an invalid checksum.\n"
@@ -4007,7 +4007,7 @@ msgstr ""
 "Súbor má neplatný kontrolný súčet.\n"
 "Stále chcete pokračovať?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:163
+#: plugins/codec_mp3/MP3Decoder.cpp:164
 #, kde-format
 msgid ""
 "The file contains an invalid channel mode 0x%1\n"
@@ -4016,7 +4016,7 @@ msgstr ""
 "Súbor obsahuje neplatný kanálový režim 0x%1\n"
 "Predpokladá sa Mono..."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:446
+#: plugins/codec_mp3/MP3Decoder.cpp:447
 #, kde-format
 msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
@@ -4025,27 +4025,27 @@ msgstr ""
 "Otvorený súbor nie je súbor MPEG alebo je poškodený.\n"
 "Nenašli sa žiadne informácie hlavičky."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:517
+#: plugins/codec_mp3/MP3Decoder.cpp:518
 #, kde-format
 msgid "Checksum error"
 msgstr "Chyba kontrolného súčtu"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:520
+#: plugins/codec_mp3/MP3Decoder.cpp:521
 #, kde-format
 msgid "Synchronization lost"
 msgstr "Synchronizácia stratená"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:537
+#: plugins/codec_mp3/MP3Decoder.cpp:538
 #, kde-format
 msgid "File contains invalid data"
 msgstr "Súbor obsahuje neplatné dáta"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:542
+#: plugins/codec_mp3/MP3Decoder.cpp:543
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
 msgstr "Neznáma chyba 0x%1. Poškodený súbor?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:546
+#: plugins/codec_mp3/MP3Decoder.cpp:547
 #, kde-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -4056,12 +4056,12 @@ msgstr ""
 "'%1',\n"
 "na pozícii %2."
 
-#: plugins/codec_mp3/MP3Decoder.cpp:551
+#: plugins/codec_mp3/MP3Decoder.cpp:552
 #, kde-format
 msgid "Do you still want to continue?"
 msgstr "Stále chcete pokračovať?"
 
-#: plugins/codec_mp3/MP3Decoder.cpp:556
+#: plugins/codec_mp3/MP3Decoder.cpp:557
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Chcete pokračovať a ignorovať všetky nasledujúce chyby?"
@@ -4075,7 +4075,7 @@ msgstr ""
 "Súborový formát, ktorý ste vybrali, podporuje iba mono alebo stereo. Pri "
 "ukladaní sa tento súbor zmieša na stereo."
 
-#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:395
+#: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:396
 #, kde-format
 msgid "Unable to open the file for saving!"
 msgstr "Nepodarilo sa otvoriť súbor na uloženie!"
@@ -4564,42 +4564,42 @@ msgstr "Ogg Opus audio"
 msgid "Ogg Vorbis audio"
 msgstr "Ogg Vorbis audio"
 
-#: plugins/codec_ogg/OggDecoder.cpp:59 plugins/codec_ogg/OggDecoder.cpp:60
+#: plugins/codec_ogg/OggDecoder.cpp:60 plugins/codec_ogg/OggDecoder.cpp:61
 #, kde-format
 msgid "Ogg audio"
 msgstr "Ogg audio"
 
-#: plugins/codec_ogg/OggDecoder.cpp:92
+#: plugins/codec_ogg/OggDecoder.cpp:93
 #, kde-format
 msgid "Ogg bitstream has zero-length."
 msgstr "Bitový tok Ogg má nulovú dĺžku."
 
-#: plugins/codec_ogg/OggDecoder.cpp:104
+#: plugins/codec_ogg/OggDecoder.cpp:105
 #, kde-format
 msgid "Input does not appear to be an Ogg bitstream."
 msgstr "Zdá sa, že vstup nie je bitovým tokom Ogg."
 
-#: plugins/codec_ogg/OggDecoder.cpp:116
+#: plugins/codec_ogg/OggDecoder.cpp:117
 #, kde-format
 msgid "Error reading first page of the Ogg bitstream data."
 msgstr "Chyba čítaní prvej stránky údajov bitového toku Ogg."
 
-#: plugins/codec_ogg/OggDecoder.cpp:123
+#: plugins/codec_ogg/OggDecoder.cpp:124
 #, kde-format
 msgid "Error reading initial header packet."
 msgstr "Chyba pri čítaní počiatočného paketu hlavičky."
 
-#: plugins/codec_ogg/OggDecoder.cpp:160
+#: plugins/codec_ogg/OggDecoder.cpp:161
 #, kde-format
 msgid "Error: Codec not supported"
 msgstr "Chyba: Kodek nie je podporovaný"
 
-#: plugins/codec_ogg/OggDecoder.cpp:219
+#: plugins/codec_ogg/OggDecoder.cpp:220
 #, kde-format
 msgid "Corrupt or missing data in bitstream. Continuing."
 msgstr "Poškodené alebo chýbajúce dáta v bitovom toku. Pokračovanie."
 
-#: plugins/codec_ogg/OggEncoder.cpp:110
+#: plugins/codec_ogg/OggEncoder.cpp:111
 #, kde-format
 msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
@@ -4607,7 +4607,7 @@ msgctxt ""
 msgid "Error: No Codec for '%1' available"
 msgstr "Chyba: Nie je k dispozícii žiadny kodek pre '%1'"
 
-#: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:130
+#: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:115
 #, kde-format
 msgid "One or more invalid/out of range arguments."
 msgstr "Jeden alebo viac argumentov neplatných/mimo rozsahu."
@@ -4731,7 +4731,7 @@ msgstr "Poškodená sekundárna hlavička. Ukončenie."
 msgid "End of file before finding all Vorbis headers."
 msgstr "Koniec súboru pred nájdením všetkých hlavičiek Vorbis."
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:96
+#: plugins/codec_ogg/VorbisEncoder.cpp:97
 #, kde-format
 msgid ""
 "This codec supports only mono or stereo files, %1 channels are not supported."
@@ -4739,7 +4739,7 @@ msgstr ""
 "Tento kodek podporuje iba mono alebo stereo súbory, %1 kanály nie sú "
 "podporované."
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:119
+#: plugins/codec_ogg/VorbisEncoder.cpp:120
 #, kde-format
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
@@ -4748,7 +4748,7 @@ msgstr ""
 "Pre kódovanie ste nevybrali žiadnu bitovú rýchlosť. Chcete pokračovať a "
 "kódovať s %1 kBit/s alebo zrušiť a zvoliť inú bitovú rýchlosť?"
 
-#: plugins/codec_ogg/VorbisEncoder.cpp:176
+#: plugins/codec_ogg/VorbisEncoder.cpp:177
 #, kde-format
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
@@ -4772,17 +4772,17 @@ msgstr "Zisťovanie endianity (štatistické hľadanie)..."
 msgid "Searching for missing chunk '%1'..."
 msgstr "Hľadá sa chýbajúca časť '%1'..."
 
-#: plugins/codec_wav/WavDecoder.cpp:141
+#: plugins/codec_wav/WavDecoder.cpp:142
 #, kde-format
 msgid "Auto Repair"
 msgstr "Automatická oprava"
 
-#: plugins/codec_wav/WavDecoder.cpp:147
+#: plugins/codec_wav/WavDecoder.cpp:148
 #, kde-format
 msgid "Reading..."
 msgstr "Čítanie..."
 
-#: plugins/codec_wav/WavDecoder.cpp:172
+#: plugins/codec_wav/WavDecoder.cpp:173
 #, kde-format
 msgid ""
 "The file has been structurally damaged or it is no WAV file.\n"
@@ -4791,17 +4791,17 @@ msgstr ""
 "Súbor bol štrukturálne poškodený alebo nie je súbor WAV.\n"
 "Mala by sa aplikácia Kwave ho pokúsiť opraviť?"
 
-#: plugins/codec_wav/WavDecoder.cpp:175 plugins/codec_wav/WavDecoder.cpp:280
+#: plugins/codec_wav/WavDecoder.cpp:176 plugins/codec_wav/WavDecoder.cpp:281
 #, kde-format
 msgid "Kwave Auto Repair"
 msgstr "Automatická oprava Kwave"
 
-#: plugins/codec_wav/WavDecoder.cpp:176
+#: plugins/codec_wav/WavDecoder.cpp:177
 #, kde-format
 msgid "&Repair"
 msgstr "Opraviť"
 
-#: plugins/codec_wav/WavDecoder.cpp:241
+#: plugins/codec_wav/WavDecoder.cpp:242
 #, kde-format
 msgid ""
 "The opened file is no WAV file or it is damaged:\n"
@@ -4814,7 +4814,7 @@ msgstr ""
 "\n"
 "Už nemá zmysel pokračovať."
 
-#: plugins/codec_wav/WavDecoder.cpp:276
+#: plugins/codec_wav/WavDecoder.cpp:277
 #, kde-format
 msgid ""
 "The WAV file seems to be damaged:\n"
@@ -4829,17 +4829,17 @@ msgstr ""
 "Kwave použije iba prvé a ostatné bude\n"
 "ignorovať. To môže viesť k strate dát."
 
-#: plugins/codec_wav/WavDecoder.cpp:373
+#: plugins/codec_wav/WavDecoder.cpp:374
 #, kde-format
 msgid "file header is damaged"
 msgstr "hlavička súboru je poškodená"
 
-#: plugins/codec_wav/WavDecoder.cpp:389
+#: plugins/codec_wav/WavDecoder.cpp:390
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "interná chyba libaudiofile #%1: '%2'"
 
-#: plugins/codec_wav/WavEncoder.cpp:348
+#: plugins/codec_wav/WavEncoder.cpp:349
 #, kde-format
 msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
@@ -4848,17 +4848,17 @@ msgstr ""
 "Prepáčte, ale momentálne vybraný typ kompresie nie je možné použiť na "
 "uloženie. Chcete namiesto toho použiť kompresiu G711 ULAW?"
 
-#: plugins/codec_wav/WavEncoder.cpp:351
+#: plugins/codec_wav/WavEncoder.cpp:352
 #, kde-format
 msgid "&Yes, use G711"
 msgstr "Áno, použiť G711"
 
-#: plugins/codec_wav/WavEncoder.cpp:352
+#: plugins/codec_wav/WavEncoder.cpp:353
 #, kde-format
 msgid "&No, store uncompressed"
 msgstr "&Nie, uložiť nekomprimované"
 
-#: plugins/codec_wav/WavEncoder.cpp:401 plugins/sonagram/SonagramPlugin.cpp:204
+#: plugins/codec_wav/WavEncoder.cpp:402 plugins/sonagram/SonagramPlugin.cpp:204
 #, kde-format
 msgid "File or selection too large"
 msgstr "Súbor alebo výber je príliš veľký"
@@ -4868,43 +4868,43 @@ msgstr "Súbor alebo výber je príliš veľký"
 msgid "WAV audio"
 msgstr "WAV audio"
 
-#: plugins/debug/DebugPlugin.cpp:90
+#: plugins/debug/DebugPlugin.cpp:89
 msgid "Generate 50% DC Level"
 msgstr "Generovať 50% úroveň DC"
 
-#: plugins/debug/DebugPlugin.cpp:92
+#: plugins/debug/DebugPlugin.cpp:91
 msgid "Generate 100% DC Level"
 msgstr "Generovať 100% úroveň DC"
 
-#: plugins/debug/DebugPlugin.cpp:94
+#: plugins/debug/DebugPlugin.cpp:93
 msgid "MinMax Pattern"
 msgstr "Vzor MinMax"
 
-#: plugins/debug/DebugPlugin.cpp:96
+#: plugins/debug/DebugPlugin.cpp:95
 msgid "Generate Sawtooth Pattern"
 msgstr "Generovať pílovitý vzor"
 
-#: plugins/debug/DebugPlugin.cpp:98
+#: plugins/debug/DebugPlugin.cpp:97
 msgid "Verify Sawtooth Pattern"
 msgstr "Overiť pílovitý vzor"
 
-#: plugins/debug/DebugPlugin.cpp:100
+#: plugins/debug/DebugPlugin.cpp:99
 msgid "FM Sweep"
 msgstr "Rozmetanie FM"
 
-#: plugins/debug/DebugPlugin.cpp:110
+#: plugins/debug/DebugPlugin.cpp:109
 msgid "Labels at Stripe borders"
 msgstr "Štítky na hraniciach pruhov"
 
-#: plugins/debug/DebugPlugin.cpp:114
+#: plugins/debug/DebugPlugin.cpp:113
 msgid "Dump Window Hierarchy"
 msgstr "Vypísať hierarchiu okien"
 
-#: plugins/debug/DebugPlugin.cpp:118
+#: plugins/debug/DebugPlugin.cpp:117
 msgid "Dump Meta Data"
 msgstr "Vypísať metadáta"
 
-#: plugins/debug/DebugPlugin.cpp:128 plugins/debug/DebugPlugin.cpp:238
+#: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:236
 #, kde-format
 msgid "Debug (%1)"
 msgstr "Ladenie (%1)"
@@ -5142,29 +5142,29 @@ msgstr "Nominálna bitová rýchlosť"
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:211
+#: plugins/fileinfo/FileInfoDialog.cpp:213
 #, kde-format
 msgid "%1 bytes"
 msgstr "%1 bajtov"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:213
+#: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 bajt)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:216
+#: plugins/fileinfo/FileInfoDialog.cpp:218
 #, kde-format
 msgid "%1 MB (%2 byte)"
 msgstr "%1 MB (%2 bajt)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRate)
-#: plugins/fileinfo/FileInfoDialog.cpp:229 plugins/newsignal/NewSigDlg.ui:102
+#: plugins/fileinfo/FileInfoDialog.cpp:231 plugins/newsignal/NewSigDlg.ui:102
 #: plugins/record/RecordDlg.ui:698
 #, kde-format
 msgid "Sample rate:"
 msgstr "Vzorkovacia frekvencia:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:232
+#: plugins/fileinfo/FileInfoDialog.cpp:234
 #, kde-format
 msgid ""
 "Here you can select one of the predefined\n"
@@ -5176,13 +5176,13 @@ msgstr ""
 "zadať ľubovoľnú vzorkovaciu frekvenciu sami."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
-#: plugins/fileinfo/FileInfoDialog.cpp:238 plugins/newsignal/NewSigDlg.ui:206
+#: plugins/fileinfo/FileInfoDialog.cpp:240 plugins/newsignal/NewSigDlg.ui:206
 #: plugins/record/RecordDlg.ui:912
 #, kde-format
 msgid "Resolution:"
 msgstr "Rozlíšenie:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:241
+#: plugins/fileinfo/FileInfoDialog.cpp:243
 #, kde-format
 msgid ""
 "Select a resolution in bits in which the file\n"
@@ -5192,13 +5192,13 @@ msgstr ""
 "uloží súbor."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
-#: plugins/fileinfo/FileInfoDialog.cpp:246 plugins/newsignal/NewSigDlg.ui:196
+#: plugins/fileinfo/FileInfoDialog.cpp:248 plugins/newsignal/NewSigDlg.ui:196
 #: plugins/record/RecordDlg.ui:708
 #, kde-format
 msgid "Tracks:"
 msgstr "Stopy:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:249
+#: plugins/fileinfo/FileInfoDialog.cpp:251
 #, kde-format
 msgid ""
 "Shows the number of tracks of the signal.\n"
@@ -5207,12 +5207,12 @@ msgstr ""
 "Zobrazuje počet stôp signálu.\n"
 "Stopy môžete pridávať alebo mazať cez ponuku Upraviť."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:259
+#: plugins/fileinfo/FileInfoDialog.cpp:261
 #, kde-format
 msgid "Length:"
 msgstr "Dĺžka:"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:262
+#: plugins/fileinfo/FileInfoDialog.cpp:264
 #, kde-format
 msgid ""
 "Shows the length of the file in samples\n"
@@ -5221,44 +5221,44 @@ msgstr ""
 "Zobrazuje dĺžku súboru vo vzorkách\n"
 "a podľa možnosti aj ako čas."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:268
+#: plugins/fileinfo/FileInfoDialog.cpp:270
 #, kde-format
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 vzoriek)"
 
 #. i18n: ectx: property (text), widget (QLabel, txtSourceBuffer)
-#: plugins/fileinfo/FileInfoDialog.cpp:272 plugins/record/RecordDialog.cpp:602
+#: plugins/fileinfo/FileInfoDialog.cpp:274 plugins/record/RecordDialog.cpp:602
 #: plugins/record/RecordDlg.ui:1133
 #, no-c-format, kde-format
 msgid "%1 samples"
 msgstr "%1 vzoriek"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:585
+#: plugins/fileinfo/FileInfoDialog.cpp:587
 #: plugins/newsignal/NewSignalDialog.cpp:301
 #, kde-format
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:588
+#: plugins/fileinfo/FileInfoDialog.cpp:590
 #: plugins/newsignal/NewSignalDialog.cpp:304
 #, kde-format
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:591
+#: plugins/fileinfo/FileInfoDialog.cpp:593
 #: plugins/newsignal/NewSignalDialog.cpp:307
 #, kde-format
 msgid "(Quadro)"
 msgstr "(Quadro)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:815
-#: plugins/fileinfo/FileInfoDialog.cpp:821
+#: plugins/fileinfo/FileInfoDialog.cpp:817
+#: plugins/fileinfo/FileInfoDialog.cpp:823
 #, kde-format
 msgid "Yes"
 msgstr "Áno"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:815
-#: plugins/fileinfo/FileInfoDialog.cpp:821
+#: plugins/fileinfo/FileInfoDialog.cpp:817
+#: plugins/fileinfo/FileInfoDialog.cpp:823
 #, kde-format
 msgid "No"
 msgstr "Nie"
@@ -6088,7 +6088,7 @@ msgstr "Zásuvný modul DMIX"
 msgid "The device '%1' cannot be opened in the correct mode."
 msgstr "Zariadenie '%1' sa nedá otvoriť v správnom režime."
 
-#: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:161
+#: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:148
 #, kde-format
 msgid "%1 bits per sample are not supported"
 msgstr "%1 bitov na vzorku nie je podporovaných"
@@ -6159,32 +6159,18 @@ msgstr "Nepodarilo sa otvoriť prúd PulseAudio pre prehrávanie (%1)."
 msgid "(Use server default)"
 msgstr "(Použiť predvolené nastavenie servera)"
 
-#: plugins/playback/PlayBack-Qt.cpp:142
+#: plugins/playback/PlayBack-Qt.cpp:127
 #, kde-format
 msgid "The audio device '%1' is unknown or no longer connected"
 msgstr "Zvukové zariadenie '%1' je neznáme alebo už nie je pripojené"
 
-#: plugins/playback/PlayBack-Qt.cpp:158
-#, kde-format
-msgid "PCM encoding is not supported"
-msgstr "Kódovania PCM nie je podporované"
+#: plugins/playback/PlayBack-Qt.cpp:154
+#, fuzzy, kde-format
+#| msgid "Error: Codec not supported"
+msgid "format not supported"
+msgstr "Chyba: Kodek nie je podporovaný"
 
-#: plugins/playback/PlayBack-Qt.cpp:164
-#, kde-format
-msgid "playback with %1 channels is not supported"
-msgstr "prehrávanie s %1kanálmi nie je podporované"
-
-#: plugins/playback/PlayBack-Qt.cpp:167
-#, kde-format
-msgid "sample rate %1 Hz is not supported"
-msgstr "vzorkovacia frekvencia %1 Hz nie je podporovaná"
-
-#: plugins/playback/PlayBack-Qt.cpp:171
-#, kde-format
-msgid "integer sample format is not supported"
-msgstr "celočíselný formát vzorky nie je podporovaný"
-
-#: plugins/playback/PlayBack-Qt.cpp:216
+#: plugins/playback/PlayBack-Qt.cpp:192
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
 msgstr "Otvorenie Qt multimediálneho zariadenia '%1' zlyhalo"
@@ -7092,18 +7078,18 @@ msgstr "Zmeniť vzorkovaciu frekvenciu"
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
 msgstr "Mením vzorkovaciu frekvenciu z %1 kHz na %2 kHz..."
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:176
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:174
 #, kde-format
 msgid "..."
 msgstr "..."
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:278
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:276
 #, kde-format
 msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
 msgstr "Týmto by sa prepísal nasledujúci súbor(y): %1Naozaj chcete pokračovať?"
 
-#: plugins/saveblocks/SaveBlocksPlugin.cpp:291
+#: plugins/saveblocks/SaveBlocksPlugin.cpp:289
 #, kde-format
 msgid ""
 "The following directories do not exist: %1Do you want to create them and "
@@ -7546,6 +7532,18 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Ticho"
+
+#~ msgid "PCM encoding is not supported"
+#~ msgstr "Kódovania PCM nie je podporované"
+
+#~ msgid "playback with %1 channels is not supported"
+#~ msgstr "prehrávanie s %1kanálmi nie je podporované"
+
+#~ msgid "sample rate %1 Hz is not supported"
+#~ msgstr "vzorkovacia frekvencia %1 Hz nie je podporovaná"
+
+#~ msgid "integer sample format is not supported"
+#~ msgstr "celočíselný formát vzorky nie je podporovaný"
 
 #~ msgctxt ""
 #~ "time of label tooltip, %1=hour, %2=minute, %3=second, %4=milliseconds"

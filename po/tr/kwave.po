@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-07 00:39+0000\n"
-"PO-Revision-Date: 2024-03-22 16:18+0300\n"
+"PO-Revision-Date: 2024-08-07 13:14+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -31,12 +31,12 @@ msgstr "metebilgin48@gmail.com, emir_sari@icloud.com"
 #: kwave/App.cpp:150
 #, kde-format
 msgid "Reading configuration..."
-msgstr "Yapılandırma okunuyor..."
+msgstr "Yapılandırma okunuyor…"
 
 #: kwave/App.cpp:230
 #, kde-format
 msgid "Opening main window..."
-msgstr "Ana pencere açılıyor..."
+msgstr "Ana pencere açılıyor…"
 
 #: kwave/App.cpp:276
 #, kde-format
@@ -46,12 +46,12 @@ msgstr "Başlatma tamamlandı"
 #: kwave/FileContext.cpp:202
 #, kde-format
 msgid "Scanning plugins..."
-msgstr "Eklentiler taranıyor..."
+msgstr "Eklentiler taranıyor…"
 
 #: kwave/FileContext.cpp:226 kwave/FileContext.cpp:227
 #, kde-format
 msgid "Loading plugins..."
-msgstr "Eklentiler yükleniyor..."
+msgstr "Eklentiler yükleniyor…"
 
 #: kwave/FileContext.cpp:229
 #, kde-format
@@ -147,7 +147,7 @@ msgstr "Martin Wilz"
 #: kwave/main.cpp:53
 #, kde-format
 msgid "Creator of the project, development 1998-2000"
-msgstr "Bu projenin oluşturucusu, 1998-2000 yılları arasında geliştirilmesi"
+msgstr "Bu projenin oluşturucusu, 1998–2000 yılları arasında geliştirilmesi"
 
 #: kwave/main.cpp:55
 #, kde-format
@@ -207,7 +207,7 @@ msgstr "http://rikkus.info/esoundlevelmeter.html"
 #: kwave/main.cpp:77
 #, kde-format
 msgid "Joerg-Christian Boehme"
-msgstr "Joerg-Christian Boehme"
+msgstr "Jörg–Christian Boehme"
 
 #: kwave/main.cpp:78
 #, kde-format
@@ -227,7 +227,7 @@ msgstr "aRts Yazarı"
 #: kwave/main.cpp:89
 #, kde-format
 msgid "Sven-Steffen Arndt"
-msgstr "Sven-Steffen Arndt"
+msgstr "Sven–Steffen Arndt"
 
 #: kwave/main.cpp:90
 #, kde-format
@@ -272,7 +272,7 @@ msgstr "Robert Leslie"
 #: kwave/main.cpp:110
 #, kde-format
 msgid "Author of the 'mad' MP3 decoder library"
-msgstr "'mad' MP3 kod çözücü kitaplığının yazarı"
+msgstr "“mad” MP3 kod çözücü kitaplığının yazarı"
 
 #: kwave/main.cpp:112
 #, kde-format
@@ -287,7 +287,7 @@ msgstr "T.H.F. Klok ve Cedric Tefft"
 #: kwave/main.cpp:115
 #, kde-format
 msgid "Maintainers of the 'id3lib' library"
-msgstr "'id3lib' kitaplığının bakıcıları"
+msgstr "“id3lib” kitaplığının bakıcıları"
 
 #: kwave/main.cpp:117
 #, kde-format
@@ -302,7 +302,7 @@ msgstr "Michael Pruett"
 #: kwave/main.cpp:120
 #, kde-format
 msgid "Author of the 'audiofile' library"
-msgstr "'audiofile' kitaplığının yazarı"
+msgstr "“audiofile” kitaplığının yazarı"
 
 #: kwave/main.cpp:122
 #, kde-format
@@ -327,7 +327,7 @@ msgstr "Erik de Castro Lopo"
 #: kwave/main.cpp:130
 #, kde-format
 msgid "Author of the 'sndfile' library"
-msgstr "'sndfile' kitaplığının yazarı"
+msgstr "“sndfile” kitaplığının yazarı"
 
 #: kwave/main.cpp:132
 #, kde-format
@@ -367,7 +367,7 @@ msgstr "Karşılama ekranını gösterme."
 #: kwave/main.cpp:173
 #, kde-format
 msgid "Start Kwave iconified."
-msgstr "Simgelendirilmiş K Dalga'i başlat."
+msgstr "K Dalga’yı simge durumunda başlatın."
 
 #: kwave/main.cpp:178
 #, kde-format
@@ -399,14 +399,14 @@ msgctxt "description of command line parameter"
 msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 msgstr ""
-"Ses dosyalarının listesi, K Dalga makro dosyaları ya da açılacak K Dalga "
-"URL'leri (isteğe bağlı)"
+"Ses dosyalarının listesi, K Dalga makrosu dosyaları veya açılacak K Dalga "
+"URL’leri (isteğe bağlı)"
 
 #: kwave/main.cpp:192
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
-msgstr "[dosya...]"
+msgstr "[dosya…]"
 
 #: kwave/main.cpp:197
 #, kde-format
@@ -416,12 +416,12 @@ msgstr "K Dalga"
 #: kwave/main.cpp:199
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
-msgstr "KDE 5 çatı-sistemi üzerine kurulmuş bir ses düzenleyicisi"
+msgstr "KDE Frameworks 5 üzerine yapılı bir ses düzenleyicisi"
 
 #: kwave/main.cpp:201
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
-msgstr "(c) 2016, Thomas Eschenbacher"
+msgstr "© 2016, Thomas Eschenbacher"
 
 #: kwave/MainWidget.cpp:93
 #, kde-format
@@ -465,7 +465,7 @@ msgstr "Dosya"
 #: kwave/menus.config:18
 msgctxt "menu: /File/New..."
 msgid "New..."
-msgstr "Yeni..."
+msgstr "Yeni…"
 
 #: kwave/menus.config:19
 msgctxt "menu: /File/Open"
@@ -500,17 +500,17 @@ msgstr "Kaydet"
 #: kwave/menus.config:36
 msgctxt "menu: /File/Save/As..."
 msgid "As..."
-msgstr "Gibi..."
+msgstr "Gibi…"
 
 #: kwave/menus.config:38
 msgctxt "menu: /File/Save/Selection..."
 msgid "Selection..."
-msgstr "Seçim..."
+msgstr "Seçim…"
 
 #: kwave/menus.config:39
 msgctxt "menu: /File/Save/Blocks..."
 msgid "Blocks..."
-msgstr "Bloklar..."
+msgstr "Bloklar…"
 
 #: kwave/menus.config:41
 msgctxt "menu: /File/Close"
@@ -670,12 +670,12 @@ msgstr "Temizle"
 #: kwave/menus.config:105
 msgctxt "menu: /Edit/Clipboard/Insert At..."
 msgid "Insert At..."
-msgstr "Ekle..."
+msgstr "Ekle…"
 
 #: kwave/menus.config:112
 msgctxt "menu: /Edit/File Properties..."
 msgid "File Properties..."
-msgstr "Dosya Özellikleri..."
+msgstr "Dosya Özellikleri…"
 
 #: kwave/menus.config:115
 msgctxt "menu: /View"
@@ -685,7 +685,7 @@ msgstr "Görünüm"
 #: kwave/menus.config:116
 msgctxt "menu: /View/Go to Position..."
 msgid "Go to Position..."
-msgstr "Konuma Git..."
+msgstr "Konuma Git…"
 
 #: kwave/menus.config:117
 msgctxt "menu: /View/Begin"
@@ -740,7 +740,7 @@ msgstr "Tüm Sinyale Ölçekle"
 #: kwave/menus.config:129
 msgctxt "menu: /View/Zoom to 100%"
 msgid "Zoom to 100%"
-msgstr "%​​100'e Yakınlaştır"
+msgstr "%​​100’e Yakınlaştır"
 
 #: kwave/menus.config:131
 msgctxt "menu: /Play"
@@ -800,7 +800,7 @@ msgstr "Kayıt"
 #: kwave/menus.config:143
 msgctxt "menu: /Record/Prepare..."
 msgid "Prepare..."
-msgstr "Hazırla..."
+msgstr "Hazırla…"
 
 #: kwave/menus.config:144
 msgctxt "menu: /Record/Start Now!"
@@ -815,7 +815,7 @@ msgstr "Etiketler"
 #: kwave/menus.config:147
 msgctxt "menu: /Labels/Add..."
 msgid "Add..."
-msgstr "Ekle..."
+msgstr "Ekle…"
 
 #: kwave/menus.config:148
 msgctxt "menu: /Labels/Delete"
@@ -825,12 +825,12 @@ msgstr "Sil"
 #: kwave/menus.config:153
 msgctxt "menu: /Labels/Load..."
 msgid "Load..."
-msgstr "Yükle..."
+msgstr "Yükle…"
 
 #: kwave/menus.config:154
 msgctxt "menu: /Labels/Save..."
 msgid "Save..."
-msgstr "Kaydet..."
+msgstr "Kaydet…"
 
 #: kwave/menus.config:161
 msgctxt "menu: /Fx"
@@ -960,7 +960,7 @@ msgstr "Ayrı Pencereler (SDI)"
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in..."
 msgid "Show Files in..."
-msgstr "Dosyaları Göster..."
+msgstr "Dosyaları Göster…"
 
 #: kwave/menus.config:239
 msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
@@ -1000,7 +1000,7 @@ msgstr "Araç Çubuğunu Sıfırla"
 #: kwave/menus.config:249
 msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
 msgid "Re-enable all \"Do not ask again\" messages"
-msgstr "Tüm \"Bir Daha Sorma\" Uyarılarını Yeniden Etkinleştir"
+msgstr "Tüm “Bir Daha Sorma” Uyarılarını Yeniden Etkinleştir"
 
 #: kwave/menus.config:252
 msgctxt "menu: /Help/Contents"
@@ -1084,12 +1084,12 @@ msgstr "v%1"
 #: kwave/TopWidget.cpp:270
 #, kde-format
 msgid "Loading main menu..."
-msgstr "Ana menü yükleniyor..."
+msgstr "Ana menü yükleniyor…"
 
 #: kwave/TopWidget.cpp:343
 #, kde-format
 msgid "Initializing toolbar..."
-msgstr "Araç çubuğu ilklendiriliyor..."
+msgstr "Araç çubuğu ilklendiriliyor…"
 
 #: kwave/TopWidget.cpp:352
 #, kde-format
@@ -1109,7 +1109,7 @@ msgstr "Şu anki dosyayı kaydet"
 #: kwave/TopWidget.cpp:367
 #, kde-format
 msgid "Save the current file under a different name or file format..."
-msgstr "Geçerli dosyayı farklı bir adla veya biçimle kaydet..."
+msgstr "Geçerli dosyayı farklı bir adla veya biçimle kaydet…"
 
 #: kwave/TopWidget.cpp:372
 #, kde-format
@@ -1164,23 +1164,23 @@ msgid ""
 "again\" checkbox will then be enabled again."
 msgstr ""
 "Kapatılmış tüm bildirimleri yeniden etkinleştirilsin mi?\n"
-"Daha önceden \"Bir daha sorma\" onay kutusu ile kapatılmış iletiler yeniden "
+"Daha önceden “Bir daha sorma” onay kutusu ile kapatılmış iletiler yeniden "
 "etkinleşecektir."
 
 #: kwave/TopWidget.cpp:1011
 #, kde-format
 msgid "Executing command '%1'..."
-msgstr "'%1' komutu çalıştırılıyor..."
+msgstr "“%1” komutu çalıştırılıyor…"
 
 #: kwave/TopWidget.cpp:1031
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
-msgstr "'%1' K Dalga betiği çalıştırılıyor..."
+msgstr "“%1” K Dalga betiği çalıştırılıyor…"
 
 #: kwave/TopWidget.cpp:1041
 #, kde-format
 msgid "Loading file '%1'..."
-msgstr "'%1' dosyası yükleniyor..."
+msgstr "“%1” dosyası yükleniyor…"
 
 #: kwave/TopWidget.cpp:1053 plugins/codec_audiofile/AudiofileDecoder.cpp:124
 #: plugins/codec_flac/FlacEncoder.cpp:248
@@ -1201,13 +1201,13 @@ msgstr "Yetersiz bellek"
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
-msgstr "'%1' açılamadı"
+msgstr "“%1” açılamadı"
 
 #: kwave/TopWidget.cpp:1061
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
-msgstr "'%1' geçersiz ya da bilinmeyen bir dosya türü"
+msgstr "“%1” geçersiz ya da bilinmeyen bir dosya türü"
 
 #: kwave/TopWidget.cpp:1099
 #, kde-format
@@ -1231,7 +1231,7 @@ msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
 "2000...3000 (1000 samples)'"
 msgid "Selected: %1...%2 (%3 samples)"
-msgstr "Seçili: %1... %2 (%3 örnek)"
+msgstr "Seçili: %1… %2 (%3 örnek)"
 
 #: kwave/TopWidget.cpp:1221
 #, kde-format
@@ -1239,7 +1239,7 @@ msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
 "(3 min)'"
 msgid "Selected: %1...%2 (%3)"
-msgstr "Seçili: %1... %2 (%3)"
+msgstr "Seçili: %1… %2 (%3)"
 
 #: kwave/TopWidget.cpp:1240
 #, kde-format
@@ -1304,13 +1304,13 @@ msgstr "(Tümü)"
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
-msgstr "#%1 (%2)"
+msgstr "№%1 (%2)"
 
 #: kwave/TopWidget.cpp:1424
 #, kde-format
 msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"
-msgstr "#%1"
+msgstr "№%1"
 
 #: kwave/ZoomToolBar.cpp:64
 #, kde-format
@@ -1330,7 +1330,7 @@ msgstr "Uzaklaştır"
 #: kwave/ZoomToolBar.cpp:79
 #, kde-format
 msgid "Zoom to 100%"
-msgstr "%​100'e yakınlaştır"
+msgstr "%​100’e yakınlaştır"
 
 #: kwave/ZoomToolBar.cpp:84
 #, kde-format
@@ -1436,7 +1436,7 @@ msgstr "Eğri Önayarlarını Kaydet"
 #: libgui/FilterPlugin.cpp:241
 #, kde-format
 msgid "Applying '%1'..."
-msgstr "'%1' uygulanıyor..."
+msgstr "“%1” uygulanıyor…"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbHours)
 #: libgui/HMSTimeWidgetBase.ui:23
@@ -1463,13 +1463,13 @@ msgstr " sn"
 #, kde-format
 msgctxt "tooltip of a label, %1=index, %2=description/name"
 msgid "Label #%1 (%2)"
-msgstr "Etiket #%1 (%2)"
+msgstr "Etiket №%1 (%2)"
 
 #: libgui/LabelItem.cpp:77
 #, kde-format
 msgctxt "tooltip of a label, without description, %1=index"
 msgid "Label #%1"
-msgstr "Etiket #%1"
+msgstr "Etiket №%1"
 
 #: libgui/LabelItem.cpp:94 libgui/TrackView.cpp:274
 #, kde-format
@@ -1489,7 +1489,7 @@ msgstr "&Sil"
 #: libgui/LabelItem.cpp:119
 #, kde-format
 msgid "&Properties..."
-msgstr "&Özellikler..."
+msgstr "&Özellikler…"
 
 #: libgui/LabelItem.cpp:159
 #, kde-format
@@ -1500,7 +1500,7 @@ msgstr "Etiketi Taşı"
 #: libgui/LabelPropertiesWidgetBase.ui:20
 #, kde-format
 msgid "Label Properties..."
-msgstr "Etiket Özellikleri..."
+msgstr "Etiket Özellikleri…"
 
 #. i18n: ectx: property (whatsThis), widget (Kwave::SelectTimeWidget, time)
 #: libgui/LabelPropertiesWidgetBase.ui:44
@@ -1567,7 +1567,7 @@ msgid ""
 msgstr ""
 "<b>etiket indeksi</b><br>\n"
 "Yalnızca etiketlerin sayısal indeksidir, 0 ile başlar, konuma göre "
-"sıralanır. Düşük indeks 'sol' anlamına, yüksek indeks ise 'sağ' anlamına "
+"sıralanır. Düşük indeks “sol” anlamına, yüksek indeks ise “sağ” anlamına "
 "gelir. İndeksin kendisini değiştiremezsiniz; ancak etiketin konumunu "
 "değiştirebilirsiniz."
 
@@ -1665,14 +1665,14 @@ msgstr "Saat"
 #: libgui/SelectTimeWidgetBase.ui:314 plugins/newsignal/NewSigDlg.ui:601
 #, no-c-format, kde-format
 msgid "0%"
-msgstr "%0"
+msgstr "%​0"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel3_2)
 #. i18n: ectx: property (text), widget (QLabel, TextLabel3)
 #: libgui/SelectTimeWidgetBase.ui:340 plugins/newsignal/NewSigDlg.ui:627
 #, no-c-format, kde-format
 msgid "50%"
-msgstr "% 50"
+msgstr "%​50"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2_2)
 #. i18n: ectx: property (text), widget (QLabel, TextLabel2)
@@ -1720,7 +1720,7 @@ msgstr "Seçim"
 #: libgui/SignalWidget.cpp:262
 #, kde-format
 msgid "&Save..."
-msgstr "&Kaydet..."
+msgstr "&Kaydet…"
 
 #: libgui/SignalWidget.cpp:269
 #, kde-format
@@ -1883,9 +1883,9 @@ msgid ""
 "subject of the file.\n"
 "Example: 'van Beethoven, Ludwig'"
 msgstr ""
-"Konu olan orjinal dosyanın yazarını\n"
+"Konu olan özgün dosyanın yazarını\n"
 "tanımlar.\n"
-"Örnek: 'van Beethoven, Ludwig'"
+"Örnek: “van Beethoven, Ludwig”"
 
 #: libkwave/FileInfo.cpp:60
 msgid "Lower Bitrate"
@@ -1901,7 +1901,7 @@ msgstr "Bit Hızı Kipi"
 
 #: libkwave/FileInfo.cpp:65
 msgid "Bitrate Mode (ABR, VBR, CBR, etc...)"
-msgstr "Bit Hızı Kipi (ABR, VBR, CBR, vb...)"
+msgstr "Bit Hızı Kipi (ABR, VBR, CBR, vb…)"
 
 #: libkwave/FileInfo.cpp:68
 msgid "Bitrate"
@@ -1998,10 +1998,10 @@ msgid ""
 "by a space.\n"
 "Example: 'Copyright Linux community 2002'"
 msgstr ""
-"Dosya için telif hakkı bilgisinin kaydı. Eğer birden fazla telif\n"
-"hakkı var ise, bunlar noktalı virgül ve bunu takip eden boşluk\n"
+"Dosya için telif hakkı bilgisinin kaydı. Eğer birden çok telif\n"
+"hakkı varsa bunlar noktalı virgül ve bunu takip eden boşluk\n"
 "ile ayrılırlar.\n"
-"Örnek: 'Linux topluluk telif hakkı 2002'"
+"Örnek: “Telif hakkı Linux Topluluğu 2002”"
 
 #: libkwave/FileInfo.cpp:123
 msgid "Copyrighted"
@@ -2021,7 +2021,7 @@ msgid ""
 "Example: '2001-12-24'"
 msgstr ""
 "Dosyanın oluşturulma tarihi.\n"
-"Örnek: '2001-12-24'"
+"Örnek: “2001-12-24”"
 
 #: libkwave/FileInfo.cpp:133
 msgid "Engineer"
@@ -2070,8 +2070,8 @@ msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
 msgstr ""
-"Özgün çalışmanın türünü ya da stilini tanımlar.\n"
-"Örnekler: 'klasik', 'pop'"
+"Özgün çalışmanın türünü veya stilini tanımlar.\n"
+"Örnekler: “klasik”, “pop”"
 
 #: libkwave/FileInfo.cpp:156
 msgid "ISRC"
@@ -2126,11 +2126,11 @@ msgid ""
 "See http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
 "for details'), etc."
 msgstr ""
-"Lisans bilgisi, örn., 'Tüm Hakları Saklıdır',\n"
-"'Herhangi Bir Kullanım Yasaktır', lisansa ait bir URL\n"
-"veya EFF Açık Ses Lisansı (''Açık Ses Lisansı koşulları\n"
+"Lisans bilgisi; örneğin, “Tüm Hakları Saklıdır”,\n"
+"“Herhangi Bir Kullanım Yasaktır”, lisansa ait bir URL\n"
+"veya EFF Açık Ses Lisansı (“Açık Ses Lisansı koşulları\n"
 "altında dağıtılır. Ayrıntılar için\n"
-"http://www.eff.org/IP/Open_licenses/eff_oal.html')\n"
+"http://www.eff.org/IP/Open_licenses/eff_oal.html”)\n"
 " veya benzeri adreslere bakın."
 
 #: libkwave/FileInfo.cpp:184
@@ -2145,7 +2145,7 @@ msgid ""
 msgstr ""
 "Özgün konu olan dosyanın ilk olarak\n"
 "kaydedildiği yeri tanımlar.\n"
-"Örnek: 'orkestra'"
+"Örnek: “orkestra”"
 
 #: libkwave/FileInfo.cpp:190
 msgid "Mime Type"
@@ -2196,8 +2196,8 @@ msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: \"Symphony No.6, Op.68 'Pastoral'\""
 msgstr ""
-"Dosyanın konusunun başlığını saklar.\n"
-"Örnek: \"Symphony No.6, Op.68 'Pastoral'\""
+"Dosyanın konusunun başlığını depolar.\n"
+"Örnek: “Symphony No. 6, Op. 68 ‘Pastoral’”"
 
 #: libkwave/FileInfo.cpp:215
 msgid "Opus Frame Length"
@@ -2220,7 +2220,7 @@ msgid ""
 "(i.e. the 'record label')"
 msgstr ""
 "Kaydı oluşturan organizasyonun adı\n"
-"(ör: 'record label')"
+"(örneğin: “plak şirketi”)"
 
 #: libkwave/FileInfo.cpp:225
 msgid "Original"
@@ -2263,8 +2263,8 @@ msgid ""
 "Example: 'Linux audio collection'"
 msgstr ""
 "Dosyanın aslında ne için olduğunu\n"
-"başlığında ya da adında belirtir.\n"
-"Örnek: 'Linux ses koleksiyonu'"
+"başlığında veya adında belirtir.\n"
+"Örnek: “Linux ses koleksiyonu”"
 
 #: libkwave/FileInfo.cpp:245
 msgid "Sample Format"
@@ -2276,7 +2276,7 @@ msgid ""
 "Example: '32-bit IEEE floating-point'"
 msgstr ""
 "Saklanan sayısallaştırmış ses örnekleri için kullanılacak biçim.\n"
-"Örnek: '32-bit IEEE Değişken-Nokta'"
+"Örnek: “32 bit IEEE Kayan Noktalı”"
 
 #: libkwave/FileInfo.cpp:250
 msgid "Sample Rate"
@@ -2298,7 +2298,7 @@ msgid ""
 msgstr ""
 "Dosyayı oluşturulurken kullanılan yazılım\n"
 "paketinin adını tanımlar.\n"
-"Örnek: 'K Dalga v0.6.4-1'"
+"Örnek: “K Dalga v0.6.4-1”"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_source)
 #. i18n: ectx: property (title), widget (QGroupBox, grpSource)
@@ -2316,7 +2316,7 @@ msgid ""
 msgstr ""
 "Doyanın özgün konusunu sağlayan kişi veya\n"
 "organizasyonun adını tanımlar.\n"
-"Örnek: 'Kaotik Ses Araştırması'"
+"Örnek: “Kaotik Ses Araştırması”"
 
 #: libkwave/FileInfo.cpp:266
 msgid "Source form"
@@ -2330,7 +2330,7 @@ msgid ""
 msgstr ""
 "Sayısallaştırılmış materyalin özgün\n"
 " halini tanımlar.\n"
-"Örnekler: 'Plak/Vinyl/90RPM', 'Ses DAT', 'Kaset/CrO2/60dk'"
+"Örnekler: “Plak/Vinyl/90 RPM”, “DAT Sesi”, “Kaset/CrO2/60dk”"
 
 #: libkwave/FileInfo.cpp:273
 msgid "Subject"
@@ -2342,7 +2342,7 @@ msgid ""
 "Example: 'Bird voices at early morning'"
 msgstr ""
 "Dosyanın konusunu tanımlar.\n"
-"Örnek: 'Seher vakti kuş sesleri'"
+"Örnek: “Seher vakti kuş sesleri”"
 
 #: libkwave/FileInfo.cpp:278
 msgid "Technician"
@@ -2354,7 +2354,7 @@ msgid ""
 "Example: 'Torvalds, Linus'"
 msgstr ""
 "Konu olan dosyayı sayısallaştıran kişinin kimliği.\n"
-"Örnek: 'Torvalds, Linus'"
+"Örnek: “Torvalds, Linus”"
 
 #: libkwave/FileInfo.cpp:284
 msgid "Track"
@@ -2477,7 +2477,7 @@ msgctxt ""
 "file progress dialog, %1=number of loaded/saved megabytes, %2=number of "
 "total megabytes to load or save"
 msgid "%1 MB of %2 MB done"
-msgstr "%2 MB'ın %1 MB'ı tamamladı"
+msgstr "%1/%2 MB tamamlandı"
 
 #: libkwave/FileProgress.cpp:335
 #, kde-format
@@ -2833,7 +2833,7 @@ msgstr "Müzikal"
 
 #: libkwave/GenreType.cpp:180
 msgid "Rock 'n' Roll"
-msgstr "Rock 'n' Roll"
+msgstr "Rock’n Roll"
 
 #: libkwave/GenreType.cpp:181
 msgid "Hard Rock"
@@ -3305,15 +3305,15 @@ msgstr "polinom, n. dereceden"
 
 #: libkwave/Interpolation.cpp:37
 msgid "Polynom, 3rd Degree"
-msgstr "Polinom, 3cü dereceden"
+msgstr "Polinom, 3. dereceden"
 
 #: libkwave/Interpolation.cpp:38
 msgid "Polynom, 5th Degree"
-msgstr "Polinom, 5ci dereceden"
+msgstr "Polinom, 5. dereceden"
 
 #: libkwave/Interpolation.cpp:39
 msgid "Polynom, 7th Degree"
-msgstr "Polinom, 7ci dereceden"
+msgstr "Polinom, 7. dereceden"
 
 #: libkwave/Interpolation.cpp:40
 msgid "Sample and Hold"
@@ -3322,12 +3322,12 @@ msgstr "Örnekle ve Dur"
 #: libkwave/Logger.cpp:78
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
-msgstr "'%1' sistem günlüğünü yazmak için açılamadı"
+msgstr "“%1” sistem günlüğünü yazmak için açılamadı"
 
 #: libkwave/PlaybackController.cpp:663
 #, kde-format
 msgid "Unable to open '%1'"
-msgstr "'%1' açılamadı"
+msgstr "“%1” açılamadı"
 
 #: libkwave/PlayBackTypesMap.cpp:34 plugins/record/RecordTypesMap.cpp:47
 msgid "ALSA (Advanced Linux Sound Architecture)"
@@ -3348,12 +3348,12 @@ msgstr "Qt Çoklu Ortam Sesi"
 #: libkwave/Plugin.cpp:215
 #, kde-format
 msgid "Running plugin '%1'..."
-msgstr "'%1' eklentisi çalışıyor..."
+msgstr "“%1” eklentisi çalışıyor…"
 
 #: libkwave/PluginManager.cpp:190
 #, kde-format
 msgid "The plugin '%1' is unknown or invalid."
-msgstr "'%1' eklentisi bilinmiyor ya da geçersiz."
+msgstr "“%1” eklentisi bilinmiyor ya da geçersiz."
 
 #: libkwave/PluginManager.cpp:191
 #, kde-format
@@ -3363,7 +3363,7 @@ msgstr "Eklenti yüklenirken hata oluştu"
 #: libkwave/PluginManager.cpp:670
 #, kde-format
 msgid "Loading plugin %1..."
-msgstr "%1 eklentisi yükleniyor..."
+msgstr "%1 eklentisi yükleniyor…"
 
 #: libkwave/SampleFormat.cpp:37
 msgid "Linear Two's Complement"
@@ -3375,11 +3375,11 @@ msgstr "İşaretsiz Tamsayı"
 
 #: libkwave/SampleFormat.cpp:41
 msgid "32-bit IEEE Floating-Point"
-msgstr "32-bit IEEE Kayan-Noktalı"
+msgstr "32 bit IEEE Kayan Noktalı"
 
 #: libkwave/SampleFormat.cpp:43
 msgid "64-bit IEEE Double Precision Floating-Point"
-msgstr "64-bit IEEE Çift Hassaslıkta Kayan-Noktalı"
+msgstr "64 bit IEEE Çift Hassaslıkta Kayan Noktalı"
 
 #: libkwave/SignalManager.cpp:334
 #, kde-format
@@ -3402,7 +3402,7 @@ msgstr ""
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
-msgstr "(%1 KDE ana-çatısı ile oluşturulmuştur)"
+msgstr "(KDE Frameworks %1 ile oluşturulmuştur)"
 
 #: libkwave/SignalManager.cpp:457
 #, kde-format
@@ -3516,7 +3516,7 @@ msgid ""
 "under '%1'/'%2'."
 msgstr ""
 "<b>İpucu</b>: Geri almayı etkinleştirebilmek için bellek miktarınını<br> "
-"'%1'/'%2' altından ayarlayabilirsiniz."
+"“%1”/“%2” altından ayarlayabilirsiniz."
 
 #: libkwave/SignalManager.cpp:1376
 #, kde-format
@@ -3576,18 +3576,18 @@ msgctxt ""
 "name of the undo action for inserting multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Insert %1 %2 objects"
-msgstr "%1 %2 nesneleri ekle"
+msgstr "%1 %2 nesneler ekle"
 
 #: libkwave/undo/UndoAddMetaDataAction.cpp:120
 #, kde-format
 msgid "Insert Meta Data"
-msgstr "Meta Verisi Ekle"
+msgstr "Üst Veri Ekle"
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:60
 #, kde-format
 msgctxt "name of the undo action for deleting a meta data object"
 msgid "Delete %1"
-msgstr "%1 'i sil"
+msgstr "Sil: %1"
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:79
 #, kde-format
@@ -3600,7 +3600,7 @@ msgstr "%1 %2 nesneyi sil"
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:83
 #, kde-format
 msgid "Delete Meta Data"
-msgstr "Meta Veriyi Sil"
+msgstr "Üst Veriyi Sil"
 
 #: libkwave/undo/UndoModifyAction.cpp:45
 #, kde-format
@@ -3680,7 +3680,7 @@ msgstr "K Dalga Hakkında"
 #: plugins/about/AboutDialogBase.ui:53
 #, kde-format
 msgid "<h1>Kwave - a sound editor by KDE</h1>"
-msgstr "<h1>K Dalga - KDE ses düzenleyicisi</h1>"
+msgstr "<h1>K Dalga — KDE ses düzenleyicisi</h1>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, about_tab)
 #: plugins/about/AboutDialogBase.ui:67
@@ -3701,7 +3701,7 @@ msgid ""
 "body></html>"
 msgstr ""
 "<html><head/><body><p><span style=\" font-size:x-large; font-weight:600;\">K "
-"Dalga, KDE Frameworks için tasarlanmış bir ses düzenleyicidir. </span></"
+"Dalga, KDE Frameworks için tasarlanmış bir ses düzenleyicisidir.</span></"
 "p><p><br/>K Dalga ile birden çok parça dosyaları da dahil olmak üzere bir "
 "çok çeşit ses dosyasını düzenleyebilirsiniz. Her parçanın kendisini "
 "değiştirip yeniden çalabilirsiniz.<br/>K Dalga birçok eklenti ile ses "
@@ -3960,7 +3960,7 @@ msgid ""
 "'%1'"
 msgstr ""
 "Dosyayı açarken bir hata oluştu:\n"
-"'%1'"
+"“%1”"
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
@@ -4018,7 +4018,7 @@ msgid ""
 "Assuming Mono..."
 msgstr ""
 "Dosya geçersiz 0x%1 kanal modu içeriyor\n"
-"Mono olarak kabul ediliyor..."
+"Mono olarak kabul ediliyor…"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:447
 #, kde-format
@@ -4057,7 +4057,7 @@ msgid ""
 "at position %2."
 msgstr ""
 "Dosyanın kodunu çözerken hata ile karşılaşıldı:\n"
-"'%1',\n"
+"“%1”,\n"
 "%2 konumunda."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:552
@@ -4092,7 +4092,7 @@ msgid ""
 "\n"
 "%2"
 msgstr ""
-"'%1' Harici kodlayıcı çağrılırken hata oluştu:\n"
+"“%1” Harici kodlayıcı çağrılırken hata oluştu:\n"
 "\n"
 "%2"
 
@@ -4160,7 +4160,7 @@ msgstr "Tebrikler, sınama başarı ile gerçekleşti!"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:20
 #, kde-format
 msgid "MP3 Encoder Settings"
-msgstr "MP3 Kod-çözücü Ayarları"
+msgstr "MP3 Kod Çözücüsü Ayarları"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpProgram)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:32
@@ -4181,7 +4181,7 @@ msgstr "Kodlayıcı için elle göz at"
 #: plugins/fileinfo/FileInfoDlg.ui:1273 plugins/playback/PlayBackDlg.ui:98
 #, kde-format
 msgid "&Select..."
-msgstr "&Seç..."
+msgstr "&Seç…"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbProgram)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:66
@@ -4199,7 +4199,7 @@ msgstr "Kurulmuş kodlayıcıyı otomatik tespit et"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:92
 #, kde-format
 msgid "&Auto Detect..."
-msgstr "Otomatik &Algıla..."
+msgstr "Otomatik &Algıla…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:101
@@ -4665,7 +4665,7 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to mono."
 msgstr ""
-"Çevresel ses kanal başına 32kBit/s'den daha küçük olması gerekmektedir, bu "
+"Çevresel ses kanal başına 32 kBit/sn’den daha küçük olması gerekmektedir, bu "
 "dosya tek kanalla düşürülmelidir."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:153
@@ -4674,14 +4674,14 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to stereo."
 msgstr ""
-"Çevresel ses kanal başına 32kBit/s'den daha küçük olması gerekmektedir, bu "
+"Çevresel ses kanal başına 32 kBit/sn’den daha küçük olması gerekmektedir, bu "
 "dosya iki kanalla düşürülmelidir."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:223
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
-msgstr "%1 kBit/s bit akışı aralığın dışında, %2 kBit/s ile limitlidir"
+msgstr "%1 kBit/sn bit akışı aralığın dışında, %2 kBit/s ile limitlidir"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:275
 #, kde-format
@@ -4691,7 +4691,7 @@ msgid ""
 "supported are %2 ... %3 samples/sec."
 msgstr ""
 "%1 örnek/sn örnekleme hızı erimin dışındadır,\n"
-"Desteklenen aralık %2 ... %3 örnek/sn'dir."
+"Desteklenen aralık %2 … %3 örnek/sn’dir."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
 #, kde-format
@@ -4701,23 +4701,23 @@ msgstr "Opus kodlayıcı başarısız oldu"
 #: plugins/codec_ogg/OpusEncoder.cpp:472
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
-msgstr "bit akışını ayarlarken opus kodlayıcısı başarısız oldu: '%1'"
+msgstr "bit akışını ayarlarken opus kodlayıcısı başarısız oldu: “%1”"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:484
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
-msgstr "VBR modunu ayarlarken opus kodlayıcısı başarısız oldu: '%1'"
+msgstr "VBR modunu ayarlarken opus kodlayıcısı başarısız oldu: “%1”"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:494
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
 msgstr ""
-"VBR kısıtlamasını yapılandırırken opus kodlayıcısı başarısız oldu: '%1'"
+"VBR kısıtlamasını yapılandırırken opus kodlayıcısı başarısız oldu: “%1”"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:596
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
-msgstr "Opus kodlayıcısı ara değeri alırken başarısız oldu: '%1'"
+msgstr "Opus kodlayıcısı ara değeri alırken başarısız oldu: “%1”"
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:89
 #, kde-format
@@ -4764,17 +4764,17 @@ msgstr ""
 #: plugins/codec_wav/RIFFParser.cpp:121
 #, kde-format
 msgid "Detecting endianness (standard search)..."
-msgstr "Endian'ın algıla (standart arama)..."
+msgstr "Son hanelilik algılanıyor (standart arama)…"
 
 #: plugins/codec_wav/RIFFParser.cpp:150
 #, kde-format
 msgid "Detecting endianness (statistic search)..."
-msgstr "Endian'ı algıla (istatistik arama)..."
+msgstr "Son hanelilik algılanıyor (istatistik arama)…"
 
 #: plugins/codec_wav/RIFFParser.cpp:546
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
-msgstr "'%1' kayıp parçacık aranıyor..."
+msgstr "“%1” kayıp parçacık aranıyor…"
 
 #: plugins/codec_wav/WavDecoder.cpp:142
 #, kde-format
@@ -4784,7 +4784,7 @@ msgstr "Otomatik Onar"
 #: plugins/codec_wav/WavDecoder.cpp:148
 #, kde-format
 msgid "Reading..."
-msgstr "Okunuyor..."
+msgstr "Okunuyor…"
 
 #: plugins/codec_wav/WavDecoder.cpp:173
 #, kde-format
@@ -4841,7 +4841,7 @@ msgstr "Dosya başlığı hasarlı"
 #: plugins/codec_wav/WavDecoder.cpp:390
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
-msgstr "Dahili libaudiofile hatası #%1: '%2'"
+msgstr "Dahili libaudiofile hatası #%1: “%2”"
 
 #: plugins/codec_wav/WavEncoder.cpp:349
 #, kde-format
@@ -4916,7 +4916,7 @@ msgstr "Hata Ayıkla (%1)"
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
-msgstr "K3b Projesi olarak aktar..."
+msgstr "K3b Projesi olarak aktar…"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:311
 #, kde-format
@@ -4982,9 +4982,9 @@ msgid ""
 "body></html>"
 msgstr ""
 "<html><head/><body><p>Etiketin metninden başlığı ve sanatçıyı algılamak için "
-"desen seçin.<br/>Mevcut olarak anlaşılan yer tutucular:</p><ul style="
-"\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -"
-"qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-"
+"desen seçin.<br/>Şu anda anlaşılan yer tutucular:</p><ul style=\"margin-top: "
+"0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-"
+"indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; margin-"
 "left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
 "style=\" font-family:'Courier New,courier'; font-weight:600;\">[%title] </"
 "span>şarkının başlığı</li><li style=\" margin-top:0px; margin-bottom:0px; "
@@ -5457,25 +5457,25 @@ msgstr "evet"
 #: plugins/fileinfo/FileInfoDlg.ui:853
 #, kde-format
 msgid "Bands 4 to 31"
-msgstr "4'den 31'e Bantlar"
+msgstr "4–31 Arası Bantlar"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:858
 #, kde-format
 msgid "Bands 8 to 31"
-msgstr "8'den 31'e Bantlar"
+msgstr "8–31 Arası Bantlar"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:863
 #, kde-format
 msgid "Bands 12 to 31"
-msgstr "12'den 31'e Bantlar"
+msgstr "12–31 Arası Bantlar"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:868
 #, kde-format
 msgid "Bands 16 to 31"
-msgstr "16'den 31'e Bantlar"
+msgstr "16–31 Arası Bantlar"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
 #: plugins/fileinfo/FileInfoDlg.ui:997
@@ -5579,8 +5579,8 @@ msgid ""
 msgstr ""
 "Örnekleme hızını değiştirdiniz. Tüm dosyayı yeni örnekleme hızına "
 "dönüştürmek mi istersiniz yoksa hasarlı dosyayı onarmak için hız bilgisini "
-"girmek mi istersiniz? Not: Yalnızca örnekleme oranını değiştirmeniz \"Miki "
-"Fare\" efektine neden olur."
+"girmek mi istersiniz? Not: Yalnızca örnekleme oranını değiştirmeniz “Miki "
+"Fare” efektine neden olur."
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:91
 #, kde-format
@@ -5649,12 +5649,12 @@ msgstr "Konuma Git"
 #: plugins/goto/GotoPlugin.cpp:50
 #, kde-format
 msgid "Goto..."
-msgstr "Git..."
+msgstr "Git…"
 
 #: plugins/goto/InsertAtPlugin.cpp:50
 #, kde-format
 msgid "Insert At..."
-msgstr "Buraya Ekle..."
+msgstr "Buraya Ekle…"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LowPassDlg)
 #: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:111
@@ -5814,7 +5814,7 @@ msgid ""
 "For example: \"1 %\", \"15%\" or \"100%\""
 msgstr ""
 "En yüksek ses düzeyine oranlayarak yüzde olarak gürültü düzeyi ekleyin.\n"
-"Örnek: \"%​1\", \"%​15\" or \"%​100\""
+"Örnek: “%​1”, “%​15” veya “%​100”"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:61 plugins/volume/VolumeDlg.ui:91
@@ -5836,7 +5836,7 @@ msgid ""
 "For example: \"-3 dB\", \"- 6 dB\"."
 msgstr ""
 "Logaritmik ölçekte (desibel).\n"
-"Örnek olarak: \"-3 dB\", \"- 6 dB\"."
+"Örnek olarak: “−3 dB”, “−6 dB”."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbLogarithmic)
 #: plugins/noise/NoiseDlg.ui:84 plugins/volume/VolumeDlg.ui:111
@@ -5868,12 +5868,12 @@ msgstr "Normalleştir"
 #: plugins/normalize/NormalizePlugin.cpp:92
 #, kde-format
 msgid "Analyzing volume level..."
-msgstr "Ses düzeyi çözümleniyor..."
+msgstr "Ses düzeyi çözümleniyor…"
 
 #: plugins/normalize/NormalizePlugin.cpp:129
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
-msgstr "Normalleştiriliyor (%1 dB) ..."
+msgstr "Normalleştiriliyor (%1 dB) …"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NotchFilterDlg)
 #: plugins/notch_filter/NotchFilterDlg.ui:14
@@ -5989,7 +5989,7 @@ msgid ""
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
 "Özgün hıza göre yüzde türünden hızı ayarlar.\n"
-"Örneğin: \"%​50\", \"%​75\" veya \"%​125\""
+"Örneğin: “%​50”, “%​75” veya “%​125”"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:222
@@ -6010,8 +6010,8 @@ msgid ""
 "Increments or decrements the speed by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
-"Etkene göre hızı artırır ya da azaltır.\n"
-"Örnek olarak: \"x1\", \"x2\", \"/ 4\""
+"Etkene göre hızı artırır veya azaltır.\n"
+"Örnek olarak: “×1”, “×2”, “/4”"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:239
@@ -6054,12 +6054,12 @@ msgstr ""
 "olabilir. Lütfen daha sonra yeniden deneyin.\n"
 "(İpucu: Programın adını ya da süreç numarasını\n"
 "bulabilirsiniz: Komut satırından\n"
-"\"fuser -v %1\" kullanın.)"
+"“fuser -v %1” kullanın.)"
 
 #: plugins/playback/PlayBack-ALSA.cpp:587
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
-msgstr "'%1' aygıyı açılırken başarısız olundu: %2"
+msgstr "“%1” aygıyı açılırken başarısız olundu: %2"
 
 #: plugins/playback/PlayBack-ALSA.cpp:817
 #: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
@@ -6144,7 +6144,7 @@ msgstr "%1 PulseAudio aygıtı bilinmiyor ya da artık bağlı değil"
 #: plugins/playback/PlayBack-PulseAudio.cpp:520
 #, kde-format
 msgid "playback..."
-msgstr "çal..."
+msgstr "çal…"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:536
 #, kde-format
@@ -6164,18 +6164,17 @@ msgstr "(Sunucunun varsayılanını kullan)"
 #: plugins/playback/PlayBack-Qt.cpp:127
 #, kde-format
 msgid "The audio device '%1' is unknown or no longer connected"
-msgstr "'%1' ses aygıtı bilinmiyor ya da artık bağlı değil"
+msgstr "“%1” ses aygıtı bilinmiyor ya da artık bağlı değil"
 
 #: plugins/playback/PlayBack-Qt.cpp:154
-#, fuzzy, kde-format
-#| msgid "Error: Codec not supported"
+#, kde-format
 msgid "format not supported"
-msgstr "Hata: kodek desteklenmiyor"
+msgstr "Biçim desteklenmiyor"
 
 #: plugins/playback/PlayBack-Qt.cpp:192
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
-msgstr "Qt çoklu ortam aygıtı '%1' açılırken başarısız olundu"
+msgstr "Qt çoklu ortam aygıtı “%1” açılırken başarısız olundu"
 
 #: plugins/playback/PlayBackDialog.cpp:515
 #, kde-format
@@ -6253,7 +6252,7 @@ msgid ""
 "<b>Select...</b><p>Choose a device name on the harddisk, if your device is "
 "not already listed in the list of devices.</p>"
 msgstr ""
-"<b>Seç...</b><p>Eğer aygıtınız aygıtlar listesinde listelenmemişse sabit "
+"<b>Seç…</b><p>Eğer aygıtınız aygıtlar listesinde listelenmemişse sabit "
 "diskiniz üzerinde bir aygıt seçiniz.</p>"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
@@ -6280,16 +6279,16 @@ msgid ""
 "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
 "Multiple applications can play at the same time.</p>"
 msgstr ""
-"<b>Çalma Yöntemi:</b><p>Çalmak için bir biçim ya da sistem\n"
+"<b>Çalma Yöntemi:</b><p>Çalmak için bir biçim veya sistem\n"
 "seçin. Derlenme seçeneklerine bağımlı olarak aşağıdaki yöntemlerden birini "
 "seçebilirsiniz:</p>\n"
-"<p><b><i>OSS (Açık Ses Sistemi)</i></b>: En eski linux gerçeklemesi, Tek ve "
+"<p><b><i>OSS (Açık Ses Sistemi)</i></b>: En eski Linux gerçeklemesi; tek ve "
 "çift kanallı çıkışı destekler. Linux 2.6 çekirdeğinden itibaren "
 "kullanılmıyor; ancak hâlâ oldukça yaygındır. PulseAudio veya başka ses "
 "uygulamaları ile çakışabilir, aynı zamanda yalnızca bir uygulama OSS çalmayı "
 "kullanabilir!</p>\n"
-"<p><b><i>ALSA (Gelişmiş Linux Ses Sistemi)</i></b>: OSS'in yerini alan, daha "
-"fazla donanımı ve özelliği destekler. OSS gibi diğer uygulamalar ile "
+"<p><b><i>ALSA (Gelişmiş Linux Ses Sistemi)</i></b>: OSS’nin yerini almıştır, "
+"daha fazla donanımı ve özelliği destekler. OSS gibi diğer uygulamalar ile "
 "çakışabilir; ancak çıkış yolu olarak <i>dmix</i> adlı eklentiye sahiptir.</"
 "p>\n"
 "<p><b><i>PulseAudio</i></b>: KDE içinde tercih edilen çalma yoludur. Birden "
@@ -6375,7 +6374,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:325
 #, kde-format
 msgid "Number of channels: mono, stereo..."
-msgstr "Kanalların Sayısı: tek kanal, çift kanal..."
+msgstr "Kanalların Sayısı: tek kanal, çift kanal…"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbChannels)
 #: plugins/playback/PlayBackDlg.ui:328
@@ -6390,11 +6389,11 @@ msgid ""
 "second track and the third track.</p>"
 msgstr ""
 "<b>Kanallar:</b><p>Çalmada kullanılacak kanal sayısı. Bu sayı, geçerli "
-"dosyanızdaki sayı ile aynı olmasının önemi yoktur. K Dalga otomatik olarak "
+"dosyanızdaki sayı ile aynı olmasının önemi yoktur. K Dalga kendiliğinden "
 "belirttiğiniz kanallara karıştıracaktır. </p><p><i>Örnek olarak:</i> Eğer 3 "
-"kaydınız var ve çalma ayarı olarak \"iki kanal\" ayarladıysanız sol kanal "
-"ilk parçayı ve + %​50 ikinci parçayı, sağ kanal ise %​50 ikinci kaydı ve "
-"üçüncü kaydı içerecektir.</p>"
+"kaydınız var ve çalma ayarı olarak “iki kanal” ayarladıysanız sol kanal ilk "
+"parçayı ve + %​50 ikinci parçayı, sağ kanal ise %​50 ikinci kaydı ve üçüncü "
+"kaydı içerecektir.</p>"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/playback/PlayBackDlg.ui:388
@@ -6422,7 +6421,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:464
 #, kde-format
 msgid "&Test..."
-msgstr "&Sına..."
+msgstr "&Sına…"
 
 #: plugins/playback/PlayBackPlugin.cpp:404
 #, kde-format
@@ -6530,7 +6529,7 @@ msgstr "%1 bit"
 #: plugins/record/RecordDialog.cpp:1004
 #, kde-format
 msgid "Please check the source device settings..."
-msgstr "Lütfen kaynak aygıt ayarlarını denetleyin..."
+msgstr "Lütfen kaynak aygıt ayarlarını denetleyin…"
 
 #: plugins/record/RecordDialog.cpp:1016
 #, kde-format
@@ -6540,22 +6539,22 @@ msgstr "(boş)"
 #: plugins/record/RecordDialog.cpp:1027
 #, kde-format
 msgid "Buffering..."
-msgstr "Ara belleğe alınıyor..."
+msgstr "Ara belleğe alınıyor…"
 
 #: plugins/record/RecordDialog.cpp:1038
 #, kde-format
 msgid "Prerecording..."
-msgstr "Önkayıt yapılıyor..."
+msgstr "Önkayıt yapılıyor…"
 
 #: plugins/record/RecordDialog.cpp:1049 plugins/record/RecordDialog.cpp:1204
 #, kde-format
 msgid "Waiting for trigger..."
-msgstr "Tetikleyici için bekleniyor..."
+msgstr "Tetikleyici için bekleniyor…"
 
 #: plugins/record/RecordDialog.cpp:1060
 #, kde-format
 msgid "Recording..."
-msgstr "Kayıt ediliyor..."
+msgstr "Kayıt ediliyor…"
 
 #: plugins/record/RecordDialog.cpp:1078
 #, kde-format
@@ -6606,7 +6605,7 @@ msgstr[1] "%1 saniye"
 #, kde-format
 msgctxt "%1=days; %2=hours; %3=minutes; %4=seconds"
 msgid "Waiting for start in %1%2%3%4..."
-msgstr "%1%2%3%4 içinde başlaması için bekleniyor..."
+msgstr "%1%2%3%4 içinde başlaması için bekleniyor…"
 
 #: plugins/record/RecordDialog.cpp:1219
 #, kde-format
@@ -6716,7 +6715,7 @@ msgstr "Duraklat/Sürdür"
 #: plugins/record/RecordDlg.ui:285
 #, kde-format
 msgid " s"
-msgstr " s"
+msgstr " sn"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordStartTime)
 #: plugins/record/RecordDlg.ui:353
@@ -6733,7 +6732,7 @@ msgid ""
 "immediately or as soon as the defined trigger level is reached (if enabled)."
 msgstr ""
 "Seçildiği zaman, verilmiş tarih ve zamanda kayıt başlayacaktır. Lütfen zaman "
-"geçmişte ise kayıt hemen ya da tanımlanmış tetik düzeyine ulaşıldığında "
+"geçmişte ise kayıt hemen veya tanımlanmış tetik düzeyine ulaşıldığında "
 "başlayacaktır (eğer etkinleştirildiyse)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordStartTime)
@@ -6883,11 +6882,11 @@ msgstr ""
 "<b>Kayıt Yöntemi:</b><p>Kaydetmek için bir biçim ya da sistem\n"
 "seçin. Derlenme seçeneklerine bağımlı olarak aşağıdaki yöntemlerden birini "
 "seçebilirsiniz:</p>\n"
-"<p><b><i>OSS (Açık Ses Sistemi)</i></b>: En eski linux gerçeklemesi, Tek ve "
+"<p><b><i>OSS (Açık Ses Sistemi)</i></b>: En eski Linux gerçeklemesi; tek ve "
 "çift kanallı çıkışı destekler. Linux 2.6 çekirdeğinden itibaren "
 "kullanılmıyor ancak hala oldukça yaygındır.</p>\n"
-"<p><b><i>ALSA (Gelişmiş Linux Ses Sistemi)</i></b>: OSS'in yerini alan, daha "
-"fazla donanımı ve özelliği destekler.</p>"
+"<p><b><i>ALSA (Gelişmiş Linux Ses Sistemi)</i></b>: OSS’nin yerini almıştır, "
+"daha fazla donanımı ve özelliği destekler.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_5)
 #: plugins/record/RecordDlg.ui:1035
@@ -6918,7 +6917,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1078
 #, kde-format
 msgid "Selec&t..."
-msgstr "Se&ç..."
+msgstr "Se&ç…"
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -6953,7 +6952,7 @@ msgid ""
 "The audio device seems to be occupied by another application. Retrying..."
 msgstr ""
 "Ses aygıtı başka bir uygulama tarafından kullanılıyor görünüyor. Yeniden "
-"deneniyor..."
+"deneniyor…"
 
 #: plugins/record/RecordPlugin.cpp:467
 #, kde-format
@@ -6998,12 +6997,12 @@ msgstr "%1 Hz başarısız oldu, %2 Hz kullanılıyor"
 #: plugins/record/RecordPlugin.cpp:690
 #, kde-format
 msgid "Compression '%1' not supported, using '%2'"
-msgstr "'%1' sıkıştırması desteklenmiyor, '%2' kullanılıyor"
+msgstr "“%1” sıkıştırması desteklenmiyor, “%2” kullanılıyor"
 
 #: plugins/record/RecordPlugin.cpp:703
 #, kde-format
 msgid "Compression '%1' failed, using '%2'."
-msgstr "'%1' sıkıştırması başarısız oldu, '%2' kullanılıyor."
+msgstr "“%1” sıkıştırması başarısız oldu, “%2” kullanılıyor."
 
 #: plugins/record/RecordPlugin.cpp:742
 #, kde-format
@@ -7018,12 +7017,12 @@ msgstr "Örnek başına %1 bit başarısız oldu, örnek başına %2 kullanılı
 #: plugins/record/RecordPlugin.cpp:797
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
-msgstr "'%1' biçimi desteklenmiyor, '%2' kullanılıyor"
+msgstr "“%1” biçimi desteklenmiyor, “%2” kullanılıyor"
 
 #: plugins/record/RecordPlugin.cpp:813
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
-msgstr "'%1' biçimi başarısız oldu, '%2' kullanılıyor"
+msgstr "“%1” biçimi başarısız oldu, “%2” kullanılıyor"
 
 #: plugins/record/RecordPlugin.cpp:952
 #, kde-format
@@ -7067,12 +7066,12 @@ msgstr "Örnekleme hızını değiştir"
 #: plugins/samplerate/SampleRatePlugin.cpp:161
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
-msgstr "Örnekleme hızını %1kHz: %2 kHz olarak değiştir..."
+msgstr "Örnekleme hızını %1kHz: %2 kHz olarak değiştir…"
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:174
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:276
 #, kde-format
@@ -7165,7 +7164,7 @@ msgid ""
 "</ul>"
 msgstr ""
 "<p>Kaydedilmiş her bir blok için dosya adı oluşturmakta kullanılacak dizgiyi "
-"seçiniz:</p>\n"
+"seçin:</p>\n"
 "<ul>\n"
 "<li><tt><b>[%filename]</b></tt>dosya adı, yol olmadan</li>\n"
 "<li><tt><b>[</b>%<i>0</i></tt><i>N</i><tt><b>nr]</b></tt>dosyanın indeksi, "
@@ -7301,9 +7300,8 @@ msgid ""
 "Choose windowing function here.<br>\n"
 "If the transformation should stay reversible, use the type \"None\"."
 msgstr ""
-"Pencereleme fonkiyonunu seçin.<br>\n"
-"Eğer dönüşümün tersine dönebilmesini istiyorsanız tip olarak \"None\" "
-"kullanın."
+"Pencereleme işlevini seçin.<br>\n"
+"Eğer dönüşümün tersine dönebilmesini istiyorsanız tür olarak “Yok” kullanın."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, pointbox)
 #. i18n: ectx: property (whatsThis), widget (KComboBox, pointbox)
@@ -7383,7 +7381,7 @@ msgstr "&Sonagram"
 #: plugins/sonagram/SonagramWindow.cpp:128
 #, kde-format
 msgid "&Export to Bitmap..."
-msgstr "&Biteşlem Olarak Dışa Aktar..."
+msgstr "&Biteşlem Olarak Dışa Aktar…"
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format
@@ -7449,19 +7447,19 @@ msgstr "Genişleme: %​%1"
 #: plugins/stringenter/StringEnterDlg.ui:21
 #, kde-format
 msgid "Enter Command..."
-msgstr "Komut girin..."
+msgstr "Komut girin…"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCommand)
 #: plugins/stringenter/StringEnterDlg.ui:36
 #, kde-format
 msgid "Enter Command:"
-msgstr "Komut Girin:"
+msgstr "Komut gir:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCommand)
 #: plugins/stringenter/StringEnterDlg.ui:68
 #, kde-format
 msgid "please enter a text command here..."
-msgstr "lütfen buraya bir metin komutu girin..."
+msgstr "Buraya bir metin komutu girin…"
 
 #: plugins/stringenter/StringEnterPlugin.cpp:58
 msgctxt "menu: /Settings/Enter Command"
@@ -7481,8 +7479,8 @@ msgid ""
 "Increments or decrements the volume by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
-"Sesi çarpana göre azalt ya da artır.\n"
-"Örnek olarak: \"x1\", \"x2\", \"/ 4\""
+"Sesi çarpana göre azalt ya da artırın.\n"
+"Örnek olarak: “×1”, “×2”, “/4”"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:71
@@ -7503,8 +7501,8 @@ msgid ""
 "Sets the volume to a relative percentage of the original level.\n"
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
-"Özgün düzeyine göre yüzdesel olarak sesi ayarla.\n"
-"Örneğin: \"%​50\", \"%​75\" veya \"%​125\""
+"Özgün düzeyine göre yüzdesel olarak sesi ayarlayın.\n"
+"Örneğin: “%​50”, “%​75” veya “%​125”"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:104
@@ -7519,8 +7517,8 @@ msgid ""
 "Increments or decrements the volume in logarithmic scale (decibel).\n"
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 msgstr ""
-"Sesi logaritmik ölçekte(decibel) artır ya da azalt.\n"
-"Örnek olarak: +3 dB\", \"+ 6 dB\", \"-3 dB\"."
+"Sesi logaritmik ölçekte (desibel) artırın veya azaltın.\n"
+"Örnek olarak: “+3 dB”, “+6 dB”, “−3 dB”."
 
 #: plugins/zero/ZeroPlugin.cpp:61
 #, kde-format

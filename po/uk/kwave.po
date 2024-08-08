@@ -3,22 +3,22 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2015, 2016, 2017, 2018, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2015, 2016, 2017, 2018, 2020, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-07 00:39+0000\n"
-"PO-Revision-Date: 2020-02-13 08:25+0200\n"
+"PO-Revision-Date: 2024-08-07 09:12+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.03.70\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -6196,10 +6196,9 @@ msgstr ""
 "Звуковий пристрій «%1» є невідомим або його було від’єднано від комп’ютера"
 
 #: plugins/playback/PlayBack-Qt.cpp:154
-#, fuzzy, kde-format
-#| msgid "Error: Codec not supported"
+#, kde-format
 msgid "format not supported"
-msgstr "Помилка: підтримки кодека не передбачено"
+msgstr "підтримки формату не передбачено"
 
 #: plugins/playback/PlayBack-Qt.cpp:192
 #, kde-format

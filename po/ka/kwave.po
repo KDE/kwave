@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-07 00:39+0000\n"
-"PO-Revision-Date: 2023-02-03 17:10+0100\n"
+"PO-Revision-Date: 2024-08-07 10:53+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -132,7 +132,7 @@ msgstr "Thomas Eschenbacher"
 #: kwave/main.cpp:47
 #, kde-format
 msgid "Project leader since 2000, core development"
-msgstr ""
+msgstr "პროექტის ლიდერი 2000-დან, ბირთვის პროგრამირება"
 
 #: kwave/main.cpp:49
 #, kde-format
@@ -147,7 +147,7 @@ msgstr "Martin Wilz"
 #: kwave/main.cpp:53
 #, kde-format
 msgid "Creator of the project, development 1998-2000"
-msgstr ""
+msgstr "პროექტის შემქმნელი. პროგრამირება 1998-2000"
 
 #: kwave/main.cpp:55
 #, kde-format
@@ -162,7 +162,7 @@ msgstr "Ralf Waspe"
 #: kwave/main.cpp:58
 #, kde-format
 msgid "Creator of the Help/About dialog"
-msgstr ""
+msgstr "დახმარება/შესახებ დიალოგის ავტორი"
 
 #: kwave/main.cpp:62
 #, kde-format
@@ -172,7 +172,7 @@ msgstr "Caulier Gilles"
 #: kwave/main.cpp:63
 #, kde-format
 msgid "splashscreen, tests and bugfixes"
-msgstr ""
+msgstr "მისალმების ეკრანი, ტესტები, შეცდომების გასწორება"
 
 #: kwave/main.cpp:65
 #, kde-format
@@ -187,7 +187,7 @@ msgstr "Dave Flogeras"
 #: kwave/main.cpp:68
 #, kde-format
 msgid "Notch filter plugin"
-msgstr ""
+msgstr "Notch ფილტრის ფილტრი"
 
 #: kwave/main.cpp:72
 #, kde-format
@@ -212,7 +212,7 @@ msgstr "Joerg-Christian Boehme"
 #: kwave/main.cpp:78
 #, kde-format
 msgid "PulseAudio record plugin"
-msgstr ""
+msgstr "PulseAudio-ით ჩაწერის დამატება"
 
 #: kwave/main.cpp:84
 #, kde-format
@@ -222,7 +222,7 @@ msgstr "Stefan Westerfeld"
 #: kwave/main.cpp:85
 #, kde-format
 msgid "Author of aRts"
-msgstr ""
+msgstr "ARTS-ის ავტორი"
 
 #: kwave/main.cpp:89
 #, kde-format
@@ -232,7 +232,7 @@ msgstr "Sven-Steffen Arndt"
 #: kwave/main.cpp:90
 #, kde-format
 msgid "Kwave homepage and German online help"
-msgstr ""
+msgstr "Kwave-ის ვებგვერდი და გერმანული დახმარების სახელმძღვანელო"
 
 #: kwave/main.cpp:94
 #, kde-format
@@ -242,7 +242,7 @@ msgstr "Aurelien Jarno"
 #: kwave/main.cpp:95
 #, kde-format
 msgid "Debian packager"
-msgstr ""
+msgstr "Debian-ის პაკეტი"
 
 #: kwave/main.cpp:99
 #, kde-format
@@ -252,7 +252,7 @@ msgstr "Robert M. Stockmann"
 #: kwave/main.cpp:100
 #, kde-format
 msgid "Packaging for Mandrake / X86_64"
-msgstr ""
+msgstr "პაკეტები სისტემისთვის Mandrake / X86_64"
 
 #: kwave/main.cpp:104
 #, kde-format
@@ -272,7 +272,7 @@ msgstr "Robert Leslie"
 #: kwave/main.cpp:110
 #, kde-format
 msgid "Author of the 'mad' MP3 decoder library"
-msgstr ""
+msgstr "MP3-ის დეკოდერის ბიბლიოთეკის, 'mad'-ის ავტორი"
 
 #: kwave/main.cpp:112
 #, kde-format
@@ -287,7 +287,7 @@ msgstr "T.H.F. Klok და Cedric Tefft"
 #: kwave/main.cpp:115
 #, kde-format
 msgid "Maintainers of the 'id3lib' library"
-msgstr ""
+msgstr "წამყვანი პროგრამისტები ბიბლიოთეკისთვის 'id3lib'"
 
 #: kwave/main.cpp:117
 #, kde-format
@@ -302,7 +302,7 @@ msgstr "Michael Pruett"
 #: kwave/main.cpp:120
 #, kde-format
 msgid "Author of the 'audiofile' library"
-msgstr ""
+msgstr "წამყვანი პროგრამისტები ბიბლიოთეკისთვის 'audiofile'"
 
 #: kwave/main.cpp:122
 #, kde-format
@@ -327,7 +327,7 @@ msgstr "Erik de Castro Lopo"
 #: kwave/main.cpp:130
 #, kde-format
 msgid "Author of the 'sndfile' library"
-msgstr ""
+msgstr "წამყვანი პროგრამისტები ბიბლიოთეკისთვის 'sndfile'"
 
 #: kwave/main.cpp:132
 #, kde-format
@@ -342,7 +342,7 @@ msgstr "Pavel Fric"
 #: kwave/main.cpp:135
 #, kde-format
 msgid "Czech translation"
-msgstr ""
+msgstr "ჩეხური თარგმანი"
 
 #: kwave/main.cpp:137
 #, kde-format
@@ -357,23 +357,23 @@ msgstr "Panagiotis Papadopoulos"
 #: kwave/main.cpp:140
 #, kde-format
 msgid "String and i18n updates"
-msgstr ""
+msgstr "სტრიქონები და i18-ის განახლებები"
 
 #: kwave/main.cpp:169
 #, kde-format
 msgid "Disable the Splash Screen."
-msgstr ""
+msgstr "საწყისი ეკრანის გათიშვა."
 
 #: kwave/main.cpp:173
 #, kde-format
 msgid "Start Kwave iconified."
-msgstr ""
+msgstr "KWave-ის ჩაკეცილად გაშვება."
 
 #: kwave/main.cpp:178
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
-msgstr ""
+msgstr "ყველა ბრძანების ჩაწერა ჟურნალის ფაილში <file>."
 
 #: kwave/main.cpp:179
 #, kde-format
@@ -385,7 +385,7 @@ msgstr "ფაილი"
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
-msgstr ""
+msgstr "აირჩიეთ GUI-ის ტიპი: SDI, MDI თუ ჩანართების რეჟიმი."
 
 #: kwave/main.cpp:185
 #, kde-format
@@ -399,6 +399,8 @@ msgctxt "description of command line parameter"
 msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 msgstr ""
+"გასახსნელი აუდიოფაილების, Kwave-ის მაკრო ფაილების ან Kwave-ის URL-ების სია "
+"(არასავალდებულო)"
 
 #: kwave/main.cpp:192
 #, kde-format
@@ -414,7 +416,7 @@ msgstr "Kwave"
 #: kwave/main.cpp:199
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
-msgstr ""
+msgstr "Kwave ხმის რედაქტორია, აგებული KDE Frameworks 5-ის გამოყენებით"
 
 #: kwave/main.cpp:201
 #, kde-format
@@ -424,7 +426,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 #: kwave/MainWidget.cpp:93
 #, kde-format
 msgid "Kwave label list"
-msgstr ""
+msgstr "Kwave-ის ჭდეების სია"
 
 #: kwave/MainWidget.cpp:900 libkwave/SignalManager.cpp:1868
 #, kde-format
@@ -447,6 +449,8 @@ msgid ""
 "There already is a label at the position you have chosen.\n"
 "Do you want to replace it?"
 msgstr ""
+"არჩეულ მდებარეობაზე ჭდე უკვე არსებობს.\n"
+"გნებავთ მისი ჩანაცვლება?"
 
 #: kwave/MainWidget.cpp:1104
 #, kde-format
@@ -661,7 +665,7 @@ msgstr "გაცვლის ბაფერი"
 #: kwave/menus.config:102
 msgctxt "menu: /Edit/Clipboard/Flush"
 msgid "Flush"
-msgstr ""
+msgstr "გასუფთავება"
 
 #: kwave/menus.config:105
 msgctxt "menu: /Edit/Clipboard/Insert At..."
@@ -856,17 +860,17 @@ msgstr "გამკვეთრება"
 #: kwave/menus.config:171
 msgctxt "menu: /Fx/Amplify Free"
 msgid "Amplify Free"
-msgstr ""
+msgstr "გაძლიერება"
 
 #: kwave/menus.config:176
 msgctxt "menu: /Fx/Fade Intro"
 msgid "Fade Intro"
-msgstr ""
+msgstr "მინავლება შესავალში"
 
 #: kwave/menus.config:177
 msgctxt "menu: /Fx/Fade Leadout"
 msgid "Fade Leadout"
-msgstr ""
+msgstr "მინავლება ბოლოს"
 
 #: kwave/menus.config:180
 msgctxt "menu: /Fx/Low Pass"
@@ -881,12 +885,12 @@ msgstr "Notch ფილტრი"
 #: kwave/menus.config:182
 msgctxt "menu: /Fx/Band Pass"
 msgid "Band Pass"
-msgstr ""
+msgstr "ზოლური ფილტრი"
 
 #: kwave/menus.config:187
 msgctxt "menu: /Fx/Pitch Shift"
 msgid "Pitch Shift"
-msgstr ""
+msgstr "ტონის წანაცვლება"
 
 #: kwave/menus.config:189
 msgctxt "menu: /Fx/Reverse"
@@ -931,17 +935,17 @@ msgstr "წინა ფანჯარა"
 #: kwave/menus.config:230
 msgctxt "menu: /Window/Cascade Sub Windows"
 msgid "Cascade Sub Windows"
-msgstr ""
+msgstr "ქვეფანჯრები კასკადურად"
 
 #: kwave/menus.config:231
 msgctxt "menu: /Window/Tile Sub Windows"
 msgid "Tile Sub Windows"
-msgstr ""
+msgstr "ქვეფანჯრები ფილებად"
 
 #: kwave/menus.config:232
 msgctxt "menu: /Window/Arrange Sub Windows Vertically"
 msgid "Arrange Sub Windows Vertically"
-msgstr ""
+msgstr "ქვეფანჯრების დალაგება ვერტიკალურად"
 
 #: kwave/menus.config:237
 msgctxt "menu: /Settings"
@@ -951,17 +955,17 @@ msgstr "მორგება"
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in.../Separate Windows (SDI)"
 msgid "Separate Windows (SDI)"
-msgstr ""
+msgstr "ცალ-ცალკე ფანჯრები (SDI)"
 
 #: kwave/menus.config:238
 msgctxt "menu: /Settings/Show Files in..."
 msgid "Show Files in..."
-msgstr ""
+msgstr "ფაილების ჩვენება სად..."
 
 #: kwave/menus.config:239
 msgctxt "menu: /Settings/Show Files in.../Same Window (MDI)"
 msgid "Same Window (MDI)"
-msgstr ""
+msgstr "იგივე ფანჯარა (MDI)"
 
 #: kwave/menus.config:240
 msgctxt "menu: /Settings/Show Files in.../Tabs"
@@ -991,12 +995,12 @@ msgstr "წყარო"
 #: kwave/menus.config:248
 msgctxt "menu: /Settings/Reset Toolbar"
 msgid "Reset Toolbar"
-msgstr ""
+msgstr "პანელის ჩამოყრა"
 
 #: kwave/menus.config:249
 msgctxt "menu: /Settings/Re-enable all \"Do not ask again\" messages"
 msgid "Re-enable all \"Do not ask again\" messages"
-msgstr ""
+msgstr "ყველა \"აღარ მკითხო\" შეტყობინების თავიდან ჩართვა"
 
 #: kwave/menus.config:252
 msgctxt "menu: /Help/Contents"
@@ -1039,17 +1043,17 @@ msgstr "ჩაწერა"
 #: kwave/PlayerToolBar.cpp:92
 #, kde-format
 msgid "Start playback"
-msgstr ""
+msgstr "დაკვრის დაწყება"
 
 #: kwave/PlayerToolBar.cpp:97
 #, kde-format
 msgid "Start playback and loop"
-msgstr ""
+msgstr "დაკვრის დაწყება და გამეორება"
 
 #: kwave/PlayerToolBar.cpp:107
 #, kde-format
 msgid "Stop playback or loop"
-msgstr ""
+msgstr "გამეორების ან დაკვრის გაჩერება"
 
 #: kwave/PlayerToolBar.cpp:112
 #, kde-format
@@ -1105,7 +1109,7 @@ msgstr "მიმდინარე ფაილის შენახვა"
 #: kwave/TopWidget.cpp:367
 #, kde-format
 msgid "Save the current file under a different name or file format..."
-msgstr ""
+msgstr "მიმდინარე ფაილის შენახვა სხვა სახელი ან ფაილის ფორმატით..."
 
 #: kwave/TopWidget.cpp:372
 #, kde-format
@@ -1150,7 +1154,7 @@ msgstr "მონიშნულის წაშლა"
 #: kwave/TopWidget.cpp:762
 #, kde-format
 msgid "Reset the toolbar to default settings?"
-msgstr ""
+msgstr "ჩამოვყარო პანელი ნაგულისხმევ პარამეტრებზე?"
 
 #: kwave/TopWidget.cpp:787
 #, kde-format
@@ -1159,6 +1163,9 @@ msgid ""
 "All messages that you previously turned off by activating the \"Do not ask "
 "again\" checkbox will then be enabled again."
 msgstr ""
+"ჩაირთოს ყველა გათიშული გაფრთხილება?\n"
+"ყველა გაფრთხილება, რომელიც გამორთეთ \"აღარ მკითხო\" თოლიის დასმით, თავიდან "
+"ჩაირთვება."
 
 #: kwave/TopWidget.cpp:1011
 #, kde-format
@@ -1515,7 +1522,7 @@ msgstr "აღწერა:"
 #: libgui/LabelPropertiesWidgetBase.ui:61
 #, kde-format
 msgid "some description of the label (optional)"
-msgstr ""
+msgstr "ჭდის აღწერა (არასავალდებულო)"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edDescription)
 #: libgui/LabelPropertiesWidgetBase.ui:65
@@ -1541,7 +1548,7 @@ msgstr "ინდექსი:"
 #: libgui/LabelPropertiesWidgetBase.ui:95
 #, kde-format
 msgid "index of the label"
-msgstr ""
+msgstr "ჭდის ინდექსი"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, lblIndex)
 #: libgui/LabelPropertiesWidgetBase.ui:99
@@ -1556,12 +1563,12 @@ msgstr ""
 #: libgui/SelectionBorderItem.cpp:66
 #, kde-format
 msgid "Selection, left border"
-msgstr ""
+msgstr "მონიშნული, მარცხენა საზღვარი"
 
 #: libgui/SelectionBorderItem.cpp:69
 #, kde-format
 msgid "Selection, right border"
-msgstr ""
+msgstr "მონიშნული, მარჯვენა საზღვარი"
 
 #: libgui/SelectionItem.cpp:88 libgui/SignalView.cpp:590
 #, kde-format
@@ -1572,7 +1579,7 @@ msgstr "გადათრევა და გაშვება"
 #: libgui/SelectTimeWidgetBase.ui:20
 #, kde-format
 msgid "frmLength"
-msgstr ""
+msgstr "frmLength"
 
 #. i18n: ectx: property (title), widget (QGroupBox, SelectTimeWidgetBase)
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox1)
@@ -1586,7 +1593,7 @@ msgstr "ხანგრძლივობა"
 #: libgui/SelectTimeWidgetBase.ui:38
 #, kde-format
 msgid "select by number of samples"
-msgstr ""
+msgstr "არჩევა სემპლების რაოდენობით"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbSamples)
 #: libgui/SelectTimeWidgetBase.ui:41
@@ -1610,7 +1617,7 @@ msgstr "&დრო"
 #: libgui/SelectTimeWidgetBase.ui:99
 #, kde-format
 msgid "select by percentage of the signal's length"
-msgstr ""
+msgstr "არჩევა სიგნალის სიძლიერის პროცენტულობით"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercents)
 #: libgui/SelectTimeWidgetBase.ui:102
@@ -1817,7 +1824,7 @@ msgstr "Ogg Opus"
 #: libkwave/ConfirmCancelProxy.cpp:50
 #, kde-format
 msgid "Do you really want to abort the current action?"
-msgstr ""
+msgstr "მართლა გნებავთ მიმდინარე ქმედების გაუქმება?"
 
 #: libkwave/FileInfo.cpp:37
 msgid "Album"
@@ -1843,7 +1850,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:50
 msgid "Archival location"
-msgstr ""
+msgstr "არქივების მდებარეობა"
 
 #: libkwave/FileInfo.cpp:51
 msgid "Indicates where the subject of the file is archived."
@@ -1862,19 +1869,19 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:60
 msgid "Lower Bitrate"
-msgstr ""
+msgstr "დაბალი ბიტების გადაცემის სიჩქარე"
 
 #: libkwave/FileInfo.cpp:61
 msgid "Specifies the lower limit in a VBR bitstream."
-msgstr ""
+msgstr "ცვლადი ნაკადის ბიტების გადაცემის სიჩქარის ქვედა ზღვარი."
 
 #: libkwave/FileInfo.cpp:64
 msgid "Bitrate Mode"
-msgstr ""
+msgstr "ბიტების გადაცემის სიჩქარის რეჟიმი"
 
 #: libkwave/FileInfo.cpp:65
 msgid "Bitrate Mode (ABR, VBR, CBR, etc...)"
-msgstr ""
+msgstr "ბიტების გადაცემის სიჩქარის რეჟიმი (AVR, VBR, CBR და ა.შ.)"
 
 #: libkwave/FileInfo.cpp:68
 msgid "Bitrate"
@@ -1886,11 +1893,11 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:73
 msgid "Upper Bitrate"
-msgstr ""
+msgstr "ბიტური სიჩქარის ზედა ზღვარი"
 
 #: libkwave/FileInfo.cpp:74
 msgid "Specifies the upper limit in a VBR bitstream."
-msgstr ""
+msgstr "ცვლადი ნაკადის ბიტების გადაცემის სიჩქარის ზედა ზღვარი."
 
 #: libkwave/FileInfo.cpp:77
 msgid "Bits per Sample"
@@ -1898,7 +1905,7 @@ msgstr "ბიტი/სემპლი"
 
 #: libkwave/FileInfo.cpp:78
 msgid "Specifies the number of bits per sample."
-msgstr ""
+msgstr "მიუთითებს ბიტების რაოდენობას თითოეული სემპლისთვის."
 
 #: libkwave/FileInfo.cpp:81
 msgid "CD"
@@ -1918,7 +1925,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:91
 msgid "Commissioned"
-msgstr ""
+msgstr "შემკვეტი"
 
 #: libkwave/FileInfo.cpp:92
 msgid ""
@@ -2000,7 +2007,7 @@ msgstr "დაახლოებითი სიგრძე"
 
 #: libkwave/FileInfo.cpp:140
 msgid "Estimated length of the file in samples"
-msgstr ""
+msgstr "ფაილის დაახლოებითი სიგრძე სემპლებში"
 
 #: libkwave/FileInfo.cpp:143
 msgid "Filename"
@@ -2057,11 +2064,11 @@ msgstr "ჭდეები"
 
 #: libkwave/FileInfo.cpp:168
 msgid "The list of labels/markers."
-msgstr ""
+msgstr "ჭდეების/მარკერების სია."
 
 #: libkwave/FileInfo.cpp:172
 msgid "Length of the file in samples."
-msgstr ""
+msgstr "ფაილის სიგრძე სემპლებში."
 
 #: libkwave/FileInfo.cpp:175
 msgid "License"
@@ -2094,15 +2101,15 @@ msgstr "MIME ტიპი"
 
 #: libkwave/FileInfo.cpp:191
 msgid "Mime type of the file format"
-msgstr ""
+msgstr "ფაილის ფორმატის MIME ტიპი"
 
 #: libkwave/FileInfo.cpp:194
 msgid "Emphasis"
-msgstr ""
+msgstr "მახვილი"
 
 #: libkwave/FileInfo.cpp:195
 msgid "Audio emphasis mode"
-msgstr ""
+msgstr "რეჟიმი Emphasis"
 
 #: libkwave/FileInfo.cpp:198
 msgid "Layer"
@@ -2118,7 +2125,7 @@ msgstr "რეჟიმის გაფართოება"
 
 #: libkwave/FileInfo.cpp:203
 msgid "MPEG Mode Extension (only if Joint Stereo)"
-msgstr ""
+msgstr "MPEG რეჟიმის გაფართოება (მხოლოდ Join Stereo-ის შემთხვევაში"
 
 #: libkwave/FileInfo.cpp:206 libkwave/FileInfo.cpp:300
 msgid "Version"
@@ -2137,15 +2144,19 @@ msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: \"Symphony No.6, Op.68 'Pastoral'\""
 msgstr ""
+"დაიმახსოვრებს თემის სათაურს ფაილში.\n"
+"მაგ: \"Symphony No.6, Op.68 'Pastoral'\""
 
 #: libkwave/FileInfo.cpp:215
 msgid "Opus Frame Length"
-msgstr ""
+msgstr "Opus-ის კადრის სიგრძე"
 
 #: libkwave/FileInfo.cpp:216
 msgid ""
 "Opus Frame Length in ms (supported values are 2.5, 5, 10, 20, 40, or 60 ms)"
 msgstr ""
+"Opus-ის კადრის სიგრძე მწმ-ში (მხარდაჭერილი მნიშვნელობებია 2.5, 5, 10, 20, "
+"40, ან 60 მწმ)"
 
 #: libkwave/FileInfo.cpp:220
 msgid "Organization"
@@ -2163,7 +2174,7 @@ msgstr "საწყისი"
 
 #: libkwave/FileInfo.cpp:226
 msgid "Indicates whether the file is an original or a copy"
-msgstr ""
+msgstr "მიუთითებს, ფაილი ორიგინალია, თუ ასლი"
 
 #: libkwave/FileInfo.cpp:229
 msgid "Performer"
@@ -2182,7 +2193,7 @@ msgstr "პირადი"
 
 #: libkwave/FileInfo.cpp:236
 msgid "Indicates whether the subject is private"
-msgstr ""
+msgstr "მიუთითებს არის თუ არა თემა კონფიდენციალური"
 
 #: libkwave/FileInfo.cpp:239
 msgid "Product"
@@ -2197,7 +2208,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:245
 msgid "Sample Format"
-msgstr ""
+msgstr "სემპლის ფორმატი"
 
 #: libkwave/FileInfo.cpp:246
 msgid ""
@@ -2211,7 +2222,7 @@ msgstr "სემპლების სიჩქარე"
 
 #: libkwave/FileInfo.cpp:251
 msgid "Number of samples per second"
-msgstr ""
+msgstr "სემპლების რაოდენობა წამში"
 
 #: libkwave/FileInfo.cpp:254
 msgid "Software"
@@ -2241,7 +2252,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:266
 msgid "Source form"
-msgstr ""
+msgstr "წყაროს ფორმა"
 
 #: libkwave/FileInfo.cpp:267
 msgid ""
@@ -2292,13 +2303,13 @@ msgstr "არხები"
 
 #: libkwave/FileInfo.cpp:293
 msgid "Specifies the number of channels of the signal."
-msgstr ""
+msgstr "მიუთითებს სიგნალის არხების რაოდენობას."
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompressionBaseQuality)
 #: libkwave/FileInfo.cpp:296 plugins/fileinfo/CompressionWidgetBase.ui:236
 #, kde-format
 msgid "Base Quality"
-msgstr ""
+msgstr "საბაზისო ხარისხი"
 
 #: libkwave/FileInfo.cpp:297
 msgid "Base quality of the compression in VBR mode"
@@ -2388,7 +2399,7 @@ msgctxt ""
 "file progress dialog, %1=number of loaded/saved megabytes, %2=number of "
 "total megabytes to load or save"
 msgid "%1 MB of %2 MB done"
-msgstr ""
+msgstr "დასრულებულია %1 მბ %2 მბ-დან"
 
 #: libkwave/FileProgress.cpp:335
 #, kde-format
@@ -2424,11 +2435,11 @@ msgstr "სამკუთხედი"
 
 #: libkwave/Functions.cpp:99
 msgid "Square Sinus"
-msgstr ""
+msgstr "სინუსი კვადრატში"
 
 #: libkwave/Functions.cpp:100
 msgid "Cubic Sinus"
-msgstr ""
+msgstr "სინუსი კუბში"
 
 #: libkwave/GenreType.cpp:102
 msgid "Blues"
@@ -3036,15 +3047,15 @@ msgstr "ბაროკო"
 
 #: libkwave/GenreType.cpp:259
 msgid "Bhangra"
-msgstr ""
+msgstr "ბჰანგრა"
 
 #: libkwave/GenreType.cpp:260
 msgid "Big Beat"
-msgstr ""
+msgstr "ბიგ-ბიტი"
 
 #: libkwave/GenreType.cpp:261
 msgid "Breakbeat"
-msgstr ""
+msgstr "ბრეიქბიტი"
 
 #: libkwave/GenreType.cpp:262
 msgid "Chillout"
@@ -3052,11 +3063,11 @@ msgstr "ჩილაუთი"
 
 #: libkwave/GenreType.cpp:263
 msgid "Downtempo"
-msgstr ""
+msgstr "დაუნტემპო"
 
 #: libkwave/GenreType.cpp:264
 msgid "Dub"
-msgstr ""
+msgstr "დაბი"
 
 #: libkwave/GenreType.cpp:265
 msgid "EBM"
@@ -3072,7 +3083,7 @@ msgstr "ელექტრო"
 
 #: libkwave/GenreType.cpp:268
 msgid "Electroclash"
-msgstr ""
+msgstr "ელექტროკლეში"
 
 #: libkwave/GenreType.cpp:269
 msgid "Emo"
@@ -3084,7 +3095,7 @@ msgstr "ექსპერიმენტალური"
 
 #: libkwave/GenreType.cpp:271
 msgid "Garage"
-msgstr ""
+msgstr "გარაჟი"
 
 #: libkwave/GenreType.cpp:272
 msgid "Global"
@@ -3096,27 +3107,27 @@ msgstr "IDM"
 
 #: libkwave/GenreType.cpp:274
 msgid "Illbient"
-msgstr ""
+msgstr "ილბიენტი"
 
 #: libkwave/GenreType.cpp:275
 msgid "Industro-Goth"
-msgstr ""
+msgstr "ინდასტრიალი-გოთური"
 
 #: libkwave/GenreType.cpp:276
 msgid "Jam Band"
-msgstr ""
+msgstr "ჯემ-ბენდი"
 
 #: libkwave/GenreType.cpp:277
 msgid "Krautrock"
-msgstr ""
+msgstr "კრაუტროკი"
 
 #: libkwave/GenreType.cpp:278
 msgid "Leftfield"
-msgstr ""
+msgstr "ლეფტფილდი"
 
 #: libkwave/GenreType.cpp:279
 msgid "Lounge"
-msgstr ""
+msgstr "ლაუნჯი"
 
 #: libkwave/GenreType.cpp:280
 msgid "Math Rock"
@@ -3124,11 +3135,11 @@ msgstr "მათ როკი"
 
 #: libkwave/GenreType.cpp:281
 msgid "New Romantic"
-msgstr ""
+msgstr "ახალი რომანტიკა"
 
 #: libkwave/GenreType.cpp:282
 msgid "Nu-Breakz"
-msgstr ""
+msgstr "ნიუ-ბრეიკსი"
 
 #: libkwave/GenreType.cpp:283
 msgid "Post-Punk"
@@ -3144,7 +3155,7 @@ msgstr "ფსაიტრანსი"
 
 #: libkwave/GenreType.cpp:286
 msgid "Shoegaze"
-msgstr ""
+msgstr "შუგეიზი"
 
 #: libkwave/GenreType.cpp:287
 msgid "Space Rock"
@@ -3184,7 +3195,7 @@ msgstr "ინდი როკი"
 
 #: libkwave/GenreType.cpp:296
 msgid "G-Funk"
-msgstr ""
+msgstr "განგსტა-ფანკი"
 
 #: libkwave/GenreType.cpp:297
 msgid "Dubstep"
@@ -3192,15 +3203,15 @@ msgstr "დაბსტეპი"
 
 #: libkwave/GenreType.cpp:298
 msgid "Garage Rock"
-msgstr ""
+msgstr "ავტოფარეხის როკი"
 
 #: libkwave/GenreType.cpp:299
 msgid "Psybient"
-msgstr ""
+msgstr "პსიბიენტი"
 
 #: libkwave/GenreType.cpp:305
 msgid "Unknown"
-msgstr ""
+msgstr "უცნობი"
 
 #: libkwave/Interpolation.cpp:34
 msgid "Linear"
@@ -3212,28 +3223,28 @@ msgstr "სპლაინი"
 
 #: libkwave/Interpolation.cpp:36
 msgid "Polynom, nth Degree"
-msgstr ""
+msgstr "პოლინომური, მე-n-ე ხარისხი"
 
 #: libkwave/Interpolation.cpp:37
 msgid "Polynom, 3rd Degree"
-msgstr ""
+msgstr "პოლინომური, მესამე ხარისხი"
 
 #: libkwave/Interpolation.cpp:38
 msgid "Polynom, 5th Degree"
-msgstr ""
+msgstr "პოლინომური, მეხუთე ხარისხი"
 
 #: libkwave/Interpolation.cpp:39
 msgid "Polynom, 7th Degree"
-msgstr ""
+msgstr "პოლინომური, მეშვიდე ხარისხი"
 
 #: libkwave/Interpolation.cpp:40
 msgid "Sample and Hold"
-msgstr ""
+msgstr "ათვლა და შეჩერება"
 
 #: libkwave/Logger.cpp:78
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
-msgstr ""
+msgstr "ჟურნალის ფაილის '%1' ჩასაწერად გახსნა ჩავარდა"
 
 #: libkwave/PlaybackController.cpp:663
 #, kde-format
@@ -3259,43 +3270,43 @@ msgstr "Qt Multimedia Audio"
 #: libkwave/Plugin.cpp:215
 #, kde-format
 msgid "Running plugin '%1'..."
-msgstr ""
+msgstr "გაშვებულია დამატება '%1'..."
 
 #: libkwave/PluginManager.cpp:190
 #, kde-format
 msgid "The plugin '%1' is unknown or invalid."
-msgstr ""
+msgstr "დამატება '%1' უცნობია, ან არასწორია."
 
 #: libkwave/PluginManager.cpp:191
 #, kde-format
 msgid "Error On Loading Plugin"
-msgstr ""
+msgstr "დამატების ჩატვირთვის შეცდომა"
 
 #: libkwave/PluginManager.cpp:670
 #, kde-format
 msgid "Loading plugin %1..."
-msgstr ""
+msgstr "იტვირთება დამატება %1..."
 
 #: libkwave/SampleFormat.cpp:37
 msgid "Linear Two's Complement"
-msgstr ""
+msgstr "წრფივი დამატებითი კოდი"
 
 #: libkwave/SampleFormat.cpp:39
 msgid "Unsigned Integer"
-msgstr ""
+msgstr "უნიშნო მთელი რიცხვი"
 
 #: libkwave/SampleFormat.cpp:41
 msgid "32-bit IEEE Floating-Point"
-msgstr ""
+msgstr "32-ბიტიანი IEEE მცურავმძიმიანი"
 
 #: libkwave/SampleFormat.cpp:43
 msgid "64-bit IEEE Double Precision Floating-Point"
-msgstr ""
+msgstr "64-ბიტიანი IEEE ორმაგი სიზუსტის მცურავმძმიანი"
 
 #: libkwave/SignalManager.cpp:334
 #, kde-format
 msgid "Signal is empty, nothing to save."
-msgstr ""
+msgstr "სიგნალი ცარიელია. შესანახი არფერია."
 
 #: libkwave/SignalManager.cpp:363
 #, kde-format
@@ -3309,7 +3320,7 @@ msgstr ""
 #: plugins/record/RecordPlugin.cpp:1071
 #, kde-format
 msgid "(built with KDE Frameworks %1)"
-msgstr ""
+msgstr "(აგებულია ბიბლიოთეკით KDE Frameworks %1)"
 
 #: libkwave/SignalManager.cpp:457
 #, kde-format
@@ -3319,17 +3330,17 @@ msgstr "შეცდომა ფაილის შენახვისას.
 #: libkwave/SignalManager.cpp:469
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
-msgstr ""
+msgstr "ეს ფაილი წაკვეთილია და, შეიძლება, დაზიანებული იყოს."
 
 #: libkwave/SignalManager.cpp:478
 #, kde-format
 msgid "Sorry, the file type is not supported."
-msgstr ""
+msgstr "უკაცრავად, მაგრამ ფაილის ტიპი მხარდაჭერილი არაა."
 
 #: libkwave/SignalManager.cpp:652
 #, kde-format
 msgid "Insert Clipboard at position"
-msgstr ""
+msgstr "ბუფერის ჩასმა მდებარეობაზე"
 
 #: libkwave/SignalManager.cpp:662
 #, kde-format
@@ -3344,17 +3355,17 @@ msgstr "ამოჭრა"
 #: libkwave/SignalManager.cpp:735
 #, kde-format
 msgid "Expand Selection to Label"
-msgstr ""
+msgstr "მონიშნულის გაფართოება ჭდემდე"
 
 #: libkwave/SignalManager.cpp:764
 #, kde-format
 msgid "Select Next Labels"
-msgstr ""
+msgstr "შემდეგი ჭდეების მონიშვნა"
 
 #: libkwave/SignalManager.cpp:802
 #, kde-format
 msgid "Select Previous Labels"
-msgstr ""
+msgstr "წინა ჭდეების მონიშვნა"
 
 #: libkwave/SignalManager.cpp:841
 #, kde-format
@@ -3364,32 +3375,32 @@ msgstr "ყველა აუდიობილიკის მონიშვ�
 #: libkwave/SignalManager.cpp:845
 #, kde-format
 msgid "Deselect all tracks"
-msgstr ""
+msgstr "ყველა ტრეკის მონიშვნის მოხსნა"
 
 #: libkwave/SignalManager.cpp:849
 #, kde-format
 msgid "Invert Track Selection"
-msgstr ""
+msgstr "ტრეკების მონიშვნის ინვერსია"
 
 #: libkwave/SignalManager.cpp:855
 #, kde-format
 msgid "Select Track"
-msgstr ""
+msgstr "ტრეკის მონიშვნა"
 
 #: libkwave/SignalManager.cpp:860
 #, kde-format
 msgid "Deselect Track"
-msgstr ""
+msgstr "ტრეკის მონიშვნის მოხსნა"
 
 #: libkwave/SignalManager.cpp:865
 #, kde-format
 msgid "Toggle Track Selection"
-msgstr ""
+msgstr "ტრეკის მონიშვნის გადართვა"
 
 #: libkwave/SignalManager.cpp:907
 #, kde-format
 msgid "Append Track"
-msgstr ""
+msgstr "ტრეკის ბოლოში მიწერა"
 
 #: libkwave/SignalManager.cpp:914 libkwave/undo/UndoInsertTrack.cpp:44
 #, kde-format
@@ -3399,22 +3410,22 @@ msgstr "ბილიკის ჩასმა"
 #: libkwave/SignalManager.cpp:943 libkwave/undo/UndoDeleteTrack.cpp:45
 #, kde-format
 msgid "Delete Track"
-msgstr ""
+msgstr "ტრეკის წაშლა"
 
 #: libkwave/SignalManager.cpp:1095
 #, kde-format
 msgid "Insert Space"
-msgstr ""
+msgstr "გამოტოვების დამატება"
 
 #: libkwave/SignalManager.cpp:1370
 #, kde-format
 msgid "Not enough memory for saving undo information."
-msgstr ""
+msgstr "არასაკმარისი მეხსიერება გაუქმების ინფორმაციის შესანახად."
 
 #: libkwave/SignalManager.cpp:1372
 #, kde-format
 msgid "Do you want to continue without the possibility to undo?"
-msgstr ""
+msgstr "გნებავთ გაგრძელება გაუქმების შესაძლებლობის გარეშე?"
 
 #: libkwave/SignalManager.cpp:1374
 #, kde-format
@@ -3456,7 +3467,7 @@ msgstr "ჭდის წაშლა"
 #: libkwave/SignalManager.cpp:2012
 #, kde-format
 msgid "Manual Track Selection"
-msgstr ""
+msgstr "ტრეკის ხელით არჩევა"
 
 #: libkwave/SignalManager.cpp:2015
 #, kde-format
@@ -3481,7 +3492,7 @@ msgctxt ""
 "name of the undo action for inserting multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Insert %1 %2 objects"
-msgstr ""
+msgstr "%1 %2 ობიექტის ჩასმა"
 
 #: libkwave/undo/UndoAddMetaDataAction.cpp:120
 #, kde-format
@@ -3500,7 +3511,7 @@ msgctxt ""
 "name of the undo action for deleting multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Delete %1 %2 objects"
-msgstr ""
+msgstr "%1 %2 ობიექტის წაშლა"
 
 #: libkwave/undo/UndoDeleteMetaDataAction.cpp:83
 #, kde-format
@@ -3524,7 +3535,7 @@ msgctxt ""
 "name of the undo action for modifying multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Modify %1 %2 objects"
-msgstr ""
+msgstr "%1 %2 ობიექტის შეცვლა"
 
 #: libkwave/undo/UndoModifyMetaDataAction.cpp:81
 #, kde-format
@@ -3549,7 +3560,7 @@ msgstr "ჰამინგის"
 
 #: libkwave/WindowFunction.cpp:36
 msgid "Hanning"
-msgstr ""
+msgstr "ჰენინგი"
 
 #: libkwave/WindowFunction.cpp:38
 msgid "Blackman"
@@ -3573,7 +3584,7 @@ msgstr "ავტორები"
 #: plugins/about/AboutDialog.cpp:153
 #, kde-format
 msgid "Plugins found: %1"
-msgstr ""
+msgstr "აღმოჩენილია დამატებები: %1"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, AboutDialogBase)
 #: plugins/about/AboutDialogBase.ui:20
@@ -3585,7 +3596,7 @@ msgstr "Kwave-ის შესახებ"
 #: plugins/about/AboutDialogBase.ui:53
 #, kde-format
 msgid "<h1>Kwave - a sound editor by KDE</h1>"
-msgstr ""
+msgstr "<h1>Kwave - ხმის რედაქტორი KDE-სგან</h1>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, about_tab)
 #: plugins/about/AboutDialogBase.ui:67
@@ -3622,7 +3633,7 @@ msgstr "&მადლობა"
 #: plugins/about/AboutDialogBase.ui:216
 #, kde-format
 msgid "Plugins info"
-msgstr ""
+msgstr "დამატებების ინფორმაცია"
 
 #. i18n: ectx: attribute (title), widget (QWidget, translations_tab)
 #: plugins/about/AboutDialogBase.ui:243
@@ -3634,7 +3645,7 @@ msgstr "თარგმანი"
 #: plugins/about/AboutDialogBase.ui:260
 #, kde-format
 msgid "License agreement"
-msgstr ""
+msgstr "სალიცენზიო შეთანხმება"
 
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:43
 #: plugins/sonagram/SonagramWindow.cpp:165
@@ -3653,7 +3664,7 @@ msgstr "%"
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:72
 #, kde-format
 msgid "Amplify Free"
-msgstr ""
+msgstr "გაძლიერება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLevelFadeIn)
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:49 plugins/record/RecordDlg.ui:530
@@ -3670,12 +3681,12 @@ msgstr "გამკვეთრება"
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:51
 #, kde-format
 msgid "Fade Intro"
-msgstr ""
+msgstr "მინავლება შესავალში"
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:52
 #, kde-format
 msgid "Fade Leadout"
-msgstr ""
+msgstr "მინავლება ბოლოს"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinbox_2)
 #: plugins/band_pass/BandPassDialog.cpp:63 plugins/band_pass/BandPassDlg.ui:117
@@ -3712,13 +3723,13 @@ msgstr "გაჩერება"
 #: plugins/pitch_shift/PitchShiftDlg.ui:63
 #, kde-format
 msgid "&Listen"
-msgstr ""
+msgstr "&მოსმენა"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, BandPassDlg)
 #: plugins/band_pass/BandPassDlg.ui:14 plugins/band_pass/BandPassPlugin.cpp:127
 #, kde-format
 msgid "Band Pass"
-msgstr ""
+msgstr "ზოლური ფილტრი"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinbox)
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinbox_2)
@@ -3737,7 +3748,7 @@ msgstr " ჰც"
 #: plugins/pitch_shift/PitchShiftDlg.ui:57
 #, kde-format
 msgid "start/stop pre-listening"
-msgstr ""
+msgstr "წინასწარი მოსმების დაწყება/გაჩერება"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDlg.ui:158 plugins/lowpass/LowPassDlg.ui:151
@@ -3753,99 +3764,99 @@ msgstr ""
 #: plugins/codec_ascii/AsciiCodecPlugin.h:58
 #, kde-format
 msgid "ASCII encoded audio"
-msgstr ""
+msgstr "ASCII-ით კოდირებული ხმა"
 
 #: plugins/codec_ascii/AsciiEncoder.cpp:92
 #: plugins/codec_flac/FlacEncoder.cpp:215 plugins/codec_ogg/OggEncoder.cpp:123
 #, kde-format
 msgid "Unable to open the file for saving."
-msgstr ""
+msgstr "შესანახი ფაილის გახსნის შეცდომა."
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:48
 #, kde-format
 msgid "NeXT, Sun Audio"
-msgstr ""
+msgstr "NeXT, Sun Audio"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:53
 #, kde-format
 msgid "Amiga IFF/8SVX Sound File Format"
-msgstr ""
+msgstr "Amiga IFF/8SVX ხმის ფაილის ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:56
 #, kde-format
 msgid "Compressed Audio Interchange Format"
-msgstr ""
+msgstr "შეკუმშული ხმის მიმოცვლის ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:59
 #, kde-format
 msgid "Audio Interchange Format"
-msgstr ""
+msgstr "ხმის მიმოცვლის ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:62
 #, kde-format
 msgid "Audio Visual Research File Format"
-msgstr ""
+msgstr "აუდიოს ვიზუალური კვლევის ფაილის ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:65
 #, kde-format
 msgid "Core Audio File Format"
-msgstr ""
+msgstr "ბირთვის აუდიო ფაილის ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:68
 #, kde-format
 msgid "Berkeley, IRCAM, Carl Sound Format"
-msgstr ""
+msgstr "ბერკლი, IRCAM, კარლის ხმის ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:71
 #, kde-format
 msgid "NIST SPHERE Audio File Format"
-msgstr ""
+msgstr "NIST SPHERE ხმის ფაილის ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:74
 #, kde-format
 msgid "Sample Vision Format"
-msgstr ""
+msgstr "Sample Vision ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:77
 #, kde-format
 msgid "Creative Voice"
-msgstr ""
+msgstr "Creative Voice ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:121
 #: plugins/codec_wav/WavDecoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:443
 #, kde-format
 msgid "Format or function is not implemented"
-msgstr ""
+msgstr "ფორმატი ან ფუნქცია განხორციელებული არაა"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:127
 #: plugins/codec_wav/WavEncoder.cpp:450
 #, kde-format
 msgid "File header is damaged"
-msgstr ""
+msgstr "ფაილის თავსართი დაზიანებულია"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:130
 #: plugins/codec_wav/WavDecoder.cpp:377 plugins/codec_wav/WavEncoder.cpp:453
 #, kde-format
 msgid "Invalid codec type"
-msgstr ""
+msgstr "არასწორი კოდეკის ტიპი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:133
 #: plugins/codec_wav/WavDecoder.cpp:381 plugins/codec_wav/WavEncoder.cpp:457
 #, kde-format
 msgid "Opening the file failed"
-msgstr ""
+msgstr "ფაილის გახსნა ჩავარდა"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:136
 #: plugins/codec_wav/WavDecoder.cpp:384 plugins/codec_wav/WavEncoder.cpp:460
 #, kde-format
 msgid "Read access failed"
-msgstr ""
+msgstr "წაკითხვის წვდომა ჩავარდა"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:139
 #: plugins/codec_wav/WavDecoder.cpp:387 plugins/codec_wav/WavEncoder.cpp:463
 #, kde-format
 msgid "Invalid sample format"
-msgstr ""
+msgstr "არასწორი სემპლის ფორმატი"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:145
 #: plugins/codec_wav/WavDecoder.cpp:396 plugins/codec_wav/WavEncoder.cpp:469
@@ -3854,6 +3865,8 @@ msgid ""
 "An error occurred while opening the file:\n"
 "'%1'"
 msgstr ""
+"აღმოჩენილია გახსნის შეცდომა ფაილისთვის:\n"
+"'%1'"
 
 #: plugins/codec_flac/FlacCodecPlugin.h:57
 #, kde-format
@@ -3863,37 +3876,37 @@ msgstr "FLAC აუდიო"
 #: plugins/codec_flac/FlacDecoder.cpp:282
 #, kde-format
 msgid "Opening the FLAC bitstream failed."
-msgstr ""
+msgstr "FLAC ბიტური ნაკადის გახსნა ჩავარდა."
 
 #: plugins/codec_flac/FlacDecoder.cpp:292
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
-msgstr ""
+msgstr "შეცდომა FLAC მეტამონაცემების დამუშავებისას. (%s)"
 
 #: plugins/codec_flac/FlacEncoder.cpp:225
 #, kde-format
 msgid "Unable to open the FLAC encoder."
-msgstr ""
+msgstr "FLAC ენკოდერის გახსნა შეუძლებელია."
 
 #: plugins/codec_mp3/MP3CodecPlugin.cpp:52
 msgctxt "menu: /Settings/MP3 Encoder Setup"
 msgid "MP3 Encoder Setup"
-msgstr ""
+msgstr "MP3 ენკოდერის მორგება"
 
 #: plugins/codec_mp3/MP3CodecPlugin.h:74
 #, kde-format
 msgid "MPEG layer III audio"
-msgstr ""
+msgstr "MPEG layer III აუდიო"
 
 #: plugins/codec_mp3/MP3CodecPlugin.h:80
 #, kde-format
 msgid "MPEG layer II audio"
-msgstr ""
+msgstr "MPEG layer II აუდიო"
 
 #: plugins/codec_mp3/MP3CodecPlugin.h:86
 #, kde-format
 msgid "MPEG layer I audio"
-msgstr ""
+msgstr "MPEG layer I აუდიო"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:95
 #, kde-format
@@ -3901,6 +3914,8 @@ msgid ""
 "The file has an invalid checksum.\n"
 "Do you still want to continue?"
 msgstr ""
+"ფაილის საკონტროლო ჯამი არასწორია.\n"
+"მაინც გნებავთ, გააგრძელოთ?"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:164
 #, kde-format
@@ -3924,17 +3939,17 @@ msgstr "საკონტროლო ჯამის შეცდომა"
 #: plugins/codec_mp3/MP3Decoder.cpp:521
 #, kde-format
 msgid "Synchronization lost"
-msgstr ""
+msgstr "სინქრონიზაცია შეწყდა"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:538
 #, kde-format
 msgid "File contains invalid data"
-msgstr ""
+msgstr "ფაილი არასწორ მონაცემებს შეიცავს"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:543
 #, kde-format
 msgid "Unknown error 0x%1. Damaged file?"
-msgstr ""
+msgstr "უცნობი შეცდომა 0x%1. ფაილი დაზიანებულია?"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:547
 #, kde-format
@@ -3943,11 +3958,14 @@ msgid ""
 "'%1',\n"
 "at position %2."
 msgstr ""
+"აღმოჩენილია დეკოდირების შეცდომა ფაილისთვის:\n"
+"'%1',\n"
+"მდებარეობაზე %2."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:552
 #, kde-format
 msgid "Do you still want to continue?"
-msgstr ""
+msgstr "მაინც გსურთ გაგრძელება?"
 
 #: plugins/codec_mp3/MP3Decoder.cpp:557
 #, kde-format
@@ -3964,7 +3982,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:396
 #, kde-format
 msgid "Unable to open the file for saving!"
-msgstr ""
+msgstr "შესანახი ფაილის გახსნის შეცდომა!"
 
 #: plugins/codec_mp3/MP3Encoder.cpp:552
 #, kde-format
@@ -3974,11 +3992,14 @@ msgid ""
 "\n"
 "%2"
 msgstr ""
+"აღმოჩენილია შეცდომა გარე ენკოდერის '%1' გამოძახებისას:\n"
+"\n"
+"%2"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:54
 #, kde-format
 msgid "(user defined)"
-msgstr ""
+msgstr "(მომხმარებლის განსაზღვრული)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:341
 #, kde-format
@@ -4018,18 +4039,18 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:603
 #, kde-format
 msgid "Select MP3 Encoder"
-msgstr ""
+msgstr "აირჩიეთ MP3 ენკოდერი"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:657
 #, kde-format
 msgid "Congratulation, the test was successful!"
-msgstr ""
+msgstr "გლოცავთ, ტესტი წარმატებით დასრულდა!"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, MP3EncoderDialogBase)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:20
 #, kde-format
 msgid "MP3 Encoder Settings"
-msgstr ""
+msgstr "MP3 ენკოდერის პარამეტრები"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpProgram)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:32
@@ -4041,7 +4062,7 @@ msgstr "პროგრამა"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:54
 #, kde-format
 msgid "manually browse for the encoder"
-msgstr ""
+msgstr "ენკოდერის ხელით პოვნა"
 
 #. i18n: ectx: property (text), widget (QPushButton, btSearch)
 #. i18n: ectx: property (text), widget (QPushButton, btSelectDate)
@@ -4050,7 +4071,7 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDlg.ui:1273 plugins/playback/PlayBackDlg.ui:98
 #, kde-format
 msgid "&Select..."
-msgstr ""
+msgstr "&მონიშნეთ..."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbProgram)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:66
@@ -4062,13 +4083,13 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:89
 #, kde-format
 msgid "auto-detect the installed encoder"
-msgstr ""
+msgstr "დაყენებული ენკოდერის ავტოაღმოჩენა"
 
 #. i18n: ectx: property (text), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:92
 #, kde-format
 msgid "&Auto Detect..."
-msgstr ""
+msgstr "&ავტოამოცნობა..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:101
@@ -4086,7 +4107,7 @@ msgstr "&გამოყენება"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:117
 #, kde-format
 msgid "path to the encoder"
-msgstr ""
+msgstr "ბილიკი ენკოდერამდე"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPath)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:127
@@ -4098,13 +4119,13 @@ msgstr "ბილიკი:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:134
 #, kde-format
 msgid "find the full path to the encoder"
-msgstr ""
+msgstr "შეიყვანეთ სრული ბილიკი ენკოდერამდე"
 
 #. i18n: ectx: property (text), widget (QPushButton, btLocate)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:137
 #, kde-format
 msgid "&Locate"
-msgstr ""
+msgstr "&მოძიება"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpParameters)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:147
@@ -4128,7 +4149,7 @@ msgstr "შესვლა:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:188
 #, kde-format
 msgid "parameter for switching the byte order"
-msgstr ""
+msgstr "პარამეტრი ბაიტების მიმდევრობის გადასართავად"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edRawFormat)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:210
@@ -4140,7 +4161,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:233
 #, kde-format
 msgid "Raw Format:"
-msgstr ""
+msgstr "ფორმატი RAW:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblByteOrder)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:240
@@ -4173,7 +4194,7 @@ msgstr "სემპლის კოეფიციენტი:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:302
 #, kde-format
 msgid "Bits per Sample:"
-msgstr ""
+msgstr "ბიტი სემპლში:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
@@ -4187,7 +4208,7 @@ msgstr "არხები:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:341
 #, kde-format
 msgid "mono:"
-msgstr ""
+msgstr "მონო:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edMono)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:360
@@ -4199,7 +4220,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:376
 #, kde-format
 msgid "stereo:"
-msgstr ""
+msgstr "სტერეო:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edStereo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:396
@@ -4249,13 +4270,13 @@ msgstr "კოდირება"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:549
 #, kde-format
 msgid "Emphasis:"
-msgstr ""
+msgstr "Emphasis:"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEmphasisNone)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:562
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "არცერთი"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEmphasisNone)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:587
@@ -4269,7 +4290,7 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDlg.ui:992
 #, kde-format
 msgid "50/15ms"
-msgstr ""
+msgstr "50/15მწმ"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEmphasis5015ms)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:622
@@ -4281,7 +4302,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:638
 #, kde-format
 msgid "CCIT J17"
-msgstr ""
+msgstr "CCIT J17"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEmphasisCCIT_J17)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:657
@@ -4293,7 +4314,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:667
 #, kde-format
 msgid "Noise Shaping:"
-msgstr ""
+msgstr "ხმაურის ფორმაცია:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edNoiseShaping)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:686
@@ -4305,7 +4326,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:696
 #, kde-format
 msgid "Compatibility:"
-msgstr ""
+msgstr "თავსებადობა:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCompatibility)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:715
@@ -4347,7 +4368,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:821
 #, kde-format
 msgid "Protect:"
-msgstr ""
+msgstr "დაცვა:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edProtect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:840
@@ -4359,7 +4380,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:866
 #, kde-format
 msgid "Prepend:"
-msgstr ""
+msgstr "თავში მიწერა:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edPrepend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:879
@@ -4371,7 +4392,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:889
 #, kde-format
 msgid "Append:"
-msgstr ""
+msgstr "ბოლოში მიწერა:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edAppend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:902
@@ -4383,13 +4404,13 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:926
 #, kde-format
 msgid "Info"
-msgstr ""
+msgstr "ინფორმაცია"
 
 #. i18n: ectx: property (text), widget (QLabel, lblHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:932
 #, kde-format
 msgid "Encoder Help:"
-msgstr ""
+msgstr "ენკოდერის დახმარება:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:957
@@ -4401,7 +4422,7 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:967
 #, kde-format
 msgid "Version Info:"
-msgstr ""
+msgstr "ვერსიის ინფორმაცია:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edVersionInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1005
@@ -4419,12 +4440,12 @@ msgstr ""
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1050
 #, kde-format
 msgid "Test..."
-msgstr ""
+msgstr "შემოწმება.."
 
 #: plugins/codec_ogg/OggCodecPlugin.h:60
 #, kde-format
 msgid "Ogg Opus audio"
-msgstr ""
+msgstr "Ogg Opus აუდიო"
 
 #: plugins/codec_ogg/OggCodecPlugin.h:67
 #, kde-format
@@ -4434,7 +4455,7 @@ msgstr "Ogg Vorbis აუდიო"
 #: plugins/codec_ogg/OggDecoder.cpp:60 plugins/codec_ogg/OggDecoder.cpp:61
 #, kde-format
 msgid "Ogg audio"
-msgstr ""
+msgstr "Ogg აუდიო"
 
 #: plugins/codec_ogg/OggDecoder.cpp:93
 #, kde-format
@@ -4459,7 +4480,7 @@ msgstr "შეცდომა საწყისი თავსართის 
 #: plugins/codec_ogg/OggDecoder.cpp:161
 #, kde-format
 msgid "Error: Codec not supported"
-msgstr ""
+msgstr "შეცდომა: კოდეკი მხარდაჭერილი არაა"
 
 #: plugins/codec_ogg/OggDecoder.cpp:220
 #, kde-format
@@ -4472,7 +4493,7 @@ msgctxt ""
 "error in Ogg encoder, no support for a compression type (e.g. opus, vorbis "
 "etc)"
 msgid "Error: No Codec for '%1' available"
-msgstr ""
+msgstr "შეცდომა: '%1'-სთვის კოდეკი ხელმისაწვდომი არაა"
 
 #: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:115
 #, kde-format
@@ -4482,32 +4503,32 @@ msgstr ""
 #: plugins/codec_ogg/OpusCommon.cpp:58
 #, kde-format
 msgid "The mode struct passed is invalid."
-msgstr ""
+msgstr "გადაცემული რეჟიმის სტრუქტურა არასწორია."
 
 #: plugins/codec_ogg/OpusCommon.cpp:61
 #, kde-format
 msgid "An internal error was detected."
-msgstr ""
+msgstr "აღმოჩენილია შიდა შეცდომა."
 
 #: plugins/codec_ogg/OpusCommon.cpp:64
 #, kde-format
 msgid "The compressed data passed is corrupted."
-msgstr ""
+msgstr "გადმოცემული შეკუმშული მონაცემები დაზიანებულია."
 
 #: plugins/codec_ogg/OpusCommon.cpp:67
 #, kde-format
 msgid "Invalid/unsupported request number."
-msgstr ""
+msgstr "არასწორი/მხარდაუჭერელი მოთხოვნს ნომერი."
 
 #: plugins/codec_ogg/OpusCommon.cpp:70
 #, kde-format
 msgid "A decoder structure is invalid or already freed."
-msgstr ""
+msgstr "დეკოდერის სტრუქტურა ან არასწორია, ან უკვე გათავისუფლებულია."
 
 #: plugins/codec_ogg/OpusCommon.cpp:76
 #, kde-format
 msgid "Decoder error: %1"
-msgstr ""
+msgstr "დეკოდერის შეცდომა: %1"
 
 #: plugins/codec_ogg/OpusDecoder.cpp:152
 #, kde-format
@@ -4522,7 +4543,7 @@ msgstr ""
 #: plugins/codec_ogg/OpusDecoder.cpp:403
 #, kde-format
 msgid "Opus decoder failed"
-msgstr ""
+msgstr "Opus-ის დეკოდერი ჩავარდა"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:141
 #, kde-format
@@ -4555,7 +4576,7 @@ msgstr ""
 #: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
 #, kde-format
 msgid "Opus encoder failed"
-msgstr ""
+msgstr "Opus-ის ენკოდერი ჩავარდა"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:472
 #, kde-format
@@ -4630,7 +4651,7 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:142
 #, kde-format
 msgid "Auto Repair"
-msgstr ""
+msgstr "ავტოშეკეთება"
 
 #: plugins/codec_wav/WavDecoder.cpp:148
 #, kde-format
@@ -4652,7 +4673,7 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:177
 #, kde-format
 msgid "&Repair"
-msgstr ""
+msgstr "შე&კეთება"
 
 #: plugins/codec_wav/WavDecoder.cpp:242
 #, kde-format
@@ -4676,12 +4697,12 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:374
 #, kde-format
 msgid "file header is damaged"
-msgstr ""
+msgstr "ფაილის თავსართი დაზიანებულია"
 
 #: plugins/codec_wav/WavDecoder.cpp:390
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
-msgstr ""
+msgstr "libaudiofile-ის შიდა შეცდომა #%1: '%2'"
 
 #: plugins/codec_wav/WavEncoder.cpp:349
 #, kde-format
@@ -4693,22 +4714,22 @@ msgstr ""
 #: plugins/codec_wav/WavEncoder.cpp:352
 #, kde-format
 msgid "&Yes, use G711"
-msgstr ""
+msgstr "&დიახ, გამოიყენე G711"
 
 #: plugins/codec_wav/WavEncoder.cpp:353
 #, kde-format
 msgid "&No, store uncompressed"
-msgstr ""
+msgstr "&არა, შეიყვანე შეუკუმშავად"
 
 #: plugins/codec_wav/WavEncoder.cpp:402 plugins/sonagram/SonagramPlugin.cpp:204
 #, kde-format
 msgid "File or selection too large"
-msgstr ""
+msgstr "ფაილი ან მონიშნული მეტისმეტად დიდია"
 
 #: plugins/codec_wav/WavFileFormat.h:291
 #, kde-format
 msgid "WAV audio"
-msgstr ""
+msgstr "WAV აუდიო"
 
 #: plugins/debug/DebugPlugin.cpp:89
 msgid "Generate 50% DC Level"
@@ -4724,11 +4745,11 @@ msgstr ""
 
 #: plugins/debug/DebugPlugin.cpp:95
 msgid "Generate Sawtooth Pattern"
-msgstr ""
+msgstr "კბილოვანი ტალღის გენერაცია"
 
 #: plugins/debug/DebugPlugin.cpp:97
 msgid "Verify Sawtooth Pattern"
-msgstr ""
+msgstr "კბილოვანი ტალღის გადამოწმება"
 
 #: plugins/debug/DebugPlugin.cpp:99
 msgid "FM Sweep"
@@ -4749,18 +4770,18 @@ msgstr ""
 #: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:236
 #, kde-format
 msgid "Debug (%1)"
-msgstr ""
+msgstr "გამართვა (%1)"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:280
 msgctxt "menu: /File/Save/Export to K3b Project..."
 msgid "Export to K3b Project..."
-msgstr ""
+msgstr "გატანა K3b-ის პროექტში..."
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:311
 #, kde-format
 msgctxt "file type filter when exporting to K3b"
 msgid "K3b project file (*.k3b)"
-msgstr ""
+msgstr "K3b-ის პროექტის ფაილი (*.k3b)"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:617
 #, kde-format
@@ -4789,13 +4810,13 @@ msgstr ""
 #: plugins/export_k3b/K3BExportWidgetBase.ui:29
 #, kde-format
 msgid "Input Settings"
-msgstr ""
+msgstr "შეყვანის პარამეტრები"
 
 #. i18n: ectx: property (text), widget (QLabel, lblLabelFormat)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:40
 #, kde-format
 msgid "Format of Labels:"
-msgstr ""
+msgstr "ჭდეების ფორმატი:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbLabelPattern)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:56
@@ -4829,7 +4850,7 @@ msgstr ""
 #: plugins/export_k3b/K3BExportWidgetBase.ui:80
 #, kde-format
 msgid "Use Selection only"
-msgstr ""
+msgstr "მხოლოდ, მონიშნულის გამოყენება"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpOutputSettings)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:93
@@ -4841,7 +4862,7 @@ msgstr "გამოტანის მორგება"
 #: plugins/export_k3b/K3BExportWidgetBase.ui:108
 #, kde-format
 msgid "Export Location:"
-msgstr ""
+msgstr "გატანის მდებარეობა:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:124
@@ -4861,13 +4882,13 @@ msgstr ""
 #: plugins/export_k3b/K3BExportWidgetBase.ui:136
 #, kde-format
 msgid "Sub Directory"
-msgstr ""
+msgstr "ქვესაქაღალდე"
 
 #. i18n: ectx: property (text), widget (QLabel, lblOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:150
 #, kde-format
 msgid "Overwrite Policy:"
-msgstr ""
+msgstr "ზედ გადაწერის პოლიტიკა:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:166
@@ -4881,19 +4902,19 @@ msgstr ""
 #: plugins/export_k3b/K3BExportWidgetBase.ui:173
 #, kde-format
 msgid "Overwrite Existing Files"
-msgstr ""
+msgstr "არსებულ ფაილებზე გადაწერა"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:178
 #, kde-format
 msgid "Use new File Names"
-msgstr ""
+msgstr "ახალი ფაილის სახელების გამოყენება"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:50
 #, kde-format
 msgid "Average Bitrate Mode"
-msgstr ""
+msgstr "საშუალო ბიტური სიხშირის რეჟიმი"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:55
@@ -4922,7 +4943,7 @@ msgstr "უმდაბლესი"
 #: plugins/fileinfo/CompressionWidgetBase.ui:88
 #, kde-format
 msgid "Variable Bitrate Mode"
-msgstr ""
+msgstr "ცვლადი ბიტური სიჩქარის რეჟიმი"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbVBR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:92
@@ -4948,7 +4969,7 @@ msgstr "უმაღლესი"
 #: plugins/fileinfo/CompressionWidgetBase.ui:115
 #, kde-format
 msgid "Nominal Bitrate"
-msgstr ""
+msgstr "ნომინალური ბიტური ჩქარე"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbBaseQuality)
 #: plugins/fileinfo/CompressionWidgetBase.ui:184
@@ -5239,7 +5260,7 @@ msgstr "MPEG"
 #: plugins/fileinfo/FileInfoDlg.ui:790
 #, kde-format
 msgid "Intensity Stereo"
-msgstr ""
+msgstr "Intensity Stereo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegMSStereo)
 #: plugins/fileinfo/FileInfoDlg.ui:797
@@ -5258,25 +5279,25 @@ msgstr "yes"
 #: plugins/fileinfo/FileInfoDlg.ui:853
 #, kde-format
 msgid "Bands 4 to 31"
-msgstr ""
+msgstr "ზოლები 4-დან 31-მდე"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:858
 #, kde-format
 msgid "Bands 8 to 31"
-msgstr ""
+msgstr "ზოლები 8-დან 31-მდე"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:863
 #, kde-format
 msgid "Bands 12 to 31"
-msgstr ""
+msgstr "ზოლები 12-დან 31-მდე"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegModeExt)
 #: plugins/fileinfo/FileInfoDlg.ui:868
 #, kde-format
 msgid "Bands 16 to 31"
-msgstr ""
+msgstr "ზოლები 16-დან 31-მდე"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
 #: plugins/fileinfo/FileInfoDlg.ui:997
@@ -5330,20 +5351,20 @@ msgstr "შემცველობა"
 #: plugins/fileinfo/FileInfoDlg.ui:1267
 #, kde-format
 msgid "Select a date from the calendar."
-msgstr ""
+msgstr "თარიღის კალენდრიდან არჩევა."
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDate)
 #: plugins/fileinfo/FileInfoDlg.ui:1270
 #, kde-format
 msgid "Opens a dialog for selecting a date from the calendar."
-msgstr ""
+msgstr "გახსნის დიალოგს კალენდრიდან თარიღის ასარჩევად."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btSelectDateNow)
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDateNow)
 #: plugins/fileinfo/FileInfoDlg.ui:1292 plugins/fileinfo/FileInfoDlg.ui:1295
 #, kde-format
 msgid "Set the date to today."
-msgstr ""
+msgstr "თარიღის დაყენება დღევანდელზე."
 
 #. i18n: ectx: property (text), widget (QPushButton, btSelectDateNow)
 #: plugins/fileinfo/FileInfoDlg.ui:1298
@@ -5362,7 +5383,7 @@ msgstr " / "
 #: plugins/fileinfo/FileInfoDlg.ui:1719
 #, kde-format
 msgid "Author/Copyright"
-msgstr ""
+msgstr "ავტორი/საავტორო უფლებები"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: plugins/fileinfo/FileInfoDlg.ui:2000
@@ -5387,7 +5408,7 @@ msgstr "&გარდაქმნა"
 #: plugins/fileinfo/FileInfoPlugin.cpp:92
 #, kde-format
 msgid "&Set Rate"
-msgstr ""
+msgstr "&სიხშირის დაყენება"
 
 #. i18n: ectx: property (text), widget (QPushButton, btRemove)
 #: plugins/fileinfo/KeywordWidgetBase.ui:29
@@ -5405,7 +5426,7 @@ msgstr "&დამატება"
 #: plugins/fileinfo/KeywordWidgetBase.ui:62
 #, kde-format
 msgid "auto-generate keywords"
-msgstr ""
+msgstr "საკვანძო სიტყვების ავტოგენერაცია"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:66
@@ -5426,7 +5447,7 @@ msgstr "&ავტომატური"
 #: plugins/fileinfo/KeywordWidgetBase.ui:82
 #, kde-format
 msgid "List of keywords."
-msgstr ""
+msgstr "საკვანძო სიტყვების სია."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectDateDlg)
 #: plugins/fileinfo/SelectDateDlg.ui:20
@@ -5438,7 +5459,7 @@ msgstr "აირჩიეთ თარიღი"
 #: plugins/goto/GotoDlg.ui:15
 #, kde-format
 msgid "Go to Position"
-msgstr ""
+msgstr "პოზიციაზე გადასვლა"
 
 #: plugins/goto/GotoPlugin.cpp:50
 #, kde-format
@@ -5448,7 +5469,7 @@ msgstr "გადასვლა..."
 #: plugins/goto/InsertAtPlugin.cpp:50
 #, kde-format
 msgid "Insert At..."
-msgstr ""
+msgstr "ჩასმა მისამართზე..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, LowPassDlg)
 #: plugins/lowpass/LowPassDlg.ui:14 plugins/lowpass/LowPassPlugin.cpp:111
@@ -5461,7 +5482,7 @@ msgstr "დაბალსიხშირული ფილტრი"
 #: plugins/lowpass/LowPassDlg.ui:29 plugins/lowpass/LowPassDlg.ui:66
 #, kde-format
 msgid "cutoff frequency"
-msgstr ""
+msgstr "წაჭრის სიხშირე"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider)
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox)
@@ -5491,7 +5512,7 @@ msgstr ""
 #: plugins/newsignal/NewSigDlg.ui:168 plugins/record/RecordDlg.ui:670
 #, kde-format
 msgid "Samples per second"
-msgstr ""
+msgstr "სემპლი წამში"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBits)
 #: plugins/newsignal/NewSigDlg.ui:224
@@ -5550,7 +5571,7 @@ msgstr "მინიმუმი"
 #: plugins/newsignal/NewSigDlg.ui:521
 #, kde-format
 msgid "(File Size)"
-msgstr ""
+msgstr "(ფაილის ზომა)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMaximumSize_3)
 #: plugins/newsignal/NewSigDlg.ui:550
@@ -5567,13 +5588,13 @@ msgstr ""
 #: plugins/newsignal/NewSignalDialog.cpp:327
 #, kde-format
 msgid "(Resulting file size: %1 MB)"
-msgstr ""
+msgstr "(შედეგი ფაილის ზომა: %1 მბ)"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NoiseDlg)
 #: plugins/noise/NoiseDlg.ui:17 plugins/noise/NoisePlugin.cpp:135
 #, kde-format
 msgid "Add Noise"
-msgstr ""
+msgstr "ხმაურის დამატება"
 
 #. i18n: ectx: property (title), widget (QGroupBox, ButtonGroup1)
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup3)
@@ -5587,7 +5608,7 @@ msgstr "რეჟიმი"
 #: plugins/noise/NoiseDlg.ui:54
 #, kde-format
 msgid "add a noise level by percentage"
-msgstr ""
+msgstr "ხმაურის დამატება პროცენტებში"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:58
@@ -5602,13 +5623,13 @@ msgstr ""
 #: plugins/noise/NoiseDlg.ui:61 plugins/volume/VolumeDlg.ui:91
 #, kde-format
 msgid "&Percentage"
-msgstr ""
+msgstr "&პროცენტულობა"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/noise/NoiseDlg.ui:77
 #, kde-format
 msgid "add a noise level in dB"
-msgstr ""
+msgstr "ხმაურის დამატება დბ-ში"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbLogarithmic)
 #: plugins/noise/NoiseDlg.ui:81
@@ -5622,7 +5643,7 @@ msgstr ""
 #: plugins/noise/NoiseDlg.ui:84 plugins/volume/VolumeDlg.ui:111
 #, kde-format
 msgid "&Logarithmic"
-msgstr ""
+msgstr "&ლოგარითმული"
 
 #. i18n: ectx: property (toolTip), widget (Kwave::InvertableSpinBox, spinbox)
 #. i18n: ectx: property (windowTitle), widget (QDialog, VolumeDlg)
@@ -5648,12 +5669,12 @@ msgstr "ნორმალიზაცია"
 #: plugins/normalize/NormalizePlugin.cpp:92
 #, kde-format
 msgid "Analyzing volume level..."
-msgstr ""
+msgstr "ხმის დონის ანალიზი..."
 
 #: plugins/normalize/NormalizePlugin.cpp:129
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
-msgstr ""
+msgstr "ნორმალიზაცია (%1 დბ) ..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NotchFilterDlg)
 #: plugins/notch_filter/NotchFilterDlg.ui:14
@@ -5668,7 +5689,7 @@ msgstr "Notch ფილტრი"
 #: plugins/notch_filter/NotchFilterDlg.ui:96
 #, kde-format
 msgid "center frequency"
-msgstr ""
+msgstr "ცენტრის სიხშირე"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox)
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider)
@@ -5687,7 +5708,7 @@ msgstr ""
 #: plugins/notch_filter/NotchFilterDlg.ui:141
 #, kde-format
 msgid "bandwidth"
-msgstr ""
+msgstr "გამტარობა"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slider_2)
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, spinbox_2)
@@ -5705,7 +5726,7 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftPlugin.cpp:128
 #, kde-format
 msgid "Pitch Shift"
-msgstr ""
+msgstr "ტონის წანაცვლება"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: plugins/pitch_shift/PitchShiftDlg.ui:98
@@ -5719,7 +5740,7 @@ msgstr "სიხშირე:"
 #: plugins/pitch_shift/PitchShiftDlg.ui:146
 #, kde-format
 msgid "chopper frequency"
-msgstr ""
+msgstr "წყვეტის სიხშირე"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slFrequency)
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFrequency)
@@ -5750,7 +5771,7 @@ msgstr "სიჩქარე"
 #: plugins/pitch_shift/PitchShiftDlg.ui:215
 #, kde-format
 msgid "change speed by percentage"
-msgstr ""
+msgstr "სიჩქარის შეცვლა პროცენტულად"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:219
@@ -5764,13 +5785,13 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:222
 #, kde-format
 msgid "by Percentage"
-msgstr ""
+msgstr "პროცენტულად"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:232
 #, kde-format
 msgid "change speed by a factor"
-msgstr ""
+msgstr "სიჩქარის შეცვლა მოცემულ რიცხვჯერ"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:236
@@ -5784,7 +5805,7 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:239
 #, kde-format
 msgid "by Factor"
-msgstr ""
+msgstr "მოცემული რაოდენობით"
 
 #: plugins/playback/PlayBack-ALSA.cpp:51 plugins/playback/PlayBack-Qt.cpp:44
 #: plugins/record/Record-Qt.cpp:49
@@ -5795,7 +5816,7 @@ msgstr "ნაგულისხმებ მოწყობილობა"
 #: plugins/playback/PlayBack-ALSA.cpp:54
 #, kde-format
 msgid "Null device"
-msgstr ""
+msgstr "ნულოვანი მოწყობილობა"
 
 #: plugins/playback/PlayBack-ALSA.cpp:573 plugins/playback/PlayBack-OSS.cpp:140
 #, kde-format
@@ -5818,7 +5839,7 @@ msgstr ""
 #: plugins/playback/PlayBack-ALSA.cpp:587
 #, kde-format
 msgid "Opening the device '%1' failed: %2"
-msgstr ""
+msgstr "მოწყობილობის '%1' გახსნა ჩავარდა: %2"
 
 #: plugins/playback/PlayBack-ALSA.cpp:817
 #: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
@@ -5842,22 +5863,22 @@ msgstr "ქვემოწყობილობა %1: "
 #: plugins/playback/PlayBack-ALSA.cpp:851
 #, kde-format
 msgid "DMIX plugin"
-msgstr ""
+msgstr "DMIX დამატება"
 
 #: plugins/playback/PlayBack-OSS.cpp:164
 #, kde-format
 msgid "The device '%1' cannot be opened in the correct mode."
-msgstr ""
+msgstr "მოწყობილობის '%1' გახსნა სწორ რეჟიმში შეუძლებელია."
 
 #: plugins/playback/PlayBack-OSS.cpp:187 plugins/playback/PlayBack-Qt.cpp:148
 #, kde-format
 msgid "%1 bits per sample are not supported"
-msgstr ""
+msgstr "%1 ბიტი სემპლისთვის მხარდაჭერილი არაა"
 
 #: plugins/playback/PlayBack-OSS.cpp:193
 #, kde-format
 msgid "%1 channels playback is not supported"
-msgstr ""
+msgstr "%1 არხით დაკვრა მხარდაჭერილი არაა"
 
 #: plugins/playback/PlayBack-OSS.cpp:200
 #, kde-format
@@ -5867,73 +5888,73 @@ msgstr ""
 #: plugins/playback/PlayBack-OSS.cpp:210
 #, kde-format
 msgid "Unusable buffer size: %1"
-msgstr ""
+msgstr "არგამოყენებადი ბუფერის ზომა: %1"
 
 #: plugins/playback/PlayBack-OSS.cpp:402
 #, kde-format
 msgid "OSS playback device (dsp*)"
-msgstr ""
+msgstr "OSS-ის დაკვრის მოწყობილობა (dsp*)"
 
 #: plugins/playback/PlayBack-OSS.cpp:405
 #, kde-format
 msgid "ALSA playback device (adsp*)"
-msgstr ""
+msgstr "ALSA-ის დაკვრის მოწყბილობა (adsp*)"
 
 #: plugins/playback/PlayBack-OSS.cpp:408 plugins/record/Record-OSS.cpp:315
 #: plugins/record/RecordDialog.cpp:622
 #, kde-format
 msgid "Any device (*)"
-msgstr ""
+msgstr "ნებისმიერი მოწყობილობა (*)"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:463
 #, kde-format
 msgid "%1 channels are not supported, maximum is 255"
-msgstr ""
+msgstr "%1 არხი მხარდაჭერილი არაა. მაქსიმუმია 255"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:470
 #, kde-format
 msgid "Connecting to the PulseAudio server failed."
-msgstr ""
+msgstr "PulseAudio-ის სერვერთან მიერთება ჩავარდა."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:476
 #, kde-format
 msgid "The PulseAudio device '%1' is unknown or no longer connected"
-msgstr ""
+msgstr "PulseAudio-ის მოწყობილობა '%1' უცნობია, ან მიერთებული აღარაა"
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:520
 #, kde-format
 msgid "playback..."
-msgstr ""
+msgstr "დაკვრა..."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:536
 #, kde-format
 msgid "Failed to create a PulseAudio stream (%1)."
-msgstr ""
+msgstr "PulseAdio-ის ნაკადის შექმნა ჩავარდა (%1)."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:578
 #, kde-format
 msgid "Failed to open a PulseAudio stream for playback (%1)."
-msgstr ""
+msgstr "PulseAdio-ის ნაკადის შექმნა დაკვრისთვის ჩავარდა (%1)."
 
 #: plugins/playback/PlayBack-PulseAudio.cpp:819
 #, kde-format
 msgid "(Use server default)"
-msgstr ""
+msgstr "(სერვერის ნაგულისხმევის გამოყენება)"
 
 #: plugins/playback/PlayBack-Qt.cpp:127
 #, kde-format
 msgid "The audio device '%1' is unknown or no longer connected"
-msgstr ""
+msgstr "აუდიომოწყობილობა '%1' უცნობია, ან მიერთებული აღარაა"
 
 #: plugins/playback/PlayBack-Qt.cpp:154
 #, kde-format
 msgid "format not supported"
-msgstr ""
+msgstr "ფორმატი მხარდაჭერილი არაა"
 
 #: plugins/playback/PlayBack-Qt.cpp:192
 #, kde-format
 msgid "Opening the Qt Multimedia device '%1' failed"
-msgstr ""
+msgstr "Qt Multimedia-ის მოწყობილობის '%1' გახსნა ცავარდა"
 
 #: plugins/playback/PlayBackDialog.cpp:515
 #, kde-format
@@ -5948,18 +5969,18 @@ msgstr "%1 კბ"
 #: plugins/playback/PlayBackDialog.cpp:615
 #, kde-format
 msgid "(mono)"
-msgstr ""
+msgstr "(მონო)"
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
 #: plugins/playback/PlayBackDialog.cpp:616 plugins/playback/PlayBackDlg.ui:350
 #, kde-format
 msgid "(stereo)"
-msgstr ""
+msgstr "(სტერეო)"
 
 #: plugins/playback/PlayBackDialog.cpp:617
 #, kde-format
 msgid "(quadro)"
-msgstr ""
+msgstr "(კვადრო)"
 
 #: plugins/playback/PlayBackDialog.cpp:647
 #, kde-format
@@ -5982,7 +6003,7 @@ msgstr "დაკვრის პარამეტრები"
 #: plugins/playback/PlayBackDlg.ui:64
 #, kde-format
 msgid "Playback device"
-msgstr ""
+msgstr "დამკვრელი მოწყობილობა"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/playback/PlayBackDlg.ui:67
@@ -5998,7 +6019,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:92 plugins/record/RecordDlg.ui:1072
 #, kde-format
 msgid "Search on the filesystem for a device"
-msgstr ""
+msgstr "მოწყობილობის ძებნა ფაილურ სისტემაში"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSelectDevice)
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btSourceSelect)
@@ -6013,7 +6034,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:121
 #, kde-format
 msgid "Method or system used for playback"
-msgstr ""
+msgstr "დასაკრავად გამოყენებული მეთოდი ან სისტემა"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:128
@@ -6038,7 +6059,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:137
 #, kde-format
 msgid "Playback method:"
-msgstr ""
+msgstr "დაკვრის მეთოდი:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
@@ -6051,13 +6072,13 @@ msgstr "მოწყობიობა:"
 #: plugins/playback/PlayBackDlg.ui:165
 #, kde-format
 msgid "256 Bytes"
-msgstr ""
+msgstr "256 ბაიტი"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slBufferSize)
 #: plugins/playback/PlayBackDlg.ui:187
 #, kde-format
 msgid "Size of the playback buffer in bytes"
-msgstr ""
+msgstr "დაკვრის ბუფერის ზომა ბაიტებში"
 
 #. i18n: ectx: property (whatsThis), widget (QSlider, slBufferSize)
 #: plugins/playback/PlayBackDlg.ui:190
@@ -6075,19 +6096,19 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:220 plugins/record/RecordDlg.ui:990
 #, kde-format
 msgid "Buffer size:"
-msgstr ""
+msgstr "ბუფერის ზომა:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: plugins/playback/PlayBackDlg.ui:256
 #, kde-format
 msgid "Bits per sample:"
-msgstr ""
+msgstr "ბიტები სემპლისთვის:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbBitsPerSample)
 #: plugins/playback/PlayBackDlg.ui:280
 #, kde-format
 msgid "Playback resolution in bits per sample"
-msgstr ""
+msgstr "დაკვირს გაფართოება ერთეულში ბიტი-სემპლში"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbBitsPerSample)
 #: plugins/playback/PlayBackDlg.ui:283
@@ -6104,7 +6125,7 @@ msgstr ""
 #: plugins/playback/PlayBackDlg.ui:325
 #, kde-format
 msgid "Number of channels: mono, stereo..."
-msgstr ""
+msgstr "არხების რაოდენობა: მონო, სტერეო..."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbChannels)
 #: plugins/playback/PlayBackDlg.ui:328
@@ -6129,7 +6150,7 @@ msgstr "1"
 #: plugins/playback/PlayBackDlg.ui:458
 #, kde-format
 msgid "Play a short test sound"
-msgstr ""
+msgstr "პატარა საცდელი ხმის დაკვრა"
 
 #. i18n: ectx: property (whatsThis), widget (QPushButton, btTest)
 #: plugins/playback/PlayBackDlg.ui:461
@@ -6148,12 +6169,12 @@ msgstr "&ტესტირება..."
 #: plugins/playback/PlayBackPlugin.cpp:404
 #, kde-format
 msgid "Please select a playback device first"
-msgstr ""
+msgstr "ჯერ აირჩიეთ დაკვრის მოწყობილობა"
 
 #: plugins/playback/PlayBackPlugin.cpp:430
 #, kde-format
 msgid "Playback Test"
-msgstr ""
+msgstr "დაკვრის შემოწმება"
 
 #: plugins/playback/PlayBackPlugin.cpp:439
 #, kde-format
@@ -6170,47 +6191,47 @@ msgstr "%1 დბ"
 #: plugins/record/Record-ALSA.cpp:36
 #, kde-format
 msgid "DSNOOP plugin"
-msgstr ""
+msgstr "DSNOOP დამატება"
 
 #: plugins/record/Record-OSS.cpp:306
 #, kde-format
 msgid "OSS recording device (audio*)"
-msgstr ""
+msgstr "OSS-ის ჩაწერის მოწყობილობა (audio*)"
 
 #: plugins/record/Record-OSS.cpp:309
 #, kde-format
 msgid "OSS recording device (dsp*)"
-msgstr ""
+msgstr "OSS-ის ჩაწერის მოწყობილობა (dsp*)"
 
 #: plugins/record/Record-OSS.cpp:312
 #, kde-format
 msgid "ALSA recording device (adsp*)"
-msgstr ""
+msgstr "ALSA-ის ჩაწერის მოწყბილობა (adsp*)"
 
 #: plugins/record/Record-PulseAudio.cpp:216
 #, kde-format
 msgid "Kwave record"
-msgstr ""
+msgstr "Kwave-ით ჩანაწერი"
 
 #: plugins/record/RecordDialog.cpp:309
 #, kde-format
 msgid "&Done"
-msgstr ""
+msgstr "&მზადაა"
 
 #: plugins/record/RecordDialog.cpp:620
 #, kde-format
 msgid "OSS record device (dsp*)"
-msgstr ""
+msgstr "OSS-ის ჩაწერის მოწყობილობა (dsp*)"
 
 #: plugins/record/RecordDialog.cpp:621
 #, kde-format
 msgid "ALSA record device (adsp*)"
-msgstr ""
+msgstr "ALSA-ის ჩაწერის მოწყბილობა (adsp*)"
 
 #: plugins/record/RecordDialog.cpp:630
 #, kde-format
 msgid "Select Record Device"
-msgstr ""
+msgstr "აირჩიეთ ჩამწერი მოწყობილობა"
 
 #: plugins/record/RecordDialog.cpp:717 plugins/record/RecordPlugin.cpp:544
 #: plugins/record/RecordPlugin.cpp:552
@@ -6228,7 +6249,7 @@ msgstr "სტერეო"
 #: plugins/record/RecordPlugin.cpp:554
 #, kde-format
 msgid "Quadro"
-msgstr ""
+msgstr "კვადრო"
 
 #: plugins/record/RecordDialog.cpp:734
 #, kde-format
@@ -6248,7 +6269,7 @@ msgstr "%1 ბიტი"
 #: plugins/record/RecordDialog.cpp:1004
 #, kde-format
 msgid "Please check the source device settings..."
-msgstr ""
+msgstr "შეამოწმეთ წყარო მოწყობილობის პარამეტრები..."
 
 #: plugins/record/RecordDialog.cpp:1016
 #, kde-format
@@ -6263,17 +6284,17 @@ msgstr "ბუფერის შევსება..."
 #: plugins/record/RecordDialog.cpp:1038
 #, kde-format
 msgid "Prerecording..."
-msgstr ""
+msgstr "წინასწარი ჩაწერა..."
 
 #: plugins/record/RecordDialog.cpp:1049 plugins/record/RecordDialog.cpp:1204
 #, kde-format
 msgid "Waiting for trigger..."
-msgstr ""
+msgstr "ტრიგერის მოლოდინი..."
 
 #: plugins/record/RecordDialog.cpp:1060
 #, kde-format
 msgid "Recording..."
-msgstr ""
+msgstr "ჩაწერა..."
 
 #: plugins/record/RecordDialog.cpp:1078
 #, kde-format
@@ -6283,35 +6304,35 @@ msgstr "შეჩერებულია"
 #: plugins/record/RecordDialog.cpp:1089
 #, kde-format
 msgid "Done"
-msgstr ""
+msgstr "მზადაა"
 
 #: plugins/record/RecordDialog.cpp:1188
 #, kde-format
 msgid "one day "
 msgid_plural "%1 days "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 დღე "
+msgstr[1] "%1 დღე "
 
 #: plugins/record/RecordDialog.cpp:1190
 #, kde-format
 msgid "one hour "
 msgid_plural "%1 hours "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 საათი "
+msgstr[1] "%1 საათი "
 
 #: plugins/record/RecordDialog.cpp:1192
 #, kde-format
 msgid "one minute "
 msgid_plural "%1 minutes "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ერთი წუთი "
+msgstr[1] "%1 წუთი "
 
 #: plugins/record/RecordDialog.cpp:1195
 #, kde-format
 msgid "and %1 second"
 msgid_plural "and %1 seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "და %1 წამი"
+msgstr[1] "და %1 წუთი"
 
 #: plugins/record/RecordDialog.cpp:1196
 #, kde-format
@@ -6324,7 +6345,7 @@ msgstr[1] "%1 წამი"
 #, kde-format
 msgctxt "%1=days; %2=hours; %3=minutes; %4=seconds"
 msgid "Waiting for start in %1%2%3%4..."
-msgstr ""
+msgstr "დაწყებამდე დარჩენილია %1%2%3%4..."
 
 #: plugins/record/RecordDialog.cpp:1219
 #, kde-format
@@ -6334,7 +6355,7 @@ msgstr "სიგრძე: %1"
 #: plugins/record/RecordDialog.cpp:1220
 #, kde-format
 msgid "(%1 samples)"
-msgstr ""
+msgstr "(%1 სემპლი)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_record)
 #: plugins/record/RecordDlg.ui:54
@@ -6346,13 +6367,13 @@ msgstr "ჩაწერა"
 #: plugins/record/RecordDlg.ui:66
 #, kde-format
 msgid "Record Control"
-msgstr ""
+msgstr "ჩაწერის კონტროლი"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:72
 #, kde-format
 msgid "Enable Pre-recording"
-msgstr ""
+msgstr "წინასწარი ჩაწერის ჩართვა"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:75
@@ -6368,13 +6389,13 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:78
 #, kde-format
 msgid "Pre-record:"
-msgstr ""
+msgstr "წინასწარი ჩაწერა:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:91
 #, kde-format
 msgid "Limit the recording time"
-msgstr ""
+msgstr "ჩაწერის დროის შეზღუდვა"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordTime)
 #: plugins/record/RecordDlg.ui:94
@@ -6388,13 +6409,13 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:97
 #, kde-format
 msgid "Record &time:"
-msgstr ""
+msgstr "ჩაწერის &დრო:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordTrigger)
 #: plugins/record/RecordDlg.ui:110
 #, kde-format
 msgid "Trigger level"
-msgstr ""
+msgstr "ტრიგერის დონე"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordTrigger)
 #: plugins/record/RecordDlg.ui:113
@@ -6408,7 +6429,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:116
 #, kde-format
 msgid "Record trigger:"
-msgstr ""
+msgstr "ჩაწერის ტრიგერი:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btStop)
 #: plugins/record/RecordDlg.ui:172
@@ -6420,19 +6441,19 @@ msgstr "ჩაწერის გაჩერება"
 #: plugins/record/RecordDlg.ui:191
 #, kde-format
 msgid "Pause/Continue"
-msgstr ""
+msgstr "შეჩერება/გაგრძელება"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbRecordPre)
 #: plugins/record/RecordDlg.ui:285
 #, kde-format
 msgid " s"
-msgstr ""
+msgstr " s"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, chkRecordStartTime)
 #: plugins/record/RecordDlg.ui:353
 #, kde-format
 msgid "Start at a given date and time"
-msgstr ""
+msgstr "დაწყება მითითებულ თარიღზე და დროზე"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkRecordStartTime)
 #: plugins/record/RecordDlg.ui:356
@@ -6447,7 +6468,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:359
 #, kde-format
 msgid "Start &at:"
-msgstr ""
+msgstr "დაწყების &დრო:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_level)
 #. i18n: ectx: property (title), widget (QGroupBox, grpLevel)
@@ -6466,7 +6487,7 @@ msgstr "AGC:"
 #: plugins/record/RecordDlg.ui:433
 #, kde-format
 msgid "Amplify:"
-msgstr ""
+msgstr "გაძლიერება:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbLevelAmplify)
 #: plugins/record/RecordDlg.ui:452
@@ -6541,7 +6562,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:883
 #, kde-format
 msgid "Sample format:"
-msgstr ""
+msgstr "სემპლის ფორმატი:"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFormatResolution)
 #: plugins/record/RecordDlg.ui:893
@@ -6555,13 +6576,13 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1000
 #, kde-format
 msgid "Buffer count:"
-msgstr ""
+msgstr "ბუფერის რაოდენობა:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1022
 #, kde-format
 msgid "Method or system used for recording"
-msgstr ""
+msgstr "ჩაწერისთვის გამოყენებული მეთოდი ან სისტემა"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbMethod)
 #: plugins/record/RecordDlg.ui:1028
@@ -6581,13 +6602,13 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1035
 #, kde-format
 msgid "Recording method:"
-msgstr ""
+msgstr "ჩაწერის მეთოდი:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1053
 #, kde-format
 msgid "Recording device"
-msgstr ""
+msgstr "ჩაწერის მოწყობილობა"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbDevice)
 #: plugins/record/RecordDlg.ui:1056
@@ -6602,7 +6623,7 @@ msgstr ""
 #: plugins/record/RecordDlg.ui:1078
 #, kde-format
 msgid "Selec&t..."
-msgstr ""
+msgstr "არჩ&ევა..."
 
 #. i18n: ectx: property (text), widget (Kwave::TreeWidgetWrapper, listDevices)
 #: plugins/record/RecordDlg.ui:1181
@@ -6614,7 +6635,7 @@ msgstr "მოწყობილობა"
 #: plugins/record/RecordDlg.ui:1204
 #, kde-format
 msgid "Buffer:"
-msgstr ""
+msgstr "ბუფერი:"
 
 #. i18n: ectx: property (text), widget (QLabel, lbl_level_meter)
 #: plugins/record/RecordDlg.ui:1236
@@ -6646,7 +6667,7 @@ msgstr ""
 #, kde-format
 msgctxt "%1 = a device name"
 msgid "Unable to open the recording device (%1)"
-msgstr ""
+msgstr "ჩამწერი მოწყობილობის (%1) გახსნა შეუძლებელია"
 
 #: plugins/record/RecordPlugin.cpp:548 plugins/record/RecordPlugin.cpp:556
 #, kde-format
@@ -6656,73 +6677,73 @@ msgstr "%1 არხი"
 #: plugins/record/RecordPlugin.cpp:559
 #, kde-format
 msgid "%1 is not supported, using %2"
-msgstr ""
+msgstr "%1 მხარდაჭერილი არაა. ვიყენებ %2-ს"
 
 #: plugins/record/RecordPlugin.cpp:582
 #, kde-format
 msgid "Recording with %1 channel(s) failed, using %2 channel(s)"
-msgstr ""
+msgstr "%1 არხით ჩაწერა ჩავარდა. ვიყენებ %2 არხს"
 
 #: plugins/record/RecordPlugin.cpp:627
 #, kde-format
 msgid "%1 Hz is not supported, using %2 Hz"
-msgstr ""
+msgstr "%1 ჰერცი მხარდაჭერილი არაა. ვიყენებ %2 ჰერცს"
 
 #: plugins/record/RecordPlugin.cpp:644
 #, kde-format
 msgid "%1 Hz failed, using %2 Hz"
-msgstr ""
+msgstr "%1 ჰერცი ჩავარდა. ვიყენებ %2 ჰერცს"
 
 #: plugins/record/RecordPlugin.cpp:690
 #, kde-format
 msgid "Compression '%1' not supported, using '%2'"
-msgstr ""
+msgstr "შეკუმშვა '%1' მხარდაჭერილი არაა. ვიყენებ '%2'-ს"
 
 #: plugins/record/RecordPlugin.cpp:703
 #, kde-format
 msgid "Compression '%1' failed, using '%2'."
-msgstr ""
+msgstr "შეკუმშვა '%1' ჩავარდა. ვიყენებ '%2'-ს."
 
 #: plugins/record/RecordPlugin.cpp:742
 #, kde-format
 msgid "%1 bits per sample is not supported, using %2 bits per sample"
-msgstr ""
+msgstr "%1 ბიტი სემპლისთვის მხარდაჭერილი არაა. ვიყენებ %2 ბიტს სემპლისთვის"
 
 #: plugins/record/RecordPlugin.cpp:755
 #, kde-format
 msgid "%1 bits per sample failed, using %2 bits per sample"
-msgstr ""
+msgstr "%1 ბიტი სემპლისთვის ჩავარდა. ვიყენებ %2 ბიტს სემპლისთვის"
 
 #: plugins/record/RecordPlugin.cpp:797
 #, kde-format
 msgid "Sample format '%1' is not supported, using '%2'"
-msgstr ""
+msgstr "სემპლის ფორმატი '%1' მხარდაჭერილი არაა. ვიყენებ '%2'-ს"
 
 #: plugins/record/RecordPlugin.cpp:813
 #, kde-format
 msgid "Sample format '%1' failed, using '%2'"
-msgstr ""
+msgstr "სემპლის ფორმატი '%1' ჩავარდა. ვიყენებ '%2'-ს"
 
 #: plugins/record/RecordPlugin.cpp:952
 #, kde-format
 msgid "The current sample format is not supported!"
-msgstr ""
+msgstr "მიმდინარე სემპლის ფორმატი მხარდაჭერილი არაა!"
 
 #: plugins/record/RecordPlugin.cpp:958
 #, kde-format
 msgid "The current compression type is not supported!"
-msgstr ""
+msgstr "მიმდინარე შეკუმშვის ტიპი მხარდაჭერილი არაა!"
 
 #: plugins/record/RecordPlugin.cpp:1095
 #, kde-format
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
-msgstr ""
+msgstr "ბუფერის გადავსება. გაზარდეთ ჩაწერის ბუფერების რაოდენობა ან/და ზომა."
 
 #: plugins/record/RecordPlugin.cpp:1099
 #, kde-format
 msgid "The recording device seems to be busy."
-msgstr ""
+msgstr "როგორც ჩანს, ჩამწერი მოწყობილობა დაკავებულია."
 
 #: plugins/record/RecordPlugin.cpp:1102
 #, kde-format
@@ -6738,12 +6759,12 @@ msgstr "პირიქით"
 #: plugins/samplerate/SampleRatePlugin.cpp:100
 #, kde-format
 msgid "Change sample rate"
-msgstr ""
+msgstr "დისკრეტიზაციის სიხშირის შეცვლა"
 
 #: plugins/samplerate/SampleRatePlugin.cpp:161
 #, kde-format
 msgid "Changing sample rate from %1 kHz to %2 kHz..."
-msgstr ""
+msgstr "დისკრეტიზაციის სიხშირის შეცვლა %1 კჰც-დან %2 კჰცზე..."
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:174
 #, kde-format
@@ -6767,13 +6788,13 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:35
 #, kde-format
 msgid "Save selection only"
-msgstr ""
+msgstr "მხოლოდ, მონიშნულის შენახვა"
 
 #. i18n: ectx: property (text), widget (QLabel, lblNumbering)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:45
 #, kde-format
 msgid "Numbering:"
-msgstr ""
+msgstr "დანომრვა:"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbNumbering)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:64
@@ -6791,7 +6812,7 @@ msgstr ""
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:74
 #, kde-format
 msgid "Continue after highest index"
-msgstr ""
+msgstr "ნუმერაციის გაგრძელება"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbNumbering)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:79
@@ -6875,19 +6896,19 @@ msgstr "ჩვენება"
 #: plugins/sonagram/SonagramDlg.ui:55
 #, kde-format
 msgid "Use different colors for amplitude"
-msgstr ""
+msgstr "სხვადასხვა ფერების გამოყენება ამპლიტუდისთვის"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbColor)
 #: plugins/sonagram/SonagramDlg.ui:58
 #, kde-format
 msgid "Use colors"
-msgstr ""
+msgstr "ფერების გამოყენება"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbGreyScale)
 #: plugins/sonagram/SonagramDlg.ui:68
 #, kde-format
 msgid "Use grayscale only for amplitude"
-msgstr ""
+msgstr "ნაცრისფრის, მხოლოდ, ამპლიტუდისთვის გამოყენება"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbGreyScale)
 #: plugins/sonagram/SonagramDlg.ui:71
@@ -6911,7 +6932,7 @@ msgstr ""
 #: plugins/sonagram/SonagramDlg.ui:90
 #, kde-format
 msgid "On modifications"
-msgstr ""
+msgstr "ცვლილებებისას"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, cbFollowSelection)
 #: plugins/sonagram/SonagramDlg.ui:100
@@ -6931,19 +6952,19 @@ msgstr "მონიშნულზე მიყოლა"
 #: plugins/sonagram/SonagramDlg.ui:119
 #, kde-format
 msgid "FFT settings"
-msgstr ""
+msgstr "FFT-ის მორგება"
 
 #. i18n: ectx: property (text), widget (QLabel, m_pointlabel)
 #: plugins/sonagram/SonagramDlg.ui:127
 #, kde-format
 msgid "Number of FFT points:"
-msgstr ""
+msgstr "FFT წერტილების რაოდენობა:"
 
 #. i18n: ectx: property (text), widget (QLabel, Label2)
 #: plugins/sonagram/SonagramDlg.ui:157
 #, kde-format
 msgid "Window function:"
-msgstr ""
+msgstr "ფანჯრის ფუნქცია:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, windowtypebox)
 #. i18n: ectx: property (whatsThis), widget (KComboBox, windowtypebox)
@@ -7023,7 +7044,7 @@ msgstr "სონოგრამა"
 #: plugins/sonagram/SonagramWindow.cpp:119
 #, kde-format
 msgid "&Sonagram"
-msgstr ""
+msgstr "&სონაგრამა"
 
 #: plugins/sonagram/SonagramWindow.cpp:128
 #, kde-format
@@ -7038,42 +7059,42 @@ msgstr "დაკე&ტვა"
 #: plugins/sonagram/SonagramWindow.cpp:146
 #, kde-format
 msgid "Time: ------ ms"
-msgstr ""
+msgstr "დრო: ------ მწმ"
 
 #: plugins/sonagram/SonagramWindow.cpp:148
 #, kde-format
 msgid "Frequency: ------ Hz"
-msgstr ""
+msgstr "სიხშირე: ------ ჰც"
 
 #: plugins/sonagram/SonagramWindow.cpp:150
 #, kde-format
 msgid "Amplitude: --- %"
-msgstr ""
+msgstr "ამპლიტუდა: --- %"
 
 #: plugins/sonagram/SonagramWindow.cpp:199
 #, kde-format
 msgid "Time: 0 ms"
-msgstr ""
+msgstr "დრო: 0 მწმ"
 
 #: plugins/sonagram/SonagramWindow.cpp:200
 #, kde-format
 msgid "Frequency: 0 Hz"
-msgstr ""
+msgstr "სიხშირე: 0 ჰც"
 
 #: plugins/sonagram/SonagramWindow.cpp:201
 #, kde-format
 msgid "Amplitude: 0 %"
-msgstr ""
+msgstr "ამპლიტუდა: 0 %"
 
 #: plugins/sonagram/SonagramWindow.cpp:230
 #, kde-format
 msgid "Save Sonagram"
-msgstr ""
+msgstr "სონაგრამის შენახვა"
 
 #: plugins/sonagram/SonagramWindow.cpp:528
 #, kde-format
 msgid "Sonagram of %1"
-msgstr ""
+msgstr "%1-ის სონაგრამა"
 
 #: plugins/sonagram/SonagramWindow.cpp:552
 #, kde-format
@@ -7083,30 +7104,30 @@ msgstr "დრო: %1"
 #: plugins/sonagram/SonagramWindow.cpp:556
 #, kde-format
 msgid "Frequency: %1 Hz"
-msgstr ""
+msgstr "სიხშირე: %1 ჰც"
 
 #: plugins/sonagram/SonagramWindow.cpp:565
 #, kde-format
 msgid "Amplitude: %1%"
-msgstr ""
+msgstr "ამპლიტუდა: %1%"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, StringEnterDlg)
 #: plugins/stringenter/StringEnterDlg.ui:21
 #, kde-format
 msgid "Enter Command..."
-msgstr ""
+msgstr "შეიყვანეთ ბრძანება..."
 
 #. i18n: ectx: property (text), widget (QLabel, lblCommand)
 #: plugins/stringenter/StringEnterDlg.ui:36
 #, kde-format
 msgid "Enter Command:"
-msgstr ""
+msgstr "შეიყვანეთ ბრძანება:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCommand)
 #: plugins/stringenter/StringEnterDlg.ui:68
 #, kde-format
 msgid "please enter a text command here..."
-msgstr ""
+msgstr "შეიყვანეთ ბრძანების ტექსტი აქ..."
 
 #: plugins/stringenter/StringEnterPlugin.cpp:58
 msgctxt "menu: /Settings/Enter Command"
@@ -7117,7 +7138,7 @@ msgstr "შეიყვანეთ ბრძანება"
 #: plugins/volume/VolumeDlg.ui:64
 #, kde-format
 msgid "change volume by factor"
-msgstr ""
+msgstr "ხმის შეცვლა მითითებული რაოდენობით"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:68
@@ -7131,13 +7152,13 @@ msgstr ""
 #: plugins/volume/VolumeDlg.ui:71
 #, kde-format
 msgid "&Factor"
-msgstr ""
+msgstr "&ფაქტორი"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbPercentage)
 #: plugins/volume/VolumeDlg.ui:84
 #, kde-format
 msgid "change volume by percentage"
-msgstr ""
+msgstr "ხმის შეცვლა პროცენტულობით"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/volume/VolumeDlg.ui:88
@@ -7151,7 +7172,7 @@ msgstr ""
 #: plugins/volume/VolumeDlg.ui:104
 #, kde-format
 msgid "change volume in dB"
-msgstr ""
+msgstr "ხმის შეცვლა დეციბელებში"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:108

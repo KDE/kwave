@@ -69,7 +69,7 @@
   <summary xml:lang="sk">Kwave je editor zvuku navrhnutý pre KDE Frameworks 5</summary>
   <summary xml:lang="sl">Kwave je urejevalnik zvoka, zgrajen na KDE Frameworks 5</summary>
   <summary xml:lang="sv">Kwave är en ljudeditor konstruerad med KDE Ramverk 5</summary>
-  <summary xml:lang="tr">K Dalga, KDE Frameworks 5 üzerine kurulu bir ses düzenleyicidir</summary>
+  <summary xml:lang="tr">K Dalga, KDE Frameworks 5 üzerine kurulu bir ses düzenleyicisidir</summary>
   <summary xml:lang="uk">Kwave — звуковий редактор, створений на основі KDE Frameworks 5</summary>
   <summary xml:lang="x-test">xxKwave is a sound editor built on KDE Frameworks 5xx</summary>
   <summary xml:lang="zh-CN">Kwave 是构建于 KDE Frameworks 5 之上的音频编辑器</summary>
@@ -95,6 +95,7 @@
     <p xml:lang="ia">Con Kwave tu pote registrar, resonar, importar e modificar multe typos de files audio includente files multi canal</p>
     <p xml:lang="id">Dengan Kwave kamu bisa merekam, memutar kembali, mengimpor dan mengedit banyak file-file audio pendek termasuk file-file channel multi.</p>
     <p xml:lang="it">Con Kwave puoi registrare, riprodurre, importare e modificare molti tipi di file audio, inclusi i file multicanale.</p>
+    <p xml:lang="ka">KWave-სთან ერთად, შეგიძლიათ ჩაიწეროთ, დაუკრათ, შემოიტანოთ და ჩაასწოროთ აუდიოფაილის ბევრი ჯიში, მრავალარხიანი ფაილების ჩათვლით.</p>
     <p xml:lang="ko">Kwave를 사용하여 오디오 파일을 녹음, 재생, 편집할 수 있으며 멀티채널 오디오 파일도 지원합니다.</p>
     <p xml:lang="nl">Met Kwave kunt u vele soorten audiobestanden opnemen, afspelen, importeren en bewerken inclusief multi-channel bestanden.</p>
     <p xml:lang="nn">Med Kwave kan du spela inn, spela av, importera og redigera lydfiler i ulike format, også fleirkanalsfiler.</p>
@@ -105,7 +106,7 @@
     <p xml:lang="sk">Pomocou Kwave môžete nahrávať, prehrávať, importovať a editovať mnoho druhov audio súborov vrátane viackanálových súborov.</p>
     <p xml:lang="sl">S programom Kwave lahko snemate, predvajate, uvozite in urejate številne vrste zvočnih datotek, vključno z večkanalnimi datotekami.</p>
     <p xml:lang="sv">Man kan spela in, spela upp, importera och redigera många sorters ljudfiler, inklusive filer med flera kanaler, med Kwave.</p>
-    <p xml:lang="tr">K Dalga ile kayıt yapabilir, dinleyebilir, içe aktarabilir ve çoklu kanal dosyalarınıda barındıran birçok ses dosyasını düzenleyebilirsiniz.</p>
+    <p xml:lang="tr">K Dalga ile kayıt yapabilir, dinleyebilir, içe aktarabilir ve çoklu kanal dosyalarını da barındıran birçok ses dosyasını düzenleyebilirsiniz.</p>
     <p xml:lang="uk">За допомогою Kwave ви можете записувати, відтворювати, імпортувати та редагувати файли звукових даних багатьох типів, зокрема файли з багатоканальним звуком.</p>
     <p xml:lang="x-test">xxWith Kwave you can record, play back, import and edit many sorts of audio files including multi channel files.xx</p>
     <p xml:lang="zh-CN">使用 Kwave 您可以录制，播放，导入和编辑许多音频文件，包括多声道文件。</p>
@@ -130,6 +131,7 @@
     <p xml:lang="ia">Kwave include alcun pluginper transformar files in multe modos e presenta un vista graphic conun complete capacitate de zoom e rolar.</p>
     <p xml:lang="id">Kwave menyertakan beberapa plugin untuk mentransfer file audio dalam banyak cara dan menghadirkan tampilan grafik dengan kelengkapan kemampuan gulir dan zoom.</p>
     <p xml:lang="it">Kwave include diverse estensioni per la trasformazione dei file audio con diversi metodi e offre una vista grafica con funzioni complete di ingrandimento e scorrimento.</p>
+    <p xml:lang="ka">KWave შეიცავს რამდენიმე დამატებას აუდიოფაილების სხვადასხვანაირი გარდაქმნისთვის და მოგაწოდებთ გრაფიკულ თემას სრული გადიდების და გადახვევის შესაძლებლობებით.</p>
     <p xml:lang="ko">Kwave는 오디오 파일을 변형할 수 있는 여러 플러그인을 지원하며 그래픽 보기를 지원합니다.</p>
     <p xml:lang="nl">Kwave bevat enige plug-ins om geluidsbestanden op verschillenden manieren te transformeren en biedt een grafische weergave met de mogelijkheid van volledig te zoomen en te schuiven.</p>
     <p xml:lang="nn">Kwave inneheld fleire programtillegg for transformering av lydfiler på ulike måtar og for visualisering av lyddata.</p>

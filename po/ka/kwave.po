@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-07 00:39+0000\n"
-"PO-Revision-Date: 2024-08-07 10:53+0200\n"
+"PO-Revision-Date: 2024-08-09 03:06+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1854,7 +1854,7 @@ msgstr "არქივების მდებარეობა"
 
 #: libkwave/FileInfo.cpp:51
 msgid "Indicates where the subject of the file is archived."
-msgstr ""
+msgstr "მიუთითებს, სადაა დაარქივებული ფაილის თემა."
 
 #: libkwave/FileInfo.cpp:54
 msgid "Author"
@@ -1889,7 +1889,7 @@ msgstr "სიჩქარე"
 
 #: libkwave/FileInfo.cpp:70
 msgid "Nominal bitrate of the audio stream in bits per second"
-msgstr ""
+msgstr "აუდიონაკადის ნომინალური ბიტური გადაცემის სიჩქარე ბ/წმ ერთეულში"
 
 #: libkwave/FileInfo.cpp:73
 msgid "Upper Bitrate"
@@ -1913,7 +1913,7 @@ msgstr "CD"
 
 #: libkwave/FileInfo.cpp:83
 msgid "Number of the CD, if the source is an album of more CDROMs"
-msgstr ""
+msgstr "CD-ის ნომერი, თუ წყარო ალბომია ერთზე მეტ CDROM-ზე"
 
 #: libkwave/FileInfo.cpp:86
 msgid "CDS"
@@ -1921,7 +1921,7 @@ msgstr "CDS"
 
 #: libkwave/FileInfo.cpp:88
 msgid "Number of CDs, if the source is an album of more CDROMs"
-msgstr ""
+msgstr "CD-ების რაოდენობა, თუ წყარო ალბომია ერთზე მეტ CDROM-ზე"
 
 #: libkwave/FileInfo.cpp:91
 msgid "Commissioned"
@@ -4095,7 +4095,7 @@ msgstr "&ავტოამოცნობა..."
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:101
 #, kde-format
 msgid "show the usage information of the encoder"
-msgstr ""
+msgstr "ენკოდერის გამოყენების ინფორმაციის ჩვენება"
 
 #. i18n: ectx: property (text), widget (QPushButton, btEncoderHelp)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:104
@@ -4156,6 +4156,8 @@ msgstr "პარამეტრი ბაიტების მიმდევ�
 #, kde-format
 msgid "parameter for telling the encoder to use raw data as input format"
 msgstr ""
+"პარამეტრი ენკოდერისთვის შეყვანის ფორმატისთვის დაუმუშავებელი მონაცემების "
+"გამოყენებისთვის"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRawFormat)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:233
@@ -4173,7 +4175,7 @@ msgstr "ბაიტების რიგი:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:259
 #, kde-format
 msgid "parameter to use signed sample format"
-msgstr ""
+msgstr "პარამეტრი ხელმოწერილი სემპლის ფორმატის გამოყენებისთვის"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabFormat)
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox1_2)
@@ -4214,7 +4216,7 @@ msgstr "მონო:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:360
 #, kde-format
 msgid "parameter for single channel files (mono)"
-msgstr ""
+msgstr "პარამეტრი ერთარხიანი (მონო) ფაილებისთვის"
 
 #. i18n: ectx: property (text), widget (QLabel, lblStereo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:376
@@ -4229,6 +4231,8 @@ msgid ""
 "parameter for multi channel files\n"
 "(stereo or more channels)"
 msgstr ""
+"პარამეტრი მრავალარხიანი ფაილებისთვის\n"
+"(სტერეო ან მეტი არხი)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabQuality)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:420
@@ -4282,7 +4286,7 @@ msgstr "არცერთი"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:587
 #, kde-format
 msgid "parameter for no emphasis"
-msgstr ""
+msgstr "პარამეტრი emphasis-ის გამოსართავად"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEmphasis5015ms)
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
@@ -4296,7 +4300,7 @@ msgstr "50/15მწმ"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:622
 #, kde-format
 msgid "parameter for 50/15ms emphasis"
-msgstr ""
+msgstr "პარამეტრი 50/15მწმ emphasis-სთვის"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEmphasisCCIT_J17)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:638
@@ -4308,7 +4312,7 @@ msgstr "CCIT J17"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:657
 #, kde-format
 msgid "parameter for CCIT J17 emphasis"
-msgstr ""
+msgstr "პარამეტრი CCIT J17 emphasis-სთვის"
 
 #. i18n: ectx: property (text), widget (QLabel, lblNoiseShaping)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:667
@@ -4320,7 +4324,7 @@ msgstr "ხმაურის ფორმაცია:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:686
 #, kde-format
 msgid "parameters for configuring noise shaping"
-msgstr ""
+msgstr "პარამეტრები ხმაურის მოცილების მოსარგებად"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompatibility)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:696
@@ -4332,7 +4336,7 @@ msgstr "თავსებადობა:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:715
 #, kde-format
 msgid "parameters for compatibility settings"
-msgstr ""
+msgstr "პარამეტრები თავსებადობის მოსარგებად"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabFlags)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:739
@@ -4350,7 +4354,7 @@ msgstr "უფლებები:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:770
 #, kde-format
 msgid "parameter for marking the file as copyrighted"
-msgstr ""
+msgstr "პარამეტრი ფაილის საავტორო უფლებების ქვეშ ყოფნის მოსანიშნად"
 
 #. i18n: ectx: property (text), widget (QLabel, lblOriginal)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:786
@@ -4362,7 +4366,7 @@ msgstr "საწყისი:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:805
 #, kde-format
 msgid "parameter for marking the signal as original (not a copy)"
-msgstr ""
+msgstr "პარამეტრი სიგნალის ორიგინალად (და არა ასლად) მოსანიშნად"
 
 #. i18n: ectx: property (text), widget (QLabel, lblProtect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:821
@@ -4374,7 +4378,7 @@ msgstr "დაცვა:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:840
 #, kde-format
 msgid "parameter to enable CRC protection"
-msgstr ""
+msgstr "პარამეტრი CRC დაცვის ჩასართავად"
 
 #. i18n: ectx: property (text), widget (QLabel, lblPrepend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:866
@@ -4387,6 +4391,7 @@ msgstr "თავში მიწერა:"
 #, kde-format
 msgid "additional parameters to put at the start of the encoder command line"
 msgstr ""
+"დამატებითი პარამეტრები ენკოდერის ბრძანების სტრიქონის დასაწყისში მისაწერად"
 
 #. i18n: ectx: property (text), widget (QLabel, lblAppend)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:889
@@ -4398,7 +4403,7 @@ msgstr "ბოლოში მიწერა:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:902
 #, kde-format
 msgid "additional parameters to append at the end of the encoder command line"
-msgstr ""
+msgstr "დამატებითი პარამეტრები ენკოდერის ბრძანების სტრიქონის ბოლოში მისაწერად"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:926
@@ -4416,7 +4421,7 @@ msgstr "ენკოდერის დახმარება:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:957
 #, kde-format
 msgid "parameter for getting usage information of the encoder"
-msgstr ""
+msgstr "პარამეტრი ენკოდერის გამოყენების ინფორმაციის მისაღებად"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEncoderInfo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:967
@@ -4428,7 +4433,7 @@ msgstr "ვერსიის ინფორმაცია:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1005
 #, kde-format
 msgid "parameter for getting the encoder version information"
-msgstr ""
+msgstr "პარამეტრი ენკოდერის ვერსიის ინფორმაციის მისაღებად"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btTest)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1047
@@ -4460,17 +4465,17 @@ msgstr "Ogg აუდიო"
 #: plugins/codec_ogg/OggDecoder.cpp:93
 #, kde-format
 msgid "Ogg bitstream has zero-length."
-msgstr ""
+msgstr "Ogg-ის ბიტური ნაკადის სიგრძე ნულოვანია."
 
 #: plugins/codec_ogg/OggDecoder.cpp:105
 #, kde-format
 msgid "Input does not appear to be an Ogg bitstream."
-msgstr ""
+msgstr "შეყვანა Ogg-ის ბიტურ ნაკადს არ წააგავს."
 
 #: plugins/codec_ogg/OggDecoder.cpp:117
 #, kde-format
 msgid "Error reading first page of the Ogg bitstream data."
-msgstr ""
+msgstr "Ogg-ის ბიტური ნაკადის მონაცემების პირველი გვერდის წაკითხვა ჩავარდა."
 
 #: plugins/codec_ogg/OggDecoder.cpp:124
 #, kde-format
@@ -4485,7 +4490,7 @@ msgstr "შეცდომა: კოდეკი მხარდაჭერი
 #: plugins/codec_ogg/OggDecoder.cpp:220
 #, kde-format
 msgid "Corrupt or missing data in bitstream. Continuing."
-msgstr ""
+msgstr "ბიტურ ნაკადში მონაცემები აკლია ან ის დაზიანებულია. ვაგრძელებ."
 
 #: plugins/codec_ogg/OggEncoder.cpp:111
 #, kde-format
@@ -4606,7 +4611,7 @@ msgstr ""
 #: plugins/codec_ogg/VorbisDecoder.cpp:122
 #, kde-format
 msgid "Corrupt secondary header. Exiting."
-msgstr ""
+msgstr "დაზიანებული მეორადი თავსართი. გასვლა."
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:136
 #, kde-format
@@ -4668,7 +4673,7 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:176 plugins/codec_wav/WavDecoder.cpp:281
 #, kde-format
 msgid "Kwave Auto Repair"
-msgstr ""
+msgstr "Kwave-ის ავტოაღდგენა"
 
 #: plugins/codec_wav/WavDecoder.cpp:177
 #, kde-format
@@ -4733,15 +4738,15 @@ msgstr "WAV აუდიო"
 
 #: plugins/debug/DebugPlugin.cpp:89
 msgid "Generate 50% DC Level"
-msgstr ""
+msgstr "შეიქმნება 50% DC დონე"
 
 #: plugins/debug/DebugPlugin.cpp:91
 msgid "Generate 100% DC Level"
-msgstr ""
+msgstr "შეიქმნება 100% DC დონე"
 
 #: plugins/debug/DebugPlugin.cpp:93
 msgid "MinMax Pattern"
-msgstr ""
+msgstr "ნიმუში მინმაქს"
 
 #: plugins/debug/DebugPlugin.cpp:95
 msgid "Generate Sawtooth Pattern"
@@ -4753,19 +4758,19 @@ msgstr "კბილოვანი ტალღის გადამოწმ�
 
 #: plugins/debug/DebugPlugin.cpp:99
 msgid "FM Sweep"
-msgstr ""
+msgstr "გასუფთავება სიხშირული მოდულაციით"
 
 #: plugins/debug/DebugPlugin.cpp:109
 msgid "Labels at Stripe borders"
-msgstr ""
+msgstr "ჭდეები ზოლის საზღვრებთან"
 
 #: plugins/debug/DebugPlugin.cpp:113
 msgid "Dump Window Hierarchy"
-msgstr ""
+msgstr "ფანჯრების იერარქიის დამპი"
 
 #: plugins/debug/DebugPlugin.cpp:117
 msgid "Dump Meta Data"
-msgstr ""
+msgstr "მეტამონაცემების დამპი"
 
 #: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:236
 #, kde-format
@@ -4876,7 +4881,7 @@ msgstr ""
 #: plugins/export_k3b/K3BExportWidgetBase.ui:131
 #, kde-format
 msgid "Same Directory as K3b File"
-msgstr ""
+msgstr "იგივე საქაღალდეში, სადაც K3b-ს ფაილია"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:136
@@ -5553,7 +5558,7 @@ msgstr "დრო"
 #: plugins/newsignal/NewSigDlg.ui:357
 #, kde-format
 msgid "Select this to enter the number of samples directly"
-msgstr ""
+msgstr "აირჩიეთ ეს, რომ სემპლების რაოდენობა პირდაპირ შეიყვანოთ"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbSamples)
 #: plugins/newsignal/NewSigDlg.ui:360
@@ -5883,7 +5888,7 @@ msgstr "%1 არხით დაკვრა მხარდაჭერილ�
 #: plugins/playback/PlayBack-OSS.cpp:200
 #, kde-format
 msgid "Playback rate %1 Hz is not supported"
-msgstr ""
+msgstr "დაკვრის სიხშირე %1 ჰც მხარდაჭერილი არაა"
 
 #: plugins/playback/PlayBack-OSS.cpp:210
 #, kde-format

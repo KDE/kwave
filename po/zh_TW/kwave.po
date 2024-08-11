@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Franklin Weng <franklin@goodhorse.idv.tw>, 2015.
-# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2024.
+# SPDX-FileCopyrightText: 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-07 00:39+0000\n"
-"PO-Revision-Date: 2024-02-23 00:43+0900\n"
+"PO-Revision-Date: 2024-08-09 03:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 24.04.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -195,7 +195,7 @@ msgid "Rik Hemsley"
 msgstr "Rik Hemsley"
 
 #: kwave/main.cpp:73
-#, fuzzy, kde-format
+#, kde-format
 msgid "Level meter"
 msgstr "等級量尺"
 
@@ -277,7 +277,7 @@ msgstr "'mad' MP3 解碼函式庫的作者"
 #: kwave/main.cpp:112
 #, kde-format
 msgid "http://www.mars.org/home/rob/proj/mpeg"
-msgstr ""
+msgstr "http://www.mars.org/home/rob/proj/mpeg"
 
 #: kwave/main.cpp:114
 #, kde-format
@@ -292,7 +292,7 @@ msgstr "id3lib 函式庫維護者"
 #: kwave/main.cpp:117
 #, kde-format
 msgid "http://www.id3lib.org/"
-msgstr ""
+msgstr "http://www.id3lib.org/"
 
 #: kwave/main.cpp:119
 #, kde-format
@@ -307,7 +307,7 @@ msgstr "audiofile 函式庫作者"
 #: kwave/main.cpp:122
 #, kde-format
 msgid "http://www.68k.org/~michael/audiofile/"
-msgstr ""
+msgstr "http://www.68k.org/~michael/audiofile/"
 
 #: kwave/main.cpp:124
 #, kde-format
@@ -332,7 +332,7 @@ msgstr "sndfile 函式庫作者"
 #: kwave/main.cpp:132
 #, kde-format
 msgid "http://www.mega-nerd.com/libsndfile/"
-msgstr ""
+msgstr "http://www.mega-nerd.com/libsndfile/"
 
 #: kwave/main.cpp:134
 #, kde-format
@@ -347,7 +347,7 @@ msgstr "捷克文翻譯"
 #: kwave/main.cpp:137
 #, kde-format
 msgid "http://fripohled.blogspot.com"
-msgstr ""
+msgstr "http://fripohled.blogspot.com"
 
 #: kwave/main.cpp:139
 #, kde-format
@@ -400,7 +400,7 @@ msgstr "sdi|mdi|tab"
 msgctxt "description of command line parameter"
 msgid ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
-msgstr ""
+msgstr "要開啟的音訊檔案、Kwave 巨集檔案或是 Kwave 網址的列表（可選）"
 
 #: kwave/main.cpp:192
 #, kde-format
@@ -1383,12 +1383,12 @@ msgstr "垂直翻轉"
 #: libgui/CurveWidget.cpp:96
 #, kde-format
 msgid "Into first half"
-msgstr ""
+msgstr "到前半"
 
 #: libgui/CurveWidget.cpp:98
 #, kde-format
 msgid "Into second half"
-msgstr ""
+msgstr "到後半"
 
 #: libgui/CurveWidget.cpp:101 libkwave/SignalManager.cpp:703
 #: libkwave/undo/UndoDeleteAction.cpp:58
@@ -1419,7 +1419,7 @@ msgstr "目前選取的點"
 #: libgui/CurveWidget.cpp:127
 #, kde-format
 msgid "Every Second Point"
-msgstr ""
+msgstr "每隔一個點"
 
 #: libgui/CurveWidget.cpp:202
 #, kde-format
@@ -1524,7 +1524,7 @@ msgstr "描述："
 #: libgui/LabelPropertiesWidgetBase.ui:61
 #, kde-format
 msgid "some description of the label (optional)"
-msgstr ""
+msgstr "標記的一些描述文字（可選）"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edDescription)
 #: libgui/LabelPropertiesWidgetBase.ui:65
@@ -1552,7 +1552,7 @@ msgstr "索引："
 #: libgui/LabelPropertiesWidgetBase.ui:95
 #, kde-format
 msgid "index of the label"
-msgstr ""
+msgstr "標記的索引編號"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, lblIndex)
 #: libgui/LabelPropertiesWidgetBase.ui:99
@@ -1580,7 +1580,7 @@ msgstr "選取範圍，右邊界"
 #: libgui/SelectionItem.cpp:88 libgui/SignalView.cpp:590
 #, kde-format
 msgid "Drag and Drop"
-msgstr ""
+msgstr "拖放"
 
 #. i18n: ectx: property (windowTitle), widget (QGroupBox, SelectTimeWidgetBase)
 #: libgui/SelectTimeWidgetBase.ui:20
@@ -1600,7 +1600,7 @@ msgstr "長度"
 #: libgui/SelectTimeWidgetBase.ui:38
 #, kde-format
 msgid "select by number of samples"
-msgstr ""
+msgstr "依樣本數選取"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbSamples)
 #: libgui/SelectTimeWidgetBase.ui:41
@@ -1612,7 +1612,7 @@ msgstr "取樣(&S)"
 #: libgui/SelectTimeWidgetBase.ui:54
 #, kde-format
 msgid "select by time"
-msgstr ""
+msgstr "依時間選取"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbTime)
 #: libgui/SelectTimeWidgetBase.ui:57
@@ -1624,7 +1624,7 @@ msgstr "時間(&T)"
 #: libgui/SelectTimeWidgetBase.ui:99
 #, kde-format
 msgid "select by percentage of the signal's length"
-msgstr ""
+msgstr "依訊號長度百分比選取"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercents)
 #: libgui/SelectTimeWidgetBase.ui:102
@@ -1841,7 +1841,7 @@ msgstr "專輯"
 msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more medias."
-msgstr ""
+msgstr "專輯名稱（來源是內含多個媒體的專輯的時候）。"
 
 #: libkwave/FileInfo.cpp:42
 msgid "Annotation"
@@ -1880,7 +1880,7 @@ msgstr "低端位元率"
 
 #: libkwave/FileInfo.cpp:61
 msgid "Specifies the lower limit in a VBR bitstream."
-msgstr ""
+msgstr "指定 VBR 位元串流中的下限。"
 
 #: libkwave/FileInfo.cpp:64
 msgid "Bitrate Mode"
@@ -1896,7 +1896,7 @@ msgstr "位元率"
 
 #: libkwave/FileInfo.cpp:70
 msgid "Nominal bitrate of the audio stream in bits per second"
-msgstr ""
+msgstr "音訊串流的標稱位元率，單位為每秒位元數"
 
 #: libkwave/FileInfo.cpp:73
 msgid "Upper Bitrate"
@@ -1904,7 +1904,7 @@ msgstr "高端位元率"
 
 #: libkwave/FileInfo.cpp:74
 msgid "Specifies the upper limit in a VBR bitstream."
-msgstr ""
+msgstr "指定 VBR 位元串流中的上限。"
 
 #: libkwave/FileInfo.cpp:77
 msgid "Bits per Sample"
@@ -1920,15 +1920,15 @@ msgstr "CD"
 
 #: libkwave/FileInfo.cpp:83
 msgid "Number of the CD, if the source is an album of more CDROMs"
-msgstr ""
+msgstr "CD 的編號（來源是不止一個 CDROM 的專輯的時候）"
 
 #: libkwave/FileInfo.cpp:86
 msgid "CDS"
-msgstr ""
+msgstr "CD 數量"
 
 #: libkwave/FileInfo.cpp:88
 msgid "Number of CDs, if the source is an album of more CDROMs"
-msgstr ""
+msgstr "總 CD 數量（來源是不止一個 CDROM 的專輯的時候）"
 
 #: libkwave/FileInfo.cpp:91
 msgid "Commissioned"
@@ -2003,7 +2003,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:133
 msgid "Engineer"
-msgstr ""
+msgstr "工程師"
 
 #: libkwave/FileInfo.cpp:134
 msgid ""
@@ -2011,6 +2011,8 @@ msgid ""
 "If there are multiple engineers, separate the names by\n"
 "a semicolon and a blank."
 msgstr ""
+"顯示有在檔案上進行作業的音訊工程師的姓名。\n"
+"如果有多名工程師，名字之間會以分號與空格分隔。"
 
 #: libkwave/FileInfo.cpp:139
 msgid "Estimated Length"
@@ -2225,6 +2227,8 @@ msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
 msgstr ""
+"儲存數位化音訊樣本用的格式。\n"
+"例如：「32 位元 IEEE 浮點數」"
 
 #: libkwave/FileInfo.cpp:250
 msgid "Sample Rate"
@@ -2305,7 +2309,7 @@ msgstr "音軌"
 
 #: libkwave/FileInfo.cpp:289
 msgid "Number of tracks of the CD if the source was a CDROM."
-msgstr ""
+msgstr "CD 音軌數量（來源是 CDROM 的時候）。"
 
 #: libkwave/FileInfo.cpp:292
 msgid "Channels"
@@ -2319,11 +2323,11 @@ msgstr ""
 #: libkwave/FileInfo.cpp:296 plugins/fileinfo/CompressionWidgetBase.ui:236
 #, kde-format
 msgid "Base Quality"
-msgstr ""
+msgstr "基礎品質"
 
 #: libkwave/FileInfo.cpp:297
 msgid "Base quality of the compression in VBR mode"
-msgstr ""
+msgstr "VBR（可變位元率）下壓縮的基礎品質"
 
 #: libkwave/FileInfo.cpp:301
 msgid ""
@@ -2395,13 +2399,13 @@ msgstr "4 (四聲道)"
 #: libkwave/FileProgress.cpp:207
 #, kde-format
 msgid "Do you really want to abort the operation?"
-msgstr ""
+msgstr "您確定要中止動作嗎？"
 
 #: libkwave/FileProgress.cpp:280
 #, kde-format
 msgctxt "file progress dialog, %1=transfer rate, %2=remaining duration"
 msgid "%1 kB/s (%2 remaining)"
-msgstr ""
+msgstr "%1 kB/秒（剩餘 %2）"
 
 #: libkwave/FileProgress.cpp:289
 #, kde-format
@@ -2486,7 +2490,6 @@ msgid "Hip-Hop"
 msgstr "Hip-Hop"
 
 #: libkwave/GenreType.cpp:110
-#, fuzzy
 msgid "Jazz"
 msgstr "爵士"
 
@@ -2495,9 +2498,8 @@ msgid "Metal"
 msgstr "金屬"
 
 #: libkwave/GenreType.cpp:112
-#, fuzzy
 msgid "New Age"
-msgstr "新時代"
+msgstr "新世紀"
 
 #: libkwave/GenreType.cpp:113
 msgid "Oldies"
@@ -3006,7 +3008,7 @@ msgstr ""
 
 #: libkwave/GenreType.cpp:236
 msgid "BritPop"
-msgstr ""
+msgstr "英國流行樂"
 
 #: libkwave/GenreType.cpp:237
 #, fuzzy
@@ -3068,15 +3070,15 @@ msgstr "死亡金屬"
 
 #: libkwave/GenreType.cpp:251
 msgid "Anime"
-msgstr ""
+msgstr "日本動畫"
 
 #: libkwave/GenreType.cpp:252
 msgid "JPop"
-msgstr ""
+msgstr "日本流行樂"
 
 #: libkwave/GenreType.cpp:253
 msgid "SynthPop"
-msgstr ""
+msgstr "合成器流行樂"
 
 #: libkwave/GenreType.cpp:256
 msgid "Abstract"
@@ -3262,10 +3264,8 @@ msgid "Podcast"
 msgstr "Podcast"
 
 #: libkwave/GenreType.cpp:295
-#, fuzzy
-#| msgid "Hard Rock"
 msgid "Indie Rock"
-msgstr "硬式搖滾"
+msgstr "獨立搖滾"
 
 #: libkwave/GenreType.cpp:296
 #, fuzzy
@@ -3275,20 +3275,17 @@ msgstr "Funk"
 
 #: libkwave/GenreType.cpp:297
 msgid "Dubstep"
-msgstr ""
+msgstr "Dubstep"
 
 #: libkwave/GenreType.cpp:298
-#, fuzzy
-#| msgid "Hard Rock"
 msgid "Garage Rock"
-msgstr "硬式搖滾"
+msgstr "車庫搖滾"
 
 #: libkwave/GenreType.cpp:299
 msgid "Psybient"
 msgstr ""
 
 #: libkwave/GenreType.cpp:305
-#, fuzzy
 msgid "Unknown"
 msgstr "未知"
 
@@ -3407,12 +3404,12 @@ msgstr "（編譯時使用 KDE Frameworks %1）"
 #: libkwave/SignalManager.cpp:457
 #, kde-format
 msgid "An error occurred while saving the file."
-msgstr ""
+msgstr "儲存檔案時發生錯誤。"
 
 #: libkwave/SignalManager.cpp:469
 #, kde-format
 msgid "The file has been truncated and might be corrupted."
-msgstr ""
+msgstr "檔案被截短了，而可能已毀損。"
 
 #: libkwave/SignalManager.cpp:478
 #, kde-format
@@ -3853,7 +3850,7 @@ msgstr ""
 #: plugins/codec_ascii/AsciiCodecPlugin.h:58
 #, kde-format
 msgid "ASCII encoded audio"
-msgstr ""
+msgstr "ASCII 編碼音訊"
 
 #: plugins/codec_ascii/AsciiEncoder.cpp:92
 #: plugins/codec_flac/FlacEncoder.cpp:215 plugins/codec_ogg/OggEncoder.cpp:123
@@ -3869,27 +3866,27 @@ msgstr ""
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:53
 #, kde-format
 msgid "Amiga IFF/8SVX Sound File Format"
-msgstr ""
+msgstr "Amiga IFF/8SVX 音效檔格式"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:56
 #, kde-format
 msgid "Compressed Audio Interchange Format"
-msgstr ""
+msgstr "壓縮音訊交換格式"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:59
 #, kde-format
 msgid "Audio Interchange Format"
-msgstr ""
+msgstr "音訊交換格式"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:62
 #, kde-format
 msgid "Audio Visual Research File Format"
-msgstr ""
+msgstr "音訊視訊研究檔案格式"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:65
 #, kde-format
 msgid "Core Audio File Format"
-msgstr ""
+msgstr "Core Audio 音訊檔案模式"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:68
 #, kde-format
@@ -3915,7 +3912,7 @@ msgstr ""
 #: plugins/codec_wav/WavDecoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:443
 #, kde-format
 msgid "Format or function is not implemented"
-msgstr ""
+msgstr "格式或功能未實作"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:127
 #: plugins/codec_wav/WavEncoder.cpp:450
@@ -3939,7 +3936,7 @@ msgstr "開啟檔案失敗"
 #: plugins/codec_wav/WavDecoder.cpp:384 plugins/codec_wav/WavEncoder.cpp:460
 #, kde-format
 msgid "Read access failed"
-msgstr ""
+msgstr "讀取存取失敗"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:139
 #: plugins/codec_wav/WavDecoder.cpp:387 plugins/codec_wav/WavEncoder.cpp:463
@@ -3968,7 +3965,7 @@ msgstr ""
 #: plugins/codec_flac/FlacDecoder.cpp:292
 #, kde-format
 msgid "Error while parsing the FLAC metadata. (%s)"
-msgstr ""
+msgstr "剖析 FLAC 中繼資料時發生錯誤。（%s）"
 
 #: plugins/codec_flac/FlacEncoder.cpp:225
 #, kde-format
@@ -4155,7 +4152,7 @@ msgstr "程式"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:54
 #, kde-format
 msgid "manually browse for the encoder"
-msgstr ""
+msgstr "手動瀏覽到編碼器的位置"
 
 #. i18n: ectx: property (text), widget (QPushButton, btSearch)
 #. i18n: ectx: property (text), widget (QPushButton, btSelectDate)
@@ -4170,7 +4167,7 @@ msgstr "選擇(&S)..."
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:66
 #, kde-format
 msgid "select one of the predefined encoder setups"
-msgstr ""
+msgstr "選擇一個預先定義的編碼器設定"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:89
@@ -4242,13 +4239,13 @@ msgstr "簽署："
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:188
 #, kde-format
 msgid "parameter for switching the byte order"
-msgstr ""
+msgstr "切換位元組順序的參數"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edRawFormat)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:210
 #, kde-format
 msgid "parameter for telling the encoder to use raw data as input format"
-msgstr ""
+msgstr "用來告訴編碼器使用原始資料作為輸入格式的參數"
 
 #. i18n: ectx: property (text), widget (QLabel, lblRawFormat)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:233
@@ -4307,7 +4304,7 @@ msgstr "單聲道："
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:360
 #, kde-format
 msgid "parameter for single channel files (mono)"
-msgstr ""
+msgstr "單聲道檔案的參數"
 
 #. i18n: ectx: property (text), widget (QLabel, lblStereo)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:376
@@ -4322,6 +4319,8 @@ msgid ""
 "parameter for multi channel files\n"
 "(stereo or more channels)"
 msgstr ""
+"多聲道檔案的參數\n"
+"（雙聲道或更多）"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabQuality)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:420
@@ -4331,15 +4330,15 @@ msgstr "品質"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBitrateMax)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:432
-#, fuzzy, kde-format
+#, kde-format
 msgid "max"
 msgstr "最大"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBitrateMin)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:445
-#, fuzzy, kde-format
+#, kde-format
 msgid "min"
-msgstr "分"
+msgstr "最小"
 
 #. i18n: ectx: property (text), widget (QLabel, lblBitrate)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:503
@@ -4351,7 +4350,7 @@ msgstr "位元率："
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:516
 #, kde-format
 msgid "avg"
-msgstr ""
+msgstr "平均"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabEncoding)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:543
@@ -4367,7 +4366,7 @@ msgstr "強調："
 
 #. i18n: ectx: property (text), widget (QLabel, lblEmphasisNone)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:562
-#, fuzzy, kde-format
+#, kde-format
 msgid "none"
 msgstr "無"
 
@@ -4375,7 +4374,7 @@ msgstr "無"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:587
 #, kde-format
 msgid "parameter for no emphasis"
-msgstr ""
+msgstr "無強調的參數"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEmphasis5015ms)
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMpegEmphasis)
@@ -4389,43 +4388,43 @@ msgstr "50/15ms"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:622
 #, kde-format
 msgid "parameter for 50/15ms emphasis"
-msgstr ""
+msgstr "50/15ms 強調的參數"
 
 #. i18n: ectx: property (text), widget (QLabel, lblEmphasisCCIT_J17)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:638
 #, kde-format
 msgid "CCIT J17"
-msgstr ""
+msgstr "CCIT J17"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edEmphasisCCIT_J17)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:657
 #, kde-format
 msgid "parameter for CCIT J17 emphasis"
-msgstr ""
+msgstr "CCIT J17 強調的參數"
 
 #. i18n: ectx: property (text), widget (QLabel, lblNoiseShaping)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:667
 #, kde-format
 msgid "Noise Shaping:"
-msgstr ""
+msgstr "雜訊整形："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edNoiseShaping)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:686
 #, kde-format
 msgid "parameters for configuring noise shaping"
-msgstr ""
+msgstr "調整雜訊整形用的參數"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompatibility)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:696
 #, kde-format
 msgid "Compatibility:"
-msgstr ""
+msgstr "相容性："
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edCompatibility)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:715
 #, kde-format
 msgid "parameters for compatibility settings"
-msgstr ""
+msgstr "相容性設定參數"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabFlags)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:739
@@ -4626,12 +4625,12 @@ msgstr "解碼器錯誤：%1"
 #: plugins/codec_ogg/OpusDecoder.cpp:152
 #, kde-format
 msgid "End of file before finding Opus Comment headers."
-msgstr ""
+msgstr "找到 Opus 註解標頭之前先達到了檔案結尾。"
 
 #: plugins/codec_ogg/OpusDecoder.cpp:356
 #, kde-format
 msgid "This Ogg bitstream does not contain valid Opus audio data."
-msgstr ""
+msgstr "這個 Ogg 位元串流內不包含有效的 Opus 音訊資料。"
 
 #: plugins/codec_ogg/OpusDecoder.cpp:403
 #, kde-format
@@ -4656,7 +4655,7 @@ msgstr "環繞位元率會低於每頻道 32kBit/秒，這個檔案應該混音�
 #, kde-format
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
-msgstr ""
+msgstr "位元率 %1 kBit/秒超出範圍，已限制到 %2 kBit/秒"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:275
 #, kde-format
@@ -4665,6 +4664,8 @@ msgid ""
 "Sample rate %1 samples/sec is out of range,\n"
 "supported are %2 ... %3 samples/sec."
 msgstr ""
+"取樣率 %1 樣本/秒超出範圍，\n"
+"支援的取樣率介於 %2 ... %3 樣本/秒之間。"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
 #, kde-format
@@ -4694,23 +4695,23 @@ msgstr "Opus 編碼器取得 lookahead 數值時失敗：'%1'"
 #: plugins/codec_ogg/VorbisDecoder.cpp:89
 #, kde-format
 msgid "This Ogg bitstream does not contain any Vorbis audio data."
-msgstr ""
+msgstr "這個 Ogg 位元串流內不包含有效的 Vorbis 音訊資料。"
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:122
 #, kde-format
 msgid "Corrupt secondary header. Exiting."
-msgstr ""
+msgstr "毀損的次要標頭。即將離開。"
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:136
 #, kde-format
 msgid "End of file before finding all Vorbis headers."
-msgstr ""
+msgstr "找到所有 Vorbis 標頭前先達到了檔案結尾。"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:97
 #, kde-format
 msgid ""
 "This codec supports only mono or stereo files, %1 channels are not supported."
-msgstr ""
+msgstr "這個編碼器只支援單聲道或雙聲道的檔案，不支援 %1 個聲道。"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:120
 #, kde-format
@@ -4780,6 +4781,10 @@ msgid ""
 "\n"
 "It makes no sense to continue now."
 msgstr ""
+"開啟的檔案不是 WAV 檔，或是已損毀：\n"
+"沒有足夠的有效音訊資料。\n"
+"\n"
+"無法繼續進行。"
 
 #: plugins/codec_wav/WavDecoder.cpp:277
 #, kde-format
@@ -4790,6 +4795,11 @@ msgid ""
 "Kwave will only use the first ones and ignore\n"
 "the rest. This might lead to loss of data."
 msgstr ""
+"WAV 檔案似乎已毀損：\n"
+"某些區塊重複了或是缺少。\n"
+"\n"
+"Kwave 只會使用最初的區塊們，並忽略剩下的。\n"
+"這可能會造成資料遺失。"
 
 #: plugins/codec_wav/WavDecoder.cpp:374
 #, kde-format
@@ -4799,7 +4809,7 @@ msgstr "檔案標頭已損毀"
 #: plugins/codec_wav/WavDecoder.cpp:390
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
-msgstr ""
+msgstr "內部 libaudiofile 錯誤 #%1：「%2」"
 
 #: plugins/codec_wav/WavEncoder.cpp:349
 #, kde-format
@@ -4826,7 +4836,7 @@ msgstr "檔案或選取範圍太大"
 #: plugins/codec_wav/WavFileFormat.h:291
 #, kde-format
 msgid "WAV audio"
-msgstr ""
+msgstr "WAV 音訊"
 
 #: plugins/debug/DebugPlugin.cpp:89
 msgid "Generate 50% DC Level"
@@ -4858,11 +4868,11 @@ msgstr ""
 
 #: plugins/debug/DebugPlugin.cpp:113
 msgid "Dump Window Hierarchy"
-msgstr ""
+msgstr "傾印視窗層級"
 
 #: plugins/debug/DebugPlugin.cpp:117
 msgid "Dump Meta Data"
-msgstr ""
+msgstr "傾印中繼資料"
 
 #: plugins/debug/DebugPlugin.cpp:127 plugins/debug/DebugPlugin.cpp:236
 #, kde-format
@@ -4887,6 +4897,8 @@ msgid ""
 "deselect some channels or export the file in a different file format that "
 "supports mono and stereo only (for example FLAC) and then try again."
 msgstr ""
+"音訊 CD 只能使用單聲道或雙聲道檔案。您可以取消選取一些聲道，或是將檔案匯出至"
+"另一個只支援單聲道或雙聲道的檔案格式（例如 FLAC）然後再試一次。"
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:680
 #, kde-format
@@ -4980,7 +4992,7 @@ msgstr "匯出位置："
 msgid ""
 "Specify where to place the exported sound files which are used for the "
 "tracks of the audio CD."
-msgstr ""
+msgstr "指定匯出並用作音訊 CD 的音效檔要放在哪裡。"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:131
@@ -5034,12 +5046,15 @@ msgid ""
 "Bitrate is set to an average value,\n"
 "with optional upper and lower limit."
 msgstr ""
+"<b>平均位元率模式</b><br>\n"
+"位元率會設為平均數值，\n"
+"並維持在可選的上限與下限之間。"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:58
 #, kde-format
 msgid "ABR:"
-msgstr ""
+msgstr "ABR："
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkLowestBitrate)
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, sbBaseQuality)
@@ -5062,12 +5077,14 @@ msgid ""
 "<b>Variable Bitrate Mode</b><br>\n"
 "The bitrate is selected by an average quality."
 msgstr ""
+"<b>可變位元率模式</b><br>\n"
+"位元率由平均品質選擇。"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbVBR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:95
-#, fuzzy, kde-format
+#, kde-format
 msgid "VBR:"
-msgstr "VBR"
+msgstr "VBR："
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighestBitrate)
 #: plugins/fileinfo/CompressionWidgetBase.ui:105
@@ -5077,9 +5094,9 @@ msgstr "最高"
 
 #. i18n: ectx: property (text), widget (QLabel, lblCompressionNominalBitrate)
 #: plugins/fileinfo/CompressionWidgetBase.ui:115
-#, fuzzy, kde-format
+#, kde-format
 msgid "Nominal Bitrate"
-msgstr "標稱位元率(&N)："
+msgstr "標稱位元率"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sbBaseQuality)
 #: plugins/fileinfo/CompressionWidgetBase.ui:184
@@ -5095,7 +5112,7 @@ msgstr "%1 位元組"
 #: plugins/fileinfo/FileInfoDialog.cpp:215
 #, kde-format
 msgid "%1 kB (%2 byte)"
-msgstr ""
+msgstr "%1 kB（%2 位元組）"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:218
 #, kde-format
@@ -5376,7 +5393,7 @@ msgstr ""
 #: plugins/fileinfo/FileInfoDlg.ui:797
 #, kde-format
 msgid "MS Stereo"
-msgstr ""
+msgstr "中側立體聲"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegOriginal)
 #. i18n: ectx: property (text), widget (QCheckBox, chkMpegCopyrighted)
@@ -5959,9 +5976,9 @@ msgstr ""
 #: plugins/playback/PlayBack-ALSA.cpp:817
 #: plugins/playback/PlayBack-ALSA.cpp:831 plugins/record/Record-ALSA.cpp:1059
 #: plugins/record/Record-ALSA.cpp:1072
-#, fuzzy, kde-format
+#, kde-format
 msgid "Card %1: "
-msgstr "PC 插卡"
+msgstr "音效卡 %1："
 
 #: plugins/playback/PlayBack-ALSA.cpp:819
 #: plugins/playback/PlayBack-ALSA.cpp:833 plugins/record/Record-ALSA.cpp:1061
@@ -6062,10 +6079,9 @@ msgid "The audio device '%1' is unknown or no longer connected"
 msgstr ""
 
 #: plugins/playback/PlayBack-Qt.cpp:154
-#, fuzzy, kde-format
-#| msgid "sample rate %1 Hz is not supported"
+#, kde-format
 msgid "format not supported"
-msgstr "不支援 %1 Hz 取樣率"
+msgstr "格式不支援"
 
 #: plugins/playback/PlayBack-Qt.cpp:192
 #, kde-format
@@ -7271,7 +7287,7 @@ msgstr "輸入命令"
 #: plugins/volume/VolumeDlg.ui:64
 #, kde-format
 msgid "change volume by factor"
-msgstr ""
+msgstr "依係數調整音量"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:68
@@ -7280,18 +7296,20 @@ msgid ""
 "Increments or decrements the volume by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
+"依係數提升或降低音量。\n"
+"例如：\"x1\"、\"x2\"、\"/ 4\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:71
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Factor"
-msgstr "因素"
+msgstr "係數(&F)"
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbPercentage)
 #: plugins/volume/VolumeDlg.ui:84
 #, kde-format
 msgid "change volume by percentage"
-msgstr ""
+msgstr "依百分比調整音量"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbPercentage)
 #: plugins/volume/VolumeDlg.ui:88
@@ -7300,12 +7318,14 @@ msgid ""
 "Sets the volume to a relative percentage of the original level.\n"
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
+"將音量設為原始等級的相對百分比。\n"
+"例如：\"50 %\"、\"75%\" 或 \"125%\""
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:104
 #, kde-format
 msgid "change volume in dB"
-msgstr ""
+msgstr "依分貝 (dB) 調整音量"
 
 #. i18n: ectx: property (whatsThis), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:108
@@ -7314,6 +7334,8 @@ msgid ""
 "Increments or decrements the volume in logarithmic scale (decibel).\n"
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 msgstr ""
+"用對數尺度（分貝）提升或降低音量。\n"
+"例如：\"+3 dB\"、\"+ 6 dB\"、\"-3 dB\"。"
 
 #: plugins/zero/ZeroPlugin.cpp:61
 #, kde-format

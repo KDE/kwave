@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Kohinageneraattori",
         "Name[fr]": "Générateur de bruit",
         "Name[gl]": "Xerador de ruído",
+        "Name[he]": "מחולל רעש",
         "Name[ia]": "Generator de ruito",
         "Name[it]": "Generatore rumore",
         "Name[ka]": "ხმაურის გენერატორი",

@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Äänitä",
         "Name[fr]": "Enregistrement",
         "Name[gl]": "Gravar",
+        "Name[he]": "הקלטה",
         "Name[ia]": "Registra",
         "Name[it]": "Registra",
         "Name[ka]": "ჩაწერა",

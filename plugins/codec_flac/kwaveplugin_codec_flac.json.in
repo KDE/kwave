@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "FLAC-koodekki",
         "Name[fr]": "Codec FLAC",
         "Name[gl]": "Códec de FLAC",
+        "Name[he]": "מפענח FLAC",
         "Name[it]": "Codec FLAC",
         "Name[ka]": "FLAC -ის კოდეკი",
         "Name[ko]": "FLAC 코덱",

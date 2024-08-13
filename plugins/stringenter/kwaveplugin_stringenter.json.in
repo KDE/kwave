@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Syötä komento",
         "Name[fr]": "Saisir une commande à exécuter",
         "Name[gl]": "Insira unha orde",
+        "Name[he]": "נא למלא פקודה",
         "Name[ia]": "Entra commando",
         "Name[it]": "Inserisci comando",
         "Name[ka]": "შეიყვანეთ ბრძანება",

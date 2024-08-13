@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Valitse alue",
         "Name[fr]": "Sélection d'un intervalle",
         "Name[gl]": "Escoller o intervalo",
+        "Name[he]": "בחירת טווח",
         "Name[ia]": "Selige extension",
         "Name[it]": "Seleziona intervallo",
         "Name[ka]": "აირჩიეთ დიაპაზონი",

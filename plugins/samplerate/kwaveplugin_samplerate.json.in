@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Näytteenottotaajuus muuntaminen",
         "Name[fr]": "Conversion de la fréquence d'échantillonnage",
         "Name[gl]": "Conversión da taxa de mostraxe",
+        "Name[he]": "המרת קצב דגימה",
         "Name[ia]": "Conversion de Taxa de Exemplo",
         "Name[it]": "Conversione frequenza",
         "Name[ka]": "სემპლის სიჩქარის გადაყვანა",

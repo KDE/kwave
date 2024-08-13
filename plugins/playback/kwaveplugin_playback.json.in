@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Toisto",
         "Name[fr]": "Lecture",
         "Name[gl]": "Reprodución",
+        "Name[he]": "נגינה",
         "Name[ia]": "Reproduce",
         "Name[it]": "Riproduci",
         "Name[ka]": "დაკვრა",

@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Tallenna lohkot",
         "Name[fr]": "Enregistrement des blocs",
         "Name[gl]": "Gardar os bloques",
+        "Name[he]": "שמירת מקטעים",
         "Name[ia]": "Salveguarda Blocos",
         "Name[it]": "Salva blocchi",
         "Name[ka]": "ბლოკების შენახვა",

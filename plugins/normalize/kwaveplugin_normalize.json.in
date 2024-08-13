@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -23,6 +24,7 @@
         "Name[fi]": "Normalisointi",
         "Name[fr]": "Normalisation",
         "Name[gl]": "Normalizador",
+        "Name[he]": "מנרמל",
         "Name[ia]": "Normalisator",
         "Name[it]": "Normalizza",
         "Name[ka]": "ნორმალიზატორი",

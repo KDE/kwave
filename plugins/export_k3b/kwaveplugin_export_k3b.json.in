@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "K3b-projektivienti",
         "Name[fr]": "Export d'un projet K3b",
         "Name[gl]": "Exportación de proxecto de K3b",
+        "Name[he]": "ייצוא מיזם K3b",
         "Name[ia]": "Exportation de Projecto K3b",
         "Name[it]": "Esportazione progetto K3b",
         "Name[ka]": "K3b -ის პროექტის გატანა",

@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "ASCII-koodekki",
         "Name[fr]": "Codec ASCII",
         "Name[gl]": "Códec ASCII",
+        "Name[he]": "מפענח ASCII",
         "Name[it]": "Codec ASCII",
         "Name[ka]": "ASCII -ის კოდეკი",
         "Name[ko]": "ASCII 코덱",

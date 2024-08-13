@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Tiedoston tiedot",
         "Name[fr]": "Information d'un fichier",
         "Name[gl]": "Información do ficheiro",
+        "Name[he]": "פרטי קובץ",
         "Name[ia]": "Info de file",
         "Name[it]": "Informazioni sui file",
         "Name[ka]": "ფაილის ინფორმაცია",

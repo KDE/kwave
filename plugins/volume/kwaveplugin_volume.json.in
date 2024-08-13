@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -20,6 +21,7 @@
         "Name[et]": "Helitugevus",
         "Name[eu]": "Bolumena",
         "Name[fi]": "Äänenvoimakkuus",
+        "Name[he]": "עוצמת שמע",
         "Name[ia]": "Volumine",
         "Name[ka]": "ხმის სიმაღლე",
         "Name[ko]": "음량",

@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Virheenpaikannustoiminnot",
         "Name[fr]": "Fonctions du débogueur",
         "Name[gl]": "Funcións de depuración",
+        "Name[he]": "פונקציות ניפוי שגיאות",
         "Name[ia]": "Functiones de debug (cribrar)",
         "Name[it]": "Funzioni di debug",
         "Name[ka]": "გამართვის ფუნქციები",

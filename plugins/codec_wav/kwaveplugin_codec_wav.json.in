@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "WAV-koodekki",
         "Name[fr]": "Codec WAV",
         "Name[gl]": "Códec de WAV",
+        "Name[he]": "מפענח WAV",
         "Name[it]": "Codec WAV",
         "Name[ka]": "WAV -ის კოდეკი",
         "Name[ko]": "WAV 코덱",

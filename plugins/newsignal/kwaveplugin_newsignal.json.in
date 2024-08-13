@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Uusi signaali",
         "Name[fr]": "Nouveau signal",
         "Name[gl]": "Novo sinal",
+        "Name[he]": "אות חדש",
         "Name[ia]": "Nove signal",
         "Name[it]": "Nuovo segnale",
         "Name[ka]": "ახალი სიგნალი",

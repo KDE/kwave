@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Ogg-koodekki",
         "Name[fr]": "Codec Ogg",
         "Name[gl]": "Códec de Ogg",
+        "Name[he]": "מפענח Ogg",
         "Name[it]": "Codec Ogg",
         "Name[ka]": "Ogg -ის კოდეკი",
         "Name[ko]": "Ogg 코덱",

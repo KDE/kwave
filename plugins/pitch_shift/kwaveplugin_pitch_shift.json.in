@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Äänenkorkeuden siirto",
         "Name[fr]": "Modulation",
         "Name[gl]": "Cambio de ton",
+        "Name[he]": "הזחת גובה צליל",
         "Name[ia]": "Cambiamento de tono",
         "Name[it]": "Pitch shift",
         "Name[ka]": "ტონის წანაცვლება",

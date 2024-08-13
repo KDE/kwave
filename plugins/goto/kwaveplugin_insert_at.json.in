@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Lisää kohtaan",
         "Name[fr]": "Insérer à",
         "Name[gl]": "Inserir en",
+        "Name[he]": "הוספה בנקודה",
         "Name[ia]": "Inserta a",
         "Name[it]": "Inserisci a",
         "Name[ka]": "ჩასასმელი ადგილი",

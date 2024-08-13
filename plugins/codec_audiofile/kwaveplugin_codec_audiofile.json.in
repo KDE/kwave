@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Thomas Eschenbacher",
+                "Name[he]": "תומס אשנבאכר",
                 "Name[x-test]": "xxThomas Eschenbacherxx"
             }
         ],
@@ -22,6 +23,7 @@
         "Name[fi]": "Audiofile-koodekki",
         "Name[fr]": "Codec Audiofile",
         "Name[gl]": "Códec de AudioFile",
+        "Name[he]": "מפענח קובץ שמע",
         "Name[it]": "Codec Audiofile",
         "Name[ka]": "Audiofile -ის კოდეკი",
         "Name[ko]": "오디오 파일 코덱",

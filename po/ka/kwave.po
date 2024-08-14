@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-07 00:39+0000\n"
-"PO-Revision-Date: 2024-08-09 03:06+0200\n"
+"PO-Revision-Date: 2024-08-13 06:32+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1674,7 +1674,7 @@ msgstr "100%"
 #: libgui/SelectTimeWidgetBase.ui:387
 #, kde-format
 msgid "sets the selection by the percentage of the whole signal"
-msgstr ""
+msgstr "დააყენებს მონიშვნას მთლიანი სიგნალის პროცენტულობით"
 
 #: libgui/SignalWidget.cpp:200
 #, kde-format
@@ -1835,6 +1835,8 @@ msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more medias."
 msgstr ""
+"ალბომის სახელი, თუ წყარო ალბომია,\n"
+"რომელიც მეტი მედიისგან შედგება."
 
 #: libkwave/FileInfo.cpp:42
 msgid "Annotation"
@@ -1948,6 +1950,8 @@ msgid ""
 "Sets a mode for compressing the audio\n"
 "data to reduce disk space."
 msgstr ""
+"დააყენებს რეჟიმს ხმის მონაცემების შესაკუმშად,\n"
+"რომ დისკზე ნაკლები ადგილი დაიკავოს."
 
 #: libkwave/FileInfo.cpp:109
 msgid "Contact"
@@ -1978,7 +1982,7 @@ msgstr "დაცულია საავტორო უფლებები�
 
 #: libkwave/FileInfo.cpp:124
 msgid "Indicates whether the file is protected by copyright or not."
-msgstr ""
+msgstr "მიუთითებს, დაცულია ფაილი საავტორო უფლებებით, თუ არა."
 
 #: libkwave/FileInfo.cpp:128
 msgid "Date"
@@ -2034,6 +2038,8 @@ msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
 msgstr ""
+"განსაზღვრავს ჟანრს ან სტილს ორიგინალი ნამუშევრისთვის.\n"
+"მაგალითად: 'კლასიკა', 'პოპი'"
 
 #: libkwave/FileInfo.cpp:156
 msgid "ISRC"
@@ -2167,6 +2173,8 @@ msgid ""
 "Name of the organization producing the track\n"
 "(i.e. the 'record label')"
 msgstr ""
+"ტრეკის გამომცემელი ორგანიზაციის სახელი\n"
+"(ანუ 'ჩამწერი სტუდია')"
 
 #: libkwave/FileInfo.cpp:225
 msgid "Original"
@@ -2270,6 +2278,8 @@ msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
 msgstr ""
+"აღწერს ფაილის თემას.\n"
+"მაგ: 'ჩიტის ჭიკჭიკი დილაადრიან'"
 
 #: libkwave/FileInfo.cpp:278
 msgid "Technician"
@@ -2280,6 +2290,8 @@ msgid ""
 "Identifies the technician who digitized the subject file.\n"
 "Example: 'Torvalds, Linus'"
 msgstr ""
+"აღწერს ტექნიკოსს, რომელმაც ეს ფაილი გააციფრულა.\n"
+"მაგალითად: 'ღობეგლეჯიაშვილი, მზევინარ'"
 
 #: libkwave/FileInfo.cpp:284
 msgid "Track"
@@ -2287,7 +2299,7 @@ msgstr "ტრეკი"
 
 #: libkwave/FileInfo.cpp:285
 msgid "Track of the CD if the source was a CDROM."
-msgstr ""
+msgstr "CD-ის ტრეკი, თუ წყარო CDROM იყო."
 
 #: libkwave/FileInfo.cpp:288
 msgid "Tracks"
@@ -2295,7 +2307,7 @@ msgstr "აუდიობილიკები"
 
 #: libkwave/FileInfo.cpp:289
 msgid "Number of tracks of the CD if the source was a CDROM."
-msgstr ""
+msgstr "CD-ის ტრეკების რაოდენობა, თუ წყარო CDROM იყო."
 
 #: libkwave/FileInfo.cpp:292
 msgid "Channels"
@@ -2313,7 +2325,7 @@ msgstr "საბაზისო ხარისხი"
 
 #: libkwave/FileInfo.cpp:297
 msgid "Base quality of the compression in VBR mode"
-msgstr ""
+msgstr "შეკუმშვის საბაზისო ხარისხი VBR რეჟიმში"
 
 #: libkwave/FileInfo.cpp:301
 msgid ""
@@ -4014,6 +4026,8 @@ msgid ""
 "bits per sample,\n"
 "use %1 as placeholder"
 msgstr ""
+"ბიტი სემპლში.\n"
+"ადგილმჭერისთვის გამოიყენეთ %1"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:349
 #, kde-format
@@ -4077,7 +4091,7 @@ msgstr "&მონიშნეთ..."
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:66
 #, kde-format
 msgid "select one of the predefined encoder setups"
-msgstr ""
+msgstr "აირჩიეთ ენკოდერის პარამეტრების ნაკრებებიდან ერთ-ერთი"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btDetect)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:89
@@ -4503,7 +4517,7 @@ msgstr "შეცდომა: '%1'-სთვის კოდეკი ხელ
 #: plugins/codec_ogg/OpusCommon.cpp:55 plugins/playback/PlayBack-Qt.cpp:115
 #, kde-format
 msgid "One or more invalid/out of range arguments."
-msgstr ""
+msgstr "ერთი ან მეტი არასწორი/საზღვრებს გაცდენილი არგუმენტი."
 
 #: plugins/codec_ogg/OpusCommon.cpp:58
 #, kde-format
@@ -4538,7 +4552,7 @@ msgstr "დეკოდერის შეცდომა: %1"
 #: plugins/codec_ogg/OpusDecoder.cpp:152
 #, kde-format
 msgid "End of file before finding Opus Comment headers."
-msgstr ""
+msgstr "ფაილი Opus-ის კომენტარის თავსართების პოვნამდე დასრულდა."
 
 #: plugins/codec_ogg/OpusDecoder.cpp:356
 #, kde-format
@@ -4586,22 +4600,22 @@ msgstr "Opus-ის ენკოდერი ჩავარდა"
 #: plugins/codec_ogg/OpusEncoder.cpp:472
 #, kde-format
 msgid "Opus encoder failed setting bitrate: '%1'"
-msgstr ""
+msgstr "Opus-ის ენკოდერის მიერ ბიტური სიჩქარის დაყენება ჩავარდა: '%1'"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:484
 #, kde-format
 msgid "Opus encoder failed configuring VBR mode: '%1'"
-msgstr ""
+msgstr "Opus-ის ენკოდერის მიერ VBR რეჟიმის მორგება ჩავარდა: '%1'"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:494
 #, kde-format
 msgid "Opus encoder failed configuring VBR constraint: '%1'"
-msgstr ""
+msgstr "Opus-ის ენკოდერის მიერ VBR შეზღუდვის მორგება ჩავარდა: '%1'"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:596
 #, kde-format
 msgid "Opus encoder failed getting lookahead value: '%1'"
-msgstr ""
+msgstr "Opus-ის ენკოდერმა წინასწარ წასაკითხი მნიშვნელობა ვერ მიღო: '%1'"
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:89
 #, kde-format
@@ -4616,7 +4630,7 @@ msgstr "დაზიანებული მეორადი თავსა�
 #: plugins/codec_ogg/VorbisDecoder.cpp:136
 #, kde-format
 msgid "End of file before finding all Vorbis headers."
-msgstr ""
+msgstr "მიღწეულია ფაილის ბოლო Vorbis-ის თავსართების მოძებნამდე."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:97
 #, kde-format
@@ -4651,7 +4665,7 @@ msgstr ""
 #: plugins/codec_wav/RIFFParser.cpp:546
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
-msgstr ""
+msgstr "ვეძებ ნაკლულ ნაგლეჯს '%1..."
 
 #: plugins/codec_wav/WavDecoder.cpp:142
 #, kde-format
@@ -4669,6 +4683,8 @@ msgid ""
 "The file has been structurally damaged or it is no WAV file.\n"
 "Should Kwave try to repair it?"
 msgstr ""
+"ფაილის სტრუქტურა დაზიანებულია, ან ის WAV ფაილი არაა.\n"
+"გნებავთ KWave-მა მისი შეკეთება სცადოს?"
 
 #: plugins/codec_wav/WavDecoder.cpp:176 plugins/codec_wav/WavDecoder.cpp:281
 #, kde-format
@@ -4809,7 +4825,7 @@ msgctxt ""
 "default entry of the list of placeholder patterns in the K3b export plugin "
 "(used for detecting title and artist from a label description)"
 msgid "(auto detect)"
-msgstr ""
+msgstr "(ავტოამოცნობა)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, grpInputSettings)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:29
@@ -5025,6 +5041,8 @@ msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
 msgstr ""
+"აირჩიეთ გაფართოება ბიტებში, რომელშიც\n"
+"ფაილის შენახვა მოხდება."
 
 #. i18n: ectx: property (text), widget (QLabel, lblChannels)
 #: plugins/fileinfo/FileInfoDialog.cpp:248 plugins/newsignal/NewSigDlg.ui:196
@@ -5051,6 +5069,8 @@ msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
+"აჩვენებს ფაილის სიგრძეს სემპლებში.\n"
+"და თუ შესაძლებელია, დროსაც."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:270
 #, kde-format
@@ -5546,7 +5566,7 @@ msgstr ""
 #: plugins/newsignal/NewSigDlg.ui:347
 #, kde-format
 msgid "Select this to set the length of the file by time"
-msgstr ""
+msgstr "აირჩიეთ ეს, რომ ფაილის სიგრძე დროით დააყენოთ"
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbTime)
 #: plugins/newsignal/NewSigDlg.ui:350
@@ -6823,7 +6843,7 @@ msgstr "ნუმერაციის გაგრძელება"
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:79
 #, kde-format
 msgid "Always start with 1, overwrite if necessary"
-msgstr ""
+msgstr "ყოველთვის დაწყება 1-დან. თავზე გადაწერა, თუ ეს აუცილებელია"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, txtExample)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:96
@@ -6878,18 +6898,18 @@ msgstr "აირჩიეთ დიაპაზონი"
 #: plugins/sonagram/SonagramDialog.cpp:148
 #, kde-format
 msgid "(resulting window size: %1)"
-msgstr ""
+msgstr "(მიღებული ფანჯრის ზომა: %1)"
 
 #: plugins/sonagram/SonagramDialog.cpp:151
 #, kde-format
 msgid "Size of bitmap: %1x%2"
-msgstr ""
+msgstr "ბიტური რუკის ზომა: %1x%2"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SonagramDlg)
 #: plugins/sonagram/SonagramDlg.ui:20
 #, kde-format
 msgid "Set FFT/Time Resolution Parameters"
-msgstr ""
+msgstr "FFT/დროის გაფართოების პარამეტრების დაყენება"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroup1)
 #: plugins/sonagram/SonagramDlg.ui:49
@@ -7054,7 +7074,7 @@ msgstr "&სონაგრამა"
 #: plugins/sonagram/SonagramWindow.cpp:128
 #, kde-format
 msgid "&Export to Bitmap..."
-msgstr ""
+msgstr "გატანა bitmap &ფაილში..."
 
 #: plugins/sonagram/SonagramWindow.cpp:133
 #, kde-format

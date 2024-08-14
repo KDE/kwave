@@ -20,6 +20,7 @@
 #define KWAVE_WRITER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -32,7 +33,7 @@ namespace Kwave
     class SampleArray;
     class SampleReader;
 
-    class Q_DECL_EXPORT Writer: public Kwave::SampleSink
+    class LIBKWAVE_EXPORT Writer: public Kwave::SampleSink
     {
         Q_OBJECT
     public:
@@ -173,7 +174,7 @@ namespace Kwave
 }
 
 /** modifier for flushing */
-Kwave::Writer &flush(Kwave::Writer &s) Q_DECL_EXPORT;
+Kwave::Writer &flush(Kwave::Writer &s) LIBKWAVE_EXPORT;
 
 #endif /* KWAVE_WRITER_H */
 

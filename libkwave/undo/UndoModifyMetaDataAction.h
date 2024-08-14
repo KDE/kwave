@@ -20,6 +20,7 @@
 #define UNDO_MODIFY_META_DATA_ACTION_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QString>
@@ -33,7 +34,7 @@ namespace Kwave
     /**
      * Undo action for modifying meta data
      */
-    class Q_DECL_EXPORT UndoModifyMetaDataAction: public UndoAction
+    class LIBKWAVE_EXPORT UndoModifyMetaDataAction: public UndoAction
     {
     public:
 

@@ -20,6 +20,7 @@
 #define CLIP_BOARD_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QClipboard>
 #include <QtGlobal>
@@ -38,7 +39,7 @@ namespace Kwave
      * Implements a global clipboard for Kwave. It supports only the three
      * simple operations <c>put</c>, <c>get</c> and <c>clear</c>.
      */
-    class Q_DECL_EXPORT ClipBoard: public QObject
+    class LIBKWAVE_EXPORT ClipBoard: public QObject
     {
         Q_OBJECT
     public:

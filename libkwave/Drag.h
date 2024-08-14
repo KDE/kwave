@@ -19,6 +19,7 @@
 #define DRAG_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QByteArray>
@@ -43,7 +44,7 @@ namespace Kwave
      * @todo the current storage mechanism is straight-forward and stupid, it
      *       should be extended to use virtual memory
      */
-    class Q_DECL_EXPORT Drag: public QDrag
+    class LIBKWAVE_EXPORT Drag: public QDrag
     {
         Q_OBJECT
 

@@ -20,6 +20,7 @@
 #define UNDO_TRANSACTION_GUARD_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 
@@ -37,7 +38,7 @@ namespace Kwave {
      * operating on a SignalManager. Several nested UndoTransactionGuards
      * (or undo transactions) are allowed.
      */
-    class Q_DECL_EXPORT UndoTransactionGuard
+    class LIBKWAVE_EXPORT UndoTransactionGuard
     {
 
     public:

@@ -20,6 +20,7 @@
 #define UNDO_ADD_META_DATA_ACTION_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QList>
 #include <QString>
@@ -37,7 +38,7 @@ namespace Kwave
     /**
      * Undo action for inserting meta data.
      */
-    class Q_DECL_EXPORT UndoAddMetaDataAction: public Kwave::UndoAction
+    class LIBKWAVE_EXPORT UndoAddMetaDataAction: public Kwave::UndoAction
     {
     public:
 

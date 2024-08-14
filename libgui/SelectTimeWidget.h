@@ -19,6 +19,7 @@
 #define SELECT_TIME_WIDGET_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QGroupBox>
@@ -34,7 +35,7 @@ namespace Kwave
     /**
     * widget for selecting a time or range
     */
-    class Q_DECL_EXPORT SelectTimeWidget
+    class LIBKWAVEGUI_EXPORT SelectTimeWidget
         :public QGroupBox, public Ui::SelectTimeWidgetBase
     {
         Q_OBJECT

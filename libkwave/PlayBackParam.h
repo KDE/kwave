@@ -18,6 +18,8 @@
 #ifndef PLAY_BACK_PARAM_H
 #define PLAY_BACK_PARAM_H
 
+#include "libkwave_export.h"
+
 #include <QtGlobal>
 #include <QString>
 
@@ -48,7 +50,7 @@ namespace Kwave
      * A class that contains all necessary parameters for
      * setting up (initializing) a playback device.
      */
-    class Q_DECL_EXPORT PlayBackParam
+    class LIBKWAVE_EXPORT PlayBackParam
     {
     public:
         /** Default constructor */

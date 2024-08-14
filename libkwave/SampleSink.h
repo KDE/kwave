@@ -19,6 +19,7 @@
 #define SAMPLE_SINK_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -29,7 +30,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT SampleSink: public Kwave::StreamObject
+    class LIBKWAVE_EXPORT SampleSink: public Kwave::StreamObject
     {
         Q_OBJECT
     public:

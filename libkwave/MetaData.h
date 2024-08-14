@@ -18,6 +18,7 @@
 #define META_DATA_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -34,7 +35,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT MetaData
+    class LIBKWAVE_EXPORT MetaData
     {
     public:
         /** standard property: type of the meta data object */

@@ -20,6 +20,7 @@
 #define SAMPLE_READER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QElapsedTimer>
@@ -36,7 +37,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT SampleReader: public Kwave::SampleSource
+    class LIBKWAVE_EXPORT SampleReader: public Kwave::SampleSource
     {
         Q_OBJECT
     public:

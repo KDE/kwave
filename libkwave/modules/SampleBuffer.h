@@ -19,6 +19,7 @@
 #define SAMPLE_BUFFER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QObject>
 #include <QSemaphore>
@@ -30,7 +31,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT SampleBuffer: public Kwave::SampleSink
+    class LIBKWAVE_EXPORT SampleBuffer: public Kwave::SampleSink
     {
         Q_OBJECT
     public:

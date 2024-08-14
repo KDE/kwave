@@ -19,6 +19,7 @@
 #define TRACK_PIXMAP_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <math.h>
 
@@ -64,7 +65,7 @@ namespace Kwave
 {
     class Track;
 
-    class Q_DECL_EXPORT TrackPixmap: public QObject
+    class LIBKWAVEGUI_EXPORT TrackPixmap: public QObject
     {
         Q_OBJECT
 

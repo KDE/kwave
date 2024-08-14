@@ -18,6 +18,8 @@
 #ifndef VIEW_MANAGER_H
 #define VIEW_MANAGER_H
 
+#include "libkwave_export.h"
+
 class QWidget;
 
 namespace Kwave
@@ -28,7 +30,7 @@ namespace Kwave
     /**
      * Abstract interface for registering a SignalView in the main widget
      */
-    class Q_DECL_EXPORT ViewManager
+    class LIBKWAVE_EXPORT ViewManager
     {
     public:
         /** Destructor */

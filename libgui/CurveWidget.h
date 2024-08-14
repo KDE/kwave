@@ -19,6 +19,7 @@
 #define CURVE_WIDGET_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QMenu>
@@ -34,7 +35,7 @@ class QString;
 
 namespace Kwave
 {
-    class Q_DECL_EXPORT CurveWidget: public QWidget
+    class LIBKWAVEGUI_EXPORT CurveWidget: public QWidget
     {
         Q_OBJECT
     public:

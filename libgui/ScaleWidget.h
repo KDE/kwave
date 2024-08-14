@@ -19,6 +19,7 @@
 #define SCALE_WIDGET_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QString>
@@ -30,7 +31,7 @@ class QSize;
 
 namespace Kwave
 {
-    class Q_DECL_EXPORT ScaleWidget: public QWidget
+    class LIBKWAVEGUI_EXPORT ScaleWidget: public QWidget
     {
     public:
 

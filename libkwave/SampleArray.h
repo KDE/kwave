@@ -19,6 +19,7 @@
 #define SAMPLE_ARRAY_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QSharedData>
@@ -33,7 +34,7 @@ namespace Kwave
      * array with sample_t, for use in Kwave::SampleSource, Kwave::SampleSink
      * and other streaming classes.
      */
-    class Q_DECL_EXPORT SampleArray
+    class LIBKWAVE_EXPORT SampleArray
     {
     public:
 

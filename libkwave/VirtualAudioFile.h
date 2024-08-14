@@ -19,6 +19,7 @@
 #define VIRTUAL_AUDIO_FILE_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QMap>
@@ -37,7 +38,7 @@ namespace Kwave
      * This class builds an interface between a QIODevice and a virtual
      * file in libaudiofile.
      */
-    class Q_DECL_EXPORT VirtualAudioFile
+    class LIBKWAVE_EXPORT VirtualAudioFile
     {
     public:
         /**

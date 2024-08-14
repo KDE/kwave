@@ -19,6 +19,7 @@
 #define SAMPLE_FORMAT_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 
@@ -27,7 +28,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT SampleFormat
+    class LIBKWAVE_EXPORT SampleFormat
     {
     public:
         /**
@@ -80,7 +81,7 @@ namespace Kwave
     public:
 
         /** map for translating between index, sample format and name */
-        class Q_DECL_EXPORT Map: public Kwave::TypesMap<int, Format>
+        class LIBKWAVE_EXPORT Map: public Kwave::TypesMap<int, Format>
         {
         public:
             /** Constructor */

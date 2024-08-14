@@ -19,6 +19,7 @@
 #define PLAYBACK_CONTROLLER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -50,7 +51,7 @@ namespace Kwave
      * This class internally manages the logic and handling of the
      * playback position.
      */
-    class Q_DECL_EXPORT PlaybackController: public QObject,
+    class LIBKWAVE_EXPORT PlaybackController: public QObject,
                                             public Kwave::Runnable
     {
     Q_OBJECT

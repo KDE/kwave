@@ -19,6 +19,7 @@
 #define GLOBAL_LOCK_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QMutex>
@@ -30,7 +31,7 @@ namespace Kwave {
      * Use with care!
      * (might be needed for protecting external non-threadsafe libraries)
      */
-    class Q_DECL_EXPORT GlobalLock
+    class LIBKWAVE_EXPORT GlobalLock
     {
     public:
         /** Constructor, acquires the global lock */

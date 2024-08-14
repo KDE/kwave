@@ -18,6 +18,7 @@
 #define PLAY_BACK_TYPES_MAP_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 
@@ -26,7 +27,7 @@
 
 namespace Kwave
 {
-    class Q_DECL_EXPORT PlayBackTypesMap
+    class LIBKWAVE_EXPORT PlayBackTypesMap
         :public Kwave::TypesMap<unsigned int, Kwave::playback_method_t>
     {
     public:

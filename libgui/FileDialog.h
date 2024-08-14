@@ -19,6 +19,7 @@
 #define FILE_DIALOG_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QDialog>
@@ -38,7 +39,7 @@ namespace Kwave
      * An improved version of KFileWidget that does not forget the previous
      * directory and pre-selects the previous file extension.
      */
-    class Q_DECL_EXPORT FileDialog: public QDialog
+    class LIBKWAVEGUI_EXPORT FileDialog: public QDialog
     {
         Q_OBJECT
     public:

@@ -19,6 +19,8 @@
 #define WORKER_THREAD_H
 
 #include "config.h"
+#include "libkwave_export.h"
+
 #include <pthread.h>
 
 #include <QtGlobal>
@@ -31,7 +33,7 @@ namespace Kwave
 {
     class Runnable;
 
-    class Q_DECL_EXPORT WorkerThread: public QThread
+    class LIBKWAVE_EXPORT WorkerThread: public QThread
     {
         Q_OBJECT
     public:

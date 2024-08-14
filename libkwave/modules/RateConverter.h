@@ -19,6 +19,7 @@
 #define RATE_CONVERTER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -33,7 +34,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT RateConverter: public Kwave::SampleSource
+    class LIBKWAVE_EXPORT RateConverter: public Kwave::SampleSource
     {
         Q_OBJECT
     public:

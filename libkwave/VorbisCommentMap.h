@@ -19,6 +19,7 @@ VorbisCommentMap.h  -  map for translating properties to vorbis comments
 #define VORBIS_COMMENT_MAP_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QMap>
@@ -28,7 +29,7 @@ VorbisCommentMap.h  -  map for translating properties to vorbis comments
 
 namespace Kwave
 {
-    class Q_DECL_EXPORT VorbisCommentMap
+    class LIBKWAVE_EXPORT VorbisCommentMap
         :public QMap<QString, Kwave::FileProperty>
     {
     public:

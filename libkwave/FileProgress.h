@@ -19,6 +19,7 @@
 #define FILE_PROGRESS_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QDialog>
@@ -38,7 +39,7 @@ class KProgress;
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT FileProgress: public QDialog
+    class LIBKWAVE_EXPORT FileProgress: public QDialog
     {
         Q_OBJECT
     public:

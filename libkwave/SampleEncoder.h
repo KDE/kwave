@@ -19,6 +19,7 @@
 #define SAMPLE_ENCODER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QByteArray>
@@ -28,7 +29,7 @@
 
 namespace Kwave
 {
-    class Q_DECL_EXPORT SampleEncoder
+    class LIBKWAVE_EXPORT SampleEncoder
     {
     public:
         /** Constructor */

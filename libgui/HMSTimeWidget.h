@@ -19,6 +19,7 @@
 #define HMS_TIME_WIDGET_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -28,7 +29,7 @@
 
 namespace Kwave
 {
-    class Q_DECL_EXPORT HMSTimeWidget
+    class LIBKWAVEGUI_EXPORT HMSTimeWidget
         :public QWidget, public Ui::HMSTimeWidgetBase
     {
         Q_OBJECT

@@ -19,6 +19,7 @@
 #define SELECTION_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -28,7 +29,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT Selection: public QObject
+    class LIBKWAVE_EXPORT Selection: public QObject
     {
         Q_OBJECT
     public:

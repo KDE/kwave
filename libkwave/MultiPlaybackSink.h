@@ -19,6 +19,7 @@
 #define MULTI_PLAYBACK_SINK_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QBitArray>
@@ -33,7 +34,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT MultiPlaybackSink
+    class LIBKWAVE_EXPORT MultiPlaybackSink
         :public Kwave::MultiTrackSink<Kwave::PlaybackSink, false>
     {
         Q_OBJECT

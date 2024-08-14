@@ -19,6 +19,7 @@
 #define CONNECT_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 
@@ -53,7 +54,7 @@ namespace Kwave
      */
     bool connect(Kwave::StreamObject &source, const char *output,
                  Kwave::StreamObject &sink,   const char *input)
-                 Q_DECL_EXPORT;
+                 LIBKWAVE_EXPORT;
 }
 
 #endif /* CONNECT_H */

@@ -19,6 +19,7 @@
 #define COLORS_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QColor>
@@ -46,10 +47,10 @@ namespace Kwave
         } ColorSet;
 
         /** color set for normal signal */
-        static Q_DECL_EXPORT ColorSet Normal;
+        static LIBKWAVEGUI_EXPORT ColorSet Normal;
 
         /** color set for disabled signal */
-        static Q_DECL_EXPORT ColorSet Disabled;
+        static LIBKWAVEGUI_EXPORT ColorSet Disabled;
 
     };
 }

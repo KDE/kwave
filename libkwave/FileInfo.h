@@ -19,6 +19,7 @@
 #define FILE_INFO_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QFlags>
@@ -110,7 +111,7 @@ namespace Kwave
      * @class FileInfo
      * Holds various properties of a file.
      */
-    class Q_DECL_EXPORT FileInfo: public Kwave::MetaData
+    class LIBKWAVE_EXPORT FileInfo: public Kwave::MetaData
     {
     public:
         /**

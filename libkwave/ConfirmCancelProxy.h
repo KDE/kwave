@@ -19,6 +19,7 @@
 #define CONFIRM_CANCEL_PROXY_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -29,7 +30,7 @@ class QWidget;
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT ConfirmCancelProxy: public QObject
+    class LIBKWAVE_EXPORT ConfirmCancelProxy: public QObject
     {
         Q_OBJECT
     public:

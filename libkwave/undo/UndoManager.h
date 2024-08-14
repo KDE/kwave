@@ -19,6 +19,7 @@
 #define UNDO_MANAGER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -29,7 +30,7 @@ namespace Kwave
     class UndoHandler;
     class UndoTransaction;
 
-    class Q_DECL_EXPORT UndoManager
+    class LIBKWAVE_EXPORT UndoManager
     {
     public:
 

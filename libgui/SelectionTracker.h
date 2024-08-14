@@ -19,6 +19,7 @@
 #define SELECTION_TRACKER_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -39,7 +40,7 @@ namespace Kwave
     class Track;
     class UndoTransaction;
 
-    class Q_DECL_EXPORT SelectionTracker: public QObject,
+    class LIBKWAVEGUI_EXPORT SelectionTracker: public QObject,
                                           private Kwave::UndoHandler
     {
         Q_OBJECT
@@ -208,7 +209,7 @@ namespace Kwave
         /**
          * Undo action for tracking selection changes
          */
-        class Q_DECL_EXPORT Undo: public Kwave::UndoAction
+        class LIBKWAVEGUI_EXPORT Undo: public Kwave::UndoAction
         {
         public:
 

@@ -19,6 +19,7 @@
 #define LABEL_ITEM_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QCursor>
@@ -36,7 +37,7 @@ namespace Kwave
     class SignalView;
     class UndoTransactionGuard;
 
-    class Q_DECL_EXPORT LabelItem: public Kwave::ViewItem
+    class LIBKWAVEGUI_EXPORT LabelItem: public Kwave::ViewItem
     {
         Q_OBJECT
     public:

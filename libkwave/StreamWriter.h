@@ -20,6 +20,7 @@
 #define STREAM_WRITER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -39,7 +40,7 @@ namespace Kwave
      * @warning THIS CLASS IS NOT THREADSAFE! It is intended to be owned by
      *          and used from only one thread.
      */
-    class Q_DECL_EXPORT StreamWriter: public Kwave::Writer
+    class LIBKWAVE_EXPORT StreamWriter: public Kwave::Writer
     {
         Q_OBJECT
     public:

@@ -19,6 +19,7 @@
 #define FILTER_PLUGIN_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -35,7 +36,7 @@ namespace Kwave
     class SampleSource;
     class SampleSink;
 
-    class Q_DECL_EXPORT FilterPlugin: public Kwave::Plugin
+    class LIBKWAVEGUI_EXPORT FilterPlugin: public Kwave::Plugin
     {
         Q_OBJECT
     public:

@@ -20,6 +20,7 @@
 #define PROGRESS_SIZE (512 * 3 * 5)
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <pthread.h>
 
@@ -44,7 +45,7 @@ namespace Kwave
     class Track;
     class Writer;
 
-    class Q_DECL_EXPORT Signal: public QObject
+    class LIBKWAVE_EXPORT Signal: public QObject
     {
         Q_OBJECT
 

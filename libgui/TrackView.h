@@ -19,6 +19,7 @@
 #define TRACK_VIEW_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QImage>
@@ -41,7 +42,7 @@ namespace Kwave
     class SignalManager; // forward declaration
     class Track;
 
-    class Q_DECL_EXPORT TrackView: public SignalView
+    class LIBKWAVEGUI_EXPORT TrackView: public SignalView
     {
         Q_OBJECT
     public:

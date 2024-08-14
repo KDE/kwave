@@ -18,6 +18,7 @@
 #define META_DATA_LIST_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -33,7 +34,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT MetaDataList: public QMap<QString, MetaData>
+    class LIBKWAVE_EXPORT MetaDataList: public QMap<QString, MetaData>
     {
     public:
 

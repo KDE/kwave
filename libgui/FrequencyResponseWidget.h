@@ -19,6 +19,7 @@
 #define FREQUENCY_RESPONSE_WIDGET_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -34,7 +35,7 @@ namespace Kwave
     /**
      * displays a frequency response
      */
-    class Q_DECL_EXPORT FrequencyResponseWidget: public QWidget
+    class LIBKWAVEGUI_EXPORT FrequencyResponseWidget: public QWidget
     {
         Q_OBJECT
 

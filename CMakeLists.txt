@@ -215,7 +215,7 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH}  )
 INCLUDE(KDEInstallDirs)
 INCLUDE(KDECompilerSettings NO_POLICY_SCOPE)
 INCLUDE(KDECMakeSettings)
-INCLUDE(GenerateExportHeader)
+INCLUDE(ECMGenerateExportHeader)
 INCLUDE(FeatureSummary)
 INCLUDE(ECMDeprecationSettings)
 ecm_set_disabled_deprecation_versions(

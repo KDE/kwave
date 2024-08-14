@@ -19,6 +19,7 @@
 #define WINDOW_FUNCTION_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QVector>
@@ -44,7 +45,7 @@ namespace Kwave
      * Handles window functions for signal processing. Also holds a static
      * map of known window functions.
      */
-    class Q_DECL_EXPORT WindowFunction
+    class LIBKWAVE_EXPORT WindowFunction
     {
     public:
         /**

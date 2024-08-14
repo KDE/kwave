@@ -20,6 +20,7 @@
 #define MULTI_TRACK_WRITER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -38,7 +39,7 @@ namespace Kwave
      * A MultiTrackWriter encapsulates a set of <c>TrackWriter</c>s for
      * easier use of multi-track signals.
      */
-    class Q_DECL_EXPORT MultiTrackWriter: public Kwave::MultiWriter
+    class LIBKWAVE_EXPORT MultiTrackWriter: public Kwave::MultiWriter
     {
         Q_OBJECT
 

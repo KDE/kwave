@@ -19,6 +19,7 @@
 #define KWAVE_LOGGER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 
@@ -66,7 +67,7 @@ namespace Kwave
          * @param filename name of the log file
          * @return true if succeed, false if failed
          */
-        static bool Q_DECL_EXPORT open(const QString &filename);
+        static bool LIBKWAVE_EXPORT open(const QString &filename);
 
         /**
          * log a message to the log file
@@ -76,7 +77,7 @@ namespace Kwave
          * @param level the log level / severity
          * @param msg the message to log
          */
-        static void Q_DECL_EXPORT log(const QObject *sender,
+        static void LIBKWAVE_EXPORT log(const QObject *sender,
                                       LogLevel level,
                                       const QString &msg);
 

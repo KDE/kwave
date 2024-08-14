@@ -18,6 +18,7 @@
 #define LABEL_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QString>
@@ -31,7 +32,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT Label: public Kwave::MetaData
+    class LIBKWAVE_EXPORT Label: public Kwave::MetaData
     {
     public:
 

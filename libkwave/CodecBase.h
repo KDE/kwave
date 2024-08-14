@@ -19,6 +19,7 @@
 #define CODEC_BASE_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -33,7 +34,7 @@ class QUrl;
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT CodecBase
+    class LIBKWAVE_EXPORT CodecBase
     {
     public:
 

@@ -19,6 +19,7 @@
 #define STRIPE_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QByteArray>
 #include <QtGlobal>
@@ -33,7 +34,7 @@
 //***************************************************************************
 namespace Kwave
 {
-    class Q_DECL_EXPORT Stripe
+    class LIBKWAVE_EXPORT Stripe
     {
     public:
 

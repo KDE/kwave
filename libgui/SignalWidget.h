@@ -19,6 +19,7 @@
 #define SIGNAL_WIDGET_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QGridLayout>
@@ -72,7 +73,7 @@ namespace Kwave
      * The SignalWidget class is responsible for displaying and managing the
      * views that belong to a signal.
      */
-    class Q_DECL_EXPORT SignalWidget: public QWidget,
+    class LIBKWAVEGUI_EXPORT SignalWidget: public QWidget,
                                       public Kwave::ViewManager
     {
         Q_OBJECT

@@ -19,6 +19,7 @@
 #define OVER_VIEW_CACHE_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QHash>
@@ -47,7 +48,7 @@ namespace Kwave
      * itself if data has been changed, inserted or deleted.
      * Optimized for speed!
      */
-    class Q_DECL_EXPORT OverViewCache: public QObject
+    class LIBKWAVEGUI_EXPORT OverViewCache: public QObject
     {
         Q_OBJECT
     public:

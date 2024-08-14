@@ -19,6 +19,7 @@
 #define MESSAGE_BOX_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -32,7 +33,7 @@ class QWidget;
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT MessageBox: public QObject
+    class LIBKWAVE_EXPORT MessageBox: public QObject
     {
     Q_OBJECT
 

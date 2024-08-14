@@ -19,6 +19,7 @@
 #define MENU_MANAGER_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QMap>
@@ -43,7 +44,7 @@ namespace Kwave
      *       the MenuNode class causes an action that deletes that menu
      *       node. <em>It took me one week to find that bug!</em>
      */
-    class Q_DECL_EXPORT MenuManager: public QObject
+    class LIBKWAVEGUI_EXPORT MenuManager: public QObject
     {
         Q_OBJECT
     public:

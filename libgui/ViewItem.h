@@ -19,6 +19,7 @@
 #define VIEW_ITEM_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QCursor>
@@ -38,7 +39,7 @@ namespace Kwave
     class SignalManager;
     class SignalView;
 
-    class Q_DECL_EXPORT ViewItem: public QObject
+    class LIBKWAVEGUI_EXPORT ViewItem: public QObject
     {
         Q_OBJECT
 

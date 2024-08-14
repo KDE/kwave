@@ -19,6 +19,7 @@
 #define COMPRESSION_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <KLazyLocalizedString>
 #include <QtGlobal>
@@ -32,7 +33,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT Compression
+    class LIBKWAVE_EXPORT Compression
     {
     public:
 

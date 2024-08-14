@@ -19,6 +19,7 @@
 #define CHANNEL_MIXER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QObject>
 #include <QPointer>
@@ -38,7 +39,7 @@ namespace Kwave
 
     class MixerMatrix;
 
-    class Q_DECL_EXPORT ChannelMixer: public Kwave::SampleSource
+    class LIBKWAVE_EXPORT ChannelMixer: public Kwave::SampleSource
     {
         Q_OBJECT
         public:

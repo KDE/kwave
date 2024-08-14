@@ -19,6 +19,7 @@
 #define GENRE_TYPE_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <KLazyLocalizedString>
 #include <QtGlobal>
@@ -29,7 +30,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT GenreType
+    class LIBKWAVE_EXPORT GenreType
     {
     private:
 

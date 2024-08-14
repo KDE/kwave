@@ -20,6 +20,7 @@
 #define MULTI_TRACK_READER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -38,7 +39,7 @@ namespace Kwave
      * A MultiTrackReader encapsulates a set of <c>SampleReader</c>s for
      * easier use of multi-track signals.
      */
-    class Q_DECL_EXPORT MultiTrackReader
+    class LIBKWAVE_EXPORT MultiTrackReader
         :public Kwave::MultiTrackSource<Kwave::SampleReader, false>
     {
         Q_OBJECT

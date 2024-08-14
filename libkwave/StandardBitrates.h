@@ -19,13 +19,14 @@
 #define STANDARD_BITRATES_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
 
 namespace Kwave
 {
-    class Q_DECL_EXPORT StandardBitrates: public QList<int>
+    class LIBKWAVE_EXPORT StandardBitrates: public QList<int>
     {
     public:
         /** Constructor */

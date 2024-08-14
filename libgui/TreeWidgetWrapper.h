@@ -19,6 +19,7 @@
 #define TREE_WIDGET_WRAPPER_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -28,7 +29,7 @@ class QFocusEvent;
 
 namespace Kwave
 {
-    class Q_DECL_EXPORT TreeWidgetWrapper: public QTreeWidget
+    class LIBKWAVEGUI_EXPORT TreeWidgetWrapper: public QTreeWidget
     {
         Q_OBJECT
     public:

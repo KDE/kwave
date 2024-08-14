@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 ecm_add_test(
-    ../Utils.cpp
     Utils.test.cpp
     LINK_LIBRARIES
     Qt::Test
     KF6::I18n
+    libkwave
     TEST_NAME test_Utils
 )

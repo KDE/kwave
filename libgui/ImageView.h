@@ -19,6 +19,7 @@
 #define IMAGEVIEW_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QImage>
@@ -30,7 +31,7 @@ namespace Kwave
     /**
      * Simple widget class for displaying a QImage.
      */
-    class Q_DECL_EXPORT ImageView: public QWidget
+    class LIBKWAVEGUI_EXPORT ImageView: public QWidget
     {
         Q_OBJECT
     public:

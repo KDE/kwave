@@ -19,6 +19,7 @@
 #define STREAM_OBJECT_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -29,7 +30,7 @@ class QVariant;
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT StreamObject: public QObject
+    class LIBKWAVE_EXPORT StreamObject: public QObject
     {
         Q_OBJECT
     public:

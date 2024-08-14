@@ -19,6 +19,7 @@
 #define CURVE_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -34,7 +35,7 @@
 
 namespace Kwave
 {
-    class Q_DECL_EXPORT Curve: public QList<QPointF>
+    class LIBKWAVE_EXPORT Curve: public QList<QPointF>
     {
     public:
 

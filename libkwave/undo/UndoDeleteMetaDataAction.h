@@ -20,6 +20,8 @@
 #define UNDO_DELETE_META_DATA_ACTION_H
 
 #include "config.h"
+#include "libkwave_export.h"
+
 #include <QString>
 
 #include "libkwave/MetaDataList.h"
@@ -33,7 +35,7 @@ namespace Kwave
     /**
      * Undo action for deleting a list of meta data items.
      */
-    class Q_DECL_EXPORT UndoDeleteMetaDataAction: public Kwave::UndoAction
+    class LIBKWAVE_EXPORT UndoDeleteMetaDataAction: public Kwave::UndoAction
     {
     public:
 

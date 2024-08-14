@@ -19,6 +19,7 @@
 #define SIGNAL_VIEW_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QLabel>
@@ -47,7 +48,7 @@ namespace Kwave
 
     class SignalManager; // forward declaration
 
-    class Q_DECL_EXPORT SignalView: public QWidget
+    class LIBKWAVEGUI_EXPORT SignalView: public QWidget
     {
         Q_OBJECT
     public:

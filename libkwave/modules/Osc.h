@@ -19,6 +19,7 @@
 #define OSC_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -29,7 +30,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT Osc: public Kwave::SampleSource
+    class LIBKWAVE_EXPORT Osc: public Kwave::SampleSource
     {
         Q_OBJECT
         public:

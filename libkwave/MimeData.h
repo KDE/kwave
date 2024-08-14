@@ -19,6 +19,7 @@
 #define MIME_DATA_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QByteArray>
@@ -38,7 +39,7 @@ namespace Kwave
     class MultiTrackReader;
     class SignalManager;
 
-    class Q_DECL_EXPORT MimeData: public QMimeData
+    class LIBKWAVE_EXPORT MimeData: public QMimeData
     {
         Q_OBJECT
         public:

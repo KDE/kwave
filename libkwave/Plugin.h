@@ -19,6 +19,7 @@
 #define PLUGIN_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QAtomicInt>
 #include <QtGlobal>
@@ -69,7 +70,7 @@ namespace Kwave
      * all necessary functions to access the functionality of the main
      * Kwave program.
      */
-    class Q_DECL_EXPORT Plugin: public QObject, public Kwave::Runnable
+    class LIBKWAVE_EXPORT Plugin: public QObject, public Kwave::Runnable
     {
         Q_OBJECT
 

@@ -19,6 +19,7 @@
 #define PLUGIN_MANAGER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -55,7 +56,7 @@ namespace Kwave
      * new instance of the PluginManager to be independent from other
      * toplevel widgets.
      */
-    class Q_DECL_EXPORT PluginManager: public QObject
+    class LIBKWAVE_EXPORT PluginManager: public QObject
     {
         Q_OBJECT
 

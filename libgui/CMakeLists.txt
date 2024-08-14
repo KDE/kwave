@@ -93,6 +93,10 @@ SET_TARGET_PROPERTIES(libkwavegui PROPERTIES
     VERSION ${KWAVE_VERSION} SOVERSION ${KWAVE_VERSION_MAJOR} )
 SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
+ECM_GENERATE_EXPORT_HEADER(libkwavegui
+    VERSION ${KWAVE_VERSION}
+)
+
 #############################################################################
 ### install files                                                         ###
 

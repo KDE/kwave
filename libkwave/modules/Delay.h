@@ -19,6 +19,7 @@
 #define DELAY_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -31,7 +32,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT Delay: public Kwave::SampleSource
+    class LIBKWAVE_EXPORT Delay: public Kwave::SampleSource
     {
         Q_OBJECT
         public:

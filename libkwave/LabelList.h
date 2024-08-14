@@ -18,6 +18,7 @@
 #define LABEL_LIST_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -30,7 +31,7 @@ namespace Kwave
     class MetaDataList;
 
     /** not more than a typedef since Qt4 */
-    class Q_DECL_EXPORT LabelList: public QList<Kwave::Label>
+    class LIBKWAVE_EXPORT LabelList: public QList<Kwave::Label>
     {
     public:
 

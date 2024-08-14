@@ -19,6 +19,7 @@
 #define DECODER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QObject>
@@ -34,7 +35,7 @@ namespace Kwave
 
     class MultiWriter;
 
-    class Q_DECL_EXPORT Decoder: public QObject, public Kwave::CodecBase
+    class LIBKWAVE_EXPORT Decoder: public QObject, public Kwave::CodecBase
     {
         Q_OBJECT
     public:

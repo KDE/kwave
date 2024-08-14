@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QSpinBox>
@@ -28,7 +29,7 @@ class QWidget;
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT InvertableSpinBox: public QSpinBox
+    class LIBKWAVEGUI_EXPORT InvertableSpinBox: public QSpinBox
     {
         Q_OBJECT
     public:

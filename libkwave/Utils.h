@@ -19,6 +19,7 @@
 #define KWAVE_UTILS_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <limits>
 
@@ -35,7 +36,7 @@ namespace Kwave
      * Gives the control to the next thread. This can be called from
      * within the run() function.
      */
-    void Q_DECL_EXPORT yield();
+    void LIBKWAVE_EXPORT yield();
 
     /**
      * Converts a zoom factor into a string. The number of decimals
@@ -47,7 +48,7 @@ namespace Kwave
      * @param percent the zoom factor to be formated, a value of "100.0"
      *             means "100%", "0.1" means "0.1%" and so on.
      */
-    QString Q_DECL_EXPORT zoom2string(double percent);
+    QString LIBKWAVE_EXPORT zoom2string(double percent);
 
     /**
      * Converts a time in milliseconds into a string. Times below one
@@ -62,7 +63,7 @@ namespace Kwave
      *                  must be >= 3 !
      * @return time formatted as user-readable string
      */
-    QString Q_DECL_EXPORT ms2string(double ms, int precision = 6);
+    QString LIBKWAVE_EXPORT ms2string(double ms, int precision = 6);
 
     /**
      * Converts a number of samples (aka sample_index_t) into a string,
@@ -70,7 +71,7 @@ namespace Kwave
      * @param samples number of sample
      * @return number formatted with thousands separators
      */
-    QString Q_DECL_EXPORT samples2string(sample_index_t samples);
+    QString LIBKWAVE_EXPORT samples2string(sample_index_t samples);
 
     /**
      * Converts a time in milliseconds into a string with hours,
@@ -78,7 +79,7 @@ namespace Kwave
      * @param ms time in milliseconds
      * @return time formatted as HH:MM:SS:mmmm
      */
-    QString Q_DECL_EXPORT ms2hms(double ms);
+    QString LIBKWAVE_EXPORT ms2hms(double ms);
 
     /**
      * Tries to convert a string into a QDate
@@ -86,7 +87,7 @@ namespace Kwave
      * @return a ISO 8601 timestamp: "yyyy-MM-ddTHH:mm:ss"
      *         or shortened as date "yyyy-MM-dd"
      */
-    QString Q_DECL_EXPORT string2date(const QString &s);
+    QString LIBKWAVE_EXPORT string2date(const QString &s);
 
     /**
      * Round up a numeric value
@@ -144,16 +145,16 @@ namespace Kwave
      * @param path a file name, path, or other kind of string encoded URL
      * @return a QUrl object
      */
-    QUrl URLfromUserInput(const QString &path) Q_DECL_EXPORT;
+    QUrl URLfromUserInput(const QString &path) LIBKWAVE_EXPORT;
 
     /** returns the URL scheme for encoding/decoding kwave:<*> URLs */
-    QString urlScheme() Q_DECL_EXPORT;
+    QString urlScheme() LIBKWAVE_EXPORT;
 
     /**
      * Returns the limit of memory that can be used for undo/redo
      * in units of whole megabytes
      */
-    quint64 undoLimit() Q_DECL_EXPORT;
+    quint64 undoLimit() LIBKWAVE_EXPORT;
 
 }
 

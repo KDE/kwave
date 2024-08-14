@@ -19,6 +19,7 @@
 #define CURVE_STREAM_ADAPTER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 
@@ -28,7 +29,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT CurveStreamAdapter: public Kwave::SampleSource
+    class LIBKWAVE_EXPORT CurveStreamAdapter: public Kwave::SampleSource
     {
         Q_OBJECT
     public:

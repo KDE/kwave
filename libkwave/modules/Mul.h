@@ -19,6 +19,7 @@
 #define MUL_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QMutex>
@@ -34,7 +35,7 @@ class QVariant;
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT Mul: public Kwave::SampleSource
+    class LIBKWAVE_EXPORT Mul: public Kwave::SampleSource
     {
         Q_OBJECT
         public:

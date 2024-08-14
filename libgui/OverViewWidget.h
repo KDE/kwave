@@ -19,6 +19,7 @@
 #define OVER_VIEW_WIDGET_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QBitmap>
@@ -44,7 +45,7 @@ namespace Kwave
     class SignalManager;
     class Track;
 
-    class Q_DECL_EXPORT OverViewWidget: public Kwave::ImageView
+    class LIBKWAVEGUI_EXPORT OverViewWidget: public Kwave::ImageView
     {
         Q_OBJECT
     public:

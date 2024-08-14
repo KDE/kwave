@@ -20,6 +20,7 @@
 #define MULTI_STATE_WIDGET_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QPixmap>
@@ -33,7 +34,7 @@ class QString;
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT MultiStateWidget: public QWidget
+    class LIBKWAVEGUI_EXPORT MultiStateWidget: public QWidget
     {
         Q_OBJECT
 

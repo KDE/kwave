@@ -19,6 +19,7 @@
 #define SIGNAL_MANAGER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -59,7 +60,7 @@ namespace Kwave
     /**
      * The SignalManager class manages multi channel signals.
      */
-    class Q_DECL_EXPORT SignalManager: public QObject
+    class LIBKWAVE_EXPORT SignalManager: public QObject
     {
         Q_OBJECT
 

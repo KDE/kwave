@@ -19,6 +19,7 @@
 #define LABEL_PROPERTIES_WIDGET_H
 
 #include "config.h"
+#include "libkwavegui_export.h"
 
 #include <QtGlobal>
 #include <QDialog>
@@ -33,7 +34,7 @@ namespace Kwave
 
     class Label;
 
-    class Q_DECL_EXPORT LabelPropertiesWidget
+    class LIBKWAVEGUI_EXPORT LabelPropertiesWidget
         :public QDialog,
          public Ui::LabelPropertiesWidgetBase
     {

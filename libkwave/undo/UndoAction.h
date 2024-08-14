@@ -20,6 +20,7 @@
 #define UNDO_ACTION_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QString>
@@ -41,7 +42,7 @@ namespace Kwave
      * also creates a new UndoAction object that is responsible for holding
      * all information for undoing that undo (redo).
      */
-    class Q_DECL_EXPORT UndoAction
+    class LIBKWAVE_EXPORT UndoAction
     {
 
     public:

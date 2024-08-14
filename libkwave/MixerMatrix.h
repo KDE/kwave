@@ -20,6 +20,7 @@
 #define MIXER_MATRIX_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 
@@ -28,7 +29,7 @@
 namespace Kwave
 {
 
-    class Q_DECL_EXPORT MixerMatrix: public Kwave::Matrix<double>
+    class LIBKWAVE_EXPORT MixerMatrix: public Kwave::Matrix<double>
     {
     public:
         /**

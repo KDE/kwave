@@ -19,6 +19,7 @@
 #define MULTI_TRACK_SOURCE_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <new>
 
@@ -37,7 +38,7 @@ namespace Kwave
      * that consist of multiple independent tracks.
      */
     template <class SOURCE, const bool INITIALIZE>
-    class Q_DECL_EXPORT MultiTrackSource: public Kwave::SampleSource,
+    class LIBKWAVE_EXPORT MultiTrackSource: public Kwave::SampleSource,
                                           private QList<SOURCE *>
     {
     public:
@@ -152,7 +153,7 @@ namespace Kwave
      * by generating them through their default constructor.
      */
     template <class SOURCE>
-    class Q_DECL_EXPORT MultiTrackSource<SOURCE, true>
+    class LIBKWAVE_EXPORT MultiTrackSource<SOURCE, true>
         :public Kwave::MultiTrackSource<SOURCE, false>
     {
     public:

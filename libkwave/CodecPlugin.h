@@ -19,6 +19,7 @@
 #define CODEC_PLUGIN_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -30,7 +31,7 @@ namespace Kwave
     class Decoder;
     class Encoder;
 
-    class Q_DECL_EXPORT CodecPlugin: public Kwave::Plugin
+    class LIBKWAVE_EXPORT CodecPlugin: public Kwave::Plugin
     {
     public:
 

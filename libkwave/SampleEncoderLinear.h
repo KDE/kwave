@@ -19,6 +19,7 @@
 #define SAMPLE_ENCODER_LINEAR_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 
@@ -28,7 +29,7 @@
 
 namespace Kwave
 {
-    class Q_DECL_EXPORT SampleEncoderLinear: public Kwave::SampleEncoder
+    class LIBKWAVE_EXPORT SampleEncoderLinear: public Kwave::SampleEncoder
     {
     public:
 

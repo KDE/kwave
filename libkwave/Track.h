@@ -19,6 +19,7 @@
 #define TRACK_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QList>
@@ -40,7 +41,7 @@ namespace Kwave
     class TrackWriter;
     class Writer;
 
-    class Q_DECL_EXPORT Track: public QObject
+    class LIBKWAVE_EXPORT Track: public QObject
     {
         Q_OBJECT
     public:

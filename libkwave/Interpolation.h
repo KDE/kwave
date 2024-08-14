@@ -18,6 +18,7 @@
 #define INTERPOLATION_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QString>
@@ -44,7 +45,7 @@ namespace Kwave
     /**
      * Interpolation types
      */
-    class Q_DECL_EXPORT Interpolation
+    class LIBKWAVE_EXPORT Interpolation
     {
     public:
         /** Constructor, initializes type by enum type */

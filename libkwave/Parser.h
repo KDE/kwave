@@ -20,6 +20,7 @@
 #define PARSER_H
 
 #include "config.h"
+#include "libkwave_export.h"
 
 #include <QtGlobal>
 #include <QString>
@@ -31,7 +32,7 @@
 //*****************************************************************************
 namespace Kwave
 {
-    class Q_DECL_EXPORT Parser
+    class LIBKWAVE_EXPORT Parser
     {
     public:
         /**

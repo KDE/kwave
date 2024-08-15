@@ -31,7 +31,6 @@
 
 namespace Kwave
 {
-    class KwaveSampleSource;
 
     class BandPassPlugin: public Kwave::FilterPlugin
     {

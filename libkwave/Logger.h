@@ -30,8 +30,6 @@ class QString;
 namespace Kwave
 {
 
-    class FileContext;
-    class TopWidget;
 
     /**
      * This is the main application class for Kwave. It contains functions

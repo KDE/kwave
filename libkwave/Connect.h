@@ -23,7 +23,6 @@
 
 #include <QtGlobal>
 
-class QString;
 
 namespace Kwave
 {

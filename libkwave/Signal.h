@@ -40,7 +40,6 @@
 namespace Kwave
 {
 
-    class MultiTrackReader;
     class SampleReader;
     class Track;
     class Writer;

@@ -24,7 +24,6 @@
 #include <QtGlobal>
 #include <QObject>
 
-class QString;
 class QWidget;
 
 namespace Kwave

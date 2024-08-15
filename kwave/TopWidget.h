@@ -41,17 +41,13 @@ class QDragEnterEvent;
 class QDropEvent;
 class QLabel;
 class QMdiSubWindow;
-class QTimer;
 
 namespace Kwave
 {
 
     class FileContext;
-    class MainWidget;
     class MenuManager;
-    class SignalManager;
     class PlayerToolBar;
-    class PluginManager;
     class FileContext;
     class ZoomToolBar;
 

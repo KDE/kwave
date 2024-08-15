@@ -27,7 +27,6 @@
 namespace Kwave
 {
 
-    class PluginContext;
 
     class GotoPlugin: public Kwave::GotoPluginBase
     {

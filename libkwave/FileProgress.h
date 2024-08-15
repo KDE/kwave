@@ -34,7 +34,6 @@ class QGridLayout;
 class QLabel;
 class QProgressBar;
 class QResizeEvent;
-class KProgress;
 
 namespace Kwave
 {

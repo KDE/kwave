@@ -42,30 +42,16 @@
 
 #include "libgui/SignalView.h"
 
-class QBitmap;
 class QContextMenuEvent;
-class QDragEnterEvent;
-class QDragMoveEvent;
-class QDropEvent;
-class QDragLeaveEvent;
-class QEvent;
-class QMouseEvent;
-class QMoveEvent;
-class QPaintEvent;
 class QPoint;
 class QVBoxLayout;
 class QWheelEvent;
 
-class QUrl;
 
-class LabelType;
-class TimeOperation;
-class TrackPixmap;
 
 namespace Kwave
 {
 
-    class FileContext;
     class SignalManager;
     class Track;
 

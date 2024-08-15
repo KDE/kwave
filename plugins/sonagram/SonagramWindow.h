@@ -24,7 +24,6 @@
 
 #include <KMainWindow>
 
-class QBitmap;
 class QImage;
 
 /** height of the overview widget in a sonagram window [pixels] */

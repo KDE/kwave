@@ -43,7 +43,6 @@ namespace Kwave
 {
 
     class SignalManager;
-    class Track;
 
     class LIBKWAVEGUI_EXPORT OverViewWidget: public Kwave::ImageView
     {

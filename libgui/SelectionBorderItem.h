@@ -28,7 +28,6 @@
 #include "libgui/MouseMark.h"
 #include "libgui/ViewItem.h"
 
-class QWidget;
 
 namespace Kwave
 {

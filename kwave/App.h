@@ -33,7 +33,6 @@ class QUrl;
 namespace Kwave
 {
 
-    class FileContext;
     class TopWidget;
 
     /**

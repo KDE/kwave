@@ -26,7 +26,6 @@ class QWidget;
 namespace Kwave
 {
     class FileInfo;
-    class MultiWriter;
 
     class OggSubEncoder
     {

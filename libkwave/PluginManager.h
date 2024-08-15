@@ -34,7 +34,6 @@
 #include "libkwave/Sample.h"
 #include "libkwave/ViewManager.h"
 
-class QLibrary;
 class QString;
 
 class KPluginFactory;
@@ -42,13 +41,10 @@ class KPluginFactory;
 namespace Kwave
 {
     class PlaybackController;
-    class PlaybackDeviceFactory;
     class PlayBackParam;
     class Plugin;
-    class PluginContext;
     class SampleSink;
     class SignalManager;
-    class Writer;
 
     /**
      * Manages the loading, initializing, starting, running and closing

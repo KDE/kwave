@@ -34,7 +34,6 @@ namespace Kwave
     class PlaybackController;
     class PlayBackDevice;
     class PlayBackDialog;
-    class PluginContext;
     class SampleSink;
 
     class PlayBackPlugin :public Kwave::Plugin,

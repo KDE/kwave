@@ -51,9 +51,7 @@ class QImage;
 
 namespace Kwave
 {
-    class MultiTrackReader;
     class OverViewCache;
-    class PluginContext;
     class SelectionTracker;
     class SonagramWindow;
 

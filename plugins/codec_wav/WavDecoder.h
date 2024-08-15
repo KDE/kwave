@@ -30,14 +30,12 @@
 
 #include "WavPropertyMap.h"
 
-class QCString;
 
 namespace Kwave
 {
 
     class RecoverySource;
     class RIFFChunk;
-    class RIFFParser;
     class VirtualAudioFile;
 
     class WavDecoder: public Kwave::Decoder

@@ -25,7 +25,6 @@
 #include "libkwave/Sample.h"
 #include "libgui/ViewItem.h"
 
-class QWidget;
 
 namespace Kwave
 {

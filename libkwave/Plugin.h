@@ -59,7 +59,6 @@ namespace Kwave
 
     class ConfirmCancelProxy;
     class PluginManager;
-    class SampleReader;
     class SignalManager;
     class TopWidget;
     class WorkerThread;

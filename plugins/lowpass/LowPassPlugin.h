@@ -32,7 +32,6 @@
 namespace Kwave
 {
 
-    class KwaveSampleSource;
 
     class LowPassPlugin: public Kwave::FilterPlugin
     {

@@ -29,7 +29,6 @@ class QWidget;
 
 namespace Kwave
 {
-    class OggSubEncoder;
 
     class OggEncoder: public Kwave::Encoder
     {

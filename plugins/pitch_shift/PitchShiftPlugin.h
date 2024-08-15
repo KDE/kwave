@@ -31,7 +31,6 @@
 namespace Kwave
 {
 
-    class KwaveSampleSource;
 
     class PitchShiftPlugin: public Kwave::FilterPlugin
     {

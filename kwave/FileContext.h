@@ -33,8 +33,6 @@
 #include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
 
-class QApplication;
-class QMdiSubWindow;
 class QSize;
 class QTextStream;
 class QWidget;

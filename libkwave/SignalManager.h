@@ -38,8 +38,6 @@
 #include "libkwave/Signal.h"
 #include "libkwave/undo/UndoManager.h"
 
-class QBitmap;
-class QFile;
 class QUrl;
 
 #define NEW_FILENAME i18n("New File")
@@ -53,7 +51,6 @@ namespace Kwave
     class UndoTransactionGuard;
     class MultiTrackWriter;
     class SampleReader;
-    class SignalWidget;
     class Track;
     class Writer;
 

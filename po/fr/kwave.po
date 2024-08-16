@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-15 00:39+0000\n"
+"POT-Creation-Date: 2024-08-16 00:39+0000\n"
 "PO-Revision-Date: 2024-05-06 16:25+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -3572,7 +3572,7 @@ msgid "Manual Selection"
 msgstr "Sélection manuelle"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btNew)
-#: libkwave/SignalManager.h:45 plugins/record/RecordDlg.ui:153
+#: libkwave/SignalManager.h:43 plugins/record/RecordDlg.ui:153
 #, kde-format
 msgid "New File"
 msgstr "Nouveau fichier"

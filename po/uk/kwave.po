@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-15 00:39+0000\n"
+"POT-Creation-Date: 2024-08-16 00:39+0000\n"
 "PO-Revision-Date: 2024-08-07 09:12+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3565,7 +3565,7 @@ msgid "Manual Selection"
 msgstr "Позначення вручну"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btNew)
-#: libkwave/SignalManager.h:45 plugins/record/RecordDlg.ui:153
+#: libkwave/SignalManager.h:43 plugins/record/RecordDlg.ui:153
 #, kde-format
 msgid "New File"
 msgstr "Новий файл"

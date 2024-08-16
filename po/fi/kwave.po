@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-15 00:39+0000\n"
+"POT-Creation-Date: 2024-08-16 00:39+0000\n"
 "PO-Revision-Date: 2020-06-23 11:48+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -3569,7 +3569,7 @@ msgid "Manual Selection"
 msgstr "Käsinvalinta"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btNew)
-#: libkwave/SignalManager.h:45 plugins/record/RecordDlg.ui:153
+#: libkwave/SignalManager.h:43 plugins/record/RecordDlg.ui:153
 #, kde-format
 msgid "New File"
 msgstr "Uusi tiedosto"

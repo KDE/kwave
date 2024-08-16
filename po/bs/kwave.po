@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kde4.14\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-15 00:39+0000\n"
+"POT-Creation-Date: 2024-08-16 00:39+0000\n"
 "PO-Revision-Date: 2015-02-26 22:01+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian\n"
@@ -3567,7 +3567,7 @@ msgid "Manual Selection"
 msgstr "Ručni izbor"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btNew)
-#: libkwave/SignalManager.h:45 plugins/record/RecordDlg.ui:153
+#: libkwave/SignalManager.h:43 plugins/record/RecordDlg.ui:153
 #, kde-format
 msgid "New File"
 msgstr "Nova datoteka"

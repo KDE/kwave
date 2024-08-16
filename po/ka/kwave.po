@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-15 00:39+0000\n"
-"PO-Revision-Date: 2024-08-13 06:32+0200\n"
+"POT-Creation-Date: 2024-08-16 00:39+0000\n"
+"PO-Revision-Date: 2024-08-15 05:57+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1993,6 +1993,8 @@ msgid ""
 "Specifies the date the subject of the file was created.\n"
 "Example: '2001-12-24'"
 msgstr ""
+"მიუთითებს, ფაილის თემის შექმნის თარიღზე.\n"
+"მაგ: '2001-12-24'"
 
 #: libkwave/FileInfo.cpp:133
 msgid "Engineer"
@@ -2063,6 +2065,8 @@ msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
 msgstr ""
+"მოგაწვდით საკვანძო სიტყვების სიას, რომელიც\n"
+"ფაილზე ან მის სათაურზე მიუთითებს."
 
 #: libkwave/FileInfo.cpp:167
 msgid "Labels"
@@ -2242,6 +2246,9 @@ msgid ""
 "used to create the file.\n"
 "Example: 'Kwave v0.6.4-1'"
 msgstr ""
+"მიუთითებს პროგრამული პაკეტის სახელზე,\n"
+"რომელმაც ეს ფაილი შექმნა.\n"
+"მაგ: 'KWave v0.6.4-1'"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_source)
 #. i18n: ectx: property (title), widget (QGroupBox, grpSource)
@@ -3487,7 +3494,7 @@ msgid "Manual Selection"
 msgstr "ხელით არჩევა"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btNew)
-#: libkwave/SignalManager.h:45 plugins/record/RecordDlg.ui:153
+#: libkwave/SignalManager.h:43 plugins/record/RecordDlg.ui:153
 #, kde-format
 msgid "New File"
 msgstr "ახალი ფაილი"
@@ -3935,6 +3942,8 @@ msgid ""
 "The file contains an invalid channel mode 0x%1\n"
 "Assuming Mono..."
 msgstr ""
+"ფაილი შეიცავს არასწორ არხების რეჟიმს 0x%1\n"
+"ჩაითვლება, რომ არსებობს, მხოლოდ, ერთი არხი(მონო)..."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:447
 #, kde-format
@@ -3942,6 +3951,8 @@ msgid ""
 "The opened file is no MPEG file or it is damaged.\n"
 "No header information has been found."
 msgstr ""
+"გახსნილი ფაილი MPEG ფაილი არაა, ან დაზიანებულია.\n"
+"თავსართის ინფორმაცია აღმოჩენილი არაა."
 
 #: plugins/codec_mp3/MP3Decoder.cpp:518
 #, kde-format
@@ -3982,7 +3993,7 @@ msgstr "მაინც გსურთ გაგრძელება?"
 #: plugins/codec_mp3/MP3Decoder.cpp:557
 #, kde-format
 msgid "Do you want to continue and ignore all following errors?"
-msgstr ""
+msgstr "გნებავთ გააგრძელოთ და გამოტოვოთ ყველა შემდეგი შეცდომა?"
 
 #: plugins/codec_mp3/MP3Encoder.cpp:292
 #, kde-format
@@ -3990,6 +4001,8 @@ msgid ""
 "The file format you have chosen supports only mono or stereo. This file will "
 "be mixed down to stereo when saving."
 msgstr ""
+"ფაილის ფორმატს, რომელიც აირჩიეთ, მხოლოდ, მონოს და სტერეოს მხარდაჭერა "
+"გააჩნიათ. შენახვისას არხები სტერეოში შეირევა."
 
 #: plugins/codec_mp3/MP3Encoder.cpp:305 plugins/codec_wav/WavEncoder.cpp:396
 #, kde-format
@@ -4557,7 +4570,7 @@ msgstr "ფაილი Opus-ის კომენტარის თავს�
 #: plugins/codec_ogg/OpusDecoder.cpp:356
 #, kde-format
 msgid "This Ogg bitstream does not contain valid Opus audio data."
-msgstr ""
+msgstr "Ogg-ის ბიტური ნაკადი სწორ Opus-ის ხმის მონაცემებს არ შეიცავს."
 
 #: plugins/codec_ogg/OpusDecoder.cpp:403
 #, kde-format
@@ -4583,6 +4596,8 @@ msgstr ""
 msgctxt "%1=original bitrate, %2=new/limited bitrate"
 msgid "Bitrate %1 kBit/sec is out of range, limited to %2 kBit/sec"
 msgstr ""
+"ბიტური სიხშირე %1 კბიტ/წმ შუალედს გარეთაა. შეიზღუდება მნიშვნელობაზე %2 კბით/"
+"წმ"
 
 #: plugins/codec_ogg/OpusEncoder.cpp:275
 #, kde-format
@@ -4591,6 +4606,8 @@ msgid ""
 "Sample rate %1 samples/sec is out of range,\n"
 "supported are %2 ... %3 samples/sec."
 msgstr ""
+"ბიტური სიხშირე %1 სემპლი/წმ შუალედს გარეთაა.\n"
+"მხარდაჭერილია %2 ... %3 სემპლი/წმ."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:417 plugins/codec_ogg/OpusEncoder.cpp:436
 #, kde-format
@@ -4620,7 +4637,7 @@ msgstr "Opus-ის ენკოდერმა წინასწარ წა�
 #: plugins/codec_ogg/VorbisDecoder.cpp:89
 #, kde-format
 msgid "This Ogg bitstream does not contain any Vorbis audio data."
-msgstr ""
+msgstr "ეს Ogg-ის ბიტური ნაკადი Vorbis-ის ხოვან მონაცემებს არ შეიცავს."
 
 #: plugins/codec_ogg/VorbisDecoder.cpp:122
 #, kde-format
@@ -4637,6 +4654,8 @@ msgstr "მიღწეულია ფაილის ბოლო Vorbis-ი�
 msgid ""
 "This codec supports only mono or stereo files, %1 channels are not supported."
 msgstr ""
+"ამ კოდეკს, მხოლოდ, სტერეო და მონო ფაილების მხარდაჭერა გააჩნია. %1 არხი "
+"მხარდაჭერილი არაა."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:120
 #, kde-format
@@ -4655,12 +4674,12 @@ msgstr ""
 #: plugins/codec_wav/RIFFParser.cpp:121
 #, kde-format
 msgid "Detecting endianness (standard search)..."
-msgstr ""
+msgstr "ბოლოიანობის რეჟიმის დადგენა (სტანდარტული ძებნა)..."
 
 #: plugins/codec_wav/RIFFParser.cpp:150
 #, kde-format
 msgid "Detecting endianness (statistic search)..."
-msgstr ""
+msgstr "ბოლოიანობის რეჟიმის დადგენა (სტატისტიკური ძებნა)..."
 
 #: plugins/codec_wav/RIFFParser.cpp:546
 #, kde-format

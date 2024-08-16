@@ -30,7 +30,6 @@
 
 #include "libkwave/Sample.h"
 
-class QCursor;
 class QMenu;
 
 namespace Kwave

@@ -37,7 +37,6 @@ class QSize;
 class QTextStream;
 class QWidget;
 
-class QUrl;
 
 namespace Kwave
 {

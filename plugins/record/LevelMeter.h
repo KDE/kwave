@@ -32,7 +32,6 @@
 #include "libkwave/SampleArray.h"
 
 class QPaintEvent;
-class QTimer;
 
 namespace Kwave
 {

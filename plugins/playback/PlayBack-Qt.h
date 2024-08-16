@@ -38,7 +38,6 @@
 #include "libkwave/SampleArray.h"
 
 class QAudioSink;
-class QIODevice;
 
 namespace Kwave
 {

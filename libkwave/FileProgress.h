@@ -31,7 +31,6 @@
 
 class QCloseEvent;
 class QGridLayout;
-class QLabel;
 class QProgressBar;
 class QResizeEvent;
 

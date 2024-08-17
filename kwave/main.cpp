@@ -155,10 +155,7 @@ int main(int argc, char **argv)
     // create the application instance first
     Kwave::App app(argc, argv);
 
-    // initialize the crash handler (only if KCrash >= 5.15 is available)
-#if KCrash_VERSION >= ((5 << 16) | (15 << 8) | (0))
     KCrash::initialize();
-#endif
 
     // manually connect the translation catalog, otherwise i18n will not work
     KLocalizedString::setApplicationDomain(PROJECT_NAME);

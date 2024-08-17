@@ -169,10 +169,11 @@ void Kwave::PluginManager::stopAllPlugins()
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    if (!m_plugin_instances.isEmpty())
+    if (!m_plugin_instances.isEmpty()) {
         foreach (const KwavePluginPointer &plugin, m_plugin_instances)
             if (plugin && plugin->isRunning())
                 plugin->stop() ;
+    }
 
     sync();
 }
@@ -299,9 +300,10 @@ bool Kwave::PluginManager::canClose()
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    if (!m_plugin_instances.isEmpty())
+    if (!m_plugin_instances.isEmpty()) {
         foreach (const KwavePluginPointer &plugin, m_plugin_instances)
             if (plugin && !plugin->canClose()) return false;
+    }
 
     return true;
 }
@@ -313,9 +315,10 @@ bool Kwave::PluginManager::onePluginRunning()
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
 
-    if (!m_plugin_instances.isEmpty())
+    if (!m_plugin_instances.isEmpty()) {
         foreach (const KwavePluginPointer &plugin, m_plugin_instances)
             if (plugin && plugin->isRunning()) return true;
+    }
 
     return false;
 }

@@ -25,7 +25,6 @@
 
 #include <KAboutData>
 #include <KCrash>
-#include <kcrash_version.h>
 #include <KDBusService>
 #include <KLocalizedString>
 #include <kxmlgui_version.h>
@@ -155,8 +154,6 @@ int main(int argc, char **argv)
     // create the application instance first
     Kwave::App app(argc, argv);
 
-    KCrash::initialize();
-
     // manually connect the translation catalog, otherwise i18n will not work
     KLocalizedString::setApplicationDomain(PROJECT_NAME);
 
@@ -207,6 +204,8 @@ int main(int argc, char **argv)
 
     /* use the about data above for this application */
     KAboutData::setApplicationData(about);
+
+    KCrash::initialize();
 
     /* show some version info */
     qDebug("\nThis is %s v%s (compiled with KDE Frameworks %s)\n",

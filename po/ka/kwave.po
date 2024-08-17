@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-16 00:39+0000\n"
-"PO-Revision-Date: 2024-08-15 05:57+0200\n"
+"PO-Revision-Date: 2024-08-16 05:48+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1531,6 +1531,8 @@ msgid ""
 "<b>label description:</b><br>\n"
 "Here you can enter some short text to describe the label."
 msgstr ""
+"<b>ჭდის აღწერა:</b><br>\n"
+"აქ შეგიძლიათ მოკლე ტექსტს შეყვანა, რომელიც ჭდეს აღწერს."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: libgui/LabelPropertiesWidgetBase.ui:72
@@ -1868,6 +1870,9 @@ msgid ""
 "subject of the file.\n"
 "Example: 'van Beethoven, Ludwig'"
 msgstr ""
+"განსაზღვრავს ფაილის ორიგინალი თემის\n"
+"ავტორის სახელს.\n"
+"მაგალითად: 'van Beethoven, Ludwig'"
 
 #: libkwave/FileInfo.cpp:60
 msgid "Lower Bitrate"
@@ -1934,6 +1939,8 @@ msgid ""
 "Lists the name of the person or organization\n"
 "that commissioned the subject of the file."
 msgstr ""
+"ჩამოთვლის პიროვნების ან ორგანიზაციის სახელებს,\n"
+"რომლებმაც ფაილის თემა შეუკვეთეს."
 
 #: libkwave/FileInfo.cpp:96
 msgid "Comments"
@@ -2006,6 +2013,9 @@ msgid ""
 "If there are multiple engineers, separate the names by\n"
 "a semicolon and a blank."
 msgstr ""
+"აჩვენებს ინჟინრის სახელს, რომელიც ფაილზე მუშაობდა.\n"
+"თუ ისინი ერთზე მეტია, სახელები წერტილმძიმით, ან\n"
+"გამოტოვებით გამოჰყავით."
 
 #: libkwave/FileInfo.cpp:139
 msgid "Estimated Length"
@@ -2104,6 +2114,9 @@ msgid ""
 "where it was first recorded.\n"
 "Example: 'orchestra'"
 msgstr ""
+"აღწერს ფაილის საწყის თემას,\n"
+"როცა ის პირველად იქნა ჩაწერილი.\n"
+"მაგალითად: 'ორკესტრი'"
 
 #: libkwave/FileInfo.cpp:190
 msgid "Mime Type"
@@ -2198,6 +2211,9 @@ msgid ""
 "music this would be the conductor, orchestra, soloists.\n"
 "In an audio book it would be the actor who did the reading."
 msgstr ""
+"ხელოვანი, რომელმაც შეასრულა სამუშაო. კლასიკურ მუსიკაში\n"
+"ეს იქნებოდა დირიჟორი, ორკესტრი, სოლისტები.\n"
+"აუდიოწიგნში ეს იქნებოდა ხელოვანი, ვინც წიგნი წაიკითხა."
 
 #: libkwave/FileInfo.cpp:235
 msgid "Private"
@@ -2217,6 +2233,9 @@ msgid ""
 "file was originally intended for.\n"
 "Example: 'Linux audio collection'"
 msgstr ""
+"მიუთითებს სათაურს ან სახელს,\n"
+"რომელიც ფაილს უნდა ჰქონოდა.\n"
+"მაგალითად: 'ლინუქსის აუდიოკოლექცია'"
 
 #: libkwave/FileInfo.cpp:245
 msgid "Sample Format"
@@ -2227,6 +2246,8 @@ msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
 msgstr ""
+"გაციფრულებული აუდიო სემპლების შენახვისთვის გამოყენებული ფორმატი.\n"
+"მაგალითად: '32-ბიტიანი IEEE მცურავმძიმიანი'"
 
 #: libkwave/FileInfo.cpp:250
 msgid "Sample Rate"
@@ -2264,6 +2285,9 @@ msgid ""
 "who supplied the original subject of the file.\n"
 "Example: 'Chaotic Sound Research'"
 msgstr ""
+"განსაზღვრავს პიროვნების ან ორგანიზაციის სახელს,\n"
+"რომელმაც ფაილის ორიგინალი თემა მოგვაწოდა.\n"
+"მაგალითად: 'ქაოსური ხმის კვლევა'"
 
 #: libkwave/FileInfo.cpp:266
 msgid "Source form"
@@ -2275,6 +2299,9 @@ msgid ""
 "the material that was digitized.\n"
 "Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 msgstr ""
+"განსაზღვრავს მასალის ფორმას,\n"
+"საიდანაც ის გაციფრულდა.\n"
+"მაგალითად: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 
 #: libkwave/FileInfo.cpp:273
 msgid "Subject"
@@ -2340,6 +2367,9 @@ msgid ""
 "of the same track title in a single collection.\n"
 "(e.g. remix info)"
 msgstr ""
+"შეგიძლიათ გამოიყენოთ იგივე ტრეკის\n"
+"სხვადასხვა ვერსიების განსხვავებსთვის, იგივე კოლექციიდან.\n"
+"(მაგ: რემიქსის ინფორმაცია)"
 
 #: libkwave/FileProgress.cpp:92
 #, kde-format
@@ -3334,6 +3364,9 @@ msgid ""
 "%1\n"
 "Do you still want to continue?"
 msgstr ""
+"ამ ფორმატში შენახვა შემდეგი დამატებითი ატრიბუტების დაკარგვას გამოიწვევს:\n"
+"%1\n"
+"მაინც გნებავთ გაგრძელება?"
 
 #: libkwave/SignalManager.cpp:400 plugins/about/AboutDialog.cpp:75
 #: plugins/record/RecordPlugin.cpp:1071
@@ -3452,6 +3485,8 @@ msgid ""
 "<b>Hint</b>: you can configure the amount of memory<br>available for undo "
 "under '%1'/'%2'."
 msgstr ""
+"<b>მინიშნება</b>: ქმედებების გაუქმებისთვის ხელმისაწვდომი მეხსიერების "
+"რაოდენობის მორგება<br>შეგიძლიათ მენიუში '%1'/'%2'."
 
 #: libkwave/SignalManager.cpp:1376
 #, kde-format
@@ -4032,6 +4067,8 @@ msgid ""
 "sample rate in Hz (use %1 as placeholder)\n"
 "or kHz (use %2 as placeholder)"
 msgstr ""
+"სემპლების სიხშირე ჰერცებში (ადგილმჭერად გამოიყენე თ %1)\n"
+"ან კჰც-ებში (ადგილმჭერად გამოიყენეთ %2)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:345
 #, kde-format
@@ -4048,6 +4085,8 @@ msgid ""
 "parameter for minimum bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
+"პარამეტრი მინიმალური ბიტური სიჩქარისთვის ბიტ/წმ ერთეულში\n"
+"(ადგილმჭერად გამოიყენეთ %1)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:353
 #, kde-format
@@ -4055,6 +4094,8 @@ msgid ""
 "parameter for maximum bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
+"პარამეტრი მაქსიმალური ბიტური სიჩქარისთვის ბიტ/წმ ერთეულში\n"
+"(ადგილმჭერად გამოიყენეთ %1)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:357
 #, kde-format
@@ -4062,6 +4103,8 @@ msgid ""
 "parameter for average bitrate in bits/sec\n"
 "(use %1 as placeholder)"
 msgstr ""
+"პარამეტრი საშუალო ბიტური სიჩქარისთვის ბიტ/წმ ერთეულში\n"
+"(ადგილმჭერად გამოიყენეთ %1)"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:603
 #, kde-format
@@ -4466,7 +4509,7 @@ msgstr "პარამეტრი ენკოდერის ვერსი�
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1047
 #, kde-format
 msgid "try to encode some short test signal with the current settings"
-msgstr ""
+msgstr "პატარა მოკლე სატესტო სიგნალის კოდირების ცდა მიმდინარე პარამეტრებით"
 
 #. i18n: ectx: property (text), widget (QPushButton, btTest)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:1050
@@ -4670,6 +4713,8 @@ msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again."
 msgstr ""
+"ერთი ან მეტი კოდირების პარამეტრი მხარდაჭერილი არაა. შეცვალეთ პარამეტრები და "
+"თავიდან სცადეთ."
 
 #: plugins/codec_wav/RIFFParser.cpp:121
 #, kde-format
@@ -4723,6 +4768,10 @@ msgid ""
 "\n"
 "It makes no sense to continue now."
 msgstr ""
+"გახსნილი ფაილი WAV ფაილი არაა, ან ის დაზიანებულია:\n"
+"ხელმისაწვდომი ხმოვანი მონაცემები საკმარისი არაა.\n"
+"\n"
+"გაგრძელებას აზრი არ აქვს."
 
 #: plugins/codec_wav/WavDecoder.cpp:277
 #, kde-format
@@ -4733,6 +4782,11 @@ msgid ""
 "Kwave will only use the first ones and ignore\n"
 "the rest. This might lead to loss of data."
 msgstr ""
+"როგორც ჩანს, WAV ფაილი დაზიანებულია.\n"
+"ზოგიერთი ფრაგმენტები მეორდება, ან დაზიანებულია.\n"
+"\n"
+"Kwave გამოიყენებს პირველ ასლებს და დანარჩენს გამოტოვებს.\n"
+"ამან, შეიძლება, მონაცემების კარგვა გამოიწვიოს."
 
 #: plugins/codec_wav/WavDecoder.cpp:374
 #, kde-format
@@ -4750,6 +4804,8 @@ msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
 msgstr ""
+"უკაცრავად, ამჟამად არჩეული შეკუმშვის ტიპს შენახვისთვის ვერ გამოიყენებთ. "
+"გნებავთ, სამაგიეროდ, G711 ULAW გამოიყენოთ?"
 
 #: plugins/codec_wav/WavEncoder.cpp:352
 #, kde-format
@@ -4830,6 +4886,10 @@ msgid ""
 "deselect some channels or export the file in a different file format that "
 "supports mono and stereo only (for example FLAC) and then try again."
 msgstr ""
+"აუდიოCD-სთვის, მხოლოდ, მონო და სტერეოფაილების გამოყენება შეგიძლიათ. ან "
+"მოხსენით მონიშვნა ზოგიერთ არხზე, ან გაიტანეთ ფაილი განსხვავებულ ფაილის "
+"ფორმატში, რომელსაც, მხოლოდ, მონოს და სტერეოს მხარდაჭერა გააჩნია (მაგ: FLAC) "
+"და თავიდან სცადეთ."
 
 #: plugins/export_k3b/K3BExportPlugin.cpp:680
 #, kde-format
@@ -4911,6 +4971,8 @@ msgid ""
 "Specify where to place the exported sound files which are used for the "
 "tracks of the audio CD."
 msgstr ""
+"მიუთითეთ, სად მოვათავსო გატანილი ხმის ფაილები, რომლებიც აუდიოCD-ის ტრეკებად "
+"იქნება გამოყენებული."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbExportLocation)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:131
@@ -4937,6 +4999,8 @@ msgid ""
 "Select whether existing files are overwritten or new file names are used "
 "when exporting the files to use as tracks of the audio CD."
 msgstr ""
+"აირჩიეთ, მოხდება არსებული ფაილების თავზე გადაწერა, თუ გამოყენებული იქნება "
+"ახალი ფაილის სახელები, როცა ტრეკების აუდიოCD-სთვის გამოსაყენებლად გაიტანთ."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOverwritePolicy)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:173
@@ -4992,6 +5056,8 @@ msgid ""
 "<b>Variable Bitrate Mode</b><br>\n"
 "The bitrate is selected by an average quality."
 msgstr ""
+"<b>ცვლადი ბიტური სიხშირის რეჟიმი</b><br>\n"
+"ბიტური სიხშირის არჩევა საშუალო ხარისხით ხდება."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbVBR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:95
@@ -5076,6 +5142,8 @@ msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
+"აჩვენებს სიგნალის ტრეკების რაოდენობას.\n"
+"ტრეკების დამატება ან წაშლა ჩასწორების მენიუდან შეგიძლიათ."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:261
 #, kde-format
@@ -5537,6 +5605,9 @@ msgid ""
 "Determines the highest audible frequency, higher\n"
 "frequencies will be cut off."
 msgstr ""
+"<b>ამოჭრის სიხშირე</b>\n"
+"განსაზღვრავს უმაღლეს გასაგებ სიხშირეს.\n"
+"ამ მნიშვნელობაზე მაღალი სიხშირეები წაიჭრება."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NewSigDlg)
 #: plugins/newsignal/NewSigDlg.ui:15
@@ -5627,7 +5698,7 @@ msgstr "მაქსიმუმი"
 #: plugins/newsignal/NewSigDlg.ui:571
 #, kde-format
 msgid "Sets the file size by the percentage of the possible maximum"
-msgstr ""
+msgstr "დააყენებს ფაილის ზომას დასაშვები მაქსიმუმის პროცენტებში"
 
 #: plugins/newsignal/NewSignalDialog.cpp:327
 #, kde-format
@@ -5662,6 +5733,9 @@ msgid ""
 "level.\n"
 "For example: \"1 %\", \"15%\" or \"100%\""
 msgstr ""
+"დაამატებს ხმის დონეს, რომელიც მაქსიმალური ხმის დონესთან შედარებით, "
+"პროცენტებშია მითითებული.\n"
+"მაგ: \"1%\", \"15%\", ან \"100%\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/noise/NoiseDlg.ui:61 plugins/volume/VolumeDlg.ui:91
@@ -5682,6 +5756,8 @@ msgid ""
 "adds a noise level in logarithmic scale (decibel).\n"
 "For example: \"-3 dB\", \"- 6 dB\"."
 msgstr ""
+"დაამატებს ხმაურის დონეს ლოგარითმულ შკალაზე (დეციბელებში).\n"
+"მაგალითად \"-3 dB\", \"- 6 dB\"."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbLogarithmic)
 #: plugins/noise/NoiseDlg.ui:84 plugins/volume/VolumeDlg.ui:111
@@ -5745,6 +5821,9 @@ msgid ""
 "Determines the center of the frequency range that\n"
 "should be removed."
 msgstr ""
+"<b>ცენტრის სიხშირე</b>\n"
+"განსაზღვრავს სიხშირის შუალედის ცენტრს,\n"
+"რომელიც უნდა წაიშალოს."
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slider_2)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, spinbox_2)
@@ -5764,6 +5843,9 @@ msgid ""
 "Determines the width of the frequency range that\n"
 "should be removed."
 msgstr ""
+"<b>გამტარობა</b>\n"
+"განსაზღვრავს სიხშირის შუალედის ცენტრს,\n"
+"რომელიც უნდა წაიშალოს."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PitchShiftDlg)
 #: plugins/pitch_shift/PitchShiftDlg.ui:20
@@ -5844,6 +5926,8 @@ msgid ""
 "Increments or decrements the speed by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
+"გაზრდის ან შეამცირებს სიჩქარეს კოეფიციენტით.\n"
+"მაგალითად: \"x1\", \"x2\", \"/4\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbFactor)
 #: plugins/pitch_shift/PitchShiftDlg.ui:239
@@ -5869,6 +5953,9 @@ msgid ""
 "is not present in your kernel or it is not\n"
 "properly configured."
 msgstr ""
+"შეყვანა/გამოტანის შეცდომა.\n"
+"შეიძლება, ბირთვის აგებისას დრაივერი ჩართული არ იყო,\n"
+"ან არასწორადაა მორგებული."
 
 #: plugins/playback/PlayBack-ALSA.cpp:579 plugins/playback/PlayBack-OSS.cpp:146
 #, kde-format
@@ -6699,6 +6786,8 @@ msgstr ""
 msgid ""
 "The audio device seems to be occupied by another application. Retrying..."
 msgstr ""
+"როგორც ჩანს, აუდიომოწყობილობა დაკავებულია სხვა აპლიკაციის მიერ. მიმდინარეობს "
+"თავიდან ცდა..."
 
 #: plugins/record/RecordPlugin.cpp:467
 #, kde-format
@@ -6792,7 +6881,7 @@ msgstr "როგორც ჩანს, ჩამწერი მოწყო�
 #: plugins/record/RecordPlugin.cpp:1102
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
-msgstr ""
+msgstr "ჩაწერის მოწყობილობიდან წაკითხვა ჩავარდა. შეცდომის ნომერი = %1 (%2)"
 
 #: plugins/reverse/ReversePlugin.cpp:77
 #: plugins/reverse/UndoReverseAction.cpp:44
@@ -6819,7 +6908,7 @@ msgstr "..."
 #, kde-format
 msgid ""
 "This would overwrite the following file(s): %1Do you really want to continue?"
-msgstr ""
+msgstr "ეს თავზე გადააწერდა შემდეგ ფაილებს: %1.მართლა გნებავთ გაგრძელება?"
 
 #: plugins/saveblocks/SaveBlocksPlugin.cpp:289
 #, kde-format
@@ -6827,6 +6916,7 @@ msgid ""
 "The following directories do not exist: %1Do you want to create them and "
 "continue?"
 msgstr ""
+"შემდეგი საქაღალდეები არ არსებობს. %1. გნებავთ მათი შექმნა და გაგრძელება?"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:35
@@ -6970,7 +7060,7 @@ msgstr "განახლება"
 #: plugins/sonagram/SonagramDlg.ui:87
 #, kde-format
 msgid "Automatically update the sonagram <br>if the signal data has changed"
-msgstr ""
+msgstr "სონაგრამის ავტომატური განახლება,<br>თუ სიგნალის მონაცემები შეიცვალა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbTrackChanges)
 #: plugins/sonagram/SonagramDlg.ui:90
@@ -7191,6 +7281,8 @@ msgid ""
 "Increments or decrements the volume by a factor.\n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
+"გაზრდის ან შეამცირებს ხმას კოეფიციენტით.\n"
+"მაგალითად: \"x1\", \"x2\", \"/4\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbFactor)
 #: plugins/volume/VolumeDlg.ui:71

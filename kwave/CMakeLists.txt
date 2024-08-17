@@ -36,6 +36,15 @@ SET(kwave_SRCS
     Splash.cpp
     TopWidget.cpp
     ZoomToolBar.cpp
+
+    App.h
+    FileContext.h
+    MainWidget.h
+    PlayerToolBar.h
+    ShortcutWrapper.h
+    Splash.h
+    TopWidget.h
+    ZoomToolBar.h
 )
 
 #############################################################################

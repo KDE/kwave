@@ -57,6 +57,39 @@ SET(libkwavegui_LIB_SRCS
     TrackView.cpp
     TreeWidgetWrapper.cpp
     ViewItem.cpp
+
+    Colors.h
+    CurveWidget.h
+    FileDialog.h
+    FilterPlugin.h
+    FrequencyResponseWidget.h
+    HMSTimeWidget.h
+    ImageView.h
+    InvertableSpinBox.h
+    LabelItem.h
+    LabelPropertiesWidget.h
+    MenuNode.h
+    MenuGroup.h
+    MenuItem.h
+    MenuList.h
+    MenuSub.h
+    MenuRoot.h
+    MenuManager.h
+    MouseMark.h
+    MultiStateWidget.h
+    OverViewCache.h
+    OverViewWidget.h
+    ScaleWidget.h
+    SelectionBorderItem.h
+    SelectionItem.h
+    SelectionTracker.h
+    SelectTimeWidget.h
+    SignalView.h
+    SignalWidget.h
+    TrackPixmap.h
+    TrackView.h
+    TreeWidgetWrapper.h
+    ViewItem.h
 )
 
 #############################################################################

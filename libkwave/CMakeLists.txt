@@ -120,6 +120,65 @@ SET(libkwave_LIB_SRCS
     WorkerThread.cpp
     WindowFunction.cpp
 
+    ClipBoard.h
+    CodecBase.h
+    CodecManager.h
+    CodecPlugin.h
+    Compression.h
+    ConfirmCancelProxy.h
+    Connect.h
+    Curve.h
+    Decoder.h
+    Drag.h
+    Encoder.h
+    Filter.h
+    FileInfo.h
+    FileProgress.h
+    Functions.h
+    GenreType.h
+    GlobalLock.h
+    Interpolation.h
+    Label.h
+    LabelList.h
+    Logger.h
+    MessageBox.h
+    MetaData.h
+    MetaDataList.h
+    MimeData.h
+    MixerMatrix.h
+    MultiPlaybackSink.h
+    MultiStreamWriter.h
+    MultiTrackReader.h
+    MultiTrackWriter.h
+    MultiWriter.h
+    Parser.h
+    PlaybackController.h
+    PlaybackSink.h
+    PlayBackTypesMap.h
+    Plugin.h
+    PluginManager.h
+    SampleArray.h
+    SampleSink.h
+    SampleSource.h
+    Selection.h
+    Signal.h
+    SignalManager.h
+    SampleEncoderLinear.h
+    SampleFIFO.h
+    SampleFormat.h
+    SampleReader.h
+    StandardBitrates.h
+    StreamWriter.h
+    Stripe.h
+    Track.h
+    TrackWriter.h
+    Utils.h
+    VirtualAudioFile.h
+    VorbisCommentMap.h
+    Writer.h
+    WorkerThread.h
+    WindowFunction.h
+
     modules/ChannelMixer.cpp
     modules/CurveStreamAdapter.cpp
     modules/Indexer.cpp
@@ -129,6 +188,16 @@ SET(libkwave_LIB_SRCS
     modules/RateConverter.cpp
     modules/SampleBuffer.cpp
     modules/StreamObject.cpp
+
+    modules/ChannelMixer.h
+    modules/CurveStreamAdapter.h
+    modules/Indexer.h
+    modules/Delay.h
+    modules/Mul.h
+    modules/Osc.h
+    modules/RateConverter.h
+    modules/SampleBuffer.h
+    modules/StreamObject.h
 
     undo/UndoAddMetaDataAction.cpp
     undo/UndoDeleteAction.cpp
@@ -142,6 +211,19 @@ SET(libkwave_LIB_SRCS
     undo/UndoSelection.cpp
     undo/UndoTransaction.cpp
     undo/UndoTransactionGuard.cpp
+
+    undo/UndoAddMetaDataAction.h
+    undo/UndoDeleteAction.h
+    undo/UndoDeleteMetaDataAction.h
+    undo/UndoDeleteTrack.h
+    undo/UndoInsertAction.h
+    undo/UndoInsertTrack.h
+    undo/UndoManager.h
+    undo/UndoModifyAction.h
+    undo/UndoModifyMetaDataAction.h
+    undo/UndoSelection.h
+    undo/UndoTransaction.h
+    undo/UndoTransactionGuard.h
 
     ${libkwave_LIB_SRCS_samplerate}
     ${libkwave_LIB_SRCS_memcpy}

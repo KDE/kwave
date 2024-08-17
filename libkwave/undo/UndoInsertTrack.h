@@ -46,21 +46,21 @@ namespace Kwave
         UndoInsertTrack(Kwave::Signal &signal, unsigned int track);
 
         /** Destructor */
-        virtual ~UndoInsertTrack() override;
+        ~UndoInsertTrack() override;
 
         /**
          * Returns a verbose short description of the action.
          */
-        virtual QString description() override;
+        QString description() override;
 
         /** @see UndoAction::undoSize() */
-        virtual qint64 undoSize() override;
+        qint64 undoSize() override;
 
         /** @see UndoAction::redoSize() */
-        virtual qint64 redoSize() override;
+        qint64 redoSize() override;
 
         /** @see UndoAction::store() */
-        virtual bool store(Kwave::SignalManager &manager) override;
+        bool store(Kwave::SignalManager &manager) override;
 
         /** @see UndoAction::undo() */
         virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,

@@ -48,10 +48,10 @@ namespace Kwave
         DebugPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~DebugPlugin() override;
+        ~DebugPlugin() override;
 
         /** @see Kwave::Plugin::load() */
-        virtual void load(QStringList &params) override;
+        void load(QStringList &params) override;
 
         /**
          * Normally this method is used to set up all necessary parameters
@@ -61,13 +61,13 @@ namespace Kwave
          * @param params some parameters
          * @return always a null pointer
          */
-        virtual QStringList *setup(QStringList &params) override;
+        QStringList *setup(QStringList &params) override;
 
         /**
          * performs the special function
          * @param params list of strings with parameters
          */
-        virtual void run(QStringList params) override;
+        void run(QStringList params) override;
 
     private slots:
 

@@ -45,7 +45,7 @@ namespace Kwave
         AmplifyFreePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~AmplifyFreePlugin() override;
+        ~AmplifyFreePlugin() override;
 
         /**
          * Shows a dialog for editing the amplification curve and emits a
@@ -59,19 +59,19 @@ namespace Kwave
          * Does the fade operation
          * @param params list of strings with parameters
          */
-        virtual void run(QStringList params) override;
+        void run(QStringList params) override;
 
         /**
          * @see Kwave::Plugin::start(),
          * overloaded to get the action name from the parameters
          */
-        virtual int start(QStringList &params) override;
+        int start(QStringList &params) override;
 
         /**
          * Returns a text for the progress dialog if enabled.
          * (already be localized)
          */
-        virtual QString progressText() override;
+        QString progressText() override;
 
     protected:
 

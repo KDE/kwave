@@ -51,21 +51,21 @@ namespace Kwave
         CodecPlugin(QObject *parent, const QVariantList &args, Codec &codec);
 
         /** Destructor */
-        virtual ~CodecPlugin() override;
+        ~CodecPlugin() override;
 
         /**
          * Gets called when the plugin is first loaded. Registers new encoder
          * and decoder on first call, all subsequenct calls only increment
          * the reference count of the existing encoder/decoder instances.
          */
-        virtual void load(QStringList &/* params */) override;
+        void load(QStringList &/* params */) override;
 
         /**
          * Gets called before the plugin is unloaded. Decrements the use count
          * of existing encoder/decoder instances and removes them if zero
          * gets reached.
          */
-        virtual void unload() override;
+        void unload() override;
 
         /**
          * Create a new set of decoders

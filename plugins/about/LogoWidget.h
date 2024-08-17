@@ -41,7 +41,7 @@ namespace Kwave
         explicit LogoWidget(QWidget *parent);
 
         /** Destructor */
-        virtual ~LogoWidget() override;
+        ~LogoWidget() override;
 
     public slots:
         /** animates the next step of the logo */
@@ -50,7 +50,7 @@ namespace Kwave
     protected:
 
         /** repaints */
-        virtual void paintEvent(QPaintEvent *) override;
+        void paintEvent(QPaintEvent *) override;
 
     private:
 

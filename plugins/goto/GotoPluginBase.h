@@ -43,7 +43,7 @@ namespace Kwave
         GotoPluginBase(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~GotoPluginBase() override;
+        ~GotoPluginBase() override;
 
         /**
          * Shows a dialog for selecting the range and emits a command
@@ -57,7 +57,7 @@ namespace Kwave
          * selects the position
          * @see Kwave::Plugin::start()
          */
-        virtual int start(QStringList &params) override;
+        int start(QStringList &params) override;
 
     protected:
 

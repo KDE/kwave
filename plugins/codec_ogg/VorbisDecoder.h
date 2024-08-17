@@ -52,7 +52,7 @@ namespace Kwave
                                ogg_packet &op);
 
         /** destructor */
-        virtual ~VorbisDecoder() override {}
+        ~VorbisDecoder() override {}
 
         /**
          * parse the header of the stream and initialize the decoder
@@ -68,16 +68,16 @@ namespace Kwave
          * @param dst a MultiWriter to be used as sink
          * @return -1 if failed or >= 0 if succeeded
          */
-        virtual int decode(Kwave::MultiWriter &dst) override;
+        int decode(Kwave::MultiWriter &dst) override;
 
         /** reset the stream info */
-        virtual void reset() override;
+        void reset() override;
 
         /**
          * finish the decoding, last chance to fix up some file info
          * @param info reference to a FileInfo to fill
          */
-        virtual void close(Kwave::FileInfo &info) override;
+        void close(Kwave::FileInfo &info) override;
 
     protected:
 

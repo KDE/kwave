@@ -39,7 +39,7 @@ namespace Kwave
         explicit HMSTimeWidget(QWidget *parent);
 
         /** Destructor */
-        virtual ~HMSTimeWidget();
+        ~HMSTimeWidget() override;
 
         /** get the time as a number of seconds */
         virtual int value();

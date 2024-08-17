@@ -50,7 +50,7 @@ namespace Kwave
         PlayBackALSA();
 
         /** Destructor */
-        virtual ~PlayBackALSA() override;
+        ~PlayBackALSA() override;
 
         /**
          * Opens the device for playback.
@@ -64,19 +64,19 @@ namespace Kwave
          * Writes an array of samples to the output device.
          * @see PlayBackDevice::write
          */
-        virtual int write(const Kwave::SampleArray &samples) override;
+        int write(const Kwave::SampleArray &samples) override;
 
         /**
          * Closes the output device.
          * @see PlayBackDevice::close
          */
-        virtual int close() override;
+        int close() override;
 
         /** return a string list with supported device names */
-        virtual QStringList supportedDevices() override;
+        QStringList supportedDevices() override;
 
         /** return a string suitable for a "File Open..." dialog */
-        virtual QString fileFilter() override;
+        QString fileFilter() override;
 
         /**
          * returns a list of supported bits per sample resolutions

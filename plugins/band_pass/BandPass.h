@@ -43,13 +43,13 @@ namespace Kwave
         BandPass();
 
         /** Destructor */
-        virtual ~BandPass() override;
+        ~BandPass() override;
 
         /** does the calculation */
-        virtual void goOn() override;
+        void goOn() override;
 
         /** @see TransmissionFunction::at() */
-        virtual double at(double f) override;
+        double at(double f) override;
 
     signals:
 

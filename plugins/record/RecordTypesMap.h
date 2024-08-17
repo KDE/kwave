@@ -35,10 +35,10 @@ namespace Kwave
         }
 
         /** Destructor */
-        virtual ~RecordTypesMap() override {}
+        ~RecordTypesMap() override {}
 
         /** fill function for the map */
-        virtual void fill() override;
+        void fill() override;
     };
 }
 

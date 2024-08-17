@@ -43,13 +43,13 @@ namespace Kwave
         explicit LevelMeter(QWidget *parent);
 
         /** Destructor */
-        virtual ~LevelMeter() override;
+        ~LevelMeter() override;
 
         /** @see QWidget::paintEvent */
-        virtual void paintEvent(QPaintEvent *) override;
+        void paintEvent(QPaintEvent *) override;
 
         /** @see QWidget::resizeEvent */
-        virtual void resizeEvent(QResizeEvent *) override;
+        void resizeEvent(QResizeEvent *) override;
 
     public slots:
 

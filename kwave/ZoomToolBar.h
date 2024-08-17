@@ -51,7 +51,7 @@ namespace Kwave
         ZoomToolBar(KMainWindow *parent, const QString &name);
 
         /** Destructor */
-        virtual ~ZoomToolBar();
+        ~ZoomToolBar() override;
 
     signals:
 

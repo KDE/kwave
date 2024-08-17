@@ -54,13 +54,13 @@ namespace Kwave
         NormalizePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~NormalizePlugin() override;
+        ~NormalizePlugin() override;
 
         /**
          * normalizes the volume
          * @param params list of strings with parameters
          */
-        virtual void run(QStringList params) override;
+        void run(QStringList params) override;
 
     private:
         typedef struct {

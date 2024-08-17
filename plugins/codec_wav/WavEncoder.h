@@ -41,10 +41,10 @@ namespace Kwave
         WavEncoder();
 
         /** Destructor */
-        virtual ~WavEncoder() override;
+        ~WavEncoder() override;
 
         /** Returns a new instance of the encoder */
-        virtual Encoder *instance() override;
+        Encoder *instance() override;
 
         /**
          * Encodes a signal into a stream of bytes.

@@ -49,7 +49,7 @@ namespace Kwave
         explicit MenuRoot(QMenuBar &bar);
 
         /** Destructor */
-        virtual ~MenuRoot() override;
+        ~MenuRoot() override;
 
         /**
          * overloaded version from MenuNode, which does a cleanup of
@@ -113,19 +113,19 @@ namespace Kwave
          * was not found or is already removed this does nothing.
          * @param child pointer to the child node
          */
-        virtual void removeChild(Kwave::MenuNode *child) override;
+        void removeChild(Kwave::MenuNode *child) override;
 
         /**
          * Handles/interprets special menu commands.
          * @param command name of a menu node or command
          * @return true if the name was recognized as a command and handled
          */
-        virtual bool specialCommand(const QString &command) override;
+        bool specialCommand(const QString &command) override;
 
         /**
          * Returns a pointer to the list of groups
          */
-        virtual QHash<QString, Kwave::MenuGroup *> &groupList() override;
+        QHash<QString, Kwave::MenuGroup *> &groupList() override;
 
         /**
          * replacement for QObject::deleteLater(...), which does not work

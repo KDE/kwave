@@ -76,7 +76,7 @@ namespace Kwave
                       const QVector<unsigned int> *src_tracks);
 
         /** Destructor */
-        virtual ~OverViewCache();
+        ~OverViewCache() override;
 
         /**
          * Get an array with min/max sample values

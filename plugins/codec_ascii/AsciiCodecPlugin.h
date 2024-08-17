@@ -39,13 +39,13 @@ namespace Kwave
         AsciiCodecPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~AsciiCodecPlugin() override;
+        ~AsciiCodecPlugin() override;
 
         /** Creates a new decoder */
-        virtual QList<Kwave::Decoder *> createDecoder() override;
+        QList<Kwave::Decoder *> createDecoder() override;
 
         /** Creates a new encoder */
-        virtual QList<Kwave::Encoder *> createEncoder() override;
+        QList<Kwave::Encoder *> createEncoder() override;
 
     private:
         /** static codec container */

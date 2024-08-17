@@ -56,7 +56,7 @@ namespace Kwave
         MenuManager(QWidget *parent, QMenuBar &bar);
 
         /** Destructor. */
-        virtual ~MenuManager();
+        ~MenuManager() override;
 
         /**
          * Executes menu commands.

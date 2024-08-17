@@ -49,13 +49,13 @@ namespace Kwave
                             sample_index_t pos);
 
         /** Destructor */
-        virtual ~SelectionBorderItem() override;
+        ~SelectionBorderItem() override;
 
         /**
          * Returns flags describing the possible interactions with this object
          * @see Kwave::ViewItem::Flags
          */
-        virtual Kwave::ViewItem::Flags flags() const override;
+        Kwave::ViewItem::Flags flags() const override;
 
         /**
          * Can be overwritten to return a tooltip. The default implementation
@@ -64,19 +64,19 @@ namespace Kwave
          * @param ofs sample index the tooltip should refer to (unused)
          * @return an already localized tooltip
          */
-        virtual QString toolTip(sample_index_t &ofs) override;
+        QString toolTip(sample_index_t &ofs) override;
 
         /**
          * Returns a mouse cursor used when moving the item
          */
-        virtual QCursor mouseCursor() const override;
+        QCursor mouseCursor() const override;
 
         /**
          * handles updates when being moved with the mouse
          * @param mouse_pos position of the mouse, in pixel coordinates
          *                  relative to the parent widget
          */
-        virtual void moveTo(const QPoint &mouse_pos) override;
+        void moveTo(const QPoint &mouse_pos) override;
 
     private:
 

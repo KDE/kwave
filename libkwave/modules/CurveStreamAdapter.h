@@ -41,10 +41,10 @@ namespace Kwave
         CurveStreamAdapter(Kwave::Curve &curve, sample_index_t length);
 
         /** Destructor */
-        virtual ~CurveStreamAdapter() override;
+        ~CurveStreamAdapter() override;
 
         /** @see Kwave::KwaveSampleSource */
-        virtual void goOn() override;
+        void goOn() override;
 
 
     signals:

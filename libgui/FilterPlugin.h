@@ -49,7 +49,7 @@ namespace Kwave
         FilterPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~FilterPlugin() override;
+        ~FilterPlugin() override;
 
         /** Reads values from the parameter list */
         virtual int interpreteParameters(QStringList & /* params */) = 0;
@@ -77,7 +77,7 @@ namespace Kwave
          * Does the filter operation and/or pre-listen
          * @param params list of strings with parameters
          */
-        virtual void run(QStringList params) override;
+        void run(QStringList params) override;
 
         /**
          * Returns true if the parameters have changed during pre-listen.
@@ -106,7 +106,7 @@ namespace Kwave
          * Returns a text for the progress dialog if enabled.
          * (should already be localized)
          */
-        virtual QString progressText() override;
+        QString progressText() override;
 
     signals:
 

@@ -45,7 +45,7 @@ namespace Kwave
         explicit FrequencyResponseWidget(QWidget *parent);
 
         /** Destructor */
-        virtual ~FrequencyResponseWidget() override;
+        ~FrequencyResponseWidget() override;
 
         /**
          * Initialize the widget dimensions.
@@ -60,7 +60,7 @@ namespace Kwave
         virtual void setFilter(Kwave::TransmissionFunction *func);
 
         /** @see QWidget::paintEvent() */
-        virtual void paintEvent(QPaintEvent *) override;
+        void paintEvent(QPaintEvent *) override;
 
     private:
 

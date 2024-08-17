@@ -39,7 +39,7 @@ namespace Kwave
         FileInfoDialog(QWidget *parent, Kwave::FileInfo &info);
 
         /** Destructor */
-        virtual ~FileInfoDialog() override;
+        ~FileInfoDialog() override;
 
         /** Returns the current file info */
         Kwave::FileInfo &info() { return m_info; }
@@ -47,7 +47,7 @@ namespace Kwave
     public slots:
 
         /** applies the settings and closes the dialog (OK button) */
-        virtual void accept() override;
+        void accept() override;
 
     private slots:
 

@@ -44,7 +44,7 @@ namespace Kwave
         ShortcutWrapper(QWidget *parent, const QKeySequence &key, int id);
 
         /** Destructor */
-        virtual ~ShortcutWrapper();
+        ~ShortcutWrapper() override;
 
     signals:
         /**

@@ -40,10 +40,10 @@ namespace Kwave
             Delay();
 
             /** Destructor */
-            virtual ~Delay() override;
+            ~Delay() override;
 
             /** does the calculation */
-            virtual void goOn() override;
+            void goOn() override;
 
         signals:
             /** emits a block with delayed wave data */

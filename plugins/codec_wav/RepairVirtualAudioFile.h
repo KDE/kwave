@@ -41,23 +41,23 @@ namespace Kwave
                                QList<Kwave::RecoverySource *> *repair_list);
 
         /** Destructor */
-        virtual ~RepairVirtualAudioFile() override;
+        ~RepairVirtualAudioFile() override;
 
         /** reads a block of data */
-        virtual qint64 read(char *data, unsigned int nbytes) override;
+        qint64 read(char *data, unsigned int nbytes) override;
 
         /** returns the length of the file */
-        virtual qint64 length() override;
+        qint64 length() override;
 
         /** writes a block of data */
         virtual qint64 write(const char *data, unsigned int nbytes)
             override;
 
         /** seek to a file position */
-        virtual qint64 seek(qint64 offset, bool is_relative) override;
+        qint64 seek(qint64 offset, bool is_relative) override;
 
         /** returns the file position */
-        virtual qint64 tell() override;
+        qint64 tell() override;
 
     private:
 

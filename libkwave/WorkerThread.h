@@ -42,7 +42,7 @@ namespace Kwave
         explicit WorkerThread(Kwave::Runnable *runnable, QVariant params);
 
         /** Destructor, calls stop() if the thread is still running. */
-        virtual ~WorkerThread() override;
+        ~WorkerThread() override;
 
         /** Starts the thread's execution. */
         virtual void start();
@@ -60,7 +60,7 @@ namespace Kwave
          * A wrapper for the run() function, calls the run_wrapper(...)
          * of m_runnable with the parameters passed in the constructor.
          */
-        virtual void run() override;
+        void run() override;
 
     public slots:
 

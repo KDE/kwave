@@ -42,7 +42,7 @@ namespace Kwave
         VolumePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~VolumePlugin() override;
+        ~VolumePlugin() override;
 
         /**
          * Shows a dialog for selecting a volume.
@@ -55,7 +55,7 @@ namespace Kwave
          * Does the amplification operation
          * @param params list of strings with parameters
          */
-        virtual void run(QStringList params) override;
+        void run(QStringList params) override;
 
     protected:
 

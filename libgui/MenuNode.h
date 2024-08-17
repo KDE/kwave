@@ -65,7 +65,7 @@ namespace Kwave
          * Destructor. Clears the menu node and cleans up.
          * @see #clear()
          */
-        virtual ~MenuNode();
+        ~MenuNode() override;
 
         /** Returns the path of this menu entry */
         const QString path() const;

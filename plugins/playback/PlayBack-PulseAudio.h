@@ -57,7 +57,7 @@ namespace Kwave
         explicit PlayBackPulseAudio(const Kwave::FileInfo &info);
 
         /** Destructor */
-        virtual ~PlayBackPulseAudio() override;
+        ~PlayBackPulseAudio() override;
 
         /**
          * Opens the device for playback.
@@ -71,19 +71,19 @@ namespace Kwave
          * Writes an array of samples to the output device.
          * @see PlayBackDevice::write
          */
-        virtual int write(const Kwave::SampleArray &samples) override;
+        int write(const Kwave::SampleArray &samples) override;
 
         /**
          * Closes the output device.
          * @see PlayBackDevice::close
          */
-        virtual int close() override;
+        int close() override;
 
         /** return a string list with supported device names */
-        virtual QStringList supportedDevices() override;
+        QStringList supportedDevices() override;
 
         /** return a string suitable for a "File Open..." dialog */
-        virtual QString fileFilter() override;
+        QString fileFilter() override;
 
         /**
          * returns a list of supported bits per sample resolutions
@@ -122,7 +122,7 @@ namespace Kwave
         int flush();
 
         /** re-implementation of the threaded mainloop of PulseAudio */
-        virtual void run_wrapper(const QVariant &params) override;
+        void run_wrapper(const QVariant &params) override;
 
     private:
 

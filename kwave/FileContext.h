@@ -63,7 +63,7 @@ namespace Kwave
         /**
          * Destructor
          */
-        virtual ~FileContext();
+        ~FileContext() override;
 
         /**
          * initializes the instance

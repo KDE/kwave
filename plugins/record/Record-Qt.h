@@ -50,7 +50,7 @@ namespace Kwave
         RecordQt();
 
         /** Destructor */
-        virtual ~RecordQt() override;
+        ~RecordQt() override;
 
         /**
          * Open the record device.
@@ -61,13 +61,13 @@ namespace Kwave
          * @retval QString(...) device specific error message
          *                      (already translated)
          */
-        virtual QString open(const QString &dev) override;
+        QString open(const QString &dev) override;
 
         /** Returns the current endianness (big/little) */
-        virtual Kwave::byte_order_t endianness() override;
+        Kwave::byte_order_t endianness() override;
 
         /** Returns the current sample format (signed/unsigned) */
-        virtual Kwave::SampleFormat::Format sampleFormat() override;
+        Kwave::SampleFormat::Format sampleFormat() override;
 
         /**
          * Try to set a new sample format (signed/unsigned)
@@ -89,24 +89,24 @@ namespace Kwave
          * Returns the current resolution in bits per sample or a negative
          * error code if failed
          */
-        virtual int bitsPerSample() override;
+        int bitsPerSample() override;
 
         /**
          * Set the resolution in bits per sample
          * @param new_bits resolution [bits/sample]
          * @return zero on success, negative error code if failed
          */
-        virtual int setBitsPerSample(unsigned int new_bits) override;
+        int setBitsPerSample(unsigned int new_bits) override;
 
         /**
          * Detect a list of supported bits per sample.
          * @note this depends on the compression type
          * @return a list of bits per sample, empty if failed
          */
-        virtual QList< unsigned int > supportedBits() override;
+        QList< unsigned int > supportedBits() override;
 
         /** Returns the current compression type (0==none) */
-        virtual Kwave::Compression::Type compression() override;
+        Kwave::Compression::Type compression() override;
 
         /**
          * Try to set a new compression type.
@@ -125,7 +125,7 @@ namespace Kwave
             override;
 
         /** Returns the current sample rate of the device */
-        virtual double sampleRate() override;
+        double sampleRate() override;
 
         /**
          * Try to set a new sample rate.
@@ -134,13 +134,13 @@ namespace Kwave
          *        sample rate if the underlying driver supports that.
          * @return zero on success, negative error code if failed
          */
-        virtual int setSampleRate(double& new_rate) override;
+        int setSampleRate(double& new_rate) override;
 
         /** get a list of supported sample rates */
-        virtual QList< double > detectSampleRates() override;
+        QList< double > detectSampleRates() override;
 
         /** Returns the current number of tracks */
-        virtual int tracks() override;
+        int tracks() override;
 
         /**
          * Try to set a new number of tracks.
@@ -150,7 +150,7 @@ namespace Kwave
          *        underlying driver supports that.
          * @return zero on success, negative error code if failed
          */
-        virtual int setTracks(unsigned int& tracks) override;
+        int setTracks(unsigned int& tracks) override;
 
         /**
          * Detect the minimum and maximum number of tracks.
@@ -163,7 +163,7 @@ namespace Kwave
             override;
 
         /** Close the device */
-        virtual int close() override;
+        int close() override;
 
         /**
          * Read the raw audio data from the record device.
@@ -176,7 +176,7 @@ namespace Kwave
             override;
 
         /** return a string list with supported device names */
-        virtual QStringList supportedDevices() override;
+        QStringList supportedDevices() override;
 
     signals:
 

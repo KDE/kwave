@@ -54,7 +54,7 @@ namespace Kwave
         OpusEncoder();
 
         /** Destructor */
-        virtual ~OpusEncoder() override;
+        ~OpusEncoder() override;
 
         /**
          * parse the header of the stream and initialize the decoder
@@ -72,7 +72,7 @@ namespace Kwave
          * @param dst a QIODevice that receives the raw data
          * @return true if succeeded, false if failed
          */
-        virtual bool writeHeader(QIODevice &dst) override;
+        bool writeHeader(QIODevice &dst) override;
 
         /**
          * encode received ogg data
@@ -86,7 +86,7 @@ namespace Kwave
         /**
          * finished the encoding, clean up
          */
-        virtual void close() override;
+        void close() override;
 
     private:
 

@@ -47,13 +47,13 @@ namespace Kwave
         SampleRatePlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~SampleRatePlugin() override;
+        ~SampleRatePlugin() override;
 
         /**
          * changes the sample rate
          * @param params list of strings with parameters
          */
-        virtual void run(QStringList params) override;
+        void run(QStringList params) override;
 
     protected:
 

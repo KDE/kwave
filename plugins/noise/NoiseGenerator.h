@@ -38,13 +38,13 @@ namespace Kwave
         explicit NoiseGenerator(QObject *parent = Q_NULLPTR);
 
         /** Destructor */
-        virtual ~NoiseGenerator() override;
+        ~NoiseGenerator() override;
 
         /**
          * produces a block of noise,
          * @see Kwave::SampleSource::goOn()
          */
-        virtual void goOn() override;
+        void goOn() override;
 
     signals:
 

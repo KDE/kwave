@@ -53,7 +53,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        virtual ~StreamWriter() override;
+        ~StreamWriter() override;
 
         /**
          * Flush the content of a buffer. Normally the buffer is the

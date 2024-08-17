@@ -53,16 +53,16 @@ namespace Kwave
                          sample_index_t offset, sample_index_t length);
 
         /** Destructor */
-        virtual ~UndoDeleteAction() override;
+        ~UndoDeleteAction() override;
 
         /** @see UndoAction::description() */
-        virtual QString description() override;
+        QString description() override;
 
         /** @see UndoAction::undoSize() */
-        virtual qint64 undoSize() override;
+        qint64 undoSize() override;
 
         /** @see UndoAction::redoSize() */
-        virtual qint64 redoSize() override;
+        qint64 redoSize() override;
 
         /**
          * Stores the data needed for undo.
@@ -70,7 +70,7 @@ namespace Kwave
          * @note this is the second step, after size() has been called
          * @return true if successful, false if failed (e.g. out of memory)
          */
-        virtual bool store(Kwave::SignalManager &manager) override;
+        bool store(Kwave::SignalManager &manager) override;
 
         /**
          * Copies the samples to be deleted to the internal buffer.
@@ -80,7 +80,7 @@ namespace Kwave
                                         bool with_redo) override;
 
         /** dump, for debugging purposes */
-        virtual void dump(const QString &indent) override;
+        void dump(const QString &indent) override;
 
     private:
 

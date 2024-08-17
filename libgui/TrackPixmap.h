@@ -75,7 +75,7 @@ namespace Kwave
         explicit TrackPixmap(Kwave::Track &track);
 
         /** Destructor */
-        virtual ~TrackPixmap();
+        ~TrackPixmap() override;
 
         /**
          * Resize the pixmap.

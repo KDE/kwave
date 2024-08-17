@@ -85,7 +85,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        virtual ~Plugin() override;
+        ~Plugin() override;
 
         /** Returns the name of the plugin. */
         virtual QString name() const;
@@ -342,7 +342,7 @@ namespace Kwave
         friend class Kwave::WorkerThread;
 
         /** Wrapper for run() that contains a call to release() */
-        virtual void run_wrapper(const QVariant &params) override;
+        void run_wrapper(const QVariant &params) override;
 
     private:
 

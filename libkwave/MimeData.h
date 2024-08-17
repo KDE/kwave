@@ -47,7 +47,7 @@ namespace Kwave
             MimeData();
 
             /** Destructor */
-            virtual ~MimeData() override;
+            ~MimeData() override;
 
             /**
              * Encodes wave data received from a MultiTrackReader into a byte
@@ -94,10 +94,10 @@ namespace Kwave
                 Buffer();
 
                 /** Destructor, closes the buffer */
-                virtual ~Buffer() override;
+                ~Buffer() override;
 
                 /** returns the number of bytes written */
-                virtual qint64 size() const override { return m_size; }
+                qint64 size() const override { return m_size; }
 
                 /**
                  * Try to map the memory to a QByteArray
@@ -113,7 +113,7 @@ namespace Kwave
                  * Closes the buffer and frees the memory
                  * (calling multiple times is allowed)
                  */
-                virtual void close() override;
+                void close() override;
 
             protected:
                 /**

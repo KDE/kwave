@@ -78,7 +78,7 @@ namespace Kwave
                      QVBoxLayout *upper_dock, QVBoxLayout *lower_dock);
 
         /** Destructor */
-        virtual ~SignalWidget() override;
+        ~SignalWidget() override;
 
         /**
          * sets new zoom factor and offset
@@ -128,7 +128,7 @@ namespace Kwave
     protected slots:
 
         /** Handler for context menus */
-        virtual void contextMenuEvent(QContextMenuEvent *e) override;
+        void contextMenuEvent(QContextMenuEvent *e) override;
 
     private slots:
 
@@ -220,7 +220,7 @@ namespace Kwave
     protected:
 
         /** slot for mouse wheel events, used for vertical zoom */
-        virtual void wheelEvent(QWheelEvent *event) override;
+        void wheelEvent(QWheelEvent *event) override;
 
     private:
 

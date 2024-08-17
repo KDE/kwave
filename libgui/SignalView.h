@@ -82,7 +82,7 @@ namespace Kwave
                    int track = -1);
 
         /** Destructor */
-        virtual ~SignalView() override;
+        ~SignalView() override;
 
         /**
          * refresh the content of the view.
@@ -175,19 +175,19 @@ namespace Kwave
         virtual QSharedPointer<Kwave::ViewItem> findItem(const QPoint &pos);
 
         /** slot for mouse moves, used for selection and drag&drop */
-        virtual void mouseMoveEvent(QMouseEvent *e) override;
+        void mouseMoveEvent(QMouseEvent *e) override;
 
         /** slot for mouse press, used for selection and drag&drop */
-        virtual void mousePressEvent(QMouseEvent *e) override;
+        void mousePressEvent(QMouseEvent *e) override;
 
         /** slot for mouse release, used for selection and drag&drop */
-        virtual void mouseReleaseEvent(QMouseEvent *e) override;
+        void mouseReleaseEvent(QMouseEvent *e) override;
 
         /** slot when the mouse leaves the widget */
-        virtual void leaveEvent(QEvent *e) override;
+        void leaveEvent(QEvent *e) override;
 
         /** handles key press events (e.g. the Escape key) */
-        virtual void keyPressEvent(QKeyEvent *e) override;
+        void keyPressEvent(QKeyEvent *e) override;
 
         /**
          * tolerance in pixel for snapping to a label or selection border
@@ -277,16 +277,16 @@ namespace Kwave
     protected:
 
         /** @see Qt XDND documentation */
-        virtual void dragEnterEvent(QDragEnterEvent *event) override;
+        void dragEnterEvent(QDragEnterEvent *event) override;
 
         /** @see Qt XDND documentation */
-        virtual void dragLeaveEvent(QDragLeaveEvent *event) override;
+        void dragLeaveEvent(QDragLeaveEvent *event) override;
 
         /** @see Qt XDND documentation */
-        virtual void dropEvent(QDropEvent *event) override;
+        void dropEvent(QDropEvent *event) override;
 
         /** @see Qt XDND documentation */
-        virtual void dragMoveEvent(QDragMoveEvent *event) override;
+        void dragMoveEvent(QDragMoveEvent *event) override;
 
     protected:
 
@@ -360,7 +360,7 @@ namespace Kwave
             explicit PositionWidget(QWidget *parent);
 
             /** Destructor */
-            virtual ~PositionWidget() override;
+            ~PositionWidget() override;
 
             /**
              * set a new label text and alignment
@@ -374,7 +374,7 @@ namespace Kwave
         protected:
 
             /** paint event: draws the text and the arrow */
-            virtual void paintEvent(QPaintEvent *) override;
+            void paintEvent(QPaintEvent *) override;
 
             /**
              * re-creates the mask and the polygon when

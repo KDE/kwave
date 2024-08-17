@@ -47,10 +47,10 @@ namespace Kwave
         MP3Encoder();
 
         /** Destructor */
-        virtual ~MP3Encoder() override;
+        ~MP3Encoder() override;
 
         /** Returns a new instance of the encoder */
-        virtual Kwave::Encoder *instance() override;
+        Kwave::Encoder *instance() override;
 
         /**
          * Encodes a signal into a stream of bytes.

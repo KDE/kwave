@@ -58,10 +58,10 @@ namespace Kwave
                   Kwave::Track *track);
 
         /** Destructor */
-        virtual ~TrackView() override;
+        ~TrackView() override;
 
         /** refreshes the bitmap that displays the signal */
-        virtual void refresh() override;
+        void refresh() override;
 
         /**
          * sets new zoom factor and offset
@@ -75,20 +75,20 @@ namespace Kwave
          * sets new vertical zoom factor
          * @param zoom vertical zoom factor
          */
-        virtual void setVerticalZoom(double zoom) override;
+        void setVerticalZoom(double zoom) override;
 
         /** called when the widget has been resized */
-        virtual void resizeEvent(QResizeEvent *event) override;
+        void resizeEvent(QResizeEvent *event) override;
 
         /** slot for repainting the widget or portions of it */
-        virtual void paintEvent(QPaintEvent *) override;
+        void paintEvent(QPaintEvent *) override;
 
         /**
          * Should be overwritten by subclasses that can display the currently
          * selected range and allow the user to change the selection by mouse.
          * @return true if mouse selection is handled
          */
-        virtual bool canHandleSelection() const override { return true; }
+        bool canHandleSelection() const override { return true; }
 
         /**
          * Tries to find the nearest item that is visible in this view

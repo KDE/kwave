@@ -44,7 +44,7 @@ namespace Kwave
         explicit CurveWidget(QWidget *parent);
 
         /** Destructor */
-        virtual ~CurveWidget() override;
+        ~CurveWidget() override;
 
         /** Returns a command string for the curve. */
         QString getCommand();
@@ -115,10 +115,10 @@ namespace Kwave
 
     protected slots:
 
-        virtual void mousePressEvent(QMouseEvent * ) override;
-        virtual void mouseReleaseEvent(QMouseEvent * ) override;
-        virtual void mouseMoveEvent(QMouseEvent * ) override;
-        virtual void paintEvent(QPaintEvent *) override;
+        void mousePressEvent(QMouseEvent * ) override;
+        void mouseReleaseEvent(QMouseEvent * ) override;
+        void mouseMoveEvent(QMouseEvent * ) override;
+        void paintEvent(QPaintEvent *) override;
 
     protected:
 

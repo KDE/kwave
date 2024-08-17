@@ -39,13 +39,13 @@ namespace Kwave
         FlacCodecPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~FlacCodecPlugin() override;
+        ~FlacCodecPlugin() override;
 
         /** Creates a new decoder */
-        virtual QList<Kwave::Decoder *> createDecoder() override;
+        QList<Kwave::Decoder *> createDecoder() override;
 
         /** Creates a new encoder */
-        virtual QList<Kwave::Encoder *> createEncoder() override;
+        QList<Kwave::Encoder *> createEncoder() override;
 
     private:
         /** static codec container */

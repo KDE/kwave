@@ -50,18 +50,18 @@ namespace Kwave
         PlayBackPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~PlayBackPlugin() override;
+        ~PlayBackPlugin() override;
 
         /**
          * Gets called when the plugin is first loaded and connects itself
          * to the playback controller and the current signal.
          */
-        virtual void load(QStringList &params) override;
+        void load(QStringList &params) override;
 
         /**
          * Gets called before the plugin is unloaded.
          */
-        virtual void unload() override;
+        void unload() override;
 
         /** @see Kwave::Plugin::setup() */
         virtual QStringList *setup(QStringList &previous_params)
@@ -71,7 +71,7 @@ namespace Kwave
          * Starts a playback test sequence
          * @param params list of strings with parameters (unused)
          */
-        virtual void run(QStringList params) override;
+        void run(QStringList params) override;
 
     signals:
 

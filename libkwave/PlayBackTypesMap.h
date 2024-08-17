@@ -39,10 +39,10 @@ namespace Kwave
         }
 
         /** Destructor */
-        virtual ~PlayBackTypesMap() override {}
+        ~PlayBackTypesMap() override {}
 
         /** fill function for the map */
-        virtual void fill() override;
+        void fill() override;
     };
 }
 

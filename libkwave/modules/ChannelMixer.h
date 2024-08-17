@@ -51,7 +51,7 @@ namespace Kwave
             ChannelMixer(unsigned int inputs, unsigned int outputs);
 
             /** Destructor */
-            virtual ~ChannelMixer() override;
+            ~ChannelMixer() override;
 
             /**
              * Init function, you must call it once after creating and before
@@ -81,7 +81,7 @@ namespace Kwave
                 const char *port, unsigned int track) override;
 
             /** does nothing, work is done automatically in mix() */
-            virtual void goOn() override
+            void goOn() override
             {
             }
 

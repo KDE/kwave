@@ -88,10 +88,10 @@ namespace Kwave
             explicit Map();
 
             /** Destructor */
-            virtual ~Map() override;
+            ~Map() override;
 
             /** fills the list */
-            virtual void fill() override;
+            void fill() override;
         };
 
     };

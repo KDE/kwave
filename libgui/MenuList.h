@@ -51,17 +51,17 @@ namespace Kwave
                  const QString &uid);
 
         /** Destructor */
-        virtual ~MenuList() override;
+        ~MenuList() override;
 
         /**
          * Always returns true, as the nodes of this type are no branches.
          */
-        virtual bool isBranch() const override { return false; }
+        bool isBranch() const override { return false; }
 
         /**
          * Removes all entries from the list menu.
          */
-        virtual void clear() override;
+        void clear() override;
 
         /**
          * Inserts a new leaf node under the corresponding submenu.

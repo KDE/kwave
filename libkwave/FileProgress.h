@@ -57,7 +57,7 @@ namespace Kwave
             unsigned int tracks);
 
         /** Destructor */
-        virtual ~FileProgress() override {}
+        ~FileProgress() override {}
 
         /**
          * Returns true if the dialog is unusable or the user
@@ -108,12 +108,12 @@ namespace Kwave
          * Fits again the URL label on resize events.
          * @see fitUrlLabel()
          */
-        virtual void resizeEvent(QResizeEvent *) override;
+        void resizeEvent(QResizeEvent *) override;
 
         /**
          * Called if the window is to be closed.
          */
-        virtual void closeEvent(QCloseEvent *e) override;
+        void closeEvent(QCloseEvent *e) override;
 
         /**
          * Fits the URL text into the available area, with

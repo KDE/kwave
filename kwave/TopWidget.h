@@ -79,7 +79,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        virtual ~TopWidget() override;
+        ~TopWidget() override;
 
         /**
          * Returns a list of currently opened files
@@ -149,16 +149,16 @@ namespace Kwave
     protected slots:
 
         /** @see QWidget::closeEvent() */
-        virtual void closeEvent(QCloseEvent *e) override;
+        void closeEvent(QCloseEvent *e) override;
 
         /** @see Qt XDND documentation */
-        virtual void dragEnterEvent(QDragEnterEvent *event) override;
+        void dragEnterEvent(QDragEnterEvent *event) override;
 
         /**
          * For dropping data into an empty signal
          * @see Qt XDND documentation
          */
-        virtual void dropEvent(QDropEvent *event) override;
+        void dropEvent(QDropEvent *event) override;
 
     private slots:
 

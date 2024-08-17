@@ -62,7 +62,7 @@ namespace Kwave
         explicit PlaybackController(Kwave::SignalManager &signal_manager);
 
         /** Destructor */
-        virtual ~PlaybackController() override;
+        ~PlaybackController() override;
 
     public:
 
@@ -251,7 +251,7 @@ namespace Kwave
     protected:
 
         /** wrapper for our run() function, called from worker thread */
-        virtual void run_wrapper(const QVariant &params) override;
+        void run_wrapper(const QVariant &params) override;
 
     private:
 

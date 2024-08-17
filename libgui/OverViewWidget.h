@@ -53,13 +53,13 @@ namespace Kwave
                                 QWidget *parent = Q_NULLPTR);
 
         /** Destructor */
-        virtual ~OverViewWidget() override;
+        ~OverViewWidget() override;
 
         /** minimum size of the widget, @see QWidget::minimumSize() */
         virtual QSize minimumSize() const;
 
         /** optimal size for the widget, @see QWidget::sizeHint() */
-        virtual QSize sizeHint() const override;
+        QSize sizeHint() const override;
 
     public slots:
 
@@ -96,19 +96,19 @@ namespace Kwave
     protected:
 
         /** refreshes the bitmap when resized */
-        virtual void resizeEvent(QResizeEvent *) override;
+        void resizeEvent(QResizeEvent *) override;
 
         /**
          * On mouse move:
          * move the current viewport center to the clicked position.
          */
-        virtual void mouseMoveEvent(QMouseEvent *) override;
+        void mouseMoveEvent(QMouseEvent *) override;
 
         /**
          * On single-click with the left mouse button:
          * move the current viewport center to the clicked position.
          */
-        virtual void mousePressEvent(QMouseEvent *) override;
+        void mousePressEvent(QMouseEvent *) override;
 
         /**
          * On double click with the left mouse button, without shift:
@@ -119,7 +119,7 @@ namespace Kwave
          * The same as above, but zoom out instead of in
          * (by sending "view:zoom_out()").
          */
-        virtual void mouseDoubleClickEvent(QMouseEvent *e) override;
+        void mouseDoubleClickEvent(QMouseEvent *e) override;
 
     protected slots:
 
@@ -181,10 +181,10 @@ namespace Kwave
             explicit WorkerThread(Kwave::OverViewWidget *widget);
 
             /** destructor */
-            virtual ~WorkerThread() override;
+            ~WorkerThread() override;
 
             /** thread function that calls calculateBitmap() */
-            virtual void run() override;
+            void run() override;
 
         private:
 

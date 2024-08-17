@@ -44,7 +44,7 @@ namespace Kwave
                             Kwave::byte_order_t endianness);
 
         /** Destructor */
-        virtual ~SampleEncoderLinear() override;
+        ~SampleEncoderLinear() override;
 
         /**
          * Encodes a buffer with samples into a buffer with raw data.
@@ -57,7 +57,7 @@ namespace Kwave
                             QByteArray &raw_data) override;
 
         /** Returns the number of bytes per sample in raw (encoded) form */
-        virtual unsigned int rawBytesPerSample() override;
+        unsigned int rawBytesPerSample() override;
 
     private:
 

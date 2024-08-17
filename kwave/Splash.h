@@ -44,16 +44,16 @@ namespace Kwave
         explicit Splash(const QString &PNGFile);
 
         /** Destructor */
-        virtual ~Splash() override;
+        ~Splash() override;
 
         /** wrapper for QSplashScreen::showMessage with only one parameter */
         static void showMessage(const QString &message);
 
         /** handles the painting of this splash screen */
-        virtual void paintEvent(QPaintEvent *e) override;
+        void paintEvent(QPaintEvent *e) override;
 
         /** hides the splash screen on mouse click */
-        virtual void mousePressEvent(QMouseEvent *) override;
+        void mousePressEvent(QMouseEvent *) override;
 
         /** should be called when the splashscreen is no longer needed */
         void done();

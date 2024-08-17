@@ -50,13 +50,13 @@ namespace Kwave
         }
 
         /** Destructor */
-        virtual ~MultiTrackSink() override
+        ~MultiTrackSink() override
         {
             clear();
         }
 
         /** Returns true when all sinks are done */
-        virtual bool done() const override
+        bool done() const override
         {
             foreach (Kwave::SampleSink *s,
                      static_cast< QList<SINK *> >(*this))
@@ -68,7 +68,7 @@ namespace Kwave
          * Returns the number of tracks that the sink provides
          * @return number of tracks
          */
-        virtual unsigned int tracks() const override
+        unsigned int tracks() const override
         {
             return QList<SINK *>::size();
         }
@@ -112,7 +112,7 @@ namespace Kwave
          * to some sigCancel() signals of other stream objects, so that the
          * cancel() slot of this object is not called.
          */
-        virtual bool isCanceled() const override
+        bool isCanceled() const override
         {
             if (Kwave::SampleSink::isCanceled())
                 return true;

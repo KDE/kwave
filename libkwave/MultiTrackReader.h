@@ -64,7 +64,7 @@ namespace Kwave
                         sample_index_t first, sample_index_t last);
 
         /** Destructor */
-        virtual ~MultiTrackReader() override;
+        ~MultiTrackReader() override;
 
         /**
          * Returns the offset of the reader, as

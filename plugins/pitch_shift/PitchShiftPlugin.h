@@ -46,7 +46,7 @@ namespace Kwave
         PitchShiftPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~PitchShiftPlugin() override;
+        ~PitchShiftPlugin() override;
 
         /** Creates the setup dialog and connects it's signals */
         virtual Kwave::PluginSetupDialog *createDialog(QWidget *parent)
@@ -63,7 +63,7 @@ namespace Kwave
         /**
          * Returns true if the parameters have changed during pre-listen.
          */
-        virtual bool paramsChanged() override;
+        bool paramsChanged() override;
 
         /**
          * Update the filter with new parameters if it has changed
@@ -79,12 +79,12 @@ namespace Kwave
          * Returns a verbose name of the performed action. Used for giving
          * the undo action a readable name.
          */
-        virtual QString actionName() override;
+        QString actionName() override;
 
     protected:
 
         /** Reads values from the parameter list */
-        virtual int interpreteParameters(QStringList &params) override;
+        int interpreteParameters(QStringList &params) override;
 
     protected slots:
 

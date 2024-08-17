@@ -44,10 +44,10 @@ namespace Kwave
         PitchShiftFilter();
 
         /** Destructor */
-        virtual ~PitchShiftFilter() override;
+        ~PitchShiftFilter() override;
 
         /** does the calculation */
-        virtual void goOn() override;
+        void goOn() override;
 
     signals:
 

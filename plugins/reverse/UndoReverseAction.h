@@ -38,12 +38,12 @@ namespace Kwave
         explicit UndoReverseAction(Kwave::PluginManager &plugin_manager);
 
         /** Destructor */
-        virtual ~UndoReverseAction() override;
+        ~UndoReverseAction() override;
 
         /**
          * Returns a verbose short description of the action.
          */
-        virtual QString description() override;
+        QString description() override;
 
         /**
          * Returns the required amount of memory that is needed for storing
@@ -51,13 +51,13 @@ namespace Kwave
          * free memory to be reserved.
          * @note this is the first step (after the constructor)
          */
-        virtual qint64 undoSize() override;
+        qint64 undoSize() override;
 
         /**
          * Returns the difference of needed memory that is needed for
          * redo.
          */
-        virtual qint64 redoSize() override;
+        qint64 redoSize() override;
 
         /**
          * Stores the data needed for undo.
@@ -65,7 +65,7 @@ namespace Kwave
          * @note this is the second step, after size() has been called
          * @return true if successful, false if failed (e.g. out of memory)
          */
-        virtual bool store(Kwave::SignalManager &manager) override;
+        bool store(Kwave::SignalManager &manager) override;
 
         /**
          * Takes back an action by creating a new undo action (for further

@@ -42,25 +42,25 @@ namespace Kwave
         virtual ~ID3_QIODeviceWriter();
 
         /** Close the destination. Not implemented. */
-        virtual void close() override;
+        void close() override;
 
         /** Flush the destination, not implemented (not needed) */
-        virtual void flush() override;
+        void flush() override;
 
         /** Get the start position, always zero */
-        virtual ID3_Writer::pos_type getBeg() override;
+        ID3_Writer::pos_type getBeg() override;
 
         /** Get the end position, identical to size()-1 */
-        virtual ID3_Writer::pos_type getEnd() override;
+        ID3_Writer::pos_type getEnd() override;
 
         /** Returns the current position */
-        virtual ID3_Writer::pos_type getCur() override;
+        ID3_Writer::pos_type getCur() override;
 
         /** Returns the number of bytes written */
-        virtual ID3_Writer::size_type getSize() override;
+        ID3_Writer::size_type getSize() override;
 
         /** Returns the maximum number of bytes written */
-        virtual ID3_Writer::size_type getMaxSize() override;
+        ID3_Writer::size_type getMaxSize() override;
 
         /**
          * Write up to len characters into buf and advance the internal position
@@ -75,7 +75,7 @@ namespace Kwave
             override;
 
         /** returns true if the writer has readed eof (always false) */
-        virtual bool atEnd() override;
+        bool atEnd() override;
 
     private:
 

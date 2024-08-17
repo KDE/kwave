@@ -40,7 +40,7 @@ namespace Kwave
                             Kwave::byte_order_t endianness);
 
         /** Destructor */
-        virtual ~SampleDecoderLinear() override;
+        ~SampleDecoderLinear() override;
 
         /**
          * Decodes the given buffer (byte array) by splitting it into
@@ -53,7 +53,7 @@ namespace Kwave
                             Kwave::SampleArray &decoded) override;
 
         /** Returns the number of bytes per sample in raw (not encoded) form */
-        virtual unsigned int rawBytesPerSample() override;
+        unsigned int rawBytesPerSample() override;
 
     private:
 

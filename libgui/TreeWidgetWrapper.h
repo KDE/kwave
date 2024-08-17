@@ -37,10 +37,10 @@ namespace Kwave
         explicit TreeWidgetWrapper(QWidget *parent);
 
         /** Destructor */
-        virtual ~TreeWidgetWrapper() override;
+        ~TreeWidgetWrapper() override;
 
         /** catches the "lost focus" event */
-        virtual void focusOutEvent(QFocusEvent *event) override;
+        void focusOutEvent(QFocusEvent *event) override;
 
     signals:
 

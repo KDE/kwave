@@ -39,10 +39,10 @@ namespace Kwave
         AsciiEncoder();
 
         /** Destructor */
-        virtual ~AsciiEncoder() override;
+        ~AsciiEncoder() override;
 
         /** Returns a new instance of the encoder */
-        virtual Kwave::Encoder *instance() override;
+        Kwave::Encoder *instance() override;
 
         /**
          * Encodes a signal into a stream of bytes.

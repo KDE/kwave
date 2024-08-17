@@ -54,7 +54,7 @@ namespace Kwave
         PlayBackQt();
 
         /** Destructor */
-        virtual ~PlayBackQt() override;
+        ~PlayBackQt() override;
 
         /**
          * Opens the device for playback.
@@ -68,19 +68,19 @@ namespace Kwave
          * Writes an array of samples to the output device.
          * @see PlayBackDevice::write
          */
-        virtual int write(const Kwave::SampleArray &samples) override;
+        int write(const Kwave::SampleArray &samples) override;
 
         /**
          * Closes the output device.
          * @see PlayBackDevice::close
          */
-        virtual int close() override;
+        int close() override;
 
         /** return a string list with supported device names */
-        virtual QStringList supportedDevices() override;
+        QStringList supportedDevices() override;
 
         /** return a string suitable for a "File Open..." dialog */
-        virtual QString fileFilter() override;
+        QString fileFilter() override;
 
         /**
          * returns a list of supported bits per sample resolutions
@@ -144,7 +144,7 @@ namespace Kwave
             Buffer();
 
             /** destructor */
-            virtual ~Buffer() override;
+            ~Buffer() override;
 
             /**
              * start filling the buffer
@@ -177,7 +177,7 @@ namespace Kwave
              * @param len number of bytes to read
              * @return number of bytes that have been read
              */
-            virtual qint64 readData(char *data, qint64 len) override;
+            qint64 readData(char *data, qint64 len) override;
 
             /**
              * write data into the buffer, called from our own worker thread
@@ -189,7 +189,7 @@ namespace Kwave
                 override;
 
             /** returns the number of bytes available for reading */
-            virtual qint64 bytesAvailable() const override;
+            qint64 bytesAvailable() const override;
 
         private:
 

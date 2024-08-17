@@ -43,10 +43,10 @@ namespace Kwave
         StringEnterPlugin(QObject *parent, const QVariantList &args);
 
         /** Destructor */
-        virtual ~StringEnterPlugin() override;
+        ~StringEnterPlugin() override;
 
         /** @see Kwave::Plugin::load() */
-        virtual void load(QStringList &params) override;
+        void load(QStringList &params) override;
 
         /**
          * Shows a dialog for a command that will be emitted through

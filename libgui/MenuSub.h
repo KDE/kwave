@@ -56,12 +56,12 @@ namespace Kwave
                 const QString &uid);
 
         /** Destructor */
-        virtual ~MenuSub() override;
+        ~MenuSub() override;
 
         /**
          * Always returns true, as the nodes of this type are branches.
          */
-        virtual bool isBranch() const override { return true; }
+        bool isBranch() const override { return true; }
 
         /**
          * Inserts a new branch node under the submenu. The new node
@@ -100,7 +100,7 @@ namespace Kwave
                                             const QString &uid) override;
 
         /** Returns the corresponding menu action */
-        virtual QAction *action() override {
+        QAction *action() override {
             return (m_menu) ? m_menu->menuAction() : Q_NULLPTR;
         }
 
@@ -109,40 +109,40 @@ namespace Kwave
          * was not found or is already removed this does nothing.
          * @param child pointer to the child node
          */
-        virtual void removeChild(Kwave::MenuNode *child) override;
+        void removeChild(Kwave::MenuNode *child) override;
 
         /**
          * Handles/interpretes special menu commands.
          * @param command name of a menu node or command
          * @return true if the name was recognized as a command and handled
          */
-        virtual bool specialCommand(const QString &command) override;
+        bool specialCommand(const QString &command) override;
 
         /**
          * Shows/hides the current sub menu.
          * @param visible true to show the sub menu, false to hide
          */
-        virtual void setVisible(bool visible) override;
+        void setVisible(bool visible) override;
 
         /**
          * Returns true if the node is enabled.
          */
-        virtual bool isEnabled() override;
+        bool isEnabled() override;
 
         /**
          * Enables/disables the current menu node.
          * @param enable true to enable the item, false to disable
          */
-        virtual void setEnabled(bool enable) override;
+        void setEnabled(bool enable) override;
 
         /** Returns the menu nodes' icon. */
-        virtual const QIcon icon() override;
+        const QIcon icon() override;
 
         /**
          * Sets a new icon of a menu node.
          * @param icon QPixmap with the icon
          */
-        virtual void setIcon(const QIcon &icon) override;
+        void setIcon(const QIcon &icon) override;
 
     protected:
         friend class MenuRoot;

@@ -60,7 +60,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        virtual ~TrackWriter() override;
+        ~TrackWriter() override;
 
         /**
          * Flush the content of a buffer. Normally the buffer is the

@@ -38,7 +38,7 @@ namespace Kwave
         explicit InvertableSpinBox(QWidget *parent);
 
         /** Destructor */
-        virtual ~InvertableSpinBox()
+        ~InvertableSpinBox() override
         {
         }
 

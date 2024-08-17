@@ -54,7 +54,7 @@ namespace Kwave
                         sample_index_t left = 0, sample_index_t right = 0);
 
         /** Destructor */
-        virtual ~Writer() override;
+        ~Writer() override;
 
         /** operator for inserting an array of samples */
         virtual Writer &operator << (const Kwave::SampleArray &samples);
@@ -103,7 +103,7 @@ namespace Kwave
         virtual bool eof() const;
 
         /** the same as eof(), needed for the Kwave::SampleSink interface */
-        virtual bool done() const override { return eof(); }
+        bool done() const override { return eof(); }
 
         /** Returns the index of the first sample of the range. */
         inline sample_index_t first() const { return m_first; }

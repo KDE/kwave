@@ -54,36 +54,36 @@ namespace Kwave
                  const QString &uid);
 
         /** virtual destructor */
-        virtual ~MenuItem() override;
+        ~MenuItem() override;
 
         /**
          * Called to notify the item that it has been selected.
          */
-        virtual void actionSelected() override;
+        void actionSelected() override;
 
         /**
          * Handles/interpretes special menu commands.
          * @param command name of a menu node or command
          * @return true if the name was recognized as a command and handled
          */
-        virtual bool specialCommand(const QString &command) override;
+        bool specialCommand(const QString &command) override;
 
         /**
          * Shows/hides the current menu node.
          * @param visible true to show the item, false to hide
          */
-        virtual void setVisible(bool visible) override;
+        void setVisible(bool visible) override;
 
         /**
          * Returns true if the node is enabled.
          */
-        virtual bool isEnabled() override;
+        bool isEnabled() override;
 
         /**
          * Enables/disables the current menu node.
          * @param enable true to enable the item, false to disable
          */
-        virtual void setEnabled(bool enable) override;
+        void setEnabled(bool enable) override;
 
         /**
          * Enables/disabled checking/selecting the item
@@ -98,28 +98,28 @@ namespace Kwave
          * Sets/removes the checkmark from the current menu item.
          * @param check true to set the mark, false to remove
          */
-        virtual void setChecked(bool check) override;
+        void setChecked(bool check) override;
 
         /**
          * Sets the visible text of an item to a new value. (Only useful
          * for a MenuItem)
          * @param text the new text
          */
-        virtual void setText(const QString &text) override;
+        void setText(const QString &text) override;
 
         /**
          * Returns the menu nodes' icon.
          */
-        virtual const QIcon icon() override;
+        const QIcon icon() override;
 
         /**
          * Sets a new icon of a menu node.
          * @param icon QPixmap with the icon
          */
-        virtual void setIcon(const QIcon &icon) override;
+        void setIcon(const QIcon &icon) override;
 
         /** Returns the corresponding menu action */
-        virtual QAction *action() override { return &m_action; }
+        QAction *action() override { return &m_action; }
 
     private slots:
 

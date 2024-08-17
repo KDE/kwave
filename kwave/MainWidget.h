@@ -105,46 +105,46 @@ namespace Kwave
         virtual bool isOK();
 
         /** Destructor. */
-        virtual ~MainWidget() override;
+        ~MainWidget() override;
 
         /** Returns the current zoom factor [samples/pixel] */
-        virtual double zoom() const override;
+        double zoom() const override;
 
         /** Returns the width of the current view in pixels */
-        virtual int visibleWidth() const override;
+        int visibleWidth() const override;
 
         /** Returns the width of the current view in samples */
-        virtual sample_index_t visibleSamples() const override;
+        sample_index_t visibleSamples() const override;
 
         /** Returns the current start position of the visible area [samples] */
         virtual sample_index_t visibleOffset() { return m_offset; }
 
         /** Returns the preferred size of the widget */
-        virtual QSize sizeHint () const override
+        QSize sizeHint () const override
             { return m_preferred_size; }
 
     protected:
 
         /** @see Qt XDND documentation */
-        virtual void dragEnterEvent(QDragEnterEvent *event) override;
+        void dragEnterEvent(QDragEnterEvent *event) override;
 
         /**
          * For dropping data into an empty signal
          * @see Qt XDND documentation
          */
-        virtual void dropEvent(QDropEvent *event) override;
+        void dropEvent(QDropEvent *event) override;
 
         /**
          * Called if the main widget has been resized and resizes/moves
          * the signal widget and the channel controls
          */
-        virtual void resizeEvent(QResizeEvent *event) override;
+        void resizeEvent(QResizeEvent *event) override;
 
         /** slot for mouse wheel events, for scrolling/zooming */
-        virtual void wheelEvent(QWheelEvent *event) override;
+        void wheelEvent(QWheelEvent *event) override;
 
         /** @see QWidget::closeEvent() */
-        virtual void closeEvent(QCloseEvent *e) override;
+        void closeEvent(QCloseEvent *e) override;
 
     protected slots:
 
@@ -160,7 +160,7 @@ namespace Kwave
          * @retval -ENOSYS is returned if the command is unknown in this
          *                 component
          */
-        virtual int executeCommand(const QString &command) override;
+        int executeCommand(const QString &command) override;
 
         /**
          * Sets the display offset [samples] and refreshes the screen.
@@ -173,7 +173,7 @@ namespace Kwave
          * Scrolls the display so that the given position gets visible,
          * centered within the display if possible.
          */
-        virtual void scrollTo(sample_index_t pos) override;
+        void scrollTo(sample_index_t pos) override;
 
         /**
          * sets a new zoom factor [samples/pixel], does not refresh the screen
@@ -181,7 +181,7 @@ namespace Kwave
          *                 to [length/width...1/width] (from full display to
          *                 one visible sample only)
          */
-        virtual void setZoom(double new_zoom) override;
+        void setZoom(double new_zoom) override;
 
         /**
          * Zooms into the selected range between the left and right marker.

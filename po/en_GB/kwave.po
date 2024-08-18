@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-16 00:39+0000\n"
+"POT-Creation-Date: 2024-08-18 00:39+0000\n"
 "PO-Revision-Date: 2020-03-30 20:33+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -358,41 +358,41 @@ msgstr "Panagiotis Papadopoulos"
 msgid "String and i18n updates"
 msgstr "String and i18n updates"
 
-#: kwave/main.cpp:169
+#: kwave/main.cpp:166
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "Disable the Splash Screen."
 
-#: kwave/main.cpp:173
+#: kwave/main.cpp:170
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "Start Kwave iconified."
 
-#: kwave/main.cpp:178
+#: kwave/main.cpp:175
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "Log all commands into a file <file>."
 
-#: kwave/main.cpp:179
+#: kwave/main.cpp:176
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "file"
 
-#: kwave/main.cpp:184
+#: kwave/main.cpp:181
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr "Select a GUI type: SDI, MDI or TAB mode."
 
-#: kwave/main.cpp:185
+#: kwave/main.cpp:182
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:190
+#: kwave/main.cpp:187
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
@@ -400,23 +400,23 @@ msgid ""
 msgstr ""
 "List of audio files, Kwave macro files or Kwave URLs to open (optionally)"
 
-#: kwave/main.cpp:192
+#: kwave/main.cpp:189
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[files...]"
 
-#: kwave/main.cpp:197
+#: kwave/main.cpp:194
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:199
+#: kwave/main.cpp:196
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "A sound editor built on KDE Frameworks 5"
 
-#: kwave/main.cpp:201
+#: kwave/main.cpp:198
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"

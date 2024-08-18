@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-16 00:39+0000\n"
+"POT-Creation-Date: 2024-08-18 00:39+0000\n"
 "PO-Revision-Date: 2020-09-08 11:32+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -358,41 +358,41 @@ msgstr "Panagiotis Papadopoulos"
 msgid "String and i18n updates"
 msgstr "Ενημερώσεις συμβολοσειρών και i18n"
 
-#: kwave/main.cpp:169
+#: kwave/main.cpp:166
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "Απενεργοποίηση της οθόνης εκκίνησης."
 
-#: kwave/main.cpp:173
+#: kwave/main.cpp:170
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "Έναρξη του Kwave με εικονίδιο."
 
-#: kwave/main.cpp:178
+#: kwave/main.cpp:175
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "Καταγραφή όλων των εντολών σε αρχείο <file>."
 
-#: kwave/main.cpp:179
+#: kwave/main.cpp:176
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "αρχείο"
 
-#: kwave/main.cpp:184
+#: kwave/main.cpp:181
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr "Επιλογή τύπου γραφικού περιβάλλοντος: Λειτουργία SDI, MDI or TAB."
 
-#: kwave/main.cpp:185
+#: kwave/main.cpp:182
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:190
+#: kwave/main.cpp:187
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
@@ -401,23 +401,23 @@ msgstr ""
 "Λίστα αρχείων ήχου, αρχεία μακροεντολών Kwave ή δεσμοί Kwave URL για άνοιγμα "
 "(προαιρετικά)"
 
-#: kwave/main.cpp:192
+#: kwave/main.cpp:189
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[αρχεία...]"
 
-#: kwave/main.cpp:197
+#: kwave/main.cpp:194
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:199
+#: kwave/main.cpp:196
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "Ένας επεξεργστής ήχου στο KDE Frameworks 5"
 
-#: kwave/main.cpp:201
+#: kwave/main.cpp:198
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"

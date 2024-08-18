@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-16 00:39+0000\n"
+"POT-Creation-Date: 2024-08-18 00:39+0000\n"
 "PO-Revision-Date: 2020-02-13 12:47+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -358,41 +358,41 @@ msgstr "Panagiotis Papadopoulos"
 msgid "String and i18n updates"
 msgstr "Teksti ja i18n uuendused"
 
-#: kwave/main.cpp:169
+#: kwave/main.cpp:166
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "Tiitelkuva keelamine."
 
-#: kwave/main.cpp:173
+#: kwave/main.cpp:170
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "Kwave'i käivitamine minimeerituna."
 
-#: kwave/main.cpp:178
+#: kwave/main.cpp:175
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "Kõigi käskude logimine faili <fail>."
 
-#: kwave/main.cpp:179
+#: kwave/main.cpp:176
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "fail"
 
-#: kwave/main.cpp:184
+#: kwave/main.cpp:181
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr "Graafilise kasutajaliidese tüübi määramine: SDI, MDI või kaartidega."
 
-#: kwave/main.cpp:185
+#: kwave/main.cpp:182
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:190
+#: kwave/main.cpp:187
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
@@ -401,23 +401,23 @@ msgstr ""
 "Avatavate helifailide, Kwave'i makrofailide või Kwave'i URL-ide loend (pole "
 "kohustuslik)"
 
-#: kwave/main.cpp:192
+#: kwave/main.cpp:189
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[failid...]"
 
-#: kwave/main.cpp:197
+#: kwave/main.cpp:194
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:199
+#: kwave/main.cpp:196
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "KDE Frameworks 5 peale ehitatud heliredaktor"
 
-#: kwave/main.cpp:201
+#: kwave/main.cpp:198
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016: Thomas Eschenbacher"

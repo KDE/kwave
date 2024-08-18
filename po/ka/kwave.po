@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-16 00:39+0000\n"
-"PO-Revision-Date: 2024-08-16 05:48+0200\n"
+"POT-Creation-Date: 2024-08-18 00:39+0000\n"
+"PO-Revision-Date: 2024-08-17 05:14+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -359,41 +359,41 @@ msgstr "Panagiotis Papadopoulos"
 msgid "String and i18n updates"
 msgstr "სტრიქონები და i18-ის განახლებები"
 
-#: kwave/main.cpp:169
+#: kwave/main.cpp:166
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "საწყისი ეკრანის გათიშვა."
 
-#: kwave/main.cpp:173
+#: kwave/main.cpp:170
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "KWave-ის ჩაკეცილად გაშვება."
 
-#: kwave/main.cpp:178
+#: kwave/main.cpp:175
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "ყველა ბრძანების ჩაწერა ჟურნალის ფაილში <file>."
 
-#: kwave/main.cpp:179
+#: kwave/main.cpp:176
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "ფაილი"
 
-#: kwave/main.cpp:184
+#: kwave/main.cpp:181
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr "აირჩიეთ GUI-ის ტიპი: SDI, MDI თუ ჩანართების რეჟიმი."
 
-#: kwave/main.cpp:185
+#: kwave/main.cpp:182
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:190
+#: kwave/main.cpp:187
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
@@ -402,23 +402,23 @@ msgstr ""
 "გასახსნელი აუდიოფაილების, Kwave-ის მაკრო ფაილების ან Kwave-ის URL-ების სია "
 "(არასავალდებულო)"
 
-#: kwave/main.cpp:192
+#: kwave/main.cpp:189
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[ფაილები...]"
 
-#: kwave/main.cpp:197
+#: kwave/main.cpp:194
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:199
+#: kwave/main.cpp:196
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "Kwave ხმის რედაქტორია, აგებული KDE Frameworks 5-ის გამოყენებით"
 
-#: kwave/main.cpp:201
+#: kwave/main.cpp:198
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"
@@ -1511,6 +1511,10 @@ msgid ""
 "the whole file or by an absolute sample position. However, internally Kwave "
 "always uses the position in samples."
 msgstr ""
+"<b>ჭდის მდებარეობა:</b><br>\n"
+"აქ შეგიძლიათ, ჭის მდებარეობა დააყენოთ დროით, მთელი ფაილის პროცენტულობით ან "
+"სემპლი აბსოლუტური მდებარეობით. მაგრამ შიგნით KWave მდებარეობას ყოველთვის "
+"სემპლებით ზომავს."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #: libgui/LabelPropertiesWidgetBase.ui:51
@@ -1561,6 +1565,10 @@ msgid ""
 "position. Lower index means 'left', higher index means 'right'. You cannot "
 "change the index itself, but change the label's position."
 msgstr ""
+"<b>ჭდის ინდექსი</b><br>\n"
+"ეს ჭდის რიცხვითი ინდექსია, რომელიც იწყება ნულით და დალაგებულია მდებარეობით. "
+"მცირე ინდექსი ნიშნავს \"მარცხენას, მაღალი კი \"მარჯვენას\". ინდექსს ვერ "
+"შეცვლით, მაგრამ ჭდის მდებარეობას - კი."
 
 #: libgui/SelectionBorderItem.cpp:66
 #, kde-format
@@ -1851,6 +1859,10 @@ msgid ""
 "each sentence with a period. Do not include newline\n"
 "characters!"
 msgstr ""
+"მოგაწოდებთ ზოგად კომენტარებს ფაილის ან ფაილის სათაურის შესახებ.\n"
+"თუ კომენტარი რამდენიმე წინადადებაა, თითოეული \n"
+"მათგანი წერტილით უნდა სრულდებოდეს.\n"
+"ნუ ჩასვამთ ხაზის გადატანის სიმბოლოებს!"
 
 #: libkwave/FileInfo.cpp:50
 msgid "Archival location"
@@ -1970,6 +1982,9 @@ msgid ""
 "the track. This could be a URL, an email address, the\n"
 "physical address of the producing label."
 msgstr ""
+"ტრეკის შემქმნელის ან გამავრცელებლის საკონტაქტო\n"
+"ინფორმაცია. შეიძლება იყოს URL, ელფოსტის მისამართი, ან\n"
+"გამომცემელი სტუდიის ფიზიკური მისამართი."
 
 #: libkwave/FileInfo.cpp:115
 msgid "Copyright"
@@ -1982,6 +1997,10 @@ msgid ""
 "by a space.\n"
 "Example: 'Copyright Linux community 2002'"
 msgstr ""
+"ჩაიწერს ფაილის საავტორო ინფორმაციას. თუ მას ერთზე მეტი აქვს,\n"
+"გამოჰყავით ისინი წერტილიმძიმით, რომელსაც ჰარე მოჰყვება.\n"
+"\n"
+"მაგალითად: 'Copyright Linux community 2002'"
 
 #: libkwave/FileInfo.cpp:123
 msgid "Copyrighted"
@@ -2063,6 +2082,9 @@ msgid ""
 "for more information on ISRC numbers.\n"
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 msgstr ""
+"ტრეკის ISRC ნომერი. ISRC რიცხვების შესახებ\n"
+"მეტი ინფორმაციისთვის იხილეთ ISRC-ის შესავლის გვერდი.\n"
+"http://www.ifpi.org/site-content/online/isrc_intro.html"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeywordWidgetBase)
 #: libkwave/FileInfo.cpp:162 plugins/fileinfo/KeywordWidgetBase.ui:14
@@ -2103,6 +2125,12 @@ msgid ""
 "See http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
 "for details'), etc."
 msgstr ""
+"ლიცენზიის ინფორმაცია. მაგ: 'ყველა უფლება დაცულია',\n"
+"'გამოიყენეთ, როგორც გნებავთ', URL ლიცენზიით, ან\n"
+"EFF ღია აუდიოს ლიცენზია (ვრცელდება Open Audio License-ის წესებით.\n"
+"მეტი დეტალებსთვის იხილეთ:\n"
+"http://www.eff.org/IP/Open_licenses/eff_oal.html)\n"
+"ა.შ."
 
 #: libkwave/FileInfo.cpp:184
 msgid "Medium"
@@ -3670,6 +3698,12 @@ msgid ""
 "presents a graphical view with a complete zoom and scroll capability.</p></"
 "body></html>"
 msgstr ""
+"<html><head/><body><p><span style=\" font-size:x-large; font-weight:600;"
+"\">Kwave KDE-ის ბიბლიოთეკებზე დაწერილი ხმის რედაქტორია. </span></p><p><br/"
+">Kwave-ით ბევრნაირი ფაილის რედაქტირება შეგიძლიათ, მრავალარხიანი ფაილების "
+"ჩათვლით. თითოეული არხი შეგიძლიათ, ცალ-ცალკე მართოთ..<br/>Kwave ასევე შეიცავს "
+"ბევრ დამატებას ხმის რედაქტირებისთვის და აქვს გრაფიკული ხედი გადიდებისა და "
+"გადახვევის სრული შესაძლებლობებით.</p></body></html>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, authors_tab)
 #: plugins/about/AboutDialogBase.ui:182
@@ -3814,6 +3848,9 @@ msgid ""
 "enabled, you will nearly immediately hear any change in the selected "
 "parameters."
 msgstr ""
+"დაიწყეთ ან დაამთავრეთ წინასწარი მოსმენა მიმდინარე პარამეტრებით. თუ წინასწარი "
+"მოსმენა ჩართულია, თქვენ თითქმის დაუყოვნებლივ გაიგებთ ცვლილებას მონიშნულ "
+"პარამეტრებში."
 
 #: plugins/codec_ascii/AsciiCodecPlugin.h:58
 #, kde-format
@@ -4626,6 +4663,8 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to mono."
 msgstr ""
+"თუ სივრცული ხმის ბიტური სიჩქარე თითოეული არხისთვის 32კბიტ/წმ-ზე ნაკლებია, ეს "
+"ფაილი მონოში უნდა გადაიყვანოთ."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:153
 #, kde-format
@@ -4633,6 +4672,8 @@ msgid ""
 "Surround bitrate would be less than 32kBit/sec per channel, this file should "
 "be mixed down to stereo."
 msgstr ""
+"თუ სივრცული ხმის ბიტური სიჩქარე თითოეული არხისთვის 32კბიტ/წმ-ზე ნაკლებია, ეს "
+"ფაილი სტერეოში უნდა გადაიყვანოთ."
 
 #: plugins/codec_ogg/OpusEncoder.cpp:223
 #, kde-format
@@ -4706,6 +4747,8 @@ msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
 "and encode with %1 kBit/s or cancel and choose a different bitrate?"
 msgstr ""
+"კოდირებისთვის ბიტური სიხშირე არ აგირჩევიათ. გნებავთ გაგრძელება და კოდირება "
+"%1 კბიტ/წმ-ით, თუ გააუქმებთ და სხვა ბიტურ სიჩქარეს აირჩევთ?"
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:177
 #, kde-format
@@ -4897,6 +4940,8 @@ msgid ""
 "A K3b project file has been created and audio files have been exported.\n"
 "Should I start K3b and open the audio CD project now?"
 msgstr ""
+"K3b-ის პროექტი შეიქმნა და აუდოფაილების გატანა დასრულდა.\n"
+"გნებავთ, გავუშვა K3b და გავხსნა აუდიოCD-ის პროექტი?"
 
 #: plugins/export_k3b/K3BExportWidget.cpp:46
 #, kde-format
@@ -4934,6 +4979,16 @@ msgid ""
 "courier'; font-weight:600;\">[%artist]</span> name of the artist</li></ul></"
 "body></html>"
 msgstr ""
+"<html><head/><body><p>აირჩიეთ ნიმუში ჭდის ტექსტისგან სათაურის და "
+"შემსრულებლის გამოსაცნობად.<br/>ამჟამად მას აქვს შემდეგი ადგილმჭერები:</p><ul "
+"style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: "
+"0px; -qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"
+"\"><span style=\" font-family:'Courier New,courier'; font-weight:600;"
+"\">[%title] </span>სიმღერის სახელი</li><li style=\" margin-top:0px; margin-"
+"bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+"indent:0px;\"><span style=\" font-family:'Courier New,courier'; font-"
+"weight:600;\">[%artist]</span> შემსრულებლის სახელი</li></ul></body></html>"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, chkSelectionOnly)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:77
@@ -4945,6 +5000,10 @@ msgid ""
 "disabled if nothing is selected or the selection already covers the whole "
 "file.</i>"
 msgstr ""
+"თუ ჩართულია, <b>შენახული იქნება, მხოლოდ, ბლოკები, რომლებიც მიმდინარე "
+"მონიშნულს ფარავენ.</b> წინააღმდეგ შემთხვევაში კი - მთლიანი ფაილი. "
+"<br><i>დაიმახსოვრეთ, რომ ეს პარამეტრი გათიშულია, თუ მონიშნული არაფერია, ან "
+"მონიშნული უკვე ფარავს მთლიან ფაილს.</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSelectionOnly)
 #: plugins/export_k3b/K3BExportWidgetBase.ui:80
@@ -5028,6 +5087,9 @@ msgid ""
 "Bitrate is set to an average value,\n"
 "with optional upper and lower limit."
 msgstr ""
+"<b>საშუალო ბიტური სიჩქარის რეჟიმი</b><br>\n"
+"ბიტური სიჩქარე დაყენებულია საშუალო მნიშვნელობაზე,\n"
+"არასავალდებულო ზედა და ქვედა საზღვრებით."
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbABR)
 #: plugins/fileinfo/CompressionWidgetBase.ui:58
@@ -5112,6 +5174,9 @@ msgid ""
 "well-known sample rates or you can enter\n"
 "any sample rate on your own."
 msgstr ""
+"აქ შეგიძლიათ აირჩიოთ წინასწარ აღწერილი სემპლის სიხშირეები,\n"
+"ან შეიყვანოთ ისეთი ბიტური სიჩქარე,\n"
+"რომელიც თქვენ გნებავთ."
 
 #. i18n: ectx: property (text), widget (QLabel, lblResolution)
 #: plugins/fileinfo/FileInfoDialog.cpp:240 plugins/newsignal/NewSigDlg.ui:206
@@ -5511,6 +5576,10 @@ msgid ""
 "to repair a damaged file? Note: changing only the sample rate can cause "
 "\"Mickey Mouse\" effects."
 msgstr ""
+"შეცვალეთ სემპლები სიხშირე. გნებავთ გადავიყვანო მთელი ფაილი ახალ სიხშირეზე, "
+"თუ გნებავთ, მხოლოდ, დააყენოთ სიხშირით ინფორმაცია იმისთვის, რომ დაზიანებული "
+"ფაილი შეაკეთოთ? შენიშვნა: მხოლოდ, ბიტური სიხშირის შეცვლამ, შეიძლება, \"მიკი "
+"მაუსის\" ეფექტები გამოიწვიოს."
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:91
 #, kde-format
@@ -5548,6 +5617,9 @@ msgid ""
 "Create a list of keywords by going through all present file information and "
 "merge it with the current list of keywords."
 msgstr ""
+"<b>საკვანძო სიტყვების ავტომატური გენერაცია</b><br>\n"
+"საკვაძო სიტყვების სიის შექმნა არსებული ფაილის ინფორმაციის დამუშავებით და "
+"მისი მიმდინარე საკვანძო სიტყვების სიაში შერწყმით."
 
 #. i18n: ectx: property (text), widget (QPushButton, btAuto)
 #: plugins/fileinfo/KeywordWidgetBase.ui:69
@@ -5622,6 +5694,8 @@ msgid ""
 "<b>Sample rate</b><br>Here you can select one of the predefined well-known "
 "sample rates or you can enter any sample rate on your own."
 msgstr ""
+"<b>სემპლების სიხშირე</b><br>აქ სემპლების სიხშირე შეგიძლიათ, წინასწარ "
+"აღწერილი მნიშვნელობებიდან აირჩიოთ, ან საკუთარი შეიყვანოთ."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSamplesPerSecond)
 #: plugins/newsignal/NewSigDlg.ui:168 plugins/record/RecordDlg.ui:670
@@ -5642,6 +5716,9 @@ msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
+"<b>ტრეკების რაოდენობა</b><br>აირჩიეთ ტრეკების რაოდენობა ახალი სიგნალისთვის. "
+"თუ დარწმუნებული არ ბრძანდებით, ტრეკების დამატება და წაშლა მოგვიანებით, "
+"პროგრამაში შეგეძლებათ."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbResolution)
 #: plugins/newsignal/NewSigDlg.ui:301
@@ -5651,6 +5728,9 @@ msgid ""
 "saved. However, Kwave always uses 24 bits as its own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
+"<b>გაფართოება</b><br>აირჩევს გაფართოებას ბიტებში, რომლითაც ამ ფაილის შენახვა "
+"მოხდება. მაგრამ KWave შიდა გადაწყვეტისთვის, ყოველთვის 24 ბიტს იყენებს, რათა "
+"საუკეთესო შედეგები მოგაწოდოთ."
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbTime)
 #: plugins/newsignal/NewSigDlg.ui:347
@@ -5878,6 +5958,10 @@ msgid ""
 "audio data are before they get processed by the pitch shift. If your audio "
 "data sounds interrupted, you might get better result with higher values."
 msgstr ""
+"<b>ნაწყვეტის სიხშირე</b><br>ეს პარამეტრი განსაზღვრავს, რა დონეზე პატარაა "
+"აუდიომონაცემების ნაწყვეტები, სანამ მის ხმის აწევას გადაწყვეტთ. თუ თქვენი "
+"აუდიომონაცემები წყვეტილად ჟღერს, შეიძლება, ამ პარამეტრის უფრო დიდმა "
+"მნიშვნელობებმა გიშველოთ."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: plugins/pitch_shift/PitchShiftDlg.ui:136
@@ -5906,6 +5990,8 @@ msgid ""
 "Sets the speed to a relative percentage of the original speed.\n"
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
+"დააყენებს სიჩქარეს ორიგინალი სიჩქარის პროცენტებში.\n"
+"მაგალითად: \"50 %\", \"75%\" ან \"125%\""
 
 #. i18n: ectx: property (text), widget (QRadioButton, rbPercentage)
 #: plugins/pitch_shift/PitchShiftDlg.ui:222
@@ -5966,6 +6052,11 @@ msgid ""
 "the program by calling: \"fuser -v %1\"\n"
 "on the command line.)"
 msgstr ""
+"მოწყობილობა დაკავებულია. შეიძლება, მას\n"
+"რომელიმე სხვა პროგრამა იყენებს. მოგვიანებით სცადეთ.\n"
+"(მინიშნება: ამ პროგრამის სახელის და პროცესის ID-ის პოვნა\n"
+"შეგიძლიათ ბრძანებით: \"fuser -v %1\"\n"
+"ბრძანების სტრიქონში)"
 
 #: plugins/playback/PlayBack-ALSA.cpp:587
 #, kde-format
@@ -6144,6 +6235,9 @@ msgid ""
 "suitable for the chosen playback method. If your device is not listed here, "
 "you can enter a device name on your own or search through the filesystem.</p>"
 msgstr ""
+"<b>მოწყობილობა:</b><p>ეს სია არჩეულ დაკვრის მეთოდთან თავსებად დაკვრის "
+"მოწყობილობებს გაჩვენებთ. თუ თქვენი მოწყობილობა ჩამონათვალში არაა, მისი "
+"სახელი შეგიძლიათ, ხელით მიუთითოთ, ან ფაილურ სისტემაში მოძებნოთ.</p>"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, btSelectDevice)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btSourceSelect)
@@ -6160,6 +6254,8 @@ msgid ""
 "<b>Select...</b><p>Choose a device name on the harddisk, if your device is "
 "not already listed in the list of devices.</p>"
 msgstr ""
+"<b>არჩევა...</b><p>აირჩიეთ მოწყობილობის სახელი მყარ დისკზე, თუ თქვენი "
+"მოწყობილობა სიაში უკვე არაა.</p>"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, cbMethod)
 #: plugins/playback/PlayBackDlg.ui:121
@@ -6185,6 +6281,19 @@ msgid ""
 "<p><b><i>PulseAudio</i></b>: The preferred way of doing playback in KDE. "
 "Multiple applications can play at the same time.</p>"
 msgstr ""
+"<b>დაკვრის მეთოდი:</b><p>აირჩიეთ მეთოდი ან სისტემა\n"
+"ხმის დასაკრავად. კომპილაციისას მითითებულ პარამეტრებზე დამოკიდებულებით, "
+"შეიძლება გქონდეთ შემდეგი მეთოდები:</p>\n"
+"<p><b><i>OSS (Open Sound System)</i></b>: უძველესი ბიბლიოთეკა ლინუქსისთვის. "
+"შეუძლია მონოს და სტერეოს დაკვრა. მოძველებულია ლინუქსის ბირთვის 2.6 ვერსიის "
+"შემდეგ, მაგრამ ჯერ კიდევ გამოიყენება. შეიძლება კონფლიქტში იყოს PulseAudio-"
+"სთან. OSS-ით დაკვრა დროის ერთ მომენტში, მხოლოდ, ერთ პროგრამას შეუძლია !</p>\n"
+"<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b>: უფრო ახალი, ვიდრე "
+"OSS, აქვს მეტი ფუნქციის და მეტი აპარატურის მხარდაჭერა. შეიძლება, კონფლიქტში "
+"იყოს OSS-თან, მაგრამ აქვს დამატება, სახელად <i>dmix</i>, რომ ეს პრობლემები "
+"გადაჭრას.</p>\n"
+"<p><b><i>PulseAudio</i></b>: KDE-ში ხმის დაკვრის რჩეული გზა. ხმის ერთდროული "
+"დაკვრა ერთზე მეტ აპლიკაციას შეუძლია.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: plugins/playback/PlayBackDlg.ui:137
@@ -6221,6 +6330,11 @@ msgid ""
 "update of the playback position and the real sound output. If you encounter "
 "dropouts you should increase this setting a bit.</p>"
 msgstr ""
+"<b>ბუფერის ზომა:</b><p>აირჩიეთ ბუფერის ზომა დაკვრისთვის. ეს რიცხვი რაც "
+"შეიძლება, პატარა უნდა იყოს, რომ დაკვრის დაყოვნება აიცილოთ თავიდან. დაყოვნება "
+"დროა მომხმარებლის ინტერფეისის ისეთ ქმედებებს შორის, როგორიცაა დაკვრის "
+"შეწყვეტა/დაწყება, ან დაკვრის მდებარეობის შეცვლა და ნამდვილი ხმის გამოცემას "
+"შორის. თუ დაკვრისას წყვეტებს ამჩნევთ, სცადეთ, ოდნავ გაზარდოთ ეს რიცხვი.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
@@ -6251,6 +6365,11 @@ msgid ""
 "resolution (24 bit) to the setting you specify. Higher resolutions mean "
 "better audio quality.</p>"
 msgstr ""
+"<b>ბიტები სემპლისთვის:</b><p>აქ შეიძლიათ აირჩიოთ ერთ-ერთი ბიტური გაფართოება, "
+"რომლის მხარდაჭერაც თქვენი დაკვრის მოწყობილობას გააჩნია. ეს შეიძლება, იგივე "
+"არ იყოს, რაც თქვენი ფაილის გაფართოებაა. ამ შემთხვევაში KWave ავტომატურად "
+"გადაიყვანს მისი შიდა გაფართოებიდან (24 ბიტი) თქვენს მითითებულ მნიშვნელობაზე. "
+"რაც მაღალია გაფართოება, მით უკეთესია ხმის ხარისხი.</p>"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, sbChannels)
 #: plugins/playback/PlayBackDlg.ui:325
@@ -6659,6 +6778,8 @@ msgid ""
 "<b>Number of channels</b><br>Select a number of channels, e.g. for mono or "
 "stereo recording."
 msgstr ""
+"<b>არხების რაოდენობა</b><br>აირჩეთ არხების რაოდენობა. მაგ: მონო ან "
+"სტერეოჩაწერისთვის."
 
 #. i18n: ectx: property (text), widget (QLabel, lblTracksVerbose)
 #: plugins/record/RecordDlg.ui:755
@@ -6679,6 +6800,8 @@ msgid ""
 "<b>Compression</b><br>Here you can select one of the compression types if "
 "your audio hardware supports it."
 msgstr ""
+"<b>შეკუმშვა</b><br>აქ შეგიძლიათ, აირჩიოთ ერთ-ერთი შეკუმშვის ტიპი, თუ თქვენს "
+"აუდიოაპარატურას ამის მხარდაჭერა გააჩნია."
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, cbFormatSampleFormat)
 #: plugins/record/RecordDlg.ui:860
@@ -6702,6 +6825,9 @@ msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "recorded. Higher values give better quality but also more system load."
 msgstr ""
+"<b>გაფართოება</b><br>აირჩიეთ გაფართოება ბიტებში, რომლითაც ფაილის ჩაწერა "
+"მოხდება. რაც მაღალია მნიშვნელობა, მით მაღალია ხარისხი, მაგრამ ასევე აიწევს "
+"დატვირთვა სისტემაზე."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
 #: plugins/record/RecordDlg.ui:1000
@@ -6749,6 +6875,9 @@ msgid ""
 "suitable for the chosen recording method. If your device is not listed here, "
 "you can enter a device name on your own or search through the filesystem.</p>"
 msgstr ""
+"<b>მოწყობილობა:</b><p>ეს სია არჩეულ ჩაწერის მეთოდთან თავსებად ჩაწერის "
+"მოწყობილობებს გაჩვენებთ. თუ თქვენი მოწყობილობა ჩამონათვალში არაა, მისი "
+"სახელი შეგიძლიათ, ხელით მიუთითოთ, ან ფაილურ სისტემაში მოძებნოთ.</p>"
 
 #. i18n: ectx: property (text), widget (QPushButton, btSourceSelect)
 #: plugins/record/RecordDlg.ui:1078
@@ -6780,6 +6909,8 @@ msgid ""
 "Maybe your system lacks support for the corresponding hardware or the "
 "hardware is not connected."
 msgstr ""
+"შეიძლება, თქვენს სისტემას შესაბამისი აპარატურის მხარდაჭერა არ გააჩნია, ან "
+"აპარატურა მიერთებული არაა."
 
 #: plugins/record/RecordPlugin.cpp:461
 #, kde-format
@@ -6795,6 +6926,8 @@ msgid ""
 "Some unexpected error happened (%1). You may try an other recording method "
 "or recording device."
 msgstr ""
+"აღმოჩენილია მოულოდნელი შეცდომა (%1). შეიძლება, სხვა ჩაწერის ან დაკვრის "
+"მოწყობილობის არჩევა გჭირდებათ."
 
 #: plugins/record/RecordPlugin.cpp:482
 #, kde-format
@@ -6961,6 +7094,8 @@ msgid ""
 "Example of the first file name that will be saved, using the file name "
 "pattern above and the numbering below"
 msgstr ""
+"პირველი შენახული ფაილის სახელის მაგალითი. გამოყენებული იქნება ფაილის სახელის "
+"ნიმუში მაღლიდან და დანომვრის ქვემოდან"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)
 #: plugins/saveblocks/SaveBlocksWidgetBase.ui:112
@@ -7075,6 +7210,8 @@ msgid ""
 "Automatically update the sonagram if the selection<br>has been enlarged, "
 "reduced or moved"
 msgstr ""
+"სონაგრამის ავტომატური განახლება, თუ მონიშნული<br>გადიდდა, დაპატარავდა ან "
+"გადატანილი იყო"
 
 #. i18n: ectx: property (text), widget (QCheckBox, cbFollowSelection)
 #: plugins/sonagram/SonagramDlg.ui:103
@@ -7108,6 +7245,8 @@ msgid ""
 "Choose windowing function here.<br>\n"
 "If the transformation should stay reversible, use the type \"None\"."
 msgstr ""
+"აქ აირჩიეთ ფანჯრის ფუნქციები.<br>\n"
+"თუ გადაყვანა შექცევადი უნდა იყოს, აირჩიეთ ტიპი \"არაფერ\"."
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, pointbox)
 #. i18n: ectx: property (whatsThis), widget (KComboBox, pointbox)
@@ -7303,6 +7442,8 @@ msgid ""
 "Sets the volume to a relative percentage of the original level.\n"
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
+"დააყენებს ხმის დონეს ორიგინალი სიჩქარის პროცენტებში.\n"
+"მაგალითად: \"50 %\", \"75%\" ან \"125%\""
 
 #. i18n: ectx: property (toolTip), widget (QRadioButton, rbLogarithmic)
 #: plugins/volume/VolumeDlg.ui:104

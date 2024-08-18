@@ -15,10 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <QCursor>
-#include <QImage>
 #include <QMouseEvent>
 #include <QTransform>
 

@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <math.h>
 
@@ -23,7 +22,6 @@
 #include <QPainter>
 
 #include "libkwave/MultiTrackReader.h"
-#include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"

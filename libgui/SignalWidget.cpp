@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <errno.h>
 #include <math.h>
@@ -45,12 +44,9 @@
 
 #include "libkwave/ClipBoard.h"
 #include "libkwave/LabelList.h"
-#include "libkwave/SignalManager.h"
-#include "libkwave/String.h"
 #include "libkwave/Track.h"
 #include "libkwave/Utils.h"
 
-#include "libgui/SignalView.h"
 #include "libgui/SignalWidget.h"
 #include "libgui/TrackPixmap.h"
 #include "libgui/TrackView.h"

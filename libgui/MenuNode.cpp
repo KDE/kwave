@@ -15,17 +15,14 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <new>
 
 #include <QLatin1Char>
-#include <QPixmap>
 
 #include "libkwave/Parser.h"
 #include "libkwave/String.h"
 
-#include "libgui/MenuGroup.h"
 #include "libgui/MenuList.h"
 #include "libgui/MenuNode.h"
 #include "libgui/MenuRoot.h"

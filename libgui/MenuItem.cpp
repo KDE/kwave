@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <QMenu>
 #include <QPixmap>
@@ -27,7 +26,6 @@
 
 #include "libgui/MenuGroup.h"
 #include "libgui/MenuItem.h"
-#include "libgui/MenuNode.h"
 
 //*****************************************************************************
 Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,

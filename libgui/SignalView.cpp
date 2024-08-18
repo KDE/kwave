@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <math.h>
 #include <new>
@@ -41,9 +40,7 @@
 #include "libkwave/Utils.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
 
-#include "libgui/MouseMark.h"
 #include "libgui/SignalView.h"
-#include "libgui/ViewItem.h"
 
 /** number of milliseconds until the position widget disappears */
 #define POSITION_WIDGET_TIME 5000

@@ -15,10 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
-#include <QCursor>
-#include <QObject>
 
 #include <KLocalizedString>
 

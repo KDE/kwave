@@ -15,9 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
-#include <math.h>
 #include <new>
 
 #include <QMutexLocker>
@@ -27,7 +25,6 @@
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/Track.h"
-#include "libkwave/Utils.h"
 
 #include "libgui/TrackPixmap.h"
 

@@ -15,11 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <new>
 
-#include <QtGlobal>
 #include <QIcon>
 #include <QMenu>
 #include <QPainter>

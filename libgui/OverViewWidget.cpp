@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <math.h>
 
@@ -27,7 +26,6 @@
 #include <QVBoxLayout>
 
 #include "libkwave/Label.h"
-#include "libkwave/MetaDataList.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SignalManager.h"
 #include "libkwave/String.h"

@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <math.h>
 
@@ -28,7 +27,6 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QKeySequence>
-#include <QMenu>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPainter>
@@ -43,7 +41,6 @@
 #include <KLocalizedString>
 #include <KIconLoader>
 
-#include "libkwave/Curve.h"
 #include "libkwave/Interpolation.h"
 #include "libkwave/Logger.h"
 #include "libkwave/String.h"

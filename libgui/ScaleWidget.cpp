@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <math.h>
 #include <stdlib.h>
@@ -23,7 +22,6 @@
 #include <QFont>
 #include <QPaintEvent>
 #include <QPainter>
-#include <QtGlobal>
 
 #include "libkwave/String.h"
 #include "libkwave/Utils.h"

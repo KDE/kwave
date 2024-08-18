@@ -15,16 +15,13 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "config.h"
 
 #include <QFileInfo>
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QPushButton>
 #include <QRegularExpression>
-#include <QString>
 #include <QStringList>
-#include <QUrl>
 
 #include <KConfig>
 #include <KConfigGroup>

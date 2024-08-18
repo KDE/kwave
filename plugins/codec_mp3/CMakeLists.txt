@@ -30,7 +30,8 @@ IF (WITH_MP3)
 
     INCLUDE(CheckIncludeFileCXX)
 
-    SET(CMAKE_REQUIRED_INCLUDES "${CMAKE_INSTALL_PREFIX}/include")
+    find_path(ID3LIB_INCLUDES id3/globals.h)
+    SET(CMAKE_REQUIRED_INCLUDES ${ID3LIB_INCLUDES})
 
     CHECK_INCLUDE_FILE_CXX(id3/globals.h HAVE_ID3_HEADER_GLOBALS_H)
     IF (HAVE_ID3_HEADER_GLOBALS_H)
@@ -60,7 +61,7 @@ IF (WITH_MP3)
             ${CMAKE_BINARY_DIR}
             ${_try_id3lib}
             CMAKE_FLAGS
-                 "-DINCLUDE_DIRECTORIES=${CMAKE_INSTALL_PREFIX}/include"
+                 "-DINCLUDE_DIRECTORIES=${ID3LIB_INCLUDES}"
                  "-DLINK_DIRECTORIES=${CMAKE_INSTALL_PREFIX}/lib"
                  "-DLINK_LIBRARIES:STRING=id3\;stdc++\;z"
             OUTPUT_VARIABLE _out
@@ -84,7 +85,8 @@ IF (WITH_MP3)
 #############################################################################
 ### check for libmad headers and library                                  ###
 
-    SET(CMAKE_REQUIRED_INCLUDES "${CMAKE_INSTALL_PREFIX}/include")
+    find_path(LIBMAD_INCLUDES mad.h)
+    SET(CMAKE_REQUIRED_INCLUDES ${LIBMAD_INCLUDES})
     CHECK_INCLUDE_FILES(mad.h HAVE_MAD_H)
     IF (HAVE_MAD_H)
         CHECK_LIBRARY_EXISTS(mad mad_decoder_init

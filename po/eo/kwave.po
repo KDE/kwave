@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-18 00:39+0000\n"
+"POT-Creation-Date: 2024-08-19 00:39+0000\n"
 "PO-Revision-Date: 2024-03-28 08:18+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -124,276 +124,276 @@ msgstr ""
 "Ĉi tiu dosiero estas modifita.\n"
 "Ĉu vi volas konservi ĝin?"
 
-#: kwave/main.cpp:46
+#: kwave/main.cpp:45
 #, kde-format
 msgid "Thomas Eschenbacher"
 msgstr "Thomas Eschenbacher"
 
-#: kwave/main.cpp:47
+#: kwave/main.cpp:46
 #, kde-format
 msgid "Project leader since 2000, core development"
 msgstr "Projektestro ekde 2000, kerna evoluo"
 
-#: kwave/main.cpp:49
+#: kwave/main.cpp:48
 #, kde-format
 msgid "http://kwave.sourceforge.net"
 msgstr "http://kwave.sourceforge.net"
 
-#: kwave/main.cpp:52
+#: kwave/main.cpp:51
 #, kde-format
 msgid "Martin Wilz"
 msgstr "Martin Wilz"
 
-#: kwave/main.cpp:53
+#: kwave/main.cpp:52
 #, kde-format
 msgid "Creator of the project, development 1998-2000"
 msgstr "Kreinto de la projekto, evoluo 1998-2000"
 
-#: kwave/main.cpp:55
+#: kwave/main.cpp:54
 #, kde-format
 msgid "http://www.wilz.de"
 msgstr "http://www.wilz.de"
 
-#: kwave/main.cpp:57
+#: kwave/main.cpp:56
 #, kde-format
 msgid "Ralf Waspe"
 msgstr "Ralf Waspe"
 
-#: kwave/main.cpp:58
+#: kwave/main.cpp:57
 #, kde-format
 msgid "Creator of the Help/About dialog"
 msgstr "Kreinto de la dialogo Helpo/Pri"
 
-#: kwave/main.cpp:62
+#: kwave/main.cpp:61
 #, kde-format
 msgid "Caulier Gilles"
 msgstr "Caulier Gilles"
 
-#: kwave/main.cpp:63
+#: kwave/main.cpp:62
 #, kde-format
 msgid "splashscreen, tests and bugfixes"
 msgstr "ŝprucekrano, testoj kaj korektoj"
 
-#: kwave/main.cpp:65
+#: kwave/main.cpp:64
 #, kde-format
 msgid "http://caulier.gilles.free.fr"
 msgstr "http://caulier.gilles.free.fr"
 
-#: kwave/main.cpp:67
+#: kwave/main.cpp:66
 #, kde-format
 msgid "Dave Flogeras"
 msgstr "Dave Flogeras"
 
-#: kwave/main.cpp:68
+#: kwave/main.cpp:67
 #, kde-format
 msgid "Notch filter plugin"
 msgstr "Notch-filtrila kromaĵo"
 
-#: kwave/main.cpp:72
+#: kwave/main.cpp:71
 #, kde-format
 msgid "Rik Hemsley"
 msgstr "Rik Hemsley"
 
-#: kwave/main.cpp:73
+#: kwave/main.cpp:72
 #, kde-format
 msgid "Level meter"
 msgstr "Nivelmezurilo"
 
-#: kwave/main.cpp:75
+#: kwave/main.cpp:74
 #, kde-format
 msgid "http://rikkus.info/esoundlevelmeter.html"
 msgstr "http://rikkus.info/esoundlevelmeter.html"
 
-#: kwave/main.cpp:77
+#: kwave/main.cpp:76
 #, kde-format
 msgid "Joerg-Christian Boehme"
 msgstr "Joerg-Christian Boehme"
 
-#: kwave/main.cpp:78
+#: kwave/main.cpp:77
 #, kde-format
 msgid "PulseAudio record plugin"
 msgstr "PulseAudio registra kromaĵo"
 
-#: kwave/main.cpp:84
+#: kwave/main.cpp:83
 #, kde-format
 msgid "Stefan Westerfeld"
 msgstr "Stefan Westerfeld"
 
-#: kwave/main.cpp:85
+#: kwave/main.cpp:84
 #, kde-format
 msgid "Author of aRts"
 msgstr "Aŭtoro de aRts"
 
-#: kwave/main.cpp:89
+#: kwave/main.cpp:88
 #, kde-format
 msgid "Sven-Steffen Arndt"
 msgstr "Sven-Steffen Arndt"
 
-#: kwave/main.cpp:90
+#: kwave/main.cpp:89
 #, kde-format
 msgid "Kwave homepage and German online help"
 msgstr "Kwave-hejmpaĝo kaj germana interreta helpo"
 
-#: kwave/main.cpp:94
+#: kwave/main.cpp:93
 #, kde-format
 msgid "Aurelien Jarno"
 msgstr "Aurelien Jarno"
 
-#: kwave/main.cpp:95
+#: kwave/main.cpp:94
 #, kde-format
 msgid "Debian packager"
 msgstr "Debian-pakisto"
 
-#: kwave/main.cpp:99
+#: kwave/main.cpp:98
 #, kde-format
 msgid "Robert M. Stockmann"
 msgstr "Robert M. Stockmann"
 
-#: kwave/main.cpp:100
+#: kwave/main.cpp:99
 #, kde-format
 msgid "Packaging for Mandrake / X86_64"
 msgstr "Pakado por Mandrake / X86_64"
 
-#: kwave/main.cpp:104
+#: kwave/main.cpp:103
 #, kde-format
 msgid "Martin Kuball"
 msgstr "Martin Kuball"
 
-#: kwave/main.cpp:105
+#: kwave/main.cpp:104
 #, kde-format
 msgid "Tester"
 msgstr "Testilo"
 
-#: kwave/main.cpp:109
+#: kwave/main.cpp:108
 #, kde-format
 msgid "Robert Leslie"
 msgstr "Robert Leslie"
 
-#: kwave/main.cpp:110
+#: kwave/main.cpp:109
 #, kde-format
 msgid "Author of the 'mad' MP3 decoder library"
 msgstr "Aŭtoro de la 'freneza' MP3-malĉifrilo-biblioteko"
 
-#: kwave/main.cpp:112
+#: kwave/main.cpp:111
 #, kde-format
 msgid "http://www.mars.org/home/rob/proj/mpeg"
 msgstr "http://www.mars.org/home/rob/proj/mpeg"
 
-#: kwave/main.cpp:114
+#: kwave/main.cpp:113
 #, kde-format
 msgid "T.H.F. Klok and Cedric Tefft"
 msgstr "T.H.F. Klok kaj Cedric Tefft"
 
-#: kwave/main.cpp:115
+#: kwave/main.cpp:114
 #, kde-format
 msgid "Maintainers of the 'id3lib' library"
 msgstr "Prizorgantoj de la biblioteko 'id3lib'"
 
-#: kwave/main.cpp:117
+#: kwave/main.cpp:116
 #, kde-format
 msgid "http://www.id3lib.org/"
 msgstr "http://www.id3lib.org/"
 
-#: kwave/main.cpp:119
+#: kwave/main.cpp:118
 #, kde-format
 msgid "Michael Pruett"
 msgstr "Michael Pruett"
 
-#: kwave/main.cpp:120
+#: kwave/main.cpp:119
 #, kde-format
 msgid "Author of the 'audiofile' library"
 msgstr "Aŭtoro de la biblioteko 'sondosiero'"
 
-#: kwave/main.cpp:122
+#: kwave/main.cpp:121
 #, kde-format
 msgid "http://www.68k.org/~michael/audiofile/"
 msgstr "http://www.68k.org/~michael/audiofile/"
 
-#: kwave/main.cpp:124
+#: kwave/main.cpp:123
 #, kde-format
 msgid "Carlos R."
 msgstr "Karlo R."
 
-#: kwave/main.cpp:125
+#: kwave/main.cpp:124
 #, kde-format
 msgid "Spanish translation"
 msgstr "Hispana traduko"
 
-#: kwave/main.cpp:129
+#: kwave/main.cpp:128
 #, kde-format
 msgid "Erik de Castro Lopo"
 msgstr "Erik de Castro Lopo"
 
-#: kwave/main.cpp:130
+#: kwave/main.cpp:129
 #, kde-format
 msgid "Author of the 'sndfile' library"
 msgstr "Aŭtoro de la biblioteko 'sndfile'"
 
-#: kwave/main.cpp:132
+#: kwave/main.cpp:131
 #, kde-format
 msgid "http://www.mega-nerd.com/libsndfile/"
 msgstr "http://www.mega-nerd.com/libsndfile/"
 
-#: kwave/main.cpp:134
+#: kwave/main.cpp:133
 #, kde-format
 msgid "Pavel Fric"
 msgstr "Pavel Fric"
 
-#: kwave/main.cpp:135
+#: kwave/main.cpp:134
 #, kde-format
 msgid "Czech translation"
 msgstr "Ĉeĥa traduko"
 
-#: kwave/main.cpp:137
+#: kwave/main.cpp:136
 #, kde-format
 msgid "http://fripohled.blogspot.com"
 msgstr "http://fripohled.blogspot.com"
 
-#: kwave/main.cpp:139
+#: kwave/main.cpp:138
 #, kde-format
 msgid "Panagiotis Papadopoulos"
 msgstr "Panagiotis Papadopoulos"
 
-#: kwave/main.cpp:140
+#: kwave/main.cpp:139
 #, kde-format
 msgid "String and i18n updates"
 msgstr "Signoĉenaj kaj i18n-ĝisdatigoj"
 
-#: kwave/main.cpp:166
+#: kwave/main.cpp:163
 #, kde-format
 msgid "Disable the Splash Screen."
 msgstr "Malebligi la Salutŝildon."
 
-#: kwave/main.cpp:170
+#: kwave/main.cpp:167
 #, kde-format
 msgid "Start Kwave iconified."
 msgstr "Komenci Kwave piktogramigite."
 
-#: kwave/main.cpp:175
+#: kwave/main.cpp:172
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Log all commands into a file <file>."
 msgstr "Protokoli ĉiujn komandojn en dosiero <file>."
 
-#: kwave/main.cpp:176
+#: kwave/main.cpp:173
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "file"
 msgstr "dosiero"
 
-#: kwave/main.cpp:181
+#: kwave/main.cpp:178
 #, kde-format
 msgctxt "description of command line parameter"
 msgid "Select a GUI type: SDI, MDI or TAB mode."
 msgstr "Elektu GUI-tipon: SDI, MDI aŭ TAB-reĝimo."
 
-#: kwave/main.cpp:182
+#: kwave/main.cpp:179
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "sdi|mdi|tab"
 msgstr "sdi|mdi|tab"
 
-#: kwave/main.cpp:187
+#: kwave/main.cpp:184
 #, kde-format
 msgctxt "description of command line parameter"
 msgid ""
@@ -402,23 +402,23 @@ msgstr ""
 "Listo de sondosieroj, Kwave makrodosieroj aŭ Kwave-URL-oj por malfermi "
 "(laŭvole)"
 
-#: kwave/main.cpp:189
+#: kwave/main.cpp:186
 #, kde-format
 msgctxt "placeholder of command line parameter"
 msgid "[files...]"
 msgstr "[dosieroj...]"
 
-#: kwave/main.cpp:194
+#: kwave/main.cpp:191
 #, kde-format
 msgid "Kwave"
 msgstr "Kwave"
 
-#: kwave/main.cpp:196
+#: kwave/main.cpp:193
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
 msgstr "Sonredaktilo konstruita sur KDE Frameworks 5"
 
-#: kwave/main.cpp:198
+#: kwave/main.cpp:195
 #, kde-format
 msgid "(c) 2016, Thomas Eschenbacher"
 msgstr "(c) 2016, Thomas Eschenbacher"
@@ -1361,79 +1361,79 @@ msgstr "%1 sek"
 msgid "%1 min"
 msgstr "%1 min"
 
-#: libgui/CurveWidget.cpp:83
+#: libgui/CurveWidget.cpp:80
 #, kde-format
 msgid "Interpolation"
 msgstr "Interpolado"
 
-#: libgui/CurveWidget.cpp:88
+#: libgui/CurveWidget.cpp:85
 #, kde-format
 msgid "Transform"
 msgstr "Transformi"
 
-#: libgui/CurveWidget.cpp:91
+#: libgui/CurveWidget.cpp:88
 #, kde-format
 msgid "Flip horizontal"
 msgstr "Renversi horizontale"
 
-#: libgui/CurveWidget.cpp:93
+#: libgui/CurveWidget.cpp:90
 #, kde-format
 msgid "Flip vertical"
 msgstr "Renversi vertikale"
 
-#: libgui/CurveWidget.cpp:96
+#: libgui/CurveWidget.cpp:93
 #, kde-format
 msgid "Into first half"
 msgstr "En la unuan duonon"
 
-#: libgui/CurveWidget.cpp:98
+#: libgui/CurveWidget.cpp:95
 #, kde-format
 msgid "Into second half"
 msgstr "En la duan duonon"
 
-#: libgui/CurveWidget.cpp:101 libkwave/SignalManager.cpp:703
+#: libgui/CurveWidget.cpp:98 libkwave/SignalManager.cpp:703
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
 msgstr "Forigi"
 
-#: libgui/CurveWidget.cpp:105
+#: libgui/CurveWidget.cpp:102
 #, kde-format
 msgid "Fit In"
 msgstr "Fit In"
 
-#: libgui/CurveWidget.cpp:109
+#: libgui/CurveWidget.cpp:106
 #, kde-format
 msgid "Presets"
 msgstr "Antaŭagordoj"
 
-#: libgui/CurveWidget.cpp:118
+#: libgui/CurveWidget.cpp:115
 #, kde-format
 msgid "Save Preset"
 msgstr "Konservi Antaŭgordon"
 
-#: libgui/CurveWidget.cpp:123
+#: libgui/CurveWidget.cpp:120
 #, kde-format
 msgid "Currently Selected Point"
 msgstr "Aktuale Elektitan Punkton"
 
-#: libgui/CurveWidget.cpp:127
+#: libgui/CurveWidget.cpp:124
 #, kde-format
 msgid "Every Second Point"
 msgstr "Ĉiun Duan Punkton"
 
-#: libgui/CurveWidget.cpp:202
+#: libgui/CurveWidget.cpp:199
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
 msgstr "Kwave-kurba antaŭdifino (*.curve)"
 
-#: libgui/CurveWidget.cpp:205
+#: libgui/CurveWidget.cpp:202
 #, kde-format
 msgid "Save Curve Preset"
 msgstr "Konservi Kurban Antaŭmeton"
 
-#: libgui/FilterPlugin.cpp:241
+#: libgui/FilterPlugin.cpp:240
 #, kde-format
 msgid "Applying '%1'..."
 msgstr "Aplikante '%1'..."
@@ -1459,39 +1459,39 @@ msgstr " min"
 msgid " sec"
 msgstr " sek"
 
-#: libgui/LabelItem.cpp:75
+#: libgui/LabelItem.cpp:74
 #, kde-format
 msgctxt "tooltip of a label, %1=index, %2=description/name"
 msgid "Label #%1 (%2)"
 msgstr "Etikedo #%1 (%2)"
 
-#: libgui/LabelItem.cpp:77
+#: libgui/LabelItem.cpp:76
 #, kde-format
 msgctxt "tooltip of a label, without description, %1=index"
 msgid "Label #%1"
 msgstr "Etikedo #%1"
 
-#: libgui/LabelItem.cpp:94 libgui/TrackView.cpp:274
+#: libgui/LabelItem.cpp:93 libgui/TrackView.cpp:272
 #, kde-format
 msgid "Label"
 msgstr "Etikedo"
 
-#: libgui/LabelItem.cpp:105 libgui/TrackView.cpp:281
+#: libgui/LabelItem.cpp:104 libgui/TrackView.cpp:279
 #, kde-format
 msgid "New"
 msgstr "Nova"
 
-#: libgui/LabelItem.cpp:113
+#: libgui/LabelItem.cpp:112
 #, kde-format
 msgid "&Delete"
 msgstr "&Forigi"
 
-#: libgui/LabelItem.cpp:119
+#: libgui/LabelItem.cpp:118
 #, kde-format
 msgid "&Properties..."
 msgstr "&Proprecoj..."
 
-#: libgui/LabelItem.cpp:159
+#: libgui/LabelItem.cpp:158
 #, kde-format
 msgid "Move Label"
 msgstr "Movi Etikedon"
@@ -1571,17 +1571,17 @@ msgstr ""
 "signifas 'dekstra'. Vi ne povas ŝanĝi la indekson mem, sed ŝanĝi la pozicion "
 "de la etikedo."
 
-#: libgui/SelectionBorderItem.cpp:66
+#: libgui/SelectionBorderItem.cpp:65
 #, kde-format
 msgid "Selection, left border"
 msgstr "Elekto, maldekstra bordo"
 
-#: libgui/SelectionBorderItem.cpp:69
+#: libgui/SelectionBorderItem.cpp:68
 #, kde-format
 msgid "Selection, right border"
 msgstr "Elekto, dekstra bordo"
 
-#: libgui/SelectionItem.cpp:88 libgui/SignalView.cpp:590
+#: libgui/SelectionItem.cpp:87 libgui/SignalView.cpp:587
 #, kde-format
 msgid "Drag and Drop"
 msgstr "Treni kaj Faligi"
@@ -1687,52 +1687,52 @@ msgstr "100%"
 msgid "sets the selection by the percentage of the whole signal"
 msgstr "fiksas la elekton per la procento de la tuta signalo"
 
-#: libgui/SignalWidget.cpp:200
+#: libgui/SignalWidget.cpp:196
 #, kde-format
 msgid "&Undo"
 msgstr "&Malfari"
 
-#: libgui/SignalWidget.cpp:212
+#: libgui/SignalWidget.cpp:208
 #, kde-format
 msgid "&Redo"
 msgstr "&Refari"
 
-#: libgui/SignalWidget.cpp:225
+#: libgui/SignalWidget.cpp:221
 #, kde-format
 msgid "Cu&t"
 msgstr "&Tondi"
 
-#: libgui/SignalWidget.cpp:231
+#: libgui/SignalWidget.cpp:227
 #, kde-format
 msgid "&Copy"
 msgstr "&Kopii"
 
-#: libgui/SignalWidget.cpp:237
+#: libgui/SignalWidget.cpp:233
 #, kde-format
 msgid "&Paste"
 msgstr "&Alglui"
 
-#: libgui/SignalWidget.cpp:255 libkwave/undo/UndoSelection.cpp:51
+#: libgui/SignalWidget.cpp:251 libkwave/undo/UndoSelection.cpp:51
 #, kde-format
 msgid "Selection"
 msgstr "Elekto"
 
-#: libgui/SignalWidget.cpp:262
+#: libgui/SignalWidget.cpp:258
 #, kde-format
 msgid "&Save..."
 msgstr "Kon&servi..."
 
-#: libgui/SignalWidget.cpp:269
+#: libgui/SignalWidget.cpp:265
 #, kde-format
 msgid "&Expand to Labels"
 msgstr "Vastigi al &Etikedoj"
 
-#: libgui/SignalWidget.cpp:279
+#: libgui/SignalWidget.cpp:275
 #, kde-format
 msgid "To Next Labels"
 msgstr "Al Sekvaj Etikedoj"
 
-#: libgui/SignalWidget.cpp:289
+#: libgui/SignalWidget.cpp:285
 #, kde-format
 msgid "To Previous Labels"
 msgstr "Al Antaŭaj Etikedoj"
@@ -3349,17 +3349,17 @@ msgstr "Qt Plurmedia Aŭdio"
 msgid "Running plugin '%1'..."
 msgstr "Rulante kromprogramon '%1'..."
 
-#: libkwave/PluginManager.cpp:190
+#: libkwave/PluginManager.cpp:191
 #, kde-format
 msgid "The plugin '%1' is unknown or invalid."
 msgstr "La kromaĵo '%1' estas nekonata aŭ nevalida."
 
-#: libkwave/PluginManager.cpp:191
+#: libkwave/PluginManager.cpp:192
 #, kde-format
 msgid "Error On Loading Plugin"
 msgstr "Eraro dum Ŝargo de Kromaĵo"
 
-#: libkwave/PluginManager.cpp:670
+#: libkwave/PluginManager.cpp:673
 #, kde-format
 msgid "Loading plugin %1..."
 msgstr "Ŝargante kromaĵon %1..."

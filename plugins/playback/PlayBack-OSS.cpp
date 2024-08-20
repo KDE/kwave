@@ -98,7 +98,7 @@ Kwave::PlayBackOSS::PlayBackOSS()
     m_raw_buffer(),
     m_buffer_size(0),
     m_buffer_used(0),
-    m_encoder(Q_NULLPTR),
+    m_encoder(nullptr),
     m_oss_version(-1)
 {
 }
@@ -318,7 +318,7 @@ int Kwave::PlayBackOSS::close()
 
     // get rid of the old encoder
     if (m_encoder) delete m_encoder;
-    m_encoder = Q_NULLPTR;
+    m_encoder = nullptr;
 
     return 0;
 }

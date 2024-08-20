@@ -68,7 +68,7 @@ bool Kwave::UndoInsertTrack::store(Kwave::SignalManager &)
 Kwave::UndoAction *Kwave::UndoInsertTrack::undo(
     Kwave::SignalManager &manager, bool with_redo)
 {
-    Kwave::UndoAction *redo = Q_NULLPTR;
+    Kwave::UndoAction *redo = nullptr;
 
     // store data for redo
     if (with_redo) {

@@ -122,7 +122,7 @@ QString Kwave::Functions::name(unsigned int index)
 Kwave::Functions::periodic_function_t &Kwave::Functions::function(
     unsigned int index) const
 {
-    Kwave::Functions::periodic_function_t *f = Q_NULLPTR;
+    Kwave::Functions::periodic_function_t *f = nullptr;
 
     Q_ASSERT(index < m_functions_map.count());
     if (index < m_functions_map.count()) f = m_functions_map.data(index);

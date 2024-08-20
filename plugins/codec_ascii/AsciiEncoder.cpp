@@ -169,7 +169,7 @@ bool Kwave::AsciiEncoder::encode(QWidget *widget,
     // end of file
     m_dst << "# EOF " << Qt::endl << Qt::endl;
 
-    m_dst.setDevice(Q_NULLPTR);
+    m_dst.setDevice(nullptr);
     dst.close();
 
     return result;

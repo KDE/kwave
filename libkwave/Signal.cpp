@@ -47,7 +47,7 @@ Kwave::Signal::Signal(unsigned int tracks, sample_index_t length)
     :m_tracks(), m_lock_tracks()
 {
     while (tracks--) {
-        appendTrack(length, Q_NULLPTR);
+        appendTrack(length, nullptr);
     }
 }
 
@@ -70,13 +70,13 @@ Kwave::Track *Kwave::Signal::insertTrack(unsigned int index,
                                          sample_index_t length,
                                          QUuid *uuid)
 {
-    Kwave::Track *t = Q_NULLPTR;
+    Kwave::Track *t = nullptr;
     {
         QWriteLocker lock(&m_lock_tracks);
 
         t = new(std::nothrow) Kwave::Track(length, uuid);
         Q_ASSERT(t);
-        if (!t) return Q_NULLPTR;
+        if (!t) return nullptr;
 
         // clip the track index
         if (Kwave::toInt(index) > m_tracks.count())
@@ -119,7 +119,7 @@ Kwave::Track *Kwave::Signal::appendTrack(sample_index_t length, QUuid *uuid)
 void Kwave::Signal::deleteTrack(unsigned int index)
 {
     // remove the track from the list but do not delete it
-    Kwave::Track *t = Q_NULLPTR;
+    Kwave::Track *t = nullptr;
     {
         QWriteLocker lock(&m_lock_tracks);
         if (Kwave::toInt(index) > m_tracks.count())
@@ -147,12 +147,12 @@ Kwave::Writer *Kwave::Signal::openWriter(Kwave::InsertMode mode,
 
     Q_ASSERT(Kwave::toInt(track) < m_tracks.count());
     if (Kwave::toInt(track) >= m_tracks.count()) {
-        return Q_NULLPTR; // track does not exist !
+        return nullptr; // track does not exist !
     }
 
     Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
-    return (t) ? t->openWriter(mode, left, right) : Q_NULLPTR;
+    return (t) ? t->openWriter(mode, left, right) : nullptr;
 }
 
 //***************************************************************************
@@ -164,11 +164,11 @@ Kwave::SampleReader *Kwave::Signal::openReader(Kwave::ReaderMode mode,
     QReadLocker lock(&m_lock_tracks);
 
     if (Kwave::toInt(track) >= m_tracks.count())
-        return Q_NULLPTR; // track does not exist !
+        return nullptr; // track does not exist !
 
     Kwave::Track *t = m_tracks.at(track);
     Q_ASSERT(t);
-    return (t) ? t->openReader(mode, left, right) : Q_NULLPTR;
+    return (t) ? t->openReader(mode, left, right) : nullptr;
 }
 
 //***************************************************************************

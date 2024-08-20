@@ -48,7 +48,7 @@ void _dummy_SIGHUP_handler(int)
 
 //***************************************************************************
 Kwave::WorkerThread::WorkerThread(Kwave::Runnable *runnable, QVariant params)
-    :QThread(Q_NULLPTR),
+    :QThread(nullptr),
      m_runnable(runnable),
      m_params(params),
      m_lock(), m_lock_sighup(),

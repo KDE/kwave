@@ -182,7 +182,7 @@ int Kwave::RecordOSS::read(QByteArray &buffer, unsigned int offset)
 
         tv.tv_sec  = timeout;
         tv.tv_usec = 0;
-        retval = select(m_fd+1, &rfds, Q_NULLPTR, Q_NULLPTR, &tv);
+        retval = select(m_fd+1, &rfds, nullptr, nullptr, &tv);
 
         if (retval == -1) {
             if (errno == EINTR)

@@ -100,14 +100,14 @@ Kwave::MainWidget::MainWidget(QWidget *parent, Kwave::FileContext &context,
      Kwave::CommandHandler(),
      Kwave::Zoomable(),
      m_context(context), m_upper_dock(), m_lower_dock(),
-     m_scroll_area(this), m_horizontal_scrollbar(Q_NULLPTR),
+     m_scroll_area(this), m_horizontal_scrollbar(nullptr),
      m_signal_widget(
          &m_scroll_area,
          context.signalManager(),
          &m_upper_dock,
          &m_lower_dock
      ),
-     m_overview(Q_NULLPTR), m_offset(0), m_zoom(1.0),
+     m_overview(nullptr), m_offset(0), m_zoom(1.0),
      m_preferred_size(preferred_size),
      m_delayed_update_timer(this)
 {
@@ -233,7 +233,7 @@ Kwave::MainWidget::~MainWidget()
 {
     Kwave::PluginManager *plugin_manager = m_context.pluginManager();
     Q_ASSERT(plugin_manager);
-    if (plugin_manager) plugin_manager->registerViewManager(Q_NULLPTR);
+    if (plugin_manager) plugin_manager->registerViewManager(nullptr);
 }
 
 //***************************************************************************

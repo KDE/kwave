@@ -121,7 +121,7 @@ void Kwave::DebugPlugin::load(QStringList &params)
 //***************************************************************************
 QStringList *Kwave::DebugPlugin::setup(QStringList &params)
 {
-    if (params.count() < 1) return Q_NULLPTR;
+    if (params.count() < 1) return nullptr;
 
     QString command = params.first();
     QString action = i18n("Debug (%1)", command);
@@ -133,12 +133,12 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
     if (command == _("dump_windows")) {
         dump_children(parentWidget(), _(""));
     } else if (command == _("window:click")) {
-        if (params.count() != 4) return Q_NULLPTR;
+        if (params.count() != 4) return nullptr;
         QString    class_name = params[1];
         QWidget   *widget     = findWidget(class_name.toUtf8().constData());
         unsigned int x        = params[2].toUInt();
         unsigned int y        = params[3].toUInt();
-        if (!widget) return Q_NULLPTR;
+        if (!widget) return nullptr;
 
         QMouseEvent *press_event = new(std::nothrow)
             QMouseEvent(QEvent::MouseButtonPress,
@@ -156,21 +156,21 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
             );
         QCoreApplication::postEvent(widget, release_event);
     } else if (command == _("window:close")) {
-        if (params.count() != 2) return Q_NULLPTR;
+        if (params.count() != 2) return nullptr;
         QString    class_name = params[1];
         QWidget   *widget     = findWidget(class_name.toUtf8().constData());
 
         qDebug("close window '%s' [%p]",
             DBG(class_name), static_cast<void *>(widget));
-        if (!widget) return Q_NULLPTR;
+        if (!widget) return nullptr;
         widget->close();
     } else if (command == _("window:mousemove")) {
-        if (params.count() != 4) return Q_NULLPTR;
+        if (params.count() != 4) return nullptr;
         QString    class_name = params[1];
         QWidget   *widget     = findWidget(class_name.toUtf8().constData());
         unsigned int x        = params[2].toUInt();
         unsigned int y        = params[3].toUInt();
-        if (!widget) return Q_NULLPTR;
+        if (!widget) return nullptr;
 
         QMouseEvent *move_event = new(std::nothrow)
             QMouseEvent(QEvent::MouseMove,
@@ -180,18 +180,18 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
             );
         QCoreApplication::postEvent(widget, move_event);
     } else if (command == _("window:resize")) {
-        if (params.count() != 4) return Q_NULLPTR;
+        if (params.count() != 4) return nullptr;
         QString    class_name = params[1];
         QWidget   *widget     = findWidget(class_name.toUtf8().constData());
         unsigned int width    = params[2].toUInt();
         unsigned int height   = params[3].toUInt();
-        if (!widget) return Q_NULLPTR;
+        if (!widget) return nullptr;
         widget->resize(width, height);
     } else if (command == _("window:screenshot")) {
-        if (params.count() != 3) return Q_NULLPTR;
+        if (params.count() != 3) return nullptr;
         screenshot(params[1].toUtf8(), params[2]);
     } else if (command == _("window:sendkey")) {
-        if (params.count() != 3) return Q_NULLPTR;
+        if (params.count() != 3) return nullptr;
         QString    class_name = params[1];
         QString    key_name   = params[2];
         QWidget   *widget     = findWidget(class_name.toUtf8().constData());
@@ -202,7 +202,7 @@ QStringList *Kwave::DebugPlugin::setup(QStringList &params)
         qDebug("send key '%s' [0x%08X:0x%08X] to '%s' [%p]",
                DBG(key_name), static_cast<int>(key_modifiers), key_code,
                DBG(class_name), static_cast<void *>(widget));
-        if (!widget) return Q_NULLPTR;
+        if (!widget) return nullptr;
 
         // make sure that the widget gets the focus
         widget->activateWindow();
@@ -321,7 +321,7 @@ void Kwave::DebugPlugin::run(QStringList params)
         return;
     }
 
-    Kwave::MultiTrackWriter *writers = Q_NULLPTR;
+    Kwave::MultiTrackWriter *writers = nullptr;
 
     if (make_new_track) {
         // append a new track
@@ -428,7 +428,7 @@ void Kwave::DebugPlugin::dump_children(const QObject *obj,
 QWidget *Kwave::DebugPlugin::findWidget(const char *class_name) const
 {
     QObject *obj = findObject(parentWidget(), class_name);
-    if (!obj) return Q_NULLPTR;
+    if (!obj) return nullptr;
     return qobject_cast<QWidget *>(obj);
 }
 
@@ -436,7 +436,7 @@ QWidget *Kwave::DebugPlugin::findWidget(const char *class_name) const
 QObject *Kwave::DebugPlugin::findObject(QObject *obj,
                                         const char *class_name) const
 {
-    if (!obj) return Q_NULLPTR;
+    if (!obj) return nullptr;
     const char *obj_class_name = obj->metaObject()->className();
     if (strcmp(class_name, obj_class_name) == 0)
         return obj;
@@ -446,7 +446,7 @@ QObject *Kwave::DebugPlugin::findObject(QObject *obj,
         if (result) return result; // first match -> found
     }
 
-    return Q_NULLPTR; // nothing found
+    return nullptr; // nothing found
 }
 
 //***************************************************************************

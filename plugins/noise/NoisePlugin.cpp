@@ -85,7 +85,7 @@ Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
     sample_index_t length = selection(&tracks, &first, &last, true);
     Kwave::OverViewCache *overview_cache =
         new(std::nothrow) Kwave::OverViewCache(mgr, first, length,
-            tracks.isEmpty() ? Q_NULLPTR : &tracks);
+            tracks.isEmpty() ? nullptr : &tracks);
     Q_ASSERT(overview_cache);
 
     // create the setup dialog
@@ -93,7 +93,7 @@ Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
         new(std::nothrow) Kwave::NoiseDialog(parentWidget(), overview_cache);
     if (!dialog) {
         if (overview_cache) delete overview_cache;
-        return Q_NULLPTR;
+        return nullptr;
     }
 
     // connect the signals for detecting value changes in pre-listen mode

@@ -62,7 +62,7 @@ QStringList *Kwave::MP3CodecPlugin::setup(QStringList &previous_params)
     QPointer<MP3EncoderDialog> dialog =
         new(std::nothrow) MP3EncoderDialog(parentWidget());
     Q_ASSERT(dialog);
-    if (!dialog) return Q_NULLPTR;
+    if (!dialog) return nullptr;
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
@@ -72,7 +72,7 @@ QStringList *Kwave::MP3CodecPlugin::setup(QStringList &previous_params)
     } else {
         // user pressed "Cancel"
         if (list) delete list;
-        list = Q_NULLPTR;
+        list = nullptr;
     }
 
     if (dialog) delete dialog;

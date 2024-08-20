@@ -37,11 +37,11 @@
 #include "Splash.h"
 
 // static pointer to the current instance
-QPointer<Kwave::Splash> Kwave::Splash::m_splash = Q_NULLPTR;
+QPointer<Kwave::Splash> Kwave::Splash::m_splash = nullptr;
 
 //***************************************************************************
 Kwave::Splash::Splash(const QString &PNGFile)
-    :QFrame(Q_NULLPTR, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
+    :QFrame(nullptr, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
      m_font(),
      m_pixmap(QStandardPaths::locate(QStandardPaths::AppDataLocation, PNGFile)),
      m_message(_("   "))
@@ -108,14 +108,14 @@ void Kwave::Splash::done()
     // check: start() must be called from the GUI thread only!
     Q_ASSERT(this->thread() == QThread::currentThread());
     Q_ASSERT(this->thread() == qApp->thread());
-    m_splash = Q_NULLPTR;
+    m_splash = nullptr;
     hide();
 }
 
 //***************************************************************************
 Kwave::Splash::~Splash()
 {
-    m_splash = Q_NULLPTR;
+    m_splash = nullptr;
 }
 
 //***************************************************************************
@@ -132,7 +132,7 @@ void Kwave::Splash::paintEvent(QPaintEvent *)
 {
     // special handling: a null message tells us to hide
     if (!m_message.length()) {
-        m_splash = Q_NULLPTR;
+        m_splash = nullptr;
         hide();
         return;
     }

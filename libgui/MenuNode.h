@@ -77,7 +77,7 @@ namespace Kwave
         inline const QString &command() const { return m_command; }
 
         /** Returns the corresponding menu action */
-        virtual QAction *action() { return Q_NULLPTR; }
+        virtual QAction *action() { return nullptr; }
 
         /**
          * Returns the unique id string of the node.

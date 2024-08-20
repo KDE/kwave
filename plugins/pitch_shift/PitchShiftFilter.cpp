@@ -32,7 +32,7 @@
 
 //***************************************************************************
 Kwave::PitchShiftFilter::PitchShiftFilter()
-    :Kwave::SampleSource(Q_NULLPTR), m_buffer(blockSize()),
+    :Kwave::SampleSource(nullptr), m_buffer(blockSize()),
      m_speed(1.0), m_frequency(0.5), m_dbuffer(),
      m_lfopos(0), m_b1pos(0), m_b2pos(0), m_b1inc(0), m_b2inc(0),
      m_b1reset(false), m_b2reset(false), m_dbpos(0)

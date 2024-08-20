@@ -217,7 +217,7 @@ void Kwave::AboutContributor::updateLayout()
     if (!m_text[2] || !m_text[2]->text().isEmpty()) { ++row; }
     if (!m_text[3] || !m_text[3]->text().isEmpty()) { ++row; }
 
-    QGridLayout *gbox = Q_NULLPTR;
+    QGridLayout *gbox = nullptr;
     if (row == 0) {
         gbox = new(std::nothrow) QGridLayout(this);
         Q_ASSERT(gbox);

@@ -291,7 +291,7 @@ void Kwave::SignalWidget::contextMenuEvent(QContextMenuEvent *e)
     action_select_prev_labels->setEnabled(have_labels);
 
     // find out whether there was a click within a signal view
-    QSharedPointer<Kwave::ViewItem> item(Q_NULLPTR);
+    QSharedPointer<Kwave::ViewItem> item(nullptr);
     foreach (QPointer<Kwave::SignalView> view, m_views) {
         // map the rect of the view to our coordinate system
         const QRect view_rect = QRect(
@@ -596,7 +596,7 @@ void Kwave::SignalWidget::slotTrackInserted(unsigned int index,
     if (!track) return;
 
     // create a container widget for the track controls
-    QWidget *controls = new(std::nothrow) QWidget(Q_NULLPTR);
+    QWidget *controls = new(std::nothrow) QWidget(nullptr);
     Q_ASSERT(controls);
     if (!controls) return;
 
@@ -678,7 +678,7 @@ void Kwave::SignalWidget::updateMinimumHeight()
         int h = 0;
         for (int col = 0; col < cols; col++) {
             QLayoutItem *item = m_layout.itemAtPosition(row, col);
-            QWidget *widget = (item) ? item->widget() : Q_NULLPTR;
+            QWidget *widget = (item) ? item->widget() : nullptr;
             if (widget) {
                 int min_height = widget->minimumSize().height();
                 if (min_height > h) h = min_height;

@@ -53,9 +53,9 @@ void Kwave::Mul::multiply()
     unsigned int count = blockSize();
     float a = 0;
     float b = 0;
-    const sample_t *p_a = Q_NULLPTR;
-    const sample_t *p_b = Q_NULLPTR;
-    sample_t       *p_x = Q_NULLPTR;
+    const sample_t *p_a = nullptr;
+    const sample_t *p_b = nullptr;
+    sample_t       *p_x = nullptr;
 
     // get input A
     if (!m_a_is_const) {

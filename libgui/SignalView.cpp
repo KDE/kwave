@@ -65,7 +65,7 @@ Kwave::SignalView::SignalView(QWidget *parent, QWidget *controls,
      m_position_widget(this),
      m_position_widget_timer(this),
      m_siblings(),
-     m_selected_item(Q_NULLPTR)
+     m_selected_item(nullptr)
 {
     // connect the timer of the position widget
     connect(&m_position_widget_timer, SIGNAL(timeout()),
@@ -215,7 +215,7 @@ bool Kwave::SignalView::isInSelection(int x)
 QSharedPointer<Kwave::ViewItem> Kwave::SignalView::findItem(const QPoint &pos)
 {
     Q_UNUSED(pos)
-    return QSharedPointer<Kwave::ViewItem>(Q_NULLPTR);
+    return QSharedPointer<Kwave::ViewItem>(nullptr);
 }
 
 //***************************************************************************
@@ -286,7 +286,7 @@ void Kwave::SignalView::showPosition(const QString &text, sample_index_t pos,
 //***************************************************************************
 void Kwave::SignalView::findNewItem(const QPoint &mouse_pos, bool active)
 {
-    m_selected_item = QSharedPointer<Kwave::ViewItem>(Q_NULLPTR);
+    m_selected_item = QSharedPointer<Kwave::ViewItem>(nullptr);
     if (!active) m_mouse_mode = MouseNormal;
 
     m_selected_item = findItem(mouse_pos);
@@ -531,7 +531,7 @@ void Kwave::SignalView::keyPressEvent(QKeyEvent *e)
         // Cancel key (Escape) -> reset all view item operations
         m_mouse_mode = MouseNormal;
         setCursor(Qt::ArrowCursor);
-        m_selected_item = QSharedPointer<Kwave::ViewItem>(Q_NULLPTR);
+        m_selected_item = QSharedPointer<Kwave::ViewItem>(nullptr);
     } else {
         QWidget::keyPressEvent(e);
     }
@@ -684,7 +684,7 @@ void Kwave::SignalView::dragMoveEvent(QDragMoveEvent *event)
 //***************************************************************************
 //***************************************************************************
 Kwave::SignalView::PositionWidget::PositionWidget(QWidget *parent)
-    :QWidget(parent), m_label(Q_NULLPTR), m_alignment(),
+    :QWidget(parent), m_label(nullptr), m_alignment(),
      m_radius(10), m_arrow_length(30), m_last_alignment(Qt::AlignHCenter),
      m_last_size(QSize(0,0)), m_polygon()
 {
@@ -711,7 +711,7 @@ Kwave::SignalView::PositionWidget::PositionWidget(QWidget *parent)
 Kwave::SignalView::PositionWidget::~PositionWidget()
 {
     if (m_label) delete m_label;
-    m_label = Q_NULLPTR;
+    m_label = nullptr;
 }
 
 //***************************************************************************

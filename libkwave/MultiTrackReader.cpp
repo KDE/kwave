@@ -24,7 +24,7 @@
 
 //***************************************************************************
 Kwave::MultiTrackReader::MultiTrackReader()
-:Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, Q_NULLPTR),
+:Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, nullptr),
      m_first(0), m_last(0)
 {
 }
@@ -36,7 +36,7 @@ Kwave::MultiTrackReader::MultiTrackReader(
     const QVector<unsigned int> &track_list,
     sample_index_t first,
     sample_index_t last)
-    :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, Q_NULLPTR),
+    :Kwave::MultiTrackSource<Kwave::SampleReader, false>(0, nullptr),
      m_first(first), m_last(last)
 {
     unsigned int index = 0;

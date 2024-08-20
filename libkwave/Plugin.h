@@ -225,9 +225,9 @@ namespace Kwave
          * @return the number of selected samples (right-left+1) [1..length]
          */
         virtual sample_index_t selection(
-            QVector<unsigned int> *tracks = Q_NULLPTR,
-            sample_index_t *left = Q_NULLPTR,
-            sample_index_t *right = Q_NULLPTR,
+            QVector<unsigned int> *tracks = nullptr,
+            sample_index_t *left = nullptr,
+            sample_index_t *right = nullptr,
             bool expand_if_empty = false);
 
         /**

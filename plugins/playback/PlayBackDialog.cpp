@@ -61,7 +61,7 @@ Kwave::PlayBackDialog::PlayBackDialog(
 )
     :QDialog(p.parentWidget()), PlayBackDlg(),
      m_playback_controller(playback_controller),
-     m_device(Q_NULLPTR),
+     m_device(nullptr),
      m_playback_params(params),
      m_methods_map(),
      m_file_filter(_("")),
@@ -159,7 +159,7 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
 
     // change the playback method (class PlayBackDevice)
     if (m_device) delete m_device;
-    m_device = Q_NULLPTR;
+    m_device = nullptr;
 
     // remember the device selection, just for the GUI
     // for the next time this method gets selected
@@ -300,12 +300,12 @@ void Kwave::PlayBackDialog::setSupportedDevices(QStringList devices)
 
         // build a tree with all nodes in the list
         foreach (const QString &dev_id, devices) {
-            QTreeWidgetItem *parent = Q_NULLPTR;
+            QTreeWidgetItem *parent = nullptr;
 
             QStringList list = dev_id.split(_("||"), Qt::KeepEmptyParts);
             foreach (const QString &t, list) {
                 QString token(t);
-                QTreeWidgetItem *item = Q_NULLPTR;
+                QTreeWidgetItem *item = nullptr;
 
                 // split the icon name from the token
                 QString icon_name;
@@ -441,7 +441,7 @@ void Kwave::PlayBackDialog::setDevice(const QString &device)
 
     if (listDevices->isEnabled()) {
         // treeview mode
-        QTreeWidgetItem *node = m_devices_list_map.key(device, Q_NULLPTR);
+        QTreeWidgetItem *node = m_devices_list_map.key(device, nullptr);
         if (node) {
             node->setSelected(true);
             listDevices->scrollToItem(node);

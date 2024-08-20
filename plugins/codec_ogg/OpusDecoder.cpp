@@ -59,9 +59,9 @@ Kwave::OpusDecoder::OpusDecoder(QIODevice *source,
                                 ogg_page &og,
                                 ogg_packet &op)
     :m_source(source), m_stream_start_pos(0), m_samples_written(0),
-     m_oy(oy), m_os(os), m_og(og), m_op(op), m_opus_decoder(Q_NULLPTR),
-     m_comments_map(), m_raw_buffer(Q_NULLPTR), m_buffer(Q_NULLPTR),
-     m_rate_converter(Q_NULLPTR),
+     m_oy(oy), m_os(os), m_og(og), m_op(op), m_opus_decoder(nullptr),
+     m_comments_map(), m_raw_buffer(nullptr), m_buffer(nullptr),
+     m_rate_converter(nullptr),
      m_output_is_connected(false),
      m_packet_count(0), m_samples_raw(0), m_bytes_count(0),
      m_packet_len_min(0), m_packet_len_max(0),
@@ -628,11 +628,11 @@ void Kwave::OpusDecoder::reset()
 {
     if (m_opus_decoder)
         opus_multistream_decoder_destroy(m_opus_decoder);
-    m_opus_decoder = Q_NULLPTR;
+    m_opus_decoder = nullptr;
 
     if (m_raw_buffer)
         free(m_raw_buffer);
-    m_raw_buffer = Q_NULLPTR;
+    m_raw_buffer = nullptr;
 
 }
 
@@ -651,10 +651,10 @@ void Kwave::OpusDecoder::close(Kwave::FileInfo &info)
     }
 
     if (m_buffer) delete m_buffer;
-    m_buffer = Q_NULLPTR;
+    m_buffer = nullptr;
 
     delete m_rate_converter;
-    m_rate_converter = Q_NULLPTR;
+    m_rate_converter = nullptr;
 
     m_output_is_connected = false;
 

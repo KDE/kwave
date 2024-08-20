@@ -39,7 +39,7 @@
 //***************************************************************************
 Kwave::FilterPlugin::FilterPlugin(QObject *parent, const QVariantList &args)
     :Kwave::Plugin(parent, args),
-     m_params(), m_listen(false), m_pause(false), m_sink(Q_NULLPTR)
+     m_params(), m_listen(false), m_pause(false), m_sink(nullptr)
 {
 }
 
@@ -48,7 +48,7 @@ Kwave::FilterPlugin::~FilterPlugin()
 {
     if (m_sink) {
         delete m_sink;
-        m_sink = Q_NULLPTR;
+        m_sink = nullptr;
     }
 }
 
@@ -62,7 +62,7 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
     // create the setup dialog
     Kwave::PluginSetupDialog *setup_dialog = createDialog(parentWidget());
     Q_ASSERT(setup_dialog);
-    if (!setup_dialog) return Q_NULLPTR;
+    if (!setup_dialog) return nullptr;
 
     // connect the signals for the pre-listen handling
     QDialog *dlg = setup_dialog->dialog();
@@ -83,7 +83,7 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
     } else {
         // user pressed "Cancel"
         if (list) delete list;
-        list = Q_NULLPTR;
+        list = nullptr;
     }
 
     if (setup_dialog) delete setup_dialog;
@@ -93,7 +93,7 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
 //***************************************************************************
 void Kwave::FilterPlugin::run(QStringList params)
 {
-    Kwave::UndoTransactionGuard *undo_guard = Q_NULLPTR;
+    Kwave::UndoTransactionGuard *undo_guard = nullptr;
     m_pause = false;
 
     if (!interpreteParameters(params)) m_params = params;
@@ -136,7 +136,7 @@ void Kwave::FilterPlugin::run(QStringList params)
         if (filter)     delete filter;
         if (undo_guard) delete undo_guard;
         if (m_sink)     delete m_sink;
-        m_sink = Q_NULLPTR;
+        m_sink = nullptr;
         Kwave::StreamObject::setInteractive(false);
         return;
     }
@@ -186,7 +186,7 @@ void Kwave::FilterPlugin::run(QStringList params)
     if (filter)     delete filter;
     if (!m_listen) {
         delete m_sink;
-        m_sink = Q_NULLPTR;
+        m_sink = nullptr;
     }
     if (undo_guard) delete undo_guard;
 
@@ -231,7 +231,7 @@ void Kwave::FilterPlugin::stopPreListen()
     m_listen = false;
     setProgressDialogEnabled(true);
     if (m_sink) delete m_sink;
-    m_sink = Q_NULLPTR;
+    m_sink = nullptr;
 }
 
 //***************************************************************************

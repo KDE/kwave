@@ -98,13 +98,13 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
      m_supported_resolutions(), m_buffer_progress_count(0),
      m_buffer_progress_total(0), m_buffer_progress_timer(this),
      m_record_enabled(true), m_samples_recorded(0),
-     m_enable_setDevice(true), m_state_icon_widget(Q_NULLPTR)
+     m_enable_setDevice(true), m_state_icon_widget(nullptr)
 {
-    m_status_bar.m_state           = Q_NULLPTR;
-    m_status_bar.m_time            = Q_NULLPTR;
-    m_status_bar.m_sample_rate     = Q_NULLPTR;
-    m_status_bar.m_bits_per_sample = Q_NULLPTR;
-    m_status_bar.m_tracks          = Q_NULLPTR;
+    m_status_bar.m_state           = nullptr;
+    m_status_bar.m_time            = nullptr;
+    m_status_bar.m_sample_rate     = nullptr;
+    m_status_bar.m_bits_per_sample = nullptr;
+    m_status_bar.m_tracks          = nullptr;
 
     setupUi(this);
 
@@ -411,11 +411,11 @@ void Kwave::RecordDialog::setSupportedDevices(QStringList devices)
 
         // build a tree with all nodes in the list
         foreach (QString dev_id, devices) {
-            QTreeWidgetItem *parent = Q_NULLPTR;
+            QTreeWidgetItem *parent = nullptr;
 
             QStringList list = dev_id.split(_("||"), Qt::KeepEmptyParts);
             foreach (QString token, list) {
-                QTreeWidgetItem *item = Q_NULLPTR;
+                QTreeWidgetItem *item = nullptr;
 
                 // split the icon name from the token
                 QString icon_name;
@@ -549,7 +549,7 @@ void Kwave::RecordDialog::setDevice(const QString &device)
 
     if (listDevices->isEnabled()) {
         // treeview mode
-        QTreeWidgetItem *node = m_devices_list_map.key(device, Q_NULLPTR);
+        QTreeWidgetItem *node = m_devices_list_map.key(device, nullptr);
         if (node) {
             node->setSelected(true);
             listDevices->scrollToItem(node);

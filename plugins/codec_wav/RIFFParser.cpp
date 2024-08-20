@@ -59,7 +59,7 @@ Kwave::RIFFParser::RIFFParser(QIODevice &device,
                               const QStringList &main_chunks,
                               const QStringList &known_subchunks)
     :m_dev(device),
-     m_root(Q_NULLPTR, "", "", toUint32(device.size()), 0,
+     m_root(nullptr, "", "", toUint32(device.size()), 0,
             toUint32(device.size())),
      m_main_chunk_names(main_chunks), m_sub_chunk_names(known_subchunks),
      m_endianness(Kwave::UnknownEndian), m_cancel(false)
@@ -253,11 +253,11 @@ Kwave::RIFFChunk *Kwave::RIFFParser::addChunk(
     Kwave::RIFFChunk *chunk = new Kwave::RIFFChunk(
         parent, name, format, length, phys_offset, phys_length);
     Q_ASSERT(chunk);
-    if (!chunk) return Q_NULLPTR;
+    if (!chunk) return nullptr;
     chunk->setType(type);
 
     // sort the chunk into the parent, order by physical start
-    Kwave::RIFFChunk *before = Q_NULLPTR;
+    Kwave::RIFFChunk *before = nullptr;
     Kwave::RIFFChunkList &chunks = parent->subChunks();
     foreach (Kwave::RIFFChunk *c, chunks) {
         if (!c) continue;
@@ -456,7 +456,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::findChunk(const QByteArray &path)
         }
     }
 
-    return Q_NULLPTR;
+    return nullptr;
 }
 
 //***************************************************************************
@@ -537,7 +537,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::chunkAt(quint32 offset)
     listAllChunks(m_root, list);
     foreach (Kwave::RIFFChunk *chunk, list)
         if (chunk && chunk->physStart() == offset) return chunk;
-        return Q_NULLPTR;
+        return nullptr;
 }
 
 //***************************************************************************
@@ -596,7 +596,7 @@ Kwave::RIFFChunk *Kwave::RIFFParser::findMissingChunk(const QByteArray &name)
         }
     }
 
-    return Q_NULLPTR;
+    return nullptr;
 }
 
 //***************************************************************************

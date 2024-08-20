@@ -38,8 +38,8 @@
 Kwave::FlacDecoder::FlacDecoder()
     :Kwave::Decoder(),
      FLAC::Decoder::Stream(),
-     m_source(Q_NULLPTR),
-     m_dest(Q_NULLPTR),
+     m_source(nullptr),
+     m_dest(nullptr),
      m_vorbis_comment_map()
 {
     REGISTER_MIME_TYPES
@@ -316,7 +316,7 @@ bool Kwave::FlacDecoder::decode(QWidget * /* widget */,
     qDebug("FlacDecoder::decode(...)");
     process_until_end_of_stream();
 
-    m_dest = Q_NULLPTR;
+    m_dest = nullptr;
     Kwave::FileInfo info(metaData());
     info.setLength(dst.last() ? (dst.last() + 1) : 0);
     metaData().replace(Kwave::MetaDataList(info));
@@ -329,7 +329,7 @@ bool Kwave::FlacDecoder::decode(QWidget * /* widget */,
 void Kwave::FlacDecoder::close()
 {
     finish();
-    m_source = Q_NULLPTR;
+    m_source = nullptr;
 }
 
 //***************************************************************************

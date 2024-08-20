@@ -217,7 +217,7 @@ int Kwave::MenuManager::executeCommand(const QString &command)
 void Kwave::MenuManager::clearNumberedMenu(const QString &uid)
 {
     Kwave::MenuNode *node = (m_menu_root) ?
-        m_menu_root->findUID(uid) : Q_NULLPTR;
+        m_menu_root->findUID(uid) : nullptr;
     if (node) node->clear();
 }
 
@@ -231,8 +231,8 @@ void Kwave::MenuManager::addNumberedMenuEntry(const QString &uid,
 
     Q_ASSERT(m_menu_root);
     Kwave::MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) :
-                                            Q_NULLPTR;
-    Kwave::MenuNode *parent = (node) ? node->parentNode() : Q_NULLPTR;
+                                            nullptr;
+    Kwave::MenuNode *parent = (node) ? node->parentNode() : nullptr;
     if (parent) {
         QString cmd = node->command();
         if (cmd.contains(_("%1"))) {
@@ -279,7 +279,7 @@ void Kwave::MenuManager::selectItem(const QString &group, const QString &uid)
 void Kwave::MenuManager::setItemChecked(const QString &uid, bool check)
 {
     Kwave::MenuNode *node = (m_menu_root) ?
-        m_menu_root->findUID(uid) : Q_NULLPTR;
+        m_menu_root->findUID(uid) : nullptr;
     if (node) node->setChecked(check);
 }
 
@@ -287,7 +287,7 @@ void Kwave::MenuManager::setItemChecked(const QString &uid, bool check)
 void Kwave::MenuManager::setItemText(const QString &uid, const QString &text)
 {
     Kwave::MenuNode *node = (m_menu_root) ?
-        m_menu_root->findUID(uid) : Q_NULLPTR;
+        m_menu_root->findUID(uid) : nullptr;
     if (node) node->setText(text);
 }
 
@@ -338,7 +338,7 @@ void Kwave::MenuManager::setItemEnabled(const QString &uid, bool enable)
 Kwave::MenuManager::~MenuManager()
 {
     delete m_menu_root;
-    m_menu_root = Q_NULLPTR;
+    m_menu_root = nullptr;
 }
 
 //***************************************************************************

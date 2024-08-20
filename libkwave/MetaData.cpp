@@ -35,7 +35,7 @@ const QString Kwave::MetaData::STDPROP_DESCRIPTION(_("STDPROP_DESCRIPTION"));
 
 //***************************************************************************
 Kwave::MetaData::MetaData()
-    :m_data(Q_NULLPTR)
+    :m_data(nullptr)
 {
 }
 
@@ -55,7 +55,7 @@ Kwave::MetaData::MetaData(Scope scope)
 //***************************************************************************
 Kwave::MetaData::~MetaData()
 {
-    m_data = Q_NULLPTR;
+    m_data = nullptr;
 }
 
 //***************************************************************************

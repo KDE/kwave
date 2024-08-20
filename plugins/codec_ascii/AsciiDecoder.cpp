@@ -47,7 +47,7 @@
 Kwave::AsciiDecoder::AsciiDecoder()
     :Kwave::Decoder(),
      m_source(),
-     m_dest(Q_NULLPTR),
+     m_dest(nullptr),
      m_queue_input(),
      m_line_nr(0)
 {
@@ -262,14 +262,14 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
     while (readNextLine() && !dst.isCanceled()) {
         QByteArray d  = m_queue_input.dequeue().toLatin1();
         char *line    = d.data();
-        char *saveptr = Q_NULLPTR;
+        char *saveptr = nullptr;
 
         frame.fill(0);
         for (unsigned int channel = 0; channel < channels; channel++) {
             sample_t  s = 0;
 
             char *token = strtok_r(line, separators, &saveptr);
-            line = Q_NULLPTR;
+            line = nullptr;
             if (token) {
                 // skip whitespace at the start
                 while (*token && isspace(*token)) ++token;
@@ -285,7 +285,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
         }
     }
 
-    m_dest = Q_NULLPTR;
+    m_dest = nullptr;
     info.setLength(dst.last() ? (dst.last() + 1) : 0);
     metaData().replace(Kwave::MetaDataList(info));
 
@@ -297,7 +297,7 @@ bool Kwave::AsciiDecoder::decode(QWidget *widget,
 void Kwave::AsciiDecoder::close()
 {
     m_source.reset();
-    m_source.setDevice(Q_NULLPTR);
+    m_source.setDevice(nullptr);
 }
 
 //***************************************************************************

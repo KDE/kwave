@@ -42,7 +42,7 @@ Kwave::LabelItem::LabelItem(Kwave::SignalView &view,
      m_initial_pos(label.pos()),
      m_current_pos(label.pos()),
      m_description(label.name()),
-     m_undo_transaction(Q_NULLPTR)
+     m_undo_transaction(nullptr)
 {
 }
 
@@ -54,7 +54,7 @@ Kwave::LabelItem::~LabelItem()
         qDebug("Kwave::LabelItem::~LabelItem() -> aborted -> reverting!");
         m_undo_transaction->abort();
         delete m_undo_transaction;
-        m_undo_transaction = Q_NULLPTR;
+        m_undo_transaction = nullptr;
     }
 }
 
@@ -88,7 +88,7 @@ void Kwave::LabelItem::appendContextMenu(QMenu *parent)
     if (!parent) return;
 
     // locate the "label" menu
-    QMenu *label_menu = Q_NULLPTR;
+    QMenu *label_menu = nullptr;
     foreach (const QAction *action, parent->actions()) {
         if (action->text() == i18n("Label")) {
             label_menu = action->menu();
@@ -187,7 +187,7 @@ void Kwave::LabelItem::done()
         if (m_current_pos == m_initial_pos)
             m_undo_transaction->abort();
         delete m_undo_transaction;
-        m_undo_transaction = Q_NULLPTR;
+        m_undo_transaction = nullptr;
     }
 }
 

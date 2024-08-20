@@ -24,7 +24,7 @@
 
 //***************************************************************************
 Kwave::RateConverter::RateConverter()
-    :Kwave::SampleSource(), m_ratio(1.0), m_converter(Q_NULLPTR),
+    :Kwave::SampleSource(), m_ratio(1.0), m_converter(nullptr),
      m_converter_in(), m_converter_out()
 {
     int error = 0;

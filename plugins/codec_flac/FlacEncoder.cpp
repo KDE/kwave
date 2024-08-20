@@ -48,7 +48,7 @@
 /***************************************************************************/
 Kwave::FlacEncoder::FlacEncoder()
     :Kwave::Encoder(), FLAC::Encoder::Stream(),
-     m_vorbis_comment_map(), m_dst(Q_NULLPTR)
+     m_vorbis_comment_map(), m_dst(nullptr)
 {
     REGISTER_MIME_TYPES
     REGISTER_COMPRESSION_TYPES
@@ -97,7 +97,7 @@ void Kwave::FlacEncoder::metadata_callback(const ::FLAC__StreamMetadata *)
 
 /***************************************************************************/
 Kwave::FlacEncoder::VorbisCommentContainer::VorbisCommentContainer()
-    :m_vc(Q_NULLPTR)
+    :m_vc(nullptr)
 {
     m_vc = FLAC__metadata_object_new(FLAC__METADATA_TYPE_VORBIS_COMMENT);
     Q_ASSERT(m_vc);
@@ -324,7 +324,7 @@ bool Kwave::FlacEncoder::encode(QWidget *widget,
         flac_metadata.remove(0);
     }
 
-    m_dst = Q_NULLPTR;
+    m_dst = nullptr;
     dst.close();
 
     while (!flac_buffer.isEmpty()) {

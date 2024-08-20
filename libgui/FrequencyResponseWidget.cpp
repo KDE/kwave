@@ -31,7 +31,7 @@
 //***************************************************************************
 Kwave::FrequencyResponseWidget::FrequencyResponseWidget(QWidget *widget)
     :QWidget(widget), m_f_max(0), m_db_min(0), m_db_max(0),
-     m_decades(0), m_function(Q_NULLPTR)
+     m_decades(0), m_function(nullptr)
 {
     init(10000, -12, +12);
 }

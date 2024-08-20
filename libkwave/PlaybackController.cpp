@@ -44,7 +44,7 @@ Kwave::PlaybackController::PlaybackController(
     Kwave::SignalManager &signal_manager
 )
     :m_signal_manager(signal_manager), m_thread(this, QVariant()),
-     m_device(Q_NULLPTR), m_lock_device(), m_playback_params(),
+     m_device(nullptr), m_lock_device(), m_playback_params(),
      m_lock_playback(), m_should_seek(false), m_seek_pos(0),
      m_track_selection_changed(false),
      m_reload_mode(false), m_loop_mode(false), m_paused(false),
@@ -319,7 +319,7 @@ void Kwave::PlaybackController::startDevicePlayBack()
         qWarning("PlaybackController::startDevicePlayBack(): "
                  "removing stale instance");
         delete m_device;
-        m_device = Q_NULLPTR;
+        m_device = nullptr;
     }
 
     // open the device and abort if not possible
@@ -401,7 +401,7 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 {
     Q_UNUSED(params)
 
-    Kwave::MixerMatrix *mixer = Q_NULLPTR;
+    Kwave::MixerMatrix *mixer = nullptr;
     sample_index_t first      = m_playback_start;
     sample_index_t last       = m_playback_end;
     unsigned int out_channels = m_playback_params.channels;
@@ -456,7 +456,7 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
                 // check for track selection change (need for new mixer)
                 if (m_track_selection_changed) {
                     if (mixer) delete mixer;
-                    mixer = Q_NULLPTR;
+                    mixer = nullptr;
                     m_track_selection_changed = false;
                 }
 
@@ -548,13 +548,13 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 //***************************************************************************
 void Kwave::PlaybackController::closeDevice()
 {
-    Kwave::PlayBackDevice *dev = Q_NULLPTR;
+    Kwave::PlayBackDevice *dev = nullptr;
     if (m_device) {
         // NOTE: we could get a recursion here if we delete with the lock
         //       held, if the device calls processEvents during shutdown
         QMutexLocker lock_for_delete(&m_lock_device);
         dev = m_device;
-        m_device = Q_NULLPTR;
+        m_device = nullptr;
     }
     delete dev;
 }
@@ -599,7 +599,7 @@ Kwave::PlayBackDevice *Kwave::PlaybackController::createDevice(
     Kwave::playback_method_t method)
 {
     // locate the corresponding playback device factory (plugin)
-    Kwave::PlaybackDeviceFactory *factory = Q_NULLPTR;
+    Kwave::PlaybackDeviceFactory *factory = nullptr;
     foreach (Kwave::PlaybackDeviceFactory *f, m_playback_factories) {
         Q_ASSERT(f);
         if (f && f->supportedMethods().contains(method)) {
@@ -607,7 +607,7 @@ Kwave::PlayBackDevice *Kwave::PlaybackController::createDevice(
             break;
         }
     }
-    if (!factory) return Q_NULLPTR;
+    if (!factory) return nullptr;
 
     // create a new device instance, using the given method
     return factory->createDevice(method);
@@ -637,7 +637,7 @@ Kwave::PlayBackDevice *Kwave::PlaybackController::openDevice(
 
     // try to create a new device, using the given playback method
     Kwave::PlayBackDevice *device = createDevice(params.method);
-    if (!device) return Q_NULLPTR;
+    if (!device) return nullptr;
 
     // override the number of tracks if not negative
     if (tracks > 0) params.channels = tracks;
@@ -656,7 +656,7 @@ Kwave::PlayBackDevice *Kwave::PlaybackController::openDevice(
 
         // delete the device if it did not open
         delete device;
-        device = Q_NULLPTR;
+        device = nullptr;
 
         // show an error message box
         Kwave::MessageBox::error(m_signal_manager.parentWidget(), result,

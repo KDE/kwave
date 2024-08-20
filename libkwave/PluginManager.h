@@ -173,7 +173,7 @@ namespace Kwave
          */
         Kwave::SampleSink *openMultiTrackPlayback(
             unsigned int tracks,
-            const Kwave::PlayBackParam *playback_params = Q_NULLPTR
+            const Kwave::PlayBackParam *playback_params = nullptr
         );
 
         /**

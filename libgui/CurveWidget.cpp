@@ -51,8 +51,8 @@
 
 //***************************************************************************
 Kwave::CurveWidget::CurveWidget(QWidget *parent)
-    :QWidget(parent), m_width(0), m_height(0), m_curve(), m_menu(Q_NULLPTR),
-     m_preset_menu(Q_NULLPTR), m_current(Kwave::Curve::NoPoint),
+    :QWidget(parent), m_width(0), m_height(0), m_curve(), m_menu(nullptr),
+     m_preset_menu(nullptr), m_current(Kwave::Curve::NoPoint),
      m_last(Kwave::Curve::NoPoint),
      m_down(false), m_knob(), m_selected_knob()
 {

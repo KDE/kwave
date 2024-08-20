@@ -27,7 +27,7 @@
 
 //***************************************************************************
 Kwave::BandPass::BandPass()
-    :Kwave::SampleSource(Q_NULLPTR), m_buffer(blockSize()),
+    :Kwave::SampleSource(nullptr), m_buffer(blockSize()),
     m_frequency(0.5), m_bandwidth(0.1)
 {
     initFilter();

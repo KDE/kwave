@@ -87,7 +87,7 @@ Kwave::SignalManager::SignalManager(QWidget *parent)
     m_undo_enabled(false),
     m_undo_buffer(),
     m_redo_buffer(),
-    m_undo_transaction(Q_NULLPTR),
+    m_undo_transaction(nullptr),
     m_undo_transaction_level(0),
     m_undo_transaction_lock(),
     m_meta_data()
@@ -124,7 +124,7 @@ Kwave::SignalManager::~SignalManager()
 int Kwave::SignalManager::loadFile(const QUrl &url)
 {
     int res = 0;
-    Kwave::FileProgress *dialog = Q_NULLPTR;
+    Kwave::FileProgress *dialog = nullptr;
 
     // take over the new file name, so that we have a valid signal
     // name during loading
@@ -186,7 +186,7 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
         if (!tracks) break;
 
         for (track = 0; track < tracks; ++track) {
-            Kwave::Track *t = m_signal.appendTrack(length, Q_NULLPTR);
+            Kwave::Track *t = m_signal.appendTrack(length, nullptr);
             Q_ASSERT(t);
             if (!t || (t->length() != length)) {
                 qWarning("SignalManager::loadFile: out of memory");
@@ -459,7 +459,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
         }
 
         delete encoder;
-        encoder = Q_NULLPTR;
+        encoder = nullptr;
 
         if (dialog) {
             qApp->processEvents();
@@ -471,7 +471,7 @@ int Kwave::SignalManager::save(const QUrl &url, bool selection)
                 res = -EINTR;
             }
             delete dialog;
-            dialog = Q_NULLPTR;
+            dialog = nullptr;
         }
     } else {
         Kwave::MessageBox::error(m_parent_widget,
@@ -516,7 +516,7 @@ void Kwave::SignalManager::newSignal(sample_index_t samples, double rate,
 
     // add all empty tracks
     while (tracks) {
-        m_signal.appendTrack(samples, Q_NULLPTR);
+        m_signal.appendTrack(samples, nullptr);
         tracks--;
     }
 
@@ -927,10 +927,10 @@ void Kwave::SignalManager::insertTrack(unsigned int index)
 
     if (index >= count) {
         // do an "append"
-        m_signal.appendTrack(len, Q_NULLPTR);
+        m_signal.appendTrack(len, nullptr);
     } else {
         // insert into the list
-        m_signal.insertTrack(index, len, Q_NULLPTR);
+        m_signal.insertTrack(index, len, nullptr);
     }
 
     // remember the last length
@@ -1221,7 +1221,7 @@ void Kwave::SignalManager::startUndoTransaction(const QString &name)
         // undo actions
         if (!m_undo_manager.startUndoTransaction(m_undo_transaction)) {
             delete m_undo_transaction;
-            m_undo_transaction = Q_NULLPTR;
+            m_undo_transaction = nullptr;
         }
 
         // if it is the start of the transaction, also create one
@@ -1234,7 +1234,7 @@ void Kwave::SignalManager::startUndoTransaction(const QString &name)
             // out of memory
             delete selection;
             delete m_undo_transaction;
-            m_undo_transaction = Q_NULLPTR;
+            m_undo_transaction = nullptr;
         }
     }
 }
@@ -1276,14 +1276,14 @@ void Kwave::SignalManager::closeUndoTransaction()
                         delete undo_action;
                     }
                     delete m_undo_transaction;
-                    m_undo_transaction = Q_NULLPTR;
+                    m_undo_transaction = nullptr;
                 } else {
                     m_undo_buffer.append(m_undo_transaction);
                 }
             } else {
                 qDebug("SignalManager::closeUndoTransaction(): empty");
                 delete m_undo_transaction;
-                m_undo_transaction = Q_NULLPTR;
+                m_undo_transaction = nullptr;
             }
         }
 
@@ -1293,7 +1293,7 @@ void Kwave::SignalManager::closeUndoTransaction()
 
         // declare the current transaction as "closed"
         rememberCurrentSelection();
-        m_undo_transaction = Q_NULLPTR;
+        m_undo_transaction = nullptr;
         emitUndoRedoInfo();
     }
 }
@@ -1562,7 +1562,7 @@ void Kwave::SignalManager::undo()
     qint64 undo_limit = Kwave::undoLimit() << 20;
     qint64 redo_size = undo_transaction->redoSize();
     qint64 undo_size = undo_transaction->undoSize();
-    Kwave::UndoTransaction *redo_transaction = Q_NULLPTR;
+    Kwave::UndoTransaction *redo_transaction = nullptr;
     if ((redo_size > undo_size) && (redo_size - undo_size > undo_limit)) {
         // not enough memory for redo
         qWarning("SignalManager::undo(): not enough memory for redo !");
@@ -1598,7 +1598,7 @@ void Kwave::SignalManager::undo()
         if (!undo_action) continue;
 
         // execute the undo operation
-        redo_action = undo_action->undo(*this, (redo_transaction != Q_NULLPTR));
+        redo_action = undo_action->undo(*this, (redo_transaction != nullptr));
 
         // remove the old undo action if no longer used
         if (redo_action != undo_action) {
@@ -1624,7 +1624,7 @@ void Kwave::SignalManager::undo()
         // if there is no redo action -> no redo possible
         qWarning("SignalManager::undo(): no redo possible");
         delete redo_transaction;
-        redo_transaction = Q_NULLPTR;
+        redo_transaction = nullptr;
     }
 
     // check whether the selection has changed, if yes: put a undo action
@@ -1703,7 +1703,7 @@ void Kwave::SignalManager::redo()
     qint64 undo_limit = Kwave::undoLimit() << 20;
     qint64 undo_size = redo_transaction->undoSize();
     qint64 redo_size = redo_transaction->redoSize();
-    Kwave::UndoTransaction *undo_transaction = Q_NULLPTR;
+    Kwave::UndoTransaction *undo_transaction = nullptr;
     if ((undo_size > redo_size) && (undo_size - redo_size > undo_limit)) {
         // not enough memory for undo
         qWarning("SignalManager::redo(): not enough memory for undo !");
@@ -1743,7 +1743,7 @@ void Kwave::SignalManager::redo()
         Q_ASSERT(redo_action);
         if (!redo_action) continue;
         modified |= redo_transaction->containsModification();
-        undo_action = redo_action->undo(*this, (undo_transaction != Q_NULLPTR));
+        undo_action = redo_action->undo(*this, (undo_transaction != nullptr));
 
         // remove the old redo action if no longer used
         if (redo_action != undo_action) {

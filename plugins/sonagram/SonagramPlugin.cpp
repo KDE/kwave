@@ -63,12 +63,12 @@ KWAVE_PLUGIN(sonagram, SonagramPlugin)
 Kwave::SonagramPlugin::SonagramPlugin(QObject *parent,
                                       const QVariantList &args)
     :Kwave::Plugin(parent, args),
-     m_sonagram_window(Q_NULLPTR),
-     m_selection(Q_NULLPTR),
+     m_sonagram_window(nullptr),
+     m_selection(nullptr),
      m_slices(0), m_fft_points(0),
      m_window_type(Kwave::WINDOW_FUNC_NONE), m_color(true),
      m_track_changes(true), m_follow_selection(false), m_image(),
-     m_overview_cache(Q_NULLPTR), m_slice_pool(), m_valid(MAX_SLICES, false),
+     m_overview_cache(nullptr), m_slice_pool(), m_valid(MAX_SLICES, false),
      m_pending_jobs(), m_lock_job_list(), m_future(),
      m_repaint_timer()
 {
@@ -90,16 +90,16 @@ Kwave::SonagramPlugin::~SonagramPlugin()
     m_repaint_timer.stop();
 
     if (m_sonagram_window) delete m_sonagram_window;
-    m_sonagram_window = Q_NULLPTR;
+    m_sonagram_window = nullptr;
 
     if (m_selection) delete m_selection;
-    m_selection = Q_NULLPTR;
+    m_selection = nullptr;
 }
 
 //***************************************************************************
 QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
 {
-    QStringList *result = Q_NULLPTR;
+    QStringList *result = nullptr;
 
     // try to interprete the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
@@ -107,7 +107,7 @@ QStringList *Kwave::SonagramPlugin::setup(QStringList &previous_params)
     QPointer<Kwave::SonagramDialog> dlg =
         new(std::nothrow) Kwave::SonagramDialog(*this);
     Q_ASSERT(dlg);
-    if (!dlg) return Q_NULLPTR;
+    if (!dlg) return nullptr;
 
     dlg->setWindowFunction(m_window_type);
     dlg->setColorMode(m_color ? 1 : 0);
@@ -161,11 +161,11 @@ int Kwave::SonagramPlugin::start(QStringList &params)
 {
     // clean up leftovers from last run
     if (m_sonagram_window) delete m_sonagram_window;
-    m_sonagram_window = Q_NULLPTR;
+    m_sonagram_window = nullptr;
     if (m_selection)       delete m_selection;
-    m_selection = Q_NULLPTR;
+    m_selection = nullptr;
     if (m_overview_cache)  delete m_overview_cache;
-    m_overview_cache = Q_NULLPTR;
+    m_overview_cache = nullptr;
 
     Kwave::SignalManager &sig_mgr = signalManager();
 
@@ -187,7 +187,7 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     QVector<unsigned int> selected_channels;
     sample_index_t offset = 0;
     sample_index_t length = 0;
-    length = selection(&selected_channels, &offset, Q_NULLPTR, true);
+    length = selection(&selected_channels, &offset, nullptr, true);
 
     // abort if nothing is selected
     if (!length || selected_channels.isEmpty())
@@ -240,7 +240,7 @@ int Kwave::SonagramPlugin::start(QStringList &params)
     } else {
         // overview cache is no longer needed
         delete m_overview_cache;
-        m_overview_cache = Q_NULLPTR;
+        m_overview_cache = nullptr;
     }
 
     // connect all needed signals
@@ -608,13 +608,13 @@ void Kwave::SonagramPlugin::windowDestroyed()
 {
     cancel();
 
-    m_sonagram_window = Q_NULLPTR; // closes itself !
+    m_sonagram_window = nullptr; // closes itself !
 
     if (m_selection) delete m_selection;
-    m_selection = Q_NULLPTR;
+    m_selection = nullptr;
 
     if (m_overview_cache) delete m_overview_cache;
-    m_overview_cache = Q_NULLPTR;
+    m_overview_cache = nullptr;
 
     release();
 }

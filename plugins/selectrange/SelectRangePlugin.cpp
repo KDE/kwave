@@ -65,7 +65,7 @@ QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
         new(std::nothrow) Kwave::SelectRangeDialog(parentWidget(),
             m_start_mode, m_range_mode, m_range, rate, offset, length);
     Q_ASSERT(dialog);
-    if (!dialog) return Q_NULLPTR;
+    if (!dialog) return nullptr;
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
@@ -86,7 +86,7 @@ QStringList *Kwave::SelectRangePlugin::setup(QStringList &previous_params)
     } else {
         // user pressed "Cancel"
         if (list) delete list;
-        list = Q_NULLPTR;
+        list = nullptr;
     }
 
     if (dialog) delete dialog;

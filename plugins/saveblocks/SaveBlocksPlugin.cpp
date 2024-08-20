@@ -68,7 +68,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     // create the setup dialog
     sample_index_t selection_left  = 0;
     sample_index_t selection_right = 0;
-    selection(Q_NULLPTR, &selection_left, &selection_right, false);
+    selection(nullptr, &selection_left, &selection_right, false);
 
     // enable the "selection only" checkbox only if there is something
     // selected but not everything
@@ -93,7 +93,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
             m_selection_only,
             enable_selection_only
         );
-        if (!dialog) return Q_NULLPTR;
+        if (!dialog) return nullptr;
 
     // connect the signals/slots from the plugin and the dialog
     connect(dialog, SIGNAL(sigSelectionChanged(QString,
@@ -107,7 +107,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
     dialog->emitUpdate();
     if ((dialog->exec() != QDialog::Accepted) || !dialog) {
         delete dialog;
-        return Q_NULLPTR;
+        return nullptr;
     }
 
     QStringList *list = new(std::nothrow) QStringList();
@@ -120,7 +120,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
         if (url.isEmpty()) {
             delete dialog;
             delete list;
-            return Q_NULLPTR;
+            return nullptr;
         }
         QString name = url.path();
         QFileInfo path(name);
@@ -199,7 +199,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     // determine the selection settings
     sample_index_t selection_left  = 0;
     sample_index_t selection_right = 0;
-    selection(Q_NULLPTR, &selection_left, &selection_right, false);
+    selection(nullptr, &selection_left, &selection_right, false);
 
     bool selected_something = (selection_left != selection_right);
     bool selected_all = ( (selection_left == 0) &&
@@ -317,7 +317,7 @@ int Kwave::SaveBlocksPlugin::start(QStringList &params)
     // save the current selection, we have to restore it afterwards!
     sample_index_t saved_selection_left  = 0;
     sample_index_t saved_selection_right = 0;
-    selection(Q_NULLPTR, &saved_selection_left, &saved_selection_right, false);
+    selection(nullptr, &saved_selection_left, &saved_selection_right, false);
 
     // now we can loop over all blocks and save them
     sample_index_t block_start;
@@ -457,7 +457,7 @@ void Kwave::SaveBlocksPlugin::scanBlocksToSave(const QString &base,
     Kwave::Label label = (it.hasNext()) ? it.next() : Kwave::Label();
 
     if (selection_only) {
-        selection(Q_NULLPTR, &selection_left, &selection_right, true);
+        selection(nullptr, &selection_left, &selection_right, true);
     } else {
         selection_left  = 0;
         selection_right = signalLength() - 1;

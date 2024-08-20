@@ -49,9 +49,9 @@ Kwave::PlayBackQt::PlayBackQt()
      m_lock(),
      m_device_name_map(),
      m_available_devices(),
-     m_output(Q_NULLPTR),
+     m_output(nullptr),
      m_buffer_size(0),
-     m_encoder(Q_NULLPTR)
+     m_encoder(nullptr)
 {
 }
 
@@ -66,7 +66,7 @@ void Kwave::PlayBackQt::createEncoder(const QAudioFormat &format)
 {
     // discard the old encoder
     delete m_encoder;
-    m_encoder = Q_NULLPTR;
+    m_encoder = nullptr;
 
     // get the sample format
     Kwave::SampleFormat::Format sample_format = Kwave::SampleFormat::Unknown;
@@ -159,7 +159,7 @@ QString Kwave::PlayBackQt::open(const QString &device, double rate,
     if (!m_encoder) return i18n("Out of memory");
 
     // create a new Qt output device
-    m_output = new(std::nothrow) QAudioSink(format, Q_NULLPTR);
+    m_output = new(std::nothrow) QAudioSink(format, nullptr);
     Q_ASSERT(m_output);
     if (!m_output) return i18n("Out of memory");
 
@@ -306,11 +306,11 @@ int Kwave::PlayBackQt::close()
     if (m_output) {
         // WARNING: QAudioOutput::~QAudioOutput() calls processEvents() !!!
         m_output->deleteLater();
-        m_output = Q_NULLPTR;
+        m_output = nullptr;
     }
 
     delete m_encoder;
-    m_encoder = Q_NULLPTR;
+    m_encoder = nullptr;
 
     m_device_name_map.clear();
     m_available_devices.clear();

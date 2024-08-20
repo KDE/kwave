@@ -39,7 +39,7 @@ namespace Kwave
          *
          * @param parent a parent object, passed to QObject (optional)
          */
-        explicit StreamObject(QObject *parent = Q_NULLPTR);
+        explicit StreamObject(QObject *parent = nullptr);
 
         /** Destructor */
         virtual ~StreamObject();
@@ -59,7 +59,7 @@ namespace Kwave
          */
         virtual Kwave::StreamObject * operator [] (unsigned int track)
         {
-            return (track == 0) ? this : Q_NULLPTR;
+            return (track == 0) ? this : nullptr;
         }
 
         /**

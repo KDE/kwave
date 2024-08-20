@@ -50,14 +50,14 @@
 //***************************************************************************
 Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
     :KToolBar(name, parent, true),
-     m_context(Q_NULLPTR),
-     m_action_zoomselection(Q_NULLPTR),
-     m_action_zoomin(Q_NULLPTR),
-     m_action_zoomout(Q_NULLPTR),
-     m_action_zoomnormal(Q_NULLPTR),
-     m_action_zoomall(Q_NULLPTR),
-     m_action_zoomselect(Q_NULLPTR),
-     m_zoomselect(Q_NULLPTR)
+     m_context(nullptr),
+     m_action_zoomselection(nullptr),
+     m_action_zoomin(nullptr),
+     m_action_zoomout(nullptr),
+     m_action_zoomnormal(nullptr),
+     m_action_zoomall(nullptr),
+     m_action_zoomselect(nullptr),
+     m_zoomselect(nullptr)
 {
     m_action_zoomselection = addAction(
         QIcon::fromTheme(_("kwave_viewmag")),
@@ -151,7 +151,7 @@ void Kwave::ZoomToolBar::contextSwitched(Kwave::FileContext *context)
 void Kwave::ZoomToolBar::contextDestroyed(Kwave::FileContext *context)
 {
     if (context != m_context) return; // not of interest
-    contextSwitched(Q_NULLPTR);
+    contextSwitched(nullptr);
 }
 
 //***************************************************************************

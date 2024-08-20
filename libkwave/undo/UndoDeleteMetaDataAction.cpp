@@ -108,9 +108,9 @@ Kwave::UndoAction *Kwave::UndoDeleteMetaDataAction::undo(
     Kwave::SignalManager &manager, bool with_redo)
 {
     Q_ASSERT(!m_meta_data.isEmpty());
-    if (m_meta_data.isEmpty()) return Q_NULLPTR;
+    if (m_meta_data.isEmpty()) return nullptr;
 
-    Kwave::UndoAction *redo = Q_NULLPTR;
+    Kwave::UndoAction *redo = nullptr;
 
     // add the stored meta data to the signal managers' meta data
     manager.metaData().add(m_meta_data);

@@ -70,14 +70,14 @@ Kwave::SelectionTracker::SelectionTracker(Kwave::SignalManager *signal,
     if (tracks && !tracks->isEmpty()) {
         // having a list of selected tracks
         foreach (unsigned int track, *tracks) {
-            slotTrackInserted(track, Q_NULLPTR);
+            slotTrackInserted(track, nullptr);
             if (m_selection_only)
                 m_tracks.append(m_signal->uuidOfTrack(track));
         }
     } else {
         // take over all tracks from the signal manager
         foreach (unsigned int track, m_signal->allTracks()) {
-            slotTrackInserted(track, Q_NULLPTR);
+            slotTrackInserted(track, nullptr);
             if (m_selection_only)
                 m_tracks.append(m_signal->uuidOfTrack(track));
         }
@@ -370,14 +370,14 @@ void Kwave::SelectionTracker::selectRange(QList<QUuid> tracks,
         // offset has changed -> invalidate all
         m_offset = offset;
         emit sigOffsetChanged(m_offset);
-        emit sigInvalidated(Q_NULLPTR, m_offset, SAMPLE_INDEX_MAX);
+        emit sigInvalidated(nullptr, m_offset, SAMPLE_INDEX_MAX);
     } else if (length > old_len) {
         // length has changed and increased -> invalidate new area
-        emit sigInvalidated(Q_NULLPTR, m_offset + old_len - 1,
+        emit sigInvalidated(nullptr, m_offset + old_len - 1,
                             SAMPLE_INDEX_MAX);
     } else if (length < old_len) {
         // length was reduced -> invalidate shrinked area at end
-        emit sigInvalidated(Q_NULLPTR, m_offset + length - 1,
+        emit sigInvalidated(nullptr, m_offset + length - 1,
                             SAMPLE_INDEX_MAX);
     }
 }
@@ -441,7 +441,7 @@ Kwave::UndoAction *Kwave::SelectionTracker::Undo::undo(
         m_tracker->selectRange(tracks, ofs, len);
     }
 
-    return (with_redo) ? this : Q_NULLPTR;
+    return (with_redo) ? this : nullptr;
 }
 
 //***************************************************************************

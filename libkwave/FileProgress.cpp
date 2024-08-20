@@ -49,11 +49,11 @@ Kwave::FileProgress::FileProgress(QWidget *parent,
     :QDialog(parent),
      m_url(url),
      m_size(size),
-     m_lbl_url(Q_NULLPTR),
-     m_lbl_length(Q_NULLPTR),
-     m_progress(Q_NULLPTR),
-     m_stat_transfer(Q_NULLPTR),
-     m_stat_bytes(Q_NULLPTR),
+     m_lbl_url(nullptr),
+     m_lbl_length(nullptr),
+     m_progress(nullptr),
+     m_stat_transfer(nullptr),
+     m_stat_bytes(nullptr),
      m_time(),
      m_canceled(true),
      m_last_percent(0),
@@ -249,7 +249,7 @@ QLabel *Kwave::FileProgress::addInfoLabel(QGridLayout *layout,
 {
     QLabel *label = new(std::nothrow) QLabel(this);
     Q_ASSERT(label);
-    if (!label) return Q_NULLPTR;
+    if (!label) return nullptr;
 
     label->setText(text);
     label->adjustSize();

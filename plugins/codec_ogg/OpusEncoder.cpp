@@ -102,17 +102,17 @@ Kwave::OpusEncoder::OpusEncoder()
      m_bitrate(0),
      m_coding_rate(0),
      m_encoder_channels(0),
-     m_channel_mixer(Q_NULLPTR),
-     m_rate_converter(Q_NULLPTR),
+     m_channel_mixer(nullptr),
+     m_rate_converter(nullptr),
      m_frame_size(0),
      m_extra_out(0),
      m_opus_header(),
      m_max_frame_bytes(0),
-     m_packet_buffer(Q_NULLPTR),
-     m_encoder(Q_NULLPTR),
-     m_encoder_input(Q_NULLPTR),
-     m_last_queue_element(Q_NULLPTR),
-     m_buffer(Q_NULLPTR)
+     m_packet_buffer(nullptr),
+     m_encoder(nullptr),
+     m_encoder_input(nullptr),
+     m_last_queue_element(nullptr),
+     m_buffer(nullptr)
 {
 
     memset(&m_opus_header, 0x00, sizeof(m_opus_header));
@@ -421,7 +421,7 @@ bool Kwave::OpusEncoder::setupEncoder(QWidget *widget, unsigned int tracks,
     if (force_narrow) {
         for (unsigned int i = 0; i < m_opus_header.streams; i++ ) {
             if (force_narrow & (1 << i)) {
-                ::OpusEncoder *oe = Q_NULLPTR;
+                ::OpusEncoder *oe = nullptr;
 
                 opus_multistream_encoder_ctl(
                     m_encoder,
@@ -981,26 +981,26 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
 void Kwave::OpusEncoder::close()
 {
     if (m_channel_mixer) delete m_channel_mixer;
-    m_channel_mixer = Q_NULLPTR;
+    m_channel_mixer = nullptr;
 
     if (m_rate_converter) delete m_rate_converter;
-    m_rate_converter = Q_NULLPTR;
+    m_rate_converter = nullptr;
 
     if (m_buffer) delete m_buffer;
-    m_buffer = Q_NULLPTR;
+    m_buffer = nullptr;
 
     if (m_encoder) opus_multistream_encoder_destroy(m_encoder);
-    m_encoder = Q_NULLPTR;
+    m_encoder = nullptr;
 
     ogg_stream_clear(&m_os);
 
     if (m_packet_buffer) free(m_packet_buffer);
-    m_packet_buffer = Q_NULLPTR;
+    m_packet_buffer = nullptr;
 
     if (m_encoder_input) free(m_encoder_input);
-    m_encoder_input = Q_NULLPTR;
+    m_encoder_input = nullptr;
 
-    m_last_queue_element = Q_NULLPTR;
+    m_last_queue_element = nullptr;
 }
 
 /***************************************************************************/

@@ -217,7 +217,7 @@ void Kwave::SampleRatePlugin::run(QStringList params)
     }
 
     // update the selection if it was not empty
-    length = selection(Q_NULLPTR, &first, &last, false);
+    length = selection(nullptr, &first, &last, false);
     if (length) {
         if (m_whole_signal) {
             // if whole signal selected -> adjust start and end

@@ -74,13 +74,13 @@ void Kwave::CompressionWidget::init(Kwave::FileInfo &info)
 {
     initInfo(lblCompressionNominalBitrate, abrBitrate,
              Kwave::INF_BITRATE_NOMINAL, info);
-    initInfo(Q_NULLPTR, abrHighestBitrate,
+    initInfo(nullptr, abrHighestBitrate,
              Kwave::INF_BITRATE_UPPER, info);
-    initInfo(Q_NULLPTR, abrLowestBitrate,
+    initInfo(nullptr, abrLowestBitrate,
              Kwave::INF_BITRATE_LOWER, info);
     initInfo(lblCompressionBaseQuality, sbBaseQuality,
              Kwave::INF_VBR_QUALITY, info);
-    initInfo(Q_NULLPTR, slBaseQuality,
+    initInfo(nullptr, slBaseQuality,
              Kwave::INF_VBR_QUALITY, info);
 }
 

@@ -41,7 +41,7 @@
 
 //***************************************************************************
 Kwave::AudiofileDecoder::AudiofileDecoder()
-    :Kwave::Decoder(), m_source(Q_NULLPTR), m_src_adapter(Q_NULLPTR)
+    :Kwave::Decoder(), m_source(nullptr), m_src_adapter(nullptr)
 {
     /* defined in RFC 1521 */
     addMimeType("audio/basic",
@@ -110,7 +110,7 @@ bool Kwave::AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     Q_ASSERT(m_src_adapter);
     if (!m_src_adapter) return false;
 
-    m_src_adapter->open(m_src_adapter, Q_NULLPTR);
+    m_src_adapter->open(m_src_adapter, nullptr);
 
     AFfilehandle fh = m_src_adapter->handle();
     if (!fh || (m_src_adapter->lastError() >= 0)) {
@@ -296,8 +296,8 @@ bool Kwave::AudiofileDecoder::decode(QWidget */*widget*/,
 void Kwave::AudiofileDecoder::close()
 {
     if (m_src_adapter) delete m_src_adapter;
-    m_src_adapter = Q_NULLPTR;
-    m_source = Q_NULLPTR;
+    m_src_adapter = nullptr;
+    m_source = nullptr;
 }
 
 //***************************************************************************

@@ -66,7 +66,7 @@ unsigned int Kwave::SampleBuffer::available() const
 const sample_t *Kwave::SampleBuffer::get(unsigned int len)
 {
     const unsigned int size = m_data.size();
-    if (m_offset > size) return Q_NULLPTR; // already reached EOF
+    if (m_offset > size) return nullptr; // already reached EOF
 
     // limit read length to the size of the buffer
     if (len > size) len = size;

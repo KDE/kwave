@@ -83,17 +83,17 @@ static const char *background[] = {
 //****************************************************************************
 Kwave::SonagramWindow::SonagramWindow(QWidget *parent, const QString &name)
     :KMainWindow(parent),
-     m_status_time(Q_NULLPTR),
-     m_status_freq(Q_NULLPTR),
-     m_status_ampl(Q_NULLPTR),
+     m_status_time(nullptr),
+     m_status_freq(nullptr),
+     m_status_ampl(nullptr),
      m_image(),
      m_color_mode(0),
-     m_view(Q_NULLPTR),
-     m_overview(Q_NULLPTR),
+     m_view(nullptr),
+     m_overview(nullptr),
      m_points(0),
      m_rate(0),
-     m_xscale(Q_NULLPTR),
-     m_yscale(Q_NULLPTR),
+     m_xscale(nullptr),
+     m_yscale(nullptr),
      m_refresh_timer()
 {
 

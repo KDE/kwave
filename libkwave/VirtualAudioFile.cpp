@@ -29,7 +29,7 @@
  * map for finding the corresponding VirtualAudioFile
  * adapter to a AFvirtualfile from libaudiofile
  */
-static QMap<AFvirtualfile*, Kwave::VirtualAudioFile*> *_adapter_map = Q_NULLPTR;
+static QMap<AFvirtualfile*, Kwave::VirtualAudioFile*> *_adapter_map = nullptr;
 
 /** Last error number from libaudiofile. -1 if no error occurred */
 static long _last_audiofile_error = -1;
@@ -136,7 +136,7 @@ static AFvirtualfile *__af_virtual_file_new(void)
 //***************************************************************************
 //***************************************************************************
 Kwave::VirtualAudioFile::VirtualAudioFile(QIODevice &device)
-     :m_device(device), m_file_handle(Q_NULLPTR), m_virtual_file(Q_NULLPTR),
+     :m_device(device), m_file_handle(nullptr), m_virtual_file(nullptr),
       m_last_error(-1), m_last_error_text()
 {
     // create the virtual file structure for libaudiofile
@@ -145,7 +145,7 @@ Kwave::VirtualAudioFile::VirtualAudioFile(QIODevice &device)
     if (!m_virtual_file) return;
 
     // enter our wrapper functions
-    m_virtual_file->closure = Q_NULLPTR;
+    m_virtual_file->closure = nullptr;
     m_virtual_file->read    = af_file_read;
     m_virtual_file->write   = af_file_write;
     m_virtual_file->length  = af_file_length;
@@ -159,12 +159,12 @@ void Kwave::VirtualAudioFile::open(Kwave::VirtualAudioFile *x,
                                    AFfilesetup setup)
 {
     // register ourself
-    adapter(Q_NULLPTR); // dummy lookup, for creating a new map if needed
+    adapter(nullptr); // dummy lookup, for creating a new map if needed
     Q_ASSERT(_adapter_map);
     if (_adapter_map) _adapter_map->insert(m_virtual_file, x);
 
     // determine the mode: rw/w/r
-    const char *mode = Q_NULLPTR;
+    const char *mode = nullptr;
     if      (m_device.isWritable()) mode = "w";
     else if (m_device.isReadable()) mode = "r";
     Q_ASSERT(mode);
@@ -194,8 +194,8 @@ void Kwave::VirtualAudioFile::close()
     // de-register ourself
     if (_adapter_map) _adapter_map->remove(m_virtual_file);
 
-    m_virtual_file = Q_NULLPTR;
-    m_file_handle  = Q_NULLPTR;
+    m_virtual_file = nullptr;
+    m_file_handle  = nullptr;
 }
 
 //***************************************************************************
@@ -254,10 +254,10 @@ Kwave::VirtualAudioFile *Kwave::VirtualAudioFile::adapter(AFvirtualfile *vfile)
     if (!_adapter_map) _adapter_map =
         new(std::nothrow) QMap<AFvirtualfile*,VirtualAudioFile*>();
     Q_ASSERT(_adapter_map);
-    if (!_adapter_map) return Q_NULLPTR;
+    if (!_adapter_map) return nullptr;
 
     // lookup in the map
-    return _adapter_map->contains(vfile) ? (*_adapter_map)[vfile] : Q_NULLPTR;
+    return _adapter_map->contains(vfile) ? (*_adapter_map)[vfile] : nullptr;
 }
 
 //***************************************************************************

@@ -37,7 +37,7 @@
 //***************************************************************************
 Kwave::ChannelMixer::ChannelMixer(unsigned int inputs, unsigned int outputs)
     :Kwave::SampleSource(),
-     m_matrix(Q_NULLPTR),
+     m_matrix(nullptr),
      m_inputs(inputs),
      m_outputs(outputs),
      m_indexer(),
@@ -145,18 +145,18 @@ unsigned int Kwave::ChannelMixer::tracksOfPort(const char *port) const
 Kwave::StreamObject *Kwave::ChannelMixer::port(const char *port,
                                                unsigned int track)
 {
-    Kwave::StreamObject *retval = Q_NULLPTR;
+    Kwave::StreamObject *retval = nullptr;
     QMutexLocker _lock(&m_lock);
 
     if (_sig(port) == _sig(SLOT(input(Kwave::SampleArray)))) {
         // input proxy
         Q_ASSERT(Kwave::toInt(track) < m_indexer.count());
-        if (Kwave::toInt(track) >= m_indexer.count()) return Q_NULLPTR;
+        if (Kwave::toInt(track) >= m_indexer.count()) return nullptr;
         retval = m_indexer.at(track);
     } else if (_sig(port) == _sig(SIGNAL(output(Kwave::SampleArray)))) {
         // output proxy
         Q_ASSERT(Kwave::toInt(track) < m_output_buffer.count());
-        if (Kwave::toInt(track) >= m_output_buffer.count()) return Q_NULLPTR;
+        if (Kwave::toInt(track) >= m_output_buffer.count()) return nullptr;
         retval = m_output_buffer[track];
     } else if (_sig(port) ==
                _sig(SLOT(idxInput(uint,Kwave::SampleArray)))) {

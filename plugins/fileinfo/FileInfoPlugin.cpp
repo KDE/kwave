@@ -53,7 +53,7 @@ QStringList *Kwave::FileInfoPlugin::setup(QStringList &)
     QPointer<Kwave::FileInfoDialog> dialog =
         new(std::nothrow) Kwave::FileInfoDialog(parentWidget(), oldInfo);
     Q_ASSERT(dialog);
-    if (!dialog) return Q_NULLPTR;
+    if (!dialog) return nullptr;
 
     QStringList *list = new(std::nothrow) QStringList();
     Q_ASSERT(list);
@@ -63,7 +63,7 @@ QStringList *Kwave::FileInfoPlugin::setup(QStringList &)
     } else {
         // user pressed "Cancel"
         if (list) delete list;
-        list = Q_NULLPTR;
+        list = nullptr;
     }
 
     if (dialog) delete dialog;

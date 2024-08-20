@@ -69,17 +69,17 @@
 
 //***************************************************************************
 Kwave::Plugin::Plugin(QObject *parent, const QVariantList &args)
-    :QObject(Q_NULLPTR),
+    :QObject(nullptr),
      Kwave::Runnable(),
      m_plugin_manager(qobject_cast<Kwave::PluginManager *>(parent)),
      m_name(args[0].toString()),
      m_description(args[1].toString()),
-     m_thread(Q_NULLPTR),
+     m_thread(nullptr),
      m_thread_lock(),
      m_progress_enabled(true),
      m_stop(0),
-     m_progress(Q_NULLPTR),
-     m_confirm_cancel(Q_NULLPTR),
+     m_progress(nullptr),
+     m_confirm_cancel(nullptr),
      m_usage_count(1),
      m_usage_lock(),
      m_progress_timer(),
@@ -116,7 +116,7 @@ Kwave::Plugin::~Plugin()
                 qWarning("Kwave::Plugin::stop(): stale thread !");
             }
             delete m_thread;
-            m_thread = Q_NULLPTR;
+            m_thread = nullptr;
         }
     }
 
@@ -180,7 +180,7 @@ int Kwave::Plugin::start(QStringList &)
         if (!m_confirm_cancel) {
             m_confirm_cancel = new(std::nothrow)
                 Kwave::ConfirmCancelProxy(m_progress,
-                Q_NULLPTR, Q_NULLPTR, this, SLOT(cancel()));
+                nullptr, nullptr, this, SLOT(cancel()));
             Q_ASSERT(m_confirm_cancel);
         }
         connect(m_progress,       SIGNAL(canceled()),
@@ -249,7 +249,7 @@ int Kwave::Plugin::stop()
                 qWarning("Kwave::Plugin::stop(): stale thread !");
             }
             delete m_thread;
-            m_thread = Q_NULLPTR;
+            m_thread = nullptr;
         }
     }
     return 0;
@@ -317,13 +317,13 @@ void Kwave::Plugin::closeProgressDialog(Kwave::Plugin *)
     //       => deleting this object should be done somewhere later...
     if (m_confirm_cancel) {
         m_confirm_cancel->deleteLater();
-        m_confirm_cancel = Q_NULLPTR;
+        m_confirm_cancel = nullptr;
     }
 
     if (m_progress) {
         m_progress->done(0);
         m_progress->deleteLater();
-        m_progress = Q_NULLPTR;
+        m_progress = nullptr;
     }
 }
 

@@ -152,7 +152,7 @@ bool Kwave::VorbisEncoder::open(QWidget *widget, const Kwave::FileInfo &info,
         // If OV_ECTL_RATEMANAGE2_SET is not defined, then your
         // libvorbis is just too old.
         if (!ret) ret =
-              vorbis_encode_ctl(&m_vi, OV_ECTL_RATEMANAGE2_SET, Q_NULLPTR) ||
+              vorbis_encode_ctl(&m_vi, OV_ECTL_RATEMANAGE2_SET, nullptr) ||
               vorbis_encode_setup_init(&m_vi);
 
         qDebug("VorbisEncoder: CBR with %d Bits/s", bitrate_nominal);
@@ -283,7 +283,7 @@ bool Kwave::VorbisEncoder::encode(Kwave::MultiTrackReader &src,
         // block for encoding now
         while (vorbis_analysis_blockout(&m_vd, &m_vb) == 1) {
             // analysis, assume we want to use bitrate management
-            vorbis_analysis(&m_vb, Q_NULLPTR);
+            vorbis_analysis(&m_vb, nullptr);
             vorbis_bitrate_addblock(&m_vb);
 
             while (vorbis_bitrate_flushpacket(&m_vd, &m_op)) {

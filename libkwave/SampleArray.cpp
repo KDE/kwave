@@ -106,7 +106,7 @@ Kwave::SampleArray::SampleStorage::SampleStorage()
     :QSharedData()
 {
     m_size     = 0;
-    m_data     = Q_NULLPTR;
+    m_data     = nullptr;
 }
 
 //***************************************************************************
@@ -114,7 +114,7 @@ Kwave::SampleArray::SampleStorage::SampleStorage(const SampleStorage &other)
     :QSharedData(other)
 {
     m_size     = 0;
-    m_data     = Q_NULLPTR;
+    m_data     = nullptr;
 
     if (other.m_size) {
         m_data = static_cast<sample_t *>(
@@ -159,7 +159,7 @@ void Kwave::SampleArray::SampleStorage::resize(unsigned int size)
         // resize to zero == delete/free memory
         Q_ASSERT(m_data);
         ::free(m_data);
-        m_data = Q_NULLPTR;
+        m_data = nullptr;
         m_size = 0;
     }
 }

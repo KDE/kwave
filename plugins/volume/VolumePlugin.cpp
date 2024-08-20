@@ -90,7 +90,7 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
     sample_index_t length = selection(&tracks, &first, &last, true);
     Kwave::OverViewCache *overview_cache = new(std::nothrow)
         Kwave::OverViewCache(
-            mgr, first, length, tracks.isEmpty() ? Q_NULLPTR : &tracks
+            mgr, first, length, tracks.isEmpty() ? nullptr : &tracks
         );
     Q_ASSERT(overview_cache);
 
@@ -99,7 +99,7 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
         new(std::nothrow) Kwave::VolumeDialog(parentWidget(), overview_cache);
     if (!dialog) {
         if (overview_cache) delete overview_cache;
-        return Q_NULLPTR;
+        return nullptr;
     }
 
     if (!m_params.isEmpty()) dialog->setParams(m_params);
@@ -113,7 +113,7 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
     } else {
         // user pressed "Cancel"
         if (list) delete list;
-        list = Q_NULLPTR;
+        list = nullptr;
     }
 
     if (dialog)         delete dialog;

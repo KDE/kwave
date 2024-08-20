@@ -34,7 +34,7 @@
 #include "libkwave/String.h"
 
 // static initializers
-QFile *Kwave::Logger::m_logfile = Q_NULLPTR;
+QFile *Kwave::Logger::m_logfile = nullptr;
 static Kwave::Logger g_logger;
 
 /** helper macro: returns the number of elements in an array */
@@ -49,7 +49,7 @@ Kwave::Logger::Logger()
 Kwave::Logger::~Logger()
 {
     if (m_logfile) {
-        log(Q_NULLPTR, Kwave::Logger::Info,
+        log(nullptr, Kwave::Logger::Info,
             _("--- CLOSED / APPLICATION SHUTDOWN ---"));
         m_logfile->flush();
         delete m_logfile;
@@ -61,7 +61,7 @@ bool Kwave::Logger::open(const QString& filename)
 {
     if (m_logfile) {
         qWarning("reopening log file");
-        log(Q_NULLPTR, Kwave::Logger::Info, _("--- CLOSED / REOPEN ---"));
+        log(nullptr, Kwave::Logger::Info, _("--- CLOSED / REOPEN ---"));
         m_logfile->flush();
         delete m_logfile;
     }
@@ -74,7 +74,7 @@ bool Kwave::Logger::open(const QString& filename)
     if (m_logfile) m_logfile->open(
         QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
     if (!m_logfile || (!m_logfile->isWritable())) {
-        if (Kwave::MessageBox::warningContinueCancel(Q_NULLPTR,
+        if (Kwave::MessageBox::warningContinueCancel(nullptr,
             i18n("Failed opening the log file '%1' for writing",
             filename)) != KMessageBox::Continue)
         {

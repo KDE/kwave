@@ -103,22 +103,22 @@ Kwave::TopWidget::TopWidget(Kwave::App &app)
     :KMainWindow(),
      m_application(app),
      m_context_map(),
-     m_toolbar_record_playback(Q_NULLPTR),
-     m_toolbar_zoom(Q_NULLPTR),
-     m_menu_manager(Q_NULLPTR),
-     m_mdi_area(Q_NULLPTR),
-     m_action_save(Q_NULLPTR),
-     m_action_save_as(Q_NULLPTR),
-     m_action_close(Q_NULLPTR),
-     m_action_undo(Q_NULLPTR),
-     m_action_redo(Q_NULLPTR),
-     m_action_cut(Q_NULLPTR),
-     m_action_copy(Q_NULLPTR),
-     m_action_erase(Q_NULLPTR),
-     m_action_delete(Q_NULLPTR),
-     m_lbl_status_size(Q_NULLPTR),
-     m_lbl_status_mode(Q_NULLPTR),
-     m_lbl_status_cursor(Q_NULLPTR)
+     m_toolbar_record_playback(nullptr),
+     m_toolbar_zoom(nullptr),
+     m_menu_manager(nullptr),
+     m_mdi_area(nullptr),
+     m_action_save(nullptr),
+     m_action_save_as(nullptr),
+     m_action_close(nullptr),
+     m_action_undo(nullptr),
+     m_action_redo(nullptr),
+     m_action_cut(nullptr),
+     m_action_copy(nullptr),
+     m_action_erase(nullptr),
+     m_action_delete(nullptr),
+     m_lbl_status_size(nullptr),
+     m_lbl_status_mode(nullptr),
+     m_lbl_status_cursor(nullptr)
 {
     // status bar items
     QStatusBar *status_bar = statusBar();
@@ -204,20 +204,20 @@ void Kwave::TopWidget::connectContext(Kwave::FileContext *context)
 Kwave::FileContext *Kwave::TopWidget::newFileContext()
 {
     Q_ASSERT(m_toolbar_zoom);
-    if (!m_toolbar_zoom) return Q_NULLPTR;
+    if (!m_toolbar_zoom) return nullptr;
 
     Kwave::FileContext *context =
         new(std::nothrow) Kwave::FileContext(m_application);
-    if (!context) return Q_NULLPTR;
+    if (!context) return nullptr;
     if (!context->init(this)) {
         delete context;
-        return Q_NULLPTR;
+        return nullptr;
     }
 
     // if we are in SDI mode, there is a context but no MDI sub window
     // and in MDI/TAB mode we use this special entry for a context that
     // has just been created but has no sub window yet
-    m_context_map[Q_NULLPTR] = context;
+    m_context_map[nullptr] = context;
 
     // do all signal/slot connections
     connectContext(context);
@@ -232,14 +232,14 @@ Kwave::FileContext *Kwave::TopWidget::newFileContext()
 //***************************************************************************
 Kwave::FileContext *Kwave::TopWidget::currentContext() const
 {
-    if (m_context_map.isEmpty()) return Q_NULLPTR;
+    if (m_context_map.isEmpty()) return nullptr;
 
-    if (m_context_map.contains(Q_NULLPTR)) {
+    if (m_context_map.contains(nullptr)) {
         // the "null" entry is special, it has precedence over all
         // other entries. In SDI mode it is the only one ever and in
         // MDI/TAB mode it is used for a context that has no sub
         // window yet.
-        return m_context_map[Q_NULLPTR];
+        return m_context_map[nullptr];
     }
 
     if (m_mdi_area) {
@@ -249,18 +249,18 @@ Kwave::FileContext *Kwave::TopWidget::currentContext() const
             qWarning("WARNING: unassociated MDI sub window %p?",
                      static_cast<void *>(current_sub));
             QMapIterator<QMdiSubWindow*, Kwave::FileContext*> it(m_context_map);
-            Kwave::FileContext *context = Q_NULLPTR;
+            Kwave::FileContext *context = nullptr;
             while (it.hasNext()) {
                 it.next();
                 context = it.value();
             }
-            return (m_context_map.count() == 1) ? context : Q_NULLPTR;
+            return (m_context_map.count() == 1) ? context : nullptr;
         }
         return m_context_map[current_sub];
     } else {
         // SDI mode
         Q_ASSERT(0 && "SDI mode but no context?");
-        return Q_NULLPTR;
+        return nullptr;
     }
 }
 
@@ -306,7 +306,7 @@ bool Kwave::TopWidget::init()
     Kwave::FileContext *context = newFileContext();
     if (!context) return false;
 
-    QWidget *central_widget = Q_NULLPTR;
+    QWidget *central_widget = nullptr;
     switch (m_application.guiType()) {
         case Kwave::App::GUI_SDI:
             // create a main widget
@@ -484,13 +484,13 @@ Kwave::TopWidget::~TopWidget()
     closeAllSubWindows();
 
     delete m_toolbar_zoom;
-    m_toolbar_zoom = Q_NULLPTR;
+    m_toolbar_zoom = nullptr;
 
     delete m_toolbar_record_playback;
-    m_toolbar_record_playback = Q_NULLPTR;
+    m_toolbar_record_playback = nullptr;
 
     delete m_menu_manager;
-    m_menu_manager = Q_NULLPTR;
+    m_menu_manager = nullptr;
 
     while (!m_context_map.isEmpty())
         delete m_context_map.take(m_context_map.lastKey());
@@ -543,14 +543,14 @@ QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
             }
 
             // detach the main widget from the MDI sub window
-            sub->setWidget(Q_NULLPTR);
+            sub->setWidget(nullptr);
             delete sub;
         }
 
         // detach the context from this parent widget
         if (context) {
             context->disconnect();
-            context->setParent(Q_NULLPTR);
+            context->setParent(nullptr);
             if (context->isInUse())
                 list += context;    // in use -> keep
             else
@@ -559,13 +559,13 @@ QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
     }
 
     // get rid of the MDI area, it should be empty now
-    setCentralWidget(Q_NULLPTR);
+    setCentralWidget(nullptr);
     if (m_mdi_area) {
         delete m_mdi_area;
-        m_mdi_area = Q_NULLPTR;
+        m_mdi_area = nullptr;
     }
 
-    emit sigFileContextSwitched(Q_NULLPTR);
+    emit sigFileContextSwitched(nullptr);
 
     return list;
 }
@@ -573,7 +573,7 @@ QList<Kwave::FileContext *> Kwave::TopWidget::detachAllContexts()
 //***************************************************************************
 void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 {
-    Kwave::FileContext *old_default_context = Q_NULLPTR;
+    Kwave::FileContext *old_default_context = nullptr;
 
     // if no context was given: create a new empty default context
     if (!context) {
@@ -586,7 +586,7 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
             context->createMainWidget(geometry().size() * 0.85);
         }
         // prevent it from getting removed again
-        m_context_map.remove(Q_NULLPTR);
+        m_context_map.remove(nullptr);
     }
 
     switch (m_application.guiType()) {
@@ -594,13 +594,13 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
             // we may have an empty default context -> get rid of it
             Q_ASSERT(m_context_map.count() <= 1);
             if (!m_context_map.isEmpty()) {
-                Kwave::FileContext *ctx = m_context_map[Q_NULLPTR];
-                m_context_map.remove(Q_NULLPTR);
+                Kwave::FileContext *ctx = m_context_map[nullptr];
+                m_context_map.remove(nullptr);
                 Q_ASSERT(ctx != context);
                 old_default_context = ctx;
             }
             // take over the new context
-            m_context_map[Q_NULLPTR] = context;
+            m_context_map[nullptr] = context;
             connectContext(context);
             context->setParent(this);
 
@@ -641,8 +641,8 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
                 if (!sub) return;
                 sub->adjustSize();
 
-                if (m_context_map.contains(Q_NULLPTR))
-                    m_context_map.remove(Q_NULLPTR);
+                if (m_context_map.contains(nullptr))
+                    m_context_map.remove(nullptr);
                 m_context_map[sub] = context;
 
                 connect(context->mainWidget(), SIGNAL(destroyed(QObject*)),
@@ -691,7 +691,7 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
                 sub->setHidden(false);
                 m_mdi_area->setActiveSubWindow(sub);
             } else {
-                m_context_map[Q_NULLPTR] = context; // set empty default context
+                m_context_map[nullptr] = context; // set empty default context
             }
 
             break;
@@ -699,7 +699,7 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
     }
 
     // update the menu bar, toolbar etc.
-    emit sigFileContextSwitched(Q_NULLPTR);
+    emit sigFileContextSwitched(nullptr);
     emit sigFileContextSwitched(context);
 
     updateMenu();
@@ -928,7 +928,7 @@ bool Kwave::TopWidget::closeAllSubWindows()
             it.remove();
             if (m_context_map.isEmpty()) {
                 // keep the default context, without a window
-                m_context_map[Q_NULLPTR] = context;
+                m_context_map[nullptr] = context;
                 break;
             }
         }
@@ -946,7 +946,7 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const QUrl &url)
             // -> open a new toplevel window
             //    (except for processing commands per kwave: URL
             Kwave::SignalManager *signal_manager = (context) ?
-                context->signalManager() : Q_NULLPTR;
+                context->signalManager() : nullptr;
             if ( signal_manager && !signal_manager->isEmpty() &&
                 (url.scheme().toLower() != Kwave::urlScheme()) )
                 return m_application.newWindow(url);
@@ -964,10 +964,10 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const QUrl &url)
 
             if (context && context->isEmpty()) {
                 // current context is empty, no main widget etc -> discard it
-                if (m_context_map.contains(Q_NULLPTR)) {
+                if (m_context_map.contains(nullptr)) {
                     // must have been the default context
-                    Q_ASSERT(m_context_map[Q_NULLPTR] == context);
-                    m_context_map.remove(Q_NULLPTR);
+                    Q_ASSERT(m_context_map[nullptr] == context);
+                    m_context_map.remove(nullptr);
                 }
 
                 // NOTE: do not handle the following context switch
@@ -1326,7 +1326,7 @@ void Kwave::TopWidget::updateMenu()
 {
     const Kwave::FileContext *context = currentContext();
     Kwave::SignalManager *signal_manager =
-        (context) ? context->signalManager() : Q_NULLPTR;
+        (context) ? context->signalManager() : nullptr;
     Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
@@ -1599,7 +1599,7 @@ void Kwave::TopWidget::subWindowDeleted(QObject *obj)
 
     if (m_context_map.isEmpty()) {
         // keep the default context, without a window
-        m_context_map[Q_NULLPTR] = context;
+        m_context_map[nullptr] = context;
     } else {
         // remove the context
         context->release();

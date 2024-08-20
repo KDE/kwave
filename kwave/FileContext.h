@@ -326,7 +326,7 @@ namespace Kwave
             virtual ~UsageGuard()
             {
                 if (m_context) m_context->release();
-                m_context = Q_NULLPTR;
+                m_context = nullptr;
             }
 
         private:

@@ -27,9 +27,9 @@
 
 //***************************************************************************
 Kwave::RecordThread::RecordThread()
-    :Kwave::WorkerThread(Q_NULLPTR, QVariant()),
+    :Kwave::WorkerThread(nullptr, QVariant()),
      m_lock(),
-     m_device(Q_NULLPTR),
+     m_device(nullptr),
      m_empty_queue(),
      m_full_queue(),
      m_buffer_count(0),

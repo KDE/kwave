@@ -60,7 +60,7 @@ void Kwave::ZeroPlugin::run(QStringList params)
 
     Kwave::UndoTransactionGuard undo_guard(*this, i18n("Silence"));
 
-    Kwave::MultiTrackWriter *writers = Q_NULLPTR;
+    Kwave::MultiTrackWriter *writers = nullptr;
 
     /*
      * new mode: insert a range filled with silence:

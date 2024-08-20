@@ -75,7 +75,7 @@ Kwave::OverViewWidget::OverViewWidget(Kwave::SignalManager &signal,
     :Kwave::ImageView(parent), m_view_offset(0), m_view_width(0),
      m_signal_length(0), m_selection_start(0), m_selection_length(0),
      m_cursor_position(SAMPLE_INDEX_MAX), m_last_offset(0),
-     m_cache(signal, 0, 0, Q_NULLPTR), m_repaint_timer(), m_labels(),
+     m_cache(signal, 0, 0, nullptr), m_repaint_timer(), m_labels(),
      m_worker_thread(this)
 {
     // check: start() must be called from the GUI thread only!

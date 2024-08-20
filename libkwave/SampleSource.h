@@ -39,7 +39,7 @@ namespace Kwave
          *
          * @param parent a parent object, passed to QObject (optional)
          */
-        explicit SampleSource(QObject *parent = Q_NULLPTR);
+        explicit SampleSource(QObject *parent = nullptr);
 
         /** Destructor */
         virtual ~SampleSource();

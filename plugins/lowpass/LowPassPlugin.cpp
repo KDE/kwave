@@ -68,7 +68,7 @@ Kwave::PluginSetupDialog *Kwave::LowPassPlugin::createDialog(QWidget *parent)
     Kwave::LowPassDialog *dialog =
         new(std::nothrow) Kwave::LowPassDialog(parent, signalRate());
     Q_ASSERT(dialog);
-    if (!dialog) return Q_NULLPTR;
+    if (!dialog) return nullptr;
 
     // connect the signals for detecting value changes in pre-listen mode
     connect(dialog, SIGNAL(changed(double)),

@@ -76,7 +76,7 @@ bool Kwave::UndoDeleteTrack::store(Kwave::SignalManager &manager)
 Kwave::UndoAction *Kwave::UndoDeleteTrack::undo(Kwave::SignalManager &manager,
                                                 bool with_redo)
 {
-    Kwave::UndoAction *redo_action = Q_NULLPTR;
+    Kwave::UndoAction *redo_action = nullptr;
 
     // create a redo action
     if (with_redo) {
@@ -95,7 +95,7 @@ Kwave::UndoAction *Kwave::UndoDeleteTrack::undo(Kwave::SignalManager &manager,
     if (!manager.mergeStripes(m_stripes, track_list)) {
         qWarning("UndoDeleteTrack::undo() FAILED [mergeStripes]");
         delete redo_action;
-        return Q_NULLPTR;
+        return nullptr;
     }
 
     return redo_action;

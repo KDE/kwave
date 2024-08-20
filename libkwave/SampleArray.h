@@ -54,14 +54,14 @@ namespace Kwave
         /** returns a const pointer to the raw data (non-mutable) */
         inline const sample_t * constData() const
         {
-            if (Q_UNLIKELY(!m_storage)) return Q_NULLPTR;
+            if (Q_UNLIKELY(!m_storage)) return nullptr;
             return m_storage->m_data;
         }
 
         /** returns a pointer to the raw data (mutable) */
         inline sample_t *data() /* __attribute__((deprecated)) <- for debug */
         {
-            if (Q_UNLIKELY(!m_storage)) return Q_NULLPTR;
+            if (Q_UNLIKELY(!m_storage)) return nullptr;
             return m_storage->m_data;
         }
 

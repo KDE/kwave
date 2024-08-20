@@ -70,10 +70,10 @@ Kwave::FileContext::FileContext(Kwave::App &app)
     :QObject(),
      m_use_count(1),
      m_application(app),
-     m_top_widget(Q_NULLPTR),
-     m_main_widget(Q_NULLPTR),
-     m_signal_manager(Q_NULLPTR),
-     m_plugin_manager(Q_NULLPTR),
+     m_top_widget(nullptr),
+     m_main_widget(nullptr),
+     m_signal_manager(nullptr),
+     m_plugin_manager(nullptr),
      m_active(true),
      m_last_zoom(0),
      m_last_playback_pos(0),
@@ -95,15 +95,15 @@ Kwave::FileContext::FileContext(Kwave::App &app)
 Kwave::FileContext::~FileContext()
 {
     if (m_main_widget) delete m_main_widget;
-    m_main_widget = Q_NULLPTR;
+    m_main_widget = nullptr;
 
-    m_top_widget = Q_NULLPTR;
+    m_top_widget = nullptr;
 
     if (m_plugin_manager) delete m_plugin_manager;
-    m_plugin_manager = Q_NULLPTR;
+    m_plugin_manager = nullptr;
 
     if (m_signal_manager) delete m_signal_manager;
-    m_signal_manager = Q_NULLPTR;
+    m_signal_manager = nullptr;
 }
 
 //***************************************************************************
@@ -136,7 +136,7 @@ bool Kwave::FileContext::createMainWidget(const QSize &preferred_size)
     if (!m_main_widget) return false;
     if (!(m_main_widget->isOK())) {
         delete m_main_widget;
-        m_main_widget = Q_NULLPTR;
+        m_main_widget = nullptr;
         return false;
     }
 
@@ -253,9 +253,9 @@ void Kwave::FileContext::setParent(Kwave::TopWidget *top_widget)
         disconnect(old,  SIGNAL(sigFileContextSwitched(Kwave::FileContext*)),
                    this, SLOT(contextSwitched(Kwave::FileContext*)));
 
-        if (m_signal_manager) m_signal_manager->setParentWidget(Q_NULLPTR);
-        if (m_plugin_manager) m_plugin_manager->setParentWidget(Q_NULLPTR);
-        if (m_main_widget)    m_main_widget->setParent(Q_NULLPTR);
+        if (m_signal_manager) m_signal_manager->setParentWidget(nullptr);
+        if (m_plugin_manager) m_plugin_manager->setParentWidget(nullptr);
+        if (m_main_widget)    m_main_widget->setParent(nullptr);
 
         m_active = false;
     }
@@ -437,7 +437,7 @@ int Kwave::FileContext::executeCommand(const QString &line)
         qDebug("FileContext::executeCommand(): with %lld parameter(s)",
                 params.count());
         result = m_plugin_manager->executePlugin(
-            name, params.count() ? &params : Q_NULLPTR);
+            name, params.count() ? &params : nullptr);
     CASE_COMMAND("plugin:execute")
         QString name(parser.firstParam());
         QStringList params(parser.remainingParams());
@@ -763,7 +763,7 @@ int Kwave::FileContext::parseCommands(QTextStream &stream)
         //       or even deletes the current context!
         result = EAGAIN;
         const Kwave::FileContext *current_ctx = (m_top_widget) ?
-            m_top_widget->currentContext() : Q_NULLPTR;
+            m_top_widget->currentContext() : nullptr;
         if (current_ctx && (current_ctx != this))
             result = m_top_widget->forwardCommand(line);
 

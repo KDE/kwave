@@ -55,7 +55,7 @@
 
 //***************************************************************************
 Kwave::MimeData::Buffer::Buffer()
-    :QIODevice(), m_block(Q_NULLPTR), m_size(0), m_data()
+    :QIODevice(), m_block(nullptr), m_size(0), m_data()
 {
 }
 
@@ -117,15 +117,15 @@ qint64 Kwave::MimeData::Buffer::writeData(const char *data, qint64 len)
 bool Kwave::MimeData::Buffer::mapToByteArray()
 {
     // reset our QByteArray
-    m_data.setRawData(Q_NULLPTR, 0);
+    m_data.setRawData(nullptr, 0);
     m_data.clear();
 
-    const char *raw = (m_block) ? ((m_block->data())) : Q_NULLPTR;
+    const char *raw = (m_block) ? ((m_block->data())) : nullptr;
     if (!raw) {
         // mapping failed: free the block here to avoid trouble
         // in close()
         delete m_block;
-        m_block = Q_NULLPTR;
+        m_block = nullptr;
         qWarning("Kwave::MimeData::Buffer::mapToByteArray() failed");
         return false; // mmap failed
     }
@@ -143,13 +143,13 @@ void Kwave::MimeData::Buffer::close()
     QIODevice::close();
 
     // reset the byte array and it's connection to the block of memory
-    m_data.setRawData(Q_NULLPTR, 0);
+    m_data.setRawData(nullptr, 0);
     m_data.clear();
 
     // unmap and discard the mapped memory
     if (m_block) {
         delete m_block;
-        m_block = Q_NULLPTR;
+        m_block = nullptr;
     }
     m_size = 0;
 }
@@ -295,7 +295,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
 
         // if the track count does not match, then we need a channel mixer
         Q_ASSERT(ok);
-        Kwave::ChannelMixer *mixer = Q_NULLPTR;
+        Kwave::ChannelMixer *mixer = nullptr;
         if (ok && (decoded_tracks != dst_tracks)) {
             qDebug("Kwave::MimeData::decode(...) -> mixing channels: %u -> %u",
                    decoded_tracks, dst_tracks);
@@ -308,7 +308,7 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
         Q_ASSERT(ok);
 
         // if the sample rates do not match, then we need a rate converter
-        Kwave::StreamObject *rate_converter = Q_NULLPTR;
+        Kwave::StreamObject *rate_converter = nullptr;
         if (ok && !qFuzzyCompare(src_rate, dst_rate)) {
             // create a sample rate converter
             qDebug("Kwave::MimeData::decode(...) -> rate conversion: "\

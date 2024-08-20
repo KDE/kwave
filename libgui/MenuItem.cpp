@@ -34,7 +34,7 @@ Kwave::MenuItem::MenuItem(Kwave::MenuNode *parent,
                           const QKeySequence &shortcut,
                           const QString &uid)
     :Kwave::MenuNode(parent, name, command, shortcut, uid),
-     m_exclusive_group(), m_action(Q_NULLPTR)
+     m_exclusive_group(), m_action(nullptr)
 {
     Q_ASSERT(parent);
     if (!parent) return;

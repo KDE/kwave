@@ -33,7 +33,7 @@
 
 //***************************************************************************
 Kwave::Writer::Writer()
-    :Kwave::SampleSink(Q_NULLPTR),
+    :Kwave::SampleSink(nullptr),
      m_first(0), m_last(0), m_mode(Kwave::Insert), m_position(0),
      m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0)
 {
@@ -42,7 +42,7 @@ Kwave::Writer::Writer()
 //***************************************************************************
 Kwave::Writer::Writer(Kwave::InsertMode mode,
                       sample_index_t left, sample_index_t right)
-    :Kwave::SampleSink(Q_NULLPTR),
+    :Kwave::SampleSink(nullptr),
      m_first(left), m_last(right), m_mode(mode), m_position(left),
      m_buffer(BUFFER_SIZE), m_buffer_size(BUFFER_SIZE), m_buffer_used(0)
 {

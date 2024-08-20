@@ -120,7 +120,7 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
                      Qt::QueuedConnection);
 
     // create an undo action for the modification of the samples
-    UndoAction *undo = Q_NULLPTR;
+    UndoAction *undo = nullptr;
     switch (mode) {
         case Kwave::Append:
         case Kwave::Insert: {

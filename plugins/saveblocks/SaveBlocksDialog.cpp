@@ -60,7 +60,7 @@ Kwave::SaveBlocksDialog::SaveBlocksDialog(const QString &startDir,
 Kwave::SaveBlocksDialog::~SaveBlocksDialog()
 {
     if (m_widget) delete m_widget;
-    m_widget = Q_NULLPTR;
+    m_widget = nullptr;
 }
 
 //***************************************************************************

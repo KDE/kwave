@@ -101,7 +101,7 @@ namespace Kwave
 
         /** Returns the corresponding menu action */
         QAction *action() override {
-            return (m_menu) ? m_menu->menuAction() : Q_NULLPTR;
+            return (m_menu) ? m_menu->menuAction() : nullptr;
         }
 
         /**

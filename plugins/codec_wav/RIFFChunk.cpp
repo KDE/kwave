@@ -97,7 +97,7 @@ const QByteArray Kwave::RIFFChunk::path() const
         QListIterator<Kwave::RIFFChunk *> it(m_parent->subChunks());
         unsigned int before = 0;
         unsigned int after  = 0;
-        const Kwave::RIFFChunk *chunk = Q_NULLPTR;
+        const Kwave::RIFFChunk *chunk = nullptr;
         while (it.hasNext()) {
             chunk = it.next();
             if (!chunk) continue;

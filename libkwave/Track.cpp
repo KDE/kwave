@@ -577,7 +577,7 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
             {
                 QMutexLocker _lock(&m_lock);
                 appended = appendAfter(
-                    m_stripes.isEmpty() ? Q_NULLPTR : &(m_stripes.last()),
+                    m_stripes.isEmpty() ? nullptr : &(m_stripes.last()),
                     offset, buffer,
                     buf_offset, length);
             }
@@ -594,8 +594,8 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
 //                 offset, length);
 
             // find the stripe into which we insert
-            Stripe *target_stripe = Q_NULLPTR;
-            Stripe *stripe_before = Q_NULLPTR;
+            Stripe *target_stripe = nullptr;
+            Stripe *stripe_before = nullptr;
             QMutableListIterator<Stripe> it(m_stripes);
             while (it.hasNext()) {
                 Stripe &s = it.next();
@@ -678,7 +678,7 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
 
                 // fill in the content of the buffer, append to the stripe
                 // before the gap if possible
-                Stripe *stripe_before = Q_NULLPTR;
+                Stripe *stripe_before = nullptr;
                 QMutableListIterator<Stripe> it(m_stripes);
                 while (it.hasNext()) {
                     Stripe &s = it.next();
@@ -711,8 +711,8 @@ void Kwave::Track::defragment()
 //      dump();
 
 //      unsigned int   index  = 0;
-        Kwave::Stripe *before = Q_NULLPTR;
-        Kwave::Stripe *stripe = Q_NULLPTR;
+        Kwave::Stripe *before = nullptr;
+        Kwave::Stripe *stripe = nullptr;
 
         // use a quick and simple algorithm:
         // iterate over all stripes and analyze pairwise

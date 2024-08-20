@@ -105,7 +105,7 @@ bool Kwave::UndoModifyMetaDataAction::store(Kwave::SignalManager &)
 Kwave::UndoAction *Kwave::UndoModifyMetaDataAction::undo(
     Kwave::SignalManager &manager, bool with_redo)
 {
-    if (m_saved_data.isEmpty()) return Q_NULLPTR;
+    if (m_saved_data.isEmpty()) return nullptr;
 
     // store data for redo
     if (with_redo) {
@@ -134,7 +134,7 @@ Kwave::UndoAction *Kwave::UndoModifyMetaDataAction::undo(
     } else {
         // restore the saved meta data
         manager.mergeMetaData(m_saved_data);
-        return Q_NULLPTR;
+        return nullptr;
     }
 }
 

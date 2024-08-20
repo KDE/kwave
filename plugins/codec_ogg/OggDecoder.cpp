@@ -44,7 +44,7 @@
 
 //***************************************************************************
 Kwave::OggDecoder::OggDecoder()
-    :Kwave::Decoder(), m_sub_decoder(Q_NULLPTR), m_source(Q_NULLPTR)
+    :Kwave::Decoder(), m_sub_decoder(nullptr), m_source(nullptr)
 {
 #ifdef HAVE_OGG_OPUS
     REGISTER_OGG_OPUS_MIME_TYPES
@@ -128,7 +128,7 @@ int Kwave::OggDecoder::parseHeader(QWidget *widget)
     // get rid of the previous sub decoder
     if (m_sub_decoder) {
         delete m_sub_decoder;
-        m_sub_decoder = Q_NULLPTR;
+        m_sub_decoder = nullptr;
     }
 
     Kwave::FileInfo info(metaData());
@@ -276,9 +276,9 @@ bool Kwave::OggDecoder::decode(QWidget *widget, Kwave::MultiWriter &dst)
 //***************************************************************************
 void Kwave::OggDecoder::close()
 {
-    m_source = Q_NULLPTR;
+    m_source = nullptr;
     delete m_sub_decoder;
-    m_sub_decoder = Q_NULLPTR;
+    m_sub_decoder = nullptr;
 }
 
 //***************************************************************************

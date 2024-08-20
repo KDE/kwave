@@ -219,8 +219,8 @@ INCLUDE(ECMGenerateExportHeader)
 INCLUDE(FeatureSummary)
 INCLUDE(ECMDeprecationSettings)
 ecm_set_disabled_deprecation_versions(
-  QT ${QT_MIN_VERSION}
-  KF ${KF_MIN_VERSION}
+  QT 6.7.0
+  KF 6.5.0
 )
 
 FIND_PACKAGE(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS

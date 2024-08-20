@@ -25,6 +25,9 @@
 SET(plugin_newsignal_LIB_SRCS
     NewSignalDialog.cpp
     NewSignalPlugin.cpp
+
+    NewSignalDialog.h
+    NewSignalPlugin.h
 )
 
 SET(plugin_newsignal_LIB_UI

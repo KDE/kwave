@@ -26,6 +26,10 @@ SET(plugin_notch_filter_LIB_SRCS
     NotchFilter.cpp
     NotchFilterDialog.cpp
     NotchFilterPlugin.cpp
+
+    NotchFilter.h
+    NotchFilterDialog.h
+    NotchFilterPlugin.h
 )
 
 SET(plugin_notch_filter_LIB_UI

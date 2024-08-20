@@ -26,6 +26,10 @@ SET(plugin_noise_LIB_SRCS
     NoiseDialog.cpp
     NoiseGenerator.cpp
     NoisePlugin.cpp
+
+    NoiseDialog.h
+    NoiseGenerator.h
+    NoisePlugin.h
 )
 
 SET(plugin_noise_LIB_UI

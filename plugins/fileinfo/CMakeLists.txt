@@ -30,6 +30,14 @@ SET(plugin_fileinfo_LIB_SRCS
     FileInfoPlugin.cpp
     KeywordWidget.cpp
     SelectDateDialog.cpp
+
+    BitrateSpinBox.h
+    BitrateWidget.h
+    CompressionWidget.h
+    FileInfoDialog.h
+    FileInfoPlugin.h
+    KeywordWidget.h
+    SelectDateDialog.h
 )
 
 SET(plugin_fileinfo_LIB_UI

@@ -25,6 +25,9 @@
 SET(plugin_goto_common_LIB_SRCS
     GotoDialog.cpp
     GotoPluginBase.cpp
+
+    GotoDialog.h
+    GotoPluginBase.h
 )
 
 SET(plugin_goto_common_LIB_UI
@@ -48,6 +51,7 @@ TARGET_LINK_LIBRARIES(plugin_goto_common
 
 SET(plugin_goto_LIB_SRCS
     GotoPlugin.cpp
+    GotoPlugin.h
 )
 
 SET(plugin_goto_LIBS plugin_goto_common)
@@ -57,6 +61,7 @@ KWAVE_PLUGIN(goto)
 
 SET(plugin_insert_at_LIB_SRCS
     InsertAtPlugin.cpp
+    InsertAtPlugin.h
 )
 
 SET(plugin_insert_at_LIBS plugin_goto_common)

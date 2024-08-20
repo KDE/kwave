@@ -25,6 +25,9 @@
 SET(plugin_amplifyfree_LIB_SRCS
     AmplifyFreeDialog.cpp
     AmplifyFreePlugin.cpp
+    AmplifyFreeDialog.h
+    AmplifyFreePlugin.h
+
 )
 
 SET(plugin_amplifyfree_LIB_UI

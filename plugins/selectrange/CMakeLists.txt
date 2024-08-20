@@ -25,6 +25,9 @@
 SET(plugin_selectrange_LIB_SRCS
     SelectRangeDialog.cpp
     SelectRangePlugin.cpp
+
+    SelectRangeDialog.h
+    SelectRangePlugin.h
 )
 
 SET(plugin_selectrange_LIB_UI

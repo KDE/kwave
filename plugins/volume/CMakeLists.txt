@@ -25,6 +25,9 @@
 SET(plugin_volume_LIB_SRCS
     VolumeDialog.cpp
     VolumePlugin.cpp
+
+    VolumeDialog.h
+    VolumePlugin.h
 )
 
 SET(plugin_volume_LIB_UI

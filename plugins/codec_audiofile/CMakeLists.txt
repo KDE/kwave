@@ -25,6 +25,8 @@
 SET(plugin_codec_audiofile_LIB_SRCS
     AudiofileCodecPlugin.cpp
     AudiofileDecoder.cpp
+    AudiofileCodecPlugin.h
+    AudiofileDecoder.h
 )
 
 SET(plugin_codec_audiofile_LIBS audiofile)

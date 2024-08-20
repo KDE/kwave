@@ -26,6 +26,10 @@ SET(plugin_saveblocks_LIB_SRCS
     SaveBlocksDialog.cpp
     SaveBlocksPlugin.cpp
     SaveBlocksWidget.cpp
+
+    SaveBlocksDialog.h
+    SaveBlocksPlugin.h
+    SaveBlocksWidget.h
 )
 
 SET(plugin_saveblocks_LIB_UI

@@ -35,6 +35,19 @@ SET(plugin_codec_wav_LIB_SRCS
     WavFileFormat.cpp
     WavFormatMap.cpp
     WavPropertyMap.cpp
+
+    RecoveryBuffer.h
+    RecoveryMapping.h
+    RecoverySource.h
+    RepairVirtualAudioFile.h
+    RIFFChunk.h
+    RIFFParser.h
+    WavCodecPlugin.h
+    WavDecoder.h
+    WavEncoder.h
+    WavFileFormat.h
+    WavFormatMap.h
+    WavPropertyMap.h
 )
 
 SET(plugin_codec_wav_LIBS audiofile)

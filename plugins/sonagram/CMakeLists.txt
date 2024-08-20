@@ -47,6 +47,10 @@ SET(plugin_sonagram_LIB_SRCS
     SonagramDialog.cpp
     SonagramPlugin.cpp
     SonagramWindow.cpp
+
+    SonagramDialog.h
+    SonagramPlugin.h
+    SonagramWindow.h
 )
 
 SET(plugin_sonagram_LIB_UI

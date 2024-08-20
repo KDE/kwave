@@ -24,6 +24,7 @@
 
 SET(plugin_debug_LIB_SRCS
     DebugPlugin.cpp
+    DebugPlugin.h
 )
 
 KWAVE_PLUGIN(debug)

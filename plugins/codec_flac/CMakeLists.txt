@@ -49,6 +49,10 @@ IF (WITH_FLAC)
         FlacCodecPlugin.cpp
         FlacDecoder.cpp
         FlacEncoder.cpp
+
+        FlacCodecPlugin.h
+        FlacDecoder.h
+        FlacEncoder.h
     )
 
     SET(plugin_codec_flac_LIBS FLAC++ FLAC)

@@ -58,6 +58,16 @@ SET(plugin_record_LIB_SRCS
     RecordTypesMap.cpp
     SampleDecoderLinear.cpp
     StatusWidget.cpp
+
+    LevelMeter.h
+    RecordController.h
+    RecordDialog.h
+    RecordParams.h
+    RecordPlugin.h
+    RecordThread.h
+    RecordTypesMap.h
+    SampleDecoderLinear.h
+    StatusWidget.h
     ${RECORD_SOURCES}
 )
 

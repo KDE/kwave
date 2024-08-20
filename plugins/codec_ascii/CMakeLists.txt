@@ -26,6 +26,9 @@ SET(plugin_codec_ascii_LIB_SRCS
     AsciiCodecPlugin.cpp
     AsciiDecoder.cpp
     AsciiEncoder.cpp
+    AsciiCodecPlugin.h
+    AsciiDecoder.h
+    AsciiEncoder.h
 )
 
 KWAVE_PLUGIN(codec_ascii)

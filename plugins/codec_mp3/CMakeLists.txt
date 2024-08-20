@@ -113,6 +113,15 @@ IF (WITH_MP3)
         MP3Encoder.cpp
         MP3EncoderDialog.cpp
         MP3EncoderSettings.cpp
+
+        ID3_PropertyMap.h
+        ID3_QIODeviceReader.h
+        ID3_QIODeviceWriter.h
+        MP3CodecPlugin.h
+        MP3Decoder.h
+        MP3Encoder.h
+        MP3EncoderDialog.h
+        MP3EncoderSettings.h
     )
 
     SET(plugin_codec_mp3_LIB_UI

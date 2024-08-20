@@ -24,6 +24,7 @@
 
 SET(plugin_zero_LIB_SRCS
     ZeroPlugin.cpp
+    ZeroPlugin.h
 )
 
 KWAVE_PLUGIN(zero)

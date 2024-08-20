@@ -26,6 +26,9 @@ SET(plugin_band_pass_LIB_SRCS
     BandPass.cpp
     BandPassDialog.cpp
     BandPassPlugin.cpp
+    BandPass.h
+    BandPassDialog.h
+    BandPassPlugin.h
 )
 
 SET(plugin_band_pass_LIB_UI

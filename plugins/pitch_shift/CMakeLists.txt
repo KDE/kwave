@@ -26,6 +26,10 @@ SET(plugin_pitch_shift_LIB_SRCS
     PitchShiftDialog.cpp
     PitchShiftFilter.cpp
     PitchShiftPlugin.cpp
+
+    PitchShiftDialog.h
+    PitchShiftFilter.h
+    PitchShiftPlugin.h
 )
 
 SET(plugin_pitch_shift_LIB_UI

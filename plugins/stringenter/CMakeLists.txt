@@ -25,6 +25,9 @@
 SET(plugin_stringenter_LIB_SRCS
     StringEnterDialog.cpp
     StringEnterPlugin.cpp
+
+    StringEnterDialog.h
+    StringEnterPlugin.h
 )
 
 SET(plugin_stringenter_LIB_UI

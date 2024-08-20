@@ -26,6 +26,10 @@ SET(plugin_export_k3b_LIB_SRCS
     K3BExportDialog.cpp
     K3BExportPlugin.cpp
     K3BExportWidget.cpp
+
+    K3BExportDialog.h
+    K3BExportPlugin.h
+    K3BExportWidget.h
 )
 
 SET(plugin_export_k3b_LIB_UI

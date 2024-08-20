@@ -26,6 +26,10 @@ SET(plugin_lowpass_LIB_SRCS
     LowPassDialog.cpp
     LowPassFilter.cpp
     LowPassPlugin.cpp
+
+    LowPassDialog.h
+    LowPassFilter.h
+    LowPassPlugin.h
 )
 
 SET(plugin_lowpass_LIB_UI

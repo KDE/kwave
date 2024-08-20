@@ -25,6 +25,9 @@
 SET(plugin_normalize_LIB_SRCS
     NormalizePlugin.cpp
     Normalizer.cpp
+
+    NormalizePlugin.h
+    Normalizer.h
 )
 
 KWAVE_PLUGIN(normalize)

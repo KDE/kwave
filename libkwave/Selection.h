@@ -44,7 +44,7 @@ namespace Kwave
         Selection(const Selection &other);
 
         /** Destructor */
-        virtual ~Selection();
+        ~Selection() override;
 
         /**
          * Sets a new offset and length.

@@ -61,7 +61,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        virtual ~Track();
+        ~Track() override;
 
         /**
          * Returns the length of the track. This is equivalent

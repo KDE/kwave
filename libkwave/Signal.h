@@ -66,7 +66,7 @@ namespace Kwave
         /**
          * Destructor.
          */
-        virtual ~Signal();
+        ~Signal() override;
 
         /**
          * Closes the signal by removing all tracks.

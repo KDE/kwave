@@ -68,7 +68,7 @@ namespace Kwave
         /**
          * Default destructor
          */
-        virtual ~PluginManager();
+        ~PluginManager() override;
 
         /**
          * Tries to load all plugins. If a pesistent plugin is found,

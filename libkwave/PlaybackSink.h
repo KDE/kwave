@@ -39,7 +39,7 @@ namespace Kwave
         explicit PlaybackSink(unsigned int track);
 
         /** Destructor */
-        virtual ~PlaybackSink();
+        ~PlaybackSink() override;
 
     signals:
         /** emits back the sample data received through input(...) */

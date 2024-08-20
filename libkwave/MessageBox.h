@@ -104,7 +104,7 @@ namespace Kwave
             const QString &dontAskAgainName = QString());
 
         /** Destructor */
-        virtual ~MessageBox();
+        ~MessageBox() override;
 
         /** returns the return value of the KMessageBox */
         virtual int retval() const;

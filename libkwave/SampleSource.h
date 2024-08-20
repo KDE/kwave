@@ -42,7 +42,7 @@ namespace Kwave
         explicit SampleSource(QObject *parent = nullptr);
 
         /** Destructor */
-        virtual ~SampleSource();
+        ~SampleSource() override;
 
         /**
          * Each KwaveSampleSource has to derive this method for producing

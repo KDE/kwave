@@ -51,7 +51,7 @@ namespace Kwave
             const QList<Kwave::PluginManager::PluginModule> &plugin_info);
 
         /** Destructor */
-        virtual ~AboutDialog();
+        ~AboutDialog() override;
 
     };
 }

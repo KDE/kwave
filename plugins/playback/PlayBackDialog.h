@@ -50,7 +50,7 @@ namespace Kwave
                        const Kwave::PlayBackParam &params);
 
         /** Destructor */
-        virtual ~PlayBackDialog();
+        ~PlayBackDialog() override;
 
         /** Returns the current set of parameters */
         const Kwave::PlayBackParam &params();

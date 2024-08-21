@@ -64,7 +64,7 @@ namespace Kwave
         );
 
         /** Destructor */
-        virtual ~SaveBlocksDialog();
+        ~SaveBlocksDialog() override;
 
         /** returns the file name pattern (as is, not escaped) */
         QString pattern();

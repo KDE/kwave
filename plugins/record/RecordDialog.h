@@ -65,7 +65,7 @@ namespace Kwave
                      Mode mode);
 
         /** Destructor */
-        virtual ~RecordDialog();
+        ~RecordDialog() override;
 
         /** returns the list of record parameters, for the next time */
         Kwave::RecordParams &params();

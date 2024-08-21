@@ -47,7 +47,7 @@ namespace Kwave
         );
 
         /** Destructor */
-        virtual ~SaveBlocksWidget();
+        ~SaveBlocksWidget() override;
 
         /** @see KPreviewWidgetBase::showPreview() */
         virtual void showPreview(const QUrl &url)

@@ -41,7 +41,7 @@ namespace Kwave
         VolumeDialog(QWidget *parent, Kwave::OverViewCache *overview_cache);
 
         /** Destructor */
-        virtual ~VolumeDialog();
+        ~VolumeDialog() override;
 
         /** Returns the parameters as string list */
         QStringList params();

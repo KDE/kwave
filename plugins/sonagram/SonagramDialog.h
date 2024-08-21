@@ -40,7 +40,7 @@ namespace Kwave
         explicit SonagramDialog(Kwave::Plugin &p);
 
         /** Destructor */
-        virtual ~SonagramDialog();
+        ~SonagramDialog() override;
 
         /**
          * Fills the current parameters into a parameter list.

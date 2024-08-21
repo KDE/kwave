@@ -66,7 +66,7 @@ namespace Kwave
         bool store(SignalManager &manager) override;
 
         /** @see UndoAction::undo() */
-        virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+        Kwave::UndoAction *undo(Kwave::SignalManager &manager,
                                         bool with_redo) override;
 
     protected:

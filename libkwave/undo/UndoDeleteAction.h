@@ -76,7 +76,7 @@ namespace Kwave
          * Copies the samples to be deleted to the internal buffer.
          * @see UndoAction::undo()
          */
-        virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+        Kwave::UndoAction *undo(Kwave::SignalManager &manager,
                                         bool with_redo) override;
 
         /** dump, for debugging purposes */

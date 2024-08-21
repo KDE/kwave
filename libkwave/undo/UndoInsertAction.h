@@ -71,7 +71,7 @@ namespace Kwave
          * Removes samples from the track.
          * @see UndoAction::undo()
          */
-        virtual Kwave::UndoAction *undo(Kwave::SignalManager &manager,
+        Kwave::UndoAction *undo(Kwave::SignalManager &manager,
                                         bool with_redo) override;
 
         /** dump, for debugging purposes */

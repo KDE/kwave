@@ -140,13 +140,13 @@ namespace Kwave
         Kwave::Curve m_curve;
 
         /** Popup (context) menu for the right mouse button */
-        QMenu *m_menu;
+        QMenu *m_menu = nullptr;
 
         /**
          * Part of the popup (context) menu for the right
          * mouse button with the list of preset files
          */
-        QMenu *m_preset_menu;
+        QMenu *m_preset_menu = nullptr;
 
         /** Currently selected point or null if none selected */
         Kwave::Curve::Point m_current;

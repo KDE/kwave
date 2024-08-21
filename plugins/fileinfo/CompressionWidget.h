@@ -45,7 +45,7 @@ namespace Kwave
         explicit CompressionWidget(QWidget *parent);
 
         /** Destructor */
-        virtual ~CompressionWidget();
+        ~CompressionWidget() override;
 
         /**
          * @param info the FileInfo used for getting the property descriptions

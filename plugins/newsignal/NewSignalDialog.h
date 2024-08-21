@@ -51,7 +51,7 @@ namespace Kwave
                         unsigned int tracks, bool by_time);
 
         /** Destructor */
-        virtual ~NewSignalDialog() {}
+        ~NewSignalDialog() override {}
 
         /** Returns the number of samples */
         sample_index_t samples();

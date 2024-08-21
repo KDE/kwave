@@ -37,7 +37,7 @@ namespace Kwave
         explicit AmplifyFreeDialog(QWidget *parent);
 
         /** Destructor */
-        virtual ~AmplifyFreeDialog();
+        ~AmplifyFreeDialog() override;
 
         /** Returns a command string for the curve */
         QString getCommand();

@@ -35,7 +35,7 @@ namespace Kwave
         explicit BitrateSpinBox(QWidget *parent);
 
         /** Destructor */
-        virtual ~BitrateSpinBox();
+        ~BitrateSpinBox() override;
 
         /** sets a list of allowed bitrates */
         virtual void allowRates(const QList<int> &list);

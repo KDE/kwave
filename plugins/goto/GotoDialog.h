@@ -55,7 +55,7 @@ namespace Kwave
                 );
 
         /** Destructor */
-        virtual ~GotoDialog();
+        ~GotoDialog() override;
 
         /**
          * Returns the current selection mode for the position

@@ -46,10 +46,8 @@ Kwave::FilterPlugin::FilterPlugin(QObject *parent, const QVariantList &args)
 //***************************************************************************
 Kwave::FilterPlugin::~FilterPlugin()
 {
-    if (m_sink) {
-        delete m_sink;
-        m_sink = nullptr;
-    }
+    delete m_sink;
+    m_sink = nullptr;
 }
 
 //***************************************************************************

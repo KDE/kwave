@@ -107,8 +107,8 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
     Q_ASSERT(m_preset_menu);
     if (!m_preset_menu) return;
     loadPresetList();
-    connect(m_preset_menu, SIGNAL(triggered(QAction*)),
-            this, SLOT(loadPreset(QAction*)));
+    connect(m_preset_menu, &QMenu::triggered,
+            this, &CurveWidget::loadPreset);
 
     m_menu->addAction(
         QIcon::fromTheme(_("document-export")),

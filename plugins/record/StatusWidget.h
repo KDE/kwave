@@ -36,7 +36,7 @@ namespace Kwave
     public:
 
         /** Constructor */
-        explicit StatusWidget(QWidget *parent = Q_NULLPTR);
+        explicit StatusWidget(QWidget *parent = nullptr);
 
         /** Destructor */
         ~StatusWidget() override;

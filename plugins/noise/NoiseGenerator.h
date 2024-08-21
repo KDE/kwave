@@ -35,7 +35,7 @@ namespace Kwave
     public:
 
         /** Constructor */
-        explicit NoiseGenerator(QObject *parent = Q_NULLPTR);
+        explicit NoiseGenerator(QObject *parent = nullptr);
 
         /** Destructor */
         ~NoiseGenerator() override;

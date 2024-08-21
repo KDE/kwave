@@ -164,7 +164,7 @@ namespace Kwave
          * @param parent a parent object, passed to QObject (optional)
          */
         MultiTrackSource(unsigned int tracks,
-                         QObject *parent = Q_NULLPTR)
+                         QObject *parent = nullptr)
             :Kwave::MultiTrackSource<SOURCE, false>(0, parent)
         {
             for (unsigned int i = 0; i < tracks; i++)

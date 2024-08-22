@@ -104,7 +104,7 @@ namespace Kwave
     private:
 
         /** the parent menu node */
-        Kwave::MenuNode *m_parent;
+        Kwave::MenuNode *m_parent = nullptr;
 
         /** name of the group */
         QString m_name;
@@ -113,10 +113,10 @@ namespace Kwave
         QList<Kwave::MenuNode *> m_members;
 
         /** a QActionGroup, in case of "exclusive" mode */
-        QActionGroup *m_action_group;
+        QActionGroup *m_action_group = nullptr;
 
         /** the group's enabled/disabled flag */
-        bool m_enabled;
+        bool m_enabled = true;
 
     };
 }

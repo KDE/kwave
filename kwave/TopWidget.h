@@ -343,55 +343,55 @@ namespace Kwave
         QMap<QMdiSubWindow *, Kwave::FileContext *> m_context_map;
 
         /** toolbar with playback/record and seek controls */
-        Kwave::PlayerToolBar *m_toolbar_record_playback;
+        Kwave::PlayerToolBar *m_toolbar_record_playback = nullptr;
 
         /** toolbar with zoom controls */
-        Kwave::ZoomToolBar *m_toolbar_zoom;
+        Kwave::ZoomToolBar *m_toolbar_zoom = nullptr;
 
         /** menu manager for this window */
-        Kwave::MenuManager *m_menu_manager;
+        Kwave::MenuManager *m_menu_manager = nullptr;
 
         /**
          * MDI area, parent of all MDI child windows (only used in MDI and
          * TAB gui mode, null for SDI)
          */
-        QMdiArea *m_mdi_area;
+        QMdiArea *m_mdi_area = nullptr;
 
         /** action of the "file save" toolbar button */
-        QAction *m_action_save;
+        QAction *m_action_save = nullptr;
 
         /** action of the "file save as..." toolbar button */
-        QAction *m_action_save_as;
+        QAction *m_action_save_as = nullptr;
 
         /** action of the "file close" toolbar button */
-        QAction *m_action_close;
+        QAction *m_action_close = nullptr;
 
         /** action of the "edit undo" toolbar button */
-        QAction *m_action_undo;
+        QAction *m_action_undo = nullptr;
 
         /** action of the "edit redo" toolbar button */
-        QAction *m_action_redo;
+        QAction *m_action_redo = nullptr;
 
         /** action of the "edit cut" toolbar button */
-        QAction *m_action_cut;
+        QAction *m_action_cut = nullptr;
 
         /** action of the "edit copy" toolbar button */
-        QAction *m_action_copy;
+        QAction *m_action_copy = nullptr;
 
         /** action of the "erase" toolbar button */
-        QAction *m_action_erase;
+        QAction *m_action_erase = nullptr;
 
         /** action of the "edit delete" toolbar button */
-        QAction *m_action_delete;
+        QAction *m_action_delete = nullptr;
 
         /** status bar label for length of the signal */
         QLabel *m_lbl_status_size;
 
         /** status bar label for mode information */
-        QLabel *m_lbl_status_mode;
+        QLabel *m_lbl_status_mode = nullptr;
 
         /** status bar label for cursor / playback position */
-        QLabel *m_lbl_status_cursor;
+        QLabel *m_lbl_status_cursor = nullptr;
     };
 }
 

@@ -102,23 +102,7 @@ using namespace Qt::StringLiterals;
 Kwave::TopWidget::TopWidget(Kwave::App &app)
     :KMainWindow(),
      m_application(app),
-     m_context_map(),
-     m_toolbar_record_playback(nullptr),
-     m_toolbar_zoom(nullptr),
-     m_menu_manager(nullptr),
-     m_mdi_area(nullptr),
-     m_action_save(nullptr),
-     m_action_save_as(nullptr),
-     m_action_close(nullptr),
-     m_action_undo(nullptr),
-     m_action_redo(nullptr),
-     m_action_cut(nullptr),
-     m_action_copy(nullptr),
-     m_action_erase(nullptr),
-     m_action_delete(nullptr),
-     m_lbl_status_size(nullptr),
-     m_lbl_status_mode(nullptr),
-     m_lbl_status_cursor(nullptr)
+     m_context_map()
 {
     // status bar items
     QStatusBar *status_bar = statusBar();

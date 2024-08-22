@@ -32,8 +32,7 @@ Kwave::MenuGroup::MenuGroup(Kwave::MenuNode *parent,
      m_name(name),
      m_members(),
      m_action_group((mode == EXCLUSIVE) ?
-        new(std::nothrow) QActionGroup(parent) : nullptr),
-     m_enabled(true)
+        new(std::nothrow) QActionGroup(parent) : nullptr)
 {
     Q_ASSERT(parent);
     Q_ASSERT(m_name.length());

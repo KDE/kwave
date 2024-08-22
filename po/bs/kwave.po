@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kde4.14\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-19 00:39+0000\n"
+"POT-Creation-Date: 2024-08-22 00:39+0000\n"
 "PO-Revision-Date: 2015-02-26 22:01+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian\n"
@@ -1379,80 +1379,80 @@ msgstr "%1 sek"
 msgid "%1 min"
 msgstr "%1 min"
 
-#: libgui/CurveWidget.cpp:80
+#: libgui/CurveWidget.cpp:79
 #, kde-format
 msgid "Interpolation"
 msgstr "Interpolacija"
 
-#: libgui/CurveWidget.cpp:85
+#: libgui/CurveWidget.cpp:84
 #, kde-format
 msgid "Transform"
 msgstr "Trasformiši"
 
-#: libgui/CurveWidget.cpp:88
+#: libgui/CurveWidget.cpp:87
 #, kde-format
 msgid "Flip horizontal"
 msgstr "Vodoravno prebacivanje"
 
-#: libgui/CurveWidget.cpp:90
+#: libgui/CurveWidget.cpp:89
 #, kde-format
 msgid "Flip vertical"
 msgstr "Uspravno prebacivanje"
 
-#: libgui/CurveWidget.cpp:93
+#: libgui/CurveWidget.cpp:92
 #, kde-format
 msgid "Into first half"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:95
+#: libgui/CurveWidget.cpp:94
 #, kde-format
 msgid "Into second half"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:98 libkwave/SignalManager.cpp:703
+#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:703
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
 msgstr "Obriši"
 
-#: libgui/CurveWidget.cpp:102
+#: libgui/CurveWidget.cpp:101
 #, kde-format
 msgid "Fit In"
 msgstr "Uklopi"
 
-#: libgui/CurveWidget.cpp:106
+#: libgui/CurveWidget.cpp:105
 #, kde-format
 msgid "Presets"
 msgstr "Prepodešavanja"
 
-#: libgui/CurveWidget.cpp:115
+#: libgui/CurveWidget.cpp:114
 #, kde-format
 msgid "Save Preset"
 msgstr "Snimi postavke"
 
-#: libgui/CurveWidget.cpp:120
+#: libgui/CurveWidget.cpp:119
 #, kde-format
 msgid "Currently Selected Point"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:124
+#: libgui/CurveWidget.cpp:123
 #, kde-format
 msgid "Every Second Point"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:199
+#: libgui/CurveWidget.cpp:198
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:202
+#: libgui/CurveWidget.cpp:201
 #, fuzzy, kde-format
 #| msgid "Save Preset"
 msgid "Save Curve Preset"
 msgstr "Snimi postavke"
 
-#: libgui/FilterPlugin.cpp:240
+#: libgui/FilterPlugin.cpp:238
 #, kde-format
 msgid "Applying '%1'..."
 msgstr ""

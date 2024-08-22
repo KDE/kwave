@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-19 00:39+0000\n"
+"POT-Creation-Date: 2024-08-22 00:39+0000\n"
 "PO-Revision-Date: 2024-03-28 08:18+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -1361,79 +1361,79 @@ msgstr "%1 sek"
 msgid "%1 min"
 msgstr "%1 min"
 
-#: libgui/CurveWidget.cpp:80
+#: libgui/CurveWidget.cpp:79
 #, kde-format
 msgid "Interpolation"
 msgstr "Interpolado"
 
-#: libgui/CurveWidget.cpp:85
+#: libgui/CurveWidget.cpp:84
 #, kde-format
 msgid "Transform"
 msgstr "Transformi"
 
-#: libgui/CurveWidget.cpp:88
+#: libgui/CurveWidget.cpp:87
 #, kde-format
 msgid "Flip horizontal"
 msgstr "Renversi horizontale"
 
-#: libgui/CurveWidget.cpp:90
+#: libgui/CurveWidget.cpp:89
 #, kde-format
 msgid "Flip vertical"
 msgstr "Renversi vertikale"
 
-#: libgui/CurveWidget.cpp:93
+#: libgui/CurveWidget.cpp:92
 #, kde-format
 msgid "Into first half"
 msgstr "En la unuan duonon"
 
-#: libgui/CurveWidget.cpp:95
+#: libgui/CurveWidget.cpp:94
 #, kde-format
 msgid "Into second half"
 msgstr "En la duan duonon"
 
-#: libgui/CurveWidget.cpp:98 libkwave/SignalManager.cpp:703
+#: libgui/CurveWidget.cpp:97 libkwave/SignalManager.cpp:703
 #: libkwave/undo/UndoDeleteAction.cpp:58
 #, kde-format
 msgid "Delete"
 msgstr "Forigi"
 
-#: libgui/CurveWidget.cpp:102
+#: libgui/CurveWidget.cpp:101
 #, kde-format
 msgid "Fit In"
 msgstr "Fit In"
 
-#: libgui/CurveWidget.cpp:106
+#: libgui/CurveWidget.cpp:105
 #, kde-format
 msgid "Presets"
 msgstr "Antaŭagordoj"
 
-#: libgui/CurveWidget.cpp:115
+#: libgui/CurveWidget.cpp:114
 #, kde-format
 msgid "Save Preset"
 msgstr "Konservi Antaŭgordon"
 
-#: libgui/CurveWidget.cpp:120
+#: libgui/CurveWidget.cpp:119
 #, kde-format
 msgid "Currently Selected Point"
 msgstr "Aktuale Elektitan Punkton"
 
-#: libgui/CurveWidget.cpp:124
+#: libgui/CurveWidget.cpp:123
 #, kde-format
 msgid "Every Second Point"
 msgstr "Ĉiun Duan Punkton"
 
-#: libgui/CurveWidget.cpp:199
+#: libgui/CurveWidget.cpp:198
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
 msgstr "Kwave-kurba antaŭdifino (*.curve)"
 
-#: libgui/CurveWidget.cpp:202
+#: libgui/CurveWidget.cpp:201
 #, kde-format
 msgid "Save Curve Preset"
 msgstr "Konservi Kurban Antaŭmeton"
 
-#: libgui/FilterPlugin.cpp:240
+#: libgui/FilterPlugin.cpp:238
 #, kde-format
 msgid "Applying '%1'..."
 msgstr "Aplikante '%1'..."

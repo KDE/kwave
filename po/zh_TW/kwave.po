@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-22 00:39+0000\n"
+"POT-Creation-Date: 2024-08-23 00:39+0000\n"
 "PO-Revision-Date: 2024-08-09 03:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1081,82 +1081,82 @@ msgctxt "%1=Version number"
 msgid "v%1"
 msgstr "v%1"
 
-#: kwave/TopWidget.cpp:270
+#: kwave/TopWidget.cpp:254
 #, kde-format
 msgid "Loading main menu..."
 msgstr "載入主選單中..."
 
-#: kwave/TopWidget.cpp:343
+#: kwave/TopWidget.cpp:327
 #, kde-format
 msgid "Initializing toolbar..."
 msgstr "初始化工具列中..."
 
-#: kwave/TopWidget.cpp:352
+#: kwave/TopWidget.cpp:336
 #, kde-format
 msgid "Create a new empty file"
 msgstr "開啟新的空白檔案"
 
-#: kwave/TopWidget.cpp:357
+#: kwave/TopWidget.cpp:341
 #, kde-format
 msgid "Open an existing file"
 msgstr "開啟現有的檔案"
 
-#: kwave/TopWidget.cpp:362
+#: kwave/TopWidget.cpp:346
 #, kde-format
 msgid "Save the current file"
 msgstr "儲存目前檔案"
 
-#: kwave/TopWidget.cpp:367
+#: kwave/TopWidget.cpp:351
 #, kde-format
 msgid "Save the current file under a different name or file format..."
 msgstr "以另一個名稱或檔案格式儲存目前檔案..."
 
-#: kwave/TopWidget.cpp:372
+#: kwave/TopWidget.cpp:356
 #, kde-format
 msgid "Close the current file"
 msgstr "關閉目前檔案"
 
-#: kwave/TopWidget.cpp:383
+#: kwave/TopWidget.cpp:367
 #, kde-format
 msgid "Undo"
 msgstr "復原"
 
-#: kwave/TopWidget.cpp:388
+#: kwave/TopWidget.cpp:372
 #, kde-format
 msgid "Redo"
 msgstr "重做"
 
-#: kwave/TopWidget.cpp:393 libkwave/SignalManager.cpp:676
+#: kwave/TopWidget.cpp:377 libkwave/SignalManager.cpp:676
 #, kde-format
 msgid "Cut"
 msgstr "剪下"
 
-#: kwave/TopWidget.cpp:398
+#: kwave/TopWidget.cpp:382
 #, kde-format
 msgid "Copy"
 msgstr "複製"
 
-#: kwave/TopWidget.cpp:403 libkwave/undo/UndoInsertAction.cpp:46
+#: kwave/TopWidget.cpp:387 libkwave/undo/UndoInsertAction.cpp:46
 #, kde-format
 msgid "Insert"
 msgstr "插入"
 
-#: kwave/TopWidget.cpp:411
+#: kwave/TopWidget.cpp:395
 #, kde-format
 msgid "Mute selection"
 msgstr "將選取範圍靜音"
 
-#: kwave/TopWidget.cpp:416
+#: kwave/TopWidget.cpp:400
 #, kde-format
 msgid "Delete selection"
 msgstr "刪除選擇的區域"
 
-#: kwave/TopWidget.cpp:762
+#: kwave/TopWidget.cpp:746
 #, kde-format
 msgid "Reset the toolbar to default settings?"
 msgstr "要將工具列重設到預設設定嗎？"
 
-#: kwave/TopWidget.cpp:787
+#: kwave/TopWidget.cpp:771
 #, kde-format
 msgid ""
 "Re-enable all disabled notifications?\n"
@@ -1166,22 +1166,22 @@ msgstr ""
 "要重新打開已停用的通知嗎？\n"
 "所有您之前勾選「不要再問我」而停用的訊息都會被重新打開。"
 
-#: kwave/TopWidget.cpp:1011
+#: kwave/TopWidget.cpp:995
 #, kde-format
 msgid "Executing command '%1'..."
 msgstr "正在執行命令 '%1'..."
 
-#: kwave/TopWidget.cpp:1031
+#: kwave/TopWidget.cpp:1015
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
 msgstr "正在執行 Kwave 文稿檔案 '%1'..."
 
-#: kwave/TopWidget.cpp:1041
+#: kwave/TopWidget.cpp:1025
 #, kde-format
 msgid "Loading file '%1'..."
 msgstr "載入檔案 '%1' 中..."
 
-#: kwave/TopWidget.cpp:1053 plugins/codec_audiofile/AudiofileDecoder.cpp:124
+#: kwave/TopWidget.cpp:1037 plugins/codec_audiofile/AudiofileDecoder.cpp:124
 #: plugins/codec_flac/FlacEncoder.cpp:248
 #: plugins/codec_flac/FlacEncoder.cpp:266
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:515
@@ -1196,35 +1196,35 @@ msgstr "載入檔案 '%1' 中..."
 msgid "Out of memory"
 msgstr "記憶體不足"
 
-#: kwave/TopWidget.cpp:1057
+#: kwave/TopWidget.cpp:1041
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
 msgstr "無法開啟 %1。"
 
-#: kwave/TopWidget.cpp:1061
+#: kwave/TopWidget.cpp:1045
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr "無效或未知的檔案型態：'%1'"
 
-#: kwave/TopWidget.cpp:1099
+#: kwave/TopWidget.cpp:1083
 #, kde-format
 msgid "Open"
 msgstr "開啟"
 
-#: kwave/TopWidget.cpp:1152
+#: kwave/TopWidget.cpp:1136
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr "長度：%1（%2 個樣本）"
 
-#: kwave/TopWidget.cpp:1163
+#: kwave/TopWidget.cpp:1147
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "模式：%1 kHz @ %2 位元"
 
-#: kwave/TopWidget.cpp:1209
+#: kwave/TopWidget.cpp:1193
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -1232,7 +1232,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "已選取：%1...%2（%3 個樣本）"
 
-#: kwave/TopWidget.cpp:1221
+#: kwave/TopWidget.cpp:1205
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -1240,72 +1240,72 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr "已選取：%1...%2（%3）"
 
-#: kwave/TopWidget.cpp:1240
+#: kwave/TopWidget.cpp:1224
 #, kde-format
 msgid "Position: %1"
 msgstr "位置：%1"
 
-#: kwave/TopWidget.cpp:1266
+#: kwave/TopWidget.cpp:1250
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr "復原 (%1)"
 
-#: kwave/TopWidget.cpp:1268
+#: kwave/TopWidget.cpp:1252
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "復原"
 
-#: kwave/TopWidget.cpp:1277
+#: kwave/TopWidget.cpp:1261
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr "重做 (%1)"
 
-#: kwave/TopWidget.cpp:1279
+#: kwave/TopWidget.cpp:1263
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "重做"
 
-#: kwave/TopWidget.cpp:1289
+#: kwave/TopWidget.cpp:1273
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "復原 (%1)"
 
-#: kwave/TopWidget.cpp:1290
+#: kwave/TopWidget.cpp:1274
 #, kde-format
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr "復原"
 
-#: kwave/TopWidget.cpp:1296
+#: kwave/TopWidget.cpp:1280
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "重做 (%1)"
 
-#: kwave/TopWidget.cpp:1297
+#: kwave/TopWidget.cpp:1281
 #, kde-format
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr "重做"
 
-#: kwave/TopWidget.cpp:1412
+#: kwave/TopWidget.cpp:1396
 #, kde-format
 msgctxt "special entry in the list of labels to delete all"
 msgid "(All)"
 msgstr "（全部）"
 
-#: kwave/TopWidget.cpp:1421
+#: kwave/TopWidget.cpp:1405
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
 msgstr "#%1 (%2)"
 
-#: kwave/TopWidget.cpp:1424
+#: kwave/TopWidget.cpp:1408
 #, kde-format
 msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"

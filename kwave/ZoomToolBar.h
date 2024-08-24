@@ -32,12 +32,12 @@
 
 class QAction;
 class KComboBox;
-class KMainWindow;
 
 namespace Kwave
 {
 
     class FileContext;
+    class TopWidget;
 
     class ZoomToolBar: public KToolBar
     {
@@ -48,7 +48,7 @@ namespace Kwave
          * @param parent a KMainWidget
          * @param name the name of the toolbar (for config)
          */
-        ZoomToolBar(KMainWindow *parent, const QString &name);
+        ZoomToolBar(TopWidget *parent, const QString &name);
 
         /** Destructor */
         ~ZoomToolBar() override;

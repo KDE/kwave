@@ -18,8 +18,8 @@
 
 #include "config.h"
 
-#include <math.h>
-#include <new>
+#include <cmath>
+#include <array>
 
 #include <QAction>
 #include <QIcon>
@@ -27,6 +27,7 @@
 #include <KComboBox>
 #include <KLocalizedString>
 #include <KMainWindow>
+#include <KStandardAction>
 
 #include "libkwave/Selection.h"
 #include "libkwave/SignalManager.h"
@@ -36,19 +37,17 @@
 #include "libgui/Zoomable.h"
 
 #include "FileContext.h"
+#include "TopWidget.h"
 #include "ZoomToolBar.h"
 
 /** role value for entries in the zoom combo box, "predefined" flag (bool) */
-#define ZOOM_DATA_PREDEFINED (Qt::UserRole + 0)
+constexpr auto ZOOM_DATA_PREDEFINED = Qt::UserRole + 0;
 
 /** role value for entries in the zoom combo box, "time" in ms (double) */
-#define ZOOM_DATA_TIME       (Qt::UserRole + 1)
-
-/** returns the number of elements of an array */
-#define ELEMENTS_OF(__x__) (sizeof(__x__) / sizeof(__x__[0]))
+constexpr auto ZOOM_DATA_TIME = Qt::UserRole + 1;
 
 //***************************************************************************
-Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
+Kwave::ZoomToolBar::ZoomToolBar(TopWidget *parent, const QString &name)
     :KToolBar(name, parent, true),
      m_context(nullptr),
      m_action_zoomselection(nullptr),
@@ -59,45 +58,36 @@ Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
      m_action_zoomselect(nullptr),
      m_zoomselect(nullptr)
 {
-    m_action_zoomselection = addAction(
-        QIcon::fromTheme(_("kwave_viewmag")),
-        i18n("Zoom to selection"),
-        this, SLOT(zoomSelection()));
 
-    m_action_zoomin = addAction(
-        QIcon::fromTheme(_("kwave_zoom_in")),
-        i18n("Zoom in"),
-        this, SLOT(zoomIn()));
+    m_action_zoomselection = KStandardAction::zoom(this, &Kwave::ZoomToolBar::zoomSelection, this);
+    m_action_zoomselection->setText(i18n("Zoom to selection")); 
+    m_action_zoomselection->setToolTip(i18n("Zoom to selection")); 
+    addAction(m_action_zoomselection);
 
-    m_action_zoomout = addAction(
-        QIcon::fromTheme(_("kwave_zoom_out")),
-        i18n("Zoom out"),
-        this, SLOT(zoomOut()));
+    m_action_zoomin = KStandardAction::zoomIn(this, &Kwave::ZoomToolBar::zoomIn, this);
+    addAction(m_action_zoomin);
 
-    m_action_zoomnormal = addAction(
-        QIcon::fromTheme(_("kwave_zoom_original")),
-        i18n("Zoom to 100%"),
-        this, SLOT(zoomNormal()));
+    m_action_zoomout = KStandardAction::zoomOut(this, &Kwave::ZoomToolBar::zoomOut, this);
+    addAction(m_action_zoomout);
 
-    m_action_zoomall = addAction(
-        QIcon::fromTheme(_("kwave_viewmagfit")),
-        i18n("Zoom to all"),
-        this, SLOT(zoomAll()));
+    m_action_zoomnormal = KStandardAction::actualSize(this, &Kwave::ZoomToolBar::zoomNormal, this);
+    m_action_zoomnormal->setText(i18n("Zoom to 100%"));
+    m_action_zoomnormal->setToolTip(i18n("Zoom to 100%"));
+    addAction(m_action_zoomnormal);
+
+    m_action_zoomall = KStandardAction::fitToPage(this, &Kwave::ZoomToolBar::zoomAll, this);
+    m_action_zoomall->setText(i18n("Zoom to all"));
+    m_action_zoomall->setToolTip(i18n("Zoom to all"));
+    addAction(m_action_zoomall);
 
     // zoom selection combo box
-    m_zoomselect = new(std::nothrow) KComboBox(this);
-    Q_ASSERT(m_zoomselect);
-    if (!m_zoomselect) return;
-
+    m_zoomselect = new KComboBox(this);
     m_zoomselect->setToolTip(i18n("Select zoom factor"));
     m_zoomselect->setInsertPolicy(QComboBox::InsertAtTop);
     m_zoomselect->setEditable(false);
 
     /** Initialized list of zoom factors */
-    struct {
-        const QString text;
-        unsigned int ms;
-    } zoom_factors[] = {
+    const auto zoomFactors = std::to_array<std::pair<QString, quint32>>({
         { i18n("%1 ms",   1),            1L},
         { i18n("%1 ms",  10),           10L},
         { i18n("%1 ms", 100),          100L},
@@ -110,21 +100,21 @@ Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
         { i18n("%1 min", 10), 10L*60L*1000L},
         { i18n("%1 min", 30), 30L*60L*1000L},
         { i18n("%1 min", 60), 60L*60L*1000L},
-    };
+    });
 
-    for (unsigned int i = 0; i < ELEMENTS_OF(zoom_factors); i++) {
-        m_zoomselect->addItem(zoom_factors[i].text);
+    for (const auto &[text, ms] : zoomFactors) {
+        m_zoomselect->addItem(text);
         int index = m_zoomselect->count() - 1;
-        unsigned int time = zoom_factors[i].ms;
+        unsigned int time = ms;
         m_zoomselect->setItemData(index, QVariant(true), ZOOM_DATA_PREDEFINED);
         m_zoomselect->setItemData(index, QVariant(time), ZOOM_DATA_TIME);
     }
 
     m_action_zoomselect = addWidget(m_zoomselect);
-    connect(m_zoomselect, SIGNAL(activated(int)),
-            this, SLOT(selectZoom(int)));
-    connect(this, SIGNAL(sigCommand(QString)),
-            parent, SLOT(forwardCommand(QString)));
+    connect(m_zoomselect, &KComboBox::activated,
+            this, &Kwave::ZoomToolBar::selectZoom);
+    connect(this, &Kwave::ZoomToolBar::sigCommand,
+            parent, &TopWidget::forwardCommand);
 
     int h = m_zoomselect->sizeHint().height();
     m_zoomselect->setMinimumWidth(h * 5);
@@ -135,9 +125,7 @@ Kwave::ZoomToolBar::ZoomToolBar(KMainWindow *parent, const QString &name)
 }
 
 //***************************************************************************
-Kwave::ZoomToolBar::~ZoomToolBar()
-{
-}
+Kwave::ZoomToolBar::~ZoomToolBar() = default;
 
 //***************************************************************************
 void Kwave::ZoomToolBar::contextSwitched(Kwave::FileContext *context)

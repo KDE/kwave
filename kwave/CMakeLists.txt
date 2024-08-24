@@ -81,11 +81,6 @@ SET(kwave_ACTION_ICONS
     toolbar/sc-actions-kwave_player_rew.svgz
     toolbar/sc-actions-kwave_player_start.svgz
     toolbar/sc-actions-kwave_player_stop.svgz
-    toolbar/sc-actions-kwave_viewmagfit.svgz
-    toolbar/sc-actions-kwave_viewmag.svgz
-    toolbar/sc-actions-kwave_zoom_in.svgz
-    toolbar/sc-actions-kwave_zoom_original.svgz
-    toolbar/sc-actions-kwave_zoom_out.svgz
 )
 
 #############################################################################

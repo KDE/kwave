@@ -1534,12 +1534,6 @@
 		<guimenu>View</guimenu><guimenuitem>Zoom In</guimenuitem>
 		</menuchoice>
 	    </para></listitem>
-	    <listitem><para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_in.png" format="PNG"/>
-		</imageobject><textobject><phrase><quote>zoom in</quote></phrase></textobject>
-		</inlinemediaobject>
-	    </para></listitem>
 	    </itemizedlist>
 	</para></listitem>
 	<!-- zoom out -->
@@ -1553,12 +1547,6 @@
 		<shortcut><keycombo>&Ctrl;<keycap>-</keycap></keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Zoom Out</guimenuitem>
 		</menuchoice>
-	    </para></listitem>
-	    <listitem><para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_out.png" format="PNG"/>
-		</imageobject><textobject><phrase><quote>zoom out</quote></phrase></textobject>
-		</inlinemediaobject>
 	    </para></listitem>
 	    </itemizedlist>
         </para></listitem>
@@ -1575,12 +1563,6 @@
 		<guimenu>View</guimenu><guimenuitem>Zoom to Selection</guimenuitem>
 		</menuchoice>
 	    </para></listitem>
-	    <listitem><para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmag.png" format="PNG"/>
-		</imageobject><textobject><phrase><quote>zoom to selection</quote></phrase></textobject>
-		</inlinemediaobject>
-	    </para></listitem>
 	    </itemizedlist>
         </para></listitem>
 	<!-- zoom to all -->
@@ -1595,12 +1577,6 @@
 		<guimenu>View</guimenu><guimenuitem>Zoom to whole signal</guimenuitem>
 		</menuchoice>
 	    </para></listitem>
-	    <listitem><para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_viewmagfit.png" format="PNG"/>
-        </imageobject><textobject><phrase><quote>zoom all</quote></phrase></textobject>
-		</inlinemediaobject>
-	    </para></listitem>
 	    </itemizedlist>
         </para></listitem>
 	<!-- zoom to 100% -->
@@ -1614,12 +1590,6 @@
 		<menuchoice>
 		<guimenu>View</guimenu><guimenuitem>Zoom to 100%</guimenuitem>
 		</menuchoice>
-	    </para></listitem>
-	    <listitem><para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_zoom_original.png" format="PNG"/>
-		</imageobject><textobject><phrase><quote>zoom to 100%</quote></phrase></textobject>
-		</inlinemediaobject>
 	    </para></listitem>
 	    </itemizedlist>
         </para></listitem>

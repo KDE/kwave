@@ -56,7 +56,7 @@ namespace Kwave
         );
 
         /** Destructor */
-        virtual ~PlayerToolBar();
+        ~PlayerToolBar() override;
 
     signals:
 

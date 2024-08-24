@@ -79,7 +79,7 @@ namespace Kwave
         virtual bool isOK() const;
 
         /** Destructor. */
-        virtual ~App();
+        ~App() override;
 
         /**
          * Adds a file to the top of the list of recent files. If it was

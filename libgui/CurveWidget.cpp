@@ -147,7 +147,7 @@ Kwave::CurveWidget::CurveWidget(QWidget *parent)
 //***************************************************************************
 Kwave::CurveWidget::~CurveWidget()
 {
-    if (m_menu) delete m_menu;
+    delete m_menu;
 }
 
 //***************************************************************************

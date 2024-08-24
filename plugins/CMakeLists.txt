@@ -59,6 +59,7 @@ MACRO(KWAVE_PLUGIN _plugin)
         OUTPUT_NAME "${_plugin}"
         LINK_FLAGS "-Wl,--export-dynamic"
         ENABLE_EXPORTS TRUE
+        POSITION_INDEPENDENT_CODE ON
     )
     SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 

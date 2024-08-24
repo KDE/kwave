@@ -37,6 +37,7 @@ SET(plugin_goto_common_LIB_UI
 KI18N_WRAP_UI(plugin_goto_common_LIB_SRCS ${plugin_goto_common_LIB_UI})
 ADD_LIBRARY(plugin_goto_common STATIC ${plugin_goto_common_LIB_SRCS})
 SET_TARGET_PROPERTIES(plugin_goto_common PROPERTIES ENABLE_EXPORTS ON)
+set_target_properties(plugin_goto_common PROPERTIES POSITION_INDEPENDENT_CODE ON)
 TARGET_LINK_LIBRARIES(plugin_goto_common
     libkwavegui
     libkwave

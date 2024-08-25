@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-23 00:39+0000\n"
+"POT-Creation-Date: 2024-08-25 00:39+0000\n"
 "PO-Revision-Date: 2020-08-02 17:38+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -1311,51 +1311,39 @@ msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"
 msgstr "#%1"
 
-#: kwave/ZoomToolBar.cpp:64
+#: kwave/ZoomToolBar.cpp:63 kwave/ZoomToolBar.cpp:64
 #, kde-format
 msgid "Zoom to selection"
 msgstr "Zoom til markering"
 
-#: kwave/ZoomToolBar.cpp:69
-#, kde-format
-msgid "Zoom in"
-msgstr "Zoom ind"
-
-#: kwave/ZoomToolBar.cpp:74
-#, kde-format
-msgid "Zoom out"
-msgstr "Zoom ud"
-
-#: kwave/ZoomToolBar.cpp:79
+#: kwave/ZoomToolBar.cpp:74 kwave/ZoomToolBar.cpp:75
 #, kde-format
 msgid "Zoom to 100%"
 msgstr "Zoom til 100%"
 
-#: kwave/ZoomToolBar.cpp:84
+#: kwave/ZoomToolBar.cpp:79 kwave/ZoomToolBar.cpp:80
 #, kde-format
 msgid "Zoom to all"
 msgstr "Zoom til alt"
 
-#: kwave/ZoomToolBar.cpp:92
+#: kwave/ZoomToolBar.cpp:85
 #, kde-format
 msgid "Select zoom factor"
 msgstr "Vælg zoomfaktor"
 
-#: kwave/ZoomToolBar.cpp:101 kwave/ZoomToolBar.cpp:102
-#: kwave/ZoomToolBar.cpp:103
+#: kwave/ZoomToolBar.cpp:91 kwave/ZoomToolBar.cpp:92 kwave/ZoomToolBar.cpp:93
 #, kde-format
 msgid "%1 ms"
 msgstr "%1 ms"
 
-#: kwave/ZoomToolBar.cpp:104 kwave/ZoomToolBar.cpp:105
-#: kwave/ZoomToolBar.cpp:106
+#: kwave/ZoomToolBar.cpp:94 kwave/ZoomToolBar.cpp:95 kwave/ZoomToolBar.cpp:96
 #, kde-format
 msgid "%1 sec"
 msgstr "%1 sek"
 
-#: kwave/ZoomToolBar.cpp:107 kwave/ZoomToolBar.cpp:108
-#: kwave/ZoomToolBar.cpp:109 kwave/ZoomToolBar.cpp:110
-#: kwave/ZoomToolBar.cpp:111 kwave/ZoomToolBar.cpp:112
+#: kwave/ZoomToolBar.cpp:97 kwave/ZoomToolBar.cpp:98 kwave/ZoomToolBar.cpp:99
+#: kwave/ZoomToolBar.cpp:100 kwave/ZoomToolBar.cpp:101
+#: kwave/ZoomToolBar.cpp:102
 #, kde-format
 msgid "%1 min"
 msgstr "%1 min"
@@ -7176,6 +7164,12 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Stilhed"
+
+#~ msgid "Zoom in"
+#~ msgstr "Zoom ind"
+
+#~ msgid "Zoom out"
+#~ msgstr "Zoom ud"
 
 #~ msgctxt "menu: /Settings/Memory"
 #~ msgid "Memory"

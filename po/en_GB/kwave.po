@@ -1,21 +1,21 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Steve Allewell <steve.allewell@gmail.com>, 2015, 2016, 2017, 2018, 2020.
+# SPDX-FileCopyrightText: 2015, 2016, 2017, 2018, 2020, 2024 Steve Allewell <steve.allewell@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-23 00:39+0000\n"
-"PO-Revision-Date: 2020-03-30 20:33+0100\n"
+"POT-Creation-Date: 2024-08-25 00:39+0000\n"
+"PO-Revision-Date: 2024-08-24 12:07+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
-"Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
+"Language-Team: British English\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.07.70\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1310,51 +1310,39 @@ msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"
 msgstr "#%1"
 
-#: kwave/ZoomToolBar.cpp:64
+#: kwave/ZoomToolBar.cpp:63 kwave/ZoomToolBar.cpp:64
 #, kde-format
 msgid "Zoom to selection"
 msgstr "Zoom to selection"
 
-#: kwave/ZoomToolBar.cpp:69
-#, kde-format
-msgid "Zoom in"
-msgstr "Zoom in"
-
-#: kwave/ZoomToolBar.cpp:74
-#, kde-format
-msgid "Zoom out"
-msgstr "Zoom out"
-
-#: kwave/ZoomToolBar.cpp:79
+#: kwave/ZoomToolBar.cpp:74 kwave/ZoomToolBar.cpp:75
 #, kde-format
 msgid "Zoom to 100%"
 msgstr "Zoom to 100%"
 
-#: kwave/ZoomToolBar.cpp:84
+#: kwave/ZoomToolBar.cpp:79 kwave/ZoomToolBar.cpp:80
 #, kde-format
 msgid "Zoom to all"
 msgstr "Zoom to all"
 
-#: kwave/ZoomToolBar.cpp:92
+#: kwave/ZoomToolBar.cpp:85
 #, kde-format
 msgid "Select zoom factor"
 msgstr "Select zoom factor"
 
-#: kwave/ZoomToolBar.cpp:101 kwave/ZoomToolBar.cpp:102
-#: kwave/ZoomToolBar.cpp:103
+#: kwave/ZoomToolBar.cpp:91 kwave/ZoomToolBar.cpp:92 kwave/ZoomToolBar.cpp:93
 #, kde-format
 msgid "%1 ms"
 msgstr "%1 ms"
 
-#: kwave/ZoomToolBar.cpp:104 kwave/ZoomToolBar.cpp:105
-#: kwave/ZoomToolBar.cpp:106
+#: kwave/ZoomToolBar.cpp:94 kwave/ZoomToolBar.cpp:95 kwave/ZoomToolBar.cpp:96
 #, kde-format
 msgid "%1 sec"
 msgstr "%1 sec"
 
-#: kwave/ZoomToolBar.cpp:107 kwave/ZoomToolBar.cpp:108
-#: kwave/ZoomToolBar.cpp:109 kwave/ZoomToolBar.cpp:110
-#: kwave/ZoomToolBar.cpp:111 kwave/ZoomToolBar.cpp:112
+#: kwave/ZoomToolBar.cpp:97 kwave/ZoomToolBar.cpp:98 kwave/ZoomToolBar.cpp:99
+#: kwave/ZoomToolBar.cpp:100 kwave/ZoomToolBar.cpp:101
+#: kwave/ZoomToolBar.cpp:102
 #, kde-format
 msgid "%1 min"
 msgstr "%1 min"
@@ -6159,10 +6147,9 @@ msgid "The audio device '%1' is unknown or no longer connected"
 msgstr "The audio device '%1' is unknown or no longer connected"
 
 #: plugins/playback/PlayBack-Qt.cpp:154
-#, fuzzy, kde-format
-#| msgid "Error: Codec not supported"
+#, kde-format
 msgid "format not supported"
-msgstr "Error: Codec not supported"
+msgstr "format not supported"
 
 #: plugins/playback/PlayBack-Qt.cpp:192
 #, kde-format
@@ -7514,6 +7501,12 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Silence"
+
+#~ msgid "Zoom in"
+#~ msgstr "Zoom in"
+
+#~ msgid "Zoom out"
+#~ msgstr "Zoom out"
 
 #~ msgid "PCM encoding is not supported"
 #~ msgstr "PCM encoding is not supported"

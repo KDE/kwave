@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-23 00:39+0000\n"
+"POT-Creation-Date: 2024-08-25 00:39+0000\n"
 "PO-Revision-Date: 2024-08-09 03:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1311,51 +1311,39 @@ msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"
 msgstr "#%1"
 
-#: kwave/ZoomToolBar.cpp:64
+#: kwave/ZoomToolBar.cpp:63 kwave/ZoomToolBar.cpp:64
 #, kde-format
 msgid "Zoom to selection"
 msgstr "縮放到選取範圍"
 
-#: kwave/ZoomToolBar.cpp:69
-#, kde-format
-msgid "Zoom in"
-msgstr "放大"
-
-#: kwave/ZoomToolBar.cpp:74
-#, kde-format
-msgid "Zoom out"
-msgstr "縮小"
-
-#: kwave/ZoomToolBar.cpp:79
+#: kwave/ZoomToolBar.cpp:74 kwave/ZoomToolBar.cpp:75
 #, kde-format
 msgid "Zoom to 100%"
 msgstr "縮放為 100%"
 
-#: kwave/ZoomToolBar.cpp:84
+#: kwave/ZoomToolBar.cpp:79 kwave/ZoomToolBar.cpp:80
 #, kde-format
 msgid "Zoom to all"
 msgstr "縮放到全部"
 
-#: kwave/ZoomToolBar.cpp:92
+#: kwave/ZoomToolBar.cpp:85
 #, kde-format
 msgid "Select zoom factor"
 msgstr "選擇縮放係數"
 
-#: kwave/ZoomToolBar.cpp:101 kwave/ZoomToolBar.cpp:102
-#: kwave/ZoomToolBar.cpp:103
+#: kwave/ZoomToolBar.cpp:91 kwave/ZoomToolBar.cpp:92 kwave/ZoomToolBar.cpp:93
 #, kde-format
 msgid "%1 ms"
 msgstr "%1 毫秒"
 
-#: kwave/ZoomToolBar.cpp:104 kwave/ZoomToolBar.cpp:105
-#: kwave/ZoomToolBar.cpp:106
+#: kwave/ZoomToolBar.cpp:94 kwave/ZoomToolBar.cpp:95 kwave/ZoomToolBar.cpp:96
 #, kde-format
 msgid "%1 sec"
 msgstr "%1 秒"
 
-#: kwave/ZoomToolBar.cpp:107 kwave/ZoomToolBar.cpp:108
-#: kwave/ZoomToolBar.cpp:109 kwave/ZoomToolBar.cpp:110
-#: kwave/ZoomToolBar.cpp:111 kwave/ZoomToolBar.cpp:112
+#: kwave/ZoomToolBar.cpp:97 kwave/ZoomToolBar.cpp:98 kwave/ZoomToolBar.cpp:99
+#: kwave/ZoomToolBar.cpp:100 kwave/ZoomToolBar.cpp:101
+#: kwave/ZoomToolBar.cpp:102
 #, kde-format
 msgid "%1 min"
 msgstr "%1 分"
@@ -7341,6 +7329,12 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "無聲"
+
+#~ msgid "Zoom in"
+#~ msgstr "放大"
+
+#~ msgid "Zoom out"
+#~ msgstr "縮小"
 
 #~ msgid "PCM encoding is not supported"
 #~ msgstr "不支援 PCM 編碼"

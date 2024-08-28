@@ -7508,9 +7508,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "Ticho"
-
-#~ msgid "Zoom in"
-#~ msgstr "Přiblížit"
-
-#~ msgid "Zoom out"
-#~ msgstr "Oddálit"

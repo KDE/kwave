@@ -7221,9 +7221,3 @@ msgstr ""
 #, kde-format
 msgid "Silence"
 msgstr "无声"
-
-#~ msgid "Zoom in"
-#~ msgstr "放大"
-
-#~ msgid "Zoom out"
-#~ msgstr "缩小"

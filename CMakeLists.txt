@@ -308,18 +308,6 @@ IF (WITH_DOC)
 ENDIF (WITH_DOC)
 
 #############################################################################
-### distfiles support (deprecated, will be removed in future)             ###
-
-# directory that receives the files of the "distfiles" target
-SET(DISTFILES_DIR ${CMAKE_BINARY_DIR}/v${KWAVE_VERSION})
-FILE(MAKE_DIRECTORY ${DISTFILES_DIR})
-
-#############################################################################
-### DEB support                                                           ###
-
-INCLUDE(KwaveDEBSupport)
-
-#############################################################################
 
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake
@@ -368,11 +356,6 @@ CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/kwave/org.kde.kwave.desktop.in
     ${CMAKE_CURRENT_BINARY_DIR}/kwave/org.kde.kwave.desktop
 )
-
-#############################################################################
-### Gentoo support                                                        ###
-
-INCLUDE(KwaveEbuild)
 
 #############################################################################
 ### collection of all files used for distribution                         ###

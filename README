@@ -1,6 +1,6 @@
  ----------------------------------------------------------------------------
 |                                                                             |
-|          This is "Kwave", a sound editor built on KDE Frameworks 5          |
+|          This is "Kwave", a sound editor built on KDE Frameworks            |
 |                                                                             |
  ----------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ The project is developed and published under the GNU GENERAL PUBLIC LICENSE
 (Version 2, from June 1991), take a look at the file "GNU-LICENSE" included
 in the source package.
 
-0. PREFACE:
+PREFACE:
 ==========
 
 Please note that required packages for compiling Kwave vary between
@@ -24,12 +24,8 @@ different distributions and versions. It is practically impossible
 to give a complete list of packages and versions, so if you can't
 get along, please feel free to ask on the Kwave mailing list!
 
-1. COMPILING MANUALLY:
+COMPILING MANUALLY:
 =====================
-
->>> NOTE: You don't have to do this on an rpm based system, you can
-          easily build a rpm package of Kwave. Please skip this and
-          advance to section 2.
 
 It's quite simple. First get the source archive, unpack it in a driectory
 of your choice and then generate it in a separate build directory.
@@ -44,78 +40,11 @@ cmake ../kwave-0.9.3
 make
 make install
 
-2. RPM-SUPPORT:
-==============
 
-You can build nice binary and/or source rpm packages of kwave in one
-of the following ways. Note: Either you do everything as root or you
-must have write permissions in the following directories:
-
-* /tmp
-* /usr/src/packages/BUILD
-* /usr/src/packages/RPMS
-* /usr/src/packages/SOURCES
-* /usr/src/packages/SPECS
-* /usr/src/packages/SRPMS
-
-Installing the rpm package normally requires root permissions.
-
-2.1 Building a binary rpm from archive file:
--------------------------------------------
-
-Simply get the source archive (for example kwave-0.9.3-1.tar.bz2) and
-then type:
-
-rpmbuild -ta kwave-0.9.3-1.tar.bz2
-
-If you want to build for a different architecture than your current, you
-might want to add the parameter "--target ...", for example:
-
-rpmbuild -ta --target i586 kwave-0.9.3-1.tar.bz2
-
-compiles for i586 architecture.
-
-
-2.2 Building a source and binary rpm from the source tree (GIT):
----------------------------------------------------------------
-
-Assuming that you already have unpacked the source archive in some
-directory, like in chapter 1, but instead of the combination
-"make" / "make install" you do
-
-make src_rpm          (and you get only a source rpm)
-***OR***
-make rpm              (and you get both, a binary and a source rpm)
-
-Instructions on how to get the sources via GIT can be found in the
-Kwave handbook and on the Kwave project homepage at SourceForge
-(see "http://sourceforge.net/p/kwave/code/ci/master/tree/").
-
-Please note that the online documentation in not included in GIT, it will
-created from the corresponding docbook source which is included.
-This requires a working docbook/sgml environment that is sometimes
-problematic (see below).
-
-
-3. RELOCATING THE BINARY RPM:
-============================
-
-The binary rpm package of kwave is "relocatable". This means that you can
-build the package on a system with the KDE base directory set to some
-location (like for example /usr) and install it on some other system
-and/or into a different directory.
-
-rpm -Uvh --prefix=/usr/local kwave-0.9.3-1.i586.rpm
-
-This modifies the path where the program is installed and it is strongly
-recommended that this is a directory that is contained in the KDEDIRS
-environment variable, otherwise Kwave would be unable to find it's menu
-configuration, plugins, preset files and so on...
-
-4. REQUIREMENTS:
+REQUIREMENTS:
 ===============
 
->>> Please read the preface (section 0) before this <<<
+>>> Please read the preface before this <<<
 
 The revision codes (numbers after the '-') should not be so important.
 As a rule of thumb one can say that the nearer your version number is
@@ -204,7 +133,7 @@ currently tested distributions:
 
 see http://kwave.sourceforge.net/distributions.html
 
-5. KNOWN PROBLEMS / SOME HINTS:
+KNOWN PROBLEMS / SOME HINTS:
 ==============================
 
 * missing files:
@@ -238,7 +167,7 @@ see http://kwave.sourceforge.net/distributions.html
   (replace <JOBS> with a number of parallel jobs, for example the
    number of CPUs on all hosts + number of distcc hosts)
 
-6. SOME HISTORY:
+SOME HISTORY:
 ===============
 
 This project has been started by Martin Wilz in summer 1998 and has been

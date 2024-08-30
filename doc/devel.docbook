@@ -451,51 +451,6 @@
     </sect2>
 </sect1>
 
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Building DEB package from Source                      +++ -->
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-    <sect1 id="building_deb_from_src">
-    <title>Building a DEB package (for testing and personal use)</title>
-
-    <para>
-	If you want to create a deb package of &kwave;, &eg; for testing a
-	version that is not yet available via official package repositories,
-	then you can create your own package quite easily. First of all, you
-	need to install some required tools:
-<screen width="70" format="linespecific">
-<prompt>% </prompt><command>sudo apt-get install build-essential checkinstall</command>
-</screen>
-    </para>
-
-    <para>
-	Then you can install the required build dependencies by pretending to
-	install the dependencies of the official &kwave; version:
-<screen width="70" format="linespecific">
-<prompt>% </prompt><command>sudo apt-get build-dep kwave</command>
-</screen>
-    </para>
-
-    <para>
-	After installing the required packages, you should prepare the &kwave;
-	build as described in the chapter about
-	<link linkend="cmake_invocation">invocation of cmake</link>.
-	Then you should be able to produce a .deb file in your current
-	build directory with this command:
-<screen width="70" format="linespecific">
-<prompt>% </prompt><command>make deb</command>
-</screen>
-    </para>
-
-    <note><para>
-	The .deb file you get from this step will not have the quality that
-	a package from your official distribution has - it is just good enough
-	for installing and safely uninstalling &kwave; for testing purposes
-	and for personal use.
-    </para></note>
-
-    </sect1>
-
 </chapter>
 
 <!-- ###################################################################### -->

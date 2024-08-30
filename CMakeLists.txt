@@ -47,15 +47,10 @@ set (RELEASE_SERVICE_VERSION_MICRO "70")
 
 # all                 - default target, build all files
 # clean               - clean up the current build directory
-# deb                 - create a debian package
 # doc                 - generate docbook files for online help
-# distfiles           - generate subdirectory with all files for distribution
 # html_doc            - generate HTML help (for the web)
 # install             - install the package, with support for DESTDIR
 # msgstats            - show the progress of translations
-# rpm                 - create a RPM package + a src.rpm file
-# src_rpm             - create the source RPM only
-# tarball             - create a tar.bz2 archive with the sources + specfile
 # uninstall           - uninstall the package, with support for DESTDIR
 # update-translations - update translation files from KDE SVN
 # version-labels      - update all version numbers and build dates
@@ -306,18 +301,6 @@ IF (WITH_DOC)
 ENDIF (WITH_DOC)
 
 #############################################################################
-### distfiles support (deprecated, will be removed in future)             ###
-
-# directory that receives the files of the "distfiles" target
-SET(DISTFILES_DIR ${CMAKE_BINARY_DIR}/v${KWAVE_VERSION})
-FILE(MAKE_DIRECTORY ${DISTFILES_DIR})
-
-#############################################################################
-### DEB support                                                           ###
-
-INCLUDE(KwaveDEBSupport)
-
-#############################################################################
 
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake
@@ -365,27 +348,6 @@ ENDIF (WITH_OGG_OPUS)
 CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/kwave/org.kde.kwave.desktop.in
     ${CMAKE_CURRENT_BINARY_DIR}/kwave/org.kde.kwave.desktop
-)
-
-#############################################################################
-### Gentoo support                                                        ###
-
-INCLUDE(KwaveEbuild)
-
-#############################################################################
-### collection of all files used for distribution                         ###
-
-FIND_PROGRAM(SED_EXECUTABLE NAMES sed)
-SET(_distfiles_md5sum ${DISTFILES_DIR}/MD5SUMS-${KWAVE_VERSION})
-
-ADD_CUSTOM_COMMAND(OUTPUT ${_distfiles_md5sum}
-    COMMAND md5sum ${KWAVE_DISTFILES} |
-        ${SED_EXECUTABLE} s+${DISTFILES_DIR}/++g > ${_distfiles_md5sum}
-    DEPENDS ${KWAVE_DISTFILES}
-)
-
-ADD_CUSTOM_TARGET(distfiles
-    DEPENDS ${KWAVE_DISTFILES} ${_distfiles_md5sum}
 )
 
 #############################################################################

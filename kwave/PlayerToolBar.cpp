@@ -73,47 +73,47 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
     m_action_prev = addAction(
         QIcon::fromTheme(u"media-skip-backward"_s),
         i18n("Previous"),
-        this, SLOT(toolbarRewindPrev()));
+        this, &Kwave::PlayerToolBar::toolbarRewindPrev);
 
     m_action_rewind = addAction(
         QIcon::fromTheme(u"media-seek-backward"_s),
         i18n("Rewind"),
-        this, SLOT(toolbarRewind()));
+        this, &Kwave::PlayerToolBar::toolbarRewind);
 
     m_action_record = addAction(
         QIcon::fromTheme(u"media-record"_s),
         i18n("Record"),
-        this, SLOT(toolbarRecord()));
+        this, &Kwave::PlayerToolBar::toolbarRecord);
 
     m_action_play = addAction(
         QIcon::fromTheme(u"media-playback-start"_s),
         i18n("Start playback"),
-        this, SLOT(toolbarStart()));
+        this, &Kwave::PlayerToolBar::toolbarStart);
 
     m_action_loop = addAction(
         QIcon::fromTheme(u"media-repeat-all"_s),
         i18n("Start playback and loop"),
-        this, SLOT(toolbarLoop()));
+        this, &Kwave::PlayerToolBar::toolbarLoop);
 
     m_action_pause = addAction(
         QIcon::fromTheme(u"media-playback-pause"_s),
         QString(),
-        this, SLOT(toolbarPause()));
+        this, &Kwave::PlayerToolBar::toolbarPause);
 
     m_action_stop = addAction(
         QIcon::fromTheme(u"media-playback-stop"_s),
         i18n("Stop playback or loop"),
-        this, SLOT(toolbarStop()));
+        this, &Kwave::PlayerToolBar::toolbarStop);
 
     m_action_forward = addAction(
         QIcon::fromTheme(u"media-seek-forward"_s),
         i18n("Forward"),
-        this, SLOT(toolbarForward()));
+        this, &Kwave::PlayerToolBar::toolbarForward);
 
     m_action_next = addAction(
         QIcon::fromTheme(u"media-skip-forward"_s),
         i18n("Next"),
-        this, SLOT(toolbarForwardNext()));
+        this, &Kwave::PlayerToolBar::toolbarForwardNext);
 
     // initial state update
     updateState();
@@ -132,18 +132,16 @@ void Kwave::PlayerToolBar::contextSwitched(Kwave::FileContext *context)
 
     // disconnect the playback controller of the previous context
     if (m_context && m_playback) {
-        disconnect(m_playback, SIGNAL(sigPlaybackStarted()),
-                   this,       SLOT(updateState()));
-        disconnect(m_playback, SIGNAL(sigPlaybackPaused()),
-                   this,       SLOT(updateState()));
-        disconnect(m_playback, SIGNAL(sigPlaybackStopped()),
-                   this,       SLOT(updateState()));
-        disconnect(m_playback, SIGNAL(sigPlaybackPos(sample_index_t)),
-                   this,       SLOT(updatePlaybackPos(sample_index_t)));
-        disconnect(m_context, SIGNAL(sigVisibleRangeChanged(sample_index_t,
-            sample_index_t, sample_index_t)),
-            this, SLOT(visibleRangeChanged(sample_index_t,
-            sample_index_t, sample_index_t)) );
+        disconnect(m_playback, &Kwave::PlaybackController::sigPlaybackStarted,
+                   this,       &Kwave::PlayerToolBar::updateState);
+        disconnect(m_playback, &Kwave::PlaybackController::sigPlaybackPaused,
+                   this,       &Kwave::PlayerToolBar::updateState);
+        disconnect(m_playback, &Kwave::PlaybackController::sigPlaybackStopped,
+                   this,       &Kwave::PlayerToolBar::updateState);
+        disconnect(m_playback, &Kwave::PlaybackController::sigPlaybackPos,
+                   this,       &Kwave::PlayerToolBar::updatePlaybackPos);
+        disconnect(m_context,  &Kwave::FileContext::sigVisibleRangeChanged,
+                   this,       &Kwave::PlayerToolBar::visibleRangeChanged);
     }
 
     // use the new context
@@ -155,18 +153,16 @@ void Kwave::PlayerToolBar::contextSwitched(Kwave::FileContext *context)
 
     // connect the playback controller of the new context
     if (m_context && m_playback) {
-        connect(m_playback, SIGNAL(sigPlaybackStarted()),
-                this,       SLOT(updateState()));
-        connect(m_playback, SIGNAL(sigPlaybackPaused()),
-                this,       SLOT(updateState()));
-        connect(m_playback, SIGNAL(sigPlaybackStopped()),
-                this,       SLOT(updateState()));
-        connect(m_playback, SIGNAL(sigPlaybackPos(sample_index_t)),
-                this,       SLOT(updatePlaybackPos(sample_index_t)));
-        connect(m_context, SIGNAL(sigVisibleRangeChanged(sample_index_t,
-            sample_index_t, sample_index_t)),
-            this, SLOT(visibleRangeChanged(sample_index_t,
-            sample_index_t, sample_index_t)) );
+        connect(m_playback, &Kwave::PlaybackController::sigPlaybackStarted,
+                this,       &Kwave::PlayerToolBar::updateState);
+        connect(m_playback, &Kwave::PlaybackController::sigPlaybackPaused,
+                this,       &Kwave::PlayerToolBar::updateState);
+        connect(m_playback, &Kwave::PlaybackController::sigPlaybackStopped,
+                this,       &Kwave::PlayerToolBar::updateState);
+        connect(m_playback, &Kwave::PlaybackController::sigPlaybackPos,
+                this,       &Kwave::PlayerToolBar::updatePlaybackPos);
+        connect(m_context,  &Kwave::FileContext::sigVisibleRangeChanged,
+                this,       &Kwave::PlayerToolBar::visibleRangeChanged);
     }
 
     updateState();

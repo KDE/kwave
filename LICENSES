@@ -220,23 +220,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         kwave/pics/sound_note.png                       LGPL2 (crystal project) [copied from knotify.png]
         kwave/pics/sound_subdevice.png                  LGPL2 (crystal project) [copied from kcmsound.png]
 
-        kwave/toolbar/kwave_player_bg.svgz              derived from "Oxygen" icons
-        kwave/toolbar/kwave_player_end.svgz             derived from "Oxygen" icons
-        kwave/toolbar/kwave_player_fwd.svgz             derived from "Oxygen" icons
-        kwave/toolbar/kwave_player_loop.svgz            derived from "Oxygen" icons
-        kwave/toolbar/kwave_player_pause.svgz           derived from "Oxygen" icons
-        kwave/toolbar/kwave_player_pause_2.svgz         derived from "Oxygen" icons
-        kwave/toolbar/kwave_player_play.svgz            derived from "Oxygen" icons
-        kwave/toolbar/kwave_player_record.svgz          derived from "Oxygen" icons
-        kwave/toolbar/kwave_player_rew.svgz             derived from "Oxygen" icons
-        kwave/toolbar/kwave_player_start.svgz           derived from "Oxygen" icons
-        kwave/toolbar/kwave_player_stop.svgz            derived from "Oxygen" icons
-        kwave/toolbar/kwave_viewmag.svgz                derived from "Oxygen" icons
-        kwave/toolbar/kwave_viewmagfit.svgz             derived from "Oxygen" icons
-        kwave/toolbar/kwave_zoom_in.svgz                derived from "Oxygen" icons
-        kwave/toolbar/kwave_zoom_original.svgz          derived from "Oxygen" icons
-        kwave/toolbar/kwave_zoom_out.svgz               derived from "Oxygen" icons
-
         libgui/CMakeLists.txt                           BSD (3 clause)
         libgui/Colors.cpp                               GPL2+
         libgui/Colors.h                                 GPL2+

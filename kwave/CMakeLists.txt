@@ -68,22 +68,6 @@ SET(kwave_PIXMAPS
 )
 
 #############################################################################
-### scalable action icons to be installed in the icon dir                 ###
-
-SET(kwave_ACTION_ICONS
-    toolbar/sc-actions-kwave_player_end.svgz
-    toolbar/sc-actions-kwave_player_fwd.svgz
-    toolbar/sc-actions-kwave_player_pause.svgz
-    toolbar/sc-actions-kwave_player_pause_2.svgz
-    toolbar/sc-actions-kwave_player_play.svgz
-    toolbar/sc-actions-kwave_player_loop.svgz
-    toolbar/sc-actions-kwave_player_record.svgz
-    toolbar/sc-actions-kwave_player_rew.svgz
-    toolbar/sc-actions-kwave_player_start.svgz
-    toolbar/sc-actions-kwave_player_stop.svgz
-)
-
-#############################################################################
 
 ADD_EXECUTABLE(kwave_core ${kwave_SRCS})
 
@@ -123,12 +107,6 @@ INSTALL(FILES ${kwave_PIXMAPS} DESTINATION ${KDE_INSTALL_DATADIR}/kwave/pics)
 INSTALL(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/org.kde.kwave.desktop
     DESTINATION ${KDE_INSTALL_APPDIR}
-)
-
-# action icons
-ECM_INSTALL_ICONS(
-    ICONS ${kwave_ACTION_ICONS}
-    DESTINATION ${KDE_INSTALL_ICONDIR}
 )
 
 # application icon

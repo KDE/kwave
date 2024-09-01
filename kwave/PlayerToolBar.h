@@ -23,7 +23,6 @@
 
 #include <QObject>
 #include <QPointer>
-#include <QTimer>
 
 #include <KToolBar>
 
@@ -115,17 +114,11 @@ namespace Kwave
         /** toolbar button for "loop" pressed */
         void toolbarLoop();
 
-        /** playback has been paused */
-        void playbackPaused();
-
         /** connected to the clicked() signal of the pause button */
         void toolbarPause();
 
         /** toolbar button for "stop" pressed */
         void toolbarStop();
-
-        /** toggles the state of the pause button */
-        void blinkPause();
 
         /** toolbar button for "forward" pressed */
         void toolbarForward();
@@ -170,12 +163,6 @@ namespace Kwave
 
         /** action of the "forward to end" toolbar button */
         QAction *m_action_next;
-
-        /** Timer used to let the pause button blink... */
-        QTimer *m_pause_timer;
-
-        /** determines the state of blinking toolbar buttons */
-        bool m_blink_on;
 
         /** pointer to a playback controller */
         QPointer<Kwave::PlaybackController> m_playback;

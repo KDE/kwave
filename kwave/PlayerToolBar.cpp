@@ -18,8 +18,6 @@
 
 #include "config.h"
 
-#include <new>
-
 #include <QtGlobal>
 #include <QAction>
 #include <QIcon>
@@ -64,8 +62,6 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
      m_action_stop(nullptr),
      m_action_forward(nullptr),
      m_action_next(nullptr),
-     m_pause_timer(nullptr),
-     m_blink_on(false),
      m_playback(nullptr),
      m_menu_manager(menu_manager),
      m_labels(),
@@ -126,8 +122,6 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
 //***************************************************************************
 Kwave::PlayerToolBar::~PlayerToolBar()
 {
-    if (m_pause_timer) delete m_pause_timer;
-    m_pause_timer = nullptr;
     m_context = nullptr;
 }
 
@@ -141,7 +135,7 @@ void Kwave::PlayerToolBar::contextSwitched(Kwave::FileContext *context)
         disconnect(m_playback, SIGNAL(sigPlaybackStarted()),
                    this,       SLOT(updateState()));
         disconnect(m_playback, SIGNAL(sigPlaybackPaused()),
-                   this,       SLOT(playbackPaused()));
+                   this,       SLOT(updateState()));
         disconnect(m_playback, SIGNAL(sigPlaybackStopped()),
                    this,       SLOT(updateState()));
         disconnect(m_playback, SIGNAL(sigPlaybackPos(sample_index_t)),
@@ -164,7 +158,7 @@ void Kwave::PlayerToolBar::contextSwitched(Kwave::FileContext *context)
         connect(m_playback, SIGNAL(sigPlaybackStarted()),
                 this,       SLOT(updateState()));
         connect(m_playback, SIGNAL(sigPlaybackPaused()),
-                this,       SLOT(playbackPaused()));
+                this,       SLOT(updateState()));
         connect(m_playback, SIGNAL(sigPlaybackStopped()),
                 this,       SLOT(updateState()));
         connect(m_playback, SIGNAL(sigPlaybackPos(sample_index_t)),
@@ -266,24 +260,6 @@ void Kwave::PlayerToolBar::toolbarLoop()
 }
 
 //***************************************************************************
-void Kwave::PlayerToolBar::playbackPaused()
-{
-    updateState();
-
-    if (!m_pause_timer) {
-        m_pause_timer = new(std::nothrow) QTimer(this);
-        Q_ASSERT(m_pause_timer);
-        if (!m_pause_timer) return;
-
-        m_blink_on = true;
-        m_pause_timer->start(500);
-        connect(m_pause_timer, SIGNAL(timeout()),
-                this, SLOT(blinkPause()));
-        blinkPause();
-    }
-}
-
-//***************************************************************************
 void Kwave::PlayerToolBar::toolbarPause()
 {
     if (!m_action_pause || !m_action_pause->isEnabled() || !m_playback) return;
@@ -304,20 +280,6 @@ void Kwave::PlayerToolBar::toolbarPause()
 void Kwave::PlayerToolBar::toolbarStop()
 {
     if (m_playback) m_playback->playbackStop();
-}
-
-//***************************************************************************
-void Kwave::PlayerToolBar::blinkPause()
-{
-    const bool paused = m_playback && m_playback->paused();
-
-    Q_ASSERT(m_action_pause);
-    if (!m_action_pause) return;
-
-    m_action_pause->setIcon(QIcon::fromTheme(_((paused && m_blink_on) ?
-        "kwave_player_pause_2" : "kwave_player_pause")));
-
-    m_blink_on = !m_blink_on;
 }
 
 //***************************************************************************
@@ -447,18 +409,6 @@ void Kwave::PlayerToolBar::updateState()
     UPDATE_MENU(stop,   "ID_PLAYBACK_STOP");
     m_menu_manager.setItemEnabled(_("ID_PLAYBACK_PAUSE"),    playing);
     m_menu_manager.setItemEnabled(_("ID_PLAYBACK_CONTINUE"), paused);
-
-    /* handling of blink timer */
-    if (m_pause_timer && !paused) {
-        // stop blinking
-        m_pause_timer->stop();
-        delete m_pause_timer;
-        m_pause_timer = nullptr;
-
-        m_blink_on = false;
-        blinkPause();
-        m_blink_on = false;
-    }
 
     /* pause button: continue/pause playback */
     if (paused) {

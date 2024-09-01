@@ -53,7 +53,7 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
                                     Kwave::MenuManager &menu_manager)
     :KToolBar(name, parent, true),
      m_context(nullptr),
-     m_action_prev(),
+     m_action_prev(nullptr),
      m_action_rewind(nullptr),
      m_action_record(nullptr),
      m_action_play(nullptr),

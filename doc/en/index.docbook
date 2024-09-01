@@ -1658,12 +1658,6 @@
 		<guimenu>View</guimenu><guimenuitem>Previous Page</guimenuitem>
 		</menuchoice>
 	    </para>
-	    <para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_player_start.png" format="PNG"/>
-		</imageobject><textobject><phrase><quote>previous page</quote></phrase></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- next page -->
        <listitem><para>
@@ -1676,12 +1670,6 @@
 		<shortcut><keycombo>&PgDn;</keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Next Page</guimenuitem>
 		</menuchoice>
-	    </para>
-	    <para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_player_end.png" format="PNG"/>
-		</imageobject><textobject><phrase><quote>next page</quote></phrase></textobject>
-		</inlinemediaobject>
 	    </para>
         </listitem>
 	<!-- scroll right -->
@@ -1696,12 +1684,6 @@
 		<guimenu>View</guimenu><guimenuitem>Scroll right</guimenuitem>
 		</menuchoice>
 	    </para>
-	    <para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_player_fwd.png" format="PNG"/>
-		</imageobject><textobject><phrase><quote>scroll right</quote></phrase></textobject>
-		</inlinemediaobject>
-	    </para>
         </listitem>
 	<!-- scroll left -->
         <listitem><para>
@@ -1714,12 +1696,6 @@
 		<shortcut><keycombo>&Left;</keycombo></shortcut>
 		<guimenu>View</guimenu><guimenuitem>Scroll left</guimenuitem>
 		</menuchoice>
-	    </para>
-	    <para>
-		toolbar button: <inlinemediaobject><imageobject>
-		<imagedata fileref="toolbar_kwave_player_rew.png" format="PNG"/>
-		</imageobject><textobject><phrase><quote>scroll left</quote></phrase></textobject>
-		</inlinemediaobject>
 	    </para>
         </listitem>
 	</itemizedlist>

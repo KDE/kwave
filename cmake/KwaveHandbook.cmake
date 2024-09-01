@@ -31,19 +31,6 @@ SET(_common_en_dir ${CMAKE_INSTALL_PREFIX}/share/help/en/kdoctools5-common)
 SET(_html_dir ${CMAKE_BINARY_DIR}/doc/html/${_lang})
 
 #############################################################################
-### png files with the toolbar icons                                      ###
-
-FILE(GLOB _toolbar_icons "${CMAKE_SOURCE_DIR}/kwave/toolbar/*.svgz")
-FOREACH(_toolbar_icon ${_toolbar_icons})
-    GET_FILENAME_COMPONENT(_svgz_file ${_toolbar_icon} NAME)
-    STRING(REPLACE "sc-actions-" "" _svgz_file_base ${_svgz_file})
-    STRING(REPLACE ".svgz" ".png" _png_file ${_svgz_file_base})
-    SET(_toolbar_png ${CMAKE_CURRENT_BINARY_DIR}/toolbar_${_png_file})
-    SVG2PNG(${_toolbar_icon} ${_toolbar_png} ${_png_file})
-    SET(_toolbar_pngs "${_toolbar_pngs}" "${_toolbar_png}")
-ENDFOREACH(_toolbar_icon ${_toolbar_icons})
-
-#############################################################################
 ### "make html_doc"                                                       ###
 
 FILE(GLOB _docbook_files "${CMAKE_CURRENT_SOURCE_DIR}/*.docbook")

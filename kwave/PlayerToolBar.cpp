@@ -37,6 +37,8 @@
 #include "FileContext.h"
 #include "PlayerToolBar.h"
 
+using namespace Qt::Literals::StringLiterals;
+
 /** default width to skip when doing a "seek" = 1/10 of visible range */
 #define SEEK_LENGTH (m_last_visible / 10)
 
@@ -73,47 +75,47 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
      m_last_length(0)
 {
     m_action_prev = addAction(
-        QIcon::fromTheme(_("kwave_player_start")),
+        QIcon::fromTheme(u"media-skip-backward"_s),
         i18n("Previous"),
         this, SLOT(toolbarRewindPrev()));
 
     m_action_rewind = addAction(
-        QIcon::fromTheme(_("kwave_player_rew")),
+        QIcon::fromTheme(u"media-seek-backward"_s),
         i18n("Rewind"),
         this, SLOT(toolbarRewind()));
 
     m_action_record = addAction(
-        QIcon::fromTheme(_("kwave_player_record")),
+        QIcon::fromTheme(u"media-record"_s),
         i18n("Record"),
         this, SLOT(toolbarRecord()));
 
     m_action_play = addAction(
-        QIcon::fromTheme(_("kwave_player_play")),
+        QIcon::fromTheme(u"media-playback-start"_s),
         i18n("Start playback"),
         this, SLOT(toolbarStart()));
 
     m_action_loop = addAction(
-        QIcon::fromTheme(_("kwave_player_loop")),
+        QIcon::fromTheme(u"media-repeat-all"_s),
         i18n("Start playback and loop"),
         this, SLOT(toolbarLoop()));
 
     m_action_pause = addAction(
-        QIcon::fromTheme(_("kwave_player_pause")),
+        QIcon::fromTheme(u"media-playback-pause"_s),
         QString(),
         this, SLOT(toolbarPause()));
 
     m_action_stop = addAction(
-        QIcon::fromTheme(_("kwave_player_stop")),
+        QIcon::fromTheme(u"media-playback-stop"_s),
         i18n("Stop playback or loop"),
         this, SLOT(toolbarStop()));
 
     m_action_forward = addAction(
-        QIcon::fromTheme(_("kwave_player_fwd")),
+        QIcon::fromTheme(u"media-seek-forward"_s),
         i18n("Forward"),
         this, SLOT(toolbarForward()));
 
     m_action_next = addAction(
-        QIcon::fromTheme(_("kwave_player_end")),
+        QIcon::fromTheme(u"media-skip-forward"_s),
         i18n("Next"),
         this, SLOT(toolbarForwardNext()));
 

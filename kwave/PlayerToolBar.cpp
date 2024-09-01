@@ -70,16 +70,6 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
      m_last_visible(0),
      m_last_length(0)
 {
-    m_action_prev = addAction(
-        QIcon::fromTheme(u"media-skip-backward"_s),
-        i18n("Previous"),
-        this, &Kwave::PlayerToolBar::toolbarRewindPrev);
-
-    m_action_rewind = addAction(
-        QIcon::fromTheme(u"media-seek-backward"_s),
-        i18n("Rewind"),
-        this, &Kwave::PlayerToolBar::toolbarRewind);
-
     m_action_record = addAction(
         QIcon::fromTheme(u"media-record"_s),
         i18n("Record"),
@@ -90,11 +80,6 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
         i18n("Start playback"),
         this, &Kwave::PlayerToolBar::toolbarStart);
 
-    m_action_loop = addAction(
-        QIcon::fromTheme(u"media-repeat-all"_s),
-        i18n("Start playback and loop"),
-        this, &Kwave::PlayerToolBar::toolbarLoop);
-
     m_action_pause = addAction(
         QIcon::fromTheme(u"media-playback-pause"_s),
         QString(),
@@ -104,6 +89,21 @@ Kwave::PlayerToolBar::PlayerToolBar(KMainWindow *parent, const QString &name,
         QIcon::fromTheme(u"media-playback-stop"_s),
         i18n("Stop playback or loop"),
         this, &Kwave::PlayerToolBar::toolbarStop);
+
+    m_action_loop = addAction(
+        QIcon::fromTheme(u"media-repeat-all"_s),
+        i18n("Start playback and loop"),
+        this, &Kwave::PlayerToolBar::toolbarLoop);
+
+    m_action_prev = addAction(
+        QIcon::fromTheme(u"media-skip-backward"_s),
+        i18n("Previous"),
+        this, &Kwave::PlayerToolBar::toolbarRewindPrev);
+
+    m_action_rewind = addAction(
+        QIcon::fromTheme(u"media-seek-backward"_s),
+        i18n("Rewind"),
+        this, &Kwave::PlayerToolBar::toolbarRewind);
 
     m_action_forward = addAction(
         QIcon::fromTheme(u"media-seek-forward"_s),

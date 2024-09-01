@@ -113,9 +113,9 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     /* set the icons of the record control buttons */
     btNew->setIcon(   QIcon::fromTheme(_("document-new")));
-    btStop->setIcon(  QIcon::fromTheme(_("kwave_player_stop")));
-    btPause->setIcon( QIcon::fromTheme(_("kwave_player_pause")));
-    btRecord->setIcon(QIcon::fromTheme(_("kwave_player_record")));
+    btStop->setIcon(  QIcon::fromTheme(_("media-playback-stop")));
+    btPause->setIcon( QIcon::fromTheme(_("media-playback-pause")));
+    btRecord->setIcon(QIcon::fromTheme(_("media-record")));
 
     // fill the combo box with playback methods
     unsigned int index=0;

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:39+0000\n"
+"POT-Creation-Date: 2024-09-02 00:38+0000\n"
 "PO-Revision-Date: 2021-06-11 17:41+0200\n"
 "Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1021,55 +1021,55 @@ msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "Über KDE"
 
-#: kwave/PlayerToolBar.cpp:77
+#: kwave/PlayerToolBar.cpp:75
 #, kde-format
 msgid "Previous"
 msgstr "Vorherige"
 
-#: kwave/PlayerToolBar.cpp:82
+#: kwave/PlayerToolBar.cpp:80
 #, kde-format
 msgid "Rewind"
 msgstr "Zurückspulen"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
-#: kwave/PlayerToolBar.cpp:87 plugins/record/RecordDlg.ui:17
+#: kwave/PlayerToolBar.cpp:85 plugins/record/RecordDlg.ui:17
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
 msgstr "Aufnahme"
 
-#: kwave/PlayerToolBar.cpp:92
+#: kwave/PlayerToolBar.cpp:90
 #, kde-format
 msgid "Start playback"
 msgstr "Wiedergabe starten"
 
-#: kwave/PlayerToolBar.cpp:97
+#: kwave/PlayerToolBar.cpp:95
 #, kde-format
 msgid "Start playback and loop"
 msgstr "Wiedergabe mit Wiederholung"
 
-#: kwave/PlayerToolBar.cpp:107
+#: kwave/PlayerToolBar.cpp:105
 #, kde-format
 msgid "Stop playback or loop"
 msgstr "Wiedergabe beenden"
 
-#: kwave/PlayerToolBar.cpp:112
+#: kwave/PlayerToolBar.cpp:110
 #, kde-format
 msgid "Forward"
 msgstr "Vorspulen"
 
-#: kwave/PlayerToolBar.cpp:117
+#: kwave/PlayerToolBar.cpp:115
 #, kde-format
 msgid "Next"
 msgstr "Nächstes"
 
-#: kwave/PlayerToolBar.cpp:463
+#: kwave/PlayerToolBar.cpp:415
 #, kde-format
 msgid "Continue playback"
 msgstr "Wiedergabe fortsetzen"
 
-#: kwave/PlayerToolBar.cpp:465
+#: kwave/PlayerToolBar.cpp:417
 #, kde-format
 msgid "Pause playback"
 msgstr "Wiedergabe anhalten"

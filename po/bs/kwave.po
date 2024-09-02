@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kde4.14\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:39+0000\n"
+"POT-Creation-Date: 2024-09-02 00:38+0000\n"
 "PO-Revision-Date: 2015-02-26 22:01+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian\n"
@@ -1040,55 +1040,55 @@ msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "O KDE-u"
 
-#: kwave/PlayerToolBar.cpp:77
+#: kwave/PlayerToolBar.cpp:75
 #, kde-format
 msgid "Previous"
 msgstr "Prethodni"
 
-#: kwave/PlayerToolBar.cpp:82
+#: kwave/PlayerToolBar.cpp:80
 #, kde-format
 msgid "Rewind"
 msgstr "Premotaj"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
-#: kwave/PlayerToolBar.cpp:87 plugins/record/RecordDlg.ui:17
+#: kwave/PlayerToolBar.cpp:85 plugins/record/RecordDlg.ui:17
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
 msgstr "Zapis"
 
-#: kwave/PlayerToolBar.cpp:92
+#: kwave/PlayerToolBar.cpp:90
 #, kde-format
 msgid "Start playback"
 msgstr "započni reprodukciju"
 
-#: kwave/PlayerToolBar.cpp:97
+#: kwave/PlayerToolBar.cpp:95
 #, kde-format
 msgid "Start playback and loop"
 msgstr ""
 
-#: kwave/PlayerToolBar.cpp:107
+#: kwave/PlayerToolBar.cpp:105
 #, kde-format
 msgid "Stop playback or loop"
 msgstr ""
 
-#: kwave/PlayerToolBar.cpp:112
+#: kwave/PlayerToolBar.cpp:110
 #, kde-format
 msgid "Forward"
 msgstr "Naprijed"
 
-#: kwave/PlayerToolBar.cpp:117
+#: kwave/PlayerToolBar.cpp:115
 #, kde-format
 msgid "Next"
 msgstr "Sljedeći"
 
-#: kwave/PlayerToolBar.cpp:463
+#: kwave/PlayerToolBar.cpp:415
 #, kde-format
 msgid "Continue playback"
 msgstr ""
 
-#: kwave/PlayerToolBar.cpp:465
+#: kwave/PlayerToolBar.cpp:417
 #, kde-format
 msgid "Pause playback"
 msgstr "Pauziraj puštanje"

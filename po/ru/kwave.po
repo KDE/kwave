@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:39+0000\n"
+"POT-Creation-Date: 2024-09-02 00:38+0000\n"
 "PO-Revision-Date: 2020-07-26 14:12+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1028,12 +1028,12 @@ msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "О KDE"
 
-#: kwave/PlayerToolBar.cpp:77
+#: kwave/PlayerToolBar.cpp:75
 #, kde-format
 msgid "Previous"
 msgstr "Предыдущий"
 
-#: kwave/PlayerToolBar.cpp:82
+#: kwave/PlayerToolBar.cpp:80
 #, kde-format
 msgid "Rewind"
 msgstr "Назад"
@@ -1041,43 +1041,43 @@ msgstr "Назад"
 # BUGME: please add @title:window context --aspotashev
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
-#: kwave/PlayerToolBar.cpp:87 plugins/record/RecordDlg.ui:17
+#: kwave/PlayerToolBar.cpp:85 plugins/record/RecordDlg.ui:17
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
 msgstr "Запись звука"
 
-#: kwave/PlayerToolBar.cpp:92
+#: kwave/PlayerToolBar.cpp:90
 #, kde-format
 msgid "Start playback"
 msgstr "Начать воспроизведение"
 
-#: kwave/PlayerToolBar.cpp:97
+#: kwave/PlayerToolBar.cpp:95
 #, kde-format
 msgid "Start playback and loop"
 msgstr "Начать воспроизведение в цикле"
 
-#: kwave/PlayerToolBar.cpp:107
+#: kwave/PlayerToolBar.cpp:105
 #, kde-format
 msgid "Stop playback or loop"
 msgstr "Остановить воспроизведение"
 
-#: kwave/PlayerToolBar.cpp:112
+#: kwave/PlayerToolBar.cpp:110
 #, kde-format
 msgid "Forward"
 msgstr "Вперёд"
 
-#: kwave/PlayerToolBar.cpp:117
+#: kwave/PlayerToolBar.cpp:115
 #, kde-format
 msgid "Next"
 msgstr "Следующий"
 
-#: kwave/PlayerToolBar.cpp:463
+#: kwave/PlayerToolBar.cpp:415
 #, kde-format
 msgid "Continue playback"
 msgstr "Продолжить воспроизведение"
 
-#: kwave/PlayerToolBar.cpp:465
+#: kwave/PlayerToolBar.cpp:417
 #, kde-format
 msgid "Pause playback"
 msgstr "Приостановить воспроизведение"

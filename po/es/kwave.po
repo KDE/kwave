@@ -1,15 +1,15 @@
-# Copyright (C) 2013
-# This file is distributed under the same license as the Kwave package.
+# Translation of kwave to Spanish
+# This file is distributed under the same license as the kwave package.
 #
-# Carlos <pureacetone@gmail.com>, 2013, 2014.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2015, 2016, 2017.
-# Víctor Rodrigo Córdoba <vrcordoba@gmail.com>, 2017, 2018, 2019, 2020.
+# SPDX-FileCopyrightText: 2013, 2014 Carlos <pureacetone@gmail.com>
+# SPDX-FileCopyrightText: 2015, 2016, 2017 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2017, 2018, 2019, 2020, 2024 Víctor Rodrigo Córdoba <vrcordoba@gmail.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-25 00:39+0000\n"
-"PO-Revision-Date: 2020-02-29 16:20+0100\n"
+"POT-Creation-Date: 2024-09-02 00:38+0000\n"
+"PO-Revision-Date: 2024-09-01 12:15+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 18.12.3\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1024,55 +1024,55 @@ msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "Acerca de KDE"
 
-#: kwave/PlayerToolBar.cpp:77
+#: kwave/PlayerToolBar.cpp:75
 #, kde-format
 msgid "Previous"
 msgstr "Anterior"
 
-#: kwave/PlayerToolBar.cpp:82
+#: kwave/PlayerToolBar.cpp:80
 #, kde-format
 msgid "Rewind"
 msgstr "Rebobinar"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
-#: kwave/PlayerToolBar.cpp:87 plugins/record/RecordDlg.ui:17
+#: kwave/PlayerToolBar.cpp:85 plugins/record/RecordDlg.ui:17
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
 msgstr "Grabar"
 
-#: kwave/PlayerToolBar.cpp:92
+#: kwave/PlayerToolBar.cpp:90
 #, kde-format
 msgid "Start playback"
 msgstr "Comenzar reproducción"
 
-#: kwave/PlayerToolBar.cpp:97
+#: kwave/PlayerToolBar.cpp:95
 #, kde-format
 msgid "Start playback and loop"
 msgstr "Comenzar reproducción y repetir"
 
-#: kwave/PlayerToolBar.cpp:107
+#: kwave/PlayerToolBar.cpp:105
 #, kde-format
 msgid "Stop playback or loop"
 msgstr "Detener reproducción o repetición"
 
-#: kwave/PlayerToolBar.cpp:112
+#: kwave/PlayerToolBar.cpp:110
 #, kde-format
 msgid "Forward"
 msgstr "Avanzar"
 
-#: kwave/PlayerToolBar.cpp:117
+#: kwave/PlayerToolBar.cpp:115
 #, kde-format
 msgid "Next"
 msgstr "Siguiente"
 
-#: kwave/PlayerToolBar.cpp:463
+#: kwave/PlayerToolBar.cpp:415
 #, kde-format
 msgid "Continue playback"
 msgstr "Continuar reproducción"
 
-#: kwave/PlayerToolBar.cpp:465
+#: kwave/PlayerToolBar.cpp:417
 #, kde-format
 msgid "Pause playback"
 msgstr "Pausar reproducción"
@@ -6178,10 +6178,9 @@ msgid "The audio device '%1' is unknown or no longer connected"
 msgstr "El dispositivo de sonido «%1» es desconocido o ya no está conectado"
 
 #: plugins/playback/PlayBack-Qt.cpp:154
-#, fuzzy, kde-format
-#| msgid "Error: Codec not supported"
+#, kde-format
 msgid "format not supported"
-msgstr "Error: códec no permitido"
+msgstr "formato no permitido"
 
 #: plugins/playback/PlayBack-Qt.cpp:192
 #, kde-format

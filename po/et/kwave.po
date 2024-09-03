@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-02 00:38+0000\n"
+"POT-Creation-Date: 2024-09-03 00:38+0000\n"
 "PO-Revision-Date: 2020-02-13 12:47+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -1021,38 +1021,38 @@ msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "KDE teave"
 
-#: kwave/PlayerToolBar.cpp:75
-#, kde-format
-msgid "Previous"
-msgstr "Eelmine"
-
-#: kwave/PlayerToolBar.cpp:80
-#, kde-format
-msgid "Rewind"
-msgstr "Keri tagasi"
-
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
-#: kwave/PlayerToolBar.cpp:85 plugins/record/RecordDlg.ui:17
+#: kwave/PlayerToolBar.cpp:75 plugins/record/RecordDlg.ui:17
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
 msgstr "Salvestus"
 
-#: kwave/PlayerToolBar.cpp:90
+#: kwave/PlayerToolBar.cpp:80
 #, kde-format
 msgid "Start playback"
 msgstr "Alusta esitust"
+
+#: kwave/PlayerToolBar.cpp:90
+#, kde-format
+msgid "Stop playback or loop"
+msgstr "Peata esitus või kordamine"
 
 #: kwave/PlayerToolBar.cpp:95
 #, kde-format
 msgid "Start playback and loop"
 msgstr "Alusta esitust ja korda"
 
+#: kwave/PlayerToolBar.cpp:100
+#, kde-format
+msgid "Previous"
+msgstr "Eelmine"
+
 #: kwave/PlayerToolBar.cpp:105
 #, kde-format
-msgid "Stop playback or loop"
-msgstr "Peata esitus või kordamine"
+msgid "Rewind"
+msgstr "Keri tagasi"
 
 #: kwave/PlayerToolBar.cpp:110
 #, kde-format
@@ -1064,12 +1064,12 @@ msgstr "Edasi"
 msgid "Next"
 msgstr "Järgmine"
 
-#: kwave/PlayerToolBar.cpp:415
+#: kwave/PlayerToolBar.cpp:411
 #, kde-format
 msgid "Continue playback"
 msgstr "Jätka esitust"
 
-#: kwave/PlayerToolBar.cpp:417
+#: kwave/PlayerToolBar.cpp:413
 #, kde-format
 msgid "Pause playback"
 msgstr "Esituse paus"

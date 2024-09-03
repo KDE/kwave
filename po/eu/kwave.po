@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-02 00:38+0000\n"
+"POT-Creation-Date: 2024-09-03 00:38+0000\n"
 "PO-Revision-Date: 2024-08-07 08:23+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1025,38 +1025,38 @@ msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "KDEri buruz"
 
-#: kwave/PlayerToolBar.cpp:75
-#, kde-format
-msgid "Previous"
-msgstr "Aurrekoa"
-
-#: kwave/PlayerToolBar.cpp:80
-#, kde-format
-msgid "Rewind"
-msgstr "Errebobinatu"
-
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
-#: kwave/PlayerToolBar.cpp:85 plugins/record/RecordDlg.ui:17
+#: kwave/PlayerToolBar.cpp:75 plugins/record/RecordDlg.ui:17
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
 msgstr "Grabatu"
 
-#: kwave/PlayerToolBar.cpp:90
+#: kwave/PlayerToolBar.cpp:80
 #, kde-format
 msgid "Start playback"
 msgstr "hasi atzera-jotzen"
+
+#: kwave/PlayerToolBar.cpp:90
+#, kde-format
+msgid "Stop playback or loop"
+msgstr "Gelditu atzera-jotzea eta begizta"
 
 #: kwave/PlayerToolBar.cpp:95
 #, kde-format
 msgid "Start playback and loop"
 msgstr "Hasi atzera-jotzea eta begizta"
 
+#: kwave/PlayerToolBar.cpp:100
+#, kde-format
+msgid "Previous"
+msgstr "Aurrekoa"
+
 #: kwave/PlayerToolBar.cpp:105
 #, kde-format
-msgid "Stop playback or loop"
-msgstr "Gelditu atzera-jotzea eta begizta"
+msgid "Rewind"
+msgstr "Errebobinatu"
 
 #: kwave/PlayerToolBar.cpp:110
 #, kde-format
@@ -1068,12 +1068,12 @@ msgstr "Aurrera"
 msgid "Next"
 msgstr "Hurrengoa"
 
-#: kwave/PlayerToolBar.cpp:415
+#: kwave/PlayerToolBar.cpp:411
 #, kde-format
 msgid "Continue playback"
 msgstr "Jarraitu atzera-jotzea"
 
-#: kwave/PlayerToolBar.cpp:417
+#: kwave/PlayerToolBar.cpp:413
 #, kde-format
 msgid "Pause playback"
 msgstr "Eten aurrera-jotzea"

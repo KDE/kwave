@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-02 00:38+0000\n"
+"POT-Creation-Date: 2024-09-03 00:38+0000\n"
 "PO-Revision-Date: 2024-08-20 00:22+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1019,38 +1019,38 @@ msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "KDE 정보"
 
-#: kwave/PlayerToolBar.cpp:75
-#, kde-format
-msgid "Previous"
-msgstr "이전"
-
-#: kwave/PlayerToolBar.cpp:80
-#, kde-format
-msgid "Rewind"
-msgstr "되감기"
-
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
-#: kwave/PlayerToolBar.cpp:85 plugins/record/RecordDlg.ui:17
+#: kwave/PlayerToolBar.cpp:75 plugins/record/RecordDlg.ui:17
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
 msgstr "녹음"
 
-#: kwave/PlayerToolBar.cpp:90
+#: kwave/PlayerToolBar.cpp:80
 #, kde-format
 msgid "Start playback"
 msgstr "재생 시작"
+
+#: kwave/PlayerToolBar.cpp:90
+#, kde-format
+msgid "Stop playback or loop"
+msgstr "재생 또는 반복 정지"
 
 #: kwave/PlayerToolBar.cpp:95
 #, kde-format
 msgid "Start playback and loop"
 msgstr "재생 시작하고 반복"
 
+#: kwave/PlayerToolBar.cpp:100
+#, kde-format
+msgid "Previous"
+msgstr "이전"
+
 #: kwave/PlayerToolBar.cpp:105
 #, kde-format
-msgid "Stop playback or loop"
-msgstr "재생 또는 반복 정지"
+msgid "Rewind"
+msgstr "되감기"
 
 #: kwave/PlayerToolBar.cpp:110
 #, kde-format
@@ -1062,12 +1062,12 @@ msgstr "빨리감기"
 msgid "Next"
 msgstr "다음"
 
-#: kwave/PlayerToolBar.cpp:415
+#: kwave/PlayerToolBar.cpp:411
 #, kde-format
 msgid "Continue playback"
 msgstr "재생 계속"
 
-#: kwave/PlayerToolBar.cpp:417
+#: kwave/PlayerToolBar.cpp:413
 #, kde-format
 msgid "Pause playback"
 msgstr "재생 일시 정지"

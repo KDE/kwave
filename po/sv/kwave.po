@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-02 00:38+0000\n"
+"POT-Creation-Date: 2024-09-03 00:38+0000\n"
 "PO-Revision-Date: 2024-08-07 06:47+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1023,38 +1023,38 @@ msgctxt "menu: /Help/About KDE"
 msgid "About KDE"
 msgstr "Om KDE"
 
-#: kwave/PlayerToolBar.cpp:75
-#, kde-format
-msgid "Previous"
-msgstr "Föregående"
-
-#: kwave/PlayerToolBar.cpp:80
-#, kde-format
-msgid "Rewind"
-msgstr "Snabbspola bakåt"
-
 #. i18n: ectx: property (windowTitle), widget (QDialog, RecordDlg)
 #. i18n: ectx: property (toolTip), widget (QPushButton, btRecord)
-#: kwave/PlayerToolBar.cpp:85 plugins/record/RecordDlg.ui:17
+#: kwave/PlayerToolBar.cpp:75 plugins/record/RecordDlg.ui:17
 #: plugins/record/RecordDlg.ui:207
 #, kde-format
 msgid "Record"
 msgstr "Spela in"
 
-#: kwave/PlayerToolBar.cpp:90
+#: kwave/PlayerToolBar.cpp:80
 #, kde-format
 msgid "Start playback"
 msgstr "Starta uppspelning"
+
+#: kwave/PlayerToolBar.cpp:90
+#, kde-format
+msgid "Stop playback or loop"
+msgstr "Stoppa uppspelning eller upprepning"
 
 #: kwave/PlayerToolBar.cpp:95
 #, kde-format
 msgid "Start playback and loop"
 msgstr "Starta uppspelning och upprepa"
 
+#: kwave/PlayerToolBar.cpp:100
+#, kde-format
+msgid "Previous"
+msgstr "Föregående"
+
 #: kwave/PlayerToolBar.cpp:105
 #, kde-format
-msgid "Stop playback or loop"
-msgstr "Stoppa uppspelning eller upprepning"
+msgid "Rewind"
+msgstr "Snabbspola bakåt"
 
 #: kwave/PlayerToolBar.cpp:110
 #, kde-format
@@ -1066,12 +1066,12 @@ msgstr "Snabbspola framåt"
 msgid "Next"
 msgstr "Nästa"
 
-#: kwave/PlayerToolBar.cpp:415
+#: kwave/PlayerToolBar.cpp:411
 #, kde-format
 msgid "Continue playback"
 msgstr "Fortsätt uppspelning"
 
-#: kwave/PlayerToolBar.cpp:417
+#: kwave/PlayerToolBar.cpp:413
 #, kde-format
 msgid "Pause playback"
 msgstr "Paus i uppspelning"

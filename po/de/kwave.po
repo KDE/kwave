@@ -4,7 +4,7 @@
 # Frederik Schwarzer <schwarzer@kde.org>, 2016, 2018, 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kwave\n"
+"Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 00:38+0000\n"
 "PO-Revision-Date: 2021-06-11 17:41+0200\n"

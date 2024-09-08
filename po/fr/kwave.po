@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-16 01:39+0000\n"
-"PO-Revision-Date: 2024-05-06 16:25+0200\n"
+"PO-Revision-Date: 2024-09-06 17:09+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -229,7 +229,7 @@ msgstr "Stefan Westerfeld"
 #: kwave/main.cpp:85
 #, kde-format
 msgid "Author of aRts"
-msgstr "Auteur d'aRTs"
+msgstr "Auteur du logiciel aRTs"
 
 #: kwave/main.cpp:89
 #, kde-format
@@ -4867,7 +4867,7 @@ msgid ""
 "you want to use G711 ULAW compression instead?"
 msgstr ""
 "Désolé, vous ne pouvez pas enregistrer avec ce type de compression. Voulez-"
-"vous utiliser la compression « G711 µ-Law » plutôt ?"
+"vous utiliser la compression « G711 ULaw » plutôt ?"
 
 #: plugins/codec_wav/WavEncoder.cpp:351
 #, kde-format
@@ -6934,8 +6934,8 @@ msgstr ""
 "<b>Méthode d'enregistrement : </b><p>Sélectionner une méthode ou un système\n"
 " pour l'enregistrement. Selon les options de compilation, vous pouvez "
 "choisir l'une des méthodes suivantes : </p>\n"
-"<p><b><i>OSS (Open Sound System)</i></b> : système historique sous Linux qui "
-"prend en charge les sorties mono et stéréo. Déconseillé depuis le noyau "
+"<p><b><i>OSS (Open Sound System)</i></b> : système historique sous Linux "
+"prenant en charge les sorties mono et stéréo. Déconseillé depuis le noyau "
 "Linux 2.6 mais toujours disponible.</p>\n"
 "<p><b><i>ALSA (Advanced Linux Sound Architecture)</i></b> : remplace OSS et "
 "propose davantage de fonctionnalités et de matériels pris en charge.</p>"

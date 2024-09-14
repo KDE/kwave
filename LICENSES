@@ -1,5 +1,5 @@
 
-here the results of a licensing investigation
+results of a licensing investigation
 (first done 2007-06-17)
 
 LIST OF LICENSES FOUND IN THE SOURCES
@@ -39,20 +39,20 @@ LIST OF LICENSES FOUND IN THE SOURCES
 DIRECTLY USED EXTERNAL LIBRARIES
 ================================
 
-        * Qt-5                          GPL2 or GPL3
-        * KDE frameworks 5              LGPL2
-        * FFTW-3.x                      GPL2+
-        * audiofile-0.2.6               LGPL2+ / GPL2+
-        * id3lib-3.8.3                  LGPL2.1
-        * mad-0.15.1b                   GPL2+ <= possible patent issue !!!
-        * ogg-1.1.3                     ~BSD style
-        * flac-1.2.1                    Xiph.Org's BSD-like + GPL2 + LGPL2
-        * alsa-lib-1.0.16               LGPL2.1
-        * OSS-3.8                       GPL2, CDDL, BSD
-        * libstdc++-v3.3.6              LGPL2.1
-        * glibc-2.6.1                   LGPL2
-        * libsamplerate-0.1.4           GPL2+
-        * pulseaudio-4.0                LGPL2.1+
+        * Qt                            GPL2 or GPL3
+        * KDE frameworks                LGPL2
+        * FFTW-3                        GPL2+
+        * audiofile                     LGPL2+ / GPL2+
+        * id3lib                        LGPL2.1
+        * mad                           GPL2+ <= possible patent issue !!!
+        * ogg                           ~BSD style
+        * flac                          Xiph.Org's BSD-like + GPL2 + LGPL2
+        * alsa-lib                      LGPL2.1
+        * OSS                           GPL2, CDDL, BSD
+        * libstdc++                     LGPL2.1
+        * glibc                         LGPL2
+        * libsamplerate                 GPL2+
+        * pulseaudio                    LGPL2.1+
 
 LICENSE ISSUES
 ==============
@@ -64,7 +64,7 @@ issue #1: license of the icons
            (the icons listed here are composed of one or more icons
             from KDE and/or modified)
 
-#       doc/en/audio-1.png                              ??? UNKNOWN ???
+#       doc/en/audio-1.png                              (UNKNOWN)
         -> kdeclassic/32x32/apps/kblackbox.png
            + kdeclassic/64x64/mimetypes/binary2.png
            + kdeclassic/32x32/apps/kmix.png
@@ -72,25 +72,25 @@ issue #1: license of the icons
            + ???
            + ???
 
-#       doc/en/audio2signal.png                         ??? UNKNOWN ???
+#       doc/en/audio2signal.png                         (UNKNOWN)
         -> kdeclassic/32x32/apps/kmix.png
            + kdeclassic/32x32/actions/forward.png
            + ???
            + ???
 
-#       doc/en/nonlinear.png                            ??? UNKNOWN ??? (arrow only)
+#       doc/en/nonlinear.png                            (UNKNOWN, arrow only)
         -> arrow is from kdeclassic/32x32/actions/forward.png
 
 issue #2: license of some files is unknown or problematic / author known
 ------------------------------------------------------------------------
 
-        - currently none -
+        .gitignore
+        CMakePresets.json
 
 issue #3: some files have neither license nor author
 ----------------------------------------------------
 
-        - currently none -
-
+        plugins/*/kwaveplugin_*.json.in
 
 COMPLETE LIST OF FILES AND THEIR LICENSE
 ========================================
@@ -98,6 +98,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         AUTHORS                                         GPL2+
         CHANGES                                         (should be GPL2+)
         CMakeLists.txt                                  BSD (3 clause)
+        CMakePresets.json                               (UNKNOWN / Laurent Montel <montel@kde.org>)
         config.h.cmake                                  GPL2+
         doxy.cfg.in                                     GPL2+
         ExtraDesktop.sh                                 GPL2+
@@ -106,12 +107,19 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         kwave.kdev4                                     GPL2+
         kwave.spec.in                                   GPL2+
         LICENSES                                        GPL2+
+        logo.png                                        (should be GPL2+ / Martin Wilz)
         Messages.sh                                     GPL2+
         README                                          GPL2+
         TODO                                            GPL2+
+        .gitignore                                      (UNKNOWN / Laurent Montel <montel@kde.org>)
+        .gitlab-ci.yml                                  CC0-1.0
+        .kde-ci.yml                                     CC0-1.0
         .krazy                                          GPL2+
+        .kdev4/kwave.kdev4                              GPL2+
 
+        bin/beautify-source                             GPL2+
         bin/import-screenshots.sh                       GPL2+
+        bin/kwave.wrapper.in                            GPL2+
         bin/make-specfile-changelog.pl                  GPL2+
         bin/menusconfig2pot.pl                          GPL2+
         bin/msgstats.pl                                 GPL2+
@@ -133,16 +141,16 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         cmake/KwaveOSSSupport.cmake                     BSD (3 clause)
         cmake/KwavePulseAudioSupport.cmake              BSD (3 clause)
         cmake/KwaveRPMSupport.cmake                     BSD (3 clause)
-        cmake/KwaveSysinfo.cmake                        BSD (3 clause)
         cmake/uninstall.cmake.in                        BSD (3 clause)
 
         doc/CMakeLists.txt                              BSD (3 clause)
+        doc/devel.docbook                               FDL
         doc/fix-common                                  GPL2+
 
         doc/en/CMakeLists.txt                           BSD (3 clause)
         doc/en/README.translators.txt                   GPL2+
-#       doc/en/audio-1.png                              ??? UNKNOWN ???
-#       doc/en/audio2signal.png                         ??? UNKNOWN ???
+#       doc/en/audio-1.png                              (UNKNOWN)
+#       doc/en/audio2signal.png                         (UNKNOWN)
         doc/en/krec_record.png                          LGPL2 (crystal project) [copied from mix_record.png]
         doc/en/kwave-edit-label.png                     (should be FDL)
         doc/en/kwave-gui-mdi.png                        (should be FDL)
@@ -172,7 +180,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         doc/en/kwave-plugin-volume.png                  (should be FDL)
         doc/en/light_off.png                            LGPL2 (crystal project) [derived from greenled.png]
         doc/en/light_on.png                             LGPL2 (crystal project) [derived from greenled.png]
-#       doc/en/nonlinear.png                            ??? UNKNOWN ??? (arrow only)
+#       doc/en/nonlinear.png                            (UNKNOWN, arrow only)
         doc/en/record_new.png                           LGPL2 (crystal project) [copied from document-new.png]
         doc/en/record_pause.png                         (should be FDL)
         doc/en/record_stop.png                          (should be FDL)
@@ -187,18 +195,18 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         kwave/App.h                                     GPL2+
         kwave/FileContext.cpp                           GPL2+
         kwave/FileContext.h                             GPL2+
-        kwave/kwave.appdata.xml                         CC0-1.0
         kwave/main.cpp                                  GPL2+ / Martin Wilz
         kwave/MainWidget.cpp                            GPL2+ / Martin Wilz
         kwave/MainWidget.h                              GPL2+ / Martin Wilz
         kwave/menus.config                              GPL2+
+        kwave/org.kde.kwave.appdata.xml                 CC0-1.0
         kwave/org.kde.kwave.desktop.in                  (should be GPL2+)
+        kwave/PlayerToolBar.cpp                         GPL2+
+        kwave/PlayerToolBar.h                           GPL2+
         kwave/ShortcutWrapper.cpp                       GPL2+
         kwave/ShortcutWrapper.h                         GPL2+
         kwave/Splash.cpp                                GPL2+ / Gilles Caulier
         kwave/Splash.h                                  GPL2+ / Gilles Caulier
-        kwave/PlayerToolBar.cpp                         GPL2+
-        kwave/PlayerToolBar.h                           GPL2+
         kwave/TopWidget.cpp                             GPL2+ / Martin Wilz
         kwave/TopWidget.h                               GPL2+ / Martin Wilz
         kwave/ZoomToolBar.cpp                           GPL2+
@@ -209,11 +217,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         kwave/pics/fade_out.png                         (should be GPL2+)
         kwave/pics/knob.xpm                             LGPL2 (crystal project) [derived from greenled.png]
         kwave/pics/kwave-splash.png                     (should be GPL2+ / Thomas Eschenbacher)
-        kwave/pics/kwave.svgz                           (should be GPL2+ / Thomas Eschenbacher)
         kwave/pics/light_off.xpm                        LGPL2 (crystal project) [derived from greenled.png]
         kwave/pics/light_on.xpm                         LGPL2 (crystal project) [copied from greenled.png]
         kwave/pics/logo.xpm                             (should be GPL2+ / Martin Wilz)
         kwave/pics/noise.png                            (should be GPL2+)
+        kwave/pics/sc-apps-kwave.svgz                   (should be GPL2+ / Thomas Eschenbacher)
         kwave/pics/selectedknob.xpm                     LGPL2 (crystal project) [derived from greenled.png]
         kwave/pics/sound_card.png                       LGPL2 (crystal project) [copied from kcmpci.png]
         kwave/pics/sound_device.png                     LGPL2 (crystal project) [copied from multimedia.png]
@@ -223,8 +231,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libgui/CMakeLists.txt                           BSD (3 clause)
         libgui/Colors.cpp                               GPL2+
         libgui/Colors.h                                 GPL2+
-        libgui/ConfirmCancelProxy.cpp                   GPL2+
-        libgui/ConfirmCancelProxy.h                     GPL2+
         libgui/CurveWidget.cpp                          GPL2+
         libgui/CurveWidget.h                            GPL2+
         libgui/FileDialog.cpp                           GPL2+
@@ -249,6 +255,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libgui/MenuGroup.h                              GPL2+
         libgui/MenuItem.cpp                             GPL2+
         libgui/MenuItem.h                               GPL2+
+        libgui/MenuList.cpp                             GPL2+
+        libgui/MenuList.h                               GPL2+
         libgui/MenuManager.cpp                          GPL2+
         libgui/MenuManager.h                            GPL2+
         libgui/MenuNode.cpp                             GPL2+
@@ -267,15 +275,17 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libgui/OverViewWidget.h                         GPL2+
         libgui/ScaleWidget.cpp                          GPL2+
         libgui/ScaleWidget.h                            GPL2+
-        libgui/SelectionBorderItem.h                    GPL2+
         libgui/SelectionBorderItem.cpp                  GPL2+
-        libgui/SelectionItem.h                          GPL2+
+        libgui/SelectionBorderItem.h                    GPL2+
         libgui/SelectionItem.cpp                        GPL2+
-        libgui/SelectionTracker.h                       GPL2+
+        libgui/SelectionItem.h                          GPL2+
         libgui/SelectionTracker.cpp                     GPL2+
+        libgui/SelectionTracker.h                       GPL2+
         libgui/SelectTimeWidgetBase.ui                  (should be GPL2+)
         libgui/SelectTimeWidget.cpp                     GPL2+
         libgui/SelectTimeWidget.h                       GPL2+
+        libgui/SignalView.cpp                           GPL2+
+        libgui/SignalView.h                             GPL2+
         libgui/SignalWidget.cpp                         GPL2+ / Martin Wilz
         libgui/SignalWidget.h                           GPL2+
         libgui/TrackPixmap.cpp                          GPL2+
@@ -284,8 +294,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libgui/TrackView.h                              GPL2+
         libgui/TreeWidgetWrapper.cpp                    GPL2+
         libgui/TreeWidgetWrapper.h                      GPL2+
-        libgui/UndoModifyLabelAction.cpp                GPL2+
-        libgui/UndoModifyLabelAction.h                  GPL2+
         libgui/ViewItem.cpp                             GPL2+
         libgui/ViewItem.h                               GPL2+
         libgui/Zoomable.h                               GPL2+
@@ -304,6 +312,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libkwave/CommandHandler.h                       GPL2+
         libkwave/Compression.cpp                        GPL2+
         libkwave/Compression.h                          GPL2+
+        libkwave/ConfirmCancelProxy.cpp                 GPL2+
+        libkwave/ConfirmCancelProxy.h                   GPL2+
         libkwave/Connect.cpp                            GPL2+
         libkwave/Connect.h                              GPL2+
         libkwave/cpu_accel.cpp                          GPL2+ / Aaron Holtzman <aholtzma@ess.engr.uvic.ca>
@@ -342,8 +352,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libkwave/Matrix.h                               GPL2+ (Martin Hinsch)
         libkwave/memcpy.c                               GPL2+ / xine
         libkwave/memcpy.h                               GPL2+
-        libkwave/MessageBox.h                           GPL2+
         libkwave/MessageBox.cpp                         GPL2+
+        libkwave/MessageBox.h                           GPL2+
         libkwave/MetaData.cpp                           GPL2+
         libkwave/MetaData.h                             GPL2+
         libkwave/MetaDataList.cpp                       GPL2+
@@ -386,8 +396,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libkwave/SampleArray.cpp                        GPL2+
         libkwave/SampleArray.h                          GPL2+
         libkwave/SampleEncoder.h                        GPL2+
-        libkwave/SampleEncoderLinear.h                  GPL2+
         libkwave/SampleEncoderLinear.cpp                GPL2+
+        libkwave/SampleEncoderLinear.h                  GPL2+
         libkwave/SampleFIFO.cpp                         GPL2+
         libkwave/SampleFIFO.h                           GPL2+
         libkwave/SampleFormat.cpp                       GPL2+
@@ -411,8 +421,6 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libkwave/String.h                               GPL2+
         libkwave/Stripe.cpp                             GPL2+
         libkwave/Stripe.h                               GPL2+
-        libkwave/SwapFile.cpp                           GPL2+
-        libkwave/SwapFile.h                             GPL2+
         libkwave/Track.cpp                              GPL2+
         libkwave/Track.h                                GPL2+
         libkwave/TrackWriter.cpp                        GPL2+
@@ -432,6 +440,9 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         libkwave/WorkerThread.cpp                       GPL2+
         libkwave/Writer.cpp                             GPL2+
         libkwave/Writer.h                               GPL2+
+
+        libkwave/autotests/CMakeLists.txt               BSD-2-Clause
+        libkwave/autotests/Utils.test.cpp               GPL2+
 
         libkwave/modules/ChannelMixer.cpp               GPL2+
         libkwave/modules/ChannelMixer.h                 GPL2+
@@ -488,7 +499,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/about/AboutPlugin.cpp                   GPL2+
         plugins/about/AboutPlugin.h                     GPL2+
         plugins/about/CMakeLists.txt                    BSD (3 clause)
-        plugins/about/kwaveplugin_about.desktop.in      GPL2+
+        plugins/about/kwaveplugin_about.json.in         (UNKNOWN)
         plugins/about/LogoWidget.cpp                    GPL2+ / Martin Wilz
         plugins/about/LogoWidget.h                      GPL2+ / Martin Wilz
         plugins/about/logo.xpm                          GPL2+ / Martin Wilz
@@ -499,7 +510,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/amplifyfree/AmplifyFreePlugin.cpp       GPL2+
         plugins/amplifyfree/AmplifyFreePlugin.h         GPL2+
         plugins/amplifyfree/CMakeLists.txt              BSD (3 clause)
-        plugins/amplifyfree/kwaveplugin_amplifyfree.desktop.in  GPL2+
+        plugins/amplifyfree/kwaveplugin_amplifyfree.json.in  (UNKNOWN)
 
         plugins/band_pass/BandPass.cpp                  GPL2+ / Juhana Sadeharju <kouhia@nic.funet.fi>
         plugins/band_pass/BandPass.h                    GPL2+
@@ -510,23 +521,23 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/band_pass/BandPassPlugin.cpp            GPL2+
         plugins/band_pass/BandPassPlugin.h              GPL2+
         plugins/band_pass/CMakeLists.txt                BSD (3 clause)
-        plugins/band_pass/kwaveplugin_band_pass.desktop.in      GPL2+
+        plugins/band_pass/kwaveplugin_band_pass.json.in      (UNKNOWN)
 
         plugins/codec_ascii/AsciiCodecPlugin.cpp        GPL2+
         plugins/codec_ascii/AsciiCodecPlugin.h          GPL2+
-        plugins/codec_ascii/AsciiEncoder.h              GPL2+
+        plugins/codec_ascii/AsciiDecoder.cpp            GPL2+
         plugins/codec_ascii/AsciiDecoder.h              GPL2+
         plugins/codec_ascii/AsciiEncoder.cpp            GPL2+
-        plugins/codec_ascii/AsciiDecoder.cpp            GPL2+
+        plugins/codec_ascii/AsciiEncoder.h              GPL2+
         plugins/codec_ascii/CMakeLists.txt              BSD (3 clause)
-        plugins/codec_ascii/kwaveplugin_codec_ascii.desktop.in  GPL2+
+        plugins/codec_ascii/kwaveplugin_codec_ascii.json.in  (UNKNOWN)
 
         plugins/codec_audiofile/AudiofileCodecPlugin.cpp GPL2+
         plugins/codec_audiofile/AudiofileCodecPlugin.h  GPL2+
         plugins/codec_audiofile/AudiofileDecoder.cpp    GPL2+
         plugins/codec_audiofile/AudiofileDecoder.h      GPL2+
         plugins/codec_audiofile/CMakeLists.txt          BSD (3 clause)
-        plugins/codec_audiofile/kwaveplugin_codec_audiofile.desktop.in  GPL2+
+        plugins/codec_audiofile/kwaveplugin_codec_audiofile.json.in  (UNKNOWN)
 
         plugins/codec_flac/CMakeLists.txt               BSD (3 clause)
         plugins/codec_flac/FlacCodecPlugin.cpp          GPL2+
@@ -535,7 +546,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/codec_flac/FlacDecoder.h                GPL2+
         plugins/codec_flac/FlacEncoder.cpp              GPL2+
         plugins/codec_flac/FlacEncoder.h                GPL2+
-        plugins/codec_flac/kwaveplugin_codec_flac.desktop.in    GPL2+
+        plugins/codec_flac/kwaveplugin_codec_flac.json.in    (UNKNOWN)
 
         plugins/codec_mp3/CMakeLists.txt                BSD (3 clause)
         plugins/codec_mp3/ID3_PropertyMap.cpp           GPL2+
@@ -544,16 +555,21 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/codec_mp3/ID3_QIODeviceReader.h         GPL2+
         plugins/codec_mp3/ID3_QIODeviceWriter.cpp       GPL2+
         plugins/codec_mp3/ID3_QIODeviceWriter.h         GPL2+
-        plugins/codec_mp3/kwaveplugin_codec_mp3.desktop.in      GPL2+
+        plugins/codec_mp3/kwaveplugin_codec_mp3.json.in      (UNKNOWN)
         plugins/codec_mp3/MP3CodecPlugin.cpp            GPL2+
         plugins/codec_mp3/MP3CodecPlugin.h              GPL2+
         plugins/codec_mp3/MP3Decoder.cpp                GPL2+
         plugins/codec_mp3/MP3Decoder.h                  GPL2+
         plugins/codec_mp3/MP3Encoder.cpp                GPL2+
         plugins/codec_mp3/MP3Encoder.h                  GPL2+
+        plugins/codec_mp3/MP3EncoderDialogBase.ui       GPL2+
+        plugins/codec_mp3/MP3EncoderDialog.cpp          GPL2+
+        plugins/codec_mp3/MP3EncoderDialog.h            GPL2+
+        plugins/codec_mp3/MP3EncoderSettings.cpp        GPL2+
+        plugins/codec_mp3/MP3EncoderSettings.h          GPL2+
 
         plugins/codec_ogg/CMakeLists.txt                BSD (3 clause)
-        plugins/codec_ogg/kwaveplugin_codec_ogg.desktop.in      GPL2+
+        plugins/codec_ogg/kwaveplugin_codec_ogg.json.in      (UNKNOWN)
         plugins/codec_ogg/OggCodecPlugin.cpp            GPL2+
         plugins/codec_ogg/OggCodecPlugin.h              GPL2+
         plugins/codec_ogg/OggDecoder.cpp                GPL2+
@@ -575,7 +591,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/codec_ogg/VorbisEncoder.h               GPL2+
 
         plugins/codec_wav/CMakeLists.txt                BSD (3 clause)
-        plugins/codec_wav/kwaveplugin_codec_wav.desktop.in      GPL2+
+        plugins/codec_wav/kwaveplugin_codec_wav.json.in      (UNKNOWN)
         plugins/codec_wav/RecoveryBuffer.cpp            GPL2+
         plugins/codec_wav/RecoveryBuffer.h              GPL2+
         plugins/codec_wav/RecoveryMapping.cpp           GPL2+
@@ -605,7 +621,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/debug/CMakeLists.txt                    BSD (3 clause)
         plugins/debug/DebugPlugin.cpp                   GPL2+
         plugins/debug/DebugPlugin.h                     GPL2+
-        plugins/debug/kwaveplugin_debug.desktop.in      GPL2+
+        plugins/debug/kwaveplugin_debug.json.in         (UNKNOWN)
 
         plugins/export_k3b/CMakeLists.txt               BSD (3 clause)
         plugins/export_k3b/K3BExportDialog.cpp          GPL2+
@@ -616,21 +632,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/export_k3b/K3BExportPlugin.h            GPL2+
         plugins/export_k3b/K3BExportWidget.cpp          GPL2+
         plugins/export_k3b/K3BExportWidget.h            GPL2+
-        plugins/export_k3b/K3BExportWidegetBase.ui              GPL2+
-        plugins/export_k3b/kwaveplugin_export_k3b.desktop.in    GPL2+
-
-        plugins/goto/CMakeLists.txt                     BSD (3 clause)
-        plugins/goto/GotoDialog.cpp                     GPL2+
-        plugins/goto/GotoDialog.h                       GPL2+
-        plugins/goto/GotoDlg.ui                         (should be GPL2+)
-        plugins/goto/GotoPlugin.cpp                     GPL2+
-        plugins/goto/GotoPlugin.h                       GPL2+
-        plugins/goto/GotoPluginBase.cpp                 GPL2+
-        plugins/goto/GotoPluginBase.h                   GPL2+
-        plugins/goto/InsertAtPlugin.cpp                 GPL2+
-        plugins/goto/InsertAtPlugin.h                   GPL2+
-        plugins/goto/kwaveplugin_goto.desktop.in        GPL2+
-        plugins/goto/kwaveplugin_insert_at.desktop.in   GPL2+
+        plugins/export_k3b/K3BExportWidegetBase.ui           GPL2+
+        plugins/export_k3b/kwaveplugin_export_k3b.json.in    (UNKNOWN)
 
         plugins/fileinfo/BitrateSpinBox.cpp             GPL2+
         plugins/fileinfo/BitrateSpinBox.h               GPL2+
@@ -649,18 +652,26 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/fileinfo/KeywordWidgetBase.ui           (should be GPL2+)
         plugins/fileinfo/KeywordWidget.cpp              GPL2+
         plugins/fileinfo/KeywordWidget.h                GPL2+
-        plugins/fileinfo/kwaveplugin_fileinfo.desktop.in        GPL2+
+        plugins/fileinfo/kwaveplugin_fileinfo.json.in   (UNKNOWN)
         plugins/fileinfo/SelectDateDialog.cpp           GPL2+
         plugins/fileinfo/SelectDateDialog.h             GPL2+
         plugins/fileinfo/SelectDateDlg.ui               (should be GPL2+)
 
-        plugins/labeler/LabelerPlugin.cpp               GPL2+
-        plugins/labeler/LabelerPlugin.h                 GPL2+
-        plugins/labeler/gui/LabelView.cpp               GPL2+
-        plugins/labeler/gui/LabelView.h                 GPL2+
+        plugins/goto/CMakeLists.txt                     BSD (3 clause)
+        plugins/goto/GotoDialog.cpp                     GPL2+
+        plugins/goto/GotoDialog.h                       GPL2+
+        plugins/goto/GotoDlg.ui                         (should be GPL2+)
+        plugins/goto/GotoPlugin.cpp                     GPL2+
+        plugins/goto/GotoPlugin.h                       GPL2+
+        plugins/goto/GotoPluginBase.cpp                 GPL2+
+        plugins/goto/GotoPluginBase.h                   GPL2+
+        plugins/goto/InsertAtPlugin.cpp                 GPL2+
+        plugins/goto/InsertAtPlugin.h                   GPL2+
+        plugins/goto/kwaveplugin_goto.json.in           (UNKNOWN)
+        plugins/goto/kwaveplugin_insert_at.json.in      (UNKNOWN)
 
         plugins/lowpass/CMakeLists.txt                  BSD (3 clause)
-        plugins/lowpass/kwaveplugin_lowpass.desktop.in  GPL2+
+        plugins/lowpass/kwaveplugin_lowpass.json.in     (UNKNOWN)
         plugins/lowpass/LowPassDialog.cpp               GPL2+
         plugins/lowpass/LowPassDialog.h                 GPL2+
         plugins/lowpass/LowPassDlg.ui                   (should be GPL2+)
@@ -669,16 +680,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/lowpass/LowPassPlugin.cpp               GPL2+
         plugins/lowpass/LowPassPlugin.h                 GPL2+
 
-        plugins/memory/CMakeLists.txt                   BSD (3 clause)
-        plugins/memory/kwaveplugin_memory.desktop.in    GPL2+
-        plugins/memory/MemDlg.ui                        (should be GPL2+)
-        plugins/memory/MemoryDialog.cpp                 GPL2+
-        plugins/memory/MemoryDialog.h                   GPL2+
-        plugins/memory/MemoryPlugin.cpp                 GPL2+
-        plugins/memory/MemoryPlugin.h                   GPL2+
-
         plugins/newsignal/CMakeLists.txt                BSD (3 clause)
-        plugins/newsignal/kwaveplugin_newsignal.desktop.in      GPL2+
+        plugins/newsignal/kwaveplugin_newsignal.json.in (UNKNOWN)
         plugins/newsignal/NewSigDlg.ui                  (should be GPL2+)
         plugins/newsignal/NewSignalDialog.cpp           GPL2+
         plugins/newsignal/NewSignalDialog.h             GPL2+
@@ -686,7 +689,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/newsignal/NewSignalPlugin.h             GPL2+
 
         plugins/noise/CMakeLists.txt                    BSD (3 clause)
-        plugins/noise/kwaveplugin_noise.desktop.in      GPL2+
+        plugins/noise/kwaveplugin_noise.json.in         (UNKNOWN)
         plugins/noise/NoiseDialog.cpp                   GPL2+
         plugins/noise/NoiseDialog.h                     GPL2+
         plugins/noise/NoiseDlg.ui                       GPL2+
@@ -696,12 +699,14 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/noise/NoisePlugin.h                     GPL2+
 
         plugins/normalize/CMakeLists.txt                BSD (3 clause)
-        plugins/normalize/kwaveplugin_normalize.desktop.in      GPL2+
+        plugins/normalize/kwaveplugin_normalize.json.in (UNKNOWN)
         plugins/normalize/NormalizePlugin.cpp           GPL2+
         plugins/normalize/NormalizePlugin.h             GPL2+
+        plugins/normalize/Normalizer.cpp                GPL2+
+        plugins/normalize/Normalizer.h                  GPL2+
 
         plugins/notch_filter/CMakeLists.txt             BSD (3 clause)
-        plugins/notch_filter/kwaveplugin_notch_filter.desktop.in        GPL2+
+        plugins/notch_filter/kwaveplugin_notch_filter.json.in (UNKNOWN)
         plugins/notch_filter/NotchFilter.cpp            GPL2+ / Dave Flogeras / Juhana Sadeharju <kouhia@nic.funet.fi>
         plugins/notch_filter/NotchFilterDialog.cpp      GPL2+ / Dave Flogeras
         plugins/notch_filter/NotchFilterDialog.h        GPL2+ / Dave Flogeras
@@ -711,7 +716,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/notch_filter/NotchFilterPlugin.h        GPL2+ / Dave Flogeras
 
         plugins/pitch_shift/CMakeLists.txt              BSD (3 clause)
-        plugins/pitch_shift/kwaveplugin_pitch_shift.desktop.in  GPL2+
+        plugins/pitch_shift/kwaveplugin_pitch_shift.json.in  (UNKNOWN)
         plugins/pitch_shift/PitchShiftDialog.cpp        GPL2+
         plugins/pitch_shift/PitchShiftDialog.h          GPL2+
         plugins/pitch_shift/PitchShiftFilter.cpp        GPL2+ / Jeff Tranter + Stefan Westerfeld
@@ -721,7 +726,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/pitch_shift/PitchShiftPlugin.h          GPL2+
 
         plugins/playback/CMakeLists.txt                 BSD (3 clause)
-        plugins/playback/kwaveplugin_playback.desktop.in        GPL2+
+        plugins/playback/kwaveplugin_playback.json.in   (UNKNOWN)
         plugins/playback/PlayBack-ALSA.cpp              GPL2+ / (parts from) Jaroslav Kysela
         plugins/playback/PlayBack-ALSA.h                GPL2+
         plugins/playback/PlayBackDialog.cpp             GPL2+
@@ -737,7 +742,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/playback/PlayBackPlugin.h               GPL2+
 
         plugins/record/CMakeLists.txt                   BSD (3 clause)
-        plugins/record/kwaveplugin_record.desktop.in    GPL2+
+        plugins/record/kwaveplugin_record.json.in       (UNKNOWN)
         plugins/record/LevelMeter.cpp                   GPL2+ / Rik Hemsley
         plugins/record/LevelMeter.h                     GPL2+ / Rik Hemsley
         plugins/record/Record-ALSA.cpp                  GPL2+
@@ -754,7 +759,8 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/record/RecordDialog.cpp                 GPL2+
         plugins/record/RecordDialog.h                   GPL2+
         plugins/record/RecordDlg.ui                     (should be GPL2+)
-        plugins/record/RecordingState.xmi               (should be GPL2+)
+        plugins/record/RecordingState.png               GPL2+
+        plugins/record/RecordingState.zargo             GPL2+
         plugins/record/RecordParams.cpp                 GPL2+
         plugins/record/RecordParams.h                   GPL2+
         plugins/record/RecordPlugin.cpp                 GPL2+
@@ -765,11 +771,11 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/record/RecordThread.h                   GPL2+
         plugins/record/RecordTypesMap.cpp               GPL2+
         plugins/record/RecordTypesMap.h                 GPL2+
-        plugins/record/StatusWidget.h                   GPL2+
-        plugins/record/StatusWidget.cpp                 GPL2+
         plugins/record/SampleDecoder.h                  GPL2+
         plugins/record/SampleDecoderLinear.cpp          GPL2+
         plugins/record/SampleDecoderLinear.h            GPL2+
+        plugins/record/StatusWidget.h                   GPL2+
+        plugins/record/StatusWidget.cpp                 GPL2+
         plugins/record/stop_hand.xpm                    free / KDE
         -> icons/ikons/16x16/actions/stop_hand.png
         plugins/record/ok.xpm                           free / KDE
@@ -788,27 +794,29 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/record/walk_r8.xpm                      GPL2 (amor)
 
         plugins/reverse/CMakeLists.txt                  BSD (3 clause)
-        plugins/reverse/kwaveplugin_reverse.desktop.in  GPL2+
-        plugins/reverse/ReversePlugin.h                 GPL2+
+        plugins/reverse/kwaveplugin_reverse.json.in     (UNKNOWN)
         plugins/reverse/ReversePlugin.cpp               GPL2+
+        plugins/reverse/ReversePlugin.h                 GPL2+
+        plugins/reverse/UndoReverseAction.cpp           GPL2+
+        plugins/reverse/UndoReverseAction.h             GPL2+
 
         plugins/samplerate/CMakeLists.txt               BSD (3 clause)
-        plugins/samplerate/kwaveplugin_samplerate.desktop.in    GPL2+
+        plugins/samplerate/kwaveplugin_samplerate.json.in (UNKNOWN)
         plugins/samplerate/SampleRatePlugin.cpp         GPL2+
         plugins/samplerate/SampleRatePlugin.h           GPL2+
 
         plugins/saveblocks/CMakeLists.txt               BSD (3 clause)
-        plugins/saveblocks/kwaveplugin_saveblocks.desktop.in    GPL2+
-        plugins/saveblocks/SaveBlocksWidgetBase.ui      GPL2+
-        plugins/saveblocks/SaveBlocksDialog.h           GPL2+
+        plugins/saveblocks/kwaveplugin_saveblocks.json.in (UNKNOWN)
         plugins/saveblocks/SaveBlocksDialog.cpp         GPL2+
+        plugins/saveblocks/SaveBlocksDialog.h           GPL2+
         plugins/saveblocks/SaveBlocksPlugin.cpp         GPL2+
         plugins/saveblocks/SaveBlocksPlugin.h           GPL2+
+        plugins/saveblocks/SaveBlocksWidgetBase.ui      GPL2+
         plugins/saveblocks/SaveBlocksWidget.cpp         GPL2+
         plugins/saveblocks/SaveBlocksWidget.h           GPL2+
 
         plugins/selectrange/CMakeLists.txt              BSD (3 clause)
-        plugins/selectrange/kwaveplugin_selectrange.desktop.in  GPL2+
+        plugins/selectrange/kwaveplugin_selectrange.json.in (UNKNOWN)
         plugins/selectrange/SelectRangeDialog.cpp       GPL2+
         plugins/selectrange/SelectRangeDialog.h         GPL2+
         plugins/selectrange/SelectRangeDlg.ui           (should be GPL2+)
@@ -816,7 +824,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/selectrange/SelectRangePlugin.h         GPL2+
 
         plugins/sonagram/CMakeLists.txt                 BSD (3 clause)
-        plugins/sonagram/kwaveplugin_sonagram.desktop.in        GPL2+
+        plugins/sonagram/kwaveplugin_sonagram.json.in   (UNKNOWN)
         plugins/sonagram/SonagramDialog.cpp             GPL2+
         plugins/sonagram/SonagramDialog.h               GPL2+
         plugins/sonagram/SonagramDlg.ui                 (should be GPL2+)
@@ -826,7 +834,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/sonagram/SonagramWindow.h               GPL2+
 
         plugins/stringenter/CMakeLists.txt              BSD (3 clause)
-        plugins/stringenter/kwaveplugin_stringenter.desktop.in  GPL2+
+        plugins/stringenter/kwaveplugin_stringenter.json.in (UNKNOWN)
         plugins/stringenter/StringEnterDialog.cpp       GPL2+
         plugins/stringenter/StringEnterDialog.h         GPL2+
         plugins/stringenter/StringEnterDlg.ui           (should be GPL2+)
@@ -834,7 +842,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/stringenter/StringEnterPlugin.h         GPL2+
 
         plugins/volume/CMakeLists.txt                   BSD (3 clause)
-        plugins/volume/kwaveplugin_volume.desktop.in    GPL2+
+        plugins/volume/kwaveplugin_volume.json.in       (UNKNOWN)
         plugins/volume/VolumeDialog.cpp                 GPL2+
         plugins/volume/VolumeDialog.h                   GPL2+
         plugins/volume/VolumeDlg.ui                     (should be GPL2+)
@@ -842,7 +850,7 @@ COMPLETE LIST OF FILES AND THEIR LICENSE
         plugins/volume/VolumePlugin.h                   GPL2+
 
         plugins/zero/CMakeLists.txt                     BSD (3 clause)
-        plugins/zero/kwaveplugin_zero.desktop.in        GPL2+
+        plugins/zero/kwaveplugin_zero.json.in           (UNKNOWN)
         plugins/zero/ZeroPlugin.cpp                     GPL2+
         plugins/zero/ZeroPlugin.h                       GPL2+
 

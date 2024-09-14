@@ -60,8 +60,8 @@ Kwave::MultiPlaybackSink::~MultiPlaybackSink()
     if (m_device) {
         m_device->close();
         delete m_device;
+        m_device = nullptr;
     }
-    m_device = nullptr;
 
     // discard the buffers
     while (!m_in_buffer.isEmpty())

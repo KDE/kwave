@@ -215,7 +215,8 @@ QString Kwave::PlayBackOSS::open(const QString &device, double rate,
 
     // create the sample encoder
     // we assume that OSS is always little endian
-    if (m_encoder) delete m_encoder;
+    delete m_encoder;
+    m_encoder = nullptr;
 
     switch (m_bits) {
         case 8:
@@ -315,9 +316,10 @@ int Kwave::PlayBackOSS::close()
 
     // close the device handle
     if (m_handle) ::close(m_handle);
+    m_handle = 0;
 
     // get rid of the old encoder
-    if (m_encoder) delete m_encoder;
+    delete m_encoder;
     m_encoder = nullptr;
 
     return 0;

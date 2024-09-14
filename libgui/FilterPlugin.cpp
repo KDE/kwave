@@ -80,11 +80,11 @@ QStringList *Kwave::FilterPlugin::setup(QStringList &previous_params)
         *list = setup_dialog->params();
     } else {
         // user pressed "Cancel"
-        if (list) delete list;
+        delete list;
         list = nullptr;
     }
 
-    if (setup_dialog) delete setup_dialog;
+    delete setup_dialog;
     return list;
 }
 
@@ -122,7 +122,7 @@ void Kwave::FilterPlugin::run(QStringList params)
             Kwave::UndoTransactionGuard(*this, actionName());
         Q_ASSERT(undo_guard);
         if (!undo_guard) {
-            if (filter) delete filter;
+            delete filter;
             Kwave::StreamObject::setInteractive(false);
             return;
         }
@@ -131,9 +131,9 @@ void Kwave::FilterPlugin::run(QStringList params)
         Q_ASSERT(m_sink);
     }
     if (!filter || !m_sink || m_sink->done()) {
-        if (filter)     delete filter;
-        if (undo_guard) delete undo_guard;
-        if (m_sink)     delete m_sink;
+        delete filter;
+        delete undo_guard;
+        delete m_sink;
         m_sink = nullptr;
         Kwave::StreamObject::setInteractive(false);
         return;
@@ -181,12 +181,12 @@ void Kwave::FilterPlugin::run(QStringList params)
     }
 
     // cleanup
-    if (filter)     delete filter;
+    delete filter;
     if (!m_listen) {
         delete m_sink;
         m_sink = nullptr;
     }
-    if (undo_guard) delete undo_guard;
+    delete undo_guard;
 
     m_pause  = false;
     m_listen = false;
@@ -211,7 +211,7 @@ void Kwave::FilterPlugin::updateFilter(Kwave::SampleSource * /*filter*/,
 void Kwave::FilterPlugin::startPreListen()
 {
     Q_ASSERT(!m_sink);
-    if (m_sink) delete m_sink;
+    delete m_sink;
     m_sink = manager().openMultiTrackPlayback(selectedTracks().count());
 
     if (m_sink) {
@@ -228,7 +228,7 @@ void Kwave::FilterPlugin::stopPreListen()
     stop();
     m_listen = false;
     setProgressDialogEnabled(true);
-    if (m_sink) delete m_sink;
+    delete m_sink;
     m_sink = nullptr;
 }
 

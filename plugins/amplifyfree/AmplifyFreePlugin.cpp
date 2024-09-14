@@ -117,11 +117,11 @@ QStringList *Kwave::AmplifyFreePlugin::setup(QStringList &previous_params)
         emitCommand(cmd);
     } else {
         // user pressed "Cancel"
-        if (list) delete list;
+        delete list;
         list = nullptr;
     }
 
-    if (dialog) delete dialog;
+    delete dialog;
     return list;
 }
 

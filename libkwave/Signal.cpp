@@ -136,7 +136,7 @@ void Kwave::Signal::deleteTrack(unsigned int index)
 
     // as everybody now knows that the track is gone, we can safely
     // delete it now.
-    if (t) delete t;
+    delete t;
 }
 
 //***************************************************************************

@@ -93,18 +93,18 @@ Kwave::RecordPlugin::RecordPlugin(QObject *parent, const QVariantList &args)
 Kwave::RecordPlugin::~RecordPlugin()
 {
     Q_ASSERT(!m_dialog);
-    if (m_dialog) delete m_dialog;
+    delete m_dialog;
     m_dialog = nullptr;
 
     Q_ASSERT(!m_thread);
-    if (m_thread) delete m_thread;
+    delete m_thread;
     m_thread = nullptr;
 
     Q_ASSERT(!m_decoder);
-    if (m_decoder) delete m_decoder;
+    delete m_decoder;
     m_decoder = nullptr;
 
-    if (m_device) delete m_device;
+    delete m_device;
     m_device = nullptr;
 }
 
@@ -223,7 +223,7 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
         *list = m_dialog->params().toList();
     } else {
         // user pressed "Cancel"
-        if (list) delete list;
+        delete list;
         list = nullptr;
     }
 
@@ -236,7 +236,7 @@ QStringList *Kwave::RecordPlugin::setup(QStringList &previous_params)
         m_thread = nullptr;
     }
 
-    if (m_decoder) delete m_decoder;
+    delete m_decoder;
     m_decoder = nullptr;
 
     delete m_dialog;
@@ -282,7 +282,7 @@ void Kwave::RecordPlugin::setMethod(Kwave::record_method_t method)
 
     // change the recording method (class RecordDevice)
     if ((method != m_method) || !m_device) {
-        if (m_device) delete m_device;
+        delete m_device;
         m_device = nullptr;
         bool searching = false;
 
@@ -927,7 +927,7 @@ void Kwave::RecordPlugin::setupRecordThread()
     Q_ASSERT(!m_thread->isRunning());
 
     // delete the previous decoder
-    if (m_decoder) delete m_decoder;
+    delete m_decoder;
     m_decoder = nullptr;
 
     // our own reference to the record parameters
@@ -1043,7 +1043,7 @@ void Kwave::RecordPlugin::startRecording()
             signalManager().disableUndo();
 
             // create a sink for our audio data
-            if (m_writers) delete m_writers;
+            delete m_writers;
             m_writers = new(std::nothrow) Kwave::MultiTrackWriter(
                 signalManager(), Kwave::Append);
             if ((!m_writers) || (m_writers->tracks() != tracks)) {

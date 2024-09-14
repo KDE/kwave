@@ -455,7 +455,7 @@ void Kwave::PlaybackController::run_wrapper(const QVariant &params)
 
                 // check for track selection change (need for new mixer)
                 if (m_track_selection_changed) {
-                    if (mixer) delete mixer;
+                    delete mixer;
                     mixer = nullptr;
                     m_track_selection_changed = false;
                 }

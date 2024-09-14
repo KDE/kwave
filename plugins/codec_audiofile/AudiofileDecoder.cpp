@@ -82,7 +82,8 @@ Kwave::AudiofileDecoder::AudiofileDecoder()
 Kwave::AudiofileDecoder::~AudiofileDecoder()
 {
     if (m_source) close();
-    if (m_src_adapter) delete m_src_adapter;
+    delete m_src_adapter;
+    m_src_adapter = nullptr;
 }
 
 //***************************************************************************

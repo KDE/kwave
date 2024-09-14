@@ -37,10 +37,8 @@ Kwave::RIFFChunk::RIFFChunk(RIFFChunk *parent, const QByteArray &name,
 //***************************************************************************
 Kwave::RIFFChunk::~RIFFChunk()
 {
-    while (!m_sub_chunks.isEmpty()) {
-        Kwave::RIFFChunk *chunk = m_sub_chunks.takeLast();
-        if (chunk) delete chunk;
-    }
+    while (!m_sub_chunks.isEmpty())
+        delete m_sub_chunks.takeLast();
 }
 
 //***************************************************************************

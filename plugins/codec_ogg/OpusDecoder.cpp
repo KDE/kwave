@@ -650,7 +650,7 @@ void Kwave::OpusDecoder::close(Kwave::FileInfo &info)
         }
     }
 
-    if (m_buffer) delete m_buffer;
+    delete m_buffer;
     m_buffer = nullptr;
 
     delete m_rate_converter;

@@ -99,16 +99,14 @@ Kwave::ChannelMixer::~ChannelMixer()
     QMutexLocker _lock(&m_lock);
 
     while (!m_indexer.isEmpty()) {
-        Kwave::StreamObject *indexer = m_indexer[0];
-        if (indexer) delete indexer;
+        delete m_indexer[0];
         m_indexer.remove(0);
     }
 
     m_input_queue.clear();
 
     while (!m_output_buffer.isEmpty()) {
-        Kwave::SampleBuffer *buffer = m_output_buffer[0];
-        if (buffer) delete buffer;
+        delete m_output_buffer[0];
         m_output_buffer.remove(0);
     }
 }

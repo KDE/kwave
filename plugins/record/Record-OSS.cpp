@@ -238,7 +238,7 @@ static bool addIfExists(QStringList &list, const QString &name)
         addIfExists(list, name.arg(_("")));
 
         // loop over the list and try until a suffix does not exist
-        for (unsigned int index=0; index < 64; index++)
+        for (unsigned int index = 0; index < 64; index++)
             addIfExists(list, name.arg(index));
     } else {
         // check a single name
@@ -266,8 +266,8 @@ static void scanFiles(QStringList &list, const QString &dirname,
     dir.setSorting(QDir::Name);
     files = dir.entryList();
 
-    for (QStringList::Iterator it = files.begin(); it != files.end(); ++it) {
-        QString devicename = dirname + QDir::separator() + (*it);
+    for (QString &it : files) {
+        QString devicename = dirname + QDir::separator() + it;
         addIfExists(list, devicename);
     }
 }

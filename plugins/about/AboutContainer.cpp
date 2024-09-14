@@ -108,7 +108,7 @@ QSize Kwave::AboutContainer::sizeHint() const
         //
         total_size.setHeight(total_size.height() +
                 layout()->spacing() * (numChild - 1));
-        total_size += QSize(layout()->contentsMargins().left() * 2, 
+        total_size += QSize(layout()->contentsMargins().left() * 2,
                        (layout()->contentsMargins().top() * 2) + 1);
     } else {
         total_size = QSize(1, 1);
@@ -139,7 +139,7 @@ void Kwave::AboutContainer::addWidget(QWidget *widget)
 }
 
 //***************************************************************************
-void Kwave::AboutContainer::addPerson(const QString &_name, 
+void Kwave::AboutContainer::addPerson(const QString &_name,
                                       const QString &_email,
                                                       const QString &_url,
                                       const QString &_task)
@@ -209,7 +209,7 @@ QSize Kwave::AboutContributor::sizeHint() const
 void Kwave::AboutContributor::updateLayout()
 {
     const int fw1 = frameWidth() + 1;
-    if (layout()) delete layout();
+    delete layout();
 
     int row = 0;
     if (!m_text[0] || !m_text[0]->text().isEmpty()) { ++row; }

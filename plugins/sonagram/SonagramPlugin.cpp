@@ -89,10 +89,10 @@ Kwave::SonagramPlugin::~SonagramPlugin()
 {
     m_repaint_timer.stop();
 
-    if (m_sonagram_window) delete m_sonagram_window;
+    delete m_sonagram_window;
     m_sonagram_window = nullptr;
 
-    if (m_selection) delete m_selection;
+    delete m_selection;
     m_selection = nullptr;
 }
 
@@ -160,11 +160,11 @@ int Kwave::SonagramPlugin::interpreteParameters(QStringList &params)
 int Kwave::SonagramPlugin::start(QStringList &params)
 {
     // clean up leftovers from last run
-    if (m_sonagram_window) delete m_sonagram_window;
+    delete m_sonagram_window;
     m_sonagram_window = nullptr;
-    if (m_selection)       delete m_selection;
+    delete m_selection;
     m_selection = nullptr;
-    if (m_overview_cache)  delete m_overview_cache;
+    delete m_overview_cache;
     m_overview_cache = nullptr;
 
     Kwave::SignalManager &sig_mgr = signalManager();
@@ -610,10 +610,10 @@ void Kwave::SonagramPlugin::windowDestroyed()
 
     m_sonagram_window = nullptr; // closes itself !
 
-    if (m_selection) delete m_selection;
+    delete m_selection;
     m_selection = nullptr;
 
-    if (m_overview_cache) delete m_overview_cache;
+    delete m_overview_cache;
     m_overview_cache = nullptr;
 
     release();

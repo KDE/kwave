@@ -98,7 +98,7 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
     QPointer<Kwave::VolumeDialog> dialog =
         new(std::nothrow) Kwave::VolumeDialog(parentWidget(), overview_cache);
     if (!dialog) {
-        if (overview_cache) delete overview_cache;
+        delete overview_cache;
         return nullptr;
     }
 
@@ -112,12 +112,12 @@ QStringList *Kwave::VolumePlugin::setup(QStringList &previous_params)
         *list = dialog->params();
     } else {
         // user pressed "Cancel"
-        if (list) delete list;
+        delete list;
         list = nullptr;
     }
 
-    if (dialog)         delete dialog;
-    if (overview_cache) delete overview_cache;
+    delete dialog;
+    delete overview_cache;
 
     return list;
 }

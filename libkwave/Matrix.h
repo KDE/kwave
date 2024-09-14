@@ -59,7 +59,8 @@ namespace Kwave
         /** destructor */
         virtual ~Matrix()
         {
-            if (m_data) delete[] m_data;
+            delete[] m_data;
+            m_data = nullptr;
         }
 
         /** Get the xth column. Enables expressions like myMatrix[x][y]. */

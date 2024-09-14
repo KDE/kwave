@@ -102,7 +102,8 @@ Kwave::WavDecoder::WavDecoder()
 Kwave::WavDecoder::~WavDecoder()
 {
     if (m_source) close();
-    if (m_src_adapter) delete m_src_adapter;
+    delete m_src_adapter;
+    m_src_adapter = nullptr;
 }
 
 //***************************************************************************
@@ -812,7 +813,7 @@ bool Kwave::WavDecoder::repair(QList<Kwave::RecoverySource *> *repair_list,
 //***************************************************************************
 void Kwave::WavDecoder::close()
 {
-    if (m_src_adapter) delete m_src_adapter;
+    delete m_src_adapter;
     m_src_adapter = nullptr;
     m_source = nullptr;
 }

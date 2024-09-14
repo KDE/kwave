@@ -302,7 +302,7 @@ int Kwave::SignalManager::loadFile(const QUrl &url)
     // modified can change from now on
     enableModifiedChange(true);
 
-    if (dialog) delete dialog;
+    delete dialog;
     if (res) close();
 
     m_meta_data.dump();
@@ -1384,10 +1384,8 @@ bool Kwave::SignalManager::continueWithoutUndo()
         enableModifiedChange(false);
 
         // flush the current undo transaction
-        while (!m_undo_transaction->isEmpty()) {
-            Kwave::UndoAction *undo_action = m_undo_transaction->takeLast();
-            if (undo_action) delete undo_action;
-        }
+        while (!m_undo_transaction->isEmpty())
+            delete m_undo_transaction->takeLast();
 
         // flush all undo/redo buffers
         flushUndoBuffers();

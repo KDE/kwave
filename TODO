@@ -162,8 +162,6 @@ o about plugin: auto-scroll for contents
 
 o re-run cmake automatically when VERSION file has changed
 
-o no null pointer checks around "delete"
-
 o EBN: re-enable qclasses check when it is maintained again
 
 o license change to GPL v3 ?

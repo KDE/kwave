@@ -71,11 +71,11 @@ QStringList *Kwave::MP3CodecPlugin::setup(QStringList &previous_params)
         dialog->save();
     } else {
         // user pressed "Cancel"
-        if (list) delete list;
+        delete list;
         list = nullptr;
     }
 
-    if (dialog) delete dialog;
+    delete dialog;
     return list;
 
 }

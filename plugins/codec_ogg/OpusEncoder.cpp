@@ -980,13 +980,13 @@ bool Kwave::OpusEncoder::encode(Kwave::MultiTrackReader &src,
 /***************************************************************************/
 void Kwave::OpusEncoder::close()
 {
-    if (m_channel_mixer) delete m_channel_mixer;
+    delete m_channel_mixer;
     m_channel_mixer = nullptr;
 
-    if (m_rate_converter) delete m_rate_converter;
+    delete m_rate_converter;
     m_rate_converter = nullptr;
 
-    if (m_buffer) delete m_buffer;
+    delete m_buffer;
     m_buffer = nullptr;
 
     if (m_encoder) opus_multistream_encoder_destroy(m_encoder);

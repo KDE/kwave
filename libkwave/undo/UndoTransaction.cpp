@@ -33,8 +33,7 @@ Kwave::UndoTransaction::UndoTransaction(const QString &name)
 Kwave::UndoTransaction::~UndoTransaction()
 {
     while (!isEmpty()) {
-        UndoAction *action = takeLast();
-        if (action) delete action;
+        delete takeLast();
     }
 }
 

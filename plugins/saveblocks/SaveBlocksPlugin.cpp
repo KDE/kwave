@@ -151,7 +151,7 @@ QStringList *Kwave::SaveBlocksPlugin::setup(QStringList &previous_params)
         );
     }
 
-    if (dialog) delete dialog;
+    delete dialog;
     return list;
 }
 

@@ -158,7 +158,7 @@ void Kwave::PlayBackDialog::setMethod(Kwave::playback_method_t method)
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     // change the playback method (class PlayBackDevice)
-    if (m_device) delete m_device;
+    delete m_device;
     m_device = nullptr;
 
     // remember the device selection, just for the GUI

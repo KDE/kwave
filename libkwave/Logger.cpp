@@ -53,6 +53,7 @@ Kwave::Logger::~Logger()
             _("--- CLOSED / APPLICATION SHUTDOWN ---"));
         m_logfile->flush();
         delete m_logfile;
+        m_logfile = nullptr;
     }
 }
 

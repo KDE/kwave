@@ -80,11 +80,11 @@ QStringList *Kwave::StringEnterPlugin::setup(QStringList &previous_params)
         emitCommand(command);
     } else {
         // user pressed "Cancel"
-        if (list) delete list;
+        delete list;
         list = nullptr;
     }
 
-    if (dialog) delete dialog;
+    delete dialog;
     return list;
 }
 

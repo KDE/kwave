@@ -90,7 +90,7 @@ Kwave::SignalView::~SignalView()
         while (it.hasPrevious()) {
             QWidget *widget = it.previous();
             it.remove();
-            if (widget) delete widget;
+            delete widget;
         }
     }
 }
@@ -710,7 +710,7 @@ Kwave::SignalView::PositionWidget::PositionWidget(QWidget *parent)
 //***************************************************************************
 Kwave::SignalView::PositionWidget::~PositionWidget()
 {
-    if (m_label) delete m_label;
+    delete m_label;
     m_label = nullptr;
 }
 

@@ -55,7 +55,7 @@ Kwave::K3BExportDialog::K3BExportDialog(
 //***************************************************************************
 Kwave::K3BExportDialog::~K3BExportDialog()
 {
-    if (m_widget) delete m_widget;
+    delete m_widget;
     m_widget = nullptr;
 }
 

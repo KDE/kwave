@@ -369,7 +369,7 @@ QStringList *Kwave::K3BExportPlugin::setup(QStringList &params)
         QString::number(overwrite_policy) + _(")")
     );
 
-    if (dialog) delete dialog;
+    delete dialog;
     return list;
 }
 

@@ -37,7 +37,8 @@ Kwave::RateConverter::RateConverter()
 //***************************************************************************
 Kwave::RateConverter::~RateConverter()
 {
-    if (m_converter) src_delete(m_converter);
+    src_delete(m_converter);
+    m_converter = nullptr;
 }
 
 //***************************************************************************

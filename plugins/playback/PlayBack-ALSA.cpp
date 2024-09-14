@@ -222,7 +222,7 @@ int Kwave::PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params,
     m_format = SND_PCM_FORMAT_UNKNOWN;
     m_bits = 0;
     m_bytes_per_sample = 0;
-    if (m_encoder) delete m_encoder;
+    delete m_encoder;
     m_encoder = nullptr;
 
     // get a format that matches the number of bits
@@ -556,7 +556,7 @@ QString Kwave::PlayBackALSA::open(const QString &device, double rate,
     // close the previous device
     if (m_handle) snd_pcm_close(m_handle);
     m_handle = nullptr;
-    if (m_encoder) delete m_encoder;
+    delete m_encoder;
     m_encoder = nullptr;
 
     // initialize the list of supported formats
@@ -726,7 +726,7 @@ int Kwave::PlayBackALSA::close()
     m_handle = nullptr;
 
     // get rid of the old sample encoder
-    if (m_encoder) delete m_encoder;
+    delete m_encoder;
     m_encoder = nullptr;
 
     // clear the list of supported formats, nothing open -> nothing supported

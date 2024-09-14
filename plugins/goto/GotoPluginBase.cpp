@@ -85,7 +85,7 @@ QStringList *Kwave::GotoPluginBase::setup(QStringList &previous_params)
         );
     } else {
         // user pressed "Cancel"
-        if (list) delete list;
+        delete list;
         list = nullptr;
     }
 

@@ -122,7 +122,8 @@ Kwave::NotchFilterDialog::~NotchFilterDialog()
     listenToggled(false);
 
     if (freq_response) freq_response->setFilter(nullptr);
-    if (m_filter) delete m_filter;
+    delete m_filter;
+    m_filter = nullptr;
 }
 
 //***************************************************************************

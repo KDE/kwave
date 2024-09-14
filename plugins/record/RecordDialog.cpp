@@ -302,7 +302,7 @@ Kwave::RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     tabRecord->setCurrentIndex(1);
     QWidget *page = tabRecord->currentWidget();
     tabRecord->setCurrentIndex(0);
-    if (page) delete page;
+    delete page;
 
     // add the "Done" button manually, otherwise it would have "Cancel" semantic
     QPushButton *bt_done =

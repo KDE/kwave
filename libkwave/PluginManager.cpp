@@ -112,7 +112,7 @@ Kwave::PluginManager::~PluginManager()
             it = m_plugin_modules.erase(it);
 
             // now the handle of the shared object can be released too
-            if (factory) delete factory;
+            delete factory;
         } else {
             // still in use
             ++it;

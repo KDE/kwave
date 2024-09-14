@@ -80,8 +80,8 @@ void Kwave::LogoWidget::doAnim()
 //***************************************************************************
 Kwave::LogoWidget::~LogoWidget()
 {
-    if (m_timer) delete m_timer;
-    if (m_image) delete m_image;
+    delete m_timer;
+    delete m_image;
 }
 
 //***************************************************************************

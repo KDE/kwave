@@ -378,8 +378,8 @@ sample_index_t Kwave::MimeData::decode(QWidget *widget, const QMimeData *e,
         dst.flush();
 
         // clean up the filter chain
-        if (mixer)          delete mixer;
-        if (rate_converter) delete rate_converter;
+        delete mixer;
+        delete rate_converter;
 
         // remove hourglass
         QApplication::restoreOverrideCursor();

@@ -62,11 +62,11 @@ QStringList *Kwave::FileInfoPlugin::setup(QStringList &)
         apply(dialog->info());
     } else {
         // user pressed "Cancel"
-        if (list) delete list;
+        delete list;
         list = nullptr;
     }
 
-    if (dialog) delete dialog;
+    delete dialog;
     return list;
 }
 

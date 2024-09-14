@@ -86,7 +86,7 @@ Kwave::PlayBackPlugin::PlayBackPlugin(QObject *parent,
 Kwave::PlayBackPlugin::~PlayBackPlugin()
 {
     // make sure the dialog is gone
-    if (m_dialog) delete m_dialog;
+    delete m_dialog;
     m_dialog = nullptr;
 
     Q_ASSERT(!m_playback_sink);
@@ -165,7 +165,7 @@ QStringList *Kwave::PlayBackPlugin::setup(QStringList &previous_params)
         interpreteParameters(previous_params);
 
     Q_ASSERT(!m_dialog);
-    if (m_dialog) delete m_dialog;
+    delete m_dialog;
 
     m_dialog = new(std::nothrow) Kwave::PlayBackDialog(
         *this,

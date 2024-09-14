@@ -173,8 +173,7 @@ void Kwave::KeywordWidget::remove()
 {
     // remove the item from the list
     int index = lstKeywords->currentRow();
-    QListWidgetItem *item = lstKeywords->takeItem(index);
-    if (item) delete item;
+    delete lstKeywords->takeItem(index);
     edKeyword->clear();
 
     // set the previous item as current

@@ -35,10 +35,8 @@ Kwave::RepairVirtualAudioFile::RepairVirtualAudioFile(QIODevice &device,
 Kwave::RepairVirtualAudioFile::~RepairVirtualAudioFile()
 {
     if (m_repair_list) {
-        while (!m_repair_list->isEmpty()) {
-            Kwave::RecoverySource *src = m_repair_list->takeLast();
-            if (src) delete src;
-        }
+        while (!m_repair_list->isEmpty())
+            delete m_repair_list->takeLast();
         delete m_repair_list;
     }
 }

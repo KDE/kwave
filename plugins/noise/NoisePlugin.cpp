@@ -92,7 +92,7 @@ Kwave::PluginSetupDialog *Kwave::NoisePlugin::createDialog(QWidget *parent)
     Kwave::NoiseDialog *dialog =
         new(std::nothrow) Kwave::NoiseDialog(parentWidget(), overview_cache);
     if (!dialog) {
-        if (overview_cache) delete overview_cache;
+        delete overview_cache;
         return nullptr;
     }
 

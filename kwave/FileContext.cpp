@@ -94,15 +94,15 @@ Kwave::FileContext::FileContext(Kwave::App &app)
 //***************************************************************************
 Kwave::FileContext::~FileContext()
 {
-    if (m_main_widget) delete m_main_widget;
+    delete m_main_widget;
     m_main_widget = nullptr;
 
     m_top_widget = nullptr;
 
-    if (m_plugin_manager) delete m_plugin_manager;
+    delete m_plugin_manager;
     m_plugin_manager = nullptr;
 
-    if (m_signal_manager) delete m_signal_manager;
+    delete m_signal_manager;
     m_signal_manager = nullptr;
 }
 
@@ -1105,7 +1105,8 @@ bool Kwave::FileContext::closeFile()
         case Kwave::App::GUI_MDI: /* FALLTHROUGH */
         case Kwave::App::GUI_TAB:
             // close the main widget
-            if (m_main_widget) delete m_main_widget;
+            delete m_main_widget;
+            m_main_widget = nullptr;
             break;
         case Kwave::App::GUI_SDI:
             break;

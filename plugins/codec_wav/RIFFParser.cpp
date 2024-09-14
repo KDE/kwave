@@ -664,10 +664,8 @@ void Kwave::RIFFParser::collectGarbage()
                 // -> convert into a garbage chunk !
                 chunk->setType(Kwave::RIFFChunk::Garbage);
                 chunk->setLength(end - start + 4 + 1);
-                while (!subchunks.isEmpty()) {
-                    Kwave::RIFFChunk *c = subchunks.takeLast();
-                    if (c) delete c;
-                }
+                while (!subchunks.isEmpty())
+                    delete subchunks.takeLast();
                 chunks.clear();
 
                 // start over the scan...

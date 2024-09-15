@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-03 00:38+0000\n"
+"POT-Creation-Date: 2024-09-15 00:40+0000\n"
 "PO-Revision-Date: 2024-08-20 00:22+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -425,7 +425,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 msgid "Kwave label list"
 msgstr "Kwave 이름표 목록"
 
-#: kwave/MainWidget.cpp:900 libkwave/SignalManager.cpp:1868
+#: kwave/MainWidget.cpp:900 libkwave/SignalManager.cpp:1866
 #, kde-format
 msgid "Add Label"
 msgstr "이름표 추가"
@@ -1178,14 +1178,14 @@ msgstr "Kwave 스크립트 파일 '%1' 실행 중..."
 msgid "Loading file '%1'..."
 msgstr "파일 '%1' 불러오는 중..."
 
-#: kwave/TopWidget.cpp:1037 plugins/codec_audiofile/AudiofileDecoder.cpp:124
+#: kwave/TopWidget.cpp:1037 plugins/codec_audiofile/AudiofileDecoder.cpp:125
 #: plugins/codec_flac/FlacEncoder.cpp:248
 #: plugins/codec_flac/FlacEncoder.cpp:266
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:515
 #: plugins/codec_ogg/OpusCommon.cpp:73 plugins/codec_ogg/OpusDecoder.cpp:385
 #: plugins/codec_ogg/OpusEncoder.cpp:394 plugins/codec_ogg/OpusEncoder.cpp:447
-#: plugins/codec_wav/WavDecoder.cpp:371 plugins/codec_wav/WavEncoder.cpp:447
-#: plugins/playback/PlayBack-OSS.cpp:247 plugins/playback/PlayBack-OSS.cpp:255
+#: plugins/codec_wav/WavDecoder.cpp:372 plugins/codec_wav/WavEncoder.cpp:447
+#: plugins/playback/PlayBack-OSS.cpp:248 plugins/playback/PlayBack-OSS.cpp:256
 #: plugins/playback/PlayBack-Qt.cpp:159 plugins/playback/PlayBack-Qt.cpp:164
 #: plugins/record/RecordPlugin.cpp:965 plugins/record/RecordPlugin.cpp:981
 #: plugins/record/RecordPlugin.cpp:1050
@@ -1406,13 +1406,13 @@ msgstr "현재 선택한 점"
 msgid "Every Second Point"
 msgstr "모든 두 번째 점"
 
-#: libgui/CurveWidget.cpp:198
+#: libgui/CurveWidget.cpp:199
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
 msgstr "Kwave 곡선 사전 설정 (*.curve)"
 
-#: libgui/CurveWidget.cpp:201
+#: libgui/CurveWidget.cpp:202
 #, kde-format
 msgid "Save Curve Preset"
 msgstr "곡선 사전 설정 저장"
@@ -3299,7 +3299,7 @@ msgstr "7차 다항식"
 msgid "Sample and Hold"
 msgstr "샘플 앤 홀드"
 
-#: libkwave/Logger.cpp:78
+#: libkwave/Logger.cpp:79
 #, kde-format
 msgid "Failed opening the log file '%1' for writing"
 msgstr "로그 파일 '%1'에 쓰려고 열 수 없음"
@@ -3507,32 +3507,32 @@ msgstr "설정"
 msgid "Memory"
 msgstr "메모리"
 
-#: libkwave/SignalManager.cpp:1523 libkwave/SignalManager.cpp:1530
+#: libkwave/SignalManager.cpp:1521 libkwave/SignalManager.cpp:1528
 #, kde-format
 msgid "Last Action"
 msgstr "마지막 동작"
 
-#: libkwave/SignalManager.cpp:1820
+#: libkwave/SignalManager.cpp:1818
 #, kde-format
 msgid "Modify File Info"
 msgstr "파일 정보 수정"
 
-#: libkwave/SignalManager.cpp:1895
+#: libkwave/SignalManager.cpp:1893
 #, kde-format
 msgid "Delete All Labels"
 msgstr "모든 이름표 삭제"
 
-#: libkwave/SignalManager.cpp:1914
+#: libkwave/SignalManager.cpp:1912
 #, kde-format
 msgid "Delete Label"
 msgstr "이름표 삭제"
 
-#: libkwave/SignalManager.cpp:2012
+#: libkwave/SignalManager.cpp:2010
 #, kde-format
 msgid "Manual Track Selection"
 msgstr "수동 트랙 선택"
 
-#: libkwave/SignalManager.cpp:2015
+#: libkwave/SignalManager.cpp:2013
 #, kde-format
 msgid "Manual Selection"
 msgstr "수동 선택"
@@ -3775,8 +3775,8 @@ msgid "dB"
 msgstr "dB"
 
 #: plugins/band_pass/BandPassDialog.cpp:199
-#: plugins/lowpass/LowPassDialog.cpp:172 plugins/noise/NoiseDialog.cpp:363
-#: plugins/notch_filter/NotchFilterDialog.cpp:202
+#: plugins/lowpass/LowPassDialog.cpp:173 plugins/noise/NoiseDialog.cpp:363
+#: plugins/notch_filter/NotchFilterDialog.cpp:203
 #: plugins/pitch_shift/PitchShiftDialog.cpp:326
 #, kde-format
 msgid "&Stop"
@@ -3784,9 +3784,9 @@ msgstr "정지(&S)"
 
 #. i18n: ectx: property (text), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDialog.cpp:203
-#: plugins/band_pass/BandPassDlg.ui:161 plugins/lowpass/LowPassDialog.cpp:176
+#: plugins/band_pass/BandPassDlg.ui:161 plugins/lowpass/LowPassDialog.cpp:177
 #: plugins/lowpass/LowPassDlg.ui:154 plugins/noise/NoiseDialog.cpp:367
-#: plugins/noise/NoiseDlg.ui:238 plugins/notch_filter/NotchFilterDialog.cpp:206
+#: plugins/noise/NoiseDlg.ui:238 plugins/notch_filter/NotchFilterDialog.cpp:207
 #: plugins/notch_filter/NotchFilterDlg.ui:193
 #: plugins/pitch_shift/PitchShiftDialog.cpp:330
 #: plugins/pitch_shift/PitchShiftDlg.ui:63
@@ -3893,44 +3893,44 @@ msgstr "SVG(샘플 비전 형식)"
 msgid "Creative Voice"
 msgstr "Creative 보이스"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:121
-#: plugins/codec_wav/WavDecoder.cpp:367 plugins/codec_wav/WavEncoder.cpp:443
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:122
+#: plugins/codec_wav/WavDecoder.cpp:368 plugins/codec_wav/WavEncoder.cpp:443
 #, kde-format
 msgid "Format or function is not implemented"
 msgstr "형식이나 기능이 구현되지 않음"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:127
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:128
 #: plugins/codec_wav/WavEncoder.cpp:450
 #, kde-format
 msgid "File header is damaged"
 msgstr "파일 헤더가 손상됨"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:130
-#: plugins/codec_wav/WavDecoder.cpp:377 plugins/codec_wav/WavEncoder.cpp:453
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:131
+#: plugins/codec_wav/WavDecoder.cpp:378 plugins/codec_wav/WavEncoder.cpp:453
 #, kde-format
 msgid "Invalid codec type"
 msgstr "잘못된 코덱 형식"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:133
-#: plugins/codec_wav/WavDecoder.cpp:381 plugins/codec_wav/WavEncoder.cpp:457
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:134
+#: plugins/codec_wav/WavDecoder.cpp:382 plugins/codec_wav/WavEncoder.cpp:457
 #, kde-format
 msgid "Opening the file failed"
 msgstr "파일을 열 수 없음"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:136
-#: plugins/codec_wav/WavDecoder.cpp:384 plugins/codec_wav/WavEncoder.cpp:460
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:137
+#: plugins/codec_wav/WavDecoder.cpp:385 plugins/codec_wav/WavEncoder.cpp:460
 #, kde-format
 msgid "Read access failed"
 msgstr "읽기 접근 실패"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:139
-#: plugins/codec_wav/WavDecoder.cpp:387 plugins/codec_wav/WavEncoder.cpp:463
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:140
+#: plugins/codec_wav/WavDecoder.cpp:388 plugins/codec_wav/WavEncoder.cpp:463
 #, kde-format
 msgid "Invalid sample format"
 msgstr "잘못된 샘플 형식"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:145
-#: plugins/codec_wav/WavDecoder.cpp:396 plugins/codec_wav/WavEncoder.cpp:469
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:146
+#: plugins/codec_wav/WavDecoder.cpp:397 plugins/codec_wav/WavEncoder.cpp:469
 #, kde-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -4747,17 +4747,17 @@ msgstr "엔디안 검사 중(통계학적 검색)..."
 msgid "Searching for missing chunk '%1'..."
 msgstr "빠진 조각 '%1' 검색 중..."
 
-#: plugins/codec_wav/WavDecoder.cpp:142
+#: plugins/codec_wav/WavDecoder.cpp:143
 #, kde-format
 msgid "Auto Repair"
 msgstr "자동 복구"
 
-#: plugins/codec_wav/WavDecoder.cpp:148
+#: plugins/codec_wav/WavDecoder.cpp:149
 #, kde-format
 msgid "Reading..."
 msgstr "읽는 중..."
 
-#: plugins/codec_wav/WavDecoder.cpp:173
+#: plugins/codec_wav/WavDecoder.cpp:174
 #, kde-format
 msgid ""
 "The file has been structurally damaged or it is no WAV file.\n"
@@ -4766,17 +4766,17 @@ msgstr ""
 "이 파일이 구조적으로 손상되었거나 WAV 파일이 아닌 것 같습니다.\n"
 "파일 복구를 시도하시겠습니까?"
 
-#: plugins/codec_wav/WavDecoder.cpp:176 plugins/codec_wav/WavDecoder.cpp:281
+#: plugins/codec_wav/WavDecoder.cpp:177 plugins/codec_wav/WavDecoder.cpp:282
 #, kde-format
 msgid "Kwave Auto Repair"
 msgstr "Kwave 자동 복구"
 
-#: plugins/codec_wav/WavDecoder.cpp:177
+#: plugins/codec_wav/WavDecoder.cpp:178
 #, kde-format
 msgid "&Repair"
 msgstr "복구(&R)"
 
-#: plugins/codec_wav/WavDecoder.cpp:242
+#: plugins/codec_wav/WavDecoder.cpp:243
 #, kde-format
 msgid ""
 "The opened file is no WAV file or it is damaged:\n"
@@ -4789,7 +4789,7 @@ msgstr ""
 "\n"
 "더 이상 진행할 의미가 없습니다."
 
-#: plugins/codec_wav/WavDecoder.cpp:277
+#: plugins/codec_wav/WavDecoder.cpp:278
 #, kde-format
 msgid ""
 "The WAV file seems to be damaged:\n"
@@ -4804,12 +4804,12 @@ msgstr ""
 "Kwave에서는 첫 번째 조각만 사용하고 나머지 조각은\n"
 "무시합니다. 데이터가 손실될 수도 있습니다."
 
-#: plugins/codec_wav/WavDecoder.cpp:374
+#: plugins/codec_wav/WavDecoder.cpp:375
 #, kde-format
 msgid "file header is damaged"
 msgstr "파일 헤더가 손상됨"
 
-#: plugins/codec_wav/WavDecoder.cpp:390
+#: plugins/codec_wav/WavDecoder.cpp:391
 #, kde-format
 msgid "internal libaudiofile error #%1: '%2'"
 msgstr "libaudiofile 내부 오류 #%1: '%2'"
@@ -6076,17 +6076,17 @@ msgstr "%1 Hz 재생은 지원하지 않음"
 msgid "Unusable buffer size: %1"
 msgstr "사용할 수 없는 버퍼 크기: %1"
 
-#: plugins/playback/PlayBack-OSS.cpp:402
+#: plugins/playback/PlayBack-OSS.cpp:404
 #, kde-format
 msgid "OSS playback device (dsp*)"
 msgstr "OSS 재생 장치 (dsp*)"
 
-#: plugins/playback/PlayBack-OSS.cpp:405
+#: plugins/playback/PlayBack-OSS.cpp:407
 #, kde-format
 msgid "ALSA playback device (adsp*)"
 msgstr "ALSA 재생 장치 (adsp*)"
 
-#: plugins/playback/PlayBack-OSS.cpp:408 plugins/record/Record-OSS.cpp:315
+#: plugins/playback/PlayBack-OSS.cpp:410 plugins/record/Record-OSS.cpp:315
 #: plugins/record/RecordDialog.cpp:622
 #, kde-format
 msgid "Any device (*)"

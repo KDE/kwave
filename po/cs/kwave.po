@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-15 00:40+0000\n"
-"PO-Revision-Date: 2024-08-08 10:02+0200\n"
+"PO-Revision-Date: 2024-09-03 08:50+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1396,7 +1396,7 @@ msgstr "Přizpůsobit"
 #: libgui/CurveWidget.cpp:105
 #, kde-format
 msgid "Presets"
-msgstr "Předvolby"
+msgstr "Přednastavení"
 
 #: libgui/CurveWidget.cpp:114
 #, kde-format
@@ -1417,7 +1417,7 @@ msgstr "Každý druhý bod"
 #, kde-format
 msgctxt "Filter description for Kwave curve presets, for use in a FileDialog"
 msgid "Kwave curve preset (*.curve)"
-msgstr "Předvolba křivky Kwave (*.curve)"
+msgstr "Přednastavení křivky Kwave (*.curve)"
 
 #: libgui/CurveWidget.cpp:202
 #, kde-format

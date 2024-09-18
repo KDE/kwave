@@ -6960,7 +6960,7 @@ msgid ""
 "The audio device seems to be occupied by another application. Retrying..."
 msgstr ""
 "Η συσκευή ήχου φαίνεται να είναι απασχολημένη από άλλη εφαρμογή. Επανάληψη "
-"προσπάθειας,,,"
+"προσπάθειας..."
 
 #: plugins/record/RecordPlugin.cpp:467
 #, kde-format

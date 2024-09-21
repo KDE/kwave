@@ -2,20 +2,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Stelios <sstavra@gmail.com>, 2017, 2019, 2020.
+# SPDX-FileCopyrightText: 2024 Antonis Geralis <capoiosct@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-15 00:40+0000\n"
-"PO-Revision-Date: 2020-09-08 11:32+0300\n"
-"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"PO-Revision-Date: 2024-09-20 13:15+0300\n"
+"Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -211,7 +212,7 @@ msgstr "oerg-Christian Boehme"
 #: kwave/main.cpp:77
 #, kde-format
 msgid "PulseAudio record plugin"
-msgstr "Πρίσθετο εγγραφής με PulseAudio"
+msgstr "Πρόσθετο εγγραφής με PulseAudio"
 
 #: kwave/main.cpp:83
 #, kde-format
@@ -341,7 +342,7 @@ msgstr "Pavel Fric"
 #: kwave/main.cpp:134
 #, kde-format
 msgid "Czech translation"
-msgstr "Μετάφραση στα Τσεχικά"
+msgstr "Μετάφραση στα Τσέχικα"
 
 #: kwave/main.cpp:136
 #, kde-format
@@ -415,7 +416,7 @@ msgstr "Kwave"
 #: kwave/main.cpp:193
 #, kde-format
 msgid "A sound editor built on KDE Frameworks 5"
-msgstr "Ένας επεξεργστής ήχου στο KDE Frameworks 5"
+msgstr "Ένας επεξεργαστής ήχου στο KDE Frameworks 5"
 
 #: kwave/main.cpp:195
 #, kde-format
@@ -425,7 +426,7 @@ msgstr "(c) 2016, Thomas Eschenbacher"
 #: kwave/MainWidget.cpp:93
 #, kde-format
 msgid "Kwave label list"
-msgstr "Λιστα ετικετών Kwave"
+msgstr "Λίστα ετικετών Kwave"
 
 #: kwave/MainWidget.cpp:900 libkwave/SignalManager.cpp:1866
 #, kde-format
@@ -784,7 +785,7 @@ msgstr "Διακοπή"
 #: kwave/menus.config:139
 msgctxt "menu: /Play/Forward"
 msgid "Forward"
-msgstr "Προς τα εμπρος"
+msgstr "Προς τα εμπρός"
 
 #: kwave/menus.config:140
 msgctxt "menu: /Play/Next"
@@ -1356,7 +1357,7 @@ msgstr "Παρεμβολή"
 #: libgui/CurveWidget.cpp:84
 #, kde-format
 msgid "Transform"
-msgstr "Μεασχηματισμός"
+msgstr "Μετασχηματισμός"
 
 #: libgui/CurveWidget.cpp:87
 #, kde-format
@@ -1507,7 +1508,7 @@ msgstr ""
 #: libgui/LabelPropertiesWidgetBase.ui:51
 #, kde-format
 msgid "Description:"
-msgstr "ΠΕριγραφή:"
+msgstr "Περιγραφή:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, edDescription)
 #: libgui/LabelPropertiesWidgetBase.ui:61
@@ -1697,7 +1698,7 @@ msgstr "&Αντιγραφή"
 #: libgui/SignalWidget.cpp:233
 #, kde-format
 msgid "&Paste"
-msgstr "Ε&πικόλησση"
+msgstr "Επικόλληση"
 
 #: libgui/SignalWidget.cpp:251 libkwave/undo/UndoSelection.cpp:51
 #, kde-format
@@ -1971,7 +1972,7 @@ msgid ""
 "the track. This could be a URL, an email address, the\n"
 "physical address of the producing label."
 msgstr ""
-"Πληροφορίες επικοινωνόας με τους δημιουργούς ή τους\n"
+"Πληροφορίες επικοινωνίας με τους δημιουργούς ή τους\n"
 "διανομείς του κομματιού. Μπορεί να είναι ένα URL, μια\n"
 "διεύθυνση ηλεκτρονικής αλληλογραφίας, η ταχυδρομική\n"
 "διεύθυνση της εταιρίας παραγωγής."
@@ -2142,7 +2143,7 @@ msgstr "Τύπος mime"
 
 #: libkwave/FileInfo.cpp:191
 msgid "Mime type of the file format"
-msgstr "Τύπος mime του τύπου αποθήευσης"
+msgstr "Τύπος mime του τύπου αποθήκευσης"
 
 #: libkwave/FileInfo.cpp:194
 msgid "Emphasis"
@@ -2264,7 +2265,7 @@ msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
 msgstr ""
-"Τύπος αποθήκευσης για ψηφιοποιημένα δέίγματα ήχου.\n"
+"Τύπος αποθήκευσης για ψηφιοποιημένα δείγματα ήχου.\n"
 "Παράδειγμα: '32-bit IEEE κινητής υποδιαστολής'"
 
 #: libkwave/FileInfo.cpp:250
@@ -2486,7 +2487,7 @@ msgstr "Ημιτονική"
 
 #: libkwave/Functions.cpp:95
 msgid "Rectangular"
-msgstr "Ορθογώνιrαο"
+msgstr "Ορθογώνιο"
 
 #: libkwave/Functions.cpp:96
 msgid "Sawtooth"
@@ -3607,7 +3608,7 @@ msgctxt ""
 "name of the undo action for modifying multiple meta data objects of the same "
 "type: %1=number of elements, %2=name of one element in singular"
 msgid "Modify %1 %2 objects"
-msgstr "Τροποποίηση %1 %2 antikeim;envn"
+msgstr "Τροποποίηση %1 %2 αντικειμένων"
 
 #: libkwave/undo/UndoModifyMetaDataAction.cpp:81
 #, kde-format
@@ -3689,8 +3690,8 @@ msgid ""
 "body></html>"
 msgstr ""
 "<html><head/><body><p><span style=\" font-size:x-large; font-weight:600;"
-"\">Το Kwave είανι ένας επεξεργαστής ήχου με βάση το KDE Frameworks. </span></"
-"p><p><br/>Με το Kwave μπορείτ να επεξεργαστείτε πολλά είδη αρχείων ήχου "
+"\">Το Kwave είναι ένας επεξεργαστής ήχου με βάση το KDE Frameworks. </span></"
+"p><p><br/>Με το Kwave μπορείτε να επεξεργαστείτε πολλά είδη αρχείων ήχου "
 "συμπεριλαμβανομένων και αρχείων με πολλά κομμάτια. Μπορείτε να κάνετε "
 "αλλαγές και αναπαραγωγή σε κάθε κομμάτι χωριστά.<br/>Το Kwave επίσης "
 "περιλαμβάνει πολλά πρόσθετα  για μετασχηματισμό των ηχητικών δεδομένων με "
@@ -4106,7 +4107,7 @@ msgid ""
 "bits per sample,\n"
 "use %1 as placeholder"
 msgstr ""
-"δυαδικά ψηφία ανά δείμγα,\n"
+"δυαδικά ψηφία ανά δείγμα,\n"
 "χρησιμοποίησε %1 στη θέση αντικατάστασης"
 
 #: plugins/codec_mp3/MP3EncoderDialog.cpp:349
@@ -4219,7 +4220,7 @@ msgstr "Διαδρομή:"
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:134
 #, kde-format
 msgid "find the full path to the encoder"
-msgstr "εύρεση της πλήρους διαδρομής προς τον κωικοποιητή"
+msgstr "εύρεση της πλήρους διαδρομής προς τον κωδικοποιητή"
 
 #. i18n: ectx: property (text), widget (QPushButton, btLocate)
 #: plugins/codec_mp3/MP3EncoderDialogBase.ui:137
@@ -4639,7 +4640,7 @@ msgstr "Σφάλμα αποκωδικοποιητή: %1"
 #: plugins/codec_ogg/OpusDecoder.cpp:152
 #, kde-format
 msgid "End of file before finding Opus Comment headers."
-msgstr "Τεός αρχείου πριν να βρεθούν επικεφαλίδες σχολίων Opus."
+msgstr "Τέλος αρχείου πριν να βρεθούν επικεφαλίδες σχολίων Opus."
 
 #: plugins/codec_ogg/OpusDecoder.cpp:356
 #, kde-format
@@ -4726,7 +4727,7 @@ msgstr "Κατεστραμμένη δευτερεύουσα επικεφαλίδ
 #: plugins/codec_ogg/VorbisDecoder.cpp:136
 #, kde-format
 msgid "End of file before finding all Vorbis headers."
-msgstr "Τέλος αρχείου πριν την εύρεση όλων των επικεφαλίδψν Vorbis."
+msgstr "Τέλος αρχείου πριν την εύρεση όλων των επικεφαλίδων Vorbis."
 
 #: plugins/codec_ogg/VorbisEncoder.cpp:97
 #, kde-format
@@ -4752,8 +4753,8 @@ msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again."
 msgstr ""
-"Μία ή περισσότερες παράμετροι κωδικοποίησης δεν υποστηρίζονται. Αλλάξτε "
-"τιςρυθμίσεις και ξαναπροσπαθήστε."
+"Μία ή περισσότερες παράμετροι κωδικοποίησης δεν υποστηρίζονται. Αλλάξτε τις "
+"ρυθμίσεις και ξαναπροσπαθήστε."
 
 #: plugins/codec_wav/RIFFParser.cpp:121
 #, kde-format
@@ -4770,7 +4771,7 @@ msgstr ""
 #: plugins/codec_wav/RIFFParser.cpp:546
 #, kde-format
 msgid "Searching for missing chunk '%1'..."
-msgstr "Αναζήτηση του απωλεσθέντος τμήματος '%1'..."
+msgstr "Αναζήτηση του απολεσθέντος τμήματος '%1'..."
 
 #: plugins/codec_wav/WavDecoder.cpp:143
 #, kde-format
@@ -4845,7 +4846,7 @@ msgid ""
 "Sorry, the currently selected compression type cannot be used for saving. Do "
 "you want to use G711 ULAW compression instead?"
 msgstr ""
-"Αδυναμία χρήσης για αποθήκεθση της τρέχουσας επιλογής του τύπου συμπίεσης. "
+"Αδυναμία χρήσης για αποθήκευση της τρέχουσας επιλογής του τύπου συμπίεσης. "
 "Θέλετε να χρησιμοποιήσετε τη συμπίεση G711 ULAW;"
 
 #: plugins/codec_wav/WavEncoder.cpp:352
@@ -4890,7 +4891,7 @@ msgstr "Επαλήθευση πριονωτού μοτίβου"
 
 #: plugins/debug/DebugPlugin.cpp:99
 msgid "FM Sweep"
-msgstr "Ανιχνευση FM"
+msgstr "Ανίχνευση FM"
 
 #: plugins/debug/DebugPlugin.cpp:109
 msgid "Labels at Stripe borders"
@@ -4983,7 +4984,7 @@ msgstr ""
 "0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" "
 "margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-"
 "block-indent:0; text-indent:0px;\"><span style=\" font-family:'Courier New,"
-"courier'; font-weight:600;\">[%title] </span>τον τίτλο του τραγουδιου</"
+"courier'; font-weight:600;\">[%title] </span>τον τίτλο του τραγουδιού</"
 "li><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "family:'Courier New,courier'; font-weight:600;\">[%artist]</span> το όνομα "
@@ -5086,7 +5087,7 @@ msgid ""
 "Bitrate is set to an average value,\n"
 "with optional upper and lower limit."
 msgstr ""
-"<b>AΛειτουργία μέσου ρυθμού μετάδοσης</b><br>\n"
+"<b>Λειτουργία μέσου ρυθμού μετάδοσης</b><br>\n"
 "Ο ρυθμός μετάδοσης ορίζεται σε μια μέση τιμή,\n"
 "με προαιρετικό άνω και κάτω όριο."
 
@@ -5205,7 +5206,7 @@ msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
-"Εμφανίζε τον αριθμό των κομματιών του σήματος.\n"
+"Εμφανίζει τον αριθμό των κομματιών του σήματος.\n"
 "Μπορείτε να προσθέσετε ή να διαγράψετε κομμάτια\n"
 "από το μενού Επεξεργασία."
 
@@ -5575,9 +5576,9 @@ msgid ""
 "to repair a damaged file? Note: changing only the sample rate can cause "
 "\"Mickey Mouse\" effects."
 msgstr ""
-"Έχετε αλάξει το ρυθμό δειγμάτων. Θέλετε να μετατρέψετε όλο το αρχείο στο νέο "
-"ρυθμό δειγμάτων ή θέλετε μόνο θα θέσετε τις πληροφορίες του ρυθμού ώστε να "
-"επισκευαστεί ένα προβληματικό αρχείο; Σημείωση: αλλάζοντας μόνο το ρυθμό "
+"Έχετε αλλάξει το ρυθμό δειγμάτων. Θέλετε να μετατρέψετε όλο το αρχείο στο "
+"νέο ρυθμό δειγμάτων ή θέλετε μόνο θα θέσετε τις πληροφορίες του ρυθμού ώστε "
+"να επισκευαστεί ένα προβληματικό αρχείο; Σημείωση: αλλάζοντας μόνο το ρυθμό "
 "δειγμάτων μπορεί να προκαλέσει «μίκι μάους» εφέ."
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:91
@@ -5677,7 +5678,7 @@ msgid ""
 "frequencies will be cut off."
 msgstr ""
 "<b>συχνότητα αποκοπής</b>\n"
-"Ορίζει την υψηλότερη ηχητική συχνότητα, υφηλότερες\n"
+"Ορίζει την υψηλότερη ηχητική συχνότητα, υψηλότερες\n"
 "συχνότητες θα αποκοπούν."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NewSigDlg)
@@ -5873,7 +5874,7 @@ msgstr "Ανάλυση επιπέδου θορύβου..."
 #: plugins/normalize/NormalizePlugin.cpp:129
 #, kde-format
 msgid "Normalizing (%1 dB) ..."
-msgstr "Εξομάλυνση (%1 δΒ) ..."
+msgstr "Εξομάλυνση (%1 dB) ..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, NotchFilterDlg)
 #: plugins/notch_filter/NotchFilterDlg.ui:14
@@ -5966,7 +5967,7 @@ msgstr ""
 #: plugins/pitch_shift/PitchShiftDlg.ui:136
 #, kde-format
 msgid "Speed:"
-msgstr "Ταχύτηταi:"
+msgstr "Ταχύτητα:"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, slSpeed)
 #. i18n: ectx: property (toolTip), widget (Kwave::InvertableSpinBox, sbSpeed)
@@ -6540,7 +6541,7 @@ msgstr "Ελέγξτε τις ρυθμίσεις στη συσκευή πηγή�
 #: plugins/record/RecordDialog.cpp:1016
 #, kde-format
 msgid "(empty)"
-msgstr "(άκενή)"
+msgstr "(κενή)"
 
 #: plugins/record/RecordDialog.cpp:1027
 #, kde-format
@@ -6653,7 +6654,7 @@ msgstr ""
 "Όταν χρησιμοποιείτε <b>Προ-εγγραφή</b>, το Kwave εσωτερικά ηχογραφεί ήδη "
 "πριν ξεκινήσει η πραγματική ηχογράφηση. Αυτό το χαρακτηριστικό είναι χρήσιμο "
 "αν θέλετε να ξεκινήσετε την ηχογράφηση ήδη λίγα δευτερόλεπτα πριν πατήσετε "
-"το κουμπί εγγρσφής. <i>(Για παράδειγμα όταν ηχογραφείτε από το ραδιόφωνο)</i>"
+"το κουμπί εγγραφής. <i>(Για παράδειγμα όταν ηχογραφείτε από το ραδιόφωνο)</i>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRecordPre)
 #: plugins/record/RecordDlg.ui:78
@@ -6737,7 +6738,7 @@ msgid ""
 "Please note that if the time is in the past, the recording will be started "
 "immediately or as soon as the defined trigger level is reached (if enabled)."
 msgstr ""
-"Όταν επιλεγεί, η ηχογράφηση θα ξεκινησει τη δοσμένη ημερομηνία και ώρα. "
+"Όταν επιλεγεί, η ηχογράφηση θα ξεκινήσει τη δοσμένη ημερομηνία και ώρα. "
 "Σημειώστε ότι αν ο χρόνος είναι παρελθοντικός, η ηχογράφηση θα ξεκινήσει "
 "αμέσως ή μόλις επιτευχθεί το καθορισμένο επίπεδο ενεργοποίησης (αν είναι "
 "ενεργό)."
@@ -6799,7 +6800,7 @@ msgid ""
 "sample rates that your sound card supports."
 msgstr ""
 "<b>Ρυθμός δειγμάτων</b><br>Εδώ μπορείτε να επιλέξετε ένα από τους "
-"προκαθορισμένους γνωστούς ρυθμούς δειγματων που υποστηρίζει η κάρτα ήχου."
+"προκαθορισμένους γνωστούς ρυθμούς δειγμάτων που υποστηρίζει η κάρτα ήχου."
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, sbFormatTracks)
 #: plugins/record/RecordDlg.ui:718
@@ -6888,7 +6889,7 @@ msgid ""
 "supports more features and more hardware.</p>"
 msgstr ""
 "<b>Μέθοδος ηχογράφησης:</b><p>Επιλέξτε μέθοδο ή σύστημα ηχογράφησης.\n"
-"Ανάλογ αμε τις επιλογές επεξεργασίας μπορείτε να επιλέξετε μία από τις "
+"Ανάλογα με τις επιλογές επεξεργασίας μπορείτε να επιλέξετε μία από τις "
 "ακόλουθες μεθόδους:</p>\n"
 "<p><b><i>OSS (Open Sound System)</i></b>: Η παλαιότερη υλοποίηση σε linux, "
 "με μονοφωνική και στερεοφωνική έξοδο. Ανεπιθύμητη από τον πυρήνα linux 2.6, "
@@ -6990,7 +6991,7 @@ msgstr "Το %1 δεν υποστηρίζεται, γίνεται χρήση τ�
 #: plugins/record/RecordPlugin.cpp:582
 #, kde-format
 msgid "Recording with %1 channel(s) failed, using %2 channel(s)"
-msgstr "Αποτυχία ηχογράφησης με %1 κανάλι(α), χρήση με %2 καναλι(α)"
+msgstr "Αποτυχία ηχογράφησης με %1 κανάλι(α), χρήση με %2 κανάλι(α)"
 
 #: plugins/record/RecordPlugin.cpp:627
 #, kde-format
@@ -7062,7 +7063,7 @@ msgstr "Η συσκευή ηχογράφησης φαίνεται να είνα�
 #, kde-format
 msgid "Reading from the recording device failed. Error number = %1 (%2)"
 msgstr ""
-"Αποτυχία ανάγνωσης από τη συκευή ηχογράφησης. Αριθμός σφάλματος = %1 (%2)"
+"Αποτυχία ανάγνωσης από τη συσκευή ηχογράφησης. Αριθμός σφάλματος = %1 (%2)"
 
 #: plugins/reverse/ReversePlugin.cpp:77
 #: plugins/reverse/UndoReverseAction.cpp:44
@@ -7124,7 +7125,7 @@ msgid ""
 "existing files</li>\n"
 "</ul>"
 msgstr ""
-"Καθορίζει πώς πρέπει να γίνεται η <b>αρίμηση των αρχείων</b>:<ul>\n"
+"Καθορίζει πώς πρέπει να γίνεται η <b>αρίθμηση των αρχείων</b>:<ul>\n"
 "<li>Συνεχίστε μετά τον <b>μεγαλύτερο δείκτη</b> που μπορεί να βρεθεί, "
 "αποφεύγοντας συγκρούσεις με υφιστάμενα αρχεία</li>\n"
 "<li>Πάντα να αρχίζει η αρίθμηση από το <b>ένα</b>, πιθανόν να υπάρχει "
@@ -7150,7 +7151,7 @@ msgid ""
 "Example of the first file name that will be saved, using the file name "
 "pattern above and the numbering below"
 msgstr ""
-"Παράδειγμα ονόματος του πρώτου αρχείου που θα αοθηκευθεί, με χρήση του "
+"Παράδειγμα ονόματος του πρώτου αρχείου που θα αποθηκευθεί, με χρήση του "
 "ονόματος πάνω και της αρίθμησης κάτω"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExample)

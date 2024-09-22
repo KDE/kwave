@@ -242,6 +242,7 @@ int Kwave::App::newWindow(const QUrl &url)
                  !m_top_widgets.isEmpty() )
                 new_top_widget = m_top_widgets.last();
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     if (!new_top_widget) {
@@ -382,6 +383,7 @@ void Kwave::App::switchGuiType(Kwave::TopWidget *top, GuiType new_type)
                     // all contexts go into the same toplevel widget
                     top_widget = top;
                     break;
+                DEFAULT_IMPOSSIBLE;
             }
 
             if (top_widget) top_widget->insertContext(context);

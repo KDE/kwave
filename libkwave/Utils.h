@@ -29,6 +29,12 @@
 
 #include "libkwave/Sample.h" // for sample_index_t
 
+/** helper macro for switch/case where the default is not relevant */
+#define DEFAULT_IGNORE     default: break
+
+/** helper macro for switch/case where reaching the default is impossible */
+#define DEFAULT_IMPOSSIBLE default: Q_ASSERT(false); break
+
 namespace Kwave
 {
 

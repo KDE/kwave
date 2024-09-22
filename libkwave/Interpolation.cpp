@@ -145,6 +145,7 @@ double Kwave::Interpolation::singleInterpolation(double input)
         case INTPOL_POLYNOMIAL7:
             degree = 7;
             break;
+        DEFAULT_IGNORE;
     }
 
     if (degree && (degree <= 7)) {
@@ -383,6 +384,7 @@ QVector<double> Kwave::Interpolation::interpolation(
             }
             break;
         }
+        DEFAULT_IGNORE;
     }
 
     return y_out;
@@ -474,6 +476,7 @@ void Kwave::Interpolation::createPolynom(const Kwave::Curve &points,
                 y[count++] = p.y();
                 pos++;
                 break;
+            DEFAULT_IGNORE;
         }
     }
 

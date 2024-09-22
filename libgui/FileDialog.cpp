@@ -90,6 +90,7 @@ Kwave::FileDialog::FileDialog(
             m_file_widget.setMode(KFile::Directory |
                                   KFile::ExistingOnly);
             break;
+        DEFAULT_IGNORE;
     }
 
     QString special_prefix = _("kfiledialog:///");

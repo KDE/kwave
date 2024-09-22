@@ -375,6 +375,7 @@ void Kwave::RecordPulseAudio::notifyContext(pa_context *c)
         case PA_CONTEXT_FAILED:
             m_mainloop_signal.wakeAll();
             break;
+        DEFAULT_IGNORE;
     }
 }
 

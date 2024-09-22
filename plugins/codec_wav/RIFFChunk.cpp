@@ -21,6 +21,7 @@
 #include <QString>
 
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "RIFFChunk.h"
 
@@ -208,6 +209,7 @@ void Kwave::RIFFChunk::dumpStructure()
         case Sub:     t = "SUB";     break;
         case Garbage: t = "GARBAGE"; break;
         case Empty:   t = "EMPTY";   break;
+        DEFAULT_IGNORE;
     }
 
     // dump this chunk

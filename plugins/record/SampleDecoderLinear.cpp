@@ -153,6 +153,7 @@ Kwave::SampleDecoderLinear::SampleDecoderLinear(
         case 4:
             MAKE_DECODER(32)
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 }
 

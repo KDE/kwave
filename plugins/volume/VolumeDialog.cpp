@@ -131,6 +131,7 @@ void Kwave::VolumeDialog::setMode(Mode mode)
             spinbox->setMaximum(+21);
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     // update the value in the display
@@ -264,6 +265,7 @@ void Kwave::VolumeDialog::updateDisplay(double value)
             spinbox->setInverse(false);
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     // update the spinbox
@@ -305,6 +307,7 @@ void Kwave::VolumeDialog::sliderChanged(int pos)
         case MODE_DECIBEL:
             spinboxChanged(sv);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
 }
@@ -342,6 +345,7 @@ void Kwave::VolumeDialog::spinboxChanged(int pos)
             factor = pow(10.0, pos / 20.0);
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     updateDisplay(factor);

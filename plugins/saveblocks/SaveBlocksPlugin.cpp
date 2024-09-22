@@ -655,6 +655,7 @@ unsigned int Kwave::SaveBlocksPlugin::firstIndex(const QString &path,
             }
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     return first;

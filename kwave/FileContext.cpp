@@ -1110,6 +1110,7 @@ bool Kwave::FileContext::closeFile()
             break;
         case Kwave::App::GUI_SDI:
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     return true;

@@ -17,6 +17,8 @@
 
 #include "config.h"
 
+#include "libkwave/Utils.h"
+
 #include "RecordController.h"
 #include "RecordState.h"
 
@@ -80,10 +82,13 @@ void Kwave::RecordController::actionReset()
         case Kwave::REC_PRERECORDING:
         case Kwave::REC_PAUSED:
         case Kwave::REC_DONE:
+        {
             bool accepted = true;
             emit sigReset(accepted);
             if (accepted) emit stateChanged(m_state = Kwave::REC_EMPTY);
             break;
+        }
+        DEFAULT_IMPOSSIBLE;
     }
 }
 
@@ -108,6 +113,7 @@ void Kwave::RecordController::actionStop()
             m_next_state = Kwave::REC_DONE;
             emit sigStopRecord(0);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 }
 
@@ -135,6 +141,7 @@ void Kwave::RecordController::actionPause()
             // continue recording
             emit stateChanged(m_state = Kwave::REC_RECORDING);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 }
 
@@ -165,6 +172,7 @@ void Kwave::RecordController::actionStart()
             // already recording...
             m_next_state = Kwave::REC_DONE;
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 }
 
@@ -189,6 +197,7 @@ void Kwave::RecordController::deviceRecordStarted()
             qWarning("RecordController::deviceRecordStarted(): "
                      "state = %s ???", stateName(m_state));
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 }
 
@@ -230,6 +239,7 @@ void Kwave::RecordController::deviceBufferFull()
             // might occur when the buffer content is flushed
             // after a stop
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 }
 
@@ -268,6 +278,7 @@ void Kwave::RecordController::deviceTriggerReached()
             }
             emit stateChanged(m_state);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 }
 
@@ -317,6 +328,7 @@ void Kwave::RecordController::deviceRecordStopped(int)
             // pause -> done
             emit stateChanged(m_state = Kwave::REC_DONE);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 }
 
@@ -332,6 +344,7 @@ const char *Kwave::RecordController::stateName(const Kwave::RecordState state)
         case Kwave::REC_RECORDING:           return "REC_RECORDING";
         case Kwave::REC_PAUSED:              return "REC_PAUSED";
         case Kwave::REC_DONE:                return "REC_DONE";
+        DEFAULT_IGNORE;
     }
     return "-INVALID-";
 }

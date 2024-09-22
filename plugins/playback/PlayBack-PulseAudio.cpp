@@ -180,6 +180,7 @@ void Kwave::PlayBackPulseAudio::notifyContext(pa_context *c)
             qWarning("PlayBackPulseAudio: PA_CONTEXT_FAILED");
             m_mainloop_signal.wakeAll();
             break;
+        DEFAULT_IGNORE;
     }
 }
 
@@ -257,6 +258,7 @@ void Kwave::PlayBackPulseAudio::notifyStreamState(pa_stream* stream)
         case PA_STREAM_TERMINATED:
             m_mainloop_signal.wakeAll();
             break;
+        DEFAULT_IGNORE;
     }
 }
 

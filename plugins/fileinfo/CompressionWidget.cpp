@@ -31,6 +31,7 @@
 
 #include "libkwave/StandardBitrates.h"
 #include "libkwave/String.h"
+#include "libkwave/Utils.h"
 
 #include "BitrateWidget.h"
 #include "CompressionWidget.h"
@@ -244,6 +245,7 @@ void Kwave::CompressionWidget::setMode(Kwave::CompressionWidget::Mode mode)
             rbVBR->setChecked(true);
             rbVBR->setChecked(vbr);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 }
 

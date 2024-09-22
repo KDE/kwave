@@ -127,6 +127,7 @@ void Kwave::PitchShiftDialog::setMode(Mode mode)
             sbSpeed->setSingleStep(1);
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     // update the spped value in the display
@@ -193,6 +194,7 @@ void Kwave::PitchShiftDialog::updateSpeed(double speed)
             sbSpeed->setInverse(false);
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     // update the spinbox
@@ -229,6 +231,7 @@ void Kwave::PitchShiftDialog::sliderChanged(int pos)
         case MODE_PERCENT:
             spinboxChanged(pos);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     // emit changes
@@ -263,6 +266,7 @@ void Kwave::PitchShiftDialog::spinboxChanged(int pos)
             m_speed = static_cast<double>(pos) / 100.0;
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     // emit changes

@@ -690,6 +690,7 @@ bool Kwave::Track::writeSamples(Kwave::InsertMode mode,
             emit sigSamplesModified(this, offset, length);
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     return true;

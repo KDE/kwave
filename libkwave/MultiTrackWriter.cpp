@@ -23,6 +23,7 @@
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SampleArray.h"
 #include "libkwave/SignalManager.h"
+#include "libkwave/Utils.h"
 #include "libkwave/undo/UndoInsertAction.h"
 #include "libkwave/undo/UndoModifyAction.h"
 #include "libkwave/undo/UndoTransactionGuard.h"
@@ -153,6 +154,7 @@ bool Kwave::MultiTrackWriter::init(Kwave::SignalManager &signal_manager,
             }
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     if ( (mode != Kwave::Overwrite) &&

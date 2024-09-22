@@ -140,6 +140,7 @@ void Kwave::NoiseDialog::setMode(Mode mode)
             spinbox->setMaximum(0);
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     // update the value in the display
@@ -278,6 +279,7 @@ void Kwave::NoiseDialog::updateDisplay(double value)
             spinbox->setInverse(false);
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     // update the spinbox
@@ -316,6 +318,7 @@ void Kwave::NoiseDialog::spinboxChanged(int pos)
             // decibel
             factor = pow(10.0, pos / 20.0);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     updateDisplay(factor);

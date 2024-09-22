@@ -557,6 +557,7 @@ void Kwave::SignalWidget::insertView(Kwave::SignalView *view,
             m_lower_dock->addWidget(view);
             Q_ASSERT(!controls);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     // insert the view into the list of views

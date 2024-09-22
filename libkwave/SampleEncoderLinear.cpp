@@ -155,6 +155,7 @@ Kwave::SampleEncoderLinear::SampleEncoderLinear(
         case 32:
             MAKE_ENCODER(32)
             break;
+        DEFAULT_IGNORE;
     }
 
     Q_ASSERT(m_encoder != encode_NULL);

@@ -314,6 +314,7 @@ bool Kwave::TopWidget::init()
             m_mdi_area->setTabsClosable(true);
             m_mdi_area->setTabsMovable(true);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     if (m_mdi_area) {
@@ -680,6 +681,7 @@ void Kwave::TopWidget::insertContext(Kwave::FileContext *context)
 
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     // update the menu bar, toolbar etc.
@@ -942,6 +944,7 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const QUrl &url)
         }
         case Kwave::App::GUI_MDI: /* FALLTHROUGH */
         case Kwave::App::GUI_TAB:
+        {
             // MDI or TAB mode: open a new sub window
             Q_ASSERT(m_mdi_area);
             if (!m_mdi_area) return -1;
@@ -977,6 +980,8 @@ int Kwave::TopWidget::newWindow(Kwave::FileContext *&context, const QUrl &url)
             // insert the context into this instance
             insertContext(context);
             break;
+        }
+        DEFAULT_IMPOSSIBLE;
     }
 
     return 1;
@@ -1348,6 +1353,7 @@ void Kwave::TopWidget::updateMenu()
             m_menu_manager->setItemVisible(_("ID_FILE_NEW_WINDOW"),      false);
             have_window_menu = true;
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     if (have_window_menu) {

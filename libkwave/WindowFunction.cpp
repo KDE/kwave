@@ -96,6 +96,7 @@ QVector<double> Kwave::WindowFunction::points(unsigned int len) const
             for (unsigned int i = len / 2; i < len; i++)
                 out[i] = 1 - (static_cast<double>(i) - len / 2) / (len / 2 - 1);
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     return out;

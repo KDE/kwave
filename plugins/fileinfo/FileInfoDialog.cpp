@@ -757,6 +757,7 @@ void Kwave::FileInfoDialog::mpegLayerChanged()
         case 3:
             compression = Kwave::Compression::MPEG_LAYER_III;
             break;
+        DEFAULT_IGNORE;
     }
 
     if (compression != Kwave::Compression::NONE) {
@@ -1064,6 +1065,7 @@ void Kwave::FileInfoDialog::accept()
                 m_info.set(Kwave::INF_VBR_QUALITY, QVariant(quality));
                 break;
             }
+            DEFAULT_IMPOSSIBLE;
         }
     }
 

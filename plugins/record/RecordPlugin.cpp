@@ -1592,6 +1592,7 @@ void Kwave::RecordPlugin::processBuffer()
 
                 break;
             }
+            DEFAULT_IMPOSSIBLE;
         }
     }
 

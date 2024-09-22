@@ -1095,6 +1095,7 @@ void Kwave::RecordDialog::setState(Kwave::RecordState state)
             enable_trigger  = true;
             pixmaps.push_back(QPixmap(ok_xpm));
             break;
+        DEFAULT_IMPOSSIBLE;
     }
     m_status_bar.m_state->setText(state_text);
     m_state_icon_widget->setPixmaps(pixmaps, animation_time);
@@ -1222,6 +1223,7 @@ void Kwave::RecordDialog::updateBufferState(unsigned int count,
             } else txt = _("");
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
     m_status_bar.m_time->setText(txt);
 }

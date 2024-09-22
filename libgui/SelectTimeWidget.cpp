@@ -108,6 +108,7 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
             sbPercents->setValue(Kwave::toInt(m_range));
             break;
         }
+        DEFAULT_IMPOSSIBLE;
     }
 
     // connect mode controls
@@ -135,6 +136,7 @@ void Kwave::SelectTimeWidget::init(Mode mode, quint64 range,
         case byPercents:
             percentsChanged(Kwave::toInt(m_range));
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     adjustSize();
@@ -216,6 +218,7 @@ void Kwave::SelectTimeWidget::setMode(Mode new_mode)
             Q_ASSERT(!rbSamples->isChecked());
             Q_ASSERT(rbPercents->isChecked());
             break;
+        DEFAULT_IMPOSSIBLE;
     }
     m_mode = new_mode;
 }
@@ -485,6 +488,7 @@ sample_index_t Kwave::SelectTimeWidget::timeToSamples(
                 static_cast<double>(length) *
                 (static_cast<double>(time) / 100.0)));
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     if (pos > SAMPLE_INDEX_MAX)
@@ -514,6 +518,7 @@ quint64 Kwave::SelectTimeWidget::samplesToTime(
                 static_cast<double>(samples) /
                 static_cast<double>(length));
             break;
+        DEFAULT_IMPOSSIBLE;
     }
 
     return time;

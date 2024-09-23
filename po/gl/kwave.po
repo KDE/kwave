@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-15 00:40+0000\n"
+"POT-Creation-Date: 2024-09-23 00:38+0000\n"
 "PO-Revision-Date: 2024-08-31 15:05+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -38,7 +38,7 @@ msgstr "Lendo a configuración…"
 msgid "Opening main window..."
 msgstr "Abrindo a xanela principal…"
 
-#: kwave/App.cpp:276
+#: kwave/App.cpp:277
 #, kde-format
 msgid "Startup done"
 msgstr "Rematou a preparación."
@@ -1086,77 +1086,77 @@ msgstr "v%1"
 msgid "Loading main menu..."
 msgstr "Cargando o menú principal…"
 
-#: kwave/TopWidget.cpp:327
+#: kwave/TopWidget.cpp:328
 #, kde-format
 msgid "Initializing toolbar..."
 msgstr "Inicializando a barra de ferramentas…"
 
-#: kwave/TopWidget.cpp:336
+#: kwave/TopWidget.cpp:337
 #, kde-format
 msgid "Create a new empty file"
 msgstr "Creando un ficheiro novo baleiro"
 
-#: kwave/TopWidget.cpp:341
+#: kwave/TopWidget.cpp:342
 #, kde-format
 msgid "Open an existing file"
 msgstr "Abrir un ficheiro existente"
 
-#: kwave/TopWidget.cpp:346
+#: kwave/TopWidget.cpp:347
 #, kde-format
 msgid "Save the current file"
 msgstr "Gardar o ficheiro actual"
 
-#: kwave/TopWidget.cpp:351
+#: kwave/TopWidget.cpp:352
 #, kde-format
 msgid "Save the current file under a different name or file format..."
 msgstr "Gardar o ficheiro actual cun nome ou cun formato de ficheiro distinto…"
 
-#: kwave/TopWidget.cpp:356
+#: kwave/TopWidget.cpp:357
 #, kde-format
 msgid "Close the current file"
 msgstr "Pechar o ficheiro actual"
 
-#: kwave/TopWidget.cpp:367
+#: kwave/TopWidget.cpp:368
 #, kde-format
 msgid "Undo"
 msgstr "Desfacer"
 
-#: kwave/TopWidget.cpp:372
+#: kwave/TopWidget.cpp:373
 #, kde-format
 msgid "Redo"
 msgstr "Refacer"
 
-#: kwave/TopWidget.cpp:377 libkwave/SignalManager.cpp:676
+#: kwave/TopWidget.cpp:378 libkwave/SignalManager.cpp:676
 #, kde-format
 msgid "Cut"
 msgstr "Cortar"
 
-#: kwave/TopWidget.cpp:382
+#: kwave/TopWidget.cpp:383
 #, kde-format
 msgid "Copy"
 msgstr "Copiar"
 
-#: kwave/TopWidget.cpp:387 libkwave/undo/UndoInsertAction.cpp:46
+#: kwave/TopWidget.cpp:388 libkwave/undo/UndoInsertAction.cpp:46
 #, kde-format
 msgid "Insert"
 msgstr "Inserir"
 
-#: kwave/TopWidget.cpp:395
+#: kwave/TopWidget.cpp:396
 #, kde-format
 msgid "Mute selection"
 msgstr "Silenciar a selección"
 
-#: kwave/TopWidget.cpp:400
+#: kwave/TopWidget.cpp:401
 #, kde-format
 msgid "Delete selection"
 msgstr "Eliminar a selección"
 
-#: kwave/TopWidget.cpp:746
+#: kwave/TopWidget.cpp:748
 #, kde-format
 msgid "Reset the toolbar to default settings?"
 msgstr "Restaurar a configuración predeterminada da barra de ferramentas?"
 
-#: kwave/TopWidget.cpp:771
+#: kwave/TopWidget.cpp:773
 #, kde-format
 msgid ""
 "Re-enable all disabled notifications?\n"
@@ -1167,22 +1167,22 @@ msgstr ""
 "Todas as mensaxes que previamente desactivase marcando a opción de «Non "
 "preguntar de novo» volverán estar activadas."
 
-#: kwave/TopWidget.cpp:995
+#: kwave/TopWidget.cpp:1000
 #, kde-format
 msgid "Executing command '%1'..."
 msgstr "Executando a orde «%1»…"
 
-#: kwave/TopWidget.cpp:1015
+#: kwave/TopWidget.cpp:1020
 #, kde-format
 msgid "Executing Kwave script file '%1'..."
 msgstr "Executando o ficheiro de guión de Kwave «%1»…"
 
-#: kwave/TopWidget.cpp:1025
+#: kwave/TopWidget.cpp:1030
 #, kde-format
 msgid "Loading file '%1'..."
 msgstr "Cargando o ficheiro «%1»…"
 
-#: kwave/TopWidget.cpp:1037 plugins/codec_audiofile/AudiofileDecoder.cpp:125
+#: kwave/TopWidget.cpp:1042 plugins/codec_audiofile/AudiofileDecoder.cpp:125
 #: plugins/codec_flac/FlacEncoder.cpp:248
 #: plugins/codec_flac/FlacEncoder.cpp:266
 #: plugins/codec_flac/FlacEncoder.cpp:281 plugins/codec_mp3/MP3Decoder.cpp:515
@@ -1197,35 +1197,35 @@ msgstr "Cargando o ficheiro «%1»…"
 msgid "Out of memory"
 msgstr "Esgotouse a memoria"
 
-#: kwave/TopWidget.cpp:1041
+#: kwave/TopWidget.cpp:1046
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Unable to open '%1'"
 msgstr "Non é posíbel abrir «%1»"
 
-#: kwave/TopWidget.cpp:1045
+#: kwave/TopWidget.cpp:1050
 #, kde-format
 msgctxt "error message after opening a file failed"
 msgid "Invalid or unknown file type: '%1'"
 msgstr "O tipo de ficheiro «%1» é incorrecto ou non se recoñece."
 
-#: kwave/TopWidget.cpp:1083
+#: kwave/TopWidget.cpp:1088
 #, kde-format
 msgid "Open"
 msgstr "Abrir"
 
-#: kwave/TopWidget.cpp:1136
+#: kwave/TopWidget.cpp:1141
 #, kde-format
 msgctxt "Length, as in total duration of loaded song"
 msgid "Length: %1 (%2 samples)"
 msgstr "Duración: %1 (%2 mostras)"
 
-#: kwave/TopWidget.cpp:1147
+#: kwave/TopWidget.cpp:1152
 #, kde-format
 msgid "Mode: %1 kHz @ %2 Bit"
 msgstr "Modo: %1 kHz a %2 bits"
 
-#: kwave/TopWidget.cpp:1193
+#: kwave/TopWidget.cpp:1198
 #, kde-format
 msgctxt ""
 "%1=first sample, %2=last sample, %3=number of samples, example: 'Selected: "
@@ -1233,7 +1233,7 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3 samples)"
 msgstr "Seleccionado: %1…%2 (%3 mostras)"
 
-#: kwave/TopWidget.cpp:1205
+#: kwave/TopWidget.cpp:1210
 #, kde-format
 msgctxt ""
 "%1=start time, %2=end time, %3=time span, example: 'Selected: 02:00...05:00 "
@@ -1241,72 +1241,72 @@ msgctxt ""
 msgid "Selected: %1...%2 (%3)"
 msgstr "Seleccionado: %1…%2 (%3)"
 
-#: kwave/TopWidget.cpp:1224
+#: kwave/TopWidget.cpp:1229
 #, kde-format
 msgid "Position: %1"
 msgstr "Posición: %1"
 
-#: kwave/TopWidget.cpp:1250
+#: kwave/TopWidget.cpp:1255
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo enabled"
 msgid "Undo (%1)"
 msgstr "Desfacer (%1)."
 
-#: kwave/TopWidget.cpp:1252
+#: kwave/TopWidget.cpp:1257
 #, kde-format
 msgctxt "tooltip of the undo toolbar button if undo disabled"
 msgid "Undo"
 msgstr "Desfacer."
 
-#: kwave/TopWidget.cpp:1261
+#: kwave/TopWidget.cpp:1266
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo enabled"
 msgid "Redo (%1)"
 msgstr "Refacer (%1)."
 
-#: kwave/TopWidget.cpp:1263
+#: kwave/TopWidget.cpp:1268
 #, kde-format
 msgctxt "tooltip of the redo toolbar button, redo disabled"
 msgid "Redo"
 msgstr "Refacer."
 
-#: kwave/TopWidget.cpp:1273
+#: kwave/TopWidget.cpp:1278
 #, kde-format
 msgctxt "menu entry for undo if undo enabled"
 msgid "Undo (%1)"
 msgstr "Desfacer (%1)"
 
-#: kwave/TopWidget.cpp:1274
+#: kwave/TopWidget.cpp:1279
 #, kde-format
 msgctxt "menu entry for undo if undo disabled"
 msgid "Undo"
 msgstr "Desfacer"
 
-#: kwave/TopWidget.cpp:1280
+#: kwave/TopWidget.cpp:1285
 #, kde-format
 msgctxt "menu entry for redo if redo enabled"
 msgid "Redo (%1)"
 msgstr "Refacer (%1)"
 
-#: kwave/TopWidget.cpp:1281
+#: kwave/TopWidget.cpp:1286
 #, kde-format
 msgctxt "menu entry for redo if redo disabled"
 msgid "Redo"
 msgstr "Refacer"
 
-#: kwave/TopWidget.cpp:1396
+#: kwave/TopWidget.cpp:1402
 #, kde-format
 msgctxt "special entry in the list of labels to delete all"
 msgid "(All)"
 msgstr "(Todo)"
 
-#: kwave/TopWidget.cpp:1405
+#: kwave/TopWidget.cpp:1411
 #, kde-format
 msgctxt "list menu entry of a label, %1=index, %2=description/name"
 msgid "#%1 (%2)"
 msgstr "Núm. %1 (%2)"
 
-#: kwave/TopWidget.cpp:1408
+#: kwave/TopWidget.cpp:1414
 #, kde-format
 msgctxt "list menue entry of a label, without description, %1=index"
 msgid "#%1"
@@ -3789,17 +3789,17 @@ msgid "Hz"
 msgstr "Hz"
 
 #: plugins/band_pass/BandPassDialog.cpp:68 plugins/lowpass/LowPassDialog.cpp:66
-#: plugins/noise/NoiseDialog.cpp:277
+#: plugins/noise/NoiseDialog.cpp:278
 #: plugins/notch_filter/NotchFilterDialog.cpp:70
-#: plugins/volume/VolumeDialog.cpp:263
+#: plugins/volume/VolumeDialog.cpp:264
 #, kde-format
 msgid "dB"
 msgstr "dB"
 
 #: plugins/band_pass/BandPassDialog.cpp:199
-#: plugins/lowpass/LowPassDialog.cpp:173 plugins/noise/NoiseDialog.cpp:363
+#: plugins/lowpass/LowPassDialog.cpp:173 plugins/noise/NoiseDialog.cpp:366
 #: plugins/notch_filter/NotchFilterDialog.cpp:203
-#: plugins/pitch_shift/PitchShiftDialog.cpp:326
+#: plugins/pitch_shift/PitchShiftDialog.cpp:330
 #, kde-format
 msgid "&Stop"
 msgstr "&Deter"
@@ -3807,10 +3807,10 @@ msgstr "&Deter"
 #. i18n: ectx: property (text), widget (QPushButton, btListen)
 #: plugins/band_pass/BandPassDialog.cpp:203
 #: plugins/band_pass/BandPassDlg.ui:161 plugins/lowpass/LowPassDialog.cpp:177
-#: plugins/lowpass/LowPassDlg.ui:154 plugins/noise/NoiseDialog.cpp:367
+#: plugins/lowpass/LowPassDlg.ui:154 plugins/noise/NoiseDialog.cpp:370
 #: plugins/noise/NoiseDlg.ui:238 plugins/notch_filter/NotchFilterDialog.cpp:207
 #: plugins/notch_filter/NotchFilterDlg.ui:193
-#: plugins/pitch_shift/PitchShiftDialog.cpp:330
+#: plugins/pitch_shift/PitchShiftDialog.cpp:334
 #: plugins/pitch_shift/PitchShiftDlg.ui:63
 #, kde-format
 msgid "&Listen"
@@ -5266,14 +5266,14 @@ msgstr "(estéreo)"
 msgid "(Quadro)"
 msgstr "(cuadrafónico)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:817
-#: plugins/fileinfo/FileInfoDialog.cpp:823
+#: plugins/fileinfo/FileInfoDialog.cpp:818
+#: plugins/fileinfo/FileInfoDialog.cpp:824
 #, kde-format
 msgid "Yes"
 msgstr "Si"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:817
-#: plugins/fileinfo/FileInfoDialog.cpp:823
+#: plugins/fileinfo/FileInfoDialog.cpp:818
+#: plugins/fileinfo/FileInfoDialog.cpp:824
 #, kde-format
 msgid "No"
 msgstr "Non"
@@ -6144,39 +6144,39 @@ msgstr "Dispositivo de reprodución de ALSA (adsp*)"
 msgid "Any device (*)"
 msgstr "Calquera dispositivo (*)"
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:463
+#: plugins/playback/PlayBack-PulseAudio.cpp:465
 #, kde-format
 msgid "%1 channels are not supported, maximum is 255"
 msgstr "Non se permite usar %1 canles, o máximo son 255."
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:470
+#: plugins/playback/PlayBack-PulseAudio.cpp:472
 #, kde-format
 msgid "Connecting to the PulseAudio server failed."
 msgstr "A conexión co servidor de PulseAudio fallou."
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:476
+#: plugins/playback/PlayBack-PulseAudio.cpp:478
 #, kde-format
 msgid "The PulseAudio device '%1' is unknown or no longer connected"
 msgstr ""
 "O dispositivo de PulseAudio «%1» é un dispositivo descoñecido ou xa non está "
 "conectado."
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:520
+#: plugins/playback/PlayBack-PulseAudio.cpp:522
 #, kde-format
 msgid "playback..."
 msgstr "reprodución…"
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:536
+#: plugins/playback/PlayBack-PulseAudio.cpp:538
 #, kde-format
 msgid "Failed to create a PulseAudio stream (%1)."
 msgstr "Non foi posíbel crear un fluxo de PulseAudio (%1)."
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:578
+#: plugins/playback/PlayBack-PulseAudio.cpp:580
 #, kde-format
 msgid "Failed to open a PulseAudio stream for playback (%1)."
 msgstr "Non foi posíbel abrir un fluxo de PulseAudio para reproducilo (%1)."
 
-#: plugins/playback/PlayBack-PulseAudio.cpp:819
+#: plugins/playback/PlayBack-PulseAudio.cpp:821
 #, kde-format
 msgid "(Use server default)"
 msgstr "(usar o predeterminado do servidor)"
@@ -6572,7 +6572,7 @@ msgstr "Cargando no búfer…"
 msgid "Prerecording..."
 msgstr "Gravando anticipadamente…"
 
-#: plugins/record/RecordDialog.cpp:1049 plugins/record/RecordDialog.cpp:1204
+#: plugins/record/RecordDialog.cpp:1049 plugins/record/RecordDialog.cpp:1205
 #, kde-format
 msgid "Waiting for trigger..."
 msgstr "Agardando polo iniciador…"
@@ -6592,53 +6592,53 @@ msgstr "En pausa"
 msgid "Done"
 msgstr "Feito"
 
-#: plugins/record/RecordDialog.cpp:1188
+#: plugins/record/RecordDialog.cpp:1189
 #, kde-format
 msgid "one day "
 msgid_plural "%1 days "
 msgstr[0] "1 día"
 msgstr[1] "%1 días"
 
-#: plugins/record/RecordDialog.cpp:1190
+#: plugins/record/RecordDialog.cpp:1191
 #, kde-format
 msgid "one hour "
 msgid_plural "%1 hours "
 msgstr[0] "1 hora"
 msgstr[1] "%1 horas "
 
-#: plugins/record/RecordDialog.cpp:1192
+#: plugins/record/RecordDialog.cpp:1193
 #, kde-format
 msgid "one minute "
 msgid_plural "%1 minutes "
 msgstr[0] "1 minuto"
 msgstr[1] "%1 minutos "
 
-#: plugins/record/RecordDialog.cpp:1195
+#: plugins/record/RecordDialog.cpp:1196
 #, kde-format
 msgid "and %1 second"
 msgid_plural "and %1 seconds"
 msgstr[0] "e %1 segundo"
 msgstr[1] "e %1 segundos"
 
-#: plugins/record/RecordDialog.cpp:1196
+#: plugins/record/RecordDialog.cpp:1197
 #, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
 msgstr[0] "%1 segundo"
 msgstr[1] "%1 segundos"
 
-#: plugins/record/RecordDialog.cpp:1200
+#: plugins/record/RecordDialog.cpp:1201
 #, kde-format
 msgctxt "%1=days; %2=hours; %3=minutes; %4=seconds"
 msgid "Waiting for start in %1%2%3%4..."
 msgstr "Comezarase en %1%2%3%4…"
 
-#: plugins/record/RecordDialog.cpp:1219
+#: plugins/record/RecordDialog.cpp:1220
 #, kde-format
 msgid "Length: %1"
 msgstr "Lonxitude: %1"
 
-#: plugins/record/RecordDialog.cpp:1220
+#: plugins/record/RecordDialog.cpp:1221
 #, kde-format
 msgid "(%1 samples)"
 msgstr "(%1 mostras)"
